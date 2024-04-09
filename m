@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D5389D354
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9F889D35E
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:37:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93BBAC7128B;
-	Tue,  9 Apr 2024 07:37:06 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A85E5C7128B;
+	Tue,  9 Apr 2024 07:37:56 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E276AC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BFA1C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Apr 2024 07:37:05 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4167fce0a41so8401495e9.0
+ Tue,  9 Apr 2024 07:37:56 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2d4a8bddc21so74669671fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Apr 2024 00:37:05 -0700 (PDT)
+ Tue, 09 Apr 2024 00:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712648225; x=1713253025;
+ d=linaro.org; s=google; t=1712648275; x=1713253075;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=49K/bM5Nv+jFNfaXGXx9IwW5wev0anHikyMnCW9DyLQ=;
- b=jYIbNYZrsGtkQ/5+/l3l39yOkGv9lr5s/YbMTiNLnh4h6bFDlgo9IRfqx/zQ0oE5v2
- cJA5lbNF4M3a/mnpMr6NTYSB2AbeLjzRRCb0+Yc11m3PcSzOZbJ/Eb2T02UExG5Y5GYQ
- aE9hsPe/st4cxdVVdhEChL7bzTa1qGCtOnTaJj6l2CEnuaEzCz3enHBMVHSh3b8EHvpi
- t1II7a0PiZiJYJoQ5XErgQ33LrD/LLr4FkGkUQhHe1uQOOXFkzLw+deBS6Kdr54LR0ux
- D6fwUWGY1GRLmb3OkWTInsmq8e0aqCzguW3UNl3BH+0tGgfihCudPqpWUhdSuC1GBKvy
- oKzw==
+ bh=jk3hCpuGPtvIRRi+RilbffTlD8quWqAsex3HYTrI/Nk=;
+ b=daPuMhWc3ksRapU3fIVeXa6GYdxIASfllM913b66N6hklG8dCvLQhs1YYKmtKhMC+D
+ mbFd+nqXPaziKeAZSnHUUkYtZdRjGy6s+D2L/jxnIugutuBvSnIQN6hDa0H4c+pENDr/
+ q5692xF2RGsEQlg7REttBgWIgL07MI6e4F3DdUuJ7ApFIGvj7Q9B9lXUKF/dbQ6DSMwm
+ bxb/njh2A7Ln+puxVnY2IyWf+D2SYXvzKhB+mIKL/6aKruxqDT8kpmo+C3YulHDq0Lvv
+ K2glydDLDO+B5ygfyk/zgng3tD6vARLPbaBsLLAsRwmjHcLiy8c4qx5t5Sew1+iJQXku
+ M0YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712648225; x=1713253025;
+ d=1e100.net; s=20230601; t=1712648275; x=1713253075;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=49K/bM5Nv+jFNfaXGXx9IwW5wev0anHikyMnCW9DyLQ=;
- b=a6pfbSbGXk/fmQhB8/5QmR2z8DNYaXhooIbJ6OkQQ2sY3Lk/VNjw0U4qe0IwMvcKlj
- 5KkDSG6GseMsBNz9vYu/b0wmLIZTvZiflBZkAWmmZfkcgzhFo7QRIMhbceM849YcgTks
- 4DvPq64ZOqO4uFD4Xmt/B4wS7IAMDpFf9wSPBqXbh9Uvdu7LFCH5lgrvFRtpgL0sewoE
- iSAzmRG7A+BYGIye0RKBJ7shCYRiGjURvw330VGgtQjw7va465Ahz5+LGAk7H1+2x/VU
- rfC4z0DEJX07hFsA426XMpNeIl9kd5FhfyFBNOjW8rnGPGqIMU7iERZbWk3tH81aPFXF
- fCew==
+ bh=jk3hCpuGPtvIRRi+RilbffTlD8quWqAsex3HYTrI/Nk=;
+ b=QdT2GvrvcgMm/9WhkbfQKPFbn2M+EQAtPqfqVPtV7+AtlTivYTb5nKrnb1315fvX2L
+ D214vnQdkiE1jFCu1xKvC/3KGGOKhpVIieJbnEfEdpJDTabRTpcaE5VpsO+SDxoKpAJS
+ emgLhKoLYviDs6WuhnYSxU3hugANguHeYKayLRWiUeNch159maUAkNv1XNpNcmn1eUWW
+ kKNrgaymbch6ihTZ5OSrlB/51dNLtg77VvAE9gpbs1KRmh8+zLWDZIY96F0d9waCppRo
+ LvNl5UrwUOi99Sa7KuVS+dIOVNJNkG3E19J2rGq11+XuBhdAPRVpuf5hSfwfd3ixx7qr
+ BbUQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVkYUPe1W/PRNCVeMa1zBkkwFe0rc6ZcnVruHSaBIuHvkvVDIH6KjTHo823Ox3hWb2gele7wEBw4pwCy7xnzsMnIvjP+WW9b31syByG5t1+ijlEKxySUOm
-X-Gm-Message-State: AOJu0YxAYc0UxU01uYTvKz/PHhz7BR3ZeZKliwH1+YCwYwKedu91aETG
- 1m9khHW0sZERl/uqp/v1VplupRSAG/4kpX5KiA3iEOVNZ+55vqJY/EDWwITbyFo=
-X-Google-Smtp-Source: AGHT+IGJS14xE83miyjAG2/dxu8jlv3TEP/1dnU3Gnw/K27/3y6rRgkQRNvkKhmJeDAUPzdGiTBekA==
-X-Received: by 2002:a05:600c:4748:b0:416:2674:1938 with SMTP id
- w8-20020a05600c474800b0041626741938mr1519548wmo.15.1712648225383; 
- Tue, 09 Apr 2024 00:37:05 -0700 (PDT)
+ AJvYcCWFRL3BYhk1UaEP8p1lOYh+YxCj63vxxwios8WlB3WFz/886YwMRZlaGThDoWX+2b0wktQxJB/CDFxXtlRaWhThL4I7v7Ur6BRBSRBfSNeRUwgwQItPW87L
+X-Gm-Message-State: AOJu0Yw85Z7F5y7h9zCBpa2smkijXC4Qws642LM6eGnjmL5wYGygA3nu
+ T55SEclJldLK4I/6dLlWA4TYudP1A2Enzm1q5bDMrzbdp5epbjAMPxSZrOZmOEQ=
+X-Google-Smtp-Source: AGHT+IHy7MlXn3W9nzAn+dpmXOpE3cWxaVHo1m/Sdwt1Dvor/t/5HtG2N+eky2LI8g8qgDivLYEX5A==
+X-Received: by 2002:a2e:3511:0:b0:2d6:afdc:2a18 with SMTP id
+ z17-20020a2e3511000000b002d6afdc2a18mr6811284ljz.16.1712648275489; 
+ Tue, 09 Apr 2024 00:37:55 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- w7-20020a05600c474700b00416b2cbad06sm335913wmo.41.2024.04.09.00.37.03
+ v6-20020a05600c444600b0041565d750e1sm19670051wmn.2.2024.04.09.00.37.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Apr 2024 00:37:04 -0700 (PDT)
-Message-ID: <8ac44f38-c396-4edb-8a73-35d956fc98e6@linaro.org>
-Date: Tue, 9 Apr 2024 09:37:03 +0200
+ Tue, 09 Apr 2024 00:37:54 -0700 (PDT)
+Message-ID: <e5aefcc8-1181-487f-95bf-e1cbe13e1f98@linaro.org>
+Date: Tue, 9 Apr 2024 09:37:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
@@ -71,7 +71,7 @@ To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
- <20240408-rtc_dtschema-v1-6-c447542fc362@gmail.com>
+ <20240408-rtc_dtschema-v1-7-c447542fc362@gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -118,12 +118,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240408-rtc_dtschema-v1-6-c447542fc362@gmail.com>
+In-Reply-To: <20240408-rtc_dtschema-v1-7-c447542fc362@gmail.com>
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 6/9] dt-bindings: rtc: pxa-rtc: convert to
-	dtschema
+Subject: Re: [Linux-stm32] [PATCH 7/9] dt-bindings: rtc: spear-rtc: move to
+	trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,14 +141,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 08/04/2024 17:53, Javier Carrasco wrote:
-> Convert existing binding to dtschema to support validation.
-> 
-> The missing 'reg' and 'interrupts' properties have been added, taking
-> the 2 supported interrupts into account to fix the example.
+> The RTC documented in this binding requires a compatible, a reg
+> and a single interrupt, which makes it suitable for a direct
+> conversion into trivial-rtc.
 > 
 > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 > ---
-
+>  Documentation/devicetree/bindings/rtc/spear-rtc.txt    | 15 ---------------
+>  Documentation/devicetree/bindings/rtc/trivial-rtc.yaml |  2 ++
+>  2 files changed, 2 insertions(+), 15 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
