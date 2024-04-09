@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C8E889D31B
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922F789D337
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:34:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24C0CC7128A;
-	Tue,  9 Apr 2024 07:32:18 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5107FC7128A;
+	Tue,  9 Apr 2024 07:34:42 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+ [209.85.208.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6560DC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D02C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Apr 2024 07:32:16 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4169e385760so4375945e9.0
+ Tue,  9 Apr 2024 07:34:41 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2d82713f473so90394101fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Apr 2024 00:32:16 -0700 (PDT)
+ Tue, 09 Apr 2024 00:34:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712647936; x=1713252736;
+ d=linaro.org; s=google; t=1712648080; x=1713252880;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=JcKLq+h2VRxcp5j0C5QpnMBMoKeTmaLDiCy4fm7zkuA=;
- b=kDQla75RcsHEzifZ46BtwpMhU9C0/r/HEwVcI0E0stUCfHQ/btNACX7AZ+Hl34N6+A
- IUOiJQfAPSPo+GcW83bagsTj47bOv7SzVEeCAmQVfZrwpf59JVAXzy3/TnyHooFLQ1WE
- adCoGMtOE5BmMucnibkOO5jNSiLZN5LmBbnSrYEvZ6ti2+KCFP6x4glNwjKQuTe32+YX
- fcjmKg+5NLe+FsPAgveagBzcC5KLyquWfg6Q6m5bEpQeSOtw7b7meKN0hNjlVZ+48827
- fYJ9z/G5o4cP8Gwq6YSUkTCJLMq3I4ebfXGvUyvVfUtEAokNEUT0QINMZAZx8FEMuqKK
- axwg==
+ bh=FRyTTwxxanlSdbeoIwcG1rBViaA/BhY0KriVB+zcm+Q=;
+ b=TRD/uVDPxu+TiAYZuLKJhhfRDVKXT/90E8QHsMd1jbY6/3gxKNIEVlbCpUM9eFlijL
+ HzkoMeN2Wq0anhU1U5QpDUKQRV1UadtKLWIMHJSc1EEKlrqus1oqWFFaDiRRucA47LuF
+ eDi2/+1aPJjKepq5ylhm5OyjP0D2gjJDpuoiq/RL0aIpgGJpJNQAiPWW09q2TFV8hRN7
+ n7so7hm4sZDuC246VvIQvLEZfA4VB+vGUfPEcRyEpiGFeOf3v5xr71Iq717ahyZtXxux
+ rGtEc3mjI7VpAWtESBuj4p6tZAR5HcoTgDhC18rDx8oWYv2B2vjCKVmrXm0xz5mvZaJB
+ F4ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712647936; x=1713252736;
+ d=1e100.net; s=20230601; t=1712648080; x=1713252880;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JcKLq+h2VRxcp5j0C5QpnMBMoKeTmaLDiCy4fm7zkuA=;
- b=DRDmhFsa7vqys4oxuMbn7Jtkw2QY4mmyZIES4Ec9ocyxBh0cAYJVLqetZsL7wI0ckd
- ZXs+Joa2VXakx7MrbZ1oVbDza9jZu7uNFZYCCBmqaLkp8Ws2W4EAwIdWLezgnHpqFrff
- TtvE3YWqiHFGWp+HawaVUbKHNm1ItT6wA5YJl6tnffnAcmTBmpxtV2k2fpojvy3c3UWy
- drQIE+VQPlxjMU3PNYIPldwWXiiO8kNRkFQhy9MvtZ3bAyaTlC/uAuCItt+PVguWLL1F
- zqZKpcKUnSQx1WPZDJ9ePH4G84vUanIbVzpn3oOzjA+b5x32aSkwdNns0V42OKyZz+fq
- cE2Q==
+ bh=FRyTTwxxanlSdbeoIwcG1rBViaA/BhY0KriVB+zcm+Q=;
+ b=WQWzIfg8EPqm1AMnrErJIShY9EthFqU+717LkMB7nMxKMruU9hAuzhrc+PrVrD9Qh1
+ m0MPnolPvP1J4ARvKF+4RIlaGEKaK7HMZs9wsSsORpXibWSMSr0czyCxwmqqA5c4xoos
+ 6M4Z8T5PG7tDPmmvpijJu0Cxe+8fTH+tncqnq3Cpe9p1dMi1bwvOyjvG6BWTKoFx9Apd
+ LO6rYLQxT6TWkJHXT627LIt0PXYrcCxP60iaFp4l6fAmIJGT+AoZObz4MG9cHc8O1eXT
+ oxpCGqdoOP46FeV3764gTvVJMrWPl5vqV7t5UshbsRCfOZkRd3sp3NBWAiBBX2MEGE84
+ 0VNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWIn+aP+AhBM23IwzVjSMdm4KBUJh5h0PIX/sJJN8kDtRYts/Rx2rrQWCBV4CsWGScDjKoT/LQkUwCcVtszZV6o5NCLa8boPbaSv9uFvn2eC3JUAUEXeUcL
-X-Gm-Message-State: AOJu0YzvcqzVaEZI9qKNS6oNMN88K9XwtsNubg8NCsYTL5EfRo5BBNxQ
- nTQioh91v0yLGREbMDXFwruLGFXmLqok02yRCn235NOSo2pnTn5Yv7jVl2zqGAc=
-X-Google-Smtp-Source: AGHT+IFYZ0jKKIbYfXJG0Mfu3MU7xhzeJxa2QZQQDFvIfMGB2fvFZUtf46CwkaE4PjgQ6n0QS2YPeg==
-X-Received: by 2002:a5d:4f88:0:b0:343:dc46:bb4b with SMTP id
- d8-20020a5d4f88000000b00343dc46bb4bmr7843006wru.59.1712647935980; 
- Tue, 09 Apr 2024 00:32:15 -0700 (PDT)
+ AJvYcCXLz8HrJWTECI0o6cmrPuQouhtgSJeztQ6DoYmBtnyjF+95kwr6vq7w7kkQEu8vGV2qiVUvaYyEy80CRUJSOrCUF3UfdIRrk9h4n+9wmrESopxb0JjlC7q5
+X-Gm-Message-State: AOJu0Yxm69vP5EWYfF/OqW2+oT3XLSD9RftgL/JjcSM1aKOxkQEVtpKo
+ j9kkgO/PaTzAaDMK44iN8IHyq6cds7bXy5G0OfUxmYWlRHh7jM+pRYV5Ee1dTQQ=
+X-Google-Smtp-Source: AGHT+IHXrvYECgBV0YpuV401AjDDvmT4ubIU0z0vmHPZPHrU28LFcflkZb0oiqFQzeddYLz/BYBx1w==
+X-Received: by 2002:a2e:854c:0:b0:2d6:f5c6:e5a1 with SMTP id
+ u12-20020a2e854c000000b002d6f5c6e5a1mr8618580ljj.12.1712648080467; 
+ Tue, 09 Apr 2024 00:34:40 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- k7-20020a5d5187000000b003434c764f01sm10718687wrv.107.2024.04.09.00.32.14
+ n30-20020a05600c3b9e00b0041690a1c9desm3780342wms.30.2024.04.09.00.34.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Apr 2024 00:32:15 -0700 (PDT)
-Message-ID: <d20986fc-34de-4431-969a-ad1fc46d3321@linaro.org>
-Date: Tue, 9 Apr 2024 09:32:13 +0200
+ Tue, 09 Apr 2024 00:34:39 -0700 (PDT)
+Message-ID: <dd5e9837-0dcf-4b0e-8d11-f8bed868cdf2@linaro.org>
+Date: Tue, 9 Apr 2024 09:34:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
@@ -71,7 +71,7 @@ To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
- <20240408-rtc_dtschema-v1-2-c447542fc362@gmail.com>
+ <20240408-rtc_dtschema-v1-3-c447542fc362@gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -118,12 +118,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240408-rtc_dtschema-v1-2-c447542fc362@gmail.com>
+In-Reply-To: <20240408-rtc_dtschema-v1-3-c447542fc362@gmail.com>
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: rtc: google,
- goldfish-rtc: move to trivial-rtc
+Subject: Re: [Linux-stm32] [PATCH 3/9] dt-bindings: rtc: lpc32xx-rtc: move
+	to trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,8 +146,22 @@ On 08/04/2024 17:53, Javier Carrasco wrote:
 > 
 > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 > ---
+>  Documentation/devicetree/bindings/rtc/lpc32xx-rtc.txt  | 15 ---------------
+>  Documentation/devicetree/bindings/rtc/trivial-rtc.yaml |  2 ++
+>  2 files changed, 2 insertions(+), 15 deletions(-)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+This one no... and if you tested DTS you would see errors, although you
+need to test specific lpc config, not multi_v7.
+
+It does not look like you tested the DTS against bindings. Please run
+`make dtbs_check W=1` (see
+Documentation/devicetree/bindings/writing-schema.rst or
+https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
+for instructions).
+
+Anyway, you *must* check all DTS before moving anything to trivial.
+
+Does it mean all other bindings were not checked against DTS at all?
 
 Best regards,
 Krzysztof
