@@ -2,133 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4660B89FA54
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 16:46:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 579EA89FC15
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 17:55:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03887C6C820;
-	Wed, 10 Apr 2024 14:46:43 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2139.outbound.protection.outlook.com [40.107.93.139])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FE33C6C820;
+	Wed, 10 Apr 2024 15:55:47 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0A78C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41CE9C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Apr 2024 14:46:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CdSaHXjmNdk4JyTGf6c2j7OCl7zxjP7wjM7/5uTu+IsdjAz8Il9ia2lhXT9BVJoBIlDGg5eebqmoYDak8w7U3+zpVO5tate0QupuO4BSX8qc5e3H4CMf5I37RNFN9zDLgNW8+71AFkIc6CeckI5BObOsD3Vwf3n7McKCxsNSBHbScdSVibV+1UueXB3ytBF4XjK5mZ68pG6T38s73ro8E/tfVqnJBkxUmNy1GshuBzotuUpxMzcc2Xt2xmhS+fRiafj5o/TQwtcgvJUTcdmYUhc0cM0J9z/Kd3t/wtBhkIq0umkKphnpGDbOY1ToDMG8JtIsrZFB/A4ITcT+Ox5UqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5RfVlzdFzN8i+18FIBKX07+NCWk7tgSt1gUevMNGWhE=;
- b=iscAebQwZLwq8RQRYHM1yIVacZqPbH6rWiRI1cyTy7eJSPDmKUlDyjh9TV7+KBIW+HRQ0dwoQarNekZpAwRhj4npJ3cKhpIq+Z/Uzc0ZhCe/dr2mbXw3BAO12c4bmjWvF7ROc9t1IuaNLdqiNEh1RY6N7iJDIEjpYm+9UjNHcCPGiksRAAG8mhobCRjYy9p6eqsiv8y8jO64igRCip3rXF8dd4aR1PdG+6ibN7JGelQ/ZuRPYvgR9HNn5te63XzXFdAIYRT2bvlgcRz8Jc792tcYR8u//hjOqQSbt5U0CcZimwNRPIeaw42KPc3as7ETxJsewc+v7YPAaK+tDQ73ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=asem.it; dmarc=pass action=none header.from=asem.it; dkim=pass
- header.d=asem.it; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asem.it; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5RfVlzdFzN8i+18FIBKX07+NCWk7tgSt1gUevMNGWhE=;
- b=Aq7ta9wmu6O/0u3DLcLp0ImPH7DX6m35t18aUdIPIvVkrrgdIDK8kTYrTC5Ya6+V5V8mnKlQun9205rmYphLMYNfyUMDn4iia1yJJyKgg2nY2yDpBOphhhe5bigko/TFKS7MkYS86NrVG1a9YfdoOmJFE7/CsGgY+rsVVGMXbkEzfdUME4Oqk/Mtkm6ic2Y0zwM3QOlN+atcL2MslDSge1kKVXzwlUkvEe8vYhV8qSubjKkE2yQeRxbZic60Mbr2jOamZnD6rHI1BDd21cmHr/LvevT6At8P3SIZwBwAkn43YGFnRzu5t+qDDAIGs2pTf+WJZ6MyrLckArDcGXFEkw==
-Received: from PH0PR22MB3789.namprd22.prod.outlook.com (2603:10b6:510:29c::11)
- by SA1PR22MB5468.namprd22.prod.outlook.com (2603:10b6:806:3e7::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Wed, 10 Apr
- 2024 14:46:39 +0000
-Received: from PH0PR22MB3789.namprd22.prod.outlook.com
- ([fe80::35ce:ff48:fa8b:d4a7]) by PH0PR22MB3789.namprd22.prod.outlook.com
- ([fe80::35ce:ff48:fa8b:d4a7%7]) with mapi id 15.20.7409.042; Wed, 10 Apr 2024
- 14:46:39 +0000
-From: FLAVIO SULIGOI <f.suligoi@asem.it>
-To: 'Krzysztof Kozlowski' <krzk@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Thread-Topic: EXTERNAL: Re: [PATCH 1/6] dt-bindings: net: snps,dwmac: remove
- tx-sched-sp property
-Thread-Index: AQHah3ELhJkq/tiJlEK+M1aiHLun07FgAKbA
-Date: Wed, 10 Apr 2024 14:46:39 +0000
-Message-ID: <PH0PR22MB3789D5548A3D53311BB67F44F9062@PH0PR22MB3789.namprd22.prod.outlook.com>
-References: <20240405152800.638461-1-f.suligoi@asem.it>
- <20240405152800.638461-2-f.suligoi@asem.it>
- <c599d2cd-2871-4f84-94bb-00656c1a9395@kernel.org>
-In-Reply-To: <c599d2cd-2871-4f84-94bb-00656c1a9395@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR22MB3789:EE_|SA1PR22MB5468:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qYDAAZMCCvq/rJnQODzYji7biL4HAIEuLFx0PGV/EyQyLDtAI13fgN4fWaG+dAL4DfJBO9GcfZHvc4oulAPhvSlBmIHPHjjloQW3h/PxdaVh8oSZVUElBge7HkizXnlJOxXF83tSLFHotTJdtzpEI/PjwQMF/rbb9VEmVPSk3gbNRI0WoEzZEzhaPjxSuf17DiMBPs3mXnjYcjbNO08v4Pdypbr662SRd+KI9zX8EuYO/FDpw53akPwZakeojsBt8F7ERmErNY1gsAtE4pKx9dvXxsuFqd1YXyLLTBpptiQFPit+OkJvUsRs9PbSjl/oF/7RlXX/84genqulkw15cw3gZ3VqqHVlywaeonCM3FWu5egr7YqLmtr+2cRB1z4exQ01Pk/HoWJ/XiDVumDxz7ApOpVzwZ/e/4ypEAfPr64EWNE/KbbAjkadZ10OTfY/9BhuMMn2g9feG7l1ReBXIrF7YFvMufV0kkXS7vAdqHkgoucrXxpPge+Wj19FKbEVf34CT3ue99qULQsIaf/7JwPWG7+T9ieToI0SboDlrIeAsA5dWw0Nww+XFEMHBM30smMAgkrTERI3cfMPjQX7IL3lbEdUuj1rlITb9OsS9XPpGVS3Z4P82dDkLQW8JJVIg+Kgblx27jtfHwvZSKYIBCX+SgXm1zzIbHjahsKdrFlPrMZflMCafjLNk5szhKfMV3K+Svl9CXYbpqQDqfnb9Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR22MB3789.namprd22.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(7416005)(366007)(921011); DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RUFqVm1POHhDbk8ySy9lc3FmcWEzTFQyU2dyZlhIL1dhSWtjcDhDd2QxWjBJ?=
- =?utf-8?B?WVJQVk55YUZ6bTdLNUZhYkVka3VnLzIzU2YvVkUwM3IwZk5IajdSQUs3UW1n?=
- =?utf-8?B?U1FMaHNuNTRJMG9PZjdyUUs0dkVNVTBTUSsxZGpuMWd1RUNLaFdZSCtuK0hn?=
- =?utf-8?B?WlJTSkxrRU9MeVp2VEk2QzRTYWxIOStpWXNOV0N5UWlwbEp5Vk1MeWJPanJk?=
- =?utf-8?B?RDR3T0tVTi95OGdYM0RSWjllbWxWSERINHFTelY1eEliR2dMd2tkb0h2N0Ew?=
- =?utf-8?B?cnd0VC9QcWJGRWRwUXpUNCtMdVVRVWxzY05HZmpXQUhCSmU1dkRzSmxQdzhX?=
- =?utf-8?B?YlpVMjZDUHdDWXMrTjdmelZER00vZW1VZGdFYXg4dXYrRWZVV3kwaVQzZ0c3?=
- =?utf-8?B?V1ZSOTlrSmkwOGRRYUtjcHpFaHg3U0lXY3hDUXFLNEZpNUNoeHJyRmN1MkQ3?=
- =?utf-8?B?SmJUdkw4bFBFTkFmd1ZiL3BkQ1dXRERhT1ZMeVVxMGcrUkpGODlhbjlxd29S?=
- =?utf-8?B?ZURITi9KWEM0allnWXJmWm1GamZJMUZKZExwbzhiK28yMTMvRzc1M2Y3WEZZ?=
- =?utf-8?B?a1Z5eGl3TVh2NWtqWTBSREY0Tk54eGFFeXpCSFFuWUJUdkt6aEppMWJSTk5l?=
- =?utf-8?B?bjM2ZDFGbnVaZWNsUFBTVDk4bUpRQ1dZQzZnTVM0Sk5FdGFOY1hZaHc1bXpv?=
- =?utf-8?B?S3k0ZXpML01LY2RtRUx2R0FRSDl6QklQZFhEc0tzaEY5czdBTE1USFQrb1Bo?=
- =?utf-8?B?c2NyYU5YWjRKUDdLdXR2OWhpRW1zSnBGVG53VWlvZWVUSEFIM3F2UlJQK2Vx?=
- =?utf-8?B?THhVRFZDbmVzK3d5RG9ZZVlJb3c5RTB1NVZsbGJCM1MzUHRmc0lqSFBzRldX?=
- =?utf-8?B?UUpwK05YR0gvQVM2dVZtQTVoTURqR0pZYlB6MVd2bkNjU3F1eDdnOVNPSjZ1?=
- =?utf-8?B?ckQzd3REV2ZhenpXeTRGNWd1dGpjMEVGOHpaSk1nUkZSM1F6VXBoSXFIRDRC?=
- =?utf-8?B?MTJCc3REREl3ZEJoaDArZGNPOXFxUExvUE1UYlR3ZVVyaEt0MjVTeXZGREQ1?=
- =?utf-8?B?NGNqeEVsN09tNFJLSFRKbmZScXh2ZUxJUFExV1cwWWcwUmZJa2RWZnZjMmh3?=
- =?utf-8?B?TFdWdjBscU05d1lEMGNyVWxod1M4L1J3ZjVMSXZMdTI3L25UeitoaHhEc3VG?=
- =?utf-8?B?MjdaOExNMWFSZFNFN2lKdkNYK1RpNmF6ME1pY3JpYVlONVYzUmlRMUN3S1lD?=
- =?utf-8?B?TE8wK3hyVlRNaVQwMFp4RUtZTnZDT2g1SkVKbk53bllhazNaT2x0TzVDZmdz?=
- =?utf-8?B?cnladjFFMmVsVG1tUXFHVlp3dXF6LzZrSUkwcVVYbUdGNE1mT1pEcTAwQTB0?=
- =?utf-8?B?cUpqdDc0a1gxeXovbmpUeWFjc01heHczdkVnVEVhRXJqT2ExaDYyOXpoS2pr?=
- =?utf-8?B?YzhNZi9odEMyTk5WWFFXa05ITlFJQ2NWd0J1YUJmYVNnSHBpMGxyVUx3SUVK?=
- =?utf-8?B?eTM5cWxLbTMyTHVBRmhmUmludVAxVi9SbTE3YkJNRUFycmF1dEhLR0h4bWYr?=
- =?utf-8?B?ZytwUitIWEFpdEJPOENEUWtXV0FCYy9PeXZDTTBwcURGQ2RLN3NkMHlTcGRk?=
- =?utf-8?B?Q0tWUk9ycTJ0M0tjWVNsT2pPS3JKSWdmSzBWMlFDeGtrMmVyMitUdDJ1OFhk?=
- =?utf-8?B?cEVxOVFmMVhnTWZPM3RUQzg1cmxpdjg3VEVWOXZET2xLUHFXRkcwZ3NrQXNr?=
- =?utf-8?B?eGhhelZ4d2U0ZEZJUmpiYjJJL1ptTUJGamtobXJFWlJ0L1piWE9BaWVCN1lJ?=
- =?utf-8?B?YjlyQ0ttb2ZxWXByM2gvb3ZUejZyU29TYTRpS3puYm5XdmJVNkNYWVJwb1F3?=
- =?utf-8?B?M2paWU9jWG45TUZ3QmM1cUViTEVnU1k0RzJTU1p5ckxOZTlKaFp4b2VSaEhM?=
- =?utf-8?B?YXFtSnlKc0pTTXhpc1FWUkdtMW5xZ25Hd1JOcDE4STFVNWt5VmdDNTcvQ0x2?=
- =?utf-8?B?WExRd09KWmZ5MjNoTC9nakJSSEI1bG44eHZjVC92NmxQNm9vTHBJMDkxNnc2?=
- =?utf-8?B?dTRudExucHl6TjBVcmxNQTl3MmZReUNHOXF6cDkySXV0Z1A5N1VJckcwVkFi?=
- =?utf-8?B?dXdxMENsc29uaE1SdVpGV3FtcDhrdTF0cDBuOVZoNHQ2TlUzdlVWMUlBcWFh?=
- =?utf-8?Q?mqFurKac9s/PiRGnSLkS9PQ=3D?=
+ Wed, 10 Apr 2024 15:55:46 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a47385a4379so1454546966b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Apr 2024 08:55:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712764545; x=1713369345;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Jsjr/EUpS7jHu9EoCoBO4JHqmCRBqh6/KIR1YSfDMJk=;
+ b=k27LXg66rTnB7w09vo5SqYJQXVxpEQGIuFyMQsYFxOY+kQqTD8Xklq+kpvGoWSH7YK
+ CiD0Dl9Xs1mqZdYFihyYZAj/3J/ntQD7c5Uca1MZYr6m7c5S4xB8vV9h5ryaki5eY4Zw
+ 2qPQyvLi9mtKBBBZlStBDCW2y+418052jr1Gx67G17IpJMQLPuiVF1OvqXIsMmhxGAA9
+ jbzDw1MCFHhFFRZMoASBhrHiFsUXhriyEtSLhJGUEhZsKVBgTD18Xu1liAj9f87zGESO
+ xZWsFwkOPIdrtTh4VrtQ7T/W5vicRK/1DCpwxNLcHXyC56FixowG22YieDuo9RpHMh+G
+ W+7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712764545; x=1713369345;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Jsjr/EUpS7jHu9EoCoBO4JHqmCRBqh6/KIR1YSfDMJk=;
+ b=ejgQQBJouWCz7/fAs2jqSdHFC4lYIZ/uozscOfULJAQvMLGVLG20EEnywmLqP91MyP
+ 241jl0+VMNT+Q4GQDuRbSbbiKdy7ARxzsAeM++cSRDJXHwJc8G/PzuuHE1LlJR/kMaVn
+ Firh+6QxOACPwhRJ+MKZkg0AuPBpOIv5M4Ey4vdphK4JP+jsVYZChtF9zwc4HAN4RxLJ
+ bn/3FFXU1Pg83BXghUkiCpa8Y7yR6Ka6/g5Uq0Vu0Sy2Z0qxp21J9urB73BCPAhDzS1u
+ QpqkjcF9AtZXhSTUfWlB9XqOIt1IrHMYR4sz2sUAECQHUYdVbHg9E+nFHF29qELFmPkd
+ ODZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvSJ67DfVTSOeus1NmBuOVaZVWwfkbMTfvmFI6TYGV/3EA7TQEhBgtj900syJeOgcE/7Z3uEQA+OP9UpwYrCZqmbAQaakAjF2/O7z6iGtiU//PhwS3uEYw
+X-Gm-Message-State: AOJu0Yw5KC/DSzMKhOGpZK9lSO3wbJ0k2JE9Ywd9kW5e+KhrDOablxyx
+ OLn5fajuL/wJ3G4cIv+owzXIjR417qPCFTr++zDrfiGf2ljr4wTq
+X-Google-Smtp-Source: AGHT+IF1ADAUkQmkGJcp6oXbVsO2NNUVSgumq2+R9/e1RDxEbeDdhWqKmtLj8qqMmKKxMxSasjIpVQ==
+X-Received: by 2002:a17:906:46db:b0:a51:d056:d08b with SMTP id
+ k27-20020a17090646db00b00a51d056d08bmr90851ejs.0.1712764545559; 
+ Wed, 10 Apr 2024 08:55:45 -0700 (PDT)
+Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
+ [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
+ qw6-20020a1709066a0600b00a52172808c9sm279884ejc.56.2024.04.10.08.55.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Apr 2024 08:55:44 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Wed, 10 Apr 2024 17:55:32 +0200
+Message-Id: <20240410-rtc_dtschema-v2-0-d32a11ab0745@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: asem.it
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR22MB3789.namprd22.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d62dbf1f-da0d-4ef7-f5db-08dc596d0791
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2024 14:46:39.2560 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 855b093e-7340-45c7-9f0c-96150415893e
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: So4KTPyqw5gPIQk6biCoIXGNjOlA7ulIy7AtkGrVD12Sl5l+W8lkfggC9TslzxzTSjshTDx2rOvsdHdZgMfqM3YO/hw1r+g4+fO8dVpo1dH+wfKHJ99WHds7AvN7aQW6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR22MB5468
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] EXTERNAL: Re: [PATCH 1/6] dt-bindings: net: snps,
- dwmac: remove tx-sched-sp property
+X-B4-Tracking: v=1; b=H4sIAHS2FmYC/1XMQQrCMBCF4auUWRtJprEWV95DipTptB0wjSQlK
+ CV3NxZcuPwfvG+DyEE4wqXaIHCSKH4pgYcKaO6XiZUMpQE1Wm11o8JK92GNNLPrVa2xRTsYJtR
+ QLs/Ao7x27taVniWuPrx3PZnv+oPafygZpRVZez5ZHKlu8Dq5Xh5H8g66nPMHsJC+eqgAAAA=
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Vladimir Zapolskiy <vz@mleia.com>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712764543; l=2589;
+ i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
+ bh=aG6841BM+IzaM2wdf6XPCQIKX1BJoLnJgWWJZ09aXUc=;
+ b=vE6WWKn/PfJQl6Z2mF/T4S+0ooamNPIyWAComjIMzpGZf3t4nblGf7WzRI3Gd5nnqgkkLJ54Z
+ rg1MNNHQsJxBMn808RjLrAfEPSzorjoLsdzH843SWqOs2s8K41Q8LrA
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] rtc: convert multiple bindings into
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,43 +101,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof,
+This series converts the following bindings into dtschema, moving them
+to trivial-rtc whenever possible:
 
-...
+- orion-rtc: trival-rtc, referenced in arm arch.
+- google,goldfish-rtc: trivial-rtc, referenced in mips arch.
+- lpc32xx-rtc: add missing property and convert, referenced in arm arch.
+- maxim,ds1742: trivial-rtc, not referenced in arch, cheap conversion.
+- rtc-aspeed: 3 devices to trivial-rtc, all referenced in arm arch.
+- pxa-rtc: add missing properties and convert. Referenced in arm arch.
+- st,spear600-rtc: trivial-rtc, referenced in arm arch.
+- stmp3xxx-rtc: add compatibles and convert, referenced in arm arch.
+- via,vt8500-rtc: trivial-rtc, referenced in arm arch.
 
-> On 05/04/2024 17:27, Flavio Suligoi wrote:
-> > The property "tx-sched-sp" no longer exists, as it was removed from
-> the
-> > file:
-> >
-> > drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> >
-> > by the commit:
-> >
-> > commit aed6864035b1 ("net: stmmac: platform: Delete a redundant
-> condition
-> > branch")
-> >
-> > Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
-> > ---
-> >  .../devicetree/bindings/net/snps,dwmac.yaml        | 14 -------------
-> -
-> >  1 file changed, 14 deletions(-)
-> 
-> One more thought though:
-> 1. Missing net-next patch annotation,
-> 2. Please split DTS from net. DTS goes via separate trees.
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+Changes in v2:
+- General: squash all moves to trivial-rtc into a single patch.
+- MAINTAINERS: remove reference to google,goldfish-rtc.txt
+- lpc32xx-rtc: create own binding to add the undocumented 'clocks'
+  property.
+- fsl,stmp3xxx-rtc.yaml: document missing compatibles.
+- Link to v1: https://lore.kernel.org/r/20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com
 
-Thanks for all your suggestions.
-I'll resend the patches, with your suggested changes and
-splitting the DTS-related patches in a separate series.
+---
+Javier Carrasco (4):
+      dt-bindings: rtc: convert trivial devices into dtschema
+      dt-bindings: rtc: lpc32xx-rtc: convert to dtschema
+      dt-bindings: rtc: pxa-rtc: convert to dtschema
+      dt-bindings: rtc: stmp3xxx-rtc: convert to dtschema
 
-> 
-> Best regards,
-> Krzysztof
+ .../devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml  | 51 ++++++++++++++++++++++
+ .../bindings/rtc/google,goldfish-rtc.txt           | 17 --------
+ .../devicetree/bindings/rtc/lpc32xx-rtc.txt        | 15 -------
+ .../devicetree/bindings/rtc/marvell,pxa-rtc.yaml   | 40 +++++++++++++++++
+ .../devicetree/bindings/rtc/maxim,ds1742.txt       | 12 -----
+ .../devicetree/bindings/rtc/nxp,lpc32xx-rtc.yaml   | 41 +++++++++++++++++
+ .../devicetree/bindings/rtc/orion-rtc.txt          | 18 --------
+ Documentation/devicetree/bindings/rtc/pxa-rtc.txt  | 14 ------
+ .../devicetree/bindings/rtc/rtc-aspeed.txt         | 22 ----------
+ .../devicetree/bindings/rtc/spear-rtc.txt          | 15 -------
+ .../devicetree/bindings/rtc/stmp3xxx-rtc.txt       | 21 ---------
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       | 16 +++++++
+ .../devicetree/bindings/rtc/via,vt8500-rtc.txt     | 15 -------
+ MAINTAINERS                                        |  1 -
+ 14 files changed, 148 insertions(+), 150 deletions(-)
+---
+base-commit: fec50db7033ea478773b159e0e2efb135270e3b7
+change-id: 20240406-rtc_dtschema-302824d1ec20
 
 Best regards,
-Flavio
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
 _______________________________________________
 Linux-stm32 mailing list
