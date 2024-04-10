@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F5A489FC17
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 17:55:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 663E889FC18
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 17:55:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20F77C6C820;
-	Wed, 10 Apr 2024 15:55:50 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28D5EC6DD66;
+	Wed, 10 Apr 2024 15:55:51 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD590C6C858
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63B70C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Apr 2024 15:55:48 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-56e6646d78bso3702796a12.1
+ Wed, 10 Apr 2024 15:55:50 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-56e2c1650d8so5408491a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Apr 2024 08:55:48 -0700 (PDT)
+ Wed, 10 Apr 2024 08:55:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712764548; x=1713369348;
+ d=gmail.com; s=20230601; t=1712764550; x=1713369350;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=HzWm9MO6MRh2JhYRh9d9r60JurAw8zbzSiBG8Vp4F7A=;
- b=Mxi3Mj7QxYKSMFYhtvetzXB5Y/mGVZ4A19/iITrsr9xRf7w5VVfsHIT7pi9tiIyAbu
- jgEqkrjjRRbP+SLHYi/BCoo3FYw2Vp0601wFS9GJkskfjbiqCO7gXLSSrJFdFHgBpz5r
- vv9qS+CMicJRZPL+jpkeyvGuPkP2MSqrbuOZ3jAZA1AZJhk7Od6UCrMFv1g6X1kybjBv
- 60vX9RhKVgUOO+Shv2XMuCS2HOK3VWhyo4MOG/Ph18Zc5Udw6pzpP60nSe+T+M4liYGf
- rN1EMRQSOBYtq1pk6F/YmuHmbiHkzrjBYozjcyxcWEZemHWFcA7Kx6rWftdcajheGOTC
- ffrQ==
+ :reply-to; bh=1jSeqduTcQGsgyy//ksgmL2wkqDSRJ2+W9of4aqh+v0=;
+ b=HP0eqkZI3HfHfrYGu5/fCXQN6flLi3DZ6bYNMk0m4J6sCLPw7CGpu8QNvhygwL9pX+
+ RIEwAWzzDY6W9dKSJMi5/OzNFOXgCehhBp+EFMJthOgYB5VozzgBJAvs4mWdkKVZ+lYF
+ CN8lt83vh0OTQr9p2BUrlKhtil7SPLZidjC9CfjaGECvb8eHpw3g69t3V/6MbNE9CgeP
+ fHGu70R5NkWchU5RXZeVqvcoSc/5/0O1AB2spo3P29zVwsRdSfYxqpWs3N0Wx2NsZaH8
+ 4Tojx8tc3dxPw/h7gRgsKjptKqQKBHIfCGOo7oZ7EW4ZrVEmb3MdekdsB80VmtxHC65s
+ cprg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712764548; x=1713369348;
+ d=1e100.net; s=20230601; t=1712764550; x=1713369350;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HzWm9MO6MRh2JhYRh9d9r60JurAw8zbzSiBG8Vp4F7A=;
- b=AZl1Rfn0rnnpWid/Efpkh1E2RguH/cm1TkrAVM6HCdd5wEBd3xVaXK/ntANzFe3t46
- e8DvQHd6ijHb5R5Kj1ZK0OcmdgOG+W0dFYZCW6QIjUz0skFljIOT7h7W52bYOdaWYqrd
- 0QPP/ybLZk0icM75DvpOGJFOHhNKfcN943gp4D/nc2UAeYoNIHThe/+ILLap0Stog4IA
- bOL2fTbQjZ6LNMXUISrhbG5ZlduuXlz04E4pWiRXb7Be4toPioapM2wf5LIhtrS4i84A
- ZAS4A0ZDSTccZPL0QwOwZiO6PKTSD+P0mU8cXgdlXjGd9HRtQ9uqh6xywRMP+Twk14kC
- ISEw==
+ bh=1jSeqduTcQGsgyy//ksgmL2wkqDSRJ2+W9of4aqh+v0=;
+ b=XefFMDT+tNa8okQ1H3htmG1PnoXoV3kdz/01IAlBMsz99KjwAP/huIYr8C7taBuPzU
+ LyG2UStxxElW0Ezs/5uZSuFwuDPQfCQorbyO17QQuAxhjQctM2n11yc0tZ3zOYUvoWpV
+ vT+TzKWjoErgA+8DtmvvyknAqLDASbTZrpgQE/b638UM6K2j1SM8oD32ds1g8kCJenDk
+ ULJjChIbx4UCvlEHxPPhfL5MrPxYDaZ6HpxP71kYj2OeZnup4xqdzbmAYmtxJAP/Cc4b
+ V2Ta6ao+KCqUmuD60U1ILataKpUrR3vEFS69q5TR4R52V9eoT+TejRfy+HgHWbn7OK30
+ Q6ww==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqfu04o8LFiOnw1SaRvRqOEBBH+BXzGXMSLUQ8Af+zeFR7YOxX1zl8MTcTwZwaxL0Ij5jEm/1v1zsEn2yXr5EoJkZc5sJSjOL/pcN16vygXwpRgXN3BZb6
-X-Gm-Message-State: AOJu0YyYKB2lP3IK8q6DaxGQ1MEhbRTSRhTkaANR59O160rKT8fzuVec
- h0+a83xYNLfslTSFjDiqF8lcBsyyG99wDuP03t8JGcva8HQ1bRVn
-X-Google-Smtp-Source: AGHT+IGWT0zg2GfhSFE2SOFKfpvXgozYERgxjlvwRfCaQ5TT835wuPhVMQ4kvDupf6tnP6/hPhy/bQ==
-X-Received: by 2002:a17:906:ee87:b0:a51:962d:cf0d with SMTP id
- wt7-20020a170906ee8700b00a51962dcf0dmr2330371ejb.12.1712764548277; 
- Wed, 10 Apr 2024 08:55:48 -0700 (PDT)
+ AJvYcCUJvCDFiG1eVjUrEtwuWLxA15XyYrQmHWEotz54YQNFhmXl6cQpijOFuwcr5qA1aRJAuyH08jzEjPTdZjC/JvELvtLJhRcN99z17tPyFxtHJPC8fEGqlzdH
+X-Gm-Message-State: AOJu0YyNYIEpqXvvzP8eLnazTEfltSjfcLGNFTWr3SrckpO4GUvr5HkK
+ Uc6z6U3kQ/hUxSJCmfFtgkxWBMhHT9Ru0PfTNX6Z1c/akif1sjLe
+X-Google-Smtp-Source: AGHT+IHpKcHkzaocAzKrmqOnvknnOqrXFgO2SiOZTgXtv8v+e/D+kmcUtUHf56S5Bi+ZgUEYHg907g==
+X-Received: by 2002:a17:906:fb11:b0:a51:9f5b:b659 with SMTP id
+ lz17-20020a170906fb1100b00a519f5bb659mr1789622ejb.34.1712764549870; 
+ Wed, 10 Apr 2024 08:55:49 -0700 (PDT)
 Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
  [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
- qw6-20020a1709066a0600b00a52172808c9sm279884ejc.56.2024.04.10.08.55.47
+ qw6-20020a1709066a0600b00a52172808c9sm279884ejc.56.2024.04.10.08.55.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Apr 2024 08:55:47 -0700 (PDT)
+ Wed, 10 Apr 2024 08:55:49 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Wed, 10 Apr 2024 17:55:34 +0200
+Date: Wed, 10 Apr 2024 17:55:35 +0200
 MIME-Version: 1.0
-Message-Id: <20240410-rtc_dtschema-v2-2-d32a11ab0745@gmail.com>
+Message-Id: <20240410-rtc_dtschema-v2-3-d32a11ab0745@gmail.com>
 References: <20240410-rtc_dtschema-v2-0-d32a11ab0745@gmail.com>
 In-Reply-To: <20240410-rtc_dtschema-v2-0-d32a11ab0745@gmail.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
@@ -70,19 +70,20 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1712764543; l=2099;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712764543; l=2124;
  i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
- bh=ZJ06gPeNSTQ2DySuOzdESjyZIxHEy/NT6VtQopAeiQc=;
- b=OWv7GNhwJh5KCDkRW7ERfspAklaTpWgWcxbYfHhi4SlqF6l+Dk6ATof15wOpkwnTCDEg8Vawt
- 6TzRRYUgVEgA0j8sdfATE22NOBeslYc9HH6g4bJakYvCUttKWqZHKL9
+ bh=MljIxyWTISU+l2odfMzkGB6VwOiZuuSwves7xqGR7H0=;
+ b=+KJHEjpPSKgc0aYcDAt7jz8cMXuHaOsYXEx5xaxeDu98Mi3pAhR8m4a1H7J9Gj9c95Iq1CkTX
+ C3b9IAdDAlrBY7JmKPRwT4zrKX9Ox8dBgU+omNT/BdB/TfsjCFwU3O4
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org,
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/4] dt-bindings: rtc: lpc32xx-rtc: convert
-	to dtschema
+Subject: [Linux-stm32] [PATCH v2 3/4] dt-bindings: rtc: pxa-rtc: convert to
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,48 +102,29 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Convert existing binding to dtschema to support validation.
 
-Add the undocumented 'clocks' property.
+The missing 'reg' and 'interrupts' properties have been added, taking
+the 2 supported interrupts into account to fix the example.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- .../devicetree/bindings/rtc/lpc32xx-rtc.txt        | 15 --------
- .../devicetree/bindings/rtc/nxp,lpc32xx-rtc.yaml   | 41 ++++++++++++++++++++++
- 2 files changed, 41 insertions(+), 15 deletions(-)
+ .../devicetree/bindings/rtc/marvell,pxa-rtc.yaml   | 40 ++++++++++++++++++++++
+ Documentation/devicetree/bindings/rtc/pxa-rtc.txt  | 14 --------
+ 2 files changed, 40 insertions(+), 14 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/lpc32xx-rtc.txt b/Documentation/devicetree/bindings/rtc/lpc32xx-rtc.txt
-deleted file mode 100644
-index a87a1e9bc060..000000000000
---- a/Documentation/devicetree/bindings/rtc/lpc32xx-rtc.txt
-+++ /dev/null
-@@ -1,15 +0,0 @@
--* NXP LPC32xx SoC Real Time Clock controller
--
--Required properties:
--- compatible: must be "nxp,lpc3220-rtc"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- interrupts: The RTC interrupt
--
--Example:
--
--	rtc@40024000 {
--		compatible = "nxp,lpc3220-rtc";
--		reg = <0x40024000 0x1000>;
--		interrupts = <52 0>;
--	};
-diff --git a/Documentation/devicetree/bindings/rtc/nxp,lpc32xx-rtc.yaml b/Documentation/devicetree/bindings/rtc/nxp,lpc32xx-rtc.yaml
+diff --git a/Documentation/devicetree/bindings/rtc/marvell,pxa-rtc.yaml b/Documentation/devicetree/bindings/rtc/marvell,pxa-rtc.yaml
 new file mode 100644
-index 000000000000..62ddeef961e9
+index 000000000000..43d68681a1bf
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/nxp,lpc32xx-rtc.yaml
-@@ -0,0 +1,41 @@
++++ b/Documentation/devicetree/bindings/rtc/marvell,pxa-rtc.yaml
+@@ -0,0 +1,40 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/rtc/nxp,lpc32xx-rtc.yaml#
++$id: http://devicetree.org/schemas/rtc/marvell,pxa-rtc.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: NXP LPC32xx SoC Real Time Clock
++title: PXA Real Time Clock
 +
 +maintainers:
 +  - Javier Carrasco <javier.carrasco.cruz@gmail.com>
@@ -152,16 +134,15 @@ index 000000000000..62ddeef961e9
 +
 +properties:
 +  compatible:
-+    const: nxp,lpc3220-rtc
++    const: marvell,pxa-rtc
 +
 +  reg:
 +    maxItems: 1
 +
 +  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
++    items:
++      - description: 1 Hz
++      - description: Alarm
 +
 +required:
 +  - compatible
@@ -172,11 +153,31 @@ index 000000000000..62ddeef961e9
 +
 +examples:
 +  - |
-+    rtc@40024000 {
-+        compatible = "nxp,lpc3220-rtc";
-+        reg = <0x40024000 0x1000>;
-+        interrupts = <52 0>;
++    rtc@40900000 {
++        compatible = "marvell,pxa-rtc";
++        reg = <0x40900000 0x3c>;
++        interrupts = <30>, <31>;
 +    };
+diff --git a/Documentation/devicetree/bindings/rtc/pxa-rtc.txt b/Documentation/devicetree/bindings/rtc/pxa-rtc.txt
+deleted file mode 100644
+index 8c6672a1b7d7..000000000000
+--- a/Documentation/devicetree/bindings/rtc/pxa-rtc.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-* PXA RTC
+-
+-PXA specific RTC driver.
+-
+-Required properties:
+-- compatible : Should be "marvell,pxa-rtc"
+-
+-Examples:
+-
+-rtc@40900000 {
+-	compatible = "marvell,pxa-rtc";
+-	reg = <0x40900000 0x3c>;
+-	interrupts = <30 31>;
+-};
 
 -- 
 2.40.1
