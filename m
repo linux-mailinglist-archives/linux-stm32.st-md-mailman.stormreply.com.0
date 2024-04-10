@@ -2,92 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C045E89ECF2
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 10:02:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B5F89F1F3
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Apr 2024 14:24:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71B92C6C858;
-	Wed, 10 Apr 2024 08:02:41 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A8C8C6C820;
+	Wed, 10 Apr 2024 12:24:45 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1A8CC6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17689C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Apr 2024 08:02:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 019B5CE2645;
- Wed, 10 Apr 2024 08:02:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDFDC43390;
- Wed, 10 Apr 2024 08:02:36 +0000 (UTC)
-Received: by mercury (Postfix, from userid 1000)
- id 324081063262; Wed, 10 Apr 2024 10:02:32 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>
-In-Reply-To: <20240403080702.3509288-1-arnd@kernel.org>
-References: <20240403080702.3509288-1-arnd@kernel.org>
-Message-Id: <171273615213.1094883.18382201508159771859.b4-ty@collabora.com>
-Date: Wed, 10 Apr 2024 10:02:32 +0200
+ Wed, 10 Apr 2024 12:24:43 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 68EDD1C0002;
+ Wed, 10 Apr 2024 12:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1712751883;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=l3ws31mOJD6WJ5PiqoLqg0x1rdfJP9Z5AmhmFZmsojA=;
+ b=kz/0yk2P0u15uvLO3V2bIiiBeyKMosuhBgHxZkWris1gH74OkoU5jCPXSknQz1fwnbqCjo
+ WU93j8pFtyf1I68J1uRLHRNfAg5gHZOVcMlMzHVsVuI0NHrTx8HflyI9e+u4/KSZym1ID/
+ dLY1ynmBrfb0tNGPH9M0ukL+GBN7W+zJIfMTRlKVe+QSU7q152nT7Stn4Lg2mBWWFD4IAz
+ is0Ld37Wwxu3wR4M4tX6oiZtMUnmBiv5xa+BA5V0S6lyrm4TKrsHU9+Xh30ivTw3v9rkKM
+ KjmEQ3u/Z+jx+Z9jJ5DewvT9iMBn+e0lu7mg7yh+wHeLPrLuMrtg83iOywZIEQ==
+Date: Wed, 10 Apr 2024 14:25:18 +0200 (CEST)
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+In-Reply-To: <CAMuHMdX-F8LXWx=Ras4f+Dt_r485HKjRDLydDXZsnZBW8HJzxw@mail.gmail.com>
+Message-ID: <9bd8eee4-952d-d5b2-c462-45c1466c54d6@bootlin.com>
+References: <20240409-rzn1-gmac1-v2-0-79ca45f2fc79@bootlin.com>
+ <20240409-rzn1-gmac1-v2-4-79ca45f2fc79@bootlin.com>
+ <CAMuHMdX-F8LXWx=Ras4f+Dt_r485HKjRDLydDXZsnZBW8HJzxw@mail.gmail.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.13.0
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Heiko Stuebner <heiko@sntech.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
- dri-devel@lists.freedesktop.org,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Christoph Hellwig <hch@lst.de>, linux-samsung-soc@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, linux-pm@vger.kernel.org,
- linux-sound@vger.kernel.org, Ian Abbott <abbotti@mev.co.uk>,
- linux-omap@vger.kernel.org, Trond Myklebust <trond.myklebust@hammerspace.com>,
- Alex Elder <elder@kernel.org>, Tero Kristo <kristo@kernel.org>,
- Xiang Chen <chenxiang66@hisilicon.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- linux-crypto@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-trace-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Markuss Broks <markuss.broks@gmail.com>,
- Vaibhav Hiremath <hvaibhav.linux@gmail.com>, linux-i2c@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>, Corey Minyard <minyard@acm.org>,
- Helge Deller <deller@gmx.de>, Lee Jones <lee@kernel.org>,
- linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, Yisen Zhuang <yisen.zhuang@huawei.com>,
- Len Brown <lenb@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>, linux-kbuild@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, greybus-dev@lists.linaro.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Jarkko Sakkinen <jarkko@kernel.org>, Anna Schumaker <anna@kernel.org>,
- linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org,
- Jonathan Cameron <jic23@kernel.org>, linux-efi@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fpga@vger.kernel.org,
- linux-fbdev@vger.kernel.org, kasan-dev@googlegroups.com,
- Jiri Slaby <jirislaby@kernel.org>, linux-rtc@vger.kernel.org,
- Stanislaw Gruszka <stf_xl@wp.pl>, Masahiro Yamada <masahiroy@kernel.org>,
- linux-staging@lists.linux.dev, linux-input@vger.kernel.org,
- Jacky Huang <ychuang3@nuvoton.com>, Kees Cook <keescook@chromium.org>,
- Arnd Bergmann <arnd@arndb.de>, Jiri Kosina <jikos@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>,
- Nathan Chancellor <nathan@kernel.org>, Mark Brown <broonie@kernel.org>,
- Moritz Fischer <mdf@kernel.org>, openipmi-developer@lists.sourceforge.net,
- linux-nfs@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, Peter Rosin <peda@axentia.se>,
- linux-stm32@st-md-mailman.stormreply.com, Tony Lindgren <tony@atomide.com>,
- Liviu Dudau <liviu.dudau@arm.com>, linux-ide@vger.kernel.org,
- Peter Huewe <peterhuewe@gmx.de>, Ard Biesheuvel <ardb@kernel.org>,
- linux-leds@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
- linux-scsi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- linux-serial@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Kalle Valo <kvalo@kernel.org>,
- John Allen <john.allen@amd.com>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Damien Le Moal <dlemoal@kernel.org>, dmaengine@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 00/34] address all -Wunused-const
-	warnings
+Content-Type: multipart/mixed;
+ boundary="1582177605-1727822458-1712751921=:538696"
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/5] net: stmmac: add support
+ for RZ/N1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,32 +67,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Wed, 03 Apr 2024 10:06:18 +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+--1582177605-1727822458-1712751921=:538696
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+Hi Geert,
+
+On Tue, 9 Apr 2024, Geert Uytterhoeven wrote:
+
+> > +config DWMAC_RZN1
+> > +       tristate "Renesas RZ/N1 dwmac support"
+> > +       default ARCH_RZN1
 > 
-> Compilers traditionally warn for unused 'static' variables, but not
-> if they are constant. The reason here is a custom for C++ programmers
-> to define named constants as 'static const' variables in header files
-> instead of using macros or enums.
+> Why default to enabled?
 > 
-> [...]
+> > +       depends on OF && (ARCH_RZN1 || COMPILE_TEST)
 
-Applied, thanks!
+The kernel doc states this as one of the possible cases where setting default 
+y/m makes sense:
 
-[09/34] power: rt9455: hide unused rt9455_boost_voltage_values
-        commit: 452d8950db3e839aba1bb13bc5378f4bac11fa04
+```
+Sub-driver behavior or similar options for a driver that is “default n”. This 
+allows you to provide sane defaults.
+```
 
-Best regards,
+In the case of DWMAC_RZN1, it is a suboption of stmmac which is "default n", and 
+I think it makes sense to enable the RZN1 ethernet controller driver if both the 
+stmmac driver and the RZN1 architecture were explicitely selected.
+
+Best Regards,
+
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+--1582177605-1727822458-1712751921=:538696
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--1582177605-1727822458-1712751921=:538696--
