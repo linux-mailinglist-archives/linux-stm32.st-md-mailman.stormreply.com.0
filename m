@@ -2,72 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9925D8A1788
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Apr 2024 16:40:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4138A265C
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Apr 2024 08:21:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65311C7128E;
-	Thu, 11 Apr 2024 14:40:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70874C6DD66;
+	Fri, 12 Apr 2024 06:21:49 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A2CFC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82D2EC69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Apr 2024 14:40:16 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43BBtfmB009772; Thu, 11 Apr 2024 16:40:02 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=leLPZiLCktPIospyQ9FP6+cf6VRekIBzP4HKYwDuK9M=; b=Pu
- dlQIRvk31aoz1QOjb3sWqYlLINa5UTgJirJht7kHEYE+lsRuSGp5Lvnc9my0UIRj
- FDPkAlmgCOJE/F8DAaMcE9NIxJGJgDxbKVlXCaoRb1c7gi2fcv8TvIHOl0eq9mg4
- LbNpKgGehgRkgHo0Axd3NVonPmRQ5RvHbzqNUxtyuve+fadEVg62X1z22uOYI2Wm
- Ene5waDN1lD2GCarShdIc6dvsLi/NDBB7/gCBoHq2i5/C+qlU4b9mOixFkbIt7GU
- LP62BvKUfrrfdBLarn+Fr8TmH0AbdJPLV4NuqhS1nqhYGQGz49QChv3ITbygg/0M
- DTDSLtSYuDfabUGRPQMw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xbfy13r2b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Apr 2024 16:40:02 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 00DC940044;
- Thu, 11 Apr 2024 16:39:58 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6D6DD21BF42;
- Thu, 11 Apr 2024 16:39:50 +0200 (CEST)
-Received: from localhost (10.48.86.106) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 11 Apr
- 2024 16:39:50 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-Date: Thu, 11 Apr 2024 16:36:58 +0200
-Message-ID: <20240411143658.1049706-12-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
-References: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
+ Fri, 12 Apr 2024 06:21:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 9FD77CE3187;
+ Fri, 12 Apr 2024 06:21:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7044C2BBFC;
+ Fri, 12 Apr 2024 06:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712902905;
+ bh=3HkpJojy/K1PBxL+4mbZbpwq+U3GGqzPtMY8c/dVemc=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=t2oH6sEoxUvKpABTuzdEvcxBIg+pIRL+XCecL1b+p6Y2BkQb2XQTp3KVqf/NHZU+5
+ ssV4p1dEpC0JU0+Y1goSDJXUfFjupXzk2w9GbCDgha0iUNp0MMji0G8yrIc/jkHVoN
+ UHL8q9trcQwm175POiBhTFLYOXTZqnC9HdjqMpBKL62teCJY8qOq3kt6DRJXlr2zTI
+ qAdhVY63NG2FYFYaxCFseLdAmKB+yAHjcXMfMl10wez9egmnFpEVPzwIGER2eEr7Db
+ gofbTjSQAmu1CUMPQBS7Cw1o5sxRBhplUqUqL0/RNZtFBvewmJK2D5JnWIrDgsuBQh
+ PIrGtV9wk1chg==
+Message-ID: <c6db329bdd8f760878cbbc84d099a4e5.sboyd@kernel.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.106]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-11_08,2024-04-09_01,2023-05-22_02
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 11/11] ARM: multi_v7_defconfig: Add MCP23S08
-	pinctrl support
+In-Reply-To: <20240411092453.243633-2-gabriel.fernandez@foss.st.com>
+References: <20240411092453.243633-1-gabriel.fernandez@foss.st.com>
+ <20240411092453.243633-2-gabriel.fernandez@foss.st.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>
+Date: Thu, 11 Apr 2024 23:21:43 -0700
+User-Agent: alot/0.10
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v11 1/4] clk: stm32mp13: use platform
+	device APIs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +64,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Need to enable MCP23S08 I/O expanders to manage Ethernet phy
-reset in STM32MP135F-DK board
-STMMAC driver defer is not silent, need to put this config in
-built-in to avoid huge of Ethernet messages
+Quoting gabriel.fernandez@foss.st.com (2024-04-11 02:24:50)
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> 
+> Convert devm_platform_ioremap_resource() and remove unnecessary
+> dependency check with SCMI clock driver.
+> 
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index b2955dcb5a53b..0abbe00372dff 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -469,6 +469,7 @@ CONFIG_SPI_XILINX=y
- CONFIG_SPI_SPIDEV=y
- CONFIG_SPMI=y
- CONFIG_PINCTRL_AS3722=y
-+CONFIG_PINCTRL_MCP23S08=y
- CONFIG_PINCTRL_MICROCHIP_SGPIO=y
- CONFIG_PINCTRL_OCELOT=y
- CONFIG_PINCTRL_PALMAS=y
--- 
-2.25.1
-
+Applied to clk-next
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
