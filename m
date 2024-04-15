@@ -2,50 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 902008A5849
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 18:57:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D21018A5BA9
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 21:53:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49EAFC6B444;
-	Mon, 15 Apr 2024 16:57:01 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 839E0C6B444;
+	Mon, 15 Apr 2024 19:53:59 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A438C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEDD8C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 16:57:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DD14DCE0AEB;
- Mon, 15 Apr 2024 16:56:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98E6C113CC;
- Mon, 15 Apr 2024 16:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1713200217;
- bh=23t1wc48Z7qjQUHxpMlFdirQHFa5WZ1akQpPogYgwdY=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=MccKqy+jcxO65ZEPHizfb5Mc96hbY4jAZG12g4jT1jFG0LEcycDbLg+MgwFLFWnDL
- /Ncsg9MFSrkB5HmunRJkncqZEk6X8fEu7lu7j8tR0QUHG0D8uhJXWMA8+xDERhlkRR
- 9NjK9IoQmQgkfX2h39J9neHr1UALtTptyC0FYchJuHuEGfVqX2CWEUIYULXv4Vcd7s
- tmRXsqeY2pmaaxonCgtROnJF0DeESWve2rr17M1A/uXUkdfpwzdyjK3ivJOFa86Wjy
- ZIC7j+T8gBHzjDN0NHXpMZiFaNhpAGb0/U59q764Gxm93RwO0e2o9va4ZexYVk5Uhh
- wYEsnpGSnVE/g==
-Date: Mon, 15 Apr 2024 11:56:55 -0500
+ Mon, 15 Apr 2024 19:53:58 +0000 (UTC)
+Received: from pendragon.ideasonboard.com
+ (117.145-247-81.adsl-dyn.isp.belgacom.be [81.247.145.117])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id A9226132;
+ Mon, 15 Apr 2024 21:53:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1713210791;
+ bh=TZsE6GWfY01zorNaQX/ghnfDYb6Y9/Zm1jwT89bt3DA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KZq1nnRk1nMSeFZnAl5MS6emodiCh+rpXVFwwPi9BtFQ7513ZUuYT23x3ytyND5bW
+ 7Rib8zRLM9O5B8E2ghFv8sU8GWXK9KanzSXTig9Mr7BSR9j7iY2GJbaPX98IbhRQHb
+ 8/uKvptFAOjXBlbAF0uxKmaLugCqF+wUB7qrc6WU=
+Date: Mon, 15 Apr 2024 22:53:48 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Message-ID: <20240415195348.GD22954@pendragon.ideasonboard.com>
+References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-In-Reply-To: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
-References: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
-Message-Id: <171292930694.2308702.12108714635472172661.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/11] Series to deliver Ethernets for
-	STM32MP13
+Content-Disposition: inline
+In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>, Pavel Machek <pavel@ucw.cz>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
+ Samuel Holland <samuel@sholland.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
+ linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ linux-mediatek@lists.infradead.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [Linux-stm32] [PATCH 00/35] media: Fix coccinelle warning/errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,69 +83,155 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Ricardo,
 
-On Thu, 11 Apr 2024 16:36:47 +0200, Christophe Roullier wrote:
-> STM32MP13 is STM32 SOC with 2 GMACs instances
-> This board have 2 RMII phy:
->   -Ethernet1: RMII with crystal
->   -Ethernet2: RMII without crystal
-> Rework dwmac glue to simplify management for next stm32
-> Add support for PHY regulator
+I'm afraid I won't have time to review any of this for the time being.
+Unless you would like me to put uvcvideo reviews on hold ;-)
+
+Jokes aside, my first reaction was that this feels like a bit of a waste
+of maintainer's time :-S
+
+On Mon, Apr 15, 2024 at 07:34:17PM +0000, Ricardo Ribalda wrote:
+> After this set is applied, these are the only warnings left:
+> drivers/media/pci/ivtv/ivtv-fileops.c:223:4-10: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:230:3-9: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:236:4-10: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:245:3-9: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:251:3-9: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:257:3-9: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:272:3-9: preceding lock on line 267
+> drivers/media/pci/ivtv/ivtv-fileops.c:598:4-10: preceding lock on line 627
+> drivers/media/pci/ivtv/ivtv-fileops.c:598:4-10: preceding lock on line 689
+> drivers/media/pci/ivtv/ivtv-fileops.c:606:3-9: preceding lock on line 627
+> drivers/media/pci/ivtv/ivtv-fileops.c:606:3-9: preceding lock on line 689
+> drivers/media/pci/ivtv/ivtv-fileops.c:648:3-9: preceding lock on line 627
+> drivers/media/pci/ivtv/ivtv-fileops.c:648:3-9: preceding lock on line 689
+> drivers/media/pci/ivtv/ivtv-fileops.c:692:4-10: preceding lock on line 689
+> drivers/media/dvb-core/dvb_frontend.c:2897:1-7: preceding lock on line 2776
+> drivers/media/dvb-core/dvb_frontend.c:2897:1-7: preceding lock on line 2786
+> drivers/media/dvb-core/dvb_frontend.c:2897:1-7: preceding lock on line 2809
+> drivers/media/dvb-frontends/stv090x.c:799:1-7: preceding lock on line 768
+> drivers/media/usb/go7007/go7007-i2c.c:125:1-7: preceding lock on line 61
+> drivers/media/rc/imon.c:1167:1-7: preceding lock on line 1153
+> drivers/media/pci/cx18/cx18-scb.h:261:22-29: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:77:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:85:5-16: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:154:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:171:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:180:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:189:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:201:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:220:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_cmds.h:230:5-16: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:764:5-15: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1008:43-60: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1014:36-46: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1041:5-15: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1088:39-51: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1093:5-22: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1144:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1239:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1267:5-9: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/qcom/venus/hfi_helper.h:1272:4-13: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/common/siano/smscoreapi.h:619:5-13: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/common/siano/smscoreapi.h:669:6-13: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/common/siano/smscoreapi.h:1049:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/common/siano/smscoreapi.h:1055:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/dvb-frontends/mxl5xx_defs.h:171:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/dvb-frontends/mxl5xx_defs.h:182:4-8: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/allegro-dvt/nal-hevc.h:102:14-22: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/media/platform/xilinx/xilinx-dma.h:100:19-22: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
+> drivers/staging/media/atomisp/pci/atomisp_tpg.h:30:18-22: WARNING use flexible-array member instead (https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays)
 > 
-> Christophe Roullier (11):
->   dt-bindings: net: add STM32MP13 compatible in documentation for stm32
->   dt-bindings: net: add phy-supply property for stm32
->   net: ethernet: stmmac: rework glue to simplify management for next
->     stm32
->   net: ethernet: stmmac: add management of stm32mp13 for stm32
->   net: ethernet: stmmac: stm32: update config management for phy wo
->     cristal
->   net: ethernet: stm32: clean the way to manage wol irqwake
->   net: ethernet: stmmac: stm32: support the phy-supply regulator binding
->   ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
->   ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
->   ARM: dts: stm32: add ethernet1 and ethernet2 for STM32MP135F-DK board
->   ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
+> CI tested:
+> https://gitlab.freedesktop.org/linux-media/media-staging/-/commit/055b5211c68e721c3a7090be5373cf44859da1a7/pipelines?ref=ribalda%2Ftest-cocci
 > 
->  .../devicetree/bindings/net/stm32-dwmac.yaml  |  83 ++++++-
->  arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 ++++++
->  arch/arm/boot/dts/st/stm32mp131.dtsi          |  31 +++
->  arch/arm/boot/dts/st/stm32mp133.dtsi          |  30 +++
->  arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  48 ++++
->  arch/arm/configs/multi_v7_defconfig           |   1 +
->  .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 235 ++++++++++++------
->  7 files changed, 421 insertions(+), 78 deletions(-)
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+> Ricardo Ribalda (35):
+>       media: pci: mgb4: Refactor struct resources
+>       media: stb0899: Remove unreacheable code
+>       media: uvcvideo: Refactor iterators
+>       media: uvcvideo: Use max() macro
+>       media: go7007: Use min and max macros
+>       media: stm32-dcmipp: Remove redundant printk
+>       media: staging: sun6i-isp: Remove redundant printk
+>       media: dvb-frontends: tda18271c2dd: Remove casting during div
+>       media: v4l: async: refactor v4l2_async_create_ancillary_links
+>       staging: media: tegra-video: Use swap macro
+>       media: s2255: Use refcount_t instead of atomic_t for num_channels
+>       media: platform: mtk-mdp3: Use refcount_t for job_count
+>       media: common: saa7146: Use min macro
+>       media: dvb-frontends: drx39xyj: Use min macro
+>       media: netup_unidvb: Use min macro
+>       media: au0828: Use min macro
+>       media: flexcop-usb: Use min macro
+>       media: gspca: cpia1: Use min macro
+>       media: stk1160: Use min macro
+>       media: tegra-vde: Refactor timeout handling
+>       media: venus: Use div64_u64
+>       media: i2c: st-mipid02: Use the correct div function
+>       media: dvb-frontends: tda10048: Use the right div
+>       media: tc358746: Use the correct div_ function
+>       media: venus: Use the correct div_ function
+>       media: venus: Refator return path
+>       media: dib0700: Refator return path
+>       media: usb: cx231xx: Refator return path
+>       media: i2c: rdacm20: Refator return path
+>       media: i2c: et8ek8: Refator return path
+>       media: cx231xx: Refator return path
+>       media: si4713: Refator return path
+>       media: ttpci: Refator return path
+>       media: hdpvr: Refator return path
+>       media: venus: Refator return path
 > 
-> --
-> 2.25.1
+>  drivers/media/common/saa7146/saa7146_hlp.c         |  8 +++----
+>  drivers/media/dvb-frontends/drx39xyj/drxj.c        |  9 +++-----
+>  drivers/media/dvb-frontends/stb0899_drv.c          |  5 -----
+>  drivers/media/dvb-frontends/tda10048.c             |  3 +--
+>  drivers/media/dvb-frontends/tda18271c2dd.c         |  4 ++--
+>  drivers/media/i2c/et8ek8/et8ek8_driver.c           |  4 +++-
+>  drivers/media/i2c/rdacm20.c                        |  5 ++++-
+>  drivers/media/i2c/st-mipid02.c                     |  2 +-
+>  drivers/media/i2c/tc358746.c                       |  3 +--
+>  drivers/media/pci/mgb4/mgb4_core.c                 |  4 ++--
+>  drivers/media/pci/mgb4/mgb4_regs.c                 |  2 +-
+>  drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c  |  2 +-
+>  drivers/media/pci/ttpci/budget-core.c              |  5 ++++-
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c   | 10 ++++-----
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-core.c   |  6 ++---
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-core.h   |  2 +-
+>  .../media/platform/mediatek/mdp3/mtk-mdp3-m2m.c    |  6 ++---
+>  drivers/media/platform/nvidia/tegra-vde/h264.c     |  6 ++---
+>  drivers/media/platform/qcom/venus/vdec.c           | 15 +++++++------
+>  drivers/media/platform/qcom/venus/venc.c           | 19 +++++++++-------
+>  .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   |  5 +----
+>  drivers/media/radio/si4713/radio-usb-si4713.c      |  8 +++++--
+>  drivers/media/usb/au0828/au0828-video.c            |  5 +----
+>  drivers/media/usb/b2c2/flexcop-usb.c               |  5 +----
+>  drivers/media/usb/cx231xx/cx231xx-i2c.c            | 16 +++++++++----
+>  drivers/media/usb/cx231xx/cx231xx-video.c          | 10 +++++++--
+>  drivers/media/usb/dvb-usb/dib0700_core.c           |  4 +++-
+>  drivers/media/usb/go7007/go7007-fw.c               |  4 ++--
+>  drivers/media/usb/gspca/cpia1.c                    |  6 ++---
+>  drivers/media/usb/hdpvr/hdpvr-control.c            |  4 +++-
+>  drivers/media/usb/s2255/s2255drv.c                 | 20 ++++++++---------
+>  drivers/media/usb/stk1160/stk1160-video.c          | 10 ++-------
+>  drivers/media/usb/uvc/uvc_ctrl.c                   | 26 ++++++++++++----------
+>  drivers/media/v4l2-core/v4l2-async.c               |  8 +++----
+>  drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c  |  1 -
+>  drivers/staging/media/tegra-video/tegra20.c        |  9 ++------
+>  36 files changed, 132 insertions(+), 129 deletions(-)
+> ---
+> base-commit: 71b3ed53b08d87212fbbe51bdc3bf44eb8c462f8
+> change-id: 20240415-fix-cocci-2df3ef22a6f7
 > 
-> 
-> 
+> Best regards,
 
+-- 
+Regards,
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
-
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-New warnings running 'make CHECK_DTBS=y st/stm32mp135f-dk.dtb' for 20240411143658.1049706-1-christophe.roullier@foss.st.com:
-
-arch/arm/boot/dts/st/stm32mp135f-dk.dtb: adc@48003000: 'ethernet@5800e000' does not match any of the regexes: '^adc@[0-9]+$', 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
-
-
-
-
-
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
