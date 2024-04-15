@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41CDF8A63DA
+	by mail.lfdr.de (Postfix) with ESMTPS id 442D68A63DB
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5208C6DD9A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8883C6DD9C;
 	Tue, 16 Apr 2024 06:35:02 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61B13C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EB18C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:33 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-6eb7a0b3fe7so1211536a34.2
+ Mon, 15 Apr 2024 19:34:34 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-78d683c469dso371091085a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:33 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209672; x=1713814472;
+ d=chromium.org; s=google; t=1713209673; x=1713814473;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=30a1609TFHVDYvbsiCwVx5jyS7S7qnpRfAGqZPi3zic=;
- b=O8jLZF9/ndN1svb5w3KNHBz2NAswZX+SPZJpSKYAqr6czcZoaBR3KL8Gi2REftxhMh
- e/MW+U4aHn571tVIN89ZdacnPCzWRjFEqnsHL4mc0yfNd4boLC91W/eRDjFTcIW9Lh7O
- teprdKjwTrmk259ECoAGfMMuvZQMCBrK8aHZo=
+ :reply-to; bh=8w49vqOwnRlIfNq1dtx4OWinIRfPHFawqCMqrawnhls=;
+ b=WMmxhX1lW1WxjZ6InoClJyPq5zpdF13+paeWTLnoRexMlK3kJS/d3VpaB28yxgq3Bk
+ vMFiEhLI+8qxQhBv0UdSJ8E57c+ki+bFmXTuuVlHknTqm8zkmHuidEq+vWZ2wF92ybka
+ W3bhYGcLwkZce4pB53P01IcP00aXLSpPDw85k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209672; x=1713814472;
+ d=1e100.net; s=20230601; t=1713209673; x=1713814473;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=30a1609TFHVDYvbsiCwVx5jyS7S7qnpRfAGqZPi3zic=;
- b=Tkz3k4D1BM/UQ37aGPRyPOzMWZLGPnsBpt7L46CQbwuBdaPQCIRGGncifkLWx7RSSX
- 1ey0oOH8C0Z8CyR6WRFRxY62DhYmJKAQ1sFphQQgUF5Y6Wk8jafdr1VKUi8Kgg2fyUtT
- eDxKtxGNrM5zCL2jsqopJoiVyxMYBtQ9QInKIYT+TDZEyDQJ6x61zbW6qCt0vcp2kgpw
- djDEyWYCEJzeKLzvENznb2oWJKkG9qobJvHWxBM8u2zmWg8SC0knKjtk1bA/9ZPgH85d
- XmviYRvwgH6+k+cXZ5uXmKUZr6uVRIck9qIk9NFZqD+eYD/RC7dfqffHCZSE4qOIJ0xn
- yNsg==
+ bh=8w49vqOwnRlIfNq1dtx4OWinIRfPHFawqCMqrawnhls=;
+ b=ch7Hq1krKyB4KuPIZgR2fqRny67gXHhzOF1nYTbRiKPa35DScwxuzQ2Z9scOOwjlmJ
+ KMS4pCANHhNpc2fbtVDUnBAkpC7LzE/vsxJstIABARF/YKql55sHqRwjHpqTjDIBRACu
+ S5Q+xRLYt5djOQZfHXN7Sed81X5Pf0m22TYsRQ0Z5pS+/b0eUB8gG80NuOFZhNrUSbBz
+ Nz8U0yrUc09Qp2vKR8Pa6pmIjCqOWhV0ap0LlyiKMepEOIvYk5TCjtpNFVBrkazhF3Dm
+ vdpacG46RgwUYEzy7ozB/qYV3JUVIgozE0cvWRxgKh2gc/C4egnQAGslRtm5YDu6U/rK
+ p2dA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX6zI5pww/7TapSlgCR4PR530cGFttyLc4EUukE0bN7zN5onDhX1k3261e+tz6TUknJ2hH4FX02PqjZT4+suDXIyGGLi7lBwlB/+w8hr4EiiTLUcH8MikpG
-X-Gm-Message-State: AOJu0YzrDXU3uoyUN9zGqeYuy0W9MA/wc3PERumGm/4aoaWZABEbabUs
- ju4NZSF/7Jp/592zl08tFPeXdh/w69aua3EdN3d0qmVc1odO/43nc5Viowy1cQ==
-X-Google-Smtp-Source: AGHT+IFajy4caV38o9egD00xBm8+r7fFdvax0FnbVE1biamOQ+jag9WqCsqV4RWMv5Us6Un2NRlLiw==
-X-Received: by 2002:a05:6830:14cf:b0:6eb:7a07:8746 with SMTP id
- t15-20020a05683014cf00b006eb7a078746mr5458830otq.31.1713209672276; 
- Mon, 15 Apr 2024 12:34:32 -0700 (PDT)
+ AJvYcCVbXyGjH0ZEx4Qn72nW9gTmbhWD8Xbgs6SzkF7oBe+xke9kdvS4H6CWBl0+hHRd6hvnWiEc9Vvryp9ihw8Dmnjy6bPKfRONyxXGQVNNuw+zP/FyUmx/EeDG
+X-Gm-Message-State: AOJu0YxW4YNxfufoyTnzQ1BQ6nZm/RYBvT4nwDLbLZRbr2ao+WdMYaL5
+ WKjTRC01sYM1VDJvgJ0jmupuTUBDzJYC9BEN4yr1VuuPPWn9EubdBZ0bVirbgA==
+X-Google-Smtp-Source: AGHT+IF3Z64gOvH813ZrsURn6c5OX0cA+P7DewlH+o86rsWDf5urUOYDJaPeLXGD215pMul/2CCAvg==
+X-Received: by 2002:a05:620a:5e48:b0:78e:e7f8:a5e3 with SMTP id
+ ya8-20020a05620a5e4800b0078ee7f8a5e3mr3707352qkn.52.1713209673334; 
+ Mon, 15 Apr 2024 12:34:33 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.31
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:31 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:33 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:22 +0000
+Date: Mon, 15 Apr 2024 19:34:23 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-5-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-6-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,7 +100,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 05/35] media: go7007: Use min and max macros
+Subject: [Linux-stm32] [PATCH 06/35] media: stm32-dcmipp: Remove redundant
+	printk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,31 +118,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It makes the code simpler and cocci happier:
+platform_get_irq() already prints an error message.
 
-drivers/media/usb/go7007/go7007-fw.c:1292:14-15: WARNING opportunity for max()
-drivers/media/usb/go7007/go7007-fw.c:1293:14-15: WARNING opportunity for min()
+Found by cocci:
+drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c:444:3-10: line 444 is redundant because platform_get_irq() already prints an error
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/go7007/go7007-fw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/media/usb/go7007/go7007-fw.c b/drivers/media/usb/go7007/go7007-fw.c
-index 018019ba47d4..86ce593e0c54 100644
---- a/drivers/media/usb/go7007/go7007-fw.c
-+++ b/drivers/media/usb/go7007/go7007-fw.c
-@@ -1289,8 +1289,8 @@ static int avsync_to_package(struct go7007 *go, __le16 *code, int space)
- 		0xbf99,		(u16)((-adjratio) >> 16),
- 		0xbf92,		0,
- 		0xbf93,		0,
--		0xbff4,		f1 > f2 ? f1 : f2,
--		0xbff5,		f1 < f2 ? f1 : f2,
-+		0xbff4,		max(f1, f2),
-+		0xbff5,		min(f1, f2),
- 		0xbff6,		f1 < f2 ? ratio : ratio + 1,
- 		0xbff7,		f1 > f2 ? ratio : ratio + 1,
- 		0xbff8,		0,
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index bce821eb71ce..c25027b0ca32 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -439,11 +439,8 @@ static int dcmipp_probe(struct platform_device *pdev)
+ 				     "Could not get reset control\n");
+ 
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq <= 0) {
+-		if (irq != -EPROBE_DEFER)
+-			dev_err(&pdev->dev, "Could not get irq\n");
++	if (irq <= 0)
+ 		return irq ? irq : -ENXIO;
+-	}
+ 
+ 	dcmipp->regs = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
+ 	if (IS_ERR(dcmipp->regs)) {
 
 -- 
 2.44.0.683.g7961c838ac-goog
