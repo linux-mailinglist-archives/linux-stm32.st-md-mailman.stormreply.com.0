@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06EFF8A63D7
+	by mail.lfdr.de (Postfix) with ESMTPS id 1557F8A63D8
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9335BC6C859;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7032C6DD67;
 	Tue, 16 Apr 2024 06:35:02 +0000 (UTC)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
+ [209.85.161.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50D2BC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82729C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:30 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-78d5e7998a0so283662985a.1
+ Mon, 15 Apr 2024 19:34:31 +0000 (UTC)
+Received: by mail-oo1-f50.google.com with SMTP id
+ 006d021491bc7-5aa17c69cf7so2691376eaf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:30 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209669; x=1713814469;
+ d=chromium.org; s=google; t=1713209670; x=1713814470;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xRTXUwBhcFkchUD68etf7Ns4ncGhFtPLbimlhLL9HW4=;
- b=BT5WMrlJfB4fhqI5bRGwF6S+8YihuIt3qlT3FCDjxP+/zqvEuMlu7WIwBKCOjpt2Kt
- 7Wfo58JoBZnEqX3anGLHwLECuir7DXRoAYRvS/cJ2Clg2YmOxbRqCxMdGCCvGU7BFCI3
- IH4m5HuqmrYwVk4fmauHtI16YKsCdQ8fdCdd4=
+ :reply-to; bh=vq+7mr1szAOvpscJpegvOEKeeaK/lFJAotzxeoFP90w=;
+ b=iiP2duz2CcpcQs+ChW8Kxtyk8thO6hBjsMz18+G0cSOmlwC71WRJcK3sxv8fC7Fqsn
+ Gq40ny3poav8ORL90GiyirI69NTOHo6pw3Hq3CUjCAC2lN3mX4GA5U/L/m7nxx+awIDl
+ OuHtWWjDt4skf63RqQJFgpaLdjRzubwZs3Q5c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209669; x=1713814469;
+ d=1e100.net; s=20230601; t=1713209670; x=1713814470;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xRTXUwBhcFkchUD68etf7Ns4ncGhFtPLbimlhLL9HW4=;
- b=X3LNghXOSnt+E8vutujg3kyvgySFqNDd4r8g/kr95NDI2NcxrCSNtxtAMGzSYOz9oG
- EJLzJISFTnhP4/zuXFVLCBb7RHg1C8rOIpfSU+SesDdcRoapTcz8ffeCnwiSC5ZNt2KV
- Wor3SVkl+/qQVuYDC/cOHXGt3IGko315nYz1Gyn18XZjCDwfm34LkETbGSmzLdsXQQf2
- HqY9LrqH/XgidzNr63J6iLFqmaWd3CGlZqdTAOuGBRYesSL/3M6Fgst5Tt428NHfC5jP
- upnYd+v0bfATsHGyt1ITzkPolA4MJbs7w7/Gnbr9u4F9U7ZrizrTPctj/gLBIZfBlWYv
- T0bQ==
+ bh=vq+7mr1szAOvpscJpegvOEKeeaK/lFJAotzxeoFP90w=;
+ b=i0wrgpJSJAYVeAPohsOgUMzrv+Ldt8HMBIeMnO+R1DQgFV2jDdZj4xFh1QuVnur0+C
+ IZxbakRs1d5fcVLOTYsHxjlk3eyeic6S7uejYpbvcnSnNNXcaT0PKzjxkcBovIQTx8Ut
+ WlJ0KTwzwUqo2I/vZdRw4LQTONPeIlrmCMf17PN26Xw/2bbPXZTrlQAEGWYLWigKQ94h
+ /UiJV2JpVuVjYP7z/NiWvdHAdglxfQX0bS36o9GG28lLRW85kSzuKUhAkCA9Yscxe2z+
+ HBB5hkqE1OxA179Ff0TDhecknBhQl96eLMjkjVqiLeeWBHyiItAhK5qFBOsGzR6y3X1y
+ TWRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxbjFdFKtxY/RaRtKVj4IypJ8hoiv3LDRgVq+xYwwxc9OsVE/mda8yQEowXBgFhHdYFSuRRprkfYfahLm0VrjfhqW9x4u4IN8e1FTdBY2ksX9v4S8aRMZL
-X-Gm-Message-State: AOJu0YxMjWqd5f29xBztxSlDw5OmX7Bg+pONlD7iuGcH/YpgdFvoqO7a
- a7x+5lHJ1Lo7pq4F36oY0uxCVD3+H1bfj0hBs7ZsXe59Fqkkar+os4PN+dr68A==
-X-Google-Smtp-Source: AGHT+IEcDB670miUV6x3+CTDpPjHVUs4fSa2Vf0AT5UVwIYIhxKgJdBP21+/uHglj+bsAouxmzkrbw==
-X-Received: by 2002:a05:620a:370b:b0:78d:77f2:573b with SMTP id
- de11-20020a05620a370b00b0078d77f2573bmr14232523qkb.52.1713209669333; 
- Mon, 15 Apr 2024 12:34:29 -0700 (PDT)
+ AJvYcCVS7YaIzZjEqsXt90gIH2AcctJW9z305e0y1ve/n3D68CrCBHO239hlRbzLisdM8OpRF1EwiSHsj9pPThjkMQuuo3NGt5A8ilmS3R28pJLPRYzR1cbaNcrc
+X-Gm-Message-State: AOJu0YzKgnMmWKhqmXA/jbS2sztA2AUQbkBuUDCGKAXhp9XQaAaLuD5H
+ 1Z6Jpao8Ejg4Mj7HGlqmbD85m3XALKU0mUdDWL9PpwZWEI3cngPXYW0DvPtGQQ==
+X-Google-Smtp-Source: AGHT+IFDs72yHh14dMP/v3LcOXYq1AzGZaPkrHXx/btoSixg8uGduMLiI7a2hIPG7rGea4VcIV3D3Q==
+X-Received: by 2002:a05:6870:9a97:b0:22a:2e6:b82e with SMTP id
+ hp23-20020a0568709a9700b0022a02e6b82emr13491647oab.38.1713209670403; 
+ Mon, 15 Apr 2024 12:34:30 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.28
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:28 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:29 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:19 +0000
+Date: Mon, 15 Apr 2024 19:34:20 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-2-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-3-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,7 +100,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 02/35] media: stb0899: Remove unreacheable code
+Subject: [Linux-stm32] [PATCH 03/35] media: uvcvideo: Refactor iterators
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,32 +117,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-chip_id is an unsigned number, it can never be < 0
+Avoid using the iterators after the list_for_each() constructs.
+This patch should be a NOP, but makes cocci, happier:
 
-Fixes cocci check:
-drivers/media/dvb-frontends/stb0899_drv.c:1280:8-15: WARNING: Unsigned expression compared with zero: chip_id > 0
+drivers/media/usb/uvc/uvc_ctrl.c:1861:44-50: ERROR: invalid reference to the index variable of the iterator on line 1850
+drivers/media/usb/uvc/uvc_ctrl.c:2195:17-23: ERROR: invalid reference to the index variable of the iterator on line 2179
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/dvb-frontends/stb0899_drv.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/media/usb/uvc/uvc_ctrl.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/stb0899_drv.c b/drivers/media/dvb-frontends/stb0899_drv.c
-index 2f4d8fb400cd..222b5476ebfd 100644
---- a/drivers/media/dvb-frontends/stb0899_drv.c
-+++ b/drivers/media/dvb-frontends/stb0899_drv.c
-@@ -1277,11 +1277,6 @@ static int stb0899_get_dev_id(struct stb0899_state *state)
- 	dprintk(state->verbose, FE_ERROR, 1, "Demodulator Core ID=[%s], Version=[%d]", (char *) &demod_str, demod_ver);
- 	CONVERT32(STB0899_READ_S2REG(STB0899_S2FEC, FEC_CORE_ID_REG), (char *)&fec_str);
- 	fec_ver = STB0899_READ_S2REG(STB0899_S2FEC, FEC_VER_ID_REG);
--	if (! (chip_id > 0)) {
--		dprintk(state->verbose, FE_ERROR, 1, "couldn't find a STB 0899");
--
--		return -ENODEV;
--	}
- 	dprintk(state->verbose, FE_ERROR, 1, "FEC Core ID=[%s], Version=[%d]", (char*) &fec_str, fec_ver);
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index e59a463c2761..a4a987913430 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -1850,16 +1850,18 @@ int __uvc_ctrl_commit(struct uvc_fh *handle, int rollback,
+ 	list_for_each_entry(entity, &chain->entities, chain) {
+ 		ret = uvc_ctrl_commit_entity(chain->dev, entity, rollback,
+ 					     &err_ctrl);
+-		if (ret < 0)
++		if (ret < 0) {
++			if (ctrls)
++				ctrls->error_idx =
++					uvc_ctrl_find_ctrl_idx(entity, ctrls,
++							       err_ctrl);
+ 			goto done;
++		}
+ 	}
  
- 	return 0;
+ 	if (!rollback)
+ 		uvc_ctrl_send_events(handle, ctrls->controls, ctrls->count);
+ done:
+-	if (ret < 0 && ctrls)
+-		ctrls->error_idx = uvc_ctrl_find_ctrl_idx(entity, ctrls,
+-							  err_ctrl);
+ 	mutex_unlock(&chain->ctrl_mutex);
+ 	return ret;
+ }
+@@ -2165,7 +2167,7 @@ static int uvc_ctrl_init_xu_ctrl(struct uvc_device *dev,
+ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
+ 	struct uvc_xu_control_query *xqry)
+ {
+-	struct uvc_entity *entity;
++	struct uvc_entity *entity, *iter;
+ 	struct uvc_control *ctrl;
+ 	unsigned int i;
+ 	bool found;
+@@ -2175,16 +2177,16 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
+ 	int ret;
+ 
+ 	/* Find the extension unit. */
+-	found = false;
+-	list_for_each_entry(entity, &chain->entities, chain) {
+-		if (UVC_ENTITY_TYPE(entity) == UVC_VC_EXTENSION_UNIT &&
+-		    entity->id == xqry->unit) {
+-			found = true;
++	entity = NULL;
++	list_for_each_entry(iter, &chain->entities, chain) {
++		if (UVC_ENTITY_TYPE(iter) == UVC_VC_EXTENSION_UNIT &&
++		    iter->id == xqry->unit) {
++			entity = iter;
+ 			break;
+ 		}
+ 	}
+ 
+-	if (!found) {
++	if (!entity) {
+ 		uvc_dbg(chain->dev, CONTROL, "Extension unit %u not found\n",
+ 			xqry->unit);
+ 		return -ENOENT;
 
 -- 
 2.44.0.683.g7961c838ac-goog
