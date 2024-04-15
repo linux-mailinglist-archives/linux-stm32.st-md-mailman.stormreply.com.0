@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096648A63EB
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F008A63ED
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2F87C712BE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE163C78002;
 	Tue, 16 Apr 2024 06:35:03 +0000 (UTC)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B71C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD9D3C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:54 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-78d5b1a34fdso245486685a.2
+ Mon, 15 Apr 2024 19:34:56 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-61816fc256dso31277357b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:54 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209693; x=1713814493;
+ d=chromium.org; s=google; t=1713209696; x=1713814496;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/qWsKtiTtM68cPujZgkDbgLJScEQ/KU6IejvF8XzFy8=;
- b=Tp0jcDgJwz2Zj9+39NeidmHeQYSF69DAOK+jFUP2a8LmVa5Ydu2s3jTrbQ2Tn8AlQk
- 4QJ8qQUH78+k20Qu8T/k50he6THGlfYi2OGf/Bq0BoTlO/EwS8k/9OK24bS2B8pEMUwR
- 8HqP2sp93mddACbh3k5xNOtrGFvRAXaPh3zrI=
+ :reply-to; bh=uh3OglTS/dLlK8U5oP5C8O8FlJacnVYJb0xAej3AKiQ=;
+ b=IOUSbZMzfKLyGZ5L4OJqkdW0w8cEuHkuF2KEw+nkI9euhcQTAbq65VY/TdP/3nIiGG
+ XJw11vFZnLWH9jNa2nodYMsn2htke6xav4uEZNIVF9V2eXMIRSMadAYu+VSxw4c575EB
+ m3Ldc11EhoxXVRZEdl3ZK0YtauTJaJHGnTUpc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209693; x=1713814493;
+ d=1e100.net; s=20230601; t=1713209696; x=1713814496;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/qWsKtiTtM68cPujZgkDbgLJScEQ/KU6IejvF8XzFy8=;
- b=mKmlZTauU0nmla9ItC0m3hbnlwzhI8x9Cjite8C5dGlse8Of2PuoEEkUrgWaQdR8AT
- 5sz8ygOEAraSjCEtQ/VIXZKzUo0PuNIj4udkxBrxKo3m9Ml1Y1/rksvQmIHTByFidrX4
- bbCSYzjjFdq3lyw2STNw9u1+ns8KXHZ5iMqmFAVyRBwnpPrrGLRHZeJbbfhHjKp+dYPE
- ajqu1e20gtVzsIyTbZV/tR/hi7ELglOyw5Bke7X3qGFzMAMIccc8Ef+ygx1bnl71fKKS
- b8/MviDQmCDR3Jqeg0K9eI19qik3pHCgSk9T2t8iZhYPQY0NhlAsTF0f37ZYg/fF3DEo
- Z7cg==
+ bh=uh3OglTS/dLlK8U5oP5C8O8FlJacnVYJb0xAej3AKiQ=;
+ b=PuCujiUi8hNDFDbKlMMJp30+oWIkdpeAby5IkCBBRwrOcN9lJ/ra+mBxJxaLz//bi6
+ 0NsGf5yX/dicKzzf3I9DxW1+5PlGLEv34s3yGaDG9bI1cQ4MExcQCuV0c8Pmi4zWBvr1
+ fvJmMrpcoh09rB309aUBcz0l2tRnuUi9WIoeqrDjx9g3X6wO4BeEzUtkDuvrgyiwnkdK
+ 7g+QRKmFO8zcUNEPSPcVO72rTeZQaC771k5v3iO2JsllVv/22tNp1cvv82lUgSfGTAek
+ at3PEb5OPLorhjgxKugRCmZU/FRhI8vUJCJjhg1wDqueUx+cEFc4DrC5vy/8xlT6vhWo
+ dIKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJqeaKgWT+VHlAAoefmjDpUFokdr8EvHlhscXhrbcwfY6Hooi+tqdItPVVuXYzmlBAL8O+ba7YDBWikhQ0s6oqJYIFjNFCNta/8b43LJbFhbtsRP++kffw
-X-Gm-Message-State: AOJu0Yyotx3Cv64agbrPMywAgmSFDmf+l36qoSaPfhPnrATR6vLzZamA
- qDkocx9oq3XLgCi0j2tLAxpAcuacfmhYE3Ueco9zS7W0S+jai16rgpoYKQl7XA==
-X-Google-Smtp-Source: AGHT+IE7tE6n2LOOWlxUIvgFNmo/Vr0dYpoxwwqjlaXwS/vDwhHd4c5esyFK2/v/y9hDaMP9p/kqqQ==
-X-Received: by 2002:a05:620a:410a:b0:78e:f439:64ee with SMTP id
- j10-20020a05620a410a00b0078ef43964eemr19862qko.72.1713209693277; 
- Mon, 15 Apr 2024 12:34:53 -0700 (PDT)
+ AJvYcCWN7r+sJlj350McMSu7MkqVaU19A16M1Y+xl6hUuFRWWMamXmhQWzqMVOgvtT9RK0nZic8wDo4zAK71BqOL7vpdGhm9w0HXRqdyuN2/wfalEYi+msU/FUae
+X-Gm-Message-State: AOJu0YxcqJgBwArRyaclAaX+15FQ05KdoGLogStleURaMsvA5Zh5enFV
+ wqfIGEv86+WRBDVcN51jw/liGhmqI1BAoFSHCJVS/uY6xNL7sdIALz81X0JwRg==
+X-Google-Smtp-Source: AGHT+IG9BJHIxhgRtiyDrmvRjmvCt0KkebPpr6qQTdSe7jE4SlMZNfcxa6IYFxpia/6VuZ7zYE1XoQ==
+X-Received: by 2002:a05:690c:1c:b0:618:822a:e69a with SMTP id
+ bc28-20020a05690c001c00b00618822ae69amr9192708ywb.9.1713209694201; 
+ Mon, 15 Apr 2024 12:34:54 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.52
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:52 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:53 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:39 +0000
+Date: Mon, 15 Apr 2024 19:34:40 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-22-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-23-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,8 +100,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 22/35] media: i2c: st-mipid02: Use the correct
-	div function
+Subject: [Linux-stm32] [PATCH 23/35] media: dvb-frontends: tda10048: Use the
+	right div
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,29 +118,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-link_freq does not fit in 32 bits.
+z does not fit in 32 bits.
 
 Found by cocci:
-drivers/media/i2c/st-mipid02.c:329:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_s64 instead.
+drivers/media/dvb-frontends/tda10048.c:345:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/i2c/st-mipid02.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/dvb-frontends/tda10048.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/st-mipid02.c b/drivers/media/i2c/st-mipid02.c
-index f250640729ca..93a40bfda1af 100644
---- a/drivers/media/i2c/st-mipid02.c
-+++ b/drivers/media/i2c/st-mipid02.c
-@@ -326,7 +326,7 @@ static int mipid02_configure_from_rx_speed(struct mipid02_dev *bridge,
- 	}
+diff --git a/drivers/media/dvb-frontends/tda10048.c b/drivers/media/dvb-frontends/tda10048.c
+index 5d5e4e9e4422..b176e7803e5b 100644
+--- a/drivers/media/dvb-frontends/tda10048.c
++++ b/drivers/media/dvb-frontends/tda10048.c
+@@ -342,8 +342,7 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
+ 	t *= (2048 * 1024);
+ 	t *= 1024;
+ 	z = 7 * sample_freq_hz;
+-	do_div(t, z);
+-	t += 5;
++	t = div64_u64(t, z) + 5;
+ 	do_div(t, 10);
  
- 	dev_dbg(&client->dev, "detect link_freq = %lld Hz", link_freq);
--	do_div(ui_4, link_freq);
-+	ui_4 = div64_s64(ui_4, link_freq);
- 	bridge->r.clk_lane_reg1 |= ui_4 << 2;
- 
- 	return 0;
+ 	tda10048_writereg(state, TDA10048_TIME_WREF_LSB, (u8)t);
 
 -- 
 2.44.0.683.g7961c838ac-goog
