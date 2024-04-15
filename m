@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225E08A63EC
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C288A63EE
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D06A4C78000;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB820C78004;
 	Tue, 16 Apr 2024 06:35:03 +0000 (UTC)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A461C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33218C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:56 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-6eb7d1a5d39so1007940a34.2
+ Mon, 15 Apr 2024 19:34:57 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-78a2a97c296so232944585a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:56 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209695; x=1713814495;
+ d=chromium.org; s=google; t=1713209696; x=1713814496;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=QeRLp7zsOtUSdDFmgCUblI9njYJR1iKxSTZ/4ILbF+w=;
- b=AKdqWXB5cmY1J1nc+yDNLP1zOTnrb8GYayFOYrR55H2RPHOIiSsmwsCwlSJhtDZRFW
- kUoKIu0oA810Zkn/N8iMNjsRTCpKuUOrHboIQYw8l6HmvwGmVYQHAOjKZ8TFNupH2I13
- EgLxvhOqZl/8+Nbt9UjllJSd5kF2dlShdNKMU=
+ :reply-to; bh=LUBi0S9+ghcjER4xO9v0racZxhYV4zff+IOh7tdBF3Y=;
+ b=m2eE7pblUemhZwfUzVnHWf8b2eR3uqCzwA3yKQFFulaqm+sIyHgVK14Byx+S6QwMmS
+ 77oLUTS9qrgjM87wV6byJrkFZNwle2WX/vQH4r5AZgiEGW0T7nvceH0uh+7nzPuZ+WG+
+ a0qgkerTBRRxPoHX4GsGCAQeyv6Gs3DxueKcs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209695; x=1713814495;
+ d=1e100.net; s=20230601; t=1713209696; x=1713814496;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QeRLp7zsOtUSdDFmgCUblI9njYJR1iKxSTZ/4ILbF+w=;
- b=PqQKfu5GOvSHv4LaputFksj3lMHrDfhLgIrODqT7Q6C1YEZdbYcy35wddfRwJyjaOE
- 11bW6pkWE9Ehc+8O3VT3ZlB6ZJEjjer2edQ0u9ZUiD1B1083mDTuQpFo5ofQZzKbEZtv
- TWBpwh7Td5jlfM5Szw5iPFYTq6HwS/Dgk9kzkrJzT/MiCvZJCigUKk6yo51GbKFt/Met
- XVesJKsMmdsbcZ5tjjy15TMBQ7tZCg3o5MtmL+7EhRortargl2wBRIeO5hm8oxs2rcuL
- ptYSazdenz3xRFTevYb3hjBiQ06k2lgtOxDOX56ul0LjkRf9XjmnyhKMgMRgeDjoQMj5
- nNcA==
+ bh=LUBi0S9+ghcjER4xO9v0racZxhYV4zff+IOh7tdBF3Y=;
+ b=ttJaPI0Tv7Cs349oUDsQqAN3iJLgX9wGJ7ehUrGYU+r89MJooncT3zSb5FZ8wMBHKt
+ KexHYdc+5+wFonxm/vVvwfk2vSyWlenfzzm2IO0k3yEO0lAiVFNZ/dQrxPDMfyv5yDvM
+ PYirk+olFJIZeiJyxoDpJis7APEz7UdgCodkIjl098aK5w+g3curbJSmsG7xPSsBpyJL
+ ce/Xy+tHLOXIpoAW14fs14SINepfNOuWpyoKVK4mxt1QFSTbk2dLL5sbq3dtmqBTbHbu
+ K5zo0imwgrgsqrePHNg1cfljYUl/tnbdgyFxLPOhmenC0bLiiaaDuk8u7uFKAvEXo4Co
+ sTmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWsg7URGoCyzaUPWK34J+7/+h89CR3nYli/fqbpTgOycUK0bBiH3DyLZ1gYw5z741me0gQciZcMFTuhcgL0LLmMPb3piCeUEUxGFGkHRiwhO8/9UyzT4GDe
-X-Gm-Message-State: AOJu0YwtCs/smxAbNg0VaCxWhezNqLOIQrgORRWdwwpL5IeRPnrYzgjk
- r3H4hIzmiXKYLnqdJwyn71IKB1Vh1WY+0stS00gn2T7m+oBd265+HQjcK3ofww==
-X-Google-Smtp-Source: AGHT+IFsqXR5fSRZnzm1Kf6aaPblaNqmPYRQpJrXNEFCJBpTElAi4AncAaUAPBA9CFnD3PK/w6M+nA==
-X-Received: by 2002:a9d:748b:0:b0:6eb:7d1c:f793 with SMTP id
- t11-20020a9d748b000000b006eb7d1cf793mr4227322otk.31.1713209695186; 
- Mon, 15 Apr 2024 12:34:55 -0700 (PDT)
+ AJvYcCW217A4NG5jir3rPBdCJNlfSeJMy4XuoQBjMvBQjXFT0U8znE7E357ciUwdQXNrFXS1hMwcLy5W9ryFT1D2wEN28B5enmovqrTBcybPjxeV5kQH6XnQLgl4
+X-Gm-Message-State: AOJu0YyO1HZmqah7dztuejamnKXyOVEcBizP6geIVKIjKMfs/pOck4aU
+ dfL67BVal9eomg9wmPO3dnK+lAqPvm4w8J8sPtq/ffHe77lpq9WYS0Yio99UwQ==
+X-Google-Smtp-Source: AGHT+IENHla9VOs9zol9LIJSv1150+DgeHz4OsMQu2kACgbSSAPw34HTPzLa823VVZ1Js6TnsSST2Q==
+X-Received: by 2002:ae9:ec08:0:b0:78e:df14:19dc with SMTP id
+ h8-20020ae9ec08000000b0078edf1419dcmr4888734qkg.20.1713209696184; 
+ Mon, 15 Apr 2024 12:34:56 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.54
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:54 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:55 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:41 +0000
+Date: Mon, 15 Apr 2024 19:34:42 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-24-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-25-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,7 +100,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 24/35] media: tc358746: Use the correct div_
+Subject: [Linux-stm32] [PATCH 25/35] media: venus: Use the correct div_
 	function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -118,30 +118,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-fin does not fit in 32 bits in some arches.
+us_per_frame does not fit in u32
 
-Found by cocci:
-drivers/media/i2c/tc358746.c:847:2-8: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+Found with cocci:
+drivers/media/platform/qcom/venus/venc.c:418:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/i2c/tc358746.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/media/platform/qcom/venus/venc.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/i2c/tc358746.c b/drivers/media/i2c/tc358746.c
-index d676adc4401b..edf79107adc5 100644
---- a/drivers/media/i2c/tc358746.c
-+++ b/drivers/media/i2c/tc358746.c
-@@ -844,8 +844,7 @@ static unsigned long tc358746_find_pll_settings(struct tc358746 *tc358746,
- 			continue;
+diff --git a/drivers/media/platform/qcom/venus/venc.c b/drivers/media/platform/qcom/venus/venc.c
+index 3ec2fb8d9fab..de06e1712d09 100644
+--- a/drivers/media/platform/qcom/venus/venc.c
++++ b/drivers/media/platform/qcom/venus/venc.c
+@@ -393,7 +393,7 @@ static int venc_s_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
+ 	struct venus_inst *inst = to_inst(file);
+ 	struct v4l2_outputparm *out = &a->parm.output;
+ 	struct v4l2_fract *timeperframe = &out->timeperframe;
+-	u64 us_per_frame, fps;
++	u64 us_per_frame;
  
- 		tmp = fout * postdiv;
--		do_div(tmp, fin);
--		mul = tmp;
-+		mul = div64_ul(tmp, fin);
- 		if (mul > 511)
- 			continue;
+ 	if (a->type != V4L2_BUF_TYPE_VIDEO_OUTPUT &&
+ 	    a->type != V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+@@ -414,11 +414,8 @@ static int venc_s_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
+ 	if (!us_per_frame)
+ 		return -EINVAL;
  
+-	fps = (u64)USEC_PER_SEC;
+-	do_div(fps, us_per_frame);
+-
++	inst->fps = div64_u64(USEC_PER_SEC, us_per_frame);
+ 	inst->timeperframe = *timeperframe;
+-	inst->fps = fps;
+ 
+ 	return 0;
+ }
 
 -- 
 2.44.0.683.g7961c838ac-goog
