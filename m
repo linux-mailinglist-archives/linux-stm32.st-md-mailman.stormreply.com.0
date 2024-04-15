@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0808A63E5
+	by mail.lfdr.de (Postfix) with ESMTPS id CDAAF8A63E7
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CF64C7129A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93553C7129E;
 	Tue, 16 Apr 2024 06:35:03 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88FC5C6DD67
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6EB8C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:48 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-78ec78c4fceso238121585a.0
+ Mon, 15 Apr 2024 19:34:49 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-78d555254b7so293846385a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:48 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209687; x=1713814487;
+ d=chromium.org; s=google; t=1713209689; x=1713814489;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=VH1TTY2R78PVfXYnT8sQaYwvCkEpO00JMLA8gBHoObU=;
- b=FWRBtjiNeUqtNxjATmdrt29fnV49YpqdmXdFHS2DSUBfPfsnsi6Sy4BDmTyoNaaC4H
- Nti+8gOAo6W6sWNao0NzI1cVMVDYrapuSaPVNJGo69SxBogUtWnR7WnDD4WVBAeiQyXi
- wrEAFa765alueDQ/j1Rni0S0qyHg3u3JeWT2E=
+ :reply-to; bh=Ysx9uvN3ilBy5tFwit8pBZpHwFo890jKkO1ecScbT94=;
+ b=Vbcxtp2kN88UWUID7wc7msEAa74D8bTlYpnoukO86afYlbPR4SFuVP81HvaVnOORS8
+ UwIrEKT9lOvz57grQTkcrqgyQ00XKYaCcaAHhDdcEixfUUvFCVxTZuQKNaZE2bLdfFj3
+ t02mvVvZTjQkHomoxtHzxN1L2H6n8HoH+3ouc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209687; x=1713814487;
+ d=1e100.net; s=20230601; t=1713209689; x=1713814489;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VH1TTY2R78PVfXYnT8sQaYwvCkEpO00JMLA8gBHoObU=;
- b=rDeoKqLpGrDwz2iTVS28fhPsY9DwJs9C0+RiDMwkGJL8UIQ+ksCY5iJ8VGPUMHsKpB
- Hlvw2FC+v0pJxzAkhM+BcSWkek0YQcylR2z1goqKRXvPDklLf1+YJ04Kn+oJ+xd7eTT9
- QhsefvicO1oNgBUpV1pTfrUoA8IyxKRdMfD1dvpFvLA3QCURmRALQmaoYxzuLmAt5c2m
- Cl/UU6LWazkETtxmeyKjoa1tr8ZIMJqyZwNKo9sn569yrd4RZtTCeYOWJ1K0gO2MTayf
- Y17xJAXThkezhzK9CxbVf3NTm3gkIlrGUstukjXHG/EkLXj52d7T0gAXCnsgIx2hJc+c
- vF3g==
+ bh=Ysx9uvN3ilBy5tFwit8pBZpHwFo890jKkO1ecScbT94=;
+ b=FzYKezIoHfbwe+/fqt6k5w6MsQqsb3WSis0vo497EJFCw5JPmoGuXE7nr/f1bmgXbH
+ EvCNGdtscwhfv+ZHnGbYJefTgAXAWFRTND06p05TlkhCFeKMyJjE4M6QtJibSdzhLijS
+ RnL610Pv5jln1u0U2wY3Z7yiJFFmKfWKmK2ZP0AkyjO9UuS/kiPIb+WqF/KVOSZRcWYF
+ y+Estw+4zktc9T40v6Wwq1ThqKxhhI0c4Q7mznoGnGtDdRD53SBTOJon0ht/0YTgZ2bQ
+ jW2wnDGmT3aYQyDMWdjepVyiVY8CKBZBGIqUiW7+S+WtBwUZP3JWZLUVbFX0hxEjSvd7
+ +eVQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5H3ZNOmG51TCQR/ku45gGBGNL0YEDcISni2SKJ2itjCeROzSNTmApUNUa7nexbpNp05NgwejcS6CdquiI0Sg9xtoIE42dmYeEOVuqzTtp3pAvbMl+k5bM
-X-Gm-Message-State: AOJu0YwQkbYbgK4pVxt69U6RM79umT10qqUg6ex2z8B98C+PrHbOG0Up
- IK9Pm7uYP6I0UGnqtfuyHOkJ1S/vrtGR+qt3969JOZFr0xWaTcTFp3MXcccY7Q==
-X-Google-Smtp-Source: AGHT+IFZZwBtLZMDNfJayMBU/PaT+EdKNrIoBaFoYxfd58lYWJrbZu6cOvIxZ8QNIWMRuOhipLdFVA==
-X-Received: by 2002:a05:620a:2953:b0:78d:61fe:77c6 with SMTP id
- n19-20020a05620a295300b0078d61fe77c6mr1118634qkp.2.1713209687511; 
- Mon, 15 Apr 2024 12:34:47 -0700 (PDT)
+ AJvYcCX7AccfzxSswlhVM3XiXq9014Ht6yJxg5ZOf48s0zPp+3HQYnT6QWLw1UIEYF1UQNiCZqHWuJs/HJR2bA9RxBZt8SH172I7Te+rUxvIG7PDLGaHEdq9EL5n
+X-Gm-Message-State: AOJu0YyZLB5TDGoSlvBT7EvsMWByvL/oRE70Tl2Mj/4HpmdVOeJXRdWF
+ AgFRZkcuvpBDeW2qEMUQuFn/vhpNa7d+nM6O2Ci4GNFFPYxSShaYkLJCOivDYA==
+X-Google-Smtp-Source: AGHT+IHQyP/6IMh0FCNlSBAUIYfTzsci3IX6XU70Oi2xtR2oFiLVlI4GVoQeVlX1sWvOJp1rCpFZ7g==
+X-Received: by 2002:a37:c244:0:b0:78e:f0d6:3ac0 with SMTP id
+ j4-20020a37c244000000b0078ef0d63ac0mr1060376qkm.31.1713209688866; 
+ Mon, 15 Apr 2024 12:34:48 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.46
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:47 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:48 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:34 +0000
+Date: Mon, 15 Apr 2024 19:34:35 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-17-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-18-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,7 +100,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 17/35] media: flexcop-usb: Use min macro
+Subject: [Linux-stm32] [PATCH 18/35] media: gspca: cpia1: Use min macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,29 +120,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Simplifies the code.
 
 Found by cocci:
-drivers/media/usb/b2c2/flexcop-usb.c:201:8-9: WARNING opportunity for min()
+drivers/media/usb/gspca/cpia1.c:607:30-31: WARNING opportunity for min()
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/b2c2/flexcop-usb.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/media/usb/gspca/cpia1.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/usb/b2c2/flexcop-usb.c b/drivers/media/usb/b2c2/flexcop-usb.c
-index 790787f0eba8..3ba6a5ed7167 100644
---- a/drivers/media/usb/b2c2/flexcop-usb.c
-+++ b/drivers/media/usb/b2c2/flexcop-usb.c
-@@ -197,10 +197,7 @@ static int flexcop_usb_memory_req(struct flexcop_usb *fc_usb,
- 		return -EINVAL;
- 	}
- 	for (i = 0; i < len;) {
--		pagechunk =
--			wMax < bytes_left_to_read_on_page(addr, len) ?
--				wMax :
--				bytes_left_to_read_on_page(addr, len);
-+		pagechunk = min(wMax, bytes_left_to_read_on_page(addr, len));
- 		deb_info("%x\n",
- 			(addr & V8_MEMORY_PAGE_MASK) |
- 				(V8_MEMORY_EXTENDED*extended));
+diff --git a/drivers/media/usb/gspca/cpia1.c b/drivers/media/usb/gspca/cpia1.c
+index 5f5fa851ca64..14aaf36cde6e 100644
+--- a/drivers/media/usb/gspca/cpia1.c
++++ b/drivers/media/usb/gspca/cpia1.c
+@@ -604,10 +604,8 @@ static int find_over_exposure(int brightness)
+ 	MaxAllowableOverExposure = FLICKER_MAX_EXPOSURE - brightness -
+ 				   FLICKER_BRIGHTNESS_CONSTANT;
+ 
+-	if (MaxAllowableOverExposure < FLICKER_ALLOWABLE_OVER_EXPOSURE)
+-		OverExposure = MaxAllowableOverExposure;
+-	else
+-		OverExposure = FLICKER_ALLOWABLE_OVER_EXPOSURE;
++	OverExposure = min(MaxAllowableOverExposure,
++			   FLICKER_ALLOWABLE_OVER_EXPOSURE);
+ 
+ 	return OverExposure;
+ }
 
 -- 
 2.44.0.683.g7961c838ac-goog
