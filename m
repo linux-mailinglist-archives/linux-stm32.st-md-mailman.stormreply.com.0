@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F4A8A63E0
+	by mail.lfdr.de (Postfix) with ESMTPS id 872F28A63E1
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F48DC71290;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E9BDC71292;
 	Tue, 16 Apr 2024 06:35:03 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2BF2C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3657EC6DD67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:40 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-78edc0a81efso140418385a.1
+ Mon, 15 Apr 2024 19:34:42 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-78d778e6d3cso329909585a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:40 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209680; x=1713814480;
+ d=chromium.org; s=google; t=1713209681; x=1713814481;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=hx47X/CBEUsxAKiiRrHT5ksgFdQJWx3yIi/EXUgSCek=;
- b=Z+sXSBOzPfduwzIn7Sg2hIAiLu0Z6Z9Q69GaO6HC0stnO+WFw55MaRv+pxxXoLceKA
- IOHN1WjlybODXqNCH5iM//kPMGFBMJWe0whje21piH1eFI+fOrSGYk487qRrfA0IdVT4
- 9CBcVI+bSGab1lPC8ngnFGFXS/LotdpZAwHm8=
+ :reply-to; bh=33KvbvTql7+TfuU6gagkdE47f06z1GuAxIph77Mkm3M=;
+ b=arQs8XKV+/QuKOWIbBj7OSIVEvbr2sah84qFnhlGv9VGMf/0W8r7wEqYHbqlZ5E8vz
+ NklqW2IteOadQ/aAOLqKqOSDpYDHzhdZAXbPhQRHTt66ZJrRQAXUqj6CICdF6fzTiU0X
+ sLk2cYR+QA4Sd1amB6OcYD4eRT0faxUZuxxTA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209680; x=1713814480;
+ d=1e100.net; s=20230601; t=1713209681; x=1713814481;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=hx47X/CBEUsxAKiiRrHT5ksgFdQJWx3yIi/EXUgSCek=;
- b=Sey7qHvzNKh9XfbR7WP0jpqzdM0lHBy+v1Q0GyW0Z+KqNFRAUTVZ1yHdcu5JKkS3zM
- w3LHWNNOVaqcb+QSpIH8nC00LF5ipLvrvgLr6nvlPGCU/J0tCfVb5XoYrtwZZyn25B4b
- K7/C237SMGglqaq1ejGeSS0S0FfEEsHYa89ad2DjgsMED/qOVNq77CRZItqPv34p13yW
- yPl/PMt77/AIr3l3aPV4odbRJ8g7eI9YfcMMlt0SzhyDD8A19uUplEVUL3AFhG4NRTiZ
- uq73mbleVbKXNCR7O2M+4fhRlTg6Fjq/nrYsDM6HVIZDWzIxfUnCdz2TbrHqrUXJJDOh
- Fbvg==
+ bh=33KvbvTql7+TfuU6gagkdE47f06z1GuAxIph77Mkm3M=;
+ b=lPLfIHSVXmgOTyae6Xd02fPiooDoTiBMQqFff3V/UEP+pYrfshtN0S7ZKMNzEWcYQj
+ Lr225x8avjPA65njs2iikpumVgcC8fVD2AxzJbZgpipld+/oxnmJ6QNTg32IyOXs+OBC
+ o/lLzLZ8DbmLDp6J9PAoBxUg1eX8aUaLO4JdPkqNGR9VoFwf8uxTJfmRr1Dx04Byo8Xt
+ KZqD9CdXCYH780TZNwTx+h3ZCxC4opR+8la6PhaAEqBh7jwhhj3zgwTzWnwzIgfALSed
+ 0mMN8OjrA5i+wMpnwztIKwVsKztn+s5OsgHWS/OXbixHePhj60QSu9AkICviqDfymGyC
+ xzOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLn9JgLdZdmlhG2vCwtjmiRyN/TOq6BWjO7TdsDXRUb6RMOVOiAW93LsoWY455yNu9kP0ovSEif+r7aY/ZtumEqb/y87DYHRbvd//hVLgQfPXCVT8rpliO
-X-Gm-Message-State: AOJu0YyMQ9HXiFDcXrM+gKg5d1TRUmhJ36VF+UbLhS4A9q0+ZL0IoX3V
- ahom3/8817ATHL9WQ7NNZsQNS43I4scB3wKSdgL8C/eN0BrNogfR5wh/9ygq4g==
-X-Google-Smtp-Source: AGHT+IEmAtiOSDGP5pc0WLRzcDyQrYD70pzi958Nl6f5COykB700BmbE9taYsEHtf+WGDgg2JrZfiQ==
-X-Received: by 2002:a05:620a:2443:b0:78d:6b72:b45 with SMTP id
- h3-20020a05620a244300b0078d6b720b45mr14283622qkn.1.1713209679634; 
- Mon, 15 Apr 2024 12:34:39 -0700 (PDT)
+ AJvYcCUWG1OtVfC4GGgqMPdxaKLoZfmGvdyRjwCzwsm01GTzfYKUzuE7xG0eUSNRnM3lIBXHygPdotoaVnG6w3D08yZKsbcQ4kB3waSILHbluv5YcSEsuMvt8rBk
+X-Gm-Message-State: AOJu0YzBEeZbkKPAoTQjtWuTOyaFJIzV8NDX3cigXhcAVM/0oRO69Z9/
+ EdhFjBKqpkoeLHH0Hf5HqxA/UeJCUBKUPUwbMEPzCI/cygkqR42E6le/+oV/9w==
+X-Google-Smtp-Source: AGHT+IHgMrhfCo+nCeS1fB2Q2DO/uvIOv0/GoxcEriQYnGbBf8HXaYl0FV1YT72ppySseLhcU5xKgw==
+X-Received: by 2002:a05:620a:5719:b0:78d:6b8e:18d with SMTP id
+ wi25-20020a05620a571900b0078d6b8e018dmr11861292qkn.64.1713209681163; 
+ Mon, 15 Apr 2024 12:34:41 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.38
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:39 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:40 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:28 +0000
+Date: Mon, 15 Apr 2024 19:34:29 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-11-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-12-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,8 +100,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 11/35] media: s2255: Use refcount_t instead of
- atomic_t for num_channels
+Subject: [Linux-stm32] [PATCH 12/35] media: platform: mtk-mdp3: Use
+ refcount_t for job_count
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,100 +118,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use an API that resembles more the actual use of num_channels.
+Use an API that resembles more the actual use of job_count.
 
 Found by cocci:
-drivers/media/usb/s2255/s2255drv.c:2362:5-24: WARNING: atomic_dec_and_test variation before object free at line 2363.
-drivers/media/usb/s2255/s2255drv.c:1557:5-24: WARNING: atomic_dec_and_test variation before object free at line 1558.
+drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:527:5-24: WARNING: atomic_dec_and_test variation before object free at line 541.
+drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:578:6-25: WARNING: atomic_dec_and_test variation before object free at line 581.
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/s2255/s2255drv.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c | 10 +++++-----
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c |  6 +++---
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h |  2 +-
+ drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c  |  6 +++---
+ 4 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 8e1de1e8bd12..a6e450181fd0 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -247,7 +247,7 @@ struct s2255_vc {
- struct s2255_dev {
- 	struct s2255_vc         vc[MAX_CHANNELS];
- 	struct v4l2_device      v4l2_dev;
--	atomic_t                num_channels;
-+	refcount_t		num_channels;
- 	int			frames;
- 	struct mutex		lock;	/* channels[].vdev.lock */
- 	struct mutex		cmdlock; /* protects cmdbuf */
-@@ -1550,11 +1550,11 @@ static void s2255_video_device_release(struct video_device *vdev)
- 		container_of(vdev, struct s2255_vc, vdev);
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
+index 1d64bac34b90..ea2ea119dd2a 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
+@@ -524,7 +524,7 @@ static void mdp_auto_release_work(struct work_struct *work)
+ 	mdp_comp_clocks_off(&mdp->pdev->dev, cmd->comps,
+ 			    cmd->num_comps);
  
- 	dprintk(dev, 4, "%s, chnls: %d\n", __func__,
--		atomic_read(&dev->num_channels));
-+		refcount_read(&dev->num_channels));
+-	if (atomic_dec_and_test(&mdp->job_count)) {
++	if (refcount_dec_and_test(&mdp->job_count)) {
+ 		if (cmd->mdp_ctx)
+ 			mdp_m2m_job_finish(cmd->mdp_ctx);
  
- 	v4l2_ctrl_handler_free(&vc->hdl);
+@@ -575,7 +575,7 @@ static void mdp_handle_cmdq_callback(struct mbox_client *cl, void *mssg)
+ 		mdp_comp_clocks_off(&mdp->pdev->dev, cmd->comps,
+ 				    cmd->num_comps);
  
--	if (atomic_dec_and_test(&dev->num_channels))
-+	if (refcount_dec_and_test(&dev->num_channels))
- 		s2255_destroy(dev);
- 	return;
+-		if (atomic_dec_and_test(&mdp->job_count))
++		if (refcount_dec_and_test(&mdp->job_count))
+ 			wake_up(&mdp->callback_wq);
+ 
+ 		mdp_cmdq_pkt_destroy(&cmd->pkt);
+@@ -724,9 +724,9 @@ int mdp_cmdq_send(struct mdp_dev *mdp, struct mdp_cmdq_param *param)
+ 	int i, ret;
+ 	u8 pp_used = __get_pp_num(param->param->type);
+ 
+-	atomic_set(&mdp->job_count, pp_used);
++	refcount_set(&mdp->job_count, pp_used);
+ 	if (atomic_read(&mdp->suspended)) {
+-		atomic_set(&mdp->job_count, 0);
++		refcount_set(&mdp->job_count, 0);
+ 		return -ECANCELED;
+ 	}
+ 
+@@ -764,7 +764,7 @@ int mdp_cmdq_send(struct mdp_dev *mdp, struct mdp_cmdq_param *param)
+ 		mdp_comp_clocks_off(&mdp->pdev->dev, cmd[i]->comps,
+ 				    cmd[i]->num_comps);
+ err_cancel_job:
+-	atomic_set(&mdp->job_count, 0);
++	refcount_set(&mdp->job_count, 0);
+ 
+ 	return ret;
  }
-@@ -1659,7 +1659,7 @@ static int s2255_probe_v4l(struct s2255_dev *dev)
- 				"failed to register video device!\n");
- 			break;
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+index 5209f531ef8d..c1f3bf98120a 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+@@ -380,14 +380,14 @@ static int __maybe_unused mdp_suspend(struct device *dev)
+ 
+ 	atomic_set(&mdp->suspended, 1);
+ 
+-	if (atomic_read(&mdp->job_count)) {
++	if (refcount_read(&mdp->job_count)) {
+ 		ret = wait_event_timeout(mdp->callback_wq,
+-					 !atomic_read(&mdp->job_count),
++					 !refcount_read(&mdp->job_count),
+ 					 2 * HZ);
+ 		if (ret == 0) {
+ 			dev_err(dev,
+ 				"%s:flushed cmdq task incomplete, count=%d\n",
+-				__func__, atomic_read(&mdp->job_count));
++				__func__, refcount_read(&mdp->job_count));
+ 			return -EBUSY;
  		}
--		atomic_inc(&dev->num_channels);
-+		refcount_inc(&dev->num_channels);
- 		v4l2_info(&dev->v4l2_dev, "V4L2 device registered as %s\n",
- 			  video_device_node_name(&vc->vdev));
+ 	}
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+index 8c09e984fd01..430251f63754 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+@@ -134,7 +134,7 @@ struct mdp_dev {
+ 	/* synchronization protect for m2m device operation */
+ 	struct mutex				m2m_lock;
+ 	atomic_t				suspended;
+-	atomic_t				job_count;
++	refcount_t				job_count;
+ };
  
-@@ -1667,11 +1667,11 @@ static int s2255_probe_v4l(struct s2255_dev *dev)
- 	pr_info("Sensoray 2255 V4L driver Revision: %s\n",
- 		S2255_VERSION);
- 	/* if no channels registered, return error and probe will fail*/
--	if (atomic_read(&dev->num_channels) == 0) {
-+	if (refcount_read(&dev->num_channels) == 0) {
- 		v4l2_device_unregister(&dev->v4l2_dev);
- 		return ret;
- 	}
--	if (atomic_read(&dev->num_channels) != MAX_CHANNELS)
-+	if (refcount_read(&dev->num_channels) != MAX_CHANNELS)
- 		pr_warn("s2255: Not all channels available.\n");
- 	return 0;
- }
-@@ -2221,7 +2221,7 @@ static int s2255_probe(struct usb_interface *interface,
- 		goto errorFWDATA1;
- 	}
+ struct mdp_pipe_info {
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
+index 35a8b059bde5..0e69128a3772 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
+@@ -104,14 +104,14 @@ static void mdp_m2m_device_run(void *priv)
+ 	task.cb_data = NULL;
+ 	task.mdp_ctx = ctx;
  
--	atomic_set(&dev->num_channels, 0);
-+	refcount_set(&dev->num_channels, 0);
- 	dev->pid = id->idProduct;
- 	dev->fw_data = kzalloc(sizeof(struct s2255_fw), GFP_KERNEL);
- 	if (!dev->fw_data)
-@@ -2341,12 +2341,12 @@ static void s2255_disconnect(struct usb_interface *interface)
- {
- 	struct s2255_dev *dev = to_s2255_dev(usb_get_intfdata(interface));
- 	int i;
--	int channels = atomic_read(&dev->num_channels);
-+	int channels = refcount_read(&dev->num_channels);
- 	mutex_lock(&dev->lock);
- 	v4l2_device_disconnect(&dev->v4l2_dev);
- 	mutex_unlock(&dev->lock);
- 	/*see comments in the uvc_driver.c usb disconnect function */
--	atomic_inc(&dev->num_channels);
-+	refcount_inc(&dev->num_channels);
- 	/* unregister each video device. */
- 	for (i = 0; i < channels; i++)
- 		video_unregister_device(&dev->vc[i].vdev);
-@@ -2359,7 +2359,7 @@ static void s2255_disconnect(struct usb_interface *interface)
- 		dev->vc[i].vidstatus_ready = 1;
- 		wake_up(&dev->vc[i].wait_vidstatus);
+-	if (atomic_read(&ctx->mdp_dev->job_count)) {
++	if (refcount_read(&ctx->mdp_dev->job_count)) {
+ 		ret = wait_event_timeout(ctx->mdp_dev->callback_wq,
+-					 !atomic_read(&ctx->mdp_dev->job_count),
++					 !refcount_read(&ctx->mdp_dev->job_count),
+ 					 2 * HZ);
+ 		if (ret == 0) {
+ 			dev_err(&ctx->mdp_dev->pdev->dev,
+ 				"%d jobs not yet done\n",
+-				atomic_read(&ctx->mdp_dev->job_count));
++				refcount_read(&ctx->mdp_dev->job_count));
+ 			goto worker_end;
+ 		}
  	}
--	if (atomic_dec_and_test(&dev->num_channels))
-+	if (refcount_dec_and_test(&dev->num_channels))
- 		s2255_destroy(dev);
- 	dev_info(&interface->dev, "%s\n", __func__);
- }
 
 -- 
 2.44.0.683.g7961c838ac-goog
