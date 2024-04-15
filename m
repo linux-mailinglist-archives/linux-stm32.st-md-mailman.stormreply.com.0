@@ -2,67 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE6B8A524F
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 15:52:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 902008A5849
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 18:57:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7AE4C6DD67;
-	Mon, 15 Apr 2024 13:52:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49EAFC6B444;
+	Mon, 15 Apr 2024 16:57:01 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4157C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A438C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 13:52:52 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43FBMjbU004772; Mon, 15 Apr 2024 15:52:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=uIBsK4tjXsUxouAGNHNv9Rqw7KTBxkK0VeFWE/k0QV8=; b=h9
- 3D0VG0zKklMLfBxL9Kup7dWymvKQhLpAVfP6X53XJxVpN4E82OhQK0nyQa0wdIyS
- idXP62w1QRH753D/lpd0fdMFIhFpF4Jt8Q/Xu4dfiXqx1xeA0QhwK/C1M/YNz1nP
- oGNIdJeKJvemh8iBw6W8oDAUPtxC8IvP1az8BsihtYRZrhgRx+jkwHqENv0W/ONI
- r01G0arw/s2Tj/B70IR2Hbo8HL5tvGqnZ6y3JEP5sWax/PHKnP0lbVSNIHMezxft
- K030qvUHD7uv+0402Xhe3u5gy8ESKJiZx+K5yojy/IWE5faDonWjVc6sfhQZA/ra
- UMGN93iHL6tWUe29F0vw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xffff8665-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Apr 2024 15:52:43 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4F60940044;
- Mon, 15 Apr 2024 15:52:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A7F7F215BEB;
- Mon, 15 Apr 2024 15:51:54 +0200 (CEST)
-Received: from localhost (10.48.86.102) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 15 Apr
- 2024 15:51:54 +0200
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Date: Mon, 15 Apr 2024 15:49:26 +0200
-Message-ID: <20240415134926.1254428-12-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240216094758.916722-1-antonio.borneo@foss.st.com>
-References: <20240216094758.916722-1-antonio.borneo@foss.st.com>
+ Mon, 15 Apr 2024 16:57:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id DD14DCE0AEB;
+ Mon, 15 Apr 2024 16:56:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98E6C113CC;
+ Mon, 15 Apr 2024 16:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1713200217;
+ bh=23t1wc48Z7qjQUHxpMlFdirQHFa5WZ1akQpPogYgwdY=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=MccKqy+jcxO65ZEPHizfb5Mc96hbY4jAZG12g4jT1jFG0LEcycDbLg+MgwFLFWnDL
+ /Ncsg9MFSrkB5HmunRJkncqZEk6X8fEu7lu7j8tR0QUHG0D8uhJXWMA8+xDERhlkRR
+ 9NjK9IoQmQgkfX2h39J9neHr1UALtTptyC0FYchJuHuEGfVqX2CWEUIYULXv4Vcd7s
+ tmRXsqeY2pmaaxonCgtROnJF0DeESWve2rr17M1A/uXUkdfpwzdyjK3ivJOFa86Wjy
+ ZIC7j+T8gBHzjDN0NHXpMZiFaNhpAGb0/U59q764Gxm93RwO0e2o9va4ZexYVk5Uhh
+ wYEsnpGSnVE/g==
+Date: Mon, 15 Apr 2024 11:56:55 -0500
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.102]
-X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-15_11,2024-04-15_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+From: Rob Herring <robh@kernel.org>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+In-Reply-To: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
+References: <20240411143658.1049706-1-christophe.roullier@foss.st.com>
+Message-Id: <171292930694.2308702.12108714635472172661.robh@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 11/11] arm64: dts: st: Add interrupt parent
-	to pinctrl on stm32mp251
+Subject: Re: [Linux-stm32] [PATCH 00/11] Series to deliver Ethernets for
+	STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,38 +62,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add exti1 as interrupt parent for the two pin controllers.
-Add the additional required property st,syscfg.
 
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+On Thu, 11 Apr 2024 16:36:47 +0200, Christophe Roullier wrote:
+> STM32MP13 is STM32 SOC with 2 GMACs instances
+> This board have 2 RMII phy:
+>   -Ethernet1: RMII with crystal
+>   -Ethernet2: RMII without crystal
+> Rework dwmac glue to simplify management for next stm32
+> Add support for PHY regulator
+> 
+> Christophe Roullier (11):
+>   dt-bindings: net: add STM32MP13 compatible in documentation for stm32
+>   dt-bindings: net: add phy-supply property for stm32
+>   net: ethernet: stmmac: rework glue to simplify management for next
+>     stm32
+>   net: ethernet: stmmac: add management of stm32mp13 for stm32
+>   net: ethernet: stmmac: stm32: update config management for phy wo
+>     cristal
+>   net: ethernet: stm32: clean the way to manage wol irqwake
+>   net: ethernet: stmmac: stm32: support the phy-supply regulator binding
+>   ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
+>   ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
+>   ARM: dts: stm32: add ethernet1 and ethernet2 for STM32MP135F-DK board
+>   ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
+> 
+>  .../devicetree/bindings/net/stm32-dwmac.yaml  |  83 ++++++-
+>  arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 ++++++
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          |  31 +++
+>  arch/arm/boot/dts/st/stm32mp133.dtsi          |  30 +++
+>  arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  48 ++++
+>  arch/arm/configs/multi_v7_defconfig           |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 235 ++++++++++++------
+>  7 files changed, 421 insertions(+), 78 deletions(-)
+> 
+> --
+> 2.25.1
+> 
+> 
+> 
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 1426446ca1b11..e7d1614dc744c 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -271,6 +271,8 @@ pinctrl: pinctrl@44240000 {
- 			#size-cells = <1>;
- 			compatible = "st,stm32mp257-pinctrl";
- 			ranges = <0 0x44240000 0xa0400>;
-+			interrupt-parent = <&exti1>;
-+			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
- 
- 			gpioa: gpio@44240000 {
-@@ -400,6 +402,8 @@ pinctrl_z: pinctrl@46200000 {
- 			#size-cells = <1>;
- 			compatible = "st,stm32mp257-z-pinctrl";
- 			ranges = <0 0x46200000 0x400>;
-+			interrupt-parent = <&exti1>;
-+			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
- 
- 			gpioz: gpio@46200000 {
--- 
-2.34.1
+
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y st/stm32mp135f-dk.dtb' for 20240411143658.1049706-1-christophe.roullier@foss.st.com:
+
+arch/arm/boot/dts/st/stm32mp135f-dk.dtb: adc@48003000: 'ethernet@5800e000' does not match any of the regexes: '^adc@[0-9]+$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
+
+
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
