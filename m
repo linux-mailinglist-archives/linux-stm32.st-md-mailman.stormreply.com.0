@@ -2,67 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 701E98A4B85
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 11:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A090D8A4C7F
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 12:27:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2127FC6B444;
-	Mon, 15 Apr 2024 09:33:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51605C6B444;
+	Mon, 15 Apr 2024 10:27:36 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAF71C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B363C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 09:33:15 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43F75qkx004772; Mon, 15 Apr 2024 11:32:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=CJMsyOU
- vibO44hZ0FRzGuvGUbPQDu1y2PkvDKBeOhvI=; b=7Rdq0cTp5JrEfksjWZr6Myp
- nDuhTxoxGqkrFsf/4oZzLIPsqnbb2GKzTde4YNJrPpiYHa559deP2GthwmpF9BmH
- sKSVulLtuu1dTc4aHMBdR8Y+IQQ7ggQCiktgbwGAxK++tVUzAhX4VQq0biO01DDU
- CUmTiA6m2qPvIEYDGSoybPznT6CiX5IyF4wbszY6btiomtx/wrjaEEZbw8hZFcag
- aPFnBY8lmNOu0m/v3pcNe3ZIyJruq2wMZWxPKfvClhY0d3L9rCyhHBdrPXTc2HAt
- zN1++Y6bExfJe3313flDL5FKW1q7hoEOed779ULq+RCU4Oto3yefH6uEFirvlfw=
- =
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xffff6ybt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Apr 2024 11:32:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 486924002D;
- Mon, 15 Apr 2024 11:32:51 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EA4E7211F06;
- Mon, 15 Apr 2024 11:32:13 +0200 (CEST)
-Received: from localhost (10.48.86.141) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 15 Apr
- 2024 11:32:13 +0200
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 15 Apr 2024 11:32:11 +0200
-Message-ID: <20240415093211.809927-1-hugues.fruchet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 15 Apr 2024 10:27:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 17910CE0B23;
+ Mon, 15 Apr 2024 10:27:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159A9C32781;
+ Mon, 15 Apr 2024 10:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1713176851;
+ bh=QTaNE6v9yitIg/5Jk0vp633X8veBSijdhDfr5Qjx7vk=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=bANNOlL621BAycIRNCS9TRMeFEGfc0t4zzHHJbNC58uNPnYg3mKANMFVwejD114gX
+ 0KFY6NHw3x/4nXSjccLiR2G0fF5f5I5653VklH0cdGNm6czAnE5sFxOxdyhjp0inno
+ L2QfwxJkjKYZ66uKssxBpkNnDGHdEbwBd6YGyLi7jRM73289JSh6SVTFNCMwn+N/cp
+ Ve4I9mCvDYQwHyRuA7G3j4Y2sEnRWpIjVxfyo2ULGSprA/ZQtQT5owtU7Kk8k+vSWq
+ TSeQTwEwHDS+XkvBaQuLetH2Zqk63Hvmjte3MSvL698ueJru8ohDhPtk1zDbT1FcQl
+ 8f9rWIimTQAnA==
+Date: Mon, 15 Apr 2024 05:27:30 -0500
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.141]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-15_08,2024-04-09_01,2023-05-22_02
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>
-Subject: [Linux-stm32] [PATCH v2] media: dt-bindings: add access-controllers
-	to STM32MP25 video codecs
+From: Rob Herring <robh@kernel.org>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>
+In-Reply-To: <20240415093211.809927-1-hugues.fruchet@foss.st.com>
+References: <20240415093211.809927-1-hugues.fruchet@foss.st.com>
+Message-Id: <171317684894.2177567.12294607430511830863.robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] media: dt-bindings: add
+ access-controllers to STM32MP25 video codecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,33 +60,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-access-controllers is an optional property that allows a peripheral to
-refer to one or more domain access controller(s).
 
-Acked-by: Rob Herring <robh@kernel.org>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
----
- .../devicetree/bindings/media/st,stm32mp25-video-codec.yaml   | 4 ++++
- 1 file changed, 4 insertions(+)
+On Mon, 15 Apr 2024 11:32:11 +0200, Hugues Fruchet wrote:
+> access-controllers is an optional property that allows a peripheral to
+> refer to one or more domain access controller(s).
+> 
+> Acked-by: Rob Herring <robh@kernel.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> ---
+>  .../devicetree/bindings/media/st,stm32mp25-video-codec.yaml   | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
 
-diff --git a/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-index b8611bc8756c..73726c65cfb9 100644
---- a/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-+++ b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-@@ -30,6 +30,10 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  access-controllers:
-+    minItems: 1
-+    maxItems: 2
-+
- required:
-   - compatible
-   - reg
--- 
-2.25.1
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml: access-controllers: missing type definition
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240415093211.809927-1-hugues.fruchet@foss.st.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
 _______________________________________________
 Linux-stm32 mailing list
