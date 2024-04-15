@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B158A4B36
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 11:18:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53BCF8A4B38
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Apr 2024 11:18:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07D29C6C859;
-	Mon, 15 Apr 2024 09:18:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 129E7C6B444;
+	Mon, 15 Apr 2024 09:18:14 +0000 (UTC)
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
  [217.70.183.198])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F52C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB8FBC6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Apr 2024 09:18:10 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6D308C0008;
  Mon, 15 Apr 2024 09:18:09 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 2E743C0002;
- Mon, 15 Apr 2024 09:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1713172689;
+ t=1713172690;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=o8ZBWrAJk/PVs901mX6fQjUvWR8gep9bkYKPbBH1tJI=;
- b=odifpq6hF3p+KkE5pYY+2tx/uusTs5cvtRskO6SAGhMX6RgaVNLDD3b3FQIoFo4XSWM7LZ
- VqxPI72+RLIOIJM77dkz/wfXaQPCbvGmWJbiXWcBGkRrVIZYWwZ4rklDFFGzw2KukH2LgT
- mQ+IzYhQ/HEM+zCrkpu52kWOVfAJwTFXnlzGi+3z6+L7o1oH0o/oiVGlKbOvh6KHbwRtJ9
- 608/UFYExDnMsrbiYOm6v2/P1zM/rIEP/kE3Wc8h20xgrFDiOWocuoCw/X9LUSjwwcC7i5
- ajrlihq5asVEdac3ZS98Hgs+Ent0ZxoCu4NIMR9JhiTB+JxK56xtcynzOdqaYg==
+ bh=EAUfjnMwkfhw75GgdSBPU2SHhCPG3M+EbZlGjKz3ysw=;
+ b=MLcW8KcbzZTBiQ1kc7AJtN/69zVcUm3/1XZMJyv1ueSWJ58CnxEQA2T7PmHtJAUpQHVzSe
+ s4Xr407VlmSLRRa1m63Lfj7WZHqwJTO4jqnpG381SKc77QkfKXmciDv0iQbuGQM71s3M46
+ qlsEMKJjWPsPaO4hOXJQy63Sf+7OJpT6H6peQg/A+ICU7PsSwsuue83l3fOoZsWwfFx4gh
+ pZeCENIg4+rwsly4wjPhxLeUIxZczpWjiwZvFS2kju5jD9fGp0opAtuA2Udy0m30J9yOM3
+ BErLoNVkSaunDhon9Ucp5yK7nNd70Te8DQjySULgP0UnGqv/grw2luQC3M0wFA==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Mon, 15 Apr 2024 11:18:42 +0200
+Date: Mon, 15 Apr 2024 11:18:43 +0200
 MIME-Version: 1.0
-Message-Id: <20240415-rzn1-gmac1-v3-2-ab12f2c4401d@bootlin.com>
+Message-Id: <20240415-rzn1-gmac1-v3-3-ab12f2c4401d@bootlin.com>
 References: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
 In-Reply-To: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -54,8 +54,8 @@ Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
  "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 2/5] net: stmmac: introduce
- pcs_init/pcs_exit stmmac operations
+Subject: [Linux-stm32] [PATCH net-next v3 3/5] net: stmmac: dwmac-socfpga:
+ use pcs_init/pcs_exit
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,78 +74,169 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-Introduce a mechanism whereby platforms can create their PCS instances
-prior to the network device being published to userspace, but after
-some of the core stmmac initialisation has been completed. This means
-that the data structures that platforms need will be available.
+Use the newly introduced pcs_init() and pcs_exit() operations to
+create and destroy the PCS instance at a more appropriate moment during
+the driver lifecycle, thereby avoiding publishing a network device to
+userspace that has not yet finished its PCS initialisation.
+
+There are other similar issues with this driver which remain
+unaddressed, but these are out of scope for this patch.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 14 ++++++++++++++
- include/linux/stmmac.h                            |  2 ++
- 2 files changed, 16 insertions(+)
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 109 +++++++++++----------
+ 1 file changed, 55 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index fe3498e86de9d..25fa33ae7017b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7208,6 +7208,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 	if (ret)
- 		return ret;
- 
-+	if (priv->plat->pcs_init) {
-+		ret = priv->plat->pcs_init(priv, priv->hw);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* Get the HW capability (new GMAC newer than 3.50a) */
- 	priv->hw_cap_support = stmmac_get_hw_features(priv);
- 	if (priv->hw_cap_support) {
-@@ -7290,6 +7296,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 12b4a80ea3aa1..339cc42c776fb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -379,6 +379,58 @@ static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
  	return 0;
  }
  
-+static void stmmac_hw_exit(struct stmmac_priv *priv)
++static int socfpga_dwmac_pcs_init(struct stmmac_priv *priv,
++				  struct mac_device_info *hw)
 +{
-+	if (priv->plat->pcs_exit)
-+		priv->plat->pcs_exit(priv, priv->hw);
++	struct socfpga_dwmac *dwmac = priv->plat->bsp_priv;
++	struct regmap_config pcs_regmap_cfg = {
++		.reg_bits = 16,
++		.val_bits = 16,
++		.reg_shift = REGMAP_UPSHIFT(1),
++	};
++	struct mdio_regmap_config mrc;
++	struct regmap *pcs_regmap;
++	struct phylink_pcs *pcs;
++	struct mii_bus *pcs_bus;
++
++	if (!dwmac->tse_pcs_base)
++		return 0;
++
++	pcs_regmap = devm_regmap_init_mmio(priv->device, dwmac->tse_pcs_base,
++					   &pcs_regmap_cfg);
++	if (IS_ERR(pcs_regmap))
++		return PTR_ERR(pcs_regmap);
++
++	memset(&mrc, 0, sizeof(mrc));
++	mrc.regmap = pcs_regmap;
++	mrc.parent = priv->device;
++	mrc.valid_addr = 0x0;
++	mrc.autoscan = false;
++
++	/* Can't use ndev->name here because it will not have been initialised,
++	 * and in any case, the user can rename network interfaces at runtime.
++	 */
++	snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii",
++		 dev_name(priv->device));
++	pcs_bus = devm_mdio_regmap_register(priv->device, &mrc);
++	if (IS_ERR(pcs_bus))
++		return PTR_ERR(pcs_bus);
++
++	pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
++	if (IS_ERR(pcs))
++		return PTR_ERR(pcs);
++
++	hw->phylink_pcs = pcs;
++	return 0;
 +}
 +
- static void stmmac_napi_add(struct net_device *dev)
++static void socfpga_dwmac_pcs_exit(struct stmmac_priv *priv,
++				   struct mac_device_info *hw)
++{
++	if (hw->phylink_pcs)
++		lynx_pcs_destroy(hw->phylink_pcs);
++}
++
+ static int socfpga_dwmac_probe(struct platform_device *pdev)
  {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-@@ -7804,6 +7816,7 @@ int stmmac_dvr_probe(struct device *device,
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
- error_mdio_register:
-+	stmmac_hw_exit(priv);
- 	stmmac_napi_del(ndev);
- error_hw_init:
- 	destroy_workqueue(priv->wq);
-@@ -7844,6 +7857,7 @@ void stmmac_dvr_remove(struct device *dev)
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
-+	stmmac_hw_exit(priv);
- 	destroy_workqueue(priv->wq);
- 	mutex_destroy(&priv->lock);
- 	bitmap_free(priv->af_xdp_zc_qps);
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index dfa1828cd756a..941fde506e514 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -285,6 +285,8 @@ struct plat_stmmacenet_data {
- 	int (*crosststamp)(ktime_t *device, struct system_counterval_t *system,
- 			   void *ctx);
- 	void (*dump_debug_regs)(void *priv);
-+	int (*pcs_init)(struct stmmac_priv *priv, struct mac_device_info *hw);
-+	void (*pcs_exit)(struct stmmac_priv *priv, struct mac_device_info *hw);
- 	void *bsp_priv;
- 	struct clk *stmmac_clk;
- 	struct clk *pclk;
+ 	struct plat_stmmacenet_data *plat_dat;
+@@ -426,6 +478,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 	dwmac->ops = ops;
+ 	plat_dat->bsp_priv = dwmac;
+ 	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
++	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
++	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
+ 
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+ 	if (ret)
+@@ -444,48 +498,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_dvr_remove;
+ 
+-	/* Create a regmap for the PCS so that it can be used by the PCS driver,
+-	 * if we have such a PCS
+-	 */
+-	if (dwmac->tse_pcs_base) {
+-		struct regmap_config pcs_regmap_cfg;
+-		struct mdio_regmap_config mrc;
+-		struct regmap *pcs_regmap;
+-		struct mii_bus *pcs_bus;
+-
+-		memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
+-		memset(&mrc, 0, sizeof(mrc));
+-
+-		pcs_regmap_cfg.reg_bits = 16;
+-		pcs_regmap_cfg.val_bits = 16;
+-		pcs_regmap_cfg.reg_shift = REGMAP_UPSHIFT(1);
+-
+-		pcs_regmap = devm_regmap_init_mmio(&pdev->dev, dwmac->tse_pcs_base,
+-						   &pcs_regmap_cfg);
+-		if (IS_ERR(pcs_regmap)) {
+-			ret = PTR_ERR(pcs_regmap);
+-			goto err_dvr_remove;
+-		}
+-
+-		mrc.regmap = pcs_regmap;
+-		mrc.parent = &pdev->dev;
+-		mrc.valid_addr = 0x0;
+-		mrc.autoscan = false;
+-
+-		snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii", ndev->name);
+-		pcs_bus = devm_mdio_regmap_register(&pdev->dev, &mrc);
+-		if (IS_ERR(pcs_bus)) {
+-			ret = PTR_ERR(pcs_bus);
+-			goto err_dvr_remove;
+-		}
+-
+-		stpriv->hw->phylink_pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
+-		if (IS_ERR(stpriv->hw->phylink_pcs)) {
+-			ret = PTR_ERR(stpriv->hw->phylink_pcs);
+-			goto err_dvr_remove;
+-		}
+-	}
+-
+ 	return 0;
+ 
+ err_dvr_remove:
+@@ -494,17 +506,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static void socfpga_dwmac_remove(struct platform_device *pdev)
+-{
+-	struct net_device *ndev = platform_get_drvdata(pdev);
+-	struct stmmac_priv *priv = netdev_priv(ndev);
+-	struct phylink_pcs *pcs = priv->hw->phylink_pcs;
+-
+-	stmmac_pltfr_remove(pdev);
+-
+-	lynx_pcs_destroy(pcs);
+-}
+-
+ #ifdef CONFIG_PM_SLEEP
+ static int socfpga_dwmac_resume(struct device *dev)
+ {
+@@ -576,7 +577,7 @@ MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
+ 
+ static struct platform_driver socfpga_dwmac_driver = {
+ 	.probe  = socfpga_dwmac_probe,
+-	.remove_new = socfpga_dwmac_remove,
++	.remove_new = stmmac_pltfr_remove,
+ 	.driver = {
+ 		.name           = "socfpga-dwmac",
+ 		.pm		= &socfpga_dwmac_pm_ops,
 
 -- 
 2.44.0
