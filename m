@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442D68A63DB
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4B18A63DD
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 08:35:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8883C6DD9C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFA1AC71288;
 	Tue, 16 Apr 2024 06:35:02 +0000 (UTC)
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EB18C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6920AC6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 19:34:34 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-78d683c469dso371091085a.1
+ Mon, 15 Apr 2024 19:34:35 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id
+ af79cd13be357-78d68c08df7so305394685a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Apr 2024 12:34:34 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713209673; x=1713814473;
+ d=chromium.org; s=google; t=1713209674; x=1713814474;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8w49vqOwnRlIfNq1dtx4OWinIRfPHFawqCMqrawnhls=;
- b=WMmxhX1lW1WxjZ6InoClJyPq5zpdF13+paeWTLnoRexMlK3kJS/d3VpaB28yxgq3Bk
- vMFiEhLI+8qxQhBv0UdSJ8E57c+ki+bFmXTuuVlHknTqm8zkmHuidEq+vWZ2wF92ybka
- W3bhYGcLwkZce4pB53P01IcP00aXLSpPDw85k=
+ :reply-to; bh=Zm8YRFoKsGw65QxzcHtGCuYCsdcn5gIPOa2id9cD3ac=;
+ b=BV6zaXrFOIp+hpoOzTqxna6CUrIyMZ81YRjjAtd4qFaK968QWOYuCDDVDbv5Dsq4y5
+ WdGEuTU+Ak0/Svvf+RkA76KcJJ26VX20IUHMxjFcjau3Ca27Pi/y11zzrVaTKQb9Z9ky
+ pBs1tht4GOWq1Mvv4h/+3QVwvYDRaNvJRygLk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713209673; x=1713814473;
+ d=1e100.net; s=20230601; t=1713209674; x=1713814474;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8w49vqOwnRlIfNq1dtx4OWinIRfPHFawqCMqrawnhls=;
- b=ch7Hq1krKyB4KuPIZgR2fqRny67gXHhzOF1nYTbRiKPa35DScwxuzQ2Z9scOOwjlmJ
- KMS4pCANHhNpc2fbtVDUnBAkpC7LzE/vsxJstIABARF/YKql55sHqRwjHpqTjDIBRACu
- S5Q+xRLYt5djOQZfHXN7Sed81X5Pf0m22TYsRQ0Z5pS+/b0eUB8gG80NuOFZhNrUSbBz
- Nz8U0yrUc09Qp2vKR8Pa6pmIjCqOWhV0ap0LlyiKMepEOIvYk5TCjtpNFVBrkazhF3Dm
- vdpacG46RgwUYEzy7ozB/qYV3JUVIgozE0cvWRxgKh2gc/C4egnQAGslRtm5YDu6U/rK
- p2dA==
+ bh=Zm8YRFoKsGw65QxzcHtGCuYCsdcn5gIPOa2id9cD3ac=;
+ b=fiaSktj6UOfNXLbhn+AmXnh7bTKAPxLV6rEPbpYEk6iJs2MZlbnGD3zTP/ZIeJVLpW
+ P5wsH0rEP0Ufo1HD2tak7p8zYEvsRVpL9nf3krJ3/cRV5S4A976bB7uJK6d7jwksDepe
+ /1ymzB3iH+5dHg2V0qGZhAVH3gPzqp4EAVRE2soNmyERWG+nGulv+wkj/p7JncXaJfKn
+ cdacwswrrg4HqmCVMaRBjRd1DWBaZ6Q7R/glVkfAokioANvT8wX295cD6PU7CCsDxwVZ
+ ehP7pqnlWZtDYLgkOTh+0nae8Sp0FKhjT+Barz4IQsM+fsAE+IsFaZtGu8TpxRvFUZ4X
+ sZZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVbXyGjH0ZEx4Qn72nW9gTmbhWD8Xbgs6SzkF7oBe+xke9kdvS4H6CWBl0+hHRd6hvnWiEc9Vvryp9ihw8Dmnjy6bPKfRONyxXGQVNNuw+zP/FyUmx/EeDG
-X-Gm-Message-State: AOJu0YxW4YNxfufoyTnzQ1BQ6nZm/RYBvT4nwDLbLZRbr2ao+WdMYaL5
- WKjTRC01sYM1VDJvgJ0jmupuTUBDzJYC9BEN4yr1VuuPPWn9EubdBZ0bVirbgA==
-X-Google-Smtp-Source: AGHT+IF3Z64gOvH813ZrsURn6c5OX0cA+P7DewlH+o86rsWDf5urUOYDJaPeLXGD215pMul/2CCAvg==
-X-Received: by 2002:a05:620a:5e48:b0:78e:e7f8:a5e3 with SMTP id
- ya8-20020a05620a5e4800b0078ee7f8a5e3mr3707352qkn.52.1713209673334; 
- Mon, 15 Apr 2024 12:34:33 -0700 (PDT)
+ AJvYcCUgQXFPTiQpPu79BWgv3P5YLWv+gCE6qahSCNKJzo8JMtugLTUUiA9pbgEewNwpCyT1QqCuh3WdECfthg2eG4uTq0Xhva7DVhNw0gzon9HLd4UHEudKNAxG
+X-Gm-Message-State: AOJu0YzfF3g62kkvKGoZ69SzlFvUOjlEhwXi25bpEuPPubPd1RI+M2Iy
+ Na5rGROErTFoMbBIUgP8gZquF5RcJ0sbMW9BdW20sNjmAmCZQvMCDAXH1FH+Fw==
+X-Google-Smtp-Source: AGHT+IE9q0KgLtAucdxZbWyn6MqzUt/EZtQ+H412AW7kKWoV5ItTNsK0gfo742OJilnTZ7BcAn728w==
+X-Received: by 2002:a05:620a:2116:b0:78d:61e8:2f12 with SMTP id
+ l22-20020a05620a211600b0078d61e82f12mr12082197qkl.57.1713209674381; 
+ Mon, 15 Apr 2024 12:34:34 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.32
+ s26-20020ae9f71a000000b0078d3b54eb76sm6718055qkg.78.2024.04.15.12.34.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Apr 2024 12:34:33 -0700 (PDT)
+ Mon, 15 Apr 2024 12:34:34 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 15 Apr 2024 19:34:23 +0000
+Date: Mon, 15 Apr 2024 19:34:24 +0000
 MIME-Version: 1.0
-Message-Id: <20240415-fix-cocci-v1-6-477afb23728b@chromium.org>
+Message-Id: <20240415-fix-cocci-v1-7-477afb23728b@chromium.org>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 In-Reply-To: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -100,8 +100,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 06/35] media: stm32-dcmipp: Remove redundant
-	printk
+Subject: [Linux-stm32] [PATCH 07/35] media: staging: sun6i-isp: Remove
+	redundant printk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,33 +118,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-platform_get_irq() already prints an error message.
+platform_get_irq() already prints an error for us.
 
 Found by cocci:
-drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c:444:3-10: line 444 is redundant because platform_get_irq() already prints an error
+drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c:389:2-9: line 389 is redundant because platform_get_irq() already prints an error
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index bce821eb71ce..c25027b0ca32 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -439,11 +439,8 @@ static int dcmipp_probe(struct platform_device *pdev)
- 				     "Could not get reset control\n");
+diff --git a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
+index 5c0a45394cba..a6424fe7023b 100644
+--- a/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
++++ b/drivers/staging/media/sunxi/sun6i-isp/sun6i_isp.c
+@@ -386,7 +386,6 @@ static int sun6i_isp_resources_setup(struct sun6i_isp_device *isp_dev,
  
- 	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0) {
--		if (irq != -EPROBE_DEFER)
--			dev_err(&pdev->dev, "Could not get irq\n");
-+	if (irq <= 0)
- 		return irq ? irq : -ENXIO;
--	}
- 
- 	dcmipp->regs = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
- 	if (IS_ERR(dcmipp->regs)) {
+ 	irq = platform_get_irq(platform_dev, 0);
+ 	if (irq < 0) {
+-		dev_err(dev, "failed to get interrupt\n");
+ 		ret = -ENXIO;
+ 		goto error_clock_rate_exclusive;
+ 	}
 
 -- 
 2.44.0.683.g7961c838ac-goog
