@@ -2,68 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8048A684F
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 12:27:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9F848A68AE
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 12:40:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90387C6B47E;
-	Tue, 16 Apr 2024 10:27:46 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58C63C6B47E;
+	Tue, 16 Apr 2024 10:40:14 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F06BBC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 917AEC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Apr 2024 10:27:45 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-57009454c83so3522331a12.2
+ Tue, 16 Apr 2024 10:40:13 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-516d0c004b1so5586928e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Apr 2024 03:27:45 -0700 (PDT)
+ Tue, 16 Apr 2024 03:40:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713263265; x=1713868065;
+ d=chromium.org; s=google; t=1713264012; x=1713868812;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zm6MGDUL0CYtN0eVBnWYXSq+qBMUlxWdujWqgjIPSpk=;
- b=ZELaNdrOJmdJ10T8bTQJC1L4aHKB+GDqV35en2mAKdwYN06RQXJX73PWnxBHbUL71O
- Yj8MuC5VqzcZIRQrV9t8EE1mCSFBOjzB03DKSpEB43xrSm+R9pA9jC7Ws7XLGBYR7D/+
- fx9ADJGSyfp1kngD/medraLfhxPO/CCHsQY3zXPqwBiuf6za//5PTk4uGxzCGdCkjOwp
- 98HjO3pHDHxqnCvaJJI5Fq60yP3rTYwOoemVdetRO6PCTQVjXdWgg8BmT188qDogecUL
- yW3Bd206wZKw6CK96hXFjPwHwOWpkX6lRfuSC4hSLygk/ss05nrTUd8uhrsCU1fgQ7NP
- 2FVg==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=eHTLqtmJofb3OW9dwP60b9IkbybIqw6tzFbVJdsjmeU=;
+ b=obu/oBDgoqoQuAGUjrPP3jQo7rRSVagtDuKJuMHO/7YbCH3LHkvsw2oanUB8eO8DHt
+ Y0K1E4wA5XFQI+kpD6Je96vD0XZZBDmzoQRu8k1cf35+PgQwg/9F/rxCNlPpsxAhdnKW
+ OE4OoG9Hy+ksn7jSnzjoePUqhG/BTwsU5aZ48=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713263265; x=1713868065;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zm6MGDUL0CYtN0eVBnWYXSq+qBMUlxWdujWqgjIPSpk=;
- b=E3/Zbiz0zhu+no2v5YWsS6aa0+1DQmBUoGM2Oo2dUOe2D/jYuoq2FpZIrQhRP7Td9h
- g2ZrUESXf6PUyPHwaAieOMjByVrNyUrIk9c16YAMTFrNZK/FUHH7EauShVdno7SDKGwN
- kwi73Hrl84/qS0bvnTS95QKPGTpEHeGrYTV8A4XBdWmT63Z7NfFZGsOfWkX1FegJlj2F
- qG5nDOVCcqvgo2oFCskR9MjN8g14ZqzIKGaro22Gue23JPwChGRgaf0z0PPdMywWgQZJ
- tjxjTWlo1wODM1m+SueEToQ8eDfsD6BL3LzWN4Q514jcHEBjpIHWlBpJFjLMdMwRJZmQ
- jcNQ==
+ d=1e100.net; s=20230601; t=1713264012; x=1713868812;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=eHTLqtmJofb3OW9dwP60b9IkbybIqw6tzFbVJdsjmeU=;
+ b=lr8oA48nLY9Cj/qoA0BrEJ/4Jg3K/D0jP0p/0RrUT7pR5WlUw3zHdSYu2Xq0f/RHf5
+ jdnq0797HCE1Ut1IcshXrWmDV2z+tsKNMMfKQiIyTS0ovtNBl9gL94qbPb8hG2y3clJ3
+ eRo9kg8AInR/oN2yExeTv0zrWrNMeqB5w8Y72oLK8i7KuGpV/0iOfny2P5etxulfYCI+
+ /OLw6RbYeQrtpBwkMhZt9CE5gOufJAk9k2zrMW1ifeQ+oFjAYOGYKUZS8cJaw6ZMMGfi
+ YqqG/ojRvVOfkbq8eN0cf8ZTS75Zb+3CKAHFQYnpQQ2YqbrlVrJuNJEmlqNj0iUKd3VX
+ 4scA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1ZHVX+grCkBSCrfmRUmnOToskj4KFktJ/F6RfefiG+Is3ebUxfXMit9NKWvZyIosz/XDwkd4/tHKEN8StYMvAkiB6COoJsxqDsQi2C+KwJYQiMWl5HUiD
-X-Gm-Message-State: AOJu0YxSLjF/NQNgnyOG2IzQqw6WHkQFeLspUcBUjXpL09wUVyyFVQXl
- vKuM7kDNc7wskoG78ghArb2DT5vDKYOfWIbEiii37IggPICnMCP5blKFq+KQ2UY=
-X-Google-Smtp-Source: AGHT+IHeCLt5rGanImY7XpLmlFa8tjPTvv3rQXuFC3a0/nphBsid89J0+cxErThPuG+j2psO/RLVdA==
-X-Received: by 2002:a17:907:7d91:b0:a54:1c55:7123 with SMTP id
- oz17-20020a1709077d9100b00a541c557123mr3390435ejc.73.1713263265187; 
- Tue, 16 Apr 2024 03:27:45 -0700 (PDT)
-Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
- bz2-20020a1709070aa200b00a51a9eccf2asm6665593ejc.125.2024.04.16.03.27.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Apr 2024 03:27:44 -0700 (PDT)
-Date: Tue, 16 Apr 2024 13:27:41 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Message-ID: <7a8d403b-8baf-4eff-8f9c-69cdcb8b2180@moroto.mountain>
+ AJvYcCWNziebjcNrts+D9Osh83AOvAygtIG1B6c562uNirU0aANOLQgiBrhFFwMw8d39HDqUoTxW5kfGe44YWbtp3WFzUhneLVA6cN5vCPcEmc+wycn9PaVlNzuZ
+X-Gm-Message-State: AOJu0YzIwxaB7K28sNbS0HA7LwnY6Ck1BXD/a4loKFSWs4tRrrM4w1vs
+ v914Ctvi7+XiCTzqcGz3wQS2xQ2ov84kMCGQR6IMIA4p74K51nWUeOeLJTjssdFlggMRfygOcnW
+ kUh9tPg0=
+X-Google-Smtp-Source: AGHT+IGVpiii2FB2b3J/vOp5WnQ+6RVsTqDecwInv5qOT+1DmcpoHUM0YDtmZMXtnV2srQs/3sBnKQ==
+X-Received: by 2002:ac2:5587:0:b0:519:33b5:f57d with SMTP id
+ v7-20020ac25587000000b0051933b5f57dmr236415lfg.62.1713264012608; 
+ Tue, 16 Apr 2024 03:40:12 -0700 (PDT)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com.
+ [209.85.208.169]) by smtp.gmail.com with ESMTPSA id
+ b9-20020a056512070900b00516c50689dfsm1548041lfs.70.2024.04.16.03.40.11
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Apr 2024 03:40:11 -0700 (PDT)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2d8863d8a6eso53574521fa.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Apr 2024 03:40:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYpjcPEWqsZOxufO2675IILtIHn4jiD4Hc0cC60UPYov7e6aCIRyhMh8PRXWUXry3RVh9LY/U6feslNCiXqSzqLx+fc0nmBRhdR5ROMOlem8596+1TbkSA
+X-Received: by 2002:a05:6512:114b:b0:518:d5c4:b47f with SMTP id
+ m11-20020a056512114b00b00518d5c4b47fmr7177225lfg.13.1713263990804; Tue, 16
+ Apr 2024 03:39:50 -0700 (PDT)
+MIME-Version: 1.0
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
  <20240415-fix-cocci-v1-23-477afb23728b@chromium.org>
  <97f51ae8-6672-4bd4-b55b-f02114e3d8d0@moroto.mountain>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <97f51ae8-6672-4bd4-b55b-f02114e3d8d0@moroto.mountain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 16 Apr 2024 12:39:33 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvp9gBo6Oh31GghvcHmgBY1cYqq4uM_njFTTvQOcS1mbw@mail.gmail.com>
+Message-ID: <CANiDSCvp9gBo6Oh31GghvcHmgBY1cYqq4uM_njFTTvQOcS1mbw@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>
 Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
  Sylvain Petinot <sylvain.petinot@foss.st.com>,
  Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
@@ -89,7 +98,7 @@ Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
  linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Vikash Garodia <quic_vgarodia@quicinc.com>,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
@@ -118,56 +127,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-I have created a Smatch check to warn about code like this:
+Hi Dan
 
-drivers/media/dvb-frontends/tda10048.c:345 tda10048_set_wref() warn: unnecessary div64_u64(): divisor = '0-u32max'
+What about going the safe way?
 
-regards,
-dan carpenter
+--- a/drivers/media/dvb-frontends/tda10048.c
++++ b/drivers/media/dvb-frontends/tda10048.c
+@@ -341,7 +341,7 @@ static int tda10048_set_wref(struct dvb_frontend
+*fe, u32 sample_freq_hz,
+        /* t *= 2147483648 on 32bit platforms */
+        t *= (2048 * 1024);
+        t *= 1024;
+-       z = 7 * sample_freq_hz;
++       z = (u64)7 * sample_freq_hz;
+        t = div64_u64(t, z) + 5;
+        do_div(t, 10);
 
-/*
- * Copyright 2024 Linaro Ltd.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see http://www.gnu.org/copyleft/gpl.txt
- */
+@@ -409,6 +409,7 @@ static int tda10048_set_if(struct dvb_frontend *fe, u32 bw)
+        struct tda10048_config *config = &state->config;
+        int i;
+        u32 if_freq_khz;
++       u64 sample_freq;
 
-#include "smatch.h"
-#include "smatch_extra.h"
+        dprintk(1, "%s(bw = %d)\n", __func__, bw);
 
-static int my_id;
+@@ -450,9 +451,10 @@ static int tda10048_set_if(struct dvb_frontend *fe, u32 bw)
+        dprintk(1, "- pll_pfactor = %d\n", state->pll_pfactor);
 
-static const sval_t uint_max  = { .type = &uint_ctype, .value = UINT_MAX };
+        /* Calculate the sample frequency */
+-       state->sample_freq = state->xtal_hz * (state->pll_mfactor + 45);
+-       state->sample_freq /= (state->pll_nfactor + 1);
+-       state->sample_freq /= (state->pll_pfactor + 4);
++       sample_freq = (u64)state->xtal_hz * (state->pll_mfactor + 45);
++       do_div(sample_freq, state->pll_nfactor + 1);
++       do_div(sample_freq, state->pll_pfactor + 4);
++       state->sample_freq = sample_freq;
+        dprintk(1, "- sample_freq = %d\n", state->sample_freq);
 
-static void match_div64_u64(struct expression *expr)
-{
-	struct range_list *rl;
+        /* Update the I/F */
 
-	get_real_absolute_rl(expr, &rl);
-	if (sval_cmp(rl_max(rl), uint_max) > 0)
-		return;
-	sm_warning("unnecessary div64_u64(): divisor = '%s'", show_rl(rl));
-}
+I will add a extra patch to fix tda10048_set_if
 
-void check_unnecessary_div64_u64(int id)
-{
-	my_id = id;
+Thanks
 
-	if (option_project != PROJ_KERNEL)
-		return;
+PS: Thanks a lot for your reviews, really appreciate! I have a v2 with
+your changes, I am giving it a couple of days before re-submitting
 
-	add_param_key_expr_hook("div64_u64", match_div64_u64, 1, "$", NULL);
-}
+On Tue, 16 Apr 2024 at 12:10, Dan Carpenter <dan.carpenter@linaro.org> wrote:
+>
+> On Mon, Apr 15, 2024 at 07:34:40PM +0000, Ricardo Ribalda wrote:
+> > z does not fit in 32 bits.
+> >
+>
+> z has to fit in 32 bits otherwise there is a different bug.
+>
+> > Found by cocci:
+> > drivers/media/dvb-frontends/tda10048.c:345:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
+> >
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/dvb-frontends/tda10048.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/media/dvb-frontends/tda10048.c b/drivers/media/dvb-frontends/tda10048.c
+> > index 5d5e4e9e4422..b176e7803e5b 100644
+> > --- a/drivers/media/dvb-frontends/tda10048.c
+> > +++ b/drivers/media/dvb-frontends/tda10048.c
+> > @@ -342,8 +342,7 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
+> >       t *= (2048 * 1024);
+> >       t *= 1024;
+> >       z = 7 * sample_freq_hz;
+>
+> sample_freq_hz is a u32 so z can't be more than U32_MAX.  Perhaps there
+> is an integer overflow bug on this line.
+>
+> The sample frequency is set in tda10048_set_if().
+>
+>         state->sample_freq = state->xtal_hz * (state->pll_mfactor + 45);
+>
+> ->xtal_hz is set earlier in tda10048_set_if() and it goes up to
+> 16,000,000.  So if ->pll_mfactor is non-zero this line will have an
+> integer overflow.  16million * 46 > U32_MAX.  Maybe when .clk_freq_khz
+> is TDA10048_CLK_16000 then ->pll_mfactor is zero?  Ugh...
+>
+> > -     do_div(t, z);
+> > -     t += 5;
+> > +     t = div64_u64(t, z) + 5;
+> >       do_div(t, 10);
+>
+> regards,
+> dan carpenter
+>
+
+
+-- 
+Ricardo Ribalda
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
