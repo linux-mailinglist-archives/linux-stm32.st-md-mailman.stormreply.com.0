@@ -2,63 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475F98A69BA
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 13:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA93E8A6A11
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Apr 2024 14:01:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04072C6B45B;
-	Tue, 16 Apr 2024 11:38:33 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92B1AC6B47E;
+	Tue, 16 Apr 2024 12:01:45 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8C21C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5A00C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Apr 2024 11:38:31 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5193363d255so203908e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Apr 2024 04:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713267511; x=1713872311;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3imXpN/x1JQtEA6zkUwudIXWS06IjOEYxP3aQIvEud0=;
- b=KxyCOgavHYxbkgfY/Tqm0Igjbktno52y6w/g9RVZJd0jBjnBn5qkz0TbLyIMDuOAOR
- CYWcCGsk40rHzcMS53/voU7Ztuw9ZduLBRXsxgCFp9/YTYEo4JyjQUThGwtuOGOkCIhi
- ptv4GBGwL2ar6XMuRXEfhFIOTFkKTthOJt8NGLdxUpZVrftSK9xuJLV65hs9awOFV36G
- xv5c4RL3SM90sLZv+8MDUu1FWO2NX11pRUG+KWkzpvHMajjWoKdPZzwss69n8u2A8/pq
- Foz5XDCs0LOV5QksISwzeUcVdvOHMvowH6V1F9VVzKas/6S5cfQaDlTXcygHiakEHLm6
- i9WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713267511; x=1713872311;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3imXpN/x1JQtEA6zkUwudIXWS06IjOEYxP3aQIvEud0=;
- b=np9fpyYIS4r7GhsD0NVjH+r6ZwXjVD28PH8YMNhPbbSBdBG7lzieAUoFCbq2j6UkJr
- 913JaduIMY3OG5xAfN/gdKm5jc70tU9oa9YwLIetdPz3eLMR18eKf5gM/x8bgd8Dkjil
- TEf2ccfDXVLt74WqAd/1yMk0ao5RoICZq1ji7auwmQQLGXHCkfx2MgRpZAAwevbXbiLI
- 98NxiPake74+vCwSL1Zq0wXaLBye6lm7EmIQE1YR8M0LSXYNESGrFNlQ0/uC0eoDovEC
- 0P/3CHXznSGWG90NM4B0+y0ncdHVbe3xYb6Rs+C/JHeMVfhdNY9ZjFfJ0KskAnnRuykl
- gQFw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4DllZ6p/j1gCGvCuE/anhKpyeQLYehH9Nbzs6R2xZyz3h5n6d17fU5uXRlF3rUSCueOqJHQ9qx4YAHk0l4XZo6vB/7z1sIrVte1+Io05JanFEqxv3Z271
-X-Gm-Message-State: AOJu0YxnHcig7GU7yFEVSYnJxUsggLE1tm9z+vj+q3X5scd0X22UDhdW
- cnxndEYUFu4DxGViq0e8iqSUA0t8jkymHZnSvzK8Znaopev3YEkD
-X-Google-Smtp-Source: AGHT+IFsv1t50cVsn9xtvOjs4g4KFGJI0LdCIc6Wa6MGsoQY1SUEtRqNz2Pjjzjb2zJlDyUmdLuf3A==
-X-Received: by 2002:ac2:528c:0:b0:518:7e4a:2035 with SMTP id
- q12-20020ac2528c000000b005187e4a2035mr7410480lfm.45.1713267510734; 
- Tue, 16 Apr 2024 04:38:30 -0700 (PDT)
-Received: from mobilestation ([213.79.110.82])
- by smtp.gmail.com with ESMTPSA id
- bp22-20020a056512159600b00518e96b85b0sm568727lfb.234.2024.04.16.04.38.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Apr 2024 04:38:30 -0700 (PDT)
-Date: Tue, 16 Apr 2024 14:38:28 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
+ Tue, 16 Apr 2024 12:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IsKWmq3S1tbhsPEHkpNJ+4wTjZvXqEyH5UAdmDYEQ5Q=; b=R6GDJn38hgKmNBGIc81JtA0h1Q
+ R3uScF+x+HDTqA8bIZi8vFrRKzu4vgwk6os8ntlO2z4sio2h40d5XAbu9VYldnSIq9/Uc2BFgxhWU
+ gYhHN/JWQBuDrHapNFeqQUlssHeUz7jEXzIuxbYOR+Oiam/vKXNlqS5aZKZVHPLStzH5rEMJFdeqp
+ xIQ6DJrAGZh1xsU74mUnzpwU4/s02XomHhPQoL9yiF7qk88W8YEcIa7iMY0o8e51JmSx2V1NTExas
+ kZAUfITBlX3IP8E9E9hqhJkAqpfhfBqhepNUAQFCPz8I/PhRvoptM3wQRl+1nbrmTPPkjr9jiogV0
+ sxjM8eCA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33062)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1rwhUv-00009J-1B;
+ Tue, 16 Apr 2024 13:01:13 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1rwhUo-0004pX-19; Tue, 16 Apr 2024 13:01:06 +0100
+Date: Tue, 16 Apr 2024 13:01:05 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <btgxb3ugs4apjvxj5hmpec3rtoxwdal7ms2z4s7pecdfefphiw@gd7ctqsh7wg2>
+Message-ID: <Zh5ogZ433lrUOi9b@shell.armlinux.org.uk>
 References: <20240412180340.7965-1-fancer.lancer@gmail.com>
  <20240412180340.7965-5-fancer.lancer@gmail.com>
  <714199e5-edf2-dcbb-216b-563431d70488@bootlin.com>
@@ -69,9 +48,9 @@ Cc: Yanteng Si <siyanteng@loongson.cn>, linux-kernel@vger.kernel.org,
  Simon Horman <horms@kernel.org>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Chen-Yu Tsai <wens@csie.org>,
+ Serge Semin <fancer.lancer@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, linux-sunxi@lists.linux.dev,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
@@ -93,8 +72,6 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Romain
-
 On Tue, Apr 16, 2024 at 09:56:32AM +0200, Romain Gantois wrote:
 > Hi Serge,
 > 
@@ -109,53 +86,20 @@ On Tue, Apr 16, 2024 at 09:56:32AM +0200, Romain Gantois wrote:
 > > +	stmmac_mac_phylink_get_caps(priv);
 > 
 > This is a bit of a nitpick, but the terminology is quite confusing between 
-> stmmac_mac_phylink_get_caps() and stmmac_mac_get_caps().
-
-Right, the naming turns to be ambiguous "a bit".)
-
-> Ideally, we could just 
+> stmmac_mac_phylink_get_caps() and stmmac_mac_get_caps(). Ideally, we could just 
 > get rid of the whole stmmac_do_void_callback() complexity and just call 
-> phylink_get_caps() directly.
-
-No, this isn't a good solution. The local coding convention implies
-using the macro-functions implemented to execute the callbacks. We
-can't use the macros everywhere but in this place.
-
-> In the meantime, maybe renaming this to 
+> phylink_get_caps() directly. In the meantime, maybe renaming this to 
 > stmmac_mac_core_get_caps() would be acceptable?
 
-The name was selected to align with the rest of the PHYLINK callbacks:
+I'd prefer not to do that. If the method is called mac_get_caps() then
+I'd much rather have method implementations called foo_mac_get_caps()
+which makes grep easier.
 
-static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
-        .mac_get_caps = stmmac_mac_get_caps,
-        .mac_select_pcs = stmmac_mac_select_pcs,
-        .mac_config = stmmac_mac_config,
-        .mac_link_down = stmmac_mac_link_down,
-        .mac_link_up = stmmac_mac_link_up,
-};
+So... stmmac_core_mac_get_caps() would be acceptable to me.
 
-So I don't think that changing it to something different would be a
-good alternative. What could be a better option is to rename the
-stmmac_ops::phylink_get_caps() callback and
-stmmac_mac_phylink_get_caps() macro-function to something like:
-
-stmmac_ops::link_update_caps()
-stmmac_mac_link_update_caps()
-
-especially seeing the callback no longer sets the phylink MAC
-capabilities directly. What do you think?
-
--Serge(y)
-
-> 
-> Please let me know what you think.
-> 
-> Thanks,
-> 
-> -- 
-> Romain Gantois, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
