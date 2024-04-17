@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A471F8A891C
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 18:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7888A8918
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 18:43:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 606CDC6DD67;
-	Wed, 17 Apr 2024 16:43:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FAEAC6B47E;
+	Wed, 17 Apr 2024 16:43:42 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A753C6C858
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45DEEC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 16:43:45 +0000 (UTC)
+ Wed, 17 Apr 2024 16:43:40 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ore@pengutronix.de>)
- id 1rx8NT-0007N0-VQ; Wed, 17 Apr 2024 18:43:19 +0200
+ id 1rx8NT-0007N1-VQ; Wed, 17 Apr 2024 18:43:19 +0200
 Received: from [2a0a:edc0:0:1101:1d::ac] (helo=dude04.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <ore@pengutronix.de>)
- id 1rx8NR-00CpCa-PX; Wed, 17 Apr 2024 18:43:17 +0200
+ id 1rx8NR-00CpCb-QE; Wed, 17 Apr 2024 18:43:17 +0200
 Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1rx8NR-007Mds-2J;
+ (envelope-from <ore@pengutronix.de>) id 1rx8NR-007Me2-2O;
  Wed, 17 Apr 2024 18:43:17 +0200
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -38,8 +38,8 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Arun Ramadoss <arun.ramadoss@microchip.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Russell King <linux@armlinux.org.uk>
-Date: Wed, 17 Apr 2024 18:43:13 +0200
-Message-Id: <20240417164316.1755299-2-o.rempel@pengutronix.de>
+Date: Wed, 17 Apr 2024 18:43:14 +0200
+Message-Id: <20240417164316.1755299-3-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240417164316.1755299-1-o.rempel@pengutronix.de>
 References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
@@ -52,8 +52,8 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  UNGLinuxDriver@microchip.com, Oleksij Rempel <o.rempel@pengutronix.de>,
  kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH net-next v1 1/4] net: phy: Add TimeSync delay
-	query support to PHYlib API
+Subject: [Linux-stm32] [PATCH net-next v1 2/4] net: phy: micrel: lan8841:
+	set default PTP latency values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,161 +70,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a new phy_get_timesync_data_path_delays() function, to the PHY
-device API. This function enables querying the ingress and egress
-TimeSync delays for PHY devices, as specified in IEEE 802.3-2022
-sections 30.13.1.3 to 30.13.1.6. The function adds the capability to
-obtain the average delays in nanoseconds, which can be used to
-compensate for time variations added by the PHY to PTP packets.
+Set default PTP latency values to provide realistic path delay
+measurements and reflecting internal PHY latency asymetry.
 
-Since most PHYs do not provide register-based delay information, PHY
-drivers should supply this data, typically dependent on the interface
-type (MII, RGMII, etc.) and link speed. The MAC driver, or consumer of
-this API, is expected to invoke this function upon link establishment to
-accurately compensate for any PHY-induced time discrepancies.
+This values are based on ptp4l measurements for the path delay against
+identical PHY as link partner and latency asymmetry extracted from
+documented SOF Latency values of this PHY.
 
-Compensating for this delay is crucial. If it is not addressed, the PHY
-delays may exceed the 800ns threshold set by the 802.1as standard (the
-gPTP standard). This situation classifies the link as a gPTP domain
-boundary and excludes the device from synchronization processes. While
-some switches and devices allow configurations that exceed this
-threshold, such adjustments are non-compliant with the standard and may
-not operate seamlessly across different devices or configurations.
-Additionally, addressing the path delay asymmetry is vital. Identical
-PHYs may not exhibit noticeable asymmetry impacting PTP time offset;
-however, different PHY types and vendors can introduce significant
-asymmetries that require manual adjustment for each device.
+Documented SOF Latency values are:
+TX 138ns/RX 430ns @ 1000Mbps
+TX 140ns/RX 615ns @ 100Mbps (fixed latency mode)
+TX 140ns/RX 488-524ns @ 100Mbps (variable latency mode)
+TX 654ns/227-2577ns @ 10Mbps
+
+Calculated asymmetry:
+292ns @ 1000Mbps
+238ns @ 100Mbps
+1923ns @ 10Mbps
+
+Except of ptp4l based tests RGMII-PHY-PHY-RGMII path delay was measured
+to verify if values are in sane range. Following LAN8841 + LAN8841 RGMII
+delays are measured:
+583ns @ 1000Mbps
+1080ns @ 100Mbps
+15200ns @ 10Mbps
+
+Without configuring compensation registers ptp4l reported following
+path delay results:
+~467ns @ 1000Mbps
+~544ns @ 100Mbps
+~9688ns @ 10Mbps
+
+Magnetic + Cable + Magnetic delay in this setup is about 5ns.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
- drivers/net/phy/phy_device.c | 57 ++++++++++++++++++++++++++++++++++++
- include/linux/phy.h          | 31 ++++++++++++++++++++
- 2 files changed, 88 insertions(+)
+ drivers/net/phy/micrel.c | 55 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 616bd7ba46cbf..3ded9280ab831 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -3216,6 +3216,63 @@ s32 phy_get_internal_delay(struct phy_device *phydev, struct device *dev,
- }
- EXPORT_SYMBOL(phy_get_internal_delay);
+diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
+index ddb50a0e2bc82..5831706e81623 100644
+--- a/drivers/net/phy/micrel.c
++++ b/drivers/net/phy/micrel.c
+@@ -3405,6 +3405,20 @@ static int lan8814_probe(struct phy_device *phydev)
+ #define LAN8841_BTRX_POWER_DOWN_BTRX_CH_C	BIT(5)
+ #define LAN8841_BTRX_POWER_DOWN_BTRX_CH_D	BIT(7)
+ #define LAN8841_ADC_CHANNEL_MASK		198
++#define LAN8841_PTP_RX_LATENCY_10M		328
++#define LAN8841_PTP_TX_LATENCY_10M		329
++#define LAN8841_PTP_RX_LATENCY_100M		330
++#define LAN8841_PTP_TX_LATENCY_100M		331
++#define LAN8841_PTP_RX_LATENCY_1000M		332
++#define LAN8841_PTP_TX_LATENCY_1000M		333
++
++#define LAN8841_PTP_RX_LATENCY_10M_VAL		5803
++#define LAN8841_PTP_TX_LATENCY_10M_VAL		3880
++#define LAN8841_PTP_RX_LATENCY_100M_VAL		443
++#define LAN8841_PTP_TX_LATENCY_100M_VAL		95
++#define LAN8841_PTP_RX_LATENCY_1000M_VAL	377
++#define LAN8841_PTP_TX_LATENCY_1000M_VAL	85
++
+ #define LAN8841_PTP_RX_PARSE_L2_ADDR_EN		370
+ #define LAN8841_PTP_RX_PARSE_IP_ADDR_EN		371
+ #define LAN8841_PTP_RX_VERSION			374
+@@ -3421,6 +3435,45 @@ static int lan8814_probe(struct phy_device *phydev)
+ #define LAN8841_PTP_INSERT_TS_EN		BIT(0)
+ #define LAN8841_PTP_INSERT_TS_32BIT		BIT(1)
  
-+/**
-+ * phy_get_timesync_data_path_delays - get the TimeSync data path ingress/egress
-+ *                                     delays
-+ * @phydev: phy_device struct
-+ * @tx_delay_ns: pointer to the transmit delay in nanoseconds
-+ * @rx_delay_ns: pointer to the receive delay in nanoseconds
-+ *
-+ * This function is used to get the TimeSync data path ingress/egress delays
-+ * as described in IEEE 802.3-2022 sections:
-+ * 30.13.1.3 aTimeSyncDelayTXmax, 30.13.1.4 aTimeSyncDelayTXmin,
-+ * 30.13.1.5 aTimeSyncDelayRXmax and 30.13.1.6 aTimeSyncDelayRXmin.
-+ *
-+ * The delays are returned in nanoseconds and can be used to compensate time
-+ * added by the PHY to the PTP packets.
-+ *
-+ * Returns 0 on success, negative value on failure.
-+ */
-+int phy_get_timesync_data_path_delays(struct phy_device *phydev,
-+				      u64 *tx_delay_ns, u64 *rx_delay_ns)
++static int lan8841_ptp_latency_init(struct phy_device *phydev)
 +{
-+	struct phy_timesync_delay tsd = { 0 };
-+	int err;
++	int ret;
 +
-+	if (!phydev->drv->get_timesync_data_path_delays)
-+		return -EOPNOTSUPP;
++	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			    LAN8841_PTP_RX_LATENCY_10M,
++			    LAN8841_PTP_RX_LATENCY_10M_VAL);
++	if (ret)
++		return ret;
 +
-+	if (!tx_delay_ns || !rx_delay_ns)
-+		return -EINVAL;
++	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			    LAN8841_PTP_TX_LATENCY_10M,
++			    LAN8841_PTP_TX_LATENCY_10M_VAL);
++	if (ret)
++		return ret;
 +
-+	err = phydev->drv->get_timesync_data_path_delays(phydev, &tsd);
-+	if (err)
-+		return err;
++	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			    LAN8841_PTP_RX_LATENCY_100M,
++			    LAN8841_PTP_RX_LATENCY_100M_VAL);
++	if (ret)
++		return ret;
 +
-+	if ((!tsd.tx_max_delay_ns && !tsd.tx_min_delay_ns) ||
-+	    (!tsd.rx_max_delay_ns && !tsd.rx_min_delay_ns)) {
-+		phydev_err(phydev, "Invalid TimeSync data path delays\n");
-+		return -EINVAL;
-+	}
++	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			    LAN8841_PTP_TX_LATENCY_100M,
++			    LAN8841_PTP_TX_LATENCY_100M_VAL);
++	if (ret)
++		return ret;
 +
-+	if (tsd.tx_max_delay_ns && tsd.tx_min_delay_ns)
-+		*tx_delay_ns = (tsd.tx_max_delay_ns + tsd.tx_min_delay_ns) / 2;
-+	else if (tsd.tx_max_delay_ns)
-+		*tx_delay_ns = tsd.tx_max_delay_ns;
-+	else
-+		*tx_delay_ns = tsd.tx_min_delay_ns;
++	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			    LAN8841_PTP_RX_LATENCY_1000M,
++			    LAN8841_PTP_RX_LATENCY_1000M_VAL);
++	if (ret)
++		return ret;
 +
-+	if (tsd.rx_max_delay_ns && tsd.rx_min_delay_ns)
-+		*rx_delay_ns = (tsd.rx_max_delay_ns + tsd.rx_min_delay_ns) / 2;
-+	else if (tsd.rx_max_delay_ns)
-+		*rx_delay_ns = tsd.rx_max_delay_ns;
-+	else
-+		*rx_delay_ns = tsd.rx_min_delay_ns;
-+
-+	return 0;
++	return phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
++			     LAN8841_PTP_TX_LATENCY_1000M,
++			     LAN8841_PTP_TX_LATENCY_1000M_VAL);
 +}
-+EXPORT_SYMBOL(phy_get_timesync_data_path_delays);
 +
- static int phy_led_set_brightness(struct led_classdev *led_cdev,
- 				  enum led_brightness value)
+ static int lan8841_config_init(struct phy_device *phydev)
  {
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 3ddfe7fe781aa..6021e3c6cebb2 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -893,6 +893,24 @@ struct phy_led {
+ 	int ret;
+@@ -3500,7 +3553,7 @@ static int lan8841_config_init(struct phy_device *phydev)
+ 		      LAN8841_MMD0_REGISTER_17_DROP_OPT(2) |
+ 		      LAN8841_MMD0_REGISTER_17_XMIT_TOG_TX_DIS);
  
- #define to_phy_led(d) container_of(d, struct phy_led, led_cdev)
+-	return 0;
++	return lan8841_ptp_latency_init(phydev);
+ }
  
-+/**
-+ * struct phy_timesync_delay - PHY time sync delay values
-+ * @tx_max_delay_ns: Maximum delay for transmit path in nanoseconds. Corresponds
-+ * to IEEE 802.3 2022 - 30.13.1.3 aTimeSyncDelayTXmax.
-+ * @tx_min_delay_ns: Minimum delay for transmit path in nanoseconds. Corresponds
-+ * to IEEE 802.3 2022 - 30.13.1.4 aTimeSyncDelayTXmin.
-+ * @rx_max_delay_ns: Maximum delay for receive path in nanoseconds. Corresponds
-+ * to IEEE 802.3 2022 - 30.13.1.5 aTimeSyncDelayRXmax
-+ * @rx_min_delay_ns: Minimum delay for receive path in nanoseconds. Corresponds
-+ * to IEEE 802.3 2022 - 30.13.1.6 aTimeSyncDelayRXmin.
-+ */
-+struct phy_timesync_delay {
-+	u64 tx_max_delay_ns;
-+	u64 tx_min_delay_ns;
-+	u64 rx_max_delay_ns;
-+	u64 rx_min_delay_ns;
-+};
-+
- /**
-  * struct phy_driver - Driver structure for a particular PHY type
-  *
-@@ -1182,6 +1200,16 @@ struct phy_driver {
- 	 */
- 	int (*led_polarity_set)(struct phy_device *dev, int index,
- 				unsigned long modes);
-+
-+	/**
-+	 * @get_timesync_data_path_delays: Get the PHY time sync delay values
-+	 * @dev: PHY device
-+	 * @tsd: PHY time sync delay values
-+	 *
-+	 * Returns 0 on success, or an error code.
-+	 */
-+	int (*get_timesync_data_path_delays)(struct phy_device *dev,
-+					     struct phy_timesync_delay *tsd);
- };
- #define to_phy_driver(d) container_of(to_mdio_common_driver(d),		\
- 				      struct phy_driver, mdiodrv)
-@@ -1991,6 +2019,9 @@ void phy_get_pause(struct phy_device *phydev, bool *tx_pause, bool *rx_pause);
- s32 phy_get_internal_delay(struct phy_device *phydev, struct device *dev,
- 			   const int *delay_values, int size, bool is_rx);
- 
-+int phy_get_timesync_data_path_delays(struct phy_device *phydev,
-+				      u64 *tx_delay_ns, u64 *rx_delay_ns);
-+
- void phy_resolve_pause(unsigned long *local_adv, unsigned long *partner_adv,
- 		       bool *tx_pause, bool *rx_pause);
- 
+ #define LAN8841_OUTPUT_CTRL			25
 -- 
 2.39.2
 
