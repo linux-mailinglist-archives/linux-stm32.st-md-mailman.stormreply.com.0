@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F018A8571
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 16:00:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476AA8A8572
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 16:00:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00176C6C859;
-	Wed, 17 Apr 2024 14:00:19 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C266C6DD66;
+	Wed, 17 Apr 2024 14:00:21 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 506B6C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1621C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 14:00:18 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-516d0161e13so6991907e87.3
+ Wed, 17 Apr 2024 14:00:19 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-518d98b9620so4583894e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 07:00:18 -0700 (PDT)
+ Wed, 17 Apr 2024 07:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713362417; x=1713967217;
+ d=gmail.com; s=20230601; t=1713362419; x=1713967219;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wCuHkgJvG5roUfAj93LLXibybGnOYsen6TK2djTp+uM=;
- b=iFVUFMs/N/Zz5TQDuGnfaj3FqP1bMPNJ9aIPxMXSga5Rai/VT3elIUJIVGFkXg9jEn
- 7nM0773+a0CZW+3yyXx+Aw3jcLXwWGBYD82kAV9k8AVpXBUZmyMrU5o0FXIsAKmFYX9+
- Hzcmp7r5E78WdFEYPWJV9q5D/w41jaVG5YrPxli8yyjvPVqPC4eNGEmKLE4wCi1xF1vI
- LV6uVFaGymGxVL7C6ni8phrSMlzgQl5yLR99GEH93eBO/UEcWrD8NVB8dJhbRGDpaWbQ
- OsxydoiuUNt1KCGT7TbfhWAI14IiibbYOcKeoNBA/snqSyj00Ql+V4nCbQz+Ab1NyMO7
- SdNw==
+ bh=8KnMWOMZl4OlIeWKfyhTeTgh6nDBj0ThrZdjCpvV0rs=;
+ b=hgNV0262MCbVdfiakaabvZHyvBm+4W5nJbP97Hjc/PzmVX3kKpa0h18QPPrxA6ZiJ2
+ u/Si19bVntQp82nprXTQuZG6aJcnokimhwDL6tJyZp9VGKUhRbEPJ7I7rOjbiGcBClK9
+ PbooHW/Eo8r8yqiMiuORR44zXjxZHmr8caB8EXXUxCaal98E0twAReT7bSHxlC6GS+SW
+ yKU5QlijyAoY2/oZA5oxYX7f6/5QUs4STINYXGISizYSLPYhO6YYoJX1x6dmK13vJ3wz
+ HBZMOser/qYJeNaLyOR51xRwL1DoWR1sKIsotzWNycKGEsNIYAgGXU5YQ8MRs3HcBakY
+ Yb/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713362417; x=1713967217;
+ d=1e100.net; s=20230601; t=1713362419; x=1713967219;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wCuHkgJvG5roUfAj93LLXibybGnOYsen6TK2djTp+uM=;
- b=HOJA6FEdo0d6KLJQm6A7dLFLpBZbQwZ2EGY43W3SKDZjPs4CGgUx+9z3vw07tjbb5g
- myzMLCz8ePHTG2+uDcGom8n/9/zfwIc0cDr0gQ7kadNJSQHC2XvgO9VV1H13Cry0o0Q2
- bbKwCX5Zyq3tGNQe9uWu0A2GxHSjdVsg94TtSFRvk8vPPcvkqMFKuRt5eZkVAY9upQ0f
- RvLp8ubDu3/lrsgjqbEWWSj2fVJpiPkjbTgb1wLB1dqG/ft9IgSr3xjoKdXJ1MSfDmGv
- jm+baC826MXinp9P+Na2fFWRlFTuy7AQxJTMBmW4ierBquzfSDuRKFVS9sgYIvcjF1ma
- 3RJw==
+ bh=8KnMWOMZl4OlIeWKfyhTeTgh6nDBj0ThrZdjCpvV0rs=;
+ b=Ks5XouNfu22JlcXne6TcvNttetY6sFV64ls5z/0fnxK853OwWQzefjR+mm6UAbcQ3f
+ jZPCThik/ZxS+2EuZ5P+ETxzmHylWhBAR7esz7KW7lx9XQTRZ4xhRvcHTYOLaVe4Q/RM
+ J0ANeOpmSIuzFRTspqgbXFNLsoMASmLZj6WDq1Fb5gzN1yNg6YqY6jI86NjWr9hHBluP
+ kyi6xD+4JOHXmzaC+IKIBuGX2jvwvvxyJi+ZxPuLr+y/tcvTaAv6d/2pIrP3Zm82A7Ej
+ GVQedGe8bNQ5ND90ND4XbQCweejBzLVwaTF9B109nfDzaeoQoKZLhqGnMULJ3H72i1gT
+ creg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3TWn5IDyTVCMiER/e1FoWek7rIeBK46d6yfHBWWfi8HqnA9AR8vmSYKqXhq51SBKTZS/H8wI36ZYis8NZqZ8YIvazgEDXX4gPsDRKdgt3oEVfOsxohPWf
-X-Gm-Message-State: AOJu0YwHZUt0sSpV9DNP6kJCCd3Zv9q4CM+9lbWbiGG8gu3vupt3JYrw
- a4+SgZ+DpXj5xbGDBfmTpdTErkdwnetVGv7Z2/JkVqywwAbeUfbV
-X-Google-Smtp-Source: AGHT+IHZISTn2b4MdatLv09pVqgN8Rj/zh3VicITjG9ZAtAiCv8/i6AUH8xtyM+z/+qSzfgj1akGPQ==
-X-Received: by 2002:a05:6512:1150:b0:516:ced5:3afa with SMTP id
- m16-20020a056512115000b00516ced53afamr14396995lfg.5.1713362417376; 
- Wed, 17 Apr 2024 07:00:17 -0700 (PDT)
+ AJvYcCU3wBqXKXWp3QSaY/xhJw52tv2aFQ7D+bymgqPFT036IuegIzJYbdYHiel7xrQwHFoFPN5btC+TpIsy8WH51xaoRWLS+UMcfCxMj3M4ghs7sPXuXKZoY53Y
+X-Gm-Message-State: AOJu0Yxf4giKK8Hpr+86O08ktwC/6+AEozVt82Zzggf47J+18flfGr6N
+ Abj+GQPBpboRHtodPGCxIdpSEEfR+0tC9TgcyaXxeR4WB9FPZb9h
+X-Google-Smtp-Source: AGHT+IEFwpS1qE+a87B7Ubcokq+jSyQu+NQX48mgWo7d9MJK3BT85N5w69dYy1tGNwmTeX2J7BN2jw==
+X-Received: by 2002:ac2:4d9b:0:b0:516:d33a:7571 with SMTP id
+ g27-20020ac24d9b000000b00516d33a7571mr10745339lfe.8.1713362418928; 
+ Wed, 17 Apr 2024 07:00:18 -0700 (PDT)
 Received: from localhost ([94.125.187.42]) by smtp.gmail.com with ESMTPSA id
- g11-20020a0565123b8b00b00518f53da2dfsm890439lfv.291.2024.04.17.07.00.16
+ g20-20020a19ee14000000b00515b0706b95sm1971640lfb.17.2024.04.17.07.00.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 07:00:17 -0700 (PDT)
+ Wed, 17 Apr 2024 07:00:18 -0700 (PDT)
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
@@ -63,8 +63,8 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Yanteng Si <siyanteng@loongson.cn>,
  Romain Gantois <romain.gantois@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Wed, 17 Apr 2024 17:00:07 +0300
-Message-ID: <20240417140013.12575-2-fancer.lancer@gmail.com>
+Date: Wed, 17 Apr 2024 17:00:08 +0300
+Message-ID: <20240417140013.12575-3-fancer.lancer@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240417140013.12575-1-fancer.lancer@gmail.com>
 References: <20240417140013.12575-1-fancer.lancer@gmail.com>
@@ -75,8 +75,8 @@ Cc: Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
  Chen-Yu Tsai <wens@csie.org>, Serge Semin <fancer.lancer@gmail.com>,
  Simon Horman <horms@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 1/2] net: stmmac: Rename
-	phylink_get_caps() callback to update_caps()
+Subject: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Move MAC caps
+	init to phylink MAC caps getter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,10 +93,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since recent commits the stmmac_ops::phylink_get_caps() callback has no
-longer been responsible for the phylink MAC capabilities getting, but
-merely updates the MAC capabilities in the mac_device_info::link::caps
-field. Rename the callback to comply with the what the method does now.
+After a set of recent fixes the stmmac_phy_setup() and
+stmmac_reinit_queues() methods have turned to having some duplicated code.
+Let's get rid from the duplication by moving the MAC-capabilities
+initialization to the PHYLINK MAC-capabilities getter. The getter is
+called during each network device interface open/close cycle. So the
+MAC-capabilities will be initialized in generic device open procedure and
+in case of the Tx/Rx queues re-initialization as the original code
+semantics implies.
 
 Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 
@@ -104,104 +108,93 @@ Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 
 Link: https://lore.kernel.org/netdev/20240412180340.7965-5-fancer.lancer@gmail.com/
 Changelog v2:
-- This is a new patch created based on the discussion around patch #4 in
-  the series above.
+- Resubmit the patch to net-next separately from the main patchset (Paolo)
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 8 ++++----
- drivers/net/ethernet/stmicro/stmmac/hwif.h        | 8 ++++----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 +++---
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 36 +++++++++----------
+ 1 file changed, 17 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index a38226d7cc6a..b25774d69195 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -68,7 +68,7 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 		init_waitqueue_head(&priv->tstamp_busy_wait);
- }
- 
--static void dwmac4_phylink_get_caps(struct stmmac_priv *priv)
-+static void dwmac4_update_caps(struct stmmac_priv *priv)
- {
- 	if (priv->plat->tx_queues_to_use > 1)
- 		priv->hw->link.caps &= ~(MAC_10HD | MAC_100HD | MAC_1000HD);
-@@ -1190,7 +1190,7 @@ static void dwmac4_set_hw_vlan_mode(struct mac_device_info *hw)
- 
- const struct stmmac_ops dwmac4_ops = {
- 	.core_init = dwmac4_core_init,
--	.phylink_get_caps = dwmac4_phylink_get_caps,
-+	.update_caps = dwmac4_update_caps,
- 	.set_mac = stmmac_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
-@@ -1235,7 +1235,7 @@ const struct stmmac_ops dwmac4_ops = {
- 
- const struct stmmac_ops dwmac410_ops = {
- 	.core_init = dwmac4_core_init,
--	.phylink_get_caps = dwmac4_phylink_get_caps,
-+	.update_caps = dwmac4_update_caps,
- 	.set_mac = stmmac_dwmac4_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
-@@ -1284,7 +1284,7 @@ const struct stmmac_ops dwmac410_ops = {
- 
- const struct stmmac_ops dwmac510_ops = {
- 	.core_init = dwmac4_core_init,
--	.phylink_get_caps = dwmac4_phylink_get_caps,
-+	.update_caps = dwmac4_update_caps,
- 	.set_mac = stmmac_dwmac4_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 7be04b54738b..90384db228b5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -308,8 +308,8 @@ struct stmmac_est;
- struct stmmac_ops {
- 	/* MAC core initialization */
- 	void (*core_init)(struct mac_device_info *hw, struct net_device *dev);
--	/* Get phylink capabilities */
--	void (*phylink_get_caps)(struct stmmac_priv *priv);
-+	/* Update MAC capabilities */
-+	void (*update_caps)(struct stmmac_priv *priv);
- 	/* Enable the MAC RX/TX */
- 	void (*set_mac)(void __iomem *ioaddr, bool enable);
- 	/* Enable and verify that the IPC module is supported */
-@@ -430,8 +430,8 @@ struct stmmac_ops {
- 
- #define stmmac_core_init(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, core_init, __args)
--#define stmmac_mac_phylink_get_caps(__priv) \
--	stmmac_do_void_callback(__priv, mac, phylink_get_caps, __priv)
-+#define stmmac_mac_update_caps(__priv) \
-+	stmmac_do_void_callback(__priv, mac, update_caps, __priv)
- #define stmmac_mac_set(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, set_mac, __args)
- #define stmmac_rx_ipc(__priv, __args...) \
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7c6fb14b5555..b810f6b69bf5 100644
+index b810f6b69bf5..0d6cd1704e6a 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1225,8 +1225,8 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+@@ -936,6 +936,22 @@ static void stmmac_mac_flow_ctrl(struct stmmac_priv *priv, u32 duplex)
+ 			priv->pause, tx_cnt);
+ }
+ 
++static unsigned long stmmac_mac_get_caps(struct phylink_config *config,
++					 phy_interface_t interface)
++{
++	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
++
++	/* Refresh the MAC-specific capabilities */
++	stmmac_mac_update_caps(priv);
++
++	config->mac_capabilities = priv->hw->link.caps;
++
++	if (priv->plat->max_speed)
++		phylink_limit_mac_speed(config, priv->plat->max_speed);
++
++	return config->mac_capabilities;
++}
++
+ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
+ 						 phy_interface_t interface)
+ {
+@@ -1105,6 +1121,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ }
+ 
+ static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
++	.mac_get_caps = stmmac_mac_get_caps,
+ 	.mac_select_pcs = stmmac_mac_select_pcs,
+ 	.mac_config = stmmac_mac_config,
+ 	.mac_link_down = stmmac_mac_link_down,
+@@ -1204,7 +1221,6 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ 	int mode = priv->plat->phy_interface;
+ 	struct fwnode_handle *fwnode;
+ 	struct phylink *phylink;
+-	int max_speed;
+ 
+ 	priv->phylink_config.dev = &priv->dev->dev;
+ 	priv->phylink_config.type = PHYLINK_NETDEV;
+@@ -1225,15 +1241,6 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
  		xpcs_get_interfaces(priv->hw->xpcs,
  				    priv->phylink_config.supported_interfaces);
  
--	/* Get the MAC specific capabilities */
--	stmmac_mac_phylink_get_caps(priv);
-+	/* Refresh the MAC-specific capabilities */
-+	stmmac_mac_update_caps(priv);
+-	/* Refresh the MAC-specific capabilities */
+-	stmmac_mac_update_caps(priv);
+-
+-	priv->phylink_config.mac_capabilities = priv->hw->link.caps;
+-
+-	max_speed = priv->plat->max_speed;
+-	if (max_speed)
+-		phylink_limit_mac_speed(&priv->phylink_config, max_speed);
+-
+ 	fwnode = priv->plat->port_node;
+ 	if (!fwnode)
+ 		fwnode = dev_fwnode(priv->device);
+@@ -7327,7 +7334,6 @@ int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	int ret = 0, i;
+-	int max_speed;
  
- 	priv->phylink_config.mac_capabilities = priv->hw->link.caps;
- 
-@@ -7341,7 +7341,7 @@ int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt)
+ 	if (netif_running(dev))
+ 		stmmac_release(dev);
+@@ -7341,14 +7347,6 @@ int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt)
  			priv->rss.table[i] = ethtool_rxfh_indir_default(i,
  									rx_cnt);
  
--	stmmac_mac_phylink_get_caps(priv);
-+	stmmac_mac_update_caps(priv);
+-	stmmac_mac_update_caps(priv);
+-
+-	priv->phylink_config.mac_capabilities = priv->hw->link.caps;
+-
+-	max_speed = priv->plat->max_speed;
+-	if (max_speed)
+-		phylink_limit_mac_speed(&priv->phylink_config, max_speed);
+-
+ 	stmmac_napi_add(dev);
  
- 	priv->phylink_config.mac_capabilities = priv->hw->link.caps;
- 
+ 	if (netif_running(dev))
 -- 
 2.43.0
 
