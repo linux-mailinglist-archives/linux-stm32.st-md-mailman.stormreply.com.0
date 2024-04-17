@@ -2,87 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8448A83E2
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 15:12:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5543D8A8494
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 15:29:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05936C6B444;
-	Wed, 17 Apr 2024 13:12:02 +0000 (UTC)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B806C6B444;
+	Wed, 17 Apr 2024 13:29:32 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F1C3C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6ED0C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 13:12:00 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2da63269e75so41703571fa.1
+ Wed, 17 Apr 2024 13:29:30 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-6ed5109d924so4733122b3a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 06:12:00 -0700 (PDT)
+ Wed, 17 Apr 2024 06:29:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713359519; x=1713964319;
+ d=linaro.org; s=google; t=1713360569; x=1713965369;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Xvq5XhFeUgxKjTzR6bSBfVpoXUJWQ7jeCb714ZUuuUI=;
- b=NHmb2xS21irmJ84TkIf8VaMSjMSr6iI5XYpnpaeAXMolO01WFFasTNzh4DW5lOVOO9
- 5GHucqOf4hYCW08XL8Yv+7SBWgTIA6Ti7OHV5Ob3CB98taZyREsnIG5jmlxcgZuN3oob
- vfZK21V/R3GRLUCqhdmSxrpHMUB84y93Rr8Pb1T2X7tEgYFk3zHDMlZQp4v5vLwB4PWy
- 3wNWfrMdC7Dtd75CME3GpkGKYSnBY2ji565i48Ro0j/jYo4L2YYFii+fjfTvuo+Q+rPN
- xwIyxqsKVyZno3YgFZP0zbvJ0IyClbyaSYfWlNFxOpSYYPo6ref0H3Ot2+kTHTgrzN9a
- E2ow==
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=U9yUjGy+KC3uZnAtPNkhuEl1+cCKcH9uusVMRUEMaAc=;
+ b=rFpeu/m5YVaQHuhuCFaTZZzO4Ak+btz1yh9sYjRFfmwi3CRQaGMGVw50cO8LSyeR9n
+ nKCwBO6ab5wYPPyaGzu46N63X40rrqahd8UxF0nv4Ekd+JXakErrUZUV4iBzHBmSkF7d
+ KbjR7Cjjv+bxt7FwHhyhBlNb98+0zSIj+WLIuwC/bNNpbqdsVrDDhC1TEIkiurm68Stc
+ 5FBhC79ehEodipDmTpSfBBLIEsZFdK+VSC12iA01qie1pHTyu5yDMSvJYXLPurpTaRg3
+ RbfTT7TzLAMNsHCMppiAfPgGkX0gBmIxQYCCFS2v+IMPmkoGN0Bfl+655RPj4zkeS3uR
+ hTyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713359519; x=1713964319;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1713360569; x=1713965369;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Xvq5XhFeUgxKjTzR6bSBfVpoXUJWQ7jeCb714ZUuuUI=;
- b=EEYuZ4KdXS9mhG/x7EWuQcRYhUn1DF0xlMi4yZRpTUPwWtmrpUddgYiZs6Bu4Oj/vh
- vznhmEyEdPK3NVMEIRpBTa7JVAN4OP2cg1/ZluHASh8eLuXzdbVRnbvBpXjfgCFKQM93
- kKTB1IBv1XYqRqkjxRHpRHGR6q6ogMv3UbKuj13pov+11FHq/Y0aIfewCEebUy30DldO
- +f0hnGQAX0tYYyjs0AFkNtxOjuAKLOP2vhmHpd7cg3jhIvRFYCOw1fplMwMee7R7ad7r
- tJdDKaUZKHYKtUgRVjHOcqsFyc4h6gYQaneZHYit5CH9V6gMCjA8TBhelYIfJ1S93LwO
- Sq/Q==
+ bh=U9yUjGy+KC3uZnAtPNkhuEl1+cCKcH9uusVMRUEMaAc=;
+ b=q+zZky664DLTTWafyvhTShgfa9qLDHlM8iDHfd5kK0ombMZlLzTExvJGV2XIH/luta
+ IBPu+rXAmz7tBHpb23kQ+v9BMw3i3HO3BHV5E6x2iGehA5KBgiOpkh8Puz2LVAj6ihhx
+ HULEglM8HHGnn3ReZlzUZ3bkH7zGhdRJLPo+5Jll4hpxjf5y2e7y9r8f+NFJIpnxTakZ
+ tMN21X5pD8nLoN23iP4LGeR37+FHIjpte1xf+Lkkz6nHVtyf00o9vu29Lkzu4+lTyAc5
+ xIwy5mQvjE1XpUzfS3ZK34KFpo4VqTtQLcVdngk7I2XGsbwa/P767SHhsvcNpcGpkTNg
+ v0WA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPpa2LbNU+uj1BOcSM9QcsdKjPjJNfgFKzRQp7ux4XjZ0EoJQhUyfzh3yzWkxo1BKPGXI6d0OP/fbH8tsOWk1tZvvGYR7KnmcDJqSKiFGZqZd0DtQmh/0P
-X-Gm-Message-State: AOJu0Ywra1pl00SDTn/gzIQTQPZkbm+XEPhWVn8T921vYqEWYYmJIlkW
- ZokqPJ0qNdwf2pRNuR8XhR+sVTmPZZLhXIlxENQZMFk7yDOJLi+n
-X-Google-Smtp-Source: AGHT+IHdGh0cJoN5BQEheZbFU09X48BOOMw+EqWuSPIB0M7jeLokHHm06r2P5q8vQRJCzBR50C7lPg==
-X-Received: by 2002:a2e:9657:0:b0:2db:4f3f:55a7 with SMTP id
- z23-20020a2e9657000000b002db4f3f55a7mr655852ljh.45.1713359519045; 
- Wed, 17 Apr 2024 06:11:59 -0700 (PDT)
-Received: from mobilestation.baikal.int (srv1.baikalchip.ru. [87.245.175.227])
+ AJvYcCV/cI96xJWFUSZthfpUzNuculN9Q6Fla5PgruhLIjrq9HrVOBtpE7MW73PU/QVXnMINIyMSpLJLeMirHJ1oetsZv2T+XTuaendRZ7FfrC2umEus6j29sQft
+X-Gm-Message-State: AOJu0Yxwi6qLMAoDHMfqSAhht+HiPZx/E+RY/qhtwKllQwdMRhr+lESX
+ g+AeIjCrk75ZmXjhvKPoK3vrgpNT25l3ToS+ZqcoDAcwFtNGzfhiO0B3mb1FmJQ=
+X-Google-Smtp-Source: AGHT+IE6xQl1EcEphFdHM0huRf7JkAbzMW3ss8W6b4OgepYU2e+X7pEgHJyT8hN5oSrVdMtbpms3UA==
+X-Received: by 2002:a05:6a20:3cab:b0:1a9:97fb:40cc with SMTP id
+ b43-20020a056a203cab00b001a997fb40ccmr16554938pzj.2.1713360569312; 
+ Wed, 17 Apr 2024 06:29:29 -0700 (PDT)
+Received: from [172.20.9.36] ([209.37.221.130])
  by smtp.gmail.com with ESMTPSA id
- u22-20020a2e8456000000b002da25e60918sm1389162ljh.18.2024.04.17.06.11.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Apr 2024 06:11:58 -0700 (PDT)
-Date: Wed, 17 Apr 2024 16:11:56 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <abgmcmebzv5323wmumurygggeho2mbyf2l24fe42c6zvvueutc@w7zpxqndlqox>
-References: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
- <20240415-rzn1-gmac1-v3-2-ab12f2c4401d@bootlin.com>
- <42chuecdt7dpgm6fcrtt2crifvv5hflmtnmdrw5fvk3r7pwjgu@hlcv56dbeosf>
- <77722ced-4956-0e70-9492-c7b2e8557253@bootlin.com>
+ i16-20020a17090332d000b001e2a43bafbasm11530447plr.216.2024.04.17.06.29.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Apr 2024 06:29:29 -0700 (PDT)
+Message-ID: <4e762eb1-864e-4bb5-ab5d-debeac19c8fa@linaro.org>
+Date: Wed, 17 Apr 2024 15:29:26 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <77722ced-4956-0e70-9492-c7b2e8557253@bootlin.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Mike Leach <mike.leach@linaro.org>,
+ James Clark <james.clark@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/5] net: stmmac: introduce
- pcs_init/pcs_exit stmmac operations
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Michal Simek <michal.simek@amd.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+ <171182151736.34189.6433134738765363803.b4-ty@linaro.org>
+ <cfa5aa01-44ef-4eb1-9ca6-541ed5908db4@linaro.org>
+ <8a8a8e8b-8256-4d33-a39b-9e3cbc4ccff2@arm.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <8a8a8e8b-8256-4d33-a39b-9e3cbc4ccff2@arm.com>
+Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/19] amba: store owner from modules with
+ amba_driver_register()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,48 +149,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 17, 2024 at 11:30:09AM +0200, Romain Gantois wrote:
-> Hi Serge,
+On 16/04/2024 12:41, Suzuki K Poulose wrote:
+> + Greg
 > 
-> On Tue, 16 Apr 2024, Serge Semin wrote:
 > 
-> > I am currently working on my Memory-mapped DW XPCS patchset cooking:
-> > https://lore.kernel.org/netdev/20231205103559.9605-1-fancer.lancer@gmail.com/
-> > The changes in this series seems to intersect to what is/will be
-> > introduced in my patchset. In particular as before I am going to
-> > use the "pcs-handle" property for getting the XPCS node. If so what
-> > about collecting PCS-related things in a single place. Like this:
-> > 
-> > int stmmac_xpcs_setup(struct net_device *ndev)
-> > {
-> > 	...
-> > 
-> > 	if (priv->plat->pcs_init) {
-> > 		return priv->plat->pcs_init(priv); /* Romain' part */
-> >	} else if (fwnode_property_present(priv->plat->port_node, "pcs-handle")) {
-> > 		/* My DW XPCS part */
-> > 	} else if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
-> > 		/* Currently implemented procedure */
-> > 	}
-> > 
-> > 	...
-> > }
+> Hi Krzysztof,
 > 
-> That seems like a good idea to me, although those setup functions would have to 
-> be renamed to stmmac_pcs_setup/exit.
+> On 30/03/2024 18:00, Krzysztof Kozlowski wrote:
+>> On 30/03/2024 18:58, Krzysztof Kozlowski wrote:
+>>>
+>>> On Tue, 26 Mar 2024 21:23:30 +0100, Krzysztof Kozlowski wrote:
+>>>> Merging
+>>>> =======
+>>>> All further patches depend on the first amba patch, therefore please ack
+>>>> and this should go via one tree.
+>>>>
+>>>> Description
+>>>> ===========
+>>>> Modules registering driver with amba_driver_register() often forget to
+>>>> set .owner field.
+>>>>
+>>>> [...]
+>>>
+>>> Applied, thanks!
+>>>
+>>> [01/19] amba: store owner from modules with amba_driver_register()
+>>>          (no commit info)
+>>
+>> Patchset applied here:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git/log/?h=for-v6.10/module-owner-amba
+> 
+> How do you plan to push this ? Given this affects most of the drivers/, 
+> do you plan to send this to Greg ? We have changes in the coresight
+> tree that would conflict with this "tag" ( I haven't merged them yet, 
+> but is in my local queue). I want to make sure we can avoid the
+> conflicts. I am happy to merge this to my local tree and base the
+> changes on this, if this is going in for v6.10 and all are in agreement.
 
-Why not, seeing they will be responsible for any PCS attached to the
-MAC.
+I pushed it to arm-linux patches but it hasn't been picked up.
 
--Serge(y)
+I propose you take entire set then.
 
-> 
-> Thanks,
-> 
-> -- 
-> Romain Gantois, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+Best regards,
+Krzysztof
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
