@@ -2,69 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2CD68A8545
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 15:50:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD738A856F
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 16:00:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5393DC6B444;
-	Wed, 17 Apr 2024 13:50:51 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9821C6B444;
+	Wed, 17 Apr 2024 14:00:17 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EAC4C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B9A6C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 13:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UTuNyDC74aMGnpALnaMRzG0hlRkuyuTWVng3Ktfqx4k=; b=fphK7jFfOdWOFdlS8QMEUYrK21
- zM/EuLgy7KpOwoiTXGNn3ntuLskQwCxS8ak+QSpfEngqmG5XEQcwW6xETWOMgBakoECI2fzWCEz+A
- gDwl3kKuS189hFLPCxjyMmCQnqioD02G0m/iBEvZgpBqpIcWJVezU4u6l8/lyPa7lbtUpEMC32VpZ
- +TbKirOE9Igb6/7A5kzeCgIZNzoXk6xtV4WhNTYyRE/NNtKMsFD4ptwd7BgL1w3UTxD0LOpj7CX9L
- ENhVrEKvh00XSc03nP061krgyYLpdih4+rK392zB/cTj7b1hLYoameFGbVBdxZWDRmxPgIk+K0tw7
- 1UKHfcQA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52554)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rx5g7-0003JF-35;
- Wed, 17 Apr 2024 14:50:24 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rx5g1-00060W-Pa; Wed, 17 Apr 2024 14:50:17 +0100
-Date: Wed, 17 Apr 2024 14:50:17 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <Zh/Tmarryr4TzHIA@shell.armlinux.org.uk>
-References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
- <171182151736.34189.6433134738765363803.b4-ty@linaro.org>
- <cfa5aa01-44ef-4eb1-9ca6-541ed5908db4@linaro.org>
- <8a8a8e8b-8256-4d33-a39b-9e3cbc4ccff2@arm.com>
- <4e762eb1-864e-4bb5-ab5d-debeac19c8fa@linaro.org>
+ Wed, 17 Apr 2024 14:00:16 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-516dc51bb72so6563985e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 17 Apr 2024 07:00:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713362416; x=1713967216;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=X8h9sytoh0eNCRrXIWGk2wWof0lykgyqJVSMJYB9Jf0=;
+ b=mfXa8GkrvEUZdz7/RHALOHV3i/BjO3RknKPjN9LVwQdQJJWV36xuJ8gnIt3dmpyWBX
+ +g8fM0BrR2l7dBNFAsoPSSg4IXJ7l7V6nAC9CTE6hfEh/xY9Q9Xsn8vHtiPkhtpIj5rd
+ 59kK6tALEl+uPfsD0GollztaSAD14DUkrCN5u/2TfzyKpULjwpKdYM98IAOixOqX3od5
+ Ui/kYu3DnXSf4rmNmdeynIaHk+a4kcqrhx15q5Kx7LH0xmRWOKlc4FokihFhD8dvDBkp
+ g6go/+RzFtZQqWjnbUQ1jWGw/DT1EhNTP0jqV7Lj2HOIyg+fVeeGBtIAPF8hcqpodDF9
+ srHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713362416; x=1713967216;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=X8h9sytoh0eNCRrXIWGk2wWof0lykgyqJVSMJYB9Jf0=;
+ b=AV6c5aM4BuVNJhPLsBtjdDFblaO9/q33rm0NpyzFpFGW9zHsKUPe1BvkGvebOO+0ni
+ nwChHLcwV3So7A+PBqZlf7mgZPROizGl9HRK6An65hDjbsindjnd+s7qQgulNNf9qYsb
+ X8VqhHjfNg7tPt7dg56paZG/wFFfTxd9BDROi5bbLhlTbTlYJDBJaQBE/wiH7xDaPmMv
+ 43wiWRgXkofTY8hMTvvA4KPEJQHlO5+Fxiwwt3OE8373wmfwS9YIGxESIiCyqfssVARX
+ EgvvSSHfmunEib/0ra4q9Py5UvVjgcuS7LNmFyj4JALW9ZNQwiX7lILtpHRq6NmTwf3Q
+ s5ug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmIkKQRYk/iP1a7rHvkVst6QhvhoLcJG5ESLS8VLScKtGxqAhxWkM87qIDCtidL+cBRC0mS45hXyLGoClC+P/lqD4EtPaNK9ti+EtOZJKPUrN4wzzi64fR
+X-Gm-Message-State: AOJu0YzH45/piex6GP8mjC3egYV32a29GNjmLjKeRud65R8YxlGkzZ6W
+ H0rnyuSMa3O35wPzkP73drwg0cqmdARtGYZ7U/zvrIO6NyPlXidb
+X-Google-Smtp-Source: AGHT+IHYR8jJSuOJPPMs2fzwb2lRhApbksKgiORcX73kn7lgMCayLUhPAG0NkusHwU1eUl3geU6gaA==
+X-Received: by 2002:a05:6512:1103:b0:519:3a8d:2ecb with SMTP id
+ l3-20020a056512110300b005193a8d2ecbmr2701316lfg.5.1713362415457; 
+ Wed, 17 Apr 2024 07:00:15 -0700 (PDT)
+Received: from localhost ([94.125.187.42]) by smtp.gmail.com with ESMTPSA id
+ g10-20020ac24d8a000000b005159fa03501sm1963673lfe.302.2024.04.17.07.00.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Apr 2024 07:00:15 -0700 (PDT)
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
+ Yanteng Si <siyanteng@loongson.cn>,
+ Romain Gantois <romain.gantois@bootlin.com>
+Date: Wed, 17 Apr 2024 17:00:06 +0300
+Message-ID: <20240417140013.12575-1-fancer.lancer@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4e762eb1-864e-4bb5-ab5d-debeac19c8fa@linaro.org>
-Cc: kvm@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-input@vger.kernel.org,
- Mike Leach <mike.leach@linaro.org>, Andi Shyti <andi.shyti@kernel.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Olivia Mackall <olivia@selenic.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- James Clark <james.clark@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 00/19] amba: store owner from modules with
- amba_driver_register()
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
+ Huacai Chen <chenhuacai@kernel.org>, linux-kernel@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev,
+ Chen-Yu Tsai <wens@csie.org>, Serge Semin <fancer.lancer@gmail.com>,
+ Simon Horman <horms@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/2] net: stmmac: Fix
+	MAC-capabilities procedure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,63 +90,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 17, 2024 at 03:29:26PM +0200, Krzysztof Kozlowski wrote:
-> On 16/04/2024 12:41, Suzuki K Poulose wrote:
-> > + Greg
-> > 
-> > 
-> > Hi Krzysztof,
-> > 
-> > On 30/03/2024 18:00, Krzysztof Kozlowski wrote:
-> >> On 30/03/2024 18:58, Krzysztof Kozlowski wrote:
-> >>>
-> >>> On Tue, 26 Mar 2024 21:23:30 +0100, Krzysztof Kozlowski wrote:
-> >>>> Merging
-> >>>> =======
-> >>>> All further patches depend on the first amba patch, therefore please ack
-> >>>> and this should go via one tree.
-> >>>>
-> >>>> Description
-> >>>> ===========
-> >>>> Modules registering driver with amba_driver_register() often forget to
-> >>>> set .owner field.
-> >>>>
-> >>>> [...]
-> >>>
-> >>> Applied, thanks!
-> >>>
-> >>> [01/19] amba: store owner from modules with amba_driver_register()
-> >>>          (no commit info)
-> >>
-> >> Patchset applied here:
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git/log/?h=for-v6.10/module-owner-amba
-> > 
-> > How do you plan to push this ? Given this affects most of the drivers/, 
-> > do you plan to send this to Greg ? We have changes in the coresight
-> > tree that would conflict with this "tag" ( I haven't merged them yet, 
-> > but is in my local queue). I want to make sure we can avoid the
-> > conflicts. I am happy to merge this to my local tree and base the
-> > changes on this, if this is going in for v6.10 and all are in agreement.
-> 
-> I pushed it to arm-linux patches but it hasn't been picked up.
-> 
-> I propose you take entire set then.
+The series got born as a result of the discussions around the recent
+Yanteng' series adding the Loongson LS7A1000, LS2K1000, LS7A2000, LS2K2000
+MACs support:
+Link: https://lore.kernel.org/netdev/fu3f6uoakylnb6eijllakeu5i4okcyqq7sfafhp5efaocbsrwe@w74xe7gb6x7p
 
-You are again being, IMHO, abrasive with your attitude. So far, every
-interaction with you has been abrasive and bordering on abusive.
+In particular the Yanteng' patchset needed to implement the Loongson
+MAC-specific constraints applied to the link speed and link duplex mode.
+As a result of the discussion with Russel the next preliminary patch was
+born:
+Link: https://lore.kernel.org/netdev/df31e8bcf74b3b4ddb7ddf5a1c371390f16a2ad5.1712917541.git.siyanteng@loongson.cn
 
-You haven't asked me whether I will take them. I will - just not at the
-moment because 
+The patch above was a temporal solution utilized by Yanteng for further
+developments and to move on with the on-going review. This patchset is a
+refactored version of that single patch with formatting required for the
+fixes patches.
 
-I HAVE MEDICAL APPOINTMENTS LAST WEEK AND THIS WEEK WHICH MEAN I AM
-NOT SPENDING ALL MY TIME ON THE KERNEL.
+The main part of the series has already been merged in on v1 stage. The
+leftover is the cleanup patches which rename
+stmmac_ops::phylink_get_caps() callback to stmmac_ops::update_caps() and
+move the MAC-capabilities init/re-init to the phylink MAC-capabilities
+getter.
 
-Have some bloody patience rather than behaving in your standard
-objectionable manner.
+Link: https://lore.kernel.org/netdev/20240412180340.7965-1-fancer.lancer@gmail.com/
+Changelog v2:
+- Add a new patch (Romain):
+  [PATCH net-next v2 1/2] net: stmmac: Rename phylink_get_caps() callback to update_caps()
+- Resubmit the leftover patches to net-next tree (Paolo).
+
+Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+
+Serge Semin (2):
+  net: stmmac: Rename phylink_get_caps() callback to update_caps()
+  net: stmmac: Move MAC caps init to phylink MAC caps getter
+
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  8 ++---
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  8 ++---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 36 +++++++++----------
+ 3 files changed, 25 insertions(+), 27 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.43.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
