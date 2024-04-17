@@ -2,38 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4408A8B3B
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 20:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41AD98A8BE1
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 21:13:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CD93C6C859;
-	Wed, 17 Apr 2024 18:40:10 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69FE5C6C859;
+	Wed, 17 Apr 2024 19:13:41 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A963C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7396C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 18:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=8Chgr1XzB7VSgqVHEHSg5NAelbYbuWSYpJpFWHYQKww=; b=xA9iEd9uSK1xlIdb5ceWhSY5LG
- 6QyuyfGuXcUbPN6jWwUfai1cPpUETVoaxAQSAP4aLzeWyZ+LY+GTA5zHGziz29ZwNcfLOal5gYllU
- XnXYMEx7kq5w8oDMDrMS9DN2srLrGKB2ToOQQSk23DPI1dD7QCP+DmK/159KopQ/xjE4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rxACI-00DH19-19; Wed, 17 Apr 2024 20:39:54 +0200
-Date: Wed, 17 Apr 2024 20:39:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
+ Wed, 17 Apr 2024 19:13:40 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-516d3a470d5so1413e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 17 Apr 2024 12:13:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713381220; x=1713986020;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=JTcCtqawFKRHlvcDtRKkDTTkbfy/GJAXrQ0aSEOy+RI=;
+ b=nU7lv6tWmClsCOBvlYb3OS3wEJAb+eult9ggOL+iRgw5W+GfIRxoh/Aa7eIokl4n9n
+ lL+9/NDEQekwZVx426/wALFRcU3a3/5SUD0vP43U/Yaa+0eX5NaOY4FW2R19bn7Z/zfK
+ XRpoVUzc/AifCsIg8FEQg5sg+FF2uojHHR6/9Glg1pZOgK8fPuncIgbBSQPIOY6ueXWO
+ YJfvEuMNcbwj4VKbs0p3sLFrC6Ahd8IL3KyOmGq7jRwV3C4/CXjvMXmcGlHGuxCB5SLw
+ lXTCflkTrgqYpxt9vDaT7L1ktOe9JVIO952Dd1IqtzBgPt8Smd19zu1Zm/e+ZSgTr1d9
+ wdrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713381220; x=1713986020;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JTcCtqawFKRHlvcDtRKkDTTkbfy/GJAXrQ0aSEOy+RI=;
+ b=azAI8u6ki0561PlnO6CUSTU39/O4KDnTwSAP8UJX4WnKizMiSuA3nDZ44U5ZIVLp5l
+ 7Lbw7acDoqyUrrvaoQrr6LcExcF5sDPXInhDsNOmlLaPXXuKJS+oNGnU41JMXa2zfihx
+ /b1xP0TLbHCBPwYqFol1e6S7mpyg7LzCe25J9L9VERtdB1bQgSTou5uTYuTXTPLW2wDR
+ +w506Zx96psU8yyIatNR59Y28fHdArBh7gzbT1nMBY1FVkxnt8lViZbWu67BEZZ/X3zP
+ 1+f7hJ7sOUt5NKjrkY93mYzpwVHtOvJQ8GSbOCkbYgTTlwYE5gqauYEMg8hEL/a3RTs8
+ faew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWcx3HT5OpPNnlB/MXsXSEvuf/1wlmRpGNbJB9P6nWrYFP99FchekJRFwBaxBB4ii9U+OXW1au2LDW13A8hi2+Y4z5yq3WLm9QZo/EeNG6AT8uPTDbluAc9
+X-Gm-Message-State: AOJu0Yyro2mYYtOqzmxvfVC95aUxXp2FxluVwaHrdV03w2lcx9WcVGHS
+ 4TiF8MFCaRMD5qC3BVABzfcd4QWEEfSOgqhzF+n7EVgHnmRYAU05
+X-Google-Smtp-Source: AGHT+IEA0/ml2vS2S5lnkSe66SZb269sVi/52jJbQD/EKj42WqO5Y8kEwvaZGCTBSCq0H+wObYP3lg==
+X-Received: by 2002:ac2:5fcf:0:b0:515:99f6:2ca4 with SMTP id
+ q15-20020ac25fcf000000b0051599f62ca4mr104968lfg.36.1713381219670; 
+ Wed, 17 Apr 2024 12:13:39 -0700 (PDT)
+Received: from mobilestation.baikal.int (srv1.baikalchip.ru. [87.245.175.227])
+ by smtp.gmail.com with ESMTPSA id
+ q3-20020ac25143000000b00518c86b3eb7sm1251742lfd.80.2024.04.17.12.13.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Apr 2024 12:13:39 -0700 (PDT)
+Date: Wed, 17 Apr 2024 22:13:37 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
 To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <c8e3f5d0-832b-4ab1-a65f-52f983ff110a@lunn.ch>
+Message-ID: <3ib7rkbwxtdd26waw2dseuwwlijhxxjmjp6jbxe6g6i5hk6ua2@3zt2avhdh2lu>
 References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
- <20240417164316.1755299-3-o.rempel@pengutronix.de>
+ <20240417164316.1755299-5-o.rempel@pengutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240417164316.1755299-3-o.rempel@pengutronix.de>
-Cc: Woojung Huh <woojung.huh@microchip.com>,
+In-Reply-To: <20240417164316.1755299-5-o.rempel@pengutronix.de>
+Cc: Woojung Huh <woojung.huh@microchip.com>, Andrew Lunn <andrew@lunn.ch>,
  Arun Ramadoss <arun.ramadoss@microchip.com>, kernel@pengutronix.de,
  linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
@@ -42,8 +73,8 @@ Cc: Woojung Huh <woojung.huh@microchip.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v1 2/4] net: phy: micrel:
- lan8841: set default PTP latency values
+Subject: Re: [Linux-stm32] [PATCH net-next v1 4/4] net: stmmac: use delays
+ reported by the PHY driver to correct MAC propagation delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,68 +91,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 17, 2024 at 06:43:14PM +0200, Oleksij Rempel wrote:
-> Set default PTP latency values to provide realistic path delay
-> measurements and reflecting internal PHY latency asymetry.
+On Wed, Apr 17, 2024 at 06:43:16PM +0200, Oleksij Rempel wrote:
+> Now after PHY drivers are able to report data path delays, we can use
+> them in the MAC drivers for the delay correction.
 > 
-> This values are based on ptp4l measurements for the path delay against
-> identical PHY as link partner and latency asymmetry extracted from
-> documented SOF Latency values of this PHY.
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h    |  2 ++
+>  .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c   |  4 ++++
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 ++++++++++++++++-
+>  3 files changed, 22 insertions(+), 1 deletion(-)
 > 
-> Documented SOF Latency values are:
-> TX 138ns/RX 430ns @ 1000Mbps
-> TX 140ns/RX 615ns @ 100Mbps (fixed latency mode)
-> TX 140ns/RX 488-524ns @ 100Mbps (variable latency mode)
-> TX 654ns/227-2577ns @ 10Mbps
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index dddcaa9220cc3..6db54ce33ea72 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -288,6 +288,8 @@ struct stmmac_priv {
+>  	u32 sub_second_inc;
+>  	u32 systime_flags;
+>  	u32 adv_ts;
 
-Does Half Duplex vs Full Duplex make a difference here?
+> +	u64 phy_tx_delay_ns;
+> +	u64 phy_rx_delay_ns;
 
-> +static int lan8841_ptp_latency_init(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			    LAN8841_PTP_RX_LATENCY_10M,
-> +			    LAN8841_PTP_RX_LATENCY_10M_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			    LAN8841_PTP_TX_LATENCY_10M,
-> +			    LAN8841_PTP_TX_LATENCY_10M_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			    LAN8841_PTP_RX_LATENCY_100M,
-> +			    LAN8841_PTP_RX_LATENCY_100M_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			    LAN8841_PTP_TX_LATENCY_100M,
-> +			    LAN8841_PTP_TX_LATENCY_100M_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			    LAN8841_PTP_RX_LATENCY_1000M,
-> +			    LAN8841_PTP_RX_LATENCY_1000M_VAL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return phy_write_mmd(phydev, KSZ9131RN_MMD_COMMON_CTRL_REG,
-> +			     LAN8841_PTP_TX_LATENCY_1000M,
-> +			     LAN8841_PTP_TX_LATENCY_1000M_VAL);
-> +}
+What's the point in adding these fields to the private data if you
+retrieve the delays and use them in a single place? Just extend the
+stmmac_hwtstamp_correct_latency() arguments list and pass the delays
+as the function parameters.
 
-What affect does this have on systems which have already applied
-adjustments in user space to correct for this? Will this cause
-regressions for such systems?
+-Serge(y)
 
-I know Richard has rejected changes like this in the past.
-
-	Andrew
+>  	int use_riwt;
+>  	int irq_wake;
+>  	rwlock_t ptp_lock;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> index f05bd757dfe52..bbf284cb7cc2a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> @@ -71,6 +71,8 @@ static void hwtstamp_correct_latency(struct stmmac_priv *priv)
+>  	/* MAC-internal ingress latency */
+>  	scaled_ns = readl(ioaddr + PTP_TS_INGR_LAT);
+>  
+> +	scaled_ns += priv->phy_rx_delay_ns << 16;
+> +
+>  	/* See section 11.7.2.5.3.1 "Ingress Correction" on page 4001 of
+>  	 * i.MX8MP Applications Processor Reference Manual Rev. 1, 06/2021
+>  	 */
+> @@ -95,6 +97,8 @@ static void hwtstamp_correct_latency(struct stmmac_priv *priv)
+>  	/* MAC-internal egress latency */
+>  	scaled_ns = readl(ioaddr + PTP_TS_EGR_LAT);
+>  
+> +	scaled_ns += priv->phy_tx_delay_ns << 16;
+> +
+>  	reg_tsec = scaled_ns >> 16;
+>  	reg_tsecsns = scaled_ns & 0xff00;
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index fe3498e86de9d..30c7c278b7062 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1097,8 +1097,23 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+>  	if (priv->dma_cap.fpesel)
+>  		stmmac_fpe_link_state_handle(priv, true);
+>  
+> -	if (priv->plat->flags & STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY)
+> +	if (priv->plat->flags & STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY) {
+> +		int ret = 0;
+> +
+> +		if (phy)
+> +			ret = phy_get_timesync_data_path_delays(phy,
+> +								&priv->phy_tx_delay_ns,
+> +								&priv->phy_rx_delay_ns);
+> +		if (!phy || ret) {
+> +			if (ret != -EOPNOTSUPP)
+> +				netdev_err(priv->dev, "Failed to get PHY delay: %pe\n",
+> +					   ERR_PTR(ret));
+> +			priv->phy_tx_delay_ns = 0;
+> +			priv->phy_rx_delay_ns = 0;
+> +		}
+> +
+>  		stmmac_hwtstamp_correct_latency(priv, priv);
+> +	}
+>  }
+>  
+>  static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
+> -- 
+> 2.39.2
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
