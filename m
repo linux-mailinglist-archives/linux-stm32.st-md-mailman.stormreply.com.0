@@ -2,60 +2,145 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2479F8A9BA3
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 15:52:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 129B88A9DA3
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 16:52:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C96B6C6DD66;
-	Thu, 18 Apr 2024 13:52:32 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04CEC6DD66;
+	Thu, 18 Apr 2024 14:52:53 +0000 (UTC)
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCEE2C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C768EC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Apr 2024 13:52:31 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C2C281BF209;
- Thu, 18 Apr 2024 13:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1713448351;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8wUOi164P3lAmjE1ClSdezuP19LGck9A7BJ4c8R2rWo=;
- b=RmxsbDgxhNpNQOPoFlayXDpwdP+tytqkGF2OJI6z52D3jvdH0BINaMaSOJABYa6/o6WxeC
- ghog+bvm/6xdvqTf7B+xQM1u8PJB3QGicA2yN5ueeF17yS8iO+LMOt3yX/95A/69vx0wFU
- cWHL5OJ6Vcw7APt18HuFE96l5gziHKoup8zj+aF3KookZJxRSzPjCOjoJAU1e0WxFzVysT
- v/WQR3MUr8UJwvigXjjQu2WXU9bhHEg4YS9NtOcNTo94oqfGuwGimoaaP5yb6TJK1bx/Ff
- aiZo6SsBfRs+qKWkz/kuZH1VCi7XUvW5NuGt7bGVzPZKfEQBmV9RD8UVbJaq/w==
-Date: Thu, 18 Apr 2024 15:53:07 +0200 (CEST)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-In-Reply-To: <eqfta73ost45nbzz3aoa2tw5tasg3geehf4fgphu4teq5yfvar@ngif2e6j5j2k>
-Message-ID: <c99b452b-be35-3a67-1c87-042dbc5fce49@bootlin.com>
-References: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
- <20240415-rzn1-gmac1-v3-4-ab12f2c4401d@bootlin.com>
- <xp34tp5cjmdshefxjczltz2prqtiikagfspf4lobznzypvsyah@ihpmwfynwzhh>
- <232e3b0c-ca55-2da0-1c9f-47520a1bcfbd@bootlin.com>
- <eqfta73ost45nbzz3aoa2tw5tasg3geehf4fgphu4teq5yfvar@ngif2e6j5j2k>
+ Wed, 17 Apr 2024 18:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1713379740; x=1744915740;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=JnbzzCRK3NVgx13t/ZLahmPzOhFjlrMsWJR9qMuPDvY=;
+ b=evivoweWBLRgYnC4cN9v8Rx+oMRM6yMUUynPVWTFC7LYLrUhIpnKhL5Q
+ BxPd4lnhcdZh7Z9fN2613bD1nELcHcCKVmr45BypUURYklMlYQZDkeT7i
+ 8kEDY8SJbk8j5MXeaQclxWtb82/Y+/DusZPm5MHrDw1CafsFviifTJXwN
+ DdlhV59+9sm3WGKKpETnWh3fw4mseXoIP+v5ufNhIsRHGhKFiGLZafKVr
+ gZiN5zXy9WWGUcSXKPeRXuHG9JP7u3xcV6PWekbTWDYaHS0da3/+W7wZV
+ q69UxkGBGMEwKrfl1ZdqZDbuniNs0fCG+aB4G6iDdydDIdhE0EktJHYxU A==;
+X-CSE-ConnectionGUID: KreCp7MmTv+CpTJUxO088g==
+X-CSE-MsgGUID: whbF3NLrTIiMQcY0w1vCMw==
+X-IronPort-AV: E=Sophos;i="6.07,209,1708412400"; d="scan'208";a="252292688"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 17 Apr 2024 11:48:57 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 17 Apr 2024 11:48:41 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (10.10.215.250)
+ by email.microchip.com (10.10.87.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Wed, 17 Apr 2024 11:48:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mFeMgj5QT7U6JzFfuu43Kalwe0V+EYXSb9ycvrRT2/YwsY7CMb5d2aZrFLYxU5Y0GJRskEnpxxI08JCeJL0b0zudVUMJyoZ9YPIRDDkHVGu0aJsQE8cUEdRhyPJ4KwywxNlm1BPd6Bs9YIdaaX+z/ZaOUwjXYGKrjuhg3nD0+aPSzfwVUmdKVPgYEBa0IIdl1YGH4CzffKhx6tcxv5pPvsaj0wC5XmZLsbTAmDAZPiq+6BpoxEOwYuw9L7FOE/vfhkpX6OPeqFbpphddW6vKAEEzUHI0LKoaZm2RwSWi2AnGwe0jlXB+BsQBZPF+OjLkmG53bffV6IOCj2nt4Pg0hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KKdT4Upb3P3ihQ8ND1llXIuIsdBqmcFAG68mSY4fm9U=;
+ b=HVslgd3pH+i7K+9ugVl565+ibwlVSN30ItlxG1+P8K79XDrUsW7T4uQJjivGEk7+eaOBv34Riu5S1ThWI0igqnsRQWh+rinNZaJl6m/84OGbIM7RBN78EnatTn+sUAUS7mFp2K0uPq2JaWvASFm0rHkhcnTEpBpYOOQTn4nRGtAikKXT+5eOdolF83r0VckT44Bb7HsIO5Gefoc81HEmSJQ8BSBFco+M2fNCMSf4yxLJ7dBqmARosxRVMuRCNNqWX5bSXXjcMkI6KBDvVfrhITXlnWSl2iEvujk6RFl1YAR1oDpSjes8jQp1GVdzbkXTen+O9ShKk42YpbR8kA1sFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KKdT4Upb3P3ihQ8ND1llXIuIsdBqmcFAG68mSY4fm9U=;
+ b=tcyJjr4A8h+Mcc7DvZv4cFT7UbztRDJYYweAVTNR/a3QpPQ20yWKzCIJI5r63aqhzHFNSIZ2CdKVetnGC1EVXPj4K67rNv33z2mwTiq+BXJ209l++2mRxg9YKrwH0eIY8hmaBmHxk06U4Wet/6QeH2HcD9Z65vhrouOnAnXTJQJIDxL1drq2iF1i61Uhew2NZAL/0G0jRkIwes+/Ot0yXuQJaPuyEZg76+ElL7OZwu2BJVoUPFqb+OCiRbx9uzREfeutbjVswpWGeR9B4mMztn21KMMf+vnc7btYcQcStveTVUwLweb6BFlZ7bcIG+aSYSZTyaU+Cu8msWMljFAUag==
+Received: from BL0PR11MB2913.namprd11.prod.outlook.com (2603:10b6:208:79::29)
+ by MW3PR11MB4668.namprd11.prod.outlook.com (2603:10b6:303:54::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.31; Wed, 17 Apr
+ 2024 18:48:37 +0000
+Received: from BL0PR11MB2913.namprd11.prod.outlook.com
+ ([fe80::3bc1:80d8:bfa5:e742]) by BL0PR11MB2913.namprd11.prod.outlook.com
+ ([fe80::3bc1:80d8:bfa5:e742%3]) with mapi id 15.20.7472.037; Wed, 17 Apr 2024
+ 18:48:37 +0000
+From: <Woojung.Huh@microchip.com>
+To: <o.rempel@pengutronix.de>, <alexandre.torgue@foss.st.com>,
+ <joabreu@synopsys.com>, <davem@davemloft.net>, <andrew@lunn.ch>,
+ <hkallweit1@gmail.com>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
+ <Arun.Ramadoss@microchip.com>, <richardcochran@gmail.com>,
+ <linux@armlinux.org.uk>
+Thread-Topic: [PATCH net-next v1 1/4] net: phy: Add TimeSync delay query
+ support to PHYlib API
+Thread-Index: AQHakOZ/fzt9Dn9Rq0KDo2lZUBVTB7FszMaA
+Date: Wed, 17 Apr 2024 18:48:37 +0000
+Message-ID: <BL0PR11MB2913839BD93ACB61B06C30F4E70F2@BL0PR11MB2913.namprd11.prod.outlook.com>
+References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
+ <20240417164316.1755299-2-o.rempel@pengutronix.de>
+In-Reply-To: <20240417164316.1755299-2-o.rempel@pengutronix.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL0PR11MB2913:EE_|MW3PR11MB4668:EE_
+x-ms-office365-filtering-correlation-id: 000d264e-8171-401b-7ece-08dc5f0efdf3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6E3CJG84AB1NYOSX3f483WeNmnHQHXV3D/uiIk6ZiVipnJKfI/XB8D9u+2TnTu0P+kccBD1SJsbmN+7hDfEYkTZ5StS7xGn/MI2i/ATA6LLQG+VUnCvfPZi5HD6L4EvlyX2RXdRp3OXjcbR7SZ2qvwc/SG/rsCT4+7BT3BZ0sdpkx6Cv+NloBtlTwGs53cQJ/kZoqzxg/EfVBnk1PIkdxJgMpYm+5FZhAVXGjnvZtkVhjY4Iw5HRr/G/fpoEtpyaJMOqyhQ5jn4McPaYFxyWAzL7KQb46WKeTq9x0UFmjMIZGU6nM59a/7MZ7WHjh1AYSkWT4VSfP2J8eHB9vwdd10vmxLDimYAaxJFPFtDT1dRqEDO9ZPVmaINifIkxZNKqcp+2QkDmRTUnO3n1yziQcuQVu4QhGvfJDVkco5iM/7X6oDg8X9mznGCulR+rizqEfPtUzaEblD4MPgs1p/LGbxi1Ijahh1VcAii/JzJEd+llBm29QP5nzObBS6aCAmJXGrGWy+kq8OV9YGCivuqfYm/0K8a5Ej3e8dOoePKx6Ske7xrVZ5LN+lo7kA957e/PNeLC1sVWZr/CH8HVDDrtoiFnUhbLvkFrGy0waPgwAiPGpmaCNwasTa6i99TR1lcuVuoUgwLExfnpLDSmOgPm94sRlxWeU3sRiCwxCbksWp096gSrUmn4FRI/NLIuNJDmjLRjryPZkLp8LCaMSKMneknwABW7eg+Bn/lOYAXcj4A=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR11MB2913.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7416005)(1800799015)(376005)(366007)(38070700009)(921011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eUfbsqbBP6hVsBAgs6rXnjTuNQVK4nlXyqXi/QaV/CuIELQHY7+AlbfM/RxL?=
+ =?us-ascii?Q?K55l8FP9sBnNgm/uXPWgLtVewBcDJC1Fhs4Dmr1NgawvKcQRvr1W9r9/5p+/?=
+ =?us-ascii?Q?pf17O61OqNQDU5JHof85fihQ9GlSmGnrocHj3EMiLZ5b9xJRxnWcMNBOZv5H?=
+ =?us-ascii?Q?2fznWpGl2lVJ6W0VmsUzAAriUcBn59+ZIYPEnVdo2kRTTPrr2LGQPLTwyodK?=
+ =?us-ascii?Q?fQaKaS9vk6h5W1Zfzdugr4JtCHrzLwXp1J9A3wIGKizoRMG7hOn+JdWgdOCv?=
+ =?us-ascii?Q?iT8lN7TRolRBeNxt3gqVpoSkWYfFBY8qioNtNWEeG4lNmR92IQ8b9sw5Sdif?=
+ =?us-ascii?Q?BC+5Rix82+90aOIBPakCxt3iEEfgW7veH1sKM3qgbqqsY53761juQ4usaoAO?=
+ =?us-ascii?Q?qhdufqz4QPO/EQY0OSmayTq5ijJUNiE6+rVhRV5YIq2XlzH54IMXgQ63CXZ2?=
+ =?us-ascii?Q?ZMDMJrh9rQYcqndIL4SxoKSFY7r3+/BVdyFe0Ax2+5TI5IjlW6utY4j3yBCe?=
+ =?us-ascii?Q?KlTi9jmFQNvgMOMY5/mx8mjxKPPuZigvYSJuUsbTPQlwO6U5kxrAr2WzuJYz?=
+ =?us-ascii?Q?pmIIEjZbBUTDWaAcBYERSaA86R5iwSTi0Z77lYk1Tm4mibU+OuCqXijRYOhr?=
+ =?us-ascii?Q?KS6Z1D6QNImvOUrSm+2/WX6zdFNZK5fVGBlGc2mVEVKpRNH2vG/2+xmlEDPS?=
+ =?us-ascii?Q?wmfuyyJ8z2eaZQdyv7USu5jxfPUPPECWUHbGiskxhxq/5KdfU2h5+LxuFyDQ?=
+ =?us-ascii?Q?vSBDQHEDZODob2wCG7ACO1huNnvXOaDlU3H5rVZzSox/nt1zneL3lctSRUAB?=
+ =?us-ascii?Q?CADEtSR0EHoC8/QdBcUk/Z+ITQ+HelU2SzYuin/P2bq3oCgRLUN+nLbkKyeJ?=
+ =?us-ascii?Q?lzrpodgWS5vfe98kPy012FBqKHLbRY4mxk1jREFLckohZhcgcKUB59e71jhA?=
+ =?us-ascii?Q?1/qncpOkLXsC0TBnYd2oLISUBuIeFKigDIHBYHFvgCdRbZQ0xohg41/3fXUz?=
+ =?us-ascii?Q?9Y3kS7AAbyu5w45idAlQBSky8KJC6AakJzcWxJmNfUgkJlBQWLKeWT/xomAt?=
+ =?us-ascii?Q?TmlBURNbY0krHFubXhQyQC0GZocX6PnIWEFjOE/zmSyLtHfDa/xYqp7JzbS2?=
+ =?us-ascii?Q?uXALUHEygc7nYdLtj7N8bolK4fXRBSs7WXV9YcYcpAH2M9Wn1Nj+c7ZwXieQ?=
+ =?us-ascii?Q?1GpAjJduFLVBWI4Lpa11zGHWcM3yNsh4SqMtBh7KsFfzo/hlrkbQ2apyE46W?=
+ =?us-ascii?Q?4pKkdZxmSwKaioy6UI18zjyDc2nX7kxnx8Ra714LI80POl3D1zyp926YEeCL?=
+ =?us-ascii?Q?LO4koflUWqDT8MWz2EhyJdaUk95UKT8Zt0TRFsqwGSCO6ONZDVMPXahz/0wd?=
+ =?us-ascii?Q?LMYFAVxWwZCWnggYMU6rYswyC6e6bTG6wlEqKwv2vA7avITwCJe4tj0UNneH?=
+ =?us-ascii?Q?VMl9EBU/2ja6WQflQP8pmThAnqyuMp/gIukKNVcVukni9g3GDBW3vecUfUIW?=
+ =?us-ascii?Q?DvcbirxwbhRh1T3lZ1ri2icnAHONuqhDmBjHtMFY0z1lvPmHV5Ho7eqy3800?=
+ =?us-ascii?Q?RQYo4RuIFnOBf8Nq9mUfuiAPAgkgaXaClMp08QOF?=
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 4/5] net: stmmac: add support
- for RZ/N1 GMAC
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB2913.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 000d264e-8171-401b-7ece-08dc5f0efdf3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2024 18:48:37.4017 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hNO19DNRGT+ON526tr4DnE+QL7scYzsbhtGRGBiqZUwlNN0sNHMT7XLEMMCrSs4RO3CiE33YA+9e0GR8NR41PlT5GuN86M55bu657HPaekg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4668
+X-Mailman-Approved-At: Thu, 18 Apr 2024 14:52:52 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ UNGLinuxDriver@microchip.com
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/4] net: phy: Add TimeSync
+ delay query support to PHYlib API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +157,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 18 Apr 2024, Serge Semin wrote:
+Hi
 
-> On Thu, Apr 18, 2024 at 01:57:47PM +0200, Romain Gantois wrote:
-> > Hi Serge,
-> > 
-> > On Tue, 16 Apr 2024, Serge Semin wrote:
-> > 
-> > > > +static int rzn1_dwmac_pcs_init(struct stmmac_priv *priv,
-> > > 
-> > > > +			       struct mac_device_info *hw)
-> > > 
-> > > AFAICS hw is unused, and the mac_device_info instance is reached via
-> > > the priv pointer. What about dropping the unused argument then?
-> > 
-> 
-> > Unfortunately, this is an implementation of the pcs_init() callback, which is 
-> > also used by socfpga (see patch 4/6 in this series). The socfpga implementations 
-> > use the hw parameter for both pcs_init() and pcs_exit() so I can't remove it.
-> 
-> I had that patch content in mind when was writing my comment. There is
-> no point in passing the hw-pointer there either because you already
-> have the stmmac_priv pointer. There is stmmac_priv::hw field which you
-> can use instead in the same way as you do in this patch. Here is the
-> respective change for your SoCFPGA patch:
-> 
+> +/**
+> + * phy_get_timesync_data_path_delays - get the TimeSync data path
+> ingress/egress
+> + *                                     delays
+> + * @phydev: phy_device struct
+> + * @tx_delay_ns: pointer to the transmit delay in nanoseconds
+> + * @rx_delay_ns: pointer to the receive delay in nanoseconds
+> + *
+> + * This function is used to get the TimeSync data path ingress/egress
+> delays
+> + * as described in IEEE 802.3-2022 sections:
+> + * 30.13.1.3 aTimeSyncDelayTXmax, 30.13.1.4 aTimeSyncDelayTXmin,
+> + * 30.13.1.5 aTimeSyncDelayRXmax and 30.13.1.6 aTimeSyncDelayRXmin.
+> + *
+> + * The delays are returned in nanoseconds and can be used to compensate
+> time
+> + * added by the PHY to the PTP packets.
+> + *
+> + * Returns 0 on success, negative value on failure.
+> + */
+> +int phy_get_timesync_data_path_delays(struct phy_device *phydev,
+> +                                     u64 *tx_delay_ns, u64 *rx_delay_ns)
+> +{
+> +       struct phy_timesync_delay tsd = { 0 };
+> +       int err;
+> +
+> +       if (!phydev->drv->get_timesync_data_path_delays)
+> +               return -EOPNOTSUPP;
+> +
+> +       if (!tx_delay_ns || !rx_delay_ns)
+> +               return -EINVAL;
+> +
+> +       err = phydev->drv->get_timesync_data_path_delays(phydev, &tsd);
+> +       if (err)
+> +               return err;
+> +
+> +       if ((!tsd.tx_max_delay_ns && !tsd.tx_min_delay_ns) ||
+> +           (!tsd.rx_max_delay_ns && !tsd.rx_min_delay_ns)) {
+> +               phydev_err(phydev, "Invalid TimeSync data path delays\n");
+> +               return -EINVAL;
+> +       }
 
-You're right, I'll remove the parameter.
+Because all 4 variables are u64, it can be zero technically.
+I think the condition of "max >= min" could be better option for validation
+because actual *_delay_ns is average of min and max value.
 
-Thanks,
+> +
+> +       if (tsd.tx_max_delay_ns && tsd.tx_min_delay_ns)
+> +               *tx_delay_ns = (tsd.tx_max_delay_ns + tsd.tx_min_delay_ns) /
+> 2;
+> +       else if (tsd.tx_max_delay_ns)
+> +               *tx_delay_ns = tsd.tx_max_delay_ns;
+> +       else
+> +               *tx_delay_ns = tsd.tx_min_delay_ns;
+> +
+> +       if (tsd.rx_max_delay_ns && tsd.rx_min_delay_ns)
+> +               *rx_delay_ns = (tsd.rx_max_delay_ns + tsd.rx_min_delay_ns) /
+> 2;
+> +       else if (tsd.rx_max_delay_ns)
+> +               *rx_delay_ns = tsd.rx_max_delay_ns;
+> +       else
+> +               *rx_delay_ns = tsd.rx_min_delay_ns;
+> +
+> +       return 0;
+> +}
+> +EXPORT_SYMBOL(phy_get_timesync_data_path_delays);
+> +
 
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks.
+Woojung
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
