@@ -2,83 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3352E8A7DFF
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 10:19:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 420DB8A7E67
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 10:36:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D51F3C6B444;
-	Wed, 17 Apr 2024 08:19:08 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E155CC6B444;
+	Wed, 17 Apr 2024 08:36:29 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C492C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7642DC69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 08:19:08 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-518a56cdc03so4642843e87.1
+ Wed, 17 Apr 2024 08:36:28 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a52aa665747so369083166b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 01:19:08 -0700 (PDT)
+ Wed, 17 Apr 2024 01:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713341947; x=1713946747;
+ d=linaro.org; s=google; t=1713342988; x=1713947788;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=3WVqvTWkSJuMK42oCBd4QTeLpoVUswiSt5bNCxSQhCk=;
- b=Y8zAqAsTU/l8XWRhQ85ZEcK8d8nW6pU5KRyv3e+Q+Hp2XDggbtBDhAJ/jSHShRd2mM
- X6wJSxOQyU9m/cEUKprkDB8dMR8MJUjAtg1YddEYNSCy485hokW1NnW/WeTWjINCeIFJ
- j2CREpMx+DZEOSZnVQcCYgNuHDMxWrfY4zg8kaBoBzK/b19NrYuhjD3Y2lRboIjLw2zE
- ICug5u8GQrCKXEHoyPb3T8OxrqKuTayB6XWToUSg3oUIFTUotQHuOhrp4eimRL+S8vaQ
- f3gLs/KJ//rgTnWDIII4h8K6cf8tDpwOD0HLgZ44XlvZ0xuJ1LgSBWLhyj/Z+958ZXMf
- U/7A==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=iQiui35tGbgrLHrxJlWNcYO7KRQh2YZtezQ4w5QZix0=;
+ b=EQRAE0MTpBYuMNy6XKq8cpqFSedPzfEw/6IQ87TnCVIyP8p0BHRkIlV/ZR2t3Sa6RT
+ VuyKYymKhB5gl4oZZWb60D1XIpo/5cAMVdJ5yBSZeLgZ8jIBBQraARhVvvQCZTr63FR/
+ d27olY1kSZxZ0lH+43reS0ouyw13c2CVh7JBet/RXxFoehNONCgBT1wjd3zJX1CaawOs
+ tANbSE3C5rehpYT6LD9YtdV27XLe8f71LDj6W6Rctag26ose6Lp+D8rhLoZnldXAJQ+j
+ fxwYULnd4p1gU8FZ2Kvlr/3mMDHys0d1B2lvDlZ3Vh1GpAageLtEy4lqmMAtCP63wQGz
+ vN6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713341947; x=1713946747;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3WVqvTWkSJuMK42oCBd4QTeLpoVUswiSt5bNCxSQhCk=;
- b=C8huFfaPcPhNzRGkAERDxxCetjt/8vPVAEt2mkXP1lFm182W3TIKPqypwkey+RFrhQ
- QC3c5Oy6FkDhzkxSypf/vjKGoRPkJ6mH7GxunT4d3Sk7cJhf1lLwxie3qMWlmtmfZhc/
- xA6F+iYIZmzx5PtoZTLxPpTyazTohHW3LgSvVlf6KPn93VRl1xixUYKIF5HiBv18JPr+
- c5OLiZcmQ944Kx3JjPhnrmJ+HDCMs/4HcwP9AtMKnOHJQcAyUyLPWQVzWf5jJeGd0gzn
- NJPF+DsvLWEZYCQ7kVWcMSldWN3zM1741C/2pcY0KlBywzAWmu2CTiYBuwhWo75VLYcZ
- qp8g==
+ d=1e100.net; s=20230601; t=1713342988; x=1713947788;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iQiui35tGbgrLHrxJlWNcYO7KRQh2YZtezQ4w5QZix0=;
+ b=Eh3LYgBS//0BWEz6p+XTYTZoOqGKmkrMhwu/Y62qKQQtie9kYQiBWEz1DiSgg2Ov7M
+ MmCGOT+YdoZfo3mlXY/HOGRzS5ptlANweJdFAX4xaMH5r6DH6aYjVoMtzjfS82fWr5F7
+ 8Gp5/tAX+QN5DUS7EvRFJw659M2eO/6ddRVqlfgoJ12/TG8h9WXvTfwbqeMxSFM1XY+v
+ nawDpizSTMmhoAw9Czfs7Ekln2Nc01LLfB68QKI3E0AbNgw3K9rn4YKFFsKSWl5rRMxz
+ 9+UIOPeftScL9OvldtNnns0ad+kxlDZla44Z0HYAejZ+HDfonRdtw5dm5/xk/LZw22G8
+ 8sCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW2xhS8K5ob8XD2cOvyRHLK+0bsIn9R4vOQHhr0IdWKLbPEZKYmUhwOJecvH7fMt1IIpFEOhyxJtXMxIEClBWrTjPiNbw1b6/wvgW5sI00JGGSMANkoXZjs
-X-Gm-Message-State: AOJu0Yz3JYdVFBUg2hEAxMw5pBFds46YIF5nJzubSzi1RV8XmKDIzPcm
- qMczFQsl7meB8mnmjbSWjqhKtYPROCDRYG+/QW4tD1feQrXRbxI0
-X-Google-Smtp-Source: AGHT+IEZH+ylq78IQkJNfP5FDxkXscm3aRgH3ubDyx46wNRqQbkl2T+2tyX+4h0ejdbXrQysINo+Vg==
-X-Received: by 2002:ac2:5106:0:b0:518:8c8c:db33 with SMTP id
- q6-20020ac25106000000b005188c8cdb33mr8624693lfb.7.1713341946952; 
- Wed, 17 Apr 2024 01:19:06 -0700 (PDT)
-Received: from [10.10.12.27] (91-118-163-37.static.upcbusiness.at.
- [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
- p27-20020ac246db000000b00518948d6910sm1446525lfo.205.2024.04.17.01.19.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Apr 2024 01:19:06 -0700 (PDT)
-Message-ID: <04f71d99-aad2-4e56-8f92-89469c159b48@gmail.com>
-Date: Wed, 17 Apr 2024 10:19:03 +0200
+ AJvYcCVpgMxPaNM86AtXLsidK0B8hCfDIfP3YL3hxTDzIn4ub6Ij5vtGnDy7a3w9yF731jKTNl4ZS+JMzV6YFLR42t2ppLEd6xFS9JBmRv96tBn0xJf2ga8vaEl9
+X-Gm-Message-State: AOJu0Ywp6MrkEpvjXm/yICMewvp1ZFQ+oF7FMOVTNRwW8eS7yAzonmxT
+ KymonxxtIEChw0CZSTPxcQ16x965Y20V/aAqsvmJQnXI/dq3iFWzrJoAotn7qP4=
+X-Google-Smtp-Source: AGHT+IGcBOrF6dlMwP4LWwT62iTJu3n3+RD0VmgZxc7ueD6NugKm/u+kb1GXFPPYn+h8dHTWajk2Vg==
+X-Received: by 2002:a17:907:846:b0:a52:6fcb:564a with SMTP id
+ ww6-20020a170907084600b00a526fcb564amr5823920ejb.9.1713342987569; 
+ Wed, 17 Apr 2024 01:36:27 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ cw21-20020a170906479500b00a52182471a2sm7905680ejc.13.2024.04.17.01.36.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Apr 2024 01:36:27 -0700 (PDT)
+Date: Wed, 17 Apr 2024 11:36:23 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Message-ID: <06113ffe-11bd-4c73-aff7-5e55aa8e3edc@moroto.mountain>
+References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
+ <20240415-fix-cocci-v1-25-477afb23728b@chromium.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: kernel test robot <lkp@intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20240408-rtc_dtschema-v1-2-c447542fc362@gmail.com>
- <202404170656.LoL9eBYs-lkp@intel.com>
-Content-Language: en-US, de-AT
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-In-Reply-To: <202404170656.LoL9eBYs-lkp@intel.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: rtc: google,
- goldfish-rtc: move to trivial-rtc
+Content-Disposition: inline
+In-Reply-To: <20240415-fix-cocci-v1-25-477afb23728b@chromium.org>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Pavel Machek <pavel@ucw.cz>, Dmitry Osipenko <digetx@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Sergey Kozlov <serjk@netup.ru>, Samuel Holland <samuel@sholland.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
+ linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ linux-mediatek@lists.infradead.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>
+Subject: Re: [Linux-stm32] [PATCH 25/35] media: venus: Use the correct div_
+	function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,38 +117,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/17/24 00:45, kernel test robot wrote:
-> Hi Javier,
-> 
-> kernel test robot noticed the following build warnings:
-> 
-> [auto build test WARNING on fec50db7033ea478773b159e0e2efb135270e3b7]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Javier-Carrasco/dt-bindings-rtc-orion-rtc-move-to-trivial-rtc/20240408-235612
-> base:   fec50db7033ea478773b159e0e2efb135270e3b7
-> patch link:    https://lore.kernel.org/r/20240408-rtc_dtschema-v1-2-c447542fc362%40gmail.com
-> patch subject: [PATCH 2/9] dt-bindings: rtc: google,goldfish-rtc: move to trivial-rtc
-> reproduce: (https://download.01.org/0day-ci/archive/20240417/202404170656.LoL9eBYs-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202404170656.LoL9eBYs-lkp@intel.com/
-> 
-> All warnings (new ones prefixed by >>):
-> 
->    Warning: Documentation/devicetree/bindings/power/wakeup-source.txt references a file that doesn't exist: Documentation/devicetree/bindings/input/qcom,pm8xxx-keypad.txt
->    Warning: Documentation/devicetree/bindings/regulator/siliconmitus,sm5703-regulator.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/siliconmitus,sm5703.yaml
->    Warning: Documentation/devicetree/bindings/sound/fsl-asoc-card.txt references a file that doesn't exist: Documentation/devicetree/bindings/sound/fsl,asrc.txt
->    Warning: Documentation/gpu/amdgpu/display/display-contributing.rst references a file that doesn't exist: Documentation/GPU/amdgpu/display/mpo-overview.rst
->>> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/rtc/google,goldfish-rtc.txt
->    Using alabaster theme
+On Mon, Apr 15, 2024 at 07:34:42PM +0000, Ricardo Ribalda wrote:
+> us_per_frame does not fit in u32
 > 
 
-This issue has already been addressed in v2, which was sent a week ago.
+drivers/media/platform/qcom/venus/venc.c
+   391  static int venc_s_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
+   392  {
+   393          struct venus_inst *inst = to_inst(file);
+   394          struct v4l2_outputparm *out = &a->parm.output;
+   395          struct v4l2_fract *timeperframe = &out->timeperframe;
+   396          u64 us_per_frame, fps;
+   397  
+   398          if (a->type != V4L2_BUF_TYPE_VIDEO_OUTPUT &&
+   399              a->type != V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+   400                  return -EINVAL;
+   401  
+   402          memset(out->reserved, 0, sizeof(out->reserved));
+   403  
+   404          if (!timeperframe->denominator)
+   405                  timeperframe->denominator = inst->timeperframe.denominator;
+   406          if (!timeperframe->numerator)
+   407                  timeperframe->numerator = inst->timeperframe.numerator;
+   408  
+   409          out->capability = V4L2_CAP_TIMEPERFRAME;
+   410  
+   411          us_per_frame = timeperframe->numerator * (u64)USEC_PER_SEC;
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+It looks like in some drivers this multiply can go over U32_MAX.
 
-Best regards,
-Javier Carrasco
+   412          do_div(us_per_frame, timeperframe->denominator);
+                       ^^^^^^^^^^^^
+But after this divide, then we're under 1,000,000 again.  Otherwise the
+FPS is zero.  So maybe the right thing to do is:
+
+	inst->fps = USEC_PER_SEC / (u32)us_per_frame;
+
+   413  
+   414          if (!us_per_frame)
+   415                  return -EINVAL;
+   416  
+   417          fps = (u64)USEC_PER_SEC;
+   418          do_div(fps, us_per_frame);
+   419  
+   420          inst->timeperframe = *timeperframe;
+   421          inst->fps = fps;
+   422  
+   423          return 0;
+   424  }
+
+regards,
+dan carpenter
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
