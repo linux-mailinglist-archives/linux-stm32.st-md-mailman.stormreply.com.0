@@ -2,71 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D0828A99C7
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 14:29:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2218A9A7B
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 14:57:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9C10C6DD9D;
-	Thu, 18 Apr 2024 12:29:35 +0000 (UTC)
-Received: from e3i51.smtp2go.com (e3i51.smtp2go.com [158.120.84.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FA95C6DD66;
+	Thu, 18 Apr 2024 12:57:49 +0000 (UTC)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBE88C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CA08C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Apr 2024 12:29:34 +0000 (UTC)
-Received: from [10.86.249.198] (helo=asas054.asem.intra)
- by smtpcorp.com with esmtpa (Exim 4.96.1-S2G)
- (envelope-from <f.suligoi@asem.it>) id 1rxQtP-Dv9DR6-38
- for linux-stm32@st-md-mailman.stormreply.com;
- Thu, 18 Apr 2024 12:29:31 +0000
-Received: from flavio-x.asem.intra ([172.16.18.47]) by asas054.asem.intra with
- Microsoft SMTPSVC(10.0.14393.4169); Thu, 18 Apr 2024 14:29:23 +0200
-From: Flavio Suligoi <f.suligoi@asem.it>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Thu, 18 Apr 2024 14:28:59 +0200
-Message-Id: <20240418122859.2079099-6-f.suligoi@asem.it>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240418122859.2079099-1-f.suligoi@asem.it>
-References: <20240418122859.2079099-1-f.suligoi@asem.it>
+ Thu, 18 Apr 2024 12:57:48 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-2d872102372so15397761fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 18 Apr 2024 05:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1713445067; x=1714049867;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=H7TvlJDHh6PM8Lai+72isa4pBtCMtiwvjV7L+/XlE4U=;
+ b=ZD4u1Uq39SIE+JkTzsGTRo/jl2dmtGTXORMIxD2Ea2nTyUE+4S7CyDhupY+/1EpX5v
+ sHKysfx/csbIPjvZzYaJM3P3Lz1vxomVERhFVryGUSDevep+Sln+dBKZkWbzQ758ufNo
+ 6B4opLrn8mmhCs7ErJ/v+J5BnQLR2K6bWi3I2NZgoYfi247ozhiMnr448A13FHgLIu1c
+ 2eYqZTgwP7iBVqwYLx6Is9MMF4IgxTlKdKsWhoX7LiVNsb13ZlLQqTFFRKXIVrgg1Rm/
+ Wo/ktezfeMvdH7LQGQO449QAFk4HWUmyJBxgYDUjGq1odv6AV3bMcZd0Ci9j7WIw/geI
+ m3ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713445067; x=1714049867;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=H7TvlJDHh6PM8Lai+72isa4pBtCMtiwvjV7L+/XlE4U=;
+ b=tGs1/dlNfShOLeaHkZAQ5OJhZht45iq4JZ5fqN26lD2pt+PNZ5ZzqwvZ9aVg1dTgm/
+ GqzGgUJ4VR+9wIjNtqxMgFDJbrcDq2Lvc68Nmtr5LwCzTYf8WDHJBXnMbOqwsdBV9wHP
+ xb1kV1sYCVrjlrV6NSWtSNhj9GO7P6uK9DeD+JMfitn7ikgfzPOC+EIvxCqvRTZcPC5r
+ 2rE0wLpLOHgHO57XpMn0RkB6W9KJ5myA8I5zaz/eG3H0GgcbmOn5oVoHjmbUam7+zHyb
+ kRDMsWZsbLu1xsy8cnS3KQbHcZPCH8+114lQhgS1MM6626cQYTHCsYebwwa0nB7G1YCO
+ DohA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW6kEYzp+jcw/63QPaFbG95TM7I3Q3EH7YFUBFZWaJOcKD2+yMf2JecHsfY6ltJO6M9jskeyF6dKf9dQ52ice6aNyMww/4AfBj705iKoFw8ngsF1jYT3jgV
+X-Gm-Message-State: AOJu0YyQrL5IFZvXhCEYvNChQ3XWVIQh71UaCClC9sN+YUG96/L16jlN
+ sI+oT5s6oBYRuW7zwOoYacaDpfh70F6LBhrCAOVjjpFDZmW9kNdg
+X-Google-Smtp-Source: AGHT+IHfKLq2UzaMXO/4uNIuhb8wjwhcxG7kZvjOwkPLDKwcLA+nxELTBqKKXudYnYTNlpQpw0rHVQ==
+X-Received: by 2002:a2e:9f17:0:b0:2d7:1a35:d580 with SMTP id
+ u23-20020a2e9f17000000b002d71a35d580mr683715ljk.15.1713445067067; 
+ Thu, 18 Apr 2024 05:57:47 -0700 (PDT)
+Received: from mobilestation.baikal.int (srv1.baikalchip.ru. [87.245.175.227])
+ by smtp.gmail.com with ESMTPSA id
+ f23-20020a2eb5b7000000b002d88804b368sm190667ljn.43.2024.04.18.05.57.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Apr 2024 05:57:46 -0700 (PDT)
+Date: Thu, 18 Apr 2024 15:57:44 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Message-ID: <eqfta73ost45nbzz3aoa2tw5tasg3geehf4fgphu4teq5yfvar@ngif2e6j5j2k>
+References: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
+ <20240415-rzn1-gmac1-v3-4-ab12f2c4401d@bootlin.com>
+ <xp34tp5cjmdshefxjczltz2prqtiikagfspf4lobznzypvsyah@ihpmwfynwzhh>
+ <232e3b0c-ca55-2da0-1c9f-47520a1bcfbd@bootlin.com>
 MIME-Version: 1.0
-X-OriginalArrivalTime: 18 Apr 2024 12:29:23.0923 (UTC)
- FILETIME=[0BBCEA30:01DA918C]
-X-smtpcorp-track: 1rxQteDv9DR638.mcmque4Fq5qsP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
- i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1713443374; h=feedback-id :
- x-smtpcorp-track : date : message-id : to : subject : from : reply-to
- : sender : list-unsubscribe;
- bh=V+1vvwjdWgujcNcq0BbcQl1Gr7TpP6SphXfO1RK3Fmk=;
- b=jcRGHdyIofHSucmMUyQXbBkFkgn6gkVcGDr8uL1dZwUr6MuQAhZjWjCDR9TTE9fbCgvuv
- 3jLRyLNwD/D0j0F+GN2zm/b5o29+8gabgk1lTSo4+udFeRv5RuP9rX414ISDfvHxFkFJfkE
- dH/0qiCPnSOab7ErSuzxOsG4KYKyS3sVFKitbXjg9GXI+FvmUASPj60RgHiDVZpL7eSvkxZ
- ZUO2gkC2NWXkwEK/an3BSngnX2rguNZ11gB0poZhUpl5HUT1J0Bq0Frhaih+nv8iXpfk23x
- +8XIRtClYrYcaVm1qFV9Qdivd58693goUqRbioEbSnfzNsJrtk/p9P8Btz9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asem.it;
- i=@asem.it; q=dns/txt; s=s1174574; t=1713443374; h=from : subject : to
- : message-id : date; bh=V+1vvwjdWgujcNcq0BbcQl1Gr7TpP6SphXfO1RK3Fmk=;
- b=axVDVccjkpsTjhLyGJ8gu/vfWhx0Q/rgmVDLeTNigcITC06hzJjWUGTTrAmshIDw/XMt3
- ratZ1SYwUcUoWFCJbfVPcJKMrlxzLd1mfapWxFJ5DbccbK2PKDt79saDLm4jlldKaqjeO+l
- 4X9WX6Pfa44wCcgA3AqT6Q5IKG8s94Gyq0Zt39/tbTB7OTy5WjwtPixeYdI85EGngSMF9ia
- jY68pf4qVRooF1oJfeVKevQVf4xuRfTr8XSYB5K6LvFo1QhG+FgER6GJkbNM+BwPH/hiAjq
- 13cbvs434Rwy2GTGcZH+dCwiL1ggh5B8CJ+A+ndoKNUsnsKBgsHcu267lBQA==
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-arm-msm@vger.kernel.org, Flavio Suligoi <f.suligoi@asem.it>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 5/5] arm64: dts: qcom: sa8775p-ride: remove
-	tx-sched-sp property
+Content-Disposition: inline
+In-Reply-To: <232e3b0c-ca55-2da0-1c9f-47520a1bcfbd@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, devicetree@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Magnus Damm <magnus.damm@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, linux-renesas-soc@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 4/5] net: stmmac: add support
+	for RZ/N1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,41 +96,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Strict priority for the tx scheduler is by default in Linux driver, so the
-tx-sched-sp property was removed in commit aed6864035b1 ("net: stmmac:
-platform: Delete a redundant condition branch").
+On Thu, Apr 18, 2024 at 01:57:47PM +0200, Romain Gantois wrote:
+> Hi Serge,
+> 
+> On Tue, 16 Apr 2024, Serge Semin wrote:
+> 
+> > > +static int rzn1_dwmac_pcs_init(struct stmmac_priv *priv,
+> > 
+> > > +			       struct mac_device_info *hw)
+> > 
+> > AFAICS hw is unused, and the mac_device_info instance is reached via
+> > the priv pointer. What about dropping the unused argument then?
+> 
 
-So we can safely remove this property from this device-tree.
+> Unfortunately, this is an implementation of the pcs_init() callback, which is 
+> also used by socfpga (see patch 4/6 in this series). The socfpga implementations 
+> use the hw parameter for both pcs_init() and pcs_exit() so I can't remove it.
 
-Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
----
- arch/arm64/boot/dts/qcom/sa8775p-ride.dts | 2 --
- 1 file changed, 2 deletions(-)
+I had that patch content in mind when was writing my comment. There is
+no point in passing the hw-pointer there either because you already
+have the stmmac_priv pointer. There is stmmac_priv::hw field which you
+can use instead in the same way as you do in this patch. Here is the
+respective change for your SoCFPGA patch:
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-index 26ad05bd3b3f..2e1770e07f45 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
-@@ -334,7 +334,6 @@ queue3 {
- 
- 	mtl_tx_setup: tx-queues-config {
- 		snps,tx-queues-to-use = <4>;
--		snps,tx-sched-sp;
- 
- 		queue0 {
- 			snps,dcb-algorithm;
-@@ -404,7 +403,6 @@ queue3 {
- 
- 	mtl_tx_setup1: tx-queues-config {
- 		snps,tx-queues-to-use = <4>;
--		snps,tx-sched-sp;
- 
- 		queue0 {
- 			snps,dcb-algorithm;
--- 
-2.34.1
++static int socfpga_dwmac_pcs_init(struct stmmac_priv *priv,
++				  struct mac_device_info *hw)
++{
+...
++
++	priv->hw->phylink_pcs = pcs;
++	return 0;
++}
++
++static void socfpga_dwmac_pcs_exit(struct stmmac_priv *priv,
++				   struct mac_device_info *hw)
++{
++	if (priv->hw->phylink_pcs)
++		lynx_pcs_destroy(priv->hw->phylink_pcs);
++}
 
+-Serge(y)
+
+> 
+> Thanks,
+> 
+> -- 
+> Romain Gantois, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
