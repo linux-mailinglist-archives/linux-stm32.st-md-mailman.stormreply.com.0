@@ -2,58 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AFEE8A9925
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 13:57:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C708A99C1
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 14:29:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0BAEC6C859;
-	Thu, 18 Apr 2024 11:57:12 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A76FBC6C859;
+	Thu, 18 Apr 2024 12:29:31 +0000 (UTC)
+Received: from e3i51.smtp2go.com (e3i51.smtp2go.com [158.120.84.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D581C6C858
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 772EDC6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Apr 2024 11:57:11 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id AD03D1BF20C;
- Thu, 18 Apr 2024 11:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1713441431;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=O1G2JcwttleuEX4OArtvrIC9rhjBFn4pb36VCCBIh/k=;
- b=Hy2SsbNnYmDiJbouDoQakG4O9hhGXW4f+OjvJAR3aQz8kL2s8/mbpBjipIEcykp1brgcjr
- kJ+d9gSauDycypI+PmrGrD9mrzFGc23eeqRwQYLbkzGRyeXVKEcMiWZg5hWbUgpJznFlRn
- 5V7abewlK8QD2a6f8PjfAXELplvwBZP2YIPnkUR+48xmyi0cvNa/YPqRE2B2fk1ozWk2Y6
- MU2FCi0NcSbFEC7E0hWlLKOWpRrQBUDsU6a9RVthAORmx26StgefFaaICrvbzSgrLdQppE
- 1ZmdlRAGxtTWxKIcm+wOGUO8UuWr6897yKZsU3eT7r8zUI5i35pKX4KaHo9c2A==
-Date: Thu, 18 Apr 2024 13:57:47 +0200 (CEST)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-In-Reply-To: <xp34tp5cjmdshefxjczltz2prqtiikagfspf4lobznzypvsyah@ihpmwfynwzhh>
-Message-ID: <232e3b0c-ca55-2da0-1c9f-47520a1bcfbd@bootlin.com>
-References: <20240415-rzn1-gmac1-v3-0-ab12f2c4401d@bootlin.com>
- <20240415-rzn1-gmac1-v3-4-ab12f2c4401d@bootlin.com>
- <xp34tp5cjmdshefxjczltz2prqtiikagfspf4lobznzypvsyah@ihpmwfynwzhh>
-MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Thu, 18 Apr 2024 12:29:30 +0000 (UTC)
+Received: from [10.86.249.198] (helo=asas054.asem.intra)
+ by smtpcorp.com with esmtpa (Exim 4.96.1-S2G)
+ (envelope-from <f.suligoi@asem.it>) id 1rxQtM-Dv9DR6-04
+ for linux-stm32@st-md-mailman.stormreply.com;
+ Thu, 18 Apr 2024 12:29:28 +0000
+Received: from flavio-x.asem.intra ([172.16.18.47]) by asas054.asem.intra with
+ Microsoft SMTPSVC(10.0.14393.4169); Thu, 18 Apr 2024 14:29:23 +0200
+From: Flavio Suligoi <f.suligoi@asem.it>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 4/5] net: stmmac: add support
- for RZ/N1 GMAC
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Date: Thu, 18 Apr 2024 14:28:54 +0200
+Message-Id: <20240418122859.2079099-1-f.suligoi@asem.it>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+X-OriginalArrivalTime: 18 Apr 2024 12:29:23.0515 (UTC)
+ FILETIME=[0B7EA8B0:01DA918C]
+X-smtpcorp-track: 1rxQtuDv9DR604.mcmpue4Gd6A8t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
+ i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1713443369; h=feedback-id :
+ x-smtpcorp-track : date : message-id : to : subject : from : reply-to
+ : sender : list-unsubscribe;
+ bh=gHoVF4+qnuYpG3bFpPHolfB6dA01j229z+bTKcaSRuA=;
+ b=E1vEt8sG5uDODD6NSMFbf2Ojx2QR0muRjCXEOgjq8L7bSvD/QwgtCDHCP7dZ/MJZg9Tim
+ 4rSkDh/wnrlklhFtlHp6PbZ4t5+NP+jEv4g0Uap4+f1FyzblrufcSF1u3vCMtgARxMypxaY
+ ER/LZUCpB3fbnRS0vVANn1IDchSolvujA0rqsg5v6iBUgK5cBXQmKWsYCI8V4xjMO5pJHNS
+ 0HBn7gSGliUWSo15JHo/XmLxcX8W4HVKiPaqzwV1SEmssjq5n7hbq4gNSFl4Wy2axIHy6ys
+ HzWQZxLf19erDUAulYVbDcJIVSTX3uP3J4PDL0tCL5S7dYrkwMTSRUnLCWzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asem.it;
+ i=@asem.it; q=dns/txt; s=s1174574; t=1713443369; h=from : subject : to
+ : message-id : date; bh=gHoVF4+qnuYpG3bFpPHolfB6dA01j229z+bTKcaSRuA=;
+ b=Mgz/uuxhr1b1AcPRTEn/vratdZ5jhfxckSSVqej3b3eszVlY/GAwEyzjJkveGdNzkR+a5
+ +0orpYC3erY992nSqFmMTocbB5/0Tz/fSuPLgeDHO/u1s1FzxyFy9qaC9QJQvlzQlql4Mws
+ s4nePUciLkrcHL99BOKrEr0Yavp927Jz1QuPz/m5jIwzfoqMmgjAKkpHCnVixiXXrQt3/9m
+ XSNXGLGTrumm7OqhyawhawTwP9fLrDO9DU9efUi5SFbMJmgPnjmn0jJD1QSnaQ/ZF0jb58b
+ 02WWmTUp6YR/R6p/E2gLfHEH8Z+7w0MFsOfXlLBARSa5zUamvPZCWn69cHfA==
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Flavio Suligoi <f.suligoi@asem.it>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/5] arm64: dts: remove tx-sched-sp
+	property in snps, dwmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,27 +81,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Serge,
+In the ethernet stmmac device driver:
 
-On Tue, 16 Apr 2024, Serge Semin wrote:
+- drivers/net/ethernet/stmicro/stmmac/
 
-> > +static int rzn1_dwmac_pcs_init(struct stmmac_priv *priv,
-> 
-> > +			       struct mac_device_info *hw)
-> 
-> AFAICS hw is unused, and the mac_device_info instance is reached via
-> the priv pointer. What about dropping the unused argument then?
+The "Strict priority" for the tx scheduler is by default in Linux driver,
+so the tx-sched-sp property was removed in commit aed6864035b1 ("net:
+stmmac: platform: Delete a redundant condition branch").
 
-Unfortunately, this is an implementation of the pcs_init() callback, which is 
-also used by socfpga (see patch 4/6 in this series). The socfpga implementations 
-use the hw parameter for both pcs_init() and pcs_exit() so I can't remove it.
+This patch series remove this property from the following device-tree
+files:
 
-Thanks,
+- arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi
+- arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+- arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+- arch/arm64/boot/dts/qcom/sa8540p-ride.dts
+- arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+
+There is no problem if that property is still used in these DTS,
+since, as seen above, it is a default property of the driver.
+
+The property is also removed, in a separate patch, from the corresponding
+dt_bindings file:
+- Documentation/devicetree/bindings/net/snps,dwmac.yaml
+
+v2 - This patch is the 2nd version of a previous patch, where both the DTS
+     and the yaml files were included toghether. Then I split this 1st
+     patch in two, as suggested by Krzysztof.
+v1 - original version of the patch where, in addition to these DTS patches,
+     there was also the one related to the correspondent snps,dwmac.yaml
+     dt_binding file.
+
+Flavio Suligoi (5):
+  arm64: dts: freescale: imx8mp-beacon: remove tx-sched-sp property
+  arm64: dts: freescale: imx8mp-evk: remove tx-sched-sp property
+  arm64: dts: freescale: imx8mp-verdin: remove tx-sched-sp property
+  arm64: dts: qcom: sa8540p-ride: remove tx-sched-sp property
+  arm64: dts: qcom: sa8775p-ride: remove tx-sched-sp property
+
+ arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi | 1 -
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts         | 1 -
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi     | 1 -
+ arch/arm64/boot/dts/qcom/sa8540p-ride.dts            | 2 --
+ arch/arm64/boot/dts/qcom/sa8775p-ride.dts            | 2 --
+ 5 files changed, 7 deletions(-)
 
 -- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
