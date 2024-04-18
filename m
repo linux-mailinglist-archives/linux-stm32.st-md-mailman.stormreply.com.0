@@ -2,50 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E23D48A8CD7
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Apr 2024 22:23:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA2E38A9283
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 07:40:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85104C6C859;
-	Wed, 17 Apr 2024 20:23:26 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 655C1C6DD66;
+	Thu, 18 Apr 2024 05:40:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D649C6C858
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E630C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Apr 2024 20:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=heCx5Vxu+tju1CQvxfg2RJDT1aim0ThgpvJAHCHewkQ=; b=l7qkf56V7BsGBIxY9V8DlIkiwv
- HKzTvHiZ3IR/UjgKfBgUcgt5wuK3C9vahLEMRO3lFXQd12JPokoSD72OtMgyoKSCroINAaAsZI0NZ
- W/z/BQTDBeJuxBN398eLm6vkhaeh1BwzthRlG7gJz1ZrkUpSLlTBWyRmc+esYvk56H8I=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rxBoB-00DHPd-Q3; Wed, 17 Apr 2024 22:23:07 +0200
-Date: Wed, 17 Apr 2024 22:23:07 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <b44a4aee-f76f-4472-9b5c-343a09ed0d33@lunn.ch>
-References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
- <20240417164316.1755299-3-o.rempel@pengutronix.de>
- <c8e3f5d0-832b-4ab1-a65f-52f983ff110a@lunn.ch>
- <ZiAtREiqPuvXkB4S@pengutronix.de>
+ Thu, 18 Apr 2024 05:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1713418821; x=1744954821;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=bTjx8rndt/PSO/6dNSTUflavw32jLsFtA0qjmagKIOI=;
+ b=n486ZoSIwZyK5fjOX1+LqTIRiHRyMclHRqHiRvgz992AdIXozbRPViyf
+ n7l6HpYslut0fqaR3Q9z5kuCEIYdjvxXYiS6H5Ka8ZGTR5uwaaz2+i0OB
+ xvI4aSrLS7xF6qJFY55khxgPVHtZo2LIN1Eks7gdTaSVumRM9hvF7ZqQq
+ hJzCvbBQI8VW8bHqP7NEz64wnxGo9JPAcHu5HFtjiRov1q605oRJta56r
+ CtiesicXSDf6cqkAOZdf1p7a5R1OH2/H3ufl/l8p0cTix8xMhZ5pKHKQs
+ HThsqR2S5zTPUpKOp3vTgz1zayH5GekM2wbT3XNOvrrdCxI8CfP6EtOWh A==;
+X-CSE-ConnectionGUID: EF9z4jlQS96L8dIC4cZ+jg==
+X-CSE-MsgGUID: AoF8Rt6tRV+3HWJLfWtafg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11047"; a="19549968"
+X-IronPort-AV: E=Sophos;i="6.07,211,1708416000"; d="scan'208";a="19549968"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2024 22:40:19 -0700
+X-CSE-ConnectionGUID: ofsmR+8sRcG/x+ClL/kPeQ==
+X-CSE-MsgGUID: QhL2448uQ9S0pi825yf5Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,211,1708416000"; d="scan'208";a="22958156"
+Received: from unknown (HELO 23c141fc0fd8) ([10.239.97.151])
+ by fmviesa007.fm.intel.com with ESMTP; 17 Apr 2024 22:40:14 -0700
+Received: from kbuild by 23c141fc0fd8 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rxKVF-0007Ls-1r;
+ Thu, 18 Apr 2024 05:40:10 +0000
+Date: Thu, 18 Apr 2024 13:39:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Woojung Huh <woojung.huh@microchip.com>,
+ Arun Ramadoss <arun.ramadoss@microchip.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Russell King <linux@armlinux.org.uk>
+Message-ID: <202404181340.89g7TIG1-lkp@intel.com>
+References: <20240417164316.1755299-4-o.rempel@pengutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZiAtREiqPuvXkB4S@pengutronix.de>
-Cc: Woojung Huh <woojung.huh@microchip.com>,
- Arun Ramadoss <arun.ramadoss@microchip.com>, kernel@pengutronix.de,
- linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- UNGLinuxDriver@microchip.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v1 2/4] net: phy: micrel:
- lan8841: set default PTP latency values
+In-Reply-To: <20240417164316.1755299-4-o.rempel@pengutronix.de>
+Cc: netdev@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ UNGLinuxDriver@microchip.com, Oleksij Rempel <o.rempel@pengutronix.de>,
+ kernel@pengutronix.de, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH net-next v1 3/4] net: phy: realtek:
+ provide TimeSync data path delays for RTL8211E
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,22 +81,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > What affect does this have on systems which have already applied
-> > adjustments in user space to correct for this? Will this cause
-> > regressions for such systems?
-> 
-> Yes.
-> 
-> > I know Richard has rejected changes like this in the past.
-> 
-> In this case I would need to extend the ethtool interface. The driver
-> should provide recommended values and the user space can optionally
-> read them and optionally write them to the HW.
+Hi Oleksij,
 
-I suggest you go read older messages from Richard. It was a discussion
-with Microchip about one of their PHYs.
+kernel test robot noticed the following build warnings:
 
-	Andrew
+[auto build test WARNING on net-next/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Oleksij-Rempel/net-phy-Add-TimeSync-delay-query-support-to-PHYlib-API/20240418-004607
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/20240417164316.1755299-4-o.rempel%40pengutronix.de
+patch subject: [PATCH net-next v1 3/4] net: phy: realtek: provide TimeSync data path delays for RTL8211E
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20240418/202404181340.89g7TIG1-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240418/202404181340.89g7TIG1-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202404181340.89g7TIG1-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/phy/realtek.c:278:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+           default:
+           ^
+   drivers/net/phy/realtek.c:278:2: note: insert 'break;' to avoid fall-through
+           default:
+           ^
+           break; 
+   1 warning generated.
+
+
+vim +278 drivers/net/phy/realtek.c
+
+   245	
+   246	static int rtl8211e_get_timesync_data_path_delays(struct phy_device *phydev,
+   247							  struct phy_timesync_delay *tsd)
+   248	{
+   249		phydev_warn(phydev, "Time stamping is not supported\n");
+   250	
+   251		switch (phydev->interface) {
+   252		case PHY_INTERFACE_MODE_RGMII:
+   253		case PHY_INTERFACE_MODE_RGMII_RXID:
+   254		case PHY_INTERFACE_MODE_RGMII_TXID:
+   255		case PHY_INTERFACE_MODE_RGMII_ID:
+   256			/* The values are measured with RTL8211E and LAN8841 as link
+   257			 * partners and confirmed with i211 to be in sane range.
+   258			 */
+   259			if (phydev->speed == SPEED_1000) {
+   260				tsd->tx_min_delay_ns = 326;
+   261				tsd->rx_min_delay_ns = 406;
+   262				return 0;
+   263			} else if (phydev->speed == SPEED_100) {
+   264				tsd->tx_min_delay_ns = 703;
+   265				tsd->rx_min_delay_ns = 621;
+   266				return 0;
+   267			} else if (phydev->speed == SPEED_10) {
+   268				/* This value is suspiciously big, with atypical
+   269				 * shift to Egress side. This value is confirmed
+   270				 * by measuring RGMII-PHY-PHY-RGMII path delay.
+   271				 * Similar results are confirmed with LAN8841 and i211
+   272				 * as link partners.
+   273				 */
+   274				tsd->tx_min_delay_ns = 920231;
+   275				tsd->rx_min_delay_ns = 1674;
+   276				return 0;
+   277			}
+ > 278		default:
+   279			break;
+   280		}
+   281	
+   282		phydev_warn(phydev, "Not tested or not supported modes for path delay values\n");
+   283	
+   284		return -EOPNOTSUPP;
+   285	}
+   286	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
