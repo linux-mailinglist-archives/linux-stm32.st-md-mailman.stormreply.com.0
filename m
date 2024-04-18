@@ -2,67 +2,114 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52CD28A9D5D
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 16:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0058A9D9D
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 16:51:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FCEBC6DD6D;
-	Thu, 18 Apr 2024 14:44:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5E53C6DD66;
+	Thu, 18 Apr 2024 14:51:46 +0000 (UTC)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
+ [209.85.221.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16546C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31BC0C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Apr 2024 14:44:27 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43I9ZrBH012295; Thu, 18 Apr 2024 16:43:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding; s=
- selector1; bh=6NIHXnPi2/F1Fg1UZ+58Nla4m2nGFD2Orsz8Fiuy0lU=; b=tf
- 9UAxTVCQ34SJRJhZFeA0c/7GSc5sytw5pB1n/I0UqO+8bJ30EbETwuk4yildqC1X
- 6ghftpvefU0Grr21G50z+H5XBEkjz1mf80KOADBZBCMCHjyCjWJ8M8BDhZM45iJM
- vqUwJoLxpRTp2Uv18Wmf5bxyPdMJ0t3G5Sv2aa0Xhf/8rQYPcjpmey2I/ZV3EGuR
- ez8Fp/wbMGqRG9qEuO0SrhjnaFsg21TCTPbSABZNxQQIPblqo+9vQ5TVzG3VbUVg
- X+4U55SGwWlF/gx722I8pafTGWVLWOE0lBIGqqXXXHNzV+h5YdYlHTtlXpLE/fYV
- ieDOc5G45d9L4lTWQCug==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xffffre01-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Apr 2024 16:43:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 24A0E40046;
- Thu, 18 Apr 2024 16:43:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CF974221951;
- Thu, 18 Apr 2024 16:43:03 +0200 (CEST)
-Received: from localhost (10.48.86.103) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 18 Apr
- 2024 16:43:03 +0200
-From: Maxime MERE <maxime.mere@foss.st.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
- <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 18 Apr 2024 16:42:56 +0200
-Message-ID: <20240418144256.3736800-4-maxime.mere@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240418144256.3736800-1-maxime.mere@foss.st.com>
-References: <20240418144256.3736800-1-maxime.mere@foss.st.com>
+ Thu, 18 Apr 2024 14:51:45 +0000 (UTC)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-4daab3cf090so499306e0c.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 18 Apr 2024 07:51:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1713451904; x=1714056704;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=oMqAEiiN7av4J6wM+O4afdcaiaOjYq8V1FKf5PLPclI=;
+ b=FUmSKNhUF9EFA1VuIW7xpasL3o75IEIjC/WYcViOuipO9Pu1igqPoBu5o29eindbL4
+ 1BScprAq9E09rN7uLTvqJoysFadWzDQz5UxWdF7NQv0ssFNkmKDl4JFowcOXJKiNhNF6
+ 8/wGNnKS8qJs2HXO2tDljKgoCWAViAmwlsYIg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1713451904; x=1714056704;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oMqAEiiN7av4J6wM+O4afdcaiaOjYq8V1FKf5PLPclI=;
+ b=QmMalwWBrNlk1y2O93fGftyioWiEG+LZeJnevHIBdGSxwF2YIQh8Fopupnkw8ue5o+
+ Ofu8Y/NGmCvvOm9HLgzNUFQa0h5yEjURn9lN5eze8zmoen6rCeGbfsMdKfAmmGNwcuMK
+ MXoslC/kCfDc/7OHuniy0LegDpAgk7sSKO/oPsm80VsJzKX2kDfrozj8/LskiwH+Fcub
+ O8V9b3k15Hjdax6Cgfz/N7F/ZJG2fYdW2Qq0g/6lWOgvVNpNpDg2aop36PcJqpY0NIEf
+ lijW9c4faGtF+IRvDF3YqxbHVJAgxMQ+jP6s0pAhm2JyT2LddSeGXkH5xZ7kjg79omGS
+ TzyA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXe37gksgIDOzoymeIjtVtbqDVPzytSDao/Qa2EmBLN+K5Ky+cjDiXLIJGS1pwfUZG57H6GoxZonjnws9/xXHGFf8Z5skVlu43gpObCmdDdn9sJscSso1Ml
+X-Gm-Message-State: AOJu0Yzv59Afcl/zrqthoL2KjGm5h75FjMLCSbyLIY6AvclMbKd6mJxH
+ 9V/QZcs5UcDA346Cza0wVo30k59ufx94c7vqp5BswxO+eJzFWjU86UDzFNpMmKlKnutVR9tT1IM
+ =
+X-Google-Smtp-Source: AGHT+IFoehz/66YGG0ubU0JhnGnmxFyxxeLNOINgEC1JC6+eoQH6ADXG+gSskfbyDv0A7qdMos7bIg==
+X-Received: by 2002:a05:6122:1d8b:b0:4c7:7760:8f14 with SMTP id
+ gg11-20020a0561221d8b00b004c777608f14mr3880939vkb.7.1713451903810; 
+ Thu, 18 Apr 2024 07:51:43 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com.
+ [209.85.217.41]) by smtp.gmail.com with ESMTPSA id
+ a11-20020a056122012b00b004daaeb20ab2sm195461vko.4.2024.04.18.07.51.43
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Apr 2024 07:51:43 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-479d6c6f2c0so1179131137.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 18 Apr 2024 07:51:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVHH7tbsb0atRP1JR0BzrG27DXPBWvrz+yvYO13LbDrrtPg7Obe9KXf3ZKySqZSCnm4T39oMOkTthy1Fc7lOdnwO+kfSsVoyCMXj4NrZNhI3KizeLVPNkEK
+X-Received: by 2002:a05:6214:4a5b:b0:6a0:4571:e0c8 with SMTP id
+ ph27-20020a0562144a5b00b006a04571e0c8mr3999896qvb.18.1713451882078; Thu, 18
+ Apr 2024 07:51:22 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.103]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-18_12,2024-04-17_01,2023-05-22_02
-Cc: Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] crypto: stm32/cryp - add
-	CRYPTO_ALG_KERN_DRIVER_ONLY flag
+References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
+ <a003494c-a1a9-4fcd-83d8-766a75d6bbb2@moroto.mountain>
+ <20240417155112.GQ12561@pendragon.ideasonboard.com>
+ <CANiDSCs_qOXkhzuL+cFhpw0hvFMwU0TYyN2B5ZdAStb96TTKFA@mail.gmail.com>
+ <20240418105310.GV12561@pendragon.ideasonboard.com>
+In-Reply-To: <20240418105310.GV12561@pendragon.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 18 Apr 2024 16:51:06 +0200
+X-Gmail-Original-Message-ID: <CANiDSCuS3KQK9H37sDZJ+mcqheNSh7NBwchS3dPccVXcPTSNRA@mail.gmail.com>
+Message-ID: <CANiDSCuS3KQK9H37sDZJ+mcqheNSh7NBwchS3dPccVXcPTSNRA@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Oleg Drokin <green@linuxhacker.ru>, Hans Verkuil <hverkuil@xs4all.nl>,
+ linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>, Pavel Machek <pavel@ucw.cz>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
+ Samuel Holland <samuel@sholland.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
+ linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ linux-mediatek@lists.infradead.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Subject: Re: [Linux-stm32] [PATCH 00/35] media: Fix coccinelle warning/errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,84 +121,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogTWF4aW1lIE3DqXLDqSA8bWF4aW1lLm1lcmVAZm9zcy5zdC5jb20+CgpUaGlzIGZsYWcg
-aXMgbmVlZGVkIHRvIG1ha2UgdGhlIGRyaXZlciB2aXNpYmxlIGZyb20gb3BlbnNzbCBhbmQgY3J5
-cHRvZGV2LgoKU2lnbmVkLW9mZi1ieTogTWF4aW1lIE3DqXLDqSA8bWF4aW1lLm1lcmVAZm9zcy5z
-dC5jb20+Ci0tLQogZHJpdmVycy9jcnlwdG8vc3RtMzIvc3RtMzItY3J5cC5jIHwgMTggKysrKysr
-KysrLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvY3J5cHRvL3N0bTMyL3N0bTMyLWNyeXAuYyBiL2Ry
-aXZlcnMvY3J5cHRvL3N0bTMyL3N0bTMyLWNyeXAuYwppbmRleCA0NDgwZDBlNTIyNjAuLjU2Nzll
-YTEwMzJhMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9jcnlwdG8vc3RtMzIvc3RtMzItY3J5cC5jCisr
-KyBiL2RyaXZlcnMvY3J5cHRvL3N0bTMyL3N0bTMyLWNyeXAuYwpAQCAtMjI5Miw3ICsyMjkyLDcg
-QEAgc3RhdGljIHN0cnVjdCBza2NpcGhlcl9lbmdpbmVfYWxnIGNyeXB0b19hbGdzW10gPSB7CiAJ
-CS5iYXNlLmNyYV9uYW1lCQk9ICJlY2IoYWVzKSIsCiAJCS5iYXNlLmNyYV9kcml2ZXJfbmFtZQk9
-ICJzdG0zMi1lY2ItYWVzIiwKIAkJLmJhc2UuY3JhX3ByaW9yaXR5CT0gMzAwLAotCQkuYmFzZS5j
-cmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQywKKwkJLmJhc2UuY3JhX2ZsYWdzCQk9IENSWVBU
-T19BTEdfQVNZTkMgfCBDUllQVE9fQUxHX0tFUk5fRFJJVkVSX09OTFksCiAJCS5iYXNlLmNyYV9i
-bG9ja3NpemUJPSBBRVNfQkxPQ0tfU0laRSwKIAkJLmJhc2UuY3JhX2N0eHNpemUJPSBzaXplb2Yo
-c3RydWN0IHN0bTMyX2NyeXBfY3R4KSwKIAkJLmJhc2UuY3JhX2FsaWdubWFzawk9IDAsCkBAIC0y
-MzE0LDcgKzIzMTQsNyBAQCBzdGF0aWMgc3RydWN0IHNrY2lwaGVyX2VuZ2luZV9hbGcgY3J5cHRv
-X2FsZ3NbXSA9IHsKIAkJLmJhc2UuY3JhX25hbWUJCT0gImNiYyhhZXMpIiwKIAkJLmJhc2UuY3Jh
-X2RyaXZlcl9uYW1lCT0gInN0bTMyLWNiYy1hZXMiLAogCQkuYmFzZS5jcmFfcHJpb3JpdHkJPSAz
-MDAsCi0JCS5iYXNlLmNyYV9mbGFncwkJPSBDUllQVE9fQUxHX0FTWU5DLAorCQkuYmFzZS5jcmFf
-ZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQyB8IENSWVBUT19BTEdfS0VSTl9EUklWRVJfT05MWSwK
-IAkJLmJhc2UuY3JhX2Jsb2Nrc2l6ZQk9IEFFU19CTE9DS19TSVpFLAogCQkuYmFzZS5jcmFfY3R4
-c2l6ZQk9IHNpemVvZihzdHJ1Y3Qgc3RtMzJfY3J5cF9jdHgpLAogCQkuYmFzZS5jcmFfYWxpZ25t
-YXNrCT0gMCwKQEAgLTIzMzcsNyArMjMzNyw3IEBAIHN0YXRpYyBzdHJ1Y3Qgc2tjaXBoZXJfZW5n
-aW5lX2FsZyBjcnlwdG9fYWxnc1tdID0gewogCQkuYmFzZS5jcmFfbmFtZQkJPSAiY3RyKGFlcyki
-LAogCQkuYmFzZS5jcmFfZHJpdmVyX25hbWUJPSAic3RtMzItY3RyLWFlcyIsCiAJCS5iYXNlLmNy
-YV9wcmlvcml0eQk9IDMwMCwKLQkJLmJhc2UuY3JhX2ZsYWdzCQk9IENSWVBUT19BTEdfQVNZTkMs
-CisJCS5iYXNlLmNyYV9mbGFncwkJPSBDUllQVE9fQUxHX0FTWU5DIHwgQ1JZUFRPX0FMR19LRVJO
-X0RSSVZFUl9PTkxZLAogCQkuYmFzZS5jcmFfYmxvY2tzaXplCT0gMSwKIAkJLmJhc2UuY3JhX2N0
-eHNpemUJPSBzaXplb2Yoc3RydWN0IHN0bTMyX2NyeXBfY3R4KSwKIAkJLmJhc2UuY3JhX2FsaWdu
-bWFzawk9IDAsCkBAIC0yMzYwLDcgKzIzNjAsNyBAQCBzdGF0aWMgc3RydWN0IHNrY2lwaGVyX2Vu
-Z2luZV9hbGcgY3J5cHRvX2FsZ3NbXSA9IHsKIAkJLmJhc2UuY3JhX25hbWUJCT0gImVjYihkZXMp
-IiwKIAkJLmJhc2UuY3JhX2RyaXZlcl9uYW1lCT0gInN0bTMyLWVjYi1kZXMiLAogCQkuYmFzZS5j
-cmFfcHJpb3JpdHkJPSAzMDAsCi0JCS5iYXNlLmNyYV9mbGFncwkJPSBDUllQVE9fQUxHX0FTWU5D
-LAorCQkuYmFzZS5jcmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQyB8IENSWVBUT19BTEdfS0VS
-Tl9EUklWRVJfT05MWSwKIAkJLmJhc2UuY3JhX2Jsb2Nrc2l6ZQk9IERFU19CTE9DS19TSVpFLAog
-CQkuYmFzZS5jcmFfY3R4c2l6ZQk9IHNpemVvZihzdHJ1Y3Qgc3RtMzJfY3J5cF9jdHgpLAogCQku
-YmFzZS5jcmFfYWxpZ25tYXNrCT0gMCwKQEAgLTIzODIsNyArMjM4Miw3IEBAIHN0YXRpYyBzdHJ1
-Y3Qgc2tjaXBoZXJfZW5naW5lX2FsZyBjcnlwdG9fYWxnc1tdID0gewogCQkuYmFzZS5jcmFfbmFt
-ZQkJPSAiY2JjKGRlcykiLAogCQkuYmFzZS5jcmFfZHJpdmVyX25hbWUJPSAic3RtMzItY2JjLWRl
-cyIsCiAJCS5iYXNlLmNyYV9wcmlvcml0eQk9IDMwMCwKLQkJLmJhc2UuY3JhX2ZsYWdzCQk9IENS
-WVBUT19BTEdfQVNZTkMsCisJCS5iYXNlLmNyYV9mbGFncwkJPSBDUllQVE9fQUxHX0FTWU5DIHwg
-Q1JZUFRPX0FMR19LRVJOX0RSSVZFUl9PTkxZLAogCQkuYmFzZS5jcmFfYmxvY2tzaXplCT0gREVT
-X0JMT0NLX1NJWkUsCiAJCS5iYXNlLmNyYV9jdHhzaXplCT0gc2l6ZW9mKHN0cnVjdCBzdG0zMl9j
-cnlwX2N0eCksCiAJCS5iYXNlLmNyYV9hbGlnbm1hc2sJPSAwLApAQCAtMjQwNSw3ICsyNDA1LDcg
-QEAgc3RhdGljIHN0cnVjdCBza2NpcGhlcl9lbmdpbmVfYWxnIGNyeXB0b19hbGdzW10gPSB7CiAJ
-CS5iYXNlLmNyYV9uYW1lCQk9ICJlY2IoZGVzM19lZGUpIiwKIAkJLmJhc2UuY3JhX2RyaXZlcl9u
-YW1lCT0gInN0bTMyLWVjYi1kZXMzIiwKIAkJLmJhc2UuY3JhX3ByaW9yaXR5CT0gMzAwLAotCQku
-YmFzZS5jcmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQywKKwkJLmJhc2UuY3JhX2ZsYWdzCQk9
-IENSWVBUT19BTEdfQVNZTkMgfCBDUllQVE9fQUxHX0tFUk5fRFJJVkVSX09OTFksCiAJCS5iYXNl
-LmNyYV9ibG9ja3NpemUJPSBERVNfQkxPQ0tfU0laRSwKIAkJLmJhc2UuY3JhX2N0eHNpemUJPSBz
-aXplb2Yoc3RydWN0IHN0bTMyX2NyeXBfY3R4KSwKIAkJLmJhc2UuY3JhX2FsaWdubWFzawk9IDAs
-CkBAIC0yNDI3LDcgKzI0MjcsNyBAQCBzdGF0aWMgc3RydWN0IHNrY2lwaGVyX2VuZ2luZV9hbGcg
-Y3J5cHRvX2FsZ3NbXSA9IHsKIAkJLmJhc2UuY3JhX25hbWUJCT0gImNiYyhkZXMzX2VkZSkiLAog
-CQkuYmFzZS5jcmFfZHJpdmVyX25hbWUJPSAic3RtMzItY2JjLWRlczMiLAogCQkuYmFzZS5jcmFf
-cHJpb3JpdHkJPSAzMDAsCi0JCS5iYXNlLmNyYV9mbGFncwkJPSBDUllQVE9fQUxHX0FTWU5DLAor
-CQkuYmFzZS5jcmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQyB8IENSWVBUT19BTEdfS0VSTl9E
-UklWRVJfT05MWSwKIAkJLmJhc2UuY3JhX2Jsb2Nrc2l6ZQk9IERFU19CTE9DS19TSVpFLAogCQku
-YmFzZS5jcmFfY3R4c2l6ZQk9IHNpemVvZihzdHJ1Y3Qgc3RtMzJfY3J5cF9jdHgpLAogCQkuYmFz
-ZS5jcmFfYWxpZ25tYXNrCT0gMCwKQEAgLTI0NjEsNyArMjQ2MSw3IEBAIHN0YXRpYyBzdHJ1Y3Qg
-YWVhZF9lbmdpbmVfYWxnIGFlYWRfYWxnc1tdID0gewogCQkuY3JhX25hbWUJCT0gImdjbShhZXMp
-IiwKIAkJLmNyYV9kcml2ZXJfbmFtZQk9ICJzdG0zMi1nY20tYWVzIiwKIAkJLmNyYV9wcmlvcml0
-eQkJPSAzMDAsCi0JCS5jcmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQywKKwkJLmNyYV9mbGFn
-cwkJPSBDUllQVE9fQUxHX0FTWU5DIHwgQ1JZUFRPX0FMR19LRVJOX0RSSVZFUl9PTkxZLAogCQku
-Y3JhX2Jsb2Nrc2l6ZQkJPSAxLAogCQkuY3JhX2N0eHNpemUJCT0gc2l6ZW9mKHN0cnVjdCBzdG0z
-Ml9jcnlwX2N0eCksCiAJCS5jcmFfYWxpZ25tYXNrCQk9IDAsCkBAIC0yNDg0LDcgKzI0ODQsNyBA
-QCBzdGF0aWMgc3RydWN0IGFlYWRfZW5naW5lX2FsZyBhZWFkX2FsZ3NbXSA9IHsKIAkJLmNyYV9u
-YW1lCQk9ICJjY20oYWVzKSIsCiAJCS5jcmFfZHJpdmVyX25hbWUJPSAic3RtMzItY2NtLWFlcyIs
-CiAJCS5jcmFfcHJpb3JpdHkJCT0gMzAwLAotCQkuY3JhX2ZsYWdzCQk9IENSWVBUT19BTEdfQVNZ
-TkMsCisJCS5jcmFfZmxhZ3MJCT0gQ1JZUFRPX0FMR19BU1lOQyB8IENSWVBUT19BTEdfS0VSTl9E
-UklWRVJfT05MWSwKIAkJLmNyYV9ibG9ja3NpemUJCT0gMSwKIAkJLmNyYV9jdHhzaXplCQk9IHNp
-emVvZihzdHJ1Y3Qgc3RtMzJfY3J5cF9jdHgpLAogCQkuY3JhX2FsaWdubWFzawkJPSAwLAotLSAK
-Mi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+Hi Laurent
+
+On Thu, 18 Apr 2024 at 12:53, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Ricardo,
+>
+> On Wed, Apr 17, 2024 at 06:19:14PM +0200, Ricardo Ribalda wrote:
+> > On Wed, 17 Apr 2024 at 17:51, Laurent Pinchart wrote:
+> > > On Tue, Apr 16, 2024 at 11:47:17AM +0300, Dan Carpenter wrote:
+> > > > In my opinion, it's better to just ignore old warnings.
+> > >
+> > > I agree. Whatever checkers we enable, whatever code we test, there will
+> > > always be false positives. A CI system needs to be able to ignore those
+> > > false positives and only warn about new issues.
+> >
+> > We already have support for that:
+> > https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/testdata/static?ref_type=heads
+>
+> Those are manually written filters. Would it be possible to reduce the
+> manual step to flagging something as a false positive, and have a
+> machine build the filters ?
+>
+
+Do you expect that the list of exceptions will grow?
+
+I hope that once the CI is in place we will fix the warnings before
+they land in the tree.
+
+
+> > But it would be great if those lists were as small as possible:
+> >
+> > - If we have a lot of warnings, two error messages can be combined and
+> > will scape the filters
+> > eg:
+> > print(AAAA);
+> > print(BBBB);
+> > > AABBBAAB
+> >
+> > - The filters might hide new errors if they are too broad
+> >
+> >
+> > Most of the patches in this series are simple and make a nicer code:
+> > Eg the non return minmax() ,
+> > Other patches show real integer overflows.
+> >
+> > Now that the patches are ready, let's bite the bullet and try to
+> > reduce our technical debt.
+> >
+> > > > When code is new the warnings are going to be mostly correct.  The
+> > > > original author is there and knows what the code does.  Someone has
+> > > > the hardware ready to test any changes.  High value, low burden.
+> > > >
+> > > > When the code is old only the false positives are left.  No one is
+> > > > testing the code.  It's low value, high burden.
+> > > >
+> > > > Plus it puts static checker authors in a difficult place because now
+> > > > people have to work around our mistakes.  It creates animosity.
+> > > >
+> > > > Now we have to hold ourselves to a much higher standard for false
+> > > > positives.  It sounds like I'm complaining and lazy, right?  But Oleg
+> > > > Drokin has told me previously that I spend too much time trying to
+> > > > silence false positives instead of working on new code.  He's has a
+> > > > point which is that actually we have limited amount of time and we have
+> > > > to make choices about what's the most useful thing we can do.
+> > > >
+> > > > So what I do and what the zero day bot does is we look at warnings one
+> > > > time and we re-review old warnings whenever a file is changed.
+> > > >
+> > > > Kernel developers are very good at addressing static checker warnings
+> > > > and fixing the real issues...  People sometimes ask me to create a
+> > > > database of warnings which I have reviewed but the answer is that
+> > > > anything old can be ignored.  As I write this, I've had a thought that
+> > > > instead of a database of false positives maybe we should record a
+> > > > database of real bugs to ensure that the fixes for anything real is
+> > > > applied.
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
+
+-- 
+Ricardo Ribalda
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
