@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB608AA081
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 18:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C7218AA085
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Apr 2024 18:59:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EFD7C6DD66;
-	Thu, 18 Apr 2024 16:58:45 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FC40C6DD66;
+	Thu, 18 Apr 2024 16:59:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED5F7C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 567B2C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Apr 2024 16:58:43 +0000 (UTC)
+ Thu, 18 Apr 2024 16:59:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 61993CE1862;
- Thu, 18 Apr 2024 16:58:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15076C32783;
- Thu, 18 Apr 2024 16:58:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 45C0F61824;
+ Thu, 18 Apr 2024 16:59:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E82C113CC;
+ Thu, 18 Apr 2024 16:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1713459521;
+ s=k20201202; t=1713459539;
  bh=5chOe6JIMo3R8o3U5AdjF8G33+dSjfClr9tPBijYi9A=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KFh/M0xRhWJ/vBjPUwecjyhh8t+5o8orgVg63c5tU7HdlpIlNjVNyGwBrBss8zpPO
- PY1t0m0ex3TILx3MKzN3pdspJQVWWbegiz5reexx0dEBgxVsSIdBDeMahXbFbyG88Z
- MSMDURBu0nhmGuZDJ3625bJQgF8McsgYJR4PhrvMBg/RvgxA7prPQ/hgqfWszytgaL
- wF+oQmcB4CFDvNYtd6BXJmvJY2LBBmuAYUO/P8rm2KSJr1DdFezF3FPeGm4W8mRzie
- JayNTY2yZTVcjn5Q+hSkGV3Y6UlCDJuubd+yBcqhAKlpD6yquXNeXjP13ot28NhJhR
- MH7TV1iu6pVHQ==
-Message-ID: <cc7aba44-e111-4cb3-b842-f7fedda24113@kernel.org>
-Date: Thu, 18 Apr 2024 18:58:39 +0200
+ b=Ru7QLtXjoA1yUtQ6/7BbjmYkLt76lJ1vOUtNI9mJJ+aDRV/1Sd0Cy/5I3mdvmIuVL
+ 0zhq0ILGaJUvxBuC05xOk5I6uVwr8h2TNOWITKINrWUfJafqMEpvUE2EVH+/H1lTSg
+ sfgupJ6CdIhyX+0LlZeI63IETaAQoX7oidw8UCWn6pQQNyJ567Q6XspDyVQCUWcNd4
+ wao/otuQ9Tc5ojFEYd1+YZfX62yBqiTarXEHuFoURzOBd9oNEsHxCFIEvBuIl9sKqW
+ iZ1qXNFdl74Yr03sOPifoDU3RbTuyD6ODLr95hwaFSEgSvLTNTgpQKMWJUiOUhG4s7
+ oZdl7lF/5daJA==
+Message-ID: <daec0a0e-057a-4f14-ac1b-40e147c2fa6a@kernel.org>
+Date: Thu, 18 Apr 2024 18:58:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Flavio Suligoi <f.suligoi@asem.it>,
@@ -46,7 +46,7 @@ To: Flavio Suligoi <f.suligoi@asem.it>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 References: <20240418122859.2079099-1-f.suligoi@asem.it>
- <20240418122859.2079099-3-f.suligoi@asem.it>
+ <20240418122859.2079099-4-f.suligoi@asem.it>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,12 +92,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240418122859.2079099-3-f.suligoi@asem.it>
+In-Reply-To: <20240418122859.2079099-4-f.suligoi@asem.it>
 Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/5] arm64: dts: freescale: imx8mp-evk:
- remove tx-sched-sp property
+Subject: Re: [Linux-stm32] [PATCH v2 3/5] arm64: dts: freescale:
+ imx8mp-verdin: remove tx-sched-sp property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
