@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFEF8AABC9
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77CFD8AABCA
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A3B2C7128C;
-	Fri, 19 Apr 2024 09:49:32 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AAF6C7128F;
+	Fri, 19 Apr 2024 09:49:33 +0000 (UTC)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32EE4C71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 520F5C71288
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:30 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-6eb848b5a2eso1074438a34.3
+ Fri, 19 Apr 2024 09:49:31 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id
+ d75a77b69052e-439073cd4c9so525441cf.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 02:49:30 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520169; x=1714124969;
+ d=chromium.org; s=google; t=1713520170; x=1714124970;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OI4AOi/6PtgU5zRnLUWjMVWmm8Y+CckVMvMt6qKhGc0=;
- b=Bj0OODvclNae/jr83Abp17QfhP46AqKySr+mSdR9AGcd2xoFjpuj3PpM7/KxAOqLWL
- X9ps5HhvFIDdPjlejpTBp2wsn8KGjT/VsrWkNVmA71eZ/E9VmKV8CXIymP5ZVZLQfPRe
- soek6iqiL4xabTmFNKEVmkUN6h/sfW4cRmbBY=
+ :reply-to; bh=PtHT2dnCrKtU2tz1OyJJw1d0hzBN/YL8p+52UQFaJZo=;
+ b=ZludecFhVsuO3fugh31G5xbd+JH+/kDuu8L3eqzmcfo68FY38HBiB1lMCunMqfpB6+
+ ZURay/ab7bIIfWiub/ZYjUEofbZ+GdWmfkCJ0WcreTETo4NKFo1+5ihGqpGeCjWSQUrI
+ +kshIdSLLGHWQ55ltSClKoVSiNCIumbT9z+fo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520169; x=1714124969;
+ d=1e100.net; s=20230601; t=1713520170; x=1714124970;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OI4AOi/6PtgU5zRnLUWjMVWmm8Y+CckVMvMt6qKhGc0=;
- b=sJAkwfG2IsCbA1brXREcHWeSIgtD4Zx4nKPJh9zgG+RJ1mNwGxhV751N5ZVetIizaJ
- 4QOcRxIV/CNM5vyyKS+C1eu1n91DoC3A7t++ZqYXtOYA2GbHtgNi9y9QglMG3XL1w2Y3
- Uu6SGDiBahU+1qGTg9+kvVQcU6TEebjdJXpsBIatVm0B5R+WF5IVTe2Sjyzh6O1AADVL
- HK9x2PF5I2LLTeix/cOUIYwe3eMz5X+ClLl6KTY+mxz1clZ39Z3FEveEOhmKLF3h8YF3
- inP+kUKhOALguLtZpHuLVh9sSqgWEr/KbXa2lODVjyAkWmFDMy9kzDAIa5ROirjdxupo
- EYvw==
+ bh=PtHT2dnCrKtU2tz1OyJJw1d0hzBN/YL8p+52UQFaJZo=;
+ b=hMVjmrkViC6FZn8UO5FV4DZACOZz8nB+P6ql2SBdZTIGzLawmSfI+ZAEK7+4Zeo2mK
+ gh6vWNwBTqXkSh8JmgxY4F6Wrr2cCuEh4hihI4cALsqK2qSLvECGNjdvt5jbarqr5CzZ
+ 07GDiWnMDY9uqbaQ5gN3JEJGyRb0XwCJQv4R+0vrv61WWXk//JqBulUdi8HerP5XZQWh
+ lKvFX+bvfzTNVK5cvj2qXhtzyzXOdYrc+sccwz73wMrn6k4iy4zXpjjlcK1a93Q1fv6H
+ FaCtZApCW05SKBGtY5z5UXWkf0TPolP55sMC1K7YT9ybLWL+F4GfD3MYH9SG5C5RKU3a
+ 0xIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXs8TpMJ5gqVeLtCY8jkcl3ImvcZY8H0GprYnqUpZV/Z2jyyA7PyFm2TrSE7SufE/obkKRvxkmGWX9SczGDa09dHSQox5jVGGgqxoLeoc2Z03VoKCWXcmld
-X-Gm-Message-State: AOJu0Yz1ImUK4yhJwCxwAxrRInGp42odHpKVB2oEG8khDw0EUgBu1QVX
- Iab12ZB3PI1B1/MGtiGgvs4+q8jzf2R8fVrz2D2CW6hXoi7cQ3kmHLDRCSmjFA==
-X-Google-Smtp-Source: AGHT+IEoa3EBjJC9669xc6mPVpvtJwhrzrmUgput3DoBfmRttNa6KJF0gCcMfSkwX6iyc+U8a8TeQg==
-X-Received: by 2002:a05:6830:1d48:b0:6eb:7a07:8746 with SMTP id
- p8-20020a0568301d4800b006eb7a078746mr1521944oth.31.1713520169041; 
- Fri, 19 Apr 2024 02:49:29 -0700 (PDT)
+ AJvYcCX76TNHLKFWUgRmOilElDF7A9OB4dKutpjlkB5cJmBeCZeX6kKvhv7M6ax2d38gL1gClfLW5AW033C7q+XelQlONsnM3q2BwPhEOlDomeDYUGZ+ES9j3bmz
+X-Gm-Message-State: AOJu0YzBRJn05YOemTru6zni8ss2TvZ4IZbmJrYd4ksjnbpfTGvLqity
+ NceEC45D+UBK+kAtWiL9jr6UFZzUW0VyYqwsUpxX1TXpdUMSoTxrL8MSjBvh0w==
+X-Google-Smtp-Source: AGHT+IEq5/HFwcn26nQnIIJ8VXOEY35h4vBPeSOiEtFFD1Z7vC7s7kPOFrGUrC/lVDARzsxRqq1juw==
+X-Received: by 2002:a05:622a:1386:b0:437:b995:98b5 with SMTP id
+ o6-20020a05622a138600b00437b99598b5mr1747672qtk.57.1713520170255; 
+ Fri, 19 Apr 2024 02:49:30 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.28
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:28 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:29 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:47:54 +0000
+Date: Fri, 19 Apr 2024 09:47:55 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-8-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -93,8 +93,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 08/26] media: dvb-frontends: tda18271c2dd:
- Remove casting during div
+Subject: [Linux-stm32] [PATCH v2 09/26] media: v4l: async: refactor
+ v4l2_async_create_ancillary_links
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,40 +111,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-do_div() divides 64 bits by 32. We were adding a casting to the divider
-to 64 bits, for a number that fits perfectly in 32 bits. Remove it.
+Return 0 without checking IS_ERR or PTR_ERR if CONFIG_MEDIA_CONTROLLER
+is not enabled.
 
-Found by cocci:
-drivers/media/dvb-frontends/tda18271c2dd.c:355:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
-drivers/media/dvb-frontends/tda18271c2dd.c:331:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
+This makes cocci happier:
+
+drivers/media/v4l2-core/v4l2-async.c:331:23-30: ERROR: PTR_ERR applied after initialization to constant on line 319
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/dvb-frontends/tda18271c2dd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-async.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/tda18271c2dd.c b/drivers/media/dvb-frontends/tda18271c2dd.c
-index a34834487943..fd928787207e 100644
---- a/drivers/media/dvb-frontends/tda18271c2dd.c
-+++ b/drivers/media/dvb-frontends/tda18271c2dd.c
-@@ -328,7 +328,7 @@ static int CalcMainPLL(struct tda_state *state, u32 freq)
+diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
+index 4bb073587817..915a9f3ea93c 100644
+--- a/drivers/media/v4l2-core/v4l2-async.c
++++ b/drivers/media/v4l2-core/v4l2-async.c
+@@ -316,9 +316,10 @@ v4l2_async_nf_try_all_subdevs(struct v4l2_async_notifier *notifier);
+ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
+ 					     struct v4l2_subdev *sd)
+ {
+-	struct media_link *link = NULL;
++	struct media_link *link;
  
- 	OscFreq = (u64) freq * (u64) Div;
- 	OscFreq *= (u64) 16384;
--	do_div(OscFreq, (u64)16000000);
-+	do_div(OscFreq, 16000000);
- 	MainDiv = OscFreq;
+-#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
++	if (!IS_ENABLED(CONFIG_MEDIA_CONTROLLER))
++		return 0;
  
- 	state->m_Regs[MPD] = PostDiv & 0x77;
-@@ -352,7 +352,7 @@ static int CalcCalPLL(struct tda_state *state, u32 freq)
- 	OscFreq = (u64)freq * (u64)Div;
- 	/* CalDiv = u32( OscFreq * 16384 / 16000000 ); */
- 	OscFreq *= (u64)16384;
--	do_div(OscFreq, (u64)16000000);
-+	do_div(OscFreq, 16000000);
- 	CalDiv = OscFreq;
+ 	if (sd->entity.function != MEDIA_ENT_F_LENS &&
+ 	    sd->entity.function != MEDIA_ENT_F_FLASH)
+@@ -326,8 +327,6 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
  
- 	state->m_Regs[CPD] = PostDiv;
+ 	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
+ 
+-#endif
+-
+ 	return IS_ERR(link) ? PTR_ERR(link) : 0;
+ }
+ 
 
 -- 
 2.44.0.769.g3c40516874-goog
