@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B098AABD0
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C39E38AABD4
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E39FC71289;
-	Fri, 19 Apr 2024 09:49:39 +0000 (UTC)
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88B8BC7128A;
+	Fri, 19 Apr 2024 09:49:41 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE548C7128C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 341CDC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:37 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-78ef9ce897bso117215285a.0
+ Fri, 19 Apr 2024 09:49:39 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-78ebc7e1586so279942585a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 02:49:37 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520177; x=1714124977;
+ d=chromium.org; s=google; t=1713520178; x=1714124978;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=oXXgUMwvGuh/bAZ05Vu9f2lIZUwmSZiJ1Ue2E9QmyGE=;
- b=hTf7I627KlhCUVBCWZZTS9SLyc4/58Dg8RmizECb3wHNARywTbTdtzjtHbDZMNHH4K
- rsK32w9WqTN/yTC/krPZ6XK3/kokBtADhI5VM8MFy/eV8YUK4Ampqmg9FDlPIk+og6Eu
- 5QDurWA8Y9/P3nY/s/u99qQxut1M3vjKu8hag=
+ :reply-to; bh=M868xcge+vjTb4vcqz3d1wlm8C5wkLs//kWdILTOdIY=;
+ b=EmVewBJaYbwD/JCPuv7g6+o6spoPy1gqRejnPJVnfEmaVoulFPQuQNW+X6zyePPLNN
+ No+ukSNNiE2cUhCIrNignD9nohTv0kS/8BymZsH9/IQYClUMKCeDZ8cF51yC+2tw5tqL
+ AxVcXiSaD063xPXiL8q+4juodrUWQ0wEzNHaQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520177; x=1714124977;
+ d=1e100.net; s=20230601; t=1713520178; x=1714124978;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oXXgUMwvGuh/bAZ05Vu9f2lIZUwmSZiJ1Ue2E9QmyGE=;
- b=O2/vtGT9bMlB6qCImrGr4rQQOO9ymLM2w4QeCkeB3UkDmRYLQ7eqL0B8lY0HcIAAfL
- gKWBHCkf464FTXWjdq+zOxjedkVmJ/gr14xtd/prKm3WByd1yDJaSM+TliQPvABsrHdU
- JmTLB7BQL/Z6Bpq6ALd/1QutaelnCihd4fuFIgoHoO50qVUB4jaKFFnrXzfOkGVqzm0p
- d4gjp55JCd7/Nsi6UprWHh7UX28ZSpsXTjNIs0dXYXUcDy0YIQzxZoGZNYVbE/MFt8Q2
- qHlS9XKdY3h89AYDxzdqA7swrbnb7D8xchTYYZmv7eTvHgiDLs1LQIXJuiTaxctEfeaD
- 7zqA==
+ bh=M868xcge+vjTb4vcqz3d1wlm8C5wkLs//kWdILTOdIY=;
+ b=V7MuC9GBKyiX1aF3UH/x1pkSqRd+1g/H4VnfPSmaRnIk9CzPQQmv4L4rx53fPWIcm3
+ i3zpi88x25Osb3RIc9TchExVzDF1yP/GTwuRh2PzKeqb0Cs2BE6jpSK+gKKeT13EhvmD
+ G+zZRe6VewN3HOOH+WN9PWHRG+fa8zfTPhPList9GKSBsAPnEipv1WmxTVcS0H4wcNW3
+ /fwgve5Sl1orUoqsi43iKf6FPrw3gPPR0EKK/MZUxi2O7fiK1sQzSPAod/+WyzHlmszl
+ nr9yD4qgAeRs2zFHZxaeA43w20N2mVdaUKN5+xaDF7UNuP/Ck3FzYRMcWgcR2/0LsTv/
+ +24g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZpm4w66MEn0Q9EpkHQhkooXZuodkI9tvs/gcW2o0Zy/05GogswmE41GKquBLYXCfDz78vG1P2RJXB/EByTiq6h6qUZNlf9fD0pOF6+/KZ4J/6aVcO9d87
-X-Gm-Message-State: AOJu0YwY9iv0y/R52a0v9y5/10QxinUotRViy1lJ9gDyjZrEYGS4YKg2
- He75WMq5IGeHENcXHN5nl+8y1HCZc425/DZgt/RClbEw8PfY2gAwVAswE6oK4Q==
-X-Google-Smtp-Source: AGHT+IHtaefRUDCkJpXsh07H2yA2NeK9gO3xvd3htQb2Rtwe8WSp0MnWmceFe0R4rsJzjkJBUbtDcw==
-X-Received: by 2002:a05:620a:111a:b0:78b:e8b0:f156 with SMTP id
- o26-20020a05620a111a00b0078be8b0f156mr1546954qkk.67.1713520176717; 
- Fri, 19 Apr 2024 02:49:36 -0700 (PDT)
+ AJvYcCVcUILU2ISI6hAni+RVP+mFPfCPGfv/t4WAVIWucJyZKCXwciEYCGGOfQF6uxYd73WVgFq0Km3VfBRai3B7+FhcdruQ1QkrH/MrmF2gpSK5mXoejpv1BUh8
+X-Gm-Message-State: AOJu0Yy9y1iO401OETglVDq5r+go9BlOTk2OueopPwQVa6OeesAt8RcP
+ K2aSskVLoRCgQ8pN/eGcuDezxcmUznNVwXzd4sAEIFRTnW/SrkcQ/BuzUEnMtg==
+X-Google-Smtp-Source: AGHT+IECi6Jyi4V4xEUSov8CqJCQ4or6T8Il7gtYs1qBNIhEZ0wlq/VmHa5Y/Lm3RCi/7xPm+Pq8wA==
+X-Received: by 2002:a05:620a:45a7:b0:78d:5d86:ee3a with SMTP id
+ bp39-20020a05620a45a700b0078d5d86ee3amr2694110qkb.27.1713520178140; 
+ Fri, 19 Apr 2024 02:49:38 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.35
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:36 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:37 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:48:01 +0000
+Date: Fri, 19 Apr 2024 09:48:02 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-15-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-16-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -93,7 +93,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 15/26] media: netup_unidvb: Use min macro
+Subject: [Linux-stm32] [PATCH v2 16/26] media: au0828: Use min macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,29 +110,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Simplify the code.
+Simplifies the code.
 
 Found by cocci:
-drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c:138:26-27: WARNING opportunity for min()
+drivers/media/usb/au0828/au0828-video.c:605:11-12: WARNING opportunity for min()
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/usb/au0828/au0828-video.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c b/drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c
-index 46676f2c89c7..1c885d620b75 100644
---- a/drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c
-+++ b/drivers/media/pci/netup_unidvb/netup_unidvb_i2c.c
-@@ -135,7 +135,7 @@ static void netup_i2c_fifo_tx(struct netup_i2c *i2c)
- 		(readw(&i2c->regs->tx_fifo.stat_ctrl) & 0x3f);
- 	u32 msg_length = i2c->msg->len - i2c->xmit_size;
+diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
+index fd9fc43d47e0..2ec49ea479d5 100644
+--- a/drivers/media/usb/au0828/au0828-video.c
++++ b/drivers/media/usb/au0828/au0828-video.c
+@@ -602,10 +602,7 @@ static inline int au0828_isoc_copy(struct au0828_dev *dev, struct urb *urb)
+ 		vbi_field_size = dev->vbi_width * dev->vbi_height * 2;
+ 		if (dev->vbi_read < vbi_field_size) {
+ 			remain  = vbi_field_size - dev->vbi_read;
+-			if (len < remain)
+-				lencopy = len;
+-			else
+-				lencopy = remain;
++			lencopy = umin(len, remain);
  
--	msg_length = (msg_length < fifo_space ? msg_length : fifo_space);
-+	msg_length = min(msg_length, fifo_space);
- 	while (msg_length--) {
- 		data = i2c->msg->buf[i2c->xmit_size++];
- 		writeb(data, &i2c->regs->tx_fifo.data8);
+ 			if (vbi_buf != NULL)
+ 				au0828_copy_vbi(dev, vbi_dma_q, vbi_buf, p,
 
 -- 
 2.44.0.769.g3c40516874-goog
