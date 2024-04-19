@@ -2,69 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DA508AAC50
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 12:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CBF28AAD35
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 13:02:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C39F4C6DD66;
-	Fri, 19 Apr 2024 10:01:31 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47C17C6DD66;
+	Fri, 19 Apr 2024 11:02:41 +0000 (UTC)
+Received: from abb.hmeau.com (abb.hmeau.com [144.6.53.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD7BCC69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C63D8C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 10:01:29 +0000 (UTC)
-Received: from pendragon.ideasonboard.com
- (117.145-247-81.adsl-dyn.isp.belgacom.be [81.247.145.117])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6F2B055;
- Fri, 19 Apr 2024 12:00:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1713520839;
- bh=dOufSjti/zcqrIC1+5xROb4jVk+JZABAKL12SGSR8/I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R8MS3ldviIQXqJd9xpEpHHvSrvRRFcOnfMUpiE+kvSfCEdBJjsbJ+0WwGKBsNTIPD
- yHBwYhY2QT7UJ0vHPIGJ19q1hvoD3NWJwTJ/7QWwttURogS/dv6CvU3LJoyUqNM9b3
- sLl3jbZeIZUFWVCXP6kQHfRO7EtwYCF7hCj0JBM8=
-Date: Fri, 19 Apr 2024 13:01:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Message-ID: <20240419100119.GC12651@pendragon.ideasonboard.com>
-References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
- <20240419-fix-cocci-v2-3-2119e692309c@chromium.org>
+ Fri, 19 Apr 2024 11:02:39 +0000 (UTC)
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1rxm0Y-003sYC-55; Fri, 19 Apr 2024 19:02:19 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 19 Apr 2024 19:02:35 +0800
+Date: Fri, 19 Apr 2024 19:02:35 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Maxime MERE <maxime.mere@foss.st.com>
+Message-ID: <ZiJPS1dhc/uOT08A@gondor.apana.org.au>
+References: <20240412124545.2704487-1-maxime.mere@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240419-fix-cocci-v2-3-2119e692309c@chromium.org>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
- Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>
-Subject: Re: [Linux-stm32] [PATCH v2 03/26] media: uvcvideo: Refactor
-	iterators
+In-Reply-To: <20240412124545.2704487-1-maxime.mere@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Eric Biggers <ebiggers@google.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/hash - add full DMA support
+	for stm32mpx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,97 +44,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ricardo,
+On Fri, Apr 12, 2024 at 02:45:45PM +0200, Maxime MERE wrote:
+> From: Maxime M=E9r=E9 <maxime.mere@foss.st.com>
+> =
 
-On Fri, Apr 19, 2024 at 09:47:49AM +0000, Ricardo Ribalda wrote:
-> Avoid using the iterators after the list_for_each() constructs.
-> This patch should be a NOP, but makes cocci, happier:
-> 
-> drivers/media/usb/uvc/uvc_ctrl.c:1861:44-50: ERROR: invalid reference to the index variable of the iterator on line 1850
-> drivers/media/usb/uvc/uvc_ctrl.c:2195:17-23: ERROR: invalid reference to the index variable of the iterator on line 2179
-> 
-> Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> Due to a lack of alignment in the data sent by requests, the actual DMA
+> support of the STM32 hash driver is only working with digest calls.
+> This patch, based on the algorithm used in the driver omap-sham.c,
+> allows for the usage of DMA in any situation.
+> =
+
+> It has been functionally tested on STM32MP15, STM32MP13 and STM32MP25.
+> =
+
+> By checking the performance of this new driver with OpenSSL, the
+> following results were found:
+> =
+
+> Performance:
+> =
+
+> (datasize: 4096, number of hashes performed in 10s)
+> =
+
+> |type   |no DMA    |DMA support|software  |
+> |-------|----------|-----------|----------|
+> |md5    |13873.56k |10958.03k  |71163.08k |
+> |sha1   |13796.15k |10729.47k  |39670.58k |
+> |sha224 |13737.98k |10775.76k  |22094.64k |
+> |sha256 |13655.65k |10872.01k  |22075.39k |
+> =
+
+> CPU Usage:
+> =
+
+> (algorithm used: sha256, computation time: 20s, measurement taken at
+> ~10s)
+> =
+
+> |datasize  |no DMA |DMA  | software |
+> |----------|-------|-----|----------|
+> |  2048    | 56%   | 49% | 50%      |
+> |  4096    | 54%   | 46% | 50%      |
+> |  8192    | 53%   | 40% | 50%      |
+> | 16384    | 53%   | 33% | 50%      |
+> =
+
+> Note: this update doesn't change the driver performance without DMA.
+> =
+
+> As shown, performance with DMA is slightly lower than without, but in
+> most cases, it will save CPU time.
+> =
+
+> Signed-off-by: Maxime M=E9r=E9 <maxime.mere@foss.st.com>
 > ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 24 +++++++++++++-----------
->  1 file changed, 13 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index e59a463c2761..a4a987913430 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -1850,16 +1850,18 @@ int __uvc_ctrl_commit(struct uvc_fh *handle, int rollback,
->  	list_for_each_entry(entity, &chain->entities, chain) {
+>  drivers/crypto/stm32/stm32-hash.c | 570 +++++++++++++++++++++++-------
+>  1 file changed, 448 insertions(+), 122 deletions(-)
 
-What happened to
-https://lore.kernel.org/all/20220301075839.4156-1-xiam0nd.tong@gmail.com/
-? :'-(
+Patch applied.  Thanks.
+-- =
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
->  		ret = uvc_ctrl_commit_entity(chain->dev, entity, rollback,
->  					     &err_ctrl);
-> -		if (ret < 0)
-> +		if (ret < 0) {
-> +			if (ctrls)
-> +				ctrls->error_idx =
-> +					uvc_ctrl_find_ctrl_idx(entity, ctrls,
-> +							       err_ctrl);
->  			goto done;
-> +		}
->  	}
->  
->  	if (!rollback)
->  		uvc_ctrl_send_events(handle, ctrls->controls, ctrls->count);
->  done:
-> -	if (ret < 0 && ctrls)
-> -		ctrls->error_idx = uvc_ctrl_find_ctrl_idx(entity, ctrls,
-> -							  err_ctrl);
->  	mutex_unlock(&chain->ctrl_mutex);
->  	return ret;
->  }
-> @@ -2165,7 +2167,7 @@ static int uvc_ctrl_init_xu_ctrl(struct uvc_device *dev,
->  int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
->  	struct uvc_xu_control_query *xqry)
->  {
-> -	struct uvc_entity *entity;
-> +	struct uvc_entity *entity, *iter;
->  	struct uvc_control *ctrl;
->  	unsigned int i;
->  	bool found;
-> @@ -2175,16 +2177,16 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
->  	int ret;
->  
->  	/* Find the extension unit. */
-> -	found = false;
-> -	list_for_each_entry(entity, &chain->entities, chain) {
-> -		if (UVC_ENTITY_TYPE(entity) == UVC_VC_EXTENSION_UNIT &&
-> -		    entity->id == xqry->unit) {
-> -			found = true;
-> +	entity = NULL;
-> +	list_for_each_entry(iter, &chain->entities, chain) {
-> +		if (UVC_ENTITY_TYPE(iter) == UVC_VC_EXTENSION_UNIT &&
-> +		    iter->id == xqry->unit) {
-> +			entity = iter;
->  			break;
->  		}
->  	}
->  
-> -	if (!found) {
-> +	if (!entity) {
->  		uvc_dbg(chain->dev, CONTROL, "Extension unit %u not found\n",
->  			xqry->unit);
->  		return -ENOENT;
-
--- 
-Regards,
-
-Laurent Pinchart
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
