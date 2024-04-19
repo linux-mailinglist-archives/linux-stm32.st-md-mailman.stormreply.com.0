@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CFD8AABCA
+	by mail.lfdr.de (Postfix) with ESMTPS id 842AF8AABCB
 	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AAF6C7128F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 434ACC71291;
 	Fri, 19 Apr 2024 09:49:33 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 520F5C71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 093F5C71288
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:31 +0000 (UTC)
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-439073cd4c9so525441cf.3
+ Fri, 19 Apr 2024 09:49:32 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-78efd533a00so105616185a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 19 Apr 2024 02:49:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520170; x=1714124970;
+ d=chromium.org; s=google; t=1713520171; x=1714124971;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=PtHT2dnCrKtU2tz1OyJJw1d0hzBN/YL8p+52UQFaJZo=;
- b=ZludecFhVsuO3fugh31G5xbd+JH+/kDuu8L3eqzmcfo68FY38HBiB1lMCunMqfpB6+
- ZURay/ab7bIIfWiub/ZYjUEofbZ+GdWmfkCJ0WcreTETo4NKFo1+5ihGqpGeCjWSQUrI
- +kshIdSLLGHWQ55ltSClKoVSiNCIumbT9z+fo=
+ :reply-to; bh=I5MK517M661jXeUTMXVPJlov9z4l8/dISyr2IlNuzMY=;
+ b=XoM12rcDCQtucHxmFYjHbYg7mFknWiJW4LqbuShm/ENwBlHkEJyD3e6/YAsbZrJXIW
+ jEc7W94v1rwrY8s68tCmtAiJYPiFn8wDBilMDdhfWsoaE0Gsjk4TU0lB/JzcFvEzuXlZ
+ j0ReifcXmxzSJsEtSJ+3L8ps64U279EFMTTFg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520170; x=1714124970;
+ d=1e100.net; s=20230601; t=1713520171; x=1714124971;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=PtHT2dnCrKtU2tz1OyJJw1d0hzBN/YL8p+52UQFaJZo=;
- b=hMVjmrkViC6FZn8UO5FV4DZACOZz8nB+P6ql2SBdZTIGzLawmSfI+ZAEK7+4Zeo2mK
- gh6vWNwBTqXkSh8JmgxY4F6Wrr2cCuEh4hihI4cALsqK2qSLvECGNjdvt5jbarqr5CzZ
- 07GDiWnMDY9uqbaQ5gN3JEJGyRb0XwCJQv4R+0vrv61WWXk//JqBulUdi8HerP5XZQWh
- lKvFX+bvfzTNVK5cvj2qXhtzyzXOdYrc+sccwz73wMrn6k4iy4zXpjjlcK1a93Q1fv6H
- FaCtZApCW05SKBGtY5z5UXWkf0TPolP55sMC1K7YT9ybLWL+F4GfD3MYH9SG5C5RKU3a
- 0xIA==
+ bh=I5MK517M661jXeUTMXVPJlov9z4l8/dISyr2IlNuzMY=;
+ b=l9W34+ynZzk0zLNyxBaOfs5zPM+gZ9UhPRQYeOQPVl9Q0GiGv+Kr1DpTJYgeY6EYk7
+ S6he6UL7UsBtUNiPoIpmvCU49e5v4nhPL01V+r/2isDkLV9m2nJJ4RLoOgx7pi7KKOCd
+ EINOY9mvu0RQKeq2i7/ipRgM968PX55Slf5QAYMtuosO9FOegMuPXW9aO4WrSPNj79bb
+ QD77fvbhxfLWXhmOLGfXLdfJDu3hL7HeELrzmzUDusKwJ+DL4qJ1jBJsHO8S3Z4zzQ8K
+ 4ouA/J8+/1pIDMpCTvO5hkUgJe2q4/u0yUWNA1aBuNlQfUW6cOfkVjDLTLKoRWl3zUlz
+ WNRg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX76TNHLKFWUgRmOilElDF7A9OB4dKutpjlkB5cJmBeCZeX6kKvhv7M6ax2d38gL1gClfLW5AW033C7q+XelQlONsnM3q2BwPhEOlDomeDYUGZ+ES9j3bmz
-X-Gm-Message-State: AOJu0YzBRJn05YOemTru6zni8ss2TvZ4IZbmJrYd4ksjnbpfTGvLqity
- NceEC45D+UBK+kAtWiL9jr6UFZzUW0VyYqwsUpxX1TXpdUMSoTxrL8MSjBvh0w==
-X-Google-Smtp-Source: AGHT+IEq5/HFwcn26nQnIIJ8VXOEY35h4vBPeSOiEtFFD1Z7vC7s7kPOFrGUrC/lVDARzsxRqq1juw==
-X-Received: by 2002:a05:622a:1386:b0:437:b995:98b5 with SMTP id
- o6-20020a05622a138600b00437b99598b5mr1747672qtk.57.1713520170255; 
- Fri, 19 Apr 2024 02:49:30 -0700 (PDT)
+ AJvYcCWKtUPLsNMT44IDO1Q62Rz0EiCQxutrzXReYV83ORBf1dJa38Gl3/b4H4EK1b1IyPODZNJboJXMLexdU5hH6qU59jA9sZjULr7EfSsbMTE+H78PO6Or2kKt
+X-Gm-Message-State: AOJu0YwinSzRuq1PcAw/mPY8IW47jfD3a/BcjAn92xw09IRkBRA1ozfd
+ mCrw+40y739yJOcSg31Qipm7oKdPI7WhSioxHBw6ezopEAM/c0/3JT9+d6tGaQ==
+X-Google-Smtp-Source: AGHT+IGTA8hVputhy9D1xoHe1Hnr3yG2C7dQHpLq8IKH//vLRvJ+A58aCJR9JO6Y/w8HTYrMtJHvqA==
+X-Received: by 2002:a05:620a:1da6:b0:78d:5065:c5df with SMTP id
+ pj38-20020a05620a1da600b0078d5065c5dfmr1596268qkn.18.1713520171055; 
+ Fri, 19 Apr 2024 02:49:31 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.29
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:29 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:30 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:47:55 +0000
+Date: Fri, 19 Apr 2024 09:47:56 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-10-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -93,8 +93,8 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 09/26] media: v4l: async: refactor
- v4l2_async_create_ancillary_links
+Subject: [Linux-stm32] [PATCH v2 10/26] staging: media: tegra-video: Use
+	swap macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,44 +111,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Return 0 without checking IS_ERR or PTR_ERR if CONFIG_MEDIA_CONTROLLER
-is not enabled.
+Makes the code simpler and cocci happier:
 
-This makes cocci happier:
+drivers/staging/media/tegra-video/tegra20.c:324:44-45: WARNING opportunity for swap()
 
-drivers/media/v4l2-core/v4l2-async.c:331:23-30: ERROR: PTR_ERR applied after initialization to constant on line 319
-
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/v4l2-core/v4l2-async.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/staging/media/tegra-video/tegra20.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-index 4bb073587817..915a9f3ea93c 100644
---- a/drivers/media/v4l2-core/v4l2-async.c
-+++ b/drivers/media/v4l2-core/v4l2-async.c
-@@ -316,9 +316,10 @@ v4l2_async_nf_try_all_subdevs(struct v4l2_async_notifier *notifier);
- static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
- 					     struct v4l2_subdev *sd)
- {
--	struct media_link *link = NULL;
-+	struct media_link *link;
+diff --git a/drivers/staging/media/tegra-video/tegra20.c b/drivers/staging/media/tegra-video/tegra20.c
+index 630e2ff987a3..7b8f8f810b35 100644
+--- a/drivers/staging/media/tegra-video/tegra20.c
++++ b/drivers/staging/media/tegra-video/tegra20.c
+@@ -317,13 +317,8 @@ static void tegra20_channel_queue_setup(struct tegra_vi_channel *chan)
+ 		chan->addr_offset_v = chan->addr_offset_u + stride * height / 4;
  
--#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-+	if (!IS_ENABLED(CONFIG_MEDIA_CONTROLLER))
-+		return 0;
- 
- 	if (sd->entity.function != MEDIA_ENT_F_LENS &&
- 	    sd->entity.function != MEDIA_ENT_F_FLASH)
-@@ -326,8 +327,6 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
- 
- 	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
- 
--#endif
+ 		/* For YVU420, we swap the locations of the U and V planes. */
+-		if (chan->format.pixelformat == V4L2_PIX_FMT_YVU420) {
+-			unsigned long temp;
 -
- 	return IS_ERR(link) ? PTR_ERR(link) : 0;
- }
+-			temp = chan->addr_offset_u;
+-			chan->addr_offset_u = chan->addr_offset_v;
+-			chan->addr_offset_v = temp;
+-		}
++		if (chan->format.pixelformat == V4L2_PIX_FMT_YVU420)
++			swap(chan->addr_offset_u, chan->addr_offset_v);
  
+ 		chan->start_offset_u = chan->addr_offset_u;
+ 		chan->start_offset_v = chan->addr_offset_v;
 
 -- 
 2.44.0.769.g3c40516874-goog
