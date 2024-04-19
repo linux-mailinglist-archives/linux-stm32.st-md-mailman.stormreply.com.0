@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 089ED8AABBE
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1785B8AABBF
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C28DFC6DD9B;
-	Fri, 19 Apr 2024 09:49:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D33F6C6DD9A;
+	Fri, 19 Apr 2024 09:49:24 +0000 (UTC)
 Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
  [209.85.222.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CB1FC69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 974FEC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:20 +0000 (UTC)
+ Fri, 19 Apr 2024 09:49:21 +0000 (UTC)
 Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-78f02c96c52so109303085a.1
+ af79cd13be357-78f031a4442so119075685a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 02:49:20 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520159; x=1714124959;
+ d=chromium.org; s=google; t=1713520160; x=1714124960;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TtlViaUk+ppF2YvB3wdQyftKniyUzK8Ej92YBlwMILc=;
- b=BGY6NxBHIushor+oIrkb2YN5kl+9Qt9WYmnCiRXiGaJnf+oAuPFaLZPb3Af4gr7CqS
- qkGvqQzYjkEIdYgnRsowACZzlQEQh2thWoNIh7qDOf/VcbLDt0Xhb/g2YtHYLIpPzuH3
- SPBsIgNUBGUD6TFgcCVNbp1XE7NgoP3P+N940=
+ :reply-to; bh=xe5eM9+2rh+qYMrEZDkgx2/xN2LnDn/yiZVZC6+s6fs=;
+ b=GbZp5cjoshPLL7s8jyaBeqQuOu82Nm7H7+aGuSkYjAMf0dIy5XHccZCN02uriCh6nO
+ nEA06DSRlSokvEzF91HPH0esIAOMCpbFTSgaLUh9Pjjr2AUuEKsHGthMlYKtlR3yUDOC
+ A06OQrlTP2y95lhO+6Wuy3AX3GwcmG9yPveWg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520159; x=1714124959;
+ d=1e100.net; s=20230601; t=1713520160; x=1714124960;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TtlViaUk+ppF2YvB3wdQyftKniyUzK8Ej92YBlwMILc=;
- b=Hz8O3wbU8G9/TuSp1Kv3yplLVgtBh0HL6aRZIFjNsgxy/o+O6myEXjQd/ZTKBgPTOe
- Dk0w90n+l8p2yc3XetfslzBwf2TWGjWopR1YwJnvvlfCRSCUUZ2hhIrVog6WHiGscXMK
- v7MgUnyeKoE2ozC7+w47+gdAhFZWJTbL+FnUO6YQnng2sZNxlkI790ZyQep+1j4fWH/f
- TBn27g3NfZRGNmWXxMAMRdyW/qP5WvvzkyLqOGbtUQF7GCNDa7flGAXq56p6/fGNTOv7
- nNUXSm9hoDtOXosL8g8CRZERHBRbI2dUySgf13TSrlc24o36/qcfjCFD53h8Uc+s37Nj
- ojEQ==
+ bh=xe5eM9+2rh+qYMrEZDkgx2/xN2LnDn/yiZVZC6+s6fs=;
+ b=ASJZfSLn1n2FrRitwVR01S1TTx0LaBsH1umojByu6G+NFJysFgQVFMmUJ3psQm2mp0
+ hzkBrkMPbBxfEmFqmrVQBJgwJ22yWGYj+VHRx480JHPxrzguQ3fB8T/TYGkXOcctiwSE
+ UkB/b3mlIREbZaCRbdKN9W0A1164ydbkqOjYa7K1a+1/+OSQNwpjWOP4hYlYwP88gRoa
+ PhzqwYIk6uZnZKebSbzU7Y4lV/6fjKufJUYATaJwLvVCbymMy8jPLbhOSFyj3+GGl6qg
+ l+CRmvWpBvqtHrJUZ6Jqa0VuSHtHwiZEi6D6dLpNXa2RsiTsaj+Wi4R83uSQpuG9p9i1
+ 8h5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV050jkAPEyzitNjJ4daUDevOwzkXoC5kyIeEE9kRlHyvE3Kx/gaEEZO1styzqGlLSxuLul5iGjpf9WVCLtqYimYpk3LIoIwaQsEinL20gWQKiIaC0OWQtF
-X-Gm-Message-State: AOJu0YzpuigrGf/bdqpv3TGg3gVyQsBB9epCNEXQdzihlfg+PIO+leZw
- /H02IHPlZGlIV83PxEMQ7fXpiJY1MvzC+vVw57Ffyy4NQQefD2d22OUkGSMNXA==
-X-Google-Smtp-Source: AGHT+IHcSLXPGR/K0waZNqFgMaXNzaf95X9YYFUFUCHgvEpSUHJvLAV/8QVHrr+4o4OmwTvG9tzrkg==
-X-Received: by 2002:a05:620a:1da6:b0:78d:5065:c5df with SMTP id
- pj38-20020a05620a1da600b0078d5065c5dfmr1595944qkn.18.1713520159351; 
- Fri, 19 Apr 2024 02:49:19 -0700 (PDT)
+ AJvYcCVc3IqyTURdIlNyk3H+3HskuIoOqDvjRdNwP5wKZHOc00QQ3Y6v0En2npvJV0mA7XbT0p/4guzydtnUuQAX22x4AFIRLGtNwTzCLN0R4Rw5AbcOoThc7SBe
+X-Gm-Message-State: AOJu0Yw1yNBUe4oKNtaZ3oE2p1bfXNUR5ZtWvdCvT3D256bMzYo95NC6
+ x6cWt13vPid5ZedEkk39+zw/w88YfjOsqb3WeVEgr2WkxXTulE7lqqY0unnftQ==
+X-Google-Smtp-Source: AGHT+IHKE5I6bNN/ygxYDQdIMuWr0dmGCsznmTcTgLl7Ioa5cL0u9qYtPjL85KqnZCORUNl4F1qURw==
+X-Received: by 2002:ae9:c119:0:b0:78e:ca95:81c5 with SMTP id
+ z25-20020ae9c119000000b0078eca9581c5mr1646405qki.77.1713520160591; 
+ Fri, 19 Apr 2024 02:49:20 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.18
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:18 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:19 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:47:47 +0000
+Date: Fri, 19 Apr 2024 09:47:48 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-1-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-2-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -93,8 +93,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 01/26] media: pci: mgb4: Refactor struct
-	resources
+Subject: [Linux-stm32] [PATCH v2 02/26] media: stb0899: Simplify check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,41 +105,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIHN0cnVjdCByZXNvdXJjZSBlbmQgZmllbGQgaXMgaW5jbHVzaXZlIG5vdCBleGNsdXNpdmUs
-IHRoaXMgaXMsIHRoZQpzaXplIGlzIChlbmQgLSBzdGFydCkgKzEuCgpVcGRhdGUgdGhlIGRlZmlu
-aXRpb25zIGFuZCB1c2UgdGhlIGdlbmVyaWMgcmVzb3VyY2Vfc2l6ZSgpIGZ1bmN0aW9uLgoKRml4
-ZXMgY29jY2kgY2hlY2s6CmRyaXZlcnMvbWVkaWEvcGNpL21nYjQvbWdiNF9yZWdzLmM6MTM6MjIt
-MjU6IFdBUk5JTkc6IFN1c3BpY2lvdXMgY29kZS4gcmVzb3VyY2Vfc2l6ZSBpcyBtYXliZSBtaXNz
-aW5nIHdpdGggcmVzCgpSZXZpZXdlZC1ieTogTWFydGluIFTFr21hIDxtYXJ0aW4udHVtYUBkaWdp
-dGVxYXV0b21vdGl2ZS5jb20+ClNpZ25lZC1vZmYtYnk6IFJpY2FyZG8gUmliYWxkYSA8cmliYWxk
-YUBjaHJvbWl1bS5vcmc+Ci0tLQogZHJpdmVycy9tZWRpYS9wY2kvbWdiNC9tZ2I0X2NvcmUuYyB8
-IDQgKystLQogZHJpdmVycy9tZWRpYS9wY2kvbWdiNC9tZ2I0X3JlZ3MuYyB8IDIgKy0KIDIgZmls
-ZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvbWVkaWEvcGNpL21nYjQvbWdiNF9jb3JlLmMgYi9kcml2ZXJzL21lZGlhL3BjaS9t
-Z2I0L21nYjRfY29yZS5jCmluZGV4IDliY2YxMGE3N2ZkMy4uNjA0OThhNWFiZWJmIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL21lZGlhL3BjaS9tZ2I0L21nYjRfY29yZS5jCisrKyBiL2RyaXZlcnMvbWVk
-aWEvcGNpL21nYjQvbWdiNF9jb3JlLmMKQEAgLTQ5MywxMyArNDkzLDEzIEBAIHN0YXRpYyBpbnQg
-bWdiNF9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwgY29uc3Qgc3RydWN0IHBjaV9kZXZpY2Vf
-aWQgKmlkKQogCXN0cnVjdCBtZ2I0X2RldiAqbWdiZGV2OwogCXN0cnVjdCByZXNvdXJjZSB2aWRl
-byA9IHsKIAkJLnN0YXJ0CT0gMHgwLAotCQkuZW5kCT0gMHgxMDAsCisJCS5lbmQJPSAweGZmLAog
-CQkuZmxhZ3MJPSBJT1JFU09VUkNFX01FTSwKIAkJLm5hbWUJPSAibWdiNC12aWRlbyIsCiAJfTsK
-IAlzdHJ1Y3QgcmVzb3VyY2UgY210ID0gewogCQkuc3RhcnQJPSAweDEwMDAsCi0JCS5lbmQJPSAw
-eDE4MDAsCisJCS5lbmQJPSAweDE3ZmYsCiAJCS5mbGFncwk9IElPUkVTT1VSQ0VfTUVNLAogCQku
-bmFtZQk9ICJtZ2I0LWNtdCIsCiAJfTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGNpL21n
-YjQvbWdiNF9yZWdzLmMgYi9kcml2ZXJzL21lZGlhL3BjaS9tZ2I0L21nYjRfcmVncy5jCmluZGV4
-IDUzZDRlNDUwM2E3NC4uMzFiZWZkNzIyZDcyIDEwMDY0NAotLS0gYS9kcml2ZXJzL21lZGlhL3Bj
-aS9tZ2I0L21nYjRfcmVncy5jCisrKyBiL2RyaXZlcnMvbWVkaWEvcGNpL21nYjQvbWdiNF9yZWdz
-LmMKQEAgLTEwLDcgKzEwLDcgQEAKIGludCBtZ2I0X3JlZ3NfbWFwKHN0cnVjdCByZXNvdXJjZSAq
-cmVzLCBzdHJ1Y3QgbWdiNF9yZWdzICpyZWdzKQogewogCXJlZ3MtPm1hcGJhc2UgPSByZXMtPnN0
-YXJ0OwotCXJlZ3MtPm1hcHNpemUgPSByZXMtPmVuZCAtIHJlcy0+c3RhcnQ7CisJcmVncy0+bWFw
-c2l6ZSA9IHJlc291cmNlX3NpemUocmVzKTsKIAogCWlmICghcmVxdWVzdF9tZW1fcmVnaW9uKHJl
-Z3MtPm1hcGJhc2UsIHJlZ3MtPm1hcHNpemUsIHJlcy0+bmFtZSkpCiAJCXJldHVybiAtRUlOVkFM
-OwoKLS0gCjIuNDQuMC43NjkuZzNjNDA1MTY4NzQtZ29vZwoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+chip_id is an unsigned number, it can never be < 0
+
+Fixes cocci check:
+drivers/media/dvb-frontends/stb0899_drv.c:1280:8-15: WARNING: Unsigned expression compared with zero: chip_id > 0
+
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/dvb-frontends/stb0899_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-frontends/stb0899_drv.c b/drivers/media/dvb-frontends/stb0899_drv.c
+index 2f4d8fb400cd..35634f9a8ab5 100644
+--- a/drivers/media/dvb-frontends/stb0899_drv.c
++++ b/drivers/media/dvb-frontends/stb0899_drv.c
+@@ -1277,7 +1277,7 @@ static int stb0899_get_dev_id(struct stb0899_state *state)
+ 	dprintk(state->verbose, FE_ERROR, 1, "Demodulator Core ID=[%s], Version=[%d]", (char *) &demod_str, demod_ver);
+ 	CONVERT32(STB0899_READ_S2REG(STB0899_S2FEC, FEC_CORE_ID_REG), (char *)&fec_str);
+ 	fec_ver = STB0899_READ_S2REG(STB0899_S2FEC, FEC_VER_ID_REG);
+-	if (! (chip_id > 0)) {
++	if (!chip_id) {
+ 		dprintk(state->verbose, FE_ERROR, 1, "couldn't find a STB 0899");
+ 
+ 		return -ENODEV;
+
+-- 
+2.44.0.769.g3c40516874-goog
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
