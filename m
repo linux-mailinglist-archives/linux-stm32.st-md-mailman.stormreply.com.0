@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 482D58AABE0
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1E68AABE1
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09611C7128D;
-	Fri, 19 Apr 2024 09:49:51 +0000 (UTC)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13D40C7128E;
+	Fri, 19 Apr 2024 09:49:52 +0000 (UTC)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C641AC71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA694C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:48 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-78ef59a369bso123606385a.2
+ Fri, 19 Apr 2024 09:49:50 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-78f05e56cb3so107464085a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 02:49:48 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520188; x=1714124988;
+ d=chromium.org; s=google; t=1713520190; x=1714124990;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vmuUSFnHzqjHSVO6x2xCi4IdU77yIJvh23Ivq0XCHvQ=;
- b=PjJVEARUptXQ7XClLEquGeabYF7K4I9XD10K9mALik/qPUj8pC0F4qXj6cE/HhjD/c
- HgUSU1iG44AraJnjFlaGabzDHO9MzmDQ2wMiL5m7lvYnVmzZExenvtWBhvTahrQoQt4s
- XCxbqZaGy5IlqSfWk8elczsHNta0xsSpksnU4=
+ :reply-to; bh=STqazHEagBxWlHC69lQFp5WbvQ2Sdx8rB6+uKcUB0cU=;
+ b=CP9Um25IEqA9ZzkGztLGaROeM0CPWvRpVTk21Wg3PhY9FCcA3+y/OGlYTnXPsm163F
+ ty9w/kYfMWUIKxwmI5fwBrUqxm+E1JmI3Et0o8NI+n7HPYy9T3vBObCEPE9/8wL0S5YL
+ 1zgWInXwSDEhP28+TxqD3FdTIBxnBroKngKgc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520188; x=1714124988;
+ d=1e100.net; s=20230601; t=1713520190; x=1714124990;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vmuUSFnHzqjHSVO6x2xCi4IdU77yIJvh23Ivq0XCHvQ=;
- b=Wu2kvjCe+b6MT6R45cXkFcAKIqYiWqt9eZXH8eLLA6uJxOAqprZgHR7DY0Hpff7mSf
- fBkcmqF0bO4hTN2zbyqs062alvsmj8dLFfNBNl5kvUVGtnQu01+oFuS/K/ezVfRoiHuj
- A9z2heBNjiKuhMKSsHeZYsJqPB7vcCkUr3vkfTYQ1kLxkD5hxkRscCf7BqDtc43mu8JE
- DdUdRNVsi5CZ9Y4Wm9C3SdQrWnC5o9eFggodT578xhw6mseV+82i1d9wO8L4ZTa81xkT
- DoBg/dueUepGTccsC6qKBFhHI8rO/4YgWoApTbFNTZcRoAt76c7NNoUaswl6G3G9FDuX
- 7iGw==
+ bh=STqazHEagBxWlHC69lQFp5WbvQ2Sdx8rB6+uKcUB0cU=;
+ b=BEnm6V+TlbzkIfJpry5bjps881ueT9Tx623+NTjiKvDI2AXR6NdsEhaYUqQHK721rK
+ QEjhSgA7PkWpVg9e4wy8UrH48NiAq1jf0KSfeWt0cNwvnB34mkHNlm8NBZtSspUCLxO2
+ NsgHvPPhVtuRUFDxYCvsceXw2X5LBeCDIGjXLVG9dVgRcTsuxC4gM9SQTB+wCwCBOFR2
+ hJyzNPmNTm5BO8h7nnEDXnjz+gNMAvzdSrIE6cxQqLiN1HumBDuqQmawE7yvnyYYyU3A
+ hBglrnhPX/zYV7VDiO6JsscVWQLSe12LIfzhEVvfFDsdirW3yDDNTpUeH8eMBuMdWQ+V
+ UJ8A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4p6HP/plWYsfsJSdd8yRizUbUx9YDmCQR5VRTJMDUU5b8RXTYC3xwQ5HQSjdNaycYZDfi60yzMLy4lYrlYuTnpoNVYqWbJM0z4iG/LTzCYsJ3iv/2Rw04
-X-Gm-Message-State: AOJu0YwTTl+iRXWPsCQb35XEAN2UPmLUtIYVjWFBUU8cF8euTA/Nt48X
- GzjjdYdLd6EV0zU19aQ5S1hiYwRGUmEnh3mIFevsbAUXzOfqY9cihhrfvUD5aA==
-X-Google-Smtp-Source: AGHT+IGwmCCN5wh4NaLa8aArMkOF/G4Igcbkk8uWKtclUOXaJ3Z6Gx5Noog7Zc3uSUISJQ5MgoV6TQ==
-X-Received: by 2002:ae9:f50d:0:b0:78f:1044:bcc8 with SMTP id
- o13-20020ae9f50d000000b0078f1044bcc8mr1806809qkg.61.1713520187814; 
- Fri, 19 Apr 2024 02:49:47 -0700 (PDT)
+ AJvYcCWGvZLWOkG2EGOeexobPtFeJpP74spHLtpvTHukGk8fFR+iYfwBWxYl/TsM7E/6P2l5+BjiQ8+5Vo0In4eMZQvs0TY4+d36oUFhxAc/vVBItzaiHbuyI88d
+X-Gm-Message-State: AOJu0YwXzFStxAOZDlfIvbw2V1bbh6SXWfH00WF+3UYzdk3OYQJpIDrc
+ Y0466fdZI0oNCTN9HxC2yKdtvkdjIajuOIPUl8mNHfJiCAJmv8h0GefcZEcIMMrNhjBgJ/zttQ8
+ Q/A==
+X-Google-Smtp-Source: AGHT+IGB4W3xcDVnLVL+1B0lbE5yrHeQCLWo5Y0evN+/+oC4NuGMNOIMrDzfkEb/6TpNH9rKrh/xtA==
+X-Received: by 2002:ae9:f00d:0:b0:78e:fd3c:b6 with SMTP id
+ l13-20020ae9f00d000000b0078efd3c00b6mr1503480qkg.40.1713520189085; 
+ Fri, 19 Apr 2024 02:49:49 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.46
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:47 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:48 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:48:11 +0000
+Date: Fri, 19 Apr 2024 09:48:12 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-25-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-26-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -90,12 +91,11 @@ To: Martin Tuma <martin.tuma@digiteqautomotive.com>,
 X-Mailer: b4 0.12.4
 Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Ricardo Ribalda <ribalda@chromium.org>, linux-tegra@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 25/26] media: dvb-frontends: tda10048: Fix
- integer overflow
+ linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 26/26] media: dvb-frontends: tda10048: Make
+ explicit the range of z.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,44 +112,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-state->xtal_hz can be up to 16M, so it can overflow a 32 bit integer
-when multiplied by pll_mfactor.
+We do not expect the sample_freq to be over 613MHz.
 
-Create a new 64 bit variable to hold the calculations.
+Found by cocci:
+drivers/media/dvb-frontends/tda10048.c:345:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
 
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/dvb-frontends/tda10048.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/media/dvb-frontends/tda10048.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/dvb-frontends/tda10048.c b/drivers/media/dvb-frontends/tda10048.c
-index 5d5e4e9e4422..3e725cdcc66b 100644
+index 3e725cdcc66b..1886f733dbbf 100644
 --- a/drivers/media/dvb-frontends/tda10048.c
 +++ b/drivers/media/dvb-frontends/tda10048.c
-@@ -410,6 +410,7 @@ static int tda10048_set_if(struct dvb_frontend *fe, u32 bw)
- 	struct tda10048_config *config = &state->config;
- 	int i;
- 	u32 if_freq_khz;
-+	u64 sample_freq;
+@@ -328,7 +328,8 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
+ 			     u32 bw)
+ {
+ 	struct tda10048_state *state = fe->demodulator_priv;
+-	u64 t, z;
++	u32 z;
++	u64 t;
  
- 	dprintk(1, "%s(bw = %d)\n", __func__, bw);
+ 	dprintk(1, "%s()\n", __func__);
  
-@@ -451,9 +452,11 @@ static int tda10048_set_if(struct dvb_frontend *fe, u32 bw)
- 	dprintk(1, "- pll_pfactor = %d\n", state->pll_pfactor);
- 
- 	/* Calculate the sample frequency */
--	state->sample_freq = state->xtal_hz * (state->pll_mfactor + 45);
--	state->sample_freq /= (state->pll_nfactor + 1);
--	state->sample_freq /= (state->pll_pfactor + 4);
-+	sample_freq = state->xtal_hz;
-+	sample_freq *= state->pll_mfactor + 45;
-+	do_div(sample_freq, state->pll_nfactor + 1);
-+	do_div(sample_freq, state->pll_pfactor + 4);
-+	state->sample_freq = sample_freq;
- 	dprintk(1, "- sample_freq = %d\n", state->sample_freq);
- 
- 	/* Update the I/F */
+@@ -341,6 +342,7 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
+ 	/* t *= 2147483648 on 32bit platforms */
+ 	t *= (2048 * 1024);
+ 	t *= 1024;
++	/* Sample frequency is under 613MHz */
+ 	z = 7 * sample_freq_hz;
+ 	do_div(t, z);
+ 	t += 5;
 
 -- 
 2.44.0.769.g3c40516874-goog
