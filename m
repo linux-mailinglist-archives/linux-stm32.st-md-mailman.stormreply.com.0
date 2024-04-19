@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F5D48AABCD
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2BF88AABCE
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 11:49:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58674C7128C;
-	Fri, 19 Apr 2024 09:49:36 +0000 (UTC)
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6995DC71289;
+	Fri, 19 Apr 2024 09:49:37 +0000 (UTC)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A633C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78871C7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 09:49:34 +0000 (UTC)
-Received: by mail-qk1-f176.google.com with SMTP id
- af79cd13be357-78f0e3b6feeso68866785a.1
+ Fri, 19 Apr 2024 09:49:35 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id
+ af79cd13be357-78f05afc8d6so120960085a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 02:49:34 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1713520173; x=1714124973;
+ d=chromium.org; s=google; t=1713520174; x=1714124974;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=X5IbU7HBHK5ZSrS81fN3o3XopIPldfFFy8PdyHH7F6Q=;
- b=Z0pTFJleGyXxJKrf2dFrA5iONziG2o1eXpOCrLObqkmxo7vv8hNswskEPHlHZWktZf
- 0p9DNNgB75YapBxQYzzdckCEg+dwZLtef+9Kft+Wh+VXWdCoxSwy3zoLQNBzDHFSB9QB
- yteUlQnN013k181DG0yEPaj8IvFKWT4NLQ0u4=
+ :reply-to; bh=0jv41cPIK92ur4lysOBbsHOVURXwH8FRVBK0KQUkRX8=;
+ b=IOs10zhU6RHPcxN7YjlmQSTRHZ9bVjrcVVUs0tl+AcPR8/+xjNtr7KdTkafpwAp4/w
+ uiRzwYZVncBvRWMegRno5vgSntc6fzrkl7S4IUf/Uf2tQSPheWDIXzZYZj8WTIWEYHyv
+ VT16bWm3/EaNzR/R1lniOKK0CuywUrlaNhyKQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713520173; x=1714124973;
+ d=1e100.net; s=20230601; t=1713520174; x=1714124974;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=X5IbU7HBHK5ZSrS81fN3o3XopIPldfFFy8PdyHH7F6Q=;
- b=xJT26fET12rCCZ3bQT6c/gxM4M+KHY9sx08Co/SWSF/35HWcTxcsnTueVriVP9nygq
- GysudVtxQ/wOHMtMuNzEKTkiFHS8ZkCaBMAdGXqFa+5pBTy6hkRh5slQUmuiXvyCy7Gg
- LFtxiB0aYFNqP63R7i28Ca0gP5DQFD8AWwjy9Se+/lVdrbrtI9u2Dn4+5gftkwFZB+sN
- V7xBMR3oH3lCbFtTDqGFFW1/L2QEUxd9yyyaSvhC1CLSeMknRtLTjgecwERYyWrrvGtE
- 7G+Zp23SdLnqX49aRd3BGj1NXrkvPTLCm8EsvnZG52nYqI7dkLZCtYu8S5z4xgtJ0+nY
- H/wA==
+ bh=0jv41cPIK92ur4lysOBbsHOVURXwH8FRVBK0KQUkRX8=;
+ b=ox+GPly/+LyKNj57B+1clX0F23hdkY+opPlz0a8gMTbuUglV4GbW8/3lgcIMOHmkAI
+ T4gAYMY1C4ogmSjs1jhj4JlZvUogMAl+xxmn3Tq7olhsktTPvER3IpIviOqm48wLd6s7
+ cHfw/KH3CaU9Jj8GxLZ7EKe8DDNNWKnpF76PYZmwUeorDT+tLyhfeEVFSjmUVjIaRcGY
+ xSOEkcKz1N1/+MINAIfTWtZmftgk1JPzS+gM28bgiC2UMMeX9yrQ2EyjhFdowyFPKwHc
+ VeCY495/9Kj88R3Ln6PItYoTCyAS7oF5UTGH8keVHJ48Yxr5/4t8+4/+JJAfTJ9UeVSx
+ 93nA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHyrWZm0mMO5vDdERRI+clza3UAcarc4RWgXWfPZEJnNPYbad4+isvT+cD8aDx2itW71k0a39zt2P159QA7fNq7JRRwT9CRNXvePZByzMxVtEkLoDFX720
-X-Gm-Message-State: AOJu0YwferDEORHvoVFxz5wABQzn5WMsIZ/wVRMJ3bD8y4fOCtIbN0oH
- RNcqGsv+BYdm5j1MsoU2I7I7w/K0o1uUZhmPJhrZ9q77V/JwLwr8TshrTzSUwQ==
-X-Google-Smtp-Source: AGHT+IEFPc2doe2D5XWkbZvTrB29BF0kfAeaqeMumnsEPsoEkeZEg2M8kAGfVkDU7KVIwRhvnXAZ7g==
-X-Received: by 2002:a05:620a:3b84:b0:78e:dcb8:b4be with SMTP id
- ye4-20020a05620a3b8400b0078edcb8b4bemr1649647qkn.6.1713520173590; 
- Fri, 19 Apr 2024 02:49:33 -0700 (PDT)
+ AJvYcCV+vbnQobwiBCehb+XZ8NbRvYPH0P7514C+YuxdH7XO7VBuyG7CQA4eJyegqCWRE98wo9ioS9Bh/OnGuHjZ/LGrkJJgaeA8s8iZanY7yW6LhMgsDE4p054c
+X-Gm-Message-State: AOJu0YzTEI0dTkxfNfYeqjRiBnp1rqyUAgR0O59A05m5mFuTwXLfjUBP
+ rHD6B5p1tZ9aALAqHofkZqoaAPDpQMjxgLFD4l5IoDCZWDSg1jRF35alXqvBsQ==
+X-Google-Smtp-Source: AGHT+IETv5IUoGgWksFs9Z+Dm4pcXtdl0bT854ihOygqGrbXzgeian082aGVpKk3VnS1RI+F74x9Bg==
+X-Received: by 2002:a05:620a:4694:b0:78e:d2ff:a108 with SMTP id
+ bq20-20020a05620a469400b0078ed2ffa108mr2287614qkb.0.1713520174478; 
+ Fri, 19 Apr 2024 02:49:34 -0700 (PDT)
 Received: from denia.c.googlers.com (114.152.245.35.bc.googleusercontent.com.
  [35.245.152.114]) by smtp.gmail.com with ESMTPSA id
- dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.32
+ dt14-20020a05620a478e00b0078d735ca917sm1434532qkb.123.2024.04.19.02.49.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Apr 2024 02:49:32 -0700 (PDT)
+ Fri, 19 Apr 2024 02:49:34 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 19 Apr 2024 09:47:58 +0000
+Date: Fri, 19 Apr 2024 09:47:59 +0000
 MIME-Version: 1.0
-Message-Id: <20240419-fix-cocci-v2-12-2119e692309c@chromium.org>
+Message-Id: <20240419-fix-cocci-v2-13-2119e692309c@chromium.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 In-Reply-To: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
 To: Martin Tuma <martin.tuma@digiteqautomotive.com>, 
@@ -93,8 +93,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-mediatek@lists.infradead.org, Ricardo Ribalda <ribalda@chromium.org>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 12/26] media: platform: mtk-mdp3: Use
- refcount_t for job_count
+Subject: [Linux-stm32] [PATCH v2 13/26] media: common: saa7146: Use min macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,120 +110,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use an API that resembles more the actual use of job_count.
+Simplifies the code. Found by cocci:
 
-Found by cocci:
-drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:527:5-24: WARNING: atomic_dec_and_test variation before object free at line 541.
-drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:578:6-25: WARNING: atomic_dec_and_test variation before object free at line 581.
+drivers/media/common/saa7146/saa7146_hlp.c:125:36-37: WARNING opportunity for min()
+drivers/media/common/saa7146/saa7146_hlp.c:154:41-42: WARNING opportunity for min()
+drivers/media/common/saa7146/saa7146_hlp.c:286:35-36: WARNING opportunity for min()
+drivers/media/common/saa7146/saa7146_hlp.c:289:35-36: WARNING opportunity for min()
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c | 10 +++++-----
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c |  6 +++---
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h |  2 +-
- drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c  |  6 +++---
- 4 files changed, 12 insertions(+), 12 deletions(-)
+ drivers/media/common/saa7146/saa7146_hlp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
-index 1d64bac34b90..ea2ea119dd2a 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c
-@@ -524,7 +524,7 @@ static void mdp_auto_release_work(struct work_struct *work)
- 	mdp_comp_clocks_off(&mdp->pdev->dev, cmd->comps,
- 			    cmd->num_comps);
+diff --git a/drivers/media/common/saa7146/saa7146_hlp.c b/drivers/media/common/saa7146/saa7146_hlp.c
+index 7569d8cdd4d8..fe3348af543e 100644
+--- a/drivers/media/common/saa7146/saa7146_hlp.c
++++ b/drivers/media/common/saa7146/saa7146_hlp.c
+@@ -122,7 +122,7 @@ static int calculate_h_scale_registers(struct saa7146_dev *dev,
+ 	xacm = 0;
  
--	if (atomic_dec_and_test(&mdp->job_count)) {
-+	if (refcount_dec_and_test(&mdp->job_count)) {
- 		if (cmd->mdp_ctx)
- 			mdp_m2m_job_finish(cmd->mdp_ctx);
+ 	/* set horizontal filter parameters (CXY = CXUV) */
+-	cxy = hps_h_coeff_tab[( (xpsc - 1) < 63 ? (xpsc - 1) : 63 )].hps_coeff;
++	cxy = hps_h_coeff_tab[min(xpsc - 1, 63)].hps_coeff;
+ 	cxuv = cxy;
  
-@@ -575,7 +575,7 @@ static void mdp_handle_cmdq_callback(struct mbox_client *cl, void *mssg)
- 		mdp_comp_clocks_off(&mdp->pdev->dev, cmd->comps,
- 				    cmd->num_comps);
+ 	/* calculate and set horizontal fine scale (xsci) */
+@@ -151,7 +151,7 @@ static int calculate_h_scale_registers(struct saa7146_dev *dev,
+ 		xacm = 0;
+ 		/* get best match in the table of attenuations
+ 		   for horizontal scaling */
+-		h_atten = hps_h_coeff_tab[( (xpsc - 1) < 63 ? (xpsc - 1) : 63 )].weight_sum;
++		h_atten = hps_h_coeff_tab[min(xpsc - 1, 63)].weight_sum;
  
--		if (atomic_dec_and_test(&mdp->job_count))
-+		if (refcount_dec_and_test(&mdp->job_count))
- 			wake_up(&mdp->callback_wq);
- 
- 		mdp_cmdq_pkt_destroy(&cmd->pkt);
-@@ -724,9 +724,9 @@ int mdp_cmdq_send(struct mdp_dev *mdp, struct mdp_cmdq_param *param)
- 	int i, ret;
- 	u8 pp_used = __get_pp_num(param->param->type);
- 
--	atomic_set(&mdp->job_count, pp_used);
-+	refcount_set(&mdp->job_count, pp_used);
- 	if (atomic_read(&mdp->suspended)) {
--		atomic_set(&mdp->job_count, 0);
-+		refcount_set(&mdp->job_count, 0);
- 		return -ECANCELED;
- 	}
- 
-@@ -764,7 +764,7 @@ int mdp_cmdq_send(struct mdp_dev *mdp, struct mdp_cmdq_param *param)
- 		mdp_comp_clocks_off(&mdp->pdev->dev, cmd[i]->comps,
- 				    cmd[i]->num_comps);
- err_cancel_job:
--	atomic_set(&mdp->job_count, 0);
-+	refcount_set(&mdp->job_count, 0);
- 
- 	return ret;
- }
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-index 5209f531ef8d..c1f3bf98120a 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
-@@ -380,14 +380,14 @@ static int __maybe_unused mdp_suspend(struct device *dev)
- 
- 	atomic_set(&mdp->suspended, 1);
- 
--	if (atomic_read(&mdp->job_count)) {
-+	if (refcount_read(&mdp->job_count)) {
- 		ret = wait_event_timeout(mdp->callback_wq,
--					 !atomic_read(&mdp->job_count),
-+					 !refcount_read(&mdp->job_count),
- 					 2 * HZ);
- 		if (ret == 0) {
- 			dev_err(dev,
- 				"%s:flushed cmdq task incomplete, count=%d\n",
--				__func__, atomic_read(&mdp->job_count));
-+				__func__, refcount_read(&mdp->job_count));
- 			return -EBUSY;
+ 		for (i = 0; h_attenuation[i] != 0; i++) {
+ 			if (h_attenuation[i] >= h_atten)
+@@ -283,10 +283,10 @@ static int calculate_v_scale_registers(struct saa7146_dev *dev, enum v4l2_field
  		}
- 	}
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-index 8c09e984fd01..430251f63754 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
-@@ -134,7 +134,7 @@ struct mdp_dev {
- 	/* synchronization protect for m2m device operation */
- 	struct mutex				m2m_lock;
- 	atomic_t				suspended;
--	atomic_t				job_count;
-+	refcount_t				job_count;
- };
  
- struct mdp_pipe_info {
-diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-index 35a8b059bde5..0e69128a3772 100644
---- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-+++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
-@@ -104,14 +104,14 @@ static void mdp_m2m_device_run(void *priv)
- 	task.cb_data = NULL;
- 	task.mdp_ctx = ctx;
+ 		/* get filter coefficients for cya, cyb from table hps_v_coeff_tab */
+-		cya_cyb = hps_v_coeff_tab[ (yacl < 63 ? yacl : 63 ) ].hps_coeff;
++		cya_cyb = hps_v_coeff_tab[min(yacl, 63)].hps_coeff;
  
--	if (atomic_read(&ctx->mdp_dev->job_count)) {
-+	if (refcount_read(&ctx->mdp_dev->job_count)) {
- 		ret = wait_event_timeout(ctx->mdp_dev->callback_wq,
--					 !atomic_read(&ctx->mdp_dev->job_count),
-+					 !refcount_read(&ctx->mdp_dev->job_count),
- 					 2 * HZ);
- 		if (ret == 0) {
- 			dev_err(&ctx->mdp_dev->pdev->dev,
- 				"%d jobs not yet done\n",
--				atomic_read(&ctx->mdp_dev->job_count));
-+				refcount_read(&ctx->mdp_dev->job_count));
- 			goto worker_end;
- 		}
- 	}
+ 		/* get best match in the table of attenuations for vertical scaling */
+-		v_atten = hps_v_coeff_tab[ (yacl < 63 ? yacl : 63 ) ].weight_sum;
++		v_atten = hps_v_coeff_tab[min(yacl, 63)].weight_sum;
+ 
+ 		for (i = 0; v_attenuation[i] != 0; i++) {
+ 			if (v_attenuation[i] >= v_atten)
 
 -- 
 2.44.0.769.g3c40516874-goog
