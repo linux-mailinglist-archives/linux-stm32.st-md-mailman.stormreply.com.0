@@ -2,69 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46518AB1CE
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Apr 2024 17:29:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B998ABF43
+	for <lists+linux-stm32@lfdr.de>; Sun, 21 Apr 2024 15:21:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9100BC6DD72;
-	Fri, 19 Apr 2024 15:29:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5968C6DD67;
+	Sun, 21 Apr 2024 13:21:09 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [217.72.192.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0ACC6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97634C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Apr 2024 15:29:42 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43JFHvrd031727; Fri, 19 Apr 2024 17:29:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=BC0AnmV1q2gZy8CoakcYlhE1sPnppp/jJo3qpbITbiA=; b=Wy
- nbcFwMzcBAlbeL0QvyT6n4UvawEQ3bT4re6Fk/Vp5O0foN24PMXSjzhPe4joAxpw
- rcA7LEOvGPgFxJRq1Ai5B7UDRPJILs+6OiHjhbHW5i9yY7/eVPfuJhXS74fyiGam
- /eOG20Wa0mkYoPoi9kQbKx2Hi1JUWaO/UqjfH5aUsb4VjzMDD12c//qikGLlBthR
- wcPYmrBn8jkD7lm7MBOlipTnwtD6mI2vp2eUDokBKi5S698fr5uImdJU9rhAbecG
- 4u5O872L3U8DuV3/h5UWRsQjvKjxvIhN5WfJn2nH+1+I7mcktgIytgg9pe6gw6Ix
- 9UK+TVPTQpePbq1Nrkyg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xgecys4nc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Apr 2024 17:29:29 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 411854002D;
- Fri, 19 Apr 2024 17:29:25 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8CA2122367E;
- Fri, 19 Apr 2024 17:28:56 +0200 (CEST)
-Received: from localhost (10.252.27.3) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 19 Apr
- 2024 17:28:56 +0200
-From: <gabriel.fernandez@foss.st.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Fri, 19 Apr 2024 17:27:23 +0200
-Message-ID: <20240419152723.570159-5-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240419152723.570159-1-gabriel.fernandez@foss.st.com>
-References: <20240419152723.570159-1-gabriel.fernandez@foss.st.com>
+ Sun, 21 Apr 2024 13:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1713705647; x=1714310447; i=markus.elfring@web.de;
+ bh=evdFeQD/L6zQL0Vd61pp1Z/7nDj1MNxAxQVGWpoT+5Q=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=wSbQqbr1RYsm3tjLf190P21u4mfqY5aRfGWHBCzP1Tz+qjJbOZNzusg383orT8WI
+ tSzdWXRHMEiwSiFpRqoAZlK2q3ooF06CVAShhoh9FDKzJ7lO8AVijWqJrghP3TqjE
+ 0CBARr3a/umf8F79eZvsTVGkG9sjPSZGc7nJIhLmlAHuZm0PT9F8+NAZhZBc/8JHc
+ 2UNOy1XBc2dA1dXwhRMgAh9OMOoW2TbZX8ry3KKlJ6o37U61JfoXnLc5thhP6xQ7O
+ LurcAQzJ57IXNComwOPeRrOpYUYPpfUMzVV8kVAuyMwp6oXEM+g+072xqnSzrm7XA
+ KIgAy+B5QXtJEpR4xA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MG994-1rvGOR2UaS-00Gm0I; Sun, 21
+ Apr 2024 15:20:47 +0200
+Message-ID: <de7d846a-01d9-4fdf-bc9c-86de86daf4a5@web.de>
+Date: Sun, 21 Apr 2024 15:20:34 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.252.27.3]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-19_11,2024-04-19_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 4/4] arm64: dts: st: add rcc support for
-	STM32MP25
+User-Agent: Mozilla Thunderbird
+To: Ricardo Ribalda <ribalda@chromium.org>, linux-media@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-staging@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Abylay Ospan <aospan@netup.ru>, Alain Volmat <alain.volmat@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Angelo Gioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Samuel Holland <samuel@sholland.org>, Sergey Kozlov <serjk@netup.ru>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>
+References: <20240419-fix-cocci-v2-23-2119e692309c@chromium.org>
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240419-fix-cocci-v2-23-2119e692309c@chromium.org>
+X-Provags-ID: V03:K1:MbmB4lbr0en+rNEVuMVQKHm+9+SobHtxinkTBmRYl4i4b+31EqI
+ eDwjrXrIaKZp+/JDMGyO9mK7R38liq/GAdwkTbVh4sU1ZIHKBPZL6Gz352kCK8X+Ott1p0I
+ Zv1ZyMxrJePW9LRPcsVaIQBR5rTY4R57i5DKnUO1EgZCWx2pdd7i/yiO++WyTX9PkWwOwgX
+ MxKtk9/Gp6Qa/8l3U6jHQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:dATBYSaFibE=;Jyz5Mi9ajE9LhE5N43qTaPY70xl
+ gVnbMBqQ5QAVpzMNHzeG1wkunna8DaKO0ymMAIZrSDfx0FleIE5fYhcVDypdKp8lR0v4WHcJj
+ bF1xILN9gvohbueA/zfLRvRWF/gnoBdL1aWPZIPYB6kW2aEMGTFMghdmtL5DzlX7WZWxY85WW
+ 7/rtRlA3gxcuo0iB5+M6gRylehhBreCGYF7EHnbs8rT3Qcx1II3k2Dyqm8RBDtSXvU7dv1N6U
+ wajFglzV/nmJbI63wkecxwZpApsrBBwyGVnTzWSBdoBfU3C4RujxPe3Y17PUEOT3Qfcr+lWft
+ Spgzxaaq6PmSulrGutImZxLGx6OdJEuFSUMxgD+J+EvG6t/pjkHn+vOgN3GI/ReQMP3/AaEI3
+ DPD60h7q/Pfljd4BWJDamWuEcR+oILfmcG5AxOGnq3FQjtZH0ODtrTt96/lbKRZ81vYH+CXDU
+ 8hAuZwDshKlLcPUF2fWSJ9ntrW3rHm2W1nJQqIqZYiPZ8TEAYD2X0816c/Ntrsq+7FzTN/6tE
+ juSDURgQk1ei57P0vsoouKErDTufZMRKnfag2p9ne6EeSN9khMGduG/U+G+v+uFKk8ERONGSO
+ +6CgcGekJA/w17fJKphVwZPdG45Dp1ebt2C8pS6Nexw+Jhi+ko/DkvucwTGBphBPr8jlq4zHw
+ RAOu1GUx/DwMa53tKCYa9ud2jOpt5G23ikqn34bwaNYhEBmgXqWZYY0SUcrMjJssH12bp8Mnm
+ KyOHm0Qd0TkYbjXImY8P4Mo7M0Itn4iAxgjNzq5zbjtPyhRSe+ycsO/K8UZEm1x8LUST+Tq7H
+ N6Tf56yDUtKLeIYD1zeJEW4KcLnGLGsBFNG6+hHWAgeA4=
+Cc: LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 23/26] media: venus: vdec: Make
+ explicit the range of us_per_frame
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,324 +103,15 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-
-Add RCC support to manage clocks and resets on the STM32MP25.
-
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 145 +++++++++++++++++++------
- arch/arm64/boot/dts/st/stm32mp255.dtsi |   4 +-
- 2 files changed, 111 insertions(+), 38 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index af1444bf9442..15ee930168e7 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -3,7 +3,9 @@
-  * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
-+#include <dt-bindings/clock/st,stm32mp25-rcc.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/st,stm32mp25-rcc.h>
- 
- / {
- 	#address-cells = <2>;
-@@ -35,34 +37,16 @@ arm_wdt: watchdog {
- 	};
- 
- 	clocks {
--		ck_flexgen_08: ck-flexgen-08 {
-+		clk_dsi_txbyte: txbyteclk {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
--			clock-frequency = <100000000>;
-+			clock-frequency = <0>;
- 		};
- 
--		ck_flexgen_51: ck-flexgen-51 {
-+		clk_rcbsec: clk-rcbsec {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_ls_mcu: ck-icn-ls-mcu {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_p_vdec: ck-icn-p-vdec {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_p_venc: ck-icn-p-venc {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
-+			clock-frequency = <64000000>;
- 		};
- 	};
- 
-@@ -135,7 +119,7 @@ usart2: serial@400e0000 {
- 				compatible = "st,stm32h7-uart";
- 				reg = <0x400e0000 0x400>;
- 				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_08>;
-+				clocks = <&rcc CK_KER_USART2>;
- 				access-controllers = <&rifsc 32>;
- 				status = "disabled";
- 			};
-@@ -145,8 +129,9 @@ sdmmc1: mmc@48220000 {
- 				arm,primecell-periphid = <0x00353180>;
- 				reg = <0x48220000 0x400>, <0x44230400 0x8>;
- 				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_51>;
-+				clocks = <&rcc CK_KER_SDMMC1 >;
- 				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC1_R>;
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <120000000>;
-@@ -171,6 +156,94 @@ package_otp@1e8 {
- 			};
- 		};
- 
-+		rcc: clock-controller@44200000 {
-+			compatible = "st,stm32mp25-rcc";
-+			reg = <0x44200000 0x10000>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			clocks = <&scmi_clk CK_SCMI_HSE>,
-+				<&scmi_clk CK_SCMI_HSI>,
-+				<&scmi_clk CK_SCMI_MSI>,
-+				<&scmi_clk CK_SCMI_LSE>,
-+				<&scmi_clk CK_SCMI_LSI>,
-+				<&scmi_clk CK_SCMI_HSE_DIV2>,
-+				<&scmi_clk CK_SCMI_ICN_HS_MCU>,
-+				<&scmi_clk CK_SCMI_ICN_LS_MCU>,
-+				<&scmi_clk CK_SCMI_ICN_SDMMC>,
-+				<&scmi_clk CK_SCMI_ICN_DDR>,
-+				<&scmi_clk CK_SCMI_ICN_DISPLAY>,
-+				<&scmi_clk CK_SCMI_ICN_HSL>,
-+				<&scmi_clk CK_SCMI_ICN_NIC>,
-+				<&scmi_clk CK_SCMI_ICN_VID>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_07>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_08>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_09>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_10>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_11>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_12>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_13>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_14>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_15>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_16>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_17>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_18>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_19>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_20>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_21>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_22>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_23>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_24>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_25>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_26>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_27>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_28>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_29>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_30>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_31>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_32>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_33>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_34>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_35>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_36>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_37>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_38>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_39>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_40>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_41>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_42>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_43>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_44>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_45>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_46>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_47>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_48>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_49>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_50>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_51>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_52>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_53>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_54>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_55>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_56>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_57>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_58>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_59>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_60>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_61>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_62>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_63>,
-+				<&scmi_clk CK_SCMI_ICN_APB1>,
-+				<&scmi_clk CK_SCMI_ICN_APB2>,
-+				<&scmi_clk CK_SCMI_ICN_APB3>,
-+				<&scmi_clk CK_SCMI_ICN_APB4>,
-+				<&scmi_clk CK_SCMI_ICN_APBDBG>,
-+				<&scmi_clk CK_SCMI_TIMG1>,
-+				<&scmi_clk CK_SCMI_TIMG2>,
-+				<&scmi_clk CK_SCMI_PLL3>,
-+				<&clk_dsi_txbyte>;
-+				access-controllers = <&rifsc 156>;
-+		};
-+
- 		syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp25-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
-@@ -189,7 +262,7 @@ gpioa: gpio@44240000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOA>;
- 				st,bank-name = "GPIOA";
- 				status = "disabled";
- 			};
-@@ -200,7 +273,7 @@ gpiob: gpio@44250000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x10000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOB>;
- 				st,bank-name = "GPIOB";
- 				status = "disabled";
- 			};
-@@ -211,7 +284,7 @@ gpioc: gpio@44260000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x20000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOC>;
- 				st,bank-name = "GPIOC";
- 				status = "disabled";
- 			};
-@@ -222,7 +295,7 @@ gpiod: gpio@44270000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x30000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOD>;
- 				st,bank-name = "GPIOD";
- 				status = "disabled";
- 			};
-@@ -233,7 +306,7 @@ gpioe: gpio@44280000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x40000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOE>;
- 				st,bank-name = "GPIOE";
- 				status = "disabled";
- 			};
-@@ -244,7 +317,7 @@ gpiof: gpio@44290000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x50000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOF>;
- 				st,bank-name = "GPIOF";
- 				status = "disabled";
- 			};
-@@ -255,7 +328,7 @@ gpiog: gpio@442a0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x60000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOG>;
- 				st,bank-name = "GPIOG";
- 				status = "disabled";
- 			};
-@@ -266,7 +339,7 @@ gpioh: gpio@442b0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x70000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOH>;
- 				st,bank-name = "GPIOH";
- 				status = "disabled";
- 			};
-@@ -277,7 +350,7 @@ gpioi: gpio@442c0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x80000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOI>;
- 				st,bank-name = "GPIOI";
- 				status = "disabled";
- 			};
-@@ -288,7 +361,7 @@ gpioj: gpio@442d0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x90000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOJ>;
- 				st,bank-name = "GPIOJ";
- 				status = "disabled";
- 			};
-@@ -299,7 +372,7 @@ gpiok: gpio@442e0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0xa0000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOK>;
- 				st,bank-name = "GPIOK";
- 				status = "disabled";
- 			};
-@@ -318,7 +391,7 @@ gpioz: gpio@46200000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
- 				st,bank-name = "GPIOZ";
- 				st,bank-ioport = <11>;
- 				status = "disabled";
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index 570c5dd0b2c3..f689b47c5010 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -10,7 +10,7 @@ vdec: vdec@480d0000 {
- 		compatible = "st,stm32mp25-vdec";
- 		reg = <0x480d0000 0x3c8>;
- 		interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
--		clocks = <&ck_icn_p_vdec>;
-+		clocks = <&rcc CK_BUS_VDEC>;
- 		access-controllers = <&rifsc 89>;
- 
- 	};
-@@ -19,7 +19,7 @@ venc: venc@480e0000 {
- 		compatible = "st,stm32mp25-venc";
- 		reg = <0x480e0000 0x800>;
- 		interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
--		clocks = <&ck_icn_ls_mcu>;
-+		clocks = <&rcc CK_BUS_VENC>;
- 		access-controllers = <&rifsc 90>;
- 	};
- };
-\ No newline at end of file
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+PiBVbmxlc3MgdGhlIGZwcyBpcyBzbWFsbGVyIHRoYW4gMC4wMDAyMzI4MjkgZnBzLCB0aGlzIGZp
+dHMgaW4gYSAzMiBiaXQgbnVtYmVyLgo+IE1ha2UgdGhhdCBleHBsaWNpdC4KCldvdWxkIGl0IGJl
+IG1vcmUgYXBwcm9wcmlhdGUgdG8gbW92ZSB0aGUgd29yZCDigJxleHBsaWNpdOKAnSB0byB0aGUg
+ZW5kCm9mIHRoZSBzdW1tYXJ5IHBocmFzZT8KClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
