@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF7D8AC888
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Apr 2024 11:11:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF578AC88C
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Apr 2024 11:11:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65012C6DD6E;
-	Mon, 22 Apr 2024 09:11:09 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 719F1C6DD6E;
+	Mon, 22 Apr 2024 09:11:27 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFC23C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8986AC6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Apr 2024 09:11:07 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a55b481cf0fso95209266b.3
+ Mon, 22 Apr 2024 09:11:26 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-571c22d9de4so5365121a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Apr 2024 02:11:07 -0700 (PDT)
+ Mon, 22 Apr 2024 02:11:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713777067; x=1714381867;
+ d=linaro.org; s=google; t=1713777086; x=1714381886;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=4CnDrkxxBFnWZDA6Pwu3mbT+0pyJYbjZWrLnSJVrNYQ=;
- b=D29k2qzNQEU2JMUfi9iy2zyqEZDnFBsx5Yt0gW0pgU/MyqwsQPEYt/eeZszbOSJO/P
- u2kmtMLQddOnw8EWo0SivQwyE0whT+mJkb2mBYNUyKw9fJBh2b7gGodD/seXlTVgXAaZ
- b1SWNP3IzSkNEnSnQZIJ2BcKkTxKuNU9hxr1YG0nbfPC9lD4du0wyVUJuNSyPlziYKlq
- ifGWLWNRn1J6AGb8OoYqiQDufWtnvijQUjLLUr3Lnj1i6ZboBuT0Pa4MMDC7sptUX4uu
- n6l4DaejctXHv3a82I441ZY1OWDMpzHLyWM17yRlHxJWqKu0ntkQ70ejPX7xuQ/6gYJG
- e2Gw==
+ bh=hkCaniajq8e0gAUz5Qg0IhAGq3W85Vx1qTiewZinuVI=;
+ b=wI6cdCZEvC0CPlg84MxyeJ1rYtnWvhp2FU+kn7Sp80OPeWzlbWzeZMWDmGjqqTP+EX
+ OlJOOM+4ao/H2ihc1fPgXWZBAe0EBh5CqLFvs3IfxgwmwuOiN29XZcL9S8GNTd60fd/6
+ Hf7nRJf+GpA0OJ1fQPIlOO8SThB3X/IlgI81PZIWcAJzhdBI4thXNuxbG7prpzGGZWIB
+ Fe2oMfPOSldg6l3ukVoXxZ4siqF6wThvfSsArQxDmDf3wFi/ytNmZGB5+nWvWrEG14ux
+ bYEZw5mOc9/D7IsqUeCJeGSamg+8QPbrsbJQwdWwqAXlLx0egf5d3byRyffgEfjGbxs9
+ cJmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713777067; x=1714381867;
+ d=1e100.net; s=20230601; t=1713777086; x=1714381886;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4CnDrkxxBFnWZDA6Pwu3mbT+0pyJYbjZWrLnSJVrNYQ=;
- b=YXLgyf80RpkhvVvHhmK89FvCmdnol0BLRY6UsKHeP2s9UBcfa0B0XrEeK+rM8zmGce
- CxMJqX/o5niO2ds9ZortrzG2tZfIZ8dHDIm7Vtv/8BBcGWBiskrX72Di8W6TFbkA1XS+
- C+Lkz4IdHvaWt3WC4xL2i9P97w0EehPDnJyFi2XVMCad0yNq1wPU+Pk0Trqk67KfPonn
- 6aAusZWUhxKHRTRoAzG8MxmnE1zFFwD7Ha2g7aHWog0U/9VXeLPvmA0y1wddzEtWuR0g
- MH6pU3ejfCkb41XGaMVxb2T02loYAsghc/Ir1FeREjifv4y6QZxTumyGadDzxDNGBXHb
- Fncw==
+ bh=hkCaniajq8e0gAUz5Qg0IhAGq3W85Vx1qTiewZinuVI=;
+ b=MznyU7TNQVd3Ex4DvuoXB2lBsQcXIh/6l8ZcMiQc2i7Ts6NvLzamDYapyn3qkmgdxU
+ 29pehdu9pBIvJqya4TSUAgmrQvfRU31s46vFRMYoTvMvlVqCqUH0GBnLmgVZgiiJAHM7
+ GFeI8r0zo8oAWIAdoXdN9AH7OFdwcmhFGMUxCphmlMnstztlPkj2flzP/tr9JMyIrauI
+ RL1nkw80gFHkS1VH06AbVv3jLk7/BNAGgR4AHdzGWt1qA0SLCvma1YKelIx3UdPLCMWK
+ 6E05NvgEY/gunsKiKqNRKFr1X3AQDAZ+7A55EpPGoffexaUT0IUE8SznLjEOwF3YIzzH
+ uJIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVB34nyoWR0iX7HQjrtYrpILXwvfMSQAgdhWNr6wrHJevJzxyVoE07zjhD+7k1oDk5C1sqbJHIRPKXB25wg8vq5I42BffrCZk3Sa59wTUdYsINWQE7wSHNu
-X-Gm-Message-State: AOJu0Yw+8bFqFqmsBiwd10HaNuyp1FW1FxZxk6EWQoh65VN/0ZVj42TV
- bhrcLHRNb1UodCX+hlNXmNlr+g0Q0yg14E+aMJ2JUN0iz9anlkgfFLdFuHzh+ko=
-X-Google-Smtp-Source: AGHT+IFZ1nN3bK3kIt2gKV+ORhcjAPmw5Pw3Jnm5a8ahxTE3rpZCaXgl+IN7VR6olP1yaDEEJd3/1A==
-X-Received: by 2002:a17:907:724b:b0:a55:b021:c0b1 with SMTP id
- ds11-20020a170907724b00b00a55b021c0b1mr2895842ejc.9.1713777067211; 
- Mon, 22 Apr 2024 02:11:07 -0700 (PDT)
+ AJvYcCW2eo40FAUNj5/G3TfzumomktVe9mu5VGIJE0GkurRib7Od9nSHisGmjWUmOoXVNZM2R67EgAfaUC4BWjXoO2zobyG92Pr4eh+2n40R/D1cRxx7MMcp3HAF
+X-Gm-Message-State: AOJu0Yypl8QS2/FIVbfXTK4QObJhN6sTa8hmEzMDvp7QhpNkaiK8Ud3x
+ 2c8fzY75GZAaAhjhErSceRut7/CvTuDPvOhtyM73BsF7x4bAqhiPtZQL5GlcAcQ=
+X-Google-Smtp-Source: AGHT+IEOmoIpd2iJxnAeQuvStIrPHyzUc+oDU9zayqCDq5neSZ6lG96WQuHyPZ856bz5Xnb48vQ6Jw==
+X-Received: by 2002:a50:f605:0:b0:56e:232b:95cd with SMTP id
+ c5-20020a50f605000000b0056e232b95cdmr5397111edn.41.1713777086019; 
+ Mon, 22 Apr 2024 02:11:26 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- q26-20020a1709066b1a00b00a53c746b499sm5491547ejr.137.2024.04.22.02.11.05
+ p8-20020a05640243c800b00571fad0647csm2080041edc.74.2024.04.22.02.11.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Apr 2024 02:11:06 -0700 (PDT)
-Message-ID: <40856e22-e5e2-4030-8ddf-89c02efc9514@linaro.org>
-Date: Mon, 22 Apr 2024 11:11:04 +0200
+ Mon, 22 Apr 2024 02:11:25 -0700 (PDT)
+Message-ID: <b3d074ad-f2fe-4cbb-9ad8-1c28eda6bdae@linaro.org>
+Date: Mon, 22 Apr 2024 11:11:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
@@ -150,34 +150,10 @@ On 22/04/2024 10:46, Steffen Trumtrar wrote:
 > This register is located in a GPR register space.
 > 
 > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
->  Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml b/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-> index 4c01cae7c93a7..1d1c8b90da871 100644
-> --- a/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-> +++ b/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-> @@ -56,6 +56,16 @@ properties:
->          - tx
->          - mem
->  
-> +  enet_clk_sel:
 
-Except what Sasha wrote, also missing vendor prefix. That's not a
-generic property.
-
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: phandle to the GPR syscon
-> +          - description: the offset of the GPR register
-> +    description:
-> +      Should be phandle/offset pair. The phandle to the syscon node which
-> +      encompases the GPR register, and the offset of the GPR register.
-
-That's redundant. Provide full description in the items. You can say
-here what is the purpose of this phandle.
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching.
 
 Best regards,
 Krzysztof
