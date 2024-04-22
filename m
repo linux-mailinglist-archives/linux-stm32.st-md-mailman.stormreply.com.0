@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8B38AC74E
+	by mail.lfdr.de (Postfix) with ESMTPS id F20CE8AC74F
 	for <lists+linux-stm32@lfdr.de>; Mon, 22 Apr 2024 10:46:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 984F9C71289;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A76D8C7128B;
 	Mon, 22 Apr 2024 08:46:31 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B921EC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B32D5C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Apr 2024 08:46:29 +0000 (UTC)
+ Mon, 22 Apr 2024 08:46:30 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=ratatoskr.trumtrar.info)
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1rypJe-0000ML-El; Mon, 22 Apr 2024 10:46:22 +0200
+ id 1rypJf-0000ML-Dr; Mon, 22 Apr 2024 10:46:23 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 22 Apr 2024 10:46:17 +0200
+Date: Mon, 22 Apr 2024 10:46:18 +0200
 MIME-Version: 1.0
-Message-Id: <20240422-v6-9-topic-imx93-eqos-rmii-v1-1-30151fca43d2@pengutronix.de>
+Message-Id: <20240422-v6-9-topic-imx93-eqos-rmii-v1-2-30151fca43d2@pengutronix.de>
 References: <20240422-v6-9-topic-imx93-eqos-rmii-v1-0-30151fca43d2@pengutronix.de>
 In-Reply-To: <20240422-v6-9-topic-imx93-eqos-rmii-v1-0-30151fca43d2@pengutronix.de>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -46,8 +46,7 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/3] dt-bindings: net: mx93: add enet_clk_sel
-	binding
+Subject: [Linux-stm32] [PATCH 2/3] arm64: dts: imx93: add enet_clk_sel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,36 +63,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the eQOS on the i.MX93 is used in RMII mode, the TX_CLK must be set
-to output mode. To do this, the ENET_CLK_SEL register must be accessed.
-This register is located in a GPR register space.
+The ENET_CLK_SEL register is at offset 0x2c in the wakeupmix_gpr
+register and needed to set the TX_CLK direction in case of RMII mode.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm64/boot/dts/freescale/imx93.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml b/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-index 4c01cae7c93a7..1d1c8b90da871 100644
---- a/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-+++ b/Documentation/devicetree/bindings/net/nxp,dwmac-imx.yaml
-@@ -56,6 +56,16 @@ properties:
-         - tx
-         - mem
- 
-+  enet_clk_sel:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: phandle to the GPR syscon
-+          - description: the offset of the GPR register
-+    description:
-+      Should be phandle/offset pair. The phandle to the syscon node which
-+      encompases the GPR register, and the offset of the GPR register.
-+
-   intf_mode:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     items:
+diff --git a/arch/arm64/boot/dts/freescale/imx93.dtsi b/arch/arm64/boot/dts/freescale/imx93.dtsi
+index 601c94e1fac8e..116ff9c15709b 100644
+--- a/arch/arm64/boot/dts/freescale/imx93.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93.dtsi
+@@ -1051,6 +1051,7 @@ eqos: ethernet@428a0000 {
+ 							 <&clk IMX93_CLK_SYS_PLL_PFD0_DIV2>;
+ 				assigned-clock-rates = <100000000>, <250000000>;
+ 				intf_mode = <&wakeupmix_gpr 0x28>;
++				enet_clk_sel = <&wakeupmix_gpr 0x2c>;
+ 				snps,clk-csr = <0>;
+ 				status = "disabled";
+ 			};
 
 -- 
 2.43.2
