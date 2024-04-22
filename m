@@ -2,106 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86968AC444
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Apr 2024 08:33:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC628AC47B
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Apr 2024 08:53:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6942FC71294;
-	Mon, 22 Apr 2024 06:33:58 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C4AAC6DD67;
+	Mon, 22 Apr 2024 06:53:25 +0000 (UTC)
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFE11C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D196FC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Apr 2024 23:23:11 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a559b919303so78396266b.1
+ Mon, 22 Apr 2024 06:53:24 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id
+ 46e09a7af769-6eb77e56b20so2607995a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Apr 2024 16:23:11 -0700 (PDT)
+ Sun, 21 Apr 2024 23:53:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713655391; x=1714260191;
+ d=chromium.org; s=google; t=1713768803; x=1714373603;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=G7j9WmKVfIxCtxmA5+g+ivZQajcRB8Ss1Yyb3DxCAfA=;
- b=E7UtzNxISqwOnr8jozO1SXIOSN/4sb8L7IA4tGKjssZXyO6QTONkvKWrD9nZbo37EC
- +VckyL2CoX8IUEK2l0LpVTLpLTIexvCtKaszjWl70DIamIN7le4RgvUA6H3cAqvGwHv0
- HzO6tnLfJ0l5JLwaLZzcyXPL+HhSqt+83/QRGprSplx84AcclE3o2nH1qIAOQrF6vOjK
- M1Uh3E+1HkROyYDFNtibbpMbPAFzWUjxKp/XvwSTGdBRah3sVFoEr4FKmNaPK7t/Okoo
- JNfkplHEQ5tI57xjQul7zsnsDidjyjHmdVmJTuLD/+0kc3QvEvggWgTgnTJgd7rJEBb+
- Nppw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=dg+W9++cTuSKiuuJU3BmFvsGHmcNsDKvQ8sCokwEeZM=;
+ b=VVqMMhvicm9uXRmYYFTnVRipPIjrWM8CdRmYkjHe09JjfgSO67xzdbwyyyVHCpycx6
+ ed+I5xZQCOYgJxf5Y7PvfBsdf1HptSXO9b+LT/Q7w8uOHnMt0A/72tTavld7R0Oy9iqN
+ FgvmPfhrmKFd2FG5PwZ10bazlcAsIK84WZdsA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713655391; x=1714260191;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G7j9WmKVfIxCtxmA5+g+ivZQajcRB8Ss1Yyb3DxCAfA=;
- b=nMk0IWMWebBJ9dSESgEYu+mfe4ViKPgujkebbL0nK463weFo0/dcEWv9waf5+cQhhV
- 0vqKMB5mgKo0moo8CLRJuHN5gKl0vDxi2NpQZ0Mnf9hnbWaiE4OBdDhdguOVjp9qbKuT
- SV8OJ13qQ/CzeI4LTIRe1wdH5+OkkcCkEBqtC2MhzcV6AJWKMi4UKJaozgOkzl6SaMG/
- Clev1IDaUrtPi31lmr917cFiFRJ+L+X1begYKUvitgt+kLqOIT1QKuL1GbbFnZ3gluWF
- fkBD+J+xz7srbjeqqizFC0suGkW6iW3K0oee6rsEojrwVH+PZvPeR5SLKgGTdm6+1/X3
- TgiA==
+ d=1e100.net; s=20230601; t=1713768803; x=1714373603;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dg+W9++cTuSKiuuJU3BmFvsGHmcNsDKvQ8sCokwEeZM=;
+ b=DiEBYxGmzPQu1tQiOo083t7hXk1e/XreR624lmBcL9RULvNBdylwzS1S/vTeRqS1Nq
+ 0xbDWNIwvuxuzGUIseFs6BGJ/zX+h5kokDPUnbLH6Xn1/JI4vRQ1hD3TtgcTSJbrGVkf
+ RIRAoWGpFi1jov/XOh8exzNK0GNVABUWIdTRfm92IlHz0f7eGgpRv3Wz3GVh0z2unUpH
+ Wi4tziSHH/WKhIHFXaLxtSkIdKI6ooGdc8/BFicivMimUbEUSR9yqdiRToaA5lgJomQi
+ NTteLNJMk6krEcRacnvrPU6HiWzmFWvWNKLV3lGu8tZaBQc+H5o9ogOgA0E0jmkhBmbS
+ awIA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXw+StPpjQzKoAuujx03ghDsGWHUN7R0mUfzRyb5RpjrKHsP+ioBJ3WxT2YxdQEjiWf7tOaVeybL0sMo9iUlYRkSuLxshKbrfBL+zKkGq+f1+x1zhzenAY
-X-Gm-Message-State: AOJu0YyT1GkSg7VMpsrpGLd6awTuxxoPYhkesiNDSY+HPj7SngJz/W9w
- BsJZKJoPN+FvDHLSvjO/54lJdZoTouX2tx9UmleGJ0rxU3o7Yrj7N1+R1ChZZnQ=
-X-Google-Smtp-Source: AGHT+IHIgAHqaBHAo2tv0s9P7hAH/P161Q1ck8771gq2FLpa0nizkFWxKtOsbHWkZLUsCdT//bfy9g==
-X-Received: by 2002:a17:906:c24d:b0:a4e:5137:9969 with SMTP id
- bl13-20020a170906c24d00b00a4e51379969mr4156927ejb.32.1713655391076; 
- Sat, 20 Apr 2024 16:23:11 -0700 (PDT)
-Received: from [192.168.0.102] ([176.61.106.68])
- by smtp.gmail.com with ESMTPSA id
- v24-20020a170906339800b00a521904b548sm3889268eja.166.2024.04.20.16.23.09
+ AJvYcCX60GR/UWcEDSIkWjZrCAJh3sny6wSgg4Qb39VY38e8aBnFQRBglRbXDw070kw5gYIKCy5s83LiGgh5IagbXmr9CLtTSKVQLqfpByDKTjXUMAgpQuE/wACt
+X-Gm-Message-State: AOJu0YyqLPv8oyYj6dYVbj6+tAjzIuqZGp3CAke9iR+sCiv5i+tebMen
+ IorlQohbQjO40o/mvh93E+61VtPfV+JOsTNl1hXZo4l0z3vQCpXtB4NOHojnUYjsha08aQ5eE6E
+ n3g==
+X-Google-Smtp-Source: AGHT+IGKp28MvMG0bDC1k45SaOfAY0KNnAEVQsvKsD1GA0slYSBcLdFxcc/Y9bVMaGDj1Fv7NZZ3IQ==
+X-Received: by 2002:a05:6808:14d2:b0:3c8:2c94:9912 with SMTP id
+ f18-20020a05680814d200b003c82c949912mr3241450oiw.45.1713768802416; 
+ Sun, 21 Apr 2024 23:53:22 -0700 (PDT)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com.
+ [209.85.210.49]) by smtp.gmail.com with ESMTPSA id
+ d2-20020a05680805c200b003c7066c39e6sm1289538oij.21.2024.04.21.23.53.21
+ for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 20 Apr 2024 16:23:10 -0700 (PDT)
-Message-ID: <27513574-3131-4704-9c3d-f699cc9edb9b@linaro.org>
-Date: Sun, 21 Apr 2024 00:23:08 +0100
+ Sun, 21 Apr 2024 23:53:22 -0700 (PDT)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-6eb55942409so2108836a34.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 21 Apr 2024 23:53:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWDsBlae6/P5owmJIz7drYJpm/bUfFVRMKV9ZFZ+3jwnVb4bxWvGGOTdMnooX1YpQTnNnvYu/ttJTPYxjKDpX/Q6QwKDe8K6Lfv4h6Gqwh1ELM+WyPaCzGb
+X-Received: by 2002:a0c:ec88:0:b0:69b:1aec:88fb with SMTP id
+ u8-20020a0cec88000000b0069b1aec88fbmr9872064qvo.23.1713768779447; Sun, 21 Apr
+ 2024 23:52:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Sergey Kozlov <serjk@netup.ru>,
- Abylay Ospan <aospan@netup.ru>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Dmitry Osipenko <digetx@gmail.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
- <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
-X-Mailman-Approved-At: Mon, 22 Apr 2024 06:33:57 +0000
-Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 09/26] media: v4l: async: refactor
- v4l2_async_create_ancillary_links
+ <20240419-fix-cocci-v2-6-2119e692309c@chromium.org>
+ <124e35b3-5b0d-4bd7-848a-5c848b339157@linaro.org>
+In-Reply-To: <124e35b3-5b0d-4bd7-848a-5c848b339157@linaro.org>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 22 Apr 2024 14:52:43 +0800
+X-Gmail-Original-Message-ID: <CANiDSCt34D8-Ys+DbEQM0SyFdBF4WoV5_+xuuCjVbf22kT0xfw@mail.gmail.com>
+Message-ID: <CANiDSCt34D8-Ys+DbEQM0SyFdBF4WoV5_+xuuCjVbf22kT0xfw@mail.gmail.com>
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
+ Samuel Holland <samuel@sholland.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
+ linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>
+Subject: Re: [Linux-stm32] [PATCH v2 06/26] media: stm32-dcmipp: Remove
+	redundant printk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,56 +113,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/04/2024 10:47, Ricardo Ribalda wrote:
-> Return 0 without checking IS_ERR or PTR_ERR if CONFIG_MEDIA_CONTROLLER
-> is not enabled.
-> 
-> This makes cocci happier:
-> 
-> drivers/media/v4l2-core/v4l2-async.c:331:23-30: ERROR: PTR_ERR applied after initialization to constant on line 319
-> 
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Hi Bryan
+
+Thanks for your review
+
+On Sun, 21 Apr 2024 at 07:15, Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
+>
+> On 19/04/2024 10:47, Ricardo Ribalda wrote:
+> > -     if (irq <= 0) {
+> <snip>
+> > -             return irq ? irq : -ENXIO;
+> > -     }
+>
+> You're dropping the original intent of the driver author there no ? when
+> irq == 0 they want to return -ENXIO.
+
+platform_get_irq() can never return 0.
+https://lore.kernel.org/linux-media/cd4aac19-c4cf-4db0-a18c-42f1bf1441a8@moroto.mountain/
+
+Let me add that to the commit message.
+
+Thanks!
+
+>
 > ---
->   drivers/media/v4l2-core/v4l2-async.c | 7 +++----
->   1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-> index 4bb073587817..915a9f3ea93c 100644
-> --- a/drivers/media/v4l2-core/v4l2-async.c
-> +++ b/drivers/media/v4l2-core/v4l2-async.c
-> @@ -316,9 +316,10 @@ v4l2_async_nf_try_all_subdevs(struct v4l2_async_notifier *notifier);
->   static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
->   					     struct v4l2_subdev *sd)
->   {
-> -	struct media_link *link = NULL;
-> +	struct media_link *link;
->   
-> -#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-> +	if (!IS_ENABLED(CONFIG_MEDIA_CONTROLLER))
-> +		return 0;
->   
->   	if (sd->entity.function != MEDIA_ENT_F_LENS &&
->   	    sd->entity.function != MEDIA_ENT_F_FLASH)
-> @@ -326,8 +327,6 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
->   
->   	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
->   
-> -#endif
-> -
->   	return IS_ERR(link) ? PTR_ERR(link) : 0;
->   }
->   
-> 
+> bod
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
----
-bod
+
+-- 
+Ricardo Ribalda
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
