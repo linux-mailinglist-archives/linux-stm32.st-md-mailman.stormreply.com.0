@@ -2,105 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E60868AE7F8
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 15:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF318AE83C
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 15:32:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C8C6C7128A;
-	Tue, 23 Apr 2024 13:22:19 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 473CEC7128A;
+	Tue, 23 Apr 2024 13:32:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D3E4C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84E1DC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 13:22:17 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-56e48d0a632so8401461a12.2
+ Tue, 23 Apr 2024 13:32:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5BB9261489
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 06:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713878537; x=1714483337;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1n7JSfYWxQy0YOfnlGRtbUocgojCIv1pFKvACUA3fEs=;
- b=wgGDQlB+tGTKpSUFoHfvq7AAoNtlduYYtz1Z0TCrwxwQGVgBoo1Oeeu8JtyoG6C6LE
- icPxfCejsjdNBzQGEQn2UaveR6X4TuIUr0Pg3Gi2Mql2uPPWPJljIzij4OjgGDectfLK
- 2DtmCaqUeNVfC4zpxqB21mxhcPAsdliZ04rK4G8WXQEY13Vezydi6p85gofaAecR4431
- HBHJBprdQ7dlJaXbu8pgAQHFmb71ftzuwfpCeGsx8VmbwRPRK9X10EnSZoV2BNSJUPBq
- geruh8S01bhf4j63VAvtaK/yPyH9OrQai4bAMDvp9XkOWllBo+DJ/59xCBBJJwwT7Mgw
- teag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713878537; x=1714483337;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1n7JSfYWxQy0YOfnlGRtbUocgojCIv1pFKvACUA3fEs=;
- b=WKN8etYJ8ROhmC44B8HvgTxAg6SOiP4cXdDakwX55nt+M4mj3m1WWbb+SbgLX/WEoi
- 37NSIsshZoYHoTL/F66q7/GzzU6USlrnm1EyUApp9BZKvV6wjMaloGmfxPHIf8JdOFP0
- w9KN9ssdUVnhBwAc3UMzCOORIRV6Bq2iU7KZ+xwTC6knvDQSiCk6EG/S4IbbxA3CvS9K
- Wlavj4U+qJM1ufmFOXFnEk9tQSg+6owMErJXcTF0Se+1iIW6d/3+gYYeNCfvedQGlWeG
- Xgyd7PjqTRu2+SckHiUfVIAy90lapYBPZhorld2LTeMzFZqDkdzByZwUFja0wQZhCU5I
- xNKQ==
+ Tue, 23 Apr 2024 13:32:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9769DC4AF10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 23 Apr 2024 13:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1713879148;
+ bh=AP67NgULme2krqQcPsRIs+2ZN6mA5krVB1+iZidsmpQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=RXJB8wspxP8pk4Ow4/JgUdQxDYSuMWXtvwZcHMcygIfsV8CZfR5piUq+ffZvqfEf8
+ QaaKf3bHJBXR8vawtx32iwMO76Si+wymzaiCe6XIsb0qQN4qg6yOpwkVFwPNV5XJzz
+ w3QwhPpK1HIqxgI4nzYSjmrhJExmGY8HDD9LPiymmpo+Rc9iIGYzaXP46hW/p9JnmC
+ F7ENkaz77czs+clx3X06vxLdZusskiyvM8EZsWZiLYrN/BfDsp0h0KshKepGB/wZhq
+ i7VE5ACvBL2q/FXyyXhWltW+bwyXFIMkKY/KXY0At5eUGls3my/FvtWLlPMvg2Rzcf
+ dHMzq6OZow9ww==
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-61b68644ab4so18421697b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 23 Apr 2024 06:32:28 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLz9dOkU6ja0H0ejz94291C+svqMaAzKhfdrKklmPwazDDjGRCllx5iDCzQzatloOx4fdQXP0++dR7lOM1fDcJpycmMP9sBDUspIsWruqwINi4Ljop8CR0
-X-Gm-Message-State: AOJu0YwUaCJYFwwHtoqJc2REryaU44MuPNaWg2BJxSEDyDeFiQbYI0yI
- kyH4LLLrRyCUAhdYpzOMGJksGiXBklt9fQSV2IlyiUEkuJ78qXQlu4gNfUsCxxA=
-X-Google-Smtp-Source: AGHT+IFQefJU7h8rb4dkLhhIb7FlpFabv8pybeKyFHMNkkIFmzd0O8xUj7u39jSEp0mSnynBk1GipQ==
-X-Received: by 2002:a17:907:1115:b0:a58:7ea5:c49b with SMTP id
- qu21-20020a170907111500b00a587ea5c49bmr1872927ejb.42.1713878536780; 
- Tue, 23 Apr 2024 06:22:16 -0700 (PDT)
-Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
- w23-20020a170907271700b00a556f2f18d6sm6980541ejk.57.2024.04.23.06.22.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Apr 2024 06:22:16 -0700 (PDT)
-Date: Tue, 23 Apr 2024 16:22:12 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Message-ID: <cf050593-44c2-4b4b-8198-215455c630f9@moroto.mountain>
-References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
- <20240415-fix-cocci-v1-11-477afb23728b@chromium.org>
- <d13fd47e-1ecd-4aa8-844b-cd260e9fa437@linaro.org>
+ AJvYcCXcO28swdeqB0hPWdIwYB5IAVaFaYreZwVyrClMNEu9ajtaY3qNQE5L5RDmNEKmbvUFGudPlWfQgDjmSg9AaIbMHP4Cm+Eqw2U/yTAzAH7a6S6L6ZWCfUxe
+X-Gm-Message-State: AOJu0YyIGSetlw2/FdhwyLPP1EcxTiVHeSWk3ekv7j39w+GvaGf0yLXD
+ krXJURJgs7YctALjGlz5Ew2XD5vbZCy+o/mQXdfUGT9/ivMaIVP5j8jq+ovMisdt+/vhD7deHLn
+ kLOk8JlsVk9QXpiGP9U8wUscR4cVbRceU4MpTBQ==
+X-Google-Smtp-Source: AGHT+IFshLz5spQ5CQ8dKF+BBgEo+ryWs5tFujTBrjKdLYE1dJu8PqqxFbvK93HDcogCUI2Ar0hY5OF8o/XSbAfFJgs=
+X-Received: by 2002:a25:6c0b:0:b0:de3:e1ea:d23 with SMTP id
+ h11-20020a256c0b000000b00de3e1ea0d23mr2464770ybc.51.1713879146752; Tue, 23
+ Apr 2024 06:32:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d13fd47e-1ecd-4aa8-844b-cd260e9fa437@linaro.org>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Pavel Machek <pavel@ucw.cz>, Dmitry Osipenko <digetx@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Sergey Kozlov <serjk@netup.ru>, Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Martin Tuma <martin.tuma@digiteqautomotive.com>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- linux-kernel@vger.kernel.org,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Ricardo Ribalda <ribalda@chromium.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>
-Subject: Re: [Linux-stm32] [PATCH 11/35] media: s2255: Use refcount_t
- instead of atomic_t for num_channels
+References: <20240322104732.2327060-1-sean@geanix.com>
+ <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
+In-Reply-To: <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
+From: Robert Foss <rfoss@kernel.org>
+Date: Tue, 23 Apr 2024 15:32:15 +0200
+X-Gmail-Original-Message-ID: <CAN6tsi40-gGgG3Bw-rS4TZBO+=JthWkPh-XqErGvkHdvhqx6tA@mail.gmail.com>
+Message-ID: <CAN6tsi40-gGgG3Bw-rS4TZBO+=JthWkPh-XqErGvkHdvhqx6tA@mail.gmail.com>
+To: Sean Nyekjaer <sean@geanix.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
+	tolerance
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,42 +72,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 23, 2024 at 01:43:49PM +0100, Bryan O'Donoghue wrote:
-> On 15/04/2024 20:34, Ricardo Ribalda wrote:
-> > Use an API that resembles more the actual use of num_channels.
-> > 
-> > Found by cocci:
-> > drivers/media/usb/s2255/s2255drv.c:2362:5-24: WARNING: atomic_dec_and_test variation before object free at line 2363.
-> > drivers/media/usb/s2255/s2255drv.c:1557:5-24: WARNING: atomic_dec_and_test variation before object free at line 1558.
-> 
-> Hmm, that commit log needs more detail.
-> 
-> "Convert from atomic_t to refcount_t because refcount_t has memory ordering
-> guarantees which atomic does not, hence the WARNING for the free after the
-> atomic dec."
-> 
-
-The memory ordering rules are the same.  They're basically identical.
-The difference is that if you decrement a refcount_t past zero it will
-trigger an error and refuse but atomic_t will merrily keep decrementing
-forever.  With refcount_t you can still have a use after free bug but
-afterward the double free will trigger a warning.
-
-There are time where people use atomic_t to get unique number and don't
-care about wrapping so that's fine.  But if it's reference counting then
-use refcount_t.
-
-There wouldn't be a Fixes tag in this case, because hopefully it's just
-hardenning and not a bugfix.
-
-regards,
-dan carpenter
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBcHIgMjIsIDIwMjQgYXQgNDowNuKAr1BNIFNlYW4gTnlla2phZXIgPHNlYW5AZ2Vh
+bml4LmNvbT4gd3JvdGU6Cj4KPiBPbiBGcmksIE1hciAyMiwgMjAyNCBhdCAxMTo0NzozMUFNICsw
+MTAwLCBTZWFuIE55ZWtqYWVyIHdyb3RlOgo+ID4gV2hlbiB1c2luZyB0aGUgRFNJIGludGVyZmFj
+ZSB2aWEgRFNJMkxWRFMgYnJpZGdlLCBpdCBzZWVtcyBhIGJpdCBoYXJzaAo+ID4gdG8gcmVndWly
+ZSB0aGUgcmVxdWVzdGVkIGFuZCB0aGUgYWN0dWFsIHB4IGNsb2NrIHRvIGJlIHdpdGhpbgo+ID4g
+NTBIei4gQSB0eXBpY2FsIExWRFMgZGlzcGxheSByZXF1aXJlcyB0aGUgcHggY2xvY2sgdG8gYmUg
+d2l0aGluICstMTAlLgo+ID4KPiA+IEluIGNhc2UgZm9yIEhETUkgLjUlIHRvbGVyYW5jZSBpcyBy
+ZXF1aXJlZC4KPiA+Cj4gPiBGaXhlczogZTAxMzU2ZDE4MjczICgiZHJtL3N0bTogZHNpOiBwcm92
+aWRlIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiBtb2RlX3ZhbGlkKCkiKQo+ID4gU2lnbmVkLW9mZi1i
+eTogU2VhbiBOeWVramFlciA8c2VhbkBnZWFuaXguY29tPgo+ID4gLS0tCj4gQW55IGZlZWRiYWNr
+IG9uIHRoaXM/Cj4KPiA+ICBkcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jIHwg
+NyArKystLS0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
+bnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2Rz
+aS1zdG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPiA+IGluZGV4
+IGQ1ZjhjOTIzZDdiYy4uOTc5MzZiMGVmNzAyIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9k
+d19taXBpX2RzaS1zdG0uYwo+ID4gQEAgLTMyMiw4ICszMjIsNiBAQCBkd19taXBpX2RzaV9waHlf
+Z2V0X3RpbWluZyh2b2lkICpwcml2X2RhdGEsIHVuc2lnbmVkIGludCBsYW5lX21icHMsCj4gPiAg
+ICAgICByZXR1cm4gMDsKPiA+ICB9Cj4gPgo+ID4gLSNkZWZpbmUgQ0xLX1RPTEVSQU5DRV9IWiA1
+MAo+ID4gLQo+ID4gIHN0YXRpYyBlbnVtIGRybV9tb2RlX3N0YXR1cwo+ID4gIGR3X21pcGlfZHNp
+X3N0bV9tb2RlX3ZhbGlkKHZvaWQgKnByaXZfZGF0YSwKPiA+ICAgICAgICAgICAgICAgICAgICAg
+ICAgICBjb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSwKPiA+IEBAIC0zNzUsOSAr
+MzczLDEwIEBAIGR3X21pcGlfZHNpX3N0bV9tb2RlX3ZhbGlkKHZvaWQgKnByaXZfZGF0YSwKPiA+
+ICAgICAgICAgICAgICAgLyoKPiA+ICAgICAgICAgICAgICAgICogRmlsdGVyIG1vZGVzIGFjY29y
+ZGluZyB0byB0aGUgY2xvY2sgdmFsdWUsIHBhcnRpY3VsYXJseSB1c2VmdWwgZm9yCj4gPiAgICAg
+ICAgICAgICAgICAqIGhkbWkgbW9kZXMgdGhhdCByZXF1aXJlIHByZWNpc2UgcGl4ZWwgY2xvY2tz
+Lgo+ID4gKyAgICAgICAgICAgICAgKiBDaGVjayB0aGF0IHB4X2Nsb2NrIGlzIHdpdGhpbiAuNSUg
+dG9sZXJhbmNlLgo+ID4gICAgICAgICAgICAgICAgKi8KPiA+IC0gICAgICAgICAgICAgaWYgKHB4
+X2Nsb2NrX2h6IDwgdGFyZ2V0X3B4X2Nsb2NrX2h6IC0gQ0xLX1RPTEVSQU5DRV9IWiB8fAo+ID4g
+LSAgICAgICAgICAgICAgICAgcHhfY2xvY2tfaHogPiB0YXJnZXRfcHhfY2xvY2tfaHogKyBDTEtf
+VE9MRVJBTkNFX0haKQo+ID4gKyAgICAgICAgICAgICBpZiAocHhfY2xvY2tfaHogPCBtdWx0X2Zy
+YWModGFyZ2V0X3B4X2Nsb2NrX2h6LCA5OTUsIDEwMDApIHx8Cj4gPiArICAgICAgICAgICAgICAg
+ICBweF9jbG9ja19oeiA+IG11bHRfZnJhYyh0YXJnZXRfcHhfY2xvY2tfaHosIDEwMDUsIDEwMDAp
+KQo+ID4gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBNT0RFX0NMT0NLX1JBTkdFOwo+ID4K
+PiA+ICAgICAgICAgICAgICAgLyogc3luYyBwYWNrZXRzIGFyZSBjb2RlcyBhcyBEU0kgc2hvcnQg
+cGFja2V0cyAoNCBieXRlcykgKi8KPiA+IC0tCj4gPiAyLjQ0LjAKPiA+Cj4KClJldmlld2VkLWJ5
+OiBSb2JlcnQgRm9zcyA8cmZvc3NAa2VybmVsLm9yZz4KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
