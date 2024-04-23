@@ -2,52 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D25608AE235
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 12:30:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B27E8AE612
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:34:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 822BCC7128A;
-	Tue, 23 Apr 2024 10:30:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0224CC7128A;
+	Tue, 23 Apr 2024 12:34:39 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D76A2C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23D1BC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 10:30:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9E355612EE;
- Tue, 23 Apr 2024 10:30:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 38AB2C2BD11;
- Tue, 23 Apr 2024 10:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1713868231;
- bh=ZpvsKpOC8n9lQ6MW2xPW24HPfDqjR7WKOozGXE0/mVo=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=AoVuOjsNcliEIpxWNQj6IHjFI37/OUpM+eoLolH5cxgGPRtcnNQqibE52JJ8IPdx9
- K0cehgY2l/osstWOyTI6ZAtVk/Q9AUbTqyFcqKV76v/UhZt3asNBNm3HlstChknUPh
- yf7E9A2tt0r5W5RyJs4prIwUjKbQZqd5z1MUzLX63wWuFcy/JpOFA4wepJpBsKlA2x
- h7cZ/xAEQ80etxPybKFaWEmK9ILe4SHOvjy1JvQ8liosRrdzrULhcXg7BDScTaBiaY
- j434owkYIJK2aH8HRI/DdMruFQwcdE4KHdgbY4HVHMgA2uFnxpQ5zlvFWuf67GGWNx
- Ks3T9IuVC5TJA==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 222FBC00448; Tue, 23 Apr 2024 10:30:31 +0000 (UTC)
+ Tue, 23 Apr 2024 12:34:38 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43N83BUv026708;
+ Tue, 23 Apr 2024 14:34:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=cJK4T4B
+ KxNcciX0FgHTB0TzdT0JpRtgRnyjJ33vQ2rM=; b=QnvQYAZ6oY4Hg60B3zoTLDS
+ uGcHqIjKtcXmJzlHU/yKC++9fVQD7f6jCc3Wkzqmjn+o97YHE/lMx7dy1QquUD+w
+ qCbRLLfL+tbvOPE4CfcRLA2yGgVGmbEQvwXsecObnw0rf+5FmtmHJNFtcPlHWQST
+ 44WDBUlpblr2aHWUfnoUSD4M8L7U8UTxwVoGelVsJe/08VunEc4JDc74mdWe1tm4
+ fK/av9jV6mceYCSilN9/BtEOVxNmt3R+6oVqwWB9IMclQQklFc+Q7XhoehrWkRuD
+ 5l77VyNpG9Rna/JjTLgSiBXgzY3ZrXqsyw6BoRh4plE4QetLN7T7QBNcaT3iz2w=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm51w3qpr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 Apr 2024 14:34:14 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 43C5440045;
+ Tue, 23 Apr 2024 14:34:09 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBC70217B6B;
+ Tue, 23 Apr 2024 14:33:23 +0200 (CEST)
+Received: from localhost (10.48.86.143) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
+ 2024 14:33:23 +0200
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Tue, 23 Apr 2024 14:32:50 +0200
+Message-ID: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <171386823113.5282.15525637149577989440.git-patchwork-notify@kernel.org>
-Date: Tue, 23 Apr 2024 10:30:31 +0000
-References: <20240419090357.5547-1-fancer.lancer@gmail.com>
-In-Reply-To: <20240419090357.5547-1-fancer.lancer@gmail.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Cc: samuel@sholland.org, siyanteng@loongson.cn, linux-kernel@vger.kernel.org,
- horms@kernel.org, romain.gantois@bootlin.com, netdev@vger.kernel.org,
- chenhuacai@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- jernej.skrabec@gmail.com, linux@armlinux.org.uk, wens@csie.org,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, linux-sunxi@lists.linux.dev,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND net-next v3 0/2] net: stmmac: Fix
- MAC-capabilities procedure
+X-Originating-IP: [10.48.86.143]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-23_11,2024-04-23_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/12] Introduce STM32 DMA3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,36 +76,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+STM32 DMA3 is a direct memory access controller with different features
+depending on its hardware configuration. It is either called LPDMA (Low
+Power), GPDMA (General Purpose) or HPDMA (High Performance), and it can
+be found in new STM32 MCUs and MPUs.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+In STM32MP25 SoC [1], 3 HPDMAs and 1 LPDMA are embedded. Only HPDMAs are
+used by Linux.
 
-On Fri, 19 Apr 2024 12:03:04 +0300 you wrote:
-> The series got born as a result of the discussions around the recent
-> Yanteng' series adding the Loongson LS7A1000, LS2K1000, LS7A2000, LS2K2000
-> MACs support:
-> Link: https://lore.kernel.org/netdev/fu3f6uoakylnb6eijllakeu5i4okcyqq7sfafhp5efaocbsrwe@w74xe7gb6x7p
-> 
-> In particular the Yanteng' patchset needed to implement the Loongson
-> MAC-specific constraints applied to the link speed and link duplex mode.
-> As a result of the discussion with Russel the next preliminary patch was
-> born:
-> Link: https://lore.kernel.org/netdev/df31e8bcf74b3b4ddb7ddf5a1c371390f16a2ad5.1712917541.git.siyanteng@loongson.cn
-> 
-> [...]
+Before adding this new driver, this series gathers existing STM32 DMA
+drivers and bindings under stm32/ subdirectory and adds an entry in
+MAINTAINERS file.
 
-Here is the summary with links:
-  - [RESEND,net-next,v3,1/2] net: stmmac: Rename phylink_get_caps() callback to update_caps()
-    https://git.kernel.org/netdev/net-next/c/dc144baeb4fb
-  - [RESEND,net-next,v3,2/2] net: stmmac: Move MAC caps init to phylink MAC caps getter
-    https://git.kernel.org/netdev/net-next/c/f951a64922a8
+To ease review, the initial "dmaengine: Add STM32 DMA3 support" has been
+split into functionnalities.
+Patches 6 to 9 can be squashed into patch 5.
 
-You are awesome, thank you!
+Patch 10 has already been proposed [2], the API is now used in stm32-dma3
+driver. Indeed, STM32 DMA3 channels can be individually reserved either
+because they are secure, or dedicated to another CPU. These channels are
+not registered in dmaengine, so id is not incremented, but, using the new
+API to specify the channel name, channel name matches the name in the
+Reference Manual and ease requesting a channel thanks to its name.
+
+[1] https://www.st.com/resource/en/reference_manual/rm0457-stm32mp25xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
+[2] https://lore.kernel.org/lkml/20231213174021.3074759-1-amelie.delaunay@foss.st.com/
+
+Amelie Delaunay (12):
+  dt-bindings: dma: New directory for STM32 DMA controllers bindings
+  dmaengine: stm32: New directory for STM32 DMA controllers drivers
+  MAINTAINERS: Add entry for STM32 DMA controllers drivers and
+    documentation
+  dt-bindings: dma: Document STM32 DMA3 controller bindings
+  dmaengine: Add STM32 DMA3 support
+  dmaengine: stm32-dma3: add DMA_CYCLIC capability
+  dmaengine: stm32-dma3: add DMA_MEMCPY capability
+  dmaengine: stm32-dma3: add device_pause and device_resume ops
+  dmaengine: stm32-dma3: improve residue granularity
+  dmaengine: add channel device name to channel registration
+  dmaengine: stm32-dma3: defer channel registration to specify channel
+    name
+  arm64: dts: st: add HPDMA nodes on stm32mp251
+
+ .../dma/{ => stm32}/st,stm32-dma.yaml         |    4 +-
+ .../bindings/dma/stm32/st,stm32-dma3.yaml     |  125 ++
+ .../dma/{ => stm32}/st,stm32-dmamux.yaml      |    4 +-
+ .../dma/{ => stm32}/st,stm32-mdma.yaml        |    4 +-
+ MAINTAINERS                                   |    9 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |   69 +
+ drivers/dma/Kconfig                           |   34 +-
+ drivers/dma/Makefile                          |    4 +-
+ drivers/dma/dmaengine.c                       |   16 +-
+ drivers/dma/idxd/dma.c                        |    2 +-
+ drivers/dma/stm32/Kconfig                     |   47 +
+ drivers/dma/stm32/Makefile                    |    5 +
+ drivers/dma/{ => stm32}/stm32-dma.c           |    2 +-
+ drivers/dma/stm32/stm32-dma3.c                | 1838 +++++++++++++++++
+ drivers/dma/{ => stm32}/stm32-dmamux.c        |    0
+ drivers/dma/{ => stm32}/stm32-mdma.c          |    2 +-
+ include/linux/dmaengine.h                     |    3 +-
+ 17 files changed, 2117 insertions(+), 51 deletions(-)
+ rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-dma.yaml (97%)
+ create mode 100644 Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+ rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-dmamux.yaml (89%)
+ rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-mdma.yaml (96%)
+ create mode 100644 drivers/dma/stm32/Kconfig
+ create mode 100644 drivers/dma/stm32/Makefile
+ rename drivers/dma/{ => stm32}/stm32-dma.c (99%)
+ create mode 100644 drivers/dma/stm32/stm32-dma3.c
+ rename drivers/dma/{ => stm32}/stm32-dmamux.c (100%)
+ rename drivers/dma/{ => stm32}/stm32-mdma.c (99%)
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
