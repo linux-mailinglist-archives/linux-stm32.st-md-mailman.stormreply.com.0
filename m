@@ -2,53 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B27E8AE612
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:34:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697488AE614
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:34:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0224CC7128A;
-	Tue, 23 Apr 2024 12:34:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16DC3C7128F;
+	Tue, 23 Apr 2024 12:34:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23D1BC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E242C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 23 Apr 2024 12:34:38 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43N83BUv026708;
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43N8BEAF022031;
  Tue, 23 Apr 2024 14:34:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=cJK4T4B
- KxNcciX0FgHTB0TzdT0JpRtgRnyjJ33vQ2rM=; b=QnvQYAZ6oY4Hg60B3zoTLDS
- uGcHqIjKtcXmJzlHU/yKC++9fVQD7f6jCc3Wkzqmjn+o97YHE/lMx7dy1QquUD+w
- qCbRLLfL+tbvOPE4CfcRLA2yGgVGmbEQvwXsecObnw0rf+5FmtmHJNFtcPlHWQST
- 44WDBUlpblr2aHWUfnoUSD4M8L7U8UTxwVoGelVsJe/08VunEc4JDc74mdWe1tm4
- fK/av9jV6mceYCSilN9/BtEOVxNmt3R+6oVqwWB9IMclQQklFc+Q7XhoehrWkRuD
- 5l77VyNpG9Rna/JjTLgSiBXgzY3ZrXqsyw6BoRh4plE4QetLN7T7QBNcaT3iz2w=
- =
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding:content-type; s=
+ selector1; bh=lCZb1ivZkuBP+EDUqDQJfohdqRSB9Q5mDHNFqvtQciU=; b=rX
+ dZtibIzKTMfRk1IabY2Kg2rL9yxDChZpeXiMCF8o3h5Fy7Epk8Un0SMA7zzn4WeC
+ 1+IcNdJxLwd9nGWqPwKUbznDqmYRbAtEZmXzD+B3e3S5AQVYnEJJBHxyYu0Z8Wyz
+ GbEbyrCFTkfxkgXFio09gSP1mHQlkk1um9XTShcurAN9l7F/uZyWtxeQzgwEpgE7
+ 0loa1WhUYAd6rxOE1FgOdO6bYhqg1Cmx73Q7lVTScEcVM8AHr+deNCQAsA7rZPmh
+ 7VwGBX1iU3iQ3sSfBeyQR7ukWWSghyTDkIgrjJbnrFeuOroQZucF3CXMhuBQs27V
+ 6QiFTNoOHuCrdkp0/MVw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm51w3qpr-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm4edudpa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 23 Apr 2024 14:34:14 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 43C5440045;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4254940044;
  Tue, 23 Apr 2024 14:34:09 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBC70217B6B;
- Tue, 23 Apr 2024 14:33:23 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8FA6D21A237;
+ Tue, 23 Apr 2024 14:33:24 +0200 (CEST)
 Received: from localhost (10.48.86.143) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 23 Apr
- 2024 14:33:23 +0200
+ 2024 14:33:24 +0200
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 23 Apr 2024 14:32:50 +0200
-Message-ID: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
+Date: Tue, 23 Apr 2024 14:32:51 +0200
+Message-ID: <20240423123302.1550592-2-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
+References: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.48.86.143]
 X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
@@ -59,7 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hardening@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 00/12] Introduce STM32 DMA3 support
+Subject: [Linux-stm32] [PATCH 01/12] dt-bindings: dma: New directory for
+	STM32 DMA controllers bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,77 +79,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 DMA3 is a direct memory access controller with different features
-depending on its hardware configuration. It is either called LPDMA (Low
-Power), GPDMA (General Purpose) or HPDMA (High Performance), and it can
-be found in new STM32 MCUs and MPUs.
+Gather the STM32 DMA controllers bindings under ./dma/stm32/
 
-In STM32MP25 SoC [1], 3 HPDMAs and 1 LPDMA are embedded. Only HPDMAs are
-used by Linux.
-
-Before adding this new driver, this series gathers existing STM32 DMA
-drivers and bindings under stm32/ subdirectory and adds an entry in
-MAINTAINERS file.
-
-To ease review, the initial "dmaengine: Add STM32 DMA3 support" has been
-split into functionnalities.
-Patches 6 to 9 can be squashed into patch 5.
-
-Patch 10 has already been proposed [2], the API is now used in stm32-dma3
-driver. Indeed, STM32 DMA3 channels can be individually reserved either
-because they are secure, or dedicated to another CPU. These channels are
-not registered in dmaengine, so id is not incremented, but, using the new
-API to specify the channel name, channel name matches the name in the
-Reference Manual and ease requesting a channel thanks to its name.
-
-[1] https://www.st.com/resource/en/reference_manual/rm0457-stm32mp25xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
-[2] https://lore.kernel.org/lkml/20231213174021.3074759-1-amelie.delaunay@foss.st.com/
-
-Amelie Delaunay (12):
-  dt-bindings: dma: New directory for STM32 DMA controllers bindings
-  dmaengine: stm32: New directory for STM32 DMA controllers drivers
-  MAINTAINERS: Add entry for STM32 DMA controllers drivers and
-    documentation
-  dt-bindings: dma: Document STM32 DMA3 controller bindings
-  dmaengine: Add STM32 DMA3 support
-  dmaengine: stm32-dma3: add DMA_CYCLIC capability
-  dmaengine: stm32-dma3: add DMA_MEMCPY capability
-  dmaengine: stm32-dma3: add device_pause and device_resume ops
-  dmaengine: stm32-dma3: improve residue granularity
-  dmaengine: add channel device name to channel registration
-  dmaengine: stm32-dma3: defer channel registration to specify channel
-    name
-  arm64: dts: st: add HPDMA nodes on stm32mp251
-
- .../dma/{ => stm32}/st,stm32-dma.yaml         |    4 +-
- .../bindings/dma/stm32/st,stm32-dma3.yaml     |  125 ++
- .../dma/{ => stm32}/st,stm32-dmamux.yaml      |    4 +-
- .../dma/{ => stm32}/st,stm32-mdma.yaml        |    4 +-
- MAINTAINERS                                   |    9 +
- arch/arm64/boot/dts/st/stm32mp251.dtsi        |   69 +
- drivers/dma/Kconfig                           |   34 +-
- drivers/dma/Makefile                          |    4 +-
- drivers/dma/dmaengine.c                       |   16 +-
- drivers/dma/idxd/dma.c                        |    2 +-
- drivers/dma/stm32/Kconfig                     |   47 +
- drivers/dma/stm32/Makefile                    |    5 +
- drivers/dma/{ => stm32}/stm32-dma.c           |    2 +-
- drivers/dma/stm32/stm32-dma3.c                | 1838 +++++++++++++++++
- drivers/dma/{ => stm32}/stm32-dmamux.c        |    0
- drivers/dma/{ => stm32}/stm32-mdma.c          |    2 +-
- include/linux/dmaengine.h                     |    3 +-
- 17 files changed, 2117 insertions(+), 51 deletions(-)
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+ .../devicetree/bindings/dma/{ => stm32}/st,stm32-dma.yaml     | 4 ++--
+ .../devicetree/bindings/dma/{ => stm32}/st,stm32-dmamux.yaml  | 4 ++--
+ .../devicetree/bindings/dma/{ => stm32}/st,stm32-mdma.yaml    | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
  rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-dma.yaml (97%)
- create mode 100644 Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
  rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-dmamux.yaml (89%)
  rename Documentation/devicetree/bindings/dma/{ => stm32}/st,stm32-mdma.yaml (96%)
- create mode 100644 drivers/dma/stm32/Kconfig
- create mode 100644 drivers/dma/stm32/Makefile
- rename drivers/dma/{ => stm32}/stm32-dma.c (99%)
- create mode 100644 drivers/dma/stm32/stm32-dma3.c
- rename drivers/dma/{ => stm32}/stm32-dmamux.c (100%)
- rename drivers/dma/{ => stm32}/stm32-mdma.c (99%)
 
+diff --git a/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma.yaml
+similarity index 97%
+rename from Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
+rename to Documentation/devicetree/bindings/dma/stm32/st,stm32-dma.yaml
+index 329847ef096a..071363d18443 100644
+--- a/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
++++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/dma/st,stm32-dma.yaml#
++$id: http://devicetree.org/schemas/dma/stm32/st,stm32-dma.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: STMicroelectronics STM32 DMA Controller
+@@ -53,7 +53,7 @@ maintainers:
+   - Amelie Delaunay <amelie.delaunay@foss.st.com>
+ 
+ allOf:
+-  - $ref: dma-controller.yaml#
++  - $ref: /schemas/dma/dma-controller.yaml#
+ 
+ properties:
+   "#dma-cells":
+diff --git a/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+similarity index 89%
+rename from Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml
+rename to Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+index e722fbcd8a5f..88c9e88cf3d5 100644
+--- a/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml
++++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/dma/st,stm32-dmamux.yaml#
++$id: http://devicetree.org/schemas/dma/stm32/st,stm32-dmamux.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: STMicroelectronics STM32 DMA MUX (DMA request router)
+@@ -10,7 +10,7 @@ maintainers:
+   - Amelie Delaunay <amelie.delaunay@foss.st.com>
+ 
+ allOf:
+-  - $ref: dma-router.yaml#
++  - $ref: /schemas/dma/dma-router.yaml#
+ 
+ properties:
+   "#dma-cells":
+diff --git a/Documentation/devicetree/bindings/dma/st,stm32-mdma.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-mdma.yaml
+similarity index 96%
+rename from Documentation/devicetree/bindings/dma/st,stm32-mdma.yaml
+rename to Documentation/devicetree/bindings/dma/stm32/st,stm32-mdma.yaml
+index 3874544dfa74..45fe91db11db 100644
+--- a/Documentation/devicetree/bindings/dma/st,stm32-mdma.yaml
++++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-mdma.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/dma/st,stm32-mdma.yaml#
++$id: http://devicetree.org/schemas/dma/stm32/st,stm32-mdma.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: STMicroelectronics STM32 MDMA Controller
+@@ -53,7 +53,7 @@ maintainers:
+   - Amelie Delaunay <amelie.delaunay@foss.st.com>
+ 
+ allOf:
+-  - $ref: dma-controller.yaml#
++  - $ref: /schemas/dma/dma-controller.yaml#
+ 
+ properties:
+   "#dma-cells":
 -- 
 2.25.1
 
