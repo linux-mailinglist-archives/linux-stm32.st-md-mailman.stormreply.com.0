@@ -2,112 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0FA28AE6D4
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:49:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E60868AE7F8
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 15:22:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C4CDC7128A;
-	Tue, 23 Apr 2024 12:49:15 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C8C6C7128A;
+	Tue, 23 Apr 2024 13:22:19 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C41DC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D3E4C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 12:49:13 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-34665dd7610so2752161f8f.3
+ Tue, 23 Apr 2024 13:22:17 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-56e48d0a632so8401461a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 05:49:13 -0700 (PDT)
+ Tue, 23 Apr 2024 06:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713876553; x=1714481353;
+ d=linaro.org; s=google; t=1713878537; x=1714483337;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=GtCF0d5TRfvf1gJjlek+SkbwLI/L240GdEgYBnOFyEs=;
- b=VWqY10WiI1yg/Lpg5B8KFpRGaNydFfKsDc1FFf19GuiwlnRD0/lCTWIqH/Lu2vk6e/
- DwVIUAkuAyLr6F89AIbDa3hhhlSCW7Ius0fgaxcjCFQM6XNj9odRzvAewSKMhL59BqbE
- n+2bAwzkVnE6aG8C/fNt9X6jhqRaaNcsqykVyCDuM0cpufQvi/Trj1wTm3xqRB6T50sY
- LnxM2wX+AV9Jsomq8j2c8fFLEp4wT7bHXinTsKIZ3cNtxQBPPlmoYL7/v7Vt9DiZVlug
- Ce8q36egYXSbIvh5EGOOCvf7xviwaeNFOsDCe8D8Skr1HkeVqDFWR95KQAp4jqtnKqzY
- pKvQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1n7JSfYWxQy0YOfnlGRtbUocgojCIv1pFKvACUA3fEs=;
+ b=wgGDQlB+tGTKpSUFoHfvq7AAoNtlduYYtz1Z0TCrwxwQGVgBoo1Oeeu8JtyoG6C6LE
+ icPxfCejsjdNBzQGEQn2UaveR6X4TuIUr0Pg3Gi2Mql2uPPWPJljIzij4OjgGDectfLK
+ 2DtmCaqUeNVfC4zpxqB21mxhcPAsdliZ04rK4G8WXQEY13Vezydi6p85gofaAecR4431
+ HBHJBprdQ7dlJaXbu8pgAQHFmb71ftzuwfpCeGsx8VmbwRPRK9X10EnSZoV2BNSJUPBq
+ geruh8S01bhf4j63VAvtaK/yPyH9OrQai4bAMDvp9XkOWllBo+DJ/59xCBBJJwwT7Mgw
+ teag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713876553; x=1714481353;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GtCF0d5TRfvf1gJjlek+SkbwLI/L240GdEgYBnOFyEs=;
- b=Ees9NO6YlWFjIs8Rh/jm8w59FHPvOzjHfkDeGd2buIozLDNl4dc9hOWqxdoLIxWll1
- uxuYO0Aq/sYh0VIa5mWpSBrUxJ2gz6n+3r50UDxLc0qMYD1aaGDH05x7AqQDyX8gm4zj
- Uu8uY4eTiFmz0KKNcVkF6Q5w9+4rpldFXRDgWL23S7lhdU2UCMftAouHqJLQh85cJSM+
- Sxrgagmpl0MO9VNgv6lYjI0cm8k3bmLTOinGuMcW/9r9t1wCjJ4AS3Y9hLyncWdC2deC
- tU0MRhTwni63QNTak9hDKTNmAHjt1F/wYbAygpYd3LZTT0tpG9mpA4E1yrRBpG5Glu6i
- kiwA==
+ d=1e100.net; s=20230601; t=1713878537; x=1714483337;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1n7JSfYWxQy0YOfnlGRtbUocgojCIv1pFKvACUA3fEs=;
+ b=WKN8etYJ8ROhmC44B8HvgTxAg6SOiP4cXdDakwX55nt+M4mj3m1WWbb+SbgLX/WEoi
+ 37NSIsshZoYHoTL/F66q7/GzzU6USlrnm1EyUApp9BZKvV6wjMaloGmfxPHIf8JdOFP0
+ w9KN9ssdUVnhBwAc3UMzCOORIRV6Bq2iU7KZ+xwTC6knvDQSiCk6EG/S4IbbxA3CvS9K
+ Wlavj4U+qJM1ufmFOXFnEk9tQSg+6owMErJXcTF0Se+1iIW6d/3+gYYeNCfvedQGlWeG
+ Xgyd7PjqTRu2+SckHiUfVIAy90lapYBPZhorld2LTeMzFZqDkdzByZwUFja0wQZhCU5I
+ xNKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7cJAryF1D3J4/EGcLdkWShsDxxWNspCk0GIoOEM5pRZJfG/Uu38HDosoM99xRl5ZQypWkgZGamzgIYj1O3MXKN66MrhxzVoyqPCQBHSD6kb34dz0idWF5
-X-Gm-Message-State: AOJu0YxAVmn0zXnkfESDWRaME0OhhNaJbKNS096vA2VJZjfQs/NuBA33
- NiRIJClAXzQJTgdsqIQSTta9dhrIAf0fM4zaqDQqM3n9N9jmRqkOLkyr7jFAnXY=
-X-Google-Smtp-Source: AGHT+IFQ/wvfOsFaUdKh98XxWAyZjDTRY072QmJCxCCxJbX9yzwrMnJqlpUXpbY2Dl+AdrwFqOGXDg==
-X-Received: by 2002:a05:6000:1e89:b0:34a:9afe:76f with SMTP id
- dd9-20020a0560001e8900b0034a9afe076fmr5609928wrb.30.1713876553387; 
- Tue, 23 Apr 2024 05:49:13 -0700 (PDT)
-Received: from [192.168.0.102] ([176.61.106.227])
- by smtp.gmail.com with ESMTPSA id
- y18-20020a056000109200b00343300a4eb8sm13594089wrw.49.2024.04.23.05.49.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 05:49:12 -0700 (PDT)
-Message-ID: <515e2718-7e1b-42c0-9d61-a10d00f12a31@linaro.org>
-Date: Tue, 23 Apr 2024 13:49:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Ricardo Ribalda <ribalda@chromium.org>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Sergey Kozlov <serjk@netup.ru>,
- Abylay Ospan <aospan@netup.ru>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Dmitry Osipenko <digetx@gmail.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Pavel Machek <pavel@ucw.cz>
+ AJvYcCWLz9dOkU6ja0H0ejz94291C+svqMaAzKhfdrKklmPwazDDjGRCllx5iDCzQzatloOx4fdQXP0++dR7lOM1fDcJpycmMP9sBDUspIsWruqwINi4Ljop8CR0
+X-Gm-Message-State: AOJu0YwUaCJYFwwHtoqJc2REryaU44MuPNaWg2BJxSEDyDeFiQbYI0yI
+ kyH4LLLrRyCUAhdYpzOMGJksGiXBklt9fQSV2IlyiUEkuJ78qXQlu4gNfUsCxxA=
+X-Google-Smtp-Source: AGHT+IFQefJU7h8rb4dkLhhIb7FlpFabv8pybeKyFHMNkkIFmzd0O8xUj7u39jSEp0mSnynBk1GipQ==
+X-Received: by 2002:a17:907:1115:b0:a58:7ea5:c49b with SMTP id
+ qu21-20020a170907111500b00a587ea5c49bmr1872927ejb.42.1713878536780; 
+ Tue, 23 Apr 2024 06:22:16 -0700 (PDT)
+Received: from localhost ([102.222.70.76]) by smtp.gmail.com with ESMTPSA id
+ w23-20020a170907271700b00a556f2f18d6sm6980541ejk.57.2024.04.23.06.22.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Apr 2024 06:22:16 -0700 (PDT)
+Date: Tue, 23 Apr 2024 16:22:12 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Message-ID: <cf050593-44c2-4b4b-8198-215455c630f9@moroto.mountain>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
- <20240415-fix-cocci-v1-13-477afb23728b@chromium.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20240415-fix-cocci-v1-13-477afb23728b@chromium.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 13/35] media: common: saa7146: Use min
-	macro
+ <20240415-fix-cocci-v1-11-477afb23728b@chromium.org>
+ <d13fd47e-1ecd-4aa8-844b-cd260e9fa437@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <d13fd47e-1ecd-4aa8-844b-cd260e9fa437@linaro.org>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Pavel Machek <pavel@ucw.cz>, Dmitry Osipenko <digetx@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Sergey Kozlov <serjk@netup.ru>, Samuel Holland <samuel@sholland.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
+ linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Ricardo Ribalda <ribalda@chromium.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>
+Subject: Re: [Linux-stm32] [PATCH 11/35] media: s2255: Use refcount_t
+ instead of atomic_t for num_channels
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,22 +112,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 15/04/2024 20:34, Ricardo Ribalda wrote:
-> Simplifies the code. Found by cocci:
+On Tue, Apr 23, 2024 at 01:43:49PM +0100, Bryan O'Donoghue wrote:
+> On 15/04/2024 20:34, Ricardo Ribalda wrote:
+> > Use an API that resembles more the actual use of num_channels.
+> > 
+> > Found by cocci:
+> > drivers/media/usb/s2255/s2255drv.c:2362:5-24: WARNING: atomic_dec_and_test variation before object free at line 2363.
+> > drivers/media/usb/s2255/s2255drv.c:1557:5-24: WARNING: atomic_dec_and_test variation before object free at line 1558.
 > 
-> drivers/media/common/saa7146/saa7146_hlp.c:125:36-37: WARNING opportunity for min()
-> drivers/media/common/saa7146/saa7146_hlp.c:154:41-42: WARNING opportunity for min()
-> drivers/media/common/saa7146/saa7146_hlp.c:286:35-36: WARNING opportunity for min()
-> drivers/media/common/saa7146/saa7146_hlp.c:289:35-36: WARNING opportunity for min()
+> Hmm, that commit log needs more detail.
 > 
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> "Convert from atomic_t to refcount_t because refcount_t has memory ordering
+> guarantees which atomic does not, hence the WARNING for the free after the
+> atomic dec."
+> 
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+The memory ordering rules are the same.  They're basically identical.
+The difference is that if you decrement a refcount_t past zero it will
+trigger an error and refuse but atomic_t will merrily keep decrementing
+forever.  With refcount_t you can still have a use after free bug but
+afterward the double free will trigger a warning.
+
+There are time where people use atomic_t to get unique number and don't
+care about wrapping so that's fine.  But if it's reference counting then
+use refcount_t.
+
+There wouldn't be a Fixes tag in this case, because hopefully it's just
+hardenning and not a bugfix.
+
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
