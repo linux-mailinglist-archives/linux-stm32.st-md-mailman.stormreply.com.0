@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A4358AE688
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2C718AE6B2
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Apr 2024 14:46:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27486C7128B;
-	Tue, 23 Apr 2024 12:43:55 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CA06C7128A;
+	Tue, 23 Apr 2024 12:46:38 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 356FDC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D096DC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 12:43:53 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3476dcd9c46so4226803f8f.0
+ Tue, 23 Apr 2024 12:46:36 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-34b3374ae22so1810245f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 05:43:53 -0700 (PDT)
+ Tue, 23 Apr 2024 05:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1713876232; x=1714481032;
+ d=linaro.org; s=google; t=1713876396; x=1714481196;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=+qnKAwgvBHM35XCDpuBit4GUKItb+LTK0jOfybUvb7k=;
- b=qjOMAoeIQzqOvnEAyRjqegt9JWui9t/baarNEPNY5uUwj+0I1vH9bDbQd44HQztsb6
- 9xqSJpST5BJ42cYOwXvo9pY0WMy8Iw8MAC2+NY5BiEjoOnZnHHYedMB+UY09r0/qHW4Q
- EChDfEgW91yR6TUd0nGOZLJSk8TKJQKl0FPPQXk1033js+PiVSXqieO9uzkTmKWQF2sW
- s2O/4lm0zyI4D13Wu9D7QZLpc6ZpJwDMJF/CcWPULHxNEifDU8/gIHQ52Sgz77KrT19B
- 03jRaKwZHx6uVCfNN1kvEfG5wPxiN5tyskSHZiK10dQt+x+0NoY/Ii0p8AjSHWK/Q/vZ
- y6Pw==
+ bh=SnPvo8X71/HjmVfrFSADYDRaBhD7wOKAzatHqFXk968=;
+ b=eU1ZKCFw+9twQ9HwCO5XttqSLejbGXIWP/9iPDJo1EOUxzqnY1OCL1j/XczEOSw1sx
+ VOFk/M5ib2SJTqWuHyrSfIRyR60J/3081B6PwDsuSL6BAqbkBZFKYr38q+rt3P1RIeqO
+ EXbPrfT7zLE9EQES01eTYPNhKEOrmFdWLYMXpiYj2W/q6bkWLvqBtaMjY3Lm6GqyYdk2
+ PMQ9/ZMZyuFdF/BRAuyyjoHf0TUYM1pDWv7yXKXIZaIKdr+dmM8+vUtM/VqipIUzYkFc
+ 56umFSke4b3LJljzpaZGmWJQD7JRWJrGju2rfuZqlUHDd0ZxGyDH3CsdTM88UT3639WZ
+ /Rww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713876232; x=1714481032;
+ d=1e100.net; s=20230601; t=1713876396; x=1714481196;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+qnKAwgvBHM35XCDpuBit4GUKItb+LTK0jOfybUvb7k=;
- b=p2E4i20V/A8dHtkMJ4VjEt2+hNBPDXIxb6wEId3SYXawUFgibu0bao2uwDSACjZcH+
- odZBNgp5jwSKJNy4zH/j2BUZ5Iu14bt/gwNxQcgRz96ip92qUamUBJsu9XhL+9jcBQnc
- csU8mnkNmnSaswNM+fjasr75WcsgssbnJM9j+GybrTvetxPNpBfnDBqL7AY/blYqEytQ
- 3YJ/gZzU6U5OZIa+mWZjcwAisPCQRdakb4wffuN9yvi6VriYwe40YYV/z0IGW4Cgpssn
- UuPoXdeSti4eIonrzbAWPPEGGaCYSvpyvNwRac6EsjwD4WeU6Z7jQ2UlopNFTfoFCWZC
- a4QA==
+ bh=SnPvo8X71/HjmVfrFSADYDRaBhD7wOKAzatHqFXk968=;
+ b=Rymdm9gF29yKxIQEC2qZoTpR6XEP27aGoO8a8jwW2T0nKf+C7CP5ue85Pz7nERGtY4
+ gnayUKqQmcZSV+CXJq1oqETpiURDgTLSBOeBjkksJipwekmKJF/rvphXV6MMq2SPjuiP
+ 5G//BRATl18FQVHdzITnXI9ObUtiY1+7RTYHDqYm9FrqAadLnlhSgfncMaE/t9xfqams
+ TiDghBLShT6ZecLtevMfPHRlVU/N/dk42T0BixmFREpHQlVrnsmnruMo146k/onn9/DZ
+ 7jIYtHK9azQ2fo5cl82ACMQVqSPEjwSCodxBsBEDbUCRSVfzfPEum6tqvIAaCeTF2mCr
+ 0B4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUnKEvWhucMwHKtIteH1BqrZ4u7YQeq2mdjPwt4RKYvqhOlU/0sk3EG68hiUhMPPX0kpQIidIzu/99Nmwj43y12tWt8Dbty3TtONpJ4CntWprBVlgpagX6P
-X-Gm-Message-State: AOJu0YwNFSHlAAa1T2CqX/pCnb19BBeeSBORIrQQrL8qE85NW+HyPUfC
- 95iwRsEt7LClvA3eDM9W5gtW/6kFy/+aJf9ywRcE/UermHY9pHxGYu80nUJJkRY=
-X-Google-Smtp-Source: AGHT+IHx5NN+z23VludiFeHTrKmrJCe4gLG+r1lTx6C4j7QEMysWQLMdtEpvLnQqAlOL1NQMbBj3Zg==
-X-Received: by 2002:a5d:6a8d:0:b0:34b:5caf:6342 with SMTP id
- s13-20020a5d6a8d000000b0034b5caf6342mr2073298wru.67.1713876232556; 
- Tue, 23 Apr 2024 05:43:52 -0700 (PDT)
+ AJvYcCXN65vYKb1mXMXREqT2lX1htE+PisDv91g1I2d3Re8IbKwGkPJIQgzMypxdpuYHjgOrN3Ep/dmsIbdmgpoXpmFKXGfVkDrsgiJQR62WqDknsxmOVRtPb38H
+X-Gm-Message-State: AOJu0YyzzrF5vRdPzDgclDY5wN3a9BYLKUE1pyj/vDnLTwl6nixKCJsu
+ np9e4SVld852sA//oftHMLYWmw3Ox/USq2JFSjDpQHWH7drKFNz6bhwsIYfjBzU=
+X-Google-Smtp-Source: AGHT+IG+1vx5mJkN+16nkw6DrmjKX/bCAbSI7iHWCeWcx9NCAuHfmO/i6PUYzl4PV0Sl6Y/Ow1sbhA==
+X-Received: by 2002:adf:b197:0:b0:349:f83f:9ebf with SMTP id
+ q23-20020adfb197000000b00349f83f9ebfmr11081490wra.5.1713876396189; 
+ Tue, 23 Apr 2024 05:46:36 -0700 (PDT)
 Received: from [192.168.0.102] ([176.61.106.227])
  by smtp.gmail.com with ESMTPSA id
- r16-20020a5d6950000000b003477d26736dsm14506412wrw.94.2024.04.23.05.43.50
+ y7-20020a5d6207000000b00346f9071405sm14531796wru.21.2024.04.23.05.46.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Apr 2024 05:43:52 -0700 (PDT)
-Message-ID: <d13fd47e-1ecd-4aa8-844b-cd260e9fa437@linaro.org>
-Date: Tue, 23 Apr 2024 13:43:49 +0100
+ Tue, 23 Apr 2024 05:46:35 -0700 (PDT)
+Message-ID: <44d6ab8c-3810-46ac-8e54-c125b5c29199@linaro.org>
+Date: Tue, 23 Apr 2024 13:46:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ricardo Ribalda <ribalda@chromium.org>,
@@ -97,17 +97,17 @@ To: Ricardo Ribalda <ribalda@chromium.org>,
  =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Pavel Machek <pavel@ucw.cz>
 References: <20240415-fix-cocci-v1-0-477afb23728b@chromium.org>
- <20240415-fix-cocci-v1-11-477afb23728b@chromium.org>
+ <20240415-fix-cocci-v1-12-477afb23728b@chromium.org>
 Content-Language: en-US
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20240415-fix-cocci-v1-11-477afb23728b@chromium.org>
+In-Reply-To: <20240415-fix-cocci-v1-12-477afb23728b@chromium.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 11/35] media: s2255: Use refcount_t
- instead of atomic_t for num_channels
+Subject: Re: [Linux-stm32] [PATCH 12/35] media: platform: mtk-mdp3: Use
+ refcount_t for job_count
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,27 +125,21 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 15/04/2024 20:34, Ricardo Ribalda wrote:
-> Use an API that resembles more the actual use of num_channels.
+> Use an API that resembles more the actual use of job_count.
 > 
 > Found by cocci:
-> drivers/media/usb/s2255/s2255drv.c:2362:5-24: WARNING: atomic_dec_and_test variation before object free at line 2363.
-> drivers/media/usb/s2255/s2255drv.c:1557:5-24: WARNING: atomic_dec_and_test variation before object free at line 1558.
+> drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:527:5-24: WARNING: atomic_dec_and_test variation before object free at line 541.
+> drivers/media/platform/mediatek/mdp3/mtk-mdp3-cmdq.c:578:6-25: WARNING: atomic_dec_and_test variation before object free at line 581.
 
-Hmm, that commit log needs more detail.
+Same comment here as per the previous patch.
 
-"Convert from atomic_t to refcount_t because refcount_t has memory 
-ordering guarantees which atomic does not, hence the WARNING for the 
-free after the atomic dec."
-
-Something like that.
-
-I'll leave it up to yourself to decide if this warrants a Fixes:
-
-I don't think so myself because the previous code doesn't seem to matter 
-to the decrement and free.
+You should explain in terms of the memory ordering that refcount_t gives 
+so that the intention of the WARNING and the API change is well 
+communicated.
 
 ---
 bod
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
