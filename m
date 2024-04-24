@@ -2,71 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 662478B0BB3
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 15:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC408B0C84
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 16:29:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2435CC7128C;
-	Wed, 24 Apr 2024 13:58:33 +0000 (UTC)
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2221BC7128C;
+	Wed, 24 Apr 2024 14:29:58 +0000 (UTC)
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D12D7C7128B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CA53C7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 13:58:31 +0000 (UTC)
-Received: by mail-oo1-f49.google.com with SMTP id
- 006d021491bc7-5aa17c29ba0so4070618eaf.3
+ Wed, 24 Apr 2024 14:29:56 +0000 (UTC)
+Received: by mail-il1-f170.google.com with SMTP id
+ e9e14a558f8ab-369e3c29aedso29735545ab.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 06:58:31 -0700 (PDT)
+ Wed, 24 Apr 2024 07:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1713967110; x=1714571910;
+ d=gmail.com; s=20230601; t=1713968995; x=1714573795;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=47bZdX0wm5QrsJ8T2X7IRvwqReXemUOe2I5iAISiMQM=;
- b=j6fRCZq6xBlNsLK73UC9jvWV9Q3o+ZCkMxCC97OHpFYZ4evz8zkW81nJmLj12LAT5r
- uomqQ+mSfmJacBWEG2ozeQcCxbHIKaZC8s7fLGaQfNl4TlK4WsgaWZIcmiBvQJodVxrb
- FMCrkfkrGxTSN3G6yMDu1kDugcv9TK4i0FeWmKxXs3yPRMkeEzOo2aiGwvZqQMX/ey9M
- BmvNeCngXK1Tj1NZTHalj46gxjvtaO8GWbIbPTVBbTnu9v58xJR8UGZOesQ2LGnBAhtP
- U0BeTly/Fhgz2P4XJehHfeH45fcVZEssHtvyVo0T0kDxaa9BtyyMK61aWUyGFhPfnJzS
- hgEQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CKrtiFG0UE+ikFKGmO4FtGR8vkeqkLcj1oUGJzlR1fw=;
+ b=SjFMqAoF/9uZTP/mqntmkzQxSYPAucg5ZJZxQMLGs/e21xkE2vLsZYfiNoEK3+msyp
+ kob5CerKr2cNimUTbs7AM51XJ+fshypbqrE6Zu8jqSltVarZCGiHhHiQePAeVbKDeVeo
+ InczzPdOJM2ucQ2afH+SrgYTgcJrNljW/fWr3YYCpagjQHZh8ln+KzSQBvHxnfKQ3jEu
+ zGTS2RcWU/dRv5lTK4KYPzjnQP72FReAR8GsPIf7t5ttRT1CtuqdE08JJmS4s88D0QhP
+ zYIG/nd/PCOB88Saem0TwU6gtbXmdJN6naD0msXA0geDr9ODoyN9+WozCSoBMVv3zs30
+ syFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713967110; x=1714571910;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=47bZdX0wm5QrsJ8T2X7IRvwqReXemUOe2I5iAISiMQM=;
- b=Ss/BUora38Z0t9O5Kx3f93qHTkc6+BFTPYBid7lQgwDcRwiLIC8z8qjcwhjy4gE4ly
- KcQyYOyDLjAhM+0oQbIGQjL5HGuX4r8viY/F+Wai/FzqQa4TUIZ1NjuqCcDZJsubpst+
- BtxBeIz0f2M+XFUdQoIn2oE/BUO3g7f/5TeE52uZHDcreSfLwXX47twbdslK8hyHC9s4
- hBrJ/BdbiOXsILzdX63smBEi5m0NwlzHZXet5R3KQD2HEQQEHx+2jNCIVW5X6AF9oD21
- ubocDIAplPUekjOATVjQ5f39DlQDBV46FmF+hffFhua0uJlzUndq+kqxZsB5H7eulYiT
- tFMw==
+ d=1e100.net; s=20230601; t=1713968995; x=1714573795;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CKrtiFG0UE+ikFKGmO4FtGR8vkeqkLcj1oUGJzlR1fw=;
+ b=cqNcKM8HGk6zE3wT0HuuTV8z05vqHDfOf0AjbhRl5YZhci8eV0GI2Smpbb/oyNlkot
+ xr7tHDYGg8zstLTZzzYMZ1xj1jCmW+/CPl25rpZUniJ/mEQYo7xVvrs0nO1TPaXwqAQU
+ nJvRf7/YYExryHzud4CUUvb3z48FeIY912lLBsCXQ4r5lt/V5v27W588quzCaxui/muf
+ qNsoLqa0Dqhul7rf8HrIExvn3XmE/lq+2yq5GoR+QgoH5lJ1Yo7cjeXf+id4fsQ30Zyb
+ rF3+/kpPFMWS4ztDNRm0AvFitHc0DZGe9Z3xTdfbN8IA6INaHC35B4BPF1LgaN1cvqnV
+ 1bWw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXAPRMr3Fc1F0GJD+P5VZ7gBaH46KQmsUyG11zQS0lMc80urxPQBvux2kpuubeVSD2OZp9A30AlZOQFLmaq5A58Hp/B8ncn3DUYX48zNLF53JKq0NS2DB0D
-X-Gm-Message-State: AOJu0YxCGfhpi+V2TUg/ImMF5Op5ESAYy5a0bLx2WSYAWq5Lz9C+OT2m
- JfIleEtZ02quq2Zw7udEAjNxzjZrPsg8KdDgdIkEOoeAS/xsK9ZgYarVaVqNFQY=
-X-Google-Smtp-Source: AGHT+IFyaaQ1OHVKcO48XtLcq1OfECVxsFjh6fMY/zT6Sx7rwkI0+KafbZXkwOwQXI0UPi0u+CFVAQ==
-X-Received: by 2002:a05:6358:5d8d:b0:17e:b867:cb99 with SMTP id
- s13-20020a0563585d8d00b0017eb867cb99mr3311133rwm.1.1713967110512; 
- Wed, 24 Apr 2024 06:58:30 -0700 (PDT)
-Received: from localhost.localdomain ([50.212.55.90])
+ AJvYcCUbpBieUuzoPA3lB32ocNgJTDa0fo/VkMiiFjFvEXcV6k1Eq9hjN8wdE7J9Zl5wcD+WMxHPmQuAOAuRCrmM3llG0rf3uixiQuFGpmzIM6uVEee0/khEIAPG
+X-Gm-Message-State: AOJu0Yw6ExxiutfvgS0Ln5Z1nmP0mOmAF8grreJge1LquHkcWKYs0S+A
+ xFY26WLnlu8IGQD2aLtrbhWU9AYYggwcDdGFSrb8hcwZC4I6iWfI
+X-Google-Smtp-Source: AGHT+IH5nG+woSZE5slYDOLAGQomRFgwgnnIIYEPGWVZEfq0Lp6lq6bTwAH998gKRg6GsNujcv7Hgw==
+X-Received: by 2002:a05:6e02:1568:b0:36c:b88:e492 with SMTP id
+ k8-20020a056e02156800b0036c0b88e492mr2924351ilu.19.1713968994873; 
+ Wed, 24 Apr 2024 07:29:54 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- h2-20020ac85682000000b004365ab2894asm6120931qta.51.2024.04.24.06.58.29
+ r13-20020a056638300d00b00482b12a0776sm4232950jak.27.2024.04.24.07.29.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Apr 2024 06:58:29 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-spi@vger.kernel.org
-Date: Wed, 24 Apr 2024 09:52:38 -0400
-Message-ID: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.44.0
+ Wed, 24 Apr 2024 07:29:54 -0700 (PDT)
+Date: Wed, 24 Apr 2024 17:29:46 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Message-ID: <qf637dtkakxbumefbei3qrhbpyxgerjwn72ixp5xh6mc6yjbda@6z6tm6hk7fki>
+References: <20240424-rzn1-gmac1-v4-0-852a5f2ce0c0@bootlin.com>
+ <20240424-rzn1-gmac1-v4-2-852a5f2ce0c0@bootlin.com>
 MIME-Version: 1.0
-Cc: Mark Brown <broonie@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <20240424-rzn1-gmac1-v4-2-852a5f2ce0c0@bootlin.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ben Wolsieffer <ben.wolsieffer@hefring.com>
-Subject: [Linux-stm32] [PATCH v2] spi: stm32: enable controller before
-	asserting CS
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/5] net: stmmac: introduce
+ pcs_init/pcs_exit stmmac operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,124 +97,135 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On the STM32F4/7, the MOSI and CLK pins float while the controller is
-disabled. CS is a regular GPIO, and therefore always driven. Currently,
-the controller is enabled in the transfer_one() callback, which runs
-after CS is asserted.  Therefore, there is a period where the SPI pins
-are floating while CS is asserted, making it possible for stray signals
-to disrupt communications. An analogous problem occurs at the end of the
-transfer when the controller is disabled before CS is released.
+Hi Romain
 
-This problem can be reliably observed by enabling the pull-up (if
-CPOL=0) or pull-down (if CPOL=1) on the clock pin. This will cause two
-extra unintended clock edges per transfer, when the controller is
-enabled and disabled.
+On Wed, Apr 24, 2024 at 11:06:20AM +0200, Romain Gantois wrote:
+> From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+> 
+> Introduce a mechanism whereby platforms can create their PCS instances
+> prior to the network device being published to userspace, but after
+> some of the core stmmac initialisation has been completed. This means
+> that the data structures that platforms need will be available.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> [rgantois: removed second parameters of new callbacks]
+> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 14 ++++++++++++++
+>  include/linux/stmmac.h                            |  2 ++
+>  2 files changed, 16 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 59bf83904b62d..bee9c9ab31a88 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -7200,6 +7200,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (priv->plat->pcs_init) {
+> +		ret = priv->plat->pcs_init(priv);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
 
-Note that this bug is likely not present on the STM32H7, because this
-driver sets the AFCNTR bit (not supported on F4/F7), which keeps the SPI
-pins driven even while the controller is disabled.
+Once again. There is a ready-to-use stmmac_xpcs_setup() method. Which
+is currently intended for the XPCS setups. Let's collect all the
+PCS-related stuff in a single place there. That will make code cleaner
+and easier to read. This was discussed on v3:
 
-Enabling/disabling the controller as part of runtime PM was suggested as
-an alternative approach, but this breaks the driver on the STM32MP1 (see
-[1]). The following quote from the manual may explain this:
+https://lore.kernel.org/netdev/42chuecdt7dpgm6fcrtt2crifvv5hflmtnmdrw5fvk3r7pwjgu@hlcv56dbeosf/
 
-> To restart the internal state machine properly, SPI is strongly
-> suggested to be disabled and re-enabled before next transaction starts
-> despite its setting is not changed.
+You agreed to do that, but just ignored in result. I'll repeat what I
+said in v3:
 
-This patch has been tested on an STM32F746 with a MAX14830 UART
-expander.
+On Tue, 16 Apr 2024 16:41:33 +0300, Serge Semin wrote:
+> I am currently working on my Memory-mapped DW XPCS patchset cooking:
+> https://lore.kernel.org/netdev/20231205103559.9605-1-fancer.lancer@gmail.com/
+> The changes in this series seems to intersect to what is/will be
+> introduced in my patchset. In particular as before I am going to
+> use the "pcs-handle" property for getting the XPCS node. If so what
+> about collecting PCS-related things in a single place. Like this:
+>
+> int stmmac_xpcs_setup(struct net_device *ndev)
+> {
+> 	...
+> 
+> 	if (priv->plat->pcs_init) {
+> 		return priv->plat->pcs_init(priv); /* Romain' part */
+> 	} else if (fwnode_property_present(priv->plat->port_node, "pcs-handle")) {
+> 		/* My DW XPCS part */
+> 	} else if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
+> 		/* Currently implemented procedure */
+> 	}
+> 
+> 	...
+> }
+>
+> void stmmac_xpcs_clean(struct net_device *ndev)
+> {
+> 	...
+> 
+> 	if (priv->plat->pcs_exit) {
+> 		priv->plat->pcs_exit(priv);
+> 		return;
+> 
+> 	}
+> 
+> 	xpcs_destroy(priv->hw->xpcs);
+> 	priv->hw->xpcs = NULL;
+> }
+> 
+> Please see the last two patches in my series:
+> https://lore.kernel.org/netdev/20231205103559.9605-16-fancer.lancer@gmail.com/
+> https://lore.kernel.org/netdev/20231205103559.9605-17-fancer.lancer@gmail.com/
+> as a reference of how the changes could be provided.
 
-[1] https://lore.kernel.org/lkml/ZXzRi_h2AMqEhMVw@dell-precision-5540/T/
+You replied it was a good idea, but the function names should be
+renamed. That's not a problem. Just create a pre-requisite patch which
+does that. So the patch in the subject could be replaced with four
+subsequent patches:
 
-Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
----
-v2:
- * Improve explanation of problem
- * Discuss why not to use runtime PM instead
+1. Move the conditional XPCS-setup execution into the
+stmmac_xpcs_setup() method. This change is partly implemented here
+https://lore.kernel.org/netdev/20231205103559.9605-17-fancer.lancer@gmail.com/
 
- drivers/spi/spi-stm32.c | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+2. Rename stmmac_xpcs_setup() method to just stmmac_pcs_setup() as a
+preparation before adding the platform-specific PCS init()/exit()
+callbacks.
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index e4e7ddb7524a..4a68abcdcc35 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -1016,10 +1016,8 @@ static irqreturn_t stm32fx_spi_irq_event(int irq, void *dev_id)
- static irqreturn_t stm32fx_spi_irq_thread(int irq, void *dev_id)
- {
- 	struct spi_controller *ctrl = dev_id;
--	struct stm32_spi *spi = spi_controller_get_devdata(ctrl);
- 
- 	spi_finalize_current_transfer(ctrl);
--	stm32fx_spi_disable(spi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -1187,6 +1185,8 @@ static int stm32_spi_prepare_msg(struct spi_controller *ctrl,
- 			 ~clrb) | setb,
- 			spi->base + spi->cfg->regs->cpol.reg);
- 
-+	stm32_spi_enable(spi);
-+
- 	spin_unlock_irqrestore(&spi->lock, flags);
- 
- 	return 0;
-@@ -1204,7 +1204,6 @@ static void stm32fx_spi_dma_tx_cb(void *data)
- 
- 	if (spi->cur_comm == SPI_SIMPLEX_TX || spi->cur_comm == SPI_3WIRE_TX) {
- 		spi_finalize_current_transfer(spi->ctrl);
--		stm32fx_spi_disable(spi);
- 	}
- }
- 
-@@ -1219,7 +1218,6 @@ static void stm32_spi_dma_rx_cb(void *data)
- 	struct stm32_spi *spi = data;
- 
- 	spi_finalize_current_transfer(spi->ctrl);
--	spi->cfg->disable(spi);
- }
- 
- /**
-@@ -1307,8 +1305,6 @@ static int stm32fx_spi_transfer_one_irq(struct stm32_spi *spi)
- 
- 	stm32_spi_set_bits(spi, STM32FX_SPI_CR2, cr2);
- 
--	stm32_spi_enable(spi);
--
- 	/* starting data transfer when buffer is loaded */
- 	if (spi->tx_buf)
- 		spi->cfg->write_tx(spi);
-@@ -1345,8 +1341,6 @@ static int stm32h7_spi_transfer_one_irq(struct stm32_spi *spi)
- 
- 	spin_lock_irqsave(&spi->lock, flags);
- 
--	stm32_spi_enable(spi);
--
- 	/* Be sure to have data in fifo before starting data transfer */
- 	if (spi->tx_buf)
- 		stm32h7_spi_write_txfifo(spi);
-@@ -1378,8 +1372,6 @@ static void stm32fx_spi_transfer_one_dma_start(struct stm32_spi *spi)
- 		 */
- 		stm32_spi_set_bits(spi, STM32FX_SPI_CR2, STM32FX_SPI_CR2_ERRIE);
- 	}
--
--	stm32_spi_enable(spi);
- }
- 
- /**
-@@ -1413,8 +1405,6 @@ static void stm32h7_spi_transfer_one_dma_start(struct stm32_spi *spi)
- 
- 	stm32_spi_set_bits(spi, STM32H7_SPI_IER, ier);
- 
--	stm32_spi_enable(spi);
--
- 	if (STM32_SPI_HOST_MODE(spi))
- 		stm32_spi_set_bits(spi, STM32H7_SPI_CR1, STM32H7_SPI_CR1_CSTART);
- }
--- 
-2.44.0
+3. Introduce the PCS-cleanup method. You can pick it up from here, but
+use the stmmac_pcs_clean() name:
+https://lore.kernel.org/netdev/20231205103559.9605-16-fancer.lancer@gmail.com/
 
+4. Add pcc_init()/pcs_exit() callbacks as it's done in this patch but
+call them in the stmmac_pcs_setup()/stmmac_pcs_clean() methods
+instead of open-coding in the more generic
+stmmac_hw_init()/stmmac_hw_exit() functions.
+
+It doesn't look as that much hard thing to do, but will cause having a
+better readable code by providing a single coherent function for all
+PCS'es.
+
+-Serge(y)
+
+>  	/* Get the HW capability (new GMAC newer than 3.50a) */
+>  	priv->hw_cap_support = stmmac_get_hw_features(priv);
+>  	if (priv->hw_cap_support) {
+> @@ -7282,6 +7288,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+>  	return 0;
+>  }
+>  
+> +static void stmmac_hw_exit(struct stmmac_priv *priv)
+> +{
+> +	if (priv->plat->pcs_exit)
+> +		priv->plat->pcs_exit(priv);
+> +}
+> +
+>
+> [...]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
