@@ -2,84 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8371E8B018D
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 08:10:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06938B0309
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 09:21:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C951C6DD6D;
-	Wed, 24 Apr 2024 06:10:15 +0000 (UTC)
-Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
- [209.85.219.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8459DC6DD6D;
+	Wed, 24 Apr 2024 07:21:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5715C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD956C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 06:10:14 +0000 (UTC)
-Received: by mail-yb1-f182.google.com with SMTP id
- 3f1490d57ef6-de4bfdb606dso873943276.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 23:10:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1713939013; x=1714543813;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=CQD62Ewa/Pm8/wvoE00gVyYTVUY/vDTMKiupQNjrTRQ=;
- b=VQIdEoZgsNVGzgXdwHc6VYxVF0g6JI6FPuyGP9FmeocCZxtA5SSYyd11PZTEaSePme
- U+xhf7YSrL0P56TAeZ2WlCkxLfkQkfyXuP2tXv9In+t4MFwrH7glfYnJ3zRrJH/w7RVu
- v51zbv0bOSu378+8cyMk+VCYEc2bl0Qz5hu/uet6cgFdQsVRjzfc32HUUoGkRQu7WHJ/
- oNPQE7DtsxVv1e4xdxVoT9s53set93lhMtdhUiCmlTXlVABYvitGviI6Zh+W24xTxWX5
- My2zCL/yKQskWwxaYzBgCEbGwmEA4lNrLJpoTjVtgNRCTgZs37K+571UxNMo/JCvfzny
- hooQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713939013; x=1714543813;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CQD62Ewa/Pm8/wvoE00gVyYTVUY/vDTMKiupQNjrTRQ=;
- b=J4kQTozF8NyrUQIk/AoTe/5F3hj4i/DGxQuq7+uPGGcACvAPibSqsoggn4y/VruW13
- cD0v2/c2QOEqtOW4LG1ZF44AyEo69PEZllxy62hIiJnlxQJDA1QCbkm4glAUKCY7ER2d
- aSbpAstW+MXEKzG07bW/YsdPpqKea/NtCtuWu4/zHfQaKF5hGY31ET56JOvwaxZXfKo+
- 3JlEa07E9RxO9Il95MFQORprn/ohPTGpZBoncduJqdp9rUSiE2ZEvamVs3Bg+8uw8Aw8
- 6lyytMsbUbh2NmRXwXZ0BjkaqYfIbkDGh0EaO43iMWBBOq/mRdepv/8HnsIIL31MJNgT
- gSJA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXOtRMAeeLK7pXJbVphkVwgVC0uI2B+53ft0Vqq0CZEBQJjbXX7gnpyHfPBRvsUy0s2Q+Zxz8qwmYgFMEqwXCn3J5spOBhveNGMUbpQ+zheg6KjuVdDTo8q
-X-Gm-Message-State: AOJu0Yw9wy1cBBkUCIV8c/OCsvr3kHiIQ+2E7ZjUjFb8G5vnadBOWQOw
- +IsadDq53oPsCtYURMoDLsZaoJwj8vs7fHMnWY9no+h8DnJYFoWx
-X-Google-Smtp-Source: AGHT+IEaOALM/yuZxT0gddoKfUFAo2OImPPHSqyQT2w2gYutI2hgjCyWDDRGbA+qwsEQlonnW4QUSA==
-X-Received: by 2002:a0d:f385:0:b0:618:55bf:d023 with SMTP id
- c127-20020a0df385000000b0061855bfd023mr1127114ywf.5.1713939013421; 
- Tue, 23 Apr 2024 23:10:13 -0700 (PDT)
-Received: from hoboy.vegasvil.org ([2600:1700:2430:6f6f:e2d5:5eff:fea5:802f])
- by smtp.gmail.com with ESMTPSA id
- dg13-20020a05690c0fcd00b0061b0f6d3e4esm2802120ywb.128.2024.04.23.23.10.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Apr 2024 23:10:12 -0700 (PDT)
-Date: Tue, 23 Apr 2024 23:10:09 -0700
-From: Richard Cochran <richardcochran@gmail.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <ZiiiQY9Z5-uyGZxR@hoboy.vegasvil.org>
-References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
- <20240417164316.1755299-3-o.rempel@pengutronix.de>
- <c8e3f5d0-832b-4ab1-a65f-52f983ff110a@lunn.ch>
- <ZiAtREiqPuvXkB4S@pengutronix.de>
- <b44a4aee-f76f-4472-9b5c-343a09ed0d33@lunn.ch>
- <ZiITWEZgTx9aPqIy@hoboy.vegasvil.org>
- <ZideTxpOcPTbR9yt@pengutronix.de>
+ Wed, 24 Apr 2024 07:21:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 98DF061890;
+ Wed, 24 Apr 2024 07:21:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B32EC113CE;
+ Wed, 24 Apr 2024 07:21:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1713943280;
+ bh=gejzVuWBbs/WERJ9LaTFGpunGqbTm4721u2pjEmC5BU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gKTHYL64JeM+ohgmxJAKPd2RuwHo3HmQplRv1+DpcgSWHMoiUiOsftam/VHAIIIkJ
+ G38mdmJFVDjIIdXL3mtsrFLetGYqsFcbCWSTJS3mEI20HJRlGkDIc9WKcTk2gmcOyW
+ zks617G6u9CE/v6dwUq6DSTMfkb782ZgDhcVZPgR00b5yOMCs4Dbry0C5zLwjGVl+A
+ odlPGnfynIi93X34NgtJNYd8OYF1FGQ13zG/o8LuFVSh3mDdVHmRh8nPqYMrOSdaXK
+ n/cpKRz9K+39tqwO1nq8t+3QYMxNlA2jcy32rRfjllGuWp7J8n6LLrsckq7y/iQxmG
+ f38oAyu+xW1qg==
+Date: Wed, 24 Apr 2024 09:21:17 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <20240424-famous-fascinating-hyena-8fb3a7@houat>
+References: <20240322104732.2327060-1-sean@geanix.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZideTxpOcPTbR9yt@pengutronix.de>
-Cc: Woojung Huh <woojung.huh@microchip.com>, Andrew Lunn <andrew@lunn.ch>,
- Arun Ramadoss <arun.ramadoss@microchip.com>, kernel@pengutronix.de,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, UNGLinuxDriver@microchip.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v1 2/4] net: phy: micrel:
- lan8841: set default PTP latency values
+In-Reply-To: <20240322104732.2327060-1-sean@geanix.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Robert Foss <rfoss@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
+	tolerance
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,45 +54,97 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3364560120020418878=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 23, 2024 at 09:07:59AM +0200, Oleksij Rempel wrote:
 
-> Are the recommended FOSS projects managing calibration values per-
-> linkmode/port/device in user space?
+--===============3364560120020418878==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="v3qz7kftr5irttdu"
+Content-Disposition: inline
 
-No, I haven't seen this.  I think the vendors should provide the
-numbers, like in the data sheet.  This is more useful and flexible
-than letting vendors hard code the numbers into the source code of
-device drivers.
- 
-> What is recommended way for calibration? Using some recommended device?
 
-You can try the "Calibration procedures" in IEEE 1588-2019, Annex N.
+--v3qz7kftr5irttdu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Or if you have end to end PPS outputs (from the GM server and the
-client) then you can simply compare them with an oscilloscope and
-correct any static offset with the ptp4l "delayAsymmetry"
-configuration option.
+Hi,
 
-Or if you have auxiliary event inputs on both server and client, feed
-a pulse generator into both, compare time stamps, etc.
+Sorry, my previous review didn't go through.
 
-Also linuxptp supports Meinberg's NetSync Monitor method.
+On Fri, Mar 22, 2024 at 11:47:31AM +0100, Sean Nyekjaer wrote:
+> When using the DSI interface via DSI2LVDS bridge, it seems a bit harsh
+> to reguire the requested and the actual px clock to be within
+> 50Hz. A typical LVDS display requires the px clock to be within +-10%.
+>=20
+> In case for HDMI .5% tolerance is required.
+>=20
+> Fixes: e01356d18273 ("drm/stm: dsi: provide the implementation of mode_va=
+lid()")
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> ---
+>  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/=
+dw_mipi_dsi-stm.c
+> index d5f8c923d7bc..97936b0ef702 100644
+> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> @@ -322,8 +322,6 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned =
+int lane_mbps,
+>  	return 0;
+>  }
+> =20
+> -#define CLK_TOLERANCE_HZ 50
+> -
+>  static enum drm_mode_status
+>  dw_mipi_dsi_stm_mode_valid(void *priv_data,
+>  			   const struct drm_display_mode *mode,
+> @@ -375,9 +373,10 @@ dw_mipi_dsi_stm_mode_valid(void *priv_data,
+>  		/*
+>  		 * Filter modes according to the clock value, particularly useful for
+>  		 * hdmi modes that require precise pixel clocks.
+> +		 * Check that px_clock is within .5% tolerance.
+>  		 */
+> -		if (px_clock_hz < target_px_clock_hz - CLK_TOLERANCE_HZ ||
+> -		    px_clock_hz > target_px_clock_hz + CLK_TOLERANCE_HZ)
+> +		if (px_clock_hz < mult_frac(target_px_clock_hz, 995, 1000) ||
+> +		    px_clock_hz > mult_frac(target_px_clock_hz, 1005, 1000))
+>  			return MODE_CLOCK_RANGE;
 
-Also there are commercial vendors that rent/sell test equipment for
-PTP networks.
+I wonder if it's not something that should be made into a helper. We
+have a couple of drivers doing it already, so it might be worth creating
+a function that checks for a given struct clk pointer and pixel clock if
+it's within parameters.
 
-So there are many possibilities.
+Maxime
 
-HTH,
-Richard
+--v3qz7kftr5irttdu
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZiiy6AAKCRAnX84Zoj2+
+dhSPAX4unsLgg7n5/O2rJ1Xlrd/571ia5c4LJJUra+mfWA8IhYeQMu4sWwT4uRjd
+Dgb0KZUBgLBnBIhAxuWQ3eNhMQrD/r7T0Mjb7b77bERge1rc14SEDTgD9BpPn8mG
+jmgHEANigw==
+=h0FU
+-----END PGP SIGNATURE-----
+
+--v3qz7kftr5irttdu--
+
+--===============3364560120020418878==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3364560120020418878==--
