@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B56328B07C0
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 12:55:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 280138B07F8
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 13:03:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5160FC6DD6D;
-	Wed, 24 Apr 2024 10:55:37 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6C23C6DD6D;
+	Wed, 24 Apr 2024 11:03:52 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78B31C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD3A5C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 10:55:35 +0000 (UTC)
+ Wed, 24 Apr 2024 11:03:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 214A1CE14E4;
- Wed, 24 Apr 2024 10:55:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6C1C113CE;
- Wed, 24 Apr 2024 10:55:22 +0000 (UTC)
-Message-ID: <40b9c015-8ccf-4313-800a-ecae9aa8cc27@xs4all.nl>
-Date: Wed, 24 Apr 2024 12:55:20 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7056260B98;
+ Wed, 24 Apr 2024 11:03:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA36C113CE;
+ Wed, 24 Apr 2024 11:03:41 +0000 (UTC)
+Message-ID: <8ce6b014-331a-4e22-be45-763f9a12fc33@xs4all.nl>
+Date: Wed, 24 Apr 2024 13:03:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US, nl
@@ -53,7 +53,7 @@ To: Ricardo Ribalda <ribalda@chromium.org>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
- <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
+ <20240419-fix-cocci-v2-16-2119e692309c@chromium.org>
 From: Hans Verkuil <hverkuil@xs4all.nl>
 Autocrypt: addr=hverkuil@xs4all.nl; keydata=
  xsFNBFQ84W0BEAC7EF1iL4s3tY8cRTVkJT/297h0Hz0ypA+ByVM4CdU9sN6ua/YoFlr9k0K4
@@ -98,14 +98,13 @@ Autocrypt: addr=hverkuil@xs4all.nl; keydata=
  gYmkrmv0duG1FStpY+IIQn1TOkuXrciTVfZY1cZD0aVxwlxXBnUNZZNslldvXFtndxR0SFat
  sflovhDxKyhFwXOP0Rv8H378/+14TaykknRBIKEc0+lcr+EMOSUR5eg4aURb8Gc3Uc7fgQ6q
  UssTXzHPyj1hAyDpfu8DzAwlh4kKFTodxSsKAjI45SLjadSc94/5Gy8645Y1KgBzBPTH7Q==
-In-Reply-To: <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
+In-Reply-To: <20240419-fix-cocci-v2-16-2119e692309c@chromium.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 09/26] media: v4l: async: refactor
- v4l2_async_create_ancillary_links
+Subject: Re: [Linux-stm32] [PATCH v2 16/26] media: au0828: Use min macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,64 +121,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/04/2024 11:47, Ricardo Ribalda wrote:
-> Return 0 without checking IS_ERR or PTR_ERR if CONFIG_MEDIA_CONTROLLER
-> is not enabled.
+nitpick: subject should say "Use umin macro".
+
+	Hans
+
+On 19/04/2024 11:48, Ricardo Ribalda wrote:
+> Simplifies the code.
 > 
-> This makes cocci happier:
-> 
-> drivers/media/v4l2-core/v4l2-async.c:331:23-30: ERROR: PTR_ERR applied after initialization to constant on line 319
+> Found by cocci:
+> drivers/media/usb/au0828/au0828-video.c:605:11-12: WARNING opportunity for min()
 > 
 > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 > ---
->  drivers/media/v4l2-core/v4l2-async.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+>  drivers/media/usb/au0828/au0828-video.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
 > 
-> diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-> index 4bb073587817..915a9f3ea93c 100644
-> --- a/drivers/media/v4l2-core/v4l2-async.c
-> +++ b/drivers/media/v4l2-core/v4l2-async.c
-> @@ -316,9 +316,10 @@ v4l2_async_nf_try_all_subdevs(struct v4l2_async_notifier *notifier);
->  static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
->  					     struct v4l2_subdev *sd)
->  {
-> -	struct media_link *link = NULL;
-> +	struct media_link *link;
+> diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
+> index fd9fc43d47e0..2ec49ea479d5 100644
+> --- a/drivers/media/usb/au0828/au0828-video.c
+> +++ b/drivers/media/usb/au0828/au0828-video.c
+> @@ -602,10 +602,7 @@ static inline int au0828_isoc_copy(struct au0828_dev *dev, struct urb *urb)
+>  		vbi_field_size = dev->vbi_width * dev->vbi_height * 2;
+>  		if (dev->vbi_read < vbi_field_size) {
+>  			remain  = vbi_field_size - dev->vbi_read;
+> -			if (len < remain)
+> -				lencopy = len;
+> -			else
+> -				lencopy = remain;
+> +			lencopy = umin(len, remain);
 >  
-> -#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-> +	if (!IS_ENABLED(CONFIG_MEDIA_CONTROLLER))
-> +		return 0;
->  
->  	if (sd->entity.function != MEDIA_ENT_F_LENS &&
->  	    sd->entity.function != MEDIA_ENT_F_FLASH)
-> @@ -326,8 +327,6 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
->  
->  	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
->  
-> -#endif
-> -
->  	return IS_ERR(link) ? PTR_ERR(link) : 0;
->  }
+>  			if (vbi_buf != NULL)
+>  				au0828_copy_vbi(dev, vbi_dma_q, vbi_buf, p,
+> 
 
-I think I would prefer:
-
-static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
-					     struct v4l2_subdev *sd)
-{
-#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-	struct media_link *link;
-
-	...
-
-	return IS_ERR(link) ? PTR_ERR(link) : 0;
-#else
-	return 0;
-#endif
-}
-
-Regards,
-
-	Hans
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
