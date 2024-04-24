@@ -2,68 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6815B8B0A8A
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 15:11:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC0DE8B0A9F
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 15:15:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1775AC7128C;
-	Wed, 24 Apr 2024 13:11:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 602E4C7128C;
+	Wed, 24 Apr 2024 13:15:15 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EE1CC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24899C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 13:11:28 +0000 (UTC)
+ Wed, 24 Apr 2024 13:15:14 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43OBiLD7018292;
- Wed, 24 Apr 2024 15:11:09 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43OBsNvJ019281;
+ Wed, 24 Apr 2024 15:15:08 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:references:from
+ message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=HYSJG1sPeSjl23kgI1bzRXZCAj4WS/GfNG5nWWxw0Vk=; b=Li
- gt8wZMTOL0sPyiSCxLlgRIUH/Vc82ELF6mVIODBNPHBiyGzugekT687g3kBWT6Fy
- 1iL5xeh5qo65/dnTsTyiKTVzRsq4R+3DEhG46rEaijnxESXbwMmPL45C15SaED4v
- 50Qcba0NgM4I+6/uL3aFTNs2S0jMD7ezz6yyeVXaw/ZSEB9JfstuMsUfE0WNKy3/
- NtyMhdvqvde+Bas+TdXdtJl/Bs5rT2e5+WXEw4wJ6Gl/PR5DVxHHjren2plshRQI
- B1nu12Sq34EmDylnO5QlOpXkfHLDa7op6xIUgueLRput5kXau/kTTUnFUAAJ878d
- upGthvtis7RdJJjRy3kg==
+ selector1; bh=3KiGlLEEMBqAQpnigw8VFdSst9zFsrKpxO0S8JeWSSY=; b=nD
+ xQOumJpyT0pxzog09VN71zHwYTX7Wp/UNR7PPUKJKlYpZn663KYtY0bjStUo8j2y
+ YkKYiWzT8TZJA41J5Z8nhvSHqOe/mIYzjDU4hMPsgVE/QmU//1WeYEYEkDLvjLpZ
+ CLsSJqrPotWo5tHgJFYoet/OwS5eK9rpG8MLb7Gis4r8gwwlFX4LG6i02hna8s+G
+ 0Q+Ql4eJrUB4JcBIpp3tJ67xAhIe6y6hFz284dpGSBylysbfR3inOPBuRi0cNmKX
+ vB7SMQ7ayuajBuWZuFrJCfn6JnIFCbxw79/Zza2jr5qfxraWB62veDm62yYXZbV/
+ VY3zBi6MXiPQXUVk/yvA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm4cngp6a-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm4cngpmk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Apr 2024 15:11:09 +0200 (MEST)
+ Wed, 24 Apr 2024 15:15:08 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4F19B4002D;
- Wed, 24 Apr 2024 15:11:04 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7B2994002D;
+ Wed, 24 Apr 2024 15:15:04 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2C10821ED4A;
- Wed, 24 Apr 2024 15:10:27 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A76DC21ED4A;
+ Wed, 24 Apr 2024 15:14:38 +0200 (CEST)
 Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 24 Apr
- 2024 15:10:26 +0200
-Message-ID: <f625f62c-6351-4799-92c8-20abb7185ac5@foss.st.com>
-Date: Wed, 24 Apr 2024 15:10:25 +0200
+ 2024 15:14:38 +0200
+Message-ID: <53a82587-2f1b-45df-b507-11810ad1b533@foss.st.com>
+Date: Wed, 24 Apr 2024 15:14:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20240415093211.809927-1-hugues.fruchet@foss.st.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>, Gatien Chevallier
+ <gatien.chevallier@foss.st.com>
+References: <17dce071-21ef-49f5-be45-f93bbf3642ec@moroto.mountain>
 Content-Language: en-US
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20240415093211.809927-1-hugues.fruchet@foss.st.com>
+In-Reply-To: <17dce071-21ef-49f5-be45-f93bbf3642ec@moroto.mountain>
 X-Originating-IP: [10.48.86.79]
 X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
  definitions=2024-04-24_10,2024-04-24_01,2023-05-22_02
-Subject: Re: [Linux-stm32] [PATCH v2] media: dt-bindings: add
- access-controllers to STM32MP25 video codecs
+Cc: linux-arm-kernel@lists.infradead.org, kernel-janitors@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] bus: stm32_firewall: fix off by one in
+ stm32_firewall_get_firewall()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,38 +78,36 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+Hi Dan
 
-On 4/15/24 11:32, Hugues Fruchet wrote:
-> access-controllers is an optional property that allows a peripheral to
-> refer to one or more domain access controller(s).
+On 4/12/24 10:25, Dan Carpenter wrote:
+> The "nb_firewall" variable is the number of elements in the firewall[]
+> array, which is allocated in stm32_firewall_populate_bus().  So change
+> this > comparison to >= to prevent an out of bound access.
 > 
-> Acked-by: Rob Herring <robh@kernel.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> Fixes: 5c9668cfc6d7 ("firewall: introduce stm32_firewall framework")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > ---
->   .../devicetree/bindings/media/st,stm32mp25-video-codec.yaml   | 4 ++++
->   1 file changed, 4 insertions(+)
+>   drivers/bus/stm32_firewall.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-> index b8611bc8756c..73726c65cfb9 100644
-> --- a/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-> +++ b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-> @@ -30,6 +30,10 @@ properties:
->     clocks:
->       maxItems: 1
+> diff --git a/drivers/bus/stm32_firewall.c b/drivers/bus/stm32_firewall.c
+> index decb79449047..2fc9761dadec 100644
+> --- a/drivers/bus/stm32_firewall.c
+> +++ b/drivers/bus/stm32_firewall.c
+> @@ -53,7 +53,7 @@ int stm32_firewall_get_firewall(struct device_node *np, struct stm32_firewall *f
+>   			return err;
+>   		}
 >   
-> +  access-controllers:
-> +    minItems: 1
-> +    maxItems: 2
-> +
->   required:
->     - compatible
->     - reg
+> -		if (j > nb_firewall) {
+> +		if (j >= nb_firewall) {
+>   			pr_err("Too many firewall controllers");
+>   			of_node_put(provider);
+>   			return -EINVAL;
 
 Applied on stm32-next.
 
-Thanks!
+Regards
 Alex
 _______________________________________________
 Linux-stm32 mailing list
