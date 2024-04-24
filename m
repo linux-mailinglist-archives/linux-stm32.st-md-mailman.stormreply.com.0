@@ -2,83 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3BE78B0165
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 07:58:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8371E8B018D
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 08:10:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 710FFC6DD6D;
-	Wed, 24 Apr 2024 05:58:21 +0000 (UTC)
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
- [209.85.160.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C951C6DD6D;
+	Wed, 24 Apr 2024 06:10:15 +0000 (UTC)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37D49C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5715C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 05:58:19 +0000 (UTC)
-Received: by mail-qt1-f180.google.com with SMTP id
- d75a77b69052e-439b1c72676so218451cf.1
+ Wed, 24 Apr 2024 06:10:14 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-de4bfdb606dso873943276.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Apr 2024 22:58:19 -0700 (PDT)
+ Tue, 23 Apr 2024 23:10:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1713938298; x=1714543098;
+ d=gmail.com; s=20230601; t=1713939013; x=1714543813;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X/W5HSMGzNKRFvroL7XEIB583TE1U/at3BEuUXdJmYE=;
- b=4yc1OKNLAip9cVHb197z2QtJhdg/tSNcvhSmL7vapJT1wYGyHMKJg1YqNV2vGmVWFP
- TogZ3ZwCkUEsRsyHFeBOruk0HnVrus22GLfXWaPfw/BcONTIViMi92e+VrPgvGWMuont
- BV170ON7xaIih064Q1ttPgLIxGwiWOswaV+Xh0/vkvRHGboQToSzsvXqFHqkXbWgEitn
- WsO3POnYmOemaJR1NvI5dooQEmw5GRF+ND+HXdbCZgHCd727p4MOTolxePf+k6gbA7jq
- f/ynekGMSViRM8HVBMvUvmcIu2QZ9b++48C951io1zRtFW8uXEcpkfR7RQFp0GeQwRJm
- V70Q==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CQD62Ewa/Pm8/wvoE00gVyYTVUY/vDTMKiupQNjrTRQ=;
+ b=VQIdEoZgsNVGzgXdwHc6VYxVF0g6JI6FPuyGP9FmeocCZxtA5SSYyd11PZTEaSePme
+ U+xhf7YSrL0P56TAeZ2WlCkxLfkQkfyXuP2tXv9In+t4MFwrH7glfYnJ3zRrJH/w7RVu
+ v51zbv0bOSu378+8cyMk+VCYEc2bl0Qz5hu/uet6cgFdQsVRjzfc32HUUoGkRQu7WHJ/
+ oNPQE7DtsxVv1e4xdxVoT9s53set93lhMtdhUiCmlTXlVABYvitGviI6Zh+W24xTxWX5
+ My2zCL/yKQskWwxaYzBgCEbGwmEA4lNrLJpoTjVtgNRCTgZs37K+571UxNMo/JCvfzny
+ hooQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713938298; x=1714543098;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=X/W5HSMGzNKRFvroL7XEIB583TE1U/at3BEuUXdJmYE=;
- b=iHvA6eVLuVaVl+ioYXLJ2D6vNN2E7i+nW4XCzmZToldj8vGfIKMt3vlwjCrdrmR2bP
- sOK/XS+hc8AJaKnCuAiNbJf4zqZrvcfY7Sx1Hd9LE3usOnwEjUuG3iptQUgwZoW1Co3F
- k4yVVqNq2Mr2n/BZITnnEZG9HWwVnKvSjEatwvQRDZJ5fsqxcas81L0nilDxBD4BsE9r
- yxwConh449Yl9bX0e3Rewe1xSwymLk+FsWKXk2rtP6gMmcg6tS/0rld1Zad76ZD7JDGA
- SSgEDNsq9TwAHWlgMCw+7TlqCjarYGXc05lhqohnXL7d540s+1ohv5p3Lm6R/U0vk8UC
- ZeXQ==
+ d=1e100.net; s=20230601; t=1713939013; x=1714543813;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CQD62Ewa/Pm8/wvoE00gVyYTVUY/vDTMKiupQNjrTRQ=;
+ b=J4kQTozF8NyrUQIk/AoTe/5F3hj4i/DGxQuq7+uPGGcACvAPibSqsoggn4y/VruW13
+ cD0v2/c2QOEqtOW4LG1ZF44AyEo69PEZllxy62hIiJnlxQJDA1QCbkm4glAUKCY7ER2d
+ aSbpAstW+MXEKzG07bW/YsdPpqKea/NtCtuWu4/zHfQaKF5hGY31ET56JOvwaxZXfKo+
+ 3JlEa07E9RxO9Il95MFQORprn/ohPTGpZBoncduJqdp9rUSiE2ZEvamVs3Bg+8uw8Aw8
+ 6lyytMsbUbh2NmRXwXZ0BjkaqYfIbkDGh0EaO43iMWBBOq/mRdepv/8HnsIIL31MJNgT
+ gSJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXOJ723y/GY5imSJw8cBnexCpiW6ohrurqNQAOMl5nygznErU2nrWchg4wY26+itlk23vpkfXCQrs2broZyeoZOLUxwVsTKIzgHY/uXoYK8eGwnnaMOqaQl
-X-Gm-Message-State: AOJu0Ywyz73PD0aE4BfmM7JfXhS3V6NLhEWI3SWOwjpU0hvOnXaNB++K
- MUq4FRncntaB9J6XToll/CHRvsZZSGf/ioNq6MwCoJ7MzZSyscgQHY6Y11sr6jx/xhxr995Uvbc
- sJVXq+uC8T4HKgSWNXVVw+MBlaUAs3Kns1yGy
-X-Google-Smtp-Source: AGHT+IFtH+TdYnY/R2NkKd7EY8OhaQPa4uA2hOiV9IhRrDt+9zqEvKh32061ELbCkTI4QNocIDZCt4lHutO/oQbF8iw=
-X-Received: by 2002:ac8:6e81:0:b0:437:c89e:245b with SMTP id
- c1-20020ac86e81000000b00437c89e245bmr130751qtv.15.1713938297863; Tue, 23 Apr
- 2024 22:58:17 -0700 (PDT)
+ AJvYcCXOtRMAeeLK7pXJbVphkVwgVC0uI2B+53ft0Vqq0CZEBQJjbXX7gnpyHfPBRvsUy0s2Q+Zxz8qwmYgFMEqwXCn3J5spOBhveNGMUbpQ+zheg6KjuVdDTo8q
+X-Gm-Message-State: AOJu0Yw9wy1cBBkUCIV8c/OCsvr3kHiIQ+2E7ZjUjFb8G5vnadBOWQOw
+ +IsadDq53oPsCtYURMoDLsZaoJwj8vs7fHMnWY9no+h8DnJYFoWx
+X-Google-Smtp-Source: AGHT+IEaOALM/yuZxT0gddoKfUFAo2OImPPHSqyQT2w2gYutI2hgjCyWDDRGbA+qwsEQlonnW4QUSA==
+X-Received: by 2002:a0d:f385:0:b0:618:55bf:d023 with SMTP id
+ c127-20020a0df385000000b0061855bfd023mr1127114ywf.5.1713939013421; 
+ Tue, 23 Apr 2024 23:10:13 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2600:1700:2430:6f6f:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ dg13-20020a05690c0fcd00b0061b0f6d3e4esm2802120ywb.128.2024.04.23.23.10.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Apr 2024 23:10:12 -0700 (PDT)
+Date: Tue, 23 Apr 2024 23:10:09 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Message-ID: <ZiiiQY9Z5-uyGZxR@hoboy.vegasvil.org>
+References: <20240417164316.1755299-1-o.rempel@pengutronix.de>
+ <20240417164316.1755299-3-o.rempel@pengutronix.de>
+ <c8e3f5d0-832b-4ab1-a65f-52f983ff110a@lunn.ch>
+ <ZiAtREiqPuvXkB4S@pengutronix.de>
+ <b44a4aee-f76f-4472-9b5c-343a09ed0d33@lunn.ch>
+ <ZiITWEZgTx9aPqIy@hoboy.vegasvil.org>
+ <ZideTxpOcPTbR9yt@pengutronix.de>
 MIME-Version: 1.0
-References: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
- <20240105130404.301172-7-gatien.chevallier@foss.st.com>
-In-Reply-To: <20240105130404.301172-7-gatien.chevallier@foss.st.com>
-From: Saravana Kannan <saravanak@google.com>
-Date: Tue, 23 Apr 2024 22:57:40 -0700
-Message-ID: <CAGETcx8HdnspNfDEJP+cqShJPsDryzGkOVq6B99cFQzkZi3dMg@mail.gmail.com>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- peng.fan@oss.nxp.com, Rob Herring <robh@kernel.org>, lars@metafoo.de,
- herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
- hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- wg@grandegger.com, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, andi.shyti@kernel.org, alsa-devel@alsa-project.org,
- richardcochran@gmail.com, robh+dt@kernel.org, mkl@pengutronix.de,
- linux-serial@vger.kernel.org, mchehab@kernel.org,
- linux-arm-kernel@lists.infradead.org, arnd@kernel.org, rcsekar@samsung.com,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v9 06/13] of: property: fw_devlink: Add
-	support for "access-controller"
+Content-Disposition: inline
+In-Reply-To: <ZideTxpOcPTbR9yt@pengutronix.de>
+Cc: Woojung Huh <woojung.huh@microchip.com>, Andrew Lunn <andrew@lunn.ch>,
+ Arun Ramadoss <arun.ramadoss@microchip.com>, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, UNGLinuxDriver@microchip.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v1 2/4] net: phy: micrel:
+ lan8841: set default PTP latency values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,45 +91,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKYW4gNSwgMjAyNCBhdCA1OjAz4oCvQU0gR2F0aWVuIENoZXZhbGxpZXIKPGdhdGll
-bi5jaGV2YWxsaWVyQGZvc3Muc3QuY29tPiB3cm90ZToKPgo+IEFsbG93cyB0cmFja2luZyBkZXBl
-bmRlbmNpZXMgYmV0d2VlbiBkZXZpY2VzIGFuZCB0aGVpciBhY2Nlc3MKPiBjb250cm9sbGVyLgo+
-Cj4gU2lnbmVkLW9mZi1ieTogR2F0aWVuIENoZXZhbGxpZXIgPGdhdGllbi5jaGV2YWxsaWVyQGZv
-c3Muc3QuY29tPgo+IEFja2VkLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgoKUGxl
-YXNlIGNjIG1lIG9uIGZ3X2RldmxpbmsgcGF0Y2hlcy4gQWxzbywgdGhpcyBwYXRjaCBpcyBicmVh
-a2luZyB0aGUKbm9ybSBiZWxvdy4gUGxlYXNlIHNlbmQgYSBmaXggdXAgcGF0Y2guCgo+IC0tLQo+
-IENoYW5nZXMgaW4gVjk6Cj4gICAgICAgICAtIEFkZGVkIFJvYidzIHJldmlldyB0YWcKPgo+IENo
-YW5nZXMgaW4gVjY6Cj4gICAgICAgICAtIFJlbmFtZWQgYWNjZXNzLWNvbnRyb2xsZXIgdG8gYWNj
-ZXNzLWNvbnRyb2xsZXJzCj4KPiBDaGFuZ2VzIGluIFY1Ogo+ICAgICAgICAgLSBSZW5hbWUgZmVh
-dHVyZS1kb21haW4qIHRvIGFjY2Vzcy1jb250cm9sKgo+Cj4gUGF0Y2ggbm90IHByZXNlbnQgaW4g
-VjEKPgo+ICBkcml2ZXJzL29mL3Byb3BlcnR5LmMgfCAyICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAy
-IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL29mL3Byb3BlcnR5LmMgYi9k
-cml2ZXJzL29mL3Byb3BlcnR5LmMKPiBpbmRleCBhZmRhZWZiZDAzZjYuLjdmNzM3ZWFjOTFiMiAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL29mL3Byb3BlcnR5LmMKPiArKysgYi9kcml2ZXJzL29mL3By
-b3BlcnR5LmMKPiBAQCAtMTI2OCw2ICsxMjY4LDcgQEAgREVGSU5FX1NJTVBMRV9QUk9QKGxlZHMs
-ICJsZWRzIiwgTlVMTCkKPiAgREVGSU5FX1NJTVBMRV9QUk9QKGJhY2tsaWdodCwgImJhY2tsaWdo
-dCIsIE5VTEwpCj4gIERFRklORV9TSU1QTEVfUFJPUChwYW5lbCwgInBhbmVsIiwgTlVMTCkKPiAg
-REVGSU5FX1NJTVBMRV9QUk9QKG1zaV9wYXJlbnQsICJtc2ktcGFyZW50IiwgIiNtc2ktY2VsbHMi
-KQo+ICtERUZJTkVfU0lNUExFX1BST1AoYWNjZXNzX2NvbnRyb2xsZXJzLCAiYWNjZXNzLWNvbnRy
-b2xsZXJzIiwgIiNhY2Nlc3MtY29udHJvbGxlci1jZWxscyIpCj4gIERFRklORV9TVUZGSVhfUFJP
-UChyZWd1bGF0b3JzLCAiLXN1cHBseSIsIE5VTEwpCj4gIERFRklORV9TVUZGSVhfUFJPUChncGlv
-LCAiLWdwaW8iLCAiI2dwaW8tY2VsbHMiKQo+Cj4gQEAgLTEzNjMsNiArMTM2NCw3IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3Qgc3VwcGxpZXJfYmluZGluZ3Mgb2Zfc3VwcGxpZXJfYmluZGluZ3NbXSA9
-IHsKPiAgICAgICAgIHsgLnBhcnNlX3Byb3AgPSBwYXJzZV9yZWd1bGF0b3JzLCB9LAo+ICAgICAg
-ICAgeyAucGFyc2VfcHJvcCA9IHBhcnNlX2dwaW8sIH0sCj4gICAgICAgICB7IC5wYXJzZV9wcm9w
-ID0gcGFyc2VfZ3Bpb3MsIH0sCj4gKyAgICAgICB7IC5wYXJzZV9wcm9wID0gcGFyc2VfYWNjZXNz
-X2NvbnRyb2xsZXJzLCB9LAoKQWxsIHRoZSBzaW1wbGUgcHJvcGVydGllcyBhcmUgbGlzdGVkIGJl
-Zm9yZSB0aGUgc3VmZml4IG9uZXMgYXMgdGhlCnN1ZmZpeCBjaGVja3MgYXJlIG1vcmUgZXhwZW5z
-aXZlLiBTbywgeW91IHNob3VsZCBoYXZlIGluc2VydGVkIHRoaXMKcmlnaHQgYmVmb3JlIHRoZSBz
-dWZmaXggcHJvcGVydGllcy4gQWxzbywgdGhlcmUncyBhIG1lcmdlIGNvbmZsaWN0IGluCmxpbnV4
-LW5leHQuIFNvIG1ha2Ugc3VyZSB5b3UgdGFrZSB0aGF0IGludG8gYWNjb3VudCB3aGVuIHNlbmRp
-bmcgdGhlCmZpeCB1cCBhbmQgcGlja2luZyB0aGUgb3JkZXIuCgotU2FyYXZhbmEKCj4gICAgICAg
-ICB7fQo+ICB9OwoKPgo+IC0tCj4gMi4zNS4zCj4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Tue, Apr 23, 2024 at 09:07:59AM +0200, Oleksij Rempel wrote:
+
+> Are the recommended FOSS projects managing calibration values per-
+> linkmode/port/device in user space?
+
+No, I haven't seen this.  I think the vendors should provide the
+numbers, like in the data sheet.  This is more useful and flexible
+than letting vendors hard code the numbers into the source code of
+device drivers.
+ 
+> What is recommended way for calibration? Using some recommended device?
+
+You can try the "Calibration procedures" in IEEE 1588-2019, Annex N.
+
+Or if you have end to end PPS outputs (from the GM server and the
+client) then you can simply compare them with an oscilloscope and
+correct any static offset with the ptp4l "delayAsymmetry"
+configuration option.
+
+Or if you have auxiliary event inputs on both server and client, feed
+a pulse generator into both, compare time stamps, etc.
+
+Also linuxptp supports Meinberg's NetSync Monitor method.
+
+Also there are commercial vendors that rent/sell test equipment for
+PTP networks.
+
+So there are many possibilities.
+
+HTH,
+Richard
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
