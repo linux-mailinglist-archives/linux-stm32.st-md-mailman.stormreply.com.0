@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB768B1D1C
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Apr 2024 10:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C248B1D2A
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Apr 2024 10:57:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A43BC7128B;
-	Thu, 25 Apr 2024 08:52:16 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74C09C7128B;
+	Thu, 25 Apr 2024 08:57:23 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07E23C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2B27C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Apr 2024 08:52:14 +0000 (UTC)
+ Thu, 25 Apr 2024 08:57:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C457B61D22;
- Thu, 25 Apr 2024 08:52:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636F2C2BD10;
- Thu, 25 Apr 2024 08:52:10 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id D2263CE1961;
+ Thu, 25 Apr 2024 08:57:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729B8C2BBFC;
+ Thu, 25 Apr 2024 08:57:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1714035133;
- bh=chBR9FB2ZAl9HdeLR0mWAhYHpEkxBgAv2aOwNJJd82c=;
+ s=k20201202; t=1714035437;
+ bh=EEvXnikoBn+RdB68U2wCclnZ/LvAPgUSR4XWxN8GCOQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JZmqsF4JYZtSEX7nRTxnFTX41Otk1vJ00X4APhwdPw3z3Yb6RZSQkuyhDSYJ8v3jO
- pAud1T0OL9XzKTBRJ1dCIRJfyHy73jhRf1JkeDgEEEVuQ2+t2OzFUYpmHewYm0Vovp
- 8AtzLVTO8itMeAlad5BWBuoyuH47XCAMJUS4pk5kB57B9mlSdQUsAaPvrrokfPimUi
- 9X1E/NId9ckBg9LRdWtgo+gsDYSeLtgTHFAYvl2A8FU9qJLIlza+TLasQbrMNoJSLb
- UQxePnp/fpY5GR5OycMYZ2cEGg4RXBicUeU2whf9CEgy796tL1UJC29M9BFWDFdW58
- S/rx+xvVR9Biw==
-Message-ID: <2b78be92-08a5-4bf8-a1e1-477ecbbe73da@kernel.org>
-Date: Thu, 25 Apr 2024 10:52:08 +0200
+ b=LWboScoi3Cow/nE0joXyUvyEmIkuyUsPVMoqUQySZAQ0+zF1Lmd6ADhUJ8UbdhCGx
+ roNm6FVl+0hGbX440RrhCANE6PkFdG5wixCDLBqYqAkdy624+bbUpr27Wu59TeKsce
+ bxaQNNnMxz8TX6iuZxybFzjWMo8MUs/jDxszPrRchUU8t7zW7TlnBIE8EZKcCN6TNy
+ 5JsVBF7FS7WOa7f27YbsCIpmG0zb+HJ9AAYi+wxE4LpVjHiPHaDhqtCU1ey8dXkVmr
+ e0jsnDSITmgWb+/tUBTkaOefhr+zctEX2HvpNDH/Qj9vocQfOmv1XTBwdmu4QCz0mR
+ YPKj2AwYnuvMg==
+Message-ID: <b4e60272-cd79-417a-9028-fee243951f4a@kernel.org>
+Date: Thu, 25 Apr 2024 10:57:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
  Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Pascal Paillet <p.paillet@foss.st.com>
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
 References: <20240425074835.760134-1-patrick.delaunay@foss.st.com>
- <20240425094829.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
+ <20240425094829.3.I493dfe2bde7f40beb48455f8ff8368cc8a869cdc@changeid>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -86,11 +84,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240425094829.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
+In-Reply-To: <20240425094829.3.I493dfe2bde7f40beb48455f8ff8368cc8a869cdc@changeid>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: regulator: st,
- stm32mp1-pwr-reg: add correct compatible
+Subject: Re: [Linux-stm32] [PATCH 3/3] ARM: dts: st: update the pwr
+	compatible for stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,33 +106,19 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 25/04/2024 09:48, Patrick Delaunay wrote:
-> Remove the unexpected comma in the compatible "st,stm32mp1,pwr-reg"
-> and define the new compatible "st,stm32mp1-pwr-reg".
-> The old compatible is only keep for compatibility with old device trees.
+> Remove the unexpected comma in the compatible "st,stm32mp1,pwr-reg",
+> and use the new supported compatible "st,stm32mp1-pwr-reg" in STM3MP15
+> SoC dtsi.
 > 
 > Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 > ---
 > 
->  .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml  | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> index c9586d277f41..2a52f9e769c2 100644
-> --- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> @@ -11,7 +11,9 @@ maintainers:
->  
->  properties:
->    compatible:
-> -    const: st,stm32mp1,pwr-reg
-> +    enum:
-> +      - st,stm32mp1-pwr-reg
-> +      - st,stm32mp1,pwr-reg
+>  arch/arm/boot/dts/st/stm32mp151.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Please make it oneOf:
- - const: new one
- - const: old one
-   deprecated: true
+This will break the users and is not bisectable, so patch should wait at
+least one cycle. This will preserve bisectability, although users will
+be affected anyway.
 
 Best regards,
 Krzysztof
