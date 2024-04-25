@@ -2,70 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431E28B12C0
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Apr 2024 20:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 408978B1C02
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Apr 2024 09:36:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7A3AC7128C;
-	Wed, 24 Apr 2024 18:46:12 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFD09C7128B;
+	Thu, 25 Apr 2024 07:36:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3349C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 973D6C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Apr 2024 18:46:11 +0000 (UTC)
-Received: from pendragon.ideasonboard.com
- (117.145-247-81.adsl-dyn.isp.belgacom.be [81.247.145.117])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4E133B1;
- Wed, 24 Apr 2024 20:45:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1713984318;
- bh=s3FyBov567J2QGOwzCsWd6sbv2/5L8BTtQKZYmfBE4o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LyWtD7HhQFhNcsJLXImxTlEO9zSrnA0XXnPz447uiAF/Ub8UwT4XZ+hvcyDUMkod9
- TdsIHxHej3MnvOv6+cPx44pYbMUETYoC3ESpbOJODQu+8+i6ZJdk+ZjLuVIbDD+Fvz
- VrWw2zwvUmUkCU8m2caH9M+pJwe1tu3zoTtTA6F4=
-Date: Wed, 24 Apr 2024 21:46:03 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20240424184603.GA6282@pendragon.ideasonboard.com>
-References: <20240419-fix-cocci-v2-0-2119e692309c@chromium.org>
- <20240419-fix-cocci-v2-9-2119e692309c@chromium.org>
- <40b9c015-8ccf-4313-800a-ecae9aa8cc27@xs4all.nl>
- <ZilMu614pUAzEGTa@kekkonen.localdomain>
+ Thu, 25 Apr 2024 07:36:57 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43P7VAer021460;
+ Thu, 25 Apr 2024 09:36:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=zcKEXefoMz98bSSERpP3RE1+JT4NimZBmrhz03/9OP4=; b=tJ
+ kKK90Pn2fAScqFQfw1fcuyiL7t9gZEOt/gOvZzzOwPgP5BRriBkPIYHIBt0kDMRK
+ QWAlcIIcKoecNYkjz5f28o6M/8bdcyYFhxJJlfF5BirAOGVP+X7ilHRvX5yd7yDq
+ 6+l2vQINEpWp0blJ1rukMUNDp5urdY+2BqQ8TbNnhH/GhBBjd9f+X2O/+y7Lfx50
+ l2pVAi6+45JQAwIAW31oDNe3MV4ia8G39qWr3MP+UMgGZwJ921T3PCYS9fx2h8RP
+ EityAxmed9W1TDkwEnvRPXTiZAFcg46Zteqy2m/X8IVbew2pQeKhmErb0RChRyiw
+ YiCaG/gd9o5dYATFqLnA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm51wckfg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Apr 2024 09:36:35 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3A77640044;
+ Thu, 25 Apr 2024 09:36:29 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A3AEB2128C1;
+ Thu, 25 Apr 2024 09:36:04 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 25 Apr
+ 2024 09:36:03 +0200
+Message-ID: <d2721aad-b17d-4b40-908c-238d02c52a0f@foss.st.com>
+Date: Thu, 25 Apr 2024 09:36:03 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZilMu614pUAzEGTa@kekkonen.localdomain>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
- Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ricardo Ribalda <ribalda@chromium.org>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>
-Subject: Re: [Linux-stm32] [PATCH v2 09/26] media: v4l: async: refactor
- v4l2_async_create_ancillary_links
+User-Agent: Mozilla Thunderbird
+To: <gabriel.fernandez@foss.st.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>
+References: <20240411092453.243633-1-gabriel.fernandez@foss.st.com>
+ <20240411092453.243633-5-gabriel.fernandez@foss.st.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240411092453.243633-5-gabriel.fernandez@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-04-25_06,2024-04-25_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v11 4/4] arm64: dts: st: add rcc support
+	for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,77 +78,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 24, 2024 at 06:17:31PM +0000, Sakari Ailus wrote:
-> On Wed, Apr 24, 2024 at 12:55:20PM +0200, Hans Verkuil wrote:
-> > On 19/04/2024 11:47, Ricardo Ribalda wrote:
-> > > Return 0 without checking IS_ERR or PTR_ERR if CONFIG_MEDIA_CONTROLLER
-> > > is not enabled.
-> > > 
-> > > This makes cocci happier:
-> > > 
-> > > drivers/media/v4l2-core/v4l2-async.c:331:23-30: ERROR: PTR_ERR applied after initialization to constant on line 319
-> > > 
-> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > ---
-> > >  drivers/media/v4l2-core/v4l2-async.c | 7 +++----
-> > >  1 file changed, 3 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-> > > index 4bb073587817..915a9f3ea93c 100644
-> > > --- a/drivers/media/v4l2-core/v4l2-async.c
-> > > +++ b/drivers/media/v4l2-core/v4l2-async.c
-> > > @@ -316,9 +316,10 @@ v4l2_async_nf_try_all_subdevs(struct v4l2_async_notifier *notifier);
-> > >  static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
-> > >  					     struct v4l2_subdev *sd)
-> > >  {
-> > > -	struct media_link *link = NULL;
-> > > +	struct media_link *link;
-> > >  
-> > > -#if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-> > > +	if (!IS_ENABLED(CONFIG_MEDIA_CONTROLLER))
-> > > +		return 0;
-> > >  
-> > >  	if (sd->entity.function != MEDIA_ENT_F_LENS &&
-> > >  	    sd->entity.function != MEDIA_ENT_F_FLASH)
-> > > @@ -326,8 +327,6 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
-> > >  
-> > >  	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
-> > >  
-> > > -#endif
-> > > -
-> > >  	return IS_ERR(link) ? PTR_ERR(link) : 0;
-> > >  }
-> > 
-> > I think I would prefer:
-> > 
-> > static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
-> > 					     struct v4l2_subdev *sd)
-> > {
-> > #if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
-> > 	struct media_link *link;
-> > 
-> > 	...
-> > 
-> > 	return IS_ERR(link) ? PTR_ERR(link) : 0;
-> > #else
-> > 	return 0;
-> > #endif
-> > }
-> > 
+Hi Gabriel
+
+On 4/11/24 11:24, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > 
-> Me, too.
+> Add RCC support to manage clocks and resets on the STM32MP25.
+> 
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 144 ++++++++++++++++++-------
+>   arch/arm64/boot/dts/st/stm32mp255.dtsi |   4 +-
+>   2 files changed, 110 insertions(+), 38 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index 5dd4f3580a60..15b79d26d1c6 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
 
-I actually prefer Ricardo's proposal :-)
+Patch applied on stm32-next.
 
--- 
-Regards,
+thanks!!
+Alex
 
-Laurent Pinchart
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
