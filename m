@@ -2,74 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925FB8B1CF1
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Apr 2024 10:40:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FB768B1D1C
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Apr 2024 10:52:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42BCCC7128B;
-	Thu, 25 Apr 2024 08:40:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A43BC7128B;
+	Thu, 25 Apr 2024 08:52:16 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38209C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07E23C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Apr 2024 08:40:29 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43P6qDLG021448;
- Thu, 25 Apr 2024 10:39:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=LRhWlaI0E/bPuzJE9gA99asyOQ64g4iYmBkgLuI8Mhk=; b=8Y
- w2iR3x+4ZE+cuaIZ6o4AV0FjVL3brTpCgwYQuGbhf9qO/ZQHIOYkoCPV9UmHQEPu
- ZOzeQV7AncbhVTkY7TKSl4WWTGZDOLX78vmtZgpfbb/UufW5Rbj+OtWV0zQq30p5
- vIiqHWDdjXfkLo4L2+8pB3hQRNxVHP8GbB0lFrYNp5dXayPpnqRcjke9XU/3f10/
- ldbcp0kbkQBwHPAFy2pJWrbMUYaE4KqyisDhH2TDHcPs0XEmaXSs5eNfyxDyaP0a
- HBofEGeRpviBi62llC9rsge5nJ17NfLMx7KaMGJhNzF4zMf7rqKIbpoacRYf1dmb
- z0Em6yXFbshMko1crwNQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xm51wcypa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Apr 2024 10:39:48 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B9C8840048;
- Thu, 25 Apr 2024 10:38:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CB00D214D1C;
- Thu, 25 Apr 2024 10:37:39 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 25 Apr
- 2024 10:37:38 +0200
-Message-ID: <562f0e8f-4730-4142-936b-25fb0f3024eb@foss.st.com>
-Date: Thu, 25 Apr 2024 10:37:38 +0200
+ Thu, 25 Apr 2024 08:52:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C457B61D22;
+ Thu, 25 Apr 2024 08:52:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636F2C2BD10;
+ Thu, 25 Apr 2024 08:52:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1714035133;
+ bh=chBR9FB2ZAl9HdeLR0mWAhYHpEkxBgAv2aOwNJJd82c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JZmqsF4JYZtSEX7nRTxnFTX41Otk1vJ00X4APhwdPw3z3Yb6RZSQkuyhDSYJ8v3jO
+ pAud1T0OL9XzKTBRJ1dCIRJfyHy73jhRf1JkeDgEEEVuQ2+t2OzFUYpmHewYm0Vovp
+ 8AtzLVTO8itMeAlad5BWBuoyuH47XCAMJUS4pk5kB57B9mlSdQUsAaPvrrokfPimUi
+ 9X1E/NId9ckBg9LRdWtgo+gsDYSeLtgTHFAYvl2A8FU9qJLIlza+TLasQbrMNoJSLb
+ UQxePnp/fpY5GR5OycMYZ2cEGg4RXBicUeU2whf9CEgy796tL1UJC29M9BFWDFdW58
+ S/rx+xvVR9Biw==
+Message-ID: <2b78be92-08a5-4bf8-a1e1-477ecbbe73da@kernel.org>
+Date: Thu, 25 Apr 2024 10:52:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20240422002006.243687-1-marex@denx.de>
- <f02c63b3-d6e1-495d-a73a-493e39e40b2e@kernel.org>
- <fc42c239-1dff-4848-a0cf-4b21e3e59d8e@denx.de>
+To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Pascal Paillet <p.paillet@foss.st.com>
+References: <20240425074835.760134-1-patrick.delaunay@foss.st.com>
+ <20240425094829.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <fc42c239-1dff-4848-a0cf-4b21e3e59d8e@denx.de>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-25_07,2024-04-25_01,2023-05-22_02
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- devicetree@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, kernel@dh-electronics.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sean Nyekjaer <sean@geanix.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- =?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 01/20] dt-bindings: arm: stm32: Add
- compatible string for DH electronics STM32MP13xx DHCOR DHSBC board
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240425094829.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: regulator: st,
+ stm32mp1-pwr-reg: add correct compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,60 +102,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTWFyZWsKCk9uIDQvMjIvMjQgMTQ6NTIsIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDQvMjIv
-MjQgNjoyMSBBTSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMjIvMDQvMjAyNCAw
-MjoxOSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+PiBBZGQgRFQgY29tcGF0aWJsZSBzdHJpbmcgZm9y
-IERIIGVsZWN0cm9uaWNzIFNUTTMyTVAxM3h4IERIQ09SIFNvTSBhbmQKPj4+IERIU0JDIGNhcnJp
-ZXIgYm9hcmQuIFRoaXMgc3RtMzJtcDEzNWYtZGhjb3ItZGhzYmMgYm9hcmQgaXMgYSBzdGFjayBv
-Zgo+Pj4gREhDT1IgU29NIGJhc2VkIG9uIFNUTTMyTVAxMzVGIFNvQyAoOTAwTUh6IC8gY3J5cHRv
-IGNhcGFiaWxpdGllcykKPj4+IHBvcHVsYXRlZCBvbiBESFNCQyBjYXJyaWVyIGJvYXJkLgo+Pj4K
-Pj4+IFRoZSBTb00gY29udGFpbnMgdGhlIGZvbGxvd2luZyBwZXJpcGhlcmFsczoKPj4+IC0gU1RQ
-TUlDIChwb3dlciBkZWxpdmVyeSkKPj4+IC0gNTEyTUIgRERSM0wgbWVtb3J5Cj4+PiAtIGVNTUMg
-YW5kIFNESU8gV2lGaSBtb2R1bGUKPj4+Cj4+PiBUaGUgREhTQkMgY2FycmllciBib2FyZCBjb250
-YWlucyB0aGUgZm9sbG93aW5nIHBlcmlwaGVyYWxzOgo+Pj4gLSBUd28gUkdNSUkgRXRoZXJuZXQg
-cG9ydHMKPj4+IC0gVVNCLUEgSG9zdCBwb3J0LCBVU0ItQyBwZXJpcGhlcmFsIHBvcnQsIFVTQi1D
-IHBvd2VyIHN1cHBseSBwbHVnCj4+PiAtIEV4cGFuc2lvbiBjb25uZWN0b3IKPj4+Cj4+PiBTaWdu
-ZWQtb2ZmLWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4KPj4+IC0tLQo+Pj4gQ2M6ICJM
-ZW9uYXJkIEfDtmhycyIgPGwuZ29laHJzQHBlbmd1dHJvbml4LmRlPgo+Pj4gQ2M6IEFobWFkIEZh
-dG91bSA8YS5mYXRvdW1AcGVuZ3V0cm9uaXguZGU+Cj4+PiBDYzogQWxleGFuZHJlIFRvcmd1ZSA8
-YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KPj4+IENjOiBBbmRyZSBQcnp5d2FyYSA8YW5k
-cmUucHJ6eXdhcmFAYXJtLmNvbT4KPj4+IENjOiBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5l
-bC5vcmc+Cj4+PiBDYzogRGFyaW8gQmluYWNjaGkgPGRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1
-dGlvbnMuY29tPgo+Pj4gQ2M6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemsrZHRAa2VybmVsLm9y
-Zz4KPj4+IENjOiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+Cj4+PiBD
-YzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+Pj4gQ2M6IFJv
-YiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4+PiBDYzogU2VhbiBOeWVramFlciA8c2VhbkBn
-ZWFuaXguY29tPgo+Pj4gQ2M6IFN0ZWZmZW4gVHJ1bXRyYXIgPHMudHJ1bXRyYXJAcGVuZ3V0cm9u
-aXguZGU+Cj4+PiBDYzogZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcKPj4+IENjOiBrZXJuZWxA
-ZGgtZWxlY3Ryb25pY3MuY29tCj4+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRl
-YWQub3JnCj4+PiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+
-Pj4gLS0tCj4+PiDCoCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMy
-L3N0bTMyLnlhbWwgfCA2ICsrKysrKwo+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9u
-cygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwgCj4+PiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9hcm0vc3RtMzIvc3RtMzIueWFtbAo+Pj4gaW5kZXggYmMyZjQzMzMwYWU0Mi4uN2Y2
-MTIyM2I4ZWYyNCAxMDA2NDQKPj4+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9hcm0vc3RtMzIvc3RtMzIueWFtbAo+Pj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL2FybS9zdG0zMi9zdG0zMi55YW1sCj4+PiBAQCAtNTksNiArNTksMTIgQEAg
-cHJvcGVydGllczoKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtIHBydCxwcnR0
-MXPCoMKgICMgUHJvdG9uaWMgUFJUVDFTCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0gY29u
-c3Q6IHN0LHN0bTMybXAxNTEKPj4+ICvCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERIIFNUTTMy
-TVAxMzUgREhDT1IgU29NIGJhc2VkIEJvYXJkcwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGl0ZW1zOgo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBkaCxzdG0zMm1wMTM1Zi1kaGNvci1kaHNi
-Ywo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBkaCxzdG0zMm1wMTMxYS1kaGNvci1z
-b20KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqAgLSBjb25zdDogc3Qsc3RtMzJtcDEzNQo+Pgo+PiBU
-aGUgZW50cmllcyBsb29rIG9yZGVyZWQgYnkgbGFzdCBjb21wYXRpYmxlLCBzbyB0aGlzIGJyZWFr
-cyB0aGUgb3JkZXIuCj4gCj4gQW5kIHVoIC4uLiBJIHdpbGwgbm90IGRvIGxhc3QgbWludXRlIGNo
-YW5nZXMgYmVmb3JlIHNlbmRpbmcgb3V0IGxhcmdlIAo+IHNlcmllcyBuZXh0IHRpbWUsIHNvcnJ5
-Lgo+IAo+IEknbGwgd2FpdCBmb3IgQWxleCB0byBzZWUgaWYgMDIuLjE5IGJldHRlciBiZSBzcXVh
-c2hlZCBvciBzZXBhcmF0ZSwgYW5kIAo+IHRoZW4gZml4IHRoaXMgdXAgYW5kIHNlbmQgVjIuCgpZ
-ZXMgSSB3b3VsZCBwcmVmZXIgdGhhdCB5b3Ugc3F1YXNoIHBpbnMgZGVmaW5pdGlvbiBwYXRjaGVz
-LgoKVGhhbmtzCkFsZXgKCj4gCj4gVGhhbmtzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 25/04/2024 09:48, Patrick Delaunay wrote:
+> Remove the unexpected comma in the compatible "st,stm32mp1,pwr-reg"
+> and define the new compatible "st,stm32mp1-pwr-reg".
+> The old compatible is only keep for compatibility with old device trees.
+> 
+> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> ---
+> 
+>  .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml  | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+> index c9586d277f41..2a52f9e769c2 100644
+> --- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+> @@ -11,7 +11,9 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    const: st,stm32mp1,pwr-reg
+> +    enum:
+> +      - st,stm32mp1-pwr-reg
+> +      - st,stm32mp1,pwr-reg
+
+Please make it oneOf:
+ - const: new one
+ - const: old one
+   deprecated: true
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
