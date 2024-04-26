@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69318B3C2F
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5308B3C30
 	for <lists+linux-stm32@lfdr.de>; Fri, 26 Apr 2024 18:00:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D8DFC7128D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6DF4C71293;
 	Fri, 26 Apr 2024 16:00:53 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 017EAC71294
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71789C7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Apr 2024 16:00:52 +0000 (UTC)
+ Fri, 26 Apr 2024 16:00:53 +0000 (UTC)
 Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 7D9FB8857C;
- Fri, 26 Apr 2024 18:00:50 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id F101F885A2;
+ Fri, 26 Apr 2024 18:00:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1714147251;
- bh=Amw4/bajJowEQc3xMpXrC2fZXOfCeYn8U9XHLfZLBK8=;
+ s=phobos-20191101; t=1714147253;
+ bh=KntFSRKKJlXDI5nElDgSk47qflI7G4WWVDhKzJ36saw=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KLc6eWKIpa/Wh3b5Q63HZaxGBZwMGpx4phoHXtpPPNVSgZ+sMEVfxdH41flNm35TC
- tO57KUR5RU12Ce3Kaz2k+xYbJT7Bj8qE+9qF2H7ljtYFh+Fd1PGUOOAzQY9HjmaiAU
- OlK22tHP3YNOk93pjPUEeBDY66K1zE3ZMgSgojIO6KEqsqNJ/ea9PGcDQDfYStXUkp
- SGJ9Yf9WetN+yRsDhTex6HVbCjWUngf4aI+7SVp08CrHttLxqvg3NupJ5hpUa6ST/c
- 6xMeZm8JGlUR1IVvxMShD0QjSGLC5wcJsUECgLhWvpgiU4didTAzctuzdRiteOB9Gd
- NyTnMv0uMqW9A==
-Message-ID: <b790f34e-8bfb-44f6-869d-798508008483@denx.de>
-Date: Fri, 26 Apr 2024 17:37:51 +0200
+ b=OlxJiBA4JqiSkPep5+//Fab0HwkAzF4JpRmBY7MmnztFaBs1CPhfiiJg0ggs186tS
+ FUPEmouTIVHsld25mVu1cdwPn6C0rqtoPLMk+EYPLrP4ynWAXJuYgAsk7V+AS8/p/O
+ lQzAOvhn6cmgSjN1NDjb3KFLd27GSD7fp54cDaBx7GfSLF3d7/W5Bthlr66buqjQKX
+ AtWFuDl14vhYxmjFdnSsEa/4q0BwZp/MfnRAlMtMwF0Hjm35xnePRM2FnAKfRiUvnz
+ SLFwOy2aphZnlwRhiXWW5PtwXL/WXKdqAWyqe/bx5cR8CBugtQGiJb3WDHRm3kGsYN
+ FZuYqDTShKRjA==
+Message-ID: <5b8b52cf-bd43-40c0-962a-c6936637b7de@denx.de>
+Date: Fri, 26 Apr 2024 17:40:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Christophe Roullier <christophe.roullier@foss.st.com>,
@@ -45,17 +45,17 @@ To: Christophe Roullier <christophe.roullier@foss.st.com>,
  <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
 References: <20240426125707.585269-1-christophe.roullier@foss.st.com>
- <20240426125707.585269-6-christophe.roullier@foss.st.com>
+ <20240426125707.585269-7-christophe.roullier@foss.st.com>
 Content-Language: en-US
 From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240426125707.585269-6-christophe.roullier@foss.st.com>
+In-Reply-To: <20240426125707.585269-7-christophe.roullier@foss.st.com>
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
 X-Virus-Status: Clean
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] net: stmmac: dwmac-stm32: update
- config management for phy wo cristal
+Subject: Re: [Linux-stm32] [PATCH v2 06/11] net: stmmac: dwmac-stm32: clean
+ the way to manage wol irqwake
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,146 +73,19 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 4/26/24 2:57 PM, Christophe Roullier wrote:
-> Some cleaning because some Ethernet PHY configs do not need to add
-> st,ext-phyclk property.
-> Change print info message "No phy clock provided" only when debug.
-> 
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
->   .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 27 ++++++++++---------
->   1 file changed, 14 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> index 7529a8d15492..e648c4e790a7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> @@ -55,17 +55,17 @@
->    *|         |        |      25MHz    |        50MHz       |                  |
->    * ---------------------------------------------------------------------------
->    *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
-> - *|         |        | st,ext-phyclk |                    |		     |
-> + *|         |        |	             |                    |		     |
->    * ---------------------------------------------------------------------------
->    *|  GMII   |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
-> - *|         |        | st,ext-phyclk |                    |		     |
-> + *|         |        |               |                    |		     |
->    * ---------------------------------------------------------------------------
->    *| RGMII   |	 -   |     eth-ck    |	      n/a	  |      eth-ck      |
-> - *|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
-> + *|         |        |               |                    | st,eth-clk-sel or|
->    *|         |        |               |                    | st,ext-phyclk    |
->    * ---------------------------------------------------------------------------
->    *| RMII    |	 -   |     eth-ck    |	    eth-ck        |	  n/a        |
-> - *|         |        | st,ext-phyclk | st,eth-ref-clk-sel |		     |
-> + *|         |        |               | st,eth-ref-clk-sel |		     |
->    *|         |        |               | or st,ext-phyclk   |		     |
->    * ---------------------------------------------------------------------------
->    *
-> @@ -174,23 +174,22 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
->   	dwmac->enable_eth_ck = false;
->   	switch (plat_dat->mac_interface) {
->   	case PHY_INTERFACE_MODE_MII:
-> -		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
-> +		if (clk_rate == ETH_CK_F_25M)
+> On STM32 platforms it is no longer needed to use a dedicated wakeup to
+> wake up system from CStop.
 
-I see two problems here.
+This really needs more clarification.
 
-First, according to the table above, in MII mode, clk_rate cannot be 
-anything else but 25 MHz, so the (clk_rate == ETH_CK_F_25M) condition is 
-always true. Why not drop that condition ?
+Why was the code needed before ? Maybe because it was used by some of 
+the older STM32F4/F7/H7 SoCs ? Is it still needed by those SoCs ? Will 
+this patch break those older SoCs ?
 
-The "dwmac->ext_phyclk" means "Ethernet PHY have no crystal", which 
-means the clock are provided by the STM32 RCC clock IP instead, which 
-means if the dwmac->ext_phyclk is true, dwmac->enable_eth_ck should be 
-set to true, because dwmac->enable_eth_ck controls the enablement of 
-these STM32 clock IP generated clock.
+> This patch removes the dedicated wake up usage
+> and clean the way to register the wake up irq.
 
-Second, as far as I understand it, there is no way to operate this IP 
-with external clock in MII mode, so this section should always be only:
-
-dwmac->enable_eth_ck = true;
-
->   			dwmac->enable_eth_ck = true;
->   		val = dwmac->ops->pmcsetr.eth1_selmii;
->   		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
->   		break;
->   	case PHY_INTERFACE_MODE_GMII:
->   		val = SYSCFG_PMCR_ETH_SEL_GMII;
-> -		if (clk_rate == ETH_CK_F_25M &&
-> -		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
-> +		if (clk_rate == ETH_CK_F_25M)
->   			dwmac->enable_eth_ck = true;
-> -			val |= dwmac->ops->pmcsetr.eth1_clk_sel;
-> -		}
->   		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
->   		break;
->   	case PHY_INTERFACE_MODE_RMII:
->   		val = dwmac->ops->pmcsetr.eth1_sel_rmii | dwmac->ops->pmcsetr.eth2_sel_rmii;
-> -		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M) &&
-> +		if (clk_rate == ETH_CK_F_25M)
-> +			dwmac->enable_eth_ck = true;
-> +		if (clk_rate == ETH_CK_F_50M &&
->   		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
-
-This doesn't seem to be equivalent change to the previous code . Here, 
-if the clock frequency is 25 MHz, the clock are unconditionally enabled. 
-Before, the code enabled the clock only if clock frequency was 25 MHz 
-AND one of the "dwmac->eth_ref_clk_sel_reg" or "dwmac->ext_phyclk" was 
-set (i.e. clock provided by SoC RCC clock IP).
-
-I think it might make this code easier if you drop all of the frequency 
-test conditionals, which aren't really all that useful, and only enable 
-the clock if either dwmac->ext_phyclk / dwmac->eth_clk_sel_reg / 
-dwmac->eth_ref_clk_sel_reg is set , because effectively what this entire 
-convoluted code is implementing is "if (clock supplied by clock IP i.e. 
-RCC) enable the clock()" *, right ?
-
-* And it is also toggling the right clock mux bit in PMCSETR.
-
-So, for MII this would be plain:
-dwmac->enable_eth_ck = true;
-
-For GMII/RGMII this would be:
-if (dwmac->ext_phyclk || dwmac->eth_clk_sel_reg)
-   dwmac->enable_eth_ck = true;
-
-For RMII this would be:
-if (dwmac->ext_phyclk || dwmac->eth_ref_clk_sel_reg)
-   dwmac->enable_eth_ck = true;
-
-Maybe the clock frequency validation can be retained, but done separately?
-
->   			dwmac->enable_eth_ck = true;
->   			val |= dwmac->ops->pmcsetr.eth1_ref_clk_sel;
-> @@ -203,7 +202,9 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
->   	case PHY_INTERFACE_MODE_RGMII_RXID:
->   	case PHY_INTERFACE_MODE_RGMII_TXID:
->   		val = dwmac->ops->pmcsetr.eth1_sel_rgmii | dwmac->ops->pmcsetr.eth2_sel_rgmii;
-> -		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M) &&
-> +		if (clk_rate == ETH_CK_F_25M)
-> +			dwmac->enable_eth_ck = true;
-> +		if (clk_rate == ETH_CK_F_125M &&
->   		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
->   			dwmac->enable_eth_ck = true;
->   			val |= dwmac->ops->pmcsetr.eth1_clk_sel;
-> @@ -219,7 +220,7 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
->   	}
->   
->   	/* Need to update PMCCLRR (clear register) */
-> -	regmap_write(dwmac->regmap, reg + dwmac->ops->syscfg_clr_off,
-> +	regmap_write(dwmac->regmap, dwmac->ops->syscfg_clr_off,
->   		     dwmac->mode_mask);
->   
->   	/* Update PMCSETR (set register) */
-> @@ -328,7 +329,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
->   	/*  Get ETH_CLK clocks */
->   	dwmac->clk_eth_ck = devm_clk_get(dev, "eth-ck");
->   	if (IS_ERR(dwmac->clk_eth_ck)) {
-> -		dev_info(dev, "No phy clock provided...\n");
-> +		dev_dbg(dev, "No phy clock provided...\n");
->   		dwmac->clk_eth_ck = NULL;
->   	}
->   
+[...]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
