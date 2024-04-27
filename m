@@ -2,48 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E508B401A
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Apr 2024 21:23:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E838B47E3
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 22:36:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59BB1C7128C;
-	Fri, 26 Apr 2024 19:23:05 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B21E9C7128E;
+	Sat, 27 Apr 2024 20:36:21 +0000 (UTC)
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B16AC69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E619DC69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Apr 2024 19:23:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 3C01BCE1B30;
- Fri, 26 Apr 2024 19:23:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F7ECC113CD;
- Fri, 26 Apr 2024 19:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1714159380;
- bh=OVSV+SEbfc1zfz8pX7msAmdgQGOL8Hi8WJYW9BAU2nE=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=FuXXwib59Ax8JB6ZoL3eNtEqvuZOmWn8LSE502+HTxnWty4srsSsbymxgckesNsc5
- EJVSYuzSMp4X144+as44CQavQyCxyCtaoyX5l7YTFA/9lEGA48ML4ohyshbUOQkAE7
- o8NAJtUAtfpCFlnpRwawwpBiUJc5ku/V6WmIsVSoU4fsdzLHEULYulqfDpSu5ICRTD
- yJJIRyJN6w/4vxb1AhJNzbkHP5Iq4CHQUImy0z/+qYNwCYa3QGeY19e7YC3pyB2UrQ
- 5nX/zHDoAV1BUZxUIj1gKEtBOVBE38hgoE+YqRzpEJShq+2bm2kD7qkhkZJdUNhLy/
- ik9D6unUNlMQw==
-Date: Fri, 26 Apr 2024 14:22:58 -0500
+ Sat, 27 Apr 2024 20:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=k1; bh=vucjjM3RsCbo5+
+ FPCKzNEmVbLons1oLEEtyP6oygaEw=; b=J/dbn4NFhpPLnpA2UHgTAGogwIkFVU
+ c1Oe144PmBmlBY7G1bZjfrO64wUSfJItMs30Ey1vHza/lqVrpXpu3HBC64PtE6wm
+ PM643I22QuBpe+FQCCFBy9C1g8B/+qKR2wnguasGV7MKIQhjrLfC6ogaEikc7wZg
+ NXKz5ylEb6ox+6JSJCa222bDqBSM7wjjeZmD2itN/VEqY86s1JzjVcawhMT0dNBB
+ ZfrCpu0HSx1LJTveW87o2Bi1Cr36obPwq5lvaoeqdeUgwJOFx2FSWFozO2gDVB1+
+ r2IRSzGgTFNtpEl2Svq5p+/Wg9jwOurnZVwcxRc0W7D4YqCilqvAW/8A==
+Received: (qmail 1781755 invoked from network); 27 Apr 2024 22:36:14 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 27 Apr 2024 22:36:14 +0200
+X-UD-Smtp-Session: l3s3148p1@ZFeo+BkXsI9ehh9l
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-i2c@vger.kernel.org
+Date: Sat, 27 Apr 2024 22:35:52 +0200
+Message-ID: <20240427203611.3750-1-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>
-In-Reply-To: <20240426203245.v2.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
-References: <20240426183253.1360098-1-patrick.delaunay@foss.st.com>
- <20240426203245.v2.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
-Message-Id: <171415937701.2720387.9777987349037944096.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Pascal Paillet <p.paillet@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: regulator: st,
- stm32mp1-pwr-reg: add compatible for STM32MP13
+Subject: [Linux-stm32] [PATCH 00/15] i2c: use 'time_left' with wait_for_*
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,46 +54,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+There is a confusing pattern in the kernel to use a variable named 'timeout' to
+store the result of wait_for_*() causing patterns like:
 
-On Fri, 26 Apr 2024 20:32:50 +0200, Patrick Delaunay wrote:
-> Add new compatible "st,stm32mp13-pwr-reg" for STM32MP13 SoC family.
-> 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> ---
-> 
-> Changes in v2:
-> - update for Rob review, only add compatible for STM32MP13 family
-> 
->  .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml    | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+        timeout = wait_for_completion_timeout(...)
+        if (!timeout) return -ETIMEDOUT;
 
-My bot found errors running 'make dt_binding_check' on your patch:
+with all kinds of permutations. Use 'time_left' as a variable to make the code
+self explaining.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml:15:5: [warning] wrong indentation: expected 6 but found 4 (indentation)
+This is the I2C part of a tree-wide series. The rest of the patches can
+be found here (slightly WIP):
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml: properties:compatible:oneOf: [{'const': 'st,stm32mp1,pwr-reg'}, {'const': 'st,stm32mp13-pwr-reg'}] should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
-	hint: Use 'enum' rather than 'oneOf' + 'const' entries
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
+git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/time_left
 
-doc reference errors (make refcheckdocs):
+Because these patches are generated, they need manual audit. So, I will
+send them step by step. This is part 1 and also a call for opinions if
+this is a desirable change. But at least in the I2C realm, I really want
+to have it proper.
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240426203245.v2.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid
+Build bot is happy with these patches and I also compile tested them
+(except two). No functional changes intended.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Wolfram Sang (15):
+  i2c: amd-mp2-plat: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: digicolor: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: exynos5: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: hix5hd2: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: imx-lpi2c: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: omap: use 'time_left' variable with wait_for_completion_timeout()
+  i2c: st: use 'time_left' variable with wait_for_completion_timeout()
+  i2c: stm32f4: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: stm32f7: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: synquacer: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: jz4780: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: qcom-geni: use 'time_left' variable with
+    wait_for_completion_timeout()
+  i2c: rk3x: use 'time_left' variable with wait_event_timeout()
+  i2c: s3c2410: use 'time_left' variable with wait_event_timeout()
+  i2c: pxa: use 'time_left' variable with wait_event_timeout()
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
