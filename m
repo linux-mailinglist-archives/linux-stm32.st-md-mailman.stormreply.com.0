@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19CE78B47E8
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 22:36:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02FA68B47E5
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 22:36:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB12CC71293;
-	Sat, 27 Apr 2024 20:36:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C028FC7128E;
+	Sat, 27 Apr 2024 20:36:30 +0000 (UTC)
 Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F125DC71293
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFCA7C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Apr 2024 20:36:30 +0000 (UTC)
+ Sat, 27 Apr 2024 20:36:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  sang-engineering.com; h=from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- s=k1; bh=gZ01Lhe4pAwdcuNCxaIYgv6RGXpiS5mlcEHdQcrIkWs=; b=HseIkX
- QeeKpgVS9jKY4BFhE/0UABE1zW0Qtb4VnivHX577i1yOEm/I+47oowrPMH9LHqnb
- MkwiKA+2NOg+KZwq2G91nlmmV01I+/7mZayTfWuToS6V/yewif7lNRllCbkQTXIj
- 3lSqVJV6CX4HrrakUN+dmjXfh3gU6Xy+TzgG3pr5sQF8yThqDDl17yCg0mOuET2O
- gqYIHau5mkauEbFYudMXLFdHwIW9Lbx9Ipej6NRnPPUTGAB4dAlJfoWgWKaioOJ1
- gYBEpL6ZHriOdPz8Gfo3FviY/0Jy1BhXWB36135S/GSfv94r8K5x52vqVqCMpivg
- OVycBaShXiLV6cBg==
-Received: (qmail 1781964 invoked from network); 27 Apr 2024 22:36:20 +0200
+ s=k1; bh=YtBKETUeeWdigupUNh1poF2adUaIr8Z2d3RrJ3sCaV0=; b=gOYqFv
+ 1h+vS8r2Jh7ErStywwggdVCLpThEUHqOT3Pr9Yl8/Bj3LNrIuZKYrWRJs6jd8fpL
+ YWuTmxexa05QoXMra0ELDpsHesZVfBelM2P6CO2Yyg5Ok+eucKHhso1HJf0dKvlN
+ hHyfEibxw7g1vs8jvFH2DyDozOdipgzZ/mt1pALZr5DR0LVz9eS9upzO6KDsmBMa
+ t5qA9bQKCtNvax/YPaPkA5dUsRVckAMvHZTt1uXtldzNryidwLL7hImJnsTIN2Rq
+ 360HMvNXGh0c2uDI22nZaXEW0Mb3okLZhDgA7JIt94wq4J4IdVD7+CoccN57tKA/
+ hWzfRSZ1Y4sk1qtw==
+Received: (qmail 1782013 invoked from network); 27 Apr 2024 22:36:21 +0200
 Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 27 Apr 2024 22:36:20 +0200
-X-UD-Smtp-Session: l3s3148p1@P+gS+RkX0s9ehh9l
+ authenticated); 27 Apr 2024 22:36:21 +0200
+X-UD-Smtp-Session: l3s3148p1@8rwe+RkX2s9ehh9l
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-i2c@vger.kernel.org
-Date: Sat, 27 Apr 2024 22:36:00 +0200
-Message-ID: <20240427203611.3750-9-wsa+renesas@sang-engineering.com>
+Date: Sat, 27 Apr 2024 22:36:01 +0200
+Message-ID: <20240427203611.3750-10-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240427203611.3750-1-wsa+renesas@sang-engineering.com>
 References: <20240427203611.3750-1-wsa+renesas@sang-engineering.com>
@@ -39,7 +39,7 @@ Cc: Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org,
  Wolfram Sang <wsa+renesas@sang-engineering.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 08/15] i2c: stm32f4: use 'time_left' variable
+Subject: [Linux-stm32] [PATCH 09/15] i2c: stm32f7: use 'time_left' variable
 	with wait_for_completion_timeout()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,37 +68,42 @@ self explaining.
 
 Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- drivers/i2c/busses/i2c-stm32f4.c | 8 ++++----
+ drivers/i2c/busses/i2c-stm32f7.c | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-index 859ac0cf7f6c..f8b12be6ef55 100644
---- a/drivers/i2c/busses/i2c-stm32f4.c
-+++ b/drivers/i2c/busses/i2c-stm32f4.c
-@@ -681,7 +681,7 @@ static int stm32f4_i2c_xfer_msg(struct stm32f4_i2c_dev *i2c_dev,
- {
- 	struct stm32f4_i2c_msg *f4_msg = &i2c_dev->msg;
- 	void __iomem *reg = i2c_dev->base + STM32F4_I2C_CR1;
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index 01210452216b..cfee2d9c09de 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1789,7 +1789,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	struct stm32f7_i2c_msg *f7_msg = &i2c_dev->f7_msg;
+ 	struct stm32_i2c_dma *dma = i2c_dev->dma;
+ 	struct device *dev = i2c_dev->dev;
 -	unsigned long timeout;
 +	unsigned long time_left;
- 	u32 mask;
- 	int ret;
+ 	int i, ret;
  
-@@ -706,11 +706,11 @@ static int stm32f4_i2c_xfer_msg(struct stm32f4_i2c_dev *i2c_dev,
- 		stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START);
- 	}
+ 	f7_msg->addr = addr;
+@@ -1809,8 +1809,8 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	if (ret)
+ 		goto pm_free;
  
 -	timeout = wait_for_completion_timeout(&i2c_dev->complete,
 -					      i2c_dev->adap.timeout);
 +	time_left = wait_for_completion_timeout(&i2c_dev->complete,
 +						i2c_dev->adap.timeout);
- 	ret = f4_msg->result;
+ 	ret = f7_msg->result;
+ 	if (ret) {
+ 		if (i2c_dev->use_dma)
+@@ -1826,7 +1826,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 		goto pm_free;
+ 	}
  
--	if (!timeout)
-+	if (!time_left)
- 		ret = -ETIMEDOUT;
- 
- 	return ret;
+-	if (!timeout) {
++	if (!time_left) {
+ 		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
+ 		if (i2c_dev->use_dma)
+ 			dmaengine_terminate_sync(dma->chan_using);
 -- 
 2.43.0
 
