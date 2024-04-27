@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F21F8B4862
+	by mail.lfdr.de (Postfix) with ESMTPS id 04FAE8B4860
 	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 23:52:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBA95C71296;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A27DAC7128E;
 	Sat, 27 Apr 2024 21:52:00 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D47D2C71294
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEF9EC6DD67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Apr 2024 21:51:55 +0000 (UTC)
+ Sat, 27 Apr 2024 21:51:56 +0000 (UTC)
 Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id B09148824B;
- Sat, 27 Apr 2024 23:51:54 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id 55F6F88273;
+ Sat, 27 Apr 2024 23:51:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
  s=phobos-20191101; t=1714254715;
- bh=StyUzSRnyvg8PGSr9aP4LPEI4PN2nTZYd6wXi3dQh/I=;
+ bh=jKpKs4GtT9EcKjmxAKxi39HW1VXhl5ucGSc5jkdyUGQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NHWIzub3aRPtNWgrRrEu3S7ggzjERGfdQ79K3q3UvcRh/m40Y6StFrLGQ+dgAcJRC
- xYxNOwlgKVxKb7BLk0o7w+k/O1h8XynOxRVXRyfakTvPg1BuR+M68ReDAbuD+M5Czx
- 5Im2wgwmNknWmGUE0b30CZMU+BPErFt3ZBaHbdPFNT2MqkCu7fB1iu3n0Wy8oCXOd6
- unY5E5sjUvoYcx8kAUWjEoROxmCESYnBCwv5dS1OPUe5mw7CmiiatcZ18ITw8kAiBA
- yQ6S/+PN/51T2M/+BdRb7Em1bX0X0/GlIODTPZRRW/ou88gGRS4MNKs90ouyyWBXno
- EE9XEJ2B9DaZQ==
+ b=Rk4cooLtRc3Do/WZCiAUbPed3t90hRP+9iOiHt5DKp3Y3y7rBPf4d1WtwtCcfCrDr
+ txcHvCRxP3IcV16hoTc39RRo9v2HZ6qll3aEGTn8rFacWGisS46dK9UPdf1JmovYCV
+ lrdMWhOjgC0BKZqJ6QAVLinjXyBlGu/1KKj8RD+G1e1dZlgqpVaNKfvW8f4San53u6
+ L1ecper7g+nC8sSr0n1MQpnnKt11XDEUk0ZsILGCdnC8e6jpoHiBD0VgW3hmIYVBgD
+ /yKWHTC6y3Q8/XlAunJx2h8E3Fq6iGTpiCULPgTy8+kKc4JHTt9Me7yvfc0CwDjvdR
+ zMcXS33Q2IxvQ==
 From: Marek Vasut <marex@denx.de>
 To: netdev@vger.kernel.org
-Date: Sat, 27 Apr 2024 23:50:43 +0200
-Message-ID: <20240427215113.57548-4-marex@denx.de>
+Date: Sat, 27 Apr 2024 23:50:44 +0200
+Message-ID: <20240427215113.57548-5-marex@denx.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240427215113.57548-1-marex@denx.de>
 References: <20240427215113.57548-1-marex@denx.de>
@@ -46,7 +46,7 @@ Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
 Subject: [Linux-stm32] [net-next, RFC,
-	PATCH 4/5] net: stmmac: dwmac-stm32: Clean up the debug prints
+	PATCH 5/5] net: stmmac: dwmac-stm32: Fix Mhz to MHz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,10 +63,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use dev_err()/dev_dbg() and phy_modes() to print PHY mode instead of
-pr_debug() and hand-written PHY mode decoding. This way, each debug
-print has associated device with it and duplicated mode decoding is
-removed.
+Trivial, fix up the comments using 'Mhz' to 'MHz'.
+No functional change.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 ---
@@ -82,77 +80,31 @@ Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: netdev@vger.kernel.org
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c  | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index 3fedb447970a6..91e1a540616d1 100644
+index 91e1a540616d1..260b5eb27b07c 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -231,19 +231,16 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
- 	switch (plat_dat->mac_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		val = SYSCFG_PMCR_ETH_SEL_MII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_GMII:
- 		val = SYSCFG_PMCR_ETH_SEL_GMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = SYSCFG_PMCR_ETH_SEL_RMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
-@@ -252,15 +249,16 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
- 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RGMII\n");
- 		break;
- 	default:
--		pr_debug("SYSCFG init :  Do not manage %d interface\n",
--			 plat_dat->mac_interface);
-+		dev_err(dwmac->dev, "Mode %s not supported",
-+			phy_modes(plat_dat->mac_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
+@@ -58,7 +58,7 @@
+  * Below table summarizes the clock requirement and clock sources for
+  * supported phy interface modes.
+  * __________________________________________________________________________
+- *|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
++ *|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125MHz from PHY|
+  *|         |        |      25MHz    |        50MHz       |                  |
+  * ---------------------------------------------------------------------------
+  *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+@@ -370,7 +370,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
+ 	/* Gigabit Ethernet 125MHz clock selection. */
+ 	dwmac->eth_clk_sel_reg = of_property_read_bool(np, "st,eth-clk-sel");
  
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+
- 	/* Need to update PMCCLRR (clear register) */
- 	regmap_write(dwmac->regmap, reg + SYSCFG_PMCCLRR_OFFSET,
- 		     dwmac->ops->syscfg_eth_mask);
-@@ -294,19 +292,19 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	switch (plat_dat->mac_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		val = SYSCFG_MCU_ETH_SEL_MII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = SYSCFG_MCU_ETH_SEL_RMII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 	default:
--		pr_debug("SYSCFG init :  Do not manage %d interface\n",
--			 plat_dat->mac_interface);
-+		dev_err(dwmac->dev, "Mode %s not supported",
-+			phy_modes(plat_dat->mac_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
+-	/* Ethernet 50Mhz RMII clock selection */
++	/* Ethernet 50MHz RMII clock selection */
+ 	dwmac->eth_ref_clk_sel_reg =
+ 		of_property_read_bool(np, "st,eth-ref-clk-sel");
  
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+
- 	return regmap_update_bits(dwmac->regmap, reg,
- 				 dwmac->ops->syscfg_eth_mask, val << 23);
- }
 -- 
 2.43.0
 
