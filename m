@@ -2,45 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02FA68B47E5
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 22:36:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 465768B4864
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Apr 2024 23:52:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C028FC7128E;
-	Sat, 27 Apr 2024 20:36:30 +0000 (UTC)
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9412C7129A;
+	Sat, 27 Apr 2024 21:52:00 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFCA7C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D64FEC71295
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Apr 2024 20:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- s=k1; bh=YtBKETUeeWdigupUNh1poF2adUaIr8Z2d3RrJ3sCaV0=; b=gOYqFv
- 1h+vS8r2Jh7ErStywwggdVCLpThEUHqOT3Pr9Yl8/Bj3LNrIuZKYrWRJs6jd8fpL
- YWuTmxexa05QoXMra0ELDpsHesZVfBelM2P6CO2Yyg5Ok+eucKHhso1HJf0dKvlN
- hHyfEibxw7g1vs8jvFH2DyDozOdipgzZ/mt1pALZr5DR0LVz9eS9upzO6KDsmBMa
- t5qA9bQKCtNvax/YPaPkA5dUsRVckAMvHZTt1uXtldzNryidwLL7hImJnsTIN2Rq
- 360HMvNXGh0c2uDI22nZaXEW0Mb3okLZhDgA7JIt94wq4J4IdVD7+CoccN57tKA/
- hWzfRSZ1Y4sk1qtw==
-Received: (qmail 1782013 invoked from network); 27 Apr 2024 22:36:21 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 27 Apr 2024 22:36:21 +0200
-X-UD-Smtp-Session: l3s3148p1@8rwe+RkX2s9ehh9l
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-i2c@vger.kernel.org
-Date: Sat, 27 Apr 2024 22:36:01 +0200
-Message-ID: <20240427203611.3750-10-wsa+renesas@sang-engineering.com>
+ Sat, 27 Apr 2024 21:51:53 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 128F487FFB;
+ Sat, 27 Apr 2024 23:51:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1714254713;
+ bh=aG3QNGQPGlTlLfCjPNS6RQD1+fXVLlGCASqKJj0gk/A=;
+ h=From:To:Cc:Subject:Date:From;
+ b=JU/klyIhApxeWQpFjDTTNMrGUXl4OHi+xWFWGutA+R4SZSwpMwdlWFeswx2Xihr/t
+ tGmDBtAaCruG3kURonwahK8aKYcC75UrMXChXDJp7vSVtkC9bZolGugVop4+y1xaFA
+ L7/FCHeuq6+RdgA3xWznAxjHNhC2oFqPsw1lmmtJiyUnvD/8JzjXdTfKZDHmKBb/QI
+ STN1xZZDukCFKK9fC85fLE1HOoUnRjf1vOySgkNkpL2vAqMcEQePLmnsv2VoJ57aJ7
+ +aPE6c3sBlSb4w12GanB6Bvb13Vyhn3/T3w7UeTwu+ct2Nti7+L36poFQ9aMyaeSvx
+ OikNIHgQWOZGw==
+From: Marek Vasut <marex@denx.de>
+To: netdev@vger.kernel.org
+Date: Sat, 27 Apr 2024 23:50:40 +0200
+Message-ID: <20240427215113.57548-1-marex@denx.de>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240427203611.3750-1-wsa+renesas@sang-engineering.com>
-References: <20240427203611.3750-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Cc: Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 09/15] i2c: stm32f7: use 'time_left' variable
-	with wait_for_completion_timeout()
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [net-next, RFC,
+	PATCH 1/5] net: stmmac: dwmac-stm32: Separate out external clock
+	rate validation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,53 +62,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is a confusing pattern in the kernel to use a variable named 'timeout' to
-store the result of wait_for_completion_timeout() causing patterns like:
+Pull the external clock frequency validation into a separate function,
+to avoid conflating it with external clock DT property decoding and
+clock mux register configuration. This should make the code easier to
+read and understand.
 
-	timeout = wait_for_completion_timeout(...)
-	if (!timeout) return -ETIMEDOUT;
+This does change the code behavior slightly. The clock mux PMCR register
+setting now depends solely on the DT properties which configure the clock
+mux between external clock and internal RCC generated clock. The mux PMCR
+register settings no longer depend on the supplied clock frequency, that
+supplied clock frequency is now only validated, and if the clock frequency
+is invalid for a mode, it is rejected.
 
-with all kinds of permutations. Use 'time_left' as a variable to make the code
-self explaining.
+Previously, the code would switch the PMCR register clock mux to internal
+RCC generated clock if external clock couldn't provide suitable frequency,
+without checking whether the RCC generated clock frequency is correct. Such
+behavior is risky at best, user should have configured their clock correctly
+in the first place, so this behavior is removed here.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Marek Vasut <marex@denx.de>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: netdev@vger.kernel.org
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 54 +++++++++++++++----
+ 1 file changed, 44 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 01210452216b..cfee2d9c09de 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1789,7 +1789,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 	struct stm32f7_i2c_msg *f7_msg = &i2c_dev->f7_msg;
- 	struct stm32_i2c_dma *dma = i2c_dev->dma;
- 	struct device *dev = i2c_dev->dev;
--	unsigned long timeout;
-+	unsigned long time_left;
- 	int i, ret;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index c92dfc4ecf570..43340a5573c64 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -157,25 +157,57 @@ static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat, bool resume)
+ 	return stm32_dwmac_clk_enable(dwmac, resume);
+ }
  
- 	f7_msg->addr = addr;
-@@ -1809,8 +1809,8 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 	if (ret)
- 		goto pm_free;
++static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data *plat_dat)
++{
++	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
++	const u32 clk_rate = clk_get_rate(dwmac->clk_eth_ck);
++
++	switch (plat_dat->mac_interface) {
++	case PHY_INTERFACE_MODE_MII:
++		if (clk_rate == ETH_CK_F_25M)
++			return 0;
++		break;
++	case PHY_INTERFACE_MODE_GMII:
++		if (clk_rate == ETH_CK_F_25M)
++			return 0;
++		break;
++	case PHY_INTERFACE_MODE_RMII:
++		if (clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M)
++			return 0;
++		break;
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++		if (clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M)
++			return 0;
++		break;
++	default:
++		break;
++	}
++
++	dev_err(dwmac->dev, "Mode %s does not match eth-ck frequency %d Hz",
++		phy_modes(plat_dat->mac_interface), clk_rate);
++	return -EINVAL;
++}
++
+ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ {
+ 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
+-	u32 reg = dwmac->mode_reg, clk_rate;
+-	int val;
++	u32 reg = dwmac->mode_reg;
++	int val, ret;
  
--	timeout = wait_for_completion_timeout(&i2c_dev->complete,
--					      i2c_dev->adap.timeout);
-+	time_left = wait_for_completion_timeout(&i2c_dev->complete,
-+						i2c_dev->adap.timeout);
- 	ret = f7_msg->result;
- 	if (ret) {
- 		if (i2c_dev->use_dma)
-@@ -1826,7 +1826,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 		goto pm_free;
+-	clk_rate = clk_get_rate(dwmac->clk_eth_ck);
+ 	dwmac->enable_eth_ck = false;
+ 	switch (plat_dat->mac_interface) {
+ 	case PHY_INTERFACE_MODE_MII:
+-		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
++		if (dwmac->ext_phyclk)
+ 			dwmac->enable_eth_ck = true;
+ 		val = SYSCFG_PMCR_ETH_SEL_MII;
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_GMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_GMII;
+-		if (clk_rate == ETH_CK_F_25M &&
+-		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++		if (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk) {
+ 			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
+ 		}
+@@ -183,8 +215,7 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_RMII;
+-		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M) &&
+-		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
++		if (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk) {
+ 			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
+ 		}
+@@ -195,8 +226,7 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
+-		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M) &&
+-		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++		if (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk) {
+ 			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
+ 		}
+@@ -209,6 +239,10 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ 		return -EINVAL;
  	}
  
--	if (!timeout) {
-+	if (!time_left) {
- 		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
- 		if (i2c_dev->use_dma)
- 			dmaengine_terminate_sync(dma->chan_using);
++	ret = stm32mp1_validate_ethck_rate(plat_dat);
++	if (ret)
++		return ret;
++
+ 	/* Need to update PMCCLRR (clear register) */
+ 	regmap_write(dwmac->regmap, reg + SYSCFG_PMCCLRR_OFFSET,
+ 		     dwmac->ops->syscfg_eth_mask);
 -- 
 2.43.0
 
