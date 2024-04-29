@@ -2,45 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAA278B6332
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2024 22:07:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84968B64C8
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2024 23:45:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C559C71285;
-	Mon, 29 Apr 2024 20:07:03 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79A4FC71282
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61FD8C71285;
+	Mon, 29 Apr 2024 21:45:25 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6013AC71282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2024 20:07:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4A139CE01FF;
- Mon, 29 Apr 2024 20:07:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C298EC4AF14;
- Mon, 29 Apr 2024 20:06:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1714421219;
- bh=4A88CtFhO9g0Vm1pMTxYoO6IBnLwMZJMkAtxvaB8yTQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=d2Eu+bDcB2VBGxzdNS8FaG+wTdSF6EoPn0gvxQjza1D737089iPlbg0X3lOuJ7qth
- yva0Bwg83ykirUtT774C38MB8baxZTN7nAsmiaI4FJKiv2i9/gmHixZUCEOw9MeQ1h
- zg6AbK4mBXTHZT+4Cvu/os75HZWacf7PReftRCBMhYTrKwp2XbiaubHfGdTuvfZ5rg
- BONtufjopg6ZlMGGhKRZppD2XFeHXoXqHwen53ezbgea/Cg+w9UpW2hDxgRMTqxJC+
- 07vhFpg9Xe221vL8ol/WQGRNXarUta0VmHYfVOgReolABJxkH5ps5kZNfzH3AFlg8w
- 9NFnqEt6HKlLQ==
-Date: Mon, 29 Apr 2024 21:06:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Message-ID: <20240429210648.4b429d31@jic23-huawei>
-In-Reply-To: <20240429113313.68359-1-wsa+renesas@sang-engineering.com>
-References: <20240429113313.68359-1-wsa+renesas@sang-engineering.com>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+ Mon, 29 Apr 2024 21:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1714427117;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=QdU3RyAhhNJtPcn7BJGK9yJoXLvf1QCQv7HYg0QISNs=;
+ b=Cm2Ku0LMTIP4wcu8EcadsUpb3qzRBQDEQlBSYa4453jP7+gkMlTjWDe4M/lxo6nHlX70hG
+ aJHFlw9eUPDY0tMJtebzYBNQP3Gp1yxH/WKEfPF61Ixj5gtRfk8SuEUdmNIkCOFP35RsHs
+ RDfI/K/b8uFV40/ft1/J1RhAskPTC3c=
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-622-qwAnnF8QOry3y3jCtiGGYg-1; Mon, 29 Apr 2024 17:45:09 -0400
+X-MC-Unique: qwAnnF8QOry3y3jCtiGGYg-1
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-1e63ff880f5so62265545ad.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Apr 2024 14:45:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714427109; x=1715031909;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QdU3RyAhhNJtPcn7BJGK9yJoXLvf1QCQv7HYg0QISNs=;
+ b=SqYI01QtNmBau3eKEle9kC9awdEuCBrRVY+t1sxSPn7xOfhMRYh1bRnA15AbtSatSy
+ GIuqi5Gi5quE5xYJSOV0Fa4XlWq7RY97sHr0q4M88MmPufgSV7RCT16UNSe2NLv5NHYQ
+ x9Hi0Au82QavSCBS0gYa+QKOHt4aH3iGpyUjpPC4Or+MpaOEDNOwzIZNGfe91rmX1Goe
+ WErgYLmyuJ85fHQdKAtOrh/jQRUyQtBmw10ksG3a/XTMdol0RGi3J43y5VFo4l5xpXNz
+ 8U6/RYYUnu0OSaFJBpIkucKv/kSMQylps3QhHGXEnG66X7ym5JTw9ComB/bjOnVGQzZb
+ 6uQQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7IueSWvhYLv/p82hcly2lf3LsbP/fuH7VUFjyb8v7FBUxSbj/idBHCDKDCLcGjRWKxHZefq54k09P32PCXuP/8Y+azRT/u1mnwp45z1RqNqxAunvTVWA3
+X-Gm-Message-State: AOJu0Yy4H1Y0sF8EjjMn5GIrz/dl24srjTgeuj7kWgfDm53k6ql4genb
+ kRJntUH8LRU7fTb8T0PoMj5eW26F7voTdW2vtyDN/PabY/qiRb5lXjKRXXzAEMm/Mt6D1QF67UP
+ 9FWrArVS+lLHHbrIhIttEYShzW+vnx5Ckf2UfdfO12WkZ3i5jxmHoJbw+2wn++QWRkK/6/ewrUZ
+ iCFQ==
+X-Received: by 2002:a17:902:ce87:b0:1eb:7285:d6fe with SMTP id
+ f7-20020a170902ce8700b001eb7285d6femr9045682plg.23.1714427108698; 
+ Mon, 29 Apr 2024 14:45:08 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEGRQ9LT7NJkVOb6GUEq9lwThklv0tGP954t0tZVLJEW83PPF8uBigHzkBa6EHJUPWcRTTkqQ==
+X-Received: by 2002:a17:902:ce87:b0:1eb:7285:d6fe with SMTP id
+ f7-20020a170902ce8700b001eb7285d6femr9045663plg.23.1714427108354; 
+ Mon, 29 Apr 2024 14:45:08 -0700 (PDT)
+Received: from [192.168.1.111] ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ q5-20020a170902bd8500b001db8145a1a2sm20731655pls.274.2024.04.29.14.45.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Apr 2024 14:45:07 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+Date: Mon, 29 Apr 2024 16:45:05 -0500
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/8] iio: use 'time_left' instead of
- 'timeout' with wait_for_*() functions
+Message-Id: <20240429-stmmac-no-ethtool-begin-v1-1-04c629c1c142@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAOAUMGYC/x2MsQqDMBBAfyXc3MMYg0PXgh8g3YqD1Yse1EtJj
+ iKI/27o8IY3vHdApsSU4W4OSPTjzFGK1DcD0zrKQshzcXDWeeudx6zbNk4oEUlXjfGDb1pYMDS
+ 2DS7UBQ+l/iYKvP/PL+i7R9V3TyOkKLQrDOd5AQ+jaCR7AAAA
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Abhishek Chauhan <quic_abchauha@quicinc.com>, 
+ Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+X-Mailer: b4 0.13.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: netdev@vger.kernel.org, Andrew Halaney <ahalaney@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH RFC/RFT net-next] net: stmmac: drop the
+ ethtool begin() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,58 +98,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 29 Apr 2024 13:33:03 +0200
-Wolfram Sang <wsa+renesas@sang-engineering.com> wrote:
+This callback doesn't seem to serve much purpose, and prevents things
+like:
 
-> There is a confusing pattern in the kernel to use a variable named 'timeout' to
-> store the result of wait_for_*() functions causing patterns like:
-> 
->         timeout = wait_for_completion_timeout(...)
->         if (!timeout) return -ETIMEDOUT;
-> 
-> with all kinds of permutations. Use 'time_left' as a variable to make the code
-> obvious and self explaining.
-> 
-> This is part of a tree-wide series. The rest of the patches can be found here
-> (some parts may still be WIP):
-> 
-> git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/time_left
-> 
-> Because these patches are generated, I audit them before sending. This is why I
-> will send series step by step. Build bot is happy with these patches, though.
-> No functional changes intended.
+    - systemd.link files from disabling autonegotiation
+    - carrier detection in NetworkManager
 
-Nice improvement.  Applied
+prior to userspace bringing the link up.
 
-> 
-> Wolfram Sang (8):
->   iio: adc: ad_sigma_delta: use 'time_left' variable with
->     wait_for_completion_timeout()
->   iio: adc: exynos_adc: use 'time_left' variable with
->     wait_for_completion_timeout()
->   iio: adc: fsl-imx25-gcq: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
->   iio: adc: intel_mrfld_adc: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
->   iio: adc: stm32-adc: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
->   iio: adc: stm32-dfsdm-adc: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
->   iio: adc: twl6030-gpadc: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
->   iio: pressure: zpa2326: use 'time_left' variable with
->     wait_for_completion_interruptible_timeout()
-> 
->  drivers/iio/adc/ad_sigma_delta.c  |  6 +++---
->  drivers/iio/adc/exynos_adc.c      | 16 ++++++++--------
->  drivers/iio/adc/fsl-imx25-gcq.c   | 10 +++++-----
->  drivers/iio/adc/intel_mrfld_adc.c | 12 ++++++------
->  drivers/iio/adc/stm32-adc.c       | 10 +++++-----
->  drivers/iio/adc/stm32-dfsdm-adc.c | 12 ++++++------
->  drivers/iio/adc/twl6030-gpadc.c   |  8 ++++----
->  drivers/iio/pressure/zpa2326.c    | 10 +++++-----
->  8 files changed, 42 insertions(+), 42 deletions(-)
-> 
+The only fear I can think of is accessing unclocked resources due to
+pm_runtime, but ethtool ioctls handle that as of commit
+f32a21376573 ("ethtool: runtime-resume netdev parent before ethtool ioctl ops")
+
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 542e2633a6f5..c2e2723f7c6a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -438,13 +438,6 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
+ 
+ }
+ 
+-static int stmmac_check_if_running(struct net_device *dev)
+-{
+-	if (!netif_running(dev))
+-		return -EBUSY;
+-	return 0;
+-}
+-
+ static int stmmac_ethtool_get_regs_len(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+@@ -1273,7 +1266,6 @@ static int stmmac_set_tunable(struct net_device *dev,
+ static const struct ethtool_ops stmmac_ethtool_ops = {
+ 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
+ 				     ETHTOOL_COALESCE_MAX_FRAMES,
+-	.begin = stmmac_check_if_running,
+ 	.get_drvinfo = stmmac_ethtool_getdrvinfo,
+ 	.get_msglevel = stmmac_ethtool_getmsglevel,
+ 	.set_msglevel = stmmac_ethtool_setmsglevel,
+
+---
+base-commit: a59668a9397e7245b26e9be85d23f242ff757ae8
+change-id: 20240424-stmmac-no-ethtool-begin-f306f2f1f2f4
+
+Best regards,
+-- 
+Andrew Halaney <ahalaney@redhat.com>
 
 _______________________________________________
 Linux-stm32 mailing list
