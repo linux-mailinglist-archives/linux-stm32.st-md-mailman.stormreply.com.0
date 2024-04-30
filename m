@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A611D8B6BA1
+	by mail.lfdr.de (Postfix) with ESMTPS id 77F198B6B9E
 	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2024 09:29:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C2C0C7129A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13A90C71294;
 	Tue, 30 Apr 2024 07:29:13 +0000 (UTC)
 Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
  [217.70.183.193])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FC70C71295
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69FC1C7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 Apr 2024 07:29:07 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 319CF24000B;
  Tue, 30 Apr 2024 07:29:06 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id EBC19240008;
- Tue, 30 Apr 2024 07:29:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1714462146;
+ t=1714462147;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eXa4EdnQqRxUOEPvkBPgsUUIstZOOeI7Xe83F05iy1I=;
- b=ivrznIROkVpyHE63u+TjwNbGEEdjJk9VEFxmunoMTQ4rFoZJA8nw5cOLe4uwMFAqmvsOj9
- 1QqE13Ixpnd1CZSx44PGCxtTfjXRLFeTwPqFc2waae9NYVb6KDZJQrC+Fu5PHBUTyWNzw/
- jMHQSALZLNJL59gp+hcpzzQPMbKsZujRJKfk8QtBIhcYdgaJ+qFRtVMlZ7yYNoJuDAVv3G
- bgBga0myqC6mU41XAiQx2DNYBm/SX8v/eRs/ZWcapi380sNG0OAzmx7HF1fHSGXobrEIQm
- ki8Br/KYj5C0ipQZNWj9R4HwpCF0jUsSLwsU/aOCJx3dt08MoW79vUJzjEzm/w==
+ bh=Quwz6Y6DCJb6oI8QivjHVeJ8W6gP2+As4r5PbpcMIik=;
+ b=ZxwuCRRbn1FQlBI4z2c9GSAvPY/TW1CMBCxRD+iRIiteCUzjtF+IQ4XvRXzA/TeRQbyojZ
+ Rrp3s1TWVVeyGCBCwMd4y9jTQG14n56nB6m+ILT0XBATUXn9G88e2bheoEKc1ByN5lP9Ql
+ WnQyfPmWAOdArHELhHYAVH71FPH+pI3pqEpNas/kF0+XvsgIQEJfT07qbTSd6nTKfrzKRe
+ rIPIDNup+s4Ez3ptqXYR4Gs45cAkb0L9RucYO03U1W2aBlTatCwTa9shguXaA0E6FCsedZ
+ jsqZNnusVtA8SdVHVeLSFFNCKqMo7ZppyHuEaKF1jIJHxOkKmQVQTd3Kn/uflQ==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 30 Apr 2024 09:29:41 +0200
+Date: Tue, 30 Apr 2024 09:29:42 +0200
 MIME-Version: 1.0
-Message-Id: <20240430-rzn1-gmac1-v5-1-62f65a84f418@bootlin.com>
+Message-Id: <20240430-rzn1-gmac1-v5-2-62f65a84f418@bootlin.com>
 References: <20240430-rzn1-gmac1-v5-0-62f65a84f418@bootlin.com>
 In-Reply-To: <20240430-rzn1-gmac1-v5-0-62f65a84f418@bootlin.com>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -54,8 +54,8 @@ Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
  linux-renesas-soc@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 1/7] dt-bindings: net: renesas,
- rzn1-gmac: Document RZ/N1 GMAC support
+Subject: [Linux-stm32] [PATCH net-next v5 2/7] net: stmmac: Add dedicated
+ XPCS cleanup method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,57 +67,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgoKVGhlIFJa
-L04xIHNlcmllcyBvZiBNUFVzIGZlYXR1cmUgdXAgdG8gdHdvIEdpZ2FiaXQgRXRoZXJuZXQgY29u
-dHJvbGxlcnMuClRoZXNlIGNvbnRyb2xsZXJzIGFyZSBiYXNlZCBvbiBTeW5vcHN5cyBJUHMuIFRo
-ZXkgY2FuIGJlIGNvbm5lY3RlZCB0bwpSWi9OMSBSR01JSS9STUlJIGNvbnZlcnRlcnMuCgpBZGQg
-YSBiaW5kaW5nIHRoYXQgZGVzY3JpYmVzIHRoZXNlIEdNQUMgZGV2aWNlcy4KClNpZ25lZC1vZmYt
-Ynk6IENsw6ltZW50IEzDqWdlciA8Y2xlbWVudC5sZWdlckBib290bGluLmNvbT4KW3JnYW50b2lz
-OiBjb21taXQgbG9nXQpSZXZpZXdlZC1ieTogUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz4K
-UmV2aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+
-ClNpZ25lZC1vZmYtYnk6IFJvbWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNv
-bT4KLS0tCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvcmVuZXNhcyxyem4xLWdtYWMueWFt
-bCB8IDY2ICsrKysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA2NiBpbnNlcnRp
-b25zKCspCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25l
-dC9yZW5lc2FzLHJ6bjEtZ21hYy55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL25ldC9yZW5lc2FzLHJ6bjEtZ21hYy55YW1sCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4
-IDAwMDAwMDAwMDAwMDAuLmQ5YThkNTg2ZTI2MGMKLS0tIC9kZXYvbnVsbAorKysgYi9Eb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3JlbmVzYXMscnpuMS1nbWFjLnlhbWwKQEAg
-LTAsMCArMSw2NiBAQAorIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAtb25seSBP
-UiBCU0QtMi1DbGF1c2UpCislWUFNTCAxLjIKKy0tLQorJGlkOiBodHRwOi8vZGV2aWNldHJlZS5v
-cmcvc2NoZW1hcy9uZXQvcmVuZXNhcyxyem4xLWdtYWMueWFtbCMKKyRzY2hlbWE6IGh0dHA6Ly9k
-ZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIworCit0aXRsZTogUmVuZXNhcyBH
-TUFDCisKK21haW50YWluZXJzOgorICAtIFJvbWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bi
-b290bGluLmNvbT4KKworc2VsZWN0OgorICBwcm9wZXJ0aWVzOgorICAgIGNvbXBhdGlibGU6Cisg
-ICAgICBjb250YWluczoKKyAgICAgICAgZW51bToKKyAgICAgICAgICAtIHJlbmVzYXMscjlhMDZn
-MDMyLWdtYWMKKyAgICAgICAgICAtIHJlbmVzYXMscnpuMS1nbWFjCisgIHJlcXVpcmVkOgorICAg
-IC0gY29tcGF0aWJsZQorCithbGxPZjoKKyAgLSAkcmVmOiBzbnBzLGR3bWFjLnlhbWwjCisKK3By
-b3BlcnRpZXM6CisgIGNvbXBhdGlibGU6CisgICAgaXRlbXM6CisgICAgICAtIGVudW06CisgICAg
-ICAgICAgLSByZW5lc2FzLHI5YTA2ZzAzMi1nbWFjCisgICAgICAtIGNvbnN0OiByZW5lc2FzLHJ6
-bjEtZ21hYworICAgICAgLSBjb25zdDogc25wcyxkd21hYworCisgIHBjcy1oYW5kbGU6CisgICAg
-ZGVzY3JpcHRpb246CisgICAgICBwaGFuZGxlIHBvaW50aW5nIHRvIGEgUENTIHN1Yi1ub2RlIGNv
-bXBhdGlibGUgd2l0aAorICAgICAgcmVuZXNhcyxyem4xLW1paWMueWFtbCMKKworcmVxdWlyZWQ6
-CisgIC0gY29tcGF0aWJsZQorCit1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlCisKK2V4YW1w
-bGVzOgorICAtIHwKKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xvY2svcjlhMDZnMDMyLXN5
-c2N0cmwuaD4KKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIv
-YXJtLWdpYy5oPgorCisgICAgZXRoZXJuZXRANDQwMDAwMDAgeworICAgICAgY29tcGF0aWJsZSA9
-ICJyZW5lc2FzLHI5YTA2ZzAzMi1nbWFjIiwgInJlbmVzYXMscnpuMS1nbWFjIiwgInNucHMsZHdt
-YWMiOworICAgICAgcmVnID0gPDB4NDQwMDAwMDAgMHgyMDAwPjsKKyAgICAgIGludGVycnVwdHMg
-PSA8R0lDX1NQSSAzNCBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKKyAgICAgICAgICAgICAgICAgICA8
-R0lDX1NQSSAzNiBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKKyAgICAgICAgICAgICAgICAgICA8R0lD
-X1NQSSAzNSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKKyAgICAgIGludGVycnVwdC1uYW1lcyA9ICJt
-YWNpcnEiLCAiZXRoX3dha2VfaXJxIiwgImV0aF9scGkiOworICAgICAgY2xvY2stbmFtZXMgPSAi
-c3RtbWFjZXRoIjsKKyAgICAgIGNsb2NrcyA9IDwmc3lzY3RybCBSOUEwNkcwMzJfSENMS19HTUFD
-MD47CisgICAgICBwb3dlci1kb21haW5zID0gPCZzeXNjdHJsPjsKKyAgICAgIHNucHMsbXVsdGlj
-YXN0LWZpbHRlci1iaW5zID0gPDI1Nj47CisgICAgICBzbnBzLHBlcmZlY3QtZmlsdGVyLWVudHJp
-ZXMgPSA8MTI4PjsKKyAgICAgIHR4LWZpZm8tZGVwdGggPSA8MjA0OD47CisgICAgICByeC1maWZv
-LWRlcHRoID0gPDQwOTY+OworICAgICAgcGNzLWhhbmRsZSA9IDwmbWlpX2NvbnYxPjsKKyAgICAg
-IHBoeS1tb2RlID0gIm1paSI7CisgICAgfTsKKworLi4uCgotLSAKMi40NC4wCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+From: Serge Semin <fancer.lancer@gmail.com>
+
+Currently the XPCS handler destruction is performed in the
+stmmac_mdio_unregister() method. It doesn't look good because the handler
+isn't originally created in the corresponding protagonist
+stmmac_mdio_unregister(), but in the stmmac_xpcs_setup() function. In
+order to have more coherent MDIO and XPCS setup/cleanup procedures,
+let's move the DW XPCS destruction to the dedicated stmmac_pcs_clean()
+method.
+
+This method will also be used to cleanup PCS hardware using the
+pcs_exit() callback that will be introduced to stmmac in a subsequent
+patch.
+
+Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+Co-developed-by: Romain Gantois <romain.gantois@bootlin.com>
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  6 +++++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 12 +++++++++---
+ 3 files changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index dddcaa9220cc3..7e0d727ed795b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -361,6 +361,7 @@ int stmmac_mdio_unregister(struct net_device *ndev);
+ int stmmac_mdio_register(struct net_device *ndev);
+ int stmmac_mdio_reset(struct mii_bus *mii);
+ int stmmac_xpcs_setup(struct mii_bus *mii);
++void stmmac_pcs_clean(struct stmmac_priv *priv);
+ void stmmac_set_ethtool_ops(struct net_device *netdev);
+ 
+ int stmmac_init_tstamp_counter(struct stmmac_priv *priv, u32 systime_flags);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 59bf83904b62d..2a55c5d07f6b8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7789,8 +7789,9 @@ int stmmac_dvr_probe(struct device *device,
+ 
+ error_netdev_register:
+ 	phylink_destroy(priv->phylink);
+-error_xpcs_setup:
+ error_phy_setup:
++	stmmac_pcs_clean(priv);
++error_xpcs_setup:
+ 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI)
+ 		stmmac_mdio_unregister(ndev);
+@@ -7832,6 +7833,9 @@ void stmmac_dvr_remove(struct device *dev)
+ 	if (priv->plat->stmmac_rst)
+ 		reset_control_assert(priv->plat->stmmac_rst);
+ 	reset_control_assert(priv->plat->stmmac_ahb_rst);
++
++	stmmac_pcs_clean(priv);
++
+ 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI)
+ 		stmmac_mdio_unregister(ndev);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index 0542cfd1817e6..508bd39cbe2b3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -523,6 +523,15 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+ 	return 0;
+ }
+ 
++void stmmac_pcs_clean(struct stmmac_priv *priv)
++{
++	if (!priv->hw->xpcs)
++		return;
++
++	xpcs_destroy(priv->hw->xpcs);
++	priv->hw->xpcs = NULL;
++}
++
+ /**
+  * stmmac_mdio_register
+  * @ndev: net device structure
+@@ -679,9 +688,6 @@ int stmmac_mdio_unregister(struct net_device *ndev)
+ 	if (!priv->mii)
+ 		return 0;
+ 
+-	if (priv->hw->xpcs)
+-		xpcs_destroy(priv->hw->xpcs);
+-
+ 	mdiobus_unregister(priv->mii);
+ 	priv->mii->priv = NULL;
+ 	mdiobus_free(priv->mii);
+
+-- 
+2.44.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
