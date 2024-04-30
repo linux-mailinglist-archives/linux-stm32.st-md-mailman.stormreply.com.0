@@ -2,49 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE9A8B6C18
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2024 09:48:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 473528B81B9
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2024 23:02:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0E2AC7128B;
-	Tue, 30 Apr 2024 07:48:20 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C9ABC71285
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD934C7128C;
+	Tue, 30 Apr 2024 21:02:40 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0DDAC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Apr 2024 07:48:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E3669CE0D6B;
- Tue, 30 Apr 2024 07:48:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01D8C2BBFC;
- Tue, 30 Apr 2024 07:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1714463288;
- bh=9IhoDrLW5nla3PkdfiFXqy+CBqAGV0puxz21Q1cMMhc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X3j4NGN90P1GmyQQZcPK/CCn5HXBpRxqpfpBMjPyL6V+WuLs+vRwa9bhCkFvf2Ypk
- CzCK8BwSeEyDG9CfSTutylcTBbnnjDCw7jayRL3BEadM690pBlnxcWNQhadXREO1aE
- zZpOSJPJXmSPNPYodAUpTnSOSlha4iWzZ0v95ipKKTh6HmWO6jfvRVo/AteUos0gyM
- pmTPyaOSoJIlZX7sGBY8NkLvjZ4tsnbk9zPVvNzoah5m0mZl66RKHgPosxZw7oYPNJ
- ODdcC8hGQWGlb/xKfwCZCaFGey6QzbRahjO0nE2fP6aahKt3yMu1HSE3M4TXw0NWkQ
- boFt3JByVTJBw==
-Date: Tue, 30 Apr 2024 09:48:05 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <20240430-exuberant-ludicrous-caiman-bc7dac@houat>
-References: <20240322104732.2327060-1-sean@geanix.com>
- <20240424-famous-fascinating-hyena-8fb3a7@houat>
- <cvzecixldubeq7pwn77cggs7tcwc5on3arlnboj4fbpqgdygtu@hat3r6afzu7y>
+ Tue, 30 Apr 2024 21:02:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1714510952;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=GEXNjb7aeNcvCnxPKRJWZCd/nJbe22HDnX8o5WGN7ew=;
+ b=Wes5OazcI3PujOnaBbwbfTub3fBB2f2gTGc5B+PzocOQtYhyihm3p/sncZNr81O51q+CP/
+ WBnFcHWT2BwymbnDo0fSZmB6dXsUKGqAOmzVJYKEtSHqBSIDLM9+xXTtH3U3BZlPuqHrcR
+ D1Xa2wSUBLHwGuQzlqOGlV1dp6umzZg=
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-256-X5_RTSqCMXy5iXBxFBDg2w-1; Tue, 30 Apr 2024 17:02:30 -0400
+X-MC-Unique: X5_RTSqCMXy5iXBxFBDg2w-1
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-6ed4298be66so4326764b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 Apr 2024 14:02:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714510944; x=1715115744;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GEXNjb7aeNcvCnxPKRJWZCd/nJbe22HDnX8o5WGN7ew=;
+ b=H9fVTGXtbxf3sk5+ytK83o3kabSJNV/j7Q7TL3WVE7bOqQYb9MIqHl4PLbppmJZqpA
+ YopkuvGID1Kt9riq3EGtcK79Y+y/h8AfZJC0DV/4JCXUNxMJpfKhGT97OXSQgb72AiEq
+ SGe8IV5lBmuuEVHxo7PnlLQC9ZpEAlJe8HqmAE3gc50tnFIuRq5o2ksASNF9z0bCAJWc
+ tP2qg3Q/A1yCA4z5+Jjd3wXKxBsKV57Da3DoHofaqtbljMXA/+765iEGoSXme/lOjl85
+ dHHmcEVIGXaaq6F9in4YbWESnXynsCfpVaXhhpl4CNK0Hqbh4TVyeDLSYnFZ9FVIyfKC
+ O9xw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXv471JihHr+klJqDbhho1U6CJfC8BP/F2vAczSHctAo4GlwkdlUU1Xtv//x+q8u6JydrsZYm/ePNd4PUrHrdPFu/B9cZuTZxQ6MlnU6gZJN/FfernkYUwF
+X-Gm-Message-State: AOJu0YzyXQaevHsHWe3bJOpkAdGNpbck6xovzEA4Emzzv707pJi7PCc9
+ ui1UAU2TiWtvgOMWoK527Qu0BcwSejverTok0rZ58YgCe11iHD5j6zoB2V1bg4SZkk1dsZPHCNc
+ dICA2pvvyXl9V2Wu2dvIUbPvABT1h6YqLBOndafhZRwnSQm/y8I5na/Uju0+8kpcHkUO7IBocf2
+ bs/Q==
+X-Received: by 2002:a05:6a20:9192:b0:1a7:6262:1dd1 with SMTP id
+ v18-20020a056a20919200b001a762621dd1mr1260979pzd.51.1714510943706; 
+ Tue, 30 Apr 2024 14:02:23 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHCRcUNpm+xZQh5a6xxgdrE7aGEQmRLABr6Gp4YxdclyZ03Q2COt1Nwd0VZF7JFkFyG2Zg9Cg==
+X-Received: by 2002:a05:6a20:9192:b0:1a7:6262:1dd1 with SMTP id
+ v18-20020a056a20919200b001a762621dd1mr1260940pzd.51.1714510943135; 
+ Tue, 30 Apr 2024 14:02:23 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ lo8-20020a056a003d0800b006ed4823671csm22223770pfb.15.2024.04.30.14.02.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Apr 2024 14:02:22 -0700 (PDT)
+Date: Tue, 30 Apr 2024 16:02:19 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org
+Message-ID: <uz66kbjbxieof6vkliuwgpzhlrbcmeb2f5aeuourw2vqcoc4hv@2adpvba3zszx>
 MIME-Version: 1.0
-In-Reply-To: <cvzecixldubeq7pwn77cggs7tcwc5on3arlnboj4fbpqgdygtu@hat3r6afzu7y>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
-	tolerance
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: andrew@lunn.ch, linux@armlinux.org.uk, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, hkallweit1@gmail.com
+Subject: [Linux-stm32] racing ndo_open()/phylink*connect() with phy_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,117 +82,120 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8255997599662476637=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8255997599662476637==
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="3ku2wna3thhbsakw"
-Content-Disposition: inline
-
-
---3ku2wna3thhbsakw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
 Hi,
 
-On Mon, Apr 29, 2024 at 10:17:45AM +0200, Sean Nyekjaer wrote:
-> On Wed, Apr 24, 2024 at 09:21:17AM UTC, Maxime Ripard wrote:
-> > Hi,
-> >=20
-> > Sorry, my previous review didn't go through.
-> >=20
-> > On Fri, Mar 22, 2024 at 11:47:31AM +0100, Sean Nyekjaer wrote:
-> > > When using the DSI interface via DSI2LVDS bridge, it seems a bit harsh
-> > > to reguire the requested and the actual px clock to be within
-> > > 50Hz. A typical LVDS display requires the px clock to be within +-10%.
-> > >=20
-> > > In case for HDMI .5% tolerance is required.
-> > >=20
-> > > Fixes: e01356d18273 ("drm/stm: dsi: provide the implementation of mod=
-e_valid()")
-> > > Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> > > ---
-> > >  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 7 +++----
-> > >  1 file changed, 3 insertions(+), 4 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/=
-stm/dw_mipi_dsi-stm.c
-> > > index d5f8c923d7bc..97936b0ef702 100644
-> > > --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > > +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > > @@ -322,8 +322,6 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsig=
-ned int lane_mbps,
-> > >  	return 0;
-> > >  }
-> > > =20
-> > > -#define CLK_TOLERANCE_HZ 50
-> > > -
-> > >  static enum drm_mode_status
-> > >  dw_mipi_dsi_stm_mode_valid(void *priv_data,
-> > >  			   const struct drm_display_mode *mode,
-> > > @@ -375,9 +373,10 @@ dw_mipi_dsi_stm_mode_valid(void *priv_data,
-> > >  		/*
-> > >  		 * Filter modes according to the clock value, particularly useful =
-for
-> > >  		 * hdmi modes that require precise pixel clocks.
-> > > +		 * Check that px_clock is within .5% tolerance.
-> > >  		 */
-> > > -		if (px_clock_hz < target_px_clock_hz - CLK_TOLERANCE_HZ ||
-> > > -		    px_clock_hz > target_px_clock_hz + CLK_TOLERANCE_HZ)
-> > > +		if (px_clock_hz < mult_frac(target_px_clock_hz, 995, 1000) ||
-> > > +		    px_clock_hz > mult_frac(target_px_clock_hz, 1005, 1000))
-> > >  			return MODE_CLOCK_RANGE;
-> >=20
-> > I wonder if it's not something that should be made into a helper. We
-> > have a couple of drivers doing it already, so it might be worth creating
-> > a function that checks for a given struct clk pointer and pixel clock if
-> > it's within parameters.
-> >=20
-> > Maxime
->=20
-> Yes agree, if the same calculation is happening other places.
-> I can't identify where it happens though.
+I've been taking a look at the following error message:
 
-sun4i has one:
-https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/sun4i/sun4i_=
-rgb.c#L123
+    qcom-ethqos 23000000.ethernet end1: __stmmac_open: Cannot attach to PHY (error: -19)
 
-> Would that helper function exist in drivers/gpu/drm/drm_hdmi_helper.c ?
+end1 is using a phy on the mdio bus of end0, not on its own bus. Something
+like this devicetree snippet highlights the relationship:
 
-There's nothing related to HDMI per se, so in drm_modes is probably
-better.
+    // end0
+    &ethernet0 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy0>;
 
-Maxime
+            mdio {
+                    compatible = "snps,dwmac-mdio";
+                    sgmii_phy0: phy@8 {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0x8>;
+                            device_type = "ethernet-phy";
+                    };
 
+                    sgmii_phy1: phy@a {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0xa>;
+                            device_type = "ethernet-phy";
+                    };
+            };
+    };
 
---3ku2wna3thhbsakw
-Content-Type: application/pgp-signature; name="signature.asc"
+    // end1
+    &ethernet1 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy1>;
+    };
 
------BEGIN PGP SIGNATURE-----
+Basically, NetworkManager is setting both interfaces to up, and end1's
+phy doesn't seem to be ready when ndo_open() runs, returning
+-ENODEV in phylink_fwnode_phy_connect() and bubbling that back up. This doesn't
+happen very often, but by shoving things into the initramfs or anything to
+speed up probe/ndo_open() it's easier to reproduce. Delaying probe()
+of end0 and then setting end1 up is another easy way to reproduce.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZjCiLQAKCRAnX84Zoj2+
-ds5wAYDHGuIdIPY8LGE5jCxGK/zlexyRCxqHgMO/chCJQKe8587hAVvgA6kCEjOG
-8wElsZsBgOUQR5Rq+np631HT2l10Ql64rLGh4vOK+pluY8lwaT5XM5UI5MXsn+dH
-OEGAeKFVbw==
-=xyGn
------END PGP SIGNATURE-----
+My question after looking around for a while, is what is the expectation
+of userspace in this situation?
 
---3ku2wna3thhbsakw--
+NetworkManager retries 4 times right now (tunable via autoconnect-retries setting),
+and if you're lucky that's good enough. You could tell it to retry infinitely,
+that should get me out of my bind at least, but it's not an amazing solution.
 
---===============8255997599662476637==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+I'm used to dealing with deferral issues in probe() callbacks, but
+to me it seems that phylink and netdev sort of move the phy part of the problem
+till later (so you don't get the kernel retrying for you, etc, like you do
+with deferred probes) when you ndo_open(). I guess the logic there is that
+the phys could be hot pluggable, so with phylink we delay getting at them
+until ndo_open()? I also guess if the mac is going to create an mdio bus
+with phys off of it that also gets dicey as the phy could -EPROBE_DEFER
+when you're trying to probe the mac and confirm its phy is ready..
+
+Is retrying the correct solution here from userspace, or am I missing something?
+I thought the "does not support carrier detection" below might be my ticket out
+of this, but I can still reproduce it even after patching[0] to make that work.
+I guess NetworkManager still brings the device up, but doesn't "activate" the
+connection until the carrier detect stuff is done.
+
+[0] https://lore.kernel.org/netdev/20240429-stmmac-no-ethtool-begin-v1-1-04c629c1c142@redhat.com/
+
+Thanks,
+Andrew
+
+Some logs to illustrate the issue with a little more context (without
+the patch in [0], in the end that doesn't help):
+
+[    1.541839] fedora kernel: qcom-ethqos 23000000.ethernet end1: renamed from eth0
+[    1.545750] fedora NetworkManager[407]: <info>  [1709251201.1647] device (eth0): driver '(null)' does not support carrier detection.
+[    1.545826] fedora NetworkManager[407]: <info>  [1709251201.1657] device (eth0): driver 'unknown' does not support carrier detection.
+[    1.545854] fedora NetworkManager[407]: <info>  [1709251201.1660] manager: (eth0): new Ethernet device (/org/freedesktop/NetworkManager/Devices/2)
+[    1.545880] fedora NetworkManager[407]: <info>  [1709251201.1678] device (eth0): interface index 2 renamed iface from 'eth0' to 'end1'
+[    1.551721] fedora NetworkManager[407]: <info>  [1709251201.1794] device (end1): state change: unmanaged -> unavailable (reason 'managed', sys-iface-state: 'external')
+[    1.554944] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    1.555962] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-1
+[    1.557711] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-2
+[    1.558721] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-3
+[    1.560297] fedora kernel: qcom-ethqos 23000000.ethernet end1: __stmmac_open: Cannot attach to PHY (error: -19)
+[    1.573664] fedora NetworkManager[407]: <info>  [1709251201.2013] device (end1): state change: unavailable -> disconnected (reason 'none', sys-iface-state: 'managed')
+[    1.574344] fedora NetworkManager[407]: <info>  [1709251201.2020] policy: auto-activating connection 'Wired Connection' (bfe920e8-6031-4129-bf5c-78198427076a)
+[    1.574733] fedora NetworkManager[407]: <info>  [1709251201.2024] device (end1): Activation: starting connection 'Wired Connection' (bfe920e8-6031-4129-bf5c-78198427076a)
+[    1.578589] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    1.579351] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-1
+[    1.580102] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-2
+[    1.578337] fedora NetworkManager[407]: <info>  [1709251201.2027] device (end1): state change: disconnected -> prepare (reason 'none', sys-iface-state: 'managed')
+[    1.578404] fedora NetworkManager[407]: <info>  [1709251201.2030] manager: NetworkManager state is now CONNECTING
+[    1.578431] fedora NetworkManager[407]: <info>  [1709251201.2033] device (end1): state change: prepare -> config (reason 'none', sys-iface-state: 'managed')
+[    1.580965] fedora kernel: qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-3
+[    1.582390] fedora kernel: qcom-ethqos 23000000.ethernet end1: __stmmac_open: Cannot attach to PHY (error: -19)
+[    1.593993] fedora NetworkManager[407]: <info>  [1709251201.2217] device (end1): state change: config -> failed (reason 'config-failed', sys-iface-state: 'managed')
+[    1.648395] fedora NetworkManager[407]: <info>  [1709251201.2220] manager: NetworkManager state is now DISCONNECTED
+[    1.648634] fedora NetworkManager[407]: <warn>  [1709251201.2222] device (end1): Activation: failed for connection 'Wired Connection'
+[    1.648926] fedora NetworkManager[407]: <info>  [1709251201.2224] device (end1): state change: failed -> disconnected (reason 'none', sys-iface-state: 'managed')
+[    1.649179] fedora NetworkManager[407]: <info>  [1709251201.2233] manager: startup complete
+[    1.834016] fedora NetworkManager[407]: <info>  [1709251201.4617] device (eth0): driver '(null)' does not support carrier detection.
+[    1.836553] fedora NetworkManager[407]: <info>  [1709251201.4624] device (eth0): driver 'unknown' does not support carrier detection.
+[    1.836628] fedora NetworkManager[407]: <info>  [1709251201.4627] manager: (eth0): new Ethernet device (/org/freedesktop/NetworkManager/Devices/3)
+[    1.896859] fedora kernel: qcom-ethqos 23040000.ethernet end0: renamed from eth0
+[    1.902243] fedora NetworkManager[407]: <info>  [1709251201.5299] device (eth0): interface index 3 renamed iface from 'eth0' to 'end0'
+[    1.911400] fedora kernel: qcom-ethqos 23040000.ethernet end0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[    1.909632] fedora NetworkManager[407]: <info>  [1709251201.5357] device (end0): state change: unmanaged -> unavailable (reason 'managed', sys-iface-state: 'external')
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8255997599662476637==--
