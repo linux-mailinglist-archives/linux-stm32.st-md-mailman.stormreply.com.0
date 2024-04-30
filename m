@@ -2,153 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFEBE8BCD63
+	by mail.lfdr.de (Postfix) with ESMTPS id B49DC8BCD64
 	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 14:05:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67277C6DD6B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ECE1C6DD9A;
 	Mon,  6 May 2024 12:05:37 +0000 (UTC)
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
- [67.231.156.173])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C83BC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FD28C71283
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2024 07:19:38 +0000 (UTC)
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
- by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 43T3vlh7005432;
- Mon, 29 Apr 2024 00:19:16 -0700
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2169.outbound.protection.outlook.com [104.47.55.169])
- by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 3xt43arexf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Apr 2024 00:19:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZEW7vBxDXtmr41P0GxFBovD6ermgtfndvm9qEeSw9ijtWY3+7rnutkF6Vj4u5kJFor0/DmeNS98NUFaI2U3RQmBl3eNIkbhWh0INAMp/i4q3JcCqPUEHWhUtdiPOU+KxlECF3xUbTKuL367fBwcxvV5X8OulsvWnFYAQRsUlZv0xIb5SJFahlc8TRfyKQ9azOAUM6OifyQz+DKotfJYv7s/ldZugtgEz4Fa/xkomenGrej7IWCsAbrz0CcKKslaSF7ZPWYhHGBpYLtApRnGJCDNdA+W23YHJfkHR/HiXo/hYy1eoDbgfW07BTOnca/V8o+PIDzx7nz6x58dhvlhUqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VEl578ziGfdrPWgbQF1y0sAm+nbD+KnLEL7elof2MRE=;
- b=mgqWooW+Dd/nI5ZAwP3IINgNpxkZBW+AMkWee4OEsgjD/peFKbnNb9C7w35Tj6jCP7W7pE4SkOUnRg2uRNLJYtPnPE+yl+0j5RXw2lA4CEU306SQIwzdG35w7/W0dh9u18MKZROmjO7ie1hMiJD6FaJmhpYrGZMXbCD80qECBe2lc3125odwFQSTKzyIa+nmiUwyvpFjFBAhASzNiZ7QLDEo/9qP977jSZglzIa7ZEnZvFgW/0tLExucuLy9rrtfdlozHfg2IS0NtJJLlO01d4udCLMCA78ipeRUZ5iRpapNyF9dCNo/3F2eCrzRkR6fY8Elh/2PwCKu3a6uFumwlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VEl578ziGfdrPWgbQF1y0sAm+nbD+KnLEL7elof2MRE=;
- b=nZG5/DkUKC6rhoJVHpVnPzY+vD8CwPjrZ+xWm5cvozcr0Qjp+lr+74sfkNdHUpg9dZTRyM+80uVXn3eWBfcgRGgr0zwoSUqNFPyEcbaarP+Sy+yVQ3Kt7gTzV2+PF3hQQ390cPg4yA9gUIyTdoD+vfJHL2MiJoat/jR2D0k8B4E=
-Received: from BY3PR18MB4707.namprd18.prod.outlook.com (2603:10b6:a03:3ca::23)
- by MN2PR18MB3464.namprd18.prod.outlook.com (2603:10b6:208:26e::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34; Mon, 29 Apr
- 2024 07:19:12 +0000
-Received: from BY3PR18MB4707.namprd18.prod.outlook.com
- ([fe80::1f55:2359:3c4d:2c81]) by BY3PR18MB4707.namprd18.prod.outlook.com
- ([fe80::1f55:2359:3c4d:2c81%5]) with mapi id 15.20.7519.021; Mon, 29 Apr 2024
- 07:19:11 +0000
-From: Sai Krishna Gajula <saikrishnag@marvell.com>
-To: Marek Vasut <marex@denx.de>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>
-Thread-Topic: [net-next, RFC, PATCH 1/5] net: stmmac: dwmac-stm32: Separate out
- external clock rate validation
-Thread-Index: AQHamgWIysBpOLTxokOUgIlHRj/rVw==
-Date: Mon, 29 Apr 2024 07:19:11 +0000
-Message-ID: <BY3PR18MB4707314AE781472140361D62A01B2@BY3PR18MB4707.namprd18.prod.outlook.com>
-References: <20240427215113.57548-1-marex@denx.de>
-In-Reply-To: <20240427215113.57548-1-marex@denx.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR18MB4707:EE_|MN2PR18MB3464:EE_
-x-ms-office365-filtering-correlation-id: 1c525101-591c-4b13-a81f-08dc681caaf2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230031|7416005|376005|366007|1800799015|38070700009; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?HhXqZ3h43E7qEAHysn4xiKL68ALtLdXQQBtiKIzC2gDel1R9F0Gixm1aiudo?=
- =?us-ascii?Q?DFtLWyOe0iHPp6CmNloGTF86Oey4KDK1Ex8X55cHX7af4Y8B4Cz2kNdYMqMy?=
- =?us-ascii?Q?4Xkj4PdZ4yaUfQQb2Ld2zNLOl9IzStHfmRV5cDwpkY1x0D2KICGP5YuO4UGd?=
- =?us-ascii?Q?KcpMzUpdgbhTKylcpsxr/QMnhNZRN1zAsSzCaYgcs4wHE34l82YdIGOfH+qS?=
- =?us-ascii?Q?zWnkYDFb3kpTGT7eXwHxq2SwXj6LQ/pM7YydQYqND9KHGPLgp0Ew7ZFbCySg?=
- =?us-ascii?Q?TKGCL/Y0XxTRlBVTxKTI7x0wibLF8ac6tsvvBYB7dzcWg1Q7z0MY7+SIg4ZR?=
- =?us-ascii?Q?3pW5kIhz+blpgWR2nFlhj/ePwSxInhp/jWwPh3kKFHquvaz0mWS7sfhNu5BK?=
- =?us-ascii?Q?lDwBh9aQRSjS8ZGWepbVPWbNlMDPPfiFn39MEgFJx2XFJq6GZ1a+FI/pb6yp?=
- =?us-ascii?Q?uNLgAR3dw/qfNmGxWT7f8W4xNfILhtpT1Syw2Wa87wggWRTW3+XfcN0ml8Rt?=
- =?us-ascii?Q?e5dkFNZxULt+oRUqezytNFthiRCmarBJQSmCpszvPV+O8TyoSmiZxp80zKdG?=
- =?us-ascii?Q?+kRkjBWt9pbaXWETMnMf//ajLjfzk+Eir6aMV7EhnFkzal5cq/mDy1GA3qWe?=
- =?us-ascii?Q?mzwFKTLpH5WLTGVZkd7pvYb+N7GG/FyZALljMdCA3A3AOvDU8nJw4RW7GdT1?=
- =?us-ascii?Q?H1BUJq0CWBTJKq0C22bTz083OJPVyNzzb343r5lRZzHQ5abR1i3DJE3xlGGR?=
- =?us-ascii?Q?UFIbTt6bbkEun7UCgv+zi5FCV9Qs2BIFJ1NHpiFb4i47jDjchv6Y2WyOxdaB?=
- =?us-ascii?Q?YqefnsTkYTok4MRtNCXKQvqwTVOyghoQ5KOIJn2uG5W0HNi5CHNXdLuUFmHD?=
- =?us-ascii?Q?RGm0n8Zrw0iPKiyrhGt5xZB3qyvlVti9hca1j1VNzFg/nHw+wczyQ/j2bvAK?=
- =?us-ascii?Q?pmGr4Qc/0rRrNZAh5dE2b1lIC4NWeeKeZKvhcEUyKUwwbzJ/B0xZhijnjtJR?=
- =?us-ascii?Q?7e/awyqBg5PXDkjiMvKy5kqOEWJ8Pg+/HFM812HCC+qfDKUTWwwIkThzAGwM?=
- =?us-ascii?Q?HNzEhOOH7Gyb0rerTi3tlJ7C8/IQRjluS1Dc1BvjkZx56MbI4qIbH3ltrukp?=
- =?us-ascii?Q?5OcdnwCcTB2KLOKujRtVOvZWLSmlWY8rupLnGrAu1SLtRq3yhBgwWBkqkChh?=
- =?us-ascii?Q?2Jslh0K+9+sFHI+OW3ijEeGkxXW6O7E5AjVOsnqQUyevdLyEBK3ko4ApooGF?=
- =?us-ascii?Q?eR4rwxDxPwDN6KyafR1Nlf8p6b9CK7beGj3D/E53E7ILGYsc6W7nAlfAkjYZ?=
- =?us-ascii?Q?0ErRWWrX8eJ7cDAkcoWIoahlIzXtWR9CarHsI6+z89Kw3w=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY3PR18MB4707.namprd18.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(7416005)(376005)(366007)(1800799015)(38070700009); DIR:OUT;
- SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mHNvHs/0oK8S0y6LJqmdHtr58iq0Gs+eBEqPkEji2IH/JgtB6/VdxEBy/u+w?=
- =?us-ascii?Q?NF+soToaklMLqbFjD3bFiTtlxmdATEmpIcvTsG/5sc1c6+5ybYOkfU9xV5eE?=
- =?us-ascii?Q?88/VlV/p/mWjwMwbNoh1eJ47zZJntR7kvFV3daY8rRTXMella/HFjipUjC3z?=
- =?us-ascii?Q?0YQOH5BZ1C0jFYoOHNU+MiFk4tMiCR4TViRD0ua29Fp3jd4zX2+YqDHrw7LI?=
- =?us-ascii?Q?n83QaOGomMFCQW9bXE8bajlC6JoHdCRtK2zWNdaRf1KJQKVNjaDiQb6eK/zT?=
- =?us-ascii?Q?vT7T6Zq0wscpe3dzd3M0FE1qX4o4aOxPTVs06Z8WPPiIsm98lEI6jkOuqm+O?=
- =?us-ascii?Q?EVdanS5eO6ituolt1gZESBiC0lWxQflCVAee4m4J6UZR7dJpkltm7zOca68g?=
- =?us-ascii?Q?ZeKQc6Q46yrqYvaw6gwVqiAByW5H0g3P8Lxkm3EV+dy0LXWo1oBWjiD/Uv4g?=
- =?us-ascii?Q?PU16ur8FvD7PaSdF/DeNty6gudEsDUDMa7ZtLwSE/8zR2ubKhnBi7VyiPtG4?=
- =?us-ascii?Q?02A0oakbppqI3OuX2n78mHdSkiCtxeKKAUbtM+CQ9e5KFEBuK1do2uQwmhuD?=
- =?us-ascii?Q?1OYpSTy2Dx9dhA3JCUxu93+u99J/0jeedQ/w7DjHKrggGeXwbl0Ol/HcKuzK?=
- =?us-ascii?Q?xvhsEdmME8rYjSWFomStpHOJJg85xGhgrxvltNxWE6M4uGmrRE/eTVpfhG87?=
- =?us-ascii?Q?DOPO0dqCtNoJTWdI+9wLA5sophxt8eNPyhrSYX4wc3bkPK35AIdnH9u+u4b6?=
- =?us-ascii?Q?8v6a/1G3b4ag/Pg74N+NJVtqP88dnlUDoJ8uDohmHBCdkx6yYoLHuqVv/U/i?=
- =?us-ascii?Q?XRY5JFFC/qRx69aplfh+6VqaPC7TjVl1Z48Y+QcFq38ku5kp96kbqOUmeZDN?=
- =?us-ascii?Q?k/z7wbeykMjKyIJu001R/aZLtzzD3QjXjpngqQJn16+GLUXaua21P6peeps4?=
- =?us-ascii?Q?yc1x7eSFvzgs0imp8/K2t6TO0CBqPPSMe2ojOHbQTs+5cvp+PiF63lGmqrr6?=
- =?us-ascii?Q?TWKtuf+HfMXXXhGYNF0d21suBm2Evib/kYXbECBf5jv00C71wlpsHwmkje/f?=
- =?us-ascii?Q?mqDRo1IMsTFeitQb0wSHOjKgZmxhd/ZCwmRQK74IlERYU3IbaqKsa2qXdP1p?=
- =?us-ascii?Q?aEBNXRA9LfbyoT30jF8ej7cJ+jbJ8OZdqUxCDvAIGl/iawoLp0WMC55oBDZk?=
- =?us-ascii?Q?/Bnq35IjJiQVSJBtRFfMV333EO0nNVAae9NPM63KiFlotFn33BLRtQN8XYaE?=
- =?us-ascii?Q?xpg6YKYiSc5bw+W0hjbi/pRqFlpRuriecEm0xaM6CIRJ1TPhvtSYHaTGzBe/?=
- =?us-ascii?Q?f68ayzDCsLrilGD4pE8sLQgVQuHnqxpZJCGcVpFYtZUE/4tDblRbyLiYMHNR?=
- =?us-ascii?Q?790LyFZUMjsGAyna9IzGE7bVdZqwxdClV0uZA/Mzix6LO4Q2xX7gQZXxm+0j?=
- =?us-ascii?Q?eDWfE6cbjHBIcrleNnbPfEyM6DWxuuRjDrvtd28doBw4kxfAwn30uoC6/XDk?=
- =?us-ascii?Q?T1inVfaRb4nDZxIkOF+j/snyyNn2p6ovaNN078zMbpXwLQitcd0ktseA5iCu?=
- =?us-ascii?Q?vM8MUO+tm9zE7AEQwbO2JIRat0QcloEvYTXRFSns?=
+ Tue, 30 Apr 2024 06:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1714459031; x=1745995031;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KGo6hIvlY2DFfXRayOwhLfEDabosAECVdBp2tiThtkc=;
+ b=CtuVWGJUbyZ3ZqBN551rqPaqqiN/XjoV3L/wNWeyFOn/NDIKX6x8wJZ/
+ GmNI0w6/Jgo51rQ/Nh7Z9hc9nZQUsS7nVKPqZNVKK4LcGoRaM0G+pROhI
+ rgsbvhJ/8hvm37GCIeobycCu4q1BSaKmU12orrLNi97WngrmmAOhlfxVH
+ 4x7RKpHtuzrcTh9IFskp04uWZKuwVrnTp+W7e5p2k0sz8JMPq2aOTOItr
+ rpazOqixIRpgtn1wt1O4iDNBGv2FnufU29WbGI4FgSGoUxynrBQyi3vx9
+ He1hSPBeOsIOtsKH/eR8qy9P0BMQvvhqjPpZuP+IFt061Pj3/wMyA+n1q w==;
+X-CSE-ConnectionGUID: gRHRGRqUSgSrAyrSBx+6AA==
+X-CSE-MsgGUID: BzgWAWK1QcCReiMyyK4sIA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11059"; a="10316018"
+X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="10316018"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2024 23:37:03 -0700
+X-CSE-ConnectionGUID: kgMW4csVRV6x1K/Yr6uucg==
+X-CSE-MsgGUID: 8JTDsJIoQByUwUenbUVmng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,241,1708416000"; d="scan'208";a="26973237"
+Received: from ahunter6-mobl1.ger.corp.intel.com (HELO [10.0.2.15])
+ ([10.252.49.27])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2024 23:36:53 -0700
+Message-ID: <a9b176c7-60e8-4793-a056-4ad9219fbe32@intel.com>
+Date: Tue, 30 Apr 2024 09:36:48 +0300
 MIME-Version: 1.0
-X-OriginatorOrg: marvell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4707.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c525101-591c-4b13-a81f-08dc681caaf2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2024 07:19:11.6117 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DpxQOnhkpNSqy7Z2zbaLKEYXgqMNsKlPW7NOgic7rDgZZnUl1xy5dbtPKcnNFh4wHHkg27fE0vGQi4AOWSmNVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR18MB3464
-X-Proofpoint-ORIG-GUID: 9oxiVnFS-WqgcDAThVfNlG73CnKEnwJY
-X-Proofpoint-GUID: 9oxiVnFS-WqgcDAThVfNlG73CnKEnwJY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-29_04,2024-04-26_02,2023-05-22_02
+User-Agent: Mozilla Thunderbird
+To: James Clark <james.clark@arm.com>, linux-perf-users@vger.kernel.org,
+ gankulkarni@os.amperecomputing.com, scclevenger@os.amperecomputing.com,
+ coresight@lists.linaro.org, suzuki.poulose@arm.com, mike.leach@linaro.org
+References: <20240429152207.479221-1-james.clark@arm.com>
+ <20240429152207.479221-3-james.clark@arm.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: PL 281, 00181 Helsinki,
+ Business Identity Code: 0357606 - 4, Domiciled in Helsinki
+In-Reply-To: <20240429152207.479221-3-james.clark@arm.com>
 X-Mailman-Approved-At: Mon, 06 May 2024 12:05:30 +0000
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [net-next, RFC,
- PATCH 1/5] net: stmmac: dwmac-stm32: Separate out external clock
- rate validation
+Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Leo Yan <leo.yan@linux.dev>,
+ Ingo Molnar <mingo@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 02/17] perf auxtrace: Allow number of
+ queues to be specified
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,170 +81,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 29/04/24 18:21, James Clark wrote:
+> Currently it's only possible to initialize with the default number of
+> queues and then use auxtrace_queues__add_event() to grow the array. But
+> that's problematic if you don't have a real event to pass into that
+> function yet.
+> 
+> The queues hold a void *priv member to store custom state, and for
+> Coresight we want to create decoders upfront before receiving data, so
+> add a new function that allows pre-allocating queues. One reason to do
+> this is because we might need to store metadata (HW_ID events) that
+> effects other queues, but never actually receive auxtrace data on that
+> queue.
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
 
-> -----Original Message-----
-> From: Marek Vasut <marex@denx.de>
-> Sent: Sunday, April 28, 2024 3:21 AM
-> To: netdev@vger.kernel.org
-> Cc: Marek Vasut <marex@denx.de>; David S. Miller <davem@davemloft.net>;
-> Alexandre Torgue <alexandre.torgue@foss.st.com>; Christophe Roullier
-> <christophe.roullier@foss.st.com>; Eric Dumazet <edumazet@google.com>;
-> Jakub Kicinski <kuba@kernel.org>; Jose Abreu <joabreu@synopsys.com>;
-> Maxime Coquelin <mcoquelin.stm32@gmail.com>; Paolo Abeni
-> <pabeni@redhat.com>; linux-arm-kernel@lists.infradead.org; linux-
-> stm32@st-md-mailman.stormreply.com
-> Subject: [net-next,RFC,PATCH 1/5] net: stmmac: dwmac-stm32:
-> Separate out external clock rate validation
-> 
-> Pull the external clock frequency validation into a separate function, to avoid
-> conflating it with external clock DT property decoding and clock mux register
-> configuration. This should make the code easier to read and understand.
-> 
-> This does change the code behavior slightly. The clock mux PMCR register
-> setting now depends solely on the DT properties which configure the clock
-> mux between external clock and internal RCC generated clock. The mux
-> PMCR register settings no longer depend on the supplied clock frequency, that
-> supplied clock frequency is now only validated, and if the clock frequency is
-> invalid for a mode, it is rejected.
-> 
-> Previously, the code would switch the PMCR register clock mux to internal RCC
-> generated clock if external clock couldn't provide suitable frequency, without
-> checking whether the RCC generated clock frequency is correct. Such behavior
-> is risky at best, user should have configured their clock correctly in the first
-> place, so this behavior is removed here.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+
 > ---
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: netdev@vger.kernel.org
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 54 +++++++++++++++----
->  1 file changed, 44 insertions(+), 10 deletions(-)
+>  tools/perf/util/auxtrace.c | 9 +++++++--
+>  tools/perf/util/auxtrace.h | 1 +
+>  2 files changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> index c92dfc4ecf570..43340a5573c64 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> @@ -157,25 +157,57 @@ static int stm32_dwmac_init(struct
-> plat_stmmacenet_data *plat_dat, bool resume)
->  	return stm32_dwmac_clk_enable(dwmac, resume);  }
-> 
-> +static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data
-> +*plat_dat) {
-> +	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-> +	const u32 clk_rate = clk_get_rate(dwmac->clk_eth_ck);
-
-Please check reverse x-mass tree is followed for these variables, if possible.
-
-> +
-> +	switch (plat_dat->mac_interface) {
-> +	case PHY_INTERFACE_MODE_MII:
-> +		if (clk_rate == ETH_CK_F_25M)
-> +			return 0;
-> +		break;
-> +	case PHY_INTERFACE_MODE_GMII:
-> +		if (clk_rate == ETH_CK_F_25M)
-> +			return 0;
-> +		break;
-
-Please check, whether we can combine the two cases.. 
-
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		if (clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M)
-> +			return 0;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		if (clk_rate == ETH_CK_F_25M || clk_rate ==
-> ETH_CK_F_125M)
-> +			return 0;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	dev_err(dwmac->dev, "Mode %s does not match eth-ck frequency %d
-> Hz",
-> +		phy_modes(plat_dat->mac_interface), clk_rate);
-> +	return -EINVAL;
+> diff --git a/tools/perf/util/auxtrace.c b/tools/perf/util/auxtrace.c
+> index 3684e6009b63..563b6c4fca31 100644
+> --- a/tools/perf/util/auxtrace.c
+> +++ b/tools/perf/util/auxtrace.c
+> @@ -218,15 +218,20 @@ static struct auxtrace_queue *auxtrace_alloc_queue_array(unsigned int nr_queues)
+>  	return queue_array;
+>  }
+>  
+> -int auxtrace_queues__init(struct auxtrace_queues *queues)
+> +int auxtrace_queues__init_nr(struct auxtrace_queues *queues, int nr_queues)
+>  {
+> -	queues->nr_queues = AUXTRACE_INIT_NR_QUEUES;
+> +	queues->nr_queues = nr_queues;
+>  	queues->queue_array = auxtrace_alloc_queue_array(queues->nr_queues);
+>  	if (!queues->queue_array)
+>  		return -ENOMEM;
+>  	return 0;
+>  }
+>  
+> +int auxtrace_queues__init(struct auxtrace_queues *queues)
+> +{
+> +	return auxtrace_queues__init_nr(queues, AUXTRACE_INIT_NR_QUEUES);
 > +}
 > +
->  static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)  {
->  	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-> -	u32 reg = dwmac->mode_reg, clk_rate;
-> -	int val;
-> +	u32 reg = dwmac->mode_reg;
-> +	int val, ret;
-> 
-> -	clk_rate = clk_get_rate(dwmac->clk_eth_ck);
->  	dwmac->enable_eth_ck = false;
->  	switch (plat_dat->mac_interface) {
->  	case PHY_INTERFACE_MODE_MII:
-> -		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
-> +		if (dwmac->ext_phyclk)
->  			dwmac->enable_eth_ck = true;
->  		val = SYSCFG_PMCR_ETH_SEL_MII;
->  		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
->  		break;
->  	case PHY_INTERFACE_MODE_GMII:
->  		val = SYSCFG_PMCR_ETH_SEL_GMII;
-> -		if (clk_rate == ETH_CK_F_25M &&
-> -		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
-> +		if (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk) {
->  			dwmac->enable_eth_ck = true;
->  			val |= SYSCFG_PMCR_ETH_CLK_SEL;
->  		}
-> @@ -183,8 +215,7 @@ static int stm32mp1_set_mode(struct
-> plat_stmmacenet_data *plat_dat)
->  		break;
->  	case PHY_INTERFACE_MODE_RMII:
->  		val = SYSCFG_PMCR_ETH_SEL_RMII;
-> -		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M)
-> &&
-> -		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
-> +		if (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk) {
->  			dwmac->enable_eth_ck = true;
->  			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
->  		}
-> @@ -195,8 +226,7 @@ static int stm32mp1_set_mode(struct
-> plat_stmmacenet_data *plat_dat)
->  	case PHY_INTERFACE_MODE_RGMII_RXID:
->  	case PHY_INTERFACE_MODE_RGMII_TXID:
->  		val = SYSCFG_PMCR_ETH_SEL_RGMII;
-> -		if ((clk_rate == ETH_CK_F_25M || clk_rate ==
-> ETH_CK_F_125M) &&
-> -		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
-> +		if (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk) {
->  			dwmac->enable_eth_ck = true;
->  			val |= SYSCFG_PMCR_ETH_CLK_SEL;
->  		}
-> @@ -209,6 +239,10 @@ static int stm32mp1_set_mode(struct
-> plat_stmmacenet_data *plat_dat)
->  		return -EINVAL;
->  	}
-> 
-> +	ret = stm32mp1_validate_ethck_rate(plat_dat);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* Need to update PMCCLRR (clear register) */
->  	regmap_write(dwmac->regmap, reg + SYSCFG_PMCCLRR_OFFSET,
->  		     dwmac->ops->syscfg_eth_mask);
-> --
-> 2.43.0
-> 
+>  static int auxtrace_queues__grow(struct auxtrace_queues *queues,
+>  				 unsigned int new_nr_queues)
+>  {
+> diff --git a/tools/perf/util/auxtrace.h b/tools/perf/util/auxtrace.h
+> index 55702215a82d..8a6ec9565835 100644
+> --- a/tools/perf/util/auxtrace.h
+> +++ b/tools/perf/util/auxtrace.h
+> @@ -521,6 +521,7 @@ int auxtrace_mmap__read_snapshot(struct mmap *map,
+>  				 struct perf_tool *tool, process_auxtrace_t fn,
+>  				 size_t snapshot_size);
+>  
+> +int auxtrace_queues__init_nr(struct auxtrace_queues *queues, int nr_queues);
+>  int auxtrace_queues__init(struct auxtrace_queues *queues);
+>  int auxtrace_queues__add_event(struct auxtrace_queues *queues,
+>  			       struct perf_session *session,
 
 _______________________________________________
 Linux-stm32 mailing list
