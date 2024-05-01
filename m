@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1178B88DC
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 May 2024 13:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE988B88DF
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 May 2024 13:07:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D65FC7129E;
-	Wed,  1 May 2024 11:06:48 +0000 (UTC)
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3491AC7129F;
+	Wed,  1 May 2024 11:07:43 +0000 (UTC)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 129BFC6B476
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E554C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 May 2024 11:06:41 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-6ee13f19e7eso6154347b3a.1
+ Wed,  1 May 2024 11:07:41 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-6f28bb6d747so5614089b3a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 01 May 2024 04:06:40 -0700 (PDT)
+ Wed, 01 May 2024 04:07:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1714561599; x=1715166399;
+ d=linaro.org; s=google; t=1714561660; x=1715166460;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=UVIfCEDLcryVh1sxegO1WMzH32gqhTaOJpqJeO8zPZI=;
- b=V/HQM9aC8efoD2lMpBzQ3Hl89JFzuMmPxqo64gLIbXZ6DEgu2kT9DcHsETWs9eSVzI
- D+kpVVFnXhd0/1ajic1AGEHKdoWZV2y7xsgLmLgvLZeaZhlIiydJ6h/HU2CV4o9q/al0
- SLgyrxsq825ohrwyr5Zg0sunJQH8aShXhGTQp6PnD4M4hId37bsr2bn36CgBMSJB3QTH
- Z0YuLqRTdxNNceNiBo7934JAvAml4teFKjeNWFQU6SmWpBM0x0Z9AE5EvJD8IYXwL+Lm
- i240lZRhV4FtfTr+vEO4nhwqpMIMCqTFQEs+KdKJtlYh95JeyIBhIsG/1tXTLCtxNjoD
- R02w==
+ bh=ek5F3YPIQaz7pVJGDrpZC6fIvMvYFFyBjkRJozj7mhk=;
+ b=WsXMURoLSqCLCDePXB1fiMiM25CLp2+93jnTo1/4uUq7pWESNGL3r1O6Nvpg5CCRHv
+ 7KNIuydYbiBcNFSt0XZg8qGtQq8T7Gy8khScxIcuH3Tkg8UjpIAK8mm2mzC6FLZZJ3Jz
+ DuyAkZdCcfWEwBSM7VglZ1LGsgkfIxft/Sl3pSarXdemGXj8mE3gq2PNYvsEdFx5Mm5e
+ LfNTKDFfYjVNkS6Zm1l/K+B4wrwJDp3fHVpbo6yHjUxV8cQ2JU9WJ1L9zt6BR+n6g9Rb
+ dijm3pJ7hRPz2/U2yzOvL9uGV/29I6MvQ9xzij2uYywjan1hYH/Pcg3BwScq7ohWcsfH
+ J/mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714561599; x=1715166399;
+ d=1e100.net; s=20230601; t=1714561660; x=1715166460;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=UVIfCEDLcryVh1sxegO1WMzH32gqhTaOJpqJeO8zPZI=;
- b=CJ43lRu/T9HxZE06CEYvHvIbcWwp2j1Y36MlvTqeLBlr/4rqfU7E1Orf2soM4K0owU
- WzQ3PkFoaNa7UpYO54AupkL2RpGjnI4WyaXJydCSA5MZJBnzA6RwzijvtYY/dIZa1KQr
- 0nLS41ExhsHX6m0Lfbfxz32n3Kvsci3EwFC1wEBaJgmvkQIlbU/pJk/WXfClpmsYOylr
- 5+mYYlTn+MSzISTaorGtfJlGP/G6ZMc7tP7aSbCaF/WZUDIUsrkS+YRODNg+YyrV8Pir
- JaQv/Dw5qBSCJKzRT+zJhxNSTGyDgFUsHQjcy6ORBm1zwdq3SZNXKhouFbyfazjbfsBH
- 3lqw==
+ bh=ek5F3YPIQaz7pVJGDrpZC6fIvMvYFFyBjkRJozj7mhk=;
+ b=nAdqDmW1tnwzllCTuokrxt/uypjd2VSvalOVNhTwqRzmxytanNMW76iUo/4SsXHR+y
+ CyD2mjTfqlA01zSFk8LFESS6LjWl+HPHRZrjPXMzjpnCa6oNh9JKRnMTNVXdTxIEM5zH
+ +15euRJmokx9FarVRF+makg63JoW2LN6DD9QCuwEk1+Lljjg/F1jEL2JFu6ELqr2wbbo
+ CbBxOhFDCdrtZMLyXaSliNwPPFhQZFEp/JcoOaS5PPeYgBTzoBcsahbJXzbjIvZBNU2M
+ /ZoywNJARJVyXyf+iPfYxnTJ0h74l+DkBhx9GUQI/a2S2Jq0FxKZB8vIgV0KOrCKTdXH
+ kDfQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXI/ELcCqno2ew2DW7Ww6mwE4WjVuAmWV2lZ6kg8K4c9GlkQtlcnHsVhNj6Xy4GU5Me9Z2lmc/Bz+ID8Qcqig+dk6Ey86hhh5zMsM9MRrNFI6LDOA1sI3jD
-X-Gm-Message-State: AOJu0Yz1BlaCKIRqsHfLwcBKuFroCW1EoO5n4y03/c5GvrgisZt/Z3iN
- 6z8DdB9d+BATEMR1Bepq4ChrRFjWN6KGESBgAkSi9sjKvuq7PNoZiblgxVWK+3I+BGdFkBcmF4f
- jZ7BCyo//mQwj5mSuBukAB4/pwvul9rA7L3bKJQ==
-X-Google-Smtp-Source: AGHT+IEIeZDG2abjSl7JiRn4xQhRhE22MbWI7q0YUcF0ys8JS5PMok3Dg8kUX1MoLmYeliXkgq+kWLLlOGEYtodZ7Ag=
-X-Received: by 2002:a05:6a20:5a89:b0:1a7:9e85:c28f with SMTP id
- kh9-20020a056a205a8900b001a79e85c28fmr1964085pzb.48.1714561599628; Wed, 01
- May 2024 04:06:39 -0700 (PDT)
+ AJvYcCWgjfY6G/mT8Qo5tiq/3aBqViqUfLL8r709XlnZGVhtcC+QYqWDvQdsp4R4O03QOxrWJ7iJYrlV1KJyGNC3mKtuXy+lvtzDQmuhYeaLESO4Y1FYxOFnpiIH
+X-Gm-Message-State: AOJu0Ywlzvp2VzfN2DcYrRtQr73T+5INoxHEkejROVZE2J6c4EYzX0z4
+ anECvrWzGjN8u7/BKvII1K391W4O0tv/h2IB+cRPsG3+uZ/wB4POxvChwe1FGcOGk47zrONXv00
+ fTHewbNuARs4H87BfpS/aHC1WaTuFg2HeprrBiQ==
+X-Google-Smtp-Source: AGHT+IE/tyinAuqC8y5bBreMEgtKVRNCzWBS/7la0SOC/SOUmFsQmilGpTeNNFJve+JepEwqeq9sMzFbKUfoY4RzIdo=
+X-Received: by 2002:a05:6a20:3213:b0:1a9:c757:a22d with SMTP id
+ hl19-20020a056a20321300b001a9c757a22dmr2167796pzc.14.1714561659976; Wed, 01
+ May 2024 04:07:39 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240429152207.479221-1-james.clark@arm.com>
- <20240429152207.479221-9-james.clark@arm.com>
-In-Reply-To: <20240429152207.479221-9-james.clark@arm.com>
+ <20240429152207.479221-10-james.clark@arm.com>
+In-Reply-To: <20240429152207.479221-10-james.clark@arm.com>
 From: Mike Leach <mike.leach@linaro.org>
-Date: Wed, 1 May 2024 12:06:28 +0100
-Message-ID: <CAJ9a7VgAg==xysGSjR9Cd5oO1+=HQF0xxcpamgntb_PV6aw6JQ@mail.gmail.com>
+Date: Wed, 1 May 2024 12:07:29 +0100
+Message-ID: <CAJ9a7Vgvdjz9peyDzRzAJ3DDGFfjVD0dNXgcJ7b+g-WvCwZ1QQ@mail.gmail.com>
 To: James Clark <james.clark@arm.com>
 Cc: scclevenger@os.amperecomputing.com, Mark Rutland <mark.rutland@arm.com>,
  Ian Rogers <irogers@google.com>,
@@ -71,7 +71,8 @@ Cc: scclevenger@os.amperecomputing.com, Mark Rutland <mark.rutland@arm.com>,
  linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
  Leo Yan <leo.yan@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
  gankulkarni@os.amperecomputing.com
-Subject: Re: [Linux-stm32] [PATCH 08/17] coresight: Remove unused stubs
+Subject: Re: [Linux-stm32] [PATCH 09/17] coresight: Clarify comments around
+ the PID of the sink owner
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,54 +91,61 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Mon, 29 Apr 2024 at 16:24, James Clark <james.clark@arm.com> wrote:
 >
-> This file is never included anywhere if CONFIG_CORESIGHT is not set so
-> they are unused and aren't currently compile tested with any config so
-> remove them.
+> "Process being monitored" and "pid of the process to monitor" imply that
+> this would be the same PID if there were two sessions targeting the same
+> process. But this is actually the PID of the process that did the Perf
+> event open call, rather than the target of the session. So update the
+> comments to make this clearer.
 >
 > Signed-off-by: James Clark <james.clark@arm.com>
 > ---
->  .../hwtracing/coresight/coresight-etm-perf.h   | 18 ------------------
->  1 file changed, 18 deletions(-)
+>  drivers/hwtracing/coresight/coresight-tmc-etr.c | 5 +++--
+>  drivers/hwtracing/coresight/coresight-tmc.h     | 5 +++--
+>  2 files changed, 6 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.h b/drivers/hwtracing/coresight/coresight-etm-perf.h
-> index bebbadee2ceb..744531158d6b 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm-perf.h
-> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.h
-> @@ -62,7 +62,6 @@ struct etm_event_data {
->         struct list_head * __percpu *path;
->  };
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> index e75428fa1592..8962fc27d04f 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+> @@ -36,7 +36,8 @@ struct etr_buf_hw {
+>   * etr_perf_buffer - Perf buffer used for ETR
+>   * @drvdata            - The ETR drvdaga this buffer has been allocated for.
+>   * @etr_buf            - Actual buffer used by the ETR
+> - * @pid                        - The PID this etr_perf_buffer belongs to.
+> + * @pid                        - The PID of the session owner that etr_perf_buffer
+> + *                       belongs to.
+>   * @snaphost           - Perf session mode
+>   * @nr_pages           - Number of pages in the ring buffer.
+>   * @pages              - Array of Pages in the ring buffer.
+> @@ -1662,7 +1663,7 @@ static int tmc_enable_etr_sink_perf(struct coresight_device *csdev, void *data)
+>                 goto unlock_out;
+>         }
 >
-> -#if IS_ENABLED(CONFIG_CORESIGHT)
->  int etm_perf_symlink(struct coresight_device *csdev, bool link);
->  int etm_perf_add_symlink_sink(struct coresight_device *csdev);
->  void etm_perf_del_symlink_sink(struct coresight_device *csdev);
-> @@ -77,23 +76,6 @@ static inline void *etm_perf_sink_config(struct perf_output_handle *handle)
->  int etm_perf_add_symlink_cscfg(struct device *dev,
->                                struct cscfg_config_desc *config_desc);
->  void etm_perf_del_symlink_cscfg(struct cscfg_config_desc *config_desc);
-> -#else
-> -static inline int etm_perf_symlink(struct coresight_device *csdev, bool link)
-> -{ return -EINVAL; }
-> -int etm_perf_add_symlink_sink(struct coresight_device *csdev)
-> -{ return -EINVAL; }
-> -void etm_perf_del_symlink_sink(struct coresight_device *csdev) {}
-> -static inline void *etm_perf_sink_config(struct perf_output_handle *handle)
-> -{
-> -       return NULL;
-> -}
-> -int etm_perf_add_symlink_cscfg(struct device *dev,
-> -                              struct cscfg_config_desc *config_desc)
-> -{ return -EINVAL; }
-> -void etm_perf_del_symlink_cscfg(struct cscfg_config_desc *config_desc) {}
-> -
-> -#endif /* CONFIG_CORESIGHT */
-> -
->  int __init etm_perf_init(void);
->  void etm_perf_exit(void);
+> -       /* Get a handle on the pid of the process to monitor */
+> +       /* Get a handle on the pid of the session owner */
+>         pid = etr_perf->pid;
 >
+>         /* Do not proceed if this device is associated with another session */
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
+> index c77763b49de0..2671926be62a 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc.h
+> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
+> @@ -171,8 +171,9 @@ struct etr_buf {
+>   * @csdev:     component vitals needed by the framework.
+>   * @miscdev:   specifics to handle "/dev/xyz.tmc" entry.
+>   * @spinlock:  only one at a time pls.
+> - * @pid:       Process ID of the process being monitored by the session
+> - *             that is using this component.
+> + * @pid:       Process ID of the process that owns the session that is using
+> + *             this component. For example this would be the pid of the Perf
+> + *             process.
+>   * @buf:       Snapshot of the trace data for ETF/ETB.
+>   * @etr_buf:   details of buffer used in TMC-ETR
+>   * @len:       size of the available trace for ETF/ETB.
 > --
 > 2.34.1
 >
+
 Reviewed-by: Mike Leach <mike.leach@linaro.org>
 
 -- 
