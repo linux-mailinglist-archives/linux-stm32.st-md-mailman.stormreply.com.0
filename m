@@ -2,40 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AB788B9DEB
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 17:56:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FC58B9E08
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 18:02:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98332C712A0;
-	Thu,  2 May 2024 15:56:42 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07CF5C712A0;
+	Thu,  2 May 2024 16:02:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DC65C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C90F3C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 May 2024 15:56:35 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 42DA73A3;
- Thu,  2 May 2024 17:55:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1714665335;
- bh=BNZ7VCPqIKavIbCVEnhdxfAfj5DbuGh10cv43Ssn2rk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jnSMlcIt5GY6y0QCKlRnRwjUxUy+OXFL3lb5q3xwriAfQ1XM0hdrEX26Y4xSBi+FQ
- L72jIK7nkXz0HCAPtF7Rb+x1zFTG1EtF9j5ah2S9T6RX9KlYqUZEC3ZvnbPkm3ehC2
- r8UxJmawbCOQ9y1KOJ8vd01dLIWBulksmipSllag=
-Date: Thu, 2 May 2024 18:56:26 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Julien Massot <julien.massot@collabora.com>
-Message-ID: <20240502155626.GD15807@pendragon.ideasonboard.com>
+ Thu,  2 May 2024 16:02:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1714665727; x=1746201727;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ObIQatXLy+J9dMb/aQHo04fdKZEbIx2wJbwo8cGX7+4=;
+ b=g1P1+Pg5vUMXFYU7Wvw8GRBmNQlQxx9wriM/Za6SjN32Q0mWDa5cO8iy
+ m2mzZuwAzrUH+PBFWoPS5iR24c09rIVV+Kv6oJP++SH2UhvnefwtlSwj3
+ VogpPolFZlaLuWPeZq13mru+fet62iWOVGtGQ4aBDccFWedYigX+Qie9h
+ kZayWgtZ0GU2f0KD+EwjXLad6yWjMaCdDepNu7UnfB1R3VFBEXi+oAyzK
+ 8H3NpxZEBIrQcc/gKq/cvf9tOIEwqtDMGnqkhjq7LGT2G0Zg+4l5H1feV
+ R8Fn3vqgwIKYAsHD0UZbAnpMnLtxHjeeB50jxu4PUQkl69V6oLdTuPRmv g==;
+X-CSE-ConnectionGUID: 6FvfQ5bhSyGWLLDY+K/5mA==
+X-CSE-MsgGUID: iz1HgSkxSyWAJ0TXD9uIKg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="14249276"
+X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="14249276"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2024 09:01:58 -0700
+X-CSE-ConnectionGUID: DwJEOuh6RxCXX9j4YfsK9w==
+X-CSE-MsgGUID: JXeJGl7FR16JncEZC10HRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="31831298"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.237.72.44])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2024 09:01:48 -0700
+Received: from kekkonen.localdomain (localhost [127.0.0.1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id 1C4E111FA94;
+ Thu,  2 May 2024 19:01:45 +0300 (EEST)
+Date: Thu, 2 May 2024 16:01:45 +0000
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
 References: <20240502-master-v1-0-8bd109c6a3ba@collabora.com>
+ <20240502155626.GD15807@pendragon.ideasonboard.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240502-master-v1-0-8bd109c6a3ba@collabora.com>
-Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+In-Reply-To: <20240502155626.GD15807@pendragon.ideasonboard.com>
+Cc: Julien Massot <julien.massot@collabora.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Heiko Stuebner <heiko@sntech.de>, Dafna Hirschfeld <dafna@fastmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ imx@lists.linux.dev, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
  Todor Tomov <todor.too@gmail.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
  linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
@@ -51,7 +71,7 @@ Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
  Tianshu Qiu <tian.shu.qiu@intel.com>, Yong Zhi <yong.zhi@intel.com>,
  Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Jai Luthra <j-luthra@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
  Eugen Hristev <eugen.hristev@collabora.com>, Benoit Parrot <bparrot@ti.com>,
  Rui Miguel Silva <rmfrfs@gmail.com>, Maxime Ripard <mripard@kernel.org>,
@@ -61,8 +81,7 @@ Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Sowjanya Komatineni <skomatineni@nvidia.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Purism Kernel Team <kernel@puri.sm>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -72,7 +91,7 @@ Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
  Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
  Shawn Guo <shawnguo@kernel.org>,
  Paul Kocialkowski <paul.kocialkowski@bootlin.com>
@@ -94,95 +113,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Julien,
+Hi Laurent,
 
-On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
-> Many drivers has
->   v4l2_async_nf_unregister(&notifier);
->   v4l2_async_nf_cleanup(&notifier);
+On Thu, May 02, 2024 at 06:56:26PM +0300, Laurent Pinchart wrote:
+> Hi Julien,
 > 
-> Introduce a helper function to call both functions in one line.
-
-Does this really go in the right direction ? For other objects (video
-devices, media devices, ...), the unregistration should be done at
-.remove() time, and the cleanup at .release() time (the operation called
-when the last reference to the object is released). This is needed to
-ensure proper lifetime management of the objects, and avoid a
-use-after-free for objects that can be reached from userspace.
-
-It could be argued that the notifier isn't exposed to userspace, but can
-we guarantee that no driver will have a need to access the notifier in a
-code path triggered by a userspace operation ? I think it would be safer
-to adopt the same split for the nofifier unregistration and cleanup. In
-my opinion using the same rule across different APIs also make it easier
-for driver authors and for reviewers to get it right.
-
-As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
-and .remove() time instead of .release(). That's because most drivers
-get lifetime management wrong and don't even implement .release().
-That's something Sakari is addressing with ongoing work. This patch
-series seems to go in the opposite direction.
-
-> ---
-> Julien Massot (2):
->       media: v4l: async: Add v4l2_async_nf_unregister_cleanup
->       media: convert all drivers to use v4l2_async_nf_unregister_cleanup
+> On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
+> > Many drivers has
+> >   v4l2_async_nf_unregister(&notifier);
+> >   v4l2_async_nf_cleanup(&notifier);
+> > 
+> > Introduce a helper function to call both functions in one line.
 > 
->  drivers/media/i2c/ds90ub913.c                           | 10 ++--------
->  drivers/media/i2c/ds90ub953.c                           | 10 ++--------
->  drivers/media/i2c/ds90ub960.c                           | 10 ++--------
->  drivers/media/i2c/max9286.c                             |  3 +--
->  drivers/media/i2c/st-mipid02.c                          |  6 ++----
->  drivers/media/i2c/tc358746.c                            |  3 +--
->  drivers/media/pci/intel/ipu3/ipu3-cio2.c                |  6 ++----
->  drivers/media/pci/intel/ipu6/ipu6-isys.c                |  8 +-------
->  drivers/media/pci/intel/ivsc/mei_csi.c                  |  6 ++----
->  drivers/media/platform/atmel/atmel-isi.c                |  3 +--
->  drivers/media/platform/cadence/cdns-csi2rx.c            |  6 ++----
->  drivers/media/platform/intel/pxa_camera.c               |  3 +--
->  drivers/media/platform/marvell/mcam-core.c              |  6 ++----
->  drivers/media/platform/microchip/microchip-csi2dc.c     |  3 +--
->  drivers/media/platform/microchip/microchip-isc-base.c   |  6 ++----
->  drivers/media/platform/nxp/imx-mipi-csis.c              |  6 ++----
->  drivers/media/platform/nxp/imx7-media-csi.c             |  3 +--
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c     |  3 +--
->  drivers/media/platform/nxp/imx8mq-mipi-csi2.c           |  6 ++----
->  drivers/media/platform/qcom/camss/camss.c               |  3 +--
->  drivers/media/platform/renesas/rcar-csi2.c              |  6 ++----
->  drivers/media/platform/renesas/rcar-isp.c               |  6 ++----
->  drivers/media/platform/renesas/rcar-vin/rcar-core.c     |  9 +++------
->  drivers/media/platform/renesas/rcar_drif.c              |  3 +--
->  drivers/media/platform/renesas/renesas-ceu.c            |  4 +---
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c   |  3 +--
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-csi2.c   |  6 ++----
->  drivers/media/platform/rockchip/rkisp1/rkisp1-dev.c     |  3 +--
->  drivers/media/platform/samsung/exynos4-is/media-dev.c   |  3 +--
->  drivers/media/platform/st/stm32/stm32-dcmi.c            |  3 +--
->  .../media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c  |  3 +--
->  drivers/media/platform/sunxi/sun4i-csi/sun4i_csi.c      |  3 +--
->  .../media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c   |  3 +--
->  .../platform/sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c    |  3 +--
->  .../sunxi/sun8i-a83t-mipi-csi2/sun8i_a83t_mipi_csi2.c   |  3 +--
->  drivers/media/platform/ti/am437x/am437x-vpfe.c          |  3 +--
->  drivers/media/platform/ti/cal/cal.c                     |  8 +-------
->  drivers/media/platform/ti/davinci/vpif_capture.c        |  3 +--
->  drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 10 ++--------
->  drivers/media/platform/ti/omap3isp/isp.c                |  3 +--
->  drivers/media/platform/video-mux.c                      |  3 +--
->  drivers/media/platform/xilinx/xilinx-vipp.c             |  3 +--
->  drivers/staging/media/deprecated/atmel/atmel-isc-base.c |  6 ++----
->  drivers/staging/media/sunxi/sun6i-isp/sun6i_isp_proc.c  |  3 +--
->  drivers/staging/media/tegra-video/vi.c                  |  3 +--
->  include/media/v4l2-async.h                              | 17 +++++++++++++++++
->  46 files changed, 80 insertions(+), 153 deletions(-)
-> ---
-> base-commit: 843a9f4a7a85988f2f3af98adf21797c2fd05ab1
-> change-id: 20240502-master-5deee133b4f5
+> Does this really go in the right direction ? For other objects (video
+> devices, media devices, ...), the unregistration should be done at
+> .remove() time, and the cleanup at .release() time (the operation called
+> when the last reference to the object is released). This is needed to
+> ensure proper lifetime management of the objects, and avoid a
+> use-after-free for objects that can be reached from userspace.
+> 
+> It could be argued that the notifier isn't exposed to userspace, but can
+> we guarantee that no driver will have a need to access the notifier in a
+> code path triggered by a userspace operation ? I think it would be safer
+> to adopt the same split for the nofifier unregistration and cleanup. In
+> my opinion using the same rule across different APIs also make it easier
+> for driver authors and for reviewers to get it right.
+> 
+> As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
+> and .remove() time instead of .release(). That's because most drivers
+> get lifetime management wrong and don't even implement .release().
+> That's something Sakari is addressing with ongoing work. This patch
+> series seems to go in the opposite direction.
+
+This still avoids the driver authors feeling they need to implement wrapper
+functions for v4l2_async_nf_{unregister,cleanup}. I'd be in favour merging
+this.
+
+I don't see this getting in the way of adding use counts as the code will
+need to be changed in any case.
 
 -- 
 Regards,
 
-Laurent Pinchart
+Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
