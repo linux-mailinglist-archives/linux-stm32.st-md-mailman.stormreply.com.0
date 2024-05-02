@@ -2,56 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53FC58B9E08
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 18:02:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEF8C8B9E33
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 18:08:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07CF5C712A0;
-	Thu,  2 May 2024 16:02:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70626C712A0;
+	Thu,  2 May 2024 16:08:46 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C90F3C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DB0EC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 May 2024 16:02:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714665727; x=1746201727;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ObIQatXLy+J9dMb/aQHo04fdKZEbIx2wJbwo8cGX7+4=;
- b=g1P1+Pg5vUMXFYU7Wvw8GRBmNQlQxx9wriM/Za6SjN32Q0mWDa5cO8iy
- m2mzZuwAzrUH+PBFWoPS5iR24c09rIVV+Kv6oJP++SH2UhvnefwtlSwj3
- VogpPolFZlaLuWPeZq13mru+fet62iWOVGtGQ4aBDccFWedYigX+Qie9h
- kZayWgtZ0GU2f0KD+EwjXLad6yWjMaCdDepNu7UnfB1R3VFBEXi+oAyzK
- 8H3NpxZEBIrQcc/gKq/cvf9tOIEwqtDMGnqkhjq7LGT2G0Zg+4l5H1feV
- R8Fn3vqgwIKYAsHD0UZbAnpMnLtxHjeeB50jxu4PUQkl69V6oLdTuPRmv g==;
-X-CSE-ConnectionGUID: 6FvfQ5bhSyGWLLDY+K/5mA==
-X-CSE-MsgGUID: iz1HgSkxSyWAJ0TXD9uIKg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="14249276"
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="14249276"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 09:01:58 -0700
-X-CSE-ConnectionGUID: DwJEOuh6RxCXX9j4YfsK9w==
-X-CSE-MsgGUID: JXeJGl7FR16JncEZC10HRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="31831298"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 09:01:48 -0700
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 1C4E111FA94;
- Thu,  2 May 2024 19:01:45 +0300 (EEST)
-Date: Thu, 2 May 2024 16:01:45 +0000
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
+ Thu,  2 May 2024 16:08:39 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
+ [81.175.209.231])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 50D974D4;
+ Thu,  2 May 2024 18:07:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1714666059;
+ bh=1zxbeK2Vc5xzfg9ivasxN0Y8bxeQt6RGSMFz/qIJEB0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Sp++7kuIo7u0MWn92GCxF9L94GCFpxrJwg8v0jK9FWCLWTQXiLcmGPrhGhzZkfM7E
+ 637vea6WUMWJ4A5o8RWfMKEhzyGsgm4Z3MNtZDwDfy83U9wUHOM0plYnky+y+NlbYU
+ ozCC8vCzQXC5O9dQNjVpuQnijTzGK8LEvmClhovE=
+Date: Thu, 2 May 2024 19:08:30 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Message-ID: <20240502160830.GB11443@pendragon.ideasonboard.com>
 References: <20240502-master-v1-0-8bd109c6a3ba@collabora.com>
  <20240502155626.GD15807@pendragon.ideasonboard.com>
+ <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240502155626.GD15807@pendragon.ideasonboard.com>
+In-Reply-To: <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
 Cc: Julien Massot <julien.massot@collabora.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Heiko Stuebner <heiko@sntech.de>, Dafna Hirschfeld <dafna@fastmail.com>,
@@ -81,7 +64,7 @@ Cc: Julien Massot <julien.massot@collabora.com>,
  Sowjanya Komatineni <skomatineni@nvidia.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Purism Kernel Team <kernel@puri.sm>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -113,49 +96,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
-
-On Thu, May 02, 2024 at 06:56:26PM +0300, Laurent Pinchart wrote:
-> Hi Julien,
-> 
-> On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
-> > Many drivers has
-> >   v4l2_async_nf_unregister(&notifier);
-> >   v4l2_async_nf_cleanup(&notifier);
+On Thu, May 02, 2024 at 04:01:45PM +0000, Sakari Ailus wrote:
+> On Thu, May 02, 2024 at 06:56:26PM +0300, Laurent Pinchart wrote:
+> > On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
+> > > Many drivers has
+> > >   v4l2_async_nf_unregister(&notifier);
+> > >   v4l2_async_nf_cleanup(&notifier);
+> > > 
+> > > Introduce a helper function to call both functions in one line.
 > > 
-> > Introduce a helper function to call both functions in one line.
+> > Does this really go in the right direction ? For other objects (video
+> > devices, media devices, ...), the unregistration should be done at
+> > .remove() time, and the cleanup at .release() time (the operation called
+> > when the last reference to the object is released). This is needed to
+> > ensure proper lifetime management of the objects, and avoid a
+> > use-after-free for objects that can be reached from userspace.
+> > 
+> > It could be argued that the notifier isn't exposed to userspace, but can
+> > we guarantee that no driver will have a need to access the notifier in a
+> > code path triggered by a userspace operation ? I think it would be safer
+> > to adopt the same split for the nofifier unregistration and cleanup. In
+> > my opinion using the same rule across different APIs also make it easier
+> > for driver authors and for reviewers to get it right.
+> > 
+> > As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
+> > and .remove() time instead of .release(). That's because most drivers
+> > get lifetime management wrong and don't even implement .release().
+> > That's something Sakari is addressing with ongoing work. This patch
+> > series seems to go in the opposite direction.
 > 
-> Does this really go in the right direction ? For other objects (video
-> devices, media devices, ...), the unregistration should be done at
-> .remove() time, and the cleanup at .release() time (the operation called
-> when the last reference to the object is released). This is needed to
-> ensure proper lifetime management of the objects, and avoid a
-> use-after-free for objects that can be reached from userspace.
+> This still avoids the driver authors feeling they need to implement wrapper
+> functions for v4l2_async_nf_{unregister,cleanup}. I'd be in favour merging
+> this.
 > 
-> It could be argued that the notifier isn't exposed to userspace, but can
-> we guarantee that no driver will have a need to access the notifier in a
-> code path triggered by a userspace operation ? I think it would be safer
-> to adopt the same split for the nofifier unregistration and cleanup. In
-> my opinion using the same rule across different APIs also make it easier
-> for driver authors and for reviewers to get it right.
-> 
-> As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
-> and .remove() time instead of .release(). That's because most drivers
-> get lifetime management wrong and don't even implement .release().
-> That's something Sakari is addressing with ongoing work. This patch
-> series seems to go in the opposite direction.
+> I don't see this getting in the way of adding use counts as the code will
+> need to be changed in any case.
 
-This still avoids the driver authors feeling they need to implement wrapper
-functions for v4l2_async_nf_{unregister,cleanup}. I'd be in favour merging
-this.
-
-I don't see this getting in the way of adding use counts as the code will
-need to be changed in any case.
+Fixing the lifetime issues would essentially revert 2/2 and move the
+v4l2_async_nf_cleanup() call to .remove(). I don't think providing a
+helper that forces the cleanup at .remove() time is a good idea, it
+gives a false sense of doing things right to drivers. This is the same
+reason why devm_kzalloc() is so harmful, it gave the wrong message, and
+created (or participated in) all those lifetime issues.
 
 -- 
 Regards,
 
-Sakari Ailus
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
