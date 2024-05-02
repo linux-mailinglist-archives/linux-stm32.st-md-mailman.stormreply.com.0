@@ -2,103 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1FDF8B9E74
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 18:24:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E8928B9FB1
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2024 19:43:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 604B5C6C83A;
-	Thu,  2 May 2024 16:24:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DFE0C62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37C18C7129F;
+	Thu,  2 May 2024 17:43:41 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07F7AC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 May 2024 16:24:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1714667059; x=1746203059;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8bnm0Mp6aA159OPgwtTWCVCezNkfmBxywIMR3Q9y61E=;
- b=hdcCpyUDZvvdCToFmmXt4gZiCjTmCLBwaNQa27b32oUOQs0eD4ECo1Qn
- UmUH6sPh4kdn2j21lWICIlg99l4277C9Ea6FVCXWJss2iXyECUzcTWrl7
- 1MLcSsQYXw+pfhgAb+o4yAwFFdD28gNlcZvm6uWjHjRaCDou63vr6ICPe
- HEyR46v2zLN7NPmxQIWywWZLH626RdPRud5X3uXW/e5j0ZaGWbm17tSPs
- XRWYpPHyM4pS1mqDBdT/SlsEIh+PEXo0KQ77XVyw/RgCnIImk9H8mak6e
- 7OWA9R1vMIK9F8chZFORLGTw8PacsWgZaoYTgdE0lVSs+kSF7/zpL0o/z A==;
-X-CSE-ConnectionGUID: LGo9QlVLRua1f45y5BTTmw==
-X-CSE-MsgGUID: fBwoH5YVR8WgMK79lV6xfw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11062"; a="10378784"
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="10378784"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 09:24:11 -0700
-X-CSE-ConnectionGUID: gyKOMwuERVWbe1SWC/Pk/g==
-X-CSE-MsgGUID: 2BvGVijpR2OhXI8q1CaqkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000"; d="scan'208";a="31662271"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 09:24:07 -0700
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 8C03A11FA94;
- Thu,  2 May 2024 19:24:04 +0300 (EEST)
-Date: Thu, 2 May 2024 16:24:04 +0000
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <ZjO-JDBdHXVLbz5H@kekkonen.localdomain>
-References: <20240502-master-v1-0-8bd109c6a3ba@collabora.com>
- <20240502155626.GD15807@pendragon.ideasonboard.com>
- <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
- <20240502160830.GB11443@pendragon.ideasonboard.com>
+ Thu,  2 May 2024 17:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1714671813;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=biQjiZPx65qbOD6D6VaTZ+h64lgoGF2JeVbk4Q+BuGU=;
+ b=EDXFXq4mXUMKutilrV46ad4vl1EJjwGE1rlG3z7gayv9Tiekk+30RTtabH/p1Uma8zcuid
+ EvA3Gw1uO2xtHCX8UC4XTPniU8jZObS0B/n41epte0gajCyGwjDwYMp5bQEBTNaKf6i6s9
+ oOz5vjIFGRan5CiR/nrBUs+bY9GreFA=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-80-2bMvll1_N2undxw0fphzUg-1; Thu, 02 May 2024 13:43:31 -0400
+X-MC-Unique: 2bMvll1_N2undxw0fphzUg-1
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-3c8701a7b08so3412152b6e.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 02 May 2024 10:43:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1714671811; x=1715276611;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=biQjiZPx65qbOD6D6VaTZ+h64lgoGF2JeVbk4Q+BuGU=;
+ b=rpOl9b/EcpkICI6AEiZfUuuiT21Vaq4qIz2UxvdoCRRnrP3X1z/NmMRuO9WBEIOcdC
+ 2Y6SNZV1S26tO0TGaWC4TosbIFHXbkSgr8z4wVEIIYbRy04zF4Kd1GIXPaVjLRQKgzMu
+ qYI0nKYeOCRxsJOeMt76khDJGNk15RxUM0oJ9+YgTTZpbgutiyc4IGspdjUNp4rcKUWL
+ YvEZ8877jJdCND/0qQHb7MKSKdffKqA77N0EqZsJV/Jl6c85bCQBvvNNFSTKX9P8eLK9
+ EK/uim8fCW+63y9JE5IkGZ7wj3/t+lgHcHzBGJRCLERyQYzMA7EBvrOX3yMnCBsWm4FQ
+ ajgA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUPK/YUdbo+JuQRGPcOZvM6LFVpgP4TKJaXGcJ9nWD9HN6FVYtxQBuXsQG33UlzlJvGqQ7YyWyy3MLqSQX9qbi1Pocl/Z4gTd85qOGcB31TI85tnTXa5JdR
+X-Gm-Message-State: AOJu0YwfOKB7J1FDgQlz3DEONRYb69ACumBj4d1V3Eg+uiV87LBy4ZqG
+ hqEya+AEf0LY52d3cXDWdanYlsTX6A3hpnkEliK9IS/J47ARzvDPxn911Okkwg4mD8c5POWo5IB
+ iyo+VgBMNRSbzMzujB/Y7cOLypitUBwMJgl0IdrfEkftR/dM+xB0QVbKdVOg2koY/k/k1KPGNL/
+ zHuA==
+X-Received: by 2002:a05:6808:6d0:b0:3c6:4c9:9888 with SMTP id
+ m16-20020a05680806d000b003c604c99888mr606582oih.17.1714671810610; 
+ Thu, 02 May 2024 10:43:30 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGHeNxxXZ5GpltdHGAc4EEJ37718DEsnhA0sWqp7JLAjgKy6V4de2gRO/UWS+OfFXOwvMUz8A==
+X-Received: by 2002:a05:6808:6d0:b0:3c6:4c9:9888 with SMTP id
+ m16-20020a05680806d000b003c604c99888mr606553oih.17.1714671810133; 
+ Thu, 02 May 2024 10:43:30 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ eh5-20020a056808274500b003c74a4685e0sm213282oib.55.2024.05.02.10.43.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 May 2024 10:43:29 -0700 (PDT)
+Date: Thu, 2 May 2024 12:43:27 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <ykdqxnky7shebbhtucoiokbews2be5bml6raqafsfn4x6bp6h3@nqsn6akpajvp>
+References: <uz66kbjbxieof6vkliuwgpzhlrbcmeb2f5aeuourw2vqcoc4hv@2adpvba3zszx>
+ <ZjFl4rql0UgsHp97@shell.armlinux.org.uk>
 MIME-Version: 1.0
+In-Reply-To: <ZjFl4rql0UgsHp97@shell.armlinux.org.uk>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-In-Reply-To: <20240502160830.GB11443@pendragon.ideasonboard.com>
-Cc: Julien Massot <julien.massot@collabora.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Dafna Hirschfeld <dafna@fastmail.com>,
- imx@lists.linux.dev, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Todor Tomov <todor.too@gmail.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Bingbu Cao <bingbu.cao@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- Tianshu Qiu <tian.shu.qiu@intel.com>, Yong Zhi <yong.zhi@intel.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Jai Luthra <j-luthra@ti.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- Eugen Hristev <eugen.hristev@collabora.com>, Benoit Parrot <bparrot@ti.com>,
- Rui Miguel Silva <rmfrfs@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Yong Deng <yong.deng@magewell.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Martin Kepplinger <martink@posteo.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Purism Kernel Team <kernel@puri.sm>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Dan Scally <djrscally@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Subject: Re: [Linux-stm32] [PATCH 0/2] Introduce
-	v4l2_async_nf_unregister_cleanup
+Cc: andrew@lunn.ch, davem@davemloft.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] racing ndo_open()/phylink*connect() with
+	phy_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,65 +94,191 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
-
-On Thu, May 02, 2024 at 07:08:30PM +0300, Laurent Pinchart wrote:
-> On Thu, May 02, 2024 at 04:01:45PM +0000, Sakari Ailus wrote:
-> > On Thu, May 02, 2024 at 06:56:26PM +0300, Laurent Pinchart wrote:
-> > > On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
-> > > > Many drivers has
-> > > >   v4l2_async_nf_unregister(&notifier);
-> > > >   v4l2_async_nf_cleanup(&notifier);
-> > > > 
-> > > > Introduce a helper function to call both functions in one line.
-> > > 
-> > > Does this really go in the right direction ? For other objects (video
-> > > devices, media devices, ...), the unregistration should be done at
-> > > .remove() time, and the cleanup at .release() time (the operation called
-> > > when the last reference to the object is released). This is needed to
-> > > ensure proper lifetime management of the objects, and avoid a
-> > > use-after-free for objects that can be reached from userspace.
-> > > 
-> > > It could be argued that the notifier isn't exposed to userspace, but can
-> > > we guarantee that no driver will have a need to access the notifier in a
-> > > code path triggered by a userspace operation ? I think it would be safer
-> > > to adopt the same split for the nofifier unregistration and cleanup. In
-> > > my opinion using the same rule across different APIs also make it easier
-> > > for driver authors and for reviewers to get it right.
-> > > 
-> > > As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
-> > > and .remove() time instead of .release(). That's because most drivers
-> > > get lifetime management wrong and don't even implement .release().
-> > > That's something Sakari is addressing with ongoing work. This patch
-> > > series seems to go in the opposite direction.
-> > 
-> > This still avoids the driver authors feeling they need to implement wrapper
-> > functions for v4l2_async_nf_{unregister,cleanup}. I'd be in favour merging
-> > this.
-> > 
-> > I don't see this getting in the way of adding use counts as the code will
-> > need to be changed in any case.
+On Tue, Apr 30, 2024 at 10:42:58PM +0100, Russell King (Oracle) wrote:
+> On Tue, Apr 30, 2024 at 04:02:19PM -0500, Andrew Halaney wrote:
+> > Basically, NetworkManager is setting both interfaces to up, and end1's
+> > phy doesn't seem to be ready when ndo_open() runs, returning
+> > -ENODEV in phylink_fwnode_phy_connect() and bubbling that back up. This doesn't
 > 
-> Fixing the lifetime issues would essentially revert 2/2 and move the
-> v4l2_async_nf_cleanup() call to .remove(). I don't think providing a
-> helper that forces the cleanup at .remove() time is a good idea, it
-> gives a false sense of doing things right to drivers. This is the same
-> reason why devm_kzalloc() is so harmful, it gave the wrong message, and
-> created (or participated in) all those lifetime issues.
+> Let's get something clear - you're attributing phylink to this, but this
+> is not the case. phylink doesn't deal directly with PHYs, it makes use
+> of phylib for that, and merely passes back to its caller whatever status
+> it gets from phylib. It's also not fair to attribute this to phylib as
+> we will see later...
 
-I still prefer having devm_*alloc() functions than having the drivers open
-coding the same -- with the same result. The frameworks won't enable doing
-this right at the moment and I don't think drivers (or us!) should be
-penalised for that. The driver authors will only change what they do, with
-these patches or without, when told so. But we don't really have an
-alternative today.
+Sorry for the delay, I wanted to try and test with some extra logs in
+the legit setup (not my "simulate via EPROBE_DEFER delays" approach)
+which is tedious with the initramfs (plus I wasted time failing to
+ftrace some stuff :P) to reconvince me of old notes. Thanks for the
+explanation above on the nuances between phylink and phylib, I really
+appreciate it.
 
-A similar situation exists with clk_unprepare() and clk_disable().
+> 
+> There are a few reasons for phylink_fwnode_phy_connect() would return
+> -ENODEV:
+> 
+> 1) fwnode_get_phy_node() (a phylib function) returning an error,
+> basically meaning the phy node isn't found. This would be a persistent
+> error, so unlikely to be your issue.
+> 
+> 2) fwnode_phy_find_device() (another phylib function) not finding the
+> PHY device corresponding to the fwnode returned by the above on the
+> MDIO bus. This is possible if the PHY has not been detected on the
+> MDIO bus, but I suspect this is not the cause of your issue.
 
--- 
-Kind regards,
+So I think we're in this case. I added some extra logs to see which
+of the cases we were hitting, as well as some extra logs in phy creation
+code etc to come to that conclusion:
 
-Sakari Ailus
+    # end1 probe start (and finish)
+    [    1.424099] qcom-ethqos 23000000.ethernet: Adding to iommu group 2
+    ...
+    [    1.431267] qcom-ethqos 23000000.ethernet: Using 40/40 bits DMA host/device width
+
+    # end0 probe start
+    [    1.440517] qcom-ethqos 23040000.ethernet: Adding to iommu group 3
+    ...
+    [    1.443502] qcom-ethqos 23040000.ethernet: Using 40/40 bits DMA host/device width
+
+    # end0 starts making the mdio bus, and phy devices
+    [    1.443537] qcom-ethqos 23040000.ethernet: Before of_mdiobus_reg
+
+    # create phy at addr 0x8, end0's phy
+    [    1.450118] Starting phy_create_device for addr: 8
+
+    # NetworkManager up'ed end1! and again. But the device we're needing
+    # (0xa) isn't created yet
+    [    1.459743] qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-0
+    ...
+    [    1.465168] Failed at fwnode_phy_find_device
+    [    1.465174] qcom-ethqos 23000000.ethernet end1: __stmmac_open: Cannot attach to PHY (error: -19)
+    [    1.473687] qcom-ethqos 23000000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-0
+    ...
+    [    1.477637] Failed at fwnode_phy_find_device
+    [    1.477643] qcom-ethqos 23000000.ethernet end1: __stmmac_open: Cannot attach to PHY (error: -19)
+
+    # device created for 0x8, probe it
+    [    1.531617] Ending phy_create_device for addr: 8
+    [    1.627462] Marvell 88E1510 stmmac-0:08: Starting probe
+    [    1.627644] hwmon hwmon0: temp1_input not attached to any thermal zone
+    [    1.627650] Marvell 88E1510 stmmac-0:08: Ending probe
+
+    # device created for 0xa, probe it
+    [    1.628992] Starting phy_create_device for addr: a
+    [    1.632615] Ending phy_create_device for addr: a
+    [    1.731552] Marvell 88E1510 stmmac-0:0a: Starting probe
+    [    1.731732] hwmon hwmon1: temp1_input not attached to any thermal zone
+    [    1.731738] Marvell 88E1510 stmmac-0:0a: Ending probe
+
+    # end0 is done probing now
+    [    1.732804] qcom-ethqos 23040000.ethernet: After of_mdiobus_reg
+    [    1.820725] qcom-ethqos 23040000.ethernet end0: renamed from eth0
+
+    # NetworkManager up's end0
+    [    1.851805] qcom-ethqos 23040000.ethernet end0: Register MEM_TYPE_PAGE_POOL RxQ-0
+    ...
+    [    1.914980] qcom-ethqos 23040000.ethernet end0: PHY [stmmac-0:08] driver [Marvell 88E1510] (irq=233)
+    ...
+    [    1.939432] qcom-ethqos 23040000.ethernet end0: configuring for phy/sgmii link mode
+    ...
+    [    4.451765] qcom-ethqos 23040000.ethernet end0: Link is Up - 1Gbps/Full - flow control rx/tx
+
+So end1 is up'ed before end0 can finish making its mdio bus / phy
+devices, and therefore we fail to find it. I can easily simulate this
+situation as well by -EPROBE_DEFER'ing end0 for say 10 seconds.
+
+
+In playing around with this I also discovered that if end1's marvell
+phy -EPROBE_DEFERs for a bit, up'ing end1 results in matching against the Generic PHY
+driver, so then things don't work network wise. That's a similar topic, but
+probably should be discussed separately?
+Mentioning it now before I forget though. Here's some logs:
+
+    # Probe end1
+    [    8.245164] qcom-ethqos 23000000.ethernet: Adding to iommu group 8
+    ...
+    [    8.377010] qcom-ethqos 23000000.ethernet: Using 40/40 bits DMA host/device width
+
+    # Probe end0
+    [    8.396919] qcom-ethqos 23040000.ethernet: Adding to iommu group 9
+    ...
+    [    8.513481] qcom-ethqos 23040000.ethernet: Using 40/40 bits DMA host/device width
+    [    8.521475] qcom-ethqos 23040000.ethernet: Before of_mdiobus_reg
+    [    8.529283] Starting phy_create_device for addr: 8
+    [    8.553872] Ending phy_create_device for addr: 8
+    [    8.714637] Marvell 88E1510 stmmac-0:08: Ending probe
+    [    8.721627] Starting phy_create_device for addr: a
+    [    8.729064] Ending phy_create_device for addr: a
+    [    8.898759] qcom-ethqos 23040000.ethernet: After of_mdiobus_reg
+    ...
+
+    # NetworkManager ups end0
+    [    9.028419] qcom-ethqos 23040000.ethernet end0: Register MEM_TYPE_PAGE_POOL RxQ-0
+    ...
+    [    9.092839] net end0: Before phylink_fwnode_phy_connect
+    [    9.164375] qcom-ethqos 23040000.ethernet end0: PHY [stmmac-0:08] driver [Marvell 88E1510] (irq=280)
+    [    9.174201] net end0: After phylink_fwnode_phy_connect
+    ...
+
+    # NetworkManager ups end1, get the Generic PHY instead of marvell...
+    [    9.257364] qcom-ethqos 23040000.ethernet end0: configuring for phy/sgmii link mode
+    ...
+    [    9.317542] net end1: Before phylink_fwnode_phy_connect
+    [    9.404384] qcom-ethqos 23000000.ethernet end1: PHY [stmmac-0:0a] driver [Generic PHY] (irq=POLL)
+    [    9.414730] net end1: After phylink_fwnode_phy_connect
+    ...
+    [    9.509450] qcom-ethqos 23000000.ethernet end1: configuring for phy/sgmii link mode
+
+    # end0 comes up, end1 doesn't due to the wrong phy being selected here
+    [   11.672223] qcom-ethqos 23040000.ethernet end0: Link is Up - 1Gbps/Full - flow control rx/tx
+
+> 
+> 3) phy_attach_direct() (another phylib function) returning an error.
+> This function calls phy_init_hw() which will attempt to talk to the
+> hardware, and if that returns an error, it will be propagated up.
+> 
+> (3) is the most likely scenario given your quoted DT description. I
+> suspect that the stmmac/qcom-ethqos driver is what's at fault here.
+> 
+> Your DT description shows that the PHYs are on one MDIO bus owned by
+> one of the network interfaces. I suspect if that network interface
+> is down, then the MDIO bus is not accessible.
+> 
+> Therefore, when you attempt to open the _other_ network interface,
+> accesses to its PHY fail with -ENODEV and that gets propagated all
+> the way back up.
+> 
+> What's more is if you did manage to get that network interface up
+> (because the one with the MDIO bus on was up) then if you take
+> that interface down, you'll end up with a phy_error() splat from
+> phylib because the PHY it was using has become inaccessible.
+> 
+> Basically, the network driver is buggy for this PHY setup. If a
+> MDIO bus contains devices that are not owned by the network device
+> owning that MDIO bus, then the MDIO bus _must_ be prepared to handle
+> MDIO bus accesses _at_ _any_ _time_. This clearly is not the case
+> here.
+
+As far as I can tell, at least from the "link up/down" perspective, any
+combo works. If I boot (without NetworkManager doing things), I can
+play around with any combo of link up and down without any noticeable
+issue.
+
+> 
+> It could also be the case that if the driver is using runtime PM,
+> that when the network interface is runtime-PM suspended, it causes
+> MDIO bus accesses to fail... that would be very chaotic though.
+> 
+> In any case, I'm going to say... I don't think this is a phylink nor
+> phylib issue, but a buggy network driver thinking that it has the
+> right to shutdown MDIO bus access depending on its network interface
+> state.
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
