@@ -2,109 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621728BABFA
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2024 13:57:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7EF8BACB3
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2024 14:40:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21BB1C712A2;
-	Fri,  3 May 2024 11:57:29 +0000 (UTC)
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
- [209.85.160.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2959C712A2;
+	Fri,  3 May 2024 12:40:55 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D997C712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01344C6C838
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 May 2024 11:57:21 +0000 (UTC)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-23d38cd0df6so1959061fac.2
+ Fri,  3 May 2024 12:40:47 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-6f28bb6d747so7630998b3a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 May 2024 04:57:21 -0700 (PDT)
+ Fri, 03 May 2024 05:40:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1714737440; x=1715342240;
+ d=linaro.org; s=google; t=1714740046; x=1715344846;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=K7hPKV3HF7+4pxzh8EgR7k2JkSmFNYuW+tKLwH6I0Lg=;
- b=dE+Fkn4+4B7pOyHfhdD+zNy6JMZQ/nanRrUpvk7MeoG66h6DPg4Onb9qClPala5v9n
- bue/VuGEZL/k6JR0cvYPtHWqkSfYV9aXlNOydKy15sUz6KHL9ElUTw4E5r6GvFgEwMjK
- vyN4Ri0CkhOWmOrrX92KnfkQSPX65+7bERg3Q=
+ bh=rYwSNDI9QgFV+fd05nUh9/SdEfqos7OFNMtSW+S8lRs=;
+ b=CWs4ttmWl3gVpEGRxZsAjsgeF64g5kZyXZWOEyzEYcZal04fFZ9HFw5qhfLbr9Okef
+ 9JycIyo4GGrCGo5IVzOfEqD1cl2Ymb5zRNvmh1spw45OKORshjm1xvA/C6mjG3rIwC1H
+ MkGWHejNvgl5n7OFynGya+PYJOOoyp7bVcaku+EvGV8wehnfJnbGv+4pvWFGUQkIC5R/
+ RqI0BfTCitwcW/7ZP1zTVurEe7AjljN8Bu4S+Bl7/zpFFbozbsRwRQizya58CFvG+2Oh
+ JVr5C7/x8wqSXpAYcLKwa7L5meke74SwPag5IOGTeyyLA2RecIOilVqcEnkklRBgeRNM
+ gDSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714737440; x=1715342240;
+ d=1e100.net; s=20230601; t=1714740046; x=1715344846;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=K7hPKV3HF7+4pxzh8EgR7k2JkSmFNYuW+tKLwH6I0Lg=;
- b=u8IduFc6d3Ih10O2czAmDF+4A9CvN17SM5hmnESpFq00s0oLomZTGQ+i5A07G93ean
- VYNgpGEAl2m4reEsqv6fgTyuPERheaLRrah7sIHaL4gw9XgAYeFnAKLqD4/Kd0fhQTHO
- ZnaccXCr4gda9s1Ix5GLKFPGv3GjQuH5tpd9NDOfvUGR2QhFtEzv+5b7PeMTm4W2nnfV
- tDz+5rZlrglAeRJ9gtLzpYNdL1R7RM2916qe+1XvrQvvmQc84xkS59TTd0NWYn/+4Ua4
- pu1mU9r+v48cqaWsD6LpsS6uvomGl8Z8SkoltoAYNsNpDV21DKpZ3BTVzjrWBnizOJIA
- lV1Q==
+ bh=rYwSNDI9QgFV+fd05nUh9/SdEfqos7OFNMtSW+S8lRs=;
+ b=u3t404GviLl3T1ju+qsVU9bFWmJHFhXX2zP3VfBpwYAXm3yJB1edcChXLQDdztxFAH
+ l6kqv/kDAxiUkzIoWIa7UN+n81w6GSj6wzlxpDA754pFG1MiJFBcssEPEfWKeSHySG6P
+ zkysylBstkfN8gpLg9ohhSti2wlpPNTrh76I7kkLsErbfrOX0aER3HNGh/DDfM7ljPrn
+ Mfctzv2x7jEIBY6IRmxxapT5osonZr9IzRxFQ3sH76YPTON0oU3qbuIcHEhRfK3I1ovo
+ 33MrGOP5QAODMnEVBW0NDiUX4c+1uyBBXL5BvAu6IeIbGvJe445/wtP3iAT/Bv3sqhgb
+ Rw9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVyWbWVg+5o1cs1YOlXGu1JZY1AyhzVdgsquEuYr8J2qtftE80RTDYYu/LtngxXtOK6OIgBmjjdenETkJbxRRVEyUzGnN9SYuUpc4SHgC3Cw71b2akYRkyY
-X-Gm-Message-State: AOJu0Yx+EE+8Co7NYAoDvDK7fvF11zOAq+H/Eb9mtqYx4c2NBruhJ0Uf
- ExQdrm7v+gk4kI2ZjFhK3dRKNHiKjKXxXPlkmkiO84c6CwuVEz8uO686e+a1MbJZ04d06W/91qy
- e4w==
-X-Google-Smtp-Source: AGHT+IE9ozjsISFqI5MdIT0zfe/7do4u9c7TR36Qg53tbcAMlu4YT8PIwQZITNr8azeDx1tGj7K8zQ==
-X-Received: by 2002:a05:6871:4108:b0:229:e38e:cd8 with SMTP id
- la8-20020a056871410800b00229e38e0cd8mr2809012oab.26.1714737439934; 
- Fri, 03 May 2024 04:57:19 -0700 (PDT)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com.
- [209.85.210.177]) by smtp.gmail.com with ESMTPSA id
- fe26-20020a056a002f1a00b006f44ebf4c7esm793065pfb.143.2024.05.03.04.57.17
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 May 2024 04:57:17 -0700 (PDT)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-6f44dd41a5cso326529b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 May 2024 04:57:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXHjrL4WOX4I9AJqDG3uXvGztGHCH21KjHMIByr8yVA5BJr8D9v3vtbG7joB32iSnu+pgqUK//ZtnAgWFVnbWbLBu5T8kQBjPtEVIA1Gbv/wBuZZWq3gO2W
-X-Received: by 2002:a05:6102:2329:b0:47b:d717:b689 with SMTP id
- b9-20020a056102232900b0047bd717b689mr2266975vsa.4.1714737415965; Fri, 03 May
- 2024 04:56:55 -0700 (PDT)
+ AJvYcCWRt4ivWOcqw2Ls8TdOaAg/gBqtwXF5ZM7ILIRMVbZ5GuJq2NdzX45xtMbwnvMFJgZRMu99ch2BzWzOP87l02LDpUQ8SbFU/gpsefJgzxFta4uWTzXimg3D
+X-Gm-Message-State: AOJu0YwC30DbjTIynG8m7QfXfC2MZiWUTBhgh/Wz9lKdnAC3+MmCGGzX
+ 5RdBRjlTEsI7tHlrrLeSlvgQxI3d+PF9fNm34hyq/zWS42sjsupuPYyQn9+R59Z1gge5O0Efft6
+ rNj+twjHAdV3FdP5XRC5uHiTJp7K3Urw4Y1eXMA==
+X-Google-Smtp-Source: AGHT+IFryEDRWu+bcUZI//BoyKSedi7LKHRkuYMa36RWP3/43wK/TONQNCJDn3kMk2kEWxukIvBvLHPZTVJTjYKqYok=
+X-Received: by 2002:a05:6a20:9703:b0:1ad:ab1:9a03 with SMTP id
+ hr3-20020a056a20970300b001ad0ab19a03mr2171735pzc.25.1714740046457; Fri, 03
+ May 2024 05:40:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240429-fix-cocci-v3-0-3c4865f5a4b0@chromium.org>
- <20240429-fix-cocci-v3-26-3c4865f5a4b0@chromium.org>
- <20240503112758.763d8d31@sal.lan>
- <c4287024-8012-458d-9829-15ffbceb25cf@moroto.mountain>
-In-Reply-To: <c4287024-8012-458d-9829-15ffbceb25cf@moroto.mountain>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 3 May 2024 13:56:44 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsU+jgYkUmHZOC8xPsL2DbgU7_sWrby1bQAXQNnp+g6Bg@mail.gmail.com>
-Message-ID: <CANiDSCsU+jgYkUmHZOC8xPsL2DbgU7_sWrby1bQAXQNnp+g6Bg@mail.gmail.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
- Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>
-Subject: Re: [Linux-stm32] [PATCH v3 26/26] media: dvb-frontends: tda10048:
- Make the range of z explicit.
+References: <20240429152207.479221-1-james.clark@arm.com>
+In-Reply-To: <20240429152207.479221-1-james.clark@arm.com>
+From: Mike Leach <mike.leach@linaro.org>
+Date: Fri, 3 May 2024 13:40:34 +0100
+Message-ID: <CAJ9a7Vi7P3kBG5x_JC6AxDL-AvPc5=48eEC0gH3CHceVtSNmOQ@mail.gmail.com>
+To: James Clark <james.clark@arm.com>
+Cc: scclevenger@os.amperecomputing.com, Mark Rutland <mark.rutland@arm.com>,
+ Ian Rogers <irogers@google.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, John Garry <john.g.garry@oracle.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, suzuki.poulose@arm.com,
+ coresight@lists.linaro.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Leo Yan <leo.yan@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ gankulkarni@os.amperecomputing.com
+Subject: Re: [Linux-stm32] [PATCH 00/17] coresight: Use per-sink trace ID
+	maps for Perf sessions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,72 +88,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-I am trying to get the DS, but
-https://www.nxp.com/acrobat_download/literature/9397/75015931.pdf is a
-dead links now.
+Hi James
 
-Anyone have access to the datasheet?
+On Mon, 29 Apr 2024 at 16:23, James Clark <james.clark@arm.com> wrote:
+>
+> This will allow sessions with more than CORESIGHT_TRACE_IDS_MAX ETMs
+> as long as there are fewer than that many ETMs connected to each sink.
+>
+> Each sink owns its own trace ID map, and any Perf session connecting to
+> that sink will allocate from it, even if the sink is currently in use by
+> other users. This is similar to the existing behavior where the dynamic
+> trace IDs are constant as long as there is any concurrent Perf session
+> active. It's not completely optimal because slightly more IDs will be
+> used than necessary, but the optimal solution involves tracking the PIDs
+> of each session and allocating ID maps based on the session owner. This
+> is difficult to do with the combination of per-thread and per-cpu modes
+> and some scheduling issues. The complexity of this isn't likely to worth
+> it because even with multiple users they'd just see a difference in the
+> ordering of ID allocations rather than hitting any limits (unless the
+> hardware does have too many ETMs connected to one sink).
+>
+> Per-thread mode works but only until there are any overlapping IDs, at
+> which point Perf will error out. Both per-thread mode and sysfs mode are
+> left to future changes, but both can be added on top of this initial
+> implementation and only sysfs mode requires further driver changes.
+>
+> The HW_ID version field hasn't been bumped in order to not break Perf
+> which already has an error condition for other values of that field.
+> Instead a new minor version has been added which signifies that there
+> are new fields but the old fields are backwards compatible.
+>
 
-Thanks!
+Looking at this overall - would it not be better to introduce the
+concept of a "sink ID" to allow the detection of multiple sources into
+the single sink that is now done by emitting multiple AUX_HWID packets
+with the CPU+ID extra data?
+This sink ID could be part of the sink csdev struct - or even the
+id_map struct - a simple count of sinks as the per sink maps are
+created would be sufficient. If this sink ID replaced the CPU+ID extra
+data in the HWID packets, then each packet could be emitted just once,
+and perf can then collate based on the sink id.
 
-On Fri, 3 May 2024 at 13:55, Dan Carpenter <dan.carpenter@linaro.org> wrote:
+Moreover, once we are ready to address the per-thread issues - then
+the overlap would not matter. Generate OpenCSD decode trees per sink
+ID, add docoders to the tree per Trace ID. Thus if a buffer has data
+from sink 1 trace id 5, ans sink 2, trace ID 5, then pick the right
+decoder for the combo.
+
+Finally in systems with ETE+TRBE were there is no use of trace IDs, a
+sink ID of 0x0 could potentially indicate that 1:1 relationship.
+
+Regards
+
+Mike
+
 >
-> On Fri, May 03, 2024 at 11:27:58AM +0100, Mauro Carvalho Chehab wrote:
-> > Em Mon, 29 Apr 2024 15:05:05 +0000
-> > Ricardo Ribalda <ribalda@chromium.org> escreveu:
-> >
-> > > We do not expect the sample_freq to be over 613MHz.
-> > >
-> > > Found by cocci:
-> > > drivers/media/dvb-frontends/tda10048.c:345:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
-> > >
-> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > > ---
-> > >  drivers/media/dvb-frontends/tda10048.c | 4 +++-
-> > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/media/dvb-frontends/tda10048.c b/drivers/media/dvb-frontends/tda10048.c
-> > > index 3e725cdcc66b..1886f733dbbf 100644
-> > > --- a/drivers/media/dvb-frontends/tda10048.c
-> > > +++ b/drivers/media/dvb-frontends/tda10048.c
-> > > @@ -328,7 +328,8 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
-> > >                          u32 bw)
-> > >  {
-> > >     struct tda10048_state *state = fe->demodulator_priv;
-> > > -   u64 t, z;
-> > > +   u32 z;
-> > > +   u64 t;
-> > >
-> > >     dprintk(1, "%s()\n", __func__);
-> > >
-> > > @@ -341,6 +342,7 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
-> > >     /* t *= 2147483648 on 32bit platforms */
-> > >     t *= (2048 * 1024);
-> > >     t *= 1024;
-> > > +   /* Sample frequency is under 613MHz */
-> >
-> > Are you sure about that? Some DVB devices have very high frequency
-> > clocks, specially if they're also used for satellite, so I can't
-> > be sure by just looking at the driver's code.
-> >
-> > Also, we had already a bunch of regressions with "fixes" like this
-> > that actually broke frontend drivers.
+> James Clark (17):
+>   perf cs-etm: Print error for new PERF_RECORD_AUX_OUTPUT_HW_ID versions
+>   perf auxtrace: Allow number of queues to be specified
+>   perf: cs-etm: Create decoders after both AUX and HW_ID search passes
+>   perf: cs-etm: Allocate queues for all CPUs
+>   perf: cs-etm: Move traceid_list to each queue
+>   perf: cs-etm: Create decoders based on the trace ID mappings
+>   perf: cs-etm: Support version 0.1 of HW_ID packets
+>   coresight: Remove unused stubs
+>   coresight: Clarify comments around the PID of the sink owner
+>   coresight: Move struct coresight_trace_id_map to common header
+>   coresight: Expose map argument in trace ID API
+>   coresight: Make CPU id map a property of a trace ID map
+>   coresight: Pass trace ID map into source enable
+>   coresight: Use per-sink trace ID maps for Perf sessions
+>   coresight: Remove pending trace ID release mechanism
+>   coresight: Re-emit trace IDs when the sink changes in per-thread mode
+>   coresight: Emit HW_IDs for all ETMs that are using the sink
 >
-> This patch preserves the existing behavior. The sample_freq_hz variable
-> is a u32 so, in the original code, z couldn't have been more than
-> U32_MAX even though it was declared as a u64.
+>  drivers/hwtracing/coresight/coresight-core.c  |  10 +
+>  drivers/hwtracing/coresight/coresight-dummy.c |   3 +-
+>  .../hwtracing/coresight/coresight-etm-perf.c  |  82 ++-
+>  .../hwtracing/coresight/coresight-etm-perf.h  |  20 +-
+>  .../coresight/coresight-etm3x-core.c          |  14 +-
+>  .../coresight/coresight-etm4x-core.c          |  14 +-
+>  drivers/hwtracing/coresight/coresight-stm.c   |   3 +-
+>  drivers/hwtracing/coresight/coresight-sysfs.c |   3 +-
+>  .../hwtracing/coresight/coresight-tmc-etr.c   |   5 +-
+>  drivers/hwtracing/coresight/coresight-tmc.h   |   5 +-
+>  drivers/hwtracing/coresight/coresight-tpdm.c  |   3 +-
+>  .../hwtracing/coresight/coresight-trace-id.c  | 107 +--
+>  .../hwtracing/coresight/coresight-trace-id.h  |  57 +-
+>  include/linux/coresight-pmu.h                 |  17 +-
+>  include/linux/coresight.h                     |  20 +-
+>  tools/include/linux/coresight-pmu.h           |  17 +-
+>  tools/perf/util/auxtrace.c                    |   9 +-
+>  tools/perf/util/auxtrace.h                    |   1 +
+>  .../perf/util/cs-etm-decoder/cs-etm-decoder.c |  28 +-
+>  tools/perf/util/cs-etm.c                      | 617 ++++++++++++------
+>  tools/perf/util/cs-etm.h                      |   2 +-
+>  21 files changed, 633 insertions(+), 404 deletions(-)
 >
-> It's possible that the original code was wrong.  We have seen that in
-> other places in this patchset.  Adding a note about the datasheet is
-> also a good idea.
->
-> regards,
-> dan carpenter
+> --
+> 2.34.1
 >
 
 
 -- 
-Ricardo Ribalda
+Mike Leach
+Principal Engineer, ARM Ltd.
+Manchester Design Centre. UK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
