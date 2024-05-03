@@ -2,76 +2,155 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B4318BCD68
+	by mail.lfdr.de (Postfix) with ESMTPS id 126B08BCD69
 	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 14:05:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D169C78007;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9790C78009;
 	Mon,  6 May 2024 12:05:37 +0000 (UTC)
-Received: from mail.manjaro.org (mail.manjaro.org [116.203.91.91])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
+ [205.220.166.238])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31597C712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F33F5C712A4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 May 2024 14:08:52 +0000 (UTC)
+ Fri,  3 May 2024 23:18:48 +0000 (UTC)
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 443N0MFQ015062;
+ Fri, 3 May 2024 16:18:23 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+ h=from:to:subject:date:message-id:content-transfer-encoding
+ :content-type:mime-version; s=PPS06212021; bh=er3ZWF0LrZFZugNAp0
+ EugHNAKGvUCvdlcEjeKnyNTAY=; b=hMU0J4/RZAL0vnq4Bya4Bp30G/oZgBPvW9
+ g3a7PPxQwMw0IC+qaSdEEzRBE/NP5QoVjJSvV9J5Qy520BM6SdXHnId2Hj4HwnH/
+ ji+qYDyb8Ybg+dkBDaYcL6yDwiWo8Q+swDX7fujTHfRB3t94GepTefl+i1qce9br
+ 43N30elxQK50xtK59puT2lUXyZvJ8fYo3yEbcYImCV/Mq8ALk7S3vl5FCl0Tbqs6
+ tPxtciLFX64k18lFRvzfM7bDiM2irrFU+9Z9mTXUCv+EvncOsZu/qeYw9jk5mFML
+ 56qYUp9pVJsFr7S6kUfwveHSbGNhXz0iqYfoRidDiD6+14v26yyQ==
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2169.outbound.protection.outlook.com [104.47.56.169])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3xs0vfxmbx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 May 2024 16:18:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L1QOgJn+zkL+ZSPQ5TPLds2BX3IeBVyp5IBiqXNtL7CnVTwtYWR5f/KQ3OedL3C5eOx7AIOMBaxUgqjqoOfLJvmaUiALKCdR2ABt4yxL/uDkMf1/o9RWzQ4zI1U1EIk38N4j2q0hbTLtrVzdUQ4dh75Mbo34gWOpAL9M8B4yU80XZINEK84MQS5JFa8120xOKlQ6TpSkkysZur18ftX673s+3HfDSi/Xb6pV7VFZd4T/4pJROpxkFThf5mbWOnOolLlYxs6UR2RWbixzmR5LcZWQuFAId6kKK9ut0Yc1//f1iNN8QpFiO5MFx6Gghc/a0jdaqnABDua3L6ySaWmefA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=er3ZWF0LrZFZugNAp0EugHNAKGvUCvdlcEjeKnyNTAY=;
+ b=Vyi5GdtFsjwyM/iVf0KZVIQeLfuhCyTKZ1TeCdXUiiSPS/0FUAv1J28JT2FcSA06SGqbiZbkXCbdt/X+aEhuZayCZd2ltDvGOPSk6kBVUYZXXZhw7DmWIjkf1icYUJ4E9yNv8MjK8CWqQR6smWLwd8hJaRV57OW1fM48eoptaobx5zPef2o5biJGP+somdamWoV1eKpPMag9APTN6fNev84OTz3LyJoMaivDxRJnRv81v3nsVw05m0jJrzpmXdiMw2XsHaU/FRbpcP4mh27jIFbHnDnICjdQkqrUfmIuTwanaqcppBc8wS0LDkRBgTODkMWBthEfyYMjrcEFuItw+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from MW5PR11MB5764.namprd11.prod.outlook.com (2603:10b6:303:197::8)
+ by DM4PR11MB6549.namprd11.prod.outlook.com (2603:10b6:8:8e::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7544.34; Fri, 3 May 2024 23:18:19 +0000
+Received: from MW5PR11MB5764.namprd11.prod.outlook.com
+ ([fe80::3c2c:a17f:2516:4dc8]) by MW5PR11MB5764.namprd11.prod.outlook.com
+ ([fe80::3c2c:a17f:2516:4dc8%4]) with mapi id 15.20.7544.029; Fri, 3 May 2024
+ 23:18:19 +0000
+From: Xiaolei Wang <xiaolei.wang@windriver.com>
+To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat,  4 May 2024 07:18:04 +0800
+Message-Id: <20240503231804.2323666-1-xiaolei.wang@windriver.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: TY2PR02CA0001.apcprd02.prod.outlook.com
+ (2603:1096:404:56::13) To MW5PR11MB5764.namprd11.prod.outlook.com
+ (2603:10b6:303:197::8)
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manjaro.org; s=2021;
- t=1714745331;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3C+MgtjD5FFzr1H8ErTkKFFC7gX/7QwO2uuYNs38Akc=;
- b=mAarC0LY0zCqC2ZrO6f/B0kd24XVsuHukHHUkTxv8x6uP89ukwITU0O3Ynvicd1D1E9pAe
- IO3tmU10O6igCP8QZy19eeUc6Ld3IxJqvuNP1A5HBT6M5ThYS4BpN1w2gd1THv6O1jAK7/
- ezGJ5lRjzzWduiC7DpEa6et6y5QamPHTjx/cHxFoa92YbVL3l6ufWF1RIr8LLxjgxMNHq8
- xLmLl+oEm7sIthlsxDBs1Nx//ZO6J02vTNuOw0f8VgzJgXGDL/8MklHPqBILGlrXprDE9w
- hibkEuHJ/OUQOHG1dbrTz8I/N/GLzP9y5rNue5qKcnd9Fy1V2tSamIAR/DWm+g==
-Date: Fri, 03 May 2024 16:08:48 +0200
-From: Dragan Simic <dsimic@manjaro.org>
-To: Ricardo Ribalda <ribalda@chromium.org>
-In-Reply-To: <CANiDSCsU+jgYkUmHZOC8xPsL2DbgU7_sWrby1bQAXQNnp+g6Bg@mail.gmail.com>
-References: <20240429-fix-cocci-v3-0-3c4865f5a4b0@chromium.org>
- <20240429-fix-cocci-v3-26-3c4865f5a4b0@chromium.org>
- <20240503112758.763d8d31@sal.lan>
- <c4287024-8012-458d-9829-15ffbceb25cf@moroto.mountain>
- <CANiDSCsU+jgYkUmHZOC8xPsL2DbgU7_sWrby1bQAXQNnp+g6Bg@mail.gmail.com>
-Message-ID: <fe95e3c3a89de4566a4eb53ca8b26c25@manjaro.org>
-X-Sender: dsimic@manjaro.org
-Authentication-Results: ORIGINATING;
- auth=pass smtp.auth=dsimic@manjaro.org smtp.mailfrom=dsimic@manjaro.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW5PR11MB5764:EE_|DM4PR11MB6549:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecf16bec-851f-47c5-af2c-08dc6bc75195
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|376005|1800799015|52116005|7416005|366007|921011|38350700005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wcOuHKT7lrs6cZfPAf38m6mYHb7kcTZQRy6G6tY2aoIFiWMptDtAwQHaoNh7?=
+ =?us-ascii?Q?ls/rii3KECfEJKDZeNqOa3gP5uGecU/1x1CcrsGEeRD7SKy2dWmvoefAi+MA?=
+ =?us-ascii?Q?WWvnl07uzxP5uX9zdM5jgcVMUypAjZYPsx7Pfyjq60xU+IJg+2EEn/A7vGhJ?=
+ =?us-ascii?Q?zAksxXX746TmuyS7HFsC9RuJ4jYOCqgjXc7+zXSyCn9kPwJHcSerSvPX7Ohz?=
+ =?us-ascii?Q?UVlDf9EfCJ1I1wmAkBReJtJbK8uB+NxL8xZS6Pv5eEPj4FlUiIO4HSlSlEyP?=
+ =?us-ascii?Q?ak0UfnWomSCKje5MnkICJZ+2pGYZvW3uu8FRqUMuW0kU3v5a5xcPf49wTls6?=
+ =?us-ascii?Q?ByDOHbtjHa3kPrRhF5JjXgQQqWiEv/uF/shpbqIzjWV8+VFL0AMlheA0aBoM?=
+ =?us-ascii?Q?Y81BnkwDaMpQjqaByZ2HkPTQxux1+kR4svit8Zz0Bx+gWKUwmlRtxGENNa5l?=
+ =?us-ascii?Q?d/2pgDmvGBXv3i+CJnHNep8LABLzFd3jXrRfczlE2b79LhB1Di0WGY/T3Twf?=
+ =?us-ascii?Q?v3dFcp7yjUj3gvmhgK2tmGAG6xEpe8T0rvMbO+HMeyCAunAlRH096tMc3X4n?=
+ =?us-ascii?Q?6Z0sjUykEJhug1MFpZ8FjFfS7YjGFh+pcPLtCnrfhNte7NSD4r0Zm6ZBe4+B?=
+ =?us-ascii?Q?anlOkixEz8VPtscB12wYcqcrtrQmPz6j+TkqPnkfhNvE8ax64+M8w2j9xBs0?=
+ =?us-ascii?Q?7WMqWCLIRHCp3amlTs7h6BCh4NVk6WvIm3c1z95VTwaekb7Zk5MXtqC6wcnN?=
+ =?us-ascii?Q?RYhzYRcWBASttM3NlF3wAdFcKigFF/aKhnTK9fnDf4FrOdk1g9eqy1bX4Bgk?=
+ =?us-ascii?Q?Dj8Sqbm36MAIovpoXUVmo+MNZeFMkc7jYilYMOZMaKHrKSxF/PP8kotBtU/+?=
+ =?us-ascii?Q?cIKksDWckdjzCDvxxwM7ejHFTS5ebN3y0oLYIOzE+K+Lv5zYKE1Rhateruwv?=
+ =?us-ascii?Q?iaVdQETNmDfSgnd+rORnBX1+yEj7cQYOPrJJ/kEv56nTTk6nww36jW7iMMnA?=
+ =?us-ascii?Q?XnwbSdXJk6a0J7Jg4hmQ/x6tGJWriEnD6pyQdVXHjbrRVBm2Q3RayidXVucJ?=
+ =?us-ascii?Q?9ybit6kRArti2GOv+1WrFDBpSOfxA/qM+QdKKBno9sYvlKalPoPwDVQUMAkw?=
+ =?us-ascii?Q?y0/f4SI3GFKV9TnAhpB8TQ+whTa3b7In4qdSOHbaOlKAPl7Ilyg7F/7hhhoY?=
+ =?us-ascii?Q?kza/yINRkmhUWffMpmMYuBAbDJJHY4LE0BFyce6zZgJx0lhgu9izX+uNlXDx?=
+ =?us-ascii?Q?T34CEB0ZB8Mjay0aCbSYUFvT6FcNXGqjsZI0fkaIU5hSmKbUYMCPZXYkNqWY?=
+ =?us-ascii?Q?JC3S7KOjgKHezas607jaSgz5xhAxdLocwZ74/5UANn6o0rl1/jUWFnymniRT?=
+ =?us-ascii?Q?v2euH1A=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW5PR11MB5764.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(1800799015)(52116005)(7416005)(366007)(921011)(38350700005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5844V2ZzRsahZpKPvspfPKaBbuXJwsCl4b/imr+IkBbNNWVH8ifniqZOipmi?=
+ =?us-ascii?Q?VUpFWHy352B/5HAMSiZYru93eLHN/0QMiBk47ZAnoKcTlFnuRVStazaDR4FX?=
+ =?us-ascii?Q?tjf9HXRL+tSOpeHaBsWT1yHuCCG5ZwO8HHCsQpd13dmWOlWl6Q1wb0mtMKNH?=
+ =?us-ascii?Q?D59/dz67twa0jYhMXI4WtM9mF7DlftExdEpquWF6u6f5fRNpeBgNpGNKSoMC?=
+ =?us-ascii?Q?uzNGm38CV+URuLzHfFlQ+iVDlOT02Vxn7r1DpdhO6XyNr19n/HAo6fmnZ00W?=
+ =?us-ascii?Q?aiSDi26blk6L4XqCVSWGARlIDu2Hqrb8EHMp66R+j0hNA2sQGK1MfeN8lY10?=
+ =?us-ascii?Q?H2k+v0vSdXZjgWj3lltmjIPlNec5FwzanK07SU9QoeWo5vtaf9UlJoCjYyq1?=
+ =?us-ascii?Q?8rgwN+pQm+kuxk61hLgXjaiYokiu4d+BKHcR/gP1WOKJLRXps55zlwtZNfP6?=
+ =?us-ascii?Q?Lli06/tiRXM8mXySPf5Qn2CMkriK9lI9t4hpUjSg+XAYGIZqpWsfTPD12a8V?=
+ =?us-ascii?Q?zXZNRtW4DknDb6gHwukw0u6tY72n/i+yacdXAVynrITLdAhm4zjRDpnEmfz9?=
+ =?us-ascii?Q?vozSRH4elwU3/crJyigSnw41QAh25r/tdorjoGmXbZg4sTLWQF/IXZKU4CsH?=
+ =?us-ascii?Q?joKymPs8zu7/Yos3ijlDuwp2Bu6hMUMo4Vuy/pUNM3AneLZnxVW2t37gLVPl?=
+ =?us-ascii?Q?St4/RNIhfLK83NH/dH4qKm14uNs1dI5FxGijMltoChu/HJG85pxHpVaaa4kf?=
+ =?us-ascii?Q?r2bwZWqIUV2CUIOgAT+n2lVbgCdYprrz12Hf+etxhXxZe2uEc4eRwfZTocTC?=
+ =?us-ascii?Q?eX7Gl3Z40s20KHW/MBr/xlPB4rKx7QyWKe6GadmfXaonmY0/qUtb61SoUhlo?=
+ =?us-ascii?Q?TagTN+b7jEwF1pJ91Cc5VpTxrWrfRN/N4hATlJLkeSmfWsEuw1BkR5OKqpbP?=
+ =?us-ascii?Q?4Omiil8037GDFFQ1aVdFG8QBuRcez6JU1V52IMf7+mW6tv95E/9QG2bFiDmu?=
+ =?us-ascii?Q?QVf3sQkVr77+atkBFMJTPzFkLJ2J6x6RrbSntH538+6a4MW58C9UwYz9tuDY?=
+ =?us-ascii?Q?tSnjaiFzVXatnpXjLLz4yW6I0Drax24TG0miqw9qibPg+OiI3HNiZ/WB2QHl?=
+ =?us-ascii?Q?3iEinOp2xC7gmab2yeTK4fWe3Slgckfmg++CK6BhFXBqxlo/Aj4MW7OKtMC2?=
+ =?us-ascii?Q?cMZXHhgv2DfjkRdGCn6jRcNNXyYz/P9HSaRKwkx+mAeR+W0Ka15hiOyDDpRl?=
+ =?us-ascii?Q?rbRD1pwdl14sJyynBqU7XcQ6rTPOwboIWmqUgDM7GabQ65x0PJzbwAknOpYk?=
+ =?us-ascii?Q?kFm+3kepLZLeo2TzuVJ4rtjDPl/AZxQl9Y/ntbeoIG9aYuXrQAKrGZlwtnPf?=
+ =?us-ascii?Q?kdAZ86d0zBH3foVmyvu4A9EBJJpxa4UUq6Y44iLw9H+Betx6kENLPJNcvfjJ?=
+ =?us-ascii?Q?ZywV/2U2GtseSO8nh2n6FvLWUUKXz9ocIUwg1+FxNZ52oYcTfkcvLduO93sp?=
+ =?us-ascii?Q?WGhnUoA2auAdETF8W9d7sBGaFY0FW1vZXy06WU5JKls8tNne6pPOjhehnzOb?=
+ =?us-ascii?Q?eiW73f9MDVWGZmlxiOSR9dUgeTAptiC4iQ15bNBcB+s/SwWSZjpW/BKks6FV?=
+ =?us-ascii?Q?Gw=3D=3D?=
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecf16bec-851f-47c5-af2c-08dc6bc75195
+X-MS-Exchange-CrossTenant-AuthSource: MW5PR11MB5764.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 23:18:19.3309 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nuIuQfid0cmYBWsHe7evjB4LxwkQ0Bv7wThfYHeU2PjRcXW8JDnIxy2LZCfw4efkhzp/4bdTSYghZzQ/bIt3QL1VI63FWD5YkcgsSCtGbUs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6549
+X-Proofpoint-ORIG-GUID: 6p1x6_DXG6UB7qbIJjyFJVL27JcAQSYX
+X-Proofpoint-GUID: 6p1x6_DXG6UB7qbIJjyFJVL27JcAQSYX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-03_16,2024-05-03_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
+ impostorscore=0 clxscore=1011 adultscore=0 mlxlogscore=999 mlxscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2405030166
 X-Mailman-Approved-At: Mon, 06 May 2024 12:05:30 +0000
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Sergey Kozlov <serjk@netup.ru>,
- Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- linux-media@vger.kernel.org, Abylay Ospan <aospan@netup.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>
-Subject: Re: [Linux-stm32] [PATCH v3 26/26] media: dvb-frontends: tda10048:
- Make the range of z explicit.
+Subject: [Linux-stm32] [PATCH] net: stmmac: Initialize the other members
+	except the est->lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,82 +162,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Ricardo,
+Reinitialize the whole est structure would also reset the mutex lock
+which is embedded in the est structure, and then trigger the following
+warning. To address this, define all the other members except mutex lock
+as a struct group and use that for the reinitialization. We also need
+to require the mutex lock when doing this initialization.
 
-On 2024-05-03 13:56, Ricardo Ribalda wrote:
-> I am trying to get the DS, but
-> https://www.nxp.com/acrobat_download/literature/9397/75015931.pdf is a
-> dead links now.
-> 
-> Anyone have access to the datasheet?
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: CPU: 3 PID: 505 at kernel/locking/mutex.c:587 __mutex_lock+0xd84/0x1068
+ Modules linked in:
+ CPU: 3 PID: 505 Comm: tc Not tainted 6.9.0-rc6-00053-g0106679839f7-dirty #29
+ Hardware name: NXP i.MX8MPlus EVK board (DT)
+ pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+ pc : __mutex_lock+0xd84/0x1068
+ lr : __mutex_lock+0xd84/0x1068
+ sp : ffffffc0864e3570
+ x29: ffffffc0864e3570 x28: ffffffc0817bdc78 x27: 0000000000000003
+ x26: ffffff80c54f1808 x25: ffffff80c9164080 x24: ffffffc080d723ac
+ x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000000
+ x20: 0000000000000000 x19: ffffffc083bc3000 x18: ffffffffffffffff
+ x17: ffffffc08117b080 x16: 0000000000000002 x15: ffffff80d2d40000
+ x14: 00000000000002da x13: ffffff80d2d404b8 x12: ffffffc082b5a5c8
+ x11: ffffffc082bca680 x10: ffffffc082bb2640 x9 : ffffffc082bb2698
+ x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 0000000000000001
+ x5 : ffffff8178fe0d48 x4 : 0000000000000000 x3 : 0000000000000027
+ x2 : ffffff8178fe0d50 x1 : 0000000000000000 x0 : 0000000000000000
+ Call trace:
+  __mutex_lock+0xd84/0x1068
+  mutex_lock_nested+0x28/0x34
+  tc_setup_taprio+0x118/0x68c
+  stmmac_setup_tc+0x50/0xf0
+  taprio_change+0x868/0xc9c
 
-It's kind of available on the link below, but for some strange reason
-the download fails after downloading the first 128 KB or so.
+Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  4 +++-
+ include/linux/stmmac.h                        | 22 ++++++++++---------
+ 2 files changed, 15 insertions(+), 11 deletions(-)
 
-https://web.archive.org/web/20080907185532/https://www.nxp.com/acrobat_download/literature/9397/75015931.pdf
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index cce00719937d..a3663c019a8d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -1006,7 +1006,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 
+ 		mutex_init(&priv->plat->est->lock);
+ 	} else {
+-		memset(plat->est, 0, sizeof(*plat->est));
++		mutex_lock(&priv->plat->est->lock);
++		memset(&plat->est->init, 0, sizeof(plat->est->init));
++		mutex_unlock(&priv->plat->est->lock);
+ 	}
+ 
+ 	size = qopt->num_entries;
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index dfa1828cd756..e5204a63c550 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -118,16 +118,18 @@ struct stmmac_axi {
+ #define EST_GCL		1024
+ struct stmmac_est {
+ 	struct mutex lock;
+-	int enable;
+-	u32 btr_reserve[2];
+-	u32 btr_offset[2];
+-	u32 btr[2];
+-	u32 ctr[2];
+-	u32 ter;
+-	u32 gcl_unaligned[EST_GCL];
+-	u32 gcl[EST_GCL];
+-	u32 gcl_size;
+-	u32 max_sdu[MTL_MAX_TX_QUEUES];
++	struct_group(init,
++		int enable;
++		u32 btr_reserve[2];
++		u32 btr_offset[2];
++		u32 btr[2];
++		u32 ctr[2];
++		u32 ter;
++		u32 gcl_unaligned[EST_GCL];
++		u32 gcl[EST_GCL];
++		u32 gcl_size;
++		u32 max_sdu[MTL_MAX_TX_QUEUES];
++	);
+ };
+ 
+ struct stmmac_rxq_cfg {
+-- 
+2.25.1
 
-
-> On Fri, 3 May 2024 at 13:55, Dan Carpenter <dan.carpenter@linaro.org> 
-> wrote:
->> 
->> On Fri, May 03, 2024 at 11:27:58AM +0100, Mauro Carvalho Chehab wrote:
->> > Em Mon, 29 Apr 2024 15:05:05 +0000
->> > Ricardo Ribalda <ribalda@chromium.org> escreveu:
->> >
->> > > We do not expect the sample_freq to be over 613MHz.
->> > >
->> > > Found by cocci:
->> > > drivers/media/dvb-frontends/tda10048.c:345:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
->> > >
->> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->> > > ---
->> > >  drivers/media/dvb-frontends/tda10048.c | 4 +++-
->> > >  1 file changed, 3 insertions(+), 1 deletion(-)
->> > >
->> > > diff --git a/drivers/media/dvb-frontends/tda10048.c b/drivers/media/dvb-frontends/tda10048.c
->> > > index 3e725cdcc66b..1886f733dbbf 100644
->> > > --- a/drivers/media/dvb-frontends/tda10048.c
->> > > +++ b/drivers/media/dvb-frontends/tda10048.c
->> > > @@ -328,7 +328,8 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
->> > >                          u32 bw)
->> > >  {
->> > >     struct tda10048_state *state = fe->demodulator_priv;
->> > > -   u64 t, z;
->> > > +   u32 z;
->> > > +   u64 t;
->> > >
->> > >     dprintk(1, "%s()\n", __func__);
->> > >
->> > > @@ -341,6 +342,7 @@ static int tda10048_set_wref(struct dvb_frontend *fe, u32 sample_freq_hz,
->> > >     /* t *= 2147483648 on 32bit platforms */
->> > >     t *= (2048 * 1024);
->> > >     t *= 1024;
->> > > +   /* Sample frequency is under 613MHz */
->> >
->> > Are you sure about that? Some DVB devices have very high frequency
->> > clocks, specially if they're also used for satellite, so I can't
->> > be sure by just looking at the driver's code.
->> >
->> > Also, we had already a bunch of regressions with "fixes" like this
->> > that actually broke frontend drivers.
->> 
->> This patch preserves the existing behavior. The sample_freq_hz 
->> variable
->> is a u32 so, in the original code, z couldn't have been more than
->> U32_MAX even though it was declared as a u64.
->> 
->> It's possible that the original code was wrong.  We have seen that in
->> other places in this patchset.  Adding a note about the datasheet is
->> also a good idea.
->> 
->> regards,
->> dan carpenter
->> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
