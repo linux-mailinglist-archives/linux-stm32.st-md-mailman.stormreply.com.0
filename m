@@ -2,86 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4428BBC5B
-	for <lists+linux-stm32@lfdr.de>; Sat,  4 May 2024 16:19:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 620A18BBC6A
+	for <lists+linux-stm32@lfdr.de>; Sat,  4 May 2024 16:28:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53529C6B45B;
-	Sat,  4 May 2024 14:19:02 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8F3BC6B45B;
+	Sat,  4 May 2024 14:28:03 +0000 (UTC)
+Received: from msa.smtpout.orange.fr (smtp-81.smtpout.orange.fr [80.12.242.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C109C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66AC4C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  4 May 2024 14:18:55 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 85A2D33D;
- Sat,  4 May 2024 16:17:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1714832273;
- bh=w6bn/4no8NMVEJqPP561BcxXipVz/9y/dItL/1UBPSY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oc2a49DvYCMivQW8QKuerCPDE3NB3M4O9gQMO9h7ew1S3EyQGPeuVqDZMxOQ0Rhx8
- noPhHVWfaI4WgcUwRiPdTUdxX6QxUwk259ygX79+BNPafprI95tRigE5Hftkcr53OA
- fLFvCGMtvo6Bbhyh2FDfgLBjJcV+gwxbyscJXnXg=
-Date: Sat, 4 May 2024 17:18:45 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20240504141845.GC24548@pendragon.ideasonboard.com>
-References: <20240502-master-v1-0-8bd109c6a3ba@collabora.com>
- <20240502155626.GD15807@pendragon.ideasonboard.com>
- <ZjO46Uo_tVcRTdA0@kekkonen.localdomain>
- <20240502160830.GB11443@pendragon.ideasonboard.com>
- <ZjO-JDBdHXVLbz5H@kekkonen.localdomain>
+ Sat,  4 May 2024 14:27:57 +0000 (UTC)
+Received: from [192.168.1.37] ([86.243.17.157]) by smtp.orange.fr with ESMTPA
+ id 3GMjsEyZGuPiV3GMks2HSj; Sat, 04 May 2024 16:27:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1714832877;
+ bh=RqYKhXyxQzsUalkpz50XF6z0vFeF3FJ712ZCIzLOHG8=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=O+Cinq1GHFo+jJb97aeSNFRGj+H8OP8dSpV1RTewlr5gqGFWj53U9nVBYsLVvR17A
+ aYOjbdrUmOsjkOoDotHQUmjYU3Eau+pmDq17bSYJHRJRtJKFy3jcUsqF5RNTc+ZJeM
+ rgb6nt8YEfd/qknPKkLPGrOD5NrrNPFxuOilOnYZLx3kSn4yul/Is530EWIv8UT3kP
+ Inj4NRv0/vpB9qdqvD8hZaqfWayVMZrgYvbkcl1rFOeW/C+5XlBThL2EIySkOokDiB
+ 3e46zWAq8OYdwC9URU18DTDrq2QVY+0Eyy0ldIVJhJilnkdSjyNoayU+kJMW/F+bao
+ beI882/ZtHiMg==
+X-ME-Helo: [192.168.1.37]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 04 May 2024 16:27:57 +0200
+X-ME-IP: 86.243.17.157
+Message-ID: <38193848-597d-47c1-9aea-5357e58f9983@wanadoo.fr>
+Date: Sat, 4 May 2024 16:27:53 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZjO-JDBdHXVLbz5H@kekkonen.localdomain>
-Cc: Julien Massot <julien.massot@collabora.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Dafna Hirschfeld <dafna@fastmail.com>,
- imx@lists.linux.dev, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Todor Tomov <todor.too@gmail.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Bingbu Cao <bingbu.cao@intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- Tianshu Qiu <tian.shu.qiu@intel.com>, Yong Zhi <yong.zhi@intel.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Jai Luthra <j-luthra@ti.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- Eugen Hristev <eugen.hristev@collabora.com>, Benoit Parrot <bparrot@ti.com>,
- Rui Miguel Silva <rmfrfs@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Yong Deng <yong.deng@magewell.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Martin Kepplinger <martink@posteo.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Purism Kernel Team <kernel@puri.sm>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Dan Scally <djrscally@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Subject: Re: [Linux-stm32] [PATCH 0/2] Introduce
-	v4l2_async_nf_unregister_cleanup
+User-Agent: Mozilla Thunderbird
+To: amelie.delaunay@foss.st.com
+References: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
+ <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
+Content-Language: en-MW
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, robh+dt@kernel.org,
+ linux-hardening@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 05/12] dmaengine: Add STM32 DMA3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,79 +56,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, May 02, 2024 at 04:24:04PM +0000, Sakari Ailus wrote:
-> On Thu, May 02, 2024 at 07:08:30PM +0300, Laurent Pinchart wrote:
-> > On Thu, May 02, 2024 at 04:01:45PM +0000, Sakari Ailus wrote:
-> > > On Thu, May 02, 2024 at 06:56:26PM +0300, Laurent Pinchart wrote:
-> > > > On Thu, May 02, 2024 at 05:22:20PM +0200, Julien Massot wrote:
-> > > > > Many drivers has
-> > > > >   v4l2_async_nf_unregister(&notifier);
-> > > > >   v4l2_async_nf_cleanup(&notifier);
-> > > > > 
-> > > > > Introduce a helper function to call both functions in one line.
-> > > > 
-> > > > Does this really go in the right direction ? For other objects (video
-> > > > devices, media devices, ...), the unregistration should be done at
-> > > > .remove() time, and the cleanup at .release() time (the operation called
-> > > > when the last reference to the object is released). This is needed to
-> > > > ensure proper lifetime management of the objects, and avoid a
-> > > > use-after-free for objects that can be reached from userspace.
-> > > > 
-> > > > It could be argued that the notifier isn't exposed to userspace, but can
-> > > > we guarantee that no driver will have a need to access the notifier in a
-> > > > code path triggered by a userspace operation ? I think it would be safer
-> > > > to adopt the same split for the nofifier unregistration and cleanup. In
-> > > > my opinion using the same rule across different APIs also make it easier
-> > > > for driver authors and for reviewers to get it right.
-> > > > 
-> > > > As shown by your series, lots of drivers call v4l2_async_nf_cleanup()
-> > > > and .remove() time instead of .release(). That's because most drivers
-> > > > get lifetime management wrong and don't even implement .release().
-> > > > That's something Sakari is addressing with ongoing work. This patch
-> > > > series seems to go in the opposite direction.
-> > > 
-> > > This still avoids the driver authors feeling they need to implement wrapper
-> > > functions for v4l2_async_nf_{unregister,cleanup}. I'd be in favour merging
-> > > this.
-> > > 
-> > > I don't see this getting in the way of adding use counts as the code will
-> > > need to be changed in any case.
-> > 
-> > Fixing the lifetime issues would essentially revert 2/2 and move the
-> > v4l2_async_nf_cleanup() call to .remove(). I don't think providing a
-> > helper that forces the cleanup at .remove() time is a good idea, it
-> > gives a false sense of doing things right to drivers. This is the same
-> > reason why devm_kzalloc() is so harmful, it gave the wrong message, and
-> > created (or participated in) all those lifetime issues.
-> 
-> I still prefer having devm_*alloc() functions than having the drivers open
-> coding the same -- with the same result. The frameworks won't enable doing
-> this right at the moment and I don't think drivers (or us!) should be
-> penalised for that.
-
-I don't really see where the penalty is. What's the urgency to switch
-from calling v4l2_async_nf_unregister() and v4l2_async_nf_cleanup() to a
-helper that we know goes in the wrong direction ?
-
-> The driver authors will only change what they do, with
-> these patches or without, when told so. But we don't really have an
-> alternative today.
-
-There's already a .release() callback that can be used, and some drivers
-use it.
-
-> A similar situation exists with clk_unprepare() and clk_disable().
-
--- 
-Regards,
-
-Laurent Pinchart
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TGUgMjMvMDQvMjAyNCDDoCAxNDozMiwgQW1lbGllIERlbGF1bmF5IGEgw6ljcml0wqA6Cj4gU1RN
+MzIgRE1BMyBkcml2ZXIgc3VwcG9ydHMgdGhlIDMgaGFyZHdhcmUgY29uZmlndXJhdGlvbnMgb2Yg
+dGhlIFNUTTMyIERNQTMKPiBjb250cm9sbGVyOgo+IC0gTFBETUEgKExvdyBQb3dlcik6IDQgY2hh
+bm5lbHMsIG5vIEZJRk8KPiAtIEdQRE1BIChHZW5lcmFsIFB1cnBvc2UpOiAxNiBjaGFubmVscywg
+RklGTyBmcm9tIDggdG8gMzIgYnl0ZXMKPiAtIEhQRE1BIChIaWdoIFBlcmZvcm1hbmNlKTogMTYg
+Y2hhbm5lbHMsIEZJRk8gZnJvbSA4IHRvIDI1NiBieXRlcwo+IEhhcmR3YXJlIGNvbmZpZ3VyYXRp
+b24gb2YgdGhlIGNoYW5uZWxzIGlzIHJldHJpZXZlZCBmcm9tIHRoZSBoYXJkd2FyZQo+IGNvbmZp
+Z3VyYXRpb24gcmVnaXN0ZXJzLgo+IFRoZSBjbGllbnQgY2FuIHNwZWNpZnkgaXRzIGNoYW5uZWwg
+cmVxdWlyZW1lbnRzIHRocm91Z2ggZGV2aWNlIHRyZWUuCj4gU1RNMzIgRE1BMyBjaGFubmVscyBj
+YW4gYmUgaW5kaXZpZHVhbGx5IHJlc2VydmVkIGVpdGhlciBiZWNhdXNlIHRoZXkgYXJlCj4gc2Vj
+dXJlLCBvciBkZWRpY2F0ZWQgdG8gYW5vdGhlciBDUFUuCj4gSW5kZWVkLCBjaGFubmVscyBhdmFp
+bGFiaWxpdHkgZGVwZW5kcyBvbiBSZXNvdXJjZSBJc29sYXRpb24gRnJhbWV3b3JrCj4gKFJJRikg
+Y29uZmlndXJhdGlvbi4gUklGIGdyYW50cyBhY2Nlc3MgdG8gYnVzZXMgd2l0aCBDb21wYXJ0aW1l
+bnQgSUQKPiAoQ0lGKSBmaWx0ZXJpbmcsIHNlY3VyZSBhbmQgcHJpdmlsZWdlIGxldmVsLiBJdCBh
+bHNvIGFzc2lnbnMgRE1BIGNoYW5uZWxzCj4gdG8gb25lIG9yIHNldmVyYWwgcHJvY2Vzc29ycy4K
+PiBETUEgY2hhbm5lbHMgdXNlZCBieSBMaW51eCBzaG91bGQgYmUgQ0lELWZpbHRlcmVkIGFuZCBz
+dGF0aWNhbGx5IGFzc2lnbmVkCj4gdG8gQ0lEMSBvciBzaGFyZWQgd2l0aCBvdGhlciBDUFVzIGJ1
+dCB1c2luZyBzZW1hcGhvcmUuIEluIGNhc2UgQ0lECj4gZmlsdGVyaW5nIGlzIG5vdCBjb25maWd1
+cmVkLCBkbWEtY2hhbm5lbC1tYXNrIHByb3BlcnR5IGNhbiBiZSB1c2VkIHRvCj4gc3BlY2lmeSBh
+dmFpbGFibGUgRE1BIGNoYW5uZWxzIHRvIHRoZSBrZXJuZWwsIG90aGVyd2lzZSBzdWNoIGNoYW5u
+ZWxzCj4gd2lsbCBiZSBtYXJrZWQgYXMgcmVzZXJ2ZWQgYW5kIGNhbid0IGJlIHVzZWQgYnkgTGlu
+dXguCj4gCj4gU2lnbmVkLW9mZi1ieTogQW1lbGllIERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXkt
+cmowSWVsL0pSNE5CRGdqSzd5N1RVUUBwdWJsaWMuZ21hbmUub3JnPgo+IC0tLQoKLi4uCgo+ICsJ
+cG1fcnVudGltZV9zZXRfYWN0aXZlKCZwZGV2LT5kZXYpOwo+ICsJcG1fcnVudGltZV9lbmFibGUo
+JnBkZXYtPmRldik7Cj4gKwlwbV9ydW50aW1lX2dldF9ub3Jlc3VtZSgmcGRldi0+ZGV2KTsKPiAr
+CXBtX3J1bnRpbWVfcHV0KCZwZGV2LT5kZXYpOwo+ICsKPiArCWRldl9pbmZvKCZwZGV2LT5kZXYs
+ICJTVE0zMiBETUEzIHJlZ2lzdGVyZWQgcmV2OiVsdS4lbHVcbiIsCj4gKwkJIEZJRUxEX0dFVChW
+RVJSX01BSlJFViwgdmVyciksIEZJRUxEX0dFVChWRVJSX01JTlJFViwgdmVycikpOwo+ICsKPiAr
+CXJldHVybiAwOwo+ICsKPiArZXJyX2Nsa19kaXNhYmxlOgo+ICsJY2xrX2Rpc2FibGVfdW5wcmVw
+YXJlKGRkYXRhLT5jbGspOwo+ICsKPiArCXJldHVybiByZXQ7Cj4gK30KPiArCj4gK3N0YXRpYyB2
+b2lkIHN0bTMyX2RtYTNfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gK3sK
+PiArCXBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsKCkhpLAoKbWlzc2luZyBjbGtfZGlz
+YWJsZV91bnByZXBhcmUoZGRhdGEtPmNsayk7PwoKYXMgaW4gdGhlIGVycm9yIGhhbmRsaW5nIHBh
+dGggb24gdGhlIHByb2JlIGp1c3QgYWJvdmU/CgpDSgoKPiArfQoKLi4uCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
