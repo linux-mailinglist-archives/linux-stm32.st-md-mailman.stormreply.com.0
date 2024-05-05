@@ -2,49 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 620A18BBC6A
-	for <lists+linux-stm32@lfdr.de>; Sat,  4 May 2024 16:28:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2CB18BC194
+	for <lists+linux-stm32@lfdr.de>; Sun,  5 May 2024 17:03:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8F3BC6B45B;
-	Sat,  4 May 2024 14:28:03 +0000 (UTC)
-Received: from msa.smtpout.orange.fr (smtp-81.smtpout.orange.fr [80.12.242.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32BB6C71283;
+	Sun,  5 May 2024 15:03:33 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66AC4C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BB8AC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  4 May 2024 14:27:57 +0000 (UTC)
-Received: from [192.168.1.37] ([86.243.17.157]) by smtp.orange.fr with ESMTPA
- id 3GMjsEyZGuPiV3GMks2HSj; Sat, 04 May 2024 16:27:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1714832877;
- bh=RqYKhXyxQzsUalkpz50XF6z0vFeF3FJ712ZCIzLOHG8=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=O+Cinq1GHFo+jJb97aeSNFRGj+H8OP8dSpV1RTewlr5gqGFWj53U9nVBYsLVvR17A
- aYOjbdrUmOsjkOoDotHQUmjYU3Eau+pmDq17bSYJHRJRtJKFy3jcUsqF5RNTc+ZJeM
- rgb6nt8YEfd/qknPKkLPGrOD5NrrNPFxuOilOnYZLx3kSn4yul/Is530EWIv8UT3kP
- Inj4NRv0/vpB9qdqvD8hZaqfWayVMZrgYvbkcl1rFOeW/C+5XlBThL2EIySkOokDiB
- 3e46zWAq8OYdwC9URU18DTDrq2QVY+0Eyy0ldIVJhJilnkdSjyNoayU+kJMW/F+bao
- beI882/ZtHiMg==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 04 May 2024 16:27:57 +0200
-X-ME-IP: 86.243.17.157
-Message-ID: <38193848-597d-47c1-9aea-5357e58f9983@wanadoo.fr>
-Date: Sat, 4 May 2024 16:27:53 +0200
+ Sun,  5 May 2024 15:03:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 5A35BCE0A6A;
+ Sun,  5 May 2024 15:03:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86834C4AF67;
+ Sun,  5 May 2024 15:03:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1714921400;
+ bh=+msvvbhi0Hm6QR6CtJbWTfEdCEiJNKIExOn3H/A3k6E=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=hCC8jSVyLmHpWLgo/GE1Eb1SGZItAGBNaWpJUqACd3lPLTK0Ho6NxAl0A35HGapnk
+ LANQIw3keMP6DkzhCu4Lz5j1i5peDWoYyHX/vhZQ5OdEss6W5kKAIioMzY4p9Rxf/g
+ 9clPTmP5w5q95h0B/GACg9eRH4iI34BMKXFEp470H1q32KEmEHM9iritVBrR2siwvB
+ 8LOITczpHNWz/kO/TFi8uNvoFv6/LM3z2ql8XyzEDJTurYAC7Z1klDwjNU8X49p0Ma
+ bG8FRKdXfs1MzRoJdQMaCrLAs07gq6ZZ0dyWFyV0eZfosa02JSiaV7IFj8mP9kDiiQ
+ T5dVOc+rhTZDQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-spi@vger.kernel.org, 
+ Ben Wolsieffer <ben.wolsieffer@hefring.com>
+In-Reply-To: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
+References: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
+Message-Id: <171492139831.1933695.13403053334190518230.b4-ty@kernel.org>
+Date: Mon, 06 May 2024 00:03:18 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: amelie.delaunay@foss.st.com
-References: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
- <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
-Content-Language: en-MW
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, robh+dt@kernel.org,
- linux-hardening@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 05/12] dmaengine: Add STM32 DMA3 support
+X-Mailer: b4 0.14-dev
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32: enable controller before
+	asserting CS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,45 +52,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgMjMvMDQvMjAyNCDDoCAxNDozMiwgQW1lbGllIERlbGF1bmF5IGEgw6ljcml0wqA6Cj4gU1RN
-MzIgRE1BMyBkcml2ZXIgc3VwcG9ydHMgdGhlIDMgaGFyZHdhcmUgY29uZmlndXJhdGlvbnMgb2Yg
-dGhlIFNUTTMyIERNQTMKPiBjb250cm9sbGVyOgo+IC0gTFBETUEgKExvdyBQb3dlcik6IDQgY2hh
-bm5lbHMsIG5vIEZJRk8KPiAtIEdQRE1BIChHZW5lcmFsIFB1cnBvc2UpOiAxNiBjaGFubmVscywg
-RklGTyBmcm9tIDggdG8gMzIgYnl0ZXMKPiAtIEhQRE1BIChIaWdoIFBlcmZvcm1hbmNlKTogMTYg
-Y2hhbm5lbHMsIEZJRk8gZnJvbSA4IHRvIDI1NiBieXRlcwo+IEhhcmR3YXJlIGNvbmZpZ3VyYXRp
-b24gb2YgdGhlIGNoYW5uZWxzIGlzIHJldHJpZXZlZCBmcm9tIHRoZSBoYXJkd2FyZQo+IGNvbmZp
-Z3VyYXRpb24gcmVnaXN0ZXJzLgo+IFRoZSBjbGllbnQgY2FuIHNwZWNpZnkgaXRzIGNoYW5uZWwg
-cmVxdWlyZW1lbnRzIHRocm91Z2ggZGV2aWNlIHRyZWUuCj4gU1RNMzIgRE1BMyBjaGFubmVscyBj
-YW4gYmUgaW5kaXZpZHVhbGx5IHJlc2VydmVkIGVpdGhlciBiZWNhdXNlIHRoZXkgYXJlCj4gc2Vj
-dXJlLCBvciBkZWRpY2F0ZWQgdG8gYW5vdGhlciBDUFUuCj4gSW5kZWVkLCBjaGFubmVscyBhdmFp
-bGFiaWxpdHkgZGVwZW5kcyBvbiBSZXNvdXJjZSBJc29sYXRpb24gRnJhbWV3b3JrCj4gKFJJRikg
-Y29uZmlndXJhdGlvbi4gUklGIGdyYW50cyBhY2Nlc3MgdG8gYnVzZXMgd2l0aCBDb21wYXJ0aW1l
-bnQgSUQKPiAoQ0lGKSBmaWx0ZXJpbmcsIHNlY3VyZSBhbmQgcHJpdmlsZWdlIGxldmVsLiBJdCBh
-bHNvIGFzc2lnbnMgRE1BIGNoYW5uZWxzCj4gdG8gb25lIG9yIHNldmVyYWwgcHJvY2Vzc29ycy4K
-PiBETUEgY2hhbm5lbHMgdXNlZCBieSBMaW51eCBzaG91bGQgYmUgQ0lELWZpbHRlcmVkIGFuZCBz
-dGF0aWNhbGx5IGFzc2lnbmVkCj4gdG8gQ0lEMSBvciBzaGFyZWQgd2l0aCBvdGhlciBDUFVzIGJ1
-dCB1c2luZyBzZW1hcGhvcmUuIEluIGNhc2UgQ0lECj4gZmlsdGVyaW5nIGlzIG5vdCBjb25maWd1
-cmVkLCBkbWEtY2hhbm5lbC1tYXNrIHByb3BlcnR5IGNhbiBiZSB1c2VkIHRvCj4gc3BlY2lmeSBh
-dmFpbGFibGUgRE1BIGNoYW5uZWxzIHRvIHRoZSBrZXJuZWwsIG90aGVyd2lzZSBzdWNoIGNoYW5u
-ZWxzCj4gd2lsbCBiZSBtYXJrZWQgYXMgcmVzZXJ2ZWQgYW5kIGNhbid0IGJlIHVzZWQgYnkgTGlu
-dXguCj4gCj4gU2lnbmVkLW9mZi1ieTogQW1lbGllIERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXkt
-cmowSWVsL0pSNE5CRGdqSzd5N1RVUUBwdWJsaWMuZ21hbmUub3JnPgo+IC0tLQoKLi4uCgo+ICsJ
-cG1fcnVudGltZV9zZXRfYWN0aXZlKCZwZGV2LT5kZXYpOwo+ICsJcG1fcnVudGltZV9lbmFibGUo
-JnBkZXYtPmRldik7Cj4gKwlwbV9ydW50aW1lX2dldF9ub3Jlc3VtZSgmcGRldi0+ZGV2KTsKPiAr
-CXBtX3J1bnRpbWVfcHV0KCZwZGV2LT5kZXYpOwo+ICsKPiArCWRldl9pbmZvKCZwZGV2LT5kZXYs
-ICJTVE0zMiBETUEzIHJlZ2lzdGVyZWQgcmV2OiVsdS4lbHVcbiIsCj4gKwkJIEZJRUxEX0dFVChW
-RVJSX01BSlJFViwgdmVyciksIEZJRUxEX0dFVChWRVJSX01JTlJFViwgdmVycikpOwo+ICsKPiAr
-CXJldHVybiAwOwo+ICsKPiArZXJyX2Nsa19kaXNhYmxlOgo+ICsJY2xrX2Rpc2FibGVfdW5wcmVw
-YXJlKGRkYXRhLT5jbGspOwo+ICsKPiArCXJldHVybiByZXQ7Cj4gK30KPiArCj4gK3N0YXRpYyB2
-b2lkIHN0bTMyX2RtYTNfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gK3sK
-PiArCXBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsKCkhpLAoKbWlzc2luZyBjbGtfZGlz
-YWJsZV91bnByZXBhcmUoZGRhdGEtPmNsayk7PwoKYXMgaW4gdGhlIGVycm9yIGhhbmRsaW5nIHBh
-dGggb24gdGhlIHByb2JlIGp1c3QgYWJvdmU/CgpDSgoKPiArfQoKLi4uCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Wed, 24 Apr 2024 09:52:38 -0400, Ben Wolsieffer wrote:
+> On the STM32F4/7, the MOSI and CLK pins float while the controller is
+> disabled. CS is a regular GPIO, and therefore always driven. Currently,
+> the controller is enabled in the transfer_one() callback, which runs
+> after CS is asserted.  Therefore, there is a period where the SPI pins
+> are floating while CS is asserted, making it possible for stray signals
+> to disrupt communications. An analogous problem occurs at the end of the
+> transfer when the controller is disabled before CS is released.
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/1] spi: stm32: enable controller before asserting CS
+      commit: 52b62e7a5d4fb53ae3db3c83aee73683e5f3d2d2
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
