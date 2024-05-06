@@ -2,74 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61C9C8BCE2D
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 14:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4636B8BCEFD
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 15:34:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B736C5E2CB;
-	Mon,  6 May 2024 12:40:08 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9F81C6A613;
+	Mon,  6 May 2024 13:34:26 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F834C030CA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63525C5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 May 2024 12:40:01 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-41b79450f8cso11196245e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 May 2024 05:40:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1714999201; x=1715604001;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rxjJb/KzzXIFQHfzAUi7FnhbwHdNprYeBkYOQsJcPKk=;
- b=ZtucT+PBiueR7kK40pfsRifbB7de1S2bNoM87Dc++P6XpGQ3RBOjqahZR83YvHF74N
- r4WCQmiK1DND4gGUPgUPZMikfeFLA+aAmS8Wv6xlTiyKnQrrOCF5b6BieiBGmnTJh7fl
- ax+3TWeSqYDNf/PLjzezrO6W1YlRJph4l2F8uPVurC+OQiC0HVsUF6HbEzEjotnprBcC
- RYa2go38O4HfpwGoMS2pkUW16I2/pEmwgl8ufzYunsr7LZcujiZEw+mYH1y4cUP40lKO
- JFKt/3T1WgjPE7r+oB6Hsq+o+pUREwBuQvncbWadrKMzgP1VeZD0MshGMOUo4ZDQs8Jd
- AsQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1714999201; x=1715604001;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rxjJb/KzzXIFQHfzAUi7FnhbwHdNprYeBkYOQsJcPKk=;
- b=iXVcS1yjgi4u/7PhJPruhfy8NiHwW2QaOT9qBjg4LRC6wbwBLq6Jv5CA+dbNF8Sanq
- ZFDF21o0D5IvvNDGQL5BlJIyrdqlGP7VIZAhmAxm6rYxfFR2FirytF83ugTwNUrTd16E
- dr6XgK7dRx5kk0iBiYH7jvnVd3PojwQhA3JYWlPGVU7q0S/BMP/W9EDoZ2sO2EZvDHoQ
- krqvfJ57DCVO/wIzi9T+jj7glNWkYTuWzfQYS7aM9iyeYNLB+BZ98JjFJ4dXWiDZRelv
- K8JaxcXmg4r7KseLnpQRWpq7PU5dMDdTSI7jY6qaOVehynrG7xBXiGUnF+NLQ2q8RmhV
- wn0Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4/VkXO90YD6eTCONk1QZjKMqyu+YCVtgPCYQ0JPI4slf3cIpY3jL8zSuw+FgU9jDVAK2BNG4pgwmaA+dgnCIe5eOCWxRA1xh6TNkF0Gl6vJ5mos7+6hE3
-X-Gm-Message-State: AOJu0YzLWSxr8KBiOnqL7uekF8DDer/b/ldlEQdt2ZHlqftMzz6gm/a4
- I94oWbqoypP1+HQ86g8qwEvPdRtsextIcGPDDEuKT2/LQsyxME7m
-X-Google-Smtp-Source: AGHT+IFkCu+JtPeZm2GUtpMORrZzigCeL8aXT4N3/ncy5DZ8TaVMDuXbslHscLBHDWJBFqgIrb6ZgA==
-X-Received: by 2002:a05:600c:1c03:b0:41a:3868:d222 with SMTP id
- j3-20020a05600c1c0300b0041a3868d222mr7722487wms.0.1714999200464; 
- Mon, 06 May 2024 05:40:00 -0700 (PDT)
-Received: from localhost.localdomain (93-34-90-105.ip49.fastwebnet.it.
- [93.34.90.105]) by smtp.googlemail.com with ESMTPSA id
- g17-20020adfa491000000b0034de87e81c7sm10714865wrb.23.2024.05.06.05.39.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 May 2024 05:39:59 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon,  6 May 2024 14:32:46 +0200
-Message-ID: <20240506123248.17740-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon,  6 May 2024 13:34:20 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 446CRWH9030757;
+ Mon, 6 May 2024 15:33:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=D+XLcTH
+ c8uVuTOX4CdOp7NlzrTvpnKAR5oH6n07VwUE=; b=ZHZDAfwRi8GrWIlOhyMVNZw
+ FOtew/DOxQxtW3riarKA9QSlhAO3C3In6fga+eZudDQm/dgi5s3tZQEnbGG2oj4B
+ vh//3eCz+ZPnNGpQw6zKKxWybiqpSJ1ya4m54F1vH19dqFYZLIABDg4dq3qcltuE
+ 0AgmYfKNzBGs1XW/dOVR8bZ4p5LzRhP1UNMRSWBqMaPVEpiBowNBWjdMZde6DE8/
+ QraCUnXO+lISo08XVciqgvVHpEaySjVHE3G+R0UUg5EYlvbbqqeqPIW6HwUShzvS
+ FvodCVB0ZuP/H+xNUzEHTcCyn2jXRdLYpiUb+5AJnqjmJtdekBeI2TjhcbS9pKA=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwyyk5cb5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 May 2024 15:33:47 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9C62640050;
+ Mon,  6 May 2024 15:33:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ED14C21ADBC;
+ Mon,  6 May 2024 15:33:06 +0200 (CEST)
+Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
+ 2024 15:33:06 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
+Date: Mon, 6 May 2024 15:32:48 +0200
+Message-ID: <20240506133256.948712-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH] net: stmmac: dwmac-ipq806x: account
-	for rgmii-txid/rxid/id phy-mode
+X-Originating-IP: [10.48.87.171]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-06_08,2024-05-06_02,2023-05-22_02
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/8] irqchip/stm32-exti: split MCU and MPU
+	code, allow module build
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,70 +77,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently the ipq806x dwmac driver is almost always used attached to the
-CPU port of a switch and phy-mode was always set to "rgmii" or "sgmii".
+The file 'irq-stm32-exti.c' contains two drivers:
+- EXTI for ARMv7m STM32 MCUs;
+- EXTI for ARMv7a & ARMv8a STM32MPxxx MPUs.
 
-Some device came up with a special configuration where the PHY is
-directly attached to the GMAC port and in those case phy-mode needs to
-be set to "rgmii-id" to make the PHY correctly work and receive packets.
+The current arrangement causes some issue:
+- the growing code for MPUs uses precious space on memory constraint
+  MCUs devices;
+- the driver for MPU cannot be built as module;
+- there are risks to break one of the two drivers while working on
+  the other.
 
-Since the driver supports only "rgmii" and "sgmii" mode, when "rgmii-id"
-(or variants) mode is set, the mode is rejected and probe fails.
+Since there are only 4 minor functions shared among the two drivers:
+- stm32_exti_set_type();
+- stm32_chip_resume();
+- stm32_chip_suspend();
+- stm32_exti_chip_init();
 
-Add support also for these phy-modes to correctly setup PHYs that requires
-delay applied to tx/rx.
+this series splits the file in two independent files, each containing
+a single driver.
+To guarantee bisect-ability, the series first introduces some hook in
+Kconfig, then splits the file and at the end enables module build on
+MPU while cleaning-up Kconfig.
+The symbols in the MPU file are renamed to better match the new name
+of the driver.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+The patches are created with 'git format-patch -C' to correctly show
+the deleted parts and the tiny modifications between the original
+monolithic file and the two extracted ones.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-index 281687d7083b..4ba15873d5b1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-@@ -171,6 +171,9 @@ static int ipq806x_gmac_set_speed(struct ipq806x_gmac *gmac, unsigned int speed)
- 
- 	switch (gmac->phy_mode) {
- 	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		div = get_clk_div_rgmii(gmac, speed);
- 		clk_bits = NSS_COMMON_CLK_GATE_RGMII_RX_EN(gmac->id) |
- 			   NSS_COMMON_CLK_GATE_RGMII_TX_EN(gmac->id);
-@@ -410,6 +413,9 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 	val |= NSS_COMMON_GMAC_CTL_CSYS_REQ;
- 	switch (gmac->phy_mode) {
- 	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		val |= NSS_COMMON_GMAC_CTL_PHY_IFACE_SEL;
- 		break;
- 	case PHY_INTERFACE_MODE_SGMII:
-@@ -425,6 +431,9 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 	val &= ~(1 << NSS_COMMON_CLK_SRC_CTRL_OFFSET(gmac->id));
- 	switch (gmac->phy_mode) {
- 	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		val |= NSS_COMMON_CLK_SRC_CTRL_RGMII(gmac->id) <<
- 			NSS_COMMON_CLK_SRC_CTRL_OFFSET(gmac->id);
- 		break;
-@@ -442,6 +451,9 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 	val |= NSS_COMMON_CLK_GATE_PTP_EN(gmac->id);
- 	switch (gmac->phy_mode) {
- 	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		val |= NSS_COMMON_CLK_GATE_RGMII_RX_EN(gmac->id) |
- 			NSS_COMMON_CLK_GATE_RGMII_TX_EN(gmac->id);
- 		break;
+The series is rebased on irq/core branch of tip as it depends on a
+previous series already queued for v6.10 merge window.
+
+
+Antonio Borneo (8):
+  irqchip/stm32-exti: add CONFIG_STM32MP_EXTI
+  ARM: stm32: use different EXTI driver on ARMv7m and ARMv7a
+  arm64: Kconfig: select STM32MP_EXTI on STM32 platforms
+  irqchip/stm32-exti: split MCU and MPU code
+  irqchip/stm32mp-exti: rename internal symbols
+  irqchip/stm32mp-exti: allow build as module
+  ARM: stm32: allow build irq-stm32mp-exti driver as module
+  arm64: Kconfig: allow build irq-stm32mp-exti driver as module
+
+ arch/arm/mach-stm32/Kconfig        |   2 +-
+ arch/arm64/Kconfig.platforms       |   1 -
+ drivers/irqchip/Kconfig            |   9 +
+ drivers/irqchip/Makefile           |   1 +
+ drivers/irqchip/irq-stm32-exti.c   | 670 +-------------------------
+ drivers/irqchip/irq-stm32mp-exti.c | 737 +++++++++++++++++++++++++++++
+ 6 files changed, 752 insertions(+), 668 deletions(-)
+ create mode 100644 drivers/irqchip/irq-stm32mp-exti.c
+
+
+base-commit: 382d2ffe86efb1e2fa803d2cf17e5bfc34e574f3
 -- 
-2.43.0
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
