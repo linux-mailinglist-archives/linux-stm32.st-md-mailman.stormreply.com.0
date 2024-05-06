@@ -2,155 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126B08BCD69
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 14:05:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 779A58BCD73
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 14:08:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9790C78009;
-	Mon,  6 May 2024 12:05:37 +0000 (UTC)
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C46BC78002;
+	Mon,  6 May 2024 12:08:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F33F5C712A4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97545C78001
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 May 2024 23:18:48 +0000 (UTC)
-Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 443N0MFQ015062;
- Fri, 3 May 2024 16:18:23 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
- h=from:to:subject:date:message-id:content-transfer-encoding
- :content-type:mime-version; s=PPS06212021; bh=er3ZWF0LrZFZugNAp0
- EugHNAKGvUCvdlcEjeKnyNTAY=; b=hMU0J4/RZAL0vnq4Bya4Bp30G/oZgBPvW9
- g3a7PPxQwMw0IC+qaSdEEzRBE/NP5QoVjJSvV9J5Qy520BM6SdXHnId2Hj4HwnH/
- ji+qYDyb8Ybg+dkBDaYcL6yDwiWo8Q+swDX7fujTHfRB3t94GepTefl+i1qce9br
- 43N30elxQK50xtK59puT2lUXyZvJ8fYo3yEbcYImCV/Mq8ALk7S3vl5FCl0Tbqs6
- tPxtciLFX64k18lFRvzfM7bDiM2irrFU+9Z9mTXUCv+EvncOsZu/qeYw9jk5mFML
- 56qYUp9pVJsFr7S6kUfwveHSbGNhXz0iqYfoRidDiD6+14v26yyQ==
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2169.outbound.protection.outlook.com [104.47.56.169])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3xs0vfxmbx-1
+ Mon,  6 May 2024 12:07:57 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4468VNBQ032357;
+ Mon, 6 May 2024 14:07:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=6EJVQ+wMxEHRL14RVOpH9mV9WNJQFrNy5pxAip0Pyy8=; b=2w
+ HWU+qJMRg1YngPQfOl2Y2ECz9cKoNqJYUwSlTSND6V/PbTOT0MsrXLeTeu4HssOT
+ wasRDCloTdPyC97jZm9AFjC/JtAnmD481ohyP5/jZjH01hwzyOlLb2zXsnSAVjTU
+ VjEY5x7+x3IiEegYTgUQXLsQfq0YN0e6zYGPWQGrzh9eUb65Pa8ebxy1BykX7ryc
+ 1YzhT/l/BocGomvLB8ulcKVxEq2bzszRDKlm1TlhLzBaJJgT4nEqYEgJOdQa53y2
+ WltLcY8euLHAX704v+gmlpwXXgrScCrwqzpJodRmLLxwJrGx5p8BhdZ6PVlE7IdM
+ 6cNahAQMf6Lxhx//AUsg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwcbx6qg5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 May 2024 16:18:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L1QOgJn+zkL+ZSPQ5TPLds2BX3IeBVyp5IBiqXNtL7CnVTwtYWR5f/KQ3OedL3C5eOx7AIOMBaxUgqjqoOfLJvmaUiALKCdR2ABt4yxL/uDkMf1/o9RWzQ4zI1U1EIk38N4j2q0hbTLtrVzdUQ4dh75Mbo34gWOpAL9M8B4yU80XZINEK84MQS5JFa8120xOKlQ6TpSkkysZur18ftX673s+3HfDSi/Xb6pV7VFZd4T/4pJROpxkFThf5mbWOnOolLlYxs6UR2RWbixzmR5LcZWQuFAId6kKK9ut0Yc1//f1iNN8QpFiO5MFx6Gghc/a0jdaqnABDua3L6ySaWmefA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=er3ZWF0LrZFZugNAp0EugHNAKGvUCvdlcEjeKnyNTAY=;
- b=Vyi5GdtFsjwyM/iVf0KZVIQeLfuhCyTKZ1TeCdXUiiSPS/0FUAv1J28JT2FcSA06SGqbiZbkXCbdt/X+aEhuZayCZd2ltDvGOPSk6kBVUYZXXZhw7DmWIjkf1icYUJ4E9yNv8MjK8CWqQR6smWLwd8hJaRV57OW1fM48eoptaobx5zPef2o5biJGP+somdamWoV1eKpPMag9APTN6fNev84OTz3LyJoMaivDxRJnRv81v3nsVw05m0jJrzpmXdiMw2XsHaU/FRbpcP4mh27jIFbHnDnICjdQkqrUfmIuTwanaqcppBc8wS0LDkRBgTODkMWBthEfyYMjrcEFuItw+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from MW5PR11MB5764.namprd11.prod.outlook.com (2603:10b6:303:197::8)
- by DM4PR11MB6549.namprd11.prod.outlook.com (2603:10b6:8:8e::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7544.34; Fri, 3 May 2024 23:18:19 +0000
-Received: from MW5PR11MB5764.namprd11.prod.outlook.com
- ([fe80::3c2c:a17f:2516:4dc8]) by MW5PR11MB5764.namprd11.prod.outlook.com
- ([fe80::3c2c:a17f:2516:4dc8%4]) with mapi id 15.20.7544.029; Fri, 3 May 2024
- 23:18:19 +0000
-From: Xiaolei Wang <xiaolei.wang@windriver.com>
-To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat,  4 May 2024 07:18:04 +0800
-Message-Id: <20240503231804.2323666-1-xiaolei.wang@windriver.com>
-X-Mailer: git-send-email 2.25.1
-X-ClientProxiedBy: TY2PR02CA0001.apcprd02.prod.outlook.com
- (2603:1096:404:56::13) To MW5PR11MB5764.namprd11.prod.outlook.com
- (2603:10b6:303:197::8)
+ Mon, 06 May 2024 14:07:47 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 52CF64002D;
+ Mon,  6 May 2024 14:07:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4895B21A239;
+ Mon,  6 May 2024 14:07:11 +0200 (CEST)
+Received: from [10.48.86.107] (10.48.86.107) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
+ 2024 14:07:08 +0200
+Message-ID: <02e9e9c5-449a-48ae-88a7-0483895cd4bf@foss.st.com>
+Date: Mon, 6 May 2024 14:07:07 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW5PR11MB5764:EE_|DM4PR11MB6549:EE_
-X-MS-Office365-Filtering-Correlation-Id: ecf16bec-851f-47c5-af2c-08dc6bc75195
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|376005|1800799015|52116005|7416005|366007|921011|38350700005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wcOuHKT7lrs6cZfPAf38m6mYHb7kcTZQRy6G6tY2aoIFiWMptDtAwQHaoNh7?=
- =?us-ascii?Q?ls/rii3KECfEJKDZeNqOa3gP5uGecU/1x1CcrsGEeRD7SKy2dWmvoefAi+MA?=
- =?us-ascii?Q?WWvnl07uzxP5uX9zdM5jgcVMUypAjZYPsx7Pfyjq60xU+IJg+2EEn/A7vGhJ?=
- =?us-ascii?Q?zAksxXX746TmuyS7HFsC9RuJ4jYOCqgjXc7+zXSyCn9kPwJHcSerSvPX7Ohz?=
- =?us-ascii?Q?UVlDf9EfCJ1I1wmAkBReJtJbK8uB+NxL8xZS6Pv5eEPj4FlUiIO4HSlSlEyP?=
- =?us-ascii?Q?ak0UfnWomSCKje5MnkICJZ+2pGYZvW3uu8FRqUMuW0kU3v5a5xcPf49wTls6?=
- =?us-ascii?Q?ByDOHbtjHa3kPrRhF5JjXgQQqWiEv/uF/shpbqIzjWV8+VFL0AMlheA0aBoM?=
- =?us-ascii?Q?Y81BnkwDaMpQjqaByZ2HkPTQxux1+kR4svit8Zz0Bx+gWKUwmlRtxGENNa5l?=
- =?us-ascii?Q?d/2pgDmvGBXv3i+CJnHNep8LABLzFd3jXrRfczlE2b79LhB1Di0WGY/T3Twf?=
- =?us-ascii?Q?v3dFcp7yjUj3gvmhgK2tmGAG6xEpe8T0rvMbO+HMeyCAunAlRH096tMc3X4n?=
- =?us-ascii?Q?6Z0sjUykEJhug1MFpZ8FjFfS7YjGFh+pcPLtCnrfhNte7NSD4r0Zm6ZBe4+B?=
- =?us-ascii?Q?anlOkixEz8VPtscB12wYcqcrtrQmPz6j+TkqPnkfhNvE8ax64+M8w2j9xBs0?=
- =?us-ascii?Q?7WMqWCLIRHCp3amlTs7h6BCh4NVk6WvIm3c1z95VTwaekb7Zk5MXtqC6wcnN?=
- =?us-ascii?Q?RYhzYRcWBASttM3NlF3wAdFcKigFF/aKhnTK9fnDf4FrOdk1g9eqy1bX4Bgk?=
- =?us-ascii?Q?Dj8Sqbm36MAIovpoXUVmo+MNZeFMkc7jYilYMOZMaKHrKSxF/PP8kotBtU/+?=
- =?us-ascii?Q?cIKksDWckdjzCDvxxwM7ejHFTS5ebN3y0oLYIOzE+K+Lv5zYKE1Rhateruwv?=
- =?us-ascii?Q?iaVdQETNmDfSgnd+rORnBX1+yEj7cQYOPrJJ/kEv56nTTk6nww36jW7iMMnA?=
- =?us-ascii?Q?XnwbSdXJk6a0J7Jg4hmQ/x6tGJWriEnD6pyQdVXHjbrRVBm2Q3RayidXVucJ?=
- =?us-ascii?Q?9ybit6kRArti2GOv+1WrFDBpSOfxA/qM+QdKKBno9sYvlKalPoPwDVQUMAkw?=
- =?us-ascii?Q?y0/f4SI3GFKV9TnAhpB8TQ+whTa3b7In4qdSOHbaOlKAPl7Ilyg7F/7hhhoY?=
- =?us-ascii?Q?kza/yINRkmhUWffMpmMYuBAbDJJHY4LE0BFyce6zZgJx0lhgu9izX+uNlXDx?=
- =?us-ascii?Q?T34CEB0ZB8Mjay0aCbSYUFvT6FcNXGqjsZI0fkaIU5hSmKbUYMCPZXYkNqWY?=
- =?us-ascii?Q?JC3S7KOjgKHezas607jaSgz5xhAxdLocwZ74/5UANn6o0rl1/jUWFnymniRT?=
- =?us-ascii?Q?v2euH1A=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW5PR11MB5764.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(1800799015)(52116005)(7416005)(366007)(921011)(38350700005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5844V2ZzRsahZpKPvspfPKaBbuXJwsCl4b/imr+IkBbNNWVH8ifniqZOipmi?=
- =?us-ascii?Q?VUpFWHy352B/5HAMSiZYru93eLHN/0QMiBk47ZAnoKcTlFnuRVStazaDR4FX?=
- =?us-ascii?Q?tjf9HXRL+tSOpeHaBsWT1yHuCCG5ZwO8HHCsQpd13dmWOlWl6Q1wb0mtMKNH?=
- =?us-ascii?Q?D59/dz67twa0jYhMXI4WtM9mF7DlftExdEpquWF6u6f5fRNpeBgNpGNKSoMC?=
- =?us-ascii?Q?uzNGm38CV+URuLzHfFlQ+iVDlOT02Vxn7r1DpdhO6XyNr19n/HAo6fmnZ00W?=
- =?us-ascii?Q?aiSDi26blk6L4XqCVSWGARlIDu2Hqrb8EHMp66R+j0hNA2sQGK1MfeN8lY10?=
- =?us-ascii?Q?H2k+v0vSdXZjgWj3lltmjIPlNec5FwzanK07SU9QoeWo5vtaf9UlJoCjYyq1?=
- =?us-ascii?Q?8rgwN+pQm+kuxk61hLgXjaiYokiu4d+BKHcR/gP1WOKJLRXps55zlwtZNfP6?=
- =?us-ascii?Q?Lli06/tiRXM8mXySPf5Qn2CMkriK9lI9t4hpUjSg+XAYGIZqpWsfTPD12a8V?=
- =?us-ascii?Q?zXZNRtW4DknDb6gHwukw0u6tY72n/i+yacdXAVynrITLdAhm4zjRDpnEmfz9?=
- =?us-ascii?Q?vozSRH4elwU3/crJyigSnw41QAh25r/tdorjoGmXbZg4sTLWQF/IXZKU4CsH?=
- =?us-ascii?Q?joKymPs8zu7/Yos3ijlDuwp2Bu6hMUMo4Vuy/pUNM3AneLZnxVW2t37gLVPl?=
- =?us-ascii?Q?St4/RNIhfLK83NH/dH4qKm14uNs1dI5FxGijMltoChu/HJG85pxHpVaaa4kf?=
- =?us-ascii?Q?r2bwZWqIUV2CUIOgAT+n2lVbgCdYprrz12Hf+etxhXxZe2uEc4eRwfZTocTC?=
- =?us-ascii?Q?eX7Gl3Z40s20KHW/MBr/xlPB4rKx7QyWKe6GadmfXaonmY0/qUtb61SoUhlo?=
- =?us-ascii?Q?TagTN+b7jEwF1pJ91Cc5VpTxrWrfRN/N4hATlJLkeSmfWsEuw1BkR5OKqpbP?=
- =?us-ascii?Q?4Omiil8037GDFFQ1aVdFG8QBuRcez6JU1V52IMf7+mW6tv95E/9QG2bFiDmu?=
- =?us-ascii?Q?QVf3sQkVr77+atkBFMJTPzFkLJ2J6x6RrbSntH538+6a4MW58C9UwYz9tuDY?=
- =?us-ascii?Q?tSnjaiFzVXatnpXjLLz4yW6I0Drax24TG0miqw9qibPg+OiI3HNiZ/WB2QHl?=
- =?us-ascii?Q?3iEinOp2xC7gmab2yeTK4fWe3Slgckfmg++CK6BhFXBqxlo/Aj4MW7OKtMC2?=
- =?us-ascii?Q?cMZXHhgv2DfjkRdGCn6jRcNNXyYz/P9HSaRKwkx+mAeR+W0Ka15hiOyDDpRl?=
- =?us-ascii?Q?rbRD1pwdl14sJyynBqU7XcQ6rTPOwboIWmqUgDM7GabQ65x0PJzbwAknOpYk?=
- =?us-ascii?Q?kFm+3kepLZLeo2TzuVJ4rtjDPl/AZxQl9Y/ntbeoIG9aYuXrQAKrGZlwtnPf?=
- =?us-ascii?Q?kdAZ86d0zBH3foVmyvu4A9EBJJpxa4UUq6Y44iLw9H+Betx6kENLPJNcvfjJ?=
- =?us-ascii?Q?ZywV/2U2GtseSO8nh2n6FvLWUUKXz9ocIUwg1+FxNZ52oYcTfkcvLduO93sp?=
- =?us-ascii?Q?WGhnUoA2auAdETF8W9d7sBGaFY0FW1vZXy06WU5JKls8tNne6pPOjhehnzOb?=
- =?us-ascii?Q?eiW73f9MDVWGZmlxiOSR9dUgeTAptiC4iQ15bNBcB+s/SwWSZjpW/BKks6FV?=
- =?us-ascii?Q?Gw=3D=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecf16bec-851f-47c5-af2c-08dc6bc75195
-X-MS-Exchange-CrossTenant-AuthSource: MW5PR11MB5764.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 23:18:19.3309 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nuIuQfid0cmYBWsHe7evjB4LxwkQ0Bv7wThfYHeU2PjRcXW8JDnIxy2LZCfw4efkhzp/4bdTSYghZzQ/bIt3QL1VI63FWD5YkcgsSCtGbUs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6549
-X-Proofpoint-ORIG-GUID: 6p1x6_DXG6UB7qbIJjyFJVL27JcAQSYX
-X-Proofpoint-GUID: 6p1x6_DXG6UB7qbIJjyFJVL27JcAQSYX
+User-Agent: Mozilla Thunderbird
+To: Antonio Borneo <antonio.borneo@foss.st.com>, Andy Whitcroft
+ <apw@canonical.com>, Joe Perches <joe@perches.com>, Dwaipayan Ray
+ <dwaipayanray1@gmail.com>, Lukas Bulwahn <lukas.bulwahn@gmail.com>
+References: <20231212094310.3633-1-antonio.borneo@foss.st.com>
+ <20240102161038.22347-1-antonio.borneo@foss.st.com>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <20240102161038.22347-1-antonio.borneo@foss.st.com>
+X-Originating-IP: [10.48.86.107]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-03_16,2024-05-03_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0 phishscore=0
- impostorscore=0 clxscore=1011 adultscore=0 mlxlogscore=999 mlxscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2405030166
-X-Mailman-Approved-At: Mon, 06 May 2024 12:05:30 +0000
-Subject: [Linux-stm32] [PATCH] net: stmmac: Initialize the other members
-	except the est->lock
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-06_07,2024-05-06_01,2023-05-22_02
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] checkpatch: use utf-8 match for spell
+	checking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,101 +74,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reinitialize the whole est structure would also reset the mutex lock
-which is embedded in the est structure, and then trigger the following
-warning. To address this, define all the other members except mutex lock
-as a struct group and use that for the reinitialization. We also need
-to require the mutex lock when doing this initialization.
-
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-WARNING: CPU: 3 PID: 505 at kernel/locking/mutex.c:587 __mutex_lock+0xd84/0x1068
- Modules linked in:
- CPU: 3 PID: 505 Comm: tc Not tainted 6.9.0-rc6-00053-g0106679839f7-dirty #29
- Hardware name: NXP i.MX8MPlus EVK board (DT)
- pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : __mutex_lock+0xd84/0x1068
- lr : __mutex_lock+0xd84/0x1068
- sp : ffffffc0864e3570
- x29: ffffffc0864e3570 x28: ffffffc0817bdc78 x27: 0000000000000003
- x26: ffffff80c54f1808 x25: ffffff80c9164080 x24: ffffffc080d723ac
- x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000000
- x20: 0000000000000000 x19: ffffffc083bc3000 x18: ffffffffffffffff
- x17: ffffffc08117b080 x16: 0000000000000002 x15: ffffff80d2d40000
- x14: 00000000000002da x13: ffffff80d2d404b8 x12: ffffffc082b5a5c8
- x11: ffffffc082bca680 x10: ffffffc082bb2640 x9 : ffffffc082bb2698
- x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 0000000000000001
- x5 : ffffff8178fe0d48 x4 : 0000000000000000 x3 : 0000000000000027
- x2 : ffffff8178fe0d50 x1 : 0000000000000000 x0 : 0000000000000000
- Call trace:
-  __mutex_lock+0xd84/0x1068
-  mutex_lock_nested+0x28/0x34
-  tc_setup_taprio+0x118/0x68c
-  stmmac_setup_tc+0x50/0xf0
-  taprio_change+0x868/0xc9c
-
-Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  4 +++-
- include/linux/stmmac.h                        | 22 ++++++++++---------
- 2 files changed, 15 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index cce00719937d..a3663c019a8d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -1006,7 +1006,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 
- 		mutex_init(&priv->plat->est->lock);
- 	} else {
--		memset(plat->est, 0, sizeof(*plat->est));
-+		mutex_lock(&priv->plat->est->lock);
-+		memset(&plat->est->init, 0, sizeof(plat->est->init));
-+		mutex_unlock(&priv->plat->est->lock);
- 	}
- 
- 	size = qopt->num_entries;
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index dfa1828cd756..e5204a63c550 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -118,16 +118,18 @@ struct stmmac_axi {
- #define EST_GCL		1024
- struct stmmac_est {
- 	struct mutex lock;
--	int enable;
--	u32 btr_reserve[2];
--	u32 btr_offset[2];
--	u32 btr[2];
--	u32 ctr[2];
--	u32 ter;
--	u32 gcl_unaligned[EST_GCL];
--	u32 gcl[EST_GCL];
--	u32 gcl_size;
--	u32 max_sdu[MTL_MAX_TX_QUEUES];
-+	struct_group(init,
-+		int enable;
-+		u32 btr_reserve[2];
-+		u32 btr_offset[2];
-+		u32 btr[2];
-+		u32 ctr[2];
-+		u32 ter;
-+		u32 gcl_unaligned[EST_GCL];
-+		u32 gcl[EST_GCL];
-+		u32 gcl_size;
-+		u32 max_sdu[MTL_MAX_TX_QUEUES];
-+	);
- };
- 
- struct stmmac_rxq_cfg {
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpBIGdlbnRsZSByZW1pbmRlciB0byByZXZpZXcgdGhpcyBwYXRjaC4KCkJlc3QgcmVn
+YXJkcywKCkNsw6ltZW50CgpPbiAxLzIvMjQgMTc6MTAsIEFudG9uaW8gQm9ybmVvIHdyb3RlOgo+
+IFRoZSBjdXJyZW50IGNvZGUgdGhhdCBjaGVja3MgZm9yIG1pc3NwZWxsaW5nIHZlcmlmaWVzLCBp
+biBhIG1vcmUKPiBjb21wbGV4IHJlZ2V4LCBpZiAkcmF3bGluZSBtYXRjaGVzIFteXHddKCRtaXNz
+cGVsbGluZ3MpW15cd10KPiAKPiBCZWluZyAkcmF3bGluZSBhIGJ5dGUtc3RyaW5nLCBhIHV0Zi04
+IGNoYXJhY3RlciBpbiAkcmF3bGluZSBjYW4KPiBtYXRjaCB0aGUgbm9uLXdvcmQtY2hhciBbXlx3
+XS4KPiBFLmcuOgo+IAkuL3NjcmlwdHMvY2hlY2twYXRjaC5wbCAtLWdpdCA4MWMyZjA1OWFiOQo+
+IAlXQVJOSU5HOiAnbWVudCcgbWF5IGJlIG1pc3NwZWxsZWQgLSBwZXJoYXBzICdtZWFudCc/Cj4g
+CSMzNjogRklMRTogTUFJTlRBSU5FUlM6MTQzNjA6Cj4gCStNOiAgICAgQ2zDqW1lbnQgTMOpZ2Vy
+IDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgo+IAkgICAgICAgICAgICBeXl5eCj4gCj4gVXNl
+IGEgdXRmLTggdmVyc2lvbiBvZiAkcmF3bGluZSBmb3Igc3BlbGwgY2hlY2tpbmcuCj4gCj4gU2ln
+bmVkLW9mZi1ieTogQW50b25pbyBCb3JuZW8gPGFudG9uaW8uYm9ybmVvQGZvc3Muc3QuY29tPgo+
+IFJlcG9ydGVkLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5z
+dC5jb20+Cj4gLS0tCj4gQ2hhbmdlcyBpbiB2MjoKPiAtIHVzZSAkcmF3bGluZV91dGY4IGFsc28g
+aW4gdGhlIHdoaWxlLWxvb3AncyBib2R5Owo+IC0gZml4IHBhdGggb2YgY2hlY2twYXRjaCBpbiB0
+aGUgY29tbWl0IG1lc3NhZ2UuCj4gLS0tCj4gICBzY3JpcHRzL2NoZWNrcGF0Y2gucGwgfCA1ICsr
+Ky0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+
+IAo+IGRpZmYgLS1naXQgYS9zY3JpcHRzL2NoZWNrcGF0Y2gucGwgYi9zY3JpcHRzL2NoZWNrcGF0
+Y2gucGwKPiBpbmRleCAyNWZkYjdmZGExMTIuLjJkMTIyZDIzMmM2ZCAxMDA3NTUKPiAtLS0gYS9z
+Y3JpcHRzL2NoZWNrcGF0Y2gucGwKPiArKysgYi9zY3JpcHRzL2NoZWNrcGF0Y2gucGwKPiBAQCAt
+MzQ3Nyw5ICszNDc3LDEwIEBAIHN1YiBwcm9jZXNzIHsKPiAgICMgQ2hlY2sgZm9yIHZhcmlvdXMg
+dHlwbyAvIHNwZWxsaW5nIG1pc3Rha2VzCj4gICAJCWlmIChkZWZpbmVkKCRtaXNzcGVsbGluZ3Mp
+ICYmCj4gICAJCSAgICAoJGluX2NvbW1pdF9sb2cgfHwgJGxpbmUgPX4gL14oPzpcK3xTdWJqZWN0
+OikvaSkpIHsKPiAtCQkJd2hpbGUgKCRyYXdsaW5lID1+IC8oPzpefFteXHdcLSdgXSkoJG1pc3Nw
+ZWxsaW5ncykoPzpbXlx3XC0nYF18JCkvZ2kpIHsKPiArCQkJbXkgJHJhd2xpbmVfdXRmOCA9IGRl
+Y29kZSgidXRmOCIsICRyYXdsaW5lKTsKPiArCQkJd2hpbGUgKCRyYXdsaW5lX3V0ZjggPX4gLyg/
+Ol58W15cd1wtJ2BdKSgkbWlzc3BlbGxpbmdzKSg/OlteXHdcLSdgXXwkKS9naSkgewo+ICAgCQkJ
+CW15ICR0eXBvID0gJDE7Cj4gLQkJCQlteSAkYmxhbmsgPSBjb3B5X3NwYWNpbmcoJHJhd2xpbmUp
+Owo+ICsJCQkJbXkgJGJsYW5rID0gY29weV9zcGFjaW5nKCRyYXdsaW5lX3V0ZjgpOwo+ICAgCQkJ
+CW15ICRwdHIgPSBzdWJzdHIoJGJsYW5rLCAwLCAkLVsxXSkgLiAiXiIgeCBsZW5ndGgoJHR5cG8p
+Owo+ICAgCQkJCW15ICRoZXJlcHRyID0gIiRoZXJlbGluZSRwdHJcbiI7Cj4gICAJCQkJbXkgJHR5
+cG9fZml4ID0gJHNwZWxsaW5nX2ZpeHtsYygkdHlwbyl9Owo+IAo+IGJhc2UtY29tbWl0OiBiODVl
+YTk1ZDA4NjQ3MWFmYjRhZDA2MjAxMmE0ZDczY2QzMjhmYTg2Cl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
