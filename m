@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADEA8BCF02
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EEB68BCF03
 	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2024 15:35:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22E55C6DD6E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3723EC71289;
 	Mon,  6 May 2024 13:35:00 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6ADBC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EECBC6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 May 2024 13:34:58 +0000 (UTC)
+ Mon,  6 May 2024 13:34:59 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 446DA4Ik016848;
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 446DYJbw021791;
  Mon, 6 May 2024 15:34:49 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=vtOrJKt2M1GPNMF8eyCcBhxzywX0GXoX9qfsg8V6D8U=; b=LD
- voD8EdlJFKQdBtA3G6ImvQnBJk5Vefz58ZC//Qprfpai2DndNZyqbAYGkzR8aq1/
- OaHx2naJJOzyA3tCPiGEhithKeQ2BBvnGL0A2qZyqxoCStoFk59XrmRCWTgWjcag
- xFrcM6uJbEpws9HmR19jO4xwN+i4BFy/ZbhZS5t6BvWjF7AHw5qjM7yyRxbnyiU4
- mHkE4SxwOnpAaP956m1FV9jBW2lmoP5aLoiq9dnB5Gk5oLVVIMu+0XvMc+DfZ68U
- 1IQuskxnrfZfplARL2F5c91tTPZg+DT8m9iQYKebVohQCZwSGg2R79vSV6xgwzdP
- SuNFbP9G+RfgZWg6MT8Q==
+ selector1; bh=POWZoUc0X8Boorq4SPNqj49r2vjDIbLIFmBbp8SfjUo=; b=BS
+ UoJIEv78xSTkl+k4XfurkjtkimJOSKKwn/5FxGIf8z7BMfIbeYQwsqFJaqWNbT9E
+ IOYwtBTXi1bt9UaAZqOZ9WObg8U9xdoibJFP5aZTzdOzCpoFt71z9zBysVCdQU5X
+ pU+5wtGUWYGNk/r5CjKEt7NyiFQYRGEeVhFLi3NBcazYVijDdvB4sWpvg1MLpZBA
+ +zUKOd+Iiw+BOykzXnmnnexzBKOrSM3j2gfESR+dCEApwLa3ihdcYZZvRTbrDuJp
+ g8dl2fX/mNqyo/M6Hpb9otuAq6bZLntzlEHaHxf6UC0tYekWwrDjm2aBC8AonhXp
+ Ed72alOVSYsF+9ElnRZw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwaeg7kqc-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwaeg7kqa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 06 May 2024 15:34:49 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AAD504002D;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 54C7040046;
  Mon,  6 May 2024 15:34:45 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D5A6621ADBC;
- Mon,  6 May 2024 15:34:12 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6F60C2207A5;
+ Mon,  6 May 2024 15:34:13 +0200 (CEST)
 Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 6 May
- 2024 15:34:12 +0200
+ 2024 15:34:13 +0200
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
-Date: Mon, 6 May 2024 15:32:54 +0200
-Message-ID: <20240506133256.948712-7-antonio.borneo@foss.st.com>
+Date: Mon, 6 May 2024 15:32:55 +0200
+Message-ID: <20240506133256.948712-8-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240506133256.948712-1-antonio.borneo@foss.st.com>
 References: <20240506133256.948712-1-antonio.borneo@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2024-05-06_08,2024-05-06_02,2023-05-22_02
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 6/8] irqchip/stm32mp-exti: allow build as
-	module
+Subject: [Linux-stm32] [PATCH 7/8] ARM: stm32: allow build irq-stm32mp-exti
+	driver as module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,61 +79,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Allow build the driver as a module by adding the necessarily hooks
-in Kconfig and in the driver's code.
-
-Since all the probe dependencies linked to this driver has already
-been fixed, ignore the no more relevant 'arch_initcall'.
+Drop auto-selecting the driver, so it can be built either as a
+module or built-in.
 
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- drivers/irqchip/Kconfig            |  6 +++++-
- drivers/irqchip/irq-stm32mp-exti.c | 15 ++++-----------
- 2 files changed, 9 insertions(+), 12 deletions(-)
+ arch/arm/mach-stm32/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 486022fb7806e..c26d28dc0d45e 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -393,9 +393,13 @@ config PARTITION_PERCPU
- 	bool
- 
- config STM32MP_EXTI
--	bool
-+	tristate "STM32MP extended interrupts and event controller"
-+	depends on (ARCH_STM32 && !ARM_SINGLE_ARMV7M) || COMPILE_TEST
-+	default y
- 	select IRQ_DOMAIN
- 	select GENERIC_IRQ_CHIP
-+	help
-+	  Support STM32MP EXTI (extended interrupts and event) controller.
- 
- config STM32_EXTI
- 	bool
-diff --git a/drivers/irqchip/irq-stm32mp-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
-index 3ceff6d25b702..2958fbcfbda12 100644
---- a/drivers/irqchip/irq-stm32mp-exti.c
-+++ b/drivers/irqchip/irq-stm32mp-exti.c
-@@ -730,15 +730,8 @@ static struct platform_driver stm32mp_exti_driver = {
- 	},
- };
- 
--static int __init stm32mp_exti_arch_init(void)
--{
--	return platform_driver_register(&stm32mp_exti_driver);
--}
--
--static void __exit stm32mp_exti_arch_exit(void)
--{
--	return platform_driver_unregister(&stm32mp_exti_driver);
--}
-+module_platform_driver(stm32mp_exti_driver);
- 
--arch_initcall(stm32mp_exti_arch_init);
--module_exit(stm32mp_exti_arch_exit);
-+MODULE_AUTHOR("Maxime Coquelin <mcoquelin.stm32@gmail.com>");
-+MODULE_DESCRIPTION("STM32MP EXTI driver");
-+MODULE_LICENSE("GPL");
+diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+index 41bfcf31f8a76..8c8d5fc1217f6 100644
+--- a/arch/arm/mach-stm32/Kconfig
++++ b/arch/arm/mach-stm32/Kconfig
+@@ -11,7 +11,6 @@ menuconfig ARCH_STM32
+ 	select CLKSRC_STM32
+ 	select PINCTRL
+ 	select RESET_CONTROLLER
+-	select STM32MP_EXTI if ARCH_MULTI_V7
+ 	select STM32_EXTI if ARM_SINGLE_ARMV7M
+ 	help
+ 	  Support for STMicroelectronics STM32 processors.
 -- 
 2.34.1
 
