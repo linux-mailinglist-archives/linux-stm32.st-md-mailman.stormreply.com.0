@@ -2,67 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E73FA8BE332
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 15:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC258BE662
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 16:48:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF1FDC78002;
-	Tue,  7 May 2024 13:12:55 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DB21C78002
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06F0DC5E2D2;
+	Tue,  7 May 2024 14:48:48 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95CEDCFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 May 2024 13:12:54 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4479aUoW023705;
- Tue, 7 May 2024 15:12:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=e0iJNwbkjqx7aPApDiTXKG/i88K6O8VACabscAgkWYE=; b=Js
- /RmPp/u1aG14AjDgaD9yNgaVH7mBjiU+UJ9gSkUrtKZuPFftFfDgfcCHXf7zwDhw
- O81wXMx3EOomItoQWLbLqB4JMAjFf9fqMekk9QZvqjBlfvSon8+GJDh/lPaqBZju
- ZPyIvFKT0aU6+UgWxhWsc6ZqNLvXcvK2NUdJj2GpSQh6mEr1PrON4pSFtdRWGrcQ
- 1jv34QsIcOj0L+jpZG5OG25n/yxG3xgi4M/aI54PoiF43fuizlUYsWtI0b47Ao7m
- NTEC1AEFdVYL3qb28WmLd9vwvX/5FfiUgVT9v/xyCA16P6k5cvoWFq/8YHdgQVVT
- HEvOb85lYRNXNZmybEqw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwyyk9yj5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 May 2024 15:12:39 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4119840046;
- Tue,  7 May 2024 15:12:36 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6A77521B53E;
- Tue,  7 May 2024 15:12:02 +0200 (CEST)
-Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 15:12:02 +0200
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
-Date: Tue, 7 May 2024 15:10:51 +0200
-Message-ID: <20240507131051.980313-9-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240507131051.980313-1-antonio.borneo@foss.st.com>
-References: <20240507131051.980313-1-antonio.borneo@foss.st.com>
+ Tue,  7 May 2024 14:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1715093319;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mTLDRJ+Y2C9qtVA6GvAyqMW7FNLo8bVgJpqdecb1Xoc=;
+ b=fhy8m5BxQSzXx8PhyeVixJNHNA/vRNrZQ9jEmK1Ex5Qz6f1a9fzr3dwj5UKTQAv9yYhWRH
+ gygMLGBe2NBbPeIcU8Rc/ojFbJLdIkYBg87sip2FnyshKmAl4iwc6w9qvdyMfY3G38RE/S
+ NdgpDkeHUnqz/k+kXmlZ0I5Uguj3Ezo=
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-584-h8TPdd3wM7ewaSakydcGCg-1; Tue, 07 May 2024 10:48:37 -0400
+X-MC-Unique: h8TPdd3wM7ewaSakydcGCg-1
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-5ce12b4c1c9so2086421a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 07 May 2024 07:48:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715093316; x=1715698116;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mTLDRJ+Y2C9qtVA6GvAyqMW7FNLo8bVgJpqdecb1Xoc=;
+ b=HW5pUHrVYpggXOdXIg7DJuV+wmfpTEZ9aCgNL8T0PEcSDUokqNgSo3a8yuTIInAiEg
+ eU87XV+ZdMvEIkeW2hfUej6hcZqqICG2j2GmqaSh2WAJVTsRLvQWeE62kwdUkptRdu4D
+ rozVrJW3M2QHjO+6/hLIDgS3UMeW5DgY1C+eP9bhA7h/PGq5z85bZda91KJ58kAO9Mj0
+ 9af5NxwhV67pDw5uzer6hFKvDyqsb0ZOSUyYQ+NDAk/3jJBj4Wpt28w5px2DvucxYPPJ
+ 2aaWh4LmISOlDZMXO+kp7OE9pFDa3V8GjxE68Rownu2X1+aZQOSHzGyQ9gGI4X5oWmmO
+ kySQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWj8jEp16tUEHbjGvbn3czRBzOmXKkC18R1pIZ9ZY9Vy6m6BTJWij+cNJKR+0a2lpXgkUJzRy/5anYOf+aHpD5AGiCSkp3gUuf/iVOd2XFBtJvdINGSlkPT
+X-Gm-Message-State: AOJu0YxkHQpntyj0ezcHzyA5QzbUrdvPHzslbHn92CFjxRzJbMpO6ZNa
+ fHZU2VOXqcet8rJ8p+p8/35uH/U+xDlvFnaNZ21+qGgPR1dI3RcKXaVEO282uuLNVs5/by9zjFa
+ ZSL6kkMBoCyRBZG4zpF8oRHZoIe3Q9k6ILD6HydWt4Du7a4IYyzbT8uJUIH/3SOCQS1W4vIOK7Y
+ ka8g==
+X-Received: by 2002:a05:6a20:2d0a:b0:1ad:31e2:56c with SMTP id
+ g10-20020a056a202d0a00b001ad31e2056cmr16115674pzl.8.1715093316040; 
+ Tue, 07 May 2024 07:48:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHrgeM1ZE9m7PX87R+n+J5zEki5ltNJcbMD3VGwx4A43X3ZXKh0YMm+VM4cmVfuWg9cJpbq9A==
+X-Received: by 2002:a05:6a20:2d0a:b0:1ad:31e2:56c with SMTP id
+ g10-20020a056a202d0a00b001ad31e2056cmr16115613pzl.8.1715093315306; 
+ Tue, 07 May 2024 07:48:35 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ w22-20020a056a0014d600b006f43c013f66sm4429038pfu.173.2024.05.07.07.48.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 May 2024 07:48:34 -0700 (PDT)
+Date: Tue, 7 May 2024 09:48:30 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <i3w534hh4o2klrehag7cwjshwiqxergidzo4h7zz7oa3prra2k@v6xor5k4dv5x>
+References: <uz66kbjbxieof6vkliuwgpzhlrbcmeb2f5aeuourw2vqcoc4hv@2adpvba3zszx>
+ <ZjFl4rql0UgsHp97@shell.armlinux.org.uk>
+ <ykdqxnky7shebbhtucoiokbews2be5bml6raqafsfn4x6bp6h3@nqsn6akpajvp>
+ <7723d4l2kqgrez3yfauvp2ueu6awbizkrq4otqpsqpytzp45q2@rju2nxmqu4ew>
+ <25d1164e-0ac2-4311-ad27-aa536dca3882@lunn.ch>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.87.171]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-07_06,2024-05-06_02,2023-05-22_02
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 8/8] arm64: Kconfig: allow build
-	irq-stm32mp-exti driver as module
+In-Reply-To: <25d1164e-0ac2-4311-ad27-aa536dca3882@lunn.ch>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: davem@davemloft.net, netdev@vger.kernel.org,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Serge Semin <fancer.lancer@gmail.com>, linux-kernel@vger.kernel.org,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] racing ndo_open()/phylink*connect() with
+	phy_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,28 +98,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Drop auto-selecting the driver, so it can be built either as a
-module or built-in.
+On Fri, May 03, 2024 at 03:25:19AM GMT, Andrew Lunn wrote:
+> > AFAICS the problem is in the race between the end0 and end1 device
+> > probes. Right?
+> > If so then can't the order be fixed by adding the links between the
+> > OF-devices?  As it's already done for various phandle-based references
+> > like "clocks", "gpios", "phys", etc?
 
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
- arch/arm64/Kconfig.platforms | 1 -
- 1 file changed, 1 deletion(-)
+Thanks for the pointer here Serge, I had no idea (still don't have much of an
+idea) on how this works. I think this makes sense to explore some more.
+Hopefully sometime this week I'll poke at this more.
 
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index da85e0d49686f..24335565bad56 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -302,7 +302,6 @@ config ARCH_STM32
- 	select GPIOLIB
- 	select PINCTRL
- 	select PINCTRL_STM32MP257
--	select STM32MP_EXTI
- 	select ARM_SMC_MBOX
- 	select ARM_SCMI_PROTOCOL
- 	select COMMON_CLK_SCMI
--- 
-2.34.1
+> 
+> It gets tricky because an MDIO bus master device is often a sub device
+> of an Ethernet MAC driver. Typically how it works is that a MAC driver
+> probes. Part way through the probe it creates an MDIO bus driver,
+> which enumerates the MDIO bus and creates the PHYs. Later in the MAC
+> driver probe, or maybe when the MAC driver is opened, it follows the
+> phy-handle to a PHY on its own MDIO bus.
+> 
+> If you were to say it cannot probe the MAC driver until the MDIO bus
+> driver is created and the PHYs created, you never get anywhere,
+> because it is the act of probing the MAC driver which creates the PHYs
+> which fulfils the phandle.
+> 
+> You would need to differentiate between a phandle pointing deeper into
+> the same branch of a DT tree, or pointing to a different branch of a
+> DT tree. If it is deeper within the same branch, you need to probe in
+> order to make progress. If it points to a different branch you need to
+> defer until that sub-branch has successfully probed. And if you get
+> two branches which are mutually dependent on each other, probe and
+> hope EPROBE_DEFER solves it.
+
+I'll keep this relationship in mind. IIUC the fw_devlink stuff sort of handles
+cycles, but I need to look into how all that works further. At least in
+my example device, end0 is in this situation, whereas end1 is in the
+other situation, so I have a decent test setup for that.
 
 _______________________________________________
 Linux-stm32 mailing list
