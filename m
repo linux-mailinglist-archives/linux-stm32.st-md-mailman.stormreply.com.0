@@ -2,157 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A29D8BE234
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 14:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E23C88BE24F
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 14:38:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FDC7C5E2D2;
-	Tue,  7 May 2024 12:33:17 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2113.outbound.protection.outlook.com [40.107.244.113])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F9EAC5E2D2;
+	Tue,  7 May 2024 12:38:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1007ECFAC7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80121CFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 May 2024 11:03:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YlaYNp9nRGmoWXhWfCJNwU17kx62VZDBDDNsiXn0DXQvrBJjJlQAlCk1T7IaOIRmElftXDAxQoKtIHUoHx9KpHHoJh0BV7hGPfM4COgz07YGET16pcmh0mupED74TmwZGdkF1tpG2DEgQher9trwVlFCDy8zRpdhqDGZc/jNQVTgJLTgWyLeH0msCS05Dd3qzSVn1itRax8LIKaATtl93ig80t9VNH+8ZCyDuX+sImnrpBftY6HOew/9bEcEMmcQsSlwQfLG4PTkQZrw0pPFz3Yz+DiPhBLcfrEY3PjGQnqQowqwfK1I3E3ZAA5t0cR9/sCpiXjHgMscJlt+jcSzNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GtWEd1eE6KQHpSc+XY4qZSo5mNeXCeiZRHLTRHkDS8c=;
- b=KeUU+KDeLYqMQ/cnQJ81bR64nWIWTSiGlJNvyTwO4WFr02Sb2+ktLL3/ylzU6WOhcyVmbT8saRXejMebNrU6DcVHaap3VZvT2FIuLG5v1sS+NF7UlflaQeOcQgSeVsir4XoSvpZqdAgHzxd5/slRMcLwJJ+DHMrubJ4jb5xNvTM1XZttsSR/YBbPI86kpLyC8NQYIHgoBD+amSw7BdMXnJ6zYKdo+ohZ7iDw5rr/Sql7lqRyDu5TAnjdRb9yFRtC53jP+RDWJkBQ6Gkyk25x+28/lp6rbm9DdkR1GShTpp/CZl22JoaTXs7Jayzo95myUYp7h0ZmGIbMVPG23MlYDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
- header.from=os.amperecomputing.com; dkim=pass
- header.d=os.amperecomputing.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=os.amperecomputing.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GtWEd1eE6KQHpSc+XY4qZSo5mNeXCeiZRHLTRHkDS8c=;
- b=ZZIerYlHY6LyV9MuvKIzg1ncEdtEpi4UFmhaCaa0121eoBW0kSm2KE6A3M5Rc8tVS7kdCY4nyLfNj/mXQ9B1FJI5hd+bAB/O2p5Itxd5C75QgiJcPn/PZ00BD5vLZtMA0nRsG71zCzOwBQ+s8A9X1U4bn/ELYSJedMRUlk+8hQs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
-Received: from SJ2PR01MB8101.prod.exchangelabs.com (2603:10b6:a03:4f6::10) by
- PH7PR01MB7821.prod.exchangelabs.com (2603:10b6:510:1d9::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7544.43; Tue, 7 May 2024 11:03:03 +0000
-Received: from SJ2PR01MB8101.prod.exchangelabs.com
- ([fe80::d3dd:ece:637f:bde9]) by SJ2PR01MB8101.prod.exchangelabs.com
- ([fe80::d3dd:ece:637f:bde9%3]) with mapi id 15.20.7544.041; Tue, 7 May 2024
- 11:03:02 +0000
-Message-ID: <26bbc8c7-befc-4d2a-baf3-2156c740bbc9@os.amperecomputing.com>
-Date: Tue, 7 May 2024 16:32:48 +0530
-User-Agent: Mozilla Thunderbird
-To: James Clark <james.clark@arm.com>, linux-perf-users@vger.kernel.org,
- scclevenger@os.amperecomputing.com, coresight@lists.linaro.org,
- suzuki.poulose@arm.com, mike.leach@linaro.org
-References: <20240429152207.479221-1-james.clark@arm.com>
-Content-Language: en-US
-From: Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
-In-Reply-To: <20240429152207.479221-1-james.clark@arm.com>
-X-ClientProxiedBy: CH0PR03CA0299.namprd03.prod.outlook.com
- (2603:10b6:610:e6::34) To SJ2PR01MB8101.prod.exchangelabs.com
- (2603:10b6:a03:4f6::10)
+ Tue,  7 May 2024 12:38:49 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 447BU3o7015293;
+ Tue, 7 May 2024 14:38:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=3qiNad6x8nitVdBqmEwvTox+u+eOjMKAzrRDqOFgNqk=; b=yU
+ pJq8RbP6KPnmwTrLGmrjcNLqKBOgXfewISyJ56HJGVNPlxB8OJSXZtpYCPgLx9FK
+ qVQmy/NnXOuxKJV3lbKDHz9sKvzctFg/v0NrjNu1FJlfWrsEXceSHbUVLuyd8O3h
+ ssMde6+uKwJ8gNT80JL8n3rzuI0wje4rR8Cc5zYzDViXOhQ6WDL8I3DOjrPvCam1
+ kv+eeYFAFeXedgUOLaZZ75hSVIubXdGx47WzLDBumLqUlz8aCzh7qFvB+RXHv8cE
+ Z1ul+T3OKKFRbu7OZPN3kAqT7RKR6XRXZ09jk3su4OD6LPtdMHwwXSlSTFTjmzjj
+ xrKfe9vGo/yvLCKQ/H5g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwxk1hv16-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 May 2024 14:38:35 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7F3914002D;
+ Tue,  7 May 2024 14:38:29 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F2F1921A8F6;
+ Tue,  7 May 2024 14:37:38 +0200 (CEST)
+Received: from [10.48.86.143] (10.48.86.143) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
+ 2024 14:37:38 +0200
+Message-ID: <41d66c51-be2d-43a5-9dfd-9e94304980dd@foss.st.com>
+Date: Tue, 7 May 2024 14:37:37 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR01MB8101:EE_|PH7PR01MB7821:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3199ee9a-3471-4cad-2236-08dc6e8543d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|366007|376005|1800799015|7416005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QVh5eGJ1eVMwQkJwbHRHQkgydGhQZlYrOG55WFRBVC9BS0dSN21VZmFUZ2wz?=
- =?utf-8?B?NTJEbk1mdyt6dXlkUitIc1FqSGdyUTVlRENLUnpzU3lhTFNVamYzT09IK3Zi?=
- =?utf-8?B?MTVRdG9HL0dGZGd5S0FBNW4yK3dzZmxKOXhIN2p5bS81QitvNkVZbUMzamRs?=
- =?utf-8?B?enp3R21KTTZxZHVXZjFiUWdlUFlWSjhvYklWY3NZaCtlS2FLZWQvanFrWDFa?=
- =?utf-8?B?b2I5dlFvNW81bHdOTEJob3RsVXJBVmtEay83dVovVENvQWpOV2lXczUvYkxl?=
- =?utf-8?B?dmNpRzFpMVJ0OFRsZjJXQlhpdWtuU2I5Y0NhQklMempHTjhNbjlZK3F0TE1T?=
- =?utf-8?B?eUFYeFl4K1VyaXE0ck9zRTBwRitXeGtXd091RWZhbWN3eTdNdzlPVzhIazNO?=
- =?utf-8?B?cjdGa1pUbFFxZzBoZG5RR2VTSWlVbW56eGMxQ3kyOUl3N0JRQTl1K2NFRW1h?=
- =?utf-8?B?VWptWlBUSlpBTGdpZGJESm40VTk3OS84VzdHZFNDUU1RTGJlRUpYTVZQK2sr?=
- =?utf-8?B?bHd1bFVJYnVjWS9CVlZhT3FlUlQxdnpxU2xTS1A3U1dEdzlMZlhmNmtiaktP?=
- =?utf-8?B?bmdXVitPb1ZUMGxCTnlxdVhrZ0MvOWJBYmVzaG1RMlptdmlHOUExeHVFZEVB?=
- =?utf-8?B?S2k4bm9XcUlEdGtJS0wvektpYmlhNjNRd0hENlpDUXNoRklzSkd3SUhPdDhY?=
- =?utf-8?B?ZW9sNG83RWpqclRtTTFpdVZNejNZZUVsS1hjWUhzTkx5bjloTlZkd1JBSm56?=
- =?utf-8?B?OVpCQlRZVXZVNzhYQUNWZDJpMGNLVmNPOS9rUzJnVDBCbFhkVFR4aGtnZlQ2?=
- =?utf-8?B?cy9nVVFNRjQ0QXNXUWdRdTRMbFhweEZ6UUpiQmo4Z0FUMjVCQnZ2ZWFZSnJT?=
- =?utf-8?B?RjlhUFpsL0Z5NnN4VEFzZ2pQY1labFFob0lTaGZMaHpkREwxWlVoRUxrYnFM?=
- =?utf-8?B?N1ZZdkJKZFl2ZWZmRyt0cW53VC84cHhWbWJnVDVwc0NVazd0V1E4cWFTd2JH?=
- =?utf-8?B?eG9OVHZCcnJRQkVOWktiaE9oeXc4dldLWUpLZXZIL2dGVGhUSFVzV3NJcWpH?=
- =?utf-8?B?c0tINUxwL2kxbG5HSTVpaXcyRlRsVEFBclBMV2p2TU1XRDNndy9xUWR2cW4z?=
- =?utf-8?B?Vzd2RDVZR29UV2RaUTJBbTlTR0RQWjZ4dWtaTjZrZDRabEpuTVVyWStaSVFs?=
- =?utf-8?B?U3RwbTRuZW5KWGxtWHQxOG5HaWNNOGxmdEFaUDRIZFJVbDhXUU5RUTAxQThr?=
- =?utf-8?B?ZUNSYWVleWdHbUZ2OXJmcmxoM2tkTHhVNGx0NWlmcElWRGVrdzJNdHFUMUs5?=
- =?utf-8?B?OTNYU2cxUEtMZ1RyUU9tTTQ1NjhmTmUyOS9CakgxV1JPcVJTcldNaC80OE9W?=
- =?utf-8?B?YldrcFZHTUxxY0tEaGhscHJkNGJwcWhiMVF0TlM3eXFKQWU3bVV0MUJrQm00?=
- =?utf-8?B?aWxQZWJFVHpCam1XRmRWL0ZZb1ZiSkNBV3UrY0FUK3ArR1ptWVA4TjNTOGFD?=
- =?utf-8?B?aW44MEVpd1o0dDVMZERmMDJRK2tKK3pyUjlydXAzbnJOY05Tc2xUSllFS2pZ?=
- =?utf-8?B?N2NYVjZybHp5ZC9ITitlV2ZmS1NJVEFoTzlQSlliMzZ6bi95RFJpTXhKOWhk?=
- =?utf-8?B?VVlLem1hRFUzY0R5ZDBNbnl2bFJnMGtjcHFWUklhVWorc21iaXAyS0lCRXVL?=
- =?utf-8?B?ZXZhdEU3SjhDYUlYSy9EMCtaRzcra0dzYjRKZU5MdG51MmZoMmV2T3RBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR01MB8101.prod.exchangelabs.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(1800799015)(7416005); DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2p0RVFsbElQMnBPaTFBV29OTllNTDFIblBkcDF1bUhLVlo5OEsydktMeURY?=
- =?utf-8?B?ZEpvZ3N1b1h5TGFNWEVPQ0g4bTRnUE5BVE5walA2VEgzdnpvcGxYZnVpbC9H?=
- =?utf-8?B?U0MxNkd6UUJGam1uUTQrR2Q2d2loTUhXdy9DZ1pOYlBnUlU1dTVjTXIzdHFq?=
- =?utf-8?B?ZG9Qa3VlVk9sK2orVzRiMkhFaDBSaUVEaHVJQ0pLcGVzSEhsR0VPN3dVV2Jz?=
- =?utf-8?B?b3Q3di9NeHQ2d3o4dk16aGtXajBsWXB6S1NldjMzM1ZyZWVycDRVenE2Uk16?=
- =?utf-8?B?UjFnR0JCeExtcUtYMURTK0QyQ085Z2xHZ3F5RVNWbG9wZzZCVHRhTG1pZ0hk?=
- =?utf-8?B?cnFwYkNoZU9KNWtXbVpiVkdXcUZrZmZqT2loLzd0cS9BRlVySmxKc1RGRG1L?=
- =?utf-8?B?WUwxN3FIcUY2UGJJWmQvdytGOEF4TmJ1dzdmOWxEYUh2TTkybjdVQ3lraWcv?=
- =?utf-8?B?TlA0UHh5eHI4d0cyYjdkSzgxVGN6N2pBTUpwOE5QQU5kMzRnTCt6UGQxMnNV?=
- =?utf-8?B?V0Zpd2ZEcjhKUU5NZWJvdUVRUTZRc1d2bll5U21QNzl4SFpnMzRUandHK0hz?=
- =?utf-8?B?STdpR0RTY2oyRVdUU3dqeFVhN1ZQUm1zemdObjkvaWpzQ3dEakhNc1VGQWtB?=
- =?utf-8?B?YlBxTGhnODJyenBKeENUZTN6VElHaFJscXpoUnhHNk1OWVQzU1FtYm1wWFNk?=
- =?utf-8?B?TExQWXlTd3pId0w4NTFsaVpUQVZKemhKcjB3VHlZaFhSWnlpK1k0TzFOd2F6?=
- =?utf-8?B?S0szNjVzTHJUNDFkbHp2aEszRXQ3ekUrTjZxMjduVUxrRi9sV3RhVUNRV3JG?=
- =?utf-8?B?b0tvTnkySllhUzZoQ1FGVmxTNXoxSEdQZFNJenJ4d1VrSk13NjZkSXFIa05K?=
- =?utf-8?B?Z1VPdTFDa0hxNUFSbVhlM2V4MXdaSDVGTmFLMGdUZ2pQNVJlb3QxWk9pUTdD?=
- =?utf-8?B?aHVGUy9zTEpvV1RQckltWVBSNk1UaXVqS3p5U1lyU2l2dHhwaFFYV2RFT3hZ?=
- =?utf-8?B?M3FHN2hKaTYyWnJaRENROVlXZTk3aXdWVkJCbUM1eWcrRnhaMzg0L0laY2c1?=
- =?utf-8?B?OFMrN3Jkd1JJaHhGRDlKS2ZZTjNIN3B6SU13OTdaRExGaHV3VURXbzVjRExy?=
- =?utf-8?B?RGNyTEFyVXNhM3FaU2dhNUhvdmZibS91bXNWZUg0UGJzZGVHS0xSejhWTmtD?=
- =?utf-8?B?aW8yQ2VmZ2Mvcy9lWlBvTFYxWnhhM09SU0NEMUx2bkVZQjNFVXZPcnFTL1pZ?=
- =?utf-8?B?STNONHBZZFJZbmhhSEJWRnhRMy9UNjRqVE1PdkF4R01pdk9XaHRSbGlHMG9j?=
- =?utf-8?B?VmM1ejBLR1dRdXI2clJCb3lIUXNZNzF2Qm0wQysvUG1jWUs1ZXJwalNBdWMz?=
- =?utf-8?B?djFtR3FpMTFVaGZTYm1iWlNweHhkWnJUcEMzckJXNC9QYzhNdFl0TEJQMFZ1?=
- =?utf-8?B?cVpoR2xTYXdLRXZQSUpHdmcxM1JTVHZ3RnIwRlI4Q3A0OGxwSEYrVkhNZXho?=
- =?utf-8?B?MzN1Rjk5ZDcxOWgyRUxYVjJUbnJVenJMN1YrQkQzV2JNZlJkK1dZYXZSd0VZ?=
- =?utf-8?B?cWp5VkxoaFZyMVB2RC9TSXlqdDZqK1VOSGJVbjZLWU1BTWF5N09NWjE3bXZs?=
- =?utf-8?B?U3E5S2pJb1VEWDc1SkFHWGZXQUVtQ1VxWWtuZ1lTQkpWZlFkVWd4NmxWVkt6?=
- =?utf-8?B?K09SaFNwVlBTQXo4WUFZQXZrclBIb0RhRk1zNm5rRXlOZ0E2bHYwek5EVWQ2?=
- =?utf-8?B?NEw3YzFqK0R4R2tOYm45andTNU10R2tDRU9KMjdQVW5kcis3UzJ5bHB4eCtV?=
- =?utf-8?B?QkhJU0xsUnI3Q2RDbWVXVDh2Y2xpdlNnUFZmaGlKYlQ5Smw4bU5mNnV6THVR?=
- =?utf-8?B?UG5Xb010RnVRbHRUOHN5dTVVdW1xd1k4Vm1LbzhmN2R4eWZvM3NJWmx3em8r?=
- =?utf-8?B?Sk5NMXE2NDl6MS9JZmtlN3A2aHpsUkpVbWx4Qk9vWnN4ZzBPWHBoNVp2eExh?=
- =?utf-8?B?OEltRXNaaU9DSGZSZFFRUG5DUzBCeDlWRXk0bENBUk4wWDc5NDF3Y2Y4RzdW?=
- =?utf-8?B?bkdWN1VsTEVFb0svbDJiZldsNmNWU2RCamVzVlBHdWNkbFJZRjBPVUJhKzFP?=
- =?utf-8?B?Y0RoSUdlV1Z6RzluNkttMytQMW5nbDVnNU5hWlB5TllGVG9SRVR1RUl5Szdv?=
- =?utf-8?Q?79N44F2gi2Qfb71cXHg1cCA=3D?=
-X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3199ee9a-3471-4cad-2236-08dc6e8543d2
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR01MB8101.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2024 11:03:02.8407 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zn7PoeFC+eZDGr0Y5W4U+ftsctnHecyyeZipGxalqaw5cidqEkS6GKY4ONu8nyZlGeT27TAKcQnLkvnwVSIirktnWYRbMyHvENQIl5konSF4Wk8fw1aOmpM85hH5cfZA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR01MB7821
-X-Mailman-Approved-At: Tue, 07 May 2024 12:33:16 +0000
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, Peter Zijlstra <peterz@infradead.org>,
- Leo Yan <leo.yan@linux.dev>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/17] coresight: Use per-sink trace ID
- maps for Perf sessions
+User-Agent: Mozilla Thunderbird
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+References: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
+ <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
+ <38193848-597d-47c1-9aea-5357e58f9983@wanadoo.fr>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <38193848-597d-47c1-9aea-5357e58f9983@wanadoo.fr>
+X-Originating-IP: [10.48.86.143]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-07_06,2024-05-06_02,2023-05-22_02
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, robh+dt@kernel.org,
+ linux-hardening@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 05/12] dmaengine: Add STM32 DMA3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,96 +75,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-Hi James,
-
-On 29-04-2024 08:51 pm, James Clark wrote:
-> This will allow sessions with more than CORESIGHT_TRACE_IDS_MAX ETMs
-> as long as there are fewer than that many ETMs connected to each sink.
-> 
-> Each sink owns its own trace ID map, and any Perf session connecting to
-> that sink will allocate from it, even if the sink is currently in use by
-> other users. This is similar to the existing behavior where the dynamic
-> trace IDs are constant as long as there is any concurrent Perf session
-> active. It's not completely optimal because slightly more IDs will be
-> used than necessary, but the optimal solution involves tracking the PIDs
-> of each session and allocating ID maps based on the session owner. This
-> is difficult to do with the combination of per-thread and per-cpu modes
-> and some scheduling issues. The complexity of this isn't likely to worth
-> it because even with multiple users they'd just see a difference in the
-> ordering of ID allocations rather than hitting any limits (unless the
-> hardware does have too many ETMs connected to one sink).
-> 
-> Per-thread mode works but only until there are any overlapping IDs, at
-> which point Perf will error out. Both per-thread mode and sysfs mode are
-> left to future changes, but both can be added on top of this initial
-> implementation and only sysfs mode requires further driver changes.
-> 
-> The HW_ID version field hasn't been bumped in order to not break Perf
-> which already has an error condition for other values of that field.
-> Instead a new minor version has been added which signifies that there
-> are new fields but the old fields are backwards compatible.
-> 
-> 
-> James Clark (17):
->    perf cs-etm: Print error for new PERF_RECORD_AUX_OUTPUT_HW_ID versions
->    perf auxtrace: Allow number of queues to be specified
->    perf: cs-etm: Create decoders after both AUX and HW_ID search passes
->    perf: cs-etm: Allocate queues for all CPUs
->    perf: cs-etm: Move traceid_list to each queue
->    perf: cs-etm: Create decoders based on the trace ID mappings
->    perf: cs-etm: Support version 0.1 of HW_ID packets
->    coresight: Remove unused stubs
->    coresight: Clarify comments around the PID of the sink owner
->    coresight: Move struct coresight_trace_id_map to common header
->    coresight: Expose map argument in trace ID API
->    coresight: Make CPU id map a property of a trace ID map
->    coresight: Pass trace ID map into source enable
->    coresight: Use per-sink trace ID maps for Perf sessions
->    coresight: Remove pending trace ID release mechanism
->    coresight: Re-emit trace IDs when the sink changes in per-thread mode
->    coresight: Emit HW_IDs for all ETMs that are using the sink
-> 
->   drivers/hwtracing/coresight/coresight-core.c  |  10 +
->   drivers/hwtracing/coresight/coresight-dummy.c |   3 +-
->   .../hwtracing/coresight/coresight-etm-perf.c  |  82 ++-
->   .../hwtracing/coresight/coresight-etm-perf.h  |  20 +-
->   .../coresight/coresight-etm3x-core.c          |  14 +-
->   .../coresight/coresight-etm4x-core.c          |  14 +-
->   drivers/hwtracing/coresight/coresight-stm.c   |   3 +-
->   drivers/hwtracing/coresight/coresight-sysfs.c |   3 +-
->   .../hwtracing/coresight/coresight-tmc-etr.c   |   5 +-
->   drivers/hwtracing/coresight/coresight-tmc.h   |   5 +-
->   drivers/hwtracing/coresight/coresight-tpdm.c  |   3 +-
->   .../hwtracing/coresight/coresight-trace-id.c  | 107 +--
->   .../hwtracing/coresight/coresight-trace-id.h  |  57 +-
->   include/linux/coresight-pmu.h                 |  17 +-
->   include/linux/coresight.h                     |  20 +-
->   tools/include/linux/coresight-pmu.h           |  17 +-
->   tools/perf/util/auxtrace.c                    |   9 +-
->   tools/perf/util/auxtrace.h                    |   1 +
->   .../perf/util/cs-etm-decoder/cs-etm-decoder.c |  28 +-
->   tools/perf/util/cs-etm.c                      | 617 ++++++++++++------
->   tools/perf/util/cs-etm.h                      |   2 +-
->   21 files changed, 633 insertions(+), 404 deletions(-)
-> 
-
-Thanks for implementing trace-id mapping per sink, with that we could 
-try perf (coresight tracing) for more than 100+ CPUs.
-
-Please feel free to add,
-Tested-by: Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
-
-Thanks,
-Ganapat
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCk9uIDUvNC8yNCAxNjoyNywg
+Q2hyaXN0b3BoZSBKQUlMTEVUIHdyb3RlOgo+IExlIDIzLzA0LzIwMjQgw6AgMTQ6MzIsIEFtZWxp
+ZSBEZWxhdW5heSBhIMOpY3JpdMKgOgo+PiBTVE0zMiBETUEzIGRyaXZlciBzdXBwb3J0cyB0aGUg
+MyBoYXJkd2FyZSBjb25maWd1cmF0aW9ucyBvZiB0aGUgU1RNMzIgCj4+IERNQTMKPj4gY29udHJv
+bGxlcjoKPj4gLSBMUERNQSAoTG93IFBvd2VyKTogNCBjaGFubmVscywgbm8gRklGTwo+PiAtIEdQ
+RE1BIChHZW5lcmFsIFB1cnBvc2UpOiAxNiBjaGFubmVscywgRklGTyBmcm9tIDggdG8gMzIgYnl0
+ZXMKPj4gLSBIUERNQSAoSGlnaCBQZXJmb3JtYW5jZSk6IDE2IGNoYW5uZWxzLCBGSUZPIGZyb20g
+OCB0byAyNTYgYnl0ZXMKPj4gSGFyZHdhcmUgY29uZmlndXJhdGlvbiBvZiB0aGUgY2hhbm5lbHMg
+aXMgcmV0cmlldmVkIGZyb20gdGhlIGhhcmR3YXJlCj4+IGNvbmZpZ3VyYXRpb24gcmVnaXN0ZXJz
+Lgo+PiBUaGUgY2xpZW50IGNhbiBzcGVjaWZ5IGl0cyBjaGFubmVsIHJlcXVpcmVtZW50cyB0aHJv
+dWdoIGRldmljZSB0cmVlLgo+PiBTVE0zMiBETUEzIGNoYW5uZWxzIGNhbiBiZSBpbmRpdmlkdWFs
+bHkgcmVzZXJ2ZWQgZWl0aGVyIGJlY2F1c2UgdGhleSBhcmUKPj4gc2VjdXJlLCBvciBkZWRpY2F0
+ZWQgdG8gYW5vdGhlciBDUFUuCj4+IEluZGVlZCwgY2hhbm5lbHMgYXZhaWxhYmlsaXR5IGRlcGVu
+ZHMgb24gUmVzb3VyY2UgSXNvbGF0aW9uIEZyYW1ld29yawo+PiAoUklGKSBjb25maWd1cmF0aW9u
+LiBSSUYgZ3JhbnRzIGFjY2VzcyB0byBidXNlcyB3aXRoIENvbXBhcnRpbWVudCBJRAo+PiAoQ0lG
+KSBmaWx0ZXJpbmcsIHNlY3VyZSBhbmQgcHJpdmlsZWdlIGxldmVsLiBJdCBhbHNvIGFzc2lnbnMg
+RE1BIGNoYW5uZWxzCj4+IHRvIG9uZSBvciBzZXZlcmFsIHByb2Nlc3NvcnMuCj4+IERNQSBjaGFu
+bmVscyB1c2VkIGJ5IExpbnV4IHNob3VsZCBiZSBDSUQtZmlsdGVyZWQgYW5kIHN0YXRpY2FsbHkg
+YXNzaWduZWQKPj4gdG8gQ0lEMSBvciBzaGFyZWQgd2l0aCBvdGhlciBDUFVzIGJ1dCB1c2luZyBz
+ZW1hcGhvcmUuIEluIGNhc2UgQ0lECj4+IGZpbHRlcmluZyBpcyBub3QgY29uZmlndXJlZCwgZG1h
+LWNoYW5uZWwtbWFzayBwcm9wZXJ0eSBjYW4gYmUgdXNlZCB0bwo+PiBzcGVjaWZ5IGF2YWlsYWJs
+ZSBETUEgY2hhbm5lbHMgdG8gdGhlIGtlcm5lbCwgb3RoZXJ3aXNlIHN1Y2ggY2hhbm5lbHMKPj4g
+d2lsbCBiZSBtYXJrZWQgYXMgcmVzZXJ2ZWQgYW5kIGNhbid0IGJlIHVzZWQgYnkgTGludXguCj4+
+Cj4+IFNpZ25lZC1vZmYtYnk6IEFtZWxpZSBEZWxhdW5heSAKPj4gPGFtZWxpZS5kZWxhdW5heS1y
+ajBJZWwvSlI0TkJEZ2pLN3k3VFVRQHB1YmxpYy5nbWFuZS5vcmc+Cj4+IC0tLQo+IAo+IC4uLgo+
+IAo+PiArwqDCoMKgIHBtX3J1bnRpbWVfc2V0X2FjdGl2ZSgmcGRldi0+ZGV2KTsKPj4gK8KgwqDC
+oCBwbV9ydW50aW1lX2VuYWJsZSgmcGRldi0+ZGV2KTsKPj4gK8KgwqDCoCBwbV9ydW50aW1lX2dl
+dF9ub3Jlc3VtZSgmcGRldi0+ZGV2KTsKPj4gK8KgwqDCoCBwbV9ydW50aW1lX3B1dCgmcGRldi0+
+ZGV2KTsKPj4gKwo+PiArwqDCoMKgIGRldl9pbmZvKCZwZGV2LT5kZXYsICJTVE0zMiBETUEzIHJl
+Z2lzdGVyZWQgcmV2OiVsdS4lbHVcbiIsCj4+ICvCoMKgwqDCoMKgwqDCoMKgIEZJRUxEX0dFVChW
+RVJSX01BSlJFViwgdmVyciksIEZJRUxEX0dFVChWRVJSX01JTlJFViwgdmVycikpOwo+PiArCj4+
+ICvCoMKgwqAgcmV0dXJuIDA7Cj4+ICsKPj4gK2Vycl9jbGtfZGlzYWJsZToKPj4gK8KgwqDCoCBj
+bGtfZGlzYWJsZV91bnByZXBhcmUoZGRhdGEtPmNsayk7Cj4+ICsKPj4gK8KgwqDCoCByZXR1cm4g
+cmV0Owo+PiArfQo+PiArCj4+ICtzdGF0aWMgdm9pZCBzdG0zMl9kbWEzX3JlbW92ZShzdHJ1Y3Qg
+cGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiArewo+PiArwqDCoMKgIHBtX3J1bnRpbWVfZGlzYWJs
+ZSgmcGRldi0+ZGV2KTsKPiAKPiBIaSwKPiAKPiBtaXNzaW5nIGNsa19kaXNhYmxlX3VucHJlcGFy
+ZShkZGF0YS0+Y2xrKTs/Cj4gCj4gYXMgaW4gdGhlIGVycm9yIGhhbmRsaW5nIHBhdGggb24gdGhl
+IHByb2JlIGp1c3QgYWJvdmU/Cj4gCj4gQ0oKPiAKCkNsb2NrIGlzIGVudGlyZWx5IG1hbmFnZWQg
+YnkgcG1fcnVudGltZSwgZXhjZXB0IGluIGVycm9yIHBhdGggb2YgcHJvYmUgCnNpbmNlIHBtX3J1
+bnRpbWUgaXMgZW5hYmxlZCBvbmx5IGF0IHRoZSB2ZXJ5IGVuZC4KQ2xvY2sgaXMgZW5hYmxlZCB3
+aXRoIHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoKSB3aGVuIGEgY2hhbm5lbCBpcyAKcmVxdWVz
+dGVkIG9yIHdoZW4gYW4gYXN5bmNocm9ub3VzIHJlZ2lzdGVyIGFjY2VzcyBvY2N1cnMgKGZpbHRl
+cl9mbiwgCmRlYnVnZnMsIHJ1bnRpbWVfcmVzdW1lKSBhbmQgY2xvY2sgaXMgZGlzYWJsZWQgd2l0
+aCAKcG1fcnVudGltZV9wdXRfc3luYygpIHdoZW4gcmVsZWFzaW5nIGEgY2hhbm5lbCBvciBhdCB0
+aGUgZW5kIG9mIAphc3luY2hyb25vdXMgcmVnaXN0ZXIgYWNjZXNzIChmaWx0ZXJfZm4sIGRlYnVn
+ZnMsIHJ1bnRpbWVfc3VzcGVuZCkuCkFkZGluZyBjbGtfZGlzYWJsZV91bnByZXBhcmUoZGRhdGEt
+PmNsayk7IGhlcmUgbGVhZHMgdG8gY2xvY2sgYWxyZWFkeSAKZGlzYWJsZWQvdW5wcmVwYXJlZCB3
+YXJuaW5ncyBpbiBkcml2ZXJzL2Nsay9jbGsuYyAKY2xrX2NvcmVfZGlzYWJsZSgpL2Nsa19jb3Jl
+X3VucHJlcGFyZSgpLgoKPj4gK30KPiAKPiAuLi4KPiAKClJlZ2FyZHMsCkFtZWxpZQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
