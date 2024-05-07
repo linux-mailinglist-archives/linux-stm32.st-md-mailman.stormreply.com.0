@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86E28BEF49
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 23:59:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC7E8BEF9B
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2024 00:02:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0ECDC6907A;
-	Tue,  7 May 2024 21:59:36 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D67A3C5E2D2;
+	Tue,  7 May 2024 22:02:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42F24C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AF1C5E2D1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 May 2024 21:59:29 +0000 (UTC)
+ Tue,  7 May 2024 22:02:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 60919CE170B;
- Tue,  7 May 2024 21:59:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844D2C2BBFC;
- Tue,  7 May 2024 21:59:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1CB99619A5;
+ Tue,  7 May 2024 22:02:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3235C2BBFC;
+ Tue,  7 May 2024 22:02:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715119165;
- bh=6Tx8Ao+c88e5pawNIUE7BBmPVhW/I8eksE19lk+ATSQ=;
+ s=k20201202; t=1715119369;
+ bh=ECDBXpA/C+eVvh+6xfhTbhth3yLG8cu9XKxgvKvqxOo=;
  h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=usY0vJvABlPssee3xoVzWRzL6N2TqDEtGQsy8HjAY0JGe4v6mn1Mr7Zy7wDjz4BWR
- 4bGxp/3AnOzYCx8pS2mr85FtqgcegYk/OYxDVuDBCb/RCE24Eej521k6TPkZeAVsxM
- UDTYyrZlouGxS4FRW3fgeVbA6Hjv6dej6GIGk4BfzVovH+516EsTx4n2G1csJcfd35
- af9h43MHsYPD2XZyE44vx/9Z2yqB3gga5xjDnShwlh2imoM7KiQjCHA0Wu7fY1dwPc
- hMR9zj2aj83eVQy4TjXLIFRV8I/7T70nWgS6uvyMWy2l6FGYZRSYNkV49pyjQDqnQv
- EK807WczBp45g==
-Message-ID: <dab1901cc1de2688977340734c252e98.sboyd@kernel.org>
+ b=gAgk5W1e0tOEO9WlYzPLOCZ+9mCwBDvfyQTxMT4LvrHCji5I0WgltgrclRalG72pj
+ WMuOyg0CXOXsp067YM5S7JkutAgSs0kD5O+0zBa6RNx/+/VMwNGExSAJgHSDpM4Gwj
+ PHQcfg+MJpIDPACHsBAFqUYI0HGwYAefjvlNLRiMSCkziG7qCo7OPEZFdY4TOGyhAq
+ JY9it3DU1wkY2LPQ6lujypdORiS/snyOk7+BvnYuSYbxptlSdUj/JJ6eZ+kgazNaVq
+ todH6nHNaskpq3Em4qBytUT3yIm4I6rfL5/ZjY8cnr0N6hZVvtbIrnM9L0oKWsVT50
+ dqson14uMhgZg==
+Message-ID: <332c845c17e24e2eb660e18680f2626f.sboyd@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20240419152723.570159-2-gabriel.fernandez@foss.st.com>
+In-Reply-To: <20240419152723.570159-3-gabriel.fernandez@foss.st.com>
 References: <20240419152723.570159-1-gabriel.fernandez@foss.st.com>
- <20240419152723.570159-2-gabriel.fernandez@foss.st.com>
+ <20240419152723.570159-3-gabriel.fernandez@foss.st.com>
 From: Stephen Boyd <sboyd@kernel.org>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Conor Dooley <conor+dt@kernel.org>,
@@ -41,13 +41,13 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>
-Date: Tue, 07 May 2024 14:59:23 -0700
+Date: Tue, 07 May 2024 15:02:47 -0700
 User-Agent: alot/0.10
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: clocks: stm32mp25: add
-	access-controllers description
+Subject: Re: [Linux-stm32] [PATCH 2/4] clk: stm32mp2: use of STM32 access
+	controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,18 +64,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting gabriel.fernandez@foss.st.com (2024-04-19 08:27:20)
-> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> 
-> access-controllers is an optional property that allows to refer to
-> domain access controller.
-> The RCC driver will be able to check if we are allowed to register
-> clocks for a peripheral.
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
+Quoting gabriel.fernandez@foss.st.com (2024-04-19 08:27:21)
+> diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-stm32mp25.c
+> index 210b75b39e50..a37ee9f707e3 100644
+> --- a/drivers/clk/stm32/clk-stm32mp25.c
+> +++ b/drivers/clk/stm32/clk-stm32mp25.c
+> @@ -4,7 +4,9 @@
+>   * Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com> for STMicroelectronics.
+>   */
+>  
+> +#include <linux/bus/stm32_firewall_device.h>
 
-Applied to clk-next
+I don't have this include. I either need a signed tag or this needs to
+wait until next merge window.
+
+>  #include <linux/clk-provider.h>
+> +#include <linux/of_address.h>
+
+What is this include for?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
