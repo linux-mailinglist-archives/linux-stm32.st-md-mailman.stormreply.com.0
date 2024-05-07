@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15598BE2D0
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 14:58:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E11CA8BE329
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2024 15:11:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6749AC78006;
-	Tue,  7 May 2024 12:58:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E717C78001;
+	Tue,  7 May 2024 13:11:58 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF66C78001
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 394BDC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 May 2024 12:58:20 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 447BCcrk001210;
- Tue, 7 May 2024 14:58:00 +0200
+ Tue,  7 May 2024 13:11:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 447Bw9t6030034;
+ Tue, 7 May 2024 15:11:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=OzrCQo0hpWSO9pso58zSn8WSa87BgyfCcJpHJH1EMEE=; b=e0
- HLY+I/wrNHysZzR809wcSV4my4hqEcdtRU740FAqz9p0EkMMMwnho723iTxYzTui
- avXgRm7ALmOqjWZCUfadIJSw+6ezKuOFnd5zijJlUTZlKusJUb+ODYmMzYFQzrbT
- wiUaBj3W7WXOWxVjR5bwFKOpJk2tco8IDY5qjvVkzoO5YUzmNiMRFulq576swjWr
- D3Xi6aeyAZ2KdtZlOZTJD9mEiwW8UGhS/AdCitMWPqIldV7rH3WdLXyDUiMVsDiN
- bhKj+qAdho/1FQ5YgRTHh2GdReKmMSZOi6h7Re1iyFSMLgfnEYQ7L3CqhWxoShxg
- m5zIF0ZH4nBGzHv9IgoQ==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=Xx8BStG
+ SuUuWEWc4uf/Q4C/XeVhtQS6pvbN0QryO6OM=; b=sXugHfw5fEGmrbHRH04y0hA
+ 6ri8Z8xeniYIEEM2I5V5/Zt9Q2sBL2WpurJ0JNnwilTNRVXqTmkfitir7hnyOwsu
+ k2qlqjVwyOBVUD41quMMkgloYwPZYpytqCBRvJAxS6pC/nb8KDTWRTsy+rVohmY6
+ ozqmx2yI+HGd5KEJmQ8n+Pr/AYSSJhsfALiaRa7h/erKat8qA3jf3wBjFBwkO5bz
+ TWjPJfqvs99XcdiccjjKG0gDIeh5DdncCjYKY85PMBuE+bGoybjfKHMv0806AnRO
+ PoVt2PsJ9GfB4jjf+twqPIm9oaO9GXf5sAOD7Eml26X8i3hP1yKTTwK3I4AC6gQ=
+ =
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwbwckpyx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xwa553xd6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 May 2024 14:57:59 +0200 (MEST)
+ Tue, 07 May 2024 15:11:33 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D7AD940046;
- Tue,  7 May 2024 14:57:55 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A35721A91F;
- Tue,  7 May 2024 14:57:11 +0200 (CEST)
-Received: from localhost (10.48.86.143) by SHFDAG1NODE3.st.com (10.75.129.71)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6C76A40047;
+ Tue,  7 May 2024 15:11:29 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4809321B53D;
+ Tue,  7 May 2024 15:10:55 +0200 (CEST)
+Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 7 May
- 2024 14:57:10 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 7 May 2024 14:54:42 +0200
-Message-ID: <20240507125442.3989284-13-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240507125442.3989284-1-amelie.delaunay@foss.st.com>
-References: <20240507125442.3989284-1-amelie.delaunay@foss.st.com>
+ 2024 15:10:55 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
+Date: Tue, 7 May 2024 15:10:43 +0200
+Message-ID: <20240507131051.980313-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.143]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+X-Originating-IP: [10.48.87.171]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
  definitions=2024-05-07_06,2024-05-06_02,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 12/12] arm64: dts: st: add HPDMA nodes on
-	stm32mp251
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/8] irqchip/stm32-exti: split MCU and MPU
+	code, allow module build
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,107 +77,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The High Performance Direct Memory Access (HPDMA) controller is used to
-perform programmable data transfers between memory-mapped peripherals
-and memories (or between memories) via linked-lists.
+The file 'irq-stm32-exti.c' contains two drivers:
+- EXTI for ARMv7m STM32 MCUs;
+- EXTI for ARMv7a & ARMv8a STM32MPxxx MPUs.
 
-There are 3 instances of HPDMA on stm32mp251, using stm32-dma3 driver, with
-16 channels per instance and with one interrupt per channel.
-Channels 0 to 7 are implemented with a FIFO of 8 bytes.
-Channels 8 to 11 are implemented with a FIFO of 32 bytes.
-Channels 12 to 15 are implemented with a FIFO of 128 bytes.
-Thanks to stm32-dma3 bindings, the user can ask for a channel with specific
-FIFO size.
+The current arrangement causes some issue:
+- the growing code for MPUs uses precious space on memory constraint
+  MCUs devices;
+- the driver for MPU cannot be built as module;
+- there are risks to break one of the two drivers while working on
+  the other.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
-v2: use SoC specific compatible st,stm32mp25-dma3
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 69 ++++++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+Since there are only 4 minor functions shared among the two drivers:
+- stm32_exti_set_type();
+- stm32_chip_resume();
+- stm32_chip_suspend();
+- stm32_exti_chip_init();
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 5dd4f3580a60..73125657e7f0 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -123,6 +123,75 @@ soc@0 {
- 		interrupt-parent = <&intc>;
- 		ranges = <0x0 0x0 0x0 0x80000000>;
- 
-+		hpdma: dma-controller@40400000 {
-+			compatible = "st,stm32mp25-dma3";
-+			reg = <0x40400000 0x1000>;
-+			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ck_icn_ls_mcu>;
-+			#dma-cells = <3>;
-+		};
-+
-+		hpdma2: dma-controller@40410000 {
-+			compatible = "st,stm32mp25-dma3";
-+			reg = <0x40410000 0x1000>;
-+			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ck_icn_ls_mcu>;
-+			#dma-cells = <3>;
-+		};
-+
-+		hpdma3: dma-controller@40420000 {
-+			compatible = "st,stm32mp25-dma3";
-+			reg = <0x40420000 0x1000>;
-+			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ck_icn_ls_mcu>;
-+			#dma-cells = <3>;
-+		};
-+
- 		rifsc: rifsc-bus@42080000 {
- 			compatible = "simple-bus";
- 			reg = <0x42080000 0x1000>;
+this series splits the file in two independent files, each containing
+a single driver.
+To guarantee bisect-ability, the series first introduces some hook in
+Kconfig, then splits the file and at the end enables module build on
+MPU while cleaning-up Kconfig.
+The symbols in the MPU file are renamed to better match the new name
+of the driver.
+
+The patches are created with 'git format-patch -C' to correctly show
+the deleted parts and the tiny modifications between the original
+monolithic file and the two extracted ones.
+
+The series is rebased on irq/core branch of tip as it depends on a
+previous series already queued for v6.10 merge window.
+
+
+v1 -> v2
+- fix module dependency from IRQ_DOMAIN_HIERARCHY, detected by kernel
+  test robot <lkp@intel.com>
+
+
+Antonio Borneo (8):
+  irqchip/stm32-exti: add CONFIG_STM32MP_EXTI
+  ARM: stm32: use different EXTI driver on ARMv7m and ARMv7a
+  arm64: Kconfig: select STM32MP_EXTI on STM32 platforms
+  irqchip/stm32-exti: split MCU and MPU code
+  irqchip/stm32mp-exti: rename internal symbols
+  irqchip/stm32mp-exti: allow build as module
+  ARM: stm32: allow build irq-stm32mp-exti driver as module
+  arm64: Kconfig: allow build irq-stm32mp-exti driver as module
+
+ arch/arm/mach-stm32/Kconfig        |   2 +-
+ arch/arm64/Kconfig.platforms       |   1 -
+ drivers/irqchip/Kconfig            |   9 +
+ drivers/irqchip/Makefile           |   1 +
+ drivers/irqchip/irq-stm32-exti.c   | 670 +-------------------------
+ drivers/irqchip/irq-stm32mp-exti.c | 737 +++++++++++++++++++++++++++++
+ 6 files changed, 752 insertions(+), 668 deletions(-)
+ create mode 100644 drivers/irqchip/irq-stm32mp-exti.c
+
+
+base-commit: 382d2ffe86efb1e2fa803d2cf17e5bfc34e574f3
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
