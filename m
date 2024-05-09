@@ -2,164 +2,148 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAFED8C08F1
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2024 03:11:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DD28C0FAF
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2024 14:38:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3419C5E2D2;
-	Thu,  9 May 2024 01:11:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF819C5E2D2;
+	Thu,  9 May 2024 12:38:23 +0000 (UTC)
 Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
  [205.220.166.238])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64519C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77CA2C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 May 2024 01:11:42 +0000 (UTC)
-Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 449103BM014977;
- Wed, 8 May 2024 18:11:10 -0700
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2101.outbound.protection.outlook.com [104.47.58.101])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3xyse1hb0b-1
+ Thu,  9 May 2024 12:38:16 +0000 (UTC)
+Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4491sjAo012099;
+ Thu, 9 May 2024 05:37:44 -0700
+Received: from nam02-bn1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02lp2041.outbound.protection.outlook.com [104.47.51.41])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3xyse19s6g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 May 2024 18:11:09 -0700 (PDT)
+ Thu, 09 May 2024 05:37:43 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X43ITG93V3DhU5qYhS3AoHEPH5jiGl2l6bWJlCKgmtJXlB7IC5cbRPfOR3zVxGPYhyqPNTAryhNcPseF7yBovbR3cZNEy3OEcFkS0cC2m5Owp+0X51zh768D08a2M3Imyd4L70T/h20Qz9iUuwpcO36dPB8s3f95hVqpsT3btc8hUzbI9vf3v9BI3qpi7IkVcUcSjfG5lVjb5cPKU6eKcG9AB0ZUdPflzt9zkYBI7QLOqJT+U5Er4eAHoH0xTvmBHo/u2KNOi9jNYLfW4ZSpm0Wmjt2lIXbfWeCXGYOjwJvuYDHSfLBM0qMpSFZxormWeLh3NrIhg1kAwR2xWzdskg==
+ b=oGVYCPzTxacdWR+YP418Vg2nQUQBsyyIMZ/x19jZ3+cVbwxdp/sK8XgESfdbAhr6A9p9+RGvZi2/UuYDD1ZhR1wYsZmazimhGl0rF6RaZmGzJBOGK43mzsNsiyHYs+pPiQP8oo/Ujflusg8NcLeDlH1feYCyygMV4M/4BIj/hu8oRQBsyEa/UoJoZd6IKQoDbNdp2RuxkQxRzdAAVygfJ2PLNqYxYQzgy4rXWS6OOfDUe3j3ut3eObAO10Yvyjt9FrJFlB55W3FBvzm1L9ardqb6D7Yu46B1QAUqwNJ2tVVT4e4osvHnIyh5MJXL2Xqkut/QH4BMzgXfZ3S4sglQ7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kZrMZgCpscq2mlXRzMRog26HCwnqKwx6gwisOvoDwYg=;
- b=aed1s0hz68c1c6WP9hfAV2532wEi7u59IWN8Etb4K/4OBsSue+rjVTcTgtBrn5688HVXnwZK3ZAbtrvGeaJT+Nucy3wXvCDEfSSDZrjUPbLApUkhoWj+IPx1lrwTrpnLNMazvPQ3UNAuLVLpkEc+qbxzKvW74/7Zia3jHFV9Exwh+pfPnmfN3cLkv+O6E671JTphxsIXZa3oqoxjeR6YNEVXgoaVYjE7Mio3JSAVGXqoMUQUzYANT2hD+axCOF3etxdpWX6ddJjOizGhiucab9+sOZuHlkuLGrefy0hMtoKf3gYyucG7wW+b9zChCLAdE5BTo7r4nwHL1YjODn0PEw==
+ bh=Rsc4fOYopYzUquYTH9FNGvLCUX+nTF6I1rCa4WR0qek=;
+ b=LIQzeAZxDALsu+h32crVqtg99d+97oHTvBnViK4AThb6/DstqRusArtQoK8uqCHt1maBhq4vJK4Kuqz1vKizt+hcUX60kLR2WErv6xuKtz3ERZlWY4aU+wUQCyKELaLUAJ8X188i7T1Vfe/7SViu2Py7/mKb0Y0e4JpDP3MiSeGPEngbUEiFO6qOSUzFZwjT6cGKoXQ+RGE1hyOHgJE9MkKWen2XdXZu6PAji44u5tU2XzpVvuUkBaU2fPE68R+jtqIMwrJXgyduE4/5gd/RMjFb8JIqsEsoYtXDWwEL+eBbXCWftMNojq6b1MvD95rkD/vnlRiZ9UafHYVZYvfvTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=windriver.com; dmarc=pass action=none
  header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
 Received: from MW5PR11MB5764.namprd11.prod.outlook.com (2603:10b6:303:197::8)
- by PH7PR11MB7051.namprd11.prod.outlook.com (2603:10b6:510:20e::15)
+ by PH8PR11MB6753.namprd11.prod.outlook.com (2603:10b6:510:1c8::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.42; Thu, 9 May
- 2024 01:11:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.39; Thu, 9 May
+ 2024 12:37:38 +0000
 Received: from MW5PR11MB5764.namprd11.prod.outlook.com
  ([fe80::3c2c:a17f:2516:4dc8]) by MW5PR11MB5764.namprd11.prod.outlook.com
  ([fe80::3c2c:a17f:2516:4dc8%4]) with mapi id 15.20.7544.041; Thu, 9 May 2024
- 01:11:05 +0000
-Message-ID: <96412118-87f5-4e9a-a870-952ae3725c23@windriver.com>
-Date: Thu, 9 May 2024 12:10:56 +1100
-User-Agent: Mozilla Thunderbird
-To: Serge Semin <fancer.lancer@gmail.com>
-References: <20240508045257.2470698-1-xiaolei.wang@windriver.com>
- <dvtilkr2ho5yy56fii6voglgu3tnopmoy556vrdo4evlynet5g@lnrlv73a27hm>
-Content-Language: en-US
-From: wang xiaolei <xiaolei.wang@windriver.com>
-In-Reply-To: <dvtilkr2ho5yy56fii6voglgu3tnopmoy556vrdo4evlynet5g@lnrlv73a27hm>
-X-ClientProxiedBy: TYCP286CA0139.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31b::7) To MW5PR11MB5764.namprd11.prod.outlook.com
+ 12:37:38 +0000
+From: Xiaolei Wang <xiaolei.wang@windriver.com>
+To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ bartosz.golaszewski@linaro.org, horms@kernel.org, ahalaney@redhat.com,
+ rohan.g.thomas@intel.com, rmk+kernel@armlinux.org.uk,
+ fancer.lancer@gmail.com
+Date: Thu,  9 May 2024 20:37:18 +0800
+Message-Id: <20240509123718.1521924-1-xiaolei.wang@windriver.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: SG2PR03CA0115.apcprd03.prod.outlook.com
+ (2603:1096:4:91::19) To MW5PR11MB5764.namprd11.prod.outlook.com
  (2603:10b6:303:197::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW5PR11MB5764:EE_|PH7PR11MB7051:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fb2d227-c4d8-4dfd-d7be-08dc6fc4e66c
+X-MS-TrafficTypeDiagnostic: MW5PR11MB5764:EE_|PH8PR11MB6753:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94fbf0c1-9d8f-4a4b-f77a-08dc7024cf14
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|376005|366007|1800799015|7416005;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TndiU3B2RGw4VlRhaVJENWRuZlpJTUFVY010ZjE3ZVBWMTh3TGpKZzNJb1ZH?=
- =?utf-8?B?QXkzT1ZHMWRYT1FNcnJEWU55RXllYnhDZURHOHU4ZEc5YUJLVE41bkplS0Yv?=
- =?utf-8?B?amtOWWU3UUhCV3JDMkpralNrMnAwNG5OQlZWdlI1aUgyYzBtUmlOKzhpS28w?=
- =?utf-8?B?dXkya2czSnJ3QmROV0pXN29yWllqVERvVG1HYXMyayt6Z0g5bEN6c2hkVm52?=
- =?utf-8?B?dHErMktTUUo2WFNzOFEveExWTWM0L25hN3gvTzZneXFOM2pNV01DRDVFM1FX?=
- =?utf-8?B?UmRpaFNpL053MnpJRE5uQklSVkYrSHpReHhBN0tpRFIzN25IdTdhU2swQjRp?=
- =?utf-8?B?aFlZbWFjQlhpcnFUdTJvSU91Qy9TYzF0b3R1U1Q2TXgvbktsM2N3ZDl1V0RR?=
- =?utf-8?B?eU1FYWljS00rZnNQTy9XKzBhVUh6bE1teGpIRVJzVGsvRXY3K0swSkxIZ3o0?=
- =?utf-8?B?ak5oRFJhSXAyL3BPUENReVpiN0hidTJMLzVEamRIQ1JWQ0dWS1NncnYrUmg1?=
- =?utf-8?B?TDJXa0QwNS9McjN4KzAyaC94d2hZWmZrT3dUMWdzY1dLR1hoWVZtbzZQN0Vu?=
- =?utf-8?B?K0dlKy91M3loUU01RkJLcU1yT2o1d0t3MzE4QmJyYW9ObHZ3dFVrSGRDTjBR?=
- =?utf-8?B?Yk1oRDBNaE1pYjJvR3Rzc3NSOVl3d2YvWVBjSUZEanZHMWZ6ZnRxRmp1QVFG?=
- =?utf-8?B?MzY2YnhQWmZwWXRaOWNDMml0bUgwTGpmS09qNDJZN09zdEZnRmNMT3JoNTEw?=
- =?utf-8?B?ODB6VkJhVDh6MFp6UXhRQjJ5Sy9vd0hicDFQSThNYVJGNWw4T045a09OSjZF?=
- =?utf-8?B?TzErdXRBanJ1ZFhKNWxWOTlQZTlHNzB3UjBsREpJODRsc21EZHdPSjF6S3Zi?=
- =?utf-8?B?eENnYVdMV213MmJWNldVVGtGd0RWNVVRVGhWVHNJZmVtdS9URVc4dDM1Zm5N?=
- =?utf-8?B?aCtFWHJGZElhVGhJdDR5TjM1TjhzVWlBUFlsWisrYW1VSHZnUzhVcWRDSk1t?=
- =?utf-8?B?eTJTYXV6djhwTjhiM2ZiL3cyMjRXVUZhb0lXOHRhOGxyOXNWNUJtSHJ3RjJm?=
- =?utf-8?B?R2JOck5oM0JqSDFPOVVsUUN5ajNuWXpXMHVmSWJjZ3hZU0cvclpGWDRCc2ht?=
- =?utf-8?B?Y05heDNBN0pYWU43RCtVZ0RZRXpXRURmRDBSZndLVEJ6NmpzeDV1Ui9xdUhI?=
- =?utf-8?B?T3JabytYakNZQzJqNGtNa0FINkhmQ3pwY3E3VFZEZE1tZXFmWjFmWHR5R24v?=
- =?utf-8?B?VlhuOVRFVkF1cnpFdTNQeTdsL2V5alRrSHJhMlR4YzU1ZEtFa28zQlpXay91?=
- =?utf-8?B?TE9HTXh1WnJ3T3hwQkVOQk54cUZzR0hSN1pnM2lNOTk5VUJvZkNpd2JoMGV0?=
- =?utf-8?B?T1IrS1FVUzdwL2ZBaGx3b0Y3aFlFMzNDMVRrVmNvc3R0cnpES3hJc00yK21M?=
- =?utf-8?B?SDA2ZEo2ZUw3NVpSdGpOM1VnRkNOZDVRYmprMGlvb1lMY1lhNDQvZmpVZXBy?=
- =?utf-8?B?MUlXMkxJVzYyRHdESVpGWnVUTnZDc1FpZFVJWDBiTG91djdDTUhjU09KRFdo?=
- =?utf-8?B?OWx4WkRINUp6aEVWMERxVWUwZnF0NUJ2c3NMbzNaalAyWngrb0ZUWk1LeWh4?=
- =?utf-8?B?WWh2anFobFlJdjVmelZrb0RsRzhPWndkWm5OLzF6WlYrc0Zsc2RIUWhkbWxx?=
- =?utf-8?B?K2lHWi9sTkZZQ0x1U1dvbU8rcHBqR1JlOXNmbDViaE9tZkIxM1g5clVBPT0=?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230031|52116005|376005|1800799015|7416005|366007|921011|38350700005; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QpifwYwt9TjmcYP3Ei11cf1LFs8kyo+aW5dOu49TtNGe/RS275LZvMASzfcb?=
+ =?us-ascii?Q?bg+y3tVRYaOc47FUBbsXU702I+S8m6qQltO4Upd/wwABGTRA7Dl4GiPR7ooJ?=
+ =?us-ascii?Q?KpI7w9p9n9ujJ2B4Y0Kl4CYIjCQPUYjz63l+TSuAt2oSrktohlD2A8CZ9/if?=
+ =?us-ascii?Q?CEQ3cA0B6q0UkSDT6No/m4mQ6+4fIvoF5OMO5WZosZ5ZUMoeDBtxOlTeMfLy?=
+ =?us-ascii?Q?Jqx6k1O74fTbGa3TM9x+I7WMx910HZHljkkuhcS6pod0pZc1H8qqxYyl0SR1?=
+ =?us-ascii?Q?MHUqvD+/lv5iNkeygUmyA6bHy7ilvIc76dNL4cYMokZ7jKCErbsncIojVKBy?=
+ =?us-ascii?Q?ZTRoQILWIQ1TLTFiWcFMn/E3BHy41mcckDBPV8pJttrlc2J/ug3PpetcFcxr?=
+ =?us-ascii?Q?6jBT8KpBvuSLnfosbrZhxR4ZG6pfck8L5wTLYckcZXNF+3Nl7vqWO6iCnAp5?=
+ =?us-ascii?Q?UuH2PJ1ReuENzG6YKSYycxgLatzt10c/1+CVjeH6n9BG343ggEKA2TdYiD3o?=
+ =?us-ascii?Q?n8wALA1COy8hUYCSCGzySJSj5gpBjP/1nyiFJV1OWW3Zy50m3i1InrA0+6vp?=
+ =?us-ascii?Q?M2dWTLr9B4ntNGK/D6DWSEyw9Ly5lc4n7XIaSP+BYHTh6XxZ3EHUIXKKtOnt?=
+ =?us-ascii?Q?kLzNfGF7f7rmSR2glTULseCPjy6S3k90xe5yuqi0AO9BbY03oA7+u+MLKPVL?=
+ =?us-ascii?Q?jHVVVrYrKH9GXzxFvcaiewhZ0RXvNK1L21WRUl2OnJparfzQyTHeOpH0gctn?=
+ =?us-ascii?Q?hfLaeZSd88JFRLqd1y4e/TLkY/3BG3/IytsokHpERWoSd+fS19mlpDu8KGBy?=
+ =?us-ascii?Q?b+8mJOml/TUg5rWaSjpDkeHiv25qSLTVbsz1Nuo/4keMUBKxtNE+AordkadT?=
+ =?us-ascii?Q?egnxifALobuPK/CaMWn6eMPHOGd0rZ6zDQJsywdfigBVv+pZVykBMRBzC9Dc?=
+ =?us-ascii?Q?YRz55PFcHI8wp71kEkrIPZsxuTQe3DWwXUgDknTSa4TO3YNNOwamfBdBxk4P?=
+ =?us-ascii?Q?Eo2cdsEMN5ny61Zv80EZpC9wOFPVdrgLy3+OQbdgxI5SVh1B4xqGj/EydSlb?=
+ =?us-ascii?Q?wMeiq8X7kghyN27i1X1eDxYqu1keXlAlIJ/MHAeu5J2ymwKYLq0u6Ip56os7?=
+ =?us-ascii?Q?8iy+qWGimGq25UfC2BHFETYPOgkKviQS5sqTUZ3TBLr+SuVghmbWFKyjlw4y?=
+ =?us-ascii?Q?AfEJs5sq1XZoOVIwYDfNkRmdLZ2DKNpvCM47ac0VbKqXPRi2A96j1FQAXNTT?=
+ =?us-ascii?Q?6nnr+pwO94kf2X6mciT3S9JyZGQ6xoL7ysENyH7GuLGA13PBrNe7EvnetRM5?=
+ =?us-ascii?Q?55dahfKY4QLgiCSX2O7HJYD+4vk8woShhTu7DtaOSAabVne23aSixcZjsKw9?=
+ =?us-ascii?Q?1yfWWnY=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW5PR11MB5764.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(1800799015)(7416005); DIR:OUT; SFP:1102; 
+ SFS:(13230031)(52116005)(376005)(1800799015)(7416005)(366007)(921011)(38350700005);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXI1cWpPWEh4aWpHWFAzYVhoUEd4Z09Od3dnUzFsd04xaEZBOGxxWWtwZDNP?=
- =?utf-8?B?MjlabDBFa05VaFE1VG8wUThmWjJxVDlUMlhtUGVxTkpUWkdkZGdGWWtCWU5o?=
- =?utf-8?B?c2VNQnlhVFk2d1JhUmZRYTRwc2NwVlUyazU5aVYyNmdsZHJVTndkRjhxY0pX?=
- =?utf-8?B?bGx6OEVsRmt1WU9oaFZ2dTZldXRYNzI3Zk9IYXJ3U1BPVkwxQ0JpWHlhaVNQ?=
- =?utf-8?B?YlFoUEVBMDRzcklPeVVBZzZpVmNQdlZ3bkE1djlJS1pEb2Nvd0hwckxKWWFp?=
- =?utf-8?B?ZUJURHZTZkdYeTdlTlN6RkoyRGJ5T01McVpEcjgwMHczQzYvczA3aFRxdnJL?=
- =?utf-8?B?TmVuVFdyZ2FoN1VXRzN0ekpUV3MwcUZOTmNIaUdndlR0M2RPWVNpeEx3bFBM?=
- =?utf-8?B?WVhGUUlqZ3l3d0w3all4c081QiswRzAzVWtQTkVUQ2t6eU14UWxEWWtPYkY2?=
- =?utf-8?B?SnVtNkNyYmkreGo4bVQyYVF1MjdKSVVpTUpTbnByNGN6RTZEc2ZIWFNYV3Zt?=
- =?utf-8?B?RUpEcVlrc09LME1hN0J5aWVtcklmODlsaEkxMURuNkZ3b2hYYXd1SXlkdWxn?=
- =?utf-8?B?c0dBdUZDWEZDQW1yQUZkV1RMd0JXSmU3OU0vS2NHaWk1T1QzYjVldGdBYWxY?=
- =?utf-8?B?cnFHcFpyZG9ETEg2YUkza1hVQ3hyVXpYN1JhalNaWnJnbDRVL1h3RTFtK29J?=
- =?utf-8?B?Sy9kTS9CUy9wRllpdEZYY2VhdGFsdmR5bk5uaktVcm1VUmZxVmNhU1huRUlt?=
- =?utf-8?B?Vks4NE1XeFAwT3FObmpjanhpTEpmUEJZaU9BNlUzYktNUi9ESVUyRU1QNlUr?=
- =?utf-8?B?TGRjM1ZrMmZzQ0NyQ09razJ3RE1RMklXdXNvbHFJaTlkUUtyRldBMkVmb0tU?=
- =?utf-8?B?b0xXeUdORTBSbzRweVdRV2oyWWIvTVFkNmkxSDZta1VGaDFhSzdaOUlQUS9n?=
- =?utf-8?B?OWlDVjRpaG1VTktCcUd6eUl0UEZKWUtCUDhEUFdyOGtnQlRYOG5DTkFqT0tH?=
- =?utf-8?B?cmdUbEY1THZ5NjNPaVlTZ0dmMklNNWJzUXBmaFhpZW1rOTc3VStPZUg3VzVa?=
- =?utf-8?B?dmM5UUVNNndhUUcxanNRSm9WbVc4bWgvQ01JUXUyeElMQkN0VEczS1oxUnpo?=
- =?utf-8?B?MmIrSWJlVEx3VFg4aEpZeWV6aFg1cTRPZ0R1K3dYODhUYTNIZDBxM0VwNHY5?=
- =?utf-8?B?VklPN1lkcGMvOGJyZTJyVU5PV0ZQS1hWMVVaQVFPU2hucXc1T2czRHY3Qmk4?=
- =?utf-8?B?K1phTmttYndmRFZ4TW40Y3Vpc1M2SUh2ZDlqaVBvOVFxRW56V2RCSkhCSkI3?=
- =?utf-8?B?OEYxd08zU3dRRkFVdi9sc2c1VXhKSWVqSTVXdURuTkFORWVaMEVOcy82M05n?=
- =?utf-8?B?R0hjTk5oNS9Mdmd5ZWcvSXlJS3FnWG9uTW9BUnRVWDg0UmlIMU52YXFQYUJF?=
- =?utf-8?B?cEEvNnpRK1hWZnlXcHhRcHFseHlZbGVkbW5lQUVIYzRvVmo3b21tUm9HbmFn?=
- =?utf-8?B?bk1OWHpydnkxU2FENU5xcTZRb2NNKzdrL00rajExMzI0S2JaaCtobXJJeXRC?=
- =?utf-8?B?WmdKdGUraDJwR3lyWWpRQnYrbEtzSjB3TjNlMGRSZmRZWE1MSFQzRlhEUmRt?=
- =?utf-8?B?RjhiN3VYcHJrZUtIWjE4WGV4KzZzbGQ2MVkwYS9uaEZKaWlVTmdpcUhMWXdK?=
- =?utf-8?B?TTVnSjhOVzFzRVBPUk56QnlINkJ5ZC90VlZrRVRhZnpLNXNxUHlBMHpZWU9U?=
- =?utf-8?B?YjhNMExIYlgyQzBINi9tYVFDWUFrVE9vQkJQS0VsZkNodHZESUVubjBvVDFa?=
- =?utf-8?B?QkFOZXNBNm12d0F6Q0lTNkhySUh6OWVkSGxvcVBjdEUwMG0zamlxNC9TUmpF?=
- =?utf-8?B?Z0xIMkFMeEM0OXg3b21Rb0pnNUZTeERjbzJxaEpTR2huWTNmM2ZEK3dhZ2Ni?=
- =?utf-8?B?UU5lcFhyVWZQZVVoLzNHaUR3dkZwWEpvTWpGYlpjN2RCR0NvWWFodElYNWQx?=
- =?utf-8?B?bGxzdUlmYmRENW9kRkJCZWRjQkk4YWtqcm91ZnlZTXhjR2FnRmVkZEhWRFpO?=
- =?utf-8?B?R29xT21XU2l6VjRCbzY5NXo4aFdoZU1xQXA0STZPamZKZlVZRmlBTGNhQThU?=
- =?utf-8?B?VGQvYU8rbUNXd0pySUpPekhoOTMwRkt3RG12OXk2cWVXa3ZZVjh6MlcwSjFB?=
- =?utf-8?B?cFE9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8Z+kFZHOA4w6l/1zcchEih/c29KHojR6wMGBEk2FTWrC+8VBEnutTLcEgEzN?=
+ =?us-ascii?Q?IHxyAALVfQaQ6CMwxKgiAxKEyICUqz7HyCV1vGkae8eJZr65hUqS1idVbv5S?=
+ =?us-ascii?Q?gUfbB0JsJLFEAMfeh98QUh34xEQMkWn/+0pLWUKt9ThgoybZVbTKeuoC5nzy?=
+ =?us-ascii?Q?tdPWlhqMMKhhMOHdhVVPNY+In7OnTKRqNy0ukVN8J3cMCcfSuJBiwz00t0M/?=
+ =?us-ascii?Q?3d9AJsgdI+7kD7mfamSBzvHYAI51IqM42xGgVqmOznOeqx2SX658MQmvgayx?=
+ =?us-ascii?Q?/4X/ixB3rIsEhuqY0TMU3upU87qnh/YFko8pbaXiZcIJQokoqlBny0hNLbjb?=
+ =?us-ascii?Q?ZAcuCJrVDA/oymFfCiPXJx2LUlNCzx8GsKOPcsQR/L5PlKye8lcZZwYxKWaC?=
+ =?us-ascii?Q?NMgl0TOf9GypXP9DXDIjqO6m9eckVhgxOwoZI+3DZve5UO3IY/Iw0nkNL1gE?=
+ =?us-ascii?Q?84WWrF7VG4vko5/T+rsfHd9fz0aFF39lmR8JeVIwLWDWvvsE+Xoo7xGTV4kZ?=
+ =?us-ascii?Q?mihgoJQPh08ljjRVYf91AX4btUeD7P4yxo2md4JACviV0kcbCk+2QxgXHWG2?=
+ =?us-ascii?Q?csyi9eM8vnNJI97PwoyBZXpSZbUa5LlLBT03ov/+Vx8qNGYouazGpH/gOD/r?=
+ =?us-ascii?Q?mMivrsfqa39Xm38er3Qhl8np0kk1w/eOGkyMcAcKY6YHSU0qlA+tfYm506PT?=
+ =?us-ascii?Q?BiugaHN8XIkFOpSbvnw40NJ0Iu+UaDhR8HxcGf8wcgxAIt4wFgSkjwiKy6jW?=
+ =?us-ascii?Q?2yyJJ1VgmjKy8e37xvSg2WMvrVlzHmI3mqhU6JVZzU6/l0hhZGdU3AggUFRV?=
+ =?us-ascii?Q?0sUliYZzs9zLsSV9YrR3rPix9s6sbgKKkDsEycbCPuEYOV9xuzcrYI1QXe1I?=
+ =?us-ascii?Q?w91mr5c/Xc8Y2judWMUObywO1DtEE+Cq6wh7MvF2tLdOncqa0tk5hsckf/BQ?=
+ =?us-ascii?Q?IjrnkxZvmLl7hVGhmup7lD1WL5LVvRgn59PyhZzQKexwl/l46IrilSb8bw2B?=
+ =?us-ascii?Q?Hnbc068sBYtDHMWF8uWpT0o4DcAp1t5TZz8czV7fShlweSR373Ddx4s8qmi9?=
+ =?us-ascii?Q?aUrpBrhmxv1UmfTGMPYB9NH4Wuk8oJegW1D8wXoL2hMzC5P/mn0tAB+2IVw0?=
+ =?us-ascii?Q?MBTPyT7LdSB8M1tWIz7XGlQzch+Bv7OYkIvOrcZq9nJIjh43dYr5RJwoW/J8?=
+ =?us-ascii?Q?TEDX/7uaY0Xhqm1baKg1klaEWKTGBbYtFGE24T4AhhmlHBXtPnT+EgcQoQT5?=
+ =?us-ascii?Q?J94G1bL8gdNF2kexgHZ0leNs2+83bj6K8gCgpaEIwrDKKpLZZB2mm+8zTHom?=
+ =?us-ascii?Q?YrUZ8GuSpI0hPv5MyKQ/5yjiTEA1wX2NO1uNZtK1Yo4E/Ry1v+caQvv9mA+w?=
+ =?us-ascii?Q?rZR0jLwzPOjuXvxVlpDndwRELLgtOnRg3XQsrEoH1Yq/hd81wpsm2fjvtt2c?=
+ =?us-ascii?Q?Hq5J7eoPH8wSz6/B7sVOHYAKWvT9RFkqvwzbLmfqP67/UdWS3SM2ZTO7UFKv?=
+ =?us-ascii?Q?hKyw/oFOvMnzjzuJWV4Y+SZJk1Nxr/SFFdOiBd+XRGZxv5xxKiRUM3g7/pU1?=
+ =?us-ascii?Q?at0a5GqikEZLCHm8zekcqNAHysNDXcAjdN0xr56lns/UH6qWyImSHm4zE/To?=
+ =?us-ascii?Q?4A=3D=3D?=
 X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fb2d227-c4d8-4dfd-d7be-08dc6fc4e66c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94fbf0c1-9d8f-4a4b-f77a-08dc7024cf14
 X-MS-Exchange-CrossTenant-AuthSource: MW5PR11MB5764.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 01:11:05.1919 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 12:37:37.7659 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sFk29VhZJ3OWSY9lh8uUAnGo5vvEZIzKp+YOG1VVDJUsrEAaVoMKHeb6iRB1LMQ31cDkM7knnHnqprhTRd14MUNCjTasBGWMf/C2Cgib+UA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7051
-X-Proofpoint-GUID: k4ob9L0VxhzqgxpZxI_cbpgPArXkxAqH
-X-Proofpoint-ORIG-GUID: k4ob9L0VxhzqgxpZxI_cbpgPArXkxAqH
+X-MS-Exchange-CrossTenant-UserPrincipalName: naDFZC1fqCY4XBL4xCYaGH/16b3DZ2h06u0gROWj6daOmGD18Kl3AC21IB2+SaGBNZJqEVGw/Hoc0AtPYl1UZ9S1apAL382AGpC6XCDdxnY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6753
+X-Proofpoint-GUID: iJmWH1gH07o4DWMHrGE6sV3VO-79kKPN
+X-Proofpoint-ORIG-GUID: iJmWH1gH07o4DWMHrGE6sV3VO-79kKPN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-08_10,2024-05-08_01,2023-05-22_02
+ definitions=2024-05-09_06,2024-05-09_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0
- bulkscore=0 impostorscore=0 clxscore=1011 lowpriorityscore=0 spamscore=0
- phishscore=0 mlxlogscore=999 priorityscore=1501 mlxscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405010000
- definitions=main-2405090007
-Cc: j.zink@pengutronix.de, linux-kernel@vger.kernel.org, horms@kernel.org,
- bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- leong.ching.swee@intel.com, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, rohan.g.thomas@intel.com,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, ahalaney@redhat.com
-Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: move the lock to struct
- plat_stmmacenet_data
+ clxscore=1015 impostorscore=0
+ mlxscore=0 malwarescore=0 phishscore=0 mlxlogscore=999 spamscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405010000 definitions=main-2405090084
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [net PATCH v4] net: stmmac: move the EST and EST lock
+	to struct stmmac_priv
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -171,111 +155,344 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Reinitialize the whole EST structure would also reset the mutex lock
+which is embedded in the EST structure, and then trigger the following
+warning. To address this, move the lock to struct stmmac_priv,
+and move EST to struct stmmac_priv, because the EST configs don't look
+as the platform config, but EST is enabled in runtime with the settings
+retrieved for the TC TAPRIO feature also in runtime. So it's better to
+have the EST-data preserved in the driver private date instead of the
+platform data storage. We also need to require the mutex lock when doing
+this initialization.
 
-On 5/8/24 8:56 PM, Serge Semin wrote:
-> CAUTION: This email comes from a non Wind River email account!
-> Do not click links or open attachments unless you recognize the sender and know the content is safe.
->
-> On Wed, May 08, 2024 at 12:52:57PM +0800, Xiaolei Wang wrote:
->> Reinitialize the whole est structure would also reset the mutex lock
->> which is embedded in the est structure, and then trigger the following
->> warning. To address this, move the lock to struct plat_stmmacenet_data.
->> We also need to require the mutex lock when doing this initialization.
->>
->> DEBUG_LOCKS_WARN_ON(lock->magic != lock)
->> WARNING: CPU: 3 PID: 505 at kernel/locking/mutex.c:587 __mutex_lock+0xd84/0x1068
->>   Modules linked in:
->>   CPU: 3 PID: 505 Comm: tc Not tainted 6.9.0-rc6-00053-g0106679839f7-dirty #29
->>   Hardware name: NXP i.MX8MPlus EVK board (DT)
->>   pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->>   pc : __mutex_lock+0xd84/0x1068
->>   lr : __mutex_lock+0xd84/0x1068
->>   sp : ffffffc0864e3570
->>   x29: ffffffc0864e3570 x28: ffffffc0817bdc78 x27: 0000000000000003
->>   x26: ffffff80c54f1808 x25: ffffff80c9164080 x24: ffffffc080d723ac
->>   x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000000
->>   x20: 0000000000000000 x19: ffffffc083bc3000 x18: ffffffffffffffff
->>   x17: ffffffc08117b080 x16: 0000000000000002 x15: ffffff80d2d40000
->>   x14: 00000000000002da x13: ffffff80d2d404b8 x12: ffffffc082b5a5c8
->>   x11: ffffffc082bca680 x10: ffffffc082bb2640 x9 : ffffffc082bb2698
->>   x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 0000000000000001
->>   x5 : ffffff8178fe0d48 x4 : 0000000000000000 x3 : 0000000000000027
->>   x2 : ffffff8178fe0d50 x1 : 0000000000000000 x0 : 0000000000000000
->>   Call trace:
->>    __mutex_lock+0xd84/0x1068
->>    mutex_lock_nested+0x28/0x34
->>    tc_setup_taprio+0x118/0x68c
->>    stmmac_setup_tc+0x50/0xf0
->>    taprio_change+0x868/0xc9c
->>
->> Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
->> ---
->> v1 -> v2:
->>   - move the lock to struct plat_stmmacenet_data
->> v2 -> v3:
->>   - Add require the mutex lock for reinitialization
->>
->>   .../net/ethernet/stmicro/stmmac/stmmac_ptp.c   |  8 ++++----
->>   .../net/ethernet/stmicro/stmmac/stmmac_tc.c    | 18 ++++++++++--------
->>   include/linux/stmmac.h                         |  2 +-
->>   3 files changed, 15 insertions(+), 13 deletions(-)
->>
->> [...]
->>
->> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
->> index dfa1828cd756..316ff7eb8b33 100644
->> --- a/include/linux/stmmac.h
->> +++ b/include/linux/stmmac.h
->> @@ -117,7 +117,6 @@ struct stmmac_axi {
->>
->>   #define EST_GCL              1024
->>   struct stmmac_est {
->> -     struct mutex lock;
->>        int enable;
->>        u32 btr_reserve[2];
->>        u32 btr_offset[2];
->> @@ -246,6 +245,7 @@ struct plat_stmmacenet_data {
->>        struct fwnode_handle *port_node;
->>        struct device_node *mdio_node;
->>        struct stmmac_dma_cfg *dma_cfg;
->> +     struct mutex lock;
->>        struct stmmac_est *est;
->>        struct stmmac_fpe_cfg *fpe_cfg;
->>        struct stmmac_safety_feature_cfg *safety_feat_cfg;
-> Seeing you are going to move things around I suggest to move the
-> entire stmmac_est instance out of the plat_stmmacenet_data structure
-> and place it in the stmmac_priv instead. Why? Because the EST configs
-> don't look as the platform config, but EST is enabled in runtime with
-> the settings retrieved for the TC TAPRIO feature also in runtime. So
-> it's better to have the EST-data preserved in the driver private date
-> instead of the platform data storage. You could move the structure
-> there and place the lock aside of it. Field name like "est_lock" might
-> be most suitable to be looking unified with the "ptp_lock" or
-> "aux_ts_lock".
->
-> * The same, but with no lock-related thing should be done for the
-> * stmmac_safety_feature_cfg structure,
-> but it's unrelated to the subject...
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: CPU: 3 PID: 505 at kernel/locking/mutex.c:587 __mutex_lock+0xd84/0x1068
+ Modules linked in:
+ CPU: 3 PID: 505 Comm: tc Not tainted 6.9.0-rc6-00053-g0106679839f7-dirty #29
+ Hardware name: NXP i.MX8MPlus EVK board (DT)
+ pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+ pc : __mutex_lock+0xd84/0x1068
+ lr : __mutex_lock+0xd84/0x1068
+ sp : ffffffc0864e3570
+ x29: ffffffc0864e3570 x28: ffffffc0817bdc78 x27: 0000000000000003
+ x26: ffffff80c54f1808 x25: ffffff80c9164080 x24: ffffffc080d723ac
+ x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000000
+ x20: 0000000000000000 x19: ffffffc083bc3000 x18: ffffffffffffffff
+ x17: ffffffc08117b080 x16: 0000000000000002 x15: ffffff80d2d40000
+ x14: 00000000000002da x13: ffffff80d2d404b8 x12: ffffffc082b5a5c8
+ x11: ffffffc082bca680 x10: ffffffc082bb2640 x9 : ffffffc082bb2698
+ x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 0000000000000001
+ x5 : ffffff8178fe0d48 x4 : 0000000000000000 x3 : 0000000000000027
+ x2 : ffffff8178fe0d50 x1 : 0000000000000000 x0 : 0000000000000000
+ Call trace:
+  __mutex_lock+0xd84/0x1068
+  mutex_lock_nested+0x28/0x34
+  tc_setup_taprio+0x118/0x68c
+  stmmac_setup_tc+0x50/0xf0
+  taprio_change+0x868/0xc9c
 
-I think this is good and I will send a v4 version out later, does anyone 
-else have any other opinions?
+Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+---
+v1 -> v2:
+ - move the lock to struct plat_stmmacenet_data
+v2 -> v3:
+ - Add require the mutex lock for reinitialization
+v3 -> v4
+ - Move est and est lock to stmmac_priv as suggested by Serge
 
-thanks
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 18 +++---
+ .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  | 30 +++++-----
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 58 +++++++++----------
+ include/linux/stmmac.h                        |  2 -
+ 5 files changed, 56 insertions(+), 55 deletions(-)
 
-xiaolei
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index dddcaa9220cc..e05a775b463e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -261,6 +261,9 @@ struct stmmac_priv {
+ 	struct stmmac_extra_stats xstats ____cacheline_aligned_in_smp;
+ 	struct stmmac_safety_stats sstats;
+ 	struct plat_stmmacenet_data *plat;
++	/* Protect est parameters */
++	struct mutex est_lock;
++	struct stmmac_est *est;
+ 	struct dma_features dma_cap;
+ 	struct stmmac_counters mmc;
+ 	int hw_cap_support;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7c6fb14b5555..0eafd609bf53 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2491,9 +2491,9 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		if (!xsk_tx_peek_desc(pool, &xdp_desc))
+ 			break;
+ 
+-		if (priv->plat->est && priv->plat->est->enable &&
+-		    priv->plat->est->max_sdu[queue] &&
+-		    xdp_desc.len > priv->plat->est->max_sdu[queue]) {
++		if (priv->est && priv->est->enable &&
++		    priv->est->max_sdu[queue] &&
++		    xdp_desc.len > priv->est->max_sdu[queue]) {
+ 			priv->xstats.max_sdu_txq_drop[queue]++;
+ 			continue;
+ 		}
+@@ -4528,9 +4528,9 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return stmmac_tso_xmit(skb, dev);
+ 	}
+ 
+-	if (priv->plat->est && priv->plat->est->enable &&
+-	    priv->plat->est->max_sdu[queue] &&
+-	    skb->len > priv->plat->est->max_sdu[queue]){
++	if (priv->est && priv->est->enable &&
++	    priv->est->max_sdu[queue] &&
++	    skb->len > priv->est->max_sdu[queue]){
+ 		priv->xstats.max_sdu_txq_drop[queue]++;
+ 		goto max_sdu_err;
+ 	}
+@@ -4909,9 +4909,9 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+ 	if (stmmac_tx_avail(priv, queue) < STMMAC_TX_THRESH(priv))
+ 		return STMMAC_XDP_CONSUMED;
+ 
+-	if (priv->plat->est && priv->plat->est->enable &&
+-	    priv->plat->est->max_sdu[queue] &&
+-	    xdpf->len > priv->plat->est->max_sdu[queue]) {
++	if (priv->est && priv->est->enable &&
++	    priv->est->max_sdu[queue] &&
++	    xdpf->len > priv->est->max_sdu[queue]) {
+ 		priv->xstats.max_sdu_txq_drop[queue]++;
+ 		return STMMAC_XDP_CONSUMED;
+ 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+index e04830a3a1fb..a6b1de9a251d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+@@ -68,13 +68,13 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+ 	nsec = reminder;
+ 
+ 	/* If EST is enabled, disabled it before adjust ptp time. */
+-	if (priv->plat->est && priv->plat->est->enable) {
++	if (priv->est && priv->est->enable) {
+ 		est_rst = true;
+-		mutex_lock(&priv->plat->est->lock);
+-		priv->plat->est->enable = false;
+-		stmmac_est_configure(priv, priv, priv->plat->est,
++		mutex_lock(&priv->est_lock);
++		priv->est->enable = false;
++		stmmac_est_configure(priv, priv, priv->est,
+ 				     priv->plat->clk_ptp_rate);
+-		mutex_unlock(&priv->plat->est->lock);
++		mutex_unlock(&priv->est_lock);
+ 	}
+ 
+ 	write_lock_irqsave(&priv->ptp_lock, flags);
+@@ -87,24 +87,24 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+ 		ktime_t current_time_ns, basetime;
+ 		u64 cycle_time;
+ 
+-		mutex_lock(&priv->plat->est->lock);
++		mutex_lock(&priv->est_lock);
+ 		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+ 		current_time_ns = timespec64_to_ktime(current_time);
+-		time.tv_nsec = priv->plat->est->btr_reserve[0];
+-		time.tv_sec = priv->plat->est->btr_reserve[1];
++		time.tv_nsec = priv->est->btr_reserve[0];
++		time.tv_sec = priv->est->btr_reserve[1];
+ 		basetime = timespec64_to_ktime(time);
+-		cycle_time = (u64)priv->plat->est->ctr[1] * NSEC_PER_SEC +
+-			     priv->plat->est->ctr[0];
++		cycle_time = (u64)priv->est->ctr[1] * NSEC_PER_SEC +
++			     priv->est->ctr[0];
+ 		time = stmmac_calc_tas_basetime(basetime,
+ 						current_time_ns,
+ 						cycle_time);
+ 
+-		priv->plat->est->btr[0] = (u32)time.tv_nsec;
+-		priv->plat->est->btr[1] = (u32)time.tv_sec;
+-		priv->plat->est->enable = true;
+-		ret = stmmac_est_configure(priv, priv, priv->plat->est,
++		priv->est->btr[0] = (u32)time.tv_nsec;
++		priv->est->btr[1] = (u32)time.tv_sec;
++		priv->est->enable = true;
++		ret = stmmac_est_configure(priv, priv, priv->est,
+ 					   priv->plat->clk_ptp_rate);
+-		mutex_unlock(&priv->plat->est->lock);
++		mutex_unlock(&priv->est_lock);
+ 		if (ret)
+ 			netdev_err(priv->dev, "failed to configure EST\n");
+ 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index cce00719937d..222540b55480 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -918,7 +918,6 @@ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
+ static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
+ 				     struct tc_taprio_qopt_offload *qopt)
+ {
+-	struct plat_stmmacenet_data *plat = priv->plat;
+ 	u32 num_tc = qopt->mqprio.qopt.num_tc;
+ 	u32 offset, count, i, j;
+ 
+@@ -933,7 +932,7 @@ static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
+ 		count = qopt->mqprio.qopt.count[i];
+ 
+ 		for (j = offset; j < offset + count; j++)
+-			plat->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
++			priv->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
+ 	}
+ }
+ 
+@@ -941,7 +940,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 			       struct tc_taprio_qopt_offload *qopt)
+ {
+ 	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
+-	struct plat_stmmacenet_data *plat = priv->plat;
+ 	struct timespec64 time, current_time, qopt_time;
+ 	ktime_t current_time_ns;
+ 	bool fpe = false;
+@@ -998,23 +996,25 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 	if (qopt->cycle_time_extension >= BIT(wid + 7))
+ 		return -ERANGE;
+ 
+-	if (!plat->est) {
+-		plat->est = devm_kzalloc(priv->device, sizeof(*plat->est),
++	if (!priv->est) {
++		priv->est = devm_kzalloc(priv->device, sizeof(*priv->est),
+ 					 GFP_KERNEL);
+-		if (!plat->est)
++		if (!priv->est)
+ 			return -ENOMEM;
+ 
+-		mutex_init(&priv->plat->est->lock);
++		mutex_init(&priv->est_lock);
+ 	} else {
+-		memset(plat->est, 0, sizeof(*plat->est));
++		mutex_lock(&priv->est_lock);
++		memset(priv->est, 0, sizeof(*priv->est));
++		mutex_unlock(&priv->est_lock);
+ 	}
+ 
+ 	size = qopt->num_entries;
+ 
+-	mutex_lock(&priv->plat->est->lock);
+-	priv->plat->est->gcl_size = size;
+-	priv->plat->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
+-	mutex_unlock(&priv->plat->est->lock);
++	mutex_lock(&priv->est_lock);
++	priv->est->gcl_size = size;
++	priv->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
++	mutex_unlock(&priv->est_lock);
+ 
+ 	for (i = 0; i < size; i++) {
+ 		s64 delta_ns = qopt->entries[i].interval;
+@@ -1042,33 +1042,33 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 			return -EOPNOTSUPP;
+ 		}
+ 
+-		priv->plat->est->gcl[i] = delta_ns | (gates << wid);
++		priv->est->gcl[i] = delta_ns | (gates << wid);
+ 	}
+ 
+-	mutex_lock(&priv->plat->est->lock);
++	mutex_lock(&priv->est_lock);
+ 	/* Adjust for real system time */
+ 	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+ 	current_time_ns = timespec64_to_ktime(current_time);
+ 	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
+ 					qopt->cycle_time);
+ 
+-	priv->plat->est->btr[0] = (u32)time.tv_nsec;
+-	priv->plat->est->btr[1] = (u32)time.tv_sec;
++	priv->est->btr[0] = (u32)time.tv_nsec;
++	priv->est->btr[1] = (u32)time.tv_sec;
+ 
+ 	qopt_time = ktime_to_timespec64(qopt->base_time);
+-	priv->plat->est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
+-	priv->plat->est->btr_reserve[1] = (u32)qopt_time.tv_sec;
++	priv->est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
++	priv->est->btr_reserve[1] = (u32)qopt_time.tv_sec;
+ 
+ 	ctr = qopt->cycle_time;
+-	priv->plat->est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
+-	priv->plat->est->ctr[1] = (u32)ctr;
++	priv->est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
++	priv->est->ctr[1] = (u32)ctr;
+ 
+-	priv->plat->est->ter = qopt->cycle_time_extension;
++	priv->est->ter = qopt->cycle_time_extension;
+ 
+ 	tc_taprio_map_maxsdu_txq(priv, qopt);
+ 
+ 	if (fpe && !priv->dma_cap.fpesel) {
+-		mutex_unlock(&priv->plat->est->lock);
++		mutex_unlock(&priv->est_lock);
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+@@ -1077,9 +1077,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 	 */
+ 	priv->plat->fpe_cfg->enable = fpe;
+ 
+-	ret = stmmac_est_configure(priv, priv, priv->plat->est,
++	ret = stmmac_est_configure(priv, priv, priv->est,
+ 				   priv->plat->clk_ptp_rate);
+-	mutex_unlock(&priv->plat->est->lock);
++	mutex_unlock(&priv->est_lock);
+ 	if (ret) {
+ 		netdev_err(priv->dev, "failed to configure EST\n");
+ 		goto disable;
+@@ -1095,17 +1095,17 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 	return 0;
+ 
+ disable:
+-	if (priv->plat->est) {
+-		mutex_lock(&priv->plat->est->lock);
+-		priv->plat->est->enable = false;
+-		stmmac_est_configure(priv, priv, priv->plat->est,
++	if (priv->est) {
++		mutex_lock(&priv->est_lock);
++		priv->est->enable = false;
++		stmmac_est_configure(priv, priv, priv->est,
+ 				     priv->plat->clk_ptp_rate);
+ 		/* Reset taprio status */
+ 		for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
+ 			priv->xstats.max_sdu_txq_drop[i] = 0;
+ 			priv->xstats.mtl_est_txq_hlbf[i] = 0;
+ 		}
+-		mutex_unlock(&priv->plat->est->lock);
++		mutex_unlock(&priv->est_lock);
+ 	}
+ 
+ 	priv->plat->fpe_cfg->enable = false;
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index dfa1828cd756..8aa255485a35 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -117,7 +117,6 @@ struct stmmac_axi {
+ 
+ #define EST_GCL		1024
+ struct stmmac_est {
+-	struct mutex lock;
+ 	int enable;
+ 	u32 btr_reserve[2];
+ 	u32 btr_offset[2];
+@@ -246,7 +245,6 @@ struct plat_stmmacenet_data {
+ 	struct fwnode_handle *port_node;
+ 	struct device_node *mdio_node;
+ 	struct stmmac_dma_cfg *dma_cfg;
+-	struct stmmac_est *est;
+ 	struct stmmac_fpe_cfg *fpe_cfg;
+ 	struct stmmac_safety_feature_cfg *safety_feat_cfg;
+ 	int clk_csr;
+-- 
+2.25.1
 
->
-> -Serge(y)
->
->> --
->> 2.25.1
->>
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
