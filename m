@@ -2,60 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C3838C1F14
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2024 09:37:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B951C8C1F5F
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2024 09:58:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F8DCC71289;
-	Fri, 10 May 2024 07:37:42 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62123C62EFE;
+	Fri, 10 May 2024 07:58:50 +0000 (UTC)
+Received: from mail.commercecreek.pl (mail.commercecreek.pl [185.176.220.65])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 481D0C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DA8AC030CA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 May 2024 07:37:40 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E9D4224000F;
- Fri, 10 May 2024 07:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1715326660;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NzNqKTpVWMnrcgcJVGgyUqBdfYphefuKpHkJ0PXLDgQ=;
- b=ArbBT7pMFK270xL/zfMMmZ02B7LsXveQ1nHlFTKIYeuWNK2iHxGOv+STyrVZ5UaVHmnebb
- XDIijZ+YmYGtH2HiJsqhGeNbqndYkenPl9xd19D1uYrjV3GYcWxwqjM2Bq5P6Hl25xEMbX
- D7dCfHBaCo+9JJBo+8IKen2D4+HnSDdnXpZSIF14hDv2p+vuJqxIAq/hasUbemp+aLh+XJ
- GkLCjoJc4BWIc1ge65QLSQgjy1BuehIPKSj3LqgDUjWYAnMlUtsX8h+/zFcXhpWL9lFmju
- TYM8rJGa733OrYMPN7n+FOD8nMipXs4nUcD3qvf9o8fzc4Lbk3TokRifKj7NQQ==
-From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Fri, 10 May 2024 09:38:14 +0200
+ Fri, 10 May 2024 07:58:43 +0000 (UTC)
+Received: by mail.commercecreek.pl (Postfix, from userid 1001)
+ id D15EE20BE74; Fri, 10 May 2024 09:56:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=commercecreek.pl;
+ s=mail; t=1715327819;
+ bh=oZTeICgx2X9EeHQQOCJSHYKJVJOCiOs1n/VaxwVhO9Y=;
+ h=Date:From:To:Subject:From;
+ b=yjE8wTPz5XrhMGjFAQeL7zMW6h+g+h7i+27mDqoYFjqcayH0R2eHx53sYJzA4GXtD
+ /EIbK15b2VfgoSc1dnRhHMVXaDCRtC1xsLn6fJgtJ/RyjSFOfqfJtLoDb8KyHB2dkk
+ K8BBdJJDLuiIRQWnjf+eAqlMjOXu+lqByP5YNS1XeSJIDfXy/bqk2lvSfhJ4DUBoLp
+ /kj7mQEYqz071HoEb+IUZWBwMxNPjf+L/OR2UnE3op8Ikl7ch/vqBP/uXGZNVQHWOJ
+ CIyxx3cRoAvelnSMwIUHcpSpTMVE0HKX3qj6uYg5RXhffyUH8F30HHG6DOXaxFnMLy
+ BxrVVealpXJGw==
+Received: by mail.commercecreek.pl for
+ <linux-stm32@st-md-mailman.stormreply.com>; Fri, 10 May 2024 07:55:32 GMT
+Message-ID: <20240510084501-0.1.4g.2lhi7.0.e5e60dmekg@commercecreek.pl>
+Date: Fri, 10 May 2024 07:55:32 GMT
+From: "Marcin Wojciechowski" <marcin.wojciechowski@commercecreek.pl>
+To: <linux-stm32@st-md-mailman.stormreply.com>
+X-Mailer: mail.commercecreek.pl
 MIME-Version: 1.0
-Message-Id: <20240510-rzn1-gmac1-v6-7-b63942be334c@bootlin.com>
-References: <20240510-rzn1-gmac1-v6-0-b63942be334c@bootlin.com>
-In-Reply-To: <20240510-rzn1-gmac1-v6-0-b63942be334c@bootlin.com>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>, 
- Serge Semin <fancer.lancer@gmail.com>
-X-Mailer: b4 0.13.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v6 7/7] ARM: dts: r9a06g032: describe
-	GMAC1
+Subject: [Linux-stm32] =?utf-8?q?Prosz=C4=99_o_kontakt?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,36 +50,11 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgoKVGhlIHI5
-YTA2ZzAzMiBTb0Mgb2YgdGhlIFJaL04xIGZhbWlseSBmZWF0dXJlcyB0d28gR01BQyBkZXZpY2Vz
-IG5hbWVkCkdNQUMxLzIsIHRoYXQgYXJlIGJhc2VkIG9uIFN5bm9wc3lzIGNvcmVzLiBHTUFDMSBp
-cyBjb25uZWN0ZWQgdG8gYQpSR01JSS9STUlJIGNvbnZlcnRlciB0aGF0IGlzIGFscmVhZHkgZGVz
-Y3JpYmVkIGluIHRoaXMgZGV2aWNlIHRyZWUuCgpTaWduZWQtb2ZmLWJ5OiBDbMOpbWVudCBMw6ln
-ZXIgPGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+CltyZ2FudG9pczogY29tbWl0IGxvZ10KUmV2
-aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+ClNp
-Z25lZC1vZmYtYnk6IFJvbWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4K
-LS0tCiBhcmNoL2FybS9ib290L2R0cy9yZW5lc2FzL3I5YTA2ZzAzMi5kdHNpIHwgMTggKysrKysr
-KysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMyLmR0c2kgYi9hcmNoL2FybS9i
-b290L2R0cy9yZW5lc2FzL3I5YTA2ZzAzMi5kdHNpCmluZGV4IGZhNjNlMWFmYzRlZjQuLjU3Yzcz
-MGY0MzQ0MmUgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMy
-LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvcmVuZXNhcy9yOWEwNmcwMzIuZHRzaQpAQCAt
-MzE2LDYgKzMxNiwyNCBAQCBkbWExOiBkbWEtY29udHJvbGxlckA0MDEwNTAwMCB7CiAJCQlkYXRh
-LXdpZHRoID0gPDg+OwogCQl9OwogCisJCWdtYWMxOiBldGhlcm5ldEA0NDAwMDAwMCB7CisJCQlj
-b21wYXRpYmxlID0gInJlbmVzYXMscjlhMDZnMDMyLWdtYWMiLCAicmVuZXNhcyxyem4xLWdtYWMi
-LCAic25wcyxkd21hYyI7CisJCQlyZWcgPSA8MHg0NDAwMDAwMCAweDIwMDA+OworCQkJaW50ZXJy
-dXB0cyA9IDxHSUNfU1BJIDM0IElSUV9UWVBFX0xFVkVMX0hJR0g+LAorCQkJCSAgICAgPEdJQ19T
-UEkgMzYgSVJRX1RZUEVfTEVWRUxfSElHSD4sCisJCQkJICAgICA8R0lDX1NQSSAzNSBJUlFfVFlQ
-RV9MRVZFTF9ISUdIPjsKKwkJCWludGVycnVwdC1uYW1lcyA9ICJtYWNpcnEiLCAiZXRoX3dha2Vf
-aXJxIiwgImV0aF9scGkiOworCQkJY2xvY2tzID0gPCZzeXNjdHJsIFI5QTA2RzAzMl9IQ0xLX0dN
-QUMwPjsKKwkJCWNsb2NrLW5hbWVzID0gInN0bW1hY2V0aCI7CisJCQlwb3dlci1kb21haW5zID0g
-PCZzeXNjdHJsPjsKKwkJCXNucHMsbXVsdGljYXN0LWZpbHRlci1iaW5zID0gPDI1Nj47CisJCQlz
-bnBzLHBlcmZlY3QtZmlsdGVyLWVudHJpZXMgPSA8MTI4PjsKKwkJCXR4LWZpZm8tZGVwdGggPSA8
-MjA0OD47CisJCQlyeC1maWZvLWRlcHRoID0gPDQwOTY+OworCQkJcGNzLWhhbmRsZSA9IDwmbWlp
-X2NvbnYxPjsKKwkJCXN0YXR1cyA9ICJkaXNhYmxlZCI7CisJCX07CisKIAkJZ21hYzI6IGV0aGVy
-bmV0QDQ0MDAyMDAwIHsKIAkJCWNvbXBhdGlibGUgPSAicmVuZXNhcyxyOWEwNmcwMzItZ21hYyIs
-ICJyZW5lc2FzLHJ6bjEtZ21hYyIsICJzbnBzLGR3bWFjIjsKIAkJCXJlZyA9IDwweDQ0MDAyMDAw
-IDB4MjAwMD47CgotLSAKMi40NC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+RHppZcWEIGRvYnJ5LAoKQ3p5IGplc3QgbW/FvGxpd2/Fm8SHIG5hd2nEhXphbmlhIHdzcMOzxYJw
+cmFjeSB6IFBhxYRzdHdlbT8KClogY2jEmWNpxIUgcG9yb3ptYXdpYW0geiBvc29ixIUgemFqbXVq
+xIVjxIUgc2nEmSBkemlhxYJhbmlhbWkgendpxIV6YW55bWkgemUgc3ByemVkYcW8xIUuCgpQb21h
+Z2FteSBza3V0ZWN6bmllIHBvenlza2l3YcSHIG5vd3ljaCBrbGllbnTDs3cuCgpaYXByYXN6YW0g
+ZG8ga29udGFrdHUuCgoKUG96ZHJhd2lhbQpNYXJjaW4gV29qY2llY2hvd3NraQpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
