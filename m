@@ -2,150 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442158C39E6
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 03:44:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB5E8C3BB0
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 09:02:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3545C6A61D;
-	Mon, 13 May 2024 01:44:55 +0000 (UTC)
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89BD4C6C855;
+	Mon, 13 May 2024 07:02:45 +0000 (UTC)
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com
+ [192.19.144.208])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F025C5E2D1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36FABC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 01:44:48 +0000 (UTC)
-Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44D1WjZx026985;
- Sun, 12 May 2024 18:44:18 -0700
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2101.outbound.protection.outlook.com [104.47.55.101])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3y286frxrs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 12 May 2024 18:44:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iu7Pegy1Cx/w1f5AeZU54NilcKlGiXBbxfVZZFZhyV1BDSzzA9mGZMM1jWWNnqSzJELMJI9MJnJKgqLOlIh/zAPNg2YcHneUZ/dcifXdKvrQEkQ1OlSRUheSqiu84RRiMafv+H+8Jf70YJMBWIM6RNa57H760tUf2cjB019Gi7m9fyac17/R3UEoi4+R67E23T+SsPy6eWWTAisvix81ve+GIseUGqOL9m0oOXXNmqSeXpNYK2gfMhpO8XYxEIk6/elhR9nXyKjm0vcZzAhARxjJJcVXpBWOaaEdlN5TKNXgPBdRNNadkg91n+yEI5VlR5l8BiPXasFvJ1HZuXKLPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Z+HR2dG5qVR12p2+7Ib6LqM9ccp2WvkFUBOkQ681Kk=;
- b=is6PTPCE8aBNXBl84yoUCO0WKwK1wSZr93exGIW6b+plV91d+VeRmWmw55x2W3NYxBVZCDSSPuirRG2tR7BTM3ObYLcsXmiPB5+9gnv1zOKfznp1GsEtp/vclx6RvWwWcUANzCABEhS/l0p45R9pqbme93v8ntYGLwFMjx8aVx75vXpeo5rLGseQVkD1Blc5/hSOhz45eofhV6jCMRyBNENwBweGZF3oBzI6V1N5t2kRC3G7iYzqP97sFQMkRFQPxyb/iFL5KZ3w+CKVu6IiFU5xetyWuqeBH0CEYMAZzFAuB7JfCbzVOE0vwVFWgjWthcwR1qcJyl4iV9qJWvlIoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-Received: from SJ0PR11MB5769.namprd11.prod.outlook.com (2603:10b6:a03:420::8)
- by PH7PR11MB7477.namprd11.prod.outlook.com (2603:10b6:510:279::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.55; Mon, 13 May
- 2024 01:44:16 +0000
-Received: from SJ0PR11MB5769.namprd11.prod.outlook.com
- ([fe80::4ebe:8375:ccb:b4ad]) by SJ0PR11MB5769.namprd11.prod.outlook.com
- ([fe80::4ebe:8375:ccb:b4ad%5]) with mapi id 15.20.7544.046; Mon, 13 May 2024
- 01:44:16 +0000
-From: Xiaolei Wang <xiaolei.wang@windriver.com>
-To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- bartosz.golaszewski@linaro.org, horms@kernel.org,
- rohan.g.thomas@intel.com, rmk+kernel@armlinux.org.uk,
- fancer.lancer@gmail.com, ahalaney@redhat.com
-Date: Mon, 13 May 2024 09:43:46 +0800
-Message-Id: <20240513014346.1718740-3-xiaolei.wang@windriver.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240513014346.1718740-1-xiaolei.wang@windriver.com>
-References: <20240513014346.1718740-1-xiaolei.wang@windriver.com>
-X-ClientProxiedBy: TYCP286CA0189.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:382::15) To SJ0PR11MB5769.namprd11.prod.outlook.com
- (2603:10b6:a03:420::8)
+ Sat, 11 May 2024 01:59:29 +0000 (UTC)
+Received: from mail-lvn-it-01.lvn.broadcom.net
+ (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+ by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 6E233C0000E3;
+ Fri, 10 May 2024 18:59:27 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 6E233C0000E3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+ s=dkimrelay; t=1715392767;
+ bh=aIusPAgyv1SU2dOcd2wgXYvhU0B8SgxpfbGhD1pkejM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YWclFWIENNsxIPaqmWQj6/CvRft4RYYPtxEeorP568fzIgGCjD5eE3xhTl8tINhKA
+ kPTeuQSLRqUNCYSoTk7vbHoXN5EoDqsFH5ydWDs2AG8O4qF3FhN2HiJXp3PglQpwc/
+ eTV3d5THnbi6zmblCzun5r/DwcsEnz68NiTMP670=
+Received: from lvnvdd6494.lvn.broadcom.net (lvnvdd6494.lvn.broadcom.net
+ [10.36.237.243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail-lvn-it-01.lvn.broadcom.net (Postfix) with ESMTPSA id 7C80618041CAC4;
+ Fri, 10 May 2024 18:59:25 -0700 (PDT)
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+To: netdev@vger.kernel.org
+Date: Fri, 10 May 2024 18:59:24 -0700
+Message-Id: <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
+References: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB5769:EE_|PH7PR11MB7477:EE_
-X-MS-Office365-Filtering-Correlation-Id: f21b92e9-f6b2-4ab9-3054-08dc72ee32e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|376005|366007|7416005|1800799015|52116005|38350700005|921011; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fDgssn/pGQnbWnIm7fkiXEZGW7spxJ7tvvYpvNSFHIykwaxUcZXjtSHYG1YK?=
- =?us-ascii?Q?XfJiYV47aaXziTQdrhS0QBPzSqv9S5gZj/vTRWoY0byUPa6VTL/luQbsqPe+?=
- =?us-ascii?Q?E8wQqEcXqwRFODesZn7FFriDQXpSWEvVPe1anSTbJ71l3nrY/HoDu2+MF0Q/?=
- =?us-ascii?Q?dcVD8m4DDEbD0eswDQoorVbqruanwuLx186AqnLqNI0fP/RsTGP9Y5V/OJwB?=
- =?us-ascii?Q?HVYd1PCj83Y3Zek9cPgm60qK1ktcKNiUlwlNmxOPHD5xPvx0xAFQ57gjwQvP?=
- =?us-ascii?Q?90n55E3fUOVDPiGdChv/bLFNQmEjaf6kglJTy5e3fuL/yp4bkzijb+VJFYna?=
- =?us-ascii?Q?xhgpg544SFp0+gtwS0Sf64iSLNxv/IOMsLVQxLVOG7dLgnFECB+gE22woGBE?=
- =?us-ascii?Q?Hja8jXfAlVcN1GZeSNtaJGLq7HPuj04cFa1EnsJm+M8wtC2xd39f0i8vTT7u?=
- =?us-ascii?Q?ZcR3WQkb/FOI2yBOho3shhhzQIAxASrnM7n4I4o1wCTr7g6DRhVncq430p55?=
- =?us-ascii?Q?gaLBu0zteHNWMMWlmeeup4JRZBQyb3wlbf54XFgrOzhFoIkDUAW+Mo9XViXg?=
- =?us-ascii?Q?j1Bt8u+4qswlKzTQORcsTDNpmUeKZLkMPAciV9aQD+qs/6vLgwd1vd3fHql8?=
- =?us-ascii?Q?z7As9wNLW+pdfwKjkW/jpj24DUTHdYbGApJh7dLKZ0pFO1WFCqho8uLsf+5R?=
- =?us-ascii?Q?GnJnk654Qy5K0eJXi7prnINkVl8hFDRLyORIU2oDS5AI2DH+m5XrGhc9h1UF?=
- =?us-ascii?Q?9TxzvEACZuwyXYAbFL6ZZQkE4ct9hSNZplZldmVRJVuY3w35GbSXVEM31toJ?=
- =?us-ascii?Q?VfKP8uYXDXwRSqBgpUZydLVeSBs8gUIO3TOR7Py0+cf4jvEFcvXEmRtPJhqJ?=
- =?us-ascii?Q?G6rlO5AveIxwXWXtE7eSeo4jD4K+bkc2o4KppOtlQGhM4wD9fOIBdOoeiq83?=
- =?us-ascii?Q?B7SdrkPRrbfO8eXIyc4OENP6waysPY4vT9WtsLcEDlKS8vLoDDRNrdREHvwY?=
- =?us-ascii?Q?VGR+1oJCy4PLor73w0T5e3Q/jlw/BCQR5dQSzzsO2Vybzsd4/WGDi4g9Tf3J?=
- =?us-ascii?Q?b1WoyL6LCuGZQpXJY5hv3ZNqhD2t+rIHIceVR46LoxdUPXI2XitkweJ/ufBg?=
- =?us-ascii?Q?DwPr2uzB1odTPkW6cfklNTCExDsKDRgeEe/+ymovJpxPFrQ+fUbSw02pS8A7?=
- =?us-ascii?Q?vJXAm0mBAVLHwEclhGV78GQdOrcdH2/Bqa+y5u1bp+goT58hL8sRiTZEkoLB?=
- =?us-ascii?Q?P1MqoD1Ftxx1EC/bNj55LAzfe8Nmg9eSIAQ/KiVrhTdcumRMB7MBnW7Hb2tF?=
- =?us-ascii?Q?n6PvFwF1ZgKZZB8+8FwsU+oSWwhKI6aPsmES1BvpepGeMS4Lz+dLSLqVdKhB?=
- =?us-ascii?Q?qMJUfwo=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB5769.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(366007)(7416005)(1800799015)(52116005)(38350700005)(921011);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7hKTS5fN8qoIPRBuLl82pzFWr/b0PjwfB1AfUkC/y/EABaDz3itatwl/uodj?=
- =?us-ascii?Q?tNxJZZWFC1OLyI/JezYM5vcTKc0xVnWk85KZ/GGyEwR5l9RUok1R67ceYG9L?=
- =?us-ascii?Q?wMPXfBconlbSERtglXDqiKz0UBTCrncrUrRj3V19UsqBPKIP+6lf8LEgcX5S?=
- =?us-ascii?Q?G86e0IoTMJRckFM75IoZ7ESPa3FfAMMDx0WNNsDWa9Yx1kDmSpH1c/CyETCZ?=
- =?us-ascii?Q?ROT5HhfbhHVP5e1BFjz0YfBD5l5ckxt6/F4Gp08NPvjeJJBhS6b2hJhSfGkJ?=
- =?us-ascii?Q?043PXBFz56OFTH1o50aVnocM35KCi+MUBC9uBJFFP4TcsQRRxGas554dVQ8q?=
- =?us-ascii?Q?knLcxB1siAUzrknvpv0YzRm9V6WZ1OJthIRe2c85JK04bYEqoxg+A/f6D82f?=
- =?us-ascii?Q?IQDprmPB+RqbjycVQMBxPVSWL1O7V6A542ZRq3Lo2p0Vu8/zBa/q+oEYuHDu?=
- =?us-ascii?Q?7EUCuaMaMPqMEfyIRv1Db302eyROSFprpeq4CDDgnuLIwTlbtLqBK9L7A55g?=
- =?us-ascii?Q?V1EAF32JZg6IjCRpPDlSbwJ+nmw9uBOgVsmUzhEzIrds9wIhGO+DKA+jwtGx?=
- =?us-ascii?Q?KuvrvraDcwYao+ZFnfEDWTTTyngFEKfUk+M/r5Me9xbtqgPCZn3TgmjDBvqU?=
- =?us-ascii?Q?T7G1AVADnrSlORpllrFZuAzyx/wZ1zCRb9YpTX3Vs4EHwjIYQ4u2Cq5AwoWe?=
- =?us-ascii?Q?/VbB0VJKMOUaNmj1HbQFRj5GiubMp4uHLOC56g+3XEDp3fBJe66C0WQFD7I2?=
- =?us-ascii?Q?RCCSzzSG/aNGgBcIeqJ5ZhWulc4IuQXbXOxSkTbKuhtNNKj1mye+wp7ZozUr?=
- =?us-ascii?Q?w7BzOufdOmKe/1YBl6P2VibEG8/7Hi0Ns4FN0/b2cDBdDna92oTcrNYSy2n/?=
- =?us-ascii?Q?6HeqruCKINY4tWXqwUHMJbaCJVRvi0feObJ5bnMwoAVQJgt6ZM5gk2xpuP/b?=
- =?us-ascii?Q?gD4HA7w+7Ncs8q+U0PaVYzgBFZDBniuGRPJuMxVrqAhfi9duLYBSQ4Ig2kRU?=
- =?us-ascii?Q?1lVuhEUDTjt1va4neuTreDKEhSBxwxWK/vrb7f5oQWoJOOKQ8B+XOf6l+ro8?=
- =?us-ascii?Q?2dtSZPPdUJH9WWtHHw8XCKo190FNhxkZn98rIbikRzB2LP6QyhJPbqVY6IrB?=
- =?us-ascii?Q?BobDS3oX2eiv+ClgfSHk7lhB+99bckhT8TUEz/H87ZtdbIA16agNAaSno0Lt?=
- =?us-ascii?Q?A3F9GtdHiEYF6WQuBSwdvuqGvvuSG51oEKjjBKCRaAPhgKfIGIOEMQIB2L04?=
- =?us-ascii?Q?ZfeXBCuYVlJIv+QX3jxVUqrfUpEl1nMuH3n+l/j5M1+IjYr+gU0usECUeVVJ?=
- =?us-ascii?Q?OrfVuE6Pln76PFlYrvjvfXhNss0X5p0P3rxjeV1/0dA68FKJjG27BA10eC17?=
- =?us-ascii?Q?nmZwBiiyY+O2yBnPOBKJHwo6W+QcyLrLhbnGEq4YJVbg8ednO4n7VidSYusM?=
- =?us-ascii?Q?f5e8ZwZs5ocEa3VkKbkpgEDI1PUwtGLksFLfub4f9Cod0oV6/EIPM3T9ZvaK?=
- =?us-ascii?Q?oRD5WksvDspInYw8X2YAfmnfJJ3xplUqNcsZhUChc9BL6QK2j5PgTPFXoixr?=
- =?us-ascii?Q?lIFyaPOsswB8oF2BugTtrw8sa4rYnPN8qO0IcRYGHlgywlsIA7X2F2av1PFE?=
- =?us-ascii?Q?/Q=3D=3D?=
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f21b92e9-f6b2-4ab9-3054-08dc72ee32e4
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5769.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2024 01:44:16.4217 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S+tzT+Bq/6VW/TemC5AcWhPFYoufMlW9RuMRqVev+0+u8gFA0p9xn9+fsrUvz/e0vsvxw4jeuMd/3qPGxSpmcGZFuyzwasdf2H2QHJjlqAY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7477
-X-Proofpoint-ORIG-GUID: rZgV1wD_InYwmkpXlhbiL23_hdNiQL-F
-X-Proofpoint-GUID: rZgV1wD_InYwmkpXlhbiL23_hdNiQL-F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-12_15,2024-05-10_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0
- spamscore=0 suspectscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 mlxlogscore=999 mlxscore=0 malwarescore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405010000
- definitions=main-2405130010
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [net-next PATCH v6 2/2] net: stmmac: move the EST
-	structure to struct stmmac_priv
+X-Mailman-Approved-At: Mon, 13 May 2024 07:02:38 +0000
+Cc: richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, mcoquelin.stm32@gmail.com,
+ jitendra.vegiraju@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2, net-next,
+	2/2] net: stmmac: PCI driver for BCM8958X SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,300 +64,719 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move the EST structure to struct stmmac_priv, because the
-EST configs don't look like platform config, but EST is
-enabled in runtime with the settings retrieved for the TC
-TAPRIO feature also in runtime. So it's better to have the
-EST-data preserved in the driver private data instead of
-the platform data storage.
+Broadcom BCM8958X SoCs use Synopsys XGMAC design, which is similar to
+dwxgmac2 core implementation in stmmac driver. The existing dwxgmac2 dma
+operation functions have some conflicting differences with BCM8958X.
+This glue driver attempts to reuse dwxgmac2 implementation wherever
+possible, adding alternative implementations where necessary.
 
-Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+v2: code cleanup to address patchwork reports.
+
+Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  | 15 +++++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 18 ++++-----
- .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  | 22 +++++-----
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 40 +++++++++----------
- include/linux/stmmac.h                        | 15 -------
- 5 files changed, 54 insertions(+), 56 deletions(-)
+ MAINTAINERS                                   |   7 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-brcm.c  | 638 ++++++++++++++++++
+ 4 files changed, 657 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 64b21c83e2b8..011683abf97f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -221,6 +221,20 @@ struct stmmac_dma_conf {
- 	unsigned int dma_tx_size;
- };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b81b2be60b77..1eaf52047810 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4115,6 +4115,13 @@ N:	brcmstb
+ N:	bcm7038
+ N:	bcm7120
  
-+#define EST_GCL         1024
-+struct stmmac_est {
-+	int enable;
-+	u32 btr_reserve[2];
-+	u32 btr_offset[2];
-+	u32 btr[2];
-+	u32 ctr[2];
-+	u32 ter;
-+	u32 gcl_unaligned[EST_GCL];
-+	u32 gcl[EST_GCL];
-+	u32 gcl_size;
-+	u32 max_sdu[MTL_MAX_TX_QUEUES];
++BROADCOM BCM8958X ETHERNET DRIVER
++M:	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
++R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
++L:	netdev@vger.kernel.org
++S:	Maintained
++F:	drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
++
+ BROADCOM BCMBCA ARM ARCHITECTURE
+ M:	William Zhang <william.zhang@broadcom.com>
+ M:	Anand Gore <anand.gore@broadcom.com>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 4ec61f1ee71a..6c06149712c8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -286,6 +286,17 @@ config DWMAC_LOONGSON
+ 	  This selects the LOONGSON PCI bus support for the stmmac driver,
+ 	  Support for ethernet controller on Loongson-2K1000 SoC and LS7A1000 bridge.
+ 
++config DWMAC_BRCM
++	tristate "Broadcom XGMAC support"
++	depends on STMMAC_ETH && PCI
++	depends on COMMON_CLK
++	help
++	  Support for ethernet controllers on Broadcom BCM8958x SoCs
++
++	  This selects Broadcom XGMAC specific PCI bus support for the
++	  stmmac driver. This driver provides the glue layer on top of the
++	  stmmac driver required for the Broadcom BCM8958x SoC devices.
++
+ config STMMAC_PCI
+ 	tristate "STMMAC PCI bus support"
+ 	depends on STMMAC_ETH && PCI
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index 26cad4344701..1cd0f508bafb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -40,4 +40,5 @@ dwmac-altr-socfpga-objs := dwmac-socfpga.o
+ obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
+ obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
+ obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
++obj-$(CONFIG_DWMAC_BRCM)	+= dwmac-brcm.o
+ stmmac-pci-objs:= stmmac_pci.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+new file mode 100644
+index 000000000000..74f8e137d823
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+@@ -0,0 +1,638 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2024 Broadcom Corporation
++ * This file contains the functions to handle the Broadcom XGMAC PCI driver.
++ *
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/dmi.h>
++#include <linux/pci.h>
++#include <linux/phy.h>
++#include <linux/phy_fixed.h>
++
++#include "stmmac.h"
++#include "dwxgmac2.h"
++
++#define PCI_DEVICE_ID_BROADCOM_BCM8958X		0xa00d
++#define BRCM_MAX_MTU				1500
++#define READ_POLL_DELAY_US			100
++#define READ_POLL_TIMEOUT_US			10000
++#define DWMAC_125MHZ				125000000
++#define DWMAC_250MHZ				250000000
++
++/* TX and RX Queue couts */
++#define BRCM_TX_Q_COUNT				4
++#define BRCM_RX_Q_COUNT				1
++
++/* PDMA Channel counts */
++#define PDMA_TX_CH_COUNT			8
++#define PDMA_RX_CH_COUNT			10
++
++/* PDMA register type */
++#define PDMA_CH_TX_EXT_CFGR			0
++#define PDMA_CH_RX_EXT_CFGR			1
++#define PDMA_CH_TX_DBG_STSR			2
++#define PDMA_CH_RX_DBG_STSR			3
++
++/* VDMA register type */
++#define VDMA_CH_TX_DESC_CTRLR			4
++#define VDMA_CH_RX_DESC_CTRLR			5
++
++/* VDMA channel count */
++#define VDMA_TOTAL_CH_COUNT			32
++
++#define DMA_CH_IND_CTRLR			0x3080
++#define DMA_CH_IND_DATAR			0x3084
++
++#define BRCM_XGMAC_RX_CFG			0x2000
++#define BRCM_XGMAC_RXQ_CTRL1_CFG		0x8000
++
++#define BRCM_XGMAC_DMA_TX_SIZE			4096
++#define BRCM_XGMAC_DMA_RX_SIZE			4096
++#define BRCM_XGMAC_BAR0_MASK			BIT(0)
++
++#define BRCM_XGMAC_IOMEM_MISC_REG_OFFSET	0x0
++#define BRCM_XGMAC_IOMEM_MBOX_REG_OFFSET	0x1000
++#define BRCM_XGMAC_IOMEM_CFG_REG_OFFSET		0x3000
++
++#define XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LOW	0x940
++#define XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LO_VALUE	0x00000001
++#define XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HIGH	0x944
++#define XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HI_VALUE	0x88000000
++
++#define XGMAC_PCIE_MISC_MII_CTRL			0x4
++#define XGMAC_PCIE_MISC_MII_CTRL_VALUE			0x7
++#define XGMAC_PCIE_MISC_PCIESS_CTRL			0x8
++#define XGMAC_PCIE_MISC_PCIESS_CTRL_VALUE		0x200
++#define XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO		0x90
++#define XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_VALUE	0x00000001
++#define XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI		0x94
++#define XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_VALUE	0x88000000
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0	0x700
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0_VALUE	1
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1	0x704
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1_VALUE	1
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL	0x728
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL_VALUE	1
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL		0x740
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL_VALUE	0
++
++#define DMA_CH_IND_CTRLR_MSEL_OFF		24
++#define DMA_CH_IND_CTRLR_MSEL_MASK		GENMASK(27, 24)
++#define DMA_CH_IND_CTRLR_AOFF_OFF		8
++#define DMA_CH_IND_CTRLR_AOFF_MASK		GENMASK(14, 8)
++#define DMA_CH_IND_CTRLR_AUTO_OFF		4
++#define DMA_CH_IND_CTRLR_AUTO_MASK		GENMASK(5, 4)
++#define DMA_CH_IND_CTRLR_CT_OFF			1
++#define DMA_CH_IND_CTRLR_CT_MASK		BIT(1)
++#define DMA_CH_IND_CTRLR_OB_OFF			0
++#define DMA_CH_IND_CTRLR_OB_MASK		BIT(0)
++
++/* DMA Descriptor configuration */
++#define BRCM_PDMA_DESC_CTRL_CFG_VALUE		0x1B
++
++#define XGMAC_PCIE_MISC_FUNC_RESOURCES_PF0	0x804
++
++/* MSIX Vector map register starting offsets */
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_RX0_PF0	0x840
++#define XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_TX0_PF0	0x890
++#define BRCM_MAX_DMA_CHANNEL_PAIRS		4
++
++#define BRCM_XGMAC_MSI_MAC_VECTOR		0
++#define BRCM_XGMAC_MSI_RX_VECTOR_START		9
++#define BRCM_XGMAC_MSI_TX_VECTOR_START		10
++
++static int num_instances;
++
++struct brcm_priv_data {
++	struct phy_device *phy_dev;
++	void __iomem *mbox_regs;    /* MBOX */
++	void __iomem *misc_regs;    /* MISC_cfg */
++	u16	dev_id;
++	u16	phy_addr;
 +};
 +
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
- 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
-@@ -263,6 +277,7 @@ struct stmmac_priv {
- 	struct plat_stmmacenet_data *plat;
- 	/* Protect est parameters */
- 	struct mutex est_lock;
-+	struct stmmac_est *est;
- 	struct dma_features dma_cap;
- 	struct stmmac_counters mmc;
- 	int hw_cap_support;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7c6fb14b5555..0eafd609bf53 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2491,9 +2491,9 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
- 		if (!xsk_tx_peek_desc(pool, &xdp_desc))
- 			break;
- 
--		if (priv->plat->est && priv->plat->est->enable &&
--		    priv->plat->est->max_sdu[queue] &&
--		    xdp_desc.len > priv->plat->est->max_sdu[queue]) {
-+		if (priv->est && priv->est->enable &&
-+		    priv->est->max_sdu[queue] &&
-+		    xdp_desc.len > priv->est->max_sdu[queue]) {
- 			priv->xstats.max_sdu_txq_drop[queue]++;
- 			continue;
- 		}
-@@ -4528,9 +4528,9 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 			return stmmac_tso_xmit(skb, dev);
- 	}
- 
--	if (priv->plat->est && priv->plat->est->enable &&
--	    priv->plat->est->max_sdu[queue] &&
--	    skb->len > priv->plat->est->max_sdu[queue]){
-+	if (priv->est && priv->est->enable &&
-+	    priv->est->max_sdu[queue] &&
-+	    skb->len > priv->est->max_sdu[queue]){
- 		priv->xstats.max_sdu_txq_drop[queue]++;
- 		goto max_sdu_err;
- 	}
-@@ -4909,9 +4909,9 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
- 	if (stmmac_tx_avail(priv, queue) < STMMAC_TX_THRESH(priv))
- 		return STMMAC_XDP_CONSUMED;
- 
--	if (priv->plat->est && priv->plat->est->enable &&
--	    priv->plat->est->max_sdu[queue] &&
--	    xdpf->len > priv->plat->est->max_sdu[queue]) {
-+	if (priv->est && priv->est->enable &&
-+	    priv->est->max_sdu[queue] &&
-+	    xdpf->len > priv->est->max_sdu[queue]) {
- 		priv->xstats.max_sdu_txq_drop[queue]++;
- 		return STMMAC_XDP_CONSUMED;
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 0c5aab6dd7a7..a6b1de9a251d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -68,11 +68,11 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
- 	nsec = reminder;
- 
- 	/* If EST is enabled, disabled it before adjust ptp time. */
--	if (priv->plat->est && priv->plat->est->enable) {
-+	if (priv->est && priv->est->enable) {
- 		est_rst = true;
- 		mutex_lock(&priv->est_lock);
--		priv->plat->est->enable = false;
--		stmmac_est_configure(priv, priv, priv->plat->est,
-+		priv->est->enable = false;
-+		stmmac_est_configure(priv, priv, priv->est,
- 				     priv->plat->clk_ptp_rate);
- 		mutex_unlock(&priv->est_lock);
- 	}
-@@ -90,19 +90,19 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
- 		mutex_lock(&priv->est_lock);
- 		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
- 		current_time_ns = timespec64_to_ktime(current_time);
--		time.tv_nsec = priv->plat->est->btr_reserve[0];
--		time.tv_sec = priv->plat->est->btr_reserve[1];
-+		time.tv_nsec = priv->est->btr_reserve[0];
-+		time.tv_sec = priv->est->btr_reserve[1];
- 		basetime = timespec64_to_ktime(time);
--		cycle_time = (u64)priv->plat->est->ctr[1] * NSEC_PER_SEC +
--			     priv->plat->est->ctr[0];
-+		cycle_time = (u64)priv->est->ctr[1] * NSEC_PER_SEC +
-+			     priv->est->ctr[0];
- 		time = stmmac_calc_tas_basetime(basetime,
- 						current_time_ns,
- 						cycle_time);
- 
--		priv->plat->est->btr[0] = (u32)time.tv_nsec;
--		priv->plat->est->btr[1] = (u32)time.tv_sec;
--		priv->plat->est->enable = true;
--		ret = stmmac_est_configure(priv, priv, priv->plat->est,
-+		priv->est->btr[0] = (u32)time.tv_nsec;
-+		priv->est->btr[1] = (u32)time.tv_sec;
-+		priv->est->enable = true;
-+		ret = stmmac_est_configure(priv, priv, priv->est,
- 					   priv->plat->clk_ptp_rate);
- 		mutex_unlock(&priv->est_lock);
- 		if (ret)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 620c16e9be3a..222540b55480 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -918,7 +918,6 @@ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
- static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
- 				     struct tc_taprio_qopt_offload *qopt)
- {
--	struct plat_stmmacenet_data *plat = priv->plat;
- 	u32 num_tc = qopt->mqprio.qopt.num_tc;
- 	u32 offset, count, i, j;
- 
-@@ -933,7 +932,7 @@ static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
- 		count = qopt->mqprio.qopt.count[i];
- 
- 		for (j = offset; j < offset + count; j++)
--			plat->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
-+			priv->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
- 	}
- }
- 
-@@ -941,7 +940,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 			       struct tc_taprio_qopt_offload *qopt)
- {
- 	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
--	struct plat_stmmacenet_data *plat = priv->plat;
- 	struct timespec64 time, current_time, qopt_time;
- 	ktime_t current_time_ns;
- 	bool fpe = false;
-@@ -998,24 +996,24 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	if (qopt->cycle_time_extension >= BIT(wid + 7))
- 		return -ERANGE;
- 
--	if (!plat->est) {
--		plat->est = devm_kzalloc(priv->device, sizeof(*plat->est),
-+	if (!priv->est) {
-+		priv->est = devm_kzalloc(priv->device, sizeof(*priv->est),
- 					 GFP_KERNEL);
--		if (!plat->est)
-+		if (!priv->est)
- 			return -ENOMEM;
- 
- 		mutex_init(&priv->est_lock);
- 	} else {
- 		mutex_lock(&priv->est_lock);
--		memset(plat->est, 0, sizeof(*plat->est));
-+		memset(priv->est, 0, sizeof(*priv->est));
- 		mutex_unlock(&priv->est_lock);
- 	}
- 
- 	size = qopt->num_entries;
- 
- 	mutex_lock(&priv->est_lock);
--	priv->plat->est->gcl_size = size;
--	priv->plat->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
-+	priv->est->gcl_size = size;
-+	priv->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
- 	mutex_unlock(&priv->est_lock);
- 
- 	for (i = 0; i < size; i++) {
-@@ -1044,7 +1042,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 			return -EOPNOTSUPP;
- 		}
- 
--		priv->plat->est->gcl[i] = delta_ns | (gates << wid);
-+		priv->est->gcl[i] = delta_ns | (gates << wid);
- 	}
- 
- 	mutex_lock(&priv->est_lock);
-@@ -1054,18 +1052,18 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	time = stmmac_calc_tas_basetime(qopt->base_time, current_time_ns,
- 					qopt->cycle_time);
- 
--	priv->plat->est->btr[0] = (u32)time.tv_nsec;
--	priv->plat->est->btr[1] = (u32)time.tv_sec;
-+	priv->est->btr[0] = (u32)time.tv_nsec;
-+	priv->est->btr[1] = (u32)time.tv_sec;
- 
- 	qopt_time = ktime_to_timespec64(qopt->base_time);
--	priv->plat->est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
--	priv->plat->est->btr_reserve[1] = (u32)qopt_time.tv_sec;
-+	priv->est->btr_reserve[0] = (u32)qopt_time.tv_nsec;
-+	priv->est->btr_reserve[1] = (u32)qopt_time.tv_sec;
- 
- 	ctr = qopt->cycle_time;
--	priv->plat->est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
--	priv->plat->est->ctr[1] = (u32)ctr;
-+	priv->est->ctr[0] = do_div(ctr, NSEC_PER_SEC);
-+	priv->est->ctr[1] = (u32)ctr;
- 
--	priv->plat->est->ter = qopt->cycle_time_extension;
-+	priv->est->ter = qopt->cycle_time_extension;
- 
- 	tc_taprio_map_maxsdu_txq(priv, qopt);
- 
-@@ -1079,7 +1077,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	 */
- 	priv->plat->fpe_cfg->enable = fpe;
- 
--	ret = stmmac_est_configure(priv, priv, priv->plat->est,
-+	ret = stmmac_est_configure(priv, priv, priv->est,
- 				   priv->plat->clk_ptp_rate);
- 	mutex_unlock(&priv->est_lock);
- 	if (ret) {
-@@ -1097,10 +1095,10 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	return 0;
- 
- disable:
--	if (priv->plat->est) {
-+	if (priv->est) {
- 		mutex_lock(&priv->est_lock);
--		priv->plat->est->enable = false;
--		stmmac_est_configure(priv, priv, priv->plat->est,
-+		priv->est->enable = false;
-+		stmmac_est_configure(priv, priv, priv->est,
- 				     priv->plat->clk_ptp_rate);
- 		/* Reset taprio status */
- 		for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index c0d74f97fd18..5da45d025601 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -115,20 +115,6 @@ struct stmmac_axi {
- 	bool axi_rb;
- };
- 
--#define EST_GCL		1024
--struct stmmac_est {
--	int enable;
--	u32 btr_reserve[2];
--	u32 btr_offset[2];
--	u32 btr[2];
--	u32 ctr[2];
--	u32 ter;
--	u32 gcl_unaligned[EST_GCL];
--	u32 gcl[EST_GCL];
--	u32 gcl_size;
--	u32 max_sdu[MTL_MAX_TX_QUEUES];
--};
--
- struct stmmac_rxq_cfg {
- 	u8 mode_to_use;
- 	u32 chan;
-@@ -245,7 +231,6 @@ struct plat_stmmacenet_data {
- 	struct fwnode_handle *port_node;
- 	struct device_node *mdio_node;
- 	struct stmmac_dma_cfg *dma_cfg;
--	struct stmmac_est *est;
- 	struct stmmac_fpe_cfg *fpe_cfg;
- 	struct stmmac_safety_feature_cfg *safety_feat_cfg;
- 	int clk_csr;
++static struct fixed_phy_status dwxgmac_brcm_fixed_phy_status = {
++	.link	= 1,
++	.speed	= SPEED_1000,
++	.duplex	= DUPLEX_FULL,
++};
++
++struct dwxgmac_brcm_pci_info {
++	int (*setup)(struct pci_dev *pdev, struct plat_stmmacenet_data *plat);
++};
++
++static void misc_iowrite(struct brcm_priv_data *brcm_priv,
++			 u32 reg, u32 val)
++{
++	iowrite32(val, brcm_priv->misc_regs + reg);
++}
++
++static void dwxgmac_brcm_pdma_set(void __iomem *ioaddr, u32 type, u32 chan,
++				  u32 val)
++{
++	u32 var = 0;
++
++	var |= FIELD_PREP(DMA_CH_IND_CTRLR_MSEL_MASK, type);
++	var |= FIELD_PREP(DMA_CH_IND_CTRLR_AOFF_MASK, chan);
++	var |= FIELD_PREP(DMA_CH_IND_CTRLR_CT_MASK, 0);
++	var |= FIELD_PREP(DMA_CH_IND_CTRLR_OB_MASK, 1);
++
++	if (!FIELD_GET(DMA_CH_IND_CTRLR_OB_MASK,
++		       readl(ioaddr + DMA_CH_IND_CTRLR))) {
++		writel(0x0, (ioaddr + DMA_CH_IND_CTRLR));
++		writel(val, (ioaddr + DMA_CH_IND_DATAR));
++	}
++
++	writel(var, (ioaddr + DMA_CH_IND_CTRLR));
++	readl_poll_timeout(ioaddr + DMA_CH_IND_CTRLR, var,
++			   !(var & XGMAC_OB), READ_POLL_TIMEOUT_US,
++			   READ_POLL_TIMEOUT_US);
++}
++
++static void dwxgmac_brcm_dma_init(void __iomem *ioaddr,
++				  struct stmmac_dma_cfg *dma_cfg, int atds)
++{
++	u32 val = dma_cfg->pbl << 24;
++	u32 i;
++
++	if (dma_cfg->pblx8)
++		val |= (1 << 19);
++
++	dwxgmac2_dma_init(ioaddr, dma_cfg, atds);
++
++	for (i = 0; i < PDMA_TX_CH_COUNT; i++)
++		dwxgmac_brcm_pdma_set(ioaddr, PDMA_CH_TX_EXT_CFGR, i, val);
++
++	for (i = 0; i < PDMA_RX_CH_COUNT; i++)
++		dwxgmac_brcm_pdma_set(ioaddr, PDMA_CH_RX_EXT_CFGR, i, val);
++
++	for (i = 0; i < VDMA_TOTAL_CH_COUNT; i++) {
++		dwxgmac_brcm_pdma_set(ioaddr, VDMA_CH_TX_DESC_CTRLR, i,
++				      BRCM_PDMA_DESC_CTRL_CFG_VALUE);
++		dwxgmac_brcm_pdma_set(ioaddr, VDMA_CH_RX_DESC_CTRLR, i,
++				      BRCM_PDMA_DESC_CTRL_CFG_VALUE);
++	}
++}
++
++static void dwxgmac_brcm_dma_init_tx_chan(struct stmmac_priv *priv,
++					  void __iomem *ioaddr,
++					  struct stmmac_dma_cfg *dma_cfg,
++					  dma_addr_t phy, u32 chan)
++{
++	u32 value;
++
++	value = readl(ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
++	value &= ~XGMAC_TxPBL;
++	value &= ~GENMASK(6, 4);
++	writel(value, ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
++
++	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
++	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
++}
++
++static void dwxgmac_brcm_dma_init_rx_chan(struct stmmac_priv *priv,
++					  void __iomem *ioaddr,
++					  struct stmmac_dma_cfg *dma_cfg,
++					  dma_addr_t phy, u32 chan)
++{
++	u32 value;
++
++	value = readl(ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
++	value &= ~XGMAC_RxPBL;
++	writel(value, ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
++
++	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
++	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
++}
++
++static const struct stmmac_dma_ops dwxgmac_brcm_dma_ops = {
++	.reset = dwxgmac2_dma_reset,
++	.init = dwxgmac_brcm_dma_init,
++	.init_chan = dwxgmac2_dma_init_chan,
++	.init_rx_chan = dwxgmac_brcm_dma_init_rx_chan,
++	.init_tx_chan = dwxgmac_brcm_dma_init_tx_chan,
++	.axi = dwxgmac2_dma_axi,
++	.dump_regs = dwxgmac2_dma_dump_regs,
++	.dma_rx_mode = dwxgmac2_dma_rx_mode,
++	.dma_tx_mode = dwxgmac2_dma_tx_mode,
++	.enable_dma_irq = dwxgmac2_enable_dma_irq,
++	.disable_dma_irq = dwxgmac2_disable_dma_irq,
++	.start_tx = dwxgmac2_dma_start_tx,
++	.stop_tx = dwxgmac2_dma_stop_tx,
++	.start_rx = dwxgmac2_dma_start_rx,
++	.stop_rx = dwxgmac2_dma_stop_rx,
++	.dma_interrupt = dwxgmac2_dma_interrupt,
++	.get_hw_feature = dwxgmac2_get_hw_feature,
++	.rx_watchdog = dwxgmac2_rx_watchdog,
++	.set_rx_ring_len = dwxgmac2_set_rx_ring_len,
++	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
++	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
++	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
++	.enable_tso = dwxgmac2_enable_tso,
++	.qmode = dwxgmac2_qmode,
++	.set_bfsize = dwxgmac2_set_bfsize,
++	.enable_sph = dwxgmac2_enable_sph,
++	.enable_tbs = dwxgmac2_enable_tbs,
++};
++
++static void dwxgmac_brcm_fix_speed(void *priv, unsigned int speed,
++				   unsigned int mode)
++{
++}
++
++static struct mac_device_info *dwxgmac_brcm_setup(void *ppriv)
++{
++	struct mac_device_info *mac;
++	struct stmmac_priv *priv = ppriv;
++
++	mac = devm_kzalloc(priv->device, sizeof(*mac), GFP_KERNEL);
++	if (!mac)
++		return NULL;
++
++	mac->dma = &dwxgmac_brcm_dma_ops;
++
++	priv->dma_conf.dma_tx_size = BRCM_XGMAC_DMA_TX_SIZE;
++	priv->dma_conf.dma_rx_size = BRCM_XGMAC_DMA_RX_SIZE;
++	priv->plat->rss_en = 1;
++	mac->pcsr = priv->ioaddr;
++	priv->dev->priv_flags |= IFF_UNICAST_FLT;
++	mac->multicast_filter_bins = priv->plat->multicast_filter_bins;
++	mac->unicast_filter_entries = priv->plat->unicast_filter_entries;
++	mac->mcast_bits_log2 = 0;
++
++	if (mac->multicast_filter_bins)
++		mac->mcast_bits_log2 = ilog2(mac->multicast_filter_bins);
++
++	mac->link.duplex = 0;
++	mac->link.xgmii.speed10000 = XGMAC_CONFIG_SS_10000;
++	mac->link.speed_mask = XGMAC_CONFIG_SS_MASK;
++	return mac;
++}
++
++static void dwxgmac_brcm_common_default_data(struct plat_stmmacenet_data *plat)
++{
++	int i;
++
++	plat->has_xgmac = 1;
++	plat->force_sf_dma_mode = 1;
++	plat->mac_port_sel_speed = SPEED_10000;
++	plat->clk_ptp_rate = DWMAC_125MHZ;
++	plat->clk_ref_rate = DWMAC_250MHZ;
++	plat->setup = dwxgmac_brcm_setup;
++	plat->tx_coe = 1;
++	plat->rx_coe = 1;
++	plat->max_speed = SPEED_10000;
++	plat->fix_mac_speed = dwxgmac_brcm_fix_speed;
++
++	/* Set default value for multicast hash bins */
++	plat->multicast_filter_bins = HASH_TABLE_SIZE;
++
++	/* Set default value for unicast filter entries */
++	plat->unicast_filter_entries = 1;
++
++	/* Set the maxmtu to device's default */
++	plat->maxmtu = BRCM_MAX_MTU;
++
++	/* Set default number of RX and TX queues to use */
++	plat->tx_queues_to_use = BRCM_TX_Q_COUNT;
++	plat->rx_queues_to_use = BRCM_RX_Q_COUNT;
++
++	plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
++	for (i = 0; i < plat->tx_queues_to_use; i++) {
++		plat->tx_queues_cfg[i].use_prio = false;
++		plat->tx_queues_cfg[i].prio = 0;
++		plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
++	}
++
++	plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
++	for (i = 0; i < plat->rx_queues_to_use; i++) {
++		plat->rx_queues_cfg[i].use_prio = false;
++		plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
++		plat->rx_queues_cfg[i].pkt_route = 0x0;
++		plat->rx_queues_cfg[i].chan = i;
++	}
++}
++
++static int dwxgmac_brcm_default_data(struct pci_dev *pdev,
++				     struct plat_stmmacenet_data *plat)
++{
++	struct brcm_priv_data *brcm_priv = plat->bsp_priv;
++
++	/* Set common default data first */
++	dwxgmac_brcm_common_default_data(plat);
++
++	plat->bus_id = 0;
++	plat->phy_addr = num_instances++;
++	brcm_priv->phy_addr = num_instances;
++	plat->phy_interface = PHY_INTERFACE_MODE_USXGMII;
++
++	plat->dma_cfg->pbl = 32;
++	plat->dma_cfg->pblx8 = 0;
++	plat->dma_cfg->aal = 0;
++	plat->dma_cfg->eame = 1;
++
++	plat->axi->axi_wr_osr_lmt = 31;
++	plat->axi->axi_rd_osr_lmt = 31;
++	plat->axi->axi_fb = 0;
++	plat->axi->axi_blen[0] = 4;
++	plat->axi->axi_blen[1] = 8;
++	plat->axi->axi_blen[2] = 16;
++	plat->axi->axi_blen[3] = 32;
++	plat->axi->axi_blen[4] = 64;
++	plat->axi->axi_blen[5] = 128;
++	plat->axi->axi_blen[6] = 256;
++
++	plat->msi_mac_vec = BRCM_XGMAC_MSI_MAC_VECTOR;
++	plat->msi_rx_base_vec = BRCM_XGMAC_MSI_RX_VECTOR_START;
++	plat->msi_tx_base_vec = BRCM_XGMAC_MSI_TX_VECTOR_START;
++
++	return 0;
++}
++
++static struct dwxgmac_brcm_pci_info dwxgmac_brcm_pci_info = {
++	.setup = dwxgmac_brcm_default_data,
++};
++
++static int brcm_config_multi_msi(struct pci_dev *pdev,
++				 struct plat_stmmacenet_data *plat,
++				 struct stmmac_resources *res)
++{
++	int ret;
++	int i;
++
++	if (plat->msi_rx_base_vec >= STMMAC_MSI_VEC_MAX ||
++	    plat->msi_tx_base_vec >= STMMAC_MSI_VEC_MAX) {
++		dev_err(&pdev->dev, "%s: Invalid RX & TX vector defined\n",
++			__func__);
++		return -EINVAL;
++	}
++
++	ret = pci_alloc_irq_vectors(pdev, 2, STMMAC_MSI_VEC_MAX,
++				    PCI_IRQ_MSI | PCI_IRQ_MSIX);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "%s: multi MSI enablement failed\n",
++			__func__);
++		return ret;
++	}
++
++	/* For RX MSI */
++	for (i = 0; i < plat->rx_queues_to_use; i++)
++		res->rx_irq[i] = pci_irq_vector(pdev,
++						plat->msi_rx_base_vec + i * 2);
++
++	/* For TX MSI */
++	for (i = 0; i < plat->tx_queues_to_use; i++)
++		res->tx_irq[i] = pci_irq_vector(pdev,
++						plat->msi_tx_base_vec + i * 2);
++
++	if (plat->msi_mac_vec < STMMAC_MSI_VEC_MAX)
++		res->irq = pci_irq_vector(pdev, plat->msi_mac_vec);
++
++	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
++	plat->flags |= STMMAC_FLAG_TSO_EN;
++
++	return 0;
++}
++
++static int dwxgmac_brcm_pci_probe(struct pci_dev *pdev,
++				  const struct pci_device_id *id)
++{
++	struct dwxgmac_brcm_pci_info *info =
++		(struct dwxgmac_brcm_pci_info *)id->driver_data;
++	struct plat_stmmacenet_data *plat;
++	struct brcm_priv_data *brcm_priv;
++	struct stmmac_resources res;
++	struct net_device *ndev;
++	struct stmmac_priv *priv;
++	int rx_offset;
++	int tx_offset;
++	int vector;
++	int ret;
++
++	brcm_priv = devm_kzalloc(&pdev->dev, sizeof(*brcm_priv), GFP_KERNEL);
++	if (!brcm_priv)
++		return -ENOMEM;
++
++	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
++	if (!plat)
++		return -ENOMEM;
++
++	plat->dma_cfg = devm_kzalloc(&pdev->dev, sizeof(*plat->dma_cfg),
++				     GFP_KERNEL);
++	if (!plat->dma_cfg)
++		return -ENOMEM;
++
++	plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi), GFP_KERNEL);
++	if (!plat->axi)
++		return -ENOMEM;
++
++	pci_read_config_word(pdev, 2, &brcm_priv->dev_id);
++
++	/* This device interface is directly attached to the switch chip on
++	 *  the SoC. Since no MDIO is present, register fixed_phy.
++	 */
++	brcm_priv->phy_dev =
++		 fixed_phy_register(PHY_POLL,
++				    &dwxgmac_brcm_fixed_phy_status, NULL);
++	if (IS_ERR(brcm_priv->phy_dev)) {
++		dev_err(&pdev->dev, "%s\tNo PHY/fixed_PHY found\n", __func__);
++		return -ENODEV;
++	}
++	phy_attached_info(brcm_priv->phy_dev);
++
++	/* Disable D3COLD as our device does not support it */
++	pci_d3cold_disable(pdev);
++
++	/* Enable PCI device */
++	ret = pcim_enable_device(pdev);
++	if (ret) {
++		dev_err(&pdev->dev, "%s: ERROR: failed to enable device\n",
++			__func__);
++		return ret;
++	}
++
++	/* Get the base address of device */
++	ret = pcim_iomap_regions(pdev, BRCM_XGMAC_BAR0_MASK, pci_name(pdev));
++	if (ret)
++		goto err_disable_device;
++	pci_set_master(pdev);
++
++	memset(&res, 0, sizeof(res));
++	res.addr = pcim_iomap_table(pdev)[0];
++	/* MISC Regs */
++	brcm_priv->misc_regs = res.addr + BRCM_XGMAC_IOMEM_MISC_REG_OFFSET;
++	/* MBOX Regs */
++	brcm_priv->mbox_regs = res.addr + BRCM_XGMAC_IOMEM_MBOX_REG_OFFSET;
++	/* XGMAC config Regs */
++	res.addr += BRCM_XGMAC_IOMEM_CFG_REG_OFFSET;
++
++	plat->bsp_priv = brcm_priv;
++
++	/* Initialize all MSI vectors to invalid so that it can be set
++	 * according to platform data settings below.
++	 * Note: MSI vector takes value from 0 up to 31 (STMMAC_MSI_VEC_MAX)
++	 */
++	plat->msi_mac_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_wol_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_lpi_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_sfty_ce_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_sfty_ue_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_rx_base_vec = STMMAC_MSI_VEC_MAX;
++	plat->msi_tx_base_vec = STMMAC_MSI_VEC_MAX;
++
++	ret = info->setup(pdev, plat);
++	if (ret)
++		goto err_disable_device;
++
++	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LOW,
++			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LO_VALUE);
++	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HIGH,
++			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HI_VALUE);
++
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO,
++		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_VALUE);
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI,
++		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_VALUE);
++
++	/* SBD Interrupt */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL,
++		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL_VALUE);
++	/* EP_DOORBELL Interrupt */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL,
++		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL_VALUE);
++	/* EP_H0 Interrupt */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0,
++		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0_VALUE);
++	/* EP_H1 Interrupt */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1,
++		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1_VALUE);
++
++	rx_offset = XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_RX0_PF0;
++	tx_offset = XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_TX0_PF0;
++	vector = BRCM_XGMAC_MSI_RX_VECTOR_START;
++	for (int i = 0; i < BRCM_MAX_DMA_CHANNEL_PAIRS; i++) {
++		/* RX Interrupt */
++		misc_iowrite(brcm_priv, rx_offset, vector++);
++		/* TX Interrupt */
++		misc_iowrite(brcm_priv, tx_offset, vector++);
++		rx_offset += 4;
++		tx_offset += 4;
++	}
++
++	/* Enable Switch Link */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MII_CTRL,
++		     XGMAC_PCIE_MISC_MII_CTRL_VALUE);
++	/* Enable MSI-X */
++	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_PCIESS_CTRL,
++		     XGMAC_PCIE_MISC_PCIESS_CTRL_VALUE);
++
++	ret = brcm_config_multi_msi(pdev, plat, &res);
++	if (ret) {
++		dev_err(&pdev->dev,
++			"%s: ERROR: failed to enable IRQ\n", __func__);
++		return ret;
++	}
++
++	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
++	if (ret)
++		goto err_disable_msi;
++
++	/* The stmmac core driver doesn't have the infrastructure to
++	 * support fixed-phy mdio bus for non-platform bus drivers.
++	 * Until a better solution is implemented, initialize the
++	 * following entries after priv structure is populated.
++	 */
++	ndev = dev_get_drvdata(&pdev->dev);
++	priv = netdev_priv(ndev);
++	priv->mii = mdio_find_bus("fixed-0");
++
++	ndev->hw_features &= ~NETIF_F_HW_VLAN_CTAG_RX;
++	priv->hw->hw_vlan_en = false;
++
++	dev_info(&pdev->dev, "%s\tComplete\n", __func__);
++
++	return ret;
++
++err_disable_msi:
++	pci_disable_msi(pdev);
++err_disable_device:
++	pci_disable_device(pdev);
++	return ret;
++}
++
++static void dwxgmac_brcm_pci_remove(struct pci_dev *pdev)
++{
++	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++	struct brcm_priv_data *brcm_priv = priv->plat->bsp_priv;
++	struct phy_device *phydev = brcm_priv->phy_dev;
++
++	priv->mii = NULL;
++	stmmac_dvr_remove(&pdev->dev);
++	pcim_iounmap_regions(pdev, BRCM_XGMAC_BAR0_MASK);
++	pci_clear_master(pdev);
++	fixed_phy_unregister(phydev);
++}
++
++static int __maybe_unused dwxgmac_brcm_pci_suspend(struct device *dev)
++{
++	struct pci_dev *pdev = to_pci_dev(dev);
++	int ret;
++
++	ret = stmmac_suspend(dev);
++	if (ret)
++		return ret;
++
++	ret = pci_save_state(pdev);
++	if (ret)
++		return ret;
++
++	pci_disable_device(pdev);
++	pci_wake_from_d3(pdev, true);
++	return 0;
++}
++
++static int __maybe_unused dwxgmac_brcm_pci_resume(struct device *dev)
++{
++	struct pci_dev *pdev = to_pci_dev(dev);
++	int ret;
++
++	pci_restore_state(pdev);
++	pci_set_power_state(pdev, PCI_D0);
++
++	ret = pci_enable_device(pdev);
++	if (ret)
++		return ret;
++
++	pci_set_master(pdev);
++
++	return stmmac_resume(dev);
++}
++
++static SIMPLE_DEV_PM_OPS(dwxgmac_brcm_pm_ops,
++			 dwxgmac_brcm_pci_suspend,
++			 dwxgmac_brcm_pci_resume);
++
++static const struct pci_device_id dwxgmac_brcm_id_table[] = {
++	{ PCI_DEVICE_DATA(BROADCOM, BCM8958X, &dwxgmac_brcm_pci_info) },
++	{}
++};
++
++MODULE_DEVICE_TABLE(pci, dwxgmac_brcm_id_table);
++
++static struct pci_driver dwxgmac_brcm_pci_driver = {
++	.name = "brcm-bcm8958x",
++	.id_table = dwxgmac_brcm_id_table,
++	.probe	= dwxgmac_brcm_pci_probe,
++	.remove = dwxgmac_brcm_pci_remove,
++	.driver = {
++		.pm = &dwxgmac_brcm_pm_ops,
++	},
++};
++
++module_pci_driver(dwxgmac_brcm_pci_driver);
++
++MODULE_DESCRIPTION("Broadcom 10G Automotive Ethernet PCIe driver");
++MODULE_LICENSE("GPL");
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
