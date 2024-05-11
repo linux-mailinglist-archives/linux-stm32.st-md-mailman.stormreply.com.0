@@ -2,58 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDCC8C3318
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2024 20:11:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7CF8C3385
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2024 21:34:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65A04C6907A;
-	Sat, 11 May 2024 18:11:41 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A629C6907A;
+	Sat, 11 May 2024 19:34:47 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C2AFC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 747B4C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 May 2024 18:11:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7DD91CE0A0D;
- Sat, 11 May 2024 18:11:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD5DC2BBFC;
- Sat, 11 May 2024 18:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715451089;
- bh=+t8uRZp6FGvXN+V4ScRGLv+eJyrrubY4gibWN6mdiHI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e2jdkaZbC/mdPAuuX1eCHbhGEu4F1appnZLT1q4rOQrw8hs/5sppQXOV2zRweyBYM
- JTRs/m6M7JXBsqp66uNQmSheaAZglqcUtJ3KTp+CYxoJdYVdL8mkPlW0T9h3sdNZd/
- NMAoMhuFa/s8NWyrGFlr48VOgPI0J7tCsvDWvHG2Z4+mJITYr+8ino8G7uaoGs94dq
- 4IQKjoJsADnxbivm5h7bvNIelFTpLU0gvAMQXaZVDsCvKI+jM49sYKr3VuamE5KHNX
- TdHySYjtKa8IrqdiexAKN418X1uM8P+d4U6H6DtqFXH+Skitspy7NC7OV4gLXyj7w0
- zsmqfQV10pQgQ==
-Date: Sat, 11 May 2024 19:11:19 +0100
-From: Simon Horman <horms@kernel.org>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <20240511181119.GU2347895@kernel.org>
-References: <20240510-rzn1-gmac1-v6-0-b63942be334c@bootlin.com>
- <20240510-rzn1-gmac1-v6-4-b63942be334c@bootlin.com>
+ Sat, 11 May 2024 19:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=w0vU8RMKEb5MAwtOYOzKjXM4x8mAAk3i9b0LbBNQJ0c=; b=DhPwpPvYtTPMPM5y2NYb+kLshS
+ FsmAdMpbWJOJQCl8LDe713iU8PEoyMf61+gp3VRpsxUTzKCPJ5gSOFPZ1zdFn1qr2r7K9GJvP0Z0c
+ 1/c7gpeKs2tpmCwn/bGuPr8rqN6imEtd6SLS6wiPGDexUq4BXuKxKlbdFrrjtbyUOoYBkUIDpfsIe
+ sKCt42Y/G1yMRmI5kx2H4RnZUgR7eUDj/bWYFLRdUhZgCIwxRiClnrY07cPgEeHRSX8TvGdO5/WOg
+ vMPQZ8itsE/BUtHV5MrTCj6/jheHx8Z3dauR8+rgbWUCXrFXc+DG+9XX/VyiOkhilKdbik/2p7eIl
+ bYXTYKug==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57162)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1s5sUD-0000B6-0D;
+ Sat, 11 May 2024 20:34:25 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1s5sUA-0004VK-W4; Sat, 11 May 2024 20:34:23 +0100
+Date: Sat, 11 May 2024 20:34:22 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <Zj/IPpub11OL3jBo@shell.armlinux.org.uk>
+References: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
+ <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240510-rzn1-gmac1-v6-4-b63942be334c@bootlin.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] net: stmmac: introduce
- pcs_init/pcs_exit stmmac operations
+In-Reply-To: <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
+Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2, net-next,
+ 2/2] net: stmmac: PCI driver for BCM8958X SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,47 +67,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 10, 2024 at 09:38:11AM +0200, Romain Gantois wrote:
-> From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-> 
-> Introduce a mechanism whereby platforms can create their PCS instances
-> prior to the network device being published to userspace, but after
-> some of the core stmmac initialisation has been completed. This means
-> that the data structures that platforms need will be available.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-> Co-developed-by: Romain Gantois <romain.gantois@bootlin.com>
-> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 8 +++++++-
->  include/linux/stmmac.h                            | 2 ++
->  2 files changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index 778d79cdb2e6d..f562c563aab55 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -505,7 +505,10 @@ int stmmac_pcs_setup(struct net_device *ndev)
->  	priv = netdev_priv(ndev);
->  	mode = priv->plat->phy_interface;
->  
-> -	if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
-> +	if (priv->plat->pcs_init) {
-> +		ret = priv->plat->pcs_init(priv);
-> +	} else if (priv->plat->mdio_bus_data &&
-> +		   priv->plat->mdio_bus_data->has_xpcs) {
->  		/* Try to probe the XPCS by scanning all addresses */
->  		for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
->  			xpcs = xpcs_create_mdiodev(priv->mii, addr, mode);
+Hi,
 
-I am unsure if this can occur, but if priv->plat->pcs_init returns 0 then
-xpcs will be used while uninitialised towards the end of this function.
+Thanks for the patch,. but there are things that need some improvement.
 
-Flagged by Smatch.
+On Fri, May 10, 2024 at 06:59:24PM -0700, Jitendra Vegiraju wrote:
+> +static void dwxgmac_brcm_dma_init_tx_chan(struct stmmac_priv *priv,
+> +					  void __iomem *ioaddr,
+> +					  struct stmmac_dma_cfg *dma_cfg,
+> +					  dma_addr_t phy, u32 chan)
+> +{
+> +	u32 value;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +	value &= ~XGMAC_TxPBL;
+> +	value &= ~GENMASK(6, 4);
+> +	writel(value, ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
+> +	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
+
+Please use "dma_addr" not "phy" here. "phy" could mean ethernet phy.
+I personally dislike "physical address" for DMA stuff because if
+there's an IOMMU or other translation layer present, what you have
+here is *not* a physical address.
+
+> +static void dwxgmac_brcm_dma_init_rx_chan(struct stmmac_priv *priv,
+> +					  void __iomem *ioaddr,
+> +					  struct stmmac_dma_cfg *dma_cfg,
+> +					  dma_addr_t phy, u32 chan)
+> +{
+> +	u32 value;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +	value &= ~XGMAC_RxPBL;
+> +	writel(value, ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
+> +	writel(lower_32_bits(phy), ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
+
+Ditto.
 
 ...
+
+> +static void dwxgmac_brcm_fix_speed(void *priv, unsigned int speed,
+> +				   unsigned int mode)
+> +{
+> +}
+
+If this is empty, do you really need it? The method is optional.
+
+...
+
+> +static int dwxgmac_brcm_pci_probe(struct pci_dev *pdev,
+> +				  const struct pci_device_id *id)
+> +{
+...
+> +	/* This device interface is directly attached to the switch chip on
+> +	 *  the SoC. Since no MDIO is present, register fixed_phy.
+> +	 */
+> +	brcm_priv->phy_dev =
+> +		 fixed_phy_register(PHY_POLL,
+> +				    &dwxgmac_brcm_fixed_phy_status, NULL);
+> +	if (IS_ERR(brcm_priv->phy_dev)) {
+> +		dev_err(&pdev->dev, "%s\tNo PHY/fixed_PHY found\n", __func__);
+> +		return -ENODEV;
+> +	}
+> +	phy_attached_info(brcm_priv->phy_dev);
+
+As pointed out in the other sub-thread, you don't need this. If you need
+a fixed-link and you don't have a firmware description of it, you can
+provide a swnode based description through plat->port_node that will be
+passed to phylink. Through that, you can tell phylink to create a
+fixed link.
+
+> +	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
+> +	if (ret)
+> +		goto err_disable_msi;
+> +
+> +	/* The stmmac core driver doesn't have the infrastructure to
+> +	 * support fixed-phy mdio bus for non-platform bus drivers.
+> +	 * Until a better solution is implemented, initialize the
+> +	 * following entries after priv structure is populated.
+> +	 */
+> +	ndev = dev_get_drvdata(&pdev->dev);
+> +	priv = netdev_priv(ndev);
+> +	priv->mii = mdio_find_bus("fixed-0");
+> +
+> +	ndev->hw_features &= ~NETIF_F_HW_VLAN_CTAG_RX;
+> +	priv->hw->hw_vlan_en = false;
+
+Basically... no. Do not do any setup after stmmac_dvr_probe(), because
+the network device has already been registered and published to
+userspace, and userspace may have already opened the network device.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
