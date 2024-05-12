@@ -2,49 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8819E8C35BB
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 May 2024 10:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0395E8C377E
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 May 2024 18:28:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E9FC62EFE;
-	Sun, 12 May 2024 08:35:35 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 882BFC62EFE;
+	Sun, 12 May 2024 16:28:50 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03A6DC5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 930B4C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 May 2024 08:35:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E9FECCE0A29;
- Sun, 12 May 2024 08:35:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A72C116B1;
- Sun, 12 May 2024 08:35:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715502924;
- bh=kXs5Vk2uM7TF2KGpm3iKNAHLpYpFzJyyIakxcjC+ewE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dCxVXXfliol5EzkqZ307uFnJDXrNPhRi9Ta4wEvxHKbAbzOorKrUoMmuTSZyYW5Ca
- C0hS53eqzqve6hpg8aqbJ+jKAZ+5y1G6Vy6XzA243VIDssTBanTYI/ZLr0TcrQLoB3
- 7iDjbQQbZhmR9KHDYVBCJeuiz/Ubp/lI+FEjXyyONc88CfYv1mwq3FotWwZlXQxc8t
- l+SZzLppHWo9iM5FHxcRJVpaUAfg+VfmsuUghi3DovDLyLS5sIAy0UKDegBoNLhvxp
- vuX92yWw2YsOno/k5qpE+XW1A4iq7dgGOt+FT5IaDnPbVzHLTxdNR/j9hRrGHkJ6pD
- mL0u2Vz12TPLQ==
-Date: Sun, 12 May 2024 09:35:18 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Message-ID: <20240512083518.GX2347895@kernel.org>
-References: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
- <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
+ Sun, 12 May 2024 16:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=JKu2ehxGzSJF+b0EShKM7Ynw448P/EHxxma336CQaYQ=; b=cIiKsjuodW7EUMju3m8OYjr8ra
+ 6yTuggYzPYm8RrAB7+gtAxmK4diC+T3yMRYkBbG994+VSvtmVTsig2oUgbursPgX6CXwprFzBflFt
+ j4AxQEgY1F0Z02+rOD+V/R26M5x5x5bWsJ4TQbxnBGQdC/PTrXekihbeaOE9rDDPGkJ2OQFwvaUmR
+ mwZS7NEHsJPk575FT8xMwthwK9hljGsKK4WYjZuskmnYLaoyimzw0KHoa0RskZxWm+C2PLMa3Khog
+ QTBiwD6ZsdmSt2TlOoKCAOynmWWQOqurxEltwVYvFKc0u91apsIfY9cJM3nXRu0PPqxv+94FRM/MD
+ WU4ItFwA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40658)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1s6C3i-0000sh-0y;
+ Sun, 12 May 2024 17:28:22 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1s6C3g-0005JR-9p; Sun, 12 May 2024 17:28:20 +0100
+Date: Sun, 12 May 2024 17:28:20 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
-Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2, net-next,
- 2/2] net: stmmac: PCI driver for BCM8958X SoC
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC 0/6] net: stmmac: convert stmmac "pcs" to
+	phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,38 +66,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 10, 2024 at 06:59:24PM -0700, Jitendra Vegiraju wrote:
-> Broadcom BCM8958X SoCs use Synopsys XGMAC design, which is similar to
-> dwxgmac2 core implementation in stmmac driver. The existing dwxgmac2 dma
-> operation functions have some conflicting differences with BCM8958X.
-> This glue driver attempts to reuse dwxgmac2 implementation wherever
-> possible, adding alternative implementations where necessary.
-> 
-> v2: code cleanup to address patchwork reports.
-> 
-> Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Hi,
 
-...
+As I noted recently in a thread (and was ignored) stmmac sucks. (I
+won't hide my distain for drivers that make my life as phylink
+maintainer more difficult!)
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+One of the contract conditions for using phylink is that the driver
+will _not_ mess with the netif carrier. stmmac developers/maintainers
+clearly didn't read that, because stmmac messes with the netif
+carrier, which destroys phylink's guarantee that it'll make certain
+calls in a particular order (e.g. it won't call mac_link_up() twice
+in a row without an intervening mac_link_down().) This is clearly
+stated in the phylink documentation.
 
-...
+Thus, this patch set attempts to fix this. Why does it mess with the
+netif carrier? It has its own independent PCS implementation that
+completely bypasses phylink _while_ phylink is still being used.
+This is not acceptable. Either the driver uses phylink, or it doesn't
+use phylink. There is no half-way house about this. Therefore, this
+driver needs to either be fixed, or needs to stop using phylink.
 
-> +static struct mac_device_info *dwxgmac_brcm_setup(void *ppriv)
-> +{
-> +	struct mac_device_info *mac;
-> +	struct stmmac_priv *priv = ppriv;
+Since I was ignored when I brought this up, I've hacked together the
+following patch set - and it is hacky at the moment. It's also broken
+because of recentl changes involving dwmac-qcom-ethqos.c - but there
+isn't sufficient information in the driver for me to fix this. The
+driver appears to use SGMII at 2500Mbps, which simply does not exist.
+What interface mode (and neg_mode) does phylink pass to pcs_config()
+in each of the speeds that dwmac-qcom-ethqos.c is interested in.
+Without this information, I can't do that conversion. So for the
+purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
+it will fail to build.)
 
-Hi, Jitendra,
+The patch splitup is not ideal, but that's not what I'm interested in
+here. What I want to hear is the results of testing - does this switch
+of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
 
-A minor nit from my side.
+Please don't review the patches, but you are welcome to send fixes to
+them. Once we know that the overall implementation works, then I'll
+look at how best to split the patches. In the mean time, the present
+form is more convenient for making changes and fixing things.
 
-Please consider using reverse xmas tree order - longest line to shortest -
-for new Networking code.
+There is still more improvement that's needed here.
 
-This tool can be of assistance: https://github.com/ecree-solarflare/xmastree
+Thanks.
 
-...
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  12 ++-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 113 ++++++++++++---------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 108 ++++++++++++--------
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   6 --
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  27 ++---
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  19 ++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  57 +++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   |  84 ++-------------
+ 10 files changed, 227 insertions(+), 312 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
