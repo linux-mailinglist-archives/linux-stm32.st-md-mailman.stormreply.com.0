@@ -2,62 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3958C49F2
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 01:15:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3869F8C49DB
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 01:04:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2C07C6B476;
-	Mon, 13 May 2024 23:15:42 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2586C6B476;
+	Mon, 13 May 2024 23:04:11 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9B44C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5043CC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 23:15:35 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id AE06A87C75;
- Tue, 14 May 2024 01:15:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1715642135;
- bh=y94VBu3rZqXoPf5qJmghmwP/Qu0OecNomu4N18OPJk8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KDb1W5zfmoUzuqSNQmrm2kabFQTBN/gm1zuaeWYez5y7rFnL1dy6ic3sgUfoasrKc
- 8TgdCpee1r/OJis2LcSjW34EIsKO9z1Zwy3Ydhcs0Z57pJZWqRrhp3Bt5xvlOZOjuS
- URdcvQ0pnhBVgsaSDE/WxfO4501H3T1IfT7pLNZPRabvHYdospTWpEHzDxaYGJqagG
- hMag83m+X0lzF89Q8mqru018k0xEvdOaxCulH69/72NQAx4Q/12NCgVs36jmld4YY0
- J2fVqAmI068QXmNd0DdlW05QcOME83EsHYZ3qy+Gy4fLP9gAOY64dOHoSiXIKe+vDh
- ah4FSmqSe7aeA==
-Message-ID: <2d213010-7aae-4f5a-8332-54d7e69b862c@denx.de>
-Date: Tue, 14 May 2024 00:33:23 +0200
+ Mon, 13 May 2024 23:04:04 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-51f57713684so6163611e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2024 16:04:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715641443; x=1716246243;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4xY5PD/80plu8Oum5s12UE+ZfuGa9vAHIWvugychSCA=;
+ b=B6dPmopnDMbBzSaTzEANPFJhLv+T+7iZvWSVqet6zkc9jODROK8WBBWqU4A5AVrgBh
+ NOtf9i9YcestTRNLBbJPl1FGSE2AqAT6B52hScVRKWkSXCJ92XB+lXI8TXV4piy2yKrm
+ P3imYlKAS4BKuRU5Hm86xq+k0FxkEKnInpaFBTx7ZM9s4cFO03ZU9Ui80ihQ9uUHiIri
+ OsjpamBOnX0dZFlLaTb/PeFfWEqqdxJZhxmLrreEt8qECF6Ywe5orx7p1tGsfWyuF292
+ 1cPZcVyypF1jjaOOXFR36zSvr+Js44mdBABW88MnRztWKY86VH8e/rQqcHx8M7we8fXG
+ kx7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715641443; x=1716246243;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4xY5PD/80plu8Oum5s12UE+ZfuGa9vAHIWvugychSCA=;
+ b=sMS+GIyHyz2FWKvYDQYXOUo87wZm/wP7EJne/mMg03o+DZJYdZsMXRsNB8+k+hyUsQ
+ 1T1VJ2nM4w9vIZGaQHK3TJlpzYsaqw3Qt+Qioasc2vQsYgeK0pad2MHQLz7wQh4asD6/
+ P3msLKS52DYli0IVnwPrR46KrceUm4EvDAQ7p04sZfVWYs8A2sa47KW7ZwCGK4saDPIo
+ dazsuirA+8ljgzQLhzlpXfZV8hWzeIJ+5zXog8NpaSL9WPYJEJdIG06cTsN/W8MwwJ7m
+ JxjPXM4wUi7kOS/XHCjzE5SZA7cl5fkTmjrxLz7S0CyUSgwA4v91Rr4TPCICIMxNu0wT
+ ZL8w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXRNx9kaTt5n1haqSkVV29WqQDgjtPOzY2qU/A8O1maLMEmFItf42QzzEvkVMZTYNZpim1X+2xis6jbPjcnlB4uNAA4/HxaugkZn6nJZ20GAAkfL0wJwbEe
+X-Gm-Message-State: AOJu0YyhHMF6B1Zg+2HeCetkR1Kp9xGstXF06R9E7ltOFlPJVt7mppX0
+ rAD6lMBaqZe4rUO2ysXve+BT9K+sXE4C/xJTcXwEiS8ar9cDbUGf
+X-Google-Smtp-Source: AGHT+IFFKhWpRJn2p817fOt+Wl9TNhJclHuyqCuJ0Sy/EIzuYsr2zGns6p+IViThDP2lTqh2clB10g==
+X-Received: by 2002:a05:6512:6ce:b0:523:6e01:a701 with SMTP id
+ 2adb3069b0e04-5236e01ab0amr39636e87.64.1715641443201; 
+ Mon, 13 May 2024 16:04:03 -0700 (PDT)
+Received: from mobilestation ([95.79.182.53]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-521f39d2c43sm1907996e87.248.2024.05.13.16.04.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 16:04:02 -0700 (PDT)
+Date: Tue, 14 May 2024 02:04:00 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <y2iz5uhcj5xh3dtpg3rnxap4qgvmgavzkf6qd7c2vqysmll3yx@drhs7upgpojz>
+References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Christophe ROULLIER <christophe.roullier@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Jose Abreu
- <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-References: <20240426125707.585269-1-christophe.roullier@foss.st.com>
- <20240426125707.585269-6-christophe.roullier@foss.st.com>
- <b790f34e-8bfb-44f6-869d-798508008483@denx.de>
- <3137049f-eac8-4522-ad2e-b2b0d3537239@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <3137049f-eac8-4522-ad2e-b2b0d3537239@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] net: stmmac: dwmac-stm32: update
- config management for phy wo cristal
+Content-Disposition: inline
+In-Reply-To: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC 0/6] net: stmmac: convert stmmac "pcs"
+	to phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,167 +83,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNS8xMy8yNCA1OjExIFBNLCBDaHJpc3RvcGhlIFJPVUxMSUVSIHdyb3RlOgo+IAo+IE9uIDQv
-MjYvMjQgMTc6MzcsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiA0LzI2LzI0IDI6NTcgUE0sIENo
-cmlzdG9waGUgUm91bGxpZXIgd3JvdGU6Cj4+PiBTb21lIGNsZWFuaW5nIGJlY2F1c2Ugc29tZSBF
-dGhlcm5ldCBQSFkgY29uZmlncyBkbyBub3QgbmVlZCB0byBhZGQKPj4+IHN0LGV4dC1waHljbGsg
-cHJvcGVydHkuCj4+PiBDaGFuZ2UgcHJpbnQgaW5mbyBtZXNzYWdlICJObyBwaHkgY2xvY2sgcHJv
-dmlkZWQiIG9ubHkgd2hlbiBkZWJ1Zy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhl
-IFJvdWxsaWVyIDxjaHJpc3RvcGhlLnJvdWxsaWVyQGZvc3Muc3QuY29tPgo+Pj4gLS0tCj4+PiDC
-oCAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXN0bTMyLmMgfCAyNyArKysr
-KysrKysrLS0tLS0tLS0tCj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwg
-MTMgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3N0bWljcm8vc3RtbWFjL2R3bWFjLXN0bTMyLmMgCj4+PiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3N0bWljcm8vc3RtbWFjL2R3bWFjLXN0bTMyLmMKPj4+IGluZGV4IDc1MjlhOGQxNTQ5Mi4uZTY0
-OGM0ZTc5MGE3IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvZHdtYWMtc3RtMzIuYwo+Pj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNy
-by9zdG1tYWMvZHdtYWMtc3RtMzIuYwo+Pj4gQEAgLTU1LDE3ICs1NSwxNyBAQAo+Pj4gwqDCoCAq
-fMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgIDI1TUh6wqDCoMKg
-IHzCoMKgwqDCoMKgwqDCoCA1ME1IeiAKPj4+IHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHwKPj4+IMKgwqAgKiAKPj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gwqDCoCAqfMKg
-IE1JScKgwqDCoCB8wqDCoMKgwqAgLcKgwqAgfMKgwqDCoMKgIGV0aC1ja8KgwqDCoCB8wqDCoMKg
-wqDCoMKgwqDCoMKgIG4vYSB8IG4vYcKgwqDCoMKgwqDCoMKgIHwKPj4+IC0gKnzCoMKgwqDCoMKg
-wqDCoMKgIHzCoMKgwqDCoMKgwqDCoCB8IHN0LGV4dC1waHljbGsgfCB8wqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHwKPj4+ICsgKnzCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoCB8wqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHwKPj4+IMKgwqAgKiAKPj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gwqDCoCAqfMKgIEdNSUnC
-oMKgIHzCoMKgwqDCoCAtwqDCoCB8wqDCoMKgwqAgZXRoLWNrwqDCoMKgIHzCoMKgwqDCoMKgwqDC
-oMKgwqAgbi9hIHwgbi9hwqDCoMKgwqDCoMKgwqAgfAo+Pj4gLSAqfMKgwqDCoMKgwqDCoMKgwqAg
-fMKgwqDCoMKgwqDCoMKgIHwgc3QsZXh0LXBoeWNsayB8IHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfAo+Pj4gKyAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHwgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4+PiDCoMKg
-ICogCj4+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4+IMKgwqAgKnwgUkdNSUnCoMKgIHzCoMKgwqDC
-oCAtwqDCoCB8wqDCoMKgwqAgZXRoLWNrwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqAgbi9hIHwg
-ZXRoLWNrwqDCoMKgwqDCoCB8Cj4+PiAtICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKg
-wqAgfCBzdCxleHQtcGh5Y2xrIHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB8IAo+Pj4gc3QsZXRoLWNsay1zZWwgb3J8Cj4+PiArICp8wqDCoMKgwqDCoMKgwqDCoCB8wqDC
-oMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgCj4+PiBzdCxldGgtY2xrLXNlbCBvcnwKPj4+IMKg
-wqAgKnzCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAKPj4+
-IHN0LGV4dC1waHljbGvCoMKgwqAgfAo+Pj4gwqDCoCAqIAo+Pj4gLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-Cj4+PiDCoMKgICp8IFJNSUnCoMKgwqAgfMKgwqDCoMKgIC3CoMKgIHzCoMKgwqDCoCBldGgtY2vC
-oMKgwqAgfMKgwqDCoMKgwqDCoMKgIGV0aC1jayB8IG4vYcKgwqDCoMKgwqDCoMKgIHwKPj4+IC0g
-KnzCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoCB8IHN0LGV4dC1waHljbGsgfCBzdCxl
-dGgtcmVmLWNsay1zZWwgCj4+PiB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwKPj4+ICsgKnzC
-oMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8IHN0LGV0aC1yZWYtY2xrLXNlbCAKPj4+IHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-fAo+Pj4gwqDCoCAqfMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHwgb3Igc3QsZXh0LXBoeWNsayAKPj4+IHzCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfAo+Pj4gwqDCoCAqIAo+Pj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+PiDCoMKg
-ICoKPj4+IEBAIC0xNzQsMjMgKzE3NCwyMiBAQCBzdGF0aWMgaW50IHN0bTMybXAxX3NldF9tb2Rl
-KHN0cnVjdCAKPj4+IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0X2RhdCkKPj4+IMKgwqDCoMKg
-wqAgZHdtYWMtPmVuYWJsZV9ldGhfY2sgPSBmYWxzZTsKPj4+IMKgwqDCoMKgwqAgc3dpdGNoIChw
-bGF0X2RhdC0+bWFjX2ludGVyZmFjZSkgewo+Pj4gwqDCoMKgwqDCoCBjYXNlIFBIWV9JTlRFUkZB
-Q0VfTU9ERV9NSUk6Cj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKGNsa19yYXRlID09IEVUSF9DS19G
-XzI1TSAmJiBkd21hYy0+ZXh0X3BoeWNsaykKPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoY2xrX3Jh
-dGUgPT0gRVRIX0NLX0ZfMjVNKQo+Pgo+PiBJIHNlZSB0d28gcHJvYmxlbXMgaGVyZS4KPj4KPj4g
-Rmlyc3QsIGFjY29yZGluZyB0byB0aGUgdGFibGUgYWJvdmUsIGluIE1JSSBtb2RlLCBjbGtfcmF0
-ZSBjYW5ub3QgYmUgCj4+IGFueXRoaW5nIGVsc2UgYnV0IDI1IE1Ieiwgc28gdGhlIChjbGtfcmF0
-ZSA9PSBFVEhfQ0tfRl8yNU0pIGNvbmRpdGlvbiAKPj4gaXMgYWx3YXlzIHRydWUuIFdoeSBub3Qg
-ZHJvcCB0aGF0IGNvbmRpdGlvbiA/Cj4gTm90IGFncmVlLCB0aGVyZSBpcyBhbHNvICJOb3JtYWwi
-wqBjYXNlIE1JSSAoTUlJIHdpdGggcXVhcnR6L2NyaXN0YWwpIAo+IChmaXJzdCBjb2x1bW4gaW4g
-dGhlIHRhYmxlIGFib3ZlKSwgc28gbmVlZCB0byBrZWVwIHRoaXMgdGVzdCB0byBjaGVjayAKPiBj
-bGtfcmF0ZSAyNU1Iei4KCldoYXQgb3RoZXIgcmF0ZSBpcyBzdXBwb3J0ZWQgaW4gdGhlIE1JSSBt
-b2RlID8gSXNuJ3QgdGhlIHJhdGUgYWx3YXlzIDI1IApNSHogZm9yIE1JSSAsIG5vIG1hdHRlciB3
-aGV0aGVyIGl0IGlzIGdlbmVyYXRlZCBieSBSQ0Mgb3IgZXh0ZXJuYWwgWHRhbCA/Cgo+PiBUaGUg
-ImR3bWFjLT5leHRfcGh5Y2xrIiBtZWFucyAiRXRoZXJuZXQgUEhZIGhhdmUgbm8gY3J5c3RhbCIs
-IHdoaWNoIAo+PiBtZWFucyB0aGUgY2xvY2sgYXJlIHByb3ZpZGVkIGJ5IHRoZSBTVE0zMiBSQ0Mg
-Y2xvY2sgSVAgaW5zdGVhZCwgd2hpY2ggCj4+IG1lYW5zIGlmIHRoZSBkd21hYy0+ZXh0X3BoeWNs
-ayBpcyB0cnVlLCBkd21hYy0+ZW5hYmxlX2V0aF9jayBzaG91bGQgYmUgCj4+IHNldCB0byB0cnVl
-LCBiZWNhdXNlIGR3bWFjLT5lbmFibGVfZXRoX2NrIGNvbnRyb2xzIHRoZSBlbmFibGVtZW50IG9m
-IAo+PiB0aGVzZSBTVE0zMiBjbG9jayBJUCBnZW5lcmF0ZWQgY2xvY2suCj4gUmlnaHQKPj4KPj4g
-U2Vjb25kLCBhcyBmYXIgYXMgSSB1bmRlcnN0YW5kIGl0LCB0aGVyZSBpcyBubyB3YXkgdG8gb3Bl
-cmF0ZSB0aGlzIElQIAo+PiB3aXRoIGV4dGVybmFsIGNsb2NrIGluIE1JSSBtb2RlLCBzbyB0aGlz
-IHNlY3Rpb24gc2hvdWxkIGFsd2F5cyBiZSBvbmx5Ogo+Pgo+PiBkd21hYy0+ZW5hYmxlX2V0aF9j
-ayA9IHRydWU7Cj4gTm90IGZvciBjYXNlICJOb3JtYWwiIE1JSSA6LSkKCldoYXQgaGFwcGVucyBp
-ZiB0aGF0IGV4dGVybmFsIGNsb2NrIHNvdXJjZSBpcyBub3QgYW4geHRhbCwgYnV0IGFuIApvc2Np
-bGxhdG9yIHdpdGggaXRzIG93biBkcml2ZXIgZGVzY3JpYmVkIGluIERULCBhbmQgZW5hYmxlZCBl
-LmcuIHVzaW5nIApHUElPICh0aGF0J3MgY29tcGF0aWJsZSAiZ3Bpby1nYXRlLWNsb2NrIiBmb3Ig
-dGhhdCBvc2NpbGxhdG9yKSAuIFRoZW4gCnlvdSBkbyBuZWVkIHRvIGVuYWJsZSB0aG9zZSBjbG9j
-ayBldmVuIGluIHRoZSAibm9ybWFsIiAod2l0aCBleHRlcm5hbCAKY2xvY2sgc291cmNlIGluc3Rl
-YWQgb2YgUkNDIGNsb2NrIHNvdXJjZSkgTUlJIGNhc2UuCgo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgZHdtYWMtPmVuYWJsZV9ldGhfY2sgPSB0cnVlOwo+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgIHZhbCA9IGR3bWFjLT5vcHMtPnBtY3NldHIuZXRoMV9zZWxtaWk7Cj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgcHJfZGVidWcoIlNZU0NGRyBpbml0IDogUEhZX0lOVEVSRkFDRV9NT0RFX01JSVxu
-Iik7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiDCoMKgwqDCoMKgIGNhc2UgUEhZ
-X0lOVEVSRkFDRV9NT0RFX0dNSUk6Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgdmFsID0gU1lTQ0ZH
-X1BNQ1JfRVRIX1NFTF9HTUlJOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIGlmIChjbGtfcmF0ZSA9PSBF
-VEhfQ0tfRl8yNU0gJiYKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIChkd21hYy0+ZXRoX2Ns
-a19zZWxfcmVnIHx8IGR3bWFjLT5leHRfcGh5Y2xrKSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlm
-IChjbGtfcmF0ZSA9PSBFVEhfQ0tfRl8yNU0pCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBkd21hYy0+ZW5hYmxlX2V0aF9jayA9IHRydWU7Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB2YWwgfD0gZHdtYWMtPm9wcy0+cG1jc2V0ci5ldGgxX2Nsa19zZWw7Cj4+PiAtwqDCoMKgwqDC
-oMKgwqAgfQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHByX2RlYnVnKCJTWVNDRkcgaW5pdCA6IFBI
-WV9JTlRFUkZBQ0VfTU9ERV9HTUlJXG4iKTsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsK
-Pj4+IMKgwqDCoMKgwqAgY2FzZSBQSFlfSU5URVJGQUNFX01PREVfUk1JSToKPj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCB2YWwgPSBkd21hYy0+b3BzLT5wbWNzZXRyLmV0aDFfc2VsX3JtaWkgfCAKPj4+
-IGR3bWFjLT5vcHMtPnBtY3NldHIuZXRoMl9zZWxfcm1paTsKPj4+IC3CoMKgwqDCoMKgwqDCoCBp
-ZiAoKGNsa19yYXRlID09IEVUSF9DS19GXzI1TSB8fCBjbGtfcmF0ZSA9PSBFVEhfQ0tfRl81ME0p
-ICYmCj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGNsa19yYXRlID09IEVUSF9DS19GXzI1TSkKPj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGR3bWFjLT5lbmFibGVfZXRoX2NrID0gdHJ1ZTsKPj4+
-ICvCoMKgwqDCoMKgwqDCoCBpZiAoY2xrX3JhdGUgPT0gRVRIX0NLX0ZfNTBNICYmCj4+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoZHdtYWMtPmV0aF9yZWZfY2xrX3NlbF9yZWcgfHwgZHdt
-YWMtPmV4dF9waHljbGspKSB7Cj4+Cj4+IFRoaXMgZG9lc24ndCBzZWVtIHRvIGJlIGVxdWl2YWxl
-bnQgY2hhbmdlIHRvIHRoZSBwcmV2aW91cyBjb2RlIC4gSGVyZSwgCj4+IGlmIHRoZSBjbG9jayBm
-cmVxdWVuY3kgaXMgMjUgTUh6LCB0aGUgY2xvY2sgYXJlIHVuY29uZGl0aW9uYWxseSAKPj4gZW5h
-YmxlZC4gQmVmb3JlLCB0aGUgY29kZSBlbmFibGVkIHRoZSBjbG9jayBvbmx5IGlmIGNsb2NrIGZy
-ZXF1ZW5jeSAKPj4gd2FzIDI1IE1IeiBBTkQgb25lIG9mIHRoZSAiZHdtYWMtPmV0aF9yZWZfY2xr
-X3NlbF9yZWciIG9yIAo+PiAiZHdtYWMtPmV4dF9waHljbGsiIHdhcyBzZXQgKGkuZS4gY2xvY2sg
-cHJvdmlkZWQgYnkgU29DIFJDQyBjbG9jayBJUCkuCj4gCj4gWW91IGFyZSByaWdodCwgYnV0IGlu
-IFNUTTMyTVAxNS9NUDEzIHJlZmVyZW5jZSBtYW51YWwgaXQgaXMgd3JpdGUgdGhhdCAKPiB3ZSBu
-ZWVkIHRvIHVwZGF0ZSBTWVNDRkcgKFNZU0NGR19QTUNTRVRSKSByZWdpc3RlciBvbmx5IGluICJF
-dGhlcm5ldCAKPiA1ME1IeiBSTUlJIGNsb2NrIHNlbGVjdGlvbiI6Cj4gCj4gQml0IDE3IEVUSF9S
-RUZfQ0xLX1NFTDogRXRoZXJuZXQgNTBNSHogUk1JSSBjbG9jayBzZWxlY3Rpb24uCj4gCj4gIMKg
-wqDCoCBTZXQgYnkgc29mdHdhcmUuCj4gCj4gIMKgwqDCoMKgwqAgMDogV3JpdGluZyAnMCcgaGFz
-IG5vIGVmZmVjdCwgcmVhZGluZyAnMCcgbWVhbnMgRXh0ZXJuYWwgY2xvY2sgaXMgCj4gdXNlZC4g
-TmVlZCBzZWxlY3Rpb24gb2YgQUZNdXguIENvdWxkIGJlIHVzZWQgd2l0aCBhbGwgUEhZCj4gCj4g
-IMKgwqDCoMKgwqAgMTogV3JpdGluZyAnMScgc2V0IHRoaXMgYml0LCByZWFkaW5nICcxJyBtZWFu
-cyBJbnRlcm5hbCBjbG9jayAKPiBFVEhfQ0xLMSBmcm9tIFJDQyBpcyB1c2VkIHJlZ2FyZGxlc3Mg
-QUZNdXguIENvdWxkIGJlIHVzZWQgb25seSB3aXRoIFJNSUkgCj4gUEhZCgpMb29rIGF0IHRoaXM6
-CiIKUk0wNDM2IFJldiA2IFJlc2V0IGFuZCBjbG9jayBjb250cm9sIChSQ0MpCkNsb2NrIGRpc3Ry
-aWJ1dGlvbiBmb3IgRXRoZXJuZXQgKEVUSCkKRmlndXJlIDgzLiBQZXJpcGhlcmFsIGNsb2NrIGRp
-c3RyaWJ1dGlvbiBmb3IgRXRoZXJuZXQKUGFnZSA1NzUKIgpTZWUgdGhlIG11eCBhdCBib3R0b20g
-bGVmdCBzaWRlIGluIHRoZSBQS0NTIGdyb3VwLgoKSSBzdXNwZWN0IHRoYXQgbm8gbWF0dGVyIHdo
-ZXRoZXIgdGhlIGNsb2NrIGFyZSAyNSBNSHogb3IgNTAgTUh6LCB0aGV5IAplbnRlciB0aGlzIG11
-eCwgdGhlIG11eCBzZWxlY3RzIHRoZSBjbG9jayBzb3VyY2UgZnJvbSBlaXRoZXIgUkNDIG9yIGZy
-b20gCmV4dGVybmFsIG9zY2lsbGF0b3IsIGFuZCB0aGVyZWZvcmUgdGhlIG9yaWdpbmFsIGNvZGUg
-d2FzIGNvcnJlY3QuCgo+PiBJIHRoaW5rIGl0IG1pZ2h0IG1ha2UgdGhpcyBjb2RlIGVhc2llciBp
-ZiB5b3UgZHJvcCBhbGwgb2YgdGhlIAo+PiBmcmVxdWVuY3kgdGVzdCBjb25kaXRpb25hbHMsIHdo
-aWNoIGFyZW4ndCByZWFsbHkgYWxsIHRoYXQgdXNlZnVsLCBhbmQgCj4+IG9ubHkgZW5hYmxlIHRo
-ZSBjbG9jayBpZiBlaXRoZXIgZHdtYWMtPmV4dF9waHljbGsgLyAKPj4gZHdtYWMtPmV0aF9jbGtf
-c2VsX3JlZyAvIGR3bWFjLT5ldGhfcmVmX2Nsa19zZWxfcmVnIGlzIHNldCAsIGJlY2F1c2UgCj4+
-IGVmZmVjdGl2ZWx5IHdoYXQgdGhpcyBlbnRpcmUgY29udm9sdXRlZCBjb2RlIGlzIGltcGxlbWVu
-dGluZyBpcyAiaWYgCj4+IChjbG9jayBzdXBwbGllZCBieSBjbG9jayBJUCBpLmUuIFJDQykgZW5h
-YmxlIHRoZSBjbG9jaygpIiAqLCByaWdodCA/Cj4+Cj4+ICogQW5kIGl0IGlzIGFsc28gdG9nZ2xp
-bmcgdGhlIHJpZ2h0IGNsb2NrIG11eCBiaXQgaW4gUE1DU0VUUi4KPj4KPj4gU28sIGZvciBNSUkg
-dGhpcyB3b3VsZCBiZSBwbGFpbjoKPj4gZHdtYWMtPmVuYWJsZV9ldGhfY2sgPSB0cnVlOwo+Pgo+
-PiBGb3IgR01JSS9SR01JSSB0aGlzIHdvdWxkIGJlOgo+PiBpZiAoZHdtYWMtPmV4dF9waHljbGsg
-fHwgZHdtYWMtPmV0aF9jbGtfc2VsX3JlZykKPj4gwqAgZHdtYWMtPmVuYWJsZV9ldGhfY2sgPSB0
-cnVlOwo+Pgo+PiBGb3IgUk1JSSB0aGlzIHdvdWxkIGJlOgo+PiBpZiAoZHdtYWMtPmV4dF9waHlj
-bGsgfHwgZHdtYWMtPmV0aF9yZWZfY2xrX3NlbF9yZWcpCj4+IMKgIGR3bWFjLT5lbmFibGVfZXRo
-X2NrID0gdHJ1ZTsKPj4KPj4gTWF5YmUgdGhlIGNsb2NrIGZyZXF1ZW5jeSB2YWxpZGF0aW9uIGNh
-biBiZSByZXRhaW5lZCwgYnV0IGRvbmUgCj4+IHNlcGFyYXRlbHk/Cj4gQXMgZXhwbGFpbmVkIHBy
-ZXZpb3VzbHksIG5lZWQgdG8ga2VlcCBjaGVjayBvZiBjbG9jayBmcmVxdWVuY3kgaW4gdGhpcyAK
-PiB0ZXN0LgoKSSBzZW50IDUgcGF0Y2hlcyB3aGljaCBzcGxpdCB0aGlzIGNvZGUgdXAsIHlvdSB3
-ZXJlIG9uIENDOgoKW25ldC1uZXh0LFJGQyxQQVRDSCAxLzVdIG5ldDogc3RtbWFjOiBkd21hYy1z
-dG0zMjogU2VwYXJhdGUgb3V0IGV4dGVybmFsIApjbG9jayByYXRlIHZhbGlkYXRpb24KCk1heWJl
-IHlvdSBjYW4gYXBwbHkgdGhvc2UsIGZpeCB0aGVtIHVwIGFzIG5lZWRlZCwgYW5kIHRoZW4gYWRk
-IHRoaXMgCnNlcmllcyBvbiB0b3AgPyBJIHRoaW5rIGl0IHdvdWxkIHNpbXBsaWZ5IHRoaXMgY29k
-ZSBhIGxvdCwgc2luY2UgdGhhdCAKc2VyaWVzIHNwbGl0cyB1cCB0aGUgY2xvY2sgcmF0ZSB2YWxp
-ZGF0aW9uIC8gUE1DUiBjb25maWd1cmF0aW9uIC8gCmV4dGVybmFsLWludGVybmFsIGNsb2NrIHNl
-bGVjdGlvbiBpbnRvIHNlcGFyYXRlIHN0ZXBzLiBXaGF0IGRvIHlvdSB0aGluayA/Cl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+Hi Russell
+
+On Sun, May 12, 2024 at 05:28:20PM +0100, Russell King (Oracle) wrote:
+> Hi,
+> 
+
+> As I noted recently in a thread (and was ignored)
+
+Sorry about that. I didn't mean to ignore. Your message reached me
+right when I caught a cold, which made me AFK for the rest of the
+week.(
+
+> As I noted recently in a thread (and was ignored) stmmac sucks.
+
+Can't argue with that. There are much more aspects in what it sucks
+than just the netif's. One glimpse at the plat_stmmacenet_data
+structure causes million questions aka why, how come, what the hell...
+I'll start submitting my cleanup patch sets after my another
+networking work (DW XPCS wise) is finally done, re-submitted, reviewed
+and merged in.
+
+> (I
+> won't hide my distain for drivers that make my life as phylink
+> maintainer more difficult!)
+> 
+> One of the contract conditions for using phylink is that the driver
+> will _not_ mess with the netif carrier. stmmac developers/maintainers
+> clearly didn't read that, because stmmac messes with the netif
+> carrier, which destroys phylink's guarantee that it'll make certain
+> calls in a particular order (e.g. it won't call mac_link_up() twice
+> in a row without an intervening mac_link_down().) This is clearly
+> stated in the phylink documentation.
+> 
+> Thus, this patch set attempts to fix this. Why does it mess with the
+> netif carrier? It has its own independent PCS implementation that
+> completely bypasses phylink _while_ phylink is still being used.
+> This is not acceptable. Either the driver uses phylink, or it doesn't
+> use phylink. There is no half-way house about this. Therefore, this
+> driver needs to either be fixed, or needs to stop using phylink.
+
+Thanks for submitting the series, especially for making the RGMII
+in-band status well-implemented in the driver. When I was studying the
+STMMAC internals I was surprised that it wasn't actually utilized for
+something useful. Furthermore at some point afterwards even the
+RGSMIIIS IRQ turned to be disabled. So the RGMII-part of the code has
+been completely unused after that. But even before that the RGMII
+in-band status change IRQ was utilized just to print the link state
+into the system log. 
+
+> 
+> Since I was ignored when I brought this up, I've hacked together the
+> following patch set - and it is hacky at the moment. It's also broken
+> because of recentl changes involving dwmac-qcom-ethqos.c - but there
+> isn't sufficient information in the driver for me to fix this. The
+> driver appears to use SGMII at 2500Mbps, which simply does not exist.
+> What interface mode (and neg_mode) does phylink pass to pcs_config()
+> in each of the speeds that dwmac-qcom-ethqos.c is interested in.
+> Without this information, I can't do that conversion. So for the
+> purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
+> it will fail to build.)
+> 
+> The patch splitup is not ideal, but that's not what I'm interested in
+> here. What I want to hear is the results of testing - does this switch
+> of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
+> 
+> Please don't review the patches, but you are welcome to send fixes to
+> them. Once we know that the overall implementation works, then I'll
+> look at how best to split the patches. In the mean time, the present
+> form is more convenient for making changes and fixing things.
+
+I'll give your series a try later on this week on my DW GMAC with the
+RGMII interface (alas I don't have an SGMII capable device, so can't
+help with the AN-part testing). Today I've made a brief glance on it
+and already noted a few places which may require a fix to make the
+change working for RGMII (at least the RGSMIIIS IRQ must be got back
+enabled). After making the patch set working for my device in what
+form would you prefer me to submit the fixes? As incremental patches
+in-reply to this thread?
+
+-Serge(y)
+
+> 
+> There is still more improvement that's needed here.
+> 
+> Thanks.
+> 
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+>  drivers/net/ethernet/stmicro/stmmac/common.h       |  12 ++-
+>  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 113 ++++++++++++---------
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 108 ++++++++++++--------
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   6 --
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h         |  27 ++---
+>  .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------------
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  19 ++--
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  57 +++++++++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   |  84 ++-------------
+>  10 files changed, 227 insertions(+), 312 deletions(-)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
