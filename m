@@ -2,49 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF798C47E0
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 21:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 570AC8C4878
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 22:51:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 807EFC6A61D;
-	Mon, 13 May 2024 19:52:55 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E704C6B476;
+	Mon, 13 May 2024 20:51:43 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 298D0C5E2CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89666C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 19:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=413blUidoZWelONSsN0SMSimPfYxVtpWsVLy1UsodyE=; b=Hj
- kpJ9i7j63HHIGE8iWKQpPmGWAhk2KaaRQMv3bM76nCk15Un+1uyE/2KAqkk5dMahEAZRQfEe6XLFV
- hFaRpBlCIS2/lQ1+cJB+BpSwhrdN+TMBq6BjjMbepbomlwauFsj1XB9k5qZOqQPr5M6oP8nQjWu33
- TvR6/xe16rM1Coo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1s6biq-00FKdS-HE; Mon, 13 May 2024 21:52:32 +0200
-Date: Mon, 13 May 2024 21:52:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <ea0485f6-fc7d-4e02-884c-05d77420d6ea@lunn.ch>
-References: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
- <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
- <Zj/IPpub11OL3jBo@shell.armlinux.org.uk>
- <CAMdnO-KCC0qXEsE1iDGNZwdd0PAcsRinmxe8_-5Anp=e1c5WFA@mail.gmail.com>
- <ZkJQz9u8pQ9YmM5n@shell.armlinux.org.uk>
+ Mon, 13 May 2024 20:51:35 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-6203f553e5fso50993157b3.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2024 13:51:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1715633494; x=1716238294;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rv7jmDTVVRFwx435oiB3ZXmxSleUrrvg/LBh8jNJlFU=;
+ b=sUDVDFA8CC+SerVb9xa/LAxNyyAJBZ9vYfyKHU1dqzzQ1BCYOrLkIyNkbH+CymQd3U
+ NjNU8ky8A0gONkBxHwZk/+T7P5meOoaav2w9z7Eutpsjl7GcEC4L9+/57fkVXbFhgiiK
+ 4Cx8AVd32xrZJ7X2b/0LL16hqmkVf5qma/W3Wll+YAYxOUt85OmGjU7V0szLIAnfC/mg
+ 7Os3S/zb5hPuZkDYOGkzMBY7eLSE1qsJ/Vbik8HHxZUTGT3M/Hdcq7+u6PK7vLj+O2dN
+ ClTjKa2VKH5rQ9EIiMjMUGFLltpRp3tJMBX0mGdVVjn3RzEnYW45dF/Xv9SfRM6rnhQn
+ fdzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715633494; x=1716238294;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rv7jmDTVVRFwx435oiB3ZXmxSleUrrvg/LBh8jNJlFU=;
+ b=L0YvTz64IlpJHExOgnDmZmX8XmwSlKqvhZ9xOhVY/IhXUFJykb/LWCJFrZ1kAQkhvu
+ 4UVwKs023eEPqbIk32J1R+tXdkRM/wnmm3t8aXEOWM3tzqURn2YQCe4FKXmW+iSIDNph
+ ld5Ha6Jev0PmZ5DpfbYQ7G0CMRjOTO7Eu3OxgLygcntrppaZHw4c8OoXJ3KJnIQAknYT
+ Gmfrois4WW7b/8WJWo0hMbp0emcu5uw9TBBe0MZKhOb2s0jJ6wPsgiXy6IvuuZw/BTiF
+ RCZ5PO13+pyL5gg2QDeknNtbjMvBeBzFfu5OmScs11uGfxzehrFvj7FnL0d3EDigHvyj
+ yxbg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtpn/vYupFItP+zlf5YugtT1Lpgo/sL0MmiEkWyRIeo2MPizpMQODMpxd13g11fo7X2bwMS+brIduGBT8Zrm+hmXhqdHSfoIHVJinnOIPIEO8CyoE8mK3g
+X-Gm-Message-State: AOJu0YyZOWBa+SPZasdXGKrCRRMs6nzX64UhZ/tlo6wgr4dRPjcbR4GV
+ 2KZOo3AgJPWcUD6bhxHy0nOK2if494g5qDKFZU5+Ku+QJJBGu6Ldo3fAGs+12swBgDAa43plspp
+ lHgM04sKTmySZlIBzupj07pPDeZAAMFSJTSb0oQ==
+X-Google-Smtp-Source: AGHT+IHIMCINiS4Rm3W7vEHXnxoinnBVVMUXT21CaUFl/K9jprbEih1fz56tIA0O4ev2Ijok+dKJMkYRTsYw4QOpIww=
+X-Received: by 2002:a05:690c:ed4:b0:61a:e9f6:2b1b with SMTP id
+ 00721157ae682-622aff774d9mr145019207b3.8.1715633492884; Mon, 13 May 2024
+ 13:51:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZkJQz9u8pQ9YmM5n@shell.armlinux.org.uk>
-Cc: Herve Codina <herve.codina@bootlin.com>, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, mcoquelin.stm32@gmail.com,
- Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2, net-next,
- 2/2] net: stmmac: PCI driver for BCM8958X SoC
+References: <20240504-pinctrl-cleanup-v2-0-26c5f2dc1181@nxp.com>
+ <20240504-pinctrl-cleanup-v2-7-26c5f2dc1181@nxp.com>
+ <CAMuHMdUD=1rpns_mLF2rMM-x5EnOK7TExaJxoJVkbXjVz1H8uQ@mail.gmail.com>
+In-Reply-To: <CAMuHMdUD=1rpns_mLF2rMM-x5EnOK7TExaJxoJVkbXjVz1H8uQ@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 13 May 2024 22:51:21 +0200
+Message-ID: <CACRpkdaUecnwvHFdtGkuM80SObvXpXZkWGYoUMgnNHcvObYF0g@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Peng Fan <peng.fan@nxp.com>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Tony Lindgren <tony@atomide.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Hal Feng <hal.feng@starfivetech.com>, Fabio Estevam <festevam@gmail.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ Emil Renner Berthing <kernel@esmil.dk>, linux-samsung-soc@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ openbmc@lists.ozlabs.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jacky Bai <ping.bai@nxp.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chester Lin <chester62515@gmail.com>,
+ "Peng Fan \(OSS\)" <peng.fan@oss.nxp.com>,
+ Stephen Warren <swarren@wwwdotorg.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-gpio@vger.kernel.org, soc@kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Matthias Brugger <mbrugger@suse.com>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Sean Wang <sean.wang@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ linux-riscv@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Viresh Kumar <vireshk@kernel.org>, Wells Lu <wellslutw@gmail.com>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 07/20] pinctrl: renesas: Use scope
+	based of_node_put() cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,43 +115,17 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBNYXkgMTMsIDIwMjQgYXQgMDY6NDE6MzVQTSArMDEwMCwgUnVzc2VsbCBLaW5nIChP
-cmFjbGUpIHdyb3RlOgo+IE9uIE1vbiwgTWF5IDEzLCAyMDI0IGF0IDEwOjM4OjQ2QU0gLTA3MDAs
-IEppdGVuZHJhIFZlZ2lyYWp1IHdyb3RlOgo+ID4gVGhhbmtzIGZvciByZXZpZXdpbmcgdGhlIHBh
-dGNoLgo+ID4gT24gU2F0LCBNYXkgMTEsIDIwMjQgYXQgMTI6MzTigK9QTSBSdXNzZWxsIEtpbmcg
-KE9yYWNsZSkKPiA+IDxsaW51eEBhcm1saW51eC5vcmcudWs+IHdyb3RlOgo+ID4gPiBBcyBwb2lu
-dGVkIG91dCBpbiB0aGUgb3RoZXIgc3ViLXRocmVhZCwgeW91IGRvbid0IG5lZWQgdGhpcy4gSWYg
-eW91IG5lZWQKPiA+ID4gYSBmaXhlZC1saW5rIGFuZCB5b3UgZG9uJ3QgaGF2ZSBhIGZpcm13YXJl
-IGRlc2NyaXB0aW9uIG9mIGl0LCB5b3UgY2FuCj4gPiA+IHByb3ZpZGUgYSBzd25vZGUgYmFzZWQg
-ZGVzY3JpcHRpb24gdGhyb3VnaCBwbGF0LT5wb3J0X25vZGUgdGhhdCB3aWxsIGJlCj4gPiA+IHBh
-c3NlZCB0byBwaHlsaW5rLiBUaHJvdWdoIHRoYXQsIHlvdSBjYW4gdGVsbCBwaHlsaW5rIHRvIGNy
-ZWF0ZSBhCj4gPiA+IGZpeGVkIGxpbmsuCj4gPiA+Cj4gPiBUaGFuayB5b3UgZm9yIHRoZSBwb2lu
-dGVycyBvciBzb2Z0d2FyZSBub2RlIHN1cHBvcnQuCj4gPiBTaW5jZSB0aGUgZHJpdmVyIGlzIGlu
-aXRpYWxseSB0YXJnZXR0ZWQgZm9yIFg4Ni9fNjQsIHdlIHdlcmUgbm90IHN1cmUKPiA+IGhvdyB0
-byBkZWFsIHdpdGggbGFjayBvZiBPRiBzdXBwb3J0Lgo+ID4gV2Ugd2lsbCB0cnkgb3V0IHRoZSBz
-b2Z0d2FyZSBub2RlIGZhY2lsaXR5Lgo+IAo+IFlvdSBtYXkgd2lzaCB0byBoYXZlIGEgbG9vayBh
-dCBkcml2ZXJzL25ldC9ldGhlcm5ldC93YW5neHVuLyB3aGljaAo+IGFsc28gY3JlYXRlcyBzb2Z0
-d2FyZSBub2RlcyBmb3IgcGh5bGluay4KCkhvdyBjb21wbGV4IGlzIHRoZSBzd2l0Y2ggY29uZmln
-dXJhdGlvbj8gU28gZmFyLCB5b3UgaGF2ZSBub3Qgc2FpZAphbnl0aGluZyBhYm91dCBpdC4gSXMg
-aXQgZGVyaXZlZCBmcm9tIGI1My9TRjI/CgpUaGVyZSBpcyBhbiBhbHRlcm5hdGl2ZSByb3V0ZSB5
-b3UgY2FuIHRha2UuIFdvcmsgd2l0aCBib290bGluIGFuZCB1c2UKRFQgb3ZlcmxheXMuCgpodHRw
-czovL2xvcmUua2VybmVsLm9yZy9saW51eC1wY2kvMjAyNDA0MzAwODM3MzAuMTM0OTE4LTEtaGVy
-dmUuY29kaW5hQGJvb3RsaW4uY29tLwoKTG9va2luZyBhdCB0aGUgcHJvZHVjdCBicmllZiwgdGhl
-IEJDTTg5NTg2TSBoYXMgTURJTyBidXNzZXMsIFNQSQpidXNzZXMsIEdQSU8sIGV0Yy4gSXQgaXMg
-dW5jbGVhciBpZiB0aGVzZSBhcmUgYXZhaWxhYmxlIG9uIHRoZSBQQ0llCmludGVyZmFjZSwgb3Ig
-YXJlIG9ubHkgY29ubmVjdGVkIHRvIHRoZSBDb3J0ZXgtTTc/IEkgd291bGQgZ3Vlc3MgdGhlClFT
-UEksIERFQlVHL0pUQUcgYW5kIHRoZSBVQVJUIGdvIHRvIHRoZSBNNywgZm9yIGl0cyBib290IG1l
-ZGlhIGFuZApjb25zb2xlLiBCdXQgdGhlIG90aGVyIGludGVyZmFjZXMgY291bGQgYmUgZm9yIExp
-bnV4IHRvIGNvbnRyb2wgb3Zlcgp0aGUgUENJZS4gQWRkaXRpb25hbGx5LCB0aGUgUEhZLWxlc3Mg
-cG9ydHMgZG9pbmcgWEZJLCA1RywgMi41RyBTR01JSQpldGMsIHdvdWxkIGhhdmUgZWl0aGVyIGFu
-IFNGUCBvciBtdWx0aS1naWdpIFBIWSBjb25uZWN0ZWQsIGhhbmdpbmcgb2YKb25lIG9mIHRoZSBN
-RElPIGJ1c3NlcywgR1BJT3MgdXNlZCBmb3IgU0ZQIExPUywgVFgtZW5hYmxlIGV0Yy4gT2RkbHkK
-dGhlcmUgaXMgbm8gSTJDIGZvciB0aGUgU1BGLCBidXQgaSBzdXBwb3NlIHlvdSBjb3VsZCBkbyBT
-UEktPkkyQy4KQW55d2F5LCBhbGwgdGhhdCBpcyBnb2luZyB0byBuZWVkIGEgY29tcGxleCBjb25m
-aWd1cmF0aW9uLCBzbyBtYXliZSBEVApvdmVybGF5cyBtYWtlIHNlbnNlLCBiZWNhdXNlIG9uY2Ug
-dGhlIGluaXRpYWwgd29yayBnZXR0aW5nIEJvb3RsaW5zCnBhdGNoZXMgbWVyZ2VkIGlzIGNvbXBs
-ZXRlLCB5b3UgZ2V0IHRoZSByZXN0IHByZXR0eSBtdWNoIGZvciBmcmVlLgoKCUFuZHJldwpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+T24gTW9uLCBNYXkgMTMsIDIwMjQgYXQgMTo1OeKAr1BNIEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2Vl
+cnRAbGludXgtbTY4ay5vcmc+IHdyb3RlOgo+IE9uIFNhdCwgTWF5IDQsIDIwMjQgYXQgMzoxNOKA
+r1BNIFBlbmcgRmFuIChPU1MpIDxwZW5nLmZhbkBvc3MubnhwLmNvbT4gd3JvdGU6Cj4gPiBGcm9t
+OiBQZW5nIEZhbiA8cGVuZy5mYW5AbnhwLmNvbT4KPiA+Cj4gPiBVc2Ugc2NvcGUgYmFzZWQgb2Zf
+bm9kZV9wdXQoKSBjbGVhbnVwIHRvIHNpbXBsaWZ5IGNvZGUuCj4gPgo+ID4gU2lnbmVkLW9mZi1i
+eTogUGVuZyBGYW4gPHBlbmcuZmFuQG54cC5jb20+Cj4KPiBUaGFua3MgZm9yIHlvdXIgcGF0Y2gh
+Cj4KPiBSZXZpZXdlZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRl
+ci5iZT4KPiBBY2tlZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRl
+ci5iZT4KCkRvZXMgdGhpcyBnbyBpbnRvIHRoZSBSZW5lc2FzIHBhdGNoIHN0YWNrPwoKSSB0aGlu
+ayB0aGUgcGF0Y2ggc3RhbmRzIGZpbmUgd2l0aG91dCB0aGUgcmVzdCBvZiB0aGUgc2VyaWVzLgoK
+WW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
