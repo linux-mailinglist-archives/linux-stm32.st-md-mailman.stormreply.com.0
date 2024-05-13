@@ -2,55 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C74B8C43BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 17:06:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A6D8C43A7
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 17:04:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF90BC6B47A;
-	Mon, 13 May 2024 15:06:54 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7094FC6B476
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7265BC6A61D;
+	Mon, 13 May 2024 15:04:33 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3F13C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 15:06:51 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 2175D87F13;
- Mon, 13 May 2024 17:06:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1715612811;
- bh=CLtRBcrV8ZA4r12w3/CUqBvLBUpcesXFzphIqIUvDqI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E5P2q4Xq5fp2GI3FBySbulplbyp7OSFmdeDoMVRX2M27BCFa+wJoh4amCTdiGNjbj
- xH7+IjNER94wmrkItXZwXbcgwpLrvefr8QdDQZmCL8Yy4S+scPB/1LEycZ2QD2GtnI
- MHUAK4PJ6MBiORbIe+RBqpVbcMzMZxHCRWajYKLBdpSS+foHjqENVDtsSvzVovDTIO
- seJJTZV99wJ2L8+LfRq6+Hf8q2KZ2+P2JoXrj8RUeDu+pO7Gp01s5CXNM5U+3wXK9N
- LY9NxpZRPNrUFgUCO1x9D7HwHTS5XJsGm3mrKbBgEa2n6lP3qI1q718kODYBpXo6/3
- XpxbGKKHs/6Pg==
-Message-ID: <615dfdcb-cbda-426f-895e-810f03a8ce60@denx.de>
-Date: Mon, 13 May 2024 16:34:20 +0200
+ Mon, 13 May 2024 15:04:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1715612665;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RTW29I4CyELTNosgb5eLNanHw8DFrZrqRr6uqkajeWw=;
+ b=Qlf1wn9wM2U1pTbHwpJV66id+t4V2lP8J+cNqLuiYRVh27DH+h5kNUojOC/ak+GKjod0gw
+ TNIdfONMKUGliPRaJWNX6HLDyAAgfmO/0XAyWOiUNGSLls8IeZHP+KhsDgz+owC9YibTfq
+ p8kG7qa086lmzvCn95BjCfqTjX+E/KM=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-397-lLyFZG5LOAuuvMh_YTq7Fw-1; Mon, 13 May 2024 11:04:23 -0400
+X-MC-Unique: lLyFZG5LOAuuvMh_YTq7Fw-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-792e7b034ffso47704585a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2024 08:04:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715612663; x=1716217463;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RTW29I4CyELTNosgb5eLNanHw8DFrZrqRr6uqkajeWw=;
+ b=pfHZ6zRzXjthckFccmTy9MsUBXPF8Tdw7hDEkWa2FDS8zHWE1WlEZyqbIRnvaBgpFQ
+ MGJp9yMGd1qzbbcZVU2bbHacx89y5rTiZ1HTxA9xJQ3gJROfbOC4eQN48fAV+0IlgTK9
+ 7NF3DMZ0sJzHfB/l0s04TitQAXewiHzRumVw8QsJm6YR9GEgGga7fEYb80zc7/xW127E
+ 0mVX49iXR1YSRZrfxt5/U75OmUFpOWQ2Wuu4s4ugv2eIpmTeSx5qO49jjpmDqBoVgNqh
+ NTsOJam5xSEG8uwvh2kbIWi7PWEDZfTQ6+qLnrTZKg4mwqgWUXXXAd20Nn1E5jQ2apEF
+ 1LMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkoz42/nYD3l/m7YdAGAUFv8d6RDh9HOrulJcTql6TkEREbcwZN1ysJYNE+40ZYWwWuFn6rgC3hcJtExZ4lRCarq0P8R6+QqUeHnWFvXADFtv6o38Naj9N
+X-Gm-Message-State: AOJu0YxCOhR/oduKdq9L5akuf2nk2cOp2rdaj+OPlGWw/Hjp1FJn4cOt
+ uGqZ+jYx5x3OgQIjsywv2pQpfAeyML39fjb+VidNvZhWcb573Yh/GehtK5ok4+7RWP4OqJ5CQ+b
+ gfm/QtZ2cOui+fsp37TDft0DMZAmYQSfTs0S8KMnPi6ylaSZL2jbCnjnylH6D0hp7+HOpQXpQZL
+ 2wkw==
+X-Received: by 2002:a05:620a:5dda:b0:792:c02c:a979 with SMTP id
+ af79cd13be357-792c7597db8mr1114506285a.23.1715612662974; 
+ Mon, 13 May 2024 08:04:22 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFwCNTOyFP8kkdVD3hcINZqHo9Fx3MQUnlhQroroknttLiIYTJKYfRCO1rmF9ivXSg9sdMWZg==
+X-Received: by 2002:a05:620a:5dda:b0:792:c02c:a979 with SMTP id
+ af79cd13be357-792c7597db8mr1114500985a.23.1715612662435; 
+ Mon, 13 May 2024 08:04:22 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-792bf27779fsm462541085a.21.2024.05.13.08.04.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 08:04:21 -0700 (PDT)
+Date: Mon, 13 May 2024 10:04:19 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Xiaolei Wang <xiaolei.wang@windriver.com>
+Message-ID: <7qiunwxhvxpembddu6lfg32pec67rhlph3uuqxezey4zd64ig4@wocacehc5lws>
+References: <20240513014346.1718740-1-xiaolei.wang@windriver.com>
+ <20240513014346.1718740-2-xiaolei.wang@windriver.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Pascal Paillet <p.paillet@foss.st.com>
-References: <20240513095605.218042-1-patrick.delaunay@foss.st.com>
- <20240513115601.v3.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240513115601.v3.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: regulator: st,
- stm32mp1-pwr-reg: add compatible for STM32MP13
+In-Reply-To: <20240513014346.1718740-2-xiaolei.wang@windriver.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: linux-kernel@vger.kernel.org, horms@kernel.org,
+ bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, fancer.lancer@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net PATCH v6 1/2] net: stmmac: move the EST lock
+ to struct stmmac_priv
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,51 +91,195 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/13/24 11:56 AM, Patrick Delaunay wrote:
-> Add new compatible "st,stm32mp13-pwr-reg" for STM32MP13 SoC family.
+On Mon, May 13, 2024 at 09:43:45AM GMT, Xiaolei Wang wrote:
+> Reinitialize the whole EST structure would also reset the mutex
+> lock which is embedded in the EST structure, and then trigger
+> the following warning. To address this, move the lock to struct
+> stmmac_priv. We also need to reacquire the mutex lock when doing
+> this initialization.
 > 
-> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+> WARNING: CPU: 3 PID: 505 at kernel/locking/mutex.c:587 __mutex_lock+0xd84/0x1068
+>  Modules linked in:
+>  CPU: 3 PID: 505 Comm: tc Not tainted 6.9.0-rc6-00053-g0106679839f7-dirty #29
+>  Hardware name: NXP i.MX8MPlus EVK board (DT)
+>  pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>  pc : __mutex_lock+0xd84/0x1068
+>  lr : __mutex_lock+0xd84/0x1068
+>  sp : ffffffc0864e3570
+>  x29: ffffffc0864e3570 x28: ffffffc0817bdc78 x27: 0000000000000003
+>  x26: ffffff80c54f1808 x25: ffffff80c9164080 x24: ffffffc080d723ac
+>  x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000000
+>  x20: 0000000000000000 x19: ffffffc083bc3000 x18: ffffffffffffffff
+>  x17: ffffffc08117b080 x16: 0000000000000002 x15: ffffff80d2d40000
+>  x14: 00000000000002da x13: ffffff80d2d404b8 x12: ffffffc082b5a5c8
+>  x11: ffffffc082bca680 x10: ffffffc082bb2640 x9 : ffffffc082bb2698
+>  x8 : 0000000000017fe8 x7 : c0000000ffffefff x6 : 0000000000000001
+>  x5 : ffffff8178fe0d48 x4 : 0000000000000000 x3 : 0000000000000027
+>  x2 : ffffff8178fe0d50 x1 : 0000000000000000 x0 : 0000000000000000
+>  Call trace:
+>   __mutex_lock+0xd84/0x1068
+>   mutex_lock_nested+0x28/0x34
+>   tc_setup_taprio+0x118/0x68c
+>   stmmac_setup_tc+0x50/0xf0
+>   taprio_change+0x868/0xc9c
+> 
+> Fixes: b2aae654a479 ("net: stmmac: add mutex lock to protect est parameters")
+> Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+
 > ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
+>  .../net/ethernet/stmicro/stmmac/stmmac_ptp.c   |  8 ++++----
+>  .../net/ethernet/stmicro/stmmac/stmmac_tc.c    | 18 ++++++++++--------
+>  include/linux/stmmac.h                         |  1 -
+>  4 files changed, 16 insertions(+), 13 deletions(-)
 > 
-> Changes in v3:
-> - Replace oneOf/const by enum; solve the V2 issues for dt_binding_check
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index dddcaa9220cc..64b21c83e2b8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -261,6 +261,8 @@ struct stmmac_priv {
+>  	struct stmmac_extra_stats xstats ____cacheline_aligned_in_smp;
+>  	struct stmmac_safety_stats sstats;
+>  	struct plat_stmmacenet_data *plat;
+> +	/* Protect est parameters */
+> +	struct mutex est_lock;
+>  	struct dma_features dma_cap;
+>  	struct stmmac_counters mmc;
+>  	int hw_cap_support;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> index e04830a3a1fb..0c5aab6dd7a7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> @@ -70,11 +70,11 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+>  	/* If EST is enabled, disabled it before adjust ptp time. */
+>  	if (priv->plat->est && priv->plat->est->enable) {
+>  		est_rst = true;
+> -		mutex_lock(&priv->plat->est->lock);
+> +		mutex_lock(&priv->est_lock);
+>  		priv->plat->est->enable = false;
+>  		stmmac_est_configure(priv, priv, priv->plat->est,
+>  				     priv->plat->clk_ptp_rate);
+> -		mutex_unlock(&priv->plat->est->lock);
+> +		mutex_unlock(&priv->est_lock);
+>  	}
+>  
+>  	write_lock_irqsave(&priv->ptp_lock, flags);
+> @@ -87,7 +87,7 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+>  		ktime_t current_time_ns, basetime;
+>  		u64 cycle_time;
+>  
+> -		mutex_lock(&priv->plat->est->lock);
+> +		mutex_lock(&priv->est_lock);
+>  		priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+>  		current_time_ns = timespec64_to_ktime(current_time);
+>  		time.tv_nsec = priv->plat->est->btr_reserve[0];
+> @@ -104,7 +104,7 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
+>  		priv->plat->est->enable = true;
+>  		ret = stmmac_est_configure(priv, priv, priv->plat->est,
+>  					   priv->plat->clk_ptp_rate);
+> -		mutex_unlock(&priv->plat->est->lock);
+> +		mutex_unlock(&priv->est_lock);
+>  		if (ret)
+>  			netdev_err(priv->dev, "failed to configure EST\n");
+>  	}
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> index cce00719937d..620c16e9be3a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> @@ -1004,17 +1004,19 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  		if (!plat->est)
+>  			return -ENOMEM;
+>  
+> -		mutex_init(&priv->plat->est->lock);
+> +		mutex_init(&priv->est_lock);
+>  	} else {
+> +		mutex_lock(&priv->est_lock);
+>  		memset(plat->est, 0, sizeof(*plat->est));
+> +		mutex_unlock(&priv->est_lock);
+>  	}
+>  
+>  	size = qopt->num_entries;
+>  
+> -	mutex_lock(&priv->plat->est->lock);
+> +	mutex_lock(&priv->est_lock);
+>  	priv->plat->est->gcl_size = size;
+>  	priv->plat->est->enable = qopt->cmd == TAPRIO_CMD_REPLACE;
+> -	mutex_unlock(&priv->plat->est->lock);
+> +	mutex_unlock(&priv->est_lock);
+>  
+>  	for (i = 0; i < size; i++) {
+>  		s64 delta_ns = qopt->entries[i].interval;
+> @@ -1045,7 +1047,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  		priv->plat->est->gcl[i] = delta_ns | (gates << wid);
+>  	}
+>  
+> -	mutex_lock(&priv->plat->est->lock);
+> +	mutex_lock(&priv->est_lock);
+>  	/* Adjust for real system time */
+>  	priv->ptp_clock_ops.gettime64(&priv->ptp_clock_ops, &current_time);
+>  	current_time_ns = timespec64_to_ktime(current_time);
+> @@ -1068,7 +1070,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  	tc_taprio_map_maxsdu_txq(priv, qopt);
+>  
+>  	if (fpe && !priv->dma_cap.fpesel) {
+> -		mutex_unlock(&priv->plat->est->lock);
+> +		mutex_unlock(&priv->est_lock);
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> @@ -1079,7 +1081,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  
+>  	ret = stmmac_est_configure(priv, priv, priv->plat->est,
+>  				   priv->plat->clk_ptp_rate);
+> -	mutex_unlock(&priv->plat->est->lock);
+> +	mutex_unlock(&priv->est_lock);
+>  	if (ret) {
+>  		netdev_err(priv->dev, "failed to configure EST\n");
+>  		goto disable;
+> @@ -1096,7 +1098,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  
+>  disable:
+>  	if (priv->plat->est) {
+> -		mutex_lock(&priv->plat->est->lock);
+> +		mutex_lock(&priv->est_lock);
+>  		priv->plat->est->enable = false;
+>  		stmmac_est_configure(priv, priv, priv->plat->est,
+>  				     priv->plat->clk_ptp_rate);
+> @@ -1105,7 +1107,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  			priv->xstats.max_sdu_txq_drop[i] = 0;
+>  			priv->xstats.mtl_est_txq_hlbf[i] = 0;
+>  		}
+> -		mutex_unlock(&priv->plat->est->lock);
+> +		mutex_unlock(&priv->est_lock);
+>  	}
+>  
+>  	priv->plat->fpe_cfg->enable = false;
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index dfa1828cd756..c0d74f97fd18 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -117,7 +117,6 @@ struct stmmac_axi {
+>  
+>  #define EST_GCL		1024
+>  struct stmmac_est {
+> -	struct mutex lock;
+>  	int enable;
+>  	u32 btr_reserve[2];
+>  	u32 btr_offset[2];
+> -- 
+> 2.25.1
 > 
-> Changes in v2:
-> - update for Rob review, only add compatible for STM32MP13 family
-> 
->   .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml    | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> index c9586d277f41..c766f0a15a31 100644
-> --- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-> @@ -11,7 +11,9 @@ maintainers:
->   
->   properties:
->     compatible:
-> -    const: st,stm32mp1,pwr-reg
-> +    enum:
-> +      - st,stm32mp1,pwr-reg
-> +      - st,stm32mp13-pwr-reg
 
-Should the st,stm32mp1,pwr-reg be treated as fallback compatible for 
-st,stm32mp13-pwr-reg or not ?
-
-In other words, should the DT contain:
-compatible = "st,stm32mp13-pwr-reg", "st,stm32mp1,pwr-reg";
-or
-compatible = "st,stm32mp13-pwr-reg";
-? Which one is preferable ?
-
-I think the former one, since the MP13 PWR block could also be operated 
-by older MP1(5) PWR block driver(s) without any adverse effects, except 
-the SD IO domain configuration won't be available, right ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
