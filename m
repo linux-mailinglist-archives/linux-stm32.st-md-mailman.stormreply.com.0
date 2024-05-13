@@ -2,66 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3869F8C49DB
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 01:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E6988C4A01
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 01:22:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2586C6B476;
-	Mon, 13 May 2024 23:04:11 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 153A3C6B476;
+	Mon, 13 May 2024 23:22:09 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5043CC640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E6D1C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 23:04:04 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-51f57713684so6163611e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 16:04:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1715641443; x=1716246243;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4xY5PD/80plu8Oum5s12UE+ZfuGa9vAHIWvugychSCA=;
- b=B6dPmopnDMbBzSaTzEANPFJhLv+T+7iZvWSVqet6zkc9jODROK8WBBWqU4A5AVrgBh
- NOtf9i9YcestTRNLBbJPl1FGSE2AqAT6B52hScVRKWkSXCJ92XB+lXI8TXV4piy2yKrm
- P3imYlKAS4BKuRU5Hm86xq+k0FxkEKnInpaFBTx7ZM9s4cFO03ZU9Ui80ihQ9uUHiIri
- OsjpamBOnX0dZFlLaTb/PeFfWEqqdxJZhxmLrreEt8qECF6Ywe5orx7p1tGsfWyuF292
- 1cPZcVyypF1jjaOOXFR36zSvr+Js44mdBABW88MnRztWKY86VH8e/rQqcHx8M7we8fXG
- kx7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1715641443; x=1716246243;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4xY5PD/80plu8Oum5s12UE+ZfuGa9vAHIWvugychSCA=;
- b=sMS+GIyHyz2FWKvYDQYXOUo87wZm/wP7EJne/mMg03o+DZJYdZsMXRsNB8+k+hyUsQ
- 1T1VJ2nM4w9vIZGaQHK3TJlpzYsaqw3Qt+Qioasc2vQsYgeK0pad2MHQLz7wQh4asD6/
- P3msLKS52DYli0IVnwPrR46KrceUm4EvDAQ7p04sZfVWYs8A2sa47KW7ZwCGK4saDPIo
- dazsuirA+8ljgzQLhzlpXfZV8hWzeIJ+5zXog8NpaSL9WPYJEJdIG06cTsN/W8MwwJ7m
- JxjPXM4wUi7kOS/XHCjzE5SZA7cl5fkTmjrxLz7S0CyUSgwA4v91Rr4TPCICIMxNu0wT
- ZL8w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXRNx9kaTt5n1haqSkVV29WqQDgjtPOzY2qU/A8O1maLMEmFItf42QzzEvkVMZTYNZpim1X+2xis6jbPjcnlB4uNAA4/HxaugkZn6nJZ20GAAkfL0wJwbEe
-X-Gm-Message-State: AOJu0YyhHMF6B1Zg+2HeCetkR1Kp9xGstXF06R9E7ltOFlPJVt7mppX0
- rAD6lMBaqZe4rUO2ysXve+BT9K+sXE4C/xJTcXwEiS8ar9cDbUGf
-X-Google-Smtp-Source: AGHT+IFFKhWpRJn2p817fOt+Wl9TNhJclHuyqCuJ0Sy/EIzuYsr2zGns6p+IViThDP2lTqh2clB10g==
-X-Received: by 2002:a05:6512:6ce:b0:523:6e01:a701 with SMTP id
- 2adb3069b0e04-5236e01ab0amr39636e87.64.1715641443201; 
- Mon, 13 May 2024 16:04:03 -0700 (PDT)
-Received: from mobilestation ([95.79.182.53]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-521f39d2c43sm1907996e87.248.2024.05.13.16.04.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 May 2024 16:04:02 -0700 (PDT)
-Date: Tue, 14 May 2024 02:04:00 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <y2iz5uhcj5xh3dtpg3rnxap4qgvmgavzkf6qd7c2vqysmll3yx@drhs7upgpojz>
+ Mon, 13 May 2024 23:22:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FjwP5rNIPk7wislr0WzdyfpykGMwHjroQxITaXdC+UA=; b=NyaprXNzRSUuVsKQHvEPtW1l3X
+ pt7i21YkM0E2XUC2EbXrGOrr5aip+1VIOzK6DihejQNUocOqg4kpl7fcpSaJkvjF/s1JZ67AQ1yZu
+ yhgMYfv70QUA2ddS2tt/3Er356HDMimN5895M/gL/gZmwPShcEc/dZK35eX+0uFoHW4o2JIXVPO0X
+ LJhDypc8pDcgAT+8um0Yy5nrgNd586K2vETUAyffOn3FB01W1PhrQ38EDTLXuLtjCKCF6xPbkKK0g
+ 3K7u172/QK27E/dfLlH1BtPLU8nBor/vLo+MX6TrRjH5EDyqvXmtcg3lWJyh5/Jk6BtKA9ZUFs+t4
+ mHYcaoOg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:32964)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1s6ezH-0002OH-2r;
+ Tue, 14 May 2024 00:21:43 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1s6ezG-0006Vz-8j; Tue, 14 May 2024 00:21:42 +0100
+Date: Tue, 14 May 2024 00:21:42 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZkKghpox1r6ZqtyB@shell.armlinux.org.uk>
 References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+ <y2iz5uhcj5xh3dtpg3rnxap4qgvmgavzkf6qd7c2vqysmll3yx@drhs7upgpojz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+In-Reply-To: <y2iz5uhcj5xh3dtpg3rnxap4qgvmgavzkf6qd7c2vqysmll3yx@drhs7upgpojz>
 Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -88,108 +69,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell
-
-On Sun, May 12, 2024 at 05:28:20PM +0100, Russell King (Oracle) wrote:
-> Hi,
+On Tue, May 14, 2024 at 02:04:00AM +0300, Serge Semin wrote:
+> Hi Russell
 > 
+> I'll give your series a try later on this week on my DW GMAC with the
+> RGMII interface (alas I don't have an SGMII capable device, so can't
+> help with the AN-part testing).
 
-> As I noted recently in a thread (and was ignored)
+Thanks!
 
-Sorry about that. I didn't mean to ignore. Your message reached me
-right when I caught a cold, which made me AFK for the rest of the
-week.(
+> Today I've made a brief glance on it
+> and already noted a few places which may require a fix to make the
+> change working for RGMII (at least the RGSMIIIS IRQ must be got back
+> enabled). After making the patch set working for my device in what
+> form would you prefer me to submit the fixes? As incremental patches
+> in-reply to this thread?
 
-> As I noted recently in a thread (and was ignored) stmmac sucks.
+I think it depends on where the issues are.
 
-Can't argue with that. There are much more aspects in what it sucks
-than just the netif's. One glimpse at the plat_stmmacenet_data
-structure causes million questions aka why, how come, what the hell...
-I'll start submitting my cleanup patch sets after my another
-networking work (DW XPCS wise) is finally done, re-submitted, reviewed
-and merged in.
+If they are addressing issues that are also present in the existing
+code, then it would make sense to get those patched as the driver
+stands today, because backporting them to stable would be easier.
 
-> (I
-> won't hide my distain for drivers that make my life as phylink
-> maintainer more difficult!)
-> 
-> One of the contract conditions for using phylink is that the driver
-> will _not_ mess with the netif carrier. stmmac developers/maintainers
-> clearly didn't read that, because stmmac messes with the netif
-> carrier, which destroys phylink's guarantee that it'll make certain
-> calls in a particular order (e.g. it won't call mac_link_up() twice
-> in a row without an intervening mac_link_down().) This is clearly
-> stated in the phylink documentation.
-> 
-> Thus, this patch set attempts to fix this. Why does it mess with the
-> netif carrier? It has its own independent PCS implementation that
-> completely bypasses phylink _while_ phylink is still being used.
-> This is not acceptable. Either the driver uses phylink, or it doesn't
-> use phylink. There is no half-way house about this. Therefore, this
-> driver needs to either be fixed, or needs to stop using phylink.
+If they are for "new" issues, given that this patch series is more
+or less experimental, I would prefer to roll them into these
+patches. As mentioned, when it comes to submitting these patches,
+the way I've split them wouldn't make much sense, but it does
+make sense for where I am with it. Hence, I'll want to resplit
+the series into something better for submission than it currently
+is. If you want to reply to this thread, that is fine.
 
-Thanks for submitting the series, especially for making the RGMII
-in-band status well-implemented in the driver. When I was studying the
-STMMAC internals I was surprised that it wasn't actually utilized for
-something useful. Furthermore at some point afterwards even the
-RGSMIIIS IRQ turned to be disabled. So the RGMII-part of the code has
-been completely unused after that. But even before that the RGMII
-in-band status change IRQ was utilized just to print the link state
-into the system log. 
+There's still a few netif_carrier_off()/netif_carrier_on()s left
+in the driver even after this patch series, but I think they're in
+more obscure paths, but I will also want to address those as well.
 
-> 
-> Since I was ignored when I brought this up, I've hacked together the
-> following patch set - and it is hacky at the moment. It's also broken
-> because of recentl changes involving dwmac-qcom-ethqos.c - but there
-> isn't sufficient information in the driver for me to fix this. The
-> driver appears to use SGMII at 2500Mbps, which simply does not exist.
-> What interface mode (and neg_mode) does phylink pass to pcs_config()
-> in each of the speeds that dwmac-qcom-ethqos.c is interested in.
-> Without this information, I can't do that conversion. So for the
-> purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
-> it will fail to build.)
-> 
-> The patch splitup is not ideal, but that's not what I'm interested in
-> here. What I want to hear is the results of testing - does this switch
-> of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
-> 
-> Please don't review the patches, but you are welcome to send fixes to
-> them. Once we know that the overall implementation works, then I'll
-> look at how best to split the patches. In the mean time, the present
-> form is more convenient for making changes and fixing things.
-
-I'll give your series a try later on this week on my DW GMAC with the
-RGMII interface (alas I don't have an SGMII capable device, so can't
-help with the AN-part testing). Today I've made a brief glance on it
-and already noted a few places which may require a fix to make the
-change working for RGMII (at least the RGSMIIIS IRQ must be got back
-enabled). After making the patch set working for my device in what
-form would you prefer me to submit the fixes? As incremental patches
-in-reply to this thread?
-
--Serge(y)
-
-> 
-> There is still more improvement that's needed here.
-> 
-> Thanks.
-> 
->  drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
->  drivers/net/ethernet/stmicro/stmmac/common.h       |  12 ++-
->  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 113 ++++++++++++---------
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 108 ++++++++++++--------
->  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   6 --
->  drivers/net/ethernet/stmicro/stmmac/hwif.h         |  27 ++---
->  .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------------
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  19 ++--
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  57 +++++++++++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   |  84 ++-------------
->  10 files changed, 227 insertions(+), 312 deletions(-)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
