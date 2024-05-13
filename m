@@ -2,66 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05F38C3E73
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 11:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9188C3F8F
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 13:12:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6909C6B476;
-	Mon, 13 May 2024 09:57:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 343E9C640E5;
+	Mon, 13 May 2024 11:12:42 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87D69C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7AAFC030CA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 09:57:33 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44D43m4I008069;
- Mon, 13 May 2024 11:57:22 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=8EXwyohCc219RSXlxVFLCGJqw0He7msBPhrXvYeZ5H8=; b=7v
- WJCs84Ks5uBCCgePSuhzXlirtx41xQQBGc4teUPK4tmPNqdQDL0Uyzelac38cyGC
- iz0/g8LcVA5xrWhSLyNS65CLZ3YNP0ZTsmSSAti5ge2XP6UY8sQk/7XqujJuVNA3
- osnaY1ZASGkihz+BP2fJbthsjuDmQL3lMxGQoeZxFTLYisI8uOhS2xjBnJbjFIyH
- re3vZAYz+zFZV8r8gnjXxYrW5WvuHV/CaYgXSAFB9sKrLb4Qk4lUo3sb+O4fv0Dd
- 3Sq21XoTMznu+BBdpyrxDF+uAsNOue9rmIVYSQkCAi7HheMid67tw8XgjEo1PQ0e
- QFTzqHPqV54tIYWBOM4A==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y1y8n5sx2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 May 2024 11:57:22 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CB1564002D;
- Mon, 13 May 2024 11:57:03 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A7F3216611;
- Mon, 13 May 2024 11:56:34 +0200 (CEST)
-Received: from localhost (10.48.87.205) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 13 May
- 2024 11:56:33 +0200
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-Date: Mon, 13 May 2024 11:56:05 +0200
-Message-ID: <20240513115601.v3.2.I04ec53442753147c35efad1307b6ec133f53b471@changeid>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240513095605.218042-1-patrick.delaunay@foss.st.com>
-References: <20240513095605.218042-1-patrick.delaunay@foss.st.com>
+ Mon, 13 May 2024 11:12:34 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2e1fa1f1d9bso74904091fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2024 04:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1715598754; x=1716203554;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CsXgR3w2FhQE+aSDSS2Gv40EZ/tbmCX2jDPHP8DnHb8=;
+ b=P9H+aL+E49Or97/XilIH95iyYBAXKpwZQUD+l52tNyz87gW/1QyjOEu95g48sSzb9F
+ hjhoa6FScuj9wJRQDYbiH8kbpd5h5y7NidHAMJl4Kwt/XvDq8+/4d/NQKqS9o8LiAMtV
+ 7RSoIfIdDjUFT3GF9WMUl7zXQhPisRgFmwH+B2a0rissXuAh1Eozz8XgQCASKeSUssPj
+ 8IXfAzOh0rWZc7N8LHIxJez/D3lP7Q9syk/Yl7xF6pUNb9OyrUkaSzNsWXTtzL32RQzo
+ xH8PksNK2D9QimmyU2j8lbe1DbkbDgrHMghkquSqQpOGLuCRCu24FAOB1ggE6LUoLgz9
+ N4og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1715598754; x=1716203554;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CsXgR3w2FhQE+aSDSS2Gv40EZ/tbmCX2jDPHP8DnHb8=;
+ b=bq1YkkbwIjKUzymw2KtmF5Mq96p99bwSS9aUPgqLNTQ/U7Ym/N759NomgVNrJRo8mh
+ ybQgXvKDP0HeYHBeF1SlywWdaliZXcwPvzeNMNAPTBm52my2/bqCunJ60rKlB2nBs5x7
+ KFsAnnCSirODt4HFdYLZ3mLzIBeI/7C3L6r8I2KHbDfJy9Vd/5W8W6MOAbQWmK62yhqF
+ VEUTgSDzH0SoqcunNdDv7iOw9YJDn7V1//EwG6UyZ0q8qAwuc1CvJnMyWtuNJ8Z3gznO
+ xAhuwiSIFyn5dcYkvc/gZnA9wEH+/7cSouH1qdGdQxbkOQZVeqqLsEMNp2Lls05OUZot
+ sDTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7eCrcZN6Wgxvq07mSsxI8aVmKork4fssfGKHr+PkPAkc+0kGqFb23eVrKMaRKViBLMJIhfVSVKspRa0HJx1V4dgjs0Hiq7OibMiuR+DEwKQpMGFmY88su
+X-Gm-Message-State: AOJu0YzeMpGVIVSvDvCCF9JJyfPp6w3BWqYnMbyJtpk0VzPCMUicdvdc
+ ePA6y6QTFQ50E75htPGEqqVJxWsMBcmXsYaHsJDPmje3F0f36Tip
+X-Google-Smtp-Source: AGHT+IFNrzH1ND0SZWwUAgn/8uMLO2dCcSkwSoLKZfE1t1yAXNHUDLcBvn8cGIMU+gIVm1ldgnIHuA==
+X-Received: by 2002:a05:651c:b0c:b0:2dd:bc53:e80 with SMTP id
+ 38308e7fff4ca-2e52039daccmr90950591fa.51.1715598753491; 
+ Mon, 13 May 2024 04:12:33 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2e4d0bbd6a7sm14048281fa.6.2024.05.13.04.12.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 May 2024 04:12:32 -0700 (PDT)
+Date: Mon, 13 May 2024 14:12:29 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Message-ID: <u3t3zu4ihqoc44gl2mvw74seamtoas5wvxr7kqzxxhvu3enhbx@7txzs5fsse25>
+References: <20240513-rzn1-gmac1-v7-0-6acf58b5440d@bootlin.com>
+ <20240513-rzn1-gmac1-v7-2-6acf58b5440d@bootlin.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.87.205]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-13_06,2024-05-10_02,2023-05-22_02
-Cc: Marek Vasut <marex@denx.de>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 2/2] regulator: stm32-pwr: add support of
-	STM32MP13
+Content-Disposition: inline
+In-Reply-To: <20240513-rzn1-gmac1-v7-2-6acf58b5440d@bootlin.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v7 2/7] net: stmmac: Add
+ dedicated XPCS cleanup method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,35 +97,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support of the new compatible "st,stm32mp13-pwr-reg" for STM32MP13.
+Hi Romain
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
----
+On Mon, May 13, 2024 at 09:25:13AM +0200, Romain Gantois wrote:
+> From: Serge Semin <fancer.lancer@gmail.com>
+> 
+> Currently the XPCS handler destruction is performed in the
+> stmmac_mdio_unregister() method. It doesn't look good because the handler
+> isn't originally created in the corresponding protagonist
+> stmmac_mdio_unregister(), but in the stmmac_xpcs_setup() function. In
+> order to have more coherent MDIO and XPCS setup/cleanup procedures,
+> let's move the DW XPCS destruction to the dedicated stmmac_pcs_clean()
+> method.
+> 
+> This method will also be used to cleanup PCS hardware using the
+> pcs_exit() callback that will be introduced to stmmac in a subsequent
+> patch.
+> 
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+> Co-developed-by: Romain Gantois <romain.gantois@bootlin.com>
+> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+> Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-(no changes since v2)
+Looking good. Thanks!
+* Not sure whether my explicit Rb tag will be required in such the tags
+disposition.)
 
-Changes in v2:
-- Add new compatible for STM32MP13 and change title after Rob remarks
-  V1: "ARM: st: use a correct pwr compatible for stm32mp15"
+-Serge(y)
 
- drivers/regulator/stm32-pwr.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/regulator/stm32-pwr.c b/drivers/regulator/stm32-pwr.c
-index 85b0102fb9b1..b7aeef6e09e7 100644
---- a/drivers/regulator/stm32-pwr.c
-+++ b/drivers/regulator/stm32-pwr.c
-@@ -166,6 +166,7 @@ static int stm32_pwr_regulator_probe(struct platform_device *pdev)
- 
- static const struct of_device_id __maybe_unused stm32_pwr_of_match[] = {
- 	{ .compatible = "st,stm32mp1,pwr-reg", },
-+	{ .compatible = "st,stm32mp13-pwr-reg", },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, stm32_pwr_of_match);
--- 
-2.25.1
-
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  6 +++++-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 14 +++++++++++---
+>  3 files changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index dddcaa9220cc3..badfe686a5702 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -361,6 +361,7 @@ int stmmac_mdio_unregister(struct net_device *ndev);
+>  int stmmac_mdio_register(struct net_device *ndev);
+>  int stmmac_mdio_reset(struct mii_bus *mii);
+>  int stmmac_xpcs_setup(struct mii_bus *mii);
+> +void stmmac_pcs_clean(struct net_device *ndev);
+>  void stmmac_set_ethtool_ops(struct net_device *netdev);
+>  
+>  int stmmac_init_tstamp_counter(struct stmmac_priv *priv, u32 systime_flags);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 3d828904db0d3..0ac99c132733d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -7789,8 +7789,9 @@ int stmmac_dvr_probe(struct device *device,
+>  
+>  error_netdev_register:
+>  	phylink_destroy(priv->phylink);
+> -error_xpcs_setup:
+>  error_phy_setup:
+> +	stmmac_pcs_clean(ndev);
+> +error_xpcs_setup:
+>  	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+>  	    priv->hw->pcs != STMMAC_PCS_RTBI)
+>  		stmmac_mdio_unregister(ndev);
+> @@ -7832,6 +7833,9 @@ void stmmac_dvr_remove(struct device *dev)
+>  	if (priv->plat->stmmac_rst)
+>  		reset_control_assert(priv->plat->stmmac_rst);
+>  	reset_control_assert(priv->plat->stmmac_ahb_rst);
+> +
+> +	stmmac_pcs_clean(ndev);
+> +
+>  	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+>  	    priv->hw->pcs != STMMAC_PCS_RTBI)
+>  		stmmac_mdio_unregister(ndev);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index 0542cfd1817e6..73ba9901a4439 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -523,6 +523,17 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+>  	return 0;
+>  }
+>  
+> +void stmmac_pcs_clean(struct net_device *ndev)
+> +{
+> +	struct stmmac_priv *priv = netdev_priv(ndev);
+> +
+> +	if (!priv->hw->xpcs)
+> +		return;
+> +
+> +	xpcs_destroy(priv->hw->xpcs);
+> +	priv->hw->xpcs = NULL;
+> +}
+> +
+>  /**
+>   * stmmac_mdio_register
+>   * @ndev: net device structure
+> @@ -679,9 +690,6 @@ int stmmac_mdio_unregister(struct net_device *ndev)
+>  	if (!priv->mii)
+>  		return 0;
+>  
+> -	if (priv->hw->xpcs)
+> -		xpcs_destroy(priv->hw->xpcs);
+> -
+>  	mdiobus_unregister(priv->mii);
+>  	priv->mii->priv = NULL;
+>  	mdiobus_free(priv->mii);
+> 
+> -- 
+> 2.44.0
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
