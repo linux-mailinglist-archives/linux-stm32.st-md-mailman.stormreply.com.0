@@ -2,59 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9734A8C3BF3
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 09:25:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 787608C3D24
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 10:29:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A445C71287;
-	Mon, 13 May 2024 07:25:36 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C6E6C640E5;
+	Mon, 13 May 2024 08:29:06 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EDE2C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B7C8C5E2CB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 07:25:34 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 06AE8FF805;
- Mon, 13 May 2024 07:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1715585133;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3iN0ItRZDrnSlN4ReBOmK3jB09/b+zxkMx2rwDWFhp0=;
- b=cCy6F3dbOTlV7pzWtlwoZ44WYFXoU2cAF7OG54Sc0QLZlnlGdhfHRvYqZvFzxYGjujiUdd
- nQMhXPhZvumnfIkPQX0/ZrFylRcn46YaJGRJVqp652RjQLRG3da0gI6o5MdCsINxr97hcw
- lihvuOARiHJcz9HqMhPW++79zSKHs0OPOpgwmTCBon18G8sOmK8wAc+bonYwEXXrOakIti
- 2mZHmm/x873gCXflMPdJJbhmybgoZOR5BGt9+II4f+ax6EkdwN2lVsUDQFqprigpmRoUvX
- 0ku1un7VeG7ZvTmlOoomwYrb4SczoLhLhHPCJJ9fOI/4At6FnuuZ4IR5fe0Gxg==
-Date: Mon, 13 May 2024 09:26:12 +0200 (CEST)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Simon Horman <horms@kernel.org>
-In-Reply-To: <20240511181119.GU2347895@kernel.org>
-Message-ID: <64f188d8-9336-2578-fb47-ce6ff615acab@bootlin.com>
-References: <20240510-rzn1-gmac1-v6-0-b63942be334c@bootlin.com>
- <20240510-rzn1-gmac1-v6-4-b63942be334c@bootlin.com>
- <20240511181119.GU2347895@kernel.org>
+ Mon, 13 May 2024 08:28:58 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1])
+ by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <l.goehrs@pengutronix.de>)
+ id 1s6R3G-0005f7-2I; Mon, 13 May 2024 10:28:54 +0200
+Message-ID: <39033ed7-3e57-4339-80b4-fc8919e26aa7@pengutronix.de>
+Date: Mon, 13 May 2024 10:29:49 +0200
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] net: stmmac: introduce
- pcs_init/pcs_exit stmmac operations
+User-Agent: Mozilla Thunderbird
+To: Ben Wolsieffer <ben.wolsieffer@hefring.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-spi@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+References: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>
+In-Reply-To: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.goehrs@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32: enable controller before
+	asserting CS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,36 +51,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Simon,
-
-On Sat, 11 May 2024, Simon Horman wrote:
-
-> > -	if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
-> > +	if (priv->plat->pcs_init) {
-> > +		ret = priv->plat->pcs_init(priv);
-> > +	} else if (priv->plat->mdio_bus_data &&
-> > +		   priv->plat->mdio_bus_data->has_xpcs) {
-> >  		/* Try to probe the XPCS by scanning all addresses */
-> >  		for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
-> >  			xpcs = xpcs_create_mdiodev(priv->mii, addr, mode);
-> 
-> I am unsure if this can occur, but if priv->plat->pcs_init returns 0 then
-> xpcs will be used while uninitialised towards the end of this function.
-
-Indeed this could occur, I've just sent a v7 that fixes this.
-
-Thanks,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksCgpJIGFtIGluIHRoZSBwcm9jZXNzIG9mIHVwZGF0aW5nIGFuIFNUTTMyTVAxNTcgYmFzZWQg
+ZGV2aWNlIGZyb20gNi44IHRvIDYuOQphbmQgaGF2ZSBub3RpY2VkIFNQSSByZWxhdGVkIGlzc3Vl
+cyB0aGF0IG1heSBiZSBjYXVzZWQgYnkgdGhpcyBjaGFuZ2UuCgpJIGFtIHRlc3Rpbmcgb24gYW4g
+TFhBIFRBQyBHZW5lcmF0aW9uIDIgKGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTdjLWx4
+YS10YWMtZ2VuMi5kdHMpCmFuZCB0aGUgaXNzdWVzIEkgc2VlIGFyZSBTUEkgdHJhbnNmZXIgdGlt
+ZW91dHM6CgogICBbICAgMTMuNTY1MDgxXSBwYW5lbC1taXBpLWRiaS1zcGkgc3BpMi4wOiBTUEkg
+dHJhbnNmZXIgdGltZWQgb3V0CiAgIFsgICAxMy41NjUxMzFdIHNwaV9tYXN0ZXIgc3BpMjogZmFp
+bGVkIHRvIHRyYW5zZmVyIG9uZSBtZXNzYWdlIGZyb20gcXVldWUKICAgWyAgIDEzLjU2NTEzNF0g
+c3BpX3N0bTMyIDQ0MDA1MDAwLnNwaTogc3B1cmlvdXMgSVQgKHNyPTB4MDAwMTAwMDIsIGllcj0w
+eDAwMDAwMDAwKQogICBbICAgMTMuNTY1MTQ1XSBzcGlfbWFzdGVyIHNwaTI6IG5vcXVldWUgdHJh
+bnNmZXIgZmFpbGVkCiAgIFsgICAxMy41NjUxODNdIHBhbmVsLW1pcGktZGJpLXNwaSBzcGkyLjA6
+IGVycm9yIC0xMTAgd2hlbiBzZW5kaW5nIGNvbW1hbmQgMHgyYQogICBbICAgMTMuNzY5MTEzXSBw
+YW5lbC1taXBpLWRiaS1zcGkgc3BpMi4wOiBTUEkgdHJhbnNmZXIgdGltZWQgb3V0CiAgIFsgICAx
+My43NjkxNjNdIHNwaV9tYXN0ZXIgc3BpMjogZmFpbGVkIHRvIHRyYW5zZmVyIG9uZSBtZXNzYWdl
+IGZyb20gcXVldWUKICAgWyAgIDEzLjc2OTE2NF0gc3BpX3N0bTMyIDQ0MDA1MDAwLnNwaTogc3B1
+cmlvdXMgSVQgKHNyPTB4MDAwMTAwMDIsIGllcj0weDAwMDAwMDAwKQogICBbICAgMTMuNzY5MTc3
+XSBzcGlfbWFzdGVyIHNwaTI6IG5vcXVldWUgdHJhbnNmZXIgZmFpbGVkCiAgIFsgICAxMy43Njky
+MTBdIHBhbmVsLW1pcGktZGJpLXNwaSBzcGkyLjA6IGVycm9yIC0xMTAgd2hlbiBzZW5kaW5nIGNv
+bW1hbmQgMHgyYgogICBbICAgMTMuOTc3MDI4XSBwYW5lbC1taXBpLWRiaS1zcGkgc3BpMi4wOiBT
+UEkgdHJhbnNmZXIgdGltZWQgb3V0CiAgIFsgICAxMy45NzcwODJdIHNwaV9tYXN0ZXIgc3BpMjog
+ZmFpbGVkIHRvIHRyYW5zZmVyIG9uZSBtZXNzYWdlIGZyb20gcXVldWUKICAgWyAgIDEzLjk3NzA5
+NV0gc3BpX21hc3RlciBzcGkyOiBub3F1ZXVlIHRyYW5zZmVyIGZhaWxlZAogICBbICAgMTQuNDYw
+OTI0XSBwYW5lbC1taXBpLWRiaS1zcGkgc3BpMi4wOiBTUEkgdHJhbnNmZXIgdGltZWQgb3V0CgpG
+b2xsb3dlZCBieSB3b3JrcXVldWUgbG9ja3VwcyBhbmQgdGhlIGRldmljZSBiZWNvbWluZyB1bnJl
+c3BvbnNpdmUgbGF0ZXIKaW4gdGhlIGJvb3QsIHByZXZlbnRpbmcgbWUgZnJvbSBsb2dnaW5nIGlu
+IGFuZCBpbnZlc3RpZ2F0aW5nIGZ1cnRoZXIgdGhhdCB3YXk6CgogICBbICAgMTcuMDI2MjYzXSBz
+cGlfbWFzdGVyIHNwaTI6IG5vcXVldWUgdHJhbnNmZXIgZmFpbGVkCgogICBUQUMgT1MgLSBUaGUg
+TFhBIFRBQyBvcGVyYXRpbmcgc3lzdGVtIDI0LjA0K2RldiBseGF0YWMtMDAwMTEgdHR5U1RNMAoK
+ICAgbHhhdGFjLTAwMDExIGxvZ2luOiByb290CiAgIFsgICA2Mi40MzQzMjZdIEJVRzogd29ya3F1
+ZXVlIGxvY2t1cCAtIHBvb2wgY3B1cz0wIG5vZGU9MCBmbGFncz0weDAgbmljZT0wIHN0dWNrIGZv
+ciA0NHMhCiAgIFsgICA2Mi40NDEzMjFdIEJVRzogd29ya3F1ZXVlIGxvY2t1cCAtIHBvb2wgY3B1
+cz0wIG5vZGU9MCBmbGFncz0weDAgbmljZT0tMjAgc3R1Y2sgZm9yIDQ0cyEKICAg4oCmCgpSZXZl
+cnRpbmcgdGhpcyBjb21taXQgZml4ZXMgdGhlIGlzc3VlIGZvciBtZS4gSXQgbWF5IGJlIHNvbWUg
+dGltZSBiZWZvcmUKSSBnZXQgYXJvdW5kIHRvIGludmVzdGlnYXRpbmcgdGhlIGlzc3VlIGluIGRl
+dGFpbCwgc28gSSB0aG91Z2h0IEkgc2hvdWxkCmFzayBpZiBhbnlvbmUgZWxzZSBoYXMgYWxyZWFk
+eSBub3RpY2VkIHRoaXMgYXMgd2VsbC4KCldlIGFyZSBjdXJyZW50bHkgaW4gdGhlIHByb2Nlc3Mg
+b2YgYWRkaW5nIHRoZSBkZXZpY2UgaW4gcXVlc3Rpb24gdG8KS2VybmVsQ0kgWzFdLCB3aGljaCBt
+YXkgaGVscCBpbiBjYXRjaGluZyBzdWNoIHByb2JsZW1zIGVhcmxpZXIuCgpbMV06IGh0dHBzOi8v
+Z2l0aHViLmNvbS9rZXJuZWxjaS9rZXJuZWxjaS1jb3JlL3B1bGwvMjU0MgoKCk9uIDI0LjA0LjI0
+IDE1OjUyLCBCZW4gV29sc2llZmZlciB3cm90ZToKPiBPbiB0aGUgU1RNMzJGNC83LCB0aGUgTU9T
+SSBhbmQgQ0xLIHBpbnMgZmxvYXQgd2hpbGUgdGhlIGNvbnRyb2xsZXIgaXMKPiBkaXNhYmxlZC4g
+Q1MgaXMgYSByZWd1bGFyIEdQSU8sIGFuZCB0aGVyZWZvcmUgYWx3YXlzIGRyaXZlbi4gQ3VycmVu
+dGx5LAo+IHRoZSBjb250cm9sbGVyIGlzIGVuYWJsZWQgaW4gdGhlIHRyYW5zZmVyX29uZSgpIGNh
+bGxiYWNrLCB3aGljaCBydW5zCj4gYWZ0ZXIgQ1MgaXMgYXNzZXJ0ZWQuICBUaGVyZWZvcmUsIHRo
+ZXJlIGlzIGEgcGVyaW9kIHdoZXJlIHRoZSBTUEkgcGlucwo+IGFyZSBmbG9hdGluZyB3aGlsZSBD
+UyBpcyBhc3NlcnRlZCwgbWFraW5nIGl0IHBvc3NpYmxlIGZvciBzdHJheSBzaWduYWxzCj4gdG8g
+ZGlzcnVwdCBjb21tdW5pY2F0aW9ucy4gQW4gYW5hbG9nb3VzIHByb2JsZW0gb2NjdXJzIGF0IHRo
+ZSBlbmQgb2YgdGhlCj4gdHJhbnNmZXIgd2hlbiB0aGUgY29udHJvbGxlciBpcyBkaXNhYmxlZCBi
+ZWZvcmUgQ1MgaXMgcmVsZWFzZWQuCj4gCj4gVGhpcyBwcm9ibGVtIGNhbiBiZSByZWxpYWJseSBv
+YnNlcnZlZCBieSBlbmFibGluZyB0aGUgcHVsbC11cCAoaWYKPiBDUE9MPTApIG9yIHB1bGwtZG93
+biAoaWYgQ1BPTD0xKSBvbiB0aGUgY2xvY2sgcGluLiBUaGlzIHdpbGwgY2F1c2UgdHdvCj4gZXh0
+cmEgdW5pbnRlbmRlZCBjbG9jayBlZGdlcyBwZXIgdHJhbnNmZXIsIHdoZW4gdGhlIGNvbnRyb2xs
+ZXIgaXMKPiBlbmFibGVkIGFuZCBkaXNhYmxlZC4KPiAKPiBOb3RlIHRoYXQgdGhpcyBidWcgaXMg
+bGlrZWx5IG5vdCBwcmVzZW50IG9uIHRoZSBTVE0zMkg3LCBiZWNhdXNlIHRoaXMKPiBkcml2ZXIg
+c2V0cyB0aGUgQUZDTlRSIGJpdCAobm90IHN1cHBvcnRlZCBvbiBGNC9GNyksIHdoaWNoIGtlZXBz
+IHRoZSBTUEkKPiBwaW5zIGRyaXZlbiBldmVuIHdoaWxlIHRoZSBjb250cm9sbGVyIGlzIGRpc2Fi
+bGVkLgo+IAo+IEVuYWJsaW5nL2Rpc2FibGluZyB0aGUgY29udHJvbGxlciBhcyBwYXJ0IG9mIHJ1
+bnRpbWUgUE0gd2FzIHN1Z2dlc3RlZCBhcwo+IGFuIGFsdGVybmF0aXZlIGFwcHJvYWNoLCBidXQg
+dGhpcyBicmVha3MgdGhlIGRyaXZlciBvbiB0aGUgU1RNMzJNUDEgKHNlZQo+IFsxXSkuIFRoZSBm
+b2xsb3dpbmcgcXVvdGUgZnJvbSB0aGUgbWFudWFsIG1heSBleHBsYWluIHRoaXM6Cj4gCj4+IFRv
+IHJlc3RhcnQgdGhlIGludGVybmFsIHN0YXRlIG1hY2hpbmUgcHJvcGVybHksIFNQSSBpcyBzdHJv
+bmdseQo+PiBzdWdnZXN0ZWQgdG8gYmUgZGlzYWJsZWQgYW5kIHJlLWVuYWJsZWQgYmVmb3JlIG5l
+eHQgdHJhbnNhY3Rpb24gc3RhcnRzCj4+IGRlc3BpdGUgaXRzIHNldHRpbmcgaXMgbm90IGNoYW5n
+ZWQuCj4gCj4gVGhpcyBwYXRjaCBoYXMgYmVlbiB0ZXN0ZWQgb24gYW4gU1RNMzJGNzQ2IHdpdGgg
+YSBNQVgxNDgzMCBVQVJUCj4gZXhwYW5kZXIuCj4gCj4gWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwu
+b3JnL2xrbWwvWlh6UmlfaDJBTXFFaE1Wd0BkZWxsLXByZWNpc2lvbi01NTQwL1QvCj4gCj4gU2ln
+bmVkLW9mZi1ieTogQmVuIFdvbHNpZWZmZXIgPGJlbi53b2xzaWVmZmVyQGhlZnJpbmcuY29tPgo+
+IC0tLQo+IHYyOgo+ICAgKiBJbXByb3ZlIGV4cGxhbmF0aW9uIG9mIHByb2JsZW0KPiAgICogRGlz
+Y3VzcyB3aHkgbm90IHRvIHVzZSBydW50aW1lIFBNIGluc3RlYWQKPiAKPiAgIGRyaXZlcnMvc3Bp
+L3NwaS1zdG0zMi5jIHwgMTQgKystLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Nw
+aS9zcGktc3RtMzIuYyBiL2RyaXZlcnMvc3BpL3NwaS1zdG0zMi5jCj4gaW5kZXggZTRlN2RkYjc1
+MjRhLi40YTY4YWJjZGNjMzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9zcGkvc3BpLXN0bTMyLmMK
+PiArKysgYi9kcml2ZXJzL3NwaS9zcGktc3RtMzIuYwo+IEBAIC0xMDE2LDEwICsxMDE2LDggQEAg
+c3RhdGljIGlycXJldHVybl90IHN0bTMyZnhfc3BpX2lycV9ldmVudChpbnQgaXJxLCB2b2lkICpk
+ZXZfaWQpCj4gICBzdGF0aWMgaXJxcmV0dXJuX3Qgc3RtMzJmeF9zcGlfaXJxX3RocmVhZChpbnQg
+aXJxLCB2b2lkICpkZXZfaWQpCj4gICB7Cj4gICAJc3RydWN0IHNwaV9jb250cm9sbGVyICpjdHJs
+ID0gZGV2X2lkOwo+IC0Jc3RydWN0IHN0bTMyX3NwaSAqc3BpID0gc3BpX2NvbnRyb2xsZXJfZ2V0
+X2RldmRhdGEoY3RybCk7Cj4gICAKPiAgIAlzcGlfZmluYWxpemVfY3VycmVudF90cmFuc2Zlcihj
+dHJsKTsKPiAtCXN0bTMyZnhfc3BpX2Rpc2FibGUoc3BpKTsKPiAgIAo+ICAgCXJldHVybiBJUlFf
+SEFORExFRDsKPiAgIH0KPiBAQCAtMTE4Nyw2ICsxMTg1LDggQEAgc3RhdGljIGludCBzdG0zMl9z
+cGlfcHJlcGFyZV9tc2coc3RydWN0IHNwaV9jb250cm9sbGVyICpjdHJsLAo+ICAgCQkJIH5jbHJi
+KSB8IHNldGIsCj4gICAJCQlzcGktPmJhc2UgKyBzcGktPmNmZy0+cmVncy0+Y3BvbC5yZWcpOwo+
+ICAgCj4gKwlzdG0zMl9zcGlfZW5hYmxlKHNwaSk7Cj4gKwo+ICAgCXNwaW5fdW5sb2NrX2lycXJl
+c3RvcmUoJnNwaS0+bG9jaywgZmxhZ3MpOwo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gQEAgLTEyMDQs
+NyArMTIwNCw2IEBAIHN0YXRpYyB2b2lkIHN0bTMyZnhfc3BpX2RtYV90eF9jYih2b2lkICpkYXRh
+KQo+ICAgCj4gICAJaWYgKHNwaS0+Y3VyX2NvbW0gPT0gU1BJX1NJTVBMRVhfVFggfHwgc3BpLT5j
+dXJfY29tbSA9PSBTUElfM1dJUkVfVFgpIHsKPiAgIAkJc3BpX2ZpbmFsaXplX2N1cnJlbnRfdHJh
+bnNmZXIoc3BpLT5jdHJsKTsKPiAtCQlzdG0zMmZ4X3NwaV9kaXNhYmxlKHNwaSk7Cj4gICAJfQo+
+ICAgfQo+ICAgCj4gQEAgLTEyMTksNyArMTIxOCw2IEBAIHN0YXRpYyB2b2lkIHN0bTMyX3NwaV9k
+bWFfcnhfY2Iodm9pZCAqZGF0YSkKPiAgIAlzdHJ1Y3Qgc3RtMzJfc3BpICpzcGkgPSBkYXRhOwo+
+ICAgCj4gICAJc3BpX2ZpbmFsaXplX2N1cnJlbnRfdHJhbnNmZXIoc3BpLT5jdHJsKTsKPiAtCXNw
+aS0+Y2ZnLT5kaXNhYmxlKHNwaSk7Cj4gICB9Cj4gICAKPiAgIC8qKgo+IEBAIC0xMzA3LDggKzEz
+MDUsNiBAQCBzdGF0aWMgaW50IHN0bTMyZnhfc3BpX3RyYW5zZmVyX29uZV9pcnEoc3RydWN0IHN0
+bTMyX3NwaSAqc3BpKQo+ICAgCj4gICAJc3RtMzJfc3BpX3NldF9iaXRzKHNwaSwgU1RNMzJGWF9T
+UElfQ1IyLCBjcjIpOwo+ICAgCj4gLQlzdG0zMl9zcGlfZW5hYmxlKHNwaSk7Cj4gLQo+ICAgCS8q
+IHN0YXJ0aW5nIGRhdGEgdHJhbnNmZXIgd2hlbiBidWZmZXIgaXMgbG9hZGVkICovCj4gICAJaWYg
+KHNwaS0+dHhfYnVmKQo+ICAgCQlzcGktPmNmZy0+d3JpdGVfdHgoc3BpKTsKPiBAQCAtMTM0NSw4
+ICsxMzQxLDYgQEAgc3RhdGljIGludCBzdG0zMmg3X3NwaV90cmFuc2Zlcl9vbmVfaXJxKHN0cnVj
+dCBzdG0zMl9zcGkgKnNwaSkKPiAgIAo+ICAgCXNwaW5fbG9ja19pcnFzYXZlKCZzcGktPmxvY2ss
+IGZsYWdzKTsKPiAgIAo+IC0Jc3RtMzJfc3BpX2VuYWJsZShzcGkpOwo+IC0KPiAgIAkvKiBCZSBz
+dXJlIHRvIGhhdmUgZGF0YSBpbiBmaWZvIGJlZm9yZSBzdGFydGluZyBkYXRhIHRyYW5zZmVyICov
+Cj4gICAJaWYgKHNwaS0+dHhfYnVmKQo+ICAgCQlzdG0zMmg3X3NwaV93cml0ZV90eGZpZm8oc3Bp
+KTsKPiBAQCAtMTM3OCw4ICsxMzcyLDYgQEAgc3RhdGljIHZvaWQgc3RtMzJmeF9zcGlfdHJhbnNm
+ZXJfb25lX2RtYV9zdGFydChzdHJ1Y3Qgc3RtMzJfc3BpICpzcGkpCj4gICAJCSAqLwo+ICAgCQlz
+dG0zMl9zcGlfc2V0X2JpdHMoc3BpLCBTVE0zMkZYX1NQSV9DUjIsIFNUTTMyRlhfU1BJX0NSMl9F
+UlJJRSk7Cj4gICAJfQo+IC0KPiAtCXN0bTMyX3NwaV9lbmFibGUoc3BpKTsKPiAgIH0KPiAgIAo+
+ICAgLyoqCj4gQEAgLTE0MTMsOCArMTQwNSw2IEBAIHN0YXRpYyB2b2lkIHN0bTMyaDdfc3BpX3Ry
+YW5zZmVyX29uZV9kbWFfc3RhcnQoc3RydWN0IHN0bTMyX3NwaSAqc3BpKQo+ICAgCj4gICAJc3Rt
+MzJfc3BpX3NldF9iaXRzKHNwaSwgU1RNMzJIN19TUElfSUVSLCBpZXIpOwo+ICAgCj4gLQlzdG0z
+Ml9zcGlfZW5hYmxlKHNwaSk7Cj4gLQo+ICAgCWlmIChTVE0zMl9TUElfSE9TVF9NT0RFKHNwaSkp
+Cj4gICAJCXN0bTMyX3NwaV9zZXRfYml0cyhzcGksIFNUTTMySDdfU1BJX0NSMSwgU1RNMzJIN19T
+UElfQ1IxX0NTVEFSVCk7Cj4gICB9Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
