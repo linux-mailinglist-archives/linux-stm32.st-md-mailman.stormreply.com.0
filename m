@@ -2,74 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93D08C43EA
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 17:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC6508C43F7
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 17:17:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 864D3C6A61D;
-	Mon, 13 May 2024 15:15:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2C1DC6A61D;
+	Mon, 13 May 2024 15:17:02 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34DB4C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 424C7C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 15:15:45 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44DCEFNO012993;
- Mon, 13 May 2024 17:15:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=/001sYINRF3QuS2WXNucZ6g4afwEJpHTPMm7u6dV36I=; b=6f
- xuUzc0q+Uhb6FnzVUh0pFqLdOW/11qBYWlQ8eR/p/IRtf6hiFXWx9SwAzsvKYy+b
- QscKscbuLpWfluMRuURat1XI/gw3X1pYQLP+FjoeMG3BvcRMRmbd+fWC4hIHMBwa
- M4jLbitCejlFAR/2aTc4JLgPhSLfprychXoLH8TT3VtVOrPueu4HEjW6/XI8PppQ
- XqH8D2zbfUlrAwDN6UhTtZ+rbo5vLFwFeJnCNAbVk3ZZQXml9UvTH2VeID3zkysD
- 7N6Tpm7CpI4vEeszdtwzk/7QuZ/RGkR+z3ozcnWByOfYUrIFsZwPJTh0FjY5EMYl
- zPUK7v2J92++F4vzvAPw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y1y8n7dfw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 May 2024 17:15:27 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7DF6540044;
- Mon, 13 May 2024 17:15:23 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2EC3E22365C;
- Mon, 13 May 2024 17:14:11 +0200 (CEST)
-Received: from [10.48.86.164] (10.48.86.164) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 13 May
- 2024 17:14:08 +0200
-Message-ID: <742bc68a-63a8-4f6e-b5ad-1f37a543f24f@foss.st.com>
-Date: Mon, 13 May 2024 17:14:07 +0200
+ Mon, 13 May 2024 15:16:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B6C13CE0F24;
+ Mon, 13 May 2024 15:16:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15316C113CC;
+ Mon, 13 May 2024 15:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1715613408;
+ bh=HU9Kthyf9AMvfavUhbOcA41Vuir/Y1fnNqQMRB+ThnI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lxrHjuKhb3JXMA3yvXcjLCZF753vbE9sWINCd0Ep1XXA/LSaBp0ZDXvT/q/5gKO++
+ Lzw2/twgMrGiuEScOAO2zDy7CNwaxX60tVhSo6+rkjF/wCWkAWuAVKl9TgahRpbc2W
+ txo0MSgdR8a7Xaa22nzigdLN+L/2/TNXt1OtiXtpcY8l07zZwtDiquDwe/NfbOsgJI
+ /pznRwlM7FwQt7kBN7vaWpxl23/sqHvUTabMWXUG+WBr8X8Oa+Dba4lawv9R6hE1Dg
+ 5QdcD1DRFHRnjtvt7PtcdVMh+mR+jzwqk1ZMF0ipkEChrgIvzW9RgXC5vjYDCTZU+b
+ v5p+29TQr+oxw==
+Date: Mon, 13 May 2024 16:16:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20240513-stabilize-proofread-81f0f9ee38b9@spud>
+References: <20240513095605.218042-1-patrick.delaunay@foss.st.com>
+ <20240513115601.v3.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
+ <615dfdcb-cbda-426f-895e-810f03a8ce60@denx.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Richard Cochran
- <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20240426125707.585269-1-christophe.roullier@foss.st.com>
- <20240426125707.585269-7-christophe.roullier@foss.st.com>
- <5b8b52cf-bd43-40c0-962a-c6936637b7de@denx.de>
-Content-Language: en-US
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <5b8b52cf-bd43-40c0-962a-c6936637b7de@denx.de>
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-13_10,2024-05-10_02,2023-05-22_02
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 06/11] net: stmmac: dwmac-stm32: clean
- the way to manage wol irqwake
+In-Reply-To: <615dfdcb-cbda-426f-895e-810f03a8ce60@denx.de>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Pascal Paillet <p.paillet@foss.st.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: regulator: st,
+ stm32mp1-pwr-reg: add compatible for STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,30 +57,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============8237352726747300057=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On 4/26/24 17:40, Marek Vasut wrote:
-> On 4/26/24 2:57 PM, Christophe Roullier wrote:
->> On STM32 platforms it is no longer needed to use a dedicated wakeup to
->> wake up system from CStop.
->
-> This really needs more clarification.
->
-> Why was the code needed before ? Maybe because it was used by some of 
-> the older STM32F4/F7/H7 SoCs ? Is it still needed by those SoCs ? Will 
-> this patch break those older SoCs ?
-Yes you are right, if power mode use in STM32F4/F7/H7 SoC, issue with 
-this patch, I will abandon it.
->
->> This patch removes the dedicated wake up usage
->> and clean the way to register the wake up irq.
->
-> [...]
+--===============8237352726747300057==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7WL8bDW+3sE8qEPT"
+Content-Disposition: inline
+
+
+--7WL8bDW+3sE8qEPT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, May 13, 2024 at 04:34:20PM +0200, Marek Vasut wrote:
+> On 5/13/24 11:56 AM, Patrick Delaunay wrote:
+> > Add new compatible "st,stm32mp13-pwr-reg" for STM32MP13 SoC family.
+> >=20
+> > Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> > ---
+> >=20
+> > Changes in v3:
+> > - Replace oneOf/const by enum; solve the V2 issues for dt_binding_check
+> >=20
+> > Changes in v2:
+> > - update for Rob review, only add compatible for STM32MP13 family
+> >=20
+> >   .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml    | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pw=
+r-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-re=
+g.yaml
+> > index c9586d277f41..c766f0a15a31 100644
+> > --- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.y=
+aml
+> > +++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.y=
+aml
+> > @@ -11,7 +11,9 @@ maintainers:
+> >   properties:
+> >     compatible:
+> > -    const: st,stm32mp1,pwr-reg
+> > +    enum:
+> > +      - st,stm32mp1,pwr-reg
+> > +      - st,stm32mp13-pwr-reg
+>=20
+> Should the st,stm32mp1,pwr-reg be treated as fallback compatible for
+> st,stm32mp13-pwr-reg or not ?
+>=20
+> In other words, should the DT contain:
+> compatible =3D "st,stm32mp13-pwr-reg", "st,stm32mp1,pwr-reg";
+> or
+> compatible =3D "st,stm32mp13-pwr-reg";
+> ? Which one is preferable ?
+>=20
+> I think the former one, since the MP13 PWR block could also be operated by
+> older MP1(5) PWR block driver(s) without any adverse effects, except the =
+SD
+> IO domain configuration won't be available, right ?
+
+Aye, the fallback sounds like what should be being used here, especially
+if another user of the DT might not need to implement the extra domain.
+
+--7WL8bDW+3sE8qEPT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZkIu2wAKCRB4tDGHoIJi
+0lvfAP9rGyh8L75hqzO31KKo0VjnQVaddbWqnT+TfJuogvhOPgD+K/V4pOzfwW3l
+NyOTQkYcM9fqIXgdfeeXPmIZ/6VV3QI=
+=kDOI
+-----END PGP SIGNATURE-----
+
+--7WL8bDW+3sE8qEPT--
+
+--===============8237352726747300057==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8237352726747300057==--
