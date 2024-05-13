@@ -2,60 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 821298C3BE5
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 09:24:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9734A8C3BF3
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2024 09:25:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4652CC71287;
-	Mon, 13 May 2024 07:24:49 +0000 (UTC)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A445C71287;
+	Mon, 13 May 2024 07:25:36 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADAB7C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EDE2C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2024 07:24:47 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 660CE2000B;
- Mon, 13 May 2024 07:24:46 +0000 (UTC)
+ Mon, 13 May 2024 07:25:34 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 06AE8FF805;
+ Mon, 13 May 2024 07:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1715585087;
+ t=1715585133;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NzNqKTpVWMnrcgcJVGgyUqBdfYphefuKpHkJ0PXLDgQ=;
- b=cVJp5gwKqB0Mh/yJT1k6c5lOBf16FMIt4SuwlyVG5N1wkt/1kjN+Wh0LT9inGh6yf83b9k
- n14F3oLw2J3vH5inilqW/qVAWOVSc6BSibk6J89UAblJ8NM/5MHUds5CMj/Je+QiVTvFzo
- 1ifkrUOzV752vU3Xu9WgVtdpkgL/1MmagXup1SkfqMm7JfcUQcOlIQ+LtmSao7ED0KEwKH
- 22GnNziHOKe+gSz5YDvqs5Ksq7lo0KFfPEDhYiNPGogxx6mCcVqAf0LhBgQGlWjZu0pgX6
- TR1/XoodKayc2UWH898/TQYA0bQQz3G1fUkaT+We1PiHkCInH06Faspmn5eCpA==
+ bh=3iN0ItRZDrnSlN4ReBOmK3jB09/b+zxkMx2rwDWFhp0=;
+ b=cCy6F3dbOTlV7pzWtlwoZ44WYFXoU2cAF7OG54Sc0QLZlnlGdhfHRvYqZvFzxYGjujiUdd
+ nQMhXPhZvumnfIkPQX0/ZrFylRcn46YaJGRJVqp652RjQLRG3da0gI6o5MdCsINxr97hcw
+ lihvuOARiHJcz9HqMhPW++79zSKHs0OPOpgwmTCBon18G8sOmK8wAc+bonYwEXXrOakIti
+ 2mZHmm/x873gCXflMPdJJbhmybgoZOR5BGt9+II4f+ax6EkdwN2lVsUDQFqprigpmRoUvX
+ 0ku1un7VeG7ZvTmlOoomwYrb4SczoLhLhHPCJJ9fOI/4At6FnuuZ4IR5fe0Gxg==
+Date: Mon, 13 May 2024 09:26:12 +0200 (CEST)
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Mon, 13 May 2024 09:25:18 +0200
+To: Simon Horman <horms@kernel.org>
+In-Reply-To: <20240511181119.GU2347895@kernel.org>
+Message-ID: <64f188d8-9336-2578-fb47-ce6ff615acab@bootlin.com>
+References: <20240510-rzn1-gmac1-v6-0-b63942be334c@bootlin.com>
+ <20240510-rzn1-gmac1-v6-4-b63942be334c@bootlin.com>
+ <20240511181119.GU2347895@kernel.org>
 MIME-Version: 1.0
-Message-Id: <20240513-rzn1-gmac1-v7-7-6acf58b5440d@bootlin.com>
-References: <20240513-rzn1-gmac1-v7-0-6acf58b5440d@bootlin.com>
-In-Reply-To: <20240513-rzn1-gmac1-v7-0-6acf58b5440d@bootlin.com>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>, 
- Serge Semin <fancer.lancer@gmail.com>
-X-Mailer: b4 0.13.0
 X-GND-Sasl: romain.gantois@bootlin.com
-Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v7 7/7] ARM: dts: r9a06g032: describe
-	GMAC1
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] net: stmmac: introduce
+ pcs_init/pcs_exit stmmac operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,41 +66,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgoKVGhlIHI5
-YTA2ZzAzMiBTb0Mgb2YgdGhlIFJaL04xIGZhbWlseSBmZWF0dXJlcyB0d28gR01BQyBkZXZpY2Vz
-IG5hbWVkCkdNQUMxLzIsIHRoYXQgYXJlIGJhc2VkIG9uIFN5bm9wc3lzIGNvcmVzLiBHTUFDMSBp
-cyBjb25uZWN0ZWQgdG8gYQpSR01JSS9STUlJIGNvbnZlcnRlciB0aGF0IGlzIGFscmVhZHkgZGVz
-Y3JpYmVkIGluIHRoaXMgZGV2aWNlIHRyZWUuCgpTaWduZWQtb2ZmLWJ5OiBDbMOpbWVudCBMw6ln
-ZXIgPGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+CltyZ2FudG9pczogY29tbWl0IGxvZ10KUmV2
-aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+ClNp
-Z25lZC1vZmYtYnk6IFJvbWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4K
-LS0tCiBhcmNoL2FybS9ib290L2R0cy9yZW5lc2FzL3I5YTA2ZzAzMi5kdHNpIHwgMTggKysrKysr
-KysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMyLmR0c2kgYi9hcmNoL2FybS9i
-b290L2R0cy9yZW5lc2FzL3I5YTA2ZzAzMi5kdHNpCmluZGV4IGZhNjNlMWFmYzRlZjQuLjU3Yzcz
-MGY0MzQ0MmUgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMy
-LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvcmVuZXNhcy9yOWEwNmcwMzIuZHRzaQpAQCAt
-MzE2LDYgKzMxNiwyNCBAQCBkbWExOiBkbWEtY29udHJvbGxlckA0MDEwNTAwMCB7CiAJCQlkYXRh
-LXdpZHRoID0gPDg+OwogCQl9OwogCisJCWdtYWMxOiBldGhlcm5ldEA0NDAwMDAwMCB7CisJCQlj
-b21wYXRpYmxlID0gInJlbmVzYXMscjlhMDZnMDMyLWdtYWMiLCAicmVuZXNhcyxyem4xLWdtYWMi
-LCAic25wcyxkd21hYyI7CisJCQlyZWcgPSA8MHg0NDAwMDAwMCAweDIwMDA+OworCQkJaW50ZXJy
-dXB0cyA9IDxHSUNfU1BJIDM0IElSUV9UWVBFX0xFVkVMX0hJR0g+LAorCQkJCSAgICAgPEdJQ19T
-UEkgMzYgSVJRX1RZUEVfTEVWRUxfSElHSD4sCisJCQkJICAgICA8R0lDX1NQSSAzNSBJUlFfVFlQ
-RV9MRVZFTF9ISUdIPjsKKwkJCWludGVycnVwdC1uYW1lcyA9ICJtYWNpcnEiLCAiZXRoX3dha2Vf
-aXJxIiwgImV0aF9scGkiOworCQkJY2xvY2tzID0gPCZzeXNjdHJsIFI5QTA2RzAzMl9IQ0xLX0dN
-QUMwPjsKKwkJCWNsb2NrLW5hbWVzID0gInN0bW1hY2V0aCI7CisJCQlwb3dlci1kb21haW5zID0g
-PCZzeXNjdHJsPjsKKwkJCXNucHMsbXVsdGljYXN0LWZpbHRlci1iaW5zID0gPDI1Nj47CisJCQlz
-bnBzLHBlcmZlY3QtZmlsdGVyLWVudHJpZXMgPSA8MTI4PjsKKwkJCXR4LWZpZm8tZGVwdGggPSA8
-MjA0OD47CisJCQlyeC1maWZvLWRlcHRoID0gPDQwOTY+OworCQkJcGNzLWhhbmRsZSA9IDwmbWlp
-X2NvbnYxPjsKKwkJCXN0YXR1cyA9ICJkaXNhYmxlZCI7CisJCX07CisKIAkJZ21hYzI6IGV0aGVy
-bmV0QDQ0MDAyMDAwIHsKIAkJCWNvbXBhdGlibGUgPSAicmVuZXNhcyxyOWEwNmcwMzItZ21hYyIs
-ICJyZW5lc2FzLHJ6bjEtZ21hYyIsICJzbnBzLGR3bWFjIjsKIAkJCXJlZyA9IDwweDQ0MDAyMDAw
-IDB4MjAwMD47CgotLSAKMi40NC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hello Simon,
+
+On Sat, 11 May 2024, Simon Horman wrote:
+
+> > -	if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
+> > +	if (priv->plat->pcs_init) {
+> > +		ret = priv->plat->pcs_init(priv);
+> > +	} else if (priv->plat->mdio_bus_data &&
+> > +		   priv->plat->mdio_bus_data->has_xpcs) {
+> >  		/* Try to probe the XPCS by scanning all addresses */
+> >  		for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
+> >  			xpcs = xpcs_create_mdiodev(priv->mii, addr, mode);
+> 
+> I am unsure if this can occur, but if priv->plat->pcs_init returns 0 then
+> xpcs will be used while uninitialised towards the end of this function.
+
+Indeed this could occur, I've just sent a v7 that fixes this.
+
+Thanks,
+
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
