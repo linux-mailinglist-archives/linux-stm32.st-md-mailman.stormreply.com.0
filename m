@@ -2,59 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB068C4D9B
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 10:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 049D38C4E11
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 10:51:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0CB2C5E2D1;
-	Tue, 14 May 2024 08:20:09 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B871BC6B476;
+	Tue, 14 May 2024 08:51:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E71FFC5E2CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5878C5E2D1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 May 2024 08:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ea1x5TthVhL/eZxigK69/rLLPNFPYqSPY6iTUTHpgq0=; b=ScVB/UTZKYfbLIhP88h9zRctxV
- QhxOy/qSNv1dFvvhYjvTjEP3YGli81IMYiketsStZ35DwUthRMiQ32DfQR4gkD2x/otafT7by4P6o
- 7GW/s/wrPtRqXkRi5vUazwBx/K3c3lzoJdVpYm0a1XSDXpeCTEh+DGaPYISnuahl8ZySHq495Ysit
- FAlY7GuDF9elqWyfjQJY4txqyF2D4FLPBiALxM3Pg+NaA7Ji5pPbSXrSiOADkRWd0eDX+FiLyOK74
- +BzSodPafKVsUERvgUevmNWxaMmVGbbYQU3eov/lx3WECstH+vs7Djr3479CTv1B87L1zWrOw0/4T
- py35oo2g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58764)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1s6nNy-0002jd-0i;
- Tue, 14 May 2024 09:19:46 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1s6nNw-0006vW-Hl; Tue, 14 May 2024 09:19:44 +0100
-Date: Tue, 14 May 2024 09:19:44 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Message-ID: <ZkMeoB05cV/pK89B@shell.armlinux.org.uk>
-References: <20240510000331.154486-3-jitendra.vegiraju@broadcom.com>
- <20240511015924.41457-1-jitendra.vegiraju@broadcom.com>
- <4ede8911-827d-4fad-b327-52c9aa7ed957@lunn.ch>
- <Zj+nBpQn1cqTMJxQ@shell.armlinux.org.uk>
- <08b9be81-52c9-449d-898f-61aa24a7b276@lunn.ch>
- <CAMdnO-+V2npKBoXW5o-5avS9HP84LV+nQkvW6AxbLwFOrZuAGg@mail.gmail.com>
+ Tue, 14 May 2024 08:51:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9CB9E60C8C;
+ Tue, 14 May 2024 08:51:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404FDC4DE12;
+ Tue, 14 May 2024 08:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1715676679;
+ bh=dl9xK7NMauuyzjNTNgcvu+mipCW/bKmup0pxO3DFFko=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=W5GvxS3jvoInC+tPo/qJ0nW9Vfq+0oFTT9NxWgMVjQe7Eg7l7j7LhFr/hZoaTzRkb
+ btxK7WRl+TeQ/wXm4no7rFxrNOZUvcB9xjsxbspOar/rmGFNVdxIGt9BSuNOvOdqUv
+ BTrrDdIF+5tzbB7hZ4hiDj4G0abLOyaa4hycmSWCblITved3A0NU6bwl94YL41izYP
+ biDE0e8kAzLsT+Pco/2Ehkf+AV2NtFKpiE+bY/ulT3xBXKQ5UE4ZmZIIZ7XpY+hx6l
+ 77a0v/YTVuEgKPOkr2bN9OY0Gtsp0Ao9SeItld0fCG6kC7Usb59mFyzrZD1rLfECOB
+ Zr1B5vboceM4g==
+Date: Tue, 14 May 2024 09:51:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+Message-ID: <32d2be34-07e5-4f99-bd31-12aeb9bdce09@sirena.org.uk>
+References: <20240424135237.1329001-2-ben.wolsieffer@hefring.com>
+ <39033ed7-3e57-4339-80b4-fc8919e26aa7@pengutronix.de>
+ <ZkJBqSbJakye6BBc@dell-precision-5540>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMdnO-+V2npKBoXW5o-5avS9HP84LV+nQkvW6AxbLwFOrZuAGg@mail.gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2, net-next,
- 2/2] net: stmmac: PCI driver for BCM8958X SoC
+In-Reply-To: <ZkJBqSbJakye6BBc@dell-precision-5540>
+X-Cookie: In the war of wits, he's unarmed.
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Leonard =?iso-8859-1?Q?G=F6hrs?= <l.goehrs@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32: enable controller before
+	asserting CS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,29 +55,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0384537502327631101=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 13, 2024 at 10:32:19AM -0700, Jitendra Vegiraju wrote:
-> +==================================================+
-> Since the legacy fixed link cannot support 10G, we are initializing to
-> fixed speed 1G.
 
-Or to put it a different way... "I can't represent my hardware so I'm
-going to hack around with the kernel in a way that lies to the kernel
-about what the hardware is doing but it'll work for me!"
+--===============0384537502327631101==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Qd3XkgjD6LiVNaV5"
+Content-Disposition: inline
 
-Sorry, but no, this isn't some hacky github project, this is the kernel
-where we engineer proper solutions.
 
-I think I've just lost all interest in this... 
+--Qd3XkgjD6LiVNaV5
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+On Mon, May 13, 2024 at 12:36:57PM -0400, Ben Wolsieffer wrote:
+> On Mon, May 13, 2024 at 10:29:49AM +0200, Leonard G=F6hrs wrote:
+
+> > Reverting this commit fixes the issue for me. It may be some time before
+> > I get around to investigating the issue in detail, so I thought I should
+> > ask if anyone else has already noticed this as well.
+
+> Sorry about that; it looks like the STM32H7/MP platforms require the
+> controller to be enabled later. I agree that it should be reverted and
+> I'll try to think of another approach.
+
+Can one of you please send a patch with the revert and a changelog
+explaining the issue?
+
+> The STM32H7/MP devices are significantly different from the F4/7
+> devices, which makes it difficult to change shared code without causing
+> problems like this. I wonder if it might be better to split the F4/7
+> support into a separate driver. This would duplicate a bit of code,
+> namely the initialization in probe, the baud rate divider calculation
+> and the SPI mode config, but would make testing easier and get rid of
+> the indirection that handles the different register offsets and field
+> masks on each platform. The code for actually transcieving data and
+> handling IRQs is already platform specific.
+
+That might make sense.
+
+--Qd3XkgjD6LiVNaV5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZDJgEACgkQJNaLcl1U
+h9AzgwgAgs2oYQ4OnaMxz5ePCOZWtN8efc/rTzOMHKcGBE5yg1KaEr5ZsAB+m+nm
+uE6aHtctR6iZkebjfWUjAPCTCIxSBMOqZZcDvJpAz6Vyg4knJCWuwd9ZJNW+/7xr
+CeDdED9zn9UC92dYCaP0f6v9P4O/DPsoKf/A4OnhH/4AF+umWPAdRi06BQThEhDM
+yljfm3v4Odbuf1YadUqsNgb9Kd5iHwL9lhjTWImT+KjNhT4h7xKX9K33c1STBy9F
+mKgOkzHnTJt+f7whV+hSQkP549BZxql15/PXADZOytyC+D/n66YXx2WZKcWITA/E
+61OwRBpdr3KpqxnnzwnzB5LLeCnRQQ==
+=wxj6
+-----END PGP SIGNATURE-----
+
+--Qd3XkgjD6LiVNaV5--
+
+--===============0384537502327631101==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0384537502327631101==--
