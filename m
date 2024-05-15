@@ -2,52 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0478A8C5C0E
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2024 22:08:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92518C60E0
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2024 08:41:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A817DC6C838;
-	Tue, 14 May 2024 20:08:55 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C9B0C6B47A;
+	Wed, 15 May 2024 06:41:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31432C5E2CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 145A0C5E2D1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 May 2024 20:08:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 52DE2CE1310;
- Tue, 14 May 2024 20:08:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97B4C2BD10;
- Tue, 14 May 2024 20:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715717323;
- bh=D/T7x/GG4sZteF0hVP4VnwbmWL5m6mNjYQaNHV88+8c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=G+wgz9O0/+LJ+UzfkiiqqUlnPDJXJVvsRiJdvQD/k1BmIZ7d9UGuTrP0scGeO7rvg
- nnmvjBDC7ReKN8pG+weKlpvksHGnpyJPMSK1cpUQfD7sKBE/l4EmVPCHtNt1WhL2PL
- Cs82IQU8wi7jA+ENznDsDHnHNl0lNEXJxT8R/XZL0GTwsE79YmCD7E9nC65TzM+/yC
- V0ryknc6CAHXBBf+X+l1JpGgAvLQj0Fq1lb3Lf/loSoGyfGEHRXudON0n4Hrm1gXJH
- X4V7XLpwSzSH6fXNC8XfnFuLXgD8f15rexDG19YGJgCkBOGiS+sui4ssXhKnN9cKuD
- AIrsaBhCeoZ2Q==
-Date: Tue, 14 May 2024 21:08:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
-Message-ID: <20240514-entryway-idealize-fcd5ed0e1de7@spud>
-References: <20240513095605.218042-1-patrick.delaunay@foss.st.com>
- <20240513115601.v3.1.Ia0a99d90acb512aa020a6e7a8cca8cc1b71f1759@changeid>
- <615dfdcb-cbda-426f-895e-810f03a8ce60@denx.de>
- <20240513-stabilize-proofread-81f0f9ee38b9@spud>
- <d73d4435-75d6-4cea-b38e-07c7ceae3980@foss.st.com>
+ Wed, 15 May 2024 06:41:27 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44F056TZ012890;
+ Wed, 15 May 2024 08:40:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=grZoncYN/Ex6YBE6MWMsZg3hoMkBe2yN4z13XwIKYPs=; b=mB
+ AkrGGBA18gIrlZuvQmXNp+jkBFd/Ny1YXK83q03Q/JTRfAIhLZF24O0vxgOAthnz
+ YpgtayqGlszvQD0STawOg0Hs04I2Vzo0F0iA7jnyXrQsJ9fnHXT8yJD6FLzwscgy
+ GbNrcFpyE4Xm/XCLSWS/vlGQFi1JbTVcEhvm4ukk0HZPoiF9QwKywqdlQk+SGV6y
+ IQuC9c8UrCuCcLh0Z+teECj+Ntxa89V4xGcDuiHfxzfSiTOM5jRethunhQ9CV0Xo
+ DOb8x8dHxrT7QzrPjjPAhnOh+suDdQibNMgTBh9k9JpUQ1UkpX0LRR49ePaFAInK
+ 4lDJGc4oC67xjHGoIFJw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y1yjbe0u8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 May 2024 08:40:48 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C5C5740044;
+ Wed, 15 May 2024 08:40:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 52EA920DD93;
+ Wed, 15 May 2024 08:39:51 +0200 (CEST)
+Received: from [10.252.19.151] (10.252.19.151) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 15 May
+ 2024 08:39:50 +0200
+Message-ID: <b58c9073-02c6-4b5e-9082-fb11f388842d@foss.st.com>
+Date: Wed, 15 May 2024 08:39:49 +0200
 MIME-Version: 1.0
-In-Reply-To: <d73d4435-75d6-4cea-b38e-07c7ceae3980@foss.st.com>
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Pascal Paillet <p.paillet@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+User-Agent: Mozilla Thunderbird
+To: Sean Nyekjaer <sean@geanix.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: regulator: st,
- stm32mp1-pwr-reg: add compatible for STM32MP13
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Robert Foss
+ <rfoss@kernel.org>, Antonio Borneo <antonio.borneo@foss.st.com>
+References: <20240322104732.2327060-1-sean@geanix.com>
+ <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
+Content-Language: en-US
+From: Yannick FERTRE <yannick.fertre@foss.st.com>
+In-Reply-To: <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
+X-Originating-IP: [10.252.19.151]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-15_02,2024-05-14_01,2023-05-22_02
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
+	tolerance
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,129 +81,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4141234207176127226=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Sean,
 
---===============4141234207176127226==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="v5WMLClVVf+t+TTk"
-Content-Disposition: inline
+thanks for your patch.
+
+Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
+
+I think that a helper could be useful in simplifying this part.
+This might be reworked when a new helper will be implemented.
+
+Best regards
 
 
---v5WMLClVVf+t+TTk
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, May 13, 2024 at 08:02:21PM +0200, Patrick DELAUNAY wrote:
-> Hi,
->=20
-> On 5/13/24 17:16, Conor Dooley wrote:
-> > On Mon, May 13, 2024 at 04:34:20PM +0200, Marek Vasut wrote:
-> > > On 5/13/24 11:56 AM, Patrick Delaunay wrote:
-> > > > Add new compatible "st,stm32mp13-pwr-reg" for STM32MP13 SoC family.
-> > > >=20
-> > > > Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> > > > ---
-> > > >=20
-> > > > Changes in v3:
-> > > > - Replace oneOf/const by enum; solve the V2 issues for dt_binding_c=
-heck
-> > > >=20
-> > > > Changes in v2:
-> > > > - update for Rob review, only add compatible for STM32MP13 family
-> > > >=20
-> > > >    .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml    | =
-4 +++-
-> > > >    1 file changed, 3 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp=
-1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pw=
-r-reg.yaml
-> > > > index c9586d277f41..c766f0a15a31 100644
-> > > > --- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-r=
-eg.yaml
-> > > > +++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-r=
-eg.yaml
-> > > > @@ -11,7 +11,9 @@ maintainers:
-> > > >    properties:
-> > > >      compatible:
-> > > > -    const: st,stm32mp1,pwr-reg
-> > > > +    enum:
-> > > > +      - st,stm32mp1,pwr-reg
-> > > > +      - st,stm32mp13-pwr-reg
-> > > Should the st,stm32mp1,pwr-reg be treated as fallback compatible for
-> > > st,stm32mp13-pwr-reg or not ?
-> > >=20
-> > > In other words, should the DT contain:
-> > > compatible =3D "st,stm32mp13-pwr-reg", "st,stm32mp1,pwr-reg";
-> > > or
-> > > compatible =3D "st,stm32mp13-pwr-reg";
-> > > ? Which one is preferable ?
-> > >=20
-> > > I think the former one, since the MP13 PWR block could also be operat=
-ed by
-> > > older MP1(5) PWR block driver(s) without any adverse effects, except =
-the SD
-> > > IO domain configuration won't be available, right ?
-> > Aye, the fallback sounds like what should be being used here, especially
-> > if another user of the DT might not need to implement the extra domain.
->=20
->=20
-> Yes it is the the only difference but I think that type of fallback is no
-> more recommended for different device and
->=20
-> the PWR device on STM32MP13 and on STM32MP15 are different.
->=20
->=20
-> The other user of the non-secure device tree don't use the yet the PWR
-> driver for STM32MP13,
->=20
-> so for me the fallback is not needed for non secure world (Linux/U-Boot).
->=20
->=20
-> So I prefer to introduce a new compatible in Linux kernel before the
-> STM32MP13 PWR node is really used=A0 to avoid ABI break in futur.
-
-How is it going to break an ABI? If the mp13 implements a functional
-subset of what the mp1 does, then that's what fallback compatibles
-are intended for. Marek's mail suggests that this is the case, and
-therefore a fallback should be used.
-
-If code written for the mp1 would not work on the mp13, then a fallback
-should not be used.
-
-Neither I nor Marek are saying that a new compatible should not be
-created, in case you misunderstood that. This only affects the binding
-patch, and your driver etc are free to use the mp13 compatible.
-
-Thanks,
-Conor.
-
---v5WMLClVVf+t+TTk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZkPExgAKCRB4tDGHoIJi
-0lZxAPwIDe/A/kGb5gcwIj8lI3dHHZQdauZu9LR30h2gq4Wi1gD+Loqv0IXxNvGo
-Kbchr2W1JHnBZNmnJCbCA/PPPTAfWAs=
-=vWSp
------END PGP SIGNATURE-----
-
---v5WMLClVVf+t+TTk--
-
---===============4141234207176127226==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+On 4/22/24 16:05, Sean Nyekjaer wrote:
+> On Fri, Mar 22, 2024 at 11:47:31AM +0100, Sean Nyekjaer wrote:
+>> When using the DSI interface via DSI2LVDS bridge, it seems a bit harsh
+>> to reguire the requested and the actual px clock to be within
+>> 50Hz. A typical LVDS display requires the px clock to be within +-10%.
+>>
+>> In case for HDMI .5% tolerance is required.
+>>
+>> Fixes: e01356d18273 ("drm/stm: dsi: provide the implementation of mode_valid()")
+>> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+>> ---
+> Any feedback on this?
+>
+>>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 7 +++----
+>>   1 file changed, 3 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> index d5f8c923d7bc..97936b0ef702 100644
+>> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> @@ -322,8 +322,6 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
+>>   	return 0;
+>>   }
+>>   
+>> -#define CLK_TOLERANCE_HZ 50
+>> -
+>>   static enum drm_mode_status
+>>   dw_mipi_dsi_stm_mode_valid(void *priv_data,
+>>   			   const struct drm_display_mode *mode,
+>> @@ -375,9 +373,10 @@ dw_mipi_dsi_stm_mode_valid(void *priv_data,
+>>   		/*
+>>   		 * Filter modes according to the clock value, particularly useful for
+>>   		 * hdmi modes that require precise pixel clocks.
+>> +		 * Check that px_clock is within .5% tolerance.
+>>   		 */
+>> -		if (px_clock_hz < target_px_clock_hz - CLK_TOLERANCE_HZ ||
+>> -		    px_clock_hz > target_px_clock_hz + CLK_TOLERANCE_HZ)
+>> +		if (px_clock_hz < mult_frac(target_px_clock_hz, 995, 1000) ||
+>> +		    px_clock_hz > mult_frac(target_px_clock_hz, 1005, 1000))
+>>   			return MODE_CLOCK_RANGE;
+>>   
+>>   		/* sync packets are codes as DSI short packets (4 bytes) */
+>> -- 
+>> 2.44.0
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4141234207176127226==--
