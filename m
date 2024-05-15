@@ -2,56 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DACA8C61EB
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2024 09:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0039A8C6386
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2024 11:18:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AE2DC6B47A;
-	Wed, 15 May 2024 07:42:50 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 994DFC6C838;
+	Wed, 15 May 2024 09:18:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90981C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BC3BC5E2D1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 May 2024 07:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID; bh=vfHb1Zo/IA1k8fG0F3DBZbZF+mjgInSfUd6eUC5m6eY=; b=u7BtW7
- UBbPOFgmU3o940X1jTerj9yTlIVdLFxlq16giF41j/yV1ce09kRLc13Hc3Tgh2TGTmKMHP+HsjncY
- 5IxWDpWfYQsP6A76iNyg3meJvSGbuZO8IV/uBYQGLZHoVzm96H0fpXx7NoH6lAS+JC3ARdEEF0Djo
- XUjWBVut+vwy+mT3Ilz0BoiNjyw14PXE4HmxKBqcSnqVRZ0t+Z4LpgTGG+BK5JZTr6DeaF8VnS1Xk
- 6litofD7zbwYDH/R0rgII2UDBcYB+Gn91TY2iOGSTu/jz+hUChrtQTBPL6x+3GBz8gadnivvAOKS8
- 6kR0DVytUPOqrCQRdzVptqyEGGKQ==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1s79HY-000K6q-5d; Wed, 15 May 2024 09:42:36 +0200
-Received: from [185.17.218.86] (helo=Seans-MacBook-Pro.local)
- by sslproxy05.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <sean@geanix.com>) id 1s79HX-0006vy-2O;
- Wed, 15 May 2024 09:42:35 +0200
-Date: Wed, 15 May 2024 09:42:34 +0200
-From: Sean Nyekjaer <sean@geanix.com>
-To: Yannick FERTRE <yannick.fertre@foss.st.com>
-Message-ID: <44grbp56thhsbxf3i3yicsxgftbuhzebetioxfuibrpw6vbc6l@qqphfke5vgl5>
-References: <20240322104732.2327060-1-sean@geanix.com>
- <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
- <b58c9073-02c6-4b5e-9082-fb11f388842d@foss.st.com>
+ Wed, 15 May 2024 09:18:36 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44F8vps7015034;
+ Wed, 15 May 2024 11:17:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=P9HRaZf/HRKRXBcbWf8Sn90169F5hwUmhun9zIpDsWM=; b=bC
+ aJ0EHaE+ojA0V//atzBk13ngDco8uuvmuN+y9BFUod9zjThwH1UaqjldeeiA+cii
+ 1lfbdDm4DMvb8qY03rJiohJtiJIK8Xu0u+J7b4YlADMfrrOnrCbaT2PLuE7vEjZQ
+ nazJ8mlv9O5uORtlqV+wgcdgKTIHyIM3Atsy0NLT7CbWbqTTd4naVhGaKansTTML
+ 7sAwpQVMdyPbtafbLTG9J8fCMkyHa5za/o09TgFx4ml8w33YhBIqya9s0WkQ4byy
+ QsxZ2jwmRr/PxLChuDZ60cq9t932VQ3SaHGkRYf2JpgUbicCWCWpca1U5dM56Uyo
+ m9m6eAGXIuvwMlTbgeaA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y4sxv0420-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 May 2024 11:17:58 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 421864002D;
+ Wed, 15 May 2024 11:17:48 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B8DB214D3B;
+ Wed, 15 May 2024 11:16:52 +0200 (CEST)
+Received: from [10.48.87.204] (10.48.87.204) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 15 May
+ 2024 11:16:51 +0200
+Message-ID: <51951dd4-8e8c-4e67-89f6-6a710022e34f@foss.st.com>
+Date: Wed, 15 May 2024 11:16:45 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b58c9073-02c6-4b5e-9082-fb11f388842d@foss.st.com>
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.10/27275/Tue May 14 10:25:55 2024)
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
-	tolerance
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-crypto@vger.kernel.org>
+References: <20240513220349.183568-1-marex@denx.de>
+ <b2d0dfcb-37d6-4375-a4ad-ca96a5339840@foss.st.com>
+ <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+X-Originating-IP: [10.48.87.204]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-15_04,2024-05-14_01,2023-05-22_02
+Cc: Rob Herring <robh@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Olivia Mackall <olivia@selenic.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] [RFC] clk: stm32mp1: Keep RNG1 clock
+	always running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,76 +80,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, May 15, 2024 at 08:39:49AM UTC, Yannick FERTRE wrote:
-> Hi Sean,
-> 
-> thanks for your patch.
-> 
-> Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
-> 
-> I think that a helper could be useful in simplifying this part.
-> This might be reworked when a new helper will be implemented.
-> 
-> Best regards
+Hi Marek,
 
-Hi Yannick,
+On 5/14/24 16:37, Marek Vasut wrote:
+> On 5/14/24 10:10 AM, Gatien CHEVALLIER wrote:
+>> Hi Marek,
+> 
+> Hi,
+> 
+>> Strange indeed.
+> 
+> Yes.
+> 
+>> A potential reason that comes to my mind would be that something tries 
+>> to get a random number after the driver suspended and fails to do so.
+> 
+> Possibly.
+> 
+>> Else it might just be a bad clock balance.
+> 
+> I don't think so, this would be reported by the kernel and it would show 
+> up in /sys/kernel/debug/clk/clk_summary as incrementing use count. It 
+> would also not happen in a non-deterministic manner like this happens 
+> here, the hang doesn't always happen after well defined suspend/resume 
+> cycle count.
+> 
+>> Can you describe the software ecosystem that you're running please?
+>> (SCMI/no SCMI)?
+> 
+> STM32MP157C DHCOM PDK2 with mainline U-Boot 2024.07-rc2 , no SCMI.
+> 
+>> Do you have the 3 fixes of stm32_rng.c that you've sent recently in your
+>> software when testing?
+> 
+> Yes, but this happens even without them.
+> 
+>> What if you add a trace in a random generation function in random.c?
+> 
+> Do you have a function name or line number for me ?
 
-Will this mean that this will patch will go in?
-
-I still have plans to do the helper, but I'm limited on time :)
-
-/Sean
+I put a trace in _get_random_bytes() in drivers/char/random.c. I'm not
+100% sure but this should be the entry point when getting a random number.
 
 > 
+>> After this, I'll try to reproduce the issue.
 > 
-> On 4/22/24 16:05, Sean Nyekjaer wrote:
-> > On Fri, Mar 22, 2024 at 11:47:31AM +0100, Sean Nyekjaer wrote:
-> > > When using the DSI interface via DSI2LVDS bridge, it seems a bit harsh
-> > > to reguire the requested and the actual px clock to be within
-> > > 50Hz. A typical LVDS display requires the px clock to be within +-10%.
-> > > 
-> > > In case for HDMI .5% tolerance is required.
-> > > 
-> > > Fixes: e01356d18273 ("drm/stm: dsi: provide the implementation of mode_valid()")
-> > > Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> > > ---
-> > Any feedback on this?
-> > 
-> > >   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 7 +++----
-> > >   1 file changed, 3 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > > index d5f8c923d7bc..97936b0ef702 100644
-> > > --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > > +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > > @@ -322,8 +322,6 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
-> > >   	return 0;
-> > >   }
-> > > -#define CLK_TOLERANCE_HZ 50
-> > > -
-> > >   static enum drm_mode_status
-> > >   dw_mipi_dsi_stm_mode_valid(void *priv_data,
-> > >   			   const struct drm_display_mode *mode,
-> > > @@ -375,9 +373,10 @@ dw_mipi_dsi_stm_mode_valid(void *priv_data,
-> > >   		/*
-> > >   		 * Filter modes according to the clock value, particularly useful for
-> > >   		 * hdmi modes that require precise pixel clocks.
-> > > +		 * Check that px_clock is within .5% tolerance.
-> > >   		 */
-> > > -		if (px_clock_hz < target_px_clock_hz - CLK_TOLERANCE_HZ ||
-> > > -		    px_clock_hz > target_px_clock_hz + CLK_TOLERANCE_HZ)
-> > > +		if (px_clock_hz < mult_frac(target_px_clock_hz, 995, 1000) ||
-> > > +		    px_clock_hz > mult_frac(target_px_clock_hz, 1005, 1000))
-> > >   			return MODE_CLOCK_RANGE;
-> > >   		/* sync packets are codes as DSI short packets (4 bytes) */
-> > > -- 
-> > > 2.44.0
-> > > 
+> If you have a minute to test it on some ST MP15 board, that would be 
+> real nice. Thanks !
+
+I tried to reproduce the issue you're facing on a STM32MP157C-DK2 no
+SCMI on the 6.9-rc7 kernel tag. I uses OP-TEE and TF-A in the bootchain
+but this should not have an impact here.
+
+How did you manage to test using "echo core > /sys/power/pm_test"?
+In kernel/power/suspend.c, enter_state(). If the pm_test_level is core,
+then an error is fired with the following trace:
+"Unsupported test mode for suspend to idle, please choose 
+none/freezer/devices/platform."
+
+I've tried using "echo devices > /sys/power/pm_test" so that I can at 
+least test that the driver is put to sleep then wakes up. I do not
+reproduce your issue.
+
+[  169.026421] Filesystems sync: 0.013 seconds
+[  169.031087] Freezing user space processes
+[  169.036562] Freezing user space processes completed (elapsed 0.002 
+seconds)
+[  169.042238] OOM killer disabled.
+[  169.045383] Freezing remaining freezable tasks
+[  169.051408] Freezing remaining freezable tasks completed (elapsed 
+0.001 seconds)
+[  169.238226] dwc2 49000000.usb-otg: suspending usb gadget 
+configfs-gadget.g1
+[  169.270236] In stm32_rng_suspend
+[  169.275501] PM: suspend debug: Waiting for 5 second(s).
+[  174.283418] In stm32_rng_resume
+[  174.284291] stm32-dwmac 5800a000.ethernet end0: configuring for 
+phy/rgmii-id link mode
+[  174.337714] dwmac4: Master AXI performs any burst length
+[  174.341699] stm32-dwmac 5800a000.ethernet end0: No Safety Features 
+support found
+[  174.349138] stm32-dwmac 5800a000.ethernet end0: IEEE 1588-2008 
+Advanced Timestamp supported
+[  174.363442] dwc2 49000000.usb-otg: resuming usb gadget configfs-gadget.g1
+[  174.667669] onboard-usb-hub 2-1: reset high-speed USB device number 2 
+using ehci-platform
+[  174.989075] OOM killer enabled.
+[  174.990848] Restarting tasks ... done.
+[  175.003976] random: crng reseeded on system resumption
+[  175.009464] PM: suspend exit
+[  175.011473] random: ASKING FOR 96 BYTES
+[  175.011468] random: ASKING FOR 96 BYTES
+[  175.015747] random: ASKING FOR 16 BYTES
+[  175.044933] random: ASKING FOR 96 BYTES
+[  175.059399] random: ASKING FOR 96 BYTES
+[  175.070925] random: ASKING FOR 16 BYTES
+[  175.079285] random: ASKING FOR 96 BYTES
+[  175.082113] random: ASKING FOR 16 BYTES
+[  175.096759] random: ASKING FOR 16 BYTES
+[  175.098674] random: ASKING FOR 96 BYTES
+[  175.295584] random: ASKING FOR 16 BYTES
+[  175.302357] random: ASKING FOR 96 BYTES
+[  175.311525] random: ASKING FOR 16 BYTES
+[  175.312989] random: ASKING FOR 16 BYTES
+
+
+Can you give it another shot with the trace so that we can ensure that
+no random is asked after the driver is suspended in your case please?
+
+Thanks,
+Gatien
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
