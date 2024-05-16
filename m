@@ -2,50 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2DF48C724D
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2024 09:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 068108C7255
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2024 10:00:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84E26C6C83A;
-	Thu, 16 May 2024 07:57:58 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA21DC6C83A;
+	Thu, 16 May 2024 08:00:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F629C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D244C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 May 2024 07:57:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 33AD6CE1818;
- Thu, 16 May 2024 07:57:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC21FC113CC;
- Thu, 16 May 2024 07:57:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1715846265;
- bh=6nEVeR2xHqL+xtbx4QyEOB31XerRon6nHmu9UdguhZI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HQdQplp/8vX86ut/jbMDglepohWQgHpTSGUBJw5PCnN2bj1KN+lWktM6Ew8WDG8n5
- GLYZuRwTXCu+d0aBeKS6AZSaF2+j7+yoHCeApnvQPGkmgsDc+BpbvxqiA5inLuy/Yj
- Kd+ZpV0QUCXgUhRKLdKNhE+cONsjuF5oqNwOHNdE4HaDxy06gOHkSSruALVq7MgMBH
- ctSWmpNnk1KJ402LE3GmAZlfQJtbbd2IT0kiblJ5PVYspbW+2I/w+dTWdKB7mweMIg
- In0kmbucUq4iXpyEPee1LFAv6mOPze8wfo8EJnAwYgcpbdKPjOQvtN15B8+3fSq59J
- WFc1z8GjKwpvw==
-Date: Thu, 16 May 2024 09:57:31 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <20240516-astonishing-tasteful-tuatara-7d29bd@penduick>
-References: <20240322104732.2327060-1-sean@geanix.com>
- <lkrxoqhcitmvjvzslhx6mrdjaa6lpxtpmdjt7wwollm6z4h65q@jk5esjje6ppy>
- <b58c9073-02c6-4b5e-9082-fb11f388842d@foss.st.com>
- <44grbp56thhsbxf3i3yicsxgftbuhzebetioxfuibrpw6vbc6l@qqphfke5vgl5>
+ Thu, 16 May 2024 08:00:27 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44G7e2A0009990;
+ Thu, 16 May 2024 10:00:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=Y9trgIEu9RJeCdLikqsHLkO6L244vgMdpxM1Z3pwaD0=; b=Um
+ McVkWGSeyAqG7zib2bWvlJJKU1n11jEEZc09GsrTpzqCiEXZypojsxCIhQ6QGb2R
+ h/85D95WXhwEGLy/EIbDDASXYgx1N9neWTvA7r2fGgB6Ram2rWeAe1YrfAtlcfy8
+ wwfOFzXocBd8Z0W7NA8jrn9cHAO7OhfaY/5ZriS/jmiH4tZRzWVOWpx8QUJfXTLA
+ gyVWgOjZ7tP0MiI8vnu46iBBTPLOM6ywtH7uujQMgnWfhJvJ0hEp9BAmIIaMTAhH
+ X4D+tcpYqpTsMOrhEIuDyLJa5Z5rBuzsiaCGm0RCL9IIf8QtU+FHgHuNpyPuMPQx
+ jH+uBQgahirt8dZKazAQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y4sxv4f6v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 May 2024 10:00:03 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3999440044;
+ Thu, 16 May 2024 09:59:58 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 39B872122F0;
+ Thu, 16 May 2024 09:58:48 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 16 May
+ 2024 09:58:47 +0200
+Message-ID: <5544e11b-25a8-4465-a7cc-f1e9b1d0f0cc@foss.st.com>
+Date: Thu, 16 May 2024 09:58:46 +0200
 MIME-Version: 1.0
-In-Reply-To: <44grbp56thhsbxf3i3yicsxgftbuhzebetioxfuibrpw6vbc6l@qqphfke5vgl5>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Yannick FERTRE <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: relax mode_valid clock
-	tolerance
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, Christophe Roullier
+ <christophe.roullier@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Richard
+ Cochran <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20240426125707.585269-1-christophe.roullier@foss.st.com>
+ <20240426125707.585269-11-christophe.roullier@foss.st.com>
+ <43024130-dcd6-4175-b958-4401edfb5fd8@denx.de>
+ <8bf3be27-3222-422d-bfff-ff67271981d8@foss.st.com>
+ <9c1d80eb-03e7-4d39-b516-cbcae0d50e4a@denx.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <9c1d80eb-03e7-4d39-b516-cbcae0d50e4a@denx.de>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-16_03,2024-05-15_01,2023-05-22_02
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 10/11] ARM: dts: stm32: add ethernet1
+ and ethernet2 for STM32MP135F-DK board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,71 +84,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5791844018147286893=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi
 
---===============5791844018147286893==
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="35odebnap6x5sjhe"
-Content-Disposition: inline
+On 5/16/24 02:23, Marek Vasut wrote:
+> On 5/13/24 6:01 PM, Alexandre TORGUE wrote:
+>> Hi Marek
+> 
+> Hi,
+> 
+>> On 4/26/24 17:44, Marek Vasut wrote:
+>>> On 4/26/24 2:57 PM, Christophe Roullier wrote:
+>>>> Add dual Ethernet:
+>>>> -Ethernet1: RMII with crystal
+>>>> -Ethernet2: RMII without crystal
+>>>> PHYs used are SMSC (LAN8742A)
+>>>>
+>>>> With Ethernet1, we can performed WoL from PHY instead of GMAC point
+>>>> of view.
+>>>> (in this case IRQ for WoL is managed as wakeup pin and configured
+>>>> in OS secure).
+>>>
+>>> How does the Linux PHY driver process such a PHY IRQ ?
+>>>
+>>> Or is Linux unaware of the PHY IRQ ? Doesn't that cause issues ?
+>>
+>> In this case, we want to have an example to wakeup the system from 
+>> Standby low power mode (VDDCPU and VDD_CORE off) thanks to a magic 
+>> packet detected by the PHY. The PHY then assert his interrupt output 
+>> signal.
+>> On MP13 DK platform, this PHY signal is connected to a specific GPIO
+>> aka "Wakeup pins" (only 6 wakeup pins an MP13). Those specific GPIOs 
+>> are handled by the PWR peripheral which is controlled by the secure OS.
+> 
+> What does configure the PHY for this wakeup mode ?
 
+Linux device tree.
 
---35odebnap6x5sjhe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> 
+>> On WoL packet, the Secure OS catches the PHY interrupt and uses 
+>> asynchronous notification mechanism to warn Linux (on our platform we 
+>> use a PPI). On Linux side, Optee core driver creates an irq 
+>> domain/irqchip triggered on the asynchronous notification. Each device 
+>> which use a wakeup pin need then to request an IRQ on this "Optee irq 
+>> domain".
+>>
+>> This OPTEE irq domain will be pushed soon.
+> 
+> I suspect it might make sense to add this WoL part separately from the 
+> actual ethernet DT nodes, so ethernet could land and the WoL 
+> functionality can be added when it is ready ?
 
-Hi,
+If at the end we want to have this Wol from PHY then I agree we need to 
+wait. We could push a WoL from MAC for this node before optee driver 
+patches merge but not sure it makes sens.
 
-On Wed, May 15, 2024 at 09:42:34AM +0200, Sean Nyekjaer wrote:
-> On Wed, May 15, 2024 at 08:39:49AM UTC, Yannick FERTRE wrote:
-> > Hi Sean,
-> >=20
-> > thanks for your patch.
-> >=20
-> > Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
-> >=20
-> > I think that a helper could be useful in simplifying this part.
-> > This might be reworked when a new helper will be implemented.
-> >=20
-> > Best regards
->=20
-> Hi Yannick,
->=20
-> Will this mean that this will patch will go in?
->=20
-> I still have plans to do the helper, but I'm limited on time :)
-
-I still think we should work on the helper and merge that directly. It's
-been broken for a while anyway so it's not like it's a regression anyway.
-
-Maxime
-
---35odebnap6x5sjhe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZkW8XwAKCRAnX84Zoj2+
-dunqAYDKPCmEKxonPhhitWf97oBPBxfeBTdrMIqsZGA8qieRjVX6swAQk63a86xv
-MGEjr/ABgKUizwvYzV/yf1DXkDoX8hAGZLW2VxvK4KC9FZNWg2EQXreBaig7iA9r
-2Te1Kbufww==
-=TSXP
------END PGP SIGNATURE-----
-
---35odebnap6x5sjhe--
-
---===============5791844018147286893==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5791844018147286893==--
