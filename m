@@ -2,52 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595138C6FFB
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2024 03:22:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0328C7239
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2024 09:45:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A4A9C6DD66;
-	Thu, 16 May 2024 01:22:42 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9F56C6C83A;
+	Thu, 16 May 2024 07:45:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 701DFC6C838
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1860CC69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 May 2024 01:22:34 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id E81D988155;
- Thu, 16 May 2024 03:22:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1715822554;
- bh=XDDQDeGaUh54AFK1n3ABER4j+LeDfbvu6Ukr923uNrs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cxyhxVUvGDibspPEmNeE8DDxC9H9ZM/a6gaJhI2edjqGxZCXLngVPtqFxMPNh715y
- 05DuZYTcCckTOFIB0+5Hp7BBmi1ns14RlbjvXbr5zisJNGDbCRjqFxaUHVNjckjYTg
- g6K0ucoGlj+SYe8Qyrdjb1A7UmqeNG/gpzCwH4N2ilV3oworC43JF9VH2f6HIMiFnM
- 3LH1iBFR2VDHpWyX2k8V/cT9toJYSowtT5lm8CGXV8l4wyHVg6s/9X6SCFnIzRGkQw
- Hz+iyBaFYIMbLV/tkL6sCAJUb7cG9Ga0eQeldgO4x/9jynpRxxcDokmNIMvjqp+CMX
- ScFE21sk7ppFA==
-From: Marek Vasut <marex@denx.de>
-To: linux-crypto@vger.kernel.org
-Date: Thu, 16 May 2024 03:20:46 +0200
-Message-ID: <20240516012210.128307-2-marex@denx.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240516012210.128307-1-marex@denx.de>
-References: <20240516012210.128307-1-marex@denx.de>
+ Thu, 16 May 2024 07:44:53 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44FLuDT2005399;
+ Thu, 16 May 2024 09:43:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=fGbR8sYV9QIn7SFPWuDEizW7wFbyJ157IMhZGWfECk8=; b=oY
+ qfZv8rDdRNbMc7CuGM5totYTdN9MafA0OvTOD5Bg8sANV7hrr5gE+FzkxDU36Waj
+ GZgSqPWrLU9QEO0tgCZh9XoJSVUXHGvM4veRgE+AphbOHcaWPUr46euV2l67MbY3
+ 79iR7SfUEbRcjoNwffonPiTxIhlRchgK3KbHRHkINnZeOcIYYKRAVfbZR0BSBZ7H
+ OC7hJx5YYF/kslkbMKZfXNw8OSEFmLEg4mlJzvOX/1hq4zjC8LdgMs6ClFejYjMd
+ mqX3Uxp6rN62bL09ZKrBStE0nXilBa5dETimsczq3HDcs2fuJuk6ugVHm07GaVhO
+ PiS051HwTsAgndN36Wkg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y4symc615-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 May 2024 09:43:59 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 494D140046;
+ Thu, 16 May 2024 09:43:51 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1F791211958;
+ Thu, 16 May 2024 09:42:57 +0200 (CEST)
+Received: from [10.48.87.204] (10.48.87.204) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 16 May
+ 2024 09:42:55 +0200
+Message-ID: <5b39b5b6-7008-4362-a578-3faab87cd23b@foss.st.com>
+Date: Thu, 16 May 2024 09:42:51 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Yang Yingliang <yangyingliang@huawei.com>, kernel@dh-electronics.com,
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-crypto@vger.kernel.org>
+References: <20240513220349.183568-1-marex@denx.de>
+ <b2d0dfcb-37d6-4375-a4ad-ca96a5339840@foss.st.com>
+ <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+ <51951dd4-8e8c-4e67-89f6-6a710022e34f@foss.st.com>
+ <3257e8f8-5bb0-4c75-a3a3-e5685b65de2a@denx.de>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <3257e8f8-5bb0-4c75-a3a3-e5685b65de2a@denx.de>
+X-Originating-IP: [10.48.87.204]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-16_03,2024-05-15_01,2023-05-22_02
+Cc: Rob Herring <robh@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Olivia Mackall <olivia@selenic.com>, linux-stm32@st-md-mailman.stormreply.com,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Olivia Mackall <olivia@selenic.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] hwrng: stm32 - cache device pointer in
-	struct stm32_rng_private
+Subject: Re: [Linux-stm32] [PATCH] [RFC] clk: stm32mp1: Keep RNG1 clock
+	always running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,98 +82,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UGxhY2UgZGV2aWNlIHBvaW50ZXIgaW4gc3RydWN0IHN0bTMyX3JuZ19wcml2YXRlIGFuZCB1c2Ug
-aXQgYWxsIG92ZXIgdGhlCnBsYWNlIHRvIGdldCByaWQgb2YgdGhlIGhvcnJpYmxlIHR5cGUgY2Fz
-dHMgdGhyb3VnaG91dCB0aGUgZHJpdmVyLgoKTm8gZnVuY3Rpb25hbCBjaGFuZ2UuCgpTaWduZWQt
-b2ZmLWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4KLS0tCkNjOiAiVXdlIEtsZWluZS1L
-w7ZuaWciIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+CkNjOiBBbGV4YW5kcmUgVG9y
-Z3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgpDYzogR2F0aWVuIENoZXZhbGxpZXIg
-PGdhdGllbi5jaGV2YWxsaWVyQGZvc3Muc3QuY29tPgpDYzogSGVyYmVydCBYdSA8aGVyYmVydEBn
-b25kb3IuYXBhbmEub3JnLmF1PgpDYzogTWFyZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+CkNjOiBN
-YXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+CkNjOiBPbGl2aWEgTWFj
-a2FsbCA8b2xpdmlhQHNlbGVuaWMuY29tPgpDYzogUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9y
-Zz4KQ2M6IFlhbmcgWWluZ2xpYW5nIDx5YW5neWluZ2xpYW5nQGh1YXdlaS5jb20+CkNjOiBrZXJu
-ZWxAZGgtZWxlY3Ryb25pY3MuY29tCkNjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVh
-ZC5vcmcKQ2M6IGxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5lbC5vcmcKQ2M6IGxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KLS0tCiBkcml2ZXJzL2NoYXIvaHdfcmFuZG9tL3N0
-bTMyLXJuZy5jIHwgMjUgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDEzIGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Y2hhci9od19yYW5kb20vc3RtMzItcm5nLmMgYi9kcml2ZXJzL2NoYXIvaHdfcmFuZG9tL3N0bTMy
-LXJuZy5jCmluZGV4IDZkZWM0YWRjNDk4NTMuLjAwMDEyZTZlNGNjYzggMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvY2hhci9od19yYW5kb20vc3RtMzItcm5nLmMKKysrIGIvZHJpdmVycy9jaGFyL2h3X3Jh
-bmRvbS9zdG0zMi1ybmcuYwpAQCAtNzAsNiArNzAsNyBAQCBzdHJ1Y3Qgc3RtMzJfcm5nX2NvbmZp
-ZyB7CiAKIHN0cnVjdCBzdG0zMl9ybmdfcHJpdmF0ZSB7CiAJc3RydWN0IGh3cm5nIHJuZzsKKwlz
-dHJ1Y3QgZGV2aWNlICpkZXY7CiAJdm9pZCBfX2lvbWVtICpiYXNlOwogCXN0cnVjdCBjbGsgKmNs
-azsKIAlzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcnN0OwpAQCAtOTksNyArMTAwLDcgQEAgc3RydWN0
-IHN0bTMyX3JuZ19wcml2YXRlIHsKICAqLwogc3RhdGljIGludCBzdG0zMl9ybmdfY29uY2VhbF9z
-ZWVkX2Vycm9yX2NvbmRfcmVzZXQoc3RydWN0IHN0bTMyX3JuZ19wcml2YXRlICpwcml2KQogewot
-CXN0cnVjdCBkZXZpY2UgKmRldiA9IChzdHJ1Y3QgZGV2aWNlICopcHJpdi0+cm5nLnByaXY7CisJ
-c3RydWN0IGRldmljZSAqZGV2ID0gcHJpdi0+ZGV2OwogCXUzMiBzciA9IHJlYWRsX3JlbGF4ZWQo
-cHJpdi0+YmFzZSArIFJOR19TUik7CiAJdTMyIGNyID0gcmVhZGxfcmVsYXhlZChwcml2LT5iYXNl
-ICsgUk5HX0NSKTsKIAlpbnQgZXJyOwpAQCAtMTcxLDcgKzE3Miw3IEBAIHN0YXRpYyBpbnQgc3Rt
-MzJfcm5nX2NvbmNlYWxfc2VlZF9lcnJvcihzdHJ1Y3QgaHdybmcgKnJuZykKIHsKIAlzdHJ1Y3Qg
-c3RtMzJfcm5nX3ByaXZhdGUgKnByaXYgPSBjb250YWluZXJfb2Yocm5nLCBzdHJ1Y3Qgc3RtMzJf
-cm5nX3ByaXZhdGUsIHJuZyk7CiAKLQlkZXZfZGJnKChzdHJ1Y3QgZGV2aWNlICopcHJpdi0+cm5n
-LnByaXYsICJDb25jZWFsaW5nIHNlZWQgZXJyb3JcbiIpOworCWRldl9kYmcocHJpdi0+ZGV2LCAi
-Q29uY2VhbGluZyBzZWVkIGVycm9yXG4iKTsKIAogCWlmIChwcml2LT5kYXRhLT5oYXNfY29uZF9y
-ZXNldCkKIAkJcmV0dXJuIHN0bTMyX3JuZ19jb25jZWFsX3NlZWRfZXJyb3JfY29uZF9yZXNldChw
-cml2KTsKQEAgLTE4Nyw3ICsxODgsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3JuZ19yZWFkKHN0cnVj
-dCBod3JuZyAqcm5nLCB2b2lkICpkYXRhLCBzaXplX3QgbWF4LCBib29sIHdhaXQpCiAJaW50IHJl
-dHZhbCA9IDAsIGVyciA9IDA7CiAJdTMyIHNyOwogCi0JcmV0dmFsID0gcG1fcnVudGltZV9yZXN1
-bWVfYW5kX2dldCgoc3RydWN0IGRldmljZSAqKXByaXYtPnJuZy5wcml2KTsKKwlyZXR2YWwgPSBw
-bV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KHByaXYtPmRldik7CiAJaWYgKHJldHZhbCkKIAkJcmV0
-dXJuIHJldHZhbDsKIApAQCAtMjA2LDcgKzIwNyw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfcm5nX3Jl
-YWQoc3RydWN0IGh3cm5nICpybmcsIHZvaWQgKmRhdGEsIHNpemVfdCBtYXgsIGJvb2wgd2FpdCkK
-IAkJCQkJCQkJICAgc3IsIHNyLAogCQkJCQkJCQkgICAxMCwgNTAwMDApOwogCQkJaWYgKGVycikg
-ewotCQkJCWRldl9lcnIoKHN0cnVjdCBkZXZpY2UgKilwcml2LT5ybmcucHJpdiwKKwkJCQlkZXZf
-ZXJyKHByaXYtPmRldiwKIAkJCQkJIiVzOiB0aW1lb3V0ICV4IVxuIiwgX19mdW5jX18sIHNyKTsK
-IAkJCQlicmVhazsKIAkJCX0KQEAgLTIyMCw3ICsyMjEsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3Ju
-Z19yZWFkKHN0cnVjdCBod3JuZyAqcm5nLCB2b2lkICpkYXRhLCBzaXplX3QgbWF4LCBib29sIHdh
-aXQpCiAJCQkJZXJyID0gc3RtMzJfcm5nX2NvbmNlYWxfc2VlZF9lcnJvcihybmcpOwogCQkJCWkr
-KzsKIAkJCQlpZiAoZXJyICYmIGkgPiBSTkdfTkJfUkVDT1ZFUl9UUklFUykgewotCQkJCQlkZXZf
-ZXJyKChzdHJ1Y3QgZGV2aWNlICopcHJpdi0+cm5nLnByaXYsCisJCQkJCWRldl9lcnIocHJpdi0+
-ZGV2LAogCQkJCQkJIkNvdWxkbid0IHJlY292ZXIgZnJvbSBzZWVkIGVycm9yXG4iKTsKIAkJCQkJ
-cmV0dmFsID0gLUVOT1RSRUNPVkVSQUJMRTsKIAkJCQkJZ290byBleGl0X3JwbTsKQEAgLTIzOSw3
-ICsyNDAsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3JuZ19yZWFkKHN0cnVjdCBod3JuZyAqcm5nLCB2
-b2lkICpkYXRhLCBzaXplX3QgbWF4LCBib29sIHdhaXQpCiAJCQllcnIgPSBzdG0zMl9ybmdfY29u
-Y2VhbF9zZWVkX2Vycm9yKHJuZyk7CiAJCQlpKys7CiAJCQlpZiAoZXJyICYmIGkgPiBSTkdfTkJf
-UkVDT1ZFUl9UUklFUykgewotCQkJCWRldl9lcnIoKHN0cnVjdCBkZXZpY2UgKilwcml2LT5ybmcu
-cHJpdiwKKwkJCQlkZXZfZXJyKHByaXYtPmRldiwKIAkJCQkJIkNvdWxkbid0IHJlY292ZXIgZnJv
-bSBzZWVkIGVycm9yIik7CiAJCQkJcmV0dmFsID0gLUVOT1RSRUNPVkVSQUJMRTsKIAkJCQlnb3Rv
-IGV4aXRfcnBtOwpAQCAtMjU1LDggKzI1Niw4IEBAIHN0YXRpYyBpbnQgc3RtMzJfcm5nX3JlYWQo
-c3RydWN0IGh3cm5nICpybmcsIHZvaWQgKmRhdGEsIHNpemVfdCBtYXgsIGJvb2wgd2FpdCkKIAl9
-CiAKIGV4aXRfcnBtOgotCXBtX3J1bnRpbWVfbWFya19sYXN0X2J1c3koKHN0cnVjdCBkZXZpY2Ug
-KikgcHJpdi0+cm5nLnByaXYpOwotCXBtX3J1bnRpbWVfcHV0X3N5bmNfYXV0b3N1c3BlbmQoKHN0
-cnVjdCBkZXZpY2UgKikgcHJpdi0+cm5nLnByaXYpOworCXBtX3J1bnRpbWVfbWFya19sYXN0X2J1
-c3kocHJpdi0+ZGV2KTsKKwlwbV9ydW50aW1lX3B1dF9zeW5jX2F1dG9zdXNwZW5kKHByaXYtPmRl
-dik7CiAKIAlyZXR1cm4gcmV0dmFsIHx8ICF3YWl0ID8gcmV0dmFsIDogLUVJTzsKIH0KQEAgLTMz
-MSw4ICszMzIsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3JuZ19pbml0KHN0cnVjdCBod3JuZyAqcm5n
-KQogCQkJCQkJCTEwLCA1MDAwMCk7CiAJCWlmIChlcnIpIHsKIAkJCWNsa19kaXNhYmxlX3VucHJl
-cGFyZShwcml2LT5jbGspOwotCQkJZGV2X2Vycigoc3RydWN0IGRldmljZSAqKXByaXYtPnJuZy5w
-cml2LAotCQkJCSIlczogdGltZW91dCAleCFcbiIsIF9fZnVuY19fLCByZWcpOworCQkJZGV2X2Vy
-cihwcml2LT5kZXYsICIlczogdGltZW91dCAleCFcbiIsIF9fZnVuY19fLCByZWcpOwogCQkJcmV0
-dXJuIC1FSU5WQUw7CiAJCX0KIAl9IGVsc2UgewpAQCAtMzYwLDcgKzM2MCw3IEBAIHN0YXRpYyBp
-bnQgc3RtMzJfcm5nX2luaXQoc3RydWN0IGh3cm5nICpybmcpCiAJCQkJCQkxMCwgMTAwMDAwKTsK
-IAlpZiAoZXJyIHx8IChyZWcgJiB+Uk5HX1NSX0RSRFkpKSB7CiAJCWNsa19kaXNhYmxlX3VucHJl
-cGFyZShwcml2LT5jbGspOwotCQlkZXZfZXJyKChzdHJ1Y3QgZGV2aWNlICopcHJpdi0+cm5nLnBy
-aXYsCisJCWRldl9lcnIocHJpdi0+ZGV2LAogCQkJIiVzOiB0aW1lb3V0OiV4IFNSOiAleCFcbiIs
-IF9fZnVuY19fLCBlcnIsIHJlZyk7CiAJCXJldHVybiAtRUlOVkFMOwogCX0KQEAgLTQ2Nyw3ICs0
-NjcsNyBAQCBzdGF0aWMgaW50IF9fbWF5YmVfdW51c2VkIHN0bTMyX3JuZ19yZXN1bWUoc3RydWN0
-IGRldmljZSAqZGV2KQogCiAJCWlmIChlcnIpIHsKIAkJCWNsa19kaXNhYmxlX3VucHJlcGFyZShw
-cml2LT5jbGspOwotCQkJZGV2X2Vycigoc3RydWN0IGRldmljZSAqKXByaXYtPnJuZy5wcml2LAor
-CQkJZGV2X2Vycihwcml2LT5kZXYsCiAJCQkJIiVzOiB0aW1lb3V0OiV4IENSOiAleCFcbiIsIF9f
-ZnVuY19fLCBlcnIsIHJlZyk7CiAJCQlyZXR1cm4gLUVJTlZBTDsKIAkJfQpAQCAtNTQzLDYgKzU0
-Myw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfcm5nX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
-Km9mZGV2KQogCiAJcHJpdi0+Y2VkID0gb2ZfcHJvcGVydHlfcmVhZF9ib29sKG5wLCAiY2xvY2st
-ZXJyb3ItZGV0ZWN0Iik7CiAJcHJpdi0+bG9ja19jb25mID0gb2ZfcHJvcGVydHlfcmVhZF9ib29s
-KG5wLCAic3Qscm5nLWxvY2stY29uZiIpOworCXByaXYtPmRldiA9IGRldjsKIAogCXByaXYtPmRh
-dGEgPSBvZl9kZXZpY2VfZ2V0X21hdGNoX2RhdGEoZGV2KTsKIAlpZiAoIXByaXYtPmRhdGEpCi0t
-IAoyLjQzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Marek
+
+On 5/16/24 03:06, Marek Vasut wrote:
+> On 5/15/24 11:16 AM, Gatien CHEVALLIER wrote:
+> 
+> Hi,
+> 
+>>>> What if you add a trace in a random generation function in random.c?
+>>>
+>>> Do you have a function name or line number for me ?
+>>
+>> I put a trace in _get_random_bytes() in drivers/char/random.c. I'm not
+>> 100% sure but this should be the entry point when getting a random 
+>> number.
+> 
+> You're right, there is a read attempt right before the hang, and 
+> __clk_is_enabled() returns 0 in stm32_read_rng() . In fact, it is the 
+> pm_runtime_get_sync() which is returning -EACCES instead of zero, and 
+> this is currently not checked so the failure is not detected before 
+> register access takes place, to register file with clock disabled, which 
+> triggers a hard hang.
+> 
+> I'll be sending a patch shortly, thanks for this hint !
+> 
+
+Great news, indeed the return code isn't checked. Let's use
+pm_runtime_resume_and_get().
+
+>>>> After this, I'll try to reproduce the issue.
+>>>
+>>> If you have a minute to test it on some ST MP15 board, that would be 
+>>> real nice. Thanks !
+>>
+>> I tried to reproduce the issue you're facing on a STM32MP157C-DK2 no
+>> SCMI on the 6.9-rc7 kernel tag. I uses OP-TEE and TF-A in the bootchain
+>> but this should not have an impact here.
+>>
+>> How did you manage to test using "echo core > /sys/power/pm_test"?
+>> In kernel/power/suspend.c, enter_state(). If the pm_test_level is core,
+>> then an error is fired with the following trace:
+>> "Unsupported test mode for suspend to idle, please choose 
+>> none/freezer/devices/platform."
+> 
+> Could this be firmware related ?
+> 
+>> I've tried using "echo devices > /sys/power/pm_test" so that I can at 
+>> least test that the driver is put to sleep then wakes up. I do not
+>> reproduce your issue.
+> 
+> Can you try 'processors' ?
+> 
+
+Given this:
+#ifdef CONFIG_PM_DEBUG
+		if (pm_test_level != TEST_NONE && pm_test_level <= TEST_CPUS) {
+			pr_warn("Unsupported test mode for suspend to idle, please choose 
+none/freezer/devices/platform.\n");
+			return -EAGAIN;
+		}
+#endif
+
+and this
+
+static const char * const pm_tests[__TEST_AFTER_LAST] = {
+	[TEST_NONE] = "none",
+	[TEST_CORE] = "core",
+	[TEST_CPUS] = "processors",
+	[TEST_PLATFORM] = "platform",
+	[TEST_DEVICES] = "devices",
+	[TEST_FREEZER] = "freezer",
+};
+
+I'm getting the error as well.
+
+> I did also notice it sometimes takes much longer than a minute to hang, 
+> but eventually it does hang. Maybe let it cycle for an hour or a few ?
+> 
+
+I'll let it loop for some time then for device pm state.
+
+> [...]
+> 
+
+Thanks for investigating this.
+
+Cheers,
+Gatien
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
