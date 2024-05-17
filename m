@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6E98C8485
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2024 12:07:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D820B8C848A
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2024 12:09:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75D4BC6DD6D;
-	Fri, 17 May 2024 10:07:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 999A6C6DD6D;
+	Fri, 17 May 2024 10:09:14 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7F5FC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33CA3C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 May 2024 10:07:15 +0000 (UTC)
+ Fri, 17 May 2024 10:09:07 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB4251424;
- Fri, 17 May 2024 03:07:38 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87C2A1424;
+ Fri, 17 May 2024 03:09:30 -0700 (PDT)
 Received: from [10.91.2.16] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 286F83F762;
- Fri, 17 May 2024 03:07:12 -0700 (PDT)
-Message-ID: <97c57424-6242-4ba1-8b46-6405c084645c@arm.com>
-Date: Fri, 17 May 2024 12:07:10 +0200
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9856A3F762;
+ Fri, 17 May 2024 03:09:03 -0700 (PDT)
+Message-ID: <9b7a5afb-63b9-4dd2-8a43-32ae725c42bf@arm.com>
+Date: Fri, 17 May 2024 12:09:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: Mike Leach <mike.leach@linaro.org>
 References: <20240429152207.479221-1-james.clark@arm.com>
- <20240429152207.479221-16-james.clark@arm.com>
- <3923dc07-c037-452a-9e77-d407703876cd@arm.com>
+ <20240429152207.479221-12-james.clark@arm.com>
+ <CAJ9a7Vjj++Bvu2EFVxpXvW4nes0qxVqjxgBWwi1L904p86a7gw@mail.gmail.com>
 Content-Language: en-US
 From: James Clark <james.clark@arm.com>
-In-Reply-To: <3923dc07-c037-452a-9e77-d407703876cd@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+In-Reply-To: <CAJ9a7Vjj++Bvu2EFVxpXvW4nes0qxVqjxgBWwi1L904p86a7gw@mail.gmail.com>
+Cc: scclevenger@os.amperecomputing.com, Mark Rutland <mark.rutland@arm.com>,
+ Ian Rogers <irogers@google.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Adrian Hunter <adrian.hunter@intel.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
+ linux-stm32@st-md-mailman.stormreply.com, John Garry <john.g.garry@oracle.com>,
  Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- mike.leach@linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- John Garry <john.g.garry@oracle.com>, coresight@lists.linaro.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, scclevenger@os.amperecomputing.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, suzuki.poulose@arm.com,
+ coresight@lists.linaro.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
  Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
  Leo Yan <leo.yan@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
  gankulkarni@os.amperecomputing.com
-Subject: Re: [Linux-stm32] [PATCH 14/17] coresight: Use per-sink trace ID
- maps for Perf sessions
+Subject: Re: [Linux-stm32] [PATCH 11/17] coresight: Expose map argument in
+	trace ID API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,103 +53,188 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAwNy8wNS8yMDI0IDEyOjUyLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDI5LzA0
-LzIwMjQgMTY6MjIsIEphbWVzIENsYXJrIHdyb3RlOgo+PiBUaGlzIHdpbGwgYWxsb3cgc2Vzc2lv
-bnMgd2l0aCBtb3JlIHRoYW4gQ09SRVNJR0hUX1RSQUNFX0lEU19NQVggRVRNcwo+PiBhcyBsb25n
-IGFzIHRoZXJlIGFyZSBmZXdlciB0aGFuIHRoYXQgbWFueSBFVE1zIGNvbm5lY3RlZCB0byBlYWNo
-IHNpbmsuCj4+Cj4+IEVhY2ggc2luayBvd25zIGl0cyBvd24gdHJhY2UgSUQgbWFwLCBhbmQgYW55
-IFBlcmYgc2Vzc2lvbiBjb25uZWN0aW5nIHRvCj4+IHRoYXQgc2luayB3aWxsIGFsbG9jYXRlIGZy
-b20gaXQsIGV2ZW4gaWYgdGhlIHNpbmsgaXMgY3VycmVudGx5IGluIHVzZSBieQo+PiBvdGhlciB1
-c2Vycy4gVGhpcyBpcyBzaW1pbGFyIHRvIHRoZSBleGlzdGluZyBiZWhhdmlvciB3aGVyZSB0aGUg
-ZHluYW1pYwo+PiB0cmFjZSBJRHMgYXJlIGNvbnN0YW50IGFzIGxvbmcgYXMgdGhlcmUgaXMgYW55
-IGNvbmN1cnJlbnQgUGVyZiBzZXNzaW9uCj4+IGFjdGl2ZS4gSXQncyBub3QgY29tcGxldGVseSBv
-cHRpbWFsIGJlY2F1c2Ugc2xpZ2h0bHkgbW9yZSBJRHMgd2lsbCBiZQo+PiB1c2VkIHRoYW4gbmVj
-ZXNzYXJ5LCBidXQgdGhlIG9wdGltYWwgc29sdXRpb24gaW52b2x2ZXMgdHJhY2tpbmcgdGhlIFBJ
-RHMKPj4gb2YgZWFjaCBzZXNzaW9uIGFuZCBhbGxvY2F0aW5nIElEIG1hcHMgYmFzZWQgb24gdGhl
-IHNlc3Npb24gb3duZXIuIFRoaXMKPj4gaXMgZGlmZmljdWx0IHRvIGRvIHdpdGggdGhlIGNvbWJp
-bmF0aW9uIG9mIHBlci10aHJlYWQgYW5kIHBlci1jcHUgbW9kZXMKPj4gYW5kIHNvbWUgc2NoZWR1
-bGluZyBpc3N1ZXMuIFRoZSBjb21wbGV4aXR5IG9mIHRoaXMgaXNuJ3QgbGlrZWx5IHRvIHdvcnRo
-Cj4+IGl0IGJlY2F1c2UgZXZlbiB3aXRoIG11bHRpcGxlIHVzZXJzIHRoZXknZCBqdXN0IHNlZSBh
-IGRpZmZlcmVuY2UgaW4gdGhlCj4+IG9yZGVyaW5nIG9mIElEIGFsbG9jYXRpb25zIHJhdGhlciB0
-aGFuIGhpdHRpbmcgYW55IGxpbWl0cyAodW5sZXNzIHRoZQo+PiBoYXJkd2FyZSBkb2VzIGhhdmUg
-dG9vIG1hbnkgRVRNcyBjb25uZWN0ZWQgdG8gb25lIHNpbmspLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5
-OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4gLS0tCj4+IMKgIGRyaXZlcnMv
-aHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jwqDCoMKgwqAgfCAxMCArKysrKysr
-KysrCj4+IMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtLXBlcmYu
-YyB8IDE1ICsrKysrKysrLS0tLS0tLQo+PiDCoCBpbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5owqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMSArCj4+IMKg
-IDMgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPj4KPj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5j
-Cj4+IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmMKPj4gaW5k
-ZXggOWZjNmY2Yjg2M2UwLi5kMWFkZmY0Njc2NzAgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaHd0
-cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+ICsrKyBiL2RyaXZlcnMvaHd0cmFj
-aW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+IEBAIC05MDIsNiArOTAyLDcgQEAgc3Rh
-dGljIHZvaWQgY29yZXNpZ2h0X2RldmljZV9yZWxlYXNlKHN0cnVjdCBkZXZpY2UKPj4gKmRldikK
-Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYgPSB0b19jb3Jlc2ln
-aHRfZGV2aWNlKGRldik7Cj4+IMKgIMKgwqDCoMKgwqAgZndub2RlX2hhbmRsZV9wdXQoY3NkZXYt
-PmRldi5md25vZGUpOwo+PiArwqDCoMKgIGZyZWVfcGVyY3B1KGNzZGV2LT5wZXJmX2lkX21hcC5j
-cHVfbWFwKTsKPj4gwqDCoMKgwqDCoCBrZnJlZShjc2Rldik7Cj4+IMKgIH0KPj4gwqAgQEAgLTEx
-NTksNiArMTE2MCwxNCBAQCBzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY29yZXNpZ2h0X3Jl
-Z2lzdGVyKHN0cnVjdCBjb3Jlc2lnaHRfZGVzYyAqZGVzYykKPj4gwqDCoMKgwqDCoCBjc2Rldi0+
-ZGV2LmZ3bm9kZSA9IGZ3bm9kZV9oYW5kbGVfZ2V0KGRldl9md25vZGUoZGVzYy0+ZGV2KSk7Cj4+
-IMKgwqDCoMKgwqAgZGV2X3NldF9uYW1lKCZjc2Rldi0+ZGV2LCAiJXMiLCBkZXNjLT5uYW1lKTsK
-Pj4gwqAgK8KgwqDCoCBpZiAoY3NkZXYtPnR5cGUgPT0gQ09SRVNJR0hUX0RFVl9UWVBFX1NJTksg
-fHwKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZGV2LT50eXBlID09IENPUkVTSUdIVF9ERVZfVFlQRV9M
-SU5LU0lOSykgewo+PiArwqDCoMKgwqDCoMKgwqAgY3NkZXYtPnBlcmZfaWRfbWFwLmNwdV9tYXAg
-PSBhbGxvY19wZXJjcHUoYXRvbWljX3QpOwo+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCFjc2Rldi0+
-cGVyZl9pZF9tYXAuY3B1X21hcCkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSAt
-RU5PTUVNOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycl9vdXQ7Cj4+ICvCoMKg
-wqDCoMKgwqDCoCB9Cj4+ICvCoMKgwqAgfQo+PiDCoMKgwqDCoMKgIC8qCj4+IMKgwqDCoMKgwqDC
-oCAqIE1ha2Ugc3VyZSB0aGUgZGV2aWNlIHJlZ2lzdHJhdGlvbiBhbmQgdGhlIGNvbm5lY3Rpb24g
-Zml4dXAKPj4gwqDCoMKgwqDCoMKgICogYXJlIHN5bmNocm9uaXNlZCwgc28gdGhhdCB3ZSBkb24n
-dCBzZWUgdW5pbml0aWFsaXNlZCBkZXZpY2VzCj4+IEBAIC0xMjE2LDYgKzEyMjUsNyBAQCBzdHJ1
-Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY29yZXNpZ2h0X3JlZ2lzdGVyKHN0cnVjdCBjb3Jlc2ln
-aHRfZGVzYyAqZGVzYykKPj4gwqAgZXJyX291dDoKPj4gwqDCoMKgwqDCoCAvKiBDbGVhbnVwIHRo
-ZSBjb25uZWN0aW9uIGluZm9ybWF0aW9uICovCj4+IMKgwqDCoMKgwqAgY29yZXNpZ2h0X3JlbGVh
-c2VfcGxhdGZvcm1fZGF0YShOVUxMLCBkZXNjLT5kZXYsIGRlc2MtPnBkYXRhKTsKPj4gK8KgwqDC
-oCBrZnJlZShjc2Rldik7Cj4+IMKgwqDCoMKgwqAgcmV0dXJuIEVSUl9QVFIocmV0KTsKPj4gwqAg
-fQo+PiDCoCBFWFBPUlRfU1lNQk9MX0dQTChjb3Jlc2lnaHRfcmVnaXN0ZXIpOwo+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jCj4+
-IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jCj4+IGlu
-ZGV4IDE3N2NlY2FlMzhkOS4uODZjYTFhOWQwOWE3IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3
-dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bS1wZXJmLmMKPj4gKysrIGIvZHJpdmVycy9o
-d3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jCj4+IEBAIC0yMjksMTAgKzIy
-OSwxMyBAQCBzdGF0aWMgdm9pZCBmcmVlX2V2ZW50X2RhdGEoc3RydWN0IHdvcmtfc3RydWN0Cj4+
-ICp3b3JrKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZCAqKnBwYXRoOwo+
-PiDCoCDCoMKgwqDCoMKgwqDCoMKgwqAgcHBhdGggPSBldG1fZXZlbnRfY3B1X3BhdGhfcHRyKGV2
-ZW50X2RhdGEsIGNwdSk7Cj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIShJU19FUlJfT1JfTlVMTCgq
-cHBhdGgpKSkKPj4gK8KgwqDCoMKgwqDCoMKgIGlmICghKElTX0VSUl9PUl9OVUxMKCpwcGF0aCkp
-KSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpz
-aW5rID0gY29yZXNpZ2h0X2dldF9zaW5rKCpwcGF0aCk7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgY29yZXNpZ2h0X3RyYWNlX2lkX3B1dF9jcHVfaWQoY3B1LCAmc2luay0+cGVyZl9p
-ZF9tYXApOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfcmVsZWFzZV9w
-YXRoKCpwcGF0aCk7Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCAq
-cHBhdGggPSBOVUxMOwo+PiAtwqDCoMKgwqDCoMKgwqAgY29yZXNpZ2h0X3RyYWNlX2lkX3B1dF9j
-cHVfaWQoY3B1LAo+PiBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwX2RlZmF1bHQoKSk7Cj4+IMKgwqDC
-oMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgIC8qIG1hcmsgcGVyZiBldmVudCBhcyBkb25lIGZvciB0
-cmFjZSBpZCBhbGxvY2F0b3IgKi8KPj4gQEAgLTQwMSw4ICs0MDQsNyBAQCBzdGF0aWMgdm9pZCAq
-ZXRtX3NldHVwX2F1eChzdHJ1Y3QgcGVyZl9ldmVudAo+PiAqZXZlbnQsIHZvaWQgKipwYWdlcywK
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIGVuc3Vy
-ZSB3ZSBjYW4gYWxsb2NhdGUgYSB0cmFjZSBJRCBmb3IgdGhpcyBDUFUgKi8KPj4gLcKgwqDCoMKg
-wqDCoMKgIHRyYWNlX2lkID0gY29yZXNpZ2h0X3RyYWNlX2lkX2dldF9jcHVfaWQoY3B1LAo+PiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Y29yZXNpZ2h0X3RyYWNlX2lkX21hcF9kZWZhdWx0KCkpOwo+PiArwqDCoMKgwqDCoMKgwqAgdHJh
-Y2VfaWQgPSBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZChjcHUsCj4+ICZzaW5rLT5wZXJm
-X2lkX21hcCk7Cj4gCj4gV2UgY291bGQgZWl0aGVyIHN0b3JlIHRoZSBwZXJmX2lkX21hcCBvciB0
-aGUgdHJhY2VpZCBpdHNlbGYgaW4gdGhlCj4gZXZlbnRfZGF0YSBpc24ndCBpdCA/IFJhdGhlciB0
-aGFuIHBhc3NpbmcgdGhlIGlkbWFwIHRvIGVuYWJsZV9zb3VyY2UgPwo+IAo+IFN1enVraQo+IAoK
-WWVzIHRoZSBlbmQgcmVzdWx0IHdvdWxkIGJlIHRoZSBzYW1lLiBCeSBkb2luZyBpdCB0aGlzIHdh
-eSBJIHdhcyBrZWVwaW5nCmluIG1pbmQgdGhlIHBvdGVudGlhbCBjaGFuZ2UgZm9yIHN5c2ZzIG1v
-ZGUgaW4gdGhlIGZ1dHVyZS4gVGhpcyB3YXkKdGhlcmUgaXMgY29tbW9uIHBhdGggYmV0d2VlbiB0
-aGUgdHdvIG1vZGVzLgoKSU1PIGFuIGFyZ3VtZW50IGlzIGVhc2llciB0byB1bmRlcnN0YW5kLCBy
-YXRoZXIgdGhhbiBoYXZpbmcgdG8ga25vdwp3aGVyZS9ob3cvYXQgd2hhdCBwb2ludCB0aGUgSUQg
-aXMgaW5pdGlhbGlzZWQgYmVmb3JlIGNhbGxpbmcKZW5hYmxlX3NvdXJjZSgpLgoKSmFtZXMKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+
+
+On 01/05/2024 12:31, Mike Leach wrote:
+> Hi James,
+> 
+> On Mon, 29 Apr 2024 at 16:25, James Clark <james.clark@arm.com> wrote:
+>>
+>> The trace ID API is currently hard coded to always use the global map.
+>> The functions that take the map as an argument aren't currently public.
+>> Make them public so that Perf mode can pass in its own maps. At the
+>> moment all usages are still hard coded to use the global map, but now
+>> on the caller side.
+>>
+>> System ID functions are unchanged because they will always use the
+>> default map.
+>>
+>> Signed-off-by: James Clark <james.clark@arm.com>
+>> ---
+>>  .../hwtracing/coresight/coresight-etm-perf.c  |  5 +++--
+>>  .../coresight/coresight-etm3x-core.c          |  5 +++--
+>>  .../coresight/coresight-etm4x-core.c          |  5 +++--
+>>  .../hwtracing/coresight/coresight-trace-id.c  | 22 +++++++------------
+>>  .../hwtracing/coresight/coresight-trace-id.h  |  9 +++++---
+>>  5 files changed, 23 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+>> index c0c60e6a1703..4afb9d29f355 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+>> @@ -232,7 +232,7 @@ static void free_event_data(struct work_struct *work)
+>>                 if (!(IS_ERR_OR_NULL(*ppath)))
+>>                         coresight_release_path(*ppath);
+>>                 *ppath = NULL;
+>> -               coresight_trace_id_put_cpu_id(cpu);
+>> +               coresight_trace_id_put_cpu_id(cpu, coresight_trace_id_map_default());
+>>         }
+>>
+>>         /* mark perf event as done for trace id allocator */
+>> @@ -401,7 +401,8 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+>>                 }
+>>
+>>                 /* ensure we can allocate a trace ID for this CPU */
+>> -               trace_id = coresight_trace_id_get_cpu_id(cpu);
+>> +               trace_id = coresight_trace_id_get_cpu_id(cpu,
+>> +                                                        coresight_trace_id_map_default());
+>>                 if (!IS_VALID_CS_TRACE_ID(trace_id)) {
+>>                         cpumask_clear_cpu(cpu, mask);
+>>                         coresight_release_path(path);
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> index 9d5c1391ffb1..4149e7675ceb 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> @@ -465,7 +465,8 @@ int etm_read_alloc_trace_id(struct etm_drvdata *drvdata)
+>>          *
+>>          * trace id function has its own lock
+>>          */
+>> -       trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu);
+>> +       trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu,
+>> +                                                coresight_trace_id_map_default());
+>>         if (IS_VALID_CS_TRACE_ID(trace_id))
+>>                 drvdata->traceid = (u8)trace_id;
+>>         else
+>> @@ -477,7 +478,7 @@ int etm_read_alloc_trace_id(struct etm_drvdata *drvdata)
+>>
+>>  void etm_release_trace_id(struct etm_drvdata *drvdata)
+>>  {
+>> -       coresight_trace_id_put_cpu_id(drvdata->cpu);
+>> +       coresight_trace_id_put_cpu_id(drvdata->cpu, coresight_trace_id_map_default());
+>>  }
+>>
+>>  static int etm_enable_perf(struct coresight_device *csdev,
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> index a0bdfabddbc6..f32c8cd7742d 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> @@ -241,7 +241,8 @@ int etm4_read_alloc_trace_id(struct etmv4_drvdata *drvdata)
+>>          * or return the one currently allocated.
+>>          * The trace id function has its own lock
+>>          */
+>> -       trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu);
+>> +       trace_id = coresight_trace_id_get_cpu_id(drvdata->cpu,
+>> +                                                coresight_trace_id_map_default());
+>>         if (IS_VALID_CS_TRACE_ID(trace_id))
+>>                 drvdata->trcid = (u8)trace_id;
+>>         else
+>> @@ -253,7 +254,7 @@ int etm4_read_alloc_trace_id(struct etmv4_drvdata *drvdata)
+>>
+>>  void etm4_release_trace_id(struct etmv4_drvdata *drvdata)
+>>  {
+>> -       coresight_trace_id_put_cpu_id(drvdata->cpu);
+>> +       coresight_trace_id_put_cpu_id(drvdata->cpu, coresight_trace_id_map_default());
+>>  }
+>>
+>>  struct etm4_enable_arg {
+>> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
+>> index 19005b5b4dc4..45ddd50d09a6 100644
+>> --- a/drivers/hwtracing/coresight/coresight-trace-id.c
+>> +++ b/drivers/hwtracing/coresight/coresight-trace-id.c
+>> @@ -12,7 +12,7 @@
+>>
+>>  #include "coresight-trace-id.h"
+>>
+>> -/* Default trace ID map. Used on systems that don't require per sink mappings */
+>> +/* Default trace ID map. Used in sysfs mode and for system sources */
+>>  static struct coresight_trace_id_map id_map_default;
+>>
+>>  /* maintain a record of the mapping of IDs and pending releases per cpu */
+>> @@ -152,7 +152,7 @@ static void coresight_trace_id_release_all_pending(void)
+>>         DUMP_ID_MAP(id_map);
+>>  }
+>>
+>> -static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
+>> +int coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
+>>  {
+>>         unsigned long flags;
+>>         int id;
+>> @@ -195,8 +195,9 @@ static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_
+>>         DUMP_ID_MAP(id_map);
+>>         return id;
+>>  }
+>> +EXPORT_SYMBOL_GPL(coresight_trace_id_get_cpu_id);
+>>
+>> -static void coresight_trace_id_map_put_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
+>> +void coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
+>>  {
+>>         unsigned long flags;
+>>         int id;
+>> @@ -222,6 +223,7 @@ static void coresight_trace_id_map_put_cpu_id(int cpu, struct coresight_trace_id
+>>         DUMP_ID_CPU(cpu, id);
+>>         DUMP_ID_MAP(id_map);
+>>  }
+>> +EXPORT_SYMBOL_GPL(coresight_trace_id_put_cpu_id);
+>>
+>>  static int coresight_trace_id_map_get_system_id(struct coresight_trace_id_map *id_map)
+>>  {
+>> @@ -250,19 +252,11 @@ static void coresight_trace_id_map_put_system_id(struct coresight_trace_id_map *
+>>         DUMP_ID_MAP(id_map);
+>>  }
+>>
+>> -/* API functions */
+>> -
+> 
+> Rather than remove the existing default trace ID functions, simply add
+> a few new ones...
+> 
+> e.g. given the existing...
+> 
+> void coresight_trace_id_put_cpu_id(int cpu)
+> {
+>     coresight_trace_id_map_put_cpu_id(cpu, &id_map_default);
+> }
+> EXPORT_SYMBOL_GPL(coresight_trace_id_put_cpu_id);
+> 
+> add:-
+> 
+> void coresight_trace_id_put_cpu_id_map(int cpu, struct
+> coresight_trace_id_map *id_map)
+> {
+>     coresight_trace_id_map_put_cpu_id(cpu, id_map);
+> }
+> EXPORT_SYMBOL_GPL(coresight_trace_id_put_cpu_id_map);
+> 
+> This avoids a whole lot of churn in exposing the default map to
+> external functions, putting it in there and then removing it later.
+> When any location that was using coresight_trace_id_put_cpu_id() needs
+> to supply its own map, change the function name at that point to
+> coresight_trace_id_put_cpu_id_map()
+> 
+> Mike
+> 
+> 
+
+Yeah I was on the fence about this one when writing it, but I agree I
+can make this change.
+
+James
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
