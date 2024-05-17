@@ -2,138 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45228C88C1
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2024 16:57:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBBF8C897A
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2024 17:41:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B58DC6DD6E;
-	Fri, 17 May 2024 14:57:56 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2054.outbound.protection.outlook.com [40.107.21.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13291C6DD6E;
+	Fri, 17 May 2024 15:41:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40DCCC640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61C39C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 May 2024 14:57:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DZkYgr1lmGhCmHIlVWCfHWrEI302+mfY1+5dSNmYVa46N/bQyG0v3SK87Fgve6XM9ygxWata8PyrQmqDuBe4tcjtJrxhEtt+W1CFtsbF42DRtSKkKDy5uE84bgpkoGqSkWvRga25+OqoKBtSiW/brVQkuOS4tF+4/R4fOJLHEn48HhpRzdbuGKudflRdbEWWELqtS73ALsTpIcTQWTtrXJZ89a0sLIy7FCchN7e2l6gKvtDRQINCbbLkbVj9D9VXBo+tM1h+TFOnC5CX7rXytKQM8McRGnLF04ezIVq9tHKAOxFCny8ssgKKWcYLWlYMj/inz/tfkV8869bbfIPXyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=htsCBXT2T5sM5heiD0zXTfT85ujutFRpa0e+45PveVo=;
- b=EXrbxkyl1+quhiBwngsQS8JBPjsycU6pwoIArygfCrO/8En7o3SVRVziTF0QLKNAG8LA4FSBHlbMMx3TadtmnGNLEDKa67+KBOuK94Bv9pssYa7Uovn/kQpGxoeV5qHuPsPhHkwNcGeryb0f/KBzFy5AOI8pDAvInc+Xr68TLPTq7LyeDphQ3EtglyaQs1OSg534xPFBdzjtsLWf76JdNmzC6QzDPNNbVcutyuFOYYo7pUYN/6snl90NBWpDUa7aaogM1+zJUsPpbDbYY2MVhv0maGEt87NTJTWVR6l4RAWKgcS5VmAiT02b/R1eI6TcZwP4R/1WNLTCptLv/BYNTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htsCBXT2T5sM5heiD0zXTfT85ujutFRpa0e+45PveVo=;
- b=UYNVlOrpEiV8cecIiMO8/OsuLdn0NRZYg/j+Mmm6+B0MYNrIUBEagRUI+NM1Q7G54EuKkO0AqCurGZwiNrrT3uH70bLYBtA+sHsdxi04NlPMLPJY7uTUD6uBOkXUXqYUJJ6fc3acvDsjFLhDcJntlvIbPNej0c+0BX1tAL/+dg4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PAXPR04MB9642.eurprd04.prod.outlook.com (2603:10a6:102:240::14)
- by PAXPR04MB9519.eurprd04.prod.outlook.com (2603:10a6:102:22e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.28; Fri, 17 May
- 2024 14:57:47 +0000
-Received: from PAXPR04MB9642.eurprd04.prod.outlook.com
- ([fe80::1e67:dfc9:d0c1:fe58]) by PAXPR04MB9642.eurprd04.prod.outlook.com
- ([fe80::1e67:dfc9:d0c1:fe58%7]) with mapi id 15.20.7587.026; Fri, 17 May 2024
- 14:57:47 +0000
-Date: Fri, 17 May 2024 10:57:37 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <ZkdwYeLyHJ3PkcQP@lizhi-Precision-Tower-5810>
-References: <20240423123302.1550592-1-amelie.delaunay@foss.st.com>
- <20240423123302.1550592-6-amelie.delaunay@foss.st.com>
- <ZkUFYoRCOOpAoIus@lizhi-Precision-Tower-5810>
- <408b4a20-680e-4bad-8971-ff98323ce04e@foss.st.com>
- <ZkY9zIfvaiA8h7Oq@lizhi-Precision-Tower-5810>
- <2da93910-01dc-4cfe-994e-3a0d70d2bd19@foss.st.com>
-Content-Disposition: inline
-In-Reply-To: <2da93910-01dc-4cfe-994e-3a0d70d2bd19@foss.st.com>
-X-ClientProxiedBy: BY5PR03CA0010.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::20) To PAXPR04MB9642.eurprd04.prod.outlook.com
- (2603:10a6:102:240::14)
+ Fri, 17 May 2024 15:41:10 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44HB5A16004163;
+ Fri, 17 May 2024 17:40:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=7cu5ONgBosUZx3tFXDIOzdo1cZFIP5906buw+P5jD/o=; b=W1
+ mSMUnB9oWw+I+RjaSYqn05GxSO8anep4e7F2g8unMZYQ+e1cG666B20akeC6zKS8
+ OyVYB70eGbOMzp+XafU9DbUgpS2LaPvcn5bRZSTEXtElIl1v3egTwQxtFGUAWE9D
+ 34pT5SFXtunI2h3o5swDCZGfZJ3t0S5NPXAQWEA6yVzVIOIGIAG5qosg0/PR4QIZ
+ AX7Iux3Wq8ay8+0s3Fv+Zd+QXfNi5xPhSUkOqqANGkZBlLdm8x0qp97M65dyfpQp
+ 6d0pNm2EJEvDbxc/p4w5Pm1NVU1kLITad+Npk0Iq9D5YhV0svXE82zMESVRmgxoW
+ dBzVh/oSU1hq45JOsVHA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y6628h2nx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 May 2024 17:40:39 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 96E3D4002D;
+ Fri, 17 May 2024 17:40:29 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A65A221970;
+ Fri, 17 May 2024 17:39:33 +0200 (CEST)
+Received: from [10.48.87.204] (10.48.87.204) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 17 May
+ 2024 17:39:32 +0200
+Message-ID: <07d54026-5d2a-49a3-9211-bfc6e62afec3@foss.st.com>
+Date: Fri, 17 May 2024 17:39:25 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9642:EE_|PAXPR04MB9519:EE_
-X-MS-Office365-Filtering-Correlation-Id: c17c1a64-259d-4f14-7c20-08dc7681b6b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230031|366007|52116005|376005|1800799015|7416005|38350700005; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PLMDmUkQSSZM7CAac2+ULiPz1bYvwEX9vhn5uYq8a+702xHJxuiMKy2b5wxo?=
- =?us-ascii?Q?h97gFopnop49Eg4K/UapzReAnpJOi6hLph84CVTsQB1FHUpRvQU4KRHmElFI?=
- =?us-ascii?Q?r1d0y4ewpEJhfal5uk9uKIhZW0oUESaygHAwAy8UpnHpaOrUJCmWOpFRkiYA?=
- =?us-ascii?Q?8bc9kufvMfggQQgIPnpjwqAhVoB+myWXs/3UlzraKqflqECMw57jWEInabW5?=
- =?us-ascii?Q?mNiyEIqGfQOD/W1q/EtrwtkP8E92v7JbJX1prfJpq6dbxStX+KViNCnHMo82?=
- =?us-ascii?Q?XS6oORXAVnUrhCHLayFY1K012ibGBa40WJMS2xhpCajZkaYolu2o8EEHxBFV?=
- =?us-ascii?Q?AtZm/7xk1ib9zDb8Gu8guHHeuzcPcQjRvgF1onyybjFlmKAMG1tVLSGG/nTZ?=
- =?us-ascii?Q?b4hXEtS1xa6CRTl5YDh/cyzRrfVQY803g2P+riV10OwuMQYefbGlb8Kfw2EJ?=
- =?us-ascii?Q?AhHC1DtOdSP5P3MuwVnUImhsX3f69FFtfx51l3W+HKx9SHtMXSE4KIvowdoH?=
- =?us-ascii?Q?USLoM3SrANEDavjat9rV8yFnPLxGIVvnNsoHe1suxOZbvnXM7RPrziP8FHiv?=
- =?us-ascii?Q?+qosgULa8akleL4ilaV4exsnIWb+0p1shQQOj7AqLDG/RZmpfzzn4ZcXFp0P?=
- =?us-ascii?Q?j/kCWn/ODdCX1KaBWYBZ3+m4Tkpy1CGWHfgqFVRQa4/1ow+vy9aukBVgytZU?=
- =?us-ascii?Q?ojg573pAGql3sIzY+FctPJUIa8UT6oS5Yu80dRht5QFvsBH+BtUPzQkTYFTf?=
- =?us-ascii?Q?Hr0Ce/9wCh8xL4LFvHdTSJP9vEs6dV2dPPcJtIxi92GleYPxq31y8WaC0shW?=
- =?us-ascii?Q?WPUWP2K1hEYFh89fyastzrqugFgSSCwf23zHsFJvL4Ur6a+HhvGeT53Q7hYW?=
- =?us-ascii?Q?5F2yjqOEgDZxAih8hrTyjvDC+RPfPNakRQPehBXqQWIIwgA0qJ/sNCsoQDmi?=
- =?us-ascii?Q?s5hPjEfcoAIqG7ht+Dui1A5f6A3gX8pQFkTKcHiMqIbUl/2L0rCl2OwITZ1/?=
- =?us-ascii?Q?+ZFyhk6PDJcTF6vaOZHAzGEh35+fqjRFeJKQMrBYtwH8H9hYeC79W1NDl6Vo?=
- =?us-ascii?Q?brcbQV2NiiTCOn5e2pYwizTTxQy0BXfXK42ST+2iF+JDOZP2bsQuC2uj5Y7V?=
- =?us-ascii?Q?faV+XzISKntqMADOll/OQyRYcR4XH1o51Mo+qPVcX2vijw0p0YieyEVYt42y?=
- =?us-ascii?Q?fgvMRqG17DBf9B22TrPF6kihwAmUW9zOigMVH9AWC19TddFZLP0IxFv5KOAL?=
- =?us-ascii?Q?QLNerVkr8w6/iglSui8eeMOTn2bTpEQLid2PGxenTkH2KQotWepWacLF03bm?=
- =?us-ascii?Q?1SAYkOwO8XAs0TrmTJ7EoLLoEGOoeitm9UtTp7FaG7D/bA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9642.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(52116005)(376005)(1800799015)(7416005)(38350700005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kIAas6UNE7Or01XcXIMGEukksDLUsJrsEfgHzUu/N8xSB4kmtBJGK4WIB8Ra?=
- =?us-ascii?Q?fl8Kt0dlw9ic7k0g4iPPe5WgFavVOJCk2UiTewdo0atfD4813JgoIMogfaXP?=
- =?us-ascii?Q?DbICEcWw1OVIzMs/aqJOQ0r3r4R847CvCMJEmdzFMDeK4ztvmsThBWvvYlmD?=
- =?us-ascii?Q?scWX3LJ/X8LiJqjZbWPPMzN2Y6gPguOqtjSLFwA29Op6zrfjPoq2zki2QAwY?=
- =?us-ascii?Q?kJsEaNVkEgD0V7oOUL5+D8ag3JWlmlbJ/t3HMH3/Fiqb06jYJtDsid0cf+KH?=
- =?us-ascii?Q?CXJa4NMCniwMRJANauoiZdH8JyHXDk801UMldAEIQvMdPAnsKYulkAE+K44G?=
- =?us-ascii?Q?rf5YX9aP2TehXWnCQkDh6Fr5QF8G+DQ6dqu7EmZuXZz8ycgTd54x7N5GTkMb?=
- =?us-ascii?Q?Tf4Uo9QrlQiOherV8HUhFI5tWaktRwWn1ZYQU169Iz0WW4or2nwWDnjACQ2Z?=
- =?us-ascii?Q?VbVdVJd2+tA1U4jQKuL0YZA/UNvUW1jiVpSBFicnese6k0enqsC8nDmWDceq?=
- =?us-ascii?Q?HY+iHb6m3vxRiVBesQDkEenlu+v0AR48WvStejBzm1ss0kGdRWbCen6SyIxT?=
- =?us-ascii?Q?xieMcBRzP8NEaVH4hpwIUtO6oIjbwbgDP3MsC/mf1TzABDMeRfEhzQfAfQLD?=
- =?us-ascii?Q?eC/ojLatTs7Smnfypl4sYcn5BhlOAfsuspwmW2mY75r8BipkJFlcRLuO3BFa?=
- =?us-ascii?Q?A2OPkVAeQehYZP//K5HDPiWbEngNf52RUQgr5YD4m4TE0DpEontEu/myV7hk?=
- =?us-ascii?Q?M/Ad+IZPQK1SMfpeatunsublbwj7EbRCpCTgOZnuccBngMXO90Q9Ul4+R6R+?=
- =?us-ascii?Q?QV0tCUrtMooyu/65dsWJh0jSZXddWPabLFRnTgzk3VUGy/HNAnPxdIo5VmCz?=
- =?us-ascii?Q?IX7V3WDJ1pdVtorf3kJjb0oi7jLAumP05qw0ybVm9SP0sHGImrTrO4iC7Wi9?=
- =?us-ascii?Q?3+G4IptgctQVhy4Bo6f4eV61H+qhjDzfLf7JhhTnJ6U33BVlaZ8KnQHbTsRK?=
- =?us-ascii?Q?wF26m24NHAHlluN6WEJHK0lGm2TcUivePz55Np6jd6Q3mSHnCTQOhDJZ15dY?=
- =?us-ascii?Q?Q/yN6TIXIL6vzoZpzTiR2efQLWuPT39iZzzY/SesrXI093qdpjWUeVC6ANqy?=
- =?us-ascii?Q?1PmicI9ePjG2elmgZIhgA2pHpxMA5scZIfnYbmXMKMbqou3qG+3COpISXh5C?=
- =?us-ascii?Q?DJGDgdROKxWouaTA8sXbXVywz5nAq6lChoc8heZsoYLDj3nHgI8Gw9mybFJW?=
- =?us-ascii?Q?hjcgVNZ+W5o0EMp/wB+DooCYzZ1YWEF9qOBAyzjF81UB3uBDistx32EeNJ2v?=
- =?us-ascii?Q?5egGFeLCpS2AEOtcM14Pzp3n2Pshn1zeraAyXu+fzHazgjO/jDU1guKl9svd?=
- =?us-ascii?Q?cXmC2xs8xP4QFZNhRwsmP8r4Of2LcxmAxtLpT2aub1KotRMqJy3/W0oSOrSH?=
- =?us-ascii?Q?hasnNA0O+n+uHxTV4TX2VLqE4bjQ31OV+wKNaG/otevMphYLVogHLBJv6qqw?=
- =?us-ascii?Q?I875jc+67Rxrdae1TF9ZvsWxH+N6VbSRdleMzxbP9H1o8Aad0zJVre93ochI?=
- =?us-ascii?Q?3/Yxa9LcpdQJ49PeJyNMtH3cxTv9QVlBFE+6Xw1z?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c17c1a64-259d-4f14-7c20-08dc7681b6b2
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9642.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2024 14:57:47.0676 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fC/eiCEj5pCdxzzErt2juGXS4fzAS/a0J5FZwFX6JPi6orTThlNOQyVrGAZwa95FGhy0ycWoZJuj2bRf56PZyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9519
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, linux-hardening@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 05/12] dmaengine: Add STM32 DMA3 support
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-crypto@vger.kernel.org>
+References: <20240513220349.183568-1-marex@denx.de>
+ <b2d0dfcb-37d6-4375-a4ad-ca96a5339840@foss.st.com>
+ <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+ <51951dd4-8e8c-4e67-89f6-6a710022e34f@foss.st.com>
+ <3257e8f8-5bb0-4c75-a3a3-e5685b65de2a@denx.de>
+ <5b39b5b6-7008-4362-a578-3faab87cd23b@foss.st.com>
+ <2eb2b80e-8650-46cf-9d8f-6dd6a884558a@denx.de>
+ <eb3a2581-efc6-40c3-a7ea-551865017d40@foss.st.com>
+ <c28e39e3-64d8-4ed7-a2e5-48ee124ef8e3@denx.de>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <c28e39e3-64d8-4ed7-a2e5-48ee124ef8e3@denx.de>
+X-Originating-IP: [10.48.87.204]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-17_07,2024-05-17_03,2023-05-22_02
+Cc: Rob Herring <robh@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Olivia Mackall <olivia@selenic.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] [RFC] clk: stm32mp1: Keep RNG1 clock
+	always running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,913 +86,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 17, 2024 at 11:42:17AM +0200, Amelie Delaunay wrote:
-> On 5/16/24 19:09, Frank Li wrote:
-> > On Thu, May 16, 2024 at 05:25:58PM +0200, Amelie Delaunay wrote:
-> > > On 5/15/24 20:56, Frank Li wrote:
-> > > > On Tue, Apr 23, 2024 at 02:32:55PM +0200, Amelie Delaunay wrote:
-> > > > > STM32 DMA3 driver supports the 3 hardware configurations of the STM32 DMA3
-> > > > > controller:
-> > ...
-> > > > > +	writel_relaxed(hwdesc->cdar, ddata->base + STM32_DMA3_CDAR(id));
-> > > > > +	writel_relaxed(hwdesc->cllr, ddata->base + STM32_DMA3_CLLR(id));
-> > > > > +
-> > > > > +	/* Clear any pending interrupts */
-> > > > > +	csr = readl_relaxed(ddata->base + STM32_DMA3_CSR(id));
-> > > > > +	if (csr & CSR_ALL_F)
-> > > > > +		writel_relaxed(csr, ddata->base + STM32_DMA3_CFCR(id));
-> > > > > +
-> > > > > +	stm32_dma3_chan_dump_reg(chan);
-> > > > > +
-> > > > > +	ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(id));
-> > > > > +	writel_relaxed(ccr | CCR_EN, ddata->base + STM32_DMA3_CCR(id));
-> > > > 
-> > > > This one should use writel instead of writel_relaxed because it need
-> > > > dma_wmb() as barrier for preious write complete.
-> > > > 
-> > > > Frank
-> > > > 
-> > > 
-> > > ddata->base is Device memory type thanks to ioremap() use, so it is strongly
-> > > ordered and non-cacheable.
-> > > DMA3 is outside CPU cluster, its registers are accessible through AHB bus.
-> > > dma_wmb() (in case of writel instead of writel_relaxed) is useless in that
-> > > case: it won't ensure the propagation on the bus is complete, and it will
-> > > have impacts on the system.
-> > > That's why CCR register is written once,  then it is read before CCR_EN is
-> > > set and being written again, with _relaxed(), because registers are behind a
-> > > bus, and ioremapped with Device memory type which ensures it is strongly
-> > > ordered and non-cacheable.
-> > 
-> > regardless memory map, writel_relaxed() just make sure io write and read is
-> > orderred, not necessary order with other memory access. only readl and
-> > writel make sure order with other memory read/write.
-> > 
-> > 1. Write src_addr to descriptor
-> > 2. dma_wmb()
-> > 3. Write "ready" to descriptor
-> > 4. enable channel or doorbell by write a register.
-> > 
-> > if 4 use writel_relaxe(). because 3 write to DDR, which difference place of
-> > mmio, 4 may happen before 3.  Your can refer axi order model.
-> > 
-> > 4 have to use ONE writel(), to make sure 3 already write to DDR.
-> > 
-> > You need use at least one writel() to make sure all nornmal memory finish.
-> > 
-> 
-> +    writel_relaxed(chan->swdesc->ccr, ddata->base + STM32_DMA3_CCR(id));
-> +    writel_relaxed(hwdesc->ctr1, ddata->base + STM32_DMA3_CTR1(id));
-> +    writel_relaxed(hwdesc->ctr2, ddata->base + STM32_DMA3_CTR2(id));
-> +    writel_relaxed(hwdesc->cbr1, ddata->base + STM32_DMA3_CBR1(id));
-> +    writel_relaxed(hwdesc->csar, ddata->base + STM32_DMA3_CSAR(id));
-> +    writel_relaxed(hwdesc->cdar, ddata->base + STM32_DMA3_CDAR(id));
-> +    writel_relaxed(hwdesc->cllr, ddata->base + STM32_DMA3_CLLR(id));
-> 
-> These writel_relaxed() are from descriptors to DMA3 registers (descriptors
-> being prepared "a long time ago" during _prep_).
-
-You can't depend on "a long time ago" during _prep_. If later your driver
-run at fast CPU. The execute time will be short.
-
-All dma_map_sg and dma_alloc_coherence ... need at least one writel() to
-make sure previous write actually reach to DDR. 
-
-Some data may not really reach DDR, when DMA already start transfer
-
-Please ref linux kernel document: 
-	Documentation/memory-barriers.txt, line 1948.
-
-In your issue_pending(), call this function to enable channel. So need
-at least one writel().
-
-> As I said previously, DMA3 registers are outside CPU cluster, accessible
-> through AHB bus, and ddata->base to address registers is ioremapped as
-> Device memory type, non-cacheable and strongly ordered.
-> 
-> arch/arm/include/asm/io.h:
-> /*
-> * ioremap() and friends.
-> *
-> * ioremap() takes a resource address, and size.  Due to the ARM memory
-> * types, it is important to use the correct ioremap() function as each
-> * mapping has specific properties.
-> *
-> * Function		Memory type	Cacheability	Cache hint
-> * *ioremap()*		*Device*		*n/a*		*n/a*
-> * ioremap_cache()	Normal		Writeback	Read allocate
-> * ioremap_wc()		Normal		Non-cacheable	n/a
-> * ioremap_wt()		Normal		Non-cacheable	n/a
-> *
-> * All device mappings have the following properties:
-> * - no access speculation
-> * - no repetition (eg, on return from an exception)
-> * - number, order and size of accesses are maintained
-> * - unaligned accesses are "unpredictable"
-> * - writes may be delayed before they hit the endpoint device
-> 
-> On our platforms, we know that to ensure the writes have hit the endpoint
-> device (aka DMA3 registers), a read have to be done before.
-> And that's what is done before enabling the channel:
-> 
-> +    ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(id));
-> +    writel_relaxed(ccr | CCR_EN, ddata->base + STM32_DMA3_CCR(id));
-> 
-> If there was an issue in this part of the code, it means channel would be
-> started while it is wrongly programmed. In that case, DMA3 would raise a
-> User Setting Error interrupt and disable the channel. User Setting Error is
-> managed in this driver (USEF/stm32_dma3_check_user_setting()). And we never
-> had reached a situation.
-
-
-I am not talking about registers IO read/write order. read_releax() and
-write_relax() can guarantee IO read and write ordered. But not guarantee
-order with normal memory's read and write.
-
-You have not met problem doesn't means your code is correct. Please check
-document: 
-	Documentation/memory-barriers.txt
-
-> 
-> > > 
-> > > > > +
-> > > > > +	chan->dma_status = DMA_IN_PROGRESS;
-> > > > > +
-> > > > > +	dev_dbg(chan2dev(chan), "vchan %pK: started\n", &chan->vchan);
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_chan_suspend(struct stm32_dma3_chan *chan, bool susp)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	u32 csr, ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(chan->id)) & ~CCR_EN;
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	if (susp)
-> > > > > +		ccr |= CCR_SUSP;
-> > > > > +	else
-> > > > > +		ccr &= ~CCR_SUSP;
-> > > > > +
-> > > > > +	writel_relaxed(ccr, ddata->base + STM32_DMA3_CCR(chan->id));
-> > > > > +
-> > > > > +	if (susp) {
-> > > > > +		ret = readl_relaxed_poll_timeout_atomic(ddata->base + STM32_DMA3_CSR(chan->id), csr,
-> > > > > +							csr & CSR_SUSPF, 1, 10);
-> > > > > +		if (!ret)
-> > > > > +			writel_relaxed(CFCR_SUSPF, ddata->base + STM32_DMA3_CFCR(chan->id));
-> > > > > +
-> > > > > +		stm32_dma3_chan_dump_reg(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_chan_reset(struct stm32_dma3_chan *chan)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	u32 ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(chan->id)) & ~CCR_EN;
-> > > > > +
-> > > > > +	writel_relaxed(ccr |= CCR_RESET, ddata->base + STM32_DMA3_CCR(chan->id));
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_chan_stop(struct stm32_dma3_chan *chan)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	u32 ccr;
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	chan->dma_status = DMA_COMPLETE;
-> > > > > +
-> > > > > +	/* Disable interrupts */
-> > > > > +	ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(chan->id));
-> > > > > +	writel_relaxed(ccr & ~(CCR_ALLIE | CCR_EN), ddata->base + STM32_DMA3_CCR(chan->id));
-> > > > > +
-> > > > > +	if (!(ccr & CCR_SUSP) && (ccr & CCR_EN)) {
-> > > > > +		/* Suspend the channel */
-> > > > > +		ret = stm32_dma3_chan_suspend(chan, true);
-> > > > > +		if (ret)
-> > > > > +			dev_warn(chan2dev(chan), "%s: timeout, data might be lost\n", __func__);
-> > > > > +	}
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Reset the channel: this causes the reset of the FIFO and the reset of the channel
-> > > > > +	 * internal state, the reset of CCR_EN and CCR_SUSP bits.
-> > > > > +	 */
-> > > > > +	stm32_dma3_chan_reset(chan);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_chan_complete(struct stm32_dma3_chan *chan)
-> > > > > +{
-> > > > > +	if (!chan->swdesc)
-> > > > > +		return;
-> > > > > +
-> > > > > +	vchan_cookie_complete(&chan->swdesc->vdesc);
-> > > > > +	chan->swdesc = NULL;
-> > > > > +	stm32_dma3_chan_start(chan);
-> > > > > +}
-> > > > > +
-> > > > > +static irqreturn_t stm32_dma3_chan_irq(int irq, void *devid)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = devid;
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	u32 misr, csr, ccr;
-> > > > > +
-> > > > > +	spin_lock(&chan->vchan.lock);
-> > > > > +
-> > > > > +	misr = readl_relaxed(ddata->base + STM32_DMA3_MISR);
-> > > > > +	if (!(misr & MISR_MIS(chan->id))) {
-> > > > > +		spin_unlock(&chan->vchan.lock);
-> > > > > +		return IRQ_NONE;
-> > > > > +	}
-> > > > > +
-> > > > > +	csr = readl_relaxed(ddata->base + STM32_DMA3_CSR(chan->id));
-> > > > > +	ccr = readl_relaxed(ddata->base + STM32_DMA3_CCR(chan->id)) & CCR_ALLIE;
-> > > > > +
-> > > > > +	if (csr & CSR_TCF && ccr & CCR_TCIE) {
-> > > > > +		if (chan->swdesc->cyclic)
-> > > > > +			vchan_cyclic_callback(&chan->swdesc->vdesc);
-> > > > > +		else
-> > > > > +			stm32_dma3_chan_complete(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	if (csr & CSR_USEF && ccr & CCR_USEIE) {
-> > > > > +		dev_err(chan2dev(chan), "User setting error\n");
-> > > > > +		chan->dma_status = DMA_ERROR;
-> > > > > +		/* CCR.EN automatically cleared by HW */
-> > > > > +		stm32_dma3_check_user_setting(chan);
-> > > > > +		stm32_dma3_chan_reset(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	if (csr & CSR_ULEF && ccr & CCR_ULEIE) {
-> > > > > +		dev_err(chan2dev(chan), "Update link transfer error\n");
-> > > > > +		chan->dma_status = DMA_ERROR;
-> > > > > +		/* CCR.EN automatically cleared by HW */
-> > > > > +		stm32_dma3_chan_reset(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	if (csr & CSR_DTEF && ccr & CCR_DTEIE) {
-> > > > > +		dev_err(chan2dev(chan), "Data transfer error\n");
-> > > > > +		chan->dma_status = DMA_ERROR;
-> > > > > +		/* CCR.EN automatically cleared by HW */
-> > > > > +		stm32_dma3_chan_reset(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Half Transfer Interrupt may be disabled but Half Transfer Flag can be set,
-> > > > > +	 * ensure HTF flag to be cleared, with other flags.
-> > > > > +	 */
-> > > > > +	csr &= (ccr | CCR_HTIE);
-> > > > > +
-> > > > > +	if (csr)
-> > > > > +		writel_relaxed(csr, ddata->base + STM32_DMA3_CFCR(chan->id));
-> > > > > +
-> > > > > +	spin_unlock(&chan->vchan.lock);
-> > > > > +
-> > > > > +	return IRQ_HANDLED;
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_alloc_chan_resources(struct dma_chan *c)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	u32 id = chan->id, csemcr, ccid;
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ret = pm_runtime_resume_and_get(ddata->dma_dev.dev);
-> > > > > +	if (ret < 0)
-> > > > > +		return ret;
-> > > > 
-> > > > It doesn't prefer runtime pm get at alloc dma chan, many client driver
-> > > > doesn't actual user dma when allocate dma chan.
-> > > > 
-> > > > Ideally, resume get when issue_pending. Please refer pl330.c.
-> > > > 
-> > > > You may add runtime pm later after enablement patch.
-> > > > 
-> > > > Frank
-> > > > 
-> > > 
-> > > To well balance clock enable/disable, if pm_runtime_resume_and_get() (rather
-> > > than pm_runtime_get_sync() which doesn't decrement the counter in case of
-> > > error) is used when issue_pending, it means pm_runtime_put_sync() should be
-> > > done when transfer ends.
-> > > 
-> > > terminate_all is not always called, so put_sync can't be used only there, it
-> > > should be conditionnally used in terminate_all, but also in interrupt
-> > > handler, on error events and on transfer completion event, provided that it
-> > > is the last transfer complete event (last item of the linked-list).
-> > > 
-> > > For clients with high transfer rate, it means a lot of clock enable/disable.
-> > > Moreover, DMA3 clock is managed by Secure OS. So it means a lot of
-> > > non-secure/secure world transitions.
-> > > 
-> > > I prefer to keep the implementation as it is for now, and possibly propose
-> > > runtime pm improvement later, with autosuspend.
-> > 
-> > 
-> > Autosuspend is perfered. we try to use pm_runtime_get/put at channel alloc
-> > /free before, but this solution are rejected by community.
-> > 
-> > you can leave clock on for this enablement patch and add runtime pm later
-> > time.
-> > 
-> > Frank
-> > 
-> 
-> Current implementation leaves the clock off if no channel is requested. It
-> also disables the clock if platform is suspended.
-> I just took example from what is done in stm32 drivers.
-> 
-> I have further patches, not proposed in this series which adds a basic
-> support of DMA3. There will be improvements, including runtime pm, in next
-> series.
-> 
-> Amelie
-> 
-> > > 
-> > > Amelie
-> > > 
-> > > > > +
-> > > > > +	/* Ensure the channel is free */
-> > > > > +	if (chan->semaphore_mode &&
-> > > > > +	    readl_relaxed(ddata->base + STM32_DMA3_CSEMCR(chan->id)) & CSEMCR_SEM_MUTEX) {
-> > > > > +		ret = -EBUSY;
-> > > > > +		goto err_put_sync;
-> > > > > +	}
-> > > > > +
-> > > > > +	chan->lli_pool = dmam_pool_create(dev_name(&c->dev->device), c->device->dev,
-> > > > > +					  sizeof(struct stm32_dma3_hwdesc),
-> > > > > +					  __alignof__(struct stm32_dma3_hwdesc), 0);
-> > > > > +	if (!chan->lli_pool) {
-> > > > > +		dev_err(chan2dev(chan), "Failed to create LLI pool\n");
-> > > > > +		ret = -ENOMEM;
-> > > > > +		goto err_put_sync;
-> > > > > +	}
-> > > > > +
-> > > > > +	/* Take the channel semaphore */
-> > > > > +	if (chan->semaphore_mode) {
-> > > > > +		writel_relaxed(CSEMCR_SEM_MUTEX, ddata->base + STM32_DMA3_CSEMCR(id));
-> > > > > +		csemcr = readl_relaxed(ddata->base + STM32_DMA3_CSEMCR(id));
-> > > > > +		ccid = FIELD_GET(CSEMCR_SEM_CCID, csemcr);
-> > > > > +		/* Check that the channel is well taken */
-> > > > > +		if (ccid != CCIDCFGR_CID1) {
-> > > > > +			dev_err(chan2dev(chan), "Not under CID1 control (in-use by CID%d)\n", ccid);
-> > > > > +			ret = -EPERM;
-> > > > > +			goto err_pool_destroy;
-> > > > > +		}
-> > > > > +		dev_dbg(chan2dev(chan), "Under CID1 control (semcr=0x%08x)\n", csemcr);
-> > > > > +	}
-> > > > > +
-> > > > > +	return 0;
-> > > > > +
-> > > > > +err_pool_destroy:
-> > > > > +	dmam_pool_destroy(chan->lli_pool);
-> > > > > +	chan->lli_pool = NULL;
-> > > > > +
-> > > > > +err_put_sync:
-> > > > > +	pm_runtime_put_sync(ddata->dma_dev.dev);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_free_chan_resources(struct dma_chan *c)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	unsigned long flags;
-> > > > > +
-> > > > > +	/* Ensure channel is in idle state */
-> > > > > +	spin_lock_irqsave(&chan->vchan.lock, flags);
-> > > > > +	stm32_dma3_chan_stop(chan);
-> > > > > +	chan->swdesc = NULL;
-> > > > > +	spin_unlock_irqrestore(&chan->vchan.lock, flags);
-> > > > > +
-> > > > > +	vchan_free_chan_resources(to_virt_chan(c));
-> > > > > +
-> > > > > +	dmam_pool_destroy(chan->lli_pool);
-> > > > > +	chan->lli_pool = NULL;
-> > > > > +
-> > > > > +	/* Release the channel semaphore */
-> > > > > +	if (chan->semaphore_mode)
-> > > > > +		writel_relaxed(0, ddata->base + STM32_DMA3_CSEMCR(chan->id));
-> > > > > +
-> > > > > +	pm_runtime_put_sync(ddata->dma_dev.dev);
-> > > > > +
-> > > > > +	/* Reset configuration */
-> > > > > +	memset(&chan->dt_config, 0, sizeof(chan->dt_config));
-> > > > > +	memset(&chan->dma_config, 0, sizeof(chan->dma_config));
-> > > > > +}
-> > > > > +
-> > > > > +static struct dma_async_tx_descriptor *stm32_dma3_prep_slave_sg(struct dma_chan *c,
-> > > > > +								struct scatterlist *sgl,
-> > > > > +								unsigned int sg_len,
-> > > > > +								enum dma_transfer_direction dir,
-> > > > > +								unsigned long flags, void *context)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	struct stm32_dma3_swdesc *swdesc;
-> > > > > +	struct scatterlist *sg;
-> > > > > +	size_t len;
-> > > > > +	dma_addr_t sg_addr, dev_addr, src, dst;
-> > > > > +	u32 i, j, count, ctr1, ctr2;
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	count = sg_len;
-> > > > > +	for_each_sg(sgl, sg, sg_len, i) {
-> > > > > +		len = sg_dma_len(sg);
-> > > > > +		if (len > STM32_DMA3_MAX_BLOCK_SIZE)
-> > > > > +			count += DIV_ROUND_UP(len, STM32_DMA3_MAX_BLOCK_SIZE) - 1;
-> > > > > +	}
-> > > > > +
-> > > > > +	swdesc = stm32_dma3_chan_desc_alloc(chan, count);
-> > > > > +	if (!swdesc)
-> > > > > +		return NULL;
-> > > > > +
-> > > > > +	/* sg_len and i correspond to the initial sgl; count and j correspond to the hwdesc LL */
-> > > > > +	j = 0;
-> > > > > +	for_each_sg(sgl, sg, sg_len, i) {
-> > > > > +		sg_addr = sg_dma_address(sg);
-> > > > > +		dev_addr = (dir == DMA_MEM_TO_DEV) ? chan->dma_config.dst_addr :
-> > > > > +						     chan->dma_config.src_addr;
-> > > > > +		len = sg_dma_len(sg);
-> > > > > +
-> > > > > +		do {
-> > > > > +			size_t chunk = min_t(size_t, len, STM32_DMA3_MAX_BLOCK_SIZE);
-> > > > > +
-> > > > > +			if (dir == DMA_MEM_TO_DEV) {
-> > > > > +				src = sg_addr;
-> > > > > +				dst = dev_addr;
-> > > > > +
-> > > > > +				ret = stm32_dma3_chan_prep_hw(chan, dir, &swdesc->ccr, &ctr1, &ctr2,
-> > > > > +							      src, dst, chunk);
-> > > > > +
-> > > > > +				if (FIELD_GET(CTR1_DINC, ctr1))
-> > > > > +					dev_addr += chunk;
-> > > > > +			} else { /* (dir == DMA_DEV_TO_MEM || dir == DMA_MEM_TO_MEM) */
-> > > > > +				src = dev_addr;
-> > > > > +				dst = sg_addr;
-> > > > > +
-> > > > > +				ret = stm32_dma3_chan_prep_hw(chan, dir, &swdesc->ccr, &ctr1, &ctr2,
-> > > > > +							      src, dst, chunk);
-> > > > > +
-> > > > > +				if (FIELD_GET(CTR1_SINC, ctr1))
-> > > > > +					dev_addr += chunk;
-> > > > > +			}
-> > > > > +
-> > > > > +			if (ret)
-> > > > > +				goto err_desc_free;
-> > > > > +
-> > > > > +			stm32_dma3_chan_prep_hwdesc(chan, swdesc, j, src, dst, chunk,
-> > > > > +						    ctr1, ctr2, j == (count - 1), false);
-> > > > > +
-> > > > > +			sg_addr += chunk;
-> > > > > +			len -= chunk;
-> > > > > +			j++;
-> > > > > +		} while (len);
-> > > > > +	}
-> > > > > +
-> > > > > +	/* Enable Error interrupts */
-> > > > > +	swdesc->ccr |= CCR_USEIE | CCR_ULEIE | CCR_DTEIE;
-> > > > > +	/* Enable Transfer state interrupts */
-> > > > > +	swdesc->ccr |= CCR_TCIE;
-> > > > > +
-> > > > > +	swdesc->cyclic = false;
-> > > > > +
-> > > > > +	return vchan_tx_prep(&chan->vchan, &swdesc->vdesc, flags);
-> > > > > +
-> > > > > +err_desc_free:
-> > > > > +	stm32_dma3_chan_desc_free(chan, swdesc);
-> > > > > +
-> > > > > +	return NULL;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_caps(struct dma_chan *c, struct dma_slave_caps *caps)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +
-> > > > > +	if (!chan->fifo_size) {
-> > > > > +		caps->max_burst = 0;
-> > > > > +		caps->src_addr_widths &= ~BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +		caps->dst_addr_widths &= ~BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +	} else {
-> > > > > +		/* Burst transfer should not exceed half of the fifo size */
-> > > > > +		caps->max_burst = chan->max_burst;
-> > > > > +		if (caps->max_burst < DMA_SLAVE_BUSWIDTH_8_BYTES) {
-> > > > > +			caps->src_addr_widths &= ~BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +			caps->dst_addr_widths &= ~BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +		}
-> > > > > +	}
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_config(struct dma_chan *c, struct dma_slave_config *config)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +
-> > > > > +	memcpy(&chan->dma_config, config, sizeof(*config));
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_terminate_all(struct dma_chan *c)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	unsigned long flags;
-> > > > > +	LIST_HEAD(head);
-> > > > > +
-> > > > > +	spin_lock_irqsave(&chan->vchan.lock, flags);
-> > > > > +
-> > > > > +	if (chan->swdesc) {
-> > > > > +		vchan_terminate_vdesc(&chan->swdesc->vdesc);
-> > > > > +		chan->swdesc = NULL;
-> > > > > +	}
-> > > > > +
-> > > > > +	stm32_dma3_chan_stop(chan);
-> > > > > +
-> > > > > +	vchan_get_all_descriptors(&chan->vchan, &head);
-> > > > > +
-> > > > > +	spin_unlock_irqrestore(&chan->vchan.lock, flags);
-> > > > > +	vchan_dma_desc_free_list(&chan->vchan, &head);
-> > > > > +
-> > > > > +	dev_dbg(chan2dev(chan), "vchan %pK: terminated\n", &chan->vchan);
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_synchronize(struct dma_chan *c)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +
-> > > > > +	vchan_synchronize(&chan->vchan);
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_issue_pending(struct dma_chan *c)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	unsigned long flags;
-> > > > > +
-> > > > > +	spin_lock_irqsave(&chan->vchan.lock, flags);
-> > > > > +
-> > > > > +	if (vchan_issue_pending(&chan->vchan) && !chan->swdesc) {
-> > > > > +		dev_dbg(chan2dev(chan), "vchan %pK: issued\n", &chan->vchan);
-> > > > > +		stm32_dma3_chan_start(chan);
-> > > > > +	}
-> > > > > +
-> > > > > +	spin_unlock_irqrestore(&chan->vchan.lock, flags);
-> > > > > +}
-> > > > > +
-> > > > > +static bool stm32_dma3_filter_fn(struct dma_chan *c, void *fn_param)
-> > > > > +{
-> > > > > +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-> > > > > +	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
-> > > > > +	struct stm32_dma3_dt_conf *conf = fn_param;
-> > > > > +	u32 mask, semcr;
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	dev_dbg(c->device->dev, "%s(%s): req_line=%d ch_conf=%08x tr_conf=%08x\n",
-> > > > > +		__func__, dma_chan_name(c), conf->req_line, conf->ch_conf, conf->tr_conf);
-> > > > > +
-> > > > > +	if (!of_property_read_u32(c->device->dev->of_node, "dma-channel-mask", &mask))
-> > > > > +		if (!(mask & BIT(chan->id)))
-> > > > > +			return false;
-> > > > > +
-> > > > > +	ret = pm_runtime_resume_and_get(ddata->dma_dev.dev);
-> > > > > +	if (ret < 0)
-> > > > > +		return false;
-> > > > > +	semcr = readl_relaxed(ddata->base + STM32_DMA3_CSEMCR(chan->id));
-> > > > > +	pm_runtime_put_sync(ddata->dma_dev.dev);
-> > > > > +
-> > > > > +	/* Check if chan is free */
-> > > > > +	if (semcr & CSEMCR_SEM_MUTEX)
-> > > > > +		return false;
-> > > > > +
-> > > > > +	/* Check if chan fifo fits well */
-> > > > > +	if (FIELD_GET(STM32_DMA3_DT_FIFO, conf->ch_conf) != chan->fifo_size)
-> > > > > +		return false;
-> > > > > +
-> > > > > +	return true;
-> > > > > +}
-> > > > > +
-> > > > > +static struct dma_chan *stm32_dma3_of_xlate(struct of_phandle_args *dma_spec, struct of_dma *ofdma)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = ofdma->of_dma_data;
-> > > > > +	dma_cap_mask_t mask = ddata->dma_dev.cap_mask;
-> > > > > +	struct stm32_dma3_dt_conf conf;
-> > > > > +	struct stm32_dma3_chan *chan;
-> > > > > +	struct dma_chan *c;
-> > > > > +
-> > > > > +	if (dma_spec->args_count < 3) {
-> > > > > +		dev_err(ddata->dma_dev.dev, "Invalid args count\n");
-> > > > > +		return NULL;
-> > > > > +	}
-> > > > > +
-> > > > > +	conf.req_line = dma_spec->args[0];
-> > > > > +	conf.ch_conf = dma_spec->args[1];
-> > > > > +	conf.tr_conf = dma_spec->args[2];
-> > > > > +
-> > > > > +	if (conf.req_line >= ddata->dma_requests) {
-> > > > > +		dev_err(ddata->dma_dev.dev, "Invalid request line\n");
-> > > > > +		return NULL;
-> > > > > +	}
-> > > > > +
-> > > > > +	/* Request dma channel among the generic dma controller list */
-> > > > > +	c = dma_request_channel(mask, stm32_dma3_filter_fn, &conf);
-> > > > > +	if (!c) {
-> > > > > +		dev_err(ddata->dma_dev.dev, "No suitable channel found\n");
-> > > > > +		return NULL;
-> > > > > +	}
-> > > > > +
-> > > > > +	chan = to_stm32_dma3_chan(c);
-> > > > > +	chan->dt_config = conf;
-> > > > > +
-> > > > > +	return c;
-> > > > > +}
-> > > > > +
-> > > > > +static u32 stm32_dma3_check_rif(struct stm32_dma3_ddata *ddata)
-> > > > > +{
-> > > > > +	u32 chan_reserved, mask = 0, i, ccidcfgr, invalid_cid = 0;
-> > > > > +
-> > > > > +	/* Reserve Secure channels */
-> > > > > +	chan_reserved = readl_relaxed(ddata->base + STM32_DMA3_SECCFGR);
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * CID filtering must be configured to ensure that the DMA3 channel will inherit the CID of
-> > > > > +	 * the processor which is configuring and using the given channel.
-> > > > > +	 * In case CID filtering is not configured, dma-channel-mask property can be used to
-> > > > > +	 * specify available DMA channels to the kernel.
-> > > > > +	 */
-> > > > > +	of_property_read_u32(ddata->dma_dev.dev->of_node, "dma-channel-mask", &mask);
-> > > > > +
-> > > > > +	/* Reserve !CID-filtered not in dma-channel-mask, static CID != CID1, CID1 not allowed */
-> > > > > +	for (i = 0; i < ddata->dma_channels; i++) {
-> > > > > +		ccidcfgr = readl_relaxed(ddata->base + STM32_DMA3_CCIDCFGR(i));
-> > > > > +
-> > > > > +		if (!(ccidcfgr & CCIDCFGR_CFEN)) { /* !CID-filtered */
-> > > > > +			invalid_cid |= BIT(i);
-> > > > > +			if (!(mask & BIT(i))) /* Not in dma-channel-mask */
-> > > > > +				chan_reserved |= BIT(i);
-> > > > > +		} else { /* CID-filtered */
-> > > > > +			if (!(ccidcfgr & CCIDCFGR_SEM_EN)) { /* Static CID mode */
-> > > > > +				if (FIELD_GET(CCIDCFGR_SCID, ccidcfgr) != CCIDCFGR_CID1)
-> > > > > +					chan_reserved |= BIT(i);
-> > > > > +			} else { /* Semaphore mode */
-> > > > > +				if (!FIELD_GET(CCIDCFGR_SEM_WLIST_CID1, ccidcfgr))
-> > > > > +					chan_reserved |= BIT(i);
-> > > > > +				ddata->chans[i].semaphore_mode = true;
-> > > > > +			}
-> > > > > +		}
-> > > > > +		dev_dbg(ddata->dma_dev.dev, "chan%d: %s mode, %s\n", i,
-> > > > > +			!(ccidcfgr & CCIDCFGR_CFEN) ? "!CID-filtered" :
-> > > > > +			ddata->chans[i].semaphore_mode ? "Semaphore" : "Static CID",
-> > > > > +			(chan_reserved & BIT(i)) ? "denied" :
-> > > > > +			mask & BIT(i) ? "force allowed" : "allowed");
-> > > > > +	}
-> > > > > +
-> > > > > +	if (invalid_cid)
-> > > > > +		dev_warn(ddata->dma_dev.dev, "chan%*pbl have invalid CID configuration\n",
-> > > > > +			 ddata->dma_channels, &invalid_cid);
-> > > > > +
-> > > > > +	return chan_reserved;
-> > > > > +}
-> > > > > +
-> > > > > +static const struct of_device_id stm32_dma3_of_match[] = {
-> > > > > +	{ .compatible = "st,stm32-dma3", },
-> > > > > +	{ /* sentinel */},
-> > > > > +};
-> > > > > +MODULE_DEVICE_TABLE(of, stm32_dma3_of_match);
-> > > > > +
-> > > > > +static int stm32_dma3_probe(struct platform_device *pdev)
-> > > > > +{
-> > > > > +	struct device_node *np = pdev->dev.of_node;
-> > > > > +	struct stm32_dma3_ddata *ddata;
-> > > > > +	struct reset_control *reset;
-> > > > > +	struct stm32_dma3_chan *chan;
-> > > > > +	struct dma_device *dma_dev;
-> > > > > +	u32 master_ports, chan_reserved, i, verr;
-> > > > > +	u64 hwcfgr;
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ddata = devm_kzalloc(&pdev->dev, sizeof(*ddata), GFP_KERNEL);
-> > > > > +	if (!ddata)
-> > > > > +		return -ENOMEM;
-> > > > > +	platform_set_drvdata(pdev, ddata);
-> > > > > +
-> > > > > +	dma_dev = &ddata->dma_dev;
-> > > > > +
-> > > > > +	ddata->base = devm_platform_ioremap_resource(pdev, 0);
-> > > > > +	if (IS_ERR(ddata->base))
-> > > > > +		return PTR_ERR(ddata->base);
-> > > > > +
-> > > > > +	ddata->clk = devm_clk_get(&pdev->dev, NULL);
-> > > > > +	if (IS_ERR(ddata->clk))
-> > > > > +		return dev_err_probe(&pdev->dev, PTR_ERR(ddata->clk), "Failed to get clk\n");
-> > > > > +
-> > > > > +	reset = devm_reset_control_get_optional(&pdev->dev, NULL);
-> > > > > +	if (IS_ERR(reset))
-> > > > > +		return dev_err_probe(&pdev->dev, PTR_ERR(reset), "Failed to get reset\n");
-> > > > > +
-> > > > > +	ret = clk_prepare_enable(ddata->clk);
-> > > > > +	if (ret)
-> > > > > +		return dev_err_probe(&pdev->dev, ret, "Failed to enable clk\n");
-> > > > > +
-> > > > > +	reset_control_reset(reset);
-> > > > > +
-> > > > > +	INIT_LIST_HEAD(&dma_dev->channels);
-> > > > > +
-> > > > > +	dma_cap_set(DMA_SLAVE, dma_dev->cap_mask);
-> > > > > +	dma_cap_set(DMA_PRIVATE, dma_dev->cap_mask);
-> > > > > +	dma_dev->dev = &pdev->dev;
-> > > > > +	/*
-> > > > > +	 * This controller supports up to 8-byte buswidth depending on the port used and the
-> > > > > +	 * channel, and can only access address at even boundaries, multiple of the buswidth.
-> > > > > +	 */
-> > > > > +	dma_dev->copy_align = DMAENGINE_ALIGN_8_BYTES;
-> > > > > +	dma_dev->src_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +	dma_dev->dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) |
-> > > > > +				   BIT(DMA_SLAVE_BUSWIDTH_8_BYTES);
-> > > > > +	dma_dev->directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV) | BIT(DMA_MEM_TO_MEM);
-> > > > > +
-> > > > > +	dma_dev->descriptor_reuse = true;
-> > > > > +	dma_dev->max_sg_burst = STM32_DMA3_MAX_SEG_SIZE;
-> > > > > +	dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_DESCRIPTOR;
-> > > > > +	dma_dev->device_alloc_chan_resources = stm32_dma3_alloc_chan_resources;
-> > > > > +	dma_dev->device_free_chan_resources = stm32_dma3_free_chan_resources;
-> > > > > +	dma_dev->device_prep_slave_sg = stm32_dma3_prep_slave_sg;
-> > > > > +	dma_dev->device_caps = stm32_dma3_caps;
-> > > > > +	dma_dev->device_config = stm32_dma3_config;
-> > > > > +	dma_dev->device_terminate_all = stm32_dma3_terminate_all;
-> > > > > +	dma_dev->device_synchronize = stm32_dma3_synchronize;
-> > > > > +	dma_dev->device_tx_status = dma_cookie_status;
-> > > > > +	dma_dev->device_issue_pending = stm32_dma3_issue_pending;
-> > > > > +
-> > > > > +	/* if dma_channels is not modified, get it from hwcfgr1 */
-> > > > > +	if (of_property_read_u32(np, "dma-channels", &ddata->dma_channels)) {
-> > > > > +		hwcfgr = readl_relaxed(ddata->base + STM32_DMA3_HWCFGR1);
-> > > > > +		ddata->dma_channels = FIELD_GET(G_NUM_CHANNELS, hwcfgr);
-> > > > > +	}
-> > > > > +
-> > > > > +	/* if dma_requests is not modified, get it from hwcfgr2 */
-> > > > > +	if (of_property_read_u32(np, "dma-requests", &ddata->dma_requests)) {
-> > > > > +		hwcfgr = readl_relaxed(ddata->base + STM32_DMA3_HWCFGR2);
-> > > > > +		ddata->dma_requests = FIELD_GET(G_MAX_REQ_ID, hwcfgr) + 1;
-> > > > > +	}
-> > > > > +
-> > > > > +	/* G_MASTER_PORTS, G_M0_DATA_WIDTH_ENC, G_M1_DATA_WIDTH_ENC in HWCFGR1 */
-> > > > > +	hwcfgr = readl_relaxed(ddata->base + STM32_DMA3_HWCFGR1);
-> > > > > +	master_ports = FIELD_GET(G_MASTER_PORTS, hwcfgr);
-> > > > > +
-> > > > > +	ddata->ports_max_dw[0] = FIELD_GET(G_M0_DATA_WIDTH_ENC, hwcfgr);
-> > > > > +	if (master_ports == AXI64 || master_ports == AHB32) /* Single master port */
-> > > > > +		ddata->ports_max_dw[1] = DW_INVALID;
-> > > > > +	else /* Dual master ports */
-> > > > > +		ddata->ports_max_dw[1] = FIELD_GET(G_M1_DATA_WIDTH_ENC, hwcfgr);
-> > > > > +
-> > > > > +	ddata->chans = devm_kcalloc(&pdev->dev, ddata->dma_channels, sizeof(*ddata->chans),
-> > > > > +				    GFP_KERNEL);
-> > > > > +	if (!ddata->chans) {
-> > > > > +		ret = -ENOMEM;
-> > > > > +		goto err_clk_disable;
-> > > > > +	}
-> > > > > +
-> > > > > +	chan_reserved = stm32_dma3_check_rif(ddata);
-> > > > > +
-> > > > > +	if (chan_reserved == GENMASK(ddata->dma_channels - 1, 0)) {
-> > > > > +		ret = -ENODEV;
-> > > > > +		dev_err_probe(&pdev->dev, ret, "No channel available, abort registration\n");
-> > > > > +		goto err_clk_disable;
-> > > > > +	}
-> > > > > +
-> > > > > +	/* G_FIFO_SIZE x=0..7 in HWCFGR3 and G_FIFO_SIZE x=8..15 in HWCFGR4 */
-> > > > > +	hwcfgr = readl_relaxed(ddata->base + STM32_DMA3_HWCFGR3);
-> > > > > +	hwcfgr |= ((u64)readl_relaxed(ddata->base + STM32_DMA3_HWCFGR4)) << 32;
-> > > > > +
-> > > > > +	for (i = 0; i < ddata->dma_channels; i++) {
-> > > > > +		if (chan_reserved & BIT(i))
-> > > > > +			continue;
-> > > > > +
-> > > > > +		chan = &ddata->chans[i];
-> > > > > +		chan->id = i;
-> > > > > +		chan->fifo_size = get_chan_hwcfg(i, G_FIFO_SIZE(i), hwcfgr);
-> > > > > +		/* If chan->fifo_size > 0 then half of the fifo size, else no burst when no FIFO */
-> > > > > +		chan->max_burst = (chan->fifo_size) ? (1 << (chan->fifo_size + 1)) / 2 : 0;
-> > > > > +		chan->vchan.desc_free = stm32_dma3_chan_vdesc_free;
-> > > > > +
-> > > > > +		vchan_init(&chan->vchan, dma_dev);
-> > > > > +	}
-> > > > > +
-> > > > > +	ret = dmaenginem_async_device_register(dma_dev);
-> > > > > +	if (ret)
-> > > > > +		goto err_clk_disable;
-> > > > > +
-> > > > > +	for (i = 0; i < ddata->dma_channels; i++) {
-> > > > > +		if (chan_reserved & BIT(i))
-> > > > > +			continue;
-> > > > > +
-> > > > > +		ret = platform_get_irq(pdev, i);
-> > > > > +		if (ret < 0)
-> > > > > +			goto err_clk_disable;
-> > > > > +
-> > > > > +		chan = &ddata->chans[i];
-> > > > > +		chan->irq = ret;
-> > > > > +
-> > > > > +		ret = devm_request_irq(&pdev->dev, chan->irq, stm32_dma3_chan_irq, 0,
-> > > > > +				       dev_name(chan2dev(chan)), chan);
-> > > > > +		if (ret) {
-> > > > > +			dev_err_probe(&pdev->dev, ret, "Failed to request channel %s IRQ\n",
-> > > > > +				      dev_name(chan2dev(chan)));
-> > > > > +			goto err_clk_disable;
-> > > > > +		}
-> > > > > +	}
-> > > > > +
-> > > > > +	ret = of_dma_controller_register(np, stm32_dma3_of_xlate, ddata);
-> > > > > +	if (ret) {
-> > > > > +		dev_err_probe(&pdev->dev, ret, "Failed to register controller\n");
-> > > > > +		goto err_clk_disable;
-> > > > > +	}
-> > > > > +
-> > > > > +	verr = readl_relaxed(ddata->base + STM32_DMA3_VERR);
-> > > > > +
-> > > > > +	pm_runtime_set_active(&pdev->dev);
-> > > > > +	pm_runtime_enable(&pdev->dev);
-> > > > > +	pm_runtime_get_noresume(&pdev->dev);
-> > > > > +	pm_runtime_put(&pdev->dev);
-> > > > > +
-> > > > > +	dev_info(&pdev->dev, "STM32 DMA3 registered rev:%lu.%lu\n",
-> > > > > +		 FIELD_GET(VERR_MAJREV, verr), FIELD_GET(VERR_MINREV, verr));
-> > > > > +
-> > > > > +	return 0;
-> > > > > +
-> > > > > +err_clk_disable:
-> > > > > +	clk_disable_unprepare(ddata->clk);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +
-> > > > > +static void stm32_dma3_remove(struct platform_device *pdev)
-> > > > > +{
-> > > > > +	pm_runtime_disable(&pdev->dev);
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_runtime_suspend(struct device *dev)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = dev_get_drvdata(dev);
-> > > > > +
-> > > > > +	clk_disable_unprepare(ddata->clk);
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > > +static int stm32_dma3_runtime_resume(struct device *dev)
-> > > > > +{
-> > > > > +	struct stm32_dma3_ddata *ddata = dev_get_drvdata(dev);
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ret = clk_prepare_enable(ddata->clk);
-> > > > > +	if (ret)
-> > > > > +		dev_err(dev, "Failed to enable clk: %d\n", ret);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +
-> > > > > +static const struct dev_pm_ops stm32_dma3_pm_ops = {
-> > > > > +	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-> > > > > +	RUNTIME_PM_OPS(stm32_dma3_runtime_suspend, stm32_dma3_runtime_resume, NULL)
-> > > > > +};
-> > > > > +
-> > > > > +static struct platform_driver stm32_dma3_driver = {
-> > > > > +	.probe = stm32_dma3_probe,
-> > > > > +	.remove_new = stm32_dma3_remove,
-> > > > > +	.driver = {
-> > > > > +		.name = "stm32-dma3",
-> > > > > +		.of_match_table = stm32_dma3_of_match,
-> > > > > +		.pm = pm_ptr(&stm32_dma3_pm_ops),
-> > > > > +	},
-> > > > > +};
-> > > > > +
-> > > > > +static int __init stm32_dma3_init(void)
-> > > > > +{
-> > > > > +	return platform_driver_register(&stm32_dma3_driver);
-> > > > > +}
-> > > > > +
-> > > > > +subsys_initcall(stm32_dma3_init);
-> > > > > +
-> > > > > +MODULE_DESCRIPTION("STM32 DMA3 controller driver");
-> > > > > +MODULE_AUTHOR("Amelie Delaunay <amelie.delaunay@foss.st.com>");
-> > > > > +MODULE_LICENSE("GPL");
-> > > > > -- 
-> > > > > 2.25.1
-> > > > > 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA1LzE2LzI0IDIyOjAxLCBNYXJlayBWYXN1dCB3cm90ZToKPiBPbiA1LzE2LzI0IDQ6MzUg
+UE0sIEdhdGllbiBDSEVWQUxMSUVSIHdyb3RlOgo+IAo+IEhpLAo+IAo+Pj4+Pj4+PiBXaGF0IGlm
+IHlvdSBhZGQgYSB0cmFjZSBpbiBhIHJhbmRvbSBnZW5lcmF0aW9uIGZ1bmN0aW9uIGluIAo+Pj4+
+Pj4+PiByYW5kb20uYz8KPj4+Pj4+Pgo+Pj4+Pj4+IERvIHlvdSBoYXZlIGEgZnVuY3Rpb24gbmFt
+ZSBvciBsaW5lIG51bWJlciBmb3IgbWUgPwo+Pj4+Pj4KPj4+Pj4+IEkgcHV0IGEgdHJhY2UgaW4g
+X2dldF9yYW5kb21fYnl0ZXMoKSBpbiBkcml2ZXJzL2NoYXIvcmFuZG9tLmMuIEknbSAKPj4+Pj4+
+IG5vdAo+Pj4+Pj4gMTAwJSBzdXJlIGJ1dCB0aGlzIHNob3VsZCBiZSB0aGUgZW50cnkgcG9pbnQg
+d2hlbiBnZXR0aW5nIGEgcmFuZG9tIAo+Pj4+Pj4gbnVtYmVyLgo+Pj4+Pgo+Pj4+PiBZb3UncmUg
+cmlnaHQsIHRoZXJlIGlzIGEgcmVhZCBhdHRlbXB0IHJpZ2h0IGJlZm9yZSB0aGUgaGFuZywgYW5k
+IAo+Pj4+PiBfX2Nsa19pc19lbmFibGVkKCkgcmV0dXJucyAwIGluIHN0bTMyX3JlYWRfcm5nKCkg
+LiBJbiBmYWN0LCBpdCBpcyAKPj4+Pj4gdGhlIHBtX3J1bnRpbWVfZ2V0X3N5bmMoKSB3aGljaCBp
+cyByZXR1cm5pbmcgLUVBQ0NFUyBpbnN0ZWFkIG9mIAo+Pj4+PiB6ZXJvLCBhbmQgdGhpcyBpcyBj
+dXJyZW50bHkgbm90IGNoZWNrZWQgc28gdGhlIGZhaWx1cmUgaXMgbm90IAo+Pj4+PiBkZXRlY3Rl
+ZCBiZWZvcmUgcmVnaXN0ZXIgYWNjZXNzIHRha2VzIHBsYWNlLCB0byByZWdpc3RlciBmaWxlIHdp
+dGggCj4+Pj4+IGNsb2NrIGRpc2FibGVkLCB3aGljaCB0cmlnZ2VycyBhIGhhcmQgaGFuZy4KPj4+
+Pj4KPj4+Pj4gSSdsbCBiZSBzZW5kaW5nIGEgcGF0Y2ggc2hvcnRseSwgdGhhbmtzIGZvciB0aGlz
+IGhpbnQgIQo+Pj4+Pgo+Pj4+Cj4+Pj4gR3JlYXQgbmV3cywgaW5kZWVkIHRoZSByZXR1cm4gY29k
+ZSBpc24ndCBjaGVja2VkLiBMZXQncyB1c2UKPj4+PiBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0
+KCkuCj4+Pgo+Pj4gWWVzIHBsZWFzZS4KPj4+Cj4+PiBJIHdpbGwgd29uZGVyIHdoeSB3ZSBnZXQg
+RUFDQ0VTIHRob3VnaCwgdGhhdCBiYXNpY2FsbHkgbWVhbnMgd2UgYXJlIAo+Pj4gc3VzcGVuZGlu
+ZyBhbHJlYWR5LiBJcyBpdCBzYWZlIHRvIHJldHVybiAtZXJybm8gZnJvbSBybmcgcmVhZCAKPj4+
+IGZ1bmN0aW9uIGluIHRoYXQgY2FzZSA/Cj4+Cj4+IFRoZSBmcmFtZXdvcmsgZXhwZWN0cyBhIGZ1
+bmN0aW9uIHRoYXQgY2FuIHJldHVybiBhbiBlcnJvciBjb2RlIHNvIEkKPj4gZG9uJ3Qgc2VlIHdo
+eSBub3QuIEVsc2UgdGhlIGZyYW1ld29yayB3b3VsZCBoYXZlIGFuIGlzc3VlLgo+Pgo+PiBJIHN0
+aWxsIGhhdmVuJ3QgZmlndXJlZCBvdXQgd2hhdCBpcyBoYXBwZW5pbmcuCj4+Cj4+IENvdWxkIGl0
+IGJlIHRoYXQgdGhlIGtlcm5lbCBpcyBnZXR0aW5nIGVudHJvcHkgd2l0aCBod3JuZ19maWxsZm4o
+KQo+PiBsaWtlIGl0IGRvZXMgcGVyaW9kaWNhbGx5IHRvIGZlZWQgdGhlIGVudHJvcHkgcG9vbCBh
+bmQgaXQgaGFwcGVucyBhdCB0aGUKPj4gc2FtZSB0aW1lIGFzIHlvdXIgcG0gdGVzdCBzZXF1ZW5j
+ZT8KPiAKPiBQb3NzaWJseS4gSSB1c2Ugc2NyaXB0IGFzIGluaXQgd2hpY2ggY29udGFpbnMgYmFz
+aWNhbGx5ICMhL2Jpbi9zaCAsIAo+IG1vdW50IG9mIGEgZmV3IGZpbGVzeXN0ZW1zIGxpa2UgZGV2
+LCBwcm9jLCBzeXMsIGFuZCB0aGVuIHRoZSBwbV90ZXN0IAo+IHNlcXVlbmNlIHRvIGF2b2lkIHdh
+c3RpbmcgdGltZSBib290aW5nIGZ1bGwgdXNlcnNwYWNlLgo+IApPaywKClRoZSBzdHJhbmdlc3Qg
+dGhpbmcgaXMgbm90IGJlaW5nIHRvIGVuYWJsZSB0aGUgY2xvY2ssIG1heWJlIHRoZXJlJ3MKc29t
+ZXRoaW5nIG9uIHRoZSBjbG9jayBkcml2ZXIgc2lkZS4gVHJhY2tpbmcgY2xvY2sgZW5hYmxlL2Rp
+c2FibGUKbWF5IGxlYWQgdG8gc29tZXRoaW5nLgoKPj4gRllJLCBJIGhhdmUgYmVlbiBydW5uaW5n
+IHlvdXIgc2NyaXB0IHdpdGggKGVjaG8gZGV2aWNlcyA+IAo+PiAvc3lzL3Bvd2VyL3BtX3Rlc3Qp
+IGZvciA1IGhvdXJzIG5vdyBhbmQgaGF2ZW4ndCBiZWVuIGFibGUgdG8gcmVwcm9kdWNlIAo+PiB0
+aGUgaXNzdWUuCj4gCj4gTWF5YmUgdGhlICdkZXZpY2VzJyB0ZXN0IGlzIG5vdCBlbm91Z2ggYW5k
+IHRoZSBkZWVwZXIgcG1fdGVzdCBzdGF0ZXMgCj4gaGF2ZSBzb21lIHNvcnQgb2YgaW1wYWN0ID8K
+PgoKTWF5YmUsIEkgZG9uJ3QgaGF2ZSB0aGUga25vd2xlZGdlIHRvIGNvbmZpcm0gb3IgaW52YWxp
+ZGF0ZSB0aGlzLgpUYXNrcyBzaG91bGQgYmUgZnJvemVuIGJlZm9yZSBkcml2ZXJzIGFyZSBwdXQg
+dG8gc2xlZXAgc28gbXkgaW5zdGluY3QKd291bGQgc2F5IG5vIGJ1dCB5b3UgY2FuJ3QgdGFrZSBp
+dCBmb3IgZ3JhbnRlZCA6KQoKPj4+Pj4+Pj4gQWZ0ZXIgdGhpcywgSSdsbCB0cnkgdG8gcmVwcm9k
+dWNlIHRoZSBpc3N1ZS4KPj4+Pj4+Pgo+Pj4+Pj4+IElmIHlvdSBoYXZlIGEgbWludXRlIHRvIHRl
+c3QgaXQgb24gc29tZSBTVCBNUDE1IGJvYXJkLCB0aGF0IHdvdWxkIAo+Pj4+Pj4+IGJlIHJlYWwg
+bmljZS4gVGhhbmtzICEKPj4+Pj4+Cj4+Pj4+PiBJIHRyaWVkIHRvIHJlcHJvZHVjZSB0aGUgaXNz
+dWUgeW91J3JlIGZhY2luZyBvbiBhIFNUTTMyTVAxNTdDLURLMiBubwo+Pj4+Pj4gU0NNSSBvbiB0
+aGUgNi45LXJjNyBrZXJuZWwgdGFnLiBJIHVzZXMgT1AtVEVFIGFuZCBURi1BIGluIHRoZSAKPj4+
+Pj4+IGJvb3RjaGFpbgo+Pj4+Pj4gYnV0IHRoaXMgc2hvdWxkIG5vdCBoYXZlIGFuIGltcGFjdCBo
+ZXJlLgo+Pj4+Pj4KPj4+Pj4+IEhvdyBkaWQgeW91IG1hbmFnZSB0byB0ZXN0IHVzaW5nICJlY2hv
+IGNvcmUgPiAvc3lzL3Bvd2VyL3BtX3Rlc3QiPwo+Pj4+Pj4gSW4ga2VybmVsL3Bvd2VyL3N1c3Bl
+bmQuYywgZW50ZXJfc3RhdGUoKS4gSWYgdGhlIHBtX3Rlc3RfbGV2ZWwgaXMgCj4+Pj4+PiBjb3Jl
+LAo+Pj4+Pj4gdGhlbiBhbiBlcnJvciBpcyBmaXJlZCB3aXRoIHRoZSBmb2xsb3dpbmcgdHJhY2U6
+Cj4+Pj4+PiAiVW5zdXBwb3J0ZWQgdGVzdCBtb2RlIGZvciBzdXNwZW5kIHRvIGlkbGUsIHBsZWFz
+ZSBjaG9vc2UgCj4+Pj4+PiBub25lL2ZyZWV6ZXIvZGV2aWNlcy9wbGF0Zm9ybS4iCj4+Pj4+Cj4+
+Pj4+IENvdWxkIHRoaXMgYmUgZmlybXdhcmUgcmVsYXRlZCA/Cj4+Pj4+Cj4+Pj4+PiBJJ3ZlIHRy
+aWVkIHVzaW5nICJlY2hvIGRldmljZXMgPiAvc3lzL3Bvd2VyL3BtX3Rlc3QiIHNvIHRoYXQgSSBj
+YW4gCj4+Pj4+PiBhdCBsZWFzdCB0ZXN0IHRoYXQgdGhlIGRyaXZlciBpcyBwdXQgdG8gc2xlZXAg
+dGhlbiB3YWtlcyB1cC4gSSBkbyBub3QKPj4+Pj4+IHJlcHJvZHVjZSB5b3VyIGlzc3VlLgo+Pj4+
+Pgo+Pj4+PiBDYW4geW91IHRyeSAncHJvY2Vzc29ycycgPwo+Pj4+Pgo+Pj4+Cj4+Pj4gR2l2ZW4g
+dGhpczoKPj4+PiAjaWZkZWYgQ09ORklHX1BNX0RFQlVHCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCBp
+ZiAocG1fdGVzdF9sZXZlbCAhPSBURVNUX05PTkUgJiYgcG1fdGVzdF9sZXZlbCA8PSAKPj4+PiBU
+RVNUX0NQVVMpIHsKPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJfd2FybigiVW5zdXBw
+b3J0ZWQgdGVzdCBtb2RlIGZvciBzdXNwZW5kIHRvIGlkbGUKPj4+Cj4+PiBZb3UncmUgc3VwcG9z
+ZWQgdG8gYmUgc3VzcGVuZGluZyB0byAnbWVtJyAsIG5vdCAnaWRsZScgLiBDb3VsZCB0aGF0IAo+
+Pj4gYmUgaXQgPwo+Pgo+PiBZZXMgeW91J3JlIHJpZ2h0LCBJJ3ZlIGJlZW4gbWlzc2luZyB0aGF0
+LiBJIGRvIG5vdCBoYXZlICJkZWVwIiBhdmFpbGFibGUKPj4gaW4gL3N5cy9wb3dlci9tZW1fc2xl
+ZXAuLi4gbm90IHVwc3RyZWFtZWQgeWV0IG1heWJlLi4uIEhhdmUgeW91IGNvZGVkIGEKPj4gUFND
+SSBzZXJ2aWNlIGZvciB0aGlzIGluIFUtQm9vdD8KPj4KPj4gSSdtIGVpdGhlciBtaXNzaW5nIHNv
+bWV0aGluZyBvciBJIGNhbid0IHJlcHJvZHVjZSB5b3VyIHNldHVwLgo+IAo+IFRoZSBQU0NJIHBy
+b3ZpZGVyIGluIFUtQm9vdCBoYXMgYmVlbiBpbiBwbGFjZSBmb3IgeWVhcnMsIHRoZXJlJ3Mgbm8g
+bmVlZCAKPiB0byBjb2RlIGFueXRoaW5nLCBqdXN0IGNvbXBpbGUgaXQgYW5kIHRoYXQncyBhbGw6
+Cj4gCj4gJCBtYWtlIHN0bTMybXAxNV9iYXNpY19kZWZjb25maWcgJiYgbWFrZSAtamBucHJvY2AK
+PiAKPiBUaGlzIGdldHMgeW91IHUtYm9vdC1zcGwuc3RtMzIgYW5kIHUtYm9vdC5pdGIgYXMgRlNC
+TC9TU0JMIC4KCk9rIHRoYW5rcy4KCkJlc3QgcmVnYXJkcywKR2F0aWVuCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
