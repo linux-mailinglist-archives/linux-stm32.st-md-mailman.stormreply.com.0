@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACBE28CAE66
+	by mail.lfdr.de (Postfix) with ESMTPS id 782AA8CAE64
 	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 14:35:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ADEFC6C841;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24F59C6B47A;
 	Tue, 21 May 2024 12:35:54 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 417DAC6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FB5AC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 May 2024 12:12:51 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4202cea98daso8365065e9.0
+ Sat, 18 May 2024 12:12:52 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-51f12ccff5eso3444254e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 May 2024 05:12:51 -0700 (PDT)
+ Sat, 18 May 2024 05:12:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1716034371; x=1716639171;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=IGJsrqgkoxohMyaFQCRQCQrzlTAn771GcCI5VxzoLbQ=;
- b=YwtGaQvelX3yloK1+OdFmtw/6QYuA3bTeIZchSpOqTuO2jKfaqkhSHG4/R8TnCqHgc
- 8zyT/dv+P7JmuWl14i2kKbPt9jjyMW/KznxxvCv03F+ZQC9APG41W18Kx5DFtttTIFqn
- ibTJHm5RM+7QSeCCeYFVjqzmHH0N16kYBQ89Y8/o2DDfErM7pENHJ51aba91rkbZNMsx
- 5eZQ8owr/CwmVQY8S/kxZ003EuG5Oppzht1EQMGRHxinRlN2xzWW8QpH382isZ31bxFN
- vqrX2Va5oEzCSgrqwIzVEu3jSV2+HTsakGWr2Wr5utWYYFueER6Z+NZ3AnhfaqInewPX
- /PGg==
+ :reply-to; bh=c+CcrlNbsHEM5IbBF+aEvbweCw5RwAqEr0nCDuf0P80=;
+ b=MNHsHvAogyjckqGvE4nSHJrnSRg/aUv0GuL700+vM+etK2bTTUUT6KqbLeSY8oH7q4
+ 4lkeWEeacSPmkOFEmdsqH2c8yj961kocHKkonkVWrbCInphzDCAJMaiupeqP1SSzDrEF
+ ymPzCtLeOE7ybMdwGHw9dskpMyzSx/eXo9qg9XDMqM5eu1LU/vEOvuQrdEHWrbr44Mbg
+ wF8SrZQxa+36o6kJy0nq1C7x6ijE9rSWAn0RF9n1eVtDGP6k2z6PQPj3eRlSqtyO1skI
+ s5cRV1Vrk6NnajpYW97dBXNo7aIyAXIvfDXvEIPvJO+ZmaGrwhg817iuC68g0907hdBs
+ W53Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1716034371; x=1716639171;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IGJsrqgkoxohMyaFQCRQCQrzlTAn771GcCI5VxzoLbQ=;
- b=EL3BP5/SU7h8y2/G334CNFA65PC2zvoHtFnnlu7jiLrpgrAVB3OBrThXYOFNSCv2I8
- cgPBLBBWzEbzyZO4nWX/uKOwxwma8yyutHovndVEy2YuyhvryiVVXYZNjkKrhUymb/wX
- gZoFRUS5+HKVBstu0A6FkS6AnoCGl9Ogx3DCgLEZvM/gRZFGuxIWHdu6hMfO7986Ccbx
- v4EvsPkMZXif2DiBQoI+Z4gsGEvyPC8O7Xrj1CECOPMLNaE72fKUY3t/SCLNtEbkdzry
- Y1otGEJKyDaIoSlfXOlkpX68vWKfWIBHasQ1Tgrwsk6/CbjwHsnt5VL4qbawOgh0fgQ1
- KAlQ==
+ bh=c+CcrlNbsHEM5IbBF+aEvbweCw5RwAqEr0nCDuf0P80=;
+ b=NeGiHKrNJP0ElF0Qm313hiDkI87Kgas6Pl1i+uIZHwZo2blW2dLrXjbQUHIANwQUe1
+ Z6yTuoKCiRiG/79eO62PuUG9Ajtv7/YZn2210nSJ+bMOREiH5IZH4gq2nPuI4X79R4BW
+ 0d50/gdab+HZy3/H+M0cTGwZ41P7zFsmyXbVOHdzCoDRUGVhNi8gPDI1oil9OeYpSlBg
+ KGrpNuLszK2dpPtR7qTTtF9Bj08GCXUlDXQqb3xHJlHxy6Qu+J51mMyVEahO4WP/8rZi
+ zHkizMTUYcwkFci14lIeg/SpCsxhAOoxYjaXCrH3xt/JOGbc0Oy8w3t/pNnFppZvUudQ
+ ViHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVw5N5m07I4PglGcPXAlT5HXEh7ihXLx3zjcNIoLr0quBSkFX4wvDfqhWPtqWv1RJJB9AkR5yPUWE//3wVMBcKqss86Qvb6dPQkez1/th63Zsa5GPLtPT5H
-X-Gm-Message-State: AOJu0YzcJtr9k4qLdCl9ICMiGaMC4c/QL11KgfoIO/eYcW25Ig0SC5SF
- Hjjh9Ww+jOCaI2LVS/m0sI5hjKVlnmXLJ8a0OiF8jkjnsPRbN0hU
-X-Google-Smtp-Source: AGHT+IE/IhYubC0E9IZHEWKwQe0B3qG0jCm6OSbLvY0zrTBrXxj/mkuhSbi+Le/nYtJXLiXMiTQwEw==
-X-Received: by 2002:a05:600c:3144:b0:420:1db0:53c1 with SMTP id
- 5b1f17b1804b1-4201db054a9mr89916045e9.41.1716034370365; 
- Sat, 18 May 2024 05:12:50 -0700 (PDT)
+ AJvYcCVKsPUAtcw81oQ6K2FzMw2WsSWuQtIaq9TD0v3Cu97VpTniXuPQsv6FLHWzYDEZyMqaUgpzJNDtH0tQlwqHhcacWLXK9ux9Kw2kcK/5wgwoftQPE0szAlaM
+X-Gm-Message-State: AOJu0YwIQBjxKF8bqvwKHNv8aERRftO0XULPQ1Jns/8Hw7tTgQqVHSCk
+ ZMYTxkQY+mnm+q3UXvvcY9+cJZ2Wz1MNcdUzVjP6Caful8NceNulrl/4Jg==
+X-Google-Smtp-Source: AGHT+IGCqom0f/JiQFDnaCldSas0fyciwxHluc+scNBqYPHfPb0Rl7baW0X6/IEtd7zm1t+AwIBO0A==
+X-Received: by 2002:a05:6512:1304:b0:51c:5171:bbed with SMTP id
+ 2adb3069b0e04-5221006e625mr19978831e87.15.1716034371324; 
+ Sat, 18 May 2024 05:12:51 -0700 (PDT)
 Received: from localhost ([2001:861:3385:e20:6384:4cf:52c5:3194])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42017166c64sm215580105e9.8.2024.05.18.05.12.50
+ 2adb3069b0e04-521f38d8688sm3543568e87.213.2024.05.18.05.12.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 May 2024 05:12:50 -0700 (PDT)
+ Sat, 18 May 2024 05:12:51 -0700 (PDT)
 From: Raphael Gallais-Pou <rgallaispou@gmail.com>
-Date: Sat, 18 May 2024 14:12:05 +0200
+Date: Sat, 18 May 2024 14:12:06 +0200
 MIME-Version: 1.0
-Message-Id: <20240518-thermal-v1-2-7dfca3ed454b@gmail.com>
+Message-Id: <20240518-thermal-v1-3-7dfca3ed454b@gmail.com>
 References: <20240518-thermal-v1-0-7dfca3ed454b@gmail.com>
 In-Reply-To: <20240518-thermal-v1-0-7dfca3ed454b@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -74,8 +74,8 @@ X-Mailman-Approved-At: Tue, 21 May 2024 12:35:52 +0000
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-pm@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/3] thermal: sti: depend on THERMAL_OF
-	subsystem
+Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: sti: add thermal-zones support
+	on stih418
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,81 +92,138 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Switch to thermal_of_zone to handle thermal-zones. Replace
-thermal_zone_device_register() by devm_thermal_of_zone_register() and
-remove ops st_thermal_get_trip_type, st_thermal_get_trip_temp.
+Add a 'thermal-zones' node for stih418.
+
+A thermal-zone needs three components:
+  - thermal sensors, described in an earlier commit[1]
+  - cooling devices, specified for each CPU
+  - a thermal zone, describing the overall behavior.
+
+The thermal zone needs references to both CPUs and thermal sensors,
+which phandle are also added. The thermal management will then be
+achieved on CPUs using the cpufreq framework.
+
+[1] https://lore.kernel.org/lkml/20240320-thermal-v3-2-700296694c4a@gmail.com/
 
 Signed-off-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
 ---
- drivers/thermal/st/Kconfig      |  1 +
- drivers/thermal/st/st_thermal.c | 20 ++++++++++----------
- 2 files changed, 11 insertions(+), 10 deletions(-)
+ arch/arm/boot/dts/st/stih407-family.dtsi |  6 +++--
+ arch/arm/boot/dts/st/stih418.dtsi        | 41 +++++++++++++++++++++++++++++---
+ 2 files changed, 42 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/thermal/st/Kconfig b/drivers/thermal/st/Kconfig
-index ecbdf4ef00f4..2d08147876ee 100644
---- a/drivers/thermal/st/Kconfig
-+++ b/drivers/thermal/st/Kconfig
-@@ -5,6 +5,7 @@
+diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
+index 29302e74aa1d..35a55aef7f4b 100644
+--- a/arch/arm/boot/dts/st/stih407-family.dtsi
++++ b/arch/arm/boot/dts/st/stih407-family.dtsi
+@@ -33,7 +33,7 @@ delta_reserved: rproc@44000000 {
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		cpu@0 {
++		cpu0: cpu@0 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <0>;
+@@ -52,8 +52,9 @@ cpu@0 {
+ 			clock-latency = <100000>;
+ 			cpu0-supply = <&pwm_regulator>;
+ 			st,syscfg = <&syscfg_core 0x8e0>;
++			#cooling-cells = <2>;
+ 		};
+-		cpu@1 {
++		cpu1: cpu@1 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <1>;
+@@ -66,6 +67,7 @@ cpu@1 {
+ 					    1200000 0
+ 					    800000  0
+ 					    500000  0>;
++			#cooling-cells = <2>;
+ 		};
+ 	};
  
- config ST_THERMAL
- 	tristate "Thermal sensors on STMicroelectronics STi series of SoCs"
-+	depends on THERMAL_OF
- 	help
- 	  Support for thermal sensors on STMicroelectronics STi series of SoCs.
+diff --git a/arch/arm/boot/dts/st/stih418.dtsi b/arch/arm/boot/dts/st/stih418.dtsi
+index b35b9b7a7ccc..6622ffa8ecfa 100644
+--- a/arch/arm/boot/dts/st/stih418.dtsi
++++ b/arch/arm/boot/dts/st/stih418.dtsi
+@@ -6,23 +6,26 @@
+ #include "stih418-clock.dtsi"
+ #include "stih407-family.dtsi"
+ #include "stih410-pinctrl.dtsi"
++#include <dt-bindings/thermal/thermal.h>
+ / {
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+-		cpu@2 {
++		cpu2: cpu@2 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <2>;
+ 			/* u-boot puts hpen in SBC dmem at 0xa4 offset */
+ 			cpu-release-addr = <0x94100A4>;
++			#cooling-cells = <2>;
+ 		};
+-		cpu@3 {
++		cpu3: cpu@3 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+ 			reg = <3>;
+ 			/* u-boot puts hpen in SBC dmem at 0xa4 offset */
+ 			cpu-release-addr = <0x94100A4>;
++			#cooling-cells = <2>;
+ 		};
+ 	};
  
-diff --git a/drivers/thermal/st/st_thermal.c b/drivers/thermal/st/st_thermal.c
-index 5f33543a3a54..60e70de724d4 100644
---- a/drivers/thermal/st/st_thermal.c
-+++ b/drivers/thermal/st/st_thermal.c
-@@ -12,6 +12,7 @@
- #include <linux/of_device.h>
+@@ -44,6 +47,38 @@ usb2_picophy2: phy3 {
+ 		reset-names = "global", "port";
+ 	};
  
- #include "st_thermal.h"
-+#include "../thermal_hwmon.h"
++	thermal-zones {
++		cpu_thermal: cpu-thermal {
++			polling-delay-passive = <250>;  /* 250ms */
++			polling-delay = <1000>;         /* 1000ms */
++
++			thermal-sensors = <&thermal>;
++
++			trips {
++				cpu_crit: cpu-crit {
++					temperature = <95000>;  /* 95C */
++					hysteresis = <2000>;
++					type = "critical";
++				};
++				cpu_alert: cpu-alert {
++					temperature = <85000>;  /* 85C */
++					hysteresis = <2000>;
++					type = "passive";
++				};
++			};
++
++			cooling-maps {
++				map {
++					trip = <&cpu_alert>;
++					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++		};
++	};
++
+ 	soc {
+ 		rng11: rng@8a8a000 {
+ 			status = "disabled";
+@@ -107,7 +142,7 @@ mmc0: sdhci@9060000 {
+ 			assigned-clock-rates = <200000000>;
+ 		};
  
- /* The Thermal Framework expects millidegrees */
- #define mcelsius(temp)			((temp) * 1000)
-@@ -203,23 +204,21 @@ int st_thermal_register(struct platform_device *pdev,
- 	trip.type = THERMAL_TRIP_CRITICAL;
- 
- 	sensor->thermal_dev =
--		thermal_zone_device_register_with_trips(dev_name(dev), &trip, 1, sensor,
--							&st_tz_ops, NULL, 0, polling_delay);
-+		devm_thermal_of_zone_register(dev, 0, sensor, &st_tz_ops);
- 	if (IS_ERR(sensor->thermal_dev)) {
--		dev_err(dev, "failed to register thermal zone device\n");
-+		dev_err(dev, "failed to register thermal of zone\n");
- 		ret = PTR_ERR(sensor->thermal_dev);
- 		goto sensor_off;
- 	}
--	ret = thermal_zone_device_enable(sensor->thermal_dev);
--	if (ret)
--		goto tzd_unregister;
- 
- 	platform_set_drvdata(pdev, sensor);
- 
--	return 0;
-+	/*
-+	 * devm_thermal_of_zone_register() doesn't enable hwmon by default
-+	 * Enable it here
-+	 */
-+	return devm_thermal_add_hwmon_sysfs(dev, sensor->thermal_dev);
- 
--tzd_unregister:
--	thermal_zone_device_unregister(sensor->thermal_dev);
- sensor_off:
- 	st_thermal_sensor_off(sensor);
- 
-@@ -232,7 +231,8 @@ void st_thermal_unregister(struct platform_device *pdev)
- 	struct st_thermal_sensor *sensor = platform_get_drvdata(pdev);
- 
- 	st_thermal_sensor_off(sensor);
--	thermal_zone_device_unregister(sensor->thermal_dev);
-+	thermal_remove_hwmon_sysfs(sensor->thermal_dev);
-+	devm_thermal_of_zone_unregister(sensor->dev, sensor->thermal_dev);
- }
- EXPORT_SYMBOL_GPL(st_thermal_unregister);
- 
+-		thermal@91a0000 {
++		thermal: thermal@91a0000 {
+ 			compatible = "st,stih407-thermal";
+ 			reg = <0x91a0000 0x28>;
+ 			clock-names = "thermal";
 
 -- 
 2.45.1
