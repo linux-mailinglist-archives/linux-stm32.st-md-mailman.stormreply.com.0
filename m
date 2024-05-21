@@ -2,91 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13FCD8CAABD
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 11:25:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D11898CACB6
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 12:53:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA945C6C820;
-	Tue, 21 May 2024 09:25:12 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C81DC6C820;
+	Tue, 21 May 2024 10:53:16 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2CADC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CF8ACFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2024 09:25:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 78476CE0E2B;
- Tue, 21 May 2024 09:25:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C49FC2BD11;
- Tue, 21 May 2024 09:24:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716283501;
- bh=7UjuBpo0nPk3k1xpFRXIl2Wu3JPp5WiyviZb9i6QPtQ=;
+ Tue, 21 May 2024 10:53:15 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 177D388743;
+ Tue, 21 May 2024 12:53:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1716288794;
+ bh=LzviPdFToe7N+N7RSM3aJIgPadrGjL45EsO5NgIiyEk=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=N2EJwDQTWj924EnJGtlFf6VrSLnVM9Aof2AV+hmTqkyByd+LPhYlsof3tZx8U7QF3
- ZWbpWp/Y8PgDtq4MSD1rxoj6mF61DMDaPNqv3qKO0wyjBJahZJ4WrnSrPMs5mQHNO7
- JdhKNYNVsUTMOVcuVK9i/Pgb8WYPa1wS32hlQj0fxMpu2lOFG5xkYpQpbNgJJjqGjq
- So7TKSkkj49YHUiFikERpZlOFiYe10zxvfcVRGFp8EYU71vQ2YO/xQXBSsknXZURZf
- RQyvuNc8Z3lV+7KUE2BRxyC4bTx9EOLz/3kfogbo0tJFieUAgKADdhQMo+IY7hpcKF
- umg6YI3SW/HxA==
-Message-ID: <dfb3c96e-0684-4e61-b1c9-5a83f61e0418@kernel.org>
-Date: Tue, 21 May 2024 11:24:57 +0200
+ b=YIqtsrZdXQE3n0QlNZ0Es8ETEVpS9tDNxjGGX9B7kMfO1ElngRmOewRZKt04EMBwI
+ vjaCvSyuIkLN5u1qJBQfCFrrjZrtKt3idMAXZB32C5GJ680x62jdIN3gDd8So+g/62
+ 5wSBA6muhwquFD2sYPdxAeUcckWsQkLfef0D6LcLir47CR4zps5im2TDbNwRJc2Bih
+ vE+TQ0U5yHY7Vdff5n3il+RpjA0oly2PeCUX4A9gYvkFsOUQljM4tOeZuOA9Uq7aBo
+ v6v7akauVsED0GgD40WFzvJVyWHb1gjjU0JzgO4Y9eZ4NZF6y5T+QffOpBpRoB5x4Z
+ MmGhzTkSrbX3A==
+Message-ID: <0a37659a-1c5e-4bff-ab8e-9c777c0520d5@denx.de>
+Date: Tue, 21 May 2024 12:27:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20240521081001.2989417-1-arnaud.pouliquen@foss.st.com>
- <20240521081001.2989417-3-arnaud.pouliquen@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>,
+ linux-crypto@vger.kernel.org
+References: <20240513220349.183568-1-marex@denx.de>
+ <b2d0dfcb-37d6-4375-a4ad-ca96a5339840@foss.st.com>
+ <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+ <51951dd4-8e8c-4e67-89f6-6a710022e34f@foss.st.com>
+ <3257e8f8-5bb0-4c75-a3a3-e5685b65de2a@denx.de>
+ <5b39b5b6-7008-4362-a578-3faab87cd23b@foss.st.com>
+ <2eb2b80e-8650-46cf-9d8f-6dd6a884558a@denx.de>
+ <eb3a2581-efc6-40c3-a7ea-551865017d40@foss.st.com>
+ <c28e39e3-64d8-4ed7-a2e5-48ee124ef8e3@denx.de>
+ <07d54026-5d2a-49a3-9211-bfc6e62afec3@foss.st.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240521081001.2989417-3-arnaud.pouliquen@foss.st.com>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 2/7] dt-bindings: remoteproc: Add
- compatibility for TEE support
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <07d54026-5d2a-49a3-9211-bfc6e62afec3@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Rob Herring <robh@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Olivia Mackall <olivia@selenic.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] [RFC] clk: stm32mp1: Keep RNG1 clock
+	always running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,49 +72,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/05/2024 10:09, Arnaud Pouliquen wrote:
-> The "st,stm32mp1-m4-tee" compatible is utilized in a system configuration
-> where the Cortex-M4 firmware is loaded by the Trusted execution Environment
-> (TEE).
-> For instance, this compatible is used in both the Linux and OP-TEE
-> device-tree:
-> - In OP-TEE, a node is defined in the device tree with the
->   st,stm32mp1-m4-tee to support signed remoteproc firmware.
->   Based on DT properties, OP-TEE authenticates, loads, starts, and stops
->   the firmware.
-> - On Linux, when the compatibility is set, the Cortex-M resets should not
->   be declared in the device tree.
+On 5/17/24 5:39 PM, Gatien CHEVALLIER wrote:
+
+Hi,
+
+>> Possibly. I use script as init which contains basically #!/bin/sh , 
+>> mount of a few filesystems like dev, proc, sys, and then the pm_test 
+>> sequence to avoid wasting time booting full userspace.
+>>
+> Ok,
 > 
+> The strangest thing is not being to enable the clock, maybe there's
+> something on the clock driver side. Tracking clock enable/disable
+> may lead to something.
 
-Not tested.
+I suspect the problem is that rng_read and runtime suspend/resume can 
+run in parallel, that's why this problem occurs.
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+>>> FYI, I have been running your script with (echo devices > 
+>>> /sys/power/pm_test) for 5 hours now and haven't been able to 
+>>> reproduce the issue.
+>>
+>> Maybe the 'devices' test is not enough and the deeper pm_test states 
+>> have some sort of impact ?
+>>
+> 
+> Maybe, I don't have the knowledge to confirm or invalidate this.
+> Tasks should be frozen before drivers are put to sleep so my instinct
+> would say no but you can't take it for granted :)
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline), work on fork of kernel
-(don't, instead use mainline) or you ignore some maintainers (really
-don't). Just use b4 and everything should be fine, although remember
-about `b4 prep --auto-to-cc` if you added new patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time, thus I will skip this patch entirely till you follow
-the process allowing the patch to be tested.
-
-Please kindly resend and include all necessary To/Cc entries.
-
-Best regards,
-Krzysztof
-
+Could it be the kernel that requires randomness ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
