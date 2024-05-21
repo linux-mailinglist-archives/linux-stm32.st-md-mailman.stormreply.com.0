@@ -2,49 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B2AE8CA470
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 00:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9DCD8CA98A
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 10:02:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4854DC6C83D;
-	Mon, 20 May 2024 22:27:35 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67475C6C820;
+	Tue, 21 May 2024 08:02:39 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3161CC6C83C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFF0AC6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 May 2024 22:27:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 65911CE0D6B;
- Mon, 20 May 2024 22:27:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B863C32786;
- Mon, 20 May 2024 22:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1716244043;
- bh=A4335sSIXxSmnvWq25uzN3eOtMetrX9olnAwnD6I3O8=;
- h=From:To:Cc:Subject:Date:From;
- b=jSWUVzZsOzzfjNNR6COy5iu43SEw9an/h08K3UwU44Y8aVHFtKBEliBun26ei13rR
- Fks3mR3dWTpbxbCJpAkbW2+ORuu2WsixgPMnQfErAm0C32EBNFgffeGp+naaJDq3Lk
- 3IZltRLT0E4TSBsXggeBVzqhI84BB6B6IqkMpukjqeAVp6pP2PunWg0j/UFy+x8uNR
- bDUbyXUbWQN9T0UTLNz+vJezXrmSTZ9baBQ6NU156HgcqQJVif7yTnPyUOzGhHd3ZM
- R3ppI4db2qLhDkviAeXGdQH2LGTMjzrUstRk0AmDM+6ciPpDCL0o7lK2ZiP6B8BWCL
- Ic8GCXrXq+IKQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 20 May 2024 17:27:05 -0500
-Message-ID: <20240520222705.1742367-1-robh@kernel.org>
-X-Mailer: git-send-email 2.43.0
+ Tue, 21 May 2024 08:02:32 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44L2RvGh002296;
+ Tue, 21 May 2024 10:02:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=9dp1VLe
+ jRl1NLDB777JA8IKm3sHxNgriMqBjr0bCdkg=; b=irqOQyYamV00GN2VL6RTJlT
+ +vYAtKyMZZY9NCmfExD9dJq5DvPfFfCn9NJyhRkKZvSRTimcAfwBebWaQ/4c4KYB
+ 31QLg+unoaEpGdu+t9ywWtVfoZ3NtlMPnwdJZIMF26JO/nDJT3EkLhxOEZs/LVsx
+ M68KMZ13/7TLoA6TvFvvCShD/2yNDCqcP3OdMpztcU7kTbEjtMc16OdbdTK0qidy
+ lECiIvs4dYZFN8QmYJpnkWE9hub/8bcQvT7qgLyb97/fc9LTU6RBD5o6NKBCS3lU
+ 9uo9Q/k+dFy/3palvYP1qsw7gHRNEgZzbYaiWj0AyStyAsaAWi/fzpg4UdfG+kQ=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y6n42av1n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 May 2024 10:02:16 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B023A4002D;
+ Tue, 21 May 2024 10:02:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6AB402122E8;
+ Tue, 21 May 2024 10:01:38 +0200 (CEST)
+Received: from localhost (10.48.86.232) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 May
+ 2024 10:01:38 +0200
+From: Pascal Paillet <p.paillet@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <devicetree@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Tue, 21 May 2024 10:01:31 +0200
+Message-ID: <20240521080131.473447-1-p.paillet@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: Ensure compatible
-	pattern matches whole string
+X-Originating-IP: [10.48.86.232]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-21_04,2024-05-21_01,2024-05-17_01
+Cc: p.paillet@foss.st.com
+Subject: [Linux-stm32] [PATCH] arm64: dts: st: OP-TEE async notif on PPI 15
+	for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,33 +77,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The compatible pattern "st,stm32-sai-sub-[ab]" is missing starting and
-ending anchors, so any prefix and/or suffix would still be valid.
+From: Etienne Carriere <etienne.carriere@foss.st.com>
 
-This also fixes a warning on the example:
+Define GIC PPI 15 (aka GIC interrupt line 31) for OP-TEE asynchronous
+notification.
 
-Documentation/devicetree/bindings/sound/st,stm32-sai.example.dtb: /example-0/sai@4400b000/audio-controller@4400b004: failed to match any schema with compatible: ['st,stm32-sai-sub-a']
-
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
+Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
 ---
- Documentation/devicetree/bindings/sound/st,stm32-sai.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 4 +++-
+ arch/arm64/boot/dts/st/stm32mp253.dtsi | 4 ++++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-index 59df8a832310..f555ccd6b00a 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-@@ -68,7 +68,7 @@ patternProperties:
-     properties:
-       compatible:
-         description: Compatible for SAI sub-block A or B.
--        pattern: "st,stm32-sai-sub-[ab]"
-+        pattern: "^st,stm32-sai-sub-[ab]$"
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 4b48e4ed2d28..d0e10dda96b6 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -51,9 +51,11 @@ clk_rcbsec: clk-rcbsec {
+ 	};
  
-       "#sound-dai-cells":
-         const: 0
+ 	firmware {
+-		optee {
++		optee: optee {
+ 			compatible = "linaro,optee-tz";
+ 			method = "smc";
++			interrupt-parent = <&intc>;
++			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+ 		};
+ 
+ 		scmi {
+diff --git a/arch/arm64/boot/dts/st/stm32mp253.dtsi b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+index 029f88981961..69001f924d17 100644
+--- a/arch/arm64/boot/dts/st/stm32mp253.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+@@ -28,3 +28,7 @@ timer {
+ 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+ 	};
+ };
++
++&optee {
++	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++};
 -- 
-2.43.0
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
