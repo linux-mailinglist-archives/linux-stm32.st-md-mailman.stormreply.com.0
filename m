@@ -2,42 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E3D8CB127
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 17:24:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6409F8CB282
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 18:53:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC012C6B47A;
-	Tue, 21 May 2024 15:24:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F146C6B47E;
+	Tue, 21 May 2024 16:53:55 +0000 (UTC)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AC5ECFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF156C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2024 15:24:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AFF1560E76;
- Tue, 21 May 2024 15:24:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF1C2BD11;
- Tue, 21 May 2024 15:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1716305079;
- bh=LT2IUGSarwkRVytFH/RJkbdqTKdlRHx7kjBBbCwkZOc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=w1lSHUlEHNdUOwtpggmkodjLPq5e6XoEd/jeTIGLtlAfkWhwgojNAbWSwSm2MoGXx
- BPRZblVE/xwREaXWcgKfJrruhZZE1XuVVN57yD/06Hwa70krn0wGvgrH9DjmwaWiwq
- U8MFpltI8aA428Idvt85wdfvGhnWEZdckYdrcX+k=
-Date: Tue, 21 May 2024 17:21:26 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <2024052113-vanilla-expectant-5684@gregkh>
-References: <20240521151109.3078775-1-fabrice.gasnier@foss.st.com>
+ Tue, 21 May 2024 16:53:46 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-6f47787a0c3so601552b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 May 2024 09:53:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1716310425; x=1716915225;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1mM1g0xrjA2+TMpOMuz+nMei8rdJzFNTaJUyTE9ff1o=;
+ b=RDzrWnc4I3lGWTsWTMQ8MYhWzoRa/WWqzTo5sZePJ6VWZHkokWCyxVeu8H++UY2ULS
+ OB56NSZ9eTIUJ2Dgnts9Q8dajhwCmiG+FBIjXoAvniuh0AVa1rgEhn7zc3DgvFctGD13
+ +gbp6iyYmWvgAd3dyiRYrrLADzR1ot/NOexg5xvCwXoJqkRheP2fQlvgNFW0PfSq25qc
+ EAWGLDgebkXnXhlJQwijChiSH7AUgvzMEx6MJh1FKe87WCLpHKMxfYS1aDC7OO+oAx7s
+ cl/H9S43aEBBmm6GC97f0XCUKqv1+n+WMmeOlPyp7pyj2Xwok7QpS8ZA6PYo+TxH7egu
+ ZQnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1716310425; x=1716915225;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1mM1g0xrjA2+TMpOMuz+nMei8rdJzFNTaJUyTE9ff1o=;
+ b=f5ltlw8XCJi77n2X1kUDM9WMR7DRjVQsIpoHKU3VHcPUDBAv/5fqs7hy2VKJ4xIYtM
+ dYyzKs9KqqxrXzJKhXe1feAvKy5Iy/67nzv54T5EBb/zJcNS9D0fgLHZEaoFMjcrKcyz
+ be1oHz2EJ57FTXgjbE1NoPwPXIcAb/aD+MVN5blVTJBVYMwjO/jDXtqxqFfrN7U7SROE
+ 5tTXZ+dw/vRlNxzQY+Y0qRw0ybL6aYq/H7A9XxrnIBCNhalXmycMYiBN0oBax4OCOd2F
+ xk2R1JUmcwyBjx7tkn7yuok9ThzhImo1ih0fx+HkXzKwzQuam7JtI//p8odcY3uQ8dLc
+ DjSw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVeq61MMxIyL5qi3NXl/pRwtjE1YsmqIa2SbA+HqkyjZl/gtk/o9168N+FpOrx0eva9JuGsHhcaKhWaXTlb9gq+08c//TZwcrd3anvS78FUdEksKTnEQUsN
+X-Gm-Message-State: AOJu0YygINn+yjvbtaUKqOxpFvEYQhZ9q95hTYrFg2cJFUKV1pzFEKO9
+ fAWbdST+EjGuH7Krm7904nMyiOROtc4mJQXshcyUqrKklxlBYVs2c4st4LhFspI=
+X-Google-Smtp-Source: AGHT+IHhV0gEhBAlCrDzmhUFkEADtc9n6dtJk4+JERFEyQ+wIpi754KQsmFo/JDNnXvh6Bc3efJ+Pg==
+X-Received: by 2002:a05:6a00:10c9:b0:6f3:f447:5861 with SMTP id
+ d2e1a72fcca58-6f4e026b8f2mr33863693b3a.5.1716310425549; 
+ Tue, 21 May 2024 09:53:45 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:df1a:22de:40b2:f110])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-634103f80absm21017394a12.65.2024.05.21.09.53.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 May 2024 09:53:45 -0700 (PDT)
+Date: Tue, 21 May 2024 10:53:42 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZkzRljZlpCFDOyBx@p14s>
+References: <20240517165654.427746-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240521151109.3078775-1-fabrice.gasnier@foss.st.com>
-Cc: heikki.krogerus@linux.intel.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] usb: ucsi: stm32: fix command completion
-	handling
+In-Reply-To: <20240517165654.427746-1-arnaud.pouliquen@foss.st.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: char: fix rpmsg_eptdev structure
+	documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,63 +83,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 21, 2024 at 05:11:09PM +0200, Fabrice Gasnier wrote:
-> Sometimes errors are seen, when doing DR swap, like:
-> [   24.672481] ucsi-stm32g0-i2c 0-0035: UCSI_GET_PDOS failed (-5)
-> [   24.720188] ucsi-stm32g0-i2c 0-0035: ucsi_handle_connector_change:
->  GET_CONNECTOR_STATUS failed (-5)
+On Fri, May 17, 2024 at 06:56:54PM +0200, Arnaud Pouliquen wrote:
+> Add missing @ tags for some rpmsg_eptdev structure parameters.
 > 
-> There may be some race, which lead to read CCI, before the command complete
-> flag is set, hence returning -EIO. Similar fix has been done also in
-> ucsi_acpi [1].
+> This fixes warning messages on build:
+> drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or struct member 'remote_flow_restricted' not described in 'rpmsg_eptdev'
+> drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or struct member 'remote_flow_updated' not described in 'rpmsg_eptdev'
 > 
-> In case of a spurious or otherwise delayed notification it is
-> possible that CCI still reports the previous completion. The
-> UCSI spec is aware of this and provides two completion bits in
-> CCI, one for normal commands and one for acks. As acks and commands
-> alternate the notification handler can determine if the completion
-> bit is from the current command.
+> Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
 > 
-> To fix this add the ACK_PENDING bit for ucsi_stm32g0 and only complete
-> commands if the completion bit matches.
-> 
-> [1] https://lore.kernel.org/lkml/20240121204123.275441-3-lk@c--e.de/
-> 
-> Fixes: 72849d4fcee7 ("usb: typec: ucsi: stm32g0: add support for stm32g0 controller")
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
->  drivers/usb/typec/ucsi/ucsi_stm32g0.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
+>  drivers/rpmsg/rpmsg_char.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> index 1cb8d7474428..98d95ce5b6fb 100644
+> --- a/drivers/rpmsg/rpmsg_char.c
+> +++ b/drivers/rpmsg/rpmsg_char.c
+> @@ -52,8 +52,8 @@ static DEFINE_IDA(rpmsg_minor_ida);
+>   * @readq:	wait object for incoming queue
+>   * @default_ept: set to channel default endpoint if the default endpoint should be re-used
+>   *              on device open to prevent endpoint address update.
+> - * remote_flow_restricted: to indicate if the remote has requested for flow to be limited
+> - * remote_flow_updated: to indicate if the flow control has been requested
+> + * @remote_flow_restricted: to indicate if the remote has requested for flow to be limited
+> + * @remote_flow_updated: to indicate if the flow control has been requested
 
-Hi,
+I will apply this patch next week when rc1 comes out.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+Thanks,
+Mathieu
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+>   */
+>  struct rpmsg_eptdev {
+>  	struct device dev;
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
