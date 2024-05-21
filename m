@@ -2,71 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6409F8CB282
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2024 18:53:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA988CBB1F
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2024 08:22:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F146C6B47E;
-	Tue, 21 May 2024 16:53:55 +0000 (UTC)
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80AE8C6C820;
+	Wed, 22 May 2024 06:22:54 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF156C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F3FCC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2024 16:53:46 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-6f47787a0c3so601552b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2024 09:53:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716310425; x=1716915225;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1mM1g0xrjA2+TMpOMuz+nMei8rdJzFNTaJUyTE9ff1o=;
- b=RDzrWnc4I3lGWTsWTMQ8MYhWzoRa/WWqzTo5sZePJ6VWZHkokWCyxVeu8H++UY2ULS
- OB56NSZ9eTIUJ2Dgnts9Q8dajhwCmiG+FBIjXoAvniuh0AVa1rgEhn7zc3DgvFctGD13
- +gbp6iyYmWvgAd3dyiRYrrLADzR1ot/NOexg5xvCwXoJqkRheP2fQlvgNFW0PfSq25qc
- EAWGLDgebkXnXhlJQwijChiSH7AUgvzMEx6MJh1FKe87WCLpHKMxfYS1aDC7OO+oAx7s
- cl/H9S43aEBBmm6GC97f0XCUKqv1+n+WMmeOlPyp7pyj2Xwok7QpS8ZA6PYo+TxH7egu
- ZQnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716310425; x=1716915225;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1mM1g0xrjA2+TMpOMuz+nMei8rdJzFNTaJUyTE9ff1o=;
- b=f5ltlw8XCJi77n2X1kUDM9WMR7DRjVQsIpoHKU3VHcPUDBAv/5fqs7hy2VKJ4xIYtM
- dYyzKs9KqqxrXzJKhXe1feAvKy5Iy/67nzv54T5EBb/zJcNS9D0fgLHZEaoFMjcrKcyz
- be1oHz2EJ57FTXgjbE1NoPwPXIcAb/aD+MVN5blVTJBVYMwjO/jDXtqxqFfrN7U7SROE
- 5tTXZ+dw/vRlNxzQY+Y0qRw0ybL6aYq/H7A9XxrnIBCNhalXmycMYiBN0oBax4OCOd2F
- xk2R1JUmcwyBjx7tkn7yuok9ThzhImo1ih0fx+HkXzKwzQuam7JtI//p8odcY3uQ8dLc
- DjSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVeq61MMxIyL5qi3NXl/pRwtjE1YsmqIa2SbA+HqkyjZl/gtk/o9168N+FpOrx0eva9JuGsHhcaKhWaXTlb9gq+08c//TZwcrd3anvS78FUdEksKTnEQUsN
-X-Gm-Message-State: AOJu0YygINn+yjvbtaUKqOxpFvEYQhZ9q95hTYrFg2cJFUKV1pzFEKO9
- fAWbdST+EjGuH7Krm7904nMyiOROtc4mJQXshcyUqrKklxlBYVs2c4st4LhFspI=
-X-Google-Smtp-Source: AGHT+IHhV0gEhBAlCrDzmhUFkEADtc9n6dtJk4+JERFEyQ+wIpi754KQsmFo/JDNnXvh6Bc3efJ+Pg==
-X-Received: by 2002:a05:6a00:10c9:b0:6f3:f447:5861 with SMTP id
- d2e1a72fcca58-6f4e026b8f2mr33863693b3a.5.1716310425549; 
- Tue, 21 May 2024 09:53:45 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:df1a:22de:40b2:f110])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-634103f80absm21017394a12.65.2024.05.21.09.53.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 May 2024 09:53:45 -0700 (PDT)
-Date: Tue, 21 May 2024 10:53:42 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZkzRljZlpCFDOyBx@p14s>
-References: <20240517165654.427746-1-arnaud.pouliquen@foss.st.com>
+ Tue, 21 May 2024 16:24:11 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44LGIfkR011115;
+ Tue, 21 May 2024 18:24:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=NqC2Z7u
+ c3q/WlEKnSoaFIEs4EfwdkefIzuUpW2dO1iw=; b=wnmeCwMYjWSjSmoTbH3DOl/
+ 8gX81tlwXNhmKI4w6BTHwUtqNVIMf9i0jryQZAYT4nNED2JZH35WV081KDXw1vvd
+ MDa8DUbZGgTzftUUhcFXeVnRxFImGyuEf2QZ0KFyxZGrn3IdKuFn3hRiQvZ+kr9M
+ sUY0NPCckAC1gHwbFyAlxUHh1tsVC3S6M01j/6NoLzdgp0ZUH+mYZuvOxVlWEjZU
+ MkdH6BOJMeS3/rdHGa9BmRKsO4Ob8x8ehs3LFtY4ghaSwJucila1IdIQ914d0LhU
+ pSx74//U/krIrGWOdtMMN/lzrhNHXRvZ2YGieEk29nlN6ZxgD3gOy3eLvw2sM9A=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y8vqh8n6u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 May 2024 18:23:59 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CE2174002D;
+ Tue, 21 May 2024 18:23:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DD1602258A8;
+ Tue, 21 May 2024 18:23:31 +0200 (CEST)
+Received: from localhost (10.48.86.146) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 May
+ 2024 18:23:31 +0200
+From: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Tue, 21 May 2024 18:23:16 +0200
+Message-ID: <20240521162316.156259-1-gwenael.treuveur@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240517165654.427746-1-arnaud.pouliquen@foss.st.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] rpmsg: char: fix rpmsg_eptdev structure
-	documentation
+X-Originating-IP: [10.48.86.146]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-21_10,2024-05-21_01,2024-05-17_01
+X-Mailman-Approved-At: Wed, 22 May 2024 06:22:52 +0000
+Cc: Gwenael Treuveur <gwenael.treuveur@foss.st.com>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] remoteproc: stm32_rproc: Fix mailbox
+	interrupts queuing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,44 +76,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 17, 2024 at 06:56:54PM +0200, Arnaud Pouliquen wrote:
-> Add missing @ tags for some rpmsg_eptdev structure parameters.
-> 
-> This fixes warning messages on build:
-> drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or struct member 'remote_flow_restricted' not described in 'rpmsg_eptdev'
-> drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or struct member 'remote_flow_updated' not described in 'rpmsg_eptdev'
-> 
-> Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/rpmsg/rpmsg_char.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> index 1cb8d7474428..98d95ce5b6fb 100644
-> --- a/drivers/rpmsg/rpmsg_char.c
-> +++ b/drivers/rpmsg/rpmsg_char.c
-> @@ -52,8 +52,8 @@ static DEFINE_IDA(rpmsg_minor_ida);
->   * @readq:	wait object for incoming queue
->   * @default_ept: set to channel default endpoint if the default endpoint should be re-used
->   *              on device open to prevent endpoint address update.
-> - * remote_flow_restricted: to indicate if the remote has requested for flow to be limited
-> - * remote_flow_updated: to indicate if the flow control has been requested
-> + * @remote_flow_restricted: to indicate if the remote has requested for flow to be limited
-> + * @remote_flow_updated: to indicate if the flow control has been requested
+Manage interrupt coming from coprocessor also when state is
+ATTACHED.
 
-I will apply this patch next week when rc1 comes out.
+Fixes: 35bdafda40cc ("remoteproc: stm32_rproc: Add mutex protection for workqueue")
+Signed-off-by: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
+Acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ drivers/remoteproc/stm32_rproc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Mathieu
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index 88623df7d0c3..8c7f7950b80e 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -294,7 +294,7 @@ static void stm32_rproc_mb_vq_work(struct work_struct *work)
+ 
+ 	mutex_lock(&rproc->lock);
+ 
+-	if (rproc->state != RPROC_RUNNING)
++	if (rproc->state != RPROC_RUNNING && rproc->state != RPROC_ATTACHED)
+ 		goto unlock_mutex;
+ 
+ 	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
 
->   */
->  struct rpmsg_eptdev {
->  	struct device dev;
-> -- 
-> 2.25.1
-> 
+base-commit: 4d5ba6ead1dc9fa298d727e92db40cd98564d1ac
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
