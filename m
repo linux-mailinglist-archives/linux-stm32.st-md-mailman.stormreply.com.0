@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3176E8CF4DD
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 May 2024 18:27:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839E98CF4EB
+	for <lists+linux-stm32@lfdr.de>; Sun, 26 May 2024 18:50:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9351C6DD6E;
-	Sun, 26 May 2024 16:27:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22D51C6DD6E;
+	Sun, 26 May 2024 16:50:22 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2636C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E4C2C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 May 2024 16:27:29 +0000 (UTC)
+ Sun, 26 May 2024 16:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=HQ77S7fv3o2eNNFdQwNAIpUe0Htav/emvIcvmyeydso=; b=hp9NyopbKR1MoB2zPFnPbXwX3v
- rO8DRx7ecCpR8ZcLKVQBjIBERF7z4kD288lBS4Wohdk/O/IVgrHyc8UkvLAAaimqFqScFr6MLPank
- a/8ciH7WW+adrEUv+Twq7G29LVpNGKgClj+lJOaYJBqPCwbI7a+Fk4XhdATH7wvO7f9FoQG8AsP2R
- KuQsqrWpTio7pYfgApOHJQ+u2a4MY9PXJmFpuNboiHKmu02OqC65mrVsmM4Iia1gSP9YnwfAoQFIq
- IEX/qKvnoKUYJMgnrOvYun297Arp039xQT0uawxqddScEgHgxHAPek41V4X1D5/YHHM3JR4dTp568
- nTxoWzbw==;
+ bh=Se3l6VfrArDiw2sv7ishS59ORjDk+6CLWOFsd5rBSlk=; b=w2wVi6XEWBHXj27s1jxicTfKm7
+ EyjyocygWLXY7RgaPeE84Eo0aLHKkIFEEk1p05hwhlc4WsoBTZ4bLyUjQku7N/VqqwpB6pdlJp65T
+ Q0YqBcLapNOFqn7YaizyhRkoK63NxKl9Q4Du/3tVlDYYWr4il7fbD1FHeBnKNu8AmbVKmJTB6geF2
+ AOtHE/AejxFoXoRA6fQ8R8Drtjbob8M8UKUrR9PFJd45aWnv9S5DqRcumz1vGu/UZzzSJwEfyo/4S
+ JC3lAFUb0byd7XTZnEsWoXXYyFziyZmWPkYy8Y7jm4GypTINxQNi9Px/0hkJ87R+JcRbab57XP2Jo
+ EC9xRU8g==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35300)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49196)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sBGiA-0002of-2D;
- Sun, 26 May 2024 17:27:06 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1sBH4A-0002pc-2v;
+ Sun, 26 May 2024 17:49:52 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sBGi8-0001Vm-2o; Sun, 26 May 2024 17:27:04 +0100
-Date: Sun, 26 May 2024 17:27:03 +0100
+ id 1sBH48-0001Wp-8T; Sun, 26 May 2024 17:49:48 +0100
+Date: Sun, 26 May 2024 17:49:48 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Sneh Shah <quic_snehshah@quicinc.com>
-Message-ID: <ZlNi11AsdDpKM6AM@shell.armlinux.org.uk>
-References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
- <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
- <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
- <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
- <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZlNoLHoHjt3BsFde@shell.armlinux.org.uk>
+References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+ <20240524210304.9164-1-fancer.lancer@gmail.com>
+ <20240524210304.9164-2-fancer.lancer@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
- Add support for 2.5G SGMII
+In-Reply-To: <20240524210304.9164-2-fancer.lancer@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/3] net: stmmac: Activate
+ Inband/PCS flag based on the selected iface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,90 +72,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 21, 2023 at 02:23:57PM +0530, Sneh Shah wrote:
-> On 12/20/2023 9:29 PM, Andrew Halaney wrote:
-> > I'd evaluate if you can update that function to clear the ANE bit when
-> > the ane boolean is false. From the usage I see I feel that makes sense,
-> > but correct me if you think I'm wrong.
-> > At the very least let's use the defines from there, and possibly add a
-> > new function if clearing is not acceptable in dwmac_ctrl_ane().
-> > 
-> > Stepping back, I was asking in general is the need to muck with ANE here
-> > is a Qualcomm specific problem, or is that a generic thing that should be
-> > handled in the core (and the phy_set_speed() bit stay here)? i.e. would
-> > any dwmac5 based IP need to do something like this for SPEED_2500?
-> I think disabling ANE for SPEED_2500 is generic not specific to qualcomm.
-> Even in dwxgmac2 versions also we need to disable ANE for SPEED_2500.
-> Autoneg clause 37 stadard doesn't support 2500 speed. So we need to
-> disable autoneg for speed 2500
+On Sat, May 25, 2024 at 12:02:58AM +0300, Serge Semin wrote:
+> The HWFEATURE.PCSSEL flag is set if the PCS block has been synthesized
+> into the DW GMAC controller. It's always done if the controller supports
+> at least one of the SGMII, TBI, RTBI PHY interfaces. If none of these
+> interfaces support was activated during the IP-core synthesize the PCS
+> block won't be activated either and the HWFEATURE.PCSSEL flag won't be
+> set. Based on that the RGMII in-band status detection procedure
+> implemented in the driver hasn't been working for the devices with the
+> RGMII interface support and with none of the SGMII, TBI, RTBI PHY
+> interfaces available in the device.
+> 
+> Fix that just by dropping the dma_cap.pcs flag check from the conditional
+> statement responsible for the In-band/PCS functionality activation. If the
+> RGMII interface is supported by the device then the in-band link status
+> detection will be also supported automatically (it's always embedded into
+> the RGMII RTL code). If the SGMII interface is supported by the device
+> then the PCS block will be supported too (it's unconditionally synthesized
+> into the controller). The later is also correct for the TBI/RTBI PHY
+> interfaces.
+> 
+> Note while at it drop the netdev_dbg() calls since at the moment of the
+> stmmac_check_pcs_mode() invocation the network device isn't registered. So
+> the debug prints will be for the unknown/NULL device.
 
-(Going back over the history of this addition)
+Thanks. As this is a fix, shouldn't it be submitted for the net tree as
+it seems to be fixing a bug in the driver as it stands today?
 
-What 802.3 Clause 37 says is utterly _irrelevant_ when discussing Cisco
-SGMII. Cisco took 802.3 1000base-X and modified it for their own
-purposes, changing the format of the 16-bit control word, adding support
-for symbol replication to support 100Mbps and 10Mbps, changing the link
-timer, etc. SGMII is *not* 802.3 Clause 37.
+Also, a build fix is required here:
 
-I guess you are getting caught up in the widespread crud where
-manufacturers stupidly abuse "SGMII" to mean maybe "Cisco SGMII" and
-maybe "802.3 1000base-X" because both are "serial gigabit MII". Yes,
-both are serial in nature, but Cisco SGMII is not 1000base-X and it
-also is not 2500base-X.
+> -	if (priv->dma_cap.pcs) {
+> -		if ((interface == PHY_INTERFACE_MODE_RGMII) ||
+> -		    (interface == PHY_INTERFACE_MODE_RGMII_ID) ||
+> -		    (interface == PHY_INTERFACE_MODE_RGMII_RXID) ||
+> -		    (interface == PHY_INTERFACE_MODE_RGMII_TXID)) {
+> -			netdev_dbg(priv->dev, "PCS RGMII support enabled\n");
+> -			priv->hw->pcs = STMMAC_PCS_RGMII;
+> -		} else if (interface == PHY_INTERFACE_MODE_SGMII) {
+> -			netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
+> -			priv->hw->pcs = STMMAC_PCS_SGMII;
+> -		}
+> -	}
+> +	if (phy_interface_mode_is_rgmii(interface))
+> +		priv->hw.pcs = STMMAC_PCS_RGMII;
+> +	else if (interface == PHY_INTERFACE_MODE_SGMII)
+> +		priv->hw.pcs = STMMAC_PCS_SGMII;
 
-What makes this even more difficult is that 2500base-X was never
-standardised by the 802.3 committees until very late, so we've ended
-up with manufacturers doing their own thing for years. We've ended up
-with a mess of different implementations described in different ways
-many of which boil down to being 2500base-X without inband AN. For
-example, one manufacturer talks about "HS-SGMII", but doesn't permit
-the interface to operate at the x10 and x100 symbol replications that
-conventional Cisco SGMII uses for 100M and 10M speeds respectfully,
-making it in effect no different from 2500base-X.
+Both of these assignments should be priv->hw->pcs not priv->hw.pcs.
 
-Now through into this mess various implementations that do not support
-inband at 2.5G speeds, those that require inband at 2.5G speeds... one
-can get into the situation where one pairs a PHY that requires inband
-with a PCS that doesn't support it and the result doesn't work. This
-is particularly problematical if the PHY is on a hotpluggable module
-like a SFP.
+I think there's also another bug that needs fixing along with this.
+See stmmac_ethtool_set_link_ksettings(). Note that this denies the
+ability to disable autoneg, which (a) doesn't make sense for RGMII
+with an attached PHY, and (b) this code should be passing the
+ethtool op to phylink for it to pass on to phylib so the PHY can
+be appropriately configured for the users desired autoneg and
+link mode settings.
 
-It's a total trainwreck.
+I also don't think it makes any sense for the STMMAC_PCS_SGMII case
+given that it means Cisco SGMII - which implies that there is also
+a PHY (since Cisco SGMII with inband is designed to be coupled with
+something that looks like a PHY to send the inband signalling
+necessary to configure e.g. the SGMII link symbol replication.
 
-I do have some work-in-progress patches that attempt to sort this out
-in phylink and identify incompatible situations.
-
-See http://git.armlinux.org.uk/cgit/linux-arm.git/log/?h=net-queue
-
-commits (I think)...
-
-net: phylink: clean up phylink_resolve()
-
-to:
-
-net: phylink: switch to MLO_AN_PHY when PCS uses outband
-
-and since I'm converting stmmac's hacky PCS that bypasses phylink to
-a real phylink_pcs, the ethqos code as it stands presents a blocker
-because of this issue. So, I'm intending to post a series in the next
-few days (after the bank holiday) and will definitely need to be
-tested on ethqos hardware.
-
-However, first we need to get to the bottom of your latest patch that
-only sets PHY_INTERFACE_MODE_2500BASEX when plat_dat->flags has the
-STMMAC_FLAG_HAS_INTEGRATED_PCS flag _set_, but the stmmac code very
-oddly does _not_ use the built-in PCS if this flag is set. See:
-
-	stmmac_ethtool_get_link_ksettings()
-	stmmac_ethtool_set_link_ksettings()
-
-and their use of pcs_link / pcs_duplex / pcs_speed. Also see
-
-	stmmac_common_interrupt()
-
-and its use of pcs_link to control the carrier, the dwmac1000 and
-dwmac4 code that reads the status from the GMAC, updating the
-pcs_link / pcs_duplex / pcs_speed variables.
+In both of these cases, even if the user requests autoneg to be
+disabled, that _shouldn't_ affect internal network driver links.
+This ethtool op is about configuring the externally visible media
+side of the network driver, not the internal links.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
