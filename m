@@ -2,73 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F668CF2C7
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 May 2024 10:07:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3176E8CF4DD
+	for <lists+linux-stm32@lfdr.de>; Sun, 26 May 2024 18:27:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92162C6DD72;
-	Sun, 26 May 2024 08:07:00 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9351C6DD6E;
+	Sun, 26 May 2024 16:27:36 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D80B3C6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2636C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 May 2024 08:06:53 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2e97488daedso3897291fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 May 2024 01:06:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716710813; x=1717315613;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=uzItbLCLDN25ECEr4bCtWzVC/fO0Y6ybJrMdSsi6pDw=;
- b=U6oteg45LbIFDE4MYQMnA7PJ1S/IQPqlAS6VAaFikxeqYWMfuBDdtb6F2mhvyJ0i/B
- joK4natJ6rYrvRnkkUYhwMrWfp0P/KKInOcrMUVIkjFTbhUABjyZzfLWmsu+3EV0/2uB
- WuVWZO2efyGlRt585Qg4VtMvb0dUtL9CtxrJekWJYE1YisaSQNeF99Lj4qg0C6J9Pw5z
- 7cLUWhZPT88hZIEAt2roqQoPiq9dToRQ5fygNSbvhCtUOsZwYJ/Mc1acRM7dTR0CSw9P
- wAAogijdX85Z1yGYfKydi9d4XE9GGyDeJY4pyALAdLvhmrnubetM7sXsYIFMm1Toxqfn
- 61wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716710813; x=1717315613;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uzItbLCLDN25ECEr4bCtWzVC/fO0Y6ybJrMdSsi6pDw=;
- b=WjZDupdYQu2MAudW8+jcdOjuAH93zWU40KdUFxXMaWZdQzUAziZ+34EqPmRkRXLmAz
- A0YvxYHZ8NMhZhssGW2eOVNMqchRbU4rNkUlbfuIBRiBxosmQ5N0zR4Ztu6TG1qrZPQt
- b4YzRRTrSTWo0KjvwZ8lnrI7nrG9Dr+cz6rblOhSXpP5u92Vd8xCWw6Lr1wyJe49Cahk
- C+Xhk4StXJE4fP+nkc8Hbmndo/Q5Lt6Lk6B77WHYAJWnfpVMqdRB+5u4+AWWXU/0kCOB
- C5tWlSXEnx8cskY29GFQJY7dzceAA49fkVnRhIsbImfrLdeyBVZRwKaNmc+JntMjy3n9
- w3Iw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUYhyY1431CNTCsD9zw1fjLtyh1Ir6gxTkc8w0B9c5fZvRj2bErRvycD+qJTlYPLNg2TDbkPbr0MJvsd31sJ5DvKTH4sHv6mEE2jzswdkzC+5s/ZK5GW8K6
-X-Gm-Message-State: AOJu0YwfEhfPda+k2qzEHDtp9G0Ss+DEyG9KgLmy6TPrXOOoty+caUX7
- b4w2d5+B6+TlH/mScBjFv4RQpBM5nhnLmMkIMfxGKSuqD4xT/0VKaQ2Jc4wJ6mA=
-X-Google-Smtp-Source: AGHT+IHMGcclDBkRzx4ZJ7MIltcpvBEx4jlVdT6HK0RZcj6ZzUVywClgUtqnVppbRnqA2K+jiwTB9A==
-X-Received: by 2002:a2e:938b:0:b0:2e5:2414:a205 with SMTP id
- 38308e7fff4ca-2e95b0c162bmr47477161fa.27.1716710813031; 
- Sun, 26 May 2024 01:06:53 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2e95bcc45bcsm12679351fa.27.2024.05.26.01.06.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 May 2024 01:06:52 -0700 (PDT)
-Date: Sun, 26 May 2024 11:06:50 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <d2nuqs64getpkfb6uavzan6tdxctd2qri2jgrof23doukwcke6@olwaf445vq74>
-References: <20240521151109.3078775-1-fabrice.gasnier@foss.st.com>
+ Sun, 26 May 2024 16:27:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HQ77S7fv3o2eNNFdQwNAIpUe0Htav/emvIcvmyeydso=; b=hp9NyopbKR1MoB2zPFnPbXwX3v
+ rO8DRx7ecCpR8ZcLKVQBjIBERF7z4kD288lBS4Wohdk/O/IVgrHyc8UkvLAAaimqFqScFr6MLPank
+ a/8ciH7WW+adrEUv+Twq7G29LVpNGKgClj+lJOaYJBqPCwbI7a+Fk4XhdATH7wvO7f9FoQG8AsP2R
+ KuQsqrWpTio7pYfgApOHJQ+u2a4MY9PXJmFpuNboiHKmu02OqC65mrVsmM4Iia1gSP9YnwfAoQFIq
+ IEX/qKvnoKUYJMgnrOvYun297Arp039xQT0uawxqddScEgHgxHAPek41V4X1D5/YHHM3JR4dTp568
+ nTxoWzbw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35300)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sBGiA-0002of-2D;
+ Sun, 26 May 2024 17:27:06 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sBGi8-0001Vm-2o; Sun, 26 May 2024 17:27:04 +0100
+Date: Sun, 26 May 2024 17:27:03 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Sneh Shah <quic_snehshah@quicinc.com>
+Message-ID: <ZlNi11AsdDpKM6AM@shell.armlinux.org.uk>
+References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
+ <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
+ <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
+ <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
+ <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240521151109.3078775-1-fabrice.gasnier@foss.st.com>
-Cc: heikki.krogerus@linux.intel.com, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] usb: ucsi: stm32: fix command completion
-	handling
+In-Reply-To: <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
+ Add support for 2.5G SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,91 +72,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 21, 2024 at 05:11:09PM +0200, Fabrice Gasnier wrote:
-> Sometimes errors are seen, when doing DR swap, like:
-> [   24.672481] ucsi-stm32g0-i2c 0-0035: UCSI_GET_PDOS failed (-5)
-> [   24.720188] ucsi-stm32g0-i2c 0-0035: ucsi_handle_connector_change:
->  GET_CONNECTOR_STATUS failed (-5)
-> 
-> There may be some race, which lead to read CCI, before the command complete
-> flag is set, hence returning -EIO. Similar fix has been done also in
-> ucsi_acpi [1].
-> 
-> In case of a spurious or otherwise delayed notification it is
-> possible that CCI still reports the previous completion. The
-> UCSI spec is aware of this and provides two completion bits in
-> CCI, one for normal commands and one for acks. As acks and commands
-> alternate the notification handler can determine if the completion
-> bit is from the current command.
-> 
-> To fix this add the ACK_PENDING bit for ucsi_stm32g0 and only complete
-> commands if the completion bit matches.
-> 
-> [1] https://lore.kernel.org/lkml/20240121204123.275441-3-lk@c--e.de/
-> 
-> Fixes: 72849d4fcee7 ("usb: typec: ucsi: stm32g0: add support for stm32g0 controller")
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
->  drivers/usb/typec/ucsi/ucsi_stm32g0.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
-> index 93d7806681cf..7d6576778dad 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
-> @@ -395,9 +395,13 @@ static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const
->  				   size_t len)
->  {
->  	struct ucsi_stm32g0 *g0 = ucsi_get_drvdata(ucsi);
-> +	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
->  	int ret;
->  
-> -	set_bit(COMMAND_PENDING, &g0->flags);
-> +	if (ack)
-> +		set_bit(ACK_PENDING, &g0->flags);
+On Thu, Dec 21, 2023 at 02:23:57PM +0530, Sneh Shah wrote:
+> On 12/20/2023 9:29 PM, Andrew Halaney wrote:
+> > I'd evaluate if you can update that function to clear the ANE bit when
+> > the ane boolean is false. From the usage I see I feel that makes sense,
+> > but correct me if you think I'm wrong.
+> > At the very least let's use the defines from there, and possibly add a
+> > new function if clearing is not acceptable in dwmac_ctrl_ane().
+> > 
+> > Stepping back, I was asking in general is the need to muck with ANE here
+> > is a Qualcomm specific problem, or is that a generic thing that should be
+> > handled in the core (and the phy_set_speed() bit stay here)? i.e. would
+> > any dwmac5 based IP need to do something like this for SPEED_2500?
+> I think disabling ANE for SPEED_2500 is generic not specific to qualcomm.
+> Even in dwxgmac2 versions also we need to disable ANE for SPEED_2500.
+> Autoneg clause 37 stadard doesn't support 2500 speed. So we need to
+> disable autoneg for speed 2500
 
-ACK_PENDING is not defined in the patch.
+(Going back over the history of this addition)
 
-> +	else
-> +		set_bit(COMMAND_PENDING, &g0->flags);
->  
->  	ret = ucsi_stm32g0_async_write(ucsi, offset, val, len);
->  	if (ret)
-> @@ -405,9 +409,14 @@ static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const
->  
->  	if (!wait_for_completion_timeout(&g0->complete, msecs_to_jiffies(5000)))
->  		ret = -ETIMEDOUT;
-> +	else
-> +		return 0;
->  
->  out_clear_bit:
-> -	clear_bit(COMMAND_PENDING, &g0->flags);
-> +	if (ack)
-> +		clear_bit(ACK_PENDING, &g0->flags);
-> +	else
-> +		clear_bit(COMMAND_PENDING, &g0->flags);
->  
->  	return ret;
->  }
-> @@ -428,8 +437,9 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
->  	if (UCSI_CCI_CONNECTOR(cci))
->  		ucsi_connector_change(g0->ucsi, UCSI_CCI_CONNECTOR(cci));
->  
-> -	if (test_bit(COMMAND_PENDING, &g0->flags) &&
-> -	    cci & (UCSI_CCI_ACK_COMPLETE | UCSI_CCI_COMMAND_COMPLETE))
-> +	if (cci & UCSI_CCI_ACK_COMPLETE && test_and_clear_bit(ACK_PENDING, &g0->flags))
-> +		complete(&g0->complete);
-> +	if (cci & UCSI_CCI_COMMAND_COMPLETE && test_and_clear_bit(COMMAND_PENDING, &g0->flags))
->  		complete(&g0->complete);
->  
->  	return IRQ_HANDLED;
-> -- 
-> 2.25.1
-> 
+What 802.3 Clause 37 says is utterly _irrelevant_ when discussing Cisco
+SGMII. Cisco took 802.3 1000base-X and modified it for their own
+purposes, changing the format of the 16-bit control word, adding support
+for symbol replication to support 100Mbps and 10Mbps, changing the link
+timer, etc. SGMII is *not* 802.3 Clause 37.
+
+I guess you are getting caught up in the widespread crud where
+manufacturers stupidly abuse "SGMII" to mean maybe "Cisco SGMII" and
+maybe "802.3 1000base-X" because both are "serial gigabit MII". Yes,
+both are serial in nature, but Cisco SGMII is not 1000base-X and it
+also is not 2500base-X.
+
+What makes this even more difficult is that 2500base-X was never
+standardised by the 802.3 committees until very late, so we've ended
+up with manufacturers doing their own thing for years. We've ended up
+with a mess of different implementations described in different ways
+many of which boil down to being 2500base-X without inband AN. For
+example, one manufacturer talks about "HS-SGMII", but doesn't permit
+the interface to operate at the x10 and x100 symbol replications that
+conventional Cisco SGMII uses for 100M and 10M speeds respectfully,
+making it in effect no different from 2500base-X.
+
+Now through into this mess various implementations that do not support
+inband at 2.5G speeds, those that require inband at 2.5G speeds... one
+can get into the situation where one pairs a PHY that requires inband
+with a PCS that doesn't support it and the result doesn't work. This
+is particularly problematical if the PHY is on a hotpluggable module
+like a SFP.
+
+It's a total trainwreck.
+
+I do have some work-in-progress patches that attempt to sort this out
+in phylink and identify incompatible situations.
+
+See http://git.armlinux.org.uk/cgit/linux-arm.git/log/?h=net-queue
+
+commits (I think)...
+
+net: phylink: clean up phylink_resolve()
+
+to:
+
+net: phylink: switch to MLO_AN_PHY when PCS uses outband
+
+and since I'm converting stmmac's hacky PCS that bypasses phylink to
+a real phylink_pcs, the ethqos code as it stands presents a blocker
+because of this issue. So, I'm intending to post a series in the next
+few days (after the bank holiday) and will definitely need to be
+tested on ethqos hardware.
+
+However, first we need to get to the bottom of your latest patch that
+only sets PHY_INTERFACE_MODE_2500BASEX when plat_dat->flags has the
+STMMAC_FLAG_HAS_INTEGRATED_PCS flag _set_, but the stmmac code very
+oddly does _not_ use the built-in PCS if this flag is set. See:
+
+	stmmac_ethtool_get_link_ksettings()
+	stmmac_ethtool_set_link_ksettings()
+
+and their use of pcs_link / pcs_duplex / pcs_speed. Also see
+
+	stmmac_common_interrupt()
+
+and its use of pcs_link to control the carrier, the dwmac1000 and
+dwmac4 code that reads the status from the GMAC, updating the
+pcs_link / pcs_duplex / pcs_speed variables.
 
 -- 
-With best wishes
-Dmitry
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
