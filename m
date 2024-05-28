@@ -2,55 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3A98D1CAF
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 15:20:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EC8E8D1DBB
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 15:57:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC533C6B47E;
-	Tue, 28 May 2024 13:20:46 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03B55C6B47E;
+	Tue, 28 May 2024 13:57:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D185C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 234CDCFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 13:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3cBJopQz7aRMcYAfwYYEG94ongaKop7HA/gNzxT33Cs=; b=dIMbbRupZ8Aoe065U5CpBAf+yG
- oaz/YzbyujTeslSgdwM/emUZA5730NXFZdw7jMSaUz5o+7c8k0hOJW1udsBqWAV3RBE71azGxjxHz
- BjHT0zqybmBzDRTZOYdX8z/ED4uNcxwoVbZibi1+8wzpK0d1PPGOJSSA801SedeWhDjKDEJ24akFA
- xuUjaQ5tb5Wsy0vSJZIf2LeNwGJ8vboDIRsohvY4S2RYYQqFlsssmxXNN4sE8UYE6TazNb5hoE494
- O6TKCFLcUIGtL8+PIsrQ6cGX5rHxZaqRCylb9eJcNcMRLrTnNcc36JTywxRU3tERKT2on3ioeyXA/
- pptAk6EQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45384)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sBwke-0004qp-00;
- Tue, 28 May 2024 14:20:28 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sBwkd-0003I6-Ef; Tue, 28 May 2024 14:20:27 +0100
-Date: Tue, 28 May 2024 14:20:27 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZlXaGye/39hk4iuw@shell.armlinux.org.uk>
-References: <ZlXEgl7tgdWMNvoB@shell.armlinux.org.uk>
- <E1sBvJl-00EHyQ-QG@rmk-PC.armlinux.org.uk>
- <66lbyxnuhqhng2j2bmnw4ke6bqeknpeb476b2wjhr3xdstr5jw@vlgbxf3ni7nt>
+ Tue, 28 May 2024 13:57:13 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44SDcObZ029891;
+ Tue, 28 May 2024 15:56:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 3iMyPRzAl6P/YSbrLht+RjqstDWVPqn81XuUkiZnR+I=; b=vEk1bhIc8n7CjGg5
+ x2HRcAASI53sQW4Pcc6zc9FV9e2nzcgQQPX7sUXXq9BYBepj3HtTXkaB3LvmgXZL
+ IkinWSTPRbA+pXMPuE8us9knYU+ciDlyF5RgTRinULTJans/MSjaNaDdQbt6cK//
+ vCjS5wXGjlVBdgMPQL4K6h83j/VmvbIE6t6+uKRYMWqvZ8jZ7HPODpq48n+h3C7E
+ WtuQG2U0/0m1N3GHVWN/yaC25PahAIdohjRloO16/0zW5KtyihJEm1tHD5n7G8UN
+ SGnj8JWqRjyvMhAsDC0REHgpLFCpxRVF49Ha9GsTMiOR9u1OUOj+P3fJWBHOeFMD
+ JNKvmg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yb9yjcdpd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 May 2024 15:56:36 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A161240044;
+ Tue, 28 May 2024 15:56:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B107921A91B;
+ Tue, 28 May 2024 15:55:26 +0200 (CEST)
+Received: from [10.48.87.204] (10.48.87.204) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 28 May
+ 2024 15:55:25 +0200
+Message-ID: <47ed8f22-fc8c-4fb4-89c5-7d8ef7e8e728@foss.st.com>
+Date: Tue, 28 May 2024 15:55:20 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <66lbyxnuhqhng2j2bmnw4ke6bqeknpeb476b2wjhr3xdstr5jw@vlgbxf3ni7nt>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-crypto@vger.kernel.org>
+References: <20240513220349.183568-1-marex@denx.de>
+ <b2d0dfcb-37d6-4375-a4ad-ca96a5339840@foss.st.com>
+ <cc6f98eb-f6b2-4a34-a8ed-c0f759fa4c79@denx.de>
+ <51951dd4-8e8c-4e67-89f6-6a710022e34f@foss.st.com>
+ <3257e8f8-5bb0-4c75-a3a3-e5685b65de2a@denx.de>
+ <5b39b5b6-7008-4362-a578-3faab87cd23b@foss.st.com>
+ <2eb2b80e-8650-46cf-9d8f-6dd6a884558a@denx.de>
+ <eb3a2581-efc6-40c3-a7ea-551865017d40@foss.st.com>
+ <c28e39e3-64d8-4ed7-a2e5-48ee124ef8e3@denx.de>
+ <07d54026-5d2a-49a3-9211-bfc6e62afec3@foss.st.com>
+ <0a37659a-1c5e-4bff-ab8e-9c777c0520d5@denx.de>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <0a37659a-1c5e-4bff-ab8e-9c777c0520d5@denx.de>
+X-Originating-IP: [10.48.87.204]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-28_10,2024-05-28_01,2024-05-17_01
+Cc: Rob Herring <robh@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Olivia Mackall <olivia@selenic.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/5] net: stmmac: Drop TBI/RTBI
-	PCS flags
+Subject: Re: [Linux-stm32] [PATCH] [RFC] clk: stm32mp1: Keep RNG1 clock
+	always running
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,156 +88,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 28, 2024 at 03:26:10PM +0300, Serge Semin wrote:
-> On Tue, May 28, 2024 at 12:48:37PM +0100, Russell King wrote:
-> > From: Serge Semin <fancer.lancer@gmail.com>
-> > 
-> > First of all the flags are never set by any of the driver parts. If nobody
-> > have them set then the respective statements will always have the same
-> > result. Thus the statements can be simplified or even dropped with no risk
-> > to break things.
-> > 
-> > Secondly shall any of the TBI or RTBI flag is set the MDIO-bus
-> > registration will be bypassed. Why? It really seems weird. It's perfectly
-> > fine to have a TBI/RTBI-capable PHY configured over the MDIO bus
-> > interface.
-> > 
-> > Based on the notes above the TBI/RTBI PCS flags can be freely dropped thus
-> > simplifying the driver code.
+
+
+On 5/21/24 12:27, Marek Vasut wrote:
+> On 5/17/24 5:39 PM, Gatien CHEVALLIER wrote:
 > 
-> Likely by mistake the vast majority of the original patch content has
-> been missing here:
-> https://lore.kernel.org/netdev/20240524210304.9164-3-fancer.lancer@gmail.com/
+> Hi,
+> 
+>>> Possibly. I use script as init which contains basically #!/bin/sh , 
+>>> mount of a few filesystems like dev, proc, sys, and then the pm_test 
+>>> sequence to avoid wasting time booting full userspace.
+>>>
+>> Ok,
+>>
+>> The strangest thing is not being to enable the clock, maybe there's
+>> something on the clock driver side. Tracking clock enable/disable
+>> may lead to something.
+> 
+> I suspect the problem is that rng_read and runtime suspend/resume can 
+> run in parallel, that's why this problem occurs.
+> 
 
-I really can't explain this, other than git doing something weird. There
-is no reason that just one hunk that conflicted from a patch would've
-appeared. Should've been as per the below, which it will be when I post
-v2. Thanks for spotting!
+Hum, this looks strange... This would need to be confirmed in your
+use case. That would mean that flags aren't synced at the entry of these
+functions?
 
-8<===
-From: Serge Semin <fancer.lancer@gmail.com>
-Subject: [PATCH net-next] net: stmmac: Drop TBI/RTBI PCS flags
+>>>> FYI, I have been running your script with (echo devices > 
+>>>> /sys/power/pm_test) for 5 hours now and haven't been able to 
+>>>> reproduce the issue.
+>>>
+>>> Maybe the 'devices' test is not enough and the deeper pm_test states 
+>>> have some sort of impact ?
+>>>
+>>
+>> Maybe, I don't have the knowledge to confirm or invalidate this.
+>> Tasks should be frozen before drivers are put to sleep so my instinct
+>> would say no but you can't take it for granted :)
+> 
+> Could it be the kernel that requires randomness ?
 
-First of all the flags are never set by any of the driver parts. If nobody
-have them set then the respective statements will always have the same
-result. Thus the statements can be simplified or even dropped with no risk
-to break things.
+That can be confirmed by adding traces to the entry point in random.c.
+Maybe activating CONFIG_WARN_ALL_UNSEEDED_RANDOM will help investigate
+this. It will add verbosity if crng isn't ready.
 
-Secondly shall any of the TBI or RTBI flag is set the MDIO-bus
-registration will be bypassed. Why? It really seems weird. It's perfectly
-fine to have a TBI/RTBI-capable PHY configured over the MDIO bus
-interface.
+Or maybe try calling directely rng_is_initialized() to see if the crng
+is ready when your issue occurs.
 
-Based on the notes above the TBI/RTBI PCS flags can be freely dropped thus
-simplifying the driver code.
-
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  2 --
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 +++++--------------
- 2 files changed, 9 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 9cd62b2110a1..cd36ff4da68c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -271,8 +271,6 @@ struct stmmac_safety_stats {
- /* PCS defines */
- #define STMMAC_PCS_RGMII	(1 << 0)
- #define STMMAC_PCS_SGMII	(1 << 1)
--#define STMMAC_PCS_TBI		(1 << 2)
--#define STMMAC_PCS_RTBI		(1 << 3)
- 
- #define SF_DMA_MODE 1		/* DMA STORE-AND-FORWARD Operation Mode */
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b3afc7cb7d72..3ab93f89be90 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -471,13 +471,6 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
- {
- 	int eee_tw_timer = priv->eee_tw_timer;
- 
--	/* Using PCS we cannot dial with the phy registers at this stage
--	 * so we do not support extra feature like EEE.
--	 */
--	if (priv->hw->pcs == STMMAC_PCS_TBI ||
--	    priv->hw->pcs == STMMAC_PCS_RTBI)
--		return false;
--
- 	/* Check if MAC core supports the EEE feature. */
- 	if (!priv->dma_cap.eee)
- 		return false;
-@@ -3953,9 +3946,7 @@ static int __stmmac_open(struct net_device *dev,
- 	if (ret < 0)
- 		return ret;
- 
--	if (priv->hw->pcs != STMMAC_PCS_TBI &&
--	    priv->hw->pcs != STMMAC_PCS_RTBI &&
--	    (!priv->hw->xpcs ||
-+	if ((!priv->hw->xpcs ||
- 	     xpcs_get_an_mode(priv->hw->xpcs, mode) != DW_AN_C73)) {
- 		ret = stmmac_init_phy(dev);
- 		if (ret) {
-@@ -7739,16 +7730,12 @@ int stmmac_dvr_probe(struct device *device,
- 	if (!pm_runtime_enabled(device))
- 		pm_runtime_enable(device);
- 
--	if (priv->hw->pcs != STMMAC_PCS_TBI &&
--	    priv->hw->pcs != STMMAC_PCS_RTBI) {
--		/* MDIO bus Registration */
--		ret = stmmac_mdio_register(ndev);
--		if (ret < 0) {
--			dev_err_probe(priv->device, ret,
--				      "%s: MDIO bus (id: %d) registration failed\n",
--				      __func__, priv->plat->bus_id);
--			goto error_mdio_register;
--		}
-+	ret = stmmac_mdio_register(ndev);
-+	if (ret < 0) {
-+		dev_err_probe(priv->device, ret,
-+			      "MDIO bus (id: %d) registration failed\n",
-+			      priv->plat->bus_id);
-+		goto error_mdio_register;
- 	}
- 
- 	if (priv->plat->speed_mode_2500)
-@@ -7790,9 +7777,7 @@ int stmmac_dvr_probe(struct device *device,
- error_phy_setup:
- 	stmmac_pcs_clean(ndev);
- error_pcs_setup:
--	if (priv->hw->pcs != STMMAC_PCS_TBI &&
--	    priv->hw->pcs != STMMAC_PCS_RTBI)
--		stmmac_mdio_unregister(ndev);
-+	stmmac_mdio_unregister(ndev);
- error_mdio_register:
- 	stmmac_napi_del(ndev);
- error_hw_init:
-@@ -7833,10 +7818,8 @@ void stmmac_dvr_remove(struct device *dev)
- 	reset_control_assert(priv->plat->stmmac_ahb_rst);
- 
- 	stmmac_pcs_clean(ndev);
-+	stmmac_mdio_unregister(ndev);
- 
--	if (priv->hw->pcs != STMMAC_PCS_TBI &&
--	    priv->hw->pcs != STMMAC_PCS_RTBI)
--		stmmac_mdio_unregister(ndev);
- 	destroy_workqueue(priv->wq);
- 	mutex_destroy(&priv->lock);
- 	bitmap_free(priv->af_xdp_zc_qps);
--- 
-2.30.2
-
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Best regards,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
