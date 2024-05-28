@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3F078D26B0
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 23:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A0DC8D2707
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 23:30:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84042C6B47E;
-	Tue, 28 May 2024 21:04:07 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A354C6B47E;
+	Tue, 28 May 2024 21:30:51 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2329C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03543CFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 21:03:59 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-1f4a6a54416so1907525ad.0
+ Tue, 28 May 2024 21:30:43 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-1f44b45d6abso10618795ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 14:03:59 -0700 (PDT)
+ Tue, 28 May 2024 14:30:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716930238; x=1717535038;
+ d=linaro.org; s=google; t=1716931841; x=1717536641;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RmEhT88aTz3DGDqj6R9iZYqHzSu06mmxBxyiGQRj0OU=;
- b=PPH5HyKTgYjlOmQLII5Won7NzOKozSjevcEjKTmb+jwR5wExLbj3Ajx4qT+tybTJsv
- alKONe1UDziUtVM64Hka5Ouzs5CVflyuNooOkE/2vsm1lTcmTgIJM4hEMNNls+MS/4d3
- YflY4qgrPopz4Z6ELympI/Tetf+BRpsDpw5VyAUFAWGr4epmM42XcejU+XsrCwv/a1X7
- QVuAcok7/8hgXg5KbCtPdsSYX3zGoH5McWkLnFgp7hDSEETOkF948IJ7PXpiYAy3n/ib
- B2Wo+8Wf5OgK1UeyEUgV/4Gi7zuqhiO3KeTgyV7OUUXXpfLgHGluCVLVjkM+22Y4nMoH
- mqEQ==
+ bh=J/886KhgNlZLfUXdG7YdFOApfJCvvDP8iK4brhkLxPE=;
+ b=wryis4tgLL+Iu4XdqEt6DL4C/sNJdet+7nccyuGqnFAOefSdu88SM9i8szL/ppa2bx
+ 2+RbF+kPYMhPJQfSS6xLoy1cEI83TiwjEXcTW0q9bvp2Jj9oSLv/W6/rX8r8YD+6fDiM
+ K6HMVjIQZhawvHs4ox0PkIwhD3/EVdjVs/cxW1FxiNjkNKdVnIwu4S71V0qphw+kgWFa
+ k7TlUNh/G47/v7sRyFVaxPOYqAfRUKUx8Yr3LZdiyUGDDngnlG21Q9eABFF/6nekbisM
+ 3v2fvm0qxRdum5kgPVs+qeYLMNBzLJ4m+nEiENB88PS7ZurcYc+azg4h/3XNSCn1KOjj
+ zSww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716930238; x=1717535038;
+ d=1e100.net; s=20230601; t=1716931841; x=1717536641;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RmEhT88aTz3DGDqj6R9iZYqHzSu06mmxBxyiGQRj0OU=;
- b=K55cq6LWgc6xZcHGxy+l6jjdJguV6dHb//S9sVsF8swjV1J2TWGUbExNlxO7Th4/lC
- /qbaKcPPpF6lWP+7RpDJaG7bQZWA1OKYDUC5Jj+BLZuuer4YQlHN6NBYIXl5mAFRi6b8
- ehiUFlO3NNqh21m4TrCfM07ve3G+uB14T7uJyFLr9Z1/U5nL5E7Wcz6FWML4MIu7h2y4
- N5lt64/EupDPOQsnYU6EvHR1DSRkhoFpFnY35v4tuLaoh2r9IgiTilV/rFosZlXISFLE
- WIBT4h4JR4yzW2FWZJOU3FhY1t8L+IzKyEqdGjaEQWDmcXgtYP96E1KXbJ4Ir2LKD3sw
- IA0Q==
+ bh=J/886KhgNlZLfUXdG7YdFOApfJCvvDP8iK4brhkLxPE=;
+ b=LWiaH5ZBT7lBozI+wJiWf2uSmXRsbPglU/4EQB7YACbyFZM1txx8mmaP4iTOJlcWpv
+ pAjT7jYGO4cD1XtNR+cnACkQskns/68L5WfyA97wJyny4nQos+NsTupzRpvwIC7M1F5Q
+ vxc3rjl5x48JEykdYjGnlbGxhTV+Skp5nadZWvYB5jfOWUG1Pq2VqKxvLqvGj9/dsBUU
+ aWEG43h162hW07CL3GOTwJncClOHAh19KbAV7jrSoG3+RuiqqTJ19KnacJa2I6I7FUkp
+ u2P20OKYh8BD2ArGtRg7W/ksm0Zn7wq1oZV6MhUfsNVWghuvS0l1ukt2EM7gXOq+LGzU
+ zY3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWBihxIjmAxY31W6oQyvVO0n0VeXec7nbKTI3QKeVS+fyBjnGEOjm0hZgsNH4ETv3++7mi1a2R90X9mOK78P5hxuKJXE0cid3uyP0MbFgo1aEDj6wvYfdR2
-X-Gm-Message-State: AOJu0YwbiLDfNpPRVhMTL3GZzP1nDDxO6qzLf9Hy/KOF/k0t8i2F8bhE
- NaIVOCSkAGByyChtsd1A8ea/g3BGYyQrM5fvr9DKdihN85qqykPXxE3ntRLo2kqPjcA52wWhOgR
- /
-X-Google-Smtp-Source: AGHT+IFSLsuBgNepaa9uXWFhRm7TTE7smDcKQUDGy+q3E60dnDvPx31raQ/EGznET3bpmPoPeK+Vjg==
-X-Received: by 2002:a17:902:d485:b0:1f3:1092:ab45 with SMTP id
- d9443c01a7336-1f4eaaebf79mr2195525ad.26.1716930238350; 
- Tue, 28 May 2024 14:03:58 -0700 (PDT)
+ AJvYcCU7KN+MR3xgbSMttQdGDQYaxWsJz8vGnFnwFMPl6uJ0Vf7HRucvAmu7k/nWM6Yjqvl71wWJr2hPrLEgISgigr799RU2/gL7b+8tG2Xj0lYdgWEwiTcMGIq0
+X-Gm-Message-State: AOJu0YxB754uhmQ/oTeMwxUoUJJBLfQCDu6iRrGIXtkd3nlmsPB6Ik/j
+ P6YeA8H8EswfFwQfO6ot5LdcZjdONplPz0ClgIOa1LCjOp6N8EXOAS1HCGw6Se8=
+X-Google-Smtp-Source: AGHT+IEP4vGis8cJF35Vj03cY02Mx4GSJp1qf2JV+6D5QpG98m20SLH34o1uGa6a3mw4BJaNA2Si8g==
+X-Received: by 2002:a17:903:2283:b0:1f2:fb89:1d3e with SMTP id
+ d9443c01a7336-1f4486bd871mr151487525ad.7.1716931841312; 
+ Tue, 28 May 2024 14:30:41 -0700 (PDT)
 Received: from p14s ([2604:3d09:148c:c800:4c7:2691:aa4a:e6b7])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f44c96fd68sm84916855ad.171.2024.05.28.14.03.57
+ d9443c01a7336-1f44c9a50fbsm84917215ad.217.2024.05.28.14.30.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 14:03:57 -0700 (PDT)
-Date: Tue, 28 May 2024 15:03:55 -0600
+ Tue, 28 May 2024 14:30:40 -0700 (PDT)
+Date: Tue, 28 May 2024 15:30:38 -0600
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZlZGu16h1xsM3es5@p14s>
+Message-ID: <ZlZM/hgSO4EeRVqS@p14s>
 References: <20240521081001.2989417-1-arnaud.pouliquen@foss.st.com>
- <20240521081001.2989417-5-arnaud.pouliquen@foss.st.com>
+ <20240521081001.2989417-6-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240521081001.2989417-5-arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20240521081001.2989417-6-arnaud.pouliquen@foss.st.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 4/7] remoteproc: core introduce
- rproc_set_rsc_table_on_start function
+Subject: Re: [Linux-stm32] [PATCH v5 5/7] remoteproc: core: support of the
+	tee interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,194 +84,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 21, 2024 at 10:09:58AM +0200, Arnaud Pouliquen wrote:
-> Split rproc_start()to prepare the update of the management of
-
-I don't see any "splitting" for rproc_start() in this patch.  Please consider
-rewording or removing.
-
-> the cache table on start, for the support of the firmware loading
-> by the TEE interface.
-> - create rproc_set_rsc_table_on_start() to address the management of
->   the cache table in a specific function, as done in
->   rproc_reset_rsc_table_on_stop().
-> - rename rproc_set_rsc_table in rproc_set_rsc_table_on_attach()
-> - move rproc_reset_rsc_table_on_stop() to be close to the
->   rproc_set_rsc_table_on_start() function
-
-This patch is really hard to read due to all 3 operations happening at the same
-time.  Please split in 3 smaller patches.
-
+On Tue, May 21, 2024 at 10:09:59AM +0200, Arnaud Pouliquen wrote:
+> 1) on start:
+> - Using the TEE loader, the resource table is loaded by an external entity.
+> In such case the resource table address is not find from the firmware but
+> provided by the TEE remoteproc framework.
+> Use the rproc_get_loaded_rsc_table instead of rproc_find_loaded_rsc_table
+> - test that rproc->cached_table is not null before performing the memcpy
 > 
-> Suggested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> 2)on stop
+> The use of the cached_table seems mandatory:
+> - during recovery sequence to have a snapshot of the resource table
+>   resources used,
+> - on stop to allow  for the deinitialization of resources after the
+>   the remote processor has been shutdown.
+> However if the TEE interface is being used, we first need to unmap the
+> table_ptr before setting it to rproc->cached_table.
+> The update of rproc->table_ptr to rproc->cached_table is performed in
+> tee_remoteproc.
+> 
 > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
->  drivers/remoteproc/remoteproc_core.c | 116 ++++++++++++++-------------
->  1 file changed, 62 insertions(+), 54 deletions(-)
+>  drivers/remoteproc/remoteproc_core.c | 31 +++++++++++++++++++++-------
+>  1 file changed, 23 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index f276956f2c5c..42bca01f3bde 100644
+> index 42bca01f3bde..3a642151c983 100644
 > --- a/drivers/remoteproc/remoteproc_core.c
 > +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1264,18 +1264,9 @@ void rproc_resource_cleanup(struct rproc *rproc)
->  }
->  EXPORT_SYMBOL(rproc_resource_cleanup);
->  
-> -static int rproc_start(struct rproc *rproc, const struct firmware *fw)
-> +static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmware *fw)
+> @@ -1267,6 +1267,7 @@ EXPORT_SYMBOL(rproc_resource_cleanup);
+>  static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmware *fw)
 >  {
 >  	struct resource_table *loaded_table;
-> -	struct device *dev = &rproc->dev;
-> -	int ret;
-> -
-> -	/* load the ELF segments to memory */
-> -	ret = rproc_load_segments(rproc, fw);
-> -	if (ret) {
-> -		dev_err(dev, "Failed to load program segments: %d\n", ret);
-> -		return ret;
-> -	}
+> +	struct device *dev = &rproc->dev;
 >  
 >  	/*
 >  	 * The starting device has been given the rproc->cached_table as the
-> @@ -1291,6 +1282,64 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->  		rproc->table_ptr = loaded_table;
+> @@ -1276,12 +1277,21 @@ static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmwa
+>  	 * this information to device memory. We also update the table_ptr so
+>  	 * that any subsequent changes will be applied to the loaded version.
+>  	 */
+> -	loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
+> -	if (loaded_table) {
+> -		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
+> -		rproc->table_ptr = loaded_table;
+> +	if (rproc->tee_interface) {
+> +		loaded_table = rproc_get_loaded_rsc_table(rproc, &rproc->table_sz);
+> +		if (IS_ERR(loaded_table)) {
+> +			dev_err(dev, "can't get resource table\n");
+> +			return PTR_ERR(loaded_table);
+> +		}
+> +	} else {
+> +		loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
 >  	}
 >  
-> +	return 0;
-> +}
+> +	if (loaded_table && rproc->cached_table)
+> +		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
 > +
-> +static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
-> +{
-> +	/* A resource table was never retrieved, nothing to do here */
-> +	if (!rproc->table_ptr)
-> +		return 0;
+
+Why is this not part of the else {} above as it was the case before this patch?
+And why was an extra check for ->cached_table added?
+
+This should be a simple change, i.e introduce an if {} else {} block to take
+care of the two scenarios.  Plus the comment is misplaced now. 
+
+More comments tomorrow.
+
+Thanks,
+Mathieu
+
+> +	rproc->table_ptr = loaded_table;
 > +
-> +	/*
-> +	 * If a cache table exists the remote processor was started by
-> +	 * the remoteproc core.  That cache table should be used for
-> +	 * the rest of the shutdown process.
-> +	 */
-> +	if (rproc->cached_table)
-> +		goto out;
-> +
-> +	/*
-> +	 * If we made it here the remote processor was started by another
-> +	 * entity and a cache table doesn't exist.  As such make a copy of
-> +	 * the resource table currently used by the remote processor and
-> +	 * use that for the rest of the shutdown process.  The memory
-> +	 * allocated here is free'd in rproc_shutdown().
-> +	 */
-> +	rproc->cached_table = kmemdup(rproc->table_ptr,
-> +				      rproc->table_sz, GFP_KERNEL);
-> +	if (!rproc->cached_table)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * Since the remote processor is being switched off the clean table
-> +	 * won't be needed.  Allocated in rproc_set_rsc_table_on_start().
-> +	 */
-> +	kfree(rproc->clean_table);
-> +
-> +out:
-> +	/*
-> +	 * Use a copy of the resource table for the remainder of the
-> +	 * shutdown process.
-> +	 */
-> +	rproc->table_ptr = rproc->cached_table;
-> +	return 0;
-> +}
-> +
-> +static int rproc_start(struct rproc *rproc, const struct firmware *fw)
-> +{
-> +	struct device *dev = &rproc->dev;
-> +	int ret;
-> +
-> +	/* load the ELF segments to memory */
-> +	ret = rproc_load_segments(rproc, fw);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to load program segments: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	rproc_set_rsc_table_on_start(rproc, fw);
-> +
->  	ret = rproc_prepare_subdevices(rproc);
->  	if (ret) {
->  		dev_err(dev, "failed to prepare subdevices for %s: %d\n",
-> @@ -1450,7 +1499,7 @@ static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
->  	return ret;
->  }
->  
-> -static int rproc_set_rsc_table(struct rproc *rproc)
-> +static int rproc_set_rsc_table_on_attach(struct rproc *rproc)
->  {
->  	struct resource_table *table_ptr;
->  	struct device *dev = &rproc->dev;
-> @@ -1540,54 +1589,13 @@ static int rproc_reset_rsc_table_on_detach(struct rproc *rproc)
->  
->  	/*
->  	 * The clean resource table is no longer needed.  Allocated in
-> -	 * rproc_set_rsc_table().
-> +	 * rproc_set_rsc_table_on_attach().
->  	 */
->  	kfree(rproc->clean_table);
->  
 >  	return 0;
 >  }
 >  
-> -static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
-> -{
-> -	/* A resource table was never retrieved, nothing to do here */
-> -	if (!rproc->table_ptr)
-> -		return 0;
-> -
-> -	/*
-> -	 * If a cache table exists the remote processor was started by
-> -	 * the remoteproc core.  That cache table should be used for
-> -	 * the rest of the shutdown process.
-> -	 */
-> -	if (rproc->cached_table)
-> -		goto out;
-> -
-> -	/*
-> -	 * If we made it here the remote processor was started by another
-> -	 * entity and a cache table doesn't exist.  As such make a copy of
-> -	 * the resource table currently used by the remote processor and
-> -	 * use that for the rest of the shutdown process.  The memory
-> -	 * allocated here is free'd in rproc_shutdown().
-> -	 */
-> -	rproc->cached_table = kmemdup(rproc->table_ptr,
-> -				      rproc->table_sz, GFP_KERNEL);
-> -	if (!rproc->cached_table)
-> -		return -ENOMEM;
-> -
-> -	/*
-> -	 * Since the remote processor is being switched off the clean table
-> -	 * won't be needed.  Allocated in rproc_set_rsc_table().
-> -	 */
-> -	kfree(rproc->clean_table);
-> -
-> -out:
+> @@ -1318,11 +1328,16 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+>  	kfree(rproc->clean_table);
+>  
+>  out:
 > -	/*
 > -	 * Use a copy of the resource table for the remainder of the
 > -	 * shutdown process.
-> -	 */
+> +	/* If the remoteproc_tee interface is used, then we have first to unmap the resource table
+> +	 * before updating the proc->table_ptr reference.
+>  	 */
 > -	rproc->table_ptr = rproc->cached_table;
-> -	return 0;
-> -}
-> -
->  /*
->   * Attach to remote processor - similar to rproc_fw_boot() but without
->   * the steps that deal with the firmware image.
-> @@ -1614,7 +1622,7 @@ static int rproc_attach(struct rproc *rproc)
->  		goto disable_iommu;
->  	}
+> +	if (!rproc->tee_interface) {
+> +		/*
+> +		 * Use a copy of the resource table for the remainder of the
+> +		 * shutdown process.
+> +		 */
+> +		rproc->table_ptr = rproc->cached_table;
+> +	}
+>  	return 0;
+>  }
 >  
-> -	ret = rproc_set_rsc_table(rproc);
-> +	ret = rproc_set_rsc_table_on_attach(rproc);
->  	if (ret) {
->  		dev_err(dev, "can't load resource table: %d\n", ret);
->  		goto unprepare_device;
 > -- 
 > 2.25.1
 > 
