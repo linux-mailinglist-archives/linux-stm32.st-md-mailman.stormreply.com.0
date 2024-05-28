@@ -2,57 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0058D187E
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 12:24:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4C58D1A24
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 13:48:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84201C6B47E;
-	Tue, 28 May 2024 10:24:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14BFDC6B47E;
+	Tue, 28 May 2024 11:48:40 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECE55CFAC7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8209ACFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 10:24:44 +0000 (UTC)
+ Tue, 28 May 2024 11:48:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=O36LPsodbr+2D1LuW6n/mh2TD3fN2BTOqCrbAVe7KjQ=; b=gDfb6/LalxU55OpMYkI7ZZw5PA
- pa6zDAdGyYDPpF4jr1O93jiILKaH6JB0fDzzYMMKoUz2JDGWJHsTVelvgnDjpcIhYRnFaQTHR0lrC
- 9YEaI3enubY6Aerfr5oFRqqGQZXkQAbjDJ2iirS1PX1GstNNEq4n6jF1q/KisjnxOw77yYlvXNSA+
- I/nwWk+1JIT4hDHfREMujDorQqroyelNkYEtFLFzs86KcCPmBdetpOBeigq3A3AbtDU6jDmRSwO5z
- +pjV1gqtMRhzuN/VKM1XN0QuKCtwU6+w8dig8X9OR9EG43+NDArukdzLifVQr8okHRnXuAo5V1f8L
- snrqv0Rw==;
+ bh=iW37ByRUheosSAi4h2AMUwhdo6LLFgx25HP6KevTozY=; b=gKQhmYIFgsZd3z8qvGmWoSn5Ri
+ fS0GEik5xOLBYbNQnlni+NNIIaM7hTRSYyY7ZlXbGLTBer0Dc9Y42TklaoXDNkh4lOpJOB9ys+GNR
+ hZGtpN36gmjfx/PZzMRm9AHoU93uAsR0VfmC/fPSOvoGY/juMS/y9xO1B7tGGJWXSDwlIuxIwKdnz
+ IkvfrTLeTOmMvwNX21KpnxmP1wodbxdEXsIyLBHCJtui7bucuvQqGfpFh2CyCpTEi9xl7g2paXQsF
+ Sik7P1Leg4JnZghIocRwOgjYKqDClLYO8nm6APZDGoWnnLmHZ5yVRVDvbdMxxkN3L1epIQCbnH49P
+ fWWeHqhg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33096)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58444)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sBu0L-0004cr-1n;
- Tue, 28 May 2024 11:24:29 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1sBvJT-0004hP-1g;
+ Tue, 28 May 2024 12:48:19 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sBu0M-0003BW-RI; Tue, 28 May 2024 11:24:30 +0100
-Date: Tue, 28 May 2024 11:24:30 +0100
+ id 1sBvJS-0003EW-QH; Tue, 28 May 2024 12:48:18 +0100
+Date: Tue, 28 May 2024 12:48:18 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZlWw3hJdOARzdl2S@shell.armlinux.org.uk>
-References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
- <20240524210304.9164-1-fancer.lancer@gmail.com>
+Message-ID: <ZlXEgl7tgdWMNvoB@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240524210304.9164-1-fancer.lancer@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 1/3] net: stmmac: Prevent
-	RGSMIIIS IRQs flood
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/5] net: stmmac: cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,21 +62,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, May 25, 2024 at 12:02:57AM +0300, Serge Semin wrote:
-> Without reading the GMAC_RGSMIIIS/MAC_PHYIF_Control_Status the IRQ line
-> won't be de-asserted causing interrupt handler executed over and over. As
-> a quick-fix let's just dummy-read the CSR for now.
-> 
-> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+Hi,
 
-I think it would make sense to merge these into the patches that do the
-conversion to avoid a git bisect hitting on a patch that causes an
-interrupt storm. Any objection?
+This series removes various redundant items in the stmmac driver:
 
-(I'm now converting these two in separate patches, so would need to
-split this patch...)
+- the unused TBI and RTBI PCS flags
+- the NULL pointer initialisations for PCS methods in dwxgmac2
+- the stmmac_pcs_rane() method which is never called, and it's
+  associated implementations
+- the redundant netif_carrier_off()s
 
-Thanks.
+Finally, it replaces asm/io.h with the preferred linux/io.h.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c |  8 +-------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c    |  8 --------
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c  |  6 ------
+ drivers/net/ethernet/stmicro/stmmac/hwif.h           |  3 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    |  8 +-------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h     | 17 -----------------
+ 6 files changed, 2 insertions(+), 48 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
