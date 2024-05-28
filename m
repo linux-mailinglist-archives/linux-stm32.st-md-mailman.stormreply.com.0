@@ -2,71 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C02E8D24BF
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 21:38:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 601218D257E
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 22:09:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 304EFC6B47E;
-	Tue, 28 May 2024 19:38:20 +0000 (UTC)
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06ADCC6B47E;
+	Tue, 28 May 2024 20:09:11 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BE17CFAC7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3041FCFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 19:38:13 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-6f69422c090so1038361b3a.2
+ Tue, 28 May 2024 20:09:03 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-701ae8698d8so1001586b3a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 12:38:13 -0700 (PDT)
+ Tue, 28 May 2024 13:09:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1716925092; x=1717529892;
+ d=linaro.org; s=google; t=1716926942; x=1717531742;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VVddBXQV2grY6+Zbi//5IkKUEc11Yvlxas92w+1BWrY=;
- b=lzMgCOOhVfMJxEk7H4lBYz9hUnJLdc0/VxIdfQK8oMTVkShznd6iNCT26+zE7gpDF0
- uwt3NC9mVPRU9Ll3CMAweY5P4qJjEEgZ/Qd+1toeVN+XgJQGfETldcyjw2ulmsipsdlx
- Jja24Ygym0qJUDSb9NrGyqIWfDVNqNZz1Nnt4xw73FaYirr8MixgC0xSm4NnQLDYiKOV
- 4PlWZ+SNRaKrc2aMBxc1Q0nqvEJdQOtHCvHZQsPOGr+7dtugm7q8RuQwDChgmtUBvZKn
- TxqQC1BQIiwefRFx6uUCts0FNpeYxqqGs2COP2TQM1qYQ65oTIafWflpBQghxTYTxoKS
- 7FTQ==
+ bh=xA96EipLEsw2OGrKZRs6fY4D8prbnQiUmnEE7uuFffo=;
+ b=bk+OMvhajF/vvGKJQ/Xh0vbcZOk5mwY0mhQwIQkKGGJr+Wdllld6XgYqA0ef2DoLG0
+ C7O6GKHguXu1WBWJqDWt2j3jsKoSyPjfqzpZ/vNC0JUXY99UR6MKNCFnf1sWrr5Hmoyb
+ dQQJY7cDep//V/QcDn9uoox9/IP4DGOfXE3EECoBBsfWXKCKBfZR0yZK/rghEyu++5xn
+ NtBYHu7FEja2rGQKl8SASJd13tJAcuIJwJzh4+xm0AoHEETkhg1fnRrDApgBSHLhcsBh
+ M2lWVNt1Aa5Ev5Tm5QTsEPnPUuQEtpLQp60jyLVksrxfmOYwOyWXom4AdSPyJN8AQVJR
+ +goA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1716925092; x=1717529892;
+ d=1e100.net; s=20230601; t=1716926942; x=1717531742;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VVddBXQV2grY6+Zbi//5IkKUEc11Yvlxas92w+1BWrY=;
- b=ZyS6tCDpol8F1BcscUWyOMXUvnoVwtyNYK8t3F+hQDw0uRX0dfu5AUmTCECpq/bcXQ
- /+iQ4MUCWOKAxfKW/MyHqnTNssX1LQG4awQNadMjcgstKNg9up+pd/iNiWb9GNh5X2no
- r8HrFZzISSKKNcYRYQuywLu1BpooxDbYLsZ+nVCOOTd3TKiz4W/flfIhPr8XWlAe2Vbw
- Qp25gmybtID5XWg+PsCdgtd+0njZGunoE6o5AujuiFpScwXsTPa/WTKsAMvNPZZcJoiv
- N93tgk4qkM8mHt+z6Kas8/IC3mfAB3S9u+bDaLEAKdgSMrDQOtqxeH05Jc1tPEMFCZMz
- 5MRw==
+ bh=xA96EipLEsw2OGrKZRs6fY4D8prbnQiUmnEE7uuFffo=;
+ b=K37B2PiYXsHYvQsv2zm+uWHZXl1nbcZHoTzq6wlnJz99p9af2oSkxYn3f3bd07noqm
+ 5m9U4UQ5/+SVIR6OEXdGtXxLWyZo4feui7hDzEWyEQ1z2YLnvsBiNfSCA4Urxgj7CApK
+ 07QEg8+i791sRxw0mnN8HjqucH4SE1JXkJS28dGirW5zMqrvSxBsJzE4y3mDB3TpCJxj
+ HUVfhEhRFJl65hH9lobJzh8qHlDOkSbo2k4qK201/8l5p6LA2j2HpQKourFjLalcniE4
+ l25e7sY6H/mdegu0wdozxbCF43Rum2tATH2na4+eO4ba1TfdFU/+TXAPRXFVfG7N2Dvz
+ fCaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQguyWBZdMsepjNGYHzgDeGyGuzFoQQXxry/m2HIh6GUesbR95iF3w0CPHJYHFZpNeWEpA2C2NUHjCBWhH7mUk2BGYg4ipZMMdHwy1n7rE4D6ykvLd7mQy
-X-Gm-Message-State: AOJu0YxEjL7gd62Y3CZ/88OBrjNnx7FVZQfvuO0EyLlz05bpW/xuofEn
- fmhiN2t+yLaq/yUHRcFoZyyNV1K3M47GVVK1iIpjCh+BQaXJ1p6AD9cby+zI3Ss=
-X-Google-Smtp-Source: AGHT+IEr6rxeqSRwySiQWxujQNR2NB+err9HDuAKFDWjAoR3nXctqIoryjD4z/+vQ37/3/hSHtZ01g==
-X-Received: by 2002:a05:6a20:7f9f:b0:1a8:2cc0:290a with SMTP id
- adf61e73a8af0-1b212d3be66mr14145846637.30.1716925091781; 
- Tue, 28 May 2024 12:38:11 -0700 (PDT)
+ AJvYcCVgHx1fVK10ua9I7pFR/4soemOZaNVFVShoVIRUFkp7cxB1SC7QDtfXUI26t2g1HQ19sfC9dX/jOC4SaOBhv90dGCJnohWVtKL7DNMnbRfuzrtmj4foyl/T
+X-Gm-Message-State: AOJu0YyoBwyzj117gGJTr6S4H6ZFRwd6a4a8Ie2FwKqfglFFBwMORQlb
+ bzLM4CnBTG7XnMXvIhzgvBGUEeEQGJ9gUSCorK3tsUAA+zCNMpif8ryqdYYPMYY=
+X-Google-Smtp-Source: AGHT+IFPVNyBNZy5PIGcWn6L7NKMnCn3b8L3Z1jh5Va5V2SFfi/lSDvuB1Ekq1vIgeuAW0XCfwjb8A==
+X-Received: by 2002:a05:6a21:4987:b0:1a9:c4cc:721d with SMTP id
+ adf61e73a8af0-1b212f64a6fmr13050339637.57.1716926941624; 
+ Tue, 28 May 2024 13:09:01 -0700 (PDT)
 Received: from p14s ([2604:3d09:148c:c800:4c7:2691:aa4a:e6b7])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-6f8fc373c92sm6948650b3a.96.2024.05.28.12.38.10
+ d2e1a72fcca58-6f8fcbeb128sm6786029b3a.135.2024.05.28.13.09.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 May 2024 12:38:11 -0700 (PDT)
-Date: Tue, 28 May 2024 13:38:09 -0600
+ Tue, 28 May 2024 13:09:01 -0700 (PDT)
+Date: Tue, 28 May 2024 14:08:58 -0600
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
-Message-ID: <ZlYyoZzOlXylkQqC@p14s>
-References: <20240521162316.156259-1-gwenael.treuveur@foss.st.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZlY52iq2oVIi9I1k@p14s>
+References: <20240521081001.2989417-1-arnaud.pouliquen@foss.st.com>
+ <20240521081001.2989417-3-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240521162316.156259-1-gwenael.treuveur@foss.st.com>
+In-Reply-To: <20240521081001.2989417-3-arnaud.pouliquen@foss.st.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32_rproc: Fix mailbox
-	interrupts queuing
+Subject: Re: [Linux-stm32] [PATCH v5 2/7] dt-bindings: remoteproc: Add
+ compatibility for TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +84,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 21, 2024 at 06:23:16PM +0200, Gwenael Treuveur wrote:
-> Manage interrupt coming from coprocessor also when state is
-> ATTACHED.
-> 
-> Fixes: 35bdafda40cc ("remoteproc: stm32_rproc: Add mutex protection for workqueue")
-> Signed-off-by: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
-> Acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+On Tue, May 21, 2024 at 10:09:56AM +0200, Arnaud Pouliquen wrote:
+> The "st,stm32mp1-m4-tee" compatible is utilized in a system configuration
+> where the Cortex-M4 firmware is loaded by the Trusted execution Environment
+> (TEE).
+> For instance, this compatible is used in both the Linux and OP-TEE
+> device-tree:
+> - In OP-TEE, a node is defined in the device tree with the
+>   st,stm32mp1-m4-tee to support signed remoteproc firmware.
+>   Based on DT properties, OP-TEE authenticates, loads, starts, and stops
+>   the firmware.
 
-I will pickup this patch but this time only - next time all reviews and tagging
-need to happend on the mailing list.
+I don't see how firmware can be started and stopped.  Please rework.
 
+> - On Linux, when the compatibility is set, the Cortex-M resets should not
+>   be declared in the device tree.
+
+This is a description of "what" is happening and not "why".
+
+More comments to come shortly.
+
+Thanks,
 Mathieu
 
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
 > ---
->  drivers/remoteproc/stm32_rproc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   | 51 ++++++++++++++++---
+>  1 file changed, 43 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 88623df7d0c3..8c7f7950b80e 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -294,7 +294,7 @@ static void stm32_rproc_mb_vq_work(struct work_struct *work)
+> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> index 370af61d8f28..36ea54016b76 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> @@ -16,7 +16,12 @@ maintainers:
 >  
->  	mutex_lock(&rproc->lock);
+>  properties:
+>    compatible:
+> -    const: st,stm32mp1-m4
+> +    enum:
+> +      - st,stm32mp1-m4
+> +      - st,stm32mp1-m4-tee
+> +    description:
+> +      Use "st,stm32mp1-m4" for the Cortex-M4 coprocessor management by non-secure context
+> +      Use "st,stm32mp1-m4-tee" for the Cortex-M4 coprocessor management by secure context
 >  
-> -	if (rproc->state != RPROC_RUNNING)
-> +	if (rproc->state != RPROC_RUNNING && rproc->state != RPROC_ATTACHED)
->  		goto unlock_mutex;
+>    reg:
+>      description:
+> @@ -142,21 +147,41 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - resets
 >  
->  	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
-> 
-> base-commit: 4d5ba6ead1dc9fa298d727e92db40cd98564d1ac
+>  allOf:
+>    - if:
+>        properties:
+> -        reset-names:
+> -          not:
+> -            contains:
+> -              const: hold_boot
+> +        compatible:
+> +          contains:
+> +            const: st,stm32mp1-m4
+>      then:
+> +      if:
+> +        properties:
+> +          reset-names:
+> +            not:
+> +              contains:
+> +                const: hold_boot
+> +      then:
+> +        required:
+> +          - st,syscfg-holdboot
+> +      else:
+> +        properties:
+> +          st,syscfg-holdboot: false
+> +        required:
+> +          - reset-names
+>        required:
+> -        - st,syscfg-holdboot
+> -    else:
+> +        - resets
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32mp1-m4-tee
+> +    then:
+>        properties:
+>          st,syscfg-holdboot: false
+> +        reset-names: false
+> +        resets: false
+>  
+>  additionalProperties: false
+>  
+> @@ -188,5 +213,15 @@ examples:
+>        st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+>        st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+>      };
+> +  - |
+> +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> +    m4@10000000 {
+> +      compatible = "st,stm32mp1-m4-tee";
+> +      reg = <0x10000000 0x40000>,
+> +            <0x30000000 0x40000>,
+> +            <0x38000000 0x10000>;
+> +      st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+> +      st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+> +    };
+>  
+>  ...
 > -- 
 > 2.25.1
 > 
