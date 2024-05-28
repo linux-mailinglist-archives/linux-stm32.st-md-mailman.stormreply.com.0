@@ -2,68 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 290778D1DF1
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 16:08:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B5138D1E3B
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 16:14:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E687DC6DD72;
-	Tue, 28 May 2024 14:08:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E0F8C6DD72;
+	Tue, 28 May 2024 14:14:08 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8156C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9AF8C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 14:08:24 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44SDhLnC025707;
- Tue, 28 May 2024 16:08:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- WID1Xn8lAVeZgvgjfAvIZ5toir+39YNbyOYV1Sn5tIE=; b=iMdtq39PTNMpN5q0
- qF5bJ4MgHOGVhw1mZ69E37DDykQPYq78VRyRC8xOcDTIiHo8t1p5l7oZahTlfk0f
- 62z7DDATzMDcsBvM9BD7OGFShvez3iYvQr5XabiKWFIxf1f0351qZxdZyFDmvnxd
- GoPFlJ3hA3qQASc8S351Qr8UAwzmTx6IN8L35oG2mTJ8HBYVxzGT1rhCD04nT8Q3
- Un5yiNA+05t0WBvnKJiWdURvtWfMNoYRiQhfDHpDPnRX1HTJLWWgH8tk29MRAEMF
- ZUoMTJzQW5S2qMI0c3XwQT+lqG3Z0Ree23XiH4o8uAVgvMLxRZfRL4i2crNBTggv
- eKlDiQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yb9yjuyq7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 May 2024 16:08:05 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9A0824004B;
- Tue, 28 May 2024 16:08:01 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D470621BF47;
- Tue, 28 May 2024 16:07:23 +0200 (CEST)
-Received: from localhost (10.48.86.103) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 28 May
- 2024 16:07:23 +0200
-From: Maxime MERE <maxime.mere@foss.st.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
- <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 28 May 2024 16:05:48 +0200
-Message-ID: <20240528140548.1632562-5-maxime.mere@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240528140548.1632562-1-maxime.mere@foss.st.com>
-References: <20240528140548.1632562-1-maxime.mere@foss.st.com>
+ Tue, 28 May 2024 14:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=0PFLB1+/1/l4xaKijJc9PYg2KD4MBSlBhyA5X9UR3aA=; b=Z5x6/ZeQG2drmmNniVooK7BoCU
+ WZTC0F52F8XlATTbmbf8whGR5Ix/hmSkhxjUEa9Ts9wAS14CGPXBphswF9U6equukPy+RLT18aVrc
+ wOi/oC0E8BS3pib0g6Yt10HS1G5RthMckqzSwg+5HXmHVwC7L32/uWRoizULBNdNFkjTA8T8fNGqP
+ fpfr1FvOS8on13MPc2xwtY/P7jTUtFf3yj21l7mz/di3aC0z74IjIan/djT2AnQmkTVn1x30y066b
+ XYDwPX8qgtx7vzPctfKF4FJ6LM1X6vduhS16k/HtO5wog7h6+1orH5sOoi4U3nra0CZBX9DXobEma
+ 6/LkEahA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59156)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sBxa1-0004um-27;
+ Tue, 28 May 2024 15:13:33 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sBxa0-0003K2-7R; Tue, 28 May 2024 15:13:32 +0100
+Date: Tue, 28 May 2024 15:13:32 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZlXmjKtKozXThPFv@shell.armlinux.org.uk>
+References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+ <20240524210304.9164-1-fancer.lancer@gmail.com>
+ <20240524210304.9164-2-fancer.lancer@gmail.com>
+ <ZlNoLHoHjt3BsFde@shell.armlinux.org.uk>
+ <ZlN4tkY8fNM8/D8p@shell.armlinux.org.uk>
+ <ukszpirecb3pwnz5bbmy7wl44ujh6t2ewrnodmrye5kjmonsz2@pgf5b2oy5n3p>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.103]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-28_10,2024-05-28_01,2024-05-17_01
-Cc: Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- =?UTF-8?q?Maxime=20M=C3=A9r=C3=A9?= <maxime.mere@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 4/4] crypto: stm32/cryp - call finalize
-	with bh disabled
+Content-Disposition: inline
+In-Reply-To: <ukszpirecb3pwnz5bbmy7wl44ujh6t2ewrnodmrye5kjmonsz2@pgf5b2oy5n3p>
+Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/3] net: stmmac: Activate
+ Inband/PCS flag based on the selected iface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,33 +70,191 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogTWF4aW1lIE3DqXLDqSA8bWF4aW1lLm1lcmVAZm9zcy5zdC5jb20+CgpUaGUgZmluYWxp
-emUgb3BlcmF0aW9uIGluIGludGVycnVwdCBtb2RlIHByb2R1Y2UgYSBwcm9kdWNlcyBhIHNwaW5s
-b2NrCnJlY3Vyc2lvbiB3YXJuaW5nLiBUaGUgcmVhc29uIGlzIHRoZSBmYWN0IHRoYXQgQkggbXVz
-dCBiZSBkaXNhYmxlZApkdXJpbmcgdGhpcyBwcm9jZXNzLgoKU2lnbmVkLW9mZi1ieTogTWF4aW1l
-IE3DqXLDqSA8bWF4aW1lLm1lcmVAZm9zcy5zdC5jb20+Ci0tLQogZHJpdmVycy9jcnlwdG8vc3Rt
-MzIvc3RtMzItY3J5cC5jIHwgNiArKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMo
-KyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2NyeXB0by9zdG0zMi9zdG0z
-Mi1jcnlwLmMgYi9kcml2ZXJzL2NyeXB0by9zdG0zMi9zdG0zMi1jcnlwLmMKaW5kZXggNDQ1Mjc2
-Yjg0OGVkLi45MzdmNmRhYjg5NTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvY3J5cHRvL3N0bTMyL3N0
-bTMyLWNyeXAuYworKysgYi9kcml2ZXJzL2NyeXB0by9zdG0zMi9zdG0zMi1jcnlwLmMKQEAgLTEx
-LDYgKzExLDcgQEAKICNpbmNsdWRlIDxjcnlwdG8vaW50ZXJuYWwvZGVzLmg+CiAjaW5jbHVkZSA8
-Y3J5cHRvL2ludGVybmFsL3NrY2lwaGVyLmg+CiAjaW5jbHVkZSA8Y3J5cHRvL3NjYXR0ZXJ3YWxr
-Lmg+CisjaW5jbHVkZSA8bGludXgvYm90dG9tX2hhbGYuaD4KICNpbmNsdWRlIDxsaW51eC9jbGsu
-aD4KICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPgogI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5n
-Lmg+CkBAIC0yMjAzLDggKzIyMDQsMTEgQEAgc3RhdGljIGlycXJldHVybl90IHN0bTMyX2NyeXBf
-aXJxX3RocmVhZChpbnQgaXJxLCB2b2lkICphcmcpCiAJCWl0X21hc2sgJj0gfklNU0NSX09VVDsK
-IAlzdG0zMl9jcnlwX3dyaXRlKGNyeXAsIGNyeXAtPmNhcHMtPmltc2MsIGl0X21hc2spOwogCi0J
-aWYgKCFjcnlwLT5wYXlsb2FkX2luICYmICFjcnlwLT5oZWFkZXJfaW4gJiYgIWNyeXAtPnBheWxv
-YWRfb3V0KQorCWlmICghY3J5cC0+cGF5bG9hZF9pbiAmJiAhY3J5cC0+aGVhZGVyX2luICYmICFj
-cnlwLT5wYXlsb2FkX291dCkgeworCQlsb2NhbF9iaF9kaXNhYmxlKCk7CiAJCXN0bTMyX2NyeXBf
-ZmluaXNoX3JlcShjcnlwLCAwKTsKKwkJbG9jYWxfYmhfZW5hYmxlKCk7CisJfQogCiAJcmV0dXJu
-IElSUV9IQU5ETEVEOwogfQotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, May 28, 2024 at 04:19:49PM +0300, Serge Semin wrote:
+> On Sun, May 26, 2024 at 07:00:22PM +0100, Russell King (Oracle) wrote:
+> > On Sun, May 26, 2024 at 05:49:48PM +0100, Russell King (Oracle) wrote:
+> > > On Sat, May 25, 2024 at 12:02:58AM +0300, Serge Semin wrote:
+> > > > The HWFEATURE.PCSSEL flag is set if the PCS block has been synthesized
+> > > > into the DW GMAC controller. It's always done if the controller supports
+> > > > at least one of the SGMII, TBI, RTBI PHY interfaces. If none of these
+> > > > interfaces support was activated during the IP-core synthesize the PCS
+> > > > block won't be activated either and the HWFEATURE.PCSSEL flag won't be
+> > > > set. Based on that the RGMII in-band status detection procedure
+> > > > implemented in the driver hasn't been working for the devices with the
+> > > > RGMII interface support and with none of the SGMII, TBI, RTBI PHY
+> > > > interfaces available in the device.
+> > > > 
+> > > > Fix that just by dropping the dma_cap.pcs flag check from the conditional
+> > > > statement responsible for the In-band/PCS functionality activation. If the
+> > > > RGMII interface is supported by the device then the in-band link status
+> > > > detection will be also supported automatically (it's always embedded into
+> > > > the RGMII RTL code). If the SGMII interface is supported by the device
+> > > > then the PCS block will be supported too (it's unconditionally synthesized
+> > > > into the controller). The later is also correct for the TBI/RTBI PHY
+> > > > interfaces.
+> > > > 
+> > > > Note while at it drop the netdev_dbg() calls since at the moment of the
+> > > > stmmac_check_pcs_mode() invocation the network device isn't registered. So
+> > > > the debug prints will be for the unknown/NULL device.
+> > > 
+> > > Thanks. As this is a fix, shouldn't it be submitted for the net tree as
+> > > it seems to be fixing a bug in the driver as it stands today?
+> > > 
+> > > Also, a build fix is required here:
+> > > 
+> > > > -	if (priv->dma_cap.pcs) {
+> > > > -		if ((interface == PHY_INTERFACE_MODE_RGMII) ||
+> > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_ID) ||
+> > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_RXID) ||
+> > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_TXID)) {
+> > > > -			netdev_dbg(priv->dev, "PCS RGMII support enabled\n");
+> > > > -			priv->hw->pcs = STMMAC_PCS_RGMII;
+> > > > -		} else if (interface == PHY_INTERFACE_MODE_SGMII) {
+> > > > -			netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
+> > > > -			priv->hw->pcs = STMMAC_PCS_SGMII;
+> > > > -		}
+> > > > -	}
+> > > > +	if (phy_interface_mode_is_rgmii(interface))
+> > > > +		priv->hw.pcs = STMMAC_PCS_RGMII;
+> > > > +	else if (interface == PHY_INTERFACE_MODE_SGMII)
+> > > > +		priv->hw.pcs = STMMAC_PCS_SGMII;
+> > > 
+> > > Both of these assignments should be priv->hw->pcs not priv->hw.pcs.
+> > > 
+> > > I think there's also another bug that needs fixing along with this.
+> > > See stmmac_ethtool_set_link_ksettings(). Note that this denies the
+> > > ability to disable autoneg, which (a) doesn't make sense for RGMII
+> > > with an attached PHY, and (b) this code should be passing the
+> > > ethtool op to phylink for it to pass on to phylib so the PHY can
+> > > be appropriately configured for the users desired autoneg and
+> > > link mode settings.
+> > > 
+> > > I also don't think it makes any sense for the STMMAC_PCS_SGMII case
+> > > given that it means Cisco SGMII - which implies that there is also
+> > > a PHY (since Cisco SGMII with inband is designed to be coupled with
+> > > something that looks like a PHY to send the inband signalling
+> > > necessary to configure e.g. the SGMII link symbol replication.
+> > > 
+> > > In both of these cases, even if the user requests autoneg to be
+> > > disabled, that _shouldn't_ affect internal network driver links.
+> > > This ethtool op is about configuring the externally visible media
+> > > side of the network driver, not the internal links.
+> > 
+> 
+> > I have a concern about this patch. Have you considered dwmac-intel with
+> > its XPCS support, where the XPCS is used for Cisco SGMII and 1000base-X
+> > support. Does the dwmac-intel version of the core set
+> > priv->dma_cap.pcs? If it doesn't, then removing the test on this will
+> > cause a regression, since in Cisco SGMII mode, we end up setting
+> > priv->hw->pcs to SYMMAC_PCS_SGMII where we didn't before. As
+> > priv->flags will not have STMMAC_FLAG_HAS_INTEGRATED_PCS, this will
+> > enable all the "integrated PCS" code paths despite XPCS clearly
+> > intending to be used for Cisco SGMII.
+> > 
+> > I'm also wondering whether the same applies to the lynx PCS as well,
+> > or in the general case if we have any kind of external PCS.
+> > 
+> > Hence, I think this probably needs to be:
+> > 
+> > 	if (phy_interface_mode_is_rgmii(interface))
+> > 		priv->hw->pcs = STMMAC_PCS_RGMII;
+> > 	else if (interface == PHY_INTERFACE_MODE_SGMII && priv->dma_cap.pcs)
+> > 		priv->hw->pcs = STMMAC_PCS_SGMII;
+> > 
+> > At least this is what unpicking the awful stmmac code suggests (and I
+> > do feel that my point about the shocking state of this driver is proven
+> > as details like this are extremely difficult to unpick, and not
+> > unpicking them correctly will lead to regressions.) Therefore, I would
+> > suggest that it would be wise if you also double-checked this.
+> 
+> Double-checked that part. Indeed this is what I forgot to take into
+> account.
+
+Thanks for double-checking it.
+
+> (Just realized I had a glimpse thought about checking the DW
+> xGMAC/XPCS for supporting the SGMII interface, but the thought got
+> away from my mind forgotten.) DW XPCS can be synthesized with having
+> the GMII/MII interface connected to the MAC and SGMII downstream
+> interface over a single 1000Base-X lane.
+> 
+> In anyway AFAICS that case has nothing to do with the PCS embedded
+> into the DW GMAC or DW QoS Eth synthesized with the SGMII support. DW
+> XGMAC has no embedded PCS, but could be attached to the separate DW
+> XPCS device.
+
+This is where my head starts spinning, because identifying what
+"DW GMAC" and "DW QoS Eth" refer to is difficult unless one, I guess,
+has the documentation.
+
+The only references to QoS that I can find in the driver refer to
+per-DMA channel interrupts, dwmac5* and one mention for a platform
+driver in the Kconfig.
+
+Grepping for "DW GMAC" doesn't give anything.
+
+Conversely, I know from the code that only dwmac4 and dwmac1000
+have support for the integrated PCS. So trying to put this together
+doesn't make much sense to me. :/
+
+Maybe "DW QoS Eth" refers to dwmac-dwc-qos-eth.c?
+
+> About the correct implementation. Right, priv->dma_cap.pcs indicates
+> that there is an embedded PCS and the flag can be set for DW GMAC or DW
+> QoS Eth only. Although I would change the order:
+> 
+>        if (phy_interface_mode_is_rgmii(interface))
+>                priv->hw->pcs = STMMAC_PCS_RGMII;
+>        else if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII)
+>                priv->hw->pcs = STMMAC_PCS_SGMII;
+> 
+> since priv->dma_cap.pcs is a primary flag. If it isn't set the
+> interface will be irrelevant.
+
+As this is generic code, it probably makes sense to go with that, since
+priv->dma_cap.pcs indicates whether the internal PCS for SGMII is
+present or not rather than...
+
+> Alternative solution could be to use the has_gmac/has_gmac4 flags
+> instead. That will emphasize that the embedded PCS is expected to be
+> specific for the DW GMAC and DW QoS Eth IP-cores:
+> 
+>        if (phy_interface_mode_is_rgmii(interface))
+>                priv->hw->pcs = STMMAC_PCS_RGMII;
+>        else if ((priv->plat.has_gmac || priv->plat.has_gmac4) &&
+> 		interface == PHY_INTERFACE_MODE_SGMII)
+>                priv->hw->pcs = STMMAC_PCS_SGMII;
+
+which implies that gmac (dwgmac1000_core.c) and gmac4 (dwgmac4_core.c)
+will always have its internal PCS if we're using SGMII mode. Does this
+mean it is true that these cores will never be used with an external
+PCS?
+
+If there is a hardware flag that indicates the PCS is implemented, then
+I think using that to gate whether SGMII uses the internal PCS is
+better rather than using the core type.
+
+Please can you confirm that if an external PCS (e.g. xpcs, lynx PCS)
+is being used, the internal PCS will not have been synthesized, and
+thus priv->dma_cap.pcs will be false? The reason I'd like to know
+this is because in the future, I'd like to eliminate priv->hw->pcs,
+and just have dwmac1000/dwmac4's phylink_select_pcs() method make
+the decisions.
+
+If not, then we need to think about the behaviour that
+stmmac_mac_select_pcs(0 should have. Should it give priority to the
+internal PCS over external PCS, or external PCS first (in which case
+what do we need to do with the internal PCS.)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
