@@ -2,62 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92AD68D1866
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 12:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17058D1874
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 12:23:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E104C6B47E;
-	Tue, 28 May 2024 10:22:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69053C6B47E;
+	Tue, 28 May 2024 10:23:26 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2314CFAC7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FF41CFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 10:22:03 +0000 (UTC)
+ Tue, 28 May 2024 10:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xKVMZlVJjByQlTcWIHcb8ICc2Adw+z+dOdz53NVlpuo=; b=sqNnxhk5J6XXakffML7EBhL0FA
- 8kDy73eLiLSXZ0NN/9oIEJaRO1aECUF1NNEnpClyaHQO1C2xxRyDBWk/ySafx5iIaduFQM8cXLiZO
- Jr3adIdqJ0gPPUkb00oHQDK8GqXAt/APcH7lE8sn6KEtAnQnPdCd0nQd7r2wY3t/OxUB+AcC7EP72
- Ys+VvkuY7agbOJXYLjA9KeG1hiuymXHK6yYl0Vd2It8wPBdbBjv8ZPaSUe0Lej6Gq4jiQjpH1p1Lm
- uHp5M3Sr52QMTDb2TDJi/OjZf+M6Ur1nS90+LiP+ScF4WL+DjmeNmzsN/OfJI2Ah/yUyJ1ykb072h
- Vfl7bTGQ==;
+ bh=Zttd9Ti6dlrdltMOkpQrnFnbw+iW5a9NAfwZ4M3vUCo=; b=0gQC9ZPnrBS+TIfGGqnRL5Ztk3
+ jMr9cYdK88WgnFC83V1Z/DwVomq7NX5ByBjlenoZ6mvHkTf8pGfS8A6K4t/nek2oXGny4mK2uvVOi
+ vZrn7eJwzLGRRduhpR5HCwUjEhQwYrLjOIK4BGgEtE/fzJHyl5MsB/D2WgS3pnuHp0NYmylntRyFz
+ eCxYkovFdtOMVxNZV2ZiCEaPrC/vWIwlJfj7J5tkDAshChoGXVvQUnDrFPt57wPWaY+gjPpsOof5e
+ AIkYygEsEOM2dXQ9Qmu+XiopiEG26vzY1bhyU55Sh0wI//yEL6U49w/jng2Zcxwwt2uef7DDXRwqh
+ l0/zKlRQ==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41282)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37478)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sBtxd-0004by-2l;
- Tue, 28 May 2024 11:21:41 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1sBtyy-0004cT-2s;
+ Tue, 28 May 2024 11:23:04 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sBtxc-0003BF-0p; Tue, 28 May 2024 11:21:40 +0100
-Date: Tue, 28 May 2024 11:21:39 +0100
+ id 1sBtyz-0003BN-Qy; Tue, 28 May 2024 11:23:05 +0100
+Date: Tue, 28 May 2024 11:23:05 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZlWwMzMZrwb5fscN@shell.armlinux.org.uk>
+Message-ID: <ZlWwiQxvvAKd39gN@shell.armlinux.org.uk>
 References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
  <20240524210304.9164-1-fancer.lancer@gmail.com>
- <20240524210304.9164-2-fancer.lancer@gmail.com>
- <ZlNoLHoHjt3BsFde@shell.armlinux.org.uk>
- <fvjrnunu4lriegq3z7xkefsts6ybn2vkxmve6xzi73krjgvcj6@bhf4b4xx3x72>
+ <20240524210304.9164-3-fancer.lancer@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <fvjrnunu4lriegq3z7xkefsts6ybn2vkxmve6xzi73krjgvcj6@bhf4b4xx3x72>
-Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
+In-Reply-To: <20240524210304.9164-3-fancer.lancer@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/3] net: stmmac: Activate
- Inband/PCS flag based on the selected iface
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 3/3] net: stmmac: Drop
+	TBI/RTBI PCS flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,52 +70,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 27, 2024 at 12:57:02AM +0300, Serge Semin wrote:
-> On Sun, May 26, 2024 at 05:49:48PM +0100, Russell King (Oracle) wrote:
-> > On Sat, May 25, 2024 at 12:02:58AM +0300, Serge Semin wrote:
-> > > The HWFEATURE.PCSSEL flag is set if the PCS block has been synthesized
-> > > into the DW GMAC controller. It's always done if the controller supports
-> > > at least one of the SGMII, TBI, RTBI PHY interfaces. If none of these
-> > > interfaces support was activated during the IP-core synthesize the PCS
-> > > block won't be activated either and the HWFEATURE.PCSSEL flag won't be
-> > > set. Based on that the RGMII in-band status detection procedure
-> > > implemented in the driver hasn't been working for the devices with the
-> > > RGMII interface support and with none of the SGMII, TBI, RTBI PHY
-> > > interfaces available in the device.
-> > > 
-> > > Fix that just by dropping the dma_cap.pcs flag check from the conditional
-> > > statement responsible for the In-band/PCS functionality activation. If the
-> > > RGMII interface is supported by the device then the in-band link status
-> > > detection will be also supported automatically (it's always embedded into
-> > > the RGMII RTL code). If the SGMII interface is supported by the device
-> > > then the PCS block will be supported too (it's unconditionally synthesized
-> > > into the controller). The later is also correct for the TBI/RTBI PHY
-> > > interfaces.
-> > > 
-> > > Note while at it drop the netdev_dbg() calls since at the moment of the
-> > > stmmac_check_pcs_mode() invocation the network device isn't registered. So
-> > > the debug prints will be for the unknown/NULL device.
-> > 
+On Sat, May 25, 2024 at 12:02:59AM +0300, Serge Semin wrote:
+> First of all the flags are never set by any of the driver parts. If nobody
+> have them set then the respective statements will always have the same
+> result. Thus the statements can be simplified or even dropped with no risk
+> to break things.
 > 
-> > Thanks. As this is a fix, shouldn't it be submitted for the net tree as
-> > it seems to be fixing a bug in the driver as it stands today?
+> Secondly shall any of the TBI or RTBI flag is set the MDIO-bus
+> registration will be bypassed. Why? It really seems weird. It's perfectly
+> fine to have a TBI/RTBI-capable PHY configured over the MDIO bus
+> interface.
 > 
-> From one point of view it could be submitted for the net tree indeed,
-> but on the second thought are you sure we should be doing that seeing
-> it will activate the RGMII-inband detection and the code with the
-> netif-carrier toggling behind the phylink back? Who knows what new
-> regressions the activated PCS-code can cause?..
+> Based on the notes above the TBI/RTBI PCS flags can be freely dropped thus
+> simplifying the driver code.
+> 
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 
-If it's not a fix that is suitable without the remainder of the patch
-set, this should be stated in the commit description and it shouldn't
-have a Fixes: tag.
+I think this patch can come first in the series, along with another
+few patches that remove stuff. Any objection?
 
-The reason is because it wouldn't be stable kernel material without the
-other patches - if stable picks it up without the other patches then
-it could end up being applied without the other patches resulting in
-the situation you mention above.
-
-Shall I remove the Fixes: tag?
+Thanks.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
