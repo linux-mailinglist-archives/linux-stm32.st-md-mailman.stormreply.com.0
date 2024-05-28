@@ -2,188 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00CE8D153F
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 09:22:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AD68D1866
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2024 12:22:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACFF8C03FC3;
-	Tue, 28 May 2024 07:22:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E104C6B47E;
+	Tue, 28 May 2024 10:22:10 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF3A4C030CA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2314CFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2024 07:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1716880920; x=1748416920;
- h=from:to:subject:date:message-id:references:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=7mYJ0lCStVMQ/05jKsDPLkhl2H2jDTVfn2Otsg/PQsY=;
- b=FtkaULBE2t22j8T5/kzNQ9pmgt8ghGL8tQjruhtQ+tV3g8kweUvmVp73
- QEFKG3449zYPyFYTl/DseI/TcX61LGvF1DMKhS0/WS4RAsnPjxhnO1qSy
- NthvS1gdAqkhbnUrlYAa4IE4yBrg91g6fzFhhsph9v50TO2891WVZmlHp
- pQC5hqSggB0Q+Xn08TTgJ/s5SJYuGpZ8Mp3usFmaLvveJBMiSYY3WXVV+
- PxVOwlRaQFNVjWwnAxd35RM76TGww6bUs5kF+meVciNj+essIM12j8hJB
- 8PEcZ0/crirZrVXMzW54mZYC6UHr89BapPeSZDcmnQPzTRwLsGagG8YaX g==;
-X-CSE-ConnectionGUID: YbbTXUD9QB+E9UToKAB+qQ==
-X-CSE-MsgGUID: i+pPwRrhSN20TdX7SqA6Lg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11085"; a="23873310"
-X-IronPort-AV: E=Sophos;i="6.08,194,1712646000"; d="scan'208";a="23873310"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 May 2024 00:21:52 -0700
-X-CSE-ConnectionGUID: zhjeNWyLQ0ytZ4JEfMs+EQ==
-X-CSE-MsgGUID: KhF1aZiiQnqOGKfI70S/zQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,194,1712646000"; d="scan'208";a="35574657"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orviesa007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 28 May 2024 00:21:51 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 28 May 2024 00:21:50 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 28 May 2024 00:21:50 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Tue, 28 May 2024 00:21:50 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.100)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 28 May 2024 00:21:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l2DBnP20N3xY4fprpxEvkFmmjZ7RpNfr6GuShhmKmgypKmlaUmBLuEDZDQ6LKl79pkUtjpDDmERUUFj65gZ9R7rjPgpQ79d8dUzjyf4dYWxOOMqd+AZ+bvoFlAOQ7vuyNArTbYkSAeG8Yg9Ue98ho7wAH1WIDx3pWs+0/U+tb7GHYN/43fjI9BiyJKndz4AUQZej3lBMNtXHGjxUdAgFzDf1/gahDwJwB1V/3I6lqdljswOKqazeHpr9l8Twwp6f2Lzk8BgJK5awTKCJYMnWUYnDHkW4XmuMnOcC2qv6/9xqgWZpnQ2dXEKSIDBsY9HL7NSBb5uFE6D7/km6+dvmRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2xGGOx4FSedDXKSi8AGU/iPZsXgbiwh0yRglmqkODM=;
- b=LGsASlcmJXzg7XrKRLtL5Vjslby84cuUgGORDTz17rId3oi0+2wrCs+bKPwkjUzsXC6aeCMNGpRPdHpEDh36/SL+hsKO6y4GGhz0MOw9OhDZP8R0YlnBwogFRMUeziSgOBwfyr+087Cnwwyu9mkFbJShtqDcIN6uRSJunKKEw0afwiqqxv16m0HpaJy16kL0z23kS0sZF97c0Bn0inDcnGFcc6JYwPHR/yCLRGHrATipuLvVxEN/eIa4aNPuR6iiUFQ5gIOFOguCDkv9O7/Fi8fv0Pf1IBrWT67F+z8yT6ovbhmH3CMCcSMlCglK7vmEn0UTF0kZMrxd8jnpxsuvSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM8PR11MB5751.namprd11.prod.outlook.com (2603:10b6:8:12::16) by
- IA0PR11MB7816.namprd11.prod.outlook.com (2603:10b6:208:407::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7611.29; Tue, 28 May
- 2024 07:21:47 +0000
-Received: from DM8PR11MB5751.namprd11.prod.outlook.com
- ([fe80::4046:430d:f16c:b842]) by DM8PR11MB5751.namprd11.prod.outlook.com
- ([fe80::4046:430d:f16c:b842%4]) with mapi id 15.20.7611.030; Tue, 28 May 2024
- 07:21:47 +0000
-From: "Ng, Boon Khai" <boon.khai.ng@intel.com>
-To: Sunil Kovvuri Goutham <sgoutham@marvell.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "Ang, Tien Sung" <tien.sung.ang@intel.com>,
- "G Thomas, Rohan" <rohan.g.thomas@intel.com>, "Looi, Hong Aun"
- <hong.aun.looi@intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Ilpo Jarvinen
- <ilpo.jarvinen@linux.intel.com>
-Thread-Topic: [Enable Designware XGMAC VLAN Stripping Feature v2 1/1] net:
- stmmac: dwxgmac2: Add support for HW-accelerated VLAN Stripping
-Thread-Index: AQHasM89szK8kSaG/E2tzqRYe3FnP7GsPSPA
-Date: Tue, 28 May 2024 07:21:47 +0000
-Message-ID: <DM8PR11MB57515E89D10F06644155DA11C1F12@DM8PR11MB5751.namprd11.prod.outlook.com>
-References: <20240527093339.30883-1-boon.khai.ng@intel.com>
- <20240527093339.30883-2-boon.khai.ng@intel.com>
- <BY3PR18MB47372537A64134BCE2A4F589C6F02@BY3PR18MB4737.namprd18.prod.outlook.com>
- <DM8PR11MB5751CE01703FFF7CB62DAF9BC1F02@DM8PR11MB5751.namprd11.prod.outlook.com>
- <BY3PR18MB4737DAE0AD482B9660676F6BC6F02@BY3PR18MB4737.namprd18.prod.outlook.com>
- <DM8PR11MB5751118297FB966DA95F55DFC1F12@DM8PR11MB5751.namprd11.prod.outlook.com>
- <BY3PR18MB4737D071F3F747B6ECB15BF2C6F12@BY3PR18MB4737.namprd18.prod.outlook.com>
-In-Reply-To: <BY3PR18MB4737D071F3F747B6ECB15BF2C6F12@BY3PR18MB4737.namprd18.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR11MB5751:EE_|IA0PR11MB7816:EE_
-x-ms-office365-filtering-correlation-id: 44c47c0a-a79c-42ff-7e45-08dc7ee6d5bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230031|366007|1800799015|376005|7416005|38070700009|921011; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?4R8B0Rh6QYVlptglIvpy0KmEYlll22uULpuT2JxyEOAZ4sUv+E5SS9yVio6X?=
- =?us-ascii?Q?gfbJoslxg7v5+jelDF2H1m6mW9Vqrdg7hG5u9wcUKYujY5G+votZXsXHHus/?=
- =?us-ascii?Q?8CPArlCFHlobxAY429cehZoxQUqyLLUKyjuwkL7ehs4MhA+wji3Qx8FNbNgw?=
- =?us-ascii?Q?BIklp1m2D13LUkCfB4kiorAVfsJjDvR5ckJB+aiAdsvXKmKgBxcJkATZ7E34?=
- =?us-ascii?Q?riOoQId59EU6RiF5yt/iZid/3egwi5c+z1pgOSXpPU03sqm2FOIeEx7W2c9v?=
- =?us-ascii?Q?kqaotKq3Hm/dc4wZzubBX0lRYuecz+haAXDY02ZqJ+2tgl6uvxPEPKShVX0V?=
- =?us-ascii?Q?LkAX1SLf2L1eAzgcBe7vtdr7wXUVyoCyy+6swsKCug3ML4V14aQC35CR+9QR?=
- =?us-ascii?Q?jzutGzhDfpU0M+h80MUbrzscdodHAVMyIg8pjrxw0q2xJbEQhTlMHqJJzLcb?=
- =?us-ascii?Q?J6D1BWllpmcdjBY9AntObcqkSy+Gf2TwK+d0EBxt8F23UgGKqKlzBOepA1Sv?=
- =?us-ascii?Q?tpozA/C93KSbA+F+uJsyOYZ+piTjsXfq0kCfoJVpguugKd2q8U6q5IEJLtTZ?=
- =?us-ascii?Q?BU21p9KKV5fbOvXODaa8m26i3I6kXONVYhmyt4h0guL5PwtjgHFTX/xLRduq?=
- =?us-ascii?Q?CyCAU7ita/4dyPRnbwfHfd+Q8tUwyHn/Zrb6TA2GtqelAhFspz+JB6ANt9+o?=
- =?us-ascii?Q?HmM6EsBfAy75Ylm2VaegDf6xHfEP12qUZljyx1bTjLxOeOJuYa3LHHFvjxjz?=
- =?us-ascii?Q?UsKkwEr/Ir1sWwLuNFg6kKri6GHtiRHR1JFIqPFBhIOI+sM8vSfmEXhIMDQY?=
- =?us-ascii?Q?krrHgG3Y0L8SnN5N5Bo7OLheQxo1b04rtF9uFMJYA8k/fJtjfhOnBcnB7jn3?=
- =?us-ascii?Q?UT2XbGmBlMdE8g6lEftJu/QO5ovmylGP9BslSO+0i5RMdEADbRR+q8KleU7E?=
- =?us-ascii?Q?Ejzx9JsE80JT/6mGQqSjZlyn728UVIo1p271D1UCQ/DElBvr1SmmZmS9dV0e?=
- =?us-ascii?Q?SbLLWnasIW89oy6U3yqqlwI73FcEXWeAt0gOAm/kiMQUt8pbNvgtJV5+IotE?=
- =?us-ascii?Q?y6evXaQ7G4LSmAQVpiQ4rs265MpcmH7NJ65m/wC9L1DGG7C/oZEy4OXoeGD+?=
- =?us-ascii?Q?3YRVImmOmfGBTei4OTHxDJ7Kr7bYQ2jYfHTFwfRAYLagWgkt6ZMUA0Fpjvh8?=
- =?us-ascii?Q?5dSVEhweUF77kncVy+QkMjB4jMTy0PZ+fJclmPOr/pmThRQ0xMJPfWabt6wW?=
- =?us-ascii?Q?Fk0oQvs7jnkAigkVuO9Jg1KBLXpyuXdezqYcSuBsDG/d/xcNDWWW35NirL5y?=
- =?us-ascii?Q?c2E=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR11MB5751.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(1800799015)(376005)(7416005)(38070700009)(921011);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?z/5ubaTpGq5iB9UsgdjrJUP+zW3URAvgX2+8DO4rAdN7VP7DdMEzyO+XASYN?=
- =?us-ascii?Q?SYMBMToeHJhQP5AF4QT+wjnAFm/9DQVrEPBn/vPM1UeAvWrhFzVjZVinwW5q?=
- =?us-ascii?Q?NSWyGTf7tHJ2HZCPIrRvHeiqSCU1vbBIWPUmoUX6pYs5HLE5mi5qUzpPbIRU?=
- =?us-ascii?Q?HNZh3OZOP/nBUM5kUThDq0vyUhN1imxZnqiglD/ITvmteuXLSEm9CyZMfctg?=
- =?us-ascii?Q?iCIEz+iULbrp42mdphBiLimEtwcZomkN1ogVKDMZAHAAkwxJ797A7CreDoRh?=
- =?us-ascii?Q?qmQnMFw5Jryxg7IvQhF3KJL2QWyZJkBTgt/y5emI1ozXzSejo9X+6PTRskMU?=
- =?us-ascii?Q?HZmVqWJ5E1SV0kTdjML9Hbsv1ouw1xKCJL57XrZAL5KbbISn1LHcmqaeCcU4?=
- =?us-ascii?Q?t1iCTV/oeGSQXUFMTDbf6PJZCoKjoCbBdOHqNS1n/TXfdiSoM7KER6TRDoaZ?=
- =?us-ascii?Q?aUDBJ0VtD80NE2dbbi26FfyldtBErLiwCdesAYbwpejb9/a0e9ghj8a5VQun?=
- =?us-ascii?Q?7dtFu6UlQqShgQl1k1ZAnQAt0qTIhiDMMnTFqpjZfBZpJKBE+iNkzhuDOUjO?=
- =?us-ascii?Q?SoLF1OjtPSfm+KjC49nNZDxmDLcbGSX43eeCB79FIXywaj8nkuu6RcCT/EOk?=
- =?us-ascii?Q?1RjGpew/wf7dv4jhirHcAWGpWYu5Lfe/FI4qwk5JTkNnwPoo+qKoxbM8G7Gn?=
- =?us-ascii?Q?B3WMSbd/VRSlKEfME8Xw15pbcQuSKxJmOywAzBKtNXL0gtTtvBFWnAWyyPnY?=
- =?us-ascii?Q?79aRxrsOmZsEnUWoHru4iYQ87y0YF+jNRaUBpaMZq2R+wdogby9wj+ZBTYMx?=
- =?us-ascii?Q?CqOD6ORrSlFuO9Jsp9OVl2/Fe6WfIrpyMouTkf/2FgbBi3dKpunfOh8bIIu3?=
- =?us-ascii?Q?1L92dJAt+RK5Ci/uOsSG6LdP7zp/bfRKblR7U7vkEDQs+4KUrOUK6sHErWRV?=
- =?us-ascii?Q?nuEe1nErZAaUpeFXSfQL+8/rYZKsBaZbQRG6WSDWkhvrxJYpvr/a8xAK5jUc?=
- =?us-ascii?Q?GrueR36PjTu8uXH+TmCBno3ZFq3P5x5QPB5EuU30K9UB9rr5ayvOWwCvnHW8?=
- =?us-ascii?Q?MIod3+VTn71Wdh/6BkCGdDJuz6k0cupL/nKjyra2bTIdfghRk/YPLGCT3G7h?=
- =?us-ascii?Q?eixtArraeTImf9j7x5sYs/ZAoe3ltw5kD4YbNd4fK9QwRmJrKxeaLzKWNwze?=
- =?us-ascii?Q?PzvVo6pc5+lUMIi2VWB9BK9hQ42TGKWV1glSpXUxbDyBwKXHh+ZsAzXKHdx2?=
- =?us-ascii?Q?VgAkWNw+qSuc95x7Igb8bRyoLJrgX+PoQSOcf8/1/BF6npR5kl3z8M1HLu0/?=
- =?us-ascii?Q?1Bsp3961DvBNrcSz3rcxmVvJFfL985KZsD3wePetz1+heQAm8AgnrsHlYN3L?=
- =?us-ascii?Q?cpFZr8kvyZ9v3NzP3sDpnilKahp+ribqjGMnkOvYWC0okx4jKHtuxdno894S?=
- =?us-ascii?Q?iIlsGOaHKoS110OamKHVxdMzfEUoMhcP1y6fQOmF2DqPa0VwhEpQGIXebxqX?=
- =?us-ascii?Q?mf6Gsb4Pxp7xjRsNThYw2ZkOpANLQR0HCmYORybUwUgK7C+3Eu0psy3Sg8gi?=
- =?us-ascii?Q?aB1UnZ07noZ8650U9WxBi243+d9M5ToXiQmjadvh?=
+ Tue, 28 May 2024 10:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xKVMZlVJjByQlTcWIHcb8ICc2Adw+z+dOdz53NVlpuo=; b=sqNnxhk5J6XXakffML7EBhL0FA
+ 8kDy73eLiLSXZ0NN/9oIEJaRO1aECUF1NNEnpClyaHQO1C2xxRyDBWk/ySafx5iIaduFQM8cXLiZO
+ Jr3adIdqJ0gPPUkb00oHQDK8GqXAt/APcH7lE8sn6KEtAnQnPdCd0nQd7r2wY3t/OxUB+AcC7EP72
+ Ys+VvkuY7agbOJXYLjA9KeG1hiuymXHK6yYl0Vd2It8wPBdbBjv8ZPaSUe0Lej6Gq4jiQjpH1p1Lm
+ uHp5M3Sr52QMTDb2TDJi/OjZf+M6Ur1nS90+LiP+ScF4WL+DjmeNmzsN/OfJI2Ah/yUyJ1ykb072h
+ Vfl7bTGQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41282)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sBtxd-0004by-2l;
+ Tue, 28 May 2024 11:21:41 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sBtxc-0003BF-0p; Tue, 28 May 2024 11:21:40 +0100
+Date: Tue, 28 May 2024 11:21:39 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZlWwMzMZrwb5fscN@shell.armlinux.org.uk>
+References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
+ <20240524210304.9164-1-fancer.lancer@gmail.com>
+ <20240524210304.9164-2-fancer.lancer@gmail.com>
+ <ZlNoLHoHjt3BsFde@shell.armlinux.org.uk>
+ <fvjrnunu4lriegq3z7xkefsts6ybn2vkxmve6xzi73krjgvcj6@bhf4b4xx3x72>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR11MB5751.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44c47c0a-a79c-42ff-7e45-08dc7ee6d5bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2024 07:21:47.2544 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FgjwRK2gNoqx2oacu0azwtnTnygD5BXw//q1AzwQnekQTLKs98cotTxy2hBrfIRZGX3k+884VdOHXv661N5Pfg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7816
-X-OriginatorOrg: intel.com
-Subject: Re: [Linux-stm32] [Enable Designware XGMAC VLAN Stripping Feature
- v2 1/1] net: stmmac: dwxgmac2: Add support for HW-accelerated VLAN
- Stripping
+Content-Disposition: inline
+In-Reply-To: <fvjrnunu4lriegq3z7xkefsts6ybn2vkxmve6xzi73krjgvcj6@bhf4b4xx3x72>
+Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/3] net: stmmac: Activate
+ Inband/PCS flag based on the selected iface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -200,142 +74,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> -----Original Message-----
-> From: Sunil Kovvuri Goutham <sgoutham@marvell.com>
-> Sent: Tuesday, May 28, 2024 3:18 PM
-> To: Ng, Boon Khai <boon.khai.ng@intel.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> David S . Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org; Ang,
-> Tien Sung <tien.sung.ang@intel.com>; G Thomas, Rohan
-> <rohan.g.thomas@intel.com>; Looi, Hong Aun <hong.aun.looi@intel.com>;
-> Andy Shevchenko <andriy.shevchenko@linux.intel.com>; Ilpo Jarvinen
-> <ilpo.jarvinen@linux.intel.com>
-> Subject: RE: [Enable Designware XGMAC VLAN Stripping Feature v2 1/1] net:
-> stmmac: dwxgmac2: Add support for HW-accelerated VLAN Stripping
+On Mon, May 27, 2024 at 12:57:02AM +0300, Serge Semin wrote:
+> On Sun, May 26, 2024 at 05:49:48PM +0100, Russell King (Oracle) wrote:
+> > On Sat, May 25, 2024 at 12:02:58AM +0300, Serge Semin wrote:
+> > > The HWFEATURE.PCSSEL flag is set if the PCS block has been synthesized
+> > > into the DW GMAC controller. It's always done if the controller supports
+> > > at least one of the SGMII, TBI, RTBI PHY interfaces. If none of these
+> > > interfaces support was activated during the IP-core synthesize the PCS
+> > > block won't be activated either and the HWFEATURE.PCSSEL flag won't be
+> > > set. Based on that the RGMII in-band status detection procedure
+> > > implemented in the driver hasn't been working for the devices with the
+> > > RGMII interface support and with none of the SGMII, TBI, RTBI PHY
+> > > interfaces available in the device.
+> > > 
+> > > Fix that just by dropping the dma_cap.pcs flag check from the conditional
+> > > statement responsible for the In-band/PCS functionality activation. If the
+> > > RGMII interface is supported by the device then the in-band link status
+> > > detection will be also supported automatically (it's always embedded into
+> > > the RGMII RTL code). If the SGMII interface is supported by the device
+> > > then the PCS block will be supported too (it's unconditionally synthesized
+> > > into the controller). The later is also correct for the TBI/RTBI PHY
+> > > interfaces.
+> > > 
+> > > Note while at it drop the netdev_dbg() calls since at the moment of the
+> > > stmmac_check_pcs_mode() invocation the network device isn't registered. So
+> > > the debug prints will be for the unknown/NULL device.
+> > 
 > 
+> > Thanks. As this is a fix, shouldn't it be submitted for the net tree as
+> > it seems to be fixing a bug in the driver as it stands today?
 > 
-> 
-> > -----Original Message-----
-> > From: Ng, Boon Khai <boon.khai.ng@intel.com>
-> > Sent: Tuesday, May 28, 2024 7:37 AM
-> > To: Sunil Kovvuri Goutham <sgoutham@marvell.com>; Alexandre Torgue
-> > <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> > David S . Miller <davem@davemloft.net>; Eric Dumazet
-> > <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> > <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>;
-> > netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> > linux- arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> > Ang, Tien Sung <tien.sung.ang@intel.com>; G Thomas, Rohan
-> > <rohan.g.thomas@intel.com>; Looi, Hong Aun <hong.aun.looi@intel.com>;
-> > Andy Shevchenko <andriy.shevchenko@linux.intel.com>; Ilpo Jarvinen
-> > <ilpo.jarvinen@linux.intel.com>
-> > Subject: RE:  [Enable Designware XGMAC VLAN Stripping Feature
-> > v2 1/1] net: stmmac: dwxgmac2: Add support for HW-accelerated VLAN
-> > Stripping
-> >
-> > > -----Original Message-----
-> > > From: Sunil Kovvuri Goutham <sgoutham@marvell.com>
-> > > Sent: Monday, May 27, 2024 11:36 PM
-> > > To: Ng, Boon Khai <boon.khai.ng@intel.com>; Alexandre Torgue
-> > > <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> > > David S . Miller <davem@davemloft.net>; Eric Dumazet
-> > > <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni
-> > > <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>;
-> > > netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> > > linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> > > Ang, Tien Sung <tien.sung.ang@intel.com>; G Thomas, Rohan
-> > > <rohan.g.thomas@intel.com>; Looi, Hong Aun
-> > > <hong.aun.looi@intel.com>; Andy Shevchenko
-> > > <andriy.shevchenko@linux.intel.com>; Ilpo Jarvinen
-> > > <ilpo.jarvinen@linux.intel.com>
-> > > Subject: RE: [EXTERNAL] [Enable Designware XGMAC VLAN Stripping
-> > > Feature
-> > > v2 1/1] net: stmmac: dwxgmac2: Add support for HW-accelerated VLAN
-> > > Stripping
-> > >
-> > >
-> > >
-> > > > -----Original Message-----
-> > > > From: Ng, Boon Khai <boon.khai.ng@intel.com>
-> > > > Sent: Monday, May 27, 2024 6:58 PM
-> > > > To: Sunil Kovvuri Goutham <sgoutham@marvell.com>; Alexandre
-> Torgue
-> > > > <alexandre.torgue@foss.st.com>; Jose Abreu
-> <joabreu@synopsys.com>;
-> > > > David S . Miller <davem@davemloft.net>; Eric Dumazet
-> > > > <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> > > > Abeni <pabeni@redhat.com>; Maxime Coquelin
-> > > <mcoquelin.stm32@gmail.com>;
-> > > > netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com;
-> > > > linux- arm-kernel@lists.infradead.org;
-> > > > linux-kernel@vger.kernel.org; Ang, Tien Sung
-> > > > <tien.sung.ang@intel.com>; G Thomas, Rohan
-> > > > <rohan.g.thomas@intel.com>; Looi, Hong Aun
-> > > > <hong.aun.looi@intel.com>; Andy Shevchenko
-> > > > <andriy.shevchenko@linux.intel.com>; Ilpo Jarvinen
-> > > > <ilpo.jarvinen@linux.intel.com>
-> > > > Subject: RE: [Enable Designware XGMAC VLAN Stripping Feature
-> > > > v2 1/1] net: stmmac: dwxgmac2: Add support for HW-accelerated
-> VLAN
-> > > > Stripping
-> > > >
-> > > ..........
-> > >
-> > > > > > 1/1] net: stmmac: dwxgmac2: Add support for HW-accelerated
-> > > > > > VLAN Stripping
-> > > > > >
-> > > > >
-> > > > > New features should be submitted against 'net-next' instead of 'net'.
-> > > >
-> > > > Hi Sunil, I was cloning the repo from net-next, but how to choose
-> > > > the destination as 'net-next'?
-> > >
-> > > While creating patch you can add appropriate prefix .. like below
-> > > git
-> > > format- patch --subject-prefix="net-next PATCH"
-> > > git format-patch --subject-prefix="net PATCH"
-> > >
-> >
-> > Okay will update that in the next version.
-> >
-> > > >
-> > > > > Also 'net-next' is currently closed.
-> > > >
-> > > > I see, may I know when the next opening period is? Thanks
-> > >
-> > > Please track
-> > > https://urldefense.proofpoint.com/v2/url?u=https-
-> > 3A__patchwork.hopto.o
-> > > rg_net-
-> >
-> 2Dnext.html&d=DwIFAg&c=nKjWec2b6R0mOyPaz7xtfQ&r=q3VKxXQKiboRw_
-> > F
-> > >
-> >
-> 01ggTzHuhwawxR1P9_tMCN2FODU4&m=a48jwcbUStFRUDMUfXcfGEXhkW
-> > 3Pe9T0oNLv7B3
-> > > myIrV1geS5aBPZyougPLQZ3vy&s=oO5Em8PF8w6U6a1xROdgg-
-> > C0TRXsRmdFWku-FZQpH1
-> > > E&e=
-> >
-> > Checked the link it is just a photo saying "come in we're open" is
-> > that mean the net-next is currently open now?
-> >
-> >
-> >
-> Yes, it's open now.
+> From one point of view it could be submitted for the net tree indeed,
+> but on the second thought are you sure we should be doing that seeing
+> it will activate the RGMII-inband detection and the code with the
+> netif-carrier toggling behind the phylink back? Who knows what new
+> regressions the activated PCS-code can cause?..
 
-Hi Sunil, thanks for confirming, should I straight away submit another change,
-with the correct subject prefix on "net-next"? Or I should wait for others to
-comments, and fix them all in v3?
+If it's not a fix that is suitable without the remainder of the patch
+set, this should be stated in the commit description and it shouldn't
+have a Fixes: tag.
+
+The reason is because it wouldn't be stable kernel material without the
+other patches - if stable picks it up without the other patches then
+it could end up being applied without the other patches resulting in
+the situation you mention above.
+
+Shall I remove the Fixes: tag?
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
