@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DC998D31BC
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 10:41:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CF798D31BD
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 10:41:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D32ACC6C859;
-	Wed, 29 May 2024 08:41:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBB04C6C859;
+	Wed, 29 May 2024 08:41:14 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3645FC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58FECC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 May 2024 08:41:07 +0000 (UTC)
+ Wed, 29 May 2024 08:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CRzgpilBFSC5lzaqoJO87wTAs2Vs+6Dv0y8UzcSb65I=; b=GcUiRXcLuG1yjIAN6lkbkqxbIm
- bL0kdUTArRd1DrCXVta7yM72ZkLwAk6ldIuWrdB54pGP6HySc3xWxRYaqmnT7CwgP4ul6FNkLZYmi
- MHysEyrhLCK2t8wnp+00SkO84W6IS3M6M9FTLy+CyKb5WrnIAtJpbeAvd+17HpQIjk6PbO0DlWAlX
- 4fIQcEx8/7h6wfsXzA8dUkOA7Lk5AGAywOGg9A7xgtS/Xv4LK2Idoc6VfnvSVY+TpZWxA4Yl7058Z
- mDTffNAuCjKxXdaW58Yv1ArK9yoNEBTE9SqQ+QyIPllFlc7Sa6fzPwvnC6VZyASkZYv3ttkQpuOzC
- ULdU7jew==;
+ bh=cpEjKIYehy33khJRxWlrNLAfmDXLsKG4slRCHBuLHdA=; b=gNmYgsS/35ULfwgNkVdLi22Z2o
+ AtczP2JUbqt540kjLK9LKbzlTr+Lpw8lvqp1NsnZSe9E5PMcLhl5+UQRLIJsRw78TXjK7ilJg8zfb
+ zvABw4BXetT3sjyVynUsBo7J/CkxfzrN61dCI9SXHOUlWv/4ks3lsiA+2SkoFEFlnytiOAnciN8jS
+ jjrwRf6lYJGg2Y5KCGNkQDNevDrsjWMGw9yIKZIiMRFxOZ7vo2WoiEjaIcyfRA5wV0d6FqJTQpfTX
+ TWfEUoNqOeOCl7kHZ3WKeXXgw55UPDzUyD69Tn1/E1ZnmDrzI9Rp+8ctw3fvcnCwtX/6/caUxVZMR
+ zde9GExA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57994 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:47704 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1sCErc-0005mV-2K;
- Wed, 29 May 2024 09:40:52 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1sCEri-0005mo-2A;
+ Wed, 29 May 2024 09:40:58 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1sCEre-00EOQ3-SR; Wed, 29 May 2024 09:40:54 +0100
+ id 1sCErj-00EOQ9-Vh; Wed, 29 May 2024 09:41:00 +0100
 In-Reply-To: <Zlbp7xdUZAXblOZJ@shell.armlinux.org.uk>
 References: <Zlbp7xdUZAXblOZJ@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Serge Semin <fancer.lancer@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1sCEre-00EOQ3-SR@rmk-PC.armlinux.org.uk>
-Date: Wed, 29 May 2024 09:40:54 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+Message-Id: <E1sCErj-00EOQ9-Vh@rmk-PC.armlinux.org.uk>
+Date: Wed, 29 May 2024 09:40:59 +0100
+Cc: Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next v2 5/6] net: stmmac: include
- linux/io.h rather than asm/io.h
+Subject: [Linux-stm32] [PATCH net-next v2 6/6] net: stmmac: ethqos: clean up
+ setting serdes speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,87 +66,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Include linux/io.h instead of asm/io.h since linux/ includes are
-preferred.
+There are four repititions of the same sequence of code, three of which
+are identical. Pull these out into a separate function to improve
+readability.
 
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c  | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c  | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c   | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index d0c7c2320d8d..d413d76a8936 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -15,7 +15,7 @@
- #include <linux/crc32.h>
- #include <linux/slab.h>
- #include <linux/ethtool.h>
--#include <asm/io.h>
-+#include <linux/io.h>
- #include "stmmac.h"
- #include "stmmac_pcs.h"
- #include "dwmac1000.h"
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-index daf79cdbd3ec..adccdd816ea9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-@@ -12,7 +12,7 @@
-   Author: Giuseppe Cavallaro <peppe.cavallaro@st.com>
- *******************************************************************************/
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index e254b21fdb59..d9eed415b0b7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -605,6 +605,14 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
+ 	return 0;
+ }
  
--#include <asm/io.h>
-+#include <linux/io.h>
- #include "dwmac1000.h"
- #include "dwmac_dma.h"
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
-index 7667d103cd0e..14e847c0e1a9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
-@@ -15,7 +15,7 @@
- *******************************************************************************/
- 
- #include <linux/crc32.h>
--#include <asm/io.h>
-+#include <linux/io.h>
- #include "stmmac.h"
- #include "dwmac100.h"
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
-index dea270f60cc3..b402fb54f613 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_dma.c
-@@ -14,7 +14,7 @@
-   Author: Giuseppe Cavallaro <peppe.cavallaro@st.com>
- *******************************************************************************/
- 
--#include <asm/io.h>
-+#include <linux/io.h>
- #include "dwmac100.h"
- #include "dwmac_dma.h"
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 542e2633a6f5..18468c0228f0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -11,10 +11,10 @@
- #include <linux/etherdevice.h>
- #include <linux/ethtool.h>
- #include <linux/interrupt.h>
-+#include <linux/io.h>
- #include <linux/mii.h>
- #include <linux/phylink.h>
- #include <linux/net_tstamp.h>
--#include <asm/io.h>
- 
- #include "stmmac.h"
- #include "dwmac_dma.h"
++static void ethqos_set_serdes_speed(struct qcom_ethqos *ethqos, int speed)
++{
++	if (ethqos->serdes_speed != speed) {
++		phy_set_speed(ethqos->serdes_phy, speed);
++		ethqos->serdes_speed = speed;
++	}
++}
++
+ /* On interface toggle MAC registers gets reset.
+  * Configure MAC block for SGMII on ethernet phy link up
+  */
+@@ -622,9 +630,7 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
+-		if (ethqos->serdes_speed != SPEED_2500)
+-			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
+-		ethqos->serdes_speed = SPEED_2500;
++		ethqos_set_serdes_speed(ethqos, SPEED_2500);
+ 		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
+ 		break;
+ 	case SPEED_1000:
+@@ -632,16 +638,12 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
+-		if (ethqos->serdes_speed != SPEED_1000)
+-			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
+-		ethqos->serdes_speed = SPEED_1000;
++		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+ 		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_100:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
+-		if (ethqos->serdes_speed != SPEED_1000)
+-			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
+-		ethqos->serdes_speed = SPEED_1000;
++		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+ 		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_10:
+@@ -651,9 +653,7 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
+ 					 SGMII_10M_RX_CLK_DVDR),
+ 			      RGMII_IO_MACRO_CONFIG);
+-		if (ethqos->serdes_speed != SPEED_1000)
+-			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+-		ethqos->serdes_speed = SPEED_1000;
++		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+ 		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	}
 -- 
 2.30.2
 
