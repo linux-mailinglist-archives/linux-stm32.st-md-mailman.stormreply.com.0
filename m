@@ -2,44 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E8FF8D379A
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 15:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF7D8D379E
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 15:29:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 527E8C62EFE;
-	Wed, 29 May 2024 13:29:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61A88C62EFE;
+	Wed, 29 May 2024 13:29:43 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BAAAC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FB74C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 May 2024 13:28:59 +0000 (UTC)
+ Wed, 29 May 2024 13:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BDYEhepQA/d2FZ56BctnoAn7J3hrIwALy9fmhbjaYl0=; b=Irq/mhY9oMmIKSYt8KYRcpNoWI
- Tu6uA1dOIDvk44vXrQbgz8vwQCIxdLVpc9xD9jeJVpUufdEaZhPHp0sIX0wNRrV3HSjWxd/bcQY95
- 2EY0cywXA03kIKmfTlEg0HCDSFH4Xl7C2HjPUCKMveyqJ6cC2XWj+OcHRpj7jLL2lm+n/c3D4UM92
- spEQw2vcGA/OxQwux39bDI+S3Dmcan0L5hf1Btbam7jZYQx+I4UdZv+8Gw7Dq8D7NWblVSf0il9+d
- ApbaVENFAL4DHzrWAt3g31qs8kvcLnsEiF9lI5SPqp8cjR/K88jjbkIvF86JuIoVMCjlAPk1CeNBr
- 1X+f/oTQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50668)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=l0pFAlm4Nwz8WL1ywZPHC0jQLmXTQV0ET0gfIHEZ+0M=; b=UNNy/UmCiV3jL3duQZXmB3Lwtk
+ 172fmHguXii0dlSnIazA/S8nu/DIQs6qHUNPPfa7RgjXBuV4T8rughjAtnI1+pkwdnyLkxIS+Dw3/
+ N0HOT5jXG2xGdPFfiF3xsVaNa9nV86OVqsaFFLdS8J10mYzeY13nGnfG6XjjPYKhCNlEHJsVFpUcQ
+ T2hltlosRe9YEk6kFSiW0MqqMKT28yLU+A1gSvkLST+O88h5yx/eC93wgxshTWrhCYmG1ILvmuG79
+ iBP+kw/6R9jyUG19wJLP41rlw7HtCTMrwEF4RsRClUZOsBn1ZgZNK4tdvRxPT6FWr9ygREKX2h3+g
+ ++yuaQ6w==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42256 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sCJMC-00069W-2P;
- Wed, 29 May 2024 14:28:44 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sCJMA-0004Eb-Nb; Wed, 29 May 2024 14:28:42 +0100
-Date: Wed, 29 May 2024 14:28:42 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <ZlctinnTT8Xhemsm@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1sCJMt-0006AI-0n;
+ Wed, 29 May 2024 14:29:27 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1sCJMv-00Ecr1-Sk; Wed, 29 May 2024 14:29:29 +0100
+In-Reply-To: <ZlctinnTT8Xhemsm@shell.armlinux.org.uk>
+References: <ZlctinnTT8Xhemsm@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1sCJMv-00Ecr1-Sk@rmk-PC.armlinux.org.uk>
+Date: Wed, 29 May 2024 14:29:29 +0100
 Cc: Madalin Bucur <madalin.bucur@nxp.com>,
  Sean Anderson <sean.anderson@seco.com>, netdev@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
@@ -48,8 +51,8 @@ Cc: Madalin Bucur <madalin.bucur@nxp.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next 0/6] net: phylink: rearrange
-	ovr_an_inband support
+Subject: [Linux-stm32] [PATCH net-next 3/6] net: phylink: rename
+ ovr_an_inband to default_an_inband
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,46 +69,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Since ovr_an_inband no longer overrides every MLO_AN_xxx mode, rename
+it to reflect what it now does - it changes the default mode from
+MLO_AN_PHY to MLO_AN_INBAND. Fix up the two users of this.
 
-This series addresses the use of the ovr_an_inband flag, which is used
-by two drivers to indicate to phylink that they wish to use inband mode
-without firmware specifying inband mode.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/freescale/fman/fman_memac.c  | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ drivers/net/phy/phylink.c                         | 2 +-
+ include/linux/phylink.h                           | 5 +++--
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-The issue with ovr_an_inband is that it overrides not only PHY mode,
-but also fixed-link mode. Both of the drivers that set this flag
-contain code to detect when fixed-link mode will be used, and then
-either avoid setting it or explicitly clear the flag. This is
-wasteful when phylink already knows this.
-
-Therefore, the approach taken in this patch set is to replace the
-ovr_an_inband flag with a default_an_inband flag which means that
-phylink defaults to MLO_AN_INBAND instead of MLO_AN_PHY, and will
-allow that default to be overriden if firmware specifies a fixed-link.
-This allows users of ovr_an_inband to be simplified.
-
-What's more is this requires minimal changes in phylink to allow this
-new mode of operation.
-
-This series changes phylink, and also updates the two drivers
-(fman_memac and stmmac), and then removes the unnecessary complexity
-from the drivers.
-
-This series may depend on the stmmac cleanup series I've posted
-earlier - this is something I have not checked, but I currently have
-these patches on top of that series.
-
- drivers/net/ethernet/freescale/fman/fman_memac.c  | 16 ++++++----------
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 15 ++-------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  4 ++--
- drivers/net/phy/phylink.c                         | 11 ++++++++---
- include/linux/phylink.h                           |  5 +++--
- include/linux/stmmac.h                            |  2 +-
- 6 files changed, 22 insertions(+), 31 deletions(-)
-
+diff --git a/drivers/net/ethernet/freescale/fman/fman_memac.c b/drivers/net/ethernet/freescale/fman/fman_memac.c
+index 92b8f4ab26f1..9c44a3581950 100644
+--- a/drivers/net/ethernet/freescale/fman/fman_memac.c
++++ b/drivers/net/ethernet/freescale/fman/fman_memac.c
+@@ -1232,7 +1232,7 @@ int memac_initialization(struct mac_device *mac_dev,
+ 	    !of_property_read_bool(mac_node, "managed") &&
+ 	    mac_dev->phy_if != PHY_INTERFACE_MODE_MII &&
+ 	    !phy_interface_mode_is_rgmii(mac_dev->phy_if))
+-		mac_dev->phylink_config.ovr_an_inband = true;
++		mac_dev->phylink_config.default_an_inband = true;
+ 	of_node_put(fixed);
+ 
+ 	err = memac_init(mac_dev->fman_mac);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index ca19b232431a..488b2fd2349c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1221,7 +1221,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ 
+ 	mdio_bus_data = priv->plat->mdio_bus_data;
+ 	if (mdio_bus_data)
+-		priv->phylink_config.ovr_an_inband =
++		priv->phylink_config.default_an_inband =
+ 			mdio_bus_data->xpcs_an_inband;
+ 
+ 	/* Set the platform/firmware specified interface mode. Note, phylink
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index c81f1c1ee675..02427378acfd 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -885,7 +885,7 @@ static int phylink_parse_mode(struct phylink *pl,
+ 	const char *managed;
+ 	unsigned long caps;
+ 
+-	if (pl->config->ovr_an_inband)
++	if (pl->config->default_an_inband)
+ 		pl->cfg_link_an_mode = MLO_AN_INBAND;
+ 
+ 	dn = fwnode_get_named_child_node(fwnode, "fixed-link");
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 5ea6b2ad2396..a30a692acc32 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -141,7 +141,8 @@ enum phylink_op_type {
+  * @mac_requires_rxc: if true, the MAC always requires a receive clock from PHY.
+  *                    The PHY driver should start the clock signal as soon as
+  *                    possible and avoid stopping it during suspend events.
+- * @ovr_an_inband: if true, override PCS to MLO_AN_INBAND
++ * @default_an_inband: if true, defaults to MLO_AN_INBAND rather than
++ *		       MLO_AN_PHY. A fixed-link specification will override.
+  * @get_fixed_state: callback to execute to determine the fixed link state,
+  *		     if MAC link is at %MLO_AN_FIXED mode.
+  * @supported_interfaces: bitmap describing which PHY_INTERFACE_MODE_xxx
+@@ -154,7 +155,7 @@ struct phylink_config {
+ 	bool poll_fixed_state;
+ 	bool mac_managed_pm;
+ 	bool mac_requires_rxc;
+-	bool ovr_an_inband;
++	bool default_an_inband;
+ 	void (*get_fixed_state)(struct phylink_config *config,
+ 				struct phylink_link_state *state);
+ 	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
