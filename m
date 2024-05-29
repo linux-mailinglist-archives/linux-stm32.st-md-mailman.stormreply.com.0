@@ -2,84 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7152D8D38E6
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 16:14:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F3AE8D392B
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2024 16:28:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AB4DC6B47E;
-	Wed, 29 May 2024 14:14:08 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1BC5C6B47E;
+	Wed, 29 May 2024 14:28:44 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3D75C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12975C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 May 2024 14:14:00 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44T4wxHx018858;
- Wed, 29 May 2024 14:13:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yqfnQWiiXx8zP47bSxhpWvDYUchRl20DVMApVnujf00=; b=ZfdBoOcGmXDl3dZy
- FPcOpKHlFYvqkW6k5wzPBS3eF4cXY9lBHrjUBQArvYN6+t2E9HS5hlopLDYAL5GG
- OBFVjRWR8bb9Bz2qE1xg3O75AR3dM+DMx0SuinjQOYT3M3VyhMWm0k1WAgMsqqj1
- nQO4K5od/lSXDe3nsyzjqCix/xW6jWwEDzsRypKAQhBOl9fHQ1tjt+Qfoz172yjK
- su4pR+YAZw3Geggt9wd+ea+ghxezvrHPAEilYN+wfMMfA7YHdAFnfIW6hJkn07X2
- TzrrXOXw7Fk3Qmt1rbdldRDEmcUotE0ARu6Hhy91nKqZY+mZlYjyP38wu8ruMXRB
- 4JwGzQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ybadx95jk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 May 2024 14:13:30 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 44TEDTZ4029610
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 May 2024 14:13:29 GMT
-Received: from [10.50.12.173] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 29 May
- 2024 07:13:20 -0700
-Message-ID: <d246bd64-18b3-4002-bc71-eccd67bbd61f@quicinc.com>
-Date: Wed, 29 May 2024 19:43:15 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ Wed, 29 May 2024 14:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=A0djHwkTm9IMDtUZ9E1EkFk0NBl4OKR695dw9cvK5k4=; b=h7e/Hk65uFLg0eujXc54qb2QCT
+ en2K+w/W6N1KiOMFBDKWSbFfUcPW4RG9rhZjrfQui7wQzESKkGovHrfP58wSF5/MPeKBeyHGKsy5F
+ pj3+VNpkPfETsP5kxq2X/i+DQ2JXSCTvL73CAgo9Sa1qyixhXRNdRw6p4F6wvdOrLSbE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sCKHo-00GGQZ-Fq; Wed, 29 May 2024 16:28:16 +0200
+Date: Wed, 29 May 2024 16:28:16 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Sneh Shah <quic_snehshah@quicinc.com>
+Message-ID: <67553944-5d3f-4641-a719-da84554c0a9f@lunn.ch>
 References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
  <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
  <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
  <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
  <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
  <ZlNi11AsdDpKM6AM@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Sneh Shah <quic_snehshah@quicinc.com>
-In-Reply-To: <ZlNi11AsdDpKM6AM@shell.armlinux.org.uk>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: ju5-ZsrkPL9R1SA-3neuqWKDaOGhTLpO
-X-Proofpoint-GUID: ju5-ZsrkPL9R1SA-3neuqWKDaOGhTLpO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-29_11,2024-05-28_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0
- impostorscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0
- priorityscore=1501 mlxscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2405170001 definitions=main-2405290097
+ <d246bd64-18b3-4002-bc71-eccd67bbd61f@quicinc.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <d246bd64-18b3-4002-bc71-eccd67bbd61f@quicinc.com>
 Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
  Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Andrew Halaney <ahalaney@redhat.com>
 Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
  Add support for 2.5G SGMII
@@ -99,120 +65,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+> Qualcomm ethernet HW supports 2.5G speed in overclocked SGMII mode.
+> we internally term it as OCSGMII.
 
+So it still does SGMII inband signalling? Not 2500BaseX signalling? It
+is not actually compatible with 2500BaseX?
 
-On 5/26/2024 9:57 PM, Russell King (Oracle) wrote:
-> On Thu, Dec 21, 2023 at 02:23:57PM +0530, Sneh Shah wrote:
->> On 12/20/2023 9:29 PM, Andrew Halaney wrote:
->>> I'd evaluate if you can update that function to clear the ANE bit when
->>> the ane boolean is false. From the usage I see I feel that makes sense,
->>> but correct me if you think I'm wrong.
->>> At the very least let's use the defines from there, and possibly add a
->>> new function if clearing is not acceptable in dwmac_ctrl_ane().
->>>
->>> Stepping back, I was asking in general is the need to muck with ANE here
->>> is a Qualcomm specific problem, or is that a generic thing that should be
->>> handled in the core (and the phy_set_speed() bit stay here)? i.e. would
->>> any dwmac5 based IP need to do something like this for SPEED_2500?
->> I think disabling ANE for SPEED_2500 is generic not specific to qualcomm.
->> Even in dwxgmac2 versions also we need to disable ANE for SPEED_2500.
->> Autoneg clause 37 stadard doesn't support 2500 speed. So we need to
->> disable autoneg for speed 2500
-> 
-> (Going back over the history of this addition)
-> 
-> What 802.3 Clause 37 says is utterly _irrelevant_ when discussing Cisco
-> SGMII. Cisco took 802.3 1000base-X and modified it for their own
-> purposes, changing the format of the 16-bit control word, adding support
-> for symbol replication to support 100Mbps and 10Mbps, changing the link
-> timer, etc. SGMII is *not* 802.3 Clause 37.
-> 
-> I guess you are getting caught up in the widespread crud where
-> manufacturers stupidly abuse "SGMII" to mean maybe "Cisco SGMII" and
-> maybe "802.3 1000base-X" because both are "serial gigabit MII". Yes,
-> both are serial in nature, but Cisco SGMII is not 1000base-X and it
-> also is not 2500base-X.
-> 
-> What makes this even more difficult is that 2500base-X was never
-> standardised by the 802.3 committees until very late, so we've ended
-> up with manufacturers doing their own thing for years. We've ended up
-> with a mess of different implementations described in different ways
-> many of which boil down to being 2500base-X without inband AN. For
-> example, one manufacturer talks about "HS-SGMII", but doesn't permit
-> the interface to operate at the x10 and x100 symbol replications that
-> conventional Cisco SGMII uses for 100M and 10M speeds respectfully,
-> making it in effect no different from 2500base-X.
-> 
-> Now through into this mess various implementations that do not support
-> inband at 2.5G speeds, those that require inband at 2.5G speeds... one
-> can get into the situation where one pairs a PHY that requires inband
-> with a PCS that doesn't support it and the result doesn't work. This
-> is particularly problematical if the PHY is on a hotpluggable module
-> like a SFP.
-> 
-> It's a total trainwreck.
+> End goal of these patches is to enable SGMII with 2.5G speed support.
+> The patch in these series enabled up SGMII with 2.5 for cases where we
+> don't have external phy. ( mac-to-mac connectivity)
 
+So the other end needs to be an over clocked SGMII MAC, not 2500BaseX?
 
+> The new patch posted extends this for the case when the MAC has an
+> external phy connected. ( hence we are advertising fr 2.5G speed by adding
+> 2500BASEX as supported interface in phylink)
 
-Qualcomm ethernet HW supports 2.5G speed in overclocked SGMII mode.
-we internally term it as OCSGMII.
+And i assume it does not actually work against a true 2500BaseX
+device, because it is doing SGMII inband signalling?
+ 
+Hence Russell frustration with the whole 2.5G mess....
 
-End goal of these patches is to enable SGMII with 2.5G speed support.
-The patch in these series enabled up SGMII with 2.5 for cases where we
-don't have external phy. ( mac-to-mac connectivity)
-The new patch posted extends this for the case when the MAC has an
-external phy connected. ( hence we are advertising fr 2.5G speed by adding
-2500BASEX as supported interface in phylink)
-
-
-> 
-> I do have some work-in-progress patches that attempt to sort this out
-> in phylink and identify incompatible situations.
-> 
-> See http://git.armlinux.org.uk/cgit/linux-arm.git/log/?h=net-queue
-> 
-> commits (I think)...
-> 
-> net: phylink: clean up phylink_resolve()
-> 
-> to:
-> 
-> net: phylink: switch to MLO_AN_PHY when PCS uses outband
-> 
-> and since I'm converting stmmac's hacky PCS that bypasses phylink to
-> a real phylink_pcs, the ethqos code as it stands presents a blocker
-> because of this issue. So, I'm intending to post a series in the next
-> few days (after the bank holiday) and will definitely need to be
-> tested on ethqos hardware.
-> 
-
-I am going over the list of these patches.
-
-> However, first we need to get to the bottom of your latest patch that
-> only sets PHY_INTERFACE_MODE_2500BASEX when plat_dat->flags has the
-> STMMAC_FLAG_HAS_INTEGRATED_PCS flag _set_, but the stmmac code very
-> oddly does _not_ use the built-in PCS if this flag is set. See:
-> 
-> 	stmmac_ethtool_get_link_ksettings()
-> 	stmmac_ethtool_set_link_ksettings()
-> 
-> and their use of pcs_link / pcs_duplex / pcs_speed. Also see
-> 
-> 	stmmac_common_interrupt()
-> 
-> and its use of pcs_link to control the carrier, the dwmac1000 and
-> dwmac4 code that reads the status from the GMAC, updating the
-> pcs_link / pcs_duplex / pcs_speed variables.
-
-In this version of qualcomm ethernet, PCS is not an independent HW
-block. It is integrated to MAC block itself. It has very limited
-configuration.Here PCS doesn't have it's own link speed/duplex
-capabities. Hence we are bypassing all this PCS related functionalities.
-
-
-I will update with more details on the integrated PCS block autoneg
-standard.
-> 
+      Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
