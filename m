@@ -2,87 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 192C78D4C2F
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2024 15:01:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C53D8D4FAD
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2024 18:14:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4600C6C859;
-	Thu, 30 May 2024 13:01:14 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D464FC6C855
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3103BC6C859;
+	Thu, 30 May 2024 16:14:37 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1C18C030CA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2024 13:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1717074065;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=9qH6bqXZWDj2VvkhQa8r0x2CDiDZr/N+uYFn9yj//1U=;
- b=ED8paIrYZWhr4SIW2g1q+PCn8bQ7osKJaRdKp8lT4MvvwYdT/ydcskt2lk+LJpnaoxDWxV
- LVCpyXtamtEEbTJDvFQM25zQamDPAJhs85LptYY+QsZPnbm1hzNojN2s332h1qHMWMi69M
- 0iE+zYKFttKEEqEgdV+7dLlUcxJXNqw=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-649-uR2iIuLOMgClwQydoU1bIg-1; Thu, 30 May 2024 09:01:04 -0400
-X-MC-Unique: uR2iIuLOMgClwQydoU1bIg-1
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-43fb05ef704so7912801cf.2
+ Thu, 30 May 2024 16:14:29 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1f480624d04so9771325ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2024 06:01:04 -0700 (PDT)
+ Thu, 30 May 2024 09:14:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1717085668; x=1717690468;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=d6VUunGuJeLssKVobCfvvPjZ41Apn1YelEhi1TK/TFk=;
+ b=c4PA4rYUkL06Y7S1seIqXloyYKn+sgcRO3cTZFeu45laFHqBicwIuNBVlBEHQMvpHh
+ ieG0T8rpQaS4a75lcfanQplNANqxs8n2RTL3CaEHELUDusBmbNx9YCGV2u0ZKiQ2TF1g
+ BYK7k2JctLEhESz12h9ORZ5KqGgwivpXwnF3exRkUfxJ6NSXhkEQAXCONDG7JnuA+rEr
+ Xu2zo31BsO8UOKZGXaGdzgj49mLx71nIGtYpVRR/2DPkLNmpHd3hx414tMtppAicMN8l
+ XWGtlJuFH4/2SI3r8yytQZAtV2YsAXB1+4R+0UjyFEzNbWxbGdd72q2lYyYVdbM4H/se
+ dDAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717074063; x=1717678863;
+ d=1e100.net; s=20230601; t=1717085668; x=1717690468;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9qH6bqXZWDj2VvkhQa8r0x2CDiDZr/N+uYFn9yj//1U=;
- b=SwFLAr+BFfLRJskx4XsWve/kiCyDndIm56n0yI3oP+wDxGV4q4aGg7Qkv1EBqJpOI3
- zIIhrjlB5ywmreEwn+vq4nwHn4zxjJ5xiKSSEb7tZ0I3vt3Xbt6u/2y8BRa8j1XVgxAB
- H/vk3cFPPRndHErydzKzJs/cMomnEFumpqyaZzjqo8mO1EZK/MR/kxABnspeEhRRyzs0
- zNTUmO3ljJVzDFtiRvUhT2uj1o6hWBAmYrzYK5DQUi8RQY9yamABzDoV1neuJKXF5yCr
- q0LTexkIJ0HU62CPYdAT64jr/e6TZNtE4ObriqynBL3e/hIGmv0t1+yfxYs4RueMKUFz
- BMAw==
+ bh=d6VUunGuJeLssKVobCfvvPjZ41Apn1YelEhi1TK/TFk=;
+ b=LG7suCgLM1cLjvQkU5v3hBTNvGv7+JfDfZZcuZh8fy9S4wUzJKbFO+ITcrQgwWiPwj
+ tOF1a2QW5fpPSUFwSh/woChFVFQsJ5M04NYsvnYFr70yACaXa3crQiCTz0cGS7/SBKmn
+ ogx7xXzvmnQdSXM8D45VUEmjmRg2W/OySnmir01YNrMeEVTGQKy+7wvhkuaG76H1jl5v
+ 4gE/eH5B0iRIwpN7Mq1amvdPA4sQoS2rAvNjTFCVmejc1VeFwZVJ6t6lJBGp7fJwcGnm
+ U1wMIs5pnnkClqTgWG9b7rCYs3ZsW/erH02ia4FDc02/9RKvYQ+ijZdc/T2pd9yUHwzn
+ kVPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXgb9mu4gL8VKh973e+Ay1bJMKQWTU1l3vuU/ZaD2d1+32+L9ExDoCDOEnpyKX4Dq0yjjgVl/TxtHjIGs4d8DcrA6h1gC2PCIAz9aA/p8iwLuuNUXCbtfim
-X-Gm-Message-State: AOJu0YykfB+jt8WuyOZEvWHZk3HnxWxVhzKSCB+P+eT3EqEOSY8aTnzL
- Z1A37ddbFDaYggehRDhVTOa95aFxsJylnSChb3MAnVFjEJlL2s6Afl7BglPclfBylRoN5wkHXla
- 1keDCrjfo9t32DxkYhhn3wm7vs5wtPT16Wa3IDy8JmNsp3T04867bBYCStxkf7nQOSeiTQ6WvCC
- jGLg==
-X-Received: by 2002:a05:622a:83:b0:43e:3d8b:b6b9 with SMTP id
- d75a77b69052e-43fe930e9e0mr21742021cf.44.1717074062010; 
- Thu, 30 May 2024 06:01:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHmqMkYgzTY+K+MR+AsBjg7npPdMxiUXyD3C6fsmskBzvTeam+eNVGfcssNbpZMomvAfvLBqQ==
-X-Received: by 2002:a05:622a:83:b0:43e:3d8b:b6b9 with SMTP id
- d75a77b69052e-43fe930e9e0mr21741561cf.44.1717074061340; 
- Thu, 30 May 2024 06:01:01 -0700 (PDT)
-Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
+ AJvYcCVL2elu8kxW1y0VGnm0aumVwqdI7DfGFrAZFgPBDFeCuPnz00PY6mv9Xsr8+KEsLW6VQFShcnXbdH9NeH/4PkTUF62p9KxfxIpQ9LS9SmQ2hQ5UrTknBz16
+X-Gm-Message-State: AOJu0YzrLSURfRBWz7LQwy1lAdQwvzla6U7NOQitzf/EASpi5Kv79R3q
+ bW5seA05OqPdNSVnPhHBbuwQ0egyxmPtnnMuDtySY7KOhS5JGHVNXYtIaiuiqrg=
+X-Google-Smtp-Source: AGHT+IFqQKvjBFTB7gzCzLwMukiixRwSs187DU/Lq0gmjBTwVPSl82dbo3uyxiA4iHNgIZz5t+5qnQ==
+X-Received: by 2002:a17:902:d509:b0:1f4:a6a5:4271 with SMTP id
+ d9443c01a7336-1f6199365e6mr29505585ad.55.1717085668113; 
+ Thu, 30 May 2024 09:14:28 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:ed2:1ab5:d270:6de4])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-43fb18b0e3bsm65135651cf.68.2024.05.30.06.00.59
+ d9443c01a7336-1f44c99e3bdsm120465175ad.211.2024.05.30.09.14.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 May 2024 06:01:00 -0700 (PDT)
-Date: Thu, 30 May 2024 08:00:58 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <busrdvbjh7eigqgpgwl4k5tergt263gfjcpti7jutdyk37cnse@iotdvflbsca6>
-References: <20240529-configure_ethernet_host_dma_width-v1-1-3f2707851adf@quicinc.com>
- <7w5bibuejmd5kg3ssozaql4urews26kpj57zvsaoq2pva3vrlo@agfxwq5i65pc>
- <d8ad4e59-5725-4a7d-a2ad-ce5d92553525@lunn.ch>
+ Thu, 30 May 2024 09:14:27 -0700 (PDT)
+Date: Thu, 30 May 2024 10:14:25 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <Zlil4YSjHxb0FRgf@p14s>
+References: <20240521081001.2989417-1-arnaud.pouliquen@foss.st.com>
+ <20240521081001.2989417-6-arnaud.pouliquen@foss.st.com>
+ <ZlZM/hgSO4EeRVqS@p14s>
+ <d9e1356a-d8bf-40a3-9a78-424ead8089a9@foss.st.com>
+ <ZleReEIgD8O5zATO@p14s>
+ <5b3f8346-d6db-4da3-9613-20cf9f3c226b@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <d8ad4e59-5725-4a7d-a2ad-ce5d92553525@lunn.ch>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Cc: linux-kernel@vger.kernel.org,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-qcom-ethqos: Configure
-	host DMA width
+In-Reply-To: <5b3f8346-d6db-4da3-9613-20cf9f3c226b@foss.st.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 5/7] remoteproc: core: support of the
+	tee interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,56 +88,179 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, May 30, 2024 at 12:22:52AM GMT, Andrew Lunn wrote:
-> On Wed, May 29, 2024 at 03:50:28PM -0500, Andrew Halaney wrote:
-> > $Subject should be have [PATCH net] since this targets the net tree:
+On Thu, May 30, 2024 at 09:42:26AM +0200, Arnaud POULIQUEN wrote:
+> Hello Mathieu,
+> 
+> On 5/29/24 22:35, Mathieu Poirier wrote:
+> > On Wed, May 29, 2024 at 09:13:26AM +0200, Arnaud POULIQUEN wrote:
+> >> Hello Mathieu,
+> >>
+> >> On 5/28/24 23:30, Mathieu Poirier wrote:
+> >>> On Tue, May 21, 2024 at 10:09:59AM +0200, Arnaud Pouliquen wrote:
+> >>>> 1) on start:
+> >>>> - Using the TEE loader, the resource table is loaded by an external entity.
+> >>>> In such case the resource table address is not find from the firmware but
+> >>>> provided by the TEE remoteproc framework.
+> >>>> Use the rproc_get_loaded_rsc_table instead of rproc_find_loaded_rsc_table
+> >>>> - test that rproc->cached_table is not null before performing the memcpy
+> >>>>
+> >>>> 2)on stop
+> >>>> The use of the cached_table seems mandatory:
+> >>>> - during recovery sequence to have a snapshot of the resource table
+> >>>>   resources used,
+> >>>> - on stop to allow  for the deinitialization of resources after the
+> >>>>   the remote processor has been shutdown.
+> >>>> However if the TEE interface is being used, we first need to unmap the
+> >>>> table_ptr before setting it to rproc->cached_table.
+> >>>> The update of rproc->table_ptr to rproc->cached_table is performed in
+> >>>> tee_remoteproc.
+> >>>>
+> >>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >>>> ---
+> >>>>  drivers/remoteproc/remoteproc_core.c | 31 +++++++++++++++++++++-------
+> >>>>  1 file changed, 23 insertions(+), 8 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >>>> index 42bca01f3bde..3a642151c983 100644
+> >>>> --- a/drivers/remoteproc/remoteproc_core.c
+> >>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> >>>> @@ -1267,6 +1267,7 @@ EXPORT_SYMBOL(rproc_resource_cleanup);
+> >>>>  static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmware *fw)
+> >>>>  {
+> >>>>  	struct resource_table *loaded_table;
+> >>>> +	struct device *dev = &rproc->dev;
+> >>>>  
+> >>>>  	/*
+> >>>>  	 * The starting device has been given the rproc->cached_table as the
+> >>>> @@ -1276,12 +1277,21 @@ static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmwa
+> >>>>  	 * this information to device memory. We also update the table_ptr so
+> >>>>  	 * that any subsequent changes will be applied to the loaded version.
+> >>>>  	 */
+> >>>> -	loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
+> >>>> -	if (loaded_table) {
+> >>>> -		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
+> >>>> -		rproc->table_ptr = loaded_table;
+> >>>> +	if (rproc->tee_interface) {
+> >>>> +		loaded_table = rproc_get_loaded_rsc_table(rproc, &rproc->table_sz);
+> >>>> +		if (IS_ERR(loaded_table)) {
+> >>>> +			dev_err(dev, "can't get resource table\n");
+> >>>> +			return PTR_ERR(loaded_table);
+> >>>> +		}
+> >>>> +	} else {
+> >>>> +		loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
+> >>>>  	}
+> >>>>  
+> >>>> +	if (loaded_table && rproc->cached_table)
+> >>>> +		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
+> >>>> +
+> >>>
+> >>> Why is this not part of the else {} above as it was the case before this patch?
+> >>> And why was an extra check for ->cached_table added?
+> >>
+> >> Here we have to cover 2 use cases if rproc->tee_interface is set.
+> >> 1) The remote processor is in stop state
+> >>      - loaded_table points to the resource table in the remote memory and
+> >>      -  rproc->cached_table is null
+> >>      => no memcopy
+> >> 2) crash recovery
+> >>      - loaded_table points to the resource table in the remote memory
+> >>      - rproc-cached_table point to a copy of the resource table
 > > 
-> > https://docs.kernel.org/process/maintainer-netdev.html
+> > A cached_table exists because it was created in rproc_reset_rsc_table_on_stop().
+> > But as the comment says [1], that part of the code was meant to be used for the
+> > attach()/detach() use case.  Mixing both will become extremely confusing and
+> > impossible to maintain.
+> 
+> i am not sure to understand your point here... the cached_table table was
+> already existing for the "normal" case[2]. Seems to me that the cache table is
+> needed on stop in all scenarios.
+> 
+> [2]
+> https://elixir.bootlin.com/linux/v4.20.17/source/drivers/remoteproc/remoteproc_core.c#L1402
+> 
 > > 
-> > On Wed, May 29, 2024 at 11:39:04AM GMT, Sagar Cheluvegowda wrote:
-> > > Fixes: 070246e4674b ("net: stmmac: Fix for mismatched host/device DMA address width")
-> > > Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+> > I think the TEE scenario should be as similar as the "normal" one where TEE is
+> > not involved.  To that end, I suggest to create a cached_table in
+> > tee_rproc_parse_fw(), exactly the same way it is done in
+> > rproc_elf_load_rsc_table().  That way the code path in
+> > rproc_set_rsc_table_on_start() become very similar and we have a cached_table to
+> > work with when the remote processor is recovered.  In fact we may not need
+> > rproc_set_rsc_table_on_start() at all but that needs to be asserted.
 > 
-> > Also, I think the Fixes: here would be for adding support for this SoC
-> > in the driver, not what's listed? Might make more sense after you have a
-> > proper body though.
+> This is was I proposed in my V4 [3]. Could you please confirm that this aligns
+> with what you have in mind?
+
+Let me think a little - I'll get back to you.
+
+> In such a case, should I keep the updates below in
+> rproc_reset_rsc_table_on_stop(), or should I revert to using rproc->rsc_table to
+> store the pointer to the resource table in tee_remoteproc for the associated
+> memory map/unmap?"
 > 
-> This is a tricky one. 
+> [3]
+> https://patchwork.kernel.org/project/linux-remoteproc/patch/20240308144708.62362-2-arnaud.pouliquen@foss.st.com/
 > 
-> Fixes: 070246e4674b ("net: stmmac: Fix for mismatched host/device DMA
-> address width") is when support for different DMA address widths was
-> added. This fix cannot easily be back ported past that.
+> Thanks,
+> Arnaud
 > 
-> 070246e4674b first appears in v6.3-rc4.
-> 
-> dwmac-qcom-ethqos.c first appears in v5.1-rc1. However, Qualcomm did
-> not start hacking on it until v6.7-rc6. It is unclear to me without a
-> deep dive when Qualcomm actually started using this driver.
-> 
-> We might actually be looking at this the wrong way, and should in fact
-> be looking at when a DT patch was added that made use of the driver,
-> not the driver itself. If it was not used, it cannot be broken....
-> 
-
-I should have been more specific, sorry.
-
-I think this should be:
-
-    Fixes: 8c4d92e82d500 ("net: stmmac: dwmac-qcom-ethqos: add support for emac4 on sa8775p platforms")
-
-Which appears after 070246e4674b ("net: stmmac: Fix for mismatched host/device DMA address width").
-
-Reason being that specifically Sagar's patch is indicating that for the
-SoC's/compatibles that currently use emac_v4_0_0_data structure, the DMA
-address width needs to be specified.
-
-If we were modifying structs that were added prior to 070246e4674b then
-I agree, but at least the change as is I think could indicate the above
-Fixes.
-
-Thanks,
-Andrew
-
+> > 
+> > [1]. https://elixir.bootlin.com/linux/v6.10-rc1/source/drivers/remoteproc/remoteproc_core.c#L1565
+> > 
+> >>      => need to perform the memcpy to reapply settings in the resource table
+> >>
+> >> I can duplicate the memcpy in if{} and else{} but this will be similar code
+> >> as needed in both case.
+> >> Adding rproc->cached_table test if proc->tee_interface=NULL seems also
+> >> reasonable as a memcpy from 0 should not be performed.
+> >>
+> >>
+> >>>
+> >>> This should be a simple change, i.e introduce an if {} else {} block to take
+> >>> care of the two scenarios.  Plus the comment is misplaced now. 
+> >>
+> >> What about split it in 2 patches?
+> >> - one adding the test on rproc->cached_table for the memcpy
+> >> - one adding the if {} else {}?
+> >>
+> >> Thanks,
+> >> Arnaud
+> >>
+> >>
+> >>>
+> >>> More comments tomorrow.
+> >>>
+> >>> Thanks,
+> >>> Mathieu
+> >>>
+> >>>> +	rproc->table_ptr = loaded_table;
+> >>>> +
+> >>>>  	return 0;
+> >>>>  }
+> >>>>  
+> >>>> @@ -1318,11 +1328,16 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+> >>>>  	kfree(rproc->clean_table);
+> >>>>  
+> >>>>  out:
+> >>>> -	/*
+> >>>> -	 * Use a copy of the resource table for the remainder of the
+> >>>> -	 * shutdown process.
+> >>>> +	/* If the remoteproc_tee interface is used, then we have first to unmap the resource table
+> >>>> +	 * before updating the proc->table_ptr reference.
+> >>>>  	 */
+> >>>> -	rproc->table_ptr = rproc->cached_table;
+> >>>> +	if (!rproc->tee_interface) {
+> >>>> +		/*
+> >>>> +		 * Use a copy of the resource table for the remainder of the
+> >>>> +		 * shutdown process.
+> >>>> +		 */
+> >>>> +		rproc->table_ptr = rproc->cached_table;
+> >>>> +	}
+> >>>>  	return 0;
+> >>>>  }
+> >>>>  
+> >>>> -- 
+> >>>> 2.25.1
+> >>>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
