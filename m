@@ -2,108 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2308D49D5
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2024 12:46:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034AA8D4B28
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2024 13:57:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1796C6C859;
-	Thu, 30 May 2024 10:46:44 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD6F4C6C859;
+	Thu, 30 May 2024 11:57:37 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAC02C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1359C030CA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2024 10:46:37 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-52b0d25b54eso1114132e87.3
+ Thu, 30 May 2024 11:57:29 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-43fab2fa4ccso3914181cf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2024 03:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717065997; x=1717670797;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Kz3V9iZ9GUeS/4lYsW1iAj8Ti45jGQbQe9Z5iScKCj8=;
- b=blOVWPDZWfqtbVblx0fcDLn4hrghO5HNxlty843lZJEc1y8bya5dlit9+aWUBur3Xa
- Gn0R/JtFeScHACIvcQgMN6VCpBwKB8jPxNGhw9JtrRGhQPyl5w/RIivYGAMbFoA33Tvf
- PNikmFEwbdqREjkU+jkbtr16FTL77vhQuXlciCZMuwbdePMpx0pniAjthQytVQEhbzJa
- 8ZeSGyi54DE4vO0KqN4paTATaBHuOa91ACYEd+Vc0vKecRPauIMiSJpsyr4v8dMtcIrA
- nwcO7raeGkbQSN2VUJOE6QC8tpHkeRAm5dzNnzH8SKqSak+KX92IsXQ2Hx3bEcVGkXJd
- Fiiw==
+ Thu, 30 May 2024 04:57:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717065997; x=1717670797;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Kz3V9iZ9GUeS/4lYsW1iAj8Ti45jGQbQe9Z5iScKCj8=;
- b=WuaTflSN7XN8cTGnKGu8+WgKymDrPHLihgw1s148YeiI/P+CsUW6Wc7lCoB2kEuVPY
- w4yEJ6waeoGiWDHqBXDF3KgwNU/kMWy7qNxjCpG5KwgA0KPCnLg9DbrDRyHHn1nDTbLJ
- AhOjW9bu/7W0G0YcnMmcd/VTLXb3ANIDsBzLjzVr5xEISM3axnjBuZGgn2A1sKTI8SQi
- ZkavIh3pcC3qjnNwPKoCA6kNd6zzlyV2s2QvSjXKmZxNFsR/cqT2oXmB3Rjk1ofOU59u
- NgVITFLw94GF4Ee9bNr4anzubpelznnsWqiOpOA0kcOss6rA9N7FD1ZZ7JjNC+o6AGR2
- DPxg==
+ d=1e100.net; s=20230601; t=1717070247; x=1717675047;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UjHdVTNPfpZSE5mw/0S4dwLQIRvAN8JureryKLiLrHw=;
+ b=dQOHvY3vV/YG9Xx6j3vKlQb9jHSbfq7meyN/0IKLR794G53ikjvrnlBJYtOAn1fls9
+ 7VXRGny90SIBWynr/tOMIV5kZh0Mt5CKQH9bhRN1lxAECpC67ITMF8WwOO0z3kfQD7UU
+ QH/6jDtsVBfKcAELso9t4DLjurwixjBLEbCpFr1IDVmLUwe6yTrHkb5I+2NblvbcNirX
+ vkkala0nl+kU9Lo0jdxdZrbw1LkiNA97uTeWnXphFb+/mAKXQa1ZYvJ1D3D+DI1LVkUt
+ BbYrk2riN2C4f8B5UY5zbe1+JcCtFP5VS0ywbj70r5TjD0xWnFtg3fn8Pwd+Q21FiMB/
+ 8z9A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWG9rWr0l0ti7pBvPAmTSh/FgdmnMqB1S7YjGhb9r5jnDdE9QTJGoKpPw4T+JczGmK30a5gVM7m233iXppUNrAkEGGOZ1sM+yG9GbLnCTiBLXQH9cnn7Q5l
-X-Gm-Message-State: AOJu0Ywtp/yHYhDLdVNV4rnTuBlhf3P7Q2StwDYGBswuOa7segv5EBkY
- ceHhIEV6xS1vvmkm86Lul2OgQ12EsTy7YPSEu1t6BIZZZGPhKeYm
-X-Google-Smtp-Source: AGHT+IF8HtLfN2jy2u5b6qrXpWEdw3o5ChBVoUHw6Bx6hyhWP9jrTNwrZOX6TBLkr1VZDWVNaz6SDA==
-X-Received: by 2002:ac2:5979:0:b0:51a:c3b8:b9cf with SMTP id
- 2adb3069b0e04-52b7d4b1c97mr1485781e87.69.1717065996469; 
- Thu, 30 May 2024 03:46:36 -0700 (PDT)
-Received: from localhost
- (p200300e41f162000f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f16:2000:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626c9376dasm807478466b.54.2024.05.30.03.46.34
+ AJvYcCWwGJI/1f+N7+AC+wSVa8ICF3NdBE78SmyQx285MGGYkvSngWlKBJ+Z+SSJvPZqCZWPKVv5lTGbY1YwNluS+cpT6gvSlnDb8N6P5TXdsWuYI/FLpYoDbA3H
+X-Gm-Message-State: AOJu0YzARRMqxUM3EwftN6twXWta5oynwTecdvXfq6zzoa6DGqkKLl7z
+ BZ1uZIpS8tXLN+65vhGEB1AL+teJsCIkcTQOuelId37I378ZTW2Ivyvkq5mj
+X-Google-Smtp-Source: AGHT+IFaOB9u6kkySBB2Ad6A4YE+Ne8bWQ/QIVflEbx5pxOH3hgzh3Ny/ys38ZAkbon1IZIvS2frYw==
+X-Received: by 2002:a05:622a:54b:b0:43a:8353:775c with SMTP id
+ d75a77b69052e-43fe92a322fmr23553231cf.2.1717070247245; 
+ Thu, 30 May 2024 04:57:27 -0700 (PDT)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com.
+ [209.85.222.180]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-43fb16b7966sm65054951cf.10.2024.05.30.04.57.26
+ for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 May 2024 03:46:36 -0700 (PDT)
-Mime-Version: 1.0
-Date: Thu, 30 May 2024 12:46:34 +0200
-Message-Id: <D1MX3G6VN849.WKRMI0MU71Q@gmail.com>
-From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, "Linus Walleij"
- <linus.walleij@linaro.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
- "Dvorkin Dmitry" <dvorkin@tibbo.com>, "Wells Lu" <wellslutw@gmail.com>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Emil Renner Berthing" <kernel@esmil.dk>,
- "Jianlong Huang" <jianlong.huang@starfivetech.com>, "Hal Feng"
- <hal.feng@starfivetech.com>, "Orson Zhai" <orsonzhai@gmail.com>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Chunyan Zhang"
- <zhang.lyra@gmail.com>, "Viresh Kumar" <vireshk@kernel.org>, "Shiraz
- Hashim" <shiraz.linux.kernel@gmail.com>, <soc@kernel.org>, "Krzysztof
- Kozlowski" <krzk@kernel.org>, "Sylwester Nawrocki"
- <s.nawrocki@samsung.com>, "Alim Akhtar" <alim.akhtar@samsung.com>, "Geert
- Uytterhoeven" <geert+renesas@glider.be>, "Patrice Chotard"
- <patrice.chotard@foss.st.com>, "Heiko Stuebner" <heiko@sntech.de>, "Damien
- Le Moal" <dlemoal@kernel.org>, "Ludovic Desroches"
- <ludovic.desroches@microchip.com>, "Nicolas Ferre"
- <nicolas.ferre@microchip.com>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Dong Aisheng" <aisheng.dong@nxp.com>, "Fabio
- Estevam" <festevam@gmail.com>, "Shawn Guo" <shawnguo@kernel.org>, "Jacky
- Bai" <ping.bai@nxp.com>, "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Chester Lin" <chester62515@gmail.com>, "Matthias Brugger"
- <mbrugger@suse.com>, "Ghennadi Procopciuc"
- <ghennadi.procopciuc@oss.nxp.com>, "Sean Wang" <sean.wang@kernel.org>,
- "Matthias Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Andrew Jeffery" <andrew@codeconstruct.com.au>,
- "Joel Stanley" <joel@jms.id.au>, "Dan Carpenter"
- <dan.carpenter@linaro.org>, "Tony Lindgren" <tony@atomide.com>, "Stephen
- Warren" <swarren@wwwdotorg.org>
-X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
+ Thu, 30 May 2024 04:57:27 -0700 (PDT)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-794ba2d4601so58578985a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 30 May 2024 04:57:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWpzREMz0ACNKCZpVNS0Ixhmzey/emkbw6QKtRyhk6KadNOMFTc9FDisnPGKgOP8R6RNbKM4uqwlM8G2sVNB0aGkpvpvs5CRD8+zlmqSmit1n8ZbUwdO4w5
+X-Received: by 2002:a25:6842:0:b0:dfa:48f3:2253 with SMTP id
+ 3f1490d57ef6-dfa5a619bd3mr2110161276.32.1717070226150; Thu, 30 May 2024
+ 04:57:06 -0700 (PDT)
+MIME-Version: 1.0
 References: <20240504-pinctrl-cleanup-v2-0-26c5f2dc1181@nxp.com>
- <20240504-pinctrl-cleanup-v2-2-26c5f2dc1181@nxp.com>
-In-Reply-To: <20240504-pinctrl-cleanup-v2-2-26c5f2dc1181@nxp.com>
-Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+In-Reply-To: <20240504-pinctrl-cleanup-v2-0-26c5f2dc1181@nxp.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 30 May 2024 13:56:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVprgpjDP6PDn7appofJv8Tv30nRA4+7n4sR8n6n4qy+g@mail.gmail.com>
+Message-ID: <CAMuHMdVprgpjDP6PDn7appofJv8Tv30nRA4+7n4sR8n6n4qy+g@mail.gmail.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Peng Fan <peng.fan@nxp.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Tony Lindgren <tony@atomide.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Hal Feng <hal.feng@starfivetech.com>, Fabio Estevam <festevam@gmail.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
  linux-samsung-soc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-rockchip@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 02/20] pinctrl: tegra: Use scope based
- of_node_put() cleanups
+ Chunyan Zhang <zhang.lyra@gmail.com>, openbmc@lists.ozlabs.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jacky Bai <ping.bai@nxp.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chester Lin <chester62515@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Stephen Warren <swarren@wwwdotorg.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-gpio@vger.kernel.org, soc@kernel.org,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Matthias Brugger <mbrugger@suse.com>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Sean Wang <sean.wang@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ linux-riscv@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Viresh Kumar <vireshk@kernel.org>, Wells Lu <wellslutw@gmail.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 00/20] pinctrl: Use scope based
+	of_node_put() cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,66 +111,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1621791151636063166=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============1621791151636063166==
-Content-Type: multipart/signed;
- boundary=0af7656c2f06897086bd91562b0d7ec8235257f5e63bfa8c4a36e7a56c11;
- micalg=pgp-sha256; protocol="application/pgp-signature"
-
---0af7656c2f06897086bd91562b0d7ec8235257f5e63bfa8c4a36e7a56c11
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Sat May 4, 2024 at 3:20 PM CEST, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Use scope based of_node_put() cleanup to simplify code.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/pinctrl/tegra/pinctrl-tegra-xusb.c | 7 ++-----
->  drivers/pinctrl/tegra/pinctrl-tegra.c      | 4 +---
->  2 files changed, 3 insertions(+), 8 deletions(-)
-
-Looks good to me:
-
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---0af7656c2f06897086bd91562b0d7ec8235257f5e63bfa8c4a36e7a56c11
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmZYWQsACgkQ3SOs138+
-s6H2yBAAgeFKUkMlk3cWjVf9KNcypicIrr3j8r7LwohalNat613qoJ9YbzqqhwI4
-Gz6WRZUeiS7foiJu4a7gpc+lM2BsBe1fH2Qp8quSuXvd3qUCG7X5x3lf3NKsgqTY
-cXTyByotLJvYp5A/oUqWp1lwEyHec33GjJhuUzl7SD/HXun7zOdGWkBDonQJBlLj
-Bs5fE7wt9ekYvMAU7EHBDbIg10fvay+qWs4EJoqxhFgSgnmFSK9NrRZIW8IpWcU+
-AYMf2SPzWXdNPHij0BrXcWhV94d+XhSjSk1ERGByH2AOAr9WJ2YtrZm/W+7KVHXe
-G/4DE+Ss2wpYr6d4kAVn9GEDwH21w3DBKY38Ah/0B2SE1Nv1LXdaPD2m4SiNSIMb
-X55kEyxnrVPM9TTH9LlMKeJBwUDqohmQ9vYKDVuTVGO6Kdu3fc8euMIjCaWW7RkA
-lbmgGT83eBp279Bw72mbM83wtPgVvBY9ufV0oy6Ox8cY7D0pDOFCCxLhxYld7XT1
-7Sqg9E9rNlM/OX0QBFtCqcx/RtAY6ILPMioWUfFOS6FX8JjA9hviTvPYGNrSdvRl
-ZC6LcNmGEY9OjNMxft3NCl+kjz3fkiYyd9UglVHjAi+q4odk2HFwg93bVAEC705u
-xsy5uZQ96h1OIwzr643CV9p79G4CjuxDndqb4RfPWrnW3Dkw0iY=
-=tJx3
------END PGP SIGNATURE-----
-
---0af7656c2f06897086bd91562b0d7ec8235257f5e63bfa8c4a36e7a56c11--
-
---===============1621791151636063166==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1621791151636063166==--
+SGkgUGVuZywKCk9uIFNhdCwgTWF5IDQsIDIwMjQgYXQgMzoxMuKAr1BNIFBlbmcgRmFuIChPU1Mp
+IDxwZW5nLmZhbkBvc3MubnhwLmNvbT4gd3JvdGU6Cj4gVXNlIHNjb3BlIGJhc2VkIG9mX25vZGVf
+cHV0KCkgdG8gc2ltcGxpZnkgY29kZS4gSXQgcmVkdWNlcyB0aGUgY2hhbmNlCj4gb2YgZm9yZ2V0
+dGluZyBvZl9ub2RlX3B1dCgpLCBhbmQgYWxzbyBzaW1wbGlmaWVzIGVycm9yIGhhbmRsaW5nIHBh
+dGguCj4gSSBub3QgYWJsZSB0byB0ZXN0IHRoZSBjaGFuZ2VzIG9uIGFsbCB0aGUgaGFyZHdhcmVz
+LCBzbyBkcml2ZXIgb3duZXJzLAo+IHBsZWFzZSBoZWxwIHJldmlldyB3aGVuIHlvdSBoYXZlIHRp
+bWUuCj4KPiBUaGlzIHBhdGNoc2V0IHdhcyBpbnNwaXJlZCBmcm9tIERhbidzIGNvbW1lbnRzIG9u
+IHBpbmN0cmwtc2NtaS1pbXguYywKPiB0aGFua3MuCj4KPiBTaWduZWQtb2ZmLWJ5OiBQZW5nIEZh
+biA8cGVuZy5mYW5AbnhwLmNvbT4KCkFuZHkncyBxdWVzdGlvbiBhYm91dCBjb2RlIGdlbmVyYXRp
+b24gb24gYSByZWxhdGVkIHBhdGNoIG1hZGUgbWUKd29uZGVyLCB0b28uCgpPbiBhcm0zMiwgYSBj
+b252ZXJzaW9uIHRvIGZvcl9lYWNoX2NoaWxkX29mX25vZGVfc2NvcGVkKCkgc2VlbXMgdG8KY29z
+dCBjYS4gNDggYnl0ZXMgb2YgYWRkaXRpb25hbCBjb2RlLCByZWdhcmRsZXNzIG9mIHdoZXRoZXIg
+dGhlcmUgd2VyZQpleHBsaWNpdCBjbGVhbnVwcyBiZWZvcmUgb3Igbm90LgoKSSBjaGVja2VkICJw
+aW5jdHJsOiByZW5lc2FzOiBVc2Ugc2NvcGUgYmFzZWQgb2Zfbm9kZV9wdXQoKSBjbGVhbnVwcyIs
+CmFuZCBhbGwgYnV0IHRoZSBjb252ZXJzaW9ucyBpbiAqX2R0X25vZGVfdG9fbWFwKCkgY29zdCA0
+OCBieXRlcyBlYWNoLgoKR3J7b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAgICAgICAgICAgICAg
+ICBHZWVydAoKLS0gCkdlZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXgg
+YmV5b25kIGlhMzIgLS0gZ2VlcnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNvbmFsIGNvbnZlcnNh
+dGlvbnMgd2l0aCB0ZWNobmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQK
+d2hlbiBJJ20gdGFsa2luZyB0byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJwcm9ncmFtbWVyIiBv
+ciBzb21ldGhpbmcgbGlrZSB0aGF0LgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0t
+IExpbnVzIFRvcnZhbGRzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
