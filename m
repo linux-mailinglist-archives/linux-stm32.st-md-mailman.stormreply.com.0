@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C968D6546
+	by mail.lfdr.de (Postfix) with ESMTPS id A15448D6544
 	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 17:10:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EB23C712A1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A1C2C7128F;
 	Fri, 31 May 2024 15:10:32 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F157C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EFDCC7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 31 May 2024 15:10:25 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44VDnIcl015872;
- Fri, 31 May 2024 17:10:14 +0200
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44VDZK5e007807;
+ Fri, 31 May 2024 17:10:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 64wt0pzZ2kSRPpOSzALQl3R/464mRk7ij9nfrGdQFww=; b=kZPcKcj5E94ulSWg
- 4XQYKORgCPyuDzJ9S818wavq/eIAdCOpqkcRtQBbABps+NVHdEbrfO+p44Zlo7dH
- yxrB9O2HD2JOBjnjGAwUiezb/SZaOr5moSz7MQs+ROI2KWEmny7gNedFM7r9u5gr
- Suq1PbutAml0ot/ZnemsxjD37iwANtZhi4sSsbAoKYyRPSXKsW6Zlm4SwHhRiTkw
- AlZPEHzvSpRML4qXirzuKvcMhkIK54W9kJ/4Y9HnVyD9UU8XlashGosyWPzEd16R
- Jx1emC+6JkVCUACFTMmD+SrBIVKM15tQ0Zvz7sSmtxPS8kUpRiDtvUqppKrhQhjf
- 1tytmw==
+ FVHtdzKA2sppQoWavJijXHpDzRsfcU/8ElYuAcmbkXg=; b=peC9MGhE+j/d3KLr
+ 1iIjldHXhY1Ogu8M7Eqt0q1p5v+ueVCoPEw6bPIZvit+iDA8QyncuQMq+3L/U8Gt
+ +7t+Vx8PDVPJscUGLYlsUy0JHu9vF8XWgZwxnxT1a3gBQsakaEzgirRh7yGhF9VD
+ c8Qye3F2BwBd/+ibgNlic9Kb2zgLZNpH/ZFbo97wkQlEqdz3eIY4nB7fyKjCIEZQ
+ 8j4f3wOAWirjZFEKgtkzzM2wY0oQPK11pctAsh5aAUcksrphans5+nJPapk7g70P
+ 6h29VJfPoCIjM+9+JcHrmGIA6ZtmuEqQQ9939VjO4sjDmj/Kh/r00TQ0ijaMbZbn
+ P1zKaQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yba52ceqh-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yb9ykd76q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 17:10:14 +0200 (MEST)
+ Fri, 31 May 2024 17:10:15 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D3D9840048;
- Fri, 31 May 2024 17:10:10 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1091640049;
+ Fri, 31 May 2024 17:10:11 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0EAF5207FF0;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D207C208009;
  Fri, 31 May 2024 17:09:25 +0200 (CEST)
 Received: from localhost (10.252.27.179) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 17:09:24 +0200
+ 2024 17:09:25 +0200
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 31 May 2024 17:07:11 +0200
-Message-ID: <20240531150712.2503554-12-amelie.delaunay@foss.st.com>
+Date: Fri, 31 May 2024 17:07:12 +0200
+Message-ID: <20240531150712.2503554-13-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240531150712.2503554-1-amelie.delaunay@foss.st.com>
 References: <20240531150712.2503554-1-amelie.delaunay@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hardening@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 11/12] dmaengine: stm32-dma3: defer channel
-	registration to specify channel name
+Subject: [Linux-stm32] [PATCH v4 12/12] arm64: dts: st: add HPDMA nodes on
+	stm32mp251
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,63 +79,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On STM32 DMA3, channels can be reserved, so they are non available for
-Linux. This non-availability creates a mismatch between dma_chan id and
-DMA3 channel id.
+The High Performance Direct Memory Access (HPDMA) controller is used to
+perform programmable data transfers between memory-mapped peripherals
+and memories (or between memories) via linked-lists.
 
-Use dma_async_device_channel_register() to register the channels
-after controller registration and change the default channel name, so that
-it can match the name in the Reference Manual and ease requesting a channel
-thanks to its name.
+There are 3 instances of HPDMA on stm32mp251, using stm32-dma3 driver, with
+16 channels per instance and with one interrupt per channel.
+Channels 0 to 7 are implemented with a FIFO of 8 bytes.
+Channels 8 to 11 are implemented with a FIFO of 32 bytes.
+Channels 12 to 15 are implemented with a FIFO of 128 bytes.
+Thanks to stm32-dma3 bindings, the user can ask for a channel with specific
+FIFO size.
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
- drivers/dma/stm32/stm32-dma3.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+v4: use SCMI clocks now that they are available
 
-diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
-index 9249b64a4455..4e932c2931dc 100644
---- a/drivers/dma/stm32/stm32-dma3.c
-+++ b/drivers/dma/stm32/stm32-dma3.c
-@@ -1732,9 +1732,6 @@ static int stm32_dma3_probe(struct platform_device *pdev)
- 		chan->fifo_size = get_chan_hwcfg(i, G_FIFO_SIZE(i), hwcfgr);
- 		/* If chan->fifo_size > 0 then half of the fifo size, else no burst when no FIFO */
- 		chan->max_burst = (chan->fifo_size) ? (1 << (chan->fifo_size + 1)) / 2 : 0;
--		chan->vchan.desc_free = stm32_dma3_chan_vdesc_free;
--
--		vchan_init(&chan->vchan, dma_dev);
- 	}
+v2: use SoC specific compatible st,stm32mp25-dma3
+---
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 69 ++++++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index dcd0656d67a8..d057dcee2534 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -107,6 +107,75 @@ soc@0 {
+ 		interrupt-parent = <&intc>;
+ 		ranges = <0x0 0x0 0x0 0x80000000>;
  
- 	ret = dmaenginem_async_device_register(dma_dev);
-@@ -1742,14 +1739,26 @@ static int stm32_dma3_probe(struct platform_device *pdev)
- 		goto err_clk_disable;
- 
- 	for (i = 0; i < ddata->dma_channels; i++) {
-+		char name[12];
++		hpdma: dma-controller@40400000 {
++			compatible = "st,stm32mp25-dma3";
++			reg = <0x40400000 0x1000>;
++			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&scmi_clk CK_SCMI_HPDMA1>;
++			#dma-cells = <3>;
++		};
 +
- 		if (chan_reserved & BIT(i))
- 			continue;
- 
-+		chan = &ddata->chans[i];
-+		snprintf(name, sizeof(name), "dma%dchan%d", ddata->dma_dev.dev_id, chan->id);
++		hpdma2: dma-controller@40410000 {
++			compatible = "st,stm32mp25-dma3";
++			reg = <0x40410000 0x1000>;
++			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&scmi_clk CK_SCMI_HPDMA2>;
++			#dma-cells = <3>;
++		};
 +
-+		chan->vchan.desc_free = stm32_dma3_chan_vdesc_free;
-+		vchan_init(&chan->vchan, dma_dev);
++		hpdma3: dma-controller@40420000 {
++			compatible = "st,stm32mp25-dma3";
++			reg = <0x40420000 0x1000>;
++			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&scmi_clk CK_SCMI_HPDMA3>;
++			#dma-cells = <3>;
++		};
 +
-+		ret = dma_async_device_channel_register(&ddata->dma_dev, &chan->vchan.chan, name);
-+		if (ret) {
-+			dev_err_probe(&pdev->dev, ret, "Failed to register channel %s\n", name);
-+			goto err_clk_disable;
-+		}
-+
- 		ret = platform_get_irq(pdev, i);
- 		if (ret < 0)
- 			goto err_clk_disable;
--
--		chan = &ddata->chans[i];
- 		chan->irq = ret;
- 
- 		ret = devm_request_irq(&pdev->dev, chan->irq, stm32_dma3_chan_irq, 0,
+ 		rifsc: bus@42080000 {
+ 			compatible = "st,stm32mp25-rifsc", "simple-bus";
+ 			reg = <0x42080000 0x1000>;
 -- 
 2.25.1
 
