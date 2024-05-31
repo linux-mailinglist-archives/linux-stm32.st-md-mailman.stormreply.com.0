@@ -2,85 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C7B8D67E5
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 19:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916298D6825
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 19:28:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 619D3C6DD72;
-	Fri, 31 May 2024 17:14:01 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41846C6DD72;
+	Fri, 31 May 2024 17:28:45 +0000 (UTC)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58B64C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46888C6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 May 2024 17:13:54 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-52b8d483a08so563713e87.1
+ Fri, 31 May 2024 17:28:38 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-1f44b42e9a6so18269365ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 May 2024 10:13:54 -0700 (PDT)
+ Fri, 31 May 2024 10:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717175633; x=1717780433;
+ d=linaro.org; s=google; t=1717176517; x=1717781317;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YKnCKOq41+4Rgep7k6ZlqSUDk6qvg8UE0gxKceBb9wA=;
- b=HocFx4l8rRhhiQo4N+g0rgqTOketbXZ3Shet2LFzr1s0fpn7f6SsoeMJjkgwFl1VEh
- HkAmi1mlsoO3RWDTI4+bsywYEJPOUMK5KaZDFY6kdX7HnVXh8+eJCBoIfBJVMXypEoWM
- 6FRdNce2Iz0sght36BjVZx2Se7yNh+BQ6cNukC6uf3ENPrizHlV0j85TeoZpCQ8eLj31
- lM/AlQMu96gb0Y90/imrElt/PLmMBSyhnpdWoeNheNv3IHY9goQtA4h6FUCQmwCA6rWs
- 1zzX6RsmDSgVZGZynKKiFi4GTbZ+dHf9A0nVvpuudpfS/ri8b5OYIBF2p3BlCoGZhNj0
- FxdA==
+ bh=PIW/+d3pyitNysbRb4C74Z7GshTp0lM3THuiLkgE5rU=;
+ b=a4Y6X74QKu6mmfc6MfJHOOBkfRQSy3J2WxxIpgMVcKeCcwWSpsDSIZkPxq1iwgaHy2
+ B4uizmRqDxa+D8K9MXt9dblRcGA58Tbi9CuC9NIpyhSZif5spKKoK8BEsx6rsnCxmZuz
+ Xgi3Pn++0uykNTBMCjYOT/xYC57/MM9gjofGk29VDKI/ms6y7aKUDOm1NWAY27nOFTAG
+ RB/MJMMLeXkYqSZ+m1SuinhVqnaMa69ae2L5mNhXyZwRbdArgRIVSAvbGxlyVX8zKLjD
+ 8NXVrRSooL/jydqB6+oQhoX7li/+zsmjsTWSlwmuB9sS+BCHO8ADYqS3pAJpSP45oSA1
+ 9AEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717175633; x=1717780433;
+ d=1e100.net; s=20230601; t=1717176517; x=1717781317;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YKnCKOq41+4Rgep7k6ZlqSUDk6qvg8UE0gxKceBb9wA=;
- b=BPOGZmw0U+WuS8q9ZYNSExyzJFZ9D6UoHy3ejSapxEt+n2cRvabUvRKdQglUOzjpbQ
- 8pJi++tvsHbuDJQ3LqOzRvE5CLO8kgU0Xv4x1tYD6I9jeFkyPehs1sLZzdn1FpjE3lzb
- 0WiAgoCEI/JRwnIk9XuYsCRzptNP+LlJkjLcr0gHHWjrNce5ojFMnYIVNMT4EU4PX7MU
- pXZZ3Vb09g6NgaYthQYYC2G4Bmuv+65FICsT6rsD1F03kc8E+3Ugm1SKmDEaCx54Ktte
- IBYhi/Se7bvvhEMNSDmgEJ3j6R0vl2F7HBY4/7buMAHJm9QnUaq34o49tVgnCmgoPy6x
- aqQg==
+ bh=PIW/+d3pyitNysbRb4C74Z7GshTp0lM3THuiLkgE5rU=;
+ b=n7Vq3amwvFsEtlTDAOYpxKxYLXCvwnqI8py2HWlaGwLvSsYLE+bdRXk36wZLZe6I+G
+ eI3R2twEEFRM8vi8G2HCJLZKc8HvStSBUncMHYywHYm4tdht/u/gMJ8bEUb9lJu226Iq
+ UsBvjjvJfrtZoifBL81i02MpSgTNyfZI7uKNSa//aya3R5azcN6eF+ybL68yFs/5O5pC
+ GZ2ir4+bu/4Jf0nB91nMJulU0oxtpsKl21phAHoAYHhP8GYCc1IyBMlWH8b4+ORfsvrH
+ limn3/krVUza1fsDP9qo5/QqgN0pvjmwldVKv7sb0SbdjxCkS2hnKgHEyI44ANlSMS8y
+ /TvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV1wv6yEhKj7fDOPmTUaP/31JC6TiFCWJRP2T23RUXrz31i3dOJocEh6wsoEhDIkhkFsh5fVPAlVDn5Ox+u9CE67qt2Q9f+wSi1dUhty1b303EsISiFUhmc
-X-Gm-Message-State: AOJu0YzxvYNK1nW1PVmc/W3/uIe6hF0FiBnbYu2Tb/wfUr4/frS+fNYI
- TSi2Zwweig5m5DRkGEKYDDHd304aDsjACZnnhsNKOhKaOrvyWoMh
-X-Google-Smtp-Source: AGHT+IFSX4Q204TIKiPy9JBxeg7HqrlKpaAcPlTccwsvTwZ0lQyR9wwiSSD42wfWa0YTfhryqepqjQ==
-X-Received: by 2002:a05:6512:2085:b0:516:d219:3779 with SMTP id
- 2adb3069b0e04-52b896cd558mr1497227e87.58.1717175633108; 
- Fri, 31 May 2024 10:13:53 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
+ AJvYcCWTAENHM/V9Hdc3c4yE/FdR1cXAAi9wFU+8hmVuTdJGKzM1iYclKVN5ze1K3TuwXaG3AmJyeg8iqBgTsWCMR2xQXhEbxkvuaizCDWExju1dmYGTqgS0SD21
+X-Gm-Message-State: AOJu0YwgH1bBGHSQo7sRBKOOQzmMpJfLSU0GT4oIcN6cfWW5ulVKiiBN
+ FUAKs28w/m9S8+lDHPUmUzl4FmTwdfEztXRH09mYGt/wZ5MMnzLNyEeLhpGpUnU=
+X-Google-Smtp-Source: AGHT+IHG+0RWeJvA4tpJNVMwbh8CPAHQBFYqLRjlNpPaCFJjsm76snXQhY0qYZq7twlxmQWy0+IYBQ==
+X-Received: by 2002:a17:902:d30d:b0:1f4:990c:5ef1 with SMTP id
+ d9443c01a7336-1f6370250c8mr24670045ad.31.1717176516593; 
+ Fri, 31 May 2024 10:28:36 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:a236:3f96:dc60:48b4])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b84d8e81asm380854e87.304.2024.05.31.10.13.51
+ d9443c01a7336-1f6323ded40sm19286015ad.169.2024.05.31.10.28.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 May 2024 10:13:52 -0700 (PDT)
-Date: Fri, 31 May 2024 20:13:49 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <x4snwm24lqebfcu3xqipwnxcexxbxhfijw7ldsukk23tn5k3rc@g3tfmynhvm26>
-References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
- <20240524210304.9164-1-fancer.lancer@gmail.com>
- <20240524210304.9164-2-fancer.lancer@gmail.com>
- <ZlNoLHoHjt3BsFde@shell.armlinux.org.uk>
- <ZlN4tkY8fNM8/D8p@shell.armlinux.org.uk>
- <ukszpirecb3pwnz5bbmy7wl44ujh6t2ewrnodmrye5kjmonsz2@pgf5b2oy5n3p>
- <ZlXmjKtKozXThPFv@shell.armlinux.org.uk>
+ Fri, 31 May 2024 10:28:36 -0700 (PDT)
+Date: Fri, 31 May 2024 11:28:33 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZloIwfFwkpKYLU9k@p14s>
+References: <20240521081001.2989417-1-arnaud.pouliquen@foss.st.com>
+ <20240521081001.2989417-6-arnaud.pouliquen@foss.st.com>
+ <ZlZM/hgSO4EeRVqS@p14s>
+ <d9e1356a-d8bf-40a3-9a78-424ead8089a9@foss.st.com>
+ <ZleReEIgD8O5zATO@p14s>
+ <5b3f8346-d6db-4da3-9613-20cf9f3c226b@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZlXmjKtKozXThPFv@shell.armlinux.org.uk>
-Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/3] net: stmmac: Activate
- Inband/PCS flag based on the selected iface
+In-Reply-To: <5b3f8346-d6db-4da3-9613-20cf9f3c226b@foss.st.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 5/7] remoteproc: core: support of the
+	tee interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,309 +88,203 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 28, 2024 at 03:13:32PM +0100, Russell King (Oracle) wrote:
-> On Tue, May 28, 2024 at 04:19:49PM +0300, Serge Semin wrote:
-> > On Sun, May 26, 2024 at 07:00:22PM +0100, Russell King (Oracle) wrote:
-> > > On Sun, May 26, 2024 at 05:49:48PM +0100, Russell King (Oracle) wrote:
-> > > > On Sat, May 25, 2024 at 12:02:58AM +0300, Serge Semin wrote:
-> > > > > The HWFEATURE.PCSSEL flag is set if the PCS block has been synthesized
-> > > > > into the DW GMAC controller. It's always done if the controller supports
-> > > > > at least one of the SGMII, TBI, RTBI PHY interfaces. If none of these
-> > > > > interfaces support was activated during the IP-core synthesize the PCS
-> > > > > block won't be activated either and the HWFEATURE.PCSSEL flag won't be
-> > > > > set. Based on that the RGMII in-band status detection procedure
-> > > > > implemented in the driver hasn't been working for the devices with the
-> > > > > RGMII interface support and with none of the SGMII, TBI, RTBI PHY
-> > > > > interfaces available in the device.
-> > > > > 
-> > > > > Fix that just by dropping the dma_cap.pcs flag check from the conditional
-> > > > > statement responsible for the In-band/PCS functionality activation. If the
-> > > > > RGMII interface is supported by the device then the in-band link status
-> > > > > detection will be also supported automatically (it's always embedded into
-> > > > > the RGMII RTL code). If the SGMII interface is supported by the device
-> > > > > then the PCS block will be supported too (it's unconditionally synthesized
-> > > > > into the controller). The later is also correct for the TBI/RTBI PHY
-> > > > > interfaces.
-> > > > > 
-> > > > > Note while at it drop the netdev_dbg() calls since at the moment of the
-> > > > > stmmac_check_pcs_mode() invocation the network device isn't registered. So
-> > > > > the debug prints will be for the unknown/NULL device.
-> > > > 
-> > > > Thanks. As this is a fix, shouldn't it be submitted for the net tree as
-> > > > it seems to be fixing a bug in the driver as it stands today?
-> > > > 
-> > > > Also, a build fix is required here:
-> > > > 
-> > > > > -	if (priv->dma_cap.pcs) {
-> > > > > -		if ((interface == PHY_INTERFACE_MODE_RGMII) ||
-> > > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_ID) ||
-> > > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_RXID) ||
-> > > > > -		    (interface == PHY_INTERFACE_MODE_RGMII_TXID)) {
-> > > > > -			netdev_dbg(priv->dev, "PCS RGMII support enabled\n");
-> > > > > -			priv->hw->pcs = STMMAC_PCS_RGMII;
-> > > > > -		} else if (interface == PHY_INTERFACE_MODE_SGMII) {
-> > > > > -			netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
-> > > > > -			priv->hw->pcs = STMMAC_PCS_SGMII;
-> > > > > -		}
-> > > > > -	}
-> > > > > +	if (phy_interface_mode_is_rgmii(interface))
-> > > > > +		priv->hw.pcs = STMMAC_PCS_RGMII;
-> > > > > +	else if (interface == PHY_INTERFACE_MODE_SGMII)
-> > > > > +		priv->hw.pcs = STMMAC_PCS_SGMII;
-> > > > 
-> > > > Both of these assignments should be priv->hw->pcs not priv->hw.pcs.
-> > > > 
-> > > > I think there's also another bug that needs fixing along with this.
-> > > > See stmmac_ethtool_set_link_ksettings(). Note that this denies the
-> > > > ability to disable autoneg, which (a) doesn't make sense for RGMII
-> > > > with an attached PHY, and (b) this code should be passing the
-> > > > ethtool op to phylink for it to pass on to phylib so the PHY can
-> > > > be appropriately configured for the users desired autoneg and
-> > > > link mode settings.
-> > > > 
-> > > > I also don't think it makes any sense for the STMMAC_PCS_SGMII case
-> > > > given that it means Cisco SGMII - which implies that there is also
-> > > > a PHY (since Cisco SGMII with inband is designed to be coupled with
-> > > > something that looks like a PHY to send the inband signalling
-> > > > necessary to configure e.g. the SGMII link symbol replication.
-> > > > 
-> > > > In both of these cases, even if the user requests autoneg to be
-> > > > disabled, that _shouldn't_ affect internal network driver links.
-> > > > This ethtool op is about configuring the externally visible media
-> > > > side of the network driver, not the internal links.
-> > > 
+On Thu, May 30, 2024 at 09:42:26AM +0200, Arnaud POULIQUEN wrote:
+> Hello Mathieu,
+> 
+> On 5/29/24 22:35, Mathieu Poirier wrote:
+> > On Wed, May 29, 2024 at 09:13:26AM +0200, Arnaud POULIQUEN wrote:
+> >> Hello Mathieu,
+> >>
+> >> On 5/28/24 23:30, Mathieu Poirier wrote:
+> >>> On Tue, May 21, 2024 at 10:09:59AM +0200, Arnaud Pouliquen wrote:
+> >>>> 1) on start:
+> >>>> - Using the TEE loader, the resource table is loaded by an external entity.
+> >>>> In such case the resource table address is not find from the firmware but
+> >>>> provided by the TEE remoteproc framework.
+> >>>> Use the rproc_get_loaded_rsc_table instead of rproc_find_loaded_rsc_table
+> >>>> - test that rproc->cached_table is not null before performing the memcpy
+> >>>>
+> >>>> 2)on stop
+> >>>> The use of the cached_table seems mandatory:
+> >>>> - during recovery sequence to have a snapshot of the resource table
+> >>>>   resources used,
+> >>>> - on stop to allow  for the deinitialization of resources after the
+> >>>>   the remote processor has been shutdown.
+> >>>> However if the TEE interface is being used, we first need to unmap the
+> >>>> table_ptr before setting it to rproc->cached_table.
+> >>>> The update of rproc->table_ptr to rproc->cached_table is performed in
+> >>>> tee_remoteproc.
+> >>>>
+> >>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >>>> ---
+> >>>>  drivers/remoteproc/remoteproc_core.c | 31 +++++++++++++++++++++-------
+> >>>>  1 file changed, 23 insertions(+), 8 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >>>> index 42bca01f3bde..3a642151c983 100644
+> >>>> --- a/drivers/remoteproc/remoteproc_core.c
+> >>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> >>>> @@ -1267,6 +1267,7 @@ EXPORT_SYMBOL(rproc_resource_cleanup);
+> >>>>  static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmware *fw)
+> >>>>  {
+> >>>>  	struct resource_table *loaded_table;
+> >>>> +	struct device *dev = &rproc->dev;
+> >>>>  
+> >>>>  	/*
+> >>>>  	 * The starting device has been given the rproc->cached_table as the
+> >>>> @@ -1276,12 +1277,21 @@ static int rproc_set_rsc_table_on_start(struct rproc *rproc, const struct firmwa
+> >>>>  	 * this information to device memory. We also update the table_ptr so
+> >>>>  	 * that any subsequent changes will be applied to the loaded version.
+> >>>>  	 */
+> >>>> -	loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
+> >>>> -	if (loaded_table) {
+> >>>> -		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
+> >>>> -		rproc->table_ptr = loaded_table;
+> >>>> +	if (rproc->tee_interface) {
+> >>>> +		loaded_table = rproc_get_loaded_rsc_table(rproc, &rproc->table_sz);
+> >>>> +		if (IS_ERR(loaded_table)) {
+> >>>> +			dev_err(dev, "can't get resource table\n");
+> >>>> +			return PTR_ERR(loaded_table);
+> >>>> +		}
+> >>>> +	} else {
+> >>>> +		loaded_table = rproc_find_loaded_rsc_table(rproc, fw);
+> >>>>  	}
+> >>>>  
+> >>>> +	if (loaded_table && rproc->cached_table)
+> >>>> +		memcpy(loaded_table, rproc->cached_table, rproc->table_sz);
+> >>>> +
+> >>>
+> >>> Why is this not part of the else {} above as it was the case before this patch?
+> >>> And why was an extra check for ->cached_table added?
+> >>
+> >> Here we have to cover 2 use cases if rproc->tee_interface is set.
+> >> 1) The remote processor is in stop state
+> >>      - loaded_table points to the resource table in the remote memory and
+> >>      -  rproc->cached_table is null
+> >>      => no memcopy
+> >> 2) crash recovery
+> >>      - loaded_table points to the resource table in the remote memory
+> >>      - rproc-cached_table point to a copy of the resource table
 > > 
-> > > I have a concern about this patch. Have you considered dwmac-intel with
-> > > its XPCS support, where the XPCS is used for Cisco SGMII and 1000base-X
-> > > support. Does the dwmac-intel version of the core set
-> > > priv->dma_cap.pcs? If it doesn't, then removing the test on this will
-> > > cause a regression, since in Cisco SGMII mode, we end up setting
-> > > priv->hw->pcs to SYMMAC_PCS_SGMII where we didn't before. As
-> > > priv->flags will not have STMMAC_FLAG_HAS_INTEGRATED_PCS, this will
-> > > enable all the "integrated PCS" code paths despite XPCS clearly
-> > > intending to be used for Cisco SGMII.
-> > > 
-> > > I'm also wondering whether the same applies to the lynx PCS as well,
-> > > or in the general case if we have any kind of external PCS.
-> > > 
-> > > Hence, I think this probably needs to be:
-> > > 
-> > > 	if (phy_interface_mode_is_rgmii(interface))
-> > > 		priv->hw->pcs = STMMAC_PCS_RGMII;
-> > > 	else if (interface == PHY_INTERFACE_MODE_SGMII && priv->dma_cap.pcs)
-> > > 		priv->hw->pcs = STMMAC_PCS_SGMII;
-> > > 
-> > > At least this is what unpicking the awful stmmac code suggests (and I
-> > > do feel that my point about the shocking state of this driver is proven
-> > > as details like this are extremely difficult to unpick, and not
-> > > unpicking them correctly will lead to regressions.) Therefore, I would
-> > > suggest that it would be wise if you also double-checked this.
+> > A cached_table exists because it was created in rproc_reset_rsc_table_on_stop().
+> > But as the comment says [1], that part of the code was meant to be used for the
+> > attach()/detach() use case.  Mixing both will become extremely confusing and
+> > impossible to maintain.
+> 
+> i am not sure to understand your point here... the cached_table table was
+> already existing for the "normal" case[2]. Seems to me that the cache table is
+> needed on stop in all scenarios.
+> 
+> [2]
+> https://elixir.bootlin.com/linux/v4.20.17/source/drivers/remoteproc/remoteproc_core.c#L1402
+> 
 > > 
-> > Double-checked that part. Indeed this is what I forgot to take into
-> > account.
+> > I think the TEE scenario should be as similar as the "normal" one where TEE is
+> > not involved.  To that end, I suggest to create a cached_table in
+> > tee_rproc_parse_fw(), exactly the same way it is done in
+> > rproc_elf_load_rsc_table().  That way the code path in
+> > rproc_set_rsc_table_on_start() become very similar and we have a cached_table to
+> > work with when the remote processor is recovered.  In fact we may not need
+> > rproc_set_rsc_table_on_start() at all but that needs to be asserted.
 > 
-> Thanks for double-checking it.
+> This is was I proposed in my V4 [3]. Could you please confirm that this aligns
+> with what you have in mind?
+
+After spending more time on this I have the following 3 observations:
+
+1) We need a ->cached_table, otherwise the crash recovery path gets really
+messy.
+
+2) It _might_ be a good idea to rename tee_rproc_get_loaded_rsc_table() to
+tee_rproc_find_loaded_rsc_table() to be aligned with the scenario where the
+firmware is loaded by the remoteproc core.  I think you had
+tee_rproc_find_loaded_rsc_table() in the first place and I asked you to change
+it.  If so, apologies - reviewing patches isn't an exact science.
+
+3) The same way ->cached_table is created in rproc_elf_load_rsc_table(), which
+is essentially ops::parse_fw(), we should create one in tee_rproc_parse_fw()
+with a kmemdup().  Exactly the same as in rproc_elf_load_rsc_table().  In
+tee_rproc_parse_fw(), @rsc_table should be iounmap'ed right away so that we
+don't need to keep a local variable to free it later.  In rproc_start() the call
+to rproc_find_loaded_rsc_table() will get another mapped handle to the resource
+table in memory.  It might be a little unefficient but it sure beats doing a lot
+of modifications in the core.
+
+As I said above this isn't an exact science and we may need to changes more
+things but at least it should take us a little further.
+
+Thanks,
+Mathieu
+
+> In such a case, should I keep the updates below in
+> rproc_reset_rsc_table_on_stop(), or should I revert to using rproc->rsc_table to
+> store the pointer to the resource table in tee_remoteproc for the associated
+> memory map/unmap?"
 > 
-> > (Just realized I had a glimpse thought about checking the DW
-> > xGMAC/XPCS for supporting the SGMII interface, but the thought got
-> > away from my mind forgotten.) DW XPCS can be synthesized with having
-> > the GMII/MII interface connected to the MAC and SGMII downstream
-> > interface over a single 1000Base-X lane.
+> [3]
+> https://patchwork.kernel.org/project/linux-remoteproc/patch/20240308144708.62362-2-arnaud.pouliquen@foss.st.com/
+> 
+> Thanks,
+> Arnaud
+> 
 > > 
-> > In anyway AFAICS that case has nothing to do with the PCS embedded
-> > into the DW GMAC or DW QoS Eth synthesized with the SGMII support. DW
-> > XGMAC has no embedded PCS, but could be attached to the separate DW
-> > XPCS device.
-> 
-
-> This is where my head starts spinning, because identifying what
-> "DW GMAC" and "DW QoS Eth" refer to is difficult unless one, I guess,
-> has the documentation.
-> 
-> The only references to QoS that I can find in the driver refer to
-> per-DMA channel interrupts, dwmac5* and one mention for a platform
-> driver in the Kconfig.
-> 
-> Grepping for "DW GMAC" doesn't give anything.
-> 
-> Conversely, I know from the code that only dwmac4 and dwmac1000
-> have support for the integrated PCS. So trying to put this together
-> doesn't make much sense to me. :/
-> 
-> Maybe "DW QoS Eth" refers to dwmac-dwc-qos-eth.c?
-
-DW QoS Eth is the new generation of the Synopsys Gigabit Ethernet
-IP-cores. Old ones are considered of version 3.74a and older:
-https://www.synopsys.com/dw/ipdir.php?ds=dwc_ether_mac10_100_1000_unive
-The new ones are of the version 4.0 and higher (the most modern
-DW QoS Eth IP-core is of v5.40a):
-https://www.synopsys.com/dw/ipdir.php?ds=dwc_ether_qos
-
-This is better summarised in the driver doc:
-
-Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
-
-which has outdated a bit, but the summary table looks correct anyway:
-
-+-------------------------------+--------------+--------------+--------------+
-| Controller Name               | Min. Version | Max. Version | Abbrev. Name |
-+===============================+==============+==============+==============+
-| Ethernet MAC Universal        | N/A          | 3.73a        | GMAC         |
-+-------------------------------+--------------+--------------+--------------+
-| Ethernet Quality-of-Service   | 4.00a        | N/A          | GMAC4+       |
-+-------------------------------+--------------+--------------+--------------+
-| XGMAC - 10G Ethernet MAC      | 2.10a        | N/A          | XGMAC2+      |
-+-------------------------------+--------------+--------------+--------------+
-| XLGMAC - 100G Ethernet MAC    | 2.00a        | N/A          | XLGMAC2+     |
-+-------------------------------+--------------+--------------+--------------+
-
-See the abbreviation and controller names. When I say just DW GMAC
-then it means DW Ether MAC 10/100/1000 Universal, which driver is
-implemented in the dwmac1000* files. If you see DW GMAC4/GMAC5 or DW
-GAC4+ or DW QoE Eth, then it means DW Ethernet Quality-of-Service
-IP-core, which driver could be found in dwmac4*/dwmac5* files.
-
-As it inferable from the IP-core names the main difference between DW
-Ether MAC 10/100/1000 Universal and DW Ethernet Quality-of-Service is
-that the later one supports multiple queues and channels with a
-comprehensive list of the optional traffic scheduling features (FPE,
-TBS, DCB, AV-bridging, etc). DW GMAC doesn't have as many such
-features. The only way to have DW GMAC synthesized with the multiple
-DMA channels support is to enable a singly available traffic
-scheduling feature - AV-bridging. Note AV-bridging enabled on the DW
-GMAC v3.73a is the case of the Loongson GNET controller, which support
-is implemented in the Yanteng Si patchset recently submitted for v13
-review:
-https://lore.kernel.org/netdev/cover.1716973237.git.siyanteng@loongson.cn/
-
-In some extent the CSRs mapping is also different in DW GMAC v3.x and
-GMAC v4.x/v5.x, but the main part is in the QoS features.
-
-> 
-> > About the correct implementation. Right, priv->dma_cap.pcs indicates
-> > that there is an embedded PCS and the flag can be set for DW GMAC or DW
-> > QoS Eth only. Although I would change the order:
+> > [1]. https://elixir.bootlin.com/linux/v6.10-rc1/source/drivers/remoteproc/remoteproc_core.c#L1565
 > > 
-> >        if (phy_interface_mode_is_rgmii(interface))
-> >                priv->hw->pcs = STMMAC_PCS_RGMII;
-> >        else if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII)
-> >                priv->hw->pcs = STMMAC_PCS_SGMII;
-> > 
-> > since priv->dma_cap.pcs is a primary flag. If it isn't set the
-> > interface will be irrelevant.
-> 
-
-> As this is generic code, it probably makes sense to go with that, since
-> priv->dma_cap.pcs indicates whether the internal PCS for SGMII is
-> present or not rather than...
-
-Right.
-
-> 
-> > Alternative solution could be to use the has_gmac/has_gmac4 flags
-> > instead. That will emphasize that the embedded PCS is expected to be
-> > specific for the DW GMAC and DW QoS Eth IP-cores:
-> > 
-> >        if (phy_interface_mode_is_rgmii(interface))
-> >                priv->hw->pcs = STMMAC_PCS_RGMII;
-> >        else if ((priv->plat.has_gmac || priv->plat.has_gmac4) &&
-> > 		interface == PHY_INTERFACE_MODE_SGMII)
-> >                priv->hw->pcs = STMMAC_PCS_SGMII;
-> 
-
-> which implies that gmac (dwgmac1000_core.c) and gmac4 (dwgmac4_core.c)
-> will always have its internal PCS if we're using SGMII mode.
-
-Right. If the DW GMAC/QoS Eth IP-core is synthesized with the
-SGMII/RTBI/RBI PHY interface then the internal PCS will always be
-available and the HWFEATURE.PCSSEL flag will be set. Here is the
-PCSSEL flag value definition:
-DW QoS Eth: DWC_EQOS_PCS_EN = DWC_EQOS_TBI_EN || DWC_EQOS_SGMII_EN || DWC_EQOS_RTBI_EN
-DW GMAC: if TBI, SGMII, or RTBI PHY interface is enabled.
-
-> Does this
-> mean it is true that these cores will never be used with an external
-> PCS?
-
-Sorry, I was wrong to suggest the (priv->plat.has_gmac ||
-priv->plat.has_gmac4)-based statement. Indeed there is a case of having DW
-QoS Eth and DW XPCS synthesized together with the SGMII/1000Base-X
-downstream interface. Not sure why it was needed to implement that way
-seeing DW QoS Eth IP-core supports optional SGMII PHY interface out of
-box, but AFAICS Intel mGBE is that case. Anyway the correct way to
-detect the internal PCS support is to check the PCSSEL flag set in the
-HWFEATURE register (preserved in the stmmac_priv::dma_cap::pcs field).
-
-> 
-> If there is a hardware flag that indicates the PCS is implemented, then
-> I think using that to gate whether SGMII uses the internal PCS is
-> better rather than using the core type.
-
-Right.
-
-> 
-> Please can you confirm that if an external PCS (e.g. xpcs, lynx PCS)
-> is being used, the internal PCS will not have been synthesized, and
-> thus priv->dma_cap.pcs will be false?
-
-Alas I can't confirm that. priv->dma_cap.pcs only indicates the
-internal PCS availability. External PCS is an independent entity from
-the DW *MAC IP-core point of view. So the DW GMAC/QoS Eth/XGMAC
-controllers aren't aware of its existence. It's the low-level platform
-driver/code responsibility to somehow detect it being available
-("pcs-handle" property, plat->mdio_bus_data->has_xpcs flag, etc).
-
-Regarding the internal PCS, as long as the DW GMAC or DW QoS Eth is
-synthesized with the SGMII/TBI/RTBI PHY interface support
-priv->dma_cap.pcs will get to be true. Note the device can be
-synthesized with several PHY interfaces supported. As long as
-SGMII/TBI/RTBI PHY interface is any of them, the flag will be set
-irrespective from the PHY interface activated at runtime. 
-
-> The reason I'd like to know
-> this is because in the future, I'd like to eliminate priv->hw->pcs,
-> and just have dwmac1000/dwmac4's phylink_select_pcs() method make
-> the decisions.
-
-You can extend the priv->dma_cap.pcs flag semantics. So it could
-be indicating three types of the PCS'es:
-RGMII, SGMII, XPCS (or TBI/RTBI in future).
-
-> 
-> If not, then we need to think about the behaviour that
-> stmmac_mac_select_pcs(0 should have. Should it give priority to the
-> internal PCS over external PCS, or external PCS first (in which case
-> what do we need to do with the internal PCS.)
-
-I guess the DW XPCS implementation might be more preferable. From one
-side DW XPCS SGMII can support up to 2.5Gbps speed, while the DW
-GMAC/QoS Eth SGMII can work with up to 1Gbps speed only. On the other
-hand the DW XPCS might be available over the MDIO-bus, which is slower
-to access than the internal PCS CSRs available in the DW GMAC/QoS Eth
-CSRs space. So the more performant link speed seems more useful
-feature over the faster device setup process.
-
-One thing I am not sure about is that there is a real case of having
-the DW GMAC/QoS Eth synthesized with the native SGMII/TBI/RTBI PHY
-interface support and being attached to the DW XPCS controller, which
-would have the SGMII downstream PHY interface. DW XPCS has only the
-XGMII or GMII/MII upstream interfaces over which the MAC can be
-attached. So DW GMAC/QoS Eth and DW XPCS can be connected via the
-GMII/MII interface only. Regarding Intel mGBE, it likely is having a
-setup like this:
-
-+------------+          +---------+
-|            | GMII/MII |         |   SGMII
-| DW QoS Eth +----------+ DW XPCS +------------
-|            |          |         | 1000Base-X
-+------------+          +---------+
-
--Serge(y)
-
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> >>      => need to perform the memcpy to reapply settings in the resource table
+> >>
+> >> I can duplicate the memcpy in if{} and else{} but this will be similar code
+> >> as needed in both case.
+> >> Adding rproc->cached_table test if proc->tee_interface=NULL seems also
+> >> reasonable as a memcpy from 0 should not be performed.
+> >>
+> >>
+> >>>
+> >>> This should be a simple change, i.e introduce an if {} else {} block to take
+> >>> care of the two scenarios.  Plus the comment is misplaced now. 
+> >>
+> >> What about split it in 2 patches?
+> >> - one adding the test on rproc->cached_table for the memcpy
+> >> - one adding the if {} else {}?
+> >>
+> >> Thanks,
+> >> Arnaud
+> >>
+> >>
+> >>>
+> >>> More comments tomorrow.
+> >>>
+> >>> Thanks,
+> >>> Mathieu
+> >>>
+> >>>> +	rproc->table_ptr = loaded_table;
+> >>>> +
+> >>>>  	return 0;
+> >>>>  }
+> >>>>  
+> >>>> @@ -1318,11 +1328,16 @@ static int rproc_reset_rsc_table_on_stop(struct rproc *rproc)
+> >>>>  	kfree(rproc->clean_table);
+> >>>>  
+> >>>>  out:
+> >>>> -	/*
+> >>>> -	 * Use a copy of the resource table for the remainder of the
+> >>>> -	 * shutdown process.
+> >>>> +	/* If the remoteproc_tee interface is used, then we have first to unmap the resource table
+> >>>> +	 * before updating the proc->table_ptr reference.
+> >>>>  	 */
+> >>>> -	rproc->table_ptr = rproc->cached_table;
+> >>>> +	if (!rproc->tee_interface) {
+> >>>> +		/*
+> >>>> +		 * Use a copy of the resource table for the remainder of the
+> >>>> +		 * shutdown process.
+> >>>> +		 */
+> >>>> +		rproc->table_ptr = rproc->cached_table;
+> >>>> +	}
+> >>>>  	return 0;
+> >>>>  }
+> >>>>  
+> >>>> -- 
+> >>>> 2.25.1
+> >>>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
