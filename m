@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6B88D6533
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 17:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63D6F8D6535
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 17:09:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14C40C7128F;
-	Fri, 31 May 2024 15:09:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E433C71290;
+	Fri, 31 May 2024 15:09:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62B9EC6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2744DC7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 May 2024 15:09:20 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44VBgIaT017539;
- Fri, 31 May 2024 17:09:11 +0200
+ Fri, 31 May 2024 15:09:25 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 44VDSXoS007210;
+ Fri, 31 May 2024 17:09:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- d/41qmVRGtCEJSSQ0gxUanK9zaOsFRj77dN7gb5e9uY=; b=tHCPvq/Tt0gf6ck/
- TgOdLcNqzgXPjuzkKqN9kLtZ+3xSskSbhr9sWiJdTJS/y/ahfX0oUqapRpOMz8Fe
- WrydgMUcqvPS/dvC3SScC8QLs8WEvuEczrVWQYs0mFbsao4ZpG9CJ+o+OYcoCfFE
- DojYQ04PTiIn7t+oNEBtpRmVgACnpJxcZIfwnNVQheLJYJZJqJESHAm7QK5oyqUd
- OeqyoJrMX2yaDFntiCFra+ozS+eSM98s3zf9zwmNCjhzzUE4UaSw5yMHxADqN4q1
- ihI1rcoa8R06kTfdcpyZQuFADUHBH5/4KrdCT9lqAgzOfIjrOIvaRDsAQhfglZZL
- 6u4Rtw==
+ 3BomsPzw+rrfxUkd5voZleggY17cgPEfFVxoaFaa784=; b=zohP+ML+5o0jJkKU
+ Z/QkGTiLyjiIWT0nqTpcLfDwVfLsAw1nhOzwFp1eqNFBxG0H+upg/CvaLMlHxOsk
+ Lgr1iSifoKzGcY+g4crU/ASTUq3PnLs7PJH6bNKfjvyWR9urWsJkRhX4s3e0gXCH
+ DLz3cImybOTwAQA0REa+8bVmDJ3Be9hfNuFcE5s9AB+eBvnP/Coy+Bat7dIjpMpf
+ hCpEI9ogADxcc1xq9ci0cLpghfw1ZZj66VSR/O4JwFfCWqwIBi6lEcw1GJi1bw+K
+ PfNOIxLir+o70CYfhiKOXZkRD0Jwn0R+RNWKpU102JBSFDwJHzgIx6/dV0jAQSJK
+ 7nJ3LQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ybsj1357g-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yb9ykd73f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 May 2024 17:09:11 +0200 (MEST)
+ Fri, 31 May 2024 17:09:13 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C2F8940049;
- Fri, 31 May 2024 17:09:06 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3B33B4004B;
+ Fri, 31 May 2024 17:09:09 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 95B75220B60;
- Fri, 31 May 2024 17:08:22 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 694DD220B65;
+ Fri, 31 May 2024 17:08:23 +0200 (CEST)
 Received: from localhost (10.252.27.179) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 31 May
- 2024 17:08:22 +0200
+ 2024 17:08:23 +0200
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 31 May 2024 17:07:08 +0200
-Message-ID: <20240531150712.2503554-9-amelie.delaunay@foss.st.com>
+Date: Fri, 31 May 2024 17:07:09 +0200
+Message-ID: <20240531150712.2503554-10-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240531150712.2503554-1-amelie.delaunay@foss.st.com>
 References: <20240531150712.2503554-1-amelie.delaunay@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hardening@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 08/12] dmaengine: stm32-dma3: add
-	device_pause and device_resume ops
+Subject: [Linux-stm32] [PATCH v4 09/12] dmaengine: stm32-dma3: improve
+	residue granularity
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,65 +79,218 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 DMA3 controller is able to suspend an ongoing transfer (the transfer
-is suspended after the ongoing burst is flushed to the destination) and
-resume it from the point it was suspended. No need to reconfigure any
-register.
+Implement own device_tx_status ops to compute the residue with a finer
+granularity, up to bytes.
+STM32 DMA3 has a bitfield, BNDT, in CxTR1 register which reflects the
+number of bytes read from the source.
+It also has a bitfield, FIFOL, in CxSR register which reflects the FIFO
+level in units of programmed destination data width.
+The channel is briefly suspended to get a coherent snapshot of registers.
+It is possible to correct the fifo level when packing/unpacking is enabled
+with destination increment.
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
- drivers/dma/stm32/stm32-dma3.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/dma/stm32/stm32-dma3.c | 165 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 163 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
-index 31c5b0e3fd18..5032d74d6288 100644
+index 5032d74d6288..9249b64a4455 100644
 --- a/drivers/dma/stm32/stm32-dma3.c
 +++ b/drivers/dma/stm32/stm32-dma3.c
-@@ -1249,6 +1249,35 @@ static int stm32_dma3_config(struct dma_chan *c, struct dma_slave_config *config
- 	return 0;
+@@ -808,6 +808,134 @@ static void stm32_dma3_chan_reset(struct stm32_dma3_chan *chan)
+ 	writel_relaxed(ccr |= CCR_RESET, ddata->base + STM32_DMA3_CCR(chan->id));
  }
  
-+static int stm32_dma3_pause(struct dma_chan *c)
++static int stm32_dma3_chan_get_curr_hwdesc(struct stm32_dma3_swdesc *swdesc, u32 cllr, u32 *residue)
 +{
-+	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
++	u32 i, lli_offset, next_lli_offset = cllr & CLLR_LA;
++
++	/* If cllr is null, it means it is either the last or single item */
++	if (!cllr)
++		return swdesc->lli_size - 1;
++
++	/* In cyclic mode, go fast and first check we are not on the last item */
++	if (swdesc->cyclic && next_lli_offset == (swdesc->lli[0].hwdesc_addr & CLLR_LA))
++		return swdesc->lli_size - 1;
++
++	/* As transfer is in progress, look backward from the last item */
++	for (i = swdesc->lli_size - 1; i > 0; i--) {
++		*residue += FIELD_GET(CBR1_BNDT, swdesc->lli[i].hwdesc->cbr1);
++		lli_offset = swdesc->lli[i].hwdesc_addr & CLLR_LA;
++		if (lli_offset == next_lli_offset)
++			return i - 1;
++	}
++
++	return -EINVAL;
++}
++
++static void stm32_dma3_chan_set_residue(struct stm32_dma3_chan *chan,
++					struct stm32_dma3_swdesc *swdesc,
++					struct dma_tx_state *txstate)
++{
++	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
++	struct device *dev = chan2dev(chan);
++	struct stm32_dma3_hwdesc *hwdesc;
++	u32 residue, curr_lli, csr, cdar, cbr1, cllr, bndt, fifol;
++	bool pack_unpack;
 +	int ret;
 +
-+	ret = stm32_dma3_chan_suspend(chan, true);
-+	if (ret)
-+		return ret;
++	csr = readl_relaxed(ddata->base + STM32_DMA3_CSR(chan->id));
++	if (!(csr & CSR_IDLEF) && chan->dma_status != DMA_PAUSED) {
++		/* Suspend current transfer to read registers for a snapshot */
++		writel_relaxed(swdesc->ccr | CCR_SUSP, ddata->base + STM32_DMA3_CCR(chan->id));
++		ret = readl_relaxed_poll_timeout_atomic(ddata->base + STM32_DMA3_CSR(chan->id), csr,
++							csr & (CSR_SUSPF | CSR_IDLEF), 1, 10);
 +
-+	chan->dma_status = DMA_PAUSED;
++		if (ret || ((csr & CSR_TCF) && (csr & CSR_IDLEF))) {
++			writel_relaxed(CFCR_SUSPF, ddata->base + STM32_DMA3_CFCR(chan->id));
++			writel_relaxed(swdesc->ccr, ddata->base + STM32_DMA3_CCR(chan->id));
++			if (ret)
++				dev_err(dev, "Channel suspension timeout, csr=%08x\n", csr);
++		}
++	}
 +
-+	dev_dbg(chan2dev(chan), "vchan %pK: paused\n", &chan->vchan);
++	/* If channel is still active (CSR_IDLEF is not set), can't get a reliable residue */
++	if (!(csr & CSR_IDLEF))
++		dev_warn(dev, "Can't get residue: channel still active, csr=%08x\n", csr);
 +
-+	return 0;
++	/*
++	 * If channel is not suspended, but Idle and Transfer Complete are set,
++	 * linked-list is over, no residue
++	 */
++	if (!(csr & CSR_SUSPF) && (csr & CSR_TCF) && (csr & CSR_IDLEF))
++		return;
++
++	/* Read registers to have a snapshot */
++	cllr = readl_relaxed(ddata->base + STM32_DMA3_CLLR(chan->id));
++	cbr1 = readl_relaxed(ddata->base + STM32_DMA3_CBR1(chan->id));
++	cdar = readl_relaxed(ddata->base + STM32_DMA3_CDAR(chan->id));
++
++	/* Resume current transfer */
++	if (csr & CSR_SUSPF) {
++		writel_relaxed(CFCR_SUSPF, ddata->base + STM32_DMA3_CFCR(chan->id));
++		writel_relaxed(swdesc->ccr, ddata->base + STM32_DMA3_CCR(chan->id));
++	}
++
++	/* Add current BNDT */
++	bndt = FIELD_GET(CBR1_BNDT, cbr1);
++	residue = bndt;
++
++	/* Get current hwdesc and cumulate residue of pending hwdesc BNDT */
++	ret = stm32_dma3_chan_get_curr_hwdesc(swdesc, cllr, &residue);
++	if (ret < 0) {
++		dev_err(chan2dev(chan), "Can't get residue: current hwdesc not found\n");
++		return;
++	}
++	curr_lli = ret;
++
++	/* Read current FIFO level - in units of programmed destination data width */
++	hwdesc = swdesc->lli[curr_lli].hwdesc;
++	fifol = FIELD_GET(CSR_FIFOL, csr) * (1 << FIELD_GET(CTR1_DDW_LOG2, hwdesc->ctr1));
++	/* If the FIFO contains as many bytes as its size, it can't contain more */
++	if (fifol == (1 << (chan->fifo_size + 1)))
++		goto skip_fifol_update;
++
++	/*
++	 * In case of PACKING (Destination burst length > Source burst length) or UNPACKING
++	 * (Source burst length > Destination burst length), bytes could be pending in the FIFO
++	 * (to be packed up to Destination burst length or unpacked into Destination burst length
++	 * chunks).
++	 * BNDT is not reliable, as it reflects the number of bytes read from the source but not the
++	 * number of bytes written to the destination.
++	 * FIFOL is also not sufficient, because it reflects the number of available write beats in
++	 * units of Destination data width but not the bytes not yet packed or unpacked.
++	 * In case of Destination increment DINC, it is possible to compute the number of bytes in
++	 * the FIFO:
++	 * fifol_in_bytes = bytes_read - bytes_written.
++	 */
++	pack_unpack = !!(FIELD_GET(CTR1_PAM, hwdesc->ctr1) == CTR1_PAM_PACK_UNPACK);
++	if (pack_unpack && (hwdesc->ctr1 & CTR1_DINC)) {
++		int bytes_read = FIELD_GET(CBR1_BNDT, hwdesc->cbr1) - bndt;
++		int bytes_written = cdar - hwdesc->cdar;
++
++		if (bytes_read > 0)
++			fifol = bytes_read - bytes_written;
++	}
++
++skip_fifol_update:
++	if (fifol) {
++		dev_dbg(chan2dev(chan), "%u byte(s) in the FIFO\n", fifol);
++		dma_set_in_flight_bytes(txstate, fifol);
++		/*
++		 * Residue is already accurate for DMA_MEM_TO_DEV as BNDT reflects data read from
++		 * the source memory buffer, so just need to add fifol to residue in case of
++		 * DMA_DEV_TO_MEM transfer because these bytes are not yet written in destination
++		 * memory buffer.
++		 */
++		if (chan->dma_config.direction == DMA_DEV_TO_MEM)
++			residue += fifol;
++	}
++	dma_set_residue(txstate, residue);
 +}
 +
-+static int stm32_dma3_resume(struct dma_chan *c)
+ static int stm32_dma3_chan_stop(struct stm32_dma3_chan *chan)
+ {
+ 	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
+@@ -1310,6 +1438,39 @@ static void stm32_dma3_synchronize(struct dma_chan *c)
+ 	vchan_synchronize(&chan->vchan);
+ }
+ 
++static enum dma_status stm32_dma3_tx_status(struct dma_chan *c, dma_cookie_t cookie,
++					    struct dma_tx_state *txstate)
 +{
 +	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
++	struct stm32_dma3_swdesc *swdesc = NULL;
++	enum dma_status status;
++	unsigned long flags;
++	struct virt_dma_desc *vd;
 +
-+	stm32_dma3_chan_suspend(chan, false);
++	status = dma_cookie_status(c, cookie, txstate);
++	if (status == DMA_COMPLETE)
++		return status;
 +
-+	chan->dma_status = DMA_IN_PROGRESS;
++	if (!txstate)
++		return chan->dma_status;
 +
-+	dev_dbg(chan2dev(chan), "vchan %pK: resumed\n", &chan->vchan);
++	spin_lock_irqsave(&chan->vchan.lock, flags);
 +
-+	return 0;
++	vd = vchan_find_desc(&chan->vchan, cookie);
++	if (vd)
++		swdesc = to_stm32_dma3_swdesc(vd);
++	else if (chan->swdesc && chan->swdesc->vdesc.tx.cookie == cookie)
++		swdesc = chan->swdesc;
++
++	/* Get residue/in_flight_bytes only if a transfer is currently running (swdesc != NULL) */
++	if (swdesc)
++		stm32_dma3_chan_set_residue(chan, swdesc, txstate);
++
++	spin_unlock_irqrestore(&chan->vchan.lock, flags);
++
++	return chan->dma_status;
 +}
 +
- static int stm32_dma3_terminate_all(struct dma_chan *c)
+ static void stm32_dma3_issue_pending(struct dma_chan *c)
  {
  	struct stm32_dma3_chan *chan = to_stm32_dma3_chan(c);
-@@ -1485,6 +1514,8 @@ static int stm32_dma3_probe(struct platform_device *pdev)
- 	dma_dev->device_prep_dma_cyclic = stm32_dma3_prep_dma_cyclic;
- 	dma_dev->device_caps = stm32_dma3_caps;
- 	dma_dev->device_config = stm32_dma3_config;
-+	dma_dev->device_pause = stm32_dma3_pause;
-+	dma_dev->device_resume = stm32_dma3_resume;
+@@ -1506,7 +1667,7 @@ static int stm32_dma3_probe(struct platform_device *pdev)
+ 
+ 	dma_dev->descriptor_reuse = true;
+ 	dma_dev->max_sg_burst = STM32_DMA3_MAX_SEG_SIZE;
+-	dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_DESCRIPTOR;
++	dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
+ 	dma_dev->device_alloc_chan_resources = stm32_dma3_alloc_chan_resources;
+ 	dma_dev->device_free_chan_resources = stm32_dma3_free_chan_resources;
+ 	dma_dev->device_prep_dma_memcpy = stm32_dma3_prep_dma_memcpy;
+@@ -1518,7 +1679,7 @@ static int stm32_dma3_probe(struct platform_device *pdev)
+ 	dma_dev->device_resume = stm32_dma3_resume;
  	dma_dev->device_terminate_all = stm32_dma3_terminate_all;
  	dma_dev->device_synchronize = stm32_dma3_synchronize;
- 	dma_dev->device_tx_status = dma_cookie_status;
+-	dma_dev->device_tx_status = dma_cookie_status;
++	dma_dev->device_tx_status = stm32_dma3_tx_status;
+ 	dma_dev->device_issue_pending = stm32_dma3_issue_pending;
+ 
+ 	/* if dma_channels is not modified, get it from hwcfgr1 */
 -- 
 2.25.1
 
