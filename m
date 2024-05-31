@@ -2,63 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A690A8D6974
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 21:11:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEEA28D69B8
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2024 21:30:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 575B5C6DD72;
-	Fri, 31 May 2024 19:11:25 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 826BBC6DD72;
+	Fri, 31 May 2024 19:30:58 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E164C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CCE9C030CA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 May 2024 19:11:18 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-52b80e5688aso2975425e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 May 2024 12:11:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1717182678; x=1717787478;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6kslRM3yfjg/MhSNhtbfqX1X8EhzfkXqhDL01AiRjsM=;
- b=FjBuL9dqRE/pAY1girP5xIJ92f1XnCf6rmPPjEMkTwW3H0YlsE7eRcBBqtGXkJbEGs
- QpPA9HomXnYrnEIOhSeUcR3v8KAGTSoKDREjj2esNLlxBLXfTRUH4hW5YogKO2Ay4gOe
- WE3gmzNRw3UewyH3lmbb2cGRdHw+kYdJf/UVruHe8CQYkxtZFD8uvs1vBBYP/IR5Vi6g
- LQfWWGtfJnile44eNGnWifjyI4c3no2zEZ5eX8b9cYbE3rC5zilBtv7liTtqM3UIzGr+
- mVnA3mrX+MlzK0hEjTQWv2+iX8wErwnrfvEAFfml61/GGyuapGD2HVtwTSSpV/2fZBCV
- lmnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717182678; x=1717787478;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6kslRM3yfjg/MhSNhtbfqX1X8EhzfkXqhDL01AiRjsM=;
- b=LVoBXaNUORd9A0A19YRDH7MzISxjrsFswPOw6T6v/GhPzjmWD2nuYVN9N4CmbC4smd
- xItj5Vd/aLsvmPvH8IOUQTDtrqlRSXPO9yNB6DvKbhH7GT/cmyVL8etlkNRoiohLw7ms
- M3K3thidltDe5G0Q0r+EqLAZ5TMurkKjR5boSplwGn5QOCVb2ooqGOK+T66DBmpji6dG
- T6ntcfynsZ1w4/rYQDlSu4w0m6HIMhRC2bRSFQJ0iWo1EkkI21DTXEt40iRF/j2Fa9/d
- 8vQipDrwa0XBPX4RLDpDYUsYsj1RQ9trtbDuNpFjMwYlsoJ+aM4JPSLa09/+JPujch3Q
- La6A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW0H+PjMNzqxW5k3FuabJaoVAylgVutL1QDvak5jlsMvim3wEz40jUgz1VIwD23O4LooQPhgxhhwYCDyRIZmKgd0v9eccHcu1c1pBWl2C/VhTposwjD462U
-X-Gm-Message-State: AOJu0YzdiWv/WGHUM1XBu6t2aWsR70i9Kg6U24hcyQDijZgxLebXo7C5
- 1WGHsYpJ3YmmfLb6fr/5ECEUCTkIFWWtcvqOfJgLCmk9Eos6Y+qC
-X-Google-Smtp-Source: AGHT+IFuZ0H3DDikFSOJ4Di9tHfxiL5Q3qyxR/uNcbMu4/vbma7/yldKy8iUFEdGyAeqEMaBKsc4pw==
-X-Received: by 2002:a19:ad49:0:b0:51d:9291:6945 with SMTP id
- 2adb3069b0e04-52b895a3e24mr2463749e87.44.1717182677389; 
- Fri, 31 May 2024 12:11:17 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b84d8f131sm412753e87.306.2024.05.31.12.11.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 May 2024 12:11:16 -0700 (PDT)
-Date: Fri, 31 May 2024 22:11:13 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <bfa4porldqxhbhbvlwidslzik4mkil22trkxv5ilpk6vobcv6s@2omp37ju4dil>
+ Fri, 31 May 2024 19:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=S9mHIQQm5cGqY4bLkFBXjSdhRykuzFxJcjgIe1svJ7o=; b=U9SexC7RC1hTsF5vRAxJnxnJHH
+ dLZ1LflYfoWO2OuCxU3MR/vYqdR8AnSAoiapTc7PddjybP1/HklAAtGiMy4fdM7EwuHzjeF8xIgMW
+ 7rFAlHEZ0h/biUPgz1WP1lHgtPa//j1awSS89+F/LIn27ufOa1cEqIAysshEBKohpguuOPgn6Nerh
+ zU91Zd6pp1Ch4PoReIusHdSM7J5EAGI7a1ca7+WFpQ3J12c5ZRiGWDwPo2Q7//op8FfDNrPWko7k0
+ d9ScfhUslZAvjwP2Rqn97OeFHIaHLh0mFydPe1qKXiZr13uo47vVAYO4tQIdskwVeY+/SKObQs4v1
+ YK+IDRcA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43346)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sD7xN-0000RY-17;
+ Fri, 31 May 2024 20:30:29 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sD7xL-0006Hk-IZ; Fri, 31 May 2024 20:30:27 +0100
+Date: Fri, 31 May 2024 20:30:27 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZlolU6+lUaXQSQID@shell.armlinux.org.uk>
 References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
  <20240524210304.9164-1-fancer.lancer@gmail.com>
  <20240524210304.9164-2-fancer.lancer@gmail.com>
@@ -66,10 +45,10 @@ References: <ZkDuJAx7atDXjf5m@shell.armlinux.org.uk>
  <ZlN4tkY8fNM8/D8p@shell.armlinux.org.uk>
  <ukszpirecb3pwnz5bbmy7wl44ujh6t2ewrnodmrye5kjmonsz2@pgf5b2oy5n3p>
  <ZlXmjKtKozXThPFv@shell.armlinux.org.uk>
- <ZlYEmBSw3bNtf7tJ@shell.armlinux.org.uk>
+ <x4snwm24lqebfcu3xqipwnxcexxbxhfijw7ldsukk23tn5k3rc@g3tfmynhvm26>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZlYEmBSw3bNtf7tJ@shell.armlinux.org.uk>
+In-Reply-To: <x4snwm24lqebfcu3xqipwnxcexxbxhfijw7ldsukk23tn5k3rc@g3tfmynhvm26>
 Cc: linux-kernel@vger.kernel.org, Byungho An <bh74.an@samsung.com>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
@@ -98,227 +77,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 28, 2024 at 05:21:44PM +0100, Russell King (Oracle) wrote:
-> On Tue, May 28, 2024 at 03:13:32PM +0100, Russell King (Oracle) wrote:
-> > > Alternative solution could be to use the has_gmac/has_gmac4 flags
-> > > instead. That will emphasize that the embedded PCS is expected to be
-> > > specific for the DW GMAC and DW QoS Eth IP-cores:
-> > > 
-> > >        if (phy_interface_mode_is_rgmii(interface))
-> > >                priv->hw->pcs = STMMAC_PCS_RGMII;
-> > >        else if ((priv->plat.has_gmac || priv->plat.has_gmac4) &&
-> > > 		interface == PHY_INTERFACE_MODE_SGMII)
-> > >                priv->hw->pcs = STMMAC_PCS_SGMII;
-> > 
-> > which implies that gmac (dwgmac1000_core.c) and gmac4 (dwgmac4_core.c)
-> > will always have its internal PCS if we're using SGMII mode. Does this
+Hi Serge,
+
+Thanks for the reply. I've attempted to deal with most of these in my
+v2 posting, but maybe not in the best way yet.
+
+On Fri, May 31, 2024 at 08:13:49PM +0300, Serge Semin wrote:
+> > Does this
 > > mean it is true that these cores will never be used with an external
 > > PCS?
 > 
+> Sorry, I was wrong to suggest the (priv->plat.has_gmac ||
+> priv->plat.has_gmac4)-based statement. Indeed there is a case of having DW
+> QoS Eth and DW XPCS synthesized together with the SGMII/1000Base-X
+> downstream interface. Not sure why it was needed to implement that way
+> seeing DW QoS Eth IP-core supports optional SGMII PHY interface out of
+> box, but AFAICS Intel mGBE is that case. Anyway the correct way to
+> detect the internal PCS support is to check the PCSSEL flag set in the
+> HWFEATURE register (preserved in the stmmac_priv::dma_cap::pcs field).
 
-> Sorry to go off on a related tangent, but I've just been looking at
-> hw->ps which is related to this.
+We can only wonder why!
 
-I was meditating around the hw->ps part for several days on the last
-week and just gave up in finding of how that semantics could be
-incorporated in the phylink pcs logic...
-
+> > Please can you confirm that if an external PCS (e.g. xpcs, lynx PCS)
+> > is being used, the internal PCS will not have been synthesized, and
+> > thus priv->dma_cap.pcs will be false?
 > 
-> As I understand, hw->ps comes from the "snps,ps-speed" property in DT,
-> which is used for SGMII and MAC2MAC connections. Presumably for the
-> SGMII case, this is used where the port is made to look like the PHY
-> end of the SGMII link.
-
-Right. The speed comes from the "snps,ps-speed" property and is
-utilized to set the particular port speed in the MAC2MAC case. But
-neither DW QoS Eth nor DW GMAC HW-manual explicitly describe that
-case. The only SGMII MAC2MAC mention there is GMAC_AN_CTRL_SGMRAL flag
-description:
-
-"SGMII RAL Control
-
-When set, this bit forces the SGMII RAL block to operate in the speed
-configured in the Speed and Port Select bits of the MAC Configuration
-register. This is useful when the SGMII interface is used in a direct
-MAC to MAC connection (without a PHY) and any MAC must reconfigure the
-speed.  When reset, the SGMII RAL block operates according to the link
-speed status received on SGMII (from the PHY).
-
-This bit is reserved (and RO) if the SGMII PHY interface is not
-selected during core configuration."
-
+> Alas I can't confirm that. priv->dma_cap.pcs only indicates the
+> internal PCS availability. External PCS is an independent entity from
+> the DW *MAC IP-core point of view. So the DW GMAC/QoS Eth/XGMAC
+> controllers aren't aware of its existence. It's the low-level platform
+> driver/code responsibility to somehow detect it being available
+> ("pcs-handle" property, plat->mdio_bus_data->has_xpcs flag, etc).
 > 
-> I'm guessing MAC2MAC refers to RGMII, or does that also refer to
-> SGMII-as-PHY?
+> Regarding the internal PCS, as long as the DW GMAC or DW QoS Eth is
+> synthesized with the SGMII/TBI/RTBI PHY interface support
+> priv->dma_cap.pcs will get to be true. Note the device can be
+> synthesized with several PHY interfaces supported. As long as
+> SGMII/TBI/RTBI PHY interface is any of them, the flag will be set
+> irrespective from the PHY interface activated at runtime. 
 
-I guess that it can be utilized in both cases: RGMII-to-RGMII and
-SGMII-to-SGMII MAC2MAC setups. The only difference is that the
-GMAC_AN_CTRL_SGMRAL flag setting would be useless for RGMII. But
-originally the mac_device_info::ps field was introduced for the SGMII
-MAC2MAC config here:
-02e57b9d7c8c ("drivers: net: stmmac: add port selection programming")
-and the "snps,ps-speed" property can be spotted alongside with 
-phy-mode = "sgmii" only, here:
-arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+I've been debating about this, and given your response, I'm wondering
+whether we should change stmmac_mac_select_pcs() to instead do:
 
-Although AFAICS the dwmac1000_core_init()/dwmac4_core_init() methods
-lack of the GMAC_CONTROL_TC/GMAC_PHYIF_CTRLSTATUS_TC flags set in the
-(hw->ps)-related if-clause. Without that the specified speed setting
-won't be in-bend delivered to the other side of the MAC2MAC link and
-the internal PCS functionality won't work. Synopsys DW GMAC/Qos Eth
-databooks explicitly say that these flags need to be set for the MAC
-to be sending its Port speed, Duplex mode and Link Up/Down flag
-setting over the RGMII/SGMII in-band signal:
+static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
+						 phy_interface_t interface)
+{
+	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
+	struct phylink_pcs *pcs;
 
-SGMII: "The tx_config_reg[15:0] bits sent by the MAC during
-Auto-negotiation depend on whether the Transmit Configuration register
-bit is enabled for the SGMII interface."
+	if (priv->plat->select_pcs) {
+		pcs = priv->plat->select_pcs(priv, interface);
+		if (!IS_ERR(pcs))
+			return pcs;
+	}
 
-RGMII: "When the RGMII interface is configured to transmit the
-configuration during the IFG, then rgmii_txd[3:0] reflects the Duplex
-Mode, Port Select, Speed (encoded as 00 for 10 Mbps, 01 for 100 Mbps
-and 10 for 1000 Mbps), and Link Up/Down bits of the MAC Configuration
-Register,"
+	return stmmac_mac_phylink_select_pcs(priv, interface);
+}
 
-TC flag description:
-"Transmit Configuration in RGMII, SGMII, or SMII
+and push the problem of whether to provide a PCS that overrides
+the MAC internal PCS into platform code. That would mean Intel mGBE
+would be able to override with XPCS. rzn1 and socfpga can then do
+their own thing as well.
 
-When set, this bit enables the transmission of duplex mode, link
-speed, and link up or down information to the PHY in the RGMII, SMII,
-or SGMII port. When this bit is reset, no such information is driven
-to the PHY. This bit is reserved (and RO) if the RGMII, SMII, or SGMII
-PHY port is not selected during core configuration."
+I'm trying hard not to go down another rabbit hole... I've just
+spotted that socfpga sets mac_interface to PHY_INTERFACE_MODE_SGMII.
+That's another reason for pushing this down into platform drivers -
+if platform drivers are doing weird stuff, then we can contain their
+weirdness in the platform drivers moving it out of the core code.
 
+> You can extend the priv->dma_cap.pcs flag semantics. So it could
+> be indicating three types of the PCS'es:
+> RGMII, SGMII, XPCS (or TBI/RTBI in future).
+
+If TBI/RTBI gets supported, then this would have to be extended, but I
+get the impression that this isn't popular.
+
+> I guess the DW XPCS implementation might be more preferable. From one
+> side DW XPCS SGMII can support up to 2.5Gbps speed, while the DW
+> GMAC/QoS Eth SGMII can work with up to 1Gbps speed only. On the other
+> hand the DW XPCS might be available over the MDIO-bus, which is slower
+> to access than the internal PCS CSRs available in the DW GMAC/QoS Eth
+> CSRs space. So the more performant link speed seems more useful
+> feature over the faster device setup process.
+
+I think which should be used would depend on how the hardware is wired
+up. This brings us back to platform specifics again, which points
+towards moving the decision making into platform code as per the above.
+
+> One thing I am not sure about is that there is a real case of having
+> the DW GMAC/QoS Eth synthesized with the native SGMII/TBI/RTBI PHY
+> interface support and being attached to the DW XPCS controller, which
+> would have the SGMII downstream PHY interface. DW XPCS has only the
+> XGMII or GMII/MII upstream interfaces over which the MAC can be
+> attached.
+
+That gives us another possibility, but needs platforms to be doing
+the right thing. If mac_interface were set to XGMII or GMII/MII, then
+that would exclude the internal MAC PCS.
+
+> So DW GMAC/QoS Eth and DW XPCS can be connected via the
+> GMII/MII interface only. Regarding Intel mGBE, it likely is having a
+> setup like this:
 > 
-> I think it would've been nice to have picked SGMII-as-PHY up in the
-> driver earlier - we don't tend to use the "normal" PHY interface
-> mode names, instead we have the REVxxx modes, so I think this
-> _should_ have introduced PHY_INTERFACE_MODE_REVSGMII.
+> +------------+          +---------+
+> |            | GMII/MII |         |   SGMII
+> | DW QoS Eth +----------+ DW XPCS +------------
+> |            |          |         | 1000Base-X
+> +------------+          +---------+
 
-Not sure whether it would be a correct thing to do. RevMII is a real
-interface. DW GMAC/QoS Eth can be synthesized with RevMII PHY
-interface support. Mac2Mac SGMII/RGMII is a feature of the standard
-SGMII/RGMII interfaces.
 
-On the other hand we already have the set of the artificial modes like
-"rgmii-id/rgmii-txid/rgmii-rxid" indicating the MAC-side delays but
-describing the same interfaces. So I don't have a strong opinion
-against have the modes like "rev-rgmii"/"rev-sgmii".
+So as an alternative, 
 
-> 
-> In any case, moving on... in stmmac_hw_setup(), we have:
-> 
->         /* PS and related bits will be programmed according to the speed */
->         if (priv->hw->pcs) {
->                 int speed = priv->plat->mac_port_sel_speed;
-> 
->                 if ((speed == SPEED_10) || (speed == SPEED_100) ||
->                     (speed == SPEED_1000)) {
->                         priv->hw->ps = speed;
->                 } else {
->                         dev_warn(priv->device, "invalid port speed\n");
->                         priv->hw->ps = 0;
->                 }
->         }
-> 
+     mac_interface            phy_interface
 
-> Which means that if we're using the integrated PCS, then we basically
-> require the "snps,ps-speed" property otherwise we'll issue a warning
-> at this point... this seems to imply that reverse mode is the only
-> mode supported, which I'm fairly sure is false. So, maybe this
-> shouldn't be issuing the warning if mac_port_sel_speed was zero?
+     XGMII/GMII/MII           SGMII/1000Base-X
+MAC ---------------- DW XPCS ------------------
 
-Seeing the link state could be delivered over the in-band path, I
-guess the "snps,ps-speed" property is supposed to be optional so the
-mac_port_sel_speed being zero is a possible case. Thus the warning is
-indeed misleading and it is totally ok to have mac_port_sel_speed
-being set to zero. If it is, then the link state shall be determined
-either over in-band or from the PHY.
+     INTERNAL                SGMII/TBI/RTBI
+MAC ---------- Internal PCS ----------------
 
-> 
-> Moving on... hw->ps can only be 10M, 100M or 1G speeds and nothing else
-> - which is fine since RGMII and Cisco SGMII only support these speeds.
-> 
-> dwmac1000 tests for this against these speeds, so it is also fine.
-> 
-> dwmac4 is basically the same as dwmac1000, so is also fine.
-> 
-> The core code as it stands today passes this into the pcs_ctrl_ane
-> method's rsgmi_ral argument, which sets GMAC_AN_CTRL_SGMRAL. Presumably
-> this selects "reverse" mode for both SGMII and RGMII?
+     INTERNAL                  RGMII
+MAC ---------- Internal "PCS" --------------
 
-No, GMAC_AN_CTRL_SGMRAL flag works for SGMII only, which enables the
-fixed link speed (see my second comment in this email message) by
-forcing the SGMII RAL (Rate Adaptation Layer) working with the
-pre-defined speed. AFAIU RGMII interface doesn't need that flag since
-it always works with the pre-defined speed and has no Rate Adaptation
-engine.
+One of the problems here, though, is socfpga. It uses mac_interface
+with RGMII*, MII, GMII, SGMII and RMII. I think it's confusing
+mac_interface for phy_interface, but I haven't read through enough
+of it to be certain.
 
-> 
-> Persuing this a bit futher, qcom-ethqos always calls this with rsgmi_ral
-> clear. Presumably, qcom-ethqos never specifies "snps,ps-speed" in DT,
-> and thus always gets the warning above?
+So that again leads me back to my proposal above for
+stmmac_mac_select_pcs() as the least likely to break proposition -
+at least given how things are at the moment.
 
-Interesting situation. Actually no. The only DW QoS Eth device for
-which "snps,ps-speed = 1000" is specified is "qcom,sa8775p-ethqosi"
-(see arch/arm64/boot/dts/qcom/sa8775p-ride.dts), due to that no
-warning is printed. But on the other hand the low-level driver
-(drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c) also sets
-the STMMAC_FLAG_HAS_INTEGRATED_PCS flag exactly for that device, which
-effectively disables the entire internal PCS functionality (except the
-speed setup performed in dwmac4_core_init()).
-
-Holy mother of ...
-
-> 
-> Finally, we get to the core issue, which is dwxgmac2_core.c.
-> dwxgmac2 tests this member against 10G, 2.5G and "any other non-zero
-> value". Out of all of these, the only possible path through that code
-> would be the one which results in:
-> 
-> 	tx |= hw->link.speed1000;
-> 
-> Neither of the other two (2.5G and 10G) are possible because those
-> aren't legal values for hw->ps. Moreover, it doesn't appear to have
-> any kind of PCS, so I'm wondering whether any of this code gets used.
-
-I guess the (hw->ps)-related code snippet has been just dummy-copied from
-another dwmac*_core.c file to DW XGMAC. So IMO it can be freely
-dropped. After all the bindings define the snps,ps-speed as:
-
-      "Port selection speed that can be passed to the core when PCS
-      is supported. For example, this is used in case of SGMII and
-      MAC2MAC connection."
-
-I doubt DW XGMAC could be used in the MAC2MAC setup, and it doesn't
-have any internal PCS (may have externally connected DW XPCS though).
-
-> 
-> 
-> So, I suspect some of this is "not quite right" either, and I wonder
-> about the implications of changing how hw->pcs is set - whether we
-> first need to fix the code above dealing with priv->hw->ps ?
-> 
-> I'm also wondering what impact this has on my PCS conversion.
-
-My brain got blown up thinking about this one week ago. So I gave up
-in looking for a portable way of fixing the MAC2MAC part and sent my
-three patches as is to you. I thought after some time I could come up
-with some ideas about that. Alas the time-break didn't help.)
-
-I can't say for sure what could be a better way to align the things
-around the internal PCS and MAC2MAC case. But IMO seeing the code is
-vastly messy and unlikely has been widely used I'd suggest to preserve
-the semantics as required by the Qualcomm QoS Eth
-(dwmac-qcom-ethqos.c), and free redefining the rest of the
-things as you wish.
-
--Serge(y)
-
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
