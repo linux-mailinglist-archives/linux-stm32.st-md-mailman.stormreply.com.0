@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3499D8D7908
+	by mail.lfdr.de (Postfix) with ESMTPS id 487D68D7909
 	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 01:25:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6B59C7129F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2EC2C712A2;
 	Sun,  2 Jun 2024 23:25:05 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E27EDC6DD67
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9C4EC71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun,  2 Jun 2024 23:24:59 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-52b992fd796so532676e87.0
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-52b8e0e98adso2862322e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun, 02 Jun 2024 16:24:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1717370698; x=1717975498;
+ d=linaro.org; s=google; t=1717370699; x=1717975499;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vehF8oKD1FhtE9feRp5zr7W3EX4UPLlYPHbRSRvEcqw=;
- b=oHY3EqXiekSjhKpEmFA7O4bowRlwvJ6bLB7gtYEE4TmLHGrFKvh2oKbjyeoGatsaJD
- 7wnLuEPDzTQgVosT2Yq5jLrX/wf1pMAlKc/BpfOkqVZbKKH0NNnxr33w4ShEpgkJnTD2
- WQo1FJsdOmAnY9J0YeTPMH6PPjPI+SWL5QH2MmdDcVSiVuLDlSftgyZZSOqk2hWBegdL
- XVC+KEJH/ccyjMHQRGwt/oY8clxumw5hAMntkNG3y6OINqjAFaIeECe2n80IFxHAanSa
- B07GzfeSPz2iDwVHdjmrd15Ubc0H4pdVruq8MBcpDde+eIkKwhnUGrjjk8V7twEmhjoE
- cMwA==
+ :reply-to; bh=xABSaJig708zsQYcdtLiZTJ10Q7uZbqt3rPdrspBKnQ=;
+ b=hvdJiCEF1qNBvFo+U2yJjqXcXOzZ2DYSWr7A16KACwC0wZMtfRjaU3V1a2GzKK7zuL
+ OaFhkl+gESu1ayqwPZZBnL0XhX/aP9xs29CBPOtghP83smI8OhPmk/StAwL5D45ErSX4
+ NO5eN1WrXe9wy5E6c8VZat5gi2t0g70vl+eKJKYKYhlp/Lej0Gyrgq3h91z3BnJ8CoWu
+ dCoINCI1T92fXwBQow/54GZQkqSVs0+bobtPepcPYNCraSUD6yvuvfDomTJThnMskhZe
+ 7YlEcKocSKCtvVqHEd6D8iawdGTQ/Ll7O04QY5+fPS61DaSmfedyL96ujL0wZT2pfLEF
+ eO8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1717370698; x=1717975498;
+ d=1e100.net; s=20230601; t=1717370699; x=1717975499;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vehF8oKD1FhtE9feRp5zr7W3EX4UPLlYPHbRSRvEcqw=;
- b=LGog6p8NFH+lR/8hQ1VyiNBe6KwfgFlI4q+3AGDFfdZKCXAPb5Ud5LTjOcEIufzo+s
- o/bk9SRbiLaw3x6yFBOBVXWSM92B1ujFyXwde50oEa7RWUM9IqH9e0gDxgQ2p8DcPj14
- vNYvwbRMEnjT2vIWrxtdhsYaU7Sci2Dz8FUPuE6tnUOHuSB95syAjF4DaHDyAB8AWoml
- 863euiVyPQDl0s/uWbUh6tSvFYT72d3s0YULtXV/N89VsZBt63IZX5arom60T2pEU/K1
- gEIXEzv4+XjLYxjMX0VlWjST1gy6ItnwmdaoMwYqs2L+KiWydk50gfSYII/KbtJuafnm
- Y+Xg==
+ bh=xABSaJig708zsQYcdtLiZTJ10Q7uZbqt3rPdrspBKnQ=;
+ b=bHvaYY0ba+vYDL/TtyuLiY0U8zD+AO+F/WnzTCfKUMcwV3u2xMKJ2AVEB7Vcuon4gD
+ cX8318ddHA92DoA2ea+zYRL0KS6MWLZHIVuM950/tF8/w0sPwaiEK4XJdKwiFsFnbjxQ
+ Qi3Ue05QL7jmuADp5/0CUqfTkFhBXXUvascEGWRvD/on9FODKEH90iZH4NHRdoyf71iQ
+ pSLkuzVccclfdiVfp0Tf/XMRJQTC8BXcfiJr1lwXKRRNeYYGg1EIcIEiNAydcXqAsyAt
+ wcLmhco5jBYzd5e2bFbGnxNiYg04AXP7K5PW7COvun4j5zrU9Nv+tpT19Sd6Iut7P/gY
+ PuGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+oAXk+0zTvLSsPwckluMyybaYriucPEnZ0mQit6twzw6KeaatfxapE5h7Bi0Fe5d7NbVwqTcxGSiaDBXlMZ7N3v6YW24DjqMrbE4/C6mnxC/n0Rxbsvp0
-X-Gm-Message-State: AOJu0YxPCY9V2Ee0kXBuxSV1Dcn9q67p2833ZnoxovrAT6+esoR0T74Y
- Z9YYYV0tzZC1SRN3YN0jd02n+b3s7Hq8bybfAl3Sj4hSmiGyC9vbZuZnyY6xEgo=
-X-Google-Smtp-Source: AGHT+IHEYyxLjKGI4/aduNv7WoI4hAskzxqmMj+bh4agJWyuOSeELf3fC6jtRbYSOCpnJ8PVUxaizQ==
-X-Received: by 2002:ac2:5a4c:0:b0:523:294f:7fe6 with SMTP id
- 2adb3069b0e04-52b8970bf73mr4765319e87.44.1717370698240; 
+ AJvYcCUl94LayGYKX72/MPs41CM21NlA1GJXCAtQbHe9WErEH3XmpGp675mMY9rJZsuiLEvM5cKeEVizZe2bdaD9z0efSnenqRw2CGF/oSWbMGPPhUibS0y3+/n8
+X-Gm-Message-State: AOJu0YwEGn0kN/rZ7BKLIq/pnF1jUt2U3BJFpcSm31kbTHZGOVJ+2crU
+ cvTCr5YYzBc7Gi3s+SF8I5BCONQbfq0azd9tAMQy7uwmLYFivBjXJBT5ZSWPT5I=
+X-Google-Smtp-Source: AGHT+IESdwnWd/AeFs2C1vWz2zVCpBQMzXyc/yU/VLJnkNC5D664gUK44ENV/NgiVlgM4czIZjNqMQ==
+X-Received: by 2002:a05:6512:3599:b0:52b:825d:7b71 with SMTP id
+ 2adb3069b0e04-52b89576a5bmr4989638e87.16.1717370698873; 
  Sun, 02 Jun 2024 16:24:58 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52b959008aasm392369e87.269.2024.06.02.16.24.57
+ 2adb3069b0e04-52b959008aasm392369e87.269.2024.06.02.16.24.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Jun 2024 16:24:57 -0700 (PDT)
+ Sun, 02 Jun 2024 16:24:58 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 03 Jun 2024 02:24:55 +0300
+Date: Mon, 03 Jun 2024 02:24:56 +0300
 MIME-Version: 1.0
-Message-Id: <20240603-ucsi-rework-interface-v1-2-99a6d544cec8@linaro.org>
+Message-Id: <20240603-ucsi-rework-interface-v1-3-99a6d544cec8@linaro.org>
 References: <20240603-ucsi-rework-interface-v1-0-99a6d544cec8@linaro.org>
 In-Reply-To: <20240603-ucsi-rework-interface-v1-0-99a6d544cec8@linaro.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -65,23 +65,22 @@ To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14289;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13058;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=FBcTYsqPsFc93PcwEeFHfR5zjPtqmb2eWpdZiIr3dx8=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmXP9HpZmNsITXLReSiYqcvni6cvSi0MzwbZU9e
- a8wO2rGeHmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlz/RwAKCRCLPIo+Aiko
- 1eiIB/9xyW6Xoy5tHiGAFg2QRyFUjGQZVSDU8ucyU9RN8Svw9k/JkCRTpWhJTXSg5VEW1Wgld3X
- 1Y6tu/FWZg29MKsZdhEHHwWI+LPQoMgso7QLU3cx2h1O03UglZmc189693E0mao6wv8i6mZo+sv
- 2ycbZCEYWA/xToPgXnvT/NzkraOvbtt2JOXT/704hoY6Dyke7JKB5spgHGL0gkM/LGFbQ0VSpcS
- G2daguTxfiIKsiDKGe+zm5za5HEbvItr9kAHmmRTtEEADA0mFb8gOcoRfsfYuMBBDIqZ3jgECN5
- uJ+tNo6kDswVGrMAeQbFL6YmEjKmeIW3VI2DZkmPuicIy1Lf
+ bh=wSWkqsUHUlMJRLwQ6jCjMEtugMyxWzK8PjGp0/lysG8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmXP9HGMv+GJ1xoq0DFfiAtBojgEr4/bewOc7dD
+ 2LOyh22kW6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZlz/RwAKCRCLPIo+Aiko
+ 1XlRB/4tJwOm93LS5SCn6vEEzKibvBsK4/Wq3umcPpXRt7Xq/5XQXZ4Ki4iL2UEXOek+AQQe/ZS
+ TQcc/e7qMy3GsO2ASokhwy0lYCQ91tlIRXXzyWHUPHLluq/JlIWyEiTSzia3K7WjSrMEZjzHvSl
+ EvYhD1J8GELyhAaP1x7PZzig3VdeU6L5nEaBctzKQR00PEVsKOLqT1fCujzLRnKClb+2daWltwe
+ ZvM/rFJeKCIMLI9k9NIN8QFLkPQxzwC93/1QMk3/t087wlJQpkJI2JiD4PoucBl3zzEogjQ/1jK
+ QM0o3m16l4sOH7dooo23Lfsto3xlw3Zw0RgvGXSgJy9fIqVN
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Nikita Travkin <nikita@trvn.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC 2/7] usb: typec: ucsi: simplify command
-	sending API
+Subject: [Linux-stm32] [PATCH RFC 3/7] usb: typec: ucsi: split read operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,379 +97,393 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The sync_write and async_write are used only for writing UCSI commands
-to the UCSI_CONTROL offsets. Rename sync_write and async_write
-operations to sync_control and async_control accordingly. Drop the
-offset and length fields and pass u64 command instead.
+The read operation is only used to read fixed data at fixed offsets
+(UCSI_VERSION, UCSI_CCI, UCSI_MESSAGE_IN). In some cases drivers apply
+offset-specific overrides. Split the read() operation into three
+operations, read_version(), read_cci(), read_message_in().
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c         | 18 +++++++-----------
- drivers/usb/typec/ucsi/ucsi.h         | 10 ++++------
- drivers/usb/typec/ucsi/ucsi_acpi.c    | 22 ++++++++++------------
- drivers/usb/typec/ucsi/ucsi_ccg.c     | 34 +++++++++++++++-------------------
- drivers/usb/typec/ucsi/ucsi_glink.c   | 14 ++++++--------
- drivers/usb/typec/ucsi/ucsi_stm32g0.c | 24 +++++++++++-------------
- 6 files changed, 53 insertions(+), 69 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c         | 20 ++++++------
+ drivers/usb/typec/ucsi/ucsi.h         |  9 ++++--
+ drivers/usb/typec/ucsi/ucsi_acpi.c    | 60 +++++++++++++++++++++++++++++------
+ drivers/usb/typec/ucsi/ucsi_ccg.c     | 50 +++++++++++++++--------------
+ drivers/usb/typec/ucsi/ucsi_glink.c   | 19 ++++++++++-
+ drivers/usb/typec/ucsi/ucsi_stm32g0.c | 19 ++++++++++-
+ 6 files changed, 130 insertions(+), 47 deletions(-)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 953196ca35a3..f58908a76e1d 100644
+index f58908a76e1d..a3a29ea4e325 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -60,7 +60,7 @@ static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
- 		ctrl |= UCSI_ACK_CONNECTOR_CHANGE;
- 	}
+@@ -46,7 +46,7 @@ static int ucsi_read_message_in(struct ucsi *ucsi, void *buf,
+ 	if (ucsi->version <= UCSI_VERSION_1_2)
+ 		buf_size = clamp(buf_size, 0, 16);
  
--	return ucsi->ops->sync_write(ucsi, UCSI_CONTROL, &ctrl, sizeof(ctrl));
-+	return ucsi->ops->sync_control(ucsi, ctrl);
+-	return ucsi->ops->read(ucsi, UCSI_MESSAGE_IN, buf, buf_size);
++	return ucsi->ops->read_message_in(ucsi, buf, buf_size);
  }
  
- static int ucsi_exec_command(struct ucsi *ucsi, u64 command);
-@@ -126,7 +126,7 @@ static int ucsi_exec_command(struct ucsi *ucsi, u64 cmd)
- 	u32 cci;
- 	int ret;
- 
--	ret = ucsi->ops->sync_write(ucsi, UCSI_CONTROL, &cmd, sizeof(cmd));
-+	ret = ucsi->ops->sync_control(ucsi, cmd);
+ static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
+@@ -130,7 +130,7 @@ static int ucsi_exec_command(struct ucsi *ucsi, u64 cmd)
  	if (ret)
  		return ret;
  
-@@ -1306,8 +1306,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
- 	 */
- 	if (cci & UCSI_CCI_RESET_COMPLETE) {
- 		command = UCSI_SET_NOTIFICATION_ENABLE;
--		ret = ucsi->ops->async_write(ucsi, UCSI_CONTROL, &command,
--					     sizeof(command));
-+		ret = ucsi->ops->async_control(ucsi, command);
- 		if (ret < 0)
- 			goto out;
+-	ret = ucsi->ops->read(ucsi, UCSI_CCI, &cci, sizeof(cci));
++	ret = ucsi->ops->read_cci(ucsi, &cci);
+ 	if (ret)
+ 		return ret;
  
-@@ -1328,8 +1327,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
- 	}
+@@ -1294,7 +1294,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
  
- 	command = UCSI_PPM_RESET;
--	ret = ucsi->ops->async_write(ucsi, UCSI_CONTROL, &command,
--				     sizeof(command));
-+	ret = ucsi->ops->async_control(ucsi, command);
+ 	mutex_lock(&ucsi->ppm_lock);
+ 
+-	ret = ucsi->ops->read(ucsi, UCSI_CCI, &cci, sizeof(cci));
++	ret = ucsi->ops->read_cci(ucsi, &cci);
  	if (ret < 0)
  		goto out;
  
-@@ -1350,9 +1348,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
+@@ -1312,8 +1312,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
  
- 		/* If the PPM is still doing something else, reset it again. */
- 		if (cci & ~UCSI_CCI_RESET_COMPLETE) {
--			ret = ucsi->ops->async_write(ucsi, UCSI_CONTROL,
--						     &command,
--						     sizeof(command));
-+			ret = ucsi->ops->async_control(ucsi, command);
+ 		tmo = jiffies + msecs_to_jiffies(UCSI_TIMEOUT_MS);
+ 		do {
+-			ret = ucsi->ops->read(ucsi, UCSI_CCI,
+-					      &cci, sizeof(cci));
++			ret = ucsi->ops->read_cci(ucsi, &cci);
  			if (ret < 0)
  				goto out;
- 		}
-@@ -1863,7 +1859,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
+ 			if (cci & UCSI_CCI_COMMAND_COMPLETE)
+@@ -1342,7 +1341,7 @@ static int ucsi_reset_ppm(struct ucsi *ucsi)
+ 		/* Give the PPM time to process a reset before reading CCI */
+ 		msleep(20);
+ 
+-		ret = ucsi->ops->read(ucsi, UCSI_CCI, &cci, sizeof(cci));
++		ret = ucsi->ops->read_cci(ucsi, &cci);
+ 		if (ret)
+ 			goto out;
+ 
+@@ -1745,7 +1744,7 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	ucsi->ntfy = ntfy;
+ 
+ 	mutex_lock(&ucsi->ppm_lock);
+-	ret = ucsi->ops->read(ucsi, UCSI_CCI, &cci, sizeof(cci));
++	ret = ucsi->ops->read_cci(ucsi, &cci);
+ 	mutex_unlock(&ucsi->ppm_lock);
+ 	if (ret)
+ 		return ret;
+@@ -1859,7 +1858,9 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
  {
  	struct ucsi *ucsi;
  
--	if (!ops || !ops->read || !ops->sync_write || !ops->async_write)
-+	if (!ops || !ops->read || !ops->sync_control || !ops->async_control)
+-	if (!ops || !ops->read || !ops->sync_control || !ops->async_control)
++	if (!ops ||
++	    !ops->read_version || !ops->read_cci || !ops->read_message_in ||
++	    !ops->sync_control || !ops->async_control)
  		return ERR_PTR(-EINVAL);
  
  	ucsi = kzalloc(sizeof(*ucsi), GFP_KERNEL);
-@@ -1939,7 +1935,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 	cancel_work_sync(&ucsi->resume_work);
+@@ -1895,8 +1896,7 @@ int ucsi_register(struct ucsi *ucsi)
+ {
+ 	int ret;
  
- 	/* Disable notifications */
--	ucsi->ops->async_write(ucsi, UCSI_CONTROL, &cmd, sizeof(cmd));
-+	ucsi->ops->async_control(ucsi, cmd);
+-	ret = ucsi->ops->read(ucsi, UCSI_VERSION, &ucsi->version,
+-			      sizeof(ucsi->version));
++	ret = ucsi->ops->read_version(ucsi, &ucsi->version);
+ 	if (ret)
+ 		return ret;
  
- 	if (!ucsi->connector)
- 		return;
 diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index c4d103db9d0f..94ea54d3d47d 100644
+index 94ea54d3d47d..f770e1070424 100644
 --- a/drivers/usb/typec/ucsi/ucsi.h
 +++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -57,8 +57,8 @@ struct dentry;
+@@ -56,7 +56,9 @@ struct dentry;
+ 
  /**
   * struct ucsi_operations - UCSI I/O operations
-  * @read: Read operation
-- * @sync_write: Blocking write operation
-- * @async_write: Non-blocking write operation
-+ * @sync_control: Blocking control operation
-+ * @async_control: Non-blocking control operation
+- * @read: Read operation
++ * @read_version: Read implemented UCSI version
++ * @read_cci: Read CCI register
++ * @read_message_in: Read message data from UCSI
+  * @sync_control: Blocking control operation
+  * @async_control: Non-blocking control operation
   * @update_altmodes: Squashes duplicate DP altmodes
-  * @update_connector: Update connector capabilities before registering
-  * @connector_status: Updates connector status, called holding connector lock
-@@ -70,10 +70,8 @@ struct dentry;
+@@ -68,8 +70,9 @@ struct dentry;
+  * return immediately after sending the data to the PPM.
+  */
  struct ucsi_operations {
- 	int (*read)(struct ucsi *ucsi, unsigned int offset,
- 		    void *val, size_t val_len);
--	int (*sync_write)(struct ucsi *ucsi, unsigned int offset,
--			  const void *val, size_t val_len);
--	int (*async_write)(struct ucsi *ucsi, unsigned int offset,
--			   const void *val, size_t val_len);
-+	int (*sync_control)(struct ucsi *ucsi, u64 command);
-+	int (*async_control)(struct ucsi *ucsi, u64 command);
+-	int (*read)(struct ucsi *ucsi, unsigned int offset,
+-		    void *val, size_t val_len);
++	int (*read_version)(struct ucsi *ucsi, u16 *version);
++	int (*read_cci)(struct ucsi *ucsi, u32 *cci);
++	int (*read_message_in)(struct ucsi *ucsi, void *val, size_t val_len);
+ 	int (*sync_control)(struct ucsi *ucsi, u64 command);
+ 	int (*async_control)(struct ucsi *ucsi, u64 command);
  	bool (*update_altmodes)(struct ucsi *ucsi, struct ucsi_altmode *orig,
- 				struct ucsi_altmode *updated);
- 	void (*update_connector)(struct ucsi_connector *con);
 diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 8d112c3edae5..feccbfc8acbe 100644
+index feccbfc8acbe..61dd28dae3a4 100644
 --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
 +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -60,22 +60,20 @@ static int ucsi_acpi_read(struct ucsi *ucsi, unsigned int offset,
+@@ -45,8 +45,7 @@ static int ucsi_acpi_dsm(struct ucsi_acpi *ua, int func)
  	return 0;
  }
  
--static int ucsi_acpi_async_write(struct ucsi *ucsi, unsigned int offset,
--				 const void *val, size_t val_len)
-+static int ucsi_acpi_async_control(struct ucsi *ucsi, u64 command)
+-static int ucsi_acpi_read(struct ucsi *ucsi, unsigned int offset,
+-			  void *val, size_t val_len)
++static int ucsi_acpi_read_version(struct ucsi *ucsi, u16 *version)
  {
  	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+ 	int ret;
+@@ -55,7 +54,35 @@ static int ucsi_acpi_read(struct ucsi *ucsi, unsigned int offset,
+ 	if (ret)
+ 		return ret;
  
--	memcpy(ua->base + offset, val, val_len);
--	ua->cmd = *(u64 *)val;
-+	memcpy(ua->base + UCSI_CONTROL, &command, sizeof(command));
-+	ua->cmd = command;
+-	memcpy(val, ua->base + offset, val_len);
++	memcpy(version, ua->base + UCSI_VERSION, sizeof(*version));
++
++	return 0;
++}
++
++static int ucsi_acpi_read_cci(struct ucsi *ucsi, u32 *cci)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	int ret;
++
++	ret = ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_READ);
++	if (ret)
++		return ret;
++
++	memcpy(cci, ua->base + UCSI_CCI, sizeof(*cci));
++
++	return 0;
++}
++
++static int ucsi_acpi_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++	int ret;
++
++	ret = ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_READ);
++	if (ret)
++		return ret;
++
++	memcpy(val, ua->base + UCSI_MESSAGE_IN, val_len);
  
- 	return ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_WRITE);
+ 	return 0;
+ }
+@@ -98,30 +125,45 @@ static int ucsi_acpi_sync_control(struct ucsi *ucsi, u64 command)
  }
  
--static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
--				const void *val, size_t val_len)
-+static int ucsi_acpi_sync_control(struct ucsi *ucsi, u64 command)
- {
- 	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
--	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
-+	bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
- 	int ret;
- 
- 	if (ack)
-@@ -83,7 +81,7 @@ static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
- 	else
- 		set_bit(UCSI_ACPI_COMMAND_PENDING, &ua->flags);
- 
--	ret = ucsi_acpi_async_write(ucsi, offset, val, val_len);
-+	ret = ucsi_acpi_async_control(ucsi, command);
- 	if (ret)
- 		goto out_clear_bit;
- 
-@@ -101,8 +99,8 @@ static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
- 
  static const struct ucsi_operations ucsi_acpi_ops = {
- 	.read = ucsi_acpi_read,
--	.sync_write = ucsi_acpi_sync_write,
--	.async_write = ucsi_acpi_async_write
-+	.sync_control = ucsi_acpi_sync_control,
-+	.async_control = ucsi_acpi_async_control
+-	.read = ucsi_acpi_read,
++	.read_version = ucsi_acpi_read_version,
++	.read_cci = ucsi_acpi_read_cci,
++	.read_message_in = ucsi_acpi_read_message_in,
+ 	.sync_control = ucsi_acpi_sync_control,
+ 	.async_control = ucsi_acpi_async_control
  };
  
  static int
-@@ -124,8 +122,8 @@ ucsi_zenbook_read(struct ucsi *ucsi, unsigned int offset, void *val, size_t val_
+-ucsi_zenbook_read(struct ucsi *ucsi, unsigned int offset, void *val, size_t val_len)
++ucsi_zenbook_read_cci(struct ucsi *ucsi, u32 *cci)
+ {
+ 	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+ 	int ret;
  
- static const struct ucsi_operations ucsi_zenbook_ops = {
- 	.read = ucsi_zenbook_read,
--	.sync_write = ucsi_acpi_sync_write,
--	.async_write = ucsi_acpi_async_write
-+	.sync_control = ucsi_acpi_sync_control,
-+	.async_control = ucsi_acpi_async_control
- };
+-	if (offset == UCSI_VERSION || UCSI_COMMAND(ua->cmd) == UCSI_PPM_RESET) {
++	if (UCSI_COMMAND(ua->cmd) == UCSI_PPM_RESET) {
+ 		ret = ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_READ);
+ 		if (ret)
+ 			return ret;
+ 	}
  
- static const struct dmi_system_id ucsi_acpi_quirks[] = {
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index dda7c7c94e08..76b39bb9762d 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -610,25 +610,23 @@ static int ucsi_ccg_read(struct ucsi *ucsi, unsigned int offset,
- 	return ret;
+-	memcpy(val, ua->base + offset, val_len);
++	memcpy(cci, ua->base + UCSI_CCI, sizeof(*cci));
++
++	return 0;
++}
++
++static int
++ucsi_zenbook_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
++{
++	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
++
++	/* UCSI_MESSAGE_IN is never read for PPM_RESET, return stored data */
++	memcpy(val, ua->base + UCSI_MESSAGE_IN, val_len);
+ 
+ 	return 0;
  }
  
--static int ucsi_ccg_async_write(struct ucsi *ucsi, unsigned int offset,
--				const void *val, size_t val_len)
-+static int ucsi_ccg_async_control(struct ucsi *ucsi, u64 command)
+ static const struct ucsi_operations ucsi_zenbook_ops = {
+-	.read = ucsi_zenbook_read,
++	.read_version = ucsi_acpi_read_version,
++	.read_cci = ucsi_zenbook_read_cci,
++	.read_message_in = ucsi_zenbook_read_message_in,
+ 	.sync_control = ucsi_acpi_sync_control,
+ 	.async_control = ucsi_acpi_async_control
+ };
+@@ -143,7 +185,7 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+ 	u32 cci;
+ 	int ret;
+ 
+-	ret = ua->ucsi->ops->read(ua->ucsi, UCSI_CCI, &cci, sizeof(cci));
++	ret = ua->ucsi->ops->read_cci(ua->ucsi, &cci);
+ 	if (ret)
+ 		return;
+ 
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index 76b39bb9762d..6ccc394f268e 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -556,32 +556,34 @@ static void ucsi_ccg_nvidia_altmode(struct ucsi_ccg *uc,
+ 	}
+ }
+ 
+-static int ucsi_ccg_read(struct ucsi *ucsi, unsigned int offset,
+-			 void *val, size_t val_len)
++static int ucsi_ccg_read_version(struct ucsi *ucsi, u16 *version)
  {
  	struct ucsi_ccg *uc = ucsi_get_drvdata(ucsi);
 -	u16 reg = CCGX_RAB_UCSI_DATA_BLOCK(offset);
-+	u16 reg = CCGX_RAB_UCSI_DATA_BLOCK(UCSI_CONTROL);
+-	struct ucsi_capability *cap;
+-	struct ucsi_altmode *alt;
+-	int ret = 0;
++	u16 reg = CCGX_RAB_UCSI_DATA_BLOCK(UCSI_VERSION);
  
- 	/*
--	 * UCSI may read CCI instantly after async_write,
-+	 * UCSI may read CCI instantly after async_control,
- 	 * clear CCI to avoid caller getting wrong data before we get CCI from ISR
- 	 */
- 	spin_lock(&uc->op_lock);
- 	uc->op_data.cci = 0;
- 	spin_unlock(&uc->op_lock);
+-	if (offset == UCSI_CCI) {
+-		spin_lock(&uc->op_lock);
+-		memcpy(val, &(uc->op_data).cci, val_len);
+-		spin_unlock(&uc->op_lock);
+-	} else if (offset == UCSI_MESSAGE_IN) {
+-		spin_lock(&uc->op_lock);
+-		memcpy(val, &(uc->op_data).message_in, val_len);
+-		spin_unlock(&uc->op_lock);
+-	} else {
+-		ret = ccg_read(uc, reg, val, val_len);
+-	}
++	return ccg_read(uc, reg, (u8 *)version, sizeof(*version));
++}
  
--	return ccg_write(uc, reg, val, val_len);
-+	return ccg_write(uc, reg, (u8 *)&command, sizeof(command));
+-	if (ret)
+-		return ret;
++static int ucsi_ccg_read_cci(struct ucsi *ucsi, u32 *cci)
++{
++	struct ucsi_ccg *uc = ucsi_get_drvdata(ucsi);
+ 
+-	if (offset != UCSI_MESSAGE_IN)
+-		return ret;
++	spin_lock(&uc->op_lock);
++	*cci = uc->op_data.cci;
++	spin_unlock(&uc->op_lock);
++
++	return 0;
++}
++
++static int ucsi_ccg_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
++{
++	struct ucsi_ccg *uc = ucsi_get_drvdata(ucsi);
++	struct ucsi_capability *cap;
++	struct ucsi_altmode *alt;
++
++	spin_lock(&uc->op_lock);
++	memcpy(val, uc->op_data.message_in, val_len);
++	spin_unlock(&uc->op_lock);
+ 
+ 	switch (UCSI_COMMAND(uc->last_cmd_sent)) {
+ 	case UCSI_GET_CURRENT_CAM:
+@@ -607,7 +609,7 @@ static int ucsi_ccg_read(struct ucsi *ucsi, unsigned int offset,
+ 	}
+ 	uc->last_cmd_sent = 0;
+ 
+-	return ret;
++	return 0;
  }
  
--static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
--			       const void *val, size_t val_len)
-+static int ucsi_ccg_sync_control(struct ucsi *ucsi, u64 command)
- {
- 	struct ucsi_ccg *uc = ucsi_get_drvdata(ucsi);
- 	struct ucsi_connector *con;
-@@ -639,19 +637,17 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
- 	pm_runtime_get_sync(uc->dev);
- 	set_bit(DEV_CMD_PENDING, &uc->flags);
- 
--	if (offset == UCSI_CONTROL && val_len == sizeof(uc->last_cmd_sent)) {
--		uc->last_cmd_sent = *(u64 *)val;
-+	uc->last_cmd_sent = command;
- 
--		if (UCSI_COMMAND(uc->last_cmd_sent) == UCSI_SET_NEW_CAM &&
--		    uc->has_multiple_dp) {
--			con_index = (uc->last_cmd_sent >> 16) &
--				    UCSI_CMD_CONNECTOR_MASK;
--			con = &uc->ucsi->connector[con_index - 1];
--			ucsi_ccg_update_set_new_cam_cmd(uc, con, (u64 *)val);
--		}
-+	if (UCSI_COMMAND(uc->last_cmd_sent) == UCSI_SET_NEW_CAM &&
-+	    uc->has_multiple_dp) {
-+		con_index = (uc->last_cmd_sent >> 16) &
-+			UCSI_CMD_CONNECTOR_MASK;
-+		con = &uc->ucsi->connector[con_index - 1];
-+		ucsi_ccg_update_set_new_cam_cmd(uc, con, &command);
- 	}
- 
--	ret = ucsi_ccg_async_write(ucsi, offset, val, val_len);
-+	ret = ucsi_ccg_async_control(ucsi, command);
- 	if (ret)
- 		goto err_clear_bit;
- 
-@@ -668,8 +664,8 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
+ static int ucsi_ccg_async_control(struct ucsi *ucsi, u64 command)
+@@ -663,7 +665,9 @@ static int ucsi_ccg_sync_control(struct ucsi *ucsi, u64 command)
+ }
  
  static const struct ucsi_operations ucsi_ccg_ops = {
- 	.read = ucsi_ccg_read,
--	.sync_write = ucsi_ccg_sync_write,
--	.async_write = ucsi_ccg_async_write,
-+	.sync_control = ucsi_ccg_sync_control,
-+	.async_control = ucsi_ccg_async_control,
+-	.read = ucsi_ccg_read,
++	.read_version = ucsi_ccg_read_version,
++	.read_cci = ucsi_ccg_read_cci,
++	.read_message_in = ucsi_ccg_read_message_in,
+ 	.sync_control = ucsi_ccg_sync_control,
+ 	.async_control = ucsi_ccg_async_control,
  	.update_altmodes = ucsi_ccg_update_altmodes
- };
- 
 diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
-index f7546bb488c3..047998f33274 100644
+index 047998f33274..7f6a48624ee5 100644
 --- a/drivers/usb/typec/ucsi/ucsi_glink.c
 +++ b/drivers/usb/typec/ucsi/ucsi_glink.c
-@@ -143,21 +143,19 @@ static int pmic_glink_ucsi_locked_write(struct pmic_glink_ucsi *ucsi, unsigned i
- 	return 0;
- }
- 
--static int pmic_glink_ucsi_async_write(struct ucsi *__ucsi, unsigned int offset,
--				       const void *val, size_t val_len)
-+static int pmic_glink_ucsi_async_control(struct ucsi *__ucsi, u64 command)
- {
- 	struct pmic_glink_ucsi *ucsi = ucsi_get_drvdata(__ucsi);
- 	int ret;
- 
- 	mutex_lock(&ucsi->lock);
--	ret = pmic_glink_ucsi_locked_write(ucsi, offset, val, val_len);
-+	ret = pmic_glink_ucsi_locked_write(ucsi, UCSI_CONTROL, &command, sizeof(command));
- 	mutex_unlock(&ucsi->lock);
- 
+@@ -114,6 +114,21 @@ static int pmic_glink_ucsi_read(struct ucsi *__ucsi, unsigned int offset,
  	return ret;
  }
  
--static int pmic_glink_ucsi_sync_write(struct ucsi *__ucsi, unsigned int offset,
--				      const void *val, size_t val_len)
-+static int pmic_glink_ucsi_sync_control(struct ucsi *__ucsi, u64 command)
++static int pmic_glink_ucsi_read_version(struct ucsi *ucsi, u16 *version)
++{
++	return pmic_glink_ucsi_read(ucsi, UCSI_VERSION, version, sizeof(*version));
++}
++
++static int pmic_glink_ucsi_read_cci(struct ucsi *ucsi, u32 *cci)
++{
++	return pmic_glink_ucsi_read(ucsi, UCSI_CCI, cci, sizeof(*cci));
++}
++
++static int pmic_glink_ucsi_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
++{
++	return pmic_glink_ucsi_read(ucsi, UCSI_MESSAGE_IN, val, val_len);
++}
++
+ static int pmic_glink_ucsi_locked_write(struct pmic_glink_ucsi *ucsi, unsigned int offset,
+ 					const void *val, size_t val_len)
  {
- 	struct pmic_glink_ucsi *ucsi = ucsi_get_drvdata(__ucsi);
- 	unsigned long left;
-@@ -169,7 +167,7 @@ static int pmic_glink_ucsi_sync_write(struct ucsi *__ucsi, unsigned int offset,
- 	ucsi->sync_val = 0;
- 	reinit_completion(&ucsi->sync_ack);
- 	ucsi->sync_pending = true;
--	ret = pmic_glink_ucsi_locked_write(ucsi, offset, val, val_len);
-+	ret = pmic_glink_ucsi_locked_write(ucsi, UCSI_CONTROL, &command, sizeof(command));
- 	mutex_unlock(&ucsi->lock);
- 
- 	left = wait_for_completion_timeout(&ucsi->sync_ack, 5 * HZ);
-@@ -217,8 +215,8 @@ static void pmic_glink_ucsi_connector_status(struct ucsi_connector *con)
+@@ -214,7 +229,9 @@ static void pmic_glink_ucsi_connector_status(struct ucsi_connector *con)
+ }
  
  static const struct ucsi_operations pmic_glink_ucsi_ops = {
- 	.read = pmic_glink_ucsi_read,
--	.sync_write = pmic_glink_ucsi_sync_write,
--	.async_write = pmic_glink_ucsi_async_write,
-+	.sync_control = pmic_glink_ucsi_sync_control,
-+	.async_control = pmic_glink_ucsi_async_control,
+-	.read = pmic_glink_ucsi_read,
++	.read_version = pmic_glink_ucsi_read_version,
++	.read_cci = pmic_glink_ucsi_read_cci,
++	.read_message_in = pmic_glink_ucsi_read_message_in,
+ 	.sync_control = pmic_glink_ucsi_sync_control,
+ 	.async_control = pmic_glink_ucsi_async_control,
  	.update_connector = pmic_glink_ucsi_update_connector,
- 	.connector_status = pmic_glink_ucsi_connector_status,
- };
 diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
-index 9b2af32b7874..f97dc5a075e2 100644
+index f97dc5a075e2..e3cfcb258e43 100644
 --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
 +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
-@@ -359,8 +359,7 @@ static int ucsi_stm32g0_read(struct ucsi *ucsi, unsigned int offset, void *val,
+@@ -359,6 +359,21 @@ static int ucsi_stm32g0_read(struct ucsi *ucsi, unsigned int offset, void *val,
  	return 0;
  }
  
--static int ucsi_stm32g0_async_write(struct ucsi *ucsi, unsigned int offset, const void *val,
--				    size_t len)
-+static int ucsi_stm32g0_async_control(struct ucsi *ucsi, u64 command)
++static int ucsi_stm32g0_read_version(struct ucsi *ucsi, u16 *version)
++{
++	return ucsi_stm32g0_read(ucsi, UCSI_VERSION, version, sizeof(*version));
++}
++
++static int ucsi_stm32g0_read_cci(struct ucsi *ucsi, u32 *cci)
++{
++	return ucsi_stm32g0_read(ucsi, UCSI_CCI, cci, sizeof(*cci));
++}
++
++static int ucsi_stm32g0_read_message_in(struct ucsi *ucsi, void *val, size_t len)
++{
++	return ucsi_stm32g0_read(ucsi, UCSI_MESSAGE_IN, val, len);
++}
++
+ static int ucsi_stm32g0_async_control(struct ucsi *ucsi, u64 command)
  {
  	struct ucsi_stm32g0 *g0 = ucsi_get_drvdata(ucsi);
- 	struct i2c_client *client = g0->client;
-@@ -373,19 +372,19 @@ static int ucsi_stm32g0_async_write(struct ucsi *ucsi, unsigned int offset, cons
- 	unsigned char *buf;
- 	int ret;
- 
--	buf = kmalloc(len + 1, GFP_KERNEL);
-+	buf = kmalloc(sizeof(command) + 1, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
--	buf[0] = offset;
--	memcpy(&buf[1], val, len);
--	msg[0].len = len + 1;
-+	buf[0] = UCSI_CONTROL;
-+	memcpy(&buf[1], &command, sizeof(command));
-+	msg[0].len = sizeof(command) + 1;
- 	msg[0].buf = buf;
- 
- 	ret = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
- 	kfree(buf);
- 	if (ret != ARRAY_SIZE(msg)) {
--		dev_err(g0->dev, "i2c write %02x, %02x error: %d\n", client->addr, offset, ret);
-+		dev_err(g0->dev, "i2c write %02x, %02x error: %d\n", client->addr, UCSI_CONTROL, ret);
- 
- 		return ret < 0 ? ret : -EIO;
- 	}
-@@ -393,11 +392,10 @@ static int ucsi_stm32g0_async_write(struct ucsi *ucsi, unsigned int offset, cons
- 	return 0;
+@@ -446,7 +461,9 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
  }
- 
--static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const void *val,
--				   size_t len)
-+static int ucsi_stm32g0_sync_control(struct ucsi *ucsi, u64 command)
- {
- 	struct ucsi_stm32g0 *g0 = ucsi_get_drvdata(ucsi);
--	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
-+	bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
- 	int ret;
- 
- 	if (ack)
-@@ -405,7 +403,7 @@ static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const
- 	else
- 		set_bit(COMMAND_PENDING, &g0->flags);
- 
--	ret = ucsi_stm32g0_async_write(ucsi, offset, val, len);
-+	ret = ucsi_stm32g0_async_control(ucsi, command);
- 	if (ret)
- 		goto out_clear_bit;
- 
-@@ -449,8 +447,8 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
  
  static const struct ucsi_operations ucsi_stm32g0_ops = {
- 	.read = ucsi_stm32g0_read,
--	.sync_write = ucsi_stm32g0_sync_write,
--	.async_write = ucsi_stm32g0_async_write,
-+	.sync_control = ucsi_stm32g0_sync_control,
-+	.async_control = ucsi_stm32g0_async_control,
+-	.read = ucsi_stm32g0_read,
++	.read_version = ucsi_stm32g0_read_version,
++	.read_cci = ucsi_stm32g0_read_cci,
++	.read_message_in = ucsi_stm32g0_read_message_in,
+ 	.sync_control = ucsi_stm32g0_sync_control,
+ 	.async_control = ucsi_stm32g0_async_control,
  };
- 
- static int ucsi_stm32g0_register(struct ucsi *ucsi)
 
 -- 
 2.39.2
