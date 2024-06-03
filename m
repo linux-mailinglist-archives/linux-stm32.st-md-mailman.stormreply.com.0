@@ -2,44 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C828D7E87
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 11:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56CF8D7E8F
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 11:30:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43136C6B47E;
-	Mon,  3 Jun 2024 09:29:34 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B7CEC71288;
+	Mon,  3 Jun 2024 09:30:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EF75C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10400C6DD67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2024 09:29:26 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4537cWVc004745;
- Mon, 3 Jun 2024 11:28:44 +0200
+ Mon,  3 Jun 2024 09:30:04 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 453875hg018812;
+ Mon, 3 Jun 2024 11:29:47 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=W4T/YoU6NKIK7mMSN7BvQl
- A9NuSsgbgmhksWstWhGaA=; b=vzcIOIxyNo5aha17vMDuOfTuxg5AqMKs+ePYLr
- ez7TccT5jAlFE0GQnS9DSIxgdhPYPVFzsOXgwu1g2bLS7nxSK9EEHvCm99HSbhQ3
- L5TmntEfcF9UhPXrDcnTYiDNGPavJ0mNzeaKLfWjI9FnvZMo9pZWgIG66gNBIekw
- cw1Mp3TpdL9iX4+JHUQAzP8GndyTuJ6wuwht2Er+gPIvldqdR65xm23joKcpKWrE
- aaYPZY4V4ZIb6H0y6cCcpL+HZZsiecr4K7CUZOXLujdxpRaXEgGCY6SfH8KQk9b4
- aAtPBlNjkeAwx7IPsmuGYAI3xr9xgPGZiZ7m/6ETs9iGt/4w==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ nJww/C4GoPVlnGAjG/SzvrPTyaA+YJJskMcAe2B+/Ds=; b=YCEfMhiMRJwAP+iD
+ gYsuNSMdDmXPSqueRiZYOYzz/W5hMMj7mtMCjsrQH+tapuQL70bdFN3LiXtXUsAH
+ AkvwdhBg+G/FC53EAaPvvgl7dZyMaNFj0Ml06p4nKEdGz0626kIqmItULsqyAitQ
+ Qi3QhTp6nHiHa1Wq6vcyfgBOZ8wUr2S4hSs4P+uAWh8lnBmz0Jk+6pZ8DZTBPZ1m
+ BYQkQozlel9tF7K9dFUdZJO7YX68Dufm9VZEhQn+9QQhs/KqQl+StC7dUxesCnFE
+ G7pX3WYoL2547Iw4Ahgz//ZBPdOGmX/Thm7KgMKFq/zNp7NunP9Yjbn4e/Pc6Rg+
+ 87X7FA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ygekhm92p-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yfw3we2gt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jun 2024 11:28:42 +0200 (MEST)
+ Mon, 03 Jun 2024 11:29:47 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 14CCE4005D;
- Mon,  3 Jun 2024 11:28:15 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A12AE4004D;
+ Mon,  3 Jun 2024 11:29:29 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3EE222165E7;
- Mon,  3 Jun 2024 11:28:15 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AB7522165FB;
+ Mon,  3 Jun 2024 11:28:16 +0200 (CEST)
 Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 3 Jun
- 2024 11:28:14 +0200
+ 2024 11:28:15 +0200
 From: Christophe Roullier <christophe.roullier@foss.st.com>
 To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
@@ -50,9 +51,11 @@ To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Christophe Roullier
  <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Mon, 3 Jun 2024 11:27:46 +0200
-Message-ID: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+Date: Mon, 3 Jun 2024 11:27:47 +0200
+Message-ID: <20240603092757.71902-2-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+References: <20240603092757.71902-1-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.48.86.164]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
@@ -63,8 +66,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 00/11] Series to deliver Ethernet for
-	STM32MP13
+Subject: [Linux-stm32] [PATCH v3 01/11] dt-bindings: net: add STM32MP13
+	compatible in documentation for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,47 +84,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32MP13 is STM32 SOC with 2 GMACs instances
-    GMAC IP version is SNPS 4.20.
-    GMAC IP configure with 1 RX and 1 TX queue.
-    DMA HW capability register supported
-    RX Checksum Offload Engine supported
-    TX Checksum insertion supported
-    Wake-Up On Lan supported
-    TSO supported
-Rework dwmac glue to simplify management for next stm32 (integrate RFC from Marek)
+New STM32 SOC have 2 GMACs instances.
+GMAC IP version is SNPS 4.20.
 
-V2: - Remark from Rob Herring (add Krzysztof's ack in patch 02/11, update in yaml)
-      Remark from Serge Semin (upate commits msg)
-V3: - Remove PHY regulator patch and Ethernet2 DT because need to clarify how to
-      manage PHY regulator (in glue or PHY side)
-    - Integrate RFC from Marek
-    - Remark from Rob Herring in YAML documentation
+Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+---
+ .../devicetree/bindings/net/stm32-dwmac.yaml  | 41 +++++++++++++++----
+ 1 file changed, 34 insertions(+), 7 deletions(-)
 
-Christophe Roullier (6):
-  dt-bindings: net: add STM32MP13 compatible in documentation for stm32
-  net: ethernet: stmmac: add management of stm32mp13 for stm32
-  ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
-  ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
-  ARM: dts: stm32: add ethernet1 for STM32MP135F-DK board
-  ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
-
-Marek Vasut (5):
-  net: stmmac: dwmac-stm32: Separate out external clock rate validation
-  net: stmmac: dwmac-stm32: Separate out external clock selector
-  net: stmmac: dwmac-stm32: Extract PMCR configuration
-  net: stmmac: dwmac-stm32: Clean up the debug prints
-  net: stmmac: dwmac-stm32: Fix Mhz to MHz
-
- .../devicetree/bindings/net/stm32-dwmac.yaml  |  41 +++-
- arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 +++++++
- arch/arm/boot/dts/st/stm32mp131.dtsi          |  31 +++
- arch/arm/boot/dts/st/stm32mp133.dtsi          |  30 +++
- arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  24 +++
- arch/arm/configs/multi_v7_defconfig           |   1 +
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 176 ++++++++++++++----
- 7 files changed, 327 insertions(+), 47 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+index 7ccf75676b6d5..ecbed9a7aaf6d 100644
+--- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+@@ -22,18 +22,17 @@ select:
+         enum:
+           - st,stm32-dwmac
+           - st,stm32mp1-dwmac
++          - st,stm32mp13-dwmac
+   required:
+     - compatible
+ 
+-allOf:
+-  - $ref: snps,dwmac.yaml#
+-
+ properties:
+   compatible:
+     oneOf:
+       - items:
+           - enum:
+               - st,stm32mp1-dwmac
++              - st,stm32mp13-dwmac
+           - const: snps,dwmac-4.20a
+       - items:
+           - enum:
+@@ -75,12 +74,15 @@ properties:
+   st,syscon:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+-      - items:
++      - minItems: 2
++        items:
+           - description: phandle to the syscon node which encompases the glue register
+           - description: offset of the control register
++          - description: field to set mask in register
+     description:
+       Should be phandle/offset pair. The phandle to the syscon node which
+-      encompases the glue register, and the offset of the control register
++      encompases the glue register, the offset of the control register and
++      the mask to set bitfield in control register
+ 
+   st,ext-phyclk:
+     description:
+@@ -112,12 +114,37 @@ required:
+ 
+ unevaluatedProperties: false
+ 
++allOf:
++  - $ref: snps,dwmac.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - st,stm32mp1-dwmac
++              - st,stm32-dwmac
++    then:
++      properties:
++        st,syscon:
++          items:
++            maxItems: 2
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - st,stm32mp13-dwmac
++    then:
++      properties:
++        st,syscon:
++          items:
++            minItems: 3
++
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+     #include <dt-bindings/clock/stm32mp1-clks.h>
+-    #include <dt-bindings/reset/stm32mp1-resets.h>
+-    #include <dt-bindings/mfd/stm32h7-rcc.h>
+     //Example 1
+      ethernet0: ethernet@5800a000 {
+            compatible = "st,stm32mp1-dwmac", "snps,dwmac-4.20a";
 -- 
 2.25.1
 
