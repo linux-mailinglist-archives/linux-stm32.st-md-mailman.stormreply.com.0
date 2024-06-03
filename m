@@ -2,50 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA2788D8131
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 13:27:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF6E8D8395
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 15:12:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B940C6B47E;
-	Mon,  3 Jun 2024 11:27:53 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60665C6B47E;
+	Mon,  3 Jun 2024 13:12:57 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E5CBC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70831C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2024 11:27:45 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4539iu4O031125;
- Mon, 3 Jun 2024 11:27:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- UOksZSJ5PozHDIJoVWdlMTf6jW6RoBLoVXN1Y8S/oII=; b=GJW63uyaQBHZzyEf
- J5lu4ervzIqtP58piB/ifoOU/b0sgRdKdYW/12oXSPHwLMea0CKGKmB75y1mv2fz
- jjgYe/HLuhwpqMBrmGx87Q6UwA1fsG9ZK9IGXd7nrIybRW1WO6+TZHO5mI5w2ZEp
- sUwHOQpjSRCe6GX3g2s6loyptFx5VKFt9GOQ3rmMLFRAuSF6CHlQaTKdme0HdVkI
- CAy2hh/SlSFkqmF+o2eV+4g2zM/moetQalUNwY+x5wrI3jZKnXGYsKG1KoJ4ogkm
- MMXiUa5eAZ1OdrVjmA32Uuaw86MauSIkIOqMKqy5QCa0ahgo31/kikDd1P5procz
- MCNRgA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yfw6v3x8u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jun 2024 11:27:28 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 453BRRMc032665
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Jun 2024 11:27:27 GMT
-Received: from [10.217.90.34] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 3 Jun 2024
- 04:27:19 -0700
-Message-ID: <0ef00c92-b88f-48df-b9ba-2973c62285af@quicinc.com>
-Date: Mon, 3 Jun 2024 16:57:15 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ Mon,  3 Jun 2024 13:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=WhhGfCPkfrQU2JoEdJcZxodwFT3ecp3HOxHwD/uFSGM=; b=VZLilN100eULAlRILI4fDmUatt
+ gnST2qjGNUghl9VUfc4/1jsip4W5IzU9dCyX3LAAsluelL06MIRia+4e7YBlpd98Ogv4pNbtG3MR4
+ 9mLtW6KfVjHiWinSCQy9pCX7/BXCGapxkz8LjNzvFjGozog+VQmfhcTXZt963k5zKwEDITkmY3MFn
+ 4EWCWHSvIMMIiWNZA+C7JCH3uUI4aWGJqaDu6GGREJiAyxr3HAS6Wo2V9Hf2ojr3sfRLuxVs1nJca
+ o/bWHkl3Khb3amJCxKRAAJ8DfJGQWsqtwxIkUsGv7ANoEPOBaudTyqV+u6FjZopVfl8caM3+RtnEz
+ ImLgMosw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36062)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sE7UE-0002lD-0z;
+ Mon, 03 Jun 2024 14:12:30 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sE7UC-0000Sh-Sn; Mon, 03 Jun 2024 14:12:28 +0100
+Date: Mon, 3 Jun 2024 14:12:28 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Sneh Shah <quic_snehshah@quicinc.com>
+Message-ID: <Zl3BPHqREyZ5v92U@shell.armlinux.org.uk>
 References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
  <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
  <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
@@ -54,34 +46,17 @@ References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
  <ZlNi11AsdDpKM6AM@shell.armlinux.org.uk>
  <d246bd64-18b3-4002-bc71-eccd67bbd61f@quicinc.com>
  <ZleLb+dtJ8Uspq4S@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Sneh Shah <quic_snehshah@quicinc.com>
-In-Reply-To: <ZleLb+dtJ8Uspq4S@shell.armlinux.org.uk>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: jqtoM667x7WK9C9nDRZQZsjynG8xdZXN
-X-Proofpoint-ORIG-GUID: jqtoM667x7WK9C9nDRZQZsjynG8xdZXN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-06-03_07,2024-05-30_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0
- impostorscore=0 mlxscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 spamscore=0 priorityscore=1501 mlxlogscore=999 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2406030096
+ <0ef00c92-b88f-48df-b9ba-2973c62285af@quicinc.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <0ef00c92-b88f-48df-b9ba-2973c62285af@quicinc.com>
 Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Andrew Halaney <ahalaney@redhat.com>
 Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
  Add support for 2.5G SGMII
@@ -101,56 +76,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jun 03, 2024 at 04:57:15PM +0530, Sneh Shah wrote:
+> On 5/30/2024 1:39 AM, Russell King (Oracle) wrote:
+> > From what you're saying:
+> > - if using the dwmac1000 core, then for the registers at GMAC_PCS_BASE
+> >   (0xc0 offset)...
+> > - if using the dwmac4 core, then for registers at GMAC_PCS_BASE
+> >   (0xe0 offset)...
+> > ... is it true that only the GMAC_AN_CTRL() register is implemented
+> > and none of the other registers listed in stmmac_pcs.h?
+> > 
+> > In terms of interrupts when the link status changes, how do they
+> > present? Are they through the GMAC_INT_RGSMIIS interrupt only?
+> > What about GMAC_INT_PCS_LINK or GMAC_INT_PCS_ANE? Or in the case
+> > of the other core, is it through the PCS_RGSMIIIS_IRQ interrupt
+> > only? Similarly, what about PCS_LINK_IRQ or PCS_ANE_IRQ?
+> 
+> we only have GMAC_AN_CTRL and GMAC_AN_STATUS register.
+> There is no separate IRQ line for PCS link or autoneg. 
+> It is notified via MAC interrupt line only.
 
+From the sound of it, this is just the standard PCS that everyone else
+would use in DW ETHQoS, with the exception that you can run it at 2.5G
+without inband signalling.
 
-On 5/30/2024 1:39 AM, Russell King (Oracle) wrote:
-> On Wed, May 29, 2024 at 07:43:15PM +0530, Sneh Shah wrote:
->> In this version of qualcomm ethernet, PCS is not an independent HW
->> block. It is integrated to MAC block itself. It has very limited
->> configuration.Here PCS doesn't have it's own link speed/duplex
->> capabities. Hence we are bypassing all this PCS related functionalities.
-> 
-> I want to concentrate on this part first - we'll address the 2.5G
-> issues separately once I've got a picture of this hardware (and thus
-> can work out what needs to change in my phylink_pcs implementation to
-> support the standard Cisco SGMII speeds.
-> 
-> From what I understand you're saying, your integrated PCS is different
-> from the DesignWare integrated PCS?
-It's an inbuilt PCS block within designware ETHQoS core.
-> 
-> Which core does it use? dwmac4_core.c or dwmac1000_core.c, or some
-> other? Not knowing which core makes asking the following questions
-> harder, since I'm having to double them up to cover both cores with
-> their different definitions.
+Thanks for clarifying that. I think we can just use the phylink PCS
+that I'm proposing for your case, with the exception of also adding
+support for 2.5G speeds, which I will need to sort out.
 
-it is dwmac4 core with 0xe0 offset.
-> 
-> Does it only present its status via the GMAC_PHYIF_CONTROL_STATUS or
-> GMAC_RGSMIIIS register?
+So, I think I need to get my patch set that query the inband
+capabilities of the PCS and PHY into net-next before we can move
+forward with 2.5G speeds here.
 
-It is present via GMAC_PHYIF_CONTROL_STATUS.
-> 
-> From what you're saying:
-> - if using the dwmac1000 core, then for the registers at GMAC_PCS_BASE
->   (0xc0 offset)...
-> - if using the dwmac4 core, then for registers at GMAC_PCS_BASE
->   (0xe0 offset)...
-> ... is it true that only the GMAC_AN_CTRL() register is implemented
-> and none of the other registers listed in stmmac_pcs.h?
-> 
-> In terms of interrupts when the link status changes, how do they
-> present? Are they through the GMAC_INT_RGSMIIS interrupt only?
-> What about GMAC_INT_PCS_LINK or GMAC_INT_PCS_ANE? Or in the case
-> of the other core, is it through the PCS_RGSMIIIS_IRQ interrupt
-> only? Similarly, what about PCS_LINK_IRQ or PCS_ANE_IRQ?
+Thanks.
 
-we only have GMAC_AN_CTRL and GMAC_AN_STATUS register.
-There is no separate IRQ line for PCS link or autoneg. 
-It is notified via MAC interrupt line only.
-> 
-> Thanks.
-> 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
