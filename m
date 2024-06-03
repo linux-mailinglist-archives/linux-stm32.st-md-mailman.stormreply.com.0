@@ -2,72 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB6E8D7EA4
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 11:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962558D7EEB
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2024 11:38:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF114C71292;
-	Mon,  3 Jun 2024 09:31:11 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50038C7128E;
+	Mon,  3 Jun 2024 09:38:28 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E3BAC71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56232C71288
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2024 09:31:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4539Bmdg019015;
- Mon, 3 Jun 2024 11:30:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- lPzEVJUMCFm6veKb1Y3KHWri4JNgUORxCYZTZgJtc6A=; b=1WOse9DzLaP1JAMS
- tqBuxIXpldlrNPWUvpBGL00H8nejHMZJjFTs3c/T3I5RG354hqcbQ+aQ6em38BmI
- GDZ+hRGNdbCr/rN4Dby2/5jyWp5ngu5VVKWK2UJ4emd+aQpK8X9Peve9Ie0kHxPT
- 6iuUhEdifH1WI+X5U4MyEgsJLYqhg7Td9fg13oVmY0VguSKizkBahOq5Le7LcmKn
- vovD/daNOsSSc2ARFgK7gsd3MjOliUYDcGLN0P0tRPXn+EqZjJTzA0y2rn4MhApu
- 8+rNtecO7lZMdjHphmq3yi4QRhCJiBtfdPZL9wFdldMalQ8lG+UdPolfc3+SwuRK
- 0m603Q==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yfw9164kn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Jun 2024 11:30:52 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 17BC840046;
- Mon,  3 Jun 2024 11:30:49 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6131C21514D;
- Mon,  3 Jun 2024 11:30:44 +0200 (CEST)
-Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 3 Jun
- 2024 11:30:44 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Mon, 3 Jun 2024 11:27:57 +0200
-Message-ID: <20240603092757.71902-12-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+ Mon,  3 Jun 2024 09:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=U7Ho4zKhkkiYFTzTY91pGPL2i6KvNE8h4Vbogb5wZs0=; b=ByhlWGRI2Ktx47DAPDLPq8dnm1
+ B+CX9jUK47LjL+lCl8e6Mu8Syjci2Ufq1RkI4Z127sWqr85wz6jhqmCKiL0uopS32LmM8l6iaRhUp
+ 2x5rRl0dhueE2SS1UwhflKFjjY+lm5ObcN3H1OykMtzbKp/UFET4iJldTTwxKTymYbOYYQcQCIMMV
+ YCknfBryxH45AJqMzIsExz4ZGIES33S6GCQlD/WLTB6ljQw1Lk20MBTSqmdIws+jFyOsKe98OaqXb
+ xpLDDT54wpVXB5pdsJGyFsl9lmfw0cdeQGASvSQKYp/Zu6qb9+tqTavOkS7Dz1Drpgtqh0aeQUX7o
+ pdWUlSew==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:44764)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sE48g-0002Xl-1z;
+ Mon, 03 Jun 2024 10:38:02 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sE48g-0000Jm-09; Mon, 03 Jun 2024 10:38:02 +0100
+Date: Mon, 3 Jun 2024 10:38:01 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+Message-ID: <Zl2O+eJF9vOTqFx2@shell.armlinux.org.uk>
 References: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+ <20240603092757.71902-3-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-06-03_06,2024-05-30_01,2024-05-17_01
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 11/11] ARM: multi_v7_defconfig: Add
-	MCP23S08 pinctrl support
+Content-Disposition: inline
+In-Reply-To: <20240603092757.71902-3-christophe.roullier@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, Jose Abreu <joabreu@synopsys.com>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 02/11] net: stmmac: dwmac-stm32:
+ Separate out external clock rate validation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +71,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Need to enable MCP23S08 I/O expanders to manage Ethernet phy
-reset in STM32MP135F-DK board
-STMMAC driver defer is not silent, need to put this config in
-built-in to avoid huge of Ethernet messages
+On Mon, Jun 03, 2024 at 11:27:48AM +0200, Christophe Roullier wrote:
+> +static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data *plat_dat)
+> +{
+> +	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
+> +	const u32 clk_rate = clk_get_rate(dwmac->clk_eth_ck);
+> +
+> +	switch (plat_dat->mac_interface) {
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Should these be phy_interface? Does this clock depend on the interface
+mode used with the PHY?
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 86bf057ac3663..9758f3d41ad70 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -469,6 +469,7 @@ CONFIG_SPI_XILINX=y
- CONFIG_SPI_SPIDEV=y
- CONFIG_SPMI=y
- CONFIG_PINCTRL_AS3722=y
-+CONFIG_PINCTRL_MCP23S08=y
- CONFIG_PINCTRL_MICROCHIP_SGPIO=y
- CONFIG_PINCTRL_OCELOT=y
- CONFIG_PINCTRL_PALMAS=y
 -- 
-2.25.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
