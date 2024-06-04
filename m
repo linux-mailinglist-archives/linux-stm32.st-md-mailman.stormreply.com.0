@@ -2,74 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775D38FAED8
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 11:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51298FB044
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 12:47:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39402C6DD67;
-	Tue,  4 Jun 2024 09:32:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F2BAC6DD67;
+	Tue,  4 Jun 2024 10:47:07 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0708C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C051FC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2024 09:32:18 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4548spgB031426;
- Tue, 4 Jun 2024 11:31:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- FQi2ng79ZmbW4+Hz+M/vUkFGo0dt44niiSmJA3UNOB8=; b=NNFQbzPsDaCwdtSy
- KCUCxh7vVExEbs/WTmc6yBoocLwdNPcmaMvPOrXmvjPyz3nfjvVK8yHVSleKOCYm
- /M1EuRO+4cfQrS3NAk+RhnWopiCC3u+/EJCaKq3ifO1fjPucLkaL5CCsBczqvGUo
- EL7+ulOBJs4NgJ2Vk51Y6DXsu+7lUS/HGnX29LRDtgu+XWj4JtjYjdhe5EPlAVrL
- 1TPqEiCUivRfx/hU0ztCgTou81vLETZ3TbOOpLzJUUgtPnv0R1Qy2jz7HvubfqNp
- EM5UUJ0hhbTOKwFSbr+T3OQEzWFCvxAslndZQlZTO0P1jIiATomnYh85TDMQBfVZ
- az5vEg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ygd70sge1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Jun 2024 11:31:59 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0626840045;
- Tue,  4 Jun 2024 11:31:55 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 46232211F37;
- Tue,  4 Jun 2024 11:30:43 +0200 (CEST)
-Received: from [10.48.86.164] (10.48.86.164) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 4 Jun
- 2024 11:30:42 +0200
-Message-ID: <291953b7-ed37-4b09-9009-588ffdd12fe7@foss.st.com>
-Date: Tue, 4 Jun 2024 11:30:41 +0200
+ Tue,  4 Jun 2024 10:47:00 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-52961b77655so900221e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 04 Jun 2024 03:47:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1717498020; x=1718102820;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=i5WLooy2A7mlEfBwUMQTaBlwD5VzPh4lOZOOGWiXZ1k=;
+ b=GhBfcTzUR7KhUVjDz8DVTXLNlQ4z2JlqmPteNPT1R8R8cmgv0VyfbfJ0MkrNTU3Qbq
+ Sb/NxdS6GeKQ03RM62wwdgFoApvDzc8pgNQJjtNqYyhJC6+MH9aKe17NQ1VBpREST1AI
+ AAEVIxg/xMxqa6qb4s4f1LRPXpZe6S6MJX4bPFEZciqXVZGzUh5Ha6WTs/TcA8sG2t4y
+ QUlUMcTuHSU/9YCivvs0wOW/G58vwfcf0qCzMlc1UqmlGq4YQfWM68uezsk7RiVg7Lza
+ BY2NkmVxT5D9RoNstlk5An17i24zE1r7qcLXQ+N+eSg+6+zpYGSg6wIliaCQxSlZ2ub3
+ fWzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1717498020; x=1718102820;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=i5WLooy2A7mlEfBwUMQTaBlwD5VzPh4lOZOOGWiXZ1k=;
+ b=W3GzKKf2XPXnzpYljvM362xo7lTxLkjawOgQcw/x3RkqiRc2zZKbnB/PBZee5XaEnf
+ sqE6L0Zr4JWTC/+/5jXuAjhZC8FdKCq/fCdvzmKpBbiGpYlVIoiiY7lbCMkolef8gFbL
+ ZMPAQbQ3Wwq6w1w45SWHyCRf3QPw1228qKv7YEoozot4YhAwV3eM/nKZo1heXtDzFgJ1
+ voXFI1OBRJOq9zw1O5YgN4X/YC/K/XX//tlGPoaow+S1lPZ91I+DFsBGDftg8jFreGH7
+ /l2YaJawcJjHtQj9wniK3YBPtfNSeUZqIpDNreAc+r3/KZF7mOhqmMU2bTcvIJfebPZk
+ E6ig==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/1hqcB5K+RBJq7u1KRrQp6OODtMq8a8ie9ekHyiPS4n4lR+96nb2bsOnJ/d5CBeAr523GGGldOxhf3ecEoa/NkGLvFnfY+4LiutputIZJsrSKtovsA27k
+X-Gm-Message-State: AOJu0Yw++V6S+mXa1pANBM5TqG26IE9Ubc0HJZLHUsh7qjVwZ3LixYuN
+ G24VWfA2mX0Fl2blxg4xY3ELPRCF8Nd91SgaYUEeIuc14BGCEFc1
+X-Google-Smtp-Source: AGHT+IFhpB4oLFNLONqB/WZnWU7eWkrmPR/i/a2NYKmzouexZTEd/9HPokyqyfou7PCwNPXhTpzSEw==
+X-Received: by 2002:ac2:59c9:0:b0:52b:84bd:345e with SMTP id
+ 2adb3069b0e04-52b8970c011mr6949767e87.43.1717498019597; 
+ Tue, 04 Jun 2024 03:46:59 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52b9e2404d5sm394822e87.297.2024.06.04.03.46.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Jun 2024 03:46:59 -0700 (PDT)
+Date: Tue, 4 Jun 2024 13:46:55 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <q6u6g6aqabsgwqwzrzi4q5nhw4qxuykleotfzwcds5gztxi5ji@e6nui6k6lrk7>
+References: <20240602143636.5839-1-fancer.lancer@gmail.com>
+ <20240602143636.5839-11-fancer.lancer@gmail.com>
+ <2lpomvxhmh7bxqhkuexukztwzjfblulobepmnc4g4us7leldgp@o3a3zgnpua2a>
+ <Zl2G+gK8qpBjGpb3@shell.armlinux.org.uk>
+ <equlcrx6dgdtrmrlnxxhdunpghw46sjcyn5z6m6lszyiddbag4@eo6oeotzsxef>
+ <Zl7ehKqLlzTUQIJG@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Richard Cochran
- <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20240603092757.71902-1-christophe.roullier@foss.st.com>
- <20240603092757.71902-11-christophe.roullier@foss.st.com>
- <29b79c7d-7ff6-40fb-97be-7198a0e9d437@denx.de>
-Content-Language: en-US
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <29b79c7d-7ff6-40fb-97be-7198a0e9d437@denx.de>
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-06-04_03,2024-05-30_01,2024-05-17_01
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 10/11] ARM: dts: stm32: add ethernet1
- for STM32MP135F-DK board
+Content-Disposition: inline
+In-Reply-To: <Zl7ehKqLlzTUQIJG@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, openbmc@lists.ozlabs.org,
+ Jose Abreu <joabreu@synopsys.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Jiawen Wu <jiawenwu@trustnetic.com>,
+ linux-arm-kernel@lists.infradead.org, Mengyuan Lou <mengyuanlou@net-swift.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 10/10] net: stmmac: Add DW
+ XPCS specified via "pcs-handle" support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,43 +97,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDYvMy8yNCAxNTowOCwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4gT24gNi8zLzI0IDExOjI3IEFN
-LCBDaHJpc3RvcGhlIFJvdWxsaWVyIHdyb3RlOgo+PiBFdGhlcm5ldDE6IFJNSUkgd2l0aCBjcnlz
-dGFsCj4+IFBIWSB1c2VkIGlzIFNNU0MgKExBTjg3NDJBKQo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBD
-aHJpc3RvcGhlIFJvdWxsaWVyIDxjaHJpc3RvcGhlLnJvdWxsaWVyQGZvc3Muc3QuY29tPgo+PiAt
-LS0KPj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRzIHwgMjQgKysr
-KysrKysrKysrKysrKysrKysrKysrCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAyNCBpbnNlcnRpb25z
-KCspCj4+Cj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1k
-ay5kdHMgCj4+IGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRzCj4+IGlu
-ZGV4IDU2N2U1M2FkMjg1ZmEuLmNlYmU5YjkxZWNlZDkgMTAwNjQ0Cj4+IC0tLSBhL2FyY2gvYXJt
-L2Jvb3QvZHRzL3N0L3N0bTMybXAxMzVmLWRrLmR0cwo+PiArKysgYi9hcmNoL2FybS9ib290L2R0
-cy9zdC9zdG0zMm1wMTM1Zi1kay5kdHMKPj4gQEAgLTE5LDYgKzE5LDcgQEAgLyB7Cj4+IMKgwqDC
-oMKgwqAgY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMTM1Zi1kayIsICJzdCxzdG0zMm1wMTM1IjsK
-Pj4gwqAgwqDCoMKgwqDCoCBhbGlhc2VzIHsKPj4gK8KgwqDCoMKgwqDCoMKgIGV0aGVybmV0MCA9
-ICZldGhlcm5ldDE7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzZXJpYWwwID0gJnVhcnQ0Owo+PiDC
-oMKgwqDCoMKgwqDCoMKgwqAgc2VyaWFsMSA9ICZ1c2FydDE7Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCBzZXJpYWwyID0gJnVhcnQ4Owo+PiBAQCAtMTQxLDYgKzE0MiwyOSBAQCAmY3J5cCB7Cj4+IMKg
-wqDCoMKgwqAgc3RhdHVzID0gIm9rYXkiOwo+PiDCoCB9Owo+PiDCoCArJmV0aGVybmV0MSB7Cj4+
-ICvCoMKgwqAgc3RhdHVzID0gIm9rYXkiOwo+PiArwqDCoMKgIHBpbmN0cmwtMCA9IDwmZXRoMV9y
-bWlpX3BpbnNfYT47Cj4+ICvCoMKgwqAgcGluY3RybC0xID0gPCZldGgxX3JtaWlfc2xlZXBfcGlu
-c19hPjsKPj4gK8KgwqDCoCBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOwo+PiAr
-wqDCoMKgIHBoeS1tb2RlID0gInJtaWkiOwo+PiArwqDCoMKgIG1heC1zcGVlZCA9IDwxMDA+Owo+
-Cj4gSXMgdGhpcyBuZWVkZWQgPyBSTUlJIGNhbm5vdCBnbyBmYXN0ZXIgdGhhbiAxMDAgLgo+Cm9r
-IChJIHdpbGwgcHV0IGluIHY0KQo+IEFsc28sIGtlZXAgdGhlIGxpc3Qgc29ydGVkIGFscGhhYmV0
-aWNhbGx5ICwgUCBnb2VzIGFmdGVyIE0gLgpvayAoSSB3aWxsIHB1dCBpbiB2NCkKPgo+PiArwqDC
-oMKgIHBoeS1oYW5kbGUgPSA8JnBoeTBfZXRoMT47Cj4+ICsKPj4gK8KgwqDCoCBtZGlvIHsKPj4g
-K8KgwqDCoMKgwqDCoMKgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+PiArwqDCoMKgwqDCoMKgwqAg
-I3NpemUtY2VsbHMgPSA8MD47Cj4+ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInNucHMs
-ZHdtYWMtbWRpbyI7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgIHBoeTBfZXRoMTogZXRoZXJuZXQt
-cGh5QDAgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gImV0aGVybmV0
-LXBoeS1pZDAwMDcuYzEzMSI7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlc2V0LWdwaW9z
-ID3CoCA8Jm1jcDIzMDE3IDkgR1BJT19BQ1RJVkVfTE9XPjsKPgo+IEV4dHJhIHNwYWNlIGJldHdl
-ZW4gPSBhbmQgPCAsIHBsZWFzZSBkcm9wLgpvayAoSSB3aWxsIHB1dCBpbiB2NCkKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Tue, Jun 04, 2024 at 10:29:40AM +0100, Russell King (Oracle) wrote:
+> On Tue, Jun 04, 2024 at 12:04:57PM +0300, Serge Semin wrote:
+> > On Mon, Jun 03, 2024 at 10:03:54AM +0100, Russell King (Oracle) wrote:
+> > > I can't think of a reasonable solution to this at the moment. One
+> > > solution could be pushing this down into the platform code to deal
+> > > with as an interim solution, via the new .pcs_init() method.
+> > > 
+> > > We could also do that with the current XPCS code, since we know that
+> > > only Intel mGBE uses xpcs. This would probably allow us to get rid
+> > > of the has_xpcs flag.
+> > 
+> > Basically you suggest to move the entire stmmac_pcs_setup() to the
+> > platforms, don't you? The patch 9 of this series indeed could have
+> > been converted to just moving the entire PCS-detection loop from
+> > stmmac_pcs_setup() to the Intel-specific pcs_init.
+> 
+
+> Yes, it's not like XPCS is used by more than one platform, it's only
+> Intel mGBE. So I don't see why it should have a privileged position
+> over any other PCS implementation that stmmac supports (there's now
+> three different PCS.)
+> 
+
+Alas DW XPCS has already got a more privileged position. The STMMAC
+driver calls the XPCS driver methods here and there (supported ifaces,
+EEE or PHY setup). Unless these calls are converted to some
+standard/new phylink_pcs calls IMO it would be better to preserve the
+default DW XPCS init at least for the "pcs-handle" property to
+motivate the platform drivers developers to follow some pre-defined
+device description pattern (e.g. defining DW XPCS devices in device
+tree), but leave the .pcs_init() for some platform-specific PCS inits
+(including which have already been implemented).
+
+As I already mentioned DW XPCS is of Synopsys vendor. The IP-core has
+been invented to provide a bridge between the Synopsys MAC IP-cores
+and PMA (mainly Synopsys PMAs) for the 1G/10G links like 1000Base-X,
+and 10GBase-X/-R/-KX4/-KR. The reason we see just a single use-case
+of the XPCS in the driver is that even though the STMMAC driver has DW
+XGMAC support the driver is mainly utilized for the 1G MACs (I don't
+see any platform currently having DW XGMAC defined). Since DW GMAC/QoS
+Eth can be configured to have the standard PHY interfaces available
+there is no need in XPCS in these cases (except a weird Intel mGBE).
+
+But when it comes to DW XGMAC it can be synthesized with GMII and XGMII
+interfaces only. These're exactly interfaces which DW XPCS supports on
+upstream. Thus basically the DW XPCS IP-core has been mainly produced
+for been utilized in a couple with DW XGMAC providing a ready-to-use
+solution for the XFP/SFP(+) ports or backplane-based applications. So
+should we have more DW XGMACs supported in the kernel we would have met
+more DW XPCS defined in there too.
+
+> If you don't want the code in the Intel driver, then what could be
+> done is provide a core implementation that gets hooked into the
+> .pcs_init() method.
+
+I don't mind converting patch 9 to moving the XPCS registration in the
+Intel-specific .pcs_init() (especially seeing it's just a single
+xpcs_create_mdiodev() call), but having the "pcs-handle" property
+handled generically in the STMMAC core would be a useful thing to have
+(see my reasoning above).
+
+-Serge(y)
+
+> 
+> The same is probably true of other PCSes if they end up being shared
+> across several different platforms.
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
