@@ -2,72 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE75B8FB5A7
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 16:39:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EE18FB71D
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 17:29:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CAEDC78002;
-	Tue,  4 Jun 2024 14:39:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D804C6B444;
+	Tue,  4 Jun 2024 15:29:03 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A02E0C78001
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30F3FC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2024 14:39:18 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 454CITxL011744;
- Tue, 4 Jun 2024 16:39:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- wKwsSbDUP5U8ltkUT/lf79BigFMhUPhxIubwoABa380=; b=7lgQXoagjOzWwKcA
- wFmFz8hyurpTC+g9lL+ZekiFu1B0hArKrM7BNzl6Bxj05veh07ogicGbF0Eygt4W
- A9NPjXWy9Vtu81xg6JwqXtLWt36evy5FyE4O64GRQNdmDtAp7cfPylzrbBh6QWdl
- k4uocNg0cuWlsD155NRrAUlwcSzJETkfQvr0slXLfaVw8YcJhYk2C7FYP5GpxMOu
- fnKCQmglPyUkxAX2x0q5xpjsl8DIERnttxolE0C4LlSAwdEFSenhj9ub2WPnBnCT
- UGyEDjPSmXhnnrCZSFoawgVo1thxAZqRHlYBPeOozLZApwiwpQ57VLhRN0pKuG8P
- pK/DFQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yg7r03j2d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Jun 2024 16:39:01 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D385D40044;
- Tue,  4 Jun 2024 16:38:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 05775221961;
- Tue,  4 Jun 2024 16:37:44 +0200 (CEST)
-Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 4 Jun
- 2024 16:37:43 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Tue, 4 Jun 2024 16:35:02 +0200
-Message-ID: <20240604143502.154463-12-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240604143502.154463-1-christophe.roullier@foss.st.com>
-References: <20240604143502.154463-1-christophe.roullier@foss.st.com>
+ Tue,  4 Jun 2024 15:28:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id D7D2ECE11E1;
+ Tue,  4 Jun 2024 15:28:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC733C4AF07;
+ Tue,  4 Jun 2024 15:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1717514933;
+ bh=x/4us6GB27e8U5onR/kVn8KG91qTiGMupA4imljcjo0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=YPBsyvsiAfAIWhD1hc0mcMqzQulHZF5EuqgnkBlF1c3YREo1nr0hU7Z9wZGAXGE9E
+ iOE8VyzF2NZLvKWXD2mKS8ZKZrmKzBCS7jyIQkAINe4FMx3gfmEyVbTW7jiOHrwsnR
+ yImw397ONLjUU0conlhC8sygyVPq9ZUGNnhBSiahO03yjPdmKXMWRuX9i2nALIodAr
+ 8iteTWcYiF8YsNnNXd5xPHiskSoTmvelYkNgJpqIb6+nD0M/XOD6tX1qCe/kyulkhO
+ Rjj7sTArrnN63JO4WTzNpjIFXfkY1u2D2j9kWD2gver+G+7CePcEWxR0ID/gJrLVjl
+ zAEIkTvfaeaLA==
+Date: Tue, 04 Jun 2024 10:28:51 -0500
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-04_09,2024-06-04_01,2024-05-17_01
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v4 11/11] ARM: multi_v7_defconfig: Add
-	MCP23S08 pinctrl support
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+In-Reply-To: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+References: <20240603092757.71902-1-christophe.roullier@foss.st.com>
+Message-Id: <171751454842.785918.9185314917748906790.robh@kernel.org>
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 00/11] Series to deliver Ethernet for
+	STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,30 +64,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Need to enable MCP23S08 I/O expanders to manage Ethernet PHY
-reset in STM32MP135F-DK board.
-Put this config in built-in like STMMAC to avoid huge of Ethernet
-messages during boot (deferred)
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+On Mon, 03 Jun 2024 11:27:46 +0200, Christophe Roullier wrote:
+> STM32MP13 is STM32 SOC with 2 GMACs instances
+>     GMAC IP version is SNPS 4.20.
+>     GMAC IP configure with 1 RX and 1 TX queue.
+>     DMA HW capability register supported
+>     RX Checksum Offload Engine supported
+>     TX Checksum insertion supported
+>     Wake-Up On Lan supported
+>     TSO supported
+> Rework dwmac glue to simplify management for next stm32 (integrate RFC from Marek)
+> 
+> V2: - Remark from Rob Herring (add Krzysztof's ack in patch 02/11, update in yaml)
+>       Remark from Serge Semin (upate commits msg)
+> V3: - Remove PHY regulator patch and Ethernet2 DT because need to clarify how to
+>       manage PHY regulator (in glue or PHY side)
+>     - Integrate RFC from Marek
+>     - Remark from Rob Herring in YAML documentation
+> 
+> Christophe Roullier (6):
+>   dt-bindings: net: add STM32MP13 compatible in documentation for stm32
+>   net: ethernet: stmmac: add management of stm32mp13 for stm32
+>   ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
+>   ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
+>   ARM: dts: stm32: add ethernet1 for STM32MP135F-DK board
+>   ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
+> 
+> Marek Vasut (5):
+>   net: stmmac: dwmac-stm32: Separate out external clock rate validation
+>   net: stmmac: dwmac-stm32: Separate out external clock selector
+>   net: stmmac: dwmac-stm32: Extract PMCR configuration
+>   net: stmmac: dwmac-stm32: Clean up the debug prints
+>   net: stmmac: dwmac-stm32: Fix Mhz to MHz
+> 
+>  .../devicetree/bindings/net/stm32-dwmac.yaml  |  41 +++-
+>  arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 +++++++
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          |  31 +++
+>  arch/arm/boot/dts/st/stm32mp133.dtsi          |  30 +++
+>  arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  24 +++
+>  arch/arm/configs/multi_v7_defconfig           |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 176 ++++++++++++++----
+>  7 files changed, 327 insertions(+), 47 deletions(-)
+> 
+> --
+> 2.25.1
+> 
+> 
+> 
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 86bf057ac3663..9758f3d41ad70 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -469,6 +469,7 @@ CONFIG_SPI_XILINX=y
- CONFIG_SPI_SPIDEV=y
- CONFIG_SPMI=y
- CONFIG_PINCTRL_AS3722=y
-+CONFIG_PINCTRL_MCP23S08=y
- CONFIG_PINCTRL_MICROCHIP_SGPIO=y
- CONFIG_PINCTRL_OCELOT=y
- CONFIG_PINCTRL_PALMAS=y
--- 
-2.25.1
+
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y st/stm32mp135f-dk.dtb' for 20240603092757.71902-1-christophe.roullier@foss.st.com:
+
+arch/arm/boot/dts/st/stm32mp135f-dk.dtb: adc@48003000: 'ethernet@5800e000' does not match any of the regexes: '^adc@[0-9]+$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
+
+
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
