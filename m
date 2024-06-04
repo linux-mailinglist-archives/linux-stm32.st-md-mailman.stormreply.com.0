@@ -2,42 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA4F8FB56A
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 16:33:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655FB8FB587
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2024 16:37:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 940E6C7128F;
-	Tue,  4 Jun 2024 14:33:26 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CED0C71288
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16AD6C78001;
+	Tue,  4 Jun 2024 14:37:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BE49C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2024 14:33:25 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBD161042;
- Tue,  4 Jun 2024 07:33:48 -0700 (PDT)
-Received: from e127643.broadband (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 82FDB3F64C;
- Tue,  4 Jun 2024 07:33:21 -0700 (PDT)
-From: James Clark <james.clark@arm.com>
-To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
- gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
- leo.yan@linux.dev, anshuman.khandual@arm.com
-Date: Tue,  4 Jun 2024 15:30:25 +0100
-Message-Id: <20240604143030.519906-17-james.clark@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240604143030.519906-1-james.clark@arm.com>
-References: <20240604143030.519906-1-james.clark@arm.com>
+ Tue,  4 Jun 2024 14:37:01 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 454DOLvW012864;
+ Tue, 4 Jun 2024 16:36:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=yc0Pxe2X2efIKfu9xwLwzE
+ iOJ7Ub60FE7k6shR7hdK8=; b=HkJWRbLpSrB7odl14Y7bp7yJSnOKlN33STWeuG
+ lJZPXdKc6VeCJ2FAfJFMvWMKpCkXnoRhqegpLYQgw0/BWuKWKg0KRRlRum8q3AW+
+ TXqMW3BZ1AY6l6xH7WHfuBh0oRy8dVfXaHqiEl/eCRFUE6wzOmfiJe5AQ2CfwOeF
+ rDE3vh0ngWbu7Dx1yBDtZXeRWehWDmzCTVG5pxXYZ9ABu+vjmuxl2PdPazNNandD
+ saDo9OfBsJ40P9l5wWYQJWJ/EpTJA3gYI6YRqrqMIHL7hi3J43oRuxC5Y51DgjQt
+ Ieohf9q8RY88WH8wYGen9SS8dwkVCN3lKS54jzmoANHB9VOQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yfw3wmp4v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Jun 2024 16:36:37 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 90E9140045;
+ Tue,  4 Jun 2024 16:36:30 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A9B1B221944;
+ Tue,  4 Jun 2024 16:35:15 +0200 (CEST)
+Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 4 Jun
+ 2024 16:35:14 +0200
+From: Christophe Roullier <christophe.roullier@foss.st.com>
+To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Christophe Roullier
+ <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
+Date: Tue, 4 Jun 2024 16:34:51 +0200
+Message-ID: <20240604143502.154463-1-christophe.roullier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- James Clark <james.clark@arm.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 16/16] coresight: Emit sink ID in the HW_ID
-	packets
+X-Originating-IP: [10.48.86.164]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-04_09,2024-06-04_01,2024-05-17_01
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 00/11] Series to deliver Ethernet for
+	STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,143 +81,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For Perf to be able to decode when per-sink trace IDs are used, emit the
-sink that's being written to for each ETM.
+STM32MP13 is STM32 SOC with 2 GMACs instances
+    GMAC IP version is SNPS 4.20.
+    GMAC IP configure with 1 RX and 1 TX queue.
+    DMA HW capability register supported
+    RX Checksum Offload Engine supported
+    TX Checksum insertion supported
+    Wake-Up On Lan supported
+    TSO supported
+Rework dwmac glue to simplify management for next stm32 (integrate RFC from Marek)
 
-Perf currently errors out if it sees a newer packet version so instead
-of bumping it, add a new minor version field. This can be used to
-signify new versions that have backwards compatible fields. Considering
-this change is only for high core count machines, it doesn't make sense
-to make a breaking change for everyone.
+V2: - Remark from Rob Herring (add Krzysztof's ack in patch 02/11, update in yaml)
+      Remark from Serge Semin (upate commits msg)
+V3: - Remove PHY regulator patch and Ethernet2 DT because need to clarify how to
+      manage PHY regulator (in glue or PHY side)
+    - Integrate RFC from Marek
+    - Remark from Rob Herring in YAML documentation
+V4: - Remark from Marek (remove max-speed, extra space in DT, update commit msg)
+    - Remark from Rasmus (add sign-off, add base-commit)
+    - Remark from Sai Krishna Gajula
 
-Signed-off-by: James Clark <james.clark@arm.com>
----
- drivers/hwtracing/coresight/coresight-core.c  | 26 ++++++++++---------
- .../hwtracing/coresight/coresight-etm-perf.c  | 16 ++++++++----
- drivers/hwtracing/coresight/coresight-priv.h  |  1 +
- include/linux/coresight-pmu.h                 | 17 +++++++++---
- 4 files changed, 39 insertions(+), 21 deletions(-)
+Christophe Roullier (6):
+  dt-bindings: net: add STM32MP13 compatible in documentation for stm32
+  net: ethernet: stmmac: add management of stm32mp13 for stm32
+  ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
+  ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
+  ARM: dts: stm32: add ethernet1 for STM32MP135F-DK board
+  ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index d5aaeafe5c7d..b6a88df582e0 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -487,23 +487,25 @@ struct coresight_device *coresight_get_sink(struct list_head *path)
- 	return csdev;
- }
- 
-+u32 coresight_get_sink_id(struct coresight_device *csdev)
-+{
-+	if (!csdev->ea)
-+		return 0;
-+
-+	/*
-+	 * See function etm_perf_add_symlink_sink() to know where
-+	 * this comes from.
-+	 */
-+	return (u32) (unsigned long) csdev->ea->var;
-+}
-+
- static int coresight_sink_by_id(struct device *dev, const void *data)
- {
- 	struct coresight_device *csdev = to_coresight_device(dev);
--	unsigned long hash;
- 
- 	if (csdev->type == CORESIGHT_DEV_TYPE_SINK ||
--	     csdev->type == CORESIGHT_DEV_TYPE_LINKSINK) {
--
--		if (!csdev->ea)
--			return 0;
--		/*
--		 * See function etm_perf_add_symlink_sink() to know where
--		 * this comes from.
--		 */
--		hash = (unsigned long)csdev->ea->var;
--
--		if ((u32)hash == *(u32 *)data)
-+	    csdev->type == CORESIGHT_DEV_TYPE_LINKSINK) {
-+		if (coresight_get_sink_id(csdev) == *(u32 *)data)
- 			return 1;
- 	}
- 
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index b6f505b50e67..a3a4d07a763f 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -453,6 +453,7 @@ static void etm_event_start(struct perf_event *event, int flags)
- 	struct coresight_device *sink, *csdev = per_cpu(csdev_src, cpu);
- 	struct list_head *path;
- 	u64 hw_id;
-+	u8 trace_id;
- 
- 	if (!csdev)
- 		goto fail;
-@@ -519,11 +520,16 @@ static void etm_event_start(struct perf_event *event, int flags)
- 	 */
- 	if (!cpumask_test_cpu(cpu, &event_data->aux_hwid_done)) {
- 		cpumask_set_cpu(cpu, &event_data->aux_hwid_done);
--		hw_id = FIELD_PREP(CS_AUX_HW_ID_VERSION_MASK,
--				   CS_AUX_HW_ID_CURR_VERSION);
--		hw_id |= FIELD_PREP(CS_AUX_HW_ID_TRACE_ID_MASK,
--				    coresight_trace_id_read_cpu_id_map(cpu,
--								       &sink->perf_sink_id_map));
-+
-+		trace_id = coresight_trace_id_read_cpu_id_map(cpu, &sink->perf_sink_id_map);
-+
-+		hw_id = FIELD_PREP(CS_AUX_HW_ID_MAJOR_VERSION_MASK,
-+				CS_AUX_HW_ID_MAJOR_VERSION);
-+		hw_id |= FIELD_PREP(CS_AUX_HW_ID_MINOR_VERSION_MASK,
-+				CS_AUX_HW_ID_MINOR_VERSION);
-+		hw_id |= FIELD_PREP(CS_AUX_HW_ID_TRACE_ID_MASK, trace_id);
-+		hw_id |= FIELD_PREP(CS_AUX_HW_ID_SINK_ID_MASK, coresight_get_sink_id(sink));
-+
- 		perf_report_aux_output_id(event, hw_id);
- 	}
- 
-diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-index 61a46d3bdcc8..05f891ca6b5c 100644
---- a/drivers/hwtracing/coresight/coresight-priv.h
-+++ b/drivers/hwtracing/coresight/coresight-priv.h
-@@ -148,6 +148,7 @@ int coresight_make_links(struct coresight_device *orig,
- 			 struct coresight_device *target);
- void coresight_remove_links(struct coresight_device *orig,
- 			    struct coresight_connection *conn);
-+u32 coresight_get_sink_id(struct coresight_device *csdev);
- 
- #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM3X)
- extern int etm_readl_cp14(u32 off, unsigned int *val);
-diff --git a/include/linux/coresight-pmu.h b/include/linux/coresight-pmu.h
-index 51ac441a37c3..89b0ac0014b0 100644
---- a/include/linux/coresight-pmu.h
-+++ b/include/linux/coresight-pmu.h
-@@ -49,12 +49,21 @@
-  * Interpretation of the PERF_RECORD_AUX_OUTPUT_HW_ID payload.
-  * Used to associate a CPU with the CoreSight Trace ID.
-  * [07:00] - Trace ID - uses 8 bits to make value easy to read in file.
-- * [59:08] - Unused (SBZ)
-- * [63:60] - Version
-+ * [39:08] - Sink ID - as reported in /sys/bus/event_source/devices/cs_etm/sinks/
-+ *	      Added in minor version 1.
-+ * [55:40] - Unused (SBZ)
-+ * [59:56] - Minor Version - previously existing fields are compatible with
-+ *	      all minor versions.
-+ * [63:60] - Major Version - previously existing fields mean different things
-+ *	      in new major versions.
-  */
- #define CS_AUX_HW_ID_TRACE_ID_MASK	GENMASK_ULL(7, 0)
--#define CS_AUX_HW_ID_VERSION_MASK	GENMASK_ULL(63, 60)
-+#define CS_AUX_HW_ID_SINK_ID_MASK	GENMASK_ULL(39, 8)
- 
--#define CS_AUX_HW_ID_CURR_VERSION 0
-+#define CS_AUX_HW_ID_MINOR_VERSION_MASK	GENMASK_ULL(59, 56)
-+#define CS_AUX_HW_ID_MAJOR_VERSION_MASK	GENMASK_ULL(63, 60)
-+
-+#define CS_AUX_HW_ID_MAJOR_VERSION 0
-+#define CS_AUX_HW_ID_MINOR_VERSION 1
- 
- #endif
+Marek Vasut (5):
+  net: stmmac: dwmac-stm32: Separate out external clock rate validation
+  net: stmmac: dwmac-stm32: Separate out external clock selector
+  net: stmmac: dwmac-stm32: Extract PMCR configuration
+  net: stmmac: dwmac-stm32: Clean up the debug prints
+  net: stmmac: dwmac-stm32: Fix Mhz to MHz
+
+ .../devicetree/bindings/net/stm32-dwmac.yaml  |  41 ++++-
+ arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 ++++++++
+ arch/arm/boot/dts/st/stm32mp131.dtsi          |  38 ++++
+ arch/arm/boot/dts/st/stm32mp133.dtsi          |  31 ++++
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  23 +++
+ arch/arm/configs/multi_v7_defconfig           |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 172 ++++++++++++++----
+ 7 files changed, 330 insertions(+), 47 deletions(-)
+
+
+base-commit: cd0057ad75116bacf16fea82e48c1db642971136
 -- 
-2.34.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
