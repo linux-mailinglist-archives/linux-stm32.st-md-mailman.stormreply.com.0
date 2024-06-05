@@ -2,74 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 306888FC342
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Jun 2024 08:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 845DC8FC436
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Jun 2024 09:13:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9D18C6C855;
-	Wed,  5 Jun 2024 06:02:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33237C6C855;
+	Wed,  5 Jun 2024 07:13:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 903E4C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12228C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Jun 2024 06:02:37 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4550MaE5012962;
- Wed, 5 Jun 2024 08:02:13 +0200
+ Wed,  5 Jun 2024 07:13:48 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 455035hg017301;
+ Wed, 5 Jun 2024 09:13:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 4DjnJoPbo30AhugHUqFSm27VE7pFMVJlJLwMT373m9s=; b=PiKQG1GBRo57aejO
- FnF4gTRb0IG3xnAWIAbBFCmvQH24hEykzo1zt84HDjp19atARc1OTRKd8Kc58H/K
- q3ChX++VjuDHyubscb2+TMPU6o0FTmfTjIAoC742vD+8NXRZWViipY0xtVEWqFlo
- qTG8IcvQwI9WKmj84cEmQKyLnWc/krPO+18HSfqSJ4I3YXzoWaxf5GFZHoQBtqQU
- cbvAOJPzfkt1e9CIX9mC4RwLEWQH9ei36Yiv8oYQFeQHR+cvwUBUjDM7gmUpXaYC
- SPax9jRQp9y5dMXNDWMbRqkiOqe1uW8uaeVP4NokCfUq5tKJW3lp0+WDTa0qpfa2
- vyHTOQ==
+ 8a+3EKBu55kmccJ+MjWqICbYzukEqrQwk1Qsid7INes=; b=DnjKjRhK4XY5Jp7Q
+ LjfH77IPpO2PyLRg9BzacSrSlmaaQo+Hwr616ztduTZRZ3qVZcKPDzmDI0yP/6ue
+ qcJ2HEbM4K0wNTPV1voTbgfWMObhqSXi73TLM0wYT8sSXeUqpm6u0gT9IvfI8Tia
+ 6XMXBZQ1E3SZWncK67i64R+K3IJKc2HNhlhLwWAwyBX0E9g3jaeOid2tZPKR+Pin
+ Mv5pPBGoE6km0XtGBoj245PGppwyr08kiPG72ameGXCENlkmJJUaSHWiUgvEYIl5
+ ssxs8QUBCY1XTU5y6hM8Lo9dEzanVSmU5eNJqGEbCsA0Oa16VnlrYE0n+MG/gh7s
+ 9XBitg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yfw3wq3fp-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yfw91fddt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Jun 2024 08:02:13 +0200 (MEST)
+ Wed, 05 Jun 2024 09:13:33 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 181B74004C;
- Wed,  5 Jun 2024 08:02:07 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A7D2C20F2DE;
- Wed,  5 Jun 2024 08:00:52 +0200 (CEST)
-Received: from [10.48.86.164] (10.48.86.164) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A1F0740045;
+ Wed,  5 Jun 2024 09:13:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D2B9A210F86;
+ Wed,  5 Jun 2024 09:12:49 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 5 Jun
- 2024 08:00:51 +0200
-Message-ID: <3a59b4cc-0c7b-47d6-8322-4ae12ddb3a4c@foss.st.com>
-Date: Wed, 5 Jun 2024 08:00:51 +0200
+ 2024 09:12:49 +0200
+Message-ID: <a4b8947a-f17a-4f78-bb94-a5c7b2514b24@foss.st.com>
+Date: Wed, 5 Jun 2024 09:12:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+To: Pascal Paillet <p.paillet@foss.st.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Richard Cochran
- <richardcochran@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-References: <20240604143502.154463-1-christophe.roullier@foss.st.com>
- <20240604143502.154463-11-christophe.roullier@foss.st.com>
- <c2242ba3-3692-4c5f-a979-0d0e80f23629@denx.de>
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20240521080131.473447-1-p.paillet@foss.st.com>
 Content-Language: en-US
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <c2242ba3-3692-4c5f-a979-0d0e80f23629@denx.de>
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240521080131.473447-1-p.paillet@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-06-04_11,2024-06-05_01,2024-05-17_01
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 10/11] ARM: dts: stm32: add ethernet1
- for STM32MP135F-DK board
+Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: OP-TEE async notif on PPI
+ 15 for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,24 +78,55 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi
 
-On 6/4/24 18:52, Marek Vasut wrote:
-> On 6/4/24 4:35 PM, Christophe Roullier wrote:
->> Ethernet1: RMII with crystal
->> PHY used is SMSC (LAN8742A)
->
-> Doesn't the STM32MP135F-DK come with two ethernet ports ?
-> Why not enable both ?
+On 5/21/24 10:01, Pascal Paillet wrote:
+> From: Etienne Carriere <etienne.carriere@foss.st.com>
+> 
+> Define GIC PPI 15 (aka GIC interrupt line 31) for OP-TEE asynchronous
+> notification.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
+> Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
+> ---
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 4 +++-
+>   arch/arm64/boot/dts/st/stm32mp253.dtsi | 4 ++++
+>   2 files changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index 4b48e4ed2d28..d0e10dda96b6 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -51,9 +51,11 @@ clk_rcbsec: clk-rcbsec {
+>   	};
+>   
+>   	firmware {
+> -		optee {
+> +		optee: optee {
+>   			compatible = "linaro,optee-tz";
+>   			method = "smc";
+> +			interrupt-parent = <&intc>;
+> +			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+>   		};
+>   
+>   		scmi {
+> diff --git a/arch/arm64/boot/dts/st/stm32mp253.dtsi b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+> index 029f88981961..69001f924d17 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp253.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+> @@ -28,3 +28,7 @@ timer {
+>   			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+>   	};
+>   };
+> +
+> +&optee {
+> +	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+> +};
 
-Hi Marek,
+Applied on stm32-next.
 
-As already discussed in V2, second ethernet have no cristal and need 
-"phy-supply" property to work, today this property is managed by 
-Ethernet glue, but
-
-should be present and managed in PHY node (as explained by Rob). So I 
-will push second Ethernet in next step ;-)
-
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
