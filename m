@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706718FE829
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jun 2024 15:50:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E65B8FE8B9
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jun 2024 16:10:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16D32C6DD67;
-	Thu,  6 Jun 2024 13:50:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F36BC6DD67;
+	Thu,  6 Jun 2024 14:10:20 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B802C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EBC6C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jun 2024 13:50:17 +0000 (UTC)
+ Thu,  6 Jun 2024 14:10:12 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2CB5C2F4;
- Thu,  6 Jun 2024 06:50:41 -0700 (PDT)
-Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1272C3F64C;
- Thu,  6 Jun 2024 06:50:12 -0700 (PDT)
-Message-ID: <d8b016dc-2ab0-442b-97b9-00ae352553c6@arm.com>
-Date: Thu, 6 Jun 2024 14:50:11 +0100
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 43DA52F4;
+ Thu,  6 Jun 2024 07:10:36 -0700 (PDT)
+Received: from [192.168.1.100] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
+ 327693F64C; Thu,  6 Jun 2024 07:10:09 -0700 (PDT)
+Message-ID: <e6b436f0-3d1b-47c4-836f-5d5a2a0a0a31@arm.com>
+Date: Thu, 6 Jun 2024 15:10:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
- gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
- leo.yan@linux.dev, anshuman.khandual@arm.com
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
 References: <20240604143030.519906-1-james.clark@arm.com>
  <20240604143030.519906-12-james.clark@arm.com>
+ <d8b016dc-2ab0-442b-97b9-00ae352553c6@arm.com>
 Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20240604143030.519906-12-james.clark@arm.com>
+From: James Clark <james.clark@arm.com>
+In-Reply-To: <d8b016dc-2ab0-442b-97b9-00ae352553c6@arm.com>
 Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Adrian Hunter <adrian.hunter@intel.com>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, anshuman.khandual@arm.com,
  Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ mike.leach@linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ John Garry <john.g.garry@oracle.com>, coresight@lists.linaro.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, leo.yan@linux.dev,
+ Jiri Olsa <jolsa@kernel.org>, gankulkarni@os.amperecomputing.com
 Subject: Re: [Linux-stm32] [PATCH v2 11/16] coresight: Expose map arguments
 	in trace ID API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -51,189 +52,136 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04/06/2024 15:30, James Clark wrote:
-> The trace ID API is currently hard coded to always use the global map.
-> Add public versions that allow the map to be passed in so that Perf
-> mode can use per-sink maps. Keep the non-map versions so that sysfs
-> mode can continue to use the default global map.
-> 
-> System ID functions are unchanged because they will always use the
-> default map.
-> 
-> Signed-off-by: James Clark <james.clark@arm.com>
-> ---
->   .../hwtracing/coresight/coresight-trace-id.c  | 36 ++++++++++++++-----
->   .../hwtracing/coresight/coresight-trace-id.h  | 20 +++++++++--
->   2 files changed, 45 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
-> index 19005b5b4dc4..5561989a03fa 100644
-> --- a/drivers/hwtracing/coresight/coresight-trace-id.c
-> +++ b/drivers/hwtracing/coresight/coresight-trace-id.c
-> @@ -12,7 +12,7 @@
->   
->   #include "coresight-trace-id.h"
->   
-> -/* Default trace ID map. Used on systems that don't require per sink mappings */
-> +/* Default trace ID map. Used in sysfs mode and for system sources */
->   static struct coresight_trace_id_map id_map_default;
->   
->   /* maintain a record of the mapping of IDs and pending releases per cpu */
-> @@ -47,7 +47,7 @@ static void coresight_trace_id_dump_table(struct coresight_trace_id_map *id_map,
->   #endif
->   
->   /* unlocked read of current trace ID value for given CPU */
-> -static int _coresight_trace_id_read_cpu_id(int cpu)
-> +static int _coresight_trace_id_read_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
->   {
->   	return atomic_read(&per_cpu(cpu_id, cpu));
->   }
-> @@ -152,7 +152,7 @@ static void coresight_trace_id_release_all_pending(void)
->   	DUMP_ID_MAP(id_map);
->   }
->   
-> -static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
-> +static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
->   {
->   	unsigned long flags;
->   	int id;
-> @@ -160,7 +160,7 @@ static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_
->   	spin_lock_irqsave(&id_map_lock, flags);
-
-Could we also reduce the contention on the id_map_lock, by moving the 
-spinlock per map ? It can be a separate patch.
-
-This patch as such looks good to me.
-
-Suzuki
-
-
->   
->   	/* check for existing allocation for this CPU */
-> -	id = _coresight_trace_id_read_cpu_id(cpu);
-> +	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
->   	if (id)
->   		goto get_cpu_id_clr_pend;
->   
-> @@ -196,13 +196,13 @@ static int coresight_trace_id_map_get_cpu_id(int cpu, struct coresight_trace_id_
->   	return id;
->   }
->   
-> -static void coresight_trace_id_map_put_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
-> +static void _coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_map *id_map)
->   {
->   	unsigned long flags;
->   	int id;
->   
->   	/* check for existing allocation for this CPU */
-> -	id = _coresight_trace_id_read_cpu_id(cpu);
-> +	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
->   	if (!id)
->   		return;
->   
-> @@ -254,22 +254,40 @@ static void coresight_trace_id_map_put_system_id(struct coresight_trace_id_map *
->   
->   int coresight_trace_id_get_cpu_id(int cpu)
->   {
-> -	return coresight_trace_id_map_get_cpu_id(cpu, &id_map_default);
-> +	return _coresight_trace_id_get_cpu_id(cpu, &id_map_default);
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_get_cpu_id);
->   
-> +int coresight_trace_id_get_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map)
-> +{
-> +	return _coresight_trace_id_get_cpu_id(cpu, id_map);
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_trace_id_get_cpu_id_map);
-> +
->   void coresight_trace_id_put_cpu_id(int cpu)
->   {
-> -	coresight_trace_id_map_put_cpu_id(cpu, &id_map_default);
-> +	_coresight_trace_id_put_cpu_id(cpu, &id_map_default);
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_put_cpu_id);
->   
-> +void coresight_trace_id_put_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map)
-> +{
-> +	_coresight_trace_id_put_cpu_id(cpu, id_map);
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_trace_id_put_cpu_id_map);
-> +
->   int coresight_trace_id_read_cpu_id(int cpu)
->   {
-> -	return _coresight_trace_id_read_cpu_id(cpu);
-> +	return _coresight_trace_id_read_cpu_id(cpu, &id_map_default);
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_read_cpu_id);
->   
-> +int coresight_trace_id_read_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map)
-> +{
-> +	return _coresight_trace_id_read_cpu_id(cpu, id_map);
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_trace_id_read_cpu_id_map);
-> +
->   int coresight_trace_id_get_system_id(void)
->   {
->   	return coresight_trace_id_map_get_system_id(&id_map_default);
-> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.h b/drivers/hwtracing/coresight/coresight-trace-id.h
-> index 49438a96fcc6..840babdd0794 100644
-> --- a/drivers/hwtracing/coresight/coresight-trace-id.h
-> +++ b/drivers/hwtracing/coresight/coresight-trace-id.h
-> @@ -42,8 +42,6 @@
->   #define IS_VALID_CS_TRACE_ID(id)	\
->   	((id > CORESIGHT_TRACE_ID_RES_0) && (id < CORESIGHT_TRACE_ID_RES_TOP))
->   
-> -/* Allocate and release IDs for a single default trace ID map */
-> -
->   /**
->    * Read and optionally allocate a CoreSight trace ID and associate with a CPU.
->    *
-> @@ -59,6 +57,12 @@
->    */
->   int coresight_trace_id_get_cpu_id(int cpu);
->   
-> +/**
-> + * Version of coresight_trace_id_get_cpu_id() that allows the ID map to operate
-> + * on to be provided.
-> + */
-> +int coresight_trace_id_get_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map);
-> +
->   /**
->    * Release an allocated trace ID associated with the CPU.
->    *
-> @@ -72,6 +76,12 @@ int coresight_trace_id_get_cpu_id(int cpu);
->    */
->   void coresight_trace_id_put_cpu_id(int cpu);
->   
-> +/**
-> + * Version of coresight_trace_id_put_cpu_id() that allows the ID map to operate
-> + * on to be provided.
-> + */
-> +void coresight_trace_id_put_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map);
-> +
->   /**
->    * Read the current allocated CoreSight Trace ID value for the CPU.
->    *
-> @@ -92,6 +102,12 @@ void coresight_trace_id_put_cpu_id(int cpu);
->    */
->   int coresight_trace_id_read_cpu_id(int cpu);
->   
-> +/**
-> + * Version of coresight_trace_id_read_cpu_id() that allows the ID map to operate
-> + * on to be provided.
-> + */
-> +int coresight_trace_id_read_cpu_id_map(int cpu, struct coresight_trace_id_map *id_map);
-> +
->   /**
->    * Allocate a CoreSight trace ID for a system component.
->    *
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAwNi8wNi8yMDI0IDE0OjUwLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDA0LzA2
+LzIwMjQgMTU6MzAsIEphbWVzIENsYXJrIHdyb3RlOgo+PiBUaGUgdHJhY2UgSUQgQVBJIGlzIGN1
+cnJlbnRseSBoYXJkIGNvZGVkIHRvIGFsd2F5cyB1c2UgdGhlIGdsb2JhbCBtYXAuCj4+IEFkZCBw
+dWJsaWMgdmVyc2lvbnMgdGhhdCBhbGxvdyB0aGUgbWFwIHRvIGJlIHBhc3NlZCBpbiBzbyB0aGF0
+IFBlcmYKPj4gbW9kZSBjYW4gdXNlIHBlci1zaW5rIG1hcHMuIEtlZXAgdGhlIG5vbi1tYXAgdmVy
+c2lvbnMgc28gdGhhdCBzeXNmcwo+PiBtb2RlIGNhbiBjb250aW51ZSB0byB1c2UgdGhlIGRlZmF1
+bHQgZ2xvYmFsIG1hcC4KPj4KPj4gU3lzdGVtIElEIGZ1bmN0aW9ucyBhcmUgdW5jaGFuZ2VkIGJl
+Y2F1c2UgdGhleSB3aWxsIGFsd2F5cyB1c2UgdGhlCj4+IGRlZmF1bHQgbWFwLgo+Pgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4gLS0tCj4+IMKg
+IC4uLi9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5jwqAgfCAzNiArKysr
+KysrKysrKysrKy0tLS0tCj4+IMKgIC4uLi9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10
+cmFjZS1pZC5owqAgfCAyMCArKysrKysrKystLQo+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDQ1IGlu
+c2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9o
+d3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5jCj4+IGIvZHJpdmVycy9od3Ry
+YWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5jCj4+IGluZGV4IDE5MDA1YjViNGRj
+NC4uNTU2MTk4OWEwM2ZhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
+aHQvY29yZXNpZ2h0LXRyYWNlLWlkLmMKPj4gKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNp
+Z2h0L2NvcmVzaWdodC10cmFjZS1pZC5jCj4+IEBAIC0xMiw3ICsxMiw3IEBACj4+IMKgIMKgICNp
+bmNsdWRlICJjb3Jlc2lnaHQtdHJhY2UtaWQuaCIKPj4gwqAgLS8qIERlZmF1bHQgdHJhY2UgSUQg
+bWFwLiBVc2VkIG9uIHN5c3RlbXMgdGhhdCBkb24ndCByZXF1aXJlIHBlcgo+PiBzaW5rIG1hcHBp
+bmdzICovCj4+ICsvKiBEZWZhdWx0IHRyYWNlIElEIG1hcC4gVXNlZCBpbiBzeXNmcyBtb2RlIGFu
+ZCBmb3Igc3lzdGVtIHNvdXJjZXMgKi8KPj4gwqAgc3RhdGljIHN0cnVjdCBjb3Jlc2lnaHRfdHJh
+Y2VfaWRfbWFwIGlkX21hcF9kZWZhdWx0Owo+PiDCoCDCoCAvKiBtYWludGFpbiBhIHJlY29yZCBv
+ZiB0aGUgbWFwcGluZyBvZiBJRHMgYW5kIHBlbmRpbmcgcmVsZWFzZXMKPj4gcGVyIGNwdSAqLwo+
+PiBAQCAtNDcsNyArNDcsNyBAQCBzdGF0aWMgdm9pZCBjb3Jlc2lnaHRfdHJhY2VfaWRfZHVtcF90
+YWJsZShzdHJ1Y3QKPj4gY29yZXNpZ2h0X3RyYWNlX2lkX21hcCAqaWRfbWFwLAo+PiDCoCAjZW5k
+aWYKPj4gwqAgwqAgLyogdW5sb2NrZWQgcmVhZCBvZiBjdXJyZW50IHRyYWNlIElEIHZhbHVlIGZv
+ciBnaXZlbiBDUFUgKi8KPj4gLXN0YXRpYyBpbnQgX2NvcmVzaWdodF90cmFjZV9pZF9yZWFkX2Nw
+dV9pZChpbnQgY3B1KQo+PiArc3RhdGljIGludCBfY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1
+X2lkKGludCBjcHUsIHN0cnVjdAo+PiBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICppZF9tYXApCj4+
+IMKgIHsKPj4gwqDCoMKgwqDCoCByZXR1cm4gYXRvbWljX3JlYWQoJnBlcl9jcHUoY3B1X2lkLCBj
+cHUpKTsKPj4gwqAgfQo+PiBAQCAtMTUyLDcgKzE1Miw3IEBAIHN0YXRpYyB2b2lkCj4+IGNvcmVz
+aWdodF90cmFjZV9pZF9yZWxlYXNlX2FsbF9wZW5kaW5nKHZvaWQpCj4+IMKgwqDCoMKgwqAgRFVN
+UF9JRF9NQVAoaWRfbWFwKTsKPj4gwqAgfQo+PiDCoCAtc3RhdGljIGludCBjb3Jlc2lnaHRfdHJh
+Y2VfaWRfbWFwX2dldF9jcHVfaWQoaW50IGNwdSwgc3RydWN0Cj4+IGNvcmVzaWdodF90cmFjZV9p
+ZF9tYXAgKmlkX21hcCkKPj4gK3N0YXRpYyBpbnQgX2NvcmVzaWdodF90cmFjZV9pZF9nZXRfY3B1
+X2lkKGludCBjcHUsIHN0cnVjdAo+PiBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICppZF9tYXApCj4+
+IMKgIHsKPj4gwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGZsYWdzOwo+PiDCoMKgwqDCoMKgIGlu
+dCBpZDsKPj4gQEAgLTE2MCw3ICsxNjAsNyBAQCBzdGF0aWMgaW50IGNvcmVzaWdodF90cmFjZV9p
+ZF9tYXBfZ2V0X2NwdV9pZChpbnQKPj4gY3B1LCBzdHJ1Y3QgY29yZXNpZ2h0X3RyYWNlX2lkXwo+
+PiDCoMKgwqDCoMKgIHNwaW5fbG9ja19pcnFzYXZlKCZpZF9tYXBfbG9jaywgZmxhZ3MpOwo+IAo+
+IENvdWxkIHdlIGFsc28gcmVkdWNlIHRoZSBjb250ZW50aW9uIG9uIHRoZSBpZF9tYXBfbG9jaywg
+YnkgbW92aW5nIHRoZQo+IHNwaW5sb2NrIHBlciBtYXAgPyBJdCBjYW4gYmUgYSBzZXBhcmF0ZSBw
+YXRjaC4KPiAKPiBUaGlzIHBhdGNoIGFzIHN1Y2ggbG9va3MgZ29vZCB0byBtZS4KPiAKPiBTdXp1
+a2kKPiAKPiAKCkdvb2QgcG9pbnQgeWVzIHdlIGNhbiBkbyB0aGF0LgoKPj4gwqAgwqDCoMKgwqDC
+oCAvKiBjaGVjayBmb3IgZXhpc3RpbmcgYWxsb2NhdGlvbiBmb3IgdGhpcyBDUFUgKi8KPj4gLcKg
+wqDCoCBpZCA9IF9jb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWQoY3B1KTsKPj4gK8KgwqDC
+oCBpZCA9IF9jb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWQoY3B1LCBpZF9tYXApOwo+PiDC
+oMKgwqDCoMKgIGlmIChpZCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZ2V0X2NwdV9pZF9j
+bHJfcGVuZDsKPj4gwqAgQEAgLTE5NiwxMyArMTk2LDEzIEBAIHN0YXRpYyBpbnQKPj4gY29yZXNp
+Z2h0X3RyYWNlX2lkX21hcF9nZXRfY3B1X2lkKGludCBjcHUsIHN0cnVjdCBjb3Jlc2lnaHRfdHJh
+Y2VfaWRfCj4+IMKgwqDCoMKgwqAgcmV0dXJuIGlkOwo+PiDCoCB9Cj4+IMKgIC1zdGF0aWMgdm9p
+ZCBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwX3B1dF9jcHVfaWQoaW50IGNwdSwgc3RydWN0Cj4+IGNv
+cmVzaWdodF90cmFjZV9pZF9tYXAgKmlkX21hcCkKPj4gK3N0YXRpYyB2b2lkIF9jb3Jlc2lnaHRf
+dHJhY2VfaWRfcHV0X2NwdV9pZChpbnQgY3B1LCBzdHJ1Y3QKPj4gY29yZXNpZ2h0X3RyYWNlX2lk
+X21hcCAqaWRfbWFwKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBmbGFnczsK
+Pj4gwqDCoMKgwqDCoCBpbnQgaWQ7Cj4+IMKgIMKgwqDCoMKgwqAgLyogY2hlY2sgZm9yIGV4aXN0
+aW5nIGFsbG9jYXRpb24gZm9yIHRoaXMgQ1BVICovCj4+IC3CoMKgwqAgaWQgPSBfY29yZXNpZ2h0
+X3RyYWNlX2lkX3JlYWRfY3B1X2lkKGNwdSk7Cj4+ICvCoMKgwqAgaWQgPSBfY29yZXNpZ2h0X3Ry
+YWNlX2lkX3JlYWRfY3B1X2lkKGNwdSwgaWRfbWFwKTsKPj4gwqDCoMKgwqDCoCBpZiAoIWlkKQo+
+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuOwo+PiDCoCBAQCAtMjU0LDIyICsyNTQsNDAgQEAg
+c3RhdGljIHZvaWQKPj4gY29yZXNpZ2h0X3RyYWNlX2lkX21hcF9wdXRfc3lzdGVtX2lkKHN0cnVj
+dCBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICoKPj4gwqAgwqAgaW50IGNvcmVzaWdodF90cmFjZV9p
+ZF9nZXRfY3B1X2lkKGludCBjcHUpCj4+IMKgIHsKPj4gLcKgwqDCoCByZXR1cm4gY29yZXNpZ2h0
+X3RyYWNlX2lkX21hcF9nZXRfY3B1X2lkKGNwdSwgJmlkX21hcF9kZWZhdWx0KTsKPj4gK8KgwqDC
+oCByZXR1cm4gX2NvcmVzaWdodF90cmFjZV9pZF9nZXRfY3B1X2lkKGNwdSwgJmlkX21hcF9kZWZh
+dWx0KTsKPj4gwqAgfQo+PiDCoCBFWFBPUlRfU1lNQk9MX0dQTChjb3Jlc2lnaHRfdHJhY2VfaWRf
+Z2V0X2NwdV9pZCk7Cj4+IMKgICtpbnQgY29yZXNpZ2h0X3RyYWNlX2lkX2dldF9jcHVfaWRfbWFw
+KGludCBjcHUsIHN0cnVjdAo+PiBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICppZF9tYXApCj4+ICt7
+Cj4+ICvCoMKgwqAgcmV0dXJuIF9jb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZChjcHUsIGlk
+X21hcCk7Cj4+ICt9Cj4+ICtFWFBPUlRfU1lNQk9MX0dQTChjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0
+X2NwdV9pZF9tYXApOwo+PiArCj4+IMKgIHZvaWQgY29yZXNpZ2h0X3RyYWNlX2lkX3B1dF9jcHVf
+aWQoaW50IGNwdSkKPj4gwqAgewo+PiAtwqDCoMKgIGNvcmVzaWdodF90cmFjZV9pZF9tYXBfcHV0
+X2NwdV9pZChjcHUsICZpZF9tYXBfZGVmYXVsdCk7Cj4+ICvCoMKgwqAgX2NvcmVzaWdodF90cmFj
+ZV9pZF9wdXRfY3B1X2lkKGNwdSwgJmlkX21hcF9kZWZhdWx0KTsKPj4gwqAgfQo+PiDCoCBFWFBP
+UlRfU1lNQk9MX0dQTChjb3Jlc2lnaHRfdHJhY2VfaWRfcHV0X2NwdV9pZCk7Cj4+IMKgICt2b2lk
+IGNvcmVzaWdodF90cmFjZV9pZF9wdXRfY3B1X2lkX21hcChpbnQgY3B1LCBzdHJ1Y3QKPj4gY29y
+ZXNpZ2h0X3RyYWNlX2lkX21hcCAqaWRfbWFwKQo+PiArewo+PiArwqDCoMKgIF9jb3Jlc2lnaHRf
+dHJhY2VfaWRfcHV0X2NwdV9pZChjcHUsIGlkX21hcCk7Cj4+ICt9Cj4+ICtFWFBPUlRfU1lNQk9M
+X0dQTChjb3Jlc2lnaHRfdHJhY2VfaWRfcHV0X2NwdV9pZF9tYXApOwo+PiArCj4+IMKgIGludCBj
+b3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWQoaW50IGNwdSkKPj4gwqAgewo+PiAtwqDCoMKg
+IHJldHVybiBfY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lkKGNwdSk7Cj4+ICvCoMKgwqAg
+cmV0dXJuIF9jb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWQoY3B1LCAmaWRfbWFwX2RlZmF1
+bHQpOwo+PiDCoCB9Cj4+IMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNvcmVzaWdodF90cmFjZV9pZF9y
+ZWFkX2NwdV9pZCk7Cj4+IMKgICtpbnQgY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lkX21h
+cChpbnQgY3B1LCBzdHJ1Y3QKPj4gY29yZXNpZ2h0X3RyYWNlX2lkX21hcCAqaWRfbWFwKQo+PiAr
+ewo+PiArwqDCoMKgIHJldHVybiBfY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lkKGNwdSwg
+aWRfbWFwKTsKPj4gK30KPj4gK0VYUE9SVF9TWU1CT0xfR1BMKGNvcmVzaWdodF90cmFjZV9pZF9y
+ZWFkX2NwdV9pZF9tYXApOwo+PiArCj4+IMKgIGludCBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X3N5
+c3RlbV9pZCh2b2lkKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgcmV0dXJuIGNvcmVzaWdodF90cmFj
+ZV9pZF9tYXBfZ2V0X3N5c3RlbV9pZCgmaWRfbWFwX2RlZmF1bHQpOwo+PiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5oCj4+IGIvZHJp
+dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5oCj4+IGluZGV4IDQ5
+NDM4YTk2ZmNjNi4uODQwYmFiZGQwNzk0IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2lu
+Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRyYWNlLWlkLmgKPj4gKysrIGIvZHJpdmVycy9od3RyYWNp
+bmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cmFjZS1pZC5oCj4+IEBAIC00Miw4ICs0Miw2IEBACj4+
+IMKgICNkZWZpbmUgSVNfVkFMSURfQ1NfVFJBQ0VfSUQoaWQpwqDCoMKgIFwKPj4gwqDCoMKgwqDC
+oCAoKGlkID4gQ09SRVNJR0hUX1RSQUNFX0lEX1JFU18wKSAmJiAoaWQgPAo+PiBDT1JFU0lHSFRf
+VFJBQ0VfSURfUkVTX1RPUCkpCj4+IMKgIC0vKiBBbGxvY2F0ZSBhbmQgcmVsZWFzZSBJRHMgZm9y
+IGEgc2luZ2xlIGRlZmF1bHQgdHJhY2UgSUQgbWFwICovCj4+IC0KPj4gwqAgLyoqCj4+IMKgwqAg
+KiBSZWFkIGFuZCBvcHRpb25hbGx5IGFsbG9jYXRlIGEgQ29yZVNpZ2h0IHRyYWNlIElEIGFuZCBh
+c3NvY2lhdGUKPj4gd2l0aCBhIENQVS4KPj4gwqDCoCAqCj4+IEBAIC01OSw2ICs1NywxMiBAQAo+
+PiDCoMKgICovCj4+IMKgIGludCBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZChpbnQgY3B1
+KTsKPj4gwqAgKy8qKgo+PiArICogVmVyc2lvbiBvZiBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2Nw
+dV9pZCgpIHRoYXQgYWxsb3dzIHRoZSBJRCBtYXAKPj4gdG8gb3BlcmF0ZQo+PiArICogb24gdG8g
+YmUgcHJvdmlkZWQuCj4+ICsgKi8KPj4gK2ludCBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9p
+ZF9tYXAoaW50IGNwdSwgc3RydWN0Cj4+IGNvcmVzaWdodF90cmFjZV9pZF9tYXAgKmlkX21hcCk7
+Cj4+ICsKPj4gwqAgLyoqCj4+IMKgwqAgKiBSZWxlYXNlIGFuIGFsbG9jYXRlZCB0cmFjZSBJRCBh
+c3NvY2lhdGVkIHdpdGggdGhlIENQVS4KPj4gwqDCoCAqCj4+IEBAIC03Miw2ICs3NiwxMiBAQCBp
+bnQgY29yZXNpZ2h0X3RyYWNlX2lkX2dldF9jcHVfaWQoaW50IGNwdSk7Cj4+IMKgwqAgKi8KPj4g
+wqAgdm9pZCBjb3Jlc2lnaHRfdHJhY2VfaWRfcHV0X2NwdV9pZChpbnQgY3B1KTsKPj4gwqAgKy8q
+Kgo+PiArICogVmVyc2lvbiBvZiBjb3Jlc2lnaHRfdHJhY2VfaWRfcHV0X2NwdV9pZCgpIHRoYXQg
+YWxsb3dzIHRoZSBJRCBtYXAKPj4gdG8gb3BlcmF0ZQo+PiArICogb24gdG8gYmUgcHJvdmlkZWQu
+Cj4+ICsgKi8KPj4gK3ZvaWQgY29yZXNpZ2h0X3RyYWNlX2lkX3B1dF9jcHVfaWRfbWFwKGludCBj
+cHUsIHN0cnVjdAo+PiBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICppZF9tYXApOwo+PiArCj4+IMKg
+IC8qKgo+PiDCoMKgICogUmVhZCB0aGUgY3VycmVudCBhbGxvY2F0ZWQgQ29yZVNpZ2h0IFRyYWNl
+IElEIHZhbHVlIGZvciB0aGUgQ1BVLgo+PiDCoMKgICoKPj4gQEAgLTkyLDYgKzEwMiwxMiBAQCB2
+b2lkIGNvcmVzaWdodF90cmFjZV9pZF9wdXRfY3B1X2lkKGludCBjcHUpOwo+PiDCoMKgICovCj4+
+IMKgIGludCBjb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWQoaW50IGNwdSk7Cj4+IMKgICsv
+KioKPj4gKyAqIFZlcnNpb24gb2YgY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lkKCkgdGhh
+dCBhbGxvd3MgdGhlIElEIG1hcAo+PiB0byBvcGVyYXRlCj4+ICsgKiBvbiB0byBiZSBwcm92aWRl
+ZC4KPj4gKyAqLwo+PiAraW50IGNvcmVzaWdodF90cmFjZV9pZF9yZWFkX2NwdV9pZF9tYXAoaW50
+IGNwdSwgc3RydWN0Cj4+IGNvcmVzaWdodF90cmFjZV9pZF9tYXAgKmlkX21hcCk7Cj4+ICsKPj4g
+wqAgLyoqCj4+IMKgwqAgKiBBbGxvY2F0ZSBhIENvcmVTaWdodCB0cmFjZSBJRCBmb3IgYSBzeXN0
+ZW0gY29tcG9uZW50Lgo+PiDCoMKgICoKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
