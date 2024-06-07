@@ -2,45 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0683900533
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jun 2024 15:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A01900553
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jun 2024 15:43:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E366C7129F;
-	Fri,  7 Jun 2024 13:40:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B5B4C7129F;
+	Fri,  7 Jun 2024 13:43:57 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E44CC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0ED9C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jun 2024 13:40:23 +0000 (UTC)
+ Fri,  7 Jun 2024 13:43:49 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AC130153B;
- Fri,  7 Jun 2024 06:40:46 -0700 (PDT)
-Received: from [10.57.5.199] (unknown [10.57.5.199])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA4663F792;
- Fri,  7 Jun 2024 06:40:18 -0700 (PDT)
-Message-ID: <89337894-91b6-4c67-a5a9-7cfc5b902f76@arm.com>
-Date: Fri, 7 Jun 2024 14:40:17 +0100
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C08AD153B;
+ Fri,  7 Jun 2024 06:44:13 -0700 (PDT)
+Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 675953F792;
+ Fri,  7 Jun 2024 06:43:46 -0700 (PDT)
+Message-ID: <4165a188-8c78-4675-8557-844b5d270f3d@arm.com>
+Date: Fri, 7 Jun 2024 14:43:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
+ gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
+ leo.yan@linux.dev, anshuman.khandual@arm.com
 References: <20240604143030.519906-1-james.clark@arm.com>
- <20240604143030.519906-14-james.clark@arm.com>
- <b236da36-0730-4284-98df-581d47bc612e@arm.com>
+ <20240604143030.519906-15-james.clark@arm.com>
 Content-Language: en-US
-From: James Clark <james.clark@arm.com>
-In-Reply-To: <b236da36-0730-4284-98df-581d47bc612e@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20240604143030.519906-15-james.clark@arm.com>
 Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, anshuman.khandual@arm.com,
+ linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
  Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- mike.leach@linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- John Garry <john.g.garry@oracle.com>, coresight@lists.linaro.org,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, leo.yan@linux.dev,
- Jiri Olsa <jolsa@kernel.org>, gankulkarni@os.amperecomputing.com
-Subject: Re: [Linux-stm32] [PATCH v2 13/16] coresight: Use per-sink trace ID
- maps for Perf sessions
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 14/16] coresight: Remove pending trace
+ ID release mechanism
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,306 +51,311 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAwNy8wNi8yMDI0IDE0OjE4LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IEhpIEphbWVz
-Cj4gCj4gT24gMDQvMDYvMjAyNCAxNTozMCwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+IFRoaXMgd2ls
-bCBhbGxvdyBzZXNzaW9ucyB3aXRoIG1vcmUgdGhhbiBDT1JFU0lHSFRfVFJBQ0VfSURTX01BWCBF
-VE1zCj4+IGFzIGxvbmcgYXMgdGhlcmUgYXJlIGZld2VyIHRoYW4gdGhhdCBtYW55IEVUTXMgY29u
-bmVjdGVkIHRvIGVhY2ggc2luay4KPj4KPj4gRWFjaCBzaW5rIG93bnMgaXRzIG93biB0cmFjZSBJ
-RCBtYXAsIGFuZCBhbnkgUGVyZiBzZXNzaW9uIGNvbm5lY3RpbmcgdG8KPj4gdGhhdCBzaW5rIHdp
-bGwgYWxsb2NhdGUgZnJvbSBpdCwgZXZlbiBpZiB0aGUgc2luayBpcyBjdXJyZW50bHkgaW4gdXNl
-IGJ5Cj4+IG90aGVyIHVzZXJzLiBUaGlzIGlzIHNpbWlsYXIgdG8gdGhlIGV4aXN0aW5nIGJlaGF2
-aW9yIHdoZXJlIHRoZSBkeW5hbWljCj4+IHRyYWNlIElEcyBhcmUgY29uc3RhbnQgYXMgbG9uZyBh
-cyB0aGVyZSBpcyBhbnkgY29uY3VycmVudCBQZXJmIHNlc3Npb24KPj4gYWN0aXZlLiBJdCdzIG5v
-dCBjb21wbGV0ZWx5IG9wdGltYWwgYmVjYXVzZSBzbGlnaHRseSBtb3JlIElEcyB3aWxsIGJlCj4+
-IHVzZWQgdGhhbiBuZWNlc3NhcnksIGJ1dCB0aGUgb3B0aW1hbCBzb2x1dGlvbiBpbnZvbHZlcyB0
-cmFja2luZyB0aGUgUElEcwo+PiBvZiBlYWNoIHNlc3Npb24gYW5kIGFsbG9jYXRpbmcgSUQgbWFw
-cyBiYXNlZCBvbiB0aGUgc2Vzc2lvbiBvd25lci4gVGhpcwo+PiBpcyBkaWZmaWN1bHQgdG8gZG8g
-d2l0aCB0aGUgY29tYmluYXRpb24gb2YgcGVyLXRocmVhZCBhbmQgcGVyLWNwdSBtb2Rlcwo+PiBh
-bmQgc29tZSBzY2hlZHVsaW5nIGlzc3Vlcy4gVGhlIGNvbXBsZXhpdHkgb2YgdGhpcyBpc24ndCBs
-aWtlbHkgdG8gd29ydGgKPj4gaXQgYmVjYXVzZSBldmVuIHdpdGggbXVsdGlwbGUgdXNlcnMgdGhl
-eSdkIGp1c3Qgc2VlIGEgZGlmZmVyZW5jZSBpbiB0aGUKPj4gb3JkZXJpbmcgb2YgSUQgYWxsb2Nh
-dGlvbnMgcmF0aGVyIHRoYW4gaGl0dGluZyBhbnkgbGltaXRzICh1bmxlc3MgdGhlCj4+IGhhcmR3
-YXJlIGRvZXMgaGF2ZSB0b28gbWFueSBFVE1zIGNvbm5lY3RlZCB0byBvbmUgc2luaykuCj4gCj4g
-UGxlYXNlIGZpbmQgbXkgY29tbWVudHMgYmVsb3cuCj4gCj4gCj4+Cj4+IFNpZ25lZC1vZmYtYnk6
-IEphbWVzIENsYXJrIDxqYW1lcy5jbGFya0Bhcm0uY29tPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9o
-d3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmPCoMKgwqDCoMKgIHwgMTAgKysrKysr
-KysrKwo+PiDCoCBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWR1bW15LmPC
-oMKgwqDCoCB8wqAgMyArKy0KPj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
-aWdodC1ldG0tcGVyZi5jwqAgfCAxNSArKysrKysrKysrLS0tLS0KPj4gwqAgLi4uL2h3dHJhY2lu
-Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LWNvcmUuY8KgwqDCoCB8wqAgOSArKysrKy0tLS0K
-Pj4gwqAgLi4uL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTR4LWNvcmUuY8KgwqDC
-oCB8wqAgOSArKysrKy0tLS0KPj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
-aWdodC1zdG0uY8KgwqDCoMKgwqDCoCB8wqAgMyArKy0KPj4gwqAgZHJpdmVycy9od3RyYWNpbmcv
-Y29yZXNpZ2h0L2NvcmVzaWdodC1zeXNmcy5jwqDCoMKgwqAgfMKgIDMgKystCj4+IMKgIGRyaXZl
-cnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdHBkbS5jwqDCoMKgwqDCoCB8wqAgMyAr
-Ky0KPj4gwqAgaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMyArKy0KPj4gwqAgOSBmaWxlcyBjaGFuZ2Vk
-LCA0MCBpbnNlcnRpb25zKCspLCAxOCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jCj4+IGIvZHJpdmVycy9o
-d3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmMKPj4gaW5kZXggOWZjNmY2Yjg2M2Uw
-Li5kNWFhZWFmZTVjN2QgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdo
-dC9jb3Jlc2lnaHQtY29yZS5jCj4+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9j
-b3Jlc2lnaHQtY29yZS5jCj4+IEBAIC05MDIsNiArOTAyLDcgQEAgc3RhdGljIHZvaWQgY29yZXNp
-Z2h0X2RldmljZV9yZWxlYXNlKHN0cnVjdCBkZXZpY2UKPj4gKmRldikKPj4gwqDCoMKgwqDCoCBz
-dHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYgPSB0b19jb3Jlc2lnaHRfZGV2aWNlKGRldik7
-Cj4+IMKgIMKgwqDCoMKgwqAgZndub2RlX2hhbmRsZV9wdXQoY3NkZXYtPmRldi5md25vZGUpOwo+
-PiArwqDCoMKgIGZyZWVfcGVyY3B1KGNzZGV2LT5wZXJmX3NpbmtfaWRfbWFwLmNwdV9tYXApOwo+
-PiDCoMKgwqDCoMKgIGtmcmVlKGNzZGV2KTsKPj4gwqAgfQo+PiDCoCBAQCAtMTE1OSw2ICsxMTYw
-LDE0IEBAIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjb3Jlc2lnaHRfcmVnaXN0ZXIoc3Ry
-dWN0IGNvcmVzaWdodF9kZXNjICpkZXNjKQo+PiDCoMKgwqDCoMKgIGNzZGV2LT5kZXYuZndub2Rl
-ID0gZndub2RlX2hhbmRsZV9nZXQoZGV2X2Z3bm9kZShkZXNjLT5kZXYpKTsKPj4gwqDCoMKgwqDC
-oCBkZXZfc2V0X25hbWUoJmNzZGV2LT5kZXYsICIlcyIsIGRlc2MtPm5hbWUpOwo+PiDCoCArwqDC
-oMKgIGlmIChjc2Rldi0+dHlwZSA9PSBDT1JFU0lHSFRfREVWX1RZUEVfU0lOSyB8fAo+PiArwqDC
-oMKgwqDCoMKgwqAgY3NkZXYtPnR5cGUgPT0gQ09SRVNJR0hUX0RFVl9UWVBFX0xJTktTSU5LKSB7
-Cj4+ICvCoMKgwqDCoMKgwqDCoCBjc2Rldi0+cGVyZl9zaW5rX2lkX21hcC5jcHVfbWFwID0gYWxs
-b2NfcGVyY3B1KGF0b21pY190KTsKPj4gK8KgwqDCoMKgwqDCoMKgIGlmICghY3NkZXYtPnBlcmZf
-c2lua19pZF9tYXAuY3B1X21hcCkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSAt
-RU5PTUVNOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycl9vdXQ7Cj4+ICvCoMKg
-wqDCoMKgwqDCoCB9Cj4+ICvCoMKgwqAgfQo+PiDCoMKgwqDCoMKgIC8qCj4+IMKgwqDCoMKgwqDC
-oCAqIE1ha2Ugc3VyZSB0aGUgZGV2aWNlIHJlZ2lzdHJhdGlvbiBhbmQgdGhlIGNvbm5lY3Rpb24g
-Zml4dXAKPj4gwqDCoMKgwqDCoMKgICogYXJlIHN5bmNocm9uaXNlZCwgc28gdGhhdCB3ZSBkb24n
-dCBzZWUgdW5pbml0aWFsaXNlZCBkZXZpY2VzCj4+IEBAIC0xMjE2LDYgKzEyMjUsNyBAQCBzdHJ1
-Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY29yZXNpZ2h0X3JlZ2lzdGVyKHN0cnVjdCBjb3Jlc2ln
-aHRfZGVzYyAqZGVzYykKPj4gwqAgZXJyX291dDoKPj4gwqDCoMKgwqDCoCAvKiBDbGVhbnVwIHRo
-ZSBjb25uZWN0aW9uIGluZm9ybWF0aW9uICovCj4+IMKgwqDCoMKgwqAgY29yZXNpZ2h0X3JlbGVh
-c2VfcGxhdGZvcm1fZGF0YShOVUxMLCBkZXNjLT5kZXYsIGRlc2MtPnBkYXRhKTsKPj4gK8KgwqDC
-oCBrZnJlZShjc2Rldik7Cj4gCj4gVGhpcyBodW5rIGxvb2tlZCBzdXNwaWNpb3VzIHRvIG1lIGFu
-ZCBpcyBwcm9ibGVtYXRpYy4gSWYgd2UgZmFpbCB0bwo+IHJlZ2lzdGVyIHRoZSBkZXZpY2Ugd2l0
-aCAiZGV2aWNlX3JlZ2lzdGVyKCkiLCB3ZSBhbHJlYWR5IGZyZWUgdGhlCj4gY3NkZXYsIHZpYSBj
-b3Jlc2lnaHRfZGV2aWNlX3JlbGVhc2UoKSB0cmlnZ2VyZWQgdmlhIHRoZSBkZXZpY2VfcHV0KCks
-Cj4gKFNlZSBjb21tZW50cyBpbiB0aGF0IGNhc2UpIGFuZCB3ZSBjb3VsZCB0cmlnZ2VyIGEgZG91
-YmxlIGZyZWUgb2YgdGhlCj4gY3NkZXYgd2l0aCB0aGlzIGNoYW5nZS4KPiAKPiBJIHdvdWxkIHJl
-Y29tbWVuZCwgeW91IGZyZWUgdGhlICJjc2RldiIgaW4gdGhlIGFib3ZlIGNhc2UsIGlmIHdlIGZh
-aWwgdG8KPiBhbGxvY2F0ZSB0aGUgcGVyY3B1IHN0b3JhZ2UgYW5kIGZhbGwgdGhyb3VnaC4KPiAK
-Pj4gwqDCoMKgwqDCoCByZXR1cm4gRVJSX1BUUihyZXQpOwo+PiDCoCB9Cj4+IMKgIEVYUE9SVF9T
-WU1CT0xfR1BMKGNvcmVzaWdodF9yZWdpc3Rlcik7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3
-dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWR1bW15LmMKPj4gYi9kcml2ZXJzL2h3dHJhY2lu
-Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWR1bW15LmMKPj4gaW5kZXggYWM3MGMwYjQ5MWJlLi4xZjFi
-OWFkMTYwZjYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jl
-c2lnaHQtZHVtbXkuYwo+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNp
-Z2h0LWR1bW15LmMKPj4gQEAgLTIxLDcgKzIxLDggQEAgREVGSU5FX0NPUkVTSUdIVF9ERVZMSVNU
-KHNvdXJjZV9kZXZzLCAiZHVtbXlfc291cmNlIik7Cj4+IMKgIERFRklORV9DT1JFU0lHSFRfREVW
-TElTVChzaW5rX2RldnMsICJkdW1teV9zaW5rIik7Cj4+IMKgIMKgIHN0YXRpYyBpbnQgZHVtbXlf
-c291cmNlX2VuYWJsZShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IC3CoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50LCBl
-bnVtIGNzX21vZGUgbW9kZSkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBzdHJ1Y3QgcGVyZl9ldmVudCAqZXZlbnQsIGVudW0gY3NfbW9kZSBtb2RlLAo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF9fbWF5YmVfdW51c2VkIHN0cnVjdCBjb3Jl
-c2lnaHRfdHJhY2VfaWRfbWFwICppZF9tYXApCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBkZXZfZGJn
-KGNzZGV2LT5kZXYucGFyZW50LCAiRHVtbXkgc291cmNlIGVuYWJsZWRcbiIpOwo+PiDCoCBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5j
-Cj4+IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jCj4+
-IGluZGV4IGMwYzYwZTZhMTcwMy4uN2ZiNTVkYWZiNjM5IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJz
-L2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bS1wZXJmLmMKPj4gKysrIGIvZHJpdmVy
-cy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jCj4+IEBAIC0yMjksMTAg
-KzIyOSwxMyBAQCBzdGF0aWMgdm9pZCBmcmVlX2V2ZW50X2RhdGEoc3RydWN0IHdvcmtfc3RydWN0
-Cj4+ICp3b3JrKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGxpc3RfaGVhZCAqKnBwYXRo
-Owo+PiDCoCDCoMKgwqDCoMKgwqDCoMKgwqAgcHBhdGggPSBldG1fZXZlbnRfY3B1X3BhdGhfcHRy
-KGV2ZW50X2RhdGEsIGNwdSk7Cj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIShJU19FUlJfT1JfTlVM
-TCgqcHBhdGgpKSkKPj4gK8KgwqDCoMKgwqDCoMKgIGlmICghKElTX0VSUl9PUl9OVUxMKCpwcGF0
-aCkpKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNl
-ICpzaW5rID0gY29yZXNpZ2h0X2dldF9zaW5rKCpwcGF0aCk7Cj4+ICsKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgY29yZXNpZ2h0X3RyYWNlX2lkX3B1dF9jcHVfaWRfbWFwKGNwdSwKPj4gJnNp
-bmstPnBlcmZfc2lua19pZF9tYXApOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jl
-c2lnaHRfcmVsZWFzZV9wYXRoKCpwcGF0aCk7Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCAqcHBhdGggPSBOVUxMOwo+PiAtwqDCoMKgwqDCoMKgwqAgY29yZXNpZ2h0
-X3RyYWNlX2lkX3B1dF9jcHVfaWQoY3B1KTsKPj4gwqDCoMKgwqDCoCB9Cj4+IMKgIMKgwqDCoMKg
-wqAgLyogbWFyayBwZXJmIGV2ZW50IGFzIGRvbmUgZm9yIHRyYWNlIGlkIGFsbG9jYXRvciAqLwo+
-PiBAQCAtNDAxLDcgKzQwNCw3IEBAIHN0YXRpYyB2b2lkICpldG1fc2V0dXBfYXV4KHN0cnVjdCBw
-ZXJmX2V2ZW50Cj4+ICpldmVudCwgdm9pZCAqKnBhZ2VzLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-fQo+PiDCoCDCoMKgwqDCoMKgwqDCoMKgwqAgLyogZW5zdXJlIHdlIGNhbiBhbGxvY2F0ZSBhIHRy
-YWNlIElEIGZvciB0aGlzIENQVSAqLwo+PiAtwqDCoMKgwqDCoMKgwqAgdHJhY2VfaWQgPSBjb3Jl
-c2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZChjcHUpOwo+PiArwqDCoMKgwqDCoMKgwqAgdHJhY2Vf
-aWQgPSBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZF9tYXAoY3B1LAo+PiAmc2luay0+cGVy
-Zl9zaW5rX2lkX21hcCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIUlTX1ZBTElEX0NTX1RS
-QUNFX0lEKHRyYWNlX2lkKSkgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjcHVtYXNr
-X2NsZWFyX2NwdShjcHUsIG1hc2spOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jl
-c2lnaHRfcmVsZWFzZV9wYXRoKHBhdGgpOwo+PiBAQCAtNDk1LDcgKzQ5OCw4IEBAIHN0YXRpYyB2
-b2lkIGV0bV9ldmVudF9zdGFydChzdHJ1Y3QgcGVyZl9ldmVudAo+PiAqZXZlbnQsIGludCBmbGFn
-cykKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbF9lbmRfc3RvcDsKPj4gwqAgwqDCoMKg
-wqDCoCAvKiBGaW5hbGx5IGVuYWJsZSB0aGUgdHJhY2VyICovCj4+IC3CoMKgwqAgaWYgKHNvdXJj
-ZV9vcHMoY3NkZXYpLT5lbmFibGUoY3NkZXYsIGV2ZW50LCBDU19NT0RFX1BFUkYpKQo+PiArwqDC
-oMKgIGlmIChzb3VyY2Vfb3BzKGNzZGV2KS0+ZW5hYmxlKGNzZGV2LCBldmVudCwgQ1NfTU9ERV9Q
-RVJGLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZzaW5r
-LT5wZXJmX3NpbmtfaWRfbWFwKSkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbF9kaXNh
-YmxlX3BhdGg7Cj4+IMKgIMKgwqDCoMKgwqAgLyoKPj4gQEAgLTUwNyw3ICs1MTEsOCBAQCBzdGF0
-aWMgdm9pZCBldG1fZXZlbnRfc3RhcnQoc3RydWN0IHBlcmZfZXZlbnQKPj4gKmV2ZW50LCBpbnQg
-ZmxhZ3MpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBod19pZCA9IEZJRUxEX1BSRVAoQ1NfQVVYX0hX
-X0lEX1ZFUlNJT05fTUFTSywKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBDU19BVVhfSFdfSURfQ1VSUl9WRVJTSU9OKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGh3
-X2lkIHw9IEZJRUxEX1BSRVAoQ1NfQVVYX0hXX0lEX1RSQUNFX0lEX01BU0ssCj4+IC3CoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9j
-cHVfaWQoY3B1KSk7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBj
-b3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWRfbWFwKGNwdSwKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgJnNpbmstPnBlcmZfc2lua19pZF9tYXApKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHBl
-cmZfcmVwb3J0X2F1eF9vdXRwdXRfaWQoZXZlbnQsIGh3X2lkKTsKPj4gwqDCoMKgwqDCoCB9Cj4+
-IMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0
-bTN4LWNvcmUuYwo+PiBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRt
-M3gtY29yZS5jCj4+IGluZGV4IDlkNWMxMzkxZmZiMS4uNjVjZjc0NTY0MjZhIDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LWNvcmUuYwo+
-PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LWNvcmUu
-Ywo+PiBAQCAtNDgxLDcgKzQ4MSw4IEBAIHZvaWQgZXRtX3JlbGVhc2VfdHJhY2VfaWQoc3RydWN0
-IGV0bV9kcnZkYXRhCj4+ICpkcnZkYXRhKQo+PiDCoCB9Cj4+IMKgIMKgIHN0YXRpYyBpbnQgZXRt
-X2VuYWJsZV9wZXJmKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwKPj4gLcKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50KQo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgcGVyZl9ldmVudCAqZXZlbnQsCj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFwICpp
-ZF9tYXApCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZXRtX2RydmRhdGEgKmRydmRhdGEg
-PSBkZXZfZ2V0X2RydmRhdGEoY3NkZXYtPmRldi5wYXJlbnQpOwo+PiDCoMKgwqDCoMKgIGludCB0
-cmFjZV9pZDsKPj4gQEAgLTUwMCw3ICs1MDEsNyBAQCBzdGF0aWMgaW50IGV0bV9lbmFibGVfcGVy
-ZihzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYsCj4+IMKgwqDCoMKgwqDCoCAqIHdp
-dGggcGVyZiBsb2NrcyAtIHdlIGtub3cgdGhlIElEIGNhbm5vdCBjaGFuZ2UgdW50aWwgcGVyZgo+
-PiBzaHV0cyBkb3duCj4+IMKgwqDCoMKgwqDCoCAqIHRoZSBzZXNzaW9uCj4+IMKgwqDCoMKgwqDC
-oCAqLwo+PiAtwqDCoMKgIHRyYWNlX2lkID0gY29yZXNpZ2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lk
-KGRydmRhdGEtPmNwdSk7Cj4+ICvCoMKgwqAgdHJhY2VfaWQgPSBjb3Jlc2lnaHRfdHJhY2VfaWRf
-cmVhZF9jcHVfaWRfbWFwKGRydmRhdGEtPmNwdSwgaWRfbWFwKTsKPj4gwqDCoMKgwqDCoCBpZiAo
-IUlTX1ZBTElEX0NTX1RSQUNFX0lEKHRyYWNlX2lkKSkgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZGV2X2VycigmZHJ2ZGF0YS0+Y3NkZXYtPmRldiwgIkZhaWxlZCB0byBzZXQgdHJhY2UgSUQgZm9y
-ICVzCj4+IG9uIENQVSVkXG4iLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfbmFt
-ZSgmZHJ2ZGF0YS0+Y3NkZXYtPmRldiksIGRydmRhdGEtPmNwdSk7Cj4+IEBAIC01NTMsNyArNTU0
-LDcgQEAgc3RhdGljIGludCBldG1fZW5hYmxlX3N5c2ZzKHN0cnVjdAo+PiBjb3Jlc2lnaHRfZGV2
-aWNlICpjc2RldikKPj4gwqAgfQo+PiDCoCDCoCBzdGF0aWMgaW50IGV0bV9lbmFibGUoc3RydWN0
-IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LCBzdHJ1Y3QKPj4gcGVyZl9ldmVudCAqZXZlbnQsCj4+
-IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbnVtIGNzX21vZGUgbW9kZSkKPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW0gY3NfbW9kZSBtb2RlLCBzdHJ1Y3QgY29yZXNpZ2h0
-X3RyYWNlX2lkX21hcCAqaWRfbWFwKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgaW50IHJldDsKPj4g
-wqDCoMKgwqDCoCBzdHJ1Y3QgZXRtX2RydmRhdGEgKmRydmRhdGEgPSBkZXZfZ2V0X2RydmRhdGEo
-Y3NkZXYtPmRldi5wYXJlbnQpOwo+PiBAQCAtNTY4LDcgKzU2OSw3IEBAIHN0YXRpYyBpbnQgZXRt
-X2VuYWJsZShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYsIHN0cnVjdCBwZXJmX2V2
-ZW50ICpldmVudCwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IGV0bV9lbmFibGVfc3lzZnMo
-Y3NkZXYpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+IMKgwqDCoMKgwqAgY2FzZSBD
-U19NT0RFX1BFUkY6Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSBldG1fZW5hYmxlX3BlcmYoY3Nk
-ZXYsIGV2ZW50KTsKPj4gK8KgwqDCoMKgwqDCoMKgIHJldCA9IGV0bV9lbmFibGVfcGVyZihjc2Rl
-diwgZXZlbnQsIGlkX21hcCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4gwqDCoMKg
-wqDCoCBkZWZhdWx0Ogo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVJTlZBTDsKPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtY29y
-ZS5jCj4+IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG00eC1jb3Jl
-LmMKPj4gaW5kZXggYTBiZGZhYmRkYmM2Li5mY2QwZjliYTU2MmQgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtY29yZS5jCj4+ICsrKyBi
-L2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtY29yZS5jCj4+IEBA
-IC03NTIsNyArNzUyLDggQEAgc3RhdGljIGludCBldG00X3BhcnNlX2V2ZW50X2NvbmZpZyhzdHJ1
-Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IMKgIH0KPj4gwqAgwqAgc3RhdGljIGlu
-dCBldG00X2VuYWJsZV9wZXJmKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwKPj4gLcKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgcGVyZl9ldmVudCAqZXZlbnQpCj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHBlcmZfZXZlbnQgKmV2ZW50
-LAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfdHJh
-Y2VfaWRfbWFwICppZF9tYXApCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBpbnQgcmV0ID0gMCwgdHJh
-Y2VfaWQ7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGV0bXY0X2RydmRhdGEgKmRydmRhdGEgPSBkZXZf
-Z2V0X2RydmRhdGEoY3NkZXYtPmRldi5wYXJlbnQpOwo+PiBAQCAtNzc1LDcgKzc3Niw3IEBAIHN0
-YXRpYyBpbnQgZXRtNF9lbmFibGVfcGVyZihzdHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3Nk
-ZXYsCj4+IMKgwqDCoMKgwqDCoCAqIHdpdGggcGVyZiBsb2NrcyAtIHdlIGtub3cgdGhlIElEIGNh
-bm5vdCBjaGFuZ2UgdW50aWwgcGVyZgo+PiBzaHV0cyBkb3duCj4+IMKgwqDCoMKgwqDCoCAqIHRo
-ZSBzZXNzaW9uCj4+IMKgwqDCoMKgwqDCoCAqLwo+PiAtwqDCoMKgIHRyYWNlX2lkID0gY29yZXNp
-Z2h0X3RyYWNlX2lkX3JlYWRfY3B1X2lkKGRydmRhdGEtPmNwdSk7Cj4+ICvCoMKgwqAgdHJhY2Vf
-aWQgPSBjb3Jlc2lnaHRfdHJhY2VfaWRfcmVhZF9jcHVfaWRfbWFwKGRydmRhdGEtPmNwdSwgaWRf
-bWFwKTsKPj4gwqDCoMKgwqDCoCBpZiAoIUlTX1ZBTElEX0NTX1RSQUNFX0lEKHRyYWNlX2lkKSkg
-ewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2VycigmZHJ2ZGF0YS0+Y3NkZXYtPmRldiwgIkZh
-aWxlZCB0byBzZXQgdHJhY2UgSUQgZm9yICVzCj4+IG9uIENQVSVkXG4iLAo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBkZXZfbmFtZSgmZHJ2ZGF0YS0+Y3NkZXYtPmRldiksIGRydmRhdGEt
-PmNwdSk7Cj4+IEBAIC04MzcsNyArODM4LDcgQEAgc3RhdGljIGludCBldG00X2VuYWJsZV9zeXNm
-cyhzdHJ1Y3QKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+IMKgIH0KPj4gwqAgwqAgc3Rh
-dGljIGludCBldG00X2VuYWJsZShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsIHN0cnVj
-dAo+PiBwZXJmX2V2ZW50ICpldmVudCwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZW51bSBjc19tb2RlIG1vZGUpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW0g
-Y3NfbW9kZSBtb2RlLCBzdHJ1Y3QgY29yZXNpZ2h0X3RyYWNlX2lkX21hcCAqaWRfbWFwKQo+PiDC
-oCB7Cj4+IMKgwqDCoMKgwqAgaW50IHJldDsKPj4gwqAgQEAgLTg1MSw3ICs4NTIsNyBAQCBzdGF0
-aWMgaW50IGV0bTRfZW5hYmxlKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2Rldiwgc3Ry
-dWN0IHBlcmZfZXZlbnQgKmV2ZW50LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gZXRtNF9l
-bmFibGVfc3lzZnMoY3NkZXYpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+IMKgwqDC
-oMKgwqAgY2FzZSBDU19NT0RFX1BFUkY6Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSBldG00X2Vu
-YWJsZV9wZXJmKGNzZGV2LCBldmVudCk7Cj4+ICvCoMKgwqDCoMKgwqDCoCByZXQgPSBldG00X2Vu
-YWJsZV9wZXJmKGNzZGV2LCBldmVudCwgaWRfbWFwKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGJy
-ZWFrOwo+PiDCoMKgwqDCoMKgIGRlZmF1bHQ6Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSAt
-RUlOVkFMOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
-aWdodC1zdG0uYwo+PiBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtc3Rt
-LmMKPj4gaW5kZXggZTFjNjI4MjBkZmRhLi5hODBhZDFkZTRjMjMgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtc3RtLmMKPj4gKysrIGIvZHJpdmVy
-cy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zdG0uYwo+PiBAQCAtMTk0LDcgKzE5NCw4
-IEBAIHN0YXRpYyB2b2lkIHN0bV9lbmFibGVfaHcoc3RydWN0IHN0bV9kcnZkYXRhCj4+ICpkcnZk
-YXRhKQo+PiDCoCB9Cj4+IMKgIMKgIHN0YXRpYyBpbnQgc3RtX2VuYWJsZShzdHJ1Y3QgY29yZXNp
-Z2h0X2RldmljZSAqY3NkZXYsIHN0cnVjdAo+PiBwZXJmX2V2ZW50ICpldmVudCwKPj4gLcKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW0gY3NfbW9kZSBtb2RlKQo+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgZW51bSBjc19tb2RlIG1vZGUsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBfX21heWJlX3VudXNlZCBzdHJ1Y3QgY29yZXNpZ2h0X3RyYWNlX2lkX21hcCAqdHJh
-Y2VfaWQpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtX2RydmRhdGEgKmRydmRhdGEg
-PSBkZXZfZ2V0X2RydmRhdGEoY3NkZXYtPmRldi5wYXJlbnQpOwo+PiDCoCBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zeXNmcy5jCj4+IGIvZHJpdmVy
-cy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zeXNmcy5jCj4+IGluZGV4IDFlNjdjYzc3
-NThkNy4uYTAxYzllNTRlMmVkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jl
-c2lnaHQvY29yZXNpZ2h0LXN5c2ZzLmMKPj4gKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNp
-Z2h0L2NvcmVzaWdodC1zeXNmcy5jCj4+IEBAIC05LDYgKzksNyBAQAo+PiDCoCAjaW5jbHVkZSA8
-bGludXgva2VybmVsLmg+Cj4+IMKgIMKgICNpbmNsdWRlICJjb3Jlc2lnaHQtcHJpdi5oIgo+PiAr
-I2luY2x1ZGUgImNvcmVzaWdodC10cmFjZS1pZC5oIgo+PiDCoCDCoCAvKgo+PiDCoMKgICogVXNl
-IElEUiB0byBtYXAgdGhlIGhhc2ggb2YgdGhlIHNvdXJjZSdzIGRldmljZSBuYW1lCj4+IEBAIC02
-Myw3ICs2NCw3IEBAIHN0YXRpYyBpbnQgY29yZXNpZ2h0X2VuYWJsZV9zb3VyY2Vfc3lzZnMoc3Ry
-dWN0Cj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiDCoMKgwqDCoMKgwqAgKi8KPj4gwqDC
-oMKgwqDCoCBsb2NrZGVwX2Fzc2VydF9oZWxkKCZjb3Jlc2lnaHRfbXV0ZXgpOwo+PiDCoMKgwqDC
-oMKgIGlmIChjb3Jlc2lnaHRfZ2V0X21vZGUoY3NkZXYpICE9IENTX01PREVfU1lTRlMpIHsKPj4g
-LcKgwqDCoMKgwqDCoMKgIHJldCA9IHNvdXJjZV9vcHMoY3NkZXYpLT5lbmFibGUoY3NkZXYsIGRh
-dGEsIG1vZGUpOwo+PiArwqDCoMKgwqDCoMKgwqAgcmV0ID0gc291cmNlX29wcyhjc2RldiktPmVu
-YWJsZShjc2RldiwgZGF0YSwgbW9kZSwgTlVMTCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-cmV0KQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+PiDCoMKgwqDC
-oMKgIH0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2ln
-aHQtdHBkbS5jCj4+IGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cGRt
-LmMKPj4gaW5kZXggYTk3MDhhYjBkNDg4Li4wMzc2YWQzMjZhMmYgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdHBkbS5jCj4+ICsrKyBiL2RyaXZl
-cnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdHBkbS5jCj4+IEBAIC00MzksNyArNDM5
-LDggQEAgc3RhdGljIHZvaWQgX190cGRtX2VuYWJsZShzdHJ1Y3QgdHBkbV9kcnZkYXRhCj4+ICpk
-cnZkYXRhKQo+PiDCoCB9Cj4+IMKgIMKgIHN0YXRpYyBpbnQgdHBkbV9lbmFibGUoc3RydWN0IGNv
-cmVzaWdodF9kZXZpY2UgKmNzZGV2LCBzdHJ1Y3QKPj4gcGVyZl9ldmVudCAqZXZlbnQsCj4+IC3C
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW0gY3NfbW9kZSBtb2RlKQo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbnVtIGNzX21vZGUgbW9kZSwKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgX19tYXliZV91bnVzZWQgc3RydWN0IGNvcmVzaWdodF90cmFjZV9p
-ZF9tYXAgKmlkX21hcCkKPj4gwqAgewo+PiDCoMKgwqDCoMKgIHN0cnVjdCB0cGRtX2RydmRhdGEg
-KmRydmRhdGEgPSBkZXZfZ2V0X2RydmRhdGEoY3NkZXYtPmRldi5wYXJlbnQpOwo+PiDCoCBkaWZm
-IC0tZ2l0IGEvaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaCBiL2luY2x1ZGUvbGludXgvY29yZXNp
-Z2h0LmgKPj4gaW5kZXggN2Q2MmI4OGJmYjVjLi45YzMwNjdlMmUzOGIgMTAwNjQ0Cj4+IC0tLSBh
-L2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gKysrIGIvaW5jbHVkZS9saW51eC9jb3Jlc2ln
-aHQuaAo+PiBAQCAtMjkwLDYgKzI5MCw3IEBAIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlIHsKPj4g
-wqDCoMKgwqDCoCBib29sIHN5c2ZzX3NpbmtfYWN0aXZhdGVkOwo+PiDCoMKgwqDCoMKgIHN0cnVj
-dCBkZXZfZXh0X2F0dHJpYnV0ZSAqZWE7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGNvcmVzaWdodF9k
-ZXZpY2UgKmRlZl9zaW5rOwo+PiArwqDCoMKgIHN0cnVjdCBjb3Jlc2lnaHRfdHJhY2VfaWRfbWFw
-IHBlcmZfc2lua19pZF9tYXA7Cj4+IMKgwqDCoMKgwqAgLyogc3lzZnMgbGlua3MgYmV0d2VlbiBj
-b21wb25lbnRzICovCj4+IMKgwqDCoMKgwqAgaW50IG5yX2xpbmtzOwo+PiDCoMKgwqDCoMKgIGJv
-b2wgaGFzX2Nvbm5zX2dycDsKPj4gQEAgLTM4NCw3ICszODUsNyBAQCBzdHJ1Y3QgY29yZXNpZ2h0
-X29wc19saW5rIHsKPj4gwqAgc3RydWN0IGNvcmVzaWdodF9vcHNfc291cmNlIHsKPj4gwqDCoMKg
-wqDCoCBpbnQgKCpjcHVfaWQpKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2Rldik7Cj4+IMKg
-wqDCoMKgwqAgaW50ICgqZW5hYmxlKShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsIHN0
-cnVjdCBwZXJmX2V2ZW50Cj4+ICpldmVudCwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGVudW0gY3NfbW9kZSBtb2RlKTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW0g
-Y3NfbW9kZSBtb2RlLCBzdHJ1Y3QgY29yZXNpZ2h0X3RyYWNlX2lkX21hcCAqaWRfbWFwKTsKPiAK
-PiBJIGFtIHNsaWdodGx5IGNvbmNlcm5lZCBieSB0aGlzIGNoYW5nZS4gV2UgYWxyZWFkeSBwYXNz
-IGRvd24gImV2ZW50IiBmb3IKPiBhIGdlbmVyaWMgImVuYWJsZSIgY2FsbCBiYWNrIHdoaWNoIHNl
-cnZlcyBib3RoIFNZU0ZTICYgUEVSRi4gTm93IHdlIGFyZQo+IGFkZGluZyBvbmUgbW9yZSwganVz
-dCBmb3IgdGhlIFBFUkYgdXNhZ2UuIElkZWFsbHksIGl0IGlzIHBvc3NpYmxlIHRvCj4gcGFzcyBh
-IHNpbmdsZSBhcmd1bWVudCwgZS5nLiBwZXJmX2F1eF9vdXRwdXRfaGFuZGxlIHdoaWNoIGNhbiBm
-ZXRjaCB5b3UKPiBhbGwgdGhlIHJlcXVpcmVkIGluZm9yIGZvciAiZW5hYmxlIi4KPiAKPiDCoGku
-ZSwgaGFubGRlLT5ldmVudCwgcGVyZl9nZXRfYXV4KGhhbmRsZSkgLT4gZXZlbnRfZGF0YS4gV2Ug
-Y291bGQgZXZlbgo+IGFkZCBhIGhlbHBlciB0byBmaW5kIHRoZSB0cmFjZV9pZCBtYXAgZnJvbSB0
-aGUgaGFuZGxlLCB3aGljaCBjb3VsZCBoaWRlCj4gdGhlIGltcGxlbWVudGF0aW9uIGRldGFpbHMg
-ZnJvbSB0aGUgYmFja2VuZCBkcml2ZXJzLgo+IAo+IGUuZy4sCj4gCj4gZXRtX3BlcmZfZ2V0X3Ry
-YWNlX2lkX21hcChoYW5kbGUpIC0+IHsKPiDCoCBldmVudF9kYXRhID0gcGVyZl9nZXRfYXV4KCkK
-PiDCoCBwYXRoID0gcGVyX2NwdShldmVudF9kYXRhLT5wYXRoKQo+IMKgIHNpbmsgPSBzaW5rX2Zy
-b21fcGF0aChwYXRoKQo+IMKgIHJldHVybiB0cmFjZV9pZCBvZiB0aGUgc2luazsKPiB9Cj4gCj4g
-Cj4gVGhhdCBzYWlkLCB3ZSBpZiB3ZSBpbnRlbmQgdG8gZXh0ZW5kIHRoZSB1c2FnZSBvZiB0cmFj
-ZV9pZF9tYXAgZm9yCj4gc3lzZnMsIHRoaXMgbWF5IGJlIGZpbmUgYXMgaXMuCj4gCj4gU3V6dWtp
-CgpZZWFoLCB0aGF0J3Mgd2hhdCBJIHdhcyBnZXR0aW5nIGF0IGhlcmUgWzFdLiBJIGFkZGVkIGl0
-IHNvIHRoYXQgc3lzZnMKY2FuIHVzZSB0aGUgc2FtZSBhcmd1bWVudCBpZiB3ZSBhZGQgcGVyLXNp
-bmsgSURzIGZvciBzeXNmcyAod2hpY2ggc2VlbXMKaW5ldml0YWJsZSBiZWNhdXNlIG9mIHRoZSBj
-b3JlIGNvdW50IGxpbWl0YXRpb24pLiBBZGRpbmcgaXQgdG8gdGhlCnBlcmZfZXZlbnQgZG9lc24n
-dCBoZWxwIGZvciBzeXNmcy4gQW5kIGhhdmluZyBhIGNvbW1vbiBhcmd1bWVudCB3aWxsIGJlCm1v
-cmUgb2J2aW91cyBhbmQgc3RyYWlnaHRmb3J3YXJkIHRoYW4gaGF2aW5nIHRvIGRpZyBpdCBvdXQg
-b2YgZGlmZmVyZW50CnBsYWNlcy4KClsxXToKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgt
-cGVyZi11c2Vycy85N2M1NzQyNC02MjQyLTRiYTEtOGI0Ni02NDA1YzA4NDY0NWNAYXJtLmNvbS8K
-Cj4gCj4gCj4+IMKgwqDCoMKgwqAgdm9pZCAoKmRpc2FibGUpKHN0cnVjdCBjb3Jlc2lnaHRfZGV2
-aWNlICpjc2RldiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHBlcmZfZXZl
-bnQgKmV2ZW50KTsKPj4gwqAgfTsKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 04/06/2024 15:30, James Clark wrote:
+> Pending the release of IDs was a way of managing concurrent sysfs and
+> Perf sessions in a single global ID map. Perf may have finished while
+> sysfs hadn't, and Perf shouldn't release the IDs in use by sysfs and
+> vice versa.
+> 
+> Now that Perf uses its own exclusive ID maps, pending release doesn't
+> result in any different behavior than just releasing all IDs when the
+> last Perf session finishes. As part of the per-sink trace ID change, we
+> would have still had to make the pending mechanism work on a per-sink
+> basis, due to the overlapping ID allocations, so instead of making that
+> more complicated, just remove it.
+
+minor nit: Given that we drastically changed the meaing of the 
+perf_session_start/stop calls to, grab a refcount on idmap, drop 
+refcount, should we rename those helpers as such :
+
+coresight_trace_id_map_get() / _put() ?
+
+
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
+> ---
+>   .../hwtracing/coresight/coresight-etm-perf.c  | 11 ++--
+>   .../hwtracing/coresight/coresight-trace-id.c  | 62 +++++--------------
+>   .../hwtracing/coresight/coresight-trace-id.h  | 31 +++++-----
+>   include/linux/coresight.h                     |  6 +-
+>   4 files changed, 34 insertions(+), 76 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> index 7fb55dafb639..17cafa1a7f18 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> @@ -232,15 +232,14 @@ static void free_event_data(struct work_struct *work)
+>   		if (!(IS_ERR_OR_NULL(*ppath))) {
+>   			struct coresight_device *sink = coresight_get_sink(*ppath);
+>   
+> -			coresight_trace_id_put_cpu_id_map(cpu, &sink->perf_sink_id_map);
+> +			/* mark perf event as done for trace id allocator */
+> +			coresight_trace_id_perf_stop(&sink->perf_sink_id_map);
+> +
+>   			coresight_release_path(*ppath);
+>   		}
+>   		*ppath = NULL;
+>   	}
+>   
+> -	/* mark perf event as done for trace id allocator */
+> -	coresight_trace_id_perf_stop();
+> -
+>   	free_percpu(event_data->path);
+>   	kfree(event_data);
+>   }
+> @@ -328,9 +327,6 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+>   		sink = user_sink = coresight_get_sink_by_id(id);
+>   	}
+>   
+> -	/* tell the trace ID allocator that a perf event is starting up */
+> -	coresight_trace_id_perf_start();
+> -
+>   	/* check if user wants a coresight configuration selected */
+>   	cfg_hash = (u32)((event->attr.config2 & GENMASK_ULL(63, 32)) >> 32);
+>   	if (cfg_hash) {
+> @@ -404,6 +400,7 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+>   		}
+>   
+>   		/* ensure we can allocate a trace ID for this CPU */
+> +		coresight_trace_id_perf_start(&sink->perf_sink_id_map);
+>   		trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
+>   		if (!IS_VALID_CS_TRACE_ID(trace_id)) {
+>   			cpumask_clear_cpu(cpu, mask);
+
+I think we are leaking a reference above, if the allocation of trace id
+fails. i.e., we don't drop the refcount here, nor we do that in 
+free_event_dat() since the ppath is set to NULL in case of failure ?
+
+
+
+> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
+> index 8a777c0af6ea..acb99ccf96b5 100644
+> --- a/drivers/hwtracing/coresight/coresight-trace-id.c
+> +++ b/drivers/hwtracing/coresight/coresight-trace-id.c
+> @@ -18,12 +18,6 @@ static struct coresight_trace_id_map id_map_default = {
+>   	.cpu_map = &id_map_default_cpu_ids
+>   };
+>   
+> -/* maintain a record of the pending releases per cpu */
+> -static cpumask_t cpu_id_release_pending;
+> -
+> -/* perf session active counter */
+> -static atomic_t perf_cs_etm_session_active = ATOMIC_INIT(0);
+> -
+>   /* lock to protect id_map and cpu data  */
+>   static DEFINE_SPINLOCK(id_map_lock);
+>   
+> @@ -122,34 +116,18 @@ static void coresight_trace_id_free(int id, struct coresight_trace_id_map *id_ma
+>   	clear_bit(id, id_map->used_ids);
+>   }
+>   
+> -static void coresight_trace_id_set_pend_rel(int id, struct coresight_trace_id_map *id_map)
+> -{
+> -	if (WARN(!IS_VALID_CS_TRACE_ID(id), "Invalid Trace ID %d\n", id))
+> -		return;
+> -	set_bit(id, id_map->pend_rel_ids);
+> -}
+> -
+>   /*
+> - * release all pending IDs for all current maps & clear CPU associations
+> - *
+> - * This currently operates on the default id map, but may be extended to
+> - * operate on all registered id maps if per sink id maps are used.
+> + * release all IDs and clear CPU associations
+
+minor nit:
+
+     * Release all IDs and clear CPU associations.
+
+>    */
+> -static void coresight_trace_id_release_all_pending(void)
+> +static void coresight_trace_id_release_all(struct coresight_trace_id_map *id_map)
+>   {
+> -	struct coresight_trace_id_map *id_map = &id_map_default;
+>   	unsigned long flags;
+> -	int cpu, bit;
+> +	int cpu;
+>   
+>   	spin_lock_irqsave(&id_map_lock, flags);
+> -	for_each_set_bit(bit, id_map->pend_rel_ids, CORESIGHT_TRACE_ID_RES_TOP) {
+> -		clear_bit(bit, id_map->used_ids);
+> -		clear_bit(bit, id_map->pend_rel_ids);
+> -	}
+> -	for_each_cpu(cpu, &cpu_id_release_pending) {
+> -		atomic_set(per_cpu_ptr(id_map_default.cpu_map, cpu), 0);
+> -		cpumask_clear_cpu(cpu, &cpu_id_release_pending);
+> -	}
+> +	bitmap_zero(id_map->used_ids, CORESIGHT_TRACE_IDS_MAX);
+> +	for_each_possible_cpu(cpu)
+> +		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
+
+Do we ever read these values without spinlock ? Do they need to be atomic ?
+
+>   	spin_unlock_irqrestore(&id_map_lock, flags);
+>   	DUMP_ID_MAP(id_map);
+>   }
+> @@ -164,7 +142,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
+>   	/* check for existing allocation for this CPU */
+>   	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
+>   	if (id)
+> -		goto get_cpu_id_clr_pend;
+> +		goto get_cpu_id_out_unlock;
+>   
+>   	/*
+>   	 * Find a new ID.
+> @@ -185,11 +163,6 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
+>   	/* allocate the new id to the cpu */
+>   	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), id);
+>   
+> -get_cpu_id_clr_pend:
+> -	/* we are (re)using this ID - so ensure it is not marked for release */
+> -	cpumask_clear_cpu(cpu, &cpu_id_release_pending);
+> -	clear_bit(id, id_map->pend_rel_ids);
+> -
+>   get_cpu_id_out_unlock:
+>   	spin_unlock_irqrestore(&id_map_lock, flags);
+>   
+> @@ -210,15 +183,8 @@ static void _coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_ma
+>   
+>   	spin_lock_irqsave(&id_map_lock, flags);
+>   
+> -	if (atomic_read(&perf_cs_etm_session_active)) {
+> -		/* set release at pending if perf still active */
+> -		coresight_trace_id_set_pend_rel(id, id_map);
+> -		cpumask_set_cpu(cpu, &cpu_id_release_pending);
+> -	} else {
+> -		/* otherwise clear id */
+> -		coresight_trace_id_free(id, id_map);
+> -		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
+> -	}
+> +	coresight_trace_id_free(id, id_map);
+> +	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
+
+Can we do this unconditionally now ? What is another session has 
+reserved this id for the same CPU and that gets scheduled later ?
+We should simply stop doing the "put_cpu_id()" and instead rely
+on the perf_session_stop()/(or the suggested trace_id_map_put())
+to free the ids and clear everything.
+
+>   
+>   	spin_unlock_irqrestore(&id_map_lock, flags);
+>   	DUMP_ID_CPU(cpu, id);
+> @@ -302,17 +268,17 @@ void coresight_trace_id_put_system_id(int id)
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_trace_id_put_system_id);
+>   
+> -void coresight_trace_id_perf_start(void)
+> +void coresight_trace_id_perf_start(struct coresight_trace_id_map *id_map)
+>   {
+> -	atomic_inc(&perf_cs_etm_session_active);
+> +	atomic_inc(&id_map->perf_cs_etm_session_active);
+>   	PERF_SESSION(atomic_read(&perf_cs_etm_session_active));
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_trace_id_perf_start);
+>   
+> -void coresight_trace_id_perf_stop(void)
+> +void coresight_trace_id_perf_stop(struct coresight_trace_id_map *id_map)
+>   {
+> -	if (!atomic_dec_return(&perf_cs_etm_session_active))
+> -		coresight_trace_id_release_all_pending();
+> +	if (!atomic_dec_return(&id_map->perf_cs_etm_session_active))
+> +		coresight_trace_id_release_all(id_map);
+>   	PERF_SESSION(atomic_read(&perf_cs_etm_session_active));
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_trace_id_perf_stop);
+> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.h b/drivers/hwtracing/coresight/coresight-trace-id.h
+> index 840babdd0794..9aae50a553ca 100644
+> --- a/drivers/hwtracing/coresight/coresight-trace-id.h
+> +++ b/drivers/hwtracing/coresight/coresight-trace-id.h
+> @@ -17,9 +17,10 @@
+>    * released when done.
+>    *
+>    * In order to ensure that a consistent cpu / ID matching is maintained
+> - * throughout a perf cs_etm event session - a session in progress flag will
+> - * be maintained, and released IDs not cleared until the perf session is
+> - * complete. This allows the same CPU to be re-allocated its prior ID.
+> + * throughout a perf cs_etm event session - a session in progress flag will be
+> + * maintained for each sink, and IDs are cleared when all the perf sessions
+> + * complete. This allows the same CPU to be re-allocated its prior ID when
+> + * events are scheduled in and out.
+>    *
+>    *
+>    * Trace ID maps will be created and initialised to prevent architecturally
+> @@ -66,11 +67,7 @@ int coresight_trace_id_get_cpu_id_map(int cpu, struct coresight_trace_id_map *id
+>   /**
+>    * Release an allocated trace ID associated with the CPU.
+>    *
+> - * This will release the CoreSight trace ID associated with the CPU,
+> - * unless a perf session is in operation.
+> - *
+> - * If a perf session is in operation then the ID will be marked as pending
+> - * release.
+> + * This will release the CoreSight trace ID associated with the CPU.
+>    *
+>    * @cpu: The CPU index to release the associated trace ID.
+>    */
+> @@ -133,21 +130,21 @@ void coresight_trace_id_put_system_id(int id);
+>   /**
+>    * Notify the Trace ID allocator that a perf session is starting.
+>    *
+> - * Increase the perf session reference count - called by perf when setting up
+> - * a trace event.
+> + * Increase the perf session reference count - called by perf when setting up a
+> + * trace event.
+>    *
+> - * This reference count is used by the ID allocator to ensure that trace IDs
+> - * associated with a CPU cannot change or be released during a perf session.
+> + * Perf sessions never free trace IDs to ensure that the ID associated with a
+> + * CPU cannot change during their and other's concurrent sessions. Instead,
+> + * this refcount is used so that the last event to finish always frees all IDs.
+>    */
+> -void coresight_trace_id_perf_start(void);
+> +void coresight_trace_id_perf_start(struct coresight_trace_id_map *id_map);
+>   
+>   /**
+>    * Notify the ID allocator that a perf session is stopping.
+>    *
+> - * Decrease the perf session reference count.
+> - * if this causes the count to go to zero, then all Trace IDs marked as pending
+> - * release, will be released.
+> + * Decrease the perf session reference count. If this causes the count to go to
+> + * zero, then all Trace IDs will be released.
+>    */
+> -void coresight_trace_id_perf_stop(void);
+> +void coresight_trace_id_perf_stop(struct coresight_trace_id_map *id_map);
+>   
+>   #endif /* _CORESIGHT_TRACE_ID_H */
+> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+> index 9c3067e2e38b..197949fd2c35 100644
+> --- a/include/linux/coresight.h
+> +++ b/include/linux/coresight.h
+> @@ -227,14 +227,12 @@ struct coresight_sysfs_link {
+>    * @used_ids:	Bitmap to register available (bit = 0) and in use (bit = 1) IDs.
+>    *		Initialised so that the reserved IDs are permanently marked as
+>    *		in use.
+> - * @pend_rel_ids: CPU IDs that have been released by the trace source but not
+> - *		  yet marked as available, to allow re-allocation to the same
+> - *		  CPU during a perf session.
+> + * @perf_cs_etm_session_active: Number of Perf sessions using this ID map.
+>    */
+>   struct coresight_trace_id_map {
+>   	DECLARE_BITMAP(used_ids, CORESIGHT_TRACE_IDS_MAX);
+> -	DECLARE_BITMAP(pend_rel_ids, CORESIGHT_TRACE_IDS_MAX);
+>   	atomic_t __percpu *cpu_map;
+> +	atomic_t perf_cs_etm_session_active;
+
+minor nit: this could simply be :
+	atomic_t map_refcnt;
+
+i.e., number of references to the trace_id map ?
+
+Suzuki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
