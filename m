@@ -2,72 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E61900015
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jun 2024 12:02:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6415790022F
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jun 2024 13:31:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB9ECC712A2;
-	Fri,  7 Jun 2024 10:02:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A4C6C7129F;
+	Fri,  7 Jun 2024 11:31:27 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02D49C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00C28C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jun 2024 10:01:58 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45791KNp010973;
- Fri, 7 Jun 2024 12:01:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- S/2VyWKkGuX5P0YCLDqxzItg9oxgZQDLFxM7j2pGY+s=; b=JRN9cvXFdKNaC884
- F2zSuLB9I72sUNszwoJ1T9DZAhRv41y/wv/6nRYYaQXPGfilGqTBCjlGQwArcCsj
- 40rZzvUZJm6J5t4F28O1wmMIsHoA6bEOfD5nkob/Sww0b5bi5YSv01Nah/rjKfwy
- GbALkEZhuQXdb0XKK7M9Qtd43pMMscshC0vQOgvaiSi6sAfM5Lw//IW8EG+TLpQi
- +z986ArkPngK5Bj1d/AMFdkV2VoEVCm7IEeJNADYBX8SfR354l0MgbwJk0dWADyo
- Um9z0g9qzXZK1bBcs5U/fIJMIsbtToabR+fqmNda/WBVpqEbWzo6RqFa5o4AHsD1
- AhsCtg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yg7r0gxj2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Jun 2024 12:01:45 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C364F40044;
- Fri,  7 Jun 2024 12:01:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E8F61214D16;
- Fri,  7 Jun 2024 12:00:30 +0200 (CEST)
-Received: from localhost (10.252.19.205) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 7 Jun
- 2024 12:00:30 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Fri, 7 Jun 2024 11:57:54 +0200
-Message-ID: <20240607095754.265105-13-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240607095754.265105-1-christophe.roullier@foss.st.com>
-References: <20240607095754.265105-1-christophe.roullier@foss.st.com>
+ Fri,  7 Jun 2024 11:31:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 71268CE1C93;
+ Fri,  7 Jun 2024 11:31:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD8CC2BBFC;
+ Fri,  7 Jun 2024 11:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1717759876;
+ bh=Nkzv4hcPPvps22qWpC47FSwYdykZx12iKlrS0Wd94wA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cQSQfIhVy92SkTaaGnvSgGOmaOrGPEO9ebOslY3tPDyGu2jF1GTJI9arb4XK29his
+ 0BLTfM2LZthM3JHTsdnQHQt0Z4GQiN7MUermB1jSdlNyTlO1ebFCHNF2nXBVU7sbDs
+ N9dCpUgXtuB9ixdap7wO+KFbjkfX+Fe6eWjl+w1HdJ7rrbqG6mvqzpIHR+sxpLYEBy
+ h7g2mVnP6NnWsT3CayAWQbJNEjj4VeA41bOhubBCrmLD+Op1b9G/fVnN4BqtzwWJmv
+ zYcpo16xMyADhz6EMSN1zwreNy5aX1bROtpuyJXMk6eS6rivF7GgpBMYO/OFEV4fJP
+ Bj9egWQZQQb8g==
+Date: Fri, 7 Jun 2024 12:31:11 +0100
+From: Simon Horman <horms@kernel.org>
+To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+Message-ID: <20240607113111.GA27689@kernel.org>
+References: <20240605-configure_ethernet_host_dma_width-v2-1-4cc34edfa388@quicinc.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.252.19.205]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-07_04,2024-06-06_02,2024-05-17_01
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v5 12/12] ARM: multi_v7_defconfig: Add
-	MCP23S08 pinctrl support
+Content-Disposition: inline
+In-Reply-To: <20240605-configure_ethernet_host_dma_width-v2-1-4cc34edfa388@quicinc.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Eric Dumazet <edumazet@google.com>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: dwmac-qcom-ethqos:
+ Configure host DMA width
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +62,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable MCP23S08 I/O expanders to manage Ethernet phy
-reset in STM32MP135F-DK board.
+On Wed, Jun 05, 2024 at 11:57:18AM -0700, Sagar Cheluvegowda wrote:
+> Commit 070246e4674b ("net: stmmac: Fix for mismatched host/device DMA
+> address width") added support in the stmmac driver for platform drivers
+> to indicate the host DMA width, but left it up to authors of the
+> specific platforms to indicate if their width differed from the addr64
+> register read from the MAC itself.
+> 
+> Qualcomm's EMAC4 integration supports only up to 36 bit width (as
+> opposed to the addr64 register indicating 40 bit width). Let's indicate
+> that in the platform driver to avoid a scenario where the driver will
+> allocate descriptors of size that is supported by the CPU which in our
+> case is 36 bit, but as the addr64 register is still capable of 40 bits
+> the device will use two descriptors as one address.
+> 
+> Fixes: 8c4d92e82d50 ("net: stmmac: dwmac-qcom-ethqos: add support for emac4 on sa8775p platforms")
+> Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+> ---
+> Changes in v2:
+> Fix commit message to include a commit body
+> Replace the proper fixes tag
+> Remove the change-Id
+> - Link to v1: https://lore.kernel.org/r/20240529-configure_ethernet_host_dma_width-v1-1-3f2707851adf@quicinc.com
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 86bf057ac3663..9758f3d41ad70 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -469,6 +469,7 @@ CONFIG_SPI_XILINX=y
- CONFIG_SPI_SPIDEV=y
- CONFIG_SPMI=y
- CONFIG_PINCTRL_AS3722=y
-+CONFIG_PINCTRL_MCP23S08=y
- CONFIG_PINCTRL_MICROCHIP_SGPIO=y
- CONFIG_PINCTRL_OCELOT=y
- CONFIG_PINCTRL_PALMAS=y
--- 
-2.25.1
+this change looks good to me - the usage of dma_addr_width is in line with
+my understanding of how it is intended to be used.
 
+And, AFAICS, the changes in v2 address the review of v1.
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
