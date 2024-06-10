@@ -2,58 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984E8902426
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 16:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04017902435
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 16:40:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48814C6C838;
-	Mon, 10 Jun 2024 14:34:20 +0000 (UTC)
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADC87C6C838;
+	Mon, 10 Jun 2024 14:40:40 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C6D0C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBACEC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2024 14:34:12 +0000 (UTC)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45AEXkc9001490;
- Mon, 10 Jun 2024 09:33:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1718030026;
- bh=yIDvmjEUKxEiKRe55dQzVZEHPz85XspzzrpNaGz2DIM=;
- h=From:To:CC:Subject:In-Reply-To:References:Date;
- b=OlZYgA389TA/1Rv7kHMlJXFpOS9eaRVkSKZ8GJD+CWyAONDNSJrGDZ0XSvQUM93U+
- pIFFMI3p8+zu9gKvdNsUWJPywdWiYJvH1tGpWCkm0R6NRChmZ8zCamDdo00LvFwf0I
- c0LN78IOuJ7cBpUUU0AahXeVX3zava2nrvv2igAw=
-Received: from DFLE111.ent.ti.com (dfle111.ent.ti.com [10.64.6.32])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45AEXk2t011040
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 10 Jun 2024 09:33:46 -0500
-Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE111.ent.ti.com
- (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 10
- Jun 2024 09:33:45 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Mon, 10 Jun 2024 09:33:46 -0500
-Received: from localhost (kamlesh.dhcp.ti.com [172.24.227.123])
- by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45AEXjU1075052;
- Mon, 10 Jun 2024 09:33:45 -0500
-From: Kamlesh Gurudasani <kamlesh@ti.com>
-To: <herbert@gondor.apana.org.au>, <kristo@kernel.org>, <will@kernel.org>
-In-Reply-To: <20240524-mcrc64-upstream-v3-0-24b94d8e8578@ti.com>
-References: <20240524-mcrc64-upstream-v3-0-24b94d8e8578@ti.com>
-Date: Mon, 10 Jun 2024 20:03:44 +0530
-Message-ID: <87tti098af.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+ Mon, 10 Jun 2024 14:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=CAzlZ/VNndl4AKegQFi0JffzH+O3JQElVuoC5uZz9qc=; b=U6GF4YgN3Vi6k0LXMKBgQ2XAfR
+ 20erK5ZVMUuBt9yBkPFzPKw1Sw82O5TxYQE2i15OZDIKrsLDBiw5/WAKehddfV/PhIIFpjn254xtN
+ ShpD12vsLP0yH9lx1xWgOdaK50M8k4APqbvxnyiDIbRh1L3lMbUIhzy0HzT1JdE01cnVdFZ/XT61u
+ 69kttqT/fAWqj9YKWHSV6OzzJCl5h1N401eVE4ki0ENPquT6Mj57WmzeQbYegzqt0XHDju8fCAUmz
+ ectnd1NRBwT00YCqq2J1U3Rb/EFmcqwv7dmYgrsMQZrsnxp2qP5hV+UJg3PExC+LRqBm+7ralTQh4
+ IjCW/hRA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39964)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sGgC0-0001eS-1p;
+ Mon, 10 Jun 2024 15:40:16 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sGgBy-0006xF-Fk; Mon, 10 Jun 2024 15:40:14 +0100
+Date: Mon, 10 Jun 2024 15:40:14 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZmcQTuR5IKRp0pgy@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: robh@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- devicetree@vger.kernel.org, catalin.marinas@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- akpm@linux-foundation.org, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, vigneshr@ti.com
-Subject: Re: [Linux-stm32] [PATCH v3 0/6] Add support for MCRC64 engine to
- calculate 64-bit CRC in Full-CPU mode
+Content-Disposition: inline
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next 0/5] net: stmmac: provide platform
+	select_pcs method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,21 +64,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-<kamlesh@ti.com> writes:
+Hi,
 
-> From: Kamlesh Gurudasani <kamlesh@ti.com>
->
-> MCRC64 engine calculates 64-bit cyclic redundancy checks (CRC)
-> according to the ISO 3309 standard.
->
+This series adds a select_pcs() method to the stmmac platform data to
+allow platforms that need to provide their own PCSes to do so, moving
+the decision making into platform code.
 
-Hi Herbert,
+This avoids questions such as "what should the priority of XPCS vs
+some other platform PCS be?" and when we provide a PCS for the
+internal PCS, how that interacts with both the XPCS and platform
+provided PCS.
 
-Could you please review this and let me know if any changes are needed
-to get it merged.
+Note that if a platform implements the select_pcs() method, then the
+return values are:
+- a phylink_pcs pointer - the PCS to be used.
+- NULL - no phylink_pcs to be used.
+Otherwise (if not implemented or returns an error-pointer), then
+allow the the stmmac internal PCS to be used if appropriate (once
+that patch set is merged.)
 
-Thanks,
-Kamlesh
+Patch 1 introduces the new method.
+Patch 2 converts Intel mGBE to use this to provide the XPCS and
+ removes the XPCS decision making from core code.
+Patch 3 provides an implementation for rzn1 to return its PCS.
+Patch 4 does the same for socfpga.
+Patch 5 removes the core code returning priv->hw->phylink_pcs.
+
+No functional change is anticipated. Once this has been merged, it
+will be expected that platforms should populate all three PCS
+methods or none of the PCS methods.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c   | 11 +++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c    |  7 +++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c |  7 +++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 10 +++++++---
+ include/linux/stmmac.h                              |  4 +++-
+ 5 files changed, 35 insertions(+), 4 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
