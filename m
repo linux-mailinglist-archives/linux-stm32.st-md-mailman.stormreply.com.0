@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13939901BAA
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 09:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA9C901BAD
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 09:18:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D10FBC78002;
-	Mon, 10 Jun 2024 07:18:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7F9AC78005;
+	Mon, 10 Jun 2024 07:18:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85224C71286
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 088ADC78003
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2024 07:18:07 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 459LZn11007322;
- Mon, 10 Jun 2024 09:17:50 +0200
+ Mon, 10 Jun 2024 07:18:20 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 459KxQV9013767;
+ Mon, 10 Jun 2024 09:18:01 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- oZt3ANozAyCi4RMnooDgV1ukrsEF0MYMZVmMcPQZSJw=; b=zQhgM00i3nMdeKvn
- SN+6Vzfx6jTDT51aB3O7svnng5KdHIvVNHq1zUI36fbj6l1wCsfkBUxuSgXQiRkV
- FPOKVJJGjRtpBCf7W9EY3M4e5VZeRtPmmyYyduYund+wdUTtgKojrCD1BOtII3TL
- m9LG+aI1Ev+y5Hq3VpknUVMUYFuSHaLsrlBNI6HioED+TYjxPBJwYz5sE4IrUqc2
- bv3qxi04KRvX+ovMlQhDfXdK0Wke9BT4jOTbT3UU5BcScaPofBe3ZyVLBkpFn6gT
- iJuenMqL/px1LOUMEKqR85gTuAZcpdrCIifQ5T7wZTfpe4xn185cBsP8vWCN2Lts
- sOJbnw==
+ JuDY0iqj5TDTqcNiIz4Nr9QUlzV7muTWZdShmUmLed0=; b=VkwcAgseU7tSzI38
+ Eb0UqxHRuNa5rqQ0q64ixRkPjw3Vd41U9pTJLlcq8dKigJcfcwWftQNdqdAgAVZ8
+ nU8daKRATo+emuITJbr42Oxo9t6tTHkO9yAMuq/LMM0B1jz6+3Z9N+1NqxIgy6d4
+ /FlVXQ7bRSuO11EUXojzEfjJJ//PNUz5kQCLs7Pk/gX0e0nzuittKJ//Sc3Eza8g
+ bbgwgkmcXQtPnU4sbAnWh7J1iZA8iIJ8L87mmoGf7ovpdevl/S/IVU46Pfp/fiAy
+ itXsEM9CjVkh0ouzuLjQBX7vfewfp2eUJDJ48NhyGGuVWCXjahZHoze3oboWEkHI
+ 1htjrQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ymce5nk96-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ymemxnfdg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jun 2024 09:17:49 +0200 (MEST)
+ Mon, 10 Jun 2024 09:18:01 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 90F1940046;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E501A40047;
  Mon, 10 Jun 2024 09:17:45 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BAC5B20E66B;
- Mon, 10 Jun 2024 09:16:31 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7736420E69F;
+ Mon, 10 Jun 2024 09:16:32 +0200 (CEST)
 Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 10 Jun
- 2024 09:16:31 +0200
+ 2024 09:16:32 +0200
 From: Christophe Roullier <christophe.roullier@foss.st.com>
 To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
@@ -51,8 +51,8 @@ To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Christophe Roullier
  <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Mon, 10 Jun 2024 09:14:56 +0200
-Message-ID: <20240610071459.287500-6-christophe.roullier@foss.st.com>
+Date: Mon, 10 Jun 2024 09:14:57 +0200
+Message-ID: <20240610071459.287500-7-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240610071459.287500-1-christophe.roullier@foss.st.com>
 References: <20240610071459.287500-1-christophe.roullier@foss.st.com>
@@ -67,7 +67,7 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
 Subject: [Linux-stm32] [net-next,
-	PATCH v6 5/8] net: stmmac: dwmac-stm32: Clean up the debug prints
+	PATCH v6 6/8] net: stmmac: dwmac-stm32: Fix Mhz to MHz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,85 +86,37 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-Use dev_err()/dev_dbg() and phy_modes() to print PHY mode instead of
-pr_debug() and hand-written PHY mode decoding. This way, each debug
-print has associated device with it and duplicated mode decoding is
-removed.
+Trivial, fix up the comments using 'Mhz' to 'MHz'.
+No functional change.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c  | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index aa413edd1ef71..75981ac2cbb56 100644
+index 75981ac2cbb56..bed2be129b2d2 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -228,19 +228,16 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
- 	switch (plat_dat->mac_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		val = SYSCFG_PMCR_ETH_SEL_MII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_GMII:
- 		val = SYSCFG_PMCR_ETH_SEL_GMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = SYSCFG_PMCR_ETH_SEL_RMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
-@@ -249,15 +246,16 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
- 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
- 		if (dwmac->enable_eth_ck)
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RGMII\n");
- 		break;
- 	default:
--		pr_debug("SYSCFG init :  Do not manage %d interface\n",
--			 plat_dat->mac_interface);
-+		dev_err(dwmac->dev, "Mode %s not supported",
-+			phy_modes(plat_dat->mac_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
+@@ -58,7 +58,7 @@
+  * Below table summarizes the clock requirement and clock sources for
+  * supported phy interface modes.
+  * __________________________________________________________________________
+- *|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
++ *|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125MHz from PHY|
+  *|         |        |      25MHz    |        50MHz       |                  |
+  * ---------------------------------------------------------------------------
+  *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+@@ -367,7 +367,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
+ 	/* Gigabit Ethernet 125MHz clock selection. */
+ 	dwmac->eth_clk_sel_reg = of_property_read_bool(np, "st,eth-clk-sel");
  
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+
- 	/* Need to update PMCCLRR (clear register) */
- 	regmap_write(dwmac->regmap, reg + SYSCFG_PMCCLRR_OFFSET,
- 		     dwmac->ops->syscfg_eth_mask);
-@@ -291,19 +289,19 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	switch (plat_dat->mac_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		val = SYSCFG_MCU_ETH_SEL_MII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = SYSCFG_MCU_ETH_SEL_RMII;
--		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 	default:
--		pr_debug("SYSCFG init :  Do not manage %d interface\n",
--			 plat_dat->mac_interface);
-+		dev_err(dwmac->dev, "Mode %s not supported",
-+			phy_modes(plat_dat->mac_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
+-	/* Ethernet 50Mhz RMII clock selection */
++	/* Ethernet 50MHz RMII clock selection */
+ 	dwmac->eth_ref_clk_sel_reg =
+ 		of_property_read_bool(np, "st,eth-ref-clk-sel");
  
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+
- 	return regmap_update_bits(dwmac->regmap, reg,
- 				 dwmac->ops->syscfg_eth_mask, val << 23);
- }
 -- 
 2.25.1
 
