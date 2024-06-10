@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BDDF901DF6
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 11:19:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0ED901E18
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 11:24:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AAF1C7800C;
-	Mon, 10 Jun 2024 09:19:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 764D8C7800D;
+	Mon, 10 Jun 2024 09:24:37 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D5AEC6C838
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC5F3C6C838
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2024 09:19:50 +0000 (UTC)
+ Mon, 10 Jun 2024 09:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ikVClAmxiAK9GuPcVRzMsjEeJjGHTMRE/DJvy6XjAFY=; b=C4phnXKbiu0jdrPxeKv5kQMRzD
- lNLth5EKWGiks2RnT1wVBw6i9ySdrmULlZ+zY4CESU/2rlSzHzWfIsO9MRjIev/icitJ7EKRLZ2EB
- 9KlRhcDI73yfuZswh2dk6z/1zV2zf7IJ6upCFdZ4bVookr6sAVHY+10XuM6gEPEcq4SygNSVEfGp+
- UaoKj1XjrcqIDkgojFp9IAoQq7ETrK9QNAc0unA/q5iXhqPbLgrdm/0HFdJ4zYi3h9mBkrqrfdJil
- k9O0TQHtBLJvuvPkwIycBvO8apzm5nt/Jf0B8DEv1iSStkKf1R1GN5oG66P8smsRv7CSPnYguGJfw
- LGnSy8kg==;
+ bh=ia89vxLEHsjxSOnYnkE5CVk6E9NLeLG5CVMk/7Pv5aQ=; b=gWKnx8ln8WyqO2KHfLJhbYL82+
+ M1+6mgxQ8fboi7A9pGxTgeeTQE5lY26ZRGsha8DuNeHWbhjR/xV2mM9BIj8RqoEj8MDUYNuRrRHCB
+ 8UVjxeA18PE6dPf90Z5QKtbNQG3OMB46Dc9YkkIvgH8Gbv/+2wrQBVXNpaCW/mv5Z8NX0VYmtZBGR
+ sHYzQNTrB3yJEG3eQtO4fdJiVUw2mGm2gl+L2+VGMcKhB0tpV5W2kIXOka9bDU9uvVK/RcofZhYkN
+ TiVzr2f05L1iipPvCMMByOa2+3MaiKC8FgX1Xt9f3mCb/5B7oCyro/mQR2M7gZH0c6S5MQXbYT6nY
+ bAue5opA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46210)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:47070)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sGbBh-0001Dt-1o;
- Mon, 10 Jun 2024 10:19:37 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1sGbGE-0001EV-1D;
+ Mon, 10 Jun 2024 10:24:18 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sGbBj-0006lP-8Y; Mon, 10 Jun 2024 10:19:39 +0100
-Date: Mon, 10 Jun 2024 10:19:39 +0100
+ id 1sGbGF-0006lX-TT; Mon, 10 Jun 2024 10:24:19 +0100
+Date: Mon, 10 Jun 2024 10:24:19 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZmbFK2SYyHcqzSeK@shell.armlinux.org.uk>
+Message-ID: <ZmbGQ8bnxBIudT1S@shell.armlinux.org.uk>
 References: <Zlmzu7/ANyZxOOQL@shell.armlinux.org.uk>
  <E1sD0Ov-00EzBu-BC@rmk-PC.armlinux.org.uk>
  <6n4xvu6b43aptstdevdkzx2uqblwabaqndle2omqx5tcxk4lnz@wm3zqdrcr6m5>
+ <6qpcartwgkgdmtxwj4puxn2exbpiv6t6fxv2b3kecu6ezzdogs@yii3j3xtougr>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6n4xvu6b43aptstdevdkzx2uqblwabaqndle2omqx5tcxk4lnz@wm3zqdrcr6m5>
+In-Reply-To: <6qpcartwgkgdmtxwj4puxn2exbpiv6t6fxv2b3kecu6ezzdogs@yii3j3xtougr>
 Cc: netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -67,25 +68,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 05, 2024 at 03:05:43PM -0500, Andrew Halaney wrote:
-> On Fri, May 31, 2024 at 12:26:25PM GMT, Russell King (Oracle) wrote:
-> > @@ -335,8 +303,12 @@ static int dwmac1000_irq_status(struct mac_device_info *hw,
-> >  
-> >  	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
-> >  
-> > -	if (intr_status & PCS_RGSMIIIS_IRQ)
-> > -		dwmac1000_rgsmii(ioaddr, x);
-> > +	if (intr_status & PCS_RGSMIIIS_IRQ) {
-> > +		/* TODO Dummy-read to clear the IRQ status */
-> > +		readl(ioaddr + GMAC_RGSMIIIS);
+On Wed, Jun 05, 2024 at 04:59:14PM -0500, Andrew Halaney wrote:
+> On Wed, Jun 05, 2024 at 03:05:43PM GMT, Andrew Halaney wrote:
+> > This seems to me that you're doing the TODO here? Maybe I'm
+> > misunderstanding... maybe not :)
+> > 
+> > > +		phylink_pcs_change(&hw->mac_pcs, false);
 > 
-> This seems to me that you're doing the TODO here? Maybe I'm
-> misunderstanding... maybe not :)
+> Continuing to read through this all, sorry for the double reply and
+> possibly dumb question. Should we be passing in false unconditionally
+> here?
 
-Please trim your replies.
-
-These two lines come from Serge - please ask him why it's marked as a
-TODO. I assume he has a reason. Thanks.
+It depends whether there is a way to get the current status of the link
+without side effects (e.g. where a read clears a latched-low link
+status.) If that's not possible, then passing "false" is safe provided
+there aren't any spurious interrupts, since we'll always assume that
+the link has dropped. If there are spurious interrupts, then the link
+will go down/up each time there's a spurious interrupt. Even so, that's
+better than missing a change in the link status which may result in
+loss of link without manual intervention.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
