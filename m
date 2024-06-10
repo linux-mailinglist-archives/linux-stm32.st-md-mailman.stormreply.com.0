@@ -2,56 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0ED901E18
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 11:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F3B901F64
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2024 12:29:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 764D8C7800D;
-	Mon, 10 Jun 2024 09:24:37 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC5F3C6C838
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BF6EC6C838;
+	Mon, 10 Jun 2024 10:29:41 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 190CAC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2024 09:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ia89vxLEHsjxSOnYnkE5CVk6E9NLeLG5CVMk/7Pv5aQ=; b=gWKnx8ln8WyqO2KHfLJhbYL82+
- M1+6mgxQ8fboi7A9pGxTgeeTQE5lY26ZRGsha8DuNeHWbhjR/xV2mM9BIj8RqoEj8MDUYNuRrRHCB
- 8UVjxeA18PE6dPf90Z5QKtbNQG3OMB46Dc9YkkIvgH8Gbv/+2wrQBVXNpaCW/mv5Z8NX0VYmtZBGR
- sHYzQNTrB3yJEG3eQtO4fdJiVUw2mGm2gl+L2+VGMcKhB0tpV5W2kIXOka9bDU9uvVK/RcofZhYkN
- TiVzr2f05L1iipPvCMMByOa2+3MaiKC8FgX1Xt9f3mCb/5B7oCyro/mQR2M7gZH0c6S5MQXbYT6nY
- bAue5opA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:47070)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sGbGE-0001EV-1D;
- Mon, 10 Jun 2024 10:24:18 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sGbGF-0006lX-TT; Mon, 10 Jun 2024 10:24:19 +0100
-Date: Mon, 10 Jun 2024 10:24:19 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZmbGQ8bnxBIudT1S@shell.armlinux.org.uk>
-References: <Zlmzu7/ANyZxOOQL@shell.armlinux.org.uk>
- <E1sD0Ov-00EzBu-BC@rmk-PC.armlinux.org.uk>
- <6n4xvu6b43aptstdevdkzx2uqblwabaqndle2omqx5tcxk4lnz@wm3zqdrcr6m5>
- <6qpcartwgkgdmtxwj4puxn2exbpiv6t6fxv2b3kecu6ezzdogs@yii3j3xtougr>
+ Mon, 10 Jun 2024 10:29:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3F491692;
+ Mon, 10 Jun 2024 03:29:57 -0700 (PDT)
+Received: from [10.57.71.145] (unknown [10.57.71.145])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 458C43F73B;
+ Mon, 10 Jun 2024 03:29:30 -0700 (PDT)
+Message-ID: <a697111a-ec64-451a-aee1-3709bd08e73e@arm.com>
+Date: Mon, 10 Jun 2024 11:29:28 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6qpcartwgkgdmtxwj4puxn2exbpiv6t6fxv2b3kecu6ezzdogs@yii3j3xtougr>
-Cc: netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 3/8] net: stmmac:
- dwmac1000: convert sgmii/rgmii "pcs" to phylink
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
+ gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
+ leo.yan@linux.dev, anshuman.khandual@arm.com
+References: <20240604143030.519906-1-james.clark@arm.com>
+ <20240604143030.519906-16-james.clark@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20240604143030.519906-16-james.clark@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 15/16] coresight: Re-emit trace IDs
+ when the sink changes in per-thread mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,34 +51,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 05, 2024 at 04:59:14PM -0500, Andrew Halaney wrote:
-> On Wed, Jun 05, 2024 at 03:05:43PM GMT, Andrew Halaney wrote:
-> > This seems to me that you're doing the TODO here? Maybe I'm
-> > misunderstanding... maybe not :)
-> > 
-> > > +		phylink_pcs_change(&hw->mac_pcs, false);
+On 04/06/2024 15:30, James Clark wrote:
+> In per-cpu mode there are multiple aux buffers and each one has a
+> fixed sink, so the hw ID mappings which only need to be emitted once
+> for each buffer, even with the new per-sink trace ID pools.
 > 
-> Continuing to read through this all, sorry for the double reply and
-> possibly dumb question. Should we be passing in false unconditionally
-> here?
+> But in per-thread mode there is only a single buffer which can be
+> written to from any sink with now potentially overlapping trace IDs, so
+> hw ID mappings need to be re-emitted every time the sink changes.
+> 
+> This will require a change in Perf to track this so it knows which
+> decode tree to use for each segment of the buffer. In theory it's also
+> possible to look at the CPU ID on the AUX records, but this is more
+> consistent with the existing system, and allows for correct decode using
+> either mechanism.
+> 
+> Signed-off-by: James Clark <james.clark@arm.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm-perf.c | 14 ++++++++++++++
+>   drivers/hwtracing/coresight/coresight-etm-perf.h |  2 ++
+>   2 files changed, 16 insertions(+)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> index 17cafa1a7f18..b6f505b50e67 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> @@ -499,6 +499,20 @@ static void etm_event_start(struct perf_event *event, int flags)
+>   				      &sink->perf_sink_id_map))
+>   		goto fail_disable_path;
+>   
+> +	/*
+> +	 * In per-cpu mode there are multiple aux buffers and each one has a
+> +	 * fixed sink, so the hw ID mappings which only need to be emitted once
+> +	 * for each buffer.
+> +	 *
+> +	 * But in per-thread mode there is only a single buffer which can be
+> +	 * written to from any sink with potentially overlapping trace IDs, so
+> +	 * hw ID mappings need to be re-emitted every time the sink changes.
+> +	 */
+> +	if (event->cpu == -1 && event_data->last_sink_hwid != sink) {
+> +		cpumask_clear(&event_data->aux_hwid_done);
+> +		event_data->last_sink_hwid = sink;
+> +	}
 
-It depends whether there is a way to get the current status of the link
-without side effects (e.g. where a read clears a latched-low link
-status.) If that's not possible, then passing "false" is safe provided
-there aren't any spurious interrupts, since we'll always assume that
-the link has dropped. If there are spurious interrupts, then the link
-will go down/up each time there's a spurious interrupt. Even so, that's
-better than missing a change in the link status which may result in
-loss of link without manual intervention.
+I am wondering if we really need this patch, as we have the sinkid in 
+the HWID already ? We would emit the packet for each CPU only once and
+that wouldn't change the HWID ?
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Suzuki
+
+
+> +
+>   	/*
+>   	 * output cpu / trace ID in perf record, once for the lifetime
+>   	 * of the event.
+> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.h b/drivers/hwtracing/coresight/coresight-etm-perf.h
+> index 744531158d6b..bd4553b2a1ec 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm-perf.h
+> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.h
+> @@ -52,6 +52,7 @@ struct etm_filters {
+>    * @snk_config:		The sink configuration.
+>    * @cfg_hash:		The hash id of any coresight config selected.
+>    * @path:		An array of path, each slot for one CPU.
+> + * @last_sink_hwid:	Last sink that a hwid was emitted for.
+>    */
+>   struct etm_event_data {
+>   	struct work_struct work;
+> @@ -60,6 +61,7 @@ struct etm_event_data {
+>   	void *snk_config;
+>   	u32 cfg_hash;
+>   	struct list_head * __percpu *path;
+> +	struct coresight_device *last_sink_hwid;
+>   };
+>   
+>   int etm_perf_symlink(struct coresight_device *csdev, bool link);
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
