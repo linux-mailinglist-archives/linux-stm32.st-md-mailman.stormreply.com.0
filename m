@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99189036DF
+	by mail.lfdr.de (Postfix) with ESMTPS id CDFBB9036E0
 	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 10:44:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C4A8C6C838;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87A11C6C858;
 	Tue, 11 Jun 2024 08:44:03 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87F79C6C838
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86287CFAC7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 08:43:56 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45B7WQw0028321;
- Tue, 11 Jun 2024 10:43:39 +0200
+ Tue, 11 Jun 2024 08:44:01 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45B7ht9I017392;
+ Tue, 11 Jun 2024 10:43:42 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=ZmwzfQtKqV4UgafJAGdvxA
- y0aBYL2v5t9WgaVchw/LI=; b=uZL7jnuHTMxE0ovCheKDBmAff1AWPl9gpTpIIs
- SPccTUtAaC12vE+YMbyfBKOePP0Mt5wUwCR5KiVj6GmsOizve2b7+5+8oO2B6r7N
- +sqhXbXJNOlkxxxpEE4lQfsRQ1TzhI2uMMjuu8sDnnxItV9PRJYFN96XZoJ6t2ga
- 0tOa7GeuFxhdu870fCsS4Xw7u4nIfJ2nBoUWnesAM+gnWqHZqLl1zrrkfylG641B
- 6aUXgzQZa6/3UDppAi+be6uHwaohPG7k3m7/QkwR/ekuJTztpV1aKelo7WSvNfeF
- +pXz7LBZNcFiEbf7sbOGUp75WR5wc4cWrbHbAabTlsgGuZ6w==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ fOWWfOng3hpTxLyti5+ev5lp/5Fom/FUzcmY/3KfYpI=; b=FhzmUED5v8f0TOy0
+ I/9ixHwZLuC7mh7HsQFcdxhg+6nr4ZnKnbsTboe+oPTBCV1GwE80D+tkJ3as4UHC
+ DkysPrlK3otrXvJMF1+Mft32/GhWPlhFReezW18t+cWQzKtCriLvDDNAj+v27eUP
+ 6hZX6sQ+Xcq7zlX71PbgHeFHwpJWhfxwcU/UC8310JNje/nDEAVvSJK4T9iNd9Lg
+ 8SWPruEKABckBLiy3DIwOPAKC/ksSFvUeBcUlaTkgpiNC74Gi1XXM1nox8swfZtQ
+ 04vbXpHyr6gFes2bIQLzesM/9iA1VEjahRbQsDjCO1UoDU5mf2F4Ap8vXlnSrfU8
+ axVPew==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ypbp41t9h-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ypbp49um6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Jun 2024 10:43:39 +0200 (MEST)
+ Tue, 11 Jun 2024 10:43:42 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1382840045;
- Tue, 11 Jun 2024 10:43:35 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E9E254002D;
+ Tue, 11 Jun 2024 10:43:38 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 61B302115EB;
- Tue, 11 Jun 2024 10:42:22 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 27A992115F4;
+ Tue, 11 Jun 2024 10:42:25 +0200 (CEST)
 Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 11 Jun
@@ -50,9 +51,11 @@ To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Christophe Roullier
  <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Tue, 11 Jun 2024 10:42:05 +0200
-Message-ID: <20240611084206.734367-1-christophe.roullier@foss.st.com>
+Date: Tue, 11 Jun 2024 10:42:06 +0200
+Message-ID: <20240611084206.734367-2-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240611084206.734367-1-christophe.roullier@foss.st.com>
+References: <20240611084206.734367-1-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.48.86.164]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
@@ -63,7 +66,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 0/1] Add MCP23S08 pinctrl support
+Subject: [Linux-stm32] [PATCH v2 1/1] ARM: multi_v7_defconfig: Add MCP23S08
+	pinctrl support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,18 +84,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable MCP23S08 pinctrl support
+Enable MCP23S08 I/O expanders to manage Ethernet PHY
+reset in STM32MP135F-DK board.
 
-V2: - Remark from Krzysztof (Change built-in to module)
-
-Christophe Roullier (1):
-  ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
-
+Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+---
  arch/arm/configs/multi_v7_defconfig | 1 +
  1 file changed, 1 insertion(+)
 
-
-base-commit: bb678f01804ccaa861b012b2b9426d69673d8a84
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 86bf057ac3663..62734530a3d6b 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -469,6 +469,7 @@ CONFIG_SPI_XILINX=y
+ CONFIG_SPI_SPIDEV=y
+ CONFIG_SPMI=y
+ CONFIG_PINCTRL_AS3722=y
++CONFIG_PINCTRL_MCP23S08=m
+ CONFIG_PINCTRL_MICROCHIP_SGPIO=y
+ CONFIG_PINCTRL_OCELOT=y
+ CONFIG_PINCTRL_PALMAS=y
 -- 
 2.25.1
 
