@@ -2,62 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824AC9039B5
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 13:10:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7890D903B53
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 14:03:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D9CEC712A3;
-	Tue, 11 Jun 2024 11:10:30 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E0EFC712A3;
+	Tue, 11 Jun 2024 12:03:24 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE559C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00CB4C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 11:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1718104229; x=1749640229;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=PujIJcgVmAL6tRyDjsLUnk7KbBQJmZ2zRZrUMPPtu74=;
- b=ZTOxOq2NbhMb8j2+Fh81PVvTmRto83cwNbRg4VOwOPkpyk5TUJsLt/xU
- XTH5+Py0iejaL+dJl5AlQ201utLjPX2vR3w/QvfCqhKI6IkJ75D5yB29/
- KP+SZVgRwP6VI5b9ZcT1O3A6NSQQDH4UBc/0Q1hJDAo8Xgf0/kyRZwxvS
- 4Ad/jR6IRhlsMO/J04q6av5ctrVK6zdd6vz3pLmtDZ1zfsPw57/Tdd1Kb
- IxIoQILB6fR9b7wI09TK0No9qqDgxkMdRMXKUhrXsGlvqdr+bo0rObVYE
- AQ9hzb4RmP6zyXAnCkEPESRUbaNUc4aszRYc1N553qX6hUtl8gHiCqJVa w==;
-X-CSE-ConnectionGUID: xAmqxd/7SO2xjXUxLPUWgw==
-X-CSE-MsgGUID: D0SRwihLQd23ZDRsAcmyrQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18636741"
-X-IronPort-AV: E=Sophos;i="6.08,229,1712646000"; d="scan'208";a="18636741"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 04:10:20 -0700
-X-CSE-ConnectionGUID: wCB1n7uOSKOwcZT+X524rw==
-X-CSE-MsgGUID: upC214k9Trejmen9uDz3BA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,229,1712646000"; d="scan'208";a="76868190"
-Received: from lkp-server01.sh.intel.com (HELO 628d7d8b9fc6) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 11 Jun 2024 04:10:17 -0700
-Received: from kbuild by 628d7d8b9fc6 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sGzOI-0000LK-10;
- Tue, 11 Jun 2024 11:10:14 +0000
-Date: Tue, 11 Jun 2024 19:10:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <202406111944.wTZ4iEdx-lkp@intel.com>
-References: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
+ Tue, 11 Jun 2024 12:03:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1718107378; x=1718712178; i=markus.elfring@web.de;
+ bh=v4MG0q9MnuPY4++cJH4EjME8ABWNsolzfGyYD+ZIsYU=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=v4UzXkw7bizGPdAA35we5ZahpMfu+ZtwZNGftCytLLW7WsytaCSWwTVnydrGfkf1
+ oK/ZgNXHm3vpMwOwPNJaTR1ozrYCotWRwmkEjkvwqSxaKtXnFCdvWl7BWkUzIqFCS
+ gIZagFE4szymyPe2/f4PTzw8l/ZSBWTr6Javsc6tAMAUPJBNgae9OxCZAV80jPYbh
+ NaigegF64eXlcvvhNoh0riYBNQAcs9DfWfqcn5GNVlVHnCuc6XKWXtoPFQveEsvl2
+ ywNmQI4Yqagr0EUDQODHk9pq5lLKLP27RCYJ1ytTAQJG7IzSDUY5u0ZSF4xH3Od3g
+ ph0NW7vK707lcLT9gQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mc1ZT-1sq3Jt0QsJ-00jIxb; Tue, 11
+ Jun 2024 14:02:58 +0200
+Message-ID: <32303d99-c5ba-4fec-8981-9b9966dc3291@web.de>
+Date: Tue, 11 Jun 2024 14:02:52 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
-Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- llvm@lists.linux.dev, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-intel:
- provide a select_pcs() implementation
+User-Agent: Mozilla Thunderbird
+To: Kamlesh Gurudasani <kamlesh@ti.com>, devicetree@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Herbert Xu <herbert@gondor.apana.org.au>, Tero Kristo <kristo@kernel.org>,
+ Will Deacon <will@kernel.org>
+References: <20240524-mcrc64-upstream-v3-4-24b94d8e8578@ti.com>
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240524-mcrc64-upstream-v3-4-24b94d8e8578@ti.com>
+X-Provags-ID: V03:K1:TJ+M3A+ZwHBv8zbRqkd8DEM7qjVhITuWZRUhZtq7FNJIWGkAGBW
+ 3CoM26cD78kPrZKl9pVWI0m31RFhWOtge/YrCgXqxxV5jOYOmntQo7ZymX+uPbr1E54hC4g
+ 2xYdC00lN417YXdoybmTuYwz5Fszf18GbPLT86PKnchC2KQ7FeKSSpyNPzVqFKprfp7WCKK
+ iS3XbhLEABKTBCzWlaBZw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:YogUS1Yz1Ys=;phEEUBQ3iH6xYdFv8skbZzBR14h
+ X+6Sz3DaRZye53CTBaNq5iAc3w2zfBrL0OMLLDI7LbCNNbCdBr/D4WTeCEoTtVjJ6Xg3Cz636
+ yXCpyBv1pv97bbuTZMENguGkw8NMIl0r1j3svqVgPM9Ga5wOd+gLLqhscwaPD0vi2gyTrWBqj
+ w2ONOFtEUdjQx7Vj3gpWrxfNDbqVklHCu5zaZX5b9OKbpKyRI5JIx0rJ5JNGRYqhC4qidhpTb
+ zQj2fIl/nIJd7l9KmtF4gvONU3TndNcRrwkGf0Vof27i6MienOPKxS4ds+a7nZ73MBIyXb/R2
+ 1w391fKmFkSuaRPjaYn8Lt1xC0NRVXS8w7j3nYT2DvEf8Yp+7i7PcE3/zYwBXBfQOo2RvKFyT
+ 3s7OHuqCJygN0ECVZ57Aiat6FL2evaSmaAvpl46VGhruRblcmRIvwNMdmo3hCz3SRlQf3VDnP
+ aO59pXvfXJvR2DbVUWPtCaCKbyww/Fi/lRfMS/J0rKEOxOz8qJ6gzaErPnBn1VZHDJUdi2KVG
+ wDHqn9Y8MKbM3GHjUv289hSAXlWFLdkND2BnKcFdoMYLAo7T2L2vVeSOgK0SYgh+cPtTrCL9u
+ Pg/A2En23qftgKq6bluP9KC1QKm3Zbj4g3azip3R2avn8d51eaMrR3S/9jhOiDvhPFctnQAD3
+ Yy3WkRkUk6KgmJAIMH+PDeZpLRObzXy+N5DUqgnXbaZwNVRh30u+GjhvAODjj10La3DRLkxOq
+ 6qN1/0vPgbsSgGmnPVzYQtiL1+WEjnexyZ+u6mBa5/KDVF9MA+AzYPfIbS7+erBP0mYnvA4zG
+ Eez1Dz4hRxH5b4QSa6kObgEBkhBJI0lV9uv4wEB1k1EmY=
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, LKML <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 4/6] crypto: ti - add driver for MCRC64
+	engine
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,214 +81,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on net-next/main]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-dwmac-intel-provide-a-select_pcs-implementation/20240610-224406
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/E1sGgCN-00Fact-0x%40rmk-PC.armlinux.org.uk
-patch subject: [PATCH net-next 2/5] net: stmmac: dwmac-intel: provide a select_pcs() implementation
-config: x86_64-randconfig-013-20240611 (https://download.01.org/0day-ci/archive/20240611/202406111944.wTZ4iEdx-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240611/202406111944.wTZ4iEdx-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202406111944.wTZ4iEdx-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:600:43: error: expected ';' after expression
-     600 |                 plat->select_pcs = intel_mgbe_select_pcs,
-         |                                                         ^
-         |                                                         ;
-   1 error generated.
-
-
-vim +600 drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-
-   455	
-   456	static int intel_mgbe_common_data(struct pci_dev *pdev,
-   457					  struct plat_stmmacenet_data *plat)
-   458	{
-   459		struct fwnode_handle *fwnode;
-   460		char clk_name[20];
-   461		int ret;
-   462		int i;
-   463	
-   464		plat->pdev = pdev;
-   465		plat->phy_addr = -1;
-   466		plat->clk_csr = 5;
-   467		plat->has_gmac = 0;
-   468		plat->has_gmac4 = 1;
-   469		plat->force_sf_dma_mode = 0;
-   470		plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
-   471	
-   472		/* Multiplying factor to the clk_eee_i clock time
-   473		 * period to make it closer to 100 ns. This value
-   474		 * should be programmed such that the clk_eee_time_period *
-   475		 * (MULT_FACT_100NS + 1) should be within 80 ns to 120 ns
-   476		 * clk_eee frequency is 19.2Mhz
-   477		 * clk_eee_time_period is 52ns
-   478		 * 52ns * (1 + 1) = 104ns
-   479		 * MULT_FACT_100NS = 1
-   480		 */
-   481		plat->mult_fact_100ns = 1;
-   482	
-   483		plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
-   484	
-   485		for (i = 0; i < plat->rx_queues_to_use; i++) {
-   486			plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
-   487			plat->rx_queues_cfg[i].chan = i;
-   488	
-   489			/* Disable Priority config by default */
-   490			plat->rx_queues_cfg[i].use_prio = false;
-   491	
-   492			/* Disable RX queues routing by default */
-   493			plat->rx_queues_cfg[i].pkt_route = 0x0;
-   494		}
-   495	
-   496		for (i = 0; i < plat->tx_queues_to_use; i++) {
-   497			plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
-   498	
-   499			/* Disable Priority config by default */
-   500			plat->tx_queues_cfg[i].use_prio = false;
-   501			/* Default TX Q0 to use TSO and rest TXQ for TBS */
-   502			if (i > 0)
-   503				plat->tx_queues_cfg[i].tbs_en = 1;
-   504		}
-   505	
-   506		/* FIFO size is 4096 bytes for 1 tx/rx queue */
-   507		plat->tx_fifo_size = plat->tx_queues_to_use * 4096;
-   508		plat->rx_fifo_size = plat->rx_queues_to_use * 4096;
-   509	
-   510		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
-   511		plat->tx_queues_cfg[0].weight = 0x09;
-   512		plat->tx_queues_cfg[1].weight = 0x0A;
-   513		plat->tx_queues_cfg[2].weight = 0x0B;
-   514		plat->tx_queues_cfg[3].weight = 0x0C;
-   515		plat->tx_queues_cfg[4].weight = 0x0D;
-   516		plat->tx_queues_cfg[5].weight = 0x0E;
-   517		plat->tx_queues_cfg[6].weight = 0x0F;
-   518		plat->tx_queues_cfg[7].weight = 0x10;
-   519	
-   520		plat->dma_cfg->pbl = 32;
-   521		plat->dma_cfg->pblx8 = true;
-   522		plat->dma_cfg->fixed_burst = 0;
-   523		plat->dma_cfg->mixed_burst = 0;
-   524		plat->dma_cfg->aal = 0;
-   525		plat->dma_cfg->dche = true;
-   526	
-   527		plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi),
-   528					 GFP_KERNEL);
-   529		if (!plat->axi)
-   530			return -ENOMEM;
-   531	
-   532		plat->axi->axi_lpi_en = 0;
-   533		plat->axi->axi_xit_frm = 0;
-   534		plat->axi->axi_wr_osr_lmt = 1;
-   535		plat->axi->axi_rd_osr_lmt = 1;
-   536		plat->axi->axi_blen[0] = 4;
-   537		plat->axi->axi_blen[1] = 8;
-   538		plat->axi->axi_blen[2] = 16;
-   539	
-   540		plat->ptp_max_adj = plat->clk_ptp_rate;
-   541		plat->eee_usecs_rate = plat->clk_ptp_rate;
-   542	
-   543		/* Set system clock */
-   544		sprintf(clk_name, "%s-%s", "stmmac", pci_name(pdev));
-   545	
-   546		plat->stmmac_clk = clk_register_fixed_rate(&pdev->dev,
-   547							   clk_name, NULL, 0,
-   548							   plat->clk_ptp_rate);
-   549	
-   550		if (IS_ERR(plat->stmmac_clk)) {
-   551			dev_warn(&pdev->dev, "Fail to register stmmac-clk\n");
-   552			plat->stmmac_clk = NULL;
-   553		}
-   554	
-   555		ret = clk_prepare_enable(plat->stmmac_clk);
-   556		if (ret) {
-   557			clk_unregister_fixed_rate(plat->stmmac_clk);
-   558			return ret;
-   559		}
-   560	
-   561		plat->ptp_clk_freq_config = intel_mgbe_ptp_clk_freq_config;
-   562	
-   563		/* Set default value for multicast hash bins */
-   564		plat->multicast_filter_bins = HASH_TABLE_SIZE;
-   565	
-   566		/* Set default value for unicast filter entries */
-   567		plat->unicast_filter_entries = 1;
-   568	
-   569		/* Set the maxmtu to a default of JUMBO_LEN */
-   570		plat->maxmtu = JUMBO_LEN;
-   571	
-   572		plat->flags |= STMMAC_FLAG_VLAN_FAIL_Q_EN;
-   573	
-   574		/* Use the last Rx queue */
-   575		plat->vlan_fail_q = plat->rx_queues_to_use - 1;
-   576	
-   577		/* For fixed-link setup, we allow phy-mode setting */
-   578		fwnode = dev_fwnode(&pdev->dev);
-   579		if (fwnode) {
-   580			int phy_mode;
-   581	
-   582			/* "phy-mode" setting is optional. If it is set,
-   583			 *  we allow either sgmii or 1000base-x for now.
-   584			 */
-   585			phy_mode = fwnode_get_phy_mode(fwnode);
-   586			if (phy_mode >= 0) {
-   587				if (phy_mode == PHY_INTERFACE_MODE_SGMII ||
-   588				    phy_mode == PHY_INTERFACE_MODE_1000BASEX)
-   589					plat->phy_interface = phy_mode;
-   590				else
-   591					dev_warn(&pdev->dev, "Invalid phy-mode\n");
-   592			}
-   593		}
-   594	
-   595		/* Intel mgbe SGMII interface uses pcs-xcps */
-   596		if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
-   597		    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
-   598			plat->mdio_bus_data->has_xpcs = true;
-   599			plat->mdio_bus_data->default_an_inband = true;
- > 600			plat->select_pcs = intel_mgbe_select_pcs,
-   601		}
-   602	
-   603		/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
-   604		plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
-   605		plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
-   606	
-   607		plat->int_snapshot_num = AUX_SNAPSHOT1;
-   608	
-   609		plat->crosststamp = intel_crosststamp;
-   610		plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
-   611	
-   612		/* Setup MSI vector offset specific to Intel mGbE controller */
-   613		plat->msi_mac_vec = 29;
-   614		plat->msi_lpi_vec = 28;
-   615		plat->msi_sfty_ce_vec = 27;
-   616		plat->msi_sfty_ue_vec = 26;
-   617		plat->msi_rx_base_vec = 0;
-   618		plat->msi_tx_base_vec = 1;
-   619	
-   620		return 0;
-   621	}
-   622	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+4oCmCj4gKysrIGIvZHJpdmVycy9jcnlwdG8vdGkvbWNyYzY0LmMK4oCmCj4gK3N0YXRpYyBpbnQg
+bWNyYzY0X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gK3sK4oCmCj4gKwlw
+bGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBkZXZfZGF0YSk7Cj4gKwo+ICsJc3Bpbl9sb2NrKCZt
+Y3JjNjRfZGV2X2xpc3QubG9jayk7Cj4gKwlsaXN0X2FkZCgmZGV2X2RhdGEtPmxpc3QsICZtY3Jj
+NjRfZGV2X2xpc3QuZGV2X2xpc3QpOwo+ICsJc3Bpbl91bmxvY2soJm1jcmM2NF9kZXZfbGlzdC5s
+b2NrKTsKPiArCj4gKwltdXRleF9sb2NrKCZyZWZjbnRfbG9jayk7Cj4gKwlpZiAoIXJlZmNudCkg
+ewo+ICsJCXJldCA9IGNyeXB0b19yZWdpc3Rlcl9zaGFzaGVzKGFsZ3MsIEFSUkFZX1NJWkUoYWxn
+cykpOwrigKYKPiArCX0KPiArCXJlZmNudCsrOwo+ICsJbXV0ZXhfdW5sb2NrKCZyZWZjbnRfbG9j
+ayk7CuKApgoKV291bGQgeW91IGJlY29tZSBpbnRlcmVzdGVkIHRvIGFwcGx5IGxvY2sgZ3VhcmRz
+PwpodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92Ni4xMC1yYzIvc291cmNlL2luY2x1
+ZGUvbGludXgvY2xlYW51cC5oI0wxMjQKClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
+TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
