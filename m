@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A31903F84
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 17:03:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 339E6903F85
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 17:03:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEA4BC78004;
-	Tue, 11 Jun 2024 15:03:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0DD1C78004;
+	Tue, 11 Jun 2024 15:03:41 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3471AC78003
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECEBDC78003
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 15:03:33 +0000 (UTC)
+ Tue, 11 Jun 2024 15:03:40 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2FFD7152B;
- Tue, 11 Jun 2024 08:03:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E614F1595;
+ Tue, 11 Jun 2024 08:04:04 -0700 (PDT)
 Received: from e127643.arm.com (unknown [10.57.41.181])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B13AA3F64C;
- Tue, 11 Jun 2024 08:03:28 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 78BD03F64C;
+ Tue, 11 Jun 2024 08:03:36 -0700 (PDT)
 From: James Clark <james.clark@arm.com>
 To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
  gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
  leo.yan@linux.dev, anshuman.khandual@arm.com
-Date: Tue, 11 Jun 2024 16:02:18 +0100
-Message-Id: <20240611150228.1802828-8-james.clark@arm.com>
+Date: Tue, 11 Jun 2024 16:02:19 +0100
+Message-Id: <20240611150228.1802828-9-james.clark@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240611150228.1802828-1-james.clark@arm.com>
 References: <20240611150228.1802828-1-james.clark@arm.com>
@@ -37,8 +37,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
  Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  "Liang, Kan" <kan.liang@linux.intel.com>
-Subject: [Linux-stm32] [PATCH v3 07/14] coresight: Clarify comments around
-	the PID of the sink owner
+Subject: [Linux-stm32] [PATCH v3 08/14] coresight: Move struct
+	coresight_trace_id_map to common header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,59 +55,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-"Process being monitored" and "pid of the process to monitor" imply that
-this would be the same PID if there were two sessions targeting the same
-process. But this is actually the PID of the process that did the Perf
-event open call, rather than the target of the session. So update the
-comments to make this clearer.
+The trace ID maps will need to be created and stored by the core and
+Perf code so move the definition up to the common header.
 
 Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 Reviewed-by: Mike Leach <mike.leach@linaro.org>
 Signed-off-by: James Clark <james.clark@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-tmc-etr.c | 5 +++--
- drivers/hwtracing/coresight/coresight-tmc.h     | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ .../hwtracing/coresight/coresight-trace-id.c  |  1 +
+ .../hwtracing/coresight/coresight-trace-id.h  | 19 -------------------
+ include/linux/coresight.h                     | 18 ++++++++++++++++++
+ 3 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-index e75428fa1592..8962fc27d04f 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-@@ -36,7 +36,8 @@ struct etr_buf_hw {
-  * etr_perf_buffer - Perf buffer used for ETR
-  * @drvdata		- The ETR drvdaga this buffer has been allocated for.
-  * @etr_buf		- Actual buffer used by the ETR
-- * @pid			- The PID this etr_perf_buffer belongs to.
-+ * @pid			- The PID of the session owner that etr_perf_buffer
-+ *			  belongs to.
-  * @snaphost		- Perf session mode
-  * @nr_pages		- Number of pages in the ring buffer.
-  * @pages		- Array of Pages in the ring buffer.
-@@ -1662,7 +1663,7 @@ static int tmc_enable_etr_sink_perf(struct coresight_device *csdev, void *data)
- 		goto unlock_out;
- 	}
+diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
+index af5b4ef59cea..19005b5b4dc4 100644
+--- a/drivers/hwtracing/coresight/coresight-trace-id.c
++++ b/drivers/hwtracing/coresight/coresight-trace-id.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2022, Linaro Limited, All rights reserved.
+  * Author: Mike Leach <mike.leach@linaro.org>
+  */
++#include <linux/coresight.h>
+ #include <linux/coresight-pmu.h>
+ #include <linux/cpumask.h>
+ #include <linux/kernel.h>
+diff --git a/drivers/hwtracing/coresight/coresight-trace-id.h b/drivers/hwtracing/coresight/coresight-trace-id.h
+index 3797777d367e..49438a96fcc6 100644
+--- a/drivers/hwtracing/coresight/coresight-trace-id.h
++++ b/drivers/hwtracing/coresight/coresight-trace-id.h
+@@ -32,10 +32,6 @@
+ #include <linux/bitops.h>
+ #include <linux/types.h>
  
--	/* Get a handle on the pid of the process to monitor */
-+	/* Get a handle on the pid of the session owner */
- 	pid = etr_perf->pid;
+-
+-/* architecturally we have 128 IDs some of which are reserved */
+-#define CORESIGHT_TRACE_IDS_MAX 128
+-
+ /* ID 0 is reserved */
+ #define CORESIGHT_TRACE_ID_RES_0 0
  
- 	/* Do not proceed if this device is associated with another session */
-diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
-index c77763b49de0..2671926be62a 100644
---- a/drivers/hwtracing/coresight/coresight-tmc.h
-+++ b/drivers/hwtracing/coresight/coresight-tmc.h
-@@ -171,8 +171,9 @@ struct etr_buf {
-  * @csdev:	component vitals needed by the framework.
-  * @miscdev:	specifics to handle "/dev/xyz.tmc" entry.
-  * @spinlock:	only one at a time pls.
-- * @pid:	Process ID of the process being monitored by the session
-- *		that is using this component.
-+ * @pid:	Process ID of the process that owns the session that is using
-+ *		this component. For example this would be the pid of the Perf
-+ *		process.
-  * @buf:	Snapshot of the trace data for ETF/ETB.
-  * @etr_buf:	details of buffer used in TMC-ETR
-  * @len:	size of the available trace for ETF/ETB.
+@@ -46,21 +42,6 @@
+ #define IS_VALID_CS_TRACE_ID(id)	\
+ 	((id > CORESIGHT_TRACE_ID_RES_0) && (id < CORESIGHT_TRACE_ID_RES_TOP))
+ 
+-/**
+- * Trace ID map.
+- *
+- * @used_ids:	Bitmap to register available (bit = 0) and in use (bit = 1) IDs.
+- *		Initialised so that the reserved IDs are permanently marked as
+- *		in use.
+- * @pend_rel_ids: CPU IDs that have been released by the trace source but not
+- *		  yet marked as available, to allow re-allocation to the same
+- *		  CPU during a perf session.
+- */
+-struct coresight_trace_id_map {
+-	DECLARE_BITMAP(used_ids, CORESIGHT_TRACE_IDS_MAX);
+-	DECLARE_BITMAP(pend_rel_ids, CORESIGHT_TRACE_IDS_MAX);
+-};
+-
+ /* Allocate and release IDs for a single default trace ID map */
+ 
+ /**
+diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+index f09ace92176e..c16c61a8411d 100644
+--- a/include/linux/coresight.h
++++ b/include/linux/coresight.h
+@@ -218,6 +218,24 @@ struct coresight_sysfs_link {
+ 	const char *target_name;
+ };
+ 
++/* architecturally we have 128 IDs some of which are reserved */
++#define CORESIGHT_TRACE_IDS_MAX 128
++
++/**
++ * Trace ID map.
++ *
++ * @used_ids:	Bitmap to register available (bit = 0) and in use (bit = 1) IDs.
++ *		Initialised so that the reserved IDs are permanently marked as
++ *		in use.
++ * @pend_rel_ids: CPU IDs that have been released by the trace source but not
++ *		  yet marked as available, to allow re-allocation to the same
++ *		  CPU during a perf session.
++ */
++struct coresight_trace_id_map {
++	DECLARE_BITMAP(used_ids, CORESIGHT_TRACE_IDS_MAX);
++	DECLARE_BITMAP(pend_rel_ids, CORESIGHT_TRACE_IDS_MAX);
++};
++
+ /**
+  * struct coresight_device - representation of a device as used by the framework
+  * @pdata:	Platform data with device connections associated to this device.
 -- 
 2.34.1
 
