@@ -2,40 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E17190424B
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 19:19:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50012904531
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 21:51:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A057C712A3;
-	Tue, 11 Jun 2024 17:19:38 +0000 (UTC)
-Received: from fgw23-7.mail.saunalahti.fi (fgw23-7.mail.saunalahti.fi
- [62.142.5.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF078C712A3;
+	Tue, 11 Jun 2024 19:51:00 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02DEEC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 723BCC5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 17:19:30 +0000 (UTC)
-Received: from localhost (88-113-25-87.elisa-laajakaista.fi [88.113.25.87])
- by fgw22.mail.saunalahti.fi (Halon) with ESMTP
- id c1dcc4e0-2816-11ef-8e57-005056bdf889;
- Tue, 11 Jun 2024 20:19:28 +0300 (EEST)
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 11 Jun 2024 20:19:27 +0300
-To: kernel test robot <lkp@intel.com>
-Message-ID: <ZmiHH7hzV9eWZsCU@surfacebook.localdomain>
-References: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
- <202406112331.DvtIlhjT-lkp@intel.com>
+ Tue, 11 Jun 2024 19:50:53 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 3A504883CF;
+ Tue, 11 Jun 2024 21:50:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1718135452;
+ bh=npnYqV9J2WoKJ9LDtrzlpjRBywAdFkb0PaBEMohzQpg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PGt6yIavQt96y3TUxCeFwwWxA9EbReZ4eHCEu4QB66aznmJItlmSV+FKjI9y6rLmr
+ qgXJlbHxmbCN/zefXX7dVlBtv4XySbs3gxd52feZikASCbD55TJmg1Oq1SjQjR/DtF
+ 30arv7jOgCGQooNWJ+Bxezm0f9PyYP0bRJ4UvAKsLCTDT0RGkl1S33QBPB7vuwEvaC
+ nmAzH3rLw8Tfnb4d/qyj1BSujK4MyUBkbqjm6lVvQExC9fOPbXFodcy4vOa9DpTjOp
+ u+2wfT3EwXfyGytHZ/2TS/79XyrjgVgP+CPyNhMBVaBM5jtRun07nw4gM2qnj0msTd
+ wCf73U/Gxq96Q==
+Message-ID: <e0b9b074-3aad-4b2d-9f4e-99ad2eebbb6b@denx.de>
+Date: Tue, 11 Jun 2024 18:16:14 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <202406112331.DvtIlhjT-lkp@intel.com>
-Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Serge Semin <fancer.lancer@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-intel:
- provide a select_pcs() implementation
+User-Agent: Mozilla Thunderbird
+To: Christophe ROULLIER <christophe.roullier@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>, Jose Abreu
+ <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20240611083606.733453-1-christophe.roullier@foss.st.com>
+ <20240611083606.733453-8-christophe.roullier@foss.st.com>
+ <ee101ca5-4444-4610-9473-1a725a542c91@denx.de>
+ <7999f3df-da1e-4902-b58a-6bb58546a634@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <7999f3df-da1e-4902-b58a-6bb58546a634@foss.st.com>
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [net-next,
+ PATCH v7 7/8] net: stmmac: dwmac-stm32: Mask support for PMCR
+ configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,58 +70,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Tue, Jun 11, 2024 at 11:41:38PM +0800, kernel test robot kirjoitti:
-> Hi Russell,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on net-next/main]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-add-select_pcs-platform-method/20240611-024301
-> base:   net-next/main
-> patch link:    https://lore.kernel.org/r/E1sGgCN-00Fact-0x%40rmk-PC.armlinux.org.uk
-> patch subject: [PATCH net-next 2/5] net: stmmac: dwmac-intel: provide a select_pcs() implementation
-> config: x86_64-rhel-8.3-kunit (https://download.01.org/0day-ci/archive/20240611/202406112331.DvtIlhjT-lkp@intel.com/config)
-> compiler: gcc-13 (Ubuntu 13.2.0-4ubuntu3) 13.2.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240611/202406112331.DvtIlhjT-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202406112331.DvtIlhjT-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->    drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c: In function 'intel_mgbe_common_data':
-> >> drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:601:9: error: expected expression before '}' token
->      601 |         }
->          |         ^
-> 
-
-...
-
-> 7310fe538ea5c9 Ong Boon Leong             2021-03-15  595  	/* Intel mgbe SGMII interface uses pcs-xcps */
-> c82386310d9572 Ong Boon Leong             2022-06-15  596  	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
-> c82386310d9572 Ong Boon Leong             2022-06-15  597  	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
-> 7310fe538ea5c9 Ong Boon Leong             2021-03-15  598  		plat->mdio_bus_data->has_xpcs = true;
-> 83f55b01dd9030 Russell King (Oracle       2024-05-29  599) 		plat->mdio_bus_data->default_an_inband = true;
-> 178a34a9b7ccb3 Russell King (Oracle       2024-06-10  600) 		plat->select_pcs = intel_mgbe_select_pcs,
-
-Yeah, compiler wants semicolon here.
-
-> 7310fe538ea5c9 Ong Boon Leong             2021-03-15 @601  	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNi8xMS8yNCAzOjMyIFBNLCBDaHJpc3RvcGhlIFJPVUxMSUVSIHdyb3RlOgo+IAo+IE9uIDYv
+MTEvMjQgMTU6MDcsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiA2LzExLzI0IDEwOjM2IEFNLCBD
+aHJpc3RvcGhlIFJvdWxsaWVyIHdyb3RlOgo+Pgo+PiBbLi4uXQo+Pgo+Pj4gwqAgc3RhdGljIHZv
+aWQgc3RtMzJfZHdtYWNfY2xrX2Rpc2FibGUoc3RydWN0IHN0bTMyX2R3bWFjICpkd21hYywgYm9v
+bCAKPj4+IHN1c3BlbmQpCj4+PiBAQCAtMzQ4LDggKzM1MiwxNSBAQCBzdGF0aWMgaW50IHN0bTMy
+X2R3bWFjX3BhcnNlX2RhdGEoc3RydWN0IAo+Pj4gc3RtMzJfZHdtYWMgKmR3bWFjLAo+Pj4gwqDC
+oMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJSKGR3bWFjLT5yZWdtYXApOwo+Pj4gwqAgwqDC
+oMKgwqDCoCBlcnIgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMl9pbmRleChucCwgInN0LHN5c2NvbiIs
+IDEsIAo+Pj4gJmR3bWFjLT5tb2RlX3JlZyk7Cj4+PiAtwqDCoMKgIGlmIChlcnIpCj4+PiArwqDC
+oMKgIGlmIChlcnIpIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKGRldiwgIkNhbid0
+IGdldCBzeXNjb25maWcgbW9kZSBvZmZzZXQgKCVkKVxuIiwgZXJyKTsKPj4+ICvCoMKgwqDCoMKg
+wqDCoCByZXR1cm4gZXJyOwo+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+PiArwqDCoMKgIGR3bWFjLT5t
+b2RlX21hc2sgPSBTWVNDRkdfTVAxX0VUSF9NQVNLOwo+Pj4gK8KgwqDCoCBlcnIgPSBvZl9wcm9w
+ZXJ0eV9yZWFkX3UzMl9pbmRleChucCwgInN0LHN5c2NvbiIsIDIsIAo+Pj4gJmR3bWFjLT5tb2Rl
+X21hc2spOwo+Pj4gK8KgwqDCoCBpZiAoZXJyKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRldl9kYmco
+ZGV2LCAiV2FybmluZyBzeXNjb25maWcgcmVnaXN0ZXIgbWFzayBub3Qgc2V0XG4iKTsKPj4KPj4g
+TXkgY29tbWVudCBvbiBWNiB3YXMgbm90IGFkZHJlc3NlZCBJIHRoaW5rID8KPiAKPiBIaSBNYXJl
+aywKPiAKPiBJIHB1dCB0aGUgbW9kaWZpY2F0aW9uIGluIHBhdGNoIHdoaWNoIGludHJvZHVjZSBN
+UDEzIChWNyA4LzgpIDstKQo+IAo+ICDCoMKgwqDCoCBlcnIgPSBvZl9wcm9wZXJ0eV9yZWFkX3Uz
+Ml9pbmRleChucCwgInN0LHN5c2NvbiIsIDIsIAo+ICZkd21hYy0+bW9kZV9tYXNrKTsKPiAtwqDC
+oMKgIGlmIChlcnIpCj4gLcKgwqDCoMKgwqDCoMKgIGRldl9kYmcoZGV2LCAiV2FybmluZyBzeXNj
+b25maWcgcmVnaXN0ZXIgbWFzayBub3Qgc2V0XG4iKTsKPiArwqDCoMKgIGlmIChlcnIpIHsKPiAr
+wqDCoMKgwqDCoMKgwqAgaWYgKGR3bWFjLT5vcHMtPmlzX21wMTMpCj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgZGV2X2VycihkZXYsICJTeXNjb25maWcgcmVnaXN0ZXIgbWFzayBtdXN0IGJlIHNl
+dCAoJWQpXG4iLCAKPiBlcnIpOwo+ICvCoMKgwqDCoMKgwqDCoCBlbHNlCj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgZGV2X2RiZyhkZXYsICJXYXJuaW5nIHN5c2NvbmZpZyByZWdpc3RlciBtYXNr
+IG5vdCBzZXRcbiIpOwo+ICvCoMKgwqAgfQoKVGhhdCBpc24ndCByaWdodCwgaXMgaXQgPwoKRm9y
+IE1QMiAsIHRoaXMgc3RpbGwgY2hlY2tzIHRoZSBwcmVzZW5jZSBvZiBzeXNjb24gLCB3aGljaCBz
+aG91bGRuJ3QgYmUgCmNoZWNrZWQgYXQgYWxsIGZvciBNUDIgYXMgZmFyIGFzIEkgdW5kZXJzdGFu
+ZCBpdCA/Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
