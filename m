@@ -2,74 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7890D903B53
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 14:03:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC25A903BD4
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 14:25:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E0EFC712A3;
-	Tue, 11 Jun 2024 12:03:24 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E690C712A3;
+	Tue, 11 Jun 2024 12:25:19 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00CB4C5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F05D7C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 12:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1718107378; x=1718712178; i=markus.elfring@web.de;
- bh=v4MG0q9MnuPY4++cJH4EjME8ABWNsolzfGyYD+ZIsYU=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=v4UzXkw7bizGPdAA35we5ZahpMfu+ZtwZNGftCytLLW7WsytaCSWwTVnydrGfkf1
- oK/ZgNXHm3vpMwOwPNJaTR1ozrYCotWRwmkEjkvwqSxaKtXnFCdvWl7BWkUzIqFCS
- gIZagFE4szymyPe2/f4PTzw8l/ZSBWTr6Javsc6tAMAUPJBNgae9OxCZAV80jPYbh
- NaigegF64eXlcvvhNoh0riYBNQAcs9DfWfqcn5GNVlVHnCuc6XKWXtoPFQveEsvl2
- ywNmQI4Yqagr0EUDQODHk9pq5lLKLP27RCYJ1ytTAQJG7IzSDUY5u0ZSF4xH3Od3g
- ph0NW7vK707lcLT9gQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mc1ZT-1sq3Jt0QsJ-00jIxb; Tue, 11
- Jun 2024 14:02:58 +0200
-Message-ID: <32303d99-c5ba-4fec-8981-9b9966dc3291@web.de>
-Date: Tue, 11 Jun 2024 14:02:52 +0200
+ Tue, 11 Jun 2024 12:25:18 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52c815e8e9eso3002426e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Jun 2024 05:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718108718; x=1718713518;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6ouUDY8YSEz1j3+98PcGq5EBB+OR8gX6mhTmbMAzRrc=;
+ b=ANaFB33+j1KnH8jYCrXDNONlrPv7YP0M0/IkC7msg+BxRDGQ7YC0CBxsG5g7e/yKHb
+ 2xz98bY0rKbu34D9IAb+QRdsx+NJd2N7nn5Qw+1eWXUZLqgKtKCGLKHkyRf517Cs3Z3/
+ kOffUo9+Ru+WibFETEwpn5zcMAQ9++ec8BbInHeixZNvZuPta0U2QQmjYO6WJcLbD+mT
+ 3ChlcD4PMppriMHvJZDkk2RiHwTzcKFxazFwC+RG69+Qv4sh52aQABOVQN6Vuhb6dVpZ
+ Xx2HdzyjuBa2COaLEfZfLxO5mR+r1vRLNd8CF/Yi34HXjMyH+MAoeIkjAXd/6sHyBfqT
+ nyoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718108718; x=1718713518;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6ouUDY8YSEz1j3+98PcGq5EBB+OR8gX6mhTmbMAzRrc=;
+ b=pYc7LX0XHIh3tRE+4oa/PlWE+zK9s38L/ZFVOUnSWM+4Pd34K3dC9zePdi0CRV+/JY
+ FcNZ4K/txLAEtwmOXItFcjkq8oVOYDWIvi5EYvIl6XIvahRGlfwqNDPyS2OCUmHN5W73
+ PBr9Ngpdm/K1NmNWaPewr98szOzAEToNzAYBBi+7+93wZ4iG0+wS+0AWIhezoAsSOJll
+ Jh9S3nMTyKmReTGSood+TjHTFX85H+6vJ+owguznaYMcS9yl+IYf8Hq3PfK0Vx3VMHPn
+ 1jQMtCXDPejpmWbrZTFTyQIYKytsn/KcX1HfLDrODvK7sSYRvnyqV/A9UG5EsXbFy0gT
+ AgZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBI3LVHrZuLQaxnVpRgqQbrSDLRl+x+Kd4NrpS5wZAYsoE+cO8qrlTphkvP9cp3+FULw2nKJ9Et+GF063yYRV2Rkz2mVzt/oBFagINI8dx3Y2xuE4uRtgG
+X-Gm-Message-State: AOJu0YwKvjRPLr2OGiW1IfW5lAssUSQ+5esulcdznmMZckJ4wcoWRo+C
+ wyvH5Yk8YhNGsp1ij1WTXu+wfbE3Ym2/j2BS05Pn02KLzIVo7ig3
+X-Google-Smtp-Source: AGHT+IHUeXd4dGJsML6XnF4lPZt0zfn3VqlZQB2A0tzQ+ohLCNYXePxOv2iTbHbu+AlL2/Jv1CHLoQ==
+X-Received: by 2002:a05:6512:28a:b0:52c:7a2d:5d5d with SMTP id
+ 2adb3069b0e04-52c7a2d5f56mr5474366e87.3.1718108717840; 
+ Tue, 11 Jun 2024 05:25:17 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52c82c37a25sm1380037e87.149.2024.06.11.05.25.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jun 2024 05:25:17 -0700 (PDT)
+Date: Tue, 11 Jun 2024 15:25:14 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
+ Andrew Halaney <ahalaney@redhat.com>
+Message-ID: <dz34gg4atjyha5dc7tfgbnmsfku63r7faicyzo3odkllq3bqin@hho3kj5wmaat>
+References: <Zlmzu7/ANyZxOOQL@shell.armlinux.org.uk>
+ <E1sD0Ov-00EzBu-BC@rmk-PC.armlinux.org.uk>
+ <6n4xvu6b43aptstdevdkzx2uqblwabaqndle2omqx5tcxk4lnz@wm3zqdrcr6m5>
+ <ZmbFK2SYyHcqzSeK@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kamlesh Gurudasani <kamlesh@ti.com>, devicetree@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>, Tero Kristo <kristo@kernel.org>,
- Will Deacon <will@kernel.org>
-References: <20240524-mcrc64-upstream-v3-4-24b94d8e8578@ti.com>
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20240524-mcrc64-upstream-v3-4-24b94d8e8578@ti.com>
-X-Provags-ID: V03:K1:TJ+M3A+ZwHBv8zbRqkd8DEM7qjVhITuWZRUhZtq7FNJIWGkAGBW
- 3CoM26cD78kPrZKl9pVWI0m31RFhWOtge/YrCgXqxxV5jOYOmntQo7ZymX+uPbr1E54hC4g
- 2xYdC00lN417YXdoybmTuYwz5Fszf18GbPLT86PKnchC2KQ7FeKSSpyNPzVqFKprfp7WCKK
- iS3XbhLEABKTBCzWlaBZw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:YogUS1Yz1Ys=;phEEUBQ3iH6xYdFv8skbZzBR14h
- X+6Sz3DaRZye53CTBaNq5iAc3w2zfBrL0OMLLDI7LbCNNbCdBr/D4WTeCEoTtVjJ6Xg3Cz636
- yXCpyBv1pv97bbuTZMENguGkw8NMIl0r1j3svqVgPM9Ga5wOd+gLLqhscwaPD0vi2gyTrWBqj
- w2ONOFtEUdjQx7Vj3gpWrxfNDbqVklHCu5zaZX5b9OKbpKyRI5JIx0rJ5JNGRYqhC4qidhpTb
- zQj2fIl/nIJd7l9KmtF4gvONU3TndNcRrwkGf0Vof27i6MienOPKxS4ds+a7nZ73MBIyXb/R2
- 1w391fKmFkSuaRPjaYn8Lt1xC0NRVXS8w7j3nYT2DvEf8Yp+7i7PcE3/zYwBXBfQOo2RvKFyT
- 3s7OHuqCJygN0ECVZ57Aiat6FL2evaSmaAvpl46VGhruRblcmRIvwNMdmo3hCz3SRlQf3VDnP
- aO59pXvfXJvR2DbVUWPtCaCKbyww/Fi/lRfMS/J0rKEOxOz8qJ6gzaErPnBn1VZHDJUdi2KVG
- wDHqn9Y8MKbM3GHjUv289hSAXlWFLdkND2BnKcFdoMYLAo7T2L2vVeSOgK0SYgh+cPtTrCL9u
- Pg/A2En23qftgKq6bluP9KC1QKm3Zbj4g3azip3R2avn8d51eaMrR3S/9jhOiDvhPFctnQAD3
- Yy3WkRkUk6KgmJAIMH+PDeZpLRObzXy+N5DUqgnXbaZwNVRh30u+GjhvAODjj10La3DRLkxOq
- 6qN1/0vPgbsSgGmnPVzYQtiL1+WEjnexyZ+u6mBa5/KDVF9MA+AzYPfIbS7+erBP0mYnvA4zG
- Eez1Dz4hRxH5b4QSa6kObgEBkhBJI0lV9uv4wEB1k1EmY=
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Catalin Marinas <catalin.marinas@arm.com>, LKML <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 4/6] crypto: ti - add driver for MCRC64
-	engine
+Content-Disposition: inline
+In-Reply-To: <ZmbFK2SYyHcqzSeK@shell.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 3/8] net: stmmac:
+ dwmac1000: convert sgmii/rgmii "pcs" to phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,22 +85,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-4oCmCj4gKysrIGIvZHJpdmVycy9jcnlwdG8vdGkvbWNyYzY0LmMK4oCmCj4gK3N0YXRpYyBpbnQg
-bWNyYzY0X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gK3sK4oCmCj4gKwlw
-bGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBkZXZfZGF0YSk7Cj4gKwo+ICsJc3Bpbl9sb2NrKCZt
-Y3JjNjRfZGV2X2xpc3QubG9jayk7Cj4gKwlsaXN0X2FkZCgmZGV2X2RhdGEtPmxpc3QsICZtY3Jj
-NjRfZGV2X2xpc3QuZGV2X2xpc3QpOwo+ICsJc3Bpbl91bmxvY2soJm1jcmM2NF9kZXZfbGlzdC5s
-b2NrKTsKPiArCj4gKwltdXRleF9sb2NrKCZyZWZjbnRfbG9jayk7Cj4gKwlpZiAoIXJlZmNudCkg
-ewo+ICsJCXJldCA9IGNyeXB0b19yZWdpc3Rlcl9zaGFzaGVzKGFsZ3MsIEFSUkFZX1NJWkUoYWxn
-cykpOwrigKYKPiArCX0KPiArCXJlZmNudCsrOwo+ICsJbXV0ZXhfdW5sb2NrKCZyZWZjbnRfbG9j
-ayk7CuKApgoKV291bGQgeW91IGJlY29tZSBpbnRlcmVzdGVkIHRvIGFwcGx5IGxvY2sgZ3VhcmRz
-PwpodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92Ni4xMC1yYzIvc291cmNlL2luY2x1
-ZGUvbGludXgvY2xlYW51cC5oI0wxMjQKClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Russell, Andrew
+
+On Mon, Jun 10, 2024 at 10:19:39AM +0100, Russell King (Oracle) wrote:
+> On Wed, Jun 05, 2024 at 03:05:43PM -0500, Andrew Halaney wrote:
+> > On Fri, May 31, 2024 at 12:26:25PM GMT, Russell King (Oracle) wrote:
+> > > @@ -335,8 +303,12 @@ static int dwmac1000_irq_status(struct mac_device_info *hw,
+> > >  
+
+> > >  	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
+> > >  
+> > > -	if (intr_status & PCS_RGSMIIIS_IRQ)
+> > > -		dwmac1000_rgsmii(ioaddr, x);
+> > > +	if (intr_status & PCS_RGSMIIIS_IRQ) {
+> > > +		/* TODO Dummy-read to clear the IRQ status */
+> > > +		readl(ioaddr + GMAC_RGSMIIIS);
+> > 
+> > This seems to me that you're doing the TODO here? Maybe I'm
+> > misunderstanding... maybe not :)
+> 
+> Please trim your replies.
+> 
+> These two lines come from Serge - please ask him why it's marked as a
+> TODO. I assume he has a reason. Thanks.
+
+The statement below the "TODO..." comment was supposed to be a
+quick-fix of the interrupts flood happening due to the uncleared
+RGSMIIIS IRQ flag. Of course dummy-reading in the IRQ handler with no
+action required to handle the IRQ wouldn't be the best solution
+(despite of having the phylink_pcs_change() called), especially seeing there
+is the dwmac_pcs_isr() method, which name implies the PCS IRQ
+handling. At least we could have incremented the
+stmmac_extra_stats::irq_rgmii_n counter in there. So what I meant TODO here was
+to move the RGSMIIIS IRQ handling in dwmac_pcs_isr().
+
+I know that the dwmac_pcs_isr() method has been created around the
+cross-IP-cores PCS implementation, but as I mentioned several times
+the tx_config_reg[15:0] part of the
+GMAC_RGSMIIIS/MAC_PHYIF_Control_Status registers is the same on both
+DW GMAC and DW QoS Eth:
+tx_config_reg[0]:   LNKMOD
+tx_config_reg[1:2]: LNKSPEED
+tx_config_reg[3]:   LNKSTS
+tx_config_reg[4]:   JABTO (Jabber Timeout, specific to SMII)
+tx_config_reg[5]:   FALSCARDET (False Carrier Detected, specific to SMII)
+
+Should we have a DW IP-core-specific getter like
+stmmac_ops::pcs_get_config_reg() which would return the
+tx_config_reg[15:0] field then we could have cleared the IRQ by just
+calling it, we could have had the fields generically
+parsed in the dwmac_pcs_isr() handler and in the
+phylink_pcs_ops::pcs_get_state(). Thus the entire struct
+phylink_pcs_ops definition could be moved to the stmmac_pcs.c module
+simplifying the DW GMAC and DW QoS Eth hardware-dependent code.
+
+In this regard there is another change which would be required (and
+frankly would make the code simpler). Instead of passing the
+CSRs-base address to the
+dwmac_pcs_isr()/dwmac_pcs_config()/dwmac_pcs_get_state() methods, we
+could pre-define the PCS registers base address as it's done for the
+PTP/MMC/EST implementation in the driver. Here is the brief change
+description:
+1. add stmmac_regs_off::pcs_off field (hwif.h)
+2. add stmmac_priv::pcsaddr field (stmmac.h)
+3. initialize the stmmac_regs_off::pcs_off field for the DW GMAC and
+DW QoS Eth IP-cores in the stmmac_hw array (hwif.c)
+4. initialize the stmmac_priv::pcsaddr field in the stmmac_hwif_init()
+method as it's done for stmmac_priv::{ptpaddr,mmcaddr,estaddr}.
+5. use the PCS-base address in the stmmac_pcs.c module.
+
+As a result (unless I've missed something) we'll be able to move
+almost the entire internal PCS implementation to the stmmac_pcs.c
+module (except the tx_config_reg[] data getter).
+
+-Serge(y)
+
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
