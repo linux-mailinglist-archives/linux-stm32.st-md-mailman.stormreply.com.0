@@ -2,130 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2AC29036E8
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 10:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824AC9039B5
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 13:10:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98E1CC6C838;
-	Tue, 11 Jun 2024 08:44:28 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D9CEC712A3;
+	Tue, 11 Jun 2024 11:10:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2668CFAC7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE559C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 08:44:27 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a6f253a06caso81185266b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 01:44:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718095467; x=1718700267;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=t8+Z+UiGEsAUTOvURJxuWcsArujuWV7fuyUbFm+HPUk=;
- b=qpxqx6EKWFVXEwlDaMA1U/H26vxhHldkcEhfpnJ/mNz3NPiixpP5BtkJPX92TQIA14
- 79Q4L6lnqIukDGO/CuAiqfb3cvbt2QSxyo+V6TMdSpo0scvSsKcxWU5JkKsp88z5y5MM
- ZKxY2+1V/SUpEFP5YaHs0IOptpBP+v0cBPQawj4uc6yEMug12tU6esBQBRXPCII3cFJs
- ZcXcAiG/+cp9X7e+a3pSeelfLJl8tgt+Mh1wd+fmrV+urP3+EVbkuJjJG1cJkgk6ZcXG
- 8jpzMOUk7KtxaZSjZON+OqOYs7KKA4LJPSWMJ8KruvM1bK0VgGbhNR82ybd8uR9tptSY
- la/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718095467; x=1718700267;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=t8+Z+UiGEsAUTOvURJxuWcsArujuWV7fuyUbFm+HPUk=;
- b=mWhELfFru9pdxwFhLZ7JfAKZB3+EZX93wf4PEnqnVgU/OUOcNl06j2RcDmT5dP2tfW
- 1lpahSUvMOqaxODHTAa3McZInED0EwPpPq2W0eGZ+K7OMSOhQHPyHgVnFZxruh9mh8Kc
- T9+Z0yK9jW75lItvGi7M+mwgPkCjaDpWONtWKEfsHZyeT1ez6v43baSsNwoboyVJDKAG
- RH5hghXPVYaV3VwG+qcYDGWsGoepu+5OXuvsYQUAU9Mid4iqz+Hp1u1XbQ0py6SRMb+T
- BpIYVYgYCcgstOGWb4B7pPJPHlZqZ19NRM5Rnpj8c056Ep2ceZ2p8PPrvLKIEpdzAQuj
- Awtw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVrSv/w+MfNFACLRe6oadDsC7H+YQYT+iKVtaPZKO+5irWopItUXfYbGXbUAQz0i/DiatdXg5PDyIH+ghzt1eA1L3WfzpPVxLIEjcKqaRMtD6UwdNOoItmS
-X-Gm-Message-State: AOJu0YxvvGhOvfaJR3rWaGTJ0IUq5p9YxjEkQtQcmFuG7LQ7QF1n+JGF
- ygyRXFBUFoVgdCk+PNkVC8vCPxvJ9UzFCDdHwIcXaiwpH6gKcNFKxtwCJA+9PS8=
-X-Google-Smtp-Source: AGHT+IHduzX1LPBy2PLIj/QT5bSQwEc4ijkOonlTQXqlb2swMj3YaaRtuiH03uxAfwmaYyO0fuTigg==
-X-Received: by 2002:a17:907:72cc:b0:a6f:18e4:1871 with SMTP id
- a640c23a62f3a-a6f18e43821mr621714666b.56.1718095467190; 
- Tue, 11 Jun 2024 01:44:27 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.137])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f2f80d5dfsm120385066b.115.2024.06.11.01.44.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jun 2024 01:44:26 -0700 (PDT)
-Message-ID: <a4e8e6cd-96be-4d90-965f-a7137f0dd765@linaro.org>
-Date: Tue, 11 Jun 2024 10:44:24 +0200
+ Tue, 11 Jun 2024 11:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1718104229; x=1749640229;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PujIJcgVmAL6tRyDjsLUnk7KbBQJmZ2zRZrUMPPtu74=;
+ b=ZTOxOq2NbhMb8j2+Fh81PVvTmRto83cwNbRg4VOwOPkpyk5TUJsLt/xU
+ XTH5+Py0iejaL+dJl5AlQ201utLjPX2vR3w/QvfCqhKI6IkJ75D5yB29/
+ KP+SZVgRwP6VI5b9ZcT1O3A6NSQQDH4UBc/0Q1hJDAo8Xgf0/kyRZwxvS
+ 4Ad/jR6IRhlsMO/J04q6av5ctrVK6zdd6vz3pLmtDZ1zfsPw57/Tdd1Kb
+ IxIoQILB6fR9b7wI09TK0No9qqDgxkMdRMXKUhrXsGlvqdr+bo0rObVYE
+ AQ9hzb4RmP6zyXAnCkEPESRUbaNUc4aszRYc1N553qX6hUtl8gHiCqJVa w==;
+X-CSE-ConnectionGUID: xAmqxd/7SO2xjXUxLPUWgw==
+X-CSE-MsgGUID: D0SRwihLQd23ZDRsAcmyrQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="18636741"
+X-IronPort-AV: E=Sophos;i="6.08,229,1712646000"; d="scan'208";a="18636741"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2024 04:10:20 -0700
+X-CSE-ConnectionGUID: wCB1n7uOSKOwcZT+X524rw==
+X-CSE-MsgGUID: upC214k9Trejmen9uDz3BA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,229,1712646000"; d="scan'208";a="76868190"
+Received: from lkp-server01.sh.intel.com (HELO 628d7d8b9fc6) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 11 Jun 2024 04:10:17 -0700
+Received: from kbuild by 628d7d8b9fc6 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sGzOI-0000LK-10;
+ Tue, 11 Jun 2024 11:10:14 +0000
+Date: Tue, 11 Jun 2024 19:10:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <202406111944.wTZ4iEdx-lkp@intel.com>
+References: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Christophe Roullier <christophe.roullier@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Jose Abreu
- <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Marek Vasut <marex@denx.de>
-References: <20240611084206.734367-1-christophe.roullier@foss.st.com>
- <20240611084206.734367-2-christophe.roullier@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240611084206.734367-2-christophe.roullier@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/1] ARM: multi_v7_defconfig: Add
- MCP23S08 pinctrl support
+Content-Disposition: inline
+In-Reply-To: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ llvm@lists.linux.dev, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-intel:
+ provide a select_pcs() implementation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,21 +74,208 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/06/2024 10:42, Christophe Roullier wrote:
-> Enable MCP23S08 I/O expanders to manage Ethernet PHY
-> reset in STM32MP135F-DK board.
-> 
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
->  arch/arm/configs/multi_v7_defconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Hi Russell,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+kernel test robot noticed the following build errors:
 
-Best regards,
-Krzysztof
+[auto build test ERROR on net-next/main]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-dwmac-intel-provide-a-select_pcs-implementation/20240610-224406
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/E1sGgCN-00Fact-0x%40rmk-PC.armlinux.org.uk
+patch subject: [PATCH net-next 2/5] net: stmmac: dwmac-intel: provide a select_pcs() implementation
+config: x86_64-randconfig-013-20240611 (https://download.01.org/0day-ci/archive/20240611/202406111944.wTZ4iEdx-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240611/202406111944.wTZ4iEdx-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406111944.wTZ4iEdx-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:600:43: error: expected ';' after expression
+     600 |                 plat->select_pcs = intel_mgbe_select_pcs,
+         |                                                         ^
+         |                                                         ;
+   1 error generated.
+
+
+vim +600 drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+
+   455	
+   456	static int intel_mgbe_common_data(struct pci_dev *pdev,
+   457					  struct plat_stmmacenet_data *plat)
+   458	{
+   459		struct fwnode_handle *fwnode;
+   460		char clk_name[20];
+   461		int ret;
+   462		int i;
+   463	
+   464		plat->pdev = pdev;
+   465		plat->phy_addr = -1;
+   466		plat->clk_csr = 5;
+   467		plat->has_gmac = 0;
+   468		plat->has_gmac4 = 1;
+   469		plat->force_sf_dma_mode = 0;
+   470		plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
+   471	
+   472		/* Multiplying factor to the clk_eee_i clock time
+   473		 * period to make it closer to 100 ns. This value
+   474		 * should be programmed such that the clk_eee_time_period *
+   475		 * (MULT_FACT_100NS + 1) should be within 80 ns to 120 ns
+   476		 * clk_eee frequency is 19.2Mhz
+   477		 * clk_eee_time_period is 52ns
+   478		 * 52ns * (1 + 1) = 104ns
+   479		 * MULT_FACT_100NS = 1
+   480		 */
+   481		plat->mult_fact_100ns = 1;
+   482	
+   483		plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
+   484	
+   485		for (i = 0; i < plat->rx_queues_to_use; i++) {
+   486			plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
+   487			plat->rx_queues_cfg[i].chan = i;
+   488	
+   489			/* Disable Priority config by default */
+   490			plat->rx_queues_cfg[i].use_prio = false;
+   491	
+   492			/* Disable RX queues routing by default */
+   493			plat->rx_queues_cfg[i].pkt_route = 0x0;
+   494		}
+   495	
+   496		for (i = 0; i < plat->tx_queues_to_use; i++) {
+   497			plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
+   498	
+   499			/* Disable Priority config by default */
+   500			plat->tx_queues_cfg[i].use_prio = false;
+   501			/* Default TX Q0 to use TSO and rest TXQ for TBS */
+   502			if (i > 0)
+   503				plat->tx_queues_cfg[i].tbs_en = 1;
+   504		}
+   505	
+   506		/* FIFO size is 4096 bytes for 1 tx/rx queue */
+   507		plat->tx_fifo_size = plat->tx_queues_to_use * 4096;
+   508		plat->rx_fifo_size = plat->rx_queues_to_use * 4096;
+   509	
+   510		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
+   511		plat->tx_queues_cfg[0].weight = 0x09;
+   512		plat->tx_queues_cfg[1].weight = 0x0A;
+   513		plat->tx_queues_cfg[2].weight = 0x0B;
+   514		plat->tx_queues_cfg[3].weight = 0x0C;
+   515		plat->tx_queues_cfg[4].weight = 0x0D;
+   516		plat->tx_queues_cfg[5].weight = 0x0E;
+   517		plat->tx_queues_cfg[6].weight = 0x0F;
+   518		plat->tx_queues_cfg[7].weight = 0x10;
+   519	
+   520		plat->dma_cfg->pbl = 32;
+   521		plat->dma_cfg->pblx8 = true;
+   522		plat->dma_cfg->fixed_burst = 0;
+   523		plat->dma_cfg->mixed_burst = 0;
+   524		plat->dma_cfg->aal = 0;
+   525		plat->dma_cfg->dche = true;
+   526	
+   527		plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi),
+   528					 GFP_KERNEL);
+   529		if (!plat->axi)
+   530			return -ENOMEM;
+   531	
+   532		plat->axi->axi_lpi_en = 0;
+   533		plat->axi->axi_xit_frm = 0;
+   534		plat->axi->axi_wr_osr_lmt = 1;
+   535		plat->axi->axi_rd_osr_lmt = 1;
+   536		plat->axi->axi_blen[0] = 4;
+   537		plat->axi->axi_blen[1] = 8;
+   538		plat->axi->axi_blen[2] = 16;
+   539	
+   540		plat->ptp_max_adj = plat->clk_ptp_rate;
+   541		plat->eee_usecs_rate = plat->clk_ptp_rate;
+   542	
+   543		/* Set system clock */
+   544		sprintf(clk_name, "%s-%s", "stmmac", pci_name(pdev));
+   545	
+   546		plat->stmmac_clk = clk_register_fixed_rate(&pdev->dev,
+   547							   clk_name, NULL, 0,
+   548							   plat->clk_ptp_rate);
+   549	
+   550		if (IS_ERR(plat->stmmac_clk)) {
+   551			dev_warn(&pdev->dev, "Fail to register stmmac-clk\n");
+   552			plat->stmmac_clk = NULL;
+   553		}
+   554	
+   555		ret = clk_prepare_enable(plat->stmmac_clk);
+   556		if (ret) {
+   557			clk_unregister_fixed_rate(plat->stmmac_clk);
+   558			return ret;
+   559		}
+   560	
+   561		plat->ptp_clk_freq_config = intel_mgbe_ptp_clk_freq_config;
+   562	
+   563		/* Set default value for multicast hash bins */
+   564		plat->multicast_filter_bins = HASH_TABLE_SIZE;
+   565	
+   566		/* Set default value for unicast filter entries */
+   567		plat->unicast_filter_entries = 1;
+   568	
+   569		/* Set the maxmtu to a default of JUMBO_LEN */
+   570		plat->maxmtu = JUMBO_LEN;
+   571	
+   572		plat->flags |= STMMAC_FLAG_VLAN_FAIL_Q_EN;
+   573	
+   574		/* Use the last Rx queue */
+   575		plat->vlan_fail_q = plat->rx_queues_to_use - 1;
+   576	
+   577		/* For fixed-link setup, we allow phy-mode setting */
+   578		fwnode = dev_fwnode(&pdev->dev);
+   579		if (fwnode) {
+   580			int phy_mode;
+   581	
+   582			/* "phy-mode" setting is optional. If it is set,
+   583			 *  we allow either sgmii or 1000base-x for now.
+   584			 */
+   585			phy_mode = fwnode_get_phy_mode(fwnode);
+   586			if (phy_mode >= 0) {
+   587				if (phy_mode == PHY_INTERFACE_MODE_SGMII ||
+   588				    phy_mode == PHY_INTERFACE_MODE_1000BASEX)
+   589					plat->phy_interface = phy_mode;
+   590				else
+   591					dev_warn(&pdev->dev, "Invalid phy-mode\n");
+   592			}
+   593		}
+   594	
+   595		/* Intel mgbe SGMII interface uses pcs-xcps */
+   596		if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
+   597		    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
+   598			plat->mdio_bus_data->has_xpcs = true;
+   599			plat->mdio_bus_data->default_an_inband = true;
+ > 600			plat->select_pcs = intel_mgbe_select_pcs,
+   601		}
+   602	
+   603		/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
+   604		plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
+   605		plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
+   606	
+   607		plat->int_snapshot_num = AUX_SNAPSHOT1;
+   608	
+   609		plat->crosststamp = intel_crosststamp;
+   610		plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
+   611	
+   612		/* Setup MSI vector offset specific to Intel mGbE controller */
+   613		plat->msi_mac_vec = 29;
+   614		plat->msi_lpi_vec = 28;
+   615		plat->msi_sfty_ce_vec = 27;
+   616		plat->msi_sfty_ue_vec = 26;
+   617		plat->msi_rx_base_vec = 0;
+   618		plat->msi_tx_base_vec = 1;
+   619	
+   620		return 0;
+   621	}
+   622	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
