@@ -2,72 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B7C903E9A
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 16:23:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3921A903EE8
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2024 16:33:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 437BCC712A3;
-	Tue, 11 Jun 2024 14:23:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4319C712A3;
+	Tue, 11 Jun 2024 14:33:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7163FC712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 643CFC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2024 07:40:19 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45B01eJY012090;
- Tue, 11 Jun 2024 09:40:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- wJ/ukfx8G1zXYyqPlQIqP22RtNYrc/ObgdDJIC3tqxc=; b=hsl1ec4lQkf9td5S
- FD/ofNaeilCxV6ee1l9USCvx5w2vdnMjmXd0RV76UkmZ3NeIoHOxVCmua3VsYIhV
- DlB89Iz7cA0FjK+RcLH4Mzm9DTh2L/wUbv9LN+UG5ffXgCWi3u5IVxKhXpHCDylZ
- dDu8fuuuKo0XIAUkv7F0bjkFjnBQAsQQMHhz7gGZis3jrfdXu4ercie/KpP3ZXtc
- OrQiMGiRyYFwiQ+/2svXLqzJ4VjoiNcdM+SB4lKBmg3Py5SgxJ58akb8ZsvfWLeQ
- y9Lm838PcFt8VO9dd/Fj/vV75jbPxEMUSbVY+WkD/kHXztZEO85zwBRQHyjwDiRR
- sJkVGQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ypbp3sfdm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Jun 2024 09:40:02 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A8E2140044;
- Tue, 11 Jun 2024 09:39:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D690420FA2D;
- Tue, 11 Jun 2024 09:39:09 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 11 Jun
- 2024 09:39:09 +0200
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 11 Jun
- 2024 09:39:09 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
-Date: Tue, 11 Jun 2024 09:39:00 +0200
-Message-ID: <20240611073904.475019-2-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240611073904.475019-1-arnaud.pouliquen@foss.st.com>
-References: <20240611073904.475019-1-arnaud.pouliquen@foss.st.com>
+ Tue, 11 Jun 2024 14:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1718116434; x=1749652434;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fRkXAGv1OWc7jUB5rnyl+rqBuJx/lAr1pj4eTVguxfE=;
+ b=XFc7iSQt1f1YC4FDlS6fphMbEph7eUHxr9O5mjIIavSx5DDPp257K00c
+ eWUkW24HEvfNPPklMIXxsv5vSLNrIkirYaqSkpUAxY9uFFif51IMtiz/p
+ pgKf24BHcM79mkVvZv5BoTnU5o+20YODlOxrSpig0ulWP+K0YmFbXSEx5
+ nyc1xtkIyzoftBTbHLRrzpMVUsJAogsm5YEvc9EYM5PlHrAxi7D68Z3rt
+ NbKNUYNMcrTEmoFQK6cQ4P0gUxGxnITHF/QhEs9uU7aAP/OfTIlQ5prcd
+ syApCjpS56wIM4Q0aZtOCHkAwaKBl7WVHyos5aK4At4knFmvxyts9B4eB w==;
+X-CSE-ConnectionGUID: Tgl4qS7iRe2JwVgff5wLEA==
+X-CSE-MsgGUID: w5DwI76BQbiSXorR4RHLDg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11099"; a="14956339"
+X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="14956339"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2024 07:33:38 -0700
+X-CSE-ConnectionGUID: UsKn0De5SQaNK0MMUDwhVQ==
+X-CSE-MsgGUID: hfbLQQz9T2uSLGzlc+LUVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,230,1712646000"; d="scan'208";a="40162293"
+Received: from lkp-server01.sh.intel.com (HELO 628d7d8b9fc6) ([10.239.97.150])
+ by orviesa007.jf.intel.com with ESMTP; 11 Jun 2024 07:33:34 -0700
+Received: from kbuild by 628d7d8b9fc6 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sH2Z2-0000XO-0L;
+ Tue, 11 Jun 2024 14:33:32 +0000
+Date: Tue, 11 Jun 2024 22:32:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <202406112254.uL3WgEt1-lkp@intel.com>
+References: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-11_03,2024-06-11_01,2024-05-17_01
-X-Mailman-Approved-At: Tue, 11 Jun 2024 14:23:04 +0000
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 1/5] remoteproc: core: Introduce
-	rproc_pa_to_va helper
+Content-Disposition: inline
+In-Reply-To: <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ llvm@lists.linux.dev, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-intel:
+ provide a select_pcs() implementation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,141 +74,208 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When a resource table is loaded by an external entity such as U-boot or
-OP-TEE, we do not necessary get the device address(da) but the physical
-address(pa).
-This helper performs similar translation than the rproc_da_to_va()
-but based on a physical address.
+Hi Russell,
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/remoteproc_core.c | 74 +++++++++++++++++++++++++++-
- include/linux/remoteproc.h           |  3 ++
- 2 files changed, 75 insertions(+), 2 deletions(-)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index f276956f2c5c..3fdec0336fd6 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -230,6 +230,77 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
- }
- EXPORT_SYMBOL(rproc_da_to_va);
- 
-+/**
-+ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
-+ * memory
-+ *
-+ * @rproc: handle of a remote processor
-+ * @pa: remoteproc physical address
-+ * @len: length of the memory region @pa is pointing to
-+ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
-+ *
-+ * Some remote processors will ask us to allocate them physically contiguous
-+ * memory regions (which we call "carveouts"), and map them to specific
-+ * device addresses (which are hardcoded in the firmware). They may also have
-+ * dedicated memory regions internal to the processors, and use them either
-+ * exclusively or alongside carveouts.
-+ *
-+ * They may then ask us to copy objects into specific addresses (e.g.
-+ * code/data sections) or expose us certain symbols in other device address
-+ * (e.g. their trace buffer).
-+ *
-+ * This function is a helper function with which we can go over the allocated
-+ * carveouts and translate specific physical addresses to kernel virtual addresses
-+ * so we can access the referenced memory. This function also allows to perform
-+ * translations on the internal remoteproc memory regions through a platform
-+ * implementation specific pa_to_va ops, if present.
-+ *
-+ * Note: phys_to_virt(iommu_iova_to_phys(rproc->domain, da)) will work too,
-+ * but only on kernel direct mapped RAM memory. Instead, we're just using
-+ * here the output of the DMA API for the carveouts, which should be more
-+ * correct.
-+ *
-+ * Return: a valid kernel address on success or NULL on failure
-+ */
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
-+{
-+	struct rproc_mem_entry *carveout;
-+	void *ptr = NULL;
-+
-+	if (rproc->ops->da_to_va) {
-+		ptr = rproc->ops->pa_to_va(rproc, pa, len);
-+		if (ptr)
-+			goto out;
-+	}
-+
-+	list_for_each_entry(carveout, &rproc->carveouts, node) {
-+		int offset = pa - carveout->dma;
-+
-+		/*  Verify that carveout is allocated */
-+		if (!carveout->va)
-+			continue;
-+
-+		/* try next carveout if da is too small */
-+		if (offset < 0)
-+			continue;
-+
-+		/* try next carveout if da is too large */
-+		if (offset + len > carveout->len)
-+			continue;
-+
-+		ptr = carveout->va + offset;
-+
-+		if (is_iomem)
-+			*is_iomem = carveout->is_iomem;
-+
-+		break;
-+	}
-+
-+out:
-+	return ptr;
-+}
-+EXPORT_SYMBOL(rproc_pa_to_va);
-+
- /**
-  * rproc_find_carveout_by_name() - lookup the carveout region by a name
-  * @rproc: handle of a remote processor
-@@ -724,8 +795,7 @@ static int rproc_alloc_carveout(struct rproc *rproc,
- 	 * firmware was compiled with.
- 	 *
- 	 * In this case, we must use the IOMMU API directly and map
--	 * the memory to the device address as expected by the remote
--	 * processor.
-+	 * the memory to the device address as etable
- 	 *
- 	 * Obviously such remote processor devices should not be configured
- 	 * to use the iommu-based DMA API: we expect 'dma' to contain the
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index b4795698d8c2..28aa62a3b505 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -367,6 +367,7 @@ enum rsc_handling_status {
-  * @detach:	detach from a device, leaving it powered up
-  * @kick:	kick a virtqueue (virtqueue id given as a parameter)
-  * @da_to_va:	optional platform hook to perform address translations
-+ * @pa_to_va:	optional platform hook to perform address translations
-  * @parse_fw:	parse firmware to extract information (e.g. resource table)
-  * @handle_rsc:	optional platform hook to handle vendor resources. Should return
-  *		RSC_HANDLED if resource was handled, RSC_IGNORED if not handled
-@@ -391,6 +392,7 @@ struct rproc_ops {
- 	int (*detach)(struct rproc *rproc);
- 	void (*kick)(struct rproc *rproc, int vqid);
- 	void * (*da_to_va)(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
-+	void * (*pa_to_va)(struct rproc *rproc, phys_addr_t da, size_t len);
- 	int (*parse_fw)(struct rproc *rproc, const struct firmware *fw);
- 	int (*handle_rsc)(struct rproc *rproc, u32 rsc_type, void *rsc,
- 			  int offset, int avail);
-@@ -690,6 +692,7 @@ int rproc_detach(struct rproc *rproc);
- int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
- void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
- void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
- 
- /* from remoteproc_coredump.c */
- void rproc_coredump_cleanup(struct rproc *rproc);
+[auto build test ERROR on net-next/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-add-select_pcs-platform-method/20240611-024301
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/E1sGgCN-00Fact-0x%40rmk-PC.armlinux.org.uk
+patch subject: [PATCH net-next 2/5] net: stmmac: dwmac-intel: provide a select_pcs() implementation
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20240611/202406112254.uL3WgEt1-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240611/202406112254.uL3WgEt1-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406112254.uL3WgEt1-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:600:43: error: expected ';' after expression
+     600 |                 plat->select_pcs = intel_mgbe_select_pcs,
+         |                                                         ^
+         |                                                         ;
+   1 error generated.
+
+
+vim +600 drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+
+   455	
+   456	static int intel_mgbe_common_data(struct pci_dev *pdev,
+   457					  struct plat_stmmacenet_data *plat)
+   458	{
+   459		struct fwnode_handle *fwnode;
+   460		char clk_name[20];
+   461		int ret;
+   462		int i;
+   463	
+   464		plat->pdev = pdev;
+   465		plat->phy_addr = -1;
+   466		plat->clk_csr = 5;
+   467		plat->has_gmac = 0;
+   468		plat->has_gmac4 = 1;
+   469		plat->force_sf_dma_mode = 0;
+   470		plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
+   471	
+   472		/* Multiplying factor to the clk_eee_i clock time
+   473		 * period to make it closer to 100 ns. This value
+   474		 * should be programmed such that the clk_eee_time_period *
+   475		 * (MULT_FACT_100NS + 1) should be within 80 ns to 120 ns
+   476		 * clk_eee frequency is 19.2Mhz
+   477		 * clk_eee_time_period is 52ns
+   478		 * 52ns * (1 + 1) = 104ns
+   479		 * MULT_FACT_100NS = 1
+   480		 */
+   481		plat->mult_fact_100ns = 1;
+   482	
+   483		plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
+   484	
+   485		for (i = 0; i < plat->rx_queues_to_use; i++) {
+   486			plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
+   487			plat->rx_queues_cfg[i].chan = i;
+   488	
+   489			/* Disable Priority config by default */
+   490			plat->rx_queues_cfg[i].use_prio = false;
+   491	
+   492			/* Disable RX queues routing by default */
+   493			plat->rx_queues_cfg[i].pkt_route = 0x0;
+   494		}
+   495	
+   496		for (i = 0; i < plat->tx_queues_to_use; i++) {
+   497			plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
+   498	
+   499			/* Disable Priority config by default */
+   500			plat->tx_queues_cfg[i].use_prio = false;
+   501			/* Default TX Q0 to use TSO and rest TXQ for TBS */
+   502			if (i > 0)
+   503				plat->tx_queues_cfg[i].tbs_en = 1;
+   504		}
+   505	
+   506		/* FIFO size is 4096 bytes for 1 tx/rx queue */
+   507		plat->tx_fifo_size = plat->tx_queues_to_use * 4096;
+   508		plat->rx_fifo_size = plat->rx_queues_to_use * 4096;
+   509	
+   510		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
+   511		plat->tx_queues_cfg[0].weight = 0x09;
+   512		plat->tx_queues_cfg[1].weight = 0x0A;
+   513		plat->tx_queues_cfg[2].weight = 0x0B;
+   514		plat->tx_queues_cfg[3].weight = 0x0C;
+   515		plat->tx_queues_cfg[4].weight = 0x0D;
+   516		plat->tx_queues_cfg[5].weight = 0x0E;
+   517		plat->tx_queues_cfg[6].weight = 0x0F;
+   518		plat->tx_queues_cfg[7].weight = 0x10;
+   519	
+   520		plat->dma_cfg->pbl = 32;
+   521		plat->dma_cfg->pblx8 = true;
+   522		plat->dma_cfg->fixed_burst = 0;
+   523		plat->dma_cfg->mixed_burst = 0;
+   524		plat->dma_cfg->aal = 0;
+   525		plat->dma_cfg->dche = true;
+   526	
+   527		plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi),
+   528					 GFP_KERNEL);
+   529		if (!plat->axi)
+   530			return -ENOMEM;
+   531	
+   532		plat->axi->axi_lpi_en = 0;
+   533		plat->axi->axi_xit_frm = 0;
+   534		plat->axi->axi_wr_osr_lmt = 1;
+   535		plat->axi->axi_rd_osr_lmt = 1;
+   536		plat->axi->axi_blen[0] = 4;
+   537		plat->axi->axi_blen[1] = 8;
+   538		plat->axi->axi_blen[2] = 16;
+   539	
+   540		plat->ptp_max_adj = plat->clk_ptp_rate;
+   541		plat->eee_usecs_rate = plat->clk_ptp_rate;
+   542	
+   543		/* Set system clock */
+   544		sprintf(clk_name, "%s-%s", "stmmac", pci_name(pdev));
+   545	
+   546		plat->stmmac_clk = clk_register_fixed_rate(&pdev->dev,
+   547							   clk_name, NULL, 0,
+   548							   plat->clk_ptp_rate);
+   549	
+   550		if (IS_ERR(plat->stmmac_clk)) {
+   551			dev_warn(&pdev->dev, "Fail to register stmmac-clk\n");
+   552			plat->stmmac_clk = NULL;
+   553		}
+   554	
+   555		ret = clk_prepare_enable(plat->stmmac_clk);
+   556		if (ret) {
+   557			clk_unregister_fixed_rate(plat->stmmac_clk);
+   558			return ret;
+   559		}
+   560	
+   561		plat->ptp_clk_freq_config = intel_mgbe_ptp_clk_freq_config;
+   562	
+   563		/* Set default value for multicast hash bins */
+   564		plat->multicast_filter_bins = HASH_TABLE_SIZE;
+   565	
+   566		/* Set default value for unicast filter entries */
+   567		plat->unicast_filter_entries = 1;
+   568	
+   569		/* Set the maxmtu to a default of JUMBO_LEN */
+   570		plat->maxmtu = JUMBO_LEN;
+   571	
+   572		plat->flags |= STMMAC_FLAG_VLAN_FAIL_Q_EN;
+   573	
+   574		/* Use the last Rx queue */
+   575		plat->vlan_fail_q = plat->rx_queues_to_use - 1;
+   576	
+   577		/* For fixed-link setup, we allow phy-mode setting */
+   578		fwnode = dev_fwnode(&pdev->dev);
+   579		if (fwnode) {
+   580			int phy_mode;
+   581	
+   582			/* "phy-mode" setting is optional. If it is set,
+   583			 *  we allow either sgmii or 1000base-x for now.
+   584			 */
+   585			phy_mode = fwnode_get_phy_mode(fwnode);
+   586			if (phy_mode >= 0) {
+   587				if (phy_mode == PHY_INTERFACE_MODE_SGMII ||
+   588				    phy_mode == PHY_INTERFACE_MODE_1000BASEX)
+   589					plat->phy_interface = phy_mode;
+   590				else
+   591					dev_warn(&pdev->dev, "Invalid phy-mode\n");
+   592			}
+   593		}
+   594	
+   595		/* Intel mgbe SGMII interface uses pcs-xcps */
+   596		if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
+   597		    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
+   598			plat->mdio_bus_data->has_xpcs = true;
+   599			plat->mdio_bus_data->default_an_inband = true;
+ > 600			plat->select_pcs = intel_mgbe_select_pcs,
+   601		}
+   602	
+   603		/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
+   604		plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
+   605		plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
+   606	
+   607		plat->int_snapshot_num = AUX_SNAPSHOT1;
+   608	
+   609		plat->crosststamp = intel_crosststamp;
+   610		plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
+   611	
+   612		/* Setup MSI vector offset specific to Intel mGbE controller */
+   613		plat->msi_mac_vec = 29;
+   614		plat->msi_lpi_vec = 28;
+   615		plat->msi_sfty_ce_vec = 27;
+   616		plat->msi_sfty_ue_vec = 26;
+   617		plat->msi_rx_base_vec = 0;
+   618		plat->msi_tx_base_vec = 1;
+   619	
+   620		return 0;
+   621	}
+   622	
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
