@@ -2,61 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD3F3904F3C
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2024 11:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB3B79052E2
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2024 14:49:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 761EEC712A3;
-	Wed, 12 Jun 2024 09:27:49 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83148C712A3;
+	Wed, 12 Jun 2024 12:49:19 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0890C712A3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BF88C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2024 09:27:44 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id A6F72887BF;
- Wed, 12 Jun 2024 11:27:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1718184463;
- bh=mtONI3bvKfCZrp6Zei50iwnX9L5tGQyt3Bsl2/4/U/E=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LGUBHCRfITJs+jq8AZV85hrLdtml2rxOZbPwMSQ4PGGS3PZiRI0km5KaT5Ml+jTpz
- aMir1DGK1B9hO+iDEz2lRsBUbqPdTuboZk80XA0rR8vYI3ivtjPVZ8ch8vHqqSZ6uE
- NREzCFZwukfhixSPVvJVP04yHqlCLC4GrmSns+rbJdn5GhKo1/NV77YYV9HliDGFFC
- LfTdk7QeAIgb5AkHrbVrW/Vqh/pHyjK3eEbfWGlDbqYHTTGTl12M91Jl0ls7c7uZ2X
- kf3+oCUeRRE6LquMcpaQO3+ViJrjQB9yqzHaQxzZwzfqQLgW01GSbMzYRm/Yws5ynE
- bXvw6zzFx/STw==
-Message-ID: <50bd0dae-f489-4c7a-a250-7e999aab4a07@denx.de>
-Date: Wed, 12 Jun 2024 11:09:21 +0200
+ Wed, 12 Jun 2024 12:49:12 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45CBgWMZ016579;
+ Wed, 12 Jun 2024 14:48:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=+7VI0+0yWgu+99TXdk1RwS
+ Mz8s0/dUbNSHBFUKF/9IQ=; b=eqe/9oJgCQbH8XTb1sRoXJPTLEmFq1Cdx9qS0r
+ 17cNTGfJ8lQPrJdDqhqyRygeS/rwKu7wVsQu/4gR1enXPHSPrultScJQqY7C5ey2
+ sXMReUiV2OLWRT/N94aXRuTqfkygzn6fCsldRiwP7aMsN2W7lCUutBDRr45TNDrT
+ PJuIvIt5ERp9wPGiHMbItVk0IlMaLF3oww0rqjOdw+ID43XE+M7Ozjc5yQhA6IT9
+ w1ipyp4b98oRzeRunV/WCbLay58Sv+B+db13K/sUT0HguiOrN/p+pJPqsKYeNPzq
+ zjkha5vpisayMQE4LrCQoC5Vir75WNtdHiZiTp8JlQcHfNtg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ypbp4qrn5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jun 2024 14:48:58 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5DD0C40047;
+ Wed, 12 Jun 2024 14:47:50 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 73DB7215BF7;
+ Wed, 12 Jun 2024 14:47:16 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 12 Jun
+ 2024 14:47:16 +0200
+Received: from localhost (10.252.17.208) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 12 Jun
+ 2024 14:47:15 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <heikki.krogerus@linux.intel.com>, <gregkh@linuxfoundation.org>
+Date: Wed, 12 Jun 2024 14:46:56 +0200
+Message-ID: <20240612124656.2305603-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Christophe Roullier <christophe.roullier@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Jose Abreu
- <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-References: <20240611083606.733453-1-christophe.roullier@foss.st.com>
- <20240611083606.733453-9-christophe.roullier@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240611083606.733453-9-christophe.roullier@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [net-next,
- PATCH v7 8/8] net: stmmac: dwmac-stm32: add management of stm32mp13
- for stm32
+X-Originating-IP: [10.252.17.208]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-12_06,2024-06-12_02,2024-05-17_01
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] usb: ucsi: stm32: fix command completion
+	handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,25 +72,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/11/24 10:36 AM, Christophe Roullier wrote:
-> Add Ethernet support for STM32MP13.
-> STM32MP13 is STM32 SOC with 2 GMACs instances.
-> GMAC IP version is SNPS 4.20.
-> GMAC IP configure with 1 RX and 1 TX queue.
-> DMA HW capability register supported
-> RX Checksum Offload Engine supported
-> TX Checksum insertion supported
-> Wake-Up On Lan supported
-> TSO supported
-> 
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+Sometimes errors are seen, when doing DR swap, like:
+[   24.672481] ucsi-stm32g0-i2c 0-0035: UCSI_GET_PDOS failed (-5)
+[   24.720188] ucsi-stm32g0-i2c 0-0035: ucsi_handle_connector_change:
+ GET_CONNECTOR_STATUS failed (-5)
 
-Reviewed-by: Marek Vasut <marex@denx.de>
+There may be some race, which lead to read CCI, before the command complete
+flag is set, hence returning -EIO. Similar fix has been done also in
+ucsi_acpi [1].
+
+In case of a spurious or otherwise delayed notification it is
+possible that CCI still reports the previous completion. The
+UCSI spec is aware of this and provides two completion bits in
+CCI, one for normal commands and one for acks. As acks and commands
+alternate the notification handler can determine if the completion
+bit is from the current command.
+
+To fix this add the ACK_PENDING bit for ucsi_stm32g0 and only complete
+commands if the completion bit matches.
+
+[1] https://lore.kernel.org/lkml/20240121204123.275441-3-lk@c--e.de/
+
+Fixes: 72849d4fcee7 ("usb: typec: ucsi: stm32g0: add support for stm32g0 controller")
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+Changes in v2: rebase and define ACK_PENDING as commented by Dmitry.
+---
+ drivers/usb/typec/ucsi/ucsi_stm32g0.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+index ac48b7763114..ac69288e8bb0 100644
+--- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
++++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+@@ -65,6 +65,7 @@ struct ucsi_stm32g0 {
+ 	struct device *dev;
+ 	unsigned long flags;
+ #define COMMAND_PENDING	1
++#define ACK_PENDING	2
+ 	const char *fw_name;
+ 	struct ucsi *ucsi;
+ 	bool suspended;
+@@ -396,9 +397,13 @@ static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const
+ 				   size_t len)
+ {
+ 	struct ucsi_stm32g0 *g0 = ucsi_get_drvdata(ucsi);
++	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
+ 	int ret;
+ 
+-	set_bit(COMMAND_PENDING, &g0->flags);
++	if (ack)
++		set_bit(ACK_PENDING, &g0->flags);
++	else
++		set_bit(COMMAND_PENDING, &g0->flags);
+ 
+ 	ret = ucsi_stm32g0_async_write(ucsi, offset, val, len);
+ 	if (ret)
+@@ -406,9 +411,14 @@ static int ucsi_stm32g0_sync_write(struct ucsi *ucsi, unsigned int offset, const
+ 
+ 	if (!wait_for_completion_timeout(&g0->complete, msecs_to_jiffies(5000)))
+ 		ret = -ETIMEDOUT;
++	else
++		return 0;
+ 
+ out_clear_bit:
+-	clear_bit(COMMAND_PENDING, &g0->flags);
++	if (ack)
++		clear_bit(ACK_PENDING, &g0->flags);
++	else
++		clear_bit(COMMAND_PENDING, &g0->flags);
+ 
+ 	return ret;
+ }
+@@ -429,8 +439,9 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
+ 	if (UCSI_CCI_CONNECTOR(cci))
+ 		ucsi_connector_change(g0->ucsi, UCSI_CCI_CONNECTOR(cci));
+ 
+-	if (test_bit(COMMAND_PENDING, &g0->flags) &&
+-	    cci & (UCSI_CCI_ACK_COMPLETE | UCSI_CCI_COMMAND_COMPLETE))
++	if (cci & UCSI_CCI_ACK_COMPLETE && test_and_clear_bit(ACK_PENDING, &g0->flags))
++		complete(&g0->complete);
++	if (cci & UCSI_CCI_COMMAND_COMPLETE && test_and_clear_bit(COMMAND_PENDING, &g0->flags))
+ 		complete(&g0->complete);
+ 
+ 	return IRQ_HANDLED;
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
