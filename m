@@ -2,56 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840BA906A16
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jun 2024 12:34:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB7E906A1A
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jun 2024 12:35:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35E48C78011;
-	Thu, 13 Jun 2024 10:34:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 588CEC78011;
+	Thu, 13 Jun 2024 10:35:44 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E530C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C65D8C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jun 2024 10:33:53 +0000 (UTC)
+ Thu, 13 Jun 2024 10:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Wde4ug6Zp2eLAcHoUGrcsFCfdJAv4SylN7RROmxnyqk=; b=pL0S2ybFZTta412SGdp4C2mi1n
- TNzk35n6trNa+1pCnWkC53tabbkuXygJVK4PdpyBR3PRosbx4JemiH0AFwO6nFPJIHOU0DrYKBjpm
- UIXb5NsDnbVY2HrYe8zc0P1aIzdT6xQUvwSbc8d8f73EaRpiu5hMkVHcsLqmuuGKObIwMnwgBN2Pj
- EFF/nZiW2Ey3yEtBEpoVm57cdm0W12orsPUAYthvo6hPzkkCiRx2aq728CIO48tZMEmgSuf1GYZVB
- N+Cc+MfQiyRqsYOUvJOWRChPSxe+wNmoGDIAXgK2aN9c4Q8OOwIP5hLFQLninJGBdqcq6cNnf+ZjO
- 21ub9EaA==;
+ bh=XDX8tJG6OxM+mLvXyG16Cgba3hnOXG1D0oaigEUeTh0=; b=tlmMnd2mkd7oHEs59Rc5WmY+ks
+ HdEDuTTPJ/Pe7I+KafJeUJ1uEYlFSIiylhFt6e44nG6uzqFXe9T3orabflTEWwT6o9aYKTfnOPSar
+ aCqltvwveJF6CjKVgMTLqHTZ7EgjIuD6Uawu+RrEO6i/SwViUmwj4mG7QoRAAy3U7tRiag4M25Nm0
+ KY7X9tBS/1AI/xxIzM1xLIPi9TDfwwZ1qVFZS19Oc6rp1GNy8PIDxZ3HVnhJR474maHVaFkfJLn+f
+ KcTbK4cHHFJt3v/V0NUrl3tK6VNcI3rirJJ+fLHzCGjJL4MKGFX6JPWyH18ueW1JWc4dfyghY8kN+
+ NAcj1Khg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35020)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38912)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1sHhlw-00064H-1U;
- Thu, 13 Jun 2024 11:33:36 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1sHhng-00064v-0I;
+ Thu, 13 Jun 2024 11:35:24 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1sHhlv-000194-45; Thu, 13 Jun 2024 11:33:35 +0100
-Date: Thu, 13 Jun 2024 11:33:34 +0100
+ id 1sHhnh-00019D-NY; Thu, 13 Jun 2024 11:35:25 +0100
+Date: Thu, 13 Jun 2024 11:35:25 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <ZmrK/kMIZKTnTSrp@shell.armlinux.org.uk>
-References: <ZmcQTuR5IKRp0pgy@shell.armlinux.org.uk>
- <E1sGgCN-00Fact-0x@rmk-PC.armlinux.org.uk>
- <572700203.5assNPOG8s@fw-rgant>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZmrLbdwv6ALoy+gs@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <572700203.5assNPOG8s@fw-rgant>
-Cc: netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-intel:
- provide a select_pcs() implementation
+Subject: [Linux-stm32] [PATCH net-next v2 0/5] net: stmmac: provide platform
+ select_pcs method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,20 +64,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 11, 2024 at 09:40:51AM +0200, Romain Gantois wrote:
-> On lundi 10 juin 2024 16:40:39 UTC+2 Russell King (Oracle) wrote:
-> > Move the code returning the XPCS into dwmac-intel, which is the only
-> > user of XPCS. Fill in the select_pcs() implementation only when we are
-> > going to setup the XPCS, thus when it should be present.
-> > 
-> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> 
-> Reviewed-by: Romain Gantois <romain.gantois@bootlin.com>
+Hi,
 
-I'll drop this r-b because changes have been necessary. Added all the
-others.
+This series adds a select_pcs() method to the stmmac platform data to
+allow platforms that need to provide their own PCSes to do so, moving
+the decision making into platform code.
 
-Thanks.
+This avoids questions such as "what should the priority of XPCS vs
+some other platform PCS be?" and when we provide a PCS for the
+internal PCS, how that interacts with both the XPCS and platform
+provided PCS.
+
+Note that if a platform implements the select_pcs() method, then the
+return values are:
+- a phylink_pcs pointer - the PCS to be used.
+- NULL - no phylink_pcs to be used.
+Otherwise (if not implemented or returns an error-pointer), then
+allow the the stmmac internal PCS to be used if appropriate (once
+that patch set is merged.)
+
+Patch 1 introduces the new method.
+Patch 2 converts Intel mGBE to use this to provide the XPCS and
+ removes the XPCS decision making from core code.
+Patch 3 provides an implementation for rzn1 to return its PCS.
+Patch 4 does the same for socfpga.
+Patch 5 removes the core code returning priv->hw->phylink_pcs.
+
+No functional change is anticipated. Once this has been merged, it
+will be expected that platforms should populate all three PCS
+methods or none of the PCS methods.
+
+v1->v2:
+- Fix build error in patch 2.
+- Add attributations from Romain Gantois.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c   | 11 +++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c    |  7 +++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c |  7 +++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 10 +++++++---
+ include/linux/stmmac.h                              |  4 +++-
+ 5 files changed, 35 insertions(+), 4 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
