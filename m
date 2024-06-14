@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16D1A9087E7
+	by mail.lfdr.de (Postfix) with ESMTPS id 3280B9087E9
 	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 11:46:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC752C6C83A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D582FC78013;
 	Fri, 14 Jun 2024 09:46:38 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80541C5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 840BEC78010
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 09:46:33 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a6f21ff4e6dso311282066b.3
+ Fri, 14 Jun 2024 09:46:36 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-a6f09b457fdso180768566b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 02:46:33 -0700 (PDT)
+ Fri, 14 Jun 2024 02:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718358393; x=1718963193;
+ d=linaro.org; s=google; t=1718358395; x=1718963195;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=avklu/LU82jj+cALxmDCOm5wOmtJui6AiuCC9bJewDI=;
- b=sE5/kWX/cgLv50EmqLTjBf9gxXOwmtQN78+cLjid2l/Vykw0zRywspjVI/7ydI33Sw
- C/H0oe2gwG+cEFHdokILynRco6UIQklb4GJZKBZd1lHeuei4/3hW9lQ7bP1ZKliiY/CL
- yfeujpFT5QBXXPoOW6BmwikdKwD/4yQf0KODzpgEZ683YQq2q3YdG9IRF38+NXWgzNK4
- PHUA7Nbb+/bdf6f5asbchHUZKinTPyztkDrlLuQKyFEnHhgbsyytAKBsYEkH42XZeJyM
- z+sAO0JRaPHKXF4nTCX/hG+HbHf8Zgl1bauK+tNLwIxP15ESzdYfHTpzEX9fCAMDGplo
- S/Lg==
+ :reply-to; bh=5rccL2DhMpg13ts9Hqjm/6zzy9zUKGOuodol16mwTeU=;
+ b=Jm62V3jmDoQWJ4l6E9/ZSXZwXQs6MtVHJibHQlFbqMG3b+tGIuVJev2BnsQSgDWarb
+ H9RJXrwlY+qpbo6QuUGaufp7o/at6Lw/SGkU7qobaxs7Poqzwk0t+znFLhAhM72gTXHJ
+ t2fNHkBHSUd63houBs2vr1n7QmN+E2x/jxWHEHoh0sZ4gBbnKf3NW7zvI8tK7CiQzKnG
+ fgArKkgVb+8uIwKEIdb4S83t5ZPnypes3o9dqyQeOE61FcZ1Awi+ZIHzfvgdwDr/M+wK
+ kTcuyq5X50LQRIw5AMw9K+NeBH2DzkbyxebL7vsuBZsIGIgWp8JJaH8e11SIPFYDjDN4
+ jN3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718358393; x=1718963193;
+ d=1e100.net; s=20230601; t=1718358395; x=1718963195;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=avklu/LU82jj+cALxmDCOm5wOmtJui6AiuCC9bJewDI=;
- b=W8XnnYYTeOs6ZUABlV3G5pYq7/048u3o3hhL8VluRDuo7VlLoSo5JkNbIjiq3CP5lT
- VPIr5nbDbXkLa6mhTerl7Qh14t82ISI9fiD6dCOSCZlCiuI2XuQF8qX6pxWLuRs/tPwM
- qZtrROZo8mYuIwLsyfVFXtgmdMoBvWVqn17TKUOZGvH7A6SRT9u1ciMyMISTcyxatD2d
- QWHjIxhSYHDXUUyoWd/wngASUTsLUwcLLNMRHYHbIbE6WGdDvU3ak4pmje6CVuXUrCLT
- ccfFtphMlFAaOgBD7o3HyuCkE7I1IP3YQHb46nnRkDPGn9uA+VtHVrcs8zx8KRyBaeoP
- 45cQ==
+ bh=5rccL2DhMpg13ts9Hqjm/6zzy9zUKGOuodol16mwTeU=;
+ b=Nx9Z73hvjMzMPkc1m/F56XleruYndtQ2Nhpymcfi6Dnts+eisOADg57W04B9ownq4q
+ G+l57phzQ6xENVpb9OGQgXBu6eX2Mvars1SBEKMNbuQZNsthwoPqsk9WeVlXIpz6gP8w
+ 9uh1A0YHBYo9KtsZOhrPx/srXUjFSoyq9puT7SPaFVRAnvD3TLyeP6YMg2rKkA7yPqmE
+ tItMG0kSrO9xhM3nb/vEsGK9DvvRwZsoDXdtDURKNIxFWwy3VzalLlNunPZ4l/4nGSrp
+ wVc8YBcGHex2cK8IofVhsMEPlIi/6YXIADwSrr0VmuBT7TmQ3SiAzLQsm/LKEeejzECe
+ 9B9Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtUd5jnNZEwbqpuoWI65sIf4Cj3hGOlFLmXZdLS1GWAuc4azX89oECpTlbw+rm2z7myRlKiYRtgoG2gNYXD2WVOfKE72Gr611qP8YHy9DfFQP5DZdDmtAS
-X-Gm-Message-State: AOJu0Yx6RojR6KSy8Co2uUx7UIR+PlCDE9xlxAaAzd211Duy+ScFQcps
- fvM5sCRHjw7l73Hhvfzu6B1mgSkN84oS45+FpfWB8EJ7X1bANG/7OQ+mqnzNZ6o=
-X-Google-Smtp-Source: AGHT+IHc8zNmRNPYWsXhCA7MoKknrWARGiqEErjEA7EPJiugC3+uCcXA6vzUtvvo+0m41kAXSMLaxA==
-X-Received: by 2002:a17:906:4f08:b0:a6e:2a67:7899 with SMTP id
- a640c23a62f3a-a6f60d40d5dmr130599966b.35.1718358393130; 
- Fri, 14 Jun 2024 02:46:33 -0700 (PDT)
+ AJvYcCU24z+xzsgf0nwFUAnA6TSiDjyU8KAdMVytVhcaz8NA1kqojoxv7j6HQf/OJ7gUtPv0ZVtht3uDEOaI6OU2+DfrUp0E9m4OQbrb4rgh+BTTzdmfHYFRBofd
+X-Gm-Message-State: AOJu0Yz93ObnvzZxkYCxQzjbBIiodBuEnptSsOjmJtTY05kDqgqaoueS
+ IEv2UVJqCLGhhWfXGPI2bne50/KWxpSjNVVgpmWSSOndn22ylPfcOiw3W/sSOrI=
+X-Google-Smtp-Source: AGHT+IEIIi7f/khX+DL0ElnKeXbkTkqu3Do2h2qNKYCQfUhMKe+WvRGDBSKEB/3Hlft5tLx5w1488Q==
+X-Received: by 2002:a17:906:ecb8:b0:a6e:fb9b:6769 with SMTP id
+ a640c23a62f3a-a6f60de5fd6mr154292066b.75.1718358395585; 
+ Fri, 14 Jun 2024 02:46:35 -0700 (PDT)
 Received: from [127.0.1.1] ([78.10.206.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f9c84csm164966366b.222.2024.06.14.02.46.30
+ a640c23a62f3a-a6f56f9c84csm164966366b.222.2024.06.14.02.46.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 02:46:32 -0700 (PDT)
+ Fri, 14 Jun 2024 02:46:35 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 14 Jun 2024 11:46:00 +0200
+Date: Fri, 14 Jun 2024 11:46:01 +0200
 MIME-Version: 1.0
-Message-Id: <20240614-dt-bindings-thermal-allof-v1-1-30b25a6ae24e@linaro.org>
+Message-Id: <20240614-dt-bindings-thermal-allof-v1-2-30b25a6ae24e@linaro.org>
 References: <20240614-dt-bindings-thermal-allof-v1-0-30b25a6ae24e@linaro.org>
 In-Reply-To: <20240614-dt-bindings-thermal-allof-v1-0-30b25a6ae24e@linaro.org>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>, 
@@ -92,21 +92,21 @@ To: Daniel Lezcano <daniel.lezcano@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>, 
  Geert Uytterhoeven <geert+renesas@glider.be>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=971;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1065;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=o/ohlTOc9KfTRaCPoCM7PQRM1DXdEoNuRz6NEcHjNQU=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmbBFgD+j2f0+0l+ZGzVoLt+GTSfmeFZ0/xFupz
- gM/exa+G2uJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZmwRYAAKCRDBN2bmhouD
- 17UWD/9rPKTI+tMaPQFTlp5uhC2ZDUXtE+aHbXinp1xfhtKaGmRXZPjkC65fY77bv7i6yQRv6gt
- /fKHWgHUfbeZwaa8sLIoWVjNidarMXil19RyBVVS/TUZFDeMWnwjS+fm9iXKBUfRnpMOa62TU2L
- kkmSUExzh8qJR94p9QbOi9X7YjUrb+tLj9qSxHZCpOJ/Tdz9zxla8stRMJOk7zk3ngsxw0I54LY
- /kRWdB7QRmRL9feq2bORXU69Cx0/+IBI6OVYGgJgd47ZledM5Et8RdHsqpmRAGIdHsX56i6cvDj
- GvicuzQdYQdru//vJhKlbkaBs9r4hB2ytrjZlnPAupY4zBvVtemJlddl75Vp4oD9xZAWBk1UfuK
- 03b3zwfPFtXs5BevCXwZbKrem/YxQ6hPUbqJK3mAjXEltK+Pewe41nrPZvc0H21JDLVZyAM5CJp
- cbmIwvpjsbfRK34Si4EHtZlToTQe9CrK/mWbJqZbSSes1wvnu61YYbpR11HXj4DweUK+XMhKcUk
- RITKeqd9PUnTBvThlRPuhVi60hSRoAhu7LuVwJGyP9P0c1Y1B4FTe3hJRjveJ+5JqrUpXFe9GRf
- BtwKCcHO6ds3Kt953XlQKlzs/QRPAPvl17NBePvebpKqc8Eg1YIbWfof/OGSbv5cAgmGm3xm2kD
- K+P00ork5CoDpvQ==
+ bh=OL1bThiSTDRnxDnX7dUSElkuAerpOnM4wbDcCD9Dzlo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmbBFhz93LdRptZhTU1GW4iGarOwOO5EBiFYLFd
+ wFDJHK7K/qJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZmwRYQAKCRDBN2bmhouD
+ 18s9D/9LP9unfX0MSkgXF8TFjscV8gcBK408X/8oxDWBhIrJxkLZCwMssuTlysHZ2OYfyKJHsGx
+ G6Y1+icUV6gklZsPxjJ03/jABHwNj3xRb9AQPOwWQ62xpX/+zxQNNaEcW6AKyNmY90EgCBRRrwx
+ +zhCuMur8Gg6isM+gl3qHVZsMSALb5gwAMQDe3KP7A2Sno1hJw+giAAb3KI6FtfvevD2XtkMgab
+ x1xdWHM5YlOGmNi6acFw/2dtzcokVRiNbkNGuBpupXWq+vZL0n0mPr26qRUOIGhKqt/t5xQsemZ
+ L+Mr4ASMWruC2cyuxRkPN6WXiOqU2PWSej9kVH8O1xuNjE4e/PQHH91KA761ii2PhPs/7y+OwqF
+ pctdv1ol8AqI0F3yHRz/o1pCSJ8swPRC9vEXoLIwXfRYvwqouz1kVDofMzUcA302kDb5yZk+EgG
+ 9KCfyKlubN63juUO4jfkwe2WzfAcEXpi7GKMv5Gky8SLAPPRYoGewIbSvc/Zog++OvMxg+kMDGp
+ +C9mjIWV+rrT6bt6c5KjBkE/42bqZ5THaEoLUfgzGuhP/PUHKyI5JxC3F+owxWNpfB7kDtFeA3z
+ Yk0Am2y1AAsjqTGzDLnMJpNuFIZZoghdpcYJXcGJPZk+cauVsVa4n9fxRsSpvMdZFo6Fl7Qrb8i
+ h+5fgjivCVGsZIw==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
@@ -118,8 +118,8 @@ Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/22] dt-bindings: thermal: samsung,
-	exynos: specify cells
+Subject: [Linux-stm32] [PATCH 02/22] dt-bindings: thermal: amlogic:
+ reference thermal-sensor schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,28 +136,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-All Samsung Exynos SoCs Thermal Management Units have only one sensor,
-so make '#thermal-sensor-cells' fixed at 0.
+Device is a thermal sensor and all in-tree DTS provide
+'#thermal-sensor-cells', so reference the thermal-sensor.yaml to
+simplify it, bring the common definition of '#thermal-sensor-cells'
+property and require it.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml b/Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml
-index 1344df708e2d..29a08b0729ee 100644
---- a/Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml
-@@ -61,7 +61,8 @@ properties:
-           TRIMINFO at 0x10068000 contains data for TMU channel 2
-     minItems: 1
+diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+index 01fccdfc4178..e52fc40e215d 100644
+--- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+@@ -11,6 +11,8 @@ maintainers:
  
--  '#thermal-sensor-cells': true
-+  '#thermal-sensor-cells':
-+    const: 0
+ description: Binding for Amlogic Thermal
  
-   vtmu-supply:
-     description: The regulator node supplying voltage to TMU.
++$ref: thermal-sensor.yaml#
++
+ properties:
+   compatible:
+     oneOf:
+@@ -44,7 +46,7 @@ required:
+   - clocks
+   - amlogic,ao-secure
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 
 -- 
 2.43.0
