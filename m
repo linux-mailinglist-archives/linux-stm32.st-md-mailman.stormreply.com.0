@@ -2,76 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9BB908424
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 09:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFA89085BB
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 10:10:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD0BFC6C83A;
-	Fri, 14 Jun 2024 07:02:44 +0000 (UTC)
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F22ACC78017;
+	Fri, 14 Jun 2024 08:10:46 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D5B7C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 368F1C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 07:02:37 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-3d23db75f5cso1041738b6e.0
+ Fri, 14 Jun 2024 08:10:40 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-57c68682d1aso1875856a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 00:02:37 -0700 (PDT)
+ Fri, 14 Jun 2024 01:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718348556; x=1718953356;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718352639; x=1718957439;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=By4P0vcgLroOQCJskwfGLQoINqqC43myu7beQ18KDt0=;
- b=jY/wUuwVexP7+HgTxmVVrfqQWFkkw4NkGEuPHnfo8MsiH23vrLN1YvJVIaxFeoJ6dZ
- CLd//cr0XUjGToHjTgt3KdiW/MF6MXo8RVIhpGPQ7F8FOQSrdGh681CaXnvFd4VDXmKI
- DALUSQs31UHNOymcuSi50WlbAvW5tnoe8Ki4HXExCvQHqT44x+wpjJJf9d4ghHMcKzI5
- D414zFtlhVQTrjKCtU00wmgqtWq92PK00+sUcgZrh2f85BtXR/LrFVrOcs9KQaBDhJlj
- PnsDYAeX9k7NlkFEaORCOj1A+rXYkEMiihZpSiwieEAtQ01XkodziIjwqsfgAFxrUMym
- Q/7g==
+ bh=dQuauHWW6Nhu7VIVhyecgZ9pWHe1Gm4RQ6VrtSN+/jk=;
+ b=SQSlbu/jEQAukzsXoUsw84LvB2OmsQWpVNHEynkdngsd6qBxZzBpNADTkJjEvTVXG6
+ XLuCiaSdUI+Tqt0tE9cAieTW+cGz1G18fJ8kJ/CoNCmGvtqWww09iq5ezarRBW80NiwV
+ ULt+kywDPSpzOt6G/igK1vjOD3dSpwb1SdF1VtSYwcV04OxQ1Naf60f4YFhO62/IsanN
+ 8p/5GGCY3bvIi0/4QEUrtIXUENggMhOChVj0rkHiEQTb21M/SVpSJoBZv/K4dcX4mHl1
+ +jWghfiKK7A9aqcwEOE3KE/KyYzYpc6ZrUlsYxanAp3wzVkhpmiXtii+9USMlV/gLmF5
+ R2qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718348556; x=1718953356;
+ d=1e100.net; s=20230601; t=1718352639; x=1718957439;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=By4P0vcgLroOQCJskwfGLQoINqqC43myu7beQ18KDt0=;
- b=K9zdIJdt6I+7Qa08hztbcClhE6ZgL7t04Hp7VVaxY05kejYI1zCgCGX6KMbNnAEuTa
- zEIf6XLTaV8kBE3/Dhuir8sTvLNShaujYbR2oISJxTFMTfu41m1YaClvD1ElW2UqJitQ
- bEFOgndRLrm1AteqaZ+AUNCvxc6HBL9HOIuZwXSWsdReCN8biMyVuZtkyclgbFbUN1ov
- JqcaBnXk6Rd4LTEe25Gr8KLu9QFQUNaZBQFan13QXI7LPagc0yHB4tIVAU+STXnXjaaZ
- eMt6wfPE550BP0t8da+ru45vdzaT31wXqO8xBniKi7E1nz4oQNixjMwZUrcJxn0INwZY
- byqQ==
+ bh=dQuauHWW6Nhu7VIVhyecgZ9pWHe1Gm4RQ6VrtSN+/jk=;
+ b=M8twc3/bFeCblbKO3l7dmw2ga6uucNbTFLPjJuyiNRLYgddI25gfwPyuGwj5Sr1nXA
+ jsbe3eCf2oEAYMCwR3l6N4zC6NEkv3Uv3WP2/ML1ItJPWFPx3jHR5zp1h2yNhR7pkWoZ
+ uSvCykAgXDA/VUt2O3oe7hWvNWeYATvygdKPz++moJbUqyPBRvLKfAR3t7xnm9tSnM3P
+ wYyDiIAqx+s4ILaHf3qexGYfqUFZPkPLYXgJPEOo/XkMDnmZqLDaegPhFtLIG9xIrbwt
+ L3YHJjHoY4NzGdCB5OKUX12BjerJQaDwggArkCX/+ThdXdygh/Bn3KMWfMkav3MLm9G7
+ x/oQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV4QDJq3FbfqIW9zgdhe0rPGEUpRjygwWGb/DnyyzZIeqw/bMDRUT2Zp2sCZyn3WdPJxeXHHGpcr7R1Ne8orP+l3gMQTJMPdQ0BL80KRhhASsiqOK73GV8q
-X-Gm-Message-State: AOJu0Yxzt2O/vfZaIXDatNUbkQx4CiZoBiMscCly30xYs1wejzZbBMac
- iuW4Hxhv2lp7MxvZuBhTSdgrBkj3dNwPk1lTjAvgQpDLFXwKH+Uv
-X-Google-Smtp-Source: AGHT+IFIcoEGF1ujGsaAknACmdVAzRUo/ikVN155rUrAwKruOrjOfcAV7bcoaC10WeY7S6jOQeHj6w==
-X-Received: by 2002:a05:6358:7184:b0:19f:5631:97cd with SMTP id
- e5c5f4694b2df-19fa9e5c312mr252970455d.15.1718348555911; 
- Fri, 14 Jun 2024 00:02:35 -0700 (PDT)
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-6fede354612sm2072893a12.35.2024.06.14.00.02.29
+ AJvYcCWYInBbklop6RUtNXBrynUMZtJ9rdmwYoG4qKbHneWJMzcrao58Kmy6O4Yj8dgWB3fkrQdCozcnKNW5xuURg1g+CqDwEv2w+m1KRVYhX1I/2yXChi77i0Cb
+X-Gm-Message-State: AOJu0Yz7uScDH8CukVe8zrJ4iYGMc+Y+nsft8VoM4CVXQFF8tjOjsTK/
+ aqd7Aih7P7quezhGq/Y9H4uauerNOYblEox34BPjnAv9xfqzQPXrOAe/D43/rfg=
+X-Google-Smtp-Source: AGHT+IG4iAQVA130APkrQA/MPvG/bMQvQuYj4vQDeEupKxmjnm9Px/TgUM87w6xgfYjGLI7F60ewqw==
+X-Received: by 2002:a17:906:138c:b0:a6f:2e28:4008 with SMTP id
+ a640c23a62f3a-a6f60dc572cmr131844766b.54.1718352639612; 
+ Fri, 14 Jun 2024 01:10:39 -0700 (PDT)
+Received: from localhost (p509153eb.dip0.t-ipconnect.de. [80.145.83.235])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6f56f988f9sm156627466b.197.2024.06.14.01.10.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jun 2024 00:02:35 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>,
- "David S. Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
+ Fri, 14 Jun 2024 01:10:39 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ William Breathitt Gray <wbg@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>, Corinna Vinschen <vinschen@redhat.com>
-Date: Fri, 14 Jun 2024 15:02:06 +0800
-Message-Id: <20240614070206.506999-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>
+Date: Fri, 14 Jun 2024 10:10:10 +0200
+Message-ID: <cover.1718352022.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: Enable TSO on VLANs
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1253;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=XtY06yQNqFNmqjsRt6dtXpp7Ga45DKbLPLwoxJXu+Kk=;
+ b=owGbwMvMwMXY3/A7olbonx/jabUkhrTsX48f8qn9z6i3nvpq/lb/5wZuPQ5SHKzvz7qb9x8N2
+ OCYfYOpk9GYhYGRi0FWTJHFvnFNplWVXGTn2n+XYQaxMoFMYeDiFICJSDBwMLTPlr2rVuUWNW+2
+ 8t08vd2+dll7nn3JkzF4Uy+rPeVf0M0809/RBawrGJvKSvns6tS/l9gtbbgc/kcqjSnUaFKfDqP
+ Lyikbf8Q+cd4sc/8VpyO7nf6mCX3zZkmYd3JJcxUocLjd4ngeHHTF2k28TLBdnf1JqfCj7L6mZv
+ eEMxyTZpsHa6crfLSOuXp/6aFG5Yu+86r+GGfnrlh3145Jt/6gPXeju/zea76OlX3TZz1PNdj8N
+ v9Eef4cFrkH27ffUTmXuH1vs3MN48tVeY8P7u15pW5/Lo7Hu8jgzJ6D1p7zP24JmNPb2KXcVDwp
+ k/nZZ9N1mxmeeWj4sNi1H3nva3+p5aDdXJemjzuuF3MCAA==
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: linux-iio@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/4] mfd: stm32-timers: Make register
+	definition more flexible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,125 +92,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The TSO engine works well when the frames are not VLAN Tagged.
-But it will produce broken segments when frames are VLAN Tagged.
-
-The first segment is all good, while the second segment to the
-last segment are broken, they lack of required VLAN tag.
-
-An example here:
-========
-// 1st segment of a VLAN Tagged TSO frame, nothing wrong.
-MacSrc > MacDst, ethertype 802.1Q (0x8100), length 1518: vlan 100, p 1, ethertype IPv4 (0x0800), HostA:42643 > HostB:5201: Flags [.], seq 1:1449
-
-// 2nd to last segments of a VLAN Tagged TSO frame, VLAN tag is missing.
-MacSrc > MacDst, ethertype IPv4 (0x0800), length 1514: HostA:42643 > HostB:5201: Flags [.], seq 1449:2897
-MacSrc > MacDst, ethertype IPv4 (0x0800), length 1514: HostA:42643 > HostB:5201: Flags [.], seq 2897:4345
-MacSrc > MacDst, ethertype IPv4 (0x0800), length 1514: HostA:42643 > HostB:5201: Flags [.], seq 4345:5793
-MacSrc > MacDst, ethertype IPv4 (0x0800), length 1514: HostA:42643 > HostB:5201: Flags [P.], seq 5793:7241
-
-// normal VLAN Tagged non-TSO frame, nothing wrong.
-MacSrc > MacDst, ethertype 802.1Q (0x8100), length 1022: vlan 100, p 1, ethertype IPv4 (0x0800), HostA:42643 > HostB:5201: Flags [P.], seq 7241:8193
-MacSrc > MacDst, ethertype 802.1Q (0x8100), length 70: vlan 100, p 1, ethertype IPv4 (0x0800), HostA:42643 > HostB:5201: Flags [F.], seq 8193
-========
-
-When transmitting VLAN Tagged TSO frames, never insert VLAN tag by HW,
-always insert VLAN tag to SKB payload, then TSO works well on VLANs for
-all MAC cores.
-
-Tested on DWMAC CORE 5.10a, DWMAC CORE 5.20a and DWXGMAC CORE 3.20a
-
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
-  Changes in v3:
-    - Drop packet and increase stats counter when vlan tag insert fails.
-
-  Changes in v2:
-    - Use __vlan_hwaccel_push_inside() to insert vlan tag to the payload.
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 32 +++++++++++--------
- 1 file changed, 19 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index bbedf2a8c60f..87aa3528cc0c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4233,18 +4233,32 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- {
- 	struct dma_desc *desc, *first, *mss_desc = NULL;
- 	struct stmmac_priv *priv = netdev_priv(dev);
--	int nfrags = skb_shinfo(skb)->nr_frags;
--	u32 queue = skb_get_queue_mapping(skb);
- 	unsigned int first_entry, tx_packets;
- 	struct stmmac_txq_stats *txq_stats;
--	int tmp_pay_len = 0, first_tx;
-+	int tmp_pay_len = 0, first_tx, nfrags;
- 	struct stmmac_tx_queue *tx_q;
--	bool has_vlan, set_ic;
-+	bool set_ic;
- 	u8 proto_hdr_len, hdr;
--	u32 pay_len, mss;
-+	u32 pay_len, mss, queue;
- 	dma_addr_t des;
- 	int i;
- 
-+	/* Always insert VLAN tag to SKB payload for TSO frames.
-+	 *
-+	 * Never insert VLAN tag by HW, since segments splited by
-+	 * TSO engine will be un-tagged by mistake.
-+	 */
-+	if (skb_vlan_tag_present(skb)) {
-+		skb = __vlan_hwaccel_push_inside(skb);
-+		if (unlikely(!skb)) {
-+			priv->xstats.tx_dropped++;
-+			return NETDEV_TX_OK;
-+		}
-+	}
-+
-+	nfrags = skb_shinfo(skb)->nr_frags;
-+	queue = skb_get_queue_mapping(skb);
-+
- 	tx_q = &priv->dma_conf.tx_queue[queue];
- 	txq_stats = &priv->xstats.txq_stats[queue];
- 	first_tx = tx_q->cur_tx;
-@@ -4297,9 +4311,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 			skb->data_len);
- 	}
- 
--	/* Check if VLAN can be inserted by HW */
--	has_vlan = stmmac_vlan_insert(priv, skb, tx_q);
--
- 	first_entry = tx_q->cur_tx;
- 	WARN_ON(tx_q->tx_skbuff[first_entry]);
- 
-@@ -4309,9 +4320,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 		desc = &tx_q->dma_tx[first_entry];
- 	first = desc;
- 
--	if (has_vlan)
--		stmmac_set_desc_vlan(priv, first, STMMAC_VLAN_INSERT);
--
- 	/* first descriptor: fill Headers on Buf1 */
- 	des = dma_map_single(priv->device, skb->data, skb_headlen(skb),
- 			     DMA_TO_DEVICE);
-@@ -7678,8 +7686,6 @@ int stmmac_dvr_probe(struct device *device,
- 		ndev->features |= NETIF_F_RXHASH;
- 
- 	ndev->vlan_features |= ndev->features;
--	/* TSO doesn't work on VLANs yet */
--	ndev->vlan_features &= ~NETIF_F_TSO;
- 
- 	/* MTU range: 46 - hw-specific max */
- 	ndev->min_mtu = ETH_ZLEN - ETH_HLEN;
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpJJ20gbm90IHN1cmUgdGhhdCBldmVyeW9uZSB3aWxsIGFncmVlIHRoZSBjaGFuZ2Vz
+IGluIGhlcmUgYXJlCndvcnRod2hpbGUsIGJ1dCBJIGxpa2UgdGhlbS4gT25lIHN1cnByaXNlIGlz
+IHRoYXQgdGhpcyBtYWtlcyB0aGUKZ2VuZXJhdGVkIGNvZGUgZm9yIGRyaXZlcnMvcHdtL3B3bS1z
+dG0zMi5jIG1vcmUgY29tcGFjdCAoc2VlIHBhdGNoIDQgZm9yCmEgYmxvYXQtby1tZXRlciBzdGF0
+aXN0aWMpLiBJJ20gc3VycHJpc2VkIGJlY2F1c2UgaXQgYm9pbHMgZG93biB0byBnY2MKbm90IG5v
+dGljaW5nIHRoYXQKCgltYXNrID0gKCgoKDFVTCkpKSA8PCAoMSArIDQgKiAoKDEpIC0gMSkpKSA8
+PCAoY2ggKiA0KTsKCmlzIGVxdWl2YWxlbnQgdG8KCgltYXNrID0gKCgoKDFVTCkpKSA8PCAoMSAr
+IDQgKiAoKGNoICsgMSkgLSAxKSkpOwoKLgoKSSdtIHVuc3VyZSB3aGF0IHRvIHN1Z2dlc3QgZm9y
+IGhvdyB0byBtZXJnZSB0aGlzIHNlcmllcy4gSSBoYXZlIHNvbWUKZnVydGhlciBjaGFuZ2VzIG9u
+IG15IGFnZW5kYSB0byBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYywgc28gZWl0aGVyCm1lcmdpbmcg
+dGhpcyB2aWEgcHdtIG9yIGEgc3RhYmxlIGJyYW5jaCB3b3VsZCBiZSBncmVhdCBmb3IgbWUuCgpC
+ZXN0IHJlZ2FyZHMKVXdlCgpVd2UgS2xlaW5lLUvDtm5pZyAoNCk6CiAgbWZkOiBzdG0zMi10aW1l
+cnM6IFVuaWZ5IGFsaWdubWVudCBvZiByZWdpc3RlciBkZWZpbml0aW9uCiAgbWZkOiBzdG0zMi10
+aW1lcnM6IEFkZCBzb21lIHJlZ2lzdGVyIGRlZmluaXRpb25zIHdpdGggYSBwYXJhbWV0ZXIKICBt
+ZmQ6IHN0bTMyLXRpbWVyczogRHJvcCBUSU1fRElFUl9DQ19JRSh4KSBpbiBmYXZvdXIgb2YKICAg
+IFRJTV9ESUVSX0NDeElFKHgpCiAgcHdtLXN0bTMyOiBNYWtlIHVzZSBvZiBwYXJhbWV0cmlzZWQg
+cmVnaXN0ZXIgZGVmaW5pdGlvbnMKCiBkcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMg
+fCAgIDQgKy0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jICAgICAgICAgICB8ICAyMiArKy0tCiBp
+bmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaCAgfCAxNzkgKysrKysrKysrKysrKysrKy0t
+LS0tLS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDEwNyBpbnNlcnRpb25zKCspLCA5OCBkZWxl
+dGlvbnMoLSkKCmJhc2UtY29tbWl0OiAxNjEzZTYwNGRmMGNkMzU5Y2YyYTdmYmQ5YmU3YTBiY2Zh
+Y2ZhYmQwCi0tIAoyLjQzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
