@@ -2,75 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7C88908382
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 08:04:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9BB908424
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 09:02:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95736C6C83A;
-	Fri, 14 Jun 2024 06:04:59 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD0BFC6C83A;
+	Fri, 14 Jun 2024 07:02:44 +0000 (UTC)
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
+ [209.85.167.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D44CFC5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D5B7C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 06:04:52 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-24c9f91242dso726018fac.2
+ Fri, 14 Jun 2024 07:02:37 +0000 (UTC)
+Received: by mail-oi1-f170.google.com with SMTP id
+ 5614622812f47-3d23db75f5cso1041738b6e.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jun 2024 23:04:52 -0700 (PDT)
+ Fri, 14 Jun 2024 00:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718345091; x=1718949891;
+ d=gmail.com; s=20230601; t=1718348556; x=1718953356;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2lo12y0h1JrbPiWnZp57B9V/XXZzRLcsfqmffBDHVNA=;
- b=cAJ5Wb1xOn0IgoY/VmOzI65i4DA27OryS9yobitSp6eXz3SBj6a3zj9SkBEf8pyTQp
- J67aZy6pB66UQJegUc2S0lMf9GT0FQpD6AJ+wZnhfa3nKwUEFJmqcHom0N8/9sJ0heoY
- WX+55HudrqZKIphVQKz6Q6GPcnwlyfEJQIDxJ4WK/9Zgte6rkTiSdXEjQP9WEH0PI0dY
- 111NaZlhI5bg1WppxcKdlJaOQgavRmk8A5OLse2f0Qesg4xbD9zzETXWuQL64IPY2aKs
- XpnvvFf9f5C3nk6TuYsatkLEYYhYkdvOSSXniGhX/RxzC760yKHu1RXn5AjXgVtBNA23
- i3zQ==
+ bh=By4P0vcgLroOQCJskwfGLQoINqqC43myu7beQ18KDt0=;
+ b=jY/wUuwVexP7+HgTxmVVrfqQWFkkw4NkGEuPHnfo8MsiH23vrLN1YvJVIaxFeoJ6dZ
+ CLd//cr0XUjGToHjTgt3KdiW/MF6MXo8RVIhpGPQ7F8FOQSrdGh681CaXnvFd4VDXmKI
+ DALUSQs31UHNOymcuSi50WlbAvW5tnoe8Ki4HXExCvQHqT44x+wpjJJf9d4ghHMcKzI5
+ D414zFtlhVQTrjKCtU00wmgqtWq92PK00+sUcgZrh2f85BtXR/LrFVrOcs9KQaBDhJlj
+ PnsDYAeX9k7NlkFEaORCOj1A+rXYkEMiihZpSiwieEAtQ01XkodziIjwqsfgAFxrUMym
+ Q/7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718345091; x=1718949891;
+ d=1e100.net; s=20230601; t=1718348556; x=1718953356;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2lo12y0h1JrbPiWnZp57B9V/XXZzRLcsfqmffBDHVNA=;
- b=QPghanM83+BXyG7AwD8p1KfT3sOd6tlK7Fv1Rm8PjzVYIO7s9o6ftgD8JE8bQGCO3b
- NUI+0XOWomZK4Nt1yabp+PcpWVeZGl8/Br1HQ12YJgl0MCDuUtyL6tnQcRICu7/Gg7/+
- Q1jHCqLO0G+nO07dKkzyIGboPj4Xz71oLhx4IRcxFevSSbORrc8eFejH5773DTl5ScCP
- 7MXi31biafBbVZqaIaBSIHHyX5qJOPIUYeaNKSX4MJnt0TDnpK2rRBcUtjA3IHmPpdPw
- 29Z8fzru2yEkEmaA2Ul6BRw2VYXalIa5tZRqS2ylovlB7Ke5H/+rSUTeQiwpDwBGPxg+
- +coA==
+ bh=By4P0vcgLroOQCJskwfGLQoINqqC43myu7beQ18KDt0=;
+ b=K9zdIJdt6I+7Qa08hztbcClhE6ZgL7t04Hp7VVaxY05kejYI1zCgCGX6KMbNnAEuTa
+ zEIf6XLTaV8kBE3/Dhuir8sTvLNShaujYbR2oISJxTFMTfu41m1YaClvD1ElW2UqJitQ
+ bEFOgndRLrm1AteqaZ+AUNCvxc6HBL9HOIuZwXSWsdReCN8biMyVuZtkyclgbFbUN1ov
+ JqcaBnXk6Rd4LTEe25Gr8KLu9QFQUNaZBQFan13QXI7LPagc0yHB4tIVAU+STXnXjaaZ
+ eMt6wfPE550BP0t8da+ru45vdzaT31wXqO8xBniKi7E1nz4oQNixjMwZUrcJxn0INwZY
+ byqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV1+/PXsZkVh3txUYRZdEfT9qHaQxQ/v0ztoSgBZ7OWi7nAKs9Y6xFKv3yH6ztZAtNTGklxS1GxFpa2ytebiLRhDOcD47sdUwKrGy0QBvqt2SViwLeljSoO
-X-Gm-Message-State: AOJu0YwNjetMte1Opf9iMQMWrqIX4SnpJeJpLoOiH9E8sV5PMy2O97XQ
- AbQ/Am0hkLykFrzYDJkohRBezC1X2D1Hd1FL9lzwKvR0vo5ts2Qy
-X-Google-Smtp-Source: AGHT+IHd6Af/QURKSaUQ0MKuVRMqC3GMrW5NEG8Y0fvRhKF5F4mHn374tTiHmP39jrSgym0Wc2WhmQ==
-X-Received: by 2002:a05:6870:2251:b0:258:456f:2f91 with SMTP id
- 586e51a60fabf-258456f3325mr1445965fac.4.1718345091473; 
- Thu, 13 Jun 2024 23:04:51 -0700 (PDT)
+ AJvYcCV4QDJq3FbfqIW9zgdhe0rPGEUpRjygwWGb/DnyyzZIeqw/bMDRUT2Zp2sCZyn3WdPJxeXHHGpcr7R1Ne8orP+l3gMQTJMPdQ0BL80KRhhASsiqOK73GV8q
+X-Gm-Message-State: AOJu0Yxzt2O/vfZaIXDatNUbkQx4CiZoBiMscCly30xYs1wejzZbBMac
+ iuW4Hxhv2lp7MxvZuBhTSdgrBkj3dNwPk1lTjAvgQpDLFXwKH+Uv
+X-Google-Smtp-Source: AGHT+IFIcoEGF1ujGsaAknACmdVAzRUo/ikVN155rUrAwKruOrjOfcAV7bcoaC10WeY7S6jOQeHj6w==
+X-Received: by 2002:a05:6358:7184:b0:19f:5631:97cd with SMTP id
+ e5c5f4694b2df-19fa9e5c312mr252970455d.15.1718348555911; 
+ Fri, 14 Jun 2024 00:02:35 -0700 (PDT)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-6fee2d36622sm1969337a12.60.2024.06.13.23.04.45
+ 41be03b00d2f7-6fede354612sm2072893a12.35.2024.06.14.00.02.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jun 2024 23:04:50 -0700 (PDT)
+ Fri, 14 Jun 2024 00:02:35 -0700 (PDT)
 From: Furong Xu <0x1207@gmail.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>,
  "David S. Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Joao Pinto <jpinto@synopsys.com>, Corinna Vinschen <vinschen@redhat.com>
-Date: Fri, 14 Jun 2024 14:03:49 +0800
-Message-Id: <20240614060349.498414-1-0x1207@gmail.com>
+Date: Fri, 14 Jun 2024 15:02:06 +0800
+Message-Id: <20240614070206.506999-1-0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: Enable TSO on VLANs
+Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: Enable TSO on VLANs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,17 +118,20 @@ Tested on DWMAC CORE 5.10a, DWMAC CORE 5.20a and DWXGMAC CORE 3.20a
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
+  Changes in v3:
+    - Drop packet and increase stats counter when vlan tag insert fails.
+
   Changes in v2:
     - Use __vlan_hwaccel_push_inside() to insert vlan tag to the payload.
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 27 ++++++++++---------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 32 +++++++++++--------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index bbedf2a8c60f..e8cbfada63ca 100644
+index bbedf2a8c60f..87aa3528cc0c 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4233,18 +4233,27 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4233,18 +4233,32 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
  {
  	struct dma_desc *desc, *first, *mss_desc = NULL;
  	struct stmmac_priv *priv = netdev_priv(dev);
@@ -151,8 +155,13 @@ index bbedf2a8c60f..e8cbfada63ca 100644
 +	 * Never insert VLAN tag by HW, since segments splited by
 +	 * TSO engine will be un-tagged by mistake.
 +	 */
-+	if (skb_vlan_tag_present(skb))
++	if (skb_vlan_tag_present(skb)) {
 +		skb = __vlan_hwaccel_push_inside(skb);
++		if (unlikely(!skb)) {
++			priv->xstats.tx_dropped++;
++			return NETDEV_TX_OK;
++		}
++	}
 +
 +	nfrags = skb_shinfo(skb)->nr_frags;
 +	queue = skb_get_queue_mapping(skb);
@@ -160,7 +169,7 @@ index bbedf2a8c60f..e8cbfada63ca 100644
  	tx_q = &priv->dma_conf.tx_queue[queue];
  	txq_stats = &priv->xstats.txq_stats[queue];
  	first_tx = tx_q->cur_tx;
-@@ -4297,9 +4306,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4297,9 +4311,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
  			skb->data_len);
  	}
  
@@ -170,7 +179,7 @@ index bbedf2a8c60f..e8cbfada63ca 100644
  	first_entry = tx_q->cur_tx;
  	WARN_ON(tx_q->tx_skbuff[first_entry]);
  
-@@ -4309,9 +4315,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4309,9 +4320,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
  		desc = &tx_q->dma_tx[first_entry];
  	first = desc;
  
@@ -180,7 +189,7 @@ index bbedf2a8c60f..e8cbfada63ca 100644
  	/* first descriptor: fill Headers on Buf1 */
  	des = dma_map_single(priv->device, skb->data, skb_headlen(skb),
  			     DMA_TO_DEVICE);
-@@ -7678,8 +7681,6 @@ int stmmac_dvr_probe(struct device *device,
+@@ -7678,8 +7686,6 @@ int stmmac_dvr_probe(struct device *device,
  		ndev->features |= NETIF_F_RXHASH;
  
  	ndev->vlan_features |= ndev->features;
