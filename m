@@ -2,61 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CCF908CDF
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 16:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E057D908D8D
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2024 16:36:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48623C78010;
-	Fri, 14 Jun 2024 14:00:44 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F539C6B460;
+	Fri, 14 Jun 2024 14:36:50 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D8B7C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8345C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2024 14:00:42 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 5FC1B889E9;
- Fri, 14 Jun 2024 16:00:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1718373640;
- bh=oUw90xGCTf/R7dw6Q3/eRNoQsVdHr+6eZVmO95Kclv0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YV0Uon9aW17RuCD2I4tLNs4DUZh687c3Uzp0pSqI0WjWtGi3wy/YSfHzpAllZ8CJz
- JtkJAsx53o2sX9XjurbO82uIhR/kzhnYuhD7d7iebIry7SBe+Dp1VQe8L43ScrhPMK
- kaCqr/zf0OxMR0gf1uyTc38MKAf53kOyHA17vPwJLlR1CI4QG2OAKm0k+la4y6nshX
- x2TlhJMvLdupYil3eY9sD9Phf2/UCVhetIPFnc9QLbBNpzxWQK45xZe4zMckCjP1Lp
- N5ngCLXil0/7/DcqEYSWbQNvpTTZ5Dd1jafnPFnSkIiiLB6G6RAkPjYPtjCgxoHMKG
- 1Usv9sWiKenVQ==
-Message-ID: <4c2f1bac-4957-4814-bf62-816340bd9ff6@denx.de>
-Date: Fri, 14 Jun 2024 15:58:33 +0200
+ Fri, 14 Jun 2024 14:36:43 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-422df2a81f2so16804025e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Jun 2024 07:36:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718375803; x=1718980603;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=9pjHA27KSDFDPJxgz/w9YGYzEfUAZs5JLmVszAQFE64=;
+ b=pNuKJU5SRGk2glm+xo/z9XbpFWACRkea1bAeLy00T0E2It0BlZ6wIQqx7CprwZ2eUc
+ sQet1wS04lEpd/Ln8/MwFOdnrAJ7571QIJw9fkviagJ/SwtO7pSzn4CXDqqo386j5gJo
+ q548cME2U2+5Udt1i+D0SR2qxWya1/WvFtyn4mSTGJe+6Z6sz/EEBDSPC6pEqlmfXi3x
+ n8V+NiX7Q0zX/vpVTw5YFaI0lZ7xGMY9YCgybZRf0oJSI4PX3L5dO9UuL1B9XKIJUE2C
+ hewYeRKPnKf5PKk2yDLuiQiIzcrI2ZhqNWzszRx15PXAhGtmpTl0Bot767+zEomp5TaJ
+ zDdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718375803; x=1718980603;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=9pjHA27KSDFDPJxgz/w9YGYzEfUAZs5JLmVszAQFE64=;
+ b=HaMYEp6HdHA5WLU5jBYDwQHK1aY3vaorfCVvN8Xt2JDksAtZgYvVYNKDBFkyleJtMT
+ ExiddmNIZSrXExgLb2D8SKNVmn3Cj5jLuLG8nhcKmv/h2lb4dquNFZt24eu2jY/amA2a
+ SO12S2U0cex4M9kmn5vQ/yz9/aPScm/aKzaaFjaowBvYcTT3KtnCN5O2HeqSPGlWKPiS
+ ThWMLi4YvWC8QgL52hJ7OPwWrHvSEm7RHSBejsiq3woKp1b2HEzew+5J0zOAuhAo5aaE
+ 9Bh5l6sALRtYqrtLaomyL0XxFSsTkamEQq9xpDgE9DYcKObyyhbytAUBfGr5RNr9cRkt
+ NhvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX1dPwsgTtD/DC3TQZAXqk1c/HUBE5mFOyGNapHt3GufmcaKxRYfMfB12TsODgTsTcpqFixx+t8Fbl0Ma98lclrWS8/5boS2gfTcr+TiqLVd94Kgm5FEHBB
+X-Gm-Message-State: AOJu0YzcapfIoX2ZdhsCkNdoatzO4tqTJhh8JKhlc9G26yrNcigka8/z
+ sKD9KH2mbV5PVIIbhSjUbD0IeQChpK5v5KyXL0kFJMOXdSFcSEz07s95t2ykzcM=
+X-Google-Smtp-Source: AGHT+IEzMKgUi8Y9YIfJCmkgzt1+FWf2beN5X++98O6QozELkl3Svx/Pv/K8danURzS2F0IaAL6yBw==
+X-Received: by 2002:a05:600c:1f92:b0:421:7407:d778 with SMTP id
+ 5b1f17b1804b1-423048272eamr23600425e9.14.1718375803117; 
+ Fri, 14 Jun 2024 07:36:43 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:982:cbb0:261a:269e:a3a8:a2cc?
+ ([2a01:e0a:982:cbb0:261a:269e:a3a8:a2cc])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42285574e33sm44341635e9.1.2024.06.14.07.36.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Jun 2024 07:36:42 -0700 (PDT)
+Message-ID: <966d2474-57ea-4eca-baac-4b448c76fbf4@linaro.org>
+Date: Fri, 14 Jun 2024 16:36:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Christophe Roullier <christophe.roullier@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+From: neil.armstrong@linaro.org
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Anson Huang <Anson.Huang@nxp.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Amit Kucheria <amitk@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Heiko Stuebner <heiko@sntech.de>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Jose Abreu
- <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-References: <20240614130812.72425-1-christophe.roullier@foss.st.com>
- <20240614130812.72425-3-christophe.roullier@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240614130812.72425-3-christophe.roullier@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [net-next,
- PATCH 2/2] net: stmmac: dwmac-stm32: stm32: add management of
- stm32mp25 for stm32
+ Pascal Paillet <p.paillet@foss.st.com>, Keerthy <j-keerthy@ti.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ zhanghongchen <zhanghongchen@loongson.cn>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+References: <20240614-dt-bindings-thermal-allof-v1-0-30b25a6ae24e@linaro.org>
+ <20240614-dt-bindings-thermal-allof-v1-2-30b25a6ae24e@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20240614-dt-bindings-thermal-allof-v1-2-30b25a6ae24e@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 02/22] dt-bindings: thermal: amlogic:
+ reference thermal-sensor schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,141 +144,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: neil.armstrong@linaro.org
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/14/24 3:08 PM, Christophe Roullier wrote:
-
-[...]
-
-> +static int stm32mp2_configure_syscfg(struct plat_stmmacenet_data *plat_dat)
-> +{
-> +	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-> +	u32 reg = dwmac->mode_reg;
-> +	int val = 0;
-> +
-> +	switch (plat_dat->mac_interface) {
-> +	case PHY_INTERFACE_MODE_MII:
-> +		break;
-
-dwmac->enable_eth_ck does not apply to MII mode ? Why ?
-
-> +	case PHY_INTERFACE_MODE_GMII:
-> +		if (dwmac->enable_eth_ck)
-> +			val |= SYSCFG_ETHCR_ETH_CLK_SEL;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		val = SYSCFG_ETHCR_ETH_SEL_RMII;
-> +		if (dwmac->enable_eth_ck)
-> +			val |= SYSCFG_ETHCR_ETH_REF_CLK_SEL;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		val = SYSCFG_ETHCR_ETH_SEL_RGMII;
-> +		if (dwmac->enable_eth_ck)
-> +			val |= SYSCFG_ETHCR_ETH_CLK_SEL;
-> +		break;
-> +	default:
-> +		dev_err(dwmac->dev, "Mode %s not supported",
-> +			phy_modes(plat_dat->mac_interface));
-> +		/* Do not manage others interfaces */
-> +		return -EINVAL;
-> +	}
-> +
-> +	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-> +
-> +	/*  select PTP (IEEE1588) clock selection from RCC (ck_ker_ethxptp) */
-
-Drop extra leading space.
-Sentence starts with capital letter.
-
-> +	val |= SYSCFG_ETHCR_ETH_PTP_CLK_SEL;
-> +
-> +	/* Update ETHCR (set register) */
-> +	return regmap_update_bits(dwmac->regmap, reg,
-> +				 SYSCFG_MP2_ETH_MASK, val);
-> +}
-> +
->   static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
->   {
->   	int ret;
-> @@ -292,6 +346,21 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
->   	return stm32mp1_configure_pmcr(plat_dat);
->   }
+On 14/06/2024 11:46, Krzysztof Kozlowski wrote:
+> Device is a thermal sensor and all in-tree DTS provide
+> '#thermal-sensor-cells', so reference the thermal-sensor.yaml to
+> simplify it, bring the common definition of '#thermal-sensor-cells'
+> property and require it.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>   Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> index 01fccdfc4178..e52fc40e215d 100644
+> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> @@ -11,6 +11,8 @@ maintainers:
 >   
-> +static int stm32mp2_set_mode(struct plat_stmmacenet_data *plat_dat)
-> +{
-> +	int ret;
-> +
-> +	ret = stm32mp1_select_ethck_external(plat_dat);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = stm32mp1_validate_ethck_rate(plat_dat);
-> +	if (ret)
-> +		return ret;
-
-
-Is it necessary to duplicate this entire function instead of some:
-
-if (is_mp2)
-   return stm32mp2_configure_syscfg(plat_dat);
-else
-   return stm32mp1_configure_syscfg(plat_dat);
-
-?
-
-> +	return stm32mp2_configure_syscfg(plat_dat);
-> +}
-> +
->   static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
->   {
->   	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-> @@ -348,12 +417,6 @@ static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
->   		return PTR_ERR(dwmac->clk_rx);
->   	}
+>   description: Binding for Amlogic Thermal
 >   
-> -	if (dwmac->ops->parse_data) {
-> -		err = dwmac->ops->parse_data(dwmac, dev);
-> -		if (err)
-> -			return err;
-> -	}
-> -
->   	/* Get mode register */
->   	dwmac->regmap = syscon_regmap_lookup_by_phandle(np, "st,syscon");
->   	if (IS_ERR(dwmac->regmap))
-> @@ -365,20 +428,14 @@ static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
->   		return err;
->   	}
+> +$ref: thermal-sensor.yaml#
+> +
+>   properties:
+>     compatible:
+>       oneOf:
+> @@ -44,7 +46,7 @@ required:
+>     - clocks
+>     - amlogic,ao-secure
 >   
-> -	dwmac->mode_mask = SYSCFG_MP1_ETH_MASK;
-> -	err = of_property_read_u32_index(np, "st,syscon", 2, &dwmac->mode_mask);
-> -	if (err) {
-> -		if (dwmac->ops->is_mp13)
-> -			dev_err(dev, "Sysconfig register mask must be set (%d)\n", err);
-> -		else
-> -			dev_dbg(dev, "Warning sysconfig register mask not set\n");
-> -	}
-> +	if (dwmac->ops->parse_data)
-> +		err = dwmac->ops->parse_data(dwmac, dev);
+> -additionalProperties: false
+> +unevaluatedProperties: false
+>   
+>   examples:
+>     - |
+> 
 
-Why is this change here ? What is the purpose ?
-This should be documented in commit message too.
-
-The indirect call is not necessary either, simply do
-
-if (is_mp2)
-   return err;
-
-... do mp15/13 stuff here ...
-
-return err;
-
-[...]
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
