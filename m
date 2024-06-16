@@ -2,46 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D48909CA8
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2024 10:47:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6191A909D73
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2024 14:27:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74176C6A613;
-	Sun, 16 Jun 2024 08:47:01 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D08CC69067;
+	Sun, 16 Jun 2024 12:27:18 +0000 (UTC)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF65CC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E676C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jun 2024 08:46:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5B1E1CE097C;
- Sun, 16 Jun 2024 08:46:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B01C2BBFC;
- Sun, 16 Jun 2024 08:46:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718527611;
- bh=nQ/vCqxQ64G/dU866VmZFNtnjndHdvzguYFblH2UCDY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N2OHdvVKgDV+k8tBQb+6fbyD7clBj1Ae+BaJCTTdzJQNSHTbIIYCAmvRZnVnpuMUQ
- 0S04uOl50zNEJJV8ztTxdj1bG/H9Z2GJDy4jm71ycJ7t2pwMCiXtH6MlepC8uFGxhI
- y1+hq6cpVQ4Xs/SONuFzbQRyx9v7P4nHz+F2+BR92quaY1ANm+vlOBMZBjdqcj4rvN
- B9MAsRbOoevugcbQlQ3NRrg/S1BbLm29qkIOdxzXKMW3gSolOFTsYK7BkiTW/iadfp
- L1mAbgaHwc/LdwyEjUw+ojql6oqoXtzAWCAV66s1MbPjE3dn4GGeYq50Fz7kHFL4+j
- OIWYMuetZQcVQ==
-Date: Sun, 16 Jun 2024 17:46:45 +0900
-From: William Breathitt Gray <wbg@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Message-ID: <Zm6mdYBhP1dAMthI@ishi>
-References: <cover.1718352022.git.u.kleine-koenig@baylibre.com>
- <0735860960b1b38570bffa5b0de81a97f6e3230e.1718352022.git.u.kleine-koenig@baylibre.com>
+ Sun, 16 Jun 2024 12:27:16 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id
+ e9e14a558f8ab-371cc143f6aso18046325ab.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 16 Jun 2024 05:27:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718540835; x=1719145635;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=YF4nZM3lonrBQ/1Um3/o2Oe8OEDraVniga3/lSDMEu4=;
+ b=BN7/t7e9X5jFgsSk8b1613vQ/vKpMz6H3H5nfgGF/H6zGM0Mbc8zrowYJIctjh4XgT
+ P2BKsVkoeEz6AtNjfMKSJHawvdNHB0fOemVohf0RHK3/6BwP5cLYp29L38t2KJ23E0Z+
+ S481M4U6FoVT3TCbLGTja56WJWRb0R80BLcPNG3tHgzgH6knm84y6s5w5VC8W+v2Kz5P
+ XV8MccoEqrPKeSbGePT0byDRRjPnNe7egkaLlIg503V+dyq/6H3e4ztZiqDSzrgNy7m7
+ RFq+0881RjNm2Cn+jCI2gDvd0LPfjkAhSs8v+6vaX4Hq1xD4BtxN5YO3kYjVM5gBk4Sm
+ tZEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718540835; x=1719145635;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YF4nZM3lonrBQ/1Um3/o2Oe8OEDraVniga3/lSDMEu4=;
+ b=roqRHOGqQIW+uOI7KsXTPiFYutBDtpfpW29ahTHDYovfUUtM2n5CYO3nqrfPqM7WDo
+ 5yO9l0frXAq1riUg79Kw2L71qU0yCL2cQEi8krin3BwNYM6ZJlhotJaBwzUsl3UCA4Q8
+ pTEBrruV90KejJFI8D4VISdVnLcfb9QvKvN9eyAhj+IN/NItDV6Zk1RBwkF7kaS8TKcI
+ qVxbJH6TwBuPYBeYgZgv0I96KytlDwlzeq4JerDi0/oTlfNR5Gh6s7uPJaFfRmc01TGo
+ CW4a+xt64QiYaktL1udHQY3OhrDh2OQ3US87GUfVHQhO0AkpCQsLmvLHqNwiWD6OuQ57
+ d62g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUGpHDgBG0S59DGHe34OmXkdAQ5vYkggUnroWi7VkG9SJjeQGGAC4rAW/lhBLbhZD6FCjJ/jG2fhEMGBJvWWWQjG9KUsPUDHcNgZfrvSSrykuMOTIyu1pUx
+X-Gm-Message-State: AOJu0YwWcys57YbsZSqJypyUP4zEMWVfFApXC04B9P/6YpxGByDuaTgk
+ AKRCZJsKgtPh5dwmz8EdhH5r26txDuAnRnf/dFvYEHjiMpqqOjlB
+X-Google-Smtp-Source: AGHT+IH6NX0wZI/VAxPWkEemxzlcqScgPs48/oEvyI4bBXx7KgcXwmtBC8Br+BRvW22CWn8JH7bH8A==
+X-Received: by 2002:a05:6e02:1fca:b0:375:b381:9ad1 with SMTP id
+ e9e14a558f8ab-375e0e14a0bmr81855415ab.6.1718540835274; 
+ Sun, 16 Jun 2024 05:27:15 -0700 (PDT)
+Received: from [192.168.1.114] ([196.64.245.53])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-6fee3ba442csm4488618a12.85.2024.06.16.05.26.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 16 Jun 2024 05:27:12 -0700 (PDT)
+Message-ID: <aefb86ad-9547-4981-856d-de595da7ca7a@gmail.com>
+Date: Sun, 16 Jun 2024 13:26:48 +0100
 MIME-Version: 1.0
-In-Reply-To: <0735860960b1b38570bffa5b0de81a97f6e3230e.1718352022.git.u.kleine-koenig@baylibre.com>
-Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/4] mfd: stm32-timers: Drop
- TIM_DIER_CC_IE(x) in favour of TIM_DIER_CCxIE(x)
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Anson Huang <Anson.Huang@nxp.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Amit Kucheria <amitk@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Heiko Stuebner <heiko@sntech.de>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Pascal Paillet <p.paillet@foss.st.com>, Keerthy <j-keerthy@ti.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ zhanghongchen <zhanghongchen@loongson.cn>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+References: <20240614-dt-bindings-thermal-allof-v1-0-30b25a6ae24e@linaro.org>
+ <20240614-dt-bindings-thermal-allof-v1-4-30b25a6ae24e@linaro.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; keydata=
+ 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
+ HGuUuzv+GKZ6nsysJw==
+In-Reply-To: <20240614-dt-bindings-thermal-allof-v1-4-30b25a6ae24e@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ imx@lists.linux.dev, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 04/22] dt-bindings: thermal: brcm,
+ avs-ro: reference thermal-sensor schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,69 +151,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0960924857989072210=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============0960924857989072210==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dCl7/OXUWXzDpqmf"
-Content-Disposition: inline
 
+On 6/14/2024 10:46 AM, Krzysztof Kozlowski wrote:
+> Device is a thermal sensor and it requires '#thermal-sensor-cells', so
+> reference the thermal-sensor.yaml to simplify it and bring the
+> common definition of '#thermal-sensor-cells' property.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
---dCl7/OXUWXzDpqmf
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jun 14, 2024 at 10:10:13AM +0200, Uwe Kleine-K=F6nig wrote:
-> These two defines have the same purpose and this change doesn't
-> introduce any differences in drivers/counter/stm32-timer-cnt.o.
->=20
-> The only difference between the two is that
->=20
-> 	TIM_DIER_CC_IE(1) =3D=3D TIM_DIER_CC2IE
->=20
-> while
->=20
-> 	TIM_DIER_CCxIE(1) =3D=3D TIM_DIER_CC1IE
->=20
-> . That makes it necessary to have an explicit "+ 1" in the user code,
-> but IMHO this is a good thing as this is the code locatation that
-> "knows" that for software channel 1 you have to use TIM_DIER_CC2IE
-> (because software guys start counting at 0, while the relevant hardware
-> designer started at 1).
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-
-I concur with Lee Jones that the subject should be renamed. Regardless,
-here's my ack for the code changes.
-
-Acked-by: William Breathitt Gray <wbg@kernel.org>
-
---dCl7/OXUWXzDpqmf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZm6mdQAKCRC1SFbKvhIj
-K30lAQDsaSV5Lc4QTe+SNucCUL6Fa1IDxYIgK4zoGmqxb9xPwwD9F2jDmowZBtn1
-G4nggdLs3gGlZTYbXuMu9YnjuVjaTgk=
-=v9Mi
------END PGP SIGNATURE-----
-
---dCl7/OXUWXzDpqmf--
-
---===============0960924857989072210==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Acked-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0960924857989072210==--
