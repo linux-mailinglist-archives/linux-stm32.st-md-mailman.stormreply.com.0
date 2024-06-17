@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00A8790B01C
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2024 15:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AD2E90B01E
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2024 15:50:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BED10C78002;
-	Mon, 17 Jun 2024 13:50:27 +0000 (UTC)
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C88B8C78002;
+	Mon, 17 Jun 2024 13:50:29 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3B3BC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CCFE2C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jun 2024 13:50:26 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-3d226aff122so2395644b6e.2
+ Mon, 17 Jun 2024 13:50:28 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-797f222c9f9so258873185a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jun 2024 06:50:26 -0700 (PDT)
+ Mon, 17 Jun 2024 06:50:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718632225; x=1719237025;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718632228; x=1719237028;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TsjL1PDi95mMX5sXzypBRu5MAqP+mGu/27hW1rxKMDQ=;
- b=ikBAIHO6tarppM1iT1Hl54JBL1P+o+UMNHFFT3pl6XCP0kxLRdl8FH4YoNjHYd2gKW
- d3wLd/ZkhydYxShuylii0pmZN113XbxnMARJVY33H3nav0z76dJzQuBOzomutmBCU8/X
- VluZba+ZSOIPmZUI2KAdgAguNwgrzL28hm/mJz2k91KPs4lk5iQhjgNTGAKw1cA4t3YG
- YO4xz3Y7BfDpyZDEE2PtKQahqUmqAYKGf5KZV5+o3WI8vUpgCnJ+bRvLfD2FoqKYXZ1X
- hez194yKnl3QK/GdJRxytYFjPLBcI/9PxCmnH83FsJMixctPiINuA0yrpW6mjKZqLPhi
- zLAw==
+ :reply-to; bh=/XakTIALlxEv0HYj2MxlbOtZFxZOxjUYZWhXJH4zlh0=;
+ b=Y2VAZdc6abB0j/Kg6lyuTnKHp8o6EOeb/0+ogwsYI6zHIzrlRKnfRp119fG9Bq80SV
+ 323xP/mA/SIBjeeTjlSBuwJDz3RB6o0Rh4woCrVuppxrAMeHhlksS4qJZluikfvSS/cU
+ XIg0xEpY4PiPEm7ywG1qT28oPs57QsVXNQsLpQWzeoBhNUpBRikmFIzqbjrPa6/RH09g
+ 7aQf+5aYPAxinijfnY5gARu+Hqj2niCsXbRZywZjgNrVvPHYrJARfY8HucAMitW8Mb7o
+ muQoiGz75Rr+NPyK9b8XoGR90bTNGZJm5xB12GZnLFTOlqCmFFbmm0UwNg59jp+TxyuL
+ /FBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718632225; x=1719237025;
+ d=1e100.net; s=20230601; t=1718632228; x=1719237028;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TsjL1PDi95mMX5sXzypBRu5MAqP+mGu/27hW1rxKMDQ=;
- b=csz2ri9jf45gjdMQ0POo1ze2d396UebG5tYtiEL3w5mado/ahmZ+9ZSv7hXzZK4YHQ
- j6C3uoUYeDjWi0Rks7+jYyyJ2+1gMA6PCiiCHovtf1xHeQBhlL6E18e0pU9M4ByzqURu
- wXlNVRaYoxQrka7hCrFEFy5IgnCoBAzNvJvLd1LA8Zr+DPsXxvSPGzvUO3psxSyPLc/X
- S5BjK40nOqEMYWakMYvlm2l8YI4V+KbQBHewUQiWAlNYzT+UMKx7w713J8NCtF4mWVRb
- pw8reKoMds7GXB+jDhsYc5CGhWqHI/BLmwnnx2XLNw1A3DLOdg/yd6OO4laHmuGFs0Jk
- f11g==
+ bh=/XakTIALlxEv0HYj2MxlbOtZFxZOxjUYZWhXJH4zlh0=;
+ b=kxvE8+3jsVJZ8OSpHIbk2imIMin+3oO/o79jgm/9QKdYw0gJhLqxNSvVeLx51cg4MM
+ rbPxENcSq+/wA0UPwzNzwQ0Lxd8BVJGnMdJ2pr0dAFaCDKVXUyrskAjpgkK0EqK5CnWS
+ DV/zR/i74NsbAVGsgdanX5UjlecUs33gTqveBwjPso3WprrOp1AG5EWB/uyljeRlmEtq
+ WEG6VCKIlgtPCiYrdgniAIsxWL+MEmcTit3dYoYEKv7B49iGo03hlGGElUi17XDHmopB
+ MkZbnNGnquqQ3ge6Jq6YIIdXbNlr0tRhKlzA6gg+4JMBmaxoUN2gpqELx2cWwgVAsDTw
+ vcwg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVVt0yEVrXkDczNAqkGXpl1e9LBf7FWfK8SR69Tj05rOmhSlTyR2x8mFg+Yb7rwYTNgLQyzfN8zOl/NYEWV3wAilQgDUM/or//tw0kv9orOlr90H0Hp9776
-X-Gm-Message-State: AOJu0YxAELUsIDCIo/X4g2W2s//BQW4W9DQtBd/1ftmvq3vPbA83ukxo
- pVmUB3vx9g1QVbd0Yo8J9Ehv63TRNwBZ+T0GZZ+/smtG7QpsVCiHj7N+o0Gf4IM=
-X-Google-Smtp-Source: AGHT+IFvblxIubOLu7csKqd2DaYsYhFE9mHOS6tHSYRNjsfIzum/J8kKl7oiGVOQ0fHTuqtXTzPk8w==
-X-Received: by 2002:a05:6870:d383:b0:254:ac99:1152 with SMTP id
- 586e51a60fabf-25842baade0mr8855321fac.58.1718632225631; 
- Mon, 17 Jun 2024 06:50:25 -0700 (PDT)
+ AJvYcCVRwq1H66wp6Mkk4X+HbL/BRs9yfYiM1+rPPwteoU0Sim7kCzojB3syRUT717geqhZvsyQTG4yoi87DYuJ/phEFnk5/B5L+E6fEUZ/F9ow5RulCQ/XsJnA+
+X-Gm-Message-State: AOJu0YyrgoZLappgyO0mE9/RBG5TUhL/+ooOtLyo8u8xTr0chw7KRdSu
+ gG5gEZl/cJ0oucRInI9FXfAiAVcw0MmKbH3XLztkWPBqVElAqwcw7mKpx4n68J0=
+X-Google-Smtp-Source: AGHT+IG8ABD9tEwAKr1/xa6bdVCx92iQnTrVgELPE/Lymo3q9zF8m5xvFoyu+g0K7+PoHeaETQDP6g==
+X-Received: by 2002:a05:620a:29d1:b0:795:967d:b1f4 with SMTP id
+ af79cd13be357-798d26b5261mr1162014985a.70.1718632227786; 
+ Mon, 17 Jun 2024 06:50:27 -0700 (PDT)
 Received: from megalith.oryx-coho.ts.net (d24-150-219-207.home.cgocable.net.
  [24.150.219.207]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-798aaecc004sm432892285a.31.2024.06.17.06.50.23
+ af79cd13be357-798aaecc004sm432892285a.31.2024.06.17.06.50.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jun 2024 06:50:25 -0700 (PDT)
+ Mon, 17 Jun 2024 06:50:27 -0700 (PDT)
 From: Trevor Gamblin <tgamblin@baylibre.com>
-Date: Mon, 17 Jun 2024 09:49:59 -0400
+Date: Mon, 17 Jun 2024 09:50:00 -0400
 MIME-Version: 1.0
-Message-Id: <20240617-review-v3-19-88d1338c4cca@baylibre.com>
+Message-Id: <20240617-review-v3-20-88d1338c4cca@baylibre.com>
 References: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
 In-Reply-To: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -91,8 +91,8 @@ Cc: Trevor Gamblin <tgamblin@baylibre.com>, imx@lists.linux.dev,
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 19/41] iio: dac: ltc2688: make use of
-	regmap_set_bits()
+Subject: [Linux-stm32] [PATCH v3 20/41] iio: dac: stm32-dac-core: make use
+ of regmap_set_bits()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,18 +113,19 @@ SW5zdGVhZCBvZiB1c2luZyByZWdtYXBfdXBkYXRlX2JpdHMoKSBhbmQgcGFzc2luZyB0aGUgbWFz
 ayB0d2ljZSwgdXNlCnJlZ21hcF9zZXRfYml0cygpLgoKU3VnZ2VzdGVkLWJ5OiBVd2UgS2xlaW5l
 LUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4KU2lnbmVkLW9mZi1ieTogVHJl
 dm9yIEdhbWJsaW4gPHRnYW1ibGluQGJheWxpYnJlLmNvbT4KLS0tCiBkcml2ZXJzL2lpby9kYWMv
-bHRjMjY4OC5jIHwgNSArKy0tLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMyBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby9kYWMvbHRjMjY4OC5jIGIvZHJp
-dmVycy9paW8vZGFjL2x0YzI2ODguYwppbmRleCBjNGIxYmEzMGY5MzUuLmFmNTBkMmE5NTg5OCAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9paW8vZGFjL2x0YzI2ODguYworKysgYi9kcml2ZXJzL2lpby9k
-YWMvbHRjMjY4OC5jCkBAIC04NjAsOSArODYwLDggQEAgc3RhdGljIGludCBsdGMyNjg4X3NldHVw
-KHN0cnVjdCBsdGMyNjg4X3N0YXRlICpzdCwgc3RydWN0IHJlZ3VsYXRvciAqdnJlZikKIAkJLyog
-YnJpbmcgZGV2aWNlIG91dCBvZiByZXNldCAqLwogCQlncGlvZF9zZXRfdmFsdWVfY2Fuc2xlZXAo
-Z3BpbywgMCk7CiAJfSBlbHNlIHsKLQkJcmV0ID0gcmVnbWFwX3VwZGF0ZV9iaXRzKHN0LT5yZWdt
-YXAsIExUQzI2ODhfQ01EX0NPTkZJRywKLQkJCQkJIExUQzI2ODhfQ09ORklHX1JTVCwKLQkJCQkJ
-IExUQzI2ODhfQ09ORklHX1JTVCk7CisJCXJldCA9IHJlZ21hcF9zZXRfYml0cyhzdC0+cmVnbWFw
-LCBMVEMyNjg4X0NNRF9DT05GSUcsCisJCQkJICAgICAgTFRDMjY4OF9DT05GSUdfUlNUKTsKIAkJ
-aWYgKHJldCkKIAkJCXJldHVybiByZXQ7CiAJfQoKLS0gCjIuNDUuMgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+c3RtMzItZGFjLWNvcmUuYyB8IDUgKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
+KyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vZGFjL3N0bTMyLWRh
+Yy1jb3JlLmMgYi9kcml2ZXJzL2lpby9kYWMvc3RtMzItZGFjLWNvcmUuYwppbmRleCBlMTUwYWM3
+MjkxNTQuLjJkNTY3MDczOTk2YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9paW8vZGFjL3N0bTMyLWRh
+Yy1jb3JlLmMKKysrIGIvZHJpdmVycy9paW8vZGFjL3N0bTMyLWRhYy1jb3JlLmMKQEAgLTIwMCw5
+ICsyMDAsOCBAQCBzdGF0aWMgaW50IHN0bTMyX2RhY19jb3JlX3Jlc3VtZShzdHJ1Y3QgZGV2aWNl
+ICpkZXYpCiAKIAlpZiAocHJpdi0+Y29tbW9uLmhmc2VsKSB7CiAJCS8qIHJlc3RvcmUgaGZzZWwg
+KG1heWJlIGxvc3QgdW5kZXIgbG93IHBvd2VyIHN0YXRlKSAqLwotCQlyZXQgPSByZWdtYXBfdXBk
+YXRlX2JpdHMocHJpdi0+Y29tbW9uLnJlZ21hcCwgU1RNMzJfREFDX0NSLAotCQkJCQkgU1RNMzJI
+N19EQUNfQ1JfSEZTRUwsCi0JCQkJCSBTVE0zMkg3X0RBQ19DUl9IRlNFTCk7CisJCXJldCA9IHJl
+Z21hcF9zZXRfYml0cyhwcml2LT5jb21tb24ucmVnbWFwLCBTVE0zMl9EQUNfQ1IsCisJCQkJICAg
+ICAgU1RNMzJIN19EQUNfQ1JfSEZTRUwpOwogCQlpZiAocmV0KQogCQkJcmV0dXJuIHJldDsKIAl9
+CgotLSAKMi40NS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
