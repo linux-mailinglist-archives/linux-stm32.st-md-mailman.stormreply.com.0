@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EAAA90C567
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 11:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF5C290C733
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 12:38:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9485C78001;
-	Tue, 18 Jun 2024 09:38:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62162C78001;
+	Tue, 18 Jun 2024 10:38:07 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3FE5C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77CABC5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2024 09:38:23 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45I6jGl4022142;
- Tue, 18 Jun 2024 11:37:51 +0200
+ Tue, 18 Jun 2024 10:38:00 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45I6WQV6017671;
+ Tue, 18 Jun 2024 11:37:30 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- dcvRD59Q/QhzHEfOoMrdSAIGmaRekneKKoCazdo4mts=; b=4Zp9r0djo9UX0AY6
- VQ1WJ63YK8tcSBVJyDNj+c3tHTOnvl8RIPvEDBaU5YHzQQ42SnshEgPcNr+OnuKX
- jY1qx36y/9XJfMK1h40H6SmPOUGrRKrP+pgAbc6ya30DYxeCy7Cd2+BYaZzCJ+KG
- rXbvrDK1tOO6UvoVBmor726v+ullzgpxHk4iLF2QscSBZ4HEBdFaejqYErW7mWaM
- 2paXQdzMz7DbNpKB3kxtQQ7DHxx2Y+zxCbuyVDIRhg+O7xLLlkX9qiBdcUoNQWVj
- +rAt63TT+abMmHK6EW+naY814nflm7qtqa9SHoltfLn9M/6dpyWAWzk3LCJU+Vxu
- JJLljg==
+ Qsd+quSmL/fyABfE+A5sHO3NwXbp2Y5VM8+yeBUep0c=; b=n9F8ocfaChShw9Qz
+ rxc4iYvvmqhjnvEeYANU9HmbTnKCn4P7YqMOzzBO76seNFDwB75ZZQ95klzQp7zN
+ /uCcQzzc7YrbARdcfHUs4EgCuUZwNjF/Fr7kX7u4WXgxHSVkYJd7FMe7ktMSB6e/
+ XEuDkiIz0AzkjWQ0RYEAyQ6zsaxDm5CC8V0gGHqQKdLRetECrmvx6NIQUEHYAh1t
+ ed01is+2n7+3bMieQOw48AJ8zvjJMRpTZ6qSF6tf+o7JwPStNtMJOZGg+eGsSspk
+ /kpnrNaw7t9oNue9MhMUPzN0H9MT9nR4h6U4u7/1gP2c+ynB9N9sD72fUwnt/M84
+ WPFtuA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ys1uct8dn-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ysnwj8b5h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Jun 2024 11:37:50 +0200 (MEST)
+ Tue, 18 Jun 2024 11:37:30 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D29AE40047;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C150A40046;
  Tue, 18 Jun 2024 11:36:52 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0C6202138E0;
- Tue, 18 Jun 2024 11:35:39 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8EF192138DA;
+ Tue, 18 Jun 2024 11:35:37 +0200 (CEST)
 Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 18 Jun
- 2024 11:35:38 +0200
+ 2024 11:35:36 +0200
 From: Christophe Roullier <christophe.roullier@foss.st.com>
 To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
@@ -51,8 +51,8 @@ To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Christophe Roullier
  <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Tue, 18 Jun 2024 11:35:27 +0200
-Message-ID: <20240618093527.318239-4-christophe.roullier@foss.st.com>
+Date: Tue, 18 Jun 2024 11:35:25 +0200
+Message-ID: <20240618093527.318239-2-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240618093527.318239-1-christophe.roullier@foss.st.com>
 References: <20240618093527.318239-1-christophe.roullier@foss.st.com>
@@ -66,8 +66,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 3/3] arm64: dts: st: enable Ethernet2 on
-	stm32mp257f-ev1 board
+Subject: [Linux-stm32] [PATCH 1/3] arm64: dts: st: add ethernet1 and
+	ethernet2 support on stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,56 +84,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ETHERNET2 instance is connected to Realtek PHY in RGMII mode
-Ethernet is SNSP IP with GMAC5 version.
+Both instances ethernet based on GMAC SNPS IP on stm32mp25.
+GMAC IP version is SNPS 5.3
 
 Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 49 +++++++++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp253.dtsi | 51 ++++++++++++++++++++++++++
+ 2 files changed, 100 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 27b7360e5dba..6d8bf1342e23 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -17,6 +17,7 @@ / {
- 	compatible = "st,stm32mp257f-ev1", "st,stm32mp257";
- 
- 	aliases {
-+		ethernet0 = &ethernet2;
- 		serial0 = &usart2;
- 	};
- 
-@@ -55,6 +56,29 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&ethernet2 {
-+	status = "okay";
-+	pinctrl-0 = <&eth2_rgmii_pins_a>;
-+	pinctrl-1 = <&eth2_rgmii_sleep_pins_a>;
-+	pinctrl-names = "default", "sleep";
-+	phy-mode = "rgmii-id";
-+	max-speed = <1000>;
-+	phy-handle = <&phy0_eth2>;
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index dcd0656d67a8..3ab788baefc2 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -338,6 +338,55 @@ sdmmc1: mmc@48220000 {
+ 				access-controllers = <&rifsc 76>;
+ 				status = "disabled";
+ 			};
 +
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0_eth2: ethernet-phy@1 {
-+			compatible = "ethernet-phy-id001c.c916";
-+			reg = <1>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <300>;
-+			reset-gpios =  <&gpiog 6 GPIO_ACTIVE_LOW>;
++			ethernet1: ethernet@482c0000 {
++				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
++				reg = <0x482c0000 0x4000>;
++				reg-names = "stmmaceth";
++				interrupts-extended = <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
++				interrupt-names = "macirq";
++				clock-names = "stmmaceth",
++					      "mac-clk-tx",
++					      "mac-clk-rx",
++					      "ptp_ref",
++					      "ethstp",
++					      "eth-ck";
++				clocks = <&rcc CK_ETH1_MAC>,
++					 <&rcc CK_ETH1_TX>,
++					 <&rcc CK_ETH1_RX>,
++					 <&rcc CK_KER_ETH1PTP>,
++					 <&rcc CK_ETH1_STP>,
++					 <&rcc CK_KER_ETH1>;
++				snps,axi-config = <&stmmac_axi_config_1>;
++				snps,mixed-burst;
++				snps,mtl-rx-config = <&mtl_rx_setup_1>;
++				snps,mtl-tx-config = <&mtl_tx_setup_1>;
++				snps,pbl = <2>;
++				snps,tso;
++				st,syscon = <&syscfg 0x3000>;
++				access-controllers = <&rifsc 60>;
++				status = "disabled";
++
++				mtl_rx_setup_1: rx-queues-config {
++					snps,rx-queues-to-use = <2>;
++					queue0 {};
++					queue1 {};
++				};
++
++				mtl_tx_setup_1: tx-queues-config {
++					snps,tx-queues-to-use = <4>;
++					queue0 {};
++					queue1 {};
++					queue2 {};
++					queue3 {};
++				};
++
++				stmmac_axi_config_1: stmmac-axi-config {
++					snps,blen = <0 0 0 0 16 8 4>;
++					snps,rd_osr_lmt = <0x7>;
++					snps,wr_osr_lmt = <0x7>;
++				};
++			};
+ 		};
+ 
+ 		bsec: efuse@44000000 {
+diff --git a/arch/arm64/boot/dts/st/stm32mp253.dtsi b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+index 029f88981961..44fed477a55e 100644
+--- a/arch/arm64/boot/dts/st/stm32mp253.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp253.dtsi
+@@ -28,3 +28,54 @@ timer {
+ 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+ 	};
+ };
++
++&rifsc {
++	ethernet2: ethernet@482d0000 {
++		compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
++		reg = <0x482d0000 0x4000>;
++		reg-names = "stmmaceth";
++		interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "macirq";
++		clock-names = "stmmaceth",
++			      "mac-clk-tx",
++			      "mac-clk-rx",
++			      "ptp_ref",
++			      "ethstp",
++			      "eth-ck";
++		clocks = <&rcc CK_ETH2_MAC>,
++			 <&rcc CK_ETH2_TX>,
++			 <&rcc CK_ETH2_RX>,
++			 <&rcc CK_KER_ETH2PTP>,
++			 <&rcc CK_ETH2_STP>,
++			 <&rcc CK_KER_ETH2>;
++		snps,axi-config = <&stmmac_axi_config_2>;
++		snps,mixed-burst;
++		snps,mtl-rx-config = <&mtl_rx_setup_2>;
++		snps,mtl-tx-config = <&mtl_tx_setup_2>;
++		snps,pbl = <2>;
++		snps,tso;
++		st,syscon = <&syscfg 0x3400>;
++		access-controllers = <&rifsc 61>;
++		status = "disabled";
++
++		mtl_rx_setup_2: rx-queues-config {
++			snps,rx-queues-to-use = <2>;
++			queue0 {};
++			queue1 {};
++		};
++
++		mtl_tx_setup_2: tx-queues-config {
++			snps,tx-queues-to-use = <4>;
++			queue0 {};
++			queue1 {};
++			queue2 {};
++			queue3 {};
++		};
++
++		stmmac_axi_config_2: stmmac-axi-config {
++			snps,blen = <0 0 0 0 16 8 4>;
++			snps,rd_osr_lmt = <0x7>;
++			snps,wr_osr_lmt = <0x7>;
 +		};
 +	};
 +};
-+
- &i2c2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&i2c2_pins_a>;
 -- 
 2.25.1
 
