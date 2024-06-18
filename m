@@ -2,49 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283AB90DB5A
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 20:10:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E314190DC13
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 20:59:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE8BCC71282;
-	Tue, 18 Jun 2024 18:10:51 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A3A2C71282;
+	Tue, 18 Jun 2024 18:59:17 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 925A0C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B79F0C5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2024 18:10:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1FB22CE1BE4;
- Tue, 18 Jun 2024 18:10:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D31EC3277B;
- Tue, 18 Jun 2024 18:10:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718734239;
- bh=EAvgZ3jMRCuTBhjZ/B+YPumQ+F27xwXs2WGNI9/iw6w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UsB1ggxDjMVJ2bkpOY1nKfMR+8EDszY1zyaQ5sHAm5770BSZXaG2f6OB+YNYYXa6q
- JPKFtXmGx6H4GmFZ+pdBKNvJ1eWUsXVnCmEnOpTL0Dh1PFH93SXT08T46h5g1vm5cG
- ayKhoikeHx/EcWdFzABFU3tAdtaYi9GxJw4TGJBQe0cWXJYif06tuTUvoF6x2dSYcH
- BAOL8V7giCyQP1QeNs7qtVGHoFLN/cYqyCkFxCPzdO2AxFQqaBhoaw/ExuhmPOxK7d
- TduN9cJ8gbcDNEwCcAXQQw1cjeqQ7K9zWRxZD/u3kSjjO/+Q5Lw2Wzz2QrxTgcddEo
- swS7EoMEUABbA==
-Date: Tue, 18 Jun 2024 19:10:33 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20240618-footwear-impotence-5284985a609d@spud>
-References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
- <20240618160836.945242-5-olivier.moysan@foss.st.com>
+ Tue, 18 Jun 2024 18:59:10 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52ccb56d5fdso71298e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 18 Jun 2024 11:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718737150; x=1719341950;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=9MpCHcPoZaGrAFpup9mciJpiv7a+e50VTao5sjCkleg=;
+ b=TMssepLuaGL8D6HmF+EyH9pV9FNq6Q9Wo0R4OpdHBmjwrJ3B4M7xkxTAnl+Akr2ycI
+ yovNMHvJEBaNSwz3JsjxrvSZ+KJNfvMlfHy1SSt5OTEsowumi8mCCS0bP4OoQ4SCnMzz
+ /HbfBo2UuFevhays9Jil0RZzU1cWJcx7V5WGmqCkAkAMYZvcCakeqGLJVMuR+wPmaCd0
+ QVGGA+ucQ4SBZhtpq+esLYeZWS1vEVu0fE6ovi0acMI3PE+FcZBCZ4EL5lXUO7sNdG4I
+ fKCb80MWXEV4qFsbQ8Iyq/K+eNr0KgkDBYOirP5lHARfuzI3i61cMxxNzRkSz/MedbFc
+ dtEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718737150; x=1719341950;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9MpCHcPoZaGrAFpup9mciJpiv7a+e50VTao5sjCkleg=;
+ b=hZTZka86oPBmEyVB0RG6eSNZ+soE/jkp/RfEmp839RywwTs/1cmGOI7oUU/EcNq0SX
+ TO8tm8/4E467OjZEn8/cNP59ZgrnoNj03qwYyw9M18YAMRPboUXl7g2/oeQ8a/gRhCgW
+ 9eQ7boDDGoaiijTjB8j7CdFIJhXK2+EFGs43CxRFUb7GYB1oqcrbwvlUsg/pEg8TkPtA
+ aTqOIEI/uRDkXW2uMa3ta4j6ZEQ7fJhLw/u2piBDxYUWZVXT9jSiX76ktWozTg20YZ+u
+ x+AnoTygkJFqHs8ruyXiP4m75yT94W1+zQn1o4wslSQ0HnBdF3H7gUXXx+v2sAo/lmN4
+ UOnA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVtp1pQMauksbHnNjqSHGTxRWy0EQBQF/RgE+hcP3us6zeaGdddPrHTIq8VX06g+GY8wde+GZfBTMvmsOaJT3NEuwOCEqGouCfzBvomkd1juCxdbmxJK8qg
+X-Gm-Message-State: AOJu0YwZcMMalSp5/IEOdJi3nOFrcLFDYnZi0KXNrUK4kJLByVVeWKSe
+ g+f7dV2J+jVryZXEUe4FyK9Dw0TKTUmk6cgPs0cJKKI+y4BDP56XVPAS3vFyt1w=
+X-Google-Smtp-Source: AGHT+IFDr3U/SrLBiO1uPby6Uc8AxM6+e9mp/Lc1MODZwB4YQh4bCUD9hP+ePj9pH4co7aNG+afopA==
+X-Received: by 2002:a05:6512:2e7:b0:52c:823f:2a0a with SMTP id
+ 2adb3069b0e04-52ccaa2c8c8mr327227e87.10.1718737149939; 
+ Tue, 18 Jun 2024 11:59:09 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52ca2889052sm1573443e87.299.2024.06.18.11.59.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Jun 2024 11:59:09 -0700 (PDT)
+Date: Tue, 18 Jun 2024 21:59:07 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <hgqvyaziumpag5g5ajzupllvpwlz44scma6yu3drmtoqwcwav4@w366suy7c2eo>
+References: <20240603-ucsi-rework-interface-v1-0-99a6d544cec8@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20240618160836.945242-5-olivier.moysan@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 4/8] dt-bindings: iio: dfsdm: move to
-	backend framework
+Content-Disposition: inline
+In-Reply-To: <20240603-ucsi-rework-interface-v1-0-99a6d544cec8@linaro.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nikita Travkin <nikita@trvn.ru>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC 0/7] usb: typec: ucsi: rework glue
+	driver interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,247 +83,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0082496170252726738=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jun 03, 2024 at 02:24:53AM GMT, Dmitry Baryshkov wrote:
+> The interface between UCSI and the glue driver is very low-level. It
+> allows reading the UCSI data from any offset (but in reality the UCSI
+> driver reads only VERSION, CCI an MESSAGE_IN data). All event handling
+> is to be done by the glue driver (which already resulted in several
+> similar-but-slightly different implementations). It leaves no place to
+> optimize the write-read-read sequence for the command execution (which
+> might be beneficial for some of the drivers), etc.
+> 
+> The patchseries attempts to restructure the UCSI glue driver interface
+> in order to provide sensible operations instead of a low-level read /
+> write calls.
+> 
+> If this approach is found to be acceptable, I plan to further rework the
+> command interface, moving reading CCI and MESSAGE_IN to the common
+> control code, which should simplify driver's implementation and remove
+> necessity to split quirks between sync_control and read_message_in e.g.
+> as implemented in the ucsi_ccg.c.
+> 
+> Note, the series was tested only on the ucsi_glink platforms. Further
+> testing is appreciated.
 
---===============0082496170252726738==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4SiWeHDoe2HNgIcV"
-Content-Disposition: inline
+Gracious ping for the reviews / comments. My endgoal is to simplify the
+command submission interface, allowing us to handle odd commands in a
+single function rather than having the code split between sync_write()
+and notification handling.
 
-
---4SiWeHDoe2HNgIcV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 18, 2024 at 06:08:30PM +0200, Olivier Moysan wrote:
-> Change the DFSDM binding to use the new IIO backend framework,
-> along with the adoption of IIO generic channels.
-> This binding change allows to add scaling support to the DFSDM.
->=20
-> Keep the legacy binding as deprecated for backward compatibility.
->=20
-> The io-backends property is supported only in generic IIO channel
-> binding.
->=20
-> - Channel description with the generic binding (Audio and Analog):
->=20
->   Properties supersed by generic properties:
->     st,adc-channels: becomes "reg" property in channel node
->     st,adc-channel-names: becomes "label" property in channel node
->   Properties moved to channel child node:
->     st,adc-channel-types, st,adc-channel-clk-src, st,adc-alt-channel
->=20
-> - Analog binding:
->=20
->   DFSDM filter channel is configured as an IIO backend consumer.
->   Add io-backends property in channel child nodes.
->=20
->   DFSDM is no more configured as a channel consumer from SD modulator.
->   Use of io-channels in DFSDM node is deprecated.
->=20
-> - Audio binding:
->=20
->   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->   No change compare to legacy.
->=20
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> 
+> Depends: [1], [2]
+> 
+> [1] https://lore.kernel.org/linux-usb/20240521151109.3078775-1-fabrice.gasnier@foss.st.com/
+> 
+> [2] https://lore.kernel.org/linux-usb/20240531104653.1303519-1-heikki.krogerus@linux.intel.com/
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 158 +++++++++++++++++-
->  1 file changed, 152 insertions(+), 6 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc=
-=2Eyaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> index c1b1324fa132..dd414bab74c1 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> @@ -102,9 +102,11 @@ patternProperties:
->          items:
->            minimum: 0
->            maximum: 7
-> +        deprecated: true
-> =20
->        st,adc-channel-names:
->          description: List of single-ended channel names.
-> +        deprecated: true
-> =20
->        st,filter-order:
->          description: |
-> @@ -118,6 +120,12 @@ patternProperties:
->        "#io-channel-cells":
->          const: 1
-> =20
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
->        st,adc-channel-types:
->          description: |
->            Single-ended channel input type.
-> @@ -128,6 +136,7 @@ patternProperties:
->          items:
->            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
-> =20
->        st,adc-channel-clk-src:
->          description: |
-> @@ -139,6 +148,7 @@ patternProperties:
->          items:
->            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
-> =20
->        st,adc-alt-channel:
->          description:
-> @@ -147,6 +157,7 @@ patternProperties:
->            If not set, channel n is connected to SPI input n.
->            If set, channel n is connected to SPI input n + 1.
->          type: boolean
-> +        deprecated: true
-> =20
->        st,filter0-sync:
->          description:
-> @@ -165,11 +176,65 @@ patternProperties:
->        - compatible
->        - reg
->        - interrupts
-> -      - st,adc-channels
-> -      - st,adc-channel-names
->        - st,filter-order
->        - "#io-channel-cells"
-> =20
-> +    patternProperties:
-> +      "^channel@([0-9]|1[0-9])$":
-> +        type: object
-> +        $ref: adc.yaml
-> +        description: Represents the external channels which are connecte=
-d to the DFSDM.
-> +
-> +        properties:
-> +          reg:
-> +            items:
-> +              minimum: 0
-> +              maximum: 8
-> +
-> +          label:
-> +            description:
-> +              Unique name to identify which channel this is.
-> +
-> +          st,adc-channel-types:
-> +            description: |
-> +              Single-ended channel input type.
-> +              - "SPI_R": SPI with data on rising edge (default)
-> +              - "SPI_F": SPI with data on falling edge
-> +              - "MANCH_R": manchester codec, rising edge =3D logic 0, fa=
-lling edge =3D logic 1
-> +              - "MANCH_F": manchester codec, rising edge =3D logic 1, fa=
-lling edge =3D logic 0
-> +            items:
-> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-arr=
-ay
+> Dmitry Baryshkov (7):
+>       usb: typec: ucsi: move ucsi_acknowledge() from ucsi_read_error()
+>       usb: typec: ucsi: simplify command sending API
+>       usb: typec: ucsi: split read operation
+>       usb: typec: ucsi: rework command execution functions
+>       usb: typec: ucsi: inline ucsi_read_message_in
+>       usb: typec: ucsi: extract common code for command handling
+>       usb: typec: ucsi: reorder operations in ucsi_run_command()
 
-Why is this an array? And why is the property plural? Can a channel have
-more than one type?
-
-> +
-> +          st,adc-channel-clk-src:
-> +            description: |
-> +              Conversion clock source.
-> +              - "CLKIN": external SPI clock (CLKIN x)
-> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
-> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edg=
-e).
-> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge=
-).
-> +            items:
-> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-arr=
-ay
-
-Ditto here, but s/type/clock source/
-
-Thanks,
-Conor.
-
-> +
-> +          st,adc-alt-channel:
-> +            description:
-> +              Must be defined if two sigma delta modulators are
-> +              connected on same SPI input.
-> +              If not set, channel n is connected to SPI input n.
-> +              If set, channel n is connected to SPI input n + 1.
-> +            type: boolean
-> +
-> +          io-backends:
-> +            description:
-> +              From common IIO binding.
-
-Drop this from the description.
-
-> Used to pipe external sigma delta
-> +              modulator or internal ADC backend to DFSDM channel.
-> +
-> +        required:
-> +          - reg
-> +
-> +        additionalProperties: false
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -199,9 +264,19 @@ patternProperties:
->                description:
->                  From common IIO binding. Used to pipe external sigma del=
-ta
->                  modulator or internal ADC output to DFSDM channel.
-> +              deprecated: true
-> =20
-> -          required:
-> -            - io-channels
-> +          if:
-> +            required:
-> +              - st,adc-channels
-> +          then:
-> +            required:
-> +              - io-channels
-> +
-> +          patternProperties:
-> +            "^channel@([0-9]|1[0-9])$":
-> +              required:
-> +                - io-backends
-
-Why is this here, rather than with reg above? Only some channels require
-a backend?
-
---4SiWeHDoe2HNgIcV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZnHNmQAKCRB4tDGHoIJi
-0qHWAP4sIhBxMJaoCYlRr235U6E4PaT7TkOaskE90Tjd/qpLJQEAyeBOaQxiIt+1
-NK/yqLrQ0NQySGaW07Y716L/6hIBTgs=
-=tTur
------END PGP SIGNATURE-----
-
---4SiWeHDoe2HNgIcV--
-
---===============0082496170252726738==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+With best wishes
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0082496170252726738==--
