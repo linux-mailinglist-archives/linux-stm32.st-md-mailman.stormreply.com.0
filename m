@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B69A90C8A5
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 13:12:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990C390C8AB
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2024 13:12:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46E35C78001;
-	Tue, 18 Jun 2024 11:12:11 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F1D4C78001;
+	Tue, 18 Jun 2024 11:12:39 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7829CC5E2D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C15CAC5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2024 11:12:04 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2ead2c6b50bso58442381fa.0
+ Tue, 18 Jun 2024 11:12:37 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52cc1528c83so1062400e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2024 04:12:04 -0700 (PDT)
+ Tue, 18 Jun 2024 04:12:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718709124; x=1719313924;
+ d=linaro.org; s=google; t=1718709157; x=1719313957;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QG/iPLr/BAQwM9/XiN9cLBGNZu40KP9nRuNjYsIk9yg=;
- b=BoEo98RwJb/R+EL+J3AJeX0rBU20b7U+Nlez2Hp1wmmzfa8SRTRMF9rOJgrSPJJqoW
- hhfrteAV+WanhvjmOQSc1tzbe0pQVsRxt1vHJdVtfgSRpXqGTM3AGshaEF/SwxeGAEzg
- u85b3FlSrj60rkdIvhTdgXXB53vFv7K0csmPS9dgoHYYEWKpkYbKx+D3/BrgzoUHiBfn
- E+0rWNukJUlaDXDRGMbO+Q1WyDd0wx4MeumWqi0ICBdFUO6fP/HoIBs6xufBFqkEfQkv
- 8hK/RWRb+y2FoFr3YUru9oOrR0vIc1D7tYZFWtEOVG39iN2qV+lXpRCMSsquC24S+hW4
- C8cw==
+ bh=LytFF4Umh3FGe2BHoZB/hPX8STy/rMVhd/DWw4ViV9Q=;
+ b=jeDEWanZ2AwgocSvtsRDRvrCZs2WbTSZqoHXzyTfnP3CcWlA25t/Poy6UrupAVFMm2
+ 2ZADbWUyTbR8sXY7HiVg99w1aR3uv7ZI6cK4PurwkGefvqPWUOM3V2jiGClTyxhbH2gS
+ +A+JciSPYMR3gDG4MIyrrhPRxgdy54iZMbW+5XlDhnd2j3hJU6gtWwJQOfjAABPT3+X3
+ 7SHtIGhne4fTR+gW0iWN5VDvfc6dA+kEE07xOYixokdVbaNaGGv2TdwVjDL1ZwV8s27z
+ odjnraVu4lqOMuSTnEESp8P8yyA6wGJIOzsUH6mOxZaGU4dzMq7fNYBfC+2rh10urNHc
+ cIfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718709124; x=1719313924;
+ d=1e100.net; s=20230601; t=1718709157; x=1719313957;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QG/iPLr/BAQwM9/XiN9cLBGNZu40KP9nRuNjYsIk9yg=;
- b=bap/sDqvdP9uVEnOrVRf6BMov1+BeJzvR7HrijplByrny6oNpqmPTgWjPqfy6x83yk
- AWFMBZ0RxUpeACXF8t/f5iScb+wqhdoC7aj3xJ0tokxyMR2TxULt/S6TKgxPfYs4nx7v
- ZSaCH3uW7U1Sgi2u2Cp3tP+nvBBcsiVW0ITCmLHYMgWc/5jhN35TrxyJYZm9bKHUblx7
- 3lxVpCdhylWPGFApZkH9QgOSh+rRSnwJgyhD3njpXjCfgg16W7AxFmIrL4ouB9ZcUQ1V
- fBVZB6A96AWZnZSlN1Iyx5Q2Y+Fy6vffzd4whhPRQ0a6T6bydmQfPvxUxyhCqcVG8/nu
- IlwA==
+ bh=LytFF4Umh3FGe2BHoZB/hPX8STy/rMVhd/DWw4ViV9Q=;
+ b=d9rRknse6/ZW/BnK3oL/yOSs9hCqP509fttpD3EZGDLMREObB3oEGQFxLnWfWlaiPM
+ QMkcex3B5jC0mKpnIvBIgO8V7suoH04v4G9HBocC1EYiu/lABhtfEXxaA0kEsn/YDLAN
+ bELOdhU8rf6wEgCC3kQXNtehQ6sosgPAxm3PjD82ZckuvXhs1ybRXB8xgdDoStQaxwla
+ 7R0gZt01po2b6ejf+jcqoUYxBZ4r0VOFUKcRatnvDXuMpZ6yi1ZTcGC6kTlzdOyJHGAt
+ rB9RPHRUriCbgprsn3/uW9Bw+kfnTKQel7dm5ItByDaY8SiRFpnvtZi2dNALpV9gClBI
+ iwXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXr7e3scwAtNTcMV7NlUImwm5Kn0hzJIUCEw/rMBIX6fvoxqPztuiSvctSarhkqBzYWf88arZ1QZtToCabZx8LHQSoBSg2povDco2cqvaeBPzu4pcKlJ4O4
-X-Gm-Message-State: AOJu0Yy7vTVZm9W32D0JWrD+W99waTPybRYzTXA12K4lYHPQql3ukMoZ
- J4KxVFqJYXFZLmPt/GukuMS9QCurcH+WyK/EyPv6jLQeCcipmjn6Rw/HZbOBe+O/uHJE048PbKS
- gMa9/Y++qQFtrNkZhbzfOgEXfM4O+QyTlO6QiyA==
-X-Google-Smtp-Source: AGHT+IHXkf3ljqAhrm9EuvRTPL71FiQZJIgLs0Bh9F/FREvRGl6HEr1C7BhvQe/yk1MwI0e0CuEwwH242Rm+FHCeyyY=
-X-Received: by 2002:a05:6512:45c:b0:52c:8289:e890 with SMTP id
- 2adb3069b0e04-52ca6e55c92mr8109856e87.4.1718709123676; Tue, 18 Jun 2024
- 04:12:03 -0700 (PDT)
+ AJvYcCVG00lENN1wvfKHtnVkOYagPMPCv+fcRl3yumcfGwfufFyZYEHGBT5H9fTChRfaExh7QxmbQ/L0w9eeo7luumurcQu9+XQiXPZLIpM4rzwS0vrKfp/ZkFZV
+X-Gm-Message-State: AOJu0YxtZrOYGKWsEoDYnn6zQxhjWqvacQSvWV5flJJGhXjYQhBtTSiQ
+ Dq2l1jrTcGxzvDd9L+qPyvqDqfqW1I1kQ0ZZw2a2p5ckIMeRUHEpun6paunyroIUehrgi9bqDFB
+ hfVsFj64dm/Qz0WDk4EYyVgagT7xqXlJHI4eazg==
+X-Google-Smtp-Source: AGHT+IFCeIOoRy25rTwUHZ/n6vBdkCPzCkJ8a//pB4Qa6c+3jDe2XeC/62v2ldwWc8Yh5JI+ho23V5WmsKqsRfZrbxc=
+X-Received: by 2002:ac2:5307:0:b0:52c:998a:77ba with SMTP id
+ 2adb3069b0e04-52ca6e6e5f2mr6662065e87.36.1718709157060; Tue, 18 Jun 2024
+ 04:12:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
- <20240617-review-v3-33-88d1338c4cca@baylibre.com>
-In-Reply-To: <20240617-review-v3-33-88d1338c4cca@baylibre.com>
+ <20240617-review-v3-35-88d1338c4cca@baylibre.com>
+In-Reply-To: <20240617-review-v3-35-88d1338c4cca@baylibre.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 18 Jun 2024 13:11:52 +0200
-Message-ID: <CACRpkdZjPrG4kUBxc+r7NzUt9UZSdiF7KWT6AWAd+vpuLSWk1w@mail.gmail.com>
+Date: Tue, 18 Jun 2024 13:12:26 +0200
+Message-ID: <CACRpkdYchu+muvbinPpUFvppMMQCFe9zTcApj46ip4PYUGUhVg@mail.gmail.com>
 To: Trevor Gamblin <tgamblin@baylibre.com>
 Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
  Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
@@ -83,8 +83,8 @@ Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 33/41] iio: magnetometer: ak8974: make
-	use of regmap_set_bits()
+Subject: Re: [Linux-stm32] [PATCH v3 35/41] iio: pressure: bmp280-core: make
+	use of regmap_clear_bits()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,13 +101,13 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBKdW4gMTcsIDIwMjQgYXQgMzo1MOKAr1BNIFRyZXZvciBHYW1ibGluIDx0Z2FtYmxp
+T24gTW9uLCBKdW4gMTcsIDIwMjQgYXQgMzo1MeKAr1BNIFRyZXZvciBHYW1ibGluIDx0Z2FtYmxp
 bkBiYXlsaWJyZS5jb20+IHdyb3RlOgoKPiBJbnN0ZWFkIG9mIHVzaW5nIHJlZ21hcF91cGRhdGVf
-Yml0cygpIGFuZCBwYXNzaW5nIHRoZSBtYXNrIHR3aWNlLCB1c2UKPiByZWdtYXBfc2V0X2JpdHMo
-KS4KPgo+IFN1Z2dlc3RlZC1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0Bi
-YXlsaWJyZS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogVHJldm9yIEdhbWJsaW4gPHRnYW1ibGluQGJh
-eWxpYnJlLmNvbT4KClJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxp
-bmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Yml0cygpIGFuZCBwYXNzaW5nIHZhbCA9IDAsIHVzZQo+IHJlZ21hcF9jbGVhcl9iaXRzKCkuCj4K
+PiBTdWdnZXN0ZWQtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAYmF5bGli
+cmUuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFRyZXZvciBHYW1ibGluIDx0Z2FtYmxpbkBiYXlsaWJy
+ZS5jb20+CgpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8u
+b3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
