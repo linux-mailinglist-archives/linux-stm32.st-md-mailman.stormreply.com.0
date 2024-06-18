@@ -2,75 +2,138 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397F490E2D4
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 07:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E6E90E526
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 10:03:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDA58C71282;
-	Wed, 19 Jun 2024 05:47:42 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19FF3C78001;
+	Wed, 19 Jun 2024 08:03:09 +0000 (UTC)
+Received: from DEU01-FR2-obe.outbound.protection.outlook.com
+ (mail-fr2deu01on2109.outbound.protection.outlook.com [40.107.135.109])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51A52C5E2D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B94FC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2024 05:47:35 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a7fso79746371fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2024 22:47:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1718776054; x=1719380854;
- darn=st-md-mailman.stormreply.com; 
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=b+kcrBGBf3/GydIe+LcjfY0IvCfWEER0PGXVlE1muRc=;
- b=KNiRw3ZYnfs0I+lztd15zmzOuaWgLRThEq33Lh/aH9XAcdy+Emy/77hx4dx5FWGee3
- 4dN+Ps0p/nD6Giun0NASmIpU1KbT3fzglwOqQ+AoJoWsR+d6mYKjIVeVYy25IT8hbltk
- aE064+bDBiZYi+pCLHl4dQRvXum2895NuYKjNtHNboR4TA5IzwUhHJ5GuAycGS26vJeV
- DFb+TdzeBjrOGQI6V8Jv5HS5CQbo9nIOqoYL6V25LG53O0tSMMQt5v7ZEHM4ZpPm/ri4
- 6ciltYISnD2rpWrjKVRIc+7D1Arvv8snlocbj8ggjvdwZ3I/i8IS4EK4AYCymR17xsVL
- GZAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718776054; x=1719380854;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=b+kcrBGBf3/GydIe+LcjfY0IvCfWEER0PGXVlE1muRc=;
- b=b07sK4MoBspTjzkKWrXEWDy4Gv9XdtFe/S8T0/ojz82ogAC6oyiNoWrPW0dBOS2V3Q
- dJ6iAtc6yHfiqi14fHI8B0A4xyIu9JvDd0kdm6ju3N4S+F/OsjYLkH+WzDlCgwYXhGT6
- 0C3yEuBFMJbeyTSqt+anlBNcbPxDJ2sItla5QygkbDtaLofbi+Mm+hAywe65UkC5U+WN
- Xhj5fOv4oOODZJF2CeALQV8KEUdz0Vye2YEY/gtDYe1BGBCjnX7M/D9rQXMg7wgRN0Uj
- fQaSU72o4T6Rs1ZTtJHYh/owQWP+4dcc7yQ68TwXvSyGpu3V1keLaHiE/cvxCnFJXs5V
- 2U+w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2SC4IDKJr+BFfsRMWzR/jY3m0O4Qt71SCKDw4hXqm4zryaNZCsK6ksWhCxLmG7SK8EZO2tBBHWDMhbTCvN32tTGAQrYQo/SiHVGeLozrTk0PWielah+4O
-X-Gm-Message-State: AOJu0YxXoqzkmJige07poo+6QesGe/yu2Dn4dK+8Oy0enOvR4AlsNYbH
- HKJrmsABMbSbas1dh3a2hhif/1s1YGOifmBjnsWJGYCULmloKDQK
-X-Google-Smtp-Source: AGHT+IFf9QjDMZRxdXpeiL5O2FJdHK57x+se5bfjdMDBd3Pt/O+4ZdRb6IFP3txtqXmhYbvcKBOTpw==
-X-Received: by 2002:a2e:2a01:0:b0:2ec:3f6c:ac37 with SMTP id
- 38308e7fff4ca-2ec3f6cac9cmr3948431fa.48.1718776054200; 
- Tue, 18 Jun 2024 22:47:34 -0700 (PDT)
-Received: from nsa.fritz.box ([2001:a61:35f9:9001:40df:88bb:5090:7ab6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42286eef9c1sm252656375e9.7.2024.06.18.22.47.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Jun 2024 22:47:33 -0700 (PDT)
-Message-ID: <a0bd26a9e159e54f1b6effcdd45756ecfddf973f.camel@gmail.com>
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Olivier Moysan <olivier.moysan@foss.st.com>, Jonathan Cameron
- <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 19 Jun 2024 07:47:33 +0200
-In-Reply-To: <20240618160836.945242-9-olivier.moysan@foss.st.com>
-References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
- <20240618160836.945242-9-olivier.moysan@foss.st.com>
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40) 
+ Tue, 18 Jun 2024 17:46:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OAxLTiUxbYfMGtTgfStJw458d2Nnq1QNnWV+unIEmm3XRj0XS0Hl8RYB/ZFgRX2TF7CXhJUU8flo57hLoWlFmWIU96EmAKg8zGnglnSrdpwzJLpng69aOwb6+ohJ5wV0ocPV1EGpWpM6aHWtN88WSkMb395imFO/nxjQZnLo6/9baOuRAgLpVSFQxsiHXTJGk/eH7SXrOKh+sTFz7NTE3dChwD5qxOTMYUIg6YcLb6fE8VzJrv99dgq+CcRm8ZnkYYfOrkC9dyxmBFrg6V6M8f8/ptYoe38Nu3gR8QJpH/61H7VahAZqYUEoRi9wjZzj54lV/44NBCqIKfbXBaGWvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2inw2oGnIL16eikzTA3tWsTPiA72EwPRKalL1jxCEwc=;
+ b=MhAOhTKWYEiaHTlwtUN1dYPByLXNVXJS9JesNIj/KrVZDuemkZlBqthHe91gAtvi0In01WT1tFzw7cybE4jJYgvc2hfzabyKXs+wh54W0sST5hlurzJZLzOqKrp750hNW19ZdjuNdS8m5pHfMI3+G82p4sBINhWsBWf47vFSCXNuu+zIwR47V6zxqU/2It2kSSt3GwkCJiZOqjbB9MopfHfJ09RCqyFMtDXVf8EFjsD9TuuGWFk/VHgjumyqOBmmCAwekSZ770KnI8f5n1mQ/XQipf89r1GCoBUZlx/rHwv1gSOx6NPhXjiMS2NES5bJaJuvJFVYrsAEGVs9xE2bng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=eckelmann.de; dmarc=pass action=none header.from=eckelmann.de;
+ dkim=pass header.d=eckelmann.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eckelmann.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2inw2oGnIL16eikzTA3tWsTPiA72EwPRKalL1jxCEwc=;
+ b=zctgagflph+OE5NvpLt6qj+mvamkTJA45K18vYCew/oR3a+5q57Obvizc/cItck/DvbbARsfB9eSYFf0dT9jxTji4fPUYJfkqGt5lBn2D3tC2bw7iup/xYgu6G7EZJagKz3iO273omgkdIPknGXHUfC+6g7kuv8KrNzWYld+FbE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=eckelmann.de;
+Received: from BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:9a::8) by
+ BEYP281MB3953.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:b7::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7677.31; Tue, 18 Jun 2024 17:46:22 +0000
+Received: from BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::7ec4:ae75:3f57:1bd4]) by BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::7ec4:ae75:3f57:1bd4%4]) with mapi id 15.20.7698.017; Tue, 18 Jun 2024
+ 17:46:22 +0000
+Date: Tue, 18 Jun 2024 19:46:20 +0200
+From: Thorsten Scherer <T.Scherer@eckelmann.de>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Message-ID: <kydsb3svcr7thejn22agykunswjqt5sx6xunrbqsmymhlp5lsc@bjwvdoqbqwdm>
+References: <cover.1718352022.git.u.kleine-koenig@baylibre.com>
+ <4c4ca7a4c1862e4683f83d19a1e5a75526aeb501.1718352022.git.u.kleine-koenig@baylibre.com>
+Content-Disposition: inline
+In-Reply-To: <4c4ca7a4c1862e4683f83d19a1e5a75526aeb501.1718352022.git.u.kleine-koenig@baylibre.com>
+X-ClientProxiedBy: FR4P281CA0134.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::8) To BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:9a::8)
 MIME-Version: 1.0
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 8/8] iio: adc: stm32-dfsdm: add scaling
-	support to dfsdm
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BEUP281MB3513:EE_|BEYP281MB3953:EE_
+X-MS-Office365-Filtering-Correlation-Id: aaff017c-8928-43ec-b531-08dc8fbe90ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230037|366013|7416011|376011|1800799021|27256014; 
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?/OxRsUB9sZ+aJYAj4cT8pRn8upVUd3z9IO55sMRUQfmnFQv9R6N7gQ3k1P?=
+ =?iso-8859-1?Q?DwBh3x98BLjPu+r21SkP15R+u/yyczxedMrkzWtsmAMRuFLRBc7A0lzJOw?=
+ =?iso-8859-1?Q?MuqciSImRfFz252vnTN3tFXq4o6Uzzunu0n34gu40GSV/Ch1wIves9aMAd?=
+ =?iso-8859-1?Q?P9k6KHWShgzyCEFnoildXk0xhZwQIjj3dW49wjwOB23RJ0mGJSxbuhe4zA?=
+ =?iso-8859-1?Q?c2ZqqqKsulMLIDkpYVoCLDtXkF92+tJFYR8he1EuGvOyCpU1VlmRebHwKS?=
+ =?iso-8859-1?Q?wSqqilMTejr8FBCfEo+Xkdfq8/ZKV2/Eojek0/ZVbSXh2vr/g9u7JkTj17?=
+ =?iso-8859-1?Q?7rgJuLJsUIYieQBl5tk0CtlAw0+DieFwrF5/eyShMEp6ITbzR0/FG0zUEy?=
+ =?iso-8859-1?Q?/RkfgHzHlEZGKIZisT+fFc6turAd3z2srFqeclZRlMsRbk+Lk6zyvcR+yO?=
+ =?iso-8859-1?Q?85LzbQdiCGfmQGBh+BT2krQVIY5b1MKVY2IKd/lNLL8EKiylveqD0IG68V?=
+ =?iso-8859-1?Q?p7hl7J3E1+O6dX4wrK4Z2MGddHqxKYWY5pBwDz4uf6VClmIhLHIfGwg9Wx?=
+ =?iso-8859-1?Q?kBEM6h7FR6IkKeQQcNtf5xjMLIkhGiKuJ2fkXvtASsWPM611fI6a38Zo9H?=
+ =?iso-8859-1?Q?DNwz79Oba2EcZ8mU1cp3EI46tZUixRIqWA4QfmqncTVAVCW05bqKVxsYIr?=
+ =?iso-8859-1?Q?zSrns0Zdcp2MYRw/ak85l+WwWMwg/Kqwl8GIeUnVEHICYlQgY1L6tW1jTQ?=
+ =?iso-8859-1?Q?eaa/V2VQDJLot6x/m4EyYJyspr1Bq/LCwoCJrfyXJ4RUTX5wG6DhabDHcM?=
+ =?iso-8859-1?Q?yGuyyif20P685VX1fC6Ix63yiaCqaxlmCJ1OXF5bLp3gaKVhzVwc1qa5dk?=
+ =?iso-8859-1?Q?K5Gna7UBoiU4N0ggflmbZAAU8ozQGQ5nLYBRgfRB/UHhbIgqIuQ/KsTfhq?=
+ =?iso-8859-1?Q?od84QEiDIucz9KqXrnxohjAkhPzNubd3zxsY+uqGZNsbPfXOnjKAtUDcEZ?=
+ =?iso-8859-1?Q?nLBl/EkQg+7PkxotqFvBF4c5Pk4w0crW08hOU2+S9dAQayL44LlvNbJmB7?=
+ =?iso-8859-1?Q?dNrjgdYNBz7Pyk/HXO1P4nF/PnUh6m0vMDC4Ofwzlq1rE6YUX9fbfeAZEz?=
+ =?iso-8859-1?Q?ZnF7EMze3spefuZaAjTi7jWoAZ99wQLdQD4QdDIYd4iEcQK6tDq5As8IIw?=
+ =?iso-8859-1?Q?9/IB7Wj/QMSVKy46QFbf/g1YWW6oVdORMDTAmv+O/I/Fv9DH4T/kYhkq+7?=
+ =?iso-8859-1?Q?G7Tf8Difz4DN5UstsqUZqsrH7ulPmQhCtYuizykESQUwP5tROxt628MTNw?=
+ =?iso-8859-1?Q?NxSi0pUFOypef0Mwx7HSOMDrhEexNLFrwcF/Z0hcO76mKE+SNL2GGxCjv+?=
+ =?iso-8859-1?Q?DSuIeyOkTQ7E5wYKIdz8WlyllEfK7+ceJY3/3nK+imZbVTm/KMycM=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230037)(366013)(7416011)(376011)(1800799021)(27256014); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Hj3n1DUoFitcdbp19HVVc2leRk8OcY3bqrmpugmB/p8OyZLyay1SD+Bq8N?=
+ =?iso-8859-1?Q?aTxrRMFnEeaCN0LBA+zG7c8Yz+SDcLzDuy5rvizoDV3/uTwDeVu7eN68kV?=
+ =?iso-8859-1?Q?apWwS+CWYXvcrS3+U1cB+G97PaGvDJORqtQWNnDZ0x5mjMRzPPPAA20P8V?=
+ =?iso-8859-1?Q?a/qMSgozPcTfTOvxVAx6al+scpzF/4tqUu1OJKBHIEp3SMX6Kwo8oS2CFz?=
+ =?iso-8859-1?Q?ZPKhCqKd1CJVDiyuKs7CCqoAstuR6pGFPMfkaU4yNYnNhgwLBg9yOCukzq?=
+ =?iso-8859-1?Q?QYluBH80iq+n1YFPmNuOklp7T3GPfCBHxRKL+v5O0n6Ng6NajPPZYIJZAs?=
+ =?iso-8859-1?Q?EhRuV8KQtFERfLt1cRqqJLDI6MzVioD4Z31mj7KSIsWz1efD4DvTyUwkgK?=
+ =?iso-8859-1?Q?OOQjkwRTufH9lNUTR42fsA+1r0Xo6zvy/Qxv3rBjNV7eCAJ7rSBLcIvmvp?=
+ =?iso-8859-1?Q?e0RMYQSFd3HPZ9+TdM/QRckGFWkjMWAudGN0+mXqydcjwY3N4pZehIT2v5?=
+ =?iso-8859-1?Q?vc9zQBkoLbsrIZG9PBw1mmMtoP48GRYcYT39CM0UGkdL6Z++S4/8Q/poOU?=
+ =?iso-8859-1?Q?RpepGSKaHkAxEGHAeyIkfXY4BA0JuqG6jLEvBfkel6q3QWscwLzidsIP7+?=
+ =?iso-8859-1?Q?7j/MyyxeVIjjfHkMwzQeU8AWlYgy89SfP3OncBKdpOX3XvGsMIMIc39G+0?=
+ =?iso-8859-1?Q?k1HxNzCQm34E4BIhaUMoXNdNG5fMNvjK+qfW6xgGAjyd/Zq0V7B4SUKDFB?=
+ =?iso-8859-1?Q?aBmxSZ5HBcPClNv9+tinoYYg43RX0zK5NLx9fJ2RM69DRgAcM+tqs8LlGX?=
+ =?iso-8859-1?Q?TvUnF+r0+UATZUdG5ctm19TBvoDHdt1qmrnMBIubQfoZ1Mo/xdgUsDRL3S?=
+ =?iso-8859-1?Q?YQogn6GjkGI3XS5mAl1NplyeqpnjQb7BMMDypyg1PfrUpsEPYIRO1wD89d?=
+ =?iso-8859-1?Q?EDGowKGsPAnnpKIuHwVGXgjc66dbYTplSVaceiI3kBBzgt5xZbLslyK93w?=
+ =?iso-8859-1?Q?uR+O5Qtc2E58LIUARRadDmDlvHa8xQ9g5MPkuvlvax+eYbAWTJRZIzy29t?=
+ =?iso-8859-1?Q?oon7txzOn7+XlEarZLVvkbZuCJ9lWSQRexHhb9z7fzJ67S+ufwgx2tRo/X?=
+ =?iso-8859-1?Q?vFt4VOx+cziL801heGJmtOFBjpCOXkKFUhfL4FZogkMsfljL762B+ezKhb?=
+ =?iso-8859-1?Q?UfrHncw9WccfmLuuutJV3FRgICb9XcJuLAdaXWUz1wmP8BtXrBJp38w/dP?=
+ =?iso-8859-1?Q?pyv/q9Gll9EiELcB0nNIPNdKjq/Cx94EO9MOC+plKAAIDso5FhKMR041ee?=
+ =?iso-8859-1?Q?HNX462Wp2jZaDlinzlmPZo2EFuxzScMuZdgiEyksJ3nmXic1Br/yZ9W6kJ?=
+ =?iso-8859-1?Q?tKUyZtgdXSJx9dgqZ2zlhpX1Zb8mdooz5rjSACjaoi9UKGI+HEEItJy1hE?=
+ =?iso-8859-1?Q?lALS8ySCYyZkCom8XXUk0lBcZtO9iMqdvSzp+KXuV1kU5lC9vBrh7pB7dL?=
+ =?iso-8859-1?Q?Di7CxsUmiNoeWOhOcocbR+l6zHVFV1Ywc8eglq57aqoaVvMxkvYDH7g4QC?=
+ =?iso-8859-1?Q?Z61LvhuJsvN3ywgZ1HfV0NUPsDdql4BjWe+d4CuvS+HSdxGRYkeT7fhw03?=
+ =?iso-8859-1?Q?wKUFZiBVsDSWPJqZ+XmwxLfKjOWv8+8qFb?=
+X-OriginatorOrg: eckelmann.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: aaff017c-8928-43ec-b531-08dc8fbe90ec
+X-MS-Exchange-CrossTenant-AuthSource: BEUP281MB3513.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2024 17:46:21.9547 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 62e24f58-823c-4d73-8ff2-db0a5f20156c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fz8ubUmZy1n6s8HCfQ+J54DCUFKnFuPn4Mi0VuGoyzDatsSeGYim7rk2+V296YkTX5vy3tYZbIot16sTA2Fl+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BEYP281MB3953
+X-Mailman-Approved-At: Wed, 19 Jun 2024 08:03:08 +0000
+Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/4] mfd: stm32-timers: Unify alignment of
+ register definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,80 +145,248 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAyMDI0LTA2LTE4IGF0IDE4OjA4ICswMjAwLCBPbGl2aWVyIE1veXNhbiB3cm90ZToK
-PiBBZGQgc2NhbGluZyBzdXBwb3J0IHRvIFNUTTMyIERGU0RNLgo+IAo+IFNpZ25lZC1vZmYtYnk6
-IE9saXZpZXIgTW95c2FuIDxvbGl2aWVyLm1veXNhbkBmb3NzLnN0LmNvbT4KPiAtLS0KCkp1c3Qg
-c29tZSBnZW5lcmFsIGNvbW1lbnRzLi4uIAoKQWNrZWQtYnk6IE51bm8gU2EgPG51bm8uc2FAYW5h
-bG9nLmNvbT4KCj4gwqBkcml2ZXJzL2lpby9hZGMvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKg
-IHzCoCAxICsKPiDCoGRyaXZlcnMvaWlvL2FkYy9zdG0zMi1kZnNkbS1hZGMuYyB8IDk0ICsrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKy0KPiDCoDIgZmlsZXMgY2hhbmdlZCwgOTIgaW5zZXJ0
-aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vYWRj
-L0tjb25maWcgYi9kcml2ZXJzL2lpby9hZGMvS2NvbmZpZwo+IGluZGV4IGYzZGZkYWE4MDY3OC4u
-ODU4YWU4MTYxZmE0IDEwMDY0NAo+IAoKLi4uCgo+IEBAIC0xMzAxLDYgKzEzMzksOCBAQCBzdGF0
-aWMgaW50IHN0bTMyX2Rmc2RtX3JlYWRfcmF3KHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYsCj4g
-wqAJCXJldCA9IHN0bTMyX2Rmc2RtX3NpbmdsZV9jb252KGluZGlvX2RldiwgY2hhbiwgdmFsKTsK
-PiDCoAkJaWYgKGFkYy0+aHdjKQo+IMKgCQkJaWlvX2h3X2NvbnN1bWVyX2Rpc2FibGUoYWRjLT5o
-d2MpOwo+ICsJCWlmIChhZGMtPmJhY2tlbmRbaWR4XSkKPiArCQkJaWlvX2JhY2tlbmRfZGlzYWJs
-ZSgmaW5kaW9fZGV2LT5kZXYsIGFkYy0+YmFja2VuZFtpZHhdKTsKPiDCoAkJaWYgKHJldCA8IDAp
-IHsKPiDCoAkJCWRldl9lcnIoJmluZGlvX2Rldi0+ZGV2LAo+IMKgCQkJCSIlczogQ29udmVyc2lv
-biBmYWlsZWQgKGNoYW5uZWwgJWQpXG4iLAo+IEBAIC0xMzIwLDYgKzEzNjAsNDUgQEAgc3RhdGlj
-IGludCBzdG0zMl9kZnNkbV9yZWFkX3JhdyhzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2LAo+IMKg
-CQkqdmFsID0gYWRjLT5zYW1wbGVfZnJlcTsKPiDCoAo+IMKgCQlyZXR1cm4gSUlPX1ZBTF9JTlQ7
-Cj4gKwo+ICsJY2FzZSBJSU9fQ0hBTl9JTkZPX1NDQUxFOgo+ICsJCS8qCj4gKwkJICogU2NhbGUg
-aXMgZXhwcmVzc2VkIGluIG1WLgo+ICsJCSAqIFdoZW4gZmFzdCBtb2RlIGlzIGRpc2FibGVkLCBh
-Y3R1YWwgcmVzb2x1dGlvbiBtYXkgYmUgbG93ZXIKPiArCQkgKiB0aGFuIDJebiwgd2hlcmUgbj1y
-ZWFsYml0cy0xLgo+ICsJCSAqIFRoaXMgbGVhZHMgdG8gdW5kZXJlc3RpbWF0aW5nIGlucHV0IHZv
-bHRhZ2UuIFRvCj4gKwkJICogY29tcGVuc2F0ZSB0aGlzIGRldmlhdGlvbiwgdGhlIHZvbHRhZ2Ug
-cmVmZXJlbmNlIGNhbiBiZQo+ICsJCSAqIGNvcnJlY3RlZCB3aXRoIGEgZmFjdG9yID0gcmVhbGJp
-dHMgcmVzb2x1dGlvbiAvIGFjdHVhbCBtYXgKPiArCQkgKi8KPiArCQlpZiAoYWRjLT5iYWNrZW5k
-W2lkeF0pIHsKPiArCQkJaWlvX2JhY2tlbmRfcmVhZF9yYXcoYWRjLT5iYWNrZW5kW2lkeF0sIHZh
-bCwgdmFsMiwgbWFzayk7Cj4gKwoKVGhpcyBpcyBzb21ldGhpbmcgdGhhdCBJJ3ZlIGJlZW4gdGhp
-bmtpbmcgYWJvdXQgc2luY2UgdGhlIGJlZ2lubmluZyBvZiBiYWNrZW5kcwpzdXBwb3J0LiBCYXNp
-Y2FsbHkgaGF2aW5nIHRoZSAiY2F0Y2ggYWxsIiByZWFkX3JhdygpL3dyaXRlX3JhdygpIG9yIG1v
-cmUgZGVkaWNhdGVkCmludGVyZmFjZXMuIEZvciBleGFtcGxlLCBpbiB5b3VyIHVzZWNhc2UgSSB0
-aGluayBpdCB3b3VsZCBtYWtlIG1vcmUgc2Vuc2UgdG8gaGF2ZQpkZWRpY2F0ZWQgQVBJJ3MgbGlr
-ZSBpaW9fYmFja2VuZF9yZWFkX3NjYWxlKCkgYW5kIGlpb19iYWNrZW5kX3JlYWRfb2Zmc2V0KCkg
-YXMgeW91J3JlCmV4dGVuZGluZyB0aGF0IGZ1bmN0aW9uYWxpdHkuIENhbGxpbmcgaWlvX2JhY2tl
-bmRfcmVhZF9yYXcoKSBzZWVtcyBhIGJpdCB3ZWlyZCB0byBtZS4KCk9UT0gsIGlpb19iYWNrZW5k
-X3JlYWRfcmF3KCkgY291bGQgYmUgdXNlZnVsIGluIGNhc2VzIHdoZXJlIGZyb250ZW5kcyBjYWxs
-Cmlpb19iYWNrZW5kX2V4dGVuZF9jaGFuX3NwZWMoKSBhbmQgbWF5IGdldCBzb21lIGZ1bmN0aW9u
-YWxpdHkgdGhleSBhcmUgbm90IGF3YXJlIG9mLgpBbmQgc28sIGluIHRoZSBkZWZhdWx0OiBzdGF0
-ZW1lbnQgdGhpcyAiY2F0Y2ggYWxsIiBBUEkgY291bGQgYmUgdXNlZC4KCkFueXdheXMsIHRoaXMg
-YXJlIHJlYWxseSBtaW5vciAobGlrZWx5IHBlZGFudGljKSBkZXRhaWxzIGFuZCB5b3Uga2luZCBv
-ZiBjYW1lIGZpcnN0CmFuZCBtYWRlIHRoZSBkZWNpc2lvbiBmb3IgbWUuIEFzIEkgZG9uJ3QgcmVh
-bGx5IGhhdmUgc3Ryb25nIGZlZWxpbmdzIGFib3V0IGl0LCBJJ20KZmluZSB3aXRoIGl0IGFzLWlz
-LgoKPiArCQkJKnZhbCA9IGRpdl91NjQoKHU2NCkqdmFsICogKHU2NClCSVQoREZTRE1fREFUQV9S
-RVMgLSAxKSwKPiBtYXgpOwo+ICsJCQkqdmFsMiA9IGNoYW4tPnNjYW5fdHlwZS5yZWFsYml0czsK
-PiArCQkJaWYgKGNoYW4tPmRpZmZlcmVudGlhbCkKPiArCQkJCSp2YWwgKj0gMjsKPiArCQl9Cj4g
-KwkJcmV0dXJuIElJT19WQUxfRlJBQ1RJT05BTF9MT0cyOwo+ICsKPiArCWNhc2UgSUlPX0NIQU5f
-SU5GT19PRkZTRVQ6Cj4gKwkJLyoKPiArCQkgKiBERlNETSBvdXRwdXQgZGF0YSBhcmUgaW4gdGhl
-IHJhbmdlIFstMl5uLDJebl0sCj4gKwkJICogd2l0aCBuPXJlYWxiaXRzLTEuCj4gKwkJICogLSBE
-aWZmZXJlbnRpYWwgbW9kdWxhdG9yOgo+ICsJCSAqIE9mZnNldCBjb3JyZXNwb25kIHRvIFNEIG1v
-ZHVsYXRvciBvZmZzZXQuCj4gKwkJICogLSBTaW5nbGUgZW5kZWQgbW9kdWxhdG9yOgo+ICsJCSAq
-IElucHV0IGlzIGluIFswVixWcmVmXSByYW5nZSwgd2hlcmUgMFYgY29ycmVzcG9uZHMgdG8gLTJe
-biwgYW5kCj4gVnJlZiB0byAyXm4uCj4gKwkJICogQWRkIDJebiB0byBvZmZzZXQuIChpLmUuIG1p
-ZGRsZSBvZiBpbnB1dCByYW5nZSkKPiArCQkgKiBvZmZzZXQgPSBvZmZzZXQoc2QpICogdnJlZiAv
-IHJlcyhzZCkgKiBtYXggLyB2cmVmLgo+ICsJCSAqLwo+ICsJCWlmIChhZGMtPmJhY2tlbmRbaWR4
-XSkgewo+ICsJCQlpaW9fYmFja2VuZF9yZWFkX3JhdyhhZGMtPmJhY2tlbmRbaWR4XSwgdmFsLCB2
-YWwyLCBtYXNrKTsKPiArCj4gKwkJCSp2YWwgPSBkaXZfdTY0KCh1NjQpbWF4ICogKnZhbCwgQklU
-KCp2YWwyIC0gMSkpOwo+ICsJCQlpZiAoIWNoYW4tPmRpZmZlcmVudGlhbCkKPiArCQkJCSp2YWwg
-Kz0gbWF4Owo+ICsJCX0KPiArCQlyZXR1cm4gSUlPX1ZBTF9JTlQ7Cj4gwqAJfQo+IMKgCj4gwqAJ
-cmV0dXJuIC1FSU5WQUw7Cj4gQEAgLTE0NDksNyArMTUyOCwxNSBAQCBzdGF0aWMgaW50IHN0bTMy
-X2Rmc2RtX2FkY19jaGFuX2luaXRfb25lKHN0cnVjdCBpaW9fZGV2Cj4gKmluZGlvX2Rldiwgc3Ry
-dWN0IGlpb19jCj4gwqAJICogSUlPX0NIQU5fSU5GT19SQVc6IHVzZWQgdG8gY29tcHV0ZSByZWd1
-bGFyIGNvbnZlcnNpb24KPiDCoAkgKiBJSU9fQ0hBTl9JTkZPX09WRVJTQU1QTElOR19SQVRJTzog
-dXNlZCB0byBzZXQgb3ZlcnNhbXBsaW5nCj4gwqAJICovCj4gLQljaC0+aW5mb19tYXNrX3NlcGFy
-YXRlID0gQklUKElJT19DSEFOX0lORk9fUkFXKTsKPiArCWlmIChjaGlsZCkgewo+ICsJCWNoLT5p
-bmZvX21hc2tfc2VwYXJhdGUgPSBCSVQoSUlPX0NIQU5fSU5GT19SQVcpIHwKPiArCQkJCQlCSVQo
-SUlPX0NIQU5fSU5GT19TQ0FMRSkgfAo+ICsJCQkJCUJJVChJSU9fQ0hBTl9JTkZPX09GRlNFVCk7
-CgpOb3Qgc3VyZSBpZiB0aGUgYWJvdmUgU0NBTEUgYW5kIE9GRlNFVCBhcmUgc29sZWx5IHByb3Bl
-cnRpZXMgaWYgdGhlIGJhY2tlbmQuIElmIHNvLAp5b3UgY291bGQgbWF5YmUgdXNlIGlpb19iYWNr
-ZW5kX2V4dGVuZF9jaGFuX3NwZWMoKS4KCi0gTnVubyBTw6EKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Uwe,
+
+On Fri, Jun 14, 2024 at 10:10:11AM +0200, Uwe Kleine-K=F6nig wrote:
+> Ust tabs consistently for indention and properly align register names,
+
+Litte typo here.
+
+s/Ust/Use/
+
+> values and comments. This improves readability (at least for my eyes).
+> =
+
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> ---
+>  include/linux/mfd/stm32-timers.h | 170 +++++++++++++++----------------
+>  1 file changed, 85 insertions(+), 85 deletions(-)
+> =
+
+> diff --git a/include/linux/mfd/stm32-timers.h b/include/linux/mfd/stm32-t=
+imers.h
+> index 9eb17481b07f..5794110b2b28 100644
+> --- a/include/linux/mfd/stm32-timers.h
+> +++ b/include/linux/mfd/stm32-timers.h
+> @@ -12,97 +12,97 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/regmap.h>
+>  =
+
+> -#define TIM_CR1		0x00	/* Control Register 1      */
+> -#define TIM_CR2		0x04	/* Control Register 2      */
+> -#define TIM_SMCR	0x08	/* Slave mode control reg  */
+> -#define TIM_DIER	0x0C	/* DMA/interrupt register  */
+> -#define TIM_SR		0x10	/* Status register	   */
+> -#define TIM_EGR		0x14	/* Event Generation Reg    */
+> -#define TIM_CCMR1	0x18	/* Capt/Comp 1 Mode Reg    */
+> -#define TIM_CCMR2	0x1C	/* Capt/Comp 2 Mode Reg    */
+> -#define TIM_CCER	0x20	/* Capt/Comp Enable Reg    */
+> -#define TIM_CNT		0x24	/* Counter		   */
+> -#define TIM_PSC		0x28	/* Prescaler               */
+> -#define TIM_ARR		0x2c	/* Auto-Reload Register    */
+> -#define TIM_CCR1	0x34	/* Capt/Comp Register 1    */
+> -#define TIM_CCR2	0x38	/* Capt/Comp Register 2    */
+> -#define TIM_CCR3	0x3C	/* Capt/Comp Register 3    */
+> -#define TIM_CCR4	0x40	/* Capt/Comp Register 4    */
+> -#define TIM_BDTR	0x44	/* Break and Dead-Time Reg */
+> -#define TIM_DCR		0x48	/* DMA control register    */
+> -#define TIM_DMAR	0x4C	/* DMA register for transfer */
+> -#define TIM_TISEL	0x68	/* Input Selection         */
+> +#define TIM_CR1		0x00			/* Control Register 1			*/
+> +#define TIM_CR2		0x04			/* Control Register 2			*/
+> +#define TIM_SMCR	0x08			/* Slave mode control reg		*/
+> +#define TIM_DIER	0x0C			/* DMA/interrupt register		*/
+> +#define TIM_SR		0x10			/* Status register			*/
+> +#define TIM_EGR		0x14			/* Event Generation Reg			*/
+> +#define TIM_CCMR1	0x18			/* Capt/Comp 1 Mode Reg			*/
+> +#define TIM_CCMR2	0x1C			/* Capt/Comp 2 Mode Reg			*/
+> +#define TIM_CCER	0x20			/* Capt/Comp Enable Reg			*/
+> +#define TIM_CNT		0x24			/* Counter				*/
+> +#define TIM_PSC		0x28			/* Prescaler				*/
+> +#define TIM_ARR		0x2c			/* Auto-Reload Register			*/
+> +#define TIM_CCR1	0x34			/* Capt/Comp Register 1			*/
+> +#define TIM_CCR2	0x38			/* Capt/Comp Register 2			*/
+> +#define TIM_CCR3	0x3C			/* Capt/Comp Register 3			*/
+> +#define TIM_CCR4	0x40			/* Capt/Comp Register 4			*/
+> +#define TIM_BDTR	0x44			/* Break and Dead-Time Reg		*/
+> +#define TIM_DCR		0x48			/* DMA control register			*/
+> +#define TIM_DMAR	0x4C			/* DMA register for transfer		*/
+> +#define TIM_TISEL	0x68			/* Input Selection			*/
+>  =
+
+> -#define TIM_CR1_CEN	BIT(0)	/* Counter Enable	   */
+> -#define TIM_CR1_DIR	BIT(4)  /* Counter Direction	   */
+> -#define TIM_CR1_ARPE	BIT(7)	/* Auto-reload Preload Ena */
+> -#define TIM_CR2_MMS	(BIT(4) | BIT(5) | BIT(6)) /* Master mode selection =
+*/
+> -#define TIM_CR2_MMS2	GENMASK(23, 20) /* Master mode selection 2 */
+> -#define TIM_SMCR_SMS	(BIT(0) | BIT(1) | BIT(2)) /* Slave mode selection =
+*/
+> -#define TIM_SMCR_TS	(BIT(4) | BIT(5) | BIT(6)) /* Trigger selection */
+> -#define TIM_DIER_UIE	BIT(0)	/* Update interrupt	   */
+> -#define TIM_DIER_CC1IE	BIT(1)  /* CC1 Interrupt Enable    */
+> -#define TIM_DIER_CC2IE	BIT(2)  /* CC2 Interrupt Enable    */
+> -#define TIM_DIER_CC3IE	BIT(3)  /* CC3 Interrupt Enable    */
+> -#define TIM_DIER_CC4IE	BIT(4)  /* CC4 Interrupt Enable    */
+> -#define TIM_DIER_CC_IE(x)	BIT((x) + 1) /* CC1, CC2, CC3, CC4 interrupt e=
+nable */
+> -#define TIM_DIER_UDE	BIT(8)  /* Update DMA request Enable */
+> -#define TIM_DIER_CC1DE	BIT(9)  /* CC1 DMA request Enable  */
+> -#define TIM_DIER_CC2DE	BIT(10) /* CC2 DMA request Enable  */
+> -#define TIM_DIER_CC3DE	BIT(11) /* CC3 DMA request Enable  */
+> -#define TIM_DIER_CC4DE	BIT(12) /* CC4 DMA request Enable  */
+> -#define TIM_DIER_COMDE	BIT(13) /* COM DMA request Enable  */
+> -#define TIM_DIER_TDE	BIT(14) /* Trigger DMA request Enable */
+> -#define TIM_SR_UIF	BIT(0)	/* Update interrupt flag   */
+> -#define TIM_SR_CC_IF(x)	BIT((x) + 1) /* CC1, CC2, CC3, CC4 interrupt fla=
+g */
+> -#define TIM_EGR_UG	BIT(0)	/* Update Generation       */
+> -#define TIM_CCMR_PE	BIT(3)	/* Channel Preload Enable  */
+> -#define TIM_CCMR_M1	(BIT(6) | BIT(5))  /* Channel PWM Mode 1 */
+> -#define TIM_CCMR_CC1S		(BIT(0) | BIT(1)) /* Capture/compare 1 sel */
+> -#define TIM_CCMR_IC1PSC		GENMASK(3, 2)	/* Input capture 1 prescaler */
+> -#define TIM_CCMR_CC2S		(BIT(8) | BIT(9)) /* Capture/compare 2 sel */
+> -#define TIM_CCMR_IC2PSC		GENMASK(11, 10)	/* Input capture 2 prescaler */
+> -#define TIM_CCMR_CC1S_TI1	BIT(0)	/* IC1/IC3 selects TI1/TI3 */
+> -#define TIM_CCMR_CC1S_TI2	BIT(1)	/* IC1/IC3 selects TI2/TI4 */
+> -#define TIM_CCMR_CC2S_TI2	BIT(8)	/* IC2/IC4 selects TI2/TI4 */
+> -#define TIM_CCMR_CC2S_TI1	BIT(9)	/* IC2/IC4 selects TI1/TI3 */
+> -#define TIM_CCMR_CC3S		(BIT(0) | BIT(1)) /* Capture/compare 3 sel */
+> -#define TIM_CCMR_CC4S		(BIT(8) | BIT(9)) /* Capture/compare 4 sel */
+> -#define TIM_CCMR_CC3S_TI3	BIT(0)	/* IC3 selects TI3 */
+> -#define TIM_CCMR_CC4S_TI4	BIT(8)	/* IC4 selects TI4 */
+> -#define TIM_CCER_CC1E	BIT(0)	/* Capt/Comp 1  out Ena    */
+> -#define TIM_CCER_CC1P	BIT(1)	/* Capt/Comp 1  Polarity   */
+> -#define TIM_CCER_CC1NE	BIT(2)	/* Capt/Comp 1N out Ena    */
+> -#define TIM_CCER_CC1NP	BIT(3)	/* Capt/Comp 1N Polarity   */
+> -#define TIM_CCER_CC2E	BIT(4)	/* Capt/Comp 2  out Ena    */
+> -#define TIM_CCER_CC2P	BIT(5)	/* Capt/Comp 2  Polarity   */
+> -#define TIM_CCER_CC2NP	BIT(7)	/* Capt/Comp 2N Polarity   */
+> -#define TIM_CCER_CC3E	BIT(8)	/* Capt/Comp 3  out Ena    */
+> -#define TIM_CCER_CC3P	BIT(9)	/* Capt/Comp 3  Polarity   */
+> -#define TIM_CCER_CC3NP	BIT(11)	/* Capt/Comp 3N Polarity   */
+> -#define TIM_CCER_CC4E	BIT(12)	/* Capt/Comp 4  out Ena    */
+> -#define TIM_CCER_CC4P	BIT(13)	/* Capt/Comp 4  Polarity   */
+> -#define TIM_CCER_CC4NP	BIT(15)	/* Capt/Comp 4N Polarity   */
+> -#define TIM_CCER_CCXE	(BIT(0) | BIT(4) | BIT(8) | BIT(12))
+> -#define TIM_BDTR_BKE(x)	BIT(12 + (x) * 12) /* Break input enable */
+> -#define TIM_BDTR_BKP(x)	BIT(13 + (x) * 12) /* Break input polarity */
+> -#define TIM_BDTR_AOE	BIT(14)	/* Automatic Output Enable */
+> -#define TIM_BDTR_MOE	BIT(15)	/* Main Output Enable      */
+> -#define TIM_BDTR_BKF(x)	(0xf << (16 + (x) * 4))
+> -#define TIM_DCR_DBA	GENMASK(4, 0)	/* DMA base addr */
+> -#define TIM_DCR_DBL	GENMASK(12, 8)	/* DMA burst len */
+> +#define TIM_CR1_CEN		BIT(0)					/* Counter Enable				*/
+> +#define TIM_CR1_DIR		BIT(4)					/* Counter Direction				*/
+> +#define TIM_CR1_ARPE		BIT(7)					/* Auto-reload Preload Ena			*/
+> +#define TIM_CR2_MMS		(BIT(4) | BIT(5) | BIT(6))		/* Master mode selectio=
+n			*/
+> +#define TIM_CR2_MMS2		GENMASK(23, 20)				/* Master mode selection 2			*/
+> +#define TIM_SMCR_SMS		(BIT(0) | BIT(1) | BIT(2))		/* Slave mode selectio=
+n				*/
+> +#define TIM_SMCR_TS		(BIT(4) | BIT(5) | BIT(6))		/* Trigger selection			=
+	*/
+> +#define TIM_DIER_UIE		BIT(0)					/* Update interrupt				*/
+> +#define TIM_DIER_CC1IE		BIT(1)					/* CC1 Interrupt Enable				*/
+> +#define TIM_DIER_CC2IE		BIT(2)					/* CC2 Interrupt Enable				*/
+> +#define TIM_DIER_CC3IE		BIT(3)					/* CC3 Interrupt Enable				*/
+> +#define TIM_DIER_CC4IE		BIT(4)					/* CC4 Interrupt Enable				*/
+> +#define TIM_DIER_CC_IE(x)	BIT((x) + 1)				/* CC1, CC2, CC3, CC4 interrup=
+t enable		*/
+> +#define TIM_DIER_UDE		BIT(8)					/* Update DMA request Enable			*/
+> +#define TIM_DIER_CC1DE		BIT(9)					/* CC1 DMA request Enable			*/
+> +#define TIM_DIER_CC2DE		BIT(10)					/* CC2 DMA request Enable			*/
+> +#define TIM_DIER_CC3DE		BIT(11)					/* CC3 DMA request Enable			*/
+> +#define TIM_DIER_CC4DE		BIT(12)					/* CC4 DMA request Enable			*/
+> +#define TIM_DIER_COMDE		BIT(13)					/* COM DMA request Enable			*/
+> +#define TIM_DIER_TDE		BIT(14)					/* Trigger DMA request Enable			*/
+> +#define TIM_SR_UIF		BIT(0)					/* Update interrupt flag			*/
+> +#define TIM_SR_CC_IF(x)		BIT((x) + 1)				/* CC1, CC2, CC3, CC4 interrupt=
+ flag		*/
+> +#define TIM_EGR_UG		BIT(0)					/* Update Generation				*/
+> +#define TIM_CCMR_PE		BIT(3)					/* Channel Preload Enable			*/
+> +#define TIM_CCMR_M1		(BIT(6) | BIT(5))			/* Channel PWM Mode 1				*/
+> +#define TIM_CCMR_CC1S		(BIT(0) | BIT(1))			/* Capture/compare 1 sel			*/
+> +#define TIM_CCMR_IC1PSC		GENMASK(3, 2)				/* Input capture 1 prescaler		=
+	*/
+> +#define TIM_CCMR_CC2S		(BIT(8) | BIT(9))			/* Capture/compare 2 sel			*/
+> +#define TIM_CCMR_IC2PSC		GENMASK(11, 10)				/* Input capture 2 prescaler=
+			*/
+> +#define TIM_CCMR_CC1S_TI1	BIT(0)					/* IC1/IC3 selects TI1/TI3			*/
+> +#define TIM_CCMR_CC1S_TI2	BIT(1)					/* IC1/IC3 selects TI2/TI4			*/
+> +#define TIM_CCMR_CC2S_TI2	BIT(8)					/* IC2/IC4 selects TI2/TI4			*/
+> +#define TIM_CCMR_CC2S_TI1	BIT(9)					/* IC2/IC4 selects TI1/TI3			*/
+> +#define TIM_CCMR_CC3S		(BIT(0) | BIT(1))			/* Capture/compare 3 sel			*/
+> +#define TIM_CCMR_CC4S		(BIT(8) | BIT(9))			/* Capture/compare 4 sel			*/
+> +#define TIM_CCMR_CC3S_TI3	BIT(0)					/* IC3 selects TI3				*/
+> +#define TIM_CCMR_CC4S_TI4	BIT(8)					/* IC4 selects TI4				*/
+> +#define TIM_CCER_CC1E		BIT(0)					/* Capt/Comp 1  out Ena				*/
+> +#define TIM_CCER_CC1P		BIT(1)					/* Capt/Comp 1  Polarity			*/
+> +#define TIM_CCER_CC1NE		BIT(2)					/* Capt/Comp 1N out Ena				*/
+> +#define TIM_CCER_CC1NP		BIT(3)					/* Capt/Comp 1N Polarity			*/
+> +#define TIM_CCER_CC2E		BIT(4)					/* Capt/Comp 2  out Ena				*/
+> +#define TIM_CCER_CC2P		BIT(5)					/* Capt/Comp 2  Polarity			*/
+> +#define TIM_CCER_CC2NP		BIT(7)					/* Capt/Comp 2N Polarity			*/
+> +#define TIM_CCER_CC3E		BIT(8)					/* Capt/Comp 3  out Ena				*/
+> +#define TIM_CCER_CC3P		BIT(9)					/* Capt/Comp 3  Polarity			*/
+> +#define TIM_CCER_CC3NP		BIT(11)					/* Capt/Comp 3N Polarity			*/
+> +#define TIM_CCER_CC4E		BIT(12)					/* Capt/Comp 4  out Ena				*/
+> +#define TIM_CCER_CC4P		BIT(13)					/* Capt/Comp 4  Polarity			*/
+> +#define TIM_CCER_CC4NP		BIT(15)					/* Capt/Comp 4N Polarity			*/
+> +#define TIM_CCER_CCXE		(BIT(0) | BIT(4) | BIT(8) | BIT(12))
+> +#define TIM_BDTR_BKE(x)		BIT(12 + (x) * 12)			/* Break input enable				*/
+> +#define TIM_BDTR_BKP(x)		BIT(13 + (x) * 12)			/* Break input polarity			=
+	*/
+> +#define TIM_BDTR_AOE		BIT(14)					/* Automatic Output Enable			*/
+> +#define TIM_BDTR_MOE		BIT(15)					/* Main Output Enable				*/
+> +#define TIM_BDTR_BKF(x)		(0xf << (16 + (x) * 4))
+> +#define TIM_DCR_DBA		GENMASK(4, 0)				/* DMA base addr				*/
+> +#define TIM_DCR_DBL		GENMASK(12, 8)				/* DMA burst len				*/
+>  =
+
+> -#define MAX_TIM_PSC		0xFFFF
+> -#define MAX_TIM_ICPSC		0x3
+> -#define TIM_CR2_MMS_SHIFT	4
+> -#define TIM_CR2_MMS2_SHIFT	20
+> +#define MAX_TIM_PSC				0xFFFF
+> +#define MAX_TIM_ICPSC				0x3
+> +#define TIM_CR2_MMS_SHIFT			4
+> +#define TIM_CR2_MMS2_SHIFT			20
+>  #define TIM_SMCR_SMS_SLAVE_MODE_DISABLED	0 /* counts on internal clock w=
+hen CEN=3D1 */
+>  #define TIM_SMCR_SMS_ENCODER_MODE_1		1 /* counts TI1FP1 edges, depending=
+ on TI2FP2 level */
+>  #define TIM_SMCR_SMS_ENCODER_MODE_2		2 /* counts TI2FP2 edges, depending=
+ on TI1FP1 level */
+>  #define TIM_SMCR_SMS_ENCODER_MODE_3		3 /* counts on both TI1FP1 and TI2F=
+P2 edges */
+> -#define TIM_SMCR_TS_SHIFT	4
+> -#define TIM_BDTR_BKF_MASK	0xF
+> -#define TIM_BDTR_BKF_SHIFT(x)	(16 + (x) * 4)
+> +#define TIM_SMCR_TS_SHIFT			4
+> +#define TIM_BDTR_BKF_MASK			0xF
+> +#define TIM_BDTR_BKF_SHIFT(x)			(16 + (x) * 4)
+>  =
+
+>  enum stm32_timers_dmas {
+>  	STM32_TIMERS_DMA_CH1,
+> -- =
+
+> 2.43.0
+> =
+
+> =
+
+
+Best regards
+Thorsten
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
