@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E2B90F6E5
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 21:19:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCFEC90F6EA
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 21:27:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F202FC6B460;
-	Wed, 19 Jun 2024 19:19:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 734E0C6B460;
+	Wed, 19 Jun 2024 19:27:21 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15E45C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AB86C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2024 19:19:51 +0000 (UTC)
+ Wed, 19 Jun 2024 19:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=QUJeCb0b41VEsPZ72O8+y6kiVt6cHBByGNaQU/MidwY=; b=kYAgxoNp+AQnLvGvaT47LKpsQi
- GYKo+KIUWfn6I1/yZ+PC17HYxJEkkqLnopeBbS35ZG8a8BMvTuLPEB2mg44Up4fovNiP+niwqqejD
- sKErVWaCdkc6AE3VrC/h5GCDoh4Xkl0lkjzk3ZBrB7voYRFS4H6/z18qle6pLBLvaAVM=;
+ bh=98QUa2MBu1c9AJb7JgnySQn5wRXa0aYdxlnVerBdhj0=; b=Z7I7pHf6C6+72k9liVbdB/X6Ta
+ oDZO3zivPT+rkdbJbzOG6vrQCMrSlQeKr4NltnzCJpQEENcFSlIgA8pRwLM6HcEnkNaCWIIfuJdso
+ wLqoiVycYZt23Tjqvi7xxfmi9QnSOwXIx0jLlLOGXDh5cQBsaMpUPm9smiipc6gV/3RA=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1sK0qI-000VA3-WB; Wed, 19 Jun 2024 21:19:39 +0200
-Date: Wed, 19 Jun 2024 21:19:38 +0200
+ id 1sK0xQ-000VCV-6q; Wed, 19 Jun 2024 21:27:00 +0200
+Date: Wed, 19 Jun 2024 21:27:00 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <a9465b9a-1bfd-4ec1-b641-21867584c9d9@lunn.ch>
+Message-ID: <44cf011b-ec81-4826-b7c2-1a8d57594fca@lunn.ch>
 References: <20240619184550.34524-1-brgl@bgdev.pl>
- <20240619184550.34524-5-brgl@bgdev.pl>
+ <20240619184550.34524-6-brgl@bgdev.pl>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240619184550.34524-5-brgl@bgdev.pl>
+In-Reply-To: <20240619184550.34524-6-brgl@bgdev.pl>
 Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
@@ -41,8 +41,8 @@ Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/8] net: phy: aquantia: add
-	support for aqr115c
+Subject: Re: [Linux-stm32] [PATCH net-next 5/8] net: phy: aquantia: wait for
+ FW reset before checking the vendor ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,29 +59,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
->  	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII:
-> -		phydev->interface = PHY_INTERFACE_MODE_2500BASEX;
-> +		phydev->interface = PHY_INTERFACE_MODE_OCSGMII;
+On Wed, Jun 19, 2024 at 08:45:46PM +0200, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> Checking the firmware register before it boots makes no sense, it will
+> report 0 even if FW is loaded. Always wait for FW to boot before
+> continuing.
 
-That looks interesting. I wounder what will break.
+Please split this patch up. One patch which renames the method to the
+more generic aqr_ since it is used by more than aqr107. Then add the
+new use of it.
 
->  		break;
->  	default:
->  		phydev->interface = PHY_INTERFACE_MODE_NA;
-> @@ -721,6 +721,18 @@ static int aqr113c_config_init(struct phy_device *phydev)
->  	return aqr107_fill_interface_modes(phydev);
->  }
->  
-> +static int aqr115c_config_init(struct phy_device *phydev)
-> +{
-> +	/* Check that the PHY interface type is compatible */
-> +	if (phydev->interface != PHY_INTERFACE_MODE_SGMII &&
-> +	    phydev->interface != PHY_INTERFACE_MODE_OCSGMII)
-> +		return -ENODEV;
+Is this actually a fix? What happens to the firmware if you try to
+download it while it is still booting? Or do you end up downloading
+firmware when it is not actually needed? Please expand the commit
+message.
 
-Does it support 2500BaseX? 
+    Andrew
 
-	Andrew
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
