@@ -2,95 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0DA90E6E3
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 11:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF4B690E6F4
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2024 11:26:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FA31C78002;
-	Wed, 19 Jun 2024 09:24:14 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95709C78012;
+	Wed, 19 Jun 2024 09:26:50 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F3E1C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18A6AC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2024 09:24:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D70DB61C14;
- Wed, 19 Jun 2024 09:24:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C9FC2BBFC;
- Wed, 19 Jun 2024 09:23:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718789044;
- bh=waJTkMVRq8ZHdsz40ZYfVn6e3A9zQVV3HE90JhYqJIM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Af8wDKW+g8U/Pa+eWc0lJoQPVhRXZLHB+dMv898qRqT82Bp9DQ7mLhPJVTcniuBcd
- gjdJsyrkOvIBnSww7JyUAxPDJ/o9Psetq5VOHK2x6LXgEvTw6Qc8so7ObJj2gP+Zaf
- gxQomUYlCgXVwFp/ij9ZE+qtJRkMPFs8u4mZr/stSE5Sc5Jg87W4gXoJvsB70dDQp7
- cGkIzUIlcQJZ+Kltwc+pXnExBfE/mFiK7oGZie9AIVk///bKRm+6+j1n5fQ5B7VF6E
- 6OPLW6lhwsb6CeqgkSuMctVT3Rsu8taKUlywizA1ofmNBzMfdYCCt+aG9XoD6aNuWO
- org9e1p9ZwdQQ==
-Message-ID: <756ba3a9-a9c3-4672-9972-45cb19f73827@kernel.org>
-Date: Wed, 19 Jun 2024 11:23:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Pascal Paillet <p.paillet@foss.st.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+ Wed, 19 Jun 2024 09:26:44 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-424720e73e0so13191495e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 19 Jun 2024 02:26:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718789203; x=1719394003;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ezQRRIlNxNy2QrCPuAEV8Oyb8ctHh+po983NuDBnwzw=;
+ b=QIEm5m3Yn6mCl5FQpbISCL7CILn/FA3wlNLCGY7mES57mNwBl5IFR7zhW/1dCEoILk
+ ulDCiE5vAvaHEyIifudXklf35wWmJzTdjxP1u1204qaIymkB2ri7mZ8SzOq6fzAL6QeR
+ UL97jrjeBRvO0Or+Qr6KaNkopHIgHt7Zd92CJFLCogXK2cqmpb+kKX7yElt70vWeGQ05
+ JbD8pozXl4lKFqZCjfdkt8yEzHPSTNTfHzLhheYAfhUjQg/HQRDpCk5TilmOEDZGi9wE
+ X/NaR6MLgeHbbj8KtGVg6k9yt+MU9ISV3KG+nMxGjTc11zU3yyD1QzSI7qVmD8CJEEmo
+ gsUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718789203; x=1719394003;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ezQRRIlNxNy2QrCPuAEV8Oyb8ctHh+po983NuDBnwzw=;
+ b=Y4P6VR8SQCfGMSoBqyojLe+QhpG2wzYuRRdi2gU4U9IHEw2hFzbOrAP/kd/iIKNqBq
+ Xjw4ROIOZsMvdTEWzZhhG2r+tUt8+pO32EglOX6qaYpa6E+TU/MK11WmG/vDRGkNtXag
+ Yi4lxHBXZ72V25Oly0koSUNmPF3oe6mi+bTjUZNt5vwwOwsHR0LHtvCW44bH8HN5texi
+ 1dq9eRbcaTL4lXAWRElRcy80kvgiZboHR5FL4OltZ/8PCE7uY7/Pu8keJqvANikFXsey
+ BZ9CAgvcSIDk8jS6XUqR4kP+mk1xtPLM5PIq4TiMyLiBl/yVgMgfxa9HNkNhUUqRE9wT
+ YWkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXip8rojM4nv+IXr7EWAxp77qWoiPcJMOK3vOFpQM+TGwf8BGaE2JDaRU0sjup2qtaOQG5uzKPw5NeAabGiZQeJB36USS0ej0r6qcr9e+5zK27XtIuuRmGB
+X-Gm-Message-State: AOJu0Yz8+cc0UKqs0xLij/AqEdD4YbaAtM+xQEHUwnRmrvOXRjdof/MP
+ 26XjHQAYm65VMhsoHOBaer13vPDM6xft2EhxxX4YaCIYyYexFEnfscn9MHkW/Wo=
+X-Google-Smtp-Source: AGHT+IGgDsBMEJLdwNAcDw3PcY77JcN2xEZg75HuwFgkVWJfFOmTXqt3HCQbJEJog+YJjnIQltEwEg==
+X-Received: by 2002:adf:ed47:0:b0:35f:1bb2:4354 with SMTP id
+ ffacd0b85a97d-36317b7909bmr1476123f8f.35.1718789203528; 
+ Wed, 19 Jun 2024 02:26:43 -0700 (PDT)
+Received: from localhost (p509153eb.dip0.t-ipconnect.de. [80.145.83.235])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-363e110ea83sm580059f8f.113.2024.06.19.02.26.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jun 2024 02:26:43 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20240619083602.33007-1-p.paillet@foss.st.com>
- <20240619083602.33007-2-p.paillet@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240619083602.33007-2-p.paillet@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: add STM32MP25 regulator
-	bindings
+ Lee Jones <lee@kernel.org>, Thierry Reding <treding@nvidia.com>
+Date: Wed, 19 Jun 2024 11:26:23 +0200
+Message-ID: <cover.1718788826.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=533;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=8K+WjM34MR24mhU/bzCFPG1mWsgoIklGhckomjtcqZk=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBmcqRBygtncZJsb5+PFhsyNusHwI7zYAGBSK0ow
+ /sCo8fwWMWJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZnKkQQAKCRCPgPtYfRL+
+ Ti+yB/4mxgOvo+OmLwR8PCMpp2jnM2ClElhsnuSSTMyl5UN4h5GkJDjmONpNy3bsxwB7117/6k1
+ Q9AX6/lRsmtxQGS7IMlXosAFM9qk28M+pwZj/egzcD6HRW4hGQ7N1JpyI7v24WrAIZfoj9/eRkQ
+ mCjDkuF+Er8mzuXcd0FFdAb+N1OgS6fLlgy67yROfMaFEWMORwf3+SipVd3yyA+d9jM6gwq40Lk
+ JbtwsR49cCGABdieBl1IAaOxQhsu3qe0a7o+cpiAucRu3z9pyuEnn/phsBcsH0eOw2xSCNSacxF
+ luZ+roIox0Y4FKoHg1lJpeoYae7clhPM25eg453uqWW7aEOU
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] pwm: stm32: Two fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,37 +90,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/06/2024 10:35, Pascal Paillet wrote:
-> These bindings will be used for the SCMI voltage domain.
-> 
-> Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
-
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
-
-regulator: dt-bindings:
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.7-rc8/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
-
-> ---
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp0aGlzIHNlcmllcyBjb250YWlucyB0d28gZml4ZXMgZm9yIHRoZSAuYXBwbHkoKSBj
+YWxsYmFjayB3aGVyZSBib2dvdXMKcGVyaW9kcyB3ZXJlIGNhbGN1bGF0ZWQuCgpJIGludGVuZCB0
+byBzZW5kIHRoZXNlIHRvIExpbnVzIGJlZm9yZSB2Ni4xMCwgc28gcGxlYXNlIGlmIHlvdSBoYXZl
+CmNvbmNlcm5zIGRvbid0IGhlc2l0YXRlIHRvIGV4cHJlc3MgdGhlbS4KCkJlc3QgcmVnYXJkcwpV
+d2UKClV3ZSBLbGVpbmUtS8O2bmlnICgyKToKICBwd206IHN0bTMyOiBSZWZ1c2UgdG9vIHNtYWxs
+IHBlcmlvZCByZXF1ZXN0cwogIHB3bTogc3RtMzI6IEZpeCBjYWxjdWxhdGlvbiBvZiBwcmVzY2Fs
+ZXIKCiBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYyB8IDE5ICsrKysrKysrKysrKysrLS0tLS0KIDEg
+ZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKYmFzZS1jb21t
+aXQ6IDE2MTNlNjA0ZGYwY2QzNTljZjJhN2ZiZDliZTdhMGJjZmFjZmFiZDAKLS0gCjIuNDMuMAoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
+MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
+aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtc3RtMzIK
