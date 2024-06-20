@@ -2,75 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 240DE90FEA2
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE4F90FEDD
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:32:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7EBAC6B47A;
-	Thu, 20 Jun 2024 08:20:28 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88DA5C6B47A;
+	Thu, 20 Jun 2024 08:32:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F15BFC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2256AC6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 08:20:20 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-52bc3130ae6so565584e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 01:20:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1718871620; x=1719476420;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=B7yX7rbJbYr/mTm0lEL9vuk9v/WQvi74pV0s5CSPcDg=;
- b=vKqJiyF+oI0g5qEqWT1KB1rOCfgZ1MEUTz/Kbgq/9wkH5CsOQ+KV6f9Ir/+33cgaI4
- ljTcchUj/W0Wa2Go+PLresN/Oh8ogE+1fbWKFkpa9WupUALna2dTqW1EpCxeDzeWibCz
- dnTqgT2cxKWlqGs3DhQDEac6hQHD1jqKV6/DodfdgOE6eEvl3Lve4SiRQ0VwfNmqxWmO
- YlufRShme3pO96a1vrYgrKKecacLv5CBDs+gHrAd13wjSR8xzjzAWtZgejzL3L9jnbwt
- nY+Qt6Pq7yteCymozWjEdMqqvTWxVq6Ej1PWAhC/Lxjeo3xIIq8pJ7vzArE0mjrKNxP0
- k39g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718871620; x=1719476420;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=B7yX7rbJbYr/mTm0lEL9vuk9v/WQvi74pV0s5CSPcDg=;
- b=DjBkrihU8XCulcaFhSK9U4Aq8MjCN6Q2QSiMihn4s0HSQ1a8F0oDvfMcHMAs3YlsQK
- ma3mGivOCeHvCzYGR3PXoUarecEV7KjclZpO6Ziio3wU6eQplazRPMBqScifZBKz97VX
- KbDEucKSswbcpqHw7DZ1lDPo4Elg3a17eE0l1axc8hx8aXO6n2bCM8k9D7zo4gdtIE4/
- 5nhmspuCwc7v/YAdixFrGb6+HjuxOeUHG/to4UqpdLmvqrt+Z8k7Mor6xq1Rd+TXKpQk
- t2SCF2cefLCTRp6zVPeOobraeblYVrEaDTW1BqqoeEkl/2VioIt5/2xJFHxk6DSu6Ggb
- lzTg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW8jcKQU0YFyu79nTJEn3FAtr/z+mvAYh5rTF/YZtRcJWv14FSeFJqF1NO+2mvaL71zZfnOfHPW3IlfhsAzI2AOishBvl/TSxJVn4UT6sOlN+2zUztg5saa
-X-Gm-Message-State: AOJu0YzqLeJ5lG9U1peq/n+36Fj1zhDrzd8kz9Pt9a5McnOGh1q2FgVG
- I++ylSRMiqckQMoOpH+d/6KP3+LKHo3iEyFabh3A9ftgCT1EI5jNAWuGR5rODFnpz6f3mrQf71N
- HHw6Jc8attf/vCX7p+D8c03XFFuxXUjwe5m8prw==
-X-Google-Smtp-Source: AGHT+IEmop4fSjADk7pSWeD8ON7nqhqCNYoCXWB9xXRFCphWhGBBKaZ3FTBp7MgrIlYFop2ThtyzgoBlAbqZbHjT0uk=
-X-Received: by 2002:a05:6512:1182:b0:52c:86d6:e8d7 with SMTP id
- 2adb3069b0e04-52ccaa2d4a3mr2435101e87.13.1718871620038; Thu, 20 Jun 2024
- 01:20:20 -0700 (PDT)
+ Thu, 20 Jun 2024 08:32:28 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45K63HHq006860;
+ Thu, 20 Jun 2024 10:32:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=803EkENHynDGBNPyuFeckl
+ OjrPyiTzP1D6XfKjBU6F8=; b=C4ex9Ngkph6gWEpz/e8H8c7P6ml0ZdcCj60L+i
+ 9uNp1VPsii04OjetwkRXJjjmgm55cdTfQXaVBSXb092x1BZimnfpOfmpXKnrqQYl
+ 8cBcJCqdMxMygvK5KDK674jJsuEsH4UHLRDpN+tbq74CJx6QTPhFzYUaqMTrxZRF
+ ikuudAJHLUj3BhqT1gcFwmoT28Tu+95FkW8s+1zz9cB8MzslePIOFO6dFnT6OBTO
+ joKmT5m3MDyGZn1He0Z130SjQuGMIhb9PlGnmX8AKEiXZOniwH3Qyht738P+/iMb
+ kKJmFuxyAqqNzbbNciAygajnmaXY9q4FbR0oWLK+0AaxG+Uw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yuj9t77sq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Jun 2024 10:32:00 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 705A840044;
+ Thu, 20 Jun 2024 10:31:55 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 237FA2128CD;
+ Thu, 20 Jun 2024 10:31:20 +0200 (CEST)
+Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 20 Jun
+ 2024 10:31:19 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
+Date: Thu, 20 Jun 2024 10:31:07 +0200
+Message-ID: <20240620083115.204362-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240619184550.34524-1-brgl@bgdev.pl>
- <20240619184550.34524-9-brgl@bgdev.pl>
- <f4af7cb3-d139-4820-8923-c90f28cca998@lunn.ch>
-In-Reply-To: <f4af7cb3-d139-4820-8923-c90f28cca998@lunn.ch>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Thu, 20 Jun 2024 10:20:08 +0200
-Message-ID: <CAMRc=MeP9o2n8AqHYNZMno5gFA94DnQCoHupYiofQLLw03bL6A@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: qcom-ethqos:
- add a DMA-reset quirk for sa8775p-ride-r3
+X-Originating-IP: [10.48.87.171]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-20_06,2024-06-19_01,2024-05-17_01
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/8] irqchip/stm32-exti: split MCU and MPU
+	code, allow module build
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,23 +71,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKdW4gMTksIDIwMjQgYXQgOTozM+KAr1BNIEFuZHJldyBMdW5uIDxhbmRyZXdAbHVu
-bi5jaD4gd3JvdGU6Cj4KPiBPbiBXZWQsIEp1biAxOSwgMjAyNCBhdCAwODo0NTo0OVBNICswMjAw
-LCBCYXJ0b3N6IEdvbGFzemV3c2tpIHdyb3RlOgo+ID4gRnJvbTogQmFydG9zeiBHb2xhc3pld3Nr
-aSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgo+ID4KPiA+IE9uIHNhODc3NXAtcmlk
-ZSB0aGUgUlggY2xvY2tzIGZyb20gdGhlIEFRUjExNUMgUEhZIGFyZSBub3QgYXZhaWxhYmxlIGF0
-Cj4gPiB0aGUgdGltZSBvZiB0aGUgRE1BIHJlc2V0IHNvIHdlIG5lZWQgdG8gbG9vcCBUWCBjbG9j
-a3MgdG8gUlggYW5kIHRoZW4KPiA+IGRpc2FibGUgbG9vcGJhY2sgYWZ0ZXIgbGluay11cC4gVXNl
-IHRoZSBwcm92aWRlZCBjYWxsYmFja3MgdG8gZG8gaXQgZm9yCj4gPiB0aGlzIGJvYXJkLgo+Cj4g
-SG93IGRvZXMgdGhpcyBkaWZmZXIgdG8gZXRocW9zX2Nsa3NfY29uZmlnKCk/Cj4KCkknbSBub3Qg
-c3VyZSBJIHVuZGVyc3RhbmQgdGhlIHF1ZXN0aW9uLiBUaGlzIGZ1bmN0aW9uIGlzIGNhbGxlZCBh
-dApwcm9iZS9yZW1vdmUgYW5kIHN1c3BlbmQvcmVzdW1lLiBJdCdzIG5vdCBsaW5rZWQgdG8gdGhl
-IGlzc3VlIHNvbHZlZApoZXJlLgoKQmFydApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The file 'irq-stm32-exti.c' contains two drivers:
+- EXTI for ARMv7m STM32 MCUs;
+- EXTI for ARMv7a & ARMv8a STM32MPxxx MPUs.
+
+The current arrangement causes some issue:
+- the growing code for MPUs uses precious space on memory constraint
+  MCUs devices;
+- the driver for MPU cannot be built as module;
+- there are risks to break one of the two drivers while working on
+  the other.
+
+Since there are only 4 minor functions shared among the two drivers:
+- stm32_exti_set_type();
+- stm32_chip_resume();
+- stm32_chip_suspend();
+- stm32_exti_chip_init();
+
+this series splits the file in two independent files, each containing
+a single driver.
+To guarantee bisect-ability, the series first introduces some hook in
+Kconfig, then splits the file and at the end enables module build on
+MPU while cleaning-up Kconfig.
+The symbols in the MPU file are renamed to better match the new name
+of the driver.
+
+The patches are created with 'git format-patch -C' to correctly show
+the deleted parts and the tiny modifications between the original
+monolithic file and the two extracted ones.
+
+The series is rebased on irq/core branch of tip as it depends on a
+previous series already queued for v6.10 merge window.
+
+
+v1 -> v2
+- fix module dependency from IRQ_DOMAIN_HIERARCHY, detected by kernel
+  test robot <lkp@intel.com>
+
+v2 -> v3
+- rebase on v6.10-rc1, fixing one conflict
+
+Antonio Borneo (8):
+  irqchip/stm32-exti: add CONFIG_STM32MP_EXTI
+  ARM: stm32: use different EXTI driver on ARMv7m and ARMv7a
+  arm64: Kconfig: select STM32MP_EXTI on STM32 platforms
+  irqchip/stm32-exti: split MCU and MPU code
+  irqchip/stm32mp-exti: rename internal symbols
+  irqchip/stm32mp-exti: allow build as module
+  ARM: stm32: allow build irq-stm32mp-exti driver as module
+  arm64: Kconfig: allow build irq-stm32mp-exti driver as module
+
+ arch/arm/mach-stm32/Kconfig        |   2 +-
+ arch/arm64/Kconfig.platforms       |   1 -
+ drivers/irqchip/Kconfig            |   9 +
+ drivers/irqchip/Makefile           |   1 +
+ drivers/irqchip/irq-stm32-exti.c   | 670 +-------------------------
+ drivers/irqchip/irq-stm32mp-exti.c | 737 +++++++++++++++++++++++++++++
+ 6 files changed, 752 insertions(+), 668 deletions(-)
+ create mode 100644 drivers/irqchip/irq-stm32mp-exti.c
+
+
+base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
