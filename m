@@ -2,76 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19944910A9E
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 17:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16459910B1F
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 18:06:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF949C7128D;
-	Thu, 20 Jun 2024 15:49:23 +0000 (UTC)
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C48F5C7128D;
+	Thu, 20 Jun 2024 16:06:29 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 031A3C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2EF73C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 15:49:15 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id
- ca18e2360f4ac-7eb7bf1357cso33624439f.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 08:49:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718898555; x=1719503355;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gij+pTTJKVdo/dX5mfK2/SDWcBCb/yTF0kB7stawEoI=;
- b=C8rsJzyh2+YCFLc+qDdbdP9tyjBd9M5oQmoZiXMk4DdpUc6zqL49POAXuRiNeQ7gnz
- G3mtRSfB+zMMB8bGNpxr80WE+NrEAUEE92Y40QASFz96p3/DUw/ThsCgKGu3jY6SduD/
- CldE8VLQzi4aJ2hRkPlnOSmPXI9Xh7qGBaiXCjOI3/RUpKuuNaaIZ79pK/AVUuL0HUYs
- Xy6jvd905Gk05ATKCI4k4fvkoZInb6BSP+0ux010TN0GhCpnJgEAZMdpReTVYvbPpSc6
- zjh/EINrDzv8MyolWWafTksYbaQ43vi84OmeeERzHJ9lAZq6Fp5NKkEUfTXXuZCuvrS5
- gaSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718898555; x=1719503355;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gij+pTTJKVdo/dX5mfK2/SDWcBCb/yTF0kB7stawEoI=;
- b=sG3FMBVRJC1d+9x5PmIf7gqKwK0es967SK2vLRdE6sCkh/Y9a0ofX7flp6+oe+syCQ
- HR3ve4zkzvbnlNsN0OAeJ0fPUZi7lC8MTe5eHnKtvMCBzDIAwSLCNUhtxsEqgFS30upU
- Kejuf8ws2p7lp5ZMYCSOxySMVbzabGYT4LgklrdKmC25amX8uH2lmEYuKGRr/QVCbVgk
- BNFOcHkZ/QsNb8R6Paj6MR9YKhhJlqGBFj76cgK21jZDOoOdMoCnzbNlNnD6PkWiJChZ
- Ktqgxis8E5hMBg2rBZoUhepbCAiENuUZcbt78qwMQ98lvmZEsw4emBxwoER0QYgFhK+L
- gKMA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXyeaSFE1u08mN0B76688UBNOGhMnFAWytw4O29hpYFC1LT7nAuM94uD9kUQLF7Fh/3Dwz8fB3x1wXFLB6NpMsoyFMR3/k9gRnYGSP4zAVD0XFExAyGY4/H
-X-Gm-Message-State: AOJu0YwnFZk1r5KkomSKXXUwwuTpv0Zm6qRs2NyMVPEPk0AYt0IRrerY
- PWQ1LkKu/hRzR9faQ3v1e0UyHLMtw3VZe1nROAyYlPsKb5p4rqAoZJ4YjPX3/Qs=
-X-Google-Smtp-Source: AGHT+IFGsKmMIaoucA4mUEkbCmj9WXbIfYXFvOKziux2p6zWcz46+4yA+IfWB+ZbVwEcfz4/SgbukA==
-X-Received: by 2002:a05:6602:1615:b0:7eb:dc70:979c with SMTP id
- ca18e2360f4ac-7f13ee9e805mr622617539f.21.1718898554795; 
- Thu, 20 Jun 2024 08:49:14 -0700 (PDT)
-Received: from [192.168.40.12] (d24-150-219-207.home.cgocable.net.
- [24.150.219.207]) by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4b95696daa4sm4559586173.81.2024.06.20.08.49.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Jun 2024 08:49:14 -0700 (PDT)
-Message-ID: <51f2a61d-dd52-49d7-a5a0-f20a5b0c8a58@baylibre.com>
-Date: Thu, 20 Jun 2024 11:49:12 -0400
+ Thu, 20 Jun 2024 16:06:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 9E7B3CE2646;
+ Thu, 20 Jun 2024 16:06:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40576C2BD10;
+ Thu, 20 Jun 2024 16:06:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718899577;
+ bh=i2WiRp5EABtITG9AK2TqTOt26g3jSkXUUxnTNfCVMq4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NKmk0EwTNoxOWGlH2v07DF2unWqqSgPHL2w7MXJlzVc9I7chXRxKjQe/L2NGXZupG
+ UNj4Vdtd58q5X7sr7M7bQwWpAATyud7JONka7ePDgfbmS4QS6aHv/1H6Jea/GI0wsr
+ cS0oovA/BCovyaDtviZt7P0g0xC7oi/OBJURoHgtNJ41/tMbhmix7alKH5eaGDTlHU
+ UwqsvgNkb/rDdwiBSIajxDLFHk4/sZT9zybz22d88QbqxxQuLNaoA+GhVKq8RnSMhr
+ mC/1CYGO5Jsc3hEeYRYiCS6eTAAxYwlu4yaXaLbn7VzvQAhu5uu1p1Ksh0gjdKr41x
+ MFzAKhEG/iZlA==
+Date: Thu, 20 Jun 2024 17:06:08 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20240620-reggae-caucasian-11dcb3244161@spud>
+References: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
+ <20240620-dt-bindings-i2c-clean-v1-2-3a1016a95f9d@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>,
- Thierry Reding <treding@nvidia.com>
-References: <cover.1718788826.git.u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Trevor Gamblin <tgamblin@baylibre.com>
-In-Reply-To: <cover.1718788826.git.u.kleine-koenig@baylibre.com>
-Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] pwm: stm32: Two fixes
+In-Reply-To: <20240620-dt-bindings-i2c-clean-v1-2-3a1016a95f9d@linaro.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Vignesh R <vigneshr@ti.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Guenter Roeck <groeck@chromium.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Sergiu Moga <sergiu.moga@microchip.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Ricardo =?iso-8859-1?Q?Ca=F1uelo?= <ricardo.canuelo@collabora.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ chrome-platform@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-omap@vger.kernel.org, Benson Leung <bleung@chromium.org>,
+ linux-arm-kernel@lists.infradead.org, Doug Anderson <dianders@chromium.org>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Enric Balletbo i Serra <eballetbo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 2/7] dt-bindings: i2c: google,
+ cros-ec-i2c-tunnel: correct path to i2c-controller schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,23 +72,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============2448808713945464859=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDIwMjQtMDYtMTkgNToyNiBhLm0uLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBIZWxs
-bywKPgo+IHRoaXMgc2VyaWVzIGNvbnRhaW5zIHR3byBmaXhlcyBmb3IgdGhlIC5hcHBseSgpIGNh
-bGxiYWNrIHdoZXJlIGJvZ291cwo+IHBlcmlvZHMgd2VyZSBjYWxjdWxhdGVkLgo+Cj4gSSBpbnRl
-bmQgdG8gc2VuZCB0aGVzZSB0byBMaW51cyBiZWZvcmUgdjYuMTAsIHNvIHBsZWFzZSBpZiB5b3Ug
-aGF2ZQo+IGNvbmNlcm5zIGRvbid0IGhlc2l0YXRlIHRvIGV4cHJlc3MgdGhlbS4KUmV2aWV3ZWQt
-Ynk6IFRyZXZvciBHYW1ibGluIDx0Z2FtYmxpbkBiYXlsaWJyZS5jb20+Cj4KPiBCZXN0IHJlZ2Fy
-ZHMKPiBVd2UKPgo+IFV3ZSBLbGVpbmUtS8O2bmlnICgyKToKPiAgICBwd206IHN0bTMyOiBSZWZ1
-c2UgdG9vIHNtYWxsIHBlcmlvZCByZXF1ZXN0cwo+ICAgIHB3bTogc3RtMzI6IEZpeCBjYWxjdWxh
-dGlvbiBvZiBwcmVzY2FsZXIKPgo+ICAgZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgfCAxOSArKysr
-KysrKysrKysrKy0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgNSBk
-ZWxldGlvbnMoLSkKPgo+IGJhc2UtY29tbWl0OiAxNjEzZTYwNGRmMGNkMzU5Y2YyYTdmYmQ5YmU3
-YTBiY2ZhY2ZhYmQwCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============2448808713945464859==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="K6ixJu9bGXFv18P9"
+Content-Disposition: inline
+
+
+--K6ixJu9bGXFv18P9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jun 20, 2024 at 01:34:50PM +0200, Krzysztof Kozlowski wrote:
+> The referenced i2c-controller.yaml schema is provided by dtschema
+> package (outside of Linux kernel), so use full path to reference it.
+>=20
+> Cc: <stable@vger.kernel.org>
+
+I'd question whether this needs to go to stable (given the validation
+seems to work anyway) but it'll get picked up automagically so why
+not...
+
+> Fixes: 1acd4577a66f ("dt-bindings: i2c: convert i2c-cros-ec-tunnel to jso=
+n-schema")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/i2c/google,cros-ec-i2c-tunnel.yaml | 2=
+ +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i2c/google,cros-ec-i2c-tun=
+nel.yaml b/Documentation/devicetree/bindings/i2c/google,cros-ec-i2c-tunnel.=
+yaml
+> index ab151c9db219..580003cdfff5 100644
+> --- a/Documentation/devicetree/bindings/i2c/google,cros-ec-i2c-tunnel.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/google,cros-ec-i2c-tunnel.yaml
+> @@ -21,7 +21,7 @@ description: |
+>    google,cros-ec-spi or google,cros-ec-i2c.
+> =20
+>  allOf:
+> -  - $ref: i2c-controller.yaml#
+> +  - $ref: /schemas/i2c/i2c-controller.yaml#
+> =20
+>  properties:
+>    compatible:
+>=20
+> --=20
+> 2.43.0
+>=20
+
+--K6ixJu9bGXFv18P9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZnRTcAAKCRB4tDGHoIJi
+0kXLAQCZRJ/FW5eVYlFgLQVwdTw60zRLbB5U2phtfe/39Y26eQD/aIyvkdWib7L7
+pxarPTgkzcG7Mkqn187N9Xy+9dcxJgc=
+=MMCH
+-----END PGP SIGNATURE-----
+
+--K6ixJu9bGXFv18P9--
+
+--===============2448808713945464859==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2448808713945464859==--
