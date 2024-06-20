@@ -2,77 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BDB910187
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 12:34:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF280910201
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 12:57:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10D85C7128E;
-	Thu, 20 Jun 2024 10:34:23 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C509C7128E;
+	Thu, 20 Jun 2024 10:57:51 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BED8C71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B095C7128D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 10:34:15 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-57cf8880f95so779178a12.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 03:34:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718879655; x=1719484455;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UH1RftmHG3Vs+kyJjdp6FaijzaNseaKDxHW9Q4uMarM=;
- b=W4+xA0TNUs6WPW2AGhDGopz7ZNVBm1BL+gctfJlf2msgSGYCdgZl9AH2vPRVaVGk2U
- 9qYfSgOG0j8JhadcyVshU4b+wnOW4dVfmvaLahM7F9P9j9/w/bZr3JA2Y+eEjcdetyaS
- dX/IqMiUGs7cR7qYJ5odMyMBWeQjt8fYtC4K+uUqQ2pQdW66N+kmbv8Lq1gN6TX03Q+8
- DLiet2b5brwPBdkSizK+nza5ewZ17HhlC025Vgirs6VDCv1IVFrSNiRs0iYkpPApEhYs
- 1jTe2pvv/KwFCfxmNdIWO1TcC+8rwbISUpkpUP9Ko/AqXAevLkPMeAm6hT4jduRw16Zp
- jlbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718879655; x=1719484455;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UH1RftmHG3Vs+kyJjdp6FaijzaNseaKDxHW9Q4uMarM=;
- b=xDRefwoD3tIGVv/Y4tC4c/ovd+N5IME3Go4RqNVQTRPMxLnQW4k/Ys8AcU/RcZaHAn
- lE7cawSTbR4OFuJjEsY3fYXkHE4anAA68JP8Xc4FypOVxuXmqwjQ0wIbk+9oRZddHNsx
- ny47i416NmFm22MmOMwasDIY8HSSDhT0qRGbx24SyQocqon0a9Ah3yj+9GjXXV2fQ+43
- Ti8GpSBQKeWMlkb7ZIZi9kW6Y0eRKkmmSL1I7JUaOzs07345Zsqyqn3CgDAgjJImaZr/
- sumx6YfXhbqkK+M6S/QEoV4N0g8+SQFEkVuepYqYFnyfqrwklDq677RClKS28geZxByh
- H8Xw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU+Tw/9BAvqMWXXUWzhsRtUfuD0PTuWcR3CqwL/vHHk8GgWb6TW8gqN0lRfFRnjIjG2PgaCH7GNEvKVdLIoFLdMgVK9caUNt97R13A5O/iHCRwAJyQqkBDZ
-X-Gm-Message-State: AOJu0YxI5KZj5AZ1B37ZvqPzlceAvVRHvD82QyL3XBkP06/Ke4otlqK1
- GH7gQgKpaOEx+dterMcWDOuMSTym5nlTimszU8tfvgj8xJ/+DiPrjBFgkSW1zgg=
-X-Google-Smtp-Source: AGHT+IEywqbKty6de7BGaA3EekB8lHCg+TqJCCgL/r5vpSNbTS3dSW25wQhhnMyvzNmMNB+yuXEXOw==
-X-Received: by 2002:a17:906:e214:b0:a6f:6721:b065 with SMTP id
- a640c23a62f3a-a6fab643f94mr316617366b.32.1718879654465; 
- Thu, 20 Jun 2024 03:34:14 -0700 (PDT)
-Received: from localhost
- (p200300f65f283b00ca876ee5dd3d1e3b.dip0.t-ipconnect.de.
- [2003:f6:5f28:3b00:ca87:6ee5:dd3d:1e3b])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56ecd5bfsm750320466b.113.2024.06.20.03.34.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 03:34:13 -0700 (PDT)
-Date: Thu, 20 Jun 2024 12:34:12 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Message-ID: <imyuhtcsjrbyodsndzbaqfwa4jxny25eylfdh4u4xtsiotsk5g@45l556pcrzys>
-References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
- <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
- <20240620084451.GC3029315@google.com>
+ Thu, 20 Jun 2024 10:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=JL1dgGAqb9hLYRxS4TGWl0ExqWTdbEg1InyHIVddSDI=; b=gqnnX1Vh1PSSDC8IoumrXSiDNV
+ AVnNoRLO4X+4HrAt2e2Gk1SGD1rZvPiYN4vL8sl53pOY2Mvy1UvxA/RpV1NGVTbEppKDnCSZ6bg5b
+ lcLIhcWGa44XjZ9mv/nwTxCn+9Th8080Ftd4hCf+mh+k/wgZ/dWXlUkyDpOYRhnUy7HLYf6j/pZny
+ pZKq8ceRbSzUcwvXH9UvQuej7sm3O74ttio97QoiEHDHqTAZHz4qpvzYAZJhL8NIEmoWP6OW54Dof
+ 0AzkkSmiUkq1exokIMAdtHpah6zkJEw0a+O7GTq+6cDPrLc3RDRSZOHHUMn+hZoLn0nf+RUGDzDJ9
+ VOhZoe4g==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:32904)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sKFTm-0001cl-2i;
+ Thu, 20 Jun 2024 11:57:22 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sKFTk-0007ba-Gl; Thu, 20 Jun 2024 11:57:20 +0100
+Date: Thu, 20 Jun 2024 11:57:20 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <ZnQLED/C3Opeim5q@shell.armlinux.org.uk>
+References: <20240619184550.34524-1-brgl@bgdev.pl>
+ <20240619184550.34524-9-brgl@bgdev.pl>
 MIME-Version: 1.0
-In-Reply-To: <20240620084451.GC3029315@google.com>
-Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- William Breathitt Gray <wbg@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] counter: stm32-timer-cnt: Use
- TIM_DIER_CCxIE(x) instead of TIM_DIER_CCxIE(x)
+Content-Disposition: inline
+In-Reply-To: <20240619184550.34524-9-brgl@bgdev.pl>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: qcom-ethqos:
+ add a DMA-reset quirk for sa8775p-ride-r3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,89 +64,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1163642461246360174=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Jun 19, 2024 at 08:45:49PM +0200, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> On sa8775p-ride the RX clocks from the AQR115C PHY are not available at
+> the time of the DMA reset so we need to loop TX clocks to RX and then
+> disable loopback after link-up. Use the provided callbacks to do it for
+> this board.
 
---===============1163642461246360174==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hl7obtkvuj2dllak"
-Content-Disposition: inline
+If you're using true Cisco SGMII, there are _no_ clocks transferred
+between the PHY and PCS/MAC. There are two balanced pairs of data
+lines and that is all - one for transmit and one for receive. So this
+explanation doesn't make sense to me.
 
+> +static void qcom_ethqos_set_serdes_loopback(struct qcom_ethqos *ethqos,
+> +					    bool enable)
+> +{
+> +	rgmii_updatel(ethqos,
+> +		      SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN,
+> +		      enable ? SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN : 0,
+> +		      EMAC_WRAPPER_SGMII_PHY_CNTRL1);
+> +}
+> +
+> +static void qcom_ethqos_open(struct net_device *pdev, void *priv)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +
+> +	qcom_ethqos_set_serdes_loopback(ethqos, true);
+> +}
+> +
+> +static void qcom_ethqos_link_up(struct net_device *ndev, void *priv)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +
+> +	qcom_ethqos_set_serdes_loopback(ethqos, false);
+> +}
+> +
 
---hl7obtkvuj2dllak
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+So you enable loopback at open time, and disable it when the link comes
+up. This breaks inband signalling (should stmmac ever use that) because
+enabling loopback prevents the PHY sending the SGMII result to the PCS
+to indicate that the link has come up... thus phylink won't call
+mac_link_up().
 
-Hello Lee,
+So no, I really hate this proposed change.
 
-On Thu, Jun 20, 2024 at 09:44:51AM +0100, Lee Jones wrote:
-> On Wed, 19 Jun 2024, Uwe Kleine-K=F6nig wrote:
->=20
-> > These two defines have the same purpose and this change doesn't
-> > introduce any differences in drivers/counter/stm32-timer-cnt.o.
-> >=20
-> > The only difference between the two is that
-> >=20
-> > 	TIM_DIER_CC_IE(1) =3D=3D TIM_DIER_CC2IE
-> >=20
-> > while
-> >=20
-> > 	TIM_DIER_CCxIE(1) =3D=3D TIM_DIER_CC1IE
-> >=20
-> > . That makes it necessary to have an explicit "+ 1" in the user code,
-> > but IMHO this is a good thing as this is the code locatation that
-> > "knows" that for software channel 1 you have to use TIM_DIER_CC2IE
-> > (because software guys start counting at 0, while the relevant hardware
-> > designer started at 1).
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> > ---
-> >  drivers/counter/stm32-timer-cnt.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> Did you drop William's Ack on purpose?
+What I think would be better is if there were hooks at the appropriate
+places to handle the lack of clock over _just_ the period that it needs
+to be handled, rather than hacking the driver as this proposal does,
+abusing platform callbacks because there's nothing better.
 
-Yes, because a) I was unsure what he didn't like about the subject, and
-(more importantly) b) I split the patch in question. I should have
-written that in the cover letter, sorry.
+I don't have time to go through stmmac and make any suggestions (sorry)
+so I can only to say NAK to this change.
 
-(Note I only announced to have fixed the subject prefix of the pwm
-patch. I assume you won't include that in your pull request, but if you
-do, please do s/-/: / on it. That's another thing I failed with for this
-series.)
-
-Best regards
-Uwe
-
---hl7obtkvuj2dllak
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmZ0BaEACgkQj4D7WH0S
-/k7t4gf/cOIyz4Nagjp9u3Qrvbjo6uKDr5UNTBYW/l4HOKdCzRn2Ay7aWf5oRPOh
-ZES1YQ1qZfU016yI+Uo1glCjmYvLuqCUeAh10hdBbTG62MHpUZoQG6KjL2Xv5+x/
-FpsgfO77RerGDLZ4eUEH57XolCnRK76HAyDGLUp07GOU/xuDpGLmu6vh+Q+7m3Uu
-A3IrKXrN9x8RDbO1Dl6Hm2Qpw+wbvZtlyTS/Zua+nKtO8lGpGkWtv3eJnnnupHQt
-RJDvkplZy1uB3W+4x1cU/AKRtUphn94+DAaoWAHu82hamy3s3xiuS9n1aq5W4l8h
-AtKCcSvaXottQP+Nm85Lr7Y1srvioQ==
-=TbiZ
------END PGP SIGNATURE-----
-
---hl7obtkvuj2dllak--
-
---===============1163642461246360174==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1163642461246360174==--
