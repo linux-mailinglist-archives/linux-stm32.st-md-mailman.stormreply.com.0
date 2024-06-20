@@ -2,103 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8147191051A
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 15:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2C09103AD
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 14:07:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37A34C6DD6E;
-	Thu, 20 Jun 2024 13:02:35 +0000 (UTC)
-Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC70FC6DD6D;
+	Thu, 20 Jun 2024 12:07:09 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33A89C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0BB4C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 09:41:48 +0000 (UTC)
-Received: from p-infra-ksmg-sc-msk01.sberdevices.ru (localhost [127.0.0.1])
- by mx1.sberdevices.ru (Postfix) with ESMTP id 095FB10001E;
- Thu, 20 Jun 2024 12:41:47 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 095FB10001E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
- s=mail; t=1718876507;
- bh=eHWSHU6IOFj9d81lzeTSCSoajp29AFtL+A3T39sy4lk=;
- h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:From;
- b=SJ9C2RT/3zxNcETOlA+R7zdR9bgqCBWrTAJKs6yKjHsLD92MS0HKFRJ6tgF47uJdC
- 2D8JzU4ZBZKqQnlDmhNQ+jJtM1LsUuZBkWCbqfNu2SC19RrO0B826IIgjtAkuiNku/
- qBYufLJfpgbHyadnxpSGN91F/1bTEMqag/3CjsSxfsBxyU+Hzwmh/fAn5uZs9e27rS
- 8oFLwkDs8ETXGGDo8UvUi5s1W0z8adnonSe/14p0m+nKmy8Hi7+NN62ydlW+kqKcR0
- rpbSQTmuo0fxX2N5/quj+Z7SS1mGSIC/X9sZm23PbhFf7smSqqyLTNQZASjKuMF15q
- OepCAAht5MUOg==
-Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
- [172.16.192.103])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mx1.sberdevices.ru (Postfix) with ESMTPS;
- Thu, 20 Jun 2024 12:41:46 +0300 (MSK)
-Received: from [172.28.129.141] (100.64.160.123) by
- p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 20 Jun 2024 12:41:46 +0300
-Message-ID: <dc787966-2920-459f-b091-ce09fe97315d@salutedevices.com>
-Date: Thu, 20 Jun 2024 12:41:45 +0300
+ Thu, 20 Jun 2024 12:07:02 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-52c7f7fdd24so1012963e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Jun 2024 05:07:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1718885222; x=1719490022;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=bdJE30S2Vadyj3WLYb1jiaxf0LmQe94InZQcowugJGw=;
+ b=Tm2OItbzclGv3kQPAGhHMG+aWgBM+xJXA0+v+NgfiboS4b1kpe+CcisSN5TYeuZUSY
+ joDvwKo5Irklp6pFJmF4Y1vVVo4xD+qcx7HYgEzEN2SnzQCnYTsW/0ioVBgNIuCrNsj0
+ IbzfxhvDQgkBvh0GAsEzImpJZGxh0KmMFmFB+fGHXDDC856VBwTm05MA1zcczepd8XA0
+ 559CZp2A6mW+JnxGtJMspvQY50jzqD6qJOqKaNczlOmAfd/68Tcd5wqqLu2e2+WRadSv
+ TUvM8LrWeZqYu2r3H1nM7Sxk8PMtLqzZ1+KyDzubEwK478bfYFWS1oN0fUI658P5EjGC
+ aj3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718885222; x=1719490022;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bdJE30S2Vadyj3WLYb1jiaxf0LmQe94InZQcowugJGw=;
+ b=vtp6mWEwlduzlPmbXiUD823Cv5nlp/odmscCom0pdCdATp363tircyQzndFysGEReF
+ ocpyGIftzwG86bQRPcFYE1AnyTSXrB8ghDI5FwEjWPOA/VVaXUCqynF6ns60VNWTXw6M
+ tB6FPhPr8i6N+xDbKDEqBKLuGWkP5qbHRg2iZo4uAKoi9R07IOQ5vw5STf75ePuuxAqb
+ bUorhmWhgDDQVqZsjUXGgqAFQucCfzI/EYYogC8G7FiUyT14lWMv9pvusKNJdmDYSjG5
+ bC3tEsdAnF/3xq0Y5uYUet4rasrFCurxympkizFvYpOVDrvbsBYzQfO87EdnvGFpCoCt
+ gZWA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVI1WHX1YvPRPeJn/Aqk6AX8IoI04yYFduwk8Hvg1vXObqzUoI41xuKlCsxhZKPF5nmYgmkZK2VJkkfronOmzrLF72TKxxMl7N/cp2jrispiB6MRPKASh4g
+X-Gm-Message-State: AOJu0YyBuC0PzmxMzXW8PvAaJYSanBN+7weH6CBHedqiR7rz9Eg+tiUN
+ 7bF+41Ri+zjgHBOXNnbx1/kGOw9FyNMdtz23poZ2+sEAARRD2B0Z
+X-Google-Smtp-Source: AGHT+IH7EA7ojjgOEAN9QY2Sip1uTsB7157OhZwJSe0fvPLVID47wVVFWRpzV0KqBSbzftOZME6SoQ==
+X-Received: by 2002:a05:6512:3b8b:b0:52c:ce4a:3a8a with SMTP id
+ 2adb3069b0e04-52cce4a3b5emr2366093e87.1.1718885221604; 
+ Thu, 20 Jun 2024 05:07:01 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52ca2825863sm2016905e87.55.2024.06.20.05.07.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jun 2024 05:07:01 -0700 (PDT)
+Date: Thu, 20 Jun 2024 15:06:57 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <e3yzigcfbbkowias54nijvejc36hbcvfgjgbodycka3kfoqqek@46gktho2hwwt>
+References: <20240620085200.583709-1-0x1207@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Trevor Gamblin <tgamblin@baylibre.com>
-References: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
- <20240617-review-v3-13-88d1338c4cca@baylibre.com>
-Content-Language: en-US
-From: George Stark <gnstark@salutedevices.com>
-In-Reply-To: <20240617-review-v3-13-88d1338c4cca@baylibre.com>
-X-Originating-IP: [100.64.160.123]
-X-ClientProxiedBy: p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) To
- p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
-X-KSMG-Rule-ID: 10
-X-KSMG-Message-Action: clean
-X-KSMG-AntiSpam-Lua-Profiles: 186025 [Jun 20 2024]
-X-KSMG-AntiSpam-Version: 6.1.0.4
-X-KSMG-AntiSpam-Envelope-From: gnstark@salutedevices.com
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Info: LuaCore: 20 0.3.20
- 743589a8af6ec90b529f2124c2bbfc3ce1d2f20f,
- {Tracking_from_domain_doesnt_match_to}, smtp.sberdevices.ru:7.1.1,5.0.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2;
- salutedevices.com:7.1.1;
- 100.64.160.123:7.1.2, FromAlignment: s, ApMailHostAddress: 100.64.160.123
-X-MS-Exchange-Organization-SCL: -1
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiPhishing: Clean
-X-KSMG-LinksScanning: Clean
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
- bases: 2024/06/20 08:22:00 #25655230
-X-KSMG-AntiVirus-Status: Clean, skipped
-X-Mailman-Approved-At: Thu, 20 Jun 2024 13:02:33 +0000
-Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
- Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Dmitry Rokosov <ddrokosov@sberdevices.ru>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Cosmin Tanislav <cosmin.tanislav@analog.com>, Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-arm-msm@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kevin Hilman <khilman@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 13/41] iio: adc: meson_saradc: make use
- of regmap_clear_bits(), regmap_set_bits()
+Content-Disposition: inline
+In-Reply-To: <20240620085200.583709-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net-next v1] net: stmmac: xgmac: increase
+ length limit of descriptor ring
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,19 +83,121 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8xNy8yNCAxNjo0OSwgVHJldm9yIEdhbWJsaW4gd3JvdGU6Cj4gSW5zdGVhZCBvZiB1c2lu
-ZyByZWdtYXBfdXBkYXRlX2JpdHMoKSBhbmQgcGFzc2luZyB0aGUgbWFzayB0d2ljZSwgdXNlCj4g
-cmVnbWFwX3NldF9iaXRzKCkuCj4gCj4gSW5zdGVhZCBvZiB1c2luZyByZWdtYXBfdXBkYXRlX2Jp
-dHMoKSBhbmQgcGFzc2luZyB2YWwgPSAwLCB1c2UKPiByZWdtYXBfY2xlYXJfYml0cygpLgo+IAo+
-IFN1Z2dlc3RlZC1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BiYXlsaWJy
-ZS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogVHJldm9yIEdhbWJsaW4gPHRnYW1ibGluQGJheWxpYnJl
-LmNvbT4KClJldmlld2VkLWJ5OiBHZW9yZ2UgU3RhcmsgPGduc3RhcmtAc2FsdXRlZGV2aWNlcy5j
-b20+CgotLSAKQmVzdCByZWdhcmRzCkdlb3JnZQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Furong
+
+On Thu, Jun 20, 2024 at 04:52:00PM +0800, Furong Xu wrote:
+> DWXGMAC CORE supports a ring length of 65536 descriptors, bump max length
+> from 1024 to 65536
+
+What XGMAC IP-core version are you talking about? The DW XGMAC
+IP-core databooks I have define the upper limit much lesser than that.
+
+Do you understand that specifying 65K descriptors will cause a huge
+amount of memory consumed, right? Each descriptor is equipped with at
+least 1-page buffer. If QoS/XGMAC SPH is enabled then each descriptor
+is equipped with a second buffer. So 65K-descriptor will cause
+allocation of at least 65536 * (4 * 4) bytes + 65536 * PAGE_SIZE
+bytes. So it's ~256MB for the smallest possible 4K-pages. Not to
+mention that there can be more than one queue, two buffers assigned to
+each descriptor and more than a single page allocated for each buffer
+in case of jumbos. All of that will multiply the basic ~256MB memory
+consumption.
+
+Taking all of the above into account, what is the practical reason of
+having so many descriptors allocated? Are you afraid your CPU won't
+keep up with some heavy incoming traffic?
+
+Just a note about GMACs. The only GMAC having the ring-length limited
+is DW QoS Eth (v4.x/v5.x). It may have up to 1K descriptors in the
+ring. DW GMAC v3.73a doesn't have the descriptors array length constraint.
+The last descriptor is marked by a special flag TDESC0.21 and
+RDESC1.15, after meeting which the DMA-engine gets back to the first
+descriptor in the ring.
+
+-Serge(y)
+
+> 
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 ++
+>  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 24 +++++++++++++++----
+>  2 files changed, 22 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 6a2c7d22df1e..264f4f876c74 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -11,6 +11,8 @@
+>  
+>  /* Misc */
+>  #define XGMAC_JUMBO_LEN			16368
+> +#define XGMAC_DMA_MAX_TX_SIZE		65536
+> +#define XGMAC_DMA_MAX_RX_SIZE		65536
+>  
+>  /* MAC Registers */
+>  #define XGMAC_TX_CONFIG			0x00000000
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> index 18468c0228f0..3ae465c5a712 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> @@ -491,9 +491,16 @@ static void stmmac_get_ringparam(struct net_device *netdev,
+>  				 struct netlink_ext_ack *extack)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(netdev);
+
+> +	u32 dma_max_rx_size = DMA_MAX_RX_SIZE;
+> +	u32 dma_max_tx_size = DMA_MAX_TX_SIZE;
+>  
+> -	ring->rx_max_pending = DMA_MAX_RX_SIZE;
+> -	ring->tx_max_pending = DMA_MAX_TX_SIZE;
+> +	if (priv->plat->has_xgmac) {
+> +		dma_max_rx_size = XGMAC_DMA_MAX_RX_SIZE;
+> +		dma_max_tx_size = XGMAC_DMA_MAX_TX_SIZE;
+> +	}
+> +
+> +	ring->rx_max_pending = dma_max_rx_size;
+> +	ring->tx_max_pending = dma_max_tx_size;
+
+Do you understand the consequence of this change, right?
+De
+
+>  	ring->rx_pending = priv->dma_conf.dma_rx_size;
+>  	ring->tx_pending = priv->dma_conf.dma_tx_size;
+>  }
+> @@ -503,12 +510,21 @@ static int stmmac_set_ringparam(struct net_device *netdev,
+>  				struct kernel_ethtool_ringparam *kernel_ring,
+>  				struct netlink_ext_ack *extack)
+>  {
+> +	struct stmmac_priv *priv = netdev_priv(netdev);
+> +	u32 dma_max_rx_size = DMA_MAX_RX_SIZE;
+> +	u32 dma_max_tx_size = DMA_MAX_TX_SIZE;
+> +
+> +	if (priv->plat->has_xgmac) {
+> +		dma_max_rx_size = XGMAC_DMA_MAX_RX_SIZE;
+> +		dma_max_tx_size = XGMAC_DMA_MAX_TX_SIZE;
+> +	}
+> +
+>  	if (ring->rx_mini_pending || ring->rx_jumbo_pending ||
+>  	    ring->rx_pending < DMA_MIN_RX_SIZE ||
+> -	    ring->rx_pending > DMA_MAX_RX_SIZE ||
+> +	    ring->rx_pending > dma_max_rx_size ||
+>  	    !is_power_of_2(ring->rx_pending) ||
+>  	    ring->tx_pending < DMA_MIN_TX_SIZE ||
+> -	    ring->tx_pending > DMA_MAX_TX_SIZE ||
+> +	    ring->tx_pending > dma_max_tx_size ||
+>  	    !is_power_of_2(ring->tx_pending))
+>  		return -EINVAL;
+>  
+> -- 
+> 2.34.1
+> 
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
