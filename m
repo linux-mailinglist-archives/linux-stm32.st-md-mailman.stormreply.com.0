@@ -2,67 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DDBF90FEE9
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1959090FF2C
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:45:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1766EC7128F;
-	Thu, 20 Jun 2024 08:33:28 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2899C6B47A;
+	Thu, 20 Jun 2024 08:45:07 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90F4EC7128D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20048C5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 08:33:26 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45K68KFh015585;
- Thu, 20 Jun 2024 10:33:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- STRAWaduCOHElcknAncBNyhYTModBowLL+oEP/LL/H0=; b=KJzLUBTYRZpHv91B
- vTElfZkST37oK9rY8RkPjz6O2dlhH2plNvdGOSH3Y003T1FohLmbqOzGfyIJClns
- BvHQz1+343tY9s7YKSYQern7WL0RjYnmtx+tyZfEeSTe+XQKU1gNNPaLMNRtAYHj
- DSFCkjDvlbc/zaD5nU6RzVtaRfMUf6256ZP4PtehkZ6ghaKJjAHcErEPuI9bkRt3
- 2XAiJLAcs6vkBy/8c/jv2fcKzn64gmYSpoi6JDqqb0bYwD0xBvkm3oR2cKAbodhL
- JoWHAQmI6nbdnreZdLJr8AY33nSjw2I5A9ZkgJb0tsO3/NF6jvoJnX3vTTIuaxgz
- rgQWzg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yuj9s75c8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jun 2024 10:33:08 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0F6A840048;
- Thu, 20 Jun 2024 10:33:00 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ABCCA215BFA;
- Thu, 20 Jun 2024 10:32:26 +0200 (CEST)
-Received: from localhost (10.48.87.171) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 20 Jun
- 2024 10:32:26 +0200
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@linutronix.de>
-Date: Thu, 20 Jun 2024 10:31:15 +0200
-Message-ID: <20240620083115.204362-9-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240620083115.204362-1-antonio.borneo@foss.st.com>
-References: <20240620083115.204362-1-antonio.borneo@foss.st.com>
+ Thu, 20 Jun 2024 08:45:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 46042CE2050;
+ Thu, 20 Jun 2024 08:44:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309ECC2BD10;
+ Thu, 20 Jun 2024 08:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1718873096;
+ bh=g9sCHOwPXjh8FEzTD/8HrE3pyN+mCBZy4wtJBPu7b7U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KF1lig/HOJVi8YdqwyKDsPovl8wMVEneFLEOEmECkeLiFt9vTvQwyKINK8+IfIuwI
+ yGw5HXHSFkwivUMmwgTH4XQxfhlV1cdKKarV+k6DR/k2dKZIJtJ3BPyrwp9u63HAbH
+ kTxSOnSrHfVeUG6OGkfSgbMFgYfRohuiGDLDQaBiokltB7oPRkL3wNyTql7xAQDp2y
+ JPa8cj9BrXw02ZnqMr2Me4pe9pQ1eLPOIxThDyoHDwNSuatEq9CvITiHHbrkZwmUaz
+ PZsfw6HqGgt0A933CT5c5fljlAASg9+LsVUiHaeDM++b/gXiUAvfAIg4oB0pguevpc
+ 9jQu4eF9f3JBA==
+Date: Thu, 20 Jun 2024 09:44:51 +0100
+From: Lee Jones <lee@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Message-ID: <20240620084451.GC3029315@google.com>
+References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
+ <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.87.171]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-20_06,2024-06-19_01,2024-05-17_01
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 8/8] arm64: Kconfig: allow build
-	irq-stm32mp-exti driver as module
+Content-Disposition: inline
+In-Reply-To: <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
+Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 3/5] counter: stm32-timer-cnt: Use
+ TIM_DIER_CCxIE(x) instead of TIM_DIER_CCxIE(x)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,35 +55,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Drop auto-selecting the driver, so it can be built either as a
-module or built-in.
-
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
- arch/arm64/Kconfig.platforms | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index be8629858d747..a028ea3123789 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -309,7 +309,6 @@ config ARCH_STM32
- 	select GPIOLIB
- 	select PINCTRL
- 	select PINCTRL_STM32MP257
--	select STM32MP_EXTI
- 	select ARM_SMC_MBOX
- 	select ARM_SCMI_PROTOCOL
- 	select COMMON_CLK_SCMI
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAxOSBKdW4gMjAyNCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFRoZXNlIHR3
+byBkZWZpbmVzIGhhdmUgdGhlIHNhbWUgcHVycG9zZSBhbmQgdGhpcyBjaGFuZ2UgZG9lc24ndAo+
+IGludHJvZHVjZSBhbnkgZGlmZmVyZW5jZXMgaW4gZHJpdmVycy9jb3VudGVyL3N0bTMyLXRpbWVy
+LWNudC5vLgo+IAo+IFRoZSBvbmx5IGRpZmZlcmVuY2UgYmV0d2VlbiB0aGUgdHdvIGlzIHRoYXQK
+PiAKPiAJVElNX0RJRVJfQ0NfSUUoMSkgPT0gVElNX0RJRVJfQ0MySUUKPiAKPiB3aGlsZQo+IAo+
+IAlUSU1fRElFUl9DQ3hJRSgxKSA9PSBUSU1fRElFUl9DQzFJRQo+IAo+IC4gVGhhdCBtYWtlcyBp
+dCBuZWNlc3NhcnkgdG8gaGF2ZSBhbiBleHBsaWNpdCAiKyAxIiBpbiB0aGUgdXNlciBjb2RlLAo+
+IGJ1dCBJTUhPIHRoaXMgaXMgYSBnb29kIHRoaW5nIGFzIHRoaXMgaXMgdGhlIGNvZGUgbG9jYXRh
+dGlvbiB0aGF0Cj4gImtub3dzIiB0aGF0IGZvciBzb2Z0d2FyZSBjaGFubmVsIDEgeW91IGhhdmUg
+dG8gdXNlIFRJTV9ESUVSX0NDMklFCj4gKGJlY2F1c2Ugc29mdHdhcmUgZ3V5cyBzdGFydCBjb3Vu
+dGluZyBhdCAwLCB3aGlsZSB0aGUgcmVsZXZhbnQgaGFyZHdhcmUKPiBkZXNpZ25lciBzdGFydGVk
+IGF0IDEpLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1r
+b2VuaWdAYmF5bGlicmUuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXIt
+Y250LmMgfCA0ICsrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
+dGlvbnMoLSkKCkRpZCB5b3UgZHJvcCBXaWxsaWFtJ3MgQWNrIG9uIHB1cnBvc2U/CgotLSAKTGVl
+IEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
