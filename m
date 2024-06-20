@@ -2,187 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 316B0911D5F
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A72911D60
 	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 09:53:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCABDC7128E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8CA4C712A2;
 	Fri, 21 Jun 2024 07:53:37 +0000 (UTC)
-Received: from mx0a-00549402.pphosted.com (mx0a-00549402.pphosted.com
- [205.220.166.134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30F26C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E740AC6DD6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 20:14:34 +0000 (UTC)
-Received: from pps.filterd (m0233778.ppops.net [127.0.0.1])
- by mx0b-00549402.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45KIiLle011007;
- Thu, 20 Jun 2024 20:13:28 GMT
-Received: from deu01-be0-obe.outbound.protection.outlook.com
- (mail-be0deu01lp2176.outbound.protection.outlook.com [104.47.7.176])
- by mx0b-00549402.pphosted.com (PPS) with ESMTPS id 3yvrk8g248-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jun 2024 20:13:28 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AP11HT63IZLzHvbkGi533VFufDz//bRlyrndgfxe85zoNjlnQqxmuKRfYgwb3c8bXuH8yUgFRocz1F2q5QLH/nhqtUUIhM/5J9t+8upCjVqXQx60H/suFG5oE+eyMFIkOAQQ3EKgDFpkN4aBX/U6cjMCd00VzTUYZ4gwFVhzmhG3edb1xjYrh8M0bb2/XN3nik57BA534ce8x3WmHM0OESiyP8c+bsn5oRDX1GL6dqroj7/Leohnwh1FFw0o0ginUvhwmOM1AH/kf/2uke2nr77pvUZQ2OPnria4qbvdMYQ/Q4XKC1pDGtI+QlaRJzs7En6vaZKad73vyKOvcXWBSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gp4sE+F+gnNfJMiIHxZo0O554zu1HvlVpR71krwypAU=;
- b=Zy7UvFKEhAbemjNGPs/dNbYVQ6hb9uptGeEeVreBxKZr8G+hFxt6PiPwDvTN6FNRqSwRKhkUkhdPxpWJU0ecTPVrVj3gzOrMIIa+cn9UFBwjEitw6RC24dpaCc7WJnWDSjaEwEG4iNGGMdQ4ehXsQwIiXFllMR9bs5uHonWczfFvrn2fuhBw7tiaETKxe1/PUjte6jpjMY3j1RpPd0nNygMHwgXC7Z4zdF7dANXeQJi8hDeu4hkvk0QkdTsCUofiGf4dhpftngiRd0Z0et4z1ftNS01XUiMQkC3dvIYUMUXoI0tDH4onFZlmUKmAdttq77ZeQfEtNFGSb+yZVSjRmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=tdk.com; dmarc=pass action=none header.from=tdk.com; dkim=pass
- header.d=tdk.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tdk.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gp4sE+F+gnNfJMiIHxZo0O554zu1HvlVpR71krwypAU=;
- b=sfC1EMz1HOU6cAAUrZW8JMOBsNBYHTNX52qze0dPssN7d3NEUxey4wKWZpdCyIsH48BwhIKEOViJZNfftbHkbxO2o18JrsKXXT8ROzuMX5C3XG9n5joWHQL1WjQ4/9GwAalQTmOrp67IHXBncbiw+rEarfGwWyo0CNFEOc9JBbEp7pvGyfXJQct5s3rfLskEmkU+9r6xrLCB6jCDIO+FFY4+4NcZEEfNnVhS81l9FkueOyDpzl5bn/mCAzs9puThoL4CPx66xasDuPes79fU44rObsnv4SL5AgMsSaRnInLosOtqc7VDiMSdgCsmGvSNUpC9y99kDyqTPKaw91i8uQ==
-Received: from FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:7c::11)
- by FR4P281MB4503.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:121::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.19; Thu, 20 Jun
- 2024 20:13:21 +0000
-Received: from FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM
- ([fe80::53a6:70d:823f:e9ac]) by FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM
- ([fe80::53a6:70d:823f:e9ac%4]) with mapi id 15.20.7698.017; Thu, 20 Jun 2024
- 20:13:21 +0000
-From: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
-To: Trevor Gamblin <tgamblin@baylibre.com>, Jonathan Cameron
- <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Dmitry Rokosov
- <ddrokosov@sberdevices.ru>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Cosmin Tanislav <cosmin.tanislav@analog.com>,
- Chen-Yu Tsai <wens@csie.org>, Hans de Goede <hdegoede@redhat.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>,
- Saravanan Sekar <sravanhome@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, =?iso-8859-1?Q?Nuno_S=E1?=
- <nuno.sa@analog.com>, Linus Walleij <linus.walleij@linaro.org>, Crt Mori
- <cmo@melexis.com>
-Thread-Topic: [PATCH v3 27/41] iio: imu: inv_icm42600: make use of
- regmap_clear_bits(), regmap_set_bits()
-Thread-Index: AQHawL1erbL+I6YUckuaYoNX5CJs27HRGp6i
-Date: Thu, 20 Jun 2024 20:13:21 +0000
-Message-ID: <FR3P281MB1757B426C8E184F5B1C8A334CEC82@FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM>
-References: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
- <20240617-review-v3-27-88d1338c4cca@baylibre.com>
-In-Reply-To: <20240617-review-v3-27-88d1338c4cca@baylibre.com>
-Accept-Language: en-US, fr-FR
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: FR3P281MB1757:EE_|FR4P281MB4503:EE_
-x-ms-office365-filtering-correlation-id: d9f9fe65-6bbb-4580-cf90-08dc91656eb0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230037|1800799021|366013|376011|7416011|3613699009|38070700015|921017; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?XpPKK7QlWfjW1+hBau+ZWXB7PBj8QGUjUnJnVaGl8yXN0SgqaX30NZzmWn?=
- =?iso-8859-1?Q?0P+ZoOv+ZuWfSLxLVltaYbKT5HQsUxjdmdGfssGqQ3zRsVEZmJxGsI6f31?=
- =?iso-8859-1?Q?uqI5VOwD/vWgmgzK7xk/M20G547CyAckSWcUcBP4hUpLFiSPV6SU31CD5d?=
- =?iso-8859-1?Q?WClcJGrWCcbvGsELF7KWIRqRn8RPQOO5Hsw9rgMyvg3iieMocr7JTld5np?=
- =?iso-8859-1?Q?VQ7f88KPFLBKM0xC6VvplRF9cS6vxpwSJK9zdcU8q2EANZ2mz49Hb6F9dW?=
- =?iso-8859-1?Q?DGGuHeLdjuoPcgeUEyzQ6xNVs0znV/OhyhiE+IBDVjxPnWutlQmwEQAizv?=
- =?iso-8859-1?Q?qERkRe0ciruEYr/GXpag0Y80Wt5+qsJO7L+/+9sJmxo1oIKOFGZR/ffBPx?=
- =?iso-8859-1?Q?LKNs0mhZmZc8KaieNtKiDGUpvR2GUjhEaZwy6CHBy4LdtgaHqrHz3JdwaR?=
- =?iso-8859-1?Q?btYYR3b4QIktEFDtGRf64sl5ZsKjDQmELjV9mQlIAtVeanUM+rfJWQtx+J?=
- =?iso-8859-1?Q?3p5FSxNZ08aPUZz3iqHd9OlOrJwFeVQY/4VN2qVZ1TQHhAfieEDbwp2Uql?=
- =?iso-8859-1?Q?SDx6wJGFdIlpkxwFUxrJSEvA1i3tbPIcV843zPIJnf0PgAXtNgrswBH/aX?=
- =?iso-8859-1?Q?/7Xnfk5xx9lnskvJIuteZMjyQopvQu9s19Gka0zX2Owyifx3dk/PSFKlrN?=
- =?iso-8859-1?Q?JnWMEptlN5FM7Lythm6EQRHY2DFtcZ6h2JBOiSC41X8WnxagjtyMMkkiND?=
- =?iso-8859-1?Q?keJnsVwAcpiCYC2lJIEKMyHsJiWJaaw8Rneml/1uqfHAFAOIf47Rxkl59k?=
- =?iso-8859-1?Q?kMSuHETwFSVq6WQNTdsY9RZQi9wKhAGCyegK+Plgz+xMnvxZdLwVgy1NMX?=
- =?iso-8859-1?Q?r+0jGxEork1GJXm46dj8Xr629I9tUk23fFHQCz8F/sVDn4/rcj11+HlGh7?=
- =?iso-8859-1?Q?W0lXsnV9s9n3ux8O93ElRjelCwdO95Ypuf7xMjxu5BJeSIdJYaEEHvtTei?=
- =?iso-8859-1?Q?+/ktaCdlu9k/vjitJe9Alz1K0KXbsxn3dLtRj9jKkX2ovwDcEXXWK+6wxs?=
- =?iso-8859-1?Q?8tjgcFnOOxMEeb+tF2Gs4MqduTycU/yDFNMFiU6z3aGwKmsPf7GIIhHvLc?=
- =?iso-8859-1?Q?7+OtwR01cSrdLEAi5+HgtOwqfgZQb81KAq1Aw5WMfF9ADIZibQgtF03KGQ?=
- =?iso-8859-1?Q?YfjjtzNFFH9XNzneG/lQXU9g82Y0Utw2u4QtYgtRoNWuBCWw48Op31m/yl?=
- =?iso-8859-1?Q?CIh4rJkDCSjD3sotNYsYmfp5YHjzHdr2NnhKPGMneCZNrgIeygqyW7IPzM?=
- =?iso-8859-1?Q?KgvEQx013p3p8MORLQmAYYAcNVZ8jCXtPdXBrgO+kn2SNBTasDOKEZuTD5?=
- =?iso-8859-1?Q?dn0XtOQ7NkdW5z+sl705yucP3OPxhqV6JyaLtUsgCnaUzfSE6XbxLPE2JK?=
- =?iso-8859-1?Q?MDhJePrBHdhxRijeMqdSAHueDhy25vHOjacweiAFIUoxte4tOZoVd1OKaX?=
- =?iso-8859-1?Q?Y=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230037)(1800799021)(366013)(376011)(7416011)(3613699009)(38070700015)(921017);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?nPexuniFbU+nt0OnsFlZ7w3h+y3NNFJyZx+Ba71rCFqVLe/cMX2Uv6I7JS?=
- =?iso-8859-1?Q?jL/r5GzdkX1Om/YKZXAHdd16hCt3Za7SySQbegyTf9Ef5lsMU4I/eNXetW?=
- =?iso-8859-1?Q?J45Ij1ZHKmdDzZcugK/pDTkFzzjtkpHYijRObY1GxSz2P7rN/w+sgDcRmZ?=
- =?iso-8859-1?Q?UmEmV7sqFXVWsB65USrRxRSpDmROIWvF8MRraoKgvCjAkG9+i0kO3fHhJy?=
- =?iso-8859-1?Q?MxBg3D1Y9EAML5/H9PEGlK/3r5rSsLazC2HE+hH2p2rv0zlFBhB6PNBWjw?=
- =?iso-8859-1?Q?a+fZPgp6uqgVHogt4eNtNk4wbNoUAxxXHedolS4Pw5RERW52tNy9m87l9a?=
- =?iso-8859-1?Q?4Nvim3ScE+Y0sbPCgOpa2yaWV1kehtgoDo1BBWjMCyv9y/0ovKIPQAZLip?=
- =?iso-8859-1?Q?/3MFTcfIMs95fDFjPDLfl2ZxJuWCK1khDrbOa/11b2Gtw1TPH+wBtefgkV?=
- =?iso-8859-1?Q?6xl8RAgVjuROVLn/1BghCAy7V9qCWp+KNhCwU97JVQ8RN3/aHwlVS9zSot?=
- =?iso-8859-1?Q?TTEWfLrrP1TYEPMjpa5uotie7VqhTmZBPrOgZ6cAXnvTrd2p8Ux/H6aTPL?=
- =?iso-8859-1?Q?nuTumsegVHW/E+MjDl8GmFiHc0zMT8ChUGbv7f/h1KJaw47Cb5IAxYTntu?=
- =?iso-8859-1?Q?68LyqrzfgBd36mOZcFUiY9CWnbPKgod5SizyWJzOBuVXtH7kXRLtXQH7yC?=
- =?iso-8859-1?Q?p57zoDbVr47DgoESRe3if5YflyOFgyYeSiiVY/0QJuUvh/LaNWTxg+hERK?=
- =?iso-8859-1?Q?Kjcx+RsMe9XC0X70e6JGdKyQOaOF0hZx+4PEapOupoyHFPTBkGCCPjmPPV?=
- =?iso-8859-1?Q?dp6gqIwxd+pLGGnjzaQLyImoRGNnVSeh0U0/0Lw7FjCJWrI1iokwhd9fxK?=
- =?iso-8859-1?Q?y52OKPefTFy2QNCUD09RGdNzGdiJrOc/DG2q/Lmrto1/wOvGKYEh4r2zOM?=
- =?iso-8859-1?Q?WhGXRVF5l9pALzuZXZIRFnLCoUEGeWAAwNQGOWdrpf0TNpvZVMyIiwS3sf?=
- =?iso-8859-1?Q?idxKuMNu9p/99ZXoXBKiRhcI3eKTyLx5jp03OAylJatU/12TZvBiLssGG7?=
- =?iso-8859-1?Q?kFBZbEr55I+/4qlznf530RAUBPHLU7zJibpFcPUNgjs1654G+foaMT3/Tw?=
- =?iso-8859-1?Q?5HS9B+SGyqftZzzPp/V58dlGMpnFAC0fIasvAOTaoFJ0QDLBmkbD448Bin?=
- =?iso-8859-1?Q?+oPsmQHVdBbgiZebis9fnU4HJl2/FVa1fiNrjwURS4/g4ptm/PUmUBqx3u?=
- =?iso-8859-1?Q?aFwZVW5jjLdnXR4XSOxIzBsXdKM48zasHRJbuYPTNIM09KRa+XBdBzr9E1?=
- =?iso-8859-1?Q?AOrkJLvLP336f7Y6zaGhAjdckaE3WRnjEuuFlk7ynGUrXgzFyCQJHG8gBW?=
- =?iso-8859-1?Q?zyYL5mWARWK7D4EMKHAbvyEskg4AuU1VWVHM1U4EGzG73UuRyF7kIOkL3S?=
- =?iso-8859-1?Q?OoZYB97v5D5qNI2BWCwrDSd/gkePJ/Q9o9mPfn1YQ3hJLqJELrfe5MuYSl?=
- =?iso-8859-1?Q?M6rxN70bJ/DM1+uUf6PgjeLMB1ILF4aXwugRQId4xnGcKMxpOnb9N6HlQF?=
- =?iso-8859-1?Q?Re0hLOXcfdzoiypGKPXGwK4B2BdBaAJ1sUoFw+nRgkzboGpwr54TsVyiz9?=
- =?iso-8859-1?Q?EE3dsPlqsshQMWUbcFaKTHr6vz2gGtpABjLda4p3bkKCcVy/ZiBd1BTPQz?=
- =?iso-8859-1?Q?cs/kZGPfiYKypNfm6W/hHGVHyakA6FM2Z7Z6KrQVI8cabKSlviQtR/mBrm?=
- =?iso-8859-1?Q?wdmQ=3D=3D?=
+ Thu, 20 Jun 2024 21:29:03 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1f9b523a15cso10765155ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Jun 2024 14:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1718918942; x=1719523742;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1B8n/9x5UV/1SNK0e2sD4WDigveg5fhKDxICWDMhEd8=;
+ b=vxghf35qJ/ujS8qY704tTRAYdUbaWQDGz/sinX7m0dQq/Kigg3iTN3ijjKVlCzveqY
+ GbS/WPzNlZIubGG/ypjDK8tos9plSqlY8l32kq9irTfpnNGcZhI3HAx91RE39uJsQmUs
+ 9t4qMfAViUyE4G78QCueF4JcQ1ZSubVC9Pv054YjmYceLgLl2MxvPhmrTKueN0AzXEEg
+ b/BSBsiqrQFbSGRd/aEbXllDqH/V/cSlEJOl4lJJA3og8mWhzho8EspJLZnWZiLWRUPW
+ zuGiJSK1WArTUxJzjS/dCLVt/dY74lgvTo/IBKtXfvNbVS0iitgtxslLiuFJfIRu+omT
+ 6QWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718918942; x=1719523742;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1B8n/9x5UV/1SNK0e2sD4WDigveg5fhKDxICWDMhEd8=;
+ b=uVJN2BjGraippPRxJ3xIf7evrmveDSepPk1BmKn5Aze7vPqMCtRcw43xwhswy56EAn
+ s4EsSKaKIhzkPIRcmpiO2JD0xO8PATdhX1bitUL0mnGqneEaYeEC1cTiEE1TFnv8Ypnn
+ n54n2mdNCANn92ce2VBdcUvehmn8Iod5gQvbNm9U3AjLdQvlfAzJWvsWWXcmHX+P1XMU
+ JIFoaUQlTCEr10S3joX3Exn5n5WQJkh0JXCLjNs4skSPLLaoIEEqUdZWrBQROQttkReO
+ kYmfsMIxa/mlRXz/nryT1Jpi+2FCIfGLzv2Jbbty59H6F/Oi3oBCtoT9n8GGkDxP/iw7
+ jbQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUxKEhktXKhL4yAUKgpthFEDK8+PRzP4EVr3vB20M9a27ttYuccXHcYUZ83fVbdwuKcKMJvM92nW1iY2QpPvI+dmQUEmu2dUr9r6lZ7tPX3sj/nx1JcRRq
+X-Gm-Message-State: AOJu0YyDVlAyKLE4cVycxGg5+2V9RoIxv//D2QTQwhc8iF2GUKsRR3gx
+ cnMrFtdId0vLp6mPbpfA6ncCfNEHtAy1QoERO6Wt7LpSCLHNW0WpYJQCz4QfZZQ=
+X-Google-Smtp-Source: AGHT+IGRZRV15RUYJQ36Wvbuz7tQOaEP3gRrX62dbm+NaihBOC+cfum9DmWH761VwwydaedMpum6CQ==
+X-Received: by 2002:a17:902:daca:b0:1f8:66fb:1679 with SMTP id
+ d9443c01a7336-1f9a9274fb1mr93302075ad.30.1718918942421; 
+ Thu, 20 Jun 2024 14:29:02 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800::9eba])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f9ebbbc1cbsm698255ad.282.2024.06.20.14.29.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jun 2024 14:29:01 -0700 (PDT)
+Date: Thu, 20 Jun 2024 15:28:58 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZnSfGkcjxr/4qJn/@p14s>
+References: <20240611073904.475019-1-arnaud.pouliquen@foss.st.com>
+ <20240611073904.475019-2-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-OriginatorOrg: tdk.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: FR3P281MB1757.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9f9fe65-6bbb-4580-cf90-08dc91656eb0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jun 2024 20:13:21.4309 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7e452255-946f-4f17-800a-a0fb6835dc6c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gVtp5SQE3hsDt6YUjdiE3wcAtmW61zqG4/Ldp63k+aEgNbcPNCrTRavUbqK+v3cgaUFu/dW/yb0DEm1JZT8OjbzKaNNMF0ylfPMFVVv6sLU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR4P281MB4503
-X-Proofpoint-ORIG-GUID: WlgyWFQOY_wOpF_GdnmiR7OdqVE_Piyy
-X-Proofpoint-GUID: WlgyWFQOY_wOpF_GdnmiR7OdqVE_Piyy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-20_08,2024-06-20_04,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 spamscore=0
- mlxscore=0 phishscore=0 clxscore=1011 suspectscore=0 malwarescore=0
- bulkscore=0 lowpriorityscore=0 impostorscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2406200147
+Content-Disposition: inline
+In-Reply-To: <20240611073904.475019-2-arnaud.pouliquen@foss.st.com>
 X-Mailman-Approved-At: Fri, 21 Jun 2024 07:53:37 +0000
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 27/41] iio: imu: inv_icm42600: make use
- of regmap_clear_bits(), regmap_set_bits()
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 1/5] remoteproc: core: Introduce
+	rproc_pa_to_va helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -194,192 +85,163 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Trevor,
+On Tue, Jun 11, 2024 at 09:39:00AM +0200, Arnaud Pouliquen wrote:
+> When a resource table is loaded by an external entity such as U-boot or
+> OP-TEE, we do not necessary get the device address(da) but the physical
 
-looks good for me, thanks for the patch.
+s/necessary/necessarily
 
-Acked-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+> address(pa).
+> This helper performs similar translation than the rproc_da_to_va()
+> but based on a physical address.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/remoteproc_core.c | 74 +++++++++++++++++++++++++++-
+>  include/linux/remoteproc.h           |  3 ++
+>  2 files changed, 75 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index f276956f2c5c..3fdec0336fd6 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -230,6 +230,77 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
+>  }
+>  EXPORT_SYMBOL(rproc_da_to_va);
+>  
+> +/**
+> + * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
+> + * memory
+> + *
+> + * @rproc: handle of a remote processor
+> + * @pa: remoteproc physical address
+> + * @len: length of the memory region @pa is pointing to
+> + * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
+> + *
+> + * Some remote processors will ask us to allocate them physically contiguous
+> + * memory regions (which we call "carveouts"), and map them to specific
+> + * device addresses (which are hardcoded in the firmware). They may also have
+> + * dedicated memory regions internal to the processors, and use them either
+> + * exclusively or alongside carveouts.
+> + *
+> + * They may then ask us to copy objects into specific addresses (e.g.
+> + * code/data sections) or expose us certain symbols in other device address
+> + * (e.g. their trace buffer).
+> + *
+> + * This function is a helper function with which we can go over the allocated
+> + * carveouts and translate specific physical addresses to kernel virtual addresses
+> + * so we can access the referenced memory. This function also allows to perform
+> + * translations on the internal remoteproc memory regions through a platform
+> + * implementation specific pa_to_va ops, if present.
+> + *
+> + * Note: phys_to_virt(iommu_iova_to_phys(rproc->domain, da)) will work too,
+> + * but only on kernel direct mapped RAM memory. Instead, we're just using
+> + * here the output of the DMA API for the carveouts, which should be more
+> + * correct.
+
+No point in copying all this.  Just say that it does the same thing as
+rproc_da_to_va(), but with the PA address.
+
+> + *
+> + * Return: a valid kernel address on success or NULL on failure
+> + */
+> +void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
+> +{
+> +	struct rproc_mem_entry *carveout;
+> +	void *ptr = NULL;
+> +
+> +	if (rproc->ops->da_to_va) {
+
+This is really wrong.
+
+> +		ptr = rproc->ops->pa_to_va(rproc, pa, len);
+> +		if (ptr)
+> +			goto out;
+> +	}
+
+There is no current customer for ops::pa_to_va() so please remove.
 
 Thanks,
-JB
-________________________________________
-From:=A0Trevor Gamblin <tgamblin@baylibre.com>
-Sent:=A0Monday, June 17, 2024 15:50
-To:=A0Jonathan Cameron <jic23@kernel.org>; Lars-Peter Clausen <lars@metafoo=
-.de>; Dmitry Rokosov <ddrokosov@sberdevices.ru>; Michael Hennerich <Michael=
-.Hennerich@analog.com>; Cosmin Tanislav <cosmin.tanislav@analog.com>; Chen-=
-Yu Tsai <wens@csie.org>; Hans de Goede <hdegoede@redhat.com>; Ray Jui <rjui=
-@broadcom.com>; Scott Branden <sbranden@broadcom.com>; Broadcom internal ke=
-rnel review list <bcm-kernel-feedback-list@broadcom.com>; Shawn Guo <shawng=
-uo@kernel.org>; Sascha Hauer <s.hauer@pengutronix.de>; Pengutronix Kernel T=
-eam <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>; Neil Armst=
-rong <neil.armstrong@linaro.org>; Kevin Hilman <khilman@baylibre.com>; Jero=
-me Brunet <jbrunet@baylibre.com>; Martin Blumenstingl <martin.blumenstingl@=
-googlemail.com>; Saravanan Sekar <sravanhome@gmail.com>; Orson Zhai <orsonz=
-hai@gmail.com>; Baolin Wang <baolin.wang@linux.alibaba.com>; Chunyan Zhang =
-<zhang.lyra@gmail.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexan=
-dre Torgue <alexandre.torgue@foss.st.com>; Nuno S=E1 <nuno.sa@analog.com>; =
-Linus Walleij <linus.walleij@linaro.org>; Jean-Baptiste Maneyrol <Jean-Bapt=
-iste.Maneyrol@tdk.com>; Crt Mori <cmo@melexis.com>
-Cc:=A0linux-iio@vger.kernel.org <linux-iio@vger.kernel.org>; linux-kernel@v=
-ger.kernel.org <linux-kernel@vger.kernel.org>; linux-arm-kernel@lists.infra=
-dead.org <linux-arm-kernel@lists.infradead.org>; imx@lists.linux.dev <imx@l=
-ists.linux.dev>; linux-amlogic@lists.infradead.org <linux-amlogic@lists.inf=
-radead.org>; linux-arm-msm@vger.kernel.org <linux-arm-msm@vger.kernel.org>;=
- linux-stm32@st-md-mailman.stormreply.com <linux-stm32@st-md-mailman.stormr=
-eply.com>; Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>; Trevor Gambli=
-n <tgamblin@baylibre.com>
-Subject:=A0[PATCH v3 27/41] iio: imu: inv_icm42600: make use of regmap_clea=
-r_bits(), regmap_set_bits()
-=A0
-This Message Is From an External Sender
-This message came from outside your organization.
-=A0
-Instead of using regmap_update_bits() and passing the mask twice, use
-regmap_set_bits().
+Mathieu
 
-Instead of using regmap_update_bits() and passing val =3D 0, use
-regmap_clear_bits().
-
-Suggested-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-Signed-off-by: Trevor Gamblin <tgamblin@baylibre.com>
----
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 14 ++++++--------
- drivers/iio/imu/inv_icm42600/inv_icm42600_core.c   |  9 ++++-----
- drivers/iio/imu/inv_icm42600/inv_icm42600_i2c.c    |  4 ++--
- drivers/iio/imu/inv_icm42600/inv_icm42600_spi.c    |  4 ++--
- 4 files changed, 14 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/i=
-io/imu/inv_icm42600/inv_icm42600_buffer.c
-index 63b85ec88c13..509fe6a3ae97 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -262,9 +262,8 @@ int inv_icm42600_buffer_update_watermark(struct inv_icm=
-42600_state *st)
- =
-
- 	/* restore watermark interrupt */
- 	if (restore) {
--		ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
--					 INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN,
--					 INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN);
-+		ret =3D regmap_set_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
-+				      INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN);
- 		if (ret)
- 			return ret;
- 	}
-@@ -306,9 +305,8 @@ static int inv_icm42600_buffer_postenable(struct iio_de=
-v *indio_dev)
- 	}
- =
-
- 	/* set FIFO threshold interrupt */
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
--				 INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN,
--				 INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN);
-+	ret =3D regmap_set_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
-+			      INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN);
- 	if (ret)
- 		goto out_unlock;
- =
-
-@@ -363,8 +361,8 @@ static int inv_icm42600_buffer_predisable(struct iio_de=
-v *indio_dev)
- 		goto out_unlock;
- =
-
- 	/* disable FIFO threshold interrupt */
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
--				 INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN, 0);
-+	ret =3D regmap_clear_bits(st->map, INV_ICM42600_REG_INT_SOURCE0,
-+				INV_ICM42600_INT_SOURCE0_FIFO_THS_INT1_EN);
- 	if (ret)
- 		goto out_unlock;
- =
-
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio=
-/imu/inv_icm42600/inv_icm42600_core.c
-index 96116a68ab29..bb302f5540cf 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-@@ -435,9 +435,8 @@ static int inv_icm42600_setup(struct inv_icm42600_state=
- *st,
- 		return ret;
- =
-
- 	/* sensor data in big-endian (default) */
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INTF_CONFIG0,
--				 INV_ICM42600_INTF_CONFIG0_SENSOR_DATA_ENDIAN,
--				 INV_ICM42600_INTF_CONFIG0_SENSOR_DATA_ENDIAN);
-+	ret =3D regmap_set_bits(st->map, INV_ICM42600_REG_INTF_CONFIG0,
-+			      INV_ICM42600_INTF_CONFIG0_SENSOR_DATA_ENDIAN);
- 	if (ret)
- 		return ret;
- =
-
-@@ -532,8 +531,8 @@ static int inv_icm42600_irq_init(struct inv_icm42600_st=
-ate *st, int irq,
- 		return ret;
- =
-
- 	/* Deassert async reset for proper INT pin operation (cf datasheet) */
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INT_CONFIG1,
--				 INV_ICM42600_INT_CONFIG1_ASYNC_RESET, 0);
-+	ret =3D regmap_clear_bits(st->map, INV_ICM42600_REG_INT_CONFIG1,
-+				INV_ICM42600_INT_CONFIG1_ASYNC_RESET);
- 	if (ret)
- 		return ret;
- =
-
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_i2c.c b/drivers/iio/=
-imu/inv_icm42600/inv_icm42600_i2c.c
-index 8d33504d770f..ebb31b385881 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_i2c.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_i2c.c
-@@ -28,8 +28,8 @@ static int inv_icm42600_i2c_bus_setup(struct inv_icm42600=
-_state *st)
- 			   INV_ICM42600_INTF_CONFIG6_MASK,
- 			   INV_ICM42600_INTF_CONFIG6_I3C_EN);
- =
-
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INTF_CONFIG4,
--				 INV_ICM42600_INTF_CONFIG4_I3C_BUS_ONLY, 0);
-+	ret =3D regmap_clear_bits(st->map, INV_ICM42600_REG_INTF_CONFIG4,
-+				INV_ICM42600_INTF_CONFIG4_I3C_BUS_ONLY);
- 	if (ret)
- 		return ret;
- =
-
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_spi.c b/drivers/iio/=
-imu/inv_icm42600/inv_icm42600_spi.c
-index cc2bf1799a46..eae5ff7a3cc1 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_spi.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_spi.c
-@@ -27,8 +27,8 @@ static int inv_icm42600_spi_bus_setup(struct inv_icm42600=
-_state *st)
- 	if (ret)
- 		return ret;
- =
-
--	ret =3D regmap_update_bits(st->map, INV_ICM42600_REG_INTF_CONFIG4,
--				 INV_ICM42600_INTF_CONFIG4_I3C_BUS_ONLY, 0);
-+	ret =3D regmap_clear_bits(st->map, INV_ICM42600_REG_INTF_CONFIG4,
-+				INV_ICM42600_INTF_CONFIG4_I3C_BUS_ONLY);
- 	if (ret)
- 		return ret;
- =
-
-
--- =
-
-2.45.2
-
+> +
+> +	list_for_each_entry(carveout, &rproc->carveouts, node) {
+> +		int offset = pa - carveout->dma;
+> +
+> +		/*  Verify that carveout is allocated */
+> +		if (!carveout->va)
+> +			continue;
+> +
+> +		/* try next carveout if da is too small */
+> +		if (offset < 0)
+> +			continue;
+> +
+> +		/* try next carveout if da is too large */
+> +		if (offset + len > carveout->len)
+> +			continue;
+> +
+> +		ptr = carveout->va + offset;
+> +
+> +		if (is_iomem)
+> +			*is_iomem = carveout->is_iomem;
+> +
+> +		break;
+> +	}
+> +
+> +out:
+> +	return ptr;
+> +}
+> +EXPORT_SYMBOL(rproc_pa_to_va);
+> +
+>  /**
+>   * rproc_find_carveout_by_name() - lookup the carveout region by a name
+>   * @rproc: handle of a remote processor
+> @@ -724,8 +795,7 @@ static int rproc_alloc_carveout(struct rproc *rproc,
+>  	 * firmware was compiled with.
+>  	 *
+>  	 * In this case, we must use the IOMMU API directly and map
+> -	 * the memory to the device address as expected by the remote
+> -	 * processor.
+> +	 * the memory to the device address as etable
+>  	 *
+>  	 * Obviously such remote processor devices should not be configured
+>  	 * to use the iommu-based DMA API: we expect 'dma' to contain the
+> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> index b4795698d8c2..28aa62a3b505 100644
+> --- a/include/linux/remoteproc.h
+> +++ b/include/linux/remoteproc.h
+> @@ -367,6 +367,7 @@ enum rsc_handling_status {
+>   * @detach:	detach from a device, leaving it powered up
+>   * @kick:	kick a virtqueue (virtqueue id given as a parameter)
+>   * @da_to_va:	optional platform hook to perform address translations
+> + * @pa_to_va:	optional platform hook to perform address translations
+>   * @parse_fw:	parse firmware to extract information (e.g. resource table)
+>   * @handle_rsc:	optional platform hook to handle vendor resources. Should return
+>   *		RSC_HANDLED if resource was handled, RSC_IGNORED if not handled
+> @@ -391,6 +392,7 @@ struct rproc_ops {
+>  	int (*detach)(struct rproc *rproc);
+>  	void (*kick)(struct rproc *rproc, int vqid);
+>  	void * (*da_to_va)(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
+> +	void * (*pa_to_va)(struct rproc *rproc, phys_addr_t da, size_t len);
+>  	int (*parse_fw)(struct rproc *rproc, const struct firmware *fw);
+>  	int (*handle_rsc)(struct rproc *rproc, u32 rsc_type, void *rsc,
+>  			  int offset, int avail);
+> @@ -690,6 +692,7 @@ int rproc_detach(struct rproc *rproc);
+>  int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
+>  void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
+>  void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
+> +void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
+>  
+>  /* from remoteproc_coredump.c */
+>  void rproc_coredump_cleanup(struct rproc *rproc);
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
