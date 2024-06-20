@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 176749102E8
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 13:35:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247EF9102EA
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 13:35:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8093C7128F;
-	Thu, 20 Jun 2024 11:35:17 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1D17C712A2;
+	Thu, 20 Jun 2024 11:35:20 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 878BEC7128E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C082C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 11:35:17 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-42172ed3597so4834185e9.0
+ Thu, 20 Jun 2024 11:35:20 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2ec3f875e68so8840481fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 04:35:17 -0700 (PDT)
+ Thu, 20 Jun 2024 04:35:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718883317; x=1719488117;
+ d=linaro.org; s=google; t=1718883319; x=1719488119;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=fk1qcrUS7VR6uiv3rXSOo78BTaK4F+eyz6aHAa6MhHk=;
- b=UY2/WhxTCeIJ2O2k/Bkyh0CxBS1psRd9ankqvvslqDB5n/GSGsf7RWFXITn/h3uuNC
- nPrGtCTSlPVKmV0WmcDpe5M96ttKSygYx5tuwYTzlg3jV+/Z0DWgNf7KfKXJmrxfpEAf
- KtEhu9164XBunFH+CCmzPAhoxBmqj36fFOS1im0SJSld2Tx17c0LX3bHDUcuPYgKyz9F
- qbHvjQ4vuZ0RtGzRJMNA/yMsHuqxkYz3lwiqKQvMihEA26Zj0oj/TQBpUGuQCQ7OsYwS
- 0XET7wy5LBCl/SFcgIohYUu1oJ30AKt1ZiBDUYgpmdVP7IQLZxrilIhFEl21jb17rc8i
- URKg==
+ :reply-to; bh=9RdxrQ5ek7BKyD1Q5GyGk/KJKbJ7uIbq14OZ4VVg0Iw=;
+ b=utd9zV3vE2xke8ihfdcYvIYlQ0/TzTYcYGucrv3d7V1w5T9TnLnr7Ak5OKfuCH3baU
+ xAhIMkcO3mSPHWWlrxJv7c0u0aELzd8G38nCxUKUK1d4txsWXWeqKSVuV4DUBpec63U5
+ n3V5us9PLSIe6Zw6motkgCthypth0I2CqWQjKmnfF4ODcArt+r4Qh3+++peU924Ms+L1
+ 3DCYM1IOAj2MtVuhY2Jw4LCFYcfZRxLlf25ImmRCGHecpV9ktqarC1vqaO7xiz/NF4NR
+ cOKBV6rPTexKFtpw07IVnrVAKBcGSTKKKb/FPZTQ8vbpPzi+yo+hYHOCgs7FLq757oeB
+ 475Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718883317; x=1719488117;
+ d=1e100.net; s=20230601; t=1718883319; x=1719488119;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fk1qcrUS7VR6uiv3rXSOo78BTaK4F+eyz6aHAa6MhHk=;
- b=bxSGDXsTd3ZX9gQQXD0vhp3oT8YMbAr2Xm0bSHuTrwxaqeynPMD7bPcjZSS3YzYqHc
- XKGytWCM4ceEvyoJgZZ8Y9IL6pAhuCKAgKEPyocHRsJmtmX4vVK172FRifpX15klWlIp
- D2VWg0cn1V5+wlJ5a0Zg6ZkgoExVDd1xkvuY5j3vZAN0rKzITi9SSNAgCvuKhZVyftti
- XXzQM4grRuvX9P6XNuLzcWdj53FPx9SgPFLwfSDUg6PAvAkQbR3dUqK1EbqS8EgzzyaM
- Lv2alnlACqGU8O4WcMr1Y1h6zNVfCFi+9buQWkKA8AI1L/CJCV/9nV0uumLn29RvPB4H
- xJrw==
+ bh=9RdxrQ5ek7BKyD1Q5GyGk/KJKbJ7uIbq14OZ4VVg0Iw=;
+ b=IBk/AXbO6fYi1bgFbvxpsJUSEXTVsd3udgEN8gWsA0guVK/UlIBBu6Fw24WS/3/v01
+ JrU2uK2H8SjXvRlihVMa8790Obiqynp87lQ7BtaCc/jqno2UUkEaHRME8mhg3TXnJEXD
+ 9tdJiEeyZX4gdDZ6gO3DjCczDeEmjNaQKiRhmAZJ47qQdYxmPCZEvb6Q446iN57hCoW5
+ z2GJAP+m6/U7hZ2IH5qExNpecajXaVXk6woYWbkidOmg9X4oORZNAJlokernU4c4aiw4
+ jtTmJwxbAtTSq0VyB5sMIBe86NIr+1rH+EBkOiiO+ug0LQMRyiuFHAtiT4lrbA/mDxmp
+ D/ew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnGeYY2Gdaa0CFQzIGDorlHdwK/HXTnzWrICwuBV+VbOT9DeUwKaDk/RhA/FptWTDfiXs/Jg4sTGYeG9seZoo1UyvZA+lgzIN0hQmrzvbEnwc1/EipeC/L
-X-Gm-Message-State: AOJu0YyXLAiUWjNGMtD/7w+3RpLPGWwtQlZn8RjqPjdb/cI/7J6p/LFm
- xHsseFJGCEFq9JTM6tRyQs6wxnQ63UdGP6iAMbcEiXWcFNz4Gf8nFoGAKo4tiyw=
-X-Google-Smtp-Source: AGHT+IGMJUumhVd5zXX1rZU2J+BofHfd7fe0MAIVGxolusk6jZTAFq1NMKscErXYaaG68fe04/BU0g==
-X-Received: by 2002:a05:600c:787:b0:421:8179:6127 with SMTP id
- 5b1f17b1804b1-42474d41065mr43498665e9.20.1718883317066; 
- Thu, 20 Jun 2024 04:35:17 -0700 (PDT)
+ AJvYcCXhG8MPxLV1KRjATYM2dMdsFgxMqW6QxYQxsSRPK7sKdwhiJsgMf7HOtkdYsVMJSaGKjztooM3bytlBzme636SaSKmUGQ6tk2WYypQajj92Aclbx3BcvJ0J
+X-Gm-Message-State: AOJu0Yx2RDzRPw6yqgugdqTSoL0hTe9Xz8o3g6aUhaKKP2QffMW63U/l
+ B+9HYDwpJChgRP1WJR2dmCUXkD3rmB85ZK+3JW326y1spNe5OvP3YpzkmzebKlE=
+X-Google-Smtp-Source: AGHT+IFq9QPiqdW/LV2Lp4ipmnGkGcnbeE41LGRET4efCA18VuEBGazMmSwAgyABOsGpRfVB16xuXQ==
+X-Received: by 2002:a05:6512:32b1:b0:52c:99e5:6880 with SMTP id
+ 2adb3069b0e04-52ccaa36930mr3166877e87.33.1718883319455; 
+ Thu, 20 Jun 2024 04:35:19 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42471e6623fsm49708985e9.1.2024.06.20.04.35.14
+ 5b1f17b1804b1-42471e6623fsm49708985e9.1.2024.06.20.04.35.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 04:35:16 -0700 (PDT)
+ Thu, 20 Jun 2024 04:35:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Thu, 20 Jun 2024 13:34:53 +0200
+Date: Thu, 20 Jun 2024 13:34:54 +0200
 MIME-Version: 1.0
-Message-Id: <20240620-dt-bindings-i2c-clean-v1-5-3a1016a95f9d@linaro.org>
+Message-Id: <20240620-dt-bindings-i2c-clean-v1-6-3a1016a95f9d@linaro.org>
 References: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
 In-Reply-To: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
 To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -84,21 +84,21 @@ To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
  Magnus Damm <magnus.damm@gmail.com>, 
  Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1074;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2120;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=zPPCGCpVrPzpnwGMQ8MGX8wE9ElLtDgEtXc1fM6D7sg=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmdBPi8sMmfgAT+DLum6aX4eAJT720TZZUkgMYw
- dBmfI6bvhyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnQT4gAKCRDBN2bmhouD
- 1+1zD/9KzXHoic8Js9IUevJUSUE5qw0ydGDkJYZhaxsct+uBZoLdqQn/whX6ZYyfBFgZ7o8weCW
- z/uL4moE2VBBBYfuHGCyQ9b8c36gL4uV9ejRbYShlKCl/52gH52I0+TEJ4p7+94ez47mPJi7uXo
- I7mz+pEIhzb0Rp9eltBnyTfZw4CF6G6Ly+R5egovOIwM4oVYMdgsAoo9TQHlrE/y4oFzGmSpZTf
- wZ/50+rdWr/hWGodiJZSlqWWaVdAvC3SxDTY67//Hjub/2cs6ALiP4v7Xulsx1QHLr7U7s8JTq/
- uXr8Sezuzi0p91Qzipa5Nurvs5ZQncV5xL8VZgXAUeClC/+gnqxYJywGSdcCmLV3j/IdiU7y3fs
- KLcXmrlkHX317BwGXdSJUtmt8uUKXovBI92qdGwmuCR3hx7MPJlVPpA613HrEDC/mai2fYLEpKu
- aI7SzB+vmya07U34LGOSdSO6uQkuCh7xz+r1rRRzVbXG1ZcO046fMm5ORSXwzEN5mQPHQl/GDpR
- XcXClw/9IHKj6Eo1W+tfACtgWDPEqIOAFMcxgZL0LTlT8UYNU68n8drTzsA6meXAy9nHLfkUCTL
- 8B5IPOyaQppDn4T67+uRuvq7EkaQHLcnqvOWaj9tAMnsvQ/Md8kToe1yTrTWBQau2bGEO6+AMoC
- UAk2iDhLThbpVhw==
+ bh=se0qu2ScDHev5e2u9T2lUYbcxySx/dcEaULZrF/4POM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmdBPjSq+rIwMEv+nxqFX6eolXOSM2y3OaG46ld
+ hES3qoe0I6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnQT4wAKCRDBN2bmhouD
+ 18ktEACWRnxxzFEN5hoHHubQp9ltuAKuiTii5YSgG71yB9jinAqHGF3jmQZasCvFKp/Y+C6XSE4
+ 7HbfKJqc6iVJUTmJ9IHYa0FDAoP6myAlMkuf4z8mBw8uodhtnA4FPsPAgnKnmpN7CMUkfjsO1IB
+ RfuBQlifdmWFTp2bvqqIwWSNTjROsr8uSHUki+Ww8DgzlsWkQ7HfMzwBy4idLIeUkzNtuRb0Rfq
+ 0QuXu7sAiFPaq4i+V7Z6sDKJckvnHTx5zEpVJv8z2X/D1Z7+jEfByDjXYftdHKCOvK6lWm+qYZc
+ VEtxStj3nxMhPO232xFXoij7eu8UKvrFsDseAZkBU/Vq7GCyyhj8SGDlfTlwG9zQN82lD0W8Xlx
+ HeX/+LtGE2bjCXPKaMPWGMT9t2tdwsmqAbXgcflvypg+KmDe+kg60qizj/VNKa8JsHWPCLaHpxW
+ txJs+EQ+emVa80XM3ga3vvvcum1STbUNjVEDZjuTF3pUGqCyS3IL4fUPjZEXewYueHwtW5RZSTH
+ M4z27wsRgrMUTClUO8SVOrHJykSSLhOHYirJ6JupXaT0ju6kviSTzxtG9cYYcu2JJiB/qzGJT07
+ 3vSZBQyonxBRu0eI7T2ALDo/VeTLqrT166RyOQGK75poPywXVfTIR1nkcED+fABKAkI0znrkI8t
+ 30sKJbP5RtX6h1A==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
@@ -108,8 +108,8 @@ Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
  linux-i2c@vger.kernel.org, linux-tegra@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/7] dt-bindings: i2c: samsung,
- s3c2410: drop unneeded address/size-cells
+Subject: [Linux-stm32] [PATCH 6/7] dt-bindings: i2c: ti,
+ omap4: reference i2c-controller.yaml schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,38 +126,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The reference i2c-controller.yaml already defines 'address-cells' and
-'size-cells', so drop them from list of properties.
+Reference the core I2C controller schema to properly define common
+properties.  This allows to drop several (now redundant) properties.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml | 6 ------
- 1 file changed, 6 deletions(-)
+ .../devicetree/bindings/i2c/ti,omap4-i2c.yaml      | 52 +++++++++-------------
+ 1 file changed, 20 insertions(+), 32 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml b/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
-index 1303502cf265..bbc568485627 100644
---- a/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
-@@ -26,9 +26,6 @@ properties:
-               - samsung,exynos850-i2c
-           - const: samsung,s3c2440-i2c
+diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+index 781108ae1ce3..c9d1030e9857 100644
+--- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
+@@ -37,16 +37,8 @@ properties:
+   clock-names:
+     const: fck
  
--  '#address-cells':
+-  clock-frequency: true
+-
+   power-domains: true
+ 
+-  "#address-cells":
 -    const: 1
 -
-   clocks:
-     maxItems: 1
- 
-@@ -73,9 +70,6 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: Pandle to syscon used to control the system registers.
- 
--  '#size-cells':
+-  "#size-cells":
 -    const: 0
+-
+   ti,hwmods:
+     description:
+       Must be "i2c<n>", n being the instance number (1-based).
+@@ -55,38 +47,34 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/string
+     deprecated: true
+ 
+-# subnode's properties
+-patternProperties:
+-  "@[0-9a-f]+$":
+-    type: object
+-    description:
+-      Flash device uses the below defined properties in the subnode.
 -
  required:
    - compatible
    - reg
+   - interrupts
+ 
+-additionalProperties: false
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
+ 
+-if:
+-  properties:
+-    compatible:
+-      enum:
+-        - ti,omap2420-i2c
+-        - ti,omap2430-i2c
+-        - ti,omap3-i2c
+-        - ti,omap4-i2c
++  - if:
++      properties:
++        compatible:
++          enum:
++            - ti,omap2420-i2c
++            - ti,omap2430-i2c
++            - ti,omap3-i2c
++            - ti,omap4-i2c
+ 
+-then:
+-  properties:
+-    ti,hwmods:
+-      items:
+-        - pattern: "^i2c([1-9])$"
++    then:
++      properties:
++        ti,hwmods:
++          items:
++            - pattern: "^i2c([1-9])$"
+ 
+-else:
+-  properties:
+-    ti,hwmods: false
++    else:
++      properties:
++        ti,hwmods: false
++
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 
 -- 
 2.43.0
