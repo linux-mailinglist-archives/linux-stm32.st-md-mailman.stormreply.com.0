@@ -2,48 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1959090FF2C
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:45:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7850590FF78
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:51:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2899C6B47A;
-	Thu, 20 Jun 2024 08:45:07 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F46AC7128D;
+	Thu, 20 Jun 2024 08:51:58 +0000 (UTC)
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20048C5E2D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A733C5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 08:45:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 46042CE2050;
- Thu, 20 Jun 2024 08:44:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309ECC2BD10;
- Thu, 20 Jun 2024 08:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718873096;
- bh=g9sCHOwPXjh8FEzTD/8HrE3pyN+mCBZy4wtJBPu7b7U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KF1lig/HOJVi8YdqwyKDsPovl8wMVEneFLEOEmECkeLiFt9vTvQwyKINK8+IfIuwI
- yGw5HXHSFkwivUMmwgTH4XQxfhlV1cdKKarV+k6DR/k2dKZIJtJ3BPyrwp9u63HAbH
- kTxSOnSrHfVeUG6OGkfSgbMFgYfRohuiGDLDQaBiokltB7oPRkL3wNyTql7xAQDp2y
- JPa8cj9BrXw02ZnqMr2Me4pe9pQ1eLPOIxThDyoHDwNSuatEq9CvITiHHbrkZwmUaz
- PZsfw6HqGgt0A933CT5c5fljlAASg9+LsVUiHaeDM++b/gXiUAvfAIg4oB0pguevpc
- 9jQu4eF9f3JBA==
-Date: Thu, 20 Jun 2024 09:44:51 +0100
-From: Lee Jones <lee@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Message-ID: <20240620084451.GC3029315@google.com>
-References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
- <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
+ Thu, 20 Jun 2024 08:51:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1718873517; x=1750409517;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2TvpXXhOk9nqvvpL7r4WYpLMcH8C6BL3/fs1sCKRmQI=;
+ b=Ta49aOEjNRUDniaoPq5+2gRUP+foSl68AWTL1t7CvizbMwsZm+ueQIoa
+ 6JN7hKGWvgNp3FFojP40XNccQ6DjnxlC2tI9BnHpp06E9KN3QefFts5TC
+ 96Y3rjY8+UY8Tmzr2XlkYL/OkonhVgi5VzX45X4XaofVGwJ/pqa+DFq5c
+ JBb/i2j3N7IQLvg8ChF2fjzVTffK7+BurYMdytp8NYxiDOiCuFm1471cy
+ wIKQO7Yw8nRM0p2+Q3wWYRN2WA+j5PoWfL41iEWxWjg7ZAdnJa7G29NmF
+ It/oUolFcv4Z0vn3rd09fupz7FwCp7H9zW1qywTOyBTHqGr1ki1LT3tmT A==;
+X-CSE-ConnectionGUID: 56ZSahdTSAWG5kTlegWLxQ==
+X-CSE-MsgGUID: n5KP9bTySkmIbaRvewCWMg==
+X-IronPort-AV: E=Sophos;i="6.08,251,1712646000"; 
+ d="asc'?scan'208";a="28910098"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 20 Jun 2024 01:51:49 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 20 Jun 2024 01:51:25 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35 via Frontend
+ Transport; Thu, 20 Jun 2024 01:51:22 -0700
+Date: Thu, 20 Jun 2024 09:51:03 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Message-ID: <20240620-custody-jailbreak-6540620d6570@wendy>
+References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
+ <20240618160836.945242-5-olivier.moysan@foss.st.com>
+ <20240618-footwear-impotence-5284985a609d@spud>
+ <4734e915-9ea7-4e65-a9ef-bc1e88c40e76@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
-Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+In-Reply-To: <4734e915-9ea7-4e65-a9ef-bc1e88c40e76@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- William Breathitt Gray <wbg@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] counter: stm32-timer-cnt: Use
- TIM_DIER_CCxIE(x) instead of TIM_DIER_CCxIE(x)
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 4/8] dt-bindings: iio: dfsdm: move to
+	backend framework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,27 +73,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3705384269966988339=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAxOSBKdW4gMjAyNCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFRoZXNlIHR3
-byBkZWZpbmVzIGhhdmUgdGhlIHNhbWUgcHVycG9zZSBhbmQgdGhpcyBjaGFuZ2UgZG9lc24ndAo+
-IGludHJvZHVjZSBhbnkgZGlmZmVyZW5jZXMgaW4gZHJpdmVycy9jb3VudGVyL3N0bTMyLXRpbWVy
-LWNudC5vLgo+IAo+IFRoZSBvbmx5IGRpZmZlcmVuY2UgYmV0d2VlbiB0aGUgdHdvIGlzIHRoYXQK
-PiAKPiAJVElNX0RJRVJfQ0NfSUUoMSkgPT0gVElNX0RJRVJfQ0MySUUKPiAKPiB3aGlsZQo+IAo+
-IAlUSU1fRElFUl9DQ3hJRSgxKSA9PSBUSU1fRElFUl9DQzFJRQo+IAo+IC4gVGhhdCBtYWtlcyBp
-dCBuZWNlc3NhcnkgdG8gaGF2ZSBhbiBleHBsaWNpdCAiKyAxIiBpbiB0aGUgdXNlciBjb2RlLAo+
-IGJ1dCBJTUhPIHRoaXMgaXMgYSBnb29kIHRoaW5nIGFzIHRoaXMgaXMgdGhlIGNvZGUgbG9jYXRh
-dGlvbiB0aGF0Cj4gImtub3dzIiB0aGF0IGZvciBzb2Z0d2FyZSBjaGFubmVsIDEgeW91IGhhdmUg
-dG8gdXNlIFRJTV9ESUVSX0NDMklFCj4gKGJlY2F1c2Ugc29mdHdhcmUgZ3V5cyBzdGFydCBjb3Vu
-dGluZyBhdCAwLCB3aGlsZSB0aGUgcmVsZXZhbnQgaGFyZHdhcmUKPiBkZXNpZ25lciBzdGFydGVk
-IGF0IDEpLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1r
-b2VuaWdAYmF5bGlicmUuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXIt
-Y250LmMgfCA0ICsrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
-dGlvbnMoLSkKCkRpZCB5b3UgZHJvcCBXaWxsaWFtJ3MgQWNrIG9uIHB1cnBvc2U/CgotLSAKTGVl
-IEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+--===============3705384269966988339==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="NJFxl4lrwoiFDjYE"
+Content-Disposition: inline
+
+--NJFxl4lrwoiFDjYE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jun 20, 2024 at 10:03:44AM +0200, Olivier MOYSAN wrote:
+> On 6/18/24 20:10, Conor Dooley wrote:
+> > On Tue, Jun 18, 2024 at 06:08:30PM +0200, Olivier Moysan wrote:
+> > >       allOf:
+> > >         - if:
+> > >             properties:
+> > > @@ -199,9 +264,19 @@ patternProperties:
+> > >                 description:
+> > >                   From common IIO binding. Used to pipe external sigm=
+a delta
+> > >                   modulator or internal ADC output to DFSDM channel.
+> > > +              deprecated: true
+> > > -          required:
+> > > -            - io-channels
+> > > +          if:
+> > > +            required:
+> > > +              - st,adc-channels
+> > > +          then:
+> > > +            required:
+> > > +              - io-channels
+> > > +
+> > > +          patternProperties:
+> > > +            "^channel@([0-9]|1[0-9])$":
+> > > +              required:
+> > > +                - io-backends
+> >=20
+> > Why is this here, rather than with reg above? Only some channels require
+> > a backend?
+>=20
+> The io-backends property is required only when we use st,stm32-dfsdm-adc
+> compatible. In other words, when we are in an analog use case. In this ca=
+se
+> the channel is a consumer of a backend (typically a sd modulator)
+> In an audio use case (compatible st,stm32-dfsdm-dmic) the backend is not
+> required.
+
+Ahh, I think the hunks and indent confused me here. What you're doing is
+making io-backends required based on the compatible, but what I thought
+you were doing was trying to make io-backends required in channels if
+st,adc-channels was set.
+
+Thanks for the explanation,
+Conor.
+
+--NJFxl4lrwoiFDjYE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZnPtdwAKCRB4tDGHoIJi
+0j93AP44jgZe6b+HBEZ4omA3y0tvrLry/EB6akIV7NR8Vap5igEAg+cGLKESOy+o
+Zt9PvSP8qWdePXuj43/CfT/7C1OO8go=
+=JkF+
+-----END PGP SIGNATURE-----
+
+--NJFxl4lrwoiFDjYE--
+
+--===============3705384269966988339==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3705384269966988339==--
