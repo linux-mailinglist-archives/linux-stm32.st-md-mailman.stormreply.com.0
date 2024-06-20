@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935EB90FD52
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 09:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8976B90FD57
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 09:13:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47517C6A613;
-	Thu, 20 Jun 2024 07:12:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 548F0C6A613;
+	Thu, 20 Jun 2024 07:13:00 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D772C5E2D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3D7CC5E2D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 07:12:15 +0000 (UTC)
+ Thu, 20 Jun 2024 07:12:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2A68CCE1BD9;
- Thu, 20 Jun 2024 07:12:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C7DC2BD10;
- Thu, 20 Jun 2024 07:12:04 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 925DCCE2392;
+ Thu, 20 Jun 2024 07:12:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75003C2BD10;
+ Thu, 20 Jun 2024 07:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718867532;
- bh=X4JnYkyGbVJM0iTtxc51LAeo3XXfftm4x3WTTw1hfY8=;
+ s=k20201202; t=1718867575;
+ bh=rrzPp9VuHNNKHwlwOms3dI+sJh+KAerUh/wOmDb9Ldc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=SlpQ2bwKO/v2qWPG1Ah474O5xpg+8FnEWrl+1J/4q0Q2qeFDN4CfrXvPLHF95xGbo
- Iow9J9SC9LwMxiMZmsecRDw03IFVxI9Wpu3ORADxvk7CiHkDuJvvSwvZlHrSPg9XTL
- s2M2aniIJAF5aW1r211kKvcvecLpq24VKOHf9JaaDWQSWutym5uff2gOKzxhEVIjuN
- TmvT2gjyXp5dqdaUD4s6UvmP6mI48+JohJS7mQId2zDA+xjtf/2ubnBGoETrRBkbYG
- HQPp8KQkNFNLV/bTaF3u2JfS75PBYA+nN761oXom9q6ifQbHQ4zMX1ztVf8nBwRjGk
- siaXbTN4QBUfA==
-Message-ID: <505739da-6724-4928-bea8-f03d673544bc@kernel.org>
-Date: Thu, 20 Jun 2024 09:12:02 +0200
+ b=Lh+UaT4k3rK2t7ZyuI+KU/oopHcM0TGuORyVOxp5EavORQTX+PeAa45BnacpnPAFX
+ 7gMGx6ttqEGSQZMiBnJlmkejqeTtqS2tsLgjvALARgWcXWhASAPiO5DDwJ0hklscym
+ PcSEJ9F5nG9Oz4fMdAzHgcKGVoJ3bXaSBTL/ZY4Q/XePiaffmBqjVqNHjNneouxZ/N
+ U1kV9hXvqlo6oDB0bRc6v23D0Lr6Ya7XxJ4JKPMiYA1nBaOu6txo3zEal4ymmiXWPe
+ zO52dElSKPY/xLDobDtB+1E/6q19Q34VuBYtWdfJCrBVhtomYfsIb6aD7ILbtMVtTc
+ ocbJo93aUuRCA==
+Message-ID: <1083ae52-867a-4abe-88df-419830cdaeed@kernel.org>
+Date: Thu, 20 Jun 2024 09:12:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
@@ -43,7 +43,7 @@ To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
  Conor Dooley <conor+dt@kernel.org>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>
 References: <20240619-icc_bw_voting_from_ethqos-v1-0-6112948b825e@quicinc.com>
- <20240619-icc_bw_voting_from_ethqos-v1-3-6112948b825e@quicinc.com>
+ <20240619-icc_bw_voting_from_ethqos-v1-1-6112948b825e@quicinc.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,13 +89,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240619-icc_bw_voting_from_ethqos-v1-3-6112948b825e@quicinc.com>
+In-Reply-To: <20240619-icc_bw_voting_from_ethqos-v1-1-6112948b825e@quicinc.com>
 Cc: devicetree@vger.kernel.org, kernel@quicinc.com,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH 3/3] dt-bindings: net: qcom: ethernet: Add
- interconnect properties
+Subject: Re: [Linux-stm32] [PATCH 1/3] net: stmmac: Add interconnect support
+ in qcom-ethqos driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,33 +113,14 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 20/06/2024 00:41, Sagar Cheluvegowda wrote:
-> Add documentation for the interconnect and interconnect-names
-> properties required when voting for AHB and AXI buses.
-> 
-> Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
-> ---
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> index 6672327358bc..bf2a197342a5 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> @@ -63,6 +63,14 @@ properties:
 >  
->    dma-coherent: true
+> @@ -813,6 +824,14 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  		return dev_err_probe(dev, PTR_ERR(ethqos->link_clk),
+>  				     "Failed to get link_clk\n");
 >  
-> +  interconnects:
-> +    maxItems: 2
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: axi_icc_path
-> +      - const: ahb_icc_path
+> +	ethqos->axi_icc_path = devm_of_icc_get(dev, "axi_icc_path");
 
-Drop "_icc_path", redundant and instead describe it like other bindings.
-Also, names use hyphens. Just open any Qualcomm DTS.
-
+Order your patches correctly. Bindings always go before users.
 
 Best regards,
 Krzysztof
