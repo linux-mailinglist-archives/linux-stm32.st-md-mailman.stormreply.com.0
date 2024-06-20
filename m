@@ -2,71 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FBAA90FE36
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 240DE90FEA2
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 10:20:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB090C6B47A;
-	Thu, 20 Jun 2024 08:05:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7EBAC6B47A;
+	Thu, 20 Jun 2024 08:20:28 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA8EFC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F15BFC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 08:05:13 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45K75doe021903;
- Thu, 20 Jun 2024 10:04:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 29Qvz1Xviwr3psGJQapaZwCmNwh9pWS+KTq7s99H4m8=; b=yFFFpxI+oGQEFLU1
- NxJS4ZOjNzsIrzXacuzADB19sgKM7Rx2PamHDZ8FnAlMVvcVv9peIdFCAbLj0unA
- 1zkuu3Dn9IcAe5nI7P84EOd6xUBLPCRRiiw5LjXQaKCCxZRfx8ZIAw7XruPWrKc9
- lEvRg+5wZrV/KBP8KCi40WDQ9czGSu7XdUiX3y3siZtNg7OLfsUQhQqzXaUxjreV
- shi+XKVTC/CNOUA43/TFDo+6ZqVgY2A80WDBYV8mLhchjvIbtTUDCvEv+r3Mhu7t
- 1QBsAzIZLLb7dzqfQDzoe9suHGxkjTIeb+fBIwsViGEBpPm3eEXyppSuK5TcPP00
- AB7JsQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yuj9n72a4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Jun 2024 10:04:45 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 24E944002D;
- Thu, 20 Jun 2024 10:04:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4894B215132;
- Thu, 20 Jun 2024 10:03:46 +0200 (CEST)
-Received: from [10.48.86.132] (10.48.86.132) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 20 Jun
- 2024 10:03:45 +0200
-Message-ID: <4734e915-9ea7-4e65-a9ef-bc1e88c40e76@foss.st.com>
-Date: Thu, 20 Jun 2024 10:03:44 +0200
+ Thu, 20 Jun 2024 08:20:20 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-52bc3130ae6so565584e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Jun 2024 01:20:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1718871620; x=1719476420;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=B7yX7rbJbYr/mTm0lEL9vuk9v/WQvi74pV0s5CSPcDg=;
+ b=vKqJiyF+oI0g5qEqWT1KB1rOCfgZ1MEUTz/Kbgq/9wkH5CsOQ+KV6f9Ir/+33cgaI4
+ ljTcchUj/W0Wa2Go+PLresN/Oh8ogE+1fbWKFkpa9WupUALna2dTqW1EpCxeDzeWibCz
+ dnTqgT2cxKWlqGs3DhQDEac6hQHD1jqKV6/DodfdgOE6eEvl3Lve4SiRQ0VwfNmqxWmO
+ YlufRShme3pO96a1vrYgrKKecacLv5CBDs+gHrAd13wjSR8xzjzAWtZgejzL3L9jnbwt
+ nY+Qt6Pq7yteCymozWjEdMqqvTWxVq6Ej1PWAhC/Lxjeo3xIIq8pJ7vzArE0mjrKNxP0
+ k39g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718871620; x=1719476420;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=B7yX7rbJbYr/mTm0lEL9vuk9v/WQvi74pV0s5CSPcDg=;
+ b=DjBkrihU8XCulcaFhSK9U4Aq8MjCN6Q2QSiMihn4s0HSQ1a8F0oDvfMcHMAs3YlsQK
+ ma3mGivOCeHvCzYGR3PXoUarecEV7KjclZpO6Ziio3wU6eQplazRPMBqScifZBKz97VX
+ KbDEucKSswbcpqHw7DZ1lDPo4Elg3a17eE0l1axc8hx8aXO6n2bCM8k9D7zo4gdtIE4/
+ 5nhmspuCwc7v/YAdixFrGb6+HjuxOeUHG/to4UqpdLmvqrt+Z8k7Mor6xq1Rd+TXKpQk
+ t2SCF2cefLCTRp6zVPeOobraeblYVrEaDTW1BqqoeEkl/2VioIt5/2xJFHxk6DSu6Ggb
+ lzTg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW8jcKQU0YFyu79nTJEn3FAtr/z+mvAYh5rTF/YZtRcJWv14FSeFJqF1NO+2mvaL71zZfnOfHPW3IlfhsAzI2AOishBvl/TSxJVn4UT6sOlN+2zUztg5saa
+X-Gm-Message-State: AOJu0YzqLeJ5lG9U1peq/n+36Fj1zhDrzd8kz9Pt9a5McnOGh1q2FgVG
+ I++ylSRMiqckQMoOpH+d/6KP3+LKHo3iEyFabh3A9ftgCT1EI5jNAWuGR5rODFnpz6f3mrQf71N
+ HHw6Jc8attf/vCX7p+D8c03XFFuxXUjwe5m8prw==
+X-Google-Smtp-Source: AGHT+IEmop4fSjADk7pSWeD8ON7nqhqCNYoCXWB9xXRFCphWhGBBKaZ3FTBp7MgrIlYFop2ThtyzgoBlAbqZbHjT0uk=
+X-Received: by 2002:a05:6512:1182:b0:52c:86d6:e8d7 with SMTP id
+ 2adb3069b0e04-52ccaa2d4a3mr2435101e87.13.1718871620038; Thu, 20 Jun 2024
+ 01:20:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Conor Dooley <conor@kernel.org>
-References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
- <20240618160836.945242-5-olivier.moysan@foss.st.com>
- <20240618-footwear-impotence-5284985a609d@spud>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20240618-footwear-impotence-5284985a609d@spud>
-X-Originating-IP: [10.48.86.132]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-20_04,2024-06-19_01,2024-05-17_01
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 4/8] dt-bindings: iio: dfsdm: move to
-	backend framework
+References: <20240619184550.34524-1-brgl@bgdev.pl>
+ <20240619184550.34524-9-brgl@bgdev.pl>
+ <f4af7cb3-d139-4820-8923-c90f28cca998@lunn.ch>
+In-Reply-To: <f4af7cb3-d139-4820-8923-c90f28cca998@lunn.ch>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Thu, 20 Jun 2024 10:20:08 +0200
+Message-ID: <CAMRc=MeP9o2n8AqHYNZMno5gFA94DnQCoHupYiofQLLw03bL6A@mail.gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: qcom-ethqos:
+ add a DMA-reset quirk for sa8775p-ride-r3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,230 +82,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Conor,
-
-On 6/18/24 20:10, Conor Dooley wrote:
-> On Tue, Jun 18, 2024 at 06:08:30PM +0200, Olivier Moysan wrote:
->> Change the DFSDM binding to use the new IIO backend framework,
->> along with the adoption of IIO generic channels.
->> This binding change allows to add scaling support to the DFSDM.
->>
->> Keep the legacy binding as deprecated for backward compatibility.
->>
->> The io-backends property is supported only in generic IIO channel
->> binding.
->>
->> - Channel description with the generic binding (Audio and Analog):
->>
->>    Properties supersed by generic properties:
->>      st,adc-channels: becomes "reg" property in channel node
->>      st,adc-channel-names: becomes "label" property in channel node
->>    Properties moved to channel child node:
->>      st,adc-channel-types, st,adc-channel-clk-src, st,adc-alt-channel
->>
->> - Analog binding:
->>
->>    DFSDM filter channel is configured as an IIO backend consumer.
->>    Add io-backends property in channel child nodes.
->>
->>    DFSDM is no more configured as a channel consumer from SD modulator.
->>    Use of io-channels in DFSDM node is deprecated.
->>
->> - Audio binding:
->>
->>    DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->>    No change compare to legacy.
->>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->> ---
->>   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 158 +++++++++++++++++-
->>   1 file changed, 152 insertions(+), 6 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> index c1b1324fa132..dd414bab74c1 100644
->> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> @@ -102,9 +102,11 @@ patternProperties:
->>           items:
->>             minimum: 0
->>             maximum: 7
->> +        deprecated: true
->>   
->>         st,adc-channel-names:
->>           description: List of single-ended channel names.
->> +        deprecated: true
->>   
->>         st,filter-order:
->>           description: |
->> @@ -118,6 +120,12 @@ patternProperties:
->>         "#io-channel-cells":
->>           const: 1
->>   
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->>         st,adc-channel-types:
->>           description: |
->>             Single-ended channel input type.
->> @@ -128,6 +136,7 @@ patternProperties:
->>           items:
->>             enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-channel-clk-src:
->>           description: |
->> @@ -139,6 +148,7 @@ patternProperties:
->>           items:
->>             enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-alt-channel:
->>           description:
->> @@ -147,6 +157,7 @@ patternProperties:
->>             If not set, channel n is connected to SPI input n.
->>             If set, channel n is connected to SPI input n + 1.
->>           type: boolean
->> +        deprecated: true
->>   
->>         st,filter0-sync:
->>           description:
->> @@ -165,11 +176,65 @@ patternProperties:
->>         - compatible
->>         - reg
->>         - interrupts
->> -      - st,adc-channels
->> -      - st,adc-channel-names
->>         - st,filter-order
->>         - "#io-channel-cells"
->>   
->> +    patternProperties:
->> +      "^channel@([0-9]|1[0-9])$":
->> +        type: object
->> +        $ref: adc.yaml
->> +        description: Represents the external channels which are connected to the DFSDM.
->> +
->> +        properties:
->> +          reg:
->> +            items:
->> +              minimum: 0
->> +              maximum: 8
->> +
->> +          label:
->> +            description:
->> +              Unique name to identify which channel this is.
->> +
->> +          st,adc-channel-types:
->> +            description: |
->> +              Single-ended channel input type.
->> +              - "SPI_R": SPI with data on rising edge (default)
->> +              - "SPI_F": SPI with data on falling edge
->> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
->> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
->> +            items:
->> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> 
-> Why is this an array? And why is the property plural? Can a channel have
-> more than one type?
-> 
-
-You are right. In channel node context, this property is no more an 
-array. It has to be managed as a single string (This is already the case 
-in the driver). I will change the type in binding and the name, to 
-reflect this.
-
->> +
->> +          st,adc-channel-clk-src:
->> +            description: |
->> +              Conversion clock source.
->> +              - "CLKIN": external SPI clock (CLKIN x)
->> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
->> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
->> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
->> +            items:
->> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> 
-> Ditto here, but s/type/clock source/
-> 
-
-Same here.
-
-> Thanks,
-> Conor.
-> 
->> +
->> +          st,adc-alt-channel:
->> +            description:
->> +              Must be defined if two sigma delta modulators are
->> +              connected on same SPI input.
->> +              If not set, channel n is connected to SPI input n.
->> +              If set, channel n is connected to SPI input n + 1.
->> +            type: boolean
->> +
->> +          io-backends:
->> +            description:
->> +              From common IIO binding.
-> 
-> Drop this from the description.
-> 
->> Used to pipe external sigma delta
->> +              modulator or internal ADC backend to DFSDM channel.
->> +
->> +        required:
->> +          - reg
->> +
->> +        additionalProperties: false
->> +
->>       allOf:
->>         - if:
->>             properties:
->> @@ -199,9 +264,19 @@ patternProperties:
->>                 description:
->>                   From common IIO binding. Used to pipe external sigma delta
->>                   modulator or internal ADC output to DFSDM channel.
->> +              deprecated: true
->>   
->> -          required:
->> -            - io-channels
->> +          if:
->> +            required:
->> +              - st,adc-channels
->> +          then:
->> +            required:
->> +              - io-channels
->> +
->> +          patternProperties:
->> +            "^channel@([0-9]|1[0-9])$":
->> +              required:
->> +                - io-backends
-> 
-> Why is this here, rather than with reg above? Only some channels require
-> a backend?
-
-The io-backends property is required only when we use st,stm32-dfsdm-adc 
-compatible. In other words, when we are in an analog use case. In this 
-case the channel is a consumer of a backend (typically a sd modulator)
-In an audio use case (compatible st,stm32-dfsdm-dmic) the backend is not 
-required.
-
-BRs
-Olivier
-
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdW4gMTksIDIwMjQgYXQgOTozM+KAr1BNIEFuZHJldyBMdW5uIDxhbmRyZXdAbHVu
+bi5jaD4gd3JvdGU6Cj4KPiBPbiBXZWQsIEp1biAxOSwgMjAyNCBhdCAwODo0NTo0OVBNICswMjAw
+LCBCYXJ0b3N6IEdvbGFzemV3c2tpIHdyb3RlOgo+ID4gRnJvbTogQmFydG9zeiBHb2xhc3pld3Nr
+aSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgo+ID4KPiA+IE9uIHNhODc3NXAtcmlk
+ZSB0aGUgUlggY2xvY2tzIGZyb20gdGhlIEFRUjExNUMgUEhZIGFyZSBub3QgYXZhaWxhYmxlIGF0
+Cj4gPiB0aGUgdGltZSBvZiB0aGUgRE1BIHJlc2V0IHNvIHdlIG5lZWQgdG8gbG9vcCBUWCBjbG9j
+a3MgdG8gUlggYW5kIHRoZW4KPiA+IGRpc2FibGUgbG9vcGJhY2sgYWZ0ZXIgbGluay11cC4gVXNl
+IHRoZSBwcm92aWRlZCBjYWxsYmFja3MgdG8gZG8gaXQgZm9yCj4gPiB0aGlzIGJvYXJkLgo+Cj4g
+SG93IGRvZXMgdGhpcyBkaWZmZXIgdG8gZXRocW9zX2Nsa3NfY29uZmlnKCk/Cj4KCkknbSBub3Qg
+c3VyZSBJIHVuZGVyc3RhbmQgdGhlIHF1ZXN0aW9uLiBUaGlzIGZ1bmN0aW9uIGlzIGNhbGxlZCBh
+dApwcm9iZS9yZW1vdmUgYW5kIHN1c3BlbmQvcmVzdW1lLiBJdCdzIG5vdCBsaW5rZWQgdG8gdGhl
+IGlzc3VlIHNvbHZlZApoZXJlLgoKQmFydApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
