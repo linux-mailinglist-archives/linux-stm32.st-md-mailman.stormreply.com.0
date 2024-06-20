@@ -2,48 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151BB910E8F
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 19:31:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B2B910EFD
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 19:38:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2675C7128D;
-	Thu, 20 Jun 2024 17:31:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17E51C7128D;
+	Thu, 20 Jun 2024 17:38:52 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EA21C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2B56C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 17:31:24 +0000 (UTC)
+ Thu, 20 Jun 2024 17:38:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 27D05621F7;
- Thu, 20 Jun 2024 17:31:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E54C2BD10;
- Thu, 20 Jun 2024 17:31:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8FB3362238;
+ Thu, 20 Jun 2024 17:38:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16421C32786;
+ Thu, 20 Jun 2024 17:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718904682;
- bh=c07EwySV5A8jyBItyxYvOoGB6xh76nUFiW66NCfaRWE=;
+ s=k20201202; t=1718905123;
+ bh=eu4204Po9QE0cYQjUDURrwCjSksfyHPOc0038gSWWEo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XqTtOATUvwlDYXLFMQX0a7F6u0ozKkRdNk9dpdW9p+sV9iHMSGhNwFzTuTKaVY0OS
- gRSCLXGMnwsH5XJNlQLjm2/Io5kfSfemcVIH22LiBX39gQOUMe2JqIE0dBEFXB7mD2
- Iy+RdOZe7GRR81nEm40hlDkq3y6ltI54V9BHcupMlm3Xs4QsH8EXI7t40q77uQMRvy
- V/W2Ind/qTVPKWTnJa9irSlCJwd6rk4yzd/rYn5eoKlZU3gmlF08ilWNC3T0HEL7lu
- hgyDe4q24UIqdh7JuJmFY2NxOWikW+nHAT3R9Z4wt4UF+2PzhtIntH2XM2Rj2pbZos
- kN0W+jAVwNb6A==
-Date: Thu, 20 Jun 2024 18:31:18 +0100
-From: Simon Horman <horms@kernel.org>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20240620173118.GP959333@kernel.org>
-References: <20240619140119.26777-1-brgl@bgdev.pl>
+ b=lDAK5onKrqnhU5bYs5axr1F0ZcK/BSq0+01f/D2Yvr21A0lXiv+VFAHRgHFt/qumm
+ KfxMCVqD1+T2Zx5DCCrefKTtncP9krvMzuY1zmPG8s68s89wpWPf1atPZxaunBkdCj
+ 83fSnFHmJUGy5ddv/1hbrhHKDtj5vNYPNhR1ybXn9geYDP96R+huEH5tlitVltQpx0
+ s4zrvbC2Pv3P/MIj0w4FfSjQrKA6yZZx+XD4Hhf5eaYesvuL/sgnENd2O0cwYaOZeR
+ FrEB8k1ug51kAo8Y8R3KD/EqjVKvTpisZGmwJpvW6/p3wjQmUQRQir1Z2HJPO7v0W3
+ kFXmQLFHdRBAg==
+Date: Thu, 20 Jun 2024 18:38:38 +0100
+From: Lee Jones <lee@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Message-ID: <20240620173838.GB1318296@google.com>
+References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
+ <126bd153a03f39e42645573eecf44ffab5354fc7.1718791090.git.u.kleine-koenig@baylibre.com>
+ <20240620084451.GC3029315@google.com>
+ <imyuhtcsjrbyodsndzbaqfwa4jxny25eylfdh4u4xtsiotsk5g@45l556pcrzys>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240619140119.26777-1-brgl@bgdev.pl>
-Cc: linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: unexport
-	stmmac_pltfr_init/exit()
+In-Reply-To: <imyuhtcsjrbyodsndzbaqfwa4jxny25eylfdh4u4xtsiotsk5g@45l556pcrzys>
+Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 3/5] counter: stm32-timer-cnt: Use
+ TIM_DIER_CCxIE(x) instead of TIM_DIER_CCxIE(x)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,22 +57,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 19, 2024 at 04:01:19PM +0200, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> These functions are only used within the compilation unit they're defined
-> in so there's no reason to export them.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-Reviewed-by: Simon Horman <horms@kernel.org>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAyMCBKdW4gMjAyNCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IEhlbGxvIExl
+ZSwKPiAKPiBPbiBUaHUsIEp1biAyMCwgMjAyNCBhdCAwOTo0NDo1MUFNICswMTAwLCBMZWUgSm9u
+ZXMgd3JvdGU6Cj4gPiBPbiBXZWQsIDE5IEp1biAyMDI0LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90
+ZToKPiA+IAo+ID4gPiBUaGVzZSB0d28gZGVmaW5lcyBoYXZlIHRoZSBzYW1lIHB1cnBvc2UgYW5k
+IHRoaXMgY2hhbmdlIGRvZXNuJ3QKPiA+ID4gaW50cm9kdWNlIGFueSBkaWZmZXJlbmNlcyBpbiBk
+cml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250Lm8uCj4gPiA+IAo+ID4gPiBUaGUgb25seSBk
+aWZmZXJlbmNlIGJldHdlZW4gdGhlIHR3byBpcyB0aGF0Cj4gPiA+IAo+ID4gPiAJVElNX0RJRVJf
+Q0NfSUUoMSkgPT0gVElNX0RJRVJfQ0MySUUKPiA+ID4gCj4gPiA+IHdoaWxlCj4gPiA+IAo+ID4g
+PiAJVElNX0RJRVJfQ0N4SUUoMSkgPT0gVElNX0RJRVJfQ0MxSUUKPiA+ID4gCj4gPiA+IC4gVGhh
+dCBtYWtlcyBpdCBuZWNlc3NhcnkgdG8gaGF2ZSBhbiBleHBsaWNpdCAiKyAxIiBpbiB0aGUgdXNl
+ciBjb2RlLAo+ID4gPiBidXQgSU1ITyB0aGlzIGlzIGEgZ29vZCB0aGluZyBhcyB0aGlzIGlzIHRo
+ZSBjb2RlIGxvY2F0YXRpb24gdGhhdAo+ID4gPiAia25vd3MiIHRoYXQgZm9yIHNvZnR3YXJlIGNo
+YW5uZWwgMSB5b3UgaGF2ZSB0byB1c2UgVElNX0RJRVJfQ0MySUUKPiA+ID4gKGJlY2F1c2Ugc29m
+dHdhcmUgZ3V5cyBzdGFydCBjb3VudGluZyBhdCAwLCB3aGlsZSB0aGUgcmVsZXZhbnQgaGFyZHdh
+cmUKPiA+ID4gZGVzaWduZXIgc3RhcnRlZCBhdCAxKS4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYt
+Ynk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAYmF5bGlicmUuY29tPgo+ID4g
+PiAtLS0KPiA+ID4gIGRyaXZlcnMvY291bnRlci9zdG0zMi10aW1lci1jbnQuYyB8IDQgKystLQo+
+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+
+IAo+ID4gRGlkIHlvdSBkcm9wIFdpbGxpYW0ncyBBY2sgb24gcHVycG9zZT8KPiAKPiBZZXMsIGJl
+Y2F1c2UgYSkgSSB3YXMgdW5zdXJlIHdoYXQgaGUgZGlkbid0IGxpa2UgYWJvdXQgdGhlIHN1Ympl
+Y3QsIGFuZAo+IChtb3JlIGltcG9ydGFudGx5KSBiKSBJIHNwbGl0IHRoZSBwYXRjaCBpbiBxdWVz
+dGlvbi4gSSBzaG91bGQgaGF2ZQo+IHdyaXR0ZW4gdGhhdCBpbiB0aGUgY292ZXIgbGV0dGVyLCBz
+b3JyeS4KPiAKPiAoTm90ZSBJIG9ubHkgYW5ub3VuY2VkIHRvIGhhdmUgZml4ZWQgdGhlIHN1Ympl
+Y3QgcHJlZml4IG9mIHRoZSBwd20KPiBwYXRjaC4gSSBhc3N1bWUgeW91IHdvbid0IGluY2x1ZGUg
+dGhhdCBpbiB5b3VyIHB1bGwgcmVxdWVzdCwgYnV0IGlmIHlvdQo+IGRvLCBwbGVhc2UgZG8gcy8t
+LzogLyBvbiBpdC4gVGhhdCdzIGFub3RoZXIgdGhpbmcgSSBmYWlsZWQgd2l0aCBmb3IgdGhpcwo+
+IHNlcmllcy4pCgpXaGljaCBwYXRjaGVzIG5lZWQgdG8gYmUgaW4gdGhlIHB1bGwtcmVxdWVzdCBh
+bmQgd2hpY2ggY2FuIGJlIGhvb3ZlcmVkCnVwIGJ5IHRoZWlyIGFzc29jaWF0ZWQgc3Vic3lzdGVt
+cz8KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
