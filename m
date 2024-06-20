@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 104C99102E6
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 13:35:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176749102E8
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2024 13:35:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE18FC78015;
-	Thu, 20 Jun 2024 11:35:15 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8093C7128F;
+	Thu, 20 Jun 2024 11:35:17 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40638C78014
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 878BEC7128E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 11:35:15 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-42122ac2f38so4722135e9.1
+ Thu, 20 Jun 2024 11:35:17 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-42172ed3597so4834185e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2024 04:35:15 -0700 (PDT)
+ Thu, 20 Jun 2024 04:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1718883315; x=1719488115;
+ d=linaro.org; s=google; t=1718883317; x=1719488117;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vwhUYUm1LCcouMp8HtttE3x8uGAo7twu336vKpgolWc=;
- b=Uul7Y90wJ0gdrQisXI/69eiAfcf13f0SF+VCdfGL1KWeicWTPZiThR69zkhr/D+AN8
- XnmqbN0+GnO69zqHAEc/cWxEQB7/xJpGYndQJKNycWFjp++zJjcltKpba0wJ1z7rY6KQ
- eWpDMKF33XsnGk4YF6/U1rbm8whI1ZWalHPLU/CPnp5fWxcc386Re1zcvTYzouruYvYk
- eft1RNmLE2iV7/76Y/IYmu0fVCPR9lE9vAKitTVBHotNysLmeizhrjHtbcjWnguJr9p8
- p5eFWm7ickzBfEGgCdrR/+re4NIJTVr2ISyB9uM6P8i3cHICn7esKEsjCxHSy3iE7M40
- BviA==
+ :reply-to; bh=fk1qcrUS7VR6uiv3rXSOo78BTaK4F+eyz6aHAa6MhHk=;
+ b=UY2/WhxTCeIJ2O2k/Bkyh0CxBS1psRd9ankqvvslqDB5n/GSGsf7RWFXITn/h3uuNC
+ nPrGtCTSlPVKmV0WmcDpe5M96ttKSygYx5tuwYTzlg3jV+/Z0DWgNf7KfKXJmrxfpEAf
+ KtEhu9164XBunFH+CCmzPAhoxBmqj36fFOS1im0SJSld2Tx17c0LX3bHDUcuPYgKyz9F
+ qbHvjQ4vuZ0RtGzRJMNA/yMsHuqxkYz3lwiqKQvMihEA26Zj0oj/TQBpUGuQCQ7OsYwS
+ 0XET7wy5LBCl/SFcgIohYUu1oJ30AKt1ZiBDUYgpmdVP7IQLZxrilIhFEl21jb17rc8i
+ URKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718883315; x=1719488115;
+ d=1e100.net; s=20230601; t=1718883317; x=1719488117;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vwhUYUm1LCcouMp8HtttE3x8uGAo7twu336vKpgolWc=;
- b=f3j8LFVu1BKNSQGv03Q0cbgGNhdWVfrhyOmqh2AYx+xYK8UV+q1W5JAjh32h8UeZ46
- Nyojfzc7f8h5l3pC4/xT0+tks7rIQ1ZU2fsOcJH+fowPFG38dSsbe0v53sQBYZ8Tin/4
- lLolTehiGZuVkTRNvNnN/SSPw0W82fya9xjFWvE2qUStCDdJ2/s6coDijOQoQyzmajcV
- +2Z3ThwlSt3b0dfTEn6+iPawsciUaTyaAk7OI30pjJaIkU3wosp1j8bJyiEkxMI2NmtG
- sANXZpEN/xulVj5PCIxi68oDxWIgTv0Pfg3l6vz0byBix9QGDPGDVZfaYWjYAPdI0OnM
- Dy5A==
+ bh=fk1qcrUS7VR6uiv3rXSOo78BTaK4F+eyz6aHAa6MhHk=;
+ b=bxSGDXsTd3ZX9gQQXD0vhp3oT8YMbAr2Xm0bSHuTrwxaqeynPMD7bPcjZSS3YzYqHc
+ XKGytWCM4ceEvyoJgZZ8Y9IL6pAhuCKAgKEPyocHRsJmtmX4vVK172FRifpX15klWlIp
+ D2VWg0cn1V5+wlJ5a0Zg6ZkgoExVDd1xkvuY5j3vZAN0rKzITi9SSNAgCvuKhZVyftti
+ XXzQM4grRuvX9P6XNuLzcWdj53FPx9SgPFLwfSDUg6PAvAkQbR3dUqK1EbqS8EgzzyaM
+ Lv2alnlACqGU8O4WcMr1Y1h6zNVfCFi+9buQWkKA8AI1L/CJCV/9nV0uumLn29RvPB4H
+ xJrw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVKOS5xfdCEH/zRVuk45mK5XBLCT48p0g5+YIPqRJmMPISzbV/OjGHxbH1MlWy2KESkixAuWnbJ9Cw1Li/QHItCyEf8dxsD0nRKybDibI5LA+Gu1vTLELyj
-X-Gm-Message-State: AOJu0Yyo0GKQa1wC8dM1DH6q3Yq8DiZMAe8pkSR1JUT8X9Liiw0Vi1SW
- W3eRsf7Z1PQSHELEZM8NBLh8bNnY/g3+yVdHsDL1YNxICatcJ/r/RKtYZaS6p4E=
-X-Google-Smtp-Source: AGHT+IGi5yGLp+acd2pIdKmRbWvISb3mjF6HWkCd3+3m9OrI9Xm2zm7H3RAJLTnEbn4GReVJ1cf5AQ==
-X-Received: by 2002:a05:600c:3587:b0:421:661d:89d6 with SMTP id
- 5b1f17b1804b1-42474d34551mr54893695e9.14.1718883314652; 
- Thu, 20 Jun 2024 04:35:14 -0700 (PDT)
+ AJvYcCXnGeYY2Gdaa0CFQzIGDorlHdwK/HXTnzWrICwuBV+VbOT9DeUwKaDk/RhA/FptWTDfiXs/Jg4sTGYeG9seZoo1UyvZA+lgzIN0hQmrzvbEnwc1/EipeC/L
+X-Gm-Message-State: AOJu0YyXLAiUWjNGMtD/7w+3RpLPGWwtQlZn8RjqPjdb/cI/7J6p/LFm
+ xHsseFJGCEFq9JTM6tRyQs6wxnQ63UdGP6iAMbcEiXWcFNz4Gf8nFoGAKo4tiyw=
+X-Google-Smtp-Source: AGHT+IGMJUumhVd5zXX1rZU2J+BofHfd7fe0MAIVGxolusk6jZTAFq1NMKscErXYaaG68fe04/BU0g==
+X-Received: by 2002:a05:600c:787:b0:421:8179:6127 with SMTP id
+ 5b1f17b1804b1-42474d41065mr43498665e9.20.1718883317066; 
+ Thu, 20 Jun 2024 04:35:17 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42471e6623fsm49708985e9.1.2024.06.20.04.35.12
+ 5b1f17b1804b1-42471e6623fsm49708985e9.1.2024.06.20.04.35.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 04:35:14 -0700 (PDT)
+ Thu, 20 Jun 2024 04:35:16 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Thu, 20 Jun 2024 13:34:52 +0200
+Date: Thu, 20 Jun 2024 13:34:53 +0200
 MIME-Version: 1.0
-Message-Id: <20240620-dt-bindings-i2c-clean-v1-4-3a1016a95f9d@linaro.org>
+Message-Id: <20240620-dt-bindings-i2c-clean-v1-5-3a1016a95f9d@linaro.org>
 References: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
 In-Reply-To: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
 To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -84,21 +84,21 @@ To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
  Magnus Damm <magnus.damm@gmail.com>, 
  Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=838;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1074;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=rVL5TZdNAPCclrb5nE/XztIDuSnB+tAbeOBu2bqcECw=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmdBPhjRGCc4lUC0U2O07I7kHcdltVj1nTGFgwC
- sahQvJaFr+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnQT4QAKCRDBN2bmhouD
- 12X5D/4yRWWhLEtJEV2feHXZffzW+59NtR0n+V00C033mlHpgQOTkhIS6zxDZ9Ih4FxyzLDj7YK
- O2It2+JIbRxDrecf85UGoK+tTE0FzqCP7d69y+m/UzIgFRP2pNU0NPWnfOBBzxiiML3umIdULgJ
- +dUK1G/T9q3fKI37S6r9tgcToya4zy9hc+u3epP3GNDyzSV5a+zu8I/8ixl5sUmVQZktup9m7ne
- z+77q551bwrbrlt827awh4P92x4TUFZf6kmjmFhbOBQmPiRClZrCaVXMRNxCWmegmRhu4jrE+wi
- fP0Rn7GayfdZGnB1saS8C0pk7HeZ9TdsdJLwKd59SrfIj35el2+XJNIG8F61/70oGd3/inIk2lu
- TdWGlqbT9KY8akeyN91YjW2iJPDpW2E8MjuzpDtMPHhN/NNZ7i5NTOSa/k61K51GA0CapxzmSKR
- hnrfwBfEL8hx49L/5etkLgTSv7P1lGG3ciAYf5qtvIWqTCFLpQycfuw8MP/WRBpQYf05igbxknN
- WFLaqzmm/h4jcIhixhvwXQg7HkX8gYQJaSFp2+HGzgQnWD0QR3S1Iv7d2kGSPJx5EWn/TvO5CIK
- byiD4qhrGyvTGswfSZ9mK6OWmGtpFqGSnH25fmndDM1KCre0xxbt0qUE4AZ5NJwTHLfOcqfxDBJ
- HPsn8SEE1+PLGag==
+ bh=zPPCGCpVrPzpnwGMQ8MGX8wE9ElLtDgEtXc1fM6D7sg=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmdBPi8sMmfgAT+DLum6aX4eAJT720TZZUkgMYw
+ dBmfI6bvhyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnQT4gAKCRDBN2bmhouD
+ 1+1zD/9KzXHoic8Js9IUevJUSUE5qw0ydGDkJYZhaxsct+uBZoLdqQn/whX6ZYyfBFgZ7o8weCW
+ z/uL4moE2VBBBYfuHGCyQ9b8c36gL4uV9ejRbYShlKCl/52gH52I0+TEJ4p7+94ez47mPJi7uXo
+ I7mz+pEIhzb0Rp9eltBnyTfZw4CF6G6Ly+R5egovOIwM4oVYMdgsAoo9TQHlrE/y4oFzGmSpZTf
+ wZ/50+rdWr/hWGodiJZSlqWWaVdAvC3SxDTY67//Hjub/2cs6ALiP4v7Xulsx1QHLr7U7s8JTq/
+ uXr8Sezuzi0p91Qzipa5Nurvs5ZQncV5xL8VZgXAUeClC/+gnqxYJywGSdcCmLV3j/IdiU7y3fs
+ KLcXmrlkHX317BwGXdSJUtmt8uUKXovBI92qdGwmuCR3hx7MPJlVPpA613HrEDC/mai2fYLEpKu
+ aI7SzB+vmya07U34LGOSdSO6uQkuCh7xz+r1rRRzVbXG1ZcO046fMm5ORSXwzEN5mQPHQl/GDpR
+ XcXClw/9IHKj6Eo1W+tfACtgWDPEqIOAFMcxgZL0LTlT8UYNU68n8drTzsA6meXAy9nHLfkUCTL
+ 8B5IPOyaQppDn4T67+uRuvq7EkaQHLcnqvOWaj9tAMnsvQ/Md8kToe1yTrTWBQau2bGEO6+AMoC
+ UAk2iDhLThbpVhw==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
@@ -108,8 +108,8 @@ Cc: devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
  linux-i2c@vger.kernel.org, linux-tegra@vger.kernel.org,
  linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/7] dt-bindings: i2c: nvidia,
- tegra20: drop unneeded address/size-cells
+Subject: [Linux-stm32] [PATCH 5/7] dt-bindings: i2c: samsung,
+ s3c2410: drop unneeded address/size-cells
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,26 +131,33 @@ The reference i2c-controller.yaml already defines 'address-cells' and
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml | 6 ------
+ Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-index 424a4fc218b6..92fbc1a2671a 100644
---- a/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/nvidia,tegra20-i2c.yaml
-@@ -87,12 +87,6 @@ properties:
-   interrupts:
-     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml b/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
+index 1303502cf265..bbc568485627 100644
+--- a/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/samsung,s3c2410-i2c.yaml
+@@ -26,9 +26,6 @@ properties:
+               - samsung,exynos850-i2c
+           - const: samsung,s3c2440-i2c
  
 -  '#address-cells':
 -    const: 1
 -
+   clocks:
+     maxItems: 1
+ 
+@@ -73,9 +70,6 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description: Pandle to syscon used to control the system registers.
+ 
 -  '#size-cells':
 -    const: 0
 -
-   clocks:
-     minItems: 1
-     maxItems: 2
+ required:
+   - compatible
+   - reg
 
 -- 
 2.43.0
