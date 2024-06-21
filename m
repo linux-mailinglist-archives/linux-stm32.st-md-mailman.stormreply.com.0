@@ -2,67 +2,175 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8122191207D
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 11:27:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CE5D9122D6
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 12:54:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C5F2C7128E;
-	Fri, 21 Jun 2024 09:27:38 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E33BEC7128E;
+	Fri, 21 Jun 2024 10:54:31 +0000 (UTC)
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com
+ [67.231.148.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C373DC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C1F1C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2024 09:27:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2ADDDCE2893;
- Fri, 21 Jun 2024 09:27:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE34C2BBFC;
- Fri, 21 Jun 2024 09:27:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1718962047;
- bh=uhH10vmIJUKkPbdPA4/INQpMI+q9x/UjstbjxvXrdJE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MvDBwLWb2dv893GPCGGbeTdvIWAMyKlOsPT/1BC5DgW8PlNDKB8sb9QRzT1auO0Q2
- lVxKjTcfQUsdJUTUT0vdx9mBmGvm9lGgwEvm6fwUW07u92IkS0lsWDnzoTl/NqoTE6
- eSArKee1Bsqtdy3KpGfXRDr1E+ZsnP2Q2JHUhUYmzipoD8sgrmFJg38on8AjE+O8qG
- ftviQRYS9VkELyn58VdzALl2sa9TQj5ph9057h7xNzdDMRRSmVuTjfPC1OxsC9Vpxc
- oOFLLdUfr1c2w/qRQBlLTGDjMm8YxxDZrrXpxIqahjcSO7wR6GB0oDXFxPfLQ4p776
- 4H9YFZxq9vsXg==
-Date: Fri, 21 Jun 2024 11:27:23 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <5vbvx7qnbv7dwugmnp2sitlpvvsor4hn573spbwaklwbwvilfy@evntmrout65x>
-References: <20240620-dt-bindings-i2c-clean-v1-0-3a1016a95f9d@linaro.org>
- <qru4aqjphjnjpo6yjxl2oznhlz774iv77u4u7u4jldnmlanps5@vpzxntuz6arp>
- <6bc864d6-11de-4762-b309-2e2a3bffaa24@linaro.org>
+ Fri, 21 Jun 2024 10:54:24 +0000 (UTC)
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+ by mx0a-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45L9LYrt008778;
+ Fri, 21 Jun 2024 03:53:53 -0700
+Received: from nam10-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10lp2101.outbound.protection.outlook.com [104.47.58.101])
+ by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3yw6t8080b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Jun 2024 03:53:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pif9PMptxC+j9bDJo7dQyMyQ87b8KwGuCgVKe5kIM4toh6/4qy4yuXNHMgiARcAuilapvJASortin0r51R5c1Ly4by1jhxqfied2TVj9l2lrpvO5RBHFkVH/Fa8jeHa5tXsJ8o6vtJBCzSBrL8RPb7qLP/0NT/ipXBgP1s6b13DWRpl8rU7+EH857L+otLlCFseofSqkxlGxAWVP9VI1QRmlFkZLMylusITFJXQBxM1iabqqbtMGbPhfd0zAZHnLO90tYqQmyoA/vmzYofzddlibpcOORyZu+A7oe/bSNVa+uBHnb2sB7croad1TvMpDU3vJrd/+40EkHMryhvqhbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h52com0wK0feCgGBZz0+YWrUW+k3FH4gmmWOKctIvQE=;
+ b=LaYhhaZ1dbRcwCTZ5Cxx0RHLzLAJpTMeJ811Fqopnisit0HFYHy5IOZVXgA3WYZsifBsVCbuLmSxvGtu7Ktduzq51t36jN4j1eAahAfip7bIgo0FESEk41NAublerWQNb0HgOxKQRtyZuhsqqjvvqY5+rKBkYpQFiKZ+HPgFcLrf97XjxlZ+LKXPlcfJGU6OzDDIFq877Pvkz4nT9noSL0L3Vdt3fNcZ4JEUFpTk0mJ7WZiZFt2n8ho8eqJk7LWTOMrbu+jWFVnqIilx9XWSxlqdXeowfkZvnb4+lcZJjWp25tqf846SOYlI/dGr90It48sgncawgVqVyzgiVw7g1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h52com0wK0feCgGBZz0+YWrUW+k3FH4gmmWOKctIvQE=;
+ b=sDkDzh/XcK3poM+v89ORh5+FdyLdk+JjzXmdDVSr72Qp01kpVuy48oiiOyIA00a0u19KQKuM5zm3OuQhf3aUPOTLSffym1NttPKqKqQInG0sN8HPeYbmfhd45/+OahGjy0dulbcc5eN7stNXfcX/hNq/FIftl1/IFZKMq2iC/Rc=
+Received: from BY3PR18MB4737.namprd18.prod.outlook.com (2603:10b6:a03:3c8::7)
+ by SA1PR18MB4597.namprd18.prod.outlook.com (2603:10b6:806:1d0::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7698.21; Fri, 21 Jun
+ 2024 10:53:51 +0000
+Received: from BY3PR18MB4737.namprd18.prod.outlook.com
+ ([fe80::1598:abb8:3973:da4e]) by BY3PR18MB4737.namprd18.prod.outlook.com
+ ([fe80::1598:abb8:3973:da4e%5]) with mapi id 15.20.7698.020; Fri, 21 Jun 2024
+ 10:53:51 +0000
+From: Sunil Kovvuri Goutham <sgoutham@marvell.com>
+To: WangYuli <wangyuli@uniontech.com>, "alexandre.torgue@foss.st.com"
+ <alexandre.torgue@foss.st.com>, "joabreu@synopsys.com"
+ <joabreu@synopsys.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+ <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>
+Thread-Topic: [PATCH] net: stmmac: Add a barrier to make sure all access
+ coherent
+Thread-Index: AQHaw8lNZhplgX4tGUSVGK59EDHVFA==
+Date: Fri, 21 Jun 2024 10:53:51 +0000
+Message-ID: <BY3PR18MB4737007F602F43294EFAF36EC6C92@BY3PR18MB4737.namprd18.prod.outlook.com>
+References: <F19E93E071D95714+20240621101836.167600-1-wangyuli@uniontech.com>
+In-Reply-To: <F19E93E071D95714+20240621101836.167600-1-wangyuli@uniontech.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR18MB4737:EE_|SA1PR18MB4597:EE_
+x-ms-office365-filtering-correlation-id: 8cd201a4-f183-4065-8d0c-08dc91e06faa
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230037|376011|366013|7416011|1800799021|38070700015; 
+x-microsoft-antispam-message-info: =?utf-8?B?ejhkQjdzTitPRjFsQURMVTlNNldqbDhYYm5YWmJoQjFITmZNVnpVSzF2cEpr?=
+ =?utf-8?B?bzlIM0xzUWErQitDQUwyU1JaNEI4Titja3Vhd09FaTUvakxoRU9QN3NYdENO?=
+ =?utf-8?B?R1NLdTZqTS9vUWhFM1RwK3k5MWdnWHdOdUVhQTk2UEV6dFJPYTVZcEJLWVRJ?=
+ =?utf-8?B?VDFud0pZWGNubGZWelhyOWNhQTNpdlhjWjFueUFlRWFyc0pVcUtWVy9HbDVQ?=
+ =?utf-8?B?aURmOGxkNGp1c2ZIR0VSdVU2bDc2Q0pwTlBrVUhydjZ1a013RDUyRHZhdmx3?=
+ =?utf-8?B?aU1QcEVVVWN6UGZOb1BWckhCOXhmKzY0M2xRUExqcXhDcldrYzFOcHViVTln?=
+ =?utf-8?B?ekZtbHlNZGtGMDkzeEF0Z3J2WjdJNkc1aFU4NkNqTDcvd0cvVHpKcU5LVWIx?=
+ =?utf-8?B?ZEIxVW54eTlTRXZEL1pMZ2NhK1IwV2RFeDhyY1lRY21QK05vSVBkUk1mMS9u?=
+ =?utf-8?B?dHEwTkU5bVpoR1M3WFRmaUpld2JpOGJYdFR3ellIZFI1VkpaSzdiT2UzNy9W?=
+ =?utf-8?B?RkIwcE1xbEh3M2NlYjVnTTBNWFBSeXBTTzJIRGNUZVUreTRmTzQ4U211R2hi?=
+ =?utf-8?B?YTZNcmlIQ1czQS84V2w4bVY2WUpwL2wyTFpCdW1pSUtuUW9wOVlqTWFkZTUv?=
+ =?utf-8?B?Zm4wdjNVTk5PdzlNTy9wYi9wb3c0ODJlRnVzbFVrc1hCS2s3cTBJUlJBV0Fx?=
+ =?utf-8?B?eTM0ZGNudGRDNXBhSXJ2aHBQbzdVdVpNd3luZ1poTUNqcmNvNFlHM3pxaUtJ?=
+ =?utf-8?B?TUt1amxCY3l6WGhjOFdDY08vQXJOYjFSL3drMUhSMmJjTjZzUERraUlYczE2?=
+ =?utf-8?B?OHorK2pmaUk5SUxhZ1JFcndXSGFoVURvZVEvbWRWRjZOOGJtMXR0a0xhS3lp?=
+ =?utf-8?B?Y1U4bHpUVndEOVRRQkRUTDBQbWsycXRCNkZHWjdsdDFoZUZiL2dOcUZtK1ls?=
+ =?utf-8?B?QWVDV3dYV1hGYmlJWVA4a240cEY5cWVHSXhRdkZacFZpeXFacUZTcjRUWkUy?=
+ =?utf-8?B?TDg4TXlndmF3MDVGbjAyYk9OcDZLVjl2R2F4YXFvS3NtNGpzbE83R2VnODFF?=
+ =?utf-8?B?ODg4ZTVPV3ZKSC9YdDRTdDRlQWtBK3RjVWllWG0vc3QzN3JuaUhmbmxIQjhX?=
+ =?utf-8?B?YzZRVlEwTytXSzIwUlBIL0hHQ3pUMU5EeDByVW13ckhGMUFmaThvS0QrdFc0?=
+ =?utf-8?B?emN6akRUbnNTdDVWUEt3N1dFZFlnRDBHeEhVU0toS01DeE5zSVFyWTRmM1B6?=
+ =?utf-8?B?dmpwbzRMOWlMb3NFSGIrdVVwdTFkYkpKVkVnY2s3S2pwcWM3MTNIQ09aWG1X?=
+ =?utf-8?B?eWZ1SHAzT2NQVE1tSDJuaE92TjFqMHZYaFFOb3FDSDlQSGJiVEtnQUYwOUdp?=
+ =?utf-8?B?RnJsRWhyWlZicnNYY3FIZmZtYWFTZHg4U1lVNWNCMzZlY0xmTGtTN3pPVXlQ?=
+ =?utf-8?B?bTNkT0dRTTlFMUIrSlJxNDRuVFBCeWRXczkyOXRqcWtaZWpIa2FRc0lEN2Nz?=
+ =?utf-8?B?aVFnL0FpVTRKL2daVGl6Y3lEV3g0eXZjSk8ySjZqRVdtUkZ5YzBweE5mMDNa?=
+ =?utf-8?B?ZEFjSlJpd3RpQzNYVHhiOTVwVXlnZjVqS3dyY0pwNEUzVEh0QjJkNDYvM3BY?=
+ =?utf-8?B?cU5TWWwzdjRoRktkRlBlSS9OenY0OVY4L0syc1pZQ21VUkR6WG1WVElPOHVj?=
+ =?utf-8?B?OWYrUERjd20wSERySjFCTVNhOXpIby96b2ZqK0NyaXAzc1dKbTdibTFidWNF?=
+ =?utf-8?B?R1FxRnNxY0x5dEs4Wk9NcmlvTmZKaWhFZC9RenlyZmJ0T29jckFkRlM1RFU0?=
+ =?utf-8?Q?WDv0At7SOelBC/u4rbKVZeqkBSARxyPZ6Y59I=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY3PR18MB4737.namprd18.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230037)(376011)(366013)(7416011)(1800799021)(38070700015); DIR:OUT;
+ SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZkJMVE1ySjhwVmpGbnZKRGxrbG85UklqOVl1OStqYlFwdlpwampGcVF6M1M4?=
+ =?utf-8?B?WkRES0xCR0RnNjhTKzltSGVyTG93WkZEUXJobkZ5b1Vib0xweVBZaFFqUE9Z?=
+ =?utf-8?B?WUxtK2lpVzVQUW1OTXlIUFFjNmdLTlF0K21RbjJnSU1HT0labXVIVXg1TVB1?=
+ =?utf-8?B?ci9yY1VQTHFqZWt5a1UvQW9JVFpvWXhmUjRCMmh0MzBHZjQyc3lyM091UENs?=
+ =?utf-8?B?M3dCazBGU1dHT05UWGxIV1p4QlVyQkt4bnMyRlVoTXFEc1prZk9YR2JJazZa?=
+ =?utf-8?B?V2hEd29JVTUvTE16MDFmQXB4NS9QSEV5UjVEYmV4eWIrRGZPTXhEc3V2WVVx?=
+ =?utf-8?B?VnhmN2RmMlc5ZC9xZzU1d3B5V3piVkVLaUFHWWpTYTRsOG5VWHFtQlk4ekIy?=
+ =?utf-8?B?Nno0QUkwWklGclMvQlhRYlorRTFpdHpXM2JvdGQyS1U4MHB5YlhYalcxWWMx?=
+ =?utf-8?B?T0lTUjZUaHdtRCt5UjZoSWFtdktQdVo5RFR3L3E5cW9zcGhLUmpyRlN2K3hz?=
+ =?utf-8?B?ZWFZTmcxd1Vrd0NUY1pucmh5UGZjQUtueVV3MTEwYjFFRElSVHZRNlpwdDlm?=
+ =?utf-8?B?U2hGZFB5eHZUeEc1dEE4MHJXNUNJcno0WmdsM2dxbFlZeUtSVmJaNmc1OWFN?=
+ =?utf-8?B?dk9TaUZJUEc5YngzMWh6YmxWS0gzUjQrRDRseFlKdGRmTDZ5ZmJZNmZ0Skwy?=
+ =?utf-8?B?bjFtQzBXWU1mbTJTaU9IMkxIa2tJRUQzbXJYbW10RTJWTlVSanc2MnFRMzZx?=
+ =?utf-8?B?d1gxV1ZTakVGMDdyN216S1FvdUJJY3p4VE43UGhUZkhUVVE3dEgwWG5CSXpa?=
+ =?utf-8?B?cU41eFUyL2F5YStmMDdEaWp3SDBndVdlWENOSnliMTBycGYzS1BhbUlUR2wx?=
+ =?utf-8?B?S1M4UEpIaXJVQ3VuUnE2RXlWdm9HOE9YcEtycXRMNWtINDU1YS9RemEyeUlD?=
+ =?utf-8?B?b2kvdkUzdmtTQjFSejFnUkNvNk1VeEVBMTlSSkhhZk5CRjliTG5KenRYd0l0?=
+ =?utf-8?B?bzc4YlpKQXlrOEpNcHNIVUpyZmxjdWxTQUE4UnRoOThkVDNrQUpFczhseU11?=
+ =?utf-8?B?QXhsb1FYdzNNdHkrUUN0bFg4eVIyYUQ4QmF3LzlvUjlWUW9mWUZFMTA2eCtv?=
+ =?utf-8?B?Q0NYM0JERzMxWlk2L0RoVHRINElMaGNIWXhOd0x5R2FtdGNybnRrNjRkWUZ3?=
+ =?utf-8?B?aFowTTc0cVV1dFlqME9OaUVnMENhcGNyTlE3OTJsVzZvWllscms0U2FWMExH?=
+ =?utf-8?B?NTNqOG1TTVkwZUZFaTZsNUxMMVVuVkJwZEtkNHV4RzRhdGVLTm93djNTNmRN?=
+ =?utf-8?B?K2lsRGlBcnE2N0pZTDJmS0FYQm1IL1NJVFA1Q0NSWE85UUlVcHplVHBlczdY?=
+ =?utf-8?B?Z2xscURmSFo5NXNhRjlyTFlsT20rRTBsc1JJMHAyL1hDeGJMQkRON2NObW5G?=
+ =?utf-8?B?SW01YnA3dXZ1dUFYRzFHK25nbkZqb1puMWxoU0VlbjhvUkV3R29WQkJaOHlW?=
+ =?utf-8?B?ZEx6eW5tbzloVG1sZUZ6VFJZT3ZnVmtVVW1oVWhZcmpTU2locVRsTGVFWlVj?=
+ =?utf-8?B?ZWorSWFJSTVpWDAxNnU0b3B2RWpwamtQa2hPRkJzSlBaOG1xNzRUS2hkSXgw?=
+ =?utf-8?B?VEh1NkRWaUVHemNUR0ZiVVJJUDRzSmNTSGpyczFObk9tdHJPWWlkMmN5aG9F?=
+ =?utf-8?B?R0d0RVZ0clVPd21tWFcyWFV0bFFWNnRUck5hcW5GdmpxQ096Z2UxRGMyemZ5?=
+ =?utf-8?B?WDlGNy9YU0cvd1dsK1RmVXd4WERWb25adWUvZEEraVdmSE5zL1hqbS90d1cv?=
+ =?utf-8?B?Z3NpVitPSWErelNIVS9RRG45TnRHKythZFRmSVArbjNlaGdlZ2p4VmVLTmJO?=
+ =?utf-8?B?THhPbWV4bWVDc1A1ckhzR2JrVDRmeW9qdDVCV2V2a0l1MkxGSEl1VWhhV1lB?=
+ =?utf-8?B?Nml6SDFWOWEra3VEblNVSmsweGFHcG1hS3VrN01zeXd5dm5JeWQxRXQvSmNQ?=
+ =?utf-8?B?dE1QUHFMSW9JYkc2a3kwWk95alJDaWZkaGdCZnk3MHFuMFVZclQrb0ozcm1K?=
+ =?utf-8?B?QVpONlNPYjlidG5BWFVaYktQc1FneFU4NmZPY2VTSmxXam5vckJQYkVYNzI5?=
+ =?utf-8?Q?G2+adHrq3ZWkGDMBvRnP5q6Lf?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6bc864d6-11de-4762-b309-2e2a3bffaa24@linaro.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh R <vigneshr@ti.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Chris Brandt <chris.brandt@renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
- Guenter Roeck <groeck@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Kamal Dasu <kdasu.kdev@gmail.com>, Magnus Damm <magnus.damm@gmail.com>,
- Sergiu Moga <sergiu.moga@microchip.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Ricardo =?utf-8?Q?Ca=C3=B1uelo?= <ricardo.canuelo@collabora.com>,
- Kamal Dasu <kamal.dasu@broadcom.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, chrome-platform@lists.linux.dev,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-tegra@vger.kernel.org,
- linux-omap@vger.kernel.org, Benson Leung <bleung@chromium.org>,
- linux-arm-kernel@lists.infradead.org, Doug Anderson <dianders@chromium.org>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Enric Balletbo i Serra <eballetbo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 0/7] dt-bindings: i2c: few fixes and
-	cleanups
+X-OriginatorOrg: marvell.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4737.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cd201a4-f183-4065-8d0c-08dc91e06faa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2024 10:53:51.1285 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JIFAoUBGGFUjLqAnh/jOEYFYa5xmu6UoL/Jyz+u/CwVSwuUwCmLs8qT3s5z/MBbysq1+2W7BAZIljZGleYFkxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR18MB4597
+X-Proofpoint-GUID: 265OdJEoAOv49vhqczaTuqpXmIPlWwW1
+X-Proofpoint-ORIG-GUID: 265OdJEoAOv49vhqczaTuqpXmIPlWwW1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-21_04,2024-06-21_01,2024-05-17_01
+Cc: Li Wencheng <liwencheng@phytium.com.cn>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "guanwentao@uniontech.com" <guanwentao@uniontech.com>,
+ Wang Zhimin <wangzhimin1179@phytium.com.cn>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Chen Baozi <chenbaozi@phytium.com.cn>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Add a barrier to make sure
+ all access coherent
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,37 +182,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdW4gMjEsIDIwMjQgYXQgMDg6MDI6MDNBTSBHTVQsIEtyenlzenRvZiBLb3psb3dz
-a2kgd3JvdGU6Cj4gT24gMjEvMDYvMjAyNCAwMTowNSwgQW5kaSBTaHl0aSB3cm90ZToKPiA+IEN6
-ZcWbxIcgS3J6eXN6dG9mLAo+ID4gCj4gPiBPbiBUaHUsIEp1biAyMCwgMjAyNCBhdCAwMTozNDo0
-OFBNIEdNVCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiA+PiBGZXcgZml4ZXMgZm9yIEky
-QyBjb250cm9sbGVyIHNjaGVtYXMuIFRoZSB0aGlyZCBwYXRjaCAoYXRtZWwsYXQ5MXNhbSkKPiA+
-PiBkZXBlbmRzIG9uIGZpcnN0LCBzbyBJIHN1Z2dlc3Qgbm90IHNwbGl0dGluZyB0aGlzIGludG8g
-Zml4ZXMgYnJhbmNoIGJ1dAo+ID4+IHRha2UgYXMgaXMgdmlhIG5leHQgYnJhbmNoLgo+ID4+Cj4g
-Pj4gQmVzdCByZWdhcmRzLAo+ID4+IEtyenlzenRvZgo+ID4+Cj4gPj4gLS0tCj4gPj4gS3J6eXN6
-dG9mIEtvemxvd3NraSAoNyk6Cj4gPj4gICAgICAgZHQtYmluZGluZ3M6IGkyYzogYXRtZWwsYXQ5
-MXNhbTogY29ycmVjdCBwYXRoIHRvIGkyYy1jb250cm9sbGVyIHNjaGVtYQo+ID4+ICAgICAgIGR0
-LWJpbmRpbmdzOiBpMmM6IGdvb2dsZSxjcm9zLWVjLWkyYy10dW5uZWw6IGNvcnJlY3QgcGF0aCB0
-byBpMmMtY29udHJvbGxlciBzY2hlbWEKPiA+IAo+ID4gbWVyZ2VkIHRvIGkyYy9pMmMtaG9zdC1m
-aXhlcwo+ID4gCj4gPj4gICAgICAgZHQtYmluZGluZ3M6IGkyYzogYXRtZWwsYXQ5MXNhbTogZHJv
-cCB1bm5lZWRlZCBhZGRyZXNzL3NpemUtY2VsbHMKPiA+PiAgICAgICBkdC1iaW5kaW5nczogaTJj
-OiBudmlkaWEsdGVncmEyMDogZHJvcCB1bm5lZWRlZCBhZGRyZXNzL3NpemUtY2VsbHMKPiA+PiAg
-ICAgICBkdC1iaW5kaW5nczogaTJjOiBzYW1zdW5nLHMzYzI0MTA6IGRyb3AgdW5uZWVkZWQgYWRk
-cmVzcy9zaXplLWNlbGxzCj4gPj4gICAgICAgZHQtYmluZGluZ3M6IGkyYzogdGksb21hcDQ6IHJl
-ZmVyZW5jZSBpMmMtY29udHJvbGxlci55YW1sIHNjaGVtYQo+ID4+ICAgICAgIGR0LWJpbmRpbmdz
-OiBpMmM6IGFkanVzdCBpbmRlbnRhdGlvbiBpbiBEVFMgZXhhbXBsZSB0byBjb2Rpbmcgc3R5bGUK
-PiA+IAo+ID4gbWVyZ2VkIHRvIGkyYy9pMmMtaG9zdAo+IAo+IFNvIHlvdSBicm9rZSB0aGUgYmlu
-ZGluZy4uLiBXaHkgb3Blbmx5IGlnbm9yaW5nIG15IGZpcnN0IHNlbnRlbmNlPwoKSXQncyBub3Qg
-YW4gaXNzdWUuIFdlIGNhbiBnZXQgdGhlIGZpeGVzIGZpcnN0IGFuZCBhcHBseSB0aGUgcmVzdAps
-YXRlciwgSSBjYW4ga2VlcCB0aGVtIGluIG15IC1uZXh0IGJyYW5jaCBhbmQgcmVhcHBseSBuZXh0
-IHdlZWsuCgpPdGhlcndpc2UgSSB3b3VsZCB3YWl0IGZvciBldmVyeXRoaW5nIGF0IHRoZSBtZXJn
-ZSB3aW5kb3csIGJ1dCBJCmRvbid0IHdhbnQgdG8gd2FpdCBzbyBsb25nLgoKVGhhbmtzLApBbmRp
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+
+>Besides, increase the ring buffer size to avoid buffer overflow.
+>
+>  */
+> #define DMA_MIN_TX_SIZE		64
+> #define DMA_MAX_TX_SIZE		1024
+>-#define DMA_DEFAULT_TX_SIZE	512
+>+#define DMA_DEFAULT_TX_SIZE	1024
+> #define DMA_MIN_RX_SIZE		64
+> #define DMA_MAX_RX_SIZE		1024
+>-#define DMA_DEFAULT_RX_SIZE	512
+>+#define DMA_DEFAULT_RX_SIZE	1024
+> #define STMMAC_GET_ENTRY(x, size)	((x + 1) & (size - 1))
+>
+
+If this is a fix, please add a fixes tag.
+
+                /* Prefetch the next RX descriptor */
+                rx_q->cur_rx = STMMAC_GET_ENTRY(rx_q->cur_rx,
+                                                priv->dma_conf.dma_rx_size);
+
+Also do please elaborate buffer overflow problem.
+Is this ' DMA_DEFAULT_RX_SIZE ' descriptor size or size of full descriptor ring ?
+
+Thanks,
+Sunil.
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
