@@ -2,44 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE20914309
+	by mail.lfdr.de (Postfix) with ESMTPS id CEF7991430A
 	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2024 08:57:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A50FC71287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 749CDC78002;
 	Mon, 24 Jun 2024 06:57:17 +0000 (UTC)
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A184C7128D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B928C712A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2024 10:20:44 +0000 (UTC)
-X-QQ-mid: bizesmtpsz15t1718965135tf36p6
-X-QQ-Originating-IP: P0/GW/bcSHhST6SeWoBh2w5Z3xI7MzBTCUiyhlDOLOk=
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 21 Jun 2024 18:18:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13424936374893162487
-From: WangYuli <wangyuli@uniontech.com>
-To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com
-Date: Fri, 21 Jun 2024 18:18:36 +0800
-Message-ID: <F19E93E071D95714+20240621101836.167600-1-wangyuli@uniontech.com>
-X-Mailer: git-send-email 2.43.4
+ Fri, 21 Jun 2024 14:39:21 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45LBTNxV021256;
+ Fri, 21 Jun 2024 16:39:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ h5wh07xdDpLNGsPG65zom8MH6lNQ5AcKeO8W2TwlxtM=; b=M+p+YdlqIg4XDq9A
+ H/jmRsth/YzzDhNElJz+HCHzwC+BkyvBwGq4Hwk2sqOnkl/0jaL8QQzxqHnn4b7y
+ TkFTBJ3TIhe3D926n7FIxSdkEQ7LHlWtHhgQNPpBucFiwQU9qQWaejqLM+eNz7Io
+ XoaUY7dTZre315eTaR2fwW95ZLPkTAm59XID6p+ekdZKdB+zfUUlzTxKae0WvXjd
+ VM3UvnpOtspeH0EK0iF4VLTsXnxCvK3DCGFS1en1rDlgjS0EC1C82NhkW+wkFp4H
+ 7f7RYTfhB3D65lJCCo7M59xRSGhWcNEgdq6UDPR/+ppR9JGZN2k3atbjru3f/NwK
+ T/AAWg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yvrkbm4kt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Jun 2024 16:39:06 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 15CD140046;
+ Fri, 21 Jun 2024 16:39:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 28B6B2207D2;
+ Fri, 21 Jun 2024 16:38:11 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 21 Jun
+ 2024 16:38:10 +0200
+Received: from localhost (10.252.31.218) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 21 Jun
+ 2024 16:38:10 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Fri, 21 Jun 2024 16:37:55 +0200
+Message-ID: <20240621143759.547793-2-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240621143759.547793-1-arnaud.pouliquen@foss.st.com>
+References: <20240621143759.547793-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
+X-Originating-IP: [10.252.31.218]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-21_06,2024-06-21_01,2024-05-17_01
 X-Mailman-Approved-At: Mon, 24 Jun 2024 06:57:15 +0000
-Cc: Li Wencheng <liwencheng@phytium.com.cn>,
- Wang Yinfeng <wangyinfeng@phytium.com.cn>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, guanwentao@uniontech.com,
- Wang Zhimin <wangzhimin1179@phytium.com.cn>, WangYuli <wangyuli@uniontech.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Chen Baozi <chenbaozi@phytium.com.cn>
-Subject: [Linux-stm32] [PATCH] net: stmmac: Add a barrier to make sure all
-	access coherent
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v8 1/5] remoteproc: core: Introduce
+	rproc_pa_to_va helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,53 +84,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a memory barrier to sync TX descriptor to avoid data error.
-Besides, increase the ring buffer size to avoid buffer overflow.
+When a resource table is loaded by an external entity such as U-boot or
+OP-TEE, we do not necessarily get the device address(da) but the physical
+address(pa).
+This helper performs similar translation than the rproc_da_to_va()
+but based on a physical address.
 
-Signed-off-by: Wang Zhimin <wangzhimin1179@phytium.com.cn>
-Signed-off-by: Li Wencheng <liwencheng@phytium.com.cn>
-Signed-off-by: Chen Baozi <chenbaozi@phytium.com.cn>
-Signed-off-by: Wang Yinfeng <wangyinfeng@phytium.com.cn>
-Signed-off-by: WangYuli <wangyuli@uniontech.com>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h    | 4 ++--
- drivers/net/ethernet/stmicro/stmmac/norm_desc.c | 4 ++++
- 2 files changed, 6 insertions(+), 2 deletions(-)
+updates vs previous version:
+- remove pa_to_va in the rproc_ops structure as not used
+- simplify the rproc_pa_to_va() documentation header
+- fix typos
+---
+ drivers/remoteproc/remoteproc_core.c | 46 ++++++++++++++++++++++++++++
+ include/linux/remoteproc.h           |  1 +
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 9cd62b2110a1..7cc2fecbaf18 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -50,10 +50,10 @@
-  */
- #define DMA_MIN_TX_SIZE		64
- #define DMA_MAX_TX_SIZE		1024
--#define DMA_DEFAULT_TX_SIZE	512
-+#define DMA_DEFAULT_TX_SIZE	1024
- #define DMA_MIN_RX_SIZE		64
- #define DMA_MAX_RX_SIZE		1024
--#define DMA_DEFAULT_RX_SIZE	512
-+#define DMA_DEFAULT_RX_SIZE	1024
- #define STMMAC_GET_ENTRY(x, size)	((x + 1) & (size - 1))
- 
- #undef FRAME_FILTER_DEBUG
-diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-index 68a7cfcb1d8f..40088a390f7b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-@@ -200,6 +200,10 @@ static void ndesc_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
- 	else
- 		norm_set_tx_desc_len_on_ring(p, len);
- 
-+	/* The own bit must be the latest setting done when prepare the
-+	 * descriptor and then barrier is needed to make sure that all is coherent.
-+	 */
-+	wmb();
- 	if (tx_own)
- 		p->des0 |= cpu_to_le32(TDES0_OWN);
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index f276956f2c5c..ace11ea17097 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -230,6 +230,52 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
  }
+ EXPORT_SYMBOL(rproc_da_to_va);
+ 
++/**
++ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
++ * memory
++ *
++ * @rproc: handle of a remote processor
++ * @pa: remoteproc physical address
++ * @len: length of the memory region @pa is pointing to
++ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
++ *
++ * This function is a helper function similar to rproc_da_to_va() but it deals with physical
++ * addresses instead of device addresses.
++ *
++ * Return: a valid kernel address on success or NULL on failure
++ */
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
++{
++	struct rproc_mem_entry *carveout;
++	void *ptr = NULL;
++
++	list_for_each_entry(carveout, &rproc->carveouts, node) {
++		int offset = pa - carveout->dma;
++
++		/*  Verify that carveout is allocated */
++		if (!carveout->va)
++			continue;
++
++		/* try next carveout if da is too small */
++		if (offset < 0)
++			continue;
++
++		/* try next carveout if da is too large */
++		if (offset + len > carveout->len)
++			continue;
++
++		ptr = carveout->va + offset;
++
++		if (is_iomem)
++			*is_iomem = carveout->is_iomem;
++
++		break;
++	}
++
++	return ptr;
++}
++EXPORT_SYMBOL(rproc_pa_to_va);
++
+ /**
+  * rproc_find_carveout_by_name() - lookup the carveout region by a name
+  * @rproc: handle of a remote processor
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index b4795698d8c2..8fd0d7f63c8e 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -690,6 +690,7 @@ int rproc_detach(struct rproc *rproc);
+ int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
+ void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
+ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
+ 
+ /* from remoteproc_coredump.c */
+ void rproc_coredump_cleanup(struct rproc *rproc);
 -- 
-2.43.4
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
