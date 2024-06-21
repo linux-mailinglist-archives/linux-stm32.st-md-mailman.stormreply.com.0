@@ -2,71 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D7991280B
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 16:39:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DA491284F
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 16:46:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 249F9C78018;
-	Fri, 21 Jun 2024 14:39:28 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5DD6C7128E;
+	Fri, 21 Jun 2024 14:46:58 +0000 (UTC)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FA0CC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 408C3C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2024 14:39:22 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45LB815n010455;
- Fri, 21 Jun 2024 16:39:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 5kZCTrEnUYrrn7VySucHpVy2rNlLzmhAa+aMbA4hK1k=; b=d9FIBdVPAqpAAbUG
- D3aIXhCdis8OelH6hZJdkoM4a6PWnvibkLByapZJiAnmp9FR3U5mL0pzJJiTKfuZ
- uaSM7hW6NlgDSf1BdNccu0dJpzvBbh2gSOsPHH9qfQxk4rlWVNLPWbccoyMe8usv
- Yf+Zdc4RFuwsZ8J5j7lQuk7RRBkWaaY3TO3NhMDIgiq3+fGvbJYNZAO0kxxGnGKx
- t4VHxbNg8dDsfU2T4lfes2dObaS1zib3adxOSHhE8zwTnSmFdpDeIvPhJ6pDE/u+
- VlUSAwnvvhmtAW2An8t1c1rGnpT9da+CtBhf8Az3aulsgYhiPA05vX4tuq1GtoOP
- +XxwRg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yvrkhv36h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Jun 2024 16:39:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D49BF40048;
- Fri, 21 Jun 2024 16:39:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 93FEA21BF5E;
- Fri, 21 Jun 2024 16:38:14 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 21 Jun
- 2024 16:38:14 +0200
-Received: from localhost (10.252.31.218) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 21 Jun
- 2024 16:38:14 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
-Date: Fri, 21 Jun 2024 16:37:59 +0200
-Message-ID: <20240621143759.547793-6-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240621143759.547793-1-arnaud.pouliquen@foss.st.com>
-References: <20240621143759.547793-1-arnaud.pouliquen@foss.st.com>
+ Fri, 21 Jun 2024 14:46:52 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2ebdfe26217so19466031fa.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Jun 2024 07:46:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718981208; x=1719586008;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yQVb2DeThksBLy1v6heanX+uAjJHYjLCnQz2w0NHRqc=;
+ b=AMeL38LI+B99hP9Rgm0ArZOSmHXAlG4Vuqwscksz4TDJqY4jmBZPVuzHjyvkCDl0yd
+ mMz3WeC0hLjbhE+jzpIA6hM1SSt1PNK26/2DEMQldd4Fd3pm/QhibZyyMREMSot6p+Q9
+ Zf0j9QbI84Ckn+VDHEbiNj1oT0nhRdwkWL+Y1WVZJUaIyhxkuziTHtEfEbhQ9L8kxh5h
+ 0Jjb6rT9Q88rCNFkctugOqfcicQ1/K2JA9JqwaFnZ6S2HWv/01rNBRF2Kj+siokqTRfa
+ 1oXC3I4VeNGjFxhSF70BnoQumV34ZNxzXSrz46UApxfpQ0gXlz4eYGPnyuWenxPw/uiA
+ vd1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRvACNSxo75XhPZqhxuuId21ClhKMMJl/o2Ys/au9iyz5JTrQw36104k5er4RjRFm3pRnlESkvWyD+16oJIoPg5O23sVZYAN8K5Iol5WebjKPcRQd5CECj
+X-Gm-Message-State: AOJu0Yza32OLjlaDU8SBkSyY3zP6vlnJC+mHHvX6mj0Hobsh9yw58t1l
+ XQTpebykWOPV+z3XazY5VtIClJZSQe1LUyMwUJ5dP8jLl5tKMZ7cKFy85tUzDPo=
+X-Google-Smtp-Source: AGHT+IGq38opgiP7xZE8WWBgZjoQyzJzDpG1/OFl8dK88E+7vUj3ZfsPvyxa3s/qWSg4XafTCHtZvg==
+X-Received: by 2002:a2e:9612:0:b0:2ec:2ccb:8efb with SMTP id
+ 38308e7fff4ca-2ec3cfe8a75mr51052061fa.38.1718981208123; 
+ Fri, 21 Jun 2024 07:46:48 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com.
+ [209.85.208.172]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ec4d708f24sm2247681fa.44.2024.06.21.07.46.47
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Jun 2024 07:46:47 -0700 (PDT)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2ebeefb9a6eso20564421fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Jun 2024 07:46:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkXKxVprkSAQS1euFUvLXApugxJ4l7bbwhKsSWHCHKTZe9uQlFv/oLwmRObqwsJMW6vSq9XL94ALxUm5zKNk1Lze/lMTfHs/mwlpwWj3Yg2UyNLC2uYaVF
+X-Received: by 2002:a05:651c:104c:b0:2ec:5073:5816 with SMTP id
+ 38308e7fff4ca-2ec507358edmr10687831fa.31.1718981186574; Fri, 21 Jun 2024
+ 07:46:26 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.252.31.218]
-X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-21_06,2024-06-21_01,2024-05-17_01
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v8 5/5] remoteproc: stm32: Add support of an
-	OP-TEE TA to load the firmware
+References: <20240614-dt-bindings-thermal-allof-v1-0-30b25a6ae24e@linaro.org>
+ <20240614-dt-bindings-thermal-allof-v1-3-30b25a6ae24e@linaro.org>
+In-Reply-To: <20240614-dt-bindings-thermal-allof-v1-3-30b25a6ae24e@linaro.org>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Fri, 21 Jun 2024 22:46:13 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65T80TH9HUpny8vK2KNrE6aYQHf4x0CAUrxKWih34TdTA@mail.gmail.com>
+Message-ID: <CAGb2v65T80TH9HUpny8vK2KNrE6aYQHf4x0CAUrxKWih34TdTA@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Amit Kucheria <amitk@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, Anson Huang <Anson.Huang@nxp.com>,
+ Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ linux-rockchip@lists.infradead.org,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Zhang Rui <rui.zhang@intel.com>,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ zhanghongchen <zhanghongchen@loongson.cn>,
+ Pascal Paillet <p.paillet@foss.st.com>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Keerthy <j-keerthy@ti.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [Linux-stm32] [PATCH 03/22] dt-bindings: thermal: allwinner,
+ sun8i-a83t-ths: reference thermal-sensor schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,145 +110,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: wens@csie.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The new TEE remoteproc device is used to manage remote firmware in a
-secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
-introduced to delegate the loading of the firmware to the trusted
-execution context. In such cases, the firmware should be signed and
-adhere to the image format defined by the TEE.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/stm32_rproc.c | 63 ++++++++++++++++++++++++++++++--
- 1 file changed, 60 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 8cd838df4e92..fd905b3cf206 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -18,6 +18,7 @@
- #include <linux/pm_wakeirq.h>
- #include <linux/regmap.h>
- #include <linux/remoteproc.h>
-+#include <linux/remoteproc_tee.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
-@@ -257,6 +258,19 @@ static int stm32_rproc_release(struct rproc *rproc)
- 	return 0;
- }
- 
-+static int stm32_rproc_tee_stop(struct rproc *rproc)
-+{
-+	int err;
-+
-+	stm32_rproc_request_shutdown(rproc);
-+
-+	err = tee_rproc_stop(rproc);
-+	if (err)
-+		return err;
-+
-+	return stm32_rproc_release(rproc);
-+}
-+
- static int stm32_rproc_prepare(struct rproc *rproc)
- {
- 	struct device *dev = rproc->dev.parent;
-@@ -693,8 +707,20 @@ static const struct rproc_ops st_rproc_ops = {
- 	.get_boot_addr	= rproc_elf_get_boot_addr,
- };
- 
-+static const struct rproc_ops st_rproc_tee_ops = {
-+	.prepare	= stm32_rproc_prepare,
-+	.start		= tee_rproc_start,
-+	.stop		= stm32_rproc_tee_stop,
-+	.kick		= stm32_rproc_kick,
-+	.load		= tee_rproc_load_fw,
-+	.parse_fw	= tee_rproc_parse_fw,
-+	.find_loaded_rsc_table = tee_rproc_find_loaded_rsc_table,
-+
-+};
-+
- static const struct of_device_id stm32_rproc_match[] = {
- 	{ .compatible = "st,stm32mp1-m4" },
-+	{ .compatible = "st,stm32mp1-m4-tee" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, stm32_rproc_match);
-@@ -853,17 +879,42 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct stm32_rproc *ddata;
- 	struct device_node *np = dev->of_node;
-+	struct tee_rproc *trproc = NULL;
- 	struct rproc *rproc;
- 	unsigned int state;
-+	u32 proc_id;
- 	int ret;
- 
- 	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret)
- 		return ret;
- 
--	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
--	if (!rproc)
--		return -ENOMEM;
-+	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
-+		/*
-+		 * Delegate the firmware management to the secure context.
-+		 * The firmware loaded has to be signed.
-+		 */
-+		ret = of_property_read_u32(np, "st,proc-id", &proc_id);
-+		if (ret) {
-+			dev_err(dev, "failed to read st,rproc-id property\n");
-+			return ret;
-+		}
-+
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_tee_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+
-+		trproc = tee_rproc_register(dev, rproc, proc_id);
-+		if (IS_ERR(trproc)) {
-+			dev_err_probe(dev, PTR_ERR(trproc),
-+				      "signed firmware not supported by TEE\n");
-+			return PTR_ERR(trproc);
-+		}
-+	} else {
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+	}
- 
- 	ddata = rproc->priv;
- 
-@@ -915,6 +966,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+	if (trproc)
-+		tee_rproc_unregister(trproc);
-+
- 	return ret;
- }
- 
-@@ -935,6 +989,9 @@ static void stm32_rproc_remove(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+	if (rproc->tee_interface)
-+		tee_rproc_unregister(rproc->tee_interface);
-+
- }
- 
- static int stm32_rproc_suspend(struct device *dev)
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdW4gMTQsIDIwMjQgYXQgNTo0NuKAr1BNIEtyenlzenRvZiBLb3psb3dza2kKPGty
+enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBEZXZpY2UgaXMgYSB0aGVy
+bWFsIHNlbnNvciBhbmQgaXQgcmVxdWlyZXMgJyN0aGVybWFsLXNlbnNvci1jZWxscycsIHNvCj4g
+cmVmZXJlbmNlIHRoZSB0aGVybWFsLXNlbnNvci55YW1sIHRvIHNpbXBsaWZ5IGl0IGFuZCBicmlu
+ZyB0aGUKPiBjb21tb24gZGVmaW5pdGlvbiBvZiAnI3RoZXJtYWwtc2Vuc29yLWNlbGxzJyBwcm9w
+ZXJ0eS4KPgo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5r
+b3psb3dza2lAbGluYXJvLm9yZz4KCkFja2VkLWJ5OiBDaGVuLVl1IFRzYWkgPHdlbnNAY3NpZS5v
+cmc+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
