@@ -2,91 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA64912EBF
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2024 22:45:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9908D9132EA
+	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jun 2024 11:43:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B634AC7128E;
-	Fri, 21 Jun 2024 20:45:05 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37697C6907A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 449F3C6DD9B;
+	Sat, 22 Jun 2024 09:43:46 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F038BC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2024 20:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1719002697;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IBRyGrjkPd5CIS4XoIva4gQOV3Q+VtL43fiauuhlKtM=;
- b=Dafi+FP/qyGpDKLzX23XNpG8qrM/pJwq2EdI0pvvXo6fY6WLVDpeYRXttPPxMRA8CA21LB
- 1QdzCEeIvi7o8yqTPPH19DWvNQs0/qaEgpWkSqE/FoXWoguaoZsiGWSHvPUy6d2CxH83cj
- fcfu/7DoUShRnxzLsHpoZqWRlGxcJ4U=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-648-_IsUD7XZPIezToVecFXIwA-1; Fri, 21 Jun 2024 16:44:54 -0400
-X-MC-Unique: _IsUD7XZPIezToVecFXIwA-1
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-6b51db044edso16452736d6.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2024 13:44:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719002693; x=1719607493;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IBRyGrjkPd5CIS4XoIva4gQOV3Q+VtL43fiauuhlKtM=;
- b=CxXj8PWgmNiE4la950tYkUHgGjN+N0Q3db9wLkfWC3/gRQHjqra7x5yn24tCTet3Ee
- Plbcsxa6qJVDJJOVPCk7iumxCC2mJShMhDg5G7QKaEbp3n54ZVucnDlVNh1YqILejxh/
- crUTk0rYwXxDI9GeLAW3jndSzWBWXxgkCVi1Ax6+UP7PODG6y1h3FMKxN8nZ946S+y6A
- OkCR4CV0zo+gAVBcWYCuQxUjH+PAmJWxIllqmKMCfT70pXJTCvG3vAM4DPGlB7Bzfq2Q
- 8ABjg9LeIaQpGJhdw5Sk6Dl39VeNvofbc5gibrq08z+Ng8b7Cw5dDqLaLGzyIV5Vt16a
- XHPw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUb46kTiBu1ItXWX7rWrMJiZ7bhdzV93FTeNMb6QIctGQ7naxKS0MJOK6ib6nPadRJzyUEzerDFQLD0+6T3XwD1HLEmFs2wo7PXKk15Y/vbnEMmrk3vigW2
-X-Gm-Message-State: AOJu0Yyg3I24XMZALWOWL4VHWRrwrGl2jrzQkjpAAoVKBHi2b/CMoZSG
- RnRZ70JzbyGBhzdEv5ffjzghuQzpDLKdypQOq5wJOBcJX8WqmqgL4FUnFs0OE5ix1Kh7kqYlZsM
- Go8YZwHD97z0xYKBxpvBxgNJhAjTdh+Lv0gg7eNq5k9WTWfdWdfrTHICpKMOSnR6KuI5hGtNltK
- NFzw==
-X-Received: by 2002:ad4:4e2a:0:b0:6b2:cdaf:300e with SMTP id
- 6a1803df08f44-6b501e03d2cmr96084186d6.1.1719002693501; 
- Fri, 21 Jun 2024 13:44:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHpK5D9TDm/aP5jldornZZLwHdWh2EXn0K0pkw6eEyjdSKLkGZH9gNAROZfr7QzFOXxvhc+rQ==
-X-Received: by 2002:ad4:4e2a:0:b0:6b2:cdaf:300e with SMTP id
- 6a1803df08f44-6b501e03d2cmr96083876d6.1.1719002693102; 
- Fri, 21 Jun 2024 13:44:53 -0700 (PDT)
-Received: from x1gen2nano ([2600:1700:1ff0:d0e0::13])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6b51ef30d47sm12047126d6.83.2024.06.21.13.44.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Jun 2024 13:44:52 -0700 (PDT)
-Date: Fri, 21 Jun 2024 15:44:50 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <ymg2rf4vlp6kcsb6fbass3rntaxfz4ox4hbhcn56engfqcboqr@kp47u5rk3mvk>
-References: <20240619-icc_bw_voting_from_ethqos-v1-0-6112948b825e@quicinc.com>
- <20240619-icc_bw_voting_from_ethqos-v1-1-6112948b825e@quicinc.com>
- <159700cc-f46c-4f70-82aa-972ba6e904ca@lunn.ch>
- <b075e5a8-ca75-49cc-84d6-84e28bc38eee@quicinc.com>
- <b5096113-de85-485e-a226-a8112b3d5490@lunn.ch>
+ Sat, 22 Jun 2024 09:43:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AC7AACE0946;
+ Sat, 22 Jun 2024 09:43:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3103FC3277B;
+ Sat, 22 Jun 2024 09:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719049414;
+ bh=uECyP60yqfaB0U3mswQAJu4fxkYx/BeROCYGGUgcZH4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ztm1Gbkr6/gXKWLMPIDWdWu0OlZT4twgLMrMtVhmNo/xuaR9xRMwlzq1ltInAx19f
+ 8lXVoA+r/lbsgv/Rk1PmKxysQIYkzmnut6C1fXtf8I2P2QkFZbOG5JwFNsQVewHU/g
+ OHXe9lP8VHPidyZ+mAudzf/eHGI8D1NdH51f7z8HouohNGaQyvYeJRutLr6vsQm5py
+ LwlazDqAz85cdtfQOtvp4H2f+354NJ9/1dKYhXCysf5+v3xISprRmhJc66fu44re5Y
+ DsKBK3HvQBZHDf+hMVfv3g3yzVhp48oZ0zGADxqK/mbijTndbUDv/EG70MWlQUEymB
+ ZRevAamIdbsfA==
+Date: Sat, 22 Jun 2024 10:43:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Trevor Gamblin <tgamblin@baylibre.com>
+Message-ID: <20240622104319.60b0f0d5@jic23-huawei>
+In-Reply-To: <20240617-review-v3-2-88d1338c4cca@baylibre.com>
+References: <20240617-review-v3-0-88d1338c4cca@baylibre.com>
+ <20240617-review-v3-2-88d1338c4cca@baylibre.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <b5096113-de85-485e-a226-a8112b3d5490@lunn.ch>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] net: stmmac: Add interconnect support
- in qcom-ethqos driver
+Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Dmitry Rokosov <ddrokosov@sberdevices.ru>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>, Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ linux-arm-msm@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?= =?UTF-8?B?Zw==?=
+ <u.kleine-koenig@baylibre.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 02/41] iio: accel: kxsd9: Make use of
+ regmap_clear_bits()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,53 +73,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 21, 2024 at 10:01:39PM GMT, Andrew Lunn wrote:
-> > > This all looks pretty generic. Any reason why this is just in the
-> > > Qualcomm device, and not at a higher level so it could be used for all
-> > > stmmac devices if the needed properties are found in DT?
-> > > 
-> > >        Andrew
-> > ICC is a software framework to access the NOC bus topology of the
-> > system, all though "axi" and "ahb" buses seem generic but the 
-> > topologies of these NOC's are specific to the vendors of synopsys chipset hence
-> > this framework might not be applicable to all the vendors of stmmac driver.
-> 
-> There are however a number of SoCs using synopsys IP. Am i right in
-> says they could all make use of this? Do we really want them to one by
-> one copy/paste what you have here to other vendor specific parts of
-> stmmac?
-> 
-> This code looks in DT. If there are no properties in DT, it does
-> nothing. So in general it should be safe, right?
-
-That logic makes sense to me, and thinking about it more you request a
-"path" between two "endpoints" in the network, and that's pretty
-generic. Sort of like the clocks, etc, and then let the provider figure
-out the gory SoC specific details.
-
-i.e., for example I see the UFS driver uses the paths "ufs-ddr" and
-"cpu-ufs", and thinking about it generically for this IP that's probably
-the same thing going on here (and lends weight to Krzysztof's request to
-use names similar to other interconnect users).
-
-That being said, grepping around I don't see users outside of platform
-driver bits (i.e. I was hoping to see drivers/pci/controller/dwc/ doing
-some shared usage, but that's not the case). Given what you said I'm
-of the opinion now this should be done in stmmac_platform.c
-and described for all stmmac users since it feels like a property of the
-IP itself similar to the clocks required, etc. The interconnect framework handles
-when they're not described in the dts gracefully so it shouldn't break any
-other SoCs that don't describe interconnects currently.
-
-Thanks,
-Andrew
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAxNyBKdW4gMjAyNCAwOTo0OTo0MiAtMDQwMApUcmV2b3IgR2FtYmxpbiA8dGdhbWJs
+aW5AYmF5bGlicmUuY29tPiB3cm90ZToKCj4gSW5zdGVhZCBvZiB1c2luZyByZWdtYXBfdXBkYXRl
+X2JpdHMoKSBhbmQgcGFzc2luZyB2YWwgPSAwLCB1c2UKPiByZWdtYXBfY2xlYXJfYml0cygpLgo+
+IAo+IFN1Z2dlc3RlZC1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BiYXls
+aWJyZS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogVHJldm9yIEdhbWJsaW4gPHRnYW1ibGluQGJheWxp
+YnJlLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9paW8vYWNjZWwva3hzZDkuYyB8IDYgKystLS0tCj4g
+IDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2FjY2VsL2t4c2Q5LmMgYi9kcml2ZXJzL2lpby9hY2NlbC9r
+eHNkOS5jCj4gaW5kZXggYmE5OTY0OWZlMTk1Li4wM2NlMDMyZTA2ZmYgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9paW8vYWNjZWwva3hzZDkuYwo+ICsrKyBiL2RyaXZlcnMvaWlvL2FjY2VsL2t4c2Q5
+LmMKPiBAQCAtMzcwLDEwICszNzAsOCBAQCBzdGF0aWMgaW50IGt4c2Q5X3Bvd2VyX2Rvd24oc3Ry
+dWN0IGt4c2Q5X3N0YXRlICpzdCkKPiAgCSAqIG1ha2Ugc3VyZSB3ZSBjb25zZXJ2ZSBwb3dlciBl
+dmVuIGlmIHRoZXJlIGFyZSBvdGhlcnMgdXNlcnMgb24gdGhlCj4gIAkgKiByZWd1bGF0b3JzLgo+
+ICAJICovCj4gLQlyZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMoc3QtPm1hcCwKPiAtCQkJCSBLWFNE
+OV9SRUdfQ1RSTF9CLAo+IC0JCQkJIEtYU0Q5X0NUUkxfQl9FTkFCTEUsCj4gLQkJCQkgMCk7Cj4g
+KwlyZXQgPSByZWdtYXBfY2xlYXJfYml0cyhzdC0+bWFwLCBLWFNEOV9SRUdfQ1RSTF9CLAo+ICsJ
+CQkJS1hTRDlfQ1RSTF9CX0VOQUJMRSk7Ck5vdyBmaXRzIG5lYXRseSBvbiBvbmUgbGluZSBhdCBw
+cmVjaXNlbHkgODAgY2hhcnMuCkkgcmV3cmFwcGVkIHdoaWxzdCBhcHBseWluZy4KCkpvbmF0aGFu
+Cgo+ICAJaWYgKHJldCkKPiAgCQlyZXR1cm4gcmV0Owo+ICAKPiAKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
