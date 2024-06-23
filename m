@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D42913D9A
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jun 2024 20:58:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8684913DA6
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jun 2024 21:16:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EE08C71287;
-	Sun, 23 Jun 2024 18:58:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8505DC71287;
+	Sun, 23 Jun 2024 19:16:24 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98D20C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E516DC71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jun 2024 18:58:39 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ Sun, 23 Jun 2024 19:16:16 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 47E1F88271;
- Sun, 23 Jun 2024 20:58:38 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id 14420882B8;
+ Sun, 23 Jun 2024 21:16:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1719169119;
- bh=n8C7e0ABfIei1PXo0lkdQWQ9ovwX2ZdSBGfBtoz2Of0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=IK7meZvgDCVrkUyKdcKeyYtEVeadL20Vur0ju0AHEoVD+qfd52JSIgKku5I9pPtMX
- v6nrF5aRJvqD84RkNxV/xOaZ7/UMSx5DT1/rjZo1I2RG8xO/AtXjWjOMjV0MeFCJUb
- bbwF1OSSJz/pAQYFPdXMMRuQFOZEYf5eFH3ciOue11Gx/oYO3Ok8zskLHg5RrprF/Q
- X9o1EGIpyJOuJUaXLg1y29vh+srDEG6B5zDQ9ZD25R2nUatxsIkC0HxcA7wipm9Beo
- LJUCBSV4DWxoWqKM14mp1zcWRYBybK7woCjI9AOIN2UrSbx+K/gWV7Bjhep4mHnXfO
- +w2wNNszlvfzg==
-Message-ID: <f93b5a80-33fb-4708-ab86-6b28f626a186@denx.de>
-Date: Sun, 23 Jun 2024 20:18:50 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: linux-watchdog@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- Wim Van Sebroeck <wim@linux-watchdog.org>
-References: <20240415134903.8084-1-marex@denx.de>
-Content-Language: en-US
+ s=phobos-20191101; t=1719170176;
+ bh=jXBLhmBOJIheEaPZEnvhhjmDxmURMa5l2quDyuLkLEk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bp0EV5pS8fm8tMEsXQDYzBxkFQEjZG1qm7RqPPyPYpZSTzXUF5L+FghFWo2Sn4EIF
+ 2X/uum6VtznupylXZiexz0JJlHoDv9sxGkcFDVU/9WfNhxCUFYDHE3+Z4KCJnjdGXN
+ WkEUOOiguYFDruVnGCnWeSS/ocjaoPhLaaRG+NI6vutZEcPjJtgofXnkJbW+2VZmPe
+ LqxJCPSjreyeg8qIoMm1Vbnh5bXcqt9EqAuM1KrpiZ22x26ykMRxKdz/fdpPw5xlQW
+ rcOqzSnfRXM7yPXYCKDUj9vshmYWH2BPQuxfMRDgDkcXXZ4T0zKgrb1u7mRlvl1Vpe
+ bfbbYCDKbfG4g==
 From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240415134903.8084-1-marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Sun, 23 Jun 2024 21:15:57 +0200
+Message-ID: <20240623191602.67424-1-marex@denx.de>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
 X-Virus-Status: Clean
-Cc: linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4] watchdog: stm32_iwdg: Add pretimeout
-	support
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Add phandle to nvmem efuse
+	into STM32MP13xx ethernet DT node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,40 +56,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8xNS8yNCAzOjQ4IFBNLCBNYXJlayBWYXN1dCB3cm90ZToKPiBUaGUgU1RNMzJNUDE1eHgg
-SVdERyBhZGRzIHJlZ2lzdGVycyB3aGljaCBwZXJtaXQgdGhpcyBJUCB0byBnZW5lcmF0ZQo+IHBy
-ZXRpbWVvdXQgaW50ZXJydXB0LiBUaGlzIGludGVycnVwdCBjYW4gYWxzbyBiZSB1c2VkIHRvIHdh
-a2UgdGhlIENQVQo+IGZyb20gc3VzcGVuZC4gSW1wbGVtZW50IHN1cHBvcnQgZm9yIGdlbmVyYXRp
-bmcgdGhpcyBpbnRlcnJ1cHQgYW5kIGxldAo+IHVzZXJzcGFjZSBjb25maWd1cmUgdGhlIHByZXRp
-bWVvdXQuIEluIGNhc2UgdGhlIHByZXRpbWVvdXQgaXMgbm90Cj4gY29uZmlndXJlZCBieSB1c2Vy
-LCBzZXQgcHJldGltZW91dCB0byAzLzQgb2YgdGhlIFdEVCB0aW1lb3V0IGN5Y2xlLgo+IAo+IFJl
-dmlld2VkLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5j
-b20+Cj4gVGVzdGVkLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9z
-cy5zdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTWFyZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+Cj4g
-LS0tCj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+
-Cj4gQ2M6IEd1ZW50ZXIgUm9lY2sgPGxpbnV4QHJvZWNrLXVzLm5ldD4KPiBDYzogTWF4aW1lIENv
-cXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBXaW0gVmFuIFNlYnJvZWNr
-IDx3aW1AbGludXgtd2F0Y2hkb2cub3JnPgo+IENjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmlu
-ZnJhZGVhZC5vcmcKPiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQo+IENjOiBsaW51eC13YXRjaGRvZ0B2Z2VyLmtlcm5lbC5vcmcKPiAtLS0KPiBWMjogLSBTdWJ0
-cmFjdCB0aGUgcHJldGltZW91dCB2YWx1ZSBmcm9tIHRpbWVvdXQgdmFsdWUgYmVmb3JlIHdyaXRp
-bmcgaXQKPiAgICAgICAgaW50byB0aGUgSVdERyBwcmV0aW1lb3V0IHJlZ2lzdGVyLCBiZWNhdXNl
-IHRoZSB3YXRjaGRvZyBjb3VudGVyCj4gICAgICAgIHJlZ2lzdGVyIGlzIGNvdW50aW5nIGRvd24s
-IGFuZCB0aGUgcHJldGltZW91dCBpbnRlcnJ1cHQgdHJpZ2dlcnMKPiAgICAgICAgd2hlbiB3YXRj
-aGRvZyBjb3VudGVyIHJlZ2lzdGVyIG1hdGNoZXMgdGhlIHByZXRpbWVvdXQgcmVnaXN0ZXIKPiAg
-ICAgICAgY29udGVudC4KPiAgICAgIC0gU2V0IGRlZmF1bHQgcHJldGltZW91dCB0byAzLzQgb2Yg
-dGltZW91dCAuCj4gVjM6IC0gVXNlIGRldiBpbnN0ZWFkIG9mIHBkZXYtPmRldgo+ICAgICAgLSBT
-d2FwIG9yZGVyIG9mIHJldC9yZXR1cm4gMAo+ICAgICAgLSBTcGxpdCB0aGlzIGZyb20gdGhlIERU
-IGNoYW5nZXMsIHdoaWNoIGFyZSBvcnRob2dvbmFsCj4gICAgICAtIFVoLCB0aGlzIHBhdGNoIGdv
-dCBzdHVjayBpbiB1cHN0cmVhbWluZyBxdWV1ZSwgc29ycnkKPiBWNDogLSBVcGRhdGUgY29tbWl0
-IG1lc3NhZ2UgdG8gbWF0Y2ggVjIgZGVmYXVsdCBwcmV0aW1lb3V0IHRvIDMvNAo+ICAgICAgLSBB
-ZGQgUkIvVEIgZnJvbSBDbMOpbWVudAoKSGksCgpBcmUgdGhlcmUgc3RpbGwgYW55IG9wZW4gdG9w
-aWNzIHdpdGggdGhpcyBwYXRjaCA/Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The efuses on STM32MP13xx can be populated with ethernet MAC address.
+Add the nvmem-cells/nvmem-cell-name DT properties to ethernet MAC DT
+nodes to describe the placement of both MAC address fields within the
+efuses, so the ethernet MAC driver can access the efuses and populate
+the correct MAC address into the hardware.
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 2 ++
+ arch/arm/boot/dts/st/stm32mp133.dtsi | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index f41508195eb51..55f4150524f3c 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -1528,6 +1528,8 @@ ethernet1: ethernet@5800a000 {
+ 					 <&rcc ETH1RX>,
+ 					 <&rcc ETH1STP>,
+ 					 <&rcc ETH1CK_K>;
++				nvmem-cell-names = "mac-address";
++				nvmem-cells = <&ethernet_mac1_address>;
+ 				snps,axi-config = <&stmmac_axi_config_1>;
+ 				snps,mixed-burst;
+ 				snps,pbl = <2>;
+diff --git a/arch/arm/boot/dts/st/stm32mp133.dtsi b/arch/arm/boot/dts/st/stm32mp133.dtsi
+index ae2fbc09e93b9..48b6ddb59badf 100644
+--- a/arch/arm/boot/dts/st/stm32mp133.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp133.dtsi
+@@ -85,6 +85,8 @@ ethernet2: ethernet@5800e000 {
+ 			 <&rcc ETH2RX>,
+ 			 <&rcc ETH2STP>,
+ 			 <&rcc ETH2CK_K>;
++		nvmem-cell-names = "mac-address";
++		nvmem-cells = <&ethernet_mac2_address>;
+ 		snps,axi-config = <&stmmac_axi_config_2>;
+ 		snps,mixed-burst;
+ 		snps,pbl = <2>;
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
