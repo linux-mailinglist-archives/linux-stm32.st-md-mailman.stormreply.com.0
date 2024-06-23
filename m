@@ -2,49 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FCE913DC5
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jun 2024 21:50:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13E3913DC8
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jun 2024 21:51:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84897C71287;
-	Sun, 23 Jun 2024 19:50:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1700C71287;
+	Sun, 23 Jun 2024 19:51:55 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CA75C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CB2FC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jun 2024 19:50:09 +0000 (UTC)
+ Sun, 23 Jun 2024 19:51:48 +0000 (UTC)
 Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 3DEFC866F6;
- Sun, 23 Jun 2024 21:50:08 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id 40D2A866F6;
+ Sun, 23 Jun 2024 21:51:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1719172208;
- bh=lTH2JKNMoCk7EJQOLYfn4JfWc0XLg/28atW28DHUCWI=;
+ s=phobos-20191101; t=1719172308;
+ bh=dpfBkKDlAcEhwV93vk51cBuaVNWU/9Hhy3ka4ffDuAQ=;
  h=From:To:Cc:Subject:Date:From;
- b=cC2zHgEwl+UjGEYnx/R7rb0juIOh61/Q6FFfopt0QDq0GL4Rse5riLtOHJtYVH49O
- SFvTLvzpQwoLbA3M2K+wE7RjRNJqX6BjXNIJC97x2RU2U8w4YfS+1vf/Clug0NOT3x
- /QlQgrb2hoEflWuQ1uQ8iXXk1xHNglreGID7kP71NeSe47S2gKjyNLARfHLL3Zbs5j
- vt5orQoTVdgMsUFA+XUuCUjokq/1x0gUS/9yheHAt7wkQ2/wzSAaQaGAU7CNJoO4u0
- ZP/xAnCxPpOJtkiTEg8lPu+5Nb+Ufh/BntYXwru8iHSAPqNY3VKiviAmDv07qF66NT
- t97cG+ROO8e6Q==
+ b=QvkfVibup0Tqm/zvQ5PRjTg/CmAD3knrS0+nS/HR1IeC6uiXZulu5ZBBLiBm2lIQJ
+ bnofODM/5fzvQhFOIsOo++40FMuO3pryr2SVlgmBZWiXsKa4bvE5E0YjCV0yHBJM9q
+ 1GCUOlqwc81X3N3E09S7lFa8bT9kE5WdTVLN5T+BwjvI43Da6AiXPwAvEp2ctr9ZGo
+ LsWmYn3xce3fHR3RuBKN+D+VhKFS7MSftQ20HA33+VgeEtH0XbiPU0Jbe25Z5t2OFl
+ 7N5hrrX2F2Dz23Xxb3HnF8wjuvzxLZtIdo0Vnz4MXvZ4GVtStARnPuKPEdKs3IQItd
+ dNCrN9G2bSShA==
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sun, 23 Jun 2024 21:49:17 +0200
-Message-ID: <20240623194954.79988-1-marex@denx.de>
+Date: Sun, 23 Jun 2024 21:51:08 +0200
+Message-ID: <20240623195136.81522-1-marex@denx.de>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
 X-Virus-Status: Clean
 Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Marc Zyngier <maz@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Deduplicate rproc mboxes and
-	IRQs
+ Thomas Gleixner <tglx@linutronix.de>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>,
+ linux-watchdog@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3] ARM: dts: stm32: Add IWDG2 EXTI interrupt
+	mapping and mark as wakeup source
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,197 +64,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Pull mboxes, mbox-names, interrupt-parent, interrupts properties of the
-m4_rproc into stm32mp151.dtsi to deduplicate multiple copies of the same
-in multiple board files. Worse, those copies were starting to get out of
-sync, so this should prevent any such issues in the future.
+The IWDG2 is capable of generating pre-timeout interrupt, which can be used
+to wake the system up from suspend to mem. Add the EXTI interrupt mapping
+and mark the IWDG2 as wake up source.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 ---
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Marc Zyngier <maz@kernel.org>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: Richard Cochran <richardcochran@gmail.com>
 Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
 Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
 Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-watchdog@vger.kernel.org
 ---
- arch/arm/boot/dts/st/stm32mp151.dtsi                        | 4 ++++
- arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi        | 2 --
- arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi     | 2 --
- arch/arm/boot/dts/st/stm32mp157c-ed1.dts                    | 4 ----
- arch/arm/boot/dts/st/stm32mp157c-emstamp-argon.dtsi         | 4 ----
- arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi           | 4 ----
- arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi | 4 ----
- arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi             | 4 ----
- arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi             | 4 ----
- arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi                   | 4 ----
- arch/arm/boot/dts/st/stm32mp15xx-osd32.dtsi                 | 4 ----
- 11 files changed, 4 insertions(+), 36 deletions(-)
+V2: No change
+V3: No change
+---
+ arch/arm/boot/dts/st/stm32mp151.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
-index 4f878ec102c1f..1804e202eb425 100644
+index 1804e202eb425..68846699b26fd 100644
 --- a/arch/arm/boot/dts/st/stm32mp151.dtsi
 +++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
-@@ -1986,6 +1986,10 @@ m4_rproc: m4@10000000 {
- 			reg = <0x10000000 0x40000>,
- 			      <0x30000000 0x40000>,
- 			      <0x38000000 0x10000>;
-+			interrupt-parent = <&exti>;
-+			interrupts = <68 IRQ_TYPE_EDGE_RISING>;
-+			mbox-names = "vq0", "vq1", "shutdown", "detach";
-+			mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
- 			resets = <&rcc MCU_R>;
- 			reset-names = "mcu_rst";
- 			st,syscfg-holdboot = <&rcc 0x10C 0x1>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
-index 569a7e940ecc8..69c873f30d7df 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
-@@ -175,8 +175,6 @@ &m4_rproc {
- 			<&vdev0vring1>, <&vdev0buffer>;
- 	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
- 	mbox-names = "vq0", "vq1", "shutdown";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
-index a75f50cf71234..9d26368025def 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
-@@ -127,8 +127,6 @@ &m4_rproc {
- 			<&vdev0vring1>, <&vdev0buffer>;
- 	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
- 	mbox-names = "vq0", "vq1", "shutdown";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-index 9cf5ed111b52e..a746e3da2f57d 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-@@ -326,10 +326,6 @@ &iwdg2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-emstamp-argon.dtsi b/arch/arm/boot/dts/st/stm32mp157c-emstamp-argon.dtsi
-index 4792004cab0cc..1d4380345f157 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-emstamp-argon.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157c-emstamp-argon.dtsi
-@@ -367,10 +367,6 @@ &iwdg2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	interrupt-names = "wdg";
- 	recovery;
- 	status = "okay";
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
-index cf74852514906..31d7bfe8bf8c9 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
-@@ -230,10 +230,6 @@ &iwdg2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi b/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-index bf0c32027baf7..f823cc453a5c6 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-@@ -405,10 +405,6 @@ &m_can2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
-index 74a11ccc5333f..05795520586d4 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
-@@ -416,10 +416,6 @@ &iwdg2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
-index 89881a26c6141..309b1aeefffe9 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
-@@ -227,10 +227,6 @@ &iwdg2 {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-index f7634c51efb26..711a66650955c 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-@@ -477,10 +477,6 @@ ltdc_ep0_out: endpoint {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-osd32.dtsi
-index 2022a1fa31cab..1db35634e3535 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-osd32.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-osd32.dtsi
-@@ -204,10 +204,6 @@ &ipcc {
- &m4_rproc {
- 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
- 			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
- 	status = "okay";
- };
+@@ -355,6 +355,8 @@ iwdg2: watchdog@5a002000 {
+ 			reg = <0x5a002000 0x400>;
+ 			clocks = <&rcc IWDG2>, <&rcc CK_LSI>;
+ 			clock-names = "pclk", "lsi";
++			interrupts-extended = <&exti 46 IRQ_TYPE_LEVEL_HIGH>;
++			wakeup-source;
+ 			status = "disabled";
+ 		};
  
 -- 
 2.43.0
