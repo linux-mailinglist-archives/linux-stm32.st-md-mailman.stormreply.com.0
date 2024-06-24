@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD883914F22
+	by mail.lfdr.de (Postfix) with ESMTPS id B0170914F23
 	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2024 15:51:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FC81C71287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F227C78002;
 	Mon, 24 Jun 2024 13:51:51 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CA0FC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AE8BC71282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jun 2024 13:51:44 +0000 (UTC)
+ Mon, 24 Jun 2024 13:51:45 +0000 (UTC)
 Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id E914E8837A;
- Mon, 24 Jun 2024 15:51:41 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id A927C88137;
+ Mon, 24 Jun 2024 15:51:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1719237103;
- bh=zQBOVmzO9SvkgEQ9JVsBSxZIt7i40lv4/ThnV63YjfY=;
+ s=phobos-20191101; t=1719237104;
+ bh=sqgSKvUDUPjj1EuuHc/BmohVKbxV/GhorsLMOrnqXTg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kkg3iz3QEsjt1e6/0VIQfqDZGOjS4rEGeN6q5NZqenrqrTR5W7+wmBy2h92LYEu9s
- ntMPNFbarb4dOYwGtxCSiDOlpa4Zt7W0+eeQ9SVLoNhyqd5qOmX+xrvtstxTe3SwQE
- aiFCwg+J3dchY7zme1f4ywX1FQSfrtALKk8idi9T699+q9XDdxdIbVwwAAhWUxbsf6
- 5AVBqb5QnB33mLUTRAv3rcVuaHAFunfHZ8pJIZ/BGletWayAvZ5qAH+j7ImoS3IelV
- t1ItP8tzalAlrlTN2Lya3Go3pLVOnhMmZb2wKNCjHOEui4IL9R3zHWl6Ha2QBpeqj/
- pOqL6/Qjkd1KQ==
-Message-ID: <7006a500-9e2d-4cb9-b328-14b19931d5fa@denx.de>
-Date: Mon, 24 Jun 2024 14:22:09 +0200
+ b=oqJj2A2lvo8HWch5yLQPLiyYA1vsFBnPT09Yh3RwTx2IrIGNviVJjUqbG1A+YKJXW
+ iIIG0d7FJEAiKiqFYSWgGEIi4x2DsUD3Y0JXHIbHvNwNHNQQ2S4AQK2d2nLkrpHMK/
+ jTvPWgzzz8rGAq7LyongBZNpWNnhdxyBFnHwEMoCeaH9zulCQXF2mP1LGD7YWUCkLj
+ QnuiYHIAXKTf+Sw6qhz3M70ELtW/JsExrwp+j580JBg3DOaEtGg1ud/hu7w8a2RRRm
+ z+jRGZSVPki17yGIKVBJwJaYu+D5mi31Hq92/fw1QrZnq9qWCOFwSHQUXDSRWIbv6H
+ L0v0HNXKIrOpQ==
+Message-ID: <447ed9cd-3f0a-4519-a932-6f8377daa44a@denx.de>
+Date: Mon, 24 Jun 2024 14:22:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Christophe Roullier <christophe.roullier@foss.st.com>,
@@ -45,18 +45,18 @@ To: Christophe Roullier <christophe.roullier@foss.st.com>,
  <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
 References: <20240624071052.118042-1-christophe.roullier@foss.st.com>
- <20240624071052.118042-2-christophe.roullier@foss.st.com>
+ <20240624071052.118042-3-christophe.roullier@foss.st.com>
 Content-Language: en-US
 From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20240624071052.118042-2-christophe.roullier@foss.st.com>
+In-Reply-To: <20240624071052.118042-3-christophe.roullier@foss.st.com>
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
 X-Virus-Status: Clean
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
 Subject: Re: [Linux-stm32] [net-next,
- PATCH v3 1/2] dt-bindings: net: add STM32MP25 compatible in
- documentation for stm32
+ PATCH v3 2/2] net: stmmac: dwmac-stm32: stm32: add management of
+ stm32mp25 for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,11 +74,18 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 6/24/24 9:10 AM, Christophe Roullier wrote:
-> New STM32 SOC have 2 GMACs instances.
-> GMAC IP version is SNPS 5.30
+> Add Ethernet support for STM32MP25.
+> STM32MP25 is STM32 SOC with 2 GMACs instances.
+> GMAC IP version is SNPS 5.3x.
+> GMAC IP configure with 2 RX and 4 TX queue.
+> DMA HW capability register supported
+> RX Checksum Offload Engine supported
+> TX Checksum insertion supported
+> Wake-Up On Lan supported
+> TSO supported
 > 
 > Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Simon Horman <horms@kernel.org>
 
 Reviewed-by: Marek Vasut <marex@denx.de>
 _______________________________________________
