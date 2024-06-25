@@ -2,67 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC50916C28
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 17:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54428916CF1
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 17:26:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 148A7C71289;
-	Tue, 25 Jun 2024 15:11:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 081E5C71287;
+	Tue, 25 Jun 2024 15:26:04 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D12C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8836C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jun 2024 15:11:39 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45PCZSM7006217;
- Tue, 25 Jun 2024 17:11:19 +0200
+ Tue, 25 Jun 2024 15:25:56 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45PCWaBS026625;
+ Tue, 25 Jun 2024 17:25:44 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- SQp3u+nN+zCQi0VdibgOzzsfRyOmMcWrz2WxaHs+YnA=; b=Es1tmai4i5ecqlnm
- TFXGnkuQHV9d3pT3BX1gS0T15kclvcx6Ff7rUTuT08tl0lcDcyRrVqvXT2H37veN
- nzYNI4qh8SoHiFi9L036DeGPRSJxwAQb6JbKh0tkUqhh4gj76k3DsJx2tJ5GTKRF
- eBizXonc3hCPpn9Qlh/i16GIAq1nLDObLPO+TohGugM+iHPyrxOBt0Sys519v+zA
- 6stNetKffmMCrFlGfwM+YV6Uv8opm9vqjWry+aemPyEPWt3nb+VlMFomJG1l3XBC
- Bp7Xr/dMKrEfvy3agt4K8uVV7ONPTq/me+1ZjMNkqAfWRr9iF1psNlczfjsNvXn4
- Im734A==
+ 5edzio71DzaT5lNquA9f78o6eePUxXY41XuAi046gC4=; b=ehy0eJlmIYtr75+D
+ t5lfKHRXhqco67FEjoxZRxxu4q9xgtDTyVo605dSwBCoOvioEqvy7QW/ZRVEMMVY
+ Q6umtClhHR8P93I4qtodN+U9uFw4Locy32XqC1Xw/8R1JCE54wN6JU9NacB/UTjG
+ U9yqd7fZ4fBNWuvlEqJZ0/Q72i6MEhxBsWT/vZ9JhPD/aFk8TL5BEAI0MW4LA4cx
+ UEiVUZVCFRvNlcAiH/6jfsm7aOTaS9v9Pkkr4n0Uf0sd9E/nl69qENwWoYf+JOl0
+ DW3M+bHx55b6Gde7pwcxg41J6W0dkdr2wRMYxBSAqEVypfoLoFDbmXbEfQ1AbHzw
+ 56kVxg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yx860je3t-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywnxxcgkb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Jun 2024 17:11:19 +0200 (MEST)
+ Tue, 25 Jun 2024 17:25:43 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 34BE840044;
- Tue, 25 Jun 2024 17:11:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C6E732207A5;
- Tue, 25 Jun 2024 17:10:35 +0200 (CEST)
-Received: from localhost (10.252.26.63) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7223C4002D;
+ Tue, 25 Jun 2024 17:25:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9B79A220B42;
+ Tue, 25 Jun 2024 17:24:56 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 25 Jun
- 2024 17:10:35 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 25 Jun 2024 17:07:16 +0200
-Message-ID: <20240625150717.1038212-9-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
-References: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
+ 2024 17:24:56 +0200
+Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 25 Jun
+ 2024 17:24:55 +0200
+Message-ID: <160e7af5-29c8-49a6-ae4f-dbfc3dd608c1@foss.st.com>
+Date: Tue, 25 Jun 2024 17:24:54 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.252.26.63]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+User-Agent: Mozilla Thunderbird
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20240621-ucsi-rework-interface-v2-0-a399ff96bf88@linaro.org>
+ <20240621-ucsi-rework-interface-v2-6-a399ff96bf88@linaro.org>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20240621-ucsi-rework-interface-v2-6-a399ff96bf88@linaro.org>
+X-Originating-IP: [10.48.86.222]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-06-25_10,2024-06-25_01,2024-05-17_01
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- Nuno Sa <nuno.sa@analog.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 8/8] iio: adc: stm32-dfsdm: add scaling
-	support to dfsdm
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nikita Travkin <nikita@trvn.ru>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 6/7] usb: typec: ucsi: extract common
+ code for command handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,234 +85,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add scaling support to STM32 DFSDM.
+On 6/21/24 00:55, Dmitry Baryshkov wrote:
+> Extract common functions to handle command sending and to handle events
+> from UCSI. This ensures that all UCSI glue drivers handle the ACKs in
+> the same way.
+> 
+> The CCG driver used DEV_CMD_PENDING both for internal
+> firmware-related commands and for UCSI control handling. Leave the
+> former use case intact.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/usb/typec/ucsi/ucsi.c           | 43 +++++++++++++++++++++++++++
+>  drivers/usb/typec/ucsi/ucsi.h           |  7 +++++
+>  drivers/usb/typec/ucsi/ucsi_acpi.c      | 46 ++---------------------------
+>  drivers/usb/typec/ucsi/ucsi_ccg.c       | 21 ++-----------
+>  drivers/usb/typec/ucsi/ucsi_glink.c     | 47 ++---------------------------
+>  drivers/usb/typec/ucsi/ucsi_stm32g0.c   | 44 ++--------------------------
+>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 52 ++-------------------------------
+>  7 files changed, 62 insertions(+), 198 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index 4ba22323dbf9..691ee0c4ef87 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -36,6 +36,48 @@
+>   */
+>  #define UCSI_SWAP_TIMEOUT_MS	5000
+>  
+> +void ucsi_notify_common(struct ucsi *ucsi, u32 cci)
+> +{
+> +	if (UCSI_CCI_CONNECTOR(cci))
+> +		ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
+> +
+> +	if (cci & UCSI_CCI_ACK_COMPLETE &&
+> +	    test_bit(ACK_PENDING, &ucsi->flags))
+> +		complete(&ucsi->complete);
+> +
+> +	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
+> +	    test_bit(COMMAND_PENDING, &ucsi->flags))
+> +		complete(&ucsi->complete);
 
-When used in an analog context, a DFSDM filter typically converts the data
-from a sigma delta modulator. The IIO device associated to the DFSDM
-filter provides these data as raw data.
-The IIO device can provide scaling information (voltage and offset) to
-allow conversion of raw data into physical values.
+Hi Dmitry,
 
-With the new binding based on IIO backend framework, the sigma delta
-modulators are defined as backends providing scaling information.
+I've recently faced some race with ucsi_stm32g0 driver, and have sent a
+fix for it [1], as you've noticed in the cover letter.
 
-The scaling is not supported with legacy binding.
+To fix that, I've used test_and_clear_bit() in above two cases, instead
+of test_bit().
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Acked-by: Nuno Sa <nuno.sa@analog.com>
----
- drivers/iio/adc/Kconfig           |  1 +
- drivers/iio/adc/stm32-dfsdm-adc.c | 94 ++++++++++++++++++++++++++++++-
- 2 files changed, 93 insertions(+), 2 deletions(-)
+https://lore.kernel.org/linux-usb/20240612124656.2305603-1-fabrice.gasnier@foss.st.com/
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 634dc9842fb7..352ad585c534 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1223,6 +1223,7 @@ config STM32_DFSDM_ADC
- 	select IIO_BUFFER
- 	select IIO_BUFFER_HW_CONSUMER
- 	select IIO_TRIGGERED_BUFFER
-+	select IIO_BACKEND
- 	help
- 	  Select this option to support ADCSigma delta modulator for
- 	  STMicroelectronics STM32 digital filter for sigma delta converter.
-diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-index 0df28c9dfa40..6a84ef3f32fd 100644
---- a/drivers/iio/adc/stm32-dfsdm-adc.c
-+++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-@@ -9,6 +9,7 @@
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
- #include <linux/iio/adc/stm32-dfsdm-adc.h>
-+#include <linux/iio/backend.h>
- #include <linux/iio/buffer.h>
- #include <linux/iio/hw-consumer.h>
- #include <linux/iio/sysfs.h>
-@@ -78,6 +79,7 @@ struct stm32_dfsdm_adc {
- 	/* ADC specific */
- 	unsigned int oversamp;
- 	struct iio_hw_consumer *hwc;
-+	struct iio_backend **backend;
- 	struct completion completion;
- 	u32 *buffer;
- 
-@@ -672,6 +674,8 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
- 						struct fwnode_handle *node)
- {
- 	struct stm32_dfsdm_channel *df_ch;
-+	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	struct iio_backend *backend;
- 	const char *of_str;
- 	int ret, val;
- 
-@@ -721,6 +725,14 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
- 	if (ret != -EINVAL)
- 		df_ch->alt_si = 0;
- 
-+	if (adc->dev_data->type == DFSDM_IIO) {
-+		backend = devm_iio_backend_fwnode_get(&indio_dev->dev, NULL, node);
-+		if (IS_ERR(backend))
-+			return dev_err_probe(&indio_dev->dev, PTR_ERR(backend),
-+					     "Failed to get backend\n");
-+		adc->backend[ch->scan_index] = backend;
-+	}
-+
- 	return 0;
- }
- 
-@@ -1056,6 +1068,7 @@ static int stm32_dfsdm_update_scan_mode(struct iio_dev *indio_dev,
- static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
- 	int ret;
- 
- 	/* Reset adc buffer index */
-@@ -1067,6 +1080,15 @@ static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- 			return ret;
- 	}
- 
-+	if (adc->backend) {
-+		while (adc->backend[i]) {
-+			ret = iio_backend_enable(adc->backend[i]);
-+			if (ret < 0)
-+				return ret;
-+			i++;
-+		}
-+	}
-+
- 	ret = stm32_dfsdm_start_dfsdm(adc->dfsdm);
- 	if (ret < 0)
- 		goto err_stop_hwc;
-@@ -1099,6 +1121,7 @@ static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- static int stm32_dfsdm_predisable(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
- 
- 	stm32_dfsdm_stop_conv(indio_dev);
- 
-@@ -1106,6 +1129,13 @@ static int stm32_dfsdm_predisable(struct iio_dev *indio_dev)
- 
- 	stm32_dfsdm_stop_dfsdm(adc->dfsdm);
- 
-+	if (adc->backend) {
-+		while (adc->backend[i]) {
-+			iio_backend_disable(adc->backend[i]);
-+			i++;
-+		}
-+	}
-+
- 	if (adc->hwc)
- 		iio_hw_consumer_disable(adc->hwc);
- 
-@@ -1278,7 +1308,14 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 				int *val2, long mask)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
--	int ret;
-+
-+	struct stm32_dfsdm_filter *fl = &adc->dfsdm->fl_list[adc->fl_id];
-+	struct stm32_dfsdm_filter_osr *flo = &fl->flo[fl->fast];
-+	u32 max = flo->max << (flo->lshift - chan->scan_type.shift);
-+	int ret, idx = chan->scan_index;
-+
-+	if (flo->lshift < chan->scan_type.shift)
-+		max = flo->max >> (chan->scan_type.shift - flo->lshift);
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-@@ -1287,6 +1324,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 			return ret;
- 		if (adc->hwc)
- 			ret = iio_hw_consumer_enable(adc->hwc);
-+		if (adc->backend[idx])
-+			ret = iio_backend_enable(adc->backend[idx]);
- 		if (ret < 0) {
- 			dev_err(&indio_dev->dev,
- 				"%s: IIO enable failed (channel %d)\n",
-@@ -1297,6 +1336,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 		ret = stm32_dfsdm_single_conv(indio_dev, chan, val);
- 		if (adc->hwc)
- 			iio_hw_consumer_disable(adc->hwc);
-+		if (adc->backend[idx])
-+			iio_backend_disable(adc->backend[idx]);
- 		if (ret < 0) {
- 			dev_err(&indio_dev->dev,
- 				"%s: Conversion failed (channel %d)\n",
-@@ -1316,6 +1357,46 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 		*val = adc->sample_freq;
- 
- 		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		/*
-+		 * Scale is expressed in mV.
-+		 * When fast mode is disabled, actual resolution may be lower
-+		 * than 2^n, where n = realbits - 1.
-+		 * This leads to underestimating the input voltage.
-+		 * To compensate this deviation, the voltage reference can be
-+		 * corrected with a factor = realbits resolution / actual max
-+		 */
-+		if (adc->backend[idx]) {
-+			iio_backend_read_raw(adc->backend[idx], chan, val, val2, mask);
-+
-+			*val = div_u64((u64)*val * (u64)BIT(DFSDM_DATA_RES - 1), max);
-+			*val2 = chan->scan_type.realbits;
-+			if (chan->differential)
-+				*val *= 2;
-+		}
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+
-+	case IIO_CHAN_INFO_OFFSET:
-+		/*
-+		 * DFSDM output data are in the range [-2^n, 2^n],
-+		 * with n = realbits - 1.
-+		 * - Differential modulator:
-+		 * Offset correspond to SD modulator offset.
-+		 * - Single ended modulator:
-+		 * Input is in [0V, Vref] range,
-+		 * where 0V corresponds to -2^n, and Vref to 2^n.
-+		 * Add 2^n to offset. (i.e. middle of input range)
-+		 * offset = offset(sd) * vref / res(sd) * max / vref.
-+		 */
-+		if (adc->backend[idx]) {
-+			iio_backend_read_raw(adc->backend[idx], chan, val, val2, mask);
-+
-+			*val = div_u64((u64)max * *val, BIT(*val2 - 1));
-+			if (!chan->differential)
-+				*val += max;
-+		}
-+		return IIO_VAL_INT;
- 	}
- 
- 	return -EINVAL;
-@@ -1444,7 +1525,15 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev, struct iio_c
- 	 * IIO_CHAN_INFO_RAW: used to compute regular conversion
- 	 * IIO_CHAN_INFO_OVERSAMPLING_RATIO: used to set oversampling
- 	 */
--	ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-+	if (child) {
-+		ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+					 BIT(IIO_CHAN_INFO_SCALE) |
-+					 BIT(IIO_CHAN_INFO_OFFSET);
-+	} else {
-+		/* Legacy. Scaling not supported */
-+		ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-+	}
-+
- 	ch->info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO) |
- 					BIT(IIO_CHAN_INFO_SAMP_FREQ);
- 
-@@ -1811,3 +1900,4 @@ module_platform_driver(stm32_dfsdm_adc_driver);
- MODULE_DESCRIPTION("STM32 sigma delta ADC");
- MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@st.com>");
- MODULE_LICENSE("GPL v2");
-+MODULE_IMPORT_NS(IIO_BACKEND);
--- 
-2.25.1
+> +}
+> +EXPORT_SYMBOL_GPL(ucsi_notify_common);
+> +
+> +int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
+> +{
+> +	bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
+> +	int ret;
+> +
+> +	if (ack)
+> +		set_bit(ACK_PENDING, &ucsi->flags);
+> +	else
+> +		set_bit(COMMAND_PENDING, &ucsi->flags);
+> +
+> +	ret = ucsi->ops->async_control(ucsi, command);
+> +	if (ret)
+> +		goto out_clear_bit;
+> +
+> +	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
+> +		ret = -ETIMEDOUT;
 
+With test_and_clear_bit(), could return 0, in case of success here.
+
+I'd suggest to use similar approach here, unless you see some drawback?
+
+Best Regards,
+Fabrice
+
+> +
+> +out_clear_bit:
+> +	if (ack)
+> +		clear_bit(ACK_PENDING, &ucsi->flags);
+> +	else
+> +		clear_bit(COMMAND_PENDING, &ucsi->flags);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
+> +
+>  static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
+>  {
+>  	u64 ctrl;
+> @@ -1883,6 +1925,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
+>  	INIT_WORK(&ucsi->resume_work, ucsi_resume_work);
+>  	INIT_DELAYED_WORK(&ucsi->work, ucsi_init_work);
+>  	mutex_init(&ucsi->ppm_lock);
+> +	init_completion(&ucsi->complete);
+>  	ucsi->dev = dev;
+>  	ucsi->ops = ops;
+
+[snip]
+
+>  	ucsi->ucsi = ucsi_create(dev, &pmic_glink_ucsi_ops);
+> diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+> index 14737ca3724c..d948c3f579e1 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+> @@ -61,11 +61,7 @@ struct ucsi_stm32g0 {
+
+[snip]
+
+> -
+> -	ret = ucsi_stm32g0_async_control(ucsi, command);
+> -	if (ret)
+> -		goto out_clear_bit;
+> -
+> -	if (!wait_for_completion_timeout(&g0->complete, msecs_to_jiffies(5000)))
+> -		ret = -ETIMEDOUT;
+> -	else
+> -		return 0;
+> -
+> -out_clear_bit:
+> -	if (ack)
+> -		clear_bit(ACK_PENDING, &g0->flags);
+> -	else
+> -		clear_bit(COMMAND_PENDING, &g0->flags);
+> -
+> -	return ret;
+> -}
+> -
+>  static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
+>  {
+>  	struct ucsi_stm32g0 *g0 = data;
+> @@ -449,13 +416,7 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
+>  	if (ret)
+>  		return IRQ_NONE;
+>  
+> -	if (UCSI_CCI_CONNECTOR(cci))
+> -		ucsi_connector_change(g0->ucsi, UCSI_CCI_CONNECTOR(cci));
+> -
+> -	if (cci & UCSI_CCI_ACK_COMPLETE && test_and_clear_bit(ACK_PENDING, &g0->flags))
+> -		complete(&g0->complete);
+> -	if (cci & UCSI_CCI_COMMAND_COMPLETE && test_and_clear_bit(COMMAND_PENDING, &g0->flags))
+> -		complete(&g0->complete);
+> +	ucsi_notify_common(g0->ucsi, cci);
+
+I can see the fix "test_and_clear_bit()" sent earlier is removed from here.
+
+I'd suggest to use similar approach as here, unless you see some drawback?
+
+Please advise,
+Best Regards,
+Fabrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
