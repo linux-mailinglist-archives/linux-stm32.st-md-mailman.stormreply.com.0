@@ -2,46 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913D4916B68
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 17:00:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32332916C0D
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 17:10:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 400D0C71287;
-	Tue, 25 Jun 2024 15:00:31 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50FAAC6DD6D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1706C71287;
+	Tue, 25 Jun 2024 15:10:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90D2EC6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jun 2024 15:00:24 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5AC0C339;
- Tue, 25 Jun 2024 08:00:48 -0700 (PDT)
-Received: from [192.168.4.86] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7758D3F766;
- Tue, 25 Jun 2024 08:00:20 -0700 (PDT)
-Message-ID: <36714d76-f978-4dca-8ada-0de902d23a29@arm.com>
-Date: Tue, 25 Jun 2024 16:00:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
- gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
- leo.yan@linux.dev, anshuman.khandual@arm.com, jszu@nvidia.com,
- bwicaksono@nvidia.com
-References: <20240625133105.671245-1-james.clark@arm.com>
- <20240625133105.671245-16-james.clark@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20240625133105.671245-16-james.clark@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Tue, 25 Jun 2024 15:10:02 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45PDMWtZ024615;
+ Tue, 25 Jun 2024 17:09:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=bXWNzZd00d3Wno9/beXi93
+ NETzadbrJvtUIR5akEHEQ=; b=8RkTq0igjgtyEMP6NGNT3YRxApOa+B8dyts+4i
+ 1Red80n3tz6aQ4p4w0Dtj4P4MZn+iIS/Ux8UHYn7DyQR08t0n/24vyfrZMXOnzkO
+ NdKh381MpLsJdKHEhONSY5uUQ8KoSD7uU9t09m2gpN6iaefoyDPwX1dXpSpPms3p
+ SAms+gHpqLk5XCGeWa639xOAuRoDnjrUQHsGUkkNRTL7fnqghnDQGTlENyoQQyc8
+ 19vvpw6Rj3hj46APcf5djh+TA09CfhIxWWpzBNdZh0+TrSFYc75FzmBvJMAnBxdq
+ 4iS1nCsyJPp/cg6oT9qwdikcUCXj/F4yWiiZ5+h9xsp7Dk9Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywkr5cbyk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 25 Jun 2024 17:09:37 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E13D540044;
+ Tue, 25 Jun 2024 17:09:26 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 246242207A5;
+ Tue, 25 Jun 2024 17:08:26 +0200 (CEST)
+Received: from localhost (10.252.26.63) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 25 Jun
+ 2024 17:08:25 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- "Liang, Kan" <kan.liang@linux.intel.com>
-Subject: Re: [Linux-stm32] [PATCH v4 15/17] coresight: Remove pending trace
- ID release mechanism
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Nuno Sa
+ <nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Tue, 25 Jun 2024 17:07:08 +0200
+Message-ID: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.252.26.63]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-25_10,2024-06-25_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/8] iio: adc: dfsdm: add scaling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,254 +76,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/06/2024 14:30, James Clark wrote:
-> Pending the release of IDs was a way of managing concurrent sysfs and
-> Perf sessions in a single global ID map. Perf may have finished while
-> sysfs hadn't, and Perf shouldn't release the IDs in use by sysfs and
-> vice versa.
-> 
-> Now that Perf uses its own exclusive ID maps, pending release doesn't
-> result in any different behavior than just releasing all IDs when the
-> last Perf session finishes. As part of the per-sink trace ID change, we
-> would have still had to make the pending mechanism work on a per-sink
-> basis, due to the overlapping ID allocations, so instead of making that
-> more complicated, just remove it.
-> 
-> Signed-off-by: James Clark <james.clark@arm.com>
-> ---
->   .../hwtracing/coresight/coresight-etm-perf.c  | 11 ++--
->   .../hwtracing/coresight/coresight-trace-id.c  | 62 +++++--------------
->   .../hwtracing/coresight/coresight-trace-id.h  | 31 +++++-----
->   include/linux/coresight.h                     |  6 +-
->   4 files changed, 34 insertions(+), 76 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> index 7fb55dafb639..17fa29969643 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> @@ -232,15 +232,14 @@ static void free_event_data(struct work_struct *work)
->   		if (!(IS_ERR_OR_NULL(*ppath))) {
->   			struct coresight_device *sink = coresight_get_sink(*ppath);
->   
-> -			coresight_trace_id_put_cpu_id_map(cpu, &sink->perf_sink_id_map);
-> +			/* mark perf event as done for trace id allocator */
-> +			coresight_trace_id_perf_stop(&sink->perf_sink_id_map);
+The aim of this serie is to add scaling support to STM32 DFSDM
+peripheral in the analog context.
 
-See my comment below. It may be a good idea to add/copyt comment here to
-explain why we don't "put_cpu_id" anymore.
+The DFSDM currently operates as a consumer of IIO channels
+provided by a generic SD modulator. As previously discussed in RFC [1],
+this topology is not suitable for implementing scaling.
 
+This series brings the integration of the DFSDM driver with the new 
+IIO backend framework [2], enabling the DFSDM IIO device to offer 
+scaling feature based on reference voltage data obtained from the
+IIO SD modulator backend. This generic SD modulator backend takes the
+place of the former SD modulator, used with legacy implementation.
 
-> +
->   			coresight_release_path(*ppath);
->   		}
->   		*ppath = NULL;
->   	}
->   
-> -	/* mark perf event as done for trace id allocator */
-> -	coresight_trace_id_perf_stop();
-> -
->   	free_percpu(event_data->path);
->   	kfree(event_data);
->   }
-> @@ -328,9 +327,6 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
->   		sink = user_sink = coresight_get_sink_by_id(id);
->   	}
->   
-> -	/* tell the trace ID allocator that a perf event is starting up */
-> -	coresight_trace_id_perf_start();
-> -
->   	/* check if user wants a coresight configuration selected */
->   	cfg_hash = (u32)((event->attr.config2 & GENMASK_ULL(63, 32)) >> 32);
->   	if (cfg_hash) {
-> @@ -411,6 +407,7 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
->   			continue;
->   		}
->   
-> +		coresight_trace_id_perf_start(&sink->perf_sink_id_map);
->   		*etm_event_cpu_path_ptr(event_data, cpu) = path;
->   	}
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
-> index 8a777c0af6ea..1e70892f5beb 100644
-> --- a/drivers/hwtracing/coresight/coresight-trace-id.c
-> +++ b/drivers/hwtracing/coresight/coresight-trace-id.c
-> @@ -18,12 +18,6 @@ static struct coresight_trace_id_map id_map_default = {
->   	.cpu_map = &id_map_default_cpu_ids
->   };
->   
-> -/* maintain a record of the pending releases per cpu */
-> -static cpumask_t cpu_id_release_pending;
-> -
-> -/* perf session active counter */
-> -static atomic_t perf_cs_etm_session_active = ATOMIC_INIT(0);
-> -
->   /* lock to protect id_map and cpu data  */
->   static DEFINE_SPINLOCK(id_map_lock);
->   
-> @@ -122,34 +116,18 @@ static void coresight_trace_id_free(int id, struct coresight_trace_id_map *id_ma
->   	clear_bit(id, id_map->used_ids);
->   }
->   
-> -static void coresight_trace_id_set_pend_rel(int id, struct coresight_trace_id_map *id_map)
-> -{
-> -	if (WARN(!IS_VALID_CS_TRACE_ID(id), "Invalid Trace ID %d\n", id))
-> -		return;
-> -	set_bit(id, id_map->pend_rel_ids);
-> -}
-> -
->   /*
-> - * release all pending IDs for all current maps & clear CPU associations
-> - *
-> - * This currently operates on the default id map, but may be extended to
-> - * operate on all registered id maps if per sink id maps are used.
-> + * Release all IDs and clear CPU associations.
->    */
-> -static void coresight_trace_id_release_all_pending(void)
-> +static void coresight_trace_id_release_all(struct coresight_trace_id_map *id_map)
->   {
-> -	struct coresight_trace_id_map *id_map = &id_map_default;
->   	unsigned long flags;
-> -	int cpu, bit;
-> +	int cpu;
->   
->   	spin_lock_irqsave(&id_map_lock, flags);
-> -	for_each_set_bit(bit, id_map->pend_rel_ids, CORESIGHT_TRACE_ID_RES_TOP) {
-> -		clear_bit(bit, id_map->used_ids);
-> -		clear_bit(bit, id_map->pend_rel_ids);
-> -	}
-> -	for_each_cpu(cpu, &cpu_id_release_pending) {
-> -		atomic_set(per_cpu_ptr(id_map_default.cpu_map, cpu), 0);
-> -		cpumask_clear_cpu(cpu, &cpu_id_release_pending);
-> -	}
-> +	bitmap_zero(id_map->used_ids, CORESIGHT_TRACE_IDS_MAX);
-> +	for_each_possible_cpu(cpu)
-> +		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
->   	spin_unlock_irqrestore(&id_map_lock, flags);
->   	DUMP_ID_MAP(id_map);
->   }
-> @@ -164,7 +142,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
->   	/* check for existing allocation for this CPU */
->   	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
->   	if (id)
-> -		goto get_cpu_id_clr_pend;
-> +		goto get_cpu_id_out_unlock;
->   
->   	/*
->   	 * Find a new ID.
-> @@ -185,11 +163,6 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
->   	/* allocate the new id to the cpu */
->   	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), id);
->   
-> -get_cpu_id_clr_pend:
-> -	/* we are (re)using this ID - so ensure it is not marked for release */
-> -	cpumask_clear_cpu(cpu, &cpu_id_release_pending);
-> -	clear_bit(id, id_map->pend_rel_ids);
-> -
->   get_cpu_id_out_unlock:
->   	spin_unlock_irqrestore(&id_map_lock, flags);
->   
-> @@ -210,15 +183,8 @@ static void _coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_ma
->   
->   	spin_lock_irqsave(&id_map_lock, flags);
->   
-> -	if (atomic_read(&perf_cs_etm_session_active)) {
-> -		/* set release at pending if perf still active */
-> -		coresight_trace_id_set_pend_rel(id, id_map);
-> -		cpumask_set_cpu(cpu, &cpu_id_release_pending);
-> -	} else {
-> -		/* otherwise clear id */
-> -		coresight_trace_id_free(id, id_map);
-> -		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
-> -	}
-> +	coresight_trace_id_free(id, id_map);
-> +	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
->   
->   	spin_unlock_irqrestore(&id_map_lock, flags);
->   	DUMP_ID_CPU(cpu, id);
-> @@ -302,17 +268,17 @@ void coresight_trace_id_put_system_id(int id)
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_put_system_id);
->   
-> -void coresight_trace_id_perf_start(void)
-> +void coresight_trace_id_perf_start(struct coresight_trace_id_map *id_map)
->   {
-> -	atomic_inc(&perf_cs_etm_session_active);
-> +	atomic_inc(&id_map->perf_cs_etm_session_active);
->   	PERF_SESSION(atomic_read(&perf_cs_etm_session_active));
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_perf_start);
->   
-> -void coresight_trace_id_perf_stop(void)
-> +void coresight_trace_id_perf_stop(struct coresight_trace_id_map *id_map)
->   {
-> -	if (!atomic_dec_return(&perf_cs_etm_session_active))
-> -		coresight_trace_id_release_all_pending();
-> +	if (!atomic_dec_return(&id_map->perf_cs_etm_session_active))
-> +		coresight_trace_id_release_all(id_map);
->   	PERF_SESSION(atomic_read(&perf_cs_etm_session_active));
+The DFSDM driver has been updated to adopt the generic ADC channel
+binding [3]. The reasons for this include:
+- Reducing the use of proprietary properties
+- Simplifying the coexistence of legacy and new backend bindings
+- Prepare the support of the MDF peripheral on STM32MP25 SoC
 
-minor nit: The global variable perf_cs_etm_session_active is no longer 
-needed and must be updated to use the id_map variant. Same as above.
+Backward compatibility is maintained through legacy support.
+
+This series extends the backend framework with the following APIs:
+- iio_backend_read_raw:
+	This API is intented to retrieve the voltage information from the
+	backend. It is based on IIO framework read_raw API.
+- iio_backend_disable / iio_backend_enable:
+	backend enable/disable to be used for PM management
+- devm_iio_backend_fwnode_get
+	Intended for parsing DT subnodes to allow generic channel binding
+	support, as generic channel DT nodes are not populated as devices.
+
+[1]: https://lore.kernel.org/lkml/20200204101008.11411-1-olivier.moysan@st.com/
+[2]: https://lore.kernel.org/all/20240206-iio-backend-v9-0-df66d159c000@analog.com/
+[3]: devicetree/bindings/iio/adc/adc.yaml
+
+Changes in v2:
+- Update enable/disable backend API
+- Rename devm_iio_backend_subnode_get(), as devm_iio_backend_fwnode_get()
+- Update iio_backend_read_raw() prototype to fully match IIO framework
+  read_raw callback prototype.
+- Change st,adc-channel-type property name and type in DFSDM binding
+- Remove sd-backend and rename ads1201 compatibles in SD binding
+
+Conor, in this v2, I left the SD modulator driver & binding unchanged,
+regarding the naming issue you raised previously.
+
+The problem here is that we have two versions of the generic sigma delta
+modulator driver: one for legacy support and a new one to support new
+binding. Maybe an alternate, is to rename former sd modulator as
+"legacy" or something similar.
+I will address this point in a v3 if necessary.
+
+Olivier Moysan (8):
+  iio: add read raw service to iio backend framework
+  iio: add enable and disable services to iio backend framework
+  iio: add child nodes support in iio backend framework
+  dt-bindings: iio: dfsdm: move to backend framework
+  dt-bindings: iio: add sigma delta modulator backend
+  iio: adc: stm32-dfsdm: adopt generic channels bindings
+  iio: add sd modulator generic iio backend
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+
+ .../iio/adc/sd-modulator-backend.yaml         |  39 +++
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 157 ++++++++-
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/sd_adc_backend.c              | 117 +++++++
+ drivers/iio/adc/stm32-dfsdm-adc.c             | 302 +++++++++++++++---
+ drivers/iio/industrialio-backend.c            | 108 +++++--
+ include/linux/iio/backend.h                   |  10 +-
+ 8 files changed, 679 insertions(+), 66 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/sd-modulator-backend.yaml
+ create mode 100644 drivers/iio/adc/sd_adc_backend.c
 
 
->   }
->   EXPORT_SYMBOL_GPL(coresight_trace_id_perf_stop);
-> diff --git a/drivers/hwtracing/coresight/coresight-trace-id.h b/drivers/hwtracing/coresight/coresight-trace-id.h
-> index 840babdd0794..9aae50a553ca 100644
-> --- a/drivers/hwtracing/coresight/coresight-trace-id.h
-> +++ b/drivers/hwtracing/coresight/coresight-trace-id.h
-> @@ -17,9 +17,10 @@
->    * released when done.
->    *
->    * In order to ensure that a consistent cpu / ID matching is maintained
-> - * throughout a perf cs_etm event session - a session in progress flag will
-> - * be maintained, and released IDs not cleared until the perf session is
-> - * complete. This allows the same CPU to be re-allocated its prior ID.
-> + * throughout a perf cs_etm event session - a session in progress flag will be
-> + * maintained for each sink, and IDs are cleared when all the perf sessions
-> + * complete. This allows the same CPU to be re-allocated its prior ID when
-> + * events are scheduled in and out.
->    *
->    *
->    * Trace ID maps will be created and initialised to prevent architecturally
-> @@ -66,11 +67,7 @@ int coresight_trace_id_get_cpu_id_map(int cpu, struct coresight_trace_id_map *id
->   /**
->    * Release an allocated trace ID associated with the CPU.
->    *
-> - * This will release the CoreSight trace ID associated with the CPU,
-> - * unless a perf session is in operation.
-> - *
-> - * If a perf session is in operation then the ID will be marked as pending
-> - * release.
-> + * This will release the CoreSight trace ID associated with the CPU.
->    *
->    * @cpu: The CPU index to release the associated trace ID.
->    */
-> @@ -133,21 +130,21 @@ void coresight_trace_id_put_system_id(int id);
->   /**
->    * Notify the Trace ID allocator that a perf session is starting.
->    *
-> - * Increase the perf session reference count - called by perf when setting up
-> - * a trace event.
-> + * Increase the perf session reference count - called by perf when setting up a
-> + * trace event.
->    *
-> - * This reference count is used by the ID allocator to ensure that trace IDs
-> - * associated with a CPU cannot change or be released during a perf session.
-> + * Perf sessions never free trace IDs to ensure that the ID associated with a
-> + * CPU cannot change during their and other's concurrent sessions. Instead,
-> + * this refcount is used so that the last event to finish always frees all IDs.
-
-minor nit: I think it better to keep/copy the above comment to the 
-etm_event_stop where we don't do "put_trace_id"
-
-Suzuki
-
+base-commit: 2dfa1b7bfc07e58acb9f9eaa8c871f37189dbfee
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
