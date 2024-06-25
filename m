@@ -2,44 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999129168FC
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 15:34:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FFED916A4D
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2024 16:28:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F1B3C78012;
-	Tue, 25 Jun 2024 13:34:44 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D3F1C78012
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90BCEC71287;
+	Tue, 25 Jun 2024 14:28:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D65B0C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jun 2024 13:34:43 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FF63DA7;
- Tue, 25 Jun 2024 06:35:07 -0700 (PDT)
-Received: from e127643.broadband (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 18D6C3F73B;
- Tue, 25 Jun 2024 06:34:38 -0700 (PDT)
-From: James Clark <james.clark@arm.com>
-To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
- gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
- leo.yan@linux.dev, anshuman.khandual@arm.com, jszu@nvidia.com,
- bwicaksono@nvidia.com
-Date: Tue, 25 Jun 2024 14:31:00 +0100
-Message-Id: <20240625133105.671245-18-james.clark@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240625133105.671245-1-james.clark@arm.com>
-References: <20240625133105.671245-1-james.clark@arm.com>
+ Tue, 25 Jun 2024 14:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1719325727; x=1750861727;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4VC/dpmvV2yj+XWaUHU3QaBpFS4x/fGnrsDdid1YfWM=;
+ b=OiydOO9eFnCvu+OobIljJP+VHv/PHgrFwAyaPHxsHUhnYMI8bT/vT4uD
+ oe4VyvWY+JadDU2ZYG+/Dyv0QxrZ98I7mv9zTrE16GtwmD3g5WB6/2eZ8
+ c+mRVc6RckimFITujJ5NL+ej2+USZZXL8UpELQQmNWC2fZe5XnQv+igg5
+ gV6YV8YvmXrzwXz2PfJfj7406VLsxYEeEcPncNkcaEZO+tY0cgnETIoMH
+ eePeN/YDOsia7am/CQVLpSEBcE7Pg8DZd2lYGfwLZeMgQQRyAIpu/dX4Z
+ 4dX/7VOZ263ehXw3kHQh6H15awvfkKQJD1KNGh4rD7KU+QBrW5YMqRTj3 Q==;
+X-CSE-ConnectionGUID: ir3ni6FJQxiOV0pT5vQLDQ==
+X-CSE-MsgGUID: NVZ2OM5cRbSAqknodNQelw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11114"; a="16309083"
+X-IronPort-AV: E=Sophos;i="6.08,264,1712646000"; d="scan'208";a="16309083"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2024 07:28:39 -0700
+X-CSE-ConnectionGUID: kbnTYjbeThOxOrKl80gX5Q==
+X-CSE-MsgGUID: +lgyiggYS0WF8pCBWxD4Ug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,264,1712646000"; d="scan'208";a="43546824"
+Received: from kuha.fi.intel.com ([10.237.72.185])
+ by orviesa010.jf.intel.com with SMTP; 25 Jun 2024 07:28:35 -0700
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Tue, 25 Jun 2024 17:28:34 +0300
+Date: Tue, 25 Jun 2024 17:28:34 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZnrUEp0C9+Q7p+8a@kuha.fi.intel.com>
+References: <20240621-ucsi-rework-interface-v2-0-a399ff96bf88@linaro.org>
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- James Clark <james.clark@arm.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- "Liang, Kan" <kan.liang@linux.intel.com>
-Subject: [Linux-stm32] [PATCH v4 17/17] coresight: Make trace ID map
-	spinlock local to the map
+Content-Disposition: inline
+In-Reply-To: <20240621-ucsi-rework-interface-v2-0-a399ff96bf88@linaro.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nikita Travkin <nikita@trvn.ru>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/7] usb: typec: ucsi: rework glue
+	driver interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,134 +71,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reduce contention on the lock by replacing the global lock with one for
-each map.
+On Fri, Jun 21, 2024 at 01:55:19AM +0300, Dmitry Baryshkov wrote:
+> The interface between UCSI and the glue driver is very low-level. It
+> allows reading the UCSI data from any offset (but in reality the UCSI
+> driver reads only VERSION, CCI an MESSAGE_IN data). All event handling
+> is to be done by the glue driver (which already resulted in several
+> similar-but-slightly different implementations). It leaves no place to
+> optimize the write-read-read sequence for the command execution (which
+> might be beneficial for some of the drivers), etc.
+> 
+> The patchseries attempts to restructure the UCSI glue driver interface
+> in order to provide sensible operations instead of a low-level read /
+> write calls.
+> 
+> If this approach is found to be acceptable, I plan to further rework the
+> command interface, moving reading CCI and MESSAGE_IN to the common
+> control code, which should simplify driver's implementation and remove
+> necessity to split quirks between sync_control and read_message_in e.g.
+> as implemented in the ucsi_ccg.c.
+> 
+> Note, the series was tested only on the ucsi_glink platforms. Further
+> testing is appreciated.
 
-Signed-off-by: James Clark <james.clark@arm.com>
----
- drivers/hwtracing/coresight/coresight-core.c  |  1 +
- .../hwtracing/coresight/coresight-trace-id.c  | 26 +++++++++----------
- include/linux/coresight.h                     |  1 +
- 3 files changed, 14 insertions(+), 14 deletions(-)
+I can run a few tests against these tomorrow.
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index c427e9344a84..ea38ecf26fcb 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -1164,6 +1164,7 @@ struct coresight_device *coresight_register(struct coresight_desc *desc)
- 
- 	if (csdev->type == CORESIGHT_DEV_TYPE_SINK ||
- 	    csdev->type == CORESIGHT_DEV_TYPE_LINKSINK) {
-+		spin_lock_init(&csdev->perf_sink_id_map.lock);
- 		csdev->perf_sink_id_map.cpu_map = alloc_percpu(atomic_t);
- 		if (!csdev->perf_sink_id_map.cpu_map) {
- 			kfree(csdev);
-diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
-index 1e70892f5beb..82bb70c1ad73 100644
---- a/drivers/hwtracing/coresight/coresight-trace-id.c
-+++ b/drivers/hwtracing/coresight/coresight-trace-id.c
-@@ -15,12 +15,10 @@
- /* Default trace ID map. Used in sysfs mode and for system sources */
- static DEFINE_PER_CPU(atomic_t, id_map_default_cpu_ids) = ATOMIC_INIT(0);
- static struct coresight_trace_id_map id_map_default = {
--	.cpu_map = &id_map_default_cpu_ids
-+	.cpu_map = &id_map_default_cpu_ids,
-+	.lock = __SPIN_LOCK_UNLOCKED(id_map_default.lock)
- };
- 
--/* lock to protect id_map and cpu data  */
--static DEFINE_SPINLOCK(id_map_lock);
--
- /* #define TRACE_ID_DEBUG 1 */
- #if defined(TRACE_ID_DEBUG) || defined(CONFIG_COMPILE_TEST)
- 
-@@ -124,11 +122,11 @@ static void coresight_trace_id_release_all(struct coresight_trace_id_map *id_map
- 	unsigned long flags;
- 	int cpu;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	bitmap_zero(id_map->used_ids, CORESIGHT_TRACE_IDS_MAX);
- 	for_each_possible_cpu(cpu)
- 		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 	DUMP_ID_MAP(id_map);
- }
- 
-@@ -137,7 +135,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
- 	unsigned long flags;
- 	int id;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 
- 	/* check for existing allocation for this CPU */
- 	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
-@@ -164,7 +162,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
- 	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), id);
- 
- get_cpu_id_out_unlock:
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID_CPU(cpu, id);
- 	DUMP_ID_MAP(id_map);
-@@ -181,12 +179,12 @@ static void _coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_ma
- 	if (!id)
- 		return;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 
- 	coresight_trace_id_free(id, id_map);
- 	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
- 
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 	DUMP_ID_CPU(cpu, id);
- 	DUMP_ID_MAP(id_map);
- }
-@@ -196,10 +194,10 @@ static int coresight_trace_id_map_get_system_id(struct coresight_trace_id_map *i
- 	unsigned long flags;
- 	int id;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	/* prefer odd IDs for system components to avoid legacy CPU IDS */
- 	id = coresight_trace_id_alloc_new_id(id_map, 0, true);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID(id);
- 	DUMP_ID_MAP(id_map);
-@@ -210,9 +208,9 @@ static void coresight_trace_id_map_put_system_id(struct coresight_trace_id_map *
- {
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	coresight_trace_id_free(id, id_map);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID(id);
- 	DUMP_ID_MAP(id_map);
-diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-index 197949fd2c35..c13342594278 100644
---- a/include/linux/coresight.h
-+++ b/include/linux/coresight.h
-@@ -233,6 +233,7 @@ struct coresight_trace_id_map {
- 	DECLARE_BITMAP(used_ids, CORESIGHT_TRACE_IDS_MAX);
- 	atomic_t __percpu *cpu_map;
- 	atomic_t perf_cs_etm_session_active;
-+	spinlock_t lock;
- };
- 
- /**
+I don't have have any objections with this approach, but you'll need
+to do another rebase. Now these don't apply cleanly because of
+9e3caa9dd51b ("usb: typec: ucsi_acpi: Add LG Gram quirk").
+
+thanks,
+
+> Depends: [1], [2]
+> 
+> [1] https://lore.kernel.org/linux-usb/20240612124656.2305603-1-fabrice.gasnier@foss.st.com/
+> 
+> [2] https://lore.kernel.org/linux-usb/20240621-ucsi-yoga-ec-driver-v8-1-e03f3536b8c6@linaro.org/
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Changes in v2:
+> - Dropped the RFC prefix
+> - Rebased on top of the fixed STM32 patch
+> - Included the pending Yoga C630 driver into the cleanup.
+> - Link to v1: https://lore.kernel.org/r/20240603-ucsi-rework-interface-v1-0-99a6d544cec8@linaro.org
+> 
+> ---
+> Dmitry Baryshkov (7):
+>       usb: typec: ucsi: move ucsi_acknowledge() from ucsi_read_error()
+>       usb: typec: ucsi: simplify command sending API
+>       usb: typec: ucsi: split read operation
+>       usb: typec: ucsi: rework command execution functions
+>       usb: typec: ucsi: inline ucsi_read_message_in
+>       usb: typec: ucsi: extract common code for command handling
+>       usb: typec: ucsi: reorder operations in ucsi_run_command()
+> 
+>  drivers/usb/typec/ucsi/ucsi.c           | 215 +++++++++++++++++---------------
+>  drivers/usb/typec/ucsi/ucsi.h           |  26 ++--
+>  drivers/usb/typec/ucsi/ucsi_acpi.c      | 100 +++++++--------
+>  drivers/usb/typec/ucsi/ucsi_ccg.c       | 103 +++++++--------
+>  drivers/usb/typec/ucsi/ucsi_glink.c     |  74 ++++-------
+>  drivers/usb/typec/ucsi/ucsi_stm32g0.c   |  79 ++++--------
+>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 104 +++++----------
+>  7 files changed, 309 insertions(+), 392 deletions(-)
+> ---
+> base-commit: f0dbf09a40c8100a895f675d619db5ed1f58f7ac
+> change-id: 20240525-ucsi-rework-interface-5ff2264f6aec
+> 
+> Best regards,
+> -- 
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 -- 
-2.34.1
-
+heikki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
