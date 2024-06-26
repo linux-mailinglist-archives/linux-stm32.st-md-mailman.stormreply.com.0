@@ -2,53 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BE51917E4D
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 12:39:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C69917E61
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 12:40:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0932C7128F;
-	Wed, 26 Jun 2024 10:39:15 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CD04C71287;
+	Wed, 26 Jun 2024 10:40:59 +0000 (UTC)
+Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com
+ [209.85.219.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 509BBC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBC4CC6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2024 10:39:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5AD3ACE20FE;
- Wed, 26 Jun 2024 10:39:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C369CC2BD10;
- Wed, 26 Jun 2024 10:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719398344;
- bh=uXUtR1lw1Q8bbbvkSe1QTPqgXYBuKxKOObcsywhWxbM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bqXvXjUPEBzqpnCDjC6Yo+nzbhkmLatElGz7oAEaXttTbf5TaPPaEemU8CkXTcyX1
- nT9lNVxKSvi8KQWC2eP68MEaSMHte0kPgE3+qgOQDPxKIYTq7y8eiiOP5NPBEzq7Lk
- ZbBoK+avtgIZKDCtiKp1oG6Si06OdQk++5X4/GO7JmG11Vsc5n0wNxkvbPjBuCRyV/
- LKyhfVaXPvuNtlovFzwoslfug5cMVvYQ6eTz/jAqkf+/iZjDRLh5jSDYx3AiJpt2Kd
- 50G1ZdyEVfsajdIolwuIWXm75PNuUZiR7KTB5YCFmiAcJ/y4/FmpEHacAlGc8A4tJA
- tfa5rvdFOtoeg==
-Date: Wed, 26 Jun 2024 11:38:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-Message-ID: <755275e3-b95a-44c0-941e-beb5dde65982@sirena.org.uk>
-References: <20240611083606.733453-1-christophe.roullier@foss.st.com>
- <20240611083606.733453-3-christophe.roullier@foss.st.com>
+ Wed, 26 Jun 2024 10:40:51 +0000 (UTC)
+Received: by mail-yb1-f181.google.com with SMTP id
+ 3f1490d57ef6-dff02b8a956so5833081276.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Jun 2024 03:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1719398451; x=1720003251;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KHbQKOiYe+Ibua4xAi15PJl+V4d0EJrIgF7ce4mlbFQ=;
+ b=oSiKUc7v7cTjHj3+GWod41eh6RYROC+XkEESZK2q5sVukKcLfnV6mhdala4YZYnR5i
+ UgvnAuEfY6tJWlqaLJoNT9wHwXcRBye9ESwfYZ9dVIJRmiZ499LRdTp4ILy21yjznpc0
+ SgtoFIfau8CXTto2ySGBaCpoTZQjNOb6YUsSOuzvo1rkGK75+VBuBrjbI586WtYCpyCy
+ lh9KEvWL5w/oP2m1i6I5Z9S3ZIFd/Ag1WzpBCLxwIzFYxIZviWBal2y0KBJC/myBozVJ
+ sAHQmFPSe4hF4Tax00+za5AbPOsoMyh5xoWZ+cgH+R3ZwRE1a/UzZSkPkZba2CpxvOzL
+ +LiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719398451; x=1720003251;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KHbQKOiYe+Ibua4xAi15PJl+V4d0EJrIgF7ce4mlbFQ=;
+ b=LCSt1C7FMxA8bSSA4pljfgoMH6CbfyIauItAw0BwgyFcmw2TB+J2Q5735Me2ljOZFX
+ 7qFwiNGw9UL6YfDomzNE5dqQBwKEKH92sDVtLRqAR4UC3oD6MM0B/QAIPrE6hQYo5yab
+ hptY3cHovP/HI+l2Yq0c+ENH8b+/egcwBNvco+Rl36HX4T76a7f+eO7kEvG36cs5q8I7
+ VUXFNIOK3/D6Pduk+g2f8myos6eVUTrAyfghwsWryDtVN+62eBvIxZrIt5eFe1A/3Fy/
+ INfs48UCVOPbPLU8l3U9EsAxKHT3VYjBjLmIpiUI+Fi3IBvtRoX/q4xbIjzfARrcpAMv
+ T68Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV8Xhqt0wBHCrZ+oiMbqTssK0B4hqwO1X99GpqSonjTzVYBqwA52hwlWIR3mezbKvFrJcIyRB2OGQ7peVy6bXIW8mPfUhlaeqMqL2tw8Wlv0bfXwI7UROne
+X-Gm-Message-State: AOJu0YzDJf+QMAR3CKCT1zbHnLInYXw5ty3qCItnJEiRSXbUgV1sMuQF
+ RNsLrRq+UIWl+c41zfSM6xD3xspsYFbCU+cAWFQojRab4PteT6q36y0JzFhqizWcXNQkdgobEaP
+ ZFjGu7RT8rjaES5+ucjD4SpSjXUnG8QZfWsORkw==
+X-Google-Smtp-Source: AGHT+IGAQdQECALwFQiRgkrKA/rZBEJOAnkCpPbedoTQq7/jt7W9vOb6wQcj2qKoWUKoPCAEcM15HUQq3HQFJjgWzyA=
+X-Received: by 2002:a25:c553:0:b0:dfa:6e39:95b0 with SMTP id
+ 3f1490d57ef6-e030107f616mr10069878276.49.1719398450656; Wed, 26 Jun 2024
+ 03:40:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20240611083606.733453-3-christophe.roullier@foss.st.com>
-X-Cookie: Many a family tree needs trimming.
-Cc: Marek Vasut <marex@denx.de>, Jose Abreu <joabreu@synopsys.com>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next,
- PATCH v7 2/8] net: stmmac: dwmac-stm32: Separate out external clock
- rate validation
+References: <20240504-pinctrl-cleanup-v2-0-26c5f2dc1181@nxp.com>
+ <20240504-pinctrl-cleanup-v2-20-26c5f2dc1181@nxp.com>
+ <171939733731.25849.13373950874840419376.b4-ty@linaro.org>
+In-Reply-To: <171939733731.25849.13373950874840419376.b4-ty@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 26 Jun 2024 12:40:36 +0200
+Message-ID: <CACRpkdastCME_0BWjcaNc0Fw8qsLAGgoQUMi7g8sEP+xT=T_tQ@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Peng Fan <peng.fan@nxp.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Tony Lindgren <tony@atomide.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Hal Feng <hal.feng@starfivetech.com>, Fabio Estevam <festevam@gmail.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-samsung-soc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ Chunyan Zhang <zhang.lyra@gmail.com>, openbmc@lists.ozlabs.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jacky Bai <ping.bai@nxp.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chester Lin <chester62515@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Stephen Warren <swarren@wwwdotorg.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ "Peng Fan \(OSS\)" <peng.fan@oss.nxp.com>, linux-gpio@vger.kernel.org,
+ soc@kernel.org, Damien Le Moal <dlemoal@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Matthias Brugger <mbrugger@suse.com>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Sean Wang <sean.wang@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ linux-riscv@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Viresh Kumar <vireshk@kernel.org>, Wells Lu <wellslutw@gmail.com>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 20/20] pinctrl: samsung: Use
+ scope based of_node_put() cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,128 +110,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1127144582962612755=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1127144582962612755==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5VPZsyVafG4kC2P8"
-Content-Disposition: inline
-
-
---5VPZsyVafG4kC2P8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jun 11, 2024 at 10:36:00AM +0200, Christophe Roullier wrote:
-> From: Marek Vasut <marex@denx.de>
->=20
-> Pull the external clock frequency validation into a separate function,
-> to avoid conflating it with external clock DT property decoding and
-> clock mux register configuration. This should make the code easier to
-> read and understand.
-
-For the past few days networking has been broken on the Avenger 96, a
-stm32mp157a based platform.  The stm32-dwmac driver fails to probe:
-
-<6>[    1.894271] stm32-dwmac 5800a000.ethernet: IRQ eth_wake_irq not found
-<6>[    1.899694] stm32-dwmac 5800a000.ethernet: IRQ eth_lpi not found
-<6>[    1.905849] stm32-dwmac 5800a000.ethernet: IRQ sfty not found
-<3>[    1.912304] stm32-dwmac 5800a000.ethernet: Unable to parse OF data
-<3>[    1.918393] stm32-dwmac 5800a000.ethernet: probe with driver stm32-dw=
-mac failed with error -75
-
-which looks a bit odd given the commit contents but I didn't look at the
-driver code at all.
-
-Full boot log here:
-
-   https://lava.sirena.org.uk/scheduler/job/467150
-
-A working equivalent is here:
-
-   https://lava.sirena.org.uk/scheduler/job/466518
-
-A bisection identified this commit as being responsible, log below:
-
-git bisect start
-# status: waiting for both good and bad commits
-# bad: [0fc4bfab2cd45f9acb86c4f04b5191e114e901ed] Add linux-next specific f=
-iles for 20240625
-git bisect bad 0fc4bfab2cd45f9acb86c4f04b5191e114e901ed
-# status: waiting for good commit(s), bad commit known
-# good: [3d9217c41c07b72af3a5c147cb82c75f757f4200] Merge branch 'for-linux-=
-next-fixes' of https://gitlab.freedesktop.org/drm/misc/kernel.git
-git bisect good 3d9217c41c07b72af3a5c147cb82c75f757f4200
-# bad: [5699faecf4e2347f81eea62db0455feb4d794537] Merge branch 'master' of =
-git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
-git bisect bad 5699faecf4e2347f81eea62db0455feb4d794537
-# good: [ba73da675606373565868962ad8c615f175662ed] Merge branch 'fs-next' o=
-f linux-next
-git bisect good ba73da675606373565868962ad8c615f175662ed
-# bad: [7e7c714a36a5b10e391168e7e8145060e041ea12] Merge branch 'af_unix-rem=
-ove-spin_lock_nested-and-convert-to-lock_cmp_fn'
-git bisect bad 7e7c714a36a5b10e391168e7e8145060e041ea12
-# good: [93d4e8bb3f137e8037a65ea96f175f81c25c50e5] Merge tag 'wireless-next=
--2024-06-07' of git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wire=
-less-next
-git bisect good 93d4e8bb3f137e8037a65ea96f175f81c25c50e5
-# bad: [4314175af49668ab20c0d60d7d7657986e1d0c7c] Merge branch 'net-smc-IPP=
-ROTO_SMC'
-git bisect bad 4314175af49668ab20c0d60d7d7657986e1d0c7c
-# good: [811efc06e5f30a57030451b2d1998aa81273baf8] net/tcp: Move tcp_inboun=
-d_hash() from headers
-git bisect good 811efc06e5f30a57030451b2d1998aa81273baf8
-# good: [5f703ce5c981ee02c00e210d5b155bbbfbf11263] net: hsr: Send superviso=
-ry frames to HSR network with ProxyNodeTable data
-git bisect good 5f703ce5c981ee02c00e210d5b155bbbfbf11263
-# bad: [6c3282a6b296385bee2c383442c39f507b0d51dd] net: stmmac: add select_p=
-cs() platform method
-git bisect bad 6c3282a6b296385bee2c383442c39f507b0d51dd
-# bad: [404dbd26322f50c8123bf5bff9a409356889035f] net: qrtr: ns: Ignore ENO=
-DEV failures in ns
-git bisect bad 404dbd26322f50c8123bf5bff9a409356889035f
-# bad: [c60a54b52026bd2c9a88ae00f2aac7a67fed8e38] net: stmmac: dwmac-stm32:=
- Clean up the debug prints
-git bisect bad c60a54b52026bd2c9a88ae00f2aac7a67fed8e38
-# bad: [582ac134963e2d5cf6c45db027e156fcfb7f7678] net: stmmac: dwmac-stm32:=
- Separate out external clock rate validation
-git bisect bad 582ac134963e2d5cf6c45db027e156fcfb7f7678
-# good: [8a9044e5169bab7a8edadb4ceb748391657f0d7f] dt-bindings: net: add ST=
-M32MP13 compatible in documentation for stm32
-git bisect good 8a9044e5169bab7a8edadb4ceb748391657f0d7f
-# first bad commit: [582ac134963e2d5cf6c45db027e156fcfb7f7678] net: stmmac:=
- dwmac-stm32: Separate out external clock rate validation
-
---5VPZsyVafG4kC2P8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ778EACgkQJNaLcl1U
-h9ApQgf/eYGmuq6nGIDNbNykExuz3/YU9CjXnBZJCLyUoHxI/mxSZPa584xjxF0z
-+0lz32f4hLSUwSrA3K/zdI1JkJLrExE1l2JrvqFWojtpIF29Trxdf4wgYQVqGvEs
-b4bf9vn4DoxvboLXQzVJtr5OJHPYJfWbZOGXqblBmQYiCTKHT+P+dI8Wn4dmiQH5
-7OH9jJ37JKuyOOTJQNtY8mZCSze+Po+sHCXKoOnwONT8PhoyXC5solI8/OxTlPYV
-LXwbpIsSu9jc3siubqUvW3LmzPn1TrCT8hD79IIye3g3aLaCYAqVfZgdsH/ahziU
-fAViHxwJVN/1dK25wZ9rERUrutFHxg==
-=B+gE
------END PGP SIGNATURE-----
-
---5VPZsyVafG4kC2P8--
-
---===============1127144582962612755==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1127144582962612755==--
+T24gV2VkLCBKdW4gMjYsIDIwMjQgYXQgMTI6MjLigK9QTSBLcnp5c3p0b2YgS296bG93c2tpCjxr
+cnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+IHdyb3RlOgo+IE9uIFNhdCwgMDQgTWF5IDIw
+MjQgMjE6MjA6MTggKzA4MDAsIFBlbmcgRmFuIChPU1MpIHdyb3RlOgo+ID4gVXNlIHNjb3BlIGJh
+c2VkIG9mX25vZGVfcHV0KCkgY2xlYW51cCB0byBzaW1wbGlmeSBjb2RlLgo+ID4KPiA+Cj4KPiBB
+cHBsaWVkLCB0aGFua3MhCj4KPiBbMjAvMjBdIHBpbmN0cmw6IHNhbXN1bmc6IFVzZSBzY29wZSBi
+YXNlZCBvZl9ub2RlX3B1dCgpIGNsZWFudXBzCj4gICAgICAgICBodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3BpbmN0cmwvc2Ftc3VuZy9jLzcwNzgwN2Y0YzExMjhlMzk0NDI1MTllODQ5ZTRjZTBiN2My
+OWIxMTAKCk9LIEkgZHJvcHBlZCBpdCBmcm9tIG15IHF1ZXVlIQoKWW91cnMsCkxpbnVzIFdhbGxl
+aWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
