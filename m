@@ -2,87 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5041D9174EC
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 01:50:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272599176A0
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 05:07:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF050C78012;
-	Tue, 25 Jun 2024 23:50:15 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C604AC71289;
+	Wed, 26 Jun 2024 03:07:54 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8E69C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C24F0C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jun 2024 23:50:08 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45PG0cu3001505;
- Tue, 25 Jun 2024 23:49:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- O43sibDg+dMXQKePxUuuoJG91U2ze1ldrF9Fvd3uN5g=; b=ftvZU6DLvDRBPN7t
- N10UNHO8sZ3Bm+uJwPnTFu8jX9N4yJ5XB7hIgEWYDcfAcBgK8UM5xN5Mppvzroh2
- eO8u5mpsi/QFujSUbRbEHmc2OsjhcROSHBGPpinscOGdsWU2dMou6OTVXW5hRjaA
- 6A3bXlcYbR352BQlrmV1DFLLzCxTjTcU56Bj3n7vnzvdGCWDxqJlIQnsE1fCTDfx
- qSGWL+mVAuhqPzSBgzWvUBlYOEndfhts6wYWqCXSyzyeWdpgI8RsoFFyzh7aTn91
- hrlvfEXK16Z3793LzQcCsrGVOGNnIZ/3OWMYH6ReSFYGSZPXwirle0eaJtqxR2ZV
- 3pdhnw==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ywmaf0anf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Jun 2024 23:49:45 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45PNniiG019459
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Jun 2024 23:49:44 GMT
-Received: from hu-scheluve-lv.qualcomm.com (10.49.16.6) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 25 Jun 2024 16:49:41 -0700
-From: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
-Date: Tue, 25 Jun 2024 16:49:30 -0700
+ Wed, 26 Jun 2024 03:07:47 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id D89F288216;
+ Wed, 26 Jun 2024 05:07:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1719371267;
+ bh=iquN++Ww3GpiBGPHe/kSaalmOfIFnAzuVWpKNxOGuYQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=CpTr0UaIgmDq0b/VX7kyrfakp4EMsO/IMzBRsVd4db5r26sEPSKGLeKTlgFkvuFRA
+ Fz2hhbogAUTH/4W2NdXDT7CSIsY7rc9P/ZvIBlgJMPZKNfs10TTLapNoX4GfdgPRjf
+ cIdKHKqK1LBWCf8PGhGa8nezKk5aQ8w2vM+g57iCsp3YcfxtO+D6Qwy6pU/7OaIt1R
+ DRe+iaW+FGFgLhPDBdEifJZSzplx0D1vcExBni4dvUaNYmGo7f+tag41qbXNp58PQN
+ SfDJGN34rcXce+cSjS7Icld7YXOZ8JzrtNLemto7HMQq3vbcMpHvvpLSizjOnLOnx5
+ V4oojDcgbH5Cg==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Wed, 26 Jun 2024 05:07:21 +0200
+Message-ID: <20240626030736.512113-1-marex@denx.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Message-ID: <20240625-icc_bw_voting_from_ethqos-v2-3-eaa7cf9060f0@quicinc.com>
-References: <20240625-icc_bw_voting_from_ethqos-v2-0-eaa7cf9060f0@quicinc.com>
-In-Reply-To: <20240625-icc_bw_voting_from_ethqos-v2-0-eaa7cf9060f0@quicinc.com>
-To: Vinod Koul <vkoul@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "Rob Herring" <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>
-X-Mailer: b4 0.13.0
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: fm7vUTx5GK8DQoBwG72MZPU5HNOJh1mn
-X-Proofpoint-GUID: fm7vUTx5GK8DQoBwG72MZPU5HNOJh1mn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-25_18,2024-06-25_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 spamscore=0 bulkscore=0 phishscore=0 malwarescore=0
- clxscore=1015 mlxscore=0 lowpriorityscore=0 priorityscore=1501
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2406140001 definitions=main-2406250176
-Cc: Andrew Lunn <andrew@lunn.ch>, kernel@quicinc.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH v2 3/3] net: stmmac: Bring down the clocks to
- lower frequencies when mac link goes down
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix STM32MP13xx pinmux node
+	eth2-rgmii-sleep-0 copy-paste error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,45 +61,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When mac link goes down we don't need to mainitain the clocks to operate
-at higher frequencies, as an optimized solution to save power when
-the link goes down we are trying to bring down the clocks to the
-frequencies corresponding to the lowest speed possible.
+Fix pin copy-paste error in STM32MP13xx eth2-rgmii-sleep-0 pinmux
+node. Clearly the pins like PG11 are not supposed to be duplicated
+in the node pinmux property, fix them up to match the hardware pin
+assignment.
 
-Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+Fixes: d1193e65647e ("ARM: dts: stm32: Add pinmux nodes for DH electronics STM32MP13xx DHCOR SoM and DHSBC board")
+Signed-off-by: Marek Vasut <marex@denx.de>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ec7c61ee44d4..f0166f0bc25f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -996,6 +996,9 @@ static void stmmac_mac_link_down(struct phylink_config *config,
- {
- 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
- 
-+	if (priv->plat->fix_mac_speed)
-+		priv->plat->fix_mac_speed(priv->plat->bsp_priv, SPEED_10, mode);
-+
- 	stmmac_mac_set(priv, priv->ioaddr, false);
- 	priv->eee_active = false;
- 	priv->tx_lpi_enabled = false;
-@@ -1004,6 +1007,11 @@ static void stmmac_mac_link_down(struct phylink_config *config,
- 
- 	if (priv->dma_cap.fpesel)
- 		stmmac_fpe_link_state_handle(priv, false);
-+
-+	stmmac_set_icc_bw(priv, SPEED_10);
-+
-+	if (priv->plat->fix_mac_speed)
-+		priv->plat->fix_mac_speed(priv->plat->bsp_priv, SPEED_10, mode);
- }
- 
- static void stmmac_mac_link_up(struct phylink_config *config,
-
+diff --git a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+index 42995a8f5034c..9c7cf8f3c3e8b 100644
+--- a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+@@ -157,16 +157,16 @@ eth2_rgmii_sleep_pins_a: eth2-rgmii-sleep-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('F', 7, ANALOG)>, /* ETH_RGMII_TXD0 */
+ 				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD1 */
+-				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD2 */
+-				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD3 */
+-				 <STM32_PINMUX('G', 8, ANALOG)>, /* ETH_RGMII_TX_CTL */
+-				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+-				 <STM32_PINMUX('B', 2, ANALOG)>, /* ETH_MDIO */
++				 <STM32_PINMUX('G', 1, ANALOG)>, /* ETH_RGMII_TXD2 */
++				 <STM32_PINMUX('E', 6, ANALOG)>, /* ETH_RGMII_TXD3 */
++				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_TX_CTL */
++				 <STM32_PINMUX('G', 3, ANALOG)>, /* ETH_RGMII_GTX_CLK */
++				 <STM32_PINMUX('B', 6, ANALOG)>, /* ETH_MDIO */
+ 				 <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_MDC */
+ 				 <STM32_PINMUX('F', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+ 				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD1 */
+-				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD2 */
+-				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD3 */
++				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
++				 <STM32_PINMUX('A', 8, ANALOG)>, /* ETH_RGMII_RXD3 */
+ 				 <STM32_PINMUX('A', 12, ANALOG)>, /* ETH_RGMII_RX_CTL */
+ 				 <STM32_PINMUX('H', 11, ANALOG)>; /* ETH_RGMII_RX_CLK */
+ 		};
 -- 
-2.34.1
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
