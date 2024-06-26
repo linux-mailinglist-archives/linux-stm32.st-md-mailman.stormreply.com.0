@@ -2,51 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F823918560
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 17:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 686FE918579
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 17:13:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0ED1C71282;
-	Wed, 26 Jun 2024 15:10:58 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22B12C71282;
+	Wed, 26 Jun 2024 15:13:57 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26F62C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DACA1C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2024 15:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=5m14rGTG9LmbrjjJ/l2NwU7Y0IP12ob5tulLHsA6h8Y=; b=x5uAcgRSuDey6PsbTz4RgEk3QC
- drc99olvsjw4sho1UzY7/RgPeU+6fqMXABv4CCYbvOHKAIvSvbybYg3tum5gjF2jlknX8p6SVbSQi
- 9aaPjlimypP6O7gE7ewL7dQEICSVKlTqAqjToRvGJSov3kD/jukiN1oByp9Y0KBMx+iE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1sMUI7-0013Aj-CP; Wed, 26 Jun 2024 17:10:35 +0200
-Date: Wed, 26 Jun 2024 17:10:35 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <d2bb85e4-fab5-49fe-aaf0-9d1bf2279e3d@lunn.ch>
-References: <20240625-icc_bw_voting_from_ethqos-v2-0-eaa7cf9060f0@quicinc.com>
- <20240625-icc_bw_voting_from_ethqos-v2-3-eaa7cf9060f0@quicinc.com>
- <qf4zl7qupkzbrb6ik4v4nkjct7tsh34cmoufy23zozcht5gch6@kvymsd2ue6cd>
+ Wed, 26 Jun 2024 15:13:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BD04561A55;
+ Wed, 26 Jun 2024 15:13:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B2DC116B1;
+ Wed, 26 Jun 2024 15:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719414828;
+ bh=nyFfYXcb8BHeCVoCZIVl/CHDqWGfVZeZvhuIHlrHsVA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E5BGYU+IwcgJQ6wzQoc8q3zuJLZ9s2znsJkN2Qr3X9/Cb0eNV3SpZM/USpdlJTQGu
+ 8EqcZZWEuuEJc2FsvqCE1RgDsYSM+cwsgs/uZfnEI1gW/KGo8jFhnrE7uvEi1anaWN
+ DOgC9lo1TVq9C0LFW9qDF7ojk8D976NnIwkvCIkNRae6M+r2L9tsbjJAVbfOaw1fzf
+ +BWWGHS4tBiAfL1AZHAXAfcMBVYNtK5d/XPhdUhU4geWcsA77NyEYIDdIFzGbl9wLH
+ AM55/hnVqLmm5rODA8gHNA5zBwsQMwEgzEnkCxG7rWyJMj9oTkJi229m1e50GwOahp
+ qvo9Bl3kHrBOw==
+Date: Wed, 26 Jun 2024 16:13:43 +0100
+From: Lee Jones <lee@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Message-ID: <20240626151343.GA2504017@google.com>
+References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <qf4zl7qupkzbrb6ik4v4nkjct7tsh34cmoufy23zozcht5gch6@kvymsd2ue6cd>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: Bring down the clocks
- to lower frequencies when mac link goes down
+In-Reply-To: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
+Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 0/5] mfd: stm32-timers: Make register
+ definition more flexible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,31 +54,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> I'm still curious if any of the netdev folks have any opinion on scaling
-> things down like this on link down.
-
-It does make sense, in that there are no frames to process, so the
-clock can be reduced. But i also think it is a bit of a workaround for
-poor hardware design. Often you can tell the MAC the link is down, and
-it can shut down a lot more, and even turn all the clocks off.
-
-I also wounder if there are going to be any side effects of this. Some
-Ethernet MACs export a clock to the PHY. Is that clock going to
-change? I don't think it will, because we are changing to a valid MAC
-speed, not 0. So the PHY has to work at this speed clock.
-
-But to make it easier to find issues like this, open() should probably
-set the clocks to a low speed until the link is up. That way, if there
-are going to be problems, the link should never come up, as opposed to
-the link never comes up after being lost the first time...
-
-     Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAxOSBKdW4gMjAyNCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IEhlbGxvLAo+
+IAo+IChpbXBsaWNpdCkgdjEgaXMgYXZhaWxhYmxlIGF0Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvbGttbC9jb3Zlci4xNzE4MzUyMDIyLmdpdC51LmtsZWluZS1rb2VuaWdAYmF5bGlicmUuY29t
+Cj4gLgo+IAo+IENoYW5nZXMgaW50cm9kdWNlZCBoZXJlOgo+IAo+ICAtIFNwbGl0IHRoZSBwYXRj
+aCByZW1vdmluZyBUSU1fRElFUl9DQ19JRSgpIGFuZCB1c2UgYXBwcm9wcmlhdGUgc3ViamVjdAo+
+ICAgIHByZWZpeGVzLiBMZWUgYW5kIFdpbGxpYW0gZGlkbid0IGxpa2UgdGhlIHBhdGNoIHRvdWNo
+aW5nIGJvdGgKPiAgICBpbmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaCBhbmQKPiAgICBk
+cml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMgbm90IGhhdmluZyBhIGhpbnQgdG8gdGhl
+IGNvdW50ZXIKPiAgICBzdWJzeXN0ZW0gKGF0IGxlYXN0IHRoYXQncyBteSBpbnRlcnByZXRhdGlv
+biBvZiB0aGVpciBmZWVkYmFjaykuCj4gICAgTm90IG1lbnRpb25pbmcgbWZkIGRpZG4ndCBzZWVt
+IHRvIGJlIGNvbnNpZGVyYWJseSBiZXR0ZXIgaW4gbXkgZXllcywKPiAgICBzbyBJIHNwbGl0IHRo
+aXMgcGF0Y2guCj4gIC0gRml4IHR5cG8gbm90aWNlZCBieSBUaG9yc3Rlbi4KPiAgLSBVcGRhdGUg
+c3ViamVjdCBwcmVmaXggb2YgdGhlIGxhc3QgcGF0Y2ggdG8gbWF0Y2ggd2hhdCBpcyB1c3VhbGx5
+IGRvbmUKPiAgICBmb3IgcHdtLgo+IAo+IEkgaGF2ZSBzb21lIGZ1cnRoZXIgdXBkYXRlcyB0byB0
+aGUgcHdtLXN0bTMyIGRyaXZlciB0aGF0IHdpbGwgcHJvYmFibHkKPiBnbyBpbiBiZWZvcmUgdjYu
+MTAtcmMxLiBUaGV5IHNob3VsZG4ndCBjb25mbGljdCwgc3RpbGwgSSdkIHByZWZlciB0byBsZXQK
+PiB0aGUgcHdtIHBhdGNoIGdvIGluIHZpYSBteSB0cmVlIGFzIEkgbWlnaHQgaGF2ZSBzb21lIGZ1
+cnRoZXIgY2hhbmdlcyBmb3IKPiB0aGF0IGRyaXZlci4gU28gaWYgdGhpcyBpcyBtZXJnZWQgdXNp
+bmcgdGhlIG1mZCBvciBjb3VudGVyIHRyZWUsIHBsZWFzZQo+IHNraXAgdGhlIHB3bSBwYXRjaC4g
+QSBzdGFibGUgYnJhbmNoIHdvdWxkIGJlIHdlbGNvbWUgaW4gdGhpcyBjYXNlLgo+IAo+IEJlc3Qg
+cmVnYXJkcwo+IFV3ZQo+IAo+IAo+IFV3ZSBLbGVpbmUtS8O2bmlnICg1KToKPiAgIG1mZDogc3Rt
+MzItdGltZXJzOiBVbmlmeSBhbGlnbm1lbnQgb2YgcmVnaXN0ZXIgZGVmaW5pdGlvbgo+ICAgbWZk
+OiBzdG0zMi10aW1lcnM6IEFkZCBzb21lIHJlZ2lzdGVyIGRlZmluaXRpb25zIHdpdGggYSBwYXJh
+bWV0ZXIKPiAgIGNvdW50ZXI6IHN0bTMyLXRpbWVyLWNudDogVXNlIFRJTV9ESUVSX0NDeElFKHgp
+IGluc3RlYWQgb2YKPiAgICAgVElNX0RJRVJfQ0N4SUUoeCkKPiAgIG1mZDogc3RtMzItdGltZXJz
+OiBEcm9wIHVudXNlZCBUSU1fRElFUl9DQ19JRQo+ICAgcHdtOiBzdG0zMjogTWFrZSB1c2Ugb2Yg
+cGFyYW1ldHJpc2VkIHJlZ2lzdGVyIGRlZmluaXRpb25zCj4gCj4gIGRyaXZlcnMvY291bnRlci9z
+dG0zMi10aW1lci1jbnQuYyB8ICAgNCArLQo+ICBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYyAgICAg
+ICAgICAgfCAgMjIgKystLQo+ICBpbmNsdWRlL2xpbnV4L21mZC9zdG0zMi10aW1lcnMuaCAgfCAx
+NzkgKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTA3
+IGluc2VydGlvbnMoKyksIDk4IGRlbGV0aW9ucygtKQo+IAo+IGJhc2UtY29tbWl0OiAxNjEzZTYw
+NGRmMGNkMzU5Y2YyYTdmYmQ5YmU3YTBiY2ZhY2ZhYmQwCgpBcHBsaWVkIHBhdGNoZXMgMS00IGFu
+ZCBzdWJtaXR0ZWQgZm9yIGJ1aWxkIHRlc3RpbmcuCgpJZiBhbGwgaXMgZ29vZCwgSSdsbCBzZW50
+IG91dCBhIFBSIGZvciBXaWxsaWFtLgoKTm90ZSB0byBzZWxmOiBpYi1tZmQtY291bnRlci01LjEx
+CgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
