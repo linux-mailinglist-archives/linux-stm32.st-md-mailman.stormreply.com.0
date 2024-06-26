@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8AEB9179E6
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 09:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959C09179EE
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2024 09:40:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48158C71287;
-	Wed, 26 Jun 2024 07:40:02 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5ECA7C71287;
+	Wed, 26 Jun 2024 07:40:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37C23C71282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05A7BC71282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2024 07:39:54 +0000 (UTC)
+ Wed, 26 Jun 2024 07:40:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 645A4CE20B2;
- Wed, 26 Jun 2024 07:39:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6C7C2BD10;
- Wed, 26 Jun 2024 07:39:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id DC24D618C4;
+ Wed, 26 Jun 2024 07:40:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BECFC2BD10;
+ Wed, 26 Jun 2024 07:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719387590;
- bh=iAg2eaZvvzocnXsbLcE9/bhy7AJch+m0PDLw8JxMHIk=;
+ s=k20201202; t=1719387656;
+ bh=jlE0e8bnbPYHcpjEeRIhDpPbyTbQt5VEVBbW5Q5EpHc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nBXdfdV+hmFQp/rqxLLNj6/26Pf7In7EUmeAPFPfNMbf8ocf6HXZ4EW/mAesjSXp/
- YceLIJYlkHwYqoeCTGLrl2iCmpZjKi4Lmj2uj3X1IiZf+8o+PyMkU/cmIyNfA4MTxI
- LzR5mrOehIBLs5dZYlh1XGECDxN9Mq32iLjZ8z/FcVMUAz+MtloIFUK+1jHw0o0uD8
- /bNvk07MOyenavU07Plc2yvt3noWwXp8+cGm9cH5k4zZeVDx2ycFFgaIjuQ03pHiFi
- uiweIO1+s5vwnXXhuxymoJidnZvArq9GUgjzyew2vKRFoEALJoi5MrAMXH5izFzN1C
- PGrXygjLWz1wA==
-Message-ID: <452df1d7-434d-4dda-87b8-e5eb4573c651@kernel.org>
-Date: Wed, 26 Jun 2024 09:39:41 +0200
+ b=cEygZ5fD7Ox/55cv6M5NRkhwqgZ3iGkjVefmyZW6NePJI6FE91WB5842+mMB2Nn7o
+ PrSSIiLyMfg5cQowd59t84PaG8yHW3aKf1fUDUl3rQa4Eew5GM2NZ6FKC8mkttKs+p
+ uCeaR2kwtQ13eWOQtlNRYujIZPLwoifORyCQC2NoZc2W00dGl0IaQB2/Jx+QLjy5Pc
+ eTLG0iXWBhbHJ1M5bTVlrSZ5vwlIgBgESKCB6IhKSFLUNO3NwYYd5nKrZPWCAg70Qd
+ T6kE6gLKLR8HySDPAVGmkDCPXHmJ76CVoB0q5ZhSwe8e2q88Fiw3C71ikokc4BsQas
+ EG00aF+SSAK4g==
+Message-ID: <da62cf15-0329-40e5-83f3-16c4b60f7b46@kernel.org>
+Date: Wed, 26 Jun 2024 09:40:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
@@ -43,7 +43,7 @@ To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
  Conor Dooley <conor+dt@kernel.org>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>
 References: <20240625-icc_bw_voting_from_ethqos-v2-0-eaa7cf9060f0@quicinc.com>
- <20240625-icc_bw_voting_from_ethqos-v2-1-eaa7cf9060f0@quicinc.com>
+ <20240625-icc_bw_voting_from_ethqos-v2-2-eaa7cf9060f0@quicinc.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,14 +89,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240625-icc_bw_voting_from_ethqos-v2-1-eaa7cf9060f0@quicinc.com>
+In-Reply-To: <20240625-icc_bw_voting_from_ethqos-v2-2-eaa7cf9060f0@quicinc.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, kernel@quicinc.com,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: net: qcom: ethernet:
- Add interconnect properties
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] net: stmmac: Add interconnect
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,14 +114,84 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 26/06/2024 01:49, Sagar Cheluvegowda wrote:
-> Add documentation for the interconnect and interconnect-names
-> properties required when voting for AHB and AXI buses.
+> Add interconnect support to vote for bus bandwidth based
+> on the current speed of the driver.This change adds support
+
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+
+Also, space after full stop.
+
+> for two different paths - one from ethernet to DDR and the
+> other from Apps to ethernet.
+> Vote from each interconnect client is aggregated and the on-chip
+> interconnect hardware is configured to the most appropriate
+> bandwidth profile.
 > 
 > Suggested-by: Andrew Halaney <ahalaney@redhat.com>
 > Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
 > ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h          |  1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     |  8 ++++++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 12 ++++++++++++
+>  include/linux/stmmac.h                                |  2 ++
+>  4 files changed, 23 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index b23b920eedb1..56a282d2b8cd 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -21,6 +21,7 @@
+>  #include <linux/ptp_clock_kernel.h>
+>  #include <linux/net_tstamp.h>
+>  #include <linux/reset.h>
+> +#include <linux/interconnect.h>
+>  #include <net/page_pool/types.h>
+>  #include <net/xdp.h>
+>  #include <uapi/linux/bpf.h>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b3afc7cb7d72..ec7c61ee44d4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -985,6 +985,12 @@ static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+>  	}
+>  }
+>  
+> +static void stmmac_set_icc_bw(struct stmmac_priv *priv, unsigned int speed)
+> +{
+> +	icc_set_bw(priv->plat->axi_icc_path, Mbps_to_icc(speed), Mbps_to_icc(speed));
+> +	icc_set_bw(priv->plat->ahb_icc_path, Mbps_to_icc(speed), Mbps_to_icc(speed));
+> +}
+> +
+>  static void stmmac_mac_link_down(struct phylink_config *config,
+>  				 unsigned int mode, phy_interface_t interface)
+>  {
+> @@ -1080,6 +1086,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+>  	if (priv->plat->fix_mac_speed)
+>  		priv->plat->fix_mac_speed(priv->plat->bsp_priv, speed, mode);
+>  
+> +	stmmac_set_icc_bw(priv, speed);
+> +
+>  	if (!duplex)
+>  		ctrl &= ~priv->hw->link.duplex;
+>  	else
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 54797edc9b38..e46c94b643a3 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -642,6 +642,18 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
+>  	}
+>  
+> +	plat->axi_icc_path = devm_of_icc_get(&pdev->dev, "axi");
+> +	if (IS_ERR(plat->axi_icc_path)) {
+> +		ret = (void *)plat->axi_icc_path;
+> +		goto error_hw_init;
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+This sounds like an ABI break. Considering the interconnects are not
+required by the binding, are you sure this behaves correctly without
+interconnects in DTS?
 
 Best regards,
 Krzysztof
