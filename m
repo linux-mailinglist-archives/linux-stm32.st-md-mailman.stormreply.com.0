@@ -2,39 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DAEB91AA35
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 17:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C81691AA89
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 17:08:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0367C71280;
-	Thu, 27 Jun 2024 15:02:57 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 219C0C71280;
+	Thu, 27 Jun 2024 15:08:38 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC2D1C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F464C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 15:02:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B8880CE2F4D;
- Thu, 27 Jun 2024 15:02:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7345BC2BBFC;
- Thu, 27 Jun 2024 15:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1719500566;
- bh=nJI2HtmKICRsKHR8/Up41vVhzOP05K+y4EJ5tpnHE6E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0rdix0PD+Lba9nWZZg72rAThMW8k7ExC6rSxUdEOS2qXhW6EelEY/JmtjA+oeHScT
- /HwWFCd/gyWR+fMKySnEECglSxA7pWJ6c0NavitzKDtqqngUDNsDwKMSD0OPkN/4Fg
- EFvcTNnBXBDz0+8Kz+0V0MtFU411pCTnuerTaa04=
-Date: Thu, 27 Jun 2024 17:02:43 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <2024062724-petty-twine-afd5@gregkh>
+ Thu, 27 Jun 2024 15:08:30 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1f8395a530dso61939235ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Jun 2024 08:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1719500908; x=1720105708;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=XlBk62eLW/kjgbzF1XN/AbvScYXzLgjXOoZnGiz7y1U=;
+ b=xyH+hAc9oJBaBllsw4RraisoNX6J4GapAfUlhYo3KEBlBuKSP51eBXm33g9zq7r/5J
+ M898WL8qF1K0+cFh+TKwWid+G/H0QbB/irYFDKdLimMUpdQXuPu8m6/IyOtY3UKglmTn
+ +d63Bm7aS1GsxhIZt5rmyJvO+/yMjPnvNFtVcVlKbfZMEs/vKjvRycJ0bpGneJHtNGZP
+ zQ5KAYaheZ+w/Se/LSgeaM8Ht5HDRFbEkQmd3oLpLuspKJnqwy/9hm7YjEaQzE/WfUC/
+ UNLOcTwzbT4sSOeDBI8qadlUt4SXglq3hpm2P7gT0NDOpSIrDj40JR3kIQ0FI1/JO+UP
+ 9CyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719500908; x=1720105708;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XlBk62eLW/kjgbzF1XN/AbvScYXzLgjXOoZnGiz7y1U=;
+ b=N76+ecwcg2HiD4/UHhgTzpXShwsFTEgA6ibqiP3PjX8S2sZ92iuy5vHBlJqeUfFscO
+ hzX8Kq1E6B3jGFP9G0pRocwL/6oZWEOCwe2A9WE/KsZYIu2ZtbpTjsNX4mHPzPaShy4T
+ Qf7nE7wzeHPRy+aAQipvCqRHL1ZZs8LbGAjkRV2kZNRb2nKUpbZD5euAYzckt0ahcWB+
+ Yk21q7sBNNZfxdhNu5rZvoUMw3/pDjS4bMBa/QlgX7z/eri8RXvtCqF6YkkcUqW+Tejt
+ S+/AnKdvlFA0Sqk69mM6/vtADv8M4ykHYCg5svz85b25ZEF0lfWT8BXknV/yn+mmpMBV
+ ZLBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU2BwojjOLhHgj6cjIcFEop221G5ZklhK0MZXX+r9XYmF5eIrY5QbmMqbzfjuuq4C8xV03nwcrfTWoC1MmzJ/VXls/RPsp3W0DMYeWzbHiWNLqHLko9NO6S
+X-Gm-Message-State: AOJu0YwKRRhirW6fT42NjqcWvNJ85WjWEO+z0pbF0ovBE+zChY+fGaBj
+ +j2uvRzuW4ogg+4Q+GQqir1SKvBB4/JdYDBCkU2Q5fg3X4mxll1IVN6lc1ZLn+6xNlbL+14V07P
+ Aoy1KkfJP2MK+bqm3AZSRM4KIpvtT3jx6+P+cRQ==
+X-Google-Smtp-Source: AGHT+IG4sxRssQrE3KkksvhzRPbEUpTAN4nLG0tK43Z2W0D0F/3wbeXfMrrZPwet93SF8QRD3aOVYoHaL5scRO2bhuk=
+X-Received: by 2002:a17:902:c943:b0:1fa:ab4a:faf7 with SMTP id
+ d9443c01a7336-1faab4afe50mr20966755ad.11.1719500908478; Thu, 27 Jun 2024
+ 08:08:28 -0700 (PDT)
+MIME-Version: 1.0
 References: <20240627-ucsi-rework-interface-v4-0-289ddc6874c7@linaro.org>
  <2024062717-foster-document-eb2f@gregkh>
  <CAA8EJprAshnt3YchBv0ssi4Vet9b6oMcf3z8nuRkoZVYNBq64w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <CAA8EJprAshnt3YchBv0ssi4Vet9b6oMcf3z8nuRkoZVYNBq64w@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 27 Jun 2024 18:08:07 +0300
+Message-ID: <CAA8EJpqCJ8_wOO7yLYA85KYtbLO6hvS-yb7DA6kJ2sH4QH43QA@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -58,7 +83,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 27, 2024 at 05:57:30PM +0300, Dmitry Baryshkov wrote:
+On Thu, 27 Jun 2024 at 17:57, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
 > On Thu, 27 Jun 2024 at 17:54, Greg Kroah-Hartman
 > <gregkh@linuxfoundation.org> wrote:
 > >
@@ -97,12 +124,19 @@ On Thu, Jun 27, 2024 at 05:57:30PM +0300, Dmitry Baryshkov wrote:
 > >
 > > Nope, still got conflicts, are you sure you updated properly?  Patch 1
 > > applied, but #2 did not.
-> 
+>
 > I feel stupid enough now. I rebased on top of usb-next instead of
 > usb-testing. Let me spam it once again
 
-Both branches should be identical right now, perhaps you missed when I
-synced them up.
+Hmm, I see what happened. I had a next+usb-next. Simple usb-next
+doesn't contain changes from 9e3caa9dd51b ("usb: typec: ucsi_acpi: Add
+LG Gram quirk") which this patch also modifies. I can rebase it on top
+of your tree, but then we will have build issues once usb-linus and
+usb-next get merged together.
+
+-- 
+With best wishes
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
