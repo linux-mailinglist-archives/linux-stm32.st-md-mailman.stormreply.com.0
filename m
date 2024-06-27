@@ -2,63 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCDDF91A50E
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 13:26:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B00A291A571
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 13:40:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83E16C71282;
-	Thu, 27 Jun 2024 11:26:11 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D7B9C71282;
+	Thu, 27 Jun 2024 11:40:04 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 717EAC71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 255E3C71282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 11:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1719487570; x=1751023570;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=baiPqPs3/Iq9ZzbQ7EO36Y/N0NPP8/8QjXTkbyX3mVw=;
- b=gauKe9/LFFMEF8ifJEHUH0CHcJrciXH8lr2vP0Zxf80E+I0qJhM4gImP
- f2uQ8FBCdMZvFAIsmCThQUmVL80cyIqNvyKzgf7Opu68bspAjZoLicozd
- mH00RB2kzpnlQ14yxbMZmasHe4h7bLr73wUBXb9zIxpsoPAZz0Tw5uAzq
- T6W/wB7h2ok08+VKpzftRDgf0ENxVqY7jgNpXe4m/YFZ/w/EP+Dj5kwAK
- bmjC4HhQtR1OXaF9C3kbyZAkZ4MMwZ/wOcY70j0seWL85Xl1qCMvXAby8
- GXkYx6k5aDpHslBPljFlZMaaaoGFjkGiBlZpEVzbzoz3Fb7QNZlmrZyN9 Q==;
-X-CSE-ConnectionGUID: oF0n1j1HTKGYKA6C+u6Tbw==
-X-CSE-MsgGUID: B/q9tWX4QiehXqIGGmivCw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11115"; a="34060937"
-X-IronPort-AV: E=Sophos;i="6.09,270,1716274800"; d="scan'208";a="34060937"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2024 04:26:02 -0700
-X-CSE-ConnectionGUID: Uw9447FYSVqqXGdO8N1WRg==
-X-CSE-MsgGUID: 8Sy0b0wRTSuGWWkr005ZXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,270,1716274800"; d="scan'208";a="45095644"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2024 04:25:59 -0700
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 7D44C11F9C0;
- Thu, 27 Jun 2024 14:25:56 +0300 (EEST)
-Date: Thu, 27 Jun 2024 11:25:56 +0000
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Message-ID: <Zn1MRH--5ZWddOVQ@kekkonen.localdomain>
-References: <20240624084123.3009122-1-alain.volmat@foss.st.com>
- <8587b6cd-2d04-4a2e-b298-e57c792332f1@xs4all.nl>
+ Thu, 27 Jun 2024 11:39:57 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-2ec5fad1984so65825681fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Jun 2024 04:39:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1719488396; x=1720093196;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZbI7/sd74idfi/XMipln9/gNNA6hsJvdqtzVYepkGFg=;
+ b=P6ABIyZ0O8FpGnHf6oFSDD0l90GOpIm2ajmGp6pXy7rXxij3eLXhdHGFSnwuydCnL4
+ UM65syZuon+7HrYL/eKJ30C2Be2NEcXI4HiuYzL2G6J/K9LCl6lNF3KsCs4wgGSiTEdY
+ 46DdzAcYHPAVPqUzzG7B1FVN9QiTKADViNsGMjk77862gR5Xqqe4WDOxpaSWKs4LvnHZ
+ VOnUn7napvkw7OAijWpJzRhUoJFt+2AE7FCack4dOphUDnXDZzVwUQpda8rSFizrhY7q
+ xJ7jwej2w1Nw7bg02kG4xgvCLmsEd7Tw5GVFXkF4l4S/BDptqf9YGAKXbBVWN+gbxSaD
+ QOJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719488396; x=1720093196;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZbI7/sd74idfi/XMipln9/gNNA6hsJvdqtzVYepkGFg=;
+ b=mAU7v8O9Vqrio3FSethZ9z/zsRWt/d+fSaCyJu0wpnTIcv4x8ZUFbaO32apZtsSYQp
+ 9+yNOLkKrJYPa3qLprJtvpmY7ZMtErzk6kPY9HAfCJwle7TlHmZdDW7WZBaw9DbheLHp
+ 4i0RINyXdaZEhT8/Y3JgTlYbfgf6Bkm+S2LWnid6BtiZn+UZH2DJKSHYnx8vIf+EOQxa
+ xhgcXZwOsyGdMVO/GQIR34M14zJ2kuBi/skBCtTSw7+jbiW9n6qp/AmvcAuyDxTN5YDa
+ 6ixfQQRSLj+hnnq+3NsW6w+jKrk1Ak0ppPD1IFEUgcs3t12oj0BYpSzNhbsaz/E8bNLi
+ b9LA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWScG2Dg08O7wO/PsoVBiIexG8gxNYmRxgK+VSO/6Edn0vuJC2Tyd4cByt8/QVTqehD2oaCvgUO0Y0G/3inb9cZD4B3TjWonZWfzlN3/O1fguDqQQGp1NPW
+X-Gm-Message-State: AOJu0YxUIISeANOzH8jaXLFAQdgyxWna4LurfDLvpleu0WMjpUTO8XRH
+ bxaLrUH9GnoHczv+fWlMWFqnfrDyMsZym4wGxl0IYg7zmTiONe4quYhCJ10ueRI=
+X-Google-Smtp-Source: AGHT+IHFDzARAto2HLAI3TxjHyub50L0O0Jnjrz9yXwhDePCwserMcflGKVLOY5zTOX5jsXXhqzpcQ==
+X-Received: by 2002:a2e:a442:0:b0:2ec:5019:8fa4 with SMTP id
+ 38308e7fff4ca-2ec7278a341mr44969421fa.49.1719488396147; 
+ Thu, 27 Jun 2024 04:39:56 -0700 (PDT)
+Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:7fe5:47e9:28c5:7f25])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-424c8468613sm62081815e9.39.2024.06.27.04.39.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jun 2024 04:39:55 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: Vinod Koul <vkoul@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Thu, 27 Jun 2024 13:39:45 +0200
+Message-ID: <20240627113948.25358-1-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8587b6cd-2d04-4a2e-b298-e57c792332f1@xs4all.nl>
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] media: stm32: dcmipp: correct error
- handling in dcmipp_create_subdevs
+Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 net-next 0/2] net: stmmac: qcom-ethqos:
+	enable 2.5G ethernet on sa8775p-ride
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,55 +89,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hans,
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-On Thu, Jun 27, 2024 at 01:17:55PM +0200, Hans Verkuil wrote:
-> On 24/06/2024 10:41, Alain Volmat wrote:
-> > Correct error handling within the dcmipp_create_subdevs by properly
-> > decrementing the i counter when releasing the subdeves.
-> > 
-> > Fixes: 28e0f3772296 ("media: stm32-dcmipp: STM32 DCMIPP camera interface driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > ---
-> >  drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > index 4acc3b90d03a..4924ee36cfda 100644
-> > --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > @@ -202,7 +202,7 @@ static int dcmipp_create_subdevs(struct dcmipp_device *dcmipp)
-> >  	return 0;
-> >  
-> >  err_init_entity:
-> > -	while (i > 0)
-> > +	while (i-- > 0)
-> >  		dcmipp->pipe_cfg->ents[i - 1].release(dcmipp->entity[i - 1]);
-> >  	return ret;
-> >  }
-> 
-> I accidentally merged this one, but this patch isn't right.
-> 
-> After this change the [i - 1] indices should be changed to [i].
-> If i == 1, then the while condition is true, but now i == 0 in the
-> actual statement, so you access out-of-bounds values.
+Here are the changes required to enable 2.5G ethernet on sa8775p-ride.
+As advised by Andrew Lunn and Russell King, I am reusing the existing
+stmmac infrastructure to enable the SGMII loopback and so I dropped the
+patches adding new callbacks to the driver core. This no longer has any
+build-time dependencies on the PHY changes so sending it out separately.
 
-Right. I think the best way to fix this would be to just remove "- 1"
-inside the array indices. One could think this as a different bug but of
-course with an unpleasant side effect which you get after fixing the first
-bug.
+Changes since v1:
+- split out the stmmac patches into their own series
+- don't add new callbacks to the stmmac core, reuse existing
+  infrastructure instead
+- don't try to add a new PHY mode (OCSGMII) but reuse 2500BASEX instead
+Link to v1: https://lore.kernel.org/linux-arm-kernel/20240619184550.34524-1-brgl@bgdev.pl/T/
 
-> 
-> I decided to revert it, since it is better to just get stuck in the
-> while loop, then to crash.
-> 
-> But a new patch is needed for this.
+Bartosz Golaszewski (2):
+  net: stmmac: qcom-ethqos: add support for 2.5G BASEX mode
+  net: stmmac: qcom-ethqos: add a DMA-reset quirk for sa8775p-ride
+
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
