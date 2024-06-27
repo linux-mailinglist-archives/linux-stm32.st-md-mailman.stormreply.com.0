@@ -2,67 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD4E91A2AC
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 11:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BB9691A3DC
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 12:33:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9790FC71282;
-	Thu, 27 Jun 2024 09:31:30 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13558C71282;
+	Thu, 27 Jun 2024 10:33:11 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC192C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76DE4C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 09:31:23 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-a689ad8d1f6so1019021166b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 02:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1719480683; x=1720085483;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=81uADl9gzx1pZQLnpmU4eqBtf4JckqOzqIE2g/EMDAM=;
- b=zT9jHDIyLscQQcZnnCJf4MjQUhLgE9xiY0/x1Z7/LUdo8BGA73b2zm9wNtW+fqWH+p
- qmZgT4fpnvgG3vXn6FBGtFV6uyxqP7WoUm6G1Ynu+MQd+s33JvpxqxsF2b9ZmFGOahxk
- Ucm6vSLM6R6Yy4WEGMls4xBMxWjiKgRYanUt8b6SLOFw6Fpu9Yv6E/hWelBTO7P7z5vs
- LFZ8+mG31s2II7F2CRSUpnrCvQj2CfhZAu5Fd7HtDzf8JTjHspsga9D7Zc4WGI9pQQ/e
- WTjKs6AbTFsqDyjUBmMM5Bcvbtlx0WGgjBJUOXlHIpxjN8sGQR2CU3ZGLqnbFsp8Id+p
- KQmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719480683; x=1720085483;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=81uADl9gzx1pZQLnpmU4eqBtf4JckqOzqIE2g/EMDAM=;
- b=NyQGkd6QVCFoCFINUwKdqr3VSjuA/YXWMlIefj3DNi8Ac9XneXr6iIvumkTtkePVpe
- sMnK++F0HQZfsdQKqeHfEmv4ZjBEJOrjlCweXUFLWyelTuKk9+Oqhms/SmYaFMkJ/Fbe
- DJjq2JIbyrU5cbu1fJNnbc0CKlCYxr8txiepmqPJ4nytwUz4xWx62Ce4bLt+TVb9TjUp
- oPbXLKFw3ONUGfl8H0RHBzv6xDurOwxj+nGczFKUMuYcXKZDz2uXKLgrYvNzgPiNmLuJ
- M5tgEcqG6DnW9KIuR0JCFFAo3JCiXLV4dakHUi0Z6aaUDCJnF+2XA4X3HZTduBD6bgdT
- LHNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXY9ddi7Q1VmEmvDMssXhd1Eogv7YqJXCR+NhoQa132DHVCPVcHM/Wpw8s/vo+R6B4LDwaSNZfhzyVPfYHnqXa99bOMs9mIM67+h9IIYTRaIN94uBqr3LXt
-X-Gm-Message-State: AOJu0YyFd7jyg68CVyChKSpEkxjbdOcRjkeJprG688YNNHcdDTWMjnpC
- xUnU/x6BIccO86Sqqep/hDOycLstC8gLjQHSV9coF9dB5LFhwjf7o8XkFWWdQHg=
-X-Google-Smtp-Source: AGHT+IEZEakJrYlLWf81n+uR0SMouaD32H88SYgYSsBDf+TYDg+dUPUwNlB2qE6bsFfB8sg9nImaXw==
-X-Received: by 2002:a17:907:a70d:b0:a72:8b89:f878 with SMTP id
- a640c23a62f3a-a728b8a01d0mr319543266b.76.1719480683323; 
- Thu, 27 Jun 2024 02:31:23 -0700 (PDT)
-Received: from localhost (p50915e7b.dip0.t-ipconnect.de. [80.145.94.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a729d71f764sm41499566b.78.2024.06.27.02.31.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 02:31:22 -0700 (PDT)
-Date: Thu, 27 Jun 2024 11:31:21 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <rrj2srkxpsomywut67sfmziuvi7w2vmbcrhtxxmr5tp376tdm7@6fce2i47xeus>
+ Thu, 27 Jun 2024 10:33:04 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45R8B1Qu023858;
+ Thu, 27 Jun 2024 12:32:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ lbhirqQymdicyl7dxfSReYwF0TRfooQNjkPnJCgVEkY=; b=tKJKdlzrxuyXqrrT
+ 0hPwPywGQN8P7zqVq1V+9eqXK5x9FCskokglsbc8PtcuKLqR4bAbeXeJkKJevZ1J
+ UFfSA33kYFBgtuM4SEN/V54BrAeSg6U9kb+YRMipHAd/uNYdxKr8NisMxH8fT+rM
+ t/EvHytKCWW26FnwqoQOEOoDzZkaaCVsKspYiO1GN6fEEe/bZoQFiFdS1zy2dr5N
+ lHztGc8HbHv0Au7kL/n0JQzEl81DhF9QZmT7zdtwthrg8x2u36XJ8iYKDpSzeMDB
+ 90GSs8L3Ciw6yP+duMEKIRa1iTobkWFOh0XRnmCNNrXt2XVvgnhrehEo3c68Jb95
+ uDlIcg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywm1gnfna-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Jun 2024 12:32:30 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C267640045;
+ Thu, 27 Jun 2024 12:32:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F323F216857;
+ Thu, 27 Jun 2024 12:31:50 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
+ 2024 12:31:50 +0200
+Message-ID: <5ca1b43c-3f8d-43fa-bffd-a4cea5c39a6d@foss.st.com>
+Date: Thu, 27 Jun 2024 12:31:49 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 References: <20240613080229.2292413-2-u.kleine-koenig@baylibre.com>
  <b2796be8-d372-44e6-959c-e212097e99e8@foss.st.com>
-MIME-Version: 1.0
-In-Reply-To: <b2796be8-d372-44e6-959c-e212097e99e8@foss.st.com>
+ <rrj2srkxpsomywut67sfmziuvi7w2vmbcrhtxxmr5tp376tdm7@6fce2i47xeus>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <rrj2srkxpsomywut67sfmziuvi7w2vmbcrhtxxmr5tp376tdm7@6fce2i47xeus>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-27_06,2024-06-27_02,2024-05-17_01
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -80,125 +75,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1720769412243247384=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1720769412243247384==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g3t24treeavhrh5t"
-Content-Disposition: inline
-
-
---g3t24treeavhrh5t
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello Alexandre,
-
-On Thu, Jun 27, 2024 at 10:38:34AM +0200, Alexandre TORGUE wrote:
-> On 6/13/24 10:02, Uwe Kleine-K=F6nig wrote:
-> > To simplify identifying the pins where the PWM output is routed to,
-> > add a comment to each PWM device about the respective pin on the
-> > expansion connector.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> > ---
-> >   arch/arm/boot/dts/st/stm32mp135f-dk.dts | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> >=20
-> > diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dt=
-s/st/stm32mp135f-dk.dts
-> > index 567e53ad285f..f1b50e4c1059 100644
-> > --- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-> > +++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-> > @@ -273,6 +273,7 @@ &timers3 {
-> >   	/delete-property/dma-names;
-> >   	status =3D "disabled";
-> >   	pwm {
-> > +		/* PWM output on pin 7 of the expansion connector (CN8.7) using TIM3=
-_CH4 function */
-> >   		pinctrl-0 =3D <&pwm3_pins_a>;
-> >   		pinctrl-1 =3D <&pwm3_sleep_pins_a>;
-> >   		pinctrl-names =3D "default", "sleep";
-> > @@ -288,6 +289,7 @@ &timers4 {
-> >   	/delete-property/dma-names;
-> >   	status =3D "disabled";
-> >   	pwm {
-> > +		/* PWM output on pin 31 of the expansion connector (CN8.31) using TI=
-M4_CH2 function */
-> >   		pinctrl-0 =3D <&pwm4_pins_a>;
-> >   		pinctrl-1 =3D <&pwm4_sleep_pins_a>;
-> >   		pinctrl-names =3D "default", "sleep";
-> > @@ -303,6 +305,7 @@ &timers8 {
-> >   	/delete-property/dma-names;
-> >   	status =3D "disabled";
-> >   	pwm {
-> > +		/* PWM output on pin 32 of the expansion connector (CN8.32) using TI=
-M8_CH3 function */
-> >   		pinctrl-0 =3D <&pwm8_pins_a>;
-> >   		pinctrl-1 =3D <&pwm8_sleep_pins_a>;
-> >   		pinctrl-names =3D "default", "sleep";
-> > @@ -316,6 +319,7 @@ timer@7 {
-> >   &timers14 {
-> >   	status =3D "disabled";
-> >   	pwm {
-> > +		/* PWM output on pin 33 of the expansion connector (CN8.33) using TI=
-M14_CH1 function */
-> >   		pinctrl-0 =3D <&pwm14_pins_a>;
-> >   		pinctrl-1 =3D <&pwm14_sleep_pins_a>;
-> >   		pinctrl-names =3D "default", "sleep";
-> >=20
-> > base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
->=20
-> Good idea. Some lines exceed the 100 char. I could remove "function" or o=
-nly
-> keep "func" instead. What do u think ?
-
-I don't care much and would have expected that the line length isn't
-that critical. Anyhow, shorten it to func if you prefer.
-=20
-> Note also that commit should be: "ARM: dts: stm32: ....". i can fix it by
-> myself.
-
-Ack. I considered using
-
-	ARM: dts: stm32: stm32mp135f-dk: ...
-
-but that felt like duplicating so I dropped the "stm32" part. Feel free
-to add it.
-
-Best regards
-Uwe
-
---g3t24treeavhrh5t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmZ9MWYACgkQj4D7WH0S
-/k5YgggAqvxKivSI3go5p4Kxakm/mRziyxTsR3IHJtpF/DxHnLNEsfDAKT7jTIwi
-MCsbYDIt02wKebImeoA0oUkDhdrNxzdJr2e2v9DMZxu/aEQcyZUiO4zwHblDExQQ
-VcFZVrJYQ5yE7XiQYJ82gpqzzLlv+a45Co5NYTcgYRJMUAZGqeKpD9plHCJcqo1W
-HPsqLhGUjuaRjpgjKKjCFNHjn74Cc27Qp0UJ+XcQV7oTVAo7u4VvirSeInOb7qvZ
-3BLs+KE1OxT93cc8hKtndD0KpoIE/RLhAUKl3HtxB2bdcqOPr9cg+fyGYwhl5jfm
-59c/2GOMAb4LiHWot1tRQc/mXj5mZA==
-=xp7e
------END PGP SIGNATURE-----
-
---g3t24treeavhrh5t--
-
---===============1720769412243247384==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1720769412243247384==--
+CgpPbiA2LzI3LzI0IDExOjMxLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBIZWxsbyBBbGV4
+YW5kcmUsCj4gCj4gT24gVGh1LCBKdW4gMjcsIDIwMjQgYXQgMTA6Mzg6MzRBTSArMDIwMCwgQWxl
+eGFuZHJlIFRPUkdVRSB3cm90ZToKPj4gT24gNi8xMy8yNCAxMDowMiwgVXdlIEtsZWluZS1Lw7Zu
+aWcgd3JvdGU6Cj4+PiBUbyBzaW1wbGlmeSBpZGVudGlmeWluZyB0aGUgcGlucyB3aGVyZSB0aGUg
+UFdNIG91dHB1dCBpcyByb3V0ZWQgdG8sCj4+PiBhZGQgYSBjb21tZW50IHRvIGVhY2ggUFdNIGRl
+dmljZSBhYm91dCB0aGUgcmVzcGVjdGl2ZSBwaW4gb24gdGhlCj4+PiBleHBhbnNpb24gY29ubmVj
+dG9yLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1r
+b2VuaWdAYmF5bGlicmUuY29tPgo+Pj4gLS0tCj4+PiAgICBhcmNoL2FybS9ib290L2R0cy9zdC9z
+dG0zMm1wMTM1Zi1kay5kdHMgfCA0ICsrKysKPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2Vy
+dGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJt
+cDEzNWYtZGsuZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRzCj4+
+PiBpbmRleCA1NjdlNTNhZDI4NWYuLmYxYjUwZTRjMTA1OSAxMDA2NDQKPj4+IC0tLSBhL2FyY2gv
+YXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzVmLWRrLmR0cwo+Pj4gKysrIGIvYXJjaC9hcm0vYm9v
+dC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRzCj4+PiBAQCAtMjczLDYgKzI3Myw3IEBAICZ0aW1l
+cnMzIHsKPj4+ICAgIAkvZGVsZXRlLXByb3BlcnR5L2RtYS1uYW1lczsKPj4+ICAgIAlzdGF0dXMg
+PSAiZGlzYWJsZWQiOwo+Pj4gICAgCXB3bSB7Cj4+PiArCQkvKiBQV00gb3V0cHV0IG9uIHBpbiA3
+IG9mIHRoZSBleHBhbnNpb24gY29ubmVjdG9yIChDTjguNykgdXNpbmcgVElNM19DSDQgZnVuY3Rp
+b24gKi8KPj4+ICAgIAkJcGluY3RybC0wID0gPCZwd20zX3BpbnNfYT47Cj4+PiAgICAJCXBpbmN0
+cmwtMSA9IDwmcHdtM19zbGVlcF9waW5zX2E+Owo+Pj4gICAgCQlwaW5jdHJsLW5hbWVzID0gImRl
+ZmF1bHQiLCAic2xlZXAiOwo+Pj4gQEAgLTI4OCw2ICsyODksNyBAQCAmdGltZXJzNCB7Cj4+PiAg
+ICAJL2RlbGV0ZS1wcm9wZXJ0eS9kbWEtbmFtZXM7Cj4+PiAgICAJc3RhdHVzID0gImRpc2FibGVk
+IjsKPj4+ICAgIAlwd20gewo+Pj4gKwkJLyogUFdNIG91dHB1dCBvbiBwaW4gMzEgb2YgdGhlIGV4
+cGFuc2lvbiBjb25uZWN0b3IgKENOOC4zMSkgdXNpbmcgVElNNF9DSDIgZnVuY3Rpb24gKi8KPj4+
+ICAgIAkJcGluY3RybC0wID0gPCZwd200X3BpbnNfYT47Cj4+PiAgICAJCXBpbmN0cmwtMSA9IDwm
+cHdtNF9zbGVlcF9waW5zX2E+Owo+Pj4gICAgCQlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAi
+c2xlZXAiOwo+Pj4gQEAgLTMwMyw2ICszMDUsNyBAQCAmdGltZXJzOCB7Cj4+PiAgICAJL2RlbGV0
+ZS1wcm9wZXJ0eS9kbWEtbmFtZXM7Cj4+PiAgICAJc3RhdHVzID0gImRpc2FibGVkIjsKPj4+ICAg
+IAlwd20gewo+Pj4gKwkJLyogUFdNIG91dHB1dCBvbiBwaW4gMzIgb2YgdGhlIGV4cGFuc2lvbiBj
+b25uZWN0b3IgKENOOC4zMikgdXNpbmcgVElNOF9DSDMgZnVuY3Rpb24gKi8KPj4+ICAgIAkJcGlu
+Y3RybC0wID0gPCZwd204X3BpbnNfYT47Cj4+PiAgICAJCXBpbmN0cmwtMSA9IDwmcHdtOF9zbGVl
+cF9waW5zX2E+Owo+Pj4gICAgCQlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOwo+
+Pj4gQEAgLTMxNiw2ICszMTksNyBAQCB0aW1lckA3IHsKPj4+ICAgICZ0aW1lcnMxNCB7Cj4+PiAg
+ICAJc3RhdHVzID0gImRpc2FibGVkIjsKPj4+ICAgIAlwd20gewo+Pj4gKwkJLyogUFdNIG91dHB1
+dCBvbiBwaW4gMzMgb2YgdGhlIGV4cGFuc2lvbiBjb25uZWN0b3IgKENOOC4zMykgdXNpbmcgVElN
+MTRfQ0gxIGZ1bmN0aW9uICovCj4+PiAgICAJCXBpbmN0cmwtMCA9IDwmcHdtMTRfcGluc19hPjsK
+Pj4+ICAgIAkJcGluY3RybC0xID0gPCZwd20xNF9zbGVlcF9waW5zX2E+Owo+Pj4gICAgCQlwaW5j
+dHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOwo+Pj4KPj4+IGJhc2UtY29tbWl0OiAxNjEz
+ZTYwNGRmMGNkMzU5Y2YyYTdmYmQ5YmU3YTBiY2ZhY2ZhYmQwCj4+Cj4+IEdvb2QgaWRlYS4gU29t
+ZSBsaW5lcyBleGNlZWQgdGhlIDEwMCBjaGFyLiBJIGNvdWxkIHJlbW92ZSAiZnVuY3Rpb24iIG9y
+IG9ubHkKPj4ga2VlcCAiZnVuYyIgaW5zdGVhZC4gV2hhdCBkbyB1IHRoaW5rID8KPiAKPiBJIGRv
+bid0IGNhcmUgbXVjaCBhbmQgd291bGQgaGF2ZSBleHBlY3RlZCB0aGF0IHRoZSBsaW5lIGxlbmd0
+aCBpc24ndAo+IHRoYXQgY3JpdGljYWwuIEFueWhvdywgc2hvcnRlbiBpdCB0byBmdW5jIGlmIHlv
+dSBwcmVmZXIuCgpOb3QgY3JpdGljYWwgZm9yIHN1cmUuIEp1c3QgY2hlY2twYXRjaCB0aGF0IGNv
+bXBsYWluIGFib3V0IGl0LgoKPiAgIAo+PiBOb3RlIGFsc28gdGhhdCBjb21taXQgc2hvdWxkIGJl
+OiAiQVJNOiBkdHM6IHN0bTMyOiAuLi4uIi4gaSBjYW4gZml4IGl0IGJ5Cj4+IG15c2VsZi4KPiAK
+PiBBY2suIEkgY29uc2lkZXJlZCB1c2luZwo+IAo+IAlBUk06IGR0czogc3RtMzI6IHN0bTMybXAx
+MzVmLWRrOiAuLi4KPiAKPiBidXQgdGhhdCBmZWx0IGxpa2UgZHVwbGljYXRpbmcgc28gSSBkcm9w
+cGVkIHRoZSAic3RtMzIiIHBhcnQuIEZlZWwgZnJlZQo+IHRvIGFkZCBpdC4KCk9rIHRoYW5rcwoK
+YWxleAoKPiAKPiBCZXN0IHJlZ2FyZHMKPiBVd2UKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
