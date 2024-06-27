@@ -2,51 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E868691A5E5
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 13:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019F991A65D
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 14:14:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AA38C71282;
-	Thu, 27 Jun 2024 11:58:25 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5697C6B460;
+	Thu, 27 Jun 2024 12:14:37 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A96AC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 711FBC5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 11:58:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 74310CE2E79;
- Thu, 27 Jun 2024 11:58:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5A7C2BBFC;
- Thu, 27 Jun 2024 11:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719489494;
- bh=bsdKZ7FH+cF7ZRJHnYvsPuep+j4/x6xeM+rw6kh7mwQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FdG5USaawH1QsUeF2Sr4FzLiX0rqAx4tDdwlTk9AzK6jloq7xqptYqhrGjxRElDlT
- 3XOk1flWQWt+enajVvssDn+HSznBFmPSU1HB5JmFIehpe39aXkjFcqMUUbTHj5UmZo
- z2KLAoZhhsSjsYVfH26Gn+G0ENYU5h1ayy5BStqW+wvqHR1GZR8Pf/cE+q7Xs5o24q
- RXveEK68AfpH/RNHL1GEFagzD3tmwiVz0nQqGWbKNLM/Vt+gv4MDxeBFMcpoELc1uZ
- Zx7GN9a1c7bplTCeN0k/cRNIav7QEhZipytDw7gMK3N0/eb4wFp0bpVY1BbPBuPwUK
- t3ycuu0wcWzMA==
-Date: Thu, 27 Jun 2024 12:58:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-Message-ID: <3b262c42-30ef-4221-aeba-e6fc5d9549b9@sirena.org.uk>
-References: <20240627084917.327592-1-christophe.roullier@foss.st.com>
+ Thu, 27 Jun 2024 12:14:30 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45RB4xei013769;
+ Thu, 27 Jun 2024 14:13:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ ha2cvNOTE07k+v+MQz0K2fm+9Ef07NW+kplxMiWcFGk=; b=mfOu8w+U37XZoNVO
+ o+88UpQfCcxI5zkBs6JXtmzi9TXGQzOJV/tMFpe6JBM+sPWXNSks+VKdaPX3x8eL
+ onT5F9qGd70YRdq0Bcdu8uPRhzKLtJ920y/EUC5D1GKwAhFh23LMeqpN9wFzwaMd
+ QuukyhjPp1P1UuADkGGrBqefmlfo6sgWJWyCHnxXQxKkNsC0Tip1ebHcgoxT5qwr
+ Mf/wbV/3P7hh77u/+aQfjuXTXeuZfigp4clwyFtkhVvHmK+26R98HSo3qAfdLUnJ
+ fyIi3HucRtEXT/8lXty5GrHeiHG6XcWqcKI6aHhwlwHWQapHRKYMWoQJGmWtDQJk
+ iHm8yw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yx9jjjxd1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Jun 2024 14:13:47 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8A6734002D;
+ Thu, 27 Jun 2024 14:13:43 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8BB352194F1;
+ Thu, 27 Jun 2024 14:13:05 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
+ 2024 14:13:04 +0200
+Message-ID: <8fb70911-a278-43b3-bcaf-c88b43bddb73@foss.st.com>
+Date: Thu, 27 Jun 2024 14:13:04 +0200
 MIME-Version: 1.0
-In-Reply-To: <20240627084917.327592-1-christophe.roullier@foss.st.com>
-X-Cookie: I just had a NOSE JOB!!
-Cc: Marek Vasut <marex@denx.de>, Jose Abreu <joabreu@synopsys.com>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next,
-	PATCH 0/2] Fixes for stm32-dwmac driver fails to probe
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20240623191602.67424-1-marex@denx.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240623191602.67424-1-marex@denx.de>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-27_06,2024-06-27_03,2024-05-17_01
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add phandle to nvmem
+ efuse into STM32MP13xx ethernet DT node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,58 +75,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0774206001986968939=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Marek
 
---===============0774206001986968939==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uyMFrReHwMXWhVba"
-Content-Disposition: inline
+On 6/23/24 21:15, Marek Vasut wrote:
+> The efuses on STM32MP13xx can be populated with ethernet MAC address.
+> Add the nvmem-cells/nvmem-cell-name DT properties to ethernet MAC DT
+> nodes to describe the placement of both MAC address fields within the
+> efuses, so the ethernet MAC driver can access the efuses and populate
+> the correct MAC address into the hardware.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>   arch/arm/boot/dts/st/stm32mp131.dtsi | 2 ++
+>   arch/arm/boot/dts/st/stm32mp133.dtsi | 2 ++
+>   2 files changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+> index f41508195eb51..55f4150524f3c 100644
+> --- a/arch/arm/boot/dts/st/stm32mp131.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+> @@ -1528,6 +1528,8 @@ ethernet1: ethernet@5800a000 {
+>   					 <&rcc ETH1RX>,
+>   					 <&rcc ETH1STP>,
+>   					 <&rcc ETH1CK_K>;
+> +				nvmem-cell-names = "mac-address";
+> +				nvmem-cells = <&ethernet_mac1_address>;
+
+It should not be defined in soc dtsi file but rather in board file. OTP 
+are provisioned by the end customer not by ST. If you order a SoC to ST 
+it will not be provisioned OTP MAC addr will be set to 0.
+
+Regards
+alex
 
 
---uyMFrReHwMXWhVba
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 27, 2024 at 10:49:15AM +0200, Christophe Roullier wrote:
-> Mark Brown found issue during stm32-dwmac probe:
->=20
-> For the past few days networking has been broken on the Avenger 96, a
-> stm32mp157a based platform.  The stm32-dwmac driver fails to probe:
 
-These patches resolve the boot issue I'm seeing on this platform:
 
-Tested-by: Mark Brown <broonie@kernel.org>
 
---uyMFrReHwMXWhVba
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ9U88ACgkQJNaLcl1U
-h9DnYAf+MRtkI/wgcbZL/MOrZDaxdLzL+NYaZF8qlPgsW2i1ddZHbLEce94FVywY
-8JdeXXr6OLRprSR8iGoL+3AZ5IFD01V6LAI/s4q3S260J5TkrUcVOjI9nWrBA7+Q
-63wPVnM/EA1qu7hvTyrgICtF26O/NypA+dQYCS0FBryEMYE4wL8DGP7PjexzkDTV
-V3AbcEPa5meIo6livs5Sb4mryq9e7fWMKGv0qCNo3nrPdhylbzIhKd0qHdbVo3sF
-tPQdTIc76WPvY1RJ1sLNw+fyoNeZ5elLRGMzRFF0VhdnhUjMY6TFoVQ1/P5pSbUw
-8Kpx6Ap1305I4Do8kQf38/r9OvNEpg==
-=OIp5
------END PGP SIGNATURE-----
-
---uyMFrReHwMXWhVba--
-
---===============0774206001986968939==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>   				snps,axi-config = <&stmmac_axi_config_1>;
+>   				snps,mixed-burst;
+>   				snps,pbl = <2>;
+> diff --git a/arch/arm/boot/dts/st/stm32mp133.dtsi b/arch/arm/boot/dts/st/stm32mp133.dtsi
+> index ae2fbc09e93b9..48b6ddb59badf 100644
+> --- a/arch/arm/boot/dts/st/stm32mp133.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp133.dtsi
+> @@ -85,6 +85,8 @@ ethernet2: ethernet@5800e000 {
+>   			 <&rcc ETH2RX>,
+>   			 <&rcc ETH2STP>,
+>   			 <&rcc ETH2CK_K>;
+> +		nvmem-cell-names = "mac-address";
+> +		nvmem-cells = <&ethernet_mac2_address>;
+>   		snps,axi-config = <&stmmac_axi_config_2>;
+>   		snps,mixed-burst;
+>   		snps,pbl = <2>;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0774206001986968939==--
