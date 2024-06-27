@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AC091A978
+	by mail.lfdr.de (Postfix) with ESMTPS id C042291A97A
 	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 16:44:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53F22C78012;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72412C78017;
 	Thu, 27 Jun 2024 14:44:53 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7534C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C92C5C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 14:44:47 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2ec0f3b9cfeso96171911fa.0
+ Thu, 27 Jun 2024 14:44:48 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2ebe40673e8so89986191fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 07:44:47 -0700 (PDT)
+ Thu, 27 Jun 2024 07:44:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linaro.org; s=google; t=1719499487; x=1720104287;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Pv3PctyJy2SnI13bqUyVzb7EmYqWrJDar658iy+XONk=;
- b=wgkUil9BLmcCIpTwvirTKBDsNDdVDrRxZFcT6stnTdu0MERlrt9sCWYUiwmsNsfNef
- CMpqfnwu3hG10XZDi9iS1x4fL2EM/smarEaQKxlwJ5aqbQY7U2CNCs5wBIV9uRdTdSDi
- 3qm7vuTf0x/+b2Hy0DU2thSpHG7eyZDoAIKpOUa5KU4Ag31cgDPzXMU14yByyR8WYVhc
- CE41C6DttdPW3eVuqGO8rYCzyjcGTEqx4qRs8SDU3CQ/Qr9d3k7fwCPUSJbuzDkUQz2b
- dYebGe69JWtsRQT8pcMS9uaBNBaWbQevfWaxK844daKuEVBfd7jmBPUSJ47+kdDqKoqE
- 5vvw==
+ :reply-to; bh=efQFGr6jGBKjwmMdwj9cOaioErJGFDxQ/6GTKiEu6I8=;
+ b=azJM/l03A4dlRS1I9WoOCveS+0wZF5abb8O7N40dxXnvVTudC4MuXnlhp/FxeTaEQB
+ ki5a8hJVkgTIFxkBu3gJzLxt3VsoOzSiQRyBvLu0o0Tpdvh4ZAPDwgDSTX8dwNB/Jn9/
+ wOP1F0fq2sqylx4Zs6JClVQ9wTb8S7mF6u0iGiahnbQCG5EGi0oDiabn6xETwc8rBVCm
+ XACAMnZA5R4MsyZsRcUqVw5ORn5+mu3Dv6upuKcvimSl4dcFm+/zGuuFiyvCMCXaVZab
+ ZZFuBqii4y7WTMJxqwV2IKJEF356ZpXT3t5whlucphIsEsiOOx0GATN0Ys4eFNbfzQYf
+ u87g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1719499487; x=1720104287;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Pv3PctyJy2SnI13bqUyVzb7EmYqWrJDar658iy+XONk=;
- b=BCTPBBDt3e828MJVrBr1oszLQwTd1LdITzOby6OLP5cp2N1ekcxuZ4Zm1TA4xKVLAd
- BDFCrDSaxrYItS3KhJ2ULEOK8G8vjs/4i/KFtsksWjN93icLmRzSq1EMwdDubiYaQ1HT
- Im4R4/cjWF0vEk/xK50tHS3cLg/u2Japo7eQN/6aBajmb6Vz3+ViclFilLWdJykG6x37
- 8r51EIBMj31AVrw17pvUH7RqH52wsm6Mat1pEvZra1bYhYB4mzleDKp4RIWwsAkZDLXf
- X8ipndUQgRvj2DRF7y7KEhyECyvdGmDDMLA/VAGx11fYCHZVPIUxpsZ4PynpCRCwdFWd
- eYWA==
+ bh=efQFGr6jGBKjwmMdwj9cOaioErJGFDxQ/6GTKiEu6I8=;
+ b=VAwl2e8TiYKS7ksWSR1/VH8YozU/cnc9KNSd45dInt7zyofJxyCvM+vyTFRCX3x3xv
+ l2Lg9WDsASuCE92xouTi571aZDFOejfChCSsW7Lrb4y+R6cQxa0OAiJjs4mZxAdLoMAq
+ FZfcAMLM3BWAQt+wLX84YqtaM377KyWckjZKtxFpnX7NkUt2oUQeAPJQNwLWkzhgrWTi
+ DOMfiwYnDR8iGT/ng23zEAvXd653zQvupNsMgOc27lLEyZlK13B7/auf09ru3WECjetG
+ XV1euAFF5flX54nhgoDsdMNWJler/BjPEeK2Kmp9g0njwNxHg06cTN10S9uAbzIdxWqk
+ 6w0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUX03JqmsJrxDlXPjrknG8unGM6F6OHtth+/ptwbAYfNXM7g0b/u8EKrT729bUXfX/9YewBpO0+epN+dlA+EyR/xiYbYzEYv6SIbIt91P9go0nnEgM65XJo
-X-Gm-Message-State: AOJu0YysbmTC/2NLg+mOB9KxK/eWBggSRTBTfMRHc1ByfrAuqoQsB52U
- rldrS9yedn0ZMRgTEneShsWZqrJfa7EOF4FUckutoAHUglcN74jCMJag7UrZY40=
-X-Google-Smtp-Source: AGHT+IGyKCad0pTtyjWDWYT4auTNDLJlAquHp5LlnqVILjGBHWKp/6jvkXxkAFrJTEFJQT7zvH22Gw==
-X-Received: by 2002:a2e:b004:0:b0:2eb:ebcd:fc1c with SMTP id
- 38308e7fff4ca-2ec594034bbmr78292621fa.26.1719499486745; 
- Thu, 27 Jun 2024 07:44:46 -0700 (PDT)
+ AJvYcCV37wV7IiCAdHhtapx1dHZCin5cUVmojwfTQmvBIurq8CU36x+QZiuxBSaC+5riL8gQzX/cuuxyq3b+BqG03BoBRwQT/0DQuOuQexd4IIanN8vaUJcaxDoB
+X-Gm-Message-State: AOJu0Yy4zmTdFzGQBRDzsgmOchVsjLkUbvr9W4vyXNBABb8Q3Gsypxf1
+ D3LIzUrL1cSuDmfRCVliwIbo0HS516MmRtTpcOanVxomel5uBEhqlQVSzIPsH2c=
+X-Google-Smtp-Source: AGHT+IEEpm4AxqCI4MvWw10l4nicg9YGmxodxCLh1opitXtQr+B6jBW4EVR2xxnMzOMkHx2ZA4GduA==
+X-Received: by 2002:a2e:9e96:0:b0:2ec:588d:7eb8 with SMTP id
+ 38308e7fff4ca-2ec5b37a303mr79821721fa.21.1719499487664; 
+ Thu, 27 Jun 2024 07:44:47 -0700 (PDT)
 Received: from umbar.lan ([192.130.178.91]) by smtp.gmail.com with ESMTPSA id
  38308e7fff4ca-2ee4a34447fsm2775911fa.11.2024.06.27.07.44.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 07:44:46 -0700 (PDT)
+ Thu, 27 Jun 2024 07:44:47 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 27 Jun 2024 17:44:43 +0300
+Date: Thu, 27 Jun 2024 17:44:44 +0300
 MIME-Version: 1.0
-Message-Id: <20240627-ucsi-rework-interface-v4-4-289ddc6874c7@linaro.org>
+Message-Id: <20240627-ucsi-rework-interface-v4-5-289ddc6874c7@linaro.org>
 References: <20240627-ucsi-rework-interface-v4-0-289ddc6874c7@linaro.org>
 In-Reply-To: <20240627-ucsi-rework-interface-v4-0-289ddc6874c7@linaro.org>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -65,23 +65,23 @@ To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4910;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1732;
  i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=IUlRPLcwpNg8JnyGbOvllbRci0dly68y4uffDqgWHcE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmfXrZU2jPKiwjQP35+8I88ou3BxaPfkpg4PJJq
- onR4FOLWHaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZn162QAKCRCLPIo+Aiko
- 1cBnB/sEp9lqE76ma6UnCY7LbhqliIuPkO9FULEW8UHfMI5X8F+JdTgWpedlAKFdYNxEK48AiL5
- xytAUgkAj6ceGwOp0xx/JTMBPfGy/LNlBQVvbzU1YiRjUr+lbg6H1lI80C5VvdijDo+1hnCNQRV
- ecEYU8muhwSmRAj0FR1SIQ10cp13vLbTdEse+BDcmnHMwMh41KT4DknuX3Pfkler5ez4oOucu5o
- R/9mtPjhNSLk1SkyMDxYrJIC7Tq8ds8MBqBFTnWBzsHJ3CG9sS0o7HlCr6Wj78lqxsWVId+Mv73
- RrG8rgRv1c9gmbcNJ99Kk8jsDbZtPmbx4tG9QhqGFKT7lSTU
+ bh=SvL4pINrFSRfen69Stj/4WrpwjGf+jKWJ5TFSri6EH8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmfXrZIK3sNxYmewLsvSN+DxSJY8UC0w0Xoamap
+ /iSt4ILkayJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZn162QAKCRCLPIo+Aiko
+ 1TewB/0eEGE2cnF0wQ2wiEEsma6QExZ1Yav41XkW8NpVgs9JLW96sutdqzAxS5BpJsP1PoyaRCD
+ lVRCv4c2T2eHdMrZRGrTExG691TNA1w2rDx/gDgFf7lEdxtOwgxSmsxk+CZrGAP00z9k5kHoWNY
+ Vl0IFKa8sP3qSpbB0wkrpjQtK2vRBUgU4B8WqycBSdLOhQ+exl7xVKHjc0No1McFtSOU7arST9a
+ zqlmROo8rQ3p1nZ3ASP///xGQKpo21+K1ATF8ekM5/kHEdhrW88lVnMrvqP88SBLbPnauJG13pH
+ e5DyIzX3Lb9EIQqQgnWEHAhv8mFDrOhGm+yKzc1znzn2VMcp
 X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Nikita Travkin <nikita@trvn.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 4/7] usb: typec: ucsi: rework command
- execution functions
+Subject: [Linux-stm32] [PATCH v4 5/7] usb: typec: ucsi: inline
+	ucsi_read_message_in
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,197 +98,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rework command execution code to remove recursive calls of
-ucsi_exec_command. This also streamlines the sync_control / read(CCI)
-read (MESSAGE_IN) sequence, allowing further rework of the command code.
+There is no need to have a separate wrapper for reading MESSAGE_IN data,
+inline it to ucsi_run_command().
 
 Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 138 ++++++++++++++++++++----------------------
- 1 file changed, 66 insertions(+), 72 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 17d12c1872f6..10a8fe893333 100644
+index 10a8fe893333..2d87fe277c62 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -63,27 +63,76 @@ static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
- 	return ucsi->ops->sync_control(ucsi, ctrl);
- }
+@@ -36,19 +36,6 @@
+  */
+ #define UCSI_SWAP_TIMEOUT_MS	5000
  
--static int ucsi_exec_command(struct ucsi *ucsi, u64 command);
-+static int ucsi_run_command(struct ucsi *ucsi, u64 command, u32 *cci,
-+			    void *data, size_t size, bool conn_ack)
-+{
-+	int ret;
-+
-+	*cci = 0;
-+
-+	ret = ucsi->ops->sync_control(ucsi, command);
-+	if (ret)
-+		return ret;
-+
-+	ret = ucsi->ops->read_cci(ucsi, cci);
-+	if (ret)
-+		return ret;
-+
-+	if (*cci & UCSI_CCI_BUSY)
-+		return -EBUSY;
-+
-+	if (!(*cci & UCSI_CCI_COMMAND_COMPLETE))
-+		return -EIO;
-+
-+	if (*cci & UCSI_CCI_NOT_SUPPORTED) {
-+		if (ucsi_acknowledge(ucsi, false) < 0)
-+			dev_err(ucsi->dev,
-+				"ACK of unsupported command failed\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (*cci & UCSI_CCI_ERROR) {
-+		/* Acknowledge the command that failed */
-+		ret = ucsi_acknowledge(ucsi, false);
-+		return ret ? ret : -EIO;
-+	}
-+
-+	if (data) {
-+		ret = ucsi_read_message_in(ucsi, data, size);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = ucsi_acknowledge(ucsi, conn_ack);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
- 
- static int ucsi_read_error(struct ucsi *ucsi, u8 connector_num)
- {
- 	u64 command;
- 	u16 error;
-+	u32 cci;
- 	int ret;
- 
- 	command = UCSI_GET_ERROR_STATUS | UCSI_CONNECTOR_NUMBER(connector_num);
--	ret = ucsi_exec_command(ucsi, command);
--	if (ret < 0)
--		return ret;
-+	ret = ucsi_run_command(ucsi, command, &cci,
-+			       &error, sizeof(error), false);
- 
--	ret = ucsi_read_message_in(ucsi, &error, sizeof(error));
--	if (ret)
--		return ret;
-+	if (cci & UCSI_CCI_BUSY) {
-+		ret = ucsi_run_command(ucsi, UCSI_CANCEL, &cci, NULL, 0, false);
- 
--	ret = ucsi_acknowledge(ucsi, false);
--	if (ret)
-+		return ret ? ret : -EBUSY;
-+	}
-+
-+	if (ret < 0)
- 		return ret;
- 
-+	if (cci & UCSI_CCI_ERROR)
-+		return -EIO;
-+
- 	switch (error) {
- 	case UCSI_ERROR_INCOMPATIBLE_PARTNER:
- 		return -EOPNOTSUPP;
-@@ -129,7 +178,8 @@ static int ucsi_read_error(struct ucsi *ucsi, u8 connector_num)
- 	return -EIO;
- }
- 
--static int ucsi_exec_command(struct ucsi *ucsi, u64 cmd)
-+static int ucsi_send_command_common(struct ucsi *ucsi, u64 cmd,
-+				    void *data, size_t size, bool conn_ack)
- {
- 	u8 connector_num;
- 	u32 cci;
-@@ -155,73 +205,17 @@ static int ucsi_exec_command(struct ucsi *ucsi, u64 cmd)
- 		connector_num = 0;
- 	}
- 
--	ret = ucsi->ops->sync_control(ucsi, cmd);
--	if (ret)
--		return ret;
+-static int ucsi_read_message_in(struct ucsi *ucsi, void *buf,
+-					  size_t buf_size)
+-{
+-	/*
+-	 * Below UCSI 2.0, MESSAGE_IN was limited to 16 bytes. Truncate the
+-	 * reads here.
+-	 */
+-	if (ucsi->version <= UCSI_VERSION_1_2)
+-		buf_size = clamp(buf_size, 0, 16);
 -
--	ret = ucsi->ops->read_cci(ucsi, &cci);
--	if (ret)
--		return ret;
--
--	if (cmd != UCSI_CANCEL && cci & UCSI_CCI_BUSY)
--		return ucsi_exec_command(ucsi, UCSI_CANCEL);
--
--	if (!(cci & UCSI_CCI_COMMAND_COMPLETE))
--		return -EIO;
--
--	if (cci & UCSI_CCI_NOT_SUPPORTED) {
--		if (ucsi_acknowledge(ucsi, false) < 0)
--			dev_err(ucsi->dev,
--				"ACK of unsupported command failed\n");
--		return -EOPNOTSUPP;
--	}
--
--	if (cci & UCSI_CCI_ERROR) {
--		/* Acknowledge the command that failed */
--		ret = ucsi_acknowledge(ucsi, false);
--		if (ret)
--			return ret;
--
--		if (cmd == UCSI_GET_ERROR_STATUS)
--			return -EIO;
--
--		return ucsi_read_error(ucsi, connector_num);
--	}
--
--	if (cmd == UCSI_CANCEL && cci & UCSI_CCI_CANCEL_COMPLETE) {
--		ret = ucsi_acknowledge(ucsi, false);
--		return ret ? ret : -EBUSY;
--	}
--
--	return UCSI_CCI_LENGTH(cci);
+-	return ucsi->ops->read_message_in(ucsi, buf, buf_size);
 -}
 -
--static int ucsi_send_command_common(struct ucsi *ucsi, u64 command,
--				    void *data, size_t size, bool conn_ack)
--{
--	u8 length;
--	int ret;
--
- 	mutex_lock(&ucsi->ppm_lock);
+ static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
+ {
+ 	u64 ctrl;
+@@ -70,6 +57,13 @@ static int ucsi_run_command(struct ucsi *ucsi, u64 command, u32 *cci,
  
--	ret = ucsi_exec_command(ucsi, command);
--	if (ret < 0)
--		goto out;
--
--	length = ret;
--
--	if (data) {
--		ret = ucsi_read_message_in(ucsi, data, size);
--		if (ret)
--			goto out;
-+	ret = ucsi_run_command(ucsi, cmd, &cci, data, size, conn_ack);
-+	if (cci & UCSI_CCI_BUSY) {
-+		ret = ucsi_run_command(ucsi, UCSI_CANCEL, &cci, NULL, 0, false);
-+		return ret ? ret : -EBUSY;
+ 	*cci = 0;
+ 
++	/*
++	 * Below UCSI 2.0, MESSAGE_IN was limited to 16 bytes. Truncate the
++	 * reads here.
++	 */
++	if (ucsi->version <= UCSI_VERSION_1_2)
++		size = clamp(size, 0, 16);
++
+ 	ret = ucsi->ops->sync_control(ucsi, command);
+ 	if (ret)
+ 		return ret;
+@@ -98,7 +92,7 @@ static int ucsi_run_command(struct ucsi *ucsi, u64 command, u32 *cci,
  	}
  
--	ret = ucsi_acknowledge(ucsi, conn_ack);
--	if (ret)
--		goto out;
-+	if (cci & UCSI_CCI_ERROR)
-+		return ucsi_read_error(ucsi, connector_num);
- 
--	ret = length;
--out:
- 	mutex_unlock(&ucsi->ppm_lock);
- 	return ret;
- }
+ 	if (data) {
+-		ret = ucsi_read_message_in(ucsi, data, size);
++		ret = ucsi->ops->read_message_in(ucsi, data, size);
+ 		if (ret)
+ 			return ret;
+ 	}
 
 -- 
 2.39.2
