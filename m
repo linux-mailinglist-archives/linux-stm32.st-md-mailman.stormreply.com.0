@@ -2,74 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EDD919F85
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 08:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A51C791A155
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 10:24:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B50F6C71282;
-	Thu, 27 Jun 2024 06:47:35 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DA83C71282;
+	Thu, 27 Jun 2024 08:24:19 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93E3EC71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6D83C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 06:47:27 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45R0Wjnm010481;
- Thu, 27 Jun 2024 08:47:01 +0200
+ Thu, 27 Jun 2024 08:24:11 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45R7moPB014997;
+ Thu, 27 Jun 2024 10:23:42 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- MlmSx7OBvuKIe5Rtv99hWsLybZ5aGRu/rNbbqX9lBlQ=; b=LiVHopGCnWujb4kT
- BXQclmlyCdbqzsUnR3LhPCkGE671CPgTqMAlKBA2vnm5IjytlPoVp35rxYz1Z43y
- vp2YzNwkJsWybg1cOZIj7G6YMm6j/UwsxHpqbRwKA9vxLNKCPq8ZdoOTSTxEiHBS
- yOSsizfYvZ9W9FIBTHS1c2Y8zMW/a9jDToLMVJ3dxAOiCqShQEjjH7zd2cYZdvAX
- RauMI6xfLEBwYfWAvDuKzJcsvULumE5Acm7cqDfx9oIaXnaKBCumufx51cI9j902
- SBRbGLlhoCrgabSHMCaTR4HTKCwNCPEJA9Dw7Hh181Hyb5Mx+taxGsPijRwOLX56
- gedjuw==
+ RfQjGox/hBiZBmFnj//4487z01utcZ3PZ9+Yhl19x2E=; b=y6RFNyFZsciHU7Mx
+ QZgBmECCyboUs7Yr1PvHC8IpgDBq4kuOkKuiGa5s8HhLi3R5vUaXiHynON4dYVBr
+ iS3PV/Wz1ug5qcpgwYIm+ktXkUcetIne6+qDFzcXgP2OlWXTYPo0rlacI/bl5+NV
+ 1gZeX0Bbrwymzf8BXGyStDU7KmgKffn4WJC41rH1EsFa+jW2UjetNiOwYyZSMbWf
+ ikoExpsfgvo7yT529vG8jmKMac9qPT1IVJkXRrhGdpU3nDz0Qc4zoTL0lpDJ1TxQ
+ 5MhNpuxY0lRHoMrXV5m7rHctrO1ukqFLcOXChZHk/3T3BgrWWyiMdGPdY5MgWcOM
+ BmNinw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yx9jjgsgw-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywm1gmrs1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jun 2024 08:47:00 +0200 (MEST)
+ Thu, 27 Jun 2024 10:23:42 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8FF8C40045;
- Thu, 27 Jun 2024 08:46:55 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D0E10210F85;
- Thu, 27 Jun 2024 08:45:40 +0200 (CEST)
-Received: from [10.48.86.164] (10.48.86.164) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DD84040052;
+ Thu, 27 Jun 2024 10:22:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E3368212FA4;
+ Thu, 27 Jun 2024 10:22:14 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
- 2024 08:45:39 +0200
-Message-ID: <4d5cfb6b-0cf5-46f1-b725-acfe995d4482@foss.st.com>
-Date: Thu, 27 Jun 2024 08:45:38 +0200
+ 2024 10:22:14 +0200
+Message-ID: <5d9da37e-b120-42a3-8436-98a74c20596b@foss.st.com>
+Date: Thu, 27 Jun 2024 10:22:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Mark Brown <broonie@kernel.org>
-References: <20240611083606.733453-1-christophe.roullier@foss.st.com>
- <20240611083606.733453-3-christophe.roullier@foss.st.com>
- <755275e3-b95a-44c0-941e-beb5dde65982@sirena.org.uk>
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20240626030736.512113-1-marex@denx.de>
 Content-Language: en-US
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <755275e3-b95a-44c0-941e-beb5dde65982@sirena.org.uk>
-X-Originating-IP: [10.48.86.164]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240626030736.512113-1-marex@denx.de>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-27_03,2024-06-25_01,2024-05-17_01
-Cc: Marek Vasut <marex@denx.de>, Jose Abreu <joabreu@synopsys.com>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next,
- PATCH v7 2/8] net: stmmac: dwmac-stm32: Separate out external clock
- rate validation
+ definitions=2024-06-27_04,2024-06-25_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix STM32MP13xx pinmux
+ node eth2-rgmii-sleep-0 copy-paste error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,76 +80,66 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mark,
+Hi Marek
 
-Sorry, issue found, I will push fix this morning.
+On 6/26/24 05:07, Marek Vasut wrote:
+> Fix pin copy-paste error in STM32MP13xx eth2-rgmii-sleep-0 pinmux
+> node. Clearly the pins like PG11 are not supposed to be duplicated
+> in the node pinmux property, fix them up to match the hardware pin
+> assignment.
+> 
+> Fixes: d1193e65647e ("ARM: dts: stm32: Add pinmux nodes for DH electronics STM32MP13xx DHCOR SoM and DHSBC board")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>   arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> index 42995a8f5034c..9c7cf8f3c3e8b 100644
+> --- a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> @@ -157,16 +157,16 @@ eth2_rgmii_sleep_pins_a: eth2-rgmii-sleep-0 {
+>   		pins1 {
+>   			pinmux = <STM32_PINMUX('F', 7, ANALOG)>, /* ETH_RGMII_TXD0 */
+>   				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD1 */
+> -				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD2 */
+> -				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD3 */
+> -				 <STM32_PINMUX('G', 8, ANALOG)>, /* ETH_RGMII_TX_CTL */
+> -				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+> -				 <STM32_PINMUX('B', 2, ANALOG)>, /* ETH_MDIO */
+> +				 <STM32_PINMUX('G', 1, ANALOG)>, /* ETH_RGMII_TXD2 */
+> +				 <STM32_PINMUX('E', 6, ANALOG)>, /* ETH_RGMII_TXD3 */
+> +				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_TX_CTL */
+> +				 <STM32_PINMUX('G', 3, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+> +				 <STM32_PINMUX('B', 6, ANALOG)>, /* ETH_MDIO */
+>   				 <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_MDC */
+>   				 <STM32_PINMUX('F', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+>   				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD1 */
+> -				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD2 */
+> -				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD3 */
+> +				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
+> +				 <STM32_PINMUX('A', 8, ANALOG)>, /* ETH_RGMII_RXD3 */
+>   				 <STM32_PINMUX('A', 12, ANALOG)>, /* ETH_RGMII_RX_CTL */
+>   				 <STM32_PINMUX('H', 11, ANALOG)>; /* ETH_RGMII_RX_CLK */
+>   		};
 
-Regards.
+Applied on stm32-next. I think I'll squash the two fixes (this patch and 
+the other one for the makefile) onto the initial patch when I create my 
+PR vor v6.11.
 
-Christophe.
-
-On 6/26/24 12:38, Mark Brown wrote:
-> On Tue, Jun 11, 2024 at 10:36:00AM +0200, Christophe Roullier wrote:
->> From: Marek Vasut <marex@denx.de>
->>
->> Pull the external clock frequency validation into a separate function,
->> to avoid conflating it with external clock DT property decoding and
->> clock mux register configuration. This should make the code easier to
->> read and understand.
-> For the past few days networking has been broken on the Avenger 96, a
-> stm32mp157a based platform.  The stm32-dwmac driver fails to probe:
->
-> <6>[    1.894271] stm32-dwmac 5800a000.ethernet: IRQ eth_wake_irq not found
-> <6>[    1.899694] stm32-dwmac 5800a000.ethernet: IRQ eth_lpi not found
-> <6>[    1.905849] stm32-dwmac 5800a000.ethernet: IRQ sfty not found
-> <3>[    1.912304] stm32-dwmac 5800a000.ethernet: Unable to parse OF data
-> <3>[    1.918393] stm32-dwmac 5800a000.ethernet: probe with driver stm32-dwmac failed with error -75
->
-> which looks a bit odd given the commit contents but I didn't look at the
-> driver code at all.
->
-> Full boot log here:
->
->     https://lava.sirena.org.uk/scheduler/job/467150
->
-> A working equivalent is here:
->
->     https://lava.sirena.org.uk/scheduler/job/466518
->
-> A bisection identified this commit as being responsible, log below:
->
-> git bisect start
-> # status: waiting for both good and bad commits
-> # bad: [0fc4bfab2cd45f9acb86c4f04b5191e114e901ed] Add linux-next specific files for 20240625
-> git bisect bad 0fc4bfab2cd45f9acb86c4f04b5191e114e901ed
-> # status: waiting for good commit(s), bad commit known
-> # good: [3d9217c41c07b72af3a5c147cb82c75f757f4200] Merge branch 'for-linux-next-fixes' of https://gitlab.freedesktop.org/drm/misc/kernel.git
-> git bisect good 3d9217c41c07b72af3a5c147cb82c75f757f4200
-> # bad: [5699faecf4e2347f81eea62db0455feb4d794537] Merge branch 'master' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
-> git bisect bad 5699faecf4e2347f81eea62db0455feb4d794537
-> # good: [ba73da675606373565868962ad8c615f175662ed] Merge branch 'fs-next' of linux-next
-> git bisect good ba73da675606373565868962ad8c615f175662ed
-> # bad: [7e7c714a36a5b10e391168e7e8145060e041ea12] Merge branch 'af_unix-remove-spin_lock_nested-and-convert-to-lock_cmp_fn'
-> git bisect bad 7e7c714a36a5b10e391168e7e8145060e041ea12
-> # good: [93d4e8bb3f137e8037a65ea96f175f81c25c50e5] Merge tag 'wireless-next-2024-06-07' of git://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next
-> git bisect good 93d4e8bb3f137e8037a65ea96f175f81c25c50e5
-> # bad: [4314175af49668ab20c0d60d7d7657986e1d0c7c] Merge branch 'net-smc-IPPROTO_SMC'
-> git bisect bad 4314175af49668ab20c0d60d7d7657986e1d0c7c
-> # good: [811efc06e5f30a57030451b2d1998aa81273baf8] net/tcp: Move tcp_inbound_hash() from headers
-> git bisect good 811efc06e5f30a57030451b2d1998aa81273baf8
-> # good: [5f703ce5c981ee02c00e210d5b155bbbfbf11263] net: hsr: Send supervisory frames to HSR network with ProxyNodeTable data
-> git bisect good 5f703ce5c981ee02c00e210d5b155bbbfbf11263
-> # bad: [6c3282a6b296385bee2c383442c39f507b0d51dd] net: stmmac: add select_pcs() platform method
-> git bisect bad 6c3282a6b296385bee2c383442c39f507b0d51dd
-> # bad: [404dbd26322f50c8123bf5bff9a409356889035f] net: qrtr: ns: Ignore ENODEV failures in ns
-> git bisect bad 404dbd26322f50c8123bf5bff9a409356889035f
-> # bad: [c60a54b52026bd2c9a88ae00f2aac7a67fed8e38] net: stmmac: dwmac-stm32: Clean up the debug prints
-> git bisect bad c60a54b52026bd2c9a88ae00f2aac7a67fed8e38
-> # bad: [582ac134963e2d5cf6c45db027e156fcfb7f7678] net: stmmac: dwmac-stm32: Separate out external clock rate validation
-> git bisect bad 582ac134963e2d5cf6c45db027e156fcfb7f7678
-> # good: [8a9044e5169bab7a8edadb4ceb748391657f0d7f] dt-bindings: net: add STM32MP13 compatible in documentation for stm32
-> git bisect good 8a9044e5169bab7a8edadb4ceb748391657f0d7f
-> # first bad commit: [582ac134963e2d5cf6c45db027e156fcfb7f7678] net: stmmac: dwmac-stm32: Separate out external clock rate validation
+Regards
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
