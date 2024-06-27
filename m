@@ -2,54 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A41191AC33
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 18:05:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02A5E91AD2E
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 18:50:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF193C7128F;
-	Thu, 27 Jun 2024 16:05:13 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E86CC71280;
+	Thu, 27 Jun 2024 16:50:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84B93C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA25EC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 16:05:08 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id DAADB87FCD;
- Thu, 27 Jun 2024 18:05:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1719504308;
- bh=Vod1TFd4od8BsqH2BebeU7FQfNDJP3jGPHi8gOTt2e8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=bPrs8y83eGSS6pSiK1WOnZseVAQPk6dRLpOuinXO58qAm4YvXxLJpAedhz5D5jCDc
- h2sdJIHvB+S37Lkutl+lJdvWesVKoOpaTjoMjL99ymALNksmyx7eiIYks1KKFyn/ZM
- IwpcNiSjjfxoXC3WEtYolKXjk6/mxVrtzwOOsucxoCdWte8BPa0p1GT2OmFpwTiPDI
- ZzJDaLGOVFgzVNPC1tvi7HhD3qVk2wGo+3WkP8nXyEccBMw50PVjQ/asq3Gjc4JtbR
- FvNY+m342pPpt66wU/cpEH0APJR7yQu6oiD5Br1D5KoEJp0w83itC/NOAiaeK62Dmn
- zBSpSwyf0iUmQ==
-Message-ID: <86ef3141-8c37-42b6-ae78-a47dfad90614@denx.de>
-Date: Thu, 27 Jun 2024 17:48:13 +0200
+ Thu, 27 Jun 2024 16:50:16 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45RCt2c0027601;
+ Thu, 27 Jun 2024 18:50:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ VP2bD61+z+J6l3jmGgfZzieeOpJ8ufLGwpCo2aUvUKw=; b=s/+/L4Ce7GFaX/iW
+ EdvdrcseBtYae6hrx+yjqXPwHnNr0q09mzM99UklISDgPv6Kk/NH/Kh81WJ73wXY
+ zfSlG2NBjR1lN6sTFeBXLyzBvxizX4WIdEkSfiMGyxae3nGi0Ibb82qZtJhYqI/p
+ /pe7g3kVTalTbmBEwxYEMM1YzQyZIJ2I3nOgKoT2wZQkYSL1zpuZ/I0bzxl0cTsf
+ ev09QWZxuRx4PuJZJ+aQyp/NT6Ga02W/cuaEXmzvUPTVNzA6CivysFacAYzV+fBR
+ 28lFmdhcD3pR9Iunu7LbtJ32omoq9A7WxHGAQcPBf7FGLkdmOkpZ+9SIq74RPuWK
+ 5pqXTg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywngdp335-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Jun 2024 18:50:00 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 00EDE4002D;
+ Thu, 27 Jun 2024 18:49:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D1669226FA3;
+ Thu, 27 Jun 2024 18:49:03 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
+ 2024 18:49:03 +0200
+Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
+ 2024 18:49:02 +0200
+Message-ID: <1ed93216-9445-4b31-85cf-5b7f35ee91c2@foss.st.com>
+Date: Thu, 27 Jun 2024 18:49:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240626030736.512113-1-marex@denx.de>
- <5d9da37e-b120-42a3-8436-98a74c20596b@foss.st.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20240621-ucsi-rework-interface-v2-0-a399ff96bf88@linaro.org>
+ <20240621-ucsi-rework-interface-v2-6-a399ff96bf88@linaro.org>
+ <160e7af5-29c8-49a6-ae4f-dbfc3dd608c1@foss.st.com>
+ <k2q7g6ka34o2vgoy5s64nwixqa6qjaok72fuxgircwseyn2k7z@pm56aurq42n6>
+ <3869dcd0-9936-4712-b7ad-3c66cbe4828a@foss.st.com>
+ <CAA8EJpqEYRFOZbN55Eh0SisnR1HQ0iseA1L+1n0QxOrspsmLuQ@mail.gmail.com>
 Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <5d9da37e-b120-42a3-8436-98a74c20596b@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix STM32MP13xx pinmux
- node eth2-rgmii-sleep-0 copy-paste error
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <CAA8EJpqEYRFOZbN55Eh0SisnR1HQ0iseA1L+1n0QxOrspsmLuQ@mail.gmail.com>
+X-Originating-IP: [10.48.86.222]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-27_12,2024-06-27_03,2024-05-17_01
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nikita Travkin <nikita@trvn.ru>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 6/7] usb: typec: ucsi: extract common
+ code for command handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,75 +84,324 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8yNy8yNCAxMDoyMiBBTSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPiBIaSBNYXJlawo+
-IAo+IE9uIDYvMjYvMjQgMDU6MDcsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBGaXggcGluIGNvcHkt
-cGFzdGUgZXJyb3IgaW4gU1RNMzJNUDEzeHggZXRoMi1yZ21paS1zbGVlcC0wIHBpbm11eAo+PiBu
-b2RlLiBDbGVhcmx5IHRoZSBwaW5zIGxpa2UgUEcxMSBhcmUgbm90IHN1cHBvc2VkIHRvIGJlIGR1
-cGxpY2F0ZWQKPj4gaW4gdGhlIG5vZGUgcGlubXV4IHByb3BlcnR5LCBmaXggdGhlbSB1cCB0byBt
-YXRjaCB0aGUgaGFyZHdhcmUgcGluCj4+IGFzc2lnbm1lbnQuCj4+Cj4+IEZpeGVzOiBkMTE5M2U2
-NTY0N2UgKCJBUk06IGR0czogc3RtMzI6IEFkZCBwaW5tdXggbm9kZXMgZm9yIERIIAo+PiBlbGVj
-dHJvbmljcyBTVE0zMk1QMTN4eCBESENPUiBTb00gYW5kIERIU0JDIGJvYXJkIikKPj4gU2lnbmVk
-LW9mZi1ieTogTWFyZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+Cj4+IC0tLQo+PiBDYzogQWxleGFu
-ZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KPj4gQ2M6IENocmlzdG9w
-aGUgUm91bGxpZXIgPGNocmlzdG9waGUucm91bGxpZXJAZm9zcy5zdC5jb20+Cj4+IENjOiBDb25v
-ciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5vcmc+Cj4+IENjOiBLcnp5c3p0b2YgS296bG93c2tp
-IDxrcnprK2R0QGtlcm5lbC5vcmc+Cj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5z
-dG0zMkBnbWFpbC5jb20+Cj4+IENjOiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgo+PiBD
-YzogZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcKPj4gQ2M6IGtlcm5lbEBkaC1lbGVjdHJvbmlj
-cy5jb20KPj4gQ2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+PiBDYzog
-bGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+PiAtLS0KPj4gwqAgYXJj
-aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzLXBpbmN0cmwuZHRzaSB8IDE0ICsrKysrKystLS0t
-LS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0p
-Cj4+Cj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMtcGluY3Ry
-bC5kdHNpIAo+PiBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMy1waW5jdHJsLmR0c2kK
-Pj4gaW5kZXggNDI5OTVhOGY1MDM0Yy4uOWM3Y2Y4ZjNjM2U4YiAxMDA2NDQKPj4gLS0tIGEvYXJj
-aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzLXBpbmN0cmwuZHRzaQo+PiArKysgYi9hcmNoL2Fy
-bS9ib290L2R0cy9zdC9zdG0zMm1wMTMtcGluY3RybC5kdHNpCj4+IEBAIC0xNTcsMTYgKzE1Nywx
-NiBAQCBldGgyX3JnbWlpX3NsZWVwX3BpbnNfYTogZXRoMi1yZ21paS1zbGVlcC0wIHsKPj4gwqDC
-oMKgwqDCoMKgwqDCoMKgIHBpbnMxIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGlu
-bXV4ID0gPFNUTTMyX1BJTk1VWCgnRicsIDcsIEFOQUxPRyk+LCAvKiAKPj4gRVRIX1JHTUlJX1RY
-RDAgKi8KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5N
-VVgoJ0cnLCAxMSwgQU5BTE9HKT4sIC8qIEVUSF9SR01JSV9UWEQxICovCj4+IC3CoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdHJywgMTEsIEFOQUxPRyk+LCAv
-KiBFVEhfUkdNSUlfVFhEMiAqLwo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-PFNUTTMyX1BJTk1VWCgnRycsIDExLCBBTkFMT0cpPiwgLyogRVRIX1JHTUlJX1RYRDMgKi8KPj4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0cnLCA4LCBB
-TkFMT0cpPiwgLyogRVRIX1JHTUlJX1RYX0NUTCAqLwo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRicsIDYsIEFOQUxPRyk+LCAvKiBFVEhfUkdNSUlf
-R1RYX0NMSyAqLwo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJ
-Tk1VWCgnQicsIDIsIEFOQUxPRyk+LCAvKiBFVEhfTURJTyAqLwo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRycsIDEsIEFOQUxPRyk+LCAvKiBFVEhf
-UkdNSUlfVFhEMiAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMy
-X1BJTk1VWCgnRScsIDYsIEFOQUxPRyk+LCAvKiBFVEhfUkdNSUlfVFhEMyAqLwo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRicsIDYsIEFOQUxPRyk+
-LCAvKiBFVEhfUkdNSUlfVFhfQ1RMICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCA8U1RNMzJfUElOTVVYKCdHJywgMywgQU5BTE9HKT4sIC8qIEVUSF9SR01JSV9HVFhfQ0xL
-ICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdC
-JywgNiwgQU5BTE9HKT4sIC8qIEVUSF9NRElPICovCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdHJywgNSwgQU5BTE9HKT4sIC8qIEVUSF9NREMg
-Ki8KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgo
-J0YnLCA0LCBBTkFMT0cpPiwgLyogRVRIX1JHTUlJX1JYRDAgKi8KPj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0UnLCAyLCBBTkFMT0cpPiwgLyog
-RVRIX1JHTUlJX1JYRDEgKi8KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxT
-VE0zMl9QSU5NVVgoJ0UnLCAyLCBBTkFMT0cpPiwgLyogRVRIX1JHTUlJX1JYRDIgKi8KPj4gLcKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0UnLCAyLCBBTkFM
-T0cpPiwgLyogRVRIX1JHTUlJX1JYRDMgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0gnLCA2LCBBTkFMT0cpPiwgLyogRVRIX1JHTUlJX1JYRDIg
-Ki8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0En
-LCA4LCBBTkFMT0cpPiwgLyogRVRIX1JHTUlJX1JYRDMgKi8KPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0EnLCAxMiwgQU5BTE9HKT4sIC8qIAo+
-PiBFVEhfUkdNSUlfUlhfQ1RMICovCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCA8U1RNMzJfUElOTVVYKCdIJywgMTEsIEFOQUxPRyk+OyAvKiAKPj4gRVRIX1JHTUlJX1JY
-X0NMSyAqLwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPiAKPiBBcHBsaWVkIG9uIHN0bTMyLW5l
-eHQuIEkgdGhpbmsgSSdsbCBzcXVhc2ggdGhlIHR3byBmaXhlcyAodGhpcyBwYXRjaCBhbmQgCj4g
-dGhlIG90aGVyIG9uZSBmb3IgdGhlIG1ha2VmaWxlKSBvbnRvIHRoZSBpbml0aWFsIHBhdGNoIHdo
-ZW4gSSBjcmVhdGUgbXkgCj4gUFIgdm9yIHY2LjExLgoKRmluZSBieSBtZSwgdGhhbmtzICEKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+On 6/27/24 17:58, Dmitry Baryshkov wrote:
+> On Thu, 27 Jun 2024 at 18:51, Fabrice Gasnier
+> <fabrice.gasnier@foss.st.com> wrote:
+>>
+>> On 6/25/24 18:49, Dmitry Baryshkov wrote:
+>>> On Tue, Jun 25, 2024 at 05:24:54PM GMT, Fabrice Gasnier wrote:
+>>>> On 6/21/24 00:55, Dmitry Baryshkov wrote:
+>>>>> Extract common functions to handle command sending and to handle events
+>>>>> from UCSI. This ensures that all UCSI glue drivers handle the ACKs in
+>>>>> the same way.
+>>>>>
+>>>>> The CCG driver used DEV_CMD_PENDING both for internal
+>>>>> firmware-related commands and for UCSI control handling. Leave the
+>>>>> former use case intact.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>> ---
+>>>>>  drivers/usb/typec/ucsi/ucsi.c           | 43 +++++++++++++++++++++++++++
+>>>>>  drivers/usb/typec/ucsi/ucsi.h           |  7 +++++
+>>>>>  drivers/usb/typec/ucsi/ucsi_acpi.c      | 46 ++---------------------------
+>>>>>  drivers/usb/typec/ucsi/ucsi_ccg.c       | 21 ++-----------
+>>>>>  drivers/usb/typec/ucsi/ucsi_glink.c     | 47 ++---------------------------
+>>>>>  drivers/usb/typec/ucsi/ucsi_stm32g0.c   | 44 ++--------------------------
+>>>>>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 52 ++-------------------------------
+>>>>>  7 files changed, 62 insertions(+), 198 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+>>>>> index 4ba22323dbf9..691ee0c4ef87 100644
+>>>>> --- a/drivers/usb/typec/ucsi/ucsi.c
+>>>>> +++ b/drivers/usb/typec/ucsi/ucsi.c
+>>>>> @@ -36,6 +36,48 @@
+>>>>>   */
+>>>>>  #define UCSI_SWAP_TIMEOUT_MS       5000
+>>>>>
+>>>>> +void ucsi_notify_common(struct ucsi *ucsi, u32 cci)
+>>>>> +{
+>>>>> +   if (UCSI_CCI_CONNECTOR(cci))
+>>>>> +           ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
+>>>>> +
+>>>>> +   if (cci & UCSI_CCI_ACK_COMPLETE &&
+>>>>> +       test_bit(ACK_PENDING, &ucsi->flags))
+>>>>> +           complete(&ucsi->complete);
+>>>>> +
+>>>>> +   if (cci & UCSI_CCI_COMMAND_COMPLETE &&
+>>>>> +       test_bit(COMMAND_PENDING, &ucsi->flags))
+>>>>> +           complete(&ucsi->complete);
+>>>>
+>>>> Hi Dmitry,
+>>>>
+>>>> I've recently faced some race with ucsi_stm32g0 driver, and have sent a
+>>>> fix for it [1], as you've noticed in the cover letter.
+>>>>
+>>>> To fix that, I've used test_and_clear_bit() in above two cases, instead
+>>>> of test_bit().
+>>>
+>>> Could you possible describe, why do you need test_and_clear_bit()
+>>> instead of just test_bit()? The bits are cleared at the end of the
+>>> .sync_write(), also there can be no other command (or ACK_CC) submission
+>>> before this one is fully processed.
+>>
+>> Hi Dmitry,
+>>
+>> It took me some time to reproduce this race I observed earlier.
+>> (I observe this during DR swap.)
+>>
+>> Once the ->async_control(UCSI_ACK_CC_CI) call bellow gets completed, and
+>> before the ACK_PENDING bit gets cleared, e.g. clear_bit(ACK_PENDING), I
+>> get an asynchronous interrupt.
+>>
+>> Basically, Then the above complete() gets called (due to
+>> UCSI_CCI_ACK_COMPLETE & ACK_PENDING).
+>>
+>> Subsequent UCSI_GET_CONNECTOR_STATUS command (from
+>> ucsi_handle_connector_change) will be unblocked immediately due to
+>> complete() call has already happen, without UCSI_CCI_COMMAND_COMPLETE
+>> cci flag, hence returning -EIO.
+> 
+> But the ACK_CI is being sent as a response to a command. This means
+> that the ppm_lock should be locked. The UCSI_GET_CONNECTOR_STATUS
+> command should wait for ppm_lock to be freed and only then it can
+> proceed with sending the command. Maybe I'm misunderstanding the case
+> or maybe there is a loophole somewhere.
+
+There's probably also some miss-understanding at my end, I don't get how
+the ppm_lock would protext from non atomic async_control()/clear_bit().
+
+Let me share some trace here, I hope it can better show the difference
+at my end when I get the race.
+I've added some debug prints around these lines, to trace the set/clear
+of the COMMAND/ACK_PENDING, main commands and cci flags.
+
+normal case is:
+---
+ucsi_send_command_common: UCSI_SET_UOR
+set:COMMAND_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
+clr:COMMAND_PENDING
+ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE UCSI_ACK_CONNECTOR_CHANGE
+set:ACK_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
+clr:ACK_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: ucsi_connector_change
+ucsi_send_command_common: UCSI_GET_CONNECTOR_STATUS
+set:COMMAND_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
+clr:COMMAND_PENDING
+ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE
+set:ACK_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
+clr:ACK_PENDING
+
+racy case:
+---
+ucsi_send_command_common: UCSI_SET_UOR
+set:COMMAND_PENDING
+ucsi_stm32g0_irq_handler
+ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
+clr:COMMAND_PENDING
+ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE UCSI_ACK_CONNECTOR_CHANGE
+set:ACK_PENDING
+ucsi_stm32g0_irq_handler              <-- up to here nothing supicious
+ucsi_notify_common: ucsi_connector_change
+ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
+ucsi_stm32g0_irq_handler              <-- 2nd IRQ before clr:ACK_PENDING
+ucsi_notify_common: ucsi_connector_change
+ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
+clr:ACK_PENDING
+ucsi_send_command_common: UCSI_GET_CONNECTOR_STATUS
+set:COMMAND_PENDING                   <-- completion already done :-(
+clr:COMMAND_PENDING
+ucsi_handle_connector_change: GET_CONNECTOR_STATUS failed (-5)
+
+I notice the two conditions are met above: both ucsi_connector_change()
+and cci ack completed.
+
+This happens before clear_bit(ACK_PENDING), which lead to anticipate
+completion of the subsequent UCSI_GET_CONNECTOR_STATUS command.
+
+So the test_and_clear_bit() would address a robustness case?
+
+Please advise,
+Best Regards,
+Fabrice
+
+> 
+>> This is where the test_and_clear_bit() atomic operation helps, to avoid
+>> non atomic operation:
+>>
+>> -> async_control(UCSI_ACK_CC_CI)
+>> new interrupt may occur here
+>> -> clear_bit(ACK_PENDING)
+>>
+>>>
+>>>>
+>>>> https://lore.kernel.org/linux-usb/20240612124656.2305603-1-fabrice.gasnier@foss.st.com/
+>>>>
+>>>>> +}
+>>>>> +EXPORT_SYMBOL_GPL(ucsi_notify_common);
+>>>>> +
+>>>>> +int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
+>>>>> +{
+>>>>> +   bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
+>>>>> +   int ret;
+>>>>> +
+>>>>> +   if (ack)
+>>>>> +           set_bit(ACK_PENDING, &ucsi->flags);
+>>>>> +   else
+>>>>> +           set_bit(COMMAND_PENDING, &ucsi->flags);
+>>>>> +
+>>>>> +   ret = ucsi->ops->async_control(ucsi, command);
+>>>>> +   if (ret)
+>>>>> +           goto out_clear_bit;
+>>>>> +
+>>>>> +   if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
+>>>>> +           ret = -ETIMEDOUT;
+>>>>
+>>>> With test_and_clear_bit(), could return 0, in case of success here.
+>>>
+>>> Oh, I see. So your code returns earlier. I have a feeling that this
+>>> approach is less logical and slightly harder to follow.
+>>
+>> By reading your proposal bellow, I'd agree with you.
+>>>
+>>> Maybe it's easier if it is implemented as:
+>>>
+>>> if (wait_for_completion_timeout(...))
+>>>       return 0;
+>>
+>> Yes, sounds good to me.
+>>
+>>>
+>>> if (ack)
+>>>       clear_bit(ACK_PENDING)
+>>> else
+>>>       clear_bit(COMMAND_PENDING)
+>>>
+>>> return -ETIMEDOUT;
+>>>
+>>>
+>>> OR
+>>>
+>>> if (!wait_for_completion_timeout(...)) {
+>>>       if (ack)
+>>>               clear_bit(ACK_PENDING)
+>>>       else
+>>>               clear_bit(COMMAND_PENDING)
+>>>
+>>>       return -ETIMEDOUT;
+>>> }
+>>
+>> Both seems fine.
+>>
+>> Please advise,
+>> BR,
+>> Fabrice
+>>
+>>>
+>>> return 0;
+>>>
+>>> But really, unless there is an actual issue with the current code, I'd
+>>> prefer to keep it. It makes it clear that the bits are set and then are
+>>> cleared properly.
+>>>
+>>>> I'd suggest to use similar approach here, unless you see some drawback?
+>>>>
+>>>> Best Regards,
+>>>> Fabrice
+>>>>
+>>>>> +
+>>>>> +out_clear_bit:
+>>>>> +   if (ack)
+>>>>> +           clear_bit(ACK_PENDING, &ucsi->flags);
+>>>>> +   else
+>>>>> +           clear_bit(COMMAND_PENDING, &ucsi->flags);
+>>>>> +
+>>>>> +   return ret;
+>>>>> +}
+>>>>> +EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
+>>>>> +
+>>>>>  static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
+>>>>>  {
+>>>>>     u64 ctrl;
+>>>>> @@ -1883,6 +1925,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
+>>>>>     INIT_WORK(&ucsi->resume_work, ucsi_resume_work);
+>>>>>     INIT_DELAYED_WORK(&ucsi->work, ucsi_init_work);
+>>>>>     mutex_init(&ucsi->ppm_lock);
+>>>>> +   init_completion(&ucsi->complete);
+>>>>>     ucsi->dev = dev;
+>>>>>     ucsi->ops = ops;
+>>>>
+>>>> [snip]
+>>>>
+>>>>>     ucsi->ucsi = ucsi_create(dev, &pmic_glink_ucsi_ops);
+>>>>> diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+>>>>> index 14737ca3724c..d948c3f579e1 100644
+>>>>> --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+>>>>> +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
+>>>>> @@ -61,11 +61,7 @@ struct ucsi_stm32g0 {
+>>>>
+>>>> [snip]
+>>>>
+>>>>> -
+>>>>> -   ret = ucsi_stm32g0_async_control(ucsi, command);
+>>>>> -   if (ret)
+>>>>> -           goto out_clear_bit;
+>>>>> -
+>>>>> -   if (!wait_for_completion_timeout(&g0->complete, msecs_to_jiffies(5000)))
+>>>>> -           ret = -ETIMEDOUT;
+>>>>> -   else
+>>>>> -           return 0;
+>>>>> -
+>>>>> -out_clear_bit:
+>>>>> -   if (ack)
+>>>>> -           clear_bit(ACK_PENDING, &g0->flags);
+>>>>> -   else
+>>>>> -           clear_bit(COMMAND_PENDING, &g0->flags);
+>>>>> -
+>>>>> -   return ret;
+>>>>> -}
+>>>>> -
+>>>>>  static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
+>>>>>  {
+>>>>>     struct ucsi_stm32g0 *g0 = data;
+>>>>> @@ -449,13 +416,7 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
+>>>>>     if (ret)
+>>>>>             return IRQ_NONE;
+>>>>>
+>>>>> -   if (UCSI_CCI_CONNECTOR(cci))
+>>>>> -           ucsi_connector_change(g0->ucsi, UCSI_CCI_CONNECTOR(cci));
+>>>>> -
+>>>>> -   if (cci & UCSI_CCI_ACK_COMPLETE && test_and_clear_bit(ACK_PENDING, &g0->flags))
+>>>>> -           complete(&g0->complete);
+>>>>> -   if (cci & UCSI_CCI_COMMAND_COMPLETE && test_and_clear_bit(COMMAND_PENDING, &g0->flags))
+>>>>> -           complete(&g0->complete);
+>>>>> +   ucsi_notify_common(g0->ucsi, cci);
+>>>>
+>>>> I can see the fix "test_and_clear_bit()" sent earlier is removed from here.
+>>>>
+>>>> I'd suggest to use similar approach as here, unless you see some drawback?
+>>>>
+>>>> Please advise,
+>>>> Best Regards,
+>>>> Fabrice
+>>>
+> 
+> 
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
