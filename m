@@ -2,77 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A5E91AD2E
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 18:50:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD71791AD67
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 19:07:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E86CC71280;
-	Thu, 27 Jun 2024 16:50:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA25EC6B460
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A087C71280;
+	Thu, 27 Jun 2024 17:07:35 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05211C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 16:50:16 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45RCt2c0027601;
- Thu, 27 Jun 2024 18:50:01 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- VP2bD61+z+J6l3jmGgfZzieeOpJ8ufLGwpCo2aUvUKw=; b=s/+/L4Ce7GFaX/iW
- EdvdrcseBtYae6hrx+yjqXPwHnNr0q09mzM99UklISDgPv6Kk/NH/Kh81WJ73wXY
- zfSlG2NBjR1lN6sTFeBXLyzBvxizX4WIdEkSfiMGyxae3nGi0Ibb82qZtJhYqI/p
- /pe7g3kVTalTbmBEwxYEMM1YzQyZIJ2I3nOgKoT2wZQkYSL1zpuZ/I0bzxl0cTsf
- ev09QWZxuRx4PuJZJ+aQyp/NT6Ga02W/cuaEXmzvUPTVNzA6CivysFacAYzV+fBR
- 28lFmdhcD3pR9Iunu7LbtJ32omoq9A7WxHGAQcPBf7FGLkdmOkpZ+9SIq74RPuWK
- 5pqXTg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ywngdp335-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jun 2024 18:50:00 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 00EDE4002D;
- Thu, 27 Jun 2024 18:49:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D1669226FA3;
- Thu, 27 Jun 2024 18:49:03 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
- 2024 18:49:03 +0200
-Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 27 Jun
- 2024 18:49:02 +0200
-Message-ID: <1ed93216-9445-4b31-85cf-5b7f35ee91c2@foss.st.com>
-Date: Thu, 27 Jun 2024 18:49:02 +0200
+ Thu, 27 Jun 2024 17:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1719508048;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qIxdFP2i4FT3D9Pm46UxMYOadfBkfMsZfXfJZXYueno=;
+ b=U84ZcfOeyyxkWr9Wv9fq6ZJpGsjEdFDZSTwA8FGhf62c1gvjD4IkMqijDm3mnT+ITnxYUQ
+ ghNUrhypc1Uzg0mHz+4mgVCAjMAkAlXRasfqjQhI2H7VnKuN8Owkf/T6Cs8uxInVCg1Ch+
+ ZmOxCSWT556tciLBS4lD33WD37qqbZE=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-216-chP15rQZOFG5R0lnpUonFg-1; Thu, 27 Jun 2024 13:07:26 -0400
+X-MC-Unique: chP15rQZOFG5R0lnpUonFg-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-79d58cde65eso267655885a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Jun 2024 10:07:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719508046; x=1720112846;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qIxdFP2i4FT3D9Pm46UxMYOadfBkfMsZfXfJZXYueno=;
+ b=jikXHPi4l2nHICpUnhZtureRtqhzMHBi8qS2n/GIfEIy/ecVS9L+TDn2tPbNtEZ1gQ
+ BEIsO0dphdWU3LiiQ89lek4z0eRPVuFn3YoBXjrE2bbgUw2aUVM8wEKyQ+CEMKRYefmI
+ tRnWPKj6qKw9TWrnE/DvwFj/9ZOwmoZRAkHjA3GpIlnw/KYgSVdzcyPLc4RN/Z1D+PUe
+ z3aIs9zxTyv58ad+yeee6M9MXbkKKgoEMdc6eudcH0Oo1I8wDJL/xyk+ttrM8H/RJuuq
+ LUiptgriJKXBHHKCoTtOlqJ+Aurt1pQ4qPR6/ckf0R/KNmBFI6Be0h+EgekrrJjK3Ign
+ fycw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5G0oi16iZd9nn8FBgBkeNOuXqhaST4T29P5v7RjVD8hblSpVsVWjoKtPZsytUvWPi4/HJdYM2Py6Wp2zCrISeRurl/PGDy+ogf1mFKHlMzN29bNr95lTu
+X-Gm-Message-State: AOJu0YxkZUbVZqilFxpolLaXN/JrSu2CwwukbBEGE+JWchzJsXG74gk1
+ YOewNzJD9Ii19Cm068nzOyNrV+WMofY5jo0DRSc1HXdPKO7VeY31li/O8cSSP/1pvIWxD/N02FK
+ OhgjTF0Rhc3nNsRDUM8PmVrRPY3g5MprhjOLTYKExiQf2haThqlUts9XX/X4ciE+eaL2KSXz6nW
+ k1dg==
+X-Received: by 2002:a05:620a:394c:b0:79b:eb0f:7781 with SMTP id
+ af79cd13be357-79beb0f7ec3mr1437499785a.53.1719508046048; 
+ Thu, 27 Jun 2024 10:07:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGg/oiENJqDup3/M9UZYUuyNol+/22Ovf586SY/3tWxk/8vPIZ1xZuirsW0Zy9NbkOXr7WPng==
+X-Received: by 2002:a05:620a:394c:b0:79b:eb0f:7781 with SMTP id
+ af79cd13be357-79beb0f7ec3mr1437493585a.53.1719508045405; 
+ Thu, 27 Jun 2024 10:07:25 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::f])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d5c8117e0sm72061285a.52.2024.06.27.10.07.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jun 2024 10:07:25 -0700 (PDT)
+Date: Thu, 27 Jun 2024 12:07:22 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <td5jbseo7gtu6d4xai6q2zkfmxw4ijimyiromrf52he5hze3w3@fd3kayixf4lw>
+References: <20240627113948.25358-1-brgl@bgdev.pl>
+ <20240627113948.25358-3-brgl@bgdev.pl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20240621-ucsi-rework-interface-v2-0-a399ff96bf88@linaro.org>
- <20240621-ucsi-rework-interface-v2-6-a399ff96bf88@linaro.org>
- <160e7af5-29c8-49a6-ae4f-dbfc3dd608c1@foss.st.com>
- <k2q7g6ka34o2vgoy5s64nwixqa6qjaok72fuxgircwseyn2k7z@pm56aurq42n6>
- <3869dcd0-9936-4712-b7ad-3c66cbe4828a@foss.st.com>
- <CAA8EJpqEYRFOZbN55Eh0SisnR1HQ0iseA1L+1n0QxOrspsmLuQ@mail.gmail.com>
-Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <CAA8EJpqEYRFOZbN55Eh0SisnR1HQ0iseA1L+1n0QxOrspsmLuQ@mail.gmail.com>
-X-Originating-IP: [10.48.86.222]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-27_12,2024-06-27_03,2024-05-17_01
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nikita Travkin <nikita@trvn.ru>, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <20240627113948.25358-3-brgl@bgdev.pl>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 6/7] usb: typec: ucsi: extract common
- code for command handling
+Subject: Re: [Linux-stm32] [PATCH v2 net-next 2/2] net: stmmac: qcom-ethqos:
+ add a DMA-reset quirk for sa8775p-ride
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,318 +96,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/27/24 17:58, Dmitry Baryshkov wrote:
-> On Thu, 27 Jun 2024 at 18:51, Fabrice Gasnier
-> <fabrice.gasnier@foss.st.com> wrote:
->>
->> On 6/25/24 18:49, Dmitry Baryshkov wrote:
->>> On Tue, Jun 25, 2024 at 05:24:54PM GMT, Fabrice Gasnier wrote:
->>>> On 6/21/24 00:55, Dmitry Baryshkov wrote:
->>>>> Extract common functions to handle command sending and to handle events
->>>>> from UCSI. This ensures that all UCSI glue drivers handle the ACKs in
->>>>> the same way.
->>>>>
->>>>> The CCG driver used DEV_CMD_PENDING both for internal
->>>>> firmware-related commands and for UCSI control handling. Leave the
->>>>> former use case intact.
->>>>>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>  drivers/usb/typec/ucsi/ucsi.c           | 43 +++++++++++++++++++++++++++
->>>>>  drivers/usb/typec/ucsi/ucsi.h           |  7 +++++
->>>>>  drivers/usb/typec/ucsi/ucsi_acpi.c      | 46 ++---------------------------
->>>>>  drivers/usb/typec/ucsi/ucsi_ccg.c       | 21 ++-----------
->>>>>  drivers/usb/typec/ucsi/ucsi_glink.c     | 47 ++---------------------------
->>>>>  drivers/usb/typec/ucsi/ucsi_stm32g0.c   | 44 ++--------------------------
->>>>>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 52 ++-------------------------------
->>>>>  7 files changed, 62 insertions(+), 198 deletions(-)
->>>>>
->>>>> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
->>>>> index 4ba22323dbf9..691ee0c4ef87 100644
->>>>> --- a/drivers/usb/typec/ucsi/ucsi.c
->>>>> +++ b/drivers/usb/typec/ucsi/ucsi.c
->>>>> @@ -36,6 +36,48 @@
->>>>>   */
->>>>>  #define UCSI_SWAP_TIMEOUT_MS       5000
->>>>>
->>>>> +void ucsi_notify_common(struct ucsi *ucsi, u32 cci)
->>>>> +{
->>>>> +   if (UCSI_CCI_CONNECTOR(cci))
->>>>> +           ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
->>>>> +
->>>>> +   if (cci & UCSI_CCI_ACK_COMPLETE &&
->>>>> +       test_bit(ACK_PENDING, &ucsi->flags))
->>>>> +           complete(&ucsi->complete);
->>>>> +
->>>>> +   if (cci & UCSI_CCI_COMMAND_COMPLETE &&
->>>>> +       test_bit(COMMAND_PENDING, &ucsi->flags))
->>>>> +           complete(&ucsi->complete);
->>>>
->>>> Hi Dmitry,
->>>>
->>>> I've recently faced some race with ucsi_stm32g0 driver, and have sent a
->>>> fix for it [1], as you've noticed in the cover letter.
->>>>
->>>> To fix that, I've used test_and_clear_bit() in above two cases, instead
->>>> of test_bit().
->>>
->>> Could you possible describe, why do you need test_and_clear_bit()
->>> instead of just test_bit()? The bits are cleared at the end of the
->>> .sync_write(), also there can be no other command (or ACK_CC) submission
->>> before this one is fully processed.
->>
->> Hi Dmitry,
->>
->> It took me some time to reproduce this race I observed earlier.
->> (I observe this during DR swap.)
->>
->> Once the ->async_control(UCSI_ACK_CC_CI) call bellow gets completed, and
->> before the ACK_PENDING bit gets cleared, e.g. clear_bit(ACK_PENDING), I
->> get an asynchronous interrupt.
->>
->> Basically, Then the above complete() gets called (due to
->> UCSI_CCI_ACK_COMPLETE & ACK_PENDING).
->>
->> Subsequent UCSI_GET_CONNECTOR_STATUS command (from
->> ucsi_handle_connector_change) will be unblocked immediately due to
->> complete() call has already happen, without UCSI_CCI_COMMAND_COMPLETE
->> cci flag, hence returning -EIO.
+On Thu, Jun 27, 2024 at 01:39:47PM GMT, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> But the ACK_CI is being sent as a response to a command. This means
-> that the ppm_lock should be locked. The UCSI_GET_CONNECTOR_STATUS
-> command should wait for ppm_lock to be freed and only then it can
-> proceed with sending the command. Maybe I'm misunderstanding the case
-> or maybe there is a loophole somewhere.
-
-There's probably also some miss-understanding at my end, I don't get how
-the ppm_lock would protext from non atomic async_control()/clear_bit().
-
-Let me share some trace here, I hope it can better show the difference
-at my end when I get the race.
-I've added some debug prints around these lines, to trace the set/clear
-of the COMMAND/ACK_PENDING, main commands and cci flags.
-
-normal case is:
----
-ucsi_send_command_common: UCSI_SET_UOR
-set:COMMAND_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
-clr:COMMAND_PENDING
-ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE UCSI_ACK_CONNECTOR_CHANGE
-set:ACK_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
-clr:ACK_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: ucsi_connector_change
-ucsi_send_command_common: UCSI_GET_CONNECTOR_STATUS
-set:COMMAND_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
-clr:COMMAND_PENDING
-ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE
-set:ACK_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
-clr:ACK_PENDING
-
-racy case:
----
-ucsi_send_command_common: UCSI_SET_UOR
-set:COMMAND_PENDING
-ucsi_stm32g0_irq_handler
-ucsi_notify_common: UCSI_CCI_COMMAND_COMPLETE
-clr:COMMAND_PENDING
-ucsi_acknowledge: UCSI_ACK_COMMAND_COMPLETE UCSI_ACK_CONNECTOR_CHANGE
-set:ACK_PENDING
-ucsi_stm32g0_irq_handler              <-- up to here nothing supicious
-ucsi_notify_common: ucsi_connector_change
-ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
-ucsi_stm32g0_irq_handler              <-- 2nd IRQ before clr:ACK_PENDING
-ucsi_notify_common: ucsi_connector_change
-ucsi_notify_common: UCSI_CCI_ACK_COMPLETE
-clr:ACK_PENDING
-ucsi_send_command_common: UCSI_GET_CONNECTOR_STATUS
-set:COMMAND_PENDING                   <-- completion already done :-(
-clr:COMMAND_PENDING
-ucsi_handle_connector_change: GET_CONNECTOR_STATUS failed (-5)
-
-I notice the two conditions are met above: both ucsi_connector_change()
-and cci ack completed.
-
-This happens before clear_bit(ACK_PENDING), which lead to anticipate
-completion of the subsequent UCSI_GET_CONNECTOR_STATUS command.
-
-So the test_and_clear_bit() would address a robustness case?
-
-Please advise,
-Best Regards,
-Fabrice
-
+> On sa8775p-ride the RX clocks from the AQR115C PHY are not available at
+> the time of the DMA reset so we need to loop TX clocks to RX and then
+> disable loopback after link-up. Use the existing callbacks to do it just
+> for this board.
 > 
->> This is where the test_and_clear_bit() atomic operation helps, to avoid
->> non atomic operation:
->>
->> -> async_control(UCSI_ACK_CC_CI)
->> new interrupt may occur here
->> -> clear_bit(ACK_PENDING)
->>
->>>
->>>>
->>>> https://lore.kernel.org/linux-usb/20240612124656.2305603-1-fabrice.gasnier@foss.st.com/
->>>>
->>>>> +}
->>>>> +EXPORT_SYMBOL_GPL(ucsi_notify_common);
->>>>> +
->>>>> +int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
->>>>> +{
->>>>> +   bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
->>>>> +   int ret;
->>>>> +
->>>>> +   if (ack)
->>>>> +           set_bit(ACK_PENDING, &ucsi->flags);
->>>>> +   else
->>>>> +           set_bit(COMMAND_PENDING, &ucsi->flags);
->>>>> +
->>>>> +   ret = ucsi->ops->async_control(ucsi, command);
->>>>> +   if (ret)
->>>>> +           goto out_clear_bit;
->>>>> +
->>>>> +   if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
->>>>> +           ret = -ETIMEDOUT;
->>>>
->>>> With test_and_clear_bit(), could return 0, in case of success here.
->>>
->>> Oh, I see. So your code returns earlier. I have a feeling that this
->>> approach is less logical and slightly harder to follow.
->>
->> By reading your proposal bellow, I'd agree with you.
->>>
->>> Maybe it's easier if it is implemented as:
->>>
->>> if (wait_for_completion_timeout(...))
->>>       return 0;
->>
->> Yes, sounds good to me.
->>
->>>
->>> if (ack)
->>>       clear_bit(ACK_PENDING)
->>> else
->>>       clear_bit(COMMAND_PENDING)
->>>
->>> return -ETIMEDOUT;
->>>
->>>
->>> OR
->>>
->>> if (!wait_for_completion_timeout(...)) {
->>>       if (ack)
->>>               clear_bit(ACK_PENDING)
->>>       else
->>>               clear_bit(COMMAND_PENDING)
->>>
->>>       return -ETIMEDOUT;
->>> }
->>
->> Both seems fine.
->>
->> Please advise,
->> BR,
->> Fabrice
->>
->>>
->>> return 0;
->>>
->>> But really, unless there is an actual issue with the current code, I'd
->>> prefer to keep it. It makes it clear that the bits are set and then are
->>> cleared properly.
->>>
->>>> I'd suggest to use similar approach here, unless you see some drawback?
->>>>
->>>> Best Regards,
->>>> Fabrice
->>>>
->>>>> +
->>>>> +out_clear_bit:
->>>>> +   if (ack)
->>>>> +           clear_bit(ACK_PENDING, &ucsi->flags);
->>>>> +   else
->>>>> +           clear_bit(COMMAND_PENDING, &ucsi->flags);
->>>>> +
->>>>> +   return ret;
->>>>> +}
->>>>> +EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
->>>>> +
->>>>>  static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
->>>>>  {
->>>>>     u64 ctrl;
->>>>> @@ -1883,6 +1925,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
->>>>>     INIT_WORK(&ucsi->resume_work, ucsi_resume_work);
->>>>>     INIT_DELAYED_WORK(&ucsi->work, ucsi_init_work);
->>>>>     mutex_init(&ucsi->ppm_lock);
->>>>> +   init_completion(&ucsi->complete);
->>>>>     ucsi->dev = dev;
->>>>>     ucsi->ops = ops;
->>>>
->>>> [snip]
->>>>
->>>>>     ucsi->ucsi = ucsi_create(dev, &pmic_glink_ucsi_ops);
->>>>> diff --git a/drivers/usb/typec/ucsi/ucsi_stm32g0.c b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
->>>>> index 14737ca3724c..d948c3f579e1 100644
->>>>> --- a/drivers/usb/typec/ucsi/ucsi_stm32g0.c
->>>>> +++ b/drivers/usb/typec/ucsi/ucsi_stm32g0.c
->>>>> @@ -61,11 +61,7 @@ struct ucsi_stm32g0 {
->>>>
->>>> [snip]
->>>>
->>>>> -
->>>>> -   ret = ucsi_stm32g0_async_control(ucsi, command);
->>>>> -   if (ret)
->>>>> -           goto out_clear_bit;
->>>>> -
->>>>> -   if (!wait_for_completion_timeout(&g0->complete, msecs_to_jiffies(5000)))
->>>>> -           ret = -ETIMEDOUT;
->>>>> -   else
->>>>> -           return 0;
->>>>> -
->>>>> -out_clear_bit:
->>>>> -   if (ack)
->>>>> -           clear_bit(ACK_PENDING, &g0->flags);
->>>>> -   else
->>>>> -           clear_bit(COMMAND_PENDING, &g0->flags);
->>>>> -
->>>>> -   return ret;
->>>>> -}
->>>>> -
->>>>>  static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
->>>>>  {
->>>>>     struct ucsi_stm32g0 *g0 = data;
->>>>> @@ -449,13 +416,7 @@ static irqreturn_t ucsi_stm32g0_irq_handler(int irq, void *data)
->>>>>     if (ret)
->>>>>             return IRQ_NONE;
->>>>>
->>>>> -   if (UCSI_CCI_CONNECTOR(cci))
->>>>> -           ucsi_connector_change(g0->ucsi, UCSI_CCI_CONNECTOR(cci));
->>>>> -
->>>>> -   if (cci & UCSI_CCI_ACK_COMPLETE && test_and_clear_bit(ACK_PENDING, &g0->flags))
->>>>> -           complete(&g0->complete);
->>>>> -   if (cci & UCSI_CCI_COMMAND_COMPLETE && test_and_clear_bit(COMMAND_PENDING, &g0->flags))
->>>>> -           complete(&g0->complete);
->>>>> +   ucsi_notify_common(g0->ucsi, cci);
->>>>
->>>> I can see the fix "test_and_clear_bit()" sent earlier is removed from here.
->>>>
->>>> I'd suggest to use similar approach as here, unless you see some drawback?
->>>>
->>>> Please advise,
->>>> Best Regards,
->>>> Fabrice
->>>
-> 
-> 
-> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+
+Sorry, not being very helpful but trying to understand these changes
+and the general cleanup of stmmac... so I'll point out that I'm still
+confused by this based on Russell's last response:
+https://lore.kernel.org/netdev/ZnQLED%2FC3Opeim5q@shell.armlinux.org.uk/
+
+Quote:
+
+    If you're using true Cisco SGMII, there are _no_ clocks transferred
+    between the PHY and PCS/MAC. There are two balanced pairs of data
+    lines and that is all - one for transmit and one for receive. So this
+    explanation doesn't make sense to me.
+
+
+<snip>
+
+> +}
+> +
+>  static void ethqos_set_func_clk_en(struct qcom_ethqos *ethqos)
+>  {
+> +	qcom_ethqos_set_sgmii_loopback(ethqos, true);
+>  	rgmii_updatel(ethqos, RGMII_CONFIG_FUNC_CLK_EN,
+>  		      RGMII_CONFIG_FUNC_CLK_EN, RGMII_IO_MACRO_CONFIG);
+>  }
+<snip>
+> @@ -682,6 +702,7 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed, unsigned int mo
+>  {
+>  	struct qcom_ethqos *ethqos = priv;
+>  
+> +	qcom_ethqos_set_sgmii_loopback(ethqos, false);
+
+I'm trying to map out when the loopback is currently enabled/disabled
+due to Russell's prior concerns.
+
+Quote:
+
+    So you enable loopback at open time, and disable it when the link comes
+    up. This breaks inband signalling (should stmmac ever use that) because
+    enabling loopback prevents the PHY sending the SGMII result to the PCS
+    to indicate that the link has come up... thus phylink won't call
+    mac_link_up().
+
+    So no, I really hate this proposed change.
+
+    What I think would be better is if there were hooks at the appropriate
+    places to handle the lack of clock over _just_ the period that it needs
+    to be handled, rather than hacking the driver as this proposal does,
+    abusing platform callbacks because there's nothing better.
+
+looks like currently you'd:
+    qcom_ethqos_probe()
+	ethqos_clks_config(ethqos, true)
+	    ethqos_set_func_clk_en(ethqos)
+		qcom_ethqos_set_sgmii_loopback(ethqos, true) // loopback enabled
+	ethqos_set_func_clk_en(ethqos)
+	    qcom_ethqos_set_sgmii_loopback(ethqos, true) // no change in loopback
+    devm_stmmac_pltfr_probe()
+	stmmac_pltfr_probe()
+	    stmmac_drv_probe()
+		pm_runtime_put()
+    // Eventually runtime PM will then do below
+    stmmac_stmmac_runtime_suspend()
+	stmmac_bus_clks_config(priv, false)
+	    ethqos_clks_config(ethqos, false) // pointless branch but proving to myself
+	                                      // that pm_runtime isn't getting in the way here
+    __stmmac_open()
+	stmmac_runtime_resume()
+	    ethqos_clks_config(ethqos, true)
+		ethqos_set_func_clk_en(ethqos)
+		    qcom_ethqos_set_sgmii_loopback(ethqos, true) // no change in loopback
+    stmmac_mac_link_up()
+	ethqos_fix_mac_speed()
+	    qcom_ethqos_set_sgmii_loopback(ethqos, false); // loopback disabled
+
+Good chance I foobared tracing that... but!
+That seems to still go against Russell's comment, i.e. its on at probe
+and remains on until a link is up. This doesn't add anymore stmmac wide
+platform callbacks at least, but I'm still concerned based on his prior
+comments.
+
+Its not clear to me though if the "2500basex" mentioned here supports
+any in-band signalling from a Qualcomm SoC POV (not just the Aquantia
+phy its attached to, but in general). So maybe in that case its not a
+concern?
+
+Although, this isn't tied to _just_ 2500basex here. If I boot the
+sa8775p-ride (r2 version, with a marvell 88ea1512 phy attached via
+sgmii, not indicating 2500basex) wouldn't all this get exercised? Right
+now the devicetree doesn't indicate inband signalling, but I tried that
+over here with Russell's clean up a week or two ago and things at least
+came up ok (which made me think all the INTEGRATED_PCS stuff wasn't needed,
+and I'm not totally positive my test proved inband signalling worked,
+but I thought it did...):
+
+    https://lore.kernel.org/netdev/zzevmhmwxrhs5yfv5srvcjxrue2d7wu7vjqmmoyd5mp6kgur54@jvmuv7bxxhqt/
+
+based on Russell's comments, I feel if I was to use his series over
+there, add 'managed = "in-band-status"' to the dts, and then apply this
+series, the link would not come up anymore.
+
+Total side note, but I'm wondering if the sa8775p-ride dts should
+specify 'managed = "in-band-status"'.
+
+Thanks,
+Andrew
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
