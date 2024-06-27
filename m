@@ -2,90 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE96919BE0
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 02:42:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4580D919DBA
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 05:10:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED0A2C6DD9F;
-	Thu, 27 Jun 2024 00:42:26 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5E99C6B460;
+	Thu, 27 Jun 2024 03:10:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B707CC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5287C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 00:42:21 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-52cd628f21cso6695792e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2024 17:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1719448941; x=1720053741;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wGa0V/+q1PY+8AtdQff4+HTCc2sbpBqj/v0lwdLsGCU=;
- b=B64dNZjEKo4NoFr8MoW63rruQ6LM+wWw7+wJcblEdrLaD+GnQnVPfAr2U1AntqTzTq
- Z0W8pYdgCV///+e4QG59vVuFxEInhNAhOQKn/o5OK59x1HZlUESR6bQ4QUHaJg3KhUuZ
- 8GU+P2hUsyj582fTjgu6n8DyEezKMgmh1pJHp0Yysck8a5jURwg3gsLk6ZroULFdcl7Q
- wMZ2EQk6XgzO0VQ7hPhbNnIfdIeiPak6aSn8t5H+qxVwUisEAj8bV39ODWB6LKgZZv4E
- +ON3OzV1ZsvKgsjHQbJdjQr01VVs1dPNwYh4sYOPSe0Sxeb/ZeNQIguEC9a3a2b3LhPp
- GJHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719448941; x=1720053741;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wGa0V/+q1PY+8AtdQff4+HTCc2sbpBqj/v0lwdLsGCU=;
- b=bjzExK/84gSsgygWoNclnKUFD6eKT5nSBgDkkVWXzQsiyTbeefgIwI1/oRo1S7KGvI
- WybvITLlBfWhbT36eQX5gJj2wKPerOiymahQoM03tw8NvtS2Jl6biUhS48r2aGEXWvg2
- 2elJsH2uZHnkXkB0gfSHBa1L2xlw9q5wRNKN9unqFo6jtKbOPZFK/8rdPF/Frvc4uvEl
- B3btxBvgCt+T9IwrcRLjDC1GVME+fpzPkL+fO5QX77u4CvUIphEo3aMgjLXeyKA72/Fy
- H3J0M78Jd/rmJ0LkEOp2dQrN1lNSCe+5hfdMo54MbwD6+mYkYwcPUK2LtQ3kf4Vex2dU
- Xjwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXapP9s0PPvYzD87v3W/GzlZctkXcvczi4lBVMoJYkDIydKIIEl5lFqJ+gkQFFX9GC0ZaXpWJt1j1iVLJkdul+Cvz8NACPquSXqSabJ7fHGJVv46WxTd+eq
-X-Gm-Message-State: AOJu0YwKts/yVi1DDDijf+LgjGLGSsO1kOIGbLUHVsvQL4Z19+UHDXg4
- 5j4s+l3cs8yyEnLWbbe9teLYDnB5LvviKFDk3OTkHXGOfF+HQ++9
-X-Google-Smtp-Source: AGHT+IHkActpZTtjsuzyiNyp+unFcBPGmpORKiX6h3v1xsvn9qGifn4FXEoGGX308UY64dnWHiAHzA==
-X-Received: by 2002:ac2:46ee:0:b0:52c:dc25:d706 with SMTP id
- 2adb3069b0e04-52ce185ec9emr6605174e87.52.1719448940728; 
- Wed, 26 Jun 2024 17:42:20 -0700 (PDT)
-Received: from localhost ([89.113.147.248]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52e7131ec55sm18792e87.231.2024.06.26.17.42.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jun 2024 17:42:20 -0700 (PDT)
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Vladimir Oltean <olteanv@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 27 Jun 2024 03:41:30 +0300
-Message-ID: <20240627004142.8106-11-fancer.lancer@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240627004142.8106-1-fancer.lancer@gmail.com>
-References: <20240627004142.8106-1-fancer.lancer@gmail.com>
+ Thu, 27 Jun 2024 03:10:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1719457852; x=1750993852;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Iv0TX8+ql2MOey4aAWUSVCb5ilQa09SBI4ZV3oNClBY=;
+ b=IOm4QFyUdzu6VZ7gecDHKG+fsOJu581KX+3xx6CnOqmEzUkuPwdhHE3W
+ oSOHsM+E8y2rxBtInPraEGbO7jSjizcLkKn+5pnnKVPt3zEQALtbt6lmW
+ hXEARoXCmxUDXoYFNVI7fySA7K1PsR8T/F9zi68CAuErcilgO5K8mzp6O
+ LRwbCeUPcWW9MTtay96g1f+zis6aOTsMOidyzYSQJkKvCGMMGwnFMDz8j
+ keo4YG9dZwsavab2IQ6Xx6qTZURjBoC7ShLD2GROacPR7XAapAe4G7vWd
+ rA/IXi/Y4zplLhFxV6GhWyxK5ig3W+51gYSSzuCgiorgBWVSoyx8eh5Tp Q==;
+X-CSE-ConnectionGUID: Slgr8r0zSRanQrduVwOeRw==
+X-CSE-MsgGUID: 6Jm2kGmNT3Wr950lngaQoA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11115"; a="16307514"
+X-IronPort-AV: E=Sophos;i="6.08,268,1712646000"; d="scan'208";a="16307514"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2024 20:10:39 -0700
+X-CSE-ConnectionGUID: m3UuDaYvRimU1gdCXbFVrA==
+X-CSE-MsgGUID: iErufESYQA2i2oCOOH8X2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,268,1712646000"; d="scan'208";a="44288214"
+Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 26 Jun 2024 20:10:36 -0700
+Received: from kbuild by 68891e0c336b with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sMfWs-000Fp4-1y;
+ Thu, 27 Jun 2024 03:10:34 +0000
+Date: Thu, 27 Jun 2024 11:09:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+Message-ID: <202406271050.ws9ieZOd-lkp@intel.com>
+References: <20240623195233.81550-1-marex@denx.de>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Abhishek Chauhan <quic_abchauha@quicinc.com>,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next v3 10/10] net: stmmac: Add DW XPCS
-	specified via "pcs-handle" support
+Content-Disposition: inline
+In-Reply-To: <20240623195233.81550-1-marex@denx.de>
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add ethernet support for
+ DH STM32MP13xx DHCOR DHSBC board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,63 +73,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Recently the DW XPCS DT-bindings have been introduced and the DW XPCS
-driver has been altered to support the DW XPCS registered as a platform
-device. In order to have the DW XPCS DT-device accessed from the STMMAC
-driver let's alter the STMMAC PCS-setup procedure to support the
-"pcs-handle" property containing the phandle reference to the DW XPCS
-device DT-node. The respective fwnode will be then passed to the
-xpcs_create_fwnode() function which in its turn will create the DW XPCS
-descriptor utilized in the main driver for the PCS-related setups.
+Hi Marek,
 
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index 74de6ec00bbf..03f90676b3ad 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -497,15 +497,22 @@ int stmmac_mdio_reset(struct mii_bus *bus)
- 
- int stmmac_pcs_setup(struct net_device *ndev)
- {
-+	struct fwnode_handle *devnode, *pcsnode;
- 	struct dw_xpcs *xpcs = NULL;
- 	struct stmmac_priv *priv;
- 	int addr, mode, ret;
- 
- 	priv = netdev_priv(ndev);
- 	mode = priv->plat->phy_interface;
-+	devnode = priv->plat->port_node;
- 
- 	if (priv->plat->pcs_init) {
- 		ret = priv->plat->pcs_init(priv);
-+	} else if (fwnode_property_present(devnode, "pcs-handle")) {
-+		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
-+		xpcs = xpcs_create_fwnode(pcsnode, mode);
-+		fwnode_handle_put(pcsnode);
-+		ret = PTR_ERR_OR_ZERO(xpcs);
- 	} else if (priv->plat->mdio_bus_data &&
- 		   priv->plat->mdio_bus_data->pcs_mask) {
- 		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
-@@ -515,10 +522,8 @@ int stmmac_pcs_setup(struct net_device *ndev)
- 		return 0;
- 	}
- 
--	if (ret) {
--		dev_warn(priv->device, "No xPCS found\n");
--		return ret;
--	}
-+	if (ret)
-+		return dev_err_probe(priv->device, ret, "No xPCS found\n");
- 
- 	priv->hw->xpcs = xpcs;
- 
+[auto build test ERROR on atorgue-stm32/stm32-next]
+[also build test ERROR on next-20240626]
+[cannot apply to arm/for-next arm/fixes arm64/for-next/core clk/clk-next kvmarm/next rockchip/for-next shawnguo/for-next soc/for-next linus/master v6.10-rc5]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Marek-Vasut/ARM-dts-stm32-Add-ethernet-support-for-DH-STM32MP13xx-DHCOR-DHSBC-board/20240625-233637
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20240623195233.81550-1-marex%40denx.de
+patch subject: [PATCH] ARM: dts: stm32: Add ethernet support for DH STM32MP13xx DHCOR DHSBC board
+config: arm-randconfig-051-20240626 (https://download.01.org/0day-ci/archive/20240627/202406271050.ws9ieZOd-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
+dtschema version: 2024.6.dev1+g833054f
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240627/202406271050.ws9ieZOd-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406271050.ws9ieZOd-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> Error: arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts:77.1-11 Label or path ethernet1 not found
+>> Error: arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts:104.1-11 Label or path ethernet2 not found
+   FATAL ERROR: Syntax error parsing input tree
+
 -- 
-2.43.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
