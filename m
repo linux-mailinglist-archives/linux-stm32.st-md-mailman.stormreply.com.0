@@ -2,80 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C88D491A572
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 13:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E868691A5E5
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2024 13:58:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BE4BC71289;
-	Thu, 27 Jun 2024 11:40:04 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AA38C71282;
+	Thu, 27 Jun 2024 11:58:25 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2391CC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A96AC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 11:39:58 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so86489231fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2024 04:39:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1719488398; x=1720093198;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4pg+dewGD9qJnz964kSExuGkcfdlUV33yviPPBuaIJc=;
- b=CxXmjlB3pLiCBjYCrBQ/gRLMMv+ctffda7a8AnZ3aiTEU5BMvxG7+FCTXx30FLQ96t
- pbCKEECNO4zEhfeeRhxexyOvDAI9/BgGa0IFR0J8BrXG6U7muHlsvehrrBc9x/n2JVpI
- YIV1ZzpOSMOozedtCGtJdFmV2ci7lhV+Opx0kDau51+l8LqOaKPohi42OaFy8r14ZuBj
- 8zjeBlQSDLzw8JIWicgM9svnamA46Wvi/6TcMWiUJGHpfsQ7h9qD1qVvgJVLIe2lgQ0k
- JdKIzQ9pLShiPJSMHx/KxhP/0iDwfVIH6blhN85dlVLGOK7Pf+NxXIgCOhhLwDwNbG1C
- Pzgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719488398; x=1720093198;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4pg+dewGD9qJnz964kSExuGkcfdlUV33yviPPBuaIJc=;
- b=tpudyEfnw2vwxlz3GtPrgTMhgO2iuYrgYx3e+pSi9PquD6hPrSFMO5jOwiV04Y1rhh
- 4og9tVSZrsv+MwOy0CD3ivb+xbCCatqVPqoOR69QiotvXThhfplpXTqxmUQBJVrbLQBE
- xBXcFp0xhNWQK91Ws2B0nJ+e412GxmHoiMUeq8czf0aoZS3gm0q2pN66HFDgYEvGil4o
- 3mR3tIGHFKBZmZsxh/Cc8eqdGWsD2APTM//TNIP43gNnxYQAKvwKnWgtI9EVMIBuzwDO
- /j5Rujj0KVILv7vQHazZLeXaOShg9Mfr7xK/kCABvZbMpOjcaT4s22vfkgOIAZhB6BQy
- XTOw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUEfe+ql2Ql39u//hV3JNAk5D0soIrjY9Yb18Yy0MS8Nvy0Ve9iIaDi6KyS9aXHRCYjeE1KcVu3DCe9gtTEmi1Zaa3TvCFZE1SzO0FjcSgvZ/8Wdx0d2Zf7
-X-Gm-Message-State: AOJu0Yx3lvV1TVSgR/6o3wW16WpSVprEDNSYd2U931T8R1jrQwdI5qcF
- Am7LXBekp1jzZLzQaOow/u8pS/Br2fFv4BWY9QCCtX8XUDOUH0WR1Y/bSwb40DY=
-X-Google-Smtp-Source: AGHT+IFesDthKKQJOFKJN5mrhDcAjnIOVckKhyM8WzR1KTGyuUBEn5Q3dR+OhY/YzKz0W/J5FKzIyg==
-X-Received: by 2002:a2e:7e0f:0:b0:2ec:56b9:259f with SMTP id
- 38308e7fff4ca-2ec5b3e24d7mr75758781fa.48.1719488398134; 
- Thu, 27 Jun 2024 04:39:58 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:7fe5:47e9:28c5:7f25])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-424c8468613sm62081815e9.39.2024.06.27.04.39.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jun 2024 04:39:57 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Vinod Koul <vkoul@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 27 Jun 2024 13:39:47 +0200
-Message-ID: <20240627113948.25358-3-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240627113948.25358-1-brgl@bgdev.pl>
-References: <20240627113948.25358-1-brgl@bgdev.pl>
+ Thu, 27 Jun 2024 11:58:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 74310CE2E79;
+ Thu, 27 Jun 2024 11:58:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5A7C2BBFC;
+ Thu, 27 Jun 2024 11:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719489494;
+ bh=bsdKZ7FH+cF7ZRJHnYvsPuep+j4/x6xeM+rw6kh7mwQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FdG5USaawH1QsUeF2Sr4FzLiX0rqAx4tDdwlTk9AzK6jloq7xqptYqhrGjxRElDlT
+ 3XOk1flWQWt+enajVvssDn+HSznBFmPSU1HB5JmFIehpe39aXkjFcqMUUbTHj5UmZo
+ z2KLAoZhhsSjsYVfH26Gn+G0ENYU5h1ayy5BStqW+wvqHR1GZR8Pf/cE+q7Xs5o24q
+ RXveEK68AfpH/RNHL1GEFagzD3tmwiVz0nQqGWbKNLM/Vt+gv4MDxeBFMcpoELc1uZ
+ Zx7GN9a1c7bplTCeN0k/cRNIav7QEhZipytDw7gMK3N0/eb4wFp0bpVY1BbPBuPwUK
+ t3ycuu0wcWzMA==
+Date: Thu, 27 Jun 2024 12:58:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+Message-ID: <3b262c42-30ef-4221-aeba-e6fc5d9549b9@sirena.org.uk>
+References: <20240627084917.327592-1-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
-Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 net-next 2/2] net: stmmac: qcom-ethqos: add
-	a DMA-reset quirk for sa8775p-ride
+In-Reply-To: <20240627084917.327592-1-christophe.roullier@foss.st.com>
+X-Cookie: I just had a NOSE JOB!!
+Cc: Marek Vasut <marex@denx.de>, Jose Abreu <joabreu@synopsys.com>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next,
+	PATCH 0/2] Fixes for stm32-dwmac driver fails to probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,111 +58,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0774206001986968939=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-On sa8775p-ride the RX clocks from the AQR115C PHY are not available at
-the time of the DMA reset so we need to loop TX clocks to RX and then
-disable loopback after link-up. Use the existing callbacks to do it just
-for this board.
+--===============0774206001986968939==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uyMFrReHwMXWhVba"
+Content-Disposition: inline
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 91fe57a3e59e..f4d72d75e8de 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -21,6 +21,7 @@
- #define RGMII_IO_MACRO_CONFIG2		0x1C
- #define RGMII_IO_MACRO_DEBUG1		0x20
- #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
-+#define EMAC_WRAPPER_SGMII_PHY_CNTRL1	0xf4
- 
- /* RGMII_IO_MACRO_CONFIG fields */
- #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
-@@ -79,6 +80,9 @@
- #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
- #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
- 
-+/* EMAC_WRAPPER_SGMII_PHY_CNTRL1 bits */
-+#define SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN	BIT(3)
-+
- #define SGMII_10M_RX_CLK_DVDR			0x31
- 
- struct ethqos_emac_por {
-@@ -95,6 +99,7 @@ struct ethqos_emac_driver_data {
- 	bool has_integrated_pcs;
- 	u32 dma_addr_width;
- 	struct dwmac4_addrs dwmac4_addrs;
-+	bool needs_sgmii_loopback;
- };
- 
- struct qcom_ethqos {
-@@ -114,6 +119,7 @@ struct qcom_ethqos {
- 	unsigned int num_por;
- 	bool rgmii_config_loopback_en;
- 	bool has_emac_ge_3;
-+	bool needs_sgmii_loopback;
- };
- 
- static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-@@ -191,8 +197,21 @@ ethqos_update_link_clk(struct qcom_ethqos *ethqos, unsigned int speed)
- 	clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
- }
- 
-+static void
-+qcom_ethqos_set_sgmii_loopback(struct qcom_ethqos *ethqos, bool enable)
-+{
-+	if (!ethqos->needs_sgmii_loopback)
-+		return;
-+
-+	rgmii_updatel(ethqos,
-+		      SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN,
-+		      enable ? SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN : 0,
-+		      EMAC_WRAPPER_SGMII_PHY_CNTRL1);
-+}
-+
- static void ethqos_set_func_clk_en(struct qcom_ethqos *ethqos)
- {
-+	qcom_ethqos_set_sgmii_loopback(ethqos, true);
- 	rgmii_updatel(ethqos, RGMII_CONFIG_FUNC_CLK_EN,
- 		      RGMII_CONFIG_FUNC_CLK_EN, RGMII_IO_MACRO_CONFIG);
- }
-@@ -277,6 +296,7 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
- 	.has_emac_ge_3 = true,
- 	.link_clk_name = "phyaux",
- 	.has_integrated_pcs = true,
-+	.needs_sgmii_loopback = true,
- 	.dma_addr_width = 36,
- 	.dwmac4_addrs = {
- 		.dma_chan = 0x00008100,
-@@ -682,6 +702,7 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed, unsigned int mo
- {
- 	struct qcom_ethqos *ethqos = priv;
- 
-+	qcom_ethqos_set_sgmii_loopback(ethqos, false);
- 	ethqos->speed = speed;
- 	ethqos_update_link_clk(ethqos, speed);
- 	ethqos_configure(ethqos);
-@@ -820,6 +841,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	ethqos->num_por = data->num_por;
- 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
- 	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
-+	ethqos->needs_sgmii_loopback = data->needs_sgmii_loopback;
- 
- 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
- 	if (IS_ERR(ethqos->link_clk))
--- 
-2.43.0
+--uyMFrReHwMXWhVba
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jun 27, 2024 at 10:49:15AM +0200, Christophe Roullier wrote:
+> Mark Brown found issue during stm32-dwmac probe:
+>=20
+> For the past few days networking has been broken on the Avenger 96, a
+> stm32mp157a based platform.  The stm32-dwmac driver fails to probe:
+
+These patches resolve the boot issue I'm seeing on this platform:
+
+Tested-by: Mark Brown <broonie@kernel.org>
+
+--uyMFrReHwMXWhVba
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ9U88ACgkQJNaLcl1U
+h9DnYAf+MRtkI/wgcbZL/MOrZDaxdLzL+NYaZF8qlPgsW2i1ddZHbLEce94FVywY
+8JdeXXr6OLRprSR8iGoL+3AZ5IFD01V6LAI/s4q3S260J5TkrUcVOjI9nWrBA7+Q
+63wPVnM/EA1qu7hvTyrgICtF26O/NypA+dQYCS0FBryEMYE4wL8DGP7PjexzkDTV
+V3AbcEPa5meIo6livs5Sb4mryq9e7fWMKGv0qCNo3nrPdhylbzIhKd0qHdbVo3sF
+tPQdTIc76WPvY1RJ1sLNw+fyoNeZ5elLRGMzRFF0VhdnhUjMY6TFoVQ1/P5pSbUw
+8Kpx6Ap1305I4Do8kQf38/r9OvNEpg==
+=OIp5
+-----END PGP SIGNATURE-----
+
+--uyMFrReHwMXWhVba--
+
+--===============0774206001986968939==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0774206001986968939==--
