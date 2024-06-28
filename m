@@ -2,83 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412FD91C29E
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2024 17:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AAF991C2AB
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2024 17:31:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFF62C71282;
-	Fri, 28 Jun 2024 15:27:38 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C09C71282;
+	Fri, 28 Jun 2024 15:31:22 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0538C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81DFFCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2024 15:27:30 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id
- 5614622812f47-3d566b147ffso503597b6e.2
+ Fri, 28 Jun 2024 15:31:14 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a689ad8d1f6so95225366b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2024 08:27:30 -0700 (PDT)
+ Fri, 28 Jun 2024 08:31:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1719588450; x=1720193250;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1719588674; x=1720193474;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9ep8FQKp5h6qhxZdvpS2nUixc52u7AV+YzCOLVDHtzk=;
- b=A12Cm7gFLl2SwXo+hu6T61ucRTfWlf1ZyJdEvWaqKGvaeba4ohSTeFMSAoMfv3G9x/
- VeKDgtKehYMFYemugbuI6Oodp6apNFS+efov9q+7HaGg8u9/bqNBI8PzWta//ilifeUe
- RIKdnR0Z3DXDYqmLZFeBidev4tGblhsKyjDgQhLhFCLh7Y6hJSqUQhCA0oDaCkQG5o0w
- Ge+y53KV5arOm9DdHGH2WQHydEisNoGeXuXtDdmpZ+/0RVY8puEFYeA858mvBz+THHxe
- 0AS7FVGmXXU73QWRTqvYQSYnls9Y+5XkPjmq4jcECKM3DquU6vUMPrAy9DVyUHmQv4qS
- dHNQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=q5JIqp/Wf4fxg2MB78rOVzzjMmA3m9XSWkuB6lP9b+k=;
+ b=Q/PDZdarJJLFaXzhYaeKyl4COiRZiVmSZ/4O8hUKACStU3IRUWOSESFow2b6H47L9H
+ xQNWMamMXfeIHENqYUOfR8b8J3nM3UsxKn9QurZGXQWzstS6IpPoN9TYlS6Xrnwx0wKv
+ lOHIOtIZ/mPWcuOyp5gV5sfMKEulq069SFjJqF1sYXExpYSSi8y1MJko5zEUL/asDUDF
+ gvf4hyOzht43kRfVNq5ziTu2TzzorGCQir4DD2K6XnlR3S8J3GBvor7WdOG2i56POV+y
+ dzM1+I3D90SAhby2CTrinzEXXCzHgKI40v7va7oMia3kAzZvzssBOXXT9uE2okCYMzA5
+ dSKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1719588450; x=1720193250;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9ep8FQKp5h6qhxZdvpS2nUixc52u7AV+YzCOLVDHtzk=;
- b=KNglWFvzCypZcU1K+QTjPr2qFyliUq2WU0ZChdfBdwUXnennkUx4+iLjO96jkNzs05
- EaMZSmaAOlnl5ZYWVbdLaUES8ag7H/AdgufAToZka2ugza6vEFZ13xZQLwxB2QJnxkEN
- a6IKzmwBIbqOUu7WXsPzpt0MCZZm3ZWF81AWQPGpviXJuGb4wV3QKMn8QNQkG1Cr6BL0
- IvKEQ0e89iTeQCDXXLPgsq7bDCA/9OLrlUPgUR7itzij7YiP66C2NHP9ChU4dhzV4imf
- Eld41HExRQCAKTYu82qihz9ZlqA0iRlW+W9lWOj6DBMkMD31eBpCMpn159ojbCEmbzru
- m4Yw==
+ d=1e100.net; s=20230601; t=1719588674; x=1720193474;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q5JIqp/Wf4fxg2MB78rOVzzjMmA3m9XSWkuB6lP9b+k=;
+ b=Xhc2YQ6x6/3NQnAI2RXo5R+KOJ+ZqGcZ6jzklNdjw7NeT9nkJ7yZc7OHxqKIwZ8fMw
+ AM+hlOlXhQ/LrnjeLHBkk5YQyUZRNtpcCrwPkD7ZC03Vj3xPwqxyML2fjY0zkF3M8gHF
+ fe8M55zuAA8+Wo7+i5cg+nr+aBpb8vkUX1OTe9JDSSy3RGusOX1cS9FNb/nxHEUtbnoT
+ DWfiAbpFzLx9+lBASlTiLoTaVwAAd/kWaiAgxGDSDp4vMaBIO4uBz80vdgexq/DnsFJB
+ chVaSSneMk8TkJf1D02EbchT/Wy8qMFOH4DZZJ2wTUOTL0/tdJ5cbXRiMHuvRSkQNVZc
+ hrVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUtZApTd7zNJpRWt/SrFTyt6NMSLihuWSdrdRphCinEkaXMyJLDcgxAoN0vRVBGT48iOqsukZRDdpdzY6/Xkx5S8hkxgtC70hcvKQe+JGsjmWza6KVJ15ro
-X-Gm-Message-State: AOJu0YwzL741EO/uei+s9ExsUx3Y6QWcb6E8DbQ61e4ekfE7o6WslZWv
- 2pldGzwwZ5ow8sxBBrBo83v73hfq2MTW0N88so9aI35c6a+zJs1JP/0mkXo82mY=
-X-Google-Smtp-Source: AGHT+IG3AW1VWHamt1+TZ4zM1FUQvJW/rcxv4hQ6D03f9b9O+gfHvbOI3h12I4U4SJvEM+OXm5Bh/Q==
-X-Received: by 2002:a05:6808:1282:b0:3d2:308b:9bb4 with SMTP id
- 5614622812f47-3d545a5346emr22116323b6e.43.1719588449665; 
- Fri, 28 Jun 2024 08:27:29 -0700 (PDT)
-Received: from [192.168.0.142] (ip98-183-112-25.ok.ok.cox.net. [98.183.112.25])
+ AJvYcCVF0lJSlMRXDgx6/fBzAbsEJxaMJ3gPj5UiLl4xBAb38ctVIM9baYCAYPAgBY9vo9Bhx2jTw3w2wUvBa1Ma/+AjXAivGmTxKg630UT8yj0l45NShMh1KDG0
+X-Gm-Message-State: AOJu0YxMTcJwZR/jp41VXh6dheQd8QOb1ADUmE6PfrRYNWplPAkDmUz7
+ 8smdqaA61SO5/2vefwq4RxnKkN7tclQv8AKsYeUmyNFie67zuFDXmoAvirjRbgA=
+X-Google-Smtp-Source: AGHT+IFRuQ7YvA3YzYURlVYrBjCcKHGte4VTBj2Nk5k3QmyJ3xEe18nZQZz0a+CEYGABUKDkBB2m8Q==
+X-Received: by 2002:a17:907:118c:b0:a6f:e50c:334e with SMTP id
+ a640c23a62f3a-a7245ccdd60mr897244566b.23.1719588673865; 
+ Fri, 28 Jun 2024 08:31:13 -0700 (PDT)
+Received: from localhost (p50915e7b.dip0.t-ipconnect.de. [80.145.94.123])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-701f7b20a7fsm336648a34.59.2024.06.28.08.27.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Jun 2024 08:27:29 -0700 (PDT)
-Message-ID: <9e6b5cff-8692-484e-9e1c-b89a1f49d6c7@baylibre.com>
-Date: Fri, 28 Jun 2024 10:27:28 -0500
+ a640c23a62f3a-a72ab06519dsm88699466b.99.2024.06.28.08.31.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Jun 2024 08:31:13 -0700 (PDT)
+Date: Fri, 28 Jun 2024 17:31:12 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Lee Jones <lee@kernel.org>
+Message-ID: <wfhqh5jfjaecjr75fu5olxnnulxgtqyxpw46azlfa6vqe7ezlz@l5mwketc3f5j>
+References: <cover.1718791090.git.u.kleine-koenig@baylibre.com>
+ <20240626151343.GA2504017@google.com>
+ <20240628142847.GN2532839@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>
-References: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
- <Zn6HMrYG2b7epUxT@pengutronix.de>
- <20240628-awesome-discerning-bear-1621f9-mkl@pengutronix.de>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20240628-awesome-discerning-bear-1621f9-mkl@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- Michael Hennerich <michael.hennerich@analog.com>, linux-iio@vger.kernel.org,
- Julien Stephan <jstephan@baylibre.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, T.Scherer@eckelmann.de,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
- Martin Sperl <kernel@martin.sperl.org>, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 0/5] spi: add support for pre-cooking
-	messages
+In-Reply-To: <20240628142847.GN2532839@google.com>
+Cc: linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thorsten Scherer <T.Scherer@eckelmann.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [GIT PULL] Immutable branch between MFD and
+ Counter due for the v5.11 merge window
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,122 +82,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6103138877745322139=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/28/24 5:16 AM, Marc Kleine-Budde wrote:
-> On 28.06.2024 11:49:38, Oleksij Rempel wrote:
->> It seems to be spi_mux specific. We have seen similar trace on other system
->> with spi_mux.
-> 
-> Here is the other backtrace from another imx8mp system with a completely
-> different workload. Both have in common that they use a spi_mux on the
-> spi-imx driver.
-> 
-> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000dd0
-> Mem abort info:
->   ESR = 0x0000000096000004
->   EC = 0x25: DABT (current EL), IL = 32 bits
->   SET = 0, FnV = 0
->   EA = 0, S1PTW = 0
->   FSC = 0x04: level 0 translation fault
-> Data abort info:
->   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
->   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
->   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> user pgtable: 4k pages, 48-bit VAs, pgdp=0000000046760000
-> [0000000000000dd0] pgd=0000000000000000, p4d=0000000000000000
-> Internal error: Oops: 0000000096000004 [#1] PREEMPT SMP
-> Modules linked in: can_raw can ti_ads7950 industrialio_triggered_buffer kfifo_buf spi_mux fsl_imx8_ddr_perf at24 flexcan caam can_dev error rtc_snvs imx8mm_thermal spi_imx capture_events_irq cfg80211 iio_trig_hrtimer industrialio_sw_trigger ind>
-> CPU: 3 PID: 177 Comm: spi5 Not tainted 6.9.0 #1
-> Hardware name: xxxxxxxxxxxxxxxx (xxxxxxxxx) (DT)
-> pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : spi_res_release+0x24/0xb8
-> lr : spi_async+0xac/0x118
-> sp : ffff8000823fbcc0
-> x29: ffff8000823fbcc0 x28: 0000000000000000 x27: 0000000000000000
-> x26: ffff8000807bef88 x25: ffff80008115c008 x24: 0000000000000000
-> x23: ffff8000826c3938 x22: 0000000000000000 x21: ffff0000076a9800
-> x20: 0000000000000000 x19: 0000000000000dc8 x18: 0000000000000000
-> x17: 0000000000000000 x16: 0000000000000000 x15: 0000ffff88c0e760
-> x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-> x11: ffff8000815a1f98 x10: ffff8000823fbb40 x9 : ffff8000807b8420
-> x8 : ffff800081508000 x7 : 0000000000000004 x6 : 0000000003ce4c66
-> x5 : 0000000001000000 x4 : 0000000000000000 x3 : 0000000001000000
-> x2 : 0000000000000000 x1 : ffff8000826c38e0 x0 : ffff0000076a9800
-> Call trace:
->  spi_res_release+0x24/0xb8
->  spi_async+0xac/0x118
->  spi_mux_transfer_one_message+0xb8/0xf0 [spi_mux]
->  __spi_pump_transfer_message+0x260/0x5d8
->  __spi_pump_messages+0xdc/0x320
->  spi_pump_messages+0x20/0x38
->  kthread_worker_fn+0xdc/0x220
->  kthread+0x118/0x128
->  ret_from_fork+0x10/0x20
-> Code: a90153f3 a90363f7 91016037 f9403033 (f9400674) 
-> ---[ end trace 0000000000000000 ]---
-> 
-> regards,
-> Marc
-> 
+
+--===============6103138877745322139==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vwml3ark6hcxxqsa"
+Content-Disposition: inline
 
 
-Hi Oleksij and Marc,
+--vwml3ark6hcxxqsa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'm supposed to be on vacation so I didn't look into this deeply yet
-but I can see what is happening here.
+Hi Lee,
 
-spi_mux_transfer_one_message() is calling spi_async() which is calling
-__spi_optimize_message() on an already optimized message.
+On Fri, Jun 28, 2024 at 03:28:47PM +0100, Lee Jones wrote:
+> The following changes since commit 1613e604df0cd359cf2a7fbd9be7a0bcfacfab=
+d0:
+>=20
+>   Linux 6.10-rc1 (2024-05-26 15:20:12 -0700)
+>=20
+> are available in the Git repository at:
+>=20
+>   ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git tags=
+/ib-mfd-counter-v5.11
+>=20
+> for you to fetch changes up to 304d02aa711369da89b4f8c01702bf1b5d1f7abc:
+>=20
+>   mfd: stm32-timers: Drop unused TIM_DIER_CC_IE (2024-06-26 16:09:58 +010=
+0)
 
-Then it also calls __spi_unoptimize_message() which tries to release
-resources. But this fails because the spi-mux driver has swapped
-out the pointer to the device in the SPI message. This causes the
-wrong ctlr to be passed to spi_res_release(), causing the crash.
+Thanks, merged into pwm/for-next!
 
-I don't know if a proper fix could be quite so simple, but here is
-something you could try (untested):
+Best regards
+Uwe
 
----
+--vwml3ark6hcxxqsa
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/spi/spi-mux.c b/drivers/spi/spi-mux.c
-index 5d72e3d59df8..ec837e28183d 100644
---- a/drivers/spi/spi-mux.c
-+++ b/drivers/spi/spi-mux.c
-@@ -42,6 +42,7 @@ struct spi_mux_priv {
- 	void			(*child_msg_complete)(void *context);
- 	void			*child_msg_context;
- 	struct spi_device	*child_msg_dev;
-+	bool			child_msg_pre_optimized;
- 	struct mux_control	*mux;
- };
- 
-@@ -94,6 +95,7 @@ static void spi_mux_complete_cb(void *context)
- 	m->complete = priv->child_msg_complete;
- 	m->context = priv->child_msg_context;
- 	m->spi = priv->child_msg_dev;
-+	m->pre_optimized = priv->child_msg_pre_optimized;
- 	spi_finalize_current_message(ctlr);
- 	mux_control_deselect(priv->mux);
- }
-@@ -116,10 +118,12 @@ static int spi_mux_transfer_one_message(struct spi_controller *ctlr,
- 	priv->child_msg_complete = m->complete;
- 	priv->child_msg_context = m->context;
- 	priv->child_msg_dev = m->spi;
-+	priv->child_msg_pre_optimized = m->pre_optimized;
- 
- 	m->complete = spi_mux_complete_cb;
- 	m->context = priv;
- 	m->spi = priv->spi;
-+	m->pre_optimized = true;
- 
- 	/* do the transfer */
- 	return spi_async(priv->spi, m);
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmZ+1z0ACgkQj4D7WH0S
+/k7wMAf+IQqhOqwRtmvzgqxA3dQPTH3rCH8Y4z5wsmtBC5eqzlC6r3Hz0UjzxlUA
+2tgx4l7hoq832LjoauTlmSckhKJywRAYHhcll0XyODku6sP00oYmsdidrWftQQYz
+yJQ77dcmOLs2wbgqlC/mn48nMQKJBsWuxtTXZzERDBevXW1VcpKtYstg7WNZAkEX
+cv5Xx7I5wAIklRc4fHTsvd8pPo25VVS/AcZ10aKnTdFQAFQkkjSCjJFthH9X9TQt
+0GwSUGpxg/oU7sneXNoYb5zXVqMs7EijFr0MzcFFi3Y8OAgeRf5jn6WVF8pAbnqA
+Z3gZNyEIRABVSWQewBB/0yxodqtP1A==
+=Zv7T
+-----END PGP SIGNATURE-----
+
+--vwml3ark6hcxxqsa--
+
+--===============6103138877745322139==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6103138877745322139==--
