@@ -2,46 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8538B91CEA4
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 Jun 2024 21:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C082791CF04
+	for <lists+linux-stm32@lfdr.de>; Sat, 29 Jun 2024 22:29:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A3F9C71282;
-	Sat, 29 Jun 2024 19:04:03 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C7BAC71282;
+	Sat, 29 Jun 2024 20:29:12 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A3C1C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EED19CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Jun 2024 19:03:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3AD7E60B54;
- Sat, 29 Jun 2024 19:03:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8FCC2BBFC;
- Sat, 29 Jun 2024 19:03:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719687833;
- bh=VhwYj9wYMKcVVnuUSektec5JaiNKACPQOUGlOLJi5/M=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qmie8DnLr6Vjc/blzQEer4aMbo82Jb7MiaMVnje2nVNSePWdJDfRKc3BY/ZkBzHzT
- C/L2Jsqxmx8OrJVy9UPoHDhip063TJY6v836mwM7GF6an5ZruBHdW+dnpY6GjSL1cw
- Hjowd9V4K4PZIYvTYPCzE+9wR9FxRlN0tP8QdTagFy+cYCJpAWyiYTNBrNE2/bNJgQ
- +4X0LFhE6OZABjFhUy/mc5a2M9aeAff2PWSD2nXyqC4Pc4N15CGihDSs56J0PzzjA5
- W0wkuGH4zJ1XgRoxzJ1NSSOBLEhjZE8iz/cVgu9z5I/5SgVLCYvm1+CTPcYyAR9tVB
- pVigWgq+T1Ceg==
-Date: Sat, 29 Jun 2024 20:03:47 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20240629200347.4e282f21@jic23-huawei>
-In-Reply-To: <20240625150717.1038212-7-olivier.moysan@foss.st.com>
-References: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
- <20240625150717.1038212-7-olivier.moysan@foss.st.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-pc-linux-gnu)
+ Sat, 29 Jun 2024 20:29:04 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id EEB1887DC7;
+ Sat, 29 Jun 2024 22:29:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1719692944;
+ bh=g6ZGg6AJR7TK10wveq4SKcbkt2J+EBtrC7Modkd9kPY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YohQ/IgdWmheu7vZJfLg1EV2NlgSL8elW9v+CUoDpOjiyTz1hQQvNHCMtqTIETWMl
+ k00Nrf32xRo47jTeHK70mhYBIf1Ig1KsUhdjz02SyLrlkv6MPS8FxYJ1jQTzpqVfMb
+ SUakiJMn1ZbRDoE2apSlwXOhXMkdh1h0kydSoW8pO6+Qf9/J48/5s2XPLG+8qInIks
+ XTILbluGw5w8Kiu2oJg31pevJo6YfSAJo9otJ187D3BiLKZYc8mvxfG/Mq2oUTnfNA
+ YU83FiP22WwjOIt/nvv0sIEwCb0cm+WTuyAMvgjfLIw+552g4u81sf+a1KU+j3k8oz
+ fPDJaX2iFZzqA==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Sat, 29 Jun 2024 22:28:41 +0200
+Message-ID: <20240629202847.90693-1-marex@denx.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 6/8] iio: adc: stm32-dfsdm: adopt
- generic channels bindings
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Keep MDIO bus in AF across
+	suspend DH STM32MP13xx DHCOR DHSBC board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,171 +61,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Jun 2024 17:07:14 +0200
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+The RTL8211F PHY gets confused when the MDIO bus lines get switched
+to ANALOG during suspend/resume cycle. Keep the MDIO and MDC lines
+in AF during suspend/resume to avoid confusing the PHY. The PHY can
+be brought out of the confused state by restarting auto-negotiation
+too, but that seems like an odd workaround and shouldn't be in the
+PHY driver.
 
-> Move to generic channels binding to ease new backend framework adoption
-> and prepare the convergence with MDF IP support on STM32MP2 SoC family.
-> 
-> Legacy binding:
-> DFSDM is an IIO channel consumer.
-> SD modulator is an IIO channels provider.
-> The channel phandles are provided in DT through io-channels property
-> and channel indexes through st,adc-channels property.
-> 
-> New binding:
-> DFSDM is an IIO channel provider.
-> The channel indexes are given by reg property in channel child node.
-> 
-> This new binding is intended to be used with SD modulator IIO backends.
-> It does not support SD modulator legacy IIO devices.
-> The st,adc-channels property presence is used to discriminate
-> between legacy and backend bindings.
-> 
-> The support of the DFSDM legacy channels and SD modulator IIO devices
-> is kept for backward compatibility.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-Hi Olivier
-
-Some minor comments inline.
-
-thanks,
-
-Jonathan
-
-
-
-> @@ -1362,15 +1422,20 @@ static int stm32_dfsdm_dma_request(struct device *dev,
->  	return 0;
->  }
->  
-> -static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
-> -					 struct iio_chan_spec *ch)
-> +static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev, struct iio_chan_spec *ch,
-> +					 struct fwnode_handle *child)
->  {
->  	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
->  	int ret;
->  
-> -	ret = stm32_dfsdm_channel_parse_of(adc->dfsdm, indio_dev, ch);
-> -	if (ret < 0)
-> +	if (child)
-> +		ret = stm32_dfsdm_generic_channel_parse_of(adc->dfsdm, indio_dev, ch, child);
-> +	else /* Legacy binding */
-> +		ret = stm32_dfsdm_channel_parse_of(adc->dfsdm, indio_dev, ch);
-> +	if (ret < 0) {
-> +		dev_err(&indio_dev->dev, "Failed to parse channel\n");
->  		return ret;
-
-return dev_err_probe() assuming only called from probe() which I think is the case
-but haven't actually checked.
-
-
-> +	}
->  
->  	ch->type = IIO_VOLTAGE;
->  	ch->indexed = 1;
-> @@ -1385,6 +1450,7 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
->  
->  	if (adc->dev_data->type == DFSDM_AUDIO) {
->  		ch->ext_info = dfsdm_adc_audio_ext_info;
-> +		ch->scan_index = 0;
->  	} else {
->  		ch->scan_type.shift = 8;
->  	}
-> @@ -1392,8 +1458,51 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
->  	ch->scan_type.realbits = 24;
->  	ch->scan_type.storagebits = 32;
->  
-> -	return stm32_dfsdm_chan_configure(adc->dfsdm,
-> -					  &adc->dfsdm->ch_list[ch->channel]);
-> +	return stm32_dfsdm_chan_configure(adc->dfsdm, &adc->dfsdm->ch_list[ch->channel]);
-Is there a change here? If it's just a line wrap don't do that in same patch
-making real changes.
-
-> +}
-> +
-> +static int stm32_dfsdm_chan_init(struct iio_dev *indio_dev, struct iio_chan_spec *channels)
-> +{
-> +	int num_ch = indio_dev->num_channels;
-> +	int chan_idx = 0, ret = 0;
-
-	int ret;
-
-> +
-> +	for (chan_idx = 0; chan_idx < num_ch; chan_idx++) {
-> +		channels[chan_idx].scan_index = chan_idx;
-> +		ret = stm32_dfsdm_adc_chan_init_one(indio_dev, &channels[chan_idx], NULL);
-> +		if (ret < 0) {
-> +			dev_err(&indio_dev->dev, "Channels init failed\n");
-> +			return ret;
-			return dev_err_probe()
-(I think this is only called from probe?)
-
-> +		}
-> +	}
-> +
-> +	return ret;
-return 0;
-at least I assume it can't be positive? 
-> +}
-> +
-> +static int stm32_dfsdm_generic_chan_init(struct iio_dev *indio_dev, struct iio_chan_spec *channels)
-> +{
-> +	struct fwnode_handle *child;
-> +	int chan_idx = 0, ret;
-> +
-> +	device_for_each_child_node(&indio_dev->dev, child) {
-
-device_for_each_child_node_scoped()  as then you can do direct returns.
-
-
-> +		/* Skip DAI node in DFSDM audio nodes */
-> +		if (fwnode_property_present(child, "compatible"))
-> +			continue;
-> +
-> +		channels[chan_idx].scan_index = chan_idx;
-> +		ret = stm32_dfsdm_adc_chan_init_one(indio_dev, &channels[chan_idx], child);
-> +		if (ret < 0) {
-> +			dev_err(&indio_dev->dev, "Channels init failed\n");
-> +			goto err;
-return dev_err_probe() once using scoped above.
-
-
-> +		}
-> +
-> +		chan_idx++;
-> +	}
-> +	return chan_idx;
-> +
-> +err:
-> +	fwnode_handle_put(child);
-> +
-> +	return ret;
->  }
->
->  
-> @@ -1430,43 +1547,60 @@ static int stm32_dfsdm_adc_init(struct device *dev, struct iio_dev *indio_dev)
-
-> -	ch = devm_kcalloc(&indio_dev->dev, num_ch, sizeof(*ch),
-> -			  GFP_KERNEL);
-> -	if (!ch)
-> -		return -ENOMEM;
-> +	if (legacy) {
-> +		/* Bind to SD modulator IIO device. */
-> +		adc->hwc = devm_iio_hw_consumer_alloc(&indio_dev->dev);
-> +		if (IS_ERR(adc->hwc))
-> +			return -EPROBE_DEFER;
-
-Obviously in the legacy path, but worth a dev_err_probe() because
-if we defer, debug info gets stashed away so it is easy to see
-why a driver is continuing to defer.
-
-> +	} else {
-> +		/* Generic binding. SD modulator IIO device not used. Use SD modulator backend. */
-> +		adc->hwc = NULL;
+diff --git a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+index d3deec602ae7a..e6c0dceee9866 100644
+--- a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+@@ -88,14 +88,20 @@ pins2 {
+ 
+ 	eth1_rgmii_sleep_pins_a: eth1-rgmii-sleep-0 {
+ 		pins1 {
++			pinmux = <STM32_PINMUX('A', 2, AF11)>, /* ETH_MDIO */
++				 <STM32_PINMUX('G', 2, AF11)>; /* ETH_MDC */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++
++		pins2 {
+ 			pinmux = <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
+ 				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
+ 				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
+ 				 <STM32_PINMUX('E', 5, ANALOG)>, /* ETH_RGMII_TXD3 */
+ 				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
+ 				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+-				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
+-				 <STM32_PINMUX('G', 2, ANALOG)>, /* ETH_MDC */
+ 				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+ 				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
+ 				 <STM32_PINMUX('B', 0, ANALOG)>, /* ETH_RGMII_RXD1 */
+@@ -169,14 +175,20 @@ pins2 {
+ 
+ 	eth2_rgmii_sleep_pins_a: eth2-rgmii-sleep-0 {
+ 		pins1 {
++			pinmux = <STM32_PINMUX('B', 6, ANALOG)>, /* ETH_MDIO */
++				 <STM32_PINMUX('G', 5, ANALOG)>; /* ETH_MDC */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++
++		pins2 {
+ 			pinmux = <STM32_PINMUX('F', 7, ANALOG)>, /* ETH_RGMII_TXD0 */
+ 				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD1 */
+ 				 <STM32_PINMUX('G', 1, ANALOG)>, /* ETH_RGMII_TXD2 */
+ 				 <STM32_PINMUX('E', 6, ANALOG)>, /* ETH_RGMII_TXD3 */
+ 				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_TX_CTL */
+ 				 <STM32_PINMUX('G', 3, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+-				 <STM32_PINMUX('B', 6, ANALOG)>, /* ETH_MDIO */
+-				 <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_MDC */
+ 				 <STM32_PINMUX('F', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+ 				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD1 */
+ 				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
