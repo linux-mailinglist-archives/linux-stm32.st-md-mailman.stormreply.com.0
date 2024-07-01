@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B6991D83E
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA5591D83D
 	for <lists+linux-stm32@lfdr.de>; Mon,  1 Jul 2024 08:50:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2A66C6DD9A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC4FBC71282;
 	Mon,  1 Jul 2024 06:50:43 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E67DEC6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8346C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Jul 2024 06:50:37 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45ULXMP3007786;
+ Mon,  1 Jul 2024 06:50:36 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 45UJksoG012549;
  Mon, 1 Jul 2024 08:50:08 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=nIXaCbx5fzZINYW6u5h5gd
- T7P1fyQU9dEhX1xxpILlA=; b=UIJMjsDjLsSzjnw3Kq2GAg0Mx2v4FxLjfoAOHy
- x2Lfs4QH9enNIf8hAmHESqWTUpuOggGfv4gJsx4hw5fjaHB68Mj+EqixtD+AoecC
- BSh2ce970y/nq3qIDXAn3hE2gLOPSPO0wvhfNMcI1av1g031kow7TW/thKT9BAuU
- JiyyF2eEvY7tWwddshmSD6nOv6BAappoZz93A9A23UAkfIhPwJrBMoPkxzBNYn+P
- E1IHaIvZVSWszh3s75gLd6lsDlDjNhk6kNaKJEPL4jys6k5yJMSeV2J+2bMZNh4k
- pLZDMLmMp2Zp3EqTz7GM/pjLY+C5A/bkfntcmvtlmkJSZbsA==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ NQhzgLCE7X5eZ858QNKORAqLKmNLabnQ1nRwLmnzabs=; b=lvvNlN3erwy79GkA
+ V8jJhO+cY2yGpDbDXRGU1PE9wThBtK4gAqh9J9X61toDKPfmI2eDqhep1e55HRUW
+ 6iQ7qRTnEOz6lJ2VbmnRGbcMUZX6xPQjDOSMRmQyHF8laEGfLvnpGzQS9A76pbj6
+ 6le5krawuLkh3PBkYOHoPfsoWf+31NeBWySk1GVs2iEePJf06qHOsnoyLhsLtoHO
+ Zvwax2DHC1Wh9LnDu/GnewAq6cN9fRhgnkNpHjooi4PKrPfJ5zznu1Uxwn80fDRa
+ WEaO7hyW8UfhdeqUqnIGRs38xTVhJN5pKx/AYBGT0MgxwGGgEbSje3rH3YJuDtW0
+ IAjJqQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 402w7hu3xu-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4029kwn8dc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 01 Jul 2024 08:50:08 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0BF4740048;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0BED140046;
  Mon,  1 Jul 2024 08:50:01 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 51E19214D04;
- Mon,  1 Jul 2024 08:48:45 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AF9B0214D0C;
+ Mon,  1 Jul 2024 08:48:48 +0200 (CEST)
 Received: from localhost (10.48.86.164) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 1 Jul
@@ -50,9 +51,11 @@ To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
  Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Christophe Roullier
  <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Mon, 1 Jul 2024 08:48:36 +0200
-Message-ID: <20240701064838.425521-1-christophe.roullier@foss.st.com>
+Date: Mon, 1 Jul 2024 08:48:37 +0200
+Message-ID: <20240701064838.425521-2-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240701064838.425521-1-christophe.roullier@foss.st.com>
+References: <20240701064838.425521-1-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.48.86.164]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
@@ -64,7 +67,8 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
 Subject: [Linux-stm32] [net-next,
-	PATCH v2 0/2] Fixes for stm32-dwmac driver fails to probe
+	PATCH v2 1/2] net: stmmac: dwmac-stm32: Add test to verify if ETHCK
+	is used before checking clk rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,43 +85,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Mark Brown found issue during stm32-dwmac probe:
+When we want to use clock from RCC to clock Ethernet PHY (with ETHCK)
+we need to check if value of clock rate is authorized.
+If ETHCK is unused, the ETHCK frequency is 0Hz and validation fails.
+It makes no sense to validate unused ETHCK, so skip the validation.
 
-For the past few days networking has been broken on the Avenger 96, a
-stm32mp157a based platform.  The stm32-dwmac driver fails to probe:
+Fixes: 582ac134963e ("net: stmmac: dwmac-stm32: Separate out external clock rate validation")
 
-<6>[    1.894271] stm32-dwmac 5800a000.ethernet: IRQ eth_wake_irq not found
-<6>[    1.899694] stm32-dwmac 5800a000.ethernet: IRQ eth_lpi not found
-<6>[    1.905849] stm32-dwmac 5800a000.ethernet: IRQ sfty not found
-<3>[    1.912304] stm32-dwmac 5800a000.ethernet: Unable to parse OF data
-<3>[    1.918393] stm32-dwmac 5800a000.ethernet: probe with driver stm32-dwmac failed with error -75
+Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+Reviewed-by: Marek Vasut <marex@denx.de>
+Tested-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-which looks a bit odd given the commit contents but I didn't look at the
-driver code at all.
-
-Full boot log here:
-
-   https://lava.sirena.org.uk/scheduler/job/467150
-
-A working equivalent is here:
-
-   https://lava.sirena.org.uk/scheduler/job/466518
-
-I delivered 2 fixes to solve issue.
-
-V2: - remark from Marek (commit msgs)
-
-Christophe Roullier (2):
-  net: stmmac: dwmac-stm32: Add test to verify if ETHCK is used before
-    checking clk rate
-  net: stmmac: dwmac-stm32: update err status in case different of
-    stm32mp13
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-
-base-commit: 30972a4ea092bacb9784fe251327571be6a99f9c
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index 23cf0a5b047f..d6a268237ca1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -206,6 +206,9 @@ static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data *plat_dat)
+ 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
+ 	const u32 clk_rate = clk_get_rate(dwmac->clk_eth_ck);
+ 
++	if (!dwmac->enable_eth_ck)
++		return 0;
++
+ 	switch (plat_dat->mac_interface) {
+ 	case PHY_INTERFACE_MODE_MII:
+ 	case PHY_INTERFACE_MODE_GMII:
 -- 
 2.25.1
 
