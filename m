@@ -2,52 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5FAD91ED98
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2024 06:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A03E923AFF
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2024 12:02:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AF73C6DD9E;
-	Tue,  2 Jul 2024 04:04:37 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8585AC71282;
+	Tue,  2 Jul 2024 10:02:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6635CC6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3848C6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jul 2024 04:04:30 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 106C688709;
- Tue,  2 Jul 2024 06:04:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1719893069;
- bh=5l+txb3Dnuz4QsOchPdwezW23KBAkdyYaoeSLye0aI8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gdYjL0u37lbWodeIcSL9Fgh43Tb+lsDHX4N4aoEplueyCP3MM1S8sMgW7I9E0RjM8
- wvU84e5tdfgOobgXVdSWfVlltkzXePtL3MkqLpdpYL78nlhAMLPLv1Sr2OzR2pvV7g
- JRPs+VOdfBwufRYjMPdPZZi6m5gSEdyMiVzhkmUrIr1iZYlRx+Z/Mw66tLWFwpn/PZ
- tsPp+TzQN5v+usSIowW2QL21fQiBQsIGlmhb4zNEgEPCeRAOkN+IvMF5ZrgAFxgev3
- bdz6/dSBSJaDqwmXe7MrdWPKlbEMyAfZODtu8unYw0tBlRvZQtpzX3M1PXq2q+MfBd
- T4y/TBkVZ6pMQ==
-Message-ID: <cc492f1a-c2f5-438e-a28a-7900cde6f073@denx.de>
-Date: Tue, 2 Jul 2024 04:43:06 +0200
+ Tue,  2 Jul 2024 10:02:01 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46284MAV002305;
+ Tue, 2 Jul 2024 12:01:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ MIg3DBI11sSmG6wbpd1DN3SW8f/bMTTym/JO7g3ovAY=; b=meLx/pdejVh1bTGy
+ uiOCkKrNavNX2j6fEcHeoDBVA9rQI/vqeh/OSOWTTRsttxc8sHmjPcZIS0i6dlcF
+ r+2Ekv1DYq9MKu9Bruma9yWFHdmR9uvctzaJnTFSVuZDm8JO/c57GsEqoC4ifMI9
+ kXj+u56SubQnamAqrK9K6qSex+Ehy3cegUGyr0LfhS39ypwUB4pmajtm8SCuwWd3
+ XWmUfNPcJ8z+WzEWJrmrwF8JgfzQKOezzYepK7oL7lWlxRAXGiCiUDAlB0QU3gpB
+ Wn5O+H0ZWUHuZa/LOv5itGw0pYjiPz3vFkGgN7oH6f23+83dPscbIS4xiiklspxG
+ YxxZdw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4027pgjyqa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 02 Jul 2024 12:01:35 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 725024004B;
+ Tue,  2 Jul 2024 12:01:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2BE492207C0;
+ Tue,  2 Jul 2024 12:00:37 +0200 (CEST)
+Received: from [10.252.8.242] (10.252.8.242) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 2 Jul
+ 2024 12:00:36 +0200
+Message-ID: <b33d9470-b845-478f-97d3-636e158693d2@foss.st.com>
+Date: Tue, 2 Jul 2024 12:00:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Rob Herring (Arm)" <robh@kernel.org>
-References: <20240629171100.20285-1-marex@denx.de>
- <171985715690.313627.4404278514791505125.robh@kernel.org>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ <yannick.fertre@foss.st.com>
+References: <20240701062304.42844-1-jiapeng.chong@linux.alibaba.com>
 Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <171985715690.313627.4404278514791505125.robh@kernel.org>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20240701062304.42844-1-jiapeng.chong@linux.alibaba.com>
+X-Originating-IP: [10.252.8.242]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-02_06,2024-07-02_02,2024-05-17_01
+Cc: mcoquelin.stm32@gmail.com, tzimmermann@suse.de,
+ Abaci Robot <abaci@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ linux-kernel@vger.kernel.org, daniel@ffwll.ch, airlied@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add ethernet MAC nvmem
- cells to DH STM32MP13xx DHCOR DHSBC board
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: Remove unnecessary .owner for
+ lvds_platform_driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,66 +75,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/1/24 8:10 PM, Rob Herring (Arm) wrote:
-> 
-> On Sat, 29 Jun 2024 19:10:30 +0200, Marek Vasut wrote:
->> Describe ethernet MAC address nvmem cells in DH STM32MP13xx DHCOR DHSBC
->> board DT. The MAC address can be fused in BSEC OTP fuses and used to set
->> up MAC address for both ethernet MACs on this board.
->>
->> Signed-off-by: Marek Vasut <marex@denx.de>
->> ---
->> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: kernel@dh-electronics.com
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-stm32@st-md-mailman.stormreply.com
->> ---
->>   arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
-> 
-> 
-> My bot found new DTB warnings on the .dts files added or changed in this
-> series.
-> 
-> Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-> are fixed by another series. Ultimately, it is up to the platform
-> maintainer whether these warnings are acceptable or not. No need to reply
-> unless the platform maintainer has comments.
-> 
-> If you already ran DT checks and didn't see these error(s), then
-> make sure dt-schema is up to date:
-> 
->    pip3 install dtschema --upgrade
-> 
-> 
-> New warnings running 'make CHECK_DTBS=y st/stm32mp135f-dhcor-dhsbc.dtb' for 20240629171100.20285-1-marex@denx.de:
-> 
-> arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dtb: ethernet@5800a000: Unevaluated properties are not allowed ('interrupt-names', 'interrupts-extended', 'mdio', 'nvmem-cell-names', 'nvmem-cells', 'phy-handle', 'phy-mode', 'snps,axi-config', 'snps,mixed-burst', 'snps,pbl', 'snps,tso', 'stmmac-axi-config' were unexpected)
-> 	from schema $id: http://devicetree.org/schemas/net/stm32-dwmac.yaml#
-> arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dtb: ethernet@5800e000: Unevaluated properties are not allowed ('interrupt-names', 'interrupts-extended', 'mdio', 'nvmem-cell-names', 'nvmem-cells', 'phy-handle', 'phy-mode', 'snps,axi-config', 'snps,mixed-burst', 'snps,pbl', 'snps,tso', 'stmmac-axi-config' were unexpected)
-> 	from schema $id: http://devicetree.org/schemas/net/stm32-dwmac.yaml#
-
-I can't seem to be able to reproduce it locally , even with 
-dtschema/master updated right now .
-
-Looking at the bindings, net/stm32-dwmac.yaml does have allof-ref to 
-snps,dwmac.yaml which has allof-ref to ethernet-controller.yaml , which 
-does list the nvmem-cells/nvmem-cell-names properties .
-
-What am I missing here ?
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgSmlhcGVuZywKCk9uIDcvMS8yNCAwODoyMywgSmlhcGVuZyBDaG9uZyB3cm90ZToKPiBSZW1v
+dmUgLm93bmVyIGZpZWxkIGlmIGNhbGxzIGFyZSB1c2VkIHdoaWNoIHNldCBpdCBhdXRvbWF0aWNh
+bGx5Lgo+Cj4gLi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x2ZHMuYzoxMjEzOjMtODogTm8gbmVlZCB0
+byBzZXQgLm93bmVyIGhlcmUuIFRoZSBjb3JlIHdpbGwgZG8gaXQuCj4KPiBSZXBvcnRlZC1ieTog
+QWJhY2kgUm9ib3QgPGFiYWNpQGxpbnV4LmFsaWJhYmEuY29tPgo+IENsb3NlczogaHR0cHM6Ly9i
+dWd6aWxsYS5vcGVuYW5vbGlzLmNuL3Nob3dfYnVnLmNnaT9pZD05NDU3Cj4gU2lnbmVkLW9mZi1i
+eTogSmlhcGVuZyBDaG9uZyA8amlhcGVuZy5jaG9uZ0BsaW51eC5hbGliYWJhLmNvbT4KPiAtLS0K
+PiAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdmRzLmMgfCAxIC0KPiAgMSBmaWxlIGNoYW5nZWQsIDEg
+ZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x2ZHMuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9zdG0vbHZkcy5jCj4gaW5kZXggMmZhMmM4MTc4NGU5Li4wNmYyZDdh
+NTZjYzkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdmRzLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vc3RtL2x2ZHMuYwo+IEBAIC0xMjEwLDcgKzEyMTAsNiBAQCBzdGF0aWMg
+c3RydWN0IHBsYXRmb3JtX2RyaXZlciBsdmRzX3BsYXRmb3JtX2RyaXZlciA9IHsKPiAgCS5yZW1v
+dmUgPSBsdmRzX3JlbW92ZSwKPiAgCS5kcml2ZXIgPSB7Cj4gIAkJLm5hbWUgPSAic3RtMzItZGlz
+cGxheS1sdmRzIiwKPiAtCQkub3duZXIgPSBUSElTX01PRFVMRSwKPiAgCQkub2ZfbWF0Y2hfdGFi
+bGUgPSBsdmRzX2R0X2lkcywKPiAgCX0sCj4gIH07CgoKSW5kZWVkLCBwbGF0Zm9ybV9kcml2ZXJf
+cmVnaXN0ZXIoKSBvdmVycmlkZXMgdGhlIHZhbHVlIG9mIHRoZSBvd25lci4KCkFja2VkLWJ5OiBS
+YXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgoKVGhh
+bmtzLApSYXBoYcOrbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
