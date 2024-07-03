@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99D71925415
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE90925416
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57DCAC78F79;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63475C78F7B;
 	Wed,  3 Jul 2024 06:53:37 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E52C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A401C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 03:54:59 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HE8a5003180;
- Wed, 3 Jul 2024 03:54:33 GMT
+ Wed,  3 Jul 2024 03:55:20 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462JAacZ025289;
+ Wed, 3 Jul 2024 03:54:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- bnVh5sxvD8JqdQrxpjsAwgEZkzbp2x+U15Q/Cpl8FTw=; b=ODnQJKa2akbhvQ2Z
- dMfPivSVzomAFuu2YA7HkKD6PvQwW5x6aZ96DHnA+duHGDZPN88Me3Ft5Y/+1a+i
- 8SBPvnEp+H4f4fSasusqjNrV2AR7AF/X4+buEf8kjWO2WhrDe+DmP166uf2Uh+ye
- cP5HfVRnYm7lN44cs/DO+Bdnn5EobgKMGw4sFdwqIZT2574nwz9wIlwRzAM6Co5x
- bKTGDgr0+J87/HLaiqHRIdYyEekfk3nHsbf0imfQ+JUm227c5n2+z4G2mMNhcw6c
- TbWQCEsNSXI1Rt0qvDd+e1ey8CV9v+DWI1MjnkcKO2oEWDqWfY9X6Tmufyp4UfDW
- u3pFUw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ Bw1lldG5cUI7X0q2aRZKfZOUeGXk1bvPHXsR0eZOPUM=; b=D/WvMM2Jg6l/DjYT
+ 1Ug9hUmdZYGhTGPnhYCmbOlUQwr7Uz8LGk9GI4in5UC12L+PsS0y75NfFrWhm3Yv
+ YlqBNig/ep06UB3pwElwPHCTfREvfGtDRwGgb34eOLiVfTHptv0X6LN6BOBAImnE
+ G9+Zu0jJD3e/rJdtoaxf9AfAKz/Tb8i9MNAXGUswX++r59k4vtCdXqYelcz1q1nf
+ gyzQF/Z7yqxQVX4vYcQsQBpoCRJHGZlbahnHpqsxzKGIdIe4QkURPSmQjdlAiPos
+ mKBVb6yLUUCHJgQkbBnlfkGNM1ZnCBgIGTp8qDZvD8HR5rAQ0fOEADDFGuciWi6F
+ KrlZlA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4029uxfjxt-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4027yfamex-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 03:54:33 +0000 (GMT)
+ Wed, 03 Jul 2024 03:54:52 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4633sVVZ003548
+ by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 4633spl4032535
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 03:54:31 GMT
+ Wed, 3 Jul 2024 03:54:51 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:54:10 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 20:54:29 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:51:42 +0800
-Message-ID: <20240703035154.2182083-6-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:51:43 +0800
+Message-ID: <20240703035154.2182083-7-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035154.2182083-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,16 +67,16 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: xXQZt7Z7DM-WhsVnz8mY7Ut2boMcE2Up
-X-Proofpoint-ORIG-GUID: xXQZt7Z7DM-WhsVnz8mY7Ut2boMcE2Up
+X-Proofpoint-GUID: 99PHTAP8uLTaNEqY2tf5UWsp30zWfT3k
+X-Proofpoint-ORIG-GUID: 99PHTAP8uLTaNEqY2tf5UWsp30zWfT3k
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=872
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 mlxscore=0
- clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ bulkscore=0 spamscore=0
+ mlxscore=0 lowpriorityscore=0 mlxlogscore=649 phishscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2406140001 definitions=main-2407030027
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
@@ -107,7 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 35/47] phy: qcom-qmp-ufs: Add QCS9100 support
+Subject: [Linux-stm32] [PATCH 36/47] phy: qcpm-qmp-usb: Add support for
+	QCS9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,28 +125,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the tables and constants for init sequences for UFS QMP phy found in
-QCS9100 SoC.
+Add support for QCS9100 USB3 PHY.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-ufs.c | 3 +++
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-index a57e8a4657f4..cb72843218cc 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-@@ -2010,6 +2010,9 @@ static const struct of_device_id qmp_ufs_of_match_table[] = {
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+index 9b0eb87b1680..4ebfac113d86 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
+@@ -2246,6 +2246,9 @@ static const struct of_device_id qmp_usb_of_match_table[] = {
  	}, {
- 		.compatible = "qcom,msm8998-qmp-ufs-phy",
- 		.data = &sdm845_ufsphy_cfg,
+ 		.compatible = "qcom,msm8996-qmp-usb3-phy",
+ 		.data = &msm8996_usb3phy_cfg,
 +	}, {
-+		.compatible = "qcom,qcs9100-qmp-ufs-phy",
-+		.data = &sa8775p_ufsphy_cfg,
++		.compatible = "qcom,qcs9100-qmp-usb3-uni-phy",
++		.data = &sa8775p_usb3_uniphy_cfg,
  	}, {
- 		.compatible = "qcom,sa8775p-qmp-ufs-phy",
- 		.data = &sa8775p_ufsphy_cfg,
+ 		.compatible = "qcom,qdu1000-qmp-usb3-uni-phy",
+ 		.data = &qdu1000_usb3_uniphy_cfg,
 -- 
 2.25.1
 
