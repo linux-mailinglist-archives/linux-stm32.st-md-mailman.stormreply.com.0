@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB233925405
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D3B925406
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ADA1C78037;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78637C78039;
 	Wed,  3 Jul 2024 06:53:36 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33414C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B27E5C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 03:06:22 +0000 (UTC)
+ Wed,  3 Jul 2024 03:06:39 +0000 (UTC)
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462EV9Mk028782;
- Wed, 3 Jul 2024 03:05:53 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462EV9Ml028782;
+ Wed, 3 Jul 2024 03:06:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EFLvaWB3XNvxcI+xnEMPmv8wX5lxhu/8QdoC2GjO4sA=; b=omn+zkTXu16lPCOW
- ByuQfBYkjQb9hA+Mk3hQh4qT+Rr3ku+RVMNqAZnT10skVqRwoJv5sWkyciZotUBj
- xfjzZvMo54vD4IYFZIt4/UtDqem2pkpO0tVF3klVcqZTNECiutroe7WGFPK6YBCV
- Ulfjwegg4OaWLbtvmXTbr4GMuKjdfcO0xtBt8kNjHZN0yH7kBkSrHAPq41u5lzBW
- D7IsEcDjHl9x6i8CMcF6uo9B0BoZyLSXzhloYN8hxDdbG0+pjmoIo+l7nsVV+EIK
- yH6sHVOBqWg7+xZOOgmJqAuWtVmbKDKmXaXExiNP7vPSK8UOzG1uWN2PqFS9VVky
- YwtuWQ==
+ Yuq0mloTqG9ENx1x4rHOIMUPA522Hema6Bl2djjkxlY=; b=dPrzVDhQBCNuVk58
+ CqZ1g9KYSEYo745A6A21DaPJu4dgtqlQuz0F3mSkGRmMGyJpE2cQNnj2SC78FG9+
+ Im/gN83Q6kKanznkFeHOKqRxHR4HIOQDl+SKV8t/JmeKLfrpQMTw12e0uEjSi1rF
+ 5al+5MLVTSpSIdzS2z7iHpB41qwf6ZiUz1ykaIhC8KaMLFQ4Crz26zLVVpeV2hNI
+ eS3xGs5fLwy1ZQhL2sK3QQgsdeucoV8ue0u+3uIXZVQ9Unyjhg/jWnmBPK1vVgMx
+ nKb+IjRYQE/S9DZTZN5O3AYbxQGgcaNOTKJXuZ3x26vPXcy07xF2j+fdbMvn/pEb
+ /yGiSA==
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 404kctht95-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 404kctht9u-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 03:05:53 +0000 (GMT)
+ Wed, 03 Jul 2024 03:06:12 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
  by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46335q7h013164
+ 46336BQb014649
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 03:05:52 GMT
+ Wed, 3 Jul 2024 03:06:11 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:05:30 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 20:05:49 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 10:58:22 +0800
-Message-ID: <20240703025850.2172008-20-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 10:58:23 +0800
+Message-ID: <20240703025850.2172008-21-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -66,14 +66,14 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 07v4OpimNVZzQ0326KY5pSQ8fvnmAuXr
-X-Proofpoint-ORIG-GUID: 07v4OpimNVZzQ0326KY5pSQ8fvnmAuXr
+X-Proofpoint-GUID: uUvrxwDwujueQ9C28U5P7S0vty8yH4SI
+X-Proofpoint-ORIG-GUID: uUvrxwDwujueQ9C28U5P7S0vty8yH4SI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  phishscore=0 adultscore=0
- bulkscore=0 mlxlogscore=668 priorityscore=1501 impostorscore=0
+ bulkscore=0 mlxlogscore=627 priorityscore=1501 impostorscore=0
  suspectscore=0 mlxscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
  spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2406140001 definitions=main-2407030022
@@ -106,8 +106,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 19/47] dt-bindings: cache: qcom,
-	llcc: Add QCS9100 description
+Subject: [Linux-stm32] [PATCH 20/47] dt-bindings: interrupt-controller: qcom,
+	pdc: document pdc on QCS9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,34 +124,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the cache controller compatible and register region descriptions for
-QCS9100 platform.
+The QCS9100 SoC includes a PDC, document it.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- Documentation/devicetree/bindings/cache/qcom,llcc.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-index 68ea5f70b75f..a38c8b99099e 100644
---- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-+++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-@@ -21,6 +21,7 @@ properties:
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
+index 985fa10abb99..41fbfce838fa 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.yaml
+@@ -26,6 +26,7 @@ properties:
    compatible:
-     enum:
-       - qcom,qdu1000-llcc
-+      - qcom,qcs9100-llcc
-       - qcom,sa8775p-llcc
-       - qcom,sc7180-llcc
-       - qcom,sc7280-llcc
-@@ -85,6 +86,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - qcom,qcs9100-llcc
-               - qcom,sa8775p-llcc
-     then:
-       properties:
+     items:
+       - enum:
++          - qcom,qcs9100-pdc
+           - qcom,qdu1000-pdc
+           - qcom,sa8775p-pdc
+           - qcom,sc7180-pdc
 -- 
 2.25.1
 
