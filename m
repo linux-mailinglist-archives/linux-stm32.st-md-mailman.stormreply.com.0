@@ -2,70 +2,112 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E213925558
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 10:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B37A192568E
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 11:22:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F847C71280;
-	Wed,  3 Jul 2024 08:29:29 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3797CC71280;
+	Wed,  3 Jul 2024 09:22:18 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DF09C6DD96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F43DC6DD9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 08:29:22 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4637YLfS001949;
- Wed, 3 Jul 2024 10:28:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ Wed,  3 Jul 2024 09:22:11 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4638D1LB027444;
+ Wed, 3 Jul 2024 09:21:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 6Rh2LslZMMANq25IkC1tGRBe0DiLGeoOd/wRbMxgBrk=; b=4CV489sGvTWQM9NP
- ZGgolq1vdNLKVVshdskB5IXydpfRbKETXV88CbllItmX5f0ifEJR/zx19JQrq6Yi
- s3rZdz49gs+Dof5XEN2fEu4L2i8kWcfzITe3HYviDq1Aiy2SFOHGfLV4uv1LstTK
- 4QuFw41HQJFQ2x9uN+K391Rwj5YiD7PcLJwVxG7cQtttCj3CfGyAdLTCy8IX3HZg
- XVjO1P1epRuXMBU7zZSs0vbjq+fCTDoxHL0PIdwUeaAzdouj1McP5cLALgONdbR9
- RI8Z6zRolov9PiKk/f65Zq6rGabaSeZbUbEuoiFLmCJMxK7L2Us9CUUXECcRwNME
- R7x+KA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 402w7j524p-1
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zFayjh+1qzFNX/L8mf2pY/rdIsRlH8uG2GflD4xHDhY=; b=GP9s9iCjwlhtGabK
+ ji04H6MUw3QZ2THnZ8MnZmsgkMmwwt1SFfnCMHhSJWVMSNLsHGqj1sbicP/Y0wy+
+ Tlvx86VUUKy+J+eHegc+RNHmJGPmisqYFhLqQigoyoHHTk57KJo2whllN1BY7LJh
+ CvCvkmrHqU+7lrISb+5hEqoYIqIdyWVy+dFXq5SgFzT2fQh5Vg2HiiKkBvdTDuMH
+ uKDXIK+4+MRDGK1o20TcWBR1bhgJUWxcml1xHGD0q/F+wRpstDBvTfyzHvL7aisU
+ bFVa9apUSGJ5qm1MRVyAXMxadQT4eHVx3BF8wOG5lo/gmeWRxFXsh8ATVQZJHcG4
+ yqnVZw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4027mnrp2m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 10:28:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8FEF540048;
- Wed,  3 Jul 2024 10:28:52 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AC62A215BFA;
- Wed,  3 Jul 2024 10:28:02 +0200 (CEST)
-Received: from [10.252.27.110] (10.252.27.110) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Jul
- 2024 10:28:01 +0200
-Message-ID: <da75ec86-a701-45cc-b573-fde79bcfc104@foss.st.com>
-Date: Wed, 3 Jul 2024 10:28:01 +0200
+ Wed, 03 Jul 2024 09:21:35 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 4639LXCm013350
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 3 Jul 2024 09:21:33 GMT
+Received: from [10.239.132.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 3 Jul 2024
+ 02:21:11 -0700
+Message-ID: <fbeb5969-0b3a-455e-88eb-b83734bf2c50@quicinc.com>
+Date: Wed, 3 Jul 2024 17:21:09 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>
-References: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
- <20240625150717.1038212-5-olivier.moysan@foss.st.com>
- <20240628213517.GA225013-robh@kernel.org>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20240628213517.GA225013-robh@kernel.org>
-X-Originating-IP: [10.252.27.110]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+To: Krzysztof Kozlowski <krzk@kernel.org>, <andersson@kernel.org>,
+ <konrad.dybcio@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <djakov@kernel.org>, <mturquette@baylibre.com>,
+ <sboyd@kernel.org>, <jassisinghbrar@gmail.com>,
+ <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+ <manivannan.sadhasivam@linaro.org>, <will@kernel.org>,
+ <joro@8bytes.org>, <conor@kernel.org>, <tglx@linutronix.de>,
+ <amitk@kernel.org>, <thara.gopinath@gmail.com>,
+ <linus.walleij@linaro.org>, <wim@linux-watchdog.org>,
+ <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
+ <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
+References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
+ <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+ <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
+From: Tengfei Fan <quic_tengfan@quicinc.com>
+In-Reply-To: <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 5Ybf8r0PXG_XS31lxeN4m5yOCkbBXD5_
+X-Proofpoint-GUID: 5Ybf8r0PXG_XS31lxeN4m5yOCkbBXD5_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-03_04,2024-07-02_02,2024-05-17_01
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 4/8] dt-bindings: iio: dfsdm: move to
-	backend framework
+ definitions=2024-07-03_05,2024-07-02_02,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0
+ spamscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 phishscore=0 mlxscore=0 suspectscore=0 clxscore=1015
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2407030069
+Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
+ kw@linux.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ alim.akhtar@samsung.com, quic_rjendra@quicinc.com, otto.pflueger@abscue.de,
+ linux-riscv@lists.infradead.org, quic_tsoni@quicinc.com,
+ linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org, kishon@kernel.org,
+ quic_sibis@quicinc.com, kernel@quicinc.com, quic_bjorande@quicinc.com,
+ bvanassche@acm.org, linux-scsi@vger.kernel.org, bartosz.golaszewski@linaro.org,
+ quic_tingweiz@quicinc.com, daniel.lezcano@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, luca@z3ntu.xyz,
+ iommu@lists.linux.dev, agross@kernel.org, danila@jiaxyga.com,
+ u.kleine-koenig@pengutronix.de, rui.zhang@intel.com, ahalaney@redhat.com,
+ quic_rgottimu@quicinc.com, bhupesh.sharma@linaro.org,
+ quic_devipriy@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_nitirawa@quicinc.com, athierry@redhat.com, avri.altman@wdc.com,
+ robimarko@gmail.com, bhelgaas@google.com, peppe.cavallaro@st.com,
+ quic_cang@quicinc.com, quic_shashim@quicinc.com,
+ linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
+ quic_kbajaj@quicinc.com, linux-gpio@vger.kernel.org,
+ gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_msarkar@quicinc.com, quic_wcheng@quicinc.com,
+ krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com, mantas@8devices.com,
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
+ quic_aiquny@quicinc.com, lukasz.luba@arm.com
+Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
+ QCS9100 SoC and RIDE board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,243 +124,50 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
 
-On 6/28/24 23:35, Rob Herring wrote:
-> On Tue, Jun 25, 2024 at 05:07:12PM +0200, Olivier Moysan wrote:
->> Change the DFSDM binding to use the new IIO backend framework,
->> along with the adoption of IIO generic channels.
->> This binding change allows to add scaling support to the DFSDM.
+
+On 7/3/2024 12:38 PM, Krzysztof Kozlowski wrote:
+> On 03/07/2024 04:58, Tengfei Fan wrote:
+>> Document the QCS9100 SoC and RIDE board.
 >>
->> Keep the legacy binding as deprecated for backward compatibility.
->>
->> The io-backends property is supported only in generic IIO channel
->> binding.
->>
->> - Channel description with the generic binding (Audio and Analog):
->>
->>    Properties superseded by generic properties:
->>      st,adc-channels: becomes "reg" property in channel node
->>      st,adc-channel-names: becomes "label" property in channel node
->>    Properties moved to channel child node:
->>      st,adc-channel-types: becomes st,adc-channel-type
->>      st,adc-channel-clk-src, st,adc-alt-channel
->>
->> - Analog binding:
->>
->>    DFSDM filter channel is configured as an IIO backend consumer.
->>    Add io-backends property in channel child nodes.
->>
->>    DFSDM is no more configured as a channel consumer from SD modulator.
->>    Use of io-channels in DFSDM node is deprecated.
->>
->> - Audio binding:
->>
->>    DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->>    No change compare to legacy.
->>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+>> Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 >> ---
->>   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 157 +++++++++++++++++-
->>   1 file changed, 151 insertions(+), 6 deletions(-)
+>>   Documentation/devicetree/bindings/arm/qcom.yaml | 3 +++
+>>   1 file changed, 3 insertions(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> index c1b1324fa132..1802120b16b0 100644
->> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> @@ -102,9 +102,11 @@ patternProperties:
->>           items:
->>             minimum: 0
->>             maximum: 7
->> +        deprecated: true
+>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+>> index ec1c10a12470..f06543f96026 100644
+>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>> @@ -45,6 +45,7 @@ description: |
+>>           qcs8550
+>>           qcm2290
+>>           qcm6490
+>> +        qcs9100
+>>           qdu1000
+>>           qrb2210
+>>           qrb4210
+>> @@ -894,7 +895,9 @@ properties:
 >>   
->>         st,adc-channel-names:
->>           description: List of single-ended channel names.
->> +        deprecated: true
->>   
->>         st,filter-order:
->>           description: |
->> @@ -118,6 +120,12 @@ patternProperties:
->>         "#io-channel-cells":
->>           const: 1
->>   
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->>         st,adc-channel-types:
->>           description: |
->>             Single-ended channel input type.
->> @@ -128,6 +136,7 @@ patternProperties:
->>           items:
->>             enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-channel-clk-src:
->>           description: |
->> @@ -139,6 +148,7 @@ patternProperties:
->>           items:
->>             enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-alt-channel:
->>           description:
->> @@ -147,6 +157,7 @@ patternProperties:
->>             If not set, channel n is connected to SPI input n.
->>             If set, channel n is connected to SPI input n + 1.
->>           type: boolean
->> +        deprecated: true
->>   
->>         st,filter0-sync:
->>           description:
->> @@ -165,11 +176,64 @@ patternProperties:
->>         - compatible
->>         - reg
->>         - interrupts
->> -      - st,adc-channels
->> -      - st,adc-channel-names
->>         - st,filter-order
->>         - "#io-channel-cells"
->>   
->> +    patternProperties:
->> +      "^channel@([0-9]|1[0-9])$":
+>>         - items:
+>>             - enum:
+>> +              - qcom,qcs9100-ride
+>>                 - qcom,sa8775p-ride
+>> +          - const: qcom,qcs9100
 > 
-> Unit-addresses are normally hex. And according to reg below, the max
-> value is 8.
+> This changes existing compatible for sa8775p without any explanation in
+> commit msg.
+> 
+> Best regards,
+> Krzysztof
 > 
 
-Right. The maximum number of serial interfaces is 8.
-So, the pattern can be reduced to "^channel@([0-7])$":
+In the next verion patch series, I will provide relevant explanatory 
+information in this patch commit message.
 
->> +        type: object
->> +        $ref: adc.yaml
->> +        description: Represents the external channels which are connected to the DFSDM.
->> +
->> +        properties:
->> +          reg:
->> +            items:
->> +              minimum: 0
->> +              maximum: 8
-> 
-> More than 1 reg entry valid? Either way, you need maxItems. Or you can
-> just drop 'items'
-> 
-
-Added "maxItems: 1" and dropped items.
-
->> +
->> +          label:
->> +            description:
->> +              Unique name to identify which channel this is.
->> +
->> +          st,adc-channel-type:
->> +            description: |
->> +              Single-ended channel input type.
->> +              - "SPI_R": SPI with data on rising edge (default)
->> +              - "SPI_F": SPI with data on falling edge
->> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
->> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
->> +            items:
-> 
-> 'items' is for arrays, but...
-> 
-
-Removed items
-
->> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->> +            $ref: /schemas/types.yaml#/definitions/string
-> 
-> not an array.
-> 
->> +
->> +          st,adc-channel-clk-src:
->> +            description: |
->> +              Conversion clock source.
->> +              - "CLKIN": external SPI clock (CLKIN x)
->> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
->> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
->> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
->> +            items:
-> 
-> ditto
-> 
-
-Done
-
->> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->> +            $ref: /schemas/types.yaml#/definitions/string
->> +
->> +          st,adc-alt-channel:
->> +            description:
->> +              Must be defined if two sigma delta modulators are
->> +              connected on same SPI input.
->> +              If not set, channel n is connected to SPI input n.
->> +              If set, channel n is connected to SPI input n + 1.
->> +            type: boolean
->> +
->> +          io-backends:
->> +            description:
->> +              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
-> 
-> How many entries (maxItems)?
-> 
->> +
->> +        required:
->> +          - reg
->> +
->> +        additionalProperties: false
-> 
-> Put this next to the $ref for the node. And switch to
-> unevaluatedProperties and drop 'label' from here.
-> 
-
-Done
-
->> +
->>       allOf:
->>         - if:
->>             properties:
->> @@ -199,9 +263,19 @@ patternProperties:
->>                 description:
->>                   From common IIO binding. Used to pipe external sigma delta
->>                   modulator or internal ADC output to DFSDM channel.
->> +              deprecated: true
->>   
->> -          required:
->> -            - io-channels
->> +          if:
->> +            required:
->> +              - st,adc-channels
->> +          then:
->> +            required:
->> +              - io-channels
->> +
->> +          patternProperties:
->> +            "^channel@([0-9]|1[0-9])$":
->> +              required:
->> +                - io-backends
-> 
-> Don't think this is needed here. If channel node is present, the
-> io-backends should always be required, right? Then this can go under the
-> node schema.
-> 
-
-The io-backends property is required only when we use st,stm32-dfsdm-adc 
-compatible. In other words, when we are in an analog use case. In this 
-case the channel is a consumer of a backend (typically a sd modulator)
-In an audio use case (compatible st,stm32-dfsdm-dmic) the backend is not 
-required.
-
-BRs
-Olivier
-
-> Rob
-> 
-> 
+-- 
+Thx and BRs,
+Tengfei Fan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
