@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD40A925417
+	by mail.lfdr.de (Postfix) with ESMTPS id D0D9A925418
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 706A3C78F7D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F9CEC78F80;
 	Wed,  3 Jul 2024 06:53:37 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9837C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A303C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 03:55:41 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HIUMe016332;
- Wed, 3 Jul 2024 03:55:11 GMT
+ Wed,  3 Jul 2024 03:55:58 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462GKoMc007913;
+ Wed, 3 Jul 2024 03:55:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KwW+YKclC6VaYNkiH8uy9e79d2+KSUWQWRHyDBEr4mE=; b=oJBorf+LIQn8hxGW
- 7YW6ZKksSdWLyX8VsmHictib+CNEcKU9ZBK5NYLFtg0vO1QvdPnwN+c0p7bec0RC
- 7JzObMaD4toQ6uh/PaHItffDbD84jKrOHa/9KRhu3GMb9yETecyqfBfoB6puneAp
- x7ZpPn4YUfSujFDLXNzdMEniVvpLagqmeHqH07VjBl7+kMxRynfHFA5HDaHq9Try
- gyqp0lYOH8HU0MJF5Uw9/CA5ewgv+Zo2IK8UUVWgPWXhQVDk6RH/bHTgryca5AcA
- n7bxH07LckhgnctzllNofidt4fFuq/XINZ/+kVINsgss7tOdFzic6WKPGXgh6e60
- aGq6+w==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ 76JFJShBYAcMdwTFRo7+Ivq4mflKfEpOvg00TitIBxo=; b=N1KOhLx7gqkeASMD
+ laI2PLNm8X2g+EJDJTFB6vue+UW0gl4z8ga92b8Nw4rAu4RK9RzP8rrQFJIOIaLf
+ mRpeg8aht6Dp07NgLjCUdYMWNw66uminX7hU2Yr6W8Qbss3FDp0pxnfSXtA8bSop
+ w1F6pS9SVRFWOD9bcz1uXgy/7htnnDWK05pEkdeDQL0uIT1JSUmijg0wsS+g7jDd
+ thpK6AnjFAnSGMXfUm/ML7YmjFpVBy969vnG3nLK1bImrB697RTFVcX0YKaB0KS8
+ BGQbqODX4nq4rieqDBIdGC3xEnDoqci7yegTcrk6sK6ppA6/cnkUs0cIDdBPbaII
+ w2TTLw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402ag2jbdq-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402bj8a5gn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 03:55:11 +0000 (GMT)
+ Wed, 03 Jul 2024 03:55:30 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4633tA6n001655
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 4633tTfg007059
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 03:55:10 GMT
+ Wed, 3 Jul 2024 03:55:29 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:54:48 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 20:55:07 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:51:44 +0800
-Message-ID: <20240703035154.2182083-8-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:51:45 +0800
+Message-ID: <20240703035154.2182083-9-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035154.2182083-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,17 +67,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: Q9Bmu2QotqlSLqKlz9TYd5KXx-76ImjI
-X-Proofpoint-GUID: Q9Bmu2QotqlSLqKlz9TYd5KXx-76ImjI
+X-Proofpoint-ORIG-GUID: CLbmqMRhrHl13GKwF2GjCB7VEGnTYagp
+X-Proofpoint-GUID: CLbmqMRhrHl13GKwF2GjCB7VEGnTYagp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 clxscore=1015
- malwarescore=0 phishscore=0 impostorscore=0 mlxlogscore=899 bulkscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407030027
+ clxscore=1015 impostorscore=0
+ spamscore=0 suspectscore=0 mlxlogscore=833 mlxscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
+ definitions=main-2407030027
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
@@ -107,8 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 37/47] clk: qcom: add the GPUCC driver support
-	for QCS9100
+Subject: [Linux-stm32] [PATCH 38/47] phy: qcom: add the SGMII SerDes PHY
+	driver support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,26 +125,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the clock driver support for the Qualcomm Graphics Clock control
-module.
+Add the SGMII SerDes PHY driver support for QCS9100 platform.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- drivers/clk/qcom/gpucc-sa8775p.c | 1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/qcom/gpucc-sa8775p.c b/drivers/clk/qcom/gpucc-sa8775p.c
-index f8a8ac343d70..89ca1289cd74 100644
---- a/drivers/clk/qcom/gpucc-sa8775p.c
-+++ b/drivers/clk/qcom/gpucc-sa8775p.c
-@@ -584,6 +584,7 @@ static const struct qcom_cc_desc gpu_cc_sa8775p_desc = {
+diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
+index 5b1c82459c12..0ea7140564a9 100644
+--- a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
++++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
+@@ -353,6 +353,7 @@ static int qcom_dwmac_sgmii_phy_probe(struct platform_device *pdev)
+ }
  
- static const struct of_device_id gpu_cc_sa8775p_match_table[] = {
- 	{ .compatible = "qcom,sa8775p-gpucc" },
-+	{ .compatible = "qcom,qcs9100-gpucc" },
- 	{ }
+ static const struct of_device_id qcom_dwmac_sgmii_phy_of_match[] = {
++	{ .compatible = "qcom,qcs9100-dwmac-sgmii-phy" },
+ 	{ .compatible = "qcom,sa8775p-dwmac-sgmii-phy" },
+ 	{ },
  };
- MODULE_DEVICE_TABLE(of, gpu_cc_sa8775p_match_table);
 -- 
 2.25.1
 
