@@ -2,49 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACEC39262CC
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 16:05:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DFB9262D4
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 16:07:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FCC7C71280;
-	Wed,  3 Jul 2024 14:05:39 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82AA5C71280;
+	Wed,  3 Jul 2024 14:07:25 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C134C6DD96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9876DC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 14:05:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 018CB62243;
- Wed,  3 Jul 2024 14:05:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD7AC2BD10;
- Wed,  3 Jul 2024 14:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1720015529;
- bh=SBuiLlAm8KdKJg4F9Y0YoQ0A1QaiAy6w/Qr73jLhApo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sps+pOmGOcLZTVV9gSreDYf32GXk4Sa3XE8agNk7MvVkVWlhHYVJAkc5E0yJnbttA
- 9NCCGPfPfIFZXp3rBmgBxXEjVim7Ke4nDtWYF8gz7DidP8S03BIpuILdH9e8p8QH5P
- h6Eb7Cs6LoF/il5mumcvp/t9iqQ52jxIrxJa1AfU=
-Date: Wed, 3 Jul 2024 16:05:19 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <2024070310-iodine-synopsis-4fd9@gregkh>
-References: <20240627-ucsi-rework-interface-v4-0-289ddc6874c7@linaro.org>
- <2024062717-foster-document-eb2f@gregkh>
- <CAA8EJprAshnt3YchBv0ssi4Vet9b6oMcf3z8nuRkoZVYNBq64w@mail.gmail.com>
- <CAA8EJpqCJ8_wOO7yLYA85KYtbLO6hvS-yb7DA6kJ2sH4QH43QA@mail.gmail.com>
- <2024062825-balancing-resigned-e383@gregkh>
- <CAA8EJprsJLMTnd9epLR4Uc02Vg2veW1mpqFxxL=rHU9DtJ8UqQ@mail.gmail.com>
+ Wed,  3 Jul 2024 14:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=P0Rr+yS4hmxk/HxEasE5ZIIdo2vBH9AoXzHNr8O+yNA=; b=Mpid6Vv/k1ip5Z7a1GhqsniD/w
+ DFaVm2xfz+aCMMjiC/VCCN5MEaK90BScgCxPy2z6OHgkAQaH37zWzdUWpxi0rqT/D2wnJzTYrRe/7
+ yludWXR0MhBzTXM3d0rr1RrO7zEPxn5K8r9zsDzd7Hoc12onAk8HWzkvUDDvmeBctpAw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sP0dK-001jac-S8; Wed, 03 Jul 2024 16:06:54 +0200
+Date: Wed, 3 Jul 2024 16:06:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <c26867af-6f8c-412a-bdd4-5ac9cc6a721c@lunn.ch>
+References: <E1sOz2O-00Gm9W-B7@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAA8EJprsJLMTnd9epLR4Uc02Vg2veW1mpqFxxL=rHU9DtJ8UqQ@mail.gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nikita Travkin <nikita@trvn.ru>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/7] usb: typec: ucsi: rework glue
-	driver interface
+In-Reply-To: <E1sOz2O-00Gm9W-B7@rmk-PC.armlinux.org.uk>
+Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "Abhishek Chauhan \(ABC\)" <quic_abchauha@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac4: fix PCS duplex
+	mode decode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,72 +59,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 28, 2024 at 05:25:17PM +0300, Dmitry Baryshkov wrote:
-> On Fri, 28 Jun 2024 at 17:24, Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Thu, Jun 27, 2024 at 06:08:07PM +0300, Dmitry Baryshkov wrote:
-> > > On Thu, 27 Jun 2024 at 17:57, Dmitry Baryshkov
-> > > <dmitry.baryshkov@linaro.org> wrote:
-> > > >
-> > > > On Thu, 27 Jun 2024 at 17:54, Greg Kroah-Hartman
-> > > > <gregkh@linuxfoundation.org> wrote:
-> > > > >
-> > > > > On Thu, Jun 27, 2024 at 05:44:39PM +0300, Dmitry Baryshkov wrote:
-> > > > > > The interface between UCSI and the glue driver is very low-level. It
-> > > > > > allows reading the UCSI data from any offset (but in reality the UCSI
-> > > > > > driver reads only VERSION, CCI an MESSAGE_IN data). All event handling
-> > > > > > is to be done by the glue driver (which already resulted in several
-> > > > > > similar-but-slightly different implementations). It leaves no place to
-> > > > > > optimize the write-read-read sequence for the command execution (which
-> > > > > > might be beneficial for some of the drivers), etc.
-> > > > > >
-> > > > > > The patchseries attempts to restructure the UCSI glue driver interface
-> > > > > > in order to provide sensible operations instead of a low-level read /
-> > > > > > write calls.
-> > > > > >
-> > > > > > If this approach is found to be acceptable, I plan to further rework the
-> > > > > > command interface, moving reading CCI and MESSAGE_IN to the common
-> > > > > > control code, which should simplify driver's implementation and remove
-> > > > > > necessity to split quirks between sync_control and read_message_in e.g.
-> > > > > > as implemented in the ucsi_ccg.c.
-> > > > > >
-> > > > > > Note, the series was tested only on the ucsi_glink platforms. Further
-> > > > > > testing is appreciated.
-> > > > > >
-> > > > > > Depends: [1], [2]
-> > > > > >
-> > > > > > [1] https://lore.kernel.org/linux-usb/20240612124656.2305603-1-fabrice.gasnier@foss.st.com/
-> > > > > >
-> > > > > > [2] https://lore.kernel.org/linux-usb/20240621-ucsi-yoga-ec-driver-v8-1-e03f3536b8c6@linaro.org/
-> > > > > >
-> > > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > > ---
-> > > > > > Changes in v4:
-> > > > > > - Rebased on top of Greg's tree to resolve conflicts.
-> > > > >
-> > > > > Nope, still got conflicts, are you sure you updated properly?  Patch 1
-> > > > > applied, but #2 did not.
-> > > >
-> > > > I feel stupid enough now. I rebased on top of usb-next instead of
-> > > > usb-testing. Let me spam it once again
-> > >
-> > > Hmm, I see what happened. I had a next+usb-next. Simple usb-next
-> > > doesn't contain changes from 9e3caa9dd51b ("usb: typec: ucsi_acpi: Add
-> > > LG Gram quirk") which this patch also modifies. I can rebase it on top
-> > > of your tree, but then we will have build issues once usb-linus and
-> > > usb-next get merged together.
-> >
-> > Ah, you need/want stuff from both branches, right?  Then just wait until
-> > next week when my -linus branch will be in Linus's tree and then I will
-> > merge that into the -next branch.
-> 
-> Ack. Maybe I'll post another iteration based on the discussion on the
-> mailing list.
+On Wed, Jul 03, 2024 at 01:24:40PM +0100, Russell King (Oracle) wrote:
+> dwmac4 was decoding the duplex mode from the GMAC_PHYIF_CONTROL_STATUS
+> register incorrectly, using GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK (value 1)
+> rather than GMAC_PHYIF_CTRLSTATUS_LNKMOD (bit 16). Fix this.
 
-Now queued up, thanks.
+This appears to be the only use of
+GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK. Maybe it should be removed after
+this change?
 
-greg k-h
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
