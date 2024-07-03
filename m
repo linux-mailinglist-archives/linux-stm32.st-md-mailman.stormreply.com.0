@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B783925426
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F897925427
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CCF8C78F9D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 689FAC78F9F;
 	Wed,  3 Jul 2024 06:53:38 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC86BC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D76F9C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 04:02:25 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46300266025449;
- Wed, 3 Jul 2024 04:01:59 GMT
+ Wed,  3 Jul 2024 04:03:07 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HExeo004367;
+ Wed, 3 Jul 2024 04:02:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /TGU65GeCuQxaGz1P0+2lJhHVExW7JnSYVc74B3YzSw=; b=GZfloxmHuhxv+lxr
- LR/loeeiB52/LtKsxvoXxVes8CFK5MMosUoXepPdKge/t3dhMZYDt/OH76czywgi
- EDM6EQ964p9lpjOA0qiEqDUhqvudbhXMxoFE5QowZbRkGaGBA5/MHTqUj0FcW6Kq
- N/LbQvwCcVBgoI5OksGnlPQbQp4ZbUqRHCximPdrtSnARGsWDTnlVwOhjxJvTWFF
- njmd6OCdy2KS6929i7CVOCSYW+MzJ77kPg8GqaxDhMViHeVgcTyBgLGJbAtAeLZQ
- vaH84Wzy6jDHHbXaj8uw26SAl8dLb76BJzo4ao38GWTV0k9Yo6UBnIhRiQF/AZaZ
- Y9qsYQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ vUlJeZArXy8wGVHiqF/d3CoFu3l6cFkYn6tkzhlbsb8=; b=S7/NkUCeBYANY19N
+ owxG2H50dwgxIGTiEvIZ+4NHa45osyZnFJkaDnuOtbSkH0z524655DQxKY3sh0c9
+ OfpFXiM5nRNHjT0yTCyz7kC0rZoWc9v1wn55TUIyzGjiDl5uxVSpx+PwMiryCZ3R
+ Pli+GEukk4/nf+HzOPaVhRsA0Xwn1JoqnnoTuCtm5xau09NkmZ6YVuhSc6pNba5E
+ TffJralXylnbkM0hFBXyh4IPIC14hlWWzz58EXLG3lnsarwJA4MZIJ9HbzNQtKZf
+ p6+q+SqV1MG+CsLK2gRNIe8eytgJSIPVnikhkvhqAYBmga6yRwE5fBzE1bGdHhKX
+ rMaEbA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402an77k63-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4029uxfkgm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 04:01:58 +0000 (GMT)
+ Wed, 03 Jul 2024 04:02:16 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46341v78029705
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46342FXH006031
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 04:01:57 GMT
+ Wed, 3 Jul 2024 04:02:15 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 21:01:35 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 21:01:54 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:56:58 +0800
-Message-ID: <20240703035735.2182165-11-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:56:59 +0800
+Message-ID: <20240703035735.2182165-12-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035735.2182165-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,17 +67,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: Hg3uH5Jt-dLr9BNgp39-0j_qr6OC5tLq
-X-Proofpoint-ORIG-GUID: Hg3uH5Jt-dLr9BNgp39-0j_qr6OC5tLq
+X-Proofpoint-GUID: spwUhzKc1kuOvIcY_iZGWebAiKxh501A
+X-Proofpoint-ORIG-GUID: spwUhzKc1kuOvIcY_iZGWebAiKxh501A
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- clxscore=1015 adultscore=0 malwarescore=0 mlxlogscore=876 suspectscore=0
- phishscore=0 bulkscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
- definitions=main-2407030027
+ mlxlogscore=776
+ priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 mlxscore=0
+ clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2407030028
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
@@ -107,8 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 10/47] dt-bindings: crypto: ice: Document
-	QCS9100 inline crypto engine
+Subject: [Linux-stm32] [PATCH 11/47] dt-bindings: crypto: qcom,
+	prng: document QCS9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,26 +125,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document the compatible used for the inline crypto engine found on
-QCS9100.
+Document QCS9100 compatible for the True Random Number Generator.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml    | 1 +
+ Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-index 0304f074cf08..ad0944e05025 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-@@ -13,6 +13,7 @@ properties:
-   compatible:
-     items:
-       - enum:
-+          - qcom,qcs9100-inline-crypto-engine
-           - qcom,sa8775p-inline-crypto-engine
-           - qcom,sc7180-inline-crypto-engine
-           - qcom,sc7280-inline-crypto-engine
+diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+index 89c88004b41b..e97226eb7a50 100644
+--- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
++++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+@@ -17,6 +17,7 @@ properties:
+           - qcom,prng-ee  # 8996 and later using EE
+       - items:
+           - enum:
++              - qcom,qcs9100-trng
+               - qcom,sa8775p-trng
+               - qcom,sc7280-trng
+               - qcom,sm8450-trng
 -- 
 2.25.1
 
