@@ -2,84 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3AAD9256B4
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 11:25:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 568649256DC
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 11:34:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87C36C71280;
-	Wed,  3 Jul 2024 09:25:42 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05742C71280;
+	Wed,  3 Jul 2024 09:34:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1F14C6DD9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59EC5C6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 09:25:40 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4637OU4R003862;
- Wed, 3 Jul 2024 09:25:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ejzttzK64DsVwhu9fW5iFUwBdmhQXcGVqYJFfm7aIMQ=; b=lbbWWjueKNvpEWjA
- RAA5DftQD3q0+U6ZgGao7lzjhJRSMcYSaEOsweno5jTAQvs4hpHbzUb7ctdrxz5X
- Dd3GhhNQ3C0WLrFdsZmVo2ga1Tc5BMOi585odphd3MSApS2fx0DqwGFEiktRzoQX
- mc65K3bS8okVJ0QdKNSaRBDFOMXsQ1NCttFYR1Lw53jP+BfLWBoUMxmKw8Q5faee
- CREPgsKN4yEK6QBPotgtPcUH4TUQjPl6mGpwugG4wDKTJ6FJhtJGvZHR1bbT/Tcx
- 5YGBPKV5k7NavnZA48gOL0Bgsxg+VfA8Ul/GgA8hPt4OrM2lwborKxVQXN3VgN8U
- mmC8Sg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4027yfbbtd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 09:25:01 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4639P0HE027548
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 09:25:00 GMT
-Received: from [10.239.132.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 3 Jul 2024
- 02:24:38 -0700
-Message-ID: <d81740ba-0b15-4f9f-be75-9958ed9f032c@quicinc.com>
-Date: Wed, 3 Jul 2024 17:24:36 +0800
+ Wed,  3 Jul 2024 09:34:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3C094621B2;
+ Wed,  3 Jul 2024 09:34:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C04C2BD10;
+ Wed,  3 Jul 2024 09:33:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1719999261;
+ bh=pd1eNj6nuYN/3arxBHZTm6B86vapn84OM4Ftt3uk7Wc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=idKSNW5aIlXXBmQQE6vWRFOpWw505inp9Zl02XR45cvPvenChqSxBg9Wy/RjaHG62
+ DcHCv4wMi6x9k1aA70xUXnrpFUoVgvnITvz1Ta9pyl/xcn3i+ZJs3e/UAE3Sg/i+uw
+ RnVyMAXBbvb3ZrqjbYIDwpxfiGhuUn3kh7u4UhvWV7VYEoOmzz2M5JO/f/Xlsdusw5
+ wlNwYmKDFdv79I+d44n9jjGqJMIxe8asfANGwTZyRBt3XoqwaCPY/q4jrTyP0gIX8J
+ TMA1zz3yhfA2qlUSwZI55XvlyUq8i5Bi89OKKZjMu19Octff7zIq2aOz8tUFs3hMz6
+ 1C87AQNfxUidQ==
+Message-ID: <97c9484b-e257-4163-a104-3457d59bc69b@kernel.org>
+Date: Wed, 3 Jul 2024 11:33:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, <andersson@kernel.org>,
- <konrad.dybcio@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <djakov@kernel.org>, <mturquette@baylibre.com>,
- <sboyd@kernel.org>, <jassisinghbrar@gmail.com>,
- <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <manivannan.sadhasivam@linaro.org>, <will@kernel.org>,
- <joro@8bytes.org>, <conor@kernel.org>, <tglx@linutronix.de>,
- <amitk@kernel.org>, <thara.gopinath@gmail.com>,
- <linus.walleij@linaro.org>, <wim@linux-watchdog.org>,
- <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
- <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
+To: Tengfei Fan <quic_tengfan@quicinc.com>, andersson@kernel.org,
+ konrad.dybcio@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, djakov@kernel.org, mturquette@baylibre.com,
+ sboyd@kernel.org, jassisinghbrar@gmail.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, manivannan.sadhasivam@linaro.org, will@kernel.org,
+ joro@8bytes.org, conor@kernel.org, tglx@linutronix.de, amitk@kernel.org,
+ thara.gopinath@gmail.com, linus.walleij@linaro.org, wim@linux-watchdog.org,
+ linux@roeck-us.net, rafael@kernel.org, viresh.kumar@linaro.org,
+ vkoul@kernel.org, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
- <20240703025850.2172008-5-quic_tengfan@quicinc.com>
- <9b739f4a-c9e1-4d2a-9bec-83106dcf8868@kernel.org>
-From: Tengfei Fan <quic_tengfan@quicinc.com>
-In-Reply-To: <9b739f4a-c9e1-4d2a-9bec-83106dcf8868@kernel.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: fpiIBsiH_E6Bhr5OJ8BTnX5KfJw6CL5q
-X-Proofpoint-ORIG-GUID: fpiIBsiH_E6Bhr5OJ8BTnX5KfJw6CL5q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-03_05,2024-07-02_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0
- mlxscore=0 lowpriorityscore=0 mlxlogscore=999 phishscore=0 impostorscore=0
- clxscore=1011 malwarescore=0 suspectscore=0 adultscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407030069
+ <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+ <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
+ <fbeb5969-0b3a-455e-88eb-b83734bf2c50@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <fbeb5969-0b3a-455e-88eb-b83734bf2c50@quicinc.com>
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  kw@linux.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
@@ -106,8 +118,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: Re: [Linux-stm32] [PATCH 04/47] arm64: dts: qcom: qcs9100: Add
- QCS9100 RIDE board dts
+Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
+ QCS9100 SoC and RIDE board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,94 +131,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 7/3/2024 12:39 PM, Krzysztof Kozlowski wrote:
-> On 03/07/2024 04:58, Tengfei Fan wrote:
->> Add support for the QCS9100 RIDE board dts. The current QCS9100 RIDE
->> board dts is directly renamed from the SA8775p RIDE board dts.
->> The difference between the current QCS9100 RIDE board and the SA8775p
->> RIDE board lies solely in the replacement of the SA8775p SoC with the
->> QCS9100 SoC, all other board resources remain the same.
->> The following items have been updated:
->>    - use QCS9100-related compatible names for this board dts.
->>    - replace the inclusion of sa8775p.dtsi with qcs9100.dtsi.
->>    - replace the inclusion of sa8775p-pmics.dtsi with qcs9100-pmics.dtsi
+On 03/07/2024 11:21, Tengfei Fan wrote:
+>>>         - items:
+>>>             - enum:
+>>> +              - qcom,qcs9100-ride
+>>>                 - qcom,sa8775p-ride
+>>> +          - const: qcom,qcs9100
 >>
->> Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
->> ---
->>   arch/arm64/boot/dts/qcom/Makefile                         | 2 +-
->>   .../boot/dts/qcom/{sa8775p-ride.dts => qcs9100-ride.dts}  | 8 ++++----
->>   2 files changed, 5 insertions(+), 5 deletions(-)
->>   rename arch/arm64/boot/dts/qcom/{sa8775p-ride.dts => qcs9100-ride.dts} (99%)
+>> This changes existing compatible for sa8775p without any explanation in
+>> commit msg.
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
->> index 5576c7d6ea06..a7a3792b0691 100644
->> --- a/arch/arm64/boot/dts/qcom/Makefile
->> +++ b/arch/arm64/boot/dts/qcom/Makefile
->> @@ -103,6 +103,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-1000.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-4000.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
->> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qdu1000-idp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= qrb4210-rb2.dtb
->> @@ -112,7 +113,6 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sa8540p-ride.dtb
->> -dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-acer-aspire1.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-idp.dtb
->>   dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-trogdor-coachz-r1.dtb
->> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/qcs9100-ride.dts
->> similarity index 99%
->> rename from arch/arm64/boot/dts/qcom/sa8775p-ride.dts
->> rename to arch/arm64/boot/dts/qcom/qcs9100-ride.dts
->> index 26ad05bd3b3f..2415d34b8aa5 100644
->> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs9100-ride.dts
->> @@ -8,12 +8,12 @@
->>   #include <dt-bindings/gpio/gpio.h>
->>   #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
->>   
->> -#include "sa8775p.dtsi"
->> -#include "sa8775p-pmics.dtsi"
->> +#include "qcs9100.dtsi"
->> +#include "qcs9100-pmics.dtsi"
->>   
->>   / {
->> -	model = "Qualcomm SA8775P Ride";
->> -	compatible = "qcom,sa8775p-ride", "qcom,sa8775p";
->> +	model = "Qualcomm QCS9100 Ride";
->> +	compatible = "qcom,qcs9100-ride", "qcom,qcs9100";
+>> Best regards,
+>> Krzysztof
+>>
 > 
-> It does not look like you tested the DTS against bindings. Please run
-> `make dtbs_check W=1` (see
-> Documentation/devicetree/bindings/writing-schema.rst or
-> https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
-> for instructions).
-> 
-> Your own internal guideline tells you to perform above tests, doesn't it?
-> 
-> Best regards,
-> Krzysztof
-> 
+> In the next verion patch series, I will provide relevant explanatory 
+> information in this patch commit message.
 
-I have performed relevant check, and it's possible that there are some 
-issues about the parameters used. I will follow your advice and refer to 
-the relevant documentation to perform DTBS check again, ensuring that 
-similar issues do not arise in the future.
+TBH, I cannot think of any reasonable explanation for this, especially
+considering rest of the patchset which does not fix resulting dtbs_check
+warning.
 
--- 
-Thx and BRs,
-Tengfei Fan
+Best regards,
+Krzysztof
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
