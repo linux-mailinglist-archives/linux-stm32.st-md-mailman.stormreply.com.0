@@ -2,79 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52622925199
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 06:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 787F5925272
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 06:39:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5FF7C71280;
-	Wed,  3 Jul 2024 04:20:39 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B75BC71282;
+	Wed,  3 Jul 2024 04:39:06 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0358C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A17F8C6DD9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 04:20:31 +0000 (UTC)
+ Wed,  3 Jul 2024 04:38:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7D5A762112;
- Wed,  3 Jul 2024 04:20:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D42F9C4AF10;
- Wed,  3 Jul 2024 04:20:29 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 14FD3CE17E9;
+ Wed,  3 Jul 2024 04:38:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD393C32781;
+ Wed,  3 Jul 2024 04:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719980429;
- bh=Cxg67S+/b4PFpqD8c8jDsQk7LHaaGLk2W+TlIyPL5KA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=cHxvaJlIRTeIEa5yxQbgJRndGUYihRVgVhEjwwd0BmcxEKGvhwTuUhe4kOSC/0Zns
- EEF3V5+lYu5qldErNDgWMl1McUQVjNs8W/j/DKDtR4Q80pz9RHzOcDy4KRwTVjL9wa
- 77YeEaVeCA0mBr8iPmJJGE6+4f7GL0RHfeSS9xscpsLKjEIyqTqJkgVmDkKn4h3SBT
- i0eMZKAi8e2+OOwCXTYTNNPmt6wmHID+6PXE0VoxqfHdQm8KnEU/Ml4gRYKaut8elu
- jkFBzpGnoOLr8//pE0zPeRU4T6CAsxs3jiDBmGaHxGmTQK+D0voIqP3B9mDvUo2foU
- WQ3YkURFBJ12Q==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- AD173C41677; Wed,  3 Jul 2024 04:20:29 +0000 (UTC)
+ s=k20201202; t=1719981536;
+ bh=W1kROEg3Fjkby7km6ea2XB5zUQBCta+iGVmjqDJNcd4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=H+hv0vcaiq0XC7+jQ4SkBP6tLioSIe3HKWUbXaOlUbiaFuBk9DLPO6VtNaanYUvzQ
+ Ev/nx7GDK0z1YI39SPHe5GZWGxN+hkg9cwmbiWCwdESQw03d1YG767i52fPG/rVnuK
+ UOb1ndi1WGV82b3WM/a5qdpRt3Fb63aRJ2Htb59BTCAqbDCrjlgPQnzyc26BfvChNf
+ TwFz7y9MCugmzjF5lnkT4ZELHLonzS58O1pg7wcml6uL942bgU0iRWtcikgy03fsKi
+ KLp8csgIQfcYyKnwjYthjPSFP1QW16hZutMWuBsN+BZQPLf9kUUNuratI9rp68f9O6
+ ZFOZuNIoRcFng==
+Message-ID: <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
+Date: Wed, 3 Jul 2024 06:38:24 +0200
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <171998042970.21654.12559535993133117436.git-patchwork-notify@kernel.org>
-Date: Wed, 03 Jul 2024 04:20:29 +0000
+User-Agent: Mozilla Thunderbird
+To: Tengfei Fan <quic_tengfan@quicinc.com>, andersson@kernel.org,
+ konrad.dybcio@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, djakov@kernel.org, mturquette@baylibre.com,
+ sboyd@kernel.org, jassisinghbrar@gmail.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, manivannan.sadhasivam@linaro.org, will@kernel.org,
+ joro@8bytes.org, conor@kernel.org, tglx@linutronix.de, amitk@kernel.org,
+ thara.gopinath@gmail.com, linus.walleij@linaro.org, wim@linux-watchdog.org,
+ linux@roeck-us.net, rafael@kernel.org, viresh.kumar@linaro.org,
+ vkoul@kernel.org, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
-In-Reply-To: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
-To: Tengfei Fan <quic_tengfan@quicinc.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, linus.walleij@linaro.org,
- quic_cang@quicinc.com, alim.akhtar@samsung.com, quic_rjendra@quicinc.com,
- linux-clk@vger.kernel.org, kishon@kernel.org, kernel@quicinc.com,
- bvanassche@acm.org, bartosz.golaszewski@linaro.org, jassisinghbrar@gmail.com,
- joabreu@synopsys.com, u.kleine-koenig@pengutronix.de, lpieralisi@kernel.org,
- linux@roeck-us.net, linux-pm@vger.kernel.org, avri.altman@wdc.com,
- robimarko@gmail.com, tglx@linutronix.de, quic_kbajaj@quicinc.com,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, djakov@kernel.org,
- lukasz.luba@arm.com, kw@linux.com, thara.gopinath@gmail.com,
- quic_msarkar@quicinc.com, edumazet@google.com, srinivas.kandagatla@linaro.org,
- manivannan.sadhasivam@linaro.org, quic_kaushalk@quicinc.com,
- quic_bjorande@quicinc.com, daniel.lezcano@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, iommu@lists.linux.dev,
- ahalaney@redhat.com, linux-watchdog@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, quic_nitirawa@quicinc.com,
- linux-gpio@vger.kernel.org, quic_rohiagar@quicinc.com, bhelgaas@google.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- neil.armstrong@linaro.org, sboyd@kernel.org, quic_tsoni@quicinc.com,
- mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, ulf.hansson@linaro.org,
- quic_gurus@quicinc.com, linux-pci@vger.kernel.org, mturquette@baylibre.com,
- amitk@kernel.org, linux-phy@lists.infradead.org, will@kernel.org,
- robh@kernel.org, quic_tingweiz@quicinc.com, luca@z3ntu.xyz, danila@jiaxyga.com,
- pabeni@redhat.com, bhupesh.sharma@linaro.org, athierry@redhat.com,
- quic_devipriy@quicinc.com, conor@kernel.org, konrad.dybcio@linaro.org,
- abel.vesa@linaro.org, davem@davemloft.net, mantas@8devices.com,
- otto.pflueger@abscue.de, linux-riscv@lists.infradead.org,
- quic_wcheng@quicinc.com, quic_rgottimu@quicinc.com,
- herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, joro@8bytes.org,
- vkoul@kernel.org, quic_sibis@quicinc.com, agross@kernel.org, kuba@kernel.org,
- rui.zhang@intel.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- wim@linux-watchdog.org, quic_shashim@quicinc.com, netdev@vger.kernel.org,
- andersson@kernel.org, krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com,
- dmitry.baryshkov@linaro.org, robin.murphy@arm.com, quic_aiquny@quicinc.com
-Subject: Re: [Linux-stm32] [PATCH 00/47] arm64: qcom: dts: add QCS9100
-	support
+ <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
+ quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
+ lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ srinivas.kandagatla@linaro.org, alim.akhtar@samsung.com,
+ quic_rjendra@quicinc.com, otto.pflueger@abscue.de,
+ linux-riscv@lists.infradead.org, quic_tsoni@quicinc.com,
+ linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org, kishon@kernel.org,
+ quic_sibis@quicinc.com, kernel@quicinc.com, quic_bjorande@quicinc.com,
+ bvanassche@acm.org, linux-scsi@vger.kernel.org, bartosz.golaszewski@linaro.org,
+ quic_tingweiz@quicinc.com, daniel.lezcano@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, luca@z3ntu.xyz,
+ iommu@lists.linux.dev, agross@kernel.org, danila@jiaxyga.com,
+ u.kleine-koenig@pengutronix.de, rui.zhang@intel.com, ahalaney@redhat.com,
+ quic_rgottimu@quicinc.com, bhupesh.sharma@linaro.org,
+ quic_devipriy@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_nitirawa@quicinc.com, athierry@redhat.com, avri.altman@wdc.com,
+ robimarko@gmail.com, quic_rohiagar@quicinc.com, bhelgaas@google.com,
+ peppe.cavallaro@st.com, quic_cang@quicinc.com, quic_shashim@quicinc.com,
+ linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
+ quic_kbajaj@quicinc.com, linux-gpio@vger.kernel.org,
+ gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org, quic_msarkar@quicinc.com, quic_wcheng@quicinc.com,
+ krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com, mantas@8devices.com,
+ linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
+ quic_aiquny@quicinc.com, lukasz.luba@arm.com
+Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
+ QCS9100 SoC and RIDE board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,116 +135,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 3 Jul 2024 10:58:03 +0800 you wrote:
-> Introduce support for the QCS9100 SoC device tree (DTSI) and the
-> QCS9100 RIDE board DTS. The QCS9100 is a variant of the SA8775p.
-> While the QCS9100 platform is still in the early design stage, the
-> QCS9100 RIDE board is identical to the SA8775p RIDE board, except it
-> mounts the QCS9100 SoC instead of the SA8775p SoC.
+On 03/07/2024 04:58, Tengfei Fan wrote:
+> Document the QCS9100 SoC and RIDE board.
 > 
-> The QCS9100 SoC DTSI was directly renamed from the SA8775p SoC DTSI. In
-> the upcoming weeks, Nikunj Kela will develop a new device tree related
-> to SA8775p, specifically supporting the SCMI resource firmware solution
-> for the SA8775p platform. If you're already familiar with the
-> background, feel free to skip part[2], which provides a detailed
-> explanation.
+> Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> [...]
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index ec1c10a12470..f06543f96026 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -45,6 +45,7 @@ description: |
+>          qcs8550
+>          qcm2290
+>          qcm6490
+> +        qcs9100
+>          qdu1000
+>          qrb2210
+>          qrb4210
+> @@ -894,7 +895,9 @@ properties:
+>  
+>        - items:
+>            - enum:
+> +              - qcom,qcs9100-ride
+>                - qcom,sa8775p-ride
+> +          - const: qcom,qcs9100
 
-Here is the summary with links:
-  - [01/47] dt-bindings: arm: qcom: Document QCS9100 SoC and RIDE board
-    (no matching commit)
-  - [02/47] arm64: dts: qcom: qcs9100: Introduce QCS9100 SoC dtsi
-    (no matching commit)
-  - [03/47] arm64: dts: qcom: qcs9100: Introduce QCS9100 PMIC dtsi
-    https://git.kernel.org/netdev/net-next/c/df18948d331e
-  - [04/47] arm64: dts: qcom: qcs9100: Add QCS9100 RIDE board dts
-    (no matching commit)
-  - [05/47] dt-bindings: firmware: qcom,scm: document SCM on QCS9100 SoC
-    (no matching commit)
-  - [06/47] dt-bindings: interconnect: qcom: document the interconnect compatibles for QCS9100
-    (no matching commit)
-  - [07/47] dt-bindings: clock: document QCS9100 GCC compatible
-    (no matching commit)
-  - [08/47] dt-bindings: mailbox: qcom-ipcc: Document the QCS9100 IPCC
-    (no matching commit)
-  - [09/47] dt-bindings: phy: Add QMP UFS PHY comptible for QCS9100
-    (no matching commit)
-  - [10/47] dt-bindings: crypto: ice: Document QCS9100 inline crypto engine
-    (no matching commit)
-  - [11/47] dt-bindings: crypto: qcom,prng: document QCS9100
-    (no matching commit)
-  - [12/47] dt-bindings: phy: qcom,usb-snps-femto-v2: Add bindings for QCS9100
-    (no matching commit)
-  - [13/47] dt-bindings: ufs: qcom: document QCS9100 UFS
-    (no matching commit)
-  - [14/47] dt-bindings: phy: qcom,qmp-usb: Add QCS9100 USB3 PHY
-    (no matching commit)
-  - [15/47] dt-bindings: usb: dwc3: Add QCS9100 compatible
-    (no matching commit)
-  - [16/47] dt-bindings: clock: qcom: describe the GPUCC clock for QCS9100
-    (no matching commit)
-  - [17/47] dt-bindings: arm-smmu: Document QCS9100 GPU SMMU
-    (no matching commit)
-  - [18/47] dt-bindings: phy: describe the Qualcomm SGMII PHY for QCS9100
-    (no matching commit)
-  - [19/47] dt-bindings: cache: qcom,llcc: Add QCS9100 description
-    (no matching commit)
-  - [20/47] dt-bindings: interrupt-controller: qcom,pdc: document pdc on QCS9100
-    (no matching commit)
-  - [21/47] dt-bindings: thermal: qcom-tsens: document the QCS9100 Temperature Sensor
-    (no matching commit)
-  - [22/47] dt-bindings: soc: qcom,aoss-qmp: Document the QCS9100 AOSS channel
-    (no matching commit)
-  - [23/47] dt-bindings: pinctrl: add qcs9100-tlmm compatible
-    (no matching commit)
-  - [24/47] dt-bindings: soc: qcom: add qcom,qcs9100-imem compatible
-    (no matching commit)
-  - [25/47] dt-bindings: watchdog: qcom-wdt: document QCS9100
-    (no matching commit)
-  - [26/47] dt-bindings: clock: qcom-rpmhcc: Add RPMHCC bindings for QCS9100
-    (no matching commit)
-  - [27/47] dt-bindings: cpufreq: cpufreq-qcom-hw: Add QCS9100 compatibles
-    (no matching commit)
-  - [28/47] dt-bindings: power: qcom,rpmpd: document the QCS9100 RPMh Power Domains
-    (no matching commit)
-  - [29/47] dt-bindings: net: qcom,ethqos: add description for qcs9100
-    (no matching commit)
-  - [30/47] dt-bindings: PCI: Document compatible for QCS9100
-    (no matching commit)
-  - [31/47] dt-bindings: PCI: qcom-ep: Add support for QCS9100 SoC
-    (no matching commit)
-  - [32/47] dt-bindings: phy: qcom,qmp: Add qcs9100 QMP PCIe PHY
-    (no matching commit)
-  - [33/47] interconnect: qcom: add driver support for qcs9100
-    (no matching commit)
-  - [34/47] clk: qcom: add the GCC driver support for QCS9100
-    (no matching commit)
-  - [35/47] phy: qcom-qmp-ufs: Add QCS9100 support
-    (no matching commit)
-  - [36/47] phy: qcpm-qmp-usb: Add support for QCS9100
-    (no matching commit)
-  - [37/47] clk: qcom: add the GPUCC driver support for QCS9100
-    (no matching commit)
-  - [38/47] phy: qcom: add the SGMII SerDes PHY driver support
-    (no matching commit)
-  - [39/47] soc: qcom: llcc: Add llcc configuration support for the QCS9100 platform
-    (no matching commit)
-  - [40/47] pinctrl: qcom: add the tlmm driver support for qcs9100 platform
-    (no matching commit)
-  - [41/47] clk: qcom: rpmh: Add support for QCS9100 rpmh clocks
-    (no matching commit)
+This changes existing compatible for sa8775p without any explanation in
+commit msg.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
