@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5377D925421
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5C8925422
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19FEFC78F93;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2717DC78F95;
 	Wed,  3 Jul 2024 06:53:38 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87EC8C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2641FC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 04:00:44 +0000 (UTC)
+ Wed,  3 Jul 2024 04:01:03 +0000 (UTC)
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HE10H026062;
- Wed, 3 Jul 2024 04:00:17 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HEY5c026446;
+ Wed, 3 Jul 2024 04:00:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IXXDdOTj+WV/0I/ZfGsCwa6oxMG9of9UkEPPhel/aX4=; b=AKvSV7FkzO3vuJyv
- XKnH72d4zEc7usqYRa3ZjzHTdApm+suYt/SgaP4TEt+SUTCd8nVfRgK+Xff1tyY5
- kQBCIi67waWspZwM6xh5eVHFZnkMdKLpO0APJOG5ZnU0sZ6PLCub0IXbGDhpby/8
- w/X0VgvdO/U0g4OSNKnhv4584CiyWcpFUcbEdIVfoFQ4+SwWbJI0iGl2GoFEg32f
- hFmMZAb1kJdzqJxQXfjIKdcTlch9fCc24NyIkoJSgZG4s249RTPPw3xdd8EeWjO9
- gG3n2AJhJUABT69g3PXJO9oeNQD7SKk1ZiyzTwsycb2VOD7AIKRC95FFb/uomCru
- AX2SpQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ SqMuxo7DXOl5Wb3u2xqOvUs4r4UIoA7ZVWvuG1u0gAw=; b=UtYX322iSO2arTih
+ kC10nKTrvBJ8p1q5878295/Yg+1DktmloLkE+9ste25bjavc5oyWtYLQdsLA7wxq
+ Uqf8xaCXWUgC+itP6ixG0YTAg7ZDhSYZz/YUPqzYHEtXk/GlJJNjL4pFjfcExqGw
+ 0Tywg7b/BM8Y9QiERyOsF5zjT0dqelIFIDgya1ilcIV+xTeYBIci04JJlqya8PrZ
+ SwOYxpsYFHD+lG11BCcufQof97ZdMj6wskrPF32lAOjCWx/k/x/RPby5qeuwM6A5
+ GfH75xbtO62AHk5qc6fKmbagcvpejZcAbsg1r7Y2JpZtx8ZvP44xeYfaiiRcuFLV
+ 6bQs5w==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4027mnqx76-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4027mnqx8g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 04:00:17 +0000 (GMT)
+ Wed, 03 Jul 2024 04:00:36 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46340G1F028063
+ by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46340ZDj026047
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 04:00:16 GMT
+ Wed, 3 Jul 2024 04:00:35 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:59:53 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 21:00:13 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:56:53 +0800
-Message-ID: <20240703035735.2182165-6-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:56:54 +0800
+Message-ID: <20240703035735.2182165-7-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035735.2182165-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,8 +67,8 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: oByrFH2-KU93yG_teSlVBPsJS0epCvOj
-X-Proofpoint-GUID: oByrFH2-KU93yG_teSlVBPsJS0epCvOj
+X-Proofpoint-ORIG-GUID: ScZUCKbeHvVAXwj1PsOPB1opQpHPmLEp
+X-Proofpoint-GUID: ScZUCKbeHvVAXwj1PsOPB1opQpHPmLEp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
@@ -76,7 +76,7 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  impostorscore=0 bulkscore=0
  spamscore=0 malwarescore=0 adultscore=0 priorityscore=1501
  lowpriorityscore=0 phishscore=0 mlxscore=0 suspectscore=0 clxscore=1015
- mlxlogscore=837 classifier=spam adjust=0 reason=mlx scancount=1
+ mlxlogscore=911 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2406140001 definitions=main-2407030027
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
@@ -107,8 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 05/47] dt-bindings: firmware: qcom,
-	scm: document SCM on QCS9100 SoC
+Subject: [Linux-stm32] [PATCH 06/47] dt-bindings: interconnect: qcom:
+	document the interconnect compatibles for QCS9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,25 +125,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document scm compatible for QCS9100 SoC.
+Document for the RPMh interconnect compatibles on Qualcomm QCS9100
+platform.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/interconnect/qcom,sa8775p-rpmh.yaml   | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-index 2cc83771d8e7..3596ae0e0610 100644
---- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-+++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
-@@ -42,6 +42,7 @@ properties:
-           - qcom,scm-msm8996
-           - qcom,scm-msm8998
-           - qcom,scm-qcm2290
-+          - qcom,scm-qcs9100
-           - qcom,scm-qdu1000
-           - qcom,scm-sa8775p
-           - qcom,scm-sc7180
+diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sa8775p-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sa8775p-rpmh.yaml
+index 2e0c0bc7a376..748fe2084ad8 100644
+--- a/Documentation/devicetree/bindings/interconnect/qcom,sa8775p-rpmh.yaml
++++ b/Documentation/devicetree/bindings/interconnect/qcom,sa8775p-rpmh.yaml
+@@ -18,6 +18,20 @@ description: |
+ properties:
+   compatible:
+     enum:
++      - qcom,qcs9100-aggre1-noc
++      - qcom,qcs9100-aggre2-noc
++      - qcom,qcs9100-clk-virt
++      - qcom,qcs9100-config-noc
++      - qcom,qcs9100-dc-noc
++      - qcom,qcs9100-gem-noc
++      - qcom,qcs9100-gpdsp-anoc
++      - qcom,qcs9100-lpass-ag-noc
++      - qcom,qcs9100-mc-virt
++      - qcom,qcs9100-mmss-noc
++      - qcom,qcs9100-nspa-noc
++      - qcom,qcs9100-nspb-noc
++      - qcom,qcs9100-pcie-anoc
++      - qcom,qcs9100-system-noc
+       - qcom,sa8775p-aggre1-noc
+       - qcom,sa8775p-aggre2-noc
+       - qcom,sa8775p-clk-virt
 -- 
 2.25.1
 
