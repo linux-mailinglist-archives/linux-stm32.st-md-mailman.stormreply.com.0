@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA1C925435
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D593925436
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CBC6C7A83C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61D64C7A83E;
 	Wed,  3 Jul 2024 06:53:39 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 003DBC71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90619C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 04:07:17 +0000 (UTC)
+ Wed,  3 Jul 2024 04:07:39 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4630026J025449;
- Wed, 3 Jul 2024 04:06:52 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HE6Wh016465;
+ Wed, 3 Jul 2024 04:07:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yJVVFUcIjEdbxSRxf0U9oDwOwU+5xU2bKJI4N8zeH4E=; b=jvFDjwdVvqjFYiBw
- spEKOnSns/F6xIwG/6s+GKYdqNRWCwhSW492fBcyYPMN1L+ON9FFznbxYnmVqB7U
- tvksx4pDqER9XFTMe0whobMi2+DTWPVYrsNU/sHOQcttNXxys3fPAuWPtlZks9Cu
- j8MexEb/lMK8428Ik0O1EKrvHqqR2o2gWTMsQTD53WKaNafwPuL6BgMscgtITc2c
- QEeeJ21ttqoQHjFFQ/4gyk9OgtSj1JB6s5x/5ZQPGPqTwAj196IEn0BbTByJ365j
- 4mOqxEc6sMP4iLYKBdqVdbBs5dUjihY1he9zyn2QcE60UO7vQOwPVAvk5kaDDjsS
- E0yzPA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ +0lUz2LG9ii0BoYcaWcPP2foe3GGxcF0l4lLyB5+aGY=; b=XiXeLtW9SGgvSsy2
+ FRvg32pQklPzCvbk43gjaCVguoPAALkLvy6UYhT/vh8VI/JE8YPRcj2D6VIvDn66
+ 7mkEojIHCNB0uDYoJ/eOkEK0ZIEOP+doOrtdtoM1Djkg5i+GMtvatjRPIhRp8kaX
+ IwtNBPiRpxD6wBcIf/9ByDA5rOuATwRISXRL3Y1dxI0jmgOnV3oLO46RcE+oGGXU
+ hgxmGsXZhIq4zvKRn3cQwvIEC02as43tFAbBoXzu+OOS0TkJGig3dW8qqyU/d/xa
+ 442+qI/RlsDOPdupm1XjOBKuLUbaGHO13j2XxbPC6ap2YtbVbaozfdD8wYUGU99p
+ /3lQfg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402an77kgs-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402an77kk0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 04:06:52 +0000 (GMT)
+ Wed, 03 Jul 2024 04:07:13 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46346pCe004862
+ by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46347B4X026577
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 04:06:51 GMT
+ Wed, 3 Jul 2024 04:07:11 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 21:06:29 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 21:06:49 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:57:13 +0800
-Message-ID: <20240703035735.2182165-26-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:57:14 +0800
+Message-ID: <20240703035735.2182165-27-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035735.2182165-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,14 +67,14 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: d0A61Y69H9x2qpb9JDv6IuHmpem8o9LU
-X-Proofpoint-ORIG-GUID: d0A61Y69H9x2qpb9JDv6IuHmpem8o9LU
+X-Proofpoint-GUID: ineRpIynxMeyrUhixWauhvgNnSmWnRfQ
+X-Proofpoint-ORIG-GUID: ineRpIynxMeyrUhixWauhvgNnSmWnRfQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501 mlxscore=0
- clxscore=1015 adultscore=0 malwarescore=0 mlxlogscore=817 suspectscore=0
+ clxscore=1015 adultscore=0 malwarescore=0 mlxlogscore=708 suspectscore=0
  phishscore=0 bulkscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
  definitions=main-2407030028
@@ -107,8 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 25/47] dt-bindings: watchdog: qcom-wdt:
-	document QCS9100
+Subject: [Linux-stm32] [PATCH 26/47] dt-bindings: clock: qcom-rpmhcc: Add
+	RPMHCC bindings for QCS9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,25 +125,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document the QCS9100 watchdog compatible.
+Add bindings and update documentation for clock rpmh driver on QCS9100
+SoC.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+ Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-index 47587971fb0b..5a78816aeece 100644
---- a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-@@ -26,6 +26,7 @@ properties:
-               - qcom,apss-wdt-msm8994
-               - qcom,apss-wdt-qcm2290
-               - qcom,apss-wdt-qcs404
-+              - qcom,apss-wdt-qcs9100
-               - qcom,apss-wdt-sa8775p
-               - qcom,apss-wdt-sc7180
-               - qcom,apss-wdt-sc7280
+diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+index ca857942ed6c..63e4b8f8e571 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+@@ -17,6 +17,7 @@ description: |
+ properties:
+   compatible:
+     enum:
++      - qcom,qcs9100-rpmh-clk
+       - qcom,qdu1000-rpmh-clk
+       - qcom,sa8775p-rpmh-clk
+       - qcom,sc7180-rpmh-clk
 -- 
 2.25.1
 
