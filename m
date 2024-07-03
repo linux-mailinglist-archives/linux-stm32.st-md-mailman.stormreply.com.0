@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF3DF92541A
+	by mail.lfdr.de (Postfix) with ESMTPS id E87C492541B
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0214C78F85;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB1B2C78F87;
 	Wed,  3 Jul 2024 06:53:37 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E999C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 128A4C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 03:56:36 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HA1tY010799;
- Wed, 3 Jul 2024 03:56:09 GMT
+ Wed,  3 Jul 2024 03:56:54 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HE8S3008378;
+ Wed, 3 Jul 2024 03:56:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Jf9Ii4eaknNcA9Ciu0sD0Xkr8UhaDliE4QG2+psEASo=; b=gXx1eDQ91i37oPuV
- NVe/Qc4pr2SJAuX5MeJpntzUor2zZHn81e9LzzQSujvDyc6GKIQ1t+SYBdbxhVKf
- gxudZW2V+SRiTq7gHgkL5Lt5D1ZVum5NHFLQNcQMI8vM7XSvLZ5ICY6RNkbWnEta
- LfC66Vft/t3Uv5vlTVnqF8sIq6f1fhwgnWbjBWw/Braf8/v00ojx2te/krjGp/eJ
- jvhhHMblcoaJeOMaN5PKSDRxpD+kcgTrPjYOsUCfDsxsRpJzTrbyK2VZWY5DQVA6
- E2/aCdfKpeQFMx+Dz/gXE26uJ2kxBrnY5gKjUMLz1RpzP+jDcJ204CVX4yq6RKKw
- pqxf0Q==
+ aWbXDQ0z51NJlpbaR6TDPClyJuMEKzHXrggMb49gqKg=; b=lnoewkviYLBFAluy
+ P5kwCmRDWSUG62sDYH08Hkjqqg2YuI3Mexbh4B87ruvXTuvnCTjKwdKT8tdIcPFl
+ lYP7OqjhUa5hWkx3da0WfCs/16YrPy83t5YKKi3HQ4OYpkPhlU6TvL7TyoV6yzx3
+ bjEFWfQCsYSCx8feldhM6UoTs7vglKXK8vragqQV+B6pan5GMNKxQ7GyIq1TXaS5
+ bMufhQslBYEVi5FMfjdMoSs24IQVj9xu3/Cgekqz9Dzp4bBm1zXJ55EtyZc4lpOH
+ uoMehX5mqiJJZX6H1RzRaYOmE2gLAqmZyKhKwackFTI1MBTUY0GHr620W8nJoGRi
+ xvjTHA==
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402an77jmx-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4029kh7kg0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 03:56:08 +0000 (GMT)
+ Wed, 03 Jul 2024 03:56:28 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
  by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4633u7nM009938
+ 4633uRFa012180
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 03:56:07 GMT
+ Wed, 3 Jul 2024 03:56:27 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:55:45 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 20:56:04 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 11:51:47 +0800
-Message-ID: <20240703035154.2182083-11-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 11:51:48 +0800
+Message-ID: <20240703035154.2182083-12-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703035154.2182083-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -67,17 +67,17 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: Cb9PeU8i787hAX3H48UbqGMaj14NKi7a
-X-Proofpoint-ORIG-GUID: Cb9PeU8i787hAX3H48UbqGMaj14NKi7a
+X-Proofpoint-GUID: i1A1-vZ8Fo-LVebYUpkkKHizzvh3g_3p
+X-Proofpoint-ORIG-GUID: i1A1-vZ8Fo-LVebYUpkkKHizzvh3g_3p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- clxscore=1015 adultscore=0 malwarescore=0 mlxlogscore=952 suspectscore=0
- phishscore=0 bulkscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
- definitions=main-2407030027
+ mlxlogscore=879
+ priorityscore=1501 suspectscore=0 adultscore=0 mlxscore=0 clxscore=1015
+ malwarescore=0 bulkscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2407030027
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
@@ -107,8 +107,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 40/47] pinctrl: qcom: add the tlmm driver
-	support for qcs9100 platform
+Subject: [Linux-stm32] [PATCH 41/47] clk: qcom: rpmh: Add support for
+	QCS9100 rpmh clocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,25 +125,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the tlmm driver support for QCS9100 platform.
+Adds the RPMH clocks present in QCS9100 SoC.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- drivers/pinctrl/qcom/pinctrl-sa8775p.c | 1 +
+ drivers/clk/qcom/clk-rpmh.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-sa8775p.c b/drivers/pinctrl/qcom/pinctrl-sa8775p.c
-index 5459c0c681a2..4687e11dfe75 100644
---- a/drivers/pinctrl/qcom/pinctrl-sa8775p.c
-+++ b/drivers/pinctrl/qcom/pinctrl-sa8775p.c
-@@ -1519,6 +1519,7 @@ static int sa8775p_pinctrl_probe(struct platform_device *pdev)
+diff --git a/drivers/clk/qcom/clk-rpmh.c b/drivers/clk/qcom/clk-rpmh.c
+index bb82abeed88f..8131afba85d6 100644
+--- a/drivers/clk/qcom/clk-rpmh.c
++++ b/drivers/clk/qcom/clk-rpmh.c
+@@ -876,6 +876,7 @@ static int clk_rpmh_probe(struct platform_device *pdev)
  }
  
- static const struct of_device_id sa8775p_pinctrl_of_match[] = {
-+	{ .compatible = "qcom,qcs9100-tlmm", },
- 	{ .compatible = "qcom,sa8775p-tlmm", },
- 	{ },
- };
+ static const struct of_device_id clk_rpmh_match_table[] = {
++	{ .compatible = "qcom,qcs9100-rpmh-clk", .data = &clk_rpmh_sa8775p},
+ 	{ .compatible = "qcom,qdu1000-rpmh-clk", .data = &clk_rpmh_qdu1000},
+ 	{ .compatible = "qcom,sa8775p-rpmh-clk", .data = &clk_rpmh_sa8775p},
+ 	{ .compatible = "qcom,sc7180-rpmh-clk", .data = &clk_rpmh_sc7180},
 -- 
 2.25.1
 
