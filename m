@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787F5925272
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 06:39:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78BF292527C
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 06:39:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B75BC71282;
-	Wed,  3 Jul 2024 04:39:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45B83C78006;
+	Wed,  3 Jul 2024 04:39:44 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A17F8C6DD9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A849C6DD9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 04:38:58 +0000 (UTC)
+ Wed,  3 Jul 2024 04:39:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 14FD3CE17E9;
- Wed,  3 Jul 2024 04:38:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD393C32781;
- Wed,  3 Jul 2024 04:38:26 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 7EE5FCE28AB;
+ Wed,  3 Jul 2024 04:39:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DCBC32781;
+ Wed,  3 Jul 2024 04:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1719981536;
- bh=W1kROEg3Fjkby7km6ea2XB5zUQBCta+iGVmjqDJNcd4=;
+ s=k20201202; t=1719981580;
+ bh=1NpVLKorVd3dzPmsHoprmlUC4jr9iX2ZJ0GvDyQ4CP4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=H+hv0vcaiq0XC7+jQ4SkBP6tLioSIe3HKWUbXaOlUbiaFuBk9DLPO6VtNaanYUvzQ
- Ev/nx7GDK0z1YI39SPHe5GZWGxN+hkg9cwmbiWCwdESQw03d1YG767i52fPG/rVnuK
- UOb1ndi1WGV82b3WM/a5qdpRt3Fb63aRJ2Htb59BTCAqbDCrjlgPQnzyc26BfvChNf
- TwFz7y9MCugmzjF5lnkT4ZELHLonzS58O1pg7wcml6uL942bgU0iRWtcikgy03fsKi
- KLp8csgIQfcYyKnwjYthjPSFP1QW16hZutMWuBsN+BZQPLf9kUUNuratI9rp68f9O6
- ZFOZuNIoRcFng==
-Message-ID: <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
-Date: Wed, 3 Jul 2024 06:38:24 +0200
+ b=cde4x9yxTqRWNF64o+2Fo6uwZYX5rDqwLJGvJJ84U0nodrGQFFYAB+hBJ4bXI81HI
+ KqtI1hP6Yqs3ERHszzRZpFD4CSbZ+GWRAu9/cfzlkl2CtP7wrENjHW1afvZQeos1nW
+ GO5JCEftpXJB7i4i5LJB1tQwx4qMj720z6pgbNY/xjK3DK1lr8C0cZUGk+ZRcyDd+Y
+ WaqePT9U2BP1iCJfO3FyhlDz0oICa4kWePp44fxfEFToMyct6awMHTzQcQ3gQxoCRN
+ 29bMrnUM8qzpCgKnKpXGOMNjxqLu+r24k43I3eN8XjBwh7ssTpJRw8IskCC9taX4P5
+ IpAJyFXRWfPSA==
+Message-ID: <9b739f4a-c9e1-4d2a-9bec-83106dcf8868@kernel.org>
+Date: Wed, 3 Jul 2024 06:39:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Tengfei Fan <quic_tengfan@quicinc.com>, andersson@kernel.org,
@@ -43,7 +43,7 @@ To: Tengfei Fan <quic_tengfan@quicinc.com>, andersson@kernel.org,
  vkoul@kernel.org, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  mcoquelin.stm32@gmail.com
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
- <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+ <20240703025850.2172008-5-quic_tengfan@quicinc.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,7 +89,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240703025850.2172008-2-quic_tengfan@quicinc.com>
+In-Reply-To: <20240703025850.2172008-5-quic_tengfan@quicinc.com>
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
  lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
@@ -117,8 +117,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
- QCS9100 SoC and RIDE board
+Subject: Re: [Linux-stm32] [PATCH 04/47] arm64: dts: qcom: qcs9100: Add
+ QCS9100 RIDE board dts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,35 +136,72 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 03/07/2024 04:58, Tengfei Fan wrote:
-> Document the QCS9100 SoC and RIDE board.
+> Add support for the QCS9100 RIDE board dts. The current QCS9100 RIDE
+> board dts is directly renamed from the SA8775p RIDE board dts.
+> The difference between the current QCS9100 RIDE board and the SA8775p
+> RIDE board lies solely in the replacement of the SA8775p SoC with the
+> QCS9100 SoC, all other board resources remain the same.
+> The following items have been updated:
+>   - use QCS9100-related compatible names for this board dts.
+>   - replace the inclusion of sa8775p.dtsi with qcs9100.dtsi.
+>   - replace the inclusion of sa8775p-pmics.dtsi with qcs9100-pmics.dtsi
 > 
 > Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+>  arch/arm64/boot/dts/qcom/Makefile                         | 2 +-
+>  .../boot/dts/qcom/{sa8775p-ride.dts => qcs9100-ride.dts}  | 8 ++++----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+>  rename arch/arm64/boot/dts/qcom/{sa8775p-ride.dts => qcs9100-ride.dts} (99%)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index ec1c10a12470..f06543f96026 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -45,6 +45,7 @@ description: |
->          qcs8550
->          qcm2290
->          qcm6490
-> +        qcs9100
->          qdu1000
->          qrb2210
->          qrb4210
-> @@ -894,7 +895,9 @@ properties:
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 5576c7d6ea06..a7a3792b0691 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -103,6 +103,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-1000.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs404-evb-4000.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qdu1000-idp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= qrb4210-rb2.dtb
+> @@ -112,7 +113,6 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sa8540p-ride.dtb
+> -dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-acer-aspire1.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-idp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-trogdor-coachz-r1.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/qcs9100-ride.dts
+> similarity index 99%
+> rename from arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+> rename to arch/arm64/boot/dts/qcom/qcs9100-ride.dts
+> index 26ad05bd3b3f..2415d34b8aa5 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs9100-ride.dts
+> @@ -8,12 +8,12 @@
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
 >  
->        - items:
->            - enum:
-> +              - qcom,qcs9100-ride
->                - qcom,sa8775p-ride
-> +          - const: qcom,qcs9100
+> -#include "sa8775p.dtsi"
+> -#include "sa8775p-pmics.dtsi"
+> +#include "qcs9100.dtsi"
+> +#include "qcs9100-pmics.dtsi"
+>  
+>  / {
+> -	model = "Qualcomm SA8775P Ride";
+> -	compatible = "qcom,sa8775p-ride", "qcom,sa8775p";
+> +	model = "Qualcomm QCS9100 Ride";
+> +	compatible = "qcom,qcs9100-ride", "qcom,qcs9100";
 
-This changes existing compatible for sa8775p without any explanation in
-commit msg.
+It does not look like you tested the DTS against bindings. Please run
+`make dtbs_check W=1` (see
+Documentation/devicetree/bindings/writing-schema.rst or
+https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
+for instructions).
+
+Your own internal guideline tells you to perform above tests, doesn't it?
 
 Best regards,
 Krzysztof
