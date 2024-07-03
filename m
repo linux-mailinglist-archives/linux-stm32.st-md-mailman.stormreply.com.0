@@ -2,56 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E35926595
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 18:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 124C99265A0
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 18:09:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9EE5C6DD9E;
-	Wed,  3 Jul 2024 16:08:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD64CC6DD9E;
+	Wed,  3 Jul 2024 16:09:29 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B559C6DD96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C72AC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 16:08:43 +0000 (UTC)
+ Wed,  3 Jul 2024 16:09:22 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 463FZQDU007347;
- Wed, 3 Jul 2024 18:08:24 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 463CLLxo018156;
+ Wed, 3 Jul 2024 18:09:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Tv/R5KXfBaoQyssH47WsyM3KwW77pZ8ZcYwk4SeudZg=; b=JttkfYrF1XP9U7HI
- W7tIBo7IKtMzzaE88D5B11uJ/Uh6rUiwrBqEOeRcgMGqVNZi0zQp09xwU1OqJeBD
- 9M4J8SudnYuZM82FzmSQbTsQUXGppzYiEp3pZp2X7bULM8tbTqssEpY4BcaZ2VVY
- VwWJ/Dt2KVKLOLkQVFlSF7K8ATP0pDFOm2DcXXDGecq4QrUrsDryVqHYe2t3ppGR
- /rMNHXSQjOvCVSyVKGDzOQzCn8zREVLH5g9ECoaf3TAPjpCH901ADmQN7gEo5h3m
- tCENzykHL9J5wL7DSlmHNKPPTcf6T6AQ3k/pkwzNU7mazGAaDvL17djyGvG7VLoO
- GoC7+g==
+ 53gohECmv3blfnBLse0suF14Wnzkm2nWQA5ErnOdSYU=; b=dvB3sA7hhflnMpST
+ AjKehBF65mGJy8hmOIecB8gGYkrAmxxf57Myiwl/aRANTDgABGEKkpKqEYSxVnhw
+ jjV91xz5dJBh0aVSC8MV8H/zj7hJLT7F/BE7M2sdbawqCerwvKYOntcvPTVLwN41
+ CNy0pzgK2mcct8tlxQgbLrRyEGzBSHDdb7OCJTRlO03njlmt6zMGVfbjiL60Xgvv
+ h9XinyeysFN8Dt0cvkUCGrvO2yGsbApHNoej13m87v2/hNOMZzQbd5XCdLFPNUHi
+ Po72O0Cv5J+WoNzglsZlXmjaonQFasuvl0MnsRVxfLCBNY7RaxrSbsSHIBH+vLDb
+ liBV8Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40295dhfja-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40295dhfnf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 18:08:23 +0200 (MEST)
+ Wed, 03 Jul 2024 18:09:04 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 001D240049;
- Wed,  3 Jul 2024 18:08:19 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0E67E40048;
+ Wed,  3 Jul 2024 18:09:00 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 994412291B0;
- Wed,  3 Jul 2024 18:07:30 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D18662291A9;
+ Wed,  3 Jul 2024 18:08:32 +0200 (CEST)
 Received: from localhost (10.252.27.110) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Jul
- 2024 18:07:30 +0200
+ 2024 18:08:32 +0200
 From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
- <arnaud.pouliquen@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 3 Jul 2024 18:05:29 +0200
-Message-ID: <20240703160535.2277871-5-olivier.moysan@foss.st.com>
+ <alexandre.torgue@foss.st.com>
+Date: Wed, 3 Jul 2024 18:05:31 +0200
+Message-ID: <20240703160535.2277871-7-olivier.moysan@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703160535.2277871-1-olivier.moysan@foss.st.com>
 References: <20240703160535.2277871-1-olivier.moysan@foss.st.com>
@@ -62,11 +57,10 @@ X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-03_11,2024-07-03_01,2024-05-17_01
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 4/8] dt-bindings: iio: dfsdm: move to
-	backend framework
+Subject: [Linux-stm32] [PATCH v3 6/8] iio: adc: stm32-dfsdm: adopt generic
+	channels bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,276 +77,321 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Change the DFSDM binding to use the new IIO backend framework,
-along with the adoption of IIO generic channels.
-This binding change allows to add scaling support to the DFSDM.
+Move to generic channels binding to ease new backend framework adoption
+and prepare the convergence with MDF IP support on STM32MP2 SoC family.
 
-Keep the legacy binding as deprecated for backward compatibility.
+Legacy binding:
+DFSDM is an IIO channel consumer.
+SD modulator is an IIO channels provider.
+The channel phandles are provided in DT through io-channels property
+and channel indexes through st,adc-channels property.
 
-The io-backends property is supported only in generic IIO channel
-binding.
+New binding:
+DFSDM is an IIO channel provider.
+The channel indexes are given by reg property in channel child node.
 
-- Channel description with the generic binding (Audio and Analog):
+This new binding is intended to be used with SD modulator IIO backends.
+It does not support SD modulator legacy IIO devices.
+The st,adc-channels property presence is used to discriminate
+between legacy and backend bindings.
 
-  Properties superseded by generic properties:
-    st,adc-channels: becomes "reg" property in channel node
-    st,adc-channel-names: becomes "label" property in channel node
-  Properties moved to channel child node:
-    st,adc-channel-types: becomes st,adc-channel-type
-    st,adc-channel-clk-src, st,adc-alt-channel
-
-- Analog binding:
-
-  DFSDM filter channel is configured as an IIO backend consumer.
-  Add io-backends property in channel child nodes.
-
-  DFSDM is no more configured as a channel consumer from SD modulator.
-  Use of io-channels in DFSDM node is deprecated.
-
-- Audio binding:
-
-  DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
-  No change compare to legacy.
+The support of the DFSDM legacy channels and SD modulator IIO devices
+is kept for backward compatibility.
 
 Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 ---
- .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 +++++++++++++++++-
- 1 file changed, 147 insertions(+), 6 deletions(-)
+ drivers/iio/adc/stm32-dfsdm-adc.c | 200 ++++++++++++++++++++++++------
+ 1 file changed, 164 insertions(+), 36 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-index 2722edab1d9a..5a5bc8b96402 100644
---- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-@@ -102,9 +102,11 @@ patternProperties:
-         items:
-           minimum: 0
-           maximum: 7
-+        deprecated: true
+diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+index fabd654245f5..ae5d95e38cd7 100644
+--- a/drivers/iio/adc/stm32-dfsdm-adc.c
++++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+@@ -666,6 +666,64 @@ static int stm32_dfsdm_channel_parse_of(struct stm32_dfsdm *dfsdm,
+ 	return 0;
+ }
  
-       st,adc-channel-names:
-         description: List of single-ended channel names.
-+        deprecated: true
++static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
++						struct iio_dev *indio_dev,
++						struct iio_chan_spec *ch,
++						struct fwnode_handle *node)
++{
++	struct stm32_dfsdm_channel *df_ch;
++	const char *of_str;
++	int ret, val;
++
++	ret = fwnode_property_read_u32(node, "reg", &ch->channel);
++	if (ret < 0) {
++		dev_err(&indio_dev->dev, "Missing channel index %d\n", ret);
++		return ret;
++	}
++
++	if (ch->channel >= dfsdm->num_chs) {
++		dev_err(&indio_dev->dev, " Error bad channel number %d (max = %d)\n",
++			ch->channel, dfsdm->num_chs);
++		return -EINVAL;
++	}
++
++	ret = fwnode_property_read_string(node, "label", &ch->datasheet_name);
++	if (ret < 0) {
++		dev_err(&indio_dev->dev,
++			" Error parsing 'label' for idx %d\n", ch->channel);
++		return ret;
++	}
++
++	df_ch =  &dfsdm->ch_list[ch->channel];
++	df_ch->id = ch->channel;
++
++	ret = fwnode_property_read_string(node, "st,adc-channel-type", &of_str);
++	if (!ret) {
++		val = stm32_dfsdm_str2val(of_str, stm32_dfsdm_chan_type);
++		if (val < 0)
++			return val;
++	} else {
++		val = 0;
++	}
++	df_ch->type = val;
++
++	ret = fwnode_property_read_string(node, "st,adc-channel-clk-src", &of_str);
++	if (!ret) {
++		val = stm32_dfsdm_str2val(of_str, stm32_dfsdm_chan_src);
++		if (val < 0)
++			return val;
++	} else {
++		val = 0;
++	}
++	df_ch->src = val;
++
++	ret = fwnode_property_read_u32(node, "st,adc-alt-channel", &df_ch->alt_si);
++	if (ret != -EINVAL)
++		df_ch->alt_si = 0;
++
++	return 0;
++}
++
+ static ssize_t dfsdm_adc_audio_get_spiclk(struct iio_dev *indio_dev,
+ 					  uintptr_t priv,
+ 					  const struct iio_chan_spec *chan,
+@@ -1227,7 +1285,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
+ 		ret = iio_device_claim_direct_mode(indio_dev);
+ 		if (ret)
+ 			return ret;
+-		ret = iio_hw_consumer_enable(adc->hwc);
++		if (adc->hwc)
++			ret = iio_hw_consumer_enable(adc->hwc);
+ 		if (ret < 0) {
+ 			dev_err(&indio_dev->dev,
+ 				"%s: IIO enable failed (channel %d)\n",
+@@ -1236,7 +1295,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
+ 			return ret;
+ 		}
+ 		ret = stm32_dfsdm_single_conv(indio_dev, chan, val);
+-		iio_hw_consumer_disable(adc->hwc);
++		if (adc->hwc)
++			iio_hw_consumer_disable(adc->hwc);
+ 		if (ret < 0) {
+ 			dev_err(&indio_dev->dev,
+ 				"%s: Conversion failed (channel %d)\n",
+@@ -1362,15 +1422,20 @@ static int stm32_dfsdm_dma_request(struct device *dev,
+ 	return 0;
+ }
  
-       st,filter-order:
-         description: |
-@@ -118,6 +120,12 @@ patternProperties:
-       "#io-channel-cells":
-         const: 1
+-static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
+-					 struct iio_chan_spec *ch)
++static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev, struct iio_chan_spec *ch,
++					 struct fwnode_handle *child)
+ {
+ 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+ 	int ret;
  
-+      '#address-cells':
-+        const: 1
-+
-+      '#size-cells':
-+        const: 0
-+
-       st,adc-channel-types:
-         description: |
-           Single-ended channel input type.
-@@ -128,6 +136,7 @@ patternProperties:
-         items:
-           enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-         $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+        deprecated: true
+-	ret = stm32_dfsdm_channel_parse_of(adc->dfsdm, indio_dev, ch);
+-	if (ret < 0)
+-		return ret;
++	if (child)
++		ret = stm32_dfsdm_generic_channel_parse_of(adc->dfsdm, indio_dev, ch, child);
++	else /* Legacy binding */
++		ret = stm32_dfsdm_channel_parse_of(adc->dfsdm, indio_dev, ch);
++	if (ret < 0) {
++		dev_err(&indio_dev->dev, "Failed to parse channel\n");
++		return dev_err_probe(&indio_dev->dev, ret, "Failed to parse channel\n");
++	}
  
-       st,adc-channel-clk-src:
-         description: |
-@@ -139,6 +148,7 @@ patternProperties:
-         items:
-           enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-         $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+        deprecated: true
+ 	ch->type = IIO_VOLTAGE;
+ 	ch->indexed = 1;
+@@ -1385,6 +1450,7 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
  
-       st,adc-alt-channel:
-         description:
-@@ -147,6 +157,7 @@ patternProperties:
-           If not set, channel n is connected to SPI input n.
-           If set, channel n is connected to SPI input n + 1.
-         type: boolean
-+        deprecated: true
+ 	if (adc->dev_data->type == DFSDM_AUDIO) {
+ 		ch->ext_info = dfsdm_adc_audio_ext_info;
++		ch->scan_index = 0;
+ 	} else {
+ 		ch->scan_type.shift = 8;
+ 	}
+@@ -1396,20 +1462,67 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev,
+ 					  &adc->dfsdm->ch_list[ch->channel]);
+ }
  
-       st,filter0-sync:
-         description:
-@@ -165,11 +176,60 @@ patternProperties:
-       - compatible
-       - reg
-       - interrupts
--      - st,adc-channels
--      - st,adc-channel-names
-       - st,filter-order
-       - "#io-channel-cells"
++static int stm32_dfsdm_chan_init(struct iio_dev *indio_dev, struct iio_chan_spec *channels)
++{
++	int num_ch = indio_dev->num_channels;
++	int chan_idx = 0;
++	int ret;
++
++	for (chan_idx = 0; chan_idx < num_ch; chan_idx++) {
++		channels[chan_idx].scan_index = chan_idx;
++		ret = stm32_dfsdm_adc_chan_init_one(indio_dev, &channels[chan_idx], NULL);
++		if (ret < 0)
++			return dev_err_probe(&indio_dev->dev, ret, "Channels init failed\n");
++	}
++
++	return 0;
++}
++
++static int stm32_dfsdm_generic_chan_init(struct iio_dev *indio_dev, struct iio_chan_spec *channels)
++{
++	int chan_idx = 0, ret;
++
++	device_for_each_child_node_scoped(&indio_dev->dev, child) {
++		/* Skip DAI node in DFSDM audio nodes */
++		if (fwnode_property_present(child, "compatible"))
++			continue;
++
++		channels[chan_idx].scan_index = chan_idx;
++		ret = stm32_dfsdm_adc_chan_init_one(indio_dev, &channels[chan_idx], child);
++		if (ret < 0)
++			return dev_err_probe(&indio_dev->dev, ret, "Channels init failed\n");
++
++		chan_idx++;
++	}
++
++	return chan_idx;
++}
++
+ static int stm32_dfsdm_audio_init(struct device *dev, struct iio_dev *indio_dev)
+ {
+ 	struct iio_chan_spec *ch;
+ 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+ 	struct stm32_dfsdm_channel *d_ch;
+-	int ret;
++	bool legacy = false;
++	int num_ch, ret;
++
++	/* If st,adc-channels is defined legacy binding is used. Else assume generic binding. */
++	num_ch = of_property_count_u32_elems(indio_dev->dev.of_node, "st,adc-channels");
++	if (num_ch == 1)
++		legacy = true;
  
-+    patternProperties:
-+      "^channel@([0-7])$":
-+        type: object
-+        $ref: adc.yaml
-+        unevaluatedProperties: false
-+        description: Represents the external channels which are connected to the DFSDM.
-+
-+        properties:
-+          reg:
-+            maxItems: 1
-+
-+          label:
-+            description:
-+              Unique name to identify which channel this is.
-+
-+          st,adc-channel-type:
-+            description: |
-+              Single-ended channel input type.
-+              - "SPI_R": SPI with data on rising edge (default)
-+              - "SPI_F": SPI with data on falling edge
-+              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
-+              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
-+            $ref: /schemas/types.yaml#/definitions/string
-+            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-+
-+          st,adc-channel-clk-src:
-+            description: |
-+              Conversion clock source.
-+              - "CLKIN": external SPI clock (CLKIN x)
-+              - "CLKOUT": internal SPI clock (CLKOUT) (default)
-+              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
-+              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
-+            $ref: /schemas/types.yaml#/definitions/string
-+            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-+
-+          st,adc-alt-channel:
-+            description:
-+              Must be defined if two sigma delta modulators are
-+              connected on same SPI input.
-+              If not set, channel n is connected to SPI input n.
-+              If set, channel n is connected to SPI input n + 1.
-+            type: boolean
-+
-+          io-backends:
-+            description:
-+              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
-+            maxItems: 1
-+
-+        required:
-+          - reg
-+
-     allOf:
-       - if:
-           properties:
-@@ -199,9 +259,19 @@ patternProperties:
-               description:
-                 From common IIO binding. Used to pipe external sigma delta
-                 modulator or internal ADC output to DFSDM channel.
-+              deprecated: true
+ 	ch = devm_kzalloc(&indio_dev->dev, sizeof(*ch), GFP_KERNEL);
+ 	if (!ch)
+ 		return -ENOMEM;
  
--          required:
--            - io-channels
-+          if:
-+            required:
-+              - st,adc-channels
-+          then:
-+            required:
-+              - io-channels
+-	ch->scan_index = 0;
++	indio_dev->num_channels = 1;
++	indio_dev->channels = ch;
 +
-+          patternProperties:
-+            "^channel@([0-9])$":
-+              required:
-+                - io-backends
++	if (legacy)
++		ret = stm32_dfsdm_chan_init(indio_dev, ch);
++	else
++		ret = stm32_dfsdm_generic_chan_init(indio_dev, ch);
  
-       - if:
-           properties:
-@@ -298,7 +368,77 @@ examples:
-       #address-cells = <1>;
-       #size-cells = <0>;
+-	ret = stm32_dfsdm_adc_chan_init_one(indio_dev, ch);
+ 	if (ret < 0) {
+ 		dev_err(&indio_dev->dev, "Channels init failed\n");
+ 		return ret;
+@@ -1420,9 +1533,6 @@ static int stm32_dfsdm_audio_init(struct device *dev, struct iio_dev *indio_dev)
+ 	if (d_ch->src != DFSDM_CHANNEL_SPI_CLOCK_EXTERNAL)
+ 		adc->spi_freq = adc->dfsdm->spi_master_freq;
  
-+      // Example 1: Audio use case with generic binding
-       dfsdm0: filter@0 {
-+        compatible = "st,stm32-dfsdm-dmic";
-+        reg = <0>;
-+        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 101 0x400 0x01>;
-+        dma-names = "rx";
-+        #io-channel-cells = <1>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        st,filter-order = <5>;
-+
-+        channel@1 {
-+          reg = <1>;
-+          label = "dmic0";
-+          st,adc-channel-type = "SPI_R";
-+          st,adc-channel-clk-src = "CLKOUT";
-+          st,adc-alt-channel;
-+        };
-+
-+        asoc_pdm0: dfsdm-dai {
-+          compatible = "st,stm32h7-dfsdm-dai";
-+          #sound-dai-cells = <0>;
-+          io-channels = <&dfsdm0 0>;
-+        };
-+      };
-+
-+      // Example 1: Analog use case with generic binding
-+      dfsdm1: filter@1 {
-+        compatible = "st,stm32-dfsdm-adc";
-+        reg = <1>;
-+        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 102 0x400 0x01>;
-+        dma-names = "rx";
-+        st,filter-order = <1>;
-+        #io-channel-cells = <1>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        channel@2 {
-+          reg = <2>;
-+          label = "in2";
-+          st,adc-channel-type = "SPI_F";
-+          st,adc-channel-clk-src = "CLKOUT";
-+          st,adc-alt-channel;
-+          io-backends = <&sd_adc2>;
-+        };
-+
-+        channel@3 {
-+          reg = <3>;
-+          label = "in3";
-+          st,adc-channel-type = "SPI_R";
-+          st,adc-channel-clk-src = "CLKOUT";
-+          io-backends = <&sd_adc3>;
-+        };
-+      };
-+    };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    dfsdm_2: dfsdm@4400d000 {
-+      compatible = "st,stm32mp1-dfsdm";
-+      reg = <0x4400d000 0x800>;
-+      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
-+      clock-names = "dfsdm", "audio";
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      // Example 3: Audio use case with legacy binding
-+      dfsdm0_2: filter@0 {
-         compatible = "st,stm32-dfsdm-dmic";
-         reg = <0>;
-         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-@@ -311,14 +451,15 @@ examples:
-         st,adc-channel-clk-src = "CLKOUT";
-         st,filter-order = <5>;
+-	indio_dev->num_channels = 1;
+-	indio_dev->channels = ch;
+-
+ 	return stm32_dfsdm_dma_request(dev, indio_dev);
+ }
  
--        asoc_pdm0: dfsdm-dai {
-+        asoc_pdm0_2: dfsdm-dai {
-           compatible = "st,stm32h7-dfsdm-dai";
-           #sound-dai-cells = <0>;
-           io-channels = <&dfsdm0 0>;
-         };
-       };
+@@ -1430,43 +1540,61 @@ static int stm32_dfsdm_adc_init(struct device *dev, struct iio_dev *indio_dev)
+ {
+ 	struct iio_chan_spec *ch;
+ 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+-	int num_ch;
+-	int ret, chan_idx;
++	int num_ch, ret;
++	bool legacy = false;
  
--      dfsdm_pdm1: filter@1 {
-+      // Example 3: Analog use case with legacy binding
-+      dfsdm1_2: filter@1 {
-         compatible = "st,stm32-dfsdm-adc";
-         reg = <1>;
-         interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
+ 	adc->oversamp = DFSDM_DEFAULT_OVERSAMPLING;
+ 	ret = stm32_dfsdm_compute_all_osrs(indio_dev, adc->oversamp);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	num_ch = of_property_count_u32_elems(indio_dev->dev.of_node,
+-					     "st,adc-channels");
+-	if (num_ch < 0 || num_ch > adc->dfsdm->num_chs) {
+-		dev_err(&indio_dev->dev, "Bad st,adc-channels\n");
+-		return num_ch < 0 ? num_ch : -EINVAL;
++	num_ch = device_get_child_node_count(&indio_dev->dev);
++	if (!num_ch) {
++		/* No channels nodes found. Assume legacy binding */
++		num_ch = of_property_count_u32_elems(indio_dev->dev.of_node, "st,adc-channels");
++		if (num_ch < 0) {
++			dev_err(&indio_dev->dev, "Bad st,adc-channels\n");
++			return num_ch;
++		}
++
++		legacy = true;
+ 	}
+ 
+-	/* Bind to SD modulator IIO device */
+-	adc->hwc = devm_iio_hw_consumer_alloc(&indio_dev->dev);
+-	if (IS_ERR(adc->hwc))
+-		return -EPROBE_DEFER;
++	if (num_ch > adc->dfsdm->num_chs) {
++		dev_err(&indio_dev->dev, "Number of channel [%d] exceeds [%d]\n",
++			num_ch, adc->dfsdm->num_chs);
++		return -EINVAL;
++	}
++	indio_dev->num_channels = num_ch;
+ 
+-	ch = devm_kcalloc(&indio_dev->dev, num_ch, sizeof(*ch),
+-			  GFP_KERNEL);
+-	if (!ch)
+-		return -ENOMEM;
++	if (legacy) {
++		/* Bind to SD modulator IIO device. */
++		adc->hwc = devm_iio_hw_consumer_alloc(&indio_dev->dev);
++		if (IS_ERR(adc->hwc))
++			return dev_err_probe(&indio_dev->dev, -EPROBE_DEFER,
++					     "waiting for SD modulator\n");
++	} else {
++		/* Generic binding. SD modulator IIO device not used. Use SD modulator backend. */
++		adc->hwc = NULL;
+ 
+-	for (chan_idx = 0; chan_idx < num_ch; chan_idx++) {
+-		ch[chan_idx].scan_index = chan_idx;
+-		ret = stm32_dfsdm_adc_chan_init_one(indio_dev, &ch[chan_idx]);
+-		if (ret < 0) {
+-			dev_err(&indio_dev->dev, "Channels init failed\n");
+-			return ret;
+-		}
++		adc->backend = devm_kzalloc(&indio_dev->dev, sizeof(*adc->backend) * num_ch,
++					    GFP_KERNEL);
++		if (!adc->backend)
++			return -ENOMEM;
+ 	}
+ 
+-	indio_dev->num_channels = num_ch;
++	ch = devm_kcalloc(&indio_dev->dev, num_ch, sizeof(*ch), GFP_KERNEL);
++	if (!ch)
++		return -ENOMEM;
+ 	indio_dev->channels = ch;
+ 
++	if (legacy)
++		ret = stm32_dfsdm_chan_init(indio_dev, ch);
++	else
++		ret = stm32_dfsdm_generic_chan_init(indio_dev, ch);
++	if (ret < 0)
++		return ret;
++
+ 	init_completion(&adc->completion);
+ 
+ 	/* Optionally request DMA */
 -- 
 2.25.1
 
