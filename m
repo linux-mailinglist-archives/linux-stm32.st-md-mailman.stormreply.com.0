@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E929253F9
+	by mail.lfdr.de (Postfix) with ESMTPS id 167EC9253FA
 	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jul 2024 08:53:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1D7CC7801F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD521C78021;
 	Wed,  3 Jul 2024 06:53:35 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85546C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6ADCCC71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2024 03:02:22 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HEmEg014025;
- Wed, 3 Jul 2024 03:01:55 GMT
+ Wed,  3 Jul 2024 03:02:40 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 462HE8Wb003180;
+ Wed, 3 Jul 2024 03:02:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- k1lRISV2yOU0+NYZWkpybQTZMucF0zr8XgYCtWOls0g=; b=hsjeo0jnoBZvaOfH
- HNUI31hC1XVmmL+niMwsBWfPQDZLbqLhKa4MTvtIJyrqwUf/1xqHxifxHzvmAMe9
- chRpt+qGEOBP/zlklpkLF1gSfZMQ7Qv+ZWGKrLbEmWkjx2u6I1oYBGrn9oV9xwo1
- ok4UQj/ucjEsZjItMAjL4SG0/LNEBmnHOtSfVCcCm96It97VbWT1C+BxZLs1l+b5
- at8Qg/NM9QGQ6P1jUQE7soxOuJjGYQgSvDxzdipCaF6QJnUgAcUNlrlEBBO8wWyq
- Um68kMkjBpCnZ6OhN/AeygNdgOyXQHyNWYhy+8ZlR887E1bauU0DhjxTgfFzMVc1
- z1cHyQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ NzMtgN8jQZKceFszXY+rOTwJXeVMaRZRuTII2K/EMqA=; b=gbWaCTi7QXwY9DIt
+ RkLj/JfD6mfxvLwb6Vb+PTAchY5PT9oS6dO1ZjQRoMwujxndBx6qhc8GCFEECU+2
+ 0gBXklaZ1pr8U2vJzuDbLxpX+WEiO7RLfi9Jg0we3OapsESyVOwWmpoFWh9Qtz9X
+ AuX2LjzUaoizIekRlt8Ifsq6WezSuoY7N5GZFR06LZWMQ0e913PU0ifA+AZgGzG3
+ r0Y1WO2cvXxw2nNz/UpVFAMjz8vfMnn8UZUtwgNSPwsoo1QONmwXOa0VfaFdhyp/
+ jBoDuzDJ1T2y5HenBmMZ5igg/MZjpZJRCSV0t0I9I28hFda0z+jQuCkgNP184WSS
+ L/UhXQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 402996qhts-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4029uxfg4q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Jul 2024 03:01:55 +0000 (GMT)
+ Wed, 03 Jul 2024 03:02:14 +0000 (GMT)
 Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
  [10.47.209.196])
- by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46331seD023643
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46332COS030083
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 3 Jul 2024 03:01:54 GMT
+ Wed, 3 Jul 2024 03:02:12 GMT
 Received: from tengfan-gv.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 2 Jul 2024 20:01:31 -0700
+ 15.2.1544.9; Tue, 2 Jul 2024 20:01:51 -0700
 From: Tengfei Fan <quic_tengfan@quicinc.com>
 To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <djakov@kernel.org>,
@@ -54,8 +54,8 @@ To: <andersson@kernel.org>, <konrad.dybcio@linaro.org>, <robh@kernel.org>,
  <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
  <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
  <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-Date: Wed, 3 Jul 2024 10:58:10 +0800
-Message-ID: <20240703025850.2172008-8-quic_tengfan@quicinc.com>
+Date: Wed, 3 Jul 2024 10:58:11 +0800
+Message-ID: <20240703025850.2172008-9-quic_tengfan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
 References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
@@ -66,17 +66,17 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: LWMfDpnX8gxndqDHHPZHYKuUPMUeYCl5
-X-Proofpoint-ORIG-GUID: LWMfDpnX8gxndqDHHPZHYKuUPMUeYCl5
+X-Proofpoint-GUID: 2iZbO5xP3V7-AKJDKh0LzCOGpY0kve1o
+X-Proofpoint-ORIG-GUID: 2iZbO5xP3V7-AKJDKh0LzCOGpY0kve1o
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-02_18,2024-07-02_02,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- impostorscore=0 mlxscore=0 malwarescore=0 clxscore=1015 mlxlogscore=909
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
- definitions=main-2407030022
+ mlxlogscore=658
+ priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 mlxscore=0
+ clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2407030022
 X-Mailman-Approved-At: Wed, 03 Jul 2024 06:53:34 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_gurus@quicinc.com, kw@linux.com, linux-pci@vger.kernel.org,
@@ -106,8 +106,8 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
  dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
  quic_aiquny@quicinc.com, lukasz.luba@arm.com
-Subject: [Linux-stm32] [PATCH 07/47] dt-bindings: clock: document QCS9100
-	GCC compatible
+Subject: [Linux-stm32] [PATCH 08/47] dt-bindings: mailbox: qcom-ipcc:
+	Document the QCS9100 IPCC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,29 +124,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document QCS9100 GCC compatible.
+Document the Inter-Processor Communication Controller on the QCS9100
+Platform.
 
 Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
 ---
- .../devicetree/bindings/clock/qcom,sa8775p-gcc.yaml          | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,sa8775p-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sa8775p-gcc.yaml
-index addbd323fa6d..0ca77054e527 100644
---- a/Documentation/devicetree/bindings/clock/qcom,sa8775p-gcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,sa8775p-gcc.yaml
-@@ -17,7 +17,10 @@ description: |
- 
- properties:
+diff --git a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+index 05e4e1d51713..916c47fbc238 100644
+--- a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
++++ b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+@@ -24,6 +24,7 @@ properties:
    compatible:
--    const: qcom,sa8775p-gcc
-+    items:
-+      - enum:
-+          - qcom,qcs9100-gcc
-+          - qcom,sa8775p-gcc
- 
-   clocks:
      items:
+       - enum:
++          - qcom,qcs9100-ipcc
+           - qcom,qdu1000-ipcc
+           - qcom,sa8775p-ipcc
+           - qcom,sc7280-ipcc
 -- 
 2.25.1
 
