@@ -2,67 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9EA927AB7
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2024 17:58:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E377D927ACC
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2024 18:04:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37F03C78013;
-	Thu,  4 Jul 2024 15:58:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92AC9C7129D;
+	Thu,  4 Jul 2024 16:04:30 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A90CC78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0318CC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jul 2024 15:58:56 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 464BtQTs003046;
- Thu, 4 Jul 2024 17:58:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 5+DgVyRcKG3lK13V7LR7tKkeRWS1ulizVadzVOae5rY=; b=VXu/4i05i2nwVGHQ
- 2eDM/5jV81LsVzf0gL08WgACjZr0Ohhji9MUCVyrjeCDKPkX33XcKgHHY9ONYTZf
- CFTOWTShDMrGxqsNelsKUIya4MfUK862bRLxBkruV4DuS/iu/mFeWZvuWoW8ggax
- nmSYNFDc7yhgJvHcJhEJm7shOAKA18tbcfhKHK9I1v0MfMD6ZGWfVc6n/qqV7q8S
- aex4P6YFiMyP8QMVcvk9+2TbO+Ltc7LwRKgw2dmjCYYwKnd1NG/1C7y8SyUGJgv2
- CcSScjY2Hbu9vEMj4f3wtpzBFcQSoWuqMfH68VpjWSfVFdXCSxD0XROzOAQ2PVvq
- /Co6+Q==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 405u9srw77-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 Jul 2024 17:58:37 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CCEB540044;
- Thu,  4 Jul 2024 17:58:27 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 240AF229A68;
- Thu,  4 Jul 2024 17:57:53 +0200 (CEST)
-Received: from localhost (10.48.86.132) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 4 Jul
- 2024 17:57:52 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 4 Jul 2024 17:53:36 +0200
-Message-ID: <20240704155338.2387858-9-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240704155338.2387858-1-olivier.moysan@foss.st.com>
-References: <20240704155338.2387858-1-olivier.moysan@foss.st.com>
+ Thu,  4 Jul 2024 16:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=NUvYT0Apw8SqjInlbdvt2ov0pZsd3AGE3tETszdRDzg=; b=uctUXtstqOdYStp1RAdEevee8A
+ og2m1rbeRGyNCyWKUOMtyM5AqIVxQFyxOPDwVFm9FnkbszNQ36vazTBa9yXYKCDMQBhsJURhhsCMA
+ j1mTGX2YuuLQQvVFM9F5PJp4GaLgK5ASkZXssZl/rnBc5yDOus60fNPX7zh7xaHLB3Ec=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sPOvS-001pKc-Qp; Thu, 04 Jul 2024 18:03:14 +0200
+Date: Thu, 4 Jul 2024 18:03:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Tengfei Fan <quic_tengfan@quicinc.com>
+Message-ID: <add1bdda-2321-4c47-91ef-299f99385bc8@lunn.ch>
+References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
+ <20240703025850.2172008-30-quic_tengfan@quicinc.com>
+ <u5ekupjqvgoehkl76pv7ljyqqzbnnyh6ci2dilfxfkcdvdy3dp@ehdujhkul7ow>
+ <f4162b7f-d957-4dd6-90a0-f65c1cbc213a@quicinc.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.132]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-04_12,2024-07-03_01,2024-05-17_01
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- Nuno Sa <nuno.sa@analog.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 8/8] iio: adc: stm32-dfsdm: add scaling
-	support to dfsdm
+Content-Disposition: inline
+In-Reply-To: <f4162b7f-d957-4dd6-90a0-f65c1cbc213a@quicinc.com>
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, linus.walleij@linaro.org,
+ quic_cang@quicinc.com, alim.akhtar@samsung.com, quic_rjendra@quicinc.com,
+ linux-clk@vger.kernel.org, kishon@kernel.org, kernel@quicinc.com,
+ bvanassche@acm.org, bartosz.golaszewski@linaro.org, jassisinghbrar@gmail.com,
+ joabreu@synopsys.com, u.kleine-koenig@pengutronix.de, lpieralisi@kernel.org,
+ linux@roeck-us.net, linux-pm@vger.kernel.org, avri.altman@wdc.com,
+ robimarko@gmail.com, tglx@linutronix.de, quic_kbajaj@quicinc.com,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, djakov@kernel.org,
+ lukasz.luba@arm.com, kw@linux.com, thara.gopinath@gmail.com,
+ quic_msarkar@quicinc.com, edumazet@google.com, srinivas.kandagatla@linaro.org,
+ manivannan.sadhasivam@linaro.org, quic_kaushalk@quicinc.com,
+ quic_bjorande@quicinc.com, daniel.lezcano@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, iommu@lists.linux.dev,
+ Andrew Halaney <ahalaney@redhat.com>, linux-watchdog@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, quic_nitirawa@quicinc.com,
+ linux-gpio@vger.kernel.org, bhelgaas@google.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
+ sboyd@kernel.org, quic_tsoni@quicinc.com, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, ulf.hansson@linaro.org, linux-pci@vger.kernel.org,
+ mturquette@baylibre.com, amitk@kernel.org, linux-phy@lists.infradead.org,
+ will@kernel.org, robh@kernel.org, quic_tingweiz@quicinc.com, luca@z3ntu.xyz,
+ danila@jiaxyga.com, pabeni@redhat.com, bhupesh.sharma@linaro.org,
+ athierry@redhat.com, quic_devipriy@quicinc.com, conor@kernel.org,
+ konrad.dybcio@linaro.org, abel.vesa@linaro.org, davem@davemloft.net,
+ mantas@8devices.com, otto.pflueger@abscue.de, quic_wcheng@quicinc.com,
+ quic_rgottimu@quicinc.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, quic_aiquny@quicinc.com, vkoul@kernel.org,
+ quic_sibis@quicinc.com, agross@kernel.org, kuba@kernel.org,
+ rui.zhang@intel.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ wim@linux-watchdog.org, quic_shashim@quicinc.com, netdev@vger.kernel.org,
+ andersson@kernel.org, krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com,
+ dmitry.baryshkov@linaro.org, robin.murphy@arm.com, joro@8bytes.org
+Subject: Re: [Linux-stm32] [PATCH 29/47] dt-bindings: net: qcom,
+ ethqos: add description for qcs9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,238 +86,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add scaling support to STM32 DFSDM.
+On Thu, Jul 04, 2024 at 09:13:59AM +0800, Tengfei Fan wrote:
+> 
+> 
+> On 7/3/2024 11:09 PM, Andrew Halaney wrote:
+> > On Wed, Jul 03, 2024 at 10:58:32AM GMT, Tengfei Fan wrote:
+> > > Add the compatible for the MAC controller on qcs9100 platforms. This MAC
+> > > works with a single interrupt so add minItems to the interrupts property.
+> > > The fourth clock's name is different here so change it. Enable relevant
+> > > PHY properties. Add the relevant compatibles to the binding document for
+> > > snps,dwmac as well.
+> > 
+> > This description doesn't match what was done in this patch, its what
+> > Bart did when he made changes to add the sa8775 changes. Please consider
+> > using a blurb indicating that this is the same SoC as sa8775p, just with
+> > different firmware strategies or something along those lines?
+> 
+> I will update this commit message as you suggested.
 
-When used in an analog context, a DFSDM filter typically converts the data
-from a sigma delta modulator. The IIO device associated to the DFSDM
-filter provides these data as raw data.
-The IIO device can provide scaling information (voltage and offset) to
-allow conversion of raw data into physical values.
+Hi Andrew, Tengfei
 
-With the new binding based on IIO backend framework, the sigma delta
-modulators are defined as backends providing scaling information.
+Please trim emails when replying to just the needed context.
 
-The scaling is not supported with legacy binding.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Acked-by: Nuno Sa <nuno.sa@analog.com>
----
- drivers/iio/adc/Kconfig           |  1 +
- drivers/iio/adc/stm32-dfsdm-adc.c | 98 ++++++++++++++++++++++++++++++-
- 2 files changed, 97 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 14b1773f02d9..36ef0de9140f 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1226,6 +1226,7 @@ config STM32_DFSDM_ADC
- 	select IIO_BUFFER
- 	select IIO_BUFFER_HW_CONSUMER
- 	select IIO_TRIGGERED_BUFFER
-+	select IIO_BACKEND
- 	help
- 	  Select this option to support ADCSigma delta modulator for
- 	  STMicroelectronics STM32 digital filter for sigma delta converter.
-diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-index ae5d95e38cd7..7e91e3df5592 100644
---- a/drivers/iio/adc/stm32-dfsdm-adc.c
-+++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-@@ -9,6 +9,7 @@
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
- #include <linux/iio/adc/stm32-dfsdm-adc.h>
-+#include <linux/iio/backend.h>
- #include <linux/iio/buffer.h>
- #include <linux/iio/hw-consumer.h>
- #include <linux/iio/sysfs.h>
-@@ -78,6 +79,7 @@ struct stm32_dfsdm_adc {
- 	/* ADC specific */
- 	unsigned int oversamp;
- 	struct iio_hw_consumer *hwc;
-+	struct iio_backend **backend;
- 	struct completion completion;
- 	u32 *buffer;
- 
-@@ -672,6 +674,8 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
- 						struct fwnode_handle *node)
- {
- 	struct stm32_dfsdm_channel *df_ch;
-+	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	struct iio_backend *backend;
- 	const char *of_str;
- 	int ret, val;
- 
-@@ -721,6 +725,14 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
- 	if (ret != -EINVAL)
- 		df_ch->alt_si = 0;
- 
-+	if (adc->dev_data->type == DFSDM_IIO) {
-+		backend = devm_iio_backend_fwnode_get(&indio_dev->dev, NULL, node);
-+		if (IS_ERR(backend))
-+			return dev_err_probe(&indio_dev->dev, PTR_ERR(backend),
-+					     "Failed to get backend\n");
-+		adc->backend[ch->scan_index] = backend;
-+	}
-+
- 	return 0;
- }
- 
-@@ -1056,6 +1068,7 @@ static int stm32_dfsdm_update_scan_mode(struct iio_dev *indio_dev,
- static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
- 	int ret;
- 
- 	/* Reset adc buffer index */
-@@ -1067,6 +1080,15 @@ static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- 			return ret;
- 	}
- 
-+	if (adc->backend) {
-+		while (adc->backend[i]) {
-+			ret = iio_backend_enable(adc->backend[i]);
-+			if (ret < 0)
-+				return ret;
-+			i++;
-+		}
-+	}
-+
- 	ret = stm32_dfsdm_start_dfsdm(adc->dfsdm);
- 	if (ret < 0)
- 		goto err_stop_hwc;
-@@ -1099,6 +1121,7 @@ static int stm32_dfsdm_postenable(struct iio_dev *indio_dev)
- static int stm32_dfsdm_predisable(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
- 
- 	stm32_dfsdm_stop_conv(indio_dev);
- 
-@@ -1106,6 +1129,13 @@ static int stm32_dfsdm_predisable(struct iio_dev *indio_dev)
- 
- 	stm32_dfsdm_stop_dfsdm(adc->dfsdm);
- 
-+	if (adc->backend) {
-+		while (adc->backend[i]) {
-+			iio_backend_disable(adc->backend[i]);
-+			i++;
-+		}
-+	}
-+
- 	if (adc->hwc)
- 		iio_hw_consumer_disable(adc->hwc);
- 
-@@ -1278,7 +1308,14 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 				int *val2, long mask)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
--	int ret;
-+
-+	struct stm32_dfsdm_filter *fl = &adc->dfsdm->fl_list[adc->fl_id];
-+	struct stm32_dfsdm_filter_osr *flo = &fl->flo[fl->fast];
-+	u32 max = flo->max << (flo->lshift - chan->scan_type.shift);
-+	int ret, idx = chan->scan_index;
-+
-+	if (flo->lshift < chan->scan_type.shift)
-+		max = flo->max >> (chan->scan_type.shift - flo->lshift);
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-@@ -1287,6 +1324,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 			return ret;
- 		if (adc->hwc)
- 			ret = iio_hw_consumer_enable(adc->hwc);
-+		if (adc->backend)
-+			ret = iio_backend_enable(adc->backend[idx]);
- 		if (ret < 0) {
- 			dev_err(&indio_dev->dev,
- 				"%s: IIO enable failed (channel %d)\n",
-@@ -1297,6 +1336,8 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 		ret = stm32_dfsdm_single_conv(indio_dev, chan, val);
- 		if (adc->hwc)
- 			iio_hw_consumer_disable(adc->hwc);
-+		if (adc->backend)
-+			iio_backend_disable(adc->backend[idx]);
- 		if (ret < 0) {
- 			dev_err(&indio_dev->dev,
- 				"%s: Conversion failed (channel %d)\n",
-@@ -1316,6 +1357,50 @@ static int stm32_dfsdm_read_raw(struct iio_dev *indio_dev,
- 		*val = adc->sample_freq;
- 
- 		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		/*
-+		 * Scale is expressed in mV.
-+		 * When fast mode is disabled, actual resolution may be lower
-+		 * than 2^n, where n = realbits - 1.
-+		 * This leads to underestimating the input voltage.
-+		 * To compensate this deviation, the voltage reference can be
-+		 * corrected with a factor = realbits resolution / actual max
-+		 */
-+		if (adc->backend) {
-+			ret = iio_backend_read_scale(adc->backend[idx], chan, val);
-+			if (ret < 0)
-+				return ret;
-+
-+			*val = div_u64((u64)*val * (u64)BIT(DFSDM_DATA_RES - 1), max);
-+			*val2 = chan->scan_type.realbits;
-+			if (chan->differential)
-+				*val *= 2;
-+		}
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+
-+	case IIO_CHAN_INFO_OFFSET:
-+		/*
-+		 * DFSDM output data are in the range [-2^n, 2^n],
-+		 * with n = realbits - 1.
-+		 * - Differential modulator:
-+		 * Offset correspond to SD modulator offset.
-+		 * - Single ended modulator:
-+		 * Input is in [0V, Vref] range,
-+		 * where 0V corresponds to -2^n, and Vref to 2^n.
-+		 * Add 2^n to offset. (i.e. middle of input range)
-+		 * offset = offset(sd) * vref / res(sd) * max / vref.
-+		 */
-+		if (adc->backend) {
-+			ret = iio_backend_read_offset(adc->backend[idx], chan, val);
-+			if (ret < 0)
-+				return ret;
-+
-+			*val = div_u64((u64)max * *val, BIT(*val2 - 1));
-+			if (!chan->differential)
-+				*val += max;
-+		}
-+		return IIO_VAL_INT;
- 	}
- 
- 	return -EINVAL;
-@@ -1444,7 +1529,15 @@ static int stm32_dfsdm_adc_chan_init_one(struct iio_dev *indio_dev, struct iio_c
- 	 * IIO_CHAN_INFO_RAW: used to compute regular conversion
- 	 * IIO_CHAN_INFO_OVERSAMPLING_RATIO: used to set oversampling
- 	 */
--	ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-+	if (child) {
-+		ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+					 BIT(IIO_CHAN_INFO_SCALE) |
-+					 BIT(IIO_CHAN_INFO_OFFSET);
-+	} else {
-+		/* Legacy. Scaling not supported */
-+		ch->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
-+	}
-+
- 	ch->info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO) |
- 					BIT(IIO_CHAN_INFO_SAMP_FREQ);
- 
-@@ -1805,3 +1898,4 @@ module_platform_driver(stm32_dfsdm_adc_driver);
- MODULE_DESCRIPTION("STM32 sigma delta ADC");
- MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@st.com>");
- MODULE_LICENSE("GPL v2");
-+MODULE_IMPORT_NS(IIO_BACKEND);
--- 
-2.25.1
-
+Thanks
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
