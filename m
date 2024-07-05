@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85EB99285A2
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 11:52:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F499285A3
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 11:52:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45FE5C78013;
-	Fri,  5 Jul 2024 09:52:33 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E10FC78013;
+	Fri,  5 Jul 2024 09:52:35 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF82CC78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB4CAC78006
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2024 09:52:30 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3679f806223so824578f8f.0
+ Fri,  5 Jul 2024 09:52:32 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52e99060b41so1486474e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jul 2024 02:52:30 -0700 (PDT)
+ Fri, 05 Jul 2024 02:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720173150; x=1720777950;
+ d=linaro.org; s=google; t=1720173152; x=1720777952;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DiKGCqGBEkNBKp19buJrLY0hlEyZbTBwZzmTA6yx1KQ=;
- b=hOcRApa4sqTD5dgnONqB6KgoThdHEtt73o7vObotb4C+xIxJgaihBGzr8AIO+h8mFX
- K46ojVDlmmfXLwpUiI0WmGsaLffaG6ZtBbksigrBn9hoWDU+HzqE5vnSB0ZexcUWV8YH
- 7P5blUCTMgcfz1c4H6ZlcMV5t7RD9bsY5HeuS9rEBekkV42ACubR9s29/fUu1rwuZIOt
- Ul4p8+7VGyWG2shnuDm3FIrEJE2xm/J7FWUEFC7duI6ncCWQXOhRy8vJ+dUSMecajtLE
- 0UI/gQ9bud/utxW+q8XJH9lvryaVpMYqFrBP7e1dhd9cUmjnFkdOAoNMLddkagAEJO7d
- rQGA==
+ :reply-to; bh=xHK/qxjThTBQx3yAiyF3Z2q8vhY+c5nKTIQAaD+D4oY=;
+ b=QCgDN3gKENbyT+kSq3nKmVnMv2GknUWV2e+Hgiorbyg3FQD8y8y4uQ9S9Ofloxblmg
+ ioPhRtrH5dhoJDMDaZ1g8sqyqb6r49CCkO+M1SRvnQvklRNTX3+sR6Sd31cWA+I+V1cc
+ fp+mPjLJnCFuGa5nB4nsdoAEmHFA2CCXCU+GNSE66t8Ywq30fW+J0qF10STal8waw65r
+ pQWsKo7GxOt7hzx2xzw+pbQ8xltgKPnROafBUg2l7inPTJLRdRvHE6fo7fbHZgvFoImY
+ mgIPqB6GyIPb+9qd2iZxPY1FlsOhtRriD8HaXXn7e7Kb0jJZtUUm4J4XMP3puStg+V4Q
+ zSxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720173150; x=1720777950;
+ d=1e100.net; s=20230601; t=1720173152; x=1720777952;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DiKGCqGBEkNBKp19buJrLY0hlEyZbTBwZzmTA6yx1KQ=;
- b=nJVUui3Rb1PkGy5rsXTU5GmbfA9lbPghb9cwGYR4rziA9duirc6kprqyU9+1i+fuoh
- eA8NGT0pOd8djJ0fOJjyZNt2ro+f9o8Pb3idrbhY3zxPiVeAfUW389vvdDWwqFYeC7jL
- OOW/VBoBVJjrSHb5K2+rRCGl/y9t+imRjGph8Rxg1q4DWhXjLRO97LMJM5VVCZQ5NLRs
- D1FXRRX/LKGy5n6rwQDdYAB+M5Oj1wzoUtKHgBGVvhEXFv8CBSCYUxE5IfW+9dWrXOvH
- +BCRTkpZ9nyhHkEfJs46kHLSCLQYl9AbwB3ClutHG+s7iZyMNGf+EVJOVwc2MzPBGr5O
- LQtA==
+ bh=xHK/qxjThTBQx3yAiyF3Z2q8vhY+c5nKTIQAaD+D4oY=;
+ b=wPMTu3jaaZ5NTZcPfdgq4H+iQccL0X18X97/InQYNM3R5ppnVVfJveP02IDeM5vJ31
+ lo5fC2wPo8twcAmXRqLLNzXcs2AzaMfcBIw+FjCqiAnqSyYkcImcxFJONY6o1PGy/EuK
+ cWHsGJLodjcc5a3Ahc/MGGdaMEsDGNlSOJKGPtOWnPryvBkw6UO1dsaO2nO1sFnDpZRX
+ s09zy+N8F0DHsjperm8pnW6k0ud6xt+NrjHwaNJAvcts61UKROAZ9ScwsE5bntSmu/Zs
+ F14Y9vADqI/D8gcTSY2h9PTWuWVJKLGNi1pBMHWS2ZXektEYOqYiodK4V3JUGxP2xHg0
+ Meqw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVfpijKwx5bsQkgtFNdOXjUhYyD2TyFp0+gp4zG92TPLKdEUrXRQYN9KOu+gABLy5mFtfhXi9R43ua/IkOYsvMKBWWlVyWLDnglH2YOlhFwM3M2kKmLm8Dj
-X-Gm-Message-State: AOJu0YyXcTSS2T66ZlrGUkxfetclBvi1VC9whj4hZu9mL6J6DHb3gvLU
- l6jCDi5yNxRS9kUoQhf92HP6yAZk9JbK11lmMi6PSVa0433dbHjnDi+jrPYfNAQ=
-X-Google-Smtp-Source: AGHT+IHYmG0y89BYUT8vEw/rPou2Wxrzc7MA979LcnMLM0W/oRZ4IEsDq5fGw3QaLxwUE+6DoRA6Ww==
-X-Received: by 2002:adf:e58f:0:b0:367:9048:e952 with SMTP id
- ffacd0b85a97d-3679f6facc0mr3592566f8f.18.1720173150478; 
- Fri, 05 Jul 2024 02:52:30 -0700 (PDT)
+ AJvYcCUGcvV8nJkCbCnNdgXrPjS/E/zQjQxvahtCon/uB4k29UZa/88vNI56bKmAnXDV75epfvjbh/Y/5Zq+sRwmEDctBCCVGcH7DSUd5M37IOtkPsX9pX2B6wCt
+X-Gm-Message-State: AOJu0YwtPTWsp8NipCnzSP/6FaGhWF3+iftWo1IFWH21OcM8Y5+ovxHk
+ FPiPESNNEevdTscNFkH/geKG/aFNoBrVSL5WQQbl9ajCNDP0Z4Wcyi8X7b068yo=
+X-Google-Smtp-Source: AGHT+IEK1KKdTzbDztsnn+12R3zWG+9Jig/tlf9CjSDpwbnzRDyxiwqr84PK3eJ7qPGx/h4/oxG65w==
+X-Received: by 2002:a19:f01a:0:b0:52c:df8c:72cc with SMTP id
+ 2adb3069b0e04-52ea06bb625mr2380698e87.43.1720173152244; 
+ Fri, 05 Jul 2024 02:52:32 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4264a1d1650sm55528995e9.2.2024.07.05.02.52.28
+ 5b1f17b1804b1-4264a1d1650sm55528995e9.2.2024.07.05.02.52.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jul 2024 02:52:30 -0700 (PDT)
+ Fri, 05 Jul 2024 02:52:31 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 05 Jul 2024 11:51:39 +0200
+Date: Fri, 05 Jul 2024 11:51:40 +0200
 MIME-Version: 1.0
-Message-Id: <20240705-dt-bindings-thermal-allof-v1-20-554061b52fbc@linaro.org>
+Message-Id: <20240705-dt-bindings-thermal-allof-v1-21-554061b52fbc@linaro.org>
 References: <20240705-dt-bindings-thermal-allof-v1-0-554061b52fbc@linaro.org>
 In-Reply-To: <20240705-dt-bindings-thermal-allof-v1-0-554061b52fbc@linaro.org>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>, 
@@ -68,21 +68,21 @@ To: Daniel Lezcano <daniel.lezcano@linaro.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
  Fabio Estevam <festevam@gmail.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1225;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5012;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=v96r53csGO3DPv4xrCAiMuQ7NW/XqKvoTR8Ezj66dsU=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmh8I1/z6BRU3/RDJC8Xbgcy2VEpXbmcaRH/gDq
- mIkZ8QIRNmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZofCNQAKCRDBN2bmhouD
- 1/uvD/wJadFN1GRpR1hWwHsbh4K+sDkAXduqOrxZRwcvlwLx17tZOnFby7jQRrbipfXERDlCFs/
- xZH7zWloJNAdi8CwbPcj+jYiSEeD9teFqhChIlLshTIvmfJ8tR4MJWizEr+koIoe2XXG4Io9WJ9
- 6LwU443JAlf5eR+5jr3Q0LmzluMIglz70AhUYgLdZWm3lDmMdSAgCs3fnrCG8HqkHIuzePig2JL
- h+JIfqND6tjmDd6p7D6h7lOBgWErIE5a0gAzsCaxYK1aL4acUMhb4zefZ3N8Xe+I3SCR0D4jVLC
- JDINEcyIleVM9VRFQsPpqLvENvzTEsptt4dsfvcvwrvt2CqEgpmUaj1rhl7hXQ4ss7LNxOn1qIe
- NQxV1w67W++8F+D4TlFCwBrjbWLlz6JnrqP942DTNoNuZX59saIH+rNuCjHpt7vDMQ/v2e54SoQ
- UpuujUAMAwf6zCozSGEDTsNhTtFoE3M9aPhDQ8P+4iR1OQjwmMu4pYGDowh9CvP3YZOMjKW/MRO
- JpMxOWAKWnHbsfoWCVQjeInjQF+R5HhgEl57whHYOpjKIGypZxg0ECn3+gAMtanY2Q7S8uIkydY
- Gr950r9HZz/kfCG0CLZYzavj2qhZKkiJbOzLkA7TwfkRJ3cHx2wkHAEpDbilcOjGzdSj+EZflX8
- awhUAdm5Ubnrr8g==
+ bh=XNyfNCGFScy9mZ8hCS/9iIypk5k0G+Ilo2PzHccYoHA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmh8I2NN3X7IIsqrtIAyFnYLzq5eiKU2FODdAu8
+ m9zE/RImbaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZofCNgAKCRDBN2bmhouD
+ 11edEACVWgk06f6mBBoU7ppKmkICVWMkDHqhZC5XD4tsFEwEeWIGR3i9N/ehawoJlf81x4kZKoB
+ m2+Ny3Lj0kk7pgw4g9zyXaGpdcoLuO6A9C+uH65ryVZIvClp65c3qVptOrtnlOWKSCI/cJwlo1X
+ QE5WNsru4dj7xatBg774QL36pO4P5tsBDKEpges7jwlaDM1iKEC3TI935frpKvWRmS6b2JOTHOR
+ njAs0ota2n81UZZcSj77goFxYTG+lGTG+2Agig6skKaZrMVvM3m9Dd3tEbYrIQPWSAaEXfRTYIT
+ A/2y82Mf0UOlcYBMLrgcUds2Ntbx7vUOjExoOUsqbte8yyorWyu2OzYPc/zlkxSIq8gTj9knSHD
+ /+wHokENvv7198RXplN30RIjc17e7n1RlWltCzPmeCB3zPwU2i1Y8DvDXGq5LnnxmeoT2E2MNlH
+ PfH33sW0BEgVKI1gtXh2TIFX36/KFjQasf/Uitd6/5bRv/lXW0o8DmbyEhBBu1j6maxzKQe154y
+ TsPoDS5ppoa4Z1JLQstMJzilHeQ2OPtUFmYr9EBqUYha4r92tpGW+XCBW8HpQc3iBr3Cx0/8ytk
+ bjJaL5+cCMbFF8LF7lxgD4WSxwh7mz84dUgamDnNx4DT0txwejUAnJka/ck7TJ7n+iaYcQyN+bD
+ RpN1eJkt201tlFg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
@@ -94,9 +94,10 @@ Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  Florian Fainelli <f.fainelli@gmail.com>, linux-mediatek@lists.infradead.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RESEND 20/22] dt-bindings: thermal: ti,
- j72xx: reference thermal-sensor schema
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH RESEND 21/22] dt-bindings: thermal: simplify
+	few bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,40 +114,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Device is a thermal sensor and it requires '#thermal-sensor-cells', so
-reference the thermal-sensor.yaml to simplify it and bring the
-common definition of '#thermal-sensor-cells' property.
+Simplify few bindings which already reference thermal-sensor.yaml schema
+by dropping unneeded requiring of '#thermal-sensor-cells' and dropping
+assigned-clocks properties (core schema allows it if 'clocks' are
+there).
 
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/thermal/ti,j72xx-thermal.yaml | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/thermal/brcm,avs-tmon.yaml          | 1 -
+ Documentation/devicetree/bindings/thermal/brcm,bcm2835-thermal.yaml   | 1 -
+ Documentation/devicetree/bindings/thermal/fsl,scu-thermal.yaml        | 1 -
+ Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml  | 1 -
+ Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml  | 1 -
+ .../devicetree/bindings/thermal/nvidia,tegra124-soctherm.yaml         | 1 -
+ Documentation/devicetree/bindings/thermal/nvidia,tegra30-tsensor.yaml | 4 ----
+ Documentation/devicetree/bindings/thermal/qcom,spmi-temp-alarm.yaml   | 1 -
+ 8 files changed, 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/thermal/ti,j72xx-thermal.yaml b/Documentation/devicetree/bindings/thermal/ti,j72xx-thermal.yaml
-index 171b3622ed84..82b77b9795a3 100644
---- a/Documentation/devicetree/bindings/thermal/ti,j72xx-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/ti,j72xx-thermal.yaml
-@@ -22,6 +22,8 @@ description: |
-   Temp(C) = (-9.2627e-12) * x^4 + (6.0373e-08) * x^3 + \
-             (-1.7058e-04) * x^2 + (3.2512e-01) * x   + (-4.9003e+01)
- 
-+$ref: thermal-sensor.yaml#
-+
- properties:
-   compatible:
-     enum:
-@@ -64,9 +66,8 @@ required:
+diff --git a/Documentation/devicetree/bindings/thermal/brcm,avs-tmon.yaml b/Documentation/devicetree/bindings/thermal/brcm,avs-tmon.yaml
+index 267a0f423504..32730211e15b 100644
+--- a/Documentation/devicetree/bindings/thermal/brcm,avs-tmon.yaml
++++ b/Documentation/devicetree/bindings/thermal/brcm,avs-tmon.yaml
+@@ -42,7 +42,6 @@ additionalProperties: false
+ required:
    - compatible
    - reg
-   - power-domains
 -  - "#thermal-sensor-cells"
- 
--additionalProperties: false
-+unevaluatedProperties: false
  
  examples:
    - |
+diff --git a/Documentation/devicetree/bindings/thermal/brcm,bcm2835-thermal.yaml b/Documentation/devicetree/bindings/thermal/brcm,bcm2835-thermal.yaml
+index 2b6026d9fbcf..ddf0f20e5285 100644
+--- a/Documentation/devicetree/bindings/thermal/brcm,bcm2835-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/brcm,bcm2835-thermal.yaml
+@@ -34,7 +34,6 @@ required:
+   - compatible
+   - reg
+   - clocks
+-  - '#thermal-sensor-cells'
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/thermal/fsl,scu-thermal.yaml b/Documentation/devicetree/bindings/thermal/fsl,scu-thermal.yaml
+index e02d04d4f71e..ceef318668bf 100644
+--- a/Documentation/devicetree/bindings/thermal/fsl,scu-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/fsl,scu-thermal.yaml
+@@ -28,7 +28,6 @@ properties:
+ 
+ required:
+   - compatible
+-  - '#thermal-sensor-cells'
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+index ca81c8afba79..79e691b08341 100644
+--- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+@@ -38,7 +38,6 @@ required:
+   - compatible
+   - reg
+   - interrupts
+-  - '#thermal-sensor-cells'
+ 
+ if:
+   properties:
+diff --git a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+index 331cf4e662e3..0259cd3ce9c5 100644
+--- a/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/mediatek,lvts-thermal.yaml
+@@ -99,7 +99,6 @@ required:
+   - resets
+   - nvmem-cells
+   - nvmem-cell-names
+-  - "#thermal-sensor-cells"
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.yaml b/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.yaml
+index b0237d236021..19bb1f324183 100644
+--- a/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.yaml
++++ b/Documentation/devicetree/bindings/thermal/nvidia,tegra124-soctherm.yaml
+@@ -197,7 +197,6 @@ required:
+   - clock-names
+   - resets
+   - reset-names
+-  - "#thermal-sensor-cells"
+ 
+ allOf:
+   - $ref: thermal-sensor.yaml
+diff --git a/Documentation/devicetree/bindings/thermal/nvidia,tegra30-tsensor.yaml b/Documentation/devicetree/bindings/thermal/nvidia,tegra30-tsensor.yaml
+index 972d608ddf95..63a29a1f7fe6 100644
+--- a/Documentation/devicetree/bindings/thermal/nvidia,tegra30-tsensor.yaml
++++ b/Documentation/devicetree/bindings/thermal/nvidia,tegra30-tsensor.yaml
+@@ -48,10 +48,6 @@ properties:
+   "#thermal-sensor-cells":
+     const: 1
+ 
+-  assigned-clock-parents: true
+-  assigned-clock-rates: true
+-  assigned-clocks: true
+-
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/thermal/qcom,spmi-temp-alarm.yaml b/Documentation/devicetree/bindings/thermal/qcom,spmi-temp-alarm.yaml
+index 5f08b6e59b8a..30b22151aa82 100644
+--- a/Documentation/devicetree/bindings/thermal/qcom,spmi-temp-alarm.yaml
++++ b/Documentation/devicetree/bindings/thermal/qcom,spmi-temp-alarm.yaml
+@@ -42,7 +42,6 @@ required:
+   - compatible
+   - reg
+   - interrupts
+-  - '#thermal-sensor-cells'
+ 
+ additionalProperties: false
+ 
 
 -- 
 2.43.0
