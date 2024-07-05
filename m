@@ -2,61 +2,114 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D0049289E3
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 15:38:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC16E9289EC
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 15:42:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AEC6C71282;
-	Fri,  5 Jul 2024 13:38:37 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6184CC6DD9F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 862DCC71282;
+	Fri,  5 Jul 2024 13:42:35 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7ABEC6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2024 13:38:29 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 465BTOZt006010;
- Fri, 5 Jul 2024 15:38:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=GlqYi6K41a4nbbBerpV4k8
- 78XfxjUKJLCYLSrKztAh8=; b=Mc+7T3B2LaXhaSbpr8cl/J4ZQBcvL3woOlbI6j
- GU7DxVLx2qqQfXJT4NYBSBwZaXXJlqKIf7qFk6uc9K2KOiWxJrfGOzjJhz67MKGg
- 0zR1/0icD3xIMLKFMfARt/bVaBt23MM/BVbaEjCU3gE48P6nXdFwEDb1PjgWSdi9
- ou4RxYBb35LbIhk7hhXl+tFGLakrv1UYXPeUlZXuJw4HyXuTSePNiAjDzUMJ/xln
- lEPbDfCn9L7DznE5FCB6FtXcbEthvUiP3D0KKexTPgW7m8rHzFIDoCNYyhU4uxUf
- DIJNoTwRW8Jc2n2slnFcgBqKUssTHgx/T02juNiYwQGUXYeA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 402w7jf8gm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Jul 2024 15:38:07 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 70A5440046;
- Fri,  5 Jul 2024 15:38:00 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D299228A42;
- Fri,  5 Jul 2024 15:37:30 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 5 Jul
- 2024 15:37:30 +0200
-Message-ID: <8f10bd29-d067-4060-89ff-2e1a605f3141@foss.st.com>
-Date: Fri, 5 Jul 2024 15:37:29 +0200
+ Fri,  5 Jul 2024 13:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1720186946;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lNWQiXa5WTonO6VnFXHoZW4uvs/niJejriJYafDuJeE=;
+ b=cxj4bz5JmsotFFslY1NW/t9fdOC8FwQQHhvmncDBCllpsDVlTncZF881ABMAOxcBmB/uZP
+ Ik/geTb1L0w2eM+PjmSsSiRRORa7qDScEQgyD7eBQmrjTLGKuHIHD/8mehD5C73ekhu8ga
+ jRZQusc0/fAEky/WeZ8mKr5e3ZmYkww=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-81--b8nRFX5PGKzd2WoxHBCqg-1; Fri, 05 Jul 2024 09:42:25 -0400
+X-MC-Unique: -b8nRFX5PGKzd2WoxHBCqg-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-79efed0e796so25757085a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Jul 2024 06:42:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720186945; x=1720791745;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lNWQiXa5WTonO6VnFXHoZW4uvs/niJejriJYafDuJeE=;
+ b=bWxdKx29rQlpaK/EQ2/XXwUoRCLfUBg37lePLMIkCCxVvmLsOd5+rIsgb+sZ1pr7Wc
+ M5/Em8qFN1wxt9BXyCCFOqPVGviEnCnJi2wse345HxTiO0ixJY/KyVhLOGmZhsVMmktq
+ GTUAKbxrjS33Q5OAWevILuotLyVKjd+dVP2qBNEEsl0zzNNnKkOdMN+816vFRAkCOHP+
+ MUVlFW+Zxm0D3vsCT4jrJ/+GSFEV/sq1hD9+77qlTdYbYbQCJlXPh9p2Dc2qsNtL7G2D
+ IucbkqIMRnB/k/s8tooWCkDwPWLx4rvcyf98QV4jrojPJRD7z/kBqOJ2XwF5OM0ISnBA
+ JUKg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVbGzAEAA7K585NmN0gW03E8nN/yFg/khsowuDJO2RiD4d/5iLTpFtBhyDOzS/JkXK+jD0xHKkWqirEJkMU/pwiMwGWKOEubWe9jT7bbAZvrlAffi/sUqZU
+X-Gm-Message-State: AOJu0Yym3aM+bQ/gqnsne4xp+DFTmV+QmK7nUD7S9MJJi4xrLUbgj+ks
+ B3vJ4GQFYj1V8r5nJLrnQSKawsoxV2Rt465jKNguuJ5UsVe0X44mbxs5PwEyFQI29btF81bXNdj
+ qFuRJoYSD+RzaKAis4z5dsysfyqTCXCHUBDo0FRzDD88KV3BbMwvqDt8q7PsoGy5IsxxcYhAj16
+ xOgQ==
+X-Received: by 2002:a05:620a:13d2:b0:79d:7e5a:d044 with SMTP id
+ af79cd13be357-79eef4c0f06mr737800085a.28.1720186944987; 
+ Fri, 05 Jul 2024 06:42:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHzRoLCo4GeRRFCdesL0t0J6Xc2rhP3ZGCRDtPGGaxotQxYNzT1wzmgDzK5ccFskQ+43Nbdxg==
+X-Received: by 2002:a05:620a:13d2:b0:79d:7e5a:d044 with SMTP id
+ af79cd13be357-79eef4c0f06mr737789985a.28.1720186944583; 
+ Fri, 05 Jul 2024 06:42:24 -0700 (PDT)
+Received: from x1gen2nano ([2600:1700:1ff0:d0e0::b])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79d69299b81sm773174785a.71.2024.07.05.06.42.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jul 2024 06:42:24 -0700 (PDT)
+Date: Fri, 5 Jul 2024 08:42:19 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <gt35pxlulfowpbca3sb6nf5ble4lhq3kolmjyc275vtdcmeixx@gkctewz6tbwv>
+References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
+ <20240703025850.2172008-30-quic_tengfan@quicinc.com>
+ <u5ekupjqvgoehkl76pv7ljyqqzbnnyh6ci2dilfxfkcdvdy3dp@ehdujhkul7ow>
+ <f4162b7f-d957-4dd6-90a0-f65c1cbc213a@quicinc.com>
+ <add1bdda-2321-4c47-91ef-299f99385bc8@lunn.ch>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, <arm@kernel.org>, <soc@kernel.org>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-05_09,2024-07-05_01,2024-05-17_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.11#1
+In-Reply-To: <add1bdda-2321-4c47-91ef-299f99385bc8@lunn.ch>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, linus.walleij@linaro.org,
+ quic_cang@quicinc.com, alim.akhtar@samsung.com, quic_rjendra@quicinc.com,
+ linux-clk@vger.kernel.org, kishon@kernel.org, kernel@quicinc.com,
+ bvanassche@acm.org, bartosz.golaszewski@linaro.org, jassisinghbrar@gmail.com,
+ joabreu@synopsys.com, u.kleine-koenig@pengutronix.de, lpieralisi@kernel.org,
+ linux@roeck-us.net, linux-pm@vger.kernel.org, avri.altman@wdc.com,
+ robimarko@gmail.com, tglx@linutronix.de, quic_kbajaj@quicinc.com,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, djakov@kernel.org,
+ lukasz.luba@arm.com, kw@linux.com, thara.gopinath@gmail.com,
+ quic_msarkar@quicinc.com, edumazet@google.com, srinivas.kandagatla@linaro.org,
+ manivannan.sadhasivam@linaro.org, quic_kaushalk@quicinc.com,
+ quic_bjorande@quicinc.com, daniel.lezcano@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, iommu@lists.linux.dev,
+ linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ quic_nitirawa@quicinc.com, linux-gpio@vger.kernel.org, bhelgaas@google.com,
+ peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
+ neil.armstrong@linaro.org, sboyd@kernel.org, quic_tsoni@quicinc.com,
+ mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, ulf.hansson@linaro.org,
+ linux-pci@vger.kernel.org, mturquette@baylibre.com, amitk@kernel.org,
+ linux-phy@lists.infradead.org, will@kernel.org, robh@kernel.org,
+ quic_tingweiz@quicinc.com, mantas@8devices.com, luca@z3ntu.xyz,
+ danila@jiaxyga.com, pabeni@redhat.com, bhupesh.sharma@linaro.org,
+ athierry@redhat.com, quic_devipriy@quicinc.com, conor@kernel.org,
+ konrad.dybcio@linaro.org, abel.vesa@linaro.org, davem@davemloft.net,
+ Tengfei Fan <quic_tengfan@quicinc.com>, otto.pflueger@abscue.de,
+ quic_wcheng@quicinc.com, quic_rgottimu@quicinc.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org,
+ quic_aiquny@quicinc.com, vkoul@kernel.org, quic_sibis@quicinc.com,
+ agross@kernel.org, kuba@kernel.org, rui.zhang@intel.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, wim@linux-watchdog.org,
+ quic_shashim@quicinc.com, netdev@vger.kernel.org, andersson@kernel.org,
+ krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com,
+ dmitry.baryshkov@linaro.org, robin.murphy@arm.com, joro@8bytes.org
+Subject: Re: [Linux-stm32] [PATCH 29/47] dt-bindings: net: qcom,
+ ethqos: add description for qcs9100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,135 +121,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQVJNIFNvQyBtYWludGFpbmVycywKClBsZWFzZSBjb25zaWRlciB0aGlzIGZpcnN0IHJvdW5k
-IG9mIFNUTTMyIERUIGZvciB2Ni4xMSBjeWNsZS4KTWFpbiBjaGFuZ2VzIGFyZSB0aGUgYWRkIG9m
-IFNUTTMyTVAyNSBmZWF0dXJlIChwb3dlciBkb21haW5zLCBIUERNQSwgCkVUSCkgYW5kIFNUTTMy
-TVAxMyB3aXRoIHRoZSBhZGQgb2YgYSBuZXcgREggYm9hcmQuCgpUaGlzIFBSIGludHJvZHVjZXMg
-WUFNTCB2YWxpZGF0aW9uIGlzc3VlcyBidXQgYWxsIGFyZSBmaXhlZCB0aGFua3MgdG8gCnN1YnN5
-c3RlbSBuZXh0IGJyYW5jaCAobmV0LCBkbWEpLgoKVGhhbmtzCkFsZXgKClRoZSBmb2xsb3dpbmcg
-Y2hhbmdlcyBzaW5jZSBjb21taXQgMTYxM2U2MDRkZjBjZDM1OWNmMmE3ZmJkOWJlN2EwYmNmYWNm
-YWJkMDoKCiAgIExpbnV4IDYuMTAtcmMxICgyMDI0LTA1LTI2IDE1OjIwOjEyIC0wNzAwKQoKYXJl
-IGF2YWlsYWJsZSBpbiB0aGUgR2l0IHJlcG9zaXRvcnkgYXQ6CgogICBnaXQ6Ly9naXQua2VybmVs
-Lm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYXRvcmd1ZS9zdG0zMi5naXQgCnRhZ3Mvc3Rt
-MzItZHQtZm9yLXY2LjExLTEKCmZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1cCB0byA0MTllZDc1
-NGEzYjYyNzlmNzQ4OTA5ZGQ1NTJmZTQyNWM3ZmNlNGEyOgoKICAgYXJtNjQ6IGR0czogc3Q6IGRl
-c2NyaWJlIHBvd2VyIHN1cHBsaWVzIGZvciBzdG0zMm1wMjU3Zi1ldjEgYm9hcmQgCigyMDI0LTA3
-LTA1IDE0OjQ1OjI1ICswMjAwKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpTVE0zMiBEVCBmb3IgdjYuMTEsIHJvdW5kIDEK
-CkhpZ2hsaWdodHM6Ci0tLS0tLS0tLS0KCi1NQ1U6CiAgIC0gQWRkIHN5c2NmZyBtaXNzaW5nIGNs
-b2NrIG9uIHN0bTMyZjQyOS4KCi0gTVBVOgogICAtIFNUTTMyTVAxMzoKICAgICAtIEFkZCBjYW1l
-cmEgc3VwcG9ydCBvbiBzdG0zMm1wMTM1Zi1kayBib3JkIHVzaW5nIERDTUlQUCBhbmQKICAgICAg
-IEdDMjE0NSBzZW5zb3IuCiAgICAgLSBEb2N1bWVudCBQV00gb3V0cHV0IGZvciBzdG0zMm1wMTM1
-Zi1kawogICAgIC0gQWRkIGdvb2RpeCB0b3VjaHNjcmVlbiBzdXBwb3J0IG9uIHN0bTMybXAxMzVm
-LWRrIGJvYXJkLgogICAgIC0gQWRkIG5ldyBESCBESENPUiAvIERIU0JDIGJvYXJkIChTb20gKyBj
-YXJyaWVyIGJvYXJkKSBiYXNlZCBvbgogICAgICAgU1RNMzJNUDEzNUYgU29DLgogICAgICAgU09N
-IHBhcnQgY29udGFpbnM6IFNUTTMyTVAxMzVGIFNvQywgNTEyTUIgRERSMkwgUkFNIGFuZAogICAg
-ICAgZU1NQy9TRElPIHdpZmkgbW9kdWxlLgogICAgICAgVGhlIGNhcnJpZXIgYm9hcmRzIGVtYmVk
-ZHMgMiBSR01JSSBFVEggcG9ydHMsIFVTQi1BLFVTQi1DCiAgICAgICBhbmQgYW4gZXh0YW5zaW9u
-IGNvbm5lY3Rvci4KICAgICAtIEFkZCBFdGhlcm5ldCBjb250cm9sbGVyIHN1cHBvcnQgb24gc3Rt
-MzJtcDEzNWYtZGsuCiAgICAgICBJdCB1c2VzIExBTjg3NDJBIFBIWSBiYXNlZCBvbiBSTUlJLgoK
-ICAgLSBTVE1QMzJNUDE1OgogICAgIC0gUmV3b3JrIE9jdGF2byBPU0QzMk1QMSBzcGxpdCBmb3Ig
-VVNCIHBoeS4KICAgICAtIEFkZCBPUC1URUUgSVJRIGZvciBhc3luY2hyb25vdXMgbm90aWZpY2F0
-aW9uIHN1cHBvcnQuCiAgICAgICBJdCBhbGxvd3MgT1AtVEVFIHRvIHRyaWcgTGludXguCgogICAt
-IFNUTTMyTVAyNToKICAgICAtIEFkZCBPUC1URUUgSVJRIGZvciBhc3luY2hyb25vdXMgbm90aWZp
-Y2F0aW9uIHN1cHBvcnQuCiAgICAgICBJdCBhbGxvd3MgT1AtVEVFIHRvIHRyaWcgTGludXguCiAg
-ICAgLSBFbmFibGUgZmlyZXdhbGwgZm9yIFJDQy4KICAgICAtIEFkZCBhbGwgVShzKUFSVCBub2Rl
-cyBmb3Igc3RtMzJtcDI1LgogICAgIC0gQWRkIDMgcG93ZXIgZG9tYWlucyBmb3IgbG93IHBvd2Vy
-IG1vZGVzLgogICAgIC0gQWRkIEhQRE1BIHN1cHBvcnQuCiAgICAgLSBBZGQgRXRoZXJuZXQgY29u
-dHJvbGxlciAoRVRIMikgc3VwcG9ydCBvbiBzdG0zMm1wMjU3Zi1ldjEuCiAgICAgICBJdCB1c2Vz
-IFJlYWx0ZWsgUEhZIGJhc2VkIG9uIFJHTUlJLgogICAgIC0gQWRkIGFuZCBlbmFibGUgU0NNSSBy
-ZWd1bGF0b3Igc3VwcG9ydC4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQWxhaW4gVm9sbWF0ICgyKToKICAgICAgIEFSTTog
-ZHRzOiBzdG0zMjogYWRkIERDTUlQUCBwaW5jdHJsIG9uIFNUTTMyTVAxM3ggU29DIGZhbWlseQog
-ICAgICAgQVJNOiBkdHM6IHN0bTMyOiBlbmFibGUgY2FtZXJhIHN1cHBvcnQgb24gc3RtMzJtcDEz
-NWYtZGsgYm9hcmQKCkFsZXhhbmRyZSBUb3JndWUgKDIpOgogICAgICAgQVJNOiBkdHM6IHN0bTMy
-OiBvcmRlciBzdG0zMm1wMTMtcGluY3RybCBub2RlcwogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBv
-bWl0IHVudXNlZCBwaW5jdHJsIGdyb3VwcyBmcm9tIHN0bTMybXAxMyBkdGIgZmlsZXMKCkFtZWxp
-ZSBEZWxhdW5heSAoMSk6CiAgICAgICBhcm02NDogZHRzOiBzdDogYWRkIEhQRE1BIG5vZGVzIG9u
-IHN0bTMybXAyNTEKCkNocmlzdG9waGUgUm91bGxpZXIgKDYpOgogICAgICAgQVJNOiBkdHM6IHN0
-bTMyOiBhZGQgZXRoZXJuZXQxIGFuZCBldGhlcm5ldDIgc3VwcG9ydCBvbiBzdG0zMm1wMTMKICAg
-ICAgIEFSTTogZHRzOiBzdG0zMjogYWRkIGV0aGVybmV0MS8yIFJNSUkgcGlucyBmb3IgU1RNMzJN
-UDEzRi1ESyBib2FyZAogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgZXRoZXJuZXQxIGZvciBT
-VE0zMk1QMTM1Ri1ESyBib2FyZAogICAgICAgYXJtNjQ6IGR0czogc3Q6IGFkZCBldGhlcm5ldDEg
-YW5kIGV0aGVybmV0MiBzdXBwb3J0IG9uIHN0bTMybXAyNQogICAgICAgYXJtNjQ6IGR0czogc3Q6
-IGFkZCBldGgyIHBpbmN0cmwgZW50cmllcyBpbiBzdG0zMm1wMjUtcGluY3RybC5kdHNpCiAgICAg
-ICBhcm02NDogZHRzOiBzdDogZW5hYmxlIEV0aGVybmV0MiBvbiBzdG0zMm1wMjU3Zi1ldjEgYm9h
-cmQKCkV0aWVubmUgQ2FycmllcmUgKDIpOgogICAgICAgYXJtNjQ6IGR0czogc3Q6IE9QLVRFRSBh
-c3luYyBub3RpZiBvbiBQUEkgMTUgZm9yIHN0bTMybXAyNQogICAgICAgQVJNOiBkdHM6IHN0bTMy
-OiBPUC1URUUgYXN5bmMgbm90aWYgaW50ZXJydXB0IGZvciBTVCBTVE0zMk1QMTV4IApib2FyZHMK
-CkdhYnJpZWwgRmVybmFuZGV6ICgxKToKICAgICAgIGFybTY0OiBkdHM6IHN0OiBlbmFibGUgU1RN
-MzIgYWNjZXNzIGNvbnRyb2xsZXIgZm9yIFJDQwoKTWFyZWsgVmFzdXQgKDUpOgogICAgICAgQVJN
-OiBkdHM6IHN0bTMyOiBBZGQgYXJtLG5vLXRpY2staW4tc3VzcGVuZCB0byBTVE0zMk1QMTV4eCBT
-VEdFTiAKdGltZXIKICAgICAgIGR0LWJpbmRpbmdzOiBhcm06IHN0bTMyOiBBZGQgY29tcGF0aWJs
-ZSBzdHJpbmcgZm9yIERIIGVsZWN0cm9uaWNzIApTVE0zMk1QMTN4eCBESENPUiBESFNCQyBib2Fy
-ZAogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBBZGQgcGlubXV4IG5vZGVzIGZvciBESCBlbGVjdHJv
-bmljcyBTVE0zMk1QMTN4eCAKREhDT1IgU29NIGFuZCBESFNCQyBib2FyZAogICAgICAgQVJNOiBk
-dHM6IHN0bTMyOiBBZGQgc3VwcG9ydCBmb3IgU1RNMzJNUDEzeHggREhDT1IgU29NIGFuZCBESFNC
-QyAKYm9hcmQKICAgICAgIEFSTTogZHRzOiBzdG0zMjogQWRkIGV0aGVybmV0IHN1cHBvcnQgZm9y
-IERIIFNUTTMyTVAxM3h4IERIQ09SIApESFNCQyBib2FyZAoKUGFzY2FsIFBhaWxsZXQgKDMpOgog
-ICAgICAgcmVndWxhdG9yOiBBZGQgU1RNMzJNUDI1IHJlZ3VsYXRvciBiaW5kaW5ncwogICAgICAg
-YXJtNjQ6IGR0czogc3Q6IGFkZCBzY21pIHJlZ3VsYXRvcnMgb24gc3RtMzJtcDI1CiAgICAgICBh
-cm02NDogZHRzOiBzdDogZGVzY3JpYmUgcG93ZXIgc3VwcGxpZXMgZm9yIHN0bTMybXAyNTdmLWV2
-MSBib2FyZAoKUGF0cmljayBEZWxhdW5heSAoMSk6CiAgICAgICBhcm02NDogZHRzOiBzdDogYWRk
-IHBvd2VyIGRvbWFpbiBvbiBzdG0zMm1wMjUKClNlYW4gTnlla2phZXIgKDIpOgogICAgICAgQVJN
-OiBkdHM6IHN0bTMyOiBvc2QzMjogbW92ZSB1c2IgcGh5IHBvd2VyIHRvIGNvbW1vbgogICAgICAg
-QVJNOiBkdHM6IHN0bTMyOiBvc2QzMjogbW92ZSBwd3JfcmVndWxhdG9ycyB0byBjb21tb24KClV3
-ZSBLbGVpbmUtS8O2bmlnICgxKToKICAgICAgIEFSTTogZHRzOiBzdG0zMjogRG9jdW1lbnQgb3V0
-cHV0IHBpbnMgZm9yIFBXTXMgb24gc3RtMzJtcDEzNWYtZGsKClZhbGVudGluIENhcm9uICgzKToK
-ICAgICAgIGFybTY0OiBkdHM6IHN0OiBhZGQgdXNhcnQgbm9kZXMgb24gc3RtMzJtcDI1CiAgICAg
-ICBhcm02NDogZHRzOiBzdDogYWRkIHVzYXJ0NiBwaW5jdHJsIHVzZWQgb24gc3RtMzJtcDI1N2Yt
-ZXYxIGJvYXJkCiAgICAgICBhcm02NDogZHRzOiBzdDogYWRkIHVzYXJ0NiBvbiBzdG0zMm1wMjU3
-Zi1ldjEgYm9hcmQKCllhbmp1biBZYW5nICgxKToKICAgICAgIEFSTTogZHRzOiBzdG0zMjogTWlz
-c2luZyBjbG9ja3MgZm9yIHN0bTMyZjQyOSdzIHN5c2NmZy4KCllhbm5pY2sgRmVydHJlICgxKToK
-ICAgICAgIEFSTTogZHRzOiBzdG0zMjogYWRkIGdvb2RpeCB0b3VjaHNjcmVlbiBvbiBzdG0zMm1w
-MTM1Zi1kawoKICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0
-bTMyLnlhbWwgfCAgIDYgKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9NYWtlZmlsZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgfCAgIDEgKwogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyZjQy
-OS5kdHNpICAgICAgICAgICAgICAgICAgICB8ICAgMSArCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qv
-c3RtMzJtcDEzLXBpbmN0cmwuZHRzaSAgICAgICAgICAgIHwgNjk3IAorKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9z
-dG0zMm1wMTMxLmR0c2kgICAgICAgICAgICAgICAgICAgfCAgMzggKysrKysrKysrKysrCiAgYXJj
-aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzMy5kdHNpICAgICAgICAgICAgICAgICAgIHwgIDMx
-ICsrKysrKysrKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1kaGNvci1kaHNi
-Yy5kdHMgICAgICAgfCAzNzcgCisrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1
-Zi1kay5kdHMgICAgICAgICAgICAgICAgfCAxMjggCisrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzeHgtZGhjb3It
-c29tLmR0c2kgICAgICAgIHwgMzA4IAorKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MS5kdHNpICAgICAgICAgICAg
-ICAgICAgIHwgICAxICsKICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3YS1kazEtc2Nt
-aS5kdHMgICAgICAgICAgfCAgIDUgKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3
-Yy1kazItc2NtaS5kdHMgICAgICAgICAgfCAgIDUgKysKICBhcmNoL2FybS9ib290L2R0cy9zdC9z
-dG0zMm1wMTU3Yy1lZDEtc2NtaS5kdHMgICAgICAgICAgfCAgIDUgKysKICBhcmNoL2FybS9ib290
-L2R0cy9zdC9zdG0zMm1wMTU3Yy1ldjEtc2NtaS5kdHMgICAgICAgICAgfCAgIDUgKysKICBhcmNo
-L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1vc2QzMm1wMS1yZWQuZHRzICAgICAgfCAgMTMg
-LS0tLS0KICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4Yy1seGEtdGFjLmR0c2kgICAg
-ICAgICAgfCAgMTMgLS0tLS0KICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4eC1vc2Qz
-Mi5kdHNpICAgICAgICAgICAgfCAgMTMgKysrKysKICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0
-bTMybXAyNS1waW5jdHJsLmR0c2kgICAgICAgICAgfCAxMDAgCisrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrCiAgYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjUxLmR0c2kgICAg
-ICAgICAgICAgICAgIHwgMjQ2IAorKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogIGFyY2gvYXJtNjQvYm9v
-dC9kdHMvc3Qvc3RtMzJtcDI1My5kdHNpICAgICAgICAgICAgICAgICB8ICA2NCAKKysrKysrKysr
-KysrKysrKysrKysrCiAgYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjU3Zi1ldjEuZHRz
-ICAgICAgICAgICAgIHwgIDc3IAorKysrKysrKysrKysrKysrKysrKysrLS0tCiAgaW5jbHVkZS9k
-dC1iaW5kaW5ncy9yZWd1bGF0b3Ivc3Qsc3RtMzJtcDI1LXJlZ3VsYXRvci5oIHwgIDQ4IAorKysr
-KysrKysrKysrKysrCiAgMjIgZmlsZXMgY2hhbmdlZCwgMjE0NiBpbnNlcnRpb25zKCspLCAzNiBk
-ZWxldGlvbnMoLSkKICBjcmVhdGUgbW9kZSAxMDA2NDQgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3Rt
-MzJtcDEzNWYtZGhjb3ItZGhzYmMuZHRzCiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jv
-b3QvZHRzL3N0L3N0bTMybXAxM3h4LWRoY29yLXNvbS5kdHNpCiAgY3JlYXRlIG1vZGUgMTAwNjQ0
-IGluY2x1ZGUvZHQtYmluZGluZ3MvcmVndWxhdG9yL3N0LHN0bTMybXAyNS1yZWd1bGF0b3IuaApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+On Thu, Jul 04, 2024 at 06:03:14PM GMT, Andrew Lunn wrote:
+> On Thu, Jul 04, 2024 at 09:13:59AM +0800, Tengfei Fan wrote:
+> > 
+> > 
+> > On 7/3/2024 11:09 PM, Andrew Halaney wrote:
+> > > On Wed, Jul 03, 2024 at 10:58:32AM GMT, Tengfei Fan wrote:
+> > > > Add the compatible for the MAC controller on qcs9100 platforms. This MAC
+> > > > works with a single interrupt so add minItems to the interrupts property.
+> > > > The fourth clock's name is different here so change it. Enable relevant
+> > > > PHY properties. Add the relevant compatibles to the binding document for
+> > > > snps,dwmac as well.
+> > > 
+> > > This description doesn't match what was done in this patch, its what
+> > > Bart did when he made changes to add the sa8775 changes. Please consider
+> > > using a blurb indicating that this is the same SoC as sa8775p, just with
+> > > different firmware strategies or something along those lines?
+> > 
+> > I will update this commit message as you suggested.
+> 
+> Hi Andrew, Tengfei
+> 
+> Please trim emails when replying to just the needed context.
+> 
+
+Sorry, I'm always a little guilty of this. In this case I didn't trim
+since the patch was small and trimming the diff out would then make it
+tough to see how my comment about the description relates to the body of
+the patch. But I'll try and trim when appropriate. Just replying here to
+explain myself as this isn't the first time I've been suggested to trim
+more aggressively and I don't want folks to think I'm completely ignoring them.
+
+Thanks,
+Andrew
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
