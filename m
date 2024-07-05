@@ -2,54 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA12B9283EB
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 10:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D949284AC
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2024 11:07:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A192C78013;
-	Fri,  5 Jul 2024 08:42:44 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4C25C71282;
+	Fri,  5 Jul 2024 09:07:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 004E0C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7203C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2024 08:42:38 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 40CD988607;
- Fri,  5 Jul 2024 10:42:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1720168957;
- bh=AhgpARrslt2x0WGsbi6JihJjV20w/M2+vGLOgJCyuwk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iPBvR9AHlft7X07Qp3ZNQib9hp5M37CutIdub9BTL/PVz1Tbw3IuAwu3m2s9FqUDs
- t9W9x/ob+BucxO9VU47HQBA9fviyGJCF1QsY1hFDRO+RsDuUHs+OZGjQdDVw+pKS0X
- f5FoJkMCQvL8lDHDTG1dq68rh3JoZKDhZTczKqQgWknKkgXpOkLa1WqmCHAqI9tg48
- XuCQkRmGgtke1U+F9AYtf/tHs4xRs1YC3G2SUn+goBI0CQyDxkFb6AQEhC2AWDLHbI
- /sSVbSJpSz98t29P/u8K6X2wZ/jV44VH5ct8YSKvPFOIqQ43c06nJAz/f4h4SR2jzr
- 9x4FqqdOLFfdw==
-Message-ID: <06766b59-9a0a-4355-8270-210583cd9135@denx.de>
-Date: Fri, 5 Jul 2024 10:25:08 +0200
+ Fri,  5 Jul 2024 09:07:09 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4656SeRg016131;
+ Fri, 5 Jul 2024 11:06:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ /qkDRea/v4F+r3YTp4HBLcYRQVWLheSq4GL+1Hmx0o4=; b=V0PY1DUGFz5brcCy
+ 6WE6UqwKj3pOC9VD1D/mebRmqiCexcRb61+VVvnL9tXdVm6/uCIX8bFwfEi5U0y2
+ xKVCNJvK/7SrStSiEUUGhLXvCY5BT3qdFitG0wiUWtgK4l8ExiRxHFZyPSTZxzBy
+ 9OtcZ1mp+dPFv5Z8euKelxqd/seCcZTolnw3bcgyd+Z9IXnQg/C566d63wZ9yjDv
+ YJ9WqmY4ek3ZPYumqMWe5psrzcPE9/L6Www8vBNbwcXiH90lX1GUC+AkzxMGTWO2
+ co/0EbHSJH+CH/ZO5jTNEvj12cFgJ2RhSGdp5vl37gqOFmLxqF3CdWKZE04HY4uG
+ tvIJmg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4029kx8g9r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Jul 2024 11:06:59 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9BBF040046;
+ Fri,  5 Jul 2024 11:06:55 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 174832194D7;
+ Fri,  5 Jul 2024 11:06:07 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Fri, 5 Jul
+ 2024 11:06:06 +0200
+Message-ID: <882bd5f5-47f1-4054-9032-300dd457b361@foss.st.com>
+Date: Fri, 5 Jul 2024 11:06:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240629202847.90693-1-marex@denx.de>
- <501e109a-478a-4f94-a673-27048b44e5d5@foss.st.com>
+To: Pascal Paillet <p.paillet@foss.st.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20240628085814.1586186-1-p.paillet@foss.st.com>
 Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <501e109a-478a-4f94-a673-27048b44e5d5@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Keep MDIO bus in AF
- across suspend DH STM32MP13xx DHCOR DHSBC board
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240628085814.1586186-1-p.paillet@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-05_05,2024-07-03_01,2024-05-17_01
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] Add SCMI regulators desciption on
+	STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,69 +75,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNy80LzI0IDY6MzggUE0sIEFsZXhhbmRyZSBUT1JHVUUgd3JvdGU6Cj4gSGkgTWFyZWsKPiAK
-PiBPbiA2LzI5LzI0IDIyOjI4LCBNYXJlayBWYXN1dCB3cm90ZToKPj4gVGhlIFJUTDgyMTFGIFBI
-WSBnZXRzIGNvbmZ1c2VkIHdoZW4gdGhlIE1ESU8gYnVzIGxpbmVzIGdldCBzd2l0Y2hlZAo+PiB0
-byBBTkFMT0cgZHVyaW5nIHN1c3BlbmQvcmVzdW1lIGN5Y2xlLiBLZWVwIHRoZSBNRElPIGFuZCBN
-REMgbGluZXMKPj4gaW4gQUYgZHVyaW5nIHN1c3BlbmQvcmVzdW1lIHRvIGF2b2lkIGNvbmZ1c2lu
-ZyB0aGUgUEhZLiBUaGUgUEhZIGNhbgo+PiBiZSBicm91Z2h0IG91dCBvZiB0aGUgY29uZnVzZWQg
-c3RhdGUgYnkgcmVzdGFydGluZyBhdXRvLW5lZ290aWF0aW9uCj4+IHRvbywgYnV0IHRoYXQgc2Vl
-bXMgbGlrZSBhbiBvZGQgd29ya2Fyb3VuZCBhbmQgc2hvdWxkbid0IGJlIGluIHRoZQo+PiBQSFkg
-ZHJpdmVyLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4K
-Pj4gLS0tCj4+IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3Qu
-Y29tPgo+PiBDYzogQ2hyaXN0b3BoZSBSb3VsbGllciA8Y2hyaXN0b3BoZS5yb3VsbGllckBmb3Nz
-LnN0LmNvbT4KPj4gQ2M6IENvbm9yIERvb2xleSA8Y29ub3IrZHRAa2VybmVsLm9yZz4KPj4gQ2M6
-IEtyenlzenRvZiBLb3psb3dza2kgPGtyemsrZHRAa2VybmVsLm9yZz4KPj4gQ2M6IE1heGltZSBD
-b3F1ZWxpbiA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4KPj4gQ2M6IFJvYiBIZXJyaW5nIDxy
-b2JoQGtlcm5lbC5vcmc+Cj4+IENjOiBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZwo+PiBDYzog
-a2VybmVsQGRoLWVsZWN0cm9uaWNzLmNvbQo+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5p
-bmZyYWRlYWQub3JnCj4+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCj4+IC0tLQo+PiDCoCBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMtcGluY3RybC5k
-dHNpIHwgMjAgKysrKysrKysrKysrKysrKy0tLS0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDE2IGlu
-c2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9i
-b290L2R0cy9zdC9zdG0zMm1wMTMtcGluY3RybC5kdHNpIAo+PiBiL2FyY2gvYXJtL2Jvb3QvZHRz
-L3N0L3N0bTMybXAxMy1waW5jdHJsLmR0c2kKPj4gaW5kZXggZDNkZWVjNjAyYWU3YS4uZTZjMGRj
-ZWVlOTg2NiAxMDA2NDQKPj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzLXBp
-bmN0cmwuZHRzaQo+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMtcGluY3Ry
-bC5kdHNpCj4+IEBAIC04OCwxNCArODgsMjAgQEAgcGluczIgewo+PiDCoMKgwqDCoMKgIGV0aDFf
-cmdtaWlfc2xlZXBfcGluc19hOiBldGgxLXJnbWlpLXNsZWVwLTAgewo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqAgcGluczEgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5tdXggPSA8U1RNMzJf
-UElOTVVYKCdBJywgMiwgQUYxMSk+LCAvKiBFVEhfTURJTyAqLwo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRycsIDIsIEFGMTEpPjsgLyogRVRIX01E
-QyAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiaWFzLWRpc2FibGU7Cj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGRyaXZlLXB1c2gtcHVsbDsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc2xldy1yYXRlID0gPDI+Owo+PiArwqDCoMKgwqDCoMKgwqAgfTsKPj4gKwo+PiArwqDCoMKg
-wqDCoMKgwqAgcGluczIgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5tdXggPSA8
-U1RNMzJfUElOTVVYKCdHJywgMTMsIEFOQUxPRyk+LCAvKiAKPj4gRVRIX1JHTUlJX1RYRDAgKi8K
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0cn
-LCAxNCwgQU5BTE9HKT4sIC8qIEVUSF9SR01JSV9UWEQxICovCj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdDJywgMiwgQU5BTE9HKT4sIC8qIEVU
-SF9SR01JSV9UWEQyICovCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8
-U1RNMzJfUElOTVVYKCdFJywgNSwgQU5BTE9HKT4sIC8qIEVUSF9SR01JSV9UWEQzICovCj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdCJywgMTEs
-IEFOQUxPRyk+LCAvKiAKPj4gRVRIX1JHTUlJX1RYX0NUTCAqLwo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQycsIDEsIEFOQUxPRyk+LCAvKiAK
-Pj4gRVRIX1JHTUlJX0dUWF9DTEsgKi8KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIDxTVE0zMl9QSU5NVVgoJ0EnLCAyLCBBTkFMT0cpPiwgLyogRVRIX01ESU8gKi8KPj4gLcKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0cnLCAyLCBBTkFM
-T0cpPiwgLyogRVRIX01EQyAqLwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgPFNUTTMyX1BJTk1VWCgnQycsIDQsIEFOQUxPRyk+LCAvKiBFVEhfUkdNSUlfUlhEMCAqLwo+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQycs
-IDUsIEFOQUxPRyk+LCAvKiBFVEhfUkdNSUlfUlhEMSAqLwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQicsIDAsIEFOQUxPRyk+LCAvKiBFVEhf
-UkdNSUlfUlhEMSAqLwo+PiBAQCAtMTY5LDE0ICsxNzUsMjAgQEAgcGluczIgewo+PiDCoMKgwqDC
-oMKgIGV0aDJfcmdtaWlfc2xlZXBfcGluc19hOiBldGgyLXJnbWlpLXNsZWVwLTAgewo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqAgcGluczEgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5tdXgg
-PSA8U1RNMzJfUElOTVVYKCdCJywgNiwgQU5BTE9HKT4sIC8qIEVUSF9NRElPICovCj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdHJywgNSwgQU5BTE9H
-KT47IC8qIEVUSF9NREMgKi8KPiAKPiBXaHkgZG9uJ3QgeW91IHB1dCBQQjYgYW5kIFBHNSBpbiBB
-RiBmb3IgdGhlIHNsZWVwIGNvbmZpZyBhcyBmb3IgRVRIMSA/CgpGaXhlZCBpbiBWMiwgdGhhbmtz
-IGZvciBzcG90dGluZyB0aGlzLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi pascal
+
+On 6/28/24 10:58, Pascal Paillet wrote:
+> Add the description for SCMI regulators provided by OP-TEE firmware.
+> The binding file named st,stm32mp25-regulator.h will be also used in
+> the OP-TEE firmware.
+> 
+> Changes in v2:
+>   - fix regulator binding commit title in patch 0001
+>   - add regulator selection for stm32 in patch 0004
+> 
+> Pascal Paillet (4):
+>    regulators: dt-bindings: add STM32MP25 regulator bindings
+>    arm64: dts: st: add scmi regulators on stm32mp25
+>    arm64: dts: st: describe power supplies for stm32mp257f-ev1 board
+>    arm64: stm32: enable scmi regulator for stm32
+> 
+>   arch/arm64/Kconfig.platforms                  |  2 +
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi        | 35 ++++++++++++++
+>   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 43 +++++++++++++----
+>   .../regulator/st,stm32mp25-regulator.h        | 48 +++++++++++++++++++
+>   4 files changed, 119 insertions(+), 9 deletions(-)
+>   create mode 100644 include/dt-bindings/regulator/st,stm32mp25-regulator.h
+> 
+
+Series applied on stm32-next.
+
+Thanks
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
