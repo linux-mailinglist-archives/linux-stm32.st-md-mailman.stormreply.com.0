@@ -2,73 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8E2928F5F
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 Jul 2024 00:42:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A4AD9292C7
+	for <lists+linux-stm32@lfdr.de>; Sat,  6 Jul 2024 13:21:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6A33C71282;
-	Fri,  5 Jul 2024 22:42:13 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DC29C71287;
+	Sat,  6 Jul 2024 11:21:36 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC6F6C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72A0CC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2024 22:42:06 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-a724a8097deso255884766b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jul 2024 15:42:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1720219326; x=1720824126;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mUppU/lkzU3xzcHPedeqIyGAOs2uN9mWGr+GLHwrHbU=;
- b=AtbRfoANxb1eMr8MUBpnZszq4LaAUIjlMp/0SwUH/C2JKNXEBU5WhZv0fn5QRO1k6y
- FrJsmQCQROSUflzrPfAZ8HAP9LIrFbOHqbfUxw3NgeEPmeeM81YM45gYjv8AHbPz1yQ/
- SWWr+nvPkLI4NW6FeVOKYBJ48zu0EPWg/9ID4pX42Rvnbq1KToRoKxGcphpJ2v4euvfS
- G/WQLpa4c2UiY9OYMeQTyJaMM2WAJL3EfA5zSS1TJwxG/bl4w9sZoLBvHdCh7W6m789Y
- 432+UhJXnUvfG4JVoPPa+k8+RyKc5AjdT3T/TAMylQU0dtCiI7jzHgCXvPk+eVXCYqFo
- 1D4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720219326; x=1720824126;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mUppU/lkzU3xzcHPedeqIyGAOs2uN9mWGr+GLHwrHbU=;
- b=u0AEwFn0ta3HYzcRii5wh/AkI6HlRfzxEOL9rn2tdWD70aWMMGEZVsINJCFalUDkok
- wRMTyosUxsQNHn+jB0I9olCF1NcduoFFbLMLs8xHuo48VRtxIIWLLrdeUlQMGPLzyFwC
- kAj0vfDTGtjJ0XmVrZio4SdRgLtXngmnLCL6vdXdv7o3FNPlcSRO/6qnMxzCnOvJpypd
- 9UluK75PSZRgAZws6AB9m9WY+COBwwj5BvEC9kdtzosTBJNbPwi6RRuLJ4s7+t3aXM5j
- fzhCMJT+h3uoodD/KeVN3Fbja5s2vSk/zKh8tusRb2nMwtt73Hnm8ASGo6TrdFvYYDy2
- K0Gw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV3iX3Dro7aWsTMG1Rz9NVWnz/fGt4PEoZVKMkrXPs2HBR/4I+Wd42AargAXsC7/6WsoPuW8px61uQHOwwb/HsYVKX7ibDhZ1KEn4CzRrNpmAT0xhqbxYg+
-X-Gm-Message-State: AOJu0YxTXPOA8moXzd3CqGBnYidqVC4TU5Lt69AtJJx7dUKtlAlVAMta
- GUN4PSKOKLbSc5PvLCyCO8bFOfC6FNILpYsGwQP2R3mJfm7Hbxri5BKIerW4LUwhWBT9gUW3thS
- WKbY=
-X-Google-Smtp-Source: AGHT+IFZWboItQiUJ7AeUQsVS+Sh3p6421pIOvP7OOoXRqly+gYjGtaBz5w2pohD9dZz2VYUXg+IUA==
-X-Received: by 2002:a17:906:f296:b0:a77:cdaa:88a7 with SMTP id
- a640c23a62f3a-a77cdaa8ac0mr196896266b.48.1720219325508; 
- Fri, 05 Jul 2024 15:42:05 -0700 (PDT)
-Received: from localhost ([2a02:8071:b783:6940:5898:1844:403c:d2d6])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a77dea1d4fcsm32264466b.127.2024.07.05.15.42.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jul 2024 15:42:04 -0700 (PDT)
-Date: Sat, 6 Jul 2024 00:42:02 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Message-ID: <kanykpgvxz57wuv2quejts3r32shfiwew2nangl6bn4qrows6m@7h2rchpeeemc>
-References: <20240703110010.672654-2-u.kleine-koenig@baylibre.com>
+ Sat,  6 Jul 2024 11:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=k1; bh=4xGv2GdsCln4go
+ c80LSZXUrBL6qxxalWNHk5CsLBJ1w=; b=CpjSu7bDPwZrTYB4DnXqHNJrzzOV0i
+ ll8uIcabyZjRJJv8IN4yPeOtXpO4cU3QOhP76TyKvJMMzxzWe7wr6Y8Gfi1EOJAl
+ eYaKXSKfSh434zAyHAlKzS3YiYx+9JKmXA5Z4dH8SJCoxnqURGaAyztFVBvyi1yd
+ 2c/2c5x2P3YnhmZAJ159dGcqaiJS0bS6wqjht7xK0Bj8rjBLCVh+cZ/DSRHm9TfF
+ wR6Q+GUBV9AvnC5iTsch/LEkT1PCX7RbFkTTasFpYCXqwNoLS7gYY0t9kNWTlFrw
+ SSpGB+37KfH9i4bF3oug8fwFzqzeaLHCrle0xWnEiN2tyJJ+LMS5P9kQ==
+Received: (qmail 3809341 invoked from network); 6 Jul 2024 13:21:21 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 6 Jul 2024 13:21:21 +0200
+X-UD-Smtp-Session: l3s3148p1@BOAqYZIcotJQT+F6
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-i2c@vger.kernel.org
+Date: Sat,  6 Jul 2024 13:20:00 +0200
+Message-ID: <20240706112116.24543-1-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-In-Reply-To: <20240703110010.672654-2-u.kleine-koenig@baylibre.com>
-Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Always do lazy disabling
+Cc: Andrew Lunn <andrew@lunn.ch>, Baruch Siach <baruch@tkos.co.il>,
+ Heiko Stuebner <heiko@sntech.de>, Ajay Gupta <ajayg@nvidia.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Eddie James <eajames@linux.ibm.com>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Till Harbaum <till@harbaum.org>,
+ Kamal Dasu <kamal.dasu@broadcom.com>, Benson Leung <bleung@chromium.org>,
+ Stefan Roese <sr@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
+ =?UTF-8?q?Bence=20Cs=C3=B3k=C3=A1s?= <bence98@sch.bme.hu>,
+ chrome-platform@lists.linux.dev, Peter Korsgaard <peter@korsgaard.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>, Binbin Zhou <zhoubinbin@loongson.cn>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Sven Peter <sven@svenpeter.dev>, Jochen Friedrich <jochen@scram.de>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Ray Jui <rjui@broadcom.com>, linux-sunxi@lists.linux.dev,
+ Guenter Roeck <linux@roeck-us.net>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Vadim Pasternak <vadimp@nvidia.com>, Jean Delvare <jdelvare@suse.com>,
+ Robert Richter <rric@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>, Hans Hu <hanshu@zhaoxin.com>,
+ linux-actions@lists.infradead.org, virtualization@lists.linux.dev,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Hans de Goede <hdegoede@redhat.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-tegra@vger.kernel.org, Yicong Yang <yangyicong@hisilicon.com>,
+ Conghui Chen <conghui.chen@intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Scott Branden <sbranden@broadcom.com>, openbmc@lists.ozlabs.org,
+ Thor Thayer <thor.thayer@linux.intel.com>, Hector Martin <marcan@marcan.st>,
+ linux-kernel@vger.kernel.org, Michael Shych <michaelsh@nvidia.com>,
+ linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
+Subject: [Linux-stm32] [PATCH v2 00/60] i2c: reword first drivers according
+	to newest specification
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,81 +87,183 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8871475855815116985=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Start changing the wording of the I2C main header wrt. the newest I2C
+v7 and SMBus 3.2 specifications and replace "master/slave" with more
+appropriate terms. This first step renames the members of struct
+i2c_algorithm. Once all in-tree users are converted, the anonymous union
+will go away again. All this work will also pave the way for finally
+seperating the monolithic header into more fine-grained headers like
+"i2c/clients.h" etc. So, this is not a simple renaming-excercise but
+also a chance to update the I2C core to recent Linux standards.
 
---===============8871475855815116985==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qofqf7sh33crvhqo"
-Content-Disposition: inline
+Changes since v1:
+
+* changed wording according to the terminology we agreed on and defined
+  upstream. That means consistent use of "controller/target", and no
+  more "host/client". I added "local/remote target" where necessary.
+* added tags which I kept despite some changes in wording. The approach
+  and code changes (if necessary) did not change.
+* rebased to Andi's for-next branch
+* this series only contains patches which convert the drivers fully. If
+  all goes well, no more updates for them are needed. The previous
+  series converted all users of "master_xfer". But to avoid tons of
+  incremental patches to one driver, I will incrementally improve i2c.h
+  and see which drivers can be fully converted step-by-step.
+* do not mention I3C specs in commit messages, not really relevant here
+
+Please note that I am not super strict with the 80 char limit. And, as
+agreed, I did not convert occasions where old terminology is used in
+register names or bits etc. or in function names outside of the I2C
+realm.
+
+The outcome is that before this series 115 drivers use old terminology,
+after this only 54. Hooray.
+
+And a comment to all janitors: Do not convert I2C drivers outside of
+drivers/i2c yet. Let us first gain experience here and present the
+well-tested results of what we figured out to other maintainers then.
+This ensures they have to deal with way less patch revisions.
+
+Thanks and happy hacking!
 
 
---qofqf7sh33crvhqo
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Wolfram Sang (60):
+  i2c: reword i2c_algorithm according to newest specification
+  i2c: ali15x3: reword according to newest specification
+  i2c: altera: reword according to newest specification
+  i2c: au1550: reword according to newest specification
+  i2c: bcm-kona: reword according to newest specification
+  i2c: bcm2835: reword according to newest specification
+  i2c: brcmstb: reword according to newest specification
+  i2c: cht-wc: reword according to newest specification
+  i2c: cp2615: reword according to newest specification
+  i2c: cros-ec-tunnel: reword according to newest specification
+  i2c: davinci: reword according to newest specification
+  i2c: digicolor: reword according to newest specification
+  i2c: diolan-u2c: reword according to newest specification
+  i2c: dln2: reword according to newest specification
+  i2c: fsi: reword according to newest specification
+  i2c: gpio: reword according to newest specification
+  i2c: highlander: reword according to newest specification
+  i2c: hisi: reword according to newest specification
+  i2c: hix5hd2: reword according to newest specification
+  i2c: i801: reword according to newest specification
+  i2c: ibm_iic: reword according to newest specification
+  i2c: iop3xx: reword according to newest specification
+  i2c: isch: reword according to newest specification
+  i2c: jz4780: reword according to newest specification
+  i2c: kempld: reword according to newest specification
+  i2c: ljca: reword according to newest specification
+  i2c: lpc2k: reword according to newest specification
+  i2c: ls2x: reword according to newest specification
+  i2c: mlxcpld: reword according to newest specification
+  i2c: mpc: reword according to newest specification
+  i2c: mt7621: reword according to newest specification
+  i2c: mv64xxx: reword according to newest specification
+  i2c: ocores: reword according to newest specification
+  i2c: octeon: reword according to newest specification
+  i2c: opal: reword according to newest specification
+  i2c: owl: reword according to newest specification
+  i2c: pasemi: reword according to newest specification
+  i2c: piix4: reword according to newest specification
+  i2c: powermac: reword according to newest specification
+  i2c: pxa-pci: reword according to newest specification
+  i2c: riic: reword according to newest specification
+  i2c: rk3x: reword according to newest specification
+  i2c: robotfuzz-osif: reword according to newest specification
+  i2c: rzv2m: reword according to newest specification
+  i2c: sis5595: reword according to newest specification
+  i2c: sprd: reword according to newest specification
+  i2c: stm32f4: reword according to newest specification
+  i2c: sun6i-p2wi: reword according to newest specification
+  i2c: taos-evm: reword according to newest specification
+  i2c: tegra-bpmp: reword according to newest specification
+  i2c: thunderx-pcidrv: reword according to newest specification
+  i2c: tiny-usb: reword according to newest specification
+  i2c: uniphier-f: reword according to newest specification
+  i2c: uniphier: reword according to newest specification
+  i2c: viperboard: reword according to newest specification
+  i2c: viai2c: reword according to newest specification
+  i2c: nvidia-gpu: reword according to newest specification
+  i2c: virtio: reword according to newest specification
+  i2c: cpm: reword according to newest specification
+  i2c: st: reword according to newest specification
 
-Hello,
+ drivers/i2c/busses/i2c-ali15x3.c         |  2 +-
+ drivers/i2c/busses/i2c-altera.c          |  4 +-
+ drivers/i2c/busses/i2c-au1550.c          | 15 +++----
+ drivers/i2c/busses/i2c-bcm-kona.c        | 13 +++---
+ drivers/i2c/busses/i2c-bcm2835.c         | 10 ++---
+ drivers/i2c/busses/i2c-brcmstb.c         | 11 +++--
+ drivers/i2c/busses/i2c-cht-wc.c          |  8 ++--
+ drivers/i2c/busses/i2c-cp2615.c          |  8 ++--
+ drivers/i2c/busses/i2c-cpm.c             |  4 +-
+ drivers/i2c/busses/i2c-cros-ec-tunnel.c  |  4 +-
+ drivers/i2c/busses/i2c-davinci.c         | 17 ++++---
+ drivers/i2c/busses/i2c-digicolor.c       |  6 +--
+ drivers/i2c/busses/i2c-diolan-u2c.c      |  2 +-
+ drivers/i2c/busses/i2c-dln2.c            |  4 +-
+ drivers/i2c/busses/i2c-fsi.c             | 56 ++++++++++++------------
+ drivers/i2c/busses/i2c-gpio.c            |  8 ++--
+ drivers/i2c/busses/i2c-highlander.c      |  2 +-
+ drivers/i2c/busses/i2c-hisi.c            |  8 ++--
+ drivers/i2c/busses/i2c-hix5hd2.c         |  6 +--
+ drivers/i2c/busses/i2c-i801.c            | 12 ++---
+ drivers/i2c/busses/i2c-ibm_iic.c         | 27 +++++-------
+ drivers/i2c/busses/i2c-iop3xx.c          | 15 +++----
+ drivers/i2c/busses/i2c-isch.c            |  2 +-
+ drivers/i2c/busses/i2c-jz4780.c          |  4 +-
+ drivers/i2c/busses/i2c-kempld.c          |  4 +-
+ drivers/i2c/busses/i2c-ljca.c            | 20 ++++-----
+ drivers/i2c/busses/i2c-lpc2k.c           | 10 ++---
+ drivers/i2c/busses/i2c-ls2x.c            | 11 +++--
+ drivers/i2c/busses/i2c-mlxcpld.c         | 14 +++---
+ drivers/i2c/busses/i2c-mpc.c             |  4 +-
+ drivers/i2c/busses/i2c-mt7621.c          | 26 +++++------
+ drivers/i2c/busses/i2c-mv64xxx.c         | 12 ++---
+ drivers/i2c/busses/i2c-nvidia-gpu.c      |  7 ++-
+ drivers/i2c/busses/i2c-ocores.c          |  8 ++--
+ drivers/i2c/busses/i2c-octeon-core.c     |  6 +--
+ drivers/i2c/busses/i2c-octeon-core.h     |  4 +-
+ drivers/i2c/busses/i2c-octeon-platdrv.c  |  2 +-
+ drivers/i2c/busses/i2c-opal.c            | 10 ++---
+ drivers/i2c/busses/i2c-owl.c             | 12 ++---
+ drivers/i2c/busses/i2c-pasemi-core.c     |  6 +--
+ drivers/i2c/busses/i2c-piix4.c           |  2 +-
+ drivers/i2c/busses/i2c-powermac.c        | 14 +++---
+ drivers/i2c/busses/i2c-pxa-pci.c         |  2 +-
+ drivers/i2c/busses/i2c-riic.c            |  8 ++--
+ drivers/i2c/busses/i2c-rk3x.c            | 20 ++++-----
+ drivers/i2c/busses/i2c-robotfuzz-osif.c  |  4 +-
+ drivers/i2c/busses/i2c-rzv2m.c           | 12 ++---
+ drivers/i2c/busses/i2c-sis5595.c         |  2 +-
+ drivers/i2c/busses/i2c-sprd.c            | 16 +++----
+ drivers/i2c/busses/i2c-st.c              |  8 ++--
+ drivers/i2c/busses/i2c-stm32f4.c         |  8 ++--
+ drivers/i2c/busses/i2c-sun6i-p2wi.c      | 20 ++++-----
+ drivers/i2c/busses/i2c-taos-evm.c        |  2 +-
+ drivers/i2c/busses/i2c-tegra-bpmp.c      |  4 +-
+ drivers/i2c/busses/i2c-thunderx-pcidrv.c |  2 +-
+ drivers/i2c/busses/i2c-tiny-usb.c        |  6 +--
+ drivers/i2c/busses/i2c-uniphier-f.c      | 26 +++++------
+ drivers/i2c/busses/i2c-uniphier.c        | 15 +++----
+ drivers/i2c/busses/i2c-viai2c-common.c   |  2 +-
+ drivers/i2c/busses/i2c-viai2c-wmt.c      |  8 ++--
+ drivers/i2c/busses/i2c-viai2c-zhaoxin.c  | 12 ++---
+ drivers/i2c/busses/i2c-viperboard.c      | 10 ++---
+ drivers/i2c/busses/i2c-virtio.c          |  2 +-
+ include/linux/i2c.h                      | 24 +++++++---
+ 64 files changed, 313 insertions(+), 320 deletions(-)
 
-[Updated Benjamin's email address]
-
-On Wed, Jul 03, 2024 at 01:00:06PM +0200, Uwe Kleine-K=F6nig wrote:
-> When the state changes from enabled to disabled, polarity, duty_cycle
-> and period are not configured in hardware and TIM_CCER_CCxE is just
-> cleared. However if the state changes from one disabled state to
-> another, all parameters are written to hardware because the early exit
-> from stm32_pwm_apply() is only taken if the pwm is currently enabled.
->=20
-> This yields surprises like: Applying
->=20
-> 	{ .period =3D 1, .duty_cycle =3D 0, .enabled =3D false }
->=20
-> succeeds if the pwm is initially on, but fails if it's already off
-> because 1 is a too small period.
->=20
-> Update the check for lazy disable to always exit early if the target
-> state is disabled, no matter what is currently configured.
->=20
-> Fixes: 7edf7369205b ("pwm: Add driver for STM32 plaftorm")
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-
-I applied this to my pwm/for-next branch. I applied it directly on top
-of my last PR to Linus and rebased pwm/for-next on top of it, as it's a
-fix that should come early. I won't send it for inclusion before 6.10,
-but if another PR will become necessary before 6.10, I'll include this
-patch.
-
-Best regards
-Uwe
-
---qofqf7sh33crvhqo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmaIdrgACgkQj4D7WH0S
-/k5e8Qf/X6nczzHSx3sD+fghW/1L2ZuyMey9JqaDIh3XV/9CLj2kB3b7YgQ64gEr
-HDr2vAUfUDXyutAf3CGmR0fpoVcBM1SUd4l2ZDdR6R1Ts2gfK2czk2UoWp82WEmK
-t0M9e0wi4S5KKkxLtOWn0CeExH1zSNM7tXJ7EjATW6miL/mqSJdi4ifmKWFho3Vi
-UuT4BpZcDjhzVH8gKxmlmALa/0prq62ogPuDHAbHjQ/jZ++J//25xh1/S5DVRKMx
-eq+7cPZJJIPPR3qTjgSD62HDC9h3w5m5JvDfLb+gtSkAS8iCc6WxRUbZ/bc4b8nf
-jJZvg3/y5wWY/atwKFuLMnaAUkGNkw==
-=PxZ8
------END PGP SIGNATURE-----
-
---qofqf7sh33crvhqo--
-
---===============8871475855815116985==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8871475855815116985==--
