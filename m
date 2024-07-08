@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C2692ABAF
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 00:02:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C65FF92ABB4
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 00:03:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EF6EC6C83A;
-	Mon,  8 Jul 2024 22:02:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88481C6C83A;
+	Mon,  8 Jul 2024 22:03:22 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14F4AC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA6F6C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2024 22:02:47 +0000 (UTC)
+ Mon,  8 Jul 2024 22:03:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Kkwl/8AGKMUcErKs7sxasCns8aNPh5VtttjeXalhu0M=; b=SIy2gX3Wdf33bPhJ5NwC1gDcDE
- 8WniHbthaDeH+KHeChngiJL7YlZLlgxaV+yRT2/62wpVtRLhs8ob4Z7dQdCp48LbfiRpeGtUEczKI
- iJJmr4RIo0CY0UVNXfpHUCx4GELhvdUP2gA71hf4tKjzUMUI/AL9fEphwPNODgAnxPk4=;
+ bh=gAgXCvUKwhxWf6sDpKACJ8dGQFibYCWvhGf+QFQgbO8=; b=fl+ilK0HbmEB7zLU2AV6qHW8V2
+ wUuk9Hk+QHWh6pQwk81LXXFO8MKSswj0LXA9Ql9BHf6E7E1mFcr2atdMhjFLDYCjKsxkvTmXf/5FS
+ ioZxO9dBuqadbUSJTVh+b7TZrC0Iv2eD9Mlo3F6X3muOGt6zCTEcf4grBdVufPvOq0LE=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1sQwRO-0024zl-1p; Tue, 09 Jul 2024 00:02:34 +0200
-Date: Tue, 9 Jul 2024 00:02:34 +0200
+ id 1sQwRy-002512-08; Tue, 09 Jul 2024 00:03:10 +0200
+Date: Tue, 9 Jul 2024 00:03:09 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
-Message-ID: <06321488-cd8c-4d78-8291-8945b32c6258@lunn.ch>
+Message-ID: <0f83f143-09b3-4d0d-b1a2-c27b88a50317@lunn.ch>
 References: <20240708-icc_bw_voting_from_ethqos-v4-0-c6bc3db86071@quicinc.com>
- <20240708-icc_bw_voting_from_ethqos-v4-1-c6bc3db86071@quicinc.com>
+ <20240708-icc_bw_voting_from_ethqos-v4-2-c6bc3db86071@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240708-icc_bw_voting_from_ethqos-v4-1-c6bc3db86071@quicinc.com>
+In-Reply-To: <20240708-icc_bw_voting_from_ethqos-v4-2-c6bc3db86071@quicinc.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  kernel@quicinc.com, linux-kernel@vger.kernel.org,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>, Eric Dumazet <edumazet@google.com>,
@@ -43,8 +43,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: net: qcom: ethernet:
- Add interconnect properties
+Subject: Re: [Linux-stm32] [PATCH v4 2/2] net: stmmac: Add interconnect
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,9 +61,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jul 08, 2024 at 02:30:00PM -0700, Sagar Cheluvegowda wrote:
-> Add documentation for the interconnect and interconnect-names
-> properties required when voting for AHB and AXI buses.
+On Mon, Jul 08, 2024 at 02:30:01PM -0700, Sagar Cheluvegowda wrote:
+> Add interconnect support to vote for bus bandwidth based
+> on the current speed of the driver.
+> Adds support for two different paths - one from ethernet to
+> DDR and the other from CPU to ethernet, Vote from each
+> interconnect client is aggregated and the on-chip interconnect
+> hardware is configured to the most appropriate bandwidth profile.
 > 
 > Suggested-by: Andrew Halaney <ahalaney@redhat.com>
 > Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
