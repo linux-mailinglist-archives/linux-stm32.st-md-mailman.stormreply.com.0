@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8468693F9E9
+	by mail.lfdr.de (Postfix) with ESMTPS id 899E093F9EA
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14401C6DD96;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2999EC7128D;
 	Mon, 29 Jul 2024 15:58:22 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C1B5C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C60C8C6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2024 04:49:03 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 467NgQ4V005778;
- Mon, 8 Jul 2024 04:47:15 GMT
+ Mon,  8 Jul 2024 07:14:29 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4680R1T3031488;
+ Mon, 8 Jul 2024 07:13:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Mt2UNk9pZ3nG8SWY8ZJK5DyYFCJPucDgybc6SM6D4P4=; b=Pt3k0/gw3nDfHRL1
- WH1j0zn74Dskno6RYtKxvoY3Lwqbkt4uZsKApdf64uz3Pm7tV/ZyBTzyLbVY/reC
- 5KhibpPMVXBub8eExpHBtzs27kr8trEIVEdEdu4Mh+R7budCktV5doOBpW6z9Gbo
- c3RZ4vpPwS06yLqQcSRAarpHRbnLNmFXHfsKtBxeA56EyPkBE0RLPxGBmigNeLz3
- 1c1yEW0jXzHKbusYo1u80ekw2pJE5hQV7up0yOSh5e+u5jTWVuHAPgjgAcisY1Wg
- L6n4Y9coVABsQWN1xD+OWOi4hMqd20I586+hLj2RnTxfgxfHzfolfdA0kuzk6QvO
- 41Is5g==
+ oVQgIh72nNA4GfK+pn5YNj9SZPpD84n0grZ2Sjd1hiM=; b=k4k0gjOTh+Vxo9s/
+ h9S8/RA7yKThjmbvcW/tFXO+sXXLk07A8ojbHYxPlHvFElRS9CX2tSmoPlG0WvoA
+ BD3e0KVxPgnJK5C7Q8ARMoE5DvnYQmSnBTz8b/EusqvvIUmk+krrOnkSUZLTcUko
+ yPM5CWKPOhDhwHhIninv839irig80p5xHdCayzX+4VCwSAyLd2RjWvHwkb+yrAxA
+ I3JL/ihKAuVbLfn6472ACWvJdbgeUUMZcaWc4u+iE9EbBg7NrSKPSxvdd0FcVLUv
+ 1//BmZOHCzJnmVQqJkSlzIdbXEXACBKgaJ8/R3Nel/axg3KwBECd7MtoM431QbS4
+ zpDsQQ==
 Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406we8tnpx-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406wgwjvnj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Jul 2024 04:47:15 +0000 (GMT)
+ Mon, 08 Jul 2024 07:13:46 +0000 (GMT)
 Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
  [10.52.223.231])
  by NASANPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4684lDsl027084
+ 4687DiCn028522
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 8 Jul 2024 04:47:13 GMT
+ Mon, 8 Jul 2024 07:13:44 GMT
 Received: from [10.239.132.150] (10.80.80.8) by nasanex01a.na.qualcomm.com
  (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 7 Jul 2024
- 21:46:52 -0700
-Message-ID: <63eb3f58-d4a4-4a27-b78c-f4cb83e62c63@quicinc.com>
-Date: Mon, 8 Jul 2024 12:45:52 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 8 Jul 2024
+ 00:13:23 -0700
+Message-ID: <c9822569-896c-4d5f-b917-2826bf414e67@quicinc.com>
+Date: Mon, 8 Jul 2024 15:13:20 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Tengfei Fan
- <quic_tengfan@quicinc.com>, <andersson@kernel.org>,
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Krzysztof Kozlowski
+ <krzk@kernel.org>,
+ Tengfei Fan <quic_tengfan@quicinc.com>, <andersson@kernel.org>,
  <konrad.dybcio@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
  <conor+dt@kernel.org>, <djakov@kernel.org>, <mturquette@baylibre.com>,
  <sboyd@kernel.org>, <jassisinghbrar@gmail.com>,
@@ -64,26 +65,28 @@ References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
  <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
  <fbeb5969-0b3a-455e-88eb-b83734bf2c50@quicinc.com>
  <97c9484b-e257-4163-a104-3457d59bc69b@kernel.org>
+ <63eb3f58-d4a4-4a27-b78c-f4cb83e62c63@quicinc.com>
+ <f8f3c4d4-bf24-4195-a7b0-eec95cd64b57@linaro.org>
 From: "Aiqun Yu (Maria)" <quic_aiquny@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <97c9484b-e257-4163-a104-3457d59bc69b@kernel.org>
+In-Reply-To: <f8f3c4d4-bf24-4195-a7b0-eec95cd64b57@linaro.org>
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01a.na.qualcomm.com (10.52.223.231)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: NaHbB22mWdLnCeOe5WUMhaQTLB8iQPsZ
-X-Proofpoint-ORIG-GUID: NaHbB22mWdLnCeOe5WUMhaQTLB8iQPsZ
+X-Proofpoint-GUID: Xv0uyNlFtYweTJimUd2_Zu7YnPGml5J3
+X-Proofpoint-ORIG-GUID: Xv0uyNlFtYweTJimUd2_Zu7YnPGml5J3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-08_01,2024-07-05_01,2024-05-17_01
+ definitions=2024-07-08_02,2024-07-05_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- malwarescore=0 priorityscore=1501 clxscore=1011 impostorscore=0
- lowpriorityscore=0 spamscore=0 mlxlogscore=976 phishscore=0 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407080035
+ mlxlogscore=966 mlxscore=0
+ adultscore=0 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2406140001 definitions=main-2407080054
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
 Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  kw@linux.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
@@ -107,10 +110,9 @@ Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
  quic_kbajaj@quicinc.com, linux-gpio@vger.kernel.org,
  gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
  linux-usb@vger.kernel.org, quic_msarkar@quicinc.com, quic_wcheng@quicinc.com,
- krzysztof.kozlowski@linaro.org, quic_tdas@quicinc.com, mantas@8devices.com,
- linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
- dmitry.baryshkov@linaro.org, abel.vesa@linaro.org, robin.murphy@arm.com,
- lukasz.luba@arm.com
+ quic_tdas@quicinc.com, mantas@8devices.com, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmitry.baryshkov@linaro.org, abel.vesa@linaro.org,
+ robin.murphy@arm.com, lukasz.luba@arm.com
 Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
  QCS9100 SoC and RIDE board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -131,32 +133,45 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 7/3/2024 5:33 PM, Krzysztof Kozlowski wrote:
-> On 03/07/2024 11:21, Tengfei Fan wrote:
->>>>         - items:
->>>>             - enum:
->>>> +              - qcom,qcs9100-ride
->>>>                 - qcom,sa8775p-ride
->>>> +          - const: qcom,qcs9100
->>>
->>> This changes existing compatible for sa8775p without any explanation in
->>> commit msg.
->>>
->>> Best regards,
->>> Krzysztof
->>>
+On 7/8/2024 2:07 PM, Krzysztof Kozlowski wrote:
+> On 08/07/2024 06:45, Aiqun Yu (Maria) wrote:
 >>
->> In the next verion patch series, I will provide relevant explanatory 
->> information in this patch commit message.
+>>
+>> On 7/3/2024 5:33 PM, Krzysztof Kozlowski wrote:
+>>> On 03/07/2024 11:21, Tengfei Fan wrote:
+>>>>>>         - items:
+>>>>>>             - enum:
+>>>>>> +              - qcom,qcs9100-ride
+>>>>>>                 - qcom,sa8775p-ride
+>>>>>> +          - const: qcom,qcs9100
+>>>>>
+>>>>> This changes existing compatible for sa8775p without any explanation in
+>>>>> commit msg.
+>>>>>
+>>>>> Best regards,
+>>>>> Krzysztof
+>>>>>
+>>>>
+>>>> In the next verion patch series, I will provide relevant explanatory 
+>>>> information in this patch commit message.
+>>>
+>>> TBH, I cannot think of any reasonable explanation for this, especially
+>>> considering rest of the patchset which does not fix resulting dtbs_check
+>>> warning.
+>>
+>> The existing compatible "sa8775p" warning can only be addressed When
+>> @Nikunj's "sa8775p" changes merged.
+>>
+>> Let me know if you have other suggestions for this.
 > 
-> TBH, I cannot think of any reasonable explanation for this, especially
-> considering rest of the patchset which does not fix resulting dtbs_check
-> warning.
+> I don't have, because I don't understand why do you want/need to change
+> existing board compatible.
 
-The existing compatible "sa8775p" warning can only be addressed When
-@Nikunj's "sa8775p" changes merged.
+We can left the current existing sa8775p board compatible as it is. And
+have a brand new qcs9100 and qcs9100-board item for current non-scmi
+resources compatible.
 
-Let me know if you have other suggestions for this.
+Will that be more reasonable from your end?
 
 > 
 > Best regards,
