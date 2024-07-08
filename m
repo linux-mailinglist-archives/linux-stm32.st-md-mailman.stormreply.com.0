@@ -2,49 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D7092A7D9
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2024 19:08:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C467892A8CA
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2024 20:12:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4EB0C6DD96;
-	Mon,  8 Jul 2024 17:08:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7371CC6DD96;
+	Mon,  8 Jul 2024 18:12:50 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B667AC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BCDBC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2024 17:08:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8C0DF60EAA;
- Mon,  8 Jul 2024 17:08:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC899C32786;
- Mon,  8 Jul 2024 17:08:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1720458508;
- bh=Y3aHN1NmCiICEtufO9VLeJIX/a8wyoqvGJdPF9we2rQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KJ3EEjpJQ7KhLsBB1ZzRBnG2cF+rHHd/CNFLUWehzYoGgnDC/ydRyoxwpMMWB1c1U
- d64dEgd9+rJ4fqSar4OYyvZ32TIKvoD5U/fbKVq3cMwGBBDvsoniJFYljs1jg+0nO3
- XgDypjRFCNXY8AhYMNn4ve/nAwpdAntsO7XBecmWAis7kJk+RsS3o8+/FTdxZvf+Ih
- ITY4Mw0Fy0ljYlYqQW9N/6BZqHJrTAHlK3kcuCCPucieJtpTCMYafNhb4bD//+NU7K
- heUPMFFOcvGY2pub23LOyPaH810AZW66VSp3NXkOvDr5STkoOvtri9old3uQlbY79X
- 6yQ+qdHhjo9eg==
-Date: Mon, 8 Jul 2024 11:08:26 -0600
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20240708170826.GA3381590-robh@kernel.org>
-References: <20240704155338.2387858-1-olivier.moysan@foss.st.com>
- <20240704155338.2387858-5-olivier.moysan@foss.st.com>
+ Mon,  8 Jul 2024 18:12:42 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-79f0730ce5cso131107385a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 08 Jul 2024 11:12:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1720462361; x=1721067161;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=3G5qiLTz4GfxsQWXnyyKEO74FPVBN5CQVLTrxKUlZ8c=;
+ b=F4dp4fRpDnZ5oO0KbwZY+cMZuOUskxOWwvnXJ+zz0u9vx91K3vWKq0+yy4O/EW9bAM
+ jP0CAyMmrmXtldbV5Y7dCFcF/TK4hcc1OY+ZA939KblRd6HkZaOcY2LiG+00g0SpoqU4
+ x2jc/SfH1dbU0qBo9i65I6LElkSAhlDc4Zzo5Tvio3f040LnU/Uc2mufXaMzEaCVBid8
+ qng+txoa4n7rh/0/W7Fe60jiV4J5dhLNy2LLWwi7NubDxQTrY/4dlUzH/BshQ8v7lKeD
+ 8UpRFXa3chxC86kFBiPbT48WfwklcEbLqz1GTkFoM6bLsHBMRidMfesSUrQwoj3Xuv9a
+ qh/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720462361; x=1721067161;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3G5qiLTz4GfxsQWXnyyKEO74FPVBN5CQVLTrxKUlZ8c=;
+ b=vNcG1jmgm5z3JlZCXQ7qQOFqVMpw13t7cjbDRYZ3vD/NahlIHudsNjT+H3UxM7UoKy
+ Yzx+gLdGhI89H6+14E5s8azsso4Se17D/kpAMeelcttie5dLwJR6Q24ZZpa5Eg6Kfpb2
+ 5/VcGPNR7iEOBRSKrhoW+Fmm6rL3NQF9q+iX32Cl5CJpVUIp3G8VkdMwHasDD8/jCSs7
+ AD3yXLvT4KlSzToC6SPw3XfmsWmGdS2CHS4QjNVe4evID5a+2XALm3q+V2De4NkZk6iA
+ NdMYIWTfl1jutopDHC8qabDKB/BIDtFcf92K99A5YlPP++rV7/rN6KGuke9a/TinimXn
+ KMow==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXytcP0qEagrkCMAaV5EnqYZsD4Zl8WlG0OmUy0XKygmEvCTUXY3I1gXClH/dl4cBcyvxwRCrXkrEbllI84lMds6lyFDSXNApSmhzx/S8RrPzvN+oFvTdca
+X-Gm-Message-State: AOJu0YytuokTG5flytKJYoe0W92rM6Jp2nJYaJlwxUACr2nXL8lb86oC
+ PEAYF27M5gRuo637N9sU1bfakALIwV4nN7wX2nF0L+JJ9vaStAIF43qAfqZute4=
+X-Google-Smtp-Source: AGHT+IECidL59sLd8x/QJ3E8fZupF/kgcvMgjhdsW/TTF5RhSUT71BAG89DXeL/GZMetTQRzZsrkVw==
+X-Received: by 2002:a05:620a:4407:b0:79d:8042:cd01 with SMTP id
+ af79cd13be357-79f19a35d98mr32814085a.7.1720462361351; 
+ Mon, 08 Jul 2024 11:12:41 -0700 (PDT)
+Received: from [192.168.40.12] (d24-150-219-207.home.cgocable.net.
+ [24.150.219.207]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-79f1908ae97sm14557385a.98.2024.07.08.11.12.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jul 2024 11:12:41 -0700 (PDT)
+Message-ID: <12c87440-0b54-4c98-a4a8-7ee46f19c5aa@baylibre.com>
+Date: Mon, 8 Jul 2024 14:12:40 -0400
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240704155338.2387858-5-olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-pwm@vger.kernel.org
+References: <cover.1720435656.git.u.kleine-koenig@baylibre.com>
+ <6f7deef208bf25baad7daa8ff35621fb68e7aeb4.1720435656.git.u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Trevor Gamblin <tgamblin@baylibre.com>
+In-Reply-To: <6f7deef208bf25baad7daa8ff35621fb68e7aeb4.1720435656.git.u.kleine-koenig@baylibre.com>
+Cc: Michael Hennerich <michael.hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 4/8] dt-bindings: iio: dfsdm: move to
-	backend framework
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/6] pwm: New abstraction for PWM waveforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,301 +83,227 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 04, 2024 at 05:53:32PM +0200, Olivier Moysan wrote:
-> Change the DFSDM binding to use the new IIO backend framework,
-> along with the adoption of IIO generic channels.
-> This binding change allows to add scaling support to the DFSDM.
-> 
-> Keep the legacy binding as deprecated for backward compatibility.
-> 
-> The io-backends property is supported only in generic IIO channel
-> binding.
-> 
-> - Channel description with the generic binding (Audio and Analog):
-> 
->   Properties superseded by generic properties:
->     st,adc-channels: becomes "reg" property in channel node
->     st,adc-channel-names: becomes "label" property in channel node
->   Properties moved to channel child node:
->     st,adc-channel-types: becomes st,adc-channel-type
->     st,adc-channel-clk-src, st,adc-alt-channel
-> 
-> - Analog binding:
-> 
->   DFSDM filter channel is configured as an IIO backend consumer.
->   Add io-backends property in channel child nodes.
-> 
->   DFSDM is no more configured as a channel consumer from SD modulator.
->   Use of io-channels in DFSDM node is deprecated.
-> 
-> - Audio binding:
-> 
->   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->   No change compare to legacy.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 +++++++++++++++++-
->  1 file changed, 147 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> index 2722edab1d9a..5a5bc8b96402 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> @@ -102,9 +102,11 @@ patternProperties:
->          items:
->            minimum: 0
->            maximum: 7
-> +        deprecated: true
->  
->        st,adc-channel-names:
->          description: List of single-ended channel names.
-> +        deprecated: true
->  
->        st,filter-order:
->          description: |
-> @@ -118,6 +120,12 @@ patternProperties:
->        "#io-channel-cells":
->          const: 1
->  
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
->        st,adc-channel-types:
->          description: |
->            Single-ended channel input type.
-> @@ -128,6 +136,7 @@ patternProperties:
->          items:
->            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
->  
->        st,adc-channel-clk-src:
->          description: |
-> @@ -139,6 +148,7 @@ patternProperties:
->          items:
->            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
->  
->        st,adc-alt-channel:
->          description:
-> @@ -147,6 +157,7 @@ patternProperties:
->            If not set, channel n is connected to SPI input n.
->            If set, channel n is connected to SPI input n + 1.
->          type: boolean
-> +        deprecated: true
->  
->        st,filter0-sync:
->          description:
-> @@ -165,11 +176,60 @@ patternProperties:
->        - compatible
->        - reg
->        - interrupts
-> -      - st,adc-channels
-> -      - st,adc-channel-names
->        - st,filter-order
->        - "#io-channel-cells"
->  
-> +    patternProperties:
-> +      "^channel@([0-7])$":
-> +        type: object
-> +        $ref: adc.yaml
-> +        unevaluatedProperties: false
-> +        description: Represents the external channels which are connected to the DFSDM.
-> +
-> +        properties:
-> +          reg:
-> +            maxItems: 1
-
-Instead:
-
-maximum: 7
-
-> +
-> +          label:
-> +            description:
-> +              Unique name to identify which channel this is.
-> +
-> +          st,adc-channel-type:
-> +            description: |
-> +              Single-ended channel input type.
-> +              - "SPI_R": SPI with data on rising edge (default)
-> +              - "SPI_F": SPI with data on falling edge
-> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
-> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
-> +            $ref: /schemas/types.yaml#/definitions/string
-> +            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-> +
-> +          st,adc-channel-clk-src:
-> +            description: |
-> +              Conversion clock source.
-> +              - "CLKIN": external SPI clock (CLKIN x)
-> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
-> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
-> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
-> +            $ref: /schemas/types.yaml#/definitions/string
-> +            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-> +
-> +          st,adc-alt-channel:
-> +            description:
-> +              Must be defined if two sigma delta modulators are
-> +              connected on same SPI input.
-> +              If not set, channel n is connected to SPI input n.
-> +              If set, channel n is connected to SPI input n + 1.
-> +            type: boolean
-> +
-> +          io-backends:
-> +            description:
-> +              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
-> +            maxItems: 1
-> +
-> +        required:
-> +          - reg
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -199,9 +259,19 @@ patternProperties:
->                description:
->                  From common IIO binding. Used to pipe external sigma delta
->                  modulator or internal ADC output to DFSDM channel.
-> +              deprecated: true
->  
-> -          required:
-> -            - io-channels
-> +          if:
-> +            required:
-> +              - st,adc-channels
-> +          then:
-> +            required:
-> +              - io-channels
-> +
-> +          patternProperties:
-> +            "^channel@([0-9])$":
-
-Is it 8 or 10 channels?
-
-> +              required:
-> +                - io-backends
->  
->        - if:
->            properties:
-> @@ -298,7 +368,77 @@ examples:
->        #address-cells = <1>;
->        #size-cells = <0>;
->  
-> +      // Example 1: Audio use case with generic binding
->        dfsdm0: filter@0 {
-> +        compatible = "st,stm32-dfsdm-dmic";
-> +        reg = <0>;
-> +        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 101 0x400 0x01>;
-> +        dma-names = "rx";
-> +        #io-channel-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        st,filter-order = <5>;
-> +
-> +        channel@1 {
-> +          reg = <1>;
-> +          label = "dmic0";
-> +          st,adc-channel-type = "SPI_R";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          st,adc-alt-channel;
-> +        };
-> +
-> +        asoc_pdm0: dfsdm-dai {
-> +          compatible = "st,stm32h7-dfsdm-dai";
-> +          #sound-dai-cells = <0>;
-> +          io-channels = <&dfsdm0 0>;
-> +        };
-> +      };
-> +
-> +      // Example 1: Analog use case with generic binding
-
-2nd example 1?
-
-> +      dfsdm1: filter@1 {
-> +        compatible = "st,stm32-dfsdm-adc";
-> +        reg = <1>;
-> +        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 102 0x400 0x01>;
-> +        dma-names = "rx";
-> +        st,filter-order = <1>;
-> +        #io-channel-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        channel@2 {
-> +          reg = <2>;
-> +          label = "in2";
-> +          st,adc-channel-type = "SPI_F";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          st,adc-alt-channel;
-> +          io-backends = <&sd_adc2>;
-> +        };
-> +
-> +        channel@3 {
-> +          reg = <3>;
-> +          label = "in3";
-> +          st,adc-channel-type = "SPI_R";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          io-backends = <&sd_adc3>;
-> +        };
-> +      };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    dfsdm_2: dfsdm@4400d000 {
-> +      compatible = "st,stm32mp1-dfsdm";
-> +      reg = <0x4400d000 0x800>;
-> +      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
-> +      clock-names = "dfsdm", "audio";
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      // Example 3: Audio use case with legacy binding
-
-I don't think it is worthwhile to show how to use the deprecated 
-binding.
-
-> +      dfsdm0_2: filter@0 {
->          compatible = "st,stm32-dfsdm-dmic";
->          reg = <0>;
->          interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> @@ -311,14 +451,15 @@ examples:
->          st,adc-channel-clk-src = "CLKOUT";
->          st,filter-order = <5>;
->  
-> -        asoc_pdm0: dfsdm-dai {
-> +        asoc_pdm0_2: dfsdm-dai {
->            compatible = "st,stm32h7-dfsdm-dai";
->            #sound-dai-cells = <0>;
->            io-channels = <&dfsdm0 0>;
->          };
->        };
->  
-> -      dfsdm_pdm1: filter@1 {
-> +      // Example 3: Analog use case with legacy binding
-> +      dfsdm1_2: filter@1 {
->          compatible = "st,stm32-dfsdm-adc";
->          reg = <1>;
->          interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-> -- 
-> 2.25.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDIwMjQtMDctMDggNjo1MiBhLm0uLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBVcCB0
+byBub3cgdGhlIGNvbmZpZ3VyYXRpb24gb2YgYSBQV00gc2V0dGluZyBpcyBkZWNyaWJlZCBleGNs
+dXNpdmVseSBieQo+IGEgc3RydWN0IHB3bV9zdGF0ZSB3aGljaCBjb250YWlucyBpbmZvcm1hdGlv
+biBhYm91dCBwZXJpb2QsIGR1dHlfY3ljbGUsCj4gcG9sYXJpdHkgYW5kIGlmIHRoZSBQV00gaXMg
+ZW5hYmxlZC4gKFRoZXJlIGlzIGFub3RoZXIgbWVtYmVyIHVzYWdlX3Bvd2VyCj4gd2hpY2ggZG9l
+c24ndCBjb21wbGV0ZWx5IGZpdCBpbnRvIHB3bV9zdGF0ZSwgSSBpZ25vcmUgaXQgaGVyZSBmb3IK
+PiBzaW1wbGljaXR5LikKPgo+IEluc3RlYWQgb2YgYSBwb2xhcml0eSB0aGUgbmV3IGFic3RyYWN0
+aW9uIGhhcyBhIG1lbWJlciBkdXR5X29mZnNldCB0aGF0Cj4gZGVmaW5lcyB3aGVuIHRoZSByaXNp
+bmcgZWRnZSBoYXBwZW5zIGFmdGVyIHRoZSBwZXJpb2Qgc3RhcnQuIFRoaXMgaXMKPiBtb3JlIGdl
+bmVyYWwsIGFzIHdpdGggYSBwd21fc3RhdGUgdGhlIHJpc2luZyBlZGdlIGNhbiBvbmx5IGhhcHBl
+biBhdCB0aGUKPiBwZXJpb2QncyBzdGFydCBvciBzdWNoIHRoYXQgdGhlIGZhbGxpbmcgZWRnZSBp
+cyBhdCB0aGUgZW5kIG9mIHRoZSBwZXJpb2QKPiAoaS5lLiBkdXR5X29mZnNldCA9PSAwIG9yIGR1
+dHlfb2Zmc2V0ID09IHBlcmlvZF9sZW5naCAtIGR1dHlfbGVuZ3RoKS4KPgo+IEEgZGlzYWJsZWQg
+UFdNIGlzIG1vZGVsZWQgYnkgLnBlcmlvZF9sZW5ndGggPSAwLiBJbiBteSBleWVzIHRoaXMgaXMg
+YQo+IG5pY2UgdXNhZ2Ugb2YgdGhhdCBvdGhlcndpc2UgdW51c2FibGUgc2V0dGluZywgYXMgaXQg
+ZG9lc24ndCBkZWZpbmUKPiBhbnl0aGluZyBhYm91dCB0aGUgZnV0dXJlIHdoaWNoIG1hdGNoZXMg
+dGhlIGZhY3QgdGhhdCBjb25zdW1lcnMgc2hvdWxkCj4gY29uc2lkZXIgdGhlIHN0YXRlIG9mIHRo
+ZSBvdXRwdXQgYXMgdW5kZWZpbmVkIGFuZCBpdCdzIGp1c3QgdGhlcmUgdG8gc2F5Cj4gIk5vIGZ1
+cnRoZXIgcmVxdWlyZW1lbnRzIGFib3V0IHRoZSBvdXRwdXQsIHlvdSBjYW4gc2F2ZSBzb21lIHBv
+d2VyLiIuCj4KPiBGdXJ0aGVyIEkgcmVuYW1lZCBwZXJpb2QgYW5kIGR1dHlfY3ljbGUgdG8gcGVy
+aW9kX2xlbmd0aCBhbmQKPiBkdXR5X2xlbmd0aC4gSW4gdGhlIHBhc3QgdGhlcmUgd2FzIGNvbmZ1
+c2lvbiBmcm9tIHRpbWUgdG8gdGltZSBhYm91dAo+IGR1dHlfY3ljbGUgYmVpbmcgbWVhc3VyZWQg
+aW4gbmFub3NlY29uZHMgYmVjYXVzZSBwZW9wbGUgZXhwZWN0ZWQgYQo+IHBlcmNlbnRhZ2Ugb2Yg
+cGVyaW9kIGluc3RlYWQuIFdpdGggImxlbmd0aCIgYXMgc3VmZml4IHRoZSBzZW1hbnRpYwo+IHNo
+b3VsZCBiZSBtb3JlIG9idmlvdXMgdG8gcGVvcGxlIHVuZmFtaWxpYXIgd2l0aCB0aGUgcHdtIHN1
+YnN5c3RlbS4KPiBwZXJpb2QgaXMgcmVuYW1lZCBwZXJpb2RfbGVuZ3RoIGZvciBjb25zaXN0ZW5j
+eS4KPgo+IFRoZSBBUEkgZm9yIGNvbnN1bWVycyBkb2Vzbid0IGNoYW5nZSB5ZXQsIGJ1dCBsb3ds
+ZXZlbCBkcml2ZXJzIGNhbgo+IGltcGxlbWVudCBjYWxsYmFja3MgdGhhdCB3b3JrIHdpdGggcHdt
+X3dhdmVmb3JtcyBpbnN0ZWFkIG9mIHB3bV9zdGF0ZXMuCj4gQSBuZXcgdGhpbmcgYWJvdXQgdGhl
+c2UgY2FsbGJhY2tzIGlzIHRoYXQgdGhlIGNhbGN1bGF0aW9uIG9mIGhhcmR3YXJlCj4gc2V0dGlu
+Z3MgbmVlZGVkIHRvIGltcGxlbWVudCBhIGNlcnRhaW4gd2F2ZWZvcm0gaXMgc2VwYXJhdGVkIGZy
+b20KPiBhY3R1YWxseSB3cml0aW5nIHRoZXNlIHNldHRpbmdzLiBUaGUgbW90aXZhdGlvbiBmb3Ig
+dGhhdCBpcyB0aGF0IHRoaXMKPiBhbGxvd3MgYSBjb25zdW1lciB0byBxdWVyeSB0aGUgaGFyZHdh
+cmUgY2FwYWJpbGl0aWVzIHdpdGhvdXQgYWN0dWFsbHkKPiBtb2RpZnlpbmcgdGhlIGhhcmR3YXJl
+IHN0YXRlLgo+Cj4gVGhlIHJvdW5kaW5nIHJ1bGVzIHRoYXQgYXJlIGV4cGVjdGVkIHRvIGJlIGlt
+cGxlbWVudGVkIGluIHRoZQo+IHJvdW5kX3dhdmVmb3JtX3RvaHcoKSBhcmU6IEZpcnN0IHBpY2sg
+dGhlIGJpZ2dlc3QgcG9zc2libGUgcGVyaW9kIG5vdAo+IGJpZ2dlciB0aGFuIHdmLT5wZXJpb2Rf
+bGVuZ3RoLiBGb3IgdGhhdCBwZXJpb2QgcGljayB0aGUgYmlnZ2VzdCBwb3NzaWJsZQo+IGR1dHkg
+c2V0dGluZyBub3QgYmlnZ2VyIHRoYW4gd2YtPmR1dHlfbGVuZ3RoLiBUaGlyZCBwaWNrIHRoZSBi
+aWdnZXN0Cj4gcG9zc2libGUgb2Zmc2V0IG5vdCBiaWdnZXIgdGhhbiB3Zi0+ZHV0eV9vZmZzZXQu
+IElmIHRoZSByZXF1ZXN0ZWQgcGVyaW9kCj4gaXMgdG9vIHNtYWxsIGZvciB0aGUgaGFyZHdhcmUs
+IGl0J3MgZXhwZWN0ZWQgdGhhdCBhIHNldHRpbmcgd2l0aCB0aGUKPiBtaW5pbWFsIHBlcmlvZCBh
+bmQgZHV0eV9sZW5ndGggPSBkdXR5X29mZnNldCA9IDAgaXMgcmV0dXJuZWQgYW5kIHRoaXMKPiBm
+YWN0IGlzIHNpZ25hbGVkIGJ5IGEgcmV0dXJuIHZhbHVlIG9mIDEuCj4KPiBTaWduZWQtb2ZmLWJ5
+OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4KUmV2aWV3
+ZWQtYnk6IFRyZXZvciBHYW1ibGluIDx0Z2FtYmxpbkBiYXlsaWJyZS5jb20+Cj4gLS0tCj4gICBk
+cml2ZXJzL3B3bS9jb3JlLmMgIHwgMTk0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKy0tLS0tCj4gICBpbmNsdWRlL2xpbnV4L3B3bS5oIHwgIDM1ICsrKysrKysrCj4gICAy
+IGZpbGVzIGNoYW5nZWQsIDIwOCBpbnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkKPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL3B3bS9jb3JlLmMgYi9kcml2ZXJzL3B3bS9jb3JlLmMKPiBpbmRl
+eCBjMzFlMTJlNzY0OTUuLjhlNjg0ODFhN2IzMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3B3bS9j
+b3JlLmMKPiArKysgYi9kcml2ZXJzL3B3bS9jb3JlLmMKPiBAQCAtNDksNiArNDksNzIgQEAgc3Rh
+dGljIHZvaWQgcHdtY2hpcF91bmxvY2soc3RydWN0IHB3bV9jaGlwICpjaGlwKQo+ICAgCj4gICBE
+RUZJTkVfR1VBUkQocHdtY2hpcCwgc3RydWN0IHB3bV9jaGlwICosIHB3bWNoaXBfbG9jayhfVCks
+IHB3bWNoaXBfdW5sb2NrKF9UKSkKPiAgIAo+ICtzdGF0aWMgdm9pZCBwd21fd2Yyc3RhdGUoY29u
+c3Qgc3RydWN0IHB3bV93YXZlZm9ybSAqd2YsIHN0cnVjdCBwd21fc3RhdGUgKnN0YXRlKQo+ICt7
+Cj4gKwlpZiAod2YtPnBlcmlvZF9sZW5ndGgpIHsKPiArCQlpZiAod2YtPmR1dHlfbGVuZ3RoICsg
+d2YtPmR1dHlfb2Zmc2V0IDwgd2YtPnBlcmlvZF9sZW5ndGgpCj4gKwkJCSpzdGF0ZSA9IChzdHJ1
+Y3QgcHdtX3N0YXRlKXsKPiArCQkJCS5lbmFibGVkID0gdHJ1ZSwKPiArCQkJCS5wb2xhcml0eSA9
+IFBXTV9QT0xBUklUWV9OT1JNQUwsCj4gKwkJCQkucGVyaW9kID0gd2YtPnBlcmlvZF9sZW5ndGgs
+Cj4gKwkJCQkuZHV0eV9jeWNsZSA9IHdmLT5kdXR5X2xlbmd0aCwKPiArCQkJfTsKPiArCQllbHNl
+Cj4gKwkJCSpzdGF0ZSA9IChzdHJ1Y3QgcHdtX3N0YXRlKXsKPiArCQkJCS5lbmFibGVkID0gdHJ1
+ZSwKPiArCQkJCS5wb2xhcml0eSA9IFBXTV9QT0xBUklUWV9JTlZFUlNFRCwKPiArCQkJCS5wZXJp
+b2QgPSB3Zi0+cGVyaW9kX2xlbmd0aCwKPiArCQkJCS5kdXR5X2N5Y2xlID0gd2YtPnBlcmlvZF9s
+ZW5ndGggLSB3Zi0+ZHV0eV9sZW5ndGgsCj4gKwkJCX07Cj4gKwl9IGVsc2Ugewo+ICsJCSpzdGF0
+ZSA9IChzdHJ1Y3QgcHdtX3N0YXRlKXsKPiArCQkJLmVuYWJsZWQgPSBmYWxzZSwKPiArCQl9Owo+
+ICsJfQo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCBwd21fc3RhdGUyd2YoY29uc3Qgc3RydWN0IHB3
+bV9zdGF0ZSAqc3RhdGUsIHN0cnVjdCBwd21fd2F2ZWZvcm0gKndmKQo+ICt7Cj4gKwlpZiAoc3Rh
+dGUtPmVuYWJsZWQpIHsKPiArCQlpZiAoc3RhdGUtPnBvbGFyaXR5ID09IFBXTV9QT0xBUklUWV9O
+T1JNQUwpCj4gKwkJCSp3ZiA9IChzdHJ1Y3QgcHdtX3dhdmVmb3JtKXsKPiArCQkJCS5wZXJpb2Rf
+bGVuZ3RoID0gc3RhdGUtPnBlcmlvZCwKPiArCQkJCS5kdXR5X2xlbmd0aCA9IHN0YXRlLT5kdXR5
+X2N5Y2xlLAo+ICsJCQkJLmR1dHlfb2Zmc2V0ID0gMCwKPiArCQkJfTsKPiArCQllbHNlCj4gKwkJ
+CSp3ZiA9IChzdHJ1Y3QgcHdtX3dhdmVmb3JtKXsKPiArCQkJCS5wZXJpb2RfbGVuZ3RoID0gc3Rh
+dGUtPnBlcmlvZCwKPiArCQkJCS5kdXR5X2xlbmd0aCA9IHN0YXRlLT5wZXJpb2QgLSBzdGF0ZS0+
+ZHV0eV9jeWNsZSwKPiArCQkJCS5kdXR5X29mZnNldCA9IHN0YXRlLT5kdXR5X2N5Y2xlLAo+ICsJ
+CQl9Owo+ICsJfSBlbHNlIHsKPiArCQkqd2YgPSAoc3RydWN0IHB3bV93YXZlZm9ybSl7Cj4gKwkJ
+CS5wZXJpb2RfbGVuZ3RoID0gMCwKPiArCQl9Owo+ICsJfQo+ICt9Cj4gKwo+ICtzdGF0aWMgaW50
+IHB3bV9jaGVja19yb3VuZGluZyhjb25zdCBzdHJ1Y3QgcHdtX3dhdmVmb3JtICp3ZiwKPiArCQkJ
+ICAgICAgY29uc3Qgc3RydWN0IHB3bV93YXZlZm9ybSAqd2Zfcm91bmRlZCkKPiArewo+ICsJaWYg
+KCF3Zi0+cGVyaW9kX2xlbmd0aCkKPiArCQlyZXR1cm4gMDsKPiArCj4gKwlpZiAod2YtPnBlcmlv
+ZF9sZW5ndGggPCB3Zl9yb3VuZGVkLT5wZXJpb2RfbGVuZ3RoKQo+ICsJCXJldHVybiAxOwo+ICsK
+PiArCWlmICh3Zi0+ZHV0eV9sZW5ndGggPCB3Zl9yb3VuZGVkLT5kdXR5X2xlbmd0aCkKPiArCQly
+ZXR1cm4gMTsKPiArCj4gKwlpZiAod2YtPmR1dHlfb2Zmc2V0IDwgd2Zfcm91bmRlZC0+ZHV0eV9v
+ZmZzZXQpCj4gKwkJcmV0dXJuIDE7Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gKyNkZWZp
+bmUgV0ZIV1NJWkUgMjAKPiArCj4gICBzdGF0aWMgdm9pZCBwd21fYXBwbHlfZGVidWcoc3RydWN0
+IHB3bV9kZXZpY2UgKnB3bSwKPiAgIAkJCSAgICBjb25zdCBzdHJ1Y3QgcHdtX3N0YXRlICpzdGF0
+ZSkKPiAgIHsKPiBAQCAtMTgyLDYgKzI0OCw3IEBAIHN0YXRpYyBib29sIHB3bV9zdGF0ZV92YWxp
+ZChjb25zdCBzdHJ1Y3QgcHdtX3N0YXRlICpzdGF0ZSkKPiAgIHN0YXRpYyBpbnQgX19wd21fYXBw
+bHkoc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwgY29uc3Qgc3RydWN0IHB3bV9zdGF0ZSAqc3RhdGUp
+Cj4gICB7Cj4gICAJc3RydWN0IHB3bV9jaGlwICpjaGlwOwo+ICsJY29uc3Qgc3RydWN0IHB3bV9v
+cHMgKm9wczsKPiAgIAlpbnQgZXJyOwo+ICAgCj4gICAJaWYgKCFwd20gfHwgIXN0YXRlKQo+IEBA
+IC0yMDUsNiArMjcyLDcgQEAgc3RhdGljIGludCBfX3B3bV9hcHBseShzdHJ1Y3QgcHdtX2Rldmlj
+ZSAqcHdtLCBjb25zdCBzdHJ1Y3QgcHdtX3N0YXRlICpzdGF0ZSkKPiAgIAl9Cj4gICAKPiAgIAlj
+aGlwID0gcHdtLT5jaGlwOwo+ICsJb3BzID0gY2hpcC0+b3BzOwo+ICAgCj4gICAJaWYgKHN0YXRl
+LT5wZXJpb2QgPT0gcHdtLT5zdGF0ZS5wZXJpb2QgJiYKPiAgIAkgICAgc3RhdGUtPmR1dHlfY3lj
+bGUgPT0gcHdtLT5zdGF0ZS5kdXR5X2N5Y2xlICYmCj4gQEAgLTIxMywxOCArMjgxLDU5IEBAIHN0
+YXRpYyBpbnQgX19wd21fYXBwbHkoc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwgY29uc3Qgc3RydWN0
+IHB3bV9zdGF0ZSAqc3RhdGUpCj4gICAJICAgIHN0YXRlLT51c2FnZV9wb3dlciA9PSBwd20tPnN0
+YXRlLnVzYWdlX3Bvd2VyKQo+ICAgCQlyZXR1cm4gMDsKPiAgIAo+IC0JZXJyID0gY2hpcC0+b3Bz
+LT5hcHBseShjaGlwLCBwd20sIHN0YXRlKTsKPiAtCXRyYWNlX3B3bV9hcHBseShwd20sIHN0YXRl
+LCBlcnIpOwo+IC0JaWYgKGVycikKPiAtCQlyZXR1cm4gZXJyOwo+ICsJaWYgKG9wcy0+d3JpdGVf
+d2F2ZWZvcm0pIHsKPiArCQlzdHJ1Y3QgcHdtX3dhdmVmb3JtIHdmOwo+ICsJCWNoYXIgd2Zod1tX
+RkhXU0laRV07Cj4gICAKPiAtCXB3bS0+c3RhdGUgPSAqc3RhdGU7Cj4gKwkJQlVHX09OKFdGSFdT
+SVpFIDwgb3BzLT5zaXplb2Zfd2Zodyk7Cj4gICAKPiAtCS8qCj4gLQkgKiBvbmx5IGRvIHRoaXMg
+YWZ0ZXIgcHdtLT5zdGF0ZSB3YXMgYXBwbGllZCBhcyBzb21lCj4gLQkgKiBpbXBsZW1lbnRhdGlv
+bnMgb2YgLmdldF9zdGF0ZSBkZXBlbmQgb24gdGhpcwo+IC0JICovCj4gLQlwd21fYXBwbHlfZGVi
+dWcocHdtLCBzdGF0ZSk7Cj4gKwkJcHdtX3N0YXRlMndmKHN0YXRlLCAmd2YpOwo+ICsKPiArCQkv
+Kgo+ICsJCSAqIFhYWCBUaGUgcm91bmRpbmcgaXMgd3JvbmcgaGVyZSBmb3Igc3RhdGVzIHdpdGgg
+aW52ZXJ0ZWQKPiArCQkgKiBwb2xhcml0eS4gV2hpbGUgLmFwcGx5KCkgcm91bmRzIGRvd24gZHV0
+eV9jeWNsZSAod2hpY2gKPiArCQkgKiByZXByZXNlbnRzIHRoZSB0aW1lIGZyb20gdGhlIHN0YXJ0
+IG9mIHRoZSBwZXJpb2QgdG8gdGhlIGlubmVyCj4gKwkJICogZWRnZSksIC5yb3VuZF93YXZlZm9y
+bV90b2h3KCkgcm91bmRzIGRvd24gdGhlIHRpbWUgdGhlIFBXTSBpcwo+ICsJCSAqIGhpZ2guCj4g
+KwkJICovCj4gKwo+ICsJCWVyciA9IG9wcy0+cm91bmRfd2F2ZWZvcm1fdG9odyhjaGlwLCBwd20s
+ICZ3ZiwgJndmaHcpOwo+ICsJCWlmIChlcnIpCj4gKwkJCXJldHVybiBlcnI7Cj4gKwo+ICsJCWlm
+IChJU19FTkFCTEVEKFBXTV9ERUJVRykpIHsKPiArCQkJc3RydWN0IHB3bV93YXZlZm9ybSB3Zl9y
+b3VuZGVkOwo+ICsKPiArCQkJZXJyID0gb3BzLT5yb3VuZF93YXZlZm9ybV9mcm9taHcoY2hpcCwg
+cHdtLCAmd2ZodywgJndmX3JvdW5kZWQpOwo+ICsJCQlpZiAoZXJyKQo+ICsJCQkJcmV0dXJuIGVy
+cjsKPiArCj4gKwkJCWlmIChwd21fY2hlY2tfcm91bmRpbmcoJndmLCAmd2Zfcm91bmRlZCkpCj4g
+KwkJCQlkZXZfZXJyKCZjaGlwLT5kZXYsICJXcm9uZyByb3VuZGluZzogcmVxdWVzdGVkICVsbHUv
+JWxsdSBbKyVsbHVdLCByZXN1bHQgJWxsdS8lbGx1IFsrJWxsdV1cbiIsCj4gKwkJCQkJd2YuZHV0
+eV9sZW5ndGgsIHdmLnBlcmlvZF9sZW5ndGgsIHdmLmR1dHlfb2Zmc2V0LAo+ICsJCQkJCXdmX3Jv
+dW5kZWQuZHV0eV9sZW5ndGgsIHdmX3JvdW5kZWQucGVyaW9kX2xlbmd0aCwgd2Zfcm91bmRlZC5k
+dXR5X29mZnNldCk7Cj4gKwkJfQo+ICsKPiArCQllcnIgPSBvcHMtPndyaXRlX3dhdmVmb3JtKGNo
+aXAsIHB3bSwgJndmaHcpOwo+ICsJCWlmIChlcnIpCj4gKwkJCXJldHVybiBlcnI7Cj4gKwo+ICsJ
+CXB3bS0+c3RhdGUgPSAqc3RhdGU7Cj4gKwo+ICsJfSBlbHNlIHsKPiArCQllcnIgPSBvcHMtPmFw
+cGx5KGNoaXAsIHB3bSwgc3RhdGUpOwo+ICsJCXRyYWNlX3B3bV9hcHBseShwd20sIHN0YXRlLCBl
+cnIpOwo+ICsJCWlmIChlcnIpCj4gKwkJCXJldHVybiBlcnI7Cj4gKwo+ICsJCXB3bS0+c3RhdGUg
+PSAqc3RhdGU7Cj4gKwo+ICsJCS8qCj4gKwkJICogb25seSBkbyB0aGlzIGFmdGVyIHB3bS0+c3Rh
+dGUgd2FzIGFwcGxpZWQgYXMgc29tZQo+ICsJCSAqIGltcGxlbWVudGF0aW9ucyBvZiAuZ2V0X3N0
+YXRlIGRlcGVuZCBvbiB0aGlzCj4gKwkJICovCj4gKwkJcHdtX2FwcGx5X2RlYnVnKHB3bSwgc3Rh
+dGUpOwo+ICsJfQo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gQEAgLTI5Miw2ICs0MDEsNDEg
+QEAgaW50IHB3bV9hcHBseV9hdG9taWMoc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwgY29uc3Qgc3Ry
+dWN0IHB3bV9zdGF0ZSAqc3RhdGUpCj4gICB9Cj4gICBFWFBPUlRfU1lNQk9MX0dQTChwd21fYXBw
+bHlfYXRvbWljKTsKPiAgIAo+ICtzdGF0aWMgaW50IHB3bV9nZXRfc3RhdGVfaHcoc3RydWN0IHB3
+bV9kZXZpY2UgKnB3bSwgc3RydWN0IHB3bV9zdGF0ZSAqc3RhdGUpCj4gK3sKPiArCXN0cnVjdCBw
+d21fY2hpcCAqY2hpcCA9IHB3bS0+Y2hpcDsKPiArCWNvbnN0IHN0cnVjdCBwd21fb3BzICpvcHMg
+PSBjaGlwLT5vcHM7Cj4gKwlpbnQgcmV0ID0gLUVPUE5PVFNVUFA7Cj4gKwo+ICsJaWYgKG9wcy0+
+cmVhZF93YXZlZm9ybSkgewo+ICsJCWNoYXIgd2Zod1tXRkhXU0laRV07Cj4gKwkJc3RydWN0IHB3
+bV93YXZlZm9ybSB3ZjsKPiArCj4gKwkJQlVHX09OKFdGSFdTSVpFIDwgb3BzLT5zaXplb2Zfd2Zo
+dyk7Cj4gKwo+ICsJCXNjb3BlZF9ndWFyZChwd21jaGlwLCBjaGlwKSB7Cj4gKwo+ICsJCQlyZXQg
+PSBvcHMtPnJlYWRfd2F2ZWZvcm0oY2hpcCwgcHdtLCAmd2Zodyk7Cj4gKwkJCWlmIChyZXQpCj4g
+KwkJCQlyZXR1cm4gcmV0Owo+ICsKPiArCQkJcmV0ID0gb3BzLT5yb3VuZF93YXZlZm9ybV9mcm9t
+aHcoY2hpcCwgcHdtLCAmd2ZodywgJndmKTsKPiArCQkJaWYgKHJldCkKPiArCQkJCXJldHVybiBy
+ZXQ7Cj4gKwkJfQo+ICsKPiArCQlwd21fd2Yyc3RhdGUoJndmLCBzdGF0ZSk7Cj4gKwo+ICsJfSBl
+bHNlIGlmIChvcHMtPmdldF9zdGF0ZSkgewo+ICsJCXNjb3BlZF9ndWFyZChwd21jaGlwLCBjaGlw
+KQo+ICsJCQlyZXQgPSBvcHMtPmdldF9zdGF0ZShjaGlwLCBwd20sIHN0YXRlKTsKPiArCj4gKwkJ
+dHJhY2VfcHdtX2dldChwd20sIHN0YXRlLCByZXQpOwo+ICsJfQo+ICsKPiArCXJldHVybiByZXQ7
+Cj4gK30KPiArCj4gICAvKioKPiAgICAqIHB3bV9hZGp1c3RfY29uZmlnKCkgLSBhZGp1c3QgdGhl
+IGN1cnJlbnQgUFdNIGNvbmZpZyB0byB0aGUgUFdNIGFyZ3VtZW50cwo+ICAgICogQHB3bTogUFdN
+IGRldmljZQo+IEBAIC00MzMsNyArNTc3LDcgQEAgc3RhdGljIGludCBwd21fZGV2aWNlX3JlcXVl
+c3Qoc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwgY29uc3QgY2hhciAqbGFiZWwpCj4gICAJCX0KPiAg
+IAl9Cj4gICAKPiAtCWlmIChvcHMtPmdldF9zdGF0ZSkgewo+ICsJaWYgKG9wcy0+cmVhZF93YXZl
+Zm9ybSB8fCBvcHMtPmdldF9zdGF0ZSkgewo+ICAgCQkvKgo+ICAgCQkgKiBaZXJvLWluaXRpYWxp
+emUgc3RhdGUgYmVjYXVzZSBtb3N0IGRyaXZlcnMgYXJlIHVuYXdhcmUgb2YKPiAgIAkJICogLnVz
+YWdlX3Bvd2VyLiBUaGUgb3RoZXIgbWVtYmVycyBvZiBzdGF0ZSBhcmUgc3VwcG9zZWQgdG8gYmUK
+PiBAQCAtNDQzLDExICs1ODcsNyBAQCBzdGF0aWMgaW50IHB3bV9kZXZpY2VfcmVxdWVzdChzdHJ1
+Y3QgcHdtX2RldmljZSAqcHdtLCBjb25zdCBjaGFyICpsYWJlbCkKPiAgIAkJICovCj4gICAJCXN0
+cnVjdCBwd21fc3RhdGUgc3RhdGUgPSB7IDAsIH07Cj4gICAKPiAtCQlzY29wZWRfZ3VhcmQocHdt
+Y2hpcCwgY2hpcCkKPiAtCQkJZXJyID0gb3BzLT5nZXRfc3RhdGUoY2hpcCwgcHdtLCAmc3RhdGUp
+Owo+IC0KPiAtCQl0cmFjZV9wd21fZ2V0KHB3bSwgJnN0YXRlLCBlcnIpOwo+IC0KPiArCQllcnIg
+PSBwd21fZ2V0X3N0YXRlX2h3KHB3bSwgJnN0YXRlKTsKPiAgIAkJaWYgKCFlcnIpCj4gICAJCQlw
+d20tPnN0YXRlID0gc3RhdGU7Cj4gICAKPiBAQCAtMTEzNCwxMiArMTI3NCwyNCBAQCBzdGF0aWMg
+Ym9vbCBwd21fb3BzX2NoZWNrKGNvbnN0IHN0cnVjdCBwd21fY2hpcCAqY2hpcCkKPiAgIHsKPiAg
+IAljb25zdCBzdHJ1Y3QgcHdtX29wcyAqb3BzID0gY2hpcC0+b3BzOwo+ICAgCj4gLQlpZiAoIW9w
+cy0+YXBwbHkpCj4gLQkJcmV0dXJuIGZhbHNlOwo+ICsJaWYgKG9wcy0+d3JpdGVfd2F2ZWZvcm0p
+IHsKPiArCQlpZiAoIW9wcy0+cm91bmRfd2F2ZWZvcm1fdG9odyB8fAo+ICsJCSAgICAhb3BzLT5y
+b3VuZF93YXZlZm9ybV9mcm9taHcgfHwKPiArCQkgICAgIW9wcy0+d3JpdGVfd2F2ZWZvcm0pCj4g
+KwkJCXJldHVybiBmYWxzZTsKPiAgIAo+IC0JaWYgKElTX0VOQUJMRUQoQ09ORklHX1BXTV9ERUJV
+RykgJiYgIW9wcy0+Z2V0X3N0YXRlKQo+IC0JCWRldl93YXJuKHB3bWNoaXBfcGFyZW50KGNoaXAp
+LAo+IC0JCQkgIlBsZWFzZSBpbXBsZW1lbnQgdGhlIC5nZXRfc3RhdGUoKSBjYWxsYmFja1xuIik7
+Cj4gKwkJaWYgKFdGSFdTSVpFIDwgb3BzLT5zaXplb2Zfd2Zodykgewo+ICsJCQlkZXZfd2Fybihw
+d21jaGlwX3BhcmVudChjaGlwKSwgIldGSFdTSVpFIDwgJXp1XG4iLCBvcHMtPnNpemVvZl93Zmh3
+KTsKPiArCQkJcmV0dXJuIGZhbHNlOwo+ICsJCX0KPiArCX0gZWxzZSB7Cj4gKwkJaWYgKCFvcHMt
+PmFwcGx5KQo+ICsJCQlyZXR1cm4gZmFsc2U7Cj4gKwo+ICsJCWlmIChJU19FTkFCTEVEKENPTkZJ
+R19QV01fREVCVUcpICYmICFvcHMtPmdldF9zdGF0ZSkKPiArCQkJZGV2X3dhcm4ocHdtY2hpcF9w
+YXJlbnQoY2hpcCksCj4gKwkJCQkgIlBsZWFzZSBpbXBsZW1lbnQgdGhlIC5nZXRfc3RhdGUoKSBj
+YWxsYmFja1xuIik7Cj4gKwl9Cj4gICAKPiAgIAlyZXR1cm4gdHJ1ZTsKPiAgIH0KPiBkaWZmIC0t
+Z2l0IGEvaW5jbHVkZS9saW51eC9wd20uaCBiL2luY2x1ZGUvbGludXgvcHdtLmgKPiBpbmRleCA1
+MTc2ZGZlYmZiZmQuLmI1ZGZmMmE5OTAzOCAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2xpbnV4L3B3
+bS5oCj4gKysrIGIvaW5jbHVkZS9saW51eC9wd20uaAo+IEBAIC00OSw2ICs0OSwzMCBAQCBlbnVt
+IHsKPiAgIAlQV01GX0VYUE9SVEVEID0gMSwKPiAgIH07Cj4gICAKPiArLyoKPiArICogc3RydWN0
+IHB3bV93YXZlZm9ybSAtIGRlc2NyaXB0aW9uIG9mIGEgUFdNIHdhdmVmb3JtCj4gKyAqIEBwZXJp
+b2RfbGVuZ3RoOiBQV00gcGVyaW9kCj4gKyAqIEBkdXR5X2xlbmd0aDogUFdNIGR1dHkgY3ljbGUK
+PiArICogQGR1dHlfb2Zmc2V0OiBvZmZzZXQgb2YgdGhlIHJpc2luZyBlZGdlIGZyb20gdGhlIHBl
+cmlvZCdzIHN0YXJ0Cj4gKyAqCj4gKyAqIFRoaXMgaXMgYSByZXByZXNlbnRhdGlvbiBvZiBhIFBX
+TSB3YXZlZm9ybSBhbHRlcm5hdGl2ZSB0byBzdHJ1Y3QgcHdtX3N0YXRlCj4gKyAqIGJlbG93LiBJ
+dCdzIG1vcmUgZXhwcmVzc2l2ZSB0aGFuIHN0cnVjdCBwd21fc3RhdGUgYXMgaXQgY29udGFpbnMg
+YQo+ICsgKiBkdXR5X29mZnNldCBhbmQgc28gY2FuIHJlcHJlc2VudCBvZmZzZXRzIG90aGVyIHRo
+YW4gJHBlcmlvZCAtICRkdXR5X2N5Y2xlCj4gKyAqIHdoaWNoIGlzIGRvbmUgdXNpbmcgLnBvbGFy
+aXR5ID0gUFdNX1BPTEFSSVRZX0lOVkVSU0VELiBOb3RlIHRoZXJlIGlzIG5vCj4gKyAqIGV4cGxp
+Y2l0IGJvb2wgZm9yIGVuYWJsZWQuIEEgImRpc2FibGVkIiBQV00gaXMgcmVwcmVzZW50ZWQgYnkg
+LnBlcmlvZCA9IDAuCj4gKyAqCj4gKyAqIE5vdGUgdGhhdCB0aGUgYmVoYXZpb3VyIG9mIGEgImRp
+c2FibGVkIiBQV00gaXMgdW5kZWZpbmVkLiBEZXBlbmRpbmcgb24gdGhlCj4gKyAqIGhhcmR3YXJl
+J3MgY2FwYWJpbGl0aWVzIGl0IG1pZ2h0IGRyaXZlIHRoZSBhY3RpdmUgb3IgaW5hY3RpdmUgbGV2
+ZWwsIGdvCj4gKyAqIGhpZ2gteiBvciBldmVuIGNvbnRpbnVlIHRvIHRvZ2dsZS4KPiArICoKPiAr
+ICogVGhlIHVuaXQgZm9yIGFsbCB0aHJlZSBtZW1iZXJzIGlzIG5hbm9zZWNvbmRzLgo+ICsgKi8K
+PiArc3RydWN0IHB3bV93YXZlZm9ybSB7Cj4gKwl1NjQgcGVyaW9kX2xlbmd0aDsKPiArCXU2NCBk
+dXR5X2xlbmd0aDsKPiArCXU2NCBkdXR5X29mZnNldDsKPiArfTsKPiArCj4gICAvKgo+ICAgICog
+c3RydWN0IHB3bV9zdGF0ZSAtIHN0YXRlIG9mIGEgUFdNIGNoYW5uZWwKPiAgICAqIEBwZXJpb2Q6
+IFBXTSBwZXJpb2QgKGluIG5hbm9zZWNvbmRzKQo+IEBAIC0yNTksNiArMjgzLDE3IEBAIHN0cnVj
+dCBwd21fb3BzIHsKPiAgIAl2b2lkICgqZnJlZSkoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1
+Y3QgcHdtX2RldmljZSAqcHdtKTsKPiAgIAlpbnQgKCpjYXB0dXJlKShzdHJ1Y3QgcHdtX2NoaXAg
+KmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sCj4gICAJCSAgICAgICBzdHJ1Y3QgcHdtX2Nh
+cHR1cmUgKnJlc3VsdCwgdW5zaWduZWQgbG9uZyB0aW1lb3V0KTsKPiArCj4gKwlzaXplX3Qgc2l6
+ZW9mX3dmaHc7Cj4gKwlpbnQgKCpyb3VuZF93YXZlZm9ybV90b2h3KShzdHJ1Y3QgcHdtX2NoaXAg
+KmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sCj4gKwkJCQkgICBjb25zdCBzdHJ1Y3QgcHdt
+X3dhdmVmb3JtICp3Ziwgdm9pZCAqd2Zodyk7Cj4gKwlpbnQgKCpyb3VuZF93YXZlZm9ybV9mcm9t
+aHcpKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwKPiArCQkJ
+CSAgICAgY29uc3Qgdm9pZCAqd2Zodywgc3RydWN0IHB3bV93YXZlZm9ybSAqd2YpOwo+ICsJaW50
+ICgqcmVhZF93YXZlZm9ybSkoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3QgcHdtX2Rldmlj
+ZSAqcHdtLAo+ICsJCQkgICAgdm9pZCAqd2Zodyk7Cj4gKwlpbnQgKCp3cml0ZV93YXZlZm9ybSko
+c3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLAo+ICsJCQkgICAg
+ICBjb25zdCB2b2lkICp3Zmh3KTsKPiArCj4gICAJaW50ICgqYXBwbHkpKHN0cnVjdCBwd21fY2hp
+cCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSwKPiAgIAkJICAgICBjb25zdCBzdHJ1Y3Qg
+cHdtX3N0YXRlICpzdGF0ZSk7Cj4gICAJaW50ICgqZ2V0X3N0YXRlKShzdHJ1Y3QgcHdtX2NoaXAg
+KmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
