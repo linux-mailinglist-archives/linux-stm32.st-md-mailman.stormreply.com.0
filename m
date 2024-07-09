@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC70C92B20A
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 10:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0712492B20C
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 10:23:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9443C78013;
-	Tue,  9 Jul 2024 08:23:25 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3BA8C78014;
+	Tue,  9 Jul 2024 08:23:35 +0000 (UTC)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D28B2C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECF86C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2024 08:23:24 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-75e15a48d6aso2576319a12.0
+ Tue,  9 Jul 2024 08:23:34 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2c95ca60719so2862088a91.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jul 2024 01:23:24 -0700 (PDT)
+ Tue, 09 Jul 2024 01:23:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720513403; x=1721118203;
+ d=gmail.com; s=20230601; t=1720513413; x=1721118213;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=P8/7znqqkBhNFJlanRTa4ag0D5o5jL152q+Urfiz2A8=;
- b=OZeF3lF5iYb6nEbNm8UVBkVJSvvB7dDVOycZpnF9m5HQwy9TOpW8fmA3b5b4jsc8Ng
- zy1F0iy+0a+y6mmF0gJPIKBAMzXUL516GvR7WcSfoBONtlhKang5ma5huaGLkVGqB/MJ
- 4tmBpAFu5c1DQ2OAc3TaOTcy3m7uueFwdvptsm7XK5Q5R0OdK9M0RMXVBNB2PJDUfFAt
- FrZJrD9A/sIb3stvsnaB+XTKi69WPymAXmpRXdyV55gngjnhFGQL7i0JOdk2vIOXdcdo
- /qJrhhE1VEIUTv+YWHE6UbwzTopLKCawlFG9cCbevXDyYSQ9NZ4fu7+1KCh6g58+5ReW
- lB5A==
+ bh=eP0LjrMRjIFsgCTgIBPUz0T81YiHTsFBk9I0t0JMtzc=;
+ b=BbC0FpfziiKOjIio3Gdsg4TLGhJ56e40b9AVtiCuA3Fhh1cwMr5HdIODD+ji3ldB9W
+ v6etS0xK0fukys9JMP65YpsFtW7NlObCXQzLMauZcjMv7pPYxbm8q86bgodKH9+uLbXY
+ wIw06+7J8xEIshY4tYqyUS2ahGeuhGkiKWvZL0ZBoTH6gpjI5IOaqedK2ETdi4764H2C
+ pgPFbcehr4X7pwnh8F7mOH+N0sHu0pRKbJHxs5s/K278k24kOnQYciZHAqffUhnIDpES
+ QVTAy44YjLbR6SrbL5/18QTTvdMHa2Y5oR8Yx7oZiXwLNcpTotcfsP24K0TxZZvFV1KW
+ 5a2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720513403; x=1721118203;
+ d=1e100.net; s=20230601; t=1720513413; x=1721118213;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=P8/7znqqkBhNFJlanRTa4ag0D5o5jL152q+Urfiz2A8=;
- b=jyfLtG8oQM0rlvG0KqM0MqG1fS4VZpwaxLKM8+RQoPYukZeeca3iYD4NxaK4LE+jbV
- 89r7lPplU7ZIRtgqnMrWCbfCPbuJMuZRKiVGdxIj2kBrGIRyd5gaft4hBIMHd3OE2lXs
- hcHy+/tjhMHxDO+zOkdaZwgTyBp7nQfJWhB1XoFweJGdidKKkRetgHQXxVKAV+vS0Noq
- hDSC8/PMU6Ff18c/WBRLs6rmFGvnG+/kzMBRndqakRlVQMCFAqJ0UHmXK8ZnwL+7roMa
- HPjcdLYpjliJGWNz0dd0bVd5tQOfe0NYCYaLZLbOJmhnwrECg9+CUhjWM3U1b4ZceB3Q
- Cz/g==
+ bh=eP0LjrMRjIFsgCTgIBPUz0T81YiHTsFBk9I0t0JMtzc=;
+ b=oySFxC2k3/R5gTID6ioMo7Vj8Sas4K5Bt7EU3P9uv61mk4FfjRF7/H+bi85xjYC+kc
+ wva287Zxb4VC7zpQGBOytTOWXvQN9b0n8Uu/tjw1Tmzf5hl6NfK64PN+OLTOku0Tjkyh
+ Ieou8dvuk8YMv/ep9uXxquoP9JOOqiQtUHDw9QmDNE+8jbwpa8RWehnXbwIE3QPR1d9m
+ v9pTPXTsyXQvyP/b7ZUfqe7B7MsbH6cuMeijy6ulCfLXaIHPXCg71uuXMwxPNOASTIkz
+ kD6RTuR7gkxKiWp8dk4372nlhtT+UBCIpLqY/uGwr1o46yV+Awf0R7L+QioXMS8Yd+Wu
+ lHsQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5WXUaAvHF8Hi9oxqQEA32sIJJ5sNgR8jx7TDIyC6xJTIaGhU0of6JMmKoZE0u/vNUKBdiGKf4shUore7lpti3gcf/wKkHfloog08lsZENB9XOPytbvXAW
-X-Gm-Message-State: AOJu0YwBiqinUIVKI2Jj6jGrtAuMJpHeIRGO0pX6JRoebJdYJXxfNHGK
- cZFw37q+P2e8yAAh/+mA8hA6gITKmTdb9R/NQIrIg8+toDqKq0mo
-X-Google-Smtp-Source: AGHT+IHsqtsn6gyOtXLL7y6Rzws8PcIlR1wfJvphBhSBBRCCn9DI8cbMl/kEnHnZ4m8DDm7Ae1Wzhg==
-X-Received: by 2002:a05:6a20:2588:b0:1be:ffe4:b2a2 with SMTP id
- adf61e73a8af0-1c298203941mr1960899637.7.1720513403354; 
- Tue, 09 Jul 2024 01:23:23 -0700 (PDT)
+ AJvYcCXGS0ZkD/4vqObZIfQ4VGXVtN97YWSQiGdcxiGxw6zTh5TjK1G3nE0Jf1rA7QIf4sZzsv3UATny8lzUSw+MoYvUBobvNBxHdJ/rqd0fvmW4/P47nW/gGmuK
+X-Gm-Message-State: AOJu0YwXzl9E6gLbGfZYXZXaM4c6/r9m7x7IV7B0W0wGZXc38+T+72s1
+ o3lnW13AEzaVua9sUQW7DD0C8tXsak5DgBEg1r4wGKMjWku2kaBq
+X-Google-Smtp-Source: AGHT+IEsA/J8BKGkc+qhPKYByQIdxwFS8gpklEmLtJM7nUypk4CDvh/2Q/FxDq9p43lqdv9itrHpzw==
+X-Received: by 2002:a17:90a:db58:b0:2c9:8d5d:d175 with SMTP id
+ 98e67ed59e1d1-2ca35d59cedmr1492273a91.48.1720513413478; 
+ Tue, 09 Jul 2024 01:23:33 -0700 (PDT)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-2c99a92a430sm9588929a91.4.2024.07.09.01.23.14
+ 98e67ed59e1d1-2c99a92a430sm9588929a91.4.2024.07.09.01.23.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jul 2024 01:23:22 -0700 (PDT)
+ Tue, 09 Jul 2024 01:23:33 -0700 (PDT)
 From: Furong Xu <0x1207@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -63,8 +63,8 @@ To: Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Joao Pinto <jpinto@synopsys.com>
-Date: Tue,  9 Jul 2024 16:21:23 +0800
-Message-Id: <8e719b6c4c1fad64eedb0faad15d7920f708b736.1720512888.git.0x1207@gmail.com>
+Date: Tue,  9 Jul 2024 16:21:24 +0800
+Message-Id: <36336e43ee530596d77b15b80e3afac7bfd3319a.1720512888.git.0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1720512888.git.0x1207@gmail.com>
 References: <cover.1720512888.git.0x1207@gmail.com>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v1 5/7] net: stmmac: xgmac: rename
-	XGMAC_RQ to XGMAC_FPRQ
+Subject: [Linux-stm32] [PATCH net-next v1 6/7] net: stmmac: xgmac: complete
+	FPE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,31 +90,116 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Synopsys XGMAC Databook defines MAC_RxQ_Ctrl1 register:
-RQ: Frame Preemption Residue Queue
+FPE implementation for DWMAC4 and DWXGMAC differs only for:
+1) Offset address of MAC_FPE_CTRL_STS
+2) FPRQ(Frame Preemption Residue Queue) field in MAC_RxQ_Ctrl1
 
-XGMAC_FPRQ is more readable and more consistent with GMAC4.
+Introduce dwxgmac_fpe_ops to complete the FPE implementation for DWXGMAC.
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |  2 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 37 +++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |  1 +
+ 4 files changed, 41 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 917796293c26..c66fa6040672 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -84,8 +84,8 @@
- #define XGMAC_MCBCQEN			BIT(15)
- #define XGMAC_MCBCQ			GENMASK(11, 8)
- #define XGMAC_MCBCQ_SHIFT		8
--#define XGMAC_RQ			GENMASK(7, 4)
--#define XGMAC_RQ_SHIFT			4
-+#define XGMAC_FPRQ			GENMASK(7, 4)
-+#define XGMAC_FPRQ_SHIFT		4
- #define XGMAC_UPQ			GENMASK(3, 0)
- #define XGMAC_UPQ_SHIFT			0
- #define XGMAC_RXQ_CTRL2			0x000000a8
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 655012ffbc0a..f13ed91b498f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -259,6 +259,7 @@ static const struct stmmac_hwif_entry {
+ 		.tc = &dwmac510_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
++		.fpe = &dwxgmac_fpe_ops,
+ 		.setup = dwxgmac2_setup,
+ 		.quirks = NULL,
+ 	}, {
+@@ -280,6 +281,7 @@ static const struct stmmac_hwif_entry {
+ 		.tc = &dwmac510_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
++		.fpe = &dwxgmac_fpe_ops,
+ 		.setup = dwxlgmac2_setup,
+ 		.quirks = stmmac_dwxlgmac_quirks,
+ 	},
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 7b19614c611d..81ce8ede2641 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -686,6 +686,7 @@ extern const struct stmmac_mmc_ops dwmac_mmc_ops;
+ extern const struct stmmac_mmc_ops dwxgmac_mmc_ops;
+ extern const struct stmmac_est_ops dwmac510_est_ops;
+ extern const struct stmmac_fpe_ops dwmac4_fpe_ops;
++extern const struct stmmac_fpe_ops dwxgmac_fpe_ops;
+ 
+ #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
+ #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+index 97e404fac56a..c6894d5263c9 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+@@ -7,6 +7,7 @@
+ #include "stmmac.h"
+ #include "stmmac_fpe.h"
+ #include "dwmac4.h"
++#include "dwxgmac2.h"
+ 
+ static int __fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
+ {
+@@ -92,3 +93,39 @@ const struct stmmac_fpe_ops dwmac4_fpe_ops = {
+ 	.irq_status = dwmac4_fpe_irq_status,
+ 	.send_mpacket = dwmac4_fpe_send_mpacket,
+ };
++
++static void dwxgmac_fpe_configure(void __iomem *ioaddr,
++				  struct stmmac_fpe_cfg *cfg,
++				  u32 num_txq, u32 num_rxq, bool enable)
++{
++	u32 value;
++
++	if (enable) {
++		cfg->fpe_csr = FPE_CTRL_STS_EFPE;
++		value = readl(ioaddr + XGMAC_RXQ_CTRL1);
++		value &= ~XGMAC_FPRQ;
++		value |= (num_rxq - 1) << XGMAC_FPRQ_SHIFT;
++		writel(value, ioaddr + XGMAC_RXQ_CTRL1);
++	} else {
++		cfg->fpe_csr = 0;
++	}
++
++	writel(cfg->fpe_csr, ioaddr + FPE_CTRL_STS_XGMAC_OFFSET);
++}
++
++static int dwxgmac_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
++{
++	return __fpe_irq_status(ioaddr + FPE_CTRL_STS_XGMAC_OFFSET, dev);
++}
++
++static void dwxgmac_fpe_send_mpacket(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++				     enum stmmac_mpacket_type type)
++{
++	__fpe_send_mpacket(ioaddr + FPE_CTRL_STS_XGMAC_OFFSET, cfg, type);
++}
++
++const struct stmmac_fpe_ops dwxgmac_fpe_ops = {
++	.configure = dwxgmac_fpe_configure,
++	.irq_status = dwxgmac_fpe_irq_status,
++	.send_mpacket = dwxgmac_fpe_send_mpacket,
++};
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
+index efdb5536e856..b74cf8f2c2f2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
+@@ -5,6 +5,7 @@
+  */
+ 
+ #define FPE_CTRL_STS_GMAC4_OFFSET	0x00000234
++#define FPE_CTRL_STS_XGMAC_OFFSET	0x00000280
+ 
+ #define FPE_CTRL_STS_TRSP		BIT(19)
+ #define FPE_CTRL_STS_TVER		BIT(18)
 -- 
 2.34.1
 
