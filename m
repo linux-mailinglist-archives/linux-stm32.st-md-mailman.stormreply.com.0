@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B36092B957
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 14:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71CBB92BACC
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2024 15:16:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19C25C6DD66;
-	Tue,  9 Jul 2024 12:23:50 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F44AC6DD66;
+	Tue,  9 Jul 2024 13:16:55 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2892C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98487C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2024 12:23:48 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1])
- by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1sR9se-0002hP-Jl; Tue, 09 Jul 2024 14:23:36 +0200
-Message-ID: <f9aab3f2-47d5-4c1b-ad0b-53c711701577@pengutronix.de>
-Date: Tue, 9 Jul 2024 14:23:34 +0200
+ Tue,  9 Jul 2024 13:16:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=6qj/7oST3PJtaaqaVrHFeEu7E6uGuuTvs8tcQZzjNoM=; b=lfTJcDYt1nPiS507mjFeon+nBr
+ 3O1jub46inJ7gwEzXhbv51zwOVlpAiWACnUqFOZK2x3+crLKr+3gOzxYgU+B0BFcaKcKUVQgFvw2X
+ YnYNPB7NdZXRTSUkIZLRETauhvW/Abqy0oMqcpJa11fASifUaX5joRKv6F6yEvXy4Ycs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sRAhv-0028xm-34; Tue, 09 Jul 2024 15:16:35 +0200
+Date: Tue, 9 Jul 2024 15:16:35 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <b313d570-e3f3-479f-a469-ba2759313ea4@lunn.ch>
+References: <cover.1720512888.git.0x1207@gmail.com>
+ <d142b909d0600b67b9ceadc767c4177be216f5bd.1720512888.git.0x1207@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Sean Nyekjaer <sean@geanix.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Marcin Sloniewski <marcin.sloniewski@gmail.com>
-References: <20240709121619.1588520-1-sean@geanix.com>
-Content-Language: en-US
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <20240709121619.1588520-1-sean@geanix.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add missing gpio options
- for sdmmc2_d47_pins_d
+Content-Disposition: inline
+In-Reply-To: <d142b909d0600b67b9ceadc767c4177be216f5bd.1720512888.git.0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/7] net: stmmac: xgmac: drop
+ incomplete FPE implementation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,39 +58,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 09.07.24 14:16, Sean Nyekjaer wrote:
-> This enables DDR50 mode for the eMMC on Octavo OSD32MP1-RED board.
-> 
-> Fixes: be78ab4f632c ("ARM: dts: stm32: add initial support for stm32mp157-odyssey board")
-> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+On Tue, Jul 09, 2024 at 04:21:19PM +0800, Furong Xu wrote:
+> The FPE support for xgmac is incomplete, drop it temporarily.
+> Once FPE implementation is refactored, xgmac support will be added.
 
-Reviewed-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+This is a pretty unusual thing to do. What does the current
+implementation do? Is there enough for it to actually work? If i was
+doing a git bisect and landed on this patch, could i find my
+networking is broken?
 
-> ---
->  arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-> index ae83e7b10232..70e132dc6147 100644
-> --- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-> @@ -2229,6 +2229,9 @@ pins {
->  				 <STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
->  				 <STM32_PINMUX('E', 5, AF9)>, /* SDMMC2_D6 */
->  				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
-> +			slew-rate = <1>;
-> +			drive-push-pull;
-> +			bias-pull-up;
->  		};
->  	};
->  
+More normal is to build a new implementation by the side, and then
+swap to it.
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
