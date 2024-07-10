@@ -2,85 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049EA92CBE1
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2024 09:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6B792CBF2
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2024 09:31:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8932C6DD72;
-	Wed, 10 Jul 2024 07:27:42 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA19FC6DD72;
+	Wed, 10 Jul 2024 07:31:15 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDC91C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC619C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jul 2024 07:27:34 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 469N0RR7028932;
- Wed, 10 Jul 2024 07:27:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uUn4O9+FJSSsRdFYECw9WOpbBUlBbK+8/cW3aBPGcJk=; b=In9zdp5CvpqgUYDG
- DUQ+zD6uSroL2h4JGFEJpDsKpin1/0+JGNwH1QOaY1OyrsavrAh/V6ngDuIS6Ip3
- o74hlvSHqCzyCXNQGvUwV4S6eyRyfAF0cXEAGS9n1Qk3OefQLVBI8BAag1VQaRcM
- YFhWjm0LX/M+nLMJXf16UM1WRjDxHIqUSU/unGO/QTslVtOoLbekUJJ84YV3Dbj7
- /ibcvsPN4h5HQyxkpfu6jc+o9PfwKKdPt3ZrQYSJ8vhnDYgonVS0CJyGLmDXBqgZ
- c2JkKOH8mILf3tXAFbeyTK4BuyqqKe+nnTezIaIhwQMurOB4LA8hwwi8JGTlFO6R
- FNZzAg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406x518s2h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jul 2024 07:27:16 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46A7REsk028037
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jul 2024 07:27:15 GMT
-Received: from [10.239.132.204] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 10 Jul
- 2024 00:27:07 -0700
-Message-ID: <c07b8f08-a8ce-427b-81f1-4f5399913fc1@quicinc.com>
-Date: Wed, 10 Jul 2024 15:27:04 +0800
+ Wed, 10 Jul 2024 07:31:09 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a77c0b42a8fso75556766b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Jul 2024 00:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1720596669; x=1721201469;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zeoMyAYH/0AY49p/6wUMg/daMN8t7+U6lzuDcGnmvQs=;
+ b=Yb2ZmGaTG19wYDmZVXy/oAwBMe8Oqqt2E/PjgRASuKHyPwGkLDHUBZ0c7w8ZySN7of
+ llARTzZ36ggBQMFIgmdlTiLZF/RiZ1JL+objj5SMcQ0CtoAongTrfRAHam2CP2L43QRR
+ jnf9zi14lcDuWtFxt5cIad3Kyjq8PoyIgxkpdVCr7hL356OyugPSe/Wp1nuVzJLBlXSm
+ kmRNQoRCXnQ0JyUwIKOP2xw8SIhNyVz1UYurpDkAmQjwhRdqnktnP9un7JEN+LImlR4I
+ wEgibFGmFC39aZRmwwbdfhVgLaGVzfnAvFmvmwDVG8u54T5PdxzNKhJHg/rPverQGCQ/
+ TO/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720596669; x=1721201469;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zeoMyAYH/0AY49p/6wUMg/daMN8t7+U6lzuDcGnmvQs=;
+ b=I9X7fKFMeb9A1rbv6L8y/visVgdZN3gr0+l1x7tQ2JFU2917MXvGAYXmAZImxNDBTN
+ Zfl0bmVx+O+xb7Drugbp6ftzgjZ0gETOmWl4lNm288hWtx3K5HfRsGlJ0sQPLRAZp2nL
+ +/e/8Kksq1MS3jasS47wC+WFyxscSeQXhegPlJYDWXZvbpwIWyBxZXWoLnncAwCc451B
+ U2Zzt8EL3V+ZB1Xh1pjjVuGhoE0Fb4UkgV9LuKNX43M4nG7xYwVHX8zn4iLRWPwHoCsT
+ 6Xul09lPwzVp0b/wDtTXeAGt2j3UO+w6yFm331aBVhLnCgtUNBKxH2ES/3cD6ffzxy0B
+ OhJg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXqbs8UXvqAskIJJ5+4iffUJFO4+UZEqNy6DX4aO/Bh+0ExggzEZuXTwSHlybUInnEaMMmAod+u9pTxhXUrKAH5eUJvgVq0WWfkVGJkjUqS9ZWfFO9kOXxP
+X-Gm-Message-State: AOJu0YxJOlvXUqoVzgBbrjq2ugejkBvq4LFPPgWnd1tK+BImseMyeg9D
+ Sa4lFHAiMguHdH4fiHxBDe1wSQouY3eFgF9IQBsC6dxpxE/RKsraLNMLiXehQ7Wukj2FQCFYuLp
+ w
+X-Google-Smtp-Source: AGHT+IGa902OsSSWrLryMzBb4Z7dwfffKSYSGip8Pq0Sc3sPP9BE70P5Tpa4HHUD4DT0BlnE0QzRkA==
+X-Received: by 2002:a17:907:76cf:b0:a72:5967:b34 with SMTP id
+ a640c23a62f3a-a780d267c19mr335101166b.22.1720596668917; 
+ Wed, 10 Jul 2024 00:31:08 -0700 (PDT)
+Received: from localhost (p50915eb1.dip0.t-ipconnect.de. [80.145.94.177])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a780a86f62bsm136608866b.199.2024.07.10.00.31.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Jul 2024 00:31:08 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Date: Wed, 10 Jul 2024 09:30:50 +0200
+Message-ID: <20240710073050.192806-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Simon Horman <horms@kernel.org>
-References: <20240709-add_qcs9100_ethqos_compatible-v2-0-ba22d1a970ff@quicinc.com>
- <20240709174212.GM346094@kernel.org>
-From: Tengfei Fan <quic_tengfan@quicinc.com>
-In-Reply-To: <20240709174212.GM346094@kernel.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: VcH8fqJyF1PQ6HhPvk_vasHIEKK-COYs
-X-Proofpoint-ORIG-GUID: VcH8fqJyF1PQ6HhPvk_vasHIEKK-COYs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-10_04,2024-07-09_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 adultscore=0
- suspectscore=0 impostorscore=0 mlxlogscore=999 mlxscore=0 bulkscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407100052
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- kernel@quicinc.com, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/2] net: stmmac: dwmac-qcom-ethqos:
- Add QCS9100 ethqos compatible
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3664;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=Nox0WDYkPvAoxUCnliq+o9vOQ6rG1/i+jlOyvW0SQhY=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBmjjiqsnamzmn5YFRYQqcfNOpdF/BBUPTls9NUy
+ atWrP1ZZCqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZo44qgAKCRCPgPtYfRL+
+ TgEhB/9bSs3HH4og760D8KT4qcx9cUaeTq1lr+ED5dBa3Srz6KszoCao9p41K7im4QEuSChDhQ3
+ JYUxrUiffdhn3MfS4pMefm0J1IGFNdoz9TyO7m2JhrMlfb2+ZYrJpCd0JXbV7dTM6Etw35qNIdN
+ DDVRdrqcOwtDOQkCz3dw1Gl/KbgAFi0ezox0uYpbFH8+bl0YBjG2ROci8tYwMz1ohr8+rv3HgdE
+ 1DLDGdgLE6ehl5VtUjyke40VVZaQ8N3iHJkY6eITBj0VggOa2GgeMADKjSXLlNnpmNoV2D06fP1
+ 4j+wIg4ZsZGImMXi7mHAVfib4ZmRdNtdUNMC40tYm+MBEwoF
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>
+Subject: [Linux-stm32] [PATCH] usb: typec: Drop explicit initialization of
+	struct i2c_device_id::driver_data to 0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,72 +90,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 7/10/2024 1:42 AM, Simon Horman wrote:
-> On Tue, Jul 09, 2024 at 10:13:16PM +0800, Tengfei Fan wrote:
->> Introduce support for the QCS9100 SoC device tree (DTSI) and the
->> QCS9100 RIDE board DTS. The QCS9100 is a variant of the SA8775p.
->> While the QCS9100 platform is still in the early design stage, the
->> QCS9100 RIDE board is identical to the SA8775p RIDE board, except it
->> mounts the QCS9100 SoC instead of the SA8775p SoC.
->>
->> The QCS9100 SoC DTSI is directly renamed from the SA8775p SoC DTSI, and
->> all the compatible strings will be updated from "SA8775p" to "QCS9100".
->> The QCS9100 device tree patches will be pushed after all the device tree
->> bindings and device driver patches are reviewed.
->>
->> The final dtsi will like:
->> https://lore.kernel.org/linux-arm-msm/20240703025850.2172008-3-quic_tengfan@quicinc.com/
->>
->> The detailed cover letter reference:
->> https://lore.kernel.org/linux-arm-msm/20240703025850.2172008-1-quic_tengfan@quicinc.com/
->>
->> Signed-off-by: Tengfei Fan <quic_tengfan@quicinc.com>
->> ---
->> Changes in v2:
->>    - Split huge patch series into different patch series according to
->>      subsytems
->>    - Update patch commit message
->>
->> prevous disscussion here:
->> [1] v1: https://lore.kernel.org/linux-arm-msm/20240703025850.2172008-1-quic_tengfan@quicinc.com/
->>
->> ---
->> Tengfei Fan (2):
->>        dt-bindings: net: qcom,ethqos: add description for qcs9100
->>        net: stmmac: dwmac-qcom-ethqos: add support for emac4 on qcs9100 platforms
->>
->>   Documentation/devicetree/bindings/net/qcom,ethqos.yaml  | 1 +
->>   Documentation/devicetree/bindings/net/snps,dwmac.yaml   | 2 ++
->>   drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 1 +
->>   3 files changed, 4 insertions(+)
->> ---
->> base-commit: 0b58e108042b0ed28a71cd7edf5175999955b233
-> 
-> I'm assuming that this is a patch for net-next.
-> But the commit above is not present in net-next,
-> and this series doesn't apply to net-next.
-> 
-> Please rebase when preparing v3.
-> And please designate the target tree in the subject.
-> 
-> 	Subject: [PATCH net-next v3] ...
-> 
-> Thanks!
-
-I willmake the correspinding modifications according to your suggestion 
-in the V3 patch series.
-
--- 
-Thx and BRs,
-Tengfei Fan
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlc2UgZHJpdmVyIGRvbid0IHVzZSB0aGUgZHJpdmVyX2RhdGEgbWVtYmVyIG9mIHN0cnVjdCBp
+MmNfZGV2aWNlX2lkLApzbyBkb24ndCBleHBsaWNpdGx5IGluaXRpYWxpemUgdGhpcyBtZW1iZXIu
+CgpUaGlzIHByZXBhcmVzIHB1dHRpbmcgZHJpdmVyX2RhdGEgaW4gYW4gYW5vbnltb3VzIHVuaW9u
+IHdoaWNoIHJlcXVpcmVzCmVpdGhlciBubyBpbml0aWFsaXphdGlvbiBvciBuYW1lZCBkZXNpZ25h
+dG9ycy4gQnV0IGl0J3MgYWxzbyBhIG5pY2UKY2xlYW51cCBvbiBpdHMgb3duLgoKU2lnbmVkLW9m
+Zi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BiYXlsaWJyZS5jb20+Ci0t
+LQogZHJpdmVycy91c2IvdHlwZWMvYW54NzQxMS5jICAgICAgICAgICAgICAgfCAyICstCiBkcml2
+ZXJzL3VzYi90eXBlYy90Y3BtL2Z1c2IzMDIuYyAgICAgICAgICB8IDQgKystLQogZHJpdmVycy91
+c2IvdHlwZWMvdGNwbS90Y3BjaS5jICAgICAgICAgICAgfCAyICstCiBkcml2ZXJzL3VzYi90eXBl
+Yy90Y3BtL3RjcGNpX21heGltX2NvcmUuYyB8IDIgKy0KIGRyaXZlcnMvdXNiL3R5cGVjL3Vjc2kv
+dWNzaV9jY2cuYyAgICAgICAgIHwgMiArLQogZHJpdmVycy91c2IvdHlwZWMvdWNzaS91Y3NpX3N0
+bTMyZzAuYyAgICAgfCA0ICsrLS0KIDYgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA4
+IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdXNiL3R5cGVjL2FueDc0MTEuYyBi
+L2RyaXZlcnMvdXNiL3R5cGVjL2FueDc0MTEuYwppbmRleCBiMTJhMDdlZGM3MWIuLjVhNWJmMzUz
+MmFkNyAxMDA2NDQKLS0tIGEvZHJpdmVycy91c2IvdHlwZWMvYW54NzQxMS5jCisrKyBiL2RyaXZl
+cnMvdXNiL3R5cGVjL2FueDc0MTEuYwpAQCAtMTU2Niw3ICsxNTY2LDcgQEAgc3RhdGljIHZvaWQg
+YW54NzQxMV9pMmNfcmVtb3ZlKHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQpCiB9CiAKIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgaTJjX2RldmljZV9pZCBhbng3NDExX2lkW10gPSB7Ci0JeyJhbng3NDEx
+IiwgMH0sCisJeyAiYW54NzQxMSIgfSwKIAl7fQogfTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy91
+c2IvdHlwZWMvdGNwbS9mdXNiMzAyLmMgYi9kcml2ZXJzL3VzYi90eXBlYy90Y3BtL2Z1c2IzMDIu
+YwppbmRleCBlZjE4YTQ0OGI3NDAuLmUyZmU0NzllMTZhZCAxMDA2NDQKLS0tIGEvZHJpdmVycy91
+c2IvdHlwZWMvdGNwbS9mdXNiMzAyLmMKKysrIGIvZHJpdmVycy91c2IvdHlwZWMvdGNwbS9mdXNi
+MzAyLmMKQEAgLTE4MjAsOCArMTgyMCw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNl
+X2lkIGZ1c2IzMDJfZHRfbWF0Y2hbXSBfX21heWJlX3VudXNlZCA9IHsKIE1PRFVMRV9ERVZJQ0Vf
+VEFCTEUob2YsIGZ1c2IzMDJfZHRfbWF0Y2gpOwogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGkyY19k
+ZXZpY2VfaWQgZnVzYjMwMl9pMmNfZGV2aWNlX2lkW10gPSB7Ci0JeyJ0eXBlY19mdXNiMzAyIiwg
+MH0sCi0Je30sCisJeyAidHlwZWNfZnVzYjMwMiIgfSwKKwl7fQogfTsKIE1PRFVMRV9ERVZJQ0Vf
+VEFCTEUoaTJjLCBmdXNiMzAyX2kyY19kZXZpY2VfaWQpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L3VzYi90eXBlYy90Y3BtL3RjcGNpLmMgYi9kcml2ZXJzL3VzYi90eXBlYy90Y3BtL3RjcGNpLmMK
+aW5kZXggOGExOGQ1NjFiMDYzLi5iODYyZmRmM2ZlMWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdXNi
+L3R5cGVjL3RjcG0vdGNwY2kuYworKysgYi9kcml2ZXJzL3VzYi90eXBlYy90Y3BtL3RjcGNpLmMK
+QEAgLTk0Nyw3ICs5NDcsNyBAQCBzdGF0aWMgdm9pZCB0Y3BjaV9yZW1vdmUoc3RydWN0IGkyY19j
+bGllbnQgKmNsaWVudCkKIH0KIAogc3RhdGljIGNvbnN0IHN0cnVjdCBpMmNfZGV2aWNlX2lkIHRj
+cGNpX2lkW10gPSB7Ci0JeyAidGNwY2kiLCAwIH0sCisJeyAidGNwY2kiIH0sCiAJeyB9CiB9Owog
+TU9EVUxFX0RFVklDRV9UQUJMRShpMmMsIHRjcGNpX2lkKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+dXNiL3R5cGVjL3RjcG0vdGNwY2lfbWF4aW1fY29yZS5jIGIvZHJpdmVycy91c2IvdHlwZWMvdGNw
+bS90Y3BjaV9tYXhpbV9jb3JlLmMKaW5kZXggZWVjM2JjZWMxMTljLi43NjBlMmY5MmI5NTggMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvdXNiL3R5cGVjL3RjcG0vdGNwY2lfbWF4aW1fY29yZS5jCisrKyBi
+L2RyaXZlcnMvdXNiL3R5cGVjL3RjcG0vdGNwY2lfbWF4aW1fY29yZS5jCkBAIC01MzgsNyArNTM4
+LDcgQEAgc3RhdGljIHZvaWQgbWF4X3RjcGNpX3JlbW92ZShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xp
+ZW50KQogfQogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgbWF4X3RjcGNpX2lk
+W10gPSB7Ci0JeyAibWF4dGNwYyIsIDAgfSwKKwl7ICJtYXh0Y3BjIiB9LAogCXsgfQogfTsKIE1P
+RFVMRV9ERVZJQ0VfVEFCTEUoaTJjLCBtYXhfdGNwY2lfaWQpOwpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy91c2IvdHlwZWMvdWNzaS91Y3NpX2NjZy5jIGIvZHJpdmVycy91c2IvdHlwZWMvdWNzaS91Y3Np
+X2NjZy5jCmluZGV4IGJhNGRiMjMxMGEwNS4uYjNlYzc5OWZjODczIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL3VzYi90eXBlYy91Y3NpL3Vjc2lfY2NnLmMKKysrIGIvZHJpdmVycy91c2IvdHlwZWMvdWNz
+aS91Y3NpX2NjZy5jCkBAIC0xNTAxLDcgKzE1MDEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG9m
+X2RldmljZV9pZCB1Y3NpX2NjZ19vZl9tYXRjaF90YWJsZVtdID0gewogTU9EVUxFX0RFVklDRV9U
+QUJMRShvZiwgdWNzaV9jY2dfb2ZfbWF0Y2hfdGFibGUpOwogCiBzdGF0aWMgY29uc3Qgc3RydWN0
+IGkyY19kZXZpY2VfaWQgdWNzaV9jY2dfZGV2aWNlX2lkW10gPSB7Ci0JeyJjY2d4LXVjc2kiLCAw
+fSwKKwl7ICJjY2d4LXVjc2kiIH0sCiAJe30KIH07CiBNT0RVTEVfREVWSUNFX1RBQkxFKGkyYywg
+dWNzaV9jY2dfZGV2aWNlX2lkKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdXNiL3R5cGVjL3Vjc2kv
+dWNzaV9zdG0zMmcwLmMgYi9kcml2ZXJzL3VzYi90eXBlYy91Y3NpL3Vjc2lfc3RtMzJnMC5jCmlu
+ZGV4IGQ5NDhjM2Y1NzllMS4uZGRiZWMyYjc4YzhlIDEwMDY0NAotLS0gYS9kcml2ZXJzL3VzYi90
+eXBlYy91Y3NpL3Vjc2lfc3RtMzJnMC5jCisrKyBiL2RyaXZlcnMvdXNiL3R5cGVjL3Vjc2kvdWNz
+aV9zdG0zMmcwLmMKQEAgLTczOSw4ICs3MzksOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2Rl
+dmljZV9pZCBfX21heWJlX3VudXNlZCB1Y3NpX3N0bTMyZzBfdHlwZWNfb2ZfbWF0Y2hbXSA9CiBN
+T0RVTEVfREVWSUNFX1RBQkxFKG9mLCB1Y3NpX3N0bTMyZzBfdHlwZWNfb2ZfbWF0Y2gpOwogCiBz
+dGF0aWMgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgdWNzaV9zdG0zMmcwX3R5cGVjX2kyY19k
+ZXZpZFtdID0gewotCXsic3RtMzJnMC10eXBlYyIsIDB9LAotCXt9LAorCXsgInN0bTMyZzAtdHlw
+ZWMiIH0sCisJe30KIH07CiBNT0RVTEVfREVWSUNFX1RBQkxFKGkyYywgdWNzaV9zdG0zMmcwX3R5
+cGVjX2kyY19kZXZpZCk7CiAKCmJhc2UtY29tbWl0OiA4MmQwMWZlNmVlNTIwODYwMzViMjAxY2Zh
+MTQxMGEzYjA0Mzg0MjU3Ci0tIAoyLjQzLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
