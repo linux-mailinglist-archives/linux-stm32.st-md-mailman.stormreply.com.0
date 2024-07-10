@@ -2,119 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 899E093F9EA
+	by mail.lfdr.de (Postfix) with ESMTPS id A55BE93F9EB
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2999EC7128D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39E35C78001;
 	Mon, 29 Jul 2024 15:58:22 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C60C8C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4D8FC5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2024 07:14:29 +0000 (UTC)
+ Wed, 10 Jul 2024 02:01:32 +0000 (UTC)
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4680R1T3031488;
- Mon, 8 Jul 2024 07:13:47 GMT
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46A0Cmi7003666;
+ Wed, 10 Jul 2024 02:01:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oVQgIh72nNA4GfK+pn5YNj9SZPpD84n0grZ2Sjd1hiM=; b=k4k0gjOTh+Vxo9s/
- h9S8/RA7yKThjmbvcW/tFXO+sXXLk07A8ojbHYxPlHvFElRS9CX2tSmoPlG0WvoA
- BD3e0KVxPgnJK5C7Q8ARMoE5DvnYQmSnBTz8b/EusqvvIUmk+krrOnkSUZLTcUko
- yPM5CWKPOhDhwHhIninv839irig80p5xHdCayzX+4VCwSAyLd2RjWvHwkb+yrAxA
- I3JL/ihKAuVbLfn6472ACWvJdbgeUUMZcaWc4u+iE9EbBg7NrSKPSxvdd0FcVLUv
- 1//BmZOHCzJnmVQqJkSlzIdbXEXACBKgaJ8/R3Nel/axg3KwBECd7MtoM431QbS4
- zpDsQQ==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ 95OMNfa2bp8hyoNxG6N/Ew6YeWI3rkWHyKTmpUTTtP0=; b=BcpIw3eaURYjnBfI
+ Q7TjdGnggC0xHTR7FhmfD60kSuyq2o4hzHMx0ESzDWUftHewEg8ECSxKTurI9G0l
+ yUu6Qc+nZwfypEF7xNI5LjSUDNkhLj9vo27Ib2XZvCIt35EmWsOVOWvtX82kqqJJ
+ zSRKS119TBFJrzRBiN3Dqap4IHShzMYAD55vaGfvQNehzBTOSQ838q/mr35+yodd
+ NXZIDEFOROkCSNUDAe9M0rSX9r0Fc5rIJtmcPm5QggJPC/HTrHzu6kYx3P4vhMaf
+ H5dBZZ0PxtCFxSqBOEhD5/S5T0/1xDFZV7WblTolER/9J988SubjASEa8YRqc2m8
+ L0QEDQ==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406wgwjvnj-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 406wgwqynj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Jul 2024 07:13:46 +0000 (GMT)
+ Wed, 10 Jul 2024 02:01:17 +0000 (GMT)
 Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
  [10.52.223.231])
- by NASANPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 4687DiCn028522
+ by NASANPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46A21F86030913
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 8 Jul 2024 07:13:44 GMT
+ Wed, 10 Jul 2024 02:01:15 GMT
 Received: from [10.239.132.150] (10.80.80.8) by nasanex01a.na.qualcomm.com
  (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 8 Jul 2024
- 00:13:23 -0700
-Message-ID: <c9822569-896c-4d5f-b917-2826bf414e67@quicinc.com>
-Date: Mon, 8 Jul 2024 15:13:20 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
+ 19:01:07 -0700
+Message-ID: <0f571c5f-db8d-4951-9e4f-cc1246ed4167@quicinc.com>
+Date: Wed, 10 Jul 2024 10:01:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Krzysztof Kozlowski
- <krzk@kernel.org>,
- Tengfei Fan <quic_tengfan@quicinc.com>, <andersson@kernel.org>,
- <konrad.dybcio@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <djakov@kernel.org>, <mturquette@baylibre.com>,
- <sboyd@kernel.org>, <jassisinghbrar@gmail.com>,
- <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <manivannan.sadhasivam@linaro.org>, <will@kernel.org>,
- <joro@8bytes.org>, <conor@kernel.org>, <tglx@linutronix.de>,
- <amitk@kernel.org>, <thara.gopinath@gmail.com>,
- <linus.walleij@linaro.org>, <wim@linux-watchdog.org>,
- <linux@roeck-us.net>, <rafael@kernel.org>, <viresh.kumar@linaro.org>,
- <vkoul@kernel.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>
-References: <20240703025850.2172008-1-quic_tengfan@quicinc.com>
- <20240703025850.2172008-2-quic_tengfan@quicinc.com>
- <665f6c8c-4f43-4d20-90e9-9e037a942066@kernel.org>
- <fbeb5969-0b3a-455e-88eb-b83734bf2c50@quicinc.com>
- <97c9484b-e257-4163-a104-3457d59bc69b@kernel.org>
- <63eb3f58-d4a4-4a27-b78c-f4cb83e62c63@quicinc.com>
- <f8f3c4d4-bf24-4195-a7b0-eec95cd64b57@linaro.org>
+To: Andrew Halaney <ahalaney@redhat.com>, Tengfei Fan
+ <quic_tengfan@quicinc.com>
+References: <20240709-add_qcs9100_ethqos_compatible-v2-0-ba22d1a970ff@quicinc.com>
+ <20240709-add_qcs9100_ethqos_compatible-v2-2-ba22d1a970ff@quicinc.com>
+ <g7htltug74hz2iyosyn3rbo6wk3zu54ojooshjfkblcivvihv2@vj5vm2nbcw7x>
 From: "Aiqun Yu (Maria)" <quic_aiquny@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <f8f3c4d4-bf24-4195-a7b0-eec95cd64b57@linaro.org>
+In-Reply-To: <g7htltug74hz2iyosyn3rbo6wk3zu54ojooshjfkblcivvihv2@vj5vm2nbcw7x>
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nasanex01a.na.qualcomm.com (10.52.223.231)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: Xv0uyNlFtYweTJimUd2_Zu7YnPGml5J3
-X-Proofpoint-ORIG-GUID: Xv0uyNlFtYweTJimUd2_Zu7YnPGml5J3
+X-Proofpoint-GUID: mg8id_SMcxa-Q12v0K26zxL_kL-xh26U
+X-Proofpoint-ORIG-GUID: mg8id_SMcxa-Q12v0K26zxL_kL-xh26U
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-08_02,2024-07-05_01,2024-05-17_01
+ definitions=2024-07-09_12,2024-07-09_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=966 mlxscore=0
+ mlxlogscore=999 mlxscore=0
  adultscore=0 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
  suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
  impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407080054
+ engine=8.19.0-2406140001 definitions=main-2407100014
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
-Cc: joabreu@synopsys.com, ulf.hansson@linaro.org, quic_kaushalk@quicinc.com,
- kw@linux.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, srinivas.kandagatla@linaro.org,
- alim.akhtar@samsung.com, quic_rjendra@quicinc.com, otto.pflueger@abscue.de,
- linux-riscv@lists.infradead.org, quic_tsoni@quicinc.com,
- linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org, kishon@kernel.org,
- quic_sibis@quicinc.com, kernel@quicinc.com, quic_bjorande@quicinc.com,
- bvanassche@acm.org, linux-scsi@vger.kernel.org, bartosz.golaszewski@linaro.org,
- quic_tingweiz@quicinc.com, daniel.lezcano@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, luca@z3ntu.xyz,
- iommu@lists.linux.dev, agross@kernel.org, danila@jiaxyga.com,
- u.kleine-koenig@pengutronix.de, rui.zhang@intel.com, ahalaney@redhat.com,
- quic_rgottimu@quicinc.com, bhupesh.sharma@linaro.org,
- quic_devipriy@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_nitirawa@quicinc.com, athierry@redhat.com, avri.altman@wdc.com,
- robimarko@gmail.com, bhelgaas@google.com, peppe.cavallaro@st.com,
- quic_cang@quicinc.com, quic_shashim@quicinc.com,
- linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
- quic_kbajaj@quicinc.com, linux-gpio@vger.kernel.org,
- gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
- linux-usb@vger.kernel.org, quic_msarkar@quicinc.com, quic_wcheng@quicinc.com,
- quic_tdas@quicinc.com, mantas@8devices.com, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmitry.baryshkov@linaro.org, abel.vesa@linaro.org,
- robin.murphy@arm.com, lukasz.luba@arm.com
-Subject: Re: [Linux-stm32] [PATCH 01/47] dt-bindings: arm: qcom: Document
- QCS9100 SoC and RIDE board
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ kernel@quicinc.com, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: dwmac-qcom-ethqos:
+ add support for emac4 on qcs9100 platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,49 +103,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 7/8/2024 2:07 PM, Krzysztof Kozlowski wrote:
-> On 08/07/2024 06:45, Aiqun Yu (Maria) wrote:
->>
->>
->> On 7/3/2024 5:33 PM, Krzysztof Kozlowski wrote:
->>> On 03/07/2024 11:21, Tengfei Fan wrote:
->>>>>>         - items:
->>>>>>             - enum:
->>>>>> +              - qcom,qcs9100-ride
->>>>>>                 - qcom,sa8775p-ride
->>>>>> +          - const: qcom,qcs9100
->>>>>
->>>>> This changes existing compatible for sa8775p without any explanation in
->>>>> commit msg.
->>>>>
->>>>> Best regards,
->>>>> Krzysztof
->>>>>
->>>>
->>>> In the next verion patch series, I will provide relevant explanatory 
->>>> information in this patch commit message.
->>>
->>> TBH, I cannot think of any reasonable explanation for this, especially
->>> considering rest of the patchset which does not fix resulting dtbs_check
->>> warning.
->>
->> The existing compatible "sa8775p" warning can only be addressed When
->> @Nikunj's "sa8775p" changes merged.
->>
->> Let me know if you have other suggestions for this.
+On 7/9/2024 10:40 PM, Andrew Halaney wrote:
+> These patches are for netdev, so you need to follow the netdev
+> rules, i.e. the subject should be have [PATCH net-next] in it, etc as
+> documented over here:
 > 
-> I don't have, because I don't understand why do you want/need to change
-> existing board compatible.
-
-We can left the current existing sa8775p board compatible as it is. And
-have a brand new qcs9100 and qcs9100-board item for current non-scmi
-resources compatible.
-
-Will that be more reasonable from your end?
-
+>     https://docs.kernel.org/process/maintainer-netdev.html#tl-dr
 > 
-> Best regards,
-> Krzysztof
+
+Thx very much for the detailed information.
+
+> On Tue, Jul 09, 2024 at 10:13:18PM GMT, Tengfei Fan wrote:
+>> QCS9100 uses EMAC version 4, add the relevant defines, rename the
+>> has_emac3 switch to has_emac_ge_3 (has emac greater-or-equal than 3)
+>> and add the new compatible.
+> 
+> This blurb isn't capturing what's done in this change, please make it
+> reflect the patch.
+
+There is a similar comments on [1] on another patch. Similar comments
+should be taken care of next time.
+https://lore.kernel.org/linux-arm-msm/20240703025850.2172008-30-quic_tengfan@quicinc.com/
+> 
+> Thanks,
+> Andrew
 > 
 
 -- 
