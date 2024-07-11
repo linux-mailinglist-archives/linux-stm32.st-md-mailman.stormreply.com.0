@@ -2,65 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEB592EA50
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jul 2024 16:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F4792EB03
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jul 2024 16:45:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EAF3C6DD9F;
-	Thu, 11 Jul 2024 14:10:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51410C6DD9D;
+	Thu, 11 Jul 2024 14:45:31 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D97D0C6DD9D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79813C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jul 2024 14:10:06 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46BB0Uqd016528;
- Thu, 11 Jul 2024 16:09:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- iLbomluoqVo15OHcbhEImrIzxINGFc7oFRacLoM3Ikk=; b=YPRyVZslhoqCJtOP
- X3oRUTNl8+p+fAwyh5VEWG5/mYqAw8361tttZL6/cEJK/6zjaa+bIfxWG2DxRFfg
- UAPF9kkV2aHaFyVN7k6umDPL80raEj9hZOP5nd5/jK88cM6iOfDq0b1FRm1w/Sqs
- 1FfWOUq+8qUo5AnSDuyuoWIMFKHGKe5Ob+mNpON5MCA/aD223YzOkZPdMSmvtGL7
- 9eMKkloglfx/Advgx7LGfpKFwlvM4JYQIYQ+e9BbJMjkAoGhyOHXKOKH8xRtXRiI
- jiQVC+Mrkamc3MyMQV+KOA8zbdeN13g8bF1s/UjIVDzSnjUwirvPPx2v8ne/A1ty
- 4x31Mg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 406whhx7r8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Jul 2024 16:09:41 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7B5C040047;
- Thu, 11 Jul 2024 16:09:37 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C537423D40B;
- Thu, 11 Jul 2024 16:09:00 +0200 (CEST)
-Received: from localhost (10.48.86.111) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 11 Jul
- 2024 16:09:00 +0200
-From: Valentin Caron <valentin.caron@foss.st.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 11 Jul 2024 16:08:43 +0200
-Message-ID: <20240711140843.3201530-5-valentin.caron@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240711140843.3201530-1-valentin.caron@foss.st.com>
-References: <20240711140843.3201530-1-valentin.caron@foss.st.com>
+ Thu, 11 Jul 2024 14:45:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=X/Vu
+ s3odAr0nVoUkxLttzX7Pk94wValiSx+VwO4R69w=; b=AuPvm2HYrBBxPCRmojQD
+ 7CRnGb08OzEAMIGsRtGo1cADF0LX2II9QCJrZUl8IaFo/ZZrZu7J+SrEBWtj60Pv
+ 1FkcrDPS/qIZnwEyGkXZcTAvUt2AcDbXPu9bRoCsRQVJ3yq7hI4gN1/pRnYBoxmm
+ LrVreSCYG9WfR6AIcwartOTLwI8fldcBkiqrbY/9wh/UHI5zzHySLqznxmN0E27e
+ CL+TVhOO2A9S47NlInzK62SsP9b7IiXAGum0KbJErYmlY66z9pmjZt/lJ/IEYVUY
+ 0s8pI4FRRnO0k8J6sY5OSdOg4ouZH//OI4WOka5wh84Dzu3nFqTCzDfn3u4TXjEA
+ qA==
+Received: (qmail 877093 invoked from network); 11 Jul 2024 16:45:16 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 11 Jul 2024 16:45:16 +0200
+X-UD-Smtp-Session: l3s3148p1@33mez/kc+ORehhtW
+Date: Thu, 11 Jul 2024 16:45:15 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Message-ID: <Zo_v-xk3Hh_88sNa@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
+ Ajay Gupta <ajayg@nvidia.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Andrew Lunn <andrew@lunn.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ asahi@lists.linux.dev, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Baruch Siach <baruch@tkos.co.il>,
+ Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence98@sch.bme.hu>,
+ Benson Leung <bleung@chromium.org>,
+ Binbin Zhou <zhoubinbin@loongson.cn>, Chen-Yu Tsai <wens@csie.org>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ chrome-platform@lists.linux.dev,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Conghui Chen <conghui.chen@intel.com>,
+ Eddie James <eajames@linux.ibm.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Hans de Goede <hdegoede@redhat.com>, Hans Hu <hanshu@zhaoxin.com>,
+ Hector Martin <marcan@marcan.st>, Heiko Stuebner <heiko@sntech.de>,
+ Jean Delvare <jdelvare@suse.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jochen Friedrich <jochen@scram.de>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Michael Shych <michaelsh@nvidia.com>, openbmc@lists.ozlabs.org,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Peter Korsgaard <peter@korsgaard.com>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
+ Ray Jui <rjui@broadcom.com>, Robert Richter <rric@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Scott Branden <sbranden@broadcom.com>, Stefan Roese <sr@denx.de>,
+ Sven Peter <sven@svenpeter.dev>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thor Thayer <thor.thayer@linux.intel.com>,
+ Till Harbaum <till@harbaum.org>,
+ Vadim Pasternak <vadimp@nvidia.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ virtualization@lists.linux.dev, Vladimir Zapolskiy <vz@mleia.com>,
+ Yicong Yang <yangyicong@hisilicon.com>
+References: <20240706112116.24543-1-wsa+renesas@sang-engineering.com>
+ <nbi3fngfcipt35gzguk2mh4zzh3vy5a5gsk7dti5smm2iimytl@drm7p2iqsinp>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.111]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-11_10,2024-07-11_01,2024-05-17_01
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] rtc: stm32: add alarm A out feature
+In-Reply-To: <nbi3fngfcipt35gzguk2mh4zzh3vy5a5gsk7dti5smm2iimytl@drm7p2iqsinp>
+Cc: Andrew Lunn <andrew@lunn.ch>, Baruch Siach <baruch@tkos.co.il>,
+ Heiko Stuebner <heiko@sntech.de>, Ajay Gupta <ajayg@nvidia.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Eddie James <eajames@linux.ibm.com>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-i2c@vger.kernel.org,
+ Kamal Dasu <kamal.dasu@broadcom.com>, Benson Leung <bleung@chromium.org>,
+ Stefan Roese <sr@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, Peter Korsgaard <peter@korsgaard.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>, Binbin Zhou <zhoubinbin@loongson.cn>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Sven Peter <sven@svenpeter.dev>, Jochen Friedrich <jochen@scram.de>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, Ray Jui <rjui@broadcom.com>,
+ linux-sunxi@lists.linux.dev, Guenter Roeck <linux@roeck-us.net>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Vadim Pasternak <vadimp@nvidia.com>,
+ Jean Delvare <jdelvare@suse.com>, Robert Richter <rric@kernel.org>,
+ Bence =?utf-8?B?Q3PDs2vDoXM=?= <bence98@sch.bme.hu>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>, Hans Hu <hanshu@zhaoxin.com>,
+ linux-actions@lists.infradead.org, virtualization@lists.linux.dev,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Hans de Goede <hdegoede@redhat.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-tegra@vger.kernel.org, Yicong Yang <yangyicong@hisilicon.com>,
+ Conghui Chen <conghui.chen@intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Scott Branden <sbranden@broadcom.com>, openbmc@lists.ozlabs.org,
+ Thor Thayer <thor.thayer@linux.intel.com>, Hector Martin <marcan@marcan.st>,
+ linux-kernel@vger.kernel.org, Michael Shych <michaelsh@nvidia.com>,
+ linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Till Harbaum <till@harbaum.org>
+Subject: Re: [Linux-stm32] [PATCH v2 00/60] i2c: reword first drivers
+ according to newest specification
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,159 +151,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8156087705935348088=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 RTC can pulse some SOC pins when an RTC alarm expires.
-This patch adds this functionality for alarm A. The pulse can out on three
-pins RTC_OUT1, RTC_OUT2, RTC_OUT2_RMP (PC13, PB2, PI8 on stm32mp15)
-(PC13, PB2, PI1 on stm32mp13) (PC13, PF4/PF6, PI8 on stm32mp25).
 
-This patch only adds the functionality for devices which are using
-st,stm32mp1-rtc and st,stm32mp25-rtc compatible.
+--===============8156087705935348088==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Vk6JWgUmE7mz+Biu"
+Content-Disposition: inline
 
-Add "alarm-a" in pinmux functions.
 
-Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
----
- drivers/rtc/rtc-stm32.c | 60 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+--Vk6JWgUmE7mz+Biu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index a57d494b229c..802c1412e064 100644
---- a/drivers/rtc/rtc-stm32.c
-+++ b/drivers/rtc/rtc-stm32.c
-@@ -47,8 +47,10 @@
- #define STM32_RTC_CR_ALRAE		BIT(8)
- #define STM32_RTC_CR_ALRAIE		BIT(12)
- #define STM32_RTC_CR_OSEL		GENMASK(22, 21)
-+#define STM32_RTC_CR_OSEL_ALARM_A	FIELD_PREP(STM32_RTC_CR_OSEL, 0x01)
- #define STM32_RTC_CR_COE		BIT(23)
- #define STM32_RTC_CR_TAMPOE		BIT(26)
-+#define STM32_RTC_CR_TAMPALRM_TYPE	BIT(30)
- #define STM32_RTC_CR_OUT2EN		BIT(31)
- 
- /* STM32_RTC_ISR/STM32_RTC_ICSR bit fields */
-@@ -158,6 +160,7 @@ struct stm32_rtc_data {
- 	bool need_accuracy;
- 	bool rif_protected;
- 	bool has_lsco;
-+	bool has_alarm_out;
- };
- 
- struct stm32_rtc {
-@@ -245,6 +248,47 @@ struct stm32_rtc_pinmux_func {
- 	int (*action)(struct pinctrl_dev *pctl_dev, unsigned int pin);
- };
- 
-+static int stm32_rtc_pinmux_action_alarm(struct pinctrl_dev *pctldev, unsigned int pin)
-+{
-+	struct stm32_rtc *rtc = pinctrl_dev_get_drvdata(pctldev);
-+	struct stm32_rtc_registers regs = rtc->data->regs;
-+	unsigned int cr = readl_relaxed(rtc->base + regs.cr);
-+	unsigned int cfgr = readl_relaxed(rtc->base + regs.cfgr);
-+
-+	if (!rtc->data->has_alarm_out)
-+		return -EPERM;
-+
-+	cr &= ~STM32_RTC_CR_OSEL;
-+	cr |= STM32_RTC_CR_OSEL_ALARM_A;
-+	cr &= ~STM32_RTC_CR_TAMPOE;
-+	cr &= ~STM32_RTC_CR_COE;
-+	cr &= ~STM32_RTC_CR_TAMPALRM_TYPE;
-+
-+	switch (pin) {
-+	case OUT1:
-+		cr &= ~STM32_RTC_CR_OUT2EN;
-+		cfgr &= ~STM32_RTC_CFGR_OUT2_RMP;
-+		break;
-+	case OUT2:
-+		cr |= STM32_RTC_CR_OUT2EN;
-+		cfgr &= ~STM32_RTC_CFGR_OUT2_RMP;
-+		break;
-+	case OUT2_RMP:
-+		cr |= STM32_RTC_CR_OUT2EN;
-+		cfgr |= STM32_RTC_CFGR_OUT2_RMP;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	stm32_rtc_wpr_unlock(rtc);
-+	writel_relaxed(cr, rtc->base + regs.cr);
-+	writel_relaxed(cfgr, rtc->base + regs.cfgr);
-+	stm32_rtc_wpr_lock(rtc);
-+
-+	return 0;
-+}
-+
- static int stm32_rtc_pinmux_lsco_available(struct pinctrl_dev *pctldev, unsigned int pin)
- {
- 	struct stm32_rtc *rtc = pinctrl_dev_get_drvdata(pctldev);
-@@ -307,6 +351,7 @@ static int stm32_rtc_pinmux_action_lsco(struct pinctrl_dev *pctldev, unsigned in
- 
- static const struct stm32_rtc_pinmux_func stm32_rtc_pinmux_functions[] = {
- 	STM32_RTC_PINMUX("lsco", &stm32_rtc_pinmux_action_lsco, "out1", "out2_rmp"),
-+	STM32_RTC_PINMUX("alarm-a", &stm32_rtc_pinmux_action_alarm, "out1", "out2", "out2_rmp"),
- };
- 
- static int stm32_rtc_pinmux_get_functions_count(struct pinctrl_dev *pctldev)
-@@ -763,6 +808,7 @@ static const struct stm32_rtc_data stm32_rtc_data = {
- 	.need_accuracy = false,
- 	.rif_protected = false,
- 	.has_lsco = false,
-+	.has_alarm_out = false,
- 	.regs = {
- 		.tr = 0x00,
- 		.dr = 0x04,
-@@ -788,6 +834,7 @@ static const struct stm32_rtc_data stm32h7_rtc_data = {
- 	.need_accuracy = false,
- 	.rif_protected = false,
- 	.has_lsco = false,
-+	.has_alarm_out = false,
- 	.regs = {
- 		.tr = 0x00,
- 		.dr = 0x04,
-@@ -822,6 +869,7 @@ static const struct stm32_rtc_data stm32mp1_data = {
- 	.need_accuracy = true,
- 	.rif_protected = false,
- 	.has_lsco = true,
-+	.has_alarm_out = true,
- 	.regs = {
- 		.tr = 0x00,
- 		.dr = 0x04,
-@@ -847,6 +895,7 @@ static const struct stm32_rtc_data stm32mp25_data = {
- 	.need_accuracy = true,
- 	.rif_protected = true,
- 	.has_lsco = true,
-+	.has_alarm_out = true,
- 	.regs = {
- 		.tr = 0x00,
- 		.dr = 0x04,
-@@ -878,6 +927,17 @@ MODULE_DEVICE_TABLE(of, stm32_rtc_of_match);
- static void stm32_rtc_clean_outs(struct stm32_rtc *rtc)
- {
- 	struct stm32_rtc_registers regs = rtc->data->regs;
-+	unsigned int cr = readl_relaxed(rtc->base + regs.cr);
-+
-+	cr &= ~STM32_RTC_CR_OSEL;
-+	cr &= ~STM32_RTC_CR_TAMPOE;
-+	cr &= ~STM32_RTC_CR_COE;
-+	cr &= ~STM32_RTC_CR_TAMPALRM_TYPE;
-+	cr &= ~STM32_RTC_CR_OUT2EN;
-+
-+	stm32_rtc_wpr_unlock(rtc);
-+	writel_relaxed(cr, rtc->base + regs.cr);
-+	stm32_rtc_wpr_lock(rtc);
- 
- 	if (regs.cfgr != UNDEF_REG) {
- 		unsigned int cfgr = readl_relaxed(rtc->base + regs.cfgr);
--- 
-2.25.1
+
+> Thanks for this big work, at the end it turned out quite nice and
+> I'm happy of the outcome!
+
+Me too. And thanks for the enormous review work!
+
+
+--Vk6JWgUmE7mz+Biu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmaP7/sACgkQFA3kzBSg
+Kbbq3A/9FNY+7cgd8CU9HNabmoXmMSCsOVflmaDNapeEn/iIYZUiBBFhDcYnJczI
+T429i2bK95+lup88Nhn9fzXQ4hoPFa2TuPkQ5n3M7A9hjFnAOxLmTd91uO98BfVm
+8IYBr6EIu/AfX/+D6Rj1Ro1VpSwK4laze5p9WGyNjp6QIzJ+KqmRh+vf9Shg1urk
+9gNjTClxMD1OjQ60X0Vr4XmDONnsK8guT/Zkkk1gtDRDC8P92Jw17/3vtuBQnwP6
+S1NAFaqvdLbLKuRBsK7KwJ6oJ4sH5jq2LCiJk87GHsXnQBerXSR3AFORTQWjvEBF
+6qz8rHh0/GrQklzbs/VgVlqV3NygU4D2T18NZMyLxaJAGPmDPGeL5YvcweblR0TL
+yMMuXmSq7ACO+aTJgqIqt2Wx1PS4cbvSmaHUnG52eGrX28o1PgjIW5y0xGu9G5FU
+Funcvt0JlI2HtC1FI2FGDsCW77U3mh3U5N5NEo7y24XPebmTVhGifj2kWp/WkA3F
+UPgJdkXF0gUzDxQj3Febmvmeh3m58s+Io+3LWBncCK2eRgL4YyEaKpEegQfA43Rl
+PJGODikSLI1gh/8qN/WE44DGio65TYItOJrPX3b8VwOQLCgKgwz0y+a37vy2Jd7W
+X/LXLwb8txlca1gF88Bg07eWwR/jwNoHp4c/k2C80iwHtJ12Kcg=
+=ribe
+-----END PGP SIGNATURE-----
+
+--Vk6JWgUmE7mz+Biu--
+
+--===============8156087705935348088==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8156087705935348088==--
