@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCF093F9F1
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F3893F9F3
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F3ECC78025;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B052BC78027;
 	Mon, 29 Jul 2024 15:58:22 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36CA1C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACBE4C7129D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jul 2024 10:22:33 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-367a9ab4d81so1073089f8f.1
+ Fri, 12 Jul 2024 10:22:37 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-367a3d1a378so1529674f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jul 2024 03:22:33 -0700 (PDT)
+ Fri, 12 Jul 2024 03:22:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1720779753; x=1721384553;
+ d=linaro.org; s=google; t=1720779757; x=1721384557;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qAEjb2rsZzI9cp0F4WnNKSmv65r49XxBwIOcuWflPXM=;
- b=Cm2EYIEaGmRQJycAbbkLTWEsLmnfZ0J9Q8/y0nOY17T+4hCKNu+6KKaMY1/+vAlCNs
- /O3qnOUp3caaEmuRsLddjDMErQ1fboMgKx78Tw32UejGeGppZB3XCrkOIeGb59FkzDrI
- 8r++5nopNyajpx7BDXx9/WaoOMGz39S60t3BvQjkqMbSvCTwtJftiYXQKw3jVWtaBtjm
- dH2Ch1VXO1M1D6Ywnt9d+cAhhQrk7TCavSEKfIxD5QNMYkCkzqss6grRODvlnzARvYfb
- o7F2Z28Qo5bTgU41E0YDnR5HWzP+uzWF8kT4s86PLFMRyhl9n5KORIQDqwPBbLR3lBaF
- DrQA==
+ bh=Ah9k75BJOaZTXMfLc9XJp4ghTXY2y5r0z+Y/ysHuLQg=;
+ b=IHS+uh5p0HYVoFN5mvhKRMHhhgQqaevixqO4fLdfY6skda6HXm5dspIScGbAdBbjSU
+ iqGMuhToN35kwiDcm+Ch7R4tT5u5Tk8/QbS3oHwkEkMoVB4mgSvBNrvE9o/wStqFLy8b
+ qVPDRfDDIdmx3OAORPV7aAwar3O+4d1DcG8S31hiyTEpEyUh1KGtk+jn93xGr561jn9p
+ G1zVbuaU1D6Fi5LqdPyHFSQvMSSrgudv5hydgPW+fWdZBpTnnO4xuCxtrQLYbG/y/D7n
+ qq6+swBK5dPzmysJbCF1onuZFRudkAdi6EiqbBI2LCPE6xyBFvscBvPPDFwDYVEi9NiR
+ SNjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720779753; x=1721384553;
+ d=1e100.net; s=20230601; t=1720779757; x=1721384557;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qAEjb2rsZzI9cp0F4WnNKSmv65r49XxBwIOcuWflPXM=;
- b=KQOzx6jO4QTy7hZTJoCBfKyDxwXi9qSbggl48z86MbPGPxEL+dh3SQ275gjdUbPbzV
- QGaLtc7RuwQg9cmxgpw+IkuoHcuzZOFAunOCP/CXBJ26okBRRVDW3dJNw7LHGs7syUCZ
- a1nOZH/sJV3JHS0d3Gie8s932UmJJcNc5026Qbi4p9JgvgdWrOfh7clodb6iTIKa4sx6
- HpY4nO1M0yChAiRbVA+O9WLas17URAFCLdtVVIwev0nZhuLORsrvUjZSxAwmyXLxXamz
- 8GdKeO0YapGXg9LJm94U9bXQkRGaOvV7iTcLXTq+dmGMxPs+u8ihRKpmQXRXEShOuHww
- HPJQ==
+ bh=Ah9k75BJOaZTXMfLc9XJp4ghTXY2y5r0z+Y/ysHuLQg=;
+ b=nh62bQkyYDB3CCWILs2VWjicFbilMz4VJy/SBWTD5Lw++69w3wsUOYuXeQ82zfGM9Z
+ yAjyqa106qN/V84tjrfIoN4m51ZD0AnBM/f5M2jVs2SvFbykpsX0piEs6PNNngH7w4se
+ eJ3y1+ArqVkQkvZhNwm4u9ECiDMWrrf5jePzaXbKwlW2ZenMa5kIUtC+jBSDetMdkaih
+ hyy1sD3B1zQw5ni8MSYDzeYlu1FakrlDkwV5zGENKoypgouUxgMZr26WC2JxzjJGb3mH
+ jF+9d19CPDxeln6kUQ/vygApexmUlRGOn3w9HsJ0ET0y0HU+ilzr0qE+8AjbxsPgqjF6
+ IkJg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX/W0c/V/vbY08CURkHwJC6ri9+pn5SNqYtIHvI3lG79gTTauNYQXNF4rxDUELtyZX47//oGu24Q9217A6o39GbqcjvqLjfhTgR4HkYNM1aiLp/GEJ7mHdq
-X-Gm-Message-State: AOJu0YwmKlOHUiJdDFJiUn0jzYzxZlg5u8KlY6zFIYJz6auEgt7u9Op2
- JzVFN6xYEuts8ug/KcgWswEGr6Y4Eong5f+UAtHIHwcDlAvNPAtjvH2H3lb7B00=
-X-Google-Smtp-Source: AGHT+IGPjnTLfBpPGirazj3MagWZ4dzGzTQ2NX7i1Hi2QXi7FbivacQqalO2G5Sx2vx8cy0+g+npzA==
-X-Received: by 2002:adf:fcce:0:b0:367:909b:8281 with SMTP id
- ffacd0b85a97d-367cead9313mr6585747f8f.59.1720779752806; 
- Fri, 12 Jul 2024 03:22:32 -0700 (PDT)
+ AJvYcCWgzuSSyoinno8jDDulKiLCf3oQK97qvyAFSY1gHGsvzLim+Rk3nNhpkJcS4EfVQiQWr82H2AO0AzChChR4CEhb8kn/r+BkRZaeSu3toSXAesMVh8H2OZLm
+X-Gm-Message-State: AOJu0YzdFjSCyOnxvJ/j+/VbuEMap+Cgd97GjNjZpm0x8Y1ictmT1Sh0
+ GijvRZ1oUuzod1s859QFxY5OSY/eidz0vqpeN4dvAXCvTvDplwrsXF6upzWqNOo=
+X-Google-Smtp-Source: AGHT+IGPEcqwdD8/75nBwHmz7V9EEZVfCM0YjiLJhzeXNzNdPm7q7nELUcwtmZAqeXOP8tC5MYlBkg==
+X-Received: by 2002:adf:ae52:0:b0:35f:3189:ddd2 with SMTP id
+ ffacd0b85a97d-367cea961bbmr8483699f8f.35.1720779757207; 
+ Fri, 12 Jul 2024 03:22:37 -0700 (PDT)
 Received: from localhost.localdomain ([89.47.253.130])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-367cde89164sm9911058f8f.63.2024.07.12.03.22.31
+ ffacd0b85a97d-367cde89164sm9911058f8f.63.2024.07.12.03.22.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jul 2024 03:22:32 -0700 (PDT)
+ Fri, 12 Jul 2024 03:22:36 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
 To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
  gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
  leo.yan@linux.dev, anshuman.khandual@arm.com
-Date: Fri, 12 Jul 2024 11:20:14 +0100
-Message-Id: <20240712102029.3697965-6-james.clark@linaro.org>
+Date: Fri, 12 Jul 2024 11:20:15 +0100
+Message-Id: <20240712102029.3697965-7-james.clark@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240712102029.3697965-1-james.clark@linaro.org>
 References: <20240712102029.3697965-1-james.clark@linaro.org>
@@ -78,8 +78,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
  Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  "Liang, Kan" <kan.liang@linux.intel.com>
-Subject: [Linux-stm32] [PATCH v5 05/17] perf: cs-etm: Only save valid trace
-	IDs into files
+Subject: [Linux-stm32] [PATCH v5 06/17] perf: cs-etm: Support version 0.1 of
+	HW_ID packets
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,30 +98,222 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: James Clark <james.clark@arm.com>
 
-This isn't a bug because Perf always masks with
-CORESIGHT_TRACE_ID_VAL_MASK before using these values, but to avoid it
-looking like it could be, make an effort to not save bad values.
+v0.1 HW_ID packets have a new field that describes which sink each CPU
+writes to. Use the sink ID to link trace ID maps to each other so that
+mappings are shared wherever the sink is shared.
+
+Also update the error message to show that overlapping IDs aren't an
+error in per-thread mode, just not supported. In the future we can
+use the CPU ID from the AUX records, or watch for changing sink IDs on
+HW_ID packets to use the correct decoders.
 
 Signed-off-by: James Clark <james.clark@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/arch/arm/util/cs-etm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/include/linux/coresight-pmu.h |  17 +++--
+ tools/perf/util/cs-etm.c            | 100 +++++++++++++++++++++++++---
+ 2 files changed, 103 insertions(+), 14 deletions(-)
 
-diff --git a/tools/perf/arch/arm/util/cs-etm.c b/tools/perf/arch/arm/util/cs-etm.c
-index b0118546cd4d..14b8afabce3a 100644
---- a/tools/perf/arch/arm/util/cs-etm.c
-+++ b/tools/perf/arch/arm/util/cs-etm.c
-@@ -643,7 +643,8 @@ static bool cs_etm_is_ete(struct perf_pmu *cs_etm_pmu, struct perf_cpu cpu)
+diff --git a/tools/include/linux/coresight-pmu.h b/tools/include/linux/coresight-pmu.h
+index 51ac441a37c3..89b0ac0014b0 100644
+--- a/tools/include/linux/coresight-pmu.h
++++ b/tools/include/linux/coresight-pmu.h
+@@ -49,12 +49,21 @@
+  * Interpretation of the PERF_RECORD_AUX_OUTPUT_HW_ID payload.
+  * Used to associate a CPU with the CoreSight Trace ID.
+  * [07:00] - Trace ID - uses 8 bits to make value easy to read in file.
+- * [59:08] - Unused (SBZ)
+- * [63:60] - Version
++ * [39:08] - Sink ID - as reported in /sys/bus/event_source/devices/cs_etm/sinks/
++ *	      Added in minor version 1.
++ * [55:40] - Unused (SBZ)
++ * [59:56] - Minor Version - previously existing fields are compatible with
++ *	      all minor versions.
++ * [63:60] - Major Version - previously existing fields mean different things
++ *	      in new major versions.
+  */
+ #define CS_AUX_HW_ID_TRACE_ID_MASK	GENMASK_ULL(7, 0)
+-#define CS_AUX_HW_ID_VERSION_MASK	GENMASK_ULL(63, 60)
++#define CS_AUX_HW_ID_SINK_ID_MASK	GENMASK_ULL(39, 8)
  
- static __u64 cs_etm_get_legacy_trace_id(struct perf_cpu cpu)
+-#define CS_AUX_HW_ID_CURR_VERSION 0
++#define CS_AUX_HW_ID_MINOR_VERSION_MASK	GENMASK_ULL(59, 56)
++#define CS_AUX_HW_ID_MAJOR_VERSION_MASK	GENMASK_ULL(63, 60)
++
++#define CS_AUX_HW_ID_MAJOR_VERSION 0
++#define CS_AUX_HW_ID_MINOR_VERSION 1
+ 
+ #endif
+diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+index 954a6f7bedf3..87e983da19be 100644
+--- a/tools/perf/util/cs-etm.c
++++ b/tools/perf/util/cs-etm.c
+@@ -118,6 +118,12 @@ struct cs_etm_queue {
+ 	struct cs_etm_traceid_queue **traceid_queues;
+ 	/* Conversion between traceID and metadata pointers */
+ 	struct intlist *traceid_list;
++	/*
++	 * Same as traceid_list, but traceid_list may be a reference to another
++	 * queue's which has a matching sink ID.
++	 */
++	struct intlist *own_traceid_list;
++	u32 sink_id;
+ };
+ 
+ static int cs_etm__process_timestamped_queues(struct cs_etm_auxtrace *etm);
+@@ -142,6 +148,7 @@ static int cs_etm__metadata_set_trace_id(u8 trace_chan_id, u64 *cpu_metadata);
+ 		      (queue_nr << 16 | trace_chan_id)
+ #define TO_QUEUE_NR(cs_queue_nr) (cs_queue_nr >> 16)
+ #define TO_TRACE_CHAN_ID(cs_queue_nr) (cs_queue_nr & 0x0000ffff)
++#define SINK_UNSET ((u32) -1)
+ 
+ static u32 cs_etm__get_v7_protocol_version(u32 etmidr)
  {
--	return CORESIGHT_LEGACY_CPU_TRACE_ID(cpu.cpu);
-+	/* Wrap at 48 so that invalid trace IDs aren't saved into files. */
-+	return CORESIGHT_LEGACY_CPU_TRACE_ID(cpu.cpu % 48);
+@@ -241,7 +248,16 @@ static int cs_etm__insert_trace_id_node(struct cs_etm_queue *etmq,
+ 		int err;
+ 
+ 		if (curr_cpu_data[CS_ETM_CPU] != cpu_metadata[CS_ETM_CPU]) {
+-			pr_err("CS_ETM: map mismatch between HW_ID packet CPU and Trace ID\n");
++			/*
++			 * With > CORESIGHT_TRACE_IDS_MAX ETMs, overlapping IDs
++			 * are expected (but not supported) in per-thread mode,
++			 * rather than signifying an error.
++			 */
++			if (etmq->etm->per_thread_decoding)
++				pr_err("CS_ETM: overlapping Trace IDs aren't currently supported in per-thread mode\n");
++			else
++				pr_err("CS_ETM: map mismatch between HW_ID packet CPU and Trace ID\n");
++
+ 			return -EINVAL;
+ 		}
+ 
+@@ -326,6 +342,64 @@ static int cs_etm__process_trace_id_v0(struct cs_etm_auxtrace *etm, int cpu,
+ 	return cs_etm__metadata_set_trace_id(trace_chan_id, cpu_data);
  }
  
- static void cs_etm_save_etmv4_header(__u64 data[], struct auxtrace_record *itr, struct perf_cpu cpu)
++static int cs_etm__process_trace_id_v0_1(struct cs_etm_auxtrace *etm, int cpu,
++					 u64 hw_id)
++{
++	struct cs_etm_queue *etmq = cs_etm__get_queue(etm, cpu);
++	int ret;
++	u64 *cpu_data;
++	u32 sink_id = FIELD_GET(CS_AUX_HW_ID_SINK_ID_MASK, hw_id);
++	u8 trace_id = FIELD_GET(CS_AUX_HW_ID_TRACE_ID_MASK, hw_id);
++
++	/*
++	 * Check sink id hasn't changed in per-cpu mode. In per-thread mode,
++	 * let it pass for now until an actual overlapping trace ID is hit. In
++	 * most cases IDs won't overlap even if the sink changes.
++	 */
++	if (!etmq->etm->per_thread_decoding && etmq->sink_id != SINK_UNSET &&
++	    etmq->sink_id != sink_id) {
++		pr_err("CS_ETM: mismatch between sink IDs\n");
++		return -EINVAL;
++	}
++
++	etmq->sink_id = sink_id;
++
++	/* Find which other queues use this sink and link their ID maps */
++	for (unsigned int i = 0; i < etm->queues.nr_queues; ++i) {
++		struct cs_etm_queue *other_etmq = etm->queues.queue_array[i].priv;
++
++		/* Different sinks, skip */
++		if (other_etmq->sink_id != etmq->sink_id)
++			continue;
++
++		/* Already linked, skip */
++		if (other_etmq->traceid_list == etmq->traceid_list)
++			continue;
++
++		/* At the point of first linking, this one should be empty */
++		if (!intlist__empty(etmq->traceid_list)) {
++			pr_err("CS_ETM: Can't link populated trace ID lists\n");
++			return -EINVAL;
++		}
++
++		etmq->own_traceid_list = NULL;
++		intlist__delete(etmq->traceid_list);
++		etmq->traceid_list = other_etmq->traceid_list;
++		break;
++	}
++
++	cpu_data = get_cpu_data(etm, cpu);
++	ret = cs_etm__insert_trace_id_node(etmq, trace_id, cpu_data);
++	if (ret)
++		return ret;
++
++	ret = cs_etm__metadata_set_trace_id(trace_id, cpu_data);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
+ static int cs_etm__metadata_get_trace_id(u8 *trace_chan_id, u64 *cpu_metadata)
+ {
+ 	u64 cs_etm_magic = cpu_metadata[CS_ETM_MAGIC];
+@@ -414,10 +488,10 @@ static int cs_etm__process_aux_output_hw_id(struct perf_session *session,
+ 
+ 	/* extract and parse the HW ID */
+ 	hw_id = event->aux_output_hw_id.hw_id;
+-	version = FIELD_GET(CS_AUX_HW_ID_VERSION_MASK, hw_id);
++	version = FIELD_GET(CS_AUX_HW_ID_MAJOR_VERSION_MASK, hw_id);
+ 
+ 	/* check that we can handle this version */
+-	if (version > CS_AUX_HW_ID_CURR_VERSION) {
++	if (version > CS_AUX_HW_ID_MAJOR_VERSION) {
+ 		pr_err("CS ETM Trace: PERF_RECORD_AUX_OUTPUT_HW_ID version %d not supported. Please update Perf.\n",
+ 		       version);
+ 		return -EINVAL;
+@@ -442,7 +516,10 @@ static int cs_etm__process_aux_output_hw_id(struct perf_session *session,
+ 		return -EINVAL;
+ 	}
+ 
+-	return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
++	if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 0)
++		return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
++	else
++		return cs_etm__process_trace_id_v0_1(etm, cpu, hw_id);
+ }
+ 
+ void cs_etm__etmq_set_traceid_queue_timestamp(struct cs_etm_queue *etmq,
+@@ -882,12 +959,14 @@ static void cs_etm__free_queue(void *priv)
+ 	cs_etm_decoder__free(etmq->decoder);
+ 	cs_etm__free_traceid_queues(etmq);
+ 
+-	/* First remove all traceID/metadata nodes for the RB tree */
+-	intlist__for_each_entry_safe(inode, tmp, etmq->traceid_list)
+-		intlist__remove(etmq->traceid_list, inode);
++	if (etmq->own_traceid_list) {
++		/* First remove all traceID/metadata nodes for the RB tree */
++		intlist__for_each_entry_safe(inode, tmp, etmq->own_traceid_list)
++			intlist__remove(etmq->own_traceid_list, inode);
+ 
+-	/* Then the RB tree itself */
+-	intlist__delete(etmq->traceid_list);
++		/* Then the RB tree itself */
++		intlist__delete(etmq->own_traceid_list);
++	}
+ 
+ 	free(etmq);
+ }
+@@ -1081,7 +1160,7 @@ static struct cs_etm_queue *cs_etm__alloc_queue(void)
+ 	 * has to be made for each packet that gets decoded, optimizing access
+ 	 * in anything other than a sequential array is worth doing.
+ 	 */
+-	etmq->traceid_list = intlist__new(NULL);
++	etmq->traceid_list = etmq->own_traceid_list = intlist__new(NULL);
+ 	if (!etmq->traceid_list)
+ 		goto out_free;
+ 
+@@ -1113,6 +1192,7 @@ static int cs_etm__setup_queue(struct cs_etm_auxtrace *etm,
+ 	etmq->queue_nr = queue_nr;
+ 	queue->cpu = queue_nr; /* Placeholder, may be reset to -1 in per-thread mode */
+ 	etmq->offset = 0;
++	etmq->sink_id = SINK_UNSET;
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
