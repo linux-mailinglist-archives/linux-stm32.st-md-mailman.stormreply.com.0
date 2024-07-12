@@ -2,89 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C28A493F9EC
+	by mail.lfdr.de (Postfix) with ESMTPS id E091093F9ED
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 493C0C78015;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 620F0C7801D;
 	Mon, 29 Jul 2024 15:58:22 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF76DC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A443C6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jul 2024 03:02:57 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46A29Wdn005080;
- Wed, 10 Jul 2024 03:02:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lfXAEh/ioXo7cDT+0Js7N54BBYq5FrYayoZsXDhm3hQ=; b=haN4Tup5m8F5xiGd
- PQF/RmC5btZ0pbuMA+kY1zmYjBfKRhX3tMavkKZdbCIYYZ5Ngasj7yr80PuQww2V
- dW4ILKz0rqfp3x0c+QkyftbWEaM/+mZVLW5HLJ0nr+9dsN4zgRFooTnnSz5Rcbkw
- 4AyOwKlwzu6oM3D9Ujr2FViVMmW0oZLSEVvUtm+bXkQeTjvDFMDBT/qnLf/sSIRx
- 8+xYQgaAQ3B90JJ2bzYfJ82frXgGlOXBZeX4RqBCWMGIXyqkzBpPuOT77M2uEDTC
- 9ZsFUlMK2gGqRpZ7ICtnE1Fdx1HPYl34KvXjvxil/Rzmzd9S1gLrRnsCFbMcKT6j
- 0k5Y3w==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 408w0rax9r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jul 2024 03:02:38 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 46A32bYP024099
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jul 2024 03:02:37 GMT
-Received: from [10.239.132.150] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
- 20:02:29 -0700
-Message-ID: <5884288e-48ad-476c-b325-bce51c06720f@quicinc.com>
-Date: Wed, 10 Jul 2024 11:02:26 +0800
+ Fri, 12 Jul 2024 10:22:11 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-367aa05bf9dso1057174f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 12 Jul 2024 03:22:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1720779730; x=1721384530;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ALilg+KON+JtrbVeCssAiCzq42HUqO9B/Chs+vLrqzs=;
+ b=ZZEAfKYey/deVDOj99w7wS1hbM5eG4zgNylYIgK1VpA66ExyZjVEWt062+DtIIVbHX
+ b9NrIEl8YyCz+AEU8hsyoFHn/QJBG6SFiY34CtQm7KHlkm94bxmXgMrSy+T/IdojSRAT
+ ighRWahTCUy3CCUoRqKUiRhc6NwR5NsK2vN0oG/cckI180B6U8he7P9Kne2vk5zN0TyW
+ nIcAvZhPd5v+60GsIq0i0uRA6ZGsAoP+idafQV5wkSE6nTQsTBNEVt9Vup9mkrTHl8MM
+ W+c3jA2ZGew2OJxP7e6/G3oPV9AD+dhZiR7v2yTv2lrTB1CA5obNQhbEOsOsLk+Rl96C
+ QJRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720779730; x=1721384530;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ALilg+KON+JtrbVeCssAiCzq42HUqO9B/Chs+vLrqzs=;
+ b=ahQKxebhlOvFiMO0d/4ewNPFFV7zsWOUjLBupRBUp5Fk3IbXJcp62n9IjJlc5FuL4x
+ n0qqIzWv2l2GrIwgPfvhx4pHIPHDqjx4JLRpGvm8IwRal+W6RGr0N38x/gieVzb0L2no
+ nMSAfGFvoRgSrbf87h1I1Ef+HgGKNApNmsvDLnV9JUduHdMzgQ+qgc2lLFq8CKeeQx7a
+ ePAP7wZFdFXJLoQfDwjPWmSY9UoQ+pM6PeY3Tcuh7ldvFHzFzT8nnt+Pf5VOTnFZr8h6
+ CTNvzMl8wSypY581nWfaYsMeDDsp7cgzBDBzOiTyUgfDYN9vpN4jgvGntIvpkS01C6JI
+ tJhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWGve3ZGV5ju6uf0kiwgGtajES4pqyqEPfpjw95E2g15NiwwWRmS8yF1ysRG/LSCedJ8OW4ch/IW4c+4WScU9T+qyb6gFyrvRElsKpoRoHxzORJkb6wJcQa
+X-Gm-Message-State: AOJu0Yz8EYKDk0kXTXxtARGvpHxI4bSqnQ8JSBSt45sGuiEeJcBULk/4
+ 79Sl40aUmQUZF6b6QmQEjJa8qFW19wEqyPK+TpnI2dTwmbq6ImY+l4t/9zrnvOQ=
+X-Google-Smtp-Source: AGHT+IHhnXF9CHwuRRW1Jpiy/j9GF8b8bDF/GunMNf0JkzJp9Qyr/tb7ZpPS7I6atPeMGO6ojTcBXQ==
+X-Received: by 2002:a05:6000:4024:b0:365:8547:90b1 with SMTP id
+ ffacd0b85a97d-367cea9629emr8446910f8f.39.1720779730434; 
+ Fri, 12 Jul 2024 03:22:10 -0700 (PDT)
+Received: from localhost.localdomain ([89.47.253.130])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-367cde89164sm9911058f8f.63.2024.07.12.03.22.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jul 2024 03:22:10 -0700 (PDT)
+From: James Clark <james.clark@linaro.org>
+To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
+ gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
+ leo.yan@linux.dev, anshuman.khandual@arm.com
+Date: Fri, 12 Jul 2024 11:20:09 +0100
+Message-Id: <20240712102029.3697965-1-james.clark@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>, Andrew Halaney <ahalaney@redhat.com>
-References: <20240709-add_qcs9100_ethqos_compatible-v2-0-ba22d1a970ff@quicinc.com>
- <20240709-add_qcs9100_ethqos_compatible-v2-2-ba22d1a970ff@quicinc.com>
- <g7htltug74hz2iyosyn3rbo6wk3zu54ojooshjfkblcivvihv2@vj5vm2nbcw7x>
- <2427a6fe-834c-432c-8e5a-4981354645d2@lunn.ch>
-From: "Aiqun Yu (Maria)" <quic_aiquny@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <2427a6fe-834c-432c-8e5a-4981354645d2@lunn.ch>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: enofHbuVspE7v8owRZl-e3-8SXzlhaFk
-X-Proofpoint-GUID: enofHbuVspE7v8owRZl-e3-8SXzlhaFk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-09_12,2024-07-09_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 adultscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 mlxlogscore=999
- phishscore=0 spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2406140001 definitions=main-2407100022
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
-Cc: Rob Herring <robh@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Tengfei Fan <quic_tengfan@quicinc.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: dwmac-qcom-ethqos:
- add support for emac4 on qcs9100 platforms
+Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, James Clark <james.clark@linaro.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ James Clark <james.clark@arm.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ "Liang, Kan" <kan.liang@linux.intel.com>
+Subject: [Linux-stm32] [PATCH v5 00/17] coresight: Use per-sink trace ID
+	maps for Perf sessions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,43 +93,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This will allow sessions with more than CORESIGHT_TRACE_IDS_MAX ETMs
+as long as there are fewer than that many ETMs connected to each sink.
+
+Each sink owns its own trace ID map, and any Perf session connecting to
+that sink will allocate from it, even if the sink is currently in use by
+other users. This is similar to the existing behavior where the dynamic
+trace IDs are constant as long as there is any concurrent Perf session
+active. It's not completely optimal because slightly more IDs will be
+used than necessary, but the optimal solution involves tracking the PIDs
+of each session and allocating ID maps based on the session owner. This
+is difficult to do with the combination of per-thread and per-cpu modes
+and some scheduling issues. The complexity of this isn't likely to worth
+it because even with multiple users they'd just see a difference in the
+ordering of ID allocations rather than hitting any limits (unless the
+hardware does have too many ETMs connected to one sink).
+
+Per-thread mode works but only until there are any overlapping IDs, at
+which point Perf will error out. Both per-thread mode and sysfs mode are
+left to future changes, but both can be added on top of this initial
+implementation and only sysfs mode requires further driver changes.
+
+The HW_ID version field hasn't been bumped in order to not break Perf
+which already has an error condition for other values of that field.
+Instead a new minor version has been added which signifies that there
+are new fields but the old fields are backwards compatible.
+
+Changes since v4:
+
+  * Fix compilation failure when TRACE_ID_DEBUG is set
+  * Expand comment about not freeing individual trace IDs in
+    free_event_data()
+
+Changes since v3:
+
+  * Fix issue where trace IDs were overwritten by possibly invalid ones
+    by Perf in unformatted mode. Now the HW_IDs are also used for
+    unformatted mode unless the kernel didn't emit any.
+  * Add a commit to check the OpenCSD version.
+  * Add a commit to not save invalid IDs in the Perf header.
+  * Replace cs_etm_queue's formatted and formatted_set members with a
+    single enum which is easier to use.
+  * Drop CORESIGHT_TRACE_ID_UNUSED_FLAG as it's no longer needed.
+  * Add a commit to print the queue number in the raw dump.
+  * Don't assert on the number of unformatted decoders if decoders == 0.
 
 
-On 7/9/2024 11:33 PM, Andrew Lunn wrote:
-> On Tue, Jul 09, 2024 at 09:40:55AM -0500, Andrew Halaney wrote:
->> These patches are for netdev, so you need to follow the netdev
->> rules, i.e. the subject should be have [PATCH net-next] in it, etc as
->> documented over here:
->>
->>     https://docs.kernel.org/process/maintainer-netdev.html#tl-dr
->>
->> On Tue, Jul 09, 2024 at 10:13:18PM GMT, Tengfei Fan wrote:
->>> QCS9100 uses EMAC version 4, add the relevant defines, rename the
->>> has_emac3 switch to has_emac_ge_3 (has emac greater-or-equal than 3)
->>> and add the new compatible.
->>
->> This blurb isn't capturing what's done in this change, please make it
->> reflect the patch.
-> 
-> Hi Tengfei
-> 
-> If i remember correctly, there was a similar comment made to one of
-> the patches in the huge v1 series.
-> 
-> The commit messages are very important, just as important as the code
-> itself. Please review them all and fixup issues like this before you
-> repost.
+Changes since v2:
 
-Thx Andrew L for the info.
-> 
->     Andrew
-> 
-> ---
-> pw-bot: cr
+  * Rebase on coresight-next 6.10-rc2 (b9b25c8496).
+  * Fix double free of csdev if device registration fails.
+  * Fix leak of coresight_trace_id_perf_start() if trace ID allocation
+    fails.
+  * Don't resend HW_ID for sink changes in per-thread mode. The existing
+    CPU field on AUX records can be used to track this instead.
+  * Tidy function doc for coresight_trace_id_release_all()
+  * Drop first two commits now that they are in coresight-next
+  * Add a commit to make the trace ID spinlock local to the map
+
+Changes since V1:
+
+ * Rename coresight_device.perf_id_map to perf_sink_id_map.
+ * Instead of outputting a HW_ID for each reachable ETM, output
+   the sink ID and continue to output only the HW_ID once for
+   each mapping.
+ * Keep the first two Perf patches so that it applies cleanly
+   on coresight-next, although they have been applied on perf-tools-next
+ * Add new *_map() functions to the trace ID public API instead of
+   modifying existing ones.
+ * Collapse "coresight: Pass trace ID map into source enable" into
+   "coresight: Use per-sink trace ID maps for Perf sessions" because the
+   first commit relied on the default map being accessible which is no
+   longer necessary due to the previous bullet point.
+
+James Clark (17):
+  perf: cs-etm: Create decoders after both AUX and HW_ID search passes
+  perf: cs-etm: Allocate queues for all CPUs
+  perf: cs-etm: Move traceid_list to each queue
+  perf: cs-etm: Create decoders based on the trace ID mappings
+  perf: cs-etm: Only save valid trace IDs into files
+  perf: cs-etm: Support version 0.1 of HW_ID packets
+  perf: cs-etm: Print queue number in raw trace dump
+  perf: cs-etm: Add runtime version check for OpenCSD
+  coresight: Remove unused ETM Perf stubs
+  coresight: Clarify comments around the PID of the sink owner
+  coresight: Move struct coresight_trace_id_map to common header
+  coresight: Expose map arguments in trace ID API
+  coresight: Make CPU id map a property of a trace ID map
+  coresight: Use per-sink trace ID maps for Perf sessions
+  coresight: Remove pending trace ID release mechanism
+  coresight: Emit sink ID in the HW_ID packets
+  coresight: Make trace ID map spinlock local to the map
+
+ drivers/hwtracing/coresight/coresight-core.c  |  37 +-
+ drivers/hwtracing/coresight/coresight-dummy.c |   3 +-
+ .../hwtracing/coresight/coresight-etm-perf.c  |  43 +-
+ .../hwtracing/coresight/coresight-etm-perf.h  |  18 -
+ .../coresight/coresight-etm3x-core.c          |   9 +-
+ .../coresight/coresight-etm4x-core.c          |   9 +-
+ drivers/hwtracing/coresight/coresight-priv.h  |   1 +
+ drivers/hwtracing/coresight/coresight-stm.c   |   3 +-
+ drivers/hwtracing/coresight/coresight-sysfs.c |   3 +-
+ .../hwtracing/coresight/coresight-tmc-etr.c   |   5 +-
+ drivers/hwtracing/coresight/coresight-tmc.h   |   5 +-
+ drivers/hwtracing/coresight/coresight-tpdm.c  |   3 +-
+ .../hwtracing/coresight/coresight-trace-id.c  | 138 ++--
+ .../hwtracing/coresight/coresight-trace-id.h  |  70 +-
+ include/linux/coresight-pmu.h                 |  17 +-
+ include/linux/coresight.h                     |  21 +-
+ tools/build/feature/test-libopencsd.c         |   4 +-
+ tools/include/linux/coresight-pmu.h           |  17 +-
+ tools/perf/Makefile.config                    |   2 +-
+ tools/perf/arch/arm/util/cs-etm.c             |  11 +-
+ .../perf/util/cs-etm-decoder/cs-etm-decoder.c |  49 +-
+ .../perf/util/cs-etm-decoder/cs-etm-decoder.h |   3 +-
+ .../util/cs-etm-decoder/cs-etm-min-version.h  |  13 +
+ tools/perf/util/cs-etm.c                      | 625 +++++++++++-------
+ tools/perf/util/cs-etm.h                      |  12 +-
+ 25 files changed, 645 insertions(+), 476 deletions(-)
+ create mode 100644 tools/perf/util/cs-etm-decoder/cs-etm-min-version.h
 
 -- 
-Thx and BRs,
-Aiqun(Maria) Yu
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
