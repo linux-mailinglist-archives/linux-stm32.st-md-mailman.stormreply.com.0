@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E546930235
-	for <lists+linux-stm32@lfdr.de>; Sat, 13 Jul 2024 00:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CFC293030C
+	for <lists+linux-stm32@lfdr.de>; Sat, 13 Jul 2024 03:39:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B95E2C6DD9D;
-	Fri, 12 Jul 2024 22:46:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7F93C6DD6B;
+	Sat, 13 Jul 2024 01:39:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0085C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E07ABC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jul 2024 22:45:56 +0000 (UTC)
+ Sat, 13 Jul 2024 01:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1720824363; x=1752360363;
+ t=1720834748; x=1752370748;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=0Qv0tnuJtuXSWEWqZay3RBPKpl8dK30QovUrNJ0WvZs=;
- b=BZzvSCAAMcszaN8SsE54Rokn6WTC1+OrRX0bLBGmQjR4zf+MVr4jick9
- 4AFiptjYYlmHfRpnm2BuRhY/K4l+t6ZR6YDeTIF7qAhzLJF3uOugf3A2D
- wDMa6yYme/FAx40i4btq/28zxNRT8SKCenG6nxmx5ofF/xPG5qCG/2fQK
- 3hnecYCXzHw3vk4ICObEROYLt8Hz0Db4zTUiKuz46s9vtMAFcLeDOrms+
- uHIsCqO2riGV80W1arxpAbfzr8xCeKOjC26ET1TurMvjXef/zskMtN4sR
- Lyj7bhxx8lLvtv+FITMppMHPOru/v2bos1TooEAAJNzBnA1N6aNrval0U w==;
-X-CSE-ConnectionGUID: NIQAQknZQxe0Dibd/xo/GQ==
-X-CSE-MsgGUID: 34OorxS9Tbm8kqVurv4Vxg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11131"; a="22152408"
-X-IronPort-AV: E=Sophos;i="6.09,204,1716274800"; d="scan'208";a="22152408"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2024 15:45:55 -0700
-X-CSE-ConnectionGUID: B8eCIzbxR0uO3P7A3qK0sQ==
-X-CSE-MsgGUID: Yc3RkAqHQUi71V6hAhxzhw==
+ bh=WFoMEnzTETrjQMD90rMoI4syPE64SpiNnX2O5Zarsdo=;
+ b=NHPDs0/Pum3wRU54dDaLSGITVC5H1GUWa0bAzxwL1KFGiq+oJ5CWW3CF
+ PmsdSuERkc2oP0pqTy09EUPKZCxVWkQKVWSZSUGozZ4RvZqnWFHMa+Exj
+ mfxfgU6jI9SxEOyj94WB1kaWFjPzB18yoLIkzY3eQu/Im4zr4jfhkwQ0S
+ yECRSmLuljazRCDgyp17E6hqNazvkkssMTFYtf25QfbQGbgpmB+wDQ+ju
+ j/RGySjb281uLFkvA7O3appcKVbslkExqxvRxj0Cs50avJQHnyut+s/l5
+ 1zAcRvZ0iT0Y2nnhGtI9l9HcxXko3Ei4wDp6uuOJuBLYqG382NoGoc+ar g==;
+X-CSE-ConnectionGUID: BPXn05nmTYqOyO0Pk20mJQ==
+X-CSE-MsgGUID: fCqQHOP0TXS0JoeTrZAtcg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11131"; a="18138900"
+X-IronPort-AV: E=Sophos;i="6.09,204,1716274800"; d="scan'208";a="18138900"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2024 18:39:00 -0700
+X-CSE-ConnectionGUID: QXUKavKzR9iBG3VWeemIKQ==
+X-CSE-MsgGUID: SgItW86wTn6IMnsyYgT4IA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,204,1716274800"; d="scan'208";a="53875232"
+X-IronPort-AV: E=Sophos;i="6.09,204,1716274800"; d="scan'208";a="49072484"
 Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 12 Jul 2024 15:45:51 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 12 Jul 2024 18:38:57 -0700
 Received: from kbuild by 68891e0c336b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sSP1Q-000bOc-37;
- Fri, 12 Jul 2024 22:45:48 +0000
-Date: Sat, 13 Jul 2024 06:44:57 +0800
+ (envelope-from <lkp@intel.com>) id 1sSRix-000bX4-0N;
+ Sat, 13 Jul 2024 01:38:55 +0000
+Date: Sat, 13 Jul 2024 09:38:39 +0800
 From: kernel test robot <lkp@intel.com>
 To: Valentin Caron <valentin.caron@foss.st.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <202407130612.OEicZbNE-lkp@intel.com>
+Message-ID: <202407130943.ie6n2Orh-lkp@intel.com>
 References: <20240711140843.3201530-3-valentin.caron@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20240711140843.3201530-3-valentin.caron@foss.st.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 2/4] rtc: stm32: add pinctrl and pinmux
@@ -76,10 +76,10 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Valentin,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on abelloni/rtc-next]
-[also build test WARNING on atorgue-stm32/stm32-next robh/for-next linus/master v6.10-rc7 next-20240712]
+[auto build test ERROR on abelloni/rtc-next]
+[also build test ERROR on atorgue-stm32/stm32-next robh/for-next linus/master v6.10-rc7 next-20240712]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -88,27 +88,24 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Valentin-Caron/dt-binding
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git rtc-next
 patch link:    https://lore.kernel.org/r/20240711140843.3201530-3-valentin.caron%40foss.st.com
 patch subject: [PATCH 2/4] rtc: stm32: add pinctrl and pinmux interfaces
-config: hexagon-randconfig-r132-20240712 (https://download.01.org/0day-ci/archive/20240713/202407130612.OEicZbNE-lkp@intel.com/config)
-compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project a0c6b8aef853eedaa0980f07c0a502a5a8a9740e)
-reproduce: (https://download.01.org/0day-ci/archive/20240713/202407130612.OEicZbNE-lkp@intel.com/reproduce)
+config: i386-buildonly-randconfig-002-20240713 (https://download.01.org/0day-ci/archive/20240713/202407130943.ie6n2Orh-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240713/202407130943.ie6n2Orh-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202407130612.OEicZbNE-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202407130943.ie6n2Orh-lkp@intel.com/
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/rtc/rtc-stm32.c:192:31: sparse: sparse: symbol 'stm32_rtc_pinctrl_pins' was not declared. Should it be static?
+All errors (new ones prefixed by >>):
 
-vim +/stm32_rtc_pinctrl_pins +192 drivers/rtc/rtc-stm32.c
-
-   191	
- > 192	const struct pinctrl_pin_desc stm32_rtc_pinctrl_pins[] = {
-   193		PINCTRL_PIN(OUT1, "out1"),
-   194		PINCTRL_PIN(OUT2, "out2"),
-   195		PINCTRL_PIN(OUT2_RMP, "out2_rmp"),
-   196	};
-   197	
+>> ld.lld: error: undefined symbol: devm_pinctrl_register_and_init
+   >>> referenced by rtc-stm32.c
+   >>>               drivers/rtc/rtc-stm32.o:(stm32_rtc_probe) in archive vmlinux.a
+--
+>> ld.lld: error: undefined symbol: pinctrl_enable
+   >>> referenced by rtc-stm32.c
+   >>>               drivers/rtc/rtc-stm32.o:(stm32_rtc_probe) in archive vmlinux.a
 
 -- 
 0-DAY CI Kernel Test Service
