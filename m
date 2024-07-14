@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0D049309C4
+	by mail.lfdr.de (Postfix) with ESMTPS id D4AC29309C3
 	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2024 13:43:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CC8CC6DD96;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 743BCC6C83D;
 	Sun, 14 Jul 2024 11:43:20 +0000 (UTC)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 026B1C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0055BC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun, 14 Jul 2024 11:43:15 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-52ea7d2a039so3546174e87.3
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-42660b8dd27so22679145e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun, 14 Jul 2024 04:43:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720957394; x=1721562194;
+ d=gmail.com; s=20230601; t=1720957395; x=1721562195;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=wOp5UqGNK/+aHc+mtLWt/FVtlNV3iPD/WbMrczGg2CE=;
- b=O18pYzNX5nnFQgn92EOdMCsjBeQle8zDzUKnN9maHEUbi6M2S2cQME4UT4YzTDX4LG
- 56MIfxykSTjnhbNNeVn/KbGi+eR5u2+0m2w6g+k4nJJLrz1e4dISJmAGwgLBlLmk3Idi
- IT6wn0BtYeyaJgKUHUuKjRSVG+X625tn07uvHqZ9S8YQCnRunoeeIrJHtcggUjrPVOqB
- ED+d5IzJWaLqLOd3NqpC4fudDv5r/n7+2qwXaxIcK6GkRcnQHL1LH2f+3klFphTIWFeM
- rAG25kR/s9pbsNQijQ5/cbGfrMFKaU1qymNTU84gjfj04+7kOukC414mOhJN5UnGFvpZ
- OBiQ==
+ :reply-to; bh=voezqBRIqgR1xMbzJXPZuwUUHTRBRdZ/+JwyhtZNvfc=;
+ b=DIXPwYA7BskPtWHlxWd4m0KFW7Q+VIH7eU0fDXL84kwQz/2+J5Dpc9bwLQkNCA6USN
+ end2IfIktk6kzU8fFYIbaajbPbL+duopbKMiISDIBWyP1SHOcfBzTeBed2I1DjDq5Vrm
+ iQ1yiN3iv7O8L7IxVQq6nPbQf4t2z2tfDZBh0eYVP5njD/56FEJZUXy/MJ3RJGnOaDrl
+ JLF6WG0XVIH2SasPe8mgQG6RNjzpUx/nkqhjETBx0EDcMHhlObuHpam7vMHzs3D2u8ss
+ Iask80hOdf3R1Q6QPCvvzcXMSKAxINP8+DZ9B5FkP57jaNeSjeL5GQA7pgo55oYyLEH4
+ 22TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720957394; x=1721562194;
+ d=1e100.net; s=20230601; t=1720957395; x=1721562195;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wOp5UqGNK/+aHc+mtLWt/FVtlNV3iPD/WbMrczGg2CE=;
- b=S0XoJdztGQ+lipkM474GjlfluYU3ek2x6K+1ZpBxbDsXcAcuiOaQCBs4CZRg1j8eSJ
- 8l6Yii2TM5hJuGEdFv4RQTI8c1dcizN5P25T3mlUqVNkZl4Es4053ULhsiUCjo8UVWLb
- u7Qf9rVWhVgSU3G+30FoI31IwtNXZAyi0kHKx8o4uiaCQqWGK3vlq/yX4vZ4btHDIY4G
- pLkLsvAinr0jyNRGiJgEGIP1bVXek8Ozi9MFk0/kLKrI0innNA09IREJON0EMS1Q/XEC
- XmCNUnPiWLSxZgM8bQAh2bdikC34Mtt2TxnUxIExLNejxw8YR1gUD7YEqhfQe27ohs1F
- s6Qg==
+ bh=voezqBRIqgR1xMbzJXPZuwUUHTRBRdZ/+JwyhtZNvfc=;
+ b=IikISdhDDavuxUJJZhWZ6G+KhU1w107EmliAcY73YvZbsA/Ior6WcdQRJ3P9qJ2OW7
+ aqzOhXHlqo9UBif8I39YRYEGtM0gekXmrfYONlinIIVeZt5+fcAoY7ITCBmqf3BPhrS6
+ 6fNS23IcrIK/upw7ego8SErj9vSQ7imyJg9VpmEwyrzLZ2zJzG09K7lsoBMSBORE8lcQ
+ 71AAKUaa+oa9G1n63QPB0pjwDoUpNVz9s53quAzjAoB63yGXjKFAOSlAvHOFMgAl6PL5
+ cmNYXLO2Z/1GhoX9/wImFvYpnEva+D7CS1QKjtKCVnCcjkMgPb0phrYkEWM5BZ8Myy5i
+ D85w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUy6UGghfJ6JEjWlzFqZ6LpuLs6ILytWnU/nRN4r6OIyGV/BN8iso2wPthavFZzUlj6nyRxZGZMxxgYT+8Hg8NTf8yg2et9TL79ObP6Bd4BhvPRogTOc9L
-X-Gm-Message-State: AOJu0YxtJyNETlKBFf7jz7H5zLLfpJdQbEwfOjj0EBhHxBquIum8Qz8V
- RcZuBcsUXpQfHkRXmPFo9lu4y+sKM4qK7xTDdBa9plj3EGccW49n
-X-Google-Smtp-Source: AGHT+IGzQSl96QOLEDaGbFjBPAymg5u1VSljhpz6IWeZ7P97LOYVU2MHyNNINrbBaBgAgukwbohIfw==
-X-Received: by 2002:a05:6512:39ce:b0:52e:96d7:2f3a with SMTP id
- 2adb3069b0e04-52eb99da148mr12221457e87.58.1720957393616; 
- Sun, 14 Jul 2024 04:43:13 -0700 (PDT)
+ AJvYcCWI45sSXau0gBx2cZC+Qm0PdAVd1sFEh8+/HLGH5D95yMKhtSP+MqPuBmkNaeNFx7Q6BY6f5RJgEj4/cvjapBdHswwWMBSugsb4zafEllZopYxU0PRUHb1j
+X-Gm-Message-State: AOJu0YyEB020XeuP44zakl+jgUXKgsiDQq3FBg7gls/O59g8PAqrlS9D
+ VCbYUeTt+5DRpnEoHDkg8Drhmgm/2cB/rHfhq+iFxAb2b7HaEw6d
+X-Google-Smtp-Source: AGHT+IHznxvk3jGNuxACzlPePqJZsFU4Gm7h8xaiwzJni80Kfh+rpr363DBOkzF8Q4inWF6XdCSGjw==
+X-Received: by 2002:a05:6000:1814:b0:364:d2b6:4520 with SMTP id
+ ffacd0b85a97d-367ce5df304mr10897937f8f.0.1720957394652; 
+ Sun, 14 Jul 2024 04:43:14 -0700 (PDT)
 Received: from localhost ([2001:861:3385:e20:6384:4cf:52c5:3194])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3680dab3f2esm3650922f8f.18.2024.07.14.04.43.13
+ ffacd0b85a97d-3680db0492asm3624096f8f.103.2024.07.14.04.43.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jul 2024 04:43:13 -0700 (PDT)
+ Sun, 14 Jul 2024 04:43:14 -0700 (PDT)
 From: Raphael Gallais-Pou <rgallaispou@gmail.com>
-Date: Sun, 14 Jul 2024 13:42:45 +0200
+Date: Sun, 14 Jul 2024 13:42:46 +0200
 MIME-Version: 1.0
-Message-Id: <20240714-thermal-v3-1-88f2489ef7d5@gmail.com>
+Message-Id: <20240714-thermal-v3-2-88f2489ef7d5@gmail.com>
 References: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
 In-Reply-To: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -73,8 +73,8 @@ X-Mailer: b4 0.14.0
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-pm@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 1/2] thermal: st: switch from
- CONFIG_PM_SLEEP guards to pm_sleep_ptr()
+Subject: [Linux-stm32] [PATCH v3 2/2] thermal: sti: depend on THERMAL_OF
+	subsystem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,90 +91,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Letting the compiler remove these functions when the kernel is built
-without CONFIG_PM_SLEEP support is simpler and less error prone than the
-use of #ifdef based kernel configuration guards.
+Switch to thermal_of_zone to handle thermal-zones. Replace
+thermal_zone_device_register() by devm_thermal_of_zone_register() and
+remove ops st_thermal_get_trip_type, st_thermal_get_trip_temp.
 
-Remove those guards on every ST thermal related drivers.
-
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
 Signed-off-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
 ---
- drivers/thermal/st/st_thermal.c        | 4 +---
- drivers/thermal/st/st_thermal_memmap.c | 2 +-
- drivers/thermal/st/stm_thermal.c       | 8 +++-----
- 3 files changed, 5 insertions(+), 9 deletions(-)
+Changes in v3:
+- Fix unmet dependency when building with ARM64 compiler
+  https://lore.kernel.org/lkml/202406270605.qodaWd4n-lkp@intel.com/
+- Remove no more used polling_delay variable detected by kernel robot
+  https://lore.kernel.org/lkml/202406270530.kN5wIswi-lkp@intel.com/
+Changes in v2:
+- Remove unused struct thermal_trip trip
+---
+ drivers/thermal/st/Kconfig      |  2 ++
+ drivers/thermal/st/st_thermal.c | 28 ++++++++++------------------
+ 2 files changed, 12 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/thermal/st/Kconfig b/drivers/thermal/st/Kconfig
+index ecbdf4ef00f4..95a634709a99 100644
+--- a/drivers/thermal/st/Kconfig
++++ b/drivers/thermal/st/Kconfig
+@@ -5,12 +5,14 @@
+ 
+ config ST_THERMAL
+ 	tristate "Thermal sensors on STMicroelectronics STi series of SoCs"
++	depends on THERMAL_OF
+ 	help
+ 	  Support for thermal sensors on STMicroelectronics STi series of SoCs.
+ 
+ config ST_THERMAL_MEMMAP
+ 	select ST_THERMAL
+ 	tristate "STi series memory mapped access based thermal sensors"
++	depends on THERMAL_OF
+ 
+ config STM32_THERMAL
+ 	tristate "Thermal framework support on STMicroelectronics STM32 series of SoCs"
 diff --git a/drivers/thermal/st/st_thermal.c b/drivers/thermal/st/st_thermal.c
-index 2a105409864e..5f33543a3a54 100644
+index 5f33543a3a54..23597819ce84 100644
 --- a/drivers/thermal/st/st_thermal.c
 +++ b/drivers/thermal/st/st_thermal.c
-@@ -236,7 +236,6 @@ void st_thermal_unregister(struct platform_device *pdev)
+@@ -12,6 +12,7 @@
+ #include <linux/of_device.h>
+ 
+ #include "st_thermal.h"
++#include "../thermal_hwmon.h"
+ 
+ /* The Thermal Framework expects millidegrees */
+ #define mcelsius(temp)			((temp) * 1000)
+@@ -135,8 +136,6 @@ static struct thermal_zone_device_ops st_tz_ops = {
+ 	.get_temp	= st_thermal_get_temp,
+ };
+ 
+-static struct thermal_trip trip;
+-
+ int st_thermal_register(struct platform_device *pdev,
+ 			const struct of_device_id *st_thermal_of_match)
+ {
+@@ -145,7 +144,6 @@ int st_thermal_register(struct platform_device *pdev,
+ 	struct device_node *np = dev->of_node;
+ 	const struct of_device_id *match;
+ 
+-	int polling_delay;
+ 	int ret;
+ 
+ 	if (!np) {
+@@ -197,29 +195,22 @@ int st_thermal_register(struct platform_device *pdev,
+ 	if (ret)
+ 		goto sensor_off;
+ 
+-	polling_delay = sensor->ops->register_enable_irq ? 0 : 1000;
+-
+-	trip.temperature = sensor->cdata->crit_temp;
+-	trip.type = THERMAL_TRIP_CRITICAL;
+-
+ 	sensor->thermal_dev =
+-		thermal_zone_device_register_with_trips(dev_name(dev), &trip, 1, sensor,
+-							&st_tz_ops, NULL, 0, polling_delay);
++		devm_thermal_of_zone_register(dev, 0, sensor, &st_tz_ops);
+ 	if (IS_ERR(sensor->thermal_dev)) {
+-		dev_err(dev, "failed to register thermal zone device\n");
++		dev_err(dev, "failed to register thermal of zone\n");
+ 		ret = PTR_ERR(sensor->thermal_dev);
+ 		goto sensor_off;
+ 	}
+-	ret = thermal_zone_device_enable(sensor->thermal_dev);
+-	if (ret)
+-		goto tzd_unregister;
+ 
+ 	platform_set_drvdata(pdev, sensor);
+ 
+-	return 0;
++	/*
++	 * devm_thermal_of_zone_register() doesn't enable hwmon by default
++	 * Enable it here
++	 */
++	return devm_thermal_add_hwmon_sysfs(dev, sensor->thermal_dev);
+ 
+-tzd_unregister:
+-	thermal_zone_device_unregister(sensor->thermal_dev);
+ sensor_off:
+ 	st_thermal_sensor_off(sensor);
+ 
+@@ -232,7 +223,8 @@ void st_thermal_unregister(struct platform_device *pdev)
+ 	struct st_thermal_sensor *sensor = platform_get_drvdata(pdev);
+ 
+ 	st_thermal_sensor_off(sensor);
+-	thermal_zone_device_unregister(sensor->thermal_dev);
++	thermal_remove_hwmon_sysfs(sensor->thermal_dev);
++	devm_thermal_of_zone_unregister(sensor->dev, sensor->thermal_dev);
  }
  EXPORT_SYMBOL_GPL(st_thermal_unregister);
  
--#ifdef CONFIG_PM_SLEEP
- static int st_thermal_suspend(struct device *dev)
- {
- 	struct st_thermal_sensor *sensor = dev_get_drvdata(dev);
-@@ -265,9 +264,8 @@ static int st_thermal_resume(struct device *dev)
- 
- 	return 0;
- }
--#endif
- 
--SIMPLE_DEV_PM_OPS(st_thermal_pm_ops, st_thermal_suspend, st_thermal_resume);
-+DEFINE_SIMPLE_DEV_PM_OPS(st_thermal_pm_ops, st_thermal_suspend, st_thermal_resume);
- EXPORT_SYMBOL_GPL(st_thermal_pm_ops);
- 
- MODULE_AUTHOR("STMicroelectronics (R&D) Limited <ajitpal.singh@st.com>");
-diff --git a/drivers/thermal/st/st_thermal_memmap.c b/drivers/thermal/st/st_thermal_memmap.c
-index 29c2269b0fb3..28b380013956 100644
---- a/drivers/thermal/st/st_thermal_memmap.c
-+++ b/drivers/thermal/st/st_thermal_memmap.c
-@@ -180,7 +180,7 @@ static void st_mmap_remove(struct platform_device *pdev)
- static struct platform_driver st_mmap_thermal_driver = {
- 	.driver = {
- 		.name	= "st_thermal_mmap",
--		.pm     = &st_thermal_pm_ops,
-+		.pm     = pm_sleep_ptr(&st_thermal_pm_ops),
- 		.of_match_table = st_mmap_thermal_of_match,
- 	},
- 	.probe		= st_mmap_probe,
-diff --git a/drivers/thermal/st/stm_thermal.c b/drivers/thermal/st/stm_thermal.c
-index 34785b9276fc..ffd988600ed6 100644
---- a/drivers/thermal/st/stm_thermal.c
-+++ b/drivers/thermal/st/stm_thermal.c
-@@ -440,7 +440,6 @@ static int stm_thermal_prepare(struct stm_thermal_sensor *sensor)
- 	return ret;
- }
- 
--#ifdef CONFIG_PM_SLEEP
- static int stm_thermal_suspend(struct device *dev)
- {
- 	struct stm_thermal_sensor *sensor = dev_get_drvdata(dev);
-@@ -466,10 +465,9 @@ static int stm_thermal_resume(struct device *dev)
- 
- 	return 0;
- }
--#endif /* CONFIG_PM_SLEEP */
- 
--static SIMPLE_DEV_PM_OPS(stm_thermal_pm_ops,
--			 stm_thermal_suspend, stm_thermal_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(stm_thermal_pm_ops,
-+				stm_thermal_suspend, stm_thermal_resume);
- 
- static const struct thermal_zone_device_ops stm_tz_ops = {
- 	.get_temp	= stm_thermal_get_temp,
-@@ -580,7 +578,7 @@ static void stm_thermal_remove(struct platform_device *pdev)
- static struct platform_driver stm_thermal_driver = {
- 	.driver = {
- 		.name	= "stm_thermal",
--		.pm     = &stm_thermal_pm_ops,
-+		.pm     = pm_sleep_ptr(&stm_thermal_pm_ops),
- 		.of_match_table = stm_thermal_of_match,
- 	},
- 	.probe		= stm_thermal_probe,
 
 -- 
 2.45.2
