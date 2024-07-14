@@ -2,79 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AC29309C3
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2024 13:43:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C4DF9309F6
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2024 14:47:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 743BCC6C83D;
-	Sun, 14 Jul 2024 11:43:20 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DE17C6C841;
+	Sun, 14 Jul 2024 12:47:38 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0055BC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C52A1C6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jul 2024 11:43:15 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-42660b8dd27so22679145e9.3
+ Sun, 14 Jul 2024 12:47:30 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-52ea7d2a039so3570037e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jul 2024 04:43:15 -0700 (PDT)
+ Sun, 14 Jul 2024 05:47:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1720957395; x=1721562195;
+ d=gmail.com; s=20230601; t=1720961250; x=1721566050;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=voezqBRIqgR1xMbzJXPZuwUUHTRBRdZ/+JwyhtZNvfc=;
- b=DIXPwYA7BskPtWHlxWd4m0KFW7Q+VIH7eU0fDXL84kwQz/2+J5Dpc9bwLQkNCA6USN
- end2IfIktk6kzU8fFYIbaajbPbL+duopbKMiISDIBWyP1SHOcfBzTeBed2I1DjDq5Vrm
- iQ1yiN3iv7O8L7IxVQq6nPbQf4t2z2tfDZBh0eYVP5njD/56FEJZUXy/MJ3RJGnOaDrl
- JLF6WG0XVIH2SasPe8mgQG6RNjzpUx/nkqhjETBx0EDcMHhlObuHpam7vMHzs3D2u8ss
- Iask80hOdf3R1Q6QPCvvzcXMSKAxINP8+DZ9B5FkP57jaNeSjeL5GQA7pgo55oYyLEH4
- 22TA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=bYeW1aUqkkqQu0pvxg2P+XASuy3RpuxEzFGY7FDRapU=;
+ b=kM7bqbYr2h4PflqDaj29ABovkSdlVcD4BMa02ZLzyHspRFYc6LPEKFhGcxIMpBFv4y
+ k54/ndVP6pIRqqpwACwke7TTWaYlRKQkcl9pVqYc0BvINwwsB4LCMRN8KQPT920o7Ao4
+ ZM5fsZFaRkgcO8fdPOSxx2jjVBDUtRLzuU03oLLVpd4MR4ro/wa2sKRccBfC2C2Dpp0v
+ ltmmQ1CnM+YM4j2TcVHW9RNnZMaw/jTiI14+T/G0QwPO70+hN3ekTalj1xUxgX0ukJMq
+ +HbCr1kM5rX6/2EVFNg3yTc/FMLnIdVzDbsY1xeMcZf76yPhjBWn6eRuShVbDgKTlisg
+ Verg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720957395; x=1721562195;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=voezqBRIqgR1xMbzJXPZuwUUHTRBRdZ/+JwyhtZNvfc=;
- b=IikISdhDDavuxUJJZhWZ6G+KhU1w107EmliAcY73YvZbsA/Ior6WcdQRJ3P9qJ2OW7
- aqzOhXHlqo9UBif8I39YRYEGtM0gekXmrfYONlinIIVeZt5+fcAoY7ITCBmqf3BPhrS6
- 6fNS23IcrIK/upw7ego8SErj9vSQ7imyJg9VpmEwyrzLZ2zJzG09K7lsoBMSBORE8lcQ
- 71AAKUaa+oa9G1n63QPB0pjwDoUpNVz9s53quAzjAoB63yGXjKFAOSlAvHOFMgAl6PL5
- cmNYXLO2Z/1GhoX9/wImFvYpnEva+D7CS1QKjtKCVnCcjkMgPb0phrYkEWM5BZ8Myy5i
- D85w==
+ d=1e100.net; s=20230601; t=1720961250; x=1721566050;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bYeW1aUqkkqQu0pvxg2P+XASuy3RpuxEzFGY7FDRapU=;
+ b=YuF1n7Khw3HCeaLQmiBkdJMtVz5iw0pL1EQf2nnUO+2E75+cMLwq3i8RmS96o5lpWT
+ 3L8c2uOP+dOjWr3LQVtp6zaCAhrGkpJreUkc8loG1mnG5fBLE8tFpzUG3BFPe7YW4CnG
+ KXKaq80wSfjo2MWqnHnBHV1+3j30PvWeepDYt4I0NsF9TdVLCX1DI7SjrqfbXrjWmEZf
+ N0n7OUHviWnilNjWaTTdjXsA2hEjRsekwgY6khL+ODFHOAik77nctGOeVZHCM+cpGn4r
+ gKZk1xoBWYDlumTkvjMZglAeYOHYYAZcT8OqFcKsluqsJh93aXNrzTeTuMT2BRTDu0w0
+ JCNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWI45sSXau0gBx2cZC+Qm0PdAVd1sFEh8+/HLGH5D95yMKhtSP+MqPuBmkNaeNFx7Q6BY6f5RJgEj4/cvjapBdHswwWMBSugsb4zafEllZopYxU0PRUHb1j
-X-Gm-Message-State: AOJu0YyEB020XeuP44zakl+jgUXKgsiDQq3FBg7gls/O59g8PAqrlS9D
- VCbYUeTt+5DRpnEoHDkg8Drhmgm/2cB/rHfhq+iFxAb2b7HaEw6d
-X-Google-Smtp-Source: AGHT+IHznxvk3jGNuxACzlPePqJZsFU4Gm7h8xaiwzJni80Kfh+rpr363DBOkzF8Q4inWF6XdCSGjw==
-X-Received: by 2002:a05:6000:1814:b0:364:d2b6:4520 with SMTP id
- ffacd0b85a97d-367ce5df304mr10897937f8f.0.1720957394652; 
- Sun, 14 Jul 2024 04:43:14 -0700 (PDT)
-Received: from localhost ([2001:861:3385:e20:6384:4cf:52c5:3194])
+ AJvYcCVylgKlY2HA2ALqxFzWtar/S0SLq7ahhwsBg8nlmvLiIq3vyw7b2cKAC+dwoAoCLWyyNg+eEV/ktmecv9i8nqDhl9eQ5cZwxIEhD8qMFdaiJZ6MALZe16XJ
+X-Gm-Message-State: AOJu0YxdPM2XkLrzTXIY1r7h/wKbfzGurAmuuWZNhNWwXlevyQKeTi0q
+ XACSBa5fxPciKYR/9dYaVrTKuUMLIp6Ln3zZwx7EF70xImDpuyLX
+X-Google-Smtp-Source: AGHT+IExx4Gr8Umbg0gbYQ03/bv/pYqJqX/EK/+AOIRZKuLKmJm7iyM5zUZI7yWzpxPPD+pjOE17rw==
+X-Received: by 2002:a05:6512:3b82:b0:52c:e084:bb1e with SMTP id
+ 2adb3069b0e04-52eb999126bmr11827758e87.13.1720961248544; 
+ Sun, 14 Jul 2024 05:47:28 -0700 (PDT)
+Received: from mobilestation (pppoe77-82-205-78.kamchatka.ru. [77.82.205.78])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3680db0492asm3624096f8f.103.2024.07.14.04.43.14
+ 2adb3069b0e04-52ed24f3b90sm451958e87.113.2024.07.14.05.46.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jul 2024 04:43:14 -0700 (PDT)
-From: Raphael Gallais-Pou <rgallaispou@gmail.com>
-Date: Sun, 14 Jul 2024 13:42:46 +0200
+ Sun, 14 Jul 2024 05:47:28 -0700 (PDT)
+Date: Sun, 14 Jul 2024 15:46:31 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Drew Fustini <drew@pdp7.com>
+Message-ID: <ywwl3eaamj3d7dhwkhcoglxwxqmpwd5dewkq6ldmrfqdfgnlu3@rawh4yhkuh6h>
+References: <20240713-thead-dwmac-v1-0-81f04480cd31@tenstorrent.com>
+ <20240713-thead-dwmac-v1-1-81f04480cd31@tenstorrent.com>
 MIME-Version: 1.0
-Message-Id: <20240714-thermal-v3-2-88f2489ef7d5@gmail.com>
-References: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
-In-Reply-To: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.14.0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pm@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 2/2] thermal: sti: depend on THERMAL_OF
-	subsystem
+Content-Disposition: inline
+In-Reply-To: <20240713-thead-dwmac-v1-1-81f04480cd31@tenstorrent.com>
+Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 1/4] dt-bindings: net: snps,
+ dwmac: allow dwmac-3.70a to set pbl properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,123 +98,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Switch to thermal_of_zone to handle thermal-zones. Replace
-thermal_zone_device_register() by devm_thermal_of_zone_register() and
-remove ops st_thermal_get_trip_type, st_thermal_get_trip_temp.
+On Sat, Jul 13, 2024 at 03:35:10PM -0700, Drew Fustini wrote:
+> From: Jisheng Zhang <jszhang@kernel.org>
+> 
+> snps dwmac 3.70a also supports setting pbl related properties, such as
+> "snps,pbl", "snps,txpbl", "snps,rxpbl" and "snps,no-pbl-x8".
 
-Signed-off-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
----
-Changes in v3:
-- Fix unmet dependency when building with ARM64 compiler
-  https://lore.kernel.org/lkml/202406270605.qodaWd4n-lkp@intel.com/
-- Remove no more used polling_delay variable detected by kernel robot
-  https://lore.kernel.org/lkml/202406270530.kN5wIswi-lkp@intel.com/
-Changes in v2:
-- Remove unused struct thermal_trip trip
----
- drivers/thermal/st/Kconfig      |  2 ++
- drivers/thermal/st/st_thermal.c | 28 ++++++++++------------------
- 2 files changed, 12 insertions(+), 18 deletions(-)
+No longer needed due to the recent commit:
+https://git.kernel.org/netdev/net-next/c/d01e0e98de31
 
-diff --git a/drivers/thermal/st/Kconfig b/drivers/thermal/st/Kconfig
-index ecbdf4ef00f4..95a634709a99 100644
---- a/drivers/thermal/st/Kconfig
-+++ b/drivers/thermal/st/Kconfig
-@@ -5,12 +5,14 @@
- 
- config ST_THERMAL
- 	tristate "Thermal sensors on STMicroelectronics STi series of SoCs"
-+	depends on THERMAL_OF
- 	help
- 	  Support for thermal sensors on STMicroelectronics STi series of SoCs.
- 
- config ST_THERMAL_MEMMAP
- 	select ST_THERMAL
- 	tristate "STi series memory mapped access based thermal sensors"
-+	depends on THERMAL_OF
- 
- config STM32_THERMAL
- 	tristate "Thermal framework support on STMicroelectronics STM32 series of SoCs"
-diff --git a/drivers/thermal/st/st_thermal.c b/drivers/thermal/st/st_thermal.c
-index 5f33543a3a54..23597819ce84 100644
---- a/drivers/thermal/st/st_thermal.c
-+++ b/drivers/thermal/st/st_thermal.c
-@@ -12,6 +12,7 @@
- #include <linux/of_device.h>
- 
- #include "st_thermal.h"
-+#include "../thermal_hwmon.h"
- 
- /* The Thermal Framework expects millidegrees */
- #define mcelsius(temp)			((temp) * 1000)
-@@ -135,8 +136,6 @@ static struct thermal_zone_device_ops st_tz_ops = {
- 	.get_temp	= st_thermal_get_temp,
- };
- 
--static struct thermal_trip trip;
--
- int st_thermal_register(struct platform_device *pdev,
- 			const struct of_device_id *st_thermal_of_match)
- {
-@@ -145,7 +144,6 @@ int st_thermal_register(struct platform_device *pdev,
- 	struct device_node *np = dev->of_node;
- 	const struct of_device_id *match;
- 
--	int polling_delay;
- 	int ret;
- 
- 	if (!np) {
-@@ -197,29 +195,22 @@ int st_thermal_register(struct platform_device *pdev,
- 	if (ret)
- 		goto sensor_off;
- 
--	polling_delay = sensor->ops->register_enable_irq ? 0 : 1000;
--
--	trip.temperature = sensor->cdata->crit_temp;
--	trip.type = THERMAL_TRIP_CRITICAL;
--
- 	sensor->thermal_dev =
--		thermal_zone_device_register_with_trips(dev_name(dev), &trip, 1, sensor,
--							&st_tz_ops, NULL, 0, polling_delay);
-+		devm_thermal_of_zone_register(dev, 0, sensor, &st_tz_ops);
- 	if (IS_ERR(sensor->thermal_dev)) {
--		dev_err(dev, "failed to register thermal zone device\n");
-+		dev_err(dev, "failed to register thermal of zone\n");
- 		ret = PTR_ERR(sensor->thermal_dev);
- 		goto sensor_off;
- 	}
--	ret = thermal_zone_device_enable(sensor->thermal_dev);
--	if (ret)
--		goto tzd_unregister;
- 
- 	platform_set_drvdata(pdev, sensor);
- 
--	return 0;
-+	/*
-+	 * devm_thermal_of_zone_register() doesn't enable hwmon by default
-+	 * Enable it here
-+	 */
-+	return devm_thermal_add_hwmon_sysfs(dev, sensor->thermal_dev);
- 
--tzd_unregister:
--	thermal_zone_device_unregister(sensor->thermal_dev);
- sensor_off:
- 	st_thermal_sensor_off(sensor);
- 
-@@ -232,7 +223,8 @@ void st_thermal_unregister(struct platform_device *pdev)
- 	struct st_thermal_sensor *sensor = platform_get_drvdata(pdev);
- 
- 	st_thermal_sensor_off(sensor);
--	thermal_zone_device_unregister(sensor->thermal_dev);
-+	thermal_remove_hwmon_sysfs(sensor->thermal_dev);
-+	devm_thermal_of_zone_unregister(sensor->dev, sensor->thermal_dev);
- }
- EXPORT_SYMBOL_GPL(st_thermal_unregister);
- 
+-Serge(y)
 
--- 
-2.45.2
-
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Link: https://lore.kernel.org/r/20230827091710.1483-2-jszhang@kernel.org
+> Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+> Signed-off-by: Drew Fustini <drew@pdp7.com>
+> ---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index 21cc27e75f50..0ad3bf5dafa7 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -584,6 +584,7 @@ allOf:
+>                - qcom,sa8775p-ethqos
+>                - qcom,sc8280xp-ethqos
+>                - snps,dwmac-3.50a
+> +              - snps,dwmac-3.70a
+>                - snps,dwmac-4.10a
+>                - snps,dwmac-4.20a
+>                - snps,dwmac-5.20
+> 
+> -- 
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
