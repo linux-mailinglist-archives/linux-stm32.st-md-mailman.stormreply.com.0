@@ -2,56 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7D69930813
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2024 01:37:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D29A49309C2
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2024 13:43:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40E01C6DD94;
-	Sat, 13 Jul 2024 23:37:41 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80537C6C855;
+	Sun, 14 Jul 2024 11:43:20 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5B6FC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04564C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Jul 2024 23:37:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id F3791CE0ABA;
- Sat, 13 Jul 2024 23:37:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101D6C32781;
- Sat, 13 Jul 2024 23:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1720913851;
- bh=1MKxAWYwekOaP2fx1r0IX5frF/qFcCGEptjnVO3Gg9s=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=CZVK73jCSuzWb30m9mu0yZbd8+rqCqBXF8zwLg36U2uuXLUckq2rh0Fg19VyhdmdM
- qGm264HTLM9JjcMrD8M8ZCKVeJFFycPtBnPsQPNoWxdy4SnOxnnOL2fc3hZQhjJFMY
- +T8LqZSu9bF5YfNoPEbPmINfW3Ntdo6t09gCmEfCDExxpxxLHKbBiBcpl2hQvA0G/e
- 1ynZicnLJWjk5Ye8gV+nd/Up/nWY7878TrArmmSr8dtTVJSLayq21TqPt20TL1MzrC
- 6jPR5JCTjmzE1xhT85vaezu3AcWRch2pvgX6Y6fq8au+mKKziET+bR6MgINxxsZVhK
- LpqxOqCBrULTg==
-Date: Sat, 13 Jul 2024 17:37:29 -0600
+ Sun, 14 Jul 2024 11:43:13 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-42797289c8bso24881255e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 14 Jul 2024 04:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1720957393; x=1721562193;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2n5TCQJ2aZTml13MKx0tGjckXVIFB7K8BA9Nly4+9wo=;
+ b=KTcC98/MXMKwY+a3mUxFxiFUyfQ/yTF74juTywcxBmkGnuqCScDRLt/htemC+/29Wn
+ ObkkIBk1AP555MG5itZgYVM2F8L5q2H5exq38Y9zT4zYIQGRq6rtItyF3achTWFZYJHN
+ VP02GUiN7th67QK5v4uYbncdnEklg+HT7iMvKjpeMWQ05IzZmVIfcTlhtTdJVeZyEc8X
+ HoqtoqFi952Zu6BeT0mepCt7u+HV1OlzSdv/yiKBR6u4i8g4askh4/8K2rxD/uAqUaSz
+ MxpDo+gLm99lKxzjpW9wyrWohelb3/hqQXeyVwi5wDjdKxvIoanGw1FndwZZmiNteTTY
+ 5/0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720957393; x=1721562193;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2n5TCQJ2aZTml13MKx0tGjckXVIFB7K8BA9Nly4+9wo=;
+ b=Ozpq8qkBSy6zSpRUQVhU6KNoI7s6WKSIzkqHuEOKoSnY47sHcWvcg8us8a9L+QR1Jb
+ A1i04HhsrLPl3EMr4qp8ot6aXmwCMccOau2/h6OGzR5U2GzidiJPCo1ERm0vz/7wKl8V
+ F3lq40FR/naS3kHbYhyG9sjooyvf8alrjU6xUnlRdWpqavT+SL1BZFIkI/1+R1S0VqPf
+ MdzxyP0A/JLrU9peVJ039SdRDbxvYT+H5hRUlJ1XkGfGNx7IuoVHxkj0XkZwCpSjXMML
+ PQPR9YoVUNGKya/xff8A2WxTM6/MOgfdAwmULMhmL+aErPq2A6o37a0znVQtKt8tSeIQ
+ 9eQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUNOJCpgcKpzdgVERVl5V+qoo/rymbY8SrVzMPWClBjMeV9SYmOsRVAsMhJjJRllpuw5/yLHAjjzsjUfClpAMAg6Mc9CNWoNGVKVADDYvOlnSxiRjJg2V1d
+X-Gm-Message-State: AOJu0YxM6xay461M2RMPZi87OW7kheybe1dOUpJ+UCxExaI/KyF48xuV
+ Ahi4dOoDE5A73dFp9UyiW6oF2jXaPjGwf9LGExvp6p8eq/WkxY6e
+X-Google-Smtp-Source: AGHT+IExNrbXa/f2Lp9GuK2cGefWfniERXAX71ycVDSa7Qqxj4fnPg2Z1sso2yeSttZjeaTAepYziw==
+X-Received: by 2002:a05:600c:b48:b0:426:8c36:5841 with SMTP id
+ 5b1f17b1804b1-4268c459b89mr102803385e9.23.1720957392745; 
+ Sun, 14 Jul 2024 04:43:12 -0700 (PDT)
+Received: from localhost ([2001:861:3385:e20:6384:4cf:52c5:3194])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427a5edb454sm48887395e9.32.2024.07.14.04.43.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jul 2024 04:43:12 -0700 (PDT)
+From: Raphael Gallais-Pou <rgallaispou@gmail.com>
+Date: Sun, 14 Jul 2024 13:42:44 +0200
+Message-Id: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Drew Fustini <drew@pdp7.com>
-In-Reply-To: <20240713-thead-dwmac-v1-2-81f04480cd31@tenstorrent.com>
-References: <20240713-thead-dwmac-v1-0-81f04480cd31@tenstorrent.com>
- <20240713-thead-dwmac-v1-2-81f04480cd31@tenstorrent.com>
-Message-Id: <172091384997.169230.1017177117936828717.robh@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/4] dt-bindings: net: add
- T-HEAD dwmac support
+X-B4-Tracking: v=1; b=H4sIALS5k2YC/2WNzQ7CIBAGX6XZs5hCQdGT72E8UFjaTfoXaIim6
+ btLe6mJx/myM7tAxEAY4V4sEDBRpHHIUJ0KsK0ZGmTkMoMohSwV12xuMfSmY9pfhJJCG+tvkK+
+ ngJ7ee+n5ytxSnMfw2cOJb+t/I3FWsqvz1lTopJL1o+kNdWc79rA1kji8/O3wRPZqrysl0SmO+
+ Out6/oFDGIXy9YAAAA=
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+X-Mailer: b4 0.14.0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/2] Add thermal management support for STi
+	platform
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,83 +88,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Sat, 13 Jul 2024 15:35:11 -0700, Drew Fustini wrote:
-> From: Jisheng Zhang <jszhang@kernel.org>
-> 
-> Add documentation to describe T-HEAD dwmac.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> Link: https://lore.kernel.org/r/20230827091710.1483-3-jszhang@kernel.org
-> Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-> [drew: change apb registers from syscon to second reg of gmac node]
-> Signed-off-by: Drew Fustini <drew@pdp7.com>
-> ---
->  .../devicetree/bindings/net/snps,dwmac.yaml        |  1 +
->  .../devicetree/bindings/net/thead,dwmac.yaml       | 81 ++++++++++++++++++++++
->  MAINTAINERS                                        |  1 +
->  3 files changed, 83 insertions(+)
-> 
-
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.yaml: properties:reg: {'minItems': 2, 'maxItems': 2, 'items': [{'description': 'DesignWare GMAC IP core registers'}, {'description': 'GMAC APB registers'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.yaml: properties:reg: 'oneOf' conditional failed, one must be fixed:
-	[{'description': 'DesignWare GMAC IP core registers'}, {'description': 'GMAC APB registers'}] is too long
-	[{'description': 'DesignWare GMAC IP core registers'}, {'description': 'GMAC APB registers'}] is too short
-	False schema does not allow 2
-	1 was expected
-	hint: "minItems" is only needed if less than the "items" list length
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.yaml: properties:reg-names: {'minItems': 2, 'maxItems': 2, 'items': [{'const': 'dwmac'}, {'const': 'apb'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.yaml: properties:reg-names: 'oneOf' conditional failed, one must be fixed:
-	[{'const': 'dwmac'}, {'const': 'apb'}] is too long
-	[{'const': 'dwmac'}, {'const': 'apb'}] is too short
-	False schema does not allow 2
-	1 was expected
-	hint: "minItems" is only needed if less than the "items" list length
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.example.dtb: ethernet@e7070000: snps,pbl: [32] is not of type 'integer'
-	from schema $id: http://devicetree.org/schemas/net/snps,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.example.dtb: ethernet@e7070000: snps,pbl: [32] is not one of [1, 2, 4, 8, 16, 32]
-	from schema $id: http://devicetree.org/schemas/net/snps,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.example.dtb: ethernet@e7070000: snps,pbl: [32] is not of type 'integer'
-	from schema $id: http://devicetree.org/schemas/net/thead,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.example.dtb: ethernet@e7070000: snps,pbl: [32] is not one of [1, 2, 4, 8, 16, 32]
-	from schema $id: http://devicetree.org/schemas/net/thead,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,dwmac.example.dtb: ethernet@e7070000: Unevaluated properties are not allowed ('clock-names', 'clocks', 'interrupt-names', 'interrupts', 'mdio', 'phy-handle', 'phy-mode', 'snps,axi-config', 'snps,fixed-burst', 'snps,pbl' were unexpected)
-	from schema $id: http://devicetree.org/schemas/net/thead,dwmac.yaml#
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240713-thead-dwmac-v1-2-81f04480cd31@tenstorrent.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBwYXRjaCBzZXJpZXMgZW5oYW5jZXMgdGhlIHN0X3RoZXJtYWwgZHJpdmVyIGluIG9yZGVy
+IHRvIGVuYWJsZQpzdXBwb3J0IGZvciB0aGVybWFsIHpvbmVzLiBUaGUgY2hhbmdlcyBpbmNsdWRl
+OgoKMS4gUmVwbGFjZSBkZXByZWNhdGVkIFBNIHJ1bnRpbWUgbWFjcm9zIHdpdGggdGhlaXIgdXBk
+YXRlZCBjb3VudGVycGFydHMuCjIuIEltcGxlbWVudGluZyBkZXZtXyogYmFzZWQgdGhlcm1hbCBv
+ZiB6b25lIGZ1bmN0aW9ucyB3aXRoaW4gdGhlIGRyaXZlci4KMy4gVXBkYXRpbmcgdGhlIHN0aWg0
+MTggZGV2aWNlLXRyZWUuCgpUaGUgZGV2aWNlLXRyZWUgcGF0Y2ggZGVwZW5kcyBvbiBhbiBlYXJs
+aWVyIHBhdGNoIHNlbnQgdG8gdGhlIG1haWxpbmcKbGlzdCBbMV0uCgpBcyBpdCBpcyBjdXJyZW50
+bHkgaW1wbGVtZW50ZWQsIGFuIGFsZXJ0IHRocmVzaG9sZCBvZiA4NcKwQyBpcyBzZXQgdG8KdHJp
+Z2dlciB0aGUgQ1BVIHRocm90dGxpbmcsIGFuZCB3aGVuIHRoZSB0ZW1wZXJhdHVyZSBleGNlZWRz
+IHRoZQpjcml0aWNhbCB0aHJlc2hvbGQgb2YgOTXCsEMsIHRoZSBzeXN0ZW0gc2h1dHMgZG93bi4g
+VGhlcmUgaXMgZm9yIG5vdyBubwphY3RpdmUgY29vbGluZyBkZXZpY2Ugb24gdGhlIHBsYXRmb3Jt
+LCB3aGljaCBleHBsYWlucyB0aGUgdXNlIG9mIHRoZQpjcHVmcmVxIGZyYW1ld29yay4KClsxXSBo
+dHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIwMjQwMzIwLXRoZXJtYWwtdjMtMi03MDAyOTY2
+OTRjNGFAZ21haWwuY29tCgpTaWduZWQtb2ZmLWJ5OiBSYXBoYWVsIEdhbGxhaXMtUG91IDxyZ2Fs
+bGFpc3BvdUBnbWFpbC5jb20+Ci0tLQpDaGFuZ2VzIGluIHYzOgotIEZpeCB1bm1ldCBkZXBlbmRl
+bmN5IGluIFsyLzJdCi0gUmVtb3ZlIG5vIG1vcmUgdXNlZCB2YXJpYWJsZSBpbiBbMi8yXQotIFJl
+bW92ZSBhbHJlYWR5IG1lcmdlZCBwYXRjaCBpbiBzb2MgdHJlZQotIExpbmsgdG8gdjI6IGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNDA2MjUtdGhlcm1hbC12Mi0wLWJmODM1NGVkNTFlZUBn
+bWFpbC5jb20KCkNoYW5nZXMgaW4gdjI6Ci0gQWRkIFBhdHJpY2UncyBSLWIKLSBFZGl0IHBhdGNo
+IFsyLzNdIHRvIHJlbW92ZSB1bnVzZWQgc3RydWN0Ci0gTGluayB0byB2MTogaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvci8yMDI0MDUxOC10aGVybWFsLXYxLTAtN2RmY2EzZWQ0NTRiQGdtYWlsLmNv
+bQoKLS0tClJhcGhhZWwgR2FsbGFpcy1Qb3UgKDIpOgogICAgICB0aGVybWFsOiBzdDogc3dpdGNo
+IGZyb20gQ09ORklHX1BNX1NMRUVQIGd1YXJkcyB0byBwbV9zbGVlcF9wdHIoKQogICAgICB0aGVy
+bWFsOiBzdGk6IGRlcGVuZCBvbiBUSEVSTUFMX09GIHN1YnN5c3RlbQoKIGRyaXZlcnMvdGhlcm1h
+bC9zdC9LY29uZmlnICAgICAgICAgICAgIHwgIDIgKysKIGRyaXZlcnMvdGhlcm1hbC9zdC9zdF90
+aGVybWFsLmMgICAgICAgIHwgMzIgKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGRy
+aXZlcnMvdGhlcm1hbC9zdC9zdF90aGVybWFsX21lbW1hcC5jIHwgIDIgKy0KIGRyaXZlcnMvdGhl
+cm1hbC9zdC9zdG1fdGhlcm1hbC5jICAgICAgIHwgIDggKysrLS0tLS0KIDQgZmlsZXMgY2hhbmdl
+ZCwgMTcgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCi0tLQpiYXNlLWNvbW1pdDogM2Zl
+MTIxYjYyMjgyNWZmOGNjOTk1YTFlNmIwMjYxODFjNDgxODhkYgpjaGFuZ2UtaWQ6IDIwMjQwNTE4
+LXRoZXJtYWwtOGY2MjU0MjhhY2Y5CgpCZXN0IHJlZ2FyZHMsCi0tIApSYXBoYWVsIEdhbGxhaXMt
+UG91IDxyZ2FsbGFpc3BvdUBnbWFpbC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
