@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7119310F4
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2024 11:14:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9CE2931392
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2024 14:05:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A859C6C855;
-	Mon, 15 Jul 2024 09:14:06 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7755CC6C855;
+	Mon, 15 Jul 2024 12:05:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A0E2C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DDE4C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jul 2024 09:13:59 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46F7r7Hx026109;
- Mon, 15 Jul 2024 11:13:45 +0200
+ Mon, 15 Jul 2024 12:05:46 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46F7KiGN018841;
+ Mon, 15 Jul 2024 14:05:29 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- kuaNFAqThOoB9rmCaN7C7WwFLev4HV8YKvV5v5sDUiQ=; b=B9roO90gcn1ENBF0
- z4Ev6meXnFIEMQhMSpW7RHj+DQm/EkcFglSpDKrz6+qJnLksQLg1067WfCmR402L
- bZhP+deSisnB4KRc/xrHW76cn3aofR3tb8oLDdbdyjKgT69EhSlYn4fTpACyCpy3
- Rg+RhewE/ATVrwapVybaIPwaXIxOyEZJkvL7Ht6sJLXOGIOMAQH+SMVvS/kDibYH
- Q/4C6xvjf+IaFWbC1QtKPsAr2DG5UD6CFkX2XVZnxkQVXe9yiY7lmAgPAy6pBYFc
- 4aPpkc+LBclVBHhHG8RtJUTjt3zEoULHEx1fGxzrG7+xiGtUb5Fogov5+vt7Yz+w
- qGsbxg==
+ NUrMaVQn6CtWJA/+Bg8Ut5g/xwCeF9VDjIao3Eq05ss=; b=Lhy4SEBL5/E6CsI+
+ MrQvVgdMl+2xsKfsTLsby1FxY+LFEEb6piKHcdC994A/pHnyaB5QbL1S6LEwvfwQ
+ wNNDFnI9cdd1/7FEouV0X9G3WeiW2U8OS7IuE4c2k7MDBSu2qaI4a2dzum2t4xHc
+ aGGxXwlGsrwpGj12LjZ53oc5Ll5eZEVCJIm12qoz5QlfTnpv8oLJnvJf7lCs5J29
+ Kw8Nheua67/UdIUdcFCFl0OV2DTuRgPiGbNiCgqvh/csfznZM1TXOIxENtaAUBv0
+ f9PA2W+S2kyD1jyWccUIIo25Q75IuvyDfUG1F68Rk86ek1VNjgAQokg/CsESMdKx
+ zF1d5A==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40c4hhupjr-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40bgfdef4v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jul 2024 11:13:45 +0200 (MEST)
+ Mon, 15 Jul 2024 14:05:29 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id EEA3B4002D;
- Mon, 15 Jul 2024 11:13:37 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 85B06210F9C;
- Mon, 15 Jul 2024 11:12:56 +0200 (CEST)
-Received: from [10.129.178.17] (10.129.178.17) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id F349A40044;
+ Mon, 15 Jul 2024 14:05:24 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8132E223F2F;
+ Mon, 15 Jul 2024 14:04:46 +0200 (CEST)
+Received: from [10.48.86.111] (10.48.86.111) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 15 Jul
- 2024 11:12:55 +0200
-Message-ID: <16438bb1-2677-48bb-bdb0-91dc9d83792e@foss.st.com>
-Date: Mon, 15 Jul 2024 11:12:54 +0200
+ 2024 14:04:45 +0200
+Message-ID: <f6485370-b5cc-4774-aac0-6141fcca4c00@foss.st.com>
+Date: Mon, 15 Jul 2024 14:04:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Katya Orlova <e.orlova@ispras.ru>
-References: <20240216125040.8968-1-e.orlova@ispras.ru>
+To: Rob Herring <robh@kernel.org>
+References: <20240711140843.3201530-1-valentin.caron@foss.st.com>
+ <20240711140843.3201530-2-valentin.caron@foss.st.com>
+ <20240711225646.GA3270567-robh@kernel.org>
 Content-Language: en-US
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20240216125040.8968-1-e.orlova@ispras.ru>
-X-Originating-IP: [10.129.178.17]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+From: Valentin CARON <valentin.caron@foss.st.com>
+In-Reply-To: <20240711225646.GA3270567-robh@kernel.org>
+X-Originating-IP: [10.48.86.111]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-15_05,2024-07-11_01,2024-05-17_01
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- lvc-project@linuxtesting.org
-Subject: Re: [Linux-stm32] [PATCH v4] drm/stm: Avoid use-after-free issues
- with crtc and plane
+ definitions=2024-07-15_06,2024-07-11_01,2024-05-17_01
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: rtc: stm32: describe
+	pinmux nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,22 +76,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDIvMTYvMjQgMTM6NTAsIEthdHlhIE9ybG92YSB3cm90ZToKPiBsdGRjX2xvYWQoKSBjYWxs
-cyBmdW5jdGlvbnMgZHJtX2NydGNfaW5pdF93aXRoX3BsYW5lcygpLAo+IGRybV91bml2ZXJzYWxf
-cGxhbmVfaW5pdCgpIGFuZCBkcm1fZW5jb2Rlcl9pbml0KCkuIFRoZXNlIGZ1bmN0aW9ucwo+IHNo
-b3VsZCBub3QgYmUgY2FsbGVkIHdpdGggcGFyYW1ldGVycyBhbGxvY2F0ZWQgd2l0aCBkZXZtX2t6
-YWxsb2MoKQo+IHRvIGF2b2lkIHVzZS1hZnRlci1mcmVlIGlzc3VlcyBbMV0uCj4KPiBVc2UgYWxs
-b2NhdGlvbnMgbWFuYWdlZCBieSB0aGUgRFJNIGZyYW1ld29yay4KPgo+IEZvdW5kIGJ5IExpbnV4
-IFZlcmlmaWNhdGlvbiBDZW50ZXIgKGxpbnV4dGVzdGluZy5vcmcpLgo+Cj4gWzFdCj4gaHR0cHM6
-Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC91MzY2aTc2ZTNxaGgzcmE1b3hydG5nanRtMnU1bHRlcmtl
-a2N6NnkyamtuZGh1eHpsaUBkaXVqb240aDdxd2IvCj4KPiBTaWduZWQtb2ZmLWJ5OiBLYXR5YSBP
-cmxvdmEgPGUub3Jsb3ZhQGlzcHJhcy5ydT4KCgpIaSBLYXR5YSwKCkFmdGVyIHNvbWUgZGVsYXk6
-IGFwcGxpZWQgb24gZHJtLW1pc2MtbmV4dC4KClRoYW5rcywKUmFwaGHDq2wKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+
+On 7/12/24 00:56, Rob Herring wrote:
+> On Thu, Jul 11, 2024 at 04:08:40PM +0200, Valentin Caron wrote:
+>> STM32 RTC is capable to handle 3 specific pins of the soc (out1, out2,
+>> out2_rmp) and to outputs 2 signals (LSCO, alarm-a).
+>>
+>> This feature is configured thanks to pinmux nodes and pinctrl framework.
+>> This feature is available with compatible st,stm32mp1-rtc and
+>> st,stm32mp25-rtc only.
+>>
+>> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+>> ---
+>>   .../devicetree/bindings/rtc/st,stm32-rtc.yaml | 28 +++++++++++++++++++
+>>   1 file changed, 28 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+>> index 7a0fab721cf1..09221c2f8a0c 100644
+>> --- a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+>> +++ b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+>> @@ -53,6 +53,28 @@ properties:
+>>         override default rtc_ck parent clock phandle of the new parent clock of rtc_ck
+>>       maxItems: 1
+>>   
+>> +patternProperties:
+>> +  "^rtc-[a-z]*-[0-9]+$":
+> 
+> rtc--123 is valid? "*" should be "+"
+> 
+> Otherwise,
+> 
+> Reviewed-by: Rob Herring <robh@kernel.org>
+
+Yes, it should be. I will add this in the next version.
+
+Thanks,
+Valentin
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
