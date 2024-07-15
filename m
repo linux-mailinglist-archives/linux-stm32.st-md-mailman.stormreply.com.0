@@ -2,52 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 487F6930DA2
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2024 07:35:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48385930FE2
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2024 10:34:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8A82C6C841;
-	Mon, 15 Jul 2024 05:35:29 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA13C6C855;
+	Mon, 15 Jul 2024 08:34:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2EC7C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C243C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jul 2024 05:35:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DE943CE0B28;
- Mon, 15 Jul 2024 05:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5407FC4AF0C;
- Mon, 15 Jul 2024 05:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1721021720;
- bh=23WVQytlsylhbvxlQYuds0lP2VtzWIhTTgtqfdPH29o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iy2UdCZHqRcCdoKcJTRLMDVSnkjG+Xex9X8HTKKJYHrjK8RHNBUnRu0DFbYVgx3Gc
- xERkEqqR+hutyEkvQkWM8YaBb/6823P8dEOQubX4aMDiHn97+/yjrKKqpqaVb/6zNa
- RDDOhpe9OZ2tJrpcFDRjjwynZ3jeQGCvKCz8pJuQ=
-Date: Mon, 15 Jul 2024 07:35:16 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jeff Johnson <quic_jjohnson@quicinc.com>
-Message-ID: <2024071518-ridden-election-8118@gregkh>
-References: <2d168cf9-e456-4262-b276-95e992b8eac7@quicinc.com>
+ Mon, 15 Jul 2024 08:34:51 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46F7qhhC029356;
+ Mon, 15 Jul 2024 10:34:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ JW1v9I2QQq6tb8htzQlK+uUAsMhkhshbWkdi6NH34IU=; b=SagcaH2C4xzMgF4c
+ c+Ga/kBrOnnKUsu2zRE7GEw8U5aWpvcVCLf9wq356oesQ+SNw/88kxPaD2ApXpnp
+ TRfutITol0CmXQp+n63b4/IYUXT9vHrcfESb/TYdkBR4cp3rBrD/ZBZ1dms0OpdP
+ x7YoEi3JrrQnlf9TgPORH8JpT07O5PSZMZ74QOAc3UnSKN/ahTkFJk7U/biHSDBN
+ /Vn+XKXVr29RoKPsMdNJsdZkql3Up6hd/ciM0zSNI9Y91mSsF58y4sb2HxcPYdxa
+ cuQNy8JyBXoGkWVvTUfAIyN2n3VjUOdb6iuiwOeH880mS3AHOQngboI7Wu4+J//q
+ mbcvGA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40bgwx5sj6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Jul 2024 10:34:36 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B799940045;
+ Mon, 15 Jul 2024 10:34:30 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 447DE20E037;
+ Mon, 15 Jul 2024 10:33:57 +0200 (CEST)
+Received: from [10.129.178.17] (10.129.178.17) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 15 Jul
+ 2024 10:33:54 +0200
+Message-ID: <ddc81a62-08d5-4f23-b86c-10754fb3e717@foss.st.com>
+Date: Mon, 15 Jul 2024 10:33:53 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <2d168cf9-e456-4262-b276-95e992b8eac7@quicinc.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, nouveau@lists.freedesktop.org,
- Dave Hansen <dave.hansen@linux.intel.com>, kernel-janitors@vger.kernel.org,
- Karol Herbst <karolherbst@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
- Russell King <linux@armlinux.org.uk>, Ingo Molnar <mingo@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [Linux-stm32] MODULE_DESCRIPTION() patches with no maintainer
-	action
+User-Agent: Mozilla Thunderbird
+To: Claudiu Beznea <claudiu.beznea@microchip.com>,
+ <yannick.fertre@foss.st.com>, <philippe.cornu@foss.st.com>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>
+References: <20230531072854.142629-1-claudiu.beznea@microchip.com>
+Content-Language: en-US
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20230531072854.142629-1-claudiu.beznea@microchip.com>
+X-Originating-IP: [10.129.178.17]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-15_03,2024-07-11_01,2024-05-17_01
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: check memory returned by
+	devm_kzalloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,42 +75,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Jul 14, 2024 at 02:46:19PM -0700, Jeff Johnson wrote:
-> Andrew & Greg,
-> 
-> I hate to bother you with such mundane patches, but the following have been
-> posted for a while without any maintainer or reviewer comment or action, and
-> they have not yet landed in linux-next.
-> 
-> What is the path forward to have these MODULE_DESCRIPTION() warnings fixed?
-> 
-> arch/arm/probes/kprobes/
-> https://lore.kernel.org/all/20240622-md-arm-arch-arm-probes-kprobes-v1-1-0832bd6e45db@quicinc.com/
-> 
-> arch/x86/mm/
-> https://lore.kernel.org/all/20240515-testmmiotrace-md-v1-1-10919a8b2842@quicinc.com/
-> 
-> drivers/spmi/
-> https://lore.kernel.org/all/20240609-md-drivers-spmi-v1-1-f1d5b24e7a66@quicinc.com/
-> 
-> (note that beyond these 3 patches I still have an additional 13 patches which
-> need to land in order to fix these warnings tree-wide, but those 13 patches
-> have had recent maintainer or reviewer action so I'm not seeking your help at
-> this time).
-
-After -rc1 is out, resend them all as a series and cc: the right people
-and either me or Andrew can pick them up then and get them merged in
-before -final is released.
-
-thanks,
-
-greg k-h
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDUvMzEvMjMgMDk6MjgsIENsYXVkaXUgQmV6bmVhIHdyb3RlOgo+IGRldm1fa3phbGxvYygp
+IGNhbiBmYWlsIGFuZCByZXR1cm4gTlVMTCBwb2ludGVyLiBDaGVjayBpdHMgcmV0dXJuIHN0YXR1
+cy4KPiBJZGVudGlmaWVkIHdpdGggQ29jY2luZWxsZSAoa21lcnIuY29jY2kgc2NyaXB0KS4KPgo+
+IEZpeGVzOiA0ODRlNzJkMzE0NmIgKCJkcm0vc3RtOiBsdGRjOiBhZGQgc3VwcG9ydCBvZiB5Y2Jj
+ciBwaXhlbCBmb3JtYXRzIikKPiBTaWduZWQtb2ZmLWJ5OiBDbGF1ZGl1IEJlem5lYSA8Y2xhdWRp
+dS5iZXpuZWFAbWljcm9jaGlwLmNvbT4KPiAtLS0KPgo+IEhpLAo+Cj4gVGhpcyBoYXMgYmVlbiBh
+ZGRyZXNzZWQgdXNpbmcga21lcnIuY29jY2kgc2NyaXB0IHByb3Bvc2VkIGZvciB1cGRhdGUKPiBh
+dCBbMV0uCj4KPiBUaGFuayB5b3UsCj4gQ2xhdWRpdSBCZXpuZWEKPgo+IFsxXSBodHRwczovL2xv
+cmUua2VybmVsLm9yZy9hbGwvMjAyMzA1MzAwNzQwNDQuMTYwMzQyNi0xLWNsYXVkaXUuYmV6bmVh
+QG1pY3JvY2hpcC5jb20vCj4KSGkgQ2xhdWRpdSwKCkFmdGVyIHNvbWUgZGVsYXk6IGFwcGxpZWQg
+b24gZHJtLW1pc2MtbmV4dC4KClRoYW5rLApSYXBoYcOrbAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
