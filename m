@@ -2,46 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B51CE931C76
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2024 23:12:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F8B932715
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2024 15:07:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5592FC6DD66;
-	Mon, 15 Jul 2024 21:12:25 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2969C71280;
+	Tue, 16 Jul 2024 13:07:48 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9274C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCF61C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jul 2024 21:12:17 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 27A70FF803;
- Mon, 15 Jul 2024 21:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1721077937;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PrFsaEY3YFVMERSSxHwPf6/7rkdQhgSWQ843FPXb6VM=;
- b=ZBKx2m7QZN1wibY9E26Du5teUQrGS6KveFuXrHhyhD5Pq/PNKteH13nR6Vm6Zyc0jFXUi1
- Ac/u8zVk8E7U0h25euNwSPZKva97q6TrnO/87Wp5bxLf1xYuzdNyrvr33Sfrxc0Ua6jInH
- 0W49CA1vq/OeH7PRcgK9U9asubq8oTaq/4naZR/Wk1px6FIZpF+NgESEjCkXjoNeYNlWnA
- ZsnAZMEVSk0dOo3YTq2qDPWrzaI9vXy0nS+2JAZUzUscTH8ZbXJ9HBC6ZK84xi+WoHHqxt
- WQb4Lc2807kqw4QBnUD8jcD2x2VL2jBI/SPYMaC4kDA495T6XqUeuoxI4nsTmA==
-Date: Mon, 15 Jul 2024 23:12:16 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Valentin Caron <valentin.caron@foss.st.com>
-Message-ID: <2024071521121650db391a@mail.local>
-References: <20240711140843.3201530-1-valentin.caron@foss.st.com>
+ Tue, 16 Jul 2024 13:07:41 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-367ac08f80fso2970304f8f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jul 2024 06:07:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721135261; x=1721740061;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=HJ8+1Dls9gHXZmTlH8ttAZgOqS31ryuk4YadVHCctP4=;
+ b=jdOWH2DCZYzum0dXIMvDaczkhDAQbn+wJpiakDWBDDwwJ3dosV/I+mL/28YzvvXhPm
+ tfxJpANJOTBEPIifdYrsKmQs95bP4sV5Vtyy96Yqr+Izm17ZRI1jGCapOxksgHHORKVJ
+ /Eqs+2KOKm7vO0eT8YKsjXHKriY28DgOHGbioUvqWs+nhNyxuVAbuadZMb/mBC2bYPcX
+ JWuf9MTAIYi0YB/IrrDS/6panMrgRuqkDQcp7kXyr/MQs3b2etboTm0EFCNsJQyQJodl
+ s/n5lcANu9ZZJacxQl2yQuw96kFHK4/vHIUNfz2MLgSHGQgy3cVtWi5gWTI/KK29laC3
+ r8zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721135261; x=1721740061;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HJ8+1Dls9gHXZmTlH8ttAZgOqS31ryuk4YadVHCctP4=;
+ b=oovZevBKQGMi+u/dRc4LybZieyglMLiIOCXRV/OfdFxDKflin3JD9qlFXoE2kOjYlM
+ +ZFvE4oayraW4Ew2/PQQOWCQEjrXYAL46vuu+ey2eoSuKxdli09idju30Sz+0EvewlrH
+ 6cr/Gr4cIRqjrVRf1xRSbTXerZPT0igwhSt26skRC7BEkgw4G9meXStYMj6AWL4Ll/2o
+ 55FYF3xJpK1OBYqVJ00KpO15Hz4KnGhmLZbllEsr3yIHD9V2cInQwv+ySgp2h5mfrX9t
+ RxlBRzgOzmDJQrFsk9SgeYSZoKQHHdYskzMomGYHSuNETnE/7/75brX7gaP0mjL6h6Tn
+ 3wXQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW08ICXQXkRGnkr7FF3HD6M3yPnMGcXgxYgWJAxLfFkxO/T/7BXbKaNtggliSMEpQWpAYfBGG3OxvLXizpm/DwMwlf0oNknCjPbklRLqqlLcuVQUr+3wJUT
+X-Gm-Message-State: AOJu0Yw6F8c6n9eYFzXQvmH/BqC+Fa5uNWDaVcmx0ijQHD/rcNLN48SY
+ Wm2Ui0yHTQQ7Dt4+E3b+mX69ud5UA24Ju1hP/6bniQavOo7cyKr6zOs8Bi19X88=
+X-Google-Smtp-Source: AGHT+IF/mJWDmCM/RTFS4KnpUoj8ACXVsq97TxQdcyfYwcgw8wActI/cmP5PqGmH/ftOaErkRt/3KA==
+X-Received: by 2002:a5d:64ab:0:b0:367:9625:bd06 with SMTP id
+ ffacd0b85a97d-3682633a6aamr1634036f8f.42.1721135261033; 
+ Tue, 16 Jul 2024 06:07:41 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:5abd:5899:c977:d551?
+ ([2a05:6e02:1041:c10:5abd:5899:c977:d551])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-427a5e8144dsm127215135e9.11.2024.07.16.06.07.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Jul 2024 06:07:40 -0700 (PDT)
+Message-ID: <046303cd-54d0-42f0-990d-2d18a9de1f3e@linaro.org>
+Date: Tue, 16 Jul 2024 15:07:39 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240711140843.3201530-1-valentin.caron@foss.st.com>
-X-GND-Sasl: alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/4] rtc: stm32: add pinctrl interface to
-	handle RTC outs
+User-Agent: Mozilla Thunderbird
+To: Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20240714-thermal-v3-0-88f2489ef7d5@gmail.com>
+ <20240714-thermal-v3-2-88f2489ef7d5@gmail.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <20240714-thermal-v3-2-88f2489ef7d5@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] thermal: sti: depend on THERMAL_OF
+	subsystem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,67 +90,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
-
-On 11/07/2024 16:08:39+0200, Valentin Caron wrote:
-> This series adds a pinctrl/pinmux interface to control STM32 RTC outputs.
-> 
-> Theses two signals output are possible:
->  - LSCO (Low Speed Clock Output) that allow to output LSE clock on a pin.
->    On STM32MPU Discovery boards, this feature is used to generate a clock
->    to Wifi/Bluetooth module.
->  - Alarm out that allow to send a pulse on a pin when alarm A of the RTC
->    expires.
-> 
-> First attempt [1] was based on 'st,' vendor properties, this one is based
-> on pinctrl and pinmux framework.
-> 
-> As device-trees will be upstreamed separately, here is an example:
-> 
-> stm32-pinctrl {
->     rtc_rsvd_pins_a: rtc-rsvd-0 {
->         pins {
->             pinmux = <STM32_PINMUX('B', 2, AF1)>, /* OUT2 */
->                      <STM32_PINMUX('I', 8, ANALOG)>; /* OUT2_RMP */
->         };
->     };
-> };
-> 
-> stm32-rtc {
->     pinctrl-0 = <&rtc_rsvd_pins_a &rtc_alarma_pins_a>;
-> 
->     /* Enable by foo-device */
->     rtc_lsco_pins_a: rtc-lsco-0 {
->         pins = "out2_rmp";
->         function = "lsco";
->     };
-> 
->     /* Enable by stm32-rtc hog */
->     rtc_alarma_pins_a: rtc-alarma-0 {
->         pins = "out2";
->         function = "alarm-a";
->     };
-> };
-> 
-> foo-device {
->     pinctrl-0 = <&rtc_lsco_pins_a>;
-> };
-> 
-
-This all seems good to me, I let you fix the various issues that have
-been reported. I was just wondering whether the LSCO clock was registered
-early enough to be used but I guess you tested that.
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTQvMDcvMjAyNCAxMzo0MiwgUmFwaGFlbCBHYWxsYWlzLVBvdSB3cm90ZToKPiBTd2l0Y2gg
+dG8gdGhlcm1hbF9vZl96b25lIHRvIGhhbmRsZSB0aGVybWFsLXpvbmVzLiBSZXBsYWNlCj4gdGhl
+cm1hbF96b25lX2RldmljZV9yZWdpc3RlcigpIGJ5IGRldm1fdGhlcm1hbF9vZl96b25lX3JlZ2lz
+dGVyKCkgYW5kCj4gcmVtb3ZlIG9wcyBzdF90aGVybWFsX2dldF90cmlwX3R5cGUsIHN0X3RoZXJt
+YWxfZ2V0X3RyaXBfdGVtcC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSYXBoYWVsIEdhbGxhaXMtUG91
+IDxyZ2FsbGFpc3BvdUBnbWFpbC5jb20+Cj4gLS0tCj4gQ2hhbmdlcyBpbiB2MzoKPiAtIEZpeCB1
+bm1ldCBkZXBlbmRlbmN5IHdoZW4gYnVpbGRpbmcgd2l0aCBBUk02NCBjb21waWxlcgo+ICAgIGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNDA2MjcwNjA1LnFvZGFXZDRuLWxrcEBpbnRl
+bC5jb20vCj4gLSBSZW1vdmUgbm8gbW9yZSB1c2VkIHBvbGxpbmdfZGVsYXkgdmFyaWFibGUgZGV0
+ZWN0ZWQgYnkga2VybmVsIHJvYm90Cj4gICAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC8y
+MDI0MDYyNzA1MzAua041d0lzd2ktbGtwQGludGVsLmNvbS8KPiBDaGFuZ2VzIGluIHYyOgo+IC0g
+UmVtb3ZlIHVudXNlZCBzdHJ1Y3QgdGhlcm1hbF90cmlwIHRyaXAKPiAtLS0KPiAgIGRyaXZlcnMv
+dGhlcm1hbC9zdC9LY29uZmlnICAgICAgfCAgMiArKwo+ICAgZHJpdmVycy90aGVybWFsL3N0L3N0
+X3RoZXJtYWwuYyB8IDI4ICsrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0KPiAgIDIgZmlsZXMg
+Y2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvdGhlcm1hbC9zdC9LY29uZmlnIGIvZHJpdmVycy90aGVybWFsL3N0L0tjb25m
+aWcKPiBpbmRleCBlY2JkZjRlZjAwZjQuLjk1YTYzNDcwOWE5OSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL3RoZXJtYWwvc3QvS2NvbmZpZwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9zdC9LY29uZmln
+Cj4gQEAgLTUsMTIgKzUsMTQgQEAKPiAgIAo+ICAgY29uZmlnIFNUX1RIRVJNQUwKPiAgIAl0cmlz
+dGF0ZSAiVGhlcm1hbCBzZW5zb3JzIG9uIFNUTWljcm9lbGVjdHJvbmljcyBTVGkgc2VyaWVzIG9m
+IFNvQ3MiCj4gKwlkZXBlbmRzIG9uIFRIRVJNQUxfT0YKPiAgIAloZWxwCj4gICAJICBTdXBwb3J0
+IGZvciB0aGVybWFsIHNlbnNvcnMgb24gU1RNaWNyb2VsZWN0cm9uaWNzIFNUaSBzZXJpZXMgb2Yg
+U29Dcy4KPiAgIAo+ICAgY29uZmlnIFNUX1RIRVJNQUxfTUVNTUFQCj4gICAJc2VsZWN0IFNUX1RI
+RVJNQUwKPiAgIAl0cmlzdGF0ZSAiU1RpIHNlcmllcyBtZW1vcnkgbWFwcGVkIGFjY2VzcyBiYXNl
+ZCB0aGVybWFsIHNlbnNvcnMiCj4gKwlkZXBlbmRzIG9uIFRIRVJNQUxfT0YKCkdpdmVuIHRoZSBj
+aGFuZ2VzIGJlbG93IGl0IGlzIHBvc3NpYmxlIHRvIG1vdmUgdGhpcyBkZXBlbmRlbmN5IGluIHRo
+ZSAKdXBwZXIgS2NvbmZpZyBBRkFJQ1M6CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy90aGVybWFsL0tj
+b25maWcgYi9kcml2ZXJzL3RoZXJtYWwvS2NvbmZpZwppbmRleCBlZDE2ODk3NTg0YjQuLmI2Yjkx
+NmU3ZTI5NCAxMDA2NDQKLS0tIGEvZHJpdmVycy90aGVybWFsL0tjb25maWcKKysrIGIvZHJpdmVy
+cy90aGVybWFsL0tjb25maWcKQEAgLTQyOSw3ICs0MjksNyBAQCBzb3VyY2UgImRyaXZlcnMvdGhl
+cm1hbC9zYW1zdW5nL0tjb25maWciCiAgZW5kbWVudQoKICBtZW51ICJTVE1pY3JvZWxlY3Ryb25p
+Y3MgdGhlcm1hbCBkcml2ZXJzIgotZGVwZW5kcyBvbiAoQVJDSF9TVEkgfHwgQVJDSF9TVE0zMikg
+JiYgT0YKK2RlcGVuZHMgb24gKEFSQ0hfU1RJIHx8IEFSQ0hfU1RNMzIpICYmIFRIRVJNQUxfT0YK
+ICBzb3VyY2UgImRyaXZlcnMvdGhlcm1hbC9zdC9LY29uZmlnIgogIGVuZG1lbnUKClRIRVJNQUxf
+T0YgZGVwZW5kcyBvbiBPRgoKPiAgIGNvbmZpZyBTVE0zMl9USEVSTUFMCj4gICAJdHJpc3RhdGUg
+IlRoZXJtYWwgZnJhbWV3b3JrIHN1cHBvcnQgb24gU1RNaWNyb2VsZWN0cm9uaWNzIFNUTTMyIHNl
+cmllcyBvZiBTb0NzIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvc3Qvc3RfdGhlcm1h
+bC5jIGIvZHJpdmVycy90aGVybWFsL3N0L3N0X3RoZXJtYWwuYwo+IGluZGV4IDVmMzM1NDNhM2E1
+NC4uMjM1OTc4MTljZTg0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9zdC9zdF90aGVy
+bWFsLmMKPiArKysgYi9kcml2ZXJzL3RoZXJtYWwvc3Qvc3RfdGhlcm1hbC5jCj4gQEAgLTEyLDYg
+KzEyLDcgQEAKPiAgICNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgIAo+ICAgI2luY2x1
+ZGUgInN0X3RoZXJtYWwuaCIKPiArI2luY2x1ZGUgIi4uL3RoZXJtYWxfaHdtb24uaCIKPiAgIAo+
+ICAgLyogVGhlIFRoZXJtYWwgRnJhbWV3b3JrIGV4cGVjdHMgbWlsbGlkZWdyZWVzICovCj4gICAj
+ZGVmaW5lIG1jZWxzaXVzKHRlbXApCQkJKCh0ZW1wKSAqIDEwMDApCj4gQEAgLTEzNSw4ICsxMzYs
+NiBAQCBzdGF0aWMgc3RydWN0IHRoZXJtYWxfem9uZV9kZXZpY2Vfb3BzIHN0X3R6X29wcyA9IHsK
+PiAgIAkuZ2V0X3RlbXAJPSBzdF90aGVybWFsX2dldF90ZW1wLAo+ICAgfTsKPiAgIAo+IC1zdGF0
+aWMgc3RydWN0IHRoZXJtYWxfdHJpcCB0cmlwOwo+IC0KPiAgIGludCBzdF90aGVybWFsX3JlZ2lz
+dGVyKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYsCj4gICAJCQljb25zdCBzdHJ1Y3Qgb2Zf
+ZGV2aWNlX2lkICpzdF90aGVybWFsX29mX21hdGNoKQo+ICAgewo+IEBAIC0xNDUsNyArMTQ0LDYg
+QEAgaW50IHN0X3RoZXJtYWxfcmVnaXN0ZXIoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwK
+PiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wID0gZGV2LT5vZl9ub2RlOwo+ICAgCWNvbnN0IHN0
+cnVjdCBvZl9kZXZpY2VfaWQgKm1hdGNoOwo+ICAgCj4gLQlpbnQgcG9sbGluZ19kZWxheTsKPiAg
+IAlpbnQgcmV0Owo+ICAgCj4gICAJaWYgKCFucCkgewo+IEBAIC0xOTcsMjkgKzE5NSwyMiBAQCBp
+bnQgc3RfdGhlcm1hbF9yZWdpc3RlcihzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LAo+ICAg
+CWlmIChyZXQpCj4gICAJCWdvdG8gc2Vuc29yX29mZjsKPiAgIAo+IC0JcG9sbGluZ19kZWxheSA9
+IHNlbnNvci0+b3BzLT5yZWdpc3Rlcl9lbmFibGVfaXJxID8gMCA6IDEwMDA7Cj4gLQo+IC0JdHJp
+cC50ZW1wZXJhdHVyZSA9IHNlbnNvci0+Y2RhdGEtPmNyaXRfdGVtcDsKPiAtCXRyaXAudHlwZSA9
+IFRIRVJNQUxfVFJJUF9DUklUSUNBTDsKPiAtCj4gICAJc2Vuc29yLT50aGVybWFsX2RldiA9Cj4g
+LQkJdGhlcm1hbF96b25lX2RldmljZV9yZWdpc3Rlcl93aXRoX3RyaXBzKGRldl9uYW1lKGRldiks
+ICZ0cmlwLCAxLCBzZW5zb3IsCj4gLQkJCQkJCQkmc3RfdHpfb3BzLCBOVUxMLCAwLCBwb2xsaW5n
+X2RlbGF5KTsKPiArCQlkZXZtX3RoZXJtYWxfb2Zfem9uZV9yZWdpc3RlcihkZXYsIDAsIHNlbnNv
+ciwgJnN0X3R6X29wcyk7Cj4gICAJaWYgKElTX0VSUihzZW5zb3ItPnRoZXJtYWxfZGV2KSkgewo+
+IC0JCWRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIHJlZ2lzdGVyIHRoZXJtYWwgem9uZSBkZXZpY2Vc
+biIpOwo+ICsJCWRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIHJlZ2lzdGVyIHRoZXJtYWwgb2Ygem9u
+ZVxuIik7Cj4gICAJCXJldCA9IFBUUl9FUlIoc2Vuc29yLT50aGVybWFsX2Rldik7Cj4gICAJCWdv
+dG8gc2Vuc29yX29mZjsKPiAgIAl9Cj4gLQlyZXQgPSB0aGVybWFsX3pvbmVfZGV2aWNlX2VuYWJs
+ZShzZW5zb3ItPnRoZXJtYWxfZGV2KTsKPiAtCWlmIChyZXQpCj4gLQkJZ290byB0emRfdW5yZWdp
+c3RlcjsKPiAgIAo+ICAgCXBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIHNlbnNvcik7Cj4gICAK
+PiAtCXJldHVybiAwOwo+ICsJLyoKPiArCSAqIGRldm1fdGhlcm1hbF9vZl96b25lX3JlZ2lzdGVy
+KCkgZG9lc24ndCBlbmFibGUgaHdtb24gYnkgZGVmYXVsdAo+ICsJICogRW5hYmxlIGl0IGhlcmUK
+PiArCSAqLwo+ICsJcmV0dXJuIGRldm1fdGhlcm1hbF9hZGRfaHdtb25fc3lzZnMoZGV2LCBzZW5z
+b3ItPnRoZXJtYWxfZGV2KTsKCk90aGVyIGRyaXZlcnMgaWdub3JlIHRoZSByZXR1cm4gY29kZSBv
+ciBqdXN0IHByaW50IGEgbWVzc2FnZSBpbiBjYXNlIGl0IAppcyBub3QgemVyby4gT3RoZXJ3aXNl
+LCB0aGF0IG1ha2VzIHRoZSB0aGVybWFsIGRyaXZlciB0byBmYWlsIGJlY2F1c2Ugb2YgCmh3bW9u
+LgoKPiAtdHpkX3VucmVnaXN0ZXI6Cj4gLQl0aGVybWFsX3pvbmVfZGV2aWNlX3VucmVnaXN0ZXIo
+c2Vuc29yLT50aGVybWFsX2Rldik7Cj4gICBzZW5zb3Jfb2ZmOgo+ICAgCXN0X3RoZXJtYWxfc2Vu
+c29yX29mZihzZW5zb3IpOwo+ICAgCj4gQEAgLTIzMiw3ICsyMjMsOCBAQCB2b2lkIHN0X3RoZXJt
+YWxfdW5yZWdpc3RlcihzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCXN0cnVjdCBz
+dF90aGVybWFsX3NlbnNvciAqc2Vuc29yID0gcGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldik7Cj4g
+ICAKPiAgIAlzdF90aGVybWFsX3NlbnNvcl9vZmYoc2Vuc29yKTsKPiAtCXRoZXJtYWxfem9uZV9k
+ZXZpY2VfdW5yZWdpc3RlcihzZW5zb3ItPnRoZXJtYWxfZGV2KTsKPiArCXRoZXJtYWxfcmVtb3Zl
+X2h3bW9uX3N5c2ZzKHNlbnNvci0+dGhlcm1hbF9kZXYpOwo+ICsJZGV2bV90aGVybWFsX29mX3pv
+bmVfdW5yZWdpc3RlcihzZW5zb3ItPmRldiwgc2Vuc29yLT50aGVybWFsX2Rldik7Cj4gICB9Cj4g
+ICBFWFBPUlRfU1lNQk9MX0dQTChzdF90aGVybWFsX3VucmVnaXN0ZXIpOwo+ICAgCj4gCgotLSAK
+PGh0dHA6Ly93d3cubGluYXJvLm9yZy8+IExpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3
+YXJlIGZvciBBUk0gU29DcwoKRm9sbG93IExpbmFybzogIDxodHRwOi8vd3d3LmZhY2Vib29rLmNv
+bS9wYWdlcy9MaW5hcm8+IEZhY2Vib29rIHwKPGh0dHA6Ly90d2l0dGVyLmNvbS8jIS9saW5hcm9v
+cmc+IFR3aXR0ZXIgfAo8aHR0cDovL3d3dy5saW5hcm8ub3JnL2xpbmFyby1ibG9nLz4gQmxvZwoi
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
