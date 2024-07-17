@@ -2,84 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279599333E0
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2024 23:51:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94224933844
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jul 2024 09:50:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3C71C71280;
-	Tue, 16 Jul 2024 21:50:59 +0000 (UTC)
-Received: from omta040.useast.a.cloudfilter.net
- (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34A60C78014;
+	Wed, 17 Jul 2024 07:50:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39C0BC6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17E47C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jul 2024 21:50:52 +0000 (UTC)
-Received: from eig-obgw-5007a.ext.cloudfilter.net ([10.0.29.141])
- by cmsmtp with ESMTPS
- id ToxZsZkJknNFGTq4Rs1def; Tue, 16 Jul 2024 21:50:51 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id Tq4Qsrn5HVDZXTq4Qsi5sF; Tue, 16 Jul 2024 21:50:51 +0000
-X-Authority-Analysis: v=2.4 cv=JJ89sdKb c=1 sm=1 tr=0 ts=6696eb3b
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=frY+GlAHrI6frpeK1MvySw==:17
- a=IkcTkHD0fZMA:10 a=4kmOji7k6h8A:10 a=VwQbUJbxAAAA:8 a=8b9GpE9nAAAA:8
- a=pGLkceISAAAA:8 a=phlkwaE_AAAA:8 a=JfrnYn6hAAAA:8 a=JL3bU382AdGQ-euulaEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22
- a=T3LWEMljR5ZiDmsYVIUa:22 a=uKTQOUHymn4LaG7oTSIC:22 a=1CNFftbPRP8L7MoqJWF3:22
- a=Xt_RvD8W3m28Mn_h3AK8:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3mp/A7TaFk3Rm+5hz/oA89u2tO8OZ6IeOjXYptKzMt8=; b=nWWw3AsNeT8xCnxDTnHxVfhfKi
- uAZrezVdeRZRnDJ3QNYxxUKbK9ZqCtU1NMBi4JruljXXz/eeQAJscchCGSUfhUte2rhY0iDjUyOvS
- 54CaQEsRO/6vxDZoICqMWqgRTqoi5oDJaHPYLYEPsB1ZLhTmq8/jCkUBURoVXf7VuWPzGA47EEOPd
- 56mYqCxjpYKFlfIhwU9nAqiR6HLg4u0g8ersIZxfPBp7fykgdKOdkr+cowP+1JXUJmfqqeADqQSvy
- PnrzqG07TqDqTq0wITNuK6WA38iqgmnuXmMc7OzPNY+N7MN7pFq8X8lVkfYqCYcL9tZfXFF/a9CSd
- 2i5ksAvA==;
-Received: from [201.172.173.139] (port=56504 helo=[192.168.15.14])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96.2)
- (envelope-from <gustavo@embeddedor.com>) id 1sTq4P-000Te1-2I;
- Tue, 16 Jul 2024 16:50:49 -0500
-Message-ID: <d1a9d59f-00cc-4878-9cf4-eb58e9dd1562@embeddedor.com>
-Date: Tue, 16 Jul 2024 15:50:48 -0600
+ Wed, 17 Jul 2024 07:50:13 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46H5ldVH017884;
+ Wed, 17 Jul 2024 09:49:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=3JW+RJzaUTLqS+5yBddkQv
+ dwaulOuTRwn9Bo3mqMZBs=; b=5+qPQU9qlXJdtMjN/vnLR+5IKNH2vnwKCRNKdK
+ lg9G3ug/BCu5HqcCy5Ga+wEuScrOtD1Mxkv2dIoZ3nGba5vMpp4owdjxf+OV5kqQ
+ cRXOR9vBSKPDIlSLZ3i0GsmFAzWYCvPxLriX2fKt/mzP6vr/1hqXG5XWh1nmq+qA
+ Iv9ojmxNtcqbcJ9llRFWc52vs+kwWqwyqtEt0seObE90Jav1pnmJm21pSbhqYly4
+ lCIC8vwLqdB/98j39syPXAmomJmED2lC2X3EEUAqiCdXcxcqJuPZoGD9Pi6QBQFa
+ 9LJEQpkDo/YXk8s55m8k1eoTjvLLZW8l75bbcr0fWJky39JA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40dwfma6cd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jul 2024 09:49:37 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7BB9140044;
+ Wed, 17 Jul 2024 09:49:32 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3FCD6241489;
+ Wed, 17 Jul 2024 09:48:54 +0200 (CEST)
+Received: from localhost (10.48.86.111) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 17 Jul
+ 2024 09:48:53 +0200
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 17 Jul 2024 09:48:31 +0200
+Message-ID: <20240717074835.2210411-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kees Cook <kees@kernel.org>, =?UTF-8?Q?Am=C3=A9lie_Delaunay?=
- <amelie.delaunay@foss.st.com>
-References: <20240716213830.work.951-kees@kernel.org>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20240716213830.work.951-kees@kernel.org>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 201.172.173.139
-X-Source-L: No
-X-Exim-ID: 1sTq4P-000Te1-2I
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.15.14]) [201.172.173.139]:56504
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 12
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMGa89keVU+Bon7ufKvhzah7bjO3XHgw8WJuH1lVODiBHJfSsqnXiIL7znScUpyOGIC09Wt0LEfEMTSrHTAnukeuKin890ZOnuLbmZlYA46pRYXsmZO5
- pXUqSmBxWAK3YKmzteNZ5VIgEk9vIrggszzqLPG+AlX9HONo+8ODK/9G5vSNL0zG2/lGHe22y+0AHXwIQG8qK5g/Du3Ih9WKNvh9OqzG+lVtAWyMWsWCQ+cc
-Cc: linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, linux-hardening@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dma3: Set lli_size after
-	allocation
+X-Originating-IP: [10.48.86.111]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-17_04,2024-07-16_02,2024-05-17_01
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] rtc: stm32: add pinctrl interface to
+	handle RTC outs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,45 +70,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxNi8wNy8yNCAxNTozOCwgS2VlcyBDb29rIHdyb3RlOgo+IFdpdGggdGhlIG5ldyBfX2Nv
-dW50ZWRfYnkgYW5ub3RhdGlvbiwgdGhlICJsbGlfc2l6ZSIgdmFyaWFibGUgbmVlZHMgdG8KPiB2
-YWxpZCBmb3IgYWNjZXNzZXMgdG8gdGhlICJsbGkiIGFycmF5LiBUaGlzIHJlcXVpcmVtZW50IGlz
-IG5vdCBtZXQgaW4KPiBzdG0zMl9kbWEzX2NoYW5fZGVzY19hbGxvYygpLCBzaW5jZSAibGxpX3Np
-emUiIHN0YXJ0cyBhdCAiMCIsIHNvICJsbGkiCj4gaW5kZXggIjAiIHdpbGwgbm90IGJlIGNvbnNp
-ZGVyZWQgdmFsaWQgZHVyaW5nIHRoZSBpbml0aWFsaXphdGlvbiBmb3IgbG9vcC4KPiAKPiBGaXgg
-dGhpcyBieSBzZXR0aW5nIGxsaV9zaXplIGltbWVkaWF0ZWx5IGFmdGVyIGFsbG9jYXRpb24gKHNp
-bWlsYXIgdG8KPiBob3cgdGhpcyBpcyBoYW5kbGVkIGluIHN0bTMyX21kbWFfYWxsb2NfZGVzYygp
-IGZvciB0aGUgbm9kZS9jb3VudAo+IHJlbGF0aW9uc2hpcCkuCj4gCj4gRml4ZXM6IGY1NjFlYzhi
-MmIzMyAoImRtYWVuZ2luZTogQWRkIFNUTTMyIERNQTMgc3VwcG9ydCIpCj4gU2lnbmVkLW9mZi1i
-eTogS2VlcyBDb29rIDxrZWVzQGtlcm5lbC5vcmc+CgpSZXZpZXdlZC1ieTogR3VzdGF2byBBLiBS
-LiBTaWx2YSA8Z3VzdGF2b2Fyc0BrZXJuZWwub3JnPgoKVGhhbmtzCi0tIApHdXN0YXZvCgo+IC0t
-LQo+IENjOiAiQW3DqWxpZSBEZWxhdW5heSIgPGFtZWxpZS5kZWxhdW5heUBmb3NzLnN0LmNvbT4K
-PiBDYzogVmlub2QgS291bCA8dmtvdWxAa2VybmVsLm9yZz4KPiBDYzogTWF4aW1lIENvcXVlbGlu
-IDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4
-YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+IENjOiBkbWFlbmdpbmVAdmdlci5rZXJuZWwub3Jn
-Cj4gQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPiBDYzogbGlu
-dXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4gLS0tCj4gICBkcml2ZXJzL2RtYS9z
-dG0zMi9zdG0zMi1kbWEzLmMgfCAyICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEvc3RtMzIvc3Rt
-MzItZG1hMy5jIGIvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItZG1hMy5jCj4gaW5kZXggNDA4N2Uw
-MjYzYTQ4Li4wYmU2ZTk0NGRmNmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9kbWEvc3RtMzIvc3Rt
-MzItZG1hMy5jCj4gKysrIGIvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItZG1hMy5jCj4gQEAgLTQw
-Myw2ICs0MDMsNyBAQCBzdGF0aWMgc3RydWN0IHN0bTMyX2RtYTNfc3dkZXNjICpzdG0zMl9kbWEz
-X2NoYW5fZGVzY19hbGxvYyhzdHJ1Y3Qgc3RtMzJfZG1hM19jaAo+ICAgCXN3ZGVzYyA9IGt6YWxs
-b2Moc3RydWN0X3NpemUoc3dkZXNjLCBsbGksIGNvdW50KSwgR0ZQX05PV0FJVCk7Cj4gICAJaWYg
-KCFzd2Rlc2MpCj4gICAJCXJldHVybiBOVUxMOwo+ICsJc3dkZXNjLT5sbGlfc2l6ZSA9IGNvdW50
-Owo+ICAgCj4gICAJZm9yIChpID0gMDsgaSA8IGNvdW50OyBpKyspIHsKPiAgIAkJc3dkZXNjLT5s
-bGlbaV0uaHdkZXNjID0gZG1hX3Bvb2xfemFsbG9jKGNoYW4tPmxsaV9wb29sLCBHRlBfTk9XQUlU
-LAo+IEBAIC00MTAsNyArNDExLDYgQEAgc3RhdGljIHN0cnVjdCBzdG0zMl9kbWEzX3N3ZGVzYyAq
-c3RtMzJfZG1hM19jaGFuX2Rlc2NfYWxsb2Moc3RydWN0IHN0bTMyX2RtYTNfY2gKPiAgIAkJaWYg
-KCFzd2Rlc2MtPmxsaVtpXS5od2Rlc2MpCj4gICAJCQlnb3RvIGVycl9wb29sX2ZyZWU7Cj4gICAJ
-fQo+IC0Jc3dkZXNjLT5sbGlfc2l6ZSA9IGNvdW50Owo+ICAgCXN3ZGVzYy0+Y2NyID0gMDsKPiAg
-IAo+ICAgCS8qIFNldCBMTCBiYXNlIGFkZHJlc3MgKi8KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This series adds a pinctrl/pinmux interface to control STM32 RTC outputs.
+
+Theses two signals output are possible:
+ - LSCO (Low Speed Clock Output) that allow to output LSE clock on a pin.
+   On STM32MPU Discovery boards, this feature is used to generate a clock
+   to Wifi/Bluetooth module.
+ - Alarm out that allow to send a pulse on a pin when alarm A of the RTC
+   expires.
+
+First attempt [1] was based on 'st,' vendor properties, this one is based
+on pinctrl and pinmux framework.
+
+As device-trees will be upstreamed separately, here is an example:
+
+stm32-pinctrl {
+    rtc_rsvd_pins_a: rtc-rsvd-0 {
+        pins {
+            pinmux = <STM32_PINMUX('B', 2, AF1)>, /* OUT2 */
+                     <STM32_PINMUX('I', 8, ANALOG)>; /* OUT2_RMP */
+        };
+    };
+};
+
+stm32-rtc {
+    pinctrl-0 = <&rtc_rsvd_pins_a &rtc_alarma_pins_a>;
+
+    /* Enable by foo-device */
+    rtc_lsco_pins_a: rtc-lsco-0 {
+        pins = "out2_rmp";
+        function = "lsco";
+    };
+
+    /* Enable by stm32-rtc hog */
+    rtc_alarma_pins_a: rtc-alarma-0 {
+        pins = "out2";
+        function = "alarm-a";
+    };
+};
+
+foo-device {
+    pinctrl-0 = <&rtc_lsco_pins_a>;
+};
+
+[1] https://lore.kernel.org/linux-arm-kernel/20220504130617.331290-5-valentin.caron@foss.st.com/t/#m37935e92315e22bbe085775096175afc05b7ff09
+
+Since v1:
+ - Select PINMUX and PINCONF_GENERIC to solve:
+   https://lore.kernel.org/oe-kbuild-all/202407130943.ie6n2Orh-lkp@intel.com/
+ - Make stm32_rtc_pinctrl_pins as static to solve:
+   https://lore.kernel.org/oe-kbuild-all/202407130612.OEicZbNE-lkp@intel.com/
+ - Change "depends on" to "select" COMMON_CLK config
+ - Modify regex in dt-binding to avoid properties like "rtc--123" as valid ones.
+
+Valentin Caron (4):
+  dt-bindings: rtc: stm32: describe pinmux nodes
+  rtc: stm32: add pinctrl and pinmux interfaces
+  rtc: stm32: add Low Speed Clock Output (LSCO) support
+  rtc: stm32: add alarm A out feature
+
+ .../devicetree/bindings/rtc/st,stm32-rtc.yaml |  28 ++
+ drivers/rtc/Kconfig                           |   3 +
+ drivers/rtc/rtc-stm32.c                       | 281 ++++++++++++++++++
+ 3 files changed, 312 insertions(+)
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
