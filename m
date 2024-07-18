@@ -2,78 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28094934E1D
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jul 2024 15:25:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 328D59370AF
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jul 2024 00:34:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E56F7C78018;
-	Thu, 18 Jul 2024 13:25:42 +0000 (UTC)
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5CC6C7801A;
+	Thu, 18 Jul 2024 22:34:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9AE1C78015
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7B6CC78019
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jul 2024 13:25:41 +0000 (UTC)
-Received: by mail-oo1-f49.google.com with SMTP id
- 006d021491bc7-5d437791affso406625eaf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jul 2024 06:25:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721309140; x=1721913940;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6u33BE/Zx9BQXUadkdADDVxjMkkZVQKQkWWACwS8Fdk=;
- b=Jk36HtRiQdMEmLY9rL4mFCv+61Sc5HY6d/ksPJ/CwpCClun8rmfp9OyaWTLbKfMy1K
- mXKtBimfyeEMfqI03RTKj9H2w+eFMuq2orclKdRz1Mq/2O/Jb+QcORzM/4qALFO0KSiV
- yKSazg87LIxuVDTswcwyXY00lJNe1Id5EwerKdha7L0yC1oCy7/53Vynqiyqv3iiVocK
- DYtMrCvBwKZYWPCRxI8VKrwTHndD0242GBALSUPrJNeFlyfqFOFV2udgZJsY9ocd6kSo
- +OBpf9kRC8xR5Ignl7NZAsiyWTGQu6ErjG33kWI+0ihADDkdaZeDQDBnWlOtBbDtFoqE
- hY7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721309140; x=1721913940;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6u33BE/Zx9BQXUadkdADDVxjMkkZVQKQkWWACwS8Fdk=;
- b=cM+apkKFNyEv3IdrEF7eygpM1/Gbu0Hpcm9KX3zstDQqMZ5pW73EhIuHNyc9CMoc3/
- jsPy9x0NzoId2BA5kNJDzobYISkGtFS1JMHk4BZf9uN4p18FBRRkBBQiL3cQ8taJH85Z
- GkzPKo9qPfYpy2xYiDcgIa30mfJEWmL3uZd5mbeFJr8YWMzMlgB2Gn5OBRSMyeiteMir
- jzXZgEvrZFMDAlTDx9Wzy03z9unfR9CEXI6Vep0nVbFhTMObOLvnSW/2kKJmutlDFVHL
- eFkc6o5YgSJDJOyUkxZvPyPcIFvHTvIrcqlQwsML+3V+txfHOk09lNIDyg7mLyaB+UMv
- YPrg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIkXPFxFYzgnlZkLo0k53G7YlMpGxIufGohtkXKYIS0b8t7HZdcQ6WA/478c/Z01N0FI46gpaz9NI67++IwTsVUo+UfjM/oNwcjXhesl6x5tSi84xuy9RP
-X-Gm-Message-State: AOJu0YypLlk+nKpyW+5fVSwPDYyQrQDVh4Yp9G/xRVjGAn36LMlaGYF7
- xGA5I+GGbPy4BBTe3U4WaVE2suwE0JZGv3/6/pPqxJbNYFNIIQFNZlGP5iRiVvqyCBfG0eIKHQV
- /i9FCNkM24MtSl8nX7QSxspP9ez6hDAu+/RjGug==
-X-Google-Smtp-Source: AGHT+IGKC/ZsbnFgt4JyjJAfnoT/3Lb+kggEiogigNqLWPbn73aOYqG3+3JwCEvetKDXFvcd02w9i8v9M948PkzRZ2g=
-X-Received: by 2002:a05:6871:293:b0:254:a57e:1aed with SMTP id
- 586e51a60fabf-260d907c717mr4383695fac.26.1721309140544; Thu, 18 Jul 2024
- 06:25:40 -0700 (PDT)
+ Thu, 18 Jul 2024 22:34:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1721342047; x=1752878047;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0WYpy6TNv7sxifEV/XZ2E3aJ5S6L6mB+S2jYNf3TtIo=;
+ b=WH8LNen0+whcYWe+yDoTLlEaSYu3BVWvs2ZtxmhKZ92LGGS2JqnC/yOS
+ PKn51VKMJ2by9add8e+AhQ084piMFJGKCXMDj+zJMceP2trn7DwAgiWGG
+ Re25bLt8cNGIuaQOT6I5BmEcu3rud5QAT4pXyfDa/Rfm5rPB1jK4TaKjL
+ JSAke1W9rsBul6JsEevDhW29GoQea5pUP2evQIRBZXJylrBPTnEp2isx4
+ X6PJt0Y7kzpfbrLq29b83cOSP9JssWozeR8mssN917DAj7fGSQbe9i+xM
+ g3+uPh1ZnOU3FmzgBmeRKSoGgp7X5ADdqw/8Kss5aqmorV1t8omtWfHId w==;
+X-CSE-ConnectionGUID: zD2iJrnARhO7f8ql/M2fPQ==
+X-CSE-MsgGUID: FRWQIL8CTKmY6j8z0TQpLQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11137"; a="18560903"
+X-IronPort-AV: E=Sophos;i="6.09,219,1716274800"; d="scan'208";a="18560903"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2024 15:33:58 -0700
+X-CSE-ConnectionGUID: lWcU/w7YTh2RQM/ujVXg8Q==
+X-CSE-MsgGUID: KCFJ9vEbSzuCh/f911RZsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,219,1716274800"; d="scan'208";a="50776120"
+Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 18 Jul 2024 15:33:54 -0700
+Received: from kbuild by 68891e0c336b with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sUZhA-000hdK-0f;
+ Thu, 18 Jul 2024 22:33:52 +0000
+Date: Fri, 19 Jul 2024 06:33:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Valentin Caron <valentin.caron@foss.st.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <202407190654.I3RI7WfP-lkp@intel.com>
+References: <20240717074835.2210411-3-valentin.caron@foss.st.com>
 MIME-Version: 1.0
-References: <20240712102029.3697965-1-james.clark@linaro.org>
- <20240712102029.3697965-9-james.clark@linaro.org>
-In-Reply-To: <20240712102029.3697965-9-james.clark@linaro.org>
-From: Mike Leach <mike.leach@linaro.org>
-Date: Thu, 18 Jul 2024 14:25:29 +0100
-Message-ID: <CAJ9a7ViLNtH+tHgxDTRQGO3m+kF-t8v_HB_-JuGiFwnS9UJZEQ@mail.gmail.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@arm.com>,
- John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, "Liang,
- Kan" <kan.liang@linux.intel.com>, suzuki.poulose@arm.com,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, anshuman.khandual@arm.com,
- coresight@lists.linaro.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- leo.yan@linux.dev, Jiri Olsa <jolsa@kernel.org>,
- gankulkarni@os.amperecomputing.com
-Subject: Re: [Linux-stm32] [PATCH v5 08/17] perf: cs-etm: Add runtime
-	version check for OpenCSD
+Content-Disposition: inline
+In-Reply-To: <20240717074835.2210411-3-valentin.caron@foss.st.com>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/4] rtc: stm32: add pinctrl and pinmux
+	interfaces
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,139 +74,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 12 Jul 2024 at 11:22, James Clark <james.clark@linaro.org> wrote:
->
-> From: James Clark <james.clark@arm.com>
->
-> OpenCSD is dynamically linked so although there is a build time check,
-> at runtime the user might still have the wrong version. To avoid hard
-> to debug errors, add a runtime version check.
->
-> Signed-off-by: James Clark <james.clark@arm.com>
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->  tools/build/feature/test-libopencsd.c               |  4 ++--
->  tools/perf/Makefile.config                          |  2 +-
->  tools/perf/util/cs-etm-decoder/cs-etm-decoder.c     | 13 +++++++++++++
->  tools/perf/util/cs-etm-decoder/cs-etm-decoder.h     |  1 +
->  tools/perf/util/cs-etm-decoder/cs-etm-min-version.h | 13 +++++++++++++
->  tools/perf/util/cs-etm.c                            |  3 +++
->  6 files changed, 33 insertions(+), 3 deletions(-)
->  create mode 100644 tools/perf/util/cs-etm-decoder/cs-etm-min-version.h
->
-> diff --git a/tools/build/feature/test-libopencsd.c b/tools/build/feature/test-libopencsd.c
-> index 4cfcef9da3e4..d092a0c662f4 100644
-> --- a/tools/build/feature/test-libopencsd.c
-> +++ b/tools/build/feature/test-libopencsd.c
-> @@ -1,12 +1,12 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #include <opencsd/c_api/opencsd_c_api.h>
-> +#include "cs-etm-decoder/cs-etm-min-version.h"
->
->  /*
->   * Check OpenCSD library version is sufficient to provide required features
->   */
-> -#define OCSD_MIN_VER ((1 << 16) | (2 << 8) | (1))
->  #if !defined(OCSD_VER_NUM) || (OCSD_VER_NUM < OCSD_MIN_VER)
-> -#error "OpenCSD >= 1.2.1 is required"
-> +#error "OpenCSD minimum version (OCSD_MIN_VER) not met."
->  #endif
->
->  int main(void)
-> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-> index 7f1e016a9253..2d21be42820e 100644
-> --- a/tools/perf/Makefile.config
-> +++ b/tools/perf/Makefile.config
-> @@ -141,7 +141,7 @@ endif
->  ifdef CSLIBS
->    LIBOPENCSD_LDFLAGS := -L$(CSLIBS)
->  endif
-> -FEATURE_CHECK_CFLAGS-libopencsd := $(LIBOPENCSD_CFLAGS)
-> +FEATURE_CHECK_CFLAGS-libopencsd := $(LIBOPENCSD_CFLAGS) -I$(src-perf)/util
->  FEATURE_CHECK_LDFLAGS-libopencsd := $(LIBOPENCSD_LDFLAGS) $(OPENCSDLIBS)
->
->  # for linking with debug library, run like:
-> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> index b78ef0262135..5e1b4503aab1 100644
-> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> @@ -16,6 +16,7 @@
->
->  #include "cs-etm.h"
->  #include "cs-etm-decoder.h"
-> +#include "cs-etm-min-version.h"
->  #include "debug.h"
->  #include "intlist.h"
->
-> @@ -835,3 +836,15 @@ const char *cs_etm_decoder__get_name(struct cs_etm_decoder *decoder)
->  {
->         return decoder->decoder_name;
->  }
-> +
-> +int cs_etm_decoder__check_ver(void)
-> +{
-> +       if (ocsd_get_version() < OCSD_MIN_VER) {
-> +               pr_err("OpenCSD >= %d.%d.%d is required\n", OCSD_MIN_MAJOR,
-> +                                                           OCSD_MIN_MINOR,
-> +                                                           OCSD_MIN_PATCH);
-> +               return -EINVAL;
-> +       }
-> +
-> +       return 0;
-> +}
-> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
-> index 12c782fa6db2..2ec426ee16dc 100644
-> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
-> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
-> @@ -107,5 +107,6 @@ int cs_etm_decoder__get_packet(struct cs_etm_packet_queue *packet_queue,
->
->  int cs_etm_decoder__reset(struct cs_etm_decoder *decoder);
->  const char *cs_etm_decoder__get_name(struct cs_etm_decoder *decoder);
-> +int cs_etm_decoder__check_ver(void);
->
->  #endif /* INCLUDE__CS_ETM_DECODER_H__ */
-> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-min-version.h b/tools/perf/util/cs-etm-decoder/cs-etm-min-version.h
-> new file mode 100644
-> index 000000000000..c69597e9d0af
-> --- /dev/null
-> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-min-version.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef INCLUDE__CS_ETM_MIN_VERSION_H__
-> +#define INCLUDE__CS_ETM_MIN_VERSION_H__
-> +
-> +#define OCSD_MIN_MAJOR 1
-> +#define OCSD_MIN_MINOR 2
-> +#define OCSD_MIN_PATCH 1
-> +
-> +#define OCSD_MIN_VER ((OCSD_MIN_MAJOR << 16) | \
-> +                     (OCSD_MIN_MINOR << 8) |  \
-> +                     (OCSD_MIN_PATCH))
-> +
-> +#endif /* INCLUDE__CS_ETM_MIN_VERSION_H__ */
-> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-> index 49fadf46f42b..2385d5ed5ea5 100644
-> --- a/tools/perf/util/cs-etm.c
-> +++ b/tools/perf/util/cs-etm.c
-> @@ -3369,6 +3369,9 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
->         u64 *ptr = NULL;
->         u64 **metadata = NULL;
->
-> +       if (cs_etm_decoder__check_ver())
-> +               return -EINVAL;
-> +
->         /* First the global part */
->         ptr = (u64 *) auxtrace_info->priv;
->         num_cpu = ptr[CS_PMU_TYPE_CPUS] & 0xffffffff;
-> --
-> 2.34.1
->
+Hi Valentin,
 
-Reviewed-by: Mike Leach <mike.leach@linaro.org>
---
-Mike Leach
-Principal Engineer, ARM Ltd.
-Manchester Design Centre. UK
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on abelloni/rtc-next]
+[also build test ERROR on atorgue-stm32/stm32-next robh/for-next linus/master v6.10 next-20240718]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Valentin-Caron/dt-bindings-rtc-stm32-describe-pinmux-nodes/20240717-193541
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git rtc-next
+patch link:    https://lore.kernel.org/r/20240717074835.2210411-3-valentin.caron%40foss.st.com
+patch subject: [PATCH v2 2/4] rtc: stm32: add pinctrl and pinmux interfaces
+config: m68k-randconfig-r052-20240718 (https://download.01.org/0day-ci/archive/20240719/202407190654.I3RI7WfP-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240719/202407190654.I3RI7WfP-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202407190654.I3RI7WfP-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8186-mdp.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8186-mfg.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8186-mm.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-apmixedsys.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-topckgen.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-peri_ao.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-infra_ao.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-img.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-imp_iic_wrap.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-ipe.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-vdec.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-venc.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-vpp0.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-vpp1.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8188-wpe.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-aud.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-cam.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-img.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-mfg.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-msdc.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-scp_adsp.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8192-venc.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8195-mfg.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8365-apmixedsys.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8365.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8365-mfg.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8365-vdec.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/mediatek/clk-mt8365-venc.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sunxi-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/suniv-f1c100s-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun20i-d1-r-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun50i-a100-r-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun50i-h6-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun50i-h6-r-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun50i-h616-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun4i-a10-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun6i-a31-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun6i-rtc-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-a23-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-a33-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-h3-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-r40-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-de2-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun8i-r-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun9i-a80-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun9i-a80-de-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/clk/sunxi-ng/sun9i-a80-usb-ccu.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/soc/ixp4xx/ixp4xx-qmgr.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/soc/mediatek/mtk-cmdq-helper.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/soc/amlogic/meson-clk-measure.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/virtio/virtio.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/virtio/virtio_ring.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/regulator/rt4831-regulator.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/reset/hisilicon/hi6220_reset.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/char/lp.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/char/dtlk.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/char/ppdev.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/iommu/iova.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mfd/rt4831.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/firewire/uapi-test.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/firewire/packet-serdes-test.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/input/vivaldi-fmap.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/i2c/busses/i2c-pxa.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hwmon/mr75203.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mmc/host/tmio_mmc_core.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mmc/host/renesas_sdhi_core.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mmc/core/mmc_core.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-aureal.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-cypress.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-emsff.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-evision.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-ezkey.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-vivaldi-common.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-google-stadiaff.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-maltron.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-ortek.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-pl.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-primax.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-saitek.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-sjoy.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-speedlink.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-steam.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-sunplus.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-gaff.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hid/hid-xinmo.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mailbox/mtk-cmdq-mailbox.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/devfreq/governor_powersave.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hwtracing/intel_th/intel_th_msu_sink.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/nvmem/nvmem-apple-efuses.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/parport/parport.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/parsers/brcm_u-boot.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/parsers/tplink_safeloader.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/chips/cfi_util.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/chips/cfi_cmdset_0020.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/spmi/hisi-spmi-controller.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/spmi/spmi-pmic-arb.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/uio/uio.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/pcmcia/pcmcia_rsrc.o
+WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/greybus/greybus.o
+>> ERROR: modpost: "pinconf_generic_dt_node_to_map" [drivers/rtc/rtc-stm32.ko] undefined!
+>> ERROR: modpost: "pinconf_generic_dt_free_map" [drivers/rtc/rtc-stm32.ko] undefined!
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
