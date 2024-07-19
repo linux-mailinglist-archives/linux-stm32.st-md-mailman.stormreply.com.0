@@ -2,81 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AF89378AC
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jul 2024 15:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61DAC9378DF
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jul 2024 16:01:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F4FC7801B;
-	Fri, 19 Jul 2024 13:45:57 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00494C7801B;
+	Fri, 19 Jul 2024 14:01:40 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88348C7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3E10C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jul 2024 13:45:49 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-78006198aeeso1229792a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jul 2024 06:45:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721396748; x=1722001548;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=q6DEEhmg3Ja8v8Rv8CzrLy7ke/9Hd5uw1xozBhzNHkw=;
- b=IDk/npAnxCe+9gXJhUze5h6HTgvsOSPj9HAlLO9WVv1fXXk01Cl7vRNl3eAtitzU90
- 3N4mNVB2DR+SJDIxyaEI36RxeGJWOZ5Y6nUAxjrO5N3aUYI8BNddrwN7GCLQao07c/Zx
- 2Ms8o1oYw3WFemc9eHi/b4yTzR/CLJyehg+b1atKYgGYfkRi/43ZQeNVA0cCqyxqNbvl
- LZqQP7THlSqdyAuM9+Wx8BMzetKDfxt9qgf6YtNc31E7UDDeG3HRJBCYxFAcOeGazYea
- tBQkdFma020YTphr5Ok2RwlGDiZslTaj2hKLrPtZ797B3IG9rbonFjpXVrefWEnug04K
- t+uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721396748; x=1722001548;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=q6DEEhmg3Ja8v8Rv8CzrLy7ke/9Hd5uw1xozBhzNHkw=;
- b=IHY0G9N9qUsd79274csjXbLGi8tWxcFwSFqT4RWpdR71dciYEJFnxC2TDdIysj/1mc
- SNDHrb4X0dYxCfGFAFcXroV0oWrILu81OyN6UfnNG7Rdi7GjL7/ZpPQNAlANI+RX9IaR
- FtN+Sz9hz2s8NfFk9tamnRQZfp7XlGH2hP3psoQhnY3YIvYLpoAB9ukUmn68fGA+UGT7
- KAfCitYw9PwK2cjGwTRGUcbEZ0z8i/LOQNpVmidIKT8NjKV40HAvUQEy2srjNeDFT8/f
- 6MmSZ0FBljW5G66efSJZr0jkbBsGbnWbYp55MQ78Qx5eoWfZqbjGi0AOWC0/gWqrbrxg
- BdEQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXKdP8x0dEoEj9fRi0ksxAfs4tkLSXD+/nzN4BFllSZ10X6QT/aRjHLcD7+aKsJ/uUkO6XME9xwcVdRl2sTN/SIEmZ2qvrGWyPaO7q8CBpndHD4nETcmUBG
-X-Gm-Message-State: AOJu0YzVCNx9Jg45dIr4IGqZkgZ/Kgv4XmbJLFl4B0wEO9AF6NdxcZKP
- HnmlxuQ1+bKW1TrPay5z57Z9mwd+cohUFZ4zm6uSuHM+bTfyKc7Mtr3OnXMTeCzLANiCsqpRtPm
- 53vSp/kE2h25W598/4dLEDqRgFnhLFwMMdCRCmg==
-X-Google-Smtp-Source: AGHT+IHj7uX+1Re/rIAYxBvigyoyeQGRk9F0raS6FKUXjFDmNWxKntMHg6PQf2i+kUZS8oSEapT4/bKdOJe8lE0sWx0=
-X-Received: by 2002:a17:90b:4d84:b0:2c8:f3b5:7dd1 with SMTP id
- 98e67ed59e1d1-2cb779d0b7dmr6684082a91.16.1721396747944; Fri, 19 Jul 2024
- 06:45:47 -0700 (PDT)
+ Fri, 19 Jul 2024 14:01:31 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46JCVfr5002454;
+ Fri, 19 Jul 2024 14:00:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 0iOXd/KnUcqhuwFmJpV0aD60W+/rKAO1g0GIgi7G9dU=; b=LYyJO9njjal2idWQ
+ pHOhc9v48Y3mFXXbo69osK52dhN/D2QEB1m6pC0VT4I8cWFE6izJVlgjMwNnXolR
+ ukdcCv907hcFc3z5BaSFy2wnlJpSuGYRw4Zt5qMUJhnOF3k0Ds/1r/rAEu3sMBaR
+ milE/AgVpodAQ976/mWxTO9CfzNtOrQiai5WaOGn08hjuBVDuDDa8bKhY6RgDjRz
+ p0UGJ/xbZv/pSTN8VVHBMVXj7UhG3xtqyRdt6RhNvIdiwv66z5tvUIMNbRA+R7RN
+ FdN5SwAgonLbrA6yAjkBbAsg38Q2rnC1O4iKS7dmylnlLecD8O8nA19F7zuFDW9u
+ j62hpw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40fe94sm9p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jul 2024 14:00:33 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 46JE0J7r027068
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jul 2024 14:00:19 GMT
+Received: from [10.48.247.102] (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 19 Jul
+ 2024 07:00:18 -0700
+Message-ID: <55341a0d-b07b-4f25-be45-dd0b352315aa@quicinc.com>
+Date: Fri, 19 Jul 2024 07:00:17 -0700
 MIME-Version: 1.0
-References: <20240712102029.3697965-1-james.clark@linaro.org>
- <20240712102029.3697965-7-james.clark@linaro.org>
- <CAJ9a7Vgz-rP6kGLLo2RR_qSZ3dhBT+=E8S=z1Hj6pfwOYu06Nw@mail.gmail.com>
- <ef5e7351-5f62-444a-b930-4dc2feb9f10d@linaro.org>
- <26262a1f-de49-41de-85bf-0640c6cc6bd2@linaro.org>
-In-Reply-To: <26262a1f-de49-41de-85bf-0640c6cc6bd2@linaro.org>
-From: Mike Leach <mike.leach@linaro.org>
-Date: Fri, 19 Jul 2024 14:45:36 +0100
-Message-ID: <CAJ9a7VhL18eWFw6T6HdrhbY_v8oeyuzM62D1w1CO1Psumb-EBQ@mail.gmail.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@arm.com>,
- John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, "Liang,
- Kan" <kan.liang@linux.intel.com>, suzuki.poulose@arm.com,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, anshuman.khandual@arm.com,
- coresight@lists.linaro.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- leo.yan@linux.dev, Jiri Olsa <jolsa@kernel.org>,
- gankulkarni@os.amperecomputing.com
-Subject: Re: [Linux-stm32] [PATCH v5 06/17] perf: cs-etm: Support version
-	0.1 of HW_ID packets
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <2d168cf9-e456-4262-b276-95e992b8eac7@quicinc.com>
+ <bdac7f10-4c65-4be2-952b-aed1af04e2c9@app.fastmail.com>
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+In-Reply-To: <bdac7f10-4c65-4be2-952b-aed1af04e2c9@app.fastmail.com>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: sg1Ff6mAFYU0BUKqF12MoFAl9ng0bFVC
+X-Proofpoint-ORIG-GUID: sg1Ff6mAFYU0BUKqF12MoFAl9ng0bFVC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-19_06,2024-07-18_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=999 lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ adultscore=0 malwarescore=0 clxscore=1011 phishscore=0 mlxscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2407190107
+Cc: Peter Zijlstra <peterz@infradead.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, kernel-janitors@vger.kernel.org,
+ Karol Herbst <karolherbst@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, x86@kernel.org,
+ Russell King <linux@armlinux.org.uk>, Ingo Molnar <mingo@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] MODULE_DESCRIPTION() patches with no maintainer
+	action
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,267 +101,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fair enough - less worried about the ordering as the final :
+On 7/19/2024 3:51 AM, Arnd Bergmann wrote:
+> On Sun, Jul 14, 2024, at 23:46, Jeff Johnson wrote:
+>> Andrew & Greg,
+>>
+>> I hate to bother you with such mundane patches, but the following have been
+>> posted for a while without any maintainer or reviewer comment or action, and
+>> they have not yet landed in linux-next.
+>>
+>> What is the path forward to have these MODULE_DESCRIPTION() warnings fixed?
+>>
+>> arch/arm/probes/kprobes/
+>> https://lore.kernel.org/all/20240622-md-arm-arch-arm-probes-kprobes-v1-1-0832bd6e45db@quicinc.com/
+>>
+>> arch/x86/mm/
+>> https://lore.kernel.org/all/20240515-testmmiotrace-md-v1-1-10919a8b2842@quicinc.com/
+>>
+>> drivers/spmi/
+>> https://lore.kernel.org/all/20240609-md-drivers-spmi-v1-1-f1d5b24e7a66@quicinc.com/
+>>
+>> (note that beyond these 3 patches I still have an additional 13 patches which
+>> need to land in order to fix these warnings tree-wide, but those 13 patches
+>> have had recent maintainer or reviewer action so I'm not seeking your help at
+>> this time).
+> 
+> Hi Jeff,
+> 
+> For completeness, this is a patch that I have in my local
+> test tree now after I addressed the build issues for all
+> randconfig builds on arm, arm64 and x86.
+> 
+> I assume you already a version of most of these,
+> but please have a look in case there are some still
+> missing.
 
-else
-     return fn()
-}
+You have found and fixed some that I didn't encounter with make allmodconfig
+builds. I do have a list of ones for further analysis that I created by
+looking for files with a MODULE_LICENSE but not a MODULE_DESCRIPTION, and the
+ones I haven't yet fixed are on that list, but I'm very happy for you to
+submit your fixes.
 
-where there's no unconditional return at the end of the function. The
-last else looks redundant to me. More a stylistic thing, not sure if
-there is a hard and fast rule either way
+Details follow:
 
-Mike
+>  arch/arm/lib/xor-neon.c                         | 1 +
+https://lore.kernel.org/all/20240711-md-arm-arch-arm-lib-v2-1-ab08653dc106@quicinc.com/
 
+>  arch/x86/mm/testmmiotrace.c                     | 1 +
+https://lore.kernel.org/all/20240515-testmmiotrace-md-v1-1-10919a8b2842@quicinc.com/
 
+>  drivers/fpga/tests/fpga-bridge-test.c           | 1 +
+>  drivers/fpga/tests/fpga-mgr-test.c              | 1 +
+>  drivers/fpga/tests/fpga-region-test.c           | 1 +
+I do not have a patch for these three
 
-On Fri, 19 Jul 2024 at 11:49, James Clark <james.clark@linaro.org> wrote:
->
->
->
-> On 19/07/2024 11:48 am, James Clark wrote:
-> >
-> >
-> > On 18/07/2024 2:24 pm, Mike Leach wrote:
-> >> On Fri, 12 Jul 2024 at 11:22, James Clark <james.clark@linaro.org> wrote:
-> >>>
-> >>> From: James Clark <james.clark@arm.com>
-> >>>
-> >>> v0.1 HW_ID packets have a new field that describes which sink each CPU
-> >>> writes to. Use the sink ID to link trace ID maps to each other so that
-> >>> mappings are shared wherever the sink is shared.
-> >>>
-> >>> Also update the error message to show that overlapping IDs aren't an
-> >>> error in per-thread mode, just not supported. In the future we can
-> >>> use the CPU ID from the AUX records, or watch for changing sink IDs on
-> >>> HW_ID packets to use the correct decoders.
-> >>>
-> >>> Signed-off-by: James Clark <james.clark@arm.com>
-> >>> Signed-off-by: James Clark <james.clark@linaro.org>
-> >>> ---
-> >>>   tools/include/linux/coresight-pmu.h |  17 +++--
-> >>>   tools/perf/util/cs-etm.c            | 100 +++++++++++++++++++++++++---
-> >>>   2 files changed, 103 insertions(+), 14 deletions(-)
-> >>>
-> >>> diff --git a/tools/include/linux/coresight-pmu.h
-> >>> b/tools/include/linux/coresight-pmu.h
-> >>> index 51ac441a37c3..89b0ac0014b0 100644
-> >>> --- a/tools/include/linux/coresight-pmu.h
-> >>> +++ b/tools/include/linux/coresight-pmu.h
-> >>> @@ -49,12 +49,21 @@
-> >>>    * Interpretation of the PERF_RECORD_AUX_OUTPUT_HW_ID payload.
-> >>>    * Used to associate a CPU with the CoreSight Trace ID.
-> >>>    * [07:00] - Trace ID - uses 8 bits to make value easy to read in
-> >>> file.
-> >>> - * [59:08] - Unused (SBZ)
-> >>> - * [63:60] - Version
-> >>> + * [39:08] - Sink ID - as reported in
-> >>> /sys/bus/event_source/devices/cs_etm/sinks/
-> >>> + *           Added in minor version 1.
-> >>> + * [55:40] - Unused (SBZ)
-> >>> + * [59:56] - Minor Version - previously existing fields are
-> >>> compatible with
-> >>> + *           all minor versions.
-> >>> + * [63:60] - Major Version - previously existing fields mean
-> >>> different things
-> >>> + *           in new major versions.
-> >>>    */
-> >>>   #define CS_AUX_HW_ID_TRACE_ID_MASK     GENMASK_ULL(7, 0)
-> >>> -#define CS_AUX_HW_ID_VERSION_MASK      GENMASK_ULL(63, 60)
-> >>> +#define CS_AUX_HW_ID_SINK_ID_MASK      GENMASK_ULL(39, 8)
-> >>>
-> >>> -#define CS_AUX_HW_ID_CURR_VERSION 0
-> >>> +#define CS_AUX_HW_ID_MINOR_VERSION_MASK        GENMASK_ULL(59, 56)
-> >>> +#define CS_AUX_HW_ID_MAJOR_VERSION_MASK        GENMASK_ULL(63, 60)
-> >>> +
-> >>> +#define CS_AUX_HW_ID_MAJOR_VERSION 0
-> >>> +#define CS_AUX_HW_ID_MINOR_VERSION 1
-> >>>
-> >>>   #endif
-> >>> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-> >>> index 954a6f7bedf3..87e983da19be 100644
-> >>> --- a/tools/perf/util/cs-etm.c
-> >>> +++ b/tools/perf/util/cs-etm.c
-> >>> @@ -118,6 +118,12 @@ struct cs_etm_queue {
-> >>>          struct cs_etm_traceid_queue **traceid_queues;
-> >>>          /* Conversion between traceID and metadata pointers */
-> >>>          struct intlist *traceid_list;
-> >>> +       /*
-> >>> +        * Same as traceid_list, but traceid_list may be a reference
-> >>> to another
-> >>> +        * queue's which has a matching sink ID.
-> >>> +        */
-> >>> +       struct intlist *own_traceid_list;
-> >>> +       u32 sink_id;
-> >>>   };
-> >>>
-> >>>   static int cs_etm__process_timestamped_queues(struct
-> >>> cs_etm_auxtrace *etm);
-> >>> @@ -142,6 +148,7 @@ static int cs_etm__metadata_set_trace_id(u8
-> >>> trace_chan_id, u64 *cpu_metadata);
-> >>>                        (queue_nr << 16 | trace_chan_id)
-> >>>   #define TO_QUEUE_NR(cs_queue_nr) (cs_queue_nr >> 16)
-> >>>   #define TO_TRACE_CHAN_ID(cs_queue_nr) (cs_queue_nr & 0x0000ffff)
-> >>> +#define SINK_UNSET ((u32) -1)
-> >>>
-> >>>   static u32 cs_etm__get_v7_protocol_version(u32 etmidr)
-> >>>   {
-> >>> @@ -241,7 +248,16 @@ static int cs_etm__insert_trace_id_node(struct
-> >>> cs_etm_queue *etmq,
-> >>>                  int err;
-> >>>
-> >>>                  if (curr_cpu_data[CS_ETM_CPU] !=
-> >>> cpu_metadata[CS_ETM_CPU]) {
-> >>> -                       pr_err("CS_ETM: map mismatch between HW_ID
-> >>> packet CPU and Trace ID\n");
-> >>> +                       /*
-> >>> +                        * With > CORESIGHT_TRACE_IDS_MAX ETMs,
-> >>> overlapping IDs
-> >>> +                        * are expected (but not supported) in
-> >>> per-thread mode,
-> >>> +                        * rather than signifying an error.
-> >>> +                        */
-> >>> +                       if (etmq->etm->per_thread_decoding)
-> >>> +                               pr_err("CS_ETM: overlapping Trace IDs
-> >>> aren't currently supported in per-thread mode\n");
-> >>> +                       else
-> >>> +                               pr_err("CS_ETM: map mismatch between
-> >>> HW_ID packet CPU and Trace ID\n");
-> >>> +
-> >>>                          return -EINVAL;
-> >>>                  }
-> >>>
-> >>> @@ -326,6 +342,64 @@ static int cs_etm__process_trace_id_v0(struct
-> >>> cs_etm_auxtrace *etm, int cpu,
-> >>>          return cs_etm__metadata_set_trace_id(trace_chan_id, cpu_data);
-> >>>   }
-> >>>
-> >>> +static int cs_etm__process_trace_id_v0_1(struct cs_etm_auxtrace
-> >>> *etm, int cpu,
-> >>> +                                        u64 hw_id)
-> >>> +{
-> >>> +       struct cs_etm_queue *etmq = cs_etm__get_queue(etm, cpu);
-> >>> +       int ret;
-> >>> +       u64 *cpu_data;
-> >>> +       u32 sink_id = FIELD_GET(CS_AUX_HW_ID_SINK_ID_MASK, hw_id);
-> >>> +       u8 trace_id = FIELD_GET(CS_AUX_HW_ID_TRACE_ID_MASK, hw_id);
-> >>> +
-> >>> +       /*
-> >>> +        * Check sink id hasn't changed in per-cpu mode. In
-> >>> per-thread mode,
-> >>> +        * let it pass for now until an actual overlapping trace ID
-> >>> is hit. In
-> >>> +        * most cases IDs won't overlap even if the sink changes.
-> >>> +        */
-> >>> +       if (!etmq->etm->per_thread_decoding && etmq->sink_id !=
-> >>> SINK_UNSET &&
-> >>> +           etmq->sink_id != sink_id) {
-> >>> +               pr_err("CS_ETM: mismatch between sink IDs\n");
-> >>> +               return -EINVAL;
-> >>> +       }
-> >>> +
-> >>> +       etmq->sink_id = sink_id;
-> >>> +
-> >>> +       /* Find which other queues use this sink and link their ID
-> >>> maps */
-> >>> +       for (unsigned int i = 0; i < etm->queues.nr_queues; ++i) {
-> >>> +               struct cs_etm_queue *other_etmq =
-> >>> etm->queues.queue_array[i].priv;
-> >>> +
-> >>> +               /* Different sinks, skip */
-> >>> +               if (other_etmq->sink_id != etmq->sink_id)
-> >>> +                       continue;
-> >>> +
-> >>> +               /* Already linked, skip */
-> >>> +               if (other_etmq->traceid_list == etmq->traceid_list)
-> >>> +                       continue;
-> >>> +
-> >>> +               /* At the point of first linking, this one should be
-> >>> empty */
-> >>> +               if (!intlist__empty(etmq->traceid_list)) {
-> >>> +                       pr_err("CS_ETM: Can't link populated trace ID
-> >>> lists\n");
-> >>> +                       return -EINVAL;
-> >>> +               }
-> >>> +
-> >>> +               etmq->own_traceid_list = NULL;
-> >>> +               intlist__delete(etmq->traceid_list);
-> >>> +               etmq->traceid_list = other_etmq->traceid_list;
-> >>> +               break;
-> >>> +       }
-> >>> +
-> >>> +       cpu_data = get_cpu_data(etm, cpu);
-> >>> +       ret = cs_etm__insert_trace_id_node(etmq, trace_id, cpu_data);
-> >>> +       if (ret)
-> >>> +               return ret;
-> >>> +
-> >>> +       ret = cs_etm__metadata_set_trace_id(trace_id, cpu_data);
-> >>> +       if (ret)
-> >>> +               return ret;
-> >>> +
-> >>> +       return 0;
-> >>> +}
-> >>> +
-> >>>   static int cs_etm__metadata_get_trace_id(u8 *trace_chan_id, u64
-> >>> *cpu_metadata)
-> >>>   {
-> >>>          u64 cs_etm_magic = cpu_metadata[CS_ETM_MAGIC];
-> >>> @@ -414,10 +488,10 @@ static int
-> >>> cs_etm__process_aux_output_hw_id(struct perf_session *session,
-> >>>
-> >>>          /* extract and parse the HW ID */
-> >>>          hw_id = event->aux_output_hw_id.hw_id;
-> >>> -       version = FIELD_GET(CS_AUX_HW_ID_VERSION_MASK, hw_id);
-> >>> +       version = FIELD_GET(CS_AUX_HW_ID_MAJOR_VERSION_MASK, hw_id);
-> >>>
-> >>>          /* check that we can handle this version */
-> >>> -       if (version > CS_AUX_HW_ID_CURR_VERSION) {
-> >>> +       if (version > CS_AUX_HW_ID_MAJOR_VERSION) {
-> >>>                  pr_err("CS ETM Trace: PERF_RECORD_AUX_OUTPUT_HW_ID
-> >>> version %d not supported. Please update Perf.\n",
-> >>>                         version);
-> >>>                  return -EINVAL;
-> >>> @@ -442,7 +516,10 @@ static int
-> >>> cs_etm__process_aux_output_hw_id(struct perf_session *session,
-> >>>                  return -EINVAL;
-> >>>          }
-> >>>
-> >>> -       return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
-> >>
-> >> Perhaps leave this as the final statement of the function
-> >>
-> >>> +       if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 0)
-> >>
-> >> this could be moved before and be
-> >>
-> >> if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 1)
-> >>                 return cs_etm__process_trace_id_v0_1(etm, cpu, hw_id);
-> >>
-> >>
-> >
-> > Because I was intending minor version changes to be backwards compatible
-> > I have it so that any value other than 0 is treated as v0.1. Otherwise
-> > version updates will break old versions of Perf. And then if we added a
-> > v0.3 it would look like this:
->
-> That should have said v0.2 ^
->
-> >
-> >   if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 0)
-> >     return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
-> >   else if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 1)
-> >     return cs_etm__process_trace_id_v0_1(etm, cpu, hw_id);
-> >   else
-> >     return cs_etm__process_trace_id_v0_2(etm, cpu, hw_id);
-> >
-> > Based on that I'm not sure if you still think it should be changed?
+>  drivers/fsi/fsi-core.c                          | 1 +
+>  drivers/fsi/fsi-master-aspeed.c                 | 2 ++
+>  drivers/fsi/fsi-master-ast-cf.c                 | 1 +
+>  drivers/fsi/fsi-master-gpio.c                   | 1 +
+>  drivers/fsi/fsi-master-hub.c                    | 1 +
+>  drivers/fsi/fsi-scom.c                          | 1 +
+https://lore.kernel.org/all/20240605-md-drivers-fsi-v1-1-fefc82d81b12@quicinc.com/
+
+>  drivers/xen/xenbus/xenbus_probe_frontend.c      | 1 +
+I do not have a patch for this one
+
+>  fs/adfs/super.c                                 | 2 ++
+https://lore.kernel.org/all/20240523-md-adfs-v1-1-364268e38370@quicinc.com/
+
+>  fs/exportfs/expfs.c                             | 1 +
+I do not have a patch for this one
+
+>  kernel/locking/test-ww_mutex.c                  | 1 +
+https://lore.kernel.org/all/20240528-md-test-ww_mutex-v2-1-a2a19e920b12@quicinc.com/
+
+>  lib/asn1_decoder.c                              | 1 +
+>  lib/slub_kunit.c                                | 1 +
+>  lib/ucs2_string.c                               | 1 +
+>  lib/zlib_inflate/inflate_syms.c                 | 1 +
+I do not have a patch for these four
+
+>  mm/kasan/kasan_test.c                           | 1 +
+>  mm/kasan/kasan_test_module.c                    | 1 +
+I do not have a patch for these two
+
+>  samples/livepatch/livepatch-callbacks-busymod.c | 1 +
+>  samples/livepatch/livepatch-callbacks-demo.c    | 1 +
+>  samples/livepatch/livepatch-callbacks-mod.c     | 1 +
+>  samples/livepatch/livepatch-sample.c            | 1 +
+>  samples/livepatch/livepatch-shadow-fix1.c       | 1 +
+>  samples/livepatch/livepatch-shadow-fix2.c       | 1 +
+I do not have a patch for these six
+
+>  security/apparmor/policy_unpack_test.c          | 1 +
+https://lore.kernel.org/all/20240529-md-apparmor_policy_unpack_test-v1-1-9efc582078c4@quicinc.com/
 
 
-
--- 
-Mike Leach
-Principal Engineer, ARM Ltd.
-Manchester Design Centre. UK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
