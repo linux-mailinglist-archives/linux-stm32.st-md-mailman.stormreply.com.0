@@ -2,72 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4041893FA09
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC2193FA0A
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0084DC78F77;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B8AFC78F79;
 	Mon, 29 Jul 2024 15:58:24 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A207DC6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CE4DC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jul 2024 10:49:19 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4279ca8af51so11655155e9.3
+ Fri, 19 Jul 2024 13:57:48 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4277a5ed48bso12769745e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jul 2024 03:49:19 -0700 (PDT)
+ Fri, 19 Jul 2024 06:57:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721386159; x=1721990959;
+ d=linaro.org; s=google; t=1721397467; x=1722002267;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MR1nNJwEx0Ncv0OjFeMZT+1maG8vE5Sihuegti2P7uo=;
- b=bjybq2Y7HgZyZMe3IumxI4VfURaRfoOvlu5vVUe97gnEovk7PiyGXneIlVughOFfnk
- FLqAsvftDZDZq48XbcDUMU1wSTWuSXFQb8lvQ+E6hxVTjX1IQakSXXZ8I2HvMqxI9CuQ
- iLH4MwQVI1UNBdsgxSq/ws8uCx7h9E4qgZucZC/zSKF5ppAgHtYLc4OLO3jPTq3DKsx1
- m9wUjel4yRhiHchBwahysOb3qDXHX0vl+E6Oo4OIcnXV/M6IRU9BE4Lofyz2ZCDS7qfW
- ctIPG26A6MqgfDK2QGjPj0/HA+OGyF1alKHei5cDGn7rLsMKvBjW+fFHWWOdEoJBxihJ
- m9dQ==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zQ2Tz6yR/bZoQr7RrPV0L719gXacgymEkxdarnzW54w=;
+ b=eOEzic94ZycvwbJcHT4C21b3Ztn+40TQaZ2+tcGiJ5URwjwK9MQBdTK9TewoE4MzIs
+ 9q7ZhvrtUXxPuL8YUX+AJRblTu8rk8hH3jvn2I9eTyPEMlI/z+bwTtpObbyHAvLDcjzf
+ pH0tFr9JodZM0lCU7SG8jlyQhQoBch39RNBovgOOIH7qazCUvOLpLF3QCBpdxrlK8Q6g
+ l9LgaGHo5qYJjrej29BT/TXd0bWG9k7eNimlIzFl5Kw9Bwlm6MMl1epcZJpz9mhMjmIa
+ PQxMeojQ3hlaA215LpepRqRxj8rCZRqhD2I/6+kGgSDz01YrhIxRarDKqVtgn5n2CrBL
+ hZpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721386159; x=1721990959;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1721397467; x=1722002267;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MR1nNJwEx0Ncv0OjFeMZT+1maG8vE5Sihuegti2P7uo=;
- b=rb7VGdSDPSrRJgt06sYL2Ir/s8dLLrIiOC4WbpiieqpUVElPX3FRQWgtw19gLaM4Su
- Qd8YwQJCfxnKg80i5yeB8FcW91+ONq+xC9eWz5ReoX8OwIHIQtZK5n/ZJPrwTrcvZjaF
- HwsZAEt+A2Gx9tnNws0r/ubHrhk8iYBHiRyTkAXp+wueEBSyeHYIJH5I5/tmJtZ2GbDO
- htsGTLPCUTxMD1b+eHrJT1aJlt5ba8Y9+9y7tMbDG2ztvkK5/hdIz82Ikedhc24pN50F
- TFiEpcy97j4yPBZ8R+UUK55KYB5tcFZwr1t36emD4UgRMCXKGin7ITcpz0W2oX5Q7ofC
- aLBQ==
+ bh=zQ2Tz6yR/bZoQr7RrPV0L719gXacgymEkxdarnzW54w=;
+ b=wJclQDj2j1X3j+eO0ghRLg0JbYOB+5FajLTMZWVrKsnhDrNXWeivbEoWs3rfEtt4Ci
+ 2p5bEDMBM8rRXMpevatLHZFfm0D76G2jbw6It1SD6Gp6OU4WnKIPHnr/tK3zpDXw2XPs
+ +JWNy+ywIE671I44xPL8mK3qdD8FjPngD7Z1LW9F1b/O+itSuIT4UpfhuePsdZxwnLo/
+ Mn3+Q6j1otJE5CKiHAd2+r6rbEtEe9J2bxXIdcHk1I+fynkwvVqHqinzDzxU2Q/t9WnQ
+ P6CukwoguaXc2FGIO0eQfOLD0Oki1zeWnMDJdWxdBblh2ex6OJMDj1Futj0yYAJHknbw
+ JJ4g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfYQhPRBpdOXtQJIunudjXyzOijOOoAJ2VYjbL9kJ78hi5cMji6FJrHP8nq8VsKBi8TbZ1YSoCrgJ1Hjga+EO55qzlvXSveLGvEJtOvIjlkyfZsTt9jtHx
-X-Gm-Message-State: AOJu0YzHDCdEktd2PB36XRijtk819aemLGLosoX1+dVyUrloFXm+v9Wd
- q+hPB0VfSmqM3GDd8owYrP/7FixSpPWMDVf6xbrxAEBoNHnz1BkHeZAs0hOoDNQ=
-X-Google-Smtp-Source: AGHT+IGSqGYMg1gMwCDpi4ynTGwlmP5ZaQazBLsPaVqrVPIrE/EA+mkS/S9m12GX65ty/Yq4oVn5LA==
-X-Received: by 2002:a05:600c:3556:b0:426:59ad:bbb3 with SMTP id
- 5b1f17b1804b1-427c2d42a0amr55242215e9.32.1721386159024; 
- Fri, 19 Jul 2024 03:49:19 -0700 (PDT)
+ AJvYcCXDtmVzrzbHUj1sBhiEpjwbqE5j/dWDtNtc1tYvkyO3zrf80M/hnt1NL0pQ7cZWVnVbjT4e2ESlF8VPR9uSb4/oH761MLTs7OzlHDByBs1aM6mlibO+w/2o
+X-Gm-Message-State: AOJu0YyzxhXrsv3+oO2AbhQRap0+7z2cOsj8BTxxotzPb+164fr49OVo
+ lRZ2JnS/g5stYgu2jeNCKT+p3PpLJvHznao3QshjWIP64e6UsNLAzD2SkwzLFG4=
+X-Google-Smtp-Source: AGHT+IGNrsP6SfVaV56C7+6N9goIToepifz9WLdd3c/f4yICG5LrmFbusuO1I78xmxkELXEZpF5EsA==
+X-Received: by 2002:a5d:660f:0:b0:368:68d3:32b3 with SMTP id
+ ffacd0b85a97d-36868d33342mr2063276f8f.26.1721397467393; 
+ Fri, 19 Jul 2024 06:57:47 -0700 (PDT)
 Received: from [192.168.1.3] ([89.47.253.130])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d6901a35sm19693625e9.19.2024.07.19.03.49.17
+ ffacd0b85a97d-36878684247sm1720377f8f.5.2024.07.19.06.57.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jul 2024 03:49:18 -0700 (PDT)
-Message-ID: <26262a1f-de49-41de-85bf-0640c6cc6bd2@linaro.org>
-Date: Fri, 19 Jul 2024 11:49:17 +0100
+ Fri, 19 Jul 2024 06:57:47 -0700 (PDT)
+Message-ID: <61270b8a-2c88-4e0a-b124-6ad5de169122@linaro.org>
+Date: Fri, 19 Jul 2024 14:57:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: James Clark <james.clark@linaro.org>
 To: Mike Leach <mike.leach@linaro.org>
 References: <20240712102029.3697965-1-james.clark@linaro.org>
  <20240712102029.3697965-7-james.clark@linaro.org>
  <CAJ9a7Vgz-rP6kGLLo2RR_qSZ3dhBT+=E8S=z1Hj6pfwOYu06Nw@mail.gmail.com>
  <ef5e7351-5f62-444a-b930-4dc2feb9f10d@linaro.org>
+ <26262a1f-de49-41de-85bf-0640c6cc6bd2@linaro.org>
+ <CAJ9a7VhL18eWFw6T6HdrhbY_v8oeyuzM62D1w1CO1Psumb-EBQ@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <ef5e7351-5f62-444a-b930-4dc2feb9f10d@linaro.org>
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <CAJ9a7VhL18eWFw6T6HdrhbY_v8oeyuzM62D1w1CO1Psumb-EBQ@mail.gmail.com>
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
 Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
@@ -95,197 +97,275 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxOS8wNy8yMDI0IDExOjQ4IGFtLCBKYW1lcyBDbGFyayB3cm90ZToKPiAKPiAKPiBPbiAx
-OC8wNy8yMDI0IDI6MjQgcG0sIE1pa2UgTGVhY2ggd3JvdGU6Cj4+IE9uIEZyaSwgMTIgSnVsIDIw
-MjQgYXQgMTE6MjIsIEphbWVzIENsYXJrIDxqYW1lcy5jbGFya0BsaW5hcm8ub3JnPiB3cm90ZToK
-Pj4+Cj4+PiBGcm9tOiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4+Cj4+PiB2
-MC4xIEhXX0lEIHBhY2tldHMgaGF2ZSBhIG5ldyBmaWVsZCB0aGF0IGRlc2NyaWJlcyB3aGljaCBz
-aW5rIGVhY2ggQ1BVCj4+PiB3cml0ZXMgdG8uIFVzZSB0aGUgc2luayBJRCB0byBsaW5rIHRyYWNl
-IElEIG1hcHMgdG8gZWFjaCBvdGhlciBzbyB0aGF0Cj4+PiBtYXBwaW5ncyBhcmUgc2hhcmVkIHdo
-ZXJldmVyIHRoZSBzaW5rIGlzIHNoYXJlZC4KPj4+Cj4+PiBBbHNvIHVwZGF0ZSB0aGUgZXJyb3Ig
-bWVzc2FnZSB0byBzaG93IHRoYXQgb3ZlcmxhcHBpbmcgSURzIGFyZW4ndCBhbgo+Pj4gZXJyb3Ig
-aW4gcGVyLXRocmVhZCBtb2RlLCBqdXN0IG5vdCBzdXBwb3J0ZWQuIEluIHRoZSBmdXR1cmUgd2Ug
-Y2FuCj4+PiB1c2UgdGhlIENQVSBJRCBmcm9tIHRoZSBBVVggcmVjb3Jkcywgb3Igd2F0Y2ggZm9y
-IGNoYW5naW5nIHNpbmsgSURzIG9uCj4+PiBIV19JRCBwYWNrZXRzIHRvIHVzZSB0aGUgY29ycmVj
-dCBkZWNvZGVycy4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xh
-cmtAYXJtLmNvbT4KPj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIENsYXJrIDxqYW1lcy5jbGFya0Bs
-aW5hcm8ub3JnPgo+Pj4gLS0tCj4+PiDCoCB0b29scy9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC1w
-bXUuaCB8wqAgMTcgKysrLS0KPj4+IMKgIHRvb2xzL3BlcmYvdXRpbC9jcy1ldG0uY8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfCAxMDAgKysrKysrKysrKysrKysrKysrKysrKysrKy0tLQo+Pj4gwqAg
-MiBmaWxlcyBjaGFuZ2VkLCAxMDMgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCj4+Pgo+
-Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LXBtdS5oIAo+Pj4g
-Yi90b29scy9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC1wbXUuaAo+Pj4gaW5kZXggNTFhYzQ0MWEz
-N2MzLi44OWIwYWMwMDE0YjAgMTAwNjQ0Cj4+PiAtLS0gYS90b29scy9pbmNsdWRlL2xpbnV4L2Nv
-cmVzaWdodC1wbXUuaAo+Pj4gKysrIGIvdG9vbHMvaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQtcG11
-LmgKPj4+IEBAIC00OSwxMiArNDksMjEgQEAKPj4+IMKgwqAgKiBJbnRlcnByZXRhdGlvbiBvZiB0
-aGUgUEVSRl9SRUNPUkRfQVVYX09VVFBVVF9IV19JRCBwYXlsb2FkLgo+Pj4gwqDCoCAqIFVzZWQg
-dG8gYXNzb2NpYXRlIGEgQ1BVIHdpdGggdGhlIENvcmVTaWdodCBUcmFjZSBJRC4KPj4+IMKgwqAg
-KiBbMDc6MDBdIC0gVHJhY2UgSUQgLSB1c2VzIDggYml0cyB0byBtYWtlIHZhbHVlIGVhc3kgdG8g
-cmVhZCBpbiAKPj4+IGZpbGUuCj4+PiAtICogWzU5OjA4XSAtIFVudXNlZCAoU0JaKQo+Pj4gLSAq
-IFs2Mzo2MF0gLSBWZXJzaW9uCj4+PiArICogWzM5OjA4XSAtIFNpbmsgSUQgLSBhcyByZXBvcnRl
-ZCBpbiAKPj4+IC9zeXMvYnVzL2V2ZW50X3NvdXJjZS9kZXZpY2VzL2NzX2V0bS9zaW5rcy8KPj4+
-ICsgKsKgwqDCoMKgwqDCoMKgwqDCoMKgIEFkZGVkIGluIG1pbm9yIHZlcnNpb24gMS4KPj4+ICsg
-KiBbNTU6NDBdIC0gVW51c2VkIChTQlopCj4+PiArICogWzU5OjU2XSAtIE1pbm9yIFZlcnNpb24g
-LSBwcmV2aW91c2x5IGV4aXN0aW5nIGZpZWxkcyBhcmUgCj4+PiBjb21wYXRpYmxlIHdpdGgKPj4+
-ICsgKsKgwqDCoMKgwqDCoMKgwqDCoMKgIGFsbCBtaW5vciB2ZXJzaW9ucy4KPj4+ICsgKiBbNjM6
-NjBdIC0gTWFqb3IgVmVyc2lvbiAtIHByZXZpb3VzbHkgZXhpc3RpbmcgZmllbGRzIG1lYW4gCj4+
-PiBkaWZmZXJlbnQgdGhpbmdzCj4+PiArICrCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbiBuZXcgbWFq
-b3IgdmVyc2lvbnMuCj4+PiDCoMKgICovCj4+PiDCoCAjZGVmaW5lIENTX0FVWF9IV19JRF9UUkFD
-RV9JRF9NQVNLwqDCoMKgwqAgR0VOTUFTS19VTEwoNywgMCkKPj4+IC0jZGVmaW5lIENTX0FVWF9I
-V19JRF9WRVJTSU9OX01BU0vCoMKgwqDCoMKgIEdFTk1BU0tfVUxMKDYzLCA2MCkKPj4+ICsjZGVm
-aW5lIENTX0FVWF9IV19JRF9TSU5LX0lEX01BU0vCoMKgwqDCoMKgIEdFTk1BU0tfVUxMKDM5LCA4
-KQo+Pj4KPj4+IC0jZGVmaW5lIENTX0FVWF9IV19JRF9DVVJSX1ZFUlNJT04gMAo+Pj4gKyNkZWZp
-bmUgQ1NfQVVYX0hXX0lEX01JTk9SX1ZFUlNJT05fTUFTS8KgwqDCoMKgwqDCoMKgIEdFTk1BU0tf
-VUxMKDU5LCA1NikKPj4+ICsjZGVmaW5lIENTX0FVWF9IV19JRF9NQUpPUl9WRVJTSU9OX01BU0vC
-oMKgwqDCoMKgwqDCoCBHRU5NQVNLX1VMTCg2MywgNjApCj4+PiArCj4+PiArI2RlZmluZSBDU19B
-VVhfSFdfSURfTUFKT1JfVkVSU0lPTiAwCj4+PiArI2RlZmluZSBDU19BVVhfSFdfSURfTUlOT1Jf
-VkVSU0lPTiAxCj4+Pgo+Pj4gwqAgI2VuZGlmCj4+PiBkaWZmIC0tZ2l0IGEvdG9vbHMvcGVyZi91
-dGlsL2NzLWV0bS5jIGIvdG9vbHMvcGVyZi91dGlsL2NzLWV0bS5jCj4+PiBpbmRleCA5NTRhNmY3
-YmVkZjMuLjg3ZTk4M2RhMTliZSAxMDA2NDQKPj4+IC0tLSBhL3Rvb2xzL3BlcmYvdXRpbC9jcy1l
-dG0uYwo+Pj4gKysrIGIvdG9vbHMvcGVyZi91dGlsL2NzLWV0bS5jCj4+PiBAQCAtMTE4LDYgKzEx
-OCwxMiBAQCBzdHJ1Y3QgY3NfZXRtX3F1ZXVlIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0
-IGNzX2V0bV90cmFjZWlkX3F1ZXVlICoqdHJhY2VpZF9xdWV1ZXM7Cj4+PiDCoMKgwqDCoMKgwqDC
-oMKgIC8qIENvbnZlcnNpb24gYmV0d2VlbiB0cmFjZUlEIGFuZCBtZXRhZGF0YSBwb2ludGVycyAq
-Lwo+Pj4gwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgaW50bGlzdCAqdHJhY2VpZF9saXN0Owo+Pj4g
-K8KgwqDCoMKgwqDCoCAvKgo+Pj4gK8KgwqDCoMKgwqDCoMKgICogU2FtZSBhcyB0cmFjZWlkX2xp
-c3QsIGJ1dCB0cmFjZWlkX2xpc3QgbWF5IGJlIGEgcmVmZXJlbmNlIAo+Pj4gdG8gYW5vdGhlcgo+
-Pj4gK8KgwqDCoMKgwqDCoMKgICogcXVldWUncyB3aGljaCBoYXMgYSBtYXRjaGluZyBzaW5rIElE
-Lgo+Pj4gK8KgwqDCoMKgwqDCoMKgICovCj4+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBpbnRsaXN0
-ICpvd25fdHJhY2VpZF9saXN0Owo+Pj4gK8KgwqDCoMKgwqDCoCB1MzIgc2lua19pZDsKPj4+IMKg
-IH07Cj4+Pgo+Pj4gwqAgc3RhdGljIGludCBjc19ldG1fX3Byb2Nlc3NfdGltZXN0YW1wZWRfcXVl
-dWVzKHN0cnVjdCAKPj4+IGNzX2V0bV9hdXh0cmFjZSAqZXRtKTsKPj4+IEBAIC0xNDIsNiArMTQ4
-LDcgQEAgc3RhdGljIGludCBjc19ldG1fX21ldGFkYXRhX3NldF90cmFjZV9pZCh1OCAKPj4+IHRy
-YWNlX2NoYW5faWQsIHU2NCAqY3B1X21ldGFkYXRhKTsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIChxdWV1ZV9uciA8PCAxNiB8IHRyYWNlX2NoYW5faWQp
-Cj4+PiDCoCAjZGVmaW5lIFRPX1FVRVVFX05SKGNzX3F1ZXVlX25yKSAoY3NfcXVldWVfbnIgPj4g
-MTYpCj4+PiDCoCAjZGVmaW5lIFRPX1RSQUNFX0NIQU5fSUQoY3NfcXVldWVfbnIpIChjc19xdWV1
-ZV9uciAmIDB4MDAwMGZmZmYpCj4+PiArI2RlZmluZSBTSU5LX1VOU0VUICgodTMyKSAtMSkKPj4+
-Cj4+PiDCoCBzdGF0aWMgdTMyIGNzX2V0bV9fZ2V0X3Y3X3Byb3RvY29sX3ZlcnNpb24odTMyIGV0
-bWlkcikKPj4+IMKgIHsKPj4+IEBAIC0yNDEsNyArMjQ4LDE2IEBAIHN0YXRpYyBpbnQgY3NfZXRt
-X19pbnNlcnRfdHJhY2VfaWRfbm9kZShzdHJ1Y3QgCj4+PiBjc19ldG1fcXVldWUgKmV0bXEsCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgZXJyOwo+Pj4KPj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChjdXJyX2NwdV9kYXRhW0NTX0VUTV9DUFVd
-ICE9IAo+Pj4gY3B1X21ldGFkYXRhW0NTX0VUTV9DUFVdKSB7Cj4+PiAtwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJfZXJyKCJDU19FVE06IG1hcCBtaXNtYXRj
-aCBiZXR3ZWVuIEhXX0lEIAo+Pj4gcGFja2V0IENQVSBhbmQgVHJhY2UgSURcbiIpOwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqIFdpdGggPiBDT1JFU0lH
-SFRfVFJBQ0VfSURTX01BWCBFVE1zLCAKPj4+IG92ZXJsYXBwaW5nIElEcwo+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBhcmUgZXhwZWN0ZWQgKGJ1
-dCBub3Qgc3VwcG9ydGVkKSBpbiAKPj4+IHBlci10aHJlYWQgbW9kZSwKPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogcmF0aGVyIHRoYW4gc2lnbmlm
-eWluZyBhbiBlcnJvci4KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgICovCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgaWYgKGV0bXEtPmV0bS0+cGVyX3RocmVhZF9kZWNvZGluZykKPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJfZXJy
-KCJDU19FVE06IG92ZXJsYXBwaW5nIFRyYWNlIElEcyAKPj4+IGFyZW4ndCBjdXJyZW50bHkgc3Vw
-cG9ydGVkIGluIHBlci10aHJlYWQgbW9kZVxuIik7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWxzZQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcl9lcnIoIkNTX0VUTTogbWFw
-IG1pc21hdGNoIGJldHdlZW4gCj4+PiBIV19JRCBwYWNrZXQgQ1BVIGFuZCBUcmFjZSBJRFxuIik7
-Cj4+PiArCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIC1FSU5WQUw7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9
-Cj4+Pgo+Pj4gQEAgLTMyNiw2ICszNDIsNjQgQEAgc3RhdGljIGludCBjc19ldG1fX3Byb2Nlc3Nf
-dHJhY2VfaWRfdjAoc3RydWN0IAo+Pj4gY3NfZXRtX2F1eHRyYWNlICpldG0sIGludCBjcHUsCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBjc19ldG1fX21ldGFkYXRhX3NldF90cmFjZV9pZCh0
-cmFjZV9jaGFuX2lkLCBjcHVfZGF0YSk7Cj4+PiDCoCB9Cj4+Pgo+Pj4gK3N0YXRpYyBpbnQgY3Nf
-ZXRtX19wcm9jZXNzX3RyYWNlX2lkX3YwXzEoc3RydWN0IGNzX2V0bV9hdXh0cmFjZSAKPj4+ICpl
-dG0sIGludCBjcHUsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHU2NCBod19pZCkKPj4+ICt7
-Cj4+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBjc19ldG1fcXVldWUgKmV0bXEgPSBjc19ldG1fX2dl
-dF9xdWV1ZShldG0sIGNwdSk7Cj4+PiArwqDCoMKgwqDCoMKgIGludCByZXQ7Cj4+PiArwqDCoMKg
-wqDCoMKgIHU2NCAqY3B1X2RhdGE7Cj4+PiArwqDCoMKgwqDCoMKgIHUzMiBzaW5rX2lkID0gRklF
-TERfR0VUKENTX0FVWF9IV19JRF9TSU5LX0lEX01BU0ssIGh3X2lkKTsKPj4+ICvCoMKgwqDCoMKg
-wqAgdTggdHJhY2VfaWQgPSBGSUVMRF9HRVQoQ1NfQVVYX0hXX0lEX1RSQUNFX0lEX01BU0ssIGh3
-X2lkKTsKPj4+ICsKPj4+ICvCoMKgwqDCoMKgwqAgLyoKPj4+ICvCoMKgwqDCoMKgwqDCoCAqIENo
-ZWNrIHNpbmsgaWQgaGFzbid0IGNoYW5nZWQgaW4gcGVyLWNwdSBtb2RlLiBJbiAKPj4+IHBlci10
-aHJlYWQgbW9kZSwKPj4+ICvCoMKgwqDCoMKgwqDCoCAqIGxldCBpdCBwYXNzIGZvciBub3cgdW50
-aWwgYW4gYWN0dWFsIG92ZXJsYXBwaW5nIHRyYWNlIElEIAo+Pj4gaXMgaGl0LiBJbgo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgICogbW9zdCBjYXNlcyBJRHMgd29uJ3Qgb3ZlcmxhcCBldmVuIGlmIHRoZSBz
-aW5rIGNoYW5nZXMuCj4+PiArwqDCoMKgwqDCoMKgwqAgKi8KPj4+ICvCoMKgwqDCoMKgwqAgaWYg
-KCFldG1xLT5ldG0tPnBlcl90aHJlYWRfZGVjb2RpbmcgJiYgZXRtcS0+c2lua19pZCAhPSAKPj4+
-IFNJTktfVU5TRVQgJiYKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoCBldG1xLT5zaW5rX2lkICE9
-IHNpbmtfaWQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2VycigiQ1Nf
-RVRNOiBtaXNtYXRjaCBiZXR3ZWVuIHNpbmsgSURzXG4iKTsKPj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+Pj4gK8KgwqDCoMKgwqDCoCB9Cj4+PiArCj4+
-PiArwqDCoMKgwqDCoMKgIGV0bXEtPnNpbmtfaWQgPSBzaW5rX2lkOwo+Pj4gKwo+Pj4gK8KgwqDC
-oMKgwqDCoCAvKiBGaW5kIHdoaWNoIG90aGVyIHF1ZXVlcyB1c2UgdGhpcyBzaW5rIGFuZCBsaW5r
-IHRoZWlyIElEIAo+Pj4gbWFwcyAqLwo+Pj4gK8KgwqDCoMKgwqDCoCBmb3IgKHVuc2lnbmVkIGlu
-dCBpID0gMDsgaSA8IGV0bS0+cXVldWVzLm5yX3F1ZXVlczsgKytpKSB7Cj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY3NfZXRtX3F1ZXVlICpvdGhlcl9ldG1xID0gCj4+
-PiBldG0tPnF1ZXVlcy5xdWV1ZV9hcnJheVtpXS5wcml2Owo+Pj4gKwo+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgLyogRGlmZmVyZW50IHNpbmtzLCBza2lwICovCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAob3RoZXJfZXRtcS0+c2lua19pZCAhPSBldG1xLT5z
-aW5rX2lkKQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbnRpbnVlOwo+Pj4gKwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogQWxy
-ZWFkeSBsaW5rZWQsIHNraXAgKi8KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChvdGhlcl9ldG1xLT50cmFjZWlkX2xpc3QgPT0gZXRtcS0+dHJhY2VpZF9saXN0KQo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+Pj4g
-Kwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogQXQgdGhlIHBvaW50IG9mIGZp
-cnN0IGxpbmtpbmcsIHRoaXMgb25lIHNob3VsZCBiZSAKPj4+IGVtcHR5ICovCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIWludGxpc3RfX2VtcHR5KGV0bXEtPnRyYWNlaWRf
-bGlzdCkpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBwcl9lcnIoIkNTX0VUTTogQ2FuJ3QgbGluayBwb3B1bGF0ZWQgdHJhY2UgSUQgCj4+PiBsaXN0
-c1xuIik7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-cmV0dXJuIC1FSU5WQUw7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+PiAr
-Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBldG1xLT5vd25fdHJhY2VpZF9saXN0
-ID0gTlVMTDsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludGxpc3RfX2RlbGV0
-ZShldG1xLT50cmFjZWlkX2xpc3QpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZXRtcS0+dHJhY2VpZF9saXN0ID0gb3RoZXJfZXRtcS0+dHJhY2VpZF9saXN0Owo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiArwqDCoMKgwqDCoMKgIH0KPj4+ICsK
-Pj4+ICvCoMKgwqDCoMKgwqAgY3B1X2RhdGEgPSBnZXRfY3B1X2RhdGEoZXRtLCBjcHUpOwo+Pj4g
-K8KgwqDCoMKgwqDCoCByZXQgPSBjc19ldG1fX2luc2VydF90cmFjZV9pZF9ub2RlKGV0bXEsIHRy
-YWNlX2lkLCBjcHVfZGF0YSk7Cj4+PiArwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4gKwo+Pj4gK8KgwqDCoMKgwqDC
-oCByZXQgPSBjc19ldG1fX21ldGFkYXRhX3NldF90cmFjZV9pZCh0cmFjZV9pZCwgY3B1X2RhdGEp
-Owo+Pj4gK8KgwqDCoMKgwqDCoCBpZiAocmV0KQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgcmV0dXJuIHJldDsKPj4+ICsKPj4+ICvCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiAr
-fQo+Pj4gKwo+Pj4gwqAgc3RhdGljIGludCBjc19ldG1fX21ldGFkYXRhX2dldF90cmFjZV9pZCh1
-OCAqdHJhY2VfY2hhbl9pZCwgdTY0IAo+Pj4gKmNwdV9tZXRhZGF0YSkKPj4+IMKgIHsKPj4+IMKg
-wqDCoMKgwqDCoMKgwqAgdTY0IGNzX2V0bV9tYWdpYyA9IGNwdV9tZXRhZGF0YVtDU19FVE1fTUFH
-SUNdOwo+Pj4gQEAgLTQxNCwxMCArNDg4LDEwIEBAIHN0YXRpYyBpbnQgCj4+PiBjc19ldG1fX3By
-b2Nlc3NfYXV4X291dHB1dF9od19pZChzdHJ1Y3QgcGVyZl9zZXNzaW9uICpzZXNzaW9uLAo+Pj4K
-Pj4+IMKgwqDCoMKgwqDCoMKgwqAgLyogZXh0cmFjdCBhbmQgcGFyc2UgdGhlIEhXIElEICovCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgIGh3X2lkID0gZXZlbnQtPmF1eF9vdXRwdXRfaHdfaWQuaHdfaWQ7
-Cj4+PiAtwqDCoMKgwqDCoMKgIHZlcnNpb24gPSBGSUVMRF9HRVQoQ1NfQVVYX0hXX0lEX1ZFUlNJ
-T05fTUFTSywgaHdfaWQpOwo+Pj4gK8KgwqDCoMKgwqDCoCB2ZXJzaW9uID0gRklFTERfR0VUKENT
-X0FVWF9IV19JRF9NQUpPUl9WRVJTSU9OX01BU0ssIGh3X2lkKTsKPj4+Cj4+PiDCoMKgwqDCoMKg
-wqDCoMKgIC8qIGNoZWNrIHRoYXQgd2UgY2FuIGhhbmRsZSB0aGlzIHZlcnNpb24gKi8KPj4+IC3C
-oMKgwqDCoMKgwqAgaWYgKHZlcnNpb24gPiBDU19BVVhfSFdfSURfQ1VSUl9WRVJTSU9OKSB7Cj4+
-PiArwqDCoMKgwqDCoMKgIGlmICh2ZXJzaW9uID4gQ1NfQVVYX0hXX0lEX01BSk9SX1ZFUlNJT04p
-IHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2VycigiQ1MgRVRNIFRy
-YWNlOiBQRVJGX1JFQ09SRF9BVVhfT1VUUFVUX0hXX0lEIAo+Pj4gdmVyc2lvbiAlZCBub3Qgc3Vw
-cG9ydGVkLiBQbGVhc2UgdXBkYXRlIFBlcmYuXG4iLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2ZXJzaW9uKTsKPj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+Pj4gQEAgLTQ0Miw3ICs1MTYsMTAgQEAg
-c3RhdGljIGludCAKPj4+IGNzX2V0bV9fcHJvY2Vzc19hdXhfb3V0cHV0X2h3X2lkKHN0cnVjdCBw
-ZXJmX3Nlc3Npb24gKnNlc3Npb24sCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gLUVJTlZBTDsKPj4+IMKgwqDCoMKgwqDCoMKgwqAgfQo+Pj4KPj4+IC3CoMKgwqDC
-oMKgwqAgcmV0dXJuIGNzX2V0bV9fcHJvY2Vzc190cmFjZV9pZF92MChldG0sIGNwdSwgaHdfaWQp
-Owo+Pgo+PiBQZXJoYXBzIGxlYXZlIHRoaXMgYXMgdGhlIGZpbmFsIHN0YXRlbWVudCBvZiB0aGUg
-ZnVuY3Rpb24KPj4KPj4+ICvCoMKgwqDCoMKgwqAgaWYgKEZJRUxEX0dFVChDU19BVVhfSFdfSURf
-TUlOT1JfVkVSU0lPTl9NQVNLLCBod19pZCkgPT0gMCkKPj4KPj4gdGhpcyBjb3VsZCBiZSBtb3Zl
-ZCBiZWZvcmUgYW5kIGJlCj4+Cj4+IGlmIChGSUVMRF9HRVQoQ1NfQVVYX0hXX0lEX01JTk9SX1ZF
-UlNJT05fTUFTSywgaHdfaWQpID09IDEpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gY3NfZXRtX19wcm9jZXNzX3RyYWNlX2lkX3YwXzEoZXRtLCBjcHUsIGh3X2lkKTsK
-Pj4KPj4KPiAKPiBCZWNhdXNlIEkgd2FzIGludGVuZGluZyBtaW5vciB2ZXJzaW9uIGNoYW5nZXMg
-dG8gYmUgYmFja3dhcmRzIGNvbXBhdGlibGUgCj4gSSBoYXZlIGl0IHNvIHRoYXQgYW55IHZhbHVl
-IG90aGVyIHRoYW4gMCBpcyB0cmVhdGVkIGFzIHYwLjEuIE90aGVyd2lzZSAKPiB2ZXJzaW9uIHVw
-ZGF0ZXMgd2lsbCBicmVhayBvbGQgdmVyc2lvbnMgb2YgUGVyZi4gQW5kIHRoZW4gaWYgd2UgYWRk
-ZWQgYSAKPiB2MC4zIGl0IHdvdWxkIGxvb2sgbGlrZSB0aGlzOgoKVGhhdCBzaG91bGQgaGF2ZSBz
-YWlkIHYwLjIgXgoKPiAKPiAgwqBpZiAoRklFTERfR0VUKENTX0FVWF9IV19JRF9NSU5PUl9WRVJT
-SU9OX01BU0ssIGh3X2lkKSA9PSAwKQo+ICDCoMKgIHJldHVybiBjc19ldG1fX3Byb2Nlc3NfdHJh
-Y2VfaWRfdjAoZXRtLCBjcHUsIGh3X2lkKTsKPiAgwqBlbHNlIGlmIChGSUVMRF9HRVQoQ1NfQVVY
-X0hXX0lEX01JTk9SX1ZFUlNJT05fTUFTSywgaHdfaWQpID09IDEpCj4gIMKgwqAgcmV0dXJuIGNz
-X2V0bV9fcHJvY2Vzc190cmFjZV9pZF92MF8xKGV0bSwgY3B1LCBod19pZCk7Cj4gIMKgZWxzZQo+
-ICDCoMKgIHJldHVybiBjc19ldG1fX3Byb2Nlc3NfdHJhY2VfaWRfdjBfMihldG0sIGNwdSwgaHdf
-aWQpOwo+IAo+IEJhc2VkIG9uIHRoYXQgSSdtIG5vdCBzdXJlIGlmIHlvdSBzdGlsbCB0aGluayBp
-dCBzaG91bGQgYmUgY2hhbmdlZD8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 19/07/2024 2:45 pm, Mike Leach wrote:
+> Fair enough - less worried about the ordering as the final :
+> 
+> else
+>       return fn()
+> }
+> 
+> where there's no unconditional return at the end of the function. The
+> last else looks redundant to me. More a stylistic thing, not sure if
+> there is a hard and fast rule either way
+> 
+> Mike
+> 
+> 
+> 
+
+Ok yeah I can update that.
+
+> On Fri, 19 Jul 2024 at 11:49, James Clark <james.clark@linaro.org> wrote:
+>>
+>>
+>>
+>> On 19/07/2024 11:48 am, James Clark wrote:
+>>>
+>>>
+>>> On 18/07/2024 2:24 pm, Mike Leach wrote:
+>>>> On Fri, 12 Jul 2024 at 11:22, James Clark <james.clark@linaro.org> wrote:
+>>>>>
+>>>>> From: James Clark <james.clark@arm.com>
+>>>>>
+>>>>> v0.1 HW_ID packets have a new field that describes which sink each CPU
+>>>>> writes to. Use the sink ID to link trace ID maps to each other so that
+>>>>> mappings are shared wherever the sink is shared.
+>>>>>
+>>>>> Also update the error message to show that overlapping IDs aren't an
+>>>>> error in per-thread mode, just not supported. In the future we can
+>>>>> use the CPU ID from the AUX records, or watch for changing sink IDs on
+>>>>> HW_ID packets to use the correct decoders.
+>>>>>
+>>>>> Signed-off-by: James Clark <james.clark@arm.com>
+>>>>> Signed-off-by: James Clark <james.clark@linaro.org>
+>>>>> ---
+>>>>>    tools/include/linux/coresight-pmu.h |  17 +++--
+>>>>>    tools/perf/util/cs-etm.c            | 100 +++++++++++++++++++++++++---
+>>>>>    2 files changed, 103 insertions(+), 14 deletions(-)
+>>>>>
+>>>>> diff --git a/tools/include/linux/coresight-pmu.h
+>>>>> b/tools/include/linux/coresight-pmu.h
+>>>>> index 51ac441a37c3..89b0ac0014b0 100644
+>>>>> --- a/tools/include/linux/coresight-pmu.h
+>>>>> +++ b/tools/include/linux/coresight-pmu.h
+>>>>> @@ -49,12 +49,21 @@
+>>>>>     * Interpretation of the PERF_RECORD_AUX_OUTPUT_HW_ID payload.
+>>>>>     * Used to associate a CPU with the CoreSight Trace ID.
+>>>>>     * [07:00] - Trace ID - uses 8 bits to make value easy to read in
+>>>>> file.
+>>>>> - * [59:08] - Unused (SBZ)
+>>>>> - * [63:60] - Version
+>>>>> + * [39:08] - Sink ID - as reported in
+>>>>> /sys/bus/event_source/devices/cs_etm/sinks/
+>>>>> + *           Added in minor version 1.
+>>>>> + * [55:40] - Unused (SBZ)
+>>>>> + * [59:56] - Minor Version - previously existing fields are
+>>>>> compatible with
+>>>>> + *           all minor versions.
+>>>>> + * [63:60] - Major Version - previously existing fields mean
+>>>>> different things
+>>>>> + *           in new major versions.
+>>>>>     */
+>>>>>    #define CS_AUX_HW_ID_TRACE_ID_MASK     GENMASK_ULL(7, 0)
+>>>>> -#define CS_AUX_HW_ID_VERSION_MASK      GENMASK_ULL(63, 60)
+>>>>> +#define CS_AUX_HW_ID_SINK_ID_MASK      GENMASK_ULL(39, 8)
+>>>>>
+>>>>> -#define CS_AUX_HW_ID_CURR_VERSION 0
+>>>>> +#define CS_AUX_HW_ID_MINOR_VERSION_MASK        GENMASK_ULL(59, 56)
+>>>>> +#define CS_AUX_HW_ID_MAJOR_VERSION_MASK        GENMASK_ULL(63, 60)
+>>>>> +
+>>>>> +#define CS_AUX_HW_ID_MAJOR_VERSION 0
+>>>>> +#define CS_AUX_HW_ID_MINOR_VERSION 1
+>>>>>
+>>>>>    #endif
+>>>>> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+>>>>> index 954a6f7bedf3..87e983da19be 100644
+>>>>> --- a/tools/perf/util/cs-etm.c
+>>>>> +++ b/tools/perf/util/cs-etm.c
+>>>>> @@ -118,6 +118,12 @@ struct cs_etm_queue {
+>>>>>           struct cs_etm_traceid_queue **traceid_queues;
+>>>>>           /* Conversion between traceID and metadata pointers */
+>>>>>           struct intlist *traceid_list;
+>>>>> +       /*
+>>>>> +        * Same as traceid_list, but traceid_list may be a reference
+>>>>> to another
+>>>>> +        * queue's which has a matching sink ID.
+>>>>> +        */
+>>>>> +       struct intlist *own_traceid_list;
+>>>>> +       u32 sink_id;
+>>>>>    };
+>>>>>
+>>>>>    static int cs_etm__process_timestamped_queues(struct
+>>>>> cs_etm_auxtrace *etm);
+>>>>> @@ -142,6 +148,7 @@ static int cs_etm__metadata_set_trace_id(u8
+>>>>> trace_chan_id, u64 *cpu_metadata);
+>>>>>                         (queue_nr << 16 | trace_chan_id)
+>>>>>    #define TO_QUEUE_NR(cs_queue_nr) (cs_queue_nr >> 16)
+>>>>>    #define TO_TRACE_CHAN_ID(cs_queue_nr) (cs_queue_nr & 0x0000ffff)
+>>>>> +#define SINK_UNSET ((u32) -1)
+>>>>>
+>>>>>    static u32 cs_etm__get_v7_protocol_version(u32 etmidr)
+>>>>>    {
+>>>>> @@ -241,7 +248,16 @@ static int cs_etm__insert_trace_id_node(struct
+>>>>> cs_etm_queue *etmq,
+>>>>>                   int err;
+>>>>>
+>>>>>                   if (curr_cpu_data[CS_ETM_CPU] !=
+>>>>> cpu_metadata[CS_ETM_CPU]) {
+>>>>> -                       pr_err("CS_ETM: map mismatch between HW_ID
+>>>>> packet CPU and Trace ID\n");
+>>>>> +                       /*
+>>>>> +                        * With > CORESIGHT_TRACE_IDS_MAX ETMs,
+>>>>> overlapping IDs
+>>>>> +                        * are expected (but not supported) in
+>>>>> per-thread mode,
+>>>>> +                        * rather than signifying an error.
+>>>>> +                        */
+>>>>> +                       if (etmq->etm->per_thread_decoding)
+>>>>> +                               pr_err("CS_ETM: overlapping Trace IDs
+>>>>> aren't currently supported in per-thread mode\n");
+>>>>> +                       else
+>>>>> +                               pr_err("CS_ETM: map mismatch between
+>>>>> HW_ID packet CPU and Trace ID\n");
+>>>>> +
+>>>>>                           return -EINVAL;
+>>>>>                   }
+>>>>>
+>>>>> @@ -326,6 +342,64 @@ static int cs_etm__process_trace_id_v0(struct
+>>>>> cs_etm_auxtrace *etm, int cpu,
+>>>>>           return cs_etm__metadata_set_trace_id(trace_chan_id, cpu_data);
+>>>>>    }
+>>>>>
+>>>>> +static int cs_etm__process_trace_id_v0_1(struct cs_etm_auxtrace
+>>>>> *etm, int cpu,
+>>>>> +                                        u64 hw_id)
+>>>>> +{
+>>>>> +       struct cs_etm_queue *etmq = cs_etm__get_queue(etm, cpu);
+>>>>> +       int ret;
+>>>>> +       u64 *cpu_data;
+>>>>> +       u32 sink_id = FIELD_GET(CS_AUX_HW_ID_SINK_ID_MASK, hw_id);
+>>>>> +       u8 trace_id = FIELD_GET(CS_AUX_HW_ID_TRACE_ID_MASK, hw_id);
+>>>>> +
+>>>>> +       /*
+>>>>> +        * Check sink id hasn't changed in per-cpu mode. In
+>>>>> per-thread mode,
+>>>>> +        * let it pass for now until an actual overlapping trace ID
+>>>>> is hit. In
+>>>>> +        * most cases IDs won't overlap even if the sink changes.
+>>>>> +        */
+>>>>> +       if (!etmq->etm->per_thread_decoding && etmq->sink_id !=
+>>>>> SINK_UNSET &&
+>>>>> +           etmq->sink_id != sink_id) {
+>>>>> +               pr_err("CS_ETM: mismatch between sink IDs\n");
+>>>>> +               return -EINVAL;
+>>>>> +       }
+>>>>> +
+>>>>> +       etmq->sink_id = sink_id;
+>>>>> +
+>>>>> +       /* Find which other queues use this sink and link their ID
+>>>>> maps */
+>>>>> +       for (unsigned int i = 0; i < etm->queues.nr_queues; ++i) {
+>>>>> +               struct cs_etm_queue *other_etmq =
+>>>>> etm->queues.queue_array[i].priv;
+>>>>> +
+>>>>> +               /* Different sinks, skip */
+>>>>> +               if (other_etmq->sink_id != etmq->sink_id)
+>>>>> +                       continue;
+>>>>> +
+>>>>> +               /* Already linked, skip */
+>>>>> +               if (other_etmq->traceid_list == etmq->traceid_list)
+>>>>> +                       continue;
+>>>>> +
+>>>>> +               /* At the point of first linking, this one should be
+>>>>> empty */
+>>>>> +               if (!intlist__empty(etmq->traceid_list)) {
+>>>>> +                       pr_err("CS_ETM: Can't link populated trace ID
+>>>>> lists\n");
+>>>>> +                       return -EINVAL;
+>>>>> +               }
+>>>>> +
+>>>>> +               etmq->own_traceid_list = NULL;
+>>>>> +               intlist__delete(etmq->traceid_list);
+>>>>> +               etmq->traceid_list = other_etmq->traceid_list;
+>>>>> +               break;
+>>>>> +       }
+>>>>> +
+>>>>> +       cpu_data = get_cpu_data(etm, cpu);
+>>>>> +       ret = cs_etm__insert_trace_id_node(etmq, trace_id, cpu_data);
+>>>>> +       if (ret)
+>>>>> +               return ret;
+>>>>> +
+>>>>> +       ret = cs_etm__metadata_set_trace_id(trace_id, cpu_data);
+>>>>> +       if (ret)
+>>>>> +               return ret;
+>>>>> +
+>>>>> +       return 0;
+>>>>> +}
+>>>>> +
+>>>>>    static int cs_etm__metadata_get_trace_id(u8 *trace_chan_id, u64
+>>>>> *cpu_metadata)
+>>>>>    {
+>>>>>           u64 cs_etm_magic = cpu_metadata[CS_ETM_MAGIC];
+>>>>> @@ -414,10 +488,10 @@ static int
+>>>>> cs_etm__process_aux_output_hw_id(struct perf_session *session,
+>>>>>
+>>>>>           /* extract and parse the HW ID */
+>>>>>           hw_id = event->aux_output_hw_id.hw_id;
+>>>>> -       version = FIELD_GET(CS_AUX_HW_ID_VERSION_MASK, hw_id);
+>>>>> +       version = FIELD_GET(CS_AUX_HW_ID_MAJOR_VERSION_MASK, hw_id);
+>>>>>
+>>>>>           /* check that we can handle this version */
+>>>>> -       if (version > CS_AUX_HW_ID_CURR_VERSION) {
+>>>>> +       if (version > CS_AUX_HW_ID_MAJOR_VERSION) {
+>>>>>                   pr_err("CS ETM Trace: PERF_RECORD_AUX_OUTPUT_HW_ID
+>>>>> version %d not supported. Please update Perf.\n",
+>>>>>                          version);
+>>>>>                   return -EINVAL;
+>>>>> @@ -442,7 +516,10 @@ static int
+>>>>> cs_etm__process_aux_output_hw_id(struct perf_session *session,
+>>>>>                   return -EINVAL;
+>>>>>           }
+>>>>>
+>>>>> -       return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
+>>>>
+>>>> Perhaps leave this as the final statement of the function
+>>>>
+>>>>> +       if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 0)
+>>>>
+>>>> this could be moved before and be
+>>>>
+>>>> if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 1)
+>>>>                  return cs_etm__process_trace_id_v0_1(etm, cpu, hw_id);
+>>>>
+>>>>
+>>>
+>>> Because I was intending minor version changes to be backwards compatible
+>>> I have it so that any value other than 0 is treated as v0.1. Otherwise
+>>> version updates will break old versions of Perf. And then if we added a
+>>> v0.3 it would look like this:
+>>
+>> That should have said v0.2 ^
+>>
+>>>
+>>>    if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 0)
+>>>      return cs_etm__process_trace_id_v0(etm, cpu, hw_id);
+>>>    else if (FIELD_GET(CS_AUX_HW_ID_MINOR_VERSION_MASK, hw_id) == 1)
+>>>      return cs_etm__process_trace_id_v0_1(etm, cpu, hw_id);
+>>>    else
+>>>      return cs_etm__process_trace_id_v0_2(etm, cpu, hw_id);
+>>>
+>>> Based on that I'm not sure if you still think it should be changed?
+> 
+> 
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
