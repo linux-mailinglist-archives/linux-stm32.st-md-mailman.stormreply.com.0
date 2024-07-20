@@ -2,63 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B1D0937D9B
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jul 2024 00:00:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7997593814F
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jul 2024 14:35:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0D4CC7801A;
-	Fri, 19 Jul 2024 21:59:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F79CC78017;
+	Sat, 20 Jul 2024 12:35:54 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 510D5C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AB47C78015
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jul 2024 21:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721426399; x=1752962399;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=042WQKRj4OmnLPX3zC90dFEG5O4KeJ7wH4dUKSkiFTk=;
- b=RGVjYG/XJsSviA95etghk0xUEWJj+oolkRASABzTbS6PKNJjvspsg60d
- xIBoYUydFbpSz8kweQsOPRmh6O3+O8KrbJu1YyUflynsf5evezyf7n04i
- i1NgXOKZp8pQ0swNYBtURgZbTv3VfaMqoRt3lINZUs9LO/bK9P52UB9O/
- aIlo2zQLm7dwp7Qj2YJ9uIfnAlh9RuIGPyNY2/94iIwVePSo/EU8sFW9B
- HgNuwgxybOWNKwz3s7zStQEiCFH8dNyaOmYh9dPa5E/ZbWGi2CZcoDtHE
- 0tk5m/ly0Ufa4w35+5kfcLxD6XgfSl1sl2eq3Ya2dopFefTRp0n65gu8N Q==;
-X-CSE-ConnectionGUID: hvD65toJQEqZIgq6uWXtDQ==
-X-CSE-MsgGUID: dBOEF5MRRoG/ZAR6iU7K4g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11138"; a="19020350"
-X-IronPort-AV: E=Sophos;i="6.09,221,1716274800"; d="scan'208";a="19020350"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2024 14:59:51 -0700
-X-CSE-ConnectionGUID: F/bzdlzZSkiTe4ND6zZ2ug==
-X-CSE-MsgGUID: TQzoEX+vSLusdXlSLjtmOw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,221,1716274800"; d="scan'208";a="56091844"
-Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 19 Jul 2024 14:59:47 -0700
-Received: from kbuild by 68891e0c336b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sUvdh-000icc-0k;
- Fri, 19 Jul 2024 21:59:45 +0000
-Date: Sat, 20 Jul 2024 05:59:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Valentin Caron <valentin.caron@foss.st.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <202407200400.NnW2fJ0q-lkp@intel.com>
-References: <20240717074835.2210411-3-valentin.caron@foss.st.com>
+ Sat, 20 Jul 2024 12:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=rfT+wKS03QStuvsuw2Ht5YxWdDs9N54bvyBHm404z5w=; b=WU4TZjUm0bIk6ItpC+MpNQFEM9
+ TZXiGliWrbvUMBLpGi5W6q7W31VrLCwMq0U4hsYt0AVFJ3Ar5G/nVIjMeuSYQwevUR9KqHh4kEnRg
+ g0Qm4nW8G0JmJxnQrDJbRdXFSqHJRuWorLKdVJX9DGSTHW7bofogfD1J/gPMVV6LyVIc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sV9J8-002tkI-JM; Sat, 20 Jul 2024 14:35:26 +0200
+Date: Sat, 20 Jul 2024 14:35:26 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Zhouyi Zhou <zhouzhouyi@gmail.com>
+Message-ID: <0c5f35c1-cf3a-4759-ac17-54e6f8c22c69@lunn.ch>
+References: <20240720040027.734420-1-zhouzhouyi@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240717074835.2210411-3-valentin.caron@foss.st.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- Paul Gazzillo <paul@pgazz.com>, Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/4] rtc: stm32: add pinctrl and pinmux
-	interfaces
+In-Reply-To: <20240720040027.734420-1-zhouzhouyi@gmail.com>
+Cc: linux-kernel@vger.kernel.org, martin.blumenstingl@googlemail.com,
+ netdev@vger.kernel.org, linus.walleij@linaro.org,
+ wangzhiqiang <zhiqiangwang@ucas.com.cn>,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ "zhili.liu" <zhili.liu@ucas.com.cn>, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix the mistake of the
+ device tree property string of reset gpio in stmmac_mdio_reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,43 +57,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Valentin,
+On Sat, Jul 20, 2024 at 04:00:27AM +0000, Zhouyi Zhou wrote:
+> From: "zhili.liu" <zhili.liu@ucas.com.cn>
+> 
+> According to Documentation/devicetree/bindings/net/snps,dwmac.yaml,
+> the device tree property of PHY Reset GPIO should be "snps,reset-gpio".
+> 
+> Use string "snps,reset-gpio" instead of "snps,reset" in stmmac_mdio_reset
+> when invoking devm_gpiod_get_optional.
 
-kernel test robot noticed the following build warnings:
+Have you found the current code does not work on a board you have, or
+is this by code inspection?
 
-[auto build test WARNING on abelloni/rtc-next]
-[also build test WARNING on atorgue-stm32/stm32-next robh/for-next linus/master v6.10 next-20240719]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+https://elixir.bootlin.com/linux/v6.10/source/drivers/gpio/gpiolib-of.c#L687
+https://elixir.bootlin.com/linux/v6.10/source/drivers/gpio/gpiolib.h#L93
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Valentin-Caron/dt-bindings-rtc-stm32-describe-pinmux-nodes/20240717-193541
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git rtc-next
-patch link:    https://lore.kernel.org/r/20240717074835.2210411-3-valentin.caron%40foss.st.com
-patch subject: [PATCH v2 2/4] rtc: stm32: add pinctrl and pinmux interfaces
-config: alpha-kismet-CONFIG_GENERIC_PINCONF-CONFIG_RTC_DRV_STM32-0-0 (https://download.01.org/0day-ci/archive/20240720/202407200400.NnW2fJ0q-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20240720/202407200400.NnW2fJ0q-lkp@intel.com/reproduce)
+See how it appends -gpio and -gpios to the name.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202407200400.NnW2fJ0q-lkp@intel.com/
+I also randomly check a few users of devm_gpiod_get_optional() and non
+of them include the -gpio in the name, leaving the GPIO core to do it.
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for GENERIC_PINCONF when selected by RTC_DRV_STM32
-   WARNING: unmet direct dependencies detected for GENERIC_PINCONF
-     Depends on [n]: PINCTRL [=n]
-     Selected by [y]:
-     - RTC_DRV_STM32 [=y] && RTC_CLASS [=y] && (ARCH_STM32 || COMPILE_TEST [=y])
-   
-   WARNING: unmet direct dependencies detected for PINMUX
-     Depends on [n]: PINCTRL [=n]
-     Selected by [y]:
-     - RTC_DRV_STM32 [=y] && RTC_CLASS [=y] && (ARCH_STM32 || COMPILE_TEST [=y])
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
