@@ -2,62 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6122B93FA0C
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD6293FA0D
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2757DC78F7D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3584CC78F80;
 	Mon, 29 Jul 2024 15:58:24 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA1BFC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC8F5C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jul 2024 07:59:57 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-70360eeb7d2so2017616a34.1
+ Mon, 22 Jul 2024 08:38:12 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-7091558067eso14712a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jul 2024 00:59:57 -0700 (PDT)
+ Mon, 22 Jul 2024 01:38:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721635196; x=1722239996;
+ d=gmail.com; s=20230601; t=1721637491; x=1722242291;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=UVLVoBrSBIABdH8HVi5V5EvdQRfT90TgTG6ticvnc8Q=;
- b=OiEWv86G9OF6MVlztw8Lj1OpkCWDBPZHjHH0hQex3c0qv6Nn46jpnG5yZIbVN0+1D6
- fgI2Y4cm0DFJxDrlwACObrRisZF4UzhLr/SaAdKk3y86G8j5nsEuCMmTLbS3PMdQAFOR
- AhFFMUlZJrNgW+vIpKFnukjdobG2jV9nqCN4ub+YVi76FsXK+BXG2JsKsoC5Xj2Q8zq4
- Sf+ohuGs9ivr1ejYVY6SfVuKadxLQdHFgXZ0v/PFE8UGv0O9/FjpdakKuA+yzDDXvQwU
- Pd/e5ga8r+DcYEV/o4ASR/07Zy8tze+dvIKZZ5Q5wlAf61UlJWwcVstOrO3CBLeDy6IL
- MeJw==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LLy2SrIyNS/BtIAkKA6BvJoHkOLVxRWMUEDFd16KBRE=;
+ b=mZojbYgq2VBY/v2WefuGvrieeVd3Rc4yT9EpWv0cemLBvml+giJTU6tAcVYGwpsn1Z
+ 5kyl1F04mhg9N5071y5nioNF3odvanI3dnJwlvCQDyALPVqwzjdjsWCyiTARyJJXl8sj
+ AGVePkE9cm4BxS0unNw0sTuxsOqQ5QrCEmblwYDwD6M4vFwcpvS7kgY/wU5orEN5DbsH
+ Sgey3Tan+EFOkj87VbfdZ/Bd5gXLVg/f5mIx2HU5exH0fDBRBYmk+wUrKcZs+nUN+aW7
+ huPO07AjqjVT6DsxuN+md4uVVoFZi5sD8KguLvccsLS5zJiGlHrdm9MlXY2GMdSYJ8su
+ 4G9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721635196; x=1722239996;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UVLVoBrSBIABdH8HVi5V5EvdQRfT90TgTG6ticvnc8Q=;
- b=eAU8abWmTYakPqDqmsCLl96h83vQ8uAcJW9YaipMKxFekV0d7m3EJisIAXpgc1wM1i
- V4lBabUzrOzmP7NhEQQTkfCfRMSPP5tD1w+ER96/9IJEVbFIiuKZHtOFGTtCVubJUM/Q
- zVGgn9i+IDIreN3MTVKy+ZiCPMQY3dYgI01d+AlZPkeIfwpRSI4QFZlbotIyxAQJ6jgn
- tF/u7QbefkPKrdUBRo/7Ks+UskXN3NjgPLZ79QU6Q43x4U9myXZR5/o1FE/bQM8x5zI5
- 78sUaRP7fnfkDyPgS3kos9CtEi9VWgdPCnKh90i/KA4CKkXTPKELy1JLiNeOj2H6MIp7
- h8ug==
+ d=1e100.net; s=20230601; t=1721637491; x=1722242291;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LLy2SrIyNS/BtIAkKA6BvJoHkOLVxRWMUEDFd16KBRE=;
+ b=sCfWCa+g4M0JNhB1wjfg2bXOL2Ot2i5nEGAxKZ4Fz6ApYDNGscQVTROesuBLCGF4vN
+ y3CL/qziIR8zrVfvB6161lpaV1r8W161WDLrUxVySGqyJ18J9Wqgg6BpEAv4z2NmEgD/
+ GJEVRB7UucDzKpoctZrZPS8Tf/NiKEMcvO9wVybhhtn/x9ZPTHbTQGNhucAq5Ox4poU4
+ ZVYqwqSJ7QK5G1cZHb5kSz/BPEeHcorxFvtRILUGYIvU1fWVNOQjok5ViEZsbPW/8QVh
+ z/NG3GgvPgSBKR4DKAYPDWJ9HE7Ex5b50vZuOeCxPpLvFGkN2kwsqVZDKrqQe2aRStNE
+ OTXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPwO2+kXGMHjsnhArqVx6lIBrp46EY9L1MwQu11IH/WW25bd4RA5YO2dPuNDDw0R1C/We+L7pyVMVLH8eR2kd1OBTRbjGNA/jeM0Xqs6zDxAEf++t/kgaq
-X-Gm-Message-State: AOJu0Yz3EoItZw50rSLOnjDHYLEnzQ29urocM76KpJvVm5WKqTw8SGHB
- dOcB1Yc5lEUze0Uvzqr6o7/XkJWZEj/+Sg9EgardolyUh0IYng/HmZhLYXMExVG0MMNla8J4kQn
- 46Isrdu1fnGuXyCyp54vnh70zH4c=
-X-Google-Smtp-Source: AGHT+IFUVAP4yCPxQNkNXhJFNJxMnQsofIn15s5YDS4IN3h0ofNDy5sFWJzr5lQhswyLC0ffiBD77t00NaabnKZvsFI=
-X-Received: by 2002:a05:6830:7302:b0:703:5db8:80a with SMTP id
- 46e09a7af769-709009042e5mr8949781a34.8.1721635196448; Mon, 22 Jul 2024
- 00:59:56 -0700 (PDT)
+ AJvYcCUlpBX/tH8SXgN9MOxWd0QYJQPquvgw96AE4iWVTYlgi9KyWW1+uFVbN9EkN2YMq0rpBqBdTRMwsvfRNByKlL0PNQObuPZ7Gb3jUMO5FTKRf/+EnR+l61cz
+X-Gm-Message-State: AOJu0YzQFOEAXFsrmbRpoREO/6dmexiTFQnkT25mNASYw7KOSwwBG439
+ Ht1N8q751tywZSH6LrGl4U0LGn4QPNJM7sFd8aJ7hVzGy6rYRrsED9L1ItHVVRNpsxhJvxHn3Hn
+ pzmix2H1OCprOv6otJqCo0SJZNzI=
+X-Google-Smtp-Source: AGHT+IED9sgp0XJRTrLdgRC9+QtNiUQcgpNSQZW++T17WK1mNEKhGIErQwceTSb8Zdl4TwT9yetFMFVBBj0lyMUU2OA=
+X-Received: by 2002:a05:6830:6486:b0:704:4c66:b6f3 with SMTP id
+ 46e09a7af769-708fda82511mr9301123a34.7.1721637491606; Mon, 22 Jul 2024
+ 01:38:11 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240129104106.43141-1-raphael.gallais-pou@foss.st.com>
  <21f4d43d-4abd-4aca-7abb-7321bcfa0f1d@foss.st.com>
 In-Reply-To: <21f4d43d-4abd-4aca-7abb-7321bcfa0f1d@foss.st.com>
 From: Yanjun Yang <yangyj.ee@gmail.com>
-Date: Mon, 22 Jul 2024 15:59:45 +0800
-Message-ID: <CAE8JAfwMqiZxGPm4LK_22iWdCa=BS7SX3gbwhrCTOdx=K4yNzA@mail.gmail.com>
+Date: Mon, 22 Jul 2024 16:38:00 +0800
+Message-ID: <CAE8JAfy9NtBa--DnUt2AEZPFnvjU6idj8DqUbaeLaH0DMFvuhw@mail.gmail.com>
 To: Philippe CORNU <philippe.cornu@foss.st.com>
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -79,191 +80,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6064560594178373860=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6064560594178373860==
-Content-Type: multipart/alternative; boundary="000000000000513b13061dd16e08"
-
---000000000000513b13061dd16e08
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jun 28, 2024 at 8:47=E2=80=AFPM Philippe CORNU <philippe.cornu@foss=
-.st.com>
-wrote:
-
->
->
-> On 1/29/24 11:41, Raphael Gallais-Pou wrote:
-> >
-> > This patch series aims to add several features of the dw-mipi-dsi phy
-> > driver that are missing or need to be updated.
-> >
-> > First patch update a PM macro.
-> >
-> > Second patch adds runtime PM functionality to the driver.
-> >
-> > Third patch adds a clock provider generated by the PHY itself.  As
-> > explained in the commit log of the second patch, a clock declaration is
-> > missing.  Since this clock is parent of 'dsi_k', it leads to an orphan
-> > clock.  Most importantly this patch is an anticipation for future
-> > versions of the DSI PHY, and its inclusion within the display subsystem
-> > and the DRM framework.
-> >
-> > Last patch fixes a corner effect introduced previously.  Since 'dsi' an=
-d
-> > 'dsi_k' are gated by the same bit on the same register, both reference
-> > work as peripheral clock in the device-tree.
-> >
-
-
-This patch (commit id:185f99b614427360) seems to break the dsi of stm32f469
-chip.
-I'm not familiar with the drm and the clock framework, maybe it's because
-there is no
- "ck_dsi_phy" defined for stm32f469.
-
-
->
-> > ---
-> > Changes in v3-resend:
-> >       - Removed last patch as it has been merged
-> >
-> https://lore.kernel.org/lkml/bf49f4c9-9e81-4c91-972d-13782d996aaa@foss.st=
-.com/
-> >
-> > Changes in v3:
-> >       - Fix smatch warning (disable dsi->pclk when clk_register fails)
-> >
-> > Changes in v2:
-> >       - Added patch 1/4 to use SYSTEM_SLEEP_PM_OPS instead of old macro
-> >         and removed __maybe_used for accordingly
-> >       - Changed SET_RUNTIME_PM_OPS to RUNTIME_PM_OPS
-> >
-> > Raphael Gallais-Pou (3):
-> >    drm/stm: dsi: use new SYSTEM_SLEEP_PM_OPS() macro
-> >    drm/stm: dsi: expose DSI PHY internal clock
-> >
-> > Yannick Fertre (1):
-> >    drm/stm: dsi: add pm runtime ops
-> >
-> >   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 279 ++++++++++++++++++++++---=
--
-> >   1 file changed, 238 insertions(+), 41 deletions(-)
-> >
->
-> Hi Rapha=C3=ABl & Yannick,
-> Applied on drm-misc-next.
-> Many thanks,
-> Philippe :-)
-> _______________________________________________
-> Linux-stm32 mailing list
-> Linux-stm32@st-md-mailman.stormreply.com
-> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
->
-
---000000000000513b13061dd16e08
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><br><div class=3D"gmail_quo=
-te"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 28, 2024 at 8:47=E2=
-=80=AFPM Philippe CORNU &lt;<a href=3D"mailto:philippe.cornu@foss.st.com">p=
-hilippe.cornu@foss.st.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex"><br>
-<br>
-On 1/29/24 11:41, Raphael Gallais-Pou wrote:<br>
-&gt; <br>
-&gt; This patch series aims to add several features of the dw-mipi-dsi phy<=
-br>
-&gt; driver that are missing or need to be updated.<br>
-&gt; <br>
-&gt; First patch update a PM macro.<br>
-&gt; <br>
-&gt; Second patch adds runtime PM functionality to the driver.<br>
-&gt; <br>
-&gt; Third patch adds a clock provider generated by the PHY itself.=C2=A0 A=
-s<br>
-&gt; explained in the commit log of the second patch, a clock declaration i=
-s<br>
-&gt; missing.=C2=A0 Since this clock is parent of &#39;dsi_k&#39;, it leads=
- to an orphan<br>
-&gt; clock.=C2=A0 Most importantly this patch is an anticipation for future=
-<br>
-&gt; versions of the DSI PHY, and its inclusion within the display subsyste=
-m<br>
-&gt; and the DRM framework.<br>
-&gt; <br>
-&gt; Last patch fixes a corner effect introduced previously.=C2=A0 Since &#=
-39;dsi&#39; and<br>
-&gt; &#39;dsi_k&#39; are gated by the same bit on the same register, both r=
-eference<br>
-&gt; work as peripheral clock in the device-tree.<br>
-&gt;</blockquote><div><br></div><div>This patch (commit id:185f99b614427360=
-)=C2=A0seems to break the dsi of stm32f469 chip.=C2=A0</div><div>I&#39;m no=
-t familiar with the drm and the clock framework, maybe it&#39;s because the=
-re is no</div><div>=C2=A0&quot;ck_dsi_phy&quot; defined for stm32f469.</div=
-><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"> <br>
-&gt; ---<br>
-&gt; Changes in v3-resend:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Removed last patch as it has been merged<b=
-r>
-&gt; <a href=3D"https://lore.kernel.org/lkml/bf49f4c9-9e81-4c91-972d-13782d=
-996aaa@foss.st.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.kern=
-el.org/lkml/bf49f4c9-9e81-4c91-972d-13782d996aaa@foss.st.com/</a><br>
-&gt; <br>
-&gt; Changes in v3:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Fix smatch warning (disable dsi-&gt;pclk w=
-hen clk_register fails)<br>
-&gt; <br>
-&gt; Changes in v2:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Added patch 1/4 to use SYSTEM_SLEEP_PM_OPS=
- instead of old macro<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0and removed __maybe_used for accordin=
-gly<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- Changed SET_RUNTIME_PM_OPS to RUNTIME_PM_O=
-PS<br>
-&gt; <br>
-&gt; Raphael Gallais-Pou (3):<br>
-&gt;=C2=A0 =C2=A0 drm/stm: dsi: use new SYSTEM_SLEEP_PM_OPS() macro<br>
-&gt;=C2=A0 =C2=A0 drm/stm: dsi: expose DSI PHY internal clock<br>
-&gt; <br>
-&gt; Yannick Fertre (1):<br>
-&gt;=C2=A0 =C2=A0 drm/stm: dsi: add pm runtime ops<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 279 ++++++++++++++=
-++++++++----<br>
-&gt;=C2=A0 =C2=A01 file changed, 238 insertions(+), 41 deletions(-)<br>
-&gt; <br>
-<br>
-Hi Rapha=C3=ABl &amp; Yannick,<br>
-Applied on drm-misc-next.<br>
-Many thanks,<br>
-Philippe :-)<br>
-_______________________________________________<br>
-Linux-stm32 mailing list<br>
-<a href=3D"mailto:Linux-stm32@st-md-mailman.stormreply.com" target=3D"_blan=
-k">Linux-stm32@st-md-mailman.stormreply.com</a><br>
-<a href=3D"https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm3=
-2" rel=3D"noreferrer" target=3D"_blank">https://st-md-mailman.stormreply.co=
-m/mailman/listinfo/linux-stm32</a><br>
-</blockquote></div></div>
-
---000000000000513b13061dd16e08--
-
---===============6064560594178373860==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6064560594178373860==--
+T24gRnJpLCBKdW4gMjgsIDIwMjQgYXQgODo0N+KAr1BNIFBoaWxpcHBlIENPUk5VCjxwaGlsaXBw
+ZS5jb3JudUBmb3NzLnN0LmNvbT4gd3JvdGU6Cj4KPgo+Cj4gT24gMS8yOS8yNCAxMTo0MSwgUmFw
+aGFlbCBHYWxsYWlzLVBvdSB3cm90ZToKPiA+Cj4gPiBUaGlzIHBhdGNoIHNlcmllcyBhaW1zIHRv
+IGFkZCBzZXZlcmFsIGZlYXR1cmVzIG9mIHRoZSBkdy1taXBpLWRzaSBwaHkKPiA+IGRyaXZlciB0
+aGF0IGFyZSBtaXNzaW5nIG9yIG5lZWQgdG8gYmUgdXBkYXRlZC4KPiA+Cj4gPiBGaXJzdCBwYXRj
+aCB1cGRhdGUgYSBQTSBtYWNyby4KPiA+Cj4gPiBTZWNvbmQgcGF0Y2ggYWRkcyBydW50aW1lIFBN
+IGZ1bmN0aW9uYWxpdHkgdG8gdGhlIGRyaXZlci4KPiA+Cj4gPiBUaGlyZCBwYXRjaCBhZGRzIGEg
+Y2xvY2sgcHJvdmlkZXIgZ2VuZXJhdGVkIGJ5IHRoZSBQSFkgaXRzZWxmLiAgQXMKPiA+IGV4cGxh
+aW5lZCBpbiB0aGUgY29tbWl0IGxvZyBvZiB0aGUgc2Vjb25kIHBhdGNoLCBhIGNsb2NrIGRlY2xh
+cmF0aW9uIGlzCj4gPiBtaXNzaW5nLiAgU2luY2UgdGhpcyBjbG9jayBpcyBwYXJlbnQgb2YgJ2Rz
+aV9rJywgaXQgbGVhZHMgdG8gYW4gb3JwaGFuCj4gPiBjbG9jay4gIE1vc3QgaW1wb3J0YW50bHkg
+dGhpcyBwYXRjaCBpcyBhbiBhbnRpY2lwYXRpb24gZm9yIGZ1dHVyZQo+ID4gdmVyc2lvbnMgb2Yg
+dGhlIERTSSBQSFksIGFuZCBpdHMgaW5jbHVzaW9uIHdpdGhpbiB0aGUgZGlzcGxheSBzdWJzeXN0
+ZW0KPiA+IGFuZCB0aGUgRFJNIGZyYW1ld29yay4KPiA+Cj4gPiBMYXN0IHBhdGNoIGZpeGVzIGEg
+Y29ybmVyIGVmZmVjdCBpbnRyb2R1Y2VkIHByZXZpb3VzbHkuICBTaW5jZSAnZHNpJyBhbmQKPiA+
+ICdkc2lfaycgYXJlIGdhdGVkIGJ5IHRoZSBzYW1lIGJpdCBvbiB0aGUgc2FtZSByZWdpc3Rlciwg
+Ym90aCByZWZlcmVuY2UKPiA+IHdvcmsgYXMgcGVyaXBoZXJhbCBjbG9jayBpbiB0aGUgZGV2aWNl
+LXRyZWUuCj4gPgoKVGhpcyBwYXRjaCAoY29tbWl0IGlkOjE4NWY5OWI2MTQ0MjczNjApIHNlZW1z
+IHRvIGJyZWFrIHRoZSBkc2kgb2YKc3RtMzJmNDY5IGNoaXAuCkknbSBub3QgZmFtaWxpYXIgd2l0
+aCB0aGUgZHJtIGFuZCB0aGUgY2xvY2sgZnJhbWV3b3JrLCBtYXliZSBpdCdzCmJlY2F1c2UgdGhl
+cmUgaXMgbm8KICJja19kc2lfcGh5IiBkZWZpbmVkIGZvciBzdG0zMmY0NjkuClBTOiAgU29ycnkg
+Zm9yIHJlY2VpdmluZyBtdWx0aXBsZSBjb3BpZXMgb2YgdGhpcyBlbWFpbCwgSSBmb3Jnb3QgdG8K
+dXNlIHBsYWluIHRleHQgbW9kZSBsYXN0IHRpbWUuCgo+ID4gLS0tCj4gPiBDaGFuZ2VzIGluIHYz
+LXJlc2VuZDoKPiA+ICAgICAgIC0gUmVtb3ZlZCBsYXN0IHBhdGNoIGFzIGl0IGhhcyBiZWVuIG1l
+cmdlZAo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC9iZjQ5ZjRjOS05ZTgxLTRjOTEt
+OTcyZC0xMzc4MmQ5OTZhYWFAZm9zcy5zdC5jb20vCj4gPgo+ID4gQ2hhbmdlcyBpbiB2MzoKPiA+
+ICAgICAgIC0gRml4IHNtYXRjaCB3YXJuaW5nIChkaXNhYmxlIGRzaS0+cGNsayB3aGVuIGNsa19y
+ZWdpc3RlciBmYWlscykKPiA+Cj4gPiBDaGFuZ2VzIGluIHYyOgo+ID4gICAgICAgLSBBZGRlZCBw
+YXRjaCAxLzQgdG8gdXNlIFNZU1RFTV9TTEVFUF9QTV9PUFMgaW5zdGVhZCBvZiBvbGQgbWFjcm8K
+PiA+ICAgICAgICAgYW5kIHJlbW92ZWQgX19tYXliZV91c2VkIGZvciBhY2NvcmRpbmdseQo+ID4g
+ICAgICAgLSBDaGFuZ2VkIFNFVF9SVU5USU1FX1BNX09QUyB0byBSVU5USU1FX1BNX09QUwo+ID4K
+PiA+IFJhcGhhZWwgR2FsbGFpcy1Qb3UgKDMpOgo+ID4gICAgZHJtL3N0bTogZHNpOiB1c2UgbmV3
+IFNZU1RFTV9TTEVFUF9QTV9PUFMoKSBtYWNybwo+ID4gICAgZHJtL3N0bTogZHNpOiBleHBvc2Ug
+RFNJIFBIWSBpbnRlcm5hbCBjbG9jawo+ID4KPiA+IFlhbm5pY2sgRmVydHJlICgxKToKPiA+ICAg
+IGRybS9zdG06IGRzaTogYWRkIHBtIHJ1bnRpbWUgb3BzCj4gPgo+ID4gICBkcml2ZXJzL2dwdS9k
+cm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jIHwgMjc5ICsrKysrKysrKysrKysrKysrKysrKystLS0t
+Cj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAyMzggaW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0p
+Cj4gPgo+Cj4gSGkgUmFwaGHDq2wgJiBZYW5uaWNrLAo+IEFwcGxpZWQgb24gZHJtLW1pc2MtbmV4
+dC4KPiBNYW55IHRoYW5rcywKPiBQaGlsaXBwZSA6LSkKPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+IExpbnV4LXN0bTMyIG1haWxpbmcgbGlzdAo+IExp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPiBodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
