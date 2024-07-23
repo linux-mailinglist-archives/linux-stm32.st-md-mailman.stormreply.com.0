@@ -2,94 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EB84939CF2
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2024 10:49:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3B9939EF6
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2024 12:48:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE5F0C6DD96;
-	Tue, 23 Jul 2024 08:49:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB6C7C6B47E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4E17C6DD96;
+	Tue, 23 Jul 2024 10:48:11 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5934FC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2024 08:49:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A898160DC0;
- Tue, 23 Jul 2024 08:48:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69250C4AF09;
- Tue, 23 Jul 2024 08:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721724539;
- bh=jrMuFQGiXzYxmIPzY2YWQ2zH6mX3tWn8vuwLi1lQ5UY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=cXralWaC+KyDAXdRMgXUVzCtrVXZumme+0YvaJxjki7J1MsRl/wiSaF9XgBHYChRF
- 16Hn7ajehK+W/o1RGC1POAxx044XR0wuisGKcuGbxjyMTx5j49hi9asieA71Zz6xkF
- LTD0Jl9gckjUvN57r7OpdrNl6GfRpbR0h4wpg3FaX0M4RsXOkHh9uI4ZWBAeB+Tb+p
- knetWN7bdgr0JHlcaTOKtLrMWXUR3h64QaKpgi+VP/tPZur4RAlCxGGlIcNY9/Z0WR
- sTuqhxopkUBQZKUMKmzsM5tH6HzShZ4Cqi9H++jPC73vIv04hRpF8Xa2/aOtffCVWk
- jeHUZMnNnwvaw==
-Message-ID: <b7fe0dcf-f1a9-4da9-898d-aadd40255007@kernel.org>
-Date: Tue, 23 Jul 2024 10:48:53 +0200
+ Tue, 23 Jul 2024 10:48:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1721731683;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=is9xWIZrvGL56gb6eZbS8C1QxeZEh2O1wu5yRn9CgAE=;
+ b=X24l/kxeg/RdlXJ0dsgX9ztzX/wqzipTQunTHuMZBLohc2k+OPmb+ANwMlXhOZbBxFrOAP
+ IYDX7uhEdoovWbndO08FMo9zaL0X2vvFGWSs3Vt4FketUujJlQWXQfvIVGhxnIrvmGU3fT
+ I42lEw3qW/gDG5mn9gp9hVKIfaIz9wg=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-632-5ExD-AjjOTamCzdrJ-yF9Q-1; Tue, 23 Jul 2024 06:48:02 -0400
+X-MC-Unique: 5ExD-AjjOTamCzdrJ-yF9Q-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-42660e2e147so3355445e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 23 Jul 2024 03:48:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721731681; x=1722336481;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=is9xWIZrvGL56gb6eZbS8C1QxeZEh2O1wu5yRn9CgAE=;
+ b=javYE4H3Ti166CP1RKPar6JBcrJ0EUGFhR1KR0HbUdcIWGyu9howEFe1JoaQ2FOCba
+ KpR4sezfBZayTjSbHpwhe1/iciL40CaCzlYsarxgXEp0nLaEWAg80DhSfh1fjTdKq96x
+ mBqzVajS/RP021bwBW5JHBkuFPneTFc0KXuKElXXEFSylWGoxKPs0LlWmLpQaCQynZ/X
+ w7OZWFXMjUxiB02STxJnKQTcSYLXVzcYxreXk9K18EQ272+8AH4m/R4ETMHdXb/rGI7L
+ WAV/o5T9j2CBgGXDhd0ZofcS5oCkOhCn+eq6Z/mLFUubz/81n5dzxdf19VR+0KlxkFZZ
+ i2fg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVLi40xvJcocNYKO/HLNgRZKalvZjIA20wv8YM9IPOLdmW+1Z1aqKlWMu0kMxSm/wHhdH+4zJWaJSbfWw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxWtS7OwnzhiXtClzbG0OYIyvDjx4eXBBVgK09gQePFapyqmAMq
+ aX/livRex96WZ9rxUQAXiX/tEQIiFkJbsUwf2k8hEKxHGDFvA0iAVnP0UkNZF3GZf/SY+O3lcNH
+ WljkjROxCAMybYLFwZ2Eojou8bvgzcehGEWXV1/EBqLer9rLY47P1wy+vQ8zql1kOUKfjaPJqsH
+ XTJQ==
+X-Received: by 2002:a5d:64aa:0:b0:35f:1edb:4695 with SMTP id
+ ffacd0b85a97d-369b69b281cmr4252141f8f.6.1721731680711; 
+ Tue, 23 Jul 2024 03:48:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE94TBZ+l9LWmG3AlUC+F3co0i3kwynKDwsEMBfPu08pu42j4GyNtxN5Bczw3XZRNRFgmnKqA==
+X-Received: by 2002:a5d:64aa:0:b0:35f:1edb:4695 with SMTP id
+ ffacd0b85a97d-369b69b281cmr4252128f8f.6.1721731680185; 
+ Tue, 23 Jul 2024 03:48:00 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:173f:4f10::f71? ([2a0d:3344:173f:4f10::f71])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36878684225sm11265579f8f.9.2024.07.23.03.47.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 03:47:59 -0700 (PDT)
+Message-ID: <b9517ec9-dbe1-43c6-879a-438defdc201f@redhat.com>
+Date: Tue, 23 Jul 2024 12:47:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Valentin Caron <valentin.caron@foss.st.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20240722160022.454226-1-valentin.caron@foss.st.com>
- <20240722160022.454226-2-valentin.caron@foss.st.com>
+To: Zhouyi Zhou <zhouzhouyi@gmail.com>, alexandre.torgue@foss.st.com,
+ joabreu@synopsys.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, mcoquelin.stm32@gmail.com, andrew@lunn.ch,
+ linus.walleij@linaro.org, martin.blumenstingl@googlemail.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20240720040027.734420-1-zhouzhouyi@gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20240720040027.734420-1-zhouzhouyi@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240722160022.454226-2-valentin.caron@foss.st.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: rtc: stm32: describe
-	pinmux nodes
+Cc: "zhili.liu" <zhili.liu@ucas.com.cn>,
+ wangzhiqiang <zhiqiangwang@ucas.com.cn>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix the mistake of the
+ device tree property string of reset gpio in stmmac_mdio_reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,25 +92,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 22/07/2024 18:00, Valentin Caron wrote:
-> STM32 RTC is capable to handle 3 specific pins of the soc (out1, out2,
-> out2_rmp) and to outputs 2 signals (LSCO, alarm-a).
+On 7/20/24 06:00, Zhouyi Zhou wrote:
+> From: "zhili.liu" <zhili.liu@ucas.com.cn>
 > 
-> This feature is configured thanks to pinmux nodes and pinctrl framework.
-> This feature is available with compatible st,stm32mp1-rtc and
-> st,stm32mp25-rtc only.
+> According to Documentation/devicetree/bindings/net/snps,dwmac.yaml,
+> the device tree property of PHY Reset GPIO should be "snps,reset-gpio".
 > 
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+> Use string "snps,reset-gpio" instead of "snps,reset" in stmmac_mdio_reset
+> when invoking devm_gpiod_get_optional.
+> 
+> Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
+> 
+> Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
+> Signed-off-by: wangzhiqiang <zhiqiangwang@ucas.com.cn>
+> Signed-off-by: zhili.liu <zhili.liu@ucas.com.cn>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Apart from the more relevant concern raised from Andrew, please note 
+that you should avoid empty lines in the tag area, between the 'fixes' 
+tag and the SoB tag.
 
-Best regards,
-Krzysztof
+Thanks,
+
+Paolo
 
 _______________________________________________
 Linux-stm32 mailing list
