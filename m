@@ -2,85 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B3B9939EF6
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2024 12:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A976093A089
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2024 14:37:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4E17C6DD96;
-	Tue, 23 Jul 2024 10:48:11 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5934FC6B47E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44215C6DD96;
+	Tue, 23 Jul 2024 12:37:19 +0000 (UTC)
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
+ [209.85.161.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B449C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2024 10:48:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1721731683;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=is9xWIZrvGL56gb6eZbS8C1QxeZEh2O1wu5yRn9CgAE=;
- b=X24l/kxeg/RdlXJ0dsgX9ztzX/wqzipTQunTHuMZBLohc2k+OPmb+ANwMlXhOZbBxFrOAP
- IYDX7uhEdoovWbndO08FMo9zaL0X2vvFGWSs3Vt4FketUujJlQWXQfvIVGhxnIrvmGU3fT
- I42lEw3qW/gDG5mn9gp9hVKIfaIz9wg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-5ExD-AjjOTamCzdrJ-yF9Q-1; Tue, 23 Jul 2024 06:48:02 -0400
-X-MC-Unique: 5ExD-AjjOTamCzdrJ-yF9Q-1
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-42660e2e147so3355445e9.3
+ Tue, 23 Jul 2024 12:37:12 +0000 (UTC)
+Received: by mail-oo1-f54.google.com with SMTP id
+ 006d021491bc7-5ce74defe42so3007768eaf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2024 03:48:01 -0700 (PDT)
+ Tue, 23 Jul 2024 05:37:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1721738231; x=1722343031;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1PK/7EFDuzvwfgAoJnV5Sv6CmA0hzzCT8PA3TVv11TQ=;
+ b=Izml+1woDpwmh4+XmQ1Zs6da91GONoNd/mgdMu0FgOC1F/sXVv35phJaDmT4WUs/j0
+ zNfM6k7ePcij3T8r7qm2UJFQQKBe62sxqACv9V1SBhqd7DFRh0qP7ESHhppBACc5TjFK
+ 3K0XY83NtB84DW7Wih3LBf4Thce6uSmecbORMWLtfQ+cBFvDBvCKbU939tEtdcBxJOkC
+ +YD6PxuRxvUHrr/yeVONx/ueaovYwy+QrX2dnmU712QQS3CTnd9mB757nUlZkKQHlexq
+ tiDzGrBZyJggpCHV0sNsyLaTRCoqDskAT1Owm6M2fVmX6Qvh+YX2IIE8O0xSyjQ39rz9
+ GCHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721731681; x=1722336481;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=is9xWIZrvGL56gb6eZbS8C1QxeZEh2O1wu5yRn9CgAE=;
- b=javYE4H3Ti166CP1RKPar6JBcrJ0EUGFhR1KR0HbUdcIWGyu9howEFe1JoaQ2FOCba
- KpR4sezfBZayTjSbHpwhe1/iciL40CaCzlYsarxgXEp0nLaEWAg80DhSfh1fjTdKq96x
- mBqzVajS/RP021bwBW5JHBkuFPneTFc0KXuKElXXEFSylWGoxKPs0LlWmLpQaCQynZ/X
- w7OZWFXMjUxiB02STxJnKQTcSYLXVzcYxreXk9K18EQ272+8AH4m/R4ETMHdXb/rGI7L
- WAV/o5T9j2CBgGXDhd0ZofcS5oCkOhCn+eq6Z/mLFUubz/81n5dzxdf19VR+0KlxkFZZ
- i2fg==
+ d=1e100.net; s=20230601; t=1721738231; x=1722343031;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1PK/7EFDuzvwfgAoJnV5Sv6CmA0hzzCT8PA3TVv11TQ=;
+ b=VTQuDCTfA0Bc2v5ca32PKdGcJlhB35NA2ScKQ48MqabpA1emfyO1BDgapLrNg8PtT/
+ AGh9K/EVliCLuE88NGguZLxiQbFiqMA7DMqzQnjZLMI3DwFJ5jKPQbyV266BapE4pSyZ
+ DvY5p0810CsZxXjYxpgZUi3J4NmhjZYvME6E92fjWlDqLXVigwKP8HiYr32AGnQLO6XH
+ qhWGODTljUCQtItVE2R21HoCGrGgClATnkiyAvt9lyQqjiA5V8V2+UJRPVUUYErtrLxQ
+ 5QGkAtsOhSyER/8sdqFarvMCIekZOSBKtVwRb6EgXQlUALqjZEuu247derq3R6AvH3cZ
+ 2hmA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLi40xvJcocNYKO/HLNgRZKalvZjIA20wv8YM9IPOLdmW+1Z1aqKlWMu0kMxSm/wHhdH+4zJWaJSbfWw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxWtS7OwnzhiXtClzbG0OYIyvDjx4eXBBVgK09gQePFapyqmAMq
- aX/livRex96WZ9rxUQAXiX/tEQIiFkJbsUwf2k8hEKxHGDFvA0iAVnP0UkNZF3GZf/SY+O3lcNH
- WljkjROxCAMybYLFwZ2Eojou8bvgzcehGEWXV1/EBqLer9rLY47P1wy+vQ8zql1kOUKfjaPJqsH
- XTJQ==
-X-Received: by 2002:a5d:64aa:0:b0:35f:1edb:4695 with SMTP id
- ffacd0b85a97d-369b69b281cmr4252141f8f.6.1721731680711; 
- Tue, 23 Jul 2024 03:48:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE94TBZ+l9LWmG3AlUC+F3co0i3kwynKDwsEMBfPu08pu42j4GyNtxN5Bczw3XZRNRFgmnKqA==
-X-Received: by 2002:a5d:64aa:0:b0:35f:1edb:4695 with SMTP id
- ffacd0b85a97d-369b69b281cmr4252128f8f.6.1721731680185; 
- Tue, 23 Jul 2024 03:48:00 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:173f:4f10::f71? ([2a0d:3344:173f:4f10::f71])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36878684225sm11265579f8f.9.2024.07.23.03.47.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 03:47:59 -0700 (PDT)
-Message-ID: <b9517ec9-dbe1-43c6-879a-438defdc201f@redhat.com>
-Date: Tue, 23 Jul 2024 12:47:57 +0200
+ AJvYcCW0xaIdBQstn9BvmDlzlGvzwunf5rSxxU2MZCNRyN0+haigeL//+BW24WrdW89kZMg0Urj4tcsQXGjqs1rvz0Rp4N3/sQdsitbHXoQyAW1pYN4xC1ML0W7k
+X-Gm-Message-State: AOJu0YzDD43j98lIaKK72gvaAyfGFzPFsXMWDh6K8qm/T9ZAkqQEEosH
+ 0gT/p7PIlJ6YQpVGZqBuweXgUsRxLk2wps5rxqjdd778fvQ1mlsksZlzJ0rwc9QXUxr4I6wifJX
+ U8ltc5iMAASjOQQCTvNeadjJXvyAJktDNpuoLbA==
+X-Google-Smtp-Source: AGHT+IGnQkB4dy1+XaxZaGC5cn9k/k/gqgs8XKEYWBSg3ze2AGNRxBxtP0Z90SRSbaXxF6TSdzpnrlfaIXPF8JuG5cY=
+X-Received: by 2002:a05:6870:fb8e:b0:260:e83b:cc13 with SMTP id
+ 586e51a60fabf-261214e4a6cmr10019744fac.28.1721738230798; Tue, 23 Jul 2024
+ 05:37:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Zhouyi Zhou <zhouzhouyi@gmail.com>, alexandre.torgue@foss.st.com,
- joabreu@synopsys.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, mcoquelin.stm32@gmail.com, andrew@lunn.ch,
- linus.walleij@linaro.org, martin.blumenstingl@googlemail.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20240720040027.734420-1-zhouzhouyi@gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20240720040027.734420-1-zhouzhouyi@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: "zhili.liu" <zhili.liu@ucas.com.cn>,
- wangzhiqiang <zhiqiangwang@ucas.com.cn>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix the mistake of the
- device tree property string of reset gpio in stmmac_mdio_reset
+References: <20240722101202.26915-1-james.clark@linaro.org>
+ <20240722101202.26915-8-james.clark@linaro.org>
+In-Reply-To: <20240722101202.26915-8-james.clark@linaro.org>
+From: Mike Leach <mike.leach@linaro.org>
+Date: Tue, 23 Jul 2024 13:36:59 +0100
+Message-ID: <CAJ9a7VgPLpx3K9GVydDWhWSxLfsmeXEXntqA60S6ot12Kcefjw@mail.gmail.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@arm.com>,
+ John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, "Liang,
+ Kan" <kan.liang@linux.intel.com>, suzuki.poulose@arm.com,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, anshuman.khandual@arm.com,
+ coresight@lists.linaro.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ leo.yan@linux.dev, Jiri Olsa <jolsa@kernel.org>,
+ gankulkarni@os.amperecomputing.com
+Subject: Re: [Linux-stm32] [PATCH v6 07/17] perf: cs-etm: Print queue number
+	in raw trace dump
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,34 +85,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/20/24 06:00, Zhouyi Zhou wrote:
-> From: "zhili.liu" <zhili.liu@ucas.com.cn>
-> 
-> According to Documentation/devicetree/bindings/net/snps,dwmac.yaml,
-> the device tree property of PHY Reset GPIO should be "snps,reset-gpio".
-> 
-> Use string "snps,reset-gpio" instead of "snps,reset" in stmmac_mdio_reset
-> when invoking devm_gpiod_get_optional.
-> 
-> Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
-> 
-> Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
-> Signed-off-by: wangzhiqiang <zhiqiangwang@ucas.com.cn>
-> Signed-off-by: zhili.liu <zhili.liu@ucas.com.cn>
+On Mon, 22 Jul 2024 at 11:13, James Clark <james.clark@linaro.org> wrote:
+>
+> From: James Clark <james.clark@arm.com>
+>
+> Now that we have overlapping trace IDs it's also useful to know what the
+> queue number is to be able to distinguish the source of the trace so
+> print it inline. Hide it behind the -v option because it might not be
+> obvious to users what the queue number is.
+>
+> Signed-off-by: James Clark <james.clark@arm.com>
+> Signed-off-by: James Clark <james.clark@linaro.org>
+> ---
+>  tools/perf/util/cs-etm-decoder/cs-etm-decoder.c |  4 ++--
+>  tools/perf/util/cs-etm-decoder/cs-etm-decoder.h |  2 +-
+>  tools/perf/util/cs-etm.c                        | 13 ++++++++++---
+>  3 files changed, 13 insertions(+), 6 deletions(-)
+>
+> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
+> index d49c3e9c7c21..b78ef0262135 100644
+> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
+> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
+> @@ -41,7 +41,7 @@ const u32 INSTR_PER_NS = 10;
+>
+>  struct cs_etm_decoder {
+>         void *data;
+> -       void (*packet_printer)(const char *msg);
+> +       void (*packet_printer)(const char *msg, void *data);
+>         bool suppress_printing;
+>         dcd_tree_handle_t dcd_tree;
+>         cs_etm_mem_cb_type mem_access;
+> @@ -202,7 +202,7 @@ static void cs_etm_decoder__print_str_cb(const void *p_context,
+>         const struct cs_etm_decoder *decoder = p_context;
+>
+>         if (p_context && str_len && !decoder->suppress_printing)
+> -               decoder->packet_printer(msg);
+> +               decoder->packet_printer(msg, decoder->data);
+>  }
+>
+>  static int
+> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
+> index 272c2efe78ee..12c782fa6db2 100644
+> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
+> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.h
+> @@ -60,7 +60,7 @@ struct cs_etm_trace_params {
+>
+>  struct cs_etm_decoder_params {
+>         int operation;
+> -       void (*packet_printer)(const char *msg);
+> +       void (*packet_printer)(const char *msg, void *data);
+>         cs_etm_mem_cb_type mem_acc_cb;
+>         bool formatted;
+>         bool fsyncs;
+> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
+> index b11b0cae608e..6298a5c7a651 100644
+> --- a/tools/perf/util/cs-etm.c
+> +++ b/tools/perf/util/cs-etm.c
+> @@ -762,15 +762,22 @@ static void cs_etm__packet_swap(struct cs_etm_auxtrace *etm,
+>         }
+>  }
+>
+> -static void cs_etm__packet_dump(const char *pkt_string)
+> +static void cs_etm__packet_dump(const char *pkt_string, void *data)
+>  {
+>         const char *color = PERF_COLOR_BLUE;
+>         int len = strlen(pkt_string);
+> +       struct cs_etm_queue *etmq = data;
+> +       char queue_nr[64];
+> +
+> +       if (verbose)
+> +               snprintf(queue_nr, sizeof(queue_nr), "Qnr:%d; ", etmq->queue_nr);
+> +       else
+> +               queue_nr[0] = '\0';
+>
+>         if (len && (pkt_string[len-1] == '\n'))
+> -               color_fprintf(stdout, color, "  %s", pkt_string);
+> +               color_fprintf(stdout, color, "  %s%s", queue_nr, pkt_string);
+>         else
+> -               color_fprintf(stdout, color, "  %s\n", pkt_string);
+> +               color_fprintf(stdout, color, "  %s%s\n", queue_nr, pkt_string);
+>
+>         fflush(stdout);
+>  }
+> --
+> 2.34.1
+>
 
-Apart from the more relevant concern raised from Andrew, please note 
-that you should avoid empty lines in the tag area, between the 'fixes' 
-tag and the SoB tag.
+Reviewed-by: Mike Leach <mike.leach@linaro.org>
 
-Thanks,
-
-Paolo
-
+-- 
+Mike Leach
+Principal Engineer, ARM Ltd.
+Manchester Design Centre. UK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
