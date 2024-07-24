@@ -2,49 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ABD693B28B
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2024 16:20:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7426A93B3EA
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2024 17:39:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B06A7C7129D;
-	Wed, 24 Jul 2024 14:20:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28295C7129D;
+	Wed, 24 Jul 2024 15:39:23 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A365C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C605C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jul 2024 14:20:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2FCB961211;
- Wed, 24 Jul 2024 14:20:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D3A9CC32782;
- Wed, 24 Jul 2024 14:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721830831;
- bh=Rukc6O3TUn3kCoKQwcb17Ej01IDzKcNV/0uipcAAcgo=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=egBKb/gFfr1FDU1kzhsbr04PujEoZb7qvTpIfRAqROUU9ItecReDuSCMd89l1097U
- /91iq2H794OQaaf+09WrojyHjhFB2lABA1yqSGgeRsSlkra0AqBljZZojOIfsxFBwv
- oywnreAfvgLOzHkr+NcRisBEjQABIQmlWEjfWwH6N//eiSH6Q3KFSotOF2Tl5qG60/
- jqEbTM9A+XZJSJA0O8WvwWrb9iIGA4lJDHeuT8ehtBEhv3u8XQSkB6ew56dhVqUZmH
- 5R5eSPd4YzWgIo/M5V1lF26pjXlVSpnKISSsLbwK0x/hPTRNw2p3PSdJmzbUG08Wyb
- w0m/O2bBlp/cQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- BFA97C43601; Wed, 24 Jul 2024 14:20:31 +0000 (UTC)
+ Wed, 24 Jul 2024 15:39:16 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 46OAuBKg025611;
+ Wed, 24 Jul 2024 17:38:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=5e/bBHkAvYeYOa7Vq1i1fQ
+ +yXa4HHwh9qRhHcKe0cQ0=; b=KH8JIolzJRP7CA2TbDg1cGPB7ToUpJAxMelsae
+ AKj6SD/27t74+xBSN3gVbQPZMg1SCeLzJFBqdFmrLwWkAjy5yrMGMMPUkIFqjCZd
+ gc3+B9dypNnFhmz5MD5Y7UvfzYPhF7NVLWlQiC3eCSumlNI5vDjpKXxYAQ9tLH6B
+ 02K3XGyKwOmw+aSU+5a3OL78APvmgJGOGoENIpNAS/09ZYPenDTUv39U686IcXrV
+ LasrHLMJE2OTvDiOPkxKYopBff019vgsFDovCjQoI0wqhiUPo2qc0ubyfdJem2I+
+ iVbd1FZL2q7orORl+PrRZrMlXeCwIRBEYh+3gKqAdLAahIqw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40gr6j5x09-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jul 2024 17:38:42 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B40C940045;
+ Wed, 24 Jul 2024 17:38:31 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36D6E240079;
+ Wed, 24 Jul 2024 17:37:27 +0200 (CEST)
+Received: from localhost (10.252.12.39) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 24 Jul
+ 2024 17:37:26 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Nuno Sa
+ <nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Wed, 24 Jul 2024 17:36:28 +0200
+Message-ID: <20240724153639.803263-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <172183083178.11114.6015166451648250005.git-patchwork-notify@kernel.org>
-Date: Wed, 24 Jul 2024 14:20:31 +0000
-References: <20240723-stmmac-perfect-match-v1-1-678a800343b2@kernel.org>
-In-Reply-To: <20240723-stmmac-perfect-match-v1-1-678a800343b2@kernel.org>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Correct byte order of
-	perfect_match
+X-Originating-IP: [10.252.12.39]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-24_15,2024-07-24_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 0/9] iio: adc: dfsdm: add scaling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,31 +81,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+The aim of this serie is to add scaling support to STM32 DFSDM
+peripheral in the analog context.
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+The DFSDM currently operates as a consumer of IIO channels
+provided by a generic SD modulator. As previously discussed in RFC [1],
+this topology is not suitable for implementing scaling.
 
-On Tue, 23 Jul 2024 14:29:27 +0100 you wrote:
-> The perfect_match parameter of the update_vlan_hash operation is __le16,
-> and is correctly converted from host byte-order in the lone caller,
-> stmmac_vlan_update().
-> 
-> However, the implementations of this caller, dwxgmac2_update_vlan_hash()
-> and dwxgmac2_update_vlan_hash(), both treat this parameter as host byte
-> order, using the following pattern:
-> 
-> [...]
+This series brings the integration of the DFSDM driver with the new 
+IIO backend framework [2], enabling the DFSDM IIO device to offer 
+scaling feature based on reference voltage data obtained from the
+IIO SD modulator backend. This generic SD modulator backend takes the
+place of the former SD modulator, used with legacy implementation.
 
-Here is the summary with links:
-  - [net] net: stmmac: Correct byte order of perfect_match
-    https://git.kernel.org/netdev/net/c/e9dbebae2e3c
+The DFSDM driver has been updated to adopt the generic ADC channel
+binding [3]. The reasons for this include:
+- Reducing the use of proprietary properties
+- Simplifying the coexistence of legacy and new backend bindings
+- Prepare the support of the MDF peripheral on STM32MP25 SoC
 
-You are awesome, thank you!
+Backward compatibility is maintained through legacy support.
+
+This series extends the backend framework with the following APIs:
+- iio_backend_read_raw:
+	This API is intented to retrieve channel attributes from the
+	backend. It is based on IIO framework read_raw API.
+- iio_backend_read_scale / iio_backend_read_offset
+	Dedicated APIs to read scale and offset channel values.
+- iio_backend_disable / iio_backend_enable:
+	backend enable/disable to be used for PM management
+- devm_iio_backend_fwnode_get
+	Intended for parsing DT subnodes to allow generic channel binding
+	support, as generic channel DT nodes are not populated as devices.
+
+[1]: https://lore.kernel.org/lkml/20200204101008.11411-1-olivier.moysan@st.com/
+[2]: https://lore.kernel.org/all/20240206-iio-backend-v9-0-df66d159c000@analog.com/
+[3]: devicetree/bindings/iio/adc/adc.yaml
+
+Changes in v2:
+- Update enable/disable backend API
+- Rename devm_iio_backend_subnode_get(), as devm_iio_backend_fwnode_get()
+- Update iio_backend_read_raw() prototype to fully match IIO framework
+  read_raw callback prototype.
+- Change st,adc-channel-type property name and type in DFSDM binding
+- Remove sd-backend and rename ads1201 compatibles in SD binding
+
+Changes in v3:
+- Add iio_backend_read_scale and iio_backend_read_offset
+- Remove sd-backend compatible. Adapt existing sd modulator driver and
+  binding to support backend topology.
+- Misc corrections in DFSDM binding & minor changes in DFSDM driver
+
+Changes in v4:
+- Remove allOf and rework examples in SD modulator binding
+- Wrap lines to 80 characters in IIO code
+
+Changes in v5:
+- Move iio_backend_read_scale and iio_backend_read_offset to inline
+  and update prototype
+- Fix channel number & remove legacy binding example in DFSDM binding
+- Rearrange DFSDM patches to fix build issue in serie
+- Split SD modulator binding patch.
+  Move reference voltage change in a separate patch
+
+Olivier Moysan (9):
+  iio: add read scale and offset services to iio backend framework
+  iio: add enable and disable services to iio backend framework
+  iio: add child nodes support in iio backend framework
+  dt-bindings: iio: dfsdm: move to backend framework
+  dt-bindings: iio: add backend support to sd modulator
+  dt-bindings: iio: add vref support to sd modulator
+  iio: adc: stm32-dfsdm: adopt generic channels bindings
+  iio: add iio backend support to sd modulator
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+
+ .../iio/adc/sigma-delta-modulator.yaml        |  25 +-
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 124 +++++++-
+ drivers/iio/adc/Kconfig                       |   2 +
+ drivers/iio/adc/sd_adc_modulator.c            |  92 +++++-
+ drivers/iio/adc/stm32-dfsdm-adc.c             | 293 +++++++++++++++---
+ drivers/iio/industrialio-backend.c            | 101 +++++-
+ include/linux/iio/backend.h                   |  29 +-
+ 7 files changed, 593 insertions(+), 73 deletions(-)
+
+
+base-commit: 472438c7e0e2261c6737a8321f46ef176eef1c8f
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
