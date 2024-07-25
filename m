@@ -2,49 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 610C593B53A
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2024 18:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 987B593BFED
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2024 12:31:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED3EBC712A1;
-	Wed, 24 Jul 2024 16:44:01 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44B70C78018;
+	Thu, 25 Jul 2024 10:31:49 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0E08C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50A6DC78014
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jul 2024 16:43:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8CF1560E74;
- Wed, 24 Jul 2024 16:43:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C00C32781;
- Wed, 24 Jul 2024 16:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1721839433;
- bh=5JmJLMt7znCx017pyPoIq7UZLeqlEodflBEYHrF8fZE=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=bxZHiUvgdMDRZyD+uEK7AGz9ydWj6piRkVdNTEMzXbUgH6a9S8WhJK2WlTH/UAQT+
- i1O5hFChGTrC1kpcn7tU65mAQuQEPTMJkdMls38ULic5J9qhKqHmxETrZb9o2m5JGB
- 8rsnE9PHCFOljmgiF+JvLIds1sd/s1QgyA/uMat7+ATCfZ6Muc9WTrcxJtYVR4uNe1
- S2MmpN+xVRZnM+beliSZALPZo010JzwpZ06hj+9ZVH+KYQ+Q5E+0xbEXD0x0D0iMC/
- biOORFTmwTJyQ6jD1ZiD73Yyr6i/Q2TDRKnI7UqhshKwXnzPqlzCvkBp3XWMOuiZNd
- IhDYJMcXZfPPQ==
-Date: Wed, 24 Jul 2024 11:43:51 -0500
+ Thu, 25 Jul 2024 10:31:42 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-a7a9cf7d3f3so42977966b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 25 Jul 2024 03:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1721903502; x=1722508302;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
+ b=Er3swuE6oeXyDcBrOAE1mTMwDoLV6LaTxlerZlO+pUp1tsTSatYNrkQ22klZLNaWHb
+ tii/xK7OWFTf7OxTiFx2mjvzvXXUKcfIRWn4SUZ/gYcdxwupUT0OJe2dgJm00aAkKFqd
+ VP/WfGJ0Xp48jNHSaxr6OvAjqXGqi4ezzIp852vNyncDaWEBPpJE59k5ZVxVmJB+v6lF
+ u1FktqgmwXm4Fy+qEIJy0ODwhzb3jkbroElQoJArWYQG0QyX1ix4CMhSp9R38r5vQUrZ
+ nh57TWRDWnwdFvUAzduOgE0kLH+M3e3ld+BZ9ZTFnAzOL8vJdJ2jY+J1OJfs758et9qv
+ BWKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721903502; x=1722508302;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
+ b=NeogQszAm9ikUBeaJQluhBUMj76X0zqWkb8Wb2UZ1uBT1X05oDX8EmxC0gG4YFygqz
+ 4lshZCNV4Qek+iHH/eBNjIEvSVOMAXEW8mL351sH1DwJoV9uO7l6iSftW8w9MYzqjhxH
+ 5o7VR9TzPVzD+Xnh6M+C53BhkngjQRu9yO6Rck9XVc265QBSlkyfa7XSJwfbEUgZ2kd6
+ c1CXDFmg6agxW+ioHQzbiV2eo07rkgx2r/mcee9vftOVlE+J8VPFv4YhRzs1w5Q0kKz2
+ Z6yxDsgKgvF2L1oQjqjVksdylkfqyHoN1p4Lx4DiLgHIf19aOlwdlv218ZjcouNuhgab
+ rPLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvw87G8fwAaiJWpMAfgtUQNSPKmxqo8YWjw46NOcJmooNBP369pttMzdhhEpKVD17FWvD2y69oEpUR9f7ISH2wT/hOF8zPNjeMq9JlXNEPl440/cZ7TLvN
+X-Gm-Message-State: AOJu0Yyy+Qg2XpQozApgDYZjHSMqGJyfsPlYkruBH9LhmvZaR9G8L8aV
+ NiI75IvBsc116eJXGHJYOyReaLdnicmPA3kzTxwQolZz6pwd41cR
+X-Google-Smtp-Source: AGHT+IGAu3zvUQHfsTC/UTH4WJiceuCvU2xMUjNKMn2kBRL9RuFZai32Qp0okX0mkrFdHSC/S11Q/A==
+X-Received: by 2002:a17:907:97d0:b0:a7a:ab1a:2d64 with SMTP id
+ a640c23a62f3a-a7ac506f3a4mr176339666b.58.1721903501593; 
+ Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
+ [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acad903f1sm57280766b.152.2024.07.25.03.31.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Thu, 25 Jul 2024 12:31:38 +0200
+Message-Id: <20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-In-Reply-To: <20240724153639.803263-5-olivier.moysan@foss.st.com>
-References: <20240724153639.803263-1-olivier.moysan@foss.st.com>
- <20240724153639.803263-5-olivier.moysan@foss.st.com>
-Message-Id: <172183943127.3135721.14675824897973213166.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 4/9] dt-bindings: iio: dfsdm: move to
- backend framework
+X-B4-Tracking: v=1; b=H4sIAIopomYC/x3NwQqDMAyA4VeRnC24os7uVUSKttmWg4kkIgPx3
+ Vc8fpf/P8FQCQ1e1QmKBxkJFzzqCtJ35g86ysXgG982T9+5JGx7NM7RJMUk6yaMvMesdKC6JfQ
+ +zKFbQjtAiWyKb/rdg3G6rj8V+brQcAAAAA==
+To: Tim Harvey <tharvey@gateworks.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1721903500; l=1490;
+ i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
+ bh=htIX0gNZEQ2pwJvqGxD+l3IATOPpwVwt2PCD5KSSKn4=;
+ b=vBDKmvKNwCIRMMTYycPXUCa0VMk1znrRDaTVxp1ewj0Yo659ha2gfmiErmmqJzC2lEeS99wV6
+ S0Y8WTWXCEJB+QZG9JPwzy0tFzzO75Pecq8vABwhbjWvw6sKrkIMHfw
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
+Cc: alsa-devel@alsa-project.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/2] {ASoC,
+	media}: constify snd_soc_component_driver struct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,68 +108,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The `snd_soc_component_driver` struct is never modified after its
+declaration, and its only direct user
+`devm_snd_soc_register_component()` expects a constant value anyway.
 
-On Wed, 24 Jul 2024 17:36:32 +0200, Olivier Moysan wrote:
-> Change the DFSDM binding to use the new IIO backend framework,
-> along with the adoption of IIO generic channels.
-> This binding change allows to add scaling support to the DFSDM.
-> 
-> Keep the legacy binding as deprecated for backward compatibility.
-> 
-> The io-backends property is supported only in generic IIO channel
-> binding.
-> 
-> - Channel description with the generic binding (Audio and Analog):
-> 
->   Properties superseded by generic properties:
->     st,adc-channels: becomes "reg" property in channel node
->     st,adc-channel-names: becomes "label" property in channel node
->   Properties moved to channel child node:
->     st,adc-channel-types: becomes st,adc-channel-type
->     st,adc-channel-clk-src, st,adc-alt-channel
-> 
-> - Analog binding:
-> 
->   DFSDM filter channel is configured as an IIO backend consumer.
->   Add io-backends property in channel child nodes.
-> 
->   DFSDM is no more configured as a channel consumer from SD modulator.
->   Use of io-channels in DFSDM node is deprecated.
-> 
-> - Audio binding:
-> 
->   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->   No change compare to legacy.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 124 +++++++++++++++---
->  1 file changed, 108 insertions(+), 16 deletions(-)
-> 
+Declare `snd_soc_component_driver` as const to move their declarations
+to read-only sections.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Apart from a single case under media/, the affected drivers are members
+of the ASoC subsystem.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml:421:4: [error] no new line character at the end of file (new-line-at-end-of-file)
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+Javier Carrasco (2):
+      media: i2c: tda1997x: constify snd_soc_component_driver struct
+      ASoC: constify snd_soc_component_driver struct
 
-dtschema/dtc warnings/errors:
+ drivers/media/i2c/tda1997x.c         | 2 +-
+ sound/soc/au1x/dbdma2.c              | 2 +-
+ sound/soc/au1x/dma.c                 | 2 +-
+ sound/soc/bcm/cygnus-pcm.c           | 2 +-
+ sound/soc/codecs/cpcap.c             | 2 +-
+ sound/soc/codecs/cs43130.c           | 2 +-
+ sound/soc/codecs/pcm186x.c           | 4 ++--
+ sound/soc/codecs/pcm5102a.c          | 2 +-
+ sound/soc/codecs/spdif_receiver.c    | 2 +-
+ sound/soc/codecs/spdif_transmitter.c | 2 +-
+ sound/soc/codecs/sti-sas.c           | 2 +-
+ sound/soc/codecs/tas6424.c           | 2 +-
+ sound/soc/stm/stm32_adfsdm.c         | 2 +-
+ sound/soc/uniphier/evea.c            | 2 +-
+ 14 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 864b1099d16fc7e332c3ad7823058c65f890486c
+change-id: 20240725-const_snd_soc_component_driver-b9629a95b948
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240724153639.803263-5-olivier.moysan@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
 _______________________________________________
 Linux-stm32 mailing list
