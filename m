@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987B593BFED
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BB7493BFEB
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2024 12:31:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44B70C78018;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38D05C78015;
 	Thu, 25 Jul 2024 10:31:49 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50A6DC78014
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D24DC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2024 10:31:42 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a7a9cf7d3f3so42977966b.1
+ Thu, 25 Jul 2024 10:31:46 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-a7b2dbd81e3so38754566b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2024 03:31:42 -0700 (PDT)
+ Thu, 25 Jul 2024 03:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1721903502; x=1722508302;
+ d=gmail.com; s=20230601; t=1721903506; x=1722508306;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
- b=Er3swuE6oeXyDcBrOAE1mTMwDoLV6LaTxlerZlO+pUp1tsTSatYNrkQ22klZLNaWHb
- tii/xK7OWFTf7OxTiFx2mjvzvXXUKcfIRWn4SUZ/gYcdxwupUT0OJe2dgJm00aAkKFqd
- VP/WfGJ0Xp48jNHSaxr6OvAjqXGqi4ezzIp852vNyncDaWEBPpJE59k5ZVxVmJB+v6lF
- u1FktqgmwXm4Fy+qEIJy0ODwhzb3jkbroElQoJArWYQG0QyX1ix4CMhSp9R38r5vQUrZ
- nh57TWRDWnwdFvUAzduOgE0kLH+M3e3ld+BZ9ZTFnAzOL8vJdJ2jY+J1OJfs758et9qv
- BWKw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=yOeiGXeuTWh9ihbymAzgAMoDAdspVLgp4kSjE/YSgxc=;
+ b=Zn9rQvElv+Cvpy1XQc2z5OosxSgJ6l9SDztLMq7pwhO9VE3JpDJAl8DMzwevMQ4Rny
+ OYoBgP8BkbzFcsqlBhRTP1AzU4S6M2YBpfcg+d4wRTdBQnK+VK/HrZvi5TzqjLzemDLv
+ LFT08kdndEmv3XSyc0pbhrhgKJSKHwTYUDFSBUaZUuIy4tKZUvramvPPeJQDEOOdk2BO
+ DL3T1uqjfbw78SHKoOYikPf61v9Uu3Qsr7dTnA1hJVwdDvq/23q3Zn8ikY6W5YvHC9Z9
+ zWnBQigmPAwn1l1Yk1CIreZ4GsCa0HE7ELN4TAAwdiDnu/IkVcWYk0u1pV0q46FMGm+A
+ xyFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721903502; x=1722508302;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
- b=NeogQszAm9ikUBeaJQluhBUMj76X0zqWkb8Wb2UZ1uBT1X05oDX8EmxC0gG4YFygqz
- 4lshZCNV4Qek+iHH/eBNjIEvSVOMAXEW8mL351sH1DwJoV9uO7l6iSftW8w9MYzqjhxH
- 5o7VR9TzPVzD+Xnh6M+C53BhkngjQRu9yO6Rck9XVc265QBSlkyfa7XSJwfbEUgZ2kd6
- c1CXDFmg6agxW+ioHQzbiV2eo07rkgx2r/mcee9vftOVlE+J8VPFv4YhRzs1w5Q0kKz2
- Z6yxDsgKgvF2L1oQjqjVksdylkfqyHoN1p4Lx4DiLgHIf19aOlwdlv218ZjcouNuhgab
- rPLQ==
+ d=1e100.net; s=20230601; t=1721903506; x=1722508306;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yOeiGXeuTWh9ihbymAzgAMoDAdspVLgp4kSjE/YSgxc=;
+ b=sTIrr2P+KD/2BWPk4WmRqpjQlbpzcRAp+gOunPNKbkHX7Hmm0ECNDh3FQbW2/Sepsn
+ zXnc13FczWq9Y4z5sIsC1FkfnMz5/jPi6sRE3scy+guOhgODjTZnSHZ+rNcZ+UZMV37y
+ cIgW9NlHyNGLo1uL6Zdt6iOg1LC/JahliOQWLcLEWHVMo8wOrLUD91j3PlV+nwdgudt6
+ 0iufKVVPMQ/KajOI0qwEyNEW1NMjpk3dWngpIx1jfp0XTzwP8KHAQi5NJUbfadv0ufv+
+ jfwwdWsBBnN9+I8owg9FtJRLHuYQ1DWZj4CeMVlKp4VLF9De2IwTJWAdplpx1SKfORrA
+ WGDg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvw87G8fwAaiJWpMAfgtUQNSPKmxqo8YWjw46NOcJmooNBP369pttMzdhhEpKVD17FWvD2y69oEpUR9f7ISH2wT/hOF8zPNjeMq9JlXNEPl440/cZ7TLvN
-X-Gm-Message-State: AOJu0Yyy+Qg2XpQozApgDYZjHSMqGJyfsPlYkruBH9LhmvZaR9G8L8aV
- NiI75IvBsc116eJXGHJYOyReaLdnicmPA3kzTxwQolZz6pwd41cR
-X-Google-Smtp-Source: AGHT+IGAu3zvUQHfsTC/UTH4WJiceuCvU2xMUjNKMn2kBRL9RuFZai32Qp0okX0mkrFdHSC/S11Q/A==
-X-Received: by 2002:a17:907:97d0:b0:a7a:ab1a:2d64 with SMTP id
- a640c23a62f3a-a7ac506f3a4mr176339666b.58.1721903501593; 
- Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+ AJvYcCWBRTD3u7Plcci3NEIpt79hYsg6PrsukxLH9d5uzfXghLvEYAQ6xZud2cZlz0rgA923dVNmcSSs4LQd7g6QO4akGCVJQ3svO0S+vo5cFgkMWuG0YcHdvhYT
+X-Gm-Message-State: AOJu0Yzo4u+LpzVothCcYxink7E9ZzKZHyq0IYV8SJXSYJ0++bk71G33
+ 2X3jETz39KhppUE2KHIk8rNvoPy51BIoHr8nkCYE/5Evd6WhqxEU
+X-Google-Smtp-Source: AGHT+IE0/hpUdAcQx4dLRlMWzDI99oBJN7+P7fRlBEFw3PDOuVabqJfYozkGN3UY2efNKiho/QNr+Q==
+X-Received: by 2002:a17:907:2d0a:b0:a7a:a212:be48 with SMTP id
+ a640c23a62f3a-a7ac5087e56mr177990766b.56.1721903503189; 
+ Thu, 25 Jul 2024 03:31:43 -0700 (PDT)
 Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
  [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad903f1sm57280766b.152.2024.07.25.03.31.40
+ a640c23a62f3a-a7acad903f1sm57280766b.152.2024.07.25.03.31.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+ Thu, 25 Jul 2024 03:31:42 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Thu, 25 Jul 2024 12:31:38 +0200
-Message-Id: <20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com>
+Date: Thu, 25 Jul 2024 12:31:39 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAIopomYC/x3NwQqDMAyA4VeRnC24os7uVUSKttmWg4kkIgPx3
- Vc8fpf/P8FQCQ1e1QmKBxkJFzzqCtJ35g86ysXgG982T9+5JGx7NM7RJMUk6yaMvMesdKC6JfQ
- +zKFbQjtAiWyKb/rdg3G6rj8V+brQcAAAAA==
+Message-Id: <20240725-const_snd_soc_component_driver-v1-1-3d7ee08e129b@gmail.com>
+References: <20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com>
+In-Reply-To: <20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com>
 To: Tim Harvey <tharvey@gateworks.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -78,11 +77,11 @@ To: Tim Harvey <tharvey@gateworks.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
  Masami Hiramatsu <mhiramat@kernel.org>
 X-Mailer: b4 0.14-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1721903500; l=1490;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1721903500; l=964;
  i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
- bh=htIX0gNZEQ2pwJvqGxD+l3IATOPpwVwt2PCD5KSSKn4=;
- b=vBDKmvKNwCIRMMTYycPXUCa0VMk1znrRDaTVxp1ewj0Yo659ha2gfmiErmmqJzC2lEeS99wV6
- S0Y8WTWXCEJB+QZG9JPwzy0tFzzO75Pecq8vABwhbjWvw6sKrkIMHfw
+ bh=wAda8xQPhY/5MLE9114YUL4s08mmQAnyb/WJmp3W3Q0=;
+ b=g+GwinB2Om+/QI19eL/QDvSqsxnmXjF9gdTgw9VQo6YTUwrcAxKL/wFe4IHNNaaiUzHHdXQ29
+ T8cWG+KHnUBDrYJ+zT75Qz2Wr485h9ieY+INwWbKf+ktYVDL378CLex
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
 Cc: alsa-devel@alsa-project.org,
@@ -90,8 +89,8 @@ Cc: alsa-devel@alsa-project.org,
  patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 0/2] {ASoC,
-	media}: constify snd_soc_component_driver struct
+Subject: [Linux-stm32] [PATCH 1/2] media: i2c: tda1997x: constify
+ snd_soc_component_driver struct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,44 +107,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The `snd_soc_component_driver` struct is never modified after its
-declaration, and its only direct user
-`devm_snd_soc_register_component()` expects a constant value anyway.
+`tda1997x_codec_driver` is not modified after its declaration, and it
+is only passed to `devm_snd_soc_register_component()`, which expects
+a constant `snd_soc_component_driver`.
 
-Declare `snd_soc_component_driver` as const to move their declarations
-to read-only sections.
-
-Apart from a single case under media/, the affected drivers are members
-of the ASoC subsystem.
+Move `tda1997x_codec_driver` to a read-only section by declaring it
+const.
 
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
-Javier Carrasco (2):
-      media: i2c: tda1997x: constify snd_soc_component_driver struct
-      ASoC: constify snd_soc_component_driver struct
+ drivers/media/i2c/tda1997x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/media/i2c/tda1997x.c         | 2 +-
- sound/soc/au1x/dbdma2.c              | 2 +-
- sound/soc/au1x/dma.c                 | 2 +-
- sound/soc/bcm/cygnus-pcm.c           | 2 +-
- sound/soc/codecs/cpcap.c             | 2 +-
- sound/soc/codecs/cs43130.c           | 2 +-
- sound/soc/codecs/pcm186x.c           | 4 ++--
- sound/soc/codecs/pcm5102a.c          | 2 +-
- sound/soc/codecs/spdif_receiver.c    | 2 +-
- sound/soc/codecs/spdif_transmitter.c | 2 +-
- sound/soc/codecs/sti-sas.c           | 2 +-
- sound/soc/codecs/tas6424.c           | 2 +-
- sound/soc/stm/stm32_adfsdm.c         | 2 +-
- sound/soc/uniphier/evea.c            | 2 +-
- 14 files changed, 15 insertions(+), 15 deletions(-)
----
-base-commit: 864b1099d16fc7e332c3ad7823058c65f890486c
-change-id: 20240725-const_snd_soc_component_driver-b9629a95b948
+diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
+index 58ce8fec3041..3b7e5ff5b010 100644
+--- a/drivers/media/i2c/tda1997x.c
++++ b/drivers/media/i2c/tda1997x.c
+@@ -2514,7 +2514,7 @@ static void tda1997x_codec_remove(struct snd_soc_component *component)
+ {
+ }
+ 
+-static struct snd_soc_component_driver tda1997x_codec_driver = {
++static const struct snd_soc_component_driver tda1997x_codec_driver = {
+ 	.probe			= tda1997x_codec_probe,
+ 	.remove			= tda1997x_codec_remove,
+ 	.idle_bias_on		= 1,
 
-Best regards,
 -- 
-Javier Carrasco <javier.carrasco.cruz@gmail.com>
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
