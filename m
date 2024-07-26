@@ -2,77 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D1493D240
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2024 13:28:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B37A93D4F7
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2024 16:18:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFBBCC78018;
-	Fri, 26 Jul 2024 11:28:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24CF3C78015;
+	Fri, 26 Jul 2024 14:18:15 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B10DC71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B7B0C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jul 2024 11:27:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1721993284; x=1753529284;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=aX4IHTutwEx8iY11bH0fm10oiySfI+34YoXcdz1UTWA=;
- b=NHszjxj19g0daUhNO1kwtXDj8sd5puVX6TEhpzdrM0MjWlcmMGdmhu2J
- 5MIwa3K2oJXMB3JNn0zhFW5NZpuaHVH7BW0xu6l224vR66mkMXQk6AE6c
- yTC04nL7F0f+7FYiVT5+GnANwDIktqntisKnAgFGBBi/WaORl/cY/yMuX
- tQ/q9u6Da3k4VNIk1G8YaFFCrvjO9NoscBRAka9xbVYNWvsgWrmKmax/O
- 39euYxja/79JLpUSmQxEsyuIOVWyPyKI5aBKgd78JKdFze2YDTIa64mwv
- ju9ry+AcauE55jqb/fquqMl+vCt14S40t7j+e3Fqw+Q2NntBvrAwA7nHE A==;
-X-CSE-ConnectionGUID: AAwiZsyFRYq5ywbQqbyI2g==
-X-CSE-MsgGUID: iPBrt0lUSl2goebUNskh/w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11144"; a="19918530"
-X-IronPort-AV: E=Sophos;i="6.09,238,1716274800"; d="scan'208";a="19918530"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2024 04:27:55 -0700
-X-CSE-ConnectionGUID: ZY4XODahTzS5shFeH1/dWw==
-X-CSE-MsgGUID: UWYmDr6fR32s3nYSoQO9lA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,238,1716274800"; d="scan'208";a="57829189"
-Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
- by fmviesa004.fm.intel.com with ESMTP; 26 Jul 2024 04:27:49 -0700
-Received: from kbuild by 68891e0c336b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sXJ6w-000p3w-36;
- Fri, 26 Jul 2024 11:27:46 +0000
-Date: Fri, 26 Jul 2024 19:27:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Tim Harvey <tharvey@gateworks.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>
-Message-ID: <202407261907.9WRDvix7-lkp@intel.com>
-References: <20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b@gmail.com>
+ Fri, 26 Jul 2024 14:18:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 213A9CE17BF;
+ Fri, 26 Jul 2024 14:18:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFEBCC32782;
+ Fri, 26 Jul 2024 14:18:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1722003484;
+ bh=GEuaYMdifYZj2qLr1Mq99LFYCiUGknXwcHjv8sE9EFQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FSWKFftauRsaLRxZmdLfuuVG2ePLQOFeHnnI6QJWpy+1ZehwCup3TY6FvOnsIjI2u
+ Yue3izIg8qvGX07TSDEQWnotMFQHxwd2NeuPbYxZlD372ZImq6WpdP4szqiSlzsgIr
+ 17K9R8Yq4RNUN5Rnoyn55sQWLjSmvnPbD3lOBcmzKII2nfB5JQeHJLsFPgLS9k/pKw
+ PNvc23TGdfHzoe8XlSpbFTYFeDPeta+TRSNDZJrCq6axAqqOo4vIJv/wC9TDLkoQ2G
+ 630fSxQ40MougIhHfpuzAAfovjMqXOJwZNBf3amTUjtMg8HII8kQrWJpLQT7wNhqjH
+ HJWZoOFzxnIAw==
+Date: Fri, 26 Jul 2024 11:18:01 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: James Clark <james.clark@linaro.org>
+Message-ID: <ZqOwGWcYosGe9ru4@x1>
+References: <20240722101202.26915-1-james.clark@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b@gmail.com>
-Cc: alsa-devel@alsa-project.org,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] ASoC: constify
-	snd_soc_component_driver struct
+In-Reply-To: <20240722101202.26915-1-james.clark@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@arm.com>,
+ John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, "Liang,
+ Kan" <kan.liang@linux.intel.com>, suzuki.poulose@arm.com,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ mike.leach@linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ anshuman.khandual@arm.com, coresight@lists.linaro.org,
+ Namhyung Kim <namhyung@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ leo.yan@linux.dev, Jiri Olsa <jolsa@kernel.org>,
+ gankulkarni@os.amperecomputing.com
+Subject: Re: [Linux-stm32] [PATCH v6 00/17] coresight: Use per-sink trace ID
+ maps for Perf sessions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,236 +67,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Javier,
+On Mon, Jul 22, 2024 at 11:11:42AM +0100, James Clark wrote:
+> This will allow sessions with more than CORESIGHT_TRACE_IDS_MAX ETMs
+> as long as there are fewer than that many ETMs connected to each sink.
 
-kernel test robot noticed the following build errors:
+Hey, may I take the tools part, i.e. patches 0-7 and someone on the ARM
+kernel team pick the driver bits?
 
-[auto build test ERROR on 864b1099d16fc7e332c3ad7823058c65f890486c]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Javier-Carrasco/media-i2c-tda1997x-constify-snd_soc_component_driver-struct/20240725-183542
-base:   864b1099d16fc7e332c3ad7823058c65f890486c
-patch link:    https://lore.kernel.org/r/20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b%40gmail.com
-patch subject: [PATCH 2/2] ASoC: constify snd_soc_component_driver struct
-config: i386-randconfig-012-20240726 (https://download.01.org/0day-ci/archive/20240726/202407261907.9WRDvix7-lkp@intel.com/config)
-compiler: gcc-8 (Ubuntu 8.4.0-3ubuntu2) 8.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240726/202407261907.9WRDvix7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202407261907.9WRDvix7-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   sound/soc/codecs/cs43130.c: In function 'cs43130_i2c_probe':
->> sound/soc/codecs/cs43130.c:2608:42: error: assignment of member 'dapm_widgets' in read-only object
-      soc_component_dev_cs43130.dapm_widgets =
-                                             ^
->> sound/soc/codecs/cs43130.c:2610:46: error: assignment of member 'num_dapm_widgets' in read-only object
-      soc_component_dev_cs43130.num_dapm_widgets =
-                                                 ^
->> sound/soc/codecs/cs43130.c:2612:41: error: assignment of member 'dapm_routes' in read-only object
-      soc_component_dev_cs43130.dapm_routes =
-                                            ^
->> sound/soc/codecs/cs43130.c:2614:45: error: assignment of member 'num_dapm_routes' in read-only object
-      soc_component_dev_cs43130.num_dapm_routes =
-                                                ^
-   sound/soc/codecs/cs43130.c:2619:42: error: assignment of member 'dapm_widgets' in read-only object
-      soc_component_dev_cs43130.dapm_widgets =
-                                             ^
-   sound/soc/codecs/cs43130.c:2621:46: error: assignment of member 'num_dapm_widgets' in read-only object
-      soc_component_dev_cs43130.num_dapm_widgets =
-                                                 ^
-   sound/soc/codecs/cs43130.c:2623:41: error: assignment of member 'dapm_routes' in read-only object
-      soc_component_dev_cs43130.dapm_routes =
-                                            ^
-   sound/soc/codecs/cs43130.c:2625:45: error: assignment of member 'num_dapm_routes' in read-only object
-      soc_component_dev_cs43130.num_dapm_routes =
-                                                ^
-
-
-vim +/dapm_widgets +2608 sound/soc/codecs/cs43130.c
-
-8f1e5bf9b4408e Li Xu             2017-08-18  2479  
-4a4043456cb82d Stephen Kitt      2022-03-25  2480  static int cs43130_i2c_probe(struct i2c_client *client)
-8f1e5bf9b4408e Li Xu             2017-08-18  2481  {
-8f1e5bf9b4408e Li Xu             2017-08-18  2482  	struct cs43130_private *cs43130;
-8f1e5bf9b4408e Li Xu             2017-08-18  2483  	int ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2484  	unsigned int reg;
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2485  	int i, devid;
-8f1e5bf9b4408e Li Xu             2017-08-18  2486  
-8f1e5bf9b4408e Li Xu             2017-08-18  2487  	cs43130 = devm_kzalloc(&client->dev, sizeof(*cs43130), GFP_KERNEL);
-8f1e5bf9b4408e Li Xu             2017-08-18  2488  	if (!cs43130)
-8f1e5bf9b4408e Li Xu             2017-08-18  2489  		return -ENOMEM;
-8f1e5bf9b4408e Li Xu             2017-08-18  2490  
-552206add94dd7 Maciej Strozek    2023-11-17  2491  	cs43130->dev = &client->dev;
-552206add94dd7 Maciej Strozek    2023-11-17  2492  
-8f1e5bf9b4408e Li Xu             2017-08-18  2493  	i2c_set_clientdata(client, cs43130);
-8f1e5bf9b4408e Li Xu             2017-08-18  2494  
-8f1e5bf9b4408e Li Xu             2017-08-18  2495  	cs43130->regmap = devm_regmap_init_i2c(client, &cs43130_regmap);
-8f1e5bf9b4408e Li Xu             2017-08-18  2496  	if (IS_ERR(cs43130->regmap)) {
-8f1e5bf9b4408e Li Xu             2017-08-18  2497  		ret = PTR_ERR(cs43130->regmap);
-8f1e5bf9b4408e Li Xu             2017-08-18  2498  		return ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2499  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2500  
-ce7944b73e7729 Maciej Strozek    2023-11-17  2501  	if (dev_fwnode(cs43130->dev)) {
-ce7944b73e7729 Maciej Strozek    2023-11-17  2502  		ret = cs43130_handle_device_data(cs43130);
-8f1e5bf9b4408e Li Xu             2017-08-18  2503  		if (ret != 0)
-8f1e5bf9b4408e Li Xu             2017-08-18  2504  			return ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2505  	}
-ce7944b73e7729 Maciej Strozek    2023-11-17  2506  
-8f1e5bf9b4408e Li Xu             2017-08-18  2507  	for (i = 0; i < ARRAY_SIZE(cs43130->supplies); i++)
-8f1e5bf9b4408e Li Xu             2017-08-18  2508  		cs43130->supplies[i].supply = cs43130_supply_names[i];
-8f1e5bf9b4408e Li Xu             2017-08-18  2509  
-552206add94dd7 Maciej Strozek    2023-11-17  2510  	ret = devm_regulator_bulk_get(cs43130->dev,
-8f1e5bf9b4408e Li Xu             2017-08-18  2511  				      ARRAY_SIZE(cs43130->supplies),
-8f1e5bf9b4408e Li Xu             2017-08-18  2512  				      cs43130->supplies);
-8f1e5bf9b4408e Li Xu             2017-08-18  2513  	if (ret != 0) {
-552206add94dd7 Maciej Strozek    2023-11-17  2514  		dev_err(cs43130->dev, "Failed to request supplies: %d\n", ret);
-8f1e5bf9b4408e Li Xu             2017-08-18  2515  		return ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2516  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2517  	ret = regulator_bulk_enable(ARRAY_SIZE(cs43130->supplies),
-8f1e5bf9b4408e Li Xu             2017-08-18  2518  				    cs43130->supplies);
-8f1e5bf9b4408e Li Xu             2017-08-18  2519  	if (ret != 0) {
-552206add94dd7 Maciej Strozek    2023-11-17  2520  		dev_err(cs43130->dev, "Failed to enable supplies: %d\n", ret);
-8f1e5bf9b4408e Li Xu             2017-08-18  2521  		return ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2522  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2523  
-552206add94dd7 Maciej Strozek    2023-11-17  2524  	cs43130->reset_gpio = devm_gpiod_get_optional(cs43130->dev,
-8f1e5bf9b4408e Li Xu             2017-08-18  2525  						      "reset", GPIOD_OUT_LOW);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2526  	if (IS_ERR(cs43130->reset_gpio)) {
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2527  		ret = PTR_ERR(cs43130->reset_gpio);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2528  		goto err_supplies;
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2529  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2530  
-8f1e5bf9b4408e Li Xu             2017-08-18  2531  	gpiod_set_value_cansleep(cs43130->reset_gpio, 1);
-8f1e5bf9b4408e Li Xu             2017-08-18  2532  
-8f1e5bf9b4408e Li Xu             2017-08-18  2533  	usleep_range(2000, 2050);
-8f1e5bf9b4408e Li Xu             2017-08-18  2534  
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2535  	devid = cirrus_read_device_id(cs43130->regmap, CS43130_DEVID_AB);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2536  	if (devid < 0) {
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2537  		ret = devid;
-552206add94dd7 Maciej Strozek    2023-11-17  2538  		dev_err(cs43130->dev, "Failed to read device ID: %d\n", ret);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2539  		goto err;
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2540  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2541  
-8f1e5bf9b4408e Li Xu             2017-08-18  2542  	switch (devid) {
-8f1e5bf9b4408e Li Xu             2017-08-18  2543  	case CS43130_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2544  	case CS4399_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2545  	case CS43131_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2546  	case CS43198_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2547  		break;
-8f1e5bf9b4408e Li Xu             2017-08-18  2548  	default:
-552206add94dd7 Maciej Strozek    2023-11-17  2549  		dev_err(cs43130->dev,
-8f1e5bf9b4408e Li Xu             2017-08-18  2550  			"CS43130 Device ID %X. Expected ID %X, %X, %X or %X\n",
-8f1e5bf9b4408e Li Xu             2017-08-18  2551  			devid, CS43130_CHIP_ID, CS4399_CHIP_ID,
-8f1e5bf9b4408e Li Xu             2017-08-18  2552  			CS43131_CHIP_ID, CS43198_CHIP_ID);
-8f1e5bf9b4408e Li Xu             2017-08-18  2553  		ret = -ENODEV;
-8f1e5bf9b4408e Li Xu             2017-08-18  2554  		goto err;
-8f1e5bf9b4408e Li Xu             2017-08-18  2555  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2556  
-8f1e5bf9b4408e Li Xu             2017-08-18  2557  	cs43130->dev_id = devid;
-8f1e5bf9b4408e Li Xu             2017-08-18  2558  	ret = regmap_read(cs43130->regmap, CS43130_REV_ID, &reg);
-8f1e5bf9b4408e Li Xu             2017-08-18  2559  	if (ret < 0) {
-552206add94dd7 Maciej Strozek    2023-11-17  2560  		dev_err(cs43130->dev, "Get Revision ID failed\n");
-8f1e5bf9b4408e Li Xu             2017-08-18  2561  		goto err;
-8f1e5bf9b4408e Li Xu             2017-08-18  2562  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2563  
-552206add94dd7 Maciej Strozek    2023-11-17  2564  	dev_info(cs43130->dev,
-8f1e5bf9b4408e Li Xu             2017-08-18  2565  		 "Cirrus Logic CS43130 (%x), Revision: %02X\n", devid,
-8f1e5bf9b4408e Li Xu             2017-08-18  2566  		 reg & 0xFF);
-8f1e5bf9b4408e Li Xu             2017-08-18  2567  
-8f1e5bf9b4408e Li Xu             2017-08-18  2568  	mutex_init(&cs43130->clk_mutex);
-8f1e5bf9b4408e Li Xu             2017-08-18  2569  
-8f1e5bf9b4408e Li Xu             2017-08-18  2570  	init_completion(&cs43130->xtal_rdy);
-8f1e5bf9b4408e Li Xu             2017-08-18  2571  	init_completion(&cs43130->pll_rdy);
-8f1e5bf9b4408e Li Xu             2017-08-18  2572  	init_completion(&cs43130->hpload_evt);
-8f1e5bf9b4408e Li Xu             2017-08-18  2573  
-fa91703dc2e010 Maciej Strozek    2023-11-23  2574  	if (!client->irq) {
-fa91703dc2e010 Maciej Strozek    2023-11-23  2575  		dev_dbg(cs43130->dev, "IRQ not found, will poll instead\n");
-fa91703dc2e010 Maciej Strozek    2023-11-23  2576  		cs43130->has_irq_line = 0;
-fa91703dc2e010 Maciej Strozek    2023-11-23  2577  	} else {
-552206add94dd7 Maciej Strozek    2023-11-17  2578  		ret = devm_request_threaded_irq(cs43130->dev, client->irq,
-8f1e5bf9b4408e Li Xu             2017-08-18  2579  						NULL, cs43130_irq_thread,
-8f1e5bf9b4408e Li Xu             2017-08-18  2580  						IRQF_ONESHOT | IRQF_TRIGGER_LOW,
-8f1e5bf9b4408e Li Xu             2017-08-18  2581  						"cs43130", cs43130);
-8f1e5bf9b4408e Li Xu             2017-08-18  2582  		if (ret != 0) {
-552206add94dd7 Maciej Strozek    2023-11-17  2583  			dev_err(cs43130->dev, "Failed to request IRQ: %d\n", ret);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2584  			goto err;
-8f1e5bf9b4408e Li Xu             2017-08-18  2585  		}
-fa91703dc2e010 Maciej Strozek    2023-11-23  2586  		cs43130->has_irq_line = 1;
-fa91703dc2e010 Maciej Strozek    2023-11-23  2587  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2588  
-8f1e5bf9b4408e Li Xu             2017-08-18  2589  	cs43130->mclk_int_src = CS43130_MCLK_SRC_RCO;
-8f1e5bf9b4408e Li Xu             2017-08-18  2590  
-552206add94dd7 Maciej Strozek    2023-11-17  2591  	pm_runtime_set_autosuspend_delay(cs43130->dev, 100);
-552206add94dd7 Maciej Strozek    2023-11-17  2592  	pm_runtime_use_autosuspend(cs43130->dev);
-552206add94dd7 Maciej Strozek    2023-11-17  2593  	pm_runtime_set_active(cs43130->dev);
-552206add94dd7 Maciej Strozek    2023-11-17  2594  	pm_runtime_enable(cs43130->dev);
-8f1e5bf9b4408e Li Xu             2017-08-18  2595  
-8f1e5bf9b4408e Li Xu             2017-08-18  2596  	switch (cs43130->dev_id) {
-8f1e5bf9b4408e Li Xu             2017-08-18  2597  	case CS43130_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2598  	case CS43131_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2599  		memcpy(all_hp_widgets, digital_hp_widgets,
-8f1e5bf9b4408e Li Xu             2017-08-18  2600  		       sizeof(digital_hp_widgets));
-8f1e5bf9b4408e Li Xu             2017-08-18  2601  		memcpy(all_hp_widgets + ARRAY_SIZE(digital_hp_widgets),
-8f1e5bf9b4408e Li Xu             2017-08-18  2602  		       analog_hp_widgets, sizeof(analog_hp_widgets));
-8f1e5bf9b4408e Li Xu             2017-08-18  2603  		memcpy(all_hp_routes, digital_hp_routes,
-8f1e5bf9b4408e Li Xu             2017-08-18  2604  		       sizeof(digital_hp_routes));
-8f1e5bf9b4408e Li Xu             2017-08-18  2605  		memcpy(all_hp_routes + ARRAY_SIZE(digital_hp_routes),
-8f1e5bf9b4408e Li Xu             2017-08-18  2606  		       analog_hp_routes, sizeof(analog_hp_routes));
-8f1e5bf9b4408e Li Xu             2017-08-18  2607  
-97b566066ffc2f Kuninori Morimoto 2018-01-29 @2608  		soc_component_dev_cs43130.dapm_widgets =
-8f1e5bf9b4408e Li Xu             2017-08-18  2609  			all_hp_widgets;
-97b566066ffc2f Kuninori Morimoto 2018-01-29 @2610  		soc_component_dev_cs43130.num_dapm_widgets =
-8f1e5bf9b4408e Li Xu             2017-08-18  2611  			ARRAY_SIZE(all_hp_widgets);
-97b566066ffc2f Kuninori Morimoto 2018-01-29 @2612  		soc_component_dev_cs43130.dapm_routes =
-8f1e5bf9b4408e Li Xu             2017-08-18  2613  			all_hp_routes;
-97b566066ffc2f Kuninori Morimoto 2018-01-29 @2614  		soc_component_dev_cs43130.num_dapm_routes =
-8f1e5bf9b4408e Li Xu             2017-08-18  2615  			ARRAY_SIZE(all_hp_routes);
-8f1e5bf9b4408e Li Xu             2017-08-18  2616  		break;
-8f1e5bf9b4408e Li Xu             2017-08-18  2617  	case CS43198_CHIP_ID:
-8f1e5bf9b4408e Li Xu             2017-08-18  2618  	case CS4399_CHIP_ID:
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2619  		soc_component_dev_cs43130.dapm_widgets =
-8f1e5bf9b4408e Li Xu             2017-08-18  2620  			digital_hp_widgets;
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2621  		soc_component_dev_cs43130.num_dapm_widgets =
-8f1e5bf9b4408e Li Xu             2017-08-18  2622  			ARRAY_SIZE(digital_hp_widgets);
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2623  		soc_component_dev_cs43130.dapm_routes =
-8f1e5bf9b4408e Li Xu             2017-08-18  2624  			digital_hp_routes;
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2625  		soc_component_dev_cs43130.num_dapm_routes =
-8f1e5bf9b4408e Li Xu             2017-08-18  2626  			ARRAY_SIZE(digital_hp_routes);
-574ff444b9fcc2 Li Xu             2017-09-05  2627  		break;
-8f1e5bf9b4408e Li Xu             2017-08-18  2628  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2629  
-552206add94dd7 Maciej Strozek    2023-11-17  2630  	ret = devm_snd_soc_register_component(cs43130->dev,
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2631  				     &soc_component_dev_cs43130,
-8f1e5bf9b4408e Li Xu             2017-08-18  2632  				     cs43130_dai, ARRAY_SIZE(cs43130_dai));
-8f1e5bf9b4408e Li Xu             2017-08-18  2633  	if (ret < 0) {
-552206add94dd7 Maciej Strozek    2023-11-17  2634  		dev_err(cs43130->dev,
-97b566066ffc2f Kuninori Morimoto 2018-01-29  2635  			"snd_soc_register_component failed with ret = %d\n", ret);
-8f1e5bf9b4408e Li Xu             2017-08-18  2636  		goto err;
-8f1e5bf9b4408e Li Xu             2017-08-18  2637  	}
-8f1e5bf9b4408e Li Xu             2017-08-18  2638  
-8f1e5bf9b4408e Li Xu             2017-08-18  2639  	regmap_update_bits(cs43130->regmap, CS43130_PAD_INT_CFG,
-8f1e5bf9b4408e Li Xu             2017-08-18  2640  			   CS43130_ASP_3ST_MASK, 0);
-8f1e5bf9b4408e Li Xu             2017-08-18  2641  	regmap_update_bits(cs43130->regmap, CS43130_PAD_INT_CFG,
-8f1e5bf9b4408e Li Xu             2017-08-18  2642  			   CS43130_XSP_3ST_MASK, 0);
-8f1e5bf9b4408e Li Xu             2017-08-18  2643  
-8f1e5bf9b4408e Li Xu             2017-08-18  2644  	return 0;
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2645  
-8f1e5bf9b4408e Li Xu             2017-08-18  2646  err:
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2647  	gpiod_set_value_cansleep(cs43130->reset_gpio, 0);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2648  err_supplies:
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2649  	regulator_bulk_disable(ARRAY_SIZE(cs43130->supplies),
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2650  			       cs43130->supplies);
-e2bb1077cee4d1 Charles Keepax    2021-05-10  2651  
-8f1e5bf9b4408e Li Xu             2017-08-18  2652  	return ret;
-8f1e5bf9b4408e Li Xu             2017-08-18  2653  }
-8f1e5bf9b4408e Li Xu             2017-08-18  2654  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+- Arnaldo
+ 
+> Each sink owns its own trace ID map, and any Perf session connecting to
+> that sink will allocate from it, even if the sink is currently in use by
+> other users. This is similar to the existing behavior where the dynamic
+> trace IDs are constant as long as there is any concurrent Perf session
+> active. It's not completely optimal because slightly more IDs will be
+> used than necessary, but the optimal solution involves tracking the PIDs
+> of each session and allocating ID maps based on the session owner. This
+> is difficult to do with the combination of per-thread and per-cpu modes
+> and some scheduling issues. The complexity of this isn't likely to worth
+> it because even with multiple users they'd just see a difference in the
+> ordering of ID allocations rather than hitting any limits (unless the
+> hardware does have too many ETMs connected to one sink).
+> 
+> Per-thread mode works but only until there are any overlapping IDs, at
+> which point Perf will error out. Both per-thread mode and sysfs mode are
+> left to future changes, but both can be added on top of this initial
+> implementation and only sysfs mode requires further driver changes.
+> 
+> The HW_ID version field hasn't been bumped in order to not break Perf
+> which already has an error condition for other values of that field.
+> Instead a new minor version has been added which signifies that there
+> are new fields but the old fields are backwards compatible.
+> 
+> Changes since v5:
+>   
+>   * Hide queue number printout behind -v option
+>   * Style change in cs_etm__process_aux_output_hw_id()
+>   * Move new format enum to an earlier commit to reduce churn
+> 
+> Changes since v4:
+> 
+>   * Fix compilation failure when TRACE_ID_DEBUG is set
+>   * Expand comment about not freeing individual trace IDs in
+>     free_event_data()
+> 
+> Changes since v3:
+> 
+>   * Fix issue where trace IDs were overwritten by possibly invalid ones
+>     by Perf in unformatted mode. Now the HW_IDs are also used for
+>     unformatted mode unless the kernel didn't emit any.
+>   * Add a commit to check the OpenCSD version.
+>   * Add a commit to not save invalid IDs in the Perf header.
+>   * Replace cs_etm_queue's formatted and formatted_set members with a
+>     single enum which is easier to use.
+>   * Drop CORESIGHT_TRACE_ID_UNUSED_FLAG as it's no longer needed.
+>   * Add a commit to print the queue number in the raw dump.
+>   * Don't assert on the number of unformatted decoders if decoders == 0.
+> 
+> 
+> Changes since v2:
+> 
+>   * Rebase on coresight-next 6.10-rc2 (b9b25c8496).
+>   * Fix double free of csdev if device registration fails.
+>   * Fix leak of coresight_trace_id_perf_start() if trace ID allocation
+>     fails.
+>   * Don't resend HW_ID for sink changes in per-thread mode. The existing
+>     CPU field on AUX records can be used to track this instead.
+>   * Tidy function doc for coresight_trace_id_release_all()
+>   * Drop first two commits now that they are in coresight-next
+>   * Add a commit to make the trace ID spinlock local to the map
+> 
+> Changes since V1:
+> 
+>  * Rename coresight_device.perf_id_map to perf_sink_id_map.
+>  * Instead of outputting a HW_ID for each reachable ETM, output
+>    the sink ID and continue to output only the HW_ID once for
+>    each mapping.
+>  * Keep the first two Perf patches so that it applies cleanly
+>    on coresight-next, although they have been applied on perf-tools-next
+>  * Add new *_map() functions to the trace ID public API instead of
+>    modifying existing ones.
+>  * Collapse "coresight: Pass trace ID map into source enable" into
+>    "coresight: Use per-sink trace ID maps for Perf sessions" because the
+>    first commit relied on the default map being accessible which is no
+>    longer necessary due to the previous bullet point.
+> 
+> 
+> James Clark (17):
+>   perf: cs-etm: Create decoders after both AUX and HW_ID search passes
+>   perf: cs-etm: Allocate queues for all CPUs
+>   perf: cs-etm: Move traceid_list to each queue
+>   perf: cs-etm: Create decoders based on the trace ID mappings
+>   perf: cs-etm: Only save valid trace IDs into files
+>   perf: cs-etm: Support version 0.1 of HW_ID packets
+>   perf: cs-etm: Print queue number in raw trace dump
+>   perf: cs-etm: Add runtime version check for OpenCSD
+>   coresight: Remove unused ETM Perf stubs
+>   coresight: Clarify comments around the PID of the sink owner
+>   coresight: Move struct coresight_trace_id_map to common header
+>   coresight: Expose map arguments in trace ID API
+>   coresight: Make CPU id map a property of a trace ID map
+>   coresight: Use per-sink trace ID maps for Perf sessions
+>   coresight: Remove pending trace ID release mechanism
+>   coresight: Emit sink ID in the HW_ID packets
+>   coresight: Make trace ID map spinlock local to the map
+> 
+>  drivers/hwtracing/coresight/coresight-core.c  |  37 +-
+>  drivers/hwtracing/coresight/coresight-dummy.c |   3 +-
+>  .../hwtracing/coresight/coresight-etm-perf.c  |  43 +-
+>  .../hwtracing/coresight/coresight-etm-perf.h  |  18 -
+>  .../coresight/coresight-etm3x-core.c          |   9 +-
+>  .../coresight/coresight-etm4x-core.c          |   9 +-
+>  drivers/hwtracing/coresight/coresight-priv.h  |   1 +
+>  drivers/hwtracing/coresight/coresight-stm.c   |   3 +-
+>  drivers/hwtracing/coresight/coresight-sysfs.c |   3 +-
+>  .../hwtracing/coresight/coresight-tmc-etr.c   |   5 +-
+>  drivers/hwtracing/coresight/coresight-tmc.h   |   5 +-
+>  drivers/hwtracing/coresight/coresight-tpdm.c  |   3 +-
+>  .../hwtracing/coresight/coresight-trace-id.c  | 138 ++--
+>  .../hwtracing/coresight/coresight-trace-id.h  |  70 +-
+>  include/linux/coresight-pmu.h                 |  17 +-
+>  include/linux/coresight.h                     |  21 +-
+>  tools/build/feature/test-libopencsd.c         |   4 +-
+>  tools/include/linux/coresight-pmu.h           |  17 +-
+>  tools/perf/Makefile.config                    |   2 +-
+>  tools/perf/arch/arm/util/cs-etm.c             |  11 +-
+>  .../perf/util/cs-etm-decoder/cs-etm-decoder.c |  49 +-
+>  .../perf/util/cs-etm-decoder/cs-etm-decoder.h |   3 +-
+>  .../util/cs-etm-decoder/cs-etm-min-version.h  |  13 +
+>  tools/perf/util/cs-etm.c                      | 629 +++++++++++-------
+>  tools/perf/util/cs-etm.h                      |  12 +-
+>  25 files changed, 650 insertions(+), 475 deletions(-)
+>  create mode 100644 tools/perf/util/cs-etm-decoder/cs-etm-min-version.h
+> 
+> -- 
+> 2.34.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
