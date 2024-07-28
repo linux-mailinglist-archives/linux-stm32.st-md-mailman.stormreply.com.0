@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D285E93E1EE
-	for <lists+linux-stm32@lfdr.de>; Sun, 28 Jul 2024 02:54:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D874293E1F7
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Jul 2024 02:55:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 861E5C71292;
-	Sun, 28 Jul 2024 00:54:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A11DC71292;
+	Sun, 28 Jul 2024 00:55:14 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76785C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7973C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Jul 2024 00:54:24 +0000 (UTC)
+ Sun, 28 Jul 2024 00:55:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 0DBB8CE092E;
- Sun, 28 Jul 2024 00:54:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623E7C4AF07;
- Sun, 28 Jul 2024 00:54:19 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 1255ACE08C9;
+ Sun, 28 Jul 2024 00:55:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491D6C4AF07;
+ Sun, 28 Jul 2024 00:55:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722128061;
- bh=o0NcRSSMSeFpC/3bL4/Dz8Ss4YnMFhGRnW2k0JyOfVA=;
+ s=k20201202; t=1722128110;
+ bh=lFNyJQ8s2ms9QVeZ4BLP0TUfAp/xvy6FewGjopPJvFM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fyNo8UNZkqCwzTe5V8g21UQnLuaGtuh2rxuNWeJ40Yf+DHJzv//KwsQB9nVfBpOPb
- dVaU4T6bVQ1dh2pDMDk3HP91unbtcmw8MTnspcKurMPvHgidiwDvABEHMrT91tE0/1
- 9Pu363DfXECXylYQ4qG54V+R4V/PkyU6SWmpY0JKyK6kPYuAseVBCRT3OU9uEPxqS8
- 1/xRzTno0r6UE2JULP86/A7sQwxOVybJvs1TvT7PzaYJqviSOeiLXnR+P/0jz/mBQz
- slaRoLjTcDTcSsz54gk9mfK3O0/us34OREzL/NKc/QfMjp6AJDkViKfJiwwNUYWsJM
- Jn9oNIkPJvu2A==
+ b=WGoLXoxIEheEuwwxf1akagePsT1VlhiQw/mwjxpU0LPSRe7MgMb4cfMc+Pn76cAQu
+ 4Hu4xGl6N2m3ZmFRhTQrIvQwVX04mHofmL4QEBcWH0H27T/avkj5yrXqHNTov8PwDY
+ TaGDaXsm/KLNzbwjxdBZTuKjShoP2kbyLNkL7xd3Sp773ZWcSC7MH3ny4vZYsiEOgZ
+ c8W2oUIOWvtXhx6c8If1Qfjdj9zqujkgLCXjtkcR9/BjmmD3ZzXx0b+uPHAWBs6LEb
+ q80RigCKVx7KTmyZvvpu0NrPNYeX0ZqlOHXlJ346dbQYthvs30FiWVZk3TQHLUPKNk
+ qBJfpq87n9+ag==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 27 Jul 2024 20:53:02 -0400
-Message-ID: <20240728005329.1723272-19-sashal@kernel.org>
+Date: Sat, 27 Jul 2024 20:54:33 -0400
+Message-ID: <20240728005442.1729384-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240728005329.1723272-1-sashal@kernel.org>
-References: <20240728005329.1723272-1-sashal@kernel.org>
+In-Reply-To: <20240728005442.1729384-1-sashal@kernel.org>
+References: <20240728005442.1729384-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.10.2
+X-stable-base: Linux 6.6.43
 Cc: Sasha Levin <sashal@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
  edumazet@google.com, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  vkoul@kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
  linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.10 19/27] net: stmmac: qcom-ethqos:
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 12/15] net: stmmac: qcom-ethqos:
 	enable SGMII loopback during DMA reset on sa8775p-ride-r3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,7 +91,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 23 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 466c4002f00d4..3a7f3a8b06718 100644
+index d5d2a4c776c1c..ded1bbda5266f 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 @@ -21,6 +21,7 @@
@@ -120,7 +120,7 @@ index 466c4002f00d4..3a7f3a8b06718 100644
  };
  
  struct qcom_ethqos {
-@@ -114,6 +119,7 @@ struct qcom_ethqos {
+@@ -113,6 +118,7 @@ struct qcom_ethqos {
  	unsigned int num_por;
  	bool rgmii_config_loopback_en;
  	bool has_emac_ge_3;
@@ -128,7 +128,7 @@ index 466c4002f00d4..3a7f3a8b06718 100644
  };
  
  static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-@@ -191,8 +197,22 @@ ethqos_update_link_clk(struct qcom_ethqos *ethqos, unsigned int speed)
+@@ -187,8 +193,22 @@ ethqos_update_link_clk(struct qcom_ethqos *ethqos, unsigned int speed)
  	clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
  }
  
@@ -151,7 +151,7 @@ index 466c4002f00d4..3a7f3a8b06718 100644
  	rgmii_updatel(ethqos, RGMII_CONFIG_FUNC_CLK_EN,
  		      RGMII_CONFIG_FUNC_CLK_EN, RGMII_IO_MACRO_CONFIG);
  }
-@@ -277,6 +297,7 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
+@@ -273,6 +293,7 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
  	.has_emac_ge_3 = true,
  	.link_clk_name = "phyaux",
  	.has_integrated_pcs = true,
@@ -159,7 +159,7 @@ index 466c4002f00d4..3a7f3a8b06718 100644
  	.dma_addr_width = 36,
  	.dwmac4_addrs = {
  		.dma_chan = 0x00008100,
-@@ -674,6 +695,7 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed, unsigned int mo
+@@ -646,6 +667,7 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed, unsigned int mo
  {
  	struct qcom_ethqos *ethqos = priv;
  
@@ -167,7 +167,7 @@ index 466c4002f00d4..3a7f3a8b06718 100644
  	ethqos->speed = speed;
  	ethqos_update_link_clk(ethqos, speed);
  	ethqos_configure(ethqos);
-@@ -809,6 +831,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+@@ -781,6 +803,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
  	ethqos->num_por = data->num_por;
  	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
  	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
