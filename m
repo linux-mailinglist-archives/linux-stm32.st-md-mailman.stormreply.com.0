@@ -2,52 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D874293E1F7
-	for <lists+linux-stm32@lfdr.de>; Sun, 28 Jul 2024 02:55:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7CE93F152
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 11:37:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A11DC71292;
-	Sun, 28 Jul 2024 00:55:14 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AE68C7128D;
+	Mon, 29 Jul 2024 09:37:55 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7973C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1CBDC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Jul 2024 00:55:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1255ACE08C9;
- Sun, 28 Jul 2024 00:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491D6C4AF07;
- Sun, 28 Jul 2024 00:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722128110;
- bh=lFNyJQ8s2ms9QVeZ4BLP0TUfAp/xvy6FewGjopPJvFM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WGoLXoxIEheEuwwxf1akagePsT1VlhiQw/mwjxpU0LPSRe7MgMb4cfMc+Pn76cAQu
- 4Hu4xGl6N2m3ZmFRhTQrIvQwVX04mHofmL4QEBcWH0H27T/avkj5yrXqHNTov8PwDY
- TaGDaXsm/KLNzbwjxdBZTuKjShoP2kbyLNkL7xd3Sp773ZWcSC7MH3ny4vZYsiEOgZ
- c8W2oUIOWvtXhx6c8If1Qfjdj9zqujkgLCXjtkcR9/BjmmD3ZzXx0b+uPHAWBs6LEb
- q80RigCKVx7KTmyZvvpu0NrPNYeX0ZqlOHXlJ346dbQYthvs30FiWVZk3TQHLUPKNk
- qBJfpq87n9+ag==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sat, 27 Jul 2024 20:54:33 -0400
-Message-ID: <20240728005442.1729384-12-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240728005442.1729384-1-sashal@kernel.org>
-References: <20240728005442.1729384-1-sashal@kernel.org>
+ Mon, 29 Jul 2024 09:37:48 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5a1337cfbb5so5716966a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Jul 2024 02:37:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722245868; x=1722850668;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NR8EYDbZcj20ngdxq0iIEW20+Ft9Qj88x8IgpUrOrXQ=;
+ b=j8eguVJROQ3t9tdHqBm8ugGVZrDw10evMatqFL9k4ezmh5CGmkIERU54UcD9qdfgUs
+ cSYoG4F2BRykI0+R+W0zwTngd2e/n9emfZv1UxLv5bKNVlHoxk7GJHKGpNFjghvdXEow
+ eZ+utz+L5ULcjsmIJ48LHDl7go7BTmrs4pwrSljATI3IhjPfJTnhdaO0FkconAAUbDj6
+ DzDwTqeQtDaFfnF4C/H2ailCkUfYrXgkBB1enwN2zpvMimWENMMAOv0vL8p8ZobRZn6R
+ L2KfMyoBM0doj8+KrewMPk8Z9VI+rJzodKAzF+O1rZ7nlK1vci2o9/TUNMSHAih6hxMj
+ b4yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722245868; x=1722850668;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NR8EYDbZcj20ngdxq0iIEW20+Ft9Qj88x8IgpUrOrXQ=;
+ b=Wj5/lDpMS4BciI4rxI5JiH9rVqVObe5wIKLLCFC8y6E7SK8lNuV21Rbgq+e6cl3Kxu
+ ClW0Ew8EK3o2d4CyU/P/IclqeVUlN5wFBmM6jFeqqdOFMfLuqLKSZhfJVQCVSPleTXON
+ Wycvr3XHpW7Y8AIe2RQIaEVvxV2q4LTwL7co5l8fsIqB1a0oufY6Gxz4pAFEHdQKwLtX
+ nCi4RS181msL3DscfWy3cdHQab4kuvPeRaEX/1QUWvqQlO8G6b6uIikb/Qq6fCIkd42u
+ ZI7P29eyq9sn+wnE5a613VeM/SwEunA8Mf35ZbK/0u+QdXuF36iUOQey4c742mlMxuI6
+ JDEA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVfUjbePZJ3aj6cgnXYB5rKlaFuMIbkEUZaf9xSQnTQdAAD0vavjeK2p8/h971xB3Tkx1aac8ye8sD2wlv5bAHmOahrBmhJ2/USD7nDYB0Vd6I3eLxA79qT
+X-Gm-Message-State: AOJu0YyEEeFwDWwy3xofiX7PTOeFc25M5eRcifhSZbAInmW43jZNCQIA
+ BIFthrScis+GKiN8iNcCJzfHNVs2U7XCcO5hxUbhO4nSgxlJtOd1
+X-Google-Smtp-Source: AGHT+IGB+vRrdX/B/2dg/ESisrGwMj2AyPaJblfTpT4noAFpKg4KyVyg7wAt53T8pHgMroSEYzYs/Q==
+X-Received: by 2002:a17:907:96a0:b0:a7a:a0c9:124e with SMTP id
+ a640c23a62f3a-a7d3ffadf1amr581593566b.4.1722245867939; 
+ Mon, 29 Jul 2024 02:37:47 -0700 (PDT)
+Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
+ [91.118.163.37]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acad41b24sm481617966b.116.2024.07.29.02.37.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jul 2024 02:37:47 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Mon, 29 Jul 2024 11:37:36 +0200
+Message-Id: <20240729-const_snd_soc_component_driver-v2-0-1994f44f1ec2@gmail.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.43
-Cc: Sasha Levin <sashal@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- edumazet@google.com, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- vkoul@kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 12/15] net: stmmac: qcom-ethqos:
-	enable SGMII loopback during DMA reset on sa8775p-ride-r3
+X-B4-Tracking: v=1; b=H4sIAOBip2YC/42NQQ6CMBBFr0JmbU2pINSV9zCkgXaESaQlHdJoC
+ He3cgKX7+fnvQ0YIyHDrdggYiKm4DOoUwF26v2IglxmUFJVslG1sMHzatg7w8EaG+YlePSrcZE
+ SRjHoq9K9rgddtZAlS8QnvY/Ao8s8Ea8hfo5eKn/r3+pUCikurkGULZZKD/dx7ul1zkfo9n3/A
+ ucOmcHMAAAA
+To: Tim Harvey <tharvey@gateworks.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1722245866; l=2529;
+ i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
+ bh=dUb6XFAWURF5fTzbw/+1MFJZCob3+hK/YpTTVucusdc=;
+ b=RPp7DAhUclessfFNFbcWgORq5LFwt1sEuXGSZwmnwQyt6PJKpGQSAD09Ku+TP7WOneIIyaxWv
+ s/TEiuxzbZNCW6/irPcZOG1uLKlqLQvxJpgMvBhbXL3qIH7lZwJQGEF
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
+Cc: alsa-devel@alsa-project.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/2] {ASoC,
+ media}: constify snd_soc_component_driver when used as read-only
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,119 +106,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Declare `snd_soc_component_driver` as const to move their declarations
+to read-only sections for the drivers that do not modify the struct
+after its declaration.
 
-[ Upstream commit 3c466d6537b99f801b3f68af3d8124d4312437a0 ]
+Apart from a single case under media/, the affected drivers are members
+of the ASoC subsystem.
 
-On sa8775p-ride-r3 the RX clocks from the AQR115C PHY are not available at
-the time of the DMA reset. We can however extract the RX clock from the
-internal SERDES block. Once the link is up, we can revert to the
-previous state.
+To: Tim Harvey <tharvey@gateworks.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Ray Jui <rjui@broadcom.com>
+To: Scott Branden <sbranden@broadcom.com>
+To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+To: Kevin Lu <kevin-lu@ti.com>
+To: Baojun Xu <baojun.xu@ti.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-The AQR115C PHY doesn't support in-band signalling so we can count on
-getting the link up notification and safely reuse existing callbacks
-which are already used by another HW quirk workaround which enables the
-functional clock to avoid a DMA reset due to timeout.
+Changes in v2:
+- drop cs43130 and sti-sas, as they modifiy the struct in the probe
+  function.
+- Link to v1: https://lore.kernel.org/r/20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com
 
-Only enable loopback on revision 3 of the board - check the phy_mode to
-make sure.
-
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Link: https://patch.msgid.link/20240703181500.28491-3-brgl@bgdev.pl
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Javier Carrasco (2):
+      media: i2c: tda1997x: constify snd_soc_component_driver struct
+      ASoC: constify snd_soc_component_driver struct
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index d5d2a4c776c1c..ded1bbda5266f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -21,6 +21,7 @@
- #define RGMII_IO_MACRO_CONFIG2		0x1C
- #define RGMII_IO_MACRO_DEBUG1		0x20
- #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
-+#define EMAC_WRAPPER_SGMII_PHY_CNTRL1	0xf4
- 
- /* RGMII_IO_MACRO_CONFIG fields */
- #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
-@@ -79,6 +80,9 @@
- #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
- #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
- 
-+/* EMAC_WRAPPER_SGMII_PHY_CNTRL1 bits */
-+#define SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN	BIT(3)
-+
- #define SGMII_10M_RX_CLK_DVDR			0x31
- 
- struct ethqos_emac_por {
-@@ -95,6 +99,7 @@ struct ethqos_emac_driver_data {
- 	bool has_integrated_pcs;
- 	u32 dma_addr_width;
- 	struct dwmac4_addrs dwmac4_addrs;
-+	bool needs_sgmii_loopback;
- };
- 
- struct qcom_ethqos {
-@@ -113,6 +118,7 @@ struct qcom_ethqos {
- 	unsigned int num_por;
- 	bool rgmii_config_loopback_en;
- 	bool has_emac_ge_3;
-+	bool needs_sgmii_loopback;
- };
- 
- static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-@@ -187,8 +193,22 @@ ethqos_update_link_clk(struct qcom_ethqos *ethqos, unsigned int speed)
- 	clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
- }
- 
-+static void
-+qcom_ethqos_set_sgmii_loopback(struct qcom_ethqos *ethqos, bool enable)
-+{
-+	if (!ethqos->needs_sgmii_loopback ||
-+	    ethqos->phy_mode != PHY_INTERFACE_MODE_2500BASEX)
-+		return;
-+
-+	rgmii_updatel(ethqos,
-+		      SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN,
-+		      enable ? SGMII_PHY_CNTRL1_SGMII_TX_TO_RX_LOOPBACK_EN : 0,
-+		      EMAC_WRAPPER_SGMII_PHY_CNTRL1);
-+}
-+
- static void ethqos_set_func_clk_en(struct qcom_ethqos *ethqos)
- {
-+	qcom_ethqos_set_sgmii_loopback(ethqos, true);
- 	rgmii_updatel(ethqos, RGMII_CONFIG_FUNC_CLK_EN,
- 		      RGMII_CONFIG_FUNC_CLK_EN, RGMII_IO_MACRO_CONFIG);
- }
-@@ -273,6 +293,7 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
- 	.has_emac_ge_3 = true,
- 	.link_clk_name = "phyaux",
- 	.has_integrated_pcs = true,
-+	.needs_sgmii_loopback = true,
- 	.dma_addr_width = 36,
- 	.dwmac4_addrs = {
- 		.dma_chan = 0x00008100,
-@@ -646,6 +667,7 @@ static void ethqos_fix_mac_speed(void *priv, unsigned int speed, unsigned int mo
- {
- 	struct qcom_ethqos *ethqos = priv;
- 
-+	qcom_ethqos_set_sgmii_loopback(ethqos, false);
- 	ethqos->speed = speed;
- 	ethqos_update_link_clk(ethqos, speed);
- 	ethqos_configure(ethqos);
-@@ -781,6 +803,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	ethqos->num_por = data->num_por;
- 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
- 	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
-+	ethqos->needs_sgmii_loopback = data->needs_sgmii_loopback;
- 
- 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
- 	if (IS_ERR(ethqos->link_clk))
+ drivers/media/i2c/tda1997x.c         | 2 +-
+ sound/soc/au1x/dbdma2.c              | 2 +-
+ sound/soc/au1x/dma.c                 | 2 +-
+ sound/soc/bcm/cygnus-pcm.c           | 2 +-
+ sound/soc/codecs/cpcap.c             | 2 +-
+ sound/soc/codecs/pcm186x.c           | 4 ++--
+ sound/soc/codecs/pcm5102a.c          | 2 +-
+ sound/soc/codecs/spdif_receiver.c    | 2 +-
+ sound/soc/codecs/spdif_transmitter.c | 2 +-
+ sound/soc/codecs/tas6424.c           | 2 +-
+ sound/soc/stm/stm32_adfsdm.c         | 2 +-
+ sound/soc/uniphier/evea.c            | 2 +-
+ 12 files changed, 13 insertions(+), 13 deletions(-)
+---
+base-commit: 8400291e289ee6b2bf9779ff1c83a291501f017b
+change-id: 20240725-const_snd_soc_component_driver-b9629a95b948
+
+Best regards,
 -- 
-2.43.0
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
 _______________________________________________
 Linux-stm32 mailing list
