@@ -2,84 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726CF93FA1F
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BE0F93FA20
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2024 17:58:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 369A9C7A825;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 404B9C7A827;
 	Mon, 29 Jul 2024 15:58:25 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19B3CC6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B732CC5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jul 2024 10:13:52 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4266f535e82so28720415e9.1
+ Mon, 29 Jul 2024 13:28:55 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-71871d5e087so2476807a12.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jul 2024 03:13:52 -0700 (PDT)
+ Mon, 29 Jul 2024 06:28:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1721643231; x=1722248031;
+ d=gmail.com; s=20230601; t=1722259734; x=1722864534;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j+BH4X7qQ4KNzfIEiAndweOYoOD6xkKc0EkDm+LBpWo=;
- b=uQ0BH3vXIe2jk+TM2+h9T3az4wECeaCMAITnMRq4wqQNmzop/aNf8yQBdSwwS1Vka0
- x0ObdLVzxo/6gVn0a4dMbXwEfpLUBDXnHjzIyn0hIcKRIM6sW7cj/W/ZzZ4TtY3NumKB
- UJt9lQx06z29NrlZ/gkTC0rt/oSkrDLyuo38LobDWz1tZqGP6kH09QTOd0AJmtKBbCDy
- +VTM+1qGHrVeVTlffqb8JsDnwSQc7Nnth+JLrm7kZvgQwaK+DEFI7MZAnr5ed1IJs3Cu
- K7c2MyR3ruuvWNAGSEZwjq6PgEguFXsAf69E1CKaiT6ytfRDZrEEiX1fwj54/clmpico
- zY0w==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1yL0QCQNpqeOCAknWlO99YLMk+NffPf4WTYM45aZYO8=;
+ b=FIJVNWg6KMeIvzBM+RAo19ECASroqci1gmrHcjo5Yk0/lGKs3N5XNwIzUvZ+/7xSKi
+ JcLm5djh1/qsqq/QwUqTqmcF12SpyUezqjCf9ZvSZmo5Dle7Yeea0tPaD/5PUXv61uDK
+ ek/MkZMf/5jpnyMoLU9dWyw56AXIDNcOJbtbQm7EcaxVbiJ5OKrksPm4BRLp7FY41KPO
+ LAG0DrGKAPvG39356zYzuN9aGfz/9UnjVq586DIJzTxNH0uLJiPy8w8UoSZFMOw2xd5S
+ cPzedWBoQJv9+rA45i47F0FgXvWfYWpZN6YRq6Omsn7Q3NzXSUM/ivJV9a9mdE8z/t/1
+ K4Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1721643231; x=1722248031;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=j+BH4X7qQ4KNzfIEiAndweOYoOD6xkKc0EkDm+LBpWo=;
- b=HPVaKYK60wFyTABfbC7Bg6Fb4+vL7Nnq4RKpd8jJ9jau25hSphebdWT4UVJY/HcFKZ
- SFVM1c7M3E1UhXkM9TsMwEIsm1c6Lz9HUty3jTPvoXQUncfD7w70rTnRKdLCsfOJ6Z+m
- Kzm/nCSAE5w2Uwb+CjpBZWwnTVNddRr+/hpV1BuXw7URPIH5BHHCmjbxnHbnjczQJWey
- gOrcEOf5F6d6E+ltqQ1Uz01rS5LDHkXypX043MBiVyVzn8m2vBhjiK/wicXg7/ogUTVY
- UnmhxJFbmKXAc+VtVofgBBfNUmeBFtk6+o4ptxCAKLnYRNtbajX410Kxh/prtZ8f5K/2
- myvw==
+ d=1e100.net; s=20230601; t=1722259734; x=1722864534;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1yL0QCQNpqeOCAknWlO99YLMk+NffPf4WTYM45aZYO8=;
+ b=eLPCrfebGHAIfZfV9CuY7IFlmpPI2nVaVzURr2JjDdm6v8DLkx9yE54yIbpu+kWVT8
+ n6wYl1u6AcmZckAirtkn3QmVSkhw1lzRAGyGYTEld/ms6jVT7KEklr3RV+FgvuMAupkP
+ 66VNW++VGkuWr3O7lV14H/ugxNewLvXzGmdwBUHE8Bxm6Yqhp8HmAYHhOqv63U0NitOe
+ 5nlx3aJz4x+r/DfThmQypkczd6cjX7qBmLoeRVcRYfx1qJmVU+7Da1Ao3cTZ8iMqSCB2
+ 3CofBMf2YsoKiyZSPz41zssTGVBiCsnOkJXYOK4rjshSSnQT/mO7hVhb4hDBwAfbxawn
+ gizQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWu4Oh3OBgeCZYqSCkfqNn2DO6T1/ie6OX2j6gqwDWU/Sqgpr8Hk8njbhSfyf6XV90QDyByWW54tfKsmN5eJhYS5jGtj5/tSDluYvQdeV+nLrV0pQ6OLNXN
-X-Gm-Message-State: AOJu0YzQftUjpff8zHkVxMLtqx9Ou5WSC7MXEMCTD5MlgUnGqyz7mNMY
- LW+OlaPQxe4nno7BX5tU5CIpPfXVcShVeDN1bfOvfgtQj3uHekKWkDFna2G0TM4=
-X-Google-Smtp-Source: AGHT+IGEih7x54xnRim+kyshwE4WvvKfQZnB7WzqI+VTII9cpDdOreaV8/bNOtGb2AVj31TH/u3YHA==
-X-Received: by 2002:a05:600c:45ce:b0:426:549c:294c with SMTP id
- 5b1f17b1804b1-427dc57aaacmr39518275e9.35.1721643231649; 
- Mon, 22 Jul 2024 03:13:51 -0700 (PDT)
-Received: from localhost.localdomain ([89.47.253.130])
+ AJvYcCUxhLmc+zAo1TNOBRw0ELZhzSmb/dnpAYr0evvikBLO3/5HAlpi2XNWAIaOv9Vxwnn77CJqF6+gmyb5ZraT8PVfo61XePsp47fZGIyJHtMD1RWhpqOkI8on
+X-Gm-Message-State: AOJu0YydQG4c2YUg6OQnBs45vgxYhDD+1u61IfGmpFDbxWzVmFaecsTm
+ DxzinEONTSwO2Rz7EzIUJHT23OAyeRHZR5IwF5kQYTe4+4XD5Yn37r32qx+zkLk=
+X-Google-Smtp-Source: AGHT+IESX2PnLeI0EtJGrSeydGADF81jYh2s6zS5/LFhKulfASe7HsgEsqSl8L4xJCRK+QMMjg9fOQ==
+X-Received: by 2002:a05:6a21:78a9:b0:1c1:89f8:8609 with SMTP id
+ adf61e73a8af0-1c4a0e15171mr10085097637.0.1722259734258; 
+ Mon, 29 Jul 2024 06:28:54 -0700 (PDT)
+Received: from void.tail05c47.ts.net ([240c:c001:1:4300:752c:bb84:7d45:2db])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d2a8e436sm147993865e9.33.2024.07.22.03.13.50
+ d9443c01a7336-1fed7edd91asm82647505ad.131.2024.07.29.06.28.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jul 2024 03:13:51 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-To: coresight@lists.linaro.org, suzuki.poulose@arm.com,
- gankulkarni@os.amperecomputing.com, mike.leach@linaro.org,
- leo.yan@linux.dev, anshuman.khandual@arm.com
-Date: Mon, 22 Jul 2024 11:11:59 +0100
-Message-Id: <20240722101202.26915-18-james.clark@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240722101202.26915-1-james.clark@linaro.org>
-References: <20240722101202.26915-1-james.clark@linaro.org>
+ Mon, 29 Jul 2024 06:28:53 -0700 (PDT)
+Date: Mon, 29 Jul 2024 21:28:48 +0800
+From: Yanjun Yang <yangyj.ee@gmail.com>
+To: Philippe CORNU <philippe.cornu@foss.st.com>
+Message-ID: <ZqeZEB9peRSQkOLZ@void.tail05c47.ts.net>
+References: <20240129104106.43141-1-raphael.gallais-pou@foss.st.com>
+ <21f4d43d-4abd-4aca-7abb-7321bcfa0f1d@foss.st.com>
+ <CAE8JAfy9NtBa--DnUt2AEZPFnvjU6idj8DqUbaeLaH0DMFvuhw@mail.gmail.com>
+ <e059f157-ff9c-32cb-57a6-48f2331f2555@foss.st.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <e059f157-ff9c-32cb-57a6-48f2331f2555@foss.st.com>
 X-Mailman-Approved-At: Mon, 29 Jul 2024 15:58:21 +0000
-Cc: Mark Rutland <mark.rutland@arm.com>, Ian Rogers <irogers@google.com>,
- Jiri Olsa <jolsa@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- James Clark <james.clark@arm.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Namhyung Kim <namhyung@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- "Liang, Kan" <kan.liang@linux.intel.com>
-Subject: [Linux-stm32] [PATCH v6 17/17] coresight: Make trace ID map
-	spinlock local to the map
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RESEND v3 0/3] Update STM DSI PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,138 +91,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: James Clark <james.clark@arm.com>
+On Fri, Jul 26, 2024 at 09:55:35AM +0200, Philippe CORNU wrote:
+> 
+> 
+> On 7/22/24 10:38, Yanjun Yang wrote:
+> > 
+> > This patch (commit id:185f99b614427360) seems to break the dsi of
+> > stm32f469 chip.
+> > I'm not familiar with the drm and the clock framework, maybe it's
+> > because there is no
+> >   "ck_dsi_phy" defined for stm32f469.
+> > PS:  Sorry for receiving multiple copies of this email, I forgot to
+> > use plain text mode last time.
+> > 
+> 
+> Hi,
+> Thank you for letting us know that there was this error. We should have
+> detected this before merging, really sorry for the problems caused by this
+> patch. We will investigate the issue and get back to you as soon as
+> possible. In the meantime, I think you can revert this patch in your git
+> tree.
+> 
+> Philippe :-)
+> 
 
-Reduce contention on the lock by replacing the global lock with one for
-each map.
+Hi,
+After some testing, the reason behind my problem is the parent's name of
+'clk_dsi_phy' for stm32f4 is 'clk-hse' other than 'ck_hse'.  I don't
+know which is the better why to fix it:
+1. Change "ck_hse" to "clk-hse" in where "clk_dsi_phy" is defined.
+2. Use "pll_in_khz = clk_get_rate(dsi->pllref_clk) / 1000" instead of
+   "pll_in_khz = (unsigned int)(parent_rate / 1000)" when get the clock
+   rate.
 
-Signed-off-by: James Clark <james.clark@arm.com>
-Reviewed-by: Mike Leach <mike.leach@linaro.org>
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- drivers/hwtracing/coresight/coresight-core.c  |  1 +
- .../hwtracing/coresight/coresight-trace-id.c  | 26 +++++++++----------
- include/linux/coresight.h                     |  1 +
- 3 files changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index c427e9344a84..ea38ecf26fcb 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -1164,6 +1164,7 @@ struct coresight_device *coresight_register(struct coresight_desc *desc)
- 
- 	if (csdev->type == CORESIGHT_DEV_TYPE_SINK ||
- 	    csdev->type == CORESIGHT_DEV_TYPE_LINKSINK) {
-+		spin_lock_init(&csdev->perf_sink_id_map.lock);
- 		csdev->perf_sink_id_map.cpu_map = alloc_percpu(atomic_t);
- 		if (!csdev->perf_sink_id_map.cpu_map) {
- 			kfree(csdev);
-diff --git a/drivers/hwtracing/coresight/coresight-trace-id.c b/drivers/hwtracing/coresight/coresight-trace-id.c
-index bddaed3e5cf8..d98e12cb30ec 100644
---- a/drivers/hwtracing/coresight/coresight-trace-id.c
-+++ b/drivers/hwtracing/coresight/coresight-trace-id.c
-@@ -15,12 +15,10 @@
- /* Default trace ID map. Used in sysfs mode and for system sources */
- static DEFINE_PER_CPU(atomic_t, id_map_default_cpu_ids) = ATOMIC_INIT(0);
- static struct coresight_trace_id_map id_map_default = {
--	.cpu_map = &id_map_default_cpu_ids
-+	.cpu_map = &id_map_default_cpu_ids,
-+	.lock = __SPIN_LOCK_UNLOCKED(id_map_default.lock)
- };
- 
--/* lock to protect id_map and cpu data  */
--static DEFINE_SPINLOCK(id_map_lock);
--
- /* #define TRACE_ID_DEBUG 1 */
- #if defined(TRACE_ID_DEBUG) || defined(CONFIG_COMPILE_TEST)
- 
-@@ -123,11 +121,11 @@ static void coresight_trace_id_release_all(struct coresight_trace_id_map *id_map
- 	unsigned long flags;
- 	int cpu;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	bitmap_zero(id_map->used_ids, CORESIGHT_TRACE_IDS_MAX);
- 	for_each_possible_cpu(cpu)
- 		atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 	DUMP_ID_MAP(id_map);
- }
- 
-@@ -136,7 +134,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
- 	unsigned long flags;
- 	int id;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 
- 	/* check for existing allocation for this CPU */
- 	id = _coresight_trace_id_read_cpu_id(cpu, id_map);
-@@ -163,7 +161,7 @@ static int _coresight_trace_id_get_cpu_id(int cpu, struct coresight_trace_id_map
- 	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), id);
- 
- get_cpu_id_out_unlock:
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID_CPU(cpu, id);
- 	DUMP_ID_MAP(id_map);
-@@ -180,12 +178,12 @@ static void _coresight_trace_id_put_cpu_id(int cpu, struct coresight_trace_id_ma
- 	if (!id)
- 		return;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 
- 	coresight_trace_id_free(id, id_map);
- 	atomic_set(per_cpu_ptr(id_map->cpu_map, cpu), 0);
- 
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 	DUMP_ID_CPU(cpu, id);
- 	DUMP_ID_MAP(id_map);
- }
-@@ -195,10 +193,10 @@ static int coresight_trace_id_map_get_system_id(struct coresight_trace_id_map *i
- 	unsigned long flags;
- 	int id;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	/* prefer odd IDs for system components to avoid legacy CPU IDS */
- 	id = coresight_trace_id_alloc_new_id(id_map, 0, true);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID(id);
- 	DUMP_ID_MAP(id_map);
-@@ -209,9 +207,9 @@ static void coresight_trace_id_map_put_system_id(struct coresight_trace_id_map *
- {
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&id_map_lock, flags);
-+	spin_lock_irqsave(&id_map->lock, flags);
- 	coresight_trace_id_free(id, id_map);
--	spin_unlock_irqrestore(&id_map_lock, flags);
-+	spin_unlock_irqrestore(&id_map->lock, flags);
- 
- 	DUMP_ID(id);
- 	DUMP_ID_MAP(id_map);
-diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-index 197949fd2c35..c13342594278 100644
---- a/include/linux/coresight.h
-+++ b/include/linux/coresight.h
-@@ -233,6 +233,7 @@ struct coresight_trace_id_map {
- 	DECLARE_BITMAP(used_ids, CORESIGHT_TRACE_IDS_MAX);
- 	atomic_t __percpu *cpu_map;
- 	atomic_t perf_cs_etm_session_active;
-+	spinlock_t lock;
- };
- 
- /**
--- 
-2.34.1
-
+Both method can fix my problem. The first one might break other
+platforms. Maybe I should change the clock name of 'clk-hse'. However,
+I can't find the defination of this clock name for stm32f4.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
