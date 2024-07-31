@@ -2,126 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2BE942586
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2024 06:41:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BCCA942C3A
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2024 12:43:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 917E3C6DD66;
-	Wed, 31 Jul 2024 04:41:10 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0A63C6DD66;
+	Wed, 31 Jul 2024 10:43:52 +0000 (UTC)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0045C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A98AFC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2024 04:41:02 +0000 (UTC)
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20240731044100epoutp01e49cf47f0e442e38921ef0120989a3c3~nMnTyLkUv1134111341epoutp01o
+ Wed, 31 Jul 2024 10:43:50 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-709485aca4bso2225149a34.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2024 04:41:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20240731044100epoutp01e49cf47f0e442e38921ef0120989a3c3~nMnTyLkUv1134111341epoutp01o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1722400860;
- bh=xsNWFr8kV3xs1EkHFyhGWB6KglLADpNSgzeXkX6WF/8=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=upIUvmPKEAAdCYnBzBjFrXpTbqgwutzokSVnOtZ38V2JExBMncZKLR8VBFGOX/UUu
- sSqT2zwuoNp2/J4S1St4BD7PDQwFXOyG5LkMp7VaPF7y6D8I94TmaG1DEW6CcM6PBR
- grf0pMWxPvLJbP6MYlmBFv72QHY2mjU9VWTqgPoc=
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTP id
- 20240731044059epcas5p30032b30b155676921cb07339fef9d1a8~nMnTL_oYl2956429564epcas5p3P;
- Wed, 31 Jul 2024 04:40:59 +0000 (GMT)
-Received: from epsmgec5p1-new.samsung.com (unknown [182.195.38.179]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 4WYfYP5dCjz4x9Q0; Wed, 31 Jul
- 2024 04:40:57 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
- epsmgec5p1-new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 40.AC.19863.950C9A66; Wed, 31 Jul 2024 13:40:57 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
- 20240731044048epcas5p16c8d21d75a3fbceb121a5b1971c88d61~nMnI9Bgod2320023200epcas5p1_;
- Wed, 31 Jul 2024 04:40:48 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20240731044048epsmtrp2561370da01d1894867fb7317e1826b92~nMnI8A2m20138801388epsmtrp2t;
- Wed, 31 Jul 2024 04:40:48 +0000 (GMT)
-X-AuditID: b6c32a50-ef5fe70000004d97-ee-66a9c059aea7
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- B1.C8.08456.050C9A66; Wed, 31 Jul 2024 13:40:48 +0900 (KST)
-Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20240731044044epsmtip166638025d041fa102bcd8a6fa4a09c37~nMnFVedAk0349203492epsmtip1W;
- Wed, 31 Jul 2024 04:40:44 +0000 (GMT)
-From: "Swathi K S" <swathi.ks@samsung.com>
-To: "'Andrew Lunn'" <andrew@lunn.ch>
-In-Reply-To: <1090d2c2-196f-4635-90a0-c73ded00cead@lunn.ch>
-Date: Wed, 31 Jul 2024 10:10:43 +0530
-Message-ID: <00b301dae303$d065caf0$713160d0$@samsung.com>
+ Wed, 31 Jul 2024 03:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722422629; x=1723027429;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=yITlV2EmP04/pdfMm5rgZ7lDN6+U5nqKkJKbXuYj7Jg=;
+ b=MUUSPy9RHB9ke3pgYb0+Up20/y3DgOVntbLC/oINjC7TYO4ZlGMSFx/AxP4/2+0y/C
+ OQ5GhKMp63G/WvN5UDI0YelapJna3oPRWBbQAeF4aLoXEk1cBZDN+aIzQJ1r225LtQmv
+ /pHnJhtF/PZ88DdhYZQYgYli+1bvqQ5ol5lz3t/Ed+vLIybQeaJ/v/GQpXxjbVxcawwY
+ RfBTQpj82+JHdYwyONOSGi0YQ5qbYcfbJ4B6a1Qb0CXvXP84vFFbEv3kgD4NEQ4oqMu5
+ y7b+p5EjO2ZpN1LK0Csja4vRdhGbbKxZqKSlsxgXtRiQSF4sUeBUUW/FIy2t7iaMeVZ7
+ k69A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722422629; x=1723027429;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yITlV2EmP04/pdfMm5rgZ7lDN6+U5nqKkJKbXuYj7Jg=;
+ b=iwGVL0JlAKZJiS+ykg/oNVWv9E7p5gWxgQwFSXeaV93mWCY4TXUcU4B3mMxMqvvuTU
+ KoEU5hefERz5QvL9TtP0RKXyYmEZ9wrDBzTkH8+kNEBn5ycZGQ5bi150+pGsjU9D8n9h
+ 6/AFtFrtLwBVTq7o15WXyNms3fHbtDRirsiyleTO5LyzjQ73FOsDFuZ3HhSZa0growL4
+ dl4D6+r9uy0xnC2tFfKxjGcbbi3S6KIb5ONltWovqBlhs65k52Phk+Uql1dXiG9aWD2T
+ ggFzUo4MNAmm5UhIi645ku03YbFCLDfUOac8zjICO0zI+dqb+4EHT32dttHqkKEk8EsW
+ mDmQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW/AlAulP6KJ/DwP4SRFzXtqR3Zub3XYI2qCweLTlAe6DlvQfiAjtH+b2MelxxsA9u+Ie5TGaOuGiKbOA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLZQdDMiG/xEXpoayCd1DeXlI0AhL6NuZ1TYdi4afJrIuk5WuG
+ sPovOzukTBLxKxURfag0Ggs7xZyQ5kePg1L9L7FuOIOJ/kGsZANh
+X-Google-Smtp-Source: AGHT+IF7lo5715caiO5yQuVUS/Wxz7nFOFtJwBaZnI797vwpaHgFj3G+ha2rUkQ1l3bkOpJG6N5crw==
+X-Received: by 2002:a05:6359:b97:b0:1ac:f3df:3be1 with SMTP id
+ e5c5f4694b2df-1adb243f94amr1301149855d.4.1722422629214; 
+ Wed, 31 Jul 2024 03:43:49 -0700 (PDT)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ 41be03b00d2f7-7a9f816da59sm8791375a12.29.2024.07.31.03.43.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Jul 2024 03:43:48 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Joao Pinto <jpinto@synopsys.com>
+Date: Wed, 31 Jul 2024 18:43:11 +0800
+Message-Id: <cover.1722421644.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQD2Gw94KDf30OIcDBeWExyH9iGvOgKN91N8AfSZAbcBCoUV+7OtaInw
-Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Tf1CTdRzHe7Y9ewYG9zA0vqDhblAoHLDFgO9K1A7Oey6rg7ATzGvt4IEt
- xra2YdDlIQgekkwpENrBnBPqnEg2BgIHtBbKAcrQBA7vMDDgkNkAVyQY0sZG+d/r8/l+fr0/
- 3/swqMzvsSCGWKoiFVKhhE33prX9sjssMt18OYtz17YLrjw6j8BJbRsdWicsVNjUPUSBddYS
- GrzQO4TCmZsPMThu7qDA3oEGCnygt6PQar2GweE2NQqNv4+icGr+MPy1s44Oa609FFg+Oo1C
- 7dpVFN7UvQKXBx8jUN/6JwbXba0InFrswqBmuB2FvbfmqHC9qx2D+kkdun87Ybo8TiFmzrZi
- RIdmAiN0xjzCaDhNJ1oaComOdgeFWOgZoRNqkwEhfu7hEjNPu6mE6ScHQjwvrscIhzE42fdI
- zh4RKcwkFSxSmiHLFEuzE9gHUwWJgtg4DjeSy4fxbJZUmEsmsJPeTY48IJY4V8JmHRNK8pyu
- ZKFSyY7eu0chy1ORLJFMqUpgk/JMiZwnj1IKc5V50uwoKal6k8vhvBHrDPwkR1Q+VInI17fk
- X+orw04gau9yxIsBcB6omTSiLmbiXQjQ1Lxejng7+QkCev++T3EbywioqrbQNzNWTs2i7odu
- BAyNaeluYw4Bi0VNG7XoeDjQq3swF2/FQ4G2voriYio+hIKvhnEXe+FvgZLlGsTF/vjHoML8
- YINp+GtgbOHkBvvgfFDU/A/dzX6g/9tpmrvOTnD9jzqqeyIWWJn5ztmX4ex1AMyNHHGHBIAb
- K2eortkAPu8FRoqLae74JDAx0OzJ9QfzfSbMzUHAYe/2qBSAK+oRT7wITKxWevz7gPleHc3V
- i4rvBj90Rrvdr4LqgWaPRF9Q8Wya4vb7gHbtJoeANduop2QgaGtcwM4hbM0LyjQvKNO8IEHz
- fzcdQjMgQaRcmZtNZsTKuZFS8vP/PjxDlmtENi4mPLkduXJtLcqCUBiIBQEMKnurj+BeYxbT
- J1NY8AWpkAkUeRJSaUFinfuupAZty5A5T06qEnB5fA4vLi6Ox4+J47IDfGyl9ZlMPFuoInNI
- Uk4qNvMoDK+gE5TUnMKj/sHSkpSYjkRjeVN1SPVt6N/gl2KweT8KFJTVLr7HVzMr64oOGfaV
- rvQXGD4KIbzK+qPkMflLs6aWqay19DtJ9sHnjeJBe29B2nxEc23fy6LV7ZbOpzlE2uyXXN07
- uyIO8QK2mcwNnNRb9pdSIsRLh0cnu/CZHz+9ePY0/c5v9y+V+Play9NSjqHWQjCeeibQXvD+
- Q+6H/nOsD04Vhq7GNy190/GkhlPRMJa/pexiZUu64bEj2ME+uaPv+tXJ2L902on9cnGi5O3+
- 8zEjxxOqzolaTDbz9Ge5Efl3x/fqs1NAaCIa5tvUsyNsZzRTz49/dvRG9MHQ28YLpbyvj7Np
- SpGQG05VKIX/AtLOUgO6BAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupjleLIzCtJLcpLzFFi42LZdlhJTjfgwMo0g47/ihY/X05jtHgwbxub
- xfm7h5gt1uw9x2Qx53wLi8X8I+dYLZ4ee8RucfPATiaLI6eWMFncW/SO1eL8+Q3sFhe29bFa
- bHp8jdXi4atwi8u75rBZzDi/j8mi69oTVot5f9eyWhxbIGbx7fQbRotFW7+wW/x/vZXR4uGH
- PewWsy7sYLU4cuYFs8X/PTvYLRY9WMDqIO2xZeVNJo+n/VvZPXbOusvusWBTqcemVZ1sHpuX
- 1Hvs3PGZyeP9vqtsHn1bVjF6HNxn6PH0x15mjy37PzN6/Guay+7xeZNcAF8Ul01Kak5mWWqR
- vl0CV0bXuYmMBf+5KxYf72BvYOzj6mLk5JAQMJH42faMtYuRi0NIYDejRHvPDXaIhKTEp+ap
- rBC2sMTKf8/ZIYqeMUr0Pe4EK2IT0JJY1LcPzBYRUJGYN3cKE0gRs8ArVokHp6ewQHS8YpSY
- uv0W2ChOAWuJlm/TGUFsYYEYiRkrWplAbBYBVYnr75vB4rwClhKN6/6wQdiCEidnPgEaxAE0
- VU+ibSNYCbOAvMT2t3OYIa5TkPj5dBkrSImIgJvEi6tRECXiEkd/9jBPYBSehWTQLIRBs5AM
- moWkYwEjyypGydSC4tz03GLDAqO81HK94sTc4tK8dL3k/NxNjOAko6W1g3HPqg96hxiZOBgP
- MUpwMCuJ8MZfWZomxJuSWFmVWpQfX1Sak1p8iFGag0VJnPfb694UIYH0xJLU7NTUgtQimCwT
- B6dUA1NTTXD1Nr3kuHDdPapuqte0qqtymQ45tdqt2j3D4u00kxubmdzvHWxPvxaw7/cK3o8H
- 4vQstOIq8q3OT57zVLTnfkLpZP0jd8SPzkx7npCgc06x4d2F0CsyU8sm7m725D7YPX/itxct
- 6sInLM21D998n/pPs8TVfPGxmPRb3+3U/xyxmCip5vrtZmTAigAhg6CAxxtfbOW2erJhT+AP
- 0ZhbB/wVbU/HV505qHxqbejJ5+e05LVmTnI9o/Kw6J/6pWuOpS7dnMfM7uZZtspV17udvLtb
- NLduYm5NaMD0b0sVUjffdg5tmXSB78mS53lPnqywP8v4yNr+y/RDK7OFlj9yrvoVdCJo6yoZ
- xzOlRbOUWIozEg21mIuKEwGUnJ4LoQMAAA==
-X-CMS-MailID: 20240731044048epcas5p16c8d21d75a3fbceb121a5b1971c88d61
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20240730092907epcas5p1b81eaf13a57535e32e11709602aeee06
-References: <20240730091648.72322-1-swathi.ks@samsung.com>
- <CGME20240730092907epcas5p1b81eaf13a57535e32e11709602aeee06@epcas5p1.samsung.com>
- <20240730091648.72322-4-swathi.ks@samsung.com>
- <1090d2c2-196f-4635-90a0-c73ded00cead@lunn.ch>
-Cc: jayati.sahu@samsung.com, edumazet@google.com, linux-fsd@tesla.com,
- alim.akhtar@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, linux-samsung-soc@vger.kernel.org, ssiddha@tesla.com,
- pankaj.dubey@samsung.com, krzk@kernel.org, joabreu@synopsys.com,
- kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, ravi.patel@samsung.com, richardcochran@gmail.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- rcsekar@samsung.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, gost.dev@samsung.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v4 3/4] arm64: dts: fsd: Add Ethernet
- support for FSYS0 Block of FSD SoC
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v1 0/5] net: stmmac: FPE via ethtool
+	+ tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,55 +88,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Move the Frame Preemption(FPE) over to the new standard API which uses
+ethtool-mm/tc-mqprio/tc-taprio.
 
+Furong Xu (5):
+  net: stmmac: configure FPE via ethtool-mm
+  net: stmmac: support fp parameter of tc-mqprio
+  net: stmmac: support fp parameter of tc-taprio
+  net: stmmac: drop unneeded FPE handshake code
+  net: stmmac: silence FPE kernel logs
 
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: 31 July 2024 01:46
-> To: Swathi K S <swathi.ks@samsung.com>
-> Cc: krzk@kernel.org; robh@kernel.org; davem@davemloft.net;
-> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
-> conor+dt@kernel.org; richardcochran@gmail.com;
-> mcoquelin.stm32@gmail.com; alim.akhtar@samsung.com; linux-
-> fsd@tesla.com; netdev@vger.kernel.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
-> arm-kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org;
-> alexandre.torgue@foss.st.com; peppe.cavallaro@st.com;
-> joabreu@synopsys.com; rcsekar@samsung.com; ssiddha@tesla.com;
-> jayati.sahu@samsung.com; pankaj.dubey@samsung.com;
-> ravi.patel@samsung.com; gost.dev@samsung.com
-> Subject: Re: [PATCH v4 3/4] arm64: dts: fsd: Add Ethernet support for
-FSYS0
-> Block of FSD SoC
-> 
-> > +&ethernet_0 {
-> > +	status = "okay";
-> > +
-> > +	fixed-link {
-> > +		speed = <1000>;
-> > +		full-duplex;
-> > +	};
-> > +};
-> > +
-> 
-> What is the interface connected to? A switch?
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |   6 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  |  37 +++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |   7 ++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  14 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   3 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 111 ++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  25 ++--
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  95 ++++++++++-----
+ include/linux/stmmac.h                        |   2 +-
+ 9 files changed, 248 insertions(+), 52 deletions(-)
 
-Hi Andrew, 
-Thanks for the quick review. AFAIK, this has been discussed earlier. I am
-providing the links to the same here for quick reference. 
-
-[1] https://lkml.org/lkml/2024/7/29/419
-[2] https://lkml.org/lkml/2024/6/6/817
-[3] https://lkml.org/lkml/2024/6/6/507
-[4] https://lkml.org/lkml/2023/8/14/1341
-
-Please let us know if you have any further queries on this.
-
-> 
-> 	Andrew
-
-Regards,
-Swathi
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
