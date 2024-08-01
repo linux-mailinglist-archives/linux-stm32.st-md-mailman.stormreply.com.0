@@ -2,67 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4AC9454D9
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 01:16:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D744E9454EA
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 01:29:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5E28C712A1;
-	Thu,  1 Aug 2024 23:16:36 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CC90C712A1;
+	Thu,  1 Aug 2024 23:29:49 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8F1EC7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 044E0C7129D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Aug 2024 23:16:29 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a7a8553db90so1021077166b.2
+ Thu,  1 Aug 2024 23:29:41 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-428163f7635so48838335e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Aug 2024 16:16:29 -0700 (PDT)
+ Thu, 01 Aug 2024 16:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722554189; x=1723158989;
+ d=gmail.com; s=20230601; t=1722554981; x=1723159781;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vRHY8LMAMsDzYIYRh2DEhqf/+ZSkBDumcnyt9s3s3SU=;
- b=aPhZVS2wRgkDnn1tzyzwoVkD1bJlqPLgegHk6fEdjP4xx0bXi0kwT6MZiwETJ7OBfC
- wSYsUiu9WXN2IeW5xNg1miX5tduHdS+89wNlsrBiYu0qs4drh1pZy7+9YF2zEJK3QlLq
- jWxfoDplIxO/hPBmGuU13mEPEsHEBtjqphQgvZ6x69QCb5f3fCZsNmOung7xAkTHDTjz
- HPq/ZyKz1+/QkOkon+/FuCvQbSKrPRQsAlDqPKGqYiV6ZpValy48vdV1lJXV/itORGvQ
- T1wBza/Ql9PxVmKYm+jyMiLVRvtKLOBZ+b11hGKBETmqYYxAA7f5EeednXE03fVTDqRR
- Wllg==
+ bh=S3baeMLXbo97d1fQpSkYNhS6zDdUNnQMvWphkjrQSd0=;
+ b=KHsmPc3yI4qN4Jv/cISAbd4/Su1DgCcVt9hONuvFNsmYu89RmZbAS+1HM1jdEJ7TuK
+ phC8R9gOvYzIBIYG23Gp/D4kOngVAmovzXjvjRFSKlnCCrnQHG8BeOiZpDjIOG9/0wEN
+ 6pyAtEiDuPj16/NAHVyJDT/ygKgaeWOIFF68XazLL9l6UqL0ByWh4MKIwp+hQbsJ5Cns
+ m1H0RKNp74PvaDv7E9A4twISlqSsMt1Xsb5STQFLkrIIx2fJKV117iS80CzpJ5AxYMD1
+ N6ARJPFQn6eNtz1keYGPdZy99l/eq5zly/Pq1q0mttWdPaY5/29HvDixisOntp+g0+Az
+ FG5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722554189; x=1723158989;
+ d=1e100.net; s=20230601; t=1722554981; x=1723159781;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vRHY8LMAMsDzYIYRh2DEhqf/+ZSkBDumcnyt9s3s3SU=;
- b=RHirC28EkY1VN3xw3IBF4HAd2qegzGdsx+v1sr2tCc/9g+wwp0P+wq5TDfl5vKs0Nf
- PAtSP6So2/esRl0BKjm+dzvOdPb+Y8MZ2THi2bNatb1BViaUmzYXJ5i42N5ukyrkbQv1
- RWhfrpSse/DfkUIcqiZDzozYFI/m81lOwa2lCdeuAJC2tqy4sVc+kqt3G+qb6po7dfG7
- PU6/YW/83/aR29e7QdTGxGkCh5/Agu039txcl6CEG97oHSZjOT+6pve2ho96AbBZqQl4
- KwjG1Tl5bqzlzM9GHfg3C1Jq3CougPwr1DTdBwXSZxb8P02u467hlmSWVrWuLPjWjr/N
- 71+w==
+ bh=S3baeMLXbo97d1fQpSkYNhS6zDdUNnQMvWphkjrQSd0=;
+ b=KdHn0LswePxR+331E6FOzjPutjkS+rFuzfxKtDTdh91Xw7GHChGi4XiOV8vqsefjPK
+ QPWhXYL1XJlgf1qbFNXcRIHMlIvZwyWS+0BjNQmJDG5XSjxIWNa6B1BMea1fj5NBJLnu
+ sRarRJdD//Hy5ggCq+NA/nunnhcOwGY6O65ssAH6uifRNqGLGAcimKlBEiSM133p7HCs
+ l4OPv6qI0LtAA1ww2tkCaapVPNnppCdj5iwlSVc5X2SvEyKmMgto7tgSSB2bbEvbOo7b
+ olNN1T0DVYMVpd7AigT/fFbuzTb9ioXlPUlHg3A3+hBrPHt2eSI366BXRnze4KRYcdMb
+ 7vWg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVtwNT9KGTM6X5H6LSIFdKaB8u5vgek5Jn3GKz2uX/ZO8JxSYWPYBn7N7CECPXFppu+2YgkXTPqlzkTHFBEDj9GdS80aksFtyMYofDkFMoQ4o1ijWcTO8KZ
-X-Gm-Message-State: AOJu0YxCjNFQDKlSQhLW2krBJI5TOvrWoJtG33dlND66ZKVHuQylu5Dp
- CGzuO1cvEyC/p/vfuUOlO/7AiRmXcg6pYUKk09LMsB0ZZlkIzQF1
-X-Google-Smtp-Source: AGHT+IEsxgfvGijlQDD+0yGHl9Bv4Sl5rFZvFBX00pRtsgyK5toVPnhYX03gaMnFF/r02MjdVSWnNg==
-X-Received: by 2002:a17:907:3f28:b0:a7a:acae:3415 with SMTP id
- a640c23a62f3a-a7dc4db4b08mr146394566b.10.1722554188713; 
- Thu, 01 Aug 2024 16:16:28 -0700 (PDT)
+ AJvYcCVTgoWmQf6RymfHhjGuc7X11HWyE2JBoF0EtmR6vX2geDaXjqqBP3+2gpDbEza0MfYBaiMyYYmk6Kjsps5TxUabl2bl0QJj4F3YnVQsGBHrxldh5oM4VO0Z
+X-Gm-Message-State: AOJu0Yxu6RPX9/7ONKNyQgGj/LyJoLtYiVADUn3vvqFLX2S07Lo4rRgy
+ TIAMF1efJOdP9dnpNYU4QjjU+mNDi4AoIyGn7Jk4GgUmNyR0rAtp
+X-Google-Smtp-Source: AGHT+IEXPX9rm3NSZIOdjCpUZ485555yJ5pLnsoYLHKaq0ewcpvvtEm0zfRMxyNx/9QoeYLEy/Qyng==
+X-Received: by 2002:a05:600c:3587:b0:426:593c:935f with SMTP id
+ 5b1f17b1804b1-428e6ae27f7mr9961945e9.1.1722554981158; 
+ Thu, 01 Aug 2024 16:29:41 -0700 (PDT)
 Received: from skbuf ([188.25.135.70]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9bcada0sm30237866b.31.2024.08.01.16.16.27
+ 5b1f17b1804b1-428e6e9cd4esm11200035e9.44.2024.08.01.16.29.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 16:16:27 -0700 (PDT)
-Date: Fri, 2 Aug 2024 02:16:25 +0300
+ Thu, 01 Aug 2024 16:29:40 -0700 (PDT)
+Date: Fri, 2 Aug 2024 02:29:37 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240801231625.uqa4gq7vokp63dfp@skbuf>
+Message-ID: <20240801232937.rmkv3er5cc2lykwf@skbuf>
 References: <cover.1722421644.git.0x1207@gmail.com>
+ <cover.1722421644.git.0x1207@gmail.com>
+ <4603a4f68616ce41aca97bac2f55e5d51c865f53.1722421644.git.0x1207@gmail.com>
  <4603a4f68616ce41aca97bac2f55e5d51c865f53.1722421644.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <4603a4f68616ce41aca97bac2f55e5d51c865f53.1722421644.git.0x1207@gmail.com>
+ <4603a4f68616ce41aca97bac2f55e5d51c865f53.1722421644.git.0x1207@gmail.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, rock.xu@nio.com,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
@@ -113,109 +116,27 @@ On Wed, Jul 31, 2024 at 06:43:14PM +0800, Furong Xu wrote:
 >             "MACMergeFragCountRx": 0,
 >             "MACMergeFragCountTx": 1398,
 >             "MACMergeHoldCount": 15783
+
+In order for readers to really understand this output (including me),
+could you also post the associated tc-taprio command, please?
+
+You deleted the code that treated the Set-And-Hold-MAC GCL command -
+and according to 802.1Q, that is the only source of Hold requests.
+I _think_ that as a side effect of your reimplementation, every time the
+gate for TC 0 opens, the HoldCount bumps by one. Would that be a correct
+description?
+
+The more unfortunate part is that I haven't yet come across a NIC
+hardware design that would behave completely as you'd expect w.r.t. Hold
+requests. In the case of DWMAC, I would expect that with a taprio
+schedule that lacks any Set-And-Hold-MAC command, the HoldCount would
+stay at zero. I'm not sure, given the way they piggy back onto gate 0
+for Hold/Release, that this is possible :(
+
+At least HoldCount stays constant with a tc-mqprio offload, right?
+
 >         }
 >     } ]
-> 
-> Remote device:
-> ethtool --include-statistics --json --show-mm eth1
-> [ {
->         "ifname": "eth1",
->         "pmac-enabled": true,
->         "tx-enabled": true,
->         "tx-active": true,
->         "tx-min-frag-size": 60,
->         "rx-min-frag-size": 60,
->         "verify-enabled": true,
->         "verify-time": 100,
->         "max-verify-time": 128,
->         "verify-status": "SUCCEEDED",
->         "statistics": {
->             "MACMergeFrameAssErrorCount": 0,
->             "MACMergeFrameSmdErrorCount": 0,
->             "MACMergeFrameAssOkCount": 1388,
->             "MACMergeFragCountRx": 1398,
->             "MACMergeFragCountTx": 0,
->             "MACMergeHoldCount": 0
->         }
->     } ]
-> 
-> Tested on DWMAC CORE 5.10a
-> 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 34 ++-----------------
->  1 file changed, 3 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> index 494fe2f68300..eeb5eb453b98 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> @@ -943,7 +943,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->  	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
->  	struct timespec64 time, current_time, qopt_time;
->  	ktime_t current_time_ns;
-> -	bool fpe = false;
->  	int i, ret = 0;
->  	u64 ctr;
->  
-> @@ -1028,16 +1027,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->  
->  		switch (qopt->entries[i].command) {
->  		case TC_TAPRIO_CMD_SET_GATES:
-> -			if (fpe)
-> -				return -EINVAL;
-> -			break;
-> -		case TC_TAPRIO_CMD_SET_AND_HOLD:
-> -			gates |= BIT(0);
-> -			fpe = true;
-> -			break;
-> -		case TC_TAPRIO_CMD_SET_AND_RELEASE:
-> -			gates &= ~BIT(0);
-> -			fpe = true;
-
-I don't think these can go.
-
-In the DWMAC5 manual, I see:
-"To enable the support of hold and release operations, the format of the
-GCL is slightly changed while configuring and enabling the FPE. The first Queue (Q0) is always programmed to carry preemption
-traffic and therefore it is always Open. The bit corresponding to Q0 is renamed as Release/Hold MAC control. The TX Queues
-whose packets are preemptable are indicated by setting the PEC field of the MTL_FPE_CTRL_STS register. The GCL bit of the
-corresponding Queue are ignored and considered as always "Open". So, even if the software writes a "0" ("C"), it is ignored for
-such queues."
-
-It's relatively clear to me that this is what the "gates" variable is
-doing here - it's modulating when preemptible traffic begins to be
-"held", and when it is "released".
-
-Now, the "fpe" variable - that can definitely go.
-
->  			break;
->  		default:
->  			return -EOPNOTSUPP;
-
-Also, this is more general advice. If TC_TAPRIO_CMD_SET_AND_HOLD and
-TC_TAPRIO_CMD_SET_AND_RELEASE used to work as UAPI input into this
-driver, you don't want to break that now by letting those fall into the
-default -EOPNOTSUPP case. What worked must continue to work... somehow.
-
-> @@ -1068,16 +1057,11 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->  
->  	tc_taprio_map_maxsdu_txq(priv, qopt);
->  
-> -	if (fpe && !priv->dma_cap.fpesel) {
-> +	if (qopt->mqprio.preemptible_tcs && !priv->dma_cap.fpesel) {
->  		mutex_unlock(&priv->est_lock);
->  		return -EOPNOTSUPP;
->  	}
->  
-> -	/* Actual FPE register configuration will be done after FPE handshake
-> -	 * is success.
-> -	 */
-> -	priv->plat->fpe_cfg->enable = fpe;
-> -
->  	ret = stmmac_est_configure(priv, priv, priv->est,
->  				   priv->plat->clk_ptp_rate);
->  	mutex_unlock(&priv->est_lock);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
