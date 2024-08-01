@@ -2,80 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0545094531F
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Aug 2024 21:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A79D94539F
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Aug 2024 22:04:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6214C712A1;
-	Thu,  1 Aug 2024 19:10:07 +0000 (UTC)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D52DEC712A1;
+	Thu,  1 Aug 2024 20:04:31 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AD83C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 181AEC71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Aug 2024 19:10:00 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2ef32fea28dso86083091fa.2
+ Thu,  1 Aug 2024 20:04:24 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0481so114972081fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Aug 2024 12:10:00 -0700 (PDT)
+ Thu, 01 Aug 2024 13:04:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722539400; x=1723144200;
+ d=gmail.com; s=20230601; t=1722542663; x=1723147463;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qpZHoO/6hsX+nCMxJXNHxn39l7ARmddReK6PQZfmBS4=;
- b=bnfwfLN7ySCNfW8sWpbTTBlSjO5QMfRQCwFbCD6P2Cv5QUeHphDulmHJNgWecvhtyF
- 8cKv/blf3UImY2LAePmQAqmfaTdDe5ki1yTqgzKvbhjWMeTe77eZvYOOs1IJz5vPZ7Zx
- RDM/r1cyDweBTmsGgw6KtQCDxURFwngRTieLB8Q4KSqKIDBp2uXbd+yGIbI0V4Ca8wdr
- Hm3WJD804YjUgkQAQF/AuSN5UFddPFKhp0fcUpA8NH2uV414H0ZEY1szxces0phCe61o
- oOJBN9LbKpiq29MLs3A2sRkUo0TbOej83jmDTmQwkoT5FmmBLLGLJ3zrDeKqkHF1rHSE
- oeDA==
+ bh=svzaLRly6/piQEhmTsRu32eA5qubsY2cEZkb7yILYP4=;
+ b=UiKB5s7pZnza1/TV1xhxUtENsY5aw8gmwAQ0VZtxRfnS9A72QkObnz4KDxhncezh8L
+ tLZJySCj02xRBo/o8y2+B+0A0o2AEtDM8JqHlFRZLXb78z1h0iq7wK95v+Eo6ZO3DWyI
+ DhzvT6IHoU28Dks6R7cci8I/CcZ+gQP/p9BY/O/5CRcyY5xuRviwnd08YTiENA8u6tEb
+ Geqs1PmiqBzDalmScu23Mf3zhWlHnko8gAtUTbImzMfbXG8cN21aC1Z+DPLxuZI1g7oz
+ 4BNdMl+PvSAXmaqBpv/H/BfkXqGuwqMGTIfeIqJ3eRXXPoGCtVzlNQdcQ4X/EcuuFWVC
+ BjfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722539400; x=1723144200;
+ d=1e100.net; s=20230601; t=1722542663; x=1723147463;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qpZHoO/6hsX+nCMxJXNHxn39l7ARmddReK6PQZfmBS4=;
- b=qzudq4xZv1Q9gugz2rZm46ZsDcMLvhR8bIf2YbCv8i/XOQJEqdhq7xLRtz2mlWDAW0
- nZAX4eeGps8PDYUFbvGmxJ6j+LudH8QdoS//Movwu+Ki863myFYzgnkvjRxzSY0gWWm6
- 2JquYcvckTkz4XYlh7hMJZ6jjwoc/xjNN/rDqgZyMXpPrhJUTUGn+2K/MUy7/f9DaOmn
- kpi6JZXkGPBSEuJgIg3NvqnAYEvgRtUsUENmI+fE54Qt3j1oxUUZupLfPmM+muXCJx/y
- jJvY5izCmJleuZ16KDPSDNhNujL3UfT6p5ALreYh45dXPd+T6SkK+Oym3PPT26QuHG+p
- arIA==
+ bh=svzaLRly6/piQEhmTsRu32eA5qubsY2cEZkb7yILYP4=;
+ b=GwKalQGIldgcFdmUhJTqcx5lHRNAi5AfWf7mk53jkEJvVguKiDKjbiP0bVSsrFcN0y
+ ynjtt6YfDeGv8OjMQ1Voqa3z2fQud8j3+vNDuHpfh7EIhlNj7qYEhA1l1UGcwzGROaA+
+ KWOjchjVyKIvRf66HSlxObMDFPxeG8lqhdnOkXajEQzWhb/fhlQCea90uR2G+Hdd/vUz
+ eEvbKBjc6KN8QuPX5pzrWeiMqzN7BXgiAZWRDjsB/URXTE80XqJAGLzjFPGqAiDLKZQm
+ s7ejCkWIHDFX3ZLmwbkXOym7upHUADtelr6g3GiDfSpJnarV0E5UjTV48hbfX44M5pGw
+ frew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVqeFVR+8FfP9fH1spePbGNbM8f8/He6Zg25TyWhHO8E82fjIVrH+TvCTkQ0nnogQAi7W8MiCUshs8Q7ZwmhFY3z8wfVRA2LWSTvQM9axLPrjp8gZT7lu7X
-X-Gm-Message-State: AOJu0YxuX1rgsiMeu+SxDo4FKtiI9x8wKemIXj4BCSQZSe7zg6650uqY
- pWIvw3o+GPvimR6u0mAcSa+gvAO/9SSW4wVRWx5cU/0UFp088+QY
-X-Google-Smtp-Source: AGHT+IHz23/0To/xP7PlNyRQ9bo8QpCLAnluXSSXqk43xJIqm7tExXUDfCkMhLZBWEYcH+OqqUb3+w==
-X-Received: by 2002:a2e:8096:0:b0:2ef:3250:d0d4 with SMTP id
- 38308e7fff4ca-2f15ab5c7c8mr7600511fa.48.1722539399214; 
- Thu, 01 Aug 2024 12:09:59 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f15c1de3easm298551fa.33.2024.08.01.12.09.57
+ AJvYcCUH4hB0K1z2oz8rCAGaKTWY0906vrdjTQot5pNxL3MknTeykUUr3vKIpsIJpqu6l2kCorVF7DGHfSBuiaYGhHAy+/I/2j2J5gMcGmcbDaxqDcBWFTG+GgkL
+X-Gm-Message-State: AOJu0YwTcsmLPC+Oruel5Wcu2dUe6aYGWoQEp+fMk1jwInXYv7NcbCrQ
+ tEejaRNdOzx4vKjWPmoFhsXNA279AQKhzqDRrJ3f2XR5yYuQ+lve
+X-Google-Smtp-Source: AGHT+IF1rgY/ErrP3mP5eIig5nR3oDZkb6fvwAxelgQkhXiPc8SfFBiS5eCL9jtGfDknIKnyJ+0fFQ==
+X-Received: by 2002:a2e:b602:0:b0:2ef:2df7:3d9a with SMTP id
+ 38308e7fff4ca-2f15aa84e17mr8653871fa.9.1722542662737; 
+ Thu, 01 Aug 2024 13:04:22 -0700 (PDT)
+Received: from skbuf ([188.25.135.70]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5b83bf3b99dsm153406a12.91.2024.08.01.13.04.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 12:09:58 -0700 (PDT)
-Date: Thu, 1 Aug 2024 22:09:55 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Swathi K S <swathi.ks@samsung.com>, Andrew Lunn <andrew@lunn.ch>
-Message-ID: <yqih2sck5ayuhk5wcvgwahcndc4xb3gxthcjxgt4yqg33zfii5@ub25raxykxdp>
-References: <20240730091648.72322-1-swathi.ks@samsung.com>
- <CGME20240730092902epcas5p1520f9cac624dad29f74a92ed4c559b25@epcas5p1.samsung.com>
- <20240730091648.72322-3-swathi.ks@samsung.com>
+ Thu, 01 Aug 2024 13:04:21 -0700 (PDT)
+Date: Thu, 1 Aug 2024 23:04:19 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20240801200419.g3b264sjcc3njvwg@skbuf>
+References: <cover.1722421644.git.0x1207@gmail.com>
+ <cover.1722421644.git.0x1207@gmail.com>
+ <d20b291dc4dd5030adefbabef7dda1bf2206a15f.1722421644.git.0x1207@gmail.com>
+ <d20b291dc4dd5030adefbabef7dda1bf2206a15f.1722421644.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240730091648.72322-3-swathi.ks@samsung.com>
-Cc: jayati.sahu@samsung.com, edumazet@google.com, linux-fsd@tesla.com,
- alim.akhtar@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, linux-samsung-soc@vger.kernel.org, ssiddha@tesla.com,
- pankaj.dubey@samsung.com, krzk@kernel.org, joabreu@synopsys.com,
- kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, ravi.patel@samsung.com, richardcochran@gmail.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- rcsekar@samsung.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, gost.dev@samsung.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v4 2/4] net: stmmac: dwc-qos: Add FSD EQoS
-	support
+In-Reply-To: <d20b291dc4dd5030adefbabef7dda1bf2206a15f.1722421644.git.0x1207@gmail.com>
+ <d20b291dc4dd5030adefbabef7dda1bf2206a15f.1722421644.git.0x1207@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/5] net: stmmac: configure
+	FPE via ethtool-mm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,253 +91,305 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Swathi, Andrew
-
-On Tue, Jul 30, 2024 at 02:46:46PM +0530, Swathi K S wrote:
-> The FSD SoC contains two instance of the Synopsys DWC ethernet QOS IP core.
-> The binding that it uses is slightly different from existing ones because
-> of the integration (clocks, resets).
-> 
-
-> For FSD SoC, a mux switch is needed between internal and external clocks.
-> By default after reset internal clock is used but for receiving packets
-> properly, external clock is needed. Mux switch to external clock happens
-> only when the external clock is present.
-> 
-> Signed-off-by: Chandrasekar R <rcsekar@samsung.com>
-> Signed-off-by: Suresh Siddha <ssiddha@tesla.com>
-> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
-> ---
->  .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 90 +++++++++++++++++++
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 +++++-
->  include/linux/stmmac.h                        |  1 +
->  3 files changed, 117 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> index ec924c6c76c6..bc97b3b573b7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> @@ -20,6 +20,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/reset.h>
->  #include <linux/stmmac.h>
-> +#include <linux/regmap.h>
+On Wed, Jul 31, 2024 at 06:43:12PM +0800, Furong Xu wrote:
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index b23b920eedb1..5228493bc68c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -345,6 +345,9 @@ struct stmmac_priv {
+>  	struct work_struct fpe_task;
+>  	char wq_name[IFNAMSIZ + 4];
 >  
->  #include "stmmac_platform.h"
->  #include "dwmac4.h"
-> @@ -37,6 +38,13 @@ struct tegra_eqos {
->  	struct gpio_desc *reset;
->  };
->  
-> +struct fsd_eqos_plat_data {
-> +	const struct fsd_eqos_variant *fsd_eqos_inst_var;
-> +	struct clk_bulk_data *clks;
-> +	int num_clks;
-> +	struct device *dev;
-> +};
+> +	/* Serialize access to MAC Merge state between ethtool requests */
+> +	struct mutex mm_lock;
+
+The thing is, ethtool requests are already serialized by the rtnl_mutex.
+The purpose of a driver-level locking scheme is to serialize the ethtool
+requests with things like interrupts, work queues, etc, to avoid
+corrupting driver state.
+
+Surprisingly, even if the code runs indeed very much unlocked, I don't see too many
+races with severe consequences. There are some exceptions though. Like for example,
+stmmac_fpe_handshake(enable=false) races on priv->plat->fpe_cfg->lo_fpe_state
+and priv->plat->fpe_cfg->lp_fpe_state with stmmac_fpe_lp_task().
+
+static void stmmac_fpe_lp_task(struct work_struct *work)
+{
+	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+
+	/* Bail out immediately if FPE handshake is OFF */
+	if (*lo_state == FPE_STATE_OFF || !*hs_enable)
+		break;
+
+	if (*lo_state == FPE_STATE_ENTERING_ON &&
+	    *lp_state == FPE_STATE_ENTERING_ON) {
+
+		netdev_dbg(priv->dev, "configured FPE\n");
+
+									Another CPU runs here:
+									stmmac_set_mm()
+									-> stmmac_fpe_handshake(enable=false)
+									   -> priv->plat->fpe_cfg->lo_fpe_state = FPE_STATE_OFF;
+									   -> priv->plat->fpe_cfg->lp_fpe_state = FPE_STATE_OFF;
+
+		*lo_state = FPE_STATE_ON;
+		*lp_state = FPE_STATE_ON;
+		netdev_dbg(priv->dev, "!!! BOTH FPE stations ON\n");
+		break;
+	}
+	...
+}
+
+Simply put, due to lack of locking, stmmac_set_mm() can try to stop the
+FPE verification task but fail, since it can lose the race.
+
+I would expect a way for stmmac_fpe_handshake() to be able to stop
+further FPE interrupts from taking place (or at least from being
+processed), and then flush_workqueue(&priv->fpe_task) to make sure that
+all pending stmmac_fpe_lp_task()s have finished.
+
 > +
->  static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
->  				   struct plat_stmmacenet_data *plat_dat)
->  {
-> @@ -265,6 +273,82 @@ static int tegra_eqos_init(struct platform_device *pdev, void *priv)
->  	return 0;
+>  	/* TC Handling */
+>  	unsigned int tc_entries_max;
+>  	unsigned int tc_off_max;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> index 7008219fd88d..ca85e8694285 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> @@ -19,6 +19,7 @@
+>  #include "stmmac.h"
+>  #include "dwmac_dma.h"
+>  #include "dwxgmac2.h"
+> +#include "dwmac5.h"
+>  
+>  #define REG_SPACE_SIZE	0x1060
+>  #define GMAC4_REG_SPACE_SIZE	0x116C
+> @@ -1270,6 +1271,113 @@ static int stmmac_set_tunable(struct net_device *dev,
+>  	return ret;
 >  }
 >  
-> +static int dwc_eqos_rxmux_setup(void *priv, bool external)
+> +static int stmmac_get_mm(struct net_device *ndev,
+> +			 struct ethtool_mm_state *state)
 > +{
-> +	int i = 0;
-> +	struct fsd_eqos_plat_data *plat = priv;
-> +	struct clk *rx1 = NULL;
-> +	struct clk *rx2 = NULL;
-> +	struct clk *rx3 = NULL;
+> +	struct stmmac_priv *priv = netdev_priv(ndev);
+> +	enum stmmac_fpe_state lo_state = priv->plat->fpe_cfg->lo_fpe_state;
+
+I expect this to have to serialize with the writers of lo_fpe_state on
+some sort of lock. May have to be a spinlock (making the priv->mm_lock
+mutex inadequate in its current form), since stmmac_interrupt() is not
+threaded and thus runs in atomic context.
+
+> +	u32 add_frag_size;
 > +
-> +	for (i = 0; i < plat->num_clks; i++) {
-> +		if (strcmp(plat->clks[i].id, "eqos_rxclk_mux") == 0)
-> +			rx1 = plat->clks[i].clk;
-> +		else if (strcmp(plat->clks[i].id, "eqos_phyrxclk") == 0)
-> +			rx2 = plat->clks[i].clk;
-> +		else if (strcmp(plat->clks[i].id, "dout_peric_rgmii_clk") == 0)
-> +			rx3 = plat->clks[i].clk;
-> +	}
+> +	if (!priv->dma_cap.fpesel)
+> +		return -EOPNOTSUPP;
 > +
-> +	/* doesn't support RX clock mux */
-> +	if (!rx1)
-> +		return 0;
+> +	mutex_lock(&priv->mm_lock);
 > +
-> +	if (external)
-> +		return clk_set_parent(rx1, rx2);
+> +	/* If FPE is supported by hardware, preemptible MAC is always enabled */
+> +	state->pmac_enabled = true;
+
+Documentation/networking/ethtool-netlink.rst: "set if RX of preemptible
+and SMD-V frames is enabled". You can use the pmac_enabled knob as a
+hook to call stmmac_fpe_start_wq() and stmmac_fpe_stop_wq(), as well as
+whether to process FPE interrupt status bits.
+
+The idea being that as long as the pMAC is enabled, you are obliged to
+respond to mPackets from the link partner (to allow his side* of the
+verification process to run). Otherwise you are not - you should behave
+like a FPE-incapable NIC. In fact, this is what the manual_failed_verification()
+portion of the kselftest attempts to test.
+
+*This is actually a misconception of the current driver implementation.
+The two verification processes are completely independent, since each
+refers to its TX side only. One device can have ethtool --set-mm
+verify-enabled on, and the other off. There is no reason at all to keep
+a local device state + a link partner state, and to make any decision in
+the driver based on the LP state. Like here:
+
+stmmac_fpe_lp_task():
+
+	if (*lo_state == FPE_STATE_ENTERING_ON &&
+	    *lp_state == FPE_STATE_ENTERING_ON) { // lp_state does not matter
+
+		netdev_dbg(priv->dev, "configured FPE\n");
+
+		*lo_state = FPE_STATE_ON;
+		*lp_state = FPE_STATE_ON;
+		netdev_dbg(priv->dev, "!!! BOTH FPE stations ON\n");
+		break;
+	}
+
+	if ((*lo_state == FPE_STATE_CAPABLE ||
+	     *lo_state == FPE_STATE_ENTERING_ON) &&
+	     *lp_state != FPE_STATE_ON) { // lp_state does not matter
+		netdev_dbg(priv->dev, SEND_VERIFY_MPAKCET_FMT,
+			   *lo_state, *lp_state);
+		stmmac_fpe_send_mpacket(priv, priv->ioaddr,
+					fpe_cfg,
+					MPACKET_VERIFY);
+	}
+
+To my superficial reading of the driver, the distinction between
+FPE_STATE_ENTERING_ON and FPE_STATE_ON exists solely to wait for the LP
+to finish its verification as well.
+
+I think you noticed that is a non-goal as well, because your stmmac_get_mm()
+implementation reports ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED when we are in
+either of the 2 states: FPE_STATE_ENTERING_ON or FPE_STATE_ON.
+
+I hope you don't mind me if I say that since waiting both sides to
+finish verification is a non-goal, I disagree with your choice of
+papering over the existence of the 2 FPE driver states. I would
+recommend consolidating them into a single one.
+
+Another mistake relating to this (TX verification processes are not
+necessarily symmetric) is:
+
+stmmac_set_mm()
+-> stmmac_fpe_handshake(priv, cfg->verify_enabled)
+   -> priv->plat->fpe_cfg->hs_enable = enable
+
+stmmac_fpe_event_status():
+
+	if (status == FPE_EVENT_UNKNOWN || !*hs_enable)
+		return;
+
+	if ((status & FPE_EVENT_RVER) == FPE_EVENT_RVER) {
+		/* If LP has sent Verify mPacket, send back a Responds mPacket */
+		if (*hs_enable)
+			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
+						fpe_cfg,
+						MPACKET_RESPONSE);
+	}
+
+We should always respond to the link partner's Verify mPacket as long as
+pmac_enabled=true, and not just if hs_enable=true.
+
+> +
+> +	state->verify_time = priv->plat->fpe_cfg->verify_time;
+> +
+> +	/* 802.3-2018 clause 30.14.1.6, says that the aMACMergeVerifyTime
+> +	 * variable has a range between 1 and 128 ms inclusive. Limit to that.
+> +	 */
+> +	state->max_verify_time = 128;
+> +
+> +	if (lo_state == FPE_STATE_CAPABLE)
+> +		state->verify_status = ETHTOOL_MM_VERIFY_STATUS_VERIFYING;
+> +	else if (lo_state == FPE_STATE_ENTERING_ON || lo_state == FPE_STATE_ON)
+> +		state->verify_status = ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED;
+> +	else if (lo_state == FPE_STATE_OFF)
+> +		state->verify_status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
 > +	else
-> +		return clk_set_parent(rx1, rx3);
-> +}
+> +		state->verify_status = ETHTOOL_MM_VERIFY_STATUS_UNKNOWN;
+> +
+> +	/* Cannot read MAC_FPE_CTRL_STS register here, or FPE interrupt events
+> +	 * can lose.
 
-Andrew is right asking about this implementation. It does seem
-questionable:
+s/lose/be lost/
 
-1. AFAIR RGMII Rx clock is supposed to be retrieved the PHY. So the
-eqos_phyrxclk and dout_peric_rgmii_clk are the PHY clocks. Do you have
-a PHY integrated in the SoC? If so you should have defined it as a
-separate DT-node and moved the clocks definition in there.
-
-2. Do you really need to perform the "eqos_rxclk_mux" clock
-re-parenting on each interface open/close? Based on the commit log you
-don't. So the re-parenting can be done in the glue driver or even in
-the device tree by means of the "assigned-clock-parents" property.
-
--Serge(y)
-
+> +	 *
+> +	 * See commit 37e4b8df27bc ("net: stmmac: fix FPE events losing")
+> +	 */
+> +	state->tx_enabled = !!(priv->plat->fpe_cfg->fpe_csr == EFPE);
 > +
-> +static int fsd_clks_endisable(void *priv, bool enabled)
-> +{
-> +	struct fsd_eqos_plat_data *plat = priv;
+> +	/* FPE active if common tx_enabled and verification success or disabled (forced) */
+> +	state->tx_active = state->tx_enabled &&
+> +			   (state->verify_status == ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED ||
+> +			    state->verify_status == ETHTOOL_MM_VERIFY_STATUS_DISABLED);
 > +
-> +	if (enabled) {
-> +		return clk_bulk_prepare_enable(plat->num_clks, plat->clks);
-> +	} else {
-> +		clk_bulk_disable_unprepare(plat->num_clks, plat->clks);
-> +		return 0;
-> +	}
-> +}
+> +	state->verify_enabled = priv->plat->fpe_cfg->hs_enable;
 > +
-> +static int fsd_eqos_probe(struct platform_device *pdev,
-> +			  struct plat_stmmacenet_data *data,
-> +			  struct stmmac_resources *res)
-> +{
-> +	struct fsd_eqos_plat_data *priv_plat;
-> +	int ret = 0;
+> +	add_frag_size = stmmac_fpe_get_add_frag_size(priv, priv->ioaddr);
+> +	state->tx_min_frag_size = ethtool_mm_frag_size_add_to_min(add_frag_size);
 > +
-> +	priv_plat = devm_kzalloc(&pdev->dev, sizeof(*priv_plat), GFP_KERNEL);
-> +	if (!priv_plat)
-> +		return -ENOMEM;
+> +	state->rx_min_frag_size = ETH_ZLEN;
 > +
-> +	priv_plat->dev = &pdev->dev;
-> +
-> +	ret = devm_clk_bulk_get_all(&pdev->dev, &priv_plat->clks);
-> +	if (ret < 0)
-> +		return dev_err_probe(&pdev->dev, ret, "No clocks available\n");
-> +
-> +	priv_plat->num_clks = ret;
-> +
-> +	data->bsp_priv = priv_plat;
-> +	data->clks_config = fsd_clks_endisable;
-> +	data->rxmux_setup = dwc_eqos_rxmux_setup;
-> +
-> +	ret = fsd_clks_endisable(priv_plat, true);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Unable to enable fsd clock\n");
+> +	mutex_unlock(&priv->mm_lock);
 > +
 > +	return 0;
 > +}
 > +
-> +static void fsd_eqos_remove(struct platform_device *pdev)
+> +static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+> +			 struct netlink_ext_ack *extack)
 > +{
-> +	struct fsd_eqos_plat_data *priv_plat = get_stmmac_bsp_priv(&pdev->dev);
+> +	struct stmmac_priv *priv = netdev_priv(ndev);
+> +	u32 add_frag_size;
+> +	int err;
 > +
-> +	fsd_clks_endisable(priv_plat, false);
+> +	if (!priv->dma_cap.fpesel)
+> +		return -EOPNOTSUPP;
+> +
+> +	err = ethtool_mm_frag_size_min_to_add(cfg->tx_min_frag_size,
+> +					      &add_frag_size, extack);
+> +	if (err)
+> +		return err;
+> +
+> +	mutex_lock(&priv->mm_lock);
+> +
+> +	priv->plat->fpe_cfg->verify_time = cfg->verify_time;
+> +
+> +	stmmac_fpe_configure(priv, priv->ioaddr, priv->plat->fpe_cfg,
+> +			     priv->plat->tx_queues_to_use,
+> +			     priv->plat->rx_queues_to_use,
+> +			     cfg->tx_enabled);
+> +
+> +	stmmac_fpe_set_add_frag_size(priv, priv->ioaddr, add_frag_size);
+> +
+> +	stmmac_fpe_handshake(priv, cfg->verify_enabled);
+> +
+> +	mutex_unlock(&priv->mm_lock);
+> +
+> +	return 0;
 > +}
-> +
->  static int tegra_eqos_probe(struct platform_device *pdev,
->  			    struct plat_stmmacenet_data *data,
->  			    struct stmmac_resources *res)
-> @@ -411,6 +495,11 @@ static const struct dwc_eth_dwmac_data tegra_eqos_data = {
->  	.remove = tegra_eqos_remove,
->  };
->  
-> +static const struct dwc_eth_dwmac_data fsd_eqos_data = {
-> +	.probe = fsd_eqos_probe,
-> +	.remove = fsd_eqos_remove,
-> +};
-> +
->  static int dwc_eth_dwmac_probe(struct platform_device *pdev)
->  {
->  	const struct dwc_eth_dwmac_data *data;
-> @@ -473,6 +562,7 @@ static void dwc_eth_dwmac_remove(struct platform_device *pdev)
->  static const struct of_device_id dwc_eth_dwmac_match[] = {
->  	{ .compatible = "snps,dwc-qos-ethernet-4.10", .data = &dwc_qos_data },
->  	{ .compatible = "nvidia,tegra186-eqos", .data = &tegra_eqos_data },
-> +	{ .compatible = "tesla,fsd-ethqos", .data = &fsd_eqos_data },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, dwc_eth_dwmac_match);
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 12689774d755..2ef82edec522 100644
+> index 12689774d755..9b1cf81c50ea 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4001,6 +4001,12 @@ static int __stmmac_open(struct net_device *dev,
->  	netif_tx_start_all_queues(priv->dev);
->  	stmmac_enable_all_dma_irq(priv);
+> @@ -7384,7 +7384,6 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+>  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+>  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+>  	bool *hs_enable = &fpe_cfg->hs_enable;
+> -	bool *enable = &fpe_cfg->enable;
+>  	int retries = 20;
 >  
-> +	if (priv->plat->rxmux_setup) {
-> +		ret = priv->plat->rxmux_setup(priv->plat->bsp_priv, true);
-> +		if (ret)
-> +			netdev_err(priv->dev, "Rxmux setup failed\n");
-> +	}
-> +
->  	return 0;
+>  	while (retries-- > 0) {
+> @@ -7394,11 +7393,6 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
 >  
->  irq_error:
-> @@ -4056,7 +4062,13 @@ static void stmmac_fpe_stop_wq(struct stmmac_priv *priv)
->  static int stmmac_release(struct net_device *dev)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
-> -	u32 chan;
-> +	u32 chan, ret;
-> +
-> +	if (priv->plat->rxmux_setup) {
-> +		ret = priv->plat->rxmux_setup(priv->plat->bsp_priv, false);
-> +		if (ret)
-> +			netdev_err(priv->dev, "Rxmux setup failed\n");
-> +	}
+>  		if (*lo_state == FPE_STATE_ENTERING_ON &&
+>  		    *lp_state == FPE_STATE_ENTERING_ON) {
+> -			stmmac_fpe_configure(priv, priv->ioaddr,
+> -					     fpe_cfg,
+> -					     priv->plat->tx_queues_to_use,
+> -					     priv->plat->rx_queues_to_use,
+> -					     *enable);
 >  
->  	if (device_may_wakeup(priv->device))
->  		phylink_speed_down(priv->phylink, false);
-> @@ -7848,11 +7860,17 @@ int stmmac_suspend(struct device *dev)
->  {
->  	struct net_device *ndev = dev_get_drvdata(dev);
->  	struct stmmac_priv *priv = netdev_priv(ndev);
-> -	u32 chan;
-> +	u32 chan, ret;
+>  			netdev_info(priv->dev, "configured FPE\n");
 >  
->  	if (!ndev || !netif_running(ndev))
->  		return 0;
+> @@ -7418,7 +7412,7 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+>  						MPACKET_VERIFY);
+>  		}
+>  		/* Sleep then retry */
+> -		msleep(500);
+> +		msleep(fpe_cfg->verify_time);
+
+FWIW, if you want to follow the standard, I guess you should modify
+"retries" to 3 as well - this is the constant that 802.3 uses for
+verifyLimit. It helps make the verification process fail more
+predictably (within verifyTime * 3 ms).
+
+>  	}
 >  
-> +	if (priv->plat->rxmux_setup) {
-> +		ret = priv->plat->rxmux_setup(priv->plat->bsp_priv, false);
-> +		if (ret)
-> +			netdev_err(priv->dev, "Rxmux setup failed\n");
-> +	}
-> +
->  	mutex_lock(&priv->lock);
+>  	clear_bit(__FPE_TASK_SCHED, &priv->fpe_task_state);
+> @@ -7720,6 +7714,7 @@ int stmmac_dvr_probe(struct device *device,
+>  	stmmac_napi_add(ndev);
 >  
->  	netif_device_detach(ndev);
-> @@ -8018,6 +8036,12 @@ int stmmac_resume(struct device *dev)
->  	mutex_unlock(&priv->lock);
->  	rtnl_unlock();
+>  	mutex_init(&priv->lock);
+> +	mutex_init(&priv->mm_lock);
 >  
-> +	if (priv->plat->rxmux_setup) {
-> +		ret = priv->plat->rxmux_setup(priv->plat->bsp_priv, true);
-> +		if (ret)
-> +			netdev_err(priv->dev, "Rxmux setup failed\n");
-> +	}
-> +
->  	netif_device_attach(ndev);
->  
->  	return 0;
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-> index 84e13bd5df28..f017b818d421 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -264,6 +264,7 @@ struct plat_stmmacenet_data {
->  	void (*ptp_clk_freq_config)(struct stmmac_priv *priv);
->  	int (*init)(struct platform_device *pdev, void *priv);
->  	void (*exit)(struct platform_device *pdev, void *priv);
-> +	int (*rxmux_setup)(void *priv, bool external);
->  	struct mac_device_info *(*setup)(void *priv);
->  	int (*clks_config)(void *priv, bool enabled);
->  	int (*crosststamp)(ktime_t *device, struct system_counterval_t *system,
-> -- 
-> 2.17.1
-> 
-> 
+>  	/* If a specific clk_csr value is passed from the platform
+>  	 * this means that the CSR Clock Range selection cannot be
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
