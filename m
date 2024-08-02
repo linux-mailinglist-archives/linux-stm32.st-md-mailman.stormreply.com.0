@@ -2,78 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074FE945BB9
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 12:03:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7780E945C3E
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 12:45:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA97AC7129D;
-	Fri,  2 Aug 2024 10:03:02 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26F76C7129D;
+	Fri,  2 Aug 2024 10:45:51 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCF41C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB828C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Aug 2024 10:02:55 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-52efa16aad9so11341089e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Aug 2024 03:02:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722592975; x=1723197775;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wZVHSXBYePrNzDvUHr9E39NsWzR6Its68DUoWo8U4b0=;
- b=ITi98jAsfchwZKxsH04nJ16shS3wtazYH0j374dwl/wuNzeoAVhxKOmHebHc+k4GoB
- m0p3qlX8Gb6GlA3t4PY7sGf38uFxJZyzIi4oe1pLABbnMuxBkrDheTBfXW0Rue65CesL
- Sc1Lut0FZHdotovyULjhEQpaD/P619J3WND6b3Mi9aMc9uarTEbQoiGFsy6NpZl5BozO
- 0l6nzHmuW8jZNcnyormug8Pdlr3LWxLTKo6hfjsU0CV342GeEt7VD2H+EEJwuROH7JPy
- 5pO3Mcws6jW6XgYNie7dW42TPBBQPW+BD+DX1mKdVdcETYp2jRHs55yO/7Wr5+y2g4Pi
- 3gbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722592975; x=1723197775;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wZVHSXBYePrNzDvUHr9E39NsWzR6Its68DUoWo8U4b0=;
- b=u7HQ9nIF+X3FPGaNmN3PL9ussJGFMUj/3TkGYt4ynRgQYWXob7TILCht90Apzkva4B
- JA5Lc3PVhKIIBzlF0ZL/7Z6IrM/0txn6mglKZlrw0mRneLpK4AAGsc1exgChbM2usJtI
- iULr9FG3PQ083iBhRoaedq8dv+o5f9peB68rgtyE8eNO74Iu3BVYGXg1+QE1xMcu+HZE
- CdMbEgYdmSFJ6B0g6GTIKZDnGWGcxPmq1KFdCZVJ+5Khaz5GUqRU2BpwQmlcTgqWnAel
- cwlv+LA9Pwsq3YpfpV31TCkMnhYM+tno+qkmbnKVG+fv/YhLPIHGagmbkiAaxDoqo2Sn
- ep9g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9yImEOKbDvkvSxltSqQu+f6xreKI9M1+TEm4c3XMi9r3N+gDkGtrdeUEeOlse1hMHXY6XxQR8KSgncJli8XG0Hch9GzQGr1+nv1pIaUcwHA6To0Pk08oo
-X-Gm-Message-State: AOJu0YwU4fxHNi4So9MLpqEBhBmYXL3x7C7vtc4fMeRg8LqFp6yaBm3+
- Qq6v1KXA0Bs4wA8jgQUHnCdUcT1F9JIJD4PiFvj5GTPvXUIU1Wsh
-X-Google-Smtp-Source: AGHT+IF1UmlHhGYQVK/9XpRdhD/Aw56X/aI72duc6eMy8HIVqxE9ZpT4HSD4Bwp8nUlVnomP0I4Aog==
-X-Received: by 2002:ac2:4e14:0:b0:52f:cd03:a847 with SMTP id
- 2adb3069b0e04-530bb3a4f47mr1435029e87.61.1722592974390; 
- Fri, 02 Aug 2024 03:02:54 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba2a10asm189014e87.133.2024.08.02.03.02.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 03:02:53 -0700 (PDT)
-Date: Fri, 2 Aug 2024 13:02:50 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: jitendra.vegiraju@broadcom.com
-Message-ID: <oul3ymxlfwlqc3wikwyfix5e2c7hozwfsdwswkdtayxd2zzphz@mld3uobyw5pv>
-References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
+ Fri,  2 Aug 2024 10:45:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ELRBiV+NFPdRv506pfEBONqV6CMGl+dUQISWbSD9N2k=; b=PgYJkaH2AhOeu4FWMLBDVLYXuv
+ u2Idj8nqwr3ZdsZXUqhSj8/B3jarxTL6F3PAFeU2RsBQXUgxcjKWqrmhotWIRzvkQTBOKkVjh81Qe
+ zZotiydz62/8Px2UIPyWPI2o8r+ycpoytC7cqXqg8yp1hQxKNLiYDRvoopYYR/0e9HY/tM1Fe5IXM
+ 267/Fi1UIC+iEGqQEvGfRgIHpOptbxUrs75mc9XJBho2fckh9pXMg6g26NQlXO47pLUL9oTl/y/LM
+ zBrvI18F/AYYzkJjWuJIjlLZSITAgUnRDO3kBMVS6xZKbRAhR5DO+68TtOuLMBSzMej7lEWbsQS4w
+ mOwsHmDg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36234)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1sZpmi-0006D4-1X;
+ Fri, 02 Aug 2024 11:45:20 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1sZpmk-0007yO-43; Fri, 02 Aug 2024 11:45:22 +0100
+Date: Fri, 2 Aug 2024 11:45:21 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <Zqy4wY0Of8noDqxt@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
-Cc: andrew@lunn.ch, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, horms@kernel.org, bpf@vger.kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] net: stmmac: Add PCI
- driver support for BCM8958x
+Cc: Vinod Koul <vkoul@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH RFC v3 0/14] net: stmmac: convert stmmac "pcs"
+	to phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,116 +67,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jitendra
+Hi,
 
-On Thu, Aug 01, 2024 at 08:18:19PM -0700, jitendra.vegiraju@broadcom.com wrote:
-> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> 
-> This patchset adds basic PCI ethernet device driver support for Broadcom
-> BCM8958x Automotive Ethernet switch SoC devices.
-> 
-> This SoC device has PCIe ethernet MAC attached to an integrated ethernet
-> switch using XGMII interface. The PCIe ethernet controller is presented to
-> the Linux host as PCI network device.
-> 
-> The following block diagram gives an overview of the application.
->              +=================================+
->              |       Host CPU/Linux            |
->              +=================================+
->                         || PCIe
->                         ||
->         +==========================================+
->         |           +--------------+               |
->         |           | PCIE Endpoint|               |
->         |           | Ethernet     |               |
->         |           | Controller   |               |
->         |           |   DMA        |               |
->         |           +--------------+               |
->         |           |   MAC        |   BCM8958X    |
->         |           +--------------+   SoC         |
->         |               || XGMII                   |
->         |               ||                         |
->         |           +--------------+               |
->         |           | Ethernet     |               |
->         |           | switch       |               |
->         |           +--------------+               |
->         |             || || || ||                  |
->         +==========================================+
->                       || || || || More external interfaces
-> 
-> The MAC block on BCM8958x is based on Synopsis XGMAC 4.00a core. This
-> driver uses common dwxgmac2 code where applicable.
+This is version 3 of the series switching stmmac to use phylink PCS
+isntead of going behind phylink's back.
 
-Thanks for submitting the series.
+Changes since version 2:
+- Adopted some of Serge's feedback.
+- New patch: adding ethqos_pcs_set_inband() for qcom-ethqos so we
+  have one place to modify for AN control rather than many.
+- New patch: pass the stmmac_priv structure into the pcs_set_ane()
+  method.
+- New patch: remove pcs_get_adv_lp() early, as this is only for TBI
+  and RTBI, support for which we dropped in an already merged patch.
+- Provide stmmac_pcs structure to encapsulate the pointer to
+  stmmac_priv, PCS MMIO address pointer and phylink_pcs structure.
+- Restructure dwmac_pcs_config() so we can eventually share code
+  with dwmac_ctrl_ane().
+- New patch: move dwmac_ctrl_ane() into stmmac_pcs.c, and share code.
+- New patch: pass the stmmac_pcs structure into dwmac_pcs_isr().
+- New patch: similar to Serge's patch, rename the PCS registers, but
+  use STMMAC_PCS_ as the prefix rather than just PCS_ which is too
+  generic.
+- New patch: incorporate "net: stmmac: Activate Inband/PCS flag
+  based on the selected iface" from Serge.
 
-I am curious how come Broadcom got to use an IP-core which hasn't
-been even announced by Synopsys. AFAICS the most modern DW XGMAC
-IP-core is of v3.xxa version:
+On the subject of whether we should have two PCS instances, I
+experimented with that and have now decided against it. Instead,
+dwmac_pcs_config() now tests whether we need to fiddle with the
+PCS control register or not.
 
-https://www.synopsys.com/dw/ipdir.php?ds=dwc_ether_xgmac
+Note that I prefer not to have multiple layers of indirection, but
+instead prefer a library-style approach, which is why I haven't
+turned the PCS support into something that's self contained with
+a method in the MAC driver to grab the RGSMII status.
 
-Are you sure that your device isn't equipped with some another DW MAC
-IP-core, like DW 25G Ethernet MAC? (which BTW is equipped with a new
-Hyper DMA engine with a capability to have up to 128/256 channels with
-likely indirect addressing.) Do I miss something?
 
-* I'll join the patch set review after the weekend, sometime on the
-next week.
+Previous cover messages from earlier posts below:
 
--Serge(y)
+This is version 2 of the series switching stmmac to use phylink PCS
+instead of going behind phylink's back.
 
-> Driver functionality specific to this MAC is implemented in dwxgmac4.c.
-> Management of integrated ethernet switch on this SoC is not handled by
-> the PCIe interface.
-> This SoC device has PCIe ethernet MAC directly attached to an integrated
-> ethernet switch using XGMII interface.
-> 
-> v2->v3:
->    Addressed v2 comments from Andrew, Jakub, Russel and Simon.
->    Based on suggestion by Russel and Andrew, added software node to create
->    phylink in fixed-link mode.
->    Moved dwxgmac4 specific functions to new files dwxgmac4.c and dwxgmac4.h
->    in stmmac core module.
->    Reorganized the code to use the existing glue logic support for xgmac in
->    hwif.c and override ops functions for dwxgmac4 specific functions.
->    The patch is split into three parts.
->      Patch#1 Adds dma_ops for dwxgmac4 in stmmac core
->      Patch#2 Hooks in the hardware interface handling for dwxgmac4
->      Patch#3 Adds PCI driver for BCM8958x device
-> 
-> v1->v2:
->    Minor fixes to address coding style issues.
->    Sent v2 too soon by mistake, without waiting for review comments.
->    Received feedback on this version.
->    https://lore.kernel.org/netdev/20240511015924.41457-1-jitendra.vegiraju@broadcom.com/
-> 
-> v1:  
->    https://lore.kernel.org/netdev/20240510000331.154486-1-jitendra.vegiraju@broadcom.com/
-> 
-> Jitendra Vegiraju (3):
->   Add basic dwxgmac4 support to stmmac core
->   Integrate dwxgmac4 into stmmac hwif handling
->   Add PCI driver support for BCM8958x
-> 
->  MAINTAINERS                                   |   8 +
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
->  drivers/net/ethernet/stmicro/stmmac/Makefile  |   3 +-
->  drivers/net/ethernet/stmicro/stmmac/common.h  |   4 +
->  .../net/ethernet/stmicro/stmmac/dwmac-brcm.c  | 517 ++++++++++++++++++
->  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  31 ++
->  .../net/ethernet/stmicro/stmmac/dwxgmac4.c    | 142 +++++
->  .../net/ethernet/stmicro/stmmac/dwxgmac4.h    |  84 +++
->  drivers/net/ethernet/stmicro/stmmac/hwif.c    |  26 +-
->  drivers/net/ethernet/stmicro/stmmac/hwif.h    |   1 +
->  10 files changed, 825 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
-> 
-> -- 
-> 2.34.1
-> 
-> 
+Changes since version 1:
+- Addition of patches from Serge Semin to allow RGMII to use the
+  "PCS" code even if priv->dma_cap.pcs is not set (including tweaks
+  by me.)
+- Restructuring of the patch set to be a more logical split.
+- Leave the pcs_ctrl_ane methods until we've worked out what to do
+  with the qcom-ethqos driver (this series may still end up breaking
+  it, but at least we will now successfully compile.)
+
+A reminder that what I want to hear from this patch set are the results
+of testing - and thanks to Serge, the RGMII paths were exercised, but
+I have not had any results for the SGMII side of this.
+
+There are still a bunch of outstanding questions:
+
+- whether we should be using two separate PCS instances, one for
+  RGMII and another for SGMII. If the PCS hardware is not present,
+  but are using RGMII mode, then we probably don't want to be
+  accessing the registers that would've been there for SGMII.
+- what the three interrupts associated with the PCS code actually
+  mean when they fire.
+- which block's status we're reading in the pcs_get_state() method,
+  and whether we should be reading that for both RGMII and SGMII.
+- whether we need to activate phylink's inband mode in more cases
+  (so that the PCS/MAC status gets read and used for the link.)
+
+There's probably more questions to be asked... but really the critical
+thing is to shake out any breakage from making this conversion. Bear
+in mind that I have little knowledge of this hardware, so this
+conversion has been done somewhat blind using only what I can observe
+from the current driver.
+
+Original blurb below.
+
+As I noted recently in a thread (and was ignored) stmmac sucks. (I
+won't hide my distain for drivers that make my life as phylink
+maintainer more difficult!)
+
+One of the contract conditions for using phylink is that the driver
+will _not_ mess with the netif carrier. stmmac developers/maintainers
+clearly didn't read that, because stmmac messes with the netif
+carrier, which destroys phylink's guarantee that it'll make certain
+calls in a particular order (e.g. it won't call mac_link_up() twice
+in a row without an intervening mac_link_down().) This is clearly
+stated in the phylink documentation.
+
+Thus, this patch set attempts to fix this. Why does it mess with the
+netif carrier? It has its own independent PCS implementation that
+completely bypasses phylink _while_ phylink is still being used.
+This is not acceptable. Either the driver uses phylink, or it doesn't
+use phylink. There is no half-way house about this. Therefore, this
+driver needs to either be fixed, or needs to stop using phylink.
+
+Since I was ignored when I brought this up, I've hacked together the
+following patch set - and it is hacky at the moment. It's also broken
+because of recentl changes involving dwmac-qcom-ethqos.c - but there
+isn't sufficient information in the driver for me to fix this. The
+driver appears to use SGMII at 2500Mbps, which simply does not exist.
+What interface mode (and neg_mode) does phylink pass to pcs_config()
+in each of the speeds that dwmac-qcom-ethqos.c is interested in.
+Without this information, I can't do that conversion. So for the
+purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
+it will fail to build.)
+
+The patch splitup is not ideal, but that's not what I'm interested in
+here. What I want to hear is the results of testing - does this switch
+of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
+
+Please don't review the patches, but you are welcome to send fixes to
+them. Once we know that the overall implementation works, then I'll
+look at how best to split the patches. In the mean time, the present
+form is more convenient for making changes and fixing things.
+
+There is still more improvement that's needed here.
+
+Thanks.
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  25 ++--
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  13 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  13 +-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 110 +++++++-------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  13 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  99 +++++++------
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  24 ++--
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  30 +---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  63 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 159 ++++++++++-----------
+ 12 files changed, 306 insertions(+), 356 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
