@@ -2,72 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1D3946353
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 20:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDD08946362
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2024 20:52:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D7CBC7129D;
-	Fri,  2 Aug 2024 18:45:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FD55C7129D;
+	Fri,  2 Aug 2024 18:52:22 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83AD7C57194
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 806E4C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Aug 2024 18:45:20 +0000 (UTC)
+ Fri,  2 Aug 2024 18:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1722624319;
+ s=mimecast20190719; t=1722624734;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=K9JQ2Bf0SWejaUXaO1CuoWG99+H3ynJpTMEOSBOBAU8=;
- b=FV45IUAwD8WubsDylMxR8c0XFfn49ELblSYswLBieXzaoXcJkbHjeHKTwnId8RxgpJyB56
- AeV5ZT32hzOXS6wyllKA5aKuiRwr92RuAIh7uSzsyk5FCY9SdkBGRww+RVl+g1fw8H5TUf
- UlacApqnMvqd62cGskYGfahp81V2qZI=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=CG1jgLVdC2fEObYmK2QTtuJTwCPC+G97aquoLWftjeI=;
+ b=DBRV6dExMHErpcwhj2TzP2IEfrBx76e5LCsZxfvfL+IhaNl7dMwsbsNIhqFLyZCelvgXdh
+ rotNQBU4RtC/QglzQrLUl4PIWq+YQnWKjJ+wlVbcNfX8FNQiXuEC0ugltSib0vqf/J3IdA
+ dOZA9sQT/N1/Ly9YlaUMr7W5Rgvfpus=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-ldmfue8nPqKsSdCUXMiWaQ-1; Fri, 02 Aug 2024 14:45:18 -0400
-X-MC-Unique: ldmfue8nPqKsSdCUXMiWaQ-1
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-44ffb762db6so116378791cf.2
+ us-mta-629-m28L3-SFP8O68naUnhslOg-1; Fri, 02 Aug 2024 14:52:11 -0400
+X-MC-Unique: m28L3-SFP8O68naUnhslOg-1
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-44f594e5605so115994311cf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Aug 2024 11:45:18 -0700 (PDT)
+ Fri, 02 Aug 2024 11:52:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722624318; x=1723229118;
+ d=1e100.net; s=20230601; t=1722624730; x=1723229530;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K9JQ2Bf0SWejaUXaO1CuoWG99+H3ynJpTMEOSBOBAU8=;
- b=pTkKNLyPZile+9YS2PuUHW1SNq/a7elE5XCrTmBISXSfDcaWi356A3GDg125hbhq32
- J9JLENYMHIehinBSeHito9lNtLSSq5aW3oypSolVfckSq6BY/bPqsXOVHJjJ4TiNTcsU
- MRh2r4s9/MOpzygLnl/S0XEZT5aINsYpBUw9OCV+Zg/cGvsTr7NvmYacL//DxvvrBLgP
- Z995QGoy56yfw9KrfbJynNcBJKWNQzocDchRSL9tAi68Ud/QQSio9qUgBMwcipllg/kS
- xyiX2r/clZI1dS2NKbxgMNw5e4OQPhUuTn40NblSWThkWcDxy1IRWsEU17yShbVKgxsZ
- ybpw==
+ bh=CG1jgLVdC2fEObYmK2QTtuJTwCPC+G97aquoLWftjeI=;
+ b=VdeG9rt/hpHowdk4Hh67WyynFqb5GI1qQl4WsGv2RK6+W6GN7B3Mt0+OPHmjcfYYec
+ PYai5ZZCKptLctv+hcgIv0TfBHX5UjFEaypn2rtRe9hMoizpfA49cnGLr7La6HrfoOf3
+ R5/zMe93o3RJIxk+n0oq5rXQKZYjnTNceqqxP3i0/NPO3gOFQwuq3mXB54iDDt83qmHx
+ 2L5eIG6PHPcIgLcG7Dv9WSvueWqLFrhlaWmIe4WcrFn5lXA1nAYdtYTAov30FSwx3gTq
+ KDfb9fA3gsMChieNi2/1e6IRCFTSBtnlAKj2x3RL0sen7xWsHdIZliqXI8Lk2B32kM8Z
+ Fu6g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUqq1kJXoRQYck14xO8HXq8YlKOD65S0+m5cRKC7nydydmNPGyG5336ABIj0VcUMqX42Rk3Sdlnw2TAF+LFb6HQFiRrY1PyPuONtPYEXyQf8Gi7W8LDcn3N
-X-Gm-Message-State: AOJu0YyYJqggYHk4jl7dIik2HYkWBhZ44NHOrCJgMfxNVpOMEh4JvKJ6
- EVOh8heHqVUi9hm9Rb/Jv0A23OGLxDFe3pag0KQc76RFt3RdvtDrEd+K/6rWveFLhWKwsSSBDGa
- rycyLe4dQ93xnNWXxVOu+KfYCsMhKtQNDRwCiU8QzuAuwo2jM0+LVlUDDzzE2RSGceO+tuS48f9
- cI9A==
-X-Received: by 2002:ac8:7fc4:0:b0:447:ee02:220 with SMTP id
- d75a77b69052e-451892ad6a7mr52630261cf.30.1722624317895; 
- Fri, 02 Aug 2024 11:45:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEVwPo418K/j4TSG5frJ/PeeWs9ccUUjf6b01FC1y1GFDXNXPuzIYaN0JC6zJzw9tCN9/UwJA==
-X-Received: by 2002:ac8:7fc4:0:b0:447:ee02:220 with SMTP id
- d75a77b69052e-451892ad6a7mr52629981cf.30.1722624317602; 
- Fri, 02 Aug 2024 11:45:17 -0700 (PDT)
+ AJvYcCVxGFeou0H0sG5TKkAXZpkIoryNMlnDKeaprvceQMVFMrr2GxkNjuco/it6MPVRIHqcmNTZG0RS+yR7nabh76p7REt/+E7Yyc9wJGsx4IubkVJPTjux2tPR
+X-Gm-Message-State: AOJu0YxBm8otZXowCSvpQaw+2rTZgNwMFgrJml2qvWUamQHQbdu6vLCC
+ 9zR8NpEQkREtHndabx4Qt4JzMPsccOi7KTZbtUXyES/nWbmZ8h5CeWDEPFDomzoSdcBBAjvD0Zk
+ 7ef2fiM0z6VOsVzyPK9QuC2rxVTwfWemFamEneO5I/hk/33/J52hffIM2piup0Nx3cdNY6UuCBd
+ HZIA==
+X-Received: by 2002:a05:622a:34c:b0:447:d4ce:dd26 with SMTP id
+ d75a77b69052e-451892c1523mr52041241cf.56.1722624730528; 
+ Fri, 02 Aug 2024 11:52:10 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFaUYKiXGc9VmWENZJ7EtnEJAQEzZy6OYbhTn3EVsmtVqd1bg6xDc1wbjVNcpxbrWR12YCYMA==
+X-Received: by 2002:a05:622a:34c:b0:447:d4ce:dd26 with SMTP id
+ d75a77b69052e-451892c1523mr52040901cf.56.1722624730143; 
+ Fri, 02 Aug 2024 11:52:10 -0700 (PDT)
 Received: from x1gen2nano ([2600:1700:1ff0:d0e0::33])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4518a757920sm9405371cf.67.2024.08.02.11.45.16
+ d75a77b69052e-4518a755579sm9510731cf.59.2024.08.02.11.52.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 11:45:17 -0700 (PDT)
-Date: Fri, 2 Aug 2024 13:45:14 -0500
+ Fri, 02 Aug 2024 11:52:09 -0700 (PDT)
+Date: Fri, 2 Aug 2024 13:52:07 -0500
 From: Andrew Halaney <ahalaney@redhat.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <4t4wd6bv3gzyzc4nbbszydnagvzgynluy2rb6jtfjxtidrmoqh@62cs3wx52pob>
+Message-ID: <eyup477eanpmbgldj63cvwwkwqjshweqrve6u2enyzodoqillw@cuzhm7u37rz7>
 References: <Zqy4wY0Of8noDqxt@shell.armlinux.org.uk>
- <E1sZpob-000eHh-4p@rmk-PC.armlinux.org.uk>
+ <E1sZpog-000eHn-8r@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <E1sZpob-000eHh-4p@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1sZpog-000eHn-8r@rmk-PC.armlinux.org.uk>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -81,8 +81,8 @@ Cc: Vinod Koul <vkoul@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 10/14] net: stmmac: move
- dwmac_ctrl_ane() into stmmac_pcs.c
+Subject: Re: [Linux-stm32] [PATCH net-next 11/14] net: stmmac: pass
+ stmmac_pcs into dwmac_pcs_isr()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,18 +99,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 02, 2024 at 11:47:17AM GMT, Russell King (Oracle) wrote:
-> Move dwmac_ctrl_ane() into stmmac_pcs.c, changing its arguments to take
-> the stmmac_priv structure. Update it to use the previously provided
-> __dwmac_ctrl_ane() function, which makes use of the stmmac_pcs struct
-> and thus does not require passing the PCS base address offset.
-> 
-> This removes the core-specific functions, instead pointing the method
-> at the generic method in stmmac_pcs.c.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+On Fri, Aug 02, 2024 at 11:47:22AM GMT, Russell King (Oracle) wrote:
+> Pass the stmmac_pcs into dwmac_pcs_isr() so that we have the base
+> address of the PCS block available.
 
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+nitpicky, but I think it would be nice say something like "stmmac_pcs
+already contains the base address of the PCS registers. Pass that in
+instead of recalculating the base address again" if I'm following the
+motivation correctly.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> index 083128e0013c..c73a08dab7b2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> @@ -61,18 +61,18 @@
+>  
+>  /**
+>   * dwmac_pcs_isr - TBI, RTBI, or SGMII PHY ISR
+> - * @ioaddr: IO registers pointer
+> + * @spcs: pointer to &struct stmmac_pcs
+>   * @reg: Base address of the AN Control Register.
+>   * @intr_status: GMAC core interrupt status
+>   * @x: pointer to log these events as stats
+>   * Description: it is the ISR for PCS events: Auto-Negotiation Completed and
+>   * Link status.
+>   */
+> -static inline void dwmac_pcs_isr(void __iomem *ioaddr, u32 reg,
+> +static inline void dwmac_pcs_isr(struct stmmac_pcs *spcs,
+>  				 unsigned int intr_status,
+>  				 struct stmmac_extra_stats *x)
+
+Please drop the reg variable from the kerneldoc, you've annihilated it!
+
+Thanks,
+Andrew
 
 _______________________________________________
 Linux-stm32 mailing list
