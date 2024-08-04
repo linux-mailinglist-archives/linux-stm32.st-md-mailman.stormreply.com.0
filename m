@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D9A947085
-	for <lists+linux-stm32@lfdr.de>; Sun,  4 Aug 2024 22:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29718947087
+	for <lists+linux-stm32@lfdr.de>; Sun,  4 Aug 2024 22:50:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4EC3C712A1;
-	Sun,  4 Aug 2024 20:50:01 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010068.outbound.protection.outlook.com [52.101.69.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0BB3C7129D;
+	Sun,  4 Aug 2024 20:50:14 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011054.outbound.protection.outlook.com [52.101.70.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C3C4C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52839C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  4 Aug 2024 20:50:00 +0000 (UTC)
+ Sun,  4 Aug 2024 20:50:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BSPypwUng6dLspPuJLzYnoZBrjt6Gzdnp6qazIpZWworA5A0caUH7PORJP0xXZSXIfersTA1g/Q1pmmoJU6IjE/tVKoMWOlh67Aq3kTBFtSqxWxD8A/tT1GnNlQRdMPPPHPBMZA7oIPk/hSX9oIUaPOYztoimQq/kdNAPAY+hsgjQh/bTc6pUIU1txaofUYBxj2wfrFkKtPH9oNChuhM+LlpyvHmb/n9cZmeDu+F3K6uBfrLXgP8YYiSSwRKjzwnZrGxNCbowygRxBDS3CbB03PVXc36fUhyUUpx7zywT84PbhN/+RG/jRWtMweKW0y09JLsvJ2tB9XbcumpHXQ0zQ==
+ b=C8i+rOUk2h8E1djyAmgQ6pRx8cKp2kWYeFsec2W/OuCpoMkFxuyp9ArJXIR9/a2yOiaqxyBbLV84Yje33VQJrMk7T0+Qe7bwXHoPtByPzBXHcFFIpSBt746Kz7b/r9FKE2/5tCMvnjUsYoksS16vLqhkauEUGX4yVs/WI0jlMWAdW7VmZ47boDyddUEXlqWc/GxMZtC5bfhNIdtZnqswjep9t+zlqIMCCW6UOJdVMTRLQarjX9dS4DcmzHHAgkbRKi8ayx3h15RkNnMAHjDDgl/ne2qUQDFvRmmdDL9R5I3g+AGgudzbrRZhIjQHHXa0q3AsxCf3+PK7x4Fs8fRRiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qwKhSRw+uiEh5mXtgk+giF0HBGnyeb2UKaFcSBnRScg=;
- b=fboHan2sFZA2vWWRrcsyvKp6l3SvnnUtCqmasOOK+dvxwHGn0SI0/XHHtndVi5fz6Ae+HFDyFpa7tqFE0Iqw2I9vr7IuakFrzIIBbL+BcuzqLIEzc60XrKFMQYHHPimmdC3dzzU1Y3fRSAGUTOu7xh7bHlaWDVkcKrgDrwYQcOSMASwh7gYsZRo/Vx2dOmJWzJx1WMCdSCoBqZ4+uEKSqqUvrbtpT3KyfC4AG03mooviS9WZ9heVJbzhInIIWzbsB8w7HTrnIxzf4n5tM13kKXTIKTWNroYmOiZ720+Kt12d7jtx6BHBpuPFaqpJR8Bvbej3H5ngBrYA1g7O9+FuGw==
+ bh=NMB8mNVRjdVqv2i9GDwiXIMh+SsN9kN0r8pyi7oJWD0=;
+ b=iC+VhPIVXjuMkHYDvGwofyRSuGhebuUcEmdxlbgunr67MGi5AUdf3xCwNAFz1p/XZgcUtp3oh4xe5yn3E6Zhj0AwX4SphwO1WKWfX9qacuu9UUEDgmrg1nnzHke94VbRHl257zXrY3sSdnacVE+q5KxQLC2N17S7XJbMaBzD65gvYoGk7WuUyaBH9u1UGp/L20KWLApoyKoxS9Dkjh547ks6t393ab7OB3Flkr/ljkr0HHgZ6jt7CJOCHMb20KN0t+llDt8Hfa5fNxJaAtBtDYpT+m3Im6bGXpgVDz/dSu7kOtVs0orcOSA7ZSBKf6LlkWLAJ5s3/1gqy/RE3lmcVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qwKhSRw+uiEh5mXtgk+giF0HBGnyeb2UKaFcSBnRScg=;
- b=w15O0Qcce+QuQ/VG774emuAEM7i+n4KaKNRp9SzszBcaZdzyaf11+417l79GPZl+kP6SScI9LxM1sGmSujSYYCfRVqcnurVn9D9hOP3/AdQKGkeR90rEkvW28Ucx/OAQh3PXWG3h9uW2k1N3U43LS0sIGQkS5oMXywZT4dgqSZm0gnaQIkvTDMyoOqkwr23IouywtK3YVlY9iUG656peJnbcBpR5EeJZs6fEYj31KIDVxYGQMnpbDWEO8+umDq4asHA+4wsgVyE5wLpyZ+FO18/Ono/oqOESCaEqD9EFIw9lt4/fI8fPVLtvmJclfcBugnNAKZsmaUiBeJHXX09otw==
+ bh=NMB8mNVRjdVqv2i9GDwiXIMh+SsN9kN0r8pyi7oJWD0=;
+ b=qWQmQIbCgh3jZqL1k6DjoQStNQtRqHgcWNsX283JCqppUR2tuqTFd9FyANj59yvXb0LN4bL1NdzDDIRWayj0a5M5J7nrqMCHgPn9P8Eqp7LAuPkFonLXzAHHiur1ofm+Eyv5J44KOIzz1yOLSp3TbaZ9fD1is4brBCOhp/QPyoWoZA4Eo/QdrG4vIqTUeHz4gZZBuKIblXndUDMa+UCI3SLqDpnVrA0vBR57FWjfT/CzuED5wGsGX09vYk5tdCPi8BqORzzMjhGeJdvab/11BX5ez3boIi6wR4gKq+b/BtFc3D2BqExnSe+WH+5PsMX3x6BKvgbF6Y6+XjH8F2emfg==
 Received: from AM9PR04MB8506.eurprd04.prod.outlook.com (2603:10a6:20b:431::16)
  by PA4PR04MB7965.eurprd04.prod.outlook.com (2603:10a6:102:c9::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.25; Sun, 4 Aug
- 2024 20:49:58 +0000
+ 2024 20:50:10 +0000
 Received: from AM9PR04MB8506.eurprd04.prod.outlook.com
  ([fe80::5f7:9bab:66a3:fe27]) by AM9PR04MB8506.eurprd04.prod.outlook.com
  ([fe80::5f7:9bab:66a3:fe27%4]) with mapi id 15.20.7828.024; Sun, 4 Aug 2024
- 20:49:58 +0000
+ 20:50:10 +0000
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>
-Thread-Topic: [PATCH 3/6] dt-bindings: net: Add DT bindings for DWMAC on NXP
- S32G/R
-Thread-Index: AdrmrOTtkwWMBqX8SE2obTTIuZV8xg==
-Date: Sun, 4 Aug 2024 20:49:58 +0000
-Message-ID: <AM9PR04MB85066A2A4D7A2419C1CFC24CE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+Thread-Topic: [PATCH 4/6] net: stmmac: dwmac-s32cc: add basic NXP S32G/S32R
+ glue
+Thread-Index: AdrmrVyUKT3e9hhXSvuIq/Wc0/85TQ==
+Date: Sun, 4 Aug 2024 20:50:10 +0000
+Message-ID: <AM9PR04MB85064D7EDF618DB5C34FB83BE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
 Accept-Language: cs-CZ, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -55,76 +55,76 @@ authentication-results: dkim=none (message not signed)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AM9PR04MB8506:EE_|PA4PR04MB7965:EE_
-x-ms-office365-filtering-correlation-id: 95e724cd-036c-482e-17f3-08dcb4c7010c
+x-ms-office365-filtering-correlation-id: b8d56ecd-c1d5-4342-4193-08dcb4c707b7
 x-ms-exchange-sharedmailbox-routingagent-processed: True
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?bsV0Lq89C/tHUrOl3M0uTMiXfknKIIs6y7Ka5KPhdaZSRwbi8G+mxj801D2/?=
- =?us-ascii?Q?TKeJJn7IkZmxiqaqpBsmOGaTk0lSbNnVUG6rG12czWjcli6k3oyIzuJ2Mp+D?=
- =?us-ascii?Q?zxMEQaDCRmwz0ghL/t03ct+8/sC4r6WZDfSYwS1N5RZ48fCswEu1+4xzS2YI?=
- =?us-ascii?Q?rsFfqi4Ozjxv5FAe9A/xpNfIGGbKzit6PjVGmdHoQj4ucBWMcq3e45BfgU3u?=
- =?us-ascii?Q?O+8PvfU7peBT+4Nn2WeFREbaIvaLgYflk5AJwYM4Jm9Q6bMK+fnGJYyIlZfL?=
- =?us-ascii?Q?V1uUZidwJLbs9Iax6mHxc804ftZIwESwfZaRTFiokP3s2G/+ZVXcIejJaVhn?=
- =?us-ascii?Q?wuQH+NaVwUWxkXNwibVY+S3X7PTPpJlgY7oxMtFcVbaK4N9SsFRBo+bDP1PS?=
- =?us-ascii?Q?flP1367ov54ks+jm2QEB98rMaWxXTxjswPFIkPdJ+3Y4QoayLCuMhshCFvfR?=
- =?us-ascii?Q?pmIiRvCn1Lkd1V6XGziiYfIFcnkgiyvNLiusoGn24xGJfxdeK8RTeH0KlcUj?=
- =?us-ascii?Q?w4JLcnCueUER9Azh79A59g8/mKDPlf9hBrPJ7vL08L7HUB9P/oJXeC9B8AZK?=
- =?us-ascii?Q?LC6dfIqoiGKkjS76b3D7hrl7GOBUNn1o4puPIzTZuVTyAh4Pjwt5Cl1Zqj8c?=
- =?us-ascii?Q?jERb5bMxhFK4wqotPbsECF2J178icXcl5yT2eAYCSu+7epqiwGNIVUEb5mbL?=
- =?us-ascii?Q?rhM7GikltQLiS/qsHs2qcxwjA1biJBGceHJFkz1QnPSFtxnawlMFZXFe/ihw?=
- =?us-ascii?Q?LC2MZlzjjlyUHr2tAxk4G/NFZZQoiwAWf2sjXFy1SvZKGvaY8eWxf56a7zFJ?=
- =?us-ascii?Q?2RvpJHYllT5FGtDsqeycS9Gs2h2Ys6Yax3EhgLRaLRB9s5VHfSUmF6pgY0aA?=
- =?us-ascii?Q?XnU+6YTelkspdGbitthfBfDknDKVIdlZWA8HoycufZsQVU9AB/+zIdmgjhO6?=
- =?us-ascii?Q?vZ+QI3tBy0tZ2BQpSWEP+hvB6+klZovghfXzlIaWzrTLYzEIt4puEwt2C++F?=
- =?us-ascii?Q?xqvERjw3kVLrmnWVa/Vzv4XcYEPxhWjHvPhEDn2tI0onbJJDFfUo6xqaBFxi?=
- =?us-ascii?Q?6JInip4C9NwGmji55HioQNF//Fi3A9IogaPnDajiWNhlTfyd/gLc8BrNBYje?=
- =?us-ascii?Q?R5u9HtH8jPy0XIJt5ygPmMrtO5/FqGv1Y0n9O5uq2dB+6O5cpNNb4+FSKEhG?=
- =?us-ascii?Q?xyQV7QXpmQufWT809Y2345evqE41H+DlGDGvI0EImLwnn5/++TxWPCewMSYp?=
- =?us-ascii?Q?xDF+UglG1mJU6DJpdeS9mcc2vZh+StpLJQ9VxGJ0Ua2sUJQS0Coodf6apv9G?=
- =?us-ascii?Q?iH9j2arImeP3UtI1nqcRm3kcRX0eFAZRd7T9hF+Unj6ETZey70kTgxqXNIp4?=
- =?us-ascii?Q?hYB7/gI=3D?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?jSIjBJ9nWSoOJ+4uzv+EZfb0C7XcKCxbTUxqfxdfupQsLwcycyCP5R+oXO2d?=
+ =?us-ascii?Q?yg5/WsNKP4qUsZ+zWTKcSGgPvWLl2A52tkSVlyt4GmOWFJ+K2vqinCW7K5q4?=
+ =?us-ascii?Q?RaNP4Ey8RYSKyEM7+DeIt12MXJsq8gW1CqHY6N18AMjcUehxxrxKEeKmwTxr?=
+ =?us-ascii?Q?HcejbD7PHXYMqa/HzjulP3D/WdKZ6BrP75wYiBDMmzIrddtpERVJMoKARXaa?=
+ =?us-ascii?Q?iSp7KcR1BkUT64jiQcA53OeMpZgYOld/2mdWnr83DhVSttDuTjej+cTJFM+f?=
+ =?us-ascii?Q?OoI+xmmfweYmLExuNQIE5V4sW6QcKEpXtxoBkkwGnPwQwx32sH8im4ipSxST?=
+ =?us-ascii?Q?/EO3QVYoQ+XS6R9xjOmikw01WYxgIER+NzVR8CYzGRee3zd1QamVbLvkRIO1?=
+ =?us-ascii?Q?5dEoWQsBO9rFph09pqgFMTWDh5aLy+3lwghm7nKZuN6tkgJUUuqmtjDNiai/?=
+ =?us-ascii?Q?6m0M9IQMIfIIDRXSVxnKQ1JT+lDsa//VuV4pS7/dhZTeMmdHaiYMZ2cBmo3M?=
+ =?us-ascii?Q?4lwuJSqygrlOGPoJig/YzD/CswGhc5H3tLPeQwC6xbWZK/vVKlqzsNExoUVj?=
+ =?us-ascii?Q?ZzvVokB0MRnIw8hLU2l09Yhp4TpM82jXnokmtCC7MqDRcDEBxXR3UZQGlr/g?=
+ =?us-ascii?Q?S+gskCVKJLmZUebq0N7JJp7TWL0LFeyXqBNGVmi9/6oJM787zbvQ52G6e6AV?=
+ =?us-ascii?Q?HS5A7zu0uZXbwcREn8EYryLo4GWinTmK3XOSiWu6HAClRCZUapZE/NhzPlsz?=
+ =?us-ascii?Q?NF/4HUeKBp84G0INLZaVSDKG6RkdIdo7DXXNVZ2Q1LJxMMg8drkFW+4UtgcX?=
+ =?us-ascii?Q?UU11eLCH3Bymi0VDfwvrteVA7GSgCqfiklw4x0ldzXneGWCtdGUSJpeLm8ND?=
+ =?us-ascii?Q?NWI2nNljP6k8xdjqbFgjeoQEjLVnSv8aknihFtG6MDl4dat0TCe1FW0+AZfj?=
+ =?us-ascii?Q?Esm1j5MaBLcCPBtmCnBZGM+J5uusYUp5HYBou/q11bg32pKq+Fx03i5lzwFC?=
+ =?us-ascii?Q?1mSC0CUtF+pxoY9QMBkw3gGuoK1zd+SiW6wG57DznANXVxMYe8D7wIXXUOm3?=
+ =?us-ascii?Q?y/whnoVVyJWucy8Mr4UdU7Ev1dVixRCPdLvtpEHcN+WqjqRb2l0Q5qptr+mc?=
+ =?us-ascii?Q?wAuVytahu7JqjZbonSQOUPzRxKMyYasq6nARyyKB7h+Ld4iVt+kx1Jx6iiKL?=
+ =?us-ascii?Q?Ws5RJNq7WiqLEa9sl31O+sOYDkhExsOKagkhC89vXteSixCw1LO8EPe5Ijv+?=
+ =?us-ascii?Q?Cu3Y3HOZKrFZlaJ1hujPYDmf7QbtIhiTsdNMsAIrAFbAM0I6iCAfR1yMXhzT?=
+ =?us-ascii?Q?nSyjSuQu8HVuS82lYCs6KdCfLA1mheik/Sv0cg6GLm/WF1r24cqrkgP82zX0?=
+ =?us-ascii?Q?UrcPsouCrzFeaPOJhaWStDWfg4qTwaJHol2wruzUF4FkMvCIyw=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8506.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gOZguMxaqw8ic/M74yQiP+Ij+BmDG0gblDTO9anF3MRHTWqOLWtL6UW8TXR7?=
- =?us-ascii?Q?4OKECdtMt7OYNiBLQ0uMTnGs+shUmhGHQajo/RMe9E/jD05BzubyPqOvqbsE?=
- =?us-ascii?Q?VMlCe1smfuLFcqL2S8jOrdnqL5KPLlPmVaqC99MR9z9c4pdsZs3iZXR3a1OS?=
- =?us-ascii?Q?bakQWk8KZGcljk65Xtqx91+XlOrjOLqt2mOJBRdWjBJWX2KyFc+Hpf4wS8db?=
- =?us-ascii?Q?Kb2oDtf/AS+XHIsHgFDRtgHo3+uvlk9vA4YdDR8nXf9bgpBk6OzNFX/As0mG?=
- =?us-ascii?Q?MKyWB4PoPQ1BiOB1tbmcsenqZ37lF8APTB3VYr8we9Xy5QyZJdbg2JF+McUC?=
- =?us-ascii?Q?WE+zBY8Om8UpkJRHdG6DPLlWeSHOxlutVdUghStoU8u9fX3WabG9P74TViIx?=
- =?us-ascii?Q?bDjcN1S2CAqR8Up0CJxi8aajtjb5JJqVlIxkLzcIPb3xmKrTCGNBkbW9AvpL?=
- =?us-ascii?Q?FMeIe4pqA79tk2fCK9rD3+cbmy2fHjXkDal2JVq/TUVn/Rv2/AoOo3bGZSvn?=
- =?us-ascii?Q?HS4C5tZciuhvizLGJutFud6+xt9pFAJOk+Npr7zty+u+/d3KTXbiQDhi6IbX?=
- =?us-ascii?Q?TKLuUv6Alyd6TA0QB7buybouATxizYJOm419i0H2StvgBi+fAs4agJdlBk1/?=
- =?us-ascii?Q?cxIxi/6KQbG8M0TVGVj8ItH1OwfiHb907wg2Ijkg3nHzcTmXUINehbLwWQZR?=
- =?us-ascii?Q?18q0L5tfZox5bEBw5MXbvdKx/fDcRJcQwTsDqEgF/9TX2T43x8eQLEtLYGeU?=
- =?us-ascii?Q?yFL1P8AQtvS7nwXoitFl9flxnA7PsWUIMwSitPPh97GVt4XtITBp+R4xAhDB?=
- =?us-ascii?Q?Gm2yNKkOIDBFBUwqKpYumWG6AZL56ggQhEwrGFxc7l3LFSYfJWYwI3GcDKlZ?=
- =?us-ascii?Q?VObyMJHTJPx5txMocV2dA3CIXq0Gy0droiwLB5JP6P0Dm2xU1jXKrcV8/NOT?=
- =?us-ascii?Q?MFVMDfqs39mqKg9pKBDadj0WvFEbCTbv9bkBt6+sjurDjp4mliJnYs6K76XD?=
- =?us-ascii?Q?QxpMG6vQzQGMLPmQ2VoSVJqIzRt4kVVCY2v32R4qTzvH6UMJ1jYBlnuc2Buu?=
- =?us-ascii?Q?t11CBt/Q0EOuVHiSsVRH1u5KconVJVEZ0cWqv85h1h921Zk9uifZZQUSuYuh?=
- =?us-ascii?Q?WAAU/xd2BJfEmGphiTfvtz8Qa7DVnZJOD6FKA5eF0brxdIgX9eVWY4ifdTAA?=
- =?us-ascii?Q?bd5RcpBUg6SxYazRjRawAUkw6N6E/O+XqA0pV2LhOhH6K1D+auQ/WjTq9qi5?=
- =?us-ascii?Q?o/pXZk6ZR84jAS61f5M0bG6RFwwvRnHDn+vdmFhT1SASe1b/xf5nxNzlAvwx?=
- =?us-ascii?Q?++M9MXSWIZQbUxpSGf5KcGYp2g7YWXzire9OQ2pk+AJ2q0NqSRtN7IdB1dkf?=
- =?us-ascii?Q?4A1rDaKu1sUr+0AfwsE+gSEOvcJnXB9fRAMKyY0qkqyDSXKCPSYL9kjhUv4W?=
- =?us-ascii?Q?6s7dGyZ6k1DTpmbmxLc/uvgxj7BmhuHqO+WFXLNrln8uTxPEb9cYcMycCsML?=
- =?us-ascii?Q?noM45c5gCH0Xd3Er9Y4Eub5qHze6pKVjCcqcnSBAnrZFOyLX3+1ZoPfdrqUd?=
- =?us-ascii?Q?TUhUL89bW3tDnOc9CGyo6wIRLl3BaUlD7lFUnE1+?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qvKtB3F+fwn4IyLaSz/iMs77WRkxt+DrFBZ0B7n64Tk1q3706VXb6AB++jDS?=
+ =?us-ascii?Q?B1PDaT1A2laDuKdAKT1SV/rYAlfHL9ik1UvuUcYJIEVfvfkFK9vt+ChzqQ7/?=
+ =?us-ascii?Q?qtuNkx7VuOdm52ax2aLgsfQ7HTOJDdADJWNYLofXFz35YiwIGz8OQxd2lI80?=
+ =?us-ascii?Q?RM09wvX48sSdzRe5PfhRZHturVja4OZXFfmck+fDTrz+MCQDUHGgpYhJoDkd?=
+ =?us-ascii?Q?qlBLQCcWSNBRPcTwVP0JSo76T34aHuhpgn00eiI87DgyKDJ3zJMtiWi8sUBk?=
+ =?us-ascii?Q?YRKucAirMzr+vbdv2Ko6w70VlqVHNa9hBY8yyCm1BbX9KfUhGdHgA7oBjusC?=
+ =?us-ascii?Q?bDwmBINBZSMFUCY9zaQf6KuGOtJpgxvUOQ39RD+3JglsZ6UTeIrwvW1hxO/m?=
+ =?us-ascii?Q?KhAxDCBymxoNd97vb7iwe9KkirHeXXE4/C9a6oI7H/y01MBBIim/bW+PrTa2?=
+ =?us-ascii?Q?+J7GuROFDKktXDG3DOIM+loTN/4i0Int7Ga6LJgdY7GvyQmftd7UDAd90jxx?=
+ =?us-ascii?Q?410YaDirenfWSjuKhHQiBC4brb6ZRb4gAk+x0V7z+CVB1qKjQQMjDqNkKogL?=
+ =?us-ascii?Q?0RtQr2KTpDx8rhTzuIRzC1zUpjGrgoUP6NR9uU+/4QWGAzh4bORgTBb6gUnF?=
+ =?us-ascii?Q?7RkqrvGI77ZCncYqbHfXLfaUDIqB+f2JvC4vbP5DzSXoHQ4GPtB5qf4RcpwF?=
+ =?us-ascii?Q?4YQ107aMKm6MYzB/2WiZkYU52H/bDxIsbGPY2P5vwStxrTEfOe/l0l8exX2W?=
+ =?us-ascii?Q?a+UduE7DIe9PL//lCVVcvZegrtCm/FW66nD7HdCjRTznG8miSczhZA1/qKCy?=
+ =?us-ascii?Q?G3I73xaxNVxz0Nu8tT9iILZLYhoWEq1wwAOl9n1EidldzgeIzTAXUh/r0Bp+?=
+ =?us-ascii?Q?SBKLaYrfWYsLXkmi0EdpTou2En8sxRi0ktn0odW9C/8Ov9CbPHa3R5L3WS5y?=
+ =?us-ascii?Q?3D6j9Xf08DyCv6FAqt9Wn8y4h6uEyXulZNmFuw2L0kzJunLM1dluIx01RCx5?=
+ =?us-ascii?Q?0ZCRSwrRCJosjnTbGZSm/asytTxw5PckuGjP65eN88CfFlNQeLgGR/Ztbzm+?=
+ =?us-ascii?Q?rJiIGxkNWjGA+Eg8ygtyiomb60a5n8Gk8zOZmCSoBqzEd1s7WgSMi5bQTivu?=
+ =?us-ascii?Q?Wk7FRUpRWzZm2hmYheK6gVm9hAJXfcevHxbVfvRiS3sxfNolvGO4vOCIJ8zb?=
+ =?us-ascii?Q?dnHgya7w5zsLYMgPS717Q+YfIONO4ArsRvZdtA1pXocYlVZOPhp8Gtrfc19C?=
+ =?us-ascii?Q?s4F892D6o9OqLYbnmofgW132a3ZU4kfyyxNnzEho9dxSp/daKPzMzahlZjZl?=
+ =?us-ascii?Q?7nUsY6ujuBl75tBxlv2VjWxAOHCySENsrS8ZKkubc5IvqnIiQOsRHOfWE0wZ?=
+ =?us-ascii?Q?VoaFki7l1W5jHyleWgDDdYqy/bxCn9jpixJJlP8C17nRej6Q15yy3MFuNC4D?=
+ =?us-ascii?Q?OoH2JfFm++4TMSVZjIlPY5EMNYsi2fzVwc448+GauojLveoBtWI1TGb3DIDa?=
+ =?us-ascii?Q?uN8YKfVmJJWPn+n+/PBH5vA9HXjiNlXwXsuUvFvIWf9K+n+qMaI4y7HNmGre?=
+ =?us-ascii?Q?kXtGEAIpjqGkvCFUZ3bqGL2V7Q207GzQjx2yVt1Y?=
 MIME-Version: 1.0
 X-OriginatorOrg: oss.nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8506.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95e724cd-036c-482e-17f3-08dcb4c7010c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2024 20:49:58.8563 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8d56ecd-c1d5-4342-4193-08dcb4c707b7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2024 20:50:10.0617 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6lrJzuIad+BiLWyBFbFeGr5ZjuoJWf/XQhl+oyFokvRDCPnvKvzmfKfLzaA9beAxtMe27nBIMiFTtbBDgJ2dnw==
+X-MS-Exchange-CrossTenant-userprincipalname: Xz/IxI7AOVA3miNaiz/6LCkkefHwCAf0U+bng/P5xf+70NoC7tHYymbyYcdpQecFlx61o2/tmte9Y3RL5EbwSQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7965
 Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
@@ -132,8 +132,8 @@ Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH 3/6] dt-bindings: net: Add DT bindings for
-	DWMAC on NXP S32G/R
+Subject: [Linux-stm32] [PATCH 4/6] net: stmmac: dwmac-s32cc: add basic NXP
+	S32G/S32R glue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -150,161 +150,294 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
-and S32R45 automotive series SoCs.
+NXP S32G2xx/S32G3xx and S32R45 are automotive grade SoCs
+that integrate one or two Synopsys DWMAC 5.10/5.20 IPs.
+
+The basic driver supports only RGMII interface.
 
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- .../bindings/net/nxp,s32cc-dwmac.yaml         | 127 ++++++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
- 2 files changed, 128 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-s32cc.c | 235 ++++++++++++++++++
+ 3 files changed, 247 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
 
-diff --git a/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 05cc07b8f48c..31628c363d71 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -153,6 +153,17 @@ config DWMAC_RZN1
+ 	  This selects the Renesas RZ/N1 SoC glue layer support for
+ 	  the stmmac device driver. This support can make use of a custom MII
+ 	  converter PCS device.
++config DWMAC_S32CC
++	tristate "NXP S32G/S32R GMAC support"
++	default ARCH_S32
++	depends on OF && (ARCH_S32 || COMPILE_TEST)
++	help
++	  Support for ethernet controller on NXP S32CC SOCs.
++
++	  This selects NXP SoC glue layer support for the stmmac
++	  device driver. This driver is used for the S32CC series
++	  SOCs GMAC ethernet controller, ie. S32G2xx, S32G3xx and
++	  S32R45.
+ 
+ config DWMAC_SOCFPGA
+ 	tristate "SOCFPGA dwmac support"
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index c2f0e91f6bf8..089ef3c1c45b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -22,6 +22,7 @@ obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
+ obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
+ obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+ obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
++obj-$(CONFIG_DWMAC_S32CC)	+= dwmac-s32cc.o
+ obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
+ obj-$(CONFIG_DWMAC_STARFIVE)	+= dwmac-starfive.o
+ obj-$(CONFIG_DWMAC_STI)		+= dwmac-sti.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
 new file mode 100644
-index 000000000000..443ad918a9a5
+index 000000000000..2ef961efa01c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2021-2024 NXP
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/nxp,s32cc-dwmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
+@@ -0,0 +1,235 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * NXP S32G/R GMAC glue layer
++ *
++ * Copyright 2019-2024 NXP
++ *
++ */
 +
-+title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
++#include <linux/clk.h>
++#include <linux/clk-provider.h>
++#include <linux/device.h>
++#include <linux/ethtool.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/of_mdio.h>
++#include <linux/of_address.h>
++#include <linux/phy.h>
++#include <linux/phylink.h>
++#include <linux/platform_device.h>
++#include <linux/stmmac.h>
 +
-+maintainers:
-+  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
++#include "stmmac_platform.h"
 +
-+description: |
-+  This device is a platform glue layer for stmmac.
-+  Please see snps,dwmac.yaml for the other unchanged properties.
++#define GMAC_TX_RATE_125M	125000000	/* 125MHz */
++#define GMAC_TX_RATE_25M	25000000	/* 25MHz */
++#define GMAC_TX_RATE_2M5	2500000		/* 2.5MHz */
 +
-+properties:
-+  compatible:
-+    enum:
-+      - nxp,s32g2-dwmac
-+      - nxp,s32g3-dwmac
-+      - nxp,s32r45-dwmac
++/* SoC PHY interface control register */
++#define PHY_INTF_SEL_MII        0x00
++#define PHY_INTF_SEL_SGMII      0x01
++#define PHY_INTF_SEL_RGMII      0x02
++#define PHY_INTF_SEL_RMII       0x08
 +
-+  reg:
-+    items:
-+      - description: Main GMAC registers
-+      - description: GMAC PHY mode control register
++struct s32cc_priv_data {
++	void __iomem *ioaddr;
++	void __iomem *ctrl_sts;
++	struct device *dev;
++	phy_interface_t intf_mode;
++	struct clk *tx_clk;
++	struct clk *rx_clk;
++	bool rx_clk_enabled;
++};
 +
-+  interrupts:
-+    description: Common GMAC interrupt
++static int s32cc_gmac_write_phy_intf_select(struct s32cc_priv_data *gmac)
++{
++	u32 intf_sel;
 +
-+  interrupt-names:
-+    const: macirq
++	switch (gmac->intf_mode) {
++	case PHY_INTERFACE_MODE_SGMII:
++		intf_sel = PHY_INTF_SEL_SGMII;
++		break;
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++		intf_sel = PHY_INTF_SEL_RGMII;
++		break;
++	case PHY_INTERFACE_MODE_RMII:
++		intf_sel = PHY_INTF_SEL_RMII;
++		break;
++	case PHY_INTERFACE_MODE_MII:
++		intf_sel = PHY_INTF_SEL_MII;
++		break;
++	default:
++		dev_err(gmac->dev, "Unsupported PHY interface: %s\n",
++			phy_modes(gmac->intf_mode));
++		return -EINVAL;
++	}
 +
-+  clocks:
-+    items:
-+      - description: Main GMAC clock
-+      - description: Transmit clock
-+      - description: Receive clock
-+      - description: PTP reference clock
++	writel(intf_sel, gmac->ctrl_sts);
 +
-+  clock-names:
-+    items:
-+      - const: stmmaceth
-+      - const: tx
-+      - const: rx
-+      - const: ptp_ref
++	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(gmac->intf_mode));
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - clocks
-+  - clock-names
-+  - phy-mode
++	return 0;
++}
 +
-+allOf:
-+  - $ref: snps,dwmac.yaml#
++static int s32cc_gmac_init(struct platform_device *pdev, void *priv)
++{
++	struct s32cc_priv_data *gmac = priv;
++	int ret;
 +
-+unevaluatedProperties: false
++	ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
++	if (!ret)
++		ret = clk_prepare_enable(gmac->tx_clk);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/phy/phy.h>
-+    bus {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
++	if (ret) {
++		dev_err(&pdev->dev, "Can't set tx clock\n");
++		return ret;
++	}
 +
-+      ethernet@4033c000 {
-+        compatible = "nxp,s32cc-dwmac";
-+        reg = <0x0 0x4033c000 0x0 0x2000>, /* gmac IP */
-+              <0x0 0x4007c004 0x0 0x4>;    /* GMAC_0_CTRL_STS */
-+        interrupt-parent = <&gic>;
-+        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "macirq";
-+        snps,mtl-rx-config = <&mtl_rx_setup>;
-+        snps,mtl-tx-config = <&mtl_tx_setup>;
-+        clocks = <&clks 24>, <&clks 17>, <&clks 16>, <&clks 15>;
-+        clock-names = "stmmaceth", "tx", "rx", "ptp_ref";
-+        phy-mode = "rgmii-id";
-+        phy-handle = <&phy0>;
++	ret = clk_prepare_enable(gmac->rx_clk);
++	if (ret)
++		dev_dbg(&pdev->dev, "Can't set rx, clock source is disabled.\n");
++	else
++		gmac->rx_clk_enabled = true;
 +
-+        mtl_rx_setup: rx-queues-config {
-+          snps,rx-queues-to-use = <5>;
++	ret = s32cc_gmac_write_phy_intf_select(gmac);
++	if (ret) {
++		dev_err(&pdev->dev, "Can't set PHY interface mode\n");
++		return ret;
++	}
 +
-+          queue0 {
-+          };
-+          queue1 {
-+          };
-+          queue2 {
-+          };
-+          queue3 {
-+          };
-+          queue4 {
-+          };
-+        };
++	return 0;
++}
 +
-+        mtl_tx_setup: tx-queues-config {
-+          snps,tx-queues-to-use = <5>;
++static void s32cc_gmac_exit(struct platform_device *pdev, void *priv)
++{
++	struct s32cc_priv_data *gmac = priv;
 +
-+          queue0 {
-+          };
-+          queue1 {
-+          };
-+          queue2 {
-+          };
-+          queue3 {
-+          };
-+          queue4 {
-+          };
-+        };
++	clk_disable_unprepare(gmac->tx_clk);
 +
-+        mdio {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          compatible = "snps,dwmac-mdio";
++	clk_disable_unprepare(gmac->rx_clk);
++}
 +
-+          phy0: ethernet-phy@0 {
-+              reg = <0>;
-+          };
++static void s32cc_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
++{
++	struct s32cc_priv_data *gmac = priv;
++	int ret;
 +
-+        };
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 3eb65e63fdae..3311438f67ee 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -66,6 +66,7 @@ properties:
-         - ingenic,x2000-mac
-         - loongson,ls2k-dwmac
-         - loongson,ls7a-dwmac
-+        - nxp,s32cc-dwmac
-         - qcom,qcs404-ethqos
-         - qcom,sa8775p-ethqos
-         - qcom,sc8280xp-ethqos
++	if (!gmac->rx_clk_enabled) {
++		ret = clk_prepare_enable(gmac->rx_clk);
++		if (ret) {
++			dev_err(gmac->dev, "Can't set rx clock\n");
++			return;
++		}
++		dev_dbg(gmac->dev, "rx clock enabled\n");
++		gmac->rx_clk_enabled = true;
++	}
++
++	switch (speed) {
++	case SPEED_1000:
++		dev_dbg(gmac->dev, "Set tx clock to 125M\n");
++		ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
++		break;
++	case SPEED_100:
++		dev_dbg(gmac->dev, "Set tx clock to 25M\n");
++		ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_25M);
++		break;
++	case SPEED_10:
++		dev_dbg(gmac->dev, "Set tx clock to 2.5M\n");
++		ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_2M5);
++		break;
++	default:
++		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
++		return;
++	}
++
++	if (ret)
++		dev_err(gmac->dev, "Can't set tx clock\n");
++}
++
++static int s32cc_dwmac_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct plat_stmmacenet_data *plat;
++	struct s32cc_priv_data *gmac;
++	struct stmmac_resources res;
++	int ret;
++
++	gmac = devm_kzalloc(&pdev->dev, sizeof(*gmac), GFP_KERNEL);
++	if (!gmac)
++		return PTR_ERR(gmac);
++
++	gmac->dev = &pdev->dev;
++
++	ret = stmmac_get_platform_resources(pdev, &res);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to get platform resources\n");
++
++	plat = devm_stmmac_probe_config_dt(pdev, res.mac);
++	if (IS_ERR(plat))
++		return dev_err_probe(dev, PTR_ERR(plat),
++				     "dt configuration failed\n");
++
++	/* PHY interface mode control reg */
++	gmac->ctrl_sts = devm_platform_get_and_ioremap_resource(pdev, 1, NULL);
++	if (IS_ERR_OR_NULL(gmac->ctrl_sts))
++		return dev_err_probe(dev, PTR_ERR(gmac->ctrl_sts),
++				     "S32CC config region is missing\n");
++
++	/* tx clock */
++	gmac->tx_clk = devm_clk_get(&pdev->dev, "tx");
++	if (IS_ERR(gmac->tx_clk))
++		return dev_err_probe(dev, PTR_ERR(gmac->tx_clk),
++				     "tx clock not found\n");
++
++	/* rx clock */
++	gmac->rx_clk = devm_clk_get(&pdev->dev, "rx");
++	if (IS_ERR(gmac->rx_clk))
++		return dev_err_probe(dev, PTR_ERR(gmac->rx_clk),
++				     "rx clock not found\n");
++
++	gmac->intf_mode = plat->phy_interface;
++	gmac->ioaddr = res.addr;
++
++	/* S32CC core feature set */
++	plat->has_gmac4 = true;
++	plat->pmt = 1;
++	plat->flags |= STMMAC_FLAG_SPH_DISABLE;
++	plat->rx_fifo_size = 20480;
++	plat->tx_fifo_size = 20480;
++
++	plat->init = s32cc_gmac_init;
++	plat->exit = s32cc_gmac_exit;
++	plat->fix_mac_speed = s32cc_fix_mac_speed;
++
++	plat->bsp_priv = gmac;
++
++	return stmmac_pltfr_probe(pdev, plat, &res);
++}
++
++static const struct of_device_id s32cc_dwmac_match[] = {
++	{ .compatible = "nxp,s32g2-dwmac" },
++	{ .compatible = "nxp,s32g3-dwmac" },
++	{ .compatible = "nxp,s32r45-dwmac" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, s32cc_dwmac_match);
++
++static struct platform_driver s32cc_dwmac_driver = {
++	.probe		= s32cc_dwmac_probe,
++	.remove_new	= stmmac_pltfr_remove,
++	.driver		= {
++			    .name		= "s32cc-dwmac",
++			    .pm		= &stmmac_pltfr_pm_ops,
++			    .of_match_table = s32cc_dwmac_match,
++	},
++};
++module_platform_driver(s32cc_dwmac_driver);
++
++MODULE_AUTHOR("Jan Petrous (OSS) <jan.petrous@oss.nxp.com>");
++MODULE_DESCRIPTION("NXP S32G/R common chassis GMAC driver");
++MODULE_LICENSE("GPL");
++
 -- 
 2.45.2
 
