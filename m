@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A01E394718F
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 01:11:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1944947192
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 01:12:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CEE4C71290;
-	Sun,  4 Aug 2024 23:11:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63DA0C71290;
+	Sun,  4 Aug 2024 23:12:11 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60BA9C7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28989C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  4 Aug 2024 23:11:20 +0000 (UTC)
+ Sun,  4 Aug 2024 23:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=xPcQPhnjefrAYPKlbLal+dPjivGLLzQxviFzFKK6nPM=; b=o1EaUPvhdYVisztqS0ZbOVFM/6
- pssJF8sIgd1ISQUE9aqJ2rAWcyyEi0u2LIfIKBkBWOZ7t/JoKVGQvhaSDPFd/xpjTzp7n0tPhW2Bc
- Hg6RaeP/x3HXbc1Z7zpWNAGjur30Z/Lh7FBLNzxg/NLIlGRika+eKz9ydYgCKOorRgRc=;
+ bh=uQzw6/bHjvnwxWG9DN+X28Op26Q/VqcHnuYp8+EIB68=; b=4GycfeVif7Ncyp+oeZsfT4sjqB
+ 77jAhtgCdvNYgnrYFMIPcZ159BeaEEwZKBAGjvJLVY7DLfRnjvb62ab+r09Oyhk7I/XVaGu2kE9PV
+ EU9LAS3cC0BHJC9Akw7EpnytsPkwgKalU8Nw3q0HBPawNuaqoqVES7pL/GR29Yn0ZkdA=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1sakNg-003zgl-0j; Mon, 05 Aug 2024 01:11:16 +0200
-Date: Mon, 5 Aug 2024 01:11:16 +0200
+ id 1sakOW-003zhd-7p; Mon, 05 Aug 2024 01:12:08 +0200
+Date: Mon, 5 Aug 2024 01:12:08 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <8aa45bc5-b819-4979-80b5-6d90a772b117@lunn.ch>
-References: <AM9PR04MB850628457377A486554D718AE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+Message-ID: <44221c82-b198-494b-b1fe-3f62292e1dbf@lunn.ch>
+References: <AM9PR04MB85062693F5ACB16F411FD0CFE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <AM9PR04MB850628457377A486554D718AE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+In-Reply-To: <AM9PR04MB85062693F5ACB16F411FD0CFE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
 Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Claudiu Manoil <claudiu.manoil@nxp.com>,
@@ -39,8 +39,8 @@ Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/6] net: driver: stmmac: extend CSR calc
-	support
+Subject: Re: [Linux-stm32] [PATCH 2/6] net: stmmac: Expand clock rate
+	variables
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,21 +57,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
->  #define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
->  #define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
->  #define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
-> -#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
-> +#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/124 */
+On Sun, Aug 04, 2024 at 08:49:49PM +0000, Jan Petrous (OSS) wrote:
+> The clock API clk_get_rate() returns unsigned long value.
+> Expand affected members of stmmac platform data.
+> 
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-That should probably be called out in the commit message. It is not a
-fix as such, since it is just a comment, but as a reviewer i had a
-double take when i noticed this.,
-
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
     Andrew
-
----
-pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
