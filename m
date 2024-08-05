@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CA17947921
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 12:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31020947929
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 12:14:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF087C7128F;
-	Mon,  5 Aug 2024 10:12:15 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3A3CC7128F;
+	Mon,  5 Aug 2024 10:14:39 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A37ECC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DF08C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Aug 2024 10:12:07 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2eeb1ba0481so158378081fa.2
+ Mon,  5 Aug 2024 10:14:32 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-52f01afa11cso15513983e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Aug 2024 03:12:07 -0700 (PDT)
+ Mon, 05 Aug 2024 03:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1722852727; x=1723457527;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1722852871; x=1723457671;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aBUI0cv6RKxMVVB/tkuI6YX2BH2X9rEgl2ihEJmJwVE=;
- b=gdalhAhP8tklUGHmQ5jaVJsnJuKzdHAZD7bxfMeRDcAahgpnLhV8hcDHfv0vRBXcpF
- RrBlfvDO8/HUzy0TwDLiC3CzNRTzNmew7cB9QS/OWYxEsO9C1P/oWjb7fEzSFdSScJgT
- U5Y9+APc8+bgi8bd9yHJE2+v6I/8gRf7kzra3J1R2ds0lDba+swXEyvpso2xBEzusA8v
- 6KDsEyURQvNHnqAOWMNcBgF1XQP99aJUJ1gRbo7waLEYDstEyZhcvG49HgPQCc+H/vi4
- 3Up0OTaIhdwcbMdwzZjAY6xWTWaEPA6o0rt41fmNA3ep8IwWxTusu165Ts7r7S9zacDM
- QuRg==
+ h=cc:to:subject:message-id:date:references:mime-version:in-reply-to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=KUTXv/4BMVQwGdjDsbktTy1NxZw7vMmfKE8tNFfq/Qo=;
+ b=h9IjcoE+3bgt2FNMiRPCVJOEcaTCXstWBQ00a1jpVD/NDfNulGULnaGgNKQpHmRThN
+ OYMRF6hmYDR6tox8852XvQYDjJuJ9ZlzZh454NBeqSuLZyRiQDs/fZG3UHNG96ik7sCo
+ 6N19HDRM2T7k2Doy6FKfZoJ0095ToOnG61awkzkN1k+Bu/3FZ4ZVPX6zcD07GyiIT4wJ
+ lWMcbt+x2TJR5NPozUowEUqSHSmvuPtQb1D/iLxFGZxlRjR193xqEpPdudoCoeyxEWRa
+ BDmktSI36ZezuJwOVjDUNSR+zWw333OvWGxbUcD4XwcM8EgvH+ZwDJ9FlrVmyjKRxQFE
+ sf2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722852727; x=1723457527;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aBUI0cv6RKxMVVB/tkuI6YX2BH2X9rEgl2ihEJmJwVE=;
- b=ZBMud576hC9kVUxsYj5TJPb+PE4OJrlP4gOToshC6Qc/64p5MVsMQywGJLU/N4XCEe
- 4blqcNDHO+kWMKqLmNgzLQH/lB7T7UvPB6qxDjkZCfNpJ39fnzk/LLUrS94nEiBrPoZr
- NTv/tn3+zVRgHfnf72Vr0b1lhLXekTaqCCMGA6i1HdKDfyelUkebaLZIQB69rMDGqIGh
- T1I2eZQp7rzTzvda+v1QtHEsQL9oMm2dxWyL/ZOxrok9r0U7BD3ZwUwLI8xt7fnCHTMG
- IFktUdGMY6UjHFU00xi5luvBcobWZL3Km2/ZyXhAyR3o+7qDMyRLeNh7bIE9nx/6iGSK
- sZjg==
+ d=1e100.net; s=20230601; t=1722852871; x=1723457671;
+ h=cc:to:subject:message-id:date:references:mime-version:in-reply-to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KUTXv/4BMVQwGdjDsbktTy1NxZw7vMmfKE8tNFfq/Qo=;
+ b=GOMwog/HngROh+lYUmJ9x61mgBbna5rWEIv4FlRaSQEjP755Bc6zYBOuarLuHeySg5
+ RgxZvyUElzTywxPgyv9o2FIYf63Fc2Wx1SAcYc+ZA+WPuCxSCEA3UiRFGNl8wFPH3y4Z
+ pnPjMAuUh1twM7FR/ez7DbbWj7TTlAyWwWoT+pOZz6sCb2PmJR6DDMGyXMUjZRcd2Z4p
+ +X/nTe8dwhGsMEOTJvP3xbmh7R1sUeQRXwsu42o8k+2BHmf3uCEUZkBcIvGrU12Mp4a0
+ 5Mmxyqo2KfMVE0T1if4of2ZRSts8NnSkXu/k/BVS3xeFUh63wU+HOfXN1B7/8tQHpxfw
+ 2ndg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXBL4LggvSO/sLNeFMJvQF3HR5N0n4qXcCWgKbWHuSKySQmBgceY5BhmSXgc/hcqI6l4IL3+LEj2gwzvmAk6PQe+NXwrl1Qyk8Ko+x3biw4eIc2Hua4xF1K
-X-Gm-Message-State: AOJu0YzQPttHfoZFL+IXc4ePbC1b/tDLsMa3tYnSgoFK5nNcyxHdwVTz
- KKNFij4wb9omVCKAHUZ1oIcAs2jATtSyMJUy2aXH96VEjziskMWI+zFO2piaDDZ8f/tWbiGjLQ9
- FTZhlR8NyJPNOAhmjaGpeN35KvBJKFtzn+6sNgg==
-X-Google-Smtp-Source: AGHT+IGy87u/qg4BJ3TC4T8YzxT5D6K9LAVyY2+21hQh275kOvCpifr3EAKkDMIr6mSuV8VqppJGDqylPVAwqGtgTSQ=
-X-Received: by 2002:a05:6512:33ce:b0:52e:9d2c:1c56 with SMTP id
- 2adb3069b0e04-530bb3b73bemr7403273e87.35.1722852726656; Mon, 05 Aug 2024
- 03:12:06 -0700 (PDT)
+ AJvYcCVVe4ujlZdV8/jYlMMrR/N9z1DWI8P7b07koR+Zo13j8dPZOgluP3MD1ixaoe/dzwnCfd2ti43i8HWW5AK7u9U1hksgn8jGYv28wrQ6h+IxaWco7pmoA5wx
+X-Gm-Message-State: AOJu0YxIxaFOLidNWPh+HRBiKW0gl9+rUQT9do/D5sQRE7BXEd+Wt3sN
+ K0AGmZRooGmQB4fxYyUeyeE+l6VMrjUW28W6IwoR9Oe0AIGNP08rWOTs79AR9ep8Lj2o8OXgxhR
+ N9pMYlXgNopPO8QsXDLwWWvv9mNaQ4EafA6HmeQ==
+X-Google-Smtp-Source: AGHT+IFsaV3LKwGCMOQn0O4QgIlm4dsCb2VYE13IUfFYBk5I+7bdruiCzlImY6gmpq5Iem9oqay4dFWaow8fEqE5Kl0=
+X-Received: by 2002:a05:6512:3ba9:b0:52e:6d71:e8f1 with SMTP id
+ 2adb3069b0e04-530bb3b434bmr7719818e87.53.1722852871307; Mon, 05 Aug 2024
+ 03:14:31 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 5 Aug 2024 03:14:30 -0700
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+In-Reply-To: <Zqy4wY0Of8noDqxt@shell.armlinux.org.uk>
 MIME-Version: 1.0
 References: <Zqy4wY0Of8noDqxt@shell.armlinux.org.uk>
-In-Reply-To: <Zqy4wY0Of8noDqxt@shell.armlinux.org.uk>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 5 Aug 2024 12:11:55 +0200
-Message-ID: <CAMRc=Mf2zOyQv=gw6+c=a6U-fJKOaXK9QQ=kukmXKTjXOx8TNg@mail.gmail.com>
+Date: Mon, 5 Aug 2024 03:14:30 -0700
+Message-ID: <CAMRc=Mc7tnjWnWDUjeSfva-XuHp_J25sGXjsa78UjsGG69hwag@mail.gmail.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
 Cc: Vinod Koul <vkoul@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, linux-arm-msm@vger.kernel.org,
@@ -82,18 +82,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBBdWcgMiwgMjAyNCBhdCAxMjo0NeKAr1BNIFJ1c3NlbGwgS2luZyAoT3JhY2xlKQo8
-bGludXhAYXJtbGludXgub3JnLnVrPiB3cm90ZToKPgo+IEhpLAo+Cj4gVGhpcyBpcyB2ZXJzaW9u
-IDMgb2YgdGhlIHNlcmllcyBzd2l0Y2hpbmcgc3RtbWFjIHRvIHVzZSBwaHlsaW5rIFBDUwo+IGlz
-bnRlYWQgb2YgZ29pbmcgYmVoaW5kIHBoeWxpbmsncyBiYWNrLgo+CgpUZXN0ZWQtYnk6IEJhcnRv
-c3ogR29sYXN6ZXdza2kgPGJhcnRvc3ouZ29sYXN6ZXdza2lAbGluYXJvLm9yZz4gIwpzYTg3NzVw
-LXJpZGUtcjMKCihUaGUgYm9hcmQgaXMgYSBtb3JlIHJlY2VudCByZXZpc2lvbiBvZiB0aGUgb25l
-IEFuZHJldyB0ZXN0ZWQgdGhpcyBzZXJpZXMgb24pCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, 2 Aug 2024 12:45:21 +0200, "Russell King (Oracle)"
+<linux@armlinux.org.uk> said:
+> Hi,
+>
+> This is version 3 of the series switching stmmac to use phylink PCS
+> isntead of going behind phylink's back.
+>
+
+Sorry for the noise but I had the line wrapping on. Here's the tag once again:
+
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org> #
+sa8775p-ride-r3
+
+(The board is a more recent revision of the one Andrew tested this series on)
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
