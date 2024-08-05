@@ -2,49 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93EC947FCB
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 19:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C87948016
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2024 19:11:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A1CDC71290;
-	Mon,  5 Aug 2024 17:00:10 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ECF3C71290;
+	Mon,  5 Aug 2024 17:11:22 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 741D0C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB1D8C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Aug 2024 17:00:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7DE4CCE0A15;
- Mon,  5 Aug 2024 17:00:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA9EC32782;
- Mon,  5 Aug 2024 17:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1722877206;
- bh=rMg8tq8sXoox5/aZPFwub+kNjISHhCSdM1/upF/TURs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=C/0pGzr/WpVGNgjl3o864EDH0YfyswghtP2JFPG/YAbOf2KUVfUyq7PGLM/NR6kOR
- 87rpEvhMkovWxOOpoS26eZqCZkm32Hv/DNS/TGIDn0xQt+qVkV4Uv/pcKIRArODVGw
- XSZPJNefb/wzMP3nw6QOpaiSAt507npkIVj2jkaLp6W1HV++Ii2MPaQs2NtqPeILrA
- RJraREhJYnLWUApH7eLCjdjzggTVQb+kdONsXoXsbZ/VUHiC2QndgokX87ziDWrjoP
- pS0jGPK9IquwvcbIw+ZEt6KCx+dJnz61lAMX/kW0wfJPUZ1uAlRTBzsGUkcsX5xZZ+
- vIWJ3+BCyzOug==
-Date: Mon, 5 Aug 2024 18:00:02 +0100
-From: Simon Horman <horms@kernel.org>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <20240805170002.GM2636630@kernel.org>
-References: <AM9PR04MB85064D7EDF618DB5C34FB83BE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ Mon,  5 Aug 2024 17:11:14 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-52efaae7edfso9925509e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Aug 2024 10:11:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1722877874; x=1723482674;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=T+a9I4B8X1X5aIxeJdN5EzFMzXDoBQTuQJmnsOqPxxQ=;
+ b=HsEP+KrdSlLP0LcM02C0Cl3iZ04zDicMQWaOrN1AbnM630dh6c52BpTylRk8bYyCpG
+ aUQIXNx4OYO+ScH7mqrLx73rioMnt9YsOMEWItfbo+75YUwm+s3bYcH11I8++cWWZPDw
+ fwHa7Frp2DINavqAI5a0qzeBQ4hXb7DQ1Gi/Fm/m7jSXuGtqt84tow9bnsygTP5zkqBZ
+ MKxFP0tTuay8MXvgZOdkgXuAB1nUQxlpPS/g40t/fIFq/4q3fhHCbyL8Y+G0tOM35cGm
+ BQ5g0Ov0QVGPsLYLHWjgecCRwO4IUuBNCVt+CcmxBtrtmi1SCnAKhQLxI7BPMgCmeha/
+ hmSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722877874; x=1723482674;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T+a9I4B8X1X5aIxeJdN5EzFMzXDoBQTuQJmnsOqPxxQ=;
+ b=eUHQWoEaThGa3Rv6Wqe1h1mw1jkjaGmEoWMgRM453CmIugita9YZOq6fPUDFTeFjTY
+ Np4A8ZGakEbE3yCOy2A/nsB2HIm5gMG4n2/Pr81I0Pmx8DCuwBF5bsf97AD0Bxf9oS2Z
+ xQ0q2OnzLs4RFyuJECxb+OjOH41IJO1oSBjG9QOd03AF+zQPJO0H1FUrNKvUuj5KPo9X
+ Qm0gmNkpEsLcxT9z08MqR0OSYOdKi7Q/03rJrNYqgAfVsLfyQXj5WSATJ3mUFLH6eEc5
+ 25OwqyP9IZGeiOyRnkQpp2eJBPiHUBXRx3UtbpYu/JHJcchADsfMu8FAcB2G1VyuTsQW
+ lVjw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU7WicIVWD1hRKvQ2qhEfDYreWeCJthP/nPABRl+tYIoShDbBxWfqYz1Yj5QpYzs877hdrAfM0yTiQwprfIqtGgfbuXc81GSMjlJL427V4NZBlGWG2HQg3j
+X-Gm-Message-State: AOJu0YyQBzNQhiIb3OyREogLKDsf50Vqr5hfnkjcJnZD/KSzlTIiUOWs
+ j9fcLQv0QLtJB2DWgUWQupvA13OCUyInJarVvmHWRUIMWT3jaGhO
+X-Google-Smtp-Source: AGHT+IGReApxJ2c/JFELCklqQSZ8g1Zowv7VKiMDnfR8yosFr20pzjqYqbBTCKh6qA5FufB227lXRg==
+X-Received: by 2002:a05:6512:3b06:b0:52e:9dee:a6f5 with SMTP id
+ 2adb3069b0e04-530bb4d7621mr7953615e87.46.1722877873589; 
+ Mon, 05 Aug 2024 10:11:13 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-530bba4aa0esm1202769e87.309.2024.08.05.10.11.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Aug 2024 10:11:13 -0700 (PDT)
+Date: Mon, 5 Aug 2024 20:11:10 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Furong Xu <0x1207@gmail.com>, Vladimir Oltean <olteanv@gmail.com>
+Message-ID: <max7qd6eafatuse22ymmbfhumrctvf2lenwzhn6sxsm5ugebh6@udblqrtlblbf>
+References: <cover.1722421644.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <AM9PR04MB85064D7EDF618DB5C34FB83BE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
-Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Claudiu Manoil <claudiu.manoil@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 4/6] net: stmmac: dwmac-s32cc: add basic
- NXP S32G/S32R glue
+In-Reply-To: <cover.1722421644.git.0x1207@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 0/5] net: stmmac: FPE via
+	ethtool + tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,79 +88,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Aug 04, 2024 at 08:50:10PM +0000, Jan Petrous (OSS) wrote:
-> NXP S32G2xx/S32G3xx and S32R45 are automotive grade SoCs
-> that integrate one or two Synopsys DWMAC 5.10/5.20 IPs.
+Hi Furong
+
+On Wed, Jul 31, 2024 at 06:43:11PM +0800, Furong Xu wrote:
+> Move the Frame Preemption(FPE) over to the new standard API which uses
+> ethtool-mm/tc-mqprio/tc-taprio.
+
+Thank you very much for the series. I am not that much aware of the
+FPE and ethtool MAC Merge guts. But I had a thoughtful glance to the
+FPE-handshaking algo and got to a realization that all the FPE-related
+data defined in the include/linux/stmmac.h weren't actually
+platform-data. All of that are the run-time settings utilized during
+the handshaking algo execution.
+
+So could you please move the fpe_cfg field to the stmmac_priv data and
+move the FPE-related declarations from the include/linux/stmmac.h
+header file to the drivers/net/ethernet/stmicro/stmmac/stmmac.h file?
+It's better to be done in a pre-requisite (preparation) patch of your
+series.
+
+Another useful cleanup would be moving the entire FPE-implementation
+from stmmac_main.c to a separate module. Thus the main
+driver code would be simplified a bit. I guess it could be moved to
+the stmmac_tc.c file since FPE is the TC-related feature. Right?
+
+Vladimir, what do you think about the suggestions above?
+
+-Serge(y)
+
 > 
-> The basic driver supports only RGMII interface.
+> Furong Xu (5):
+>   net: stmmac: configure FPE via ethtool-mm
+>   net: stmmac: support fp parameter of tc-mqprio
+>   net: stmmac: support fp parameter of tc-taprio
+>   net: stmmac: drop unneeded FPE handshake code
+>   net: stmmac: silence FPE kernel logs
 > 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-
-...
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
-
-...
-
-> +static int s32cc_gmac_init(struct platform_device *pdev, void *priv)
-> +{
-> +	struct s32cc_priv_data *gmac = priv;
-> +	int ret;
-> +
-> +	ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
-> +	if (!ret)
-> +		ret = clk_prepare_enable(gmac->tx_clk);
-> +
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Can't set tx clock\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare_enable(gmac->rx_clk);
-> +	if (ret)
-> +		dev_dbg(&pdev->dev, "Can't set rx, clock source is disabled.\n");
-> +	else
-> +		gmac->rx_clk_enabled = true;
-> +
-> +	ret = s32cc_gmac_write_phy_intf_select(gmac);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Can't set PHY interface mode\n");
-
-Should operations on tx_clk and rx_clk be unwound here?
-
-Flagged by Smatch.
-
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int s32cc_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct plat_stmmacenet_data *plat;
-> +	struct s32cc_priv_data *gmac;
-> +	struct stmmac_resources res;
-> +	int ret;
-
-Please consider arranging local variables in Networking code
-in reverse xmas tree order - longest line to shortest.
-
-Flagged by: https://github.com/ecree-solarflare/xmastree
-
-> +
-> +	gmac = devm_kzalloc(&pdev->dev, sizeof(*gmac), GFP_KERNEL);
-> +	if (!gmac)
-> +		return PTR_ERR(gmac);
-
-This will return 0, perhaps return -ENOMEM ?
-
-Flagged by Smatch.
-
-...
+>  .../net/ethernet/stmicro/stmmac/dwmac4_core.c |   6 +
+>  drivers/net/ethernet/stmicro/stmmac/dwmac5.c  |  37 +++++-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |   7 ++
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  14 +++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   3 +
+>  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 111 ++++++++++++++++++
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  25 ++--
+>  .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |  95 ++++++++++-----
+>  include/linux/stmmac.h                        |   2 +-
+>  9 files changed, 248 insertions(+), 52 deletions(-)
+> 
+> -- 
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
