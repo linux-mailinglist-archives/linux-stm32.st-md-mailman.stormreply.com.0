@@ -2,76 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EE1A948CAF
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 12:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29F87948D3D
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 12:52:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C52D6C71289;
-	Tue,  6 Aug 2024 10:18:03 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2E96C71290;
+	Tue,  6 Aug 2024 10:52:18 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F28ABC5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B8B7C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 10:17:56 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-52efd08e6d9so878591e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Aug 2024 03:17:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722939476; x=1723544276;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GWXCoJ7rYq4RnfaGfXCHjKin4v2Wy0/q7H4yQqP9Ac4=;
- b=LZ2VdTxxTQ7L8ZVU10zvwYsnhATxDW0LIRCyr3rFMHV9WUKXXgN6Ro+rHfE2v1A1/E
- MqCn3y42Tm96nLAM8EeGyL0/jnqf57S84/jcovAQMM/GZtiEnLHZig+xkccZRavr6q0W
- tU9XRZweWknNc/v7NayOLE/osIe1zBWcxdd00dExMlJ4ITYgy6fEIbNJwNb3dTNamgGd
- GMmz0yL7f8Y2aWOlrfN+YmUufUQ8d28crAcBgu5tDT1oqTe8pAE7FXH3DtgndjU+0wQs
- SV1WQnO98D+ZKbJf+dJuFur/BAG+EX2o0qkqkrkhOAhXd7TE4kZMroUs+LBskc0p08Vt
- ZZDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722939476; x=1723544276;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GWXCoJ7rYq4RnfaGfXCHjKin4v2Wy0/q7H4yQqP9Ac4=;
- b=uYMv5iuSXdf0+luudCDX7peRSp281S6j8/6O2fc/+s0WDJDz/lljF7lIYoGtP2lnVS
- KCkb5XhclZ9oh6C8gMCOZ1Si/Oh51+JFoO9wMayxvCRjvwZo9Nlduu1JIfnIIdM96ZPv
- l/ec5oQBj4K/6tg/AoHvRfKh75+YVNeEGWTfg6giCHEDMiBZ2/FNJB+BfTnhowgkd+l9
- 47P1lv5L19pD+9WiYUHYNFDDPef6nXcVKihYQS3Ame8jMkGJnVJyH9epp8iGl/Zmm7EK
- CZkND6A8m2A+OH4v94WM63/+0HSKnTQW4EkUV1L44eqVHIWEP5iYkl+d3qAm1lrfvyZY
- in5Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU9SvwcpbOuYp8TrDVkFX0BW91b79y0AgsAPm6b9E97myHWJvjDkhz4q1rR7Kwu90GtbyHq0kFeLimVbffHxIRFfm+QH3ZPSDpBw/tj0wo0KXqq6UYAULXx
-X-Gm-Message-State: AOJu0Yxd3z1sXPZvYNPrD86RWcgJWWoAunEVIctWpiNkrXFIGSfNHdtw
- bhWCgDrhmwcrr2zqacdC9A2GUps/8iN1gl2THRkk1X1gDB5BvSze
-X-Google-Smtp-Source: AGHT+IHzsWMpgZJ3RQ+PF9fvZCYjeTmSj6mhWqMiOTlM0IENo7LW4n77skqeBowAwJ40wPFgndSJ+g==
-X-Received: by 2002:a05:6512:b08:b0:52e:9694:3f98 with SMTP id
- 2adb3069b0e04-530bb3a05c4mr9527838e87.27.1722939475747; 
- Tue, 06 Aug 2024 03:17:55 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba0fee7sm1421223e87.66.2024.08.06.03.17.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 03:17:55 -0700 (PDT)
-Date: Tue, 6 Aug 2024 13:17:52 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <ciueb72cjvfkmo3snnb5zcrfqtbum5x54kgurkkouwe6zrdrjj@vi54y7cczow3>
-References: <AM9PR04MB85062693F5ACB16F411FD0CFE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ Tue,  6 Aug 2024 10:52:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 6503FCE0E50;
+ Tue,  6 Aug 2024 10:52:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A801C32786;
+ Tue,  6 Aug 2024 10:52:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1722941528;
+ bh=+al5FmN+16P24jfwWkecabgEd+xqc7Jwsjs9HXuUbLk=;
+ h=From:Date:Subject:To:Cc:From;
+ b=V84xQF8WVMRn5GhPF31w6xnhf43JeB3DthohuV5AVuCLVj88AtBm6+BTKq8fkyReE
+ WcaMuePO+aQn+mODpPaKBKFG9zt2JiIQAUyWJ3sKq2mYfNALh607fH+UiGmnKcJZqZ
+ L5fVHFawgDE0fJuMMaVCfv9cSqv5HC6dE067ZlC5hYzi9rpucGdBHHMzsBVDWjzS/x
+ 5980q/y7dTm7s9ez/ZKetHlv6XXTMPaKq0oTcH1oeO2BZOfUdm7zOl3C6+3F/aA5wi
+ RWkMvfsDJm6VcP5e30cMNBLYyAuT9dTo5CVlRbxSZJU++lzl+RT7sRehkuy1qjn4F8
+ UCiro8FbDQiqw==
+From: Simon Horman <horms@kernel.org>
+Date: Tue, 06 Aug 2024 11:52:01 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <AM9PR04MB85062693F5ACB16F411FD0CFE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
-Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Claudiu Manoil <claudiu.manoil@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/6] net: stmmac: Expand clock rate
-	variables
+Message-Id: <20240806-xgmac-const-char-arrays-v1-1-8d91ec885d45@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAFAAsmYC/x2MQQqDMBAAvyJ77kJMQyP9ivQQ49buoavsBomIf
+ 2/ocWBmTjBSJoNnd4LSzsarNOhvHeRPkoWQ58bgnQ9ucA+syzdlzKtYwWYoJtV0GIbYz8Pdxyn
+ EDK3elN5c/+cRhAoK1QKv6/oBrfzMJnMAAAA=
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+X-Mailer: b4 0.14.0
+Cc: netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: xgmac: use const char
+ arrays for string constants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,92 +60,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Aug 04, 2024 at 08:49:49PM +0000, Jan Petrous (OSS) wrote:
-> The clock API clk_get_rate() returns unsigned long value.
-> Expand affected members of stmmac platform data.
-> 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+Jiri Slaby advises me that the preferred mechanism for declaring
+string constants is static char arrays, so use that here.
 
-Since you are fixing this anyway, please convert the
-stmmac_clk_csr_set() and dwmac4_core_init() methods to defining the
-unsigned long clk_rate local variables.
+This mostly reverts
+commit 1692b9775e74 ("net: stmmac: xgmac: use #define for string constants")
 
-After taking the above into account feel free to add:
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+That commit was a fix for
+commit 46eba193d04f ("net: stmmac: xgmac: fix handling of DPP safety error for DMA channels").
+The fix being replacing const char * with #defines in order to address
+compilation failures observed on GCC 6 through 10.
 
--Serge(y)
+Compile tested only.
+No functional change intended.
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c   | 2 +-
->  include/linux/stmmac.h                                  | 6 +++---
->  3 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 901a3c1959fa..2a5b38723635 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -777,7 +777,7 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
->  		netdev_err(priv->dev, "Failed to max out clk_ptp_ref: %d\n", err);
->  	plat_dat->clk_ptp_rate = clk_get_rate(plat_dat->clk_ptp_ref);
->  
-> -	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
-> +	netdev_dbg(priv->dev, "PTP rate %lu\n", plat_dat->clk_ptp_rate);
->  }
->  
->  static int qcom_ethqos_probe(struct platform_device *pdev)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index ad868e8d195d..b1e4df1a86a0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -639,7 +639,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
->  		dev_info(&pdev->dev, "PTP uses main clock\n");
->  	} else {
->  		plat->clk_ptp_rate = clk_get_rate(plat->clk_ptp_ref);
-> -		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
-> +		dev_dbg(&pdev->dev, "PTP rate %lu\n", plat->clk_ptp_rate);
->  	}
->  
->  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-> index 7caaa5ae6674..47a763699916 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -279,8 +279,8 @@ struct plat_stmmacenet_data {
->  	struct clk *stmmac_clk;
->  	struct clk *pclk;
->  	struct clk *clk_ptp_ref;
-> -	unsigned int clk_ptp_rate;
-> -	unsigned int clk_ref_rate;
-> +	unsigned long clk_ptp_rate;
-> +	unsigned long clk_ref_rate;
->  	unsigned int mult_fact_100ns;
->  	s32 ptp_max_adj;
->  	u32 cdc_error_adj;
-> @@ -292,7 +292,7 @@ struct plat_stmmacenet_data {
->  	int mac_port_sel_speed;
->  	int has_xgmac;
->  	u8 vlan_fail_q;
+Suggested-by: Jiri Slaby <jirislaby@kernel.org>
+Link: https://lore.kernel.org/netdev/485dbc5a-a04b-40c2-9481-955eaa5ce2e2@kernel.org/
+Signed-off-by: Simon Horman <horms@kernel.org>
+---
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 69 +++++++++++-----------
+ 1 file changed, 34 insertions(+), 35 deletions(-)
 
-> -	unsigned int eee_usecs_rate;
-> +	unsigned long eee_usecs_rate;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index f196cd99d510..cbf2dd976ab1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -846,42 +846,41 @@ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 31 */
+ };
+ 
+-#define DPP_RX_ERR "Read Rx Descriptor Parity checker Error"
+-#define DPP_TX_ERR "Read Tx Descriptor Parity checker Error"
+-
++static const char dpp_rx_err[] = "Read Rx Descriptor Parity checker Error";
++static const char dpp_tx_err[] = "Read Tx Descriptor Parity checker Error";
+ static const struct dwxgmac3_error_desc dwxgmac3_dma_dpp_errors[32] = {
+-	{ true, "TDPES0", DPP_TX_ERR },
+-	{ true, "TDPES1", DPP_TX_ERR },
+-	{ true, "TDPES2", DPP_TX_ERR },
+-	{ true, "TDPES3", DPP_TX_ERR },
+-	{ true, "TDPES4", DPP_TX_ERR },
+-	{ true, "TDPES5", DPP_TX_ERR },
+-	{ true, "TDPES6", DPP_TX_ERR },
+-	{ true, "TDPES7", DPP_TX_ERR },
+-	{ true, "TDPES8", DPP_TX_ERR },
+-	{ true, "TDPES9", DPP_TX_ERR },
+-	{ true, "TDPES10", DPP_TX_ERR },
+-	{ true, "TDPES11", DPP_TX_ERR },
+-	{ true, "TDPES12", DPP_TX_ERR },
+-	{ true, "TDPES13", DPP_TX_ERR },
+-	{ true, "TDPES14", DPP_TX_ERR },
+-	{ true, "TDPES15", DPP_TX_ERR },
+-	{ true, "RDPES0", DPP_RX_ERR },
+-	{ true, "RDPES1", DPP_RX_ERR },
+-	{ true, "RDPES2", DPP_RX_ERR },
+-	{ true, "RDPES3", DPP_RX_ERR },
+-	{ true, "RDPES4", DPP_RX_ERR },
+-	{ true, "RDPES5", DPP_RX_ERR },
+-	{ true, "RDPES6", DPP_RX_ERR },
+-	{ true, "RDPES7", DPP_RX_ERR },
+-	{ true, "RDPES8", DPP_RX_ERR },
+-	{ true, "RDPES9", DPP_RX_ERR },
+-	{ true, "RDPES10", DPP_RX_ERR },
+-	{ true, "RDPES11", DPP_RX_ERR },
+-	{ true, "RDPES12", DPP_RX_ERR },
+-	{ true, "RDPES13", DPP_RX_ERR },
+-	{ true, "RDPES14", DPP_RX_ERR },
+-	{ true, "RDPES15", DPP_RX_ERR },
++	{ true, "TDPES0", dpp_tx_err },
++	{ true, "TDPES1", dpp_tx_err },
++	{ true, "TDPES2", dpp_tx_err },
++	{ true, "TDPES3", dpp_tx_err },
++	{ true, "TDPES4", dpp_tx_err },
++	{ true, "TDPES5", dpp_tx_err },
++	{ true, "TDPES6", dpp_tx_err },
++	{ true, "TDPES7", dpp_tx_err },
++	{ true, "TDPES8", dpp_tx_err },
++	{ true, "TDPES9", dpp_tx_err },
++	{ true, "TDPES10", dpp_tx_err },
++	{ true, "TDPES11", dpp_tx_err },
++	{ true, "TDPES12", dpp_tx_err },
++	{ true, "TDPES13", dpp_tx_err },
++	{ true, "TDPES14", dpp_tx_err },
++	{ true, "TDPES15", dpp_tx_err },
++	{ true, "RDPES0", dpp_rx_err },
++	{ true, "RDPES1", dpp_rx_err },
++	{ true, "RDPES2", dpp_rx_err },
++	{ true, "RDPES3", dpp_rx_err },
++	{ true, "RDPES4", dpp_rx_err },
++	{ true, "RDPES5", dpp_rx_err },
++	{ true, "RDPES6", dpp_rx_err },
++	{ true, "RDPES7", dpp_rx_err },
++	{ true, "RDPES8", dpp_rx_err },
++	{ true, "RDPES9", dpp_rx_err },
++	{ true, "RDPES10", dpp_rx_err },
++	{ true, "RDPES11", dpp_rx_err },
++	{ true, "RDPES12", dpp_rx_err },
++	{ true, "RDPES13", dpp_rx_err },
++	{ true, "RDPES14", dpp_rx_err },
++	{ true, "RDPES15", dpp_rx_err },
+ };
+ 
+ static void dwxgmac3_handle_dma_err(struct net_device *ndev,
 
-Sigh... One another Intel clumsy stuff: this field is initialized by
-the Intel glue-drivers and utilized in there only. Why on earth has it
-been added to the generic plat_stmmacenet_data structure?.. The
-only explanation is that the Intel developers were lazy to refactor
-the glue-driver a bit so the to be able to reach the platform data at
-the respective context.
-
--Serge(y)
-
->  	struct pci_dev *pdev;
->  	int int_snapshot_num;
->  	int msi_mac_vec;
-> -- 
-> 2.45.2
-> 
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
