@@ -2,79 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8709F948C09
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 11:17:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5192948C3B
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 11:38:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23043C7129D;
-	Tue,  6 Aug 2024 09:17:02 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6875DC7129D;
+	Tue,  6 Aug 2024 09:38:28 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08B7BC71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDB54C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 09:16:55 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-52efd855adbso687172e87.2
+ Tue,  6 Aug 2024 09:38:21 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2f183f4fa63so5851721fa.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Aug 2024 02:16:54 -0700 (PDT)
+ Tue, 06 Aug 2024 02:38:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722935814; x=1723540614;
+ d=gmail.com; s=20230601; t=1722937101; x=1723541901;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=sKgoqBj7LDgdK9cgXdjbVyK58ya9Wcnbj0gf678fdiY=;
- b=AnGnSLMGoxRE8wHWGFZbxbaAJr8PjQEAbedH/LSyoeFW+nSWNwSRcosRijXnHsVeAu
- qxNuXnBHkn+XUizga8OBXSFcqVVJ7WkL4xcraSl23nD/phGqcZzQtIdB3VlFLqKfhfsI
- eyI58iodD2jV5j/PbGB2VPVupjOd+6BPMg8IiE7074BP+TdRCtad3ZoxsAK5cwUBXymm
- pMlgxJgsYEv4t6Y4iqutqN/aCO/VclH9w7VOqds+7Dk+Tp+5lNK4nOLcVzbS+6qRZ66W
- D9U1BXVp7TaD8c/lfZVwfeW2meCm0q5ENc4Gz4XgeDpp64dZZaMLf0E0o1vYuLxpe3cu
- AEVw==
+ bh=DJhPkSNhDdfLFx2gYQV1ujLSQnU42/h3Hyy/L0QOLPU=;
+ b=hH2joO7105l3q04yImoS7o54T3GOGS5d7T4nU9/+ucsm7gPOsBsqt7OE7K4XHG6Zpj
+ tTT/B2feTlHJ+wbVnk1G9h+V98eJNnXTkdiTqevZZJ7o5EC77nqefHeKqA2MAHhJe5kt
+ OL5DP8pBC+/0kL8nYpRIE5OaC6WOCKLEsldP9jNo4z8dy1Pqcfe0Xz5CgE+3nJ8WNQUW
+ bAwYXcmSGRuxsOji8vlNfroF7MsaP+ywdevJleQ1uIXRjKBtmeAk2HTPhfz4xudUxEzW
+ IWw9QqfzX/4rkWs324spiDfsR/Gvw8dAs9p5ceCfAbcwMRPohD2+Ap35PBeV0H5dVkxK
+ FtmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722935814; x=1723540614;
+ d=1e100.net; s=20230601; t=1722937101; x=1723541901;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=sKgoqBj7LDgdK9cgXdjbVyK58ya9Wcnbj0gf678fdiY=;
- b=mal5lpTDVl1ya6HPzEVcvGKvxrVvGNNd0ih4fbW38A/EUiBcGtGfQ1l14L7ny0Ln4R
- P8SFgZMlHZZce3hnM77yKO29Oi9X9mwsO4qCFTccQbrd4VKbNIPXYbpWNkSSEy77Xv2o
- JQLEAc7eBsTRqweaw+2fvjw6xan0xQ8r/u5MgQV3/ZHmrUlPTjIlVPumBZ4ua3GWQ9Ea
- +RmuAubAtTp0sDbGf+4Vrm2O1Xrkwy5T5Bgc3Gb0D3Al+NoM48ck+c7//uMcdwC4Ah1j
- EwQMcpA3Mzz2XazCqG/1y516eaXdBwhJNnceHhhoUfzHKJoNa0Fb/3RHA0DacYuKkFpn
- l8yg==
+ bh=DJhPkSNhDdfLFx2gYQV1ujLSQnU42/h3Hyy/L0QOLPU=;
+ b=fQFhoCaKot49JjFYKDTysD4+pBI7SHPeMzpeqViofRD16F/7FHxiPZ/VEabw80g28v
+ g9+GtoWSJs/hOY2UM9aDrMJorrATMsXE4dELygFNuhPJaHimgUPYa8Y/LJZzsori0TnM
+ yk1232z7HF5kdB9JdbSDii0JfNlJz4urcm8+Fe3F4JUXRagG+hSl8Z4EQ9g0F2zcs3Tn
+ +DolB/AV82lnnBjid4moeV66iGh/WI+h33rlHNXIeElTy+boNJhqs5vId4GA/60nHPgq
+ 6StL/NQIFfaS4flS6TYg44IWAt7bj7MtNCdVO5sIQXwNQLtzrC1xxLI40WR8su4B5lDW
+ tz/Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWWJXy3eMACXJogcypLsrFXxql/vo9ZIfE7Rd72OoiVI7ThUg66jVo3sJthRRCwXLMWqi5Kug106pthegivKBsVCZdKKOI4FTi5Z+qT1RVfhYBdZHgvVqXg
-X-Gm-Message-State: AOJu0YwHnXupOtbM8mbPYW5FSndzA4NLgJIHqqJMJBrlOx812H0y2+8l
- XJdGEil7YPGYm6I7efDcZZ/rF29oD20HcR+U62t/R5ViEd8euy/z
-X-Google-Smtp-Source: AGHT+IHTZo7Przl/rVclxgOrc8JseI2RXR0EukFrflIyILA4YgmaESP3m/Bp4UxISHcGTzEdBRVrDQ==
-X-Received: by 2002:a05:6512:a8d:b0:52e:a68a:6076 with SMTP id
- 2adb3069b0e04-530bb3b42d7mr9535555e87.49.1722935813817; 
- Tue, 06 Aug 2024 02:16:53 -0700 (PDT)
+ AJvYcCW5EjmvB5CC0bd30HzIHZT6oHH7bA3czb9MeVu5hXhY4EeIr9gj0zWcwTMyAE+p6xRCP/c9Suj+fchfW0LTtFYUbkuoJPAqOGFRsk/ZUKtl+xP0idnyoaWc
+X-Gm-Message-State: AOJu0YxA1sCvyeRQQ9m2ThGY2WB6PWe/ym90rdPG9b3FshdtvEwfnZKP
+ HMf8qfjsDYfh3VpdSjhb25NSYHEkjpfCqJKH7fLFlYXp2CO6f09F
+X-Google-Smtp-Source: AGHT+IFR0d9IbwmBLkFeFJ77ILOonBUYi8sHr7IcC+G13t/ZZueEUcGtc9YhZIfAx/55SH5oSzfzsw==
+X-Received: by 2002:a2e:bc23:0:b0:2ef:2b70:5372 with SMTP id
+ 38308e7fff4ca-2f157662670mr54682171fa.12.1722937100530; 
+ Tue, 06 Aug 2024 02:38:20 -0700 (PDT)
 Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba3527dsm1423441e87.185.2024.08.06.02.16.52
+ 38308e7fff4ca-2f15e272eeesm14033861fa.128.2024.08.06.02.38.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 02:16:53 -0700 (PDT)
-Date: Tue, 6 Aug 2024 12:16:50 +0300
+ Tue, 06 Aug 2024 02:38:20 -0700 (PDT)
+Date: Tue, 6 Aug 2024 12:38:17 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <v3iwxjoaitetkrwjlcvc7xbwzybpbcvvcikriym4krurb76p7r@2ekkibfy6cih>
-References: <cover.1722421644.git.0x1207@gmail.com>
- <max7qd6eafatuse22ymmbfhumrctvf2lenwzhn6sxsm5ugebh6@udblqrtlblbf>
- <20240806125524.00005f51@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <mn4c5yw3eodduysjaxvt5qpsfm55auumin3jabmu6zymeskdsb@7hvc4qrw6gsn>
+References: <AM9PR04MB850628457377A486554D718AE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ <8aa45bc5-b819-4979-80b5-6d90a772b117@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240806125524.00005f51@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
- linux-kernel@vger.kernel.org, rock.xu@nio.com,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v1 0/5] net: stmmac: FPE via
-	ethtool + tc
+In-Reply-To: <8aa45bc5-b819-4979-80b5-6d90a772b117@lunn.ch>
+Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/6] net: driver: stmmac: extend CSR calc
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,48 +90,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 06, 2024 at 12:55:24PM +0800, Furong Xu wrote:
-> Hi Serge
-> 
-> On Mon, 5 Aug 2024 20:11:10 +0300, Serge Semin <fancer.lancer@gmail.com> wrote:
-> > Hi Furong
-> > 
-> > Thank you very much for the series. I am not that much aware of the
-> > FPE and ethtool MAC Merge guts. But I had a thoughtful glance to the
-> > FPE-handshaking algo and got to a realization that all the FPE-related
-> > data defined in the include/linux/stmmac.h weren't actually
-> > platform-data. All of that are the run-time settings utilized during
-> > the handshaking algo execution.
-> > 
-> > So could you please move the fpe_cfg field to the stmmac_priv data and
-> > move the FPE-related declarations from the include/linux/stmmac.h
-> > header file to the drivers/net/ethernet/stmicro/stmmac/stmmac.h file?
-> > It's better to be done in a pre-requisite (preparation) patch of your
-> > series.
-> This will be included in V2 of this patchset.
-> 
-> > 
-> > Another useful cleanup would be moving the entire FPE-implementation
-> > from stmmac_main.c to a separate module. Thus the main
-> > driver code would be simplified a bit. I guess it could be moved to
-> > the stmmac_tc.c file since FPE is the TC-related feature. Right?
-> 
-> Thanks for your advice.
-> 
-> A few weeks ago, I sent a patchset to refactor FPE implementation:
-> https://lore.kernel.org/all/cover.1720512888.git.0x1207@gmail.com/
-> 
-> Vladimir suggested me to move the FPE over to the new standard API,
-> then this patchset comes.
-> 
-> I am working on V2 of this patchset, once this patchset get merged,
-> a new FPE implementation will be sent to review.
+Hi Andrew
 
-If the new FPE-implementation includes the FPE-hanshaking stuff moved
-out from the stmmac_main.c it will be just wonderful. Thanks!
+On Mon, Aug 05, 2024 at 01:11:16AM +0200, Andrew Lunn wrote:
+> >  #define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
+> >  #define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
+> >  #define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
+> > -#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
+> > +#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/124 */
+> 
+> That should probably be called out in the commit message. It is not a
+> fix as such, since it is just a comment, but as a reviewer i had a
+> double take when i noticed this.,
+
+Yes, this seems like a typo. I've checked the divider semantic in the DW
+GMAC 3.50a/3.73a and DW QoS Eth 5.10a HW databooks. Both of them expect the
+clk_scr_i ref clock being divided by 124. So the 122 value was
+incorrect.
 
 -Serge(y)
 
+> 
+> 
+>     Andrew
+> 
+> ---
+> pw-bot: cr
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
