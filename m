@@ -2,77 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0B8A949B27
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2024 00:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B784949C23
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2024 01:13:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B032C7129D;
-	Tue,  6 Aug 2024 22:15:06 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F077CC7129D;
+	Tue,  6 Aug 2024 23:13:44 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8337EC71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A90BC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 22:14:59 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-52f025bc147so1566886e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Aug 2024 15:14:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722982499; x=1723587299;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yXjtb86nnXZiK+81bTmuvRngQoj2Z9OAz1cGyJKoh3A=;
- b=gAiqZCE950lzBWFN527p+jIbXbYWgu8clM/Vr/nUEo5bws4v/7I92Oauz75PtNfmjm
- nKHiTjhcASIYNlZY/X8ajs/6SonnpbeYBq0T6iMl80EaED/t8ac9B7IR6nM3rOEMWp5u
- Gkd5RimXCVbzErohGE7kjocNR64oF3rGQ2q6ENw4nFL94urhf9hiNwmzfSYvaw73hvUC
- oP0gVJlYckfL/J1M3q6SS6TS7NMFEkRtSt37sfNMkuPGdndLve1MusKN8+DTjZY3yOVF
- UCjv4Q/7ogExntSv76HhWWepGjkrnYF/CzDUfHR9D5DO2wdMdVkVipyp8Trv9VOHrQ/F
- xR+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722982499; x=1723587299;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yXjtb86nnXZiK+81bTmuvRngQoj2Z9OAz1cGyJKoh3A=;
- b=n7IqoUTrfMstpRxstr7ENrAuolUxbF2xpG3SLIZZZa35PVUDu6FopE6VrHTEFrExwQ
- c5P+ZuinftL2IBIFIyNxDe4XlIEQbJiz7B8RxJyAeRwokXMQO26orC7yMVS3k/vHTVC4
- nRe5crBiZA4G2NMrhmy3Ho/PhH/YN/u14La0qlgQwdN2QjUNlqvxuHl/T1kYRH8AMYFY
- emSM7D08UUExal8scaCHJB2dEyTd6LFIxiX8PFDt7ODMb+FLVHgjAIrnC3m3ECOgtgdq
- knIgqTr+JMErLMOJEESLwRmz03Zcxl6FnTxNrJ+wW0WBqMxiDN0NPzRFKQIaqp/cvSd/
- 3t9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVddMAytR0JyR/+2FZZzgEJZe7/A+cEgQpYl3ro0UsCjjp+/Xfd5akVQqB8oBbOL+yITtkn01cfXXSsLu3GSoxumoLfLz9pA1JbAuZn3HioYhwMlupxBaGC
-X-Gm-Message-State: AOJu0YwcFWDAsRzNKvu70tQks3Avw3d3eVxZuhuRYv+fJr9rsBoeESNK
- 41mB1qNcyQhQlY4nH0q18ONbzlN2xZFnPjY9xsyz8BFXvv2KscOQ
-X-Google-Smtp-Source: AGHT+IEKpr1UFCKDIwWRxjnU/uCMgSVrE+o0Upo4NwXVrAnyDnyihhz4pz3m7yaMLFIsDF1d0jQ75A==
-X-Received: by 2002:a05:6512:3c98:b0:52b:c27c:ea1f with SMTP id
- 2adb3069b0e04-530bb39bf01mr11779826e87.55.1722982498234; 
- Tue, 06 Aug 2024 15:14:58 -0700 (PDT)
-Received: from mobilestation ([95.79.225.241])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530de457b3csm3663e87.161.2024.08.06.15.14.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 15:14:57 -0700 (PDT)
-Date: Wed, 7 Aug 2024 01:14:55 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: jitendra.vegiraju@broadcom.com
-Message-ID: <o4dgczjefqjek3iqw2y3ca7pwolj5e6otjyuinpuvkwcli5xei@dzehe7xde44x>
+ Tue,  6 Aug 2024 23:13:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=iAbyq20dr/x8DIIqscYsYZaTUTmMS9DPb7crcF4AiLE=; b=uL
+ s855XjjIZTiEaNprML52m6TpWaRk+3WiFLVjMZTwodWlRB7qBu1zHoVudMrApkP9omrQtnBTmimvy
+ ylUL8GQkuq/GuM5GdjmLEx9RZpDaR6c9TuYoRZyzOn1rNk59xhd/Ht+166Ytxa58qmwig7MZ6t2K8
+ SVVb2z1z97Kp9XU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sbTMt-0049dj-Ai; Wed, 07 Aug 2024 01:13:27 +0200
+Date: Wed, 7 Aug 2024 01:13:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <e6b4fc20-a861-4f24-9881-f8151fe66351@lunn.ch>
 References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
  <20240802031822.1862030-3-jitendra.vegiraju@broadcom.com>
+ <1e6e6eaa-3fd3-4820-bc1d-b1c722610e2f@lunn.ch>
+ <CAMdnO-J-G2mUw=RySEMSUj8QmY7CyFe=Si1-Ez9PAuF+knygWQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240802031822.1862030-3-jitendra.vegiraju@broadcom.com>
-Cc: andrew@lunn.ch, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, horms@kernel.org, bpf@vger.kernel.org,
- davem@davemloft.net
+In-Reply-To: <CAMdnO-J-G2mUw=RySEMSUj8QmY7CyFe=Si1-Ez9PAuF+knygWQ@mail.gmail.com>
+Cc: hawk@kernel.org, daniel@iogearbox.net, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, richardcochran@gmail.com, john.fastabend@gmail.com,
+ ast@kernel.org, linux-stm32@st-md-mailman.stormreply.com, horms@kernel.org,
+ edumazet@google.com, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, florian.fainelli@broadcom.com, kuba@kernel.org,
+ bpf@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-kernel@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] net: stmmac: Integrate
  dwxgmac4 into stmmac hwif handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -86,134 +57,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 01, 2024 at 08:18:21PM -0700, jitendra.vegiraju@broadcom.com wrote:
-> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> 
-> Integrate dwxgmac4 support into stmmac hardware interface handling.
-> A dwxgmac4 is an xgmac device and hence it inherits properties from
-> existing stmmac_hw table entry.
-> The quirks handling facility is used to update dma_ops field to
-> point to dwxgmac400_dma_ops when the user version field matches.
-> 
-> Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/common.h |  4 +++
->  drivers/net/ethernet/stmicro/stmmac/hwif.c   | 26 +++++++++++++++++++-
->  drivers/net/ethernet/stmicro/stmmac/hwif.h   |  1 +
->  3 files changed, 30 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index cd36ff4da68c..9bf278e11704 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -37,11 +37,15 @@
->  #define DWXGMAC_CORE_2_10	0x21
->  #define DWXGMAC_CORE_2_20	0x22
->  #define DWXLGMAC_CORE_2_00	0x20
-
-> +#define DWXGMAC_CORE_4_00	0x40
-
-DW25GMAC_CORE_4_00?
-
->  
->  /* Device ID */
->  #define DWXGMAC_ID		0x76
-
-What is the device ID in your case? Does it match to DWXGMAC_ID?
-
->  #define DWXLGMAC_ID		0x27
->  
-> +/* User Version */
-> +#define DWXGMAC_USER_VER_X22	0x22
-> +
->  #define STMMAC_CHAN0	0	/* Always supported and default for all chips */
->  
->  /* TX and RX Descriptor Length, these need to be power of two.
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> index 29367105df54..713cb5aa2c3e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> @@ -36,6 +36,18 @@ static u32 stmmac_get_dev_id(struct stmmac_priv *priv, u32 id_reg)
->  	return (reg & GENMASK(15, 8)) >> 8;
->  }
->  
-
-> +static u32 stmmac_get_user_version(struct stmmac_priv *priv, u32 id_reg)
-> +{
-> +	u32 reg = readl(priv->ioaddr + id_reg);
-> +
-> +	if (!reg) {
-> +		dev_info(priv->device, "User Version not available\n");
-> +		return 0x0;
-> +	}
-> +
-> +	return (reg & GENMASK(23, 16)) >> 16;
-> +}
-> +
-
-The User Version is purely a vendor-specific stuff defined on the
-IP-core synthesis stage. Moreover I don't see you'll need it anyway.
-
->  static void stmmac_dwmac_mode_quirk(struct stmmac_priv *priv)
->  {
->  	struct mac_device_info *mac = priv->hw;
-> @@ -82,6 +94,18 @@ static int stmmac_dwmac4_quirks(struct stmmac_priv *priv)
->  	return 0;
->  }
->  
-
-> +static int stmmac_dwxgmac_quirks(struct stmmac_priv *priv)
-> +{
-> +	struct mac_device_info *mac = priv->hw;
-> +	u32 user_ver;
-> +
-> +	user_ver = stmmac_get_user_version(priv, GMAC4_VERSION);
-> +	if (priv->synopsys_id == DWXGMAC_CORE_4_00 &&
-> +	    user_ver == DWXGMAC_USER_VER_X22)
-> +		mac->dma = &dwxgmac400_dma_ops;
-> +	return 0;
-> +}
-> +
->  static int stmmac_dwxlgmac_quirks(struct stmmac_priv *priv)
->  {
->  	priv->hw->xlgmac = true;
-> @@ -256,7 +280,7 @@ static const struct stmmac_hwif_entry {
->  		.mmc = &dwxgmac_mmc_ops,
->  		.est = &dwmac510_est_ops,
->  		.setup = dwxgmac2_setup,
-> -		.quirks = NULL,
-> +		.quirks = stmmac_dwxgmac_quirks,
-
-Why? You can just introduce a new stmmac_hw[] entry with the DW
-25GMAC-specific stmmac_dma_ops instance specified.
-
--Serge(y)
-
->  	}, {
->  		.gmac = false,
->  		.gmac4 = false,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index e53c32362774..6213c496385c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -683,6 +683,7 @@ extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
->  extern const struct stmmac_mmc_ops dwmac_mmc_ops;
->  extern const struct stmmac_mmc_ops dwxgmac_mmc_ops;
->  extern const struct stmmac_est_ops dwmac510_est_ops;
-> +extern const struct stmmac_dma_ops dwxgmac400_dma_ops;
->  
->  #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
->  #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
-> -- 
-> 2.34.1
-> 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBdWcgMDUsIDIwMjQgYXQgMDU6MzY6MzBQTSAtMDcwMCwgSml0ZW5kcmEgVmVnaXJh
+anUgd3JvdGU6Cj4gSGkgQW5kcmV3LAo+IE9uIEZyaSwgQXVnIDIsIDIwMjQgYXQgMzo1OeKAr1BN
+IEFuZHJldyBMdW5uIDxhbmRyZXdAbHVubi5jaD4gd3JvdGU6Cj4gPgo+ID4gPiArICAgICB1c2Vy
+X3ZlciA9IHN0bW1hY19nZXRfdXNlcl92ZXJzaW9uKHByaXYsIEdNQUM0X1ZFUlNJT04pOwo+ID4g
+PiArICAgICBpZiAocHJpdi0+c3lub3BzeXNfaWQgPT0gRFdYR01BQ19DT1JFXzRfMDAgJiYKPiA+
+ID4gKyAgICAgICAgIHVzZXJfdmVyID09IERXWEdNQUNfVVNFUl9WRVJfWDIyKQo+ID4gPiArICAg
+ICAgICAgICAgIG1hYy0+ZG1hID0gJmR3eGdtYWM0MDBfZG1hX29wczsKPiA+Cj4gPiBJIGtub3cg
+bm90aGluZyBhYm91dCB0aGlzIGhhcmR3YXJlLi4uLgo+ID4KPiA+IERvZXMgcHJpdi0+c3lub3Bz
+eXNfaWQgPT0gRFdYR01BQ19DT1JFXzRfMCBub3QgaW1wbHkKPiA+IGR3eGdtYWM0MDBfZG1hX29w
+cz8KPiA+Cj4gPiBDb3VsZCBhIHVzZXIgc3ludGhlc2lzZSBEV1hHTUFDX0NPUkVfNF8wMCB3aXRo
+b3V0IHVzaW5nCj4gPiBkd3hnbWFjNDAwX2RtYV9vcHM/IENvdWxkIGR3eGdtYWM1MDBfZG1hX29w
+cyBvciBkd3hnbWFjMTAwX2RtYV9vcHMgYmUKPiA+IHVzZWQ/Cj4gWWVzLCB0aGUgdXNlciBjYW4g
+Y2hvb3NlIGJldHdlZW4gRW5oYW5jZWQgRE1BICwgSHlwZXIgRE1BICwgTm9ybWFsIERNQS4KPiBU
+aGlzIFNvQyBzdXBwb3J0IGhhcyBjaG9zZW4gSHlwZXIgRE1BIGZvciBmdXR1cmUgZXhwYW5kYWJp
+bGl0eS4KCklzIHRoZXJlIGEgcmVnaXN0ZXIgd2hpY2ggZGVzY3JpYmVzIHRoZSBzeW50aGVzaXMg
+Y29uZmlndXJhdGlvbj8gSXQgaXMKbXVjaCBiZXR0ZXIgdGhhdCB0aGUgaGFyZHdhcmUgdGVsbHMg
+dXMgd2hhdCBpdCBpcywgcmF0aGVyIHRoYW4gaGF2aW5nCnRvIGV4cGFuZCB0aGlzIGNvbmRpdGlv
+biBmb3IgZXZlcnkgbmV3IGRldmljZXMgd2hpY2ggZ2V0cyBhZGRlZC4KCkFsc28sIHdoYXQgaXMg
+dGhlIGRlZmluaXRpb24gb2YgdXNlcl92ZXIuIENhbiB3ZSBndWFyYW50ZWUgdGhpcyBpcwp1bmlx
+dWUgYW5kIGNhbiBhY3R1YWxseSBiZSB1c2VkIHRvIGRldGVybWluZSB3aGF0IERNQSB2YXJpYW50
+IGhhcyBiZWVuCnN5bnRoZXNpc2VkPwoKCUFuZHJldwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
