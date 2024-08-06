@@ -2,76 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E7F94971D
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 19:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3AB9497C5
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 20:56:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9611C71290;
-	Tue,  6 Aug 2024 17:51:38 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62B4BC71290;
+	Tue,  6 Aug 2024 18:56:17 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAC58C5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20831C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 17:51:30 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-52efd8807aaso1522637e87.3
+ Tue,  6 Aug 2024 18:56:10 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2f032cb782dso9113971fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Aug 2024 10:51:30 -0700 (PDT)
+ Tue, 06 Aug 2024 11:56:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1722966690; x=1723571490;
+ d=gmail.com; s=20230601; t=1722970569; x=1723575369;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=cEPV8O/bobIi5p9nTTiWHc/1HlnUPMSVdRAVbmjiJfA=;
- b=F3kNMFetmE4UjAOyDImuv5hjp37VB2DqWCegJ1IrG+l5iKe6umV016Wg9N6wpoDr8w
- vmaPoqoqC19F9zbXzAC6JLabczhz4bYBFAAVaLldbHi/C8myOLD8rC0HY4yDfMYVZswN
- vKNVD7wu8j6uLGp8oKK4wUCGrgzq6K2KfjyFJ8p+CxrPRzk/UpRRRLuVor85j6co3BqS
- pc16zYlEptVSRC0i3OpdVg0todI+Wz4BXkiMs189v/l5vOsIjdUd0tSrXYKgRD5tMxLB
- UXiaSWyK3ylNBlhTAz+FcW5SFPsgd7sGl3B7+ZvRLsF2eEVMaTh/wufUekuucyEat2nV
- CMUg==
+ bh=Pf9/0bfQnePOOTaXBk6YMsUHrh8Q8JuFZwwu+99uXH4=;
+ b=dUi0inXWl1OtoX/fWA1ZdKEmEVsu6Bxz+foPgYlIuieEQyr7VRvBn6MJDqUMys7BAY
+ fs7HV3I0D8qG/xBDnq7m+G+t2S+00y2IRMMShc4XubeKI/6pNNRcQHV6o9ODWA2sGJRh
+ oM8NiGuOxh4yXzTM98p7qiOq05k7DjNvz9Ph8HLkMS8/+EN77XKK0ua5BSn0quP0XV/B
+ YatOaCO7Rr0uUAcqKts+Y1TAaGbeU+7MgX24So0cIQP3fCRFpUXdfa8DnswKmGi4HTVq
+ a9Iz0/MukyURFgkHM7dtsRK42lgJmrdeYIqVjuf3gCjYtvbfBCNWlFuO2uhuwt3MdYtF
+ dF7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722966690; x=1723571490;
+ d=1e100.net; s=20230601; t=1722970569; x=1723575369;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cEPV8O/bobIi5p9nTTiWHc/1HlnUPMSVdRAVbmjiJfA=;
- b=NQVwasxI2GuIOf1UgYi0LgYUkpO09/jAKu8Z1PG/i7sUwjLR8sIKBxWgYAXjuyuWl9
- FjLS4SaX2txsDpWGIz8OvK8gOhvbXuoyWc97tEfxhYWPCr8MSF8VEvPjx3i7+D7f6aW1
- Ppb5KKmUyMTNQVPdLh5uUbOS0xMUeVbHGgTfcHMicPWkS+ZtjfgGua4oRSn0hrWHs/um
- FzkTN7UsSTjEmsZayLwpkn1gsqS3n9tBs3IlUH0uQaGzoM0kaw/8JjJQeEhRMNvZHtew
- AB8ubBQlK3FbXMKydD8GqqgvlgneDk9vBeg1EjMEG0HOBrf9hL3JrRC+aAb2BZRinTPj
- CiKw==
+ bh=Pf9/0bfQnePOOTaXBk6YMsUHrh8Q8JuFZwwu+99uXH4=;
+ b=twBi79biwQ5RmBUaTPJzjhNvvuchC1qcXYxE3jfPor5L2KKP8u3V8/8eZ0hteQXm7e
+ KRofcyFCUQe2Kv4WhMqSr6j9Ee8IjDaioCBgA5OBD2biw1v2RI5hdNgpCppJLknAryXq
+ wlRgMiI+cdnGBudi+OuYBphKjWFsO0FfNi2cdPa2/LWtozpgTYN2b1OLYUQZu20pB/G1
+ 2vl7NlgjlDtpVXjjK8i9d6FH1vBd8pqkwQ7z656Uf1V6ELIJLIzNpe9U6YksThAi7PeS
+ M/9bWkvV9UeLPajSP+r1dFJMAQjR5s8+YbVL08OrTrrFSkIwE/yM1N49divkPHdTtRX1
+ mGGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUSMuNuIoNT1nNbAy+4qVLr7ZDAoyc52o+ekBD1/gqz2aaua9z6Lb6Dxjp2tRx1sLIfUhE3fvMSzFZicOI8atN9idYmxu5E/n9nVVAh5FE0BzvpuEn0ZrGa
-X-Gm-Message-State: AOJu0Yy3tUEa6LVx06FR3AvGb+UXY3ZtqvgosctKoS/YX96rrhZhKL1s
- vhmR/monPotZ7wgn8yVCF9tpv+V8SDgm8rncHvjVpWj98rW7ZhKr7+5YuHOkVNU=
-X-Google-Smtp-Source: AGHT+IGSi4GuJh9qmDt/eZ6cr3AQur9jVGY7A+ektYUqG98TbGGq6brOhPykx5o83fi+1WZZTOQ8kw==
-X-Received: by 2002:a05:6512:3ba5:b0:52e:fefe:49c9 with SMTP id
- 2adb3069b0e04-530bb39ddf8mr12022225e87.36.1722966689606; 
- Tue, 06 Aug 2024 10:51:29 -0700 (PDT)
-Received: from localhost ([2a02:8071:b783:6940:36f3:9aff:fec2:7e46])
+ AJvYcCWOU79BuFJHUyLPlievY/xApTaVNxMGafuO/cYeSNqkuyUd8VQRA7dUGC83yHdE/rhqh8b8MDYZb5Ri7LTuSE7TjRxPVcVJ2UOUU1H9wKhuKk4jy2HhJE2K
+X-Gm-Message-State: AOJu0YxyhO50Aza6qt8E5YE1guyWcBs4z5u/beg7qMIz1fbSYAWt+51k
+ yUyqteJduDeoDmwiWQAF252RLDf/roh9KPNSu0ExKFzqrJ9ZjJDK
+X-Google-Smtp-Source: AGHT+IE4j3d2MbABxSDMFiENvEQ+bNAsQAZt/hODsl/X0IxURgYF6oPEul6YrvfjSgyayvsvcJx8vg==
+X-Received: by 2002:a05:651c:218:b0:2ef:2608:2e47 with SMTP id
+ 38308e7fff4ca-2f15aa92e41mr117683181fa.13.1722970568665; 
+ Tue, 06 Aug 2024 11:56:08 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ba442ed7f1sm4416778a12.81.2024.08.06.10.51.28
+ 38308e7fff4ca-2f15e187584sm15388571fa.4.2024.08.06.11.56.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 10:51:29 -0700 (PDT)
-Date: Tue, 6 Aug 2024 19:51:27 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: linux-pwm@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>
-Message-ID: <ld2hbd7tnltcrwihhcjrloicpoorrve7ugtjxgyjcowoneas6p@dircm3eb6yok>
-References: <cover.1722261050.git.u.kleine-koenig@baylibre.com>
+ Tue, 06 Aug 2024 11:56:07 -0700 (PDT)
+Date: Tue, 6 Aug 2024 21:56:04 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
+References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <cover.1722261050.git.u.kleine-koenig@baylibre.com>
-Cc: Trevor Gamblin <tgamblin@baylibre.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/8] pwm: New abstraction and userspace
-	API
+Content-Disposition: inline
+In-Reply-To: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
+Cc: Sneh Shah <quic_snehshah@quicinc.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
+ convert stmmac "pcs" to phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,126 +87,234 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4792225262381749116=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Russell
 
---===============4792225262381749116==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rnjsu6vonelo7pj6"
-Content-Disposition: inline
+On Mon, Aug 05, 2024 at 11:24:01AM +0100, Russell King (Oracle) wrote:
+> Hi,
+> 
+> Changes since version 3:
+> - added Andrew's reviewed-bys
+> - fixed kernel-doc for dwmac_pcs_isr()
+> - updated patch 11 commit message
+> - fixed build error reported by Jakub
+> - add Sneh Shah to Cc list (for testing 2.5G modes)
+> 
+> Bartosz - I know you've given your tested-by this morning, I will be
+> adding that after posting this series, so please don't think it's been
+> lost!
 
+Got this series tested on my DW GMAC v3.73a + Micrel KSZ9031RNX PHY
+with the in-band link status management enabled. The same positive result
+as before, on v1-v2:
+[  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
+[  294.582498] stmmaceth 1f060000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[  294.594308] stmmaceth 1f060000.ethernet eth1: PHY [stmmac-1:03] driver [RTL8211E Gigabit Ethernet] (irq=POLL)
+[  294.605453] dwmac1000: Master AXI performs any burst length
+[  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
+[  294.618229] stmmaceth 1f060000.ethernet eth1: No Safety Features support found
+[  294.626412] stmmaceth 1f060000.ethernet eth1: No MAC Management Counters available
+[  294.634912] stmmaceth 1f060000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
+[  294.644380] stmmaceth 1f060000.ethernet eth1: registered PTP clock
+[  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
+...
+[  298.772917] stmmaceth 1f060000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
 
---rnjsu6vonelo7pj6
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+So feel free to add:
+Tested-by: Serge Semin <fancer.lancer@gmail.com>
 
-On Mon, Jul 29, 2024 at 04:34:16PM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello,
->=20
-> here comes v3 of the series to add support for duty offset in PWM
-> waveforms. For a single PWM output there is no gain, but if you have a
-> chip with two (or more) outputs and both operate with the same period,
-> you can generate an output like:
->=20
->=20
->                ______         ______         ______         ______
->    PWM #0  ___/      \_______/      \_______/      \_______/      \_______
->                  __             __             __             __   =20
->    PWM #1  _____/  \___________/  \___________/  \___________/  \_________
->               ^              ^              ^              ^
->=20
-> Changes since v2, which is available from
-> https://lore.kernel.org/linux-pwm/cover.1721040875.git.u.kleine-koenig@ba=
-ylibre.com
-> include:
->=20
->  - Degrade a dev_alert() to dev_warn() on feedback by David Lechner
->=20
->  - Improvement of various comments (partly in reply to David Lechner)
->=20
->  - Add _ns suffixes for members of pwm_waveform, thanks David for that su=
-ggestion.
->=20
->  - Rebased to v6.11-rc1 + pwm/for-next.
->=20
-> Because of these changes I didn't add Trevor's Reviewed-by tag for patch
-> #3.
->=20
-> I kept the BUG_ONs. There are a few check_patch warnings about it, but I =
-still
-> prefer these given that it is safe they don't trigger without further (bo=
-gus)
-> code changes and when they trigger crashing early is better than stack
-> corruption. Also checkpatch tells
->         WARNING: Comparisons should place the constant on the right side =
-of the test
->         #158: FILE: drivers/pwm/core.c:262:
->         +       BUG_ON(WFHWSIZE < ops->sizeof_wfhw);
->=20
-> But as the BUG_ON is about WFHWSIZE being wrong, this order is OK.
->=20
-> There are a few more checkpatch warnings about line lengths. Breaking
-> the criticised lines further hurts readability IMHO, so I kept them. It
-> gets a bit better once stm32_pwm_mul_u64_u64_div_u64_roundup() is
-> implemented (without the stm32_pwm prefix) alongside
-> mul_u64_u64_div_u64() in lib/math/div64.c, but I don't want to wait for
-> that. I will address that once Nicolas's patch improving precision of
-> mul_u64_u64_div_u64() landed. (Hmm, it's not in next any more since
-> next-20240724, before it was 3cc8bf1a81efde105d8e57398cf8554b57768777 +
-> dbbe95af0fad2a9d22a4b910cfc4b87949d61a3c).
->=20
-> Best regards
-> Uwe
->=20
-> Uwe Kleine-K=F6nig (8):
->   pwm: Simplify pwm_capture()
->   pwm: Add more locking
->   pwm: New abstraction for PWM waveforms
->   pwm: Provide new consumer API functions for waveforms
->   pwm: Add support for pwmchip devices for faster and easier userspace
->     access
->   pwm: Add tracing for waveform callbacks
->   pwm: axi-pwmgen: Implementation of the waveform callbacks
->   pwm: stm32: Implementation of the waveform callbacks
+Please note the warning: "stmmaceth 1f060000.ethernet: invalid port
+speed" in the log above. This is a false negative warning since my
+network devices isn't of MAC2MAC-type and there is no snps,ps-speed
+property in my dts. So having the priv->hw.ps set to zero should be
+fine. That said I guess we need to add the warning fix to the 14/14
+patch which would permit the plat_stmmacenet_data::mac_port_sel_speed
+field being zero.
 
-I applied patch #1 which is a harmless cleanup for now. I will wait a
-bit for the rest of the series, as during August I won't be able to
-react to fall-outs reliably and quickly. I plan to apply this series
-with PWM_IOCTL_GET_NUM_PWMS dropped directly after the next merge window
-for cooking in next as long as possible.
+> 
+> Previous cover messages from earlier posts below:
+> 
+> This is version 3 of the series switching stmmac to use phylink PCS
+> isntead of going behind phylink's back.
+> 
+> Changes since version 2:
+> - Adopted some of Serge's feedback.
+> - New patch: adding ethqos_pcs_set_inband() for qcom-ethqos so we
+>   have one place to modify for AN control rather than many.
+> - New patch: pass the stmmac_priv structure into the pcs_set_ane()
+>   method.
+> - New patch: remove pcs_get_adv_lp() early, as this is only for TBI
+>   and RTBI, support for which we dropped in an already merged patch.
+> - Provide stmmac_pcs structure to encapsulate the pointer to
+>   stmmac_priv, PCS MMIO address pointer and phylink_pcs structure.
+> - Restructure dwmac_pcs_config() so we can eventually share code
+>   with dwmac_ctrl_ane().
+> - New patch: move dwmac_ctrl_ane() into stmmac_pcs.c, and share code.
+> - New patch: pass the stmmac_pcs structure into dwmac_pcs_isr().
+> - New patch: similar to Serge's patch, rename the PCS registers, but
+>   use STMMAC_PCS_ as the prefix rather than just PCS_ which is too
+>   generic.
+> - New patch: incorporate "net: stmmac: Activate Inband/PCS flag
+>   based on the selected iface" from Serge.
+> 
+> On the subject of whether we should have two PCS instances, I
+> experimented with that and have now decided against it. Instead,
+> dwmac_pcs_config() now tests whether we need to fiddle with the
+> PCS control register or not.
+> 
 
-Best regards
-Uwe
+> Note that I prefer not to have multiple layers of indirection, but
+> instead prefer a library-style approach, which is why I haven't
+> turned the PCS support into something that's self contained with
+> a method in the MAC driver to grab the RGSMII status.
 
---rnjsu6vonelo7pj6
-Content-Type: application/pgp-signature; name="signature.asc"
+I understand the reason of your choice in this case. As a result a
+some part of my changes haven't been merged in into your series. But I
+deliberately selected the approach with having the simple PCS
+HW-interface callbacks utilized for a self-contained internal PCS
+implementation. Here is why:
+1. Signify that the DW GMAC and DW QoS Eth internal PCSs are the
+same.
+2. Reduce the amount of code.
+3. Collects the entire PCS implementation in a single place which
+improves the code readability.
+4. The PCS ops initialization is implemented in the same way as the
+PTP, MMC and EST (and likely FPE in some time in future), in the
+hwif.c and the interface/core callbacks in the dedicated files
+(stmmac_ptp.c, mmc_core.c, stmmac_est.c, etc). So the PCS
+implementation would be in general unified with what has been done for
+PTP/MMC/EST/etc. 
+5. ...
 
------BEGIN PGP SIGNATURE-----
+Taking that into account I am still convinced that my approach worth
+to be implemented. Hope you won't mind, if after your series is merged
+in I'll submit another patch set which would introduce some of my
+PCS-changes not included into your patch set. Like this:
+1. Move the mac_device_info instance to being defined in the
+stmmac_priv structure (new patch, so to drop the stmmac_priv pointer
+from stmmac_pcs).
+2. Introduce stmmac_priv::pcsaddr (to have the PCS CSR base address
+defined in the same way as for PTP/MMC/EST/etc).
+3. Provide the HWIF ops:
+   stmmac_pcs_ops {
+        pcs_get_config_reg;
+        pcs_enable_irq;
+        pcs_disable_irq;
+   } for DW GMAC and DW QoS Eth.
+4. Move PCS implementation to stmmac_pcs.c
+5. Direct using the plat_stmmacenet_data::mac_port_sel_speed field
+instead of the mac_device_info::ps.
+6. Some more cleanups like converting the struct stmmac_hwif_entry
+field from void-pointers to the typed-pointers, ...
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmayYpwACgkQj4D7WH0S
-/k5X6Af5AcYk85/lzILYN6aUXwXaafFzMLqD0NyuhAkvVU5nIXZV4zCAe5RIcAPQ
-aMYc9HZgZcjnSLLwQdfUviOyI4O5pRXsTHlbhCww1G1iS5o0QWb5ioODTaJUmAFc
-cgqGhmkIlFjA98c8ByAtxtS7NqpnuAcMmZSGf5YoFj7EAElBxKEOXApRVL6oUkpc
-JURo6Ea4n/grMcvwkdT0px09TdCs80ZK5efU5QgVduB3ME8fzoI/S4vvNjgp10x6
-Ur4eoGnXGRoJ4Uzcv3OY/ydc3STvoJ6mmTvFO2cgCDdpdHs8LwNM7GoDx8/jJ8gZ
-HW0SHHwcjYziOe9BuAsEz4bw4JwdkA==
-=FH+q
------END PGP SIGNATURE-----
+-Serge(y)
 
---rnjsu6vonelo7pj6--
-
---===============4792225262381749116==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> -----
+> 
+> This is version 2 of the series switching stmmac to use phylink PCS
+> instead of going behind phylink's back.
+> 
+> Changes since version 1:
+> - Addition of patches from Serge Semin to allow RGMII to use the
+>   "PCS" code even if priv->dma_cap.pcs is not set (including tweaks
+>   by me.)
+> - Restructuring of the patch set to be a more logical split.
+> - Leave the pcs_ctrl_ane methods until we've worked out what to do
+>   with the qcom-ethqos driver (this series may still end up breaking
+>   it, but at least we will now successfully compile.)
+> 
+> A reminder that what I want to hear from this patch set are the results
+> of testing - and thanks to Serge, the RGMII paths were exercised, but
+> I have not had any results for the SGMII side of this.
+> 
+> There are still a bunch of outstanding questions:
+> 
+> - whether we should be using two separate PCS instances, one for
+>   RGMII and another for SGMII. If the PCS hardware is not present,
+>   but are using RGMII mode, then we probably don't want to be
+>   accessing the registers that would've been there for SGMII.
+> - what the three interrupts associated with the PCS code actually
+>   mean when they fire.
+> - which block's status we're reading in the pcs_get_state() method,
+>   and whether we should be reading that for both RGMII and SGMII.
+> - whether we need to activate phylink's inband mode in more cases
+>   (so that the PCS/MAC status gets read and used for the link.)
+> 
+> There's probably more questions to be asked... but really the critical
+> thing is to shake out any breakage from making this conversion. Bear
+> in mind that I have little knowledge of this hardware, so this
+> conversion has been done somewhat blind using only what I can observe
+> from the current driver.
+> 
+> ------
+> 
+> As I noted recently in a thread (and was ignored) stmmac sucks. (I
+> won't hide my distain for drivers that make my life as phylink
+> maintainer more difficult!)
+> 
+> One of the contract conditions for using phylink is that the driver
+> will _not_ mess with the netif carrier. stmmac developers/maintainers
+> clearly didn't read that, because stmmac messes with the netif
+> carrier, which destroys phylink's guarantee that it'll make certain
+> calls in a particular order (e.g. it won't call mac_link_up() twice
+> in a row without an intervening mac_link_down().) This is clearly
+> stated in the phylink documentation.
+> 
+> Thus, this patch set attempts to fix this. Why does it mess with the
+> netif carrier? It has its own independent PCS implementation that
+> completely bypasses phylink _while_ phylink is still being used.
+> This is not acceptable. Either the driver uses phylink, or it doesn't
+> use phylink. There is no half-way house about this. Therefore, this
+> driver needs to either be fixed, or needs to stop using phylink.
+> 
+> Since I was ignored when I brought this up, I've hacked together the
+> following patch set - and it is hacky at the moment. It's also broken
+> because of recentl changes involving dwmac-qcom-ethqos.c - but there
+> isn't sufficient information in the driver for me to fix this. The
+> driver appears to use SGMII at 2500Mbps, which simply does not exist.
+> What interface mode (and neg_mode) does phylink pass to pcs_config()
+> in each of the speeds that dwmac-qcom-ethqos.c is interested in.
+> Without this information, I can't do that conversion. So for the
+> purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
+> it will fail to build.)
+> 
+> The patch splitup is not ideal, but that's not what I'm interested in
+> here. What I want to hear is the results of testing - does this switch
+> of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
+> 
+> Please don't review the patches, but you are welcome to send fixes to
+> them. Once we know that the overall implementation works, then I'll
+> look at how best to split the patches. In the mean time, the present
+> form is more convenient for making changes and fixing things.
+> 
+> There is still more improvement that's needed here.
+> 
+> Thanks.
+> 
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+>  drivers/net/ethernet/stmicro/stmmac/common.h       |  25 ++--
+>  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  13 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  13 +-
+>  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 110 +++++++-------
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  13 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  99 +++++++------
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h         |  24 ++--
+>  .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  30 +---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  63 ++++++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 160 ++++++++++-----------
+>  12 files changed, 306 insertions(+), 357 deletions(-)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4792225262381749116==--
