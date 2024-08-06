@@ -2,53 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 361AD949031
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 15:08:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA50794909F
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 15:16:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCFECC71290;
-	Tue,  6 Aug 2024 13:08:54 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5863FC71290;
+	Tue,  6 Aug 2024 13:16:12 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19DA4C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 054F0C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 13:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=S7MtkYDJ1rYrIhVc+sgJU5aErkd2FXVkUBn+xIwlPJs=; b=OT6QJYLDqZL/9PL2rP9dNtlHuf
- Y8ii/22Mnc9lkMkQcFnEW3B5w9/b5F+kPRaqGP4G0cynu5PhDF4MWd2ioP625l9DmoGu/5PKSEnr7
- qjdL8alNvfp5JPtjZepS8uBkrPsodg/NkujMDPgYqgaZZ0ogtkfnB7VvBNJqSUugBolMkoWKniLtG
- kywcpdLtq7CI/7orGKyrz2CNYKlc+rRBPMb89wOihHzpkcwwTQeU8p8Pj9ro7+h7F/lHvrkQB7BZj
- p6zl3ywaeHglUopFI/pNCc+VrAnFD2wSIgQXUmaJFXFbfwoj7l4MJzNg85+UC5EMhv7hhEi2CFSM9
- sy1WNErQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44594 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1sbJvY-0004tP-0o;
- Tue, 06 Aug 2024 14:08:36 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1sbJvd-001rGD-E3; Tue, 06 Aug 2024 14:08:41 +0100
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Tue,  6 Aug 2024 13:16:05 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1sbK2d-0000GH-3S; Tue, 06 Aug 2024 15:15:55 +0200
+Received: from [2a0a:edc0:2:b01:1d::c5] (helo=pty.whiteo.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ore@pengutronix.de>)
+ id 1sbK2b-004xsB-NF; Tue, 06 Aug 2024 15:15:53 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1sbK2b-0051Ir-1q;
+ Tue, 06 Aug 2024 15:15:53 +0200
+Date: Tue, 6 Aug 2024 15:15:53 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <ZrIiCX89nRDLvXtC@pengutronix.de>
+References: <20240806120332.405064-1-o.rempel@pengutronix.de>
+ <ae46118f-a692-4362-8e6b-4ef8c6369541@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1sbJvd-001rGD-E3@rmk-PC.armlinux.org.uk>
-Date: Tue, 06 Aug 2024 14:08:41 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2] net: stmmac: dwmac4: fix PCS duplex
-	mode decode
+In-Reply-To: <ae46118f-a692-4362-8e6b-4ef8c6369541@kernel.org>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ kernel@pengutronix.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Jander <david@protonic.nl>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1] arm: dts: st: Add MECIO1 and MECT1S
+	board variants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,53 +68,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwmac4 was decoding the duplex mode from the GMAC_PHYIF_CONTROL_STATUS
-register incorrectly, using GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK (value 1)
-rather than GMAC_PHYIF_CTRLSTATUS_LNKMOD (bit 16). Fix this.
+On Tue, Aug 06, 2024 at 02:39:31PM +0200, Krzysztof Kozlowski wrote:
+> On 06/08/2024 14:03, Oleksij Rempel wrote:
+> > From: David Jander <david@protonic.nl>
+> > 
+> > Introduce device tree support for the MECIO1 and MECT1S board variants.
+> > MECIO1 is an I/O and motor control board used in blood sample analysis
+> > machines. MECT1S is a 1000Base-T1 switch for internal machine networks
+> > of blood sample analysis machines.
+> > 
+> > Signed-off-by: David Jander <david@protonic.nl>
+> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > ---
+> >  .../devicetree/bindings/arm/stm32/stm32.yaml  |   8 +
+> >  arch/arm/boot/dts/st/Makefile                 |   3 +
+> >  arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts |  48 ++
+> >  arch/arm/boot/dts/st/stm32mp151c-mect1s.dts   | 297 ++++++++++
+> >  arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts |  48 ++
+> >  .../arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi | 533 ++++++++++++++++++
+> >  6 files changed, 937 insertions(+)
+> >  create mode 100644 arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts
+> >  create mode 100644 arch/arm/boot/dts/st/stm32mp151c-mect1s.dts
+> >  create mode 100644 arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts
+> >  create mode 100644 arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
+> > 
+> > diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> > index 58099949e8f3a..703d4b574398d 100644
+> > --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> 
+> Please run scripts/checkpatch.pl and fix reported warnings. Then please
+> run `scripts/checkpatch.pl --strict` and (probably) fix more warnings.
 
-Fixes: 70523e639bf8c ("drivers: net: stmmac: reworking the PCS code.")
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
-Changes since v1:
-- remove GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK definition
-- add reviewed-bys
+Ack, I see. stm32.yaml should be in separate patch.
 
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h      | 2 --
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 2 +-
- 2 files changed, 1 insertion(+), 3 deletions(-)
+> Some warnings can be ignored, especially from --strict run, but the code
+> here looks like it needs a fix. Feel free to get in touch if the warning
+> is not clear.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-index d3c5306f1c41..93a78fd0737b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-@@ -573,8 +573,6 @@ static inline u32 mtl_low_credx_base_addr(const struct dwmac4_addrs *addrs,
- #define GMAC_PHYIF_CTRLSTATUS_LNKSTS		BIT(19)
- #define GMAC_PHYIF_CTRLSTATUS_JABTO		BIT(20)
- #define GMAC_PHYIF_CTRLSTATUS_FALSECARDET	BIT(21)
--/* LNKMOD */
--#define GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK	0x1
- /* LNKSPEED */
- #define GMAC_PHYIF_CTRLSTATUS_SPEED_125		0x2
- #define GMAC_PHYIF_CTRLSTATUS_SPEED_25		0x1
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index f98741d2607e..31c387cc5f26 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -786,7 +786,7 @@ static void dwmac4_phystatus(void __iomem *ioaddr, struct stmmac_extra_stats *x)
- 		else
- 			x->pcs_speed = SPEED_10;
- 
--		x->pcs_duplex = (status & GMAC_PHYIF_CTRLSTATUS_LNKMOD_MASK);
-+		x->pcs_duplex = (status & GMAC_PHYIF_CTRLSTATUS_LNKMOD);
- 
- 		pr_info("Link is Up - %d/%s\n", (int)x->pcs_speed,
- 			x->pcs_duplex ? "Full" : "Half");
+What should be done with "ethernet-phy-id2000.a284" appears
+un-documente warnings? Should it be handled by
+Documentation/devicetree/bindings/net/ethernet-phy.yaml?
+
+Best regards,
+Oleksij
 -- 
-2.30.2
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
