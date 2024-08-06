@@ -2,80 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3AB9497C5
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 20:56:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0832949A8F
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2024 23:57:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62B4BC71290;
-	Tue,  6 Aug 2024 18:56:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77328C7129D;
+	Tue,  6 Aug 2024 21:57:04 +0000 (UTC)
 Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
  [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20831C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46E38C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2024 18:56:10 +0000 (UTC)
+ Tue,  6 Aug 2024 21:56:57 +0000 (UTC)
 Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2f032cb782dso9113971fa.3
+ 38308e7fff4ca-2f16767830dso12207121fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Aug 2024 11:56:10 -0700 (PDT)
+ Tue, 06 Aug 2024 14:56:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1722970569; x=1723575369;
+ d=gmail.com; s=20230601; t=1722981416; x=1723586216;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Pf9/0bfQnePOOTaXBk6YMsUHrh8Q8JuFZwwu+99uXH4=;
- b=dUi0inXWl1OtoX/fWA1ZdKEmEVsu6Bxz+foPgYlIuieEQyr7VRvBn6MJDqUMys7BAY
- fs7HV3I0D8qG/xBDnq7m+G+t2S+00y2IRMMShc4XubeKI/6pNNRcQHV6o9ODWA2sGJRh
- oM8NiGuOxh4yXzTM98p7qiOq05k7DjNvz9Ph8HLkMS8/+EN77XKK0ua5BSn0quP0XV/B
- YatOaCO7Rr0uUAcqKts+Y1TAaGbeU+7MgX24So0cIQP3fCRFpUXdfa8DnswKmGi4HTVq
- a9Iz0/MukyURFgkHM7dtsRK42lgJmrdeYIqVjuf3gCjYtvbfBCNWlFuO2uhuwt3MdYtF
- dF7A==
+ bh=W6MPx6EpPmKaQ9lPkOLAzoJdOfI6/FaVi+vpEu4BxRo=;
+ b=GPf+EaSMJ/p1G5mcUHjoRoEtnYcVmN5P1El3bCSgWuEVdh2sv6SW1trW1W9b47Gz2Q
+ 0J2ANrqBjKvm9A3oXshifqMaMLG3FGtX7NPdnj3y7hfsTMGXU6tv5usMB8ZKhmGBGDpP
+ WL+4QHryUQXfU3z448JTiuFZzjtHGCfDQKSJLHYLFYE5i66vHv0RqRmSrzvIgw6UwFac
+ 3CvkmoDnn9MsfHctTEcUjASP1+g82fJxHGGZQYCpbpWizpzM8+/mmfnGExzV934ZaZlB
+ nd97oj3snfh6sEfEGaomxMq8S0K6wsvqP+VuxM+CVVR9V1ps1yOu08OvyrPEVFFBNNS6
+ gY3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1722970569; x=1723575369;
+ d=1e100.net; s=20230601; t=1722981416; x=1723586216;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Pf9/0bfQnePOOTaXBk6YMsUHrh8Q8JuFZwwu+99uXH4=;
- b=twBi79biwQ5RmBUaTPJzjhNvvuchC1qcXYxE3jfPor5L2KKP8u3V8/8eZ0hteQXm7e
- KRofcyFCUQe2Kv4WhMqSr6j9Ee8IjDaioCBgA5OBD2biw1v2RI5hdNgpCppJLknAryXq
- wlRgMiI+cdnGBudi+OuYBphKjWFsO0FfNi2cdPa2/LWtozpgTYN2b1OLYUQZu20pB/G1
- 2vl7NlgjlDtpVXjjK8i9d6FH1vBd8pqkwQ7z656Uf1V6ELIJLIzNpe9U6YksThAi7PeS
- M/9bWkvV9UeLPajSP+r1dFJMAQjR5s8+YbVL08OrTrrFSkIwE/yM1N49divkPHdTtRX1
- mGGQ==
+ bh=W6MPx6EpPmKaQ9lPkOLAzoJdOfI6/FaVi+vpEu4BxRo=;
+ b=ohgysUhdeKRSNsBB9h5waWlwA5OMdVPHA+fC82o2BKovWcbicTaMa9neSCO7DFSzHm
+ 3aoGUv5yLUw+DIs4PqeNGzEf4pYXtIStnkzdWZ44OZClovKkL3d5d+oLAY2Ju8me8ofc
+ zMrYikEbt+bLgSdejJZRgbYPbOydsbGrLtETO21rsq7q2S8C8Eb3YD8qb9jmd+OtY4ml
+ d+ffqYGfPZDfUO/rLuGtMnh6/70NNAJKBc+11AyCTSR3aeAdgjptSwBGXMqJc/8BhUyG
+ kwezN+79+ySSjgS6cdzMa4Sj9XvsKVKxJhPgTY9j59yITcYZyZKqH3kCw+0Y7xemAWU8
+ 5r+A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOU79BuFJHUyLPlievY/xApTaVNxMGafuO/cYeSNqkuyUd8VQRA7dUGC83yHdE/rhqh8b8MDYZb5Ri7LTuSE7TjRxPVcVJ2UOUU1H9wKhuKk4jy2HhJE2K
-X-Gm-Message-State: AOJu0YxyhO50Aza6qt8E5YE1guyWcBs4z5u/beg7qMIz1fbSYAWt+51k
- yUyqteJduDeoDmwiWQAF252RLDf/roh9KPNSu0ExKFzqrJ9ZjJDK
-X-Google-Smtp-Source: AGHT+IE4j3d2MbABxSDMFiENvEQ+bNAsQAZt/hODsl/X0IxURgYF6oPEul6YrvfjSgyayvsvcJx8vg==
-X-Received: by 2002:a05:651c:218:b0:2ef:2608:2e47 with SMTP id
- 38308e7fff4ca-2f15aa92e41mr117683181fa.13.1722970568665; 
- Tue, 06 Aug 2024 11:56:08 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
+ AJvYcCU3lYS7HhKTm4J1fWNBW8X7x0Hml+G8XogOox2GIkPYmfVNEvui80GCuoYzYM6KGAOCKKdZwbGq8eB5anjlbzpKmxTI5YCvwJUgd0p+1G7OQEgD6tcCTr1L
+X-Gm-Message-State: AOJu0YzikigQWVnBuL6u4MhqPWclgaC0Kvv5RkBRAr/Kyvr72gspK9c5
+ bpPaT5/1DAaJJVD6v9DQodpiOIlPlF8NIRlh2O0RxLxv2o+20+eZ
+X-Google-Smtp-Source: AGHT+IGndPovKdG9kqTQoq4yO1/t8TMk9tRPZMqjFWB+ekO4WLiI8dYz51DHkGby04QVqSYknA6PsA==
+X-Received: by 2002:a05:6512:2399:b0:52c:d904:d26e with SMTP id
+ 2adb3069b0e04-530bb36fe6amr12514300e87.21.1722981415879; 
+ Tue, 06 Aug 2024 14:56:55 -0700 (PDT)
+Received: from mobilestation ([95.79.225.241])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f15e187584sm15388571fa.4.2024.08.06.11.56.06
+ 2adb3069b0e04-530de4022f3sm992e87.110.2024.08.06.14.56.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 11:56:07 -0700 (PDT)
-Date: Tue, 6 Aug 2024 21:56:04 +0300
+ Tue, 06 Aug 2024 14:56:55 -0700 (PDT)
+Date: Wed, 7 Aug 2024 00:56:53 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
-References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
+To: jitendra.vegiraju@broadcom.com
+Message-ID: <zlbtbzch6reo656d72it5h2s7p5bnwhexire36v3w63mazidta@cqyiza4k562t>
+References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
+ <20240802031822.1862030-2-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
-Cc: Sneh Shah <quic_snehshah@quicinc.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
- convert stmmac "pcs" to phylink
+In-Reply-To: <20240802031822.1862030-2-jitendra.vegiraju@broadcom.com>
+Cc: andrew@lunn.ch, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ florian.fainelli@broadcom.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, horms@kernel.org, bpf@vger.kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] net: stmmac: Add basic
+ dwxgmac4 support to stmmac core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,228 +91,398 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell
-
-On Mon, Aug 05, 2024 at 11:24:01AM +0100, Russell King (Oracle) wrote:
-> Hi,
+On Thu, Aug 01, 2024 at 08:18:20PM -0700, jitendra.vegiraju@broadcom.com wrote:
+> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
 > 
-> Changes since version 3:
-> - added Andrew's reviewed-bys
-> - fixed kernel-doc for dwmac_pcs_isr()
-> - updated patch 11 commit message
-> - fixed build error reported by Jakub
-> - add Sneh Shah to Cc list (for testing 2.5G modes)
+> Adds support for DWC_xgmac version 4.00a in stmmac core module.
+> This version adds enhancements to DMA architecture for virtualization
+> scalability. This is realized by decoupling physical DMA channels (PDMA)
+> from Virtual DMA channels (VDMA). The  VDMAs are software abastractions
+> that map to PDMAs for frame transmission and reception.
 > 
-> Bartosz - I know you've given your tested-by this morning, I will be
-> adding that after posting this series, so please don't think it's been
-> lost!
+> The virtualization enhancements are currently not being used and hence
+> a fixed mapping of VDMA to PDMA is configured in the init functions.
+> Because of the new init functions, a new instance of struct stmmac_dma_ops
+> dwxgmac400_dma_ops is added.
+> Most of the other dma operation functions in existing dwxgamc2_dma.c file
+> can be reused.
 
-Got this series tested on my DW GMAC v3.73a + Micrel KSZ9031RNX PHY
-with the in-band link status management enabled. The same positive result
-as before, on v1-v2:
-[  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
-[  294.582498] stmmaceth 1f060000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-[  294.594308] stmmaceth 1f060000.ethernet eth1: PHY [stmmac-1:03] driver [RTL8211E Gigabit Ethernet] (irq=POLL)
-[  294.605453] dwmac1000: Master AXI performs any burst length
-[  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
-[  294.618229] stmmaceth 1f060000.ethernet eth1: No Safety Features support found
-[  294.626412] stmmaceth 1f060000.ethernet eth1: No MAC Management Counters available
-[  294.634912] stmmaceth 1f060000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-[  294.644380] stmmaceth 1f060000.ethernet eth1: registered PTP clock
-[  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
-...
-[  298.772917] stmmaceth 1f060000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
-
-So feel free to add:
-Tested-by: Serge Semin <fancer.lancer@gmail.com>
-
-Please note the warning: "stmmaceth 1f060000.ethernet: invalid port
-speed" in the log above. This is a false negative warning since my
-network devices isn't of MAC2MAC-type and there is no snps,ps-speed
-property in my dts. So having the priv->hw.ps set to zero should be
-fine. That said I guess we need to add the warning fix to the 14/14
-patch which would permit the plat_stmmacenet_data::mac_port_sel_speed
-field being zero.
+As we figured out (didn't we?) that it's actually the DW 25GMAC, then
+it should be taken into account across the entire series.
 
 > 
-> Previous cover messages from earlier posts below:
+> Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
+>  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  31 ++++
+>  .../net/ethernet/stmicro/stmmac/dwxgmac4.c    | 142 ++++++++++++++++++
+>  .../net/ethernet/stmicro/stmmac/dwxgmac4.h    |  84 +++++++++++
+>  4 files changed, 258 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
 > 
-> This is version 3 of the series switching stmmac to use phylink PCS
-> isntead of going behind phylink's back.
-> 
-> Changes since version 2:
-> - Adopted some of Serge's feedback.
-> - New patch: adding ethqos_pcs_set_inband() for qcom-ethqos so we
->   have one place to modify for AN control rather than many.
-> - New patch: pass the stmmac_priv structure into the pcs_set_ane()
->   method.
-> - New patch: remove pcs_get_adv_lp() early, as this is only for TBI
->   and RTBI, support for which we dropped in an already merged patch.
-> - Provide stmmac_pcs structure to encapsulate the pointer to
->   stmmac_priv, PCS MMIO address pointer and phylink_pcs structure.
-> - Restructure dwmac_pcs_config() so we can eventually share code
->   with dwmac_ctrl_ane().
-> - New patch: move dwmac_ctrl_ane() into stmmac_pcs.c, and share code.
-> - New patch: pass the stmmac_pcs structure into dwmac_pcs_isr().
-> - New patch: similar to Serge's patch, rename the PCS registers, but
->   use STMMAC_PCS_ as the prefix rather than just PCS_ which is too
->   generic.
-> - New patch: incorporate "net: stmmac: Activate Inband/PCS flag
->   based on the selected iface" from Serge.
-> 
-> On the subject of whether we should have two PCS instances, I
-> experimented with that and have now decided against it. Instead,
-> dwmac_pcs_config() now tests whether we need to fiddle with the
-> PCS control register or not.
-> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index c2f0e91f6bf8..2f637612513d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -6,7 +6,7 @@ stmmac-objs:= stmmac_main.o stmmac_ethtool.o stmmac_mdio.o ring_mode.o	\
+>  	      mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs.o	\
+>  	      dwmac4_dma.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \
+>  	      stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwxgmac2_descs.o \
+> -	      stmmac_xdp.o stmmac_est.o \
 
-> Note that I prefer not to have multiple layers of indirection, but
-> instead prefer a library-style approach, which is why I haven't
-> turned the PCS support into something that's self contained with
-> a method in the MAC driver to grab the RGSMII status.
+> +	      stmmac_xdp.o stmmac_est.o dwxgmac4.o \
 
-I understand the reason of your choice in this case. As a result a
-some part of my changes haven't been merged in into your series. But I
-deliberately selected the approach with having the simple PCS
-HW-interface callbacks utilized for a self-contained internal PCS
-implementation. Here is why:
-1. Signify that the DW GMAC and DW QoS Eth internal PCSs are the
-same.
-2. Reduce the amount of code.
-3. Collects the entire PCS implementation in a single place which
-improves the code readability.
-4. The PCS ops initialization is implemented in the same way as the
-PTP, MMC and EST (and likely FPE in some time in future), in the
-hwif.c and the interface/core callbacks in the dedicated files
-(stmmac_ptp.c, mmc_core.c, stmmac_est.c, etc). So the PCS
-implementation would be in general unified with what has been done for
-PTP/MMC/EST/etc. 
-5. ...
+dw25gmac.o?
 
-Taking that into account I am still convinced that my approach worth
-to be implemented. Hope you won't mind, if after your series is merged
-in I'll submit another patch set which would introduce some of my
-PCS-changes not included into your patch set. Like this:
-1. Move the mac_device_info instance to being defined in the
-stmmac_priv structure (new patch, so to drop the stmmac_priv pointer
-from stmmac_pcs).
-2. Introduce stmmac_priv::pcsaddr (to have the PCS CSR base address
-defined in the same way as for PTP/MMC/EST/etc).
-3. Provide the HWIF ops:
-   stmmac_pcs_ops {
-        pcs_get_config_reg;
-        pcs_enable_irq;
-        pcs_disable_irq;
-   } for DW GMAC and DW QoS Eth.
-4. Move PCS implementation to stmmac_pcs.c
-5. Direct using the plat_stmmacenet_data::mac_port_sel_speed field
-instead of the mac_device_info::ps.
-6. Some more cleanups like converting the struct stmmac_hwif_entry
-field from void-pointers to the typed-pointers, ...
+>  	      $(stmmac-y)
+>  
+>  stmmac-$(CONFIG_STMMAC_SELFTESTS) += stmmac_selftests.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index dd2ab6185c40..c15f5247aaa8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/iopoll.h>
+>  #include "stmmac.h"
+>  #include "dwxgmac2.h"
+
+> +#include "dwxgmac4.h"
+
+"dw25gmac.h"?
+
+>  
+>  static int dwxgmac2_dma_reset(void __iomem *ioaddr)
+>  {
+> @@ -641,3 +642,33 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+>  	.enable_sph = dwxgmac2_enable_sph,
+>  	.enable_tbs = dwxgmac2_enable_tbs,
+>  };
+> +
+
+> +const struct stmmac_dma_ops dwxgmac400_dma_ops = {
+
+dw25gmac_dma_ops?
+
+> +	.reset = dwxgmac2_dma_reset,
+
+> +	.init = dwxgmac4_dma_init,
+> +	.init_chan = dwxgmac2_dma_init_chan,
+> +	.init_rx_chan = dwxgmac4_dma_init_rx_chan,
+> +	.init_tx_chan = dwxgmac4_dma_init_tx_chan,
+
+dw25gmac_dma_init, dw25gmac_dma_init_rx_chan, dw25gmac_dma_init_tx_chan?
+
+> +	.axi = dwxgmac2_dma_axi,
+> +	.dump_regs = dwxgmac2_dma_dump_regs,
+> +	.dma_rx_mode = dwxgmac2_dma_rx_mode,
+> +	.dma_tx_mode = dwxgmac2_dma_tx_mode,
+> +	.enable_dma_irq = dwxgmac2_enable_dma_irq,
+> +	.disable_dma_irq = dwxgmac2_disable_dma_irq,
+> +	.start_tx = dwxgmac2_dma_start_tx,
+> +	.stop_tx = dwxgmac2_dma_stop_tx,
+> +	.start_rx = dwxgmac2_dma_start_rx,
+> +	.stop_rx = dwxgmac2_dma_stop_rx,
+> +	.dma_interrupt = dwxgmac2_dma_interrupt,
+> +	.get_hw_feature = dwxgmac2_get_hw_feature,
+> +	.rx_watchdog = dwxgmac2_rx_watchdog,
+> +	.set_rx_ring_len = dwxgmac2_set_rx_ring_len,
+> +	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
+> +	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
+> +	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
+> +	.enable_tso = dwxgmac2_enable_tso,
+> +	.qmode = dwxgmac2_qmode,
+> +	.set_bfsize = dwxgmac2_set_bfsize,
+> +	.enable_sph = dwxgmac2_enable_sph,
+> +	.enable_tbs = dwxgmac2_enable_tbs,
+> +};
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
+> new file mode 100644
+> index 000000000000..9c8748122dc6
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
+
+dw25gmac.c?
+
+> @@ -0,0 +1,142 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2024 Broadcom Corporation
+> + */
+> +#include "dwxgmac2.h"
+
+> +#include "dwxgmac4.h"
+
+dw25gmac.h?
+
+> +
+> +static int rd_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel)
+> +{
+> +	u32 reg_val = 0;
+> +	u32 val = 0;
+> +
+> +	reg_val |= mode << XGMAC4_MSEL_SHIFT & XGMAC4_MODE_SELECT;
+> +	reg_val |= channel << XGMAC4_AOFF_SHIFT & XGMAC4_ADDR_OFFSET;
+> +	reg_val |= XGMAC4_CMD_TYPE | XGMAC4_OB;
+> +	writel(reg_val, ioaddr + XGMAC4_DMA_CH_IND_CONTROL);
+> +	val = readl(ioaddr + XGMAC4_DMA_CH_IND_DATA);
+> +	return val;
+> +}
+> +
+> +static void wr_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel, u32 val)
+> +{
+> +	u32 reg_val = 0;
+> +
+> +	writel(val, ioaddr + XGMAC4_DMA_CH_IND_DATA);
+> +	reg_val |= mode << XGMAC4_MSEL_SHIFT & XGMAC4_MODE_SELECT;
+> +	reg_val |= channel << XGMAC4_AOFF_SHIFT & XGMAC4_ADDR_OFFSET;
+> +	reg_val |= XGMAC_OB;
+> +	writel(reg_val, ioaddr + XGMAC4_DMA_CH_IND_CONTROL);
+> +}
+> +
+
+> +static void xgmac4_tp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32 tc_num)
+> +{
+> +	u32 val = 0;
+> +
+> +	val = rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, pdma_ch);
+> +	val &= ~XGMAC4_TP2TCMP;
+> +	val |= tc_num << XGMAC4_TP2TCMP_SHIFT & XGMAC4_TP2TCMP;
+> +	wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, pdma_ch, val);
+> +}
+> +
+> +static void xgmac4_rp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32 tc_num)
+> +{
+> +	u32 val = 0;
+> +
+> +	val = rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch);
+> +	val &= ~XGMAC4_RP2TCMP;
+> +	val |= tc_num << XGMAC4_RP2TCMP_SHIFT & XGMAC4_RP2TCMP;
+> +	wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch, val);
+> +}
+
+What does "tc" stand for? Traffic control? If it's a kind of queue
+then what about implementing the stmmac_ops::map_mtl_to_dma interface
+method?
+
+> +
+> +void dwxgmac4_dma_init(void __iomem *ioaddr,
+> +		       struct stmmac_dma_cfg *dma_cfg, int atds)
+> +{
+> +	u32 value;
+> +	u32 i;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_SYSBUS_MODE);
+> +
+> +	if (dma_cfg->aal)
+> +		value |= XGMAC_AAL;
+> +
+> +	if (dma_cfg->eame)
+> +		value |= XGMAC_EAME;
+> +
+> +	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
+> +
+> +	for (i = 0; i < VDMA_TOTAL_CH_COUNT; i++) {
+
+> +		value = rd_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i);
+> +		value &= ~XGMAC4_TXDCSZ;
+> +		value |= 0x3;
+> +		value &= ~XGMAC4_TDPS;
+> +		value |= (3 << XGMAC4_TDPS_SHIFT) & XGMAC4_TDPS;
+> +		wr_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i, value);
+> +
+> +		value = rd_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i);
+> +		value &= ~XGMAC4_RXDCSZ;
+> +		value |= 0x3;
+> +		value &= ~XGMAC4_RDPS;
+> +		value |= (3 << XGMAC4_RDPS_SHIFT) & XGMAC4_RDPS;
+> +		wr_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i, value);
+
+I know that the TDPS/RDPS means Tx/Rx Descriptor Pre-fetch threshold
+Size. What does the TXDCSZ/RXDCSZ config mean?
+
+Most importantly why are these parameters hardcoded to 3? It
+doesn't seem right.
+
+> +	}
+> +
+
+> +	for (i = 0; i < PDMA_TX_CH_COUNT; i++) {
+> +		value = rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i);
+> +		value &= ~(XGMAC4_TXPBL | XGMAC4_TPBLX8_MODE);
+> +		if (dma_cfg->pblx8)
+> +			value |= XGMAC4_TPBLX8_MODE;
+> +		value |= (dma_cfg->pbl << XGMAC4_TXPBL_SHIFT) & XGMAC4_TXPBL;
+> +		wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i, value);
+> +		xgmac4_tp2tc_map(ioaddr, i, i);
+> +	}
+> +
+> +	for (i = 0; i < PDMA_RX_CH_COUNT; i++) {
+> +		value = rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i);
+> +		value &= ~(XGMAC4_RXPBL | XGMAC4_RPBLX8_MODE);
+> +		if (dma_cfg->pblx8)
+> +			value |= XGMAC4_RPBLX8_MODE;
+> +		value |= (dma_cfg->pbl << XGMAC4_RXPBL_SHIFT) & XGMAC4_RXPBL;
+> +		wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i, value);
+> +		if (i < PDMA_MAX_TC_COUNT)
+> +			xgmac4_rp2tc_map(ioaddr, i, i);
+> +		else
+> +			xgmac4_rp2tc_map(ioaddr, i, PDMA_MAX_TC_COUNT - 1);
+> +	}
+
+Shouldn't these initialization be done on the per-channel basis only
+for only activated queues
+plat_stmmacenet_data::{rx_queues_to_use,tx_queues_to_use} (the STMMAC
+driver one-on-one maps queues and DMA-channels if no custom mapping
+was specified)?
+
+> +}
+> +
+> +void dwxgmac4_dma_init_tx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan)
+> +{
+> +	u32 value;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +	value &= ~XGMAC4_TVDMA2TCMP;
+> +	value |= (chan << XGMAC4_TVDMA2TCMP_SHIFT) & XGMAC4_TVDMA2TCMP;
+> +	writel(value, ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
+> +	writel(lower_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
+> +}
+> +
+> +void dwxgmac4_dma_init_rx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan)
+> +{
+> +	u32 value;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +	value &= ~XGMAC4_RVDMA2TCMP;
+> +	value |= (chan << XGMAC4_RVDMA2TCMP_SHIFT) & XGMAC4_RVDMA2TCMP;
+> +	writel(value, ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
+> +	writel(lower_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
+> +}
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
+> new file mode 100644
+> index 000000000000..0ce1856b0b34
+> --- /dev/null
+
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
+
+dw25gmac.h?
+
+> @@ -0,0 +1,84 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/* Copyright (c) 2024 Broadcom Corporation
+> + * XGMAC4 definitions.
+> + */
+> +#ifndef __STMMAC_DWXGMAC4_H__
+> +#define __STMMAC_DWXGMAC4_H__
+> +
+> +/* DMA Indirect Registers*/
+
+> +#define XGMAC4_DMA_CH_IND_CONTROL	0X00003080
+
+XXVGMAC_*?
+
+> +#define XGMAC4_MODE_SELECT		GENMASK(27, 24)
+> +#define XGMAC4_MSEL_SHIFT		24
+> +enum dma_ch_ind_modes {
+> +	MODE_TXEXTCFG	 = 0x0,	  /* Tx Extended Config */
+> +	MODE_RXEXTCFG	 = 0x1,	  /* Rx Extended Config */
+> +	MODE_TXDBGSTS	 = 0x2,	  /* Tx Debug Status */
+> +	MODE_RXDBGSTS	 = 0x3,	  /* Rx Debug Status */
+> +	MODE_TXDESCCTRL	 = 0x4,	  /* Tx Descriptor control */
+> +	MODE_RXDESCCTRL	 = 0x5,	  /* Rx Descriptor control */
+> +};
+> +
+> +#define XGMAC4_ADDR_OFFSET		GENMASK(14, 8)
+> +#define XGMAC4_AOFF_SHIFT		8
+> +#define XGMAC4_AUTO_INCR		GENMASK(5, 4)
+> +#define XGMAC4_AUTO_SHIFT		4
+> +#define XGMAC4_CMD_TYPE			BIT(1)
+> +#define XGMAC4_OB			BIT(0)
+> +#define XGMAC4_DMA_CH_IND_DATA		0X00003084
+> +
+> +/* TX Config definitions */
+> +#define XGMAC4_TXPBL			GENMASK(29, 24)
+> +#define XGMAC4_TXPBL_SHIFT		24
+> +#define XGMAC4_TPBLX8_MODE		BIT(19)
+> +#define XGMAC4_TP2TCMP			GENMASK(18, 16)
+> +#define XGMAC4_TP2TCMP_SHIFT		16
+> +#define XGMAC4_ORRQ			GENMASK(13, 8)
+> +/* RX Config definitions */
+> +#define XGMAC4_RXPBL			GENMASK(29, 24)
+> +#define XGMAC4_RXPBL_SHIFT		24
+> +#define XGMAC4_RPBLX8_MODE		BIT(19)
+> +#define XGMAC4_RP2TCMP			GENMASK(18, 16)
+> +#define XGMAC4_RP2TCMP_SHIFT		16
+> +#define XGMAC4_OWRQ			GENMASK(13, 8)
+> +/* Tx Descriptor control */
+> +#define XGMAC4_TXDCSZ			GENMASK(2, 0)
+> +#define XGMAC4_TDPS			GENMASK(5, 3)
+> +#define XGMAC4_TDPS_SHIFT		3
+> +/* Rx Descriptor control */
+> +#define XGMAC4_RXDCSZ			GENMASK(2, 0)
+> +#define XGMAC4_RDPS			GENMASK(5, 3)
+> +#define XGMAC4_RDPS_SHIFT		3
+> +
+> +/* DWCXG_DMA_CH(#i) Registers*/
+> +#define XGMAC4_DSL			GENMASK(20, 18)
+> +#define XGMAC4_MSS			GENMASK(13, 0)
+> +#define XGMAC4_TFSEL			GENMASK(30, 29)
+> +#define XGMAC4_TQOS			GENMASK(27, 24)
+> +#define XGMAC4_IPBL			BIT(15)
+> +#define XGMAC4_TVDMA2TCMP		GENMASK(6, 4)
+> +#define XGMAC4_TVDMA2TCMP_SHIFT		4
+> +#define XGMAC4_RPF			BIT(31)
+> +#define XGMAC4_RVDMA2TCMP		GENMASK(30, 28)
+> +#define XGMAC4_RVDMA2TCMP_SHIFT		28
+> +#define XGMAC4_RQOS			GENMASK(27, 24)
+> +
+
+> +/* PDMA Channel count */
+> +#define PDMA_TX_CH_COUNT		8
+> +#define PDMA_RX_CH_COUNT		10
+> +#define PDMA_MAX_TC_COUNT		8
+> +
+> +/* VDMA channel count */
+> +#define VDMA_TOTAL_CH_COUNT		32
+
+These seems like the vendor-specific constant. What are the actual DW
+25GMAC constraints?
 
 -Serge(y)
 
-> 
-> -----
-> 
-> This is version 2 of the series switching stmmac to use phylink PCS
-> instead of going behind phylink's back.
-> 
-> Changes since version 1:
-> - Addition of patches from Serge Semin to allow RGMII to use the
->   "PCS" code even if priv->dma_cap.pcs is not set (including tweaks
->   by me.)
-> - Restructuring of the patch set to be a more logical split.
-> - Leave the pcs_ctrl_ane methods until we've worked out what to do
->   with the qcom-ethqos driver (this series may still end up breaking
->   it, but at least we will now successfully compile.)
-> 
-> A reminder that what I want to hear from this patch set are the results
-> of testing - and thanks to Serge, the RGMII paths were exercised, but
-> I have not had any results for the SGMII side of this.
-> 
-> There are still a bunch of outstanding questions:
-> 
-> - whether we should be using two separate PCS instances, one for
->   RGMII and another for SGMII. If the PCS hardware is not present,
->   but are using RGMII mode, then we probably don't want to be
->   accessing the registers that would've been there for SGMII.
-> - what the three interrupts associated with the PCS code actually
->   mean when they fire.
-> - which block's status we're reading in the pcs_get_state() method,
->   and whether we should be reading that for both RGMII and SGMII.
-> - whether we need to activate phylink's inband mode in more cases
->   (so that the PCS/MAC status gets read and used for the link.)
-> 
-> There's probably more questions to be asked... but really the critical
-> thing is to shake out any breakage from making this conversion. Bear
-> in mind that I have little knowledge of this hardware, so this
-> conversion has been done somewhat blind using only what I can observe
-> from the current driver.
-> 
-> ------
-> 
-> As I noted recently in a thread (and was ignored) stmmac sucks. (I
-> won't hide my distain for drivers that make my life as phylink
-> maintainer more difficult!)
-> 
-> One of the contract conditions for using phylink is that the driver
-> will _not_ mess with the netif carrier. stmmac developers/maintainers
-> clearly didn't read that, because stmmac messes with the netif
-> carrier, which destroys phylink's guarantee that it'll make certain
-> calls in a particular order (e.g. it won't call mac_link_up() twice
-> in a row without an intervening mac_link_down().) This is clearly
-> stated in the phylink documentation.
-> 
-> Thus, this patch set attempts to fix this. Why does it mess with the
-> netif carrier? It has its own independent PCS implementation that
-> completely bypasses phylink _while_ phylink is still being used.
-> This is not acceptable. Either the driver uses phylink, or it doesn't
-> use phylink. There is no half-way house about this. Therefore, this
-> driver needs to either be fixed, or needs to stop using phylink.
-> 
-> Since I was ignored when I brought this up, I've hacked together the
-> following patch set - and it is hacky at the moment. It's also broken
-> because of recentl changes involving dwmac-qcom-ethqos.c - but there
-> isn't sufficient information in the driver for me to fix this. The
-> driver appears to use SGMII at 2500Mbps, which simply does not exist.
-> What interface mode (and neg_mode) does phylink pass to pcs_config()
-> in each of the speeds that dwmac-qcom-ethqos.c is interested in.
-> Without this information, I can't do that conversion. So for the
-> purposes of this, I've just ignored dwmac-qcom-ethqos.c (which means
-> it will fail to build.)
-> 
-> The patch splitup is not ideal, but that's not what I'm interested in
-> here. What I want to hear is the results of testing - does this switch
-> of the RGMII/SGMII "pcs" stuff to a phylink_pcs work for this driver?
-> 
-> Please don't review the patches, but you are welcome to send fixes to
-> them. Once we know that the overall implementation works, then I'll
-> look at how best to split the patches. In the mean time, the present
-> form is more convenient for making changes and fixing things.
-> 
-> There is still more improvement that's needed here.
-> 
-> Thanks.
-> 
->  drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
->  drivers/net/ethernet/stmicro/stmmac/common.h       |  25 ++--
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  13 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  13 +-
->  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 110 +++++++-------
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  13 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  99 +++++++------
->  drivers/net/ethernet/stmicro/stmmac/hwif.h         |  24 ++--
->  .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 111 +-------------
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  30 +---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   |  63 ++++++++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 160 ++++++++++-----------
->  12 files changed, 306 insertions(+), 357 deletions(-)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-> 
+> +
+> +void dwxgmac4_dma_init(void __iomem *ioaddr,
+> +		       struct stmmac_dma_cfg *dma_cfg, int atds);
+> +
+> +void dwxgmac4_dma_init_tx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan);
+> +void dwxgmac4_dma_init_rx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan);
+> +#endif /* __STMMAC_DWXGMAC4_H__ */
 > -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
