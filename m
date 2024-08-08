@@ -2,82 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70CB194C5E4
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2024 22:43:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127D394C72C
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 01:03:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2976C78019;
-	Thu,  8 Aug 2024 20:42:59 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B11F5C78019;
+	Thu,  8 Aug 2024 23:03:54 +0000 (UTC)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B8D5C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBAD4C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Aug 2024 20:42:58 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-52f00ad303aso1749813e87.2
+ Thu,  8 Aug 2024 23:03:46 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2cd5d6b2581so1217944a91.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 08 Aug 2024 13:42:58 -0700 (PDT)
+ Thu, 08 Aug 2024 16:03:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723149777; x=1723754577;
+ d=broadcom.com; s=google; t=1723158225; x=1723763025;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=tGUitiYVYitFcN4JMPacup/eKd8LJWBR2TLhG9ytri8=;
- b=DkYsLLzxckzcoGn8rN8EmGjsW2RxaxcbBScsxF3lq6NpNqePmANf1pl6iVmeld1uBp
- 65C1vqgl8kiBMB5ryQbTWbQR1CHqYFqMl87sadKzNC+yN2diHPm3wdboeOr0c+rMWHUM
- tuns9SYUDAjOX4WToU/+2solqWQPu86RhATH/8No+KR+f5K9vXcsy7fbpCC6fuBnKiII
- CFaf0aWcWhxe3c/0m44mv/CChkVhy+lVZR2N767iLkb9kVpPn7dE6RJYwS8LbGooHZL4
- m8Uq94WEMCXHsJLWIYTmwIAez0oqYbWNN/lji8okxJnivkrWDGBWoyOsjLYI0tHiL4Z+
- 5jwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723149777; x=1723754577;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tGUitiYVYitFcN4JMPacup/eKd8LJWBR2TLhG9ytri8=;
- b=pGPDX8/FIB+aD56FuUXRAyl/b3zZscH7fYHWqdN6er0wyki7t5dEX6tNwFQt/w3b7C
- q/Zr26SqKpSx+KYsr0nw/2RduYKT9gKPTGIo7PWBnFaK+6vMe5QbgeyZ0d4tLhMn0jYU
- kUA7Qtxj0Ykx0AUw4kfufBMXlsPzSQOscsRo+C4sfJlHo/t/2gRVaQCdIYc3wpKdqXFW
- /UAMaJjb4axf5so0xVv5BzYjP3Qlut6n9upLQ6mnXmPjsYwyc6TG7C3Z3Z+IR8h606xE
- DUpX6Op6JJGN5eoXGJK8I+9LqZZ/bOBjGvFkdG2EbN9H+byID2CuPgT+86M96jjzaY4U
- jqZg==
+ bh=Skx3GBh0EZ38qc6WcYlol/aA6cFrTOAY50sC1FrBmBA=;
+ b=F9WygWKjFEy3lg3HrvwBZ/0gY6vNK7BT2qBykqJvbJRRik7yaIjvAsY5/AM37Qsq79
+ j4c0DpXyudzBF7uYvtarYZq09mS4nIP+K/1FSLgHGVVEBjJfUWOBY/PkT9gsObHHw8HB
+ 1BqZlSK1i3j+F8Mezmq2w1NSWPnRpK8DGYVdY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723158225; x=1723763025;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Skx3GBh0EZ38qc6WcYlol/aA6cFrTOAY50sC1FrBmBA=;
+ b=nwS7W/BC9QN9Zz29oEVIZJneRCjvaS5HpF5d4TfkQK8OWs5ZZ+vQLNnV2JRaOPfEJZ
+ NhO30IJx9AWvu5bS8VUluG+YHxqOWsEpTcXtd10PN17dfpmFtuuHFpIQm27mwNVzZRBM
+ 08KQ7FFNycAKO/FB1bmVwrQMnBHB23ZttRD4qhUBtZFxowaYn43YjziXPij+BLyHSpiG
+ WTO+ojMHf8lTbu68gKBjGZNW9ttRDb/Wrxh9dGmU2ajN5Y0FSVQWI/t9wCwNuOWepQo0
+ G5ygUsoTSyBvyGJeDPBfUGMenX21NbgYUNdQpNDMn7JYP8Ctyqi1tE+QlVSuz3bRedVx
+ V2Uw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUhBh7irgLsVasx/IjiULQ38RcKL9nYUhB2JyruVVfyhVyv6oH7hDvxLGiENVt3/0/JZx8B349FYjzEfuT9GTd31BbbQ8flvsJ4pFz8QtVxIeSC1og/dfek
-X-Gm-Message-State: AOJu0YxhSlki9wg/TKbKwH3XU33ghU3n3lccgawOuBFLK92AUL0DZ+qS
- xU1mo0FcfDimrmJIKA80X/Pk2qe94/GoJDSTzjossIT8/KArWZzK
-X-Google-Smtp-Source: AGHT+IH9N9oxY53zP8QTt5y/XprisO8MFH32Z0u3yvJrevbkHXIKKbuJO+7pbjLm75UmPLEdWjGoQQ==
-X-Received: by 2002:a05:6512:3c9e:b0:52e:9619:e26a with SMTP id
- 2adb3069b0e04-530e5844362mr2507786e87.26.1723149776749; 
- Thu, 08 Aug 2024 13:42:56 -0700 (PDT)
-Received: from mobilestation ([95.79.225.241])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530de481f4esm751928e87.287.2024.08.08.13.42.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Aug 2024 13:42:56 -0700 (PDT)
-Date: Thu, 8 Aug 2024 23:42:53 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <d3yg5ammwevvcgs3zsy2fdvc45pce5ma2yujz7z2wp3vvpaim6@wgh6bb27c5tb>
-References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
- <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
- <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
+ AJvYcCVowZR6Q0+efdY15tC+6YY9TG1UR5qfs5nOiToxhI/UmFWl+KrOrZiQYPuya+HbVN/aCAV0FpUELYQDRDml6hkibdBQ1wnheQnW/dCuu1ZLf5o4EYGkXgqC
+X-Gm-Message-State: AOJu0YzXvY9vqH/oD0ZrejKGe6Resku155T3/b+pQeXo5WDIpL87w6+J
+ kvNJ/YHc+XqbYSIuvjUx02tionaehM23G77HBaCZOEQjlJTLWooBeT4Iscz+FhAWudn5b6tYE4x
+ kJlD1vap52B/c2ke+vmKriAQypuUsU4Bvt1Ky
+X-Google-Smtp-Source: AGHT+IEurs1ZraK16gLlx2+6o+2jGNgwZ+6lAL2/OitH1L7OF2fZ4tavR/6IquvNnXpvFpwc04B358Poa1eJ6aD7fXk=
+X-Received: by 2002:a17:90a:9c11:b0:2cf:c2df:67de with SMTP id
+ 98e67ed59e1d1-2d1c33741bdmr3917540a91.9.1723158225194; Thu, 08 Aug 2024
+ 16:03:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
-Cc: Sneh Shah <quic_snehshah@quicinc.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
- convert stmmac "pcs" to phylink
+References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
+ <oul3ymxlfwlqc3wikwyfix5e2c7hozwfsdwswkdtayxd2zzphz@mld3uobyw5pv>
+ <CAMdnO-JKfi0hqaR5zrzzv6j-c6OhH-LTZT5WWBCFDOG_+ZxTeQ@mail.gmail.com>
+ <2vvet4ai3uihb2skzyfiym2qh6g26knb7ymjp73eejoiywqnkm@2rxxv6zqvi33>
+In-Reply-To: <2vvet4ai3uihb2skzyfiym2qh6g26knb7ymjp73eejoiywqnkm@2rxxv6zqvi33>
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Date: Thu, 8 Aug 2024 16:03:34 -0700
+Message-ID: <CAMdnO-+PHMBsarskvzcTSHFeSdf9t2iN3EMcBYUGKdQJ28ctTg@mail.gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Cc: andrew@lunn.ch, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ florian.fainelli@broadcom.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, horms@kernel.org, bpf@vger.kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] net: stmmac: Add PCI
+	driver support for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,151 +81,151 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 07, 2024 at 10:21:07AM +0100, Russell King (Oracle) wrote:
-> On Tue, Aug 06, 2024 at 09:56:04PM +0300, Serge Semin wrote:
-> > Hi Russell
-> > 
-> > Got this series tested on my DW GMAC v3.73a + Micrel KSZ9031RNX PHY
-> > with the in-band link status management enabled. The same positive result
-> > as before, on v1-v2:
-> > [  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
-> > [  294.582498] stmmaceth 1f060000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-> > [  294.594308] stmmaceth 1f060000.ethernet eth1: PHY [stmmac-1:03] driver [RTL8211E Gigabit Ethernet] (irq=POLL)
-> > [  294.605453] dwmac1000: Master AXI performs any burst length
-> > [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
-> > [  294.618229] stmmaceth 1f060000.ethernet eth1: No Safety Features support found
-> > [  294.626412] stmmaceth 1f060000.ethernet eth1: No MAC Management Counters available
-> > [  294.634912] stmmaceth 1f060000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-> > [  294.644380] stmmaceth 1f060000.ethernet eth1: registered PTP clock
-> > [  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
-> > ...
-> > [  298.772917] stmmaceth 1f060000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
-> > 
-> > So feel free to add:
-> > Tested-by: Serge Semin <fancer.lancer@gmail.com>
-> 
-> Thanks.
-> 
-> > Please note the warning: "stmmaceth 1f060000.ethernet: invalid port
-> > speed" in the log above. This is a false negative warning since my
-> > network devices isn't of MAC2MAC-type and there is no snps,ps-speed
-> > property in my dts. So having the priv->hw.ps set to zero should be
-> > fine. That said I guess we need to add the warning fix to the 14/14
-> > patch which would permit the plat_stmmacenet_data::mac_port_sel_speed
-> > field being zero.
-> 
-
-> I think this is a separate issue - one which exists even today with
-> the stmmac driver as this code hasn't changed. Maybe it should be a
-> separate patch targetting the net tree?
-
-Ok. Tomorrow I'll submit the patch fixing that case.
-
-> 
-> > > Previous cover messages from earlier posts below:
-> > > 
-> > > This is version 3 of the series switching stmmac to use phylink PCS
-> > > isntead of going behind phylink's back.
-> > > 
-> > > Changes since version 2:
-> > > - Adopted some of Serge's feedback.
-> > > - New patch: adding ethqos_pcs_set_inband() for qcom-ethqos so we
-> > >   have one place to modify for AN control rather than many.
-> > > - New patch: pass the stmmac_priv structure into the pcs_set_ane()
-> > >   method.
-> > > - New patch: remove pcs_get_adv_lp() early, as this is only for TBI
-> > >   and RTBI, support for which we dropped in an already merged patch.
-> > > - Provide stmmac_pcs structure to encapsulate the pointer to
-> > >   stmmac_priv, PCS MMIO address pointer and phylink_pcs structure.
-> > > - Restructure dwmac_pcs_config() so we can eventually share code
-> > >   with dwmac_ctrl_ane().
-> > > - New patch: move dwmac_ctrl_ane() into stmmac_pcs.c, and share code.
-> > > - New patch: pass the stmmac_pcs structure into dwmac_pcs_isr().
-> > > - New patch: similar to Serge's patch, rename the PCS registers, but
-> > >   use STMMAC_PCS_ as the prefix rather than just PCS_ which is too
-> > >   generic.
-> > > - New patch: incorporate "net: stmmac: Activate Inband/PCS flag
-> > >   based on the selected iface" from Serge.
-> > > 
-> > > On the subject of whether we should have two PCS instances, I
-> > > experimented with that and have now decided against it. Instead,
-> > > dwmac_pcs_config() now tests whether we need to fiddle with the
-> > > PCS control register or not.
-> > > 
-> > 
-> > > Note that I prefer not to have multiple layers of indirection, but
-> > > instead prefer a library-style approach, which is why I haven't
-> > > turned the PCS support into something that's self contained with
-> > > a method in the MAC driver to grab the RGSMII status.
-> > 
-> > I understand the reason of your choice in this case. As a result a
-> > some part of my changes haven't been merged in into your series. But I
-> > deliberately selected the approach with having the simple PCS
-> > HW-interface callbacks utilized for a self-contained internal PCS
-> > implementation. Here is why:
-> > 1. Signify that the DW GMAC and DW QoS Eth internal PCSs are the
-> > same.
-> > 2. Reduce the amount of code.
-> > 3. Collects the entire PCS implementation in a single place which
-> > improves the code readability.
-> > 4. The PCS ops initialization is implemented in the same way as the
-> > PTP, MMC and EST (and likely FPE in some time in future), in the
-> > hwif.c and the interface/core callbacks in the dedicated files
-> > (stmmac_ptp.c, mmc_core.c, stmmac_est.c, etc). So the PCS
-> > implementation would be in general unified with what has been done for
-> > PTP/MMC/EST/etc. 
-> > 5. ...
-> > 
-> > Taking that into account I am still convinced that my approach worth
-> > to be implemented. Hope you won't mind, if after your series is merged
-> > in I'll submit another patch set which would introduce some of my
-> > PCS-changes not included into your patch set. Like this:
-> > 1. Move the mac_device_info instance to being defined in the
-> > stmmac_priv structure (new patch, so to drop the stmmac_priv pointer
-> > from stmmac_pcs).
-> > 2. Introduce stmmac_priv::pcsaddr (to have the PCS CSR base address
-> > defined in the same way as for PTP/MMC/EST/etc).
-> > 3. Provide the HWIF ops:
-> >    stmmac_pcs_ops {
-> >         pcs_get_config_reg;
-> >         pcs_enable_irq;
-> >         pcs_disable_irq;
-> >    } for DW GMAC and DW QoS Eth.
-> > 4. Move PCS implementation to stmmac_pcs.c
-> > 5. Direct using the plat_stmmacenet_data::mac_port_sel_speed field
-> > instead of the mac_device_info::ps.
-> > 6. Some more cleanups like converting the struct stmmac_hwif_entry
-> > field from void-pointers to the typed-pointers, ...
-> 
-
-> I guessed that you would dig your heals in over this, and want to do
-> it your own way despite all the points I raised against your patch
-> series on my previous posting arguing against much of this.
-> 
-> So, at this point I give up with this patch series - clearly there is
-> no room for discussion about the way forward, and you want to do it
-> your way no matter what.
-
-I actually thought that in general the approach implemented in my
-patches didn't meet much dislikes from your side. Just several notes
-which could be easily fixed in the next revisions.
-
-Anyway thanks for understanding. I'll wait for your series to be
-merged in. Then I'll submit my patch set based on top of it (of course
-taking into account all the notes raised by you back then).
-
--Serge(y)
-
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBdWcgNSwgMjAyNCBhdCAzOjQz4oCvUE0gU2VyZ2UgU2VtaW4gPGZhbmNlci5sYW5j
+ZXJAZ21haWwuY29tPiB3cm90ZToKPgo+IE9uIEZyaSwgQXVnIDAyLCAyMDI0IGF0IDAzOjA2OjA1
+UE0gLTA3MDAsIEppdGVuZHJhIFZlZ2lyYWp1IHdyb3RlOgo+ID4gT24gRnJpLCBBdWcgMiwgMjAy
+NCBhdCAzOjAy4oCvQU0gU2VyZ2UgU2VtaW4gPGZhbmNlci5sYW5jZXJAZ21haWwuY29tPiB3cm90
+ZToKPiA+ID4KPiA+ID4gSGkgSml0ZW5kcmEKPiA+ID4KPiA+ID4gT24gVGh1LCBBdWcgMDEsIDIw
+MjQgYXQgMDg6MTg6MTlQTSAtMDcwMCwgaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tIHdy
+b3RlOgo+ID4gPiA+IEZyb206IEppdGVuZHJhIFZlZ2lyYWp1IDxqaXRlbmRyYS52ZWdpcmFqdUBi
+cm9hZGNvbS5jb20+Cj4gPiA+ID4KPiA+ID4gPiBUaGlzIHBhdGNoc2V0IGFkZHMgYmFzaWMgUENJ
+IGV0aGVybmV0IGRldmljZSBkcml2ZXIgc3VwcG9ydCBmb3IgQnJvYWRjb20KPiA+ID4gPiBCQ004
+OTU4eCBBdXRvbW90aXZlIEV0aGVybmV0IHN3aXRjaCBTb0MgZGV2aWNlcy4KPiA+ID4gPgo+ID4g
+PiA+IFRoaXMgU29DIGRldmljZSBoYXMgUENJZSBldGhlcm5ldCBNQUMgYXR0YWNoZWQgdG8gYW4g
+aW50ZWdyYXRlZCBldGhlcm5ldAo+ID4gPiA+IHN3aXRjaCB1c2luZyBYR01JSSBpbnRlcmZhY2Uu
+IFRoZSBQQ0llIGV0aGVybmV0IGNvbnRyb2xsZXIgaXMgcHJlc2VudGVkIHRvCj4gPiA+ID4gdGhl
+IExpbnV4IGhvc3QgYXMgUENJIG5ldHdvcmsgZGV2aWNlLgo+ID4gPiA+Cj4gPiA+ID4gVGhlIGZv
+bGxvd2luZyBibG9jayBkaWFncmFtIGdpdmVzIGFuIG92ZXJ2aWV3IG9mIHRoZSBhcHBsaWNhdGlv
+bi4KPiA+ID4gPiAgICAgICAgICAgICAgKz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PSsKPiA+ID4gPiAgICAgICAgICAgICAgfCAgICAgICBIb3N0IENQVS9MaW51eCAgICAgICAgICAg
+IHwKPiA+ID4gPiAgICAgICAgICAgICAgKz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PSsKPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICB8fCBQQ0llCj4gPiA+ID4gICAgICAg
+ICAgICAgICAgICAgICAgICAgfHwKPiA+ID4gPiAgICAgICAgICs9PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT0rCj4gPiA+ID4gICAgICAgICB8ICAgICAgICAgICArLS0t
+LS0tLS0tLS0tLS0rICAgICAgICAgICAgICAgfAo+ID4gPiA+ICAgICAgICAgfCAgICAgICAgICAg
+fCBQQ0lFIEVuZHBvaW50fCAgICAgICAgICAgICAgIHwKPiA+ID4gPiAgICAgICAgIHwgICAgICAg
+ICAgIHwgRXRoZXJuZXQgICAgIHwgICAgICAgICAgICAgICB8Cj4gPiA+ID4gICAgICAgICB8ICAg
+ICAgICAgICB8IENvbnRyb2xsZXIgICB8ICAgICAgICAgICAgICAgfAo+ID4gPiA+ICAgICAgICAg
+fCAgICAgICAgICAgfCAgIERNQSAgICAgICAgfCAgICAgICAgICAgICAgIHwKPiA+ID4gPiAgICAg
+ICAgIHwgICAgICAgICAgICstLS0tLS0tLS0tLS0tLSsgICAgICAgICAgICAgICB8Cj4gPiA+ID4g
+ICAgICAgICB8ICAgICAgICAgICB8ICAgTUFDICAgICAgICB8ICAgQkNNODk1OFggICAgfAo+ID4g
+PiA+ICAgICAgICAgfCAgICAgICAgICAgKy0tLS0tLS0tLS0tLS0tKyAgIFNvQyAgICAgICAgIHwK
+PiA+ID4gPiAgICAgICAgIHwgICAgICAgICAgICAgICB8fCBYR01JSSAgICAgICAgICAgICAgICAg
+ICB8Cj4gPiA+ID4gICAgICAgICB8ICAgICAgICAgICAgICAgfHwgICAgICAgICAgICAgICAgICAg
+ICAgICAgfAo+ID4gPiA+ICAgICAgICAgfCAgICAgICAgICAgKy0tLS0tLS0tLS0tLS0tKyAgICAg
+ICAgICAgICAgIHwKPiA+ID4gPiAgICAgICAgIHwgICAgICAgICAgIHwgRXRoZXJuZXQgICAgIHwg
+ICAgICAgICAgICAgICB8Cj4gPiA+ID4gICAgICAgICB8ICAgICAgICAgICB8IHN3aXRjaCAgICAg
+ICB8ICAgICAgICAgICAgICAgfAo+ID4gPiA+ICAgICAgICAgfCAgICAgICAgICAgKy0tLS0tLS0t
+LS0tLS0tKyAgICAgICAgICAgICAgIHwKPiA+ID4gPiAgICAgICAgIHwgICAgICAgICAgICAgfHwg
+fHwgfHwgfHwgICAgICAgICAgICAgICAgICB8Cj4gPiA+ID4gICAgICAgICArPT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kwo+ID4gPiA+ICAgICAgICAgICAgICAgICAg
+ICAgICB8fCB8fCB8fCB8fCBNb3JlIGV4dGVybmFsIGludGVyZmFjZXMKPiA+ID4gPgo+ID4gPiA+
+IFRoZSBNQUMgYmxvY2sgb24gQkNNODk1OHggaXMgYmFzZWQgb24gU3lub3BzaXMgWEdNQUMgNC4w
+MGEgY29yZS4gVGhpcwo+ID4gPiA+IGRyaXZlciB1c2VzIGNvbW1vbiBkd3hnbWFjMiBjb2RlIHdo
+ZXJlIGFwcGxpY2FibGUuCj4gPiA+Cj4gPiA+IFRoYW5rcyBmb3Igc3VibWl0dGluZyB0aGUgc2Vy
+aWVzLgo+ID4gPgo+ID4gPiBJIGFtIGN1cmlvdXMgaG93IGNvbWUgQnJvYWRjb20gZ290IHRvIHVz
+ZSBhbiBJUC1jb3JlIHdoaWNoIGhhc24ndAo+ID4gPiBiZWVuIGV2ZW4gYW5ub3VuY2VkIGJ5IFN5
+bm9wc3lzLiBBRkFJQ1MgdGhlIG1vc3QgbW9kZXJuIERXIFhHTUFDCj4gPiA+IElQLWNvcmUgaXMg
+b2YgdjMueHhhIHZlcnNpb246Cj4gPiA+Cj4gPiA+IGh0dHBzOi8vd3d3LnN5bm9wc3lzLmNvbS9k
+dy9pcGRpci5waHA/ZHM9ZHdjX2V0aGVyX3hnbWFjCj4gPiA+Cj4KPiA+IEkgYW0gbm90IHN1cmUg
+d2h5IHRoZSA0LjAwYSBJUC1jb2RlIGlzIG5vdCBhbm5vdW5jZWQgZm9yIGdlbmVyYWwKPiA+IGF2
+YWlsYWJpbGl0eSB5ZXQuCj4gPiBUaGUgU3lub3BzaXMgZG9jdW1lbnRhdGlvbiBmb3IgdGhpcyBJ
+UCBtZW50aW9ucyAzLnh4IElQIGFzIHJlZmVyZW5jZQo+ID4gZm9yIHRoaXMgZGVzaWduIGFuZCBs
+aXN0cwo+ID4gbmV3IGZlYXR1cmVzIGZvciA0LjAwYS4KPiA+Cj4gPiA+IEFyZSB5b3Ugc3VyZSB0
+aGF0IHlvdXIgZGV2aWNlIGlzbid0IGVxdWlwcGVkIHdpdGggc29tZSBhbm90aGVyIERXIE1BQwo+
+ID4gPiBJUC1jb3JlLCBsaWtlIERXIDI1RyBFdGhlcm5ldCBNQUM/ICh3aGljaCBCVFcgaXMgZXF1
+aXBwZWQgd2l0aCBhIG5ldwo+ID4gPiBIeXBlciBETUEgZW5naW5lIHdpdGggYSBjYXBhYmlsaXR5
+IHRvIGhhdmUgdXAgdG8gMTI4LzI1NiBjaGFubmVscyB3aXRoCj4gPiA+IGxpa2VseSBpbmRpcmVj
+dCBhZGRyZXNzaW5nLikgRG8gSSBtaXNzIHNvbWV0aGluZz8KPiA+ID4KPiA+IFllcywgSSBicmll
+Zmx5IG1lbnRpb25lZCB0aGUgbmV3IERNQSBhcmNoaXRlY3R1cmUgaW4gdGhlIGNvbW1pdCBsb2cK
+PiA+IGZvciBwYXRjaCAxLzMuCj4gPiBZb3UgYXJlIGNvcnJlY3QsIHRoZSBuYW1lIGZvciB0aGUg
+bmV3IERNQSBlbmdpbmUgaXMgSHlwZXIgRE1BLiBJdAo+ID4gcHJvYmFibHkgc3RhcnRlZCB3aXRo
+IHNvbWUgMy54eCBJUC1Db3JlLgo+ID4gVGhpcyBEVy1NQUMgaXMgY2FwYWJsZSBvZiAyNUcsIGJ1
+dCB0aGlzIFNPQyBpcyBub3QgdXNpbmcgMjVHIHN1cHBvcnQuCj4KPiBUaGVuIHdoYXQgeW91IGhh
+dmUgaXMgbGlrZWx5IHRoZSBEVyAyNUdNQUMgc2luY2UganVzdCBEVyBYR01BQyBoYXNuJ3QKPiBi
+ZWVuIGFubm91bmNlZCB0byBoYXZlIG5laXRoZXIgMjVHIHNwZWVkIG5vciB0aGUgSHlwZXItRE1B
+IHdpdGggdGhlCj4gdmlydHVhbGl6YXRpb24gY2hhbm5lbHMgY2FwYWJpbGl0aWVzLiBNZWFud2hp
+bGUgdGhlIGZvcm1lciBJUC1jb3JlCj4gZG9lcyBoYXZlIHRoZXNlIGZlYXR1cmVzOgo+IGh0dHBz
+Oi8vd3d3LnN5bm9wc3lzLmNvbS9kdy9pcGRpci5waHA/ZHM9ZHdjXzI1Z19ldGhlcm5ldF9tYWNf
+aXAKPgo+IEFsYXMgSSBkb24ndCBoYXZlIHRoZSBEVyAyNUdNQUMgSVAtY29yZSBkYXRhYm9vayB0
+byBzYXkgZm9yIHN1cmUsIGJ1dAo+IHRoYXQncyB0aGUgb25seSBleHBsYW5hdGlvbiBvZiB3aHkg
+eW91IGhhdmUgdGhlIDB4NDAgU3lub3BzeXMgSUQgYW5kCj4gdGhlIElQLWNvcmUgdmVyc2lvbiBv
+ZiB2NC4wMGEsIGFuZCB0aGUgMjVHIGNhcGFiaWxpdHkgb2YgdGhlIE1BQy4KPgo+IFNlZWluZyBT
+eW5vcHN5cyB0ZW5kcyB0byByZS11c2UgdGhlIENTUnMgbWFwcGluZyBldmVuIGFjcm9zcyB0aGUg
+bWFqb3IKPiBJUC1jb3JlIHJlbGVhc2VzIGl0IGlzbid0IHRoYXQgc3VycHJpc2luZyB0aGF0IHRo
+ZSBEVyBYR01BQyAzLnh4Cj4gSVAtY29yZSB3YXMgcmVmZXJlbmNlZCBpbiB0aGUgZG9jLiAoU2Vl
+IHRoZSBkcml2ZXIsIERXIFhMR01BQyBpcwo+IGFsbW9zdCBmdWxseSBjb21wYXRpYmxlIHdpdGgg
+dGhlIERXIFhHTUFDIENTUnMgbWFwcGluZy4pCj4KPiBNb3Jlb3ZlciB0aGUgbW9zdCBETUEtY2Fw
+YWJsZSBkZXZpY2UgY3VycmVudGx5IHN1cHBvcnRlZCBieSB0aGUKPiBTVE1NQUMtZHJpdmVyIGlz
+IERXIFhHTUFDL1hMR01BQyBhbmQgaXQgY2FuJ3QgaGF2ZSBtb3JlIHRoYW4gMTYKPiBETUEtY2hh
+bm5lbHMuIFRoYXQgYWxsb3dzIHRvIGRpcmVjdGx5IG1hcCBhbGwgdGhlIGNoYW5uZWxzIENTUnMg
+dG8gdGhlCj4gc3lzdGVtIG1lbW9yeS4gQnV0IHlvdXIgY2FzZSBpcyBkaWZmZXJlbnQuIFRoZSBE
+VyAyNUdNQUMgSVAtY29yZSBpcwo+IGFubm91bmNlZCB0byBzdXBwb3J0IHZpcnR1YWxpemF0aW9u
+IHVwIHRvIDEyOC8yNTYgY2hhbm5lbHMsIGZvciB3aGljaAo+IHRoZSBkaXJlY3QgQ1NScyBtYXBw
+aW5nIGNvdWxkIHJlcXVpcmUgMTYtdGltZXMgbW9yZSBtZW1vcnkuIFRoYXQncwo+IGxpa2VseSB3
+aHkgdGhlIGluZGlyZWN0IGFkZHJlc3Npbmcgd2FzIGltcGxlbWVudGVkIHRvIGFjY2VzcyB0aGUK
+PiBzZXR0aW5ncyBvZiBhbGwgdGhlIHBvc3NpYmxlIGNoYW5uZWxzLiBUaGF0J3MgYWxzbyBpbXBs
+aWNpdGx5IHByb29mcwo+IHRoYXQgeW91IGhhdmUgdGhlIERXIDI1R01BQyBJUC1jb3JlLgpIaSBT
+ZXJnZSh5KQoKVGhhbmtzIGZvciByZXZpZXdpbmcgdGhlIHBhdGNoIHNlcmllcy4KU29ycnkgZm9y
+IHRoZSBkZWxheSBpbiBteSByZXNwb25zZS4gV2Ugd2FpdGVkIGZvciBhIGNsYXJpZmljYXRpb24g
+b24KdGhlIElQIHZlcnNpb24uCkl0cyBjb25maXJtZWQgdGhhdCB3ZSBnb3QgYW4gZWFybHkgYWRh
+cHRlciB2ZXJzaW9uIG9mIDI1R01BQyBJUC1Db3JlLgpBZGRlZCBtb3JlIGRldGFpbHMgaW4gdGhl
+IGNvbnRleHQgb2Ygb3RoZXIgcXVlc3Rpb25zIGluIFBhdGNoIDEsMi4KPgo+IC1TZXJnZSh5KQo+
+Cj4gPgo+ID4gPiAqIEknbGwgam9pbiB0aGUgcGF0Y2ggc2V0IHJldmlldyBhZnRlciB0aGUgd2Vl
+a2VuZCwgc29tZXRpbWUgb24gdGhlCj4gPiA+IG5leHQgd2Vlay4KPiA+ID4KPiA+ID4gLVNlcmdl
+KHkpCj4gPiA+Cj4gPiA+ID4gRHJpdmVyIGZ1bmN0aW9uYWxpdHkgc3BlY2lmaWMgdG8gdGhpcyBN
+QUMgaXMgaW1wbGVtZW50ZWQgaW4gZHd4Z21hYzQuYy4KPiA+ID4gPiBNYW5hZ2VtZW50IG9mIGlu
+dGVncmF0ZWQgZXRoZXJuZXQgc3dpdGNoIG9uIHRoaXMgU29DIGlzIG5vdCBoYW5kbGVkIGJ5Cj4g
+PiA+ID4gdGhlIFBDSWUgaW50ZXJmYWNlLgo+ID4gPiA+IFRoaXMgU29DIGRldmljZSBoYXMgUENJ
+ZSBldGhlcm5ldCBNQUMgZGlyZWN0bHkgYXR0YWNoZWQgdG8gYW4gaW50ZWdyYXRlZAo+ID4gPiA+
+IGV0aGVybmV0IHN3aXRjaCB1c2luZyBYR01JSSBpbnRlcmZhY2UuCj4gPiA+ID4KPiA+ID4gPiB2
+Mi0+djM6Cj4gPiA+ID4gICAgQWRkcmVzc2VkIHYyIGNvbW1lbnRzIGZyb20gQW5kcmV3LCBKYWt1
+YiwgUnVzc2VsIGFuZCBTaW1vbi4KPiA+ID4gPiAgICBCYXNlZCBvbiBzdWdnZXN0aW9uIGJ5IFJ1
+c3NlbCBhbmQgQW5kcmV3LCBhZGRlZCBzb2Z0d2FyZSBub2RlIHRvIGNyZWF0ZQo+ID4gPiA+ICAg
+IHBoeWxpbmsgaW4gZml4ZWQtbGluayBtb2RlLgo+ID4gPiA+ICAgIE1vdmVkIGR3eGdtYWM0IHNw
+ZWNpZmljIGZ1bmN0aW9ucyB0byBuZXcgZmlsZXMgZHd4Z21hYzQuYyBhbmQgZHd4Z21hYzQuaAo+
+ID4gPiA+ICAgIGluIHN0bW1hYyBjb3JlIG1vZHVsZS4KPiA+ID4gPiAgICBSZW9yZ2FuaXplZCB0
+aGUgY29kZSB0byB1c2UgdGhlIGV4aXN0aW5nIGdsdWUgbG9naWMgc3VwcG9ydCBmb3IgeGdtYWMg
+aW4KPiA+ID4gPiAgICBod2lmLmMgYW5kIG92ZXJyaWRlIG9wcyBmdW5jdGlvbnMgZm9yIGR3eGdt
+YWM0IHNwZWNpZmljIGZ1bmN0aW9ucy4KPiA+ID4gPiAgICBUaGUgcGF0Y2ggaXMgc3BsaXQgaW50
+byB0aHJlZSBwYXJ0cy4KPiA+ID4gPiAgICAgIFBhdGNoIzEgQWRkcyBkbWFfb3BzIGZvciBkd3hn
+bWFjNCBpbiBzdG1tYWMgY29yZQo+ID4gPiA+ICAgICAgUGF0Y2gjMiBIb29rcyBpbiB0aGUgaGFy
+ZHdhcmUgaW50ZXJmYWNlIGhhbmRsaW5nIGZvciBkd3hnbWFjNAo+ID4gPiA+ICAgICAgUGF0Y2gj
+MyBBZGRzIFBDSSBkcml2ZXIgZm9yIEJDTTg5NTh4IGRldmljZQo+ID4gPiA+Cj4gPiA+ID4gdjEt
+PnYyOgo+ID4gPiA+ICAgIE1pbm9yIGZpeGVzIHRvIGFkZHJlc3MgY29kaW5nIHN0eWxlIGlzc3Vl
+cy4KPiA+ID4gPiAgICBTZW50IHYyIHRvbyBzb29uIGJ5IG1pc3Rha2UsIHdpdGhvdXQgd2FpdGlu
+ZyBmb3IgcmV2aWV3IGNvbW1lbnRzLgo+ID4gPiA+ICAgIFJlY2VpdmVkIGZlZWRiYWNrIG9uIHRo
+aXMgdmVyc2lvbi4KPiA+ID4gPiAgICBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvMjAy
+NDA1MTEwMTU5MjQuNDE0NTctMS1qaXRlbmRyYS52ZWdpcmFqdUBicm9hZGNvbS5jb20vCj4gPiA+
+ID4KPiA+ID4gPiB2MToKPiA+ID4gPiAgICBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYv
+MjAyNDA1MTAwMDAzMzEuMTU0NDg2LTEtaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tLwo+
+ID4gPiA+Cj4gPiA+ID4gSml0ZW5kcmEgVmVnaXJhanUgKDMpOgo+ID4gPiA+ICAgQWRkIGJhc2lj
+IGR3eGdtYWM0IHN1cHBvcnQgdG8gc3RtbWFjIGNvcmUKPiA+ID4gPiAgIEludGVncmF0ZSBkd3hn
+bWFjNCBpbnRvIHN0bW1hYyBod2lmIGhhbmRsaW5nCj4gPiA+ID4gICBBZGQgUENJIGRyaXZlciBz
+dXBwb3J0IGZvciBCQ004OTU4eAo+ID4gPiA+Cj4gPiA+ID4gIE1BSU5UQUlORVJTICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgOCArCj4gPiA+ID4gIGRyaXZlcnMvbmV0L2V0
+aGVybmV0L3N0bWljcm8vc3RtbWFjL0tjb25maWcgICB8ICAxMSArCj4gPiA+ID4gIGRyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlICB8ICAgMyArLQo+ID4gPiA+ICBk
+cml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaCAgfCAgIDQgKwo+ID4g
+PiA+ICAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWJyY20uYyAgfCA1MTcg
+KysrKysrKysrKysrKysrKysrCj4gPiA+ID4gIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9k
+d3hnbWFjMl9kbWEuYyAgICB8ICAzMSArKwo+ID4gPiA+ICAuLi4vbmV0L2V0aGVybmV0L3N0bWlj
+cm8vc3RtbWFjL2R3eGdtYWM0LmMgICAgfCAxNDIgKysrKysKPiA+ID4gPiAgLi4uL25ldC9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjNC5oICAgIHwgIDg0ICsrKwo+ID4gPiA+ICBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9od2lmLmMgICAgfCAgMjYgKy0KPiA+ID4g
+PiAgZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvaHdpZi5oICAgIHwgICAxICsK
+PiA+ID4gPiAgMTAgZmlsZXMgY2hhbmdlZCwgODI1IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
+KC0pCj4gPiA+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
+Y3JvL3N0bW1hYy9kd21hYy1icmNtLmMKPiA+ID4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWM0LmMKPiA+ID4gPiAgY3JlYXRl
+IG1vZGUgMTAwNjQ0IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWM0
+LmgKPiA+ID4gPgo+ID4gPiA+IC0tCj4gPiA+ID4gMi4zNC4xCj4gPiA+ID4KPiA+ID4gPgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
