@@ -2,62 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C50A594C32E
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2024 19:00:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70CB194C5E4
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2024 22:43:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6590EC78018;
-	Thu,  8 Aug 2024 17:00:33 +0000 (UTC)
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2976C78019;
+	Thu,  8 Aug 2024 20:42:59 +0000 (UTC)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4869C78019
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B8D5C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Aug 2024 17:00:31 +0000 (UTC)
-Delivered-To: kernel@collabora.com
-ARC-Seal: i=1; a=rsa-sha256; t=1723136404; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Y1khZaNYJOJehUcadi0Ebk8llRNdz2aWNnGf9ptu5/82RT1oGZ9O+/BsK4u02LRV6bTIQh6h34dQdtPeV/i5B0BKBKqo/6AnCIMTCr17hmGaN8ckUWI4AAwG+D1KjinV9q5iheONWvLnBjiJTR8iUZeoT48h5RbAjcdWxllTIqc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1723136404;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YC9mK9tDux9if1jjq44zZCozmGqOGn8PObz3o8/d74c=; 
- b=EROUBlB518PboYi2PE+FYAmji+gApfEYuvQMBbHT75lk9Lh+o7QivfnGuiFXKeyEdFfC85/3JU2NQY+x6vW8sI92+NEXyDnLPd/dCTdOhfYCNrWBKSx460w3uaAThiz4dCMmrd08RiGJRmMNngHrgE7rmhQljJT7qgWKcm7/xas=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
- dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1723136404; 
- s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com; 
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=YC9mK9tDux9if1jjq44zZCozmGqOGn8PObz3o8/d74c=;
- b=avIOnsiyyS2G6W+aOBzZ+vXiF9nXKmi2a56EFAi/eV2V/XvE3PovSKUZ4TQNh77s
- hMTV4V9iAaF2o5LM4SU6Ym2KE68TbVOlAKgXNAbQp7Z3X1JpxFRGwcig38BM/OXYG1a
- eXQrfKr04N2oKMvTXsRTGw0t/uNAwRLBvWDdTRos=
-Received: by mx.zohomail.com with SMTPS id 1723136403611383.43297244538667;
- Thu, 8 Aug 2024 10:00:03 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: linux-kernel@vger.kernel.org
-Date: Thu,  8 Aug 2024 13:00:18 -0400
-Message-ID: <20240808170113.82775-3-detlev.casanova@collabora.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240808170113.82775-1-detlev.casanova@collabora.com>
-References: <20240808170113.82775-1-detlev.casanova@collabora.com>
+ Thu,  8 Aug 2024 20:42:58 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-52f00ad303aso1749813e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 08 Aug 2024 13:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723149777; x=1723754577;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tGUitiYVYitFcN4JMPacup/eKd8LJWBR2TLhG9ytri8=;
+ b=DkYsLLzxckzcoGn8rN8EmGjsW2RxaxcbBScsxF3lq6NpNqePmANf1pl6iVmeld1uBp
+ 65C1vqgl8kiBMB5ryQbTWbQR1CHqYFqMl87sadKzNC+yN2diHPm3wdboeOr0c+rMWHUM
+ tuns9SYUDAjOX4WToU/+2solqWQPu86RhATH/8No+KR+f5K9vXcsy7fbpCC6fuBnKiII
+ CFaf0aWcWhxe3c/0m44mv/CChkVhy+lVZR2N767iLkb9kVpPn7dE6RJYwS8LbGooHZL4
+ m8Uq94WEMCXHsJLWIYTmwIAez0oqYbWNN/lji8okxJnivkrWDGBWoyOsjLYI0tHiL4Z+
+ 5jwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723149777; x=1723754577;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tGUitiYVYitFcN4JMPacup/eKd8LJWBR2TLhG9ytri8=;
+ b=pGPDX8/FIB+aD56FuUXRAyl/b3zZscH7fYHWqdN6er0wyki7t5dEX6tNwFQt/w3b7C
+ q/Zr26SqKpSx+KYsr0nw/2RduYKT9gKPTGIo7PWBnFaK+6vMe5QbgeyZ0d4tLhMn0jYU
+ kUA7Qtxj0Ykx0AUw4kfufBMXlsPzSQOscsRo+C4sfJlHo/t/2gRVaQCdIYc3wpKdqXFW
+ /UAMaJjb4axf5so0xVv5BzYjP3Qlut6n9upLQ6mnXmPjsYwyc6TG7C3Z3Z+IR8h606xE
+ DUpX6Op6JJGN5eoXGJK8I+9LqZZ/bOBjGvFkdG2EbN9H+byID2CuPgT+86M96jjzaY4U
+ jqZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhBh7irgLsVasx/IjiULQ38RcKL9nYUhB2JyruVVfyhVyv6oH7hDvxLGiENVt3/0/JZx8B349FYjzEfuT9GTd31BbbQ8flvsJ4pFz8QtVxIeSC1og/dfek
+X-Gm-Message-State: AOJu0YxhSlki9wg/TKbKwH3XU33ghU3n3lccgawOuBFLK92AUL0DZ+qS
+ xU1mo0FcfDimrmJIKA80X/Pk2qe94/GoJDSTzjossIT8/KArWZzK
+X-Google-Smtp-Source: AGHT+IH9N9oxY53zP8QTt5y/XprisO8MFH32Z0u3yvJrevbkHXIKKbuJO+7pbjLm75UmPLEdWjGoQQ==
+X-Received: by 2002:a05:6512:3c9e:b0:52e:9619:e26a with SMTP id
+ 2adb3069b0e04-530e5844362mr2507786e87.26.1723149776749; 
+ Thu, 08 Aug 2024 13:42:56 -0700 (PDT)
+Received: from mobilestation ([95.79.225.241])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-530de481f4esm751928e87.287.2024.08.08.13.42.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Aug 2024 13:42:56 -0700 (PDT)
+Date: Thu, 8 Aug 2024 23:42:53 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <d3yg5ammwevvcgs3zsy2fdvc45pce5ma2yujz7z2wp3vvpaim6@wgh6bb27c5tb>
+References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
+ <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
+ <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-ZohoMailClient: External
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- kernel@collabora.com, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+Content-Disposition: inline
+In-Reply-To: <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
+Cc: Sneh Shah <quic_snehshah@quicinc.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] ethernet: stmmac: dwmac-rk: Add GMAC
-	support for RK3576
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
+ convert stmmac "pcs" to phylink
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,194 +94,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: David Wu <david.wu@rock-chips.com>
+On Wed, Aug 07, 2024 at 10:21:07AM +0100, Russell King (Oracle) wrote:
+> On Tue, Aug 06, 2024 at 09:56:04PM +0300, Serge Semin wrote:
+> > Hi Russell
+> > 
+> > Got this series tested on my DW GMAC v3.73a + Micrel KSZ9031RNX PHY
+> > with the in-band link status management enabled. The same positive result
+> > as before, on v1-v2:
+> > [  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
+> > [  294.582498] stmmaceth 1f060000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
+> > [  294.594308] stmmaceth 1f060000.ethernet eth1: PHY [stmmac-1:03] driver [RTL8211E Gigabit Ethernet] (irq=POLL)
+> > [  294.605453] dwmac1000: Master AXI performs any burst length
+> > [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
+> > [  294.618229] stmmaceth 1f060000.ethernet eth1: No Safety Features support found
+> > [  294.626412] stmmaceth 1f060000.ethernet eth1: No MAC Management Counters available
+> > [  294.634912] stmmaceth 1f060000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
+> > [  294.644380] stmmaceth 1f060000.ethernet eth1: registered PTP clock
+> > [  294.651324] stmmaceth 1f060000.ethernet eth1: configuring for inband/rgmii-rxid link mode
+> > ...
+> > [  298.772917] stmmaceth 1f060000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
+> > 
+> > So feel free to add:
+> > Tested-by: Serge Semin <fancer.lancer@gmail.com>
+> 
+> Thanks.
+> 
+> > Please note the warning: "stmmaceth 1f060000.ethernet: invalid port
+> > speed" in the log above. This is a false negative warning since my
+> > network devices isn't of MAC2MAC-type and there is no snps,ps-speed
+> > property in my dts. So having the priv->hw.ps set to zero should be
+> > fine. That said I guess we need to add the warning fix to the 14/14
+> > patch which would permit the plat_stmmacenet_data::mac_port_sel_speed
+> > field being zero.
+> 
 
-Add constants and callback functions for the dwmac on RK3576 soc.
+> I think this is a separate issue - one which exists even today with
+> the stmmac driver as this code hasn't changed. Maybe it should be a
+> separate patch targetting the net tree?
 
-Signed-off-by: David Wu <david.wu@rock-chips.com>
-[rebase, extracted bindings]
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 156 ++++++++++++++++++
- 1 file changed, 156 insertions(+)
+Ok. Tomorrow I'll submit the patch fixing that case.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 7ae04d8d291c8..e1fa8fc9f4012 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1116,6 +1116,161 @@ static const struct rk_gmac_ops rk3568_ops = {
- 	},
- };
- 
-+/* VCCIO0_1_3_IOC */
-+#define RK3576_VCCIO0_1_3_IOC_CON2		0X6408
-+#define RK3576_VCCIO0_1_3_IOC_CON3		0X640c
-+#define RK3576_VCCIO0_1_3_IOC_CON4		0X6410
-+#define RK3576_VCCIO0_1_3_IOC_CON5		0X6414
-+
-+#define RK3576_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(15)
-+#define RK3576_GMAC_RXCLK_DLY_DISABLE		GRF_CLR_BIT(15)
-+#define RK3576_GMAC_TXCLK_DLY_ENABLE		GRF_BIT(7)
-+#define RK3576_GMAC_TXCLK_DLY_DISABLE		GRF_CLR_BIT(7)
-+
-+#define RK3576_GMAC_CLK_RX_DL_CFG(val)		HIWORD_UPDATE(val, 0x7F, 8)
-+#define RK3576_GMAC_CLK_TX_DL_CFG(val)		HIWORD_UPDATE(val, 0x7F, 0)
-+
-+/* SDGMAC_GRF */
-+#define RK3576_GRF_GMAC_CON0			0X0020
-+#define RK3576_GRF_GMAC_CON1			0X0024
-+
-+#define RK3576_GMAC_RMII_MODE			GRF_BIT(3)
-+#define RK3576_GMAC_RGMII_MODE			GRF_CLR_BIT(3)
-+
-+#define RK3576_GMAC_CLK_SELET_IO		GRF_BIT(7)
-+#define RK3576_GMAC_CLK_SELET_CRU		GRF_CLR_BIT(7)
-+
-+#define RK3576_GMAC_CLK_RMII_DIV2		GRF_BIT(5)
-+#define RK3576_GMAC_CLK_RMII_DIV20		GRF_CLR_BIT(5)
-+
-+#define RK3576_GMAC_CLK_RGMII_DIV1		\
-+			(GRF_CLR_BIT(6) | GRF_CLR_BIT(5))
-+#define RK3576_GMAC_CLK_RGMII_DIV5		\
-+			(GRF_BIT(6) | GRF_BIT(5))
-+#define RK3576_GMAC_CLK_RGMII_DIV50		\
-+			(GRF_BIT(6) | GRF_CLR_BIT(5))
-+
-+#define RK3576_GMAC_CLK_RMII_GATE		GRF_BIT(4)
-+#define RK3576_GMAC_CLK_RMII_NOGATE		GRF_CLR_BIT(4)
-+
-+static void rk3576_set_to_rgmii(struct rk_priv_data *bsp_priv,
-+				int tx_delay, int rx_delay)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+	unsigned int offset_con;
-+
-+	if (IS_ERR(bsp_priv->grf) || IS_ERR(bsp_priv->php_grf)) {
-+		dev_err(dev, "Missing rockchip,grf or rockchip,php_grf property\n");
-+		return;
-+	}
-+
-+	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-+					 RK3576_GRF_GMAC_CON0;
-+
-+	regmap_write(bsp_priv->grf, offset_con, RK3576_GMAC_RGMII_MODE);
-+
-+	offset_con = bsp_priv->id == 1 ? RK3576_VCCIO0_1_3_IOC_CON4 :
-+					 RK3576_VCCIO0_1_3_IOC_CON2;
-+
-+	/* m0 && m1 delay enabled */
-+	regmap_write(bsp_priv->php_grf, offset_con,
-+		     DELAY_ENABLE(RK3576, tx_delay, rx_delay));
-+	regmap_write(bsp_priv->php_grf, offset_con + 0x4,
-+		     DELAY_ENABLE(RK3576, tx_delay, rx_delay));
-+
-+	/* m0 && m1 delay value */
-+	regmap_write(bsp_priv->php_grf, offset_con,
-+		     RK3576_GMAC_CLK_TX_DL_CFG(tx_delay) |
-+		     RK3576_GMAC_CLK_RX_DL_CFG(rx_delay));
-+	regmap_write(bsp_priv->php_grf, offset_con + 0x4,
-+		     RK3576_GMAC_CLK_TX_DL_CFG(tx_delay) |
-+		     RK3576_GMAC_CLK_RX_DL_CFG(rx_delay));
-+}
-+
-+static void rk3576_set_to_rmii(struct rk_priv_data *bsp_priv)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+	unsigned int offset_con;
-+
-+	if (IS_ERR(bsp_priv->php_grf)) {
-+		dev_err(dev, "%s: Missing rockchip,php_grf property\n", __func__);
-+		return;
-+	}
-+
-+	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-+					 RK3576_GRF_GMAC_CON0;
-+
-+	regmap_write(bsp_priv->grf, offset_con, RK3576_GMAC_RMII_MODE);
-+}
-+
-+static void rk3576_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
-+{
-+	struct device *dev = &bsp_priv->pdev->dev;
-+	unsigned int val = 0, offset_con;
-+
-+	switch (speed) {
-+	case 10:
-+		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII)
-+			val = RK3576_GMAC_CLK_RMII_DIV20;
-+		else
-+			val = RK3576_GMAC_CLK_RGMII_DIV50;
-+		break;
-+	case 100:
-+		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII)
-+			val = RK3576_GMAC_CLK_RMII_DIV2;
-+		else
-+			val = RK3576_GMAC_CLK_RGMII_DIV5;
-+		break;
-+	case 1000:
-+		if (bsp_priv->phy_iface != PHY_INTERFACE_MODE_RMII)
-+			val = RK3576_GMAC_CLK_RGMII_DIV1;
-+		else
-+			goto err;
-+		break;
-+	default:
-+		goto err;
-+	}
-+
-+	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-+					 RK3576_GRF_GMAC_CON0;
-+
-+	regmap_write(bsp_priv->grf, offset_con, val);
-+
-+	return;
-+err:
-+	dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
-+}
-+
-+static void rk3576_set_clock_selection(struct rk_priv_data *bsp_priv, bool input,
-+				       bool enable)
-+{
-+	unsigned int val = input ? RK3576_GMAC_CLK_SELET_IO :
-+				   RK3576_GMAC_CLK_SELET_CRU;
-+	unsigned int offset_con;
-+
-+	val |= enable ? RK3576_GMAC_CLK_RMII_NOGATE :
-+			RK3576_GMAC_CLK_RMII_GATE;
-+
-+	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-+					 RK3576_GRF_GMAC_CON0;
-+
-+	regmap_write(bsp_priv->grf, offset_con, val);
-+}
-+
-+static const struct rk_gmac_ops rk3576_ops = {
-+	.set_to_rgmii = rk3576_set_to_rgmii,
-+	.set_to_rmii = rk3576_set_to_rmii,
-+	.set_rgmii_speed = rk3576_set_gmac_speed,
-+	.set_rmii_speed = rk3576_set_gmac_speed,
-+	.set_clock_selection = rk3576_set_clock_selection,
-+	.regs_valid = true,
-+	.regs = {
-+		0x2a220000, /* gmac0 */
-+		0x2a230000, /* gmac1 */
-+		0x0, /* sentinel */
-+	},
-+};
-+
- /* sys_grf */
- #define RK3588_GRF_GMAC_CON7			0X031c
- #define RK3588_GRF_GMAC_CON8			0X0320
-@@ -1908,6 +2063,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
- 	{ .compatible = "rockchip,rk3368-gmac", .data = &rk3368_ops },
- 	{ .compatible = "rockchip,rk3399-gmac", .data = &rk3399_ops },
- 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
-+	{ .compatible = "rockchip,rk3576-gmac", .data = &rk3576_ops },
- 	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
- 	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
- 	{ .compatible = "rockchip,rv1126-gmac", .data = &rv1126_ops },
--- 
-2.46.0
+> 
+> > > Previous cover messages from earlier posts below:
+> > > 
+> > > This is version 3 of the series switching stmmac to use phylink PCS
+> > > isntead of going behind phylink's back.
+> > > 
+> > > Changes since version 2:
+> > > - Adopted some of Serge's feedback.
+> > > - New patch: adding ethqos_pcs_set_inband() for qcom-ethqos so we
+> > >   have one place to modify for AN control rather than many.
+> > > - New patch: pass the stmmac_priv structure into the pcs_set_ane()
+> > >   method.
+> > > - New patch: remove pcs_get_adv_lp() early, as this is only for TBI
+> > >   and RTBI, support for which we dropped in an already merged patch.
+> > > - Provide stmmac_pcs structure to encapsulate the pointer to
+> > >   stmmac_priv, PCS MMIO address pointer and phylink_pcs structure.
+> > > - Restructure dwmac_pcs_config() so we can eventually share code
+> > >   with dwmac_ctrl_ane().
+> > > - New patch: move dwmac_ctrl_ane() into stmmac_pcs.c, and share code.
+> > > - New patch: pass the stmmac_pcs structure into dwmac_pcs_isr().
+> > > - New patch: similar to Serge's patch, rename the PCS registers, but
+> > >   use STMMAC_PCS_ as the prefix rather than just PCS_ which is too
+> > >   generic.
+> > > - New patch: incorporate "net: stmmac: Activate Inband/PCS flag
+> > >   based on the selected iface" from Serge.
+> > > 
+> > > On the subject of whether we should have two PCS instances, I
+> > > experimented with that and have now decided against it. Instead,
+> > > dwmac_pcs_config() now tests whether we need to fiddle with the
+> > > PCS control register or not.
+> > > 
+> > 
+> > > Note that I prefer not to have multiple layers of indirection, but
+> > > instead prefer a library-style approach, which is why I haven't
+> > > turned the PCS support into something that's self contained with
+> > > a method in the MAC driver to grab the RGSMII status.
+> > 
+> > I understand the reason of your choice in this case. As a result a
+> > some part of my changes haven't been merged in into your series. But I
+> > deliberately selected the approach with having the simple PCS
+> > HW-interface callbacks utilized for a self-contained internal PCS
+> > implementation. Here is why:
+> > 1. Signify that the DW GMAC and DW QoS Eth internal PCSs are the
+> > same.
+> > 2. Reduce the amount of code.
+> > 3. Collects the entire PCS implementation in a single place which
+> > improves the code readability.
+> > 4. The PCS ops initialization is implemented in the same way as the
+> > PTP, MMC and EST (and likely FPE in some time in future), in the
+> > hwif.c and the interface/core callbacks in the dedicated files
+> > (stmmac_ptp.c, mmc_core.c, stmmac_est.c, etc). So the PCS
+> > implementation would be in general unified with what has been done for
+> > PTP/MMC/EST/etc. 
+> > 5. ...
+> > 
+> > Taking that into account I am still convinced that my approach worth
+> > to be implemented. Hope you won't mind, if after your series is merged
+> > in I'll submit another patch set which would introduce some of my
+> > PCS-changes not included into your patch set. Like this:
+> > 1. Move the mac_device_info instance to being defined in the
+> > stmmac_priv structure (new patch, so to drop the stmmac_priv pointer
+> > from stmmac_pcs).
+> > 2. Introduce stmmac_priv::pcsaddr (to have the PCS CSR base address
+> > defined in the same way as for PTP/MMC/EST/etc).
+> > 3. Provide the HWIF ops:
+> >    stmmac_pcs_ops {
+> >         pcs_get_config_reg;
+> >         pcs_enable_irq;
+> >         pcs_disable_irq;
+> >    } for DW GMAC and DW QoS Eth.
+> > 4. Move PCS implementation to stmmac_pcs.c
+> > 5. Direct using the plat_stmmacenet_data::mac_port_sel_speed field
+> > instead of the mac_device_info::ps.
+> > 6. Some more cleanups like converting the struct stmmac_hwif_entry
+> > field from void-pointers to the typed-pointers, ...
+> 
 
+> I guessed that you would dig your heals in over this, and want to do
+> it your own way despite all the points I raised against your patch
+> series on my previous posting arguing against much of this.
+> 
+> So, at this point I give up with this patch series - clearly there is
+> no room for discussion about the way forward, and you want to do it
+> your way no matter what.
+
+I actually thought that in general the approach implemented in my
+patches didn't meet much dislikes from your side. Just several notes
+which could be easily fixed in the next revisions.
+
+Anyway thanks for understanding. I'll wait for your series to be
+merged in. Then I'll submit my patch set based on top of it (of course
+taking into account all the notes raised by you back then).
+
+-Serge(y)
+
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
