@@ -2,88 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A8094B3DD
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2024 01:47:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C180E94B4AC
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2024 03:37:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0FFAC78002;
-	Wed,  7 Aug 2024 23:47:26 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47899C78002;
+	Thu,  8 Aug 2024 01:37:12 +0000 (UTC)
+Received: from out30-112.freemail.mail.aliyun.com
+ (out30-112.freemail.mail.aliyun.com [115.124.30.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F47DC712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78C95C712A1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Aug 2024 23:47:19 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 477Jh3f5000990;
- Wed, 7 Aug 2024 23:46:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- mgbchAj6xcR2jFXLYmMGd4v6aq2N9KiFTX1IIgdca7w=; b=QJ48A+MNaGvSmfTw
- YQsIzjqomBiC8XLpiFuqSs3SHBajHCFzPHVyP5kIx2J6TdDZShIXypzTg2Fx7jYJ
- FonydqI34elfCglK12A2Bxg106DWGqK7EvkFHRYOcwH1KCPetx6jciOA3TVnxGEf
- yQZUZq+FsAUGRvu8syhd2MEfQz+tFmCXav99tF6CNP52mSyRce1NoC+J7OrgQvpo
- mVMco+jIbXv9DWyYRMfIfJQTudvENmyBtIaC0Rxkzt3PwdjgFLUXSc2sV6rEKsIt
- QMTEDUZQKyITDr4zYb67LGLNIfaqmssRnrMZXnT/l6+OzM+s1RUykjl+630qfFSW
- OkJ9xw==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40vfav0df2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 Aug 2024 23:46:55 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 477NksMn011658
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 7 Aug 2024 23:46:54 GMT
-Received: from [10.110.61.128] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 7 Aug 2024
- 16:46:51 -0700
-Message-ID: <eddef7d0-9e3d-4c3f-8457-54b2eb8a3947@quicinc.com>
-Date: Wed, 7 Aug 2024 16:46:46 -0700
+ Thu,  8 Aug 2024 01:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1723081022; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+ bh=mH8254NBLvcuf4h8WC2ZfPzI9DxBk0rkYDY1AhyBiGQ=;
+ b=rpPPw2glLUAvPFY5y2AOONkMotRIUfCZLGLRBXezbo4nyMOPdWpgyu+NrgmM2vD06vvuHGiZ/FZsYsyDZ/Mv+oyHDWZkdJ1emxyhXVu5qggwuOnzIbmwNK/ik1o8Rw7GEN3cfVWJQYoFw8LZHEdCoGsHbNaUUTYGsTPmnzMlliA=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037067109;
+ MF=baolin.wang@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
+ TI=SMTPD_---0WCKS0YA_1723081020; 
+Received: from 30.97.56.61(mailfrom:baolin.wang@linux.alibaba.com
+ fp:SMTPD_---0WCKS0YA_1723081020) by smtp.aliyun-inc.com;
+ Thu, 08 Aug 2024 09:37:01 +0800
+Message-ID: <3b38eee4-1dc3-45b3-85d7-d4923f5e571e@linux.alibaba.com>
+Date: Thu, 8 Aug 2024 09:37:00 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Serge Semin <fancer.lancer@gmail.com>
-References: <20240708-icc_bw_voting_from_ethqos-v4-0-c6bc3db86071@quicinc.com>
- <20240708-icc_bw_voting_from_ethqos-v4-2-c6bc3db86071@quicinc.com>
- <zsdjc53fxh44bpra5cfishtvmyok2rprbtnbthimnu6quxkxyj@kvtijkxylwb3>
-Content-Language: en-US
-From: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
-In-Reply-To: <zsdjc53fxh44bpra5cfishtvmyok2rprbtnbthimnu6quxkxyj@kvtijkxylwb3>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 9hjmxXrOpSYZifNt35BEWYmSC-EDuTnJ
-X-Proofpoint-GUID: 9hjmxXrOpSYZifNt35BEWYmSC-EDuTnJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-07_14,2024-08-07_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 adultscore=0
- lowpriorityscore=0 mlxscore=0 bulkscore=0 phishscore=0 suspectscore=0
- impostorscore=0 clxscore=1011 spamscore=0 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408070166
-Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob
- Herring <robh@kernel.org>, kernel@quicinc.com,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>, devicetree@vger.kernel.org, Conor
- Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "David S.
- Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] net: stmmac: Add interconnect
-	support
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, andersson@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+References: <20240803061443.287117-1-cuigaosheng1@huawei.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20240803061443.287117-1-cuigaosheng1@huawei.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH -next] hwspinlock: stm32: Add missing
+ clk_disable_unprepare in stm32_hwspinlock_probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,142 +50,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 8/1/2024 11:32 AM, Serge Semin wrote:
-> Hi Sagar
+On 2024/8/3 14:14, Gaosheng Cui wrote:
+> Add the missing clk_disable_unprepare() before return in
+> stm32_hwspinlock_probe().
 > 
-> On Mon, Jul 08, 2024 at 02:30:01PM -0700, Sagar Cheluvegowda wrote:
->> Add interconnect support to vote for bus bandwidth based
->> on the current speed of the driver.
->> Adds support for two different paths - one from ethernet to
->> DDR and the other from CPU to ethernet, Vote from each
->> interconnect client is aggregated and the on-chip interconnect
->> hardware is configured to the most appropriate bandwidth profile.
->>
->> Suggested-by: Andrew Halaney <ahalaney@redhat.com>
->> Signed-off-by: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
->> ---
->>  drivers/net/ethernet/stmicro/stmmac/stmmac.h          |  1 +
->>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     |  8 ++++++++
->>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 12 ++++++++++++
->>  include/linux/stmmac.h                                |  2 ++
->>  4 files changed, 23 insertions(+)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> index b23b920eedb1..56a282d2b8cd 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> @@ -21,6 +21,7 @@
->>  #include <linux/ptp_clock_kernel.h>
->>  #include <linux/net_tstamp.h>
->>  #include <linux/reset.h>
->> +#include <linux/interconnect.h>
->>  #include <net/page_pool/types.h>
->>  #include <net/xdp.h>
->>  #include <uapi/linux/bpf.h>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> index b3afc7cb7d72..ec7c61ee44d4 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> @@ -985,6 +985,12 @@ static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
->>  	}
->>  }
->>  
->> +static void stmmac_set_icc_bw(struct stmmac_priv *priv, unsigned int speed)
->> +{
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+> ---
+>   drivers/hwspinlock/stm32_hwspinlock.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
->> +	icc_set_bw(priv->plat->axi_icc_path, Mbps_to_icc(speed), Mbps_to_icc(speed));
->> +	icc_set_bw(priv->plat->ahb_icc_path, Mbps_to_icc(speed), Mbps_to_icc(speed));
-> 
-> I've got two questions in this regard:
-> 
-> 1. Don't we need to call icc_enable()/icc_disable() in someplace in
-> the driver? For instance the CPU-MEM path must be enabled before even
-> the stmmac_dvr_probe() is called, otherwise the CSR won't be
-> accessible. Right? For the same reason the CPU-MEM bandwidth should be
-> set in sync with that.
-> 
-> 2. Why is the CPU-MAC speed is specified to match the Ethernet link
-> speed? It doesn't seem reasonable. It's the CSR's access speed and
-> should be done as fast as possible. Shouldn't it?
-> 
->> +}
+> diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
+> index bb5c7e5f7a80..a4e3b9a9e29d 100644
+> --- a/drivers/hwspinlock/stm32_hwspinlock.c
+> +++ b/drivers/hwspinlock/stm32_hwspinlock.c
+> @@ -103,6 +103,7 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+>   	ret = devm_add_action_or_reset(dev, stm32_hwspinlock_disable_clk, pdev);
+>   	if (ret) {
+>   		dev_err(dev, "Failed to register action\n");
+> +		clk_disable_unprepare(hw->clk);
+>   		return ret;
+>   	}
+>   
+> @@ -112,8 +113,10 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+>   	ret = devm_hwspin_lock_register(dev, &hw->bank, &stm32_hwspinlock_ops,
+>   					0, STM32_MUTEX_NUM_LOCKS);
+>   
+> -	if (ret)
+> +	if (ret) {
+>   		dev_err(dev, "Failed to register hwspinlock\n");
+> +		clk_disable_unprepare(hw->clk);
+> +	}
 
-I am having internal discussions with clocks team, I will revert back soon with answers.
->> +
->>  static void stmmac_mac_link_down(struct phylink_config *config,
->>  				 unsigned int mode, phy_interface_t interface)
->>  {
->> @@ -1080,6 +1086,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
->>  	if (priv->plat->fix_mac_speed)
->>  		priv->plat->fix_mac_speed(priv->plat->bsp_priv, speed, mode);
->>  
->> +	stmmac_set_icc_bw(priv, speed);
->> +
->>  	if (!duplex)
->>  		ctrl &= ~priv->hw->link.duplex;
->>  	else
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> index 54797edc9b38..201f9dea6da9 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> @@ -642,6 +642,18 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
->>  		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
->>  	}
->>  
->> +	plat->axi_icc_path = devm_of_icc_get(&pdev->dev, "mac-mem");
->> +	if (IS_ERR(plat->axi_icc_path)) {
->> +		ret = ERR_CAST(plat->axi_icc_path);
->> +		goto error_hw_init;
->> +	}
->> +
->> +	plat->ahb_icc_path = devm_of_icc_get(&pdev->dev, "cpu-mac");
->> +	if (IS_ERR(plat->ahb_icc_path)) {
->> +		ret = ERR_CAST(plat->ahb_icc_path);
->> +		goto error_hw_init;
->> +	}
->> +
->>  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
->>  							   STMMAC_RESOURCE_NAME);
->>  	if (IS_ERR(plat->stmmac_rst)) {
->> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
->> index f92c195c76ed..385f352a0c23 100644
->> --- a/include/linux/stmmac.h
->> +++ b/include/linux/stmmac.h
->> @@ -283,6 +283,8 @@ struct plat_stmmacenet_data {
->>  	struct reset_control *stmmac_rst;
->>  	struct reset_control *stmmac_ahb_rst;
->>  	struct stmmac_axi *axi;
-> 
->> +	struct icc_path *axi_icc_path;
-> 
-> The MAC<->MEM interface isn't always AXI (it can be AHB or custom) and
-> 
->> +	struct icc_path *ahb_icc_path;
-> 
-> the CPU<->MAC isn't always AHB (it can also be APB, AXI, custom). So
-> the more generic naming would be:
-> 
-> axi_icc_path -> dma_icc_path
-> and
-> ahb_icc_path -> csr_icc_path
-> 
-> -Serge(y)
-> 
->>  	int has_gmac4;
->>  	int rss_en;
->>  	int mac_port_sel_speed;
->>
->> -- 
->> 2.34.1
->>
->>
+I don't think this is needed, because if the device initialization 
+fails, stm32_hwspinlock_disable_clk() will be called to disable the 
+clock automatically when the device releases its resources. Please check 
+how devm_add_action_or_reset() work.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
