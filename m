@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3CF94C773
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 01:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154F394C7B3
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 02:41:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F795C78019;
-	Thu,  8 Aug 2024 23:47:55 +0000 (UTC)
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86D7FC78019;
+	Fri,  9 Aug 2024 00:41:58 +0000 (UTC)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6F4DC78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C621DC78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Aug 2024 23:47:46 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-7106e2d0ec1so1337865b3a.2
+ Fri,  9 Aug 2024 00:41:50 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2cf11b91813so1234545a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 08 Aug 2024 16:47:46 -0700 (PDT)
+ Thu, 08 Aug 2024 17:41:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1723160865; x=1723765665;
+ d=broadcom.com; s=google; t=1723164109; x=1723768909;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=iOehbxoiyY/eLywGgqw542GpH2EfYYIjh/sRT6jc9w8=;
- b=avvh5pINqesmDSJZQADrZ3YKsaRWrttf8wwDPmbLRapP8myB+83whGROYporlN+1ZA
- U7RyWMqOFFFFPW6dS/WQzmSKOGgn/3Is+1EM7u0s8iUxC4fheZlzZI+nMvelU/2xEAtz
- r2AfuunzuDOyhTSKftsK23PvwMlBNcvzwy1mw=
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vMa+HgXfbcLv1j8ZNDvKHW/MCvB4vKbczTkeRynl0Iw=;
+ b=gEMDYwNe/8B+2aaa4lkWIr5orpe9ewJoq9XY3q/7invTQ7IlGvn34VOKBTq6h17en5
+ cD1fH/PUrS2PFq537DZZRYTBSmtEs+AEniK3eRRr8udzd1ofpe+sIccu/8iFSsXXsiOu
+ omWoJIjBs0P6v53LhRnE9DbAq67ge5W4i3bEg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723160865; x=1723765665;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iOehbxoiyY/eLywGgqw542GpH2EfYYIjh/sRT6jc9w8=;
- b=ZquU1GZS97Tu8KwQ+/ytLmFzHKfdXUwnP3YjOyMh6XkxfnIsCqW59BbH6Hvb9BwIl9
- EJXNdemlpTNxoH5YvB7nh0Nvu42ToCrb+73CeWidLTVH6Nl1dplp6US4W8huvkMS63c9
- nLgV9tauNVlVOID0iEqZSvThvuiSuZWOsM6owQYuh5i1GqDwPzFwOya8C1PeyZLW/loY
- 6YgiLCPXOXKdtSj6ukfnFB4TqXSKoXySIxqsTcqNKvJP3aasEGda3QbnZl+GgzVxdud6
- sNRLL+JESa7KvHrMrzv8ip7Klz8QasJYaLZG2/y7hpY8CpLWpt/xhXpvJrBVMKviV2N5
- jMeA==
+ d=1e100.net; s=20230601; t=1723164109; x=1723768909;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vMa+HgXfbcLv1j8ZNDvKHW/MCvB4vKbczTkeRynl0Iw=;
+ b=GmqtnS/0NOJF1hs+wtZ5ikpNn/fCU5cEVMe6baguyFVfsF/0FArMkjtZVOTbTevr8G
+ RSbM4CotL3I+fa2thlsOw7ZlhwUI+Gkx3MgqqyBznRgxSZVyHV9/PBUDjPenJkMePCIc
+ 9n7YYT2z8I9vc9tHsFOwqavzGp8NTXEJnDcKc8N63MDOdYnoAuo6zsh9jAJDHEQFOPNx
+ 98SdHbCjJHRnYxL9+EtAbAxRJFevKikYMd0ztx0RjLOAVfkEqaF33D0E3AqyfzondRnU
+ M3UYi0gYuBTNvo6nzhtghC0dbbD8wHKnkUoELllrESz2+kwL00rtcpr+rsju0yL8gHGc
+ luyQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVujpcm8Z77q/iGxy8gLwHo8p3GdrAibZreV7xeeBCFtVhPf6TCps50sD+2QB/RL8cg9YM7ry96lR9CeoEz4LPxAiVhoy1ey/Nt4MA7oe+4nFCn2zn816Al
-X-Gm-Message-State: AOJu0YwQ1G3vDwrRrHTfBgeiPLzMjj3tHUl7OQgeJbLdhVxVKfks4c6i
- 6NnANPnHDwL7Gmqs5c9PXSX3m01rZF8jk0J5ZQPvz2CESfBuP5ZohqqTmUVI/wYqTZ+vMunHhoU
- 77dMOqAPoIMtmrZNhJGR3yguHxwAY6q0Bk5bu
-X-Google-Smtp-Source: AGHT+IG4h4rCJz3YrK+c1dyySm6gG6KjedbSrmSw34qV38ZxzHkFMGd5pUpoSZRTwTUllv79NyN1m9d/9j/aasXXT8A=
-X-Received: by 2002:a05:6a20:6ab0:b0:1c8:95c9:307c with SMTP id
- adf61e73a8af0-1c895c93ce7mr906909637.28.1723160865219; Thu, 08 Aug 2024
- 16:47:45 -0700 (PDT)
+ AJvYcCVmcMve4ObMhU9Rk7OSaFmiLXxaRcegrDc9GO/t2Q9+GS7u6O7xXl7GuR5/lr/eIuMTZP0EckOGrZbWsxWgI4pDePWpnIqPkvOev7COJ5k+JxLePwdNVTZE
+X-Gm-Message-State: AOJu0YwiPly4Vvf1G5LSgBQgopDLqlF5KPv1I6I5mObQrECyml3B7gCc
+ RQ1TUS7vfxi5GJL2TElYSvK+LQkeWJhK7iEXS8Bxa4T8HBiFnaVrMFYPq7T3KsV/4IGvSG9TwMi
+ AGuhtA8/jA8jZ0QuZYoEeCy3S/tOvQdvzGda2
+X-Google-Smtp-Source: AGHT+IHDbG9x+0Jp/p0afFemnFW+1v8MKmJHtRMu3N3tUN9zsm9NiSnsrUxrY0wlQIsl6oDLzBJaona3owLelsjrLwI=
+X-Received: by 2002:a17:90b:1a89:b0:2c9:9f50:3f9d with SMTP id
+ 98e67ed59e1d1-2d1c3372906mr4030172a91.5.1723164109132; Thu, 08 Aug 2024
+ 17:41:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
  <20240802031822.1862030-2-jitendra.vegiraju@broadcom.com>
  <zlbtbzch6reo656d72it5h2s7p5bnwhexire36v3w63mazidta@cqyiza4k562t>
 In-Reply-To: <zlbtbzch6reo656d72it5h2s7p5bnwhexire36v3w63mazidta@cqyiza4k562t>
 From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Thu, 8 Aug 2024 16:47:33 -0700
-Message-ID: <CAMdnO-KM0T79wWtgOm3pbFsrW9siV7cnjNt195nd3Er0-J=kVQ@mail.gmail.com>
+Date: Thu, 8 Aug 2024 17:41:37 -0700
+Message-ID: <CAMdnO-K49gp3GtM5EjBsBzcLNJJn60jXo-Kxn-zKn25MjVeZaQ@mail.gmail.com>
 To: Serge Semin <fancer.lancer@gmail.com>
 Cc: andrew@lunn.ch, edumazet@google.com,
  linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
@@ -79,875 +80,304 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4507091034292280303=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============4507091034292280303==
-Content-Type: multipart/alternative; boundary="00000000000043fd20061f34a7d6"
-
---00000000000043fd20061f34a7d6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Aug 6, 2024 at 2:56=E2=80=AFPM Serge Semin <fancer.lancer@gmail.com=
-> wrote:
->
-> On Thu, Aug 01, 2024 at 08:18:20PM -0700, jitendra.vegiraju@broadcom.com
-wrote:
-> > From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> >
-> > Adds support for DWC_xgmac version 4.00a in stmmac core module.
-> > This version adds enhancements to DMA architecture for virtualization
-> > scalability. This is realized by decoupling physical DMA channels (PDMA=
-)
-> > from Virtual DMA channels (VDMA). The  VDMAs are software abastractions
-> > that map to PDMAs for frame transmission and reception.
-> >
-> > The virtualization enhancements are currently not being used and hence
-> > a fixed mapping of VDMA to PDMA is configured in the init functions.
-> > Because of the new init functions, a new instance of struct
-stmmac_dma_ops
-> > dwxgmac400_dma_ops is added.
-> > Most of the other dma operation functions in existing dwxgamc2_dma.c
-file
-> > can be reused.
->
-> As we figured out (didn't we?) that it's actually the DW 25GMAC, then
-> it should be taken into account across the entire series.
->
-Yes, indeed.
-Its confirmed by the design team that we received an early adopter version
-of 25GMAC IP.
-It is also confirmed that 25GMAC always comes with HDMA .
-The revision id is 4.xx and device id is 0x55.
-With that in mind, we will change naming to 25GMAC throughout the patch .
-> >
-> > Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
-> >  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  31 ++++
-> >  .../net/ethernet/stmicro/stmmac/dwxgmac4.c    | 142 ++++++++++++++++++
-> >  .../net/ethernet/stmicro/stmmac/dwxgmac4.h    |  84 +++++++++++
-> >  4 files changed, 258 insertions(+), 1 deletion(-)
-> >  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
-> >  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile
-b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > index c2f0e91f6bf8..2f637612513d 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > @@ -6,7 +6,7 @@ stmmac-objs:=3D stmmac_main.o stmmac_ethtool.o
-stmmac_mdio.o ring_mode.o        \
-> >             mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs.o  \
-> >             dwmac4_dma.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \
-> >             stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwxgmac2_descs.o
-\
-> > -           stmmac_xdp.o stmmac_est.o \
->
-> > +           stmmac_xdp.o stmmac_est.o dwxgmac4.o \
->
-> dw25gmac.o?
->
-> >             $(stmmac-y)
-> >
-> >  stmmac-$(CONFIG_STMMAC_SELFTESTS) +=3D stmmac_selftests.o
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > index dd2ab6185c40..c15f5247aaa8 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > @@ -7,6 +7,7 @@
-> >  #include <linux/iopoll.h>
-> >  #include "stmmac.h"
-> >  #include "dwxgmac2.h"
->
-> > +#include "dwxgmac4.h"
->
-> "dw25gmac.h"?
->
-> >
-> >  static int dwxgmac2_dma_reset(void __iomem *ioaddr)
-> >  {
-> > @@ -641,3 +642,33 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops =3D=
- {
-> >       .enable_sph =3D dwxgmac2_enable_sph,
-> >       .enable_tbs =3D dwxgmac2_enable_tbs,
-> >  };
-> > +
->
-> > +const struct stmmac_dma_ops dwxgmac400_dma_ops =3D {
->
-> dw25gmac_dma_ops?
->
-> > +     .reset =3D dwxgmac2_dma_reset,
->
-> > +     .init =3D dwxgmac4_dma_init,
-> > +     .init_chan =3D dwxgmac2_dma_init_chan,
-> > +     .init_rx_chan =3D dwxgmac4_dma_init_rx_chan,
-> > +     .init_tx_chan =3D dwxgmac4_dma_init_tx_chan,
->
-> dw25gmac_dma_init, dw25gmac_dma_init_rx_chan, dw25gmac_dma_init_tx_chan?
->
-> > +     .axi =3D dwxgmac2_dma_axi,
-> > +     .dump_regs =3D dwxgmac2_dma_dump_regs,
-> > +     .dma_rx_mode =3D dwxgmac2_dma_rx_mode,
-> > +     .dma_tx_mode =3D dwxgmac2_dma_tx_mode,
-> > +     .enable_dma_irq =3D dwxgmac2_enable_dma_irq,
-> > +     .disable_dma_irq =3D dwxgmac2_disable_dma_irq,
-> > +     .start_tx =3D dwxgmac2_dma_start_tx,
-> > +     .stop_tx =3D dwxgmac2_dma_stop_tx,
-> > +     .start_rx =3D dwxgmac2_dma_start_rx,
-> > +     .stop_rx =3D dwxgmac2_dma_stop_rx,
-> > +     .dma_interrupt =3D dwxgmac2_dma_interrupt,
-> > +     .get_hw_feature =3D dwxgmac2_get_hw_feature,
-> > +     .rx_watchdog =3D dwxgmac2_rx_watchdog,
-> > +     .set_rx_ring_len =3D dwxgmac2_set_rx_ring_len,
-> > +     .set_tx_ring_len =3D dwxgmac2_set_tx_ring_len,
-> > +     .set_rx_tail_ptr =3D dwxgmac2_set_rx_tail_ptr,
-> > +     .set_tx_tail_ptr =3D dwxgmac2_set_tx_tail_ptr,
-> > +     .enable_tso =3D dwxgmac2_enable_tso,
-> > +     .qmode =3D dwxgmac2_qmode,
-> > +     .set_bfsize =3D dwxgmac2_set_bfsize,
-> > +     .enable_sph =3D dwxgmac2_enable_sph,
-> > +     .enable_tbs =3D dwxgmac2_enable_tbs,
-> > +};
->
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
-b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
-> > new file mode 100644
-> > index 000000000000..9c8748122dc6
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c
->
-> dw25gmac.c?
->
-> > @@ -0,0 +1,142 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * Copyright (c) 2024 Broadcom Corporation
-> > + */
-> > +#include "dwxgmac2.h"
->
-> > +#include "dwxgmac4.h"
->
-> dw25gmac.h?
->
-> > +
-> > +static int rd_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel)
-> > +{
-> > +     u32 reg_val =3D 0;
-> > +     u32 val =3D 0;
-> > +
-> > +     reg_val |=3D mode << XGMAC4_MSEL_SHIFT & XGMAC4_MODE_SELECT;
-> > +     reg_val |=3D channel << XGMAC4_AOFF_SHIFT & XGMAC4_ADDR_OFFSET;
-> > +     reg_val |=3D XGMAC4_CMD_TYPE | XGMAC4_OB;
-> > +     writel(reg_val, ioaddr + XGMAC4_DMA_CH_IND_CONTROL);
-> > +     val =3D readl(ioaddr + XGMAC4_DMA_CH_IND_DATA);
-> > +     return val;
-> > +}
-> > +
-> > +static void wr_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel,
-u32 val)
-> > +{
-> > +     u32 reg_val =3D 0;
-> > +
-> > +     writel(val, ioaddr + XGMAC4_DMA_CH_IND_DATA);
-> > +     reg_val |=3D mode << XGMAC4_MSEL_SHIFT & XGMAC4_MODE_SELECT;
-> > +     reg_val |=3D channel << XGMAC4_AOFF_SHIFT & XGMAC4_ADDR_OFFSET;
-> > +     reg_val |=3D XGMAC_OB;
-> > +     writel(reg_val, ioaddr + XGMAC4_DMA_CH_IND_CONTROL);
-> > +}
-> > +
->
-> > +static void xgmac4_tp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32
-tc_num)
-> > +{
-> > +     u32 val =3D 0;
-> > +
-> > +     val =3D rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, pdma_ch);
-> > +     val &=3D ~XGMAC4_TP2TCMP;
-> > +     val |=3D tc_num << XGMAC4_TP2TCMP_SHIFT & XGMAC4_TP2TCMP;
-> > +     wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, pdma_ch, val);
-> > +}
-> > +
-> > +static void xgmac4_rp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32
-tc_num)
-> > +{
-> > +     u32 val =3D 0;
-> > +
-> > +     val =3D rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch);
-> > +     val &=3D ~XGMAC4_RP2TCMP;
-> > +     val |=3D tc_num << XGMAC4_RP2TCMP_SHIFT & XGMAC4_RP2TCMP;
-> > +     wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch, val);
-> > +}
->
-> What does "tc" stand for? Traffic control? If it's a kind of queue
-> then what about implementing the stmmac_ops::map_mtl_to_dma interface
-> method?
-"TC" stands for traffic class. Its is mechanism to classify and schedule
-traffic
-to DMA channels between VDMAs and PDMAs.
- An example VDMA to PDMA mapping shown below
-TX and RX.
-         VDMAs            Traffic Class      PDMA
-         +--------+          +------+         +-----------+
-         |VDMA0   |--------->| TC0  |-------->|PDMA0/TXQ0 |
-  TX     +--------+   |----->+------+         +-----------+
- Host =3D> +--------+   |      +------+         +-----------+  =3D> to MAC
-  SW     |VDMA1   |---+      | TC1  |    +--->|PDMA1/TXQ1 |
-         +--------+          +------+    |    +-----------+
-         +--------+          +------+----+    +-----------+
-         |VDMA2   |--------->| TC2  |-------->|PDMA2/TXQ1 |
-         +--------+          +------+         +-----------+
-         +--------+          +------+         +-----------+
-         |VDMAn-1 |--------->| TCx-1|-------->|PDMAm/TXQm |
-         +--------+          +------+         +-----------+
-
-        PDMAs            Traffic Class      VDMAs
-         +------+          +------+         +------+
-         |PDMA0 |--------->| TC0  |-------->|VDMA0 |
-         +------+   |----->+------+         +------+
- MAC =3D>  +------+   |      +------+         +------+
-  RXQs   |PDMA1 |---+      | TC1  |    +--->|VDMA1 |  =3D> Host
-         +------+          +------+    |    +------+   Software
-         +------+          +------+----+    +------+
-         |PDMA2 |--------->| TC2  |-------->|VDMA2 |
-         +------+          +------+         +------+
-         +-------+         +------+        +--------+
-         |PDMAn-1|-------->| TCx-1|------->|VDMAm-1 |
-         +-------+         +------+        +--------+
-
-> > +
-> > +void dwxgmac4_dma_init(void __iomem *ioaddr,
-> > +                    struct stmmac_dma_cfg *dma_cfg, int atds)
-> > +{
-> > +     u32 value;
-> > +     u32 i;
-> > +
-> > +     value =3D readl(ioaddr + XGMAC_DMA_SYSBUS_MODE);
-> > +
-> > +     if (dma_cfg->aal)
-> > +             value |=3D XGMAC_AAL;
-> > +
-> > +     if (dma_cfg->eame)
-> > +             value |=3D XGMAC_EAME;
-> > +
-> > +     writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
-> > +
-> > +     for (i =3D 0; i < VDMA_TOTAL_CH_COUNT; i++) {
->
-> > +             value =3D rd_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i);
-> > +             value &=3D ~XGMAC4_TXDCSZ;
-> > +             value |=3D 0x3;
-> > +             value &=3D ~XGMAC4_TDPS;
-> > +             value |=3D (3 << XGMAC4_TDPS_SHIFT) & XGMAC4_TDPS;
-> > +             wr_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i, value);
-> > +
-> > +             value =3D rd_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i);
-> > +             value &=3D ~XGMAC4_RXDCSZ;
-> > +             value |=3D 0x3;
-> > +             value &=3D ~XGMAC4_RDPS;
-> > +             value |=3D (3 << XGMAC4_RDPS_SHIFT) & XGMAC4_RDPS;
-> > +             wr_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i, value);
->
-> I know that the TDPS/RDPS means Tx/Rx Descriptor Pre-fetch threshold
-> Size. What does the TXDCSZ/RXDCSZ config mean?
->
-> Most importantly why are these parameters hardcoded to 3? It
-> doesn't seem right.
-TXDCSZ/RXDCSZ specify the per channel DMA descriptor cache size
-I missed defining macro for the valid values, for example 3 indicates 256
-bytes.
-Will fix it in next patch update.
->
-> > +     }
-> > +
->
-> > +     for (i =3D 0; i < PDMA_TX_CH_COUNT; i++) {
-> > +             value =3D rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i);
-> > +             value &=3D ~(XGMAC4_TXPBL | XGMAC4_TPBLX8_MODE);
-> > +             if (dma_cfg->pblx8)
-> > +                     value |=3D XGMAC4_TPBLX8_MODE;
-> > +             value |=3D (dma_cfg->pbl << XGMAC4_TXPBL_SHIFT) &
-XGMAC4_TXPBL;
-> > +             wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i, value);
-> > +             xgmac4_tp2tc_map(ioaddr, i, i);
-> > +     }
-> > +
-> > +     for (i =3D 0; i < PDMA_RX_CH_COUNT; i++) {
-> > +             value =3D rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i);
-> > +             value &=3D ~(XGMAC4_RXPBL | XGMAC4_RPBLX8_MODE);
-> > +             if (dma_cfg->pblx8)
-> > +                     value |=3D XGMAC4_RPBLX8_MODE;
-> > +             value |=3D (dma_cfg->pbl << XGMAC4_RXPBL_SHIFT) &
-XGMAC4_RXPBL;
-> > +             wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i, value);
-> > +             if (i < PDMA_MAX_TC_COUNT)
-> > +                     xgmac4_rp2tc_map(ioaddr, i, i);
-> > +             else
-> > +                     xgmac4_rp2tc_map(ioaddr, i, PDMA_MAX_TC_COUNT -
-1);
-> > +     }
->
-> Shouldn't these initialization be done on the per-channel basis only
-> for only activated queues
-> plat_stmmacenet_data::{rx_queues_to_use,tx_queues_to_use} (the STMMAC
-> driver one-on-one maps queues and DMA-channels if no custom mapping
-> was specified)?
->
-This is a mapping between VDMA and PDMA channels. We are starting with a
-default any to any mapping.
-
-> > +}
-> > +
-> > +void dwxgmac4_dma_init_tx_chan(struct stmmac_priv *priv,
-> > +                            void __iomem *ioaddr,
-> > +                            struct stmmac_dma_cfg *dma_cfg,
-> > +                            dma_addr_t dma_addr, u32 chan)
-> > +{
-> > +     u32 value;
-> > +
-> > +     value =3D readl(ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
-> > +     value &=3D ~XGMAC4_TVDMA2TCMP;
-> > +     value |=3D (chan << XGMAC4_TVDMA2TCMP_SHIFT) & XGMAC4_TVDMA2TCMP;
-> > +     writel(value, ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
-> > +
-> > +     writel(upper_32_bits(dma_addr),
-> > +            ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
-> > +     writel(lower_32_bits(dma_addr),
-> > +            ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
-> > +}
-> > +
-> > +void dwxgmac4_dma_init_rx_chan(struct stmmac_priv *priv,
-> > +                            void __iomem *ioaddr,
-> > +                            struct stmmac_dma_cfg *dma_cfg,
-> > +                            dma_addr_t dma_addr, u32 chan)
-> > +{
-> > +     u32 value;
-> > +
-> > +     value =3D readl(ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
-> > +     value &=3D ~XGMAC4_RVDMA2TCMP;
-> > +     value |=3D (chan << XGMAC4_RVDMA2TCMP_SHIFT) & XGMAC4_RVDMA2TCMP;
-> > +     writel(value, ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
-> > +
-> > +     writel(upper_32_bits(dma_addr),
-> > +            ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
-> > +     writel(lower_32_bits(dma_addr),
-> > +            ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
-> > +}
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
-b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
-> > new file mode 100644
-> > index 000000000000..0ce1856b0b34
-> > --- /dev/null
->
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h
->
-> dw25gmac.h?
->
-> > @@ -0,0 +1,84 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/* Copyright (c) 2024 Broadcom Corporation
-> > + * XGMAC4 definitions.
-> > + */
-> > +#ifndef __STMMAC_DWXGMAC4_H__
-> > +#define __STMMAC_DWXGMAC4_H__
-> > +
-> > +/* DMA Indirect Registers*/
->
-> > +#define XGMAC4_DMA_CH_IND_CONTROL    0X00003080
->
-> XXVGMAC_*?
->
-> > +#define XGMAC4_MODE_SELECT           GENMASK(27, 24)
-> > +#define XGMAC4_MSEL_SHIFT            24
-> > +enum dma_ch_ind_modes {
-> > +     MODE_TXEXTCFG    =3D 0x0,   /* Tx Extended Config */
-> > +     MODE_RXEXTCFG    =3D 0x1,   /* Rx Extended Config */
-> > +     MODE_TXDBGSTS    =3D 0x2,   /* Tx Debug Status */
-> > +     MODE_RXDBGSTS    =3D 0x3,   /* Rx Debug Status */
-> > +     MODE_TXDESCCTRL  =3D 0x4,   /* Tx Descriptor control */
-> > +     MODE_RXDESCCTRL  =3D 0x5,   /* Rx Descriptor control */
-> > +};
-> > +
-> > +#define XGMAC4_ADDR_OFFSET           GENMASK(14, 8)
-> > +#define XGMAC4_AOFF_SHIFT            8
-> > +#define XGMAC4_AUTO_INCR             GENMASK(5, 4)
-> > +#define XGMAC4_AUTO_SHIFT            4
-> > +#define XGMAC4_CMD_TYPE                      BIT(1)
-> > +#define XGMAC4_OB                    BIT(0)
-> > +#define XGMAC4_DMA_CH_IND_DATA               0X00003084
-> > +
-> > +/* TX Config definitions */
-> > +#define XGMAC4_TXPBL                 GENMASK(29, 24)
-> > +#define XGMAC4_TXPBL_SHIFT           24
-> > +#define XGMAC4_TPBLX8_MODE           BIT(19)
-> > +#define XGMAC4_TP2TCMP                       GENMASK(18, 16)
-> > +#define XGMAC4_TP2TCMP_SHIFT         16
-> > +#define XGMAC4_ORRQ                  GENMASK(13, 8)
-> > +/* RX Config definitions */
-> > +#define XGMAC4_RXPBL                 GENMASK(29, 24)
-> > +#define XGMAC4_RXPBL_SHIFT           24
-> > +#define XGMAC4_RPBLX8_MODE           BIT(19)
-> > +#define XGMAC4_RP2TCMP                       GENMASK(18, 16)
-> > +#define XGMAC4_RP2TCMP_SHIFT         16
-> > +#define XGMAC4_OWRQ                  GENMASK(13, 8)
-> > +/* Tx Descriptor control */
-> > +#define XGMAC4_TXDCSZ                        GENMASK(2, 0)
-> > +#define XGMAC4_TDPS                  GENMASK(5, 3)
-> > +#define XGMAC4_TDPS_SHIFT            3
-> > +/* Rx Descriptor control */
-> > +#define XGMAC4_RXDCSZ                        GENMASK(2, 0)
-> > +#define XGMAC4_RDPS                  GENMASK(5, 3)
-> > +#define XGMAC4_RDPS_SHIFT            3
-> > +
-> > +/* DWCXG_DMA_CH(#i) Registers*/
-> > +#define XGMAC4_DSL                   GENMASK(20, 18)
-> > +#define XGMAC4_MSS                   GENMASK(13, 0)
-> > +#define XGMAC4_TFSEL                 GENMASK(30, 29)
-> > +#define XGMAC4_TQOS                  GENMASK(27, 24)
-> > +#define XGMAC4_IPBL                  BIT(15)
-> > +#define XGMAC4_TVDMA2TCMP            GENMASK(6, 4)
-> > +#define XGMAC4_TVDMA2TCMP_SHIFT              4
-> > +#define XGMAC4_RPF                   BIT(31)
-> > +#define XGMAC4_RVDMA2TCMP            GENMASK(30, 28)
-> > +#define XGMAC4_RVDMA2TCMP_SHIFT              28
-> > +#define XGMAC4_RQOS                  GENMASK(27, 24)
-> > +
->
-> > +/* PDMA Channel count */
-> > +#define PDMA_TX_CH_COUNT             8
-> > +#define PDMA_RX_CH_COUNT             10
-> > +#define PDMA_MAX_TC_COUNT            8
-> > +
-> > +/* VDMA channel count */
-> > +#define VDMA_TOTAL_CH_COUNT          32
->
-> These seems like the vendor-specific constant. What are the actual DW
-> 25GMAC constraints?
->
-These are the constraints in this device. We can read from the hardware, we
-will fix it in the next patch.
-
-> -Serge(y)
->
-> > +
-> > +void dwxgmac4_dma_init(void __iomem *ioaddr,
-> > +                    struct stmmac_dma_cfg *dma_cfg, int atds);
-> > +
-> > +void dwxgmac4_dma_init_tx_chan(struct stmmac_priv *priv,
-> > +                            void __iomem *ioaddr,
-> > +                            struct stmmac_dma_cfg *dma_cfg,
-> > +                            dma_addr_t dma_addr, u32 chan);
-> > +void dwxgmac4_dma_init_rx_chan(struct stmmac_priv *priv,
-> > +                            void __iomem *ioaddr,
-> > +                            struct stmmac_dma_cfg *dma_cfg,
-> > +                            dma_addr_t dma_addr, u32 chan);
-> > +#endif /* __STMMAC_DWXGMAC4_H__ */
-> > --
-> > 2.34.1
-> >
-> >
-
---00000000000043fd20061f34a7d6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">On Tue, Aug 6, 2024 at 2:56=E2=80=AFPM Serge Semin &lt;<a =
-href=3D"mailto:fancer.lancer@gmail.com">fancer.lancer@gmail.com</a>&gt; wro=
-te:<br>&gt;<br>&gt; On Thu, Aug 01, 2024 at 08:18:20PM -0700, <a href=3D"ma=
-ilto:jitendra.vegiraju@broadcom.com">jitendra.vegiraju@broadcom.com</a> wro=
-te:<br>&gt; &gt; From: Jitendra Vegiraju &lt;<a href=3D"mailto:jitendra.veg=
-iraju@broadcom.com">jitendra.vegiraju@broadcom.com</a>&gt;<br>&gt; &gt;<br>=
-&gt; &gt; Adds support for DWC_xgmac version 4.00a in stmmac core module.<b=
-r>&gt; &gt; This version adds enhancements to DMA architecture for virtuali=
-zation<br>&gt; &gt; scalability. This is realized by decoupling physical DM=
-A channels (PDMA)<br>&gt; &gt; from Virtual DMA channels (VDMA). The =C2=A0=
-VDMAs are software abastractions<br>&gt; &gt; that map to PDMAs for frame t=
-ransmission and reception.<br>&gt; &gt;<br>&gt; &gt; The virtualization enh=
-ancements are currently not being used and hence<br>&gt; &gt; a fixed mappi=
-ng of VDMA to PDMA is configured in the init functions.<br>&gt; &gt; Becaus=
-e of the new init functions, a new instance of struct stmmac_dma_ops<br>&gt=
-; &gt; dwxgmac400_dma_ops is added.<br>&gt; &gt; Most of the other dma oper=
-ation functions in existing dwxgamc2_dma.c file<br>&gt; &gt; can be reused.=
-<br>&gt;<br>&gt; As we figured out (didn&#39;t we?) that it&#39;s actually =
-the DW 25GMAC, then<br>&gt; it should be taken into account across the enti=
-re series.<br>&gt;<br>Yes, indeed.<br>Its confirmed by the design team that=
- we received an early adopter version of 25GMAC IP.<br>It is also confirmed=
- that 25GMAC always comes with HDMA .<br>The revision id is 4.xx and device=
- id is 0x55.<br>With that in mind, we will change naming to 25GMAC througho=
-ut the patch .<br>&gt; &gt;<br>&gt; &gt; Signed-off-by: Jitendra Vegiraju &=
-lt;<a href=3D"mailto:jitendra.vegiraju@broadcom.com">jitendra.vegiraju@broa=
-dcom.com</a>&gt;<br>&gt; &gt; ---<br>&gt; &gt; =C2=A0drivers/net/ethernet/s=
-tmicro/stmmac/Makefile =C2=A0| =C2=A0 2 +-<br>&gt; &gt; =C2=A0.../ethernet/=
-stmicro/stmmac/dwxgmac2_dma.c =C2=A0 =C2=A0| =C2=A031 ++++<br>&gt; &gt; =C2=
-=A0.../net/ethernet/stmicro/stmmac/dwxgmac4.c =C2=A0 =C2=A0| 142 ++++++++++=
-++++++++<br>&gt; &gt; =C2=A0.../net/ethernet/stmicro/stmmac/dwxgmac4.h =C2=
-=A0 =C2=A0| =C2=A084 +++++++++++<br>&gt; &gt; =C2=A04 files changed, 258 in=
-sertions(+), 1 deletion(-)<br>&gt; &gt; =C2=A0create mode 100644 drivers/ne=
-t/ethernet/stmicro/stmmac/dwxgmac4.c<br>&gt; &gt; =C2=A0create mode 100644 =
-drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h<br>&gt; &gt;<br>&gt; &gt; di=
-ff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ether=
-net/stmicro/stmmac/Makefile<br>&gt; &gt; index c2f0e91f6bf8..2f637612513d 1=
-00644<br>&gt; &gt; --- a/drivers/net/ethernet/stmicro/stmmac/Makefile<br>&g=
-t; &gt; +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile<br>&gt; &gt; @@ =
--6,7 +6,7 @@ stmmac-objs:=3D stmmac_main.o stmmac_ethtool.o stmmac_mdio.o r=
-ing_mode.o =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs=
-.o =C2=A0\<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dwmac4_dm=
-a.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \<br>&gt; &gt; =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwx=
-gmac2_descs.o \<br>&gt; &gt; - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 stmmac_xd=
-p.o stmmac_est.o \<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 stmmac_xdp.o stmmac_est.o dwxgmac4.o \<br>&gt;<br>&gt; dw25gmac.o?<br>&=
-gt;<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 $(stmmac-y)<br>&=
-gt; &gt;<br>&gt; &gt; =C2=A0stmmac-$(CONFIG_STMMAC_SELFTESTS) +=3D stmmac_s=
-elftests.o<br>&gt; &gt; diff --git a/drivers/net/ethernet/stmicro/stmmac/dw=
-xgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c<br>&gt; &=
-gt; index dd2ab6185c40..c15f5247aaa8 100644<br>&gt; &gt; --- a/drivers/net/=
-ethernet/stmicro/stmmac/dwxgmac2_dma.c<br>&gt; &gt; +++ b/drivers/net/ether=
-net/stmicro/stmmac/dwxgmac2_dma.c<br>&gt; &gt; @@ -7,6 +7,7 @@<br>&gt; &gt;=
- =C2=A0#include &lt;linux/iopoll.h&gt;<br>&gt; &gt; =C2=A0#include &quot;st=
-mmac.h&quot;<br>&gt; &gt; =C2=A0#include &quot;dwxgmac2.h&quot;<br>&gt;<br>=
-&gt; &gt; +#include &quot;dwxgmac4.h&quot;<br>&gt;<br>&gt; &quot;dw25gmac.h=
-&quot;?<br>&gt;<br>&gt; &gt;<br>&gt; &gt; =C2=A0static int dwxgmac2_dma_res=
-et(void __iomem *ioaddr)<br>&gt; &gt; =C2=A0{<br>&gt; &gt; @@ -641,3 +642,3=
-3 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops =3D {<br>&gt; &gt; =C2=
-=A0 =C2=A0 =C2=A0 .enable_sph =3D dwxgmac2_enable_sph,<br>&gt; &gt; =C2=A0 =
-=C2=A0 =C2=A0 .enable_tbs =3D dwxgmac2_enable_tbs,<br>&gt; &gt; =C2=A0};<br=
->&gt; &gt; +<br>&gt;<br>&gt; &gt; +const struct stmmac_dma_ops dwxgmac400_d=
-ma_ops =3D {<br>&gt;<br>&gt; dw25gmac_dma_ops?<br>&gt;<br>&gt; &gt; + =C2=
-=A0 =C2=A0 .reset =3D dwxgmac2_dma_reset,<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=
-=A0 .init =3D dwxgmac4_dma_init,<br>&gt; &gt; + =C2=A0 =C2=A0 .init_chan =
-=3D dwxgmac2_dma_init_chan,<br>&gt; &gt; + =C2=A0 =C2=A0 .init_rx_chan =3D =
-dwxgmac4_dma_init_rx_chan,<br>&gt; &gt; + =C2=A0 =C2=A0 .init_tx_chan =3D d=
-wxgmac4_dma_init_tx_chan,<br>&gt;<br>&gt; dw25gmac_dma_init, dw25gmac_dma_i=
-nit_rx_chan, dw25gmac_dma_init_tx_chan?<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=
-=A0 .axi =3D dwxgmac2_dma_axi,<br>&gt; &gt; + =C2=A0 =C2=A0 .dump_regs =3D =
-dwxgmac2_dma_dump_regs,<br>&gt; &gt; + =C2=A0 =C2=A0 .dma_rx_mode =3D dwxgm=
-ac2_dma_rx_mode,<br>&gt; &gt; + =C2=A0 =C2=A0 .dma_tx_mode =3D dwxgmac2_dma=
-_tx_mode,<br>&gt; &gt; + =C2=A0 =C2=A0 .enable_dma_irq =3D dwxgmac2_enable_=
-dma_irq,<br>&gt; &gt; + =C2=A0 =C2=A0 .disable_dma_irq =3D dwxgmac2_disable=
-_dma_irq,<br>&gt; &gt; + =C2=A0 =C2=A0 .start_tx =3D dwxgmac2_dma_start_tx,=
-<br>&gt; &gt; + =C2=A0 =C2=A0 .stop_tx =3D dwxgmac2_dma_stop_tx,<br>&gt; &g=
-t; + =C2=A0 =C2=A0 .start_rx =3D dwxgmac2_dma_start_rx,<br>&gt; &gt; + =C2=
-=A0 =C2=A0 .stop_rx =3D dwxgmac2_dma_stop_rx,<br>&gt; &gt; + =C2=A0 =C2=A0 =
-.dma_interrupt =3D dwxgmac2_dma_interrupt,<br>&gt; &gt; + =C2=A0 =C2=A0 .ge=
-t_hw_feature =3D dwxgmac2_get_hw_feature,<br>&gt; &gt; + =C2=A0 =C2=A0 .rx_=
-watchdog =3D dwxgmac2_rx_watchdog,<br>&gt; &gt; + =C2=A0 =C2=A0 .set_rx_rin=
-g_len =3D dwxgmac2_set_rx_ring_len,<br>&gt; &gt; + =C2=A0 =C2=A0 .set_tx_ri=
-ng_len =3D dwxgmac2_set_tx_ring_len,<br>&gt; &gt; + =C2=A0 =C2=A0 .set_rx_t=
-ail_ptr =3D dwxgmac2_set_rx_tail_ptr,<br>&gt; &gt; + =C2=A0 =C2=A0 .set_tx_=
-tail_ptr =3D dwxgmac2_set_tx_tail_ptr,<br>&gt; &gt; + =C2=A0 =C2=A0 .enable=
-_tso =3D dwxgmac2_enable_tso,<br>&gt; &gt; + =C2=A0 =C2=A0 .qmode =3D dwxgm=
-ac2_qmode,<br>&gt; &gt; + =C2=A0 =C2=A0 .set_bfsize =3D dwxgmac2_set_bfsize=
-,<br>&gt; &gt; + =C2=A0 =C2=A0 .enable_sph =3D dwxgmac2_enable_sph,<br>&gt;=
- &gt; + =C2=A0 =C2=A0 .enable_tbs =3D dwxgmac2_enable_tbs,<br>&gt; &gt; +};=
-<br>&gt;<br>&gt; &gt; diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxg=
-mac4.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.c<br>&gt; &gt; new fi=
-le mode 100644<br>&gt; &gt; index 000000000000..9c8748122dc6<br>&gt; &gt; -=
--- /dev/null<br>&gt; &gt; +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac=
-4.c<br>&gt;<br>&gt; dw25gmac.c?<br>&gt;<br>&gt; &gt; @@ -0,0 +1,142 @@<br>&=
-gt; &gt; +// SPDX-License-Identifier: GPL-2.0-only<br>&gt; &gt; +/*<br>&gt;=
- &gt; + * Copyright (c) 2024 Broadcom Corporation<br>&gt; &gt; + */<br>&gt;=
- &gt; +#include &quot;dwxgmac2.h&quot;<br>&gt;<br>&gt; &gt; +#include &quot=
-;dwxgmac4.h&quot;<br>&gt;<br>&gt; dw25gmac.h?<br>&gt;<br>&gt; &gt; +<br>&gt=
-; &gt; +static int rd_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel=
-)<br>&gt; &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0 u32 reg_val =3D 0;<br>&gt; &=
-gt; + =C2=A0 =C2=A0 u32 val =3D 0;<br>&gt; &gt; +<br>&gt; &gt; + =C2=A0 =C2=
-=A0 reg_val |=3D mode &lt;&lt; XGMAC4_MSEL_SHIFT &amp; XGMAC4_MODE_SELECT;<=
-br>&gt; &gt; + =C2=A0 =C2=A0 reg_val |=3D channel &lt;&lt; XGMAC4_AOFF_SHIF=
-T &amp; XGMAC4_ADDR_OFFSET;<br>&gt; &gt; + =C2=A0 =C2=A0 reg_val |=3D XGMAC=
-4_CMD_TYPE | XGMAC4_OB;<br>&gt; &gt; + =C2=A0 =C2=A0 writel(reg_val, ioaddr=
- + XGMAC4_DMA_CH_IND_CONTROL);<br>&gt; &gt; + =C2=A0 =C2=A0 val =3D readl(i=
-oaddr + XGMAC4_DMA_CH_IND_DATA);<br>&gt; &gt; + =C2=A0 =C2=A0 return val;<b=
-r>&gt; &gt; +}<br>&gt; &gt; +<br>&gt; &gt; +static void wr_dma_ch_ind(void =
-__iomem *ioaddr, u8 mode, u32 channel, u32 val)<br>&gt; &gt; +{<br>&gt; &gt=
-; + =C2=A0 =C2=A0 u32 reg_val =3D 0;<br>&gt; &gt; +<br>&gt; &gt; + =C2=A0 =
-=C2=A0 writel(val, ioaddr + XGMAC4_DMA_CH_IND_DATA);<br>&gt; &gt; + =C2=A0 =
-=C2=A0 reg_val |=3D mode &lt;&lt; XGMAC4_MSEL_SHIFT &amp; XGMAC4_MODE_SELEC=
-T;<br>&gt; &gt; + =C2=A0 =C2=A0 reg_val |=3D channel &lt;&lt; XGMAC4_AOFF_S=
-HIFT &amp; XGMAC4_ADDR_OFFSET;<br>&gt; &gt; + =C2=A0 =C2=A0 reg_val |=3D XG=
-MAC_OB;<br>&gt; &gt; + =C2=A0 =C2=A0 writel(reg_val, ioaddr + XGMAC4_DMA_CH=
-_IND_CONTROL);<br>&gt; &gt; +}<br>&gt; &gt; +<br>&gt;<br>&gt; &gt; +static =
-void xgmac4_tp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32 tc_num)<br>&gt;=
- &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0 u32 val =3D 0;<br>&gt; &gt; +<br>&gt;=
- &gt; + =C2=A0 =C2=A0 val =3D rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, pdma_ch)=
-;<br>&gt; &gt; + =C2=A0 =C2=A0 val &amp;=3D ~XGMAC4_TP2TCMP;<br>&gt; &gt; +=
- =C2=A0 =C2=A0 val |=3D tc_num &lt;&lt; XGMAC4_TP2TCMP_SHIFT &amp; XGMAC4_T=
-P2TCMP;<br>&gt; &gt; + =C2=A0 =C2=A0 wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, p=
-dma_ch, val);<br>&gt; &gt; +}<br>&gt; &gt; +<br>&gt; &gt; +static void xgma=
-c4_rp2tc_map(void __iomem *ioaddr, u8 pdma_ch, u32 tc_num)<br>&gt; &gt; +{<=
-br>&gt; &gt; + =C2=A0 =C2=A0 u32 val =3D 0;<br>&gt; &gt; +<br>&gt; &gt; + =
-=C2=A0 =C2=A0 val =3D rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch);<br>&gt=
-; &gt; + =C2=A0 =C2=A0 val &amp;=3D ~XGMAC4_RP2TCMP;<br>&gt; &gt; + =C2=A0 =
-=C2=A0 val |=3D tc_num &lt;&lt; XGMAC4_RP2TCMP_SHIFT &amp; XGMAC4_RP2TCMP;<=
-br>&gt; &gt; + =C2=A0 =C2=A0 wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, pdma_ch, =
-val);<br>&gt; &gt; +}<br>&gt;<br>&gt; What does &quot;tc&quot; stand for? T=
-raffic control? If it&#39;s a kind of queue<br>&gt; then what about impleme=
-nting the stmmac_ops::map_mtl_to_dma interface<br>&gt; method?<br>&quot;TC&=
-quot; stands for traffic class. Its is mechanism to classify and schedule t=
-raffic<div>to DMA channels between VDMAs and PDMAs.<br><div>=C2=A0An exampl=
-e VDMA to PDMA mapping shown below<br>TX and RX.<br><font face=3D"monospace=
-">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0VDMAs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0Traffic Class =C2=A0 =C2=A0 =C2=A0PDMA<br>=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0+--------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 +-----------+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|VD=
-MA0 =C2=A0 |---------&gt;| TC0 =C2=A0|--------&gt;|PDMA0/TXQ0 |<br>=C2=A0 T=
-X =C2=A0 =C2=A0 +--------+ =C2=A0 |-----&gt;+------+ =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 +-----------+<br>=C2=A0Host =3D&gt; +--------+ =C2=A0 | =C2=A0 =C2=
-=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +-----------+ =C2=A0=3D&gt; =
-to MAC<br>=C2=A0 SW =C2=A0 =C2=A0 |VDMA1 =C2=A0 |---+ =C2=A0 =C2=A0 =C2=A0|=
- TC1 =C2=A0| =C2=A0 =C2=A0+---&gt;|PDMA1/TXQ1 |<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0+--------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=
-=A0| =C2=A0 =C2=A0+-----------+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+-----=
----+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+----+ =C2=A0 =C2=A0+--------=
----+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|VDMA2 =C2=A0 |---------&gt;| TC2=
- =C2=A0|--------&gt;|PDMA2/TXQ1 |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+---=
------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 +-----------+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+--------+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +----------=
--+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|VDMAn-1 |---------&gt;| TCx-1|----=
-----&gt;|PDMAm/TXQm |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+--------+ =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +------=
------+<br></font><br><div><font face=3D"monospace">=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 PDMAs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Traffic Class =C2=A0 =C2=
-=A0 =C2=A0VDMAs<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +------+<br>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|PDMA0 |---------&gt;| TC0 =C2=A0|--------&g=
-t;|VDMA0 |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 |-----&gt;+=
-------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +------+<br>=C2=A0MAC =3D&gt; =C2=A0+--=
-----+ =C2=A0 | =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +--=
-----+<br>=C2=A0 RXQs =C2=A0 |PDMA1 |---+ =C2=A0 =C2=A0 =C2=A0| TC1 =C2=A0| =
-=C2=A0 =C2=A0+---&gt;|VDMA1 | =C2=A0=3D&gt; Host<br>=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=
-=A0| =C2=A0 =C2=A0+------+=C2=A0 =C2=A0Software<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+----+ =C2=A0 =
-=C2=A0+------+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|PDMA2 |---------&gt;| =
-TC2 =C2=A0|--------&gt;|VDMA2 |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+-----=
--+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=
-------+<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+-------+ =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 +------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0+--------+<br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|PDMAn-1|--------&gt;| TCx-1|-------&gt;|VDMAm-1 |<br>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+-------+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 +-----=
--+ =C2=A0 =C2=A0 =C2=A0 =C2=A0+--------+<br><br></font>&gt; &gt; +<br>&gt; =
-&gt; +void dwxgmac4_dma_init(void __iomem *ioaddr,<br>&gt; &gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac=
-_dma_cfg *dma_cfg, int atds)<br>&gt; &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0 u=
-32 value;<br>&gt; &gt; + =C2=A0 =C2=A0 u32 i;<br>&gt; &gt; +<br>&gt; &gt; +=
- =C2=A0 =C2=A0 value =3D readl(ioaddr + XGMAC_DMA_SYSBUS_MODE);<br>&gt; &gt=
-; +<br>&gt; &gt; + =C2=A0 =C2=A0 if (dma_cfg-&gt;aal)<br>&gt; &gt; + =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D XGMAC_AAL;<br>&gt; &gt; +<br=
->&gt; &gt; + =C2=A0 =C2=A0 if (dma_cfg-&gt;eame)<br>&gt; &gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D XGMAC_EAME;<br>&gt; &gt; +<br>&g=
-t; &gt; + =C2=A0 =C2=A0 writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);<br>&=
-gt; &gt; +<br>&gt; &gt; + =C2=A0 =C2=A0 for (i =3D 0; i &lt; VDMA_TOTAL_CH_=
-COUNT; i++) {<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 value =3D rd_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i);<br>&gt; &gt; + =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_TXDCSZ;<br>&g=
-t; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D 0x3;<br>&gt;=
- &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_TD=
-PS;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D (3 =
-&lt;&lt; XGMAC4_TDPS_SHIFT) &amp; XGMAC4_TDPS;<br>&gt; &gt; + =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 wr_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, i, valu=
-e);<br>&gt; &gt; +<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- value =3D rd_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i);<br>&gt; &gt; + =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_RXDCSZ;<br>&gt; =
-&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D 0x3;<br>&gt; &g=
-t; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_RDPS;=
-<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D (3 &lt=
-;&lt; XGMAC4_RDPS_SHIFT) &amp; XGMAC4_RDPS;<br>&gt; &gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 wr_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, i, value=
-);<br>&gt;<br>&gt; I know that the TDPS/RDPS means Tx/Rx Descriptor Pre-fet=
-ch threshold<br>&gt; Size. What does the TXDCSZ/RXDCSZ config mean?<br>&gt;=
-<br>&gt; Most importantly why are these parameters hardcoded to 3? It<br>&g=
-t; doesn&#39;t seem right.</div><div>TXDCSZ/RXDCSZ=C2=A0specify the per cha=
-nnel DMA descriptor cache size=C2=A0</div><div>I missed defining macro for =
-the valid values, for example 3 indicates 256 bytes.</div><div>Will fix it =
-in next patch update.<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=A0 }<br>&gt; &gt; +=
-<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=A0 for (i =3D 0; i &lt; PDMA_TX_CH_COUNT=
-; i++) {<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value =3D=
- rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 value &amp;=3D ~(XGMAC4_TXPBL | XGMAC4_TPBLX8_MODE=
-);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dma_cfg-&gt=
-;pblx8)<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 value |=3D XGMAC4_TPBLX8_MODE;<br>&gt; &gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D (dma_cfg-&gt;pbl &lt;&lt; XGMAC4=
-_TXPBL_SHIFT) &amp; XGMAC4_TXPBL;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i, value);<br>&gt; &=
-gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 xgmac4_tp2tc_map(ioaddr, i,=
- i);<br>&gt; &gt; + =C2=A0 =C2=A0 }<br>&gt; &gt; +<br>&gt; &gt; + =C2=A0 =
-=C2=A0 for (i =3D 0; i &lt; PDMA_RX_CH_COUNT; i++) {<br>&gt; &gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value =3D rd_dma_ch_ind(ioaddr, MODE_RXE=
-XTCFG, i);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value &=
-amp;=3D ~(XGMAC4_RXPBL | XGMAC4_RPBLX8_MODE);<br>&gt; &gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dma_cfg-&gt;pblx8)<br>&gt; &gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 value |=3D X=
-GMAC4_RPBLX8_MODE;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- value |=3D (dma_cfg-&gt;pbl &lt;&lt; XGMAC4_RXPBL_SHIFT) &amp; XGMAC4_RXPB=
-L;<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 wr_dma_ch_ind(i=
-oaddr, MODE_RXEXTCFG, i, value);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 if (i &lt; PDMA_MAX_TC_COUNT)<br>&gt; &gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 xgmac4_rp2tc_map(io=
-addr, i, i);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else<=
-br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 xgmac4_rp2tc_map(ioaddr, i, PDMA_MAX_TC_COUNT - 1);<br>&gt; &gt;=
- + =C2=A0 =C2=A0 }<br>&gt;<br>&gt; Shouldn&#39;t these initialization be do=
-ne on the per-channel basis only<br>&gt; for only activated queues<br>&gt; =
-plat_stmmacenet_data::{rx_queues_to_use,tx_queues_to_use} (the STMMAC<br>&g=
-t; driver one-on-one maps queues and DMA-channels if no custom mapping<br>&=
-gt; was specified)?<br>&gt;</div><div>This is a mapping between VDMA and PD=
-MA=C2=A0channels. We are starting with a default any to any mapping.</div><=
-div><br>&gt; &gt; +}<br>&gt; &gt; +<br>&gt; &gt; +void dwxgmac4_dma_init_tx=
-_chan(struct stmmac_priv *priv,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void _=
-_iomem *ioaddr,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac_dma_cf=
-g *dma_cfg,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_addr_t dma_addr, u32 c=
-han)<br>&gt; &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0 u32 value;<br>&gt; &gt; +=
-<br>&gt; &gt; + =C2=A0 =C2=A0 value =3D readl(ioaddr + XGMAC_DMA_CH_TX_CONT=
-ROL(chan));<br>&gt; &gt; + =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_TVDMA2TCMP;=
-<br>&gt; &gt; + =C2=A0 =C2=A0 value |=3D (chan &lt;&lt; XGMAC4_TVDMA2TCMP_S=
-HIFT) &amp; XGMAC4_TVDMA2TCMP;<br>&gt; &gt; + =C2=A0 =C2=A0 writel(value, i=
-oaddr + XGMAC_DMA_CH_TX_CONTROL(chan));<br>&gt; &gt; +<br>&gt; &gt; + =C2=
-=A0 =C2=A0 writel(upper_32_bits(dma_addr),<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));<br>&gt; =
-&gt; + =C2=A0 =C2=A0 writel(lower_32_bits(dma_addr),<br>&gt; &gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan))=
-;<br>&gt; &gt; +}<br>&gt; &gt; +<br>&gt; &gt; +void dwxgmac4_dma_init_rx_ch=
-an(struct stmmac_priv *priv,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void __io=
-mem *ioaddr,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac_dma_cfg *=
-dma_cfg,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_addr_t dma_addr, u32 ch=
-an)<br>&gt; &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0 u32 value;<br>&gt; &gt; +<=
-br>&gt; &gt; + =C2=A0 =C2=A0 value =3D readl(ioaddr + XGMAC_DMA_CH_RX_CONTR=
-OL(chan));<br>&gt; &gt; + =C2=A0 =C2=A0 value &amp;=3D ~XGMAC4_RVDMA2TCMP;<=
-br>&gt; &gt; + =C2=A0 =C2=A0 value |=3D (chan &lt;&lt; XGMAC4_RVDMA2TCMP_SH=
-IFT) &amp; XGMAC4_RVDMA2TCMP;<br>&gt; &gt; + =C2=A0 =C2=A0 writel(value, io=
-addr + XGMAC_DMA_CH_RX_CONTROL(chan));<br>&gt; &gt; +<br>&gt; &gt; + =C2=A0=
- =C2=A0 writel(upper_32_bits(dma_addr),<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));<br>&gt; &gt=
-; + =C2=A0 =C2=A0 writel(lower_32_bits(dma_addr),<br>&gt; &gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));<b=
-r>&gt; &gt; +}<br>&gt; &gt; diff --git a/drivers/net/ethernet/stmicro/stmma=
-c/dwxgmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac4.h<br>&gt; &gt; =
-new file mode 100644<br>&gt; &gt; index 000000000000..0ce1856b0b34<br>&gt; =
-&gt; --- /dev/null<br>&gt;<br>&gt; &gt; +++ b/drivers/net/ethernet/stmicro/=
-stmmac/dwxgmac4.h<br>&gt;<br>&gt; dw25gmac.h?<br>&gt;<br>&gt; &gt; @@ -0,0 =
-+1,84 @@<br>&gt; &gt; +/* SPDX-License-Identifier: GPL-2.0-only */<br>&gt; =
-&gt; +/* Copyright (c) 2024 Broadcom Corporation<br>&gt; &gt; + * XGMAC4 de=
-finitions.<br>&gt; &gt; + */<br>&gt; &gt; +#ifndef __STMMAC_DWXGMAC4_H__<br=
->&gt; &gt; +#define __STMMAC_DWXGMAC4_H__<br>&gt; &gt; +<br>&gt; &gt; +/* D=
-MA Indirect Registers*/<br>&gt;<br>&gt; &gt; +#define XGMAC4_DMA_CH_IND_CON=
-TROL =C2=A0 =C2=A00X00003080<br>&gt;<br>&gt; XXVGMAC_*?<br>&gt;<br>&gt; &gt=
-; +#define XGMAC4_MODE_SELECT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMASK(27=
-, 24)<br>&gt; &gt; +#define XGMAC4_MSEL_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A024<br>&gt; &gt; +enum dma_ch_ind_modes {<br>&gt; &gt; + =C2=A0=
- =C2=A0 MODE_TXEXTCFG =C2=A0 =C2=A0=3D 0x0, =C2=A0 /* Tx Extended Config */=
-<br>&gt; &gt; + =C2=A0 =C2=A0 MODE_RXEXTCFG =C2=A0 =C2=A0=3D 0x1, =C2=A0 /*=
- Rx Extended Config */<br>&gt; &gt; + =C2=A0 =C2=A0 MODE_TXDBGSTS =C2=A0 =
-=C2=A0=3D 0x2, =C2=A0 /* Tx Debug Status */<br>&gt; &gt; + =C2=A0 =C2=A0 MO=
-DE_RXDBGSTS =C2=A0 =C2=A0=3D 0x3, =C2=A0 /* Rx Debug Status */<br>&gt; &gt;=
- + =C2=A0 =C2=A0 MODE_TXDESCCTRL =C2=A0=3D 0x4, =C2=A0 /* Tx Descriptor con=
-trol */<br>&gt; &gt; + =C2=A0 =C2=A0 MODE_RXDESCCTRL =C2=A0=3D 0x5, =C2=A0 =
-/* Rx Descriptor control */<br>&gt; &gt; +};<br>&gt; &gt; +<br>&gt; &gt; +#=
-define XGMAC4_ADDR_OFFSET =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMASK(14, 8)=
-<br>&gt; &gt; +#define XGMAC4_AOFF_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A08<br>&gt; &gt; +#define XGMAC4_AUTO_INCR =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 GENMASK(5, 4)<br>&gt; &gt; +#define XGMAC4_AUTO_SHIFT =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A04<br>&gt; &gt; +#define XGMAC4_CMD_TYPE =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0BIT(1)<br>&gt; &gt; +#define XGMAC4_OB =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0BIT(0)<br>&gt; &gt; +#define XGMAC4_D=
-MA_CH_IND_DATA =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0X00003084<=
-br>&gt; &gt; +<br>&gt; &gt; +/* TX Config definitions */<br>&gt; &gt; +#def=
-ine XGMAC4_TXPBL =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GE=
-NMASK(29, 24)<br>&gt; &gt; +#define XGMAC4_TXPBL_SHIFT =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 24<br>&gt; &gt; +#define XGMAC4_TPBLX8_MODE =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 BIT(19)<br>&gt; &gt; +#define XGMAC4_TP2TCMP =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMA=
-SK(18, 16)<br>&gt; &gt; +#define XGMAC4_TP2TCMP_SHIFT =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 16<br>&gt; &gt; +#define XGMAC4_ORRQ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(13, 8)<br>&gt; &gt; +/* RX Config de=
-finitions */<br>&gt; &gt; +#define XGMAC4_RXPBL =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMASK(29, 24)<br>&gt; &gt; +#define XGMAC4_R=
-XPBL_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 24<br>&gt; &gt; +#define XGMA=
-C4_RPBLX8_MODE =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 BIT(19)<br>&gt; &gt; +#de=
-fine XGMAC4_RP2TCMP =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 GENMASK(18, 16)<br>&gt; &gt; +#define XGMAC4_RP2TCMP_=
-SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 16<br>&gt; &gt; +#define XGMAC4_OWRQ =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(13, 8)<b=
-r>&gt; &gt; +/* Tx Descriptor control */<br>&gt; &gt; +#define XGMAC4_TXDCS=
-Z =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0GENMASK(2, 0)<br>&gt; &gt; +#define XGMAC4_TDPS =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(5, 3)<br>&gt; &gt; +#d=
-efine XGMAC4_TDPS_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A03<br>&gt; =
-&gt; +/* Rx Descriptor control */<br>&gt; &gt; +#define XGMAC4_RXDCSZ =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0GENMASK(2, 0)<br>&gt; &gt; +#define XGMAC4_RDPS =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(5, 3)<br>&gt; &gt; +#defin=
-e XGMAC4_RDPS_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A03<br>&gt; &gt;=
- +<br>&gt; &gt; +/* DWCXG_DMA_CH(#i) Registers*/<br>&gt; &gt; +#define XGMA=
-C4_DSL =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMA=
-SK(20, 18)<br>&gt; &gt; +#define XGMAC4_MSS =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMASK(13, 0)<br>&gt; &gt; +#define XGMAC4=
-_TFSEL =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 GENMASK(30, =
-29)<br>&gt; &gt; +#define XGMAC4_TQOS =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(27, 24)<br>&gt; &gt; +#define XGMAC4_IPB=
-L =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0BIT(15)<br>=
-&gt; &gt; +#define XGMAC4_TVDMA2TCMP =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0GENMASK(6, 4)<br>&gt; &gt; +#define XGMAC4_TVDMA2TCMP_SHIFT =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A04<br>&gt; &gt; +#define XGMAC4_RPF =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 BIT(31)<br>&=
-gt; &gt; +#define XGMAC4_RVDMA2TCMP =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0GENMASK(30, 28)<br>&gt; &gt; +#define XGMAC4_RVDMA2TCMP_SHIFT =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A028<br>&gt; &gt; +#define XGMAC4_RQOS =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GENMASK(27, 2=
-4)<br>&gt; &gt; +<br>&gt;<br>&gt; &gt; +/* PDMA Channel count */<br>&gt; &g=
-t; +#define PDMA_TX_CH_COUNT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 8<br=
->&gt; &gt; +#define PDMA_RX_CH_COUNT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 10<br>&gt; &gt; +#define PDMA_MAX_TC_COUNT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A08<br>&gt; &gt; +<br>&gt; &gt; +/* VDMA channel count */<br>&gt=
-; &gt; +#define VDMA_TOTAL_CH_COUNT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A032<br=
->&gt;<br>&gt; These seems like the vendor-specific constant. What are the a=
-ctual DW<br>&gt; 25GMAC constraints?<br>&gt;</div><div>These are the constr=
-aints in this device. We can read from the hardware, we will fix it in the =
-next patch.</div><div><br>&gt; -Serge(y)<br>&gt;<br>&gt; &gt; +<br>&gt; &gt=
-; +void dwxgmac4_dma_init(void __iomem *ioaddr,<br>&gt; &gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac_dm=
-a_cfg *dma_cfg, int atds);<br>&gt; &gt; +<br>&gt; &gt; +void dwxgmac4_dma_i=
-nit_tx_chan(struct stmmac_priv *priv,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0void __iomem *ioaddr,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac=
-_dma_cfg *dma_cfg,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_addr_t dma_addr=
-, u32 chan);<br>&gt; &gt; +void dwxgmac4_dma_init_rx_chan(struct stmmac_pri=
-v *priv,<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void __iomem *ioaddr,<br>&g=
-t; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct stmmac_dma_cfg *dma_cfg,<br>&gt; &=
-gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0dma_addr_t dma_addr, u32 chan);<br>&gt; &gt; +#=
-endif /* __STMMAC_DWXGMAC4_H__ */<br>&gt; &gt; --<br>&gt; &gt; 2.34.1<br>&g=
-t; &gt;<br>&gt; &gt;</div></div></div></div>
-
---00000000000043fd20061f34a7d6--
-
---===============4507091034292280303==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4507091034292280303==--
+UmVzZW5kaW5nIHRoZSBtZXNzYWdlIHNpbmNlIG15IGVhcmxpZXIgZW1haWwgdHVybmVkLWluIHRv
+IEhUTUwgYmVjYXVzZSBvZiBhbgphdHRlbXB0IHRvIGRyYXcgYXNjaWlhcnQuCk9uIFR1ZSwgQXVn
+IDYsIDIwMjQgYXQgMjo1NuKAr1BNIFNlcmdlIFNlbWluIDxmYW5jZXIubGFuY2VyQGdtYWlsLmNv
+bT4gd3JvdGU6Cj4KPiBPbiBUaHUsIEF1ZyAwMSwgMjAyNCBhdCAwODoxODoyMFBNIC0wNzAwLCBq
+aXRlbmRyYS52ZWdpcmFqdUBicm9hZGNvbS5jb20gd3JvdGU6Cj4gPiBGcm9tOiBKaXRlbmRyYSBW
+ZWdpcmFqdSA8aml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tPgo+ID4KPiA+IEFkZHMgc3Vw
+cG9ydCBmb3IgRFdDX3hnbWFjIHZlcnNpb24gNC4wMGEgaW4gc3RtbWFjIGNvcmUgbW9kdWxlLgo+
+ID4gVGhpcyB2ZXJzaW9uIGFkZHMgZW5oYW5jZW1lbnRzIHRvIERNQSBhcmNoaXRlY3R1cmUgZm9y
+IHZpcnR1YWxpemF0aW9uCj4gPiBzY2FsYWJpbGl0eS4gVGhpcyBpcyByZWFsaXplZCBieSBkZWNv
+dXBsaW5nIHBoeXNpY2FsIERNQSBjaGFubmVscyAoUERNQSkKPiA+IGZyb20gVmlydHVhbCBETUEg
+Y2hhbm5lbHMgKFZETUEpLiBUaGUgIFZETUFzIGFyZSBzb2Z0d2FyZSBhYmFzdHJhY3Rpb25zCj4g
+PiB0aGF0IG1hcCB0byBQRE1BcyBmb3IgZnJhbWUgdHJhbnNtaXNzaW9uIGFuZCByZWNlcHRpb24u
+Cj4gPgo+ID4gVGhlIHZpcnR1YWxpemF0aW9uIGVuaGFuY2VtZW50cyBhcmUgY3VycmVudGx5IG5v
+dCBiZWluZyB1c2VkIGFuZCBoZW5jZQo+ID4gYSBmaXhlZCBtYXBwaW5nIG9mIFZETUEgdG8gUERN
+QSBpcyBjb25maWd1cmVkIGluIHRoZSBpbml0IGZ1bmN0aW9ucy4KPiA+IEJlY2F1c2Ugb2YgdGhl
+IG5ldyBpbml0IGZ1bmN0aW9ucywgYSBuZXcgaW5zdGFuY2Ugb2Ygc3RydWN0IHN0bW1hY19kbWFf
+b3BzCj4gPiBkd3hnbWFjNDAwX2RtYV9vcHMgaXMgYWRkZWQuCj4gPiBNb3N0IG9mIHRoZSBvdGhl
+ciBkbWEgb3BlcmF0aW9uIGZ1bmN0aW9ucyBpbiBleGlzdGluZyBkd3hnYW1jMl9kbWEuYyBmaWxl
+Cj4gPiBjYW4gYmUgcmV1c2VkLgo+Cj4gQXMgd2UgZmlndXJlZCBvdXQgKGRpZG4ndCB3ZT8pIHRo
+YXQgaXQncyBhY3R1YWxseSB0aGUgRFcgMjVHTUFDLCB0aGVuCj4gaXQgc2hvdWxkIGJlIHRha2Vu
+IGludG8gYWNjb3VudCBhY3Jvc3MgdGhlIGVudGlyZSBzZXJpZXMuCj4KWWVzLCBpbmRlZWQgaXRz
+IDI1R01BQyBJUC4KV2UgZ290IGNvbmZpcm1hdGlvbiB0aGF0IHdlIHVzZWQgYW4gZWFybHkgYWRv
+cHRlciB2ZXJzaW9uIG9mIHRoZSAyNUdNQUMgSVAuClRoZSAyNUdNQUMgYWx3YXlzIGNvbWUgd2l0
+aCBIRE1BIERNQSBlbmdpbmUuClRoZSBzeW5vcHNpcyByZXZpc2lvbiBpZCBpcyA0Lnh4IGFuZCBk
+ZXZpY2UgaWQgaXMgMHg1NS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBKaXRlbmRyYSBWZWdpcmFq
+dSA8aml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tPgo+ID4gLS0tCj4gPiAgZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUgIHwgICAyICstCj4gPiAgLi4uL2V0
+aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2RtYS5jICAgIHwgIDMxICsrKysKPiA+ICAu
+Li4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWM0LmMgICAgfCAxNDIgKysrKysr
+KysrKysrKysrKysrCj4gPiAgLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFj
+NC5oICAgIHwgIDg0ICsrKysrKysrKysrCj4gPiAgNCBmaWxlcyBjaGFuZ2VkLCAyNTggaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25l
+dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjNC5jCj4gPiAgY3JlYXRlIG1vZGUgMTAw
+NjQ0IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWM0LmgKPiA+Cj4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZp
+bGUgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9NYWtlZmlsZQo+ID4gaW5k
+ZXggYzJmMGU5MWY2YmY4Li4yZjYzNzYxMjUxM2QgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL25l
+dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9NYWtlZmlsZQo+ID4gKysrIGIvZHJpdmVycy9uZXQv
+ZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUKPiA+IEBAIC02LDcgKzYsNyBAQCBzdG1t
+YWMtb2Jqczo9IHN0bW1hY19tYWluLm8gc3RtbWFjX2V0aHRvb2wubyBzdG1tYWNfbWRpby5vIHJp
+bmdfbW9kZS5vICAgICAgICBcCj4gPiAgICAgICAgICAgICBtbWNfY29yZS5vIHN0bW1hY19od3Rz
+dGFtcC5vIHN0bW1hY19wdHAubyBkd21hYzRfZGVzY3MubyAgXAo+ID4gICAgICAgICAgICAgZHdt
+YWM0X2RtYS5vIGR3bWFjNF9saWIubyBkd21hYzRfY29yZS5vIGR3bWFjNS5vIGh3aWYubyBcCj4g
+PiAgICAgICAgICAgICBzdG1tYWNfdGMubyBkd3hnbWFjMl9jb3JlLm8gZHd4Z21hYzJfZG1hLm8g
+ZHd4Z21hYzJfZGVzY3MubyBcCj4gPiAtICAgICAgICAgICBzdG1tYWNfeGRwLm8gc3RtbWFjX2Vz
+dC5vIFwKPgo+ID4gKyAgICAgICAgICAgc3RtbWFjX3hkcC5vIHN0bW1hY19lc3QubyBkd3hnbWFj
+NC5vIFwKPgo+IGR3MjVnbWFjLm8/CldlIHdpbGwgcmVuYW1lIGFsbCBhcHBsaWNhYmxlIHJlZmVy
+ZW5jZSB0byAyNW1hYyBhcyB5b3Ugc3VnZ2VzdCBmb3IKdGhlIGVudGlyZSBwYXRjaCBzZXJpZXMu
+Cgo+Cj4gPiAgICAgICAgICAgICAkKHN0bW1hYy15KQo+ID4KPiA+ICBzdG1tYWMtJChDT05GSUdf
+U1RNTUFDX1NFTEZURVNUUykgKz0gc3RtbWFjX3NlbGZ0ZXN0cy5vCj4gPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfZG1hLmMgYi9kcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9kbWEuYwo+ID4gaW5kZXgg
+ZGQyYWI2MTg1YzQwLi5jMTVmNTI0N2FhYTggMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL25ldC9l
+dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9kbWEuYwo+ID4gKysrIGIvZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfZG1hLmMKPiA+IEBAIC03LDYgKzcs
+NyBAQAo+ID4gICNpbmNsdWRlIDxsaW51eC9pb3BvbGwuaD4KPiA+ICAjaW5jbHVkZSAic3RtbWFj
+LmgiCj4gPiAgI2luY2x1ZGUgImR3eGdtYWMyLmgiCj4KPiA+ICsjaW5jbHVkZSAiZHd4Z21hYzQu
+aCIKPgo+ICJkdzI1Z21hYy5oIj8KPgo+ID4KPiA+ICBzdGF0aWMgaW50IGR3eGdtYWMyX2RtYV9y
+ZXNldCh2b2lkIF9faW9tZW0gKmlvYWRkcikKPiA+ICB7Cj4gPiBAQCAtNjQxLDMgKzY0MiwzMyBA
+QCBjb25zdCBzdHJ1Y3Qgc3RtbWFjX2RtYV9vcHMgZHd4Z21hYzIxMF9kbWFfb3BzID0gewo+ID4g
+ICAgICAgLmVuYWJsZV9zcGggPSBkd3hnbWFjMl9lbmFibGVfc3BoLAo+ID4gICAgICAgLmVuYWJs
+ZV90YnMgPSBkd3hnbWFjMl9lbmFibGVfdGJzLAo+ID4gIH07Cj4gPiArCj4KPiA+ICtjb25zdCBz
+dHJ1Y3Qgc3RtbWFjX2RtYV9vcHMgZHd4Z21hYzQwMF9kbWFfb3BzID0gewo+Cj4gZHcyNWdtYWNf
+ZG1hX29wcz8KPgo+ID4gKyAgICAgLnJlc2V0ID0gZHd4Z21hYzJfZG1hX3Jlc2V0LAo+Cj4gPiAr
+ICAgICAuaW5pdCA9IGR3eGdtYWM0X2RtYV9pbml0LAo+ID4gKyAgICAgLmluaXRfY2hhbiA9IGR3
+eGdtYWMyX2RtYV9pbml0X2NoYW4sCj4gPiArICAgICAuaW5pdF9yeF9jaGFuID0gZHd4Z21hYzRf
+ZG1hX2luaXRfcnhfY2hhbiwKPiA+ICsgICAgIC5pbml0X3R4X2NoYW4gPSBkd3hnbWFjNF9kbWFf
+aW5pdF90eF9jaGFuLAo+Cj4gZHcyNWdtYWNfZG1hX2luaXQsIGR3MjVnbWFjX2RtYV9pbml0X3J4
+X2NoYW4sIGR3MjVnbWFjX2RtYV9pbml0X3R4X2NoYW4/Cj4KPiA+ICsgICAgIC5heGkgPSBkd3hn
+bWFjMl9kbWFfYXhpLAo+ID4gKyAgICAgLmR1bXBfcmVncyA9IGR3eGdtYWMyX2RtYV9kdW1wX3Jl
+Z3MsCj4gPiArICAgICAuZG1hX3J4X21vZGUgPSBkd3hnbWFjMl9kbWFfcnhfbW9kZSwKPiA+ICsg
+ICAgIC5kbWFfdHhfbW9kZSA9IGR3eGdtYWMyX2RtYV90eF9tb2RlLAo+ID4gKyAgICAgLmVuYWJs
+ZV9kbWFfaXJxID0gZHd4Z21hYzJfZW5hYmxlX2RtYV9pcnEsCj4gPiArICAgICAuZGlzYWJsZV9k
+bWFfaXJxID0gZHd4Z21hYzJfZGlzYWJsZV9kbWFfaXJxLAo+ID4gKyAgICAgLnN0YXJ0X3R4ID0g
+ZHd4Z21hYzJfZG1hX3N0YXJ0X3R4LAo+ID4gKyAgICAgLnN0b3BfdHggPSBkd3hnbWFjMl9kbWFf
+c3RvcF90eCwKPiA+ICsgICAgIC5zdGFydF9yeCA9IGR3eGdtYWMyX2RtYV9zdGFydF9yeCwKPiA+
+ICsgICAgIC5zdG9wX3J4ID0gZHd4Z21hYzJfZG1hX3N0b3BfcngsCj4gPiArICAgICAuZG1hX2lu
+dGVycnVwdCA9IGR3eGdtYWMyX2RtYV9pbnRlcnJ1cHQsCj4gPiArICAgICAuZ2V0X2h3X2ZlYXR1
+cmUgPSBkd3hnbWFjMl9nZXRfaHdfZmVhdHVyZSwKPiA+ICsgICAgIC5yeF93YXRjaGRvZyA9IGR3
+eGdtYWMyX3J4X3dhdGNoZG9nLAo+ID4gKyAgICAgLnNldF9yeF9yaW5nX2xlbiA9IGR3eGdtYWMy
+X3NldF9yeF9yaW5nX2xlbiwKPiA+ICsgICAgIC5zZXRfdHhfcmluZ19sZW4gPSBkd3hnbWFjMl9z
+ZXRfdHhfcmluZ19sZW4sCj4gPiArICAgICAuc2V0X3J4X3RhaWxfcHRyID0gZHd4Z21hYzJfc2V0
+X3J4X3RhaWxfcHRyLAo+ID4gKyAgICAgLnNldF90eF90YWlsX3B0ciA9IGR3eGdtYWMyX3NldF90
+eF90YWlsX3B0ciwKPiA+ICsgICAgIC5lbmFibGVfdHNvID0gZHd4Z21hYzJfZW5hYmxlX3RzbywK
+PiA+ICsgICAgIC5xbW9kZSA9IGR3eGdtYWMyX3Ftb2RlLAo+ID4gKyAgICAgLnNldF9iZnNpemUg
+PSBkd3hnbWFjMl9zZXRfYmZzaXplLAo+ID4gKyAgICAgLmVuYWJsZV9zcGggPSBkd3hnbWFjMl9l
+bmFibGVfc3BoLAo+ID4gKyAgICAgLmVuYWJsZV90YnMgPSBkd3hnbWFjMl9lbmFibGVfdGJzLAo+
+ID4gK307Cj4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9kd3hnbWFjNC5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4
+Z21hYzQuYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4u
+OWM4NzQ4MTIyZGM2Cj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9kcml2ZXJzL25ldC9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjNC5jCj4KPiBkdzI1Z21hYy5jPwo+Cj4gPiBAQCAt
+MCwwICsxLDE0MiBAQAo+ID4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9u
+bHkKPiA+ICsvKgo+ID4gKyAqIENvcHlyaWdodCAoYykgMjAyNCBCcm9hZGNvbSBDb3Jwb3JhdGlv
+bgo+ID4gKyAqLwo+ID4gKyNpbmNsdWRlICJkd3hnbWFjMi5oIgo+Cj4gPiArI2luY2x1ZGUgImR3
+eGdtYWM0LmgiCj4KPiBkdzI1Z21hYy5oPwo+Cj4gPiArCj4gPiArc3RhdGljIGludCByZF9kbWFf
+Y2hfaW5kKHZvaWQgX19pb21lbSAqaW9hZGRyLCB1OCBtb2RlLCB1MzIgY2hhbm5lbCkKPiA+ICt7
+Cj4gPiArICAgICB1MzIgcmVnX3ZhbCA9IDA7Cj4gPiArICAgICB1MzIgdmFsID0gMDsKPiA+ICsK
+PiA+ICsgICAgIHJlZ192YWwgfD0gbW9kZSA8PCBYR01BQzRfTVNFTF9TSElGVCAmIFhHTUFDNF9N
+T0RFX1NFTEVDVDsKPiA+ICsgICAgIHJlZ192YWwgfD0gY2hhbm5lbCA8PCBYR01BQzRfQU9GRl9T
+SElGVCAmIFhHTUFDNF9BRERSX09GRlNFVDsKPiA+ICsgICAgIHJlZ192YWwgfD0gWEdNQUM0X0NN
+RF9UWVBFIHwgWEdNQUM0X09COwo+ID4gKyAgICAgd3JpdGVsKHJlZ192YWwsIGlvYWRkciArIFhH
+TUFDNF9ETUFfQ0hfSU5EX0NPTlRST0wpOwo+ID4gKyAgICAgdmFsID0gcmVhZGwoaW9hZGRyICsg
+WEdNQUM0X0RNQV9DSF9JTkRfREFUQSk7Cj4gPiArICAgICByZXR1cm4gdmFsOwo+ID4gK30KPiA+
+ICsKPiA+ICtzdGF0aWMgdm9pZCB3cl9kbWFfY2hfaW5kKHZvaWQgX19pb21lbSAqaW9hZGRyLCB1
+OCBtb2RlLCB1MzIgY2hhbm5lbCwgdTMyIHZhbCkKPiA+ICt7Cj4gPiArICAgICB1MzIgcmVnX3Zh
+bCA9IDA7Cj4gPiArCj4gPiArICAgICB3cml0ZWwodmFsLCBpb2FkZHIgKyBYR01BQzRfRE1BX0NI
+X0lORF9EQVRBKTsKPiA+ICsgICAgIHJlZ192YWwgfD0gbW9kZSA8PCBYR01BQzRfTVNFTF9TSElG
+VCAmIFhHTUFDNF9NT0RFX1NFTEVDVDsKPiA+ICsgICAgIHJlZ192YWwgfD0gY2hhbm5lbCA8PCBY
+R01BQzRfQU9GRl9TSElGVCAmIFhHTUFDNF9BRERSX09GRlNFVDsKPiA+ICsgICAgIHJlZ192YWwg
+fD0gWEdNQUNfT0I7Cj4gPiArICAgICB3cml0ZWwocmVnX3ZhbCwgaW9hZGRyICsgWEdNQUM0X0RN
+QV9DSF9JTkRfQ09OVFJPTCk7Cj4gPiArfQo+ID4gKwo+Cj4gPiArc3RhdGljIHZvaWQgeGdtYWM0
+X3RwMnRjX21hcCh2b2lkIF9faW9tZW0gKmlvYWRkciwgdTggcGRtYV9jaCwgdTMyIHRjX251bSkK
+PiA+ICt7Cj4gPiArICAgICB1MzIgdmFsID0gMDsKPiA+ICsKPiA+ICsgICAgIHZhbCA9IHJkX2Rt
+YV9jaF9pbmQoaW9hZGRyLCBNT0RFX1RYRVhUQ0ZHLCBwZG1hX2NoKTsKPiA+ICsgICAgIHZhbCAm
+PSB+WEdNQUM0X1RQMlRDTVA7Cj4gPiArICAgICB2YWwgfD0gdGNfbnVtIDw8IFhHTUFDNF9UUDJU
+Q01QX1NISUZUICYgWEdNQUM0X1RQMlRDTVA7Cj4gPiArICAgICB3cl9kbWFfY2hfaW5kKGlvYWRk
+ciwgTU9ERV9UWEVYVENGRywgcGRtYV9jaCwgdmFsKTsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGlj
+IHZvaWQgeGdtYWM0X3JwMnRjX21hcCh2b2lkIF9faW9tZW0gKmlvYWRkciwgdTggcGRtYV9jaCwg
+dTMyIHRjX251bSkKPiA+ICt7Cj4gPiArICAgICB1MzIgdmFsID0gMDsKPiA+ICsKPiA+ICsgICAg
+IHZhbCA9IHJkX2RtYV9jaF9pbmQoaW9hZGRyLCBNT0RFX1JYRVhUQ0ZHLCBwZG1hX2NoKTsKPiA+
+ICsgICAgIHZhbCAmPSB+WEdNQUM0X1JQMlRDTVA7Cj4gPiArICAgICB2YWwgfD0gdGNfbnVtIDw8
+IFhHTUFDNF9SUDJUQ01QX1NISUZUICYgWEdNQUM0X1JQMlRDTVA7Cj4gPiArICAgICB3cl9kbWFf
+Y2hfaW5kKGlvYWRkciwgTU9ERV9SWEVYVENGRywgcGRtYV9jaCwgdmFsKTsKPiA+ICt9Cj4KPiBX
+aGF0IGRvZXMgInRjIiBzdGFuZCBmb3I/IFRyYWZmaWMgY29udHJvbD8gSWYgaXQncyBhIGtpbmQg
+b2YgcXVldWUKPiB0aGVuIHdoYXQgYWJvdXQgaW1wbGVtZW50aW5nIHRoZSBzdG1tYWNfb3BzOjpt
+YXBfbXRsX3RvX2RtYSBpbnRlcmZhY2UKPiBtZXRob2Q/Cj4KVEMgc3RhbmRzIGZvciAidHJhZmZp
+YyBjbGFzcyIuClRoZSBWRE1BIHRvIFBETUEgbWFwcGluZyB3aXRoaW4gSERNQSBoYXMgdHJhZmZp
+YyBjbGFzc2lmaWNhdGlvbiBibG9jayBiZXR3ZWVuCnRoZSB0d28gYmxvY2tzIHRvIGFsbG93IGNv
+bnRyb2wgb3ZlciBETUEgcmVzb3VyY2UgdXRpbGl6YXRpb24uClZETUEgLS0gVEMgLS0tIFBETUEK
+VHggVkRNQXMgYW5kIFJYIFZETUFzIGFyZSBtYXBwZWQgb250byBhIFRDIGJhc2VkIG9uIFREMlRD
+TVAgYW5kIFJEMlRDTVAuCk11bHRpcGxlIFZETUFzIGNhbiBiZSBtYXBwZWQgdG8gdGhlIHNhbWUg
+VEMuClRDcyBhcmUgZnVydGhlciBtYXBwZWQgb250byBQRE1BcyBiYXNlZCBvbiBUUDJUQ01QIGFu
+ZCBSUDJUQ01QIGZpZWxkcwo+ID4gKwo+ID4gK3ZvaWQgZHd4Z21hYzRfZG1hX2luaXQodm9pZCBf
+X2lvbWVtICppb2FkZHIsCj4gPiArICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qgc3RtbWFjX2Rt
+YV9jZmcgKmRtYV9jZmcsIGludCBhdGRzKQo+ID4gK3sKPiA+ICsgICAgIHUzMiB2YWx1ZTsKPiA+
+ICsgICAgIHUzMiBpOwo+ID4gKwo+ID4gKyAgICAgdmFsdWUgPSByZWFkbChpb2FkZHIgKyBYR01B
+Q19ETUFfU1lTQlVTX01PREUpOwo+ID4gKwo+ID4gKyAgICAgaWYgKGRtYV9jZmctPmFhbCkKPiA+
+ICsgICAgICAgICAgICAgdmFsdWUgfD0gWEdNQUNfQUFMOwo+ID4gKwo+ID4gKyAgICAgaWYgKGRt
+YV9jZmctPmVhbWUpCj4gPiArICAgICAgICAgICAgIHZhbHVlIHw9IFhHTUFDX0VBTUU7Cj4gPiAr
+Cj4gPiArICAgICB3cml0ZWwodmFsdWUsIGlvYWRkciArIFhHTUFDX0RNQV9TWVNCVVNfTU9ERSk7
+Cj4gPiArCj4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwgVkRNQV9UT1RBTF9DSF9DT1VOVDsgaSsr
+KSB7Cj4KPiA+ICsgICAgICAgICAgICAgdmFsdWUgPSByZF9kbWFfY2hfaW5kKGlvYWRkciwgTU9E
+RV9UWERFU0NDVFJMLCBpKTsKPiA+ICsgICAgICAgICAgICAgdmFsdWUgJj0gflhHTUFDNF9UWERD
+U1o7Cj4gPiArICAgICAgICAgICAgIHZhbHVlIHw9IDB4MzsKPiA+ICsgICAgICAgICAgICAgdmFs
+dWUgJj0gflhHTUFDNF9URFBTOwo+ID4gKyAgICAgICAgICAgICB2YWx1ZSB8PSAoMyA8PCBYR01B
+QzRfVERQU19TSElGVCkgJiBYR01BQzRfVERQUzsKPiA+ICsgICAgICAgICAgICAgd3JfZG1hX2No
+X2luZChpb2FkZHIsIE1PREVfVFhERVNDQ1RSTCwgaSwgdmFsdWUpOwo+ID4gKwo+ID4gKyAgICAg
+ICAgICAgICB2YWx1ZSA9IHJkX2RtYV9jaF9pbmQoaW9hZGRyLCBNT0RFX1JYREVTQ0NUUkwsIGkp
+Owo+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WEdNQUM0X1JYRENTWjsKPiA+ICsgICAgICAg
+ICAgICAgdmFsdWUgfD0gMHgzOwo+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WEdNQUM0X1JE
+UFM7Cj4gPiArICAgICAgICAgICAgIHZhbHVlIHw9ICgzIDw8IFhHTUFDNF9SRFBTX1NISUZUKSAm
+IFhHTUFDNF9SRFBTOwo+ID4gKyAgICAgICAgICAgICB3cl9kbWFfY2hfaW5kKGlvYWRkciwgTU9E
+RV9SWERFU0NDVFJMLCBpLCB2YWx1ZSk7Cj4KPiBJIGtub3cgdGhhdCB0aGUgVERQUy9SRFBTIG1l
+YW5zIFR4L1J4IERlc2NyaXB0b3IgUHJlLWZldGNoIHRocmVzaG9sZAo+IFNpemUuIFdoYXQgZG9l
+cyB0aGUgVFhEQ1NaL1JYRENTWiBjb25maWcgbWVhbj8KPgo+IE1vc3QgaW1wb3J0YW50bHkgd2h5
+IGFyZSB0aGVzZSBwYXJhbWV0ZXJzIGhhcmRjb2RlZCB0byAzPyBJdAo+IGRvZXNuJ3Qgc2VlbSBy
+aWdodC4KPgpUWERDU1ovUlhEQ1NaIGFyZSBkZXNjcmlwdG9yIGNhY2hlIHNpemVzLgpJIG1pc3Nl
+ZCBkZWZpbmluZyBtYWNyb3MgZm9yIHZhbGlkIHZhbHVlcywgZm9yIGV4YW1wbGUgMyBpbmRpY2F0
+ZXMgMjU2IGJ5dGVzLgpXaWxsIGZpeCBpdCBpbiB0aGUgbmV4dCB1cGRhdGUuCgo+ID4gKyAgICAg
+fQo+ID4gKwo+Cj4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwgUERNQV9UWF9DSF9DT1VOVDsgaSsr
+KSB7Cj4gPiArICAgICAgICAgICAgIHZhbHVlID0gcmRfZG1hX2NoX2luZChpb2FkZHIsIE1PREVf
+VFhFWFRDRkcsIGkpOwo+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+KFhHTUFDNF9UWFBCTCB8
+IFhHTUFDNF9UUEJMWDhfTU9ERSk7Cj4gPiArICAgICAgICAgICAgIGlmIChkbWFfY2ZnLT5wYmx4
+OCkKPiA+ICsgICAgICAgICAgICAgICAgICAgICB2YWx1ZSB8PSBYR01BQzRfVFBCTFg4X01PREU7
+Cj4gPiArICAgICAgICAgICAgIHZhbHVlIHw9IChkbWFfY2ZnLT5wYmwgPDwgWEdNQUM0X1RYUEJM
+X1NISUZUKSAmIFhHTUFDNF9UWFBCTDsKPiA+ICsgICAgICAgICAgICAgd3JfZG1hX2NoX2luZChp
+b2FkZHIsIE1PREVfVFhFWFRDRkcsIGksIHZhbHVlKTsKPiA+ICsgICAgICAgICAgICAgeGdtYWM0
+X3RwMnRjX21hcChpb2FkZHIsIGksIGkpOwo+ID4gKyAgICAgfQo+ID4gKwo+ID4gKyAgICAgZm9y
+IChpID0gMDsgaSA8IFBETUFfUlhfQ0hfQ09VTlQ7IGkrKykgewo+ID4gKyAgICAgICAgICAgICB2
+YWx1ZSA9IHJkX2RtYV9jaF9pbmQoaW9hZGRyLCBNT0RFX1JYRVhUQ0ZHLCBpKTsKPiA+ICsgICAg
+ICAgICAgICAgdmFsdWUgJj0gfihYR01BQzRfUlhQQkwgfCBYR01BQzRfUlBCTFg4X01PREUpOwo+
+ID4gKyAgICAgICAgICAgICBpZiAoZG1hX2NmZy0+cGJseDgpCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgdmFsdWUgfD0gWEdNQUM0X1JQQkxYOF9NT0RFOwo+ID4gKyAgICAgICAgICAgICB2YWx1
+ZSB8PSAoZG1hX2NmZy0+cGJsIDw8IFhHTUFDNF9SWFBCTF9TSElGVCkgJiBYR01BQzRfUlhQQkw7
+Cj4gPiArICAgICAgICAgICAgIHdyX2RtYV9jaF9pbmQoaW9hZGRyLCBNT0RFX1JYRVhUQ0ZHLCBp
+LCB2YWx1ZSk7Cj4gPiArICAgICAgICAgICAgIGlmIChpIDwgUERNQV9NQVhfVENfQ09VTlQpCj4g
+PiArICAgICAgICAgICAgICAgICAgICAgeGdtYWM0X3JwMnRjX21hcChpb2FkZHIsIGksIGkpOwo+
+ID4gKyAgICAgICAgICAgICBlbHNlCj4gPiArICAgICAgICAgICAgICAgICAgICAgeGdtYWM0X3Jw
+MnRjX21hcChpb2FkZHIsIGksIFBETUFfTUFYX1RDX0NPVU5UIC0gMSk7Cj4gPiArICAgICB9Cj4K
+PiBTaG91bGRuJ3QgdGhlc2UgaW5pdGlhbGl6YXRpb24gYmUgZG9uZSBvbiB0aGUgcGVyLWNoYW5u
+ZWwgYmFzaXMgb25seQo+IGZvciBvbmx5IGFjdGl2YXRlZCBxdWV1ZXMKPiBwbGF0X3N0bW1hY2Vu
+ZXRfZGF0YTo6e3J4X3F1ZXVlc190b191c2UsdHhfcXVldWVzX3RvX3VzZX0gKHRoZSBTVE1NQUMK
+PiBkcml2ZXIgb25lLW9uLW9uZSBtYXBzIHF1ZXVlcyBhbmQgRE1BLWNoYW5uZWxzIGlmIG5vIGN1
+c3RvbSBtYXBwaW5nCj4gd2FzIHNwZWNpZmllZCk/Cj4KVGhlc2UgYXJlIFZETUEgdG8gUERNQSBt
+YXBwaW5ncyBpbnRlcm5hbCBIRE1BLgpFdmVuIHRob3VnaCBpdCBwcm92aWRlcyBmbGV4aWJpbGl0
+eSwgYSBkZWZhdWx0IGFueSB0byBhbnkgY29uZmlndXJhdGlvbiBpcyB1c2VkLgoKPiA+ICt9Cj4g
+PiArCj4gPiArdm9pZCBkd3hnbWFjNF9kbWFfaW5pdF90eF9jaGFuKHN0cnVjdCBzdG1tYWNfcHJp
+diAqcHJpdiwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCBfX2lvbWVtICpp
+b2FkZHIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBzdG1tYWNfZG1h
+X2NmZyAqZG1hX2NmZywKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG1hX2FkZHJf
+dCBkbWFfYWRkciwgdTMyIGNoYW4pCj4gPiArewo+ID4gKyAgICAgdTMyIHZhbHVlOwo+ID4gKwo+
+ID4gKyAgICAgdmFsdWUgPSByZWFkbChpb2FkZHIgKyBYR01BQ19ETUFfQ0hfVFhfQ09OVFJPTChj
+aGFuKSk7Cj4gPiArICAgICB2YWx1ZSAmPSB+WEdNQUM0X1RWRE1BMlRDTVA7Cj4gPiArICAgICB2
+YWx1ZSB8PSAoY2hhbiA8PCBYR01BQzRfVFZETUEyVENNUF9TSElGVCkgJiBYR01BQzRfVFZETUEy
+VENNUDsKPiA+ICsgICAgIHdyaXRlbCh2YWx1ZSwgaW9hZGRyICsgWEdNQUNfRE1BX0NIX1RYX0NP
+TlRST0woY2hhbikpOwo+ID4gKwo+ID4gKyAgICAgd3JpdGVsKHVwcGVyXzMyX2JpdHMoZG1hX2Fk
+ZHIpLAo+ID4gKyAgICAgICAgICAgIGlvYWRkciArIFhHTUFDX0RNQV9DSF9UeERFU0NfSEFERFIo
+Y2hhbikpOwo+ID4gKyAgICAgd3JpdGVsKGxvd2VyXzMyX2JpdHMoZG1hX2FkZHIpLAo+ID4gKyAg
+ICAgICAgICAgIGlvYWRkciArIFhHTUFDX0RNQV9DSF9UeERFU0NfTEFERFIoY2hhbikpOwo+ID4g
+K30KPiA+ICsKPiA+ICt2b2lkIGR3eGdtYWM0X2RtYV9pbml0X3J4X2NoYW4oc3RydWN0IHN0bW1h
+Y19wcml2ICpwcml2LAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkIF9faW9t
+ZW0gKmlvYWRkciwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHN0bW1h
+Y19kbWFfY2ZnICpkbWFfY2ZnLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBkbWFf
+YWRkcl90IGRtYV9hZGRyLCB1MzIgY2hhbikKPiA+ICt7Cj4gPiArICAgICB1MzIgdmFsdWU7Cj4g
+PiArCj4gPiArICAgICB2YWx1ZSA9IHJlYWRsKGlvYWRkciArIFhHTUFDX0RNQV9DSF9SWF9DT05U
+Uk9MKGNoYW4pKTsKPiA+ICsgICAgIHZhbHVlICY9IH5YR01BQzRfUlZETUEyVENNUDsKPiA+ICsg
+ICAgIHZhbHVlIHw9IChjaGFuIDw8IFhHTUFDNF9SVkRNQTJUQ01QX1NISUZUKSAmIFhHTUFDNF9S
+VkRNQTJUQ01QOwo+ID4gKyAgICAgd3JpdGVsKHZhbHVlLCBpb2FkZHIgKyBYR01BQ19ETUFfQ0hf
+UlhfQ09OVFJPTChjaGFuKSk7Cj4gPiArCj4gPiArICAgICB3cml0ZWwodXBwZXJfMzJfYml0cyhk
+bWFfYWRkciksCj4gPiArICAgICAgICAgICAgaW9hZGRyICsgWEdNQUNfRE1BX0NIX1J4REVTQ19I
+QUREUihjaGFuKSk7Cj4gPiArICAgICB3cml0ZWwobG93ZXJfMzJfYml0cyhkbWFfYWRkciksCj4g
+PiArICAgICAgICAgICAgaW9hZGRyICsgWEdNQUNfRE1BX0NIX1J4REVTQ19MQUREUihjaGFuKSk7
+Cj4gPiArfQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL2R3eGdtYWM0LmggYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hn
+bWFjNC5oCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwMDAwLi4w
+Y2UxODU2YjBiMzQKPiA+IC0tLSAvZGV2L251bGwKPgo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRo
+ZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzQuaAo+Cj4gZHcyNWdtYWMuaD8KV2lsbCByZW5h
+bWUgYWxsIGFwcGxpY2FibGUgcmVmZXJlbmNlcyB0byAyNWdtYWMuCj4KPiA+IEBAIC0wLDAgKzEs
+ODQgQEAKPiA+ICsvKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5ICovCj4g
+PiArLyogQ29weXJpZ2h0IChjKSAyMDI0IEJyb2FkY29tIENvcnBvcmF0aW9uCj4gPiArICogWEdN
+QUM0IGRlZmluaXRpb25zLgo+ID4gKyAqLwo+ID4gKyNpZm5kZWYgX19TVE1NQUNfRFdYR01BQzRf
+SF9fCj4gPiArI2RlZmluZSBfX1NUTU1BQ19EV1hHTUFDNF9IX18KPiA+ICsKPiA+ICsvKiBETUEg
+SW5kaXJlY3QgUmVnaXN0ZXJzKi8KPgo+ID4gKyNkZWZpbmUgWEdNQUM0X0RNQV9DSF9JTkRfQ09O
+VFJPTCAgICAwWDAwMDAzMDgwCj4KPiBYWFZHTUFDXyo/Cj4KVGhhbmtzLCBXaWxsIHVzZSB0aGlz
+IHByZWZpeC4KCj4gPiArI2RlZmluZSBYR01BQzRfTU9ERV9TRUxFQ1QgICAgICAgICAgIEdFTk1B
+U0soMjcsIDI0KQo+ID4gKyNkZWZpbmUgWEdNQUM0X01TRUxfU0hJRlQgICAgICAgICAgICAyNAo+
+ID4gK2VudW0gZG1hX2NoX2luZF9tb2RlcyB7Cj4gPiArICAgICBNT0RFX1RYRVhUQ0ZHICAgID0g
+MHgwLCAgIC8qIFR4IEV4dGVuZGVkIENvbmZpZyAqLwo+ID4gKyAgICAgTU9ERV9SWEVYVENGRyAg
+ICA9IDB4MSwgICAvKiBSeCBFeHRlbmRlZCBDb25maWcgKi8KPiA+ICsgICAgIE1PREVfVFhEQkdT
+VFMgICAgPSAweDIsICAgLyogVHggRGVidWcgU3RhdHVzICovCj4gPiArICAgICBNT0RFX1JYREJH
+U1RTICAgID0gMHgzLCAgIC8qIFJ4IERlYnVnIFN0YXR1cyAqLwo+ID4gKyAgICAgTU9ERV9UWERF
+U0NDVFJMICA9IDB4NCwgICAvKiBUeCBEZXNjcmlwdG9yIGNvbnRyb2wgKi8KPiA+ICsgICAgIE1P
+REVfUlhERVNDQ1RSTCAgPSAweDUsICAgLyogUnggRGVzY3JpcHRvciBjb250cm9sICovCj4gPiAr
+fTsKPiA+ICsKPiA+ICsjZGVmaW5lIFhHTUFDNF9BRERSX09GRlNFVCAgICAgICAgICAgR0VOTUFT
+SygxNCwgOCkKPiA+ICsjZGVmaW5lIFhHTUFDNF9BT0ZGX1NISUZUICAgICAgICAgICAgOAo+ID4g
+KyNkZWZpbmUgWEdNQUM0X0FVVE9fSU5DUiAgICAgICAgICAgICBHRU5NQVNLKDUsIDQpCj4gPiAr
+I2RlZmluZSBYR01BQzRfQVVUT19TSElGVCAgICAgICAgICAgIDQKPiA+ICsjZGVmaW5lIFhHTUFD
+NF9DTURfVFlQRSAgICAgICAgICAgICAgICAgICAgICBCSVQoMSkKPiA+ICsjZGVmaW5lIFhHTUFD
+NF9PQiAgICAgICAgICAgICAgICAgICAgQklUKDApCj4gPiArI2RlZmluZSBYR01BQzRfRE1BX0NI
+X0lORF9EQVRBICAgICAgICAgICAgICAgMFgwMDAwMzA4NAo+ID4gKwo+ID4gKy8qIFRYIENvbmZp
+ZyBkZWZpbml0aW9ucyAqLwo+ID4gKyNkZWZpbmUgWEdNQUM0X1RYUEJMICAgICAgICAgICAgICAg
+ICBHRU5NQVNLKDI5LCAyNCkKPiA+ICsjZGVmaW5lIFhHTUFDNF9UWFBCTF9TSElGVCAgICAgICAg
+ICAgMjQKPiA+ICsjZGVmaW5lIFhHTUFDNF9UUEJMWDhfTU9ERSAgICAgICAgICAgQklUKDE5KQo+
+ID4gKyNkZWZpbmUgWEdNQUM0X1RQMlRDTVAgICAgICAgICAgICAgICAgICAgICAgIEdFTk1BU0so
+MTgsIDE2KQo+ID4gKyNkZWZpbmUgWEdNQUM0X1RQMlRDTVBfU0hJRlQgICAgICAgICAxNgo+ID4g
+KyNkZWZpbmUgWEdNQUM0X09SUlEgICAgICAgICAgICAgICAgICBHRU5NQVNLKDEzLCA4KQo+ID4g
+Ky8qIFJYIENvbmZpZyBkZWZpbml0aW9ucyAqLwo+ID4gKyNkZWZpbmUgWEdNQUM0X1JYUEJMICAg
+ICAgICAgICAgICAgICBHRU5NQVNLKDI5LCAyNCkKPiA+ICsjZGVmaW5lIFhHTUFDNF9SWFBCTF9T
+SElGVCAgICAgICAgICAgMjQKPiA+ICsjZGVmaW5lIFhHTUFDNF9SUEJMWDhfTU9ERSAgICAgICAg
+ICAgQklUKDE5KQo+ID4gKyNkZWZpbmUgWEdNQUM0X1JQMlRDTVAgICAgICAgICAgICAgICAgICAg
+ICAgIEdFTk1BU0soMTgsIDE2KQo+ID4gKyNkZWZpbmUgWEdNQUM0X1JQMlRDTVBfU0hJRlQgICAg
+ICAgICAxNgo+ID4gKyNkZWZpbmUgWEdNQUM0X09XUlEgICAgICAgICAgICAgICAgICBHRU5NQVNL
+KDEzLCA4KQo+ID4gKy8qIFR4IERlc2NyaXB0b3IgY29udHJvbCAqLwo+ID4gKyNkZWZpbmUgWEdN
+QUM0X1RYRENTWiAgICAgICAgICAgICAgICAgICAgICAgIEdFTk1BU0soMiwgMCkKPiA+ICsjZGVm
+aW5lIFhHTUFDNF9URFBTICAgICAgICAgICAgICAgICAgR0VOTUFTSyg1LCAzKQo+ID4gKyNkZWZp
+bmUgWEdNQUM0X1REUFNfU0hJRlQgICAgICAgICAgICAzCj4gPiArLyogUnggRGVzY3JpcHRvciBj
+b250cm9sICovCj4gPiArI2RlZmluZSBYR01BQzRfUlhEQ1NaICAgICAgICAgICAgICAgICAgICAg
+ICAgR0VOTUFTSygyLCAwKQo+ID4gKyNkZWZpbmUgWEdNQUM0X1JEUFMgICAgICAgICAgICAgICAg
+ICBHRU5NQVNLKDUsIDMpCj4gPiArI2RlZmluZSBYR01BQzRfUkRQU19TSElGVCAgICAgICAgICAg
+IDMKPiA+ICsKPiA+ICsvKiBEV0NYR19ETUFfQ0goI2kpIFJlZ2lzdGVycyovCj4gPiArI2RlZmlu
+ZSBYR01BQzRfRFNMICAgICAgICAgICAgICAgICAgIEdFTk1BU0soMjAsIDE4KQo+ID4gKyNkZWZp
+bmUgWEdNQUM0X01TUyAgICAgICAgICAgICAgICAgICBHRU5NQVNLKDEzLCAwKQo+ID4gKyNkZWZp
+bmUgWEdNQUM0X1RGU0VMICAgICAgICAgICAgICAgICBHRU5NQVNLKDMwLCAyOSkKPiA+ICsjZGVm
+aW5lIFhHTUFDNF9UUU9TICAgICAgICAgICAgICAgICAgR0VOTUFTSygyNywgMjQpCj4gPiArI2Rl
+ZmluZSBYR01BQzRfSVBCTCAgICAgICAgICAgICAgICAgIEJJVCgxNSkKPiA+ICsjZGVmaW5lIFhH
+TUFDNF9UVkRNQTJUQ01QICAgICAgICAgICAgR0VOTUFTSyg2LCA0KQo+ID4gKyNkZWZpbmUgWEdN
+QUM0X1RWRE1BMlRDTVBfU0hJRlQgICAgICAgICAgICAgIDQKPiA+ICsjZGVmaW5lIFhHTUFDNF9S
+UEYgICAgICAgICAgICAgICAgICAgQklUKDMxKQo+ID4gKyNkZWZpbmUgWEdNQUM0X1JWRE1BMlRD
+TVAgICAgICAgICAgICBHRU5NQVNLKDMwLCAyOCkKPiA+ICsjZGVmaW5lIFhHTUFDNF9SVkRNQTJU
+Q01QX1NISUZUICAgICAgICAgICAgICAyOAo+ID4gKyNkZWZpbmUgWEdNQUM0X1JRT1MgICAgICAg
+ICAgICAgICAgICBHRU5NQVNLKDI3LCAyNCkKPiA+ICsKPgo+ID4gKy8qIFBETUEgQ2hhbm5lbCBj
+b3VudCAqLwo+ID4gKyNkZWZpbmUgUERNQV9UWF9DSF9DT1VOVCAgICAgICAgICAgICA4Cj4gPiAr
+I2RlZmluZSBQRE1BX1JYX0NIX0NPVU5UICAgICAgICAgICAgIDEwCj4gPiArI2RlZmluZSBQRE1B
+X01BWF9UQ19DT1VOVCAgICAgICAgICAgIDgKPiA+ICsKPiA+ICsvKiBWRE1BIGNoYW5uZWwgY291
+bnQgKi8KPiA+ICsjZGVmaW5lIFZETUFfVE9UQUxfQ0hfQ09VTlQgICAgICAgICAgMzIKPgo+IFRo
+ZXNlIHNlZW1zIGxpa2UgdGhlIHZlbmRvci1zcGVjaWZpYyBjb25zdGFudC4gV2hhdCBhcmUgdGhl
+IGFjdHVhbCBEVwo+IDI1R01BQyBjb25zdHJhaW50cz8KPgpUaGVzZSBhcmUgdGhlIGxpbWl0cyBm
+b3IgdGhpcyBkZXZpY2UuCldlIGNhbiByZWFkIHRoZXNlIGxpbWl0cyBmcm9tIGhhcmR3YXJlLCBJ
+IHdpbGwgZml4IGl0IGluIHRoZSBuZXh0IHBhdGNoLgoKPiAtU2VyZ2UoeSkKPgo+ID4gKwo+ID4g
+K3ZvaWQgZHd4Z21hYzRfZG1hX2luaXQodm9pZCBfX2lvbWVtICppb2FkZHIsCj4gPiArICAgICAg
+ICAgICAgICAgICAgICBzdHJ1Y3Qgc3RtbWFjX2RtYV9jZmcgKmRtYV9jZmcsIGludCBhdGRzKTsK
+PiA+ICsKPiA+ICt2b2lkIGR3eGdtYWM0X2RtYV9pbml0X3R4X2NoYW4oc3RydWN0IHN0bW1hY19w
+cml2ICpwcml2LAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkIF9faW9tZW0g
+KmlvYWRkciwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHN0bW1hY19k
+bWFfY2ZnICpkbWFfY2ZnLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBkbWFfYWRk
+cl90IGRtYV9hZGRyLCB1MzIgY2hhbik7Cj4gPiArdm9pZCBkd3hnbWFjNF9kbWFfaW5pdF9yeF9j
+aGFuKHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdm9pZCBfX2lvbWVtICppb2FkZHIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBzdG1tYWNfZG1hX2NmZyAqZG1hX2NmZywKPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgZG1hX2FkZHJfdCBkbWFfYWRkciwgdTMyIGNoYW4pOwo+ID4gKyNlbmRpZiAv
+KiBfX1NUTU1BQ19EV1hHTUFDNF9IX18gKi8KPiA+IC0tCj4gPiAyLjM0LjEKPiA+Cj4gPgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
