@@ -2,52 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F245A94E2D9
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Aug 2024 22:12:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1AC994E711
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 08:46:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89379C78006;
-	Sun, 11 Aug 2024 20:12:03 +0000 (UTC)
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 783A7C78021;
+	Mon, 12 Aug 2024 06:46:41 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2122.outbound.protection.partner.outlook.cn [139.219.17.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D19AC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 285A8C7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Aug 2024 20:12:02 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 46E80418A0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
- t=1723407120; bh=9Rm/lSrsRJ+DyBRDGWfjb0Jlly6yythN96aq7WE+WOE=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=PrUz/95sju0GqBBXkSIwIq8KblLp7jGXmkz+1xDO3ez2nb1EJw69K4lFKHKp6Ujbn
- pEEGjlycg7cOOZOfBfPV0RkuaGj65mOdzSKDCQx7F50Tidfguo2NarxNkzlffgm29o
- xcteuCJvxzXPc/sX8kJfLvTYloM0Se95fM6I2A7xkCsjsoTmIb/bam/07RxaLS4oNh
- ZYiOMfTcQQKINwDXVhyFlgdwjcWLMU5pGFy2d5jrQdimzLd/ciWnrd59f30px1wdNd
- Frf5RRHTp0obZKIRTKscK0H3GSf8B4EK0992REApc9DbFC28vGWlD/pSxZGxJHxcMM
- XSaAOkrr5HaVQ==
-Received: from localhost (unknown [IPv6:2601:280:5e00:625::1fe])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 46E80418A0;
- Sun, 11 Aug 2024 20:12:00 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>, Amit Vadhavana
- <av2082000@gmail.com>, linux-doc@vger.kernel.org, ricardo@marliere.net
-In-Reply-To: <13beb34b-3ff7-4b88-876f-0a7f65254970@gmail.com>
-References: <20240810183238.34481-1-av2082000@gmail.com>
- <13beb34b-3ff7-4b88-876f-0a7f65254970@gmail.com>
-Date: Sun, 11 Aug 2024 14:11:59 -0600
-Message-ID: <87h6bqbz00.fsf@trenco.lwn.net>
+ Fri,  9 Aug 2024 15:31:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GpkSdvCxdveyYE6wXhPbcc8kjYgM+h87OU0ihdCrvAUbdu8uTqsF6E9TnyuNlHa3WpEp6K2UwphvNMc2odZm5hVnhU49cC26JL2fYI3wpNgSUWxWlibPAWiClk3TQOfgV3RhMJVnPOLYFTkSMq528tpmIEp5t1LNxwHtMsDu2eu2Vk70WsEaaAwv/UWAT31fbCBUD2gAHwFOwYK+i2YiY7VJnColOs/KXeaSrDMEy4Ez5LEcJ4rDJPQdKqhnwpBD4u50l+Vn2jBP0jUc/uwQr4cAgseHnUbEAB3dI380GLAUM6PDhF/erDpShIWUNcOPYKdLUkg4IUeFCYVLMqMoxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xos3TNetvez8csegtAGRtpgwVKCb9oCrbneAZFhgC1Y=;
+ b=WVdGwmW+G8/Mq8lpJ1lyQaLtXMLBX+ZiqT8FRe8ZQy2W/5MznTY8SlhtJiLWEt+KeJEssW0XpTRyE6C0JufHMcq22cngwMOALHbYzLPcIhjm+T7kF5aVEMl81Zqhtl8s4O8hSQE92pEiOAoYGVf9fPOr2QSJ/a6gSxVloVrFEV6V95hLIr3jDF4aJcV8ef7Bm4ZfSUlChEgkE3h7e/+FSJDROqU5raDBeR4My5xmRVIC6MefGd3QeQ/OlP/lQie01xoM+2+TNbqAsa0mb+kgMEHNLse6DC76G60spQpLgjl+WhQ4NYXwhhtDyaNspTlDaCi8JNV4duc3YRACcXlQUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7) by NTZPR01MB1002.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.18; Fri, 9 Aug
+ 2024 15:31:53 +0000
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5]) by NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5%4]) with mapi id 15.20.7828.023; Fri, 9 Aug 2024
+ 15:31:53 +0000
+From: ende.tan@starfivetech.com
+To: netdev@vger.kernel.org
+Date: Fri,  9 Aug 2024 23:31:38 +0800
+Message-Id: <20240809153138.1865681-1-ende.tan@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: ZQ0PR01CA0015.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:5::9) To NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7)
 MIME-Version: 1.0
-Cc: catalin.marinas@arm.com, dave.hansen@linux.intel.com,
- conor.dooley@microchip.com, hpa@zytor.com, skhan@linuxfoundation.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel-mentees@lists.linux.dev, costa.shul@redhat.com,
- mpe@ellerman.id.au, x86@kernel.org, christophe.leroy@csgroup.eu,
- mingo@redhat.com, workflows@vger.kernel.org, aou@eecs.berkeley.edu,
- naveen@kernel.org, npiggin@gmail.com, bp@alien8.de, paul.walmsley@sifive.com,
- bhelgaas@google.com, tglx@linutronix.de, linux-arm-kernel@lists.infradead.org,
- palmer@dabbelt.com, mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] Documentation: Fix spelling mistakes
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NTZPR01MB1018:EE_|NTZPR01MB1002:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca123216-defd-472f-3f68-08dcb888655a
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|52116014|1800799024|366016|7416014|41320700013|38350700014; 
+X-Microsoft-Antispam-Message-Info: aveJs6xOgnL3HgdfisX9LXwpTtehSyPsMhe3VkX6Wt9++ta5CYNg15gFR5B4DAAzeczYeIVkjMddLoddcceMdmgvzDB2w+vGbSU01sZbW2yLGEpDfN0z0WrvN5G9g0YzWBfD4buYKfbeqWVsoTkd7ox7rCfwomDf/E5TVuMdHabLeXnwnQyxQ2RzmclKOjOxlHWKYkg8xUTECQeEn7J08Oyvm5d7V0Xg+yv4TZ8pLBagGML5pkQHpTTxAORCLIcZKeacENK1Mtq942vRMEKUtdso+uu6qQ3h3j3qEPfNmXi3UVWBl0sh7whOC9pqZ1uwn+l0Ffxn/CjnW9XzWHBabVek9OouSNnnGktgZak75ueQf8eFWi+H41dnwkn2jW3aK4uc27P9Mj6RL3S8eyvpoY1dNzNkPn4iwklEKXgwMnQx26UePuCghxz39PCgZQFbLUqOfI75nFwR0Wc8pYyHNtJRok7BPyQ/pCMUujDWuVVsuKte8HUAURJXml26sCPJsLS8KsdJkyZpGIcN1EOxVWRoIl4iELqZGHx4f4nM9SwKoEgqyz42HrYvvBaPQ+z7GPYo0yyIR3a7elpC1pRN1t8qjd1A9X5r2rOyYwNGk6LnZvrpElPNwSA2fCp5DU44
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(52116014)(1800799024)(366016)(7416014)(41320700013)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XLR/8Kp+/lpF4f2q1ljVyRy91Y4Hu2RY6SxKrKztjV4tE9/DZlqmM+hEdQwV?=
+ =?us-ascii?Q?FQTBfUNnG8jvavbvIxeMlbnl2Lm2RhSn6zUgrak6tJMu4NRI/89U/RZHyAat?=
+ =?us-ascii?Q?ZAnNUolDKZMScnJDGgUw3/c4rXkuQENe5vJ98vbjMuxPfn/gyZakjhOjMB9m?=
+ =?us-ascii?Q?XKTCjx0U/TqXk3AzIGHAhlgFBeantyCRixRI42jh5/IO/shP6uVo4UOv+Fm/?=
+ =?us-ascii?Q?OeI7S1Aak5E3gObJIeF9xJ5aWZH1R5m0gbLEdlDqjTdZSqqHOgfASQiSDh0n?=
+ =?us-ascii?Q?UCfHfUEgl6zgEQZg5fOSc0lhE68Xokn+rz1GLOpBdbQPL9b/PhCBORqbIcZ/?=
+ =?us-ascii?Q?rJCTyUldPMZxJhu2yJ6IXpZ9VSBrXSoBv2LGNlPHWmkqFS/PEzn8lupRogVt?=
+ =?us-ascii?Q?x3w2WxUVzNOBTZlPhcrL6OhgWg4mR8lPFmwy3zi/ms/3XGy5srQwN9swYykG?=
+ =?us-ascii?Q?2WcnmFqCgq/SAVxRo3Hk7MP/dnp4ILNjTpnt1DOznk6bs6PcNRcr2hDy58TY?=
+ =?us-ascii?Q?1dZ+Zk8hMsOnw3viqWcSafu5XX42OGp54JY6Ynit3eG2Qjz1QqTN5Nj1/08z?=
+ =?us-ascii?Q?FX/V/dGEI1Pnoggqr5X/oJD4y3b3uQvUznKKsfGX1WEgo8ssHWjlJGC2b9Vj?=
+ =?us-ascii?Q?v/ub74dJndWTHPPuCYyFvmuibhYgsgOWGNlzFfgaGcs23TvOoBweUCJITCl1?=
+ =?us-ascii?Q?05NEIamHFPze2xk/0yp5/SXTbRk+iRWYbn5XlHxb1QmT1WkZMBwWekFjI+v+?=
+ =?us-ascii?Q?pzxrzMWnwxluAeDzNqUKVztpsR2ZjkfZ9gyxizprpkUGAwMR6vIcUyZ7ar6v?=
+ =?us-ascii?Q?r8o1XwyGamcP7VmtNyhZ6+gk3CxWwnRBx+xgzP5rmYdjIlL9jHB5i8LIv5Gn?=
+ =?us-ascii?Q?qphjttNRQ1y0zMnka+ouDyofvxOoN0w2pOsma6mB9gy0oT/7UJceVQMxAbyA?=
+ =?us-ascii?Q?EYA8QFt6RRkpNz+S+L6BmrquDYQ6kYOL6mYVGeUTzI081vh71MVDZ9InXnkq?=
+ =?us-ascii?Q?/arBtn1LB1vRGuTLi6nbSNgGNHa9oazy6SJyefdOpPJW5Hi/D2kw30NuK++w?=
+ =?us-ascii?Q?ViyN9AAsLRDryPQW5l476HM74aV0KNjcJtkrbVF7ZFIgBJJnvMjvSc8+ppN9?=
+ =?us-ascii?Q?Fbzdp6pIVgCgHMywLgb7QPpC7/dkLljhAqKycS1wzUrx6no/qSkxIt6E8RAw?=
+ =?us-ascii?Q?hwXKClnYgAK7baJjpPhZBQIoKcoeDMkBw746bdRC5R7GXGblDqirOP9ZXI0y?=
+ =?us-ascii?Q?1HU4SPVJ1+A7Rq+1RY1QwPnawww7GcZkQrnqJtaOD2uKUjl0fDlw+Ez9TGzo?=
+ =?us-ascii?Q?nzmBnQCcZ+iAEj7wf8ZuwX/33qANve3pb0YGExHEPakt2WdjJ7LXROlcQHfK?=
+ =?us-ascii?Q?dehysWLEB5kJjnx6Kja/gIWSZmzD9kyTiCobd2DwtH1RBNUTjGmXc17DZYjt?=
+ =?us-ascii?Q?rfzrLh0v5XoMUXb58Tv9EEZm7TUkphmOZYA3u9HkLjzlk2ImyqmdYANIRBly?=
+ =?us-ascii?Q?Y6VaXELb68jzHxrK+vSDS3UgsA4aBWfzU9l+iNc1gWgomOmA80hzebzylKAS?=
+ =?us-ascii?Q?XlBQTvZzANJCsGgNiuuvj+9s4YOyqm+mGBGVBNSIutHOfDdWBi7g89Yzjg6K?=
+ =?us-ascii?Q?4w=3D=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca123216-defd-472f-3f68-08dcb888655a
+X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2024 15:31:53.6609 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yM09VLrnXLXVh83aADoNqeLG1TA6RAcWwPcmqqSToFN66fgcj4h9dg9VvSHk2lo2cqr2lNjiWNcz4JSiGROUVD/0yYDuE+BAGnhNZIcYj2Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1002
+X-Mailman-Approved-At: Mon, 12 Aug 2024 06:46:41 +0000
+Cc: Tan En De <ende.tan@starfivetech.com>, minda.chen@starfivetech.com,
+ leyfoon.tan@starfivetech.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [net-next,
+	1/1] net: stmmac: Set OWN bit last in dwmac4_set_rx_owner()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,25 +119,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ivan Orlov <ivan.orlov0322@gmail.com> writes:
+From: Tan En De <ende.tan@starfivetech.com>
 
-> On 8/10/24 19:32, Amit Vadhavana wrote:
->> Corrected spelling mistakes in the documentation to improve readability.
->> 
->
-> Hi Amit,
->
-> Since this patch contains changes for multiple files from different 
-> subsystems, it should be divided into file-specific changes (so you have 
-> one patch per updated file).
+Ensure that all other bits in the RDES3 descriptor are configured before
+transferring ownership of the descriptor to DMA via the OWN bit.
 
-Often that is the best thing to do but, honestly, in this case I think I
-should just take the set through the docs tree.  I don't see much point
-in making things harder.
+Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Thanks,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index 1c5802e0d7f4..95aea6ad485b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -186,10 +186,13 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+ 
+ static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+-	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
++	p->des3 |= cpu_to_le32(RDES3_BUFFER1_VALID_ADDR);
+ 
+ 	if (!disable_rx_ic)
+ 		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
++
++	dma_wmb();
++	p->des3 |= cpu_to_le32(RDES3_OWN);
+ }
+ 
+ static int dwmac4_get_tx_ls(struct dma_desc *p)
+-- 
+2.34.1
 
-jon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
