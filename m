@@ -2,75 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8E6C94D725
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 21:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C869994D7E8
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 22:12:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 641BAC78021;
-	Fri,  9 Aug 2024 19:22:02 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A1A3C78021;
+	Fri,  9 Aug 2024 20:12:31 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC2F7C78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73D40C7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Aug 2024 19:21:55 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2ef1c12ae23so24270341fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 Aug 2024 12:21:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723231315; x=1723836115;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3zQR5I5Z9YI9eBNAvBlhP8v0AMty41l/RawM3riRFrM=;
- b=Jdh7zOCH0kg1Kml4Czv/JG6tPcq9d6s/mlPlgz6IwrOSv4bOk/pS2Id53yOBVRZf32
- fZ7AV/Sng9VupwYsryca2E5rUN/tWZ8R9oEB4h+lZ0MBg22JMU9Flz0O7ONtB9zFDqDk
- 5ixsVpy5FFO0rjmrqI4wW05xCNZpXR86Z5cqe2XZxiN8m0VIDOJuD3DZjEpMztc5Eoah
- 3YHfx2G2V/O6rElo68i7aBD5GJEiKcrrUmhMpYJ7R4d39toF+mrAy/35v8RUZRYHPByP
- X0O4vs0THeT9ipTwVDaswJ8L3eDnxksh24CjvUC0tcTBBEBcLeqmlGlTnAU1WO/dlOoN
- jZMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723231315; x=1723836115;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3zQR5I5Z9YI9eBNAvBlhP8v0AMty41l/RawM3riRFrM=;
- b=AGp1K0pUo4SWq8YpACeufZ/DWKOvn3Tm6jCmPfrFURrBNa8Yso6Jj8Qa4yWQuLRo92
- F+mXiSFcE+gnqvmXPE1Ov1aFGjYbFVIu72R6JU/DL7nq6M7OZ02rEkvTCrRTNR42CePG
- w7YTZ7SJMyqe0oQOaN2kjiBiNMcAwSbKDdkgdRV+lvRv1m3pgTcZhaUgL9/kMhiMetEz
- oI6s2O8RqraJV0BOoP4mKxBPdJJ7G/rANt0QVTPcEPn3+tCI6NstsfE8/vhmDtq3um/8
- 1W6ir7ZFa6on0I+x5GU3WO44BHu9Y43epqb4ETEFPoPq7CvmOCPlM/ABbJdYS2Oh09wN
- HkYA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhq+kdiDVE1OXf3Rzc9CMmU4NgMoONrsmau1KYbndCS6HZSt64bHircS7HFATBIoWY7jBKgJmoN4QWKqnWzzoWr8+SuyDOmzdusNCDdIoKh1mzVu784+B+
-X-Gm-Message-State: AOJu0YwVxmymdpru+g4LAm8keNU6IkXjK/taJ1gbbb4tIUclpvvViQ0D
- u+nkD6D929cX3qjAPLW6e9f74SIiKLLR8DH+lJjHs5LA+jglRiua
-X-Google-Smtp-Source: AGHT+IFZsdAmeqUUT6dg+xSHUP03KteOOKTe2JhiKfH0J1W1ciDN8u2ABk4LKTPDoact9/vXoMGhSg==
-X-Received: by 2002:a2e:9dc5:0:b0:2ef:21e5:1f01 with SMTP id
- 38308e7fff4ca-2f1a6d1da0dmr19326411fa.20.1723231314255; 
- Fri, 09 Aug 2024 12:21:54 -0700 (PDT)
-Received: from localhost ([109.197.207.99]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f291ddbbb0sm435501fa.8.2024.08.09.12.21.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Aug 2024 12:21:53 -0700 (PDT)
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>
-Date: Fri,  9 Aug 2024 22:21:39 +0300
-Message-ID: <20240809192150.32756-1-fancer.lancer@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Fri,  9 Aug 2024 20:12:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=Z5QS2qEeOwVyIpPcCh3cLZBVfiJJzs6EipXGvtlfdxQ=; b=37
+ MF4qDC1Pige+qK5wnT6Q0ZZ8VnI0zkzlzR/NagidfQAazneybO4/jJeaee2cjlCjtIiGlEfBMszqV
+ xCkBlwe6iKmJYyJJlGOpzOewLZo31j98RuykJb3eI7tQiadGedLv1wGqzZtnnedsW5cU7Ul0YS3Xh
+ IJLuhwfoQIY4f1Q=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1scVy6-004PWk-1c; Fri, 09 Aug 2024 22:12:10 +0200
+Date: Fri, 9 Aug 2024 22:12:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <5ff4a297-bafd-4b33-aae1-5a983f49119a@lunn.ch>
+References: <20240802031822.1862030-1-jitendra.vegiraju@broadcom.com>
+ <20240802031822.1862030-4-jitendra.vegiraju@broadcom.com>
+ <c2e2f11a-89d8-42fa-a655-972a4ab372da@lunn.ch>
+ <CAMdnO-JBznFpExduwCAm929N73Z_p4S4_nzRaowL9SzseqC6LA@mail.gmail.com>
+ <de5b4d42-c81d-4687-b244-073142e2967b@lunn.ch>
+ <CAMdnO-+_2Fy=uNgGevtnL8PGPvKyWXPvYaxOJwKcUZj+nnfqYg@mail.gmail.com>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, Serge Semin <fancer.lancer@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Fix false "invalid port
-	speed" warning
+Content-Disposition: inline
+In-Reply-To: <CAMdnO-+_2Fy=uNgGevtnL8PGPvKyWXPvYaxOJwKcUZj+nnfqYg@mail.gmail.com>
+Cc: hawk@kernel.org, daniel@iogearbox.net, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, richardcochran@gmail.com, john.fastabend@gmail.com,
+ ast@kernel.org, linux-stm32@st-md-mailman.stormreply.com, horms@kernel.org,
+ edumazet@google.com, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, florian.fainelli@broadcom.com, kuba@kernel.org,
+ bpf@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Add PCI
+ driver support for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,64 +59,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If the internal SGMII/TBI/RTBI PCS is available in a DW GMAC or DW QoS Eth
-instance and there is no "snps,ps-speed" property specified (or the
-plat_stmmacenet_data::mac_port_sel_speed field is left zero), then the
-next warning will be printed to the system log:
-
-> [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
-
-By the original intention the "snps,ps-speed" property was supposed to be
-utilized on the platforms with the MAC2MAC link setup to fix the link
-speed with the specified value. But since it's possible to have a device
-with the DW *MAC with the SGMII/TBI/RTBI interface attached to a PHY, then
-the property is actually optional (which is also confirmed by the DW MAC
-DT-bindings). Thus it's absolutely normal to have the
-plat_stmmacenet_data::mac_port_sel_speed field zero initialized indicating
-that there is no need in the MAC-speed fixing and the denoted warning is
-false.
-
-Fix the warning by permitting the plat_stmmacenet_data::mac_port_sel_speed
-field to have the zero value in case if the internal PCS is available.
-
-Fixes: 02e57b9d7c8c ("drivers: net: stmmac: add port selection programming")
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-
----
-
-Note this fix will get to be mainly actual after the next patch is merged
-in:
-https://lore.kernel.org/netdev/E1sauuS-000tvz-6E@rmk-PC.armlinux.org.uk/
-
-Cc: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Andrew Halaney <ahalaney@redhat.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index f3a1b179aaea..fb63df1b99c0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3422,7 +3422,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
- 		if ((speed == SPEED_10) || (speed == SPEED_100) ||
- 		    (speed == SPEED_1000)) {
- 			priv->hw->ps = speed;
--		} else {
-+		} else if (speed) {
- 			dev_warn(priv->device, "invalid port speed\n");
- 			priv->hw->ps = 0;
- 		}
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBBdWcgMDgsIDIwMjQgYXQgMDY6NTQ6NTFQTSAtMDcwMCwgSml0ZW5kcmEgVmVnaXJh
+anUgd3JvdGU6Cj4gT24gVHVlLCBBdWcgNiwgMjAyNCBhdCA0OjE14oCvUE0gQW5kcmV3IEx1bm4g
+PGFuZHJld0BsdW5uLmNoPiB3cm90ZToKPiA+Cj4gPiBPbiBNb24sIEF1ZyAwNSwgMjAyNCBhdCAw
+NTo1Njo0M1BNIC0wNzAwLCBKaXRlbmRyYSBWZWdpcmFqdSB3cm90ZToKPiA+ID4gT24gRnJpLCBB
+dWcgMiwgMjAyNCBhdCA0OjA44oCvUE0gQW5kcmV3IEx1bm4gPGFuZHJld0BsdW5uLmNoPiB3cm90
+ZToKPiA+ID4gPgo+ID4gPiA+ID4gTWFuYWdlbWVudCBvZiBpbnRlZ3JhdGVkIGV0aGVybmV0IHN3
+aXRjaCBvbiB0aGlzIFNvQyBpcyBub3QgaGFuZGxlZCBieQo+ID4gPiA+ID4gdGhlIFBDSWUgaW50
+ZXJmYWNlLgo+ID4gPiA+Cj4gPiA+ID4gTURJTz8gU1BJPyBJMkM/Cj4gPiA+ID4KPiA+ID4gVGhl
+IGRldmljZSB1c2VzIFNQSSBpbnRlcmZhY2UuIFRoZSBzd2l0Y2ggaGFzIGludGVybmFsIEFSTSBN
+NyBmb3IKPiA+ID4gY29udHJvbGxlciBmaXJtd2FyZS4KPiA+Cj4gPiBXaWxsIHRoZXJlIGJlIGEg
+RFNBIGRyaXZlciBzb21ldGltZSBzb29uIHRhbGtpbmcgb3ZlciBTUEkgdG8gdGhlCj4gPiBmaXJt
+d2FyZT8KPiA+Cj4gSGkgQW5kcmV3LAoKU28gdGhlIHN3aXRjaCB3aWxsIGJlIGxlZnQgaW4gZHVt
+YiBzd2l0Y2ggZXZlcnl0aGluZyB0byBldmVyeSBwb3J0Cm1vZGU/IE9yIGl0IHdpbGwgYmUgdG90
+YWxseSBhdXRvbm9tb3VzIHVzaW5nIHRoZSBpbiBidWlsZCBmaXJtd2FyZT8KCldoYXQgeW91IGNh
+bm5vdCBleHBlY3QgaXMgd2UgYWxsb3cgeW91IHRvIG1hbmFnZSB0aGUgc3dpdGNoIGZyb20gTGlu
+dXgKdXNpbmcgc29tZXRoaW5nIG90aGVyIHRoYW4gYW4gaW4ga2VybmVsIGRyaXZlciwgcHJvYmFi
+bHkgRFNBIG9yIHB1cmUKc3dpdGNoZGV2LgoKCUFuZHJldwpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
