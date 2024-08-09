@@ -2,37 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB1C94D101
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 15:17:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F0F94D248
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2024 16:37:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7575EC7801E;
-	Fri,  9 Aug 2024 13:17:10 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B811C7801F;
+	Fri,  9 Aug 2024 14:37:45 +0000 (UTC)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52574CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60717CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Aug 2024 13:17:03 +0000 (UTC)
-Received: from i53875b02.versanet.de ([83.135.91.2] helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1scPU5-00076L-DZ; Fri, 09 Aug 2024 15:16:45 +0200
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+ Fri,  9 Aug 2024 14:37:38 +0000 (UTC)
+Delivered-To: kernel@collabora.com
+ARC-Seal: i=1; a=rsa-sha256; t=1723214225; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NsxGtx2fA0C4A9OVyVNqjCQKGk3HW9p44+uDrI71/cVlCLpdoBfB4DMUWAqwqpZNGhRaxNSp/H5ltNl1z4QzANgEYRmcEQO7hhCWXTfGu1lCiC1if3thrni+z/ttaWPWDbcuSCXmNczhAzH8ybolJdpDwAYbE2PvZ2Ce9JZev7U=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1723214225;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=5WYVhNuU88SniE2jCodWNyDFApk5Mbdr54y77hRyghI=; 
+ b=oAoHkXeCcX7nviLec5sUp7engJc5J13+w1b5iXuExiv5/VRRS0zhYxyqvsW4+tRnpCFvBedF4jQz6BsqA8tX5jCW9VGUlwHiGybjoLPe3jlTFPA0y/lOD0VDjoVQfsW5PP2gEamq3H3VL9NU0MIoy4F53gK6+UvNvWgL5sW/l1k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+ dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1723214225; 
+ s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com; 
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=5WYVhNuU88SniE2jCodWNyDFApk5Mbdr54y77hRyghI=;
+ b=W1E5OcW3K+ddqoH06ti0Zsc5hYb/I4WCMfRRJzAptQzpSWLw1L8YjUczP5juZWnN
+ FbaB/Nfg8OZWirTeygvyeEjhK/dVygb/iqyCMc7eK15zjZD/SGyazaxTw+yozETswje
+ ycZHcWojplbfXV5BYXOEAihbjxe/7cQtq68nd4fc=
+Received: by mx.zohomail.com with SMTPS id 1723214224288259.9191665746731;
+ Fri, 9 Aug 2024 07:37:04 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
 To: linux-kernel@vger.kernel.org,
- Detlev Casanova <detlev.casanova@collabora.com>
-Date: Fri, 09 Aug 2024 15:16:44 +0200
-Message-ID: <3724132.9z1YWOviru@diego>
-In-Reply-To: <20240808170113.82775-3-detlev.casanova@collabora.com>
+ Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+Date: Fri, 09 Aug 2024 10:38:23 -0400
+Message-ID: <3304458.aeNJFYEL58@trenzalore>
+In-Reply-To: <3724132.9z1YWOviru@diego>
 References: <20240808170113.82775-1-detlev.casanova@collabora.com>
  <20240808170113.82775-3-detlev.casanova@collabora.com>
+ <3724132.9z1YWOviru@diego>
 MIME-Version: 1.0
+X-ZohoMailClient: External
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  kernel@collabora.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
@@ -50,207 +69,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Detlev,
-
-Am Donnerstag, 8. August 2024, 19:00:18 CEST schrieb Detlev Casanova:
-> From: David Wu <david.wu@rock-chips.com>
-> 
-> Add constants and callback functions for the dwmac on RK3576 soc.
-> 
-> Signed-off-by: David Wu <david.wu@rock-chips.com>
-> [rebase, extracted bindings]
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 156 ++++++++++++++++++
->  1 file changed, 156 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 7ae04d8d291c8..e1fa8fc9f4012 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1116,6 +1116,161 @@ static const struct rk_gmac_ops rk3568_ops = {
->  	},
->  };
->  
-> +/* VCCIO0_1_3_IOC */
-> +#define RK3576_VCCIO0_1_3_IOC_CON2		0X6408
-> +#define RK3576_VCCIO0_1_3_IOC_CON3		0X640c
-> +#define RK3576_VCCIO0_1_3_IOC_CON4		0X6410
-> +#define RK3576_VCCIO0_1_3_IOC_CON5		0X6414
-> +
-> +#define RK3576_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(15)
-> +#define RK3576_GMAC_RXCLK_DLY_DISABLE		GRF_CLR_BIT(15)
-> +#define RK3576_GMAC_TXCLK_DLY_ENABLE		GRF_BIT(7)
-> +#define RK3576_GMAC_TXCLK_DLY_DISABLE		GRF_CLR_BIT(7)
-> +
-> +#define RK3576_GMAC_CLK_RX_DL_CFG(val)		HIWORD_UPDATE(val, 0x7F, 8)
-> +#define RK3576_GMAC_CLK_TX_DL_CFG(val)		HIWORD_UPDATE(val, 0x7F, 0)
-> +
-> +/* SDGMAC_GRF */
-> +#define RK3576_GRF_GMAC_CON0			0X0020
-> +#define RK3576_GRF_GMAC_CON1			0X0024
-> +
-> +#define RK3576_GMAC_RMII_MODE			GRF_BIT(3)
-> +#define RK3576_GMAC_RGMII_MODE			GRF_CLR_BIT(3)
-> +
-> +#define RK3576_GMAC_CLK_SELET_IO		GRF_BIT(7)
-> +#define RK3576_GMAC_CLK_SELET_CRU		GRF_CLR_BIT(7)
-
-nit: typos _CLK_SELECT_ ... missing the C in select
-
-> +
-> +#define RK3576_GMAC_CLK_RMII_DIV2		GRF_BIT(5)
-> +#define RK3576_GMAC_CLK_RMII_DIV20		GRF_CLR_BIT(5)
-
-I think those are backwards
-The TRM says bit[5]=0: 25MHz (DIV2) and bit[5]=1: 2.5MHz (DIV20)
-
-I guess nobody also on Rockchip's side tested a RMII phy on those controllrs
-
-
-> +
-> +#define RK3576_GMAC_CLK_RGMII_DIV1		\
-> +			(GRF_CLR_BIT(6) | GRF_CLR_BIT(5))
-> +#define RK3576_GMAC_CLK_RGMII_DIV5		\
-> +			(GRF_BIT(6) | GRF_BIT(5))
-> +#define RK3576_GMAC_CLK_RGMII_DIV50		\
-> +			(GRF_BIT(6) | GRF_CLR_BIT(5))
-> +
-
-in contrast, these are correct and match the TRM
-
-
-> +#define RK3576_GMAC_CLK_RMII_GATE		GRF_BIT(4)
-> +#define RK3576_GMAC_CLK_RMII_NOGATE		GRF_CLR_BIT(4)
-> +
-> +static void rk3576_set_to_rgmii(struct rk_priv_data *bsp_priv,
-> +				int tx_delay, int rx_delay)
-> +{
-> +	struct device *dev = &bsp_priv->pdev->dev;
-> +	unsigned int offset_con;
-> +
-> +	if (IS_ERR(bsp_priv->grf) || IS_ERR(bsp_priv->php_grf)) {
-> +		dev_err(dev, "Missing rockchip,grf or rockchip,php_grf property\n");
-> +		return;
-> +	}
-> +
-> +	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-> +					 RK3576_GRF_GMAC_CON0;
-> +
-> +	regmap_write(bsp_priv->grf, offset_con, RK3576_GMAC_RGMII_MODE);
-> +
-> +	offset_con = bsp_priv->id == 1 ? RK3576_VCCIO0_1_3_IOC_CON4 :
-> +					 RK3576_VCCIO0_1_3_IOC_CON2;
-> +
-> +	/* m0 && m1 delay enabled */
-> +	regmap_write(bsp_priv->php_grf, offset_con,
-> +		     DELAY_ENABLE(RK3576, tx_delay, rx_delay));
-> +	regmap_write(bsp_priv->php_grf, offset_con + 0x4,
-> +		     DELAY_ENABLE(RK3576, tx_delay, rx_delay));
-> +
-> +	/* m0 && m1 delay value */
-> +	regmap_write(bsp_priv->php_grf, offset_con,
-> +		     RK3576_GMAC_CLK_TX_DL_CFG(tx_delay) |
-> +		     RK3576_GMAC_CLK_RX_DL_CFG(rx_delay));
-> +	regmap_write(bsp_priv->php_grf, offset_con + 0x4,
-> +		     RK3576_GMAC_CLK_TX_DL_CFG(tx_delay) |
-> +		     RK3576_GMAC_CLK_RX_DL_CFG(rx_delay));
-> +}
-> +
-> +static void rk3576_set_to_rmii(struct rk_priv_data *bsp_priv)
-> +{
-> +	struct device *dev = &bsp_priv->pdev->dev;
-> +	unsigned int offset_con;
-> +
-> +	if (IS_ERR(bsp_priv->php_grf)) {
-> +		dev_err(dev, "%s: Missing rockchip,php_grf property\n", __func__);
-> +		return;
-> +	}
-> +
-> +	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-> +					 RK3576_GRF_GMAC_CON0;
-> +
-> +	regmap_write(bsp_priv->grf, offset_con, RK3576_GMAC_RMII_MODE);
-> +}
-> +
-> +static void rk3576_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
-> +{
-> +	struct device *dev = &bsp_priv->pdev->dev;
-> +	unsigned int val = 0, offset_con;
-> +
-> +	switch (speed) {
-> +	case 10:
-> +		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII)
-> +			val = RK3576_GMAC_CLK_RMII_DIV20;
-> +		else
-> +			val = RK3576_GMAC_CLK_RGMII_DIV50;
-
-		val = bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII ?
-				RK3576_GMAC_CLK_RMII_DIV20 :
-				RK3576_GMAC_CLK_RGMII_DIV50;
-perhaps?
-
-> +		break;
-> +	case 100:
-> +		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII)
-> +			val = RK3576_GMAC_CLK_RMII_DIV2;
-> +		else
-> +			val = RK3576_GMAC_CLK_RGMII_DIV5;
-
-same as above?
-
-> +		break;
-> +	case 1000:
-> +		if (bsp_priv->phy_iface != PHY_INTERFACE_MODE_RMII)
-> +			val = RK3576_GMAC_CLK_RGMII_DIV1;
-> +		else
-> +			goto err;
-
-		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII)
-			goto err;
-
-		val = RK3576_GMAC_CLK_RGMII_DIV1;
-
-
-> +		break;
-> +	default:
-> +		goto err;
-> +	}
-> +
-> +	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-> +					 RK3576_GRF_GMAC_CON0;
-> +
-> +	regmap_write(bsp_priv->grf, offset_con, val);
-> +
-> +	return;
-> +err:
-> +	dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
-> +}
-> +
-> +static void rk3576_set_clock_selection(struct rk_priv_data *bsp_priv, bool input,
-> +				       bool enable)
-> +{
-> +	unsigned int val = input ? RK3576_GMAC_CLK_SELET_IO :
-> +				   RK3576_GMAC_CLK_SELET_CRU;
-> +	unsigned int offset_con;
-> +
-> +	val |= enable ? RK3576_GMAC_CLK_RMII_NOGATE :
-> +			RK3576_GMAC_CLK_RMII_GATE;
-> +
-> +	offset_con = bsp_priv->id == 1 ? RK3576_GRF_GMAC_CON1 :
-> +					 RK3576_GRF_GMAC_CON0;
-
-nit: alignment of both looks like it could be nicer
-
-Heiko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpZGF5LCA5IEF1Z3VzdCAyMDI0IDA5OjE2OjQ0IEVEVCBIZWlrbyBTdMO8Ym5lciB3cm90
+ZToKPiBIaSBEZXRsZXYsCj4gCj4gQW0gRG9ubmVyc3RhZywgOC4gQXVndXN0IDIwMjQsIDE5OjAw
+OjE4IENFU1Qgc2NocmllYiBEZXRsZXYgQ2FzYW5vdmE6Cj4gPiBGcm9tOiBEYXZpZCBXdSA8ZGF2
+aWQud3VAcm9jay1jaGlwcy5jb20+Cj4gPiAKPiA+IEFkZCBjb25zdGFudHMgYW5kIGNhbGxiYWNr
+IGZ1bmN0aW9ucyBmb3IgdGhlIGR3bWFjIG9uIFJLMzU3NiBzb2MuCj4gPiAKPiA+IFNpZ25lZC1v
+ZmYtYnk6IERhdmlkIFd1IDxkYXZpZC53dUByb2NrLWNoaXBzLmNvbT4KPiA+IFtyZWJhc2UsIGV4
+dHJhY3RlZCBiaW5kaW5nc10KPiA+IFNpZ25lZC1vZmYtYnk6IERldGxldiBDYXNhbm92YSA8ZGV0
+bGV2LmNhc2Fub3ZhQGNvbGxhYm9yYS5jb20+Cj4gPiAtLS0KPiA+IAo+ID4gIC4uLi9uZXQvZXRo
+ZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYyAgICB8IDE1NiArKysrKysrKysrKysrKysr
+KysKPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTU2IGluc2VydGlvbnMoKykKPiA+IAo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKPiA+
+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYyBpbmRleAo+
+ID4gN2FlMDRkOGQyOTFjOC4uZTFmYThmYzlmNDAxMiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKPiA+ICsrKyBiL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKPiA+IEBAIC0xMTE2LDYgKzEx
+MTYsMTYxIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcmtfZ21hY19vcHMgcmszNTY4X29wcyA9IHsK
+PiA+IAo+ID4gIAl9LAo+ID4gIAo+ID4gIH07Cj4gPiAKClsuLi5dCgo+ID4gKy8qIFNER01BQ19H
+UkYgKi8KPiA+ICsjZGVmaW5lIFJLMzU3Nl9HUkZfR01BQ19DT04wCQkJMFgwMDIwCj4gPiArI2Rl
+ZmluZSBSSzM1NzZfR1JGX0dNQUNfQ09OMQkJCTBYMDAyNAo+ID4gKwo+ID4gKyNkZWZpbmUgUksz
+NTc2X0dNQUNfUk1JSV9NT0RFCQkJR1JGX0JJVCgzKQo+ID4gKyNkZWZpbmUgUkszNTc2X0dNQUNf
+UkdNSUlfTU9ERQkJCUdSRl9DTFJfQklUKDMpCj4gPiArCj4gPiArI2RlZmluZSBSSzM1NzZfR01B
+Q19DTEtfU0VMRVRfSU8JCUdSRl9CSVQoNykKPiA+ICsjZGVmaW5lIFJLMzU3Nl9HTUFDX0NMS19T
+RUxFVF9DUlUJCUdSRl9DTFJfQklUKDcpCj4gCj4gbml0OiB0eXBvcyBfQ0xLX1NFTEVDVF8gLi4u
+IG1pc3NpbmcgdGhlIEMgaW4gc2VsZWN0CgpBY2sKCj4gPiArCj4gPiArI2RlZmluZSBSSzM1NzZf
+R01BQ19DTEtfUk1JSV9ESVYyCQlHUkZfQklUKDUpCj4gPiArI2RlZmluZSBSSzM1NzZfR01BQ19D
+TEtfUk1JSV9ESVYyMAkJR1JGX0NMUl9CSVQoNSkKPiAKPiBJIHRoaW5rIHRob3NlIGFyZSBiYWNr
+d2FyZHMKPiBUaGUgVFJNIHNheXMgYml0WzVdPTA6IDI1TUh6IChESVYyKSBhbmQgYml0WzVdPTE6
+IDIuNU1IeiAoRElWMjApCj4gCj4gSSBndWVzcyBub2JvZHkgYWxzbyBvbiBSb2NrY2hpcCdzIHNp
+ZGUgdGVzdGVkIGEgUk1JSSBwaHkgb24gdGhvc2UgY29udHJvbGxycwoKQ2FuJ3QgYmUgc3VyZSBh
+Ym91dCB0aGF0LiBBbiBlcnJvciBpbiB0aGUgVFJNIGlzIG5vdCBpbXBvc3NpYmxlIGVpdGhlciwg
+YXMgZm9yIApyazM1ODgsIGl0IGlzIGFsc28gYml0WzVdPTA6IERJVjIwIGFuZCBiaXRbNV09MTog
+RElWMi4gSSBjYW4gc3dpdGNoIHRoZW0gdG8gCm1hdGNoIHRoZSBUUk0gdGhvdWdoLCB3ZSBtYXkg
+bmV2ZXIgbm93LgoKPiA+ICsKPiA+ICsjZGVmaW5lIFJLMzU3Nl9HTUFDX0NMS19SR01JSV9ESVYx
+CQlcCj4gPiArCQkJKEdSRl9DTFJfQklUKDYpIHwgR1JGX0NMUl9CSVQoNSkpCj4gPiArI2RlZmlu
+ZSBSSzM1NzZfR01BQ19DTEtfUkdNSUlfRElWNQkJXAo+ID4gKwkJCShHUkZfQklUKDYpIHwgR1JG
+X0JJVCg1KSkKPiA+ICsjZGVmaW5lIFJLMzU3Nl9HTUFDX0NMS19SR01JSV9ESVY1MAkJXAo+ID4g
+KwkJCShHUkZfQklUKDYpIHwgR1JGX0NMUl9CSVQoNSkpCj4gPiArCj4gCj4gaW4gY29udHJhc3Qs
+IHRoZXNlIGFyZSBjb3JyZWN0IGFuZCBtYXRjaCB0aGUgVFJNCj4gCj4gPiArI2RlZmluZSBSSzM1
+NzZfR01BQ19DTEtfUk1JSV9HQVRFCQlHUkZfQklUKDQpCj4gPiArI2RlZmluZSBSSzM1NzZfR01B
+Q19DTEtfUk1JSV9OT0dBVEUJCUdSRl9DTFJfQklUKDQpCj4gPiArCj4gPiArc3RhdGljIHZvaWQg
+cmszNTc2X3NldF90b19yZ21paShzdHJ1Y3QgcmtfcHJpdl9kYXRhICpic3BfcHJpdiwKPiA+ICsJ
+CQkJaW50IHR4X2RlbGF5LCBpbnQgcnhfZGVsYXkpCj4gPiArewo+ID4gKwlzdHJ1Y3QgZGV2aWNl
+ICpkZXYgPSAmYnNwX3ByaXYtPnBkZXYtPmRldjsKPiA+ICsJdW5zaWduZWQgaW50IG9mZnNldF9j
+b247Cj4gPiArCj4gPiArCWlmIChJU19FUlIoYnNwX3ByaXYtPmdyZikgfHwgSVNfRVJSKGJzcF9w
+cml2LT5waHBfZ3JmKSkgewo+ID4gKwkJZGV2X2VycihkZXYsICJNaXNzaW5nIHJvY2tjaGlwLGdy
+ZiBvciByb2NrY2hpcCxwaHBfZ3JmIApwcm9wZXJ0eVxuIik7Cj4gPiArCQlyZXR1cm47Cj4gPiAr
+CX0KPiA+ICsKPiA+ICsJb2Zmc2V0X2NvbiA9IGJzcF9wcml2LT5pZCA9PSAxID8gUkszNTc2X0dS
+Rl9HTUFDX0NPTjEgOgo+ID4gKwkJCQkJIFJLMzU3Nl9HUkZfR01BQ19DT04wOwo+ID4gKwo+ID4g
+KwlyZWdtYXBfd3JpdGUoYnNwX3ByaXYtPmdyZiwgb2Zmc2V0X2NvbiwgUkszNTc2X0dNQUNfUkdN
+SUlfTU9ERSk7Cj4gPiArCj4gPiArCW9mZnNldF9jb24gPSBic3BfcHJpdi0+aWQgPT0gMSA/IFJL
+MzU3Nl9WQ0NJTzBfMV8zX0lPQ19DT040IDoKPiA+ICsJCQkJCSAKUkszNTc2X1ZDQ0lPMF8xXzNf
+SU9DX0NPTjI7Cj4gPiArCj4gPiArCS8qIG0wICYmIG0xIGRlbGF5IGVuYWJsZWQgKi8KPiA+ICsJ
+cmVnbWFwX3dyaXRlKGJzcF9wcml2LT5waHBfZ3JmLCBvZmZzZXRfY29uLAo+ID4gKwkJICAgICBE
+RUxBWV9FTkFCTEUoUkszNTc2LCB0eF9kZWxheSwgcnhfZGVsYXkpKTsKPiA+ICsJcmVnbWFwX3dy
+aXRlKGJzcF9wcml2LT5waHBfZ3JmLCBvZmZzZXRfY29uICsgMHg0LAo+ID4gKwkJICAgICBERUxB
+WV9FTkFCTEUoUkszNTc2LCB0eF9kZWxheSwgcnhfZGVsYXkpKTsKPiA+ICsKPiA+ICsJLyogbTAg
+JiYgbTEgZGVsYXkgdmFsdWUgKi8KPiA+ICsJcmVnbWFwX3dyaXRlKGJzcF9wcml2LT5waHBfZ3Jm
+LCBvZmZzZXRfY29uLAo+ID4gKwkJICAgICBSSzM1NzZfR01BQ19DTEtfVFhfRExfQ0ZHKHR4X2Rl
+bGF5KSB8Cj4gPiArCQkgICAgIFJLMzU3Nl9HTUFDX0NMS19SWF9ETF9DRkcocnhfZGVsYXkpKTsK
+PiA+ICsJcmVnbWFwX3dyaXRlKGJzcF9wcml2LT5waHBfZ3JmLCBvZmZzZXRfY29uICsgMHg0LAo+
+ID4gKwkJICAgICBSSzM1NzZfR01BQ19DTEtfVFhfRExfQ0ZHKHR4X2RlbGF5KSB8Cj4gPiArCQkg
+ICAgIFJLMzU3Nl9HTUFDX0NMS19SWF9ETF9DRkcocnhfZGVsYXkpKTsKPiA+ICt9Cj4gPiArCj4g
+PiArc3RhdGljIHZvaWQgcmszNTc2X3NldF90b19ybWlpKHN0cnVjdCBya19wcml2X2RhdGEgKmJz
+cF9wcml2KQo+ID4gK3sKPiA+ICsJc3RydWN0IGRldmljZSAqZGV2ID0gJmJzcF9wcml2LT5wZGV2
+LT5kZXY7Cj4gPiArCXVuc2lnbmVkIGludCBvZmZzZXRfY29uOwo+ID4gKwo+ID4gKwlpZiAoSVNf
+RVJSKGJzcF9wcml2LT5waHBfZ3JmKSkgewo+ID4gKwkJZGV2X2VycihkZXYsICIlczogTWlzc2lu
+ZyByb2NrY2hpcCxwaHBfZ3JmIHByb3BlcnR5XG4iLCAKX19mdW5jX18pOwo+ID4gKwkJcmV0dXJu
+Owo+ID4gKwl9Cj4gPiArCj4gPiArCW9mZnNldF9jb24gPSBic3BfcHJpdi0+aWQgPT0gMSA/IFJL
+MzU3Nl9HUkZfR01BQ19DT04xIDoKPiA+ICsJCQkJCSBSSzM1NzZfR1JGX0dNQUNfQ09OMDsKPiA+
+ICsKPiA+ICsJcmVnbWFwX3dyaXRlKGJzcF9wcml2LT5ncmYsIG9mZnNldF9jb24sIFJLMzU3Nl9H
+TUFDX1JNSUlfTU9ERSk7Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyB2b2lkIHJrMzU3Nl9zZXRf
+Z21hY19zcGVlZChzdHJ1Y3QgcmtfcHJpdl9kYXRhICpic3BfcHJpdiwgaW50Cj4gPiBzcGVlZCkg
+K3sKPiA+ICsJc3RydWN0IGRldmljZSAqZGV2ID0gJmJzcF9wcml2LT5wZGV2LT5kZXY7Cj4gPiAr
+CXVuc2lnbmVkIGludCB2YWwgPSAwLCBvZmZzZXRfY29uOwo+ID4gKwo+ID4gKwlzd2l0Y2ggKHNw
+ZWVkKSB7Cj4gPiArCWNhc2UgMTA6Cj4gPiArCQlpZiAoYnNwX3ByaXYtPnBoeV9pZmFjZSA9PSBQ
+SFlfSU5URVJGQUNFX01PREVfUk1JSSkKPiA+ICsJCQl2YWwgPSBSSzM1NzZfR01BQ19DTEtfUk1J
+SV9ESVYyMDsKPiA+ICsJCWVsc2UKPiA+ICsJCQl2YWwgPSBSSzM1NzZfR01BQ19DTEtfUkdNSUlf
+RElWNTA7Cj4gCj4gCQl2YWwgPSBic3BfcHJpdi0+cGh5X2lmYWNlID09IFBIWV9JTlRFUkZBQ0Vf
+TU9ERV9STUlJID8KPiAJCQkJUkszNTc2X0dNQUNfQ0xLX1JNSUlfRElWMjAgOgo+IAkJCQlSSzM1
+NzZfR01BQ19DTEtfUkdNSUlfRElWNTA7Cj4gcGVyaGFwcz8KClRoaXMgd2F5IG1hdGNoZXMgaG93
+IGl0IGlzIHdyaXR0ZW4gaW4gcmszNTg4X3NldF9nbWFjX3NwZWVkKCkuIEkgZmluZCB0aGF0IApo
+YXZpbmcgc2ltaWxhciBjb2RlIGZvciBzaW1pbGFyIGZ1bmN0aW9ucyBoZWxwcyByZWFkaW5nIGFu
+ZCB1bmRlcnN0YW5kaW5nIGl0IApiZXR0ZXIgKGFsdGhvdWdoIEkgYWdyZWUgdGhhdCB5b3VyIHN1
+Z2dlc3Rpb24gbG9va3MgYmV0dGVyKS4KCkknZCByYXRoZXIga2VlcCBpdCBsaWtlIGl0IGlzIGZv
+ciBub3cgaWYgdGhhdCdzIG9rLgoKPiA+ICsJCWJyZWFrOwo+ID4gKwljYXNlIDEwMDoKPiA+ICsJ
+CWlmIChic3BfcHJpdi0+cGh5X2lmYWNlID09IFBIWV9JTlRFUkZBQ0VfTU9ERV9STUlJKQo+ID4g
+KwkJCXZhbCA9IFJLMzU3Nl9HTUFDX0NMS19STUlJX0RJVjI7Cj4gPiArCQllbHNlCj4gPiArCQkJ
+dmFsID0gUkszNTc2X0dNQUNfQ0xLX1JHTUlJX0RJVjU7Cj4gCj4gc2FtZSBhcyBhYm92ZT8KPiAK
+PiA+ICsJCWJyZWFrOwo+ID4gKwljYXNlIDEwMDA6Cj4gPiArCQlpZiAoYnNwX3ByaXYtPnBoeV9p
+ZmFjZSAhPSBQSFlfSU5URVJGQUNFX01PREVfUk1JSSkKPiA+ICsJCQl2YWwgPSBSSzM1NzZfR01B
+Q19DTEtfUkdNSUlfRElWMTsKPiA+ICsJCWVsc2UKPiA+ICsJCQlnb3RvIGVycjsKPiAKPiAJCWlm
+IChic3BfcHJpdi0+cGh5X2lmYWNlID09IFBIWV9JTlRFUkZBQ0VfTU9ERV9STUlJKQo+IAkJCWdv
+dG8gZXJyOwo+IAo+IAkJdmFsID0gUkszNTc2X0dNQUNfQ0xLX1JHTUlJX0RJVjE7Cj4gCj4gPiAr
+CQlicmVhazsKPiA+ICsJZGVmYXVsdDoKPiA+ICsJCWdvdG8gZXJyOwo+ID4gKwl9Cj4gPiArCj4g
+PiArCW9mZnNldF9jb24gPSBic3BfcHJpdi0+aWQgPT0gMSA/IFJLMzU3Nl9HUkZfR01BQ19DT04x
+IDoKPiA+ICsJCQkJCSBSSzM1NzZfR1JGX0dNQUNfQ09OMDsKPiA+ICsKPiA+ICsJcmVnbWFwX3dy
+aXRlKGJzcF9wcml2LT5ncmYsIG9mZnNldF9jb24sIHZhbCk7Cj4gPiArCj4gPiArCXJldHVybjsK
+PiA+ICtlcnI6Cj4gPiArCWRldl9lcnIoZGV2LCAidW5rbm93biBzcGVlZCB2YWx1ZSBmb3IgR01B
+QyBzcGVlZD0lZCIsIHNwZWVkKTsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIHZvaWQgcmszNTc2
+X3NldF9jbG9ja19zZWxlY3Rpb24oc3RydWN0IHJrX3ByaXZfZGF0YSAqYnNwX3ByaXYsCj4gPiBi
+b29sIGlucHV0LCArCQkJCSAgICAgICBib29sIGVuYWJsZSkKPiA+ICt7Cj4gPiArCXVuc2lnbmVk
+IGludCB2YWwgPSBpbnB1dCA/IFJLMzU3Nl9HTUFDX0NMS19TRUxFVF9JTyA6Cj4gPiArCQkJCSAg
+IFJLMzU3Nl9HTUFDX0NMS19TRUxFVF9DUlU7Cj4gPiArCXVuc2lnbmVkIGludCBvZmZzZXRfY29u
+Owo+ID4gKwo+ID4gKwl2YWwgfD0gZW5hYmxlID8gUkszNTc2X0dNQUNfQ0xLX1JNSUlfTk9HQVRF
+IDoKPiA+ICsJCQlSSzM1NzZfR01BQ19DTEtfUk1JSV9HQVRFOwo+ID4gKwo+ID4gKwlvZmZzZXRf
+Y29uID0gYnNwX3ByaXYtPmlkID09IDEgPyBSSzM1NzZfR1JGX0dNQUNfQ09OMSA6Cj4gPiArCQkJ
+CQkgUkszNTc2X0dSRl9HTUFDX0NPTjA7Cj4gCj4gbml0OiBhbGlnbm1lbnQgb2YgYm90aCBsb29r
+cyBsaWtlIGl0IGNvdWxkIGJlIG5pY2VyCgpUaGF0J3Mgc3RyYW5nZSwgdGhlIGFsaWdubWVudHMg
+bG9va3MgZ29vZCBpbiB2aW0gYW5kIGdpdCBkaWZmLiBJdCBhbHNvIGxvb2tzIApuaWNlIG9uIHRo
+ZSBhcmNoaXZlOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1yb2NrY2hpcC8KMjAyNDA4
+MDgxNzAxMTMuODI3NzUtMy1kZXRsZXYuY2FzYW5vdmFAY29sbGFib3JhLmNvbS8KIAoKUmVnYXJk
+cywKRGV0bGV2CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
