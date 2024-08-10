@@ -2,107 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1AC994E711
+	by mail.lfdr.de (Postfix) with ESMTPS id D5DCF94E710
 	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 08:46:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 783A7C78021;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86633C78028;
 	Mon, 12 Aug 2024 06:46:41 +0000 (UTC)
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on2122.outbound.protection.partner.outlook.cn [139.219.17.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 285A8C7801E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEE03C712A1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Aug 2024 15:31:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GpkSdvCxdveyYE6wXhPbcc8kjYgM+h87OU0ihdCrvAUbdu8uTqsF6E9TnyuNlHa3WpEp6K2UwphvNMc2odZm5hVnhU49cC26JL2fYI3wpNgSUWxWlibPAWiClk3TQOfgV3RhMJVnPOLYFTkSMq528tpmIEp5t1LNxwHtMsDu2eu2Vk70WsEaaAwv/UWAT31fbCBUD2gAHwFOwYK+i2YiY7VJnColOs/KXeaSrDMEy4Ez5LEcJ4rDJPQdKqhnwpBD4u50l+Vn2jBP0jUc/uwQr4cAgseHnUbEAB3dI380GLAUM6PDhF/erDpShIWUNcOPYKdLUkg4IUeFCYVLMqMoxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xos3TNetvez8csegtAGRtpgwVKCb9oCrbneAZFhgC1Y=;
- b=WVdGwmW+G8/Mq8lpJ1lyQaLtXMLBX+ZiqT8FRe8ZQy2W/5MznTY8SlhtJiLWEt+KeJEssW0XpTRyE6C0JufHMcq22cngwMOALHbYzLPcIhjm+T7kF5aVEMl81Zqhtl8s4O8hSQE92pEiOAoYGVf9fPOr2QSJ/a6gSxVloVrFEV6V95hLIr3jDF4aJcV8ef7Bm4ZfSUlChEgkE3h7e/+FSJDROqU5raDBeR4My5xmRVIC6MefGd3QeQ/OlP/lQie01xoM+2+TNbqAsa0mb+kgMEHNLse6DC76G60spQpLgjl+WhQ4NYXwhhtDyaNspTlDaCi8JNV4duc3YRACcXlQUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:b::7) by NTZPR01MB1002.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:b::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.18; Fri, 9 Aug
- 2024 15:31:53 +0000
-Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
- ([fe80::e1c4:5bb3:adc:97f5]) by NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
- ([fe80::e1c4:5bb3:adc:97f5%4]) with mapi id 15.20.7828.023; Fri, 9 Aug 2024
- 15:31:53 +0000
-From: ende.tan@starfivetech.com
-To: netdev@vger.kernel.org
-Date: Fri,  9 Aug 2024 23:31:38 +0800
-Message-Id: <20240809153138.1865681-1-ende.tan@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-X-ClientProxiedBy: ZQ0PR01CA0015.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::9) To NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:b::7)
+ Sat, 10 Aug 2024 18:33:10 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-7106cf5771bso2599657b3a.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 10 Aug 2024 11:33:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1723314789; x=1723919589;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=q4c+whqw7VCHvGEHz3FeHPPNwPTgAPKV0FJKHEoguag=;
+ b=BYp2fc0uDCWaSVbYK7RZltC1NQbkuWW28p+JYbLz6Q4W9EyI6VzwziwbUC7KrlMMy1
+ UnUUpP7hr/b60MLT13VMoy7b5t69cRY6gEYEMgTjCDVhqCx8orFCE/iKUajmEy1dCLSi
+ K+gMaJ18V6KIJ+jpYFyxke5c/aGuyoRNmb76Yoi3AIEXPrsgEAe+Ox5rvUUSwTfsv1h4
+ NrJMnAhu9bpB8MTrdl8uaPw0HS4e1hLnVZsjL15/UCVole/6F+xMnlKnAPq/prSkU+Zi
+ iENRGO8Mco38ytwd/ySZYy5zilog+jiAUhVh5lMS28qRGlyAIezNO/Ea6qez5PIt087e
+ seGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723314789; x=1723919589;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q4c+whqw7VCHvGEHz3FeHPPNwPTgAPKV0FJKHEoguag=;
+ b=n+zcT2NTfXuHR7fso4bs1W4rmooGxLpzhzO3eH4K2yxAG7uXk2tFeSLKG88UNTd254
+ omidlwmFqsMevyhn783SSi3j7F3Sydt9EDhw/xC0pzWD+jK3B+aOVsAdVvbJrmB3C2pY
+ CShkozlgzQTbeKRcoRJgVgfWibuuknqgjluZnOUK5oI84BGqD9naBiMygyCYYYmdcMKO
+ /GktUXNCIv8dL0ZvTBvzYrV2zI3Sm38cL8VR5kjSQCTlhCCahsToF7TDy57bpf7Ox5XP
+ 4vZ8t8BzGYbcDjB+Vee7uAJPYz80/hsQ7k1kFfbTkEJ+W4j4abFxggP4QT/Pbyhn1sGO
+ SDrA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW67HHs5vBNDeqJfmuiJoIX+PLLWspMR9p9MjDcUDEx7p+RP7A0PytC+gQddSeDLig28LGLTaf0mG+yBbXrGOyzZmPEhMcayEGcLuIh1xbY3F1KS1o7DDjU
+X-Gm-Message-State: AOJu0YyOiXTndmpTR2YUdPDTYryFVgAKI3EskvtaBKYkgf3jQuVjmEDy
+ dlPjFE4pbsQMr+2RGpWNxsxaQnFcvvQYegXKl9gJTIW5E+khb6P9
+X-Google-Smtp-Source: AGHT+IGAmoob6M2YfzT7qs47bzAguInmQOEGahZYxNNUI6bjBDtp76GyhC9jEtaDU6a7uIsymMEwLw==
+X-Received: by 2002:a05:6a00:4f89:b0:70b:30ce:dfdb with SMTP id
+ d2e1a72fcca58-710dc77f957mr4797138b3a.24.1723314789127; 
+ Sat, 10 Aug 2024 11:33:09 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2409:40c1:10b8:2b0a:a61f:9daf:ba70:6c3d])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-710e5a43ccdsm1503418b3a.138.2024.08.10.11.32.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 10 Aug 2024 11:33:08 -0700 (PDT)
+From: Amit Vadhavana <av2082000@gmail.com>
+To: linux-doc@vger.kernel.org,
+	ricardo@marliere.net
+Date: Sun, 11 Aug 2024 00:02:38 +0530
+Message-Id: <20240810183238.34481-1-av2082000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NTZPR01MB1018:EE_|NTZPR01MB1002:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca123216-defd-472f-3f68-08dcb888655a
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|52116014|1800799024|366016|7416014|41320700013|38350700014; 
-X-Microsoft-Antispam-Message-Info: aveJs6xOgnL3HgdfisX9LXwpTtehSyPsMhe3VkX6Wt9++ta5CYNg15gFR5B4DAAzeczYeIVkjMddLoddcceMdmgvzDB2w+vGbSU01sZbW2yLGEpDfN0z0WrvN5G9g0YzWBfD4buYKfbeqWVsoTkd7ox7rCfwomDf/E5TVuMdHabLeXnwnQyxQ2RzmclKOjOxlHWKYkg8xUTECQeEn7J08Oyvm5d7V0Xg+yv4TZ8pLBagGML5pkQHpTTxAORCLIcZKeacENK1Mtq942vRMEKUtdso+uu6qQ3h3j3qEPfNmXi3UVWBl0sh7whOC9pqZ1uwn+l0Ffxn/CjnW9XzWHBabVek9OouSNnnGktgZak75ueQf8eFWi+H41dnwkn2jW3aK4uc27P9Mj6RL3S8eyvpoY1dNzNkPn4iwklEKXgwMnQx26UePuCghxz39PCgZQFbLUqOfI75nFwR0Wc8pYyHNtJRok7BPyQ/pCMUujDWuVVsuKte8HUAURJXml26sCPJsLS8KsdJkyZpGIcN1EOxVWRoIl4iELqZGHx4f4nM9SwKoEgqyz42HrYvvBaPQ+z7GPYo0yyIR3a7elpC1pRN1t8qjd1A9X5r2rOyYwNGk6LnZvrpElPNwSA2fCp5DU44
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230040)(52116014)(1800799024)(366016)(7416014)(41320700013)(38350700014);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XLR/8Kp+/lpF4f2q1ljVyRy91Y4Hu2RY6SxKrKztjV4tE9/DZlqmM+hEdQwV?=
- =?us-ascii?Q?FQTBfUNnG8jvavbvIxeMlbnl2Lm2RhSn6zUgrak6tJMu4NRI/89U/RZHyAat?=
- =?us-ascii?Q?ZAnNUolDKZMScnJDGgUw3/c4rXkuQENe5vJ98vbjMuxPfn/gyZakjhOjMB9m?=
- =?us-ascii?Q?XKTCjx0U/TqXk3AzIGHAhlgFBeantyCRixRI42jh5/IO/shP6uVo4UOv+Fm/?=
- =?us-ascii?Q?OeI7S1Aak5E3gObJIeF9xJ5aWZH1R5m0gbLEdlDqjTdZSqqHOgfASQiSDh0n?=
- =?us-ascii?Q?UCfHfUEgl6zgEQZg5fOSc0lhE68Xokn+rz1GLOpBdbQPL9b/PhCBORqbIcZ/?=
- =?us-ascii?Q?rJCTyUldPMZxJhu2yJ6IXpZ9VSBrXSoBv2LGNlPHWmkqFS/PEzn8lupRogVt?=
- =?us-ascii?Q?x3w2WxUVzNOBTZlPhcrL6OhgWg4mR8lPFmwy3zi/ms/3XGy5srQwN9swYykG?=
- =?us-ascii?Q?2WcnmFqCgq/SAVxRo3Hk7MP/dnp4ILNjTpnt1DOznk6bs6PcNRcr2hDy58TY?=
- =?us-ascii?Q?1dZ+Zk8hMsOnw3viqWcSafu5XX42OGp54JY6Ynit3eG2Qjz1QqTN5Nj1/08z?=
- =?us-ascii?Q?FX/V/dGEI1Pnoggqr5X/oJD4y3b3uQvUznKKsfGX1WEgo8ssHWjlJGC2b9Vj?=
- =?us-ascii?Q?v/ub74dJndWTHPPuCYyFvmuibhYgsgOWGNlzFfgaGcs23TvOoBweUCJITCl1?=
- =?us-ascii?Q?05NEIamHFPze2xk/0yp5/SXTbRk+iRWYbn5XlHxb1QmT1WkZMBwWekFjI+v+?=
- =?us-ascii?Q?pzxrzMWnwxluAeDzNqUKVztpsR2ZjkfZ9gyxizprpkUGAwMR6vIcUyZ7ar6v?=
- =?us-ascii?Q?r8o1XwyGamcP7VmtNyhZ6+gk3CxWwnRBx+xgzP5rmYdjIlL9jHB5i8LIv5Gn?=
- =?us-ascii?Q?qphjttNRQ1y0zMnka+ouDyofvxOoN0w2pOsma6mB9gy0oT/7UJceVQMxAbyA?=
- =?us-ascii?Q?EYA8QFt6RRkpNz+S+L6BmrquDYQ6kYOL6mYVGeUTzI081vh71MVDZ9InXnkq?=
- =?us-ascii?Q?/arBtn1LB1vRGuTLi6nbSNgGNHa9oazy6SJyefdOpPJW5Hi/D2kw30NuK++w?=
- =?us-ascii?Q?ViyN9AAsLRDryPQW5l476HM74aV0KNjcJtkrbVF7ZFIgBJJnvMjvSc8+ppN9?=
- =?us-ascii?Q?Fbzdp6pIVgCgHMywLgb7QPpC7/dkLljhAqKycS1wzUrx6no/qSkxIt6E8RAw?=
- =?us-ascii?Q?hwXKClnYgAK7baJjpPhZBQIoKcoeDMkBw746bdRC5R7GXGblDqirOP9ZXI0y?=
- =?us-ascii?Q?1HU4SPVJ1+A7Rq+1RY1QwPnawww7GcZkQrnqJtaOD2uKUjl0fDlw+Ez9TGzo?=
- =?us-ascii?Q?nzmBnQCcZ+iAEj7wf8ZuwX/33qANve3pb0YGExHEPakt2WdjJ7LXROlcQHfK?=
- =?us-ascii?Q?dehysWLEB5kJjnx6Kja/gIWSZmzD9kyTiCobd2DwtH1RBNUTjGmXc17DZYjt?=
- =?us-ascii?Q?rfzrLh0v5XoMUXb58Tv9EEZm7TUkphmOZYA3u9HkLjzlk2ImyqmdYANIRBly?=
- =?us-ascii?Q?Y6VaXELb68jzHxrK+vSDS3UgsA4aBWfzU9l+iNc1gWgomOmA80hzebzylKAS?=
- =?us-ascii?Q?XlBQTvZzANJCsGgNiuuvj+9s4YOyqm+mGBGVBNSIutHOfDdWBi7g89Yzjg6K?=
- =?us-ascii?Q?4w=3D=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca123216-defd-472f-3f68-08dcb888655a
-X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2024 15:31:53.6609 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yM09VLrnXLXVh83aADoNqeLG1TA6RAcWwPcmqqSToFN66fgcj4h9dg9VvSHk2lo2cqr2lNjiWNcz4JSiGROUVD/0yYDuE+BAGnhNZIcYj2Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1002
 X-Mailman-Approved-At: Mon, 12 Aug 2024 06:46:41 +0000
-Cc: Tan En De <ende.tan@starfivetech.com>, minda.chen@starfivetech.com,
- leyfoon.tan@starfivetech.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [net-next,
-	1/1] net: stmmac: Set OWN bit last in dwmac4_set_rx_owner()
+Cc: catalin.marinas@arm.com, dave.hansen@linux.intel.com,
+ conor.dooley@microchip.com, aou@eecs.berkeley.edu, hpa@zytor.com,
+ skhan@linuxfoundation.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel-mentees@lists.linux.dev,
+ costa.shul@redhat.com, corbet@lwn.net, mpe@ellerman.id.au, x86@kernel.org,
+ christophe.leroy@csgroup.eu, mingo@redhat.com, workflows@vger.kernel.org,
+ av2082000@gmail.com, naveen@kernel.org, npiggin@gmail.com, bp@alien8.de,
+ paul.walmsley@sifive.com, bhelgaas@google.com, tglx@linutronix.de,
+ linux-arm-kernel@lists.infradead.org, palmer@dabbelt.com,
+ mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] Documentation: Fix spelling mistakes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,37 +91,162 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Tan En De <ende.tan@starfivetech.com>
+Corrected spelling mistakes in the documentation to improve readability.
 
-Ensure that all other bits in the RDES3 descriptor are configured before
-transferring ownership of the descriptor to DMA via the OWN bit.
-
-Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+Signed-off-by: Amit Vadhavana <av2082000@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst | 4 ++--
+ Documentation/arch/arm64/cpu-hotplug.rst                 | 2 +-
+ Documentation/arch/powerpc/ultravisor.rst                | 2 +-
+ Documentation/arch/riscv/vector.rst                      | 2 +-
+ Documentation/arch/sparc/oradax/oracle-dax.rst           | 2 +-
+ Documentation/arch/x86/mds.rst                           | 2 +-
+ Documentation/arch/x86/x86_64/fsgs.rst                   | 4 ++--
+ Documentation/process/backporting.rst                    | 6 +++---
+ 8 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-index 1c5802e0d7f4..95aea6ad485b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-@@ -186,10 +186,13 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+diff --git a/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst b/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
+index 2945e0e33104..301aa30890ae 100644
+--- a/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
++++ b/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
+@@ -359,7 +359,7 @@ Driver updates for STM32 DMA-MDMA chaining support in foo driver
+     descriptor you want a callback to be called at the end of the transfer
+     (dmaengine_prep_slave_sg()) or the period (dmaengine_prep_dma_cyclic()).
+     Depending on the direction, set the callback on the descriptor that finishes
+-    the overal transfer:
++    the overall transfer:
  
- static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
- {
--	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
-+	p->des3 |= cpu_to_le32(RDES3_BUFFER1_VALID_ADDR);
+     * DMA_DEV_TO_MEM: set the callback on the "MDMA" descriptor
+     * DMA_MEM_TO_DEV: set the callback on the "DMA" descriptor
+@@ -371,7 +371,7 @@ Driver updates for STM32 DMA-MDMA chaining support in foo driver
+   As STM32 MDMA channel transfer is triggered by STM32 DMA, you must issue
+   STM32 MDMA channel before STM32 DMA channel.
  
- 	if (!disable_rx_ic)
- 		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
-+
-+	dma_wmb();
-+	p->des3 |= cpu_to_le32(RDES3_OWN);
- }
+-  If any, your callback will be called to warn you about the end of the overal
++  If any, your callback will be called to warn you about the end of the overall
+   transfer or the period completion.
  
- static int dwmac4_get_tx_ls(struct dma_desc *p)
+   Don't forget to terminate both channels. STM32 DMA channel is configured in
+diff --git a/Documentation/arch/arm64/cpu-hotplug.rst b/Documentation/arch/arm64/cpu-hotplug.rst
+index 76ba8d932c72..8fb438bf7781 100644
+--- a/Documentation/arch/arm64/cpu-hotplug.rst
++++ b/Documentation/arch/arm64/cpu-hotplug.rst
+@@ -26,7 +26,7 @@ There are no systems that support the physical addition (or removal) of CPUs
+ while the system is running, and ACPI is not able to sufficiently describe
+ them.
+ 
+-e.g. New CPUs come with new caches, but the platform's cache toplogy is
++e.g. New CPUs come with new caches, but the platform's cache topology is
+ described in a static table, the PPTT. How caches are shared between CPUs is
+ not discoverable, and must be described by firmware.
+ 
+diff --git a/Documentation/arch/powerpc/ultravisor.rst b/Documentation/arch/powerpc/ultravisor.rst
+index ba6b1bf1cc44..6d0407b2f5a1 100644
+--- a/Documentation/arch/powerpc/ultravisor.rst
++++ b/Documentation/arch/powerpc/ultravisor.rst
+@@ -134,7 +134,7 @@ Hardware
+ 
+       * PTCR and partition table entries (partition table is in secure
+         memory). An attempt to write to PTCR will cause a Hypervisor
+-        Emulation Assitance interrupt.
++        Emulation Assistance interrupt.
+ 
+       * LDBAR (LD Base Address Register) and IMC (In-Memory Collection)
+         non-architected registers. An attempt to write to them will cause a
+diff --git a/Documentation/arch/riscv/vector.rst b/Documentation/arch/riscv/vector.rst
+index 75dd88a62e1d..e4a28def318a 100644
+--- a/Documentation/arch/riscv/vector.rst
++++ b/Documentation/arch/riscv/vector.rst
+@@ -15,7 +15,7 @@ status for the use of Vector in userspace. The intended usage guideline for
+ these interfaces is to give init systems a way to modify the availability of V
+ for processes running under its domain. Calling these interfaces is not
+ recommended in libraries routines because libraries should not override policies
+-configured from the parant process. Also, users must noted that these interfaces
++configured from the parent process. Also, users must noted that these interfaces
+ are not portable to non-Linux, nor non-RISC-V environments, so it is discourage
+ to use in a portable code. To get the availability of V in an ELF program,
+ please read :c:macro:`COMPAT_HWCAP_ISA_V` bit of :c:macro:`ELF_HWCAP` in the
+diff --git a/Documentation/arch/sparc/oradax/oracle-dax.rst b/Documentation/arch/sparc/oradax/oracle-dax.rst
+index d1e14d572918..54ccb35ed51d 100644
+--- a/Documentation/arch/sparc/oradax/oracle-dax.rst
++++ b/Documentation/arch/sparc/oradax/oracle-dax.rst
+@@ -197,7 +197,7 @@ Memory Constraints
+ ==================
+ 
+ The DAX hardware operates only on physical addresses. Therefore, it is
+-not aware of virtual memory mappings and the discontiguities that may
++not aware of virtual memory mappings and the discontinuities that may
+ exist in the physical memory that a virtual buffer maps to. There is
+ no I/O TLB or any scatter/gather mechanism. All buffers, whether input
+ or output, must reside in a physically contiguous region of memory.
+diff --git a/Documentation/arch/x86/mds.rst b/Documentation/arch/x86/mds.rst
+index c58c72362911..5a2e6c0ef04a 100644
+--- a/Documentation/arch/x86/mds.rst
++++ b/Documentation/arch/x86/mds.rst
+@@ -162,7 +162,7 @@ Mitigation points
+    3. It would take a large number of these precisely-timed NMIs to mount
+       an actual attack.  There's presumably not enough bandwidth.
+    4. The NMI in question occurs after a VERW, i.e. when user state is
+-      restored and most interesting data is already scrubbed. Whats left
++      restored and most interesting data is already scrubbed. What's left
+       is only the data that NMI touches, and that may or may not be of
+       any interest.
+ 
+diff --git a/Documentation/arch/x86/x86_64/fsgs.rst b/Documentation/arch/x86/x86_64/fsgs.rst
+index 50960e09e1f6..d07e445dac5c 100644
+--- a/Documentation/arch/x86/x86_64/fsgs.rst
++++ b/Documentation/arch/x86/x86_64/fsgs.rst
+@@ -125,7 +125,7 @@ FSGSBASE instructions enablement
+ FSGSBASE instructions compiler support
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+-GCC version 4.6.4 and newer provide instrinsics for the FSGSBASE
++GCC version 4.6.4 and newer provide intrinsics for the FSGSBASE
+ instructions. Clang 5 supports them as well.
+ 
+   =================== ===========================
+@@ -135,7 +135,7 @@ instructions. Clang 5 supports them as well.
+   _writegsbase_u64()  Write the GS base register
+   =================== ===========================
+ 
+-To utilize these instrinsics <immintrin.h> must be included in the source
++To utilize these intrinsics <immintrin.h> must be included in the source
+ code and the compiler option -mfsgsbase has to be added.
+ 
+ Compiler support for FS/GS based addressing
+diff --git a/Documentation/process/backporting.rst b/Documentation/process/backporting.rst
+index e1a6ea0a1e8a..a71480fcf3b4 100644
+--- a/Documentation/process/backporting.rst
++++ b/Documentation/process/backporting.rst
+@@ -73,7 +73,7 @@ Once you have the patch in git, you can go ahead and cherry-pick it into
+ your source tree. Don't forget to cherry-pick with ``-x`` if you want a
+ written record of where the patch came from!
+ 
+-Note that if you are submiting a patch for stable, the format is
++Note that if you are submitting a patch for stable, the format is
+ slightly different; the first line after the subject line needs tobe
+ either::
+ 
+@@ -147,7 +147,7 @@ divergence.
+ It's important to always identify the commit or commits that caused the
+ conflict, as otherwise you cannot be confident in the correctness of
+ your resolution. As an added bonus, especially if the patch is in an
+-area you're not that famliar with, the changelogs of these commits will
++area you're not that familiar with, the changelogs of these commits will
+ often give you the context to understand the code and potential problems
+ or pitfalls with your conflict resolution.
+ 
+@@ -197,7 +197,7 @@ git blame
+ Another way to find prerequisite commits (albeit only the most recent
+ one for a given conflict) is to run ``git blame``. In this case, you
+ need to run it against the parent commit of the patch you are
+-cherry-picking and the file where the conflict appared, i.e.::
++cherry-picking and the file where the conflict appeared, i.e.::
+ 
+     git blame <commit>^ -- <path>
+ 
 -- 
-2.34.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
