@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5FC94DC1C
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Aug 2024 11:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BF1594E1B4
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Aug 2024 16:42:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45428C78021;
-	Sat, 10 Aug 2024 09:51:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0198C78006;
+	Sun, 11 Aug 2024 14:42:01 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E92FC712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2B15C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Aug 2024 09:51:37 +0000 (UTC)
+ Sun, 11 Aug 2024 14:41:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7F853CE1318;
- Sat, 10 Aug 2024 09:51:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC652C32781;
- Sat, 10 Aug 2024 09:51:31 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 236DBCE01B6;
+ Sun, 11 Aug 2024 14:41:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD0DC32786;
+ Sun, 11 Aug 2024 14:41:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723283494;
- bh=cTqL5xUWw00ey23oEIyGFCO8ELq1yoTqJ70ikIFg6Q8=;
+ s=k20201202; t=1723387311;
+ bh=e9DgOEq6OLvmcRv/CH6wRxKEHV8xntvIpbRaCP8T9Pg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n6UyPYKV1YKJai8yOSp7iJnOBvvjmhHbwzQgbbU8upVe1vgsV6nFii27yHIHYy9LB
- W95vaHHMFmoJbtkBV0ehXYHe/dSuPCccv7SY9bs+sF12KV8vpeTFn24Eob/0gDZlfN
- yO9f9yx+gyAnR+zQZI/M7vZqioCUBp0jYabFkl51RMIJSouYvTZs5N6TFirfrvb3JH
- bsJGyekpDbU4s9diRaKrxXzqw+11+SEBzOCUJfyGLjyQXdW4Syq7mryDqKlQYO+OH9
- pBgce2jyvVXQrOhXIVD1+cangixuX5aeps/SIMqBAfaymYMYw2MsUKkQ+NxakkPRhp
- E1vCsGs5343Vw==
-Date: Sat, 10 Aug 2024 10:51:29 +0100
+ b=u2JtRZCQUiBO8aEG94JtdjaLJL1ab3qWYNwtnmPDDaR1GVWCLpZUIuLzm2qf9LpsQ
+ QtHuo/VuhFaH2bn7DNb9dAWd7z/cmi26koZ5LJPCsvnjKMJGhzudAt67ADkRhXFfAe
+ nBRWsMyD2ZPzeOPEBp4XoMn6rcTkVIXwfvLFrT0aFlE2MrwZg+5+Wfjm5mt0oKnSDx
+ F1y89gru3HUTcDbHsVNfLGaMALb9/zmYZg1IvH5PNoNsb4S5tvoD4SPYjrx5tfTOTp
+ K24kZh2ELuvrd0Rcv/aaJMzD1rNJu0I/K/g1CJR3LUdDR3kONDxIEFTYPmH4LxCL8R
+ +3ZwF5RI5uL5w==
+Date: Sun, 11 Aug 2024 15:41:47 +0100
 From: Simon Horman <horms@kernel.org>
 To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <20240810095129.GH1951@kernel.org>
+Message-ID: <20240811144147.GL1951@kernel.org>
 References: <20240809082146.3496481-1-o.rempel@pengutronix.de>
+ <20240810095129.GH1951@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240809082146.3496481-1-o.rempel@pengutronix.de>
+In-Reply-To: <20240810095129.GH1951@kernel.org>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  kernel@pengutronix.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -59,17 +60,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 09, 2024 at 10:21:46AM +0200, Oleksij Rempel wrote:
-> Rename 'pins1' to 'pins' in the qspi_bk1_pins_a node to correct the
-> subnode name. The incorrect name caused the configuration to be
-> applied to the wrong subnode, resulting in QSPI not working properly.
+On Sat, Aug 10, 2024 at 10:51:29AM +0100, Simon Horman wrote:
+> On Fri, Aug 09, 2024 at 10:21:46AM +0200, Oleksij Rempel wrote:
+> > Rename 'pins1' to 'pins' in the qspi_bk1_pins_a node to correct the
+> > subnode name. The incorrect name caused the configuration to be
+> > applied to the wrong subnode, resulting in QSPI not working properly.
+> > 
+> > To avoid this kind of regression, all references to pin configuration
+> > nodes are now referenced directly using the format &{label/subnode}.
+> > 
+> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 > 
-> To avoid this kind of regression, all references to pin configuration
-> nodes are now referenced directly using the format &{label/subnode}.
-> 
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Pass
 
-Pass
+Sorry about the noise here. This was supposed to be a note to myself, that
+I am not planning to review this.  It doesn't imply anything about the
+patch.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
