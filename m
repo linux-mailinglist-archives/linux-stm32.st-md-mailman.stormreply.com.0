@@ -2,48 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BF1594E1B4
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Aug 2024 16:42:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9B594E1C6
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Aug 2024 17:17:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0198C78006;
-	Sun, 11 Aug 2024 14:42:01 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9CACC78006;
+	Sun, 11 Aug 2024 15:17:49 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2B15C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24F55C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Aug 2024 14:41:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 236DBCE01B6;
- Sun, 11 Aug 2024 14:41:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD0DC32786;
- Sun, 11 Aug 2024 14:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723387311;
- bh=e9DgOEq6OLvmcRv/CH6wRxKEHV8xntvIpbRaCP8T9Pg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=u2JtRZCQUiBO8aEG94JtdjaLJL1ab3qWYNwtnmPDDaR1GVWCLpZUIuLzm2qf9LpsQ
- QtHuo/VuhFaH2bn7DNb9dAWd7z/cmi26koZ5LJPCsvnjKMJGhzudAt67ADkRhXFfAe
- nBRWsMyD2ZPzeOPEBp4XoMn6rcTkVIXwfvLFrT0aFlE2MrwZg+5+Wfjm5mt0oKnSDx
- F1y89gru3HUTcDbHsVNfLGaMALb9/zmYZg1IvH5PNoNsb4S5tvoD4SPYjrx5tfTOTp
- K24kZh2ELuvrd0Rcv/aaJMzD1rNJu0I/K/g1CJR3LUdDR3kONDxIEFTYPmH4LxCL8R
- +3ZwF5RI5uL5w==
-Date: Sun, 11 Aug 2024 15:41:47 +0100
-From: Simon Horman <horms@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <20240811144147.GL1951@kernel.org>
-References: <20240809082146.3496481-1-o.rempel@pengutronix.de>
- <20240810095129.GH1951@kernel.org>
+ Sun, 11 Aug 2024 15:17:43 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-5ba482282d3so4392495a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 11 Aug 2024 08:17:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1723389462; x=1723994262;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nOrrFPO2+Eu1RsdiiDnsQDZT+Eoua4cGMzFbuz7CsgI=;
+ b=ui2w/b+l8lNSQk3HluvQiQq11fUsrWfj6Oh0c7pMVIriy6JCOLY4I+hORDrhQ81plx
+ 01UN0VYdNJcoSAM/GIPROtT1lYoWLzu1+ON3D9n0GB8DqDtwo6s2baFsKeSn8huW0a8/
+ G2xK2MIECNuukoztqzIO+enYi/QRfzGV+5k3zW+9aURKGOyB5CA5bqBdGPX24mF+0CBB
+ 861L31tXknaf+UHt8FQpMmf9SXw/8urIYvhPdSb63sS6P8eJgWM/uzGsvUoiEGbrm3fs
+ 8xn3Km0DoVhNHx858eI6ZEUJASoZhtOM/zdlB8VAETxorg50K+riWqDONltcO8nNohek
+ GfAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1723389462; x=1723994262;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nOrrFPO2+Eu1RsdiiDnsQDZT+Eoua4cGMzFbuz7CsgI=;
+ b=rofQlj9Z/zr+yjCvA9WmbrIGPRzS+pfGu31o0cXysr2P75ro9r1CF4ryXwZE0fvA8g
+ 4+lJk6A5orYrhvgbPehG5tZlS+KaB1CyZk0yC5SN46AhAiI8NMk3rols6cNeK0vAvkrG
+ BwrfpPJ9rNeTa2X+v3hqCGxFhEL3SiN7vGsXDNo9/W6fivUX5cKumt+kbVH3KQUn/4xA
+ FRRSl8emqw8Y52k6HbsuMv18ixVnCR8CuIGgx8Di/hC48PBuDB1KrktAgLJmEu4WgSDZ
+ ieb94pLi0HgkalMMUWzhwoZsy9nc0MSHB3ifgUQSbSnBDF7PRRckSE1DHbp5Z5IHcbxr
+ E6XQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXvdpcH7cOACK9FQyvnK6PTsntf2TbKiMtXi2cMj/zLtGLaTq2KvDIMhEw2dnCXOUGzxPhwUJwv4vwrL5j1XiZXO4alaKg5xECRVrypeLHU0PnFv4eQvMBT
+X-Gm-Message-State: AOJu0YzcuNkXGgMAUHCb6g+EOpH2OFieDCa8hQlvi+PDOu8ulGUhlGqj
+ W4ZpFFh8h9xg/1raxE/hJfh+rla1p39inxom4a+WFg3NMvm+bpKrMvXK8ns4V+E=
+X-Google-Smtp-Source: AGHT+IFMkuh2pshcMEllN4JDzZBehDboH1YV/ev7+K4CsgIw5JNm3uxhpSKfKT45jnx67W0QXEExTw==
+X-Received: by 2002:a17:907:6d11:b0:a7d:3672:a594 with SMTP id
+ a640c23a62f3a-a80aa67acbamr477098766b.61.1723389462194; 
+ Sun, 11 Aug 2024 08:17:42 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.219.137]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80bb0904f5sm157030666b.18.2024.08.11.08.17.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Aug 2024 08:17:41 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Aug 2024 17:17:37 +0200
+Message-ID: <20240811151737.106194-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240810095129.GH1951@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- kernel@pengutronix.de, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] arm: dts: st: stm32mp151a-prtt1l: Fix
- QSPI configuration
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH] dt-bindings: nvmem: st,
+	stm32-romem: add missing "unevaluatedProperties" on child nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,22 +86,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 10, 2024 at 10:51:29AM +0100, Simon Horman wrote:
-> On Fri, Aug 09, 2024 at 10:21:46AM +0200, Oleksij Rempel wrote:
-> > Rename 'pins1' to 'pins' in the qspi_bk1_pins_a node to correct the
-> > subnode name. The incorrect name caused the configuration to be
-> > applied to the wrong subnode, resulting in QSPI not working properly.
-> > 
-> > To avoid this kind of regression, all references to pin configuration
-> > nodes are now referenced directly using the format &{label/subnode}.
-> > 
-> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> 
-> Pass
+All nodes need an explicit additionalProperties or unevaluatedProperties
+unless a $ref has one that's false.  Fixing this for STM32
+Factory-programmed data binding needs referencing fixed layout schema
+for children.  Add reference to the NVMEM deprecated cells for the
+schema to be complete.
 
-Sorry about the noise here. This was supposed to be a note to myself, that
-I am not planning to review this.  It doesn't imply anything about the
-patch.
+This fixes dt_binding_check warning:
+
+  st,stm32-romem.yaml: ^.*@[0-9a-f]+$: Missing additionalProperties/unevaluatedProperties constraint
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml b/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+index 92bfe25f0571..3b2aa605a551 100644
+--- a/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
++++ b/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+@@ -17,6 +17,7 @@ maintainers:
+ 
+ allOf:
+   - $ref: nvmem.yaml#
++  - $ref: nvmem-deprecated-cells.yaml#
+ 
+ properties:
+   compatible:
+@@ -32,6 +33,8 @@ properties:
+ patternProperties:
+   "^.*@[0-9a-f]+$":
+     type: object
++    $ref: layouts/fixed-cell.yaml
++    unevaluatedProperties: false
+ 
+     properties:
+       st,non-secure-otp:
+-- 
+2.43.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
