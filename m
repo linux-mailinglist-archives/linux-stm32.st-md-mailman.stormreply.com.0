@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1227E94F806
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 22:15:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5DFE94F832
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 22:25:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABFBEC71290;
-	Mon, 12 Aug 2024 20:15:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60F6DC71290;
+	Mon, 12 Aug 2024 20:25:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB2C3C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 418B5C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2024 20:15:13 +0000 (UTC)
+ Mon, 12 Aug 2024 20:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1723493721; x=1755029721;
+ t=1723494348; x=1755030348;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=ea+QujSB7dC9as46er5ru4Cjk2Gq/erzLIw6YWe9sBQ=;
- b=izD2/8TtFutj4xnQJkYylXaUzPDZPpdEggD7mm8ldRcHTATSaNOiXLIi
- /IpGongaok2gNe6TQi9QBkcMpPTL4peej7itFY3PBAhTVJaqH0p+xZGaX
- +PjYx2GCSLOAp483/OVzW9722MsYIGrenbTLkqEWuD0BWaKY7q5RT+VhW
- EcsSBPdOejERjb96Azjqots2EkNpQcpSwVsLlPA3UinPGwyLg1CW9w+it
- OQ3SHf4CFQpeftnh4ClBAh4eZddVloztjKwO5ukaQ4ZCEkG6GH50sfRAs
- noHqcUrcTB4jYJsgIIP5VAFXjpkhoucQciXqRHWT8v25iKVogESrPXM1q w==;
-X-CSE-ConnectionGUID: JfWS4RXXRpqzln9JfyufhQ==
-X-CSE-MsgGUID: nqaeXuYVRUaFbMI0BwQqvw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="21483813"
-X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="21483813"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 13:15:10 -0700
-X-CSE-ConnectionGUID: Uq4bWhzORUWV+Dk3EjioHQ==
-X-CSE-MsgGUID: Ru7RfX0GTv2W59MNzPhuxg==
+ bh=jN9wnNczQ9GMZEEKhewppiaItX6FtzTVk26GlChufhk=;
+ b=Mo9mDR+X9cQ/7VDYD73jfV5CBYpIove76BBn2DX8rG5HOhTWAvVj+c/J
+ nlb2L5dQJr0C5Jzn6m2iWitLCUfSkfvJvuWGzSzP4/zy/LPS6/MIC56yN
+ td77NeZv7qYnYjsYk/XTKHoUqjV+DX4eucLr0I9Ye3qGhdw4hR1H4lpDU
+ WodWLkI0ZvqxuWc+j2ydj0qHhrQiw5hUieEnq03H4DhKZSqBDPPi8aqHW
+ rFNiHx8H7Ztp8ad+CZFBX+vAf7JkqX+13YkZbZ/5sorVBDzacA/k8j9E1
+ Of9bTk9Zk/uTuxb1gwhIx1LRpw73GJ7xaGPlUm51JcsH1pIVvytBtelXT w==;
+X-CSE-ConnectionGUID: q76+aHxERAaF//SA1IcbvA==
+X-CSE-MsgGUID: kntfmaVRSYazzU56kB1Cbg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="21272555"
+X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="21272555"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 13:25:38 -0700
+X-CSE-ConnectionGUID: boTyfTxQTY6gD+Pl+O1ixg==
+X-CSE-MsgGUID: pxSpLirDRFOhdkJFReh7Ww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="62781081"
+X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="58042333"
 Received: from unknown (HELO b6bf6c95bbab) ([10.239.97.151])
- by fmviesa005.fm.intel.com with ESMTP; 12 Aug 2024 13:15:06 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 12 Aug 2024 13:25:35 -0700
 Received: from kbuild by b6bf6c95bbab with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sdbRX-000C8r-32;
- Mon, 12 Aug 2024 20:15:03 +0000
-Date: Tue, 13 Aug 2024 04:14:06 +0800
+ (envelope-from <lkp@intel.com>) id 1sdbbd-000C9r-2F;
+ Mon, 12 Aug 2024 20:25:30 +0000
+Date: Tue, 13 Aug 2024 04:24:27 +0800
 From: kernel test robot <lkp@intel.com>
 To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
  kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
  conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
  alexandre.torgue@foss.st.com, p.zabel@pengutronix.de
-Message-ID: <202408130307.IK7U1H7o-lkp@intel.com>
+Message-ID: <202408130447.IzvuJERR-lkp@intel.com>
 References: <20240812120529.3564390-4-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20240812120529.3564390-4-christian.bruel@foss.st.com>
-Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
- oe-kbuild-all@lists.linux.dev, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Bruel <christian.bruel@foss.st.com>, oe-kbuild-all@lists.linux.dev,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 3/5] phy: stm32: Add support for STM32MP25
 	COMBOPHY.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -88,106 +88,25 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Bruel/MAINTAINE
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
 patch link:    https://lore.kernel.org/r/20240812120529.3564390-4-christian.bruel%40foss.st.com
 patch subject: [PATCH 3/5] phy: stm32: Add support for STM32MP25 COMBOPHY.
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20240813/202408130307.IK7U1H7o-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project f86594788ce93b696675c94f54016d27a6c21d18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240813/202408130307.IK7U1H7o-lkp@intel.com/reproduce)
+config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20240813/202408130447.IzvuJERR-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240813/202408130447.IzvuJERR-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408130307.IK7U1H7o-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408130447.IzvuJERR-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:548:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     548 |         val = __raw_readb(PCI_IOBASE + addr);
-         |                           ~~~~~~~~~~ ^
-   include/asm-generic/io.h:561:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     561 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-         |                                                   ^
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:574:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     574 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
-      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-         |                                                   ^
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/hexagon/include/asm/io.h:328:
-   include/asm-generic/io.h:585:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     585 |         __raw_writeb(value, PCI_IOBASE + addr);
-         |                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:595:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     595 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   include/asm-generic/io.h:605:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     605 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:21:
-   In file included from include/linux/mm.h:2253:
-   include/linux/vmstat.h:514:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     514 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/phy/st/phy-stm32-combophy.c:134:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   drivers/phy/st/phy-stm32-combophy.c: In function 'stm32_impedance_tune':
+>> drivers/phy/st/phy-stm32-combophy.c:134:36: error: implicit declaration of function 'FIELD_PREP' [-Werror=implicit-function-declaration]
      134 |                                    FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-         |                                    ^
->> drivers/phy/st/phy-stm32-combophy.c:137:12: error: call to undeclared function 'FIELD_GET'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+         |                                    ^~~~~~~~~~
+>> drivers/phy/st/phy-stm32-combophy.c:137:26: error: implicit declaration of function 'FIELD_GET' [-Werror=implicit-function-declaration]
      137 |                 imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-         |                          ^
-   drivers/phy/st/phy-stm32-combophy.c:155:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     155 |                                    FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-         |                                    ^
-   7 warnings and 3 errors generated.
+         |                          ^~~~~~~~~
+   cc1: some warnings being treated as errors
 
 
 vim +/FIELD_PREP +134 drivers/phy/st/phy-stm32-combophy.c
