@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D88A94EE43
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 15:34:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4737494EE44
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 15:34:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04020C78027;
-	Mon, 12 Aug 2024 13:34:27 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C1FEC78021;
+	Mon, 12 Aug 2024 13:34:29 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 700BAC7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85DAFC7802E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2024 13:34:25 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2f15dd0b489so55907891fa.3
+ Mon, 12 Aug 2024 13:34:26 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-42803bbf842so43171075e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2024 06:34:25 -0700 (PDT)
+ Mon, 12 Aug 2024 06:34:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723469665; x=1724074465;
+ d=linaro.org; s=google; t=1723469666; x=1724074466;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=SQA/PjjohkpV6TqZg91y0zhylBtn0W2KyopE+/TT64c=;
- b=R5l3W0E1MQbrIT9E9FfYMUMY7IvI60dB5fAd/gSuVXRzZ3kGQ/3HlwZP9PLHLm8q0A
- jW7aJWDPZmjM4fFCoBLl8zL92gsXViglw5QuSQ9RaA8skgSiTTyMSBTobtom4fejt2r5
- P8i7e+HcdiydnE9y772gwVSh+9/WGCtsnLLOuPanDwg0JB2i4QHFkuyB7RW4nBq7lfBW
- cZPUKJV7ZS/dosmdBy2VB06MJRu/GCD7xV6d2ARyR4DNxRHpBWok6P07Hwth6aBIHiXX
- eslAR5Ubp4oc2wNpi25JFa2ZX+YpqlaYm9eDYcm3OZn5TqCBg5mQgSTGo9Doy7E6SyLR
- n4jQ==
+ :reply-to; bh=CxelJ2EbVi7FPWoh5bPyWxBtOLrcrZXgDmweNSFWgLY=;
+ b=dczpnHOlzkLL19zSHsprOyobMWGz51O+3ZuLH6azxH8A53FRPLCZqb0eecmj6jqDlS
+ BLy6KhLq2Gx6FWneAEgXas3iUl7QMJfIO3lzIttKp1kJPzdA3gfq0JRwBA5S/33oOJg9
+ zeJT7x+XIy79ucxuWdXKVn1R36HONh4v21NtPx0sx2I2dS2u+M4nkdPkYxymRLSydb+/
+ SWa3DX5e6vg5KUmfaTnhYKh8uAGDENp/5YftF0XU8fe7RokKQQccvy5K7PuHMzt8rayJ
+ lLJvpkXfMFDez6lJXlNJHzxEO0t6LfCoDJFKgatDE3Ua3nlcRXPEmBDX9xe8PWF1vQd8
+ 2XIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723469665; x=1724074465;
+ d=1e100.net; s=20230601; t=1723469666; x=1724074466;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SQA/PjjohkpV6TqZg91y0zhylBtn0W2KyopE+/TT64c=;
- b=UYABqR8CvDQo5mAmv5wZ0n2bXDM26ZxKNoLUUfg8TrS5T9BPMcld33yqDAVEMz4vUT
- i0BfdBOEaFTqmZ2BvtnX2j1WlmgrusK+DpSNHVDk+j4LEOob/yGiZK5gIofkKS3rzTgh
- aIFh5v9gQekitgK65peP2MAlJjd4fmyjPTB7ZtJF6Wl/JCnXdbAbLYSeM4EMKkAqzMRu
- /4GsxBHiXU3B4PuUZMISkC6hgnm7nB9or/H6aI74S2vc2vVyaSiqErm8b7HhDI6ruxeV
- k2UcehdXTujufjUD88IeDQnlSUDrilvkJu2ohLCJDGoycdd6WTIAZufmJSzWHSM6VqOA
- 7rYg==
+ bh=CxelJ2EbVi7FPWoh5bPyWxBtOLrcrZXgDmweNSFWgLY=;
+ b=C7AgJfRP63S1H/oKxVZwTkuqY8sCsvLrNjf7CIKLqtNMvNj3eql2DWi1oDcL8waHfH
+ dDa4PfZEjbRnqA/3iaav74E49qCgCjJ1q7w9MRfWwcEPxtA/YadXoItcfnIq4sgxDrjI
+ rv6U/sLSRMqDPdAwVuYNqzG2LtsNIwc53dJelyyhkWDhVxSRlIjAYduou3UJBGp7EVWn
+ aTxWUI5tlYevkZRhEWKILYgg7vxCqzrhJvm6Mm4W+ZjxOn1gZrsENPBnF+jUtp7GyQHl
+ 9a98Z1jQO1rVYo71qUNLFz9/nHDo4Dfs5CGa+X/0pBl1fpQsdxDt0b4oFkgAMlr4BbBB
+ vCkw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhCpY/Qjwdlz70wLPub5ewcm6jPBlOH/nV7uQyA+EEss8DS91nRNxvqdT6mYCyinEd1DGcDaKBP04+OgSO6swr38BRf9MITpiNTPjTYIKyl5KLH1NHrtbg
-X-Gm-Message-State: AOJu0Yy0PQz/p9n3/o/IH3XHcWxIl55Y8cHRFsElR3gcVW/R7Pu+peD1
- 2/jRsuO1p/YWJX/imkK7biVSNXHT/MJkBaG5jmRrE4kt9biWMFbuf/Mg45Iuysc=
-X-Google-Smtp-Source: AGHT+IFuG2qd+DzlKsP6QmlNw7cGw4vQwIOF5kCUyHlkAobIrwVs2DCtPwAfbJ5IawKIByi9iNKEWA==
-X-Received: by 2002:a2e:d11:0:b0:2f1:9248:c325 with SMTP id
- 38308e7fff4ca-2f2b717bb9dmr2097961fa.31.1723469664458; 
- Mon, 12 Aug 2024 06:34:24 -0700 (PDT)
+ AJvYcCU90GRoQuq2/L0eUPtMMehFehtqWWShTSB6ThtSjEgsOKrAb29e1tO22dTowNVTskFUn60J0ITURbwysSMkYJG6MRoLaXZDe20j4+8r3zcXhvFmP4/8Cf5c
+X-Gm-Message-State: AOJu0YxynuF6AkYuvVuP928n2s6/nPRehLwH2FQb8U8JotzqRyvcXg5M
+ udQkHBE3uzTMJDOCYwsEYbTyDf9Aa+JeAfe7FeYTSKtRmgUnDqVa6pfG+pl2OL4=
+X-Google-Smtp-Source: AGHT+IF/xqgp3fX5/73q32JxRWI738lXHcWaaxk8rQf5ZvZitjmwwt4tX7txoPGOt9wBMUleQlFSDw==
+X-Received: by 2002:a05:600c:1c82:b0:426:59fe:ac27 with SMTP id
+ 5b1f17b1804b1-429d486efd0mr4284805e9.26.1723469665903; 
+ Mon, 12 Aug 2024 06:34:25 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.215.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429c7737c64sm102733975e9.31.2024.08.12.06.34.22
+ 5b1f17b1804b1-429c7737c64sm102733975e9.31.2024.08.12.06.34.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Aug 2024 06:34:23 -0700 (PDT)
+ Mon, 12 Aug 2024 06:34:25 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Mon, 12 Aug 2024 15:33:57 +0200
+Date: Mon, 12 Aug 2024 15:33:58 +0200
 MIME-Version: 1.0
-Message-Id: <20240812-cleanup-h-of-node-put-memory-v1-3-5065a8f361d2@linaro.org>
+Message-Id: <20240812-cleanup-h-of-node-put-memory-v1-4-5065a8f361d2@linaro.org>
 References: <20240812-cleanup-h-of-node-put-memory-v1-0-5065a8f361d2@linaro.org>
 In-Reply-To: <20240812-cleanup-h-of-node-put-memory-v1-0-5065a8f361d2@linaro.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -72,21 +72,21 @@ To: Krzysztof Kozlowski <krzk@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, 
  Santosh Shilimkar <ssantosh@kernel.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2782;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1886;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=ZuL1arzThZP1bH0X88EKns0i/Pwsb1RnCMJkbCddCK8=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmug9THrzP+A1BH/yeTSMDTHI9G2M6wGjffRCSn
- dlrxuuifPyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZroPUwAKCRDBN2bmhouD
- 188OEACJwoc0GJ4OOrq04S9Eqnai7E1TmoY+QS6g/X4/oh4fUgYz6R5MGupwE7ya/svO86v4gOl
- OLe8SdJZKjvqK76134ROWFAUJfVnt+x5RIg6hxI7LsqUOCxd4+P35lymy4T1T6M1Wm1YD+bzZcT
- b+hJuth2lbekjBDszhBlcuwsLCR+eP4qOP4X60dIIz/DTwLKRIsNKi1ZzceLBcnU3FxO29VYJo7
- gPDrthDsbabgcU/p+jDKZpqlwyVbYPGmOwXrB+qA/6UpNUkSgS3rEBGULDktmxaOWiCVYAf/uxU
- hnIEBvoqeT7dGdF/zxzP4IXa33L8dQ3nEhTktFn/KUFO7KSP0npI9YqxGe2wTq4U1Iu5Vv280pp
- ebL96l+uGfl7yGN0vm3XsrETWTo9jkdwTEC6nNhFbXQbMeZfppqiXSnheVM6pyTepzKzcHhmXOo
- 0BysbLIOGMoxpcppLMfsoaimruRVTEn8PloUDzWjtD16zDFGKzngIrJuXFP0QKUiK7nLK+tFGiT
- kt4gMkJiRZCBIxDLPT2HkMhtyfSZMcKX/sIsKruL/TqdZ2oD4zY3RiNFWtZ9NDMNRI2wQP/yB6X
- Jbg4bT8+JbyRvvxHwF0/F4UaF2Wz9fGUB/XnfSw5mFRgs6GJP2sFYXsymEwhYpm/d8s6rmdQ643
- NIuOrNP6Z8e6AGA==
+ bh=h5GVRyPEyZM7BuYLl+uIGy5XE4aa3GH8V2JRysNGv/A=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmug9UQ2G2MLUWfrT/ljckUzPqu+/Ti/gpvU3bj
+ vLbozfzG9+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZroPVAAKCRDBN2bmhouD
+ 1/h1D/9FBIcRGxE/iNnzoy6kaQiSTt/zZow9zS313YkYxSmkqUcdnFL2JyYULkVMPta7hVQ9v9O
+ bZJQVD0bif8TRwAQp1cB71a4T1IENrkqzP4iwFZ8087G4vZ9NdHeU9aLruLynBs9/U631XugQ9o
+ SFXgY5vliVBY1jbiRMwrIPbvEPecG1O1/TKbCJYd8ZhjkDXln2l1HIVce++fZhyE07IJqPqBnI1
+ 8sUFAOB8Eme5pmhnTfeYVvoJ56i+shfDHmsBeEdwbG2M/iv38XN2rrE5+q79M5epLsDdyQr5doq
+ 0fafsJQocAYUgPZVgrdmnBcjhb9zEKgFVsPdEXvdPU1QW4t1RvSS+RzzrLbus/05ljfhwM5Ot0K
+ Z6DywmDKh3uT+EdqtuVpHhIs6rcfAKyjHyEPg4r++MXTNRVWw1062emp7mAlljObs/Tqllgiu78
+ uP9yE2NcARpF16zI4YXRDne98RDnw4oBeRx5oFD74w1SudLrioM1ouoFicZqJwMjrSAjuhcRb8K
+ +dGLLs8fPAVE+GsBu9pu6z++punmdkhJfIqdCX1VCPrYHcYg0aOPPsaA2MgzrD9+gd5o0lRsQY8
+ BAQtw11HqnTQwABAZ1MS5FtvJDkJelkJxE9hWQZZskoCPIq6vj45Ab7Ud2anz27txnCtpZ3ZNwe
+ CmOBzjUDD19MKwg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
@@ -94,8 +94,8 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/9] memory: samsung: exynos5422-dmc: use
- scoped device node handling to simplify error paths
+Subject: [Linux-stm32] [PATCH 4/9] memory: stm32-fmc2-ebi: simplify with
+ scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,96 +112,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Obtain the device node reference with scoped/cleanup.h to reduce error
-handling and make the code a bit simpler.
+Use scoped for_each_available_child_of_node_scoped() when iterating over
+device nodes to make code a bit simpler.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/memory/samsung/exynos5422-dmc.c | 31 +++++++++++--------------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+ drivers/memory/stm32-fmc2-ebi.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
-index da7ecd921c72..d3ae4d95a3ba 100644
---- a/drivers/memory/samsung/exynos5422-dmc.c
-+++ b/drivers/memory/samsung/exynos5422-dmc.c
-@@ -4,6 +4,7 @@
-  * Author: Lukasz Luba <l.luba@partner.samsung.com>
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/devfreq.h>
- #include <linux/devfreq-event.h>
-@@ -1176,10 +1177,10 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
+diff --git a/drivers/memory/stm32-fmc2-ebi.c b/drivers/memory/stm32-fmc2-ebi.c
+index 1c63eeacd071..7167e1da56d3 100644
+--- a/drivers/memory/stm32-fmc2-ebi.c
++++ b/drivers/memory/stm32-fmc2-ebi.c
+@@ -1573,29 +1573,25 @@ static int stm32_fmc2_ebi_setup_cs(struct stm32_fmc2_ebi *ebi,
+ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
  {
- 	int ret = 0;
- 	int idx;
--	struct device_node *np_ddr;
- 	u32 freq_mhz, clk_period_ps;
+ 	struct device *dev = ebi->dev;
+-	struct device_node *child;
+ 	bool child_found = false;
+ 	u32 bank;
+ 	int ret;
  
--	np_ddr = of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
-+	struct device_node *np_ddr __free(device_node) = of_parse_phandle(dmc->dev->of_node,
-+									  "device-handle", 0);
- 	if (!np_ddr) {
- 		dev_warn(dmc->dev, "could not find 'device-handle' in DT\n");
- 		return -EINVAL;
-@@ -1187,39 +1188,31 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
+-	for_each_available_child_of_node(dev->of_node, child) {
++	for_each_available_child_of_node_scoped(dev->of_node, child) {
+ 		ret = of_property_read_u32(child, "reg", &bank);
+ 		if (ret) {
+ 			dev_err(dev, "could not retrieve reg property: %d\n",
+ 				ret);
+-			of_node_put(child);
+ 			return ret;
+ 		}
  
- 	dmc->timing_row = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
- 					     sizeof(u32), GFP_KERNEL);
--	if (!dmc->timing_row) {
--		ret = -ENOMEM;
--		goto put_node;
--	}
-+	if (!dmc->timing_row)
-+		return -ENOMEM;
+ 		if (bank >= FMC2_MAX_BANKS) {
+ 			dev_err(dev, "invalid reg value: %d\n", bank);
+-			of_node_put(child);
+ 			return -EINVAL;
+ 		}
  
- 	dmc->timing_data = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
- 					      sizeof(u32), GFP_KERNEL);
--	if (!dmc->timing_data) {
--		ret = -ENOMEM;
--		goto put_node;
--	}
-+	if (!dmc->timing_data)
-+		return -ENOMEM;
+ 		if (ebi->bank_assigned & BIT(bank)) {
+ 			dev_err(dev, "bank already assigned: %d\n", bank);
+-			of_node_put(child);
+ 			return -EINVAL;
+ 		}
  
- 	dmc->timing_power = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
- 					       sizeof(u32), GFP_KERNEL);
--	if (!dmc->timing_power) {
--		ret = -ENOMEM;
--		goto put_node;
--	}
-+	if (!dmc->timing_power)
-+		return -ENOMEM;
- 
- 	dmc->timings = of_lpddr3_get_ddr_timings(np_ddr, dmc->dev,
- 						 DDR_TYPE_LPDDR3,
- 						 &dmc->timings_arr_size);
- 	if (!dmc->timings) {
- 		dev_warn(dmc->dev, "could not get timings from DT\n");
--		ret = -EINVAL;
--		goto put_node;
-+		return -EINVAL;
- 	}
- 
- 	dmc->min_tck = of_lpddr3_get_min_tck(np_ddr, dmc->dev);
- 	if (!dmc->min_tck) {
- 		dev_warn(dmc->dev, "could not get tck from DT\n");
--		ret = -EINVAL;
--		goto put_node;
-+		return -EINVAL;
- 	}
- 
- 	/* Sorted array of OPPs with frequency ascending */
-@@ -1239,8 +1232,6 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
- 	dmc->bypass_timing_data = dmc->timing_data[idx - 1];
- 	dmc->bypass_timing_power = dmc->timing_power[idx - 1];
- 
--put_node:
--	of_node_put(np_ddr);
- 	return ret;
- }
- 
+@@ -1603,7 +1599,6 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+ 			ret = ebi->data->check_rif(ebi, bank + 1);
+ 			if (ret) {
+ 				dev_err(dev, "bank access failed: %d\n", bank);
+-				of_node_put(child);
+ 				return ret;
+ 			}
+ 		}
+@@ -1613,7 +1608,6 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+ 			if (ret) {
+ 				dev_err(dev, "setup chip select %d failed: %d\n",
+ 					bank, ret);
+-				of_node_put(child);
+ 				return ret;
+ 			}
+ 		}
 
 -- 
 2.43.0
