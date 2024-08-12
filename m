@@ -2,77 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 768F594F536
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 18:48:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1227E94F806
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2024 22:15:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 284E8C6DD72;
-	Mon, 12 Aug 2024 16:48:48 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABFBEC71290;
+	Mon, 12 Aug 2024 20:15:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92FECC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB2C3C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2024 16:48:40 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2f15dd0b489so58923171fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2024 09:48:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723481320; x=1724086120;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=d0Mc13VmIzmDkfrvk6qFfmda4hNl8iLGAAY/xH4Lu4s=;
- b=Shl3TFS+wuO+577zF9ELfALnXJ4CNiNqPRHh+Isi4otAW+xL15sbvc5aOFx7omdjdJ
- 9WcYy/fWk2Pwyfgt37CVypxqBmnKUX4Vq4wmoHZV3TuCJ4o9PbslkV00UmT+J2Q9nyDl
- 7BPMlbdCxZQwV+ucor+ktcHf9tdMG95C3kj/tuTa5tashsFJXpIE9+F2dqbvmHFLUrH9
- BXk1LiTD17C+gvFEj3WSGbigrGXG7BcBBSxvIWH78k1LcP3XMNL1Hglj6o7SiIjeizX5
- 1/J4vEGVtpPGgTyEkUlcJi1sz/R/xxgdCewBD9mkYDQihVGRe759FQkYG+HdkbNevQES
- 59Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723481320; x=1724086120;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d0Mc13VmIzmDkfrvk6qFfmda4hNl8iLGAAY/xH4Lu4s=;
- b=DRxur9rAx6mvbN3xvvyy1AFI7QFQMu74InmX36veKQyQKfx0A+vXM8a84A2ReDlKOe
- oTpTkwwQ2MroIxdH4pbG2Cy1/nhG7yJIJtmnB4JQbkwC6GJEQLmI9d/84Mu6sBetRJAJ
- UrEbI9IjhQyk9BmObEprv3c2EOwtq1UyEdOE3tDBJOSH3y+R1ZqPTF3NoB8Vyb8h8Bd4
- 3+IepGhnPuz5hw1AThsfkLUkdDx0Yc+Ice2wwpCDBM4hFDoCNMtFIffDtCxQ3Wnfnk6X
- 4jykelo9QgsdNzV+/zuvXYW/R28gQab9hahewCJ7ma3mHyTuvjDBpMSt2yeaIfxo5vfL
- qnMQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqXOV3Mwn8jkVfhXbrH2wpyAIDb2XOsjHUe03Oyl0o8wKsQKJJFnrbcKoG0DXAH7v47J+99atXmsC7FxT5Ml3iU837kJsnbU218bsviPr2qKkuXwDvylKI
-X-Gm-Message-State: AOJu0YztnjQ7l589qQEh7gFKmFFiNLUfAiCYA7z7yq8BntkBRdwzlhZX
- zuJSBekIx8X5EOPVts3pTh13hdVm+L5yNaLOlXaxBlab0y9UbnoR
-X-Google-Smtp-Source: AGHT+IEICykI0/E1vi+tUfDtsUozOTdpRc0zNaRVqt1sAvFqECffwJNfcDvjzrD9yXF+YFsjMTJWoQ==
-X-Received: by 2002:a2e:701:0:b0:2ef:2a2a:aaa1 with SMTP id
- 38308e7fff4ca-2f2b715a77fmr5687541fa.29.1723481319281; 
- Mon, 12 Aug 2024 09:48:39 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f291ddb5e9sm8942461fa.6.2024.08.12.09.48.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Aug 2024 09:48:38 -0700 (PDT)
-Date: Mon, 12 Aug 2024 19:48:34 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <tcneleue5kvsn4ygf2mrrt6gpz5f47zz6sp2wveav5wr5glbhi@7thgrb44kt3m>
-References: <20240809192150.32756-1-fancer.lancer@gmail.com>
- <32bevr5jxmmm3ynnj3idpk3wdyaddoynyb7hv5tro3n7tsswwd@bbly52u3mzmn>
+ Mon, 12 Aug 2024 20:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1723493721; x=1755029721;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ea+QujSB7dC9as46er5ru4Cjk2Gq/erzLIw6YWe9sBQ=;
+ b=izD2/8TtFutj4xnQJkYylXaUzPDZPpdEggD7mm8ldRcHTATSaNOiXLIi
+ /IpGongaok2gNe6TQi9QBkcMpPTL4peej7itFY3PBAhTVJaqH0p+xZGaX
+ +PjYx2GCSLOAp483/OVzW9722MsYIGrenbTLkqEWuD0BWaKY7q5RT+VhW
+ EcsSBPdOejERjb96Azjqots2EkNpQcpSwVsLlPA3UinPGwyLg1CW9w+it
+ OQ3SHf4CFQpeftnh4ClBAh4eZddVloztjKwO5ukaQ4ZCEkG6GH50sfRAs
+ noHqcUrcTB4jYJsgIIP5VAFXjpkhoucQciXqRHWT8v25iKVogESrPXM1q w==;
+X-CSE-ConnectionGUID: JfWS4RXXRpqzln9JfyufhQ==
+X-CSE-MsgGUID: nqaeXuYVRUaFbMI0BwQqvw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="21483813"
+X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="21483813"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 13:15:10 -0700
+X-CSE-ConnectionGUID: Uq4bWhzORUWV+Dk3EjioHQ==
+X-CSE-MsgGUID: Ru7RfX0GTv2W59MNzPhuxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,284,1716274800"; d="scan'208";a="62781081"
+Received: from unknown (HELO b6bf6c95bbab) ([10.239.97.151])
+ by fmviesa005.fm.intel.com with ESMTP; 12 Aug 2024 13:15:06 -0700
+Received: from kbuild by b6bf6c95bbab with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1sdbRX-000C8r-32;
+ Mon, 12 Aug 2024 20:15:03 +0000
+Date: Tue, 13 Aug 2024 04:14:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, p.zabel@pengutronix.de
+Message-ID: <202408130307.IK7U1H7o-lkp@intel.com>
+References: <20240812120529.3564390-4-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <32bevr5jxmmm3ynnj3idpk3wdyaddoynyb7hv5tro3n7tsswwd@bbly52u3mzmn>
-Cc: Alexei Starovoitov <ast@kernel.org>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fix false "invalid port
-	speed" warning
+In-Reply-To: <20240812120529.3564390-4-christian.bruel@foss.st.com>
+Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
+ oe-kbuild-all@lists.linux.dev, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/5] phy: stm32: Add support for STM32MP25
+	COMBOPHY.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,230 +74,182 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew
+Hi Christian,
 
-On Fri, Aug 09, 2024 at 03:41:04PM -0500, Andrew Halaney wrote:
-> On Fri, Aug 09, 2024 at 10:21:39PM GMT, Serge Semin wrote:
-> > If the internal SGMII/TBI/RTBI PCS is available in a DW GMAC or DW QoS Eth
-> > instance and there is no "snps,ps-speed" property specified (or the
-> > plat_stmmacenet_data::mac_port_sel_speed field is left zero), then the
-> > next warning will be printed to the system log:
-> > 
-> > > [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
-> > 
-> > By the original intention the "snps,ps-speed" property was supposed to be
-> > utilized on the platforms with the MAC2MAC link setup to fix the link
-> > speed with the specified value. But since it's possible to have a device
-> > with the DW *MAC with the SGMII/TBI/RTBI interface attached to a PHY, then
-> > the property is actually optional (which is also confirmed by the DW MAC
-> > DT-bindings). Thus it's absolutely normal to have the
-> > plat_stmmacenet_data::mac_port_sel_speed field zero initialized indicating
-> > that there is no need in the MAC-speed fixing and the denoted warning is
-> > false.
-> 
+kernel test robot noticed the following build errors:
 
-> Can you help me understand what snps,ps-speed actually does? Its turned
-> into a bool and pushed down into srgmi_ral right now:
-> 
-> 	/**
-> 	 * dwmac_ctrl_ane - To program the AN Control Register.
-> 	 * @ioaddr: IO registers pointer
-> 	 * @reg: Base address of the AN Control Register.
-> 	 * @ane: to enable the auto-negotiation
-> 	 * @srgmi_ral: to manage MAC-2-MAC SGMII connections.
-> 	 * @loopback: to cause the PHY to loopback tx data into rx path.
-> 	 * Description: this is the main function to configure the AN control register
-> 	 * and init the ANE, select loopback (usually for debugging purpose) and
-> 	 * configure SGMII RAL.
-> 	 */
-> 	static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
-> 					  bool srgmi_ral, bool loopback)
-> 	{
-> 		u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
-> 
-> 		/* Enable and restart the Auto-Negotiation */
-> 		if (ane)
-> 			value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-> 		else
-> 			value &= ~GMAC_AN_CTRL_ANE;
-> 
-> 		/* In case of MAC-2-MAC connection, block is configured to operate
-> 		 * according to MAC conf register.
-> 		 */
-> 		if (srgmi_ral)
-> 			value |= GMAC_AN_CTRL_SGMRAL;
-> 
-> 		if (loopback)
-> 			value |= GMAC_AN_CTRL_ELE;
-> 
-> 		writel(value, ioaddr + GMAC_AN_CTRL(reg));
-> 	}
-> 
-> 
+[auto build test ERROR on atorgue-stm32/stm32-next]
+[also build test ERROR on robh/for-next linus/master v6.11-rc3 next-20240812]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-In addition to the method above there are three more places related to
-the SGMRAL flag (SGMII Rate Adaptation Layer Control flag) setting up:
+url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Bruel/MAINTAINERS-add-entry-for-ST-STM32MP25-COMBOPHY-driver/20240812-201003
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20240812120529.3564390-4-christian.bruel%40foss.st.com
+patch subject: [PATCH 3/5] phy: stm32: Add support for STM32MP25 COMBOPHY.
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20240813/202408130307.IK7U1H7o-lkp@intel.com/config)
+compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project f86594788ce93b696675c94f54016d27a6c21d18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240813/202408130307.IK7U1H7o-lkp@intel.com/reproduce)
 
-2. drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-stmmac_probe_config_dt():
-  of_property_read_u32(np, "snps,ps-speed", &plat->mac_port_sel_speed);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408130307.IK7U1H7o-lkp@intel.com/
 
-Description: Retrieve the fixed speed of the MAC-2-MAC SGMII
-connection from DT-file.
+All errors (new ones prefixed by >>):
 
-3. drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:
-stmmac_hw_setup():
-   if (priv->hw->pcs) {
-	int speed = priv->plat->mac_port_sel_speed;
-
-	if ((speed == SPEED_10) || (speed == SPEED_100) ||
-	    (speed == SPEED_1000)) {
-		priv->hw->ps = speed;
-	} else {
-		dev_warn(priv->device, "invalid port speed\n");
-		priv->hw->ps = 0;
-	}
-   }
-
-Description: Parse the speed specified via the "snps,ps-speed"
-property to make sure it's of one of the permitted values. Note it's
-executed only if the priv->hw->pcs flag is set which due to the
-current stmmac_check_pcs_mode() implementation is only possible if
-the DW GMAC/QoS Eth supports the SGMII PHY interface.
-
-4. drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c:
-   drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c:
-   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:
-dwmac*_core_init():
-   if (hw->ps) {
-	value |= GMAC_CONTROL_TE;
-
-	value &= ~hw->link.speed_mask;
-	switch (hw->ps) {
-	case SPEED_1000:
-		value |= hw->link.speed1000;
-		break;
-	case SPEED_100:
-		value |= hw->link.speed100;
-		break;
-	case SPEED_10:
-		value |= hw->link.speed10;
-		break;
-	}
-   }
-
-Description: Pre-initialize the MAC speed with the value retrieved from
-the "snps,ps-speed" property. The speed is then fixed in the SGMII
-Rate adaptation Layer by setting up the SGMIRAL flag performed in the
-dwmac_ctrl_ane() method you cited. 
-Note the same register fields (MAC_CONTROL.{PS,FES}) are touched in
-the stmmac_mac_link_up() method in the framework of the MAC-link up
-procedure (phylink_mac_ops::mac_link_up). But AFAICS the procedure is
-done too late, and after the SGMIRAL flag is set in the framework of
-the stmmac_open()->stmmac_hw_setup()->dwmac_ctrl_ane() call. That's
-probably why the MAC2MAC mode developer needed the speed being
-pre-initialized earlier in the dwmac*_core_init() functions.
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:26:
+   In file included from include/linux/kernel_stat.h:9:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:548:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     548 |         val = __raw_readb(PCI_IOBASE + addr);
+         |                           ~~~~~~~~~~ ^
+   include/asm-generic/io.h:561:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     561 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:26:
+   In file included from include/linux/kernel_stat.h:9:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:574:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     574 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
+      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
+         |                                                   ^
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:26:
+   In file included from include/linux/kernel_stat.h:9:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:585:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     585 |         __raw_writeb(value, PCI_IOBASE + addr);
+         |                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:595:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     595 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:605:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     605 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:21:
+   In file included from include/linux/mm.h:2253:
+   include/linux/vmstat.h:514:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     514 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+>> drivers/phy/st/phy-stm32-combophy.c:134:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     134 |                                    FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
+         |                                    ^
+>> drivers/phy/st/phy-stm32-combophy.c:137:12: error: call to undeclared function 'FIELD_GET'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     137 |                 imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
+         |                          ^
+   drivers/phy/st/phy-stm32-combophy.c:155:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     155 |                                    FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
+         |                                    ^
+   7 warnings and 3 errors generated.
 
 
-To sum up the MAC-2-MAC mode implementation can be described as
-follows:
-1. The platform firmware defines the fixed link speed by means of the
-"snps,ps-speed" property (or by pre-initializing the
-plat_stmmacenet_data::mac_port_sel_speed field in the glue driver).
-2. If the SGMII PHY interface is supported by the DW GMAC/QoS Eth
-controller, the speed will be fixed right at the network interface
-open() procedure execution by subsequently calling the
-stmmac_core_init() and stmmac_pcs_ctrl_ane() methods.
+vim +/FIELD_PREP +134 drivers/phy/st/phy-stm32-combophy.c
 
-Please note I can't immediately tell of how that functionality gets to
-live with the phylink-based link setup procedure, in the framework of
-which the link speed is also setup in stmmac_mac_link_up(). Alas I
-don't have any SGMII-based device to test it out. But I guess that it
-lives well until the pre-initialized in the "snps,ps-speed"
-speed matches to the speed negotiated between the connected PHYs. If
-the speeds don't match, then I can't tell for sure what would happen
-without a hardware at hands.
+   107	
+   108	static int stm32_impedance_tune(struct stm32_combophy *combophy)
+   109	{
+   110		u8 imp_size = ARRAY_SIZE(imp_lookup);
+   111		u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
+   112		u8 imp_of, vswing_of;
+   113		u32 max_imp = imp_lookup[0].microohm;
+   114		u32 min_imp = imp_lookup[imp_size - 1].microohm;
+   115		u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
+   116		u32 min_vswing = imp_lookup[0].vswing[0];
+   117		u32 val;
+   118	
+   119		if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
+   120			if (val < min_imp || val > max_imp) {
+   121				dev_err(combophy->dev, "Invalid value %u for output ohm\n", val);
+   122				return -EINVAL;
+   123			}
+   124	
+   125			for (imp_of = 0 ; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
+   126				if (imp_lookup[imp_of].microohm <= val)
+   127					break;
+   128	
+   129			dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
+   130				imp_lookup[imp_of].microohm);
+   131	
+   132			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+   133					   STM32MP25_PCIEPRG_IMPCTRL_OHM,
+ > 134					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
+   135		} else {
+   136			regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
+ > 137			imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
+   138		}
+   139	
+   140		if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
+   141			if (val < min_vswing || val > max_vswing) {
+   142				dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
+   143				return -EINVAL;
+   144			}
+   145	
+   146			for (vswing_of = 0 ; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
+   147				if (imp_lookup[imp_of].vswing[vswing_of] >= val)
+   148					break;
+   149	
+   150			dev_dbg(combophy->dev, "Set %u microvolt swing\n",
+   151				 imp_lookup[imp_of].vswing[vswing_of]);
+   152	
+   153			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+   154					   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
+   155					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
+   156		}
+   157	
+   158		return 0;
+   159	}
+   160	
 
-> What is that bit doing exactly?
-
-Here is what the DW MAC databook says about the bit:
-
-"SGMII RAL Control
-
-When set, this bit forces the SGMII RAL block to operate in the speed
-configured in the MAC Configuration register's Speed and Port Select
-bits. This is useful when the SGMII interface is used in a direct
-MAC-MAC connection (without a PHY) and any MAC must reconfigure the
-speed.
-
-When reset, the SGMII RAL block operates according to the link speed
-status received on the SGMII (from the PHY)."
-
-Shortly speaking the flag enables the SGMII Rate adaptation layer
-(SGMII RAL) to stop selecting the speed based on the info retrieved
-from the PHY and instead to fix the speed with the value specified in
-the MAC_CTRL_REG register.
-
-> The only user upstream I see is
-> sa8775p-ride variants, but they're all using a phy right now (not
-> fixed-link aka MAC2MAC iiuc)... so I should probably remove it from
-> there too.
-
-Right, there is only a single user of that property in the kernel. But
-I don't know what was the actual reason of having the "snps,ps-speed"
-specified in that case. From one side it seems contradicting to the
-original MAC-2-MAC semantics since the phy-handle property is also
-specified in the ethernet controller DT-node, but from another side it
-might have been caused by some HW-related problem so there was a need
-to fix the speed. It would be better to ask Bartosz Golaszewski about
-that since it was him who submitted the patch adding the sa8775p-ride
-Ethernet DT-nodes.
-
-> 
-
-> I feel like that property really (if I'm following right) should be just
-> taken from a proper fixed-link devicetree description? i.e. we already
-> specify a speed in that case. Maybe this predates that (or reinvents it)
-> and should be marked as deprecated in the dt-bindings.
-
-Exactly my thoughts of the way it should have been implemented in the
-first place. The fixed-linked semantics was exactly suitable for the
-MAC-2-MAC HW-setup since both of them implies the link-speed being
-fixed to a single value with no PHY-node required.
-
-Note if the respective code conversion is planned to be done then I
-guess it would be better to do after the Russell' series
-https://lore.kernel.org/netdev/ZrCoQZKo74zvKMhT@shell.armlinux.org.uk/
-is merged in, since the changes are related.
-
-> 
-> But I'm struggling to understand what the bit is really doing based
-> on the original commit that added it, so I don't know if my logic is
-> solid. i.e., what's different in the phy case vs mac2mac with this
-> particular bit?
-
-Please see my notes above for more details about the SGMRAL bit
-semantics. Shortly speaking The difference is basically in the way the
-link-speed is established:
-- If the SGMRAL bit is set the MAC' SGMII RAL will operate with the
-  speed specified in the Speed and Port Select bits of the
-  MAC_CTRL_REG register.
-- If the SGMRAL bit is reset the SGMII RAL will operate according to
-  the link speed status received on SGMII (from the PHY).
-
-> 
-> Thanks for your never ending patience about my questions wrt the
-> hardware and this driver.
-
-Always welcome. I'm glad to be helpful, especially after I myself
-have spent endless time deciphering down the STMMAC' driver guts and
-studying the hardware design of the Synopsys Ethernet MACs.
-
--Serge(y)
-
-> 
-> - Andrew
-> 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
