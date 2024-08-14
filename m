@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37402952196
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 19:56:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A5495219B
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 19:57:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBA10C71290;
-	Wed, 14 Aug 2024 17:56:50 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED145C71290;
+	Wed, 14 Aug 2024 17:57:22 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67DB0C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E5CDC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 17:56:43 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4280ee5f1e3so537075e9.0
+ Wed, 14 Aug 2024 17:57:21 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-371845c66d9so89968f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 10:56:43 -0700 (PDT)
+ Wed, 14 Aug 2024 10:57:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723658203; x=1724263003;
+ d=linaro.org; s=google; t=1723658241; x=1724263041;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=nGAlIu8HRdwci3BUYdRQApMszL3LHUSsEB5CKbPjVuA=;
- b=Oy8Tzr7Ch9OR4F2s99KRUr7VtTUM4rjAaFes32QdaKrLzrqxToW09G9m/cgH0BYfhM
- n2elqEBA4iNlDZ6kOEWaxj+cQGy+yZEeEOr4hX0fc49mmUz3E9lapfMkydO8Pg5UGa4j
- woAMgxyIY1JBxQQN5DFeidVIPiDzKEOz6aVR3oy3BalcUKcUZelFTi3pHRkwtqkZF1QR
- fDHitXwx9K3XR3CFU/TX8vnDcEpkLZByC9p/ebVyh+Mfv5kIXI6Ii73EeBLTm0LcN6QD
- idJR6zIK6byqX00ZSeSpvGCXufrs348hEjftcjdPJCRZqdi3C1OHK/MxigZybRX1o8F1
- ll3w==
+ bh=HnUwdGhfSZGHxuMeMqzleyP++rz6g7MwzjmvPDN+MAg=;
+ b=VRWFIN+0jj7zoZqxd0CTBpK6XMQghiePP0MK5BHVOI0v1A63L4ziiZlSCwPlPCamFx
+ 7K5LIX4drfLUOVcJhf36Vafhc+r6+sEYMbNjBFpZtuX7DljQPR1bIV09C2iKAs06bdZM
+ /kvh3z6n1SFl00O4vUGJ2b21T7HhjFehMIC+cxabZJu3k4j77nH9rX1237xGuRa2B55d
+ bDWmGmDh2b1W6brjn5txTRt5wreFheRsoyFNQqbpER8B3D9uupeNEsfIE3ieidhHdYL7
+ 3itXF+XZF7XhcubjjLsbW/gtRuZ0kN+bOwssWkkeJDlDdJ2qI9IakAfsdVG+fBkWOFHu
+ 3vQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723658203; x=1724263003;
+ d=1e100.net; s=20230601; t=1723658241; x=1724263041;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=nGAlIu8HRdwci3BUYdRQApMszL3LHUSsEB5CKbPjVuA=;
- b=dVVVHczvld9Cf4fXUOBRlZi1UwngRwt0F99fdHL16ZR6unOFgl+hxuPy76RY4Rv6lT
- Z82uzKL7r0nBBZiiQU8Q5i2T+ChJuKE06k35TQiEtPQv+st+c2GwTXsbEz+fIwVTGk3W
- Lo8hRbNFMUhkd1P9La1d7rC5iil4wPvcEkG2pEekFEgQM24k6WuapGqrsnsZ5mD9yU4r
- yVi2qV8pEz6giC6OolKFeei6ebabXwU8fuF9aEFBRrJ/qd8wpnnjItnDKlBvtVDPu+3p
- WMjAVw7OPtUZESzfYRPVNCQncjSESe8N1oPVaQi8I+QToMuMBP5M6FmWFnDjdDWX7xxg
- EQcw==
+ bh=HnUwdGhfSZGHxuMeMqzleyP++rz6g7MwzjmvPDN+MAg=;
+ b=eF+JydfgWtcn1n2cJK2WrLG871VpPXnp6VnA/Jagxx8K8qw5H43bYwuQY/JMWJIk1z
+ Zhr/HADCAmYJ12ETwq4qMG2fZeqgKMRwQ6byJvMdDJKM/alxwm/3REl5dAk6GY8zUPuu
+ Av08zpli0YtCZUEUaATiKAglWMmq/1JI6Jk8bQ6KvX90343qINycIGt1R4NrKddlY8DR
+ u+CmPshA3iLBCjw7vQtVi+EAWd6ixbvfTkPN9TiswTwENuuNaUhGQTt6puyRuVaw0yka
+ 3nruK32zZ/Nh9Qq4k+p9RiUqkBd3YMCDAQWybDRnWKxZjNQDQKU2BGaaOoBAiagHZPEt
+ LtPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX+PsVqlheIR8UXOcfBXOJ/w++3f5GmCSDG9E8wohFDuaDvvZB+sLzE8PI5knXLviPWvVXH+smRSIZ5plq71Nyd+wDD4GaUFd/zdSbtIA/UgOs/gad0ZBTC
-X-Gm-Message-State: AOJu0Yw2B3IDwCmDiRzTUVed8KaNiUCSeVM9oOap5liEjfIuJEZM9TIw
- +zuhnd5zcB1GQ0+EXRh7BifyCTj1FlwZdXJnyO4gxfXkqeRv2pLlpBYjB++HgGw=
-X-Google-Smtp-Source: AGHT+IHy7MlPKBiE3muUasS7PsbtV4vMEkDoQV8kAmuJW+tCODVoKU4QrStZeUKOymcCcAV8ND7NZw==
-X-Received: by 2002:a05:600c:1f87:b0:428:1e8c:ff75 with SMTP id
- 5b1f17b1804b1-429dd268f26mr25564275e9.35.1723658202684; 
- Wed, 14 Aug 2024 10:56:42 -0700 (PDT)
+ AJvYcCVgoHhDCWUI3gGLqB9yk7NlwMqtkvptMzWX0Rb0NLguNxZR8y4YcMghG/eltTUpqDostv0h9pmORNXEQD7HHdVsYB5fkXOz64fkIJuBmEZlyXFku7qfDJpx
+X-Gm-Message-State: AOJu0YzW5yS+9s/VsFgcWDrsOrv8sPx/P68Ug06V/Ini93mx1DSwqkQI
+ XGIq4v5TOM/LkFzapentJxpBbX8n0tXYnSorY8lPU07lxuimkbWm61WVdVVgVLg=
+X-Google-Smtp-Source: AGHT+IGohuyYGGk60HZbxQ/ROWUPTaq5Wi5UopTp8W5NYw+7mjHHwwWxgpEiJsSVNDzahS1qQVmMhQ==
+X-Received: by 2002:a5d:4850:0:b0:369:b7e3:497c with SMTP id
+ ffacd0b85a97d-3717775fb8fmr2431134f8f.1.1723658240825; 
+ Wed, 14 Aug 2024 10:57:20 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.215.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ded4de91sm27151585e9.34.2024.08.14.10.56.40
+ ffacd0b85a97d-3717314e38bsm4654498f8f.97.2024.08.14.10.57.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 10:56:42 -0700 (PDT)
-Message-ID: <0ad7c0a5-67d5-4a28-ba0c-76e7b96d1a81@linaro.org>
-Date: Wed, 14 Aug 2024 19:56:39 +0200
+ Wed, 14 Aug 2024 10:57:20 -0700 (PDT)
+Message-ID: <768894bb-a12a-4919-9b4d-b579c153a556@linaro.org>
+Date: Wed, 14 Aug 2024 19:57:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 References: <20240812-cleanup-h-of-node-put-memory-v1-0-5065a8f361d2@linaro.org>
- <20240812-cleanup-h-of-node-put-memory-v1-1-5065a8f361d2@linaro.org>
- <20240814173834.000002c8@Huawei.com>
+ <20240812-cleanup-h-of-node-put-memory-v1-3-5065a8f361d2@linaro.org>
+ <20240814174246.00007e4e@Huawei.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -111,7 +111,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240814173834.000002c8@Huawei.com>
+In-Reply-To: <20240814174246.00007e4e@Huawei.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-samsung-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -123,8 +123,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
  Jonathan Hunter <jonathanh@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com, Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 1/9] memory: atmel-ebi: use scoped device
- node handling to simplify error paths
+Subject: Re: [Linux-stm32] [PATCH 3/9] memory: samsung: exynos5422-dmc: use
+ scoped device node handling to simplify error paths
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,107 +141,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 14/08/2024 18:38, Jonathan Cameron wrote:
-> On Mon, 12 Aug 2024 15:33:55 +0200
+On 14/08/2024 18:42, Jonathan Cameron wrote:
+> On Mon, 12 Aug 2024 15:33:57 +0200
 > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 > 
 >> Obtain the device node reference with scoped/cleanup.h to reduce error
 >> handling and make the code a bit simpler.
 >>
 >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Trivial comments inline
+> Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 > 
-> Hi,
-> 
-> Comments inline.
 >> ---
->>  drivers/memory/atmel-ebi.c | 29 ++++++++++-------------------
->>  1 file changed, 10 insertions(+), 19 deletions(-)
+>>  drivers/memory/samsung/exynos5422-dmc.c | 31 +++++++++++--------------------
+>>  1 file changed, 11 insertions(+), 20 deletions(-)
 >>
->> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
->> index e8bb5f37f5cb..fcbfc2655d8d 100644
->> --- a/drivers/memory/atmel-ebi.c
->> +++ b/drivers/memory/atmel-ebi.c
->> @@ -6,6 +6,7 @@
->>   * Copyright (C) 2013 Jean-Jacques Hiblot <jjhiblot@traphandler.com>
+>> diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
+>> index da7ecd921c72..d3ae4d95a3ba 100644
+>> --- a/drivers/memory/samsung/exynos5422-dmc.c
+>> +++ b/drivers/memory/samsung/exynos5422-dmc.c
+>> @@ -4,6 +4,7 @@
+>>   * Author: Lukasz Luba <l.luba@partner.samsung.com>
 >>   */
 >>  
 >> +#include <linux/cleanup.h>
 >>  #include <linux/clk.h>
->>  #include <linux/io.h>
->>  #include <linux/mfd/syscon.h>
->> @@ -517,7 +518,7 @@ static int atmel_ebi_dev_disable(struct atmel_ebi *ebi, struct device_node *np)
->>  static int atmel_ebi_probe(struct platform_device *pdev)
+>>  #include <linux/devfreq.h>
+>>  #include <linux/devfreq-event.h>
+>> @@ -1176,10 +1177,10 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
 >>  {
->>  	struct device *dev = &pdev->dev;
->> -	struct device_node *child, *np = dev->of_node, *smc_np;
->> +	struct device_node *child, *np = dev->of_node;
->>  	struct atmel_ebi *ebi;
->>  	int ret, reg_cells;
->>  	struct clk *clk;
->> @@ -541,30 +542,24 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->>  
->>  	ebi->clk = clk;
->>  
->> -	smc_np = of_parse_phandle(dev->of_node, "atmel,smc", 0);
->> +	struct device_node *smc_np __free(device_node) = of_parse_phandle(dev->of_node,
->> +									  "atmel,smc", 0);
-> Trivial:
-> I'd line break this as
->> +	struct device_node *smc_np __free(device_node) =
-> 		of_parse_phandle(dev->of_node, "atmel,smc", 0);
+>>  	int ret = 0;
+>>  	int idx;
+>> -	struct device_node *np_ddr;
+> 
+> This would definitely benefit from a
+> struct device *dev = dmc->dev;
 
-Yeah, I have troubles with this constructor+destructor syntaxes. They
-are way past 80 and 100 column, so maybe indeed should be wrapped at '='.
+True, I'll do it in separate patch.
 
 > 
+>>  	u32 freq_mhz, clk_period_ps;
 >>  
->>  	ebi->smc.regmap = syscon_node_to_regmap(smc_np);
->> -	if (IS_ERR(ebi->smc.regmap)) {
->> -		ret = PTR_ERR(ebi->smc.regmap);
->> -		goto put_node;
->> -	}
->> +	if (IS_ERR(ebi->smc.regmap))
->> +		return PTR_ERR(ebi->smc.regmap);
->>  
->>  	ebi->smc.layout = atmel_hsmc_get_reg_layout(smc_np);
->> -	if (IS_ERR(ebi->smc.layout)) {
->> -		ret = PTR_ERR(ebi->smc.layout);
->> -		goto put_node;
->> -	}
->> +	if (IS_ERR(ebi->smc.layout))
->> +		return PTR_ERR(ebi->smc.layout);
->>  
->>  	ebi->smc.clk = of_clk_get(smc_np, 0);
->>  	if (IS_ERR(ebi->smc.clk)) {
->> -		if (PTR_ERR(ebi->smc.clk) != -ENOENT) {
->> -			ret = PTR_ERR(ebi->smc.clk);
->> -			goto put_node;
->> -		}
->> +		if (PTR_ERR(ebi->smc.clk) != -ENOENT)
->> +			return PTR_ERR(ebi->smc.clk);
->>  
->>  		ebi->smc.clk = NULL;
->>  	}
->> -	of_node_put(smc_np);
-> 
-> The large change in scope is a bit inelegant as it now hangs on to
-> the smc_np much longer than before.
-> 
-> Maybe it's worth pulling out the modified code as a 
-> atem_eb_probe_smc(struct device_node *smc_np, struct atmel_ebi_smc *smc )
-> 
-> or something like with a struct_group to define the atmel_ebi_smc
-> 
-> That would keep the tight scope for the data and generally simplify it
-> a bit.
+>> -	np_ddr = of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
+>> +	struct device_node *np_ddr __free(device_node) = of_parse_phandle(dmc->dev->of_node,
+>> +									  "device-handle", 0);
+> Trivial. Maybe consider the wrap suggested in patch 1.
+>> +	struct device_node *np_ddr __free(device_node) =
+> 		of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
+
+Ack.
 
 
-Are you speaking about any particular code optimization/performance
-concerns or readability? Because scope in the latter, I believe, is not
-the problem here. The entire point of __free() is that you do not care
-about scope of variable or destructor. You know it will be freed, sooner
-or later. If it happens later - no problem, anyway we don't have to
-"think" about this variable or cleaning up because of __free().
 
 Best regards,
 Krzysztof
