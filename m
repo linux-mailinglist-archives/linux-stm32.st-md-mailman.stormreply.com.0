@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D074952074
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 18:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286FE95207A
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 18:52:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7188C71289;
-	Wed, 14 Aug 2024 16:51:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4F77C71289;
+	Wed, 14 Aug 2024 16:52:13 +0000 (UTC)
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63B51CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74FE7CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 16:51:30 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.18.186.216])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4WkZ25050Jz6K6H6;
- Thu, 15 Aug 2024 00:48:13 +0800 (CST)
+ Wed, 14 Aug 2024 16:52:06 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.18.186.31])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4WkZ3B2Dlxz6K9C8;
+ Thu, 15 Aug 2024 00:49:10 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (unknown [7.191.163.240])
- by mail.maildlp.com (Postfix) with ESMTPS id 96D63140A90;
- Thu, 15 Aug 2024 00:51:29 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 9DCAA1400CD;
+ Thu, 15 Aug 2024 00:52:05 +0800 (CST)
 Received: from localhost (10.203.177.66) by lhrpeml500005.china.huawei.com
  (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Wed, 14 Aug
- 2024 17:51:28 +0100
-Date: Wed, 14 Aug 2024 17:51:27 +0100
+ 2024 17:52:05 +0100
+Date: Wed, 14 Aug 2024 17:52:04 +0100
 From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20240814175127.0000595b@Huawei.com>
-In-Reply-To: <20240812-cleanup-h-of-node-put-memory-v1-6-5065a8f361d2@linaro.org>
+Message-ID: <20240814175204.000054b6@Huawei.com>
+In-Reply-To: <20240812-cleanup-h-of-node-put-memory-v1-7-5065a8f361d2@linaro.org>
 References: <20240812-cleanup-h-of-node-put-memory-v1-0-5065a8f361d2@linaro.org>
- <20240812-cleanup-h-of-node-put-memory-v1-6-5065a8f361d2@linaro.org>
+ <20240812-cleanup-h-of-node-put-memory-v1-7-5065a8f361d2@linaro.org>
 Organization: Huawei Technologies Research and Development (UK) Ltd.
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
@@ -48,7 +48,7 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
  Jonathan Hunter <jonathanh@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com, Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 6/9] memory: tegra124-emc: simplify with
+Subject: Re: [Linux-stm32] [PATCH 7/9] memory: tegra20-emc: simplify with
  scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -66,7 +66,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 12 Aug 2024 15:34:00 +0200
+On Mon, 12 Aug 2024 15:34:01 +0200
 Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 
 > Use scoped for_each_child_of_node_scoped() when iterating over device
