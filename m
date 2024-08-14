@@ -2,84 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A804195115E
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 03:05:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6477951796
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 11:25:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47E73C6DD66;
-	Wed, 14 Aug 2024 01:05:51 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8533DC5E2CD
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D95AC6DD9A;
+	Wed, 14 Aug 2024 09:25:03 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2139.outbound.protection.partner.outlook.cn [139.219.17.139])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6B96C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 01:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1723597542;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YkRhfAskJxHibVQ1Z2AjBj3U9TOqwYe1BypQBib3gVo=;
- b=e+D8nxAJPRCDCEiG1jQ4+zrM1zcupRGghNGS/hkPtBMacWb2GF9tXY9vLYV7zAnK+J9IOz
- fRpT5jzT9St7LxNf1mbr52RsaJbTl/4GdqrlG192Xr8+MtWrFMuOtj1K8ASWi4Pd9l71ud
- UMSvpEyfQe0CPkpz5IIft5A33HEKapc=
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-613-cUwTJMyAMzWLJGsWDiabUA-1; Tue, 13 Aug 2024 21:05:40 -0400
-X-MC-Unique: cUwTJMyAMzWLJGsWDiabUA-1
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-7092fa59271so5709645a34.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Aug 2024 18:05:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723597540; x=1724202340;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YkRhfAskJxHibVQ1Z2AjBj3U9TOqwYe1BypQBib3gVo=;
- b=Yj/kjEPh8widhVOE6Hu9748IkLxaTb7FfUXwBO1anApLhZnwNL+VxxvX2TXSF+cyRU
- rFpZxz9MgJx41XzBkn6GKpGWcpCggMMnNbiwhxJw0g8AVnmC7FpySXICPXa11OTFrPdv
- jOqDeoW6oQ3KXgyuySe9doEv5ifHObqtFYTJ5+qmrjnyo7ogCfkyOLHZgcPPRY61sCJB
- yCGwH/VWuKVEmp9hYW23C9J4yc6KKXEp0dXGMjUK1POeMhr4z4yQNosSQIsCg+L9nrTh
- KGPuZWUumSm2z3wYripdD9DG3nMiajpMPdXiYUZtvonp6jgySI6SW5WhYMmJg+Mhk2uv
- YwWw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWy4KK928vjrRZ9Z5Q30ynR7PIweN7CWpcJ+qOU9hrjuzTmIgllLr7Nh/Va+SaHEP9/89PgFDxdJ45GSG8gNDAZEo1KSIU2TfYbKigLcySRLKxl67WCwCSY
-X-Gm-Message-State: AOJu0YwHuS1VgHQwEu/JWYn54NvPH/Y1nl6LFaJVE0IBd9Q9Xf1for5M
- 8cT1rdKa7FH2xVmvHpcGCsr159FvMle7gdzdMCOto1we9fk2sKz2p/AgWEMld66OaNBd9jIWXMS
- 6EqleZgyWA4bG0YhvXYEB1Nrj8DwKPTEuwybU1v26fBIjvCUcC9k+NdQk3QsW1t5zy0Re+c0SIc
- i7cA==
-X-Received: by 2002:a05:6358:5302:b0:1ac:f5fe:91c2 with SMTP id
- e5c5f4694b2df-1b1aaba69cemr156242755d.16.1723597539861; 
- Tue, 13 Aug 2024 18:05:39 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFljkRr9u1gJGNOmLRfTXQOBTtcZ6xWeCaXGTurezGO2n8OOoydh4LqSLgX13QhG01z5W5OTg==
-X-Received: by 2002:a05:6358:5302:b0:1ac:f5fe:91c2 with SMTP id
- e5c5f4694b2df-1b1aaba69cemr156238755d.16.1723597539290; 
- Tue, 13 Aug 2024 18:05:39 -0700 (PDT)
-Received: from x1gen2nano ([184.81.59.2]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a4c7d65006sm386009885a.1.2024.08.13.18.05.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Aug 2024 18:05:38 -0700 (PDT)
-Date: Tue, 13 Aug 2024 20:05:36 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <kawkk44ngexucxsrybieysvp356rdfi3ypyskcx3l3dhe4g6sp@avjjgcb2ci7p>
-References: <20240809192150.32756-1-fancer.lancer@gmail.com>
- <32bevr5jxmmm3ynnj3idpk3wdyaddoynyb7hv5tro3n7tsswwd@bbly52u3mzmn>
- <tcneleue5kvsn4ygf2mrrt6gpz5f47zz6sp2wveav5wr5glbhi@7thgrb44kt3m>
+ Wed, 14 Aug 2024 09:24:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MGW4D59Dr9mn5gCS0aR6RA3CndX4g1TKCO9Q9i6rALNVEF3sGcJ7Y+R323qLQHDVN2jyrb3koNo7YmeBbkHgw6GvUzi8TtIstyybM+WT0P6USb4gIxhYpM6Tr0KngmdVIcPyPSvz6dz1v3rU1QDqInHerAxSFSq3ro277/vgYWMH4yLzLRqOmV3urEHRXO3er1HkuG1j68rLsUws4Fr9k3qZS/k5/WPIwEnXQ1gl8Hudn0/E+W+uT7MIwsQrGOxLOtV0V9K/ZmiZ+5HvXq36vx18w6a19+19d9u+2ZKzWBz+2ILeJkyuY8l5riafqP9UGb0rnSHWmQyRQVflIRGfuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vsZbYbN0YASxOOKRngI8P7kPMXYDojNGWyytj3iHm+0=;
+ b=R0WFdOq5TBl1EL0/6mM5jDdly5dYRhuk/h3RAafmzdysFNDZuS5qklaZgoav/3uhCnYBezDe8mBEyGMtFhW3cTRLtOw54yBTjUUTND27jshBx/2B0yI6vITPg0ScYLOxmrrUOPZcN+8O8bS77SertZ7YMnDickcckReNdcU0f9NCkw/tNbNZX6Tw040i52WWs6lx/1TGIrrRe7STG14dCe1MHeTzATYxwiUXzpZa/MbgUPFc8UdY13a5svYSVN/85/NVZqajkOyBsdeiV9UmGDErIfFc6YRb2hJU8Q32N3FRlXhOfNZ6IcmEbHWnLHNGpW7QtwDAY3jdcz2vrd/jbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7) by NTZPR01MB1083.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:9::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.28; Wed, 14 Aug
+ 2024 09:24:52 +0000
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5]) by NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5%4]) with mapi id 15.20.7828.023; Wed, 14 Aug 2024
+ 09:24:52 +0000
+From: ende.tan@starfivetech.com
+To: netdev@vger.kernel.org
+Date: Wed, 14 Aug 2024 17:24:38 +0800
+Message-Id: <20240814092438.3129-1-ende.tan@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: BJXPR01CA0063.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:12::30) To NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7)
 MIME-Version: 1.0
-In-Reply-To: <tcneleue5kvsn4ygf2mrrt6gpz5f47zz6sp2wveav5wr5glbhi@7thgrb44kt3m>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Alexei Starovoitov <ast@kernel.org>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NTZPR01MB1018:EE_|NTZPR01MB1083:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4431ca2f-0a72-4e27-1b7a-08dcbc42f3a8
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|52116014|41320700013|366016|38350700014; 
+X-Microsoft-Antispam-Message-Info: 9jH0JSJm8hk8+yfue0ff5ZjR/ZqHlvD7KmHfz1qlmjojy6DCZK8VuPXrlfWf0ac5okIWCVsjxnSFL6Qnst+5YYX//PYsLhDmt5i5TFX/b7ok3H4t903YB5e3NOpXvvpWxU0k3UYDafAtg9fLfqcwSDGEMfcAAx2pf2jA/koPfQifQjK0wlAOPOaC9CxEmhei2BY7soOSMeD15YMeqlimRhx4G4w1Yf1zPIKHMOs0OxOW+tqmJdUCPSqN0Z33yuXTaT2jsa4HutlqeLXUa5E4xBUh879nUj1sIskai+Ut4CLqfbxVI2QvRRr3lpUYi6CD633vqZkTxThq1ir/UJiSo5jKPzXNhVWINlTrG+PB6tCd0qYdPg3xMUvmSqJXZWj+5jSKCJwe9ylKSU0iroM633ZKjxr8OsLovgFOoV0Mo9ZTd3fz1rt3Q+hWPTvao8+sbauqnhh/U7Nf0UF4bgeRs6Gmd3HHEg8NHX3BFyqMXSVtomOw95MRniv5U3OzgzLsalFzg8XLDFwcuc4on6y90JxzsdEG76GnPgVGduUX2BMaxEOhZCqa58EulM4s85wfYpSfd1EvPcsOXhGLVNwli+b+Rs0f36leFB9DyfadsSUhObrXYGCWNhbrDIpZm1UR
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(52116014)(41320700013)(366016)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1synvCw+izimBSC98//uM5h6lq2XYPELJnF3iXbq9Ofy2VfCD4/BT7oFJJpC?=
+ =?us-ascii?Q?Uc9tbxjuB5VA97t+2eqywX722UaSjUUPH7hXBNUgMwnV6HBnQVV5UBVYyjWB?=
+ =?us-ascii?Q?asPMSFoQcY+JKqOrpfvEz+14ExU9kaI1uHvkN9iCXsdHt7EQv0868lpfw645?=
+ =?us-ascii?Q?yb5Zt5QQnD7hEGgDvLcNg+ItJtIuGJ136zSmeXDSKBeatuzX15ZBeu47N5Gx?=
+ =?us-ascii?Q?tXVZmjyiur+BxVce6peOMwykrLZ37hBEdD2kmjt4D1aPUP/p+wTOvFgQWyMY?=
+ =?us-ascii?Q?CEKMUSQoCERA8W/W69l5/4LRnUPPylYAp8y5l8LvK7cKQJn4BMKCBodn+vzF?=
+ =?us-ascii?Q?eolyexJHivYCW1D8CIAZCGdUiXeWlw7jc3QQ0UhZPVzOLVjdfWCNElXxdT4o?=
+ =?us-ascii?Q?h+vvnTd4TiMl63ewU07/USgBW0ktdiQhbzK4jZ2LFm6LiWimFwC5UA0g/pDf?=
+ =?us-ascii?Q?QrW+AzG86G0A4pagY3555BCH0PTAzgVRyzjpdL37FffFYQsV8hajfxKh+p7z?=
+ =?us-ascii?Q?PDhTUgA3RWZsd480+GqDWOc/vROrsIhJuSAbuYN2aG9bkwrXOnq85UitilGN?=
+ =?us-ascii?Q?I/OmKJfSOvHjoSDx9W6jqIzJqJuRmK/UOVZ8hXDgt8HxVrsTAMPf7mbt2rug?=
+ =?us-ascii?Q?8ZBJ1H3fmpWgi2DjB+llKwhOFPWVhTS1Jf99b8Bl8q0nLQ6NjNNcPf4cgH6I?=
+ =?us-ascii?Q?HuE9XR5ztu2BU6kwM+06yIWVW1aT94hX6haOe+dRRlB8lYOaPP5U2yyhDLSw?=
+ =?us-ascii?Q?X73jQhV3rjQCces8adxGzm7+PpBD31TLfB4C+jocufxN4M2QbPe0/oPMNEwH?=
+ =?us-ascii?Q?qIDmgHnaXlok/9lt+hrnqDohuhpJMqDtVNH7HKd8fa19yzM/VKsTznn9Xsu7?=
+ =?us-ascii?Q?fm+BYN0D5JOLs1MvvrH+EXfm8+II16lMgpZooF0DvJtA160rjfTemv/3tM1J?=
+ =?us-ascii?Q?GJRqbUih9OA3utXa3hsRXLoH/kdK8BV25gBEx9DuzNBh6d2um4iZ4xfs0dSD?=
+ =?us-ascii?Q?MEGc39bEtj9luf/gv3FBkpGifA4lLQK7JkRKrQZU28H0SoxKRXq1IA6dxmcq?=
+ =?us-ascii?Q?XcJQ2MWEk6VNwb1Zo2D2962DxiW3++8WUH/7+Gg1ec16rS80JwMh1wbljdfp?=
+ =?us-ascii?Q?imKG+lrqchW3vzLRLGdxLv2gzgPR6GyAbvXMd5NBlr8PBfcvx31plr1oTZLt?=
+ =?us-ascii?Q?xY+Fbuc9FrPE7aXfU2kRPV/r7r2hEvZhcbAu/6TI3QVjxU/fCGKFGoKvgfPA?=
+ =?us-ascii?Q?VdMvPB4BDmEB6CsIswArYZANP96EnoG7eNXj3xs6GoXsUiK4j7dkYtIjRIgZ?=
+ =?us-ascii?Q?nH/JyZN4OsOQ1+YH8RYfbBe+oXRD66nncDeTha2rUIFvNeXukGXmzbeLFuSV?=
+ =?us-ascii?Q?Io/RSte+JjGCxvhSiNIbX60twBQbZTHWgI36QUj39MTD5jlve6Zb9Wl2f9SA?=
+ =?us-ascii?Q?MxbjqmGjsFMfA3CFWFrK6Zgs9xaHbYsODx+sAWm2iv3kbP7e4mYBi9zzF9lj?=
+ =?us-ascii?Q?Ze0CV7kWjNLXaXaEEkZ9/Qou71it2+ijAyNGulPbRSg1o6DQaEU4qoVjIKbn?=
+ =?us-ascii?Q?lQUM/dIs1nK8GbomNuHC4M2m/Yf4hI/ZyI3k+U0J7O2UriNQU0St3pCJQaCt?=
+ =?us-ascii?Q?TA=3D=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4431ca2f-0a72-4e27-1b7a-08dcbc42f3a8
+X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 09:24:52.2834 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WA3xiOVCI9lJF/S4v9xEEaO1fokViaB1xDTQLk0op7V1boAKytugai87vZQKIZ/p9dCiDZZ5TyBrGiZtBwt3HVxWSxgeTYjn6xq2n0fDtFo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1083
+Cc: Tan En De <ende.tan@starfivetech.com>, andrew@lunn.ch,
+ leyfoon.tan@starfivetech.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ minda.chen@starfivetech.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, endeneer@gmail.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fix false "invalid port
-	speed" warning
+Subject: [Linux-stm32] [net-next, v1,
+	1/1] net: stmmac: Introduce set_rx_ic() for enabling RX
+	interrupt-on-completion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,249 +120,200 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 12, 2024 at 07:48:34PM GMT, Serge Semin wrote:
-> Hi Andrew
-> 
-> On Fri, Aug 09, 2024 at 03:41:04PM -0500, Andrew Halaney wrote:
-> > On Fri, Aug 09, 2024 at 10:21:39PM GMT, Serge Semin wrote:
-> > > If the internal SGMII/TBI/RTBI PCS is available in a DW GMAC or DW QoS Eth
-> > > instance and there is no "snps,ps-speed" property specified (or the
-> > > plat_stmmacenet_data::mac_port_sel_speed field is left zero), then the
-> > > next warning will be printed to the system log:
-> > > 
-> > > > [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
-> > > 
-> > > By the original intention the "snps,ps-speed" property was supposed to be
-> > > utilized on the platforms with the MAC2MAC link setup to fix the link
-> > > speed with the specified value. But since it's possible to have a device
-> > > with the DW *MAC with the SGMII/TBI/RTBI interface attached to a PHY, then
-> > > the property is actually optional (which is also confirmed by the DW MAC
-> > > DT-bindings). Thus it's absolutely normal to have the
-> > > plat_stmmacenet_data::mac_port_sel_speed field zero initialized indicating
-> > > that there is no need in the MAC-speed fixing and the denoted warning is
-> > > false.
-> > 
-> 
-> > Can you help me understand what snps,ps-speed actually does? Its turned
-> > into a bool and pushed down into srgmi_ral right now:
-> > 
-> > 	/**
-> > 	 * dwmac_ctrl_ane - To program the AN Control Register.
-> > 	 * @ioaddr: IO registers pointer
-> > 	 * @reg: Base address of the AN Control Register.
-> > 	 * @ane: to enable the auto-negotiation
-> > 	 * @srgmi_ral: to manage MAC-2-MAC SGMII connections.
-> > 	 * @loopback: to cause the PHY to loopback tx data into rx path.
-> > 	 * Description: this is the main function to configure the AN control register
-> > 	 * and init the ANE, select loopback (usually for debugging purpose) and
-> > 	 * configure SGMII RAL.
-> > 	 */
-> > 	static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
-> > 					  bool srgmi_ral, bool loopback)
-> > 	{
-> > 		u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
-> > 
-> > 		/* Enable and restart the Auto-Negotiation */
-> > 		if (ane)
-> > 			value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-> > 		else
-> > 			value &= ~GMAC_AN_CTRL_ANE;
-> > 
-> > 		/* In case of MAC-2-MAC connection, block is configured to operate
-> > 		 * according to MAC conf register.
-> > 		 */
-> > 		if (srgmi_ral)
-> > 			value |= GMAC_AN_CTRL_SGMRAL;
-> > 
-> > 		if (loopback)
-> > 			value |= GMAC_AN_CTRL_ELE;
-> > 
-> > 		writel(value, ioaddr + GMAC_AN_CTRL(reg));
-> > 	}
-> > 
-> > 
-> 
-> In addition to the method above there are three more places related to
-> the SGMRAL flag (SGMII Rate Adaptation Layer Control flag) setting up:
-> 
-> 2. drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> stmmac_probe_config_dt():
->   of_property_read_u32(np, "snps,ps-speed", &plat->mac_port_sel_speed);
-> 
-> Description: Retrieve the fixed speed of the MAC-2-MAC SGMII
-> connection from DT-file.
-> 
-> 3. drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:
-> stmmac_hw_setup():
->    if (priv->hw->pcs) {
-> 	int speed = priv->plat->mac_port_sel_speed;
-> 
-> 	if ((speed == SPEED_10) || (speed == SPEED_100) ||
-> 	    (speed == SPEED_1000)) {
-> 		priv->hw->ps = speed;
-> 	} else {
-> 		dev_warn(priv->device, "invalid port speed\n");
-> 		priv->hw->ps = 0;
-> 	}
->    }
-> 
-> Description: Parse the speed specified via the "snps,ps-speed"
-> property to make sure it's of one of the permitted values. Note it's
-> executed only if the priv->hw->pcs flag is set which due to the
-> current stmmac_check_pcs_mode() implementation is only possible if
-> the DW GMAC/QoS Eth supports the SGMII PHY interface.
-> 
-> 4. drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c:
->    drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c:
->    drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:
-> dwmac*_core_init():
->    if (hw->ps) {
-> 	value |= GMAC_CONTROL_TE;
+From: Tan En De <ende.tan@starfivetech.com>
 
-Might have missed it today when looking at this, but what's the
-GMAC_CONTROL_TE bit about? Otherwise, I agree that mac_link_up()
-basically does similar work at different times in the driver.
+Currently, some set_rx_owner() callbacks set interrupt-on-completion bit
+in addition to OWN bit, without inserting a dma_wmb() barrier. This
+might cause missed interrupt if the DMA sees the OWN bit before the
+interrupt-on-completion bit is set.
 
-> 
-> 	value &= ~hw->link.speed_mask;
-> 	switch (hw->ps) {
-> 	case SPEED_1000:
-> 		value |= hw->link.speed1000;
-> 		break;
-> 	case SPEED_100:
-> 		value |= hw->link.speed100;
-> 		break;
-> 	case SPEED_10:
-> 		value |= hw->link.speed10;
-> 		break;
-> 	}
->    }
-> 
-> Description: Pre-initialize the MAC speed with the value retrieved from
-> the "snps,ps-speed" property. The speed is then fixed in the SGMII
-> Rate adaptation Layer by setting up the SGMIRAL flag performed in the
-> dwmac_ctrl_ane() method you cited. 
-> Note the same register fields (MAC_CONTROL.{PS,FES}) are touched in
-> the stmmac_mac_link_up() method in the framework of the MAC-link up
-> procedure (phylink_mac_ops::mac_link_up). But AFAICS the procedure is
-> done too late, and after the SGMIRAL flag is set in the framework of
-> the stmmac_open()->stmmac_hw_setup()->dwmac_ctrl_ane() call. That's
-> probably why the MAC2MAC mode developer needed the speed being
-> pre-initialized earlier in the dwmac*_core_init() functions.
-> 
-> 
-> To sum up the MAC-2-MAC mode implementation can be described as
-> follows:
-> 1. The platform firmware defines the fixed link speed by means of the
-> "snps,ps-speed" property (or by pre-initializing the
-> plat_stmmacenet_data::mac_port_sel_speed field in the glue driver).
-> 2. If the SGMII PHY interface is supported by the DW GMAC/QoS Eth
-> controller, the speed will be fixed right at the network interface
-> open() procedure execution by subsequently calling the
-> stmmac_core_init() and stmmac_pcs_ctrl_ane() methods.
-> 
-> Please note I can't immediately tell of how that functionality gets to
-> live with the phylink-based link setup procedure, in the framework of
-> which the link speed is also setup in stmmac_mac_link_up(). Alas I
-> don't have any SGMII-based device to test it out. But I guess that it
-> lives well until the pre-initialized in the "snps,ps-speed"
-> speed matches to the speed negotiated between the connected PHYs. If
-> the speeds don't match, then I can't tell for sure what would happen
-> without a hardware at hands.
-> 
-> > What is that bit doing exactly?
-> 
-> Here is what the DW MAC databook says about the bit:
-> 
-> "SGMII RAL Control
-> 
-> When set, this bit forces the SGMII RAL block to operate in the speed
-> configured in the MAC Configuration register's Speed and Port Select
-> bits. This is useful when the SGMII interface is used in a direct
-> MAC-MAC connection (without a PHY) and any MAC must reconfigure the
-> speed.
-> 
-> When reset, the SGMII RAL block operates according to the link speed
-> status received on the SGMII (from the PHY)."
-> 
-> Shortly speaking the flag enables the SGMII Rate adaptation layer
-> (SGMII RAL) to stop selecting the speed based on the info retrieved
-> from the PHY and instead to fix the speed with the value specified in
-> the MAC_CTRL_REG register.
-> 
-> > The only user upstream I see is
-> > sa8775p-ride variants, but they're all using a phy right now (not
-> > fixed-link aka MAC2MAC iiuc)... so I should probably remove it from
-> > there too.
-> 
-> Right, there is only a single user of that property in the kernel. But
-> I don't know what was the actual reason of having the "snps,ps-speed"
-> specified in that case. From one side it seems contradicting to the
-> original MAC-2-MAC semantics since the phy-handle property is also
-> specified in the ethernet controller DT-node, but from another side it
-> might have been caused by some HW-related problem so there was a need
-> to fix the speed. It would be better to ask Bartosz Golaszewski about
-> that since it was him who submitted the patch adding the sa8775p-ride
-> Ethernet DT-nodes.
-> 
-> > 
-> 
-> > I feel like that property really (if I'm following right) should be just
-> > taken from a proper fixed-link devicetree description? i.e. we already
-> > specify a speed in that case. Maybe this predates that (or reinvents it)
-> > and should be marked as deprecated in the dt-bindings.
-> 
-> Exactly my thoughts of the way it should have been implemented in the
-> first place. The fixed-linked semantics was exactly suitable for the
-> MAC-2-MAC HW-setup since both of them implies the link-speed being
-> fixed to a single value with no PHY-node required.
-> 
-> Note if the respective code conversion is planned to be done then I
-> guess it would be better to do after the Russell' series
-> https://lore.kernel.org/netdev/ZrCoQZKo74zvKMhT@shell.armlinux.org.uk/
-> is merged in, since the changes are related.
-> 
-> > 
-> > But I'm struggling to understand what the bit is really doing based
-> > on the original commit that added it, so I don't know if my logic is
-> > solid. i.e., what's different in the phy case vs mac2mac with this
-> > particular bit?
-> 
-> Please see my notes above for more details about the SGMRAL bit
-> semantics. Shortly speaking The difference is basically in the way the
-> link-speed is established:
-> - If the SGMRAL bit is set the MAC' SGMII RAL will operate with the
->   speed specified in the Speed and Port Select bits of the
->   MAC_CTRL_REG register.
-> - If the SGMRAL bit is reset the SGMII RAL will operate according to
->   the link speed status received on SGMII (from the PHY).
+Thus, let's introduce set_rx_ic() for enabling interrupt-on-completion,
+and call it before dma_wmb() and set_rx_owner() in the main driver,
+ensuring proper ordering and preventing missed interrupt.
 
-I think with all of that in mind, long term it might make sense to:
+Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+---
+v1:
+- Generalized my previous patch to fix not only dwmac4.
+- Link to my previous patch:
+  Set OWN bit last in dwmac4_set_rx_owner()
+  https://patchwork.kernel.org/project/netdevbpf/patch/20240809144229.1370-1-ende.tan@starfivetech.com/
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 14 +++++++++++---
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   | 14 ++++++++++----
+ drivers/net/ethernet/stmicro/stmmac/enh_desc.c     |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  6 +++++-
+ drivers/net/ethernet/stmicro/stmmac/norm_desc.c    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  6 ++++--
+ 6 files changed, 32 insertions(+), 12 deletions(-)
 
-    1. Remove ps-speed handling
-    2. Program GMAC_AN_CTRL in mac_link_up() as specified in the
-       kerneldoc (i.e. iiuc only in !phylink_autoneg_inband(@mode) case)
-    3. Program SGMRAL bit in pcs_config as specified in the kernel doc
-       (iiuc mode == PHYLINK_PCS_NEG_OUTBAND)
-
-I'm probably misunderstanding the phylink interactions while reading
-on the plane today (and hence may have misunderstood what callbacks
-should configure that and when), but in general sounds like the forward
-looking step would be to build on top of Russell's PCS changes and rip out the
-ps-speed stuff, relying on phylink to indicate what the speed / port
-select stuff needs to be in the PCS and MAC in the various configs
-possible (i.e. stop treating fixed-link special here).
-
-Maybe Qualcomm can help with testing the SGMII fixed-link setup, as I
-think they're the only folks I know of with a board with that at least.
-I have acess to a sa8775p-ride, but that has SGMII with a phy so its not
-going to cover all testing.
-
-FYI.. I'm traveling the next two weeks, sorry in advance if I disappear
-for a bit :)
-
-Thanks,
-Andrew
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index 1c5802e0d7f4..e9f95ca88e34 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -184,14 +184,19 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+ 	p->des3 |= cpu_to_le32(TDES3_OWN);
+ }
+ 
+-static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
++static void dwmac4_set_rx_ic(struct dma_desc *p, int disable_rx_ic)
+ {
+-	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
++	p->des3 |= cpu_to_le32(RDES3_BUFFER1_VALID_ADDR);
+ 
+ 	if (!disable_rx_ic)
+ 		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
+ }
+ 
++static void dwmac4_set_rx_owner(struct dma_desc *p)
++{
++	p->des3 |= cpu_to_le32(RDES3_OWN);
++}
++
+ static int dwmac4_get_tx_ls(struct dma_desc *p)
+ {
+ 	return (le32_to_cpu(p->des3) & TDES3_LAST_DESCRIPTOR)
+@@ -304,7 +309,9 @@ static int dwmac4_wrback_get_rx_timestamp_status(void *desc, void *next_desc,
+ static void dwmac4_rd_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
+ 				   int mode, int end, int bfsize)
+ {
+-	dwmac4_set_rx_owner(p, disable_rx_ic);
++	dwmac4_set_rx_ic(p, disable_rx_ic);
++	dma_wmb();
++	dwmac4_set_rx_owner(p);
+ }
+ 
+ static void dwmac4_rd_init_tx_desc(struct dma_desc *p, int mode, int end)
+@@ -560,6 +567,7 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
+ 	.get_tx_len = dwmac4_rd_get_tx_len,
+ 	.get_tx_owner = dwmac4_get_tx_owner,
+ 	.set_tx_owner = dwmac4_set_tx_owner,
++	.set_rx_ic = dwmac4_set_rx_ic,
+ 	.set_rx_owner = dwmac4_set_rx_owner,
+ 	.get_tx_ls = dwmac4_get_tx_ls,
+ 	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index fc82862a612c..73b49d021508 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -54,14 +54,17 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
+ 	p->des3 |= cpu_to_le32(XGMAC_TDES3_OWN);
+ }
+ 
+-static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
++static void dwxgmac2_set_rx_ic(struct dma_desc *p, int disable_rx_ic)
+ {
+-	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
+-
+ 	if (!disable_rx_ic)
+ 		p->des3 |= cpu_to_le32(XGMAC_RDES3_IOC);
+ }
+ 
++static void dwxgmac2_set_rx_owner(struct dma_desc *p)
++{
++	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
++}
++
+ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
+ {
+ 	return (le32_to_cpu(p->des3) & XGMAC_RDES3_LD) > 0;
+@@ -129,7 +132,9 @@ static int dwxgmac2_get_rx_timestamp_status(void *desc, void *next_desc,
+ static void dwxgmac2_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
+ 				  int mode, int end, int bfsize)
+ {
+-	dwxgmac2_set_rx_owner(p, disable_rx_ic);
++	dwxgmac2_set_rx_ic(p, disable_rx_ic);
++	dma_wmb();
++	dwxgmac2_set_rx_owner(p);
+ }
+ 
+ static void dwxgmac2_init_tx_desc(struct dma_desc *p, int mode, int end)
+@@ -347,6 +352,7 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
+ 	.get_tx_len = dwxgmac2_get_tx_len,
+ 	.get_tx_owner = dwxgmac2_get_tx_owner,
+ 	.set_tx_owner = dwxgmac2_set_tx_owner,
++	.set_rx_ic = dwxgmac2_set_rx_ic,
+ 	.set_rx_owner = dwxgmac2_set_rx_owner,
+ 	.get_tx_ls = dwxgmac2_get_tx_ls,
+ 	.get_rx_frame_len = dwxgmac2_get_rx_frame_len,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+index 937b7a0466fc..1f0666c43de6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+@@ -287,7 +287,7 @@ static void enh_desc_set_tx_owner(struct dma_desc *p)
+ 	p->des0 |= cpu_to_le32(ETDES0_OWN);
+ }
+ 
+-static void enh_desc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
++static void enh_desc_set_rx_owner(struct dma_desc *p)
+ {
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+ }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index e53c32362774..6f3f8aacb0b3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -66,7 +66,9 @@ struct stmmac_desc_ops {
+ 	/* Get the buffer size from the descriptor */
+ 	int (*get_tx_len)(struct dma_desc *p);
+ 	/* Handle extra events on specific interrupts hw dependent */
+-	void (*set_rx_owner)(struct dma_desc *p, int disable_rx_ic);
++	void (*set_rx_ic)(struct dma_desc *p, int disable_rx_ic);
++	/* Set the OWN bit of the RX descriptor */
++	void (*set_rx_owner)(struct dma_desc *p);
+ 	/* Get the receive frame size */
+ 	int (*get_rx_frame_len)(struct dma_desc *p, int rx_coe_type);
+ 	/* Return the reception status looking at the RDES1 */
+@@ -129,6 +131,8 @@ struct stmmac_desc_ops {
+ 	stmmac_do_callback(__priv, desc, tx_status, __args)
+ #define stmmac_get_tx_len(__priv, __args...) \
+ 	stmmac_do_callback(__priv, desc, get_tx_len, __args)
++#define stmmac_set_rx_ic(__priv, __args...) \
++	stmmac_do_void_callback(__priv, desc, set_rx_ic, __args)
+ #define stmmac_set_rx_owner(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, desc, set_rx_owner, __args)
+ #define stmmac_get_rx_frame_len(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+index 68a7cfcb1d8f..10a5f5aaabf1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+@@ -153,7 +153,7 @@ static void ndesc_set_tx_owner(struct dma_desc *p)
+ 	p->des0 |= cpu_to_le32(TDES0_OWN);
+ }
+ 
+-static void ndesc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
++static void ndesc_set_rx_owner(struct dma_desc *p)
+ {
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+ }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index f3a1b179aaea..0d065166154a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4847,8 +4847,9 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ 		if (!priv->use_riwt)
+ 			use_rx_wd = false;
+ 
++		stmmac_set_rx_ic(priv, p, use_rx_wd);
+ 		dma_wmb();
+-		stmmac_set_rx_owner(priv, p, use_rx_wd);
++		stmmac_set_rx_owner(priv, p);
+ 
+ 		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
+ 	}
+@@ -5204,8 +5205,9 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		if (!priv->use_riwt)
+ 			use_rx_wd = false;
+ 
++		stmmac_set_rx_ic(priv, rx_desc, use_rx_wd);
+ 		dma_wmb();
+-		stmmac_set_rx_owner(priv, rx_desc, use_rx_wd);
++		stmmac_set_rx_owner(priv, rx_desc);
+ 
+ 		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
+ 	}
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
