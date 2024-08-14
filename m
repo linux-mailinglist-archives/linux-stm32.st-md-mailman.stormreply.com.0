@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A5495219B
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 19:57:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D6C9521B1
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 20:00:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED145C71290;
-	Wed, 14 Aug 2024 17:57:22 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34629C71290;
+	Wed, 14 Aug 2024 18:00:05 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E5CDC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B669EC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 17:57:21 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-371845c66d9so89968f8f.3
+ Wed, 14 Aug 2024 17:59:57 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-42809d6e719so440195e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 10:57:21 -0700 (PDT)
+ Wed, 14 Aug 2024 10:59:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723658241; x=1724263041;
+ d=linaro.org; s=google; t=1723658397; x=1724263197;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=HnUwdGhfSZGHxuMeMqzleyP++rz6g7MwzjmvPDN+MAg=;
- b=VRWFIN+0jj7zoZqxd0CTBpK6XMQghiePP0MK5BHVOI0v1A63L4ziiZlSCwPlPCamFx
- 7K5LIX4drfLUOVcJhf36Vafhc+r6+sEYMbNjBFpZtuX7DljQPR1bIV09C2iKAs06bdZM
- /kvh3z6n1SFl00O4vUGJ2b21T7HhjFehMIC+cxabZJu3k4j77nH9rX1237xGuRa2B55d
- bDWmGmDh2b1W6brjn5txTRt5wreFheRsoyFNQqbpER8B3D9uupeNEsfIE3ieidhHdYL7
- 3itXF+XZF7XhcubjjLsbW/gtRuZ0kN+bOwssWkkeJDlDdJ2qI9IakAfsdVG+fBkWOFHu
- 3vQQ==
+ bh=e+0+18kAd1ntL3CjGet64KYdk8UF+VMULzQLsO5d54Y=;
+ b=qMDwuAgaxPK8jhIsDZps3V6xtY5EPi6n+NiaDDvAFvP3MSBKPaieIsermv93FBYqpE
+ SzOFzEmNjk9HyOHT4AMBJ+V2U3vbKu2lDsFAQqEuUBFUoJAqnedWsiCuE+Kg3YLPZtrI
+ /4qF0fanOhX9ALXzurh9gTJXzabm+EhUmlMYR5A6vqK/GCAb8gMbSQy/c/s8jvRPdaAj
+ /9n8h+SglI67KFkesKDg/AzuebKGGJO1xIbsGOjQvtXcbIvh1u3cQBvgckdFfcdUatQX
+ SvpKIgqP4JTGlaAY1cpUWybUxh1aZV8EUs3ueUKP0VsnTJ9d7hwIOrTfJryz6xRLVpTv
+ wrfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723658241; x=1724263041;
+ d=1e100.net; s=20230601; t=1723658397; x=1724263197;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=HnUwdGhfSZGHxuMeMqzleyP++rz6g7MwzjmvPDN+MAg=;
- b=eF+JydfgWtcn1n2cJK2WrLG871VpPXnp6VnA/Jagxx8K8qw5H43bYwuQY/JMWJIk1z
- Zhr/HADCAmYJ12ETwq4qMG2fZeqgKMRwQ6byJvMdDJKM/alxwm/3REl5dAk6GY8zUPuu
- Av08zpli0YtCZUEUaATiKAglWMmq/1JI6Jk8bQ6KvX90343qINycIGt1R4NrKddlY8DR
- u+CmPshA3iLBCjw7vQtVi+EAWd6ixbvfTkPN9TiswTwENuuNaUhGQTt6puyRuVaw0yka
- 3nruK32zZ/Nh9Qq4k+p9RiUqkBd3YMCDAQWybDRnWKxZjNQDQKU2BGaaOoBAiagHZPEt
- LtPA==
+ bh=e+0+18kAd1ntL3CjGet64KYdk8UF+VMULzQLsO5d54Y=;
+ b=tUF/bGEPXoMeGfBkcYM1rpT1Z2ixIhh/FOnxqVZPA44kPVrLs2+SjDt7Nicw8GHd39
+ OBm8+jXV7aqL7zCb3al55Ikxn5+LbJKTt7xOCzmnk60mesYGnufkM/1fqfqwsnd6CHtL
+ 2e2k4fTk5wMIr6l/DBkjMWZ/iGxvTPZWvsav066NAUC2yhojh1xYM4fHehYwCJB56WeI
+ YOXT2yfNOAEKXt3MVjl4eDmh2mf92MYz0Wu19n0oqaG97xYtc6fOo/q2k+Qq4NuWd0Up
+ 4aDky6IdI57ASlsybf09boua49XRRCwD3CCatd3g+YjCr7SEL1nbQlAcj+O+yY8y+uaI
+ 7/Vg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVgoHhDCWUI3gGLqB9yk7NlwMqtkvptMzWX0Rb0NLguNxZR8y4YcMghG/eltTUpqDostv0h9pmORNXEQD7HHdVsYB5fkXOz64fkIJuBmEZlyXFku7qfDJpx
-X-Gm-Message-State: AOJu0YzW5yS+9s/VsFgcWDrsOrv8sPx/P68Ug06V/Ini93mx1DSwqkQI
- XGIq4v5TOM/LkFzapentJxpBbX8n0tXYnSorY8lPU07lxuimkbWm61WVdVVgVLg=
-X-Google-Smtp-Source: AGHT+IGohuyYGGk60HZbxQ/ROWUPTaq5Wi5UopTp8W5NYw+7mjHHwwWxgpEiJsSVNDzahS1qQVmMhQ==
-X-Received: by 2002:a5d:4850:0:b0:369:b7e3:497c with SMTP id
- ffacd0b85a97d-3717775fb8fmr2431134f8f.1.1723658240825; 
- Wed, 14 Aug 2024 10:57:20 -0700 (PDT)
+ AJvYcCW+BGhO6JO6z/gM6Mrk62MRWUj1O4CkplKqeI7WUBPk9nUx8z1VcBPLd9steNsv/j3Xmk69OAZtfbCIJcEaH4Iu8WRjXzpjC0hNc4QBRrhG2HIVTEWUXRCI
+X-Gm-Message-State: AOJu0Ywk7T6R6Q4Edy+VasIBWWrf7O36JdBZdQdfSkgYrMjGrN1BHM32
+ tasdZcOIQSoFl/DfUTIWyFdcz7Y5N2HllXeIsMRurq9rJ092TyMWq7dEnrL+ZXM=
+X-Google-Smtp-Source: AGHT+IHv1VcCnmzCbrSFCmf9TtFXDTUTp/2jtxGlOatGsJT2eISwIhRuCQHwm7HglJURgLzYox3Nqg==
+X-Received: by 2002:a7b:c385:0:b0:429:d43e:db9e with SMTP id
+ 5b1f17b1804b1-429dd26701dmr20162985e9.36.1723658396976; 
+ Wed, 14 Aug 2024 10:59:56 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.215.209])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3717314e38bsm4654498f8f.97.2024.08.14.10.57.19
+ ffacd0b85a97d-36e4c93714asm13400232f8f.27.2024.08.14.10.59.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 10:57:20 -0700 (PDT)
-Message-ID: <768894bb-a12a-4919-9b4d-b579c153a556@linaro.org>
-Date: Wed, 14 Aug 2024 19:57:18 +0200
+ Wed, 14 Aug 2024 10:59:56 -0700 (PDT)
+Message-ID: <64af1408-d3c8-495b-a69c-7a0718eadfc4@linaro.org>
+Date: Wed, 14 Aug 2024 19:59:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 References: <20240812-cleanup-h-of-node-put-memory-v1-0-5065a8f361d2@linaro.org>
- <20240812-cleanup-h-of-node-put-memory-v1-3-5065a8f361d2@linaro.org>
- <20240814174246.00007e4e@Huawei.com>
+ <20240812-cleanup-h-of-node-put-memory-v1-4-5065a8f361d2@linaro.org>
+ <20240814174502.00003b2c@Huawei.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -111,7 +111,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240814174246.00007e4e@Huawei.com>
+In-Reply-To: <20240814174502.00003b2c@Huawei.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-samsung-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -123,8 +123,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
  Jonathan Hunter <jonathanh@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com, Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 3/9] memory: samsung: exynos5422-dmc: use
- scoped device node handling to simplify error paths
+Subject: Re: [Linux-stm32] [PATCH 4/9] memory: stm32-fmc2-ebi: simplify with
+ scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,57 +141,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 14/08/2024 18:42, Jonathan Cameron wrote:
-> On Mon, 12 Aug 2024 15:33:57 +0200
+On 14/08/2024 18:45, Jonathan Cameron wrote:
+> On Mon, 12 Aug 2024 15:33:58 +0200
 > Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 > 
->> Obtain the device node reference with scoped/cleanup.h to reduce error
->> handling and make the code a bit simpler.
+>> Use scoped for_each_available_child_of_node_scoped() when iterating over
+>> device nodes to make code a bit simpler.
 >>
 >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Trivial comments inline
+> Might be worth using dev_err_probe() in here. Otherwise LGTM
 > Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 > 
 >> ---
->>  drivers/memory/samsung/exynos5422-dmc.c | 31 +++++++++++--------------------
->>  1 file changed, 11 insertions(+), 20 deletions(-)
+>>  drivers/memory/stm32-fmc2-ebi.c | 8 +-------
+>>  1 file changed, 1 insertion(+), 7 deletions(-)
 >>
->> diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
->> index da7ecd921c72..d3ae4d95a3ba 100644
->> --- a/drivers/memory/samsung/exynos5422-dmc.c
->> +++ b/drivers/memory/samsung/exynos5422-dmc.c
->> @@ -4,6 +4,7 @@
->>   * Author: Lukasz Luba <l.luba@partner.samsung.com>
->>   */
->>  
->> +#include <linux/cleanup.h>
->>  #include <linux/clk.h>
->>  #include <linux/devfreq.h>
->>  #include <linux/devfreq-event.h>
->> @@ -1176,10 +1177,10 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
+>> diff --git a/drivers/memory/stm32-fmc2-ebi.c b/drivers/memory/stm32-fmc2-ebi.c
+>> index 1c63eeacd071..7167e1da56d3 100644
+>> --- a/drivers/memory/stm32-fmc2-ebi.c
+>> +++ b/drivers/memory/stm32-fmc2-ebi.c
+>> @@ -1573,29 +1573,25 @@ static int stm32_fmc2_ebi_setup_cs(struct stm32_fmc2_ebi *ebi,
+>>  static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
 >>  {
->>  	int ret = 0;
->>  	int idx;
->> -	struct device_node *np_ddr;
-> 
-> This would definitely benefit from a
-> struct device *dev = dmc->dev;
-
-True, I'll do it in separate patch.
-
-> 
->>  	u32 freq_mhz, clk_period_ps;
+>>  	struct device *dev = ebi->dev;
+>> -	struct device_node *child;
+>>  	bool child_found = false;
+>>  	u32 bank;
+>>  	int ret;
 >>  
->> -	np_ddr = of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
->> +	struct device_node *np_ddr __free(device_node) = of_parse_phandle(dmc->dev->of_node,
->> +									  "device-handle", 0);
-> Trivial. Maybe consider the wrap suggested in patch 1.
->> +	struct device_node *np_ddr __free(device_node) =
-> 		of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
+>> -	for_each_available_child_of_node(dev->of_node, child) {
+>> +	for_each_available_child_of_node_scoped(dev->of_node, child) {
+>>  		ret = of_property_read_u32(child, "reg", &bank);
+>>  		if (ret) {
+>>  			dev_err(dev, "could not retrieve reg property: %d\n",
+>>  				ret);
+>> -			of_node_put(child);
+>>  			return ret;
+> 			return dev_err_probe(dev, "could not retrieve reg property\n");
+> perhaps?
 
-Ack.
-
-
+New patch for that... but just mind that deferred probe cannot happen
+here, so only part of dev_err_probe() benefits would be used.
 
 Best regards,
 Krzysztof
