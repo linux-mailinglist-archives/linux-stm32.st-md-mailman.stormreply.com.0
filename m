@@ -2,67 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80ABF9504FC
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Aug 2024 14:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6006E95111C
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Aug 2024 02:43:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CCA7C6DD9A;
-	Tue, 13 Aug 2024 12:32:13 +0000 (UTC)
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
- [209.85.208.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59956C6DD9A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06B88C6DD66;
+	Wed, 14 Aug 2024 00:43:12 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ACC7C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Aug 2024 09:48:58 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id
- 38308e7fff4ca-2ef248ab2aeso82279371fa.0
+ Wed, 14 Aug 2024 00:43:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1723596183;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=neqRTcEj9/zj+36l4CNYLscl48VCNlUw8+/D/Uqo/H8=;
+ b=eUub+uTfXlb/iOfKvAq/GOiLr/pp+8NxLE+cU/2FiUv2wGzp5mqQu6cU7DwQv1mCe3NmDB
+ WleUBffjlAv0yRSlhNnFwNzsaMASX71s7F0ljlK3DLFh3m6vRZRzO4WKdjB6m88eDFKYjU
+ 6m6Duk2MNwppMAFxQ7vOmsP8GRzn7Jc=
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-335-fYwP9Ki2OkitCZoeM2HS4w-1; Tue, 13 Aug 2024 20:43:01 -0400
+X-MC-Unique: fYwP9Ki2OkitCZoeM2HS4w-1
+Received: by mail-oo1-f71.google.com with SMTP id
+ 006d021491bc7-5da50ab90c0so3046764eaf.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Aug 2024 02:48:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=rasmusvillemoes.dk; s=google; t=1723542537; x=1724147337;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=h878N1ltMbwyps1BBLvUzwBZh69S/6revIrfQoK+5EQ=;
- b=HzwMDmRVphb+4M8z5FSRJ86/fE4e4eedPKwvpNouleVddhCCx1SY0lTiyzscEo9WgZ
- KRLVSbFhwlitBAp5rZxJIaB4FIq5zRiNn7hUTPMOHR/1wA5gq4EsxEvfs3eDo698MdAL
- rUtYg56uOPnIyQ3f/lNr7uqOodCR4lqJ6gRYk=
+ Tue, 13 Aug 2024 17:43:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723542537; x=1724147337;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=h878N1ltMbwyps1BBLvUzwBZh69S/6revIrfQoK+5EQ=;
- b=bDzX5wa3g3+/uSFTPrVAvcio4KykT6eCKgjMKtOHrMlI/6QIFah+rNux9m3jAMcb9q
- 8AoMu3QteyTaMiVDyp8sGA93f8/vsbMQcWLN6/0UpAGpDJAvpVIwwLD96rBpJJVeHdo3
- zybRXurPLFyx5w8S0b3IxD+dRLMLRP5u6ov3QkptBw8E/1wr8PBGIubRPWeGuqEe6Gtj
- pW5++o5LhYGj7x2SzvvBKH7szpTbAyK7NYbOJ8pP/zSoIcwuTLObHpJ+yH8SZP5cP7Af
- IWIZfnfq7PmaPudYvZfQJvsgx4QdDJfA2XIIvjyXvKJxuAB4Rk4zvrtG7nk55J7jBjiA
- Dykw==
-X-Gm-Message-State: AOJu0YxA96sWTG94OP8dAu//X1UgvbhPVuaGiWIKDAYHcU2javesU5yx
- v4rONMTHKkKWLTd9fKhqHu8iWwqV2tY9MnNDgDBXtkJAAcY38nNsKVqmYjIa47w=
-X-Google-Smtp-Source: AGHT+IFyaivarUL51wlthGyrH39YfO53KObdJGwmf6kji3tTiJEkFRg2CDGM0zOg8uYNy2SdNWXqww==
-X-Received: by 2002:a2e:9591:0:b0:2ef:2dfd:15db with SMTP id
- 38308e7fff4ca-2f2b715542amr25402491fa.19.1723542537241; 
- Tue, 13 Aug 2024 02:48:57 -0700 (PDT)
-Received: from localhost ([81.216.59.226]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f29af3abe3sm8919721fa.58.2024.08.13.02.48.56
+ d=1e100.net; s=20230601; t=1723596179; x=1724200979;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=neqRTcEj9/zj+36l4CNYLscl48VCNlUw8+/D/Uqo/H8=;
+ b=C6znEUOPPnIQE/3Oc2R3dihU+b9fgOSQwW3ZFM/C5K3ussFXZiAHOSwzHeinktITvw
+ nJ7KW41toGWdFGLMl3ss8bsRwyssBItR4/DN+eWijLRaey2wxjP2vSpMm5mS9EflEu4x
+ 4O/P75d7e5GlIftZqzsqI6oyT0B1IYS7lI2QXrCKehNellnYrui1PoBhubCfCl5k6obV
+ 9NFavMQ7j3inbY50TDHYaalNgYn+dr0WPkIThL1LsORYJOqERt3AjN/IifRC/gg36PmE
+ TQbHu1uhCqUgfb54UWYDKEoguvLwPuFFIPOAO928WIOMI999G2fs6Sh0rF++FxMAEjPP
+ CERQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtydvkbP761zTprG7KUtHMdk254+DkB8Jmr63/7kleqEnIyp3eNUaQL/oD7qrvpHTrV9NWQNlwbJmJ1SKyAZA22CP0Zh3bANhF+Qo9fd9V79Al1BCyAU1q
+X-Gm-Message-State: AOJu0YzIF+eT4fjvG4SdL4fdSrmQ0M6VV+Yd6lUBPVEEdlbUmizWz3DL
+ rdHIaFaClVjcLouUTeHCMoacPzZBZxYx/gpIrAtn76wqtgMXUmgxbkh6k65z6KjVF0RG6+KJeJl
+ GfWRKrm4tYVc5faaLzktgO5AkmZeeQvZPEoS1Xx9sRpRIsO18NRRGnbEq+ofRJWfKQwW78naRt8
+ TcoA==
+X-Received: by 2002:a05:6358:5709:b0:1aa:bde7:5725 with SMTP id
+ e5c5f4694b2df-1b1aad56c0amr166436055d.28.1723596179316; 
+ Tue, 13 Aug 2024 17:42:59 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHTcmIh03e3B7xSn2L7DkI7RRKwpSIiec73Jgf5I9h/tC3e+8R44UqAGwk+9QzPwWzu5FYJxQ==
+X-Received: by 2002:a05:6358:5709:b0:1aa:bde7:5725 with SMTP id
+ e5c5f4694b2df-1b1aad56c0amr166433455d.28.1723596179007; 
+ Tue, 13 Aug 2024 17:42:59 -0700 (PDT)
+Received: from x1gen2nano ([184.81.59.2]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a4c7ded208sm383575085a.89.2024.08.13.17.42.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Aug 2024 02:48:56 -0700 (PDT)
-From: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-To: Marek Vasut <marex@denx.de>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue, 13 Aug 2024 11:48:56 +0200
-Message-ID: <20240813094856.2002113-1-linux@rasmusvillemoes.dk>
-X-Mailer: git-send-email 2.46.0
+ Tue, 13 Aug 2024 17:42:57 -0700 (PDT)
+Date: Tue, 13 Aug 2024 19:42:55 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <lq326y6bjavnvrn4nre2kwetwnu2oiv7rrjbb7iol44xckgu5w@gjaedc7arxxb>
+References: <20240809192150.32756-1-fancer.lancer@gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 13 Aug 2024 12:32:12 +0000
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Rasmus Villemoes <rasmus.villemoes@prevas.dk>
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: include st,
-	stm32mp13-regulator.h in stm32mp131.dtsi
+In-Reply-To: <20240809192150.32756-1-fancer.lancer@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: Alexei Starovoitov <ast@kernel.org>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe CAVALLARO <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fix false "invalid port
+	speed" warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,38 +94,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
+On Fri, Aug 09, 2024 at 10:21:39PM GMT, Serge Semin wrote:
+> If the internal SGMII/TBI/RTBI PCS is available in a DW GMAC or DW QoS Eth
+> instance and there is no "snps,ps-speed" property specified (or the
+> plat_stmmacenet_data::mac_port_sel_speed field is left zero), then the
+> next warning will be printed to the system log:
+> 
+> > [  294.611899] stmmaceth 1f060000.ethernet: invalid port speed
+> 
+> By the original intention the "snps,ps-speed" property was supposed to be
+> utilized on the platforms with the MAC2MAC link setup to fix the link
+> speed with the specified value. But since it's possible to have a device
+> with the DW *MAC with the SGMII/TBI/RTBI interface attached to a PHY, then
+> the property is actually optional (which is also confirmed by the DW MAC
+> DT-bindings). Thus it's absolutely normal to have the
+> plat_stmmacenet_data::mac_port_sel_speed field zero initialized indicating
+> that there is no need in the MAC-speed fixing and the denoted warning is
+> false.
+> 
+> Fix the warning by permitting the plat_stmmacenet_data::mac_port_sel_speed
+> field to have the zero value in case if the internal PCS is available.
+> 
+> Fixes: 02e57b9d7c8c ("drivers: net: stmmac: add port selection programming")
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 
-The file stm32mp131.dtsi uses symbolic constants such as
-VOLTD_SCMI_REG11, VOLTD_SCMI_REG18 etc., but does not include the
-header where they are defined. So when adding a new .dts file that
-includes stm32mp131.dtsi, the build breaks unless the .dts itself
-includes st,stm32mp13-regulator.h.
-
-Signed-off-by: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
----
-
-OTOH, it seems that (if this is applied) stm32mp135f-dhcor-dhsbc.dts and
-stm32mp13xx-dhcor-som.dtsi could drop their #includes as they do not
-use any of the VOLTD_SCMI_* constants except through stm32mp131.dtsi.
-
- arch/arm/boot/dts/st/stm32mp131.dtsi | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index e1a764d269d2..490d38dc8d54 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -5,6 +5,7 @@
-  */
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/stm32mp13-clks.h>
-+#include <dt-bindings/regulator/st,stm32mp13-regulator.h>
- #include <dt-bindings/reset/stm32mp13-resets.h>
- 
- / {
--- 
-2.46.0
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
 
 _______________________________________________
 Linux-stm32 mailing list
