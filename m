@@ -2,57 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152EF95256D
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Aug 2024 00:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D71C953857
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Aug 2024 18:35:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA7ABC71290;
-	Wed, 14 Aug 2024 22:18:31 +0000 (UTC)
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com
- [192.19.144.208])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D03CC7129D;
+	Thu, 15 Aug 2024 16:35:48 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CD36C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6D79C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Aug 2024 22:18:25 +0000 (UTC)
-Received: from mail-lvn-it-01.lvn.broadcom.net
- (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
- by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 4F78EC0000F3;
- Wed, 14 Aug 2024 15:18:24 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 4F78EC0000F3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
- s=dkimrelay; t=1723673904;
- bh=GqjOC1/PgInx3fni+quiFiTsc4WwTp5+c8z32bi1pbU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pDMEmmdPmeDVA52wT/gjKHOFqquFK7diEI4vKxgewBE/A3ZbuDJBHVGVaOzWwu2c1
- wuIF+gTVfSR/+Jlh3Mna1kaj6QajCijjDwlPO/1rh8A8vGQW26nHbdFZzDzaWRUsld
- 7KhjJ2HUj9dB0IVak07SKrJ5fek2BWR7JcEyZR5I=
-Received: from pcie-dev03.dhcp.broadcom.net (pcie-dev03.dhcp.broadcom.net
- [10.59.171.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail-lvn-it-01.lvn.broadcom.net (Postfix) with ESMTPSA id 39A7418041CAC9;
- Wed, 14 Aug 2024 15:18:21 -0700 (PDT)
-From: jitendra.vegiraju@broadcom.com
-To: netdev@vger.kernel.org
-Date: Wed, 14 Aug 2024 15:18:18 -0700
-Message-Id: <20240814221818.2612484-6-jitendra.vegiraju@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240814221818.2612484-1-jitendra.vegiraju@broadcom.com>
-References: <20240814221818.2612484-1-jitendra.vegiraju@broadcom.com>
+ Thu, 15 Aug 2024 16:35:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2YsIYBU4KdzLxYOq/DWZJaW8fsNmm7V/n/GVrhzx8fU=; b=OyXy+w3bleVZ7blXyZNiQ9LVCb
+ bhzsyx0+QQMv/aBgZT9jtgM0Ws9Kkswdf6EMIbVOzYPIcIATpMTffVE98W5J2RC0NB/5JCK4UaHYa
+ 5Y+DqD5Y3IgQHovKo69Q0srhgBNUXKHJ2btWtuc1hlO2XJIHixiRm29zqDv+0sfPu44JFw1A1VRKC
+ gHbNkBVlKal+PKZ8jl3HllTyWw9YIfVqGodkro07kCDtpNKPPH+55IDIr66B/N428V4pHw/faaZHQ
+ K7cm8AeiJw2ogzoQ9WU25F/04tDZ5EvEYJqpsrHvvZ3goIJxny75LNbFDCXc2W1uWYyCOp+p707c4
+ /igHZSFw==;
+Received: from i53875a9f.versanet.de ([83.135.90.159] helo=diego.localnet)
+ by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1sedRb-0005Qb-Gy; Thu, 15 Aug 2024 18:35:23 +0200
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+ linux-kernel@vger.kernel.org, David Wu <david.wu@rock-chips.com>
+Date: Thu, 15 Aug 2024 18:35:22 +0200
+Message-ID: <2148922.heUyiRONoq@diego>
+In-Reply-To: <a73ff2ab-7e68-4d6b-b38d-37e7303af40d@rock-chips.com>
+References: <20240808170113.82775-1-detlev.casanova@collabora.com>
+ <3304458.aeNJFYEL58@trenzalore>
+ <a73ff2ab-7e68-4d6b-b38d-37e7303af40d@rock-chips.com>
 MIME-Version: 1.0
-Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, leong.ching.swee@intel.com,
- edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
- daniel@iogearbox.net, john.fastabend@gmail.com, linux@armlinux.org.uk,
- joabreu@synopsys.com, bcm-kernel-feedback-list@broadcom.com,
- jitendra.vegiraju@broadcom.com, kuba@kernel.org, rohan.g.thomas@intel.com,
- pabeni@redhat.com, ahalaney@redhat.com, hawk@kernel.org,
- richardcochran@gmail.com, ast@kernel.org, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, xiaolei.wang@windriver.com,
- florian.fainelli@broadcom.com, linux-kernel@vger.kernel.org,
- fancer.lancer@gmail.com, horms@kernel.org, mcoquelin.stm32@gmail.com,
- bpf@vger.kernel.org, davem@davemloft.net
-Subject: [Linux-stm32] [net-next v4 5/5] net: stmmac: Add BCM8958x driver to
-	build system
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ kernel@collabora.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Re: [PATCH v2 2/2] ethernet: stmmac: dwmac-rk: Add
+	GMAC support for RK3576
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,78 +62,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-
-Add PCI driver for BCM8958x to the linux build system and
-update MAINTAINERS file.
-
-Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
----
- MAINTAINERS                                  |  8 ++++++++
- drivers/net/ethernet/stmicro/stmmac/Kconfig  | 11 +++++++++++
- drivers/net/ethernet/stmicro/stmmac/Makefile |  1 +
- 3 files changed, 20 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7b291c3a9aa4..174e77446f73 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4350,6 +4350,14 @@ N:	brcmstb
- N:	bcm7038
- N:	bcm7120
- 
-+BROADCOM BCM8958X ETHERNET DRIVER
-+M:	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-+R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
-+F:	drivers/net/ethernet/stmicro/stmmac/dwxgmac4.*
-+
- BROADCOM BCMBCA ARM ARCHITECTURE
- M:	William Zhang <william.zhang@broadcom.com>
- M:	Anand Gore <anand.gore@broadcom.com>
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 05cc07b8f48c..47c9db123b03 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -298,6 +298,17 @@ config DWMAC_LOONGSON
- 	  This selects the LOONGSON PCI bus support for the stmmac driver,
- 	  Support for ethernet controller on Loongson-2K1000 SoC and LS7A1000 bridge.
- 
-+config DWMAC_BRCM
-+	tristate "Broadcom XGMAC support"
-+	depends on STMMAC_ETH && PCI
-+	depends on COMMON_CLK
-+	help
-+	  Support for ethernet controllers on Broadcom BCM8958x SoCs.
-+
-+	  This selects Broadcom XGMAC specific PCI bus support for the
-+	  stmmac driver. This driver provides the glue layer on top of the
-+	  stmmac driver required for the Broadcom BCM8958x SoC devices.
-+
- config STMMAC_PCI
- 	tristate "STMMAC PCI bus support"
- 	depends on STMMAC_ETH && PCI
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 967e8a9aa432..517981b9e93a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -41,4 +41,5 @@ dwmac-altr-socfpga-objs := dwmac-socfpga.o
- obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
- obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
- obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
-+obj-$(CONFIG_DWMAC_BRCM)	+= dwmac-brcm.o
- stmmac-pci-objs:= stmmac_pci.o
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgRGF2aWQsCgpBbSBNb250YWcsIDEyLiBBdWd1c3QgMjAyNCwgMDQ6MjE6MjcgQ0VTVCBzY2hy
+aWViIERhdmlkIFd1Ogo+IEhpIERldGxldiwgSGVpa286Cj4gCj4gSXQncyByZWFsbHkgYSBUUk0g
+ZXJyb3IgaGVyZSwgUk1JSSBQSFkgaGFzIGJlZW4gdmVyaWZpZWQgZm9yIHRoaXMgcGF0Y2guCgp0
+aGFua3MgZm9yIGRvdWJsZSBjaGVja2luZy4KCgpIZWlrbwoKPiDlnKggMjAyNC84LzkgMjI6Mzgs
+IERldGxldiBDYXNhbm92YSDlhpnpgZM6Cj4gPiBDYW4ndCBiZSBzdXJlIGFib3V0IHRoYXQuIEFu
+IGVycm9yIGluIHRoZSBUUk0gaXMgbm90IGltcG9zc2libGUgZWl0aGVyLCBhcyBmb3IKPiA+IHJr
+MzU4OCwgaXQgaXMgYWxzbyBiaXRbNV09MDogRElWMjAgYW5kIGJpdFs1XT0xOiBESVYyLiBJIGNh
+biBzd2l0Y2ggdGhlbSB0bwo+ID4gbWF0Y2ggdGhlIFRSTSB0aG91Z2gsIHdlIG1heSBuZXZlciBu
+b3cuCgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
