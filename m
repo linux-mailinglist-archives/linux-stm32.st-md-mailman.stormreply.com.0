@@ -2,100 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69610954711
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 12:55:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D52B95483C
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 13:48:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E88FC78019;
-	Fri, 16 Aug 2024 10:55:07 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26879C71290;
+	Fri, 16 Aug 2024 11:48:30 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF18BC78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF704C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 10:55:05 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-429da8b5feaso18484265e9.2
+ Fri, 16 Aug 2024 11:48:22 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-a7a94478a4eso516562466b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 03:55:05 -0700 (PDT)
+ Fri, 16 Aug 2024 04:48:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723805705; x=1724410505;
+ d=gmail.com; s=20230601; t=1723808902; x=1724413702;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xzZC0M9EYFXrRYfn9TDzsNDqOMCKTr68cWUMx7V2XT4=;
- b=XaGCmM4ppYq6DpsA6xJ7GWiVPdPskAJnZUGR4YLjb8HEuX81gO4v3NtYa9c6gcD3qP
- i2JEkResVAvO4hqZ7pLtLO/asgfGf4PVNGRFFRDlEwPvK98qWqWqDEb+adU0lIRMvxk8
- idMqbgl1NLZJylYeHWJWRGhAKGWXG5n1WhmA9qEVe/4xYSfAilW/WQrHjZJoJpcbF5B/
- BpkaA4xODbA6UyosS9hgCLzn5eCSUn+RBYMZCXPs4Z6tbj/3qq/qQfENO5FXnjgdxBvC
- s9zyUk0gTk68HBIPDJxQxXTgo3S2Fk/qvM9hWeYpradP4/ZliKNyX+U8bT0sAVfCaovV
- bWyA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=IY44BvNIQ8HMdyx0QMRty049Oi1G15aZuupS+GebtAw=;
+ b=kXF2TvwamM28JU7mZdeoBZeH5SxZof2pyMKYRb3/bRi0BiS5BOz4yTlF1tTICSRR3d
+ 4xYjOFZ7TQ8g74D+g1HITgWaNaWAZPQLgC2Jro15VOd4A3XqnkneBoBlOlELNbac8qZN
+ vVFTiklP57n8ipV3xsWPH5E1WVz6tOQrOk71SH69au5PrWi6t8giBqP02NSziep1Xt8v
+ QSW6Cn0SCNWNF38NvrtNjAtjUvvi2qfuL6+fiBHdCb4/mJd6TAA5uk35tB/iioPetHjQ
+ /QQ2vCm7m+GByxPXYiBp0HrTvW25V4v4O8ctIoS30mgXPX6IRE+JolvJqCkOPDczGO6w
+ BLfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723805705; x=1724410505;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xzZC0M9EYFXrRYfn9TDzsNDqOMCKTr68cWUMx7V2XT4=;
- b=mXM4zBStCp3bCD1XnoCiklmawa+x88iHeK+kriNeHJ5vZWqWZzn3CkV2Ku5KDJ9ajw
- LfEXEBXmJ5ZEumFX3PTYujySoBVi+o/JRt+N4zLKohR3NeCHnr4F2mNsjH4kHV+6gfs2
- lmUnWjO/am+1iLq+J+zXmqNMEGyBrBiyYs4TVhBdP60kRevzf9bixafFTyT4ftWhMb8K
- qkcOxduokcSWN5wltDwCZgfFdwTgaWenE53sr5P2VEt0Xc5vi8Ith0T8M09is+yzLwTE
- QhjHvsH7mC7NJaVmA3J823u9pbmT3cbXgdkhAm8RguwRtk6unTmUry6QUtVQ4AoaWBSK
- z5hg==
+ d=1e100.net; s=20230601; t=1723808902; x=1724413702;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IY44BvNIQ8HMdyx0QMRty049Oi1G15aZuupS+GebtAw=;
+ b=v+78vhbqMEFbgzrAr65jektgeJiUljmSkGM5c11fsry0/Be9tVUNPfsk1aiLKvG/fW
+ t9oKTPHnwVLmvDZcr9+Jf9HdLzt2yRHKNIaGFaD9sXnZwF8D41YTR1bYdG7z654iDvc+
+ na1JOBfMzbDizglz8dS1oBQVfr8aHQscmnJb338L72Nqdp7HvjIxApbvHRw5FbWYdIz2
+ QNsGBySNWpUYDXkxdDKQ/ZhrdGbhDAulHNbXABuwTp0i/vfgBLL9JcQLqoqNnt1I43F0
+ weVKrqqn8YCfqH98tojdr/51zfxlHUWQOnr5IYIHAMLjKm7Psr/oU/YA1YfSGcOQu6Xc
+ 2zRQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU58qEd84dO282VopaiEy6byZbd/lLVi683C1QqXIMZ+G28fenvBA//rYb9Z7mdzYMrA87I2uyEviZtYaRk6b3UVYpizpiKSqxo5rKwxIlxEKrnUnSPU/mt
-X-Gm-Message-State: AOJu0YyCwZDW3OGGT/joJ0hLdYuhFeZ1tbscOHUR5LwYN/fj//xMJ3Om
- 7NncQUGFagBNaRwPSsuZphLP+0sS4hOSTxovfCQnTTQjOg5EfqBOBzYQnIgK98s=
-X-Google-Smtp-Source: AGHT+IHjZHJdqi78iF456VbGb6wR7RxT96NknEiGEFoYeO6BRf1QVX7lFBSfHR9ooukIBdApMHs1NQ==
-X-Received: by 2002:a05:600c:208:b0:426:59fe:ac27 with SMTP id
- 5b1f17b1804b1-429ed7d6481mr18549855e9.26.1723805705202; 
- Fri, 16 Aug 2024 03:55:05 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.215.209])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ed7945cesm19461935e9.40.2024.08.16.03.55.03
+ AJvYcCU81y4cFizGfHznZ2zF9t+5SHnH0d6zFtE2RCxuunG2i5hk7+qxV/Z3PybqT+C8QxooQn+9E7OucZMOK0V0Gcz4u2fswuxUSvysPjFKX8KLFtuYvMwi4PcJ
+X-Gm-Message-State: AOJu0Yz0Ibr/reGZP4EZWUacM4jN+c6v5KMylSGy+tcfOvvqbgtOmOju
+ xeCURqc4rzVmxYCIZSp5wbftBGEDRKTNND5cllH4neJRBWO9QGOH
+X-Google-Smtp-Source: AGHT+IEMqNZbH50JXVZEb5SoTpw0eEiq2X6PpNhKEqpktgqE6co9AWSShXZz8K636iWMPF7XES4lEA==
+X-Received: by 2002:a17:907:3fa4:b0:a72:64f0:552e with SMTP id
+ a640c23a62f3a-a8394e34235mr243281566b.19.1723808901548; 
+ Fri, 16 Aug 2024 04:48:21 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a83839344fdsm244834166b.100.2024.08.16.04.48.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2024 03:55:04 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 16 Aug 2024 12:54:37 +0200
+ Fri, 16 Aug 2024 04:48:20 -0700 (PDT)
+Date: Fri, 16 Aug 2024 14:48:17 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20240816114817.gp7m6k2rlz7s4e5a@skbuf>
+References: <cover.1723548320.git.0x1207@gmail.com>
 MIME-Version: 1.0
-Message-Id: <20240816-cleanup-h-of-node-put-memory-v2-13-9eed0ee16b78@linaro.org>
-References: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
-In-Reply-To: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Lukasz Luba <lukasz.luba@arm.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Santosh Shilimkar <ssantosh@kernel.org>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1869;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=XVq1bAp1DPzbReC84gkm7B7jCsUc7V7wiEW2r5jKKFs=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmvy/yjJOSs+fjUCguca37Fmp1Np6bS/o8AycYV
- q1DSeQLoR6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZr8v8gAKCRDBN2bmhouD
- 1z3+D/4vIO8HONcnYaJfvUTePd6DMbBbn9F/+h5JlkVZ9zuC6/FNYFAdsOVvol0buCd7GaQWZvB
- xkVBikxYPZ/SpZ/juDJ1odkOaVuG+6NFpphe6DNYNdwhio6ejIUqUcPYrgF88Lkc315GuP4WaHh
- LQrpEtjlApG1WaiWbwIyWH2Pe6aYg6XG2Qt5641TUI4xcOu9mdemiA6giWEpFo8OS1fA3vgDolp
- YQWUT5h/oXmzvUoFRt6nTrOWpdPc0cUcectO/1sJxCzVAn6+idbkM/UCEF6dxovgd0Xq1rbtS8Y
- HSlVMFGLgkJ1ujF1QHVdPYR8Ms0Qgsk3cJUMNbvRKw4BWCyPBa9GM+1gp8V+5O4ozHdWYpNwdNJ
- WTVSTv3lSokPa/71tY2WlqDaLwd5Wz/5Cd3NxPrCYKSIti5jI5aF2DkO5fF1NES8LHwVKhwiBPh
- 1GDrE73cb3PgoZQaGrPa8bA6QZNnFoZ0Isw68JLrfs8DvnyGnS0kJmGZsxZvO10+6iu7fv3BMeP
- /yJ5siDXH5HJP4f8bqPef8kK6KkDxp25JKag4raVN91XG1UeuBdgU+0dIOlTfpGHsfvIgcvemJ6
- N8nBHo+dkh0vyPbMITPZEbJASGRHeSS++0db3mzSmkBWtUYQx4Abnd2BV8WH1C0z24W+pTT3FS9
- U08Yg6h2nsqgtDA==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Content-Disposition: inline
+In-Reply-To: <cover.1723548320.git.0x1207@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 13/13] memory: ti-aemif: simplify with
- scoped for each OF child loop
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/7] net: stmmac: FPE via
+	ethtool + tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,61 +88,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use scoped for_each_available_child_of_node_scoped() when iterating over
-device nodes to make code a bit simpler.
+On Tue, Aug 13, 2024 at 07:47:26PM +0800, Furong Xu wrote:
+> Move the Frame Preemption(FPE) over to the new standard API which uses
+> ethtool-mm/tc-mqprio/tc-taprio.
+> 
+> Changes in v2:
+>   1. refactor FPE verification processe
+>   2. suspend/resume and kselftest-ethtool_mm, all test cases passed
+>   3. handle TC:TXQ remapping for DWMAC CORE4+
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/memory/ti-aemif.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+This is starting to look better and better. I wouldn't be sad if it was
+merged like this, but the locking still looks a little bit wacky to me,
+and it's not 100% clear what priv->mm_lock protects and what it doesn't.
 
-diff --git a/drivers/memory/ti-aemif.c b/drivers/memory/ti-aemif.c
-index bb9c8132d8c0..7b48303f183b 100644
---- a/drivers/memory/ti-aemif.c
-+++ b/drivers/memory/ti-aemif.c
-@@ -330,7 +330,6 @@ static int aemif_probe(struct platform_device *pdev)
- 	int ret = -ENODEV;
- 	struct device *dev = &pdev->dev;
- 	struct device_node *np = dev->of_node;
--	struct device_node *child_np;
- 	struct aemif_device *aemif;
- 	struct aemif_platform_data *pdata;
- 	struct of_dev_auxdata *dev_lookup;
-@@ -366,12 +365,10 @@ static int aemif_probe(struct platform_device *pdev)
- 		 * functions iterate over these nodes and update the cs data
- 		 * array.
- 		 */
--		for_each_available_child_of_node(np, child_np) {
-+		for_each_available_child_of_node_scoped(np, child_np) {
- 			ret = of_aemif_parse_abus_config(pdev, child_np);
--			if (ret < 0) {
--				of_node_put(child_np);
-+			if (ret < 0)
- 				return ret;
--			}
- 		}
- 	} else if (pdata && pdata->num_abus_data > 0) {
- 		for (i = 0; i < pdata->num_abus_data; i++, aemif->num_cs++) {
-@@ -394,13 +391,11 @@ static int aemif_probe(struct platform_device *pdev)
- 	 * child will be probed after the AEMIF timing parameters are set.
- 	 */
- 	if (np) {
--		for_each_available_child_of_node(np, child_np) {
-+		for_each_available_child_of_node_scoped(np, child_np) {
- 			ret = of_platform_populate(child_np, NULL,
- 						   dev_lookup, dev);
--			if (ret < 0) {
--				of_node_put(child_np);
-+			if (ret < 0)
- 				return ret;
--			}
- 		}
- 	} else if (pdata) {
- 		for (i = 0; i < pdata->num_sub_devices; i++) {
-
--- 
-2.43.0
-
+I can make a breakdown of how each member of fpe_cfg is used, and thus
+understand exactly what are the locking needs and how they are addressed
+in this version, but most likely not today.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
