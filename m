@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B3FB954707
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 12:54:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2356295470A
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 12:55:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7ED8C78020;
-	Fri, 16 Aug 2024 10:54:57 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0DAEC78012;
+	Fri, 16 Aug 2024 10:54:59 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A665BC78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4847CC78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 10:54:56 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4280ee5f1e3so13347165e9.0
+ Fri, 16 Aug 2024 10:54:58 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-428119da952so13406455e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 03:54:56 -0700 (PDT)
+ Fri, 16 Aug 2024 03:54:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723805696; x=1724410496;
+ d=linaro.org; s=google; t=1723805698; x=1724410498;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=6YRde/fYbJz8xZyUhMQmHjg4wnmznu+US4KTcpFxBxo=;
- b=AzHSuHNTicOrVbK+uvm9/FZuilZIHI9fC2BQK0TLIRToypS6xQV4SV206x0VICnIiy
- 53xF17T/1ypfNC99xv0i48t6dggthB4QmDFscn/jj71ellvY0l3TqAjQM7QL0ZUyFpLW
- ZL9lFqDw0fIgiCp3lZNQwgfSK/HRs5/4vtQXwRFnokWL85z3Dq7D3BJWdFBtB6xWR7ti
- s7aZtP7qUvKc2gEcZfnACWebyA4fCfHkjMgU2yY1ewv54nuXzz9f+clVcn3nng0Xrxn+
- moZGv0KsOUEUtZf0kiJ8iD8qvmfl0fXI11vNPhzu2hrg4khRycZHaXj1pTb92y4wPx6p
- MIpA==
+ :reply-to; bh=JOgxzZUvrtpq2BMDuicgWPsp2jimj6KEDspxwy4BQUg=;
+ b=p9NYqk2QiEmR/o9mtmkLBNwSMMSe5DrfeRUf7sjLDBQ9cfrKZttjEzkF+oVyrmOT4V
+ nFB/peYRSTmiCqiZICrG6wjjqp3Vt/13VKS4pjVMzntRlgZfg0QH2NSZdt3urqjKxUnS
+ m0KjkctzSpfwi4SlbYPo1DtmhXNdnSRkHfsrzyQAFuNNajyxCKzL/2LFmtz4f8ZVxlIC
+ 74XCnREJsN5OakyMXMsag5kwaanHlblmxlhcIRQjFzVydAHzTWsMOI87c0C9xfjPIRnn
+ qpgNJnI/GEx55HXuRqxVnznRtf4h/rNFTvk3rGuKmE85PUYOi9mQfPD8fUVtfjGeE0RH
+ XIag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723805696; x=1724410496;
+ d=1e100.net; s=20230601; t=1723805698; x=1724410498;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6YRde/fYbJz8xZyUhMQmHjg4wnmznu+US4KTcpFxBxo=;
- b=ZXRxjdNd7RBb81N/9Ug1zLDFk7VmF8eh6J4VpkxjZv4Giot3fwMSEvXOZ34J5L2/HT
- +ZyNcYYr/GJaK3yWMy63kRo9bOvXr0AqjxKCXXNJUt56fACcj/tl8aHBOlNroUTnWv50
- CSuk6X3jA2SL2SNP4CEIxZKqIOhgdVeyRg1duqXXMGoEVWjDMdpShR6YRtT3a5/9U3Ac
- RRBK0NTj9/F+NALMdBIn19x9GOdsN/JTRV8ToP3+3WDldNZXOg57NGA2BbEnwtT+Vbqd
- YIp+/n6dUZtDbNhRbrYP1j27IIrHaGLiGRUiLqptndP9qaI3McqxLkHEZmRS09fy/PcU
- nl4Q==
+ bh=JOgxzZUvrtpq2BMDuicgWPsp2jimj6KEDspxwy4BQUg=;
+ b=ikRF9Sh9nQCnRvhN5BE11c2OGU0xmwi0QG2l9NLsbBQMN3PFJvDD8hbusZHOwcLdFP
+ HvGdVqfJ2Q0NZwmw6IP9lJi/DiiKhF1IB/yTvb7xsWpIHWDn5vMj5lBqxSiU3cwrNjmp
+ GvOOvGZCa+jg7lzYm9YjexmzNZuMWaUHlWh+wdtrNzFVJleb7B/Dye3ir+iVKiKdyO3/
+ Dng+NGF8us7V4UWtdBsnLKi8s2doMv9cHnnCozB3I/3lU0NyMAOI2uRaZEHaeGAhP1fe
+ TH/8hwxdMcugZodQr3T587v946lFY8L/t48eeXE1+ItA8VtG9C+z3sLtw3WatTwhE1O7
+ PwGg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUSRq61V+q/nLP2SofIBMNdpDqzwTJBpmH0+wnNgK+SgXqiQNDmKxbyeXV/xS8JWa/d6He2cU8BK9Inbw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwnT76uKnLnBDzmQctJntXv44Zz1M+yZeiPRcW7cB/HPm9V+QZT
- OlsXXLqTsmYQuzRYFGSkEBLAvfVoaa7HJiuI7RxyRVTQfIA6e8ZWWoYddW29P+w=
-X-Google-Smtp-Source: AGHT+IF6JR5QgFzYZqDis0yng6ewdCGRElyq9KQSPO+EpQI/aW4zcsFVDjGZ6uVazhi1rffyYnq0KQ==
-X-Received: by 2002:a05:600c:4f8d:b0:427:d713:a5d3 with SMTP id
- 5b1f17b1804b1-429ed79daa4mr16802255e9.11.1723805696134; 
- Fri, 16 Aug 2024 03:54:56 -0700 (PDT)
+ AJvYcCX0gYPfm8W/zuc65SkE5qYasOVRVg48SGxExJtlOyaseVYFBVsrS9DRc33SeadsS5ec6p9c8/GLnDy82nl0OC5gi3VVAMW+EIajBKEct1Sewb89D3ulxoDQ
+X-Gm-Message-State: AOJu0YwxWWNPB/4cGwg1rlQGLiMnOMHwU1I41TVwMQjmM2HHMFPdh/si
+ 03CEWUG8iWAmSKRJB6qDSKzCDLHqNyCQrUiT0WIRrrX2BHiYcLRALfKvbvRWypY=
+X-Google-Smtp-Source: AGHT+IHMPxUtjfGRn7ZG1qPQZ/Tx/a2kVQMSOXnBcUVsMZ+mh2g/UkrF5oZy92ASETKVrsM2pu1Eew==
+X-Received: by 2002:a05:600c:a45:b0:426:6edb:7e14 with SMTP id
+ 5b1f17b1804b1-429ed7d34fdmr15301545e9.35.1723805697665; 
+ Fri, 16 Aug 2024 03:54:57 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.215.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ed7945cesm19461935e9.40.2024.08.16.03.54.54
+ 5b1f17b1804b1-429ed7945cesm19461935e9.40.2024.08.16.03.54.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2024 03:54:55 -0700 (PDT)
+ Fri, 16 Aug 2024 03:54:57 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 16 Aug 2024 12:54:31 +0200
+Date: Fri, 16 Aug 2024 12:54:32 +0200
 MIME-Version: 1.0
-Message-Id: <20240816-cleanup-h-of-node-put-memory-v2-7-9eed0ee16b78@linaro.org>
+Message-Id: <20240816-cleanup-h-of-node-put-memory-v2-8-9eed0ee16b78@linaro.org>
 References: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
 In-Reply-To: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -72,21 +72,21 @@ To: Krzysztof Kozlowski <krzk@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, 
  Santosh Shilimkar <ssantosh@kernel.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1905;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1307;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=SAst7T1lfs852WDMPyN7cdI8dxlvyoFUdcgyCbTBwGY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmvy/slbj3+EXAI6pk399+GoDZQ7kgdWtQ7XQ9i
- iI781jL8UuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZr8v7AAKCRDBN2bmhouD
- 10ZTD/0Z7SRvLmaBE+Gm6YtZvr0IwKzMR9efFrxg+sCxIUabM6l8TKG73/GeZE1pWa2NzX5Y5MT
- B+MgKAT7I93N042qHHUfGjB4ZNqu3HoHMBrDTFFoixqjMeJ3em7cZuCi84Crr1chTAqvyqQdZK9
- idnbYS4yHD6T/VcXQ/6OhgyMuf1OfyghFcekCQGQQB3ifinxb9Sx6u81HbboWBwlCLU1vAOMCya
- l/8TUj7AzauBbQOT8cHxiVmydvVG+QivUVINIkENi6eWcdAPRl4qBYanLQTckl0s3HOeKO8rSjg
- VwvimtJXbPTRswVDhrO3r+Q5KlgN0Q/03mPM3GRPRCYBfZ5Q+M2NOGrc1pmHMmkC/IJjO6D6fmr
- P2s9hAJHAvHYlucn5l7uV2zqb5UB1s/MIW8Fh0ZTuSFFo/HzH7MFBXdYgQSagiLYliwLeVLbsoe
- vloGmpxWk4IvfxapJl3a5beo99W8PALAYRwiMTl9C9yU3ysvJ3l16kMkCQAsIB6fB07zi25a7AF
- 5lyltwEAXdORJvYfV2qpH0ubioiMFhxVu/lTr4N9gd8r2F6HEj4aNZKhFhfk4KpWypXInpaW3BD
- rkFiaKUi14wboHIU0trpU3cNYvV66uyuLxMKTEGykTQ7eihutPKJyUtr1HdprrvuO4dl9aNcMU1
- aV0RVoW1QBvtjIw==
+ bh=rDsZLo3wwoaidFkJYFptVSgVV4IV53Wsuj2KZiIUK6I=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmvy/tahceV7TKEor8UTYOHOw8XO+MpwcWse5dr
+ Yc5OT5M1QeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZr8v7QAKCRDBN2bmhouD
+ 15qVD/4temSVQ0ngkzMHbEIkNQhXO194h+2fYYACqxi8kpkiZBvmRpBRXJviVipghRhO9K5i3Pi
+ bCLujgzzk3lAnUlRAUWLFE1ZwJwbNorN3L2wMvDiAH4xWtexjXHdpJU6Frbq9hf41oMf8To3yn4
+ mpYNezq1J3BvH5AvfuNV2cG707DvNk/mGOfYyG6818en+8wWeI8gQFsjusd7PtdWmnq7fSRVcE2
+ qQnN3nCq4uBAvghWHM9zN7GmmkLtIP2jAC02NIDPVBw9QNZHaSjGb+Z9DeasEOErDeYzxS7cu2e
+ /4AZKgZkHgu3Wa9veJOuUOYhwlovzdflxQo1yd725cwJs0PVSUmX5wmplqc46JaxKNQPgZ5k5EX
+ G/23vekqpdTc22RLBtafVW47vW+Jequ/eSCV9ObE/b2j5HXdd93G2wESc2roklzvr5qnEL6cX4b
+ S6SQZ5j3yrxo21XrBloI7KTj+XaiRG27QrJ5CqxN/dnQ77vGOJPY/vhmZHpf0YjELoI2vylKP+l
+ KKinczj+fDN9OL162qEJnOn58KSFvQviNx0Is1TPt2LoYk30l2I/5Ga72W+SflJCAWYMPBEBwkT
+ rwjTv2CqWkebZjiE16onqrwHk9gkdH9/Wyon/lJMXW9lb/Xm29+jK3AcBi+OPK3OljwHqayB2X0
+ j8CvAwe+7cD/yXg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
@@ -94,7 +94,7 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-tegra@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 07/13] memory: tegra-mc: simplify with
+Subject: [Linux-stm32] [PATCH v2 08/13] memory: tegra124-emc: simplify with
  scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -118,30 +118,30 @@ nodes to make code a bit simpler.
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/memory/tegra/mc.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/memory/tegra/tegra124-emc.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/memory/tegra/mc.c b/drivers/memory/tegra/mc.c
-index 224b488794e5..bd5b58f1fd42 100644
---- a/drivers/memory/tegra/mc.c
-+++ b/drivers/memory/tegra/mc.c
-@@ -450,7 +450,6 @@ static int load_one_timing(struct tegra_mc *mc,
- 
- static int load_timings(struct tegra_mc *mc, struct device_node *node)
+diff --git a/drivers/memory/tegra/tegra124-emc.c b/drivers/memory/tegra/tegra124-emc.c
+index 47c0c19e13fd..03f1daa2d132 100644
+--- a/drivers/memory/tegra/tegra124-emc.c
++++ b/drivers/memory/tegra/tegra124-emc.c
+@@ -992,7 +992,6 @@ static int tegra_emc_load_timings_from_dt(struct tegra_emc *emc,
+ 					  struct device_node *node)
  {
--	struct device_node *child;
- 	struct tegra_mc_timing *timing;
  	int child_count = of_get_child_count(node);
- 	int i = 0, err;
-@@ -462,14 +461,12 @@ static int load_timings(struct tegra_mc *mc, struct device_node *node)
+-	struct device_node *child;
+ 	struct emc_timing *timing;
+ 	unsigned int i = 0;
+ 	int err;
+@@ -1004,14 +1003,12 @@ static int tegra_emc_load_timings_from_dt(struct tegra_emc *emc,
  
- 	mc->num_timings = child_count;
+ 	emc->num_timings = child_count;
  
 -	for_each_child_of_node(node, child) {
 +	for_each_child_of_node_scoped(node, child) {
- 		timing = &mc->timings[i++];
+ 		timing = &emc->timings[i++];
  
- 		err = load_one_timing(mc, timing, child);
+ 		err = load_one_timing_from_dt(emc, timing, child);
 -		if (err) {
 -			of_node_put(child);
 +		if (err)
@@ -149,31 +149,7 @@ index 224b488794e5..bd5b58f1fd42 100644
 -		}
  	}
  
- 	return 0;
-@@ -477,7 +474,6 @@ static int load_timings(struct tegra_mc *mc, struct device_node *node)
- 
- static int tegra_mc_setup_timings(struct tegra_mc *mc)
- {
--	struct device_node *node;
- 	u32 ram_code, node_ram_code;
- 	int err;
- 
-@@ -485,14 +481,13 @@ static int tegra_mc_setup_timings(struct tegra_mc *mc)
- 
- 	mc->num_timings = 0;
- 
--	for_each_child_of_node(mc->dev->of_node, node) {
-+	for_each_child_of_node_scoped(mc->dev->of_node, node) {
- 		err = of_property_read_u32(node, "nvidia,ram-code",
- 					   &node_ram_code);
- 		if (err || (node_ram_code != ram_code))
- 			continue;
- 
- 		err = load_timings(mc, node);
--		of_node_put(node);
- 		if (err)
- 			return err;
- 		break;
+ 	sort(emc->timings, emc->num_timings, sizeof(*timing), cmp_timings,
 
 -- 
 2.43.0
