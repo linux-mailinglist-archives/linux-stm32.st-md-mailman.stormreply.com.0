@@ -2,67 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7714A954B08
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 15:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FFD95508C
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 20:09:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3483EC78006;
-	Fri, 16 Aug 2024 13:24:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58CD8C7129D;
+	Fri, 16 Aug 2024 18:09:42 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 822FAC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C232C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 13:23:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47GB3sO5026079;
- Fri, 16 Aug 2024 15:23:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- oFevO1WzCe1lndyKIcqDqzd48GJyNyJUl83cjIp11to=; b=wi89wzvoAWZ4JLHX
- /vey5yXyVCwUYYt6WmAX+NEwpjWACLYxfSxA3rbyXm+wlUMX/WkDYflpcMwGB1Sl
- V62X7RVP97mubEl0kwFdaka4y8uCoxG/KiYZ3GPfGEl/G+U3I/fhLcRTE5HybJ4u
- oqD87qXXf7GO2deT3kNo0yd9Qmqq6vlbxttZXTiwr2FpZuGM/qqHDikIIiWdehDm
- vUj0Tn90+8w5e1qOgDke5yWgquiQItQ3PgUMr4HnaAuApWovTkJfyT9V7F5b5YR0
- MhsUxnCV2Ott7Z58epG4H/1IpUkBw6qjN7bY/xRQzBjNg/4+cTb6T0xgfnILxDvr
- mdQ/Rw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 411vkuj53v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Aug 2024 15:23:47 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A13894002D;
- Fri, 16 Aug 2024 15:23:43 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EDA3D25C5AE;
- Fri, 16 Aug 2024 15:22:53 +0200 (CEST)
-Received: from localhost (10.129.178.198) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 16 Aug
- 2024 15:22:53 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <p.zabel@pengutronix.de>
-Date: Fri, 16 Aug 2024 15:20:57 +0200
-Message-ID: <20240816132058.920870-6-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240816132058.920870-1-christian.bruel@foss.st.com>
-References: <20240816132058.920870-1-christian.bruel@foss.st.com>
+ Fri, 16 Aug 2024 18:09:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 0348FCE207A;
+ Fri, 16 Aug 2024 18:09:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2F8C4AF0E;
+ Fri, 16 Aug 2024 18:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1723831771;
+ bh=2pwdYzQ2ojaf94uUSc3VfR/126ez82e5gZxfj8e+7BA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=C4voLZmRQ5Wf7Hx+7sGeKAABNuyIbLbewF/VAV0+W+YSxA8X4e8A62Lo4Myd2tkCp
+ qS4TMHCH0Bs0gG+Ra4ABe5l7fK8XozXgNK1T31AqzAJ3AYTCbD7LdXBS9SV1JvBI8o
+ PWU+/tMTo2HqIV+CSEKqlm7w2NIDN+EBBRbFsG908yoOb1J4YosA7yRRM/pU+nYInN
+ dFkUU4GFP4JRAO4NsgO68P8OEJgeaCd1L0ggEN+q0zYv7I8R8ygoWeiAth2rEA3hx7
+ dM4yTPHqN9DD8IPgCT2iHNmU0jore++z0+JkyyXdQ47IWeq80GkFgAXMrb4MxB7SKS
+ 6WgQBHYw6atmg==
+Date: Fri, 16 Aug 2024 11:09:28 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: ende.tan@starfivetech.com
+Message-ID: <20240816110928.1a75d223@kernel.org>
+In-Reply-To: <20240814092438.3129-1-ende.tan@starfivetech.com>
+References: <20240814092438.3129-1-ende.tan@starfivetech.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.129.178.198]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-16_05,2024-08-16_01,2024-05-17_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 5/5] arm64: dts: st: Enable COMBOPHY on the
-	stm32mp257f-ev1 board
+Cc: andrew@lunn.ch, leyfoon.tan@starfivetech.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, joabreu@synopsys.com, minda.chen@starfivetech.com,
+ mcoquelin.stm32@gmail.com, pabeni@redhat.com, endeneer@gmail.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next, v1,
+ 1/1] net: stmmac: Introduce set_rx_ic() for enabling RX
+ interrupt-on-completion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,49 +59,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable the COMBOPHY with external pad clock on stm32mp257f-ev1
-board, to be used for the PCIe clock provider.
+On Wed, 14 Aug 2024 17:24:38 +0800 ende.tan@starfivetech.com wrote:
+> From: Tan En De <ende.tan@starfivetech.com>
+> 
+> Currently, some set_rx_owner() callbacks set interrupt-on-completion bit
+> in addition to OWN bit, without inserting a dma_wmb() barrier. This
+> might cause missed interrupt if the DMA sees the OWN bit before the
+> interrupt-on-completion bit is set.
+> 
+> Thus, let's introduce set_rx_ic() for enabling interrupt-on-completion,
+> and call it before dma_wmb() and set_rx_owner() in the main driver,
+> ensuring proper ordering and preventing missed interrupt.
 
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 214191a8322b..bcf84d533cb2 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -27,6 +27,14 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	clocks {
-+		pad_clk: pad-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <100000000>;
-+		};
-+	};
-+
- 	memory@80000000 {
- 		device_type = "memory";
- 		reg = <0x0 0x80000000 0x1 0x0>;
-@@ -50,6 +58,12 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&combophy {
-+	clocks = <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>, <&pad_clk>;
-+	clock-names = "apb", "ker", "pad";
-+	status = "okay";
-+};
-+
- &ethernet2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&eth2_rgmii_pins_a>;
--- 
-2.34.1
-
+Having multiple indirect function calls to write a single descriptor 
+is really not great. Looks like it's always bit 31, can't this be coded
+up as common handler which sets bit 31 in the appropriate word (word
+offset specified per platform)?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
