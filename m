@@ -2,76 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D52B95483C
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 13:48:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FC92954AF3
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 15:22:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26879C71290;
-	Fri, 16 Aug 2024 11:48:30 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF63DC71290;
+	Fri, 16 Aug 2024 13:22:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF704C7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 588B6C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 11:48:22 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-a7a94478a4eso516562466b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 04:48:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1723808902; x=1724413702;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=IY44BvNIQ8HMdyx0QMRty049Oi1G15aZuupS+GebtAw=;
- b=kXF2TvwamM28JU7mZdeoBZeH5SxZof2pyMKYRb3/bRi0BiS5BOz4yTlF1tTICSRR3d
- 4xYjOFZ7TQ8g74D+g1HITgWaNaWAZPQLgC2Jro15VOd4A3XqnkneBoBlOlELNbac8qZN
- vVFTiklP57n8ipV3xsWPH5E1WVz6tOQrOk71SH69au5PrWi6t8giBqP02NSziep1Xt8v
- QSW6Cn0SCNWNF38NvrtNjAtjUvvi2qfuL6+fiBHdCb4/mJd6TAA5uk35tB/iioPetHjQ
- /QQ2vCm7m+GByxPXYiBp0HrTvW25V4v4O8ctIoS30mgXPX6IRE+JolvJqCkOPDczGO6w
- BLfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723808902; x=1724413702;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IY44BvNIQ8HMdyx0QMRty049Oi1G15aZuupS+GebtAw=;
- b=v+78vhbqMEFbgzrAr65jektgeJiUljmSkGM5c11fsry0/Be9tVUNPfsk1aiLKvG/fW
- t9oKTPHnwVLmvDZcr9+Jf9HdLzt2yRHKNIaGFaD9sXnZwF8D41YTR1bYdG7z654iDvc+
- na1JOBfMzbDizglz8dS1oBQVfr8aHQscmnJb338L72Nqdp7HvjIxApbvHRw5FbWYdIz2
- QNsGBySNWpUYDXkxdDKQ/ZhrdGbhDAulHNbXABuwTp0i/vfgBLL9JcQLqoqNnt1I43F0
- weVKrqqn8YCfqH98tojdr/51zfxlHUWQOnr5IYIHAMLjKm7Psr/oU/YA1YfSGcOQu6Xc
- 2zRQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU81y4cFizGfHznZ2zF9t+5SHnH0d6zFtE2RCxuunG2i5hk7+qxV/Z3PybqT+C8QxooQn+9E7OucZMOK0V0Gcz4u2fswuxUSvysPjFKX8KLFtuYvMwi4PcJ
-X-Gm-Message-State: AOJu0Yz0Ibr/reGZP4EZWUacM4jN+c6v5KMylSGy+tcfOvvqbgtOmOju
- xeCURqc4rzVmxYCIZSp5wbftBGEDRKTNND5cllH4neJRBWO9QGOH
-X-Google-Smtp-Source: AGHT+IEMqNZbH50JXVZEb5SoTpw0eEiq2X6PpNhKEqpktgqE6co9AWSShXZz8K636iWMPF7XES4lEA==
-X-Received: by 2002:a17:907:3fa4:b0:a72:64f0:552e with SMTP id
- a640c23a62f3a-a8394e34235mr243281566b.19.1723808901548; 
- Fri, 16 Aug 2024 04:48:21 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83839344fdsm244834166b.100.2024.08.16.04.48.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2024 04:48:20 -0700 (PDT)
-Date: Fri, 16 Aug 2024 14:48:17 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240816114817.gp7m6k2rlz7s4e5a@skbuf>
-References: <cover.1723548320.git.0x1207@gmail.com>
+ Fri, 16 Aug 2024 13:22:34 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47GB3eOb007662;
+ Fri, 16 Aug 2024 15:22:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=N+RTuMITKav8svMSG7///5
+ muEWq1usuZqZIJk8FR7FU=; b=2qP+8X4hjNsGxJRU+OWVK0d8UVu2eovFjrpX+Z
+ H/QIvOD6SFEq/bWnF2oRd3dhXMv03ufJIB9ccAZdxqT7BoodEdJSdqQgvY9wadZZ
+ m/G7d+hxJ/s7GHcEi5ILNt+63N3Hg+Gm0ovK3pa2PyzGTZJqraff6iDXwnlmZ81l
+ D7ieS9LA6RNK93g7NFePZaDTBBfwzCZOuEj5FTHYcCnJSogpWBYOP3IqS0M5eRKH
+ 8NsMD+NvbIW8EXYBGYpluzog+Hp2DhAEvPCe5SxhU290DUzFA/+lg5ZN3vyTkmdu
+ iD75bpTPwOPK2Jh7WNjzm1Nm/Yr1ky+kFSU+72ky0Zdga2Aw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4121pns97n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 16 Aug 2024 15:22:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 542E940045;
+ Fri, 16 Aug 2024 15:22:06 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C175A25C5AD;
+ Fri, 16 Aug 2024 15:21:15 +0200 (CEST)
+Received: from localhost (10.129.178.198) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 16 Aug
+ 2024 15:21:15 +0200
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <p.zabel@pengutronix.de>
+Date: Fri, 16 Aug 2024 15:20:52 +0200
+Message-ID: <20240816132058.920870-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1723548320.git.0x1207@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org, rock.xu@nio.com,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/7] net: stmmac: FPE via
-	ethtool + tc
+X-Originating-IP: [10.129.178.198]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-16_05,2024-08-16_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/5] Add STM32MP25 USB3/PCIE COMBOPHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,22 +75,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 13, 2024 at 07:47:26PM +0800, Furong Xu wrote:
-> Move the Frame Preemption(FPE) over to the new standard API which uses
-> ethtool-mm/tc-mqprio/tc-taprio.
-> 
-> Changes in v2:
->   1. refactor FPE verification processe
->   2. suspend/resume and kselftest-ethtool_mm, all test cases passed
->   3. handle TC:TXQ remapping for DWMAC CORE4+
+Thanks Rob for your comments, addressed in v2.
 
-This is starting to look better and better. I wouldn't be sad if it was
-merged like this, but the locking still looks a little bit wacky to me,
-and it's not 100% clear what priv->mm_lock protects and what it doesn't.
+This patch series adds USB3/PCIE COMBOPHY driver for the STM32MP25 SoC from
+STMicrolectronics, respective yaml schema and enable for the stm32mp257f-ev1
+device into which it is used for PCIe.
 
-I can make a breakdown of how each member of fpe_cfg is used, and thus
-understand exactly what are the locking needs and how they are addressed
-in this version, but most likely not today.
+Changes in v2:
+   - Reorder entries
+   - Rename clock_names and reset_names bindings
+   - Rename and clarify rx-equalizer binding 
+
+Christian Bruel (5):
+  MAINTAINERS: add entry for ST STM32MP25 COMBOPHY driver
+  dt-bindings: phy: Add STM32MP25 COMBOPHY bindings
+  phy: stm32: Add support for STM32MP25 COMBOPHY.
+  arm64: dts: st: Add combophy node on stm32mp251
+  arm64: dts: st: Enable COMBOPHY on the stm32mp257f-ev1 board
+
+ .../bindings/phy/st,stm32-combophy.yaml       | 145 +++++
+ MAINTAINERS                                   |   6 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  17 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  14 +
+ drivers/phy/st/Kconfig                        |  11 +
+ drivers/phy/st/Makefile                       |   1 +
+ drivers/phy/st/phy-stm32-combophy.c           | 607 ++++++++++++++++++
+ 7 files changed, 801 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
+ create mode 100644 drivers/phy/st/phy-stm32-combophy.c
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
