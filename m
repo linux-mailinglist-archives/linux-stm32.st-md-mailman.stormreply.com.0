@@ -2,64 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE449546FF
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 12:54:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDDA3954703
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Aug 2024 12:54:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BFEDC78006;
-	Fri, 16 Aug 2024 10:54:52 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5888C7801F;
+	Fri, 16 Aug 2024 10:54:53 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9422AC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 247BBC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 10:54:50 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-52efd530a4eso2991577e87.0
+ Fri, 16 Aug 2024 10:54:52 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-428163f7635so14321135e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Aug 2024 03:54:50 -0700 (PDT)
+ Fri, 16 Aug 2024 03:54:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1723805690; x=1724410490;
+ d=linaro.org; s=google; t=1723805691; x=1724410491;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Vjjz5PQxtXSt4zeT/RkSGh8NQkwY8peMKp36Eteyrx8=;
- b=xVSDcRSN9EyrGRl38XUN3JbKfdK0uxtYH1/IoLL5dqK5h8BHf0v/eHDJR06uERcFge
- 4/WL4IVcJI/zMcm3ac7pZS9WbJ9K4dHb2R/op7ov/BXnf0nujhScTfV7ZVdp4x2niNA6
- nDUKP7YsENwegyYU2WdjkMkS65IwEW05HAQRjyqz451jLmIrvI85rYSHTUpcgHX1VDmd
- cuDq03qIvzQnuWZ3P6pnhqNop6p2RmWlc1CAraglwbLcGWBq6jTuGwa2RrvDDLI6+s9o
- 3e6DKW4CXDoa0eZ/DeUVYmPHsYP5wNhDvurk+5FDQRCWFZlsDy5vlwZksNF1ZHEzFubo
- vqhw==
+ :reply-to; bh=ps5OVwPQda0LMKMNWr2tdKZsG2I+Nc7kykB2orG3PFk=;
+ b=ySqgEMBRtC4mgnUqW0sbkHarM/MZmU/nM0qSVMpvSSImyiK2srkjzIq3Xecv2e2NkX
+ DtGmxgV/qV/5BuDjVjmVxGpjEhpu36d0KQ/2HJFt56V/FEoh7lv4lVruQ2bmfE/TLqXa
+ fI0XvFT9yUhlTCtVnr9b9/xZQqNYeL9jKSjXhcOukhL+vFjMBf8oMuMB7kR3tZP3Mw9h
+ jxhF/WFX4MOyjgLvm3zzlvwJXPHtizko0W5ili7XHO1delj7qJRkwhZjLGfRIvIz6zpL
+ 6RzZXR51dQDXLmse9oG/XYjnN2ilJMscCkQ/EfBTkT7JSVSFEFcyNDEz5x+sSDFdclLM
+ sA4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1723805690; x=1724410490;
+ d=1e100.net; s=20230601; t=1723805691; x=1724410491;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Vjjz5PQxtXSt4zeT/RkSGh8NQkwY8peMKp36Eteyrx8=;
- b=NCjz2rS09itTMGAOFEg54K2X2p9FgN3DBDRWAqjUn48P0PvzMB08g+mKNynW0PaZHL
- kOYaRsIySIJMKlwjhZDMvFtTF4i+OtU74Ssn6PmaYFRrrLtXsfz9gKv5WWGXT8BCp+aD
- rLsJoi4iQYLWLOZpr4Xntffk3dKSd9hE9J6WRrr9Tx/VeM3lqqDMb6A3h3DrxJ7E3o4D
- VGmV0u32Ai1fEZm9X8AqmLhq+pcmgWF406WLNm+5kQ6r168pDcKNXxQQcYVRp6W/3jqV
- nnhe0lXWev+pdohdJzyHAGvcO9kV9uhG6M3TdL5Y68sjmK77eWeRxF4gKTe6Gg/hO2t8
- 3TVA==
+ bh=ps5OVwPQda0LMKMNWr2tdKZsG2I+Nc7kykB2orG3PFk=;
+ b=eXJs9dTUzCI8T3zFaJi703S7lBlIQGvn4T07chuu2+5iif4MtQzoByJknS4hRb4hnS
+ Oe+itCMWO+0nQ+rrkrw+UJt+Cqua+znO3fcw9En6m4rqZg96zwFvhoesKP6Kf4N1oWvG
+ CORSdNq2kZla4KY8cfnU/7CUXYKub7oEbGlqXHkH7SLxZkqSiNdryNAiFlOpmKbSoSVE
+ /q+z2xqMssn2GUTpfq94XJI+RwfdD1yeBoDzj1ckevlqBq8QUveb3mip4OYP7u0Pg+jv
+ ZXRmoTd4kNPgzCqpLNOiA5cAQ3xv9kdAu3q40AZijG+z+//r4vGuGiiam0en5zmKFzkR
+ ZTsg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUby9ufDkRT3iisXuDkmstL4pwieILaaAOqg8/brrmUy6+xrPmLjuzyvwxSAuggNkFUszElvuq6EXPEMtd9ZchnKxffRQI+lYIj++eS9Bd9FclSox6iNyo1
-X-Gm-Message-State: AOJu0YzxnmNrLIA+C+9PsY/WQaCb5H0FC1kFSTDqxYX65t5SSiqW/KF0
- YwfmSiZqSn1Aa/0LGNNzcwXeODAkH7wE4HVyBBIJ7VgYQui5GO6zj6Usq1ccmxnUMR9ohPOwJhy
- nU8s=
-X-Google-Smtp-Source: AGHT+IF98iCU21qh48ym9eALe83DFj+NaqQe0ww3kus6+d1nOigexYI9Bj36AT3UON4kRaajmBPYkA==
-X-Received: by 2002:a05:6512:b10:b0:52c:859c:91dd with SMTP id
- 2adb3069b0e04-5331c69592dmr1563994e87.5.1723805689671; 
- Fri, 16 Aug 2024 03:54:49 -0700 (PDT)
+ AJvYcCUXdcYJNcVYxcxUZNFjZ6TR8VvoQBOUoiOaiaBYCo9XZKaCnrLlvN7UhTJ8ykctNm6QH293tEgd1CWDiLwxbdrumiNtiPx4gZ3pDPq7NOBnfM71uZygxmSq
+X-Gm-Message-State: AOJu0Yzd2dpMtkmT/dfZAmVKr6Fypjpzxlo2qXTAEdQO24jyJAZ+hhf9
+ UgYnB4M6DvpeE5DOZAyvk4t0vWjHBQdpCiX6CXA8kGZjiDQM3LofCHYyEOF3QdQ=
+X-Google-Smtp-Source: AGHT+IHxdhvK1ECKqUfwiSpYS/cvX8viRntSwBf6ySKhzTK46bfJHN/AjQbBdfp89HO0dgJRuKS1sA==
+X-Received: by 2002:a05:600c:4e8c:b0:426:6ed2:6130 with SMTP id
+ 5b1f17b1804b1-429ed79d9d6mr15821505e9.14.1723805691544; 
+ Fri, 16 Aug 2024 03:54:51 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.215.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ed7945cesm19461935e9.40.2024.08.16.03.54.48
+ 5b1f17b1804b1-429ed7945cesm19461935e9.40.2024.08.16.03.54.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2024 03:54:49 -0700 (PDT)
+ Fri, 16 Aug 2024 03:54:51 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 16 Aug 2024 12:54:27 +0200
+Date: Fri, 16 Aug 2024 12:54:28 +0200
 MIME-Version: 1.0
-Message-Id: <20240816-cleanup-h-of-node-put-memory-v2-3-9eed0ee16b78@linaro.org>
+Message-Id: <20240816-cleanup-h-of-node-put-memory-v2-4-9eed0ee16b78@linaro.org>
 References: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
 In-Reply-To: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -73,30 +72,30 @@ To: Krzysztof Kozlowski <krzk@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>, 
  Santosh Shilimkar <ssantosh@kernel.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6832;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2879;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=vlPrg74sTTRgZv6b3DWpJX4RlTR0m5zTMsyPufQEkhM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmvy/psDysJ5IZQg/Exa9zRiD8qS7v1C4oWjmAa
- +iF22nhqXyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZr8v6QAKCRDBN2bmhouD
- 19SRD/9Hhb+f4qcsW1fTUSeFE2GDuq4WG6xHi1qC4sA05BAgtLQw9EEnWYmjsx1rBvDZPVfUNKG
- X/SKAfHMcVSkpntMyL+q7y3b28SBYUAkR/eGFOXcgaR2yEvn/R0A4uVgSfWQeYhlv1IZVssV4BL
- P3utZVIRzMiF6bFcOdbDNnLBI8ROVgxm6d7Q4Dj9tySZU8efIMiT9UvMAlVUjd9NtZy5dGcdSgS
- NSPvTNVXiTv2Zern8yNwUPlbogkf/qvH9qZj1oA68fS7Eh0n18grGuxS2eOAvxhsrQ5aWiO1ITk
- Va0MrmaBq0d1KoRyu3WAwXSESmwNr+rKFT+S9Zf9xiWho8o3tumEi+eqdnpOPKn8PA3TLfRJqVo
- TD5rZwqPvYaYAlhafcbh5Vd5ZXsUXhHA9hUeNPaYWuRHZFo++Kwqkk32ZE0WliNX42nBWIt1wrJ
- 5UI0O3CT93wzQyoE7ZL4KSw+/xgvOs0+JkS68qR6zw3L+6ikGKUP5XT2mHZiZjfUc53IjHg1QjZ
- kzE8x9RiROA0xwLhEOgmuzmcyAtldA3XDc/Ift3Q9T7n6Ndcq8Eu2y2vrO2nejvebkVFDmdAB7o
- pp3kv7f2TiFlKGkHjkj3WB9dLwByWBYH/vU1b+QiZihk6Q0K4T9HBwvCrNM3xNjDANZkXTde50O
- kAxRJo+pBYUT3sw==
+ bh=aOG0FNkWr7wWqxbaC9hbRdBtAW+4DKmOSIujr3Va07A=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmvy/qic+gJt3V9XC+/wcsbOscwI6XAJiI5CIZ0
+ cpgP5XqjV6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZr8v6gAKCRDBN2bmhouD
+ 1x5hD/949WpMkITwA7QhSsLEYr1aaqTVr+5IEE6h37JucIjQbSTWkGgK4m/wf3YQv8/aUa+1Swx
+ hc3s4GGsYlwauOMNbRde2juds7Grplj5jSnR1lazEcz8YNZqV7tHdU5X6SCzFwiEacMwYyaIvLf
+ e0hh9aN4lUSN00pQs7bioG3RP2muok3RivVx1DJSgRADr4zt36pXwWpX55dGUCVW5E/Kw0LCfvC
+ CoKTtOojcKBWbyzj4NWXYjmogE5RfcYSKDc3SQsy7aFMlkw9P593FVbHNYB74NbU72eJSvNNwGA
+ 7+PMvNWtHxR1i7ri1Mht8Bq2PIKlWZIz4pC8JSdyTY++hvWyo+/xpNIgcvomfls33V0CG1t2fgQ
+ GPd+q+U208qLx/yp4THm/GReEuAQYLpGUwXF959Yl52Kytcqc94QW1QaTIYeMPQpU6J5b8cQi4L
+ /ImmAa+9xuVkX9Tx6IqRXfpbbzwE5RSXP0R+SX4hqxWxQ0Vc0qJGW7yxpQs3O4XIxHxRxo27xan
+ BNDOdFigoQxxzPBwdnhM3wiSsAzztF1+d6tXYUlsdwt2+K9N7iFvlOBBjJPtMGTE5nSZAc8K45t
+ daUn0t1W965yCXgeSR/uDoPi6XSGhNLJ1aVOLyixXuIjkPiiTFpmZaW+j7tGB+oZqF5G0K/iO7O
+ ajmcbr4B7MWf2kA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 03/13] memory: samsung: exynos5422-dmc:
- simplify dmc->dev usage
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 04/13] memory: samsung: exynos5422-dmc: use
+ scoped device node handling to simplify error paths
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,200 +112,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Store 'dmc->dev' in local 'dev' variable, to make several pieces of code
-using it shorter and easier to read.
+Obtain the device node reference with scoped/cleanup.h to reduce error
+handling and make the code a bit simpler.
 
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
 ---
- drivers/memory/samsung/exynos5422-dmc.c | 61 +++++++++++++++++----------------
- 1 file changed, 31 insertions(+), 30 deletions(-)
+
+Changes in v2:
+1. Wrap line before of_parse_phandle()
+---
+ drivers/memory/samsung/exynos5422-dmc.c | 31 +++++++++++--------------------
+ 1 file changed, 11 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
-index da7ecd921c72..48ef41b8eaa0 100644
+index 48ef41b8eaa0..7d80322754fa 100644
 --- a/drivers/memory/samsung/exynos5422-dmc.c
 +++ b/drivers/memory/samsung/exynos5422-dmc.c
-@@ -339,19 +339,20 @@ static int exynos5_switch_timing_regs(struct exynos5_dmc *dmc, bool set)
- static int exynos5_init_freq_table(struct exynos5_dmc *dmc,
- 				   struct devfreq_dev_profile *profile)
- {
-+	struct device *dev = dmc->dev;
- 	int i, ret;
- 	int idx;
- 	unsigned long freq;
+@@ -4,6 +4,7 @@
+  * Author: Lukasz Luba <l.luba@partner.samsung.com>
+  */
  
--	ret = devm_pm_opp_of_add_table(dmc->dev);
-+	ret = devm_pm_opp_of_add_table(dev);
- 	if (ret < 0) {
--		dev_err(dmc->dev, "Failed to get OPP table\n");
-+		dev_err(dev, "Failed to get OPP table\n");
- 		return ret;
- 	}
- 
--	dmc->opp_count = dev_pm_opp_get_opp_count(dmc->dev);
-+	dmc->opp_count = dev_pm_opp_get_opp_count(dev);
- 
--	dmc->opp = devm_kmalloc_array(dmc->dev, dmc->opp_count,
-+	dmc->opp = devm_kmalloc_array(dev, dmc->opp_count,
- 				      sizeof(struct dmc_opp_table), GFP_KERNEL);
- 	if (!dmc->opp)
- 		return -ENOMEM;
-@@ -360,7 +361,7 @@ static int exynos5_init_freq_table(struct exynos5_dmc *dmc,
- 	for (i = 0, freq = ULONG_MAX; i < dmc->opp_count; i++, freq--) {
- 		struct dev_pm_opp *opp;
- 
--		opp = dev_pm_opp_find_freq_floor(dmc->dev, &freq);
-+		opp = dev_pm_opp_find_freq_floor(dev, &freq);
- 		if (IS_ERR(opp))
- 			return PTR_ERR(opp);
- 
-@@ -1175,49 +1176,50 @@ static int create_timings_aligned(struct exynos5_dmc *dmc, u32 *reg_timing_row,
- static int of_get_dram_timings(struct exynos5_dmc *dmc)
- {
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/devfreq.h>
+ #include <linux/devfreq-event.h>
+@@ -1178,10 +1179,10 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
  	int ret = 0;
-+	struct device *dev = dmc->dev;
+ 	struct device *dev = dmc->dev;
  	int idx;
- 	struct device_node *np_ddr;
+-	struct device_node *np_ddr;
  	u32 freq_mhz, clk_period_ps;
  
--	np_ddr = of_parse_phandle(dmc->dev->of_node, "device-handle", 0);
-+	np_ddr = of_parse_phandle(dev->of_node, "device-handle", 0);
+-	np_ddr = of_parse_phandle(dev->of_node, "device-handle", 0);
++	struct device_node *np_ddr __free(device_node) =
++		of_parse_phandle(dev->of_node, "device-handle", 0);
  	if (!np_ddr) {
--		dev_warn(dmc->dev, "could not find 'device-handle' in DT\n");
-+		dev_warn(dev, "could not find 'device-handle' in DT\n");
+ 		dev_warn(dev, "could not find 'device-handle' in DT\n");
  		return -EINVAL;
- 	}
+@@ -1189,39 +1190,31 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
  
--	dmc->timing_row = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
-+	dmc->timing_row = devm_kmalloc_array(dev, TIMING_COUNT,
+ 	dmc->timing_row = devm_kmalloc_array(dev, TIMING_COUNT,
  					     sizeof(u32), GFP_KERNEL);
- 	if (!dmc->timing_row) {
- 		ret = -ENOMEM;
- 		goto put_node;
- 	}
+-	if (!dmc->timing_row) {
+-		ret = -ENOMEM;
+-		goto put_node;
+-	}
++	if (!dmc->timing_row)
++		return -ENOMEM;
  
--	dmc->timing_data = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
-+	dmc->timing_data = devm_kmalloc_array(dev, TIMING_COUNT,
+ 	dmc->timing_data = devm_kmalloc_array(dev, TIMING_COUNT,
  					      sizeof(u32), GFP_KERNEL);
- 	if (!dmc->timing_data) {
- 		ret = -ENOMEM;
- 		goto put_node;
- 	}
+-	if (!dmc->timing_data) {
+-		ret = -ENOMEM;
+-		goto put_node;
+-	}
++	if (!dmc->timing_data)
++		return -ENOMEM;
  
--	dmc->timing_power = devm_kmalloc_array(dmc->dev, TIMING_COUNT,
-+	dmc->timing_power = devm_kmalloc_array(dev, TIMING_COUNT,
+ 	dmc->timing_power = devm_kmalloc_array(dev, TIMING_COUNT,
  					       sizeof(u32), GFP_KERNEL);
- 	if (!dmc->timing_power) {
- 		ret = -ENOMEM;
- 		goto put_node;
- 	}
+-	if (!dmc->timing_power) {
+-		ret = -ENOMEM;
+-		goto put_node;
+-	}
++	if (!dmc->timing_power)
++		return -ENOMEM;
  
--	dmc->timings = of_lpddr3_get_ddr_timings(np_ddr, dmc->dev,
-+	dmc->timings = of_lpddr3_get_ddr_timings(np_ddr, dev,
+ 	dmc->timings = of_lpddr3_get_ddr_timings(np_ddr, dev,
  						 DDR_TYPE_LPDDR3,
  						 &dmc->timings_arr_size);
  	if (!dmc->timings) {
--		dev_warn(dmc->dev, "could not get timings from DT\n");
-+		dev_warn(dev, "could not get timings from DT\n");
- 		ret = -EINVAL;
- 		goto put_node;
+ 		dev_warn(dev, "could not get timings from DT\n");
+-		ret = -EINVAL;
+-		goto put_node;
++		return -EINVAL;
  	}
  
--	dmc->min_tck = of_lpddr3_get_min_tck(np_ddr, dmc->dev);
-+	dmc->min_tck = of_lpddr3_get_min_tck(np_ddr, dev);
+ 	dmc->min_tck = of_lpddr3_get_min_tck(np_ddr, dev);
  	if (!dmc->min_tck) {
--		dev_warn(dmc->dev, "could not get tck from DT\n");
-+		dev_warn(dev, "could not get tck from DT\n");
- 		ret = -EINVAL;
- 		goto put_node;
- 	}
-@@ -1254,34 +1256,34 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
- static int exynos5_dmc_init_clks(struct exynos5_dmc *dmc)
- {
- 	int ret;
-+	struct device *dev = dmc->dev;
- 	unsigned long target_volt = 0;
- 	unsigned long target_rate = 0;
- 	unsigned int tmp;
- 
--	dmc->fout_spll = devm_clk_get(dmc->dev, "fout_spll");
-+	dmc->fout_spll = devm_clk_get(dev, "fout_spll");
- 	if (IS_ERR(dmc->fout_spll))
- 		return PTR_ERR(dmc->fout_spll);
- 
--	dmc->fout_bpll = devm_clk_get(dmc->dev, "fout_bpll");
-+	dmc->fout_bpll = devm_clk_get(dev, "fout_bpll");
- 	if (IS_ERR(dmc->fout_bpll))
- 		return PTR_ERR(dmc->fout_bpll);
- 
--	dmc->mout_mclk_cdrex = devm_clk_get(dmc->dev, "mout_mclk_cdrex");
-+	dmc->mout_mclk_cdrex = devm_clk_get(dev, "mout_mclk_cdrex");
- 	if (IS_ERR(dmc->mout_mclk_cdrex))
- 		return PTR_ERR(dmc->mout_mclk_cdrex);
- 
--	dmc->mout_bpll = devm_clk_get(dmc->dev, "mout_bpll");
-+	dmc->mout_bpll = devm_clk_get(dev, "mout_bpll");
- 	if (IS_ERR(dmc->mout_bpll))
- 		return PTR_ERR(dmc->mout_bpll);
- 
--	dmc->mout_mx_mspll_ccore = devm_clk_get(dmc->dev,
--						"mout_mx_mspll_ccore");
-+	dmc->mout_mx_mspll_ccore = devm_clk_get(dev, "mout_mx_mspll_ccore");
- 	if (IS_ERR(dmc->mout_mx_mspll_ccore))
- 		return PTR_ERR(dmc->mout_mx_mspll_ccore);
- 
--	dmc->mout_spll = devm_clk_get(dmc->dev, "ff_dout_spll2");
-+	dmc->mout_spll = devm_clk_get(dev, "ff_dout_spll2");
- 	if (IS_ERR(dmc->mout_spll)) {
--		dmc->mout_spll = devm_clk_get(dmc->dev, "mout_sclk_spll");
-+		dmc->mout_spll = devm_clk_get(dev, "mout_sclk_spll");
- 		if (IS_ERR(dmc->mout_spll))
- 			return PTR_ERR(dmc->mout_spll);
- 	}
-@@ -1329,38 +1331,37 @@ static int exynos5_dmc_init_clks(struct exynos5_dmc *dmc)
-  */
- static int exynos5_performance_counters_init(struct exynos5_dmc *dmc)
- {
-+	struct device *dev = dmc->dev;
- 	int ret, i;
- 
--	dmc->num_counters = devfreq_event_get_edev_count(dmc->dev,
--							"devfreq-events");
-+	dmc->num_counters = devfreq_event_get_edev_count(dev, "devfreq-events");
- 	if (dmc->num_counters < 0) {
--		dev_err(dmc->dev, "could not get devfreq-event counters\n");
-+		dev_err(dev, "could not get devfreq-event counters\n");
- 		return dmc->num_counters;
+ 		dev_warn(dev, "could not get tck from DT\n");
+-		ret = -EINVAL;
+-		goto put_node;
++		return -EINVAL;
  	}
  
--	dmc->counter = devm_kcalloc(dmc->dev, dmc->num_counters,
-+	dmc->counter = devm_kcalloc(dev, dmc->num_counters,
- 				    sizeof(*dmc->counter), GFP_KERNEL);
- 	if (!dmc->counter)
- 		return -ENOMEM;
+ 	/* Sorted array of OPPs with frequency ascending */
+@@ -1241,8 +1234,6 @@ static int of_get_dram_timings(struct exynos5_dmc *dmc)
+ 	dmc->bypass_timing_data = dmc->timing_data[idx - 1];
+ 	dmc->bypass_timing_power = dmc->timing_power[idx - 1];
  
- 	for (i = 0; i < dmc->num_counters; i++) {
- 		dmc->counter[i] =
--			devfreq_event_get_edev_by_phandle(dmc->dev,
--						"devfreq-events", i);
-+			devfreq_event_get_edev_by_phandle(dev, "devfreq-events", i);
- 		if (IS_ERR_OR_NULL(dmc->counter[i]))
- 			return -EPROBE_DEFER;
- 	}
- 
- 	ret = exynos5_counters_enable_edev(dmc);
- 	if (ret < 0) {
--		dev_err(dmc->dev, "could not enable event counter\n");
-+		dev_err(dev, "could not enable event counter\n");
- 		return ret;
- 	}
- 
- 	ret = exynos5_counters_set_event(dmc);
- 	if (ret < 0) {
- 		exynos5_counters_disable_edev(dmc);
--		dev_err(dmc->dev, "could not set event counter\n");
-+		dev_err(dev, "could not set event counter\n");
- 		return ret;
- 	}
+-put_node:
+-	of_node_put(np_ddr);
+ 	return ret;
+ }
  
 
 -- 
