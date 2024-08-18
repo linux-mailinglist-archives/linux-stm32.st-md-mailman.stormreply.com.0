@@ -2,93 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C2B89556AE
-	for <lists+linux-stm32@lfdr.de>; Sat, 17 Aug 2024 11:16:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3898955CFB
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 16:28:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7FD2C71290;
-	Sat, 17 Aug 2024 09:16:22 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 637DDC6DD9D;
+	Sun, 18 Aug 2024 14:28:46 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 827B7C7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44C9DC6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 Aug 2024 09:16:15 +0000 (UTC)
+ Sun, 18 Aug 2024 14:28:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3732460598;
- Sat, 17 Aug 2024 09:16:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B801C116B1;
- Sat, 17 Aug 2024 09:16:08 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 837F6CE016A;
+ Sun, 18 Aug 2024 14:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CDCC32786;
+ Sun, 18 Aug 2024 14:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723886173;
- bh=GWU5g2P3TgrYgAqvKnUAT2YxAdkP+gsga4BDZM+Aicc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LQq2saKFiR1AHKMzP+NTG5XHIvGw8gmGsDZuDE9gn9ZGFvVYWLXw8dfW31v90SIOZ
- L2/CKJb1MXxeQtKbCIrb/PhQgECcUWOmtdSW1qqKxQbDzjZ+SpSLCBdH/cpLSMvXys
- UfGRiLv3zi+xlWb1dDHMlLTqi26o/B7yxCjKDpzABNZALJOYKmfCSBwlSWvmW9Sc/l
- zCeCeEiIZRTPdXnnu1ZaY9kEyKGjocfUI9tnYUEhul0oLBp/eebYJieYE0k/sVSYf9
- jqtkpIgY7mIVb3z051BOGKY3qDmijgkQjgtBaLLcN1pKdcbllf5Z09awtES1MnaEyG
- MyltK+TLZKFOA==
-Message-ID: <63398875-6bd1-4c58-a343-9c490a15deb2@kernel.org>
-Date: Sat, 17 Aug 2024 11:16:07 +0200
+ s=k20201202; t=1723991315;
+ bh=ERjFyGYRu9IS6cNV44ysAr6kZGddvGxSQYBB0E8yVr8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T08IAoyLfg/rmGSYA1kGz+EsoQRqG/nYkV++COKiYEPMrWbj7jWV8iGjmRtzet+wk
+ OYvYRJt8E5xq1HA7+i4Cjqn7Ie5kxf3JMuxdFoxgfvukSfYjJaNKBw5dW6CZO91BIC
+ /7PzxAITui5Wia1vxUhXpi1+tJ4Bx4XqKRy53u5cQdp9l7lFqCPmesoERQkIGTd8ex
+ vfKVRLZBqdkSfZ806vc/B7P6+LZAI+pp1tB2bErCPaDmyU/+kfR2Iy57r75vv6Yx5R
+ 2fDv5ynVChp14PEyW70AA128ygQiP27287NINr+l461p1ZuBAvJkg3ACKSiWds+A77
+ Q6ICmTjLWqHdA==
+Date: Sun, 18 Aug 2024 08:28:34 -0600
+From: Rob Herring <robh@kernel.org>
+To: Jie Gan <quic_jiegan@quicinc.com>
+Message-ID: <20240818142834.GA27754-robh@kernel.org>
+References: <20240812024141.2867655-1-quic_jiegan@quicinc.com>
+ <20240812024141.2867655-4-quic_jiegan@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
- kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- p.zabel@pengutronix.de
-References: <20240816132058.920870-1-christian.bruel@foss.st.com>
- <20240816132058.920870-2-christian.bruel@foss.st.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240816132058.920870-2-christian.bruel@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/5] MAINTAINERS: add entry for ST
- STM32MP25 COMBOPHY driver
+Content-Disposition: inline
+In-Reply-To: <20240812024141.2867655-4-quic_jiegan@quicinc.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>, coresight@lists.linaro.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: arm: Add Coresight
+ TMC Control Unit hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,32 +69,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 16/08/2024 15:20, Christian Bruel wrote:
-> Add myself as STM32MP25 COMBOPHY maintainer
+On Mon, Aug 12, 2024 at 10:41:39AM +0800, Jie Gan wrote:
+> Add binding file to specify how to define a Coresight TMC
+> Control Unit device in device tree.
 > 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> It is responsible for controlling the data filter function
+> based on the source device's Trace ID for TMC ETR device.
+> The trace data with that Trace id can get into ETR's buffer
+> while other trace data gets ignored.
+> 
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
 > ---
->  MAINTAINERS | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  .../bindings/arm/qcom,coresight-ctcu.yaml     | 79 +++++++++++++++++++
+>  1 file changed, 79 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f328373463b0..258fb57ccff5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21910,6 +21910,12 @@ F:	arch/m68k/kernel/*sun3*
->  F:	arch/m68k/sun3*/
->  F:	drivers/net/ethernet/i825xx/sun3*
->  
-> +STMICROELECTRONICS STMP32MP25 USB3/PCIE COMBOPHY DRIVER
-> +M:	Christian Bruel <christian.bruel@foss.st.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
-> +F:	drivers/phy/st/phy-stm32-combophy.c
+> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
+> new file mode 100644
+> index 000000000000..7a9580007942
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/qcom,coresight-ctcu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CoreSight TMC Control Unit
+> +
+> +maintainers:
+> +  - Yuanfang Zhang <quic_yuanfang@quicinc.com>
+> +  - Mao Jinlong <quic_jinlmao@quicinc.com>
+> +  - Jie Gan <quic_jiegan@quicinc.com>
+> +
+> +description:
+> +  The Coresight TMC Control unit controls various Coresight behaviors.
+> +  It works as a helper device when connected to TMC ETR device.
+> +  It is responsible for controlling the data filter function based on
+> +  the source device's Trace ID for TMC ETR device. The trace data with
+> +  that Trace id can get into ETR's buffer while other trace data gets
+> +  ignored.
 
-There are no such files. Organize your patchset in bisectable way.
+Nowhere is TMC defined.
 
-Best regards,
-Krzysztof
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sa8775p-ctcu
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +
+> +  in-ports:
+
+Use 'ports' unless you have both in and out ports.
+
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    patternProperties:
+> +      '^port(@[0-7])?$':
+> +        description: Input connections from CoreSight Trace bus
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - in-ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    ctcu@1001000 {
+> +        compatible = "qcom,sa8775p-ctcu";
+> +        reg = <0x1001000 0x1000>;
+> +
+> +        clocks = <&aoss_qmp>;
+> +        clock-names = "apb";
+> +
+> +        in-ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                ctcu_in_port0: endpoint {
+> +                    remote-endpoint = <&etr0_out_port>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                ctcu_in_port1: endpoint {
+> +                    remote-endpoint = <&etr1_out_port>;
+> +                };
+> +            };
+> +        };
+> +    };
+> -- 
+> 2.34.1
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
