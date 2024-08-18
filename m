@@ -2,57 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3898955CFB
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 16:28:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702DE955D56
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 18:04:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 637DDC6DD9D;
-	Sun, 18 Aug 2024 14:28:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08A1DC6DD9D;
+	Sun, 18 Aug 2024 16:04:36 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44C9DC6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A84DEC6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 14:28:39 +0000 (UTC)
+ Sun, 18 Aug 2024 16:04:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 837F6CE016A;
- Sun, 18 Aug 2024 14:28:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CDCC32786;
- Sun, 18 Aug 2024 14:28:35 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 10113CE02C4;
+ Sun, 18 Aug 2024 16:04:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD504C32786;
+ Sun, 18 Aug 2024 16:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1723991315;
- bh=ERjFyGYRu9IS6cNV44ysAr6kZGddvGxSQYBB0E8yVr8=;
+ s=k20201202; t=1723997066;
+ bh=zOh8sLLniupBfxa1ZvD5qt1zclMnT9P4G1dPyjbnZjM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T08IAoyLfg/rmGSYA1kGz+EsoQRqG/nYkV++COKiYEPMrWbj7jWV8iGjmRtzet+wk
- OYvYRJt8E5xq1HA7+i4Cjqn7Ie5kxf3JMuxdFoxgfvukSfYjJaNKBw5dW6CZO91BIC
- /7PzxAITui5Wia1vxUhXpi1+tJ4Bx4XqKRy53u5cQdp9l7lFqCPmesoERQkIGTd8ex
- vfKVRLZBqdkSfZ806vc/B7P6+LZAI+pp1tB2bErCPaDmyU/+kfR2Iy57r75vv6Yx5R
- 2fDv5ynVChp14PEyW70AA128ygQiP27287NINr+l461p1ZuBAvJkg3ACKSiWds+A77
- Q6ICmTjLWqHdA==
-Date: Sun, 18 Aug 2024 08:28:34 -0600
+ b=p1t1lls702regXytE2r0csn0P8XdquKfZFZqW1TtFiWw6klyVviJ395rc8ifokGma
+ WbR/2hGw0+yowaxddFwvYwokfFrqY7V59659EaaHkQNO85ap/S+jI/3W2lHml2w8P6
+ tCVf/m+ZpcOKbm4plSyiLyFcks7j/VY1BU7oEnPt7T+HVenrgp5b+gkbqJJrGtUB6u
+ YwPvk539p/XSwOzfbMZc9iLnce9jONEljnfOyuSxbgafjGs1pWp1lmdhYhZg2vQ1v4
+ skdSlVAmRg0Yft1nFsDdJCLxVXtF8HCcFlWMkwyoMlvCTNGn1XxbyGmknKzxp+7322
+ pGIqzJGy7WFXA==
+Date: Sun, 18 Aug 2024 10:04:24 -0600
 From: Rob Herring <robh@kernel.org>
-To: Jie Gan <quic_jiegan@quicinc.com>
-Message-ID: <20240818142834.GA27754-robh@kernel.org>
-References: <20240812024141.2867655-1-quic_jiegan@quicinc.com>
- <20240812024141.2867655-4-quic_jiegan@quicinc.com>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <20240818160424.GA156214-robh@kernel.org>
+References: <20240816132058.920870-1-christian.bruel@foss.st.com>
+ <20240816132058.920870-3-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240812024141.2867655-4-quic_jiegan@quicinc.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Jinlong Mao <quic_jinlmao@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, coresight@lists.linaro.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: arm: Add Coresight
- TMC Control Unit hardware
+In-Reply-To: <20240816132058.920870-3-christian.bruel@foss.st.com>
+Cc: kishon@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ p.zabel@pengutronix.de, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ mcoquelin.stm32@gmail.com, linux-phy@lists.infradead.org, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/5] dt-bindings: phy: Add STM32MP25
+	COMBOPHY bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,116 +59,151 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 12, 2024 at 10:41:39AM +0800, Jie Gan wrote:
-> Add binding file to specify how to define a Coresight TMC
-> Control Unit device in device tree.
+On Fri, Aug 16, 2024 at 03:20:54PM +0200, Christian Bruel wrote:
+> Document the bindings for STM32 COMBOPHY interface, used to support
+> the PCIe and USB3 stm32mp25 drivers.
+> Following entries can be used to tune caracterisation parameters
+>  - st,output-micro-ohms and st,output-vswing-microvolt bindings entries
+> to tune the impedance and voltage swing using discrete simulation results
+>  - st,rx-equalizer register to set the internal rx equalizer filter value.
 > 
-> It is responsible for controlling the data filter function
-> based on the source device's Trace ID for TMC ETR device.
-> The trace data with that Trace id can get into ETR's buffer
-> while other trace data gets ignored.
-> 
-> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 > ---
->  .../bindings/arm/qcom,coresight-ctcu.yaml     | 79 +++++++++++++++++++
->  1 file changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
+>  .../bindings/phy/st,stm32-combophy.yaml       | 144 ++++++++++++++++++
+>  1 file changed, 144 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
+> diff --git a/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml b/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
 > new file mode 100644
-> index 000000000000..7a9580007942
+> index 000000000000..c33a843b83a3
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +++ b/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
+> @@ -0,0 +1,144 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/arm/qcom,coresight-ctcu.yaml#
+> +$id: http://devicetree.org/schemas/phy/st,stm32-combophy.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: CoreSight TMC Control Unit
+> +title: STMicroelectronics STM32MP25 USB3/PCIe COMBOPHY
 > +
 > +maintainers:
-> +  - Yuanfang Zhang <quic_yuanfang@quicinc.com>
-> +  - Mao Jinlong <quic_jinlmao@quicinc.com>
-> +  - Jie Gan <quic_jiegan@quicinc.com>
+> +  - Christian Bruel <christian.bruel@foss.st.com>
 > +
 > +description:
-> +  The Coresight TMC Control unit controls various Coresight behaviors.
-> +  It works as a helper device when connected to TMC ETR device.
-> +  It is responsible for controlling the data filter function based on
-> +  the source device's Trace ID for TMC ETR device. The trace data with
-> +  that Trace id can get into ETR's buffer while other trace data gets
-> +  ignored.
-
-Nowhere is TMC defined.
-
+> +  Single lane PHY shared (exclusive) between the USB3 and PCIe controllers.
+> +  Supports 5Gbit/s for USB3 and PCIe gen2 or 2.5Gbit/s for PCIe gen1.
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - qcom,sa8775p-ctcu
+> +    const: st,stm32mp25-combophy
 > +
 > +  reg:
 > +    maxItems: 1
 > +
+> +  "#phy-cells":
+> +    const: 1
+> +    description: |
+> +      The cells contain the following arguments.
+> +
+> +      - description: The PHY type
+> +          enum:
+> +            - PHY_TYPE_USB3
+> +            - PHY_TYPE_PCIE
+> +
 > +  clocks:
-> +    maxItems: 1
+> +    minItems: 2
+> +    items:
+> +      - description: apb Bus clock mandatory to access registers.
+> +      - description: ker Internal RCC reference clock for USB3 or PCIe
+> +      - description: pad Optional on board clock input for PCIe only. Typically an
+> +                     external 100Mhz oscillator wired on dedicated CLKIN pad. Used as reference
+> +                     clock input instead of the ker
 > +
 > +  clock-names:
+> +    minItems: 2
 > +    items:
 > +      - const: apb
+> +      - const: ker
+> +      - const: pad
 > +
-> +  in-ports:
-
-Use 'ports' unless you have both in and out ports.
-
-> +    $ref: /schemas/graph.yaml#/properties/ports
+> +  resets:
+> +    maxItems: 1
 > +
-> +    patternProperties:
-> +      '^port(@[0-7])?$':
-> +        description: Input connections from CoreSight Trace bus
-> +        $ref: /schemas/graph.yaml#/properties/port
+> +  reset-names:
+> +    const: phy
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  wakeup-source: true
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: interrupt used for wakeup
+> +
+> +  access-controllers:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  st,syscfg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the SYSCON entry required for configuring PCIe
+> +      or USB3.
+> +
+> +  st,ssc-on:
+> +    type: boolean
+> +    description:
+> +      A boolean property whose presence indicates that the SSC for common clock
+> +      needs to be set.
+> +
+> +  st,rx-equalizer:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 7
+> +    default: 2
+> +    description:
+> +      A 3 bit value to tune the RX fixed equalizer setting for optimal eye compliance
+> +
+> +  st,output-micro-ohms:
+> +    minimum: 3999000
+> +    maximum: 6090000
+> +    default: 4968000
+> +    description:
+> +      A value property to tune the Single Ended Output Impedance, simulations results
+> +      at 25C for a VDDP=0.8V. The hardware accepts discrete values in this range.
+> +
+> +  st,output-vswing-microvolt:
+> +    minimum: 442000
+> +    maximum: 803000
+> +    default: 803000
+> +    description:
+> +      A value property in microvolt to tune the Single Ended Output Voltage Swing to change the
+> +      Vlo, Vhi for a VDDP = 0.8V. The hardware accepts discrete values in this range.
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - in-ports
+> +  - st,syscfg
+> +  - '#phy-cells'
+> +  - resets
+> +  - reset-names
+> +  - clocks
+> +  - clock-names
 > +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    ctcu@1001000 {
-> +        compatible = "qcom,sa8775p-ctcu";
-> +        reg = <0x1001000 0x1000>;
-> +
-> +        clocks = <&aoss_qmp>;
-> +        clock-names = "apb";
-> +
-> +        in-ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                ctcu_in_port0: endpoint {
-> +                    remote-endpoint = <&etr0_out_port>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                ctcu_in_port1: endpoint {
-> +                    remote-endpoint = <&etr1_out_port>;
-> +                };
-> +            };
-> +        };
-> +    };
-> -- 
-> 2.34.1
-> 
+> +allOf:
+> +  - if:
+> +      required:
+> +        - wakeup-source
+> +    then:
+> +      anyOf:
+> +        - required: [interrupts]
+> +        - required: [interrupts-extended]
 
+Drop this if/then. We should have this somewhere common as it applies to 
+all.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
