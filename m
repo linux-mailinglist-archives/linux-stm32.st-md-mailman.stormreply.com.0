@@ -2,88 +2,139 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63FD7955E09
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 19:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ED87955E88
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 20:38:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F35FC6DD9F;
-	Sun, 18 Aug 2024 17:30:28 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF41CC6DD9D;
+	Sun, 18 Aug 2024 18:38:46 +0000 (UTC)
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on2078.outbound.protection.outlook.com [40.107.241.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B29CCC6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7525DC6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 17:30:26 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4281d812d3eso38688545e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 10:30:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724002226; x=1724607026;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aw4Fptl98pttOY10KCxMd4Nms4w6E/3GwtsKk+Wk4vc=;
- b=qSlFnwSlTg4S0lk41tQqzBr9h3gMd6z/aRBjW6N6yoJX4j1UKhpwnJc4l2R0bxre1m
- acIorcHi361ASgDr/hxuVoXL7eRs9IURMf9y79M7G4iIvTWdNm9P64irDGpkG6imqlCT
- AmXp/HZixO3UrcM0yhD0Y9qWic8kkqLtAL7x/XHzETsy88jCWhQSPOQrcW7RjQgSyY7x
- JUbexT3NrZDSIArGiSTxJkExPct+vZ9di4x1lJacRPRo9Og0eN7jiu92KZwu6vn7tsFB
- QjmSvSM3atF/asPU74NUXOg60zMZtWIKha+b4RpLsH/zswgMOBNMxvmL+AzwbdvaVfhN
- HwNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724002226; x=1724607026;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aw4Fptl98pttOY10KCxMd4Nms4w6E/3GwtsKk+Wk4vc=;
- b=nCAryAPHWA5gDrLhJyMkYpYwlQNymPOlj5EttNzJ62ozH0hnhZ/iQBu048u3qb3rAA
- 4t3Vwe05dBsLnPEzwyP29F7rwrP02bE9P14V/d+nTRLqr9+hk/EFbd8LrIsXu1Fn6eI6
- Z8TYhawhZNHkv0P5dDy0dEI40LM0M/vnAocyNAnkFunNPw+Y8Z0SgIbPSDb+YU+dvCmh
- Z/ytW+vMBuf3aeQsJULC33M28bJDZTgtuClZPrdJ5eHJxXcINlxzLev1S8HRBSSycZmx
- /ZLSwe2Br7ddK8sbmGvOz2/8xvuKqYtEa4ADxnBOv7zSpgV8U+myd0cIn/R5bLEkMCMv
- sUnA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU/kcshHtOgZ1FHcTSzrhC+mcyqkDJcRnE6rooxn2KjbuffWlT72jaarsgM7rVXEKewRHPNuPUUK81UsVU2GlQluWtLQ+A6OzH1vWR5rx1TM8v1aKkH5K/h
-X-Gm-Message-State: AOJu0YwCoX8A03uIAnUTrtCzaJuqKgknTT01Vw0x1hPhMnH37hsDfvY0
- IjxUmIUXs9B6VA6R7IYpGJMM+gHFX851FPnFpNII+TI0Q4Zq4AFMYy6JZL/CONc=
-X-Google-Smtp-Source: AGHT+IFPilTQ7go8vvbQhelRsOizLG7WbbiYR3MYgpB7AkCObI0W33aHc2RPr2v9rpCg6UZ9TBfHgg==
-X-Received: by 2002:a05:600c:358b:b0:428:e30:fa8d with SMTP id
- 5b1f17b1804b1-429ed784090mr75921025e9.6.1724002226203; 
- Sun, 18 Aug 2024 10:30:26 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.215.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ded7d5a9sm134999915e9.43.2024.08.18.10.30.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Aug 2024 10:30:25 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Serge Semin <fancer.lancer@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Magnus Damm <magnus.damm@gmail.com>, patches@opensource.cirrus.com,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Sun, 18 Aug 2024 19:30:14 +0200
-Message-ID: <20240818173014.122073-5-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
-References: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
+ Sun, 18 Aug 2024 18:38:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MZxHkvO7NI3rvRvGo8V+usIUMhY9jLGWp8lg+x592qL4tJXgU4dQHjvdpdxocJgRGrTbaIY7fERaI/8+2upOjvvHizTdJdyxHcLPQOQtN6BcqDMRbglGJwHXqMIM/l0Cqb2/3BjAvL7u//hVze2/2FQ9NaEm/PwRu1LO8l4OO2O99v+jiCuiKlozSQZvrLCSH0lUhnPacqjp7qaNfo6lJMR2qbd1USW+44BjOzyPG6BSqvRJZmdW7lP6KCV7CeUSaZcYb1wOPSi6Mdhpfk4aFHf071TFL30lpQ1IsJR0/7BhyYYzuNoSnQgLRD+E4zGwS9cJjcoP7gy/QtY/TPO0Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JUIk8TmFLpj8gpQg3oAJtqRv3U8GaM1297MCqiBg37w=;
+ b=sOWiLKyK3E3gFwgEDDKM8ONwXa31j6jLHYWX2R1Zbe2myLpiCSWU0exGG30dkSgImvZe6A0O3rwBM2ZHMYsH0TL998i1fl/fMgCJIeqkXE8+8qEtz6N2Ulte3onfFIh2gPCiL5vlenpuUnezygLd9tvKM+lkdbvcWD2xl5m0WVMwH+iMO2hkpW9QQS4Xu4ZrwNvZMpm+NxdlgzGXtQE/dsL7zCDj0vcs5IFQgHSi9g3ZTkXQU4vPyfKq17xJ3BbIdpAi28ub8sPBSVLv8dtI4hYdFtP3Qn6HDRKYlVpiD4OanNKhQ2ZyEXG0aYDLA3Ct8984nHeQlxnClvufjNOw1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JUIk8TmFLpj8gpQg3oAJtqRv3U8GaM1297MCqiBg37w=;
+ b=wlXjuK5UUEszb9DN17e1Ij0dMVTn3P5wDbU/rgDeR7jPXALLTHTFcgjF9dBLD9TUX4bKguelha0Cyg8JqacrAl+LZSOqqovR4sLCJ1kDexS2f+yWOD2jjDEwfu1+t7jEV2CmRKmK4yUrgUjSjmxorvzSxAHZeh37p0evW8o0cQU8nDyv4UhEmSJEi8Mx4ogVPYJpcztzdxrFHXcm5We51wt8dqIbRq7ddbNpyMZtv2EsvZ8gegl1NOZIUnIyntYBZRTygCeJy7TcIG8msNRKdp2bVj8RXuNmjKXfHuic9XScPvz3yE7RpJtpFYBC30IFnr+8Z9WEtgo6+ytAi5a8hw==
+Received: from AM9PR04MB8506.eurprd04.prod.outlook.com (2603:10a6:20b:431::16)
+ by PA1PR04MB10294.eurprd04.prod.outlook.com (2603:10a6:102:44d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Sun, 18 Aug
+ 2024 18:38:36 +0000
+Received: from AM9PR04MB8506.eurprd04.prod.outlook.com
+ ([fe80::5f7:9bab:66a3:fe27]) by AM9PR04MB8506.eurprd04.prod.outlook.com
+ ([fe80::5f7:9bab:66a3:fe27%4]) with mapi id 15.20.7875.019; Sun, 18 Aug 2024
+ 18:38:36 +0000
+From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+To: Andrew Lunn <andrew@lunn.ch>, "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Thread-Topic: [PATCH 1/6] net: driver: stmmac: extend CSR calc support
+Thread-Index: AdrmqCAbIYfhhpSjQm+gwLO5S8kGvwAG3s4AArZ9+4A=
+Date: Sun, 18 Aug 2024 18:38:35 +0000
+Message-ID: <AM9PR04MB85060887C2FB9B397E24231FE2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+References: <AM9PR04MB850628457377A486554D718AE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ <8aa45bc5-b819-4979-80b5-6d90a772b117@lunn.ch>
+In-Reply-To: <8aa45bc5-b819-4979-80b5-6d90a772b117@lunn.ch>
+Accept-Language: cs-CZ, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR04MB8506:EE_|PA1PR04MB10294:EE_
+x-ms-office365-filtering-correlation-id: 9e71eff1-de95-4e9b-ac57-08dcbfb4f874
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?hlFwRpMZi7Oe/oErDAVLBQ026Y3bBtpb5Y3Iil9Z50LFlzlhRkQSFvOrD+6a?=
+ =?us-ascii?Q?JRN5AC/evDpxC8YzpiVIRIHQMCZ7jmJ862azwZ18yrD618puoAOxOa2MUjFN?=
+ =?us-ascii?Q?dSRbbmmThSgf3pk3o91ZPxytTz6VyLM1fg130nLIr+cI+7zgLCnvi78UTl1W?=
+ =?us-ascii?Q?tCtBbqklS5owtjagBp4HSq0qG4Kw57lHH76tG3vKcu6SjoxwQYdJBImnc8Vg?=
+ =?us-ascii?Q?aip/Pvc/frs2I4YorqcIt1hMJskDSYirTL1Ja+hlYM1m0YKD0d4dAugMAJ3Y?=
+ =?us-ascii?Q?BAPKY8oeZKuLJnxx7aXDfDWU7g3NkusneIGQA/oYSTLKcD2z/ot1qi1LiWMQ?=
+ =?us-ascii?Q?1HDkJgioN26eQF/OfMii33CN/ccDxzmZ4i47MdxJ/Nq9ZjqNkQxDPyF65L5Z?=
+ =?us-ascii?Q?a9vJUWwI22kzkE26NVYV+UgUSO8WHV04z1H3lxGAiyYz60I/GC0VSvuPC0bm?=
+ =?us-ascii?Q?sN14YskA0iryao8kva6P+OaZ9ZCOT4mHcfRL0NaCW9G+hdoKnEcrYDxwoY+J?=
+ =?us-ascii?Q?CeEvPfBlVSBzWntJD2od2uuDABopUIfLs9SCyBeSVwqqvFPLfPnhRL8l8Ajv?=
+ =?us-ascii?Q?8JQLowvowXQiBV7ajFPq+LIp2+ELQ6w7WhPwETHI/hPo0RhMFa9HwmuYhG28?=
+ =?us-ascii?Q?NI/Dz3ysfJaNLfMd7Wky6qb5Bg4t72AA4lb8zIVVf+KmzTbbvvbcxdCYiV10?=
+ =?us-ascii?Q?HdKuqETrLAumbM8VfRZ/OrEMjjN3tP5mHEQK2XAx8sG9m/oPEogg/ZTa5V0K?=
+ =?us-ascii?Q?e5LaM0oVEGuA6rpAtepeYgFLKUrEWncA+kyxUnSuCLbvsQdjU73u9v2zVgqH?=
+ =?us-ascii?Q?40mFKdeH0SUIayUd7NHduYJUtvVP7w4SqNoE+uTFiQ4+kwTkwgJSvBZP3Pwq?=
+ =?us-ascii?Q?Zm5tZKDtIWczjJiA5a25nFRyHnrX+1SzFMd8KsdjZfW9V62kFbfwjqxRY9b0?=
+ =?us-ascii?Q?HLAw8rWE5QPozKAKY69xWGvsXCKiXSG6k986yhcFbaIuPHXDvKgy8nR21obL?=
+ =?us-ascii?Q?1PeoQvfcj8uNihCAbhkWAU7KIfop5977nbEgsxM4PELKgPNjImyqnT9SD5lJ?=
+ =?us-ascii?Q?HLGTmySrr36xKnNgqPJS2P/0DWyYahJ3ZYLbhXPgiQ7u9cUUsKguuWVhg3JS?=
+ =?us-ascii?Q?HSjrzCigG9FXNEClFrCmzThSHucSLgmsu77PQSh56B6N3QUz6AgUzkQVHRSp?=
+ =?us-ascii?Q?nWmlIv7cV4HtFxmt1kxLjvb/khxuvFOVR91H+oF8gDXN2LISTVLxxcgbHAiB?=
+ =?us-ascii?Q?fkhq4u/TYbE7Ycw6t2+8IRtHhUcrrs5crFT3bUGrdKOnAo886GSD8nxeBvI6?=
+ =?us-ascii?Q?kvGFu4ayf6TmCdYVtEyvrm+FaqaM1qrUGsFyM5iDj2KL2nOoASxkTZegdtI2?=
+ =?us-ascii?Q?Rrgego0odghB50GjnJXdgIw0oQlWZhlgahaOoUVLKbfED3KUDQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8506.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dNlMbCxsuprR1vxErZajqJW1aGGdy65wC3i4xdQW7qaAedegRQMuLvbg07hM?=
+ =?us-ascii?Q?n3CfGnY1yZC/ZpaYeellwTMZLNzn6XrlXRJvCpmv6joTYgsW2VvtNwa54QoC?=
+ =?us-ascii?Q?39qwximaJVxp/ove/zfMIPPagSIbA4N5nCYBDrUog8Dmjbt0VpChbK3oCMvp?=
+ =?us-ascii?Q?4lXeazftG8A4zograArRxSkpPe7HTY6KUY3Xi3ax9ZSBgz4oe3ZMaVCgjGG+?=
+ =?us-ascii?Q?ur4zCgWZ4xMjPOGrjnFjlp/jkxcyOqPg0WtfQtbgD9lbm/W1wAHGtthUDumr?=
+ =?us-ascii?Q?Z2oMF+43RsGUjtHZmEtgZusq1uRGUiceNtFctyvvRpNtmXub9n5r8Hi/0RpY?=
+ =?us-ascii?Q?M5rGE7ndpncD2t0gFsrY+pZ5dKzkSGj2R4IaVT376141ZxTOLWNaP1ldIAIX?=
+ =?us-ascii?Q?Nbcp1mOaWRt0xwKZUJDiLLb59zgqsQ2UW1lxYjfACsbxePTPgiznXpBqzZ9f?=
+ =?us-ascii?Q?kEhhkMfZychkR5EYcxpTSsvoHjm7T5IXitZlTW028qmI5vFGsoeS9MhRGIlK?=
+ =?us-ascii?Q?ghPlKpSl7/4Jl1Q7zgkBVjnELpKHRAQUjGdZMHhXVCAGGf3H8xD9xl3ggsji?=
+ =?us-ascii?Q?zJ6y+7ObNNi2kPOGyEWSq7RDMwGHx58RWoQugcDeVe4tNh2UReCR4DZ3KecK?=
+ =?us-ascii?Q?rH3oaU3tltNK5msNbGetk1ws/uyACWZ4VRcMRFcPvglGETd2Fbrtw2RfpoFV?=
+ =?us-ascii?Q?tguZKiXj/H5h4brGKMlLyFg/DN8FKvKFOTEM+YmKwqQsIzfarxMPTRwL5Jri?=
+ =?us-ascii?Q?MEo05331yOxrON/iyoUCIuJm4qLDdf1ahchEYECVCCURf/n9pH2cHRrLWuMy?=
+ =?us-ascii?Q?hZ0e7seaieavcFRfmmWOA92nfjuH9Y4jgUvyAa6zqZrMOf6QIDJxdnfA6gu7?=
+ =?us-ascii?Q?Z7bnheeSVoS/8ocXIIZ1ZOP8UAIlTGtOB3on8z26VUzVwWFs26yJi2pW3T6m?=
+ =?us-ascii?Q?ojq/ILfSG36c4uwwamUVEK6+A8ou8V1+zwdjOvVggkb9t0ml1RVg9vSzu1F5?=
+ =?us-ascii?Q?0SHJFLHTzvoxbVynsxkxmrGRCO8zKdigb8+l4L7Gn0fDm/hYcAWoybht4jzL?=
+ =?us-ascii?Q?RDOjvYXxhdCr/Z0gqt8jdSD0T1k1PCS51wQTw1S6Q4TzDZ0aiz0COz4X1CVI?=
+ =?us-ascii?Q?uSlKS7U+Jkz+2FFYfnfankun4TaVuj+hjAYzxFkfUQp91FXwdr3C0wrBtPTj?=
+ =?us-ascii?Q?/aJ/jvIThpdA9F7c5ambcEy0XroT64neWtgoQyE03VrOyP3CtODaF3WWjX80?=
+ =?us-ascii?Q?Gr5QWGzKl+Q0VdB7DNSn9XBe2pws2kfp4n2GHlfu7rOgnQipyMMU5QKR+BNp?=
+ =?us-ascii?Q?oSXhdCISq8FS3XbQNI62Sj3d8Ayi9f0cgmaHDbtd7JNzo8XkxgTqDJ8ifhKF?=
+ =?us-ascii?Q?TAOXTJ/ooLoIoOK/wIQFlKYL0HLwblzym9xubMqSBGtEAgOHlB/QMO6Zp1zL?=
+ =?us-ascii?Q?AF91EA3lwKX5VFGDBh+KU3DjPs9WwVQ4a5jShvDKl7o+//93HSS7Z8uF66Nn?=
+ =?us-ascii?Q?YwFzarJ3GAt9NrGwz4nc3zUPxYa1F8TJQd9zaJu1ffvPdv7SNwzMLbD/NtPJ?=
+ =?us-ascii?Q?Aul8UKtyBi3Wp1NGBthNwAp9CH1JqD88Pc7PRq83?=
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 5/5] dt-bindings: clock: st,
-	stm32mp1-rcc: add top-level constraints
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8506.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e71eff1-de95-4e9b-ac57-08dcbfb4f874
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2024 18:38:36.2695 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: W99bp8OK6IAJNZ8RjHhcQVIvKruovoHf6DxP0gwg3k4L/RPhXCWumNMgWgoTjd2/a5IiCE9De+HXJU34SB71VA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10294
+Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/6] net: driver: stmmac: extend CSR calc
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,40 +151,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Properties with variable number of items per each device are expected to
-have widest constraints in top-level "properties:" block and further
-customized (narrowed) in "if:then:".  Add missing top-level constraints
-for clocks and clock-names.
+> -----Original Message-----
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: Monday, 5 August, 2024 1:11
+> To: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre Torgue
+> <alexandre.torgue@foss.st.com>; dl-S32 <S32@nxp.com>; linux-
+> kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
+> arm-kernel@lists.infradead.org; Claudiu Manoil <claudiu.manoil@nxp.com>;
+> netdev@vger.kernel.org
+> Subject: Re: [PATCH 1/6] net: driver: stmmac: extend CSR calc support
+> 
+> >  #define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
+> >  #define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
+> >  #define	STMMAC_CSR_150_250M	0x4	/* MDC =
+> clk_scr_i/102 */
+> > -#define	STMMAC_CSR_250_300M	0x5	/* MDC =
+> clk_scr_i/122 */
+> > +#define	STMMAC_CSR_250_300M	0x5	/* MDC =
+> clk_scr_i/124 */
+> 
+> That should probably be called out in the commit message. It is not a
+> fix as such, since it is just a comment, but as a reviewer i had a
+> double take when i noticed this.,
+> 
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- .../devicetree/bindings/clock/st,stm32mp1-rcc.yaml     | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Will add the note to the commit message in v2.
 
-diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-index 5194be0b410e..9b3aaae546cb 100644
---- a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-@@ -60,8 +60,14 @@ properties:
-           - st,stm32mp1-rcc
-           - st,stm32mp13-rcc
-       - const: syscon
--  clocks: true
--  clock-names: true
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 5
-+
-+  clock-names:
-+    minItems: 1
-+    maxItems: 5
- 
-   reg:
-     maxItems: 1
--- 
-2.43.0
-
+/Jan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
