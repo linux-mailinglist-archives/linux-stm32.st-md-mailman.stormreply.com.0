@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48FFD955E04
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 19:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F0C955E05
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Aug 2024 19:30:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A9A0C6DD66;
-	Sun, 18 Aug 2024 17:30:22 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CF0DC6DD66;
+	Sun, 18 Aug 2024 17:30:24 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D791C6DD9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1ABACC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 17:30:21 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-428141be2ddso26906895e9.2
+ Sun, 18 Aug 2024 17:30:23 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-428e0d184b4so26253235e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 10:30:21 -0700 (PDT)
+ Sun, 18 Aug 2024 10:30:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1724002221; x=1724607021;
+ d=linaro.org; s=google; t=1724002222; x=1724607022;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aiRlsM6vBlOVTpadv+7qxVZ/+NvHjXgHFTSiZbF3Lk0=;
- b=lnB1rFHAc8d355m0/VKUwkm4zMXhtqEejHOKSVlCbkPWwc5wsAhcuvGJugcNGjr4Mi
- MQUHb2bNFTc49IsmAHTs4Om0b30KFdQxVFPfAwO6ZSRJ/dJHApEFtLg9+IS9sCgCOwj2
- PdrYtOUiExpxj9gjM0o57aBNtrZkDnRvgG6E5axgmH4rWhbuWhzCC6C6FI3BkELCb60F
- TWD3VtHm7sTZKpEaLM62O2Hu61YqF4N/tSp94EuDga9+891ZK3gJmDhtk5nEx5Ek+WM9
- L2Z5PKy1dKJJkEji/k2nd8J8DVf3gUw5ez3m40H5COz+JWdVSZCMCY7gjhvifsOggcZy
- QALA==
+ bh=yDxabNXUGD2spiGWzUWebdJZipOuLFpvCr9ct8rDDA8=;
+ b=oJIhPdVDYSa9ZaLKvBcLY7vEV5P5QPrhjPhtU4w/X94s8KbcsjIfqW16sJ1JEUP5vN
+ /G52U8c3QdzppegjMn8fsOvQZNktWPLP8xMQfAtDyffi9nocWNnr0bLrLK6jK/V3RrSn
+ Xn9sUo+bqAnHbsGkO6YDCszW/Sy+dapIOx26iy/3nA6U6m2yjNqvfqUiWLbTrNkkCusV
+ wD19qqiyNcvMi0yoDDn6mw8+pP+hPOI8l25wwlTwYtdbl5PAvnnUEruCPVdu/OcCgb8c
+ 0b8VRqUSFiba7AF2EIVxklQT4QxYfnw2OMMgIKLIusvvt2FEBomAHnsrg3On+ecjtR0f
+ Uryw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724002221; x=1724607021;
+ d=1e100.net; s=20230601; t=1724002222; x=1724607022;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aiRlsM6vBlOVTpadv+7qxVZ/+NvHjXgHFTSiZbF3Lk0=;
- b=Y2v20a98KSIbsemmJnPHfho7j8zX22nOPYRO3xd7WaH3uOyL1wocQjz3B56zc25fBk
- qHL/C0lTezn12Ijsbkjj80jmRwus3tFeU07jtpgS5wCD00SV2tcaDf6N/KeWGQKtKvPz
- WhHp4CVvc53GdwXIKQ+SnsnkhtEy8kFM9Q9rfDK3wbNtWzKGyfi9Zcf/qsABLlziPq0P
- 0l9eLa6ehXukWnJRgePBljIioNTios1aNFC4NW9JJmMmQ29MEICrguedWQUir/GtXqYA
- Onr0y+7vR7oXgiaZNO7dFrlSPA+jMULi4O68lzM5jCzx7Pr1djcORU88hq1AG4uMsMLS
- JuZg==
+ bh=yDxabNXUGD2spiGWzUWebdJZipOuLFpvCr9ct8rDDA8=;
+ b=loNkCYLa+XTsaXDx9Kt12zhf82Nlkek8OHqFFpm0AV12kM8iAGGDODWRIAjE99H17b
+ l4gFIfjAyeaER4JwayRRhJXUEpXEcyQgUBBvYfyurJ8ziEYBdOrxbgf3Sr+P6r619V99
+ iJds5bM+K0xA79eXs/ZKNwP+IkAT2+8GGBiHbgh4LKZeo9VMt/roJffw1k784u80SMQh
+ Qgn/mFzM8Y9kAX1LdNxWmGFwYnQe0PYITB9W2z+ob6+QIqlZ9OEJ361hZUAf7zIhrZJt
+ uRMvAN8oTN/bc/9c1k4u5fodV8a7B3HbcmKc/OCQzRyAfZU+BEIlt9XLdgas//KbG2Wg
+ i3PQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXZdBS49Co3qbkGmnjJD/b5/m+9g0phTWyYH6ISz7GJnYhEBY7j0WMC6NxNa++Y4f9foDBXimyn4UKpkdC+lxHF7xKHIK4hSdbTpv4JIXJEQaFOHDEp+f6S
-X-Gm-Message-State: AOJu0YzsnnCRwwvZibTOXfiUKLV7EGR8gL7oBEik6SOSZotXRfEs7Yus
- WkPkUFSJilCsrKHhubC8BouVrV5fdUxeKfqNi0vPiBIAiPT8/FlCC6vdEPi+6wE=
-X-Google-Smtp-Source: AGHT+IHlDcGvSSlmSoCOZtAKT2zYd9WHqBA3yrLaM9pCakhIJQ/7iIvhr20DdpvwtiU7bWUoZXaPcA==
-X-Received: by 2002:a05:600c:1910:b0:426:6876:83bb with SMTP id
- 5b1f17b1804b1-429ed7b8ab6mr53592135e9.17.1724002220484; 
- Sun, 18 Aug 2024 10:30:20 -0700 (PDT)
+ AJvYcCUvU65op3im15CG1PAthL/RT3eUss0NO2oD3iB8UmLq7YWaOou3ib3XDAnk7wZBy16sqKHaNoJJqjIqnSynxIxSH7L2IC7/aKk23C/tKvDEnih2bLBhvzp+
+X-Gm-Message-State: AOJu0YyLtqNmyUQVrAgOaIgpqpgAFxOMn8aJtGCxK+vhzIPIsfqlXkgU
+ ZQK0gjklgAi5wly2HQYwkUVcEdOfAUnuIqYQGy5y84LlGKjqh56zB0rZrI3tG8I=
+X-Google-Smtp-Source: AGHT+IHTe5/9uPQMEtI6+zcncZ4iytZUcY1Qxy0hgPT1aarVYzDAmJ3Q55hH1n/3z5bWggegxUIW8w==
+X-Received: by 2002:adf:f2c5:0:b0:371:7cd1:86e5 with SMTP id
+ ffacd0b85a97d-37194314fa2mr4713443f8f.8.1724002222433; 
+ Sun, 18 Aug 2024 10:30:22 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.215.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ded7d5a9sm134999915e9.43.2024.08.18.10.30.18
+ 5b1f17b1804b1-429ded7d5a9sm134999915e9.43.2024.08.18.10.30.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Aug 2024 10:30:20 -0700 (PDT)
+ Sun, 18 Aug 2024 10:30:21 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Serge Semin <fancer.lancer@gmail.com>,
  Michael Turquette <mturquette@baylibre.com>,
@@ -75,15 +75,15 @@ To: Serge Semin <fancer.lancer@gmail.com>,
  linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Sun, 18 Aug 2024 19:30:11 +0200
-Message-ID: <20240818173014.122073-2-krzysztof.kozlowski@linaro.org>
+Date: Sun, 18 Aug 2024 19:30:12 +0200
+Message-ID: <20240818173014.122073-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
 References: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 2/5] dt-bindings: clock: cirrus,
-	lochnagar: add top-level constraints
+Subject: [Linux-stm32] [PATCH 3/5] dt-bindings: clock: renesas,
+	cpg-clocks: add top-level constraints
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,31 +103,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Properties with variable number of items per each device are expected to
 have widest constraints in top-level "properties:" block and further
 customized (narrowed) in "if:then:".  Add missing top-level constraints
-for clocks.  Drop also redundant assigned-clocks properties, because
-core dtschema allows them if clocks are provided.
+for clocks and clock-output-names.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/clock/cirrus,lochnagar.yaml         | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/clock/renesas,cpg-clocks.yaml     | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml b/Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml
-index 59de125647ec..ccff74eda9fb 100644
---- a/Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml
-+++ b/Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml
-@@ -67,9 +67,9 @@ properties:
-     minItems: 1
-     maxItems: 19
+diff --git a/Documentation/devicetree/bindings/clock/renesas,cpg-clocks.yaml b/Documentation/devicetree/bindings/clock/renesas,cpg-clocks.yaml
+index 9185d101737e..a0e09b7002f0 100644
+--- a/Documentation/devicetree/bindings/clock/renesas,cpg-clocks.yaml
++++ b/Documentation/devicetree/bindings/clock/renesas,cpg-clocks.yaml
+@@ -32,12 +32,16 @@ properties:
+   reg:
+     maxItems: 1
  
 -  clocks: true
--  assigned-clocks: true
--  assigned-clock-parents: true
 +  clocks:
 +    minItems: 1
-+    maxItems: 19
++    maxItems: 3
  
- additionalProperties: false
+   '#clock-cells':
+     const: 1
  
+-  clock-output-names: true
++  clock-output-names:
++    minItems: 3
++    maxItems: 17
+ 
+   renesas,mode:
+     description: Board-specific settings of the MD_CK* bits on R-Mobile A1
 -- 
 2.43.0
 
