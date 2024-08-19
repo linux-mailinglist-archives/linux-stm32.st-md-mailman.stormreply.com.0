@@ -2,57 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D9B9571A9
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 19:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4AE9571BD
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 19:13:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D1CDC6DD72;
-	Mon, 19 Aug 2024 17:10:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77822C6DD72;
+	Mon, 19 Aug 2024 17:13:36 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8AB8C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF540C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 17:10:57 +0000 (UTC)
+ Mon, 19 Aug 2024 17:13:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 17F5CCE0AD0;
- Mon, 19 Aug 2024 17:10:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5072C32782;
- Mon, 19 Aug 2024 17:10:50 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 34C86CE0B01;
+ Mon, 19 Aug 2024 17:13:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EE3C4AF0E;
+ Mon, 19 Aug 2024 17:13:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724087455;
- bh=BkzBcgZ6MeeyKr/8OAHpDoLQnK+icaA3eyHoXP52qSw=;
+ s=k20201202; t=1724087607;
+ bh=rdULt6pgnvPdbgLF9J0oo7ynjstIM78aVEn7qoTMvlU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Otjdm7aA5VxyBcfNAmLpnd5lUpLaeh6bivkXUSq2c6lXtzu9VkD6YDAQpsUKYdmTk
- ZnpPIU7BMOvedJjrYht/uxySYTuCYPFqXm/lfKXTi4uBu6cz5pm27Y+Cm1BVQpf2Iw
- WNI3f18/Gu48e/TVVWBmyz6gxvxiGnUeVGerhCM1Cb5hiQOqc/ZPo1iDxbRRmZ6QpD
- akq8E5wGJ8+Ol2kp6W/L9ASUE6fI/fsRt9merad33OQItoolqRol0II2AKJqzOW7hh
- f9T/wqiPPIi6jAvqcwycHH7I53kn+1OPce5ha2xQpxaqiIFxBR94SbTS1b5jVoKWS7
- E8gRDCAsEMA5Q==
-Date: Mon, 19 Aug 2024 18:10:48 +0100
+ b=RGHhgwcM5zdbEbDwWVOPRrGY+xiK7S9IECv7bn41EQee+3AciVq4D4+usNFP7lZU8
+ d+dQ9UkCqNzKGLOLquIMhQeveDC7s9ZD0j7TThhbVP7IZcB376EJBTBitm02Qfz3iB
+ hJc+ahNk7ZDm8svys76EeRB2fHeF+bY0KjwxLHrx2XikIIOFKofmFLTrG49CIx8L6G
+ NLsVYskRSsgArVMOWiFILC7f/69wrk7Z54VibC6Fy7CUUQXecgXBBzYmOGVYysQo6Z
+ xqAA1oG5/jfnOxLb1V3JctQ39GWo9CaEvZ4mwxvBurm9HX8KFXS65NrtlsBlas7I4f
+ qhvVYjg1Tyf4A==
+Date: Mon, 19 Aug 2024 18:13:22 +0100
 From: Conor Dooley <conor@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20240819-salt-oxymoron-41d0d0bbf8b1@spud>
-References: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
+Message-ID: <20240819-outflank-variety-3fcb7ca0338a@spud>
+References: <20240818172951.121983-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20240818173014.122073-1-krzysztof.kozlowski@linaro.org>
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, linux-mips@vger.kernel.org,
- linux-clk@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
- patches@opensource.cirrus.com,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: clock: baikal,
- bt1-ccu-div: add top-level constraints
+In-Reply-To: <20240818172951.121983-1-krzysztof.kozlowski@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: iio: st,
+	stm32-adc: add top-level constraints
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,77 +55,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1803029756907219725=="
+Content-Type: multipart/mixed; boundary="===============2854004656861982628=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1803029756907219725==
+--===============2854004656861982628==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="o8wdPAPqT2Zmc7N9"
+	protocol="application/pgp-signature"; boundary="Y0beHK2OB/Ya0e9O"
 Content-Disposition: inline
 
 
---o8wdPAPqT2Zmc7N9
+--Y0beHK2OB/Ya0e9O
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 18, 2024 at 07:30:10PM +0200, Krzysztof Kozlowski wrote:
+On Sun, Aug 18, 2024 at 07:29:51PM +0200, Krzysztof Kozlowski wrote:
 > Properties with variable number of items per each device are expected to
 > have widest constraints in top-level "properties:" block and further
 > customized (narrowed) in "if:then:".  Add missing top-level constraints
-> for clocks and clock-names.
+> for clock-names.
 >=20
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
 
-I really wish you'd sent cover letters so I don't "have" to send 5
-different acks where one would do.
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-> ---
->  .../devicetree/bindings/clock/baikal,bt1-ccu-div.yaml     | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/clock/baikal,bt1-ccu-div.y=
-aml b/Documentation/devicetree/bindings/clock/baikal,bt1-ccu-div.yaml
-> index bd4cefbb1244..30252c95700c 100644
-> --- a/Documentation/devicetree/bindings/clock/baikal,bt1-ccu-div.yaml
-> +++ b/Documentation/devicetree/bindings/clock/baikal,bt1-ccu-div.yaml
-> @@ -134,9 +134,13 @@ properties:
->    "#reset-cells":
->      const: 1
-> =20
-> -  clocks: true
-> +  clocks:
-> +    minItems: 3
-> +    maxItems: 4
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml =
+b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> index ec34c48d4878..ef9dcc365eab 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> @@ -54,7 +54,9 @@ properties:
+>            It's not present on stm32f4.
+>            It's required on stm32h7 and stm32mp1.
 > =20
 > -  clock-names: true
 > +  clock-names:
-> +    minItems: 3
-> +    maxItems: 4
+> +    minItems: 1
+> +    maxItems: 2
 > =20
->  additionalProperties: false
-> =20
+>    st,max-clk-rate-hz:
+>      description:
 > --=20
 > 2.43.0
 >=20
 
---o8wdPAPqT2Zmc7N9
+--Y0beHK2OB/Ya0e9O
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZsN8mAAKCRB4tDGHoIJi
-0g9hAQD23j6IACN0lwlIWMGLgnB5y0kie/pEMOqt2djDMLdPcgD/QeiNcD9hvDcG
-yZWAg6ZsBkCGw5djJD6Z+qVuQkXpaQs=
-=SJOu
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZsN9MgAKCRB4tDGHoIJi
+0lWSAP4r3VaV8vxUGxyk/Gd68syU0Qbdc0hMEQWz/zPKArLpjgEAkmLmOnGOUeXx
+T1faMHwgTOz4iMURjAUYjB9JJX301wI=
+=/tpI
 -----END PGP SIGNATURE-----
 
---o8wdPAPqT2Zmc7N9--
+--Y0beHK2OB/Ya0e9O--
 
---===============1803029756907219725==
+--===============2854004656861982628==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -145,4 +129,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1803029756907219725==--
+--===============2854004656861982628==--
