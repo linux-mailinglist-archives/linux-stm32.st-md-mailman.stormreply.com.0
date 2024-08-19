@@ -2,102 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A86E9563BE
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 08:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A57AF956490
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 09:26:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BC9FC6DD9D;
-	Mon, 19 Aug 2024 06:26:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52257C6DD9D;
+	Mon, 19 Aug 2024 07:26:06 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54EBFC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56F0FC6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 06:26:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2EEA160916;
- Mon, 19 Aug 2024 06:26:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCAEC32782;
- Mon, 19 Aug 2024 06:26:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724048790;
- bh=YJwodULpM0LtppbLNbDxvxviJ16KqOL33RBA1HPJzrw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=X3ehI++uzcZydyXr+bm+yF4848kMDHc61dfQlQNMCTl6GoG495s1ND771bOpJLPBt
- dTpy/3CW3S3vhLnQobqkESXttwOQhTGGZxlqlD4xgtBlJrGTnV0GkndLmMdVby4hZM
- OduErWtIEguWUZh2ZYN/WRvjza33UYrEpLZtC+ELHGeTz1FShsXIzT9eO7p3A8Jne8
- poY9RtqOdsBvHZgzB+llUuuuI8PIidXEtPXEsE5XPwVy8KWPu892IPPFmTFEEvK3NX
- I5Xdh59Af4MiQ+8kf1yCN5PaG3d/q0pWexNHm8A1LEaWP1rH6qHXbXFJ/p1sHdLkvv
- Jcx2DYmxK9zvg==
-Message-ID: <e087b788-4002-4d12-bd8f-a40fc814856a@kernel.org>
-Date: Mon, 19 Aug 2024 08:26:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jie Gan <quic_jiegan@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mon, 19 Aug 2024 07:25:58 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-202146e93f6so23526705ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Aug 2024 00:25:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724052357; x=1724657157;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GMxRPL+T8UIjCQfC5kIWgTFU9+0G6pZaJzB9qUuJpIw=;
+ b=RqZUZjkvnm4A1rgHhloWWs/lVdjZJnsC8g483jB2uUrPxSL8+j+cuYDa4NLqp00Mwv
+ A3J4TkK4grxX2N9S4ux5l2rnX8wCAyHSNs49HUorLStXQAa5ohWSzqtABCYPdSo3D5ul
+ FKTaQuHdcEIGehhRV8YKgOlnlBT5NYXtuY7se05Ul3UtGKJqTbwZ6k5ZtBxdYG4VA06Q
+ qXr6X3mFvtLkbuYsanrz+X1/gIvpQmpMMIW+lhZQvJfCYYm4nYu9z0yjC8eDAH8EOBfA
+ O+S21PBWikcZOH0nQvkfofYpkT44J/1dWpJHDrvyVKTRb7gIDJpn5CU01yIXgvFuUtMh
+ eVuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724052357; x=1724657157;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GMxRPL+T8UIjCQfC5kIWgTFU9+0G6pZaJzB9qUuJpIw=;
+ b=ko+dzjdRTE3m9fDPh84/1bSsAJxC4ifOJJpBVlGqolKjj4qk8qsdng1NVrZnpuqK63
+ Wtmpg8KzvEKTK2f9sDhhgnTZkoU+z9bWrDrLiJBqiok5RlveHrzSdYPCafnmRwzSCL1f
+ e2sRMcvP4t8SMLCtStmnNqI/IAM4uIjUpWAHOC1UBkmTl+oGaiVzm8dv8cIwaaJIpGQJ
+ kwekizT9tUHlbO+IXMPnknb16YjzyFbGO4VmH4OkoOJ4NF3b2ujiwOlRJccnepOHttda
+ IHKVamuv1nuzRGvmQomr1/eqctLOm/mpl2TzD7mLiGGbXbQvqvB8ayD+OfHa3iB2wx0J
+ emvA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8YTLRL8KXmVUPTqzSJxtIkPapHGErHJAJ8RnRGW6O/cAQZ7dL4c6Dp0b055MIVSbNrB3ZW8b4mxAkb9Y5jeN2JcA0RULKGQj9tzJ6bDv1XYCMciVYKTag
+X-Gm-Message-State: AOJu0YxmWbmzsQF+f7AEcUwewQ59sqYleTqrOa4ho8aYmalY/TnS703J
+ Ggkfpqw1+kSvy8uTZ41nPf4mICb/Mp9PxtgeOY6TmY5I7BWfRvCJ
+X-Google-Smtp-Source: AGHT+IFs9U2vy6o8hrcgBG0WljZK09J5u0ZU7PDrc/0pefVklhHx0XndlbBF0rFOTVbCQeZRG7NQag==
+X-Received: by 2002:a17:903:2303:b0:1ff:4967:66a with SMTP id
+ d9443c01a7336-20203e88843mr117933405ad.14.1724052356689; 
+ Mon, 19 Aug 2024 00:25:56 -0700 (PDT)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-201f02faa5dsm58340855ad.2.2024.08.19.00.25.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Aug 2024 00:25:56 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20240812024141.2867655-1-quic_jiegan@quicinc.com>
- <20240812024141.2867655-4-quic_jiegan@quicinc.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240812024141.2867655-4-quic_jiegan@quicinc.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
- coresight@lists.linaro.org, Yuanfang Zhang <quic_yuanfang@quicinc.com>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: arm: Add Coresight
- TMC Control Unit hardware
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Joao Pinto <jpinto@synopsys.com>
+Date: Mon, 19 Aug 2024 15:25:13 +0800
+Message-Id: <cover.1724051326.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, Furong Xu <0x1207@gmail.com>,
+ linux-kernel@vger.kernel.org, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 0/7] net: stmmac: FPE via ethtool
+	+ tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,46 +89,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/08/2024 04:41, Jie Gan wrote:
-> +
-> +maintainers:
-> +  - Yuanfang Zhang <quic_yuanfang@quicinc.com>
-> +  - Mao Jinlong <quic_jinlmao@quicinc.com>
-> +  - Jie Gan <quic_jiegan@quicinc.com>
-> +
-> +description:
-> +  The Coresight TMC Control unit controls various Coresight behaviors.
-> +  It works as a helper device when connected to TMC ETR device.
-> +  It is responsible for controlling the data filter function based on
-> +  the source device's Trace ID for TMC ETR device. The trace data with
-> +  that Trace id can get into ETR's buffer while other trace data gets
-> +  ignored.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sa8775p-ctcu
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: apb
-> +
-> +  in-ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    patternProperties:
-> +      '^port(@[0-7])?$':
+Move the Frame Preemption(FPE) over to the new standard API which uses
+ethtool-mm/tc-mqprio/tc-taprio.
 
-I see only two ports in the example. How many are there in reality?
+Changes in v3:
+  1. avoid races among ISR, workqueue, link update and
+  register configuration.
+  2. update FPE verification retry logic, so it retries
+  and fails as expected.
 
-Best regards,
-Krzysztof
+Changes in v2:
+  1. refactor FPE verification processe
+  2. suspend/resume and kselftest-ethtool_mm, all test cases passed
+  3. handle TC:TXQ remapping for DWMAC CORE4+
+
+Furong Xu (7):
+  net: stmmac: move stmmac_fpe_cfg to stmmac_priv data
+  net: stmmac: drop stmmac_fpe_handshake
+  net: stmmac: refactor FPE verification processe
+  net: stmmac: configure FPE via ethtool-mm
+  net: stmmac: support fp parameter of tc-mqprio
+  net: stmmac: support fp parameter of tc-taprio
+  net: stmmac: silence FPE kernel logs
+
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  |  96 ++++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  11 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  20 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  25 +++
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 107 ++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 192 +++++++++---------
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 115 +++++++----
+ include/linux/stmmac.h                        |  28 ---
+ 10 files changed, 430 insertions(+), 178 deletions(-)
+
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
