@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A466D95785F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 01:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F2C957868
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 01:08:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 508C3C6DD72;
-	Mon, 19 Aug 2024 23:07:39 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64056C6DD72;
+	Mon, 19 Aug 2024 23:08:16 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 399C9C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5661C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 23:07:32 +0000 (UTC)
+ Mon, 19 Aug 2024 23:08:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 6937FCE0B52;
- Mon, 19 Aug 2024 23:07:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998EFC32782;
- Mon, 19 Aug 2024 23:07:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B9FB60C63;
+ Mon, 19 Aug 2024 23:08:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F7FC32782;
+ Mon, 19 Aug 2024 23:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724108849;
- bh=mJXaRxbMWM39dMzH9l5kYZ7g7ouNmwcruKXMK8gNkX8=;
+ s=k20201202; t=1724108893;
+ bh=Q3A4bDKDw+D/pxKm8nl51yuFDsQ4UfiO0ix22SGurDs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gXYPoQARvA+Pn4TQep5aX8uvhPU06HBEZC8s7nU3NeDTwzfpLC4/XPM6bcOXpcSMR
- j+IioWHWPS2jmBGAlBK1B9w6GJyxDfWblqCclt4caiicnCA4GBGM38I8o3Wblu0AP3
- dyxIzG3yJQASecBEF/gSzYD/687723usA4TQIOs+wgv5E29VuZVe0NMUe/oBuVzBWH
- xrzpEWN4Fm1cKpkkXgUIF9REemYttOrPNk7l+ICyrUhzfayvlwbNxHb00+Ex6nyLrn
- Ie4odNMEAbURIqwPUcl7Yv6kPnkV6S6rKmEzfrv1Zk+soK0dsfO56hb9jEPD/y50K/
- K5TiLUSIvFf4A==
-Message-ID: <0a51e728-8005-404f-b2f2-16fc31834d2f@kernel.org>
-Date: Tue, 20 Aug 2024 08:07:23 +0900
+ b=u7vWsR6X8LCJGKE6vvNyQ/UvHu5m6zsjyTsOIh9to5BfzbYc/I0MaAsMFV7hSN+Nn
+ 9fB0EVV2wjeP8MzUhM+YOKv9ruNO+EOGdi0eaOtsbyjWlF2XhTDdv3TRDDIA6EhcMh
+ usLnkZjl/xpmbQl/1rVjQcDh19GnZ1dgWroPD8IHWJmKPtbkhPDpI4o7k+77RMAuR9
+ bqugKGWNcelKU50jglkOkN45fzO5dRZN5nBWzk6dR8hKINyYhFg9XsXF1d26VkA42h
+ f4O6F+fDZh9SYKGFgBniIKDcdYp9asip9zNsgBAul/CZHFT+8xUg9mGflttaNeXDDX
+ XuLm9GzIAl4qQ==
+Message-ID: <309d9abd-e60b-4e8b-8def-7c4430635422@kernel.org>
+Date: Tue, 20 Aug 2024 08:08:07 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Philipp Stanner <pstanner@redhat.com>, onathan Corbet <corbet@lwn.net>,
@@ -54,17 +54,17 @@ To: Philipp Stanner <pstanner@redhat.com>, onathan Corbet <corbet@lwn.net>,
  Hannes Reinecke <hare@suse.de>, Chaitanya Kulkarni <kch@nvidia.com>,
  "Martin K. Petersen" <martin.petersen@oracle.com>
 References: <20240819165148.58201-2-pstanner@redhat.com>
- <20240819165148.58201-3-pstanner@redhat.com>
-From: Damien Le Moal <dlemoal@kernel.org>
+ <20240819165148.58201-4-pstanner@redhat.com>
 Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <20240819165148.58201-3-pstanner@redhat.com>
+In-Reply-To: <20240819165148.58201-4-pstanner@redhat.com>
 Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
  linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org,
  virtualization@lists.linux.dev, linux-block@vger.kernel.org,
  linux-gpio@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] PCI: Make pcim_release_region() a
+Subject: Re: [Linux-stm32] [PATCH 2/9] PCI: Make pcim_iounmap_region() a
 	public function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -83,18 +83,21 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 8/20/24 01:51, Philipp Stanner wrote:
-> pcim_release_region() is the managed counterpart of
-> pci_release_region(). It can be useful in some cases where drivers want
-> to manually release a requested region before the driver's remove()
-> callback is invoked.
+> The function pcim_iounmap_regions() is problematic because it uses a
+> bitmask mechanism to release / iounmap multiple BARs at once. It, thus,
+> prevents getting rid of the problematic iomap table mechanism which was
+> deprecated in commit e354bb84a4c1 ("PCI: Deprecate pcim_iomap_table(),
+> pcim_iomap_regions_request_all()").
 > 
-> Make pcim_release_region() a public function.
+> Make pcim_iounmap_region() public as the successor of
+> pcim_iounmap_regions().
 > 
 > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 
-Looks fine to me. But I think this should be squashed with patch 2 (I do not see
-the point of having 2 patches to export 2 functions that are complementary).
-Either way:
+Looks fine, but as commented on patch 1, I think this would look better squashed
+with patch 1.
+
+Anyway:
 
 Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
