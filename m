@@ -2,104 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FC4B956783
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 11:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9971956945
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 13:23:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F731C6DD9D;
-	Mon, 19 Aug 2024 09:51:55 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AB6CC6DD94;
+	Mon, 19 Aug 2024 11:23:43 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CDCFC6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D2EFC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 09:51:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7221ECE09FC;
- Mon, 19 Aug 2024 09:51:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0668C32782;
- Mon, 19 Aug 2024 09:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724061110;
- bh=wgWy6oxFKRj+OpPXXDQFpun2GPwOwcekxCuQMmQ98y0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dD3C811g7v5Y9DUKpGMd/NlYHbpOZG7HKnGHZdF60myXYj32cO0UH/XWqqT1di5PY
- p1hduqCK2djslkrJ/TLpPpXyiRXlFUCyiuE8Ha9Rffo/OiD/UzMGgs2ykd0xF+Woxb
- 7weMt+45JyxMh6vnEsTzH4SFNBcIv6zXZsoOPZxndiK3b67+QaDODvxeU/KDPEkidL
- OhU8ozW770goqBavmNYPEkO4zfh2wnbTAaXA3k9jB7jmi2Qw4s5JRRPm1JaeLjWkK3
- btksjYqZ//V+wQvpTIfyVFpVnTPrIjuchVV80lD46sOh4uFdfyK16T4hijlTkwiL8x
- Ji8uc/pQyIEWA==
-Message-ID: <d117e157-f2e2-4e17-bbe4-b84001eae1bb@kernel.org>
-Date: Mon, 19 Aug 2024 11:51:41 +0200
+ Mon, 19 Aug 2024 11:23:36 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5320d8155b4so5521385e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Aug 2024 04:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724066615; x=1724671415;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tprFxrKfsDYUogvcMoI1LKxJEeb7f1ZyOv21fW+7YTg=;
+ b=HfS4hXG/R90s2FGjbBOVdrzB1JyGUmxBd82lOInYE3+0WhuI6OXFDZ0be6HdA2Ved+
+ oLFxHRgNBNHpvuPboCSN5KYjKnkmW5cVgxhoubiaBFwmoBIiW3pyouYmT++SPmFbxGgU
+ U5kCeJZZK3ZVqtF5QDe5JdDomLm7577GjKzUkhdZQFru+gOmYW7cJek/8Q1WhGqPhfaF
+ mQxjgGcmAUT00Lgt5O0/SOXKYSYQcouiIEWFLAhFtSsgjwH/YU+Ykf/T3rcr/n+YKiOX
+ KWNStxBvy08RfmrRxoiVSNqgxwimHMJhrowSs2zIBLlwpksBDZwq+7l+Or5dLRFXbs1L
+ 2oLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724066616; x=1724671416;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tprFxrKfsDYUogvcMoI1LKxJEeb7f1ZyOv21fW+7YTg=;
+ b=m/z2UhcCF4Jh2/sesy4OeOAelN7MXo4gbldbryp8bKXrr9LcxJtvX0i/AHGjsYZLN0
+ a/18B8S7eoYhYBlR9iC/d1ZxXtdc2VrusCUzJTwyR0lPTscbkBa4w384tsW0Qv9jKq0G
+ ZceFMpAB7Lqkwy9blktAC3yfBFixD6vxP1Jgwf6ZnQXc5+8teaQdu/0P4GPwcasKRTOC
+ iEIhijwop89yNAeRWmwPckNXr4772zNuwzjuYqykfZfGgTYY7uJadlApbjoM//nGN3vX
+ ryUSDVeXw91Wr55X+ejIORXomaCr8drcI31JWge7hPVNuafr0iTJP2fVEEDgLpWeEsYQ
+ ndzw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUazJiw5Nu8vJUQwHKERoxYyXLu/hcNcojGN2HA3itBdAFtuRq4SoCiBEzU9Lkr5ZTn5BFSuAjv/LQ6Fw3Q+Bhg9s8OLoiZwT2V/ByoIoLbWxrsEUZrS9hR
+X-Gm-Message-State: AOJu0YyiXIV9GxGDydbPsNoeOihtjhAbxYuZeWa+C80ajb7mNz85U3MB
+ ErLleBldCq073DubQhfSElP9Zxz7QcloDXtC81hJN9d+hF2MToYr
+X-Google-Smtp-Source: AGHT+IGqHw5aq4Yu5IwvBHPNFj0C3R+/6U8ytKFwReL7XY64X9J8HjO+AB7srHVJE+zt2fnxZzC+qA==
+X-Received: by 2002:a05:6512:1086:b0:52e:9b2f:c313 with SMTP id
+ 2adb3069b0e04-5331c6ac976mr7551084e87.22.1724066615124; 
+ Mon, 19 Aug 2024 04:23:35 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5330d425c0fsm1456167e87.298.2024.08.19.04.23.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Aug 2024 04:23:34 -0700 (PDT)
+Date: Mon, 19 Aug 2024 14:23:31 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Message-ID: <r5jc6kzvalommas5gs6pxmxpsygjkuj6zi6pz6qtdlya2n2kqv@4rtqdorr5iw7>
+References: <AM9PR04MB85062693F5ACB16F411FD0CFE2BD2@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ <ciueb72cjvfkmo3snnb5zcrfqtbum5x54kgurkkouwe6zrdrjj@vi54y7cczow3>
+ <AM9PR04MB8506994625600CA8C4727CFAE2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: JieGan <quic_jiegan@quicinc.com>
-References: <20240812024141.2867655-1-quic_jiegan@quicinc.com>
- <20240812024141.2867655-4-quic_jiegan@quicinc.com>
- <20240818142834.GA27754-robh@kernel.org>
- <ZsKkm/Pz0GYtH2Gl@jiegan-gv.ap.qualcomm.com>
- <9d9704ed-6ef8-4920-9874-29e0a815e2ba@kernel.org>
- <ZsMHnKKvOey4SA1O@jiegan-gv.ap.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <ZsMHnKKvOey4SA1O@jiegan-gv.ap.qualcomm.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Song Chai <quic_songchai@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-arm-kernel@lists.infradead.org,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Tao Zhang <quic_taozha@quicinc.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <AM9PR04MB8506994625600CA8C4727CFAE2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+Cc: dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>
-Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: arm: Add Coresight
- TMC Control Unit hardware
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 2/6] net: stmmac: Expand clock rate
+	variables
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,94 +84,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTkvMDgvMjAyNCAxMDo1MSwgSmllR2FuIHdyb3RlOgo+IE9uIE1vbiwgQXVnIDE5LCAyMDI0
-IGF0IDA4OjI1OjMzQU0gKzAyMDAsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6Cj4+IE9uIDE5
-LzA4LzIwMjQgMDM6NDksIEppZUdhbiB3cm90ZToKPj4+IE9uIFN1biwgQXVnIDE4LCAyMDI0IGF0
-IDA4OjI4OjM0QU0gLTA2MDAsIFJvYiBIZXJyaW5nIHdyb3RlOgo+Pj4+IE9uIE1vbiwgQXVnIDEy
-LCAyMDI0IGF0IDEwOjQxOjM5QU0gKzA4MDAsIEppZSBHYW4gd3JvdGU6Cj4+Pj4+IEFkZCBiaW5k
-aW5nIGZpbGUgdG8gc3BlY2lmeSBob3cgdG8gZGVmaW5lIGEgQ29yZXNpZ2h0IFRNQwo+Pj4+PiBD
-b250cm9sIFVuaXQgZGV2aWNlIGluIGRldmljZSB0cmVlLgo+Pj4+Pgo+Pj4+PiBJdCBpcyByZXNw
-b25zaWJsZSBmb3IgY29udHJvbGxpbmcgdGhlIGRhdGEgZmlsdGVyIGZ1bmN0aW9uCj4+Pj4+IGJh
-c2VkIG9uIHRoZSBzb3VyY2UgZGV2aWNlJ3MgVHJhY2UgSUQgZm9yIFRNQyBFVFIgZGV2aWNlLgo+
-Pj4+PiBUaGUgdHJhY2UgZGF0YSB3aXRoIHRoYXQgVHJhY2UgaWQgY2FuIGdldCBpbnRvIEVUUidz
-IGJ1ZmZlcgo+Pj4+PiB3aGlsZSBvdGhlciB0cmFjZSBkYXRhIGdldHMgaWdub3JlZC4KPj4+Pj4K
-Pj4+Pj4gU2lnbmVkLW9mZi1ieTogSmllIEdhbiA8cXVpY19qaWVnYW5AcXVpY2luYy5jb20+Cj4+
-Pj4+IC0tLQo+Pj4+PiAgLi4uL2JpbmRpbmdzL2FybS9xY29tLGNvcmVzaWdodC1jdGN1LnlhbWwg
-ICAgIHwgNzkgKysrKysrKysrKysrKysrKysrKwo+Pj4+PiAgMSBmaWxlIGNoYW5nZWQsIDc5IGlu
-c2VydGlvbnMoKykKPj4+Pj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvYXJtL3Fjb20sY29yZXNpZ2h0LWN0Y3UueWFtbAo+Pj4+Pgo+Pj4+PiBk
-aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9xY29tLGNv
-cmVzaWdodC1jdGN1LnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJt
-L3Fjb20sY29yZXNpZ2h0LWN0Y3UueWFtbAo+Pj4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+Pj4+
-PiBpbmRleCAwMDAwMDAwMDAwMDAuLjdhOTU4MDAwNzk0Mgo+Pj4+PiAtLS0gL2Rldi9udWxsCj4+
-Pj4+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbSxjb3Jl
-c2lnaHQtY3RjdS55YW1sCj4+Pj4+IEBAIC0wLDAgKzEsNzkgQEAKPj4+Pj4gKyMgU1BEWC1MaWNl
-bnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKQo+Pj4+PiArJVlB
-TUwgMS4yCj4+Pj4+ICstLS0KPj4+Pj4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVt
-YXMvYXJtL3Fjb20sY29yZXNpZ2h0LWN0Y3UueWFtbCMKPj4+Pj4gKyRzY2hlbWE6IGh0dHA6Ly9k
-ZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIwo+Pj4+PiArCj4+Pj4+ICt0aXRs
-ZTogQ29yZVNpZ2h0IFRNQyBDb250cm9sIFVuaXQKPj4+Pj4gKwo+Pj4+PiArbWFpbnRhaW5lcnM6
-Cj4+Pj4+ICsgIC0gWXVhbmZhbmcgWmhhbmcgPHF1aWNfeXVhbmZhbmdAcXVpY2luYy5jb20+Cj4+
-Pj4+ICsgIC0gTWFvIEppbmxvbmcgPHF1aWNfamlubG1hb0BxdWljaW5jLmNvbT4KPj4+Pj4gKyAg
-LSBKaWUgR2FuIDxxdWljX2ppZWdhbkBxdWljaW5jLmNvbT4KPj4+Pj4gKwo+Pj4+PiArZGVzY3Jp
-cHRpb246Cj4+Pj4+ICsgIFRoZSBDb3Jlc2lnaHQgVE1DIENvbnRyb2wgdW5pdCBjb250cm9scyB2
-YXJpb3VzIENvcmVzaWdodCBiZWhhdmlvcnMuCj4+Pj4+ICsgIEl0IHdvcmtzIGFzIGEgaGVscGVy
-IGRldmljZSB3aGVuIGNvbm5lY3RlZCB0byBUTUMgRVRSIGRldmljZS4KPj4+Pj4gKyAgSXQgaXMg
-cmVzcG9uc2libGUgZm9yIGNvbnRyb2xsaW5nIHRoZSBkYXRhIGZpbHRlciBmdW5jdGlvbiBiYXNl
-ZCBvbgo+Pj4+PiArICB0aGUgc291cmNlIGRldmljZSdzIFRyYWNlIElEIGZvciBUTUMgRVRSIGRl
-dmljZS4gVGhlIHRyYWNlIGRhdGEgd2l0aAo+Pj4+PiArICB0aGF0IFRyYWNlIGlkIGNhbiBnZXQg
-aW50byBFVFIncyBidWZmZXIgd2hpbGUgb3RoZXIgdHJhY2UgZGF0YSBnZXRzCj4+Pj4+ICsgIGln
-bm9yZWQuCj4+Pj4KPj4+PiBOb3doZXJlIGlzIFRNQyBkZWZpbmVkLgo+Pj4gVGhlIENvcmVzaWdo
-dCBUTUMgY29udHJvbCB1bml0KENUQ1UpIGNvbm5lY3RlZCB0byBDb3Jlc2lnaHQgVE1DIGRldmlj
-ZSB2aWEgcmVwbGljYXRvciBhbmQKPj4+IHdvcmtzIGFzIGEgaGVscGVyIGRldmljZSB0byBUTUMg
-ZGV2aWNlLgo+Pgo+PiBEaWQgeW91IHVuZGVyc3RhbmQgdGhlIGZlZWRiYWNrIG9yIGp1c3QgcmVz
-cG9uZGluZyB3aXRoIHdoYXRldmVyIHRvIGdldAo+PiByaWQgb2YgcmV2aWV3ZXJzPwo+IAo+IFNv
-cnJ5IGZvciB0aGUgaW5zdWZmaWNpZW50IGNsYXJpdHkgaW4gbXkgcmVzcG9uc2UsIEkgYW0ganVz
-dCBtaXN1bmRlcnN0b29kIHRoZSBmZWVkYmFjayBhbmQgdHJ5Cj4gdG8gZXhwbGFpbiB0aGUgcmVs
-YXRpb25zaGlwIGJldHdlZW4gVE1DIGFuZCBDVENVIGRldmljZS4KPiAKPiBJIHdpbGwgYWRkIHRo
-ZSBUTUMgZGVzY3JpcHRpb24gdG8gZXhwbGFpbiB3aGF0IFRNQyBpcyBhcyBzaG93biBiZWxvdzoK
-PiBUaGUgVHJhY2UgTWVtb3J5IENvbnRyb2xsZXIoVE1DKSBpcyB1c2VkIGZvciBFbWJlZGRlZCBU
-cmFjZSBCdWZmZXIoRVRCKSwgRW1iZWRkZWQgVHJhY2UgRklGTyhFVEYpCj4gYW5kIEVtYmVkZGVk
-IFRyYWNlIFJvdXRlcihFVFIpIGNvbmZpZ3VyYXRpb25zLiBUaGUgY29uZmlndXJhdGlvbiBtb2Rl
-IChFVEIsIEVURiwgRVRSKSBpcwo+IGRpc2NvdmVyZWQgYXQgYm9vdCB0aW1lIHdoZW4gdGhlIGRl
-dmljZSBpcyBwcm9iZWQuCgpUaGFua3MuCgo+IAo+Pgo+Pj4KPj4+IFRoZSBpbi1wb3J0cyBsaXN0
-ZWQgYmVsb3cgaWxsdXN0cmF0ZSB0aGVpciBjb25uZWN0aW9uIHRvIFRNQyBkZXZpY2VzLgo+Pj4K
-Pj4+Pgo+Pj4+PiArCj4+Pj4+ICtwcm9wZXJ0aWVzOgo+Pj4+PiArICBjb21wYXRpYmxlOgo+Pj4+
-PiArICAgIGVudW06Cj4+Pj4+ICsgICAgICAtIHFjb20sc2E4Nzc1cC1jdGN1Cj4+Pj4+ICsKPj4+
-Pj4gKyAgcmVnOgo+Pj4+PiArICAgIG1heEl0ZW1zOiAxCj4+Pj4+ICsKPj4+Pj4gKyAgY2xvY2tz
-Ogo+Pj4+PiArICAgIG1heEl0ZW1zOiAxCj4+Pj4+ICsKPj4+Pj4gKyAgY2xvY2stbmFtZXM6Cj4+
-Pj4+ICsgICAgaXRlbXM6Cj4+Pj4+ICsgICAgICAtIGNvbnN0OiBhcGIKPj4+Pj4gKwo+Pj4+PiAr
-ICBpbi1wb3J0czoKPj4+Pgo+Pj4+IFVzZSAncG9ydHMnIHVubGVzcyB5b3UgaGF2ZSBib3RoIGlu
-IGFuZCBvdXQgcG9ydHMuCj4+PiBUaGUg4oCYaW4tcG9ydHPigJkgYW5kIOKAmG91dC1wb3J0c+KA
-mSBwcm9wZXJ0aWVzIHdpbGwgYmUgcGFyc2VkIGJ5IOKAmG9mX2NvcmVzaWdodF9nZXRfcG9ydF9w
-YXJlbnTigJkKPj4+IGFuZCB0aGVpciByZWxhdGlvbnNoaXBzIHRvIG90aGVyIGRldmljZXMgd2ls
-bCBiZSBzdG9yZWQgaW4gdGhlIGNvcmVzaWdodF9wbGF0Zm9ybV9kYXRhIHN0cnVjdHVyZS4KPj4+
-Cj4+PiBmb3IgZXhhbXBsZToKPj4+IHN0cnVjdCBjb3Jlc2lnaHRfcGxhdGZvcm1fZGF0YSB7Cj4+
-PiAJaW50IG5yX2luY29ubnM7Cj4+PiAJaW50IG5yX291dGNvbm5zOwo+Pj4gCXN0cnVjdCBjb3Jl
-c2lnaHRfY29ubmVjdGlvbiAqKm91dF9jb25uczsKPj4+IAlzdHJ1Y3QgY29yZXNpZ2h0X2Nvbm5l
-Y3Rpb24gKippbl9jb25uczsKPj4+IH07Cj4+Pgo+Pj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5j
-b20vbGludXgvdjYuMTEtcmM0L3NvdXJjZS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29y
-ZXNpZ2h0LXBsYXRmb3JtLmMjTDE0Nwo+Pgo+PiBhbmQ/IElmIHlvdSByZXNwb25kIHdpdGggc29t
-ZSB1bnJlbGF0ZWQgYXJndW1lbnQsIHdlIHdpbGwgcmVzcG9uZCB3aXRoCj4+IHRoZSBzYW1lOiBV
-c2UgJ3BvcnRzJyB1bmxlc3MgeW91IGhhdmUgYm90aCBpbiBhbmQgb3V0IHBvcnRzLgo+IAo+IFNv
-cnJ5IGZvciB0aGUgaW5zdWZmaWNpZW50IHJlc3BvbnNlLgo+IAo+IFRoZSBDb3Jlc2lnaHQgZHJp
-dmVyIHByZWZlcnMgdXNpbmcg4oCYaW4tcG9ydHPigJkgYW5kIOKAmG91dC1wb3J0c+KAmSBpbnN0
-ZWFkIG9mIHRoZSDigJhwb3J0c+KAmSBwcm9wZXJ0eSwgYXMgZWFjaAo+IENvcmVzaWdodCBjb21w
-b25lbnQgbmVlZHMgdG8gc3BlY2lmeSBpdHMgaW5wdXQgYW5kIG91dHB1dCBkaXJlY3Rpb25zLgo+
-IAo+IFRoZSBDb3Jlc2lnaHQgc3lzdGVtIG9wZXJhdGVzIGJ5IGludGVncmF0aW5nIGFsbCBDb3Jl
-c2lnaHQgY29tcG9uZW50cyBhbmQgY29uc3RydXRpbmcgaXRzIGRhdGEgZmxvdyBwYXRoCj4gYmFz
-ZWQgb24gdGhlIGRlZmluZWQgZGlyZWN0aW9ucy4gCj4gCj4gQ29uc2VxdWVudGx5LCB0aGUgZGF0
-YSBmbG93IGRpcmVjdGlvbiBjYW5ub3QgYmUgZGV0ZXJtaW5lZCB3aGVuIHV0aWxpemluZyB0aGUg
-4oCYcG9ydHPigJkgcHJvcGVydHkgaW4gdGhlCj4gQ29yZXNpZ2h0IHN5c3RlbS4KCkl0IGNhbiBi
-ZSBkZXRlcm1pbmVkLiBEcml2ZXIga25vd3MgdGhhdCB0aGVyZSBhcmUgb25seSBpbi1wb3J0cywg
-c28geW91CmNhbm5vdCBoYXZlIGhlcmUgb3RoZXIgZGlyZWN0aW9uLiBNYXliZSB0aGUgZHJpdmVy
-cyBoYXZlIHNvbWVob3cgdGhpcwpoYXJkLWNvZGVkPyBCdXQgdGhhdCdzIGEgYml0IGFubm95aW5n
-IGxpbWl0YXRpb24uCgpCZXN0IHJlZ2FyZHMsCktyenlzenRvZgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Jan
+
+On Sun, Aug 18, 2024 at 06:54:01PM +0000, Jan Petrous (OSS) wrote:
+> > -----Original Message-----
+> > From: Serge Semin <fancer.lancer@gmail.com>
+> > Sent: Tuesday, 6 August, 2024 12:18
+> > To: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre Torgue
+> > <alexandre.torgue@foss.st.com>; dl-S32 <S32@nxp.com>; linux-
+> > kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
+> > arm-kernel@lists.infradead.org; Claudiu Manoil <claudiu.manoil@nxp.com>;
+> > netdev@vger.kernel.org
+> > Subject: Re: [PATCH 2/6] net: stmmac: Expand clock rate variables
+> > 
+> > On Sun, Aug 04, 2024 at 08:49:49PM +0000, Jan Petrous (OSS) wrote:
+> > > The clock API clk_get_rate() returns unsigned long value.
+> > > Expand affected members of stmmac platform data.
+> > >
+> > > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > 
+> > Since you are fixing this anyway, please convert the
+> > stmmac_clk_csr_set() and dwmac4_core_init() methods to defining the
+> > unsigned long clk_rate local variables.
+> 
+> OK, will add it to v2.
+> 
+> > 
+> > After taking the above into account feel free to add:
+> > Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+> > 
+> > -Serge(y)
+> > 
+> > > ---
+> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 +-
+> > >  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c   | 2 +-
+> > >  include/linux/stmmac.h                                  | 6 +++---
+> > >  3 files changed, 5 insertions(+), 5 deletions(-)
+> > >
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > > index 901a3c1959fa..2a5b38723635 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > > @@ -777,7 +777,7 @@ static void ethqos_ptp_clk_freq_config(struct
+> > stmmac_priv *priv)
+> > >  		netdev_err(priv->dev, "Failed to max out clk_ptp_ref: %d\n",
+> > err);
+> > >  	plat_dat->clk_ptp_rate = clk_get_rate(plat_dat->clk_ptp_ref);
+> > >
+> > > -	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
+> > > +	netdev_dbg(priv->dev, "PTP rate %lu\n", plat_dat->clk_ptp_rate);
+> > >  }
+> > >
+> > >  static int qcom_ethqos_probe(struct platform_device *pdev)
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > index ad868e8d195d..b1e4df1a86a0 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > @@ -639,7 +639,7 @@ stmmac_probe_config_dt(struct platform_device
+> > *pdev, u8 *mac)
+> > >  		dev_info(&pdev->dev, "PTP uses main clock\n");
+> > >  	} else {
+> > >  		plat->clk_ptp_rate = clk_get_rate(plat->clk_ptp_ref);
+> > > -		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
+> > > +		dev_dbg(&pdev->dev, "PTP rate %lu\n", plat->clk_ptp_rate);
+> > >  	}
+> > >
+> > >  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
+> > > diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> > > index 7caaa5ae6674..47a763699916 100644
+> > > --- a/include/linux/stmmac.h
+> > > +++ b/include/linux/stmmac.h
+> > > @@ -279,8 +279,8 @@ struct plat_stmmacenet_data {
+> > >  	struct clk *stmmac_clk;
+> > >  	struct clk *pclk;
+> > >  	struct clk *clk_ptp_ref;
+> > > -	unsigned int clk_ptp_rate;
+> > > -	unsigned int clk_ref_rate;
+> > > +	unsigned long clk_ptp_rate;
+> > > +	unsigned long clk_ref_rate;
+> > >  	unsigned int mult_fact_100ns;
+> > >  	s32 ptp_max_adj;
+> > >  	u32 cdc_error_adj;
+> > > @@ -292,7 +292,7 @@ struct plat_stmmacenet_data {
+> > >  	int mac_port_sel_speed;
+> > >  	int has_xgmac;
+> > >  	u8 vlan_fail_q;
+> > 
+> > > -	unsigned int eee_usecs_rate;
+> > > +	unsigned long eee_usecs_rate;
+> > 
+> > Sigh... One another Intel clumsy stuff: this field is initialized by
+> > the Intel glue-drivers and utilized in there only. Why on earth has it
+> > been added to the generic plat_stmmacenet_data structure?.. The
+> > only explanation is that the Intel developers were lazy to refactor
+> > the glue-driver a bit so the to be able to reach the platform data at
+> > the respective context.
+> 
+
+> I guess it is home work for Intel developers, right?
+
+Mainly yes, plus to that it's a one more crying out loud from deep
+inside my soul about another clumsy solution incorporated into the
+poor STMMAC driver.)
+
+-Serge(y)
+
+> 
+> Thanks for review.
+> /Jan
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
