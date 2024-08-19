@@ -2,141 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DFD1956425
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 09:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4115395638B
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 08:21:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C18BC78019;
-	Mon, 19 Aug 2024 07:11:39 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBE63C6DD9D;
+	Mon, 19 Aug 2024 06:21:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F357BC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3B0AC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Aug 2024 21:50:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NvRUlX0RkHA2ao1gWY+5I6Bii6HrmeWanIoxH+u/GiUMXZQNZdL2ICBE8HcrXVyoKMrrd5MJfoOEiISru85nPzaucb78FAXRtSG8Hkb1/z0SkVTV1yRg/dZCMGSGQnWMROPJe+chBFjo1FdU+sjFEYXu1RYsW5wf4ThQemCEI3DPmq48IsAoTcx2LRDrXEH2w/4ufbRGc/0oRMMK7ataSFELFazcfro3Njd6kjgzK6rqsw88mHSdWBfmFAJgxoIPHKTn8geelrZ7sbdinViOKWX72HmTus5dNfhBrRJBaVYDvcekJS8LN6EIAMWX/Qsoh4pNOpmz1Mk9Kfh9zWBnDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1e/A8FIZQaHkh4tVpBQ6ccEOQsPH2pXsQibQfnMmdmI=;
- b=e3R78aiLToc4B36ffEl9NKXpPmuM9fdpJuYj3lzWpprfuIo2Tt4bjqvQ1Ddn8vWiRY6D2gzRjfjfyLOUpgEOjgcP5sAKKwTFVu+2fZ/8TKb7w1ciAqwOpP3VvQv0dCKOTHzhS9/IuZnQshwMUCXz+PMm72SZ4pLG+wozL/xyAdmNiwhvgGsPlHnosTqUhNjO37XDyo6RFwDlXrDLRk4qyk7ZxOiaykyOa5iKfuC6PMs5p1xwhsvP2PLCOvIQzc2ov10jwMVIkrxfQg1ejhoKZSwLr3Hq/WuXfQEbr9ubak7auh8y5d0gY0Wxkmw0bFGSKVmmnrMNbIy2FeRI59DsRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1e/A8FIZQaHkh4tVpBQ6ccEOQsPH2pXsQibQfnMmdmI=;
- b=NNIyv90a857Mrd867rkxkZcOfOB9hF90ZFXushMu8/R7dAzR32VCu1Jb64doBCWiGfkixoEjz+GAdtVPWh/8MjZciLRES1we2XZgHALZy2xRzssQd80hB5UVvu1++2iN7ly84Ic2P8p38V3uxJIIlWHMJfL1Yv4JQ4KrGj8mkzrbNvlkb/cAoc3QY9dNh8IHc+ujk6addz6rgGRaGLWL7EPakA4T306ZQ+Ix1TsCE56Ng/o9ssVmSURksgx6u+kh42/gWJY4BUW1bvAjg+Qx+KKCcpniJyPh4ryxu672bl/8PnkRawJ/D+VRuJ+CqwD4liwUaTI5iBz0uqM3BwVevw==
-Received: from AM9PR04MB8506.eurprd04.prod.outlook.com (2603:10a6:20b:431::16)
- by AS8PR04MB8183.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Sun, 18 Aug
- 2024 21:50:46 +0000
-Received: from AM9PR04MB8506.eurprd04.prod.outlook.com
- ([fe80::5f7:9bab:66a3:fe27]) by AM9PR04MB8506.eurprd04.prod.outlook.com
- ([fe80::5f7:9bab:66a3:fe27%4]) with mapi id 15.20.7875.019; Sun, 18 Aug 2024
- 21:50:46 +0000
-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose
- Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Richard Cochran
- <richardcochran@gmail.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Thread-Topic: [PATCH v2 4/7] net: phy: add helper for mapping RGMII link speed
- to clock rate
-Thread-Index: AdrxtrnuvZ0fK2vxTE+ePeStPoNIVA==
-Date: Sun, 18 Aug 2024 21:50:46 +0000
-Message-ID: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
-Accept-Language: cs-CZ, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR04MB8506:EE_|AS8PR04MB8183:EE_
-x-ms-office365-filtering-correlation-id: 43ef6c50-52ec-486f-5685-08dcbfcfd11f
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|921020|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?N0UMW6KWNyfrNo9lhb3klqJAMOwBnKTNKddbftNb0S2Gh3rrNelzUntAk/7f?=
- =?us-ascii?Q?1BI2w3I0ecJ039DeDeuUE6OgwUGsQzJZY66qKjIc/bTm9H6cjBM6ZWSUuDdB?=
- =?us-ascii?Q?0/YGF+DNp3UkBg/huGkoi0eTJO/G3LNYWGY+Nm9zRIwmNoymhy+TnitzbAsh?=
- =?us-ascii?Q?A6z2/nBevzdbxTQ0c9EKbe5fxeSu1iE2KCpNKVfnrVYdE2RNng3eGv+xlflh?=
- =?us-ascii?Q?ovi4k/ejLOXJ3yUpZXzdgzxP6hu7QtlaLRjRx3nwAX+3wFbR6Z/wg4dAo7rk?=
- =?us-ascii?Q?CHewYzsvJn7cIbtQgv1OZXkjsNfjpIay44CklO3qyPrLl6f13Jbmt6YQTjgv?=
- =?us-ascii?Q?QdBy4EC+uMbQQUO0UiEmkVr35XwCLH99ZDF1wNVQCjxeMvsr/ZdhVyLEFjme?=
- =?us-ascii?Q?YHsFyjoWia15BkAsP1KAkQdbCKf0cCI+sFqEjNbHw6qSjEcFe06YC44jCPXq?=
- =?us-ascii?Q?85F7XJtcpDtBMFvLe319jKXThQLQbG4eqWj0HLIZfv9QHWlutBem+1pg2mzU?=
- =?us-ascii?Q?50bvpbTST7LTxitflY3hY41GbP6GTKQeQoJ0UUIe/3OMECcc2z75h5vhocyU?=
- =?us-ascii?Q?eEhnEtM0lFoR01+l/DioKnuC0mUCoIqXksAlJJZW56277zyvak+HOi5oR4dT?=
- =?us-ascii?Q?gm6yczxa67g26S1bRAmA42lXXUVl0K/Fne/7IyCQIqfLo0rONlhh9rl480KF?=
- =?us-ascii?Q?syNXweW10WOibiICex/uvwWnk7PpmV4j5FgKhBgOxtz0XZKquAfHNVLIL/0I?=
- =?us-ascii?Q?vhXuDbayyFn4jkldM86arMNMU7vosTrdd05ehN4xE7H5AyHUrZ84fy8s9Dmc?=
- =?us-ascii?Q?OCbRQ0SVpJIPastMhKNpfzMjg79d85Jr9bm40jDmWLK4fsK5shbmxZ8UCfBS?=
- =?us-ascii?Q?SgjnuEQnC/7IGpuQpM5zyWUTy2YZdnqte02zdPp8EqdiS/FrVNONiCQb9l+y?=
- =?us-ascii?Q?fkDTUuO2pFBoeErT8gwAxCbZqhe4f8Hrz47q9zNejRcUnjZGEaE8gj63dRlV?=
- =?us-ascii?Q?F9NQMImlq/A+jcErphJ1hYiRjHO3nwIhjR2RRDvpi74CI8/kgLNvFooWJwpA?=
- =?us-ascii?Q?FEqcp3sTsoXhFd62Gd4Newb2MfGWstNvmJfLeR6X1euIQidYjCUFkZH8fSqm?=
- =?us-ascii?Q?JeUovfktb1zkfYCqu1ZIR7AsZ0dsaQnVfscD24b9U6PirMHWmBc0zAcnl+b9?=
- =?us-ascii?Q?gGTOoQWO4q9m5xN5rgdas64vSgIbiSMcGpl1Cu8hh/t9UPvm+bg+LjxVckcl?=
- =?us-ascii?Q?An8vRZiSci1lmmK2y7S8JNVIRK2gq2nd6LNDMgexrb6LpqsY5hLFEiTFjByJ?=
- =?us-ascii?Q?sq2xSnPHF/uAUomxr7N0Esuu+GKqkaLeAbuNlzB4Ug7o53njAwpeZfph/93l?=
- =?us-ascii?Q?zPty0BiaWP/vsbwmrGC5N1T4ukneTk9RW8Ych7hJMg41idhELp6q9qJxL5Lh?=
- =?us-ascii?Q?GKZy4viRDZY=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8506.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(921020)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?54r+n8AWobCR+WLHZTmEVnPjPxetnWicclmcnYcvmB3LGl7Hjr8XgfSrYxqx?=
- =?us-ascii?Q?srdI1y+b4+zTAEhWTV7kcXN7/NAfDIRLDdvHm0OS82stAxhbzufv9eYftJNu?=
- =?us-ascii?Q?aWeOiDi9CXIyWvoCFWymRTAqr0u5QCVQodC6jLX6io2zb1jzEFwjw91KOvId?=
- =?us-ascii?Q?fw98EEQSjzm0jlLZBgujA9qOK11Jbjq8qrMf6fa6XFOpSBEQnMFenhajljkg?=
- =?us-ascii?Q?qapa+lldVCDK8NXpS4lXHoJjtYPxzXkFldnqhAgr7ebI44bnacFoNR+v1+C2?=
- =?us-ascii?Q?vM0YmA2ukUr4uwBY9WWXOJEPatMo84rtCd8DzBhnqcv5fgdrVmH/pVRjZi9o?=
- =?us-ascii?Q?/JDuexq0xQAEwRK7huURMJpTYWMt+XxbBjfIBQwm9Ar5j0qw4nxblU1Ckkuu?=
- =?us-ascii?Q?Mciljh1n9DKO0eCRjoHi3lXpdInLuU0356JgppdzUORhWMD8Sj9BQKPbP5+d?=
- =?us-ascii?Q?CGTPo+e/5RF+01DmqQ/Q/0iSs5V96ctOfReM9KKjCPNwGDSOMF8ZDjHCVg8A?=
- =?us-ascii?Q?NsRrvGbepFJnKjiqbRRzcRyCPaSDkRdEOlzj/MfD0ZcjOxpwjX/wGvZD0/yB?=
- =?us-ascii?Q?XGyGYeh7f1id5v3UiIxgVDyaQZ9ElfkAZAGCSZvF9eGiM+ro2SB1GSoz6dpK?=
- =?us-ascii?Q?UA5DjeULGh1Ns/iV0UIePB4B4LbLf6zEzscVvFmOtgDQkXH5U0ZukoTOdp+1?=
- =?us-ascii?Q?WhieFEiQ362z7gTiU5ny7gJl1or/S9PzC0tpCaMgONjtSPZ98wGFfg8PViqV?=
- =?us-ascii?Q?7HCj4jdNESpqDkeGr+yH1uJdz6sfBDcCMmjbv+dUo5JaiwUN45ahPKkRuBQo?=
- =?us-ascii?Q?peexALyYwenlYq1ef+smEGIUndQBrf2fPvDKJAe7+mcCGWR7IG72Mac3Nig8?=
- =?us-ascii?Q?BgoaFpNmBnCMhXibVb9VlpSz8NeoUIVUUF0KyAVfO2FJDEWfHRdZVXXUyNwd?=
- =?us-ascii?Q?ecfumAG6YdCORjVwrVJi4VruJZ/xbBlRGTrWMuZR2odzMLgbYEu0bz6zf0OX?=
- =?us-ascii?Q?l3bqDB00pqRfI6BHHLoprl8ym6uoCXDQQHjHgA4FARasv2/asMbhyJsjqtMA?=
- =?us-ascii?Q?Q1D7S/q185E/EXpx56FRtrt/Ud578RVzbSpTNzXHdTYNTsatGt1OM5cmz0OR?=
- =?us-ascii?Q?CYfGDjEDJ4KckgGecmbUOIxorH71n28G2+UvsgSp7R8sG/9I1dYkmVqA8dUO?=
- =?us-ascii?Q?uPrC4ioegof1J0dqIEJSpPM7/KuXMrqCAeRdE4shUM83Lz6jh/JJGGtAVd95?=
- =?us-ascii?Q?AHFtzoTO3iIjhlDML9pkJ3YIYWLFf71bqsJBm+gRtRl0BlMMkhDqHYQ1qi6S?=
- =?us-ascii?Q?m+0CQLQUL7khu9UlD8zshMnW4DUY7bnnjHtTwt5UUNWMQsDjnM1AicjBGwXr?=
- =?us-ascii?Q?WWuBg35fP1Y5597P64OnBw4JDi7KP43hQ0/TEE5Ftf47yVJDYRucXlxLSdTe?=
- =?us-ascii?Q?2F17EjyzhSxA7CZ1ls+QBqTcobmwpG334Z45dMxUOojQrLPTKYus2tKiBirA?=
- =?us-ascii?Q?0Qd9VcpPmEOXtO0VuRZYmemC9MjyFQbHsRU6V0Zo5498q56Sj+T6Oxfv4lCD?=
- =?us-ascii?Q?EcjeXwG9wH4/8Y1F+fttdnBgrLaVmsaCUfjNLK4B?=
+ Mon, 19 Aug 2024 06:21:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A65F160916;
+ Mon, 19 Aug 2024 06:21:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16EEDC32782;
+ Mon, 19 Aug 2024 06:21:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1724048474;
+ bh=JqIMZ0DbqksFrQUeGUYa/0oLg+02rBT4QhPT6cpTFn4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=X6rUFYVmwEOXOpSPoLjB6r0tYGrfNUQ7CA1F/9XF1GjXFN6BZVFT1w09Myq7DpMgC
+ j8zJWpVTLHPHU79RJC5H0qfchVPrAZubsCwpNAkBzQ6Z0Mo67YX41O5h3LVlF0bBvB
+ WH6p+HzXIMXxj3TiC9q9L28TlU7iUM5wqTn4akCP7p3WcR3aOQ/CVkc1ZCw8auBEE1
+ fYgPlvn2umk98Bhyu/ulK02aT8GvI2KM6pykAnaUqaX8r6gIOr2lbnI7Sji6Pi3pTs
+ 41iTIeLZ4ihy5oRYo6l5SQPwYt2E4SPhzaj2kq+aNzw3CwU8dRIZiN/aodupN3J5WI
+ 6YEkNY5egs8SA==
+Message-ID: <7bbd48c8-7fa6-4d41-9560-3de0a2394c55@kernel.org>
+Date: Mon, 19 Aug 2024 08:21:03 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8506.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43ef6c50-52ec-486f-5685-08dcbfcfd11f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2024 21:50:46.7086 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dYnMJQKRu2R9yba/XVzKGbWBgtGQpkxcjMXj3M1vebvWNNW+eCLJj+KOtO/drU/XWoIMnDowEdeBeb9zd9+L0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8183
-X-Mailman-Approved-At: Mon, 19 Aug 2024 07:11:36 +0000
+User-Agent: Mozilla Thunderbird
+To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <AM9PR04MB8506A1FAC2DA26F27771D039E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <AM9PR04MB8506A1FAC2DA26F27771D039E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  dl-S32 <S32@nxp.com>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
@@ -144,8 +98,8 @@ Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH v2 4/7] net: phy: add helper for mapping RGMII
- link speed to clock rate
+Subject: Re: [Linux-stm32] [PATCH v2 3/7] dt-bindings: net: Add DT bindings
+ for DWMAC on NXP S32G/R SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,88 +116,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The helper rgmii_clock() implemented Russel's hint during stmmac
-glue driver review:
+On 18/08/2024 23:50, Jan Petrous (OSS) wrote:
+> Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
+> and S32R45 automotive series SoCs.
 
----
-We seem to have multiple cases of very similar logic in lots of stmmac
-platform drivers, and I think it's about time we said no more to this.
-So, what I think we should do is as follows:
+Fix your email threading. b4 handle everything correctly, so start using it.
 
-add the following helper - either in stmmac, or more generically
-(phylib? - in which case its name will need changing.)
+> 
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> ---
+>  .../bindings/net/nxp,s32cc-dwmac.yaml         | 127 ++++++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+>  2 files changed, 128 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
+> new file mode 100644
+> index 000000000000..443ad918a9a5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/nxp,s32cc-dwmac.yaml
 
-static long stmmac_get_rgmii_clock(int speed)
-{
-	switch (speed) {
-	case SPEED_10:
-		return 2500000;
+Filename based on compatible, so what does "cc" stand for?
 
-	case SPEED_100:
-		return 25000000;
+> @@ -0,0 +1,127 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2021-2024 NXP
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/nxp,s32cc-dwmac.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
+> +
+> +maintainers:
+> +  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> +
+> +description: |
 
-	case SPEED_1000:
-		return 125000000;
+Do not need '|' unless you need to preserve formatting.
 
-	default:
-		return -ENVAL;
-	}
-}
+> +  This device is a platform glue layer for stmmac.
 
-Then, this can become:
+Drop description of driver and instead describe the hardware.
 
-	long tx_clk_rate;
+> +  Please see snps,dwmac.yaml for the other unchanged properties.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nxp,s32g2-dwmac
+> +      - nxp,s32g3-dwmac
+> +      - nxp,s32r45-dwmac
+> +
+> +  reg:
+> +    items:
+> +      - description: Main GMAC registers
+> +      - description: GMAC PHY mode control register
+> +
+> +  interrupts:
+> +    description: Common GMAC interrupt
 
-	...
+No, instead maxItems: 1
 
-	tx_clk_rate = stmmac_get_rgmii_clock(speed);
-	if (tx_clk_rate < 0) {
-		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
-		return;
-	}
+> +
+> +  interrupt-names:
+> +    const: macirq
+> +
+> +  clocks:
+> +    items:
+> +      - description: Main GMAC clock
+> +      - description: Transmit clock
+> +      - description: Receive clock
+> +      - description: PTP reference clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: stmmaceth
+> +      - const: tx
+> +      - const: rx
+> +      - const: ptp_ref
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - phy-mode
 
-	ret = clk_set_rate(gmac->tx_clk, tx_clk_rate);
----
+Drop, snps,dwmac requires this.
 
-Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
----
- include/linux/phy.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+> +
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/phy/phy.h>
+> +    bus {
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +
+> +      ethernet@4033c000 {
+> +        compatible = "nxp,s32cc-dwmac";
+> +        reg = <0x0 0x4033c000 0x0 0x2000>, /* gmac IP */
+> +              <0x0 0x4007c004 0x0 0x4>;    /* GMAC_0_CTRL_STS */
+> +        interrupt-parent = <&gic>;
+> +        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-names = "macirq";
+> +        snps,mtl-rx-config = <&mtl_rx_setup>;
+> +        snps,mtl-tx-config = <&mtl_tx_setup>;
+> +        clocks = <&clks 24>, <&clks 17>, <&clks 16>, <&clks 15>;
+> +        clock-names = "stmmaceth", "tx", "rx", "ptp_ref";
+> +        phy-mode = "rgmii-id";
+> +        phy-handle = <&phy0>;
+> +
+> +        mtl_rx_setup: rx-queues-config {
+> +          snps,rx-queues-to-use = <5>;
+> +
+> +          queue0 {
+> +          };
+> +          queue1 {
+> +          };
 
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 6b7d40d49129..bb797364d91c 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -298,6 +298,27 @@ static inline const char *phy_modes(phy_interface_t interface)
- 	}
- }
- 
-+/**
-+ * rgmi_clock - map link speed to the clock rate
-+ * @speed: link speed value
-+ *
-+ * Description: maps RGMII supported link speeds
-+ * into the clock rates.
-+ */
-+static inline long rgmii_clock(int speed)
-+{
-+	switch (speed) {
-+	case SPEED_10:
-+		return 2500000;
-+	case SPEED_100:
-+		return 25000000;
-+	case SPEED_1000:
-+		return 125000000;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- #define PHY_INIT_TIMEOUT	100000
- #define PHY_FORCE_TIMEOUT	10
- 
--- 
-2.46.0
+
+Why listing empty nodes?
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
