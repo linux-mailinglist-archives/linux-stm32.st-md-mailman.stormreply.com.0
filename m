@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD4C095730D
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 20:22:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85AC957312
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 20:23:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86DC9C6DD72;
-	Mon, 19 Aug 2024 18:22:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EB1FC6DD72;
+	Mon, 19 Aug 2024 18:23:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9ADB4C5E2CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C860C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 18:22:19 +0000 (UTC)
-X-CSE-ConnectionGUID: dmKaIwiwSiuA4KDzk7IadA==
-X-CSE-MsgGUID: +NXZKHRTSn604NtoNWLSvA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11169"; a="22170864"
-X-IronPort-AV: E=Sophos;i="6.10,159,1719903600"; d="scan'208";a="22170864"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2024 11:22:17 -0700
-X-CSE-ConnectionGUID: uGiiHJy3T12f/c0Gx8z1pg==
-X-CSE-MsgGUID: MExTNVA3QwSs5bB5Xi2stg==
+ Mon, 19 Aug 2024 18:23:19 +0000 (UTC)
+X-CSE-ConnectionGUID: XvxEXbtAS2q8ln0YxkHKnw==
+X-CSE-MsgGUID: ZZDZlwEjTs6gj+DCF29Y7Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11169"; a="21978740"
+X-IronPort-AV: E=Sophos;i="6.10,159,1719903600"; d="scan'208";a="21978740"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2024 11:23:17 -0700
+X-CSE-ConnectionGUID: XkARKoIRTcORDaYxqpbKFQ==
+X-CSE-MsgGUID: VphTfyoEQBOqHmf0XrYtig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,159,1719903600"; d="scan'208";a="65278665"
+X-IronPort-AV: E=Sophos;i="6.10,159,1719903600"; d="scan'208";a="65145870"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2024 11:22:09 -0700
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2024 11:23:09 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andy@kernel.org>) id 1sg712-0000000H2FI-2CHY;
- Mon, 19 Aug 2024 21:22:04 +0300
-Date: Mon, 19 Aug 2024 21:22:04 +0300
+ (envelope-from <andy@kernel.org>) id 1sg720-0000000H2GW-3cCJ;
+ Mon, 19 Aug 2024 21:23:04 +0300
+Date: Mon, 19 Aug 2024 21:23:04 +0300
 From: Andy Shevchenko <andy@kernel.org>
 To: Philipp Stanner <pstanner@redhat.com>
-Message-ID: <ZsONTFn2A6AuIFEa@smile.fi.intel.com>
+Message-ID: <ZsONiNkdXGMKMbRL@smile.fi.intel.com>
 References: <20240819165148.58201-2-pstanner@redhat.com>
- <20240819165148.58201-7-pstanner@redhat.com>
+ <20240819165148.58201-8-pstanner@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240819165148.58201-7-pstanner@redhat.com>
+In-Reply-To: <20240819165148.58201-8-pstanner@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
@@ -63,7 +63,8 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Damien Le Moal <dlemoal@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 5/9] gpio: Replace deprecated PCI functions
+Subject: Re: [Linux-stm32] [PATCH 6/9] ethernet: cavium: Replace deprecated
+	PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,14 +81,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 19, 2024 at 06:51:45PM +0200, Philipp Stanner wrote:
-> pcim_iomap_regions() and pcim_iomap_table() have been deprecated by the
-> PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
+On Mon, Aug 19, 2024 at 06:51:46PM +0200, Philipp Stanner wrote:
+> pcim_iomap_regions() and pcim_iomap_table() have been deprecated by
+> the PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
 > pcim_iomap_table(), pcim_iomap_regions_request_all()").
 > 
-> Replace those functions with calls to pcim_iomap_region().
+> Replace these functions with the function pcim_iomap_region().
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+...
+
+cavium_ptp_probe()
+
+> -	pcim_iounmap_regions(pdev, 1 << PCI_PTP_BAR_NO);
+> +	pcim_iounmap_region(pdev, PCI_PTP_BAR_NO);
+>  
+>  error_free:
+>  	devm_kfree(dev, clock);
+
+Both are questionable. Why do we need either of them?
 
 -- 
 With Best Regards,
