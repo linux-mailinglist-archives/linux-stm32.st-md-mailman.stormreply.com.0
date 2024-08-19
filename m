@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54044957E77
+	by mail.lfdr.de (Postfix) with ESMTPS id 87576957E78
 	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 08:41:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01AA1C6DD6B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24FA8C6DD9E;
 	Tue, 20 Aug 2024 06:41:19 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D38FC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2118C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 15:50:15 +0000 (UTC)
+ Mon, 19 Aug 2024 15:57:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=yy/PrdZKYJ86mJeO7sXTSgOh3UITg8REGzRP4f6IK+s=; b=4lNnUPRxzIbW61EXMPmdi8iURk
- jhGF2mI7N3qVUn+Xr4uhbder/6ZuxDUF91O63R47oxSJVvXvzpwmV8dTHRv1l6z7uagPiC6fymWXw
- mtx2FPn8m5oAObTkmu+kPoh9944GxxGo67vcbYyPFnq4tdjeQ7yy3P3sYj+r0LQxwRfc=;
+ bh=/eYAUPEosxunb171XvbzrAbh7LSktH4hXqUkCFkLgA0=; b=kvKNBQNnorp3Nb0kSR40Xd5FPV
+ BgtqIrkFQHkRcbBon1db93gz3uU3nn26C97Gi4s6lEqv2C95NaursHS5lrprapXY1N3XdQcqqieA4
+ tcD4RwJ6d60rErItnmS9V79hBCOiKuUrByyzJiCuZPB5hUPxUhVppA/fPKzWiRFYkJKU=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1sg4dq-00582r-N5; Mon, 19 Aug 2024 17:49:58 +0200
-Date: Mon, 19 Aug 2024 17:49:58 +0200
+ id 1sg4kp-005868-7L; Mon, 19 Aug 2024 17:57:11 +0200
+Date: Mon, 19 Aug 2024 17:57:11 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <d2e32a56-3020-47ac-beef-3449053c5d4c@lunn.ch>
+Message-ID: <8fe67776-e2b6-48e3-8c60-a5a4f18cd60c@lunn.ch>
 References: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -79,50 +79,15 @@ On Sun, Aug 18, 2024 at 09:50:46PM +0000, Jan Petrous (OSS) wrote:
 > 
 > add the following helper - either in stmmac, or more generically
 > (phylib? - in which case its name will need changing.)
-> 
-> static long stmmac_get_rgmii_clock(int speed)
-> {
-> 	switch (speed) {
-> 	case SPEED_10:
-> 		return 2500000;
-> 
-> 	case SPEED_100:
-> 		return 25000000;
-> 
-> 	case SPEED_1000:
-> 		return 125000000;
-> 
-> 	default:
-> 		return -ENVAL;
-> 	}
-> }
-> 
-> Then, this can become:
-> 
-> 	long tx_clk_rate;
-> 
-> 	...
-> 
-> 	tx_clk_rate = stmmac_get_rgmii_clock(speed);
-> 	if (tx_clk_rate < 0) {
-> 		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
-> 		return;
-> 	}
-> 
-> 	ret = clk_set_rate(gmac->tx_clk, tx_clk_rate);
-> ---
-> 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-This Signed-off-by: needs to be above the first ---, otherwise it gets
-discard.
+As Russell pointed out, this code appears a few times in the stmmac
+driver. Please include patches changing the other instances to use
+this helper.
 
-When you repost, please do try to get threading correct.
+It also looks like macb, and maybe xgene_enet_hw.c could use it as
+well.
 
-    Andrew
-
----
-pw-bot: cr
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
