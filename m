@@ -2,69 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B825D957877
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 01:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54044957E77
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 08:41:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81528C6DD72;
-	Mon, 19 Aug 2024 23:09:10 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01AA1C6DD6B;
+	Tue, 20 Aug 2024 06:41:19 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DBA8C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D38FC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 23:09:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id AA74ECE0B42;
- Mon, 19 Aug 2024 23:09:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0CFC32782;
- Mon, 19 Aug 2024 23:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724108939;
- bh=huFSW0O9/vDWk3jLLuBeA3AMJ8s2sEkGg2pXPbb+s68=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QyqUujxrEN6dsd4ERQTt/YOI/cvdOUsxyzulCSEUBiuIHcUjbso3YoHhm+MDDjXT6
- kO9NWk4G1DxC2IVA3zkGg8srtPDyFLff5uhaOUiFK+NExsY+Ll691k0tYJtyjYNGGx
- R8ea/prAo67rf/R+QQhD3Rii19DVFFqisY3I2DnLQAE/IPfGUWcrv4lOPmRHd7VZGf
- JqTO87jDiHxQyeCkXr0+BfY4JpLeRz6Irhp6iVFLE8tq6EkfsJOK81XApXX7vxK3Wi
- PrCtt8OOS+xYZotvuJuNtHzD7KWzuisUw9dkFacyFCOLy1M7Z1lS5ujaSckETWGpk7
- a6Iem0/y3hWYQ==
-Message-ID: <39af5ef3-04f5-4cfe-a486-6f14504d6a52@kernel.org>
-Date: Tue, 20 Aug 2024 08:08:54 +0900
+ Mon, 19 Aug 2024 15:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=yy/PrdZKYJ86mJeO7sXTSgOh3UITg8REGzRP4f6IK+s=; b=4lNnUPRxzIbW61EXMPmdi8iURk
+ jhGF2mI7N3qVUn+Xr4uhbder/6ZuxDUF91O63R47oxSJVvXvzpwmV8dTHRv1l6z7uagPiC6fymWXw
+ mtx2FPn8m5oAObTkmu+kPoh9944GxxGo67vcbYyPFnq4tdjeQ7yy3P3sYj+r0LQxwRfc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sg4dq-00582r-N5; Mon, 19 Aug 2024 17:49:58 +0200
+Date: Mon, 19 Aug 2024 17:49:58 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Message-ID: <d2e32a56-3020-47ac-beef-3449053c5d4c@lunn.ch>
+References: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Philipp Stanner <pstanner@redhat.com>, onathan Corbet <corbet@lwn.net>,
- Jens Axboe <axboe@kernel.dk>, Wu Hao <hao.wu@intel.com>,
- Tom Rix <trix@redhat.com>, Moritz Fischer <mdf@kernel.org>,
- Xu Yilun <yilun.xu@intel.com>, Andy Shevchenko <andy@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@bgdev.pl>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Alvaro Karsz <alvaro.karsz@solid-run.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- Mark Brown <broonie@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Hannes Reinecke <hare@suse.de>, Chaitanya Kulkarni <kch@nvidia.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-References: <20240819165148.58201-2-pstanner@redhat.com>
- <20240819165148.58201-11-pstanner@redhat.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20240819165148.58201-11-pstanner@redhat.com>
-Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 9/9] PCI: Remove pcim_iounmap_regions()
+Content-Disposition: inline
+In-Reply-To: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+X-Mailman-Approved-At: Tue, 20 Aug 2024 06:41:17 +0000
+Cc: dl-S32 <S32@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 4/7] net: phy: add helper for mapping
+ RGMII link speed to clock rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,19 +68,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/20/24 01:51, Philipp Stanner wrote:
-> All users of pcim_iounmap_regions() have been removed by now.
+On Sun, Aug 18, 2024 at 09:50:46PM +0000, Jan Petrous (OSS) wrote:
+> The helper rgmii_clock() implemented Russel's hint during stmmac
+> glue driver review:
 > 
-> Remove pcim_iounmap_regions().
+> ---
+> We seem to have multiple cases of very similar logic in lots of stmmac
+> platform drivers, and I think it's about time we said no more to this.
+> So, what I think we should do is as follows:
 > 
-> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> add the following helper - either in stmmac, or more generically
+> (phylib? - in which case its name will need changing.)
+> 
+> static long stmmac_get_rgmii_clock(int speed)
+> {
+> 	switch (speed) {
+> 	case SPEED_10:
+> 		return 2500000;
+> 
+> 	case SPEED_100:
+> 		return 25000000;
+> 
+> 	case SPEED_1000:
+> 		return 125000000;
+> 
+> 	default:
+> 		return -ENVAL;
+> 	}
+> }
+> 
+> Then, this can become:
+> 
+> 	long tx_clk_rate;
+> 
+> 	...
+> 
+> 	tx_clk_rate = stmmac_get_rgmii_clock(speed);
+> 	if (tx_clk_rate < 0) {
+> 		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
+> 		return;
+> 	}
+> 
+> 	ret = clk_set_rate(gmac->tx_clk, tx_clk_rate);
+> ---
+> 
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+This Signed-off-by: needs to be above the first ---, otherwise it gets
+discard.
 
--- 
-Damien Le Moal
-Western Digital Research
+When you repost, please do try to get threading correct.
 
+    Andrew
+
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
