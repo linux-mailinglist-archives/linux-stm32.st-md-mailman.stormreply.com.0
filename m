@@ -2,41 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818BD9563BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 08:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A86E9563BE
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 08:26:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39704C6DD9D;
-	Mon, 19 Aug 2024 06:25:55 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BC9FC6DD9D;
+	Mon, 19 Aug 2024 06:26:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF1DEC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54EBFC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 06:25:47 +0000 (UTC)
+ Mon, 19 Aug 2024 06:26:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 38F04CE09B5;
- Mon, 19 Aug 2024 06:25:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C416CC32782;
- Mon, 19 Aug 2024 06:25:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2EEA160916;
+ Mon, 19 Aug 2024 06:26:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCAEC32782;
+ Mon, 19 Aug 2024 06:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724048744;
- bh=F7G3lRtoD78NW9jgt9aEBt8Q2gtPODxY3cSswVIb2jA=;
+ s=k20201202; t=1724048790;
+ bh=YJwodULpM0LtppbLNbDxvxviJ16KqOL33RBA1HPJzrw=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=uWUVPa/cIERAOpCuOrR3y7yg8dQPk4yYm10ri0DXrpugWAuhwURvH1OzemS4+VKkn
- hV8m10VxXrVT+fFjYn4Uz2wKPFLQHtW0W0LX51KHlI4odmmOA/r4eQkMPMcbNNfDx0
- JoZa0jGbdy5RpaF9bT5TufEt9dyi1+VrGuOTZhc5x7jkBR3I+0VDOlJT9dkWc2g+mX
- 3ufv0QhkIlx/ePoEph55PSt0/uW/86fdZ7awOC5oU/8p+ZQzzYd2C1nLkPpc9lK3m4
- X+EmW3sh8SaRpTROtoG9sbm/sekssBO4UHuYiYBtl/dfhImNQKmQ//o9R1l/Sj8ZS1
- vqt4x89SDdDzA==
-Message-ID: <9d9704ed-6ef8-4920-9874-29e0a815e2ba@kernel.org>
-Date: Mon, 19 Aug 2024 08:25:33 +0200
+ b=X3ehI++uzcZydyXr+bm+yF4848kMDHc61dfQlQNMCTl6GoG495s1ND771bOpJLPBt
+ dTpy/3CW3S3vhLnQobqkESXttwOQhTGGZxlqlD4xgtBlJrGTnV0GkndLmMdVby4hZM
+ OduErWtIEguWUZh2ZYN/WRvjza33UYrEpLZtC+ELHGeTz1FShsXIzT9eO7p3A8Jne8
+ poY9RtqOdsBvHZgzB+llUuuuI8PIidXEtPXEsE5XPwVy8KWPu892IPPFmTFEEvK3NX
+ I5Xdh59Af4MiQ+8kf1yCN5PaG3d/q0pWexNHm8A1LEaWP1rH6qHXbXFJ/p1sHdLkvv
+ Jcx2DYmxK9zvg==
+Message-ID: <e087b788-4002-4d12-bd8f-a40fc814856a@kernel.org>
+Date: Mon, 19 Aug 2024 08:26:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: JieGan <quic_jiegan@quicinc.com>, Rob Herring <robh@kernel.org>
+To: Jie Gan <quic_jiegan@quicinc.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
 References: <20240812024141.2867655-1-quic_jiegan@quicinc.com>
  <20240812024141.2867655-4-quic_jiegan@quicinc.com>
- <20240818142834.GA27754-robh@kernel.org>
- <ZsKkm/Pz0GYtH2Gl@jiegan-gv.ap.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,21 +88,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <ZsKkm/Pz0GYtH2Gl@jiegan-gv.ap.qualcomm.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Jinlong Mao <quic_jinlmao@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
+In-Reply-To: <20240812024141.2867655-4-quic_jiegan@quicinc.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Jinlong Mao <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
  Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, coresight@lists.linaro.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
+ coresight@lists.linaro.org, Yuanfang Zhang <quic_yuanfang@quicinc.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: arm: Add Coresight
  TMC Control Unit hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -110,68 +109,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTkvMDgvMjAyNCAwMzo0OSwgSmllR2FuIHdyb3RlOgo+IE9uIFN1biwgQXVnIDE4LCAyMDI0
-IGF0IDA4OjI4OjM0QU0gLTA2MDAsIFJvYiBIZXJyaW5nIHdyb3RlOgo+PiBPbiBNb24sIEF1ZyAx
-MiwgMjAyNCBhdCAxMDo0MTozOUFNICswODAwLCBKaWUgR2FuIHdyb3RlOgo+Pj4gQWRkIGJpbmRp
-bmcgZmlsZSB0byBzcGVjaWZ5IGhvdyB0byBkZWZpbmUgYSBDb3Jlc2lnaHQgVE1DCj4+PiBDb250
-cm9sIFVuaXQgZGV2aWNlIGluIGRldmljZSB0cmVlLgo+Pj4KPj4+IEl0IGlzIHJlc3BvbnNpYmxl
-IGZvciBjb250cm9sbGluZyB0aGUgZGF0YSBmaWx0ZXIgZnVuY3Rpb24KPj4+IGJhc2VkIG9uIHRo
-ZSBzb3VyY2UgZGV2aWNlJ3MgVHJhY2UgSUQgZm9yIFRNQyBFVFIgZGV2aWNlLgo+Pj4gVGhlIHRy
-YWNlIGRhdGEgd2l0aCB0aGF0IFRyYWNlIGlkIGNhbiBnZXQgaW50byBFVFIncyBidWZmZXIKPj4+
-IHdoaWxlIG90aGVyIHRyYWNlIGRhdGEgZ2V0cyBpZ25vcmVkLgo+Pj4KPj4+IFNpZ25lZC1vZmYt
-Ynk6IEppZSBHYW4gPHF1aWNfamllZ2FuQHF1aWNpbmMuY29tPgo+Pj4gLS0tCj4+PiAgLi4uL2Jp
-bmRpbmdzL2FybS9xY29tLGNvcmVzaWdodC1jdGN1LnlhbWwgICAgIHwgNzkgKysrKysrKysrKysr
-KysrKysrKwo+Pj4gIDEgZmlsZSBjaGFuZ2VkLCA3OSBpbnNlcnRpb25zKCspCj4+PiAgY3JlYXRl
-IG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbSxj
-b3Jlc2lnaHQtY3RjdS55YW1sCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbSxjb3Jlc2lnaHQtY3RjdS55YW1sIGIvRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9xY29tLGNvcmVzaWdodC1jdGN1LnlhbWwKPj4+
-IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+PiBpbmRleCAwMDAwMDAwMDAwMDAuLjdhOTU4MDAwNzk0
-Mgo+Pj4gLS0tIC9kZXYvbnVsbAo+Pj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL2FybS9xY29tLGNvcmVzaWdodC1jdGN1LnlhbWwKPj4+IEBAIC0wLDAgKzEsNzkgQEAK
-Pj4+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNs
-YXVzZSkKPj4+ICslWUFNTCAxLjIKPj4+ICstLS0KPj4+ICskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVl
-Lm9yZy9zY2hlbWFzL2FybS9xY29tLGNvcmVzaWdodC1jdGN1LnlhbWwjCj4+PiArJHNjaGVtYTog
-aHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlhbWwjCj4+PiArCj4+PiAr
-dGl0bGU6IENvcmVTaWdodCBUTUMgQ29udHJvbCBVbml0Cj4+PiArCj4+PiArbWFpbnRhaW5lcnM6
-Cj4+PiArICAtIFl1YW5mYW5nIFpoYW5nIDxxdWljX3l1YW5mYW5nQHF1aWNpbmMuY29tPgo+Pj4g
-KyAgLSBNYW8gSmlubG9uZyA8cXVpY19qaW5sbWFvQHF1aWNpbmMuY29tPgo+Pj4gKyAgLSBKaWUg
-R2FuIDxxdWljX2ppZWdhbkBxdWljaW5jLmNvbT4KPj4+ICsKPj4+ICtkZXNjcmlwdGlvbjoKPj4+
-ICsgIFRoZSBDb3Jlc2lnaHQgVE1DIENvbnRyb2wgdW5pdCBjb250cm9scyB2YXJpb3VzIENvcmVz
-aWdodCBiZWhhdmlvcnMuCj4+PiArICBJdCB3b3JrcyBhcyBhIGhlbHBlciBkZXZpY2Ugd2hlbiBj
-b25uZWN0ZWQgdG8gVE1DIEVUUiBkZXZpY2UuCj4+PiArICBJdCBpcyByZXNwb25zaWJsZSBmb3Ig
-Y29udHJvbGxpbmcgdGhlIGRhdGEgZmlsdGVyIGZ1bmN0aW9uIGJhc2VkIG9uCj4+PiArICB0aGUg
-c291cmNlIGRldmljZSdzIFRyYWNlIElEIGZvciBUTUMgRVRSIGRldmljZS4gVGhlIHRyYWNlIGRh
-dGEgd2l0aAo+Pj4gKyAgdGhhdCBUcmFjZSBpZCBjYW4gZ2V0IGludG8gRVRSJ3MgYnVmZmVyIHdo
-aWxlIG90aGVyIHRyYWNlIGRhdGEgZ2V0cwo+Pj4gKyAgaWdub3JlZC4KPj4KPj4gTm93aGVyZSBp
-cyBUTUMgZGVmaW5lZC4KPiBUaGUgQ29yZXNpZ2h0IFRNQyBjb250cm9sIHVuaXQoQ1RDVSkgY29u
-bmVjdGVkIHRvIENvcmVzaWdodCBUTUMgZGV2aWNlIHZpYSByZXBsaWNhdG9yIGFuZAo+IHdvcmtz
-IGFzIGEgaGVscGVyIGRldmljZSB0byBUTUMgZGV2aWNlLgoKRGlkIHlvdSB1bmRlcnN0YW5kIHRo
-ZSBmZWVkYmFjayBvciBqdXN0IHJlc3BvbmRpbmcgd2l0aCB3aGF0ZXZlciB0byBnZXQKcmlkIG9m
-IHJldmlld2Vycz8KCj4gCj4gVGhlIGluLXBvcnRzIGxpc3RlZCBiZWxvdyBpbGx1c3RyYXRlIHRo
-ZWlyIGNvbm5lY3Rpb24gdG8gVE1DIGRldmljZXMuCj4gCj4+Cj4+PiArCj4+PiArcHJvcGVydGll
-czoKPj4+ICsgIGNvbXBhdGlibGU6Cj4+PiArICAgIGVudW06Cj4+PiArICAgICAgLSBxY29tLHNh
-ODc3NXAtY3RjdQo+Pj4gKwo+Pj4gKyAgcmVnOgo+Pj4gKyAgICBtYXhJdGVtczogMQo+Pj4gKwo+
-Pj4gKyAgY2xvY2tzOgo+Pj4gKyAgICBtYXhJdGVtczogMQo+Pj4gKwo+Pj4gKyAgY2xvY2stbmFt
-ZXM6Cj4+PiArICAgIGl0ZW1zOgo+Pj4gKyAgICAgIC0gY29uc3Q6IGFwYgo+Pj4gKwo+Pj4gKyAg
-aW4tcG9ydHM6Cj4+Cj4+IFVzZSAncG9ydHMnIHVubGVzcyB5b3UgaGF2ZSBib3RoIGluIGFuZCBv
-dXQgcG9ydHMuCj4gVGhlIOKAmGluLXBvcnRz4oCZIGFuZCDigJhvdXQtcG9ydHPigJkgcHJvcGVy
-dGllcyB3aWxsIGJlIHBhcnNlZCBieSDigJhvZl9jb3Jlc2lnaHRfZ2V0X3BvcnRfcGFyZW504oCZ
-Cj4gYW5kIHRoZWlyIHJlbGF0aW9uc2hpcHMgdG8gb3RoZXIgZGV2aWNlcyB3aWxsIGJlIHN0b3Jl
-ZCBpbiB0aGUgY29yZXNpZ2h0X3BsYXRmb3JtX2RhdGEgc3RydWN0dXJlLgo+IAo+IGZvciBleGFt
-cGxlOgo+IHN0cnVjdCBjb3Jlc2lnaHRfcGxhdGZvcm1fZGF0YSB7Cj4gCWludCBucl9pbmNvbm5z
-Owo+IAlpbnQgbnJfb3V0Y29ubnM7Cj4gCXN0cnVjdCBjb3Jlc2lnaHRfY29ubmVjdGlvbiAqKm91
-dF9jb25uczsKPiAJc3RydWN0IGNvcmVzaWdodF9jb25uZWN0aW9uICoqaW5fY29ubnM7Cj4gfTsK
-PiAKPiBodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92Ni4xMS1yYzQvc291cmNlL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtcGxhdGZvcm0uYyNMMTQ3CgphbmQ/
-IElmIHlvdSByZXNwb25kIHdpdGggc29tZSB1bnJlbGF0ZWQgYXJndW1lbnQsIHdlIHdpbGwgcmVz
-cG9uZCB3aXRoCnRoZSBzYW1lOiBVc2UgJ3BvcnRzJyB1bmxlc3MgeW91IGhhdmUgYm90aCBpbiBh
-bmQgb3V0IHBvcnRzLgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 12/08/2024 04:41, Jie Gan wrote:
+> +
+> +maintainers:
+> +  - Yuanfang Zhang <quic_yuanfang@quicinc.com>
+> +  - Mao Jinlong <quic_jinlmao@quicinc.com>
+> +  - Jie Gan <quic_jiegan@quicinc.com>
+> +
+> +description:
+> +  The Coresight TMC Control unit controls various Coresight behaviors.
+> +  It works as a helper device when connected to TMC ETR device.
+> +  It is responsible for controlling the data filter function based on
+> +  the source device's Trace ID for TMC ETR device. The trace data with
+> +  that Trace id can get into ETR's buffer while other trace data gets
+> +  ignored.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sa8775p-ctcu
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +
+> +  in-ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    patternProperties:
+> +      '^port(@[0-7])?$':
+
+I see only two ports in the example. How many are there in reality?
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
