@@ -2,61 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 379F9956E7B
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 17:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2582956F6D
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 17:58:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E35C6C6DD94;
-	Mon, 19 Aug 2024 15:16:13 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 684A5C6DD94;
+	Mon, 19 Aug 2024 15:58:48 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41369C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 138BEC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 14:15:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9F3AECE098E;
- Mon, 19 Aug 2024 14:15:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00FEC32782;
- Mon, 19 Aug 2024 14:15:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724076948;
- bh=MOZaGaCqrP4GQgWZMCVI3+A5OoGRB7tPix85SODkMRk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VuXgYYXgjSynhcIUVRd88Vn8jb8VQEyEpu3wrHMFIdS239qr5Kr4EPkq3nBmuubZ2
- F0ZMxLbQJ6lq1zx8jK2Dr5ST9EpXYGenQL7ZXBJEt8RT/E+lkrcbk08kqTw6pzw8LP
- hbapYLR4Llew6HLwls8GwWLejwgSGVwbplzcqIaVvsN7wDC4qLHXI2/DJj34ZpEFlG
- VtY0m+TN7BGYGB3L1nhXvSnSRt2GzIBD4Vfiewa7SuH8WPo94qdsuy1YnSaQHTiFTb
- TdUa6+F0N5tADiLkoseiIFZt45WEDiTSkGsxJMKUpbubRLni8aC+sCz17UU04A6RSo
- Opt5qE3otX9wg==
-Date: Mon, 19 Aug 2024 15:15:41 +0100
-From: Simon Horman <horms@kernel.org>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <20240819141541.GE11472@kernel.org>
-References: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+ Mon, 19 Aug 2024 15:58:41 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.18.186.31])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Wncd41LkLz6K98c;
+ Mon, 19 Aug 2024 23:55:36 +0800 (CST)
+Received: from lhrpeml500005.china.huawei.com (unknown [7.191.163.240])
+ by mail.maildlp.com (Postfix) with ESMTPS id 5A5261400C9;
+ Mon, 19 Aug 2024 23:58:39 +0800 (CST)
+Received: from localhost (10.203.177.66) by lhrpeml500005.china.huawei.com
+ (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Mon, 19 Aug
+ 2024 16:58:38 +0100
+Date: Mon, 19 Aug 2024 16:58:37 +0100
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20240819165837.00000df1@Huawei.com>
+In-Reply-To: <20240816-cleanup-h-of-node-put-memory-v2-13-9eed0ee16b78@linaro.org>
+References: <20240816-cleanup-h-of-node-put-memory-v2-0-9eed0ee16b78@linaro.org>
+ <20240816-cleanup-h-of-node-put-memory-v2-13-9eed0ee16b78@linaro.org>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
-X-Mailman-Approved-At: Mon, 19 Aug 2024 15:16:13 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, dl-S32 <S32@nxp.com>,
- Eric Dumazet <edumazet@google.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 4/7] net: phy: add helper for mapping
- RGMII link speed to clock rate
+X-Originating-IP: [10.203.177.66]
+X-ClientProxiedBy: lhrpeml500004.china.huawei.com (7.191.163.9) To
+ lhrpeml500005.china.huawei.com (7.191.163.240)
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-samsung-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Alim Akhtar <alim.akhtar@samsung.com>,
+ Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [Linux-stm32] [PATCH v2 13/13] memory: ti-aemif: simplify with
+ scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,96 +66,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Aug 18, 2024 at 09:50:46PM +0000, Jan Petrous (OSS) wrote:
-> The helper rgmii_clock() implemented Russel's hint during stmmac
-> glue driver review:
-> 
-> ---
-> We seem to have multiple cases of very similar logic in lots of stmmac
-> platform drivers, and I think it's about time we said no more to this.
-> So, what I think we should do is as follows:
-> 
-> add the following helper - either in stmmac, or more generically
-> (phylib? - in which case its name will need changing.)
-> 
-> static long stmmac_get_rgmii_clock(int speed)
-> {
-> 	switch (speed) {
-> 	case SPEED_10:
-> 		return 2500000;
-> 
-> 	case SPEED_100:
-> 		return 25000000;
-> 
-> 	case SPEED_1000:
-> 		return 125000000;
-> 
-> 	default:
-> 		return -ENVAL;
-> 	}
-> }
-> 
-> Then, this can become:
-> 
-> 	long tx_clk_rate;
-> 
-> 	...
-> 
-> 	tx_clk_rate = stmmac_get_rgmii_clock(speed);
-> 	if (tx_clk_rate < 0) {
-> 		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
-> 		return;
-> 	}
-> 
-> 	ret = clk_set_rate(gmac->tx_clk, tx_clk_rate);
-> ---
-> 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> ---
->  include/linux/phy.h | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/include/linux/phy.h b/include/linux/phy.h
-> index 6b7d40d49129..bb797364d91c 100644
-> --- a/include/linux/phy.h
-> +++ b/include/linux/phy.h
-> @@ -298,6 +298,27 @@ static inline const char *phy_modes(phy_interface_t interface)
->  	}
->  }
->  
-> +/**
-> + * rgmi_clock - map link speed to the clock rate
+On Fri, 16 Aug 2024 12:54:37 +0200
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
 
-nit: rgmii_clock
-
-     Flagged by ./scripts/kernel-doc -none
-
-> + * @speed: link speed value
-> + *
-> + * Description: maps RGMII supported link speeds
-> + * into the clock rates.
-> + */
-> +static inline long rgmii_clock(int speed)
-> +{
-> +	switch (speed) {
-> +	case SPEED_10:
-> +		return 2500000;
-> +	case SPEED_100:
-> +		return 25000000;
-> +	case SPEED_1000:
-> +		return 125000000;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  #define PHY_INIT_TIMEOUT	100000
->  #define PHY_FORCE_TIMEOUT	10
->  
-> -- 
-> 2.46.0
+> Use scoped for_each_available_child_of_node_scoped() when iterating over
+> device nodes to make code a bit simpler.
 > 
-> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
