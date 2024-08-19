@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE0395649A
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 09:26:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E758B95649C
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Aug 2024 09:26:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A940CC71289;
-	Mon, 19 Aug 2024 07:26:38 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5321C71289;
+	Mon, 19 Aug 2024 07:26:42 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50B5AC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36FDCC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 07:26:36 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2025031eb60so2666725ad.3
+ Mon, 19 Aug 2024 07:26:42 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-70eaf5874ddso2926301b3a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Aug 2024 00:26:36 -0700 (PDT)
+ Mon, 19 Aug 2024 00:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724052395; x=1724657195;
+ d=gmail.com; s=20230601; t=1724052401; x=1724657201;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aMG2j52tw1mgszoYcGKshXhchCJaL/s4L2M1KESDv+U=;
- b=hDNr/beqAqquOvF1NeoPeMuimKKtijJ2omW9e0qoawShOMmAKdHCi/R7HdoLxdgfeV
- IiRA2D0SCShwNKf0w0Mjn3Wi7l+bzYjqtwa3QS34/gSYoA1o9JkhkZG3Nx8c4AVYWBhD
- e8xYe0XIija70dcqSi2AcPgvvnRRjr6sH7ektJDODj2A0Xwh8KkVt0eF0SJvFVTvmOo4
- 2029JkZiPlb0dFCi5rjIL6mJxSM0y/YiuFBvo9dBj9sE6RtN1oMP8EYOqrBOlgzXwwX0
- r8XidcttlQLlOLhcHoJSPp92OdW4JJFR3QqD82npBRGpZoe3oEiE5TY1C6WuifTpbc4b
- fHPQ==
+ bh=Udk+s3Obbj80Cans5TjOJ2DULPf1NEhrOug0bVeCQAQ=;
+ b=eiaJFQFpoSR0/aeyDHXtAVNmZVZBvS4+UtZ+uJzfzxFYvr3bcymWV/dgJ4s0FMjQP/
+ zLbDL1byh+KeUv99eBpe9wrZDxB5DeA1oKmpwBFu8VeuAHjB0+RAx6I4UA6xollcETPu
+ rmC1Ib3iVz59sqo4Ahhm9L7w2pQko4Dyhe7eXAiUO7AjiuNy2OuaLrT2/J5ZogLXOrbP
+ US16xwBoEf7z0+QU3xUFnaYIx64PZc39gJa+A8Dr1P0ru62DPDbKJRvEmyCElvvNouiP
+ c/s/GvLugGVFJH6miItvL8vdjOtdH9HHUPLScXo7h1/wvDPMMl8+jcHqxmvWPmoIpqkE
+ GEoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724052395; x=1724657195;
+ d=1e100.net; s=20230601; t=1724052401; x=1724657201;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aMG2j52tw1mgszoYcGKshXhchCJaL/s4L2M1KESDv+U=;
- b=Wb/vqOoSMmfmpSsC1aVQi2IY/dEDbgBVppVjWJiyceXBk6Fd4mgFF3eZ2Guk8zIiTF
- lSxwO11rNNedFYAki/Pz9BQSa5nTht1ELeF0AY2sW3Krl+ps5ox8AHs06g+gpIseaE9c
- cd8dk7OjkH6ZUFZxmqkeQivzO32n1DflwJmGNFFENyHCyaO6h+uw0Qn8OIFhOfiK49IP
- l6PrvVkf3qT2L3rigFBCbMAo91j2osp0vt7Dz2617+8skmIk6J8IWUJvCA0PXiiKLt/1
- t9QLma30MmfqsbTIHMgCIrPfQu+xuidv3U2pDGU6yzWbP66aT/ArVpehRmtOcAI/u8VC
- 8TYg==
+ bh=Udk+s3Obbj80Cans5TjOJ2DULPf1NEhrOug0bVeCQAQ=;
+ b=iDyCHL3a0Ga7QM7rI52CiB9aab9dgYRiz33BSx6nV9cebEWtn8t+wX96qAv80Z++DN
+ OyW77yLBAhVgXEIDPtPKsx8gglm28BvWR5UiOByPJSNECzPJyCnlxLACZgqZT1NfSChI
+ gSnC6RnzjPvJA74OL0HJFdqw8dgzG/MtYvaIvJ/W6Lflj7W9GDTKsPFDgHxnKEfiq77K
+ kqsb49vEygCM//CWmpS8b7p5fiqERXa3fNIx+650NYD7B64p70pkRko0mVU2HYTdvEeO
+ 7mr4+WXYKUr+nKWJg1J0HoxS9k56IGSCFwumuOA/RAGeDr+ZtSRulael2QG5stdEvS7A
+ zX8g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfjATAFnnKcBo44wPz/A3Vw6TTq05ci/SDY9oiuuE5OGAVQUYh+myG1ahCaLXN1OwlT83ANLZo2lwsoSSY+ZFLctGVKo24LlNMCT/rS5udJcHk9UJ4wKrS
-X-Gm-Message-State: AOJu0YyLOeYbV3Y6vZEooLgaZD0u+oLKBSP6gFzznIwMSbnCC5dLaTCJ
- 5+iBetHntYMsqIkfgj8OzmM6W4QEUFZsWG2rwfFJc6SvNDeSyEw9
-X-Google-Smtp-Source: AGHT+IEA3vuuj8hHvQm/FT75+3Cmov/g2QhDCgVu6DKTepAiVLdnHDZxmVIV9K1VMgQFzR5yfzj/JQ==
-X-Received: by 2002:a17:902:f68d:b0:1fd:93d2:fb67 with SMTP id
- d9443c01a7336-20219696b8bmr66815325ad.52.1724052394666; 
- Mon, 19 Aug 2024 00:26:34 -0700 (PDT)
+ AJvYcCW68qaOxckut39Ll1+aam9tEQOplqzMDYIJAcz/SmrO/5qp/PFDqttfh1xwG8zxvP8S2AowcZbx0Aynep5JQYnn8tG33i8PQoYWmwM/rTCuPWGLG8Bq56aP
+X-Gm-Message-State: AOJu0YwrDB8iXkEM4KMPjBkTRdBlTxvrutHQZKU+BaKMgP+1gv6x+fvd
+ yFtousI9DHmcPVvQbY/roud2WEC48p2HKkgnGQFhddW+00lrzcn4
+X-Google-Smtp-Source: AGHT+IGIrHqMvl9AmE+Jvkoggw+jp0THIJUSZAYGIWSoj/Vjl1XvI9jSe7HM5SVRQljCKll/m9DsNw==
+X-Received: by 2002:a05:6a21:1693:b0:1c4:b927:1ffb with SMTP id
+ adf61e73a8af0-1c904f91af0mr8704520637.17.1724052400562; 
+ Mon, 19 Aug 2024 00:26:40 -0700 (PDT)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-201f02faa5dsm58340855ad.2.2024.08.19.00.26.29
+ d9443c01a7336-201f02faa5dsm58340855ad.2.2024.08.19.00.26.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Aug 2024 00:26:34 -0700 (PDT)
+ Mon, 19 Aug 2024 00:26:40 -0700 (PDT)
 From: Furong Xu <0x1207@gmail.com>
 To: Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Vladimir Oltean <olteanv@gmail.com>,
@@ -65,8 +65,8 @@ To: Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Joao Pinto <jpinto@synopsys.com>
-Date: Mon, 19 Aug 2024 15:25:19 +0800
-Message-Id: <28f3b68dd0e0744e851a0b9d90fdee69792fbc0f.1724051326.git.0x1207@gmail.com>
+Date: Mon, 19 Aug 2024 15:25:20 +0800
+Message-Id: <375534116912f13cb744c386e33c856c953b258b.1724051326.git.0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1724051326.git.0x1207@gmail.com>
 References: <cover.1724051326.git.0x1207@gmail.com>
@@ -74,8 +74,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Furong Xu <0x1207@gmail.com>,
  linux-kernel@vger.kernel.org, xfr@outlook.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 6/7] net: stmmac: support fp
-	parameter of tc-taprio
+Subject: [Linux-stm32] [PATCH net-next v3 7/7] net: stmmac: silence FPE
+	kernel logs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,132 +92,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-tc-taprio can select whether traffic classes are express or preemptible.
-
-0) tc qdisc add dev eth1 parent root handle 100 taprio \
-        num_tc 4 \
-        map 0 1 2 3 2 2 2 2 2 2 2 2 2 2 2 3 \
-        queues 1@0 1@1 1@2 1@3 \
-        base-time 1000000000 \
-        sched-entry S 03 10000000 \
-        sched-entry S 0e 10000000 \
-        flags 0x2 fp P E E E
-
-1) After some traffic tests, MAC merge layer statistics are all good.
-
-Local device:
-[ {
-        "ifname": "eth1",
-        "pmac-enabled": true,
-        "tx-enabled": true,
-        "tx-active": true,
-        "tx-min-frag-size": 60,
-        "rx-min-frag-size": 60,
-        "verify-enabled": true,
-        "verify-time": 100,
-        "max-verify-time": 128,
-        "verify-status": "SUCCEEDED",
-        "statistics": {
-            "MACMergeFrameAssErrorCount": 0,
-            "MACMergeFrameSmdErrorCount": 0,
-            "MACMergeFrameAssOkCount": 0,
-            "MACMergeFragCountRx": 0,
-            "MACMergeFragCountTx": 17837,
-            "MACMergeHoldCount": 18639
-        }
-    } ]
-
-Remote device:
-[ {
-        "ifname": "end1",
-        "pmac-enabled": true,
-        "tx-enabled": true,
-        "tx-active": true,
-        "tx-min-frag-size": 60,
-        "rx-min-frag-size": 60,
-        "verify-enabled": true,
-        "verify-time": 100,
-        "max-verify-time": 128,
-        "verify-status": "SUCCEEDED",
-        "statistics": {
-            "MACMergeFrameAssErrorCount": 0,
-            "MACMergeFrameSmdErrorCount": 0,
-            "MACMergeFrameAssOkCount": 17189,
-            "MACMergeFragCountRx": 17837,
-            "MACMergeFragCountTx": 0,
-            "MACMergeHoldCount": 0
-        }
-    } ]
-
-Tested on DWMAC CORE 5.10a
+ethtool --show-mm can get real-time state of FPE.
+Those kernel logs should keep quiet.
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index a967c6f01e4e..05b870b35947 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -933,7 +933,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
- 	struct timespec64 time, current_time, qopt_time;
- 	ktime_t current_time_ns;
--	bool fpe = false;
- 	int i, ret = 0;
- 	u64 ctr;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index b6114de34b31..733163c52f97 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -620,22 +620,22 @@ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
  
-@@ -1018,16 +1017,12 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 
- 		switch (qopt->entries[i].command) {
- 		case TC_TAPRIO_CMD_SET_GATES:
--			if (fpe)
--				return -EINVAL;
- 			break;
- 		case TC_TAPRIO_CMD_SET_AND_HOLD:
- 			gates |= BIT(0);
--			fpe = true;
- 			break;
- 		case TC_TAPRIO_CMD_SET_AND_RELEASE:
- 			gates &= ~BIT(0);
--			fpe = true;
- 			break;
- 		default:
- 			return -EOPNOTSUPP;
-@@ -1058,7 +1053,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 
- 	tc_taprio_map_maxsdu_txq(priv, qopt);
- 
--	if (fpe && !priv->dma_cap.fpesel) {
-+	if (qopt->mqprio.preemptible_tcs && !priv->dma_cap.fpesel) {
- 		mutex_unlock(&priv->est_lock);
- 		return -EOPNOTSUPP;
- 	}
-@@ -1071,6 +1066,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 		goto disable;
+ 	if (value & TRSP) {
+ 		status |= FPE_EVENT_TRSP;
+-		netdev_info(dev, "FPE: Respond mPacket is transmitted\n");
++		netdev_dbg(dev, "FPE: Respond mPacket is transmitted\n");
  	}
  
-+	stmmac_fpe_set_preemptible_tcs(priv, priv->dev, qopt->mqprio.extack,
-+				       qopt->mqprio.preemptible_tcs);
-+
- 	netdev_info(priv->dev, "configured EST\n");
- 
- 	return 0;
-@@ -1089,11 +1087,8 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 		mutex_unlock(&priv->est_lock);
+ 	if (value & TVER) {
+ 		status |= FPE_EVENT_TVER;
+-		netdev_info(dev, "FPE: Verify mPacket is transmitted\n");
++		netdev_dbg(dev, "FPE: Verify mPacket is transmitted\n");
  	}
  
--	stmmac_fpe_configure(priv, priv->ioaddr,
--			     &priv->fpe_cfg,
--			     priv->plat->tx_queues_to_use,
--			     priv->plat->rx_queues_to_use,
--			     false, false);
-+	stmmac_fpe_set_preemptible_tcs(priv, priv->dev, qopt->mqprio.extack, 0);
-+
- 	netdev_info(priv->dev, "disabled FPE\n");
+ 	if (value & RRSP) {
+ 		status |= FPE_EVENT_RRSP;
+-		netdev_info(dev, "FPE: Respond mPacket is received\n");
++		netdev_dbg(dev, "FPE: Respond mPacket is received\n");
+ 	}
  
- 	return ret;
+ 	if (value & RVER) {
+ 		status |= FPE_EVENT_RVER;
+-		netdev_info(dev, "FPE: Verify mPacket is received\n");
++		netdev_dbg(dev, "FPE: Verify mPacket is received\n");
+ 	}
+ 
+ 	return status;
 -- 
 2.34.1
 
