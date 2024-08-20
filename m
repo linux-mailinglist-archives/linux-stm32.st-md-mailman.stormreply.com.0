@@ -2,93 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8184395857F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 13:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC7895859D
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 13:21:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FB3FC6DD66;
-	Tue, 20 Aug 2024 11:14:28 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A011CCFAC50
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F747C6DD66;
+	Tue, 20 Aug 2024 11:21:30 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69FF5CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 11:14:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1724152465;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BTT1Q6GxIm9St48gKvu8Ozg5Txh7Do+nIOAs2Z9Upuo=;
- b=alU1ouL2HHmGo3pefUWlvcuSlN+U89VeS9UoAoPY+0hYmXk/V8aW1Q1q5zLriPPNOdeKua
- 7alqhC/zsuaqAZ3weGB+OkMdEaadEyqE43mkgXYP8y1dCbjKv1ss+pmFU4PjfVH5CKiKhg
- ymAK35zpPs93e7U8KZJzSgqb3qf7MCs=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-XZ5qGk5UON-rJbnRVIaIRw-1; Tue, 20 Aug 2024 07:14:24 -0400
-X-MC-Unique: XZ5qGk5UON-rJbnRVIaIRw-1
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-53331ba4abcso221622e87.3
+ Tue, 20 Aug 2024 11:21:22 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-20223b5c1c0so19068785ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 04:14:24 -0700 (PDT)
+ Tue, 20 Aug 2024 04:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724152881; x=1724757681;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zbDMo5MbDihkl8ZyjdgPltbmTW4XyoUcFA+9KEyX+yo=;
+ b=G35k+xtMRYfzZGDzf4tE1SgpZrpT058UeHUu/CEXfCmqiUPFmoj1wTn3aJqeapwZyy
+ UECuQSaRUnet8cJSog5j1DB6LLJdbFtjMYU5xVMwMGRcEnRHLpKW+1hpzSWAjWS9qTrB
+ DdbW+DIDcREdvsTljZzgjlgKvVURIopLckbA9mX4IaGoq3AOiBQIlzn39EJnz5cq0POM
+ FrAY55YXdU3oDXFZ7nP4dgk3MpRnO1i0EKLk3SdreqUnBYWYmiIyDUHjnUGjKsMHYgvB
+ uJx7hpT36hwXMd/rsksSVzTzep1VaijrP01ANtWXp8eOBzqjOqOglY1PkZKIh34yo8Qk
+ Wdng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724152463; x=1724757263;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=y1Q7acyOuQZwg2/89j6b8m+Ec7sRWq6gAjTgotRXIu4=;
- b=iicJAQIWoO+AOi2gbemKp7AuDBjrGyu/L+k7klo1QJNuAIKgOv4Gx2r5/LkOF1tVHU
- E8c7wOhCeVPXvpuiJ/pZfDJA8FsZFGOfeAPidb18QA1PMHsaeXNJ/ceJ17q4aYfd8Po4
- KEdzpzMJ1sHdBt5Vm2SPl7Elun2FqV4U2Lg9OreooSxmMVOp6w5xbT/pJf342au+t+In
- jSmzqadqHrsF2GhzRVdfLXN7en1nZMVQtJob1qXi0luGNg7C8j16pe53hBBOYb3x+8IV
- jwjrXAhI/3uvpDDVECtrevq62aSDa+DVjqr9Fa12jKgeKFP1pJiNLoObfsjVRDz9jHPe
- YD+g==
+ d=1e100.net; s=20230601; t=1724152881; x=1724757681;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zbDMo5MbDihkl8ZyjdgPltbmTW4XyoUcFA+9KEyX+yo=;
+ b=dnl3tO24ptNaPNGeCrLmysk/p2f8CitU5jBRsnxlZfnlIwy9z8BFF2e7Si+bF1EMn3
+ 50Fomp0IElfma25PK1tOzHpbTnbW6McdSiq52WTqUXhmL1lpBRKIb8hvU1ij2YUkN6pu
+ JxdVpkbppLZpy1arc3pA2dBgdZvLFtDi9cq2ivSLIRRSdspDL/qf1oAbk0qH1MK5vccr
+ Oae9SC/XoL1/rmcoyS3Gr95b0adhszORqQpA270BdIKE0FtT2CbC2wC/vVP0cKQ8RiAF
+ Kblg4v0qeU/7mQ0mPOJ1EgP9pk06vRaXOh8SwPbeokqLLrFU9gNajH6iehb5F3Mxy1XN
+ 99VQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVtyYJG8pfAcWkQA4HWA755XPJjhkyTQ4KVgtaeCMJy067oYXektN2GBqfkxA1INaRZhsTtZetQDEpLFpkB7FXxMjc0KFy74Pos3z0Af/h1efhaBQHKSOBy
-X-Gm-Message-State: AOJu0YwBSxmf5bVt23NotYnrCyv9gH4RdXJmu+V6Tx7YHDKKqO/H6yZ1
- Tt2FgNHqZr+0pExNMM6enNTmFG2X8gAqfOaC7v3DCS5V5fiU9L+ckidMIwoIblkdldP0aHN7+Pz
- R4jDOfu//fkzVA1uHpxhmMnmmsTX4R8MgIaJ6SQNAYwU5bLiNoBI/zO53Z/tS7tZFgvG20LpVrj
- teoA==
-X-Received: by 2002:a05:6512:3c84:b0:530:baec:3975 with SMTP id
- 2adb3069b0e04-5331c6904bamr5596048e87.1.1724152463001; 
- Tue, 20 Aug 2024 04:14:23 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGYdlvki0skRqSH7C03GeJxZqEQK+y/koEXnizdbc6P1v4DyVRhp4tYp6FmBEQj38Z0lN9WKg==
-X-Received: by 2002:a05:6512:3c84:b0:530:baec:3975 with SMTP id
- 2adb3069b0e04-5331c6904bamr5596024e87.1.1724152462340; 
- Tue, 20 Aug 2024 04:14:22 -0700 (PDT)
-Received: from eisenberg.fritz.box ([2001:16b8:3dcc:1f00:bec1:681e:45eb:77e2])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383935657sm747366866b.138.2024.08.20.04.14.20
+ AJvYcCXKdBHHcsN3xiN71HUg1a/+pEmdSrNoIWfgzL2mud0k7XqwnkKl+R0Jj29MRU2LWbwCW2u+8v3Isdm/ag==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwvzJhryVxuC3s/H9xnOKG9Bxv/kVZEgD4V8hd0N+yFpq3ZP/dt
+ /xAp9yn1CrZqn0H2j4LSv7HWe0xuPypK/x2Tm753+GuM2tAzX9uA
+X-Google-Smtp-Source: AGHT+IGJyPKgTlfpaaVO2Q89NFOvgDCYB02I5tKaJmY5LED7+9l9qf1xzzx6B/7gPkW4vruDFFPBYg==
+X-Received: by 2002:a17:903:2303:b0:1fd:93d2:fba4 with SMTP id
+ d9443c01a7336-20203f321efmr127662545ad.48.1724152880582; 
+ Tue, 20 Aug 2024 04:21:20 -0700 (PDT)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-201f03756f6sm76465355ad.172.2024.08.20.04.21.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2024 04:14:22 -0700 (PDT)
-Message-ID: <01b1e7d505a2b3e670f1613ce3e6a60efd3449ab.camel@redhat.com>
-From: Philipp Stanner <pstanner@redhat.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Date: Tue, 20 Aug 2024 13:14:20 +0200
-In-Reply-To: <d35a962d-dc95-4469-867e-95b704cca474@wanadoo.fr>
-References: <20240819165148.58201-2-pstanner@redhat.com>
- <20240819165148.58201-10-pstanner@redhat.com>
- <74e9109a-ac59-49e2-9b1d-d825c9c9f891@wanadoo.fr>
- <3e4288bb7300f3fd0883ff07b75ae69d0532019b.camel@redhat.com>
- <d35a962d-dc95-4469-867e-95b704cca474@wanadoo.fr>
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+ Tue, 20 Aug 2024 04:21:19 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Joao Pinto <jpinto@synopsys.com>
+Date: Tue, 20 Aug 2024 19:20:34 +0800
+Message-Id: <cover.1724152528.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: linux-doc@vger.kernel.org, alvaro.karsz@solid-run.com,
- linux-pci@vger.kernel.org, linus.walleij@linaro.org, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, xuanzhuo@linux.alibaba.com,
- corbet@lwn.net, brgl@bgdev.pl, mst@redhat.com, eperezma@redhat.com,
- joabreu@synopsys.com, trix@redhat.com, kuba@kernel.org, pabeni@redhat.com,
- jasowang@redhat.com, hao.wu@intel.com, axboe@kernel.dk,
- richardcochran@gmail.com, virtualization@lists.linux.dev,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org, broonie@kernel.org,
- mdf@kernel.org, bhelgaas@google.com, linux-arm-kernel@lists.infradead.org,
- andy@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- yilun.xu@intel.com, mcoquelin.stm32@gmail.com, linux-fpga@vger.kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH 8/9] vdap: solidrun: Replace deprecated
-	PCI functions
+Cc: netdev@vger.kernel.org, Furong Xu <0x1207@gmail.com>,
+ linux-kernel@vger.kernel.org, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v5 0/7] net: stmmac: FPE via ethtool
+	+ tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,83 +84,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAyMDI0LTA4LTIwIGF0IDEyOjUwICswMjAwLCBDaHJpc3RvcGhlIEpBSUxMRVQgd3Jv
-dGU6Cj4gTGUgMjAvMDgvMjAyNCDDoCAxMDowOSwgUGhpbGlwcCBTdGFubmVyIGEgw6ljcml0wqA6
-Cj4gPiA+ID4gQEAgLTU1NiwzMyArNTU2LDI0IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgdmRwYV9j
-b25maWdfb3BzCj4gPiA+ID4gc25ldF9jb25maWdfb3BzID0gewo+ID4gPiA+IMKgwqAgc3RhdGlj
-IGludCBwc25ldF9vcGVuX3BmX2JhcihzdHJ1Y3QgcGNpX2RldiAqcGRldiwgc3RydWN0Cj4gPiA+
-ID4gcHNuZXQKPiA+ID4gPiAqcHNuZXQpCj4gPiA+ID4gwqDCoCB7Cj4gPiA+ID4gwqDCoMKgCWNo
-YXIgbmFtZVs1MF07Cj4gPiA+ID4gLQlpbnQgcmV0LCBpLCBtYXNrID0gMDsKPiA+ID4gPiArCWlu
-dCBpOwo+ID4gPiA+ICsKPiA+ID4gPiArCXNucHJpbnRmKG5hbWUsIHNpemVvZihuYW1lKSwgInBz
-bmV0WyVzXS1iYXJzIiwKPiA+ID4gPiBwY2lfbmFtZShwZGV2KSk7Cj4gPiA+ID4gKwo+ID4gPiA+
-IMKgwqDCoAkvKiBXZSBkb24ndCBrbm93IHdoaWNoIEJBUiB3aWxsIGJlIHVzZWQgdG8KPiA+ID4g
-PiBjb21tdW5pY2F0ZS4uCj4gPiA+ID4gwqDCoMKgCSAqIFdlIHdpbGwgbWFwIGV2ZXJ5IGJhciB3
-aXRoIGxlbiA+IDAuCj4gPiA+ID4gwqDCoMKgCSAqCj4gPiA+ID4gwqDCoMKgCSAqIExhdGVyLCB3
-ZSB3aWxsIGRpc2NvdmVyIHRoZSBCQVIgYW5kIHVubWFwIGFsbCBvdGhlcgo+ID4gPiA+IEJBUnMu
-Cj4gPiA+ID4gwqDCoMKgCSAqLwo+ID4gPiA+IMKgwqDCoAlmb3IgKGkgPSAwOyBpIDwgUENJX1NU
-RF9OVU1fQkFSUzsgaSsrKSB7Cj4gPiA+ID4gLQkJaWYgKHBjaV9yZXNvdXJjZV9sZW4ocGRldiwg
-aSkpCj4gPiA+ID4gLQkJCW1hc2sgfD0gKDEgPDwgaSk7Cj4gPiA+ID4gLQl9Cj4gPiA+ID4gLQo+
-ID4gPiA+IC0JLyogTm8gQkFSIGNhbiBiZSB1c2VkLi4gKi8KPiA+ID4gPiAtCWlmICghbWFzaykg
-ewo+ID4gPiA+IC0JCVNORVRfRVJSKHBkZXYsICJGYWlsZWQgdG8gZmluZCBhIFBDSSBCQVJcbiIp
-Owo+ID4gPiA+IC0JCXJldHVybiAtRU5PREVWOwo+ID4gPiA+IC0JfQo+ID4gPiA+IC0KPiA+ID4g
-PiAtCXNucHJpbnRmKG5hbWUsIHNpemVvZihuYW1lKSwgInBzbmV0WyVzXS1iYXJzIiwKPiA+ID4g
-PiBwY2lfbmFtZShwZGV2KSk7Cj4gPiA+ID4gLQlyZXQgPSBwY2ltX2lvbWFwX3JlZ2lvbnMocGRl
-diwgbWFzaywgbmFtZSk7Cj4gPiA+ID4gLQlpZiAocmV0KSB7Cj4gPiA+ID4gLQkJU05FVF9FUlIo
-cGRldiwgIkZhaWxlZCB0byByZXF1ZXN0IGFuZCBtYXAgUENJCj4gPiA+ID4gQkFSc1xuIik7Cj4g
-PiA+ID4gLQkJcmV0dXJuIHJldDsKPiA+ID4gPiAtCX0KPiA+ID4gPiArCQlpZiAocGNpX3Jlc291
-cmNlX2xlbihwZGV2LCBpKSkgewo+ID4gPiA+ICsJCQlwc25ldC0+YmFyc1tpXSA9Cj4gPiA+ID4g
-cGNpbV9pb21hcF9yZWdpb24ocGRldiwKPiA+ID4gPiBpLCBuYW1lKTsKPiA+ID4gCj4gPiA+IEhp
-LAo+ID4gPiAKPiA+ID4gVW5yZWxhdGVkIHRvIHRoZSBwYXRjaCwgYnV0IGlzIGlzIHNhZmUgdG8g
-aGF2ZSAnbmFtZScgYmUgb24gdGhlCj4gPiA+IHN0YWNrPwo+ID4gPiAKPiA+ID4gcGNpbV9pb21h
-cF9yZWdpb24oKQo+ID4gPiAtLT4gX19wY2ltX3JlcXVlc3RfcmVnaW9uKCkKPiA+ID4gLS0+IF9f
-cGNpbV9yZXF1ZXN0X3JlZ2lvbl9yYW5nZSgpCj4gPiA+IC0tPiByZXF1ZXN0X3JlZ2lvbigpIG9y
-IF9fcmVxdWVzdF9tZW1fcmVnaW9uKCkKPiA+ID4gLS0+IF9fcmVxdWVzdF9yZWdpb24oKQo+ID4g
-PiAtLT4gX19yZXF1ZXN0X3JlZ2lvbl9sb2NrZWQoKQo+ID4gPiAtLT4gcmVzLT5uYW1lID0gbmFt
-ZTsKPiA+ID4gCj4gPiA+IFNvIGFuIGFkZHJlc3Mgb24gdGhlIHN0YWNrIGVuZHMgaW4gdGhlICdu
-YW1lJyBmaWVsZCBvZiBhICJzdHJ1Y3QKPiA+ID4gcmVzb3VyY2UiLgo+ID4gCj4gPiBPaCBvaC4u
-Lgo+ID4gCj4gPiA+IAo+ID4gPiBBY2NvcmRpbmcgdG8gYSBmZXcgZ3JlcCwgaXQgbG9va3MgcmVh
-bGx5IHVudXN1YWwuCj4gPiA+IAo+ID4gPiBJIGRvbid0IGtub3cgaWYgaXQgaXMgdXNlZCwgYnV0
-IGl0IGxvb2tzIHN0cmFuZ2UgdG8gbWUuCj4gPiAKPiA+IAo+ID4gSSBoYXZlIHNlZW4gaXQgdXNl
-ZCBpbiB0aGUga2VybmVsIHJpbmdidWZmZXIgbG9nIHdoZW4geW91IHRyeSB0bwo+ID4gcmVxdWVz
-dCBzb21ldGhpbmcgdGhhdCdzIGFscmVhZHkgb3duZWQuIEkgdGhpbmsgaXQncyBoZXJlLCByaWdo
-dCBpbgo+ID4gX19yZXF1ZXN0X3JlZ2lvbl9sb2NrZWQoKToKPiA+IAo+ID4gLyoKPiA+IMKgICog
-bW0vaG1tLmMgcmVzZXJ2ZXMgcGh5c2ljYWwgYWRkcmVzc2VzIHdoaWNoIHRoZW4KPiA+IMKgICog
-YmVjb21lIHVuYXZhaWxhYmxlIHRvIG90aGVyIHVzZXJzLsKgIENvbmZsaWN0cyBhcmUKPiA+IMKg
-ICogbm90IGV4cGVjdGVkLsKgIFdhcm4gdG8gYWlkIGRlYnVnZ2luZyBpZiBlbmNvdW50ZXJlZC4K
-PiA+IMKgICovCj4gPiBpZiAoY29uZmxpY3QtPmRlc2MgPT0gSU9SRVNfREVTQ19ERVZJQ0VfUFJJ
-VkFURV9NRU1PUlkpIHsKPiA+IAlwcl93YXJuKCJVbmFkZHJlc3NhYmxlIGRldmljZSAlcyAlcFIg
-Y29uZmxpY3RzIHdpdGggJXBSIiwKPiA+IAkJY29uZmxpY3QtPm5hbWUsIGNvbmZsaWN0LCByZXMp
-Owo+ID4gfQo+ID4gCj4gPiAKPiA+IEFzc3VtaW5nIEkgaW50ZXJwcmV0IHRoZSBjb2RlIGNvcnJl
-Y3RseToKPiA+IFRoZSBjb25mbGljdGluZyByZXNvdXJjZSBpcyBmb3VuZCB3aGVuIGEgbmV3IGNh
-bGxlciAoZS5nLiBhbm90aGVyCj4gPiBkcml2ZXIpIHRyaWVzIHRvIGdldCB0aGUgc2FtZSByZWdp
-b24uIFNvIGNvbmZsaWN0LT5uYW1lIG9uIHRoZQo+ID4gb3JpZ2luYWwKPiA+IHJlcXVlc3Rlcidz
-IHN0YWNrIGlzIGJ5IG5vdyBnb25lIGFuZCB5b3UgZG8gZ2V0IFVCLgo+ID4gCj4gPiBWZXJ5IHVu
-bGlrZWx5IFVCLCBzaW5jZSBvbmx5IHJhcmVseSBkcml2ZXJzIHJhY2UgZm9yIHRoZSBzYW1lCj4g
-PiByZXNvdXJjZSwKPiA+IGJ1dCBzdGlsbCBVQi4KPiA+IAo+ID4gQnV0IHRoZXJlJ3MgYWxzbyBh
-IGZldyBvdGhlciBwbGFjZXMuIEdyZXAgZm9yICJjb25mbGljdC0+bmFtZSIuCj4gPiAKPiA+ID4g
-Cj4gPiA+IAo+ID4gPiBJZiBpdCBpcyBhbiBpc3N1ZSwgaXQgd2FzIGFwcGFyZW50bHkgYWxyZWFk
-eSB0aGVyZSBiZWZvcmUgdGhpcwo+ID4gPiBwYXRjaC4KPiA+IAo+ID4gSSB0aGluayB0aGlzIGhh
-cyB0byBiZSBmaXhlZC4KPiA+IAo+ID4gUXVlc3Rpb24gd291bGQganVzdCBiZSB3aGV0aGVyIG9u
-ZSB3YW50cyB0byBmaXggaXQgbG9jYWxseSBpbiB0aGlzCj4gPiBkcml2ZXIsIG9yIHByZXZlbnQg
-aXQgZnJvbSBoYXBwZW5pbmcgZ2xvYmFsbHkgYnkgbWFraW5nIHRoZSBjb21tb24KPiA+IGluZnJh
-c3RydWN0dXJlIGNvcHkgdGhlIHN0cmluZy4KPiA+IAo+ID4gCj4gPiBQLgo+ID4gCj4gCj4gTm90
-IGEgcGVyZmVjdCBzY3JpcHQsIGJ1dCB0aGUgYmVsb3cgY29jY2luZWxsZSBzY3JpcHQgb25seSBm
-aW5kIHRoaXMgCj4gcGxhY2UsIHNvIEkgd291bGQgKzEgb25seSBmaXhpbmcgdGhpbmdzIGhlcmUg
-b25seS4KPiAKPiBBZ3JlZT8KCll1cCwgc291bmRzIGdvb2QuIENvcHlpbmcgdGhlIHN0cmluZyB3
-b3VsZCBjYXVzZSB0cm91YmxlIChHRlAgZmxhZ3MpCmFueXdheXMuCgpJJ2xsIHByb3ZpZGUgYSBm
-aXggaW4gdjIuCgpUaGFua3MsClAuCgo+IAo+IENKCj4gCj4gCj4gCj4gQEAKPiBpZGVudGlmaWVy
-IG5hbWU7Cj4gZXhwcmVzc2lvbiB4Owo+IGNvbnN0YW50IE47Cj4gQEAKPiAJY2hhciBuYW1lW05d
-Owo+IAkuLi4KPiAoCj4gKglwY2ltX2lvbWFwX3JlZ2lvbiguLi4sIG5hbWUsIC4uLik7Cj4gPiAK
-PiAqCXBjaW1faW9tYXBfcmVnaW9ucyguLi4sIG5hbWUsIC4uLik7Cj4gPiAKPiAqCXJlcXVlc3Rf
-cmVnaW9uKC4uLiwgbmFtZSwgLi4uKTsKPiA+IAo+ICoJeCA9IHBjaW1faW9tYXBfcmVnaW9uKC4u
-LiwgbmFtZSwgLi4uKTsKPiA+IAo+ICoJeCA9IHBjaW1faW9tYXBfcmVnaW9ucyguLi4sIG5hbWUs
-IC4uLik7Cj4gPiAKPiAqCXggPSByZXF1ZXN0X3JlZ2lvbiguLi4sIG5hbWUsIC4uLik7Cj4gKQo+
-IAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+Move the Frame Preemption(FPE) over to the new standard API which uses
+ethtool-mm/tc-mqprio/tc-taprio.
+
+Changes in v5:
+  1. fix typo in commit message
+  2. drop FPE capability check in tc-mqprio/tc-taprio
+
+Changes in v4:
+  1. reorder FPE-related declarations and definitions into clean groups
+  2. move mm_lock to stmmac_fpe_cfg.lock
+  3. protect user configurations across NIC up/down
+  4. block stmmac_set_mm() when fpe_task is in progress to finish
+  5. convert to ethtool_dev_mm_supported() to check FPE capability in
+  tc-mqprio/tc-taprio
+  6. silence FPE workqueue start/stop logs
+
+Changes in v3:
+  1. avoid races among ISR, workqueue, link update and
+  register configuration.
+  2. update FPE verification retry logic, so it retries
+  and fails as expected.
+
+Changes in v2:
+  1. refactor FPE verification process
+  2. suspend/resume and kselftest-ethtool_mm, all test cases passed
+  3. handle TC:TXQ remapping for DWMAC CORE4+
+
+Furong Xu (7):
+  net: stmmac: move stmmac_fpe_cfg to stmmac_priv data
+  net: stmmac: drop stmmac_fpe_handshake
+  net: stmmac: refactor FPE verification process
+  net: stmmac: configure FPE via ethtool-mm
+  net: stmmac: support fp parameter of tc-mqprio
+  net: stmmac: support fp parameter of tc-taprio
+  net: stmmac: silence FPE kernel logs
+
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  |  96 +++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  11 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  20 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  27 ++-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 110 +++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 214 +++++++++---------
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 120 ++++++----
+ include/linux/stmmac.h                        |  28 ---
+ 10 files changed, 455 insertions(+), 185 deletions(-)
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
