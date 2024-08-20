@@ -2,80 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B84B958358
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 11:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974F9958474
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 12:28:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D8B9C6DD66;
-	Tue, 20 Aug 2024 09:56:38 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 387D5C6DD66;
+	Tue, 20 Aug 2024 10:28:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C118C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 779C8C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 09:56:37 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-5bed83488b3so3950521a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 02:56:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724147797; x=1724752597;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=c/NIrAB2SV5MwsEF/06Wpke0eOaZ94Do2IfzazTumNE=;
- b=fdwRJhbE0qGgCBTIzS6qL1UHeGn/lSOXkIr04zskG5ck/S96C0636IrPRS8xMxdw+i
- 67studHGoNfbBl5ZclVuQK6nZDJt/TU3ZpJV4FwBzr0JWxgpOzyPKDwlkI3r0bIFaom/
- sH40mPVQOeOsknrXWWz3383n8Y1H14Hysfv0EM4C9oF1xjSFcT784qq5Fhipn7bDFywC
- RNxu3H+JAIIdcaWj3/hW9rFsMfDAZe/LX2W83jXqkMtwpUfeCFUTDdb8NwewgQR2imNJ
- muwlbKHLvW2WYT1NANHxZBfaT5ZQOHrvTEiiPjZ9YzU5QyNKxXnp3eNg38NFZiHU6X05
- 5VOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724147797; x=1724752597;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c/NIrAB2SV5MwsEF/06Wpke0eOaZ94Do2IfzazTumNE=;
- b=c6ZdCDSMv430PaScHDGSN//e6lyxy8jrXfQtCarzWaaSfislMI8Tksqjqne0XSMIS2
- HCT7jeGPqxJYjjk8qdH206TnNh63PNLPJoCXss+Uj8TipVDKJwqVdTx3BiWTLLeZtGQi
- OaHsxgH3W9+C/OB+1eyyuuOUgIweIw/MHdf+wP12ZyHoOHOpV5zA8dSMO0FrrZd7dqT5
- NRZtRPqHSk374TFMTD4oFso1yq1l9WxNOM75z7REqTtbWto9368Q/YJ0arE4EGfkvHbQ
- pf3vQJsQx17A0xhKZJELAaZYV5kqJNdGKM/TCNNkGvaiJJ+dgGMKRzXpVKlY0r4kRvL2
- OJ2g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXZd47VUGhuM28/aQ5syA+qMZP+lnCfPTknbyApY8eZ6N4qDIIuNuWKv9O4JrS/YLCs82rSmWCyRFseGg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxyAGSfHgIfHHan0tKKvDmxUWy3v5A+MzpM//bvqe8QyRrRDo9s
- 6zaOaWjDCd8UCGe11/EVrN+DEcJjL4a4lykCHD1rO81Ziq1hNlDi
-X-Google-Smtp-Source: AGHT+IFWHx+VAD/A4mKL8+WTe1PuCUsQw6T0RzjJayT9ijFF56U9ZXHwSJnRiRbqZ6qYNlq9L9Dj6w==
-X-Received: by 2002:a17:906:c147:b0:a80:d683:4d23 with SMTP id
- a640c23a62f3a-a8392a46e45mr964146466b.62.1724147796275; 
- Tue, 20 Aug 2024 02:56:36 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83839472basm746539166b.170.2024.08.20.02.56.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2024 02:56:35 -0700 (PDT)
-Date: Tue, 20 Aug 2024 12:56:32 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240820095632.3y6dwjpt5sy3raq7@skbuf>
-References: <cover.1724145786.git.0x1207@gmail.com>
- <cover.1724145786.git.0x1207@gmail.com>
- <4358074eebdfedf4d129ccce40434af5f6e2b3f9.1724145786.git.0x1207@gmail.com>
- <4358074eebdfedf4d129ccce40434af5f6e2b3f9.1724145786.git.0x1207@gmail.com>
+ Tue, 20 Aug 2024 10:28:33 +0000 (UTC)
+X-CSE-ConnectionGUID: P/UA2JevR2WieTDLCD44zw==
+X-CSE-MsgGUID: fXV4DuG6RBSIzcUpI4+nZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11169"; a="26306106"
+X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="26306106"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 03:28:31 -0700
+X-CSE-ConnectionGUID: i2TeOzYIRg25kacmae/h/Q==
+X-CSE-MsgGUID: FG1tjdHOT4uS3xW62Fnj5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="60664479"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 03:28:23 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+ (envelope-from <andy@kernel.org>) id 1sgM65-0000000HGOZ-3tRE;
+ Tue, 20 Aug 2024 13:28:17 +0300
+Date: Tue, 20 Aug 2024 13:28:17 +0300
+From: Andy Shevchenko <andy@kernel.org>
+To: Philipp Stanner <pstanner@redhat.com>
+Message-ID: <ZsRvwVCzpLEQovmU@smile.fi.intel.com>
+References: <20240819165148.58201-2-pstanner@redhat.com>
+ <20240819165148.58201-6-pstanner@redhat.com>
+ <ZsOJONEA2x93bSpO@smile.fi.intel.com>
+ <e406ba06180571564b47872f090623b19e4ad87e.camel@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4358074eebdfedf4d129ccce40434af5f6e2b3f9.1724145786.git.0x1207@gmail.com>
- <4358074eebdfedf4d129ccce40434af5f6e2b3f9.1724145786.git.0x1207@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 2/7] net: stmmac: drop
-	stmmac_fpe_handshake
+In-Reply-To: <e406ba06180571564b47872f090623b19e4ad87e.camel@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, onathan Corbet <corbet@lwn.net>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Hannes Reinecke <hare@suse.de>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-arm-kernel@lists.infradead.org,
+ Jens Axboe <axboe@kernel.dk>, David Lechner <dlechner@baylibre.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 4/9] block: mtip32xx: Replace deprecated
+	PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,23 +78,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 20, 2024 at 05:38:30PM +0800, Furong Xu wrote:
-> ethtool --set-mm can trigger FPE verification processe by calling
-
-nitpick: process
-
-> stmmac_fpe_send_mpacket, stmmac_fpe_handshake should be gone.
-> 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> ---
-
-Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBdWcgMjAsIDIwMjQgYXQgMDk6Mjk6NTJBTSArMDIwMCwgUGhpbGlwcCBTdGFubmVy
+IHdyb3RlOgo+IE9uIE1vbiwgMjAyNC0wOC0xOSBhdCAyMTowNCArMDMwMCwgQW5keSBTaGV2Y2hl
+bmtvIHdyb3RlOgo+ID4gT24gTW9uLCBBdWcgMTksIDIwMjQgYXQgMDY6NTE6NDRQTSArMDIwMCwg
+UGhpbGlwcCBTdGFubmVyIHdyb3RlOgoKLi4uCgo+ID4gaW50IG10aXBfcGNpX3Byb2JlKCkKPiA+
+IAo+ID4gPiDCoHNldG1hc2tfZXJyOgo+ID4gPiAtCXBjaW1faW91bm1hcF9yZWdpb25zKHBkZXYs
+IDEgPDwgTVRJUF9BQkFSKTsKPiA+ID4gKwlwY2ltX3JlbGVhc2VfcmVnaW9uKHBkZXYsIE1USVBf
+QUJBUik7Cj4gPiAKPiA+IEJ1dCB3aHk/Cj4gCj4gRU1PUkVJTkZPUkVRVUlSRUQKPiBXaHkgSSBy
+ZXBsYWNlIGl0IG9yIHdoeSBJIGRvbid0IHJlbW92ZSBpdCBjb21wbGV0ZWx5PwoKVGhlIGxhdHRl
+ciBvbmU6IFdoeSBkaWQgeW91IGxlYXZlIGl0IGFuZCBub3QgcmVtb3ZlPwoKLi4uCgo+ID4gbXRp
+cF9wY2lfcmVtb3ZlKCkKPiA+IAo+ID4gPiDCoAlwY2lfZGlzYWJsZV9tc2kocGRldik7Cj4gPiA+
+IMKgCj4gPiA+IC0JcGNpbV9pb3VubWFwX3JlZ2lvbnMocGRldiwgMSA8PCBNVElQX0FCQVIpOwo+
+ID4gCj4gPiBUaGlzIGlzIG9rYXkuCj4gCj4gUmVtb3ZpbmcgaXQgaXMgb2theSwgeW91IG1lYW4u
+CgpZZXMhCgouLi4KCj4gPiA+IMKgCXBjaV9zZXRfZHJ2ZGF0YShwZGV2LCBOVUxMKTsKPiA+IAo+
+ID4gU2lkZSBub3RlOiBUaGlzIGlzIGRvbmUgYnkgZHJpdmVyIGNvcmUgZm9yIHRoZSBsYXN0IDEw
+KyB5ZWFyc+KApgo+IAo+IEFoIHlvdSBrbm93IEFuZHksIGtlcm5lbCBwcm9ncmFtbWVycyBiZSBs
+aWtlOiAiV2hlbiB5b3UncmUgaHVudGluZyB5b3UKPiBiZXR0ZXIgbWFrZSBzdXJlIHRoZSB3aWxk
+IHNvdyBpcyByZWFsbHkgZGVhZCBiZWZvcmUgeW91IGxvYWQgaXQgaW4geW91cgo+IHRydW5rIiA7
+cAoKSW5kZWVkLCBJIGhhZCBiZWVuIHRvbGQgbWFueSB0aW1lcyBteXNlbGYgdG8gaW1wcm92ZSAv
+IGNsZWFudXAgdGhpbmdzIHVucmVsYXRlZAp0byB0aGUgd29ya2luZyBhcmVhIGJlZm9yZSBhY3R1
+YWxseSBjb25zaWRlcmluZyBteSBsaXR0bGUgd29yay4uLgoKQnV0LCBJIHNwZWNpZmljYWxseSBt
+YXJrIGl0IGFzIGEgIlNpZGUgbm90ZToiLCBzbyBpdCdzIHVwIHRvIHlvdSB0byBhZGRyZXNzCm9y
+IG5vdC4KCi0tIApXaXRoIEJlc3QgUmVnYXJkcywKQW5keSBTaGV2Y2hlbmtvCgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
