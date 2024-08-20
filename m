@@ -2,66 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBBB495871F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 14:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE0C795875F
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 14:52:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97924C6DD6B;
-	Tue, 20 Aug 2024 12:37:47 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70313C6DD6B;
+	Tue, 20 Aug 2024 12:52:34 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C4CBCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F7DBCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 12:37:41 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso442552466b.3
+ Tue, 20 Aug 2024 12:52:27 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a7d26c2297eso625866866b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 05:37:41 -0700 (PDT)
+ Tue, 20 Aug 2024 05:52:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724157460; x=1724762260;
+ d=gmail.com; s=20230601; t=1724158346; x=1724763146;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=u2jK4yPx4+3xmhvpK4yijnOCWRTycZTzx5NwT7STrrQ=;
- b=H9zuXt7zQ89DxrTu9ry/Saz4B0qwyxxSK8qYxMF4a5VU7bPNUOFeOit8yJVRY42Gs8
- AU5Pnt1o4UvccypigfLieekJXy8TZMbsnRSUzgLYrUqBoksZz8q+lwdX/ASHj+key8ot
- IzlMbe/rCYP8nnPtf2LMemJwIwUYEuhwLvM27idmyLMg6fUBoGhObqmhyiDR1PK339VC
- EH28HfuZHIC5oO3zFtCOaLKpypA3RN5yIbIXSQkmi8xg5al9oM+ukWNpCH/xllLpzPy7
- f7+OlaoU1AiVohb5F/d1DPd2OBJqkiOXSP/h0Khz5Go+TVb9WInIK5qz3Q1vmU90ccG2
- LuWg==
+ bh=Knx/Wm8d04mP0mUth0cL+YGIY2+xGYXs0Lh/UFhf76o=;
+ b=H0NDAhTY8xwbcpim8kygUGt8EYuNoy142rDSW0DVXFnwuoXR/G4D9zUvSUn4Gi8wcK
+ F3HR76Q7SYSaGGN3xk3xHfx0YBt7/RLmdOms0ueh38pevS5JKK+sD8sjVpyTyiTg3Vrp
+ +onvf8L4x/qj3knWn/9Hiw8fAZiIaiIBInJXEPQeFRgyGT2EfDRSpnlSJ2nAlIBleADD
+ VwBuWlXyqtTMPxyOQezO+Pi+C8TsOv2ers2nWhZW9EUoHq1St8jlAA6WZnGl0AfK0JTR
+ wtDCEaM3TmWTwFZT3two9vOa3e7i/I/p31o9yGPBr01wSFJsh5lSjQ3aFYP4KAbZenI8
+ +EyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724157460; x=1724762260;
+ d=1e100.net; s=20230601; t=1724158346; x=1724763146;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u2jK4yPx4+3xmhvpK4yijnOCWRTycZTzx5NwT7STrrQ=;
- b=wUShxQDkdq4aRMe00vyTkWN1URYwjbCegk5BIEUBmowr7TfvohCcVmmQoSGJerM807
- D93HpmgxsQuUhIhZe2cT6Dzvna4NfJtY3nRKdkc0iEwVMd2d1t0ojUlX0nJ+L388TkOs
- fuP5ttDG5EhIN1XiZlibJY16jzWcvVwcU66y76wAYyG2jLLs2drXsqYYl6XfoB6cBSOn
- npC+lg3/5B7/ugfm91OR6HrNgm37+w//hxOOdITffUgoff/jI3yqD+tkqXB0xsAfOOkf
- Nyr4E3p/UXfHsmAPicJO/Khnp8mmtJdP5xNYNkyTDfurHPRaD9O723dRN31hUYuKlxe7
- vHiQ==
+ bh=Knx/Wm8d04mP0mUth0cL+YGIY2+xGYXs0Lh/UFhf76o=;
+ b=ucE1pmifz3A+EBuNKiX9yMsM4xWSPrp3eK40Gf4EANrWejZb8yXhWrdX+cE3IhYmzX
+ NWxe/ynxpCvAaq2GDj+bbSK106sMytMNmaRLLGPzpVNNlzsJBkS4rO1CQi2Dc5/L9969
+ t3vEhnY3/tjDtO+iU5yObE2Fey+14Sssb9qCTc7iB4VP0SyLIH8ad57DlGcGiyvLian/
+ BrV87PZG7C3Zl+o1FLRXWwZ8CCuslDbmxnb7FiD+onLKgEzmcWTIV60bAlR8OlpEiFa8
+ ZcRjVQB+ZNSlqMEbs5Rt7aKnVn0tskmRyCBiK4vOpdI/L9wDq07O/nOugeOd3N7+4RRZ
+ jXAg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1jMjGrBYzJkqbJ9BBpwBcjL1F9w+rCSKbaAmUL6By54OKQH5mi5fGjVqrsLWKAi0t/stBIfxyxELvdH4jlMbIGo1pPyCllCwwtLB/dorzRxHMBIeK8peA
-X-Gm-Message-State: AOJu0YwwA3GYDMCbgzHFM+FNfcgvAxlMSDFk0CrfeGU+ydi0WUh31usa
- 1bFC6Fw3L9LoaQBAMEnI2N7m4BtxC7KKf+nu5we0QKHouEG1x3+A
-X-Google-Smtp-Source: AGHT+IEnFLaRCBdXyPNV3Gh/d/fIvJ4GLVS182SUvRH2sa8DDTUCqoFD2e3s6tHxCNrIcyWJR2snGQ==
-X-Received: by 2002:a17:907:948d:b0:a77:c0f5:69cc with SMTP id
- a640c23a62f3a-a8392a46c63mr817589366b.61.1724157459917; 
- Tue, 20 Aug 2024 05:37:39 -0700 (PDT)
+ AJvYcCUNN4zVVWwMsWbBHYLKVMVeGLHB5kotqzBsZjVbWB6FqEcwkao5sSgOryI7sTtTa0A0YzWWpVS6/qJzAw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwrFBWsmYwzpNcIsnNaglVwpO7zvQKu4flBJfuG2Nl97o+Z8ciD
+ tzOEdg3AW4aiLQv3Htbb0jAJAfd9y+0skH9Wp0DJhwLC5S1TpkHP
+X-Google-Smtp-Source: AGHT+IELQXfyg2G1L4D9vQw2uIX24lD9ZaNlxT9BSo4Kp7kVm3c1WwrsSrVTXpg6pVqMkwFN2/fdDQ==
+X-Received: by 2002:a17:907:9717:b0:a72:6b08:ab24 with SMTP id
+ a640c23a62f3a-a83928a4178mr1099966866b.14.1724158345821; 
+ Tue, 20 Aug 2024 05:52:25 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383947187sm752949366b.166.2024.08.20.05.37.38
+ a640c23a62f3a-a83838c6bfcsm762540966b.28.2024.08.20.05.52.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2024 05:37:39 -0700 (PDT)
-Date: Tue, 20 Aug 2024 15:37:36 +0300
+ Tue, 20 Aug 2024 05:52:25 -0700 (PDT)
+Date: Tue, 20 Aug 2024 15:52:22 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240820123736.hkkzg4ijd6u2rtfi@skbuf>
-References: <cover.1724152528.git.0x1207@gmail.com>
+Message-ID: <20240820125222.uia4m27wizy2767a@skbuf>
+References: <cover.1724145786.git.0x1207@gmail.com>
+ <bc4940c244c7e261bb00c2f93e216e9d7a925ba6.1724145786.git.0x1207@gmail.com>
+ <20240820123456.qbt4emjdjg5pouym@skbuf>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1724152528.git.0x1207@gmail.com>
+In-Reply-To: <20240820123456.qbt4emjdjg5pouym@skbuf>
 Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
@@ -70,8 +72,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
  xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v5 0/7] net: stmmac: FPE via
-	ethtool + tc
+Subject: Re: [Linux-stm32] [PATCH net-next v4 3/7] net: stmmac: refactor FPE
+ verification process
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,20 +90,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 20, 2024 at 07:20:34PM +0800, Furong Xu wrote:
-> Move the Frame Preemption(FPE) over to the new standard API which uses
-> ethtool-mm/tc-mqprio/tc-taprio.
-> 
-> Changes in v5:
->   1. fix typo in commit message
->   2. drop FPE capability check in tc-mqprio/tc-taprio
+On Tue, Aug 20, 2024 at 03:34:56PM +0300, Vladimir Oltean wrote:
+> I took the liberty of rewriting the fpe_task to a timer, and delete the
+> workqueue. Here is a completely untested patch, which at least is less
+> complex, has less code and is easier to understand. What do you think?
 
-omg, I didn't even finish reviewing v4, and I haven't been doing anything
-else since you posted it :-/
+I already found a bug in the code I sent, sorry. verify_limit needs to
+be reset each time status is reset to ETHTOOL_MM_VERIFY_STATUS_INITIAL,
+to allow for 3 retries on each clean-state verification process.
 
-In Documentation/process/maintainer-netdev.rst there's a recommendation
-to allow for 24 hours between patch submissions. Please observe that, to
-avoid situations like these. Thank you.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 3eb5344e2412..530793bce231 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -1333,7 +1333,6 @@ static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+ 	fpe_cfg->tx_enabled = cfg->tx_enabled;
+ 	fpe_cfg->verify_time = cfg->verify_time;
+ 	fpe_cfg->verify_enabled = cfg->verify_enabled;
+-	fpe_cfg->verify_limit = 3; /* IEEE 802.3 constant */
+ 	if (!cfg->verify_enabled)
+ 		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index fa74504f3ad5..a88ec40c4b6d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7405,6 +7405,7 @@ void stmmac_fpe_apply(struct stmmac_priv *priv)
+ 				     fpe_cfg->pmac_enabled);
+ 	} else {
+ 		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
++		fpe_cfg->verify_limit = 3; /* IEEE 802.3 constant */
+ 		stmmac_fpe_verify_timer_arm(fpe_cfg);
+ 	}
+ }
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
