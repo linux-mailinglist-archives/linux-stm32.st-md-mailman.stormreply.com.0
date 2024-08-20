@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C7F95849F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 12:32:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B1059584B0
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2024 12:35:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8074CC6DD66;
-	Tue, 20 Aug 2024 10:32:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B27FDC6DD66;
+	Tue, 20 Aug 2024 10:35:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAA17CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F8EFCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 10:32:31 +0000 (UTC)
-X-CSE-ConnectionGUID: Evv+FPodRRKVoNT/AuBGrA==
-X-CSE-MsgGUID: kfXjhyjNTiW2Ww8B95G71g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11169"; a="22324657"
-X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="22324657"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2024 03:32:30 -0700
-X-CSE-ConnectionGUID: bgvkjWUKT6CGVtHoylpWSw==
-X-CSE-MsgGUID: 3ydoSxXsQZCyk4cZEMBrXA==
+ Tue, 20 Aug 2024 10:35:14 +0000 (UTC)
+X-CSE-ConnectionGUID: 94OiHQ+QRYi885zgsdbvag==
+X-CSE-MsgGUID: 0tecvGpsRiCi2cr6gTlmIQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11169"; a="33102948"
+X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="33102948"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 03:35:13 -0700
+X-CSE-ConnectionGUID: jPFRCu2HTpiBmNIFCKNJFw==
+X-CSE-MsgGUID: pNVVVqHdTHK/wYhkKlAIQA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="91458848"
+X-IronPort-AV: E=Sophos;i="6.10,161,1719903600"; d="scan'208";a="60745183"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2024 03:32:21 -0700
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 03:35:06 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andy@kernel.org>) id 1sgM9w-0000000HGS5-2gMy;
- Tue, 20 Aug 2024 13:32:16 +0300
-Date: Tue, 20 Aug 2024 13:32:16 +0300
+ (envelope-from <andy@kernel.org>) id 1sgMCb-0000000HGUy-3xzl;
+ Tue, 20 Aug 2024 13:35:01 +0300
+Date: Tue, 20 Aug 2024 13:35:01 +0300
 From: Andy Shevchenko <andy@kernel.org>
 To: Philipp Stanner <pstanner@redhat.com>
-Message-ID: <ZsRwsDWQT6dmwC1p@smile.fi.intel.com>
+Message-ID: <ZsRxVUmTpT5nHncc@smile.fi.intel.com>
 References: <20240819165148.58201-2-pstanner@redhat.com>
- <20240819165148.58201-8-pstanner@redhat.com>
- <ZsONiNkdXGMKMbRL@smile.fi.intel.com>
- <5d70794731198ec7bc59bd95e50a8aa81cf97c7b.camel@redhat.com>
+ <20240819165148.58201-10-pstanner@redhat.com>
+ <74e9109a-ac59-49e2-9b1d-d825c9c9f891@wanadoo.fr>
+ <ZsOQPbVGQFtUYSww@smile.fi.intel.com>
+ <419e91cb2b698a450497dfc1fb86f2c46eb7d8fb.camel@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5d70794731198ec7bc59bd95e50a8aa81cf97c7b.camel@redhat.com>
+In-Reply-To: <419e91cb2b698a450497dfc1fb86f2c46eb7d8fb.camel@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Linus Walleij <linus.walleij@linaro.org>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Xuan Zhuo <xuanzhuo@linux.alibaba.com>, onathan Corbet <corbet@lwn.net>,
  Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
  Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jose Abreu <joabreu@synopsys.com>, linux-pci@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
  Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
  linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
- Hannes Reinecke <hare@suse.de>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Mark Brown <broonie@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Bjorn Helgaas <bhelgaas@google.com>, linux-arm-kernel@lists.infradead.org,
- Jens Axboe <axboe@kernel.dk>, David Lechner <dlechner@baylibre.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>, netdev@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
- Damien Le Moal <dlemoal@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 6/9] ethernet: cavium: Replace deprecated
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Moritz Fischer <mdf@kernel.org>,
+ linux-fpga@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 8/9] vdap: solidrun: Replace deprecated
 	PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,84 +75,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 20, 2024 at 09:40:09AM +0200, Philipp Stanner wrote:
-> On Mon, 2024-08-19 at 21:23 +0300, Andy Shevchenko wrote:
-> > On Mon, Aug 19, 2024 at 06:51:46PM +0200, Philipp Stanner wrote:
-
-...
-
-> > cavium_ptp_probe()
-> > =
-
-> > > -	pcim_iounmap_regions(pdev, 1 << PCI_PTP_BAR_NO);
-> > > +	pcim_iounmap_region(pdev, PCI_PTP_BAR_NO);
-> > > =A0
-> > > =A0error_free:
-> > > =A0	devm_kfree(dev, clock);
-> > =
-
-> > Both are questionable. Why do we need either of them?
-> =
-
-> You seem to criticize my pcim_iounmap_region() etc. in other unwind
-> paths, too.
-
-Yes, having devm/pcim/etc_m in the clean up / error paths seems at bare min=
-imum
-confusing, or reveals wrong use of them or even misunderstanding the concep=
-t...
-
-And it's not your fault, it was already in those drivers like that...
-
-> I think your criticism is often justified. This driver
-> here, however, was the one which made me suspicious and hesitate and
-> removing those calls; because of the code below:
-> =
-
-> =
-
-> 	pcim_iounmap_region(pdev, PCI_PTP_BAR_NO);
-> =
-
-> error_free:
-> 	devm_kfree(dev, clock);
-> =
-
-> error:
-> 	/* For `cavium_ptp_get()` we need to differentiate between the case
-> 	 * when the core has not tried to probe this device and the case when
-> 	 * the probe failed.  In the later case we pretend that the
-> 	 * initialization was successful and keep the error in
-> 	 * `dev->driver_data`.
-> 	 */
-> 	pci_set_drvdata(pdev, ERR_PTR(err));
-> 	return 0;
-> }
-> =
-
-> So in case of an error they return 0 and do... stuff.
-> =
-
-> I don't want to touch that without someone who maintains (and, ideally,
-> understands) the code details what's going on here.
-
-Thanks for elaboration, indeed it was not enough context to see the full
-picture. This seems like an ugly hack that has to be addressed at some poin=
-t.
-But again, not your fault.
-
--- =
-
-With Best Regards,
-Andy Shevchenko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBdWcgMjAsIDIwMjQgYXQgMTA6MTM6NDBBTSArMDIwMCwgUGhpbGlwcCBTdGFubmVy
+IHdyb3RlOgo+IE9uIE1vbiwgMjAyNC0wOC0xOSBhdCAyMTozNCArMDMwMCwgQW5keSBTaGV2Y2hl
+bmtvIHdyb3RlOgo+ID4gT24gTW9uLCBBdWcgMTksIDIwMjQgYXQgMDg6MTk6MjhQTSArMDIwMCwg
+Q2hyaXN0b3BoZSBKQUlMTEVUIHdyb3RlOgo+ID4gPiBMZSAxOS8wOC8yMDI0IMOgIDE4OjUxLCBQ
+aGlsaXBwIFN0YW5uZXIgYSDDqWNyaXTCoDoKCi4uLgoKPiA+ID4gVW5yZWxhdGVkIHRvIHRoZSBw
+YXRjaCwgYnV0IGlzIGlzIHNhZmUgdG8gaGF2ZSAnbmFtZScgYmUgb24gdGhlCj4gPiA+IHN0YWNr
+Pwo+ID4gPiAKPiA+ID4gcGNpbV9pb21hcF9yZWdpb24oKQo+ID4gPiAtLT4gX19wY2ltX3JlcXVl
+c3RfcmVnaW9uKCkKPiA+ID4gLS0+IF9fcGNpbV9yZXF1ZXN0X3JlZ2lvbl9yYW5nZSgpCj4gPiA+
+IC0tPiByZXF1ZXN0X3JlZ2lvbigpIG9yIF9fcmVxdWVzdF9tZW1fcmVnaW9uKCkKPiA+ID4gLS0+
+IF9fcmVxdWVzdF9yZWdpb24oKQo+ID4gPiAtLT4gX19yZXF1ZXN0X3JlZ2lvbl9sb2NrZWQoKQo+
+ID4gPiAtLT4gcmVzLT5uYW1lID0gbmFtZTsKPiA+ID4gCj4gPiA+IFNvIGFuIGFkZHJlc3Mgb24g
+dGhlIHN0YWNrIGVuZHMgaW4gdGhlICduYW1lJyBmaWVsZCBvZiBhICJzdHJ1Y3QKPiA+ID4gcmVz
+b3VyY2UiLgo+ID4gPiAKPiA+ID4gQWNjb3JkaW5nIHRvIGEgZmV3IGdyZXAsIGl0IGxvb2tzIHJl
+YWxseSB1bnVzdWFsLgo+ID4gPiAKPiA+ID4gSSBkb24ndCBrbm93IGlmIGl0IGlzIHVzZWQsIGJ1
+dCBpdCBsb29rcyBzdHJhbmdlIHRvIG1lLgo+ID4gCj4gPiBJdCBtaWdodCBiZSB1c2VkIHdoZW4g
+cHJpbnRpbmcgL3Byb2MvaW9tZW0sIGJ1dCBJIGRvbid0IHJlbWVtYmVyIGJ5Cj4gPiBoZWFydC4K
+PiA+IAo+ID4gPiBJZiBpdCBpcyBhbiBpc3N1ZSwgaXQgd2FzIGFwcGFyZW50bHkgYWxyZWFkeSB0
+aGVyZSBiZWZvcmUgdGhpcwo+ID4gPiBwYXRjaC4KPiA+IAo+ID4gVGhpcyBzZXJpZXMgc2VlbXMg
+dG8gcmV2ZWFsIGEgbG90IG9mIGlzc3VlcyB3aXRoIHRoZSBwcm9iZS9yZW1vdmUgaW4KPiA+IG1h
+bnkKPiA+IGRyaXZlcnMuIEkgdGhpbmsgaXQncyBiZXR0ZXIgdG8gbWFrZSBmaXhlcyBvZiB0aGVt
+IGJlZm9yZSB0aGlzIHNlcmllcwo+ID4gZm9yCj4gPiB0aGUgc2FrZSBvZiBlYXNpZXIgYmFja3Bv
+cnRpbmcuCj4gCj4gSnVzdCBzbyB3ZSdyZSBpbiBzeW5jOgo+IEkgdGhpbmsgdGhlIG9ubHkgcmVh
+bCBidWcgaGVyZSBzbyBmYXIgaXMgdGhlIG9uZSBmb3VuZCBieSBDaHJpc3RvcGhlLgo+IAo+IFRo
+ZSB1c2FnZXMgb2YgcGNpX2Rpc2FibGVfZGV2aWNlKCksIHBjaW1faW91bm1hcF9yZWdpb25zKCkg
+YW5kIHRoZSBsaWtlCj4gaW4gcmVtb3ZlKCkgYW5kIGVycm9yIHVud2luZCBwYXRocyBhcmUgbm90
+IGVsZWdhbnQgYW5kIG1ha2UgZGV2cmVzIGtpbmQKPiBvZiB1c2VsZXNzIOKAkyBidXQgdGhleSBh
+cmUgbm90IGJ1Z3MuIFNvIEkgd291bGRuJ3QgYmFja3BvcnQgdGhlbS4KCkFncmVlLgoKPiA+IElm
+IGhlcmUgaXMgYSBwcm9ibGVtLCB0aGUgZGV2bV9rYXNwcmludGYoKSBzaG91bGQgYmUgdXNlZC4K
+Ci0tIApXaXRoIEJlc3QgUmVnYXJkcywKQW5keSBTaGV2Y2hlbmtvCgoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
