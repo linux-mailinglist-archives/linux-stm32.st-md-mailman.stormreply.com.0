@@ -2,59 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F00A959772
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 12:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D28D69597A3
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 12:27:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF1B1C6DD9A;
-	Wed, 21 Aug 2024 10:00:42 +0000 (UTC)
-Received: from msa.smtpout.orange.fr (smtp-84.smtpout.orange.fr [80.12.242.84])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89E5EC6DD9A;
+	Wed, 21 Aug 2024 10:27:38 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE170C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64C6AC6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2024 10:00:35 +0000 (UTC)
-Received: from [192.168.1.37] ([90.11.132.44]) by smtp.orange.fr with ESMTPA
- id gi8bsVe5vQYYugi8bs0j4Z; Wed, 21 Aug 2024 12:00:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1724234435;
- bh=w6AIYrBySrGuhkddExNCWqzXmH7gBMeTgtXfKwkDmGI=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=QxT2yLCSf3emNohfH/QMtChqPSQqqWCz+jg4/sJ1vsmTOCfCHpgaAvyqx/WbsPUgZ
- j0w3Ifi/pO/A9j3NexJSl4xUQGdgAwPSojkhWMogfJYjmNkm75D5FBLvWvzBfsoLnx
- RtgE/n5BJ2UFiEIPD8sFOVl2YVWvD1WoFHghd/fnChM3vrdlWGJ60YZx+cSO1POKe/
- UrZjsxDAjN7K04ZUGLvQezWqRv7RkY5CN3xSXxVmxM1ACtkvF+GMWCeH8yp3vLp82I
- DfoFXgyExAGvtjtoSmSR/NevfVwszwgh3H/mUaKphifhnf+W+FZJJpCz9TpFGY61l8
- ZEZ3P0e9kIg0Q==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
-X-ME-Date: Wed, 21 Aug 2024 12:00:35 +0200
-X-ME-IP: 90.11.132.44
-Message-ID: <40db668d-8e8b-4782-8a0b-4a0e9965f086@wanadoo.fr>
-Date: Wed, 21 Aug 2024 12:00:20 +0200
+ Wed, 21 Aug 2024 10:27:31 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-5bece5b572eso95879a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Aug 2024 03:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724236051; x=1724840851;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/fb/RuJkeM3aFjdMF0c0Xwmg+kLLocjFSamrIW7BWhs=;
+ b=KF+xI7pibxlMMRmky6OVr8ob5CaQtlPuM8Rf54QURGStPRnexmdFG2cnvnIeYGdPEC
+ 91M046XDaMKtYkfI55rC29Ci7ua1cPj0IKAb/alnGln2wniUMyjcJkIYjy78OSe5xPkG
+ UoesadTWSBi2KwN1e+RebXmCSgjorgKvJF4f+XlGc23XBuD5ch+/wq1jOpwICiLFfhJM
+ Z+e1tk2iUsHg+HIKzqpQX/4rvRF0/qxdgODI/B5RYAJcWBvPfsl5OskBWxQ9SVjgIQ53
+ lU0xUf8NzC368puD4p9iNMcwhF7uSn8UA4uRhsSmCbHpnmmt8clPTRQQbDKr5PRORLXx
+ E2VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724236051; x=1724840851;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/fb/RuJkeM3aFjdMF0c0Xwmg+kLLocjFSamrIW7BWhs=;
+ b=bmoHvqTBoPSczK2XLqxN4sxWriiAn+/1htrpbtiSDwMkSnVQLp2K4Fk66cqp7igBMt
+ QZWo0oiGT2+c7IUD+6EfrMuC+QJCJcP5wikNV3xzJXu5CFhQGVBIArl5tGZ/Zs/4CAkq
+ n3Go7l42C4B0Zw/tSf1IqtoIsG0ABGAIRoPtelzeD3TOPWKrpA73Xz+4qe5/yru908eD
+ 3lxOoRnzRXZMSZrX61Vy8UUC83WCp2mr0MFHfuGDn2QZXBfjT9oNuHpwYyvniYgEexDy
+ mzGltAPqcyw7ktXyuOJrXAHjWMnYB/uWLKRqfqIImk1mZhxCu6We+A8OZCVPsi6vs2kt
+ bfrQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrtTubhDdrsU1m2uKVjArMOInNwztUOfrQTFTfJnRv/j1B0qAQOumF4+wSSitWd97IFXNXgUbQuWdTvw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxikbt3gfHkCEB97LRaWCbYaqRqPhrJ5reZpzY9n7qL5bbeLalW
+ 1Kxzas3VxlIaxo15fqCEkvzYV5pNx8fsv4vlSctbCbx1JU5pa4TR
+X-Google-Smtp-Source: AGHT+IF6e53jlF1aQdWI+jcMWFq1gf/ZzPGVpqcc9Wop3GOkHdEj2yHM0jbnNyjDTQ4O5WbTWDngZg==
+X-Received: by 2002:a05:6402:13c8:b0:5a0:d706:c1fe with SMTP id
+ 4fb4d7f45d1cf-5bf1f2abe3amr645381a12.6.1724236050235; 
+ Wed, 21 Aug 2024 03:27:30 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5becf1f3442sm6465107a12.31.2024.08.21.03.27.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Aug 2024 03:27:29 -0700 (PDT)
+Date: Wed, 21 Aug 2024 13:27:27 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20240821102727.qitmm2zxnpva4cqd@skbuf>
+References: <cover.1724145786.git.0x1207@gmail.com>
+ <bc4940c244c7e261bb00c2f93e216e9d7a925ba6.1724145786.git.0x1207@gmail.com>
+ <20240820123456.qbt4emjdjg5pouym@skbuf>
+ <20240821125833.000010f7@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Philipp Stanner <pstanner@redhat.com>
-References: <20240821071842.8591-2-pstanner@redhat.com>
- <20240821071842.8591-9-pstanner@redhat.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20240821071842.8591-9-pstanner@redhat.com>
-Cc: linux-doc@vger.kernel.org, alvaro.karsz@solid-run.com,
- linux-pci@vger.kernel.org, linus.walleij@linaro.org, bhelgaas@google.com,
- edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
- xuanzhuo@linux.alibaba.com, corbet@lwn.net, brgl@bgdev.pl, mst@redhat.com,
- eperezma@redhat.com, joabreu@synopsys.com, trix@redhat.com, kuba@kernel.org,
- dlechner@baylibre.com, jasowang@redhat.com, hao.wu@intel.com, axboe@kernel.dk,
- richardcochran@gmail.com, u.kleine-koenig@pengutronix.de,
- virtualization@lists.linux.dev, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, broonie@kernel.org, christophe.jaillet@wanadoo.fr,
- hare@suse.de, kbusch@kernel.org, linux-arm-kernel@lists.infradead.org,
- andy@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, yilun.xu@intel.com,
- dlemoal@kernel.org, mcoquelin.stm32@gmail.com, mdf@kernel.org,
- linux-fpga@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v2 7/9] vdpa: solidrun: Fix potential UB
-	bug with devres
+Content-Disposition: inline
+In-Reply-To: <20240821125833.000010f7@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 3/7] net: stmmac: refactor FPE
+ verification process
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,47 +86,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgMjEvMDgvMjAyNCDDoCAwOToxOCwgUGhpbGlwcCBTdGFubmVyIGEgw6ljcml0wqA6Cj4gSW4g
-cHNuZXRfb3Blbl9wZl9iYXIoKSBhIHN0cmluZyBsYXRlciBwYXNzZWQgdG8gcGNpbV9pb21hcF9y
-ZWdpb25zKCkgaXMKPiBwbGFjZWQgb24gdGhlIHN0YWNrLiBOZWl0aGVyIHBjaW1faW9tYXBfcmVn
-aW9ucygpIG5vciB0aGUgZnVuY3Rpb25zIGl0Cj4gY2FsbHMgY29weSB0aGF0IHN0cmluZy4KPiAK
-PiBTaG91bGQgdGhlIHN0cmluZyBsYXRlciBldmVyIGJlIHVzZWQsIHRoaXMsIGNvbnNlcXVlbnRs
-eSwgY2F1c2VzCj4gdW5kZWZpbmVkIGJlaGF2aW9yIHNpbmNlIHRoZSBzdGFjayBmcmFtZSB3aWxs
-IGJ5IHRoZW4gaGF2ZSBkaXNhcHBlYXJlZC4KPiAKPiBGaXggdGhlIGJ1ZyBieSBhbGxvY2F0aW5n
-IHRoZSBzdHJpbmcgb24gdGhlIGhlYXAgdGhyb3VnaAo+IGRldm1fa2FzcHJpbnRmKCkuCj4gCj4g
-Q2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcJIyB2Ni4zCj4gRml4ZXM6IDUxYThmOWQ3ZjU4NyAo
-InZpcnRpbzogdmRwYTogbmV3IFNvbGlkTkVUIERQVSBkcml2ZXIuIikKPiBSZXBvcnRlZC1ieTog
-Q2hyaXN0b3BoZSBKQUlMTEVUIDxjaHJpc3RvcGhlLmphaWxsZXRAd2FuYWRvby5mcj4KPiBDbG9z
-ZXM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC83NGU5MTA5YS1hYzU5LTQ5ZTItOWIxZC1k
-ODI1YzljOWY4OTFAd2FuYWRvby5mci8KPiBTdWdnZXN0ZWQtYnk6IEFuZHkgU2hldmNoZW5rbyA8
-YW5keUBrZXJuZWwub3JnPgo+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcHAgU3Rhbm5lciA8cHN0YW5u
-ZXJAcmVkaGF0LmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvdmRwYS9zb2xpZHJ1bi9zbmV0X21haW4u
-YyB8IDcgKysrKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
-dGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy92ZHBhL3NvbGlkcnVuL3NuZXRfbWFp
-bi5jIGIvZHJpdmVycy92ZHBhL3NvbGlkcnVuL3NuZXRfbWFpbi5jCj4gaW5kZXggOTk0MjhhMDQw
-NjhkLi40ZDQyYTA1ZDcwZmMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy92ZHBhL3NvbGlkcnVuL3Nu
-ZXRfbWFpbi5jCj4gKysrIGIvZHJpdmVycy92ZHBhL3NvbGlkcnVuL3NuZXRfbWFpbi5jCj4gQEAg
-LTU1NSw3ICs1NTUsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHZkcGFfY29uZmlnX29wcyBzbmV0
-X2NvbmZpZ19vcHMgPSB7Cj4gICAKPiAgIHN0YXRpYyBpbnQgcHNuZXRfb3Blbl9wZl9iYXIoc3Ry
-dWN0IHBjaV9kZXYgKnBkZXYsIHN0cnVjdCBwc25ldCAqcHNuZXQpCgpzbmV0X29wZW5fdmZfYmFy
-KCkgYWxzbyBuZWVkcyB0aGUgc2FtZSBtb2RpZmljYXRpb24gKHNlZSBBbmR5J3MgY29tbWVudCAK
-b24gcGF0Y2ggOC85KQoKQ0oKCj4gICB7Cj4gLQljaGFyIG5hbWVbNTBdOwo+ICsJY2hhciAqbmFt
-ZTsKPiAgIAlpbnQgcmV0LCBpLCBtYXNrID0gMDsKPiAgIAkvKiBXZSBkb24ndCBrbm93IHdoaWNo
-IEJBUiB3aWxsIGJlIHVzZWQgdG8gY29tbXVuaWNhdGUuLgo+ICAgCSAqIFdlIHdpbGwgbWFwIGV2
-ZXJ5IGJhciB3aXRoIGxlbiA+IDAuCj4gQEAgLTU3Myw3ICs1NzMsMTAgQEAgc3RhdGljIGludCBw
-c25ldF9vcGVuX3BmX2JhcihzdHJ1Y3QgcGNpX2RldiAqcGRldiwgc3RydWN0IHBzbmV0ICpwc25l
-dCkKPiAgIAkJcmV0dXJuIC1FTk9ERVY7Cj4gICAJfQo+ICAgCj4gLQlzbnByaW50ZihuYW1lLCBz
-aXplb2YobmFtZSksICJwc25ldFslc10tYmFycyIsIHBjaV9uYW1lKHBkZXYpKTsKPiArCW5hbWUg
-PSBkZXZtX2thc3ByaW50ZigmcGRldi0+ZGV2LCBHRlBfS0VSTkVMLCAicHNuZXRbJXNdLWJhcnMi
-LCBwY2lfbmFtZShwZGV2KSk7Cj4gKwlpZiAoIW5hbWUpCj4gKwkJcmV0dXJuIC1FTk9NRU07Cj4g
-Kwo+ICAgCXJldCA9IHBjaW1faW9tYXBfcmVnaW9ucyhwZGV2LCBtYXNrLCBuYW1lKTsKPiAgIAlp
-ZiAocmV0KSB7Cj4gICAJCVNORVRfRVJSKHBkZXYsICJGYWlsZWQgdG8gcmVxdWVzdCBhbmQgbWFw
-IFBDSSBCQVJzXG4iKTsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, Aug 21, 2024 at 12:58:33PM +0800, Furong Xu wrote:
+> 
+> Hi Vladimir
+> 
+> On Tue, 20 Aug 2024 15:34:56 +0300, Vladimir Oltean <olteanv@gmail.com> wrote:
+> > I took the liberty of rewriting the fpe_task to a timer, and delete the
+> > workqueue. Here is a completely untested patch, which at least is less
+> > complex, has less code and is easier to understand. What do you think?
+> > 
+> 
+> Your patch is much better than my ugly implementation ;)
+
+Well, to be fair, it took us a number of iterations to properly see how
+much it could be simplified.
+
+> Some small fixes are required to make kselftest-ethtool_mm pass.
+> 
+> Would you mind if I rebase you patch, fix some small issues, make sure all
+> test cases pass, split it into two patches and include them in my patchset,
+> then send to review as a Co-developer and a tester?
+
+Please feel free to split up that patch and squash it into your patches,
+keeping your Author: field and just a Co-developed-by: + Signed-off-by:
+for me, where parts of that patch helped you.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
