@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F177959662
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 10:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 312BB959667
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 10:21:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEE29C6DD9A;
-	Wed, 21 Aug 2024 08:20:14 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC1F1C6DD9A;
+	Wed, 21 Aug 2024 08:21:33 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27AB1C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C631C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2024 08:20:07 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2f3f163e379so21098751fa.3
+ Wed, 21 Aug 2024 08:21:26 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-52f04c29588so8457204e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2024 01:20:07 -0700 (PDT)
+ Wed, 21 Aug 2024 01:21:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724228406; x=1724833206;
+ d=gmail.com; s=20230601; t=1724228485; x=1724833285;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WdhYZISuTETd5XZ8LEV8qzxmVjQjEonrE8b5iyMQ2ws=;
- b=At4mCZLJhwNedb/Cnh4XIkMM/opoiKZ1NiDej7CJLa1/g7ZDd39MbXAX0lGcKJjhze
- T0RTJ4m6NOLBSG2tUIIxNLGOnblGgpW8yHv2DF06VApBhrblCUnCxvkJ/Ga2Y6a0FqaC
- 8S4uPRMWAmVvUOCz0Y14qUg6/gU9t6K8d7g82bH972Rg8K5KUJ8vrXteCtk4kxErjIhK
- kF7DIH2ogfLN45PSvwa+bwK71Y/qkJ0o3/pGlsWIXWwqMlx2KA9ruWNppCVS/tdT20Se
- d9AD6GaSJHdB87MDkhnM/pRbmAi7sQlZj2v0uZVY12RQR1vH39beP/Lk+/SdAKPjyTDT
- JdKQ==
+ bh=A1mM7VOy3wYhnD2rAhzlxVmwa5gojTJ+lhe9geIJYUs=;
+ b=SxB98HFpDjiaTmsDQHg5s6dLOnvhCaAAfzyjpHpIgFVjsC6nQQyQMAjpeRVCbm1X/a
+ L27S7tiKWOqFquOwn1wSARW4u1MIFPTLE/Mj7Cs0Jtmns78nB+chdK/PM64tHMSryT27
+ Ii72s+OdkMJSUT4OYYIlOvteTiwnQIZBGzbVbQxQtq4/Nd4AC+nbd8A48q+gxpob+0qY
+ UA4XGeRq3lirCppgoyY5JjIOv57Lu2rIaSY8golkPLZL5e1ZiDq/2tAr932wUo3mx9XB
+ LVBgyIqO0rVuxqfsvEIs53BqTR+S4uw1Fb3qrQE6RBU1H5nmf5S5rmQKhGfYmg4Mv9aF
+ 4w7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724228406; x=1724833206;
+ d=1e100.net; s=20230601; t=1724228485; x=1724833285;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WdhYZISuTETd5XZ8LEV8qzxmVjQjEonrE8b5iyMQ2ws=;
- b=XKuEoz6bnBMj++iiamuqjRL492sxcEsw1s+0PGRKv6wHjHghJD/bJ42JnixoproQHg
- TbbTEV3GFUEf6BSJNMJBUjbhHn8d5ITgAYzpn+610SGUxM4GvEmKUrygWkqRdG5ELwJE
- IuU54sn73QWUu1qfNKgYNRt74x2iiDe+DUyrs5sIGy7iWJi/T5OmdxnJlXqhe7aZ/FzZ
- 3U4N3u0ZRrkZ9qfuesvj1jPPfVCdhEadQOj1UFCFrF8RfrdkcduUK8CHCfIz65IJEXx1
- lpDCW5fCSB0182lMFcHO9X7QVKNk8UoQeVF8sjZ8LJKCzaWkPNsX6O8wMavUO3rz4uND
- XuYQ==
+ bh=A1mM7VOy3wYhnD2rAhzlxVmwa5gojTJ+lhe9geIJYUs=;
+ b=XWEKoce2I/QEXe+AOjhADHXz3GkIQLbkVxLqfecpgkYRhETyV98Ivujh8S6Ph7F01d
+ CoCVdJApBt76Y1hPYbFbm2+B0lTaT0XPq/uCL79RSHKz4lQAq/xctydCPLdRlrnZ5njc
+ jwWkGpB45jGGfbsEjjBOIXrJyTpqawGQMobPBrI7VwHMpr6uwIM5jPsYYExa/rBGCy4j
+ 1/JLz6SuyrmErhzFrDgxMwq7Wdh87hrbd27XTz0wWjCPvwfHkLD8IMRrjSR00/q1BxNq
+ aTvMsG/XlEJ3zti3GnFpve9M3AQwAAnGTALhSk5Ai80sj/0aZP6eDA+Si9oPV0BqQnVj
+ EI/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUVTqhgGKGisvUsuUM7jybshAzgvF6OuyLNsf9bSGuR6i0fv4ChGCNZtJkRXrhO1Bk3I/rQ3PBr/guWhA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxMJrJ+yetn2f36datz1EV06Hi58Og7VG3TBUXExSQUGRtafSiG
- dPocbUpfxtVs5KwS9Wwu9sJwpVNwk6AK9uSFT+LLuvDMa32yt+n4ZKghV3aMFCbg1Zrh5YdWbtr
- sX/dkr/tQpOJKQaFs4qC1xn00zok=
-X-Google-Smtp-Source: AGHT+IGy365Pc9TKJF5GAK0armKU9Hpgj1dovYSvRFuHJ1yV+fMbVBAOtQzki539dYAOujtFA/EPC2D0nPczB6xkNv0=
-X-Received: by 2002:a2e:854f:0:b0:2f1:67de:b536 with SMTP id
- 38308e7fff4ca-2f3f8890618mr10493191fa.24.1724228406003; Wed, 21 Aug 2024
- 01:20:06 -0700 (PDT)
+ AJvYcCX1wwnSsXgPjePN+tpTw0AMQxZE07kOMHtqOiYLQ8qbgqg4SPANfatrVBz5osXhZOVdCaMv+VRJpec0PA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy9bT8HU6YwFFKtZjRRVojOLzUGWsETrLg8xpunhWMB6t6sTaxG
+ GIHuDLpiqBMuehyTGCX8V0gmETc9TT0s+UR6lclAWm46daXqVomvX96aVO+FNmQU9Q7Tj4syedn
+ bGqtNqcf2ePKLNx7Jwf+euVCGZW8=
+X-Google-Smtp-Source: AGHT+IE5lCR7HVY/g4hFvBV/RGv3qIBpIhbmfnMcQQ7lowungeDx3xymow/Bwb+dY3WdhUTB7lf53PrUHtbP7MuHfPo=
+X-Received: by 2002:a05:6512:3512:b0:533:482f:afbe with SMTP id
+ 2adb3069b0e04-533485af9eamr639466e87.24.1724228484968; Wed, 21 Aug 2024
+ 01:21:24 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240821071842.8591-2-pstanner@redhat.com>
- <20240821071842.8591-10-pstanner@redhat.com>
-In-Reply-To: <20240821071842.8591-10-pstanner@redhat.com>
+ <20240821071842.8591-5-pstanner@redhat.com>
+In-Reply-To: <20240821071842.8591-5-pstanner@redhat.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 21 Aug 2024 11:19:30 +0300
-Message-ID: <CAHp75Ve13TpA+OdUbiehZORjbNEi9qjJK3bg=C5CscoC=G=f4Q@mail.gmail.com>
+Date: Wed, 21 Aug 2024 11:20:48 +0300
+Message-ID: <CAHp75Ve02c61V7pyAhbJr15jt5nb7Sjn58HzhoY6VH0C7YKVDA@mail.gmail.com>
 To: Philipp Stanner <pstanner@redhat.com>
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
@@ -82,8 +82,8 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Xu Yilun <yilun.xu@intel.com>, Damien Le Moal <dlemoal@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v2 8/9] vdap: solidrun: Replace deprecated
-	PCI functions
+Subject: Re: [Linux-stm32] [PATCH v2 3/9] block: mtip32xx: Replace
+	deprecated PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,29 +101,22 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 T24gV2VkLCBBdWcgMjEsIDIwMjQgYXQgMTA6MTnigK9BTSBQaGlsaXBwIFN0YW5uZXIgPHBzdGFu
-bmVyQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gc29saWRydW4gdXRpbGl6ZXMgcGNpbV9pb21hcF9y
-ZWdpb25zKCksIHdoaWNoIGhhcyBiZWVuIGRlcHJlY2F0ZWQgYnkgdGhlCj4gUENJIHN1YnN5c3Rl
-bSBpbiBjb21taXQgZTM1NGJiODRhNGMxICgiUENJOiBEZXByZWNhdGUKPiBwY2ltX2lvbWFwX3Rh
-YmxlKCksIHBjaW1faW9tYXBfcmVnaW9uc19yZXF1ZXN0X2FsbCgpIiksIGFtb25nIG90aGVyCj4g
-dGhpbmdzIGJlY2F1c2UgaXQgZm9yY2VzIHVzYWdlIG9mIHF1aXRlIGEgY29tcGxpY2F0ZWQgYml0
-bWFzayBtZWNoYW5pc20uCj4gVGhlIGJpdG1hc2sgaGFuZGxpbmcgY29kZSBjYW4gZW50aXJlbHkg
-YmUgcmVtb3ZlZCBieSByZXBsYWNpbmcKPiBwY2ltX2lvbWFwX3JlZ2lvbnMoKSBhbmQgcGNpbV9p
-b21hcF90YWJsZSgpLgo+Cj4gUmVwbGFjZSBwY2ltX2lvbWFwX3JlZ2lvbnMoKSBhbmQgcGNpbV9p
-b21hcF90YWJsZSgpIHdpdGgKPiBwY2lfaW9tYXBfcmVnaW9uKCkuCgouLi4KCj4gIHN0YXRpYyBp
-bnQgc25ldF9vcGVuX3ZmX2JhcihzdHJ1Y3QgcGNpX2RldiAqcGRldiwgc3RydWN0IHNuZXQgKnNu
-ZXQpCj4gIHsKPiAgICAgICAgIGNoYXIgbmFtZVs1MF07Cj4gLSAgICAgICBpbnQgcmV0Owo+Cj4g
-ICAgICAgICBzbnByaW50ZihuYW1lLCBzaXplb2YobmFtZSksICJzbmV0WyVzXS1iYXIiLCBwY2lf
-bmFtZShwZGV2KSk7CgpTaG91bGRuJ3QgdGhpcyBiZSBhbHNvIGRldm1fa2FzcHJpbnRmKCk/Cgo+
-ICAgICAgICAgLyogUmVxdWVzdCBhbmQgbWFwIEJBUiAqLwo+IC0gICAgICAgcmV0ID0gcGNpbV9p
-b21hcF9yZWdpb25zKHBkZXYsIEJJVChzbmV0LT5wc25ldC0+Y2ZnLnZmX2JhciksIG5hbWUpOwo+
-IC0gICAgICAgaWYgKHJldCkgewo+ICsgICAgICAgc25ldC0+YmFyID0gcGNpbV9pb21hcF9yZWdp
-b24ocGRldiwgc25ldC0+cHNuZXQtPmNmZy52Zl9iYXIsIG5hbWUpOwo+ICsgICAgICAgaWYgKElT
-X0VSUihzbmV0LT5iYXIpKSB7Cj4gICAgICAgICAgICAgICAgIFNORVRfRVJSKHBkZXYsICJGYWls
-ZWQgdG8gcmVxdWVzdCBhbmQgbWFwIFBDSSBCQVIgZm9yIGEgVkZcbiIpOwo+IC0gICAgICAgICAg
-ICAgICByZXR1cm4gcmV0Owo+ICsgICAgICAgICAgICAgICByZXR1cm4gUFRSX0VSUihzbmV0LT5i
-YXIpOwo+ICAgICAgICAgfQo+Cj4gLSAgICAgICBzbmV0LT5iYXIgPSBwY2ltX2lvbWFwX3RhYmxl
-KHBkZXYpW3NuZXQtPnBzbmV0LT5jZmcudmZfYmFyXTsKPiAtCj4gICAgICAgICByZXR1cm4gMDsK
-PiAgfQoKLS0gCldpdGggQmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+bmVyQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gcGNpbV9pb21hcF9yZWdpb25zKCkgYW5kIHBjaW1f
+aW9tYXBfdGFibGUoKSBoYXZlIGJlZW4gZGVwcmVjYXRlZCBieSB0aGUKPiBQQ0kgc3Vic3lzdGVt
+IGluIGNvbW1pdCBlMzU0YmI4NGE0YzEgKCJQQ0k6IERlcHJlY2F0ZQo+IHBjaW1faW9tYXBfdGFi
+bGUoKSwgcGNpbV9pb21hcF9yZWdpb25zX3JlcXVlc3RfYWxsKCkiKS4KPgo+IEluIG10aXAzMnh4
+LCB0aGVzZSBmdW5jdGlvbnMgY2FuIGVhc2lseSBiZSByZXBsYWNlZCBieSB0aGVpciByZXNwZWN0
+aXZlCj4gc3VjY2Vzc29ycywgcGNpbV9yZXF1ZXN0X3JlZ2lvbigpIGFuZCBwY2ltX2lvbWFwKCku
+IE1vcmVvdmVyLCB0aGUKPiBkcml2ZXIncyBjYWxscyB0byBwY2ltX2lvdW5tYXBfcmVnaW9ucygp
+IGluIHByb2JlKCkncyBlcnJvciBwYXRoIGFuZCBpbgo+IHJlbW92ZSgpIGFyZSBub3QgbmVjZXNz
+YXJ5LiBDbGVhbnVwIGNhbiBiZSBwZXJmb3JtZWQgYnkgUENJIGRldnJlcwo+IGF1dG9tYXRpY2Fs
+bHkuCj4KPiBSZXBsYWNlIHBjaW1faW9tYXBfcmVnaW9ucygpIGFuZCBwY2ltX2lvbWFwX3RhYmxl
+KCkuCj4KPiBSZW1vdmUgdGhlIGNhbGxzIHRvIHBjaW1faW91bm1hcF9yZWdpb25zKCkuCgouLi4K
+Cj4gIHNldG1hc2tfZXJyOgo+IC0gICAgICAgcGNpbV9pb3VubWFwX3JlZ2lvbnMocGRldiwgMSA8
+PCBNVElQX0FCQVIpOwo+IC0KPiAgaW9tYXBfZXJyOgoKTm93IG9uZSBvZiB0aGUgbGFiZWxzIGlz
+IHJlZHVuZGFudC4KCj4gICAgICAgICBrZnJlZShkZCk7Cj4gICAgICAgICBwY2lfc2V0X2RydmRh
+dGEocGRldiwgTlVMTCk7CgotLSAKV2l0aCBCZXN0IFJlZ2FyZHMsCkFuZHkgU2hldmNoZW5rbwpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
