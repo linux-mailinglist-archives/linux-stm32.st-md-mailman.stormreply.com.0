@@ -2,79 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F4499593C9
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 06:58:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E54959455
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2024 08:03:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52193C6DD9A;
-	Wed, 21 Aug 2024 04:58:53 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53EB9C6DD9A;
+	Wed, 21 Aug 2024 06:03:29 +0000 (UTC)
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
+ (mail-sh0chn02on2128.outbound.protection.partner.outlook.cn
+ [139.219.146.128])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9DB9C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B201C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2024 04:58:45 +0000 (UTC)
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-44febbc323fso32524211cf.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2024 21:58:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724216324; x=1724821124;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T1wedJG/Bg4x+50/X/HHJc+xQbgaNB+dhizweD19x0U=;
- b=WLK0O8pClXEV6z8NGBqlEG1wNFN/mPI+wrRY/wgRhrm5p+K8iA+UVGQNoXajdUy5Nq
- yzzklx5LMXOxEsHBm1asghEt4/G86bvqNCEKeNGoTwE0M5crBgBSaDoXMNphNeLe3mpP
- XA8wOaxtA7AeBvgL0uj3fgANczFQL0Z4AROm9DsmygEke3QtXlg9adJCqjsbL0qRQylJ
- RV3U03F04wH5Dr698oH2KpY9iGsmWu42KigHNc16CQdKdqfj/FYGCTJnrAXiWzncekc7
- ikM7za5T7CB/rWYUGzingex1wwisTBbR4d0VPkuLfVW+AwIu5Uh87PtvGBVfRCzsFD8E
- 07tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724216324; x=1724821124;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=T1wedJG/Bg4x+50/X/HHJc+xQbgaNB+dhizweD19x0U=;
- b=KcQEGOtVDSmk+0QarklQm8wIbwRmf63EatJzdfMNAiDb6pztTRGtlY2Dh9gO0XcyK0
- 2wtC5JFCGrllWFHl3Jr2S2RaLMwKo4yKLG8k9B3R/ncoM0YfPGxfpEA9OqYyWtADt9vr
- GW5Ny5rrT+czcwPwvRrBNVfRlktyB6BUxQUP/Jh8AlwEh1pQnAUddTljQjGcIl0HGdWL
- JPQt21kJLMpgjdGwOC5jtCA+PIXzCjvLfZF/3w+9uey5MB3pjd8zZ4McKQc9sMGMizOj
- xkZ6zoytZdmrkEnC/6AK9cBogG0tcrb4LDjfatkV8OFv48cAhkEM/Mt4n9+WFmgHAeJm
- H6qA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWfdFbPKVtG9CHN0/imOWEfF++qDJg7fvzj2S0QGZVQ6eLNYLKEHLfoGouZRrjQkiK1Ti2eiLpijCbLAQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzTQtiGPLZxDTpdDdlEoCiSoeO9wsgc4Kc2tDrQXTfgnrzJfHIp
- Q8Rpcs4M5v3ferEEKnP9LCGbS3HHQnhdi8RoCCdY7/d6e4VG7iQx
-X-Google-Smtp-Source: AGHT+IGBo/S81CZz7j4bai9R3gFPYkz5tE2gxC9VhQUqFp/OT85vnumLFVbQZK7aG2h8zR+dajr5uA==
-X-Received: by 2002:a05:622a:4a13:b0:446:5a63:d68f with SMTP id
- d75a77b69052e-454f21ed913mr12368381cf.18.1724216324316; 
- Tue, 20 Aug 2024 21:58:44 -0700 (PDT)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4536a0035c6sm56215401cf.42.2024.08.20.21.58.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2024 21:58:44 -0700 (PDT)
-Date: Wed, 21 Aug 2024 12:58:33 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>
-Message-ID: <20240821125833.000010f7@gmail.com>
-In-Reply-To: <20240820123456.qbt4emjdjg5pouym@skbuf>
-References: <cover.1724145786.git.0x1207@gmail.com>
- <bc4940c244c7e261bb00c2f93e216e9d7a925ba6.1724145786.git.0x1207@gmail.com>
- <20240820123456.qbt4emjdjg5pouym@skbuf>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+ Wed, 21 Aug 2024 06:03:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EYaBQGEW0XNJku6dRTns2vEk2BNQLFNbU5ZGHUFRpJH1dD8HbnMBqGGTmnZATpVvtwPJe7TmmAKtq8Dudteb5BXMnGYN6tpZz0FBg1FWtrpwHA+9ktywN3bNTx5woNYHwPwvari5nuM1q/WBpYTHqOV4SD03NcVcX6TGdvbPHULmzlwqKPyJ7e67ZvNujHLTQ70YWZraEHAqBJ5Efmh4UYZT44hzFelagddQxW636ekZq6esepvyL+7Djg12eQCXRVql9JzsdgTHljfN/tSqcepLr2e7ls1hIGmuWwGbD8mwoaPuGCFXOlROVKpOyLQ9cXMofoLEhe3I5Mtf9iGx0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t9D9QoSNSCch8sMt3vpZR4Q/R6B8e0FF7iRRaZ56bGE=;
+ b=fWA7f/OIL7uR702jSZ1f0Hz/Xjndk3KC1L3uBF/7UBWzgSgtMEqF1UELf4VAhlN2BOz88l/hrFUKawVOyoh5L9qS9uP/R/J0KZmTC9et5p7OJa4BJSpCcmau8dwupYiiaXebtgzhPC9HuRqPm8n3MojcmHFo2/KLESOVxDUr15M9PQIXpRDYNW/5MlWSB4I6qbkELeMvWLU2Upm9b5Wqq1kV9hCn62j+pBu4ROI+iRJsrq1tkxABGip947KVQ7NK6n5DL9UGIDdnZ7Yq8Tlm9gVVDfAn+l02D+SMiIoGfc6rkhbvCly/nroMKNfzG6Sl/t/63/2grRmizw2oGh/zPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7) by NTZPR01MB1097.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:a::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Wed, 21 Aug
+ 2024 06:03:17 +0000
+Received: from NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5]) by NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e1c4:5bb3:adc:97f5%5]) with mapi id 15.20.7875.019; Wed, 21 Aug 2024
+ 06:03:17 +0000
+From: ende.tan@starfivetech.com
+To: netdev@vger.kernel.org
+Date: Wed, 21 Aug 2024 14:03:07 +0800
+Message-Id: <20240821060307.46350-1-ende.tan@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: NT0PR01CA0002.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::23) To NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::7)
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NTZPR01MB1018:EE_|NTZPR01MB1097:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb7aa6b1-de3b-41b2-80ea-08dcc1a6f379
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|41320700013|366016|7416014|52116014|38350700014; 
+X-Microsoft-Antispam-Message-Info: zt7Xt04coafzbvwTxlKPODIfvKjGObNHfOgwAygSWXClyBCHojP472ZH1h6ej84LFYyGnGxOoWXQFnG9ZxzoV3PSopURxyeVylPfowgfChfMWcrmH73qllsp/My5Jgtp0r4PkHK032G+oye6/yJS9NvJNIIN1GUkRMXCljF4X4TQmsTOk/vE8iQMN7Uxv1gpJ8T76vhyoWGnaP5rLEWYJYAgHlbn3c1bo8SSIJLetZqNtExcWB/7eANpF6ZKe9Y/cCVLydIpIIU5ZNnlDGCVtjj4252W0Ho+XyEQAlgwBfAtO50BAnfLMoy0hKi3U2nXPeZKqpI22GA/K8WGz21C03c4NuHZ1teTqln1ZrZYb2I/FHk2OQTkEG3aqi14/uG7pWHT4RUcRENME+yq+AbFkkcScdB2FAcziPCqPTQ3oOfEv1eai/ZA+B1XrcnMLe8rXbeSg5HGXiyG16qB10On3iWfXwLeY1kfkqDs9BABnulyVl5PpOQCI3mNj6l9oxyhxXqI/RcQuhou9hKl7YgiMqvMC3rmso6mGQfs6du3s79IJ50lXFTIFFSLJ6FApQyLSSBpAv5a1iMILENOFmUV/Zj7QDycFI4OxMC8G3k86V58jVAUu1SPMaHu4y1Z1ENj
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(41320700013)(366016)(7416014)(52116014)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?J7Lp8ecBF44zEGfyVKNuDPaeqLV46GDQkIjuVQRQL9/r9IBu8OnL5KXRBYu3?=
+ =?us-ascii?Q?GZoc4wmIyWRhxVPzjXm+PNqiMZAT+7S77IXwxJs5cAU+QeDrz/VLwArw4K7W?=
+ =?us-ascii?Q?Mmuf1fac1Rv/OdJrgC6795KA7PrgbjJ6UFRSdpxomma67OT3EizOevdDz1Hv?=
+ =?us-ascii?Q?RzohhsbpEdVVtiMUHvPFb+fDFV2mIw+T+Oagn1sAV4UUusSeEvtFLkRr7+ut?=
+ =?us-ascii?Q?tPGMEcpBHcdf+AW0/87JGuPkagExtgo0GJypmxaxu/TInxYPePAcAKPF0nOx?=
+ =?us-ascii?Q?FYWTJrBgOUtbPCJALXVETVE15nx36JVB19jEefY7pMPhdJ1yrNuxA5W3j7JH?=
+ =?us-ascii?Q?2GufJpWSAEOcUiDqo3vGDNC92Miw73ffORy9GGlasZqY9nZQ0bo87yM3aLMK?=
+ =?us-ascii?Q?vFg/jRFqlAB+1fE4w9K+3F5ChYhLWCh9t1hFn6oJpdKzI7URW2IMzpZONnXw?=
+ =?us-ascii?Q?l/l2i296RxilNPMpyBwdy5PCou+nTecY4sFdU2H3BztlRFKir7ySlXLZMHdu?=
+ =?us-ascii?Q?x/vClKcNv4zBQJ5gSvB+KRHerJXKJrK88DOZ0b04zB1GVaWMiEUFwUmsyRm3?=
+ =?us-ascii?Q?LSU3rJJCN7xGQaSlGjmdLnZfjDjZlGeEJCUUyDvGF285f98lU3MVA+gW8a8E?=
+ =?us-ascii?Q?fjFoz3KiXdMKfmFvukPVcPc8RZQvRvXhX+pP72rCk2oxGtB4Hn4Kp5SDDzFO?=
+ =?us-ascii?Q?RHb734og3C7ThgWFhF1TMqgqTixUrdX9meBpiPFt0KC5X4AKoGbl5wR3cEUO?=
+ =?us-ascii?Q?K68MmLiLyjvgxnO7x5w/T7x5SH6EHF8gNz0TgEn2fsyGNvxcyGaVo9st2Dzh?=
+ =?us-ascii?Q?lkNmfQ+7cLMG3KQheafTLcyD6nEsVyPERVW3DGqhUSUWi6Ml+kZT2TdqwRMi?=
+ =?us-ascii?Q?BVgt9nb0I+UWhjORc+zWFnCF9H9ONH/OwTllqaW0eNPHacn+1RKqdrCbfUOo?=
+ =?us-ascii?Q?Xjw8TWIP3IkG8nZJE4xVzS5tyF8AtUQSKqn4Pun0NORY04Yc6V1SEiFZ0I+j?=
+ =?us-ascii?Q?zGmdZo4H/TVX/pGslPP4aAuV4YtUy/7A/AV/o56sHpKjF7OTEAr87ypTovtL?=
+ =?us-ascii?Q?GWouP5zZG3/ivF1UhhrZjSEqkCzvHt6aFKyeut42doj7sw6lF51fMXlaqQjB?=
+ =?us-ascii?Q?GIsF5YIaBsvD4ziCoIodqwzQUlKAOl2iQTnTSYslOMOUoIzVpdfp/5VQoeGA?=
+ =?us-ascii?Q?XWMyDGrXH1dvGY2Fa7PeaYlC4d0KixpFLMy0otm3PGHDiad2PO3C1f7j96WI?=
+ =?us-ascii?Q?JAGD1QgP/IFsWKJZ5QB+lf/p5RnKBC9nakA1Pe9J3wX5K2qSnXNxmFk81Pz3?=
+ =?us-ascii?Q?Hmji9YhW0667ruxS4KLeDm3xgNvHfMlvtT917dlLOAhEPHMDXgBbNl/uYj8l?=
+ =?us-ascii?Q?h3DR6zHrrcMPHA9nnGAA2VIy/R2239HT+SBjJNU8renDOv+2W5BVBQMmKWKg?=
+ =?us-ascii?Q?tdl3taDu7Y17uyHIwsfxfbrx6JlIWqLWPvq3BHJCZJcNclDsecSwPkS1NF08?=
+ =?us-ascii?Q?q2Dq4lQ/uhXF7rgFtFuTnvHqoDUwnNpcPBJ0QLdoOrK/WFg1t1ILe2XHBHjK?=
+ =?us-ascii?Q?f8hq1TU8f4K2ZmHes1oChIS/Gf/vK8xY1ZIQc3aG6cCAWitbEi4scBTyP/yh?=
+ =?us-ascii?Q?fA=3D=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb7aa6b1-de3b-41b2-80ea-08dcc1a6f379
+X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB1018.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 06:03:17.4318 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fkCX7Oo4q5N0Demc1HMx2lIXvbNQBJw2L9L1ZW1SLqee+wjZgMlsNglhUBCCRYcSJrN9mYDH6jCvydVBxh+Z32xZhDBAqcbDtgZK6bggzmM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1097
+Cc: Tan En De <ende.tan@starfivetech.com>, andrew@lunn.ch,
+ leyfoon.tan@starfivetech.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ minda.chen@starfivetech.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, endeneer@gmail.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 3/7] net: stmmac: refactor FPE
- verification process
+Subject: [Linux-stm32] [net-next, v2,
+	1/1] net: stmmac: Add dma_wmb() barrier before setting OWN bit in
+	set_rx_owner()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,24 +121,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Tan En De <ende.tan@starfivetech.com>
 
-Hi Vladimir
+Currently, some set_rx_owner() callbacks set interrupt-on-completion bit
+in addition to OWN bit, without inserting a dma_wmb() barrier in
+between. This might cause missed interrupt if the DMA sees the OWN bit
+before the interrupt-on-completion bit is set.
 
-On Tue, 20 Aug 2024 15:34:56 +0300, Vladimir Oltean <olteanv@gmail.com> wrote:
-> I took the liberty of rewriting the fpe_task to a timer, and delete the
-> workqueue. Here is a completely untested patch, which at least is less
-> complex, has less code and is easier to understand. What do you think?
-> 
+Thus, this patch adds dma_wmb() barrier right before setting OWN bit in
+each of the callbacks. Now that the responsibility of calling dma_wmb()
+is delegated to the callbacks, let's simplify main driver code by
+removing dma_wmb() before stmmac_set_rx_owner().
 
-Your patch is much better than my ugly implementation ;)
+Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+---
+v2:
+- Avoid introducing a new function just to set the interrupt-on-completion
+  bit, as it is wasteful to do so.
+- Delegate the responsibility of calling dma_wmb() from main driver code
+  to set_rx_owner() callbacks (i.e. let callbacks to manage the low-level
+  ordering/barrier rather than cluttering up the main driver code).
+v1:
+- https://patchwork.kernel.org/project/netdevbpf/patch/20240814092438.3129-1-ende.tan@starfivetech.com/
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c   | 5 ++++-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 5 +++--
+ drivers/net/ethernet/stmicro/stmmac/enh_desc.c       | 1 +
+ drivers/net/ethernet/stmicro/stmmac/norm_desc.c      | 1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    | 2 --
+ 5 files changed, 9 insertions(+), 5 deletions(-)
 
-Some small fixes are required to make kselftest-ethtool_mm pass.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index 1c5802e0d7f4..95aea6ad485b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -186,10 +186,13 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+ 
+ static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+-	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
++	p->des3 |= cpu_to_le32(RDES3_BUFFER1_VALID_ADDR);
+ 
+ 	if (!disable_rx_ic)
+ 		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
++
++	dma_wmb();
++	p->des3 |= cpu_to_le32(RDES3_OWN);
+ }
+ 
+ static int dwmac4_get_tx_ls(struct dma_desc *p)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index fc82862a612c..d76ae833c840 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -56,10 +56,11 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
+ 
+ static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+-	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
+-
+ 	if (!disable_rx_ic)
+ 		p->des3 |= cpu_to_le32(XGMAC_RDES3_IOC);
++
++	dma_wmb();
++	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
+ }
+ 
+ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+index 937b7a0466fc..9219fe69ea44 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+@@ -289,6 +289,7 @@ static void enh_desc_set_tx_owner(struct dma_desc *p)
+ 
+ static void enh_desc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
++	dma_wmb();
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+ }
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+index 68a7cfcb1d8f..d0b703a3346f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+@@ -155,6 +155,7 @@ static void ndesc_set_tx_owner(struct dma_desc *p)
+ 
+ static void ndesc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
++	dma_wmb();
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+ }
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d9fca8d1227c..859a2c4c9e5c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4848,7 +4848,6 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ 		if (!priv->use_riwt)
+ 			use_rx_wd = false;
+ 
+-		dma_wmb();
+ 		stmmac_set_rx_owner(priv, p, use_rx_wd);
+ 
+ 		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
+@@ -5205,7 +5204,6 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		if (!priv->use_riwt)
+ 			use_rx_wd = false;
+ 
+-		dma_wmb();
+ 		stmmac_set_rx_owner(priv, rx_desc, use_rx_wd);
+ 
+ 		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
+-- 
+2.34.1
 
-Would you mind if I rebase you patch, fix some small issues, make sure all
-test cases pass, split it into two patches and include them in my patchset,
-then send to review as a Co-developer and a tester?
-
-Thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
