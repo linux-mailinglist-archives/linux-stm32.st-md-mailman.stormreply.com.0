@@ -2,46 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6FF095C34A
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 04:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB90B95C585
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 08:34:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E411C71287;
-	Fri, 23 Aug 2024 02:31:30 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C592C71287;
+	Fri, 23 Aug 2024 06:34:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89744C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B11CC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 02:31:23 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4WqkY15t0Sz1xvr5;
- Fri, 23 Aug 2024 10:29:25 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 0F7CF1400E8;
- Fri, 23 Aug 2024 10:31:21 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 23 Aug 2024 10:31:20 +0800
-Message-ID: <ef36a703-929b-2fb1-6d8b-58c17f37c964@huawei.com>
-Date: Fri, 23 Aug 2024 10:31:19 +0800
+ Thu, 22 Aug 2024 13:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724332264; x=1755868264;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=xmonMa7CWYPhpUCav6lGTP6kAPkTd4VjdENwMfAjDQ8=;
+ b=nFmOaAFIB9d17qL8LnK/MdA6zzke0OxqirCeaJDcKM/pgYe99bae6FFq
+ 614TZ9IH1Sx6PNgq+2pPgqCGi5vAkurQMtPES3O8kPQBRKZNM9qfolDL6
+ utmuGrmuSeY7ovHbyRVYS8qWhQUoptMi+/n7S5u3mpzkdCUSZ7P+jE5Pt
+ /9vhJ5xa7UM9XwPsBvqQazIGIzPQnwz1ZzlrxNw797nJUYOcy8lzdVbAF
+ D271sD3m/05LPP99/zjixM4M/1le5VRN9aZ9Xg5rtfpfFm/lW9GIzz0AC
+ 06vgAEkeJE6NGSGeQD8G2RPNbZ4l6F9nm7bLICZPMQuf9ChqwAaZZmS+5 Q==;
+X-CSE-ConnectionGUID: ESqR4vP2R/S8PgCEZtgZvw==
+X-CSE-MsgGUID: WtGhbo2GQUWyh5FCLHxzDg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="33896721"
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="33896721"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2024 06:10:16 -0700
+X-CSE-ConnectionGUID: 1SNaBPdZR7KIjuHORoDEkg==
+X-CSE-MsgGUID: dDS462oYQ5eH9CKAcZxrOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="61759647"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2024 06:10:03 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1sh7ZB-00000000ST5-0oxN; Thu, 22 Aug 2024 16:09:29 +0300
+Date: Thu, 22 Aug 2024 16:09:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lei Liu <liulei.rjpt@vivo.com>
+Message-ID: <Zsc4iPRCRKuFW0ZZ@smile.fi.intel.com>
+References: <20240822033924.32397-1-liulei.rjpt@vivo.com>
+ <20240822033924.32397-2-liulei.rjpt@vivo.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20240820123707.1788370-1-ruanjinjie@huawei.com>
- <ZsdR-G9S5nYbQX4s@finisterre.sirena.org.uk>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <ZsdR-G9S5nYbQX4s@finisterre.sirena.org.uk>
-X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemh500013.china.huawei.com (7.202.181.146)
-Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH -next] spi: stm32-qspi: Simpify resource
-	lookup
+Content-Disposition: inline
+In-Reply-To: <20240822033924.32397-2-liulei.rjpt@vivo.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Mailman-Approved-At: Fri, 23 Aug 2024 06:34:54 +0000
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ opensource.kernel@vivo.com, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-serial@vger.kernel.org,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-mips@vger.kernel.org, John Ogness <john.ogness@linutronix.de>,
+ linux-kernel@vger.kernel.org, linux-actions@lists.infradead.org,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Lino Sanfilippo <l.sanfilippo@kunbus.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Jeff Johnson <quic_jjohnson@quicinc.com>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
+Subject: Re: [Linux-stm32] [PATCH 1/8] tty: 8250_ingenic: Use
+	devm_clk_get_enabled() helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,51 +96,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Aug 22, 2024 at 11:39:05AM +0800, Lei Liu wrote:
+> The devm_clk_get_enabled() helpers:
+>     - call devm_clk_get()
+>     - call clk_prepare_enable() and register what is needed in order to
+>      call clk_disable_unprepare() when needed, as a managed resource.
+> 
+> This simplifies the code and avoids calls to clk_disable_unprepare().
 
+...
 
-On 2024/8/22 22:58, Mark Brown wrote:
-> On Tue, Aug 20, 2024 at 08:37:07PM +0800, Jinjie Ruan wrote:
->> Use the devm_platform_ioremap_resource_byname() helper instead of
->> calling platform_get_resource_byname() and devm_ioremap_resource()
->> separately.
-> 
-> This breaks boot on the Avenger96 board, it causes a NULL pointer
-> dereference:
-> 
-> [    2.350480] Unable to handle kernel NULL pointer dereference at virtual address 00000000 when read
-> 
-> ...
-> 
-> [    2.695787] Call trace:
-> [    2.695807]  stm32_qspi_probe from platform_probe+0x5c/0xb0
-> [    2.703914]  platform_probe from really_probe+0xc8/0x2c8
-> [    2.709284]  really_probe from __driver_probe_device+0x88/0x19c
-> [    2.715145]  __driver_probe_device from driver_probe_device+0x30/0x104
-> 
-> https://lava.sirena.org.uk/scheduler/job/650792
-> 
->> -	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "qspi");
->> -	qspi->io_base = devm_ioremap_resource(dev, res);
->> +	qspi->io_base = devm_platform_ioremap_resource_byname(pdev, "qspi");
->>  	if (IS_ERR(qspi->io_base))
->>  		return PTR_ERR(qspi->io_base);
->>  
->>  	qspi->phys_base = res->start;
->>  
->> -	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "qspi_mm");
->> -	qspi->mm_base = devm_ioremap_resource(dev, res);
->> +	qspi->mm_base = devm_platform_ioremap_resource_byname(pdev, "qspi_mm");
->>  	if (IS_ERR(qspi->mm_base))
->>  		return PTR_ERR(qspi->mm_base);
-> 
-> I can't identify any obvious error here, these look like a direct
-> subsitution - the implementation of devm_platform_ioremap_resource_byname()
-> looks to be the same as the replaced code and dev is set to &pdev->dev
-> but I'm seeing the above behaviour.
+>  	data->line = serial8250_register_8250_port(&uart);
+>  	if (data->line < 0) {
+>  		err = data->line;
+> -		goto out_disable_baudclk;
+> +		return err;
+>  	}
 
-Mark, thank you very much, I can't identify the error here too. This bug
-may be easy to locate if have a reproduction environment, but it's good
-to keep it the way it is.
+	data->line = serial8250_register_8250_port(&uart);
+	if (data->line < 0)
+		return data->line;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
