@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A41FD95B8EA
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Aug 2024 16:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F3E95B8F2
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Aug 2024 16:49:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65A4DC71287;
-	Thu, 22 Aug 2024 14:47:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C60AC71287;
+	Thu, 22 Aug 2024 14:49:24 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B4C4C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5DEDC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Aug 2024 14:47:06 +0000 (UTC)
-X-CSE-ConnectionGUID: 6AhRZnZaQiqYHkbShCz/Sw==
-X-CSE-MsgGUID: IRG0yzsVSDOK/G/HSCVTMw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="40221155"
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="40221155"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ Thu, 22 Aug 2024 14:49:16 +0000 (UTC)
+X-CSE-ConnectionGUID: I+KKWMhVTI6GaamktACimA==
+X-CSE-MsgGUID: 6D8r6kJuT8CiMtj9etMHNw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="40221806"
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="40221806"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 07:47:00 -0700
-X-CSE-ConnectionGUID: uxpD/yOjR7WoWVFtANZdjQ==
-X-CSE-MsgGUID: 4I6lRqQgSxeEfW6ZvlId3g==
+ 22 Aug 2024 07:48:23 -0700
+X-CSE-ConnectionGUID: UdIrjZhCSFGc6ouMiWWcLQ==
+X-CSE-MsgGUID: FsVdg77kTMeRpXd6tbM6Zw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="61462125"
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="61793671"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 07:46:49 -0700
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2024 07:48:14 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andy@kernel.org>) id 1sh94p-00000000U65-0MWr;
- Thu, 22 Aug 2024 17:46:15 +0300
-Date: Thu, 22 Aug 2024 17:46:14 +0300
+ (envelope-from <andy@kernel.org>) id 1sh96C-00000000U7b-2aUU;
+ Thu, 22 Aug 2024 17:47:40 +0300
+Date: Thu, 22 Aug 2024 17:47:40 +0300
 From: Andy Shevchenko <andy@kernel.org>
 To: Philipp Stanner <pstanner@redhat.com>
-Message-ID: <ZsdPNvg-7csIuiqq@smile.fi.intel.com>
+Message-ID: <ZsdPjHAkF4i_DN3V@smile.fi.intel.com>
 References: <20240822134744.44919-1-pstanner@redhat.com>
- <20240822134744.44919-7-pstanner@redhat.com>
+ <20240822134744.44919-8-pstanner@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240822134744.44919-7-pstanner@redhat.com>
+In-Reply-To: <20240822134744.44919-8-pstanner@redhat.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
@@ -58,12 +58,13 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
  Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
  linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
  David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
- Damien Le Moal <dlemoal@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Xu Yilun <yilun.xu@intel.com>, Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>, linux-fpga@vger.kernel.org,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 6/9] ethernet: stmicro: Simplify PCI
-	devres usage
+Subject: Re: [Linux-stm32] [PATCH v3 7/9] vdpa: solidrun: Fix UB bug with
+	devres
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,30 +81,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 22, 2024 at 03:47:38PM +0200, Philipp Stanner wrote:
-> stmicro uses PCI devres in the wrong way. Resources requested
-> through pcim_* functions don't need to be cleaned up manually in the
-> remove() callback or in the error unwind path of a probe() function.
+On Thu, Aug 22, 2024 at 03:47:39PM +0200, Philipp Stanner wrote:
+> In psnet_open_pf_bar() and snet_open_vf_bar() a string later passed to
+> pcim_iomap_regions() is placed on the stack. Neither
+> pcim_iomap_regions() nor the functions it calls copy that string.
 > 
-> Moreover, there is an unnecessary loop which only requests and ioremaps
-> BAR 0, but iterates over all BARs nevertheless.
+> Should the string later ever be used, this, consequently, causes
+> undefined behavior since the stack frame will by then have disappeared.
 > 
-> Furthermore, pcim_iomap_regions() and pcim_iomap_table() have been
-> deprecated by the PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
-> pcim_iomap_table(), pcim_iomap_regions_request_all()").
-> 
-> Replace these functions with pcim_iomap_region().
-> 
-> Remove the unnecessary manual pcim_* cleanup calls.
-> 
-> Remove the unnecessary loop over all BARs.
+> Fix the bug by allocating the strings on the heap through
+> devm_kasprintf().
 
 ...
 
-> -	/* Get the base address of device */
-> +	/* Request the base address BAR of device */
+> -	snprintf(name, sizeof(name), "psnet[%s]-bars", pci_name(pdev));
+> +	name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "psnet[%s]-bars", pci_name(pdev));
+> +	if (!name)
+> +		return -ENOMEM;
+> +
+>  	ret = pcim_iomap_regions(pdev, mask, name);
 
-It's a tautology, "BAR" == Base Address ...
+...
+
+> -	snprintf(name, sizeof(name), "snet[%s]-bar", pci_name(pdev));
+> +	name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "psnet[%s]-bars", pci_name(pdev));
+> +	if (!name)
+> +		return -ENOMEM;
+
++ Blank line as in the above snippet?
+
+>  	/* Request and map BAR */
+>  	ret = pcim_iomap_regions(pdev, BIT(snet->psnet->cfg.vf_bar), name);
 
 -- 
 With Best Regards,
