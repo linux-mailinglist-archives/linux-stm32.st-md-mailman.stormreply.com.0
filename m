@@ -2,75 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FBF395C58A
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CA4E95C589
 	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 08:34:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B0FDC78028;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A52C1C7802C;
 	Fri, 23 Aug 2024 06:34:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DDD2C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFF12C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Aug 2024 13:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724333059; x=1755869059;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Ifzdw8rZaLUtG4yjgZfU3oaFMdqGu3/9BL4OZPs5jTM=;
- b=XxgpHf679eS1z9gyOrU6khZ1ud+DK9dK7vDLm/KOkCQw0a83tTeNlVS5
- zl9kHx6nJyCgV7xZkaCC/MmOv0mSvF84kgLDPcvf175haHtLOR25jhQ00
- Mzh/tUE3NwZ5jtRksLhC1C18a89IlISMCaYqKM8sufzdZSdUBfAjtsfRT
- RSPAFDbmsApQMz1k57sYzzjjS8UJTV26aVCgHKVu1Wn7+YAWuxk3hSyzP
- fn4q0G47FGqhqoJn4oLgDjaljOV3Hnf700rQ+fFaMHjCRQJW+ZFaW2q/5
- nV5aZEm+6lwCSwnPWKe3t2z9Kcb7CwfuemaLKwe23Nu9UiLJCLuj8Fl2r g==;
-X-CSE-ConnectionGUID: MIMJo1kqSPy0Q3iTrPPOqQ==
-X-CSE-MsgGUID: 5n2pxfqbQYOB3JaIbY6iIw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="22614263"
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="22614263"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 06:24:17 -0700
-X-CSE-ConnectionGUID: l54lGSTOTjqGjj8UehtWGA==
-X-CSE-MsgGUID: 8oVq4/R6Qk+gMwwh54YXQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="61596334"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 06:24:10 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1sh7nJ-00000000Sif-16vw; Thu, 22 Aug 2024 16:24:05 +0300
-Date: Thu, 22 Aug 2024 16:24:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Paul Cercueil <paul@crapouillou.net>
-Message-ID: <Zsc79Y6MURWZdnzU@smile.fi.intel.com>
-References: <20240822033924.32397-1-liulei.rjpt@vivo.com>
- <20240822033924.32397-2-liulei.rjpt@vivo.com>
- <09d6a69610ccec161ad8e0f2df64d8264c0a64fe.camel@crapouillou.net>
+ Thu, 22 Aug 2024 13:28:46 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DE17160003;
+ Thu, 22 Aug 2024 13:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1724333326;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=23/UGc7HSdWd5XXoA2dH4m+DJsdQ98TBIyGL423yxJI=;
+ b=ByZNkwYybdfVZ/peZeIpIbJiwwqti2s8SNgHbgXM3SfFoU2zBInDhtrTlr8bUtvte1Y1Ba
+ JmJVHgL1bhDKuyIFJvsdz42Yp+lKuAlYiDUv4RAXFDqawxZ4q5vfQ+KtqA/852R9uDuwKx
+ HXNkabi3i1/wtPrLVBPHe0XrY9M8DJYajGyDRsUsbmLV5Rpxg32QbUjeuLUfa5z2nePm40
+ OH2ArqJQBsTeMiKEVCnYmuznHH5g2u/ssq3Vyc2F04YX3Fluq4CyAcfrI0I8crF6wXGdAB
+ pXKv6Q364h0BmDU4eG8d3+pnTkfF5Ro+6TnKHlW+m1egBVdjVchPgL42VTJs+w==
+Message-ID: <c54434e3-1fb8-4491-b24f-2167786fe84c@bootlin.com>
+Date: Thu, 22 Aug 2024 15:28:40 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <09d6a69610ccec161ad8e0f2df64d8264c0a64fe.camel@crapouillou.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla Thunderbird
+To: Lei Liu <liulei.rjpt@vivo.com>
+References: <20240822033924.32397-1-liulei.rjpt@vivo.com>
+ <20240822033924.32397-5-liulei.rjpt@vivo.com>
+From: Richard GENOUD <richard.genoud@bootlin.com>
+Content-Language: en-US, fr
+Organization: Bootlin
+In-Reply-To: <20240822033924.32397-5-liulei.rjpt@vivo.com>
+X-GND-Sasl: richard.genoud@bootlin.com
 X-Mailman-Approved-At: Fri, 23 Aug 2024 06:34:54 +0000
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Paul Cercueil <paul@crapouillou.net>,
  Thierry Reding <thierry.reding@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- opensource.kernel@vivo.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
+ opensource.kernel@vivo.com, Florian Fainelli <florian.fainelli@broadcom.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-serial@vger.kernel.org,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-mips@vger.kernel.org, Lei Liu <liulei.rjpt@vivo.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-mips@vger.kernel.org, linux-serial@vger.kernel.org,
  John Ogness <john.ogness@linutronix.de>, linux-kernel@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-tegra@vger.kernel.org,
  Thomas Gleixner <tglx@linutronix.de>,
- Richard Genoud <richard.genoud@bootlin.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -78,8 +65,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, Jeff Johnson <quic_jjohnson@quicinc.com>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 1/8] tty: 8250_ingenic: Use
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
+Subject: Re: [Linux-stm32] [PATCH 4/8] tty: atmel_serial: Use
 	devm_clk_get_enabled() helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -92,32 +79,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 22, 2024 at 11:40:46AM +0200, Paul Cercueil wrote:
-> Le jeudi 22 ao=FBt 2024 =E0 11:39 +0800, Lei Liu a =E9crit=A0:
-
-...
-
-> Not really worth a V2, but if you make a V2, please "return data-
-> >line;" directly.
-
-> Acked-by: Paul Cercueil <paul@crapouillou.net>
-
-Despite of this, the series has other small issues that needs to be address=
-ed,
-so I would wait for v2.
-
--- =
-
-With Best Regards,
-Andy Shevchenko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TGUgMjIvMDgvMjAyNCDDoCAwNTozOSwgTGVpIExpdSBhIMOpY3JpdMKgOgo+IFRoZSBkZXZtX2Ns
+a19nZXRfZW5hYmxlZCgpIGhlbHBlcnM6Cj4gICAgICAtIGNhbGwgZGV2bV9jbGtfZ2V0KCkKPiAg
+ICAgIC0gY2FsbCBjbGtfcHJlcGFyZV9lbmFibGUoKSBhbmQgcmVnaXN0ZXIgd2hhdCBpcyBuZWVk
+ZWQgaW4gb3JkZXIgdG8KPiAgICAgICBjYWxsIGNsa19kaXNhYmxlX3VucHJlcGFyZSgpIHdoZW4g
+bmVlZGVkLCBhcyBhIG1hbmFnZWQgcmVzb3VyY2UuCj4gCj4gVGhpcyBzaW1wbGlmaWVzIHRoZSBj
+b2RlIGFuZCBhdm9pZHMgY2FsbHMgdG8gY2xrX2Rpc2FibGVfdW5wcmVwYXJlKCkuCj4gCj4gU2ln
+bmVkLW9mZi1ieTogTGVpIExpdSA8bGl1bGVpLnJqcHRAdml2by5jb20+Cj4gLS0tCj4gICBkcml2
+ZXJzL3R0eS9zZXJpYWwvYXRtZWxfc2VyaWFsLmMgfCA4ICstLS0tLS0tCj4gICAxIGZpbGUgY2hh
+bmdlZCwgMSBpbnNlcnRpb24oKyksIDcgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvdHR5L3NlcmlhbC9hdG1lbF9zZXJpYWwuYyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9hdG1l
+bF9zZXJpYWwuYwo+IGluZGV4IDA5YjI0NmM5ZTM4OS4uMjA5ZjNkNDFhMTdjIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvdHR5L3NlcmlhbC9hdG1lbF9zZXJpYWwuYwo+ICsrKyBiL2RyaXZlcnMvdHR5
+L3NlcmlhbC9hdG1lbF9zZXJpYWwuYwo+IEBAIC0yOTEwLDE0ICsyOTEwLDExIEBAIHN0YXRpYyBp
+bnQgYXRtZWxfc2VyaWFsX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAJ
+YXRvbWljX3NldCgmYXRtZWxfcG9ydC0+dGFza2xldF9zaHV0ZG93biwgMCk7Cj4gICAJc3Bpbl9s
+b2NrX2luaXQoJmF0bWVsX3BvcnQtPmxvY2tfc3VzcGVuZGVkKTsKPiAgIAo+IC0JYXRtZWxfcG9y
+dC0+Y2xrID0gZGV2bV9jbGtfZ2V0KCZwZGV2LT5kZXYsICJ1c2FydCIpOwo+ICsJYXRtZWxfcG9y
+dC0+Y2xrID0gZGV2bV9jbGtfZ2V0X2VuYWJsZWQoJnBkZXYtPmRldiwgInVzYXJ0Iik7Cj4gICAJ
+aWYgKElTX0VSUihhdG1lbF9wb3J0LT5jbGspKSB7Cj4gICAJCXJldCA9IFBUUl9FUlIoYXRtZWxf
+cG9ydC0+Y2xrKTsKPiAgIAkJZ290byBlcnI7Cj4gICAJfQo+IC0JcmV0ID0gY2xrX3ByZXBhcmVf
+ZW5hYmxlKGF0bWVsX3BvcnQtPmNsayk7Cj4gLQlpZiAocmV0KQo+IC0JCWdvdG8gZXJyOwo+ICAg
+Cj4gICAJYXRtZWxfcG9ydC0+Z2NsayA9IGRldm1fY2xrX2dldF9vcHRpb25hbCgmcGRldi0+ZGV2
+LCAiZ2NsayIpOwo+ICAgCWlmIChJU19FUlIoYXRtZWxfcG9ydC0+Z2NsaykpIHsKPiBAQCAtMjk2
+OCwxNSArMjk2NSwxMiBAQCBzdGF0aWMgaW50IGF0bWVsX3NlcmlhbF9wcm9iZShzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCSAqIFRoZSBwZXJpcGhlcmFsIGNsb2NrIGNhbiBub3cg
+c2FmZWx5IGJlIGRpc2FibGVkIHRpbGwgdGhlIHBvcnQKPiAgIAkgKiBpcyB1c2VkCj4gICAJICov
+Cj4gLQljbGtfZGlzYWJsZV91bnByZXBhcmUoYXRtZWxfcG9ydC0+Y2xrKTsKPiAtCldoeSByZW1v
+dmluZyB0aGlzID8KVGhpcyBpcyBub3QgYW4gZXJyb3IgcGF0aC4KCj4gICAJcmV0dXJuIDA7Cj4g
+ICAKPiAgIGVycl9hZGRfcG9ydDoKPiAgIAlrZnJlZShhdG1lbF9wb3J0LT5yeF9yaW5nLmJ1Zik7
+Cj4gICAJYXRtZWxfcG9ydC0+cnhfcmluZy5idWYgPSBOVUxMOwo+ICAgZXJyX2Nsa19kaXNhYmxl
+X3VucHJlcGFyZToKPiAtCWNsa19kaXNhYmxlX3VucHJlcGFyZShhdG1lbF9wb3J0LT5jbGspOwo+
+ICAgCWNsZWFyX2JpdChhdG1lbF9wb3J0LT51YXJ0LmxpbmUsIGF0bWVsX3BvcnRzX2luX3VzZSk7
+Cj4gICBlcnI6Cj4gICAJcmV0dXJuIHJldDsKClRoYW5rcywKUmljaGFyZC4KCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
