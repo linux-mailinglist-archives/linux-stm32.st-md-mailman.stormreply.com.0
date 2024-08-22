@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CEAC95B459
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Aug 2024 13:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3993095B469
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Aug 2024 13:59:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABF83C6DD9D;
-	Thu, 22 Aug 2024 11:56:33 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7A8AC6DD9D;
+	Thu, 22 Aug 2024 11:59:58 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33E2FC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7670AC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Aug 2024 11:56:27 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 42C44240009;
- Thu, 22 Aug 2024 11:56:25 +0000 (UTC)
+ Thu, 22 Aug 2024 11:59:51 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5C486E0007;
+ Thu, 22 Aug 2024 11:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1724327786;
+ t=1724327991;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/gOwxgtxFAxYkk7+l7KBiOk6VqViegG+X4kGMpiBsEo=;
- b=Gkf/OszTAyzJ4UL7JWAhorzjFpHa9YZk/knbSvzZMWiYR/gsX3vGUS0W/UcuXE88EWTD/q
- N5vdK2U48d1gIQpUChHYHilR7KkVvjUDeDSWRBXrZTSY/WMBLeyjD7chhw5p9bVQqard0L
- qvN9lT1lp+lZAP1zFfkjeU64eV4z3BRSfJqc9IIGIDTq+TbefvY10+K3tNeLuPOL8wZKIz
- tDxM359xOKHifHiW+6fbC21dGftgAdV4hTriKsWgNs6dcrWVbiC13Rp4Qhq2vrE8lUbs2q
- Fjb9IeoGAUNpkmP+8eEzrjhX2Nx5ssjhQHcpQ4/vz5+GzMv2ZhjIrHEX+K8sKg==
-Date: Thu, 22 Aug 2024 13:56:24 +0200
+ bh=V6WzS31XWKQ+PAVvVlTIcXBZWu/ygTzCRj8Asrux5SM=;
+ b=KhBkwVaIS0Tti/okSc8ezPChFhGcFeUmJhyL8ECkY33mqZnzIKWU/3C85mPtfYwmDf+Pzq
+ zO26tKZ5SRgUa6QuYXuT9ercQuKOwnuuw+aZ+3W5SEwDqMOlbdqVg6AMxKe6piWsa1Qbhv
+ Rk0hkrmTzzI49Uk0WOauWL9SgY+iftrsZyAVrz0V7kQj58KAAYorlPAxrlZiVKnbNSjI3/
+ WHp0EamOpPX3u2LQJ7VYrFYt+BvbgCRzFX8BKAdZnrK/DpkWaDkLm+gLY2Smu5Ia8KOJfS
+ k5aC9bWeDWCpG07eWahcSh+q7p9gh5n48T3+uvEfTDB+Jd0H5/qCosOPONVxcQ==
+Date: Thu, 22 Aug 2024 13:59:46 +0200
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Yangtao Li <frank.li@vivo.com>
-Message-ID: <20240822135624.4ca9a98d@fedora-3.home>
-In-Reply-To: <20240822084733.1599295-3-frank.li@vivo.com>
+Message-ID: <20240822135946.356332a5@fedora-3.home>
+In-Reply-To: <20240822084733.1599295-4-frank.li@vivo.com>
 References: <20240822084733.1599295-1-frank.li@vivo.com>
- <20240822084733.1599295-3-frank.li@vivo.com>
+ <20240822084733.1599295-4-frank.li@vivo.com>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -49,8 +49,8 @@ Cc: andrew@lunn.ch, marcin.s.wojtas@gmail.com, kees@kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, horms@kernel.org, justinstitt@google.com,
  olteanv@gmail.com, davem@davemloft.net, shannon.nelson@amd.com
-Subject: Re: [Linux-stm32] [net-next 2/9] net: stmmac: platform: Convert to
- devm_clk_get_enabled() and devm_clk_get_optional_enabled()
+Subject: Re: [Linux-stm32] [net-next 3/9] net: ethernet: cortina: Convert to
+ devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,11 +69,12 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi,
 
-On Thu, 22 Aug 2024 02:47:26 -0600
+On Thu, 22 Aug 2024 02:47:27 -0600
 Yangtao Li <frank.li@vivo.com> wrote:
 
-> Use devm_clk_get_enabled() and devm_clk_get_optional_enabled()
-> to simplify code.
+> Convert devm_clk_get(), clk_prepare_enable() to a single
+> call to devm_clk_get_enabled(), as this is exactly
+> what this function does.
 > 
 > Signed-off-by: Yangtao Li <frank.li@vivo.com>
 
