@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB90B95C585
+	by mail.lfdr.de (Postfix) with ESMTPS id B6D7795C584
 	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 08:34:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C592C71287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C0CFC7128A;
 	Fri, 23 Aug 2024 06:34:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B11CC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0CFBC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Aug 2024 13:10:57 +0000 (UTC)
+ Thu, 22 Aug 2024 13:11:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1724332264; x=1755868264;
+ t=1724332272; x=1755868272;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=xmonMa7CWYPhpUCav6lGTP6kAPkTd4VjdENwMfAjDQ8=;
- b=nFmOaAFIB9d17qL8LnK/MdA6zzke0OxqirCeaJDcKM/pgYe99bae6FFq
- 614TZ9IH1Sx6PNgq+2pPgqCGi5vAkurQMtPES3O8kPQBRKZNM9qfolDL6
- utmuGrmuSeY7ovHbyRVYS8qWhQUoptMi+/n7S5u3mpzkdCUSZ7P+jE5Pt
- /9vhJ5xa7UM9XwPsBvqQazIGIzPQnwz1ZzlrxNw797nJUYOcy8lzdVbAF
- D271sD3m/05LPP99/zjixM4M/1le5VRN9aZ9Xg5rtfpfFm/lW9GIzz0AC
- 06vgAEkeJE6NGSGeQD8G2RPNbZ4l6F9nm7bLICZPMQuf9ChqwAaZZmS+5 Q==;
-X-CSE-ConnectionGUID: ESqR4vP2R/S8PgCEZtgZvw==
-X-CSE-MsgGUID: WtGhbo2GQUWyh5FCLHxzDg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="33896721"
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="33896721"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ bh=nFeXu58Z4i5680PFo/t6k5yRvztpjG8BD/ThcXiu3bo=;
+ b=lxrJ88nNMos3WH/YNwgIC+u4J+deCIlaUXdPRB+DIphsxk/zBb64vB5f
+ IbTORA7qPjJX8/3TsoAQHef1R7oTPBKVIBwr2CzrWkw7r8ynwyeMcovlT
+ 6/2sx4ct1dWeg7Dt4mDqS3ktiL8J2uqipYOZ+ucAkYjyZAHDA4rjki4lG
+ +U/tw8q3JwRmNNmTio9EcwFBkvZ+DB9sLDJqhvkXXL7suQnX9MwJzyaDN
+ kMxrol+LNFVMHMyltgObosJEetvmqihAllhZ7LTHab1nhN7GGbGFCFhVq
+ vpW2JXTU6Wl59fcqokbeStl0gk7lumNpsxaJY2x2TcLWKl4xhztseZTzV g==;
+X-CSE-ConnectionGUID: Q/OkBHC3R7eoZiPZC9VP0w==
+X-CSE-MsgGUID: +j2ARzDYR/C0cYcinWJUiQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11172"; a="33896785"
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="33896785"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 06:10:16 -0700
-X-CSE-ConnectionGUID: 1SNaBPdZR7KIjuHORoDEkg==
-X-CSE-MsgGUID: dDS462oYQ5eH9CKAcZxrOA==
+ 22 Aug 2024 06:11:01 -0700
+X-CSE-ConnectionGUID: Z9hUc+AGQPCSdbALuccE+A==
+X-CSE-MsgGUID: Acs/L/uYTr2o+98GC88B4w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="61759647"
+X-IronPort-AV: E=Sophos;i="6.10,167,1719903600"; d="scan'208";a="98954827"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2024 06:10:03 -0700
+ by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2024 06:10:52 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1sh7ZB-00000000ST5-0oxN; Thu, 22 Aug 2024 16:09:29 +0300
-Date: Thu, 22 Aug 2024 16:09:28 +0300
+ id 1sh7aC-00000000SUN-3Xpv; Thu, 22 Aug 2024 16:10:32 +0300
+Date: Thu, 22 Aug 2024 16:10:32 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Lei Liu <liulei.rjpt@vivo.com>
-Message-ID: <Zsc4iPRCRKuFW0ZZ@smile.fi.intel.com>
+Message-ID: <Zsc4yD-7AcfkLTlQ@smile.fi.intel.com>
 References: <20240822033924.32397-1-liulei.rjpt@vivo.com>
- <20240822033924.32397-2-liulei.rjpt@vivo.com>
+ <20240822033924.32397-3-liulei.rjpt@vivo.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240822033924.32397-2-liulei.rjpt@vivo.com>
+In-Reply-To: <20240822033924.32397-3-liulei.rjpt@vivo.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Fri, 23 Aug 2024 06:34:54 +0000
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>,
  Paul Cercueil <paul@crapouillou.net>,
  Thierry Reding <thierry.reding@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- opensource.kernel@vivo.com, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
+ opensource.kernel@vivo.com, Florian Fainelli <florian.fainelli@broadcom.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, linux-arm-kernel@lists.infradead.org,
  linux-serial@vger.kernel.org,
  Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
@@ -71,6 +70,7 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
  Richard Genoud <richard.genoud@bootlin.com>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
  Lino Sanfilippo <l.sanfilippo@kunbus.com>,
@@ -78,7 +78,7 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, Jeff Johnson <quic_jjohnson@quicinc.com>,
  Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 1/8] tty: 8250_ingenic: Use
+Subject: Re: [Linux-stm32] [PATCH 2/8] tty: 8250_tegra: Use
 	devm_clk_get_enabled() helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -96,7 +96,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 22, 2024 at 11:39:05AM +0800, Lei Liu wrote:
+On Thu, Aug 22, 2024 at 11:39:06AM +0800, Lei Liu wrote:
 > The devm_clk_get_enabled() helpers:
 >     - call devm_clk_get()
 >     - call clk_prepare_enable() and register what is needed in order to
@@ -106,16 +106,13 @@ On Thu, Aug 22, 2024 at 11:39:05AM +0800, Lei Liu wrote:
 
 ...
 
->  	data->line = serial8250_register_8250_port(&uart);
->  	if (data->line < 0) {
->  		err = data->line;
-> -		goto out_disable_baudclk;
-> +		return err;
->  	}
+>  err_clkdisable:
+> -	clk_disable_unprepare(uart->clk);
+>  
+>  	return ret;
 
-	data->line = serial8250_register_8250_port(&uart);
-	if (data->line < 0)
-		return data->line;
+Now this label (err_clkdisable) becomes redundant and code may use return ret
+in-line.
 
 -- 
 With Best Regards,
