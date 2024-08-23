@@ -2,140 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EAAC95C625
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 09:07:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6768D95C8E5
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 11:11:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5133BC71289;
-	Fri, 23 Aug 2024 07:07:18 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2056.outbound.protection.outlook.com [40.107.215.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14BC7C71287;
+	Fri, 23 Aug 2024 09:11:35 +0000 (UTC)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EE3AC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29A6CC6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 07:07:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q2D0KqWreQIbSwRFo19ORgXIfe0tYN0EVDkllfD0XJb8m8OjUsAeaPR9WHgTJck3Kftmtti9edg41bAf4Zl1fw6kIBH+ADajjSWXHtphycADvXhOEnBEdWlZZt5FTOn80CuY/ugz5ZSWbuvUuIZs03qaP9DnkELMnlhcIdt/XP2mOByu9ZgPAWmmVK/NPDKAFGvNjZ/oFwyBHwS9vCMTRJ12/vmdFuTnW7eeKnBGsdXg675EX1N8pW5pEvgtCPXieYkySv94d6HefiKoeAw5HX2+clen2zscYh1fs/mPARpqX8Vuzk55FeTbyjo8X2Bw79BahMIp5FjBw29xXK2UYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=loKZ3Jg1P258pXcp3YCt+6qnQHyeqRZ5FiyqwfFFhhU=;
- b=olPfDqzMDeb3SOWfwuIi0UyOmY4hpleHvOKQLIRDQSc7hV3k91RyUs6glUyNIim09RxajF4TAF/MEg22VOSVWRYEErza8KkJ5BDGWBax82XtzPWw1v2N+c9p3qYElSp61YxMU2PEm/DBydBbHzFbjk3CZqyJQ2L8mppuiS6j12tR1yHuFcKewOlSjwk5G38A+s6bPMNcPI+wuRb4Hf5dU9VplQUYsqzLYZDet7s4e4zF0w7JftORq4aQkWSXblXcLZRSdsIAaYYmvUKgByR3Nh9Xc8hS+eH9uUvxODm8PmplQBIGq0TTZCkeugJUBA/YYhkulK8kBd6UD+P9M8Xplw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=loKZ3Jg1P258pXcp3YCt+6qnQHyeqRZ5FiyqwfFFhhU=;
- b=jqha4XvRQ8O9flSPaRY17jW0G/MCRVcdrDhFJJuIUm00wXgTS1OnwKnboJ2eE9rD9rLbpNVmWnMcDwvL/XCNzlUhGXlJ1U33iJIio9ttf+nXxgV0UZ1r31iZ+m7CUMmsdiO6GnHpGHptjTKURQiTgxYBGbAyN8W6Bd6E1IPHJPXirHhoJcuSUBT9dtSK5p3yYjv/TsU2udKEZWQ+8jOtCo3siL+j9OoneDXmUJb731FWnAVNqolqVr6ZjO+JSKaZkzQQHXtDDNWS2dWNNfnAuPFGMTkU9ef9XEAm/S4uZXE6k69Z1bHZN3x4RiCBXRYOgRL3dWWV2Fm/Ty8jKTwJHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
- by JH0PR06MB6980.apcprd06.prod.outlook.com (2603:1096:990:6f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Fri, 23 Aug
- 2024 07:07:13 +0000
-Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
- ([fe80::8c74:6703:81f7:9535]) by SEZPR06MB5269.apcprd06.prod.outlook.com
- ([fe80::8c74:6703:81f7:9535%7]) with mapi id 15.20.7875.023; Fri, 23 Aug 2024
- 07:07:13 +0000
-From: Yangtao Li <frank.li@vivo.com>
-To: clement.leger@bootlin.com, andrew@lunn.ch, f.fainelli@gmail.com,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, ulli.kroll@googlemail.com,
- linus.walleij@linaro.org, marcin.s.wojtas@gmail.com, linux@armlinux.org.uk,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, hkallweit1@gmail.com, kees@kernel.org,
- justinstitt@google.com, u.kleine-koenig@pengutronix.de, horms@kernel.org,
- sd@queasysnail.net
-Date: Fri, 23 Aug 2024 01:21:21 -0600
-Message-Id: <20240823072122.2053401-10-frank.li@vivo.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240823072122.2053401-1-frank.li@vivo.com>
+ Fri, 23 Aug 2024 09:11:28 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-2f3f07ac2dcso18987251fa.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 Aug 2024 02:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724404287; x=1725009087;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4PO5E+Yc2jdmqT5l2dYdMtbWuQDD2570ef53Pzw7Dho=;
+ b=cLq8QekoUSWLt2JsDU/vlELuP1wkxweor/PQRDVsmG9ytjugmE45q144nPg4w99Oeq
+ H1R7n54vkOxo4Nj/4otwDIma4BB2oJ4ZlbaWqZcIEoJRgzmquyBklhmWrSflJ3N28eAI
+ bUTuYVs7gSU1NUSiW2HFx7bhQu2bcT/7f+byB/jaXsLIFW8SrMcojMEfzc5NVZOzdH5p
+ Z/TkTEZ/6My5M0oiPKnPXLgxXRHKR/rCWzwoIGZI9ko22PeKgH71M9Jao7AHkMarHIVA
+ rq03zZmdD34PDaicfbdVE4rt93kqpjwTGNzJxiGv68LGMrJixxfLj5m/BoG+fR0dDxVt
+ OqBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724404287; x=1725009087;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4PO5E+Yc2jdmqT5l2dYdMtbWuQDD2570ef53Pzw7Dho=;
+ b=MNWaK0zYe3h6/3RsSOxufSxZamSjmaApr1/pO9E1QWHC+HBxQvgEDXyK36+dqlH2qX
+ wFlBauqLWFAvBN4FTFguZz/HEeQe2hOVIJ79VDOvF+JtsQRVmm0Zn0fvFJF6bvTU/lAl
+ EeLONWwOJQReAkkpZBK8VAuUX1epCRYMT7AS7hwKiSaeRJ5ZJxVh4HGAzNGMrITXg/Ab
+ cGfONXuA8f5TMnAutHmitXMhZ/y2XD1VhU2x96UaaiX+bh3L4YzqYYTJHkfIgKuc5a7U
+ fb138TaI5sf9Ves4UJLKdHztPnt8fZdAJ3EMaiEy7g/bm2rucvBgJhtDAHfIM8dveUlL
+ nnfQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUq5Ui1UiXFIJUBVIMaDh8NZdK38ALgYspwaQj4jGppVYgNhaRxMMeWiOrfD06NrCLegPx840E8IBr/bw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzMMqx90J/bIVsAWX+nG1IQ0Y2GGxb1nz5/YPS30zhRWSEEGiVw
+ q+fMwLo3QarKDyhKcduH8WgIbclmFXl7cm9zp7yNmvpUP/Be/DVG
+X-Google-Smtp-Source: AGHT+IG7i0v4Oxi1zDQ7x12f7nNWK8FCGltyKq7l0VpZBxkWpTbouDOSj6EcsEmrspHXN3Tlr5uzsg==
+X-Received: by 2002:a2e:b8c3:0:b0:2f3:f5aa:b3d0 with SMTP id
+ 38308e7fff4ca-2f4f57978bamr7783171fa.35.1724404286482; 
+ Fri, 23 Aug 2024 02:11:26 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2f40487f797sm4324791fa.119.2024.08.23.02.11.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Aug 2024 02:11:26 -0700 (PDT)
+Date: Fri, 23 Aug 2024 12:11:23 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Yangtao Li <frank.li@vivo.com>
+Message-ID: <qx4k2xehasda7zj6vt3bygdh3scehiiwniqvljj4b4rjde25a5@ys4oqsithhwi>
 References: <20240823072122.2053401-1-frank.li@vivo.com>
-X-ClientProxiedBy: SI2PR04CA0001.apcprd04.prod.outlook.com
- (2603:1096:4:197::12) To SEZPR06MB5269.apcprd06.prod.outlook.com
- (2603:1096:101:78::6)
+ <20240823072122.2053401-3-frank.li@vivo.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|JH0PR06MB6980:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5ad0c70-d0ca-46b1-0367-08dcc34236bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|52116014|38350700014|921020; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wub3cS4t2MQTIT8vSRdjk9BRaoViw9TFYXhNPtRBdM8S81eZ9SpZhrz65iTl?=
- =?us-ascii?Q?vy/9GKAlTKSFXjTUL6TEsrtvaO1HCBnHTp4kdp+uGEVGnG+YTs8mCZInHX6t?=
- =?us-ascii?Q?hfG/Aa1C3RN48CRzPOYBdn7j4lcqGFEM6cxL9z42ZR/XRx5wM8TblM7kSGbq?=
- =?us-ascii?Q?/u1+P1gvejrqxw/NhlIuIsvs9CHSHu4r1sYbh0Wq81oIGx3yS2/OaYh0XIdF?=
- =?us-ascii?Q?/ctt2IkAtpIlH9qD7fCZjtC7bfKRuHrSIaix6sYmjZzlsoEBDW5elz7S+zEH?=
- =?us-ascii?Q?DEnHB7lzAYpmIdA1FQjRmkaGxgxMRushri5oj8TnvT++N1bpVMDU2ptvKAoN?=
- =?us-ascii?Q?xwYjXCaxvkMqw3/BPxfGSNeiozmXKv+ah/6sSpBHwDoBYpiQiwjYzPKtEboi?=
- =?us-ascii?Q?kYFuM0Iae7Vqr1bQh++GhLZ14z6n4d8kdR33pSJYNjFeM955w+87z84Nqc1f?=
- =?us-ascii?Q?n2/s8triWe7xuL1uJQEqe1ibUzGX/7ISYg62IFo1Pg6i73vlIiF0/tjsHJlr?=
- =?us-ascii?Q?ubDe18tyFR3dfqU2KeW8Mhhv6/HDD0vK5+B9fuFOcwMj07OnFWcqweR56OuD?=
- =?us-ascii?Q?mhdOmdU+IffPMmcQOWGf0CXL9te85GTJ683UoAbBNXSLGgVZnzgIsoME540J?=
- =?us-ascii?Q?xPC4hHQm9w/xb/gpy9ffEjTZrMU0I2rwveUkR2GUJ92MKevOL5wBlhFSgtHm?=
- =?us-ascii?Q?KHUYZ9fn/25YADD7abbnDrtmDFiSVlRfXvi0w0poFmVYh424S1GwVvdwBdkz?=
- =?us-ascii?Q?TTgd6fRzfUOuMUuJsT+k5nFVEQopF6YSKaNOnGOVQSteqbQnnt7O6Z/lvhP6?=
- =?us-ascii?Q?Pwds5RFRsuqGI78WhkyGt3ZQLClyJFpxiBeThrZHdMTybXHYixdaTmpKqhb4?=
- =?us-ascii?Q?tlCLuQBbFHzHNJRltrFFp0QqgTmLhk+BgMwb7Ui7QNZJcVVfZVd2az9c6mmw?=
- =?us-ascii?Q?JqZvpc7kBEvozcsQgkNtz69Xl+DCJd34AlAo45/GPBSomkqOYM34oDew5joc?=
- =?us-ascii?Q?oTC7fkiZftyh4kyqS4ASRBU0peNbjeZNrZbfbEf6ce3cGsoTdCg1/rZ5twBT?=
- =?us-ascii?Q?+7mtv3gyrZGAC+aLBy5yxgxqo4jADM1YC0Q4idYHj8ecs+7UEdA8dXhJqYrv?=
- =?us-ascii?Q?cP5txwonF3ISSbYrGoESd90MM2YbxXMYiTUxlGpgBxpzvrPW/gcSCI0kEDwf?=
- =?us-ascii?Q?qS7F5fgfjLngycD0MdkAE3CCveW7m1MbqRrbxwkTGOI6G6ekMEi3v6mNaTt7?=
- =?us-ascii?Q?/rt5SYshv13HLULpvQnAlxzLhHfo8uDmfX5fG+ZkQ10m40YOghJd0fq80Ooj?=
- =?us-ascii?Q?E5Ploi9SRH702UyCTP2EQRe9XN6ogOSniQ1btr1fewC3vfyOJOUiAD+qyNFr?=
- =?us-ascii?Q?C6DmpDLXVAL6nY5LamHeqgf7rvbuK2kmXMP0yTiWD7Oyr/wHbJLDtgn1fMwX?=
- =?us-ascii?Q?8Ui8LjoXqEg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(52116014)(38350700014)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gHcQydh16iDY4IDqdEJah5Zpj64N5wIPcIocgMe7zViQ8E12YruuV//b+u5o?=
- =?us-ascii?Q?ugKo4ZVTAhG9DxVWyA8zWU7/D3x4RlMxsGVEwiEamSFYTLZ4ToAA0QpISiie?=
- =?us-ascii?Q?dzUJu7uflTFNUezRCnOj1k1zXFsBoh3cZZc3NdT8gOHrr659oKy0Eby/IpnK?=
- =?us-ascii?Q?iuSK2tbpkKC7zI6huMVvdC4V3gpv1AwntEryTYeWFnmumrtEdh7wrw48crry?=
- =?us-ascii?Q?pWPQF2TxobYrFCY/kfAuzLcAzOqiFj4gq4pAAewztVFxq/r4tIIugA0fbzDo?=
- =?us-ascii?Q?OPCzURriOFftlJB5w1JzfTtM+MAA1Jd5MhEu/5k3OT5Wqq8xKKTeXeCUt6PX?=
- =?us-ascii?Q?qyJ0UDbBuBtBYmvq+LxtqRp+TFE7ev6B3xzGrli4WD/D+Bg3OgEyPbVo76D8?=
- =?us-ascii?Q?SxOn2uLowp5cmN7S4IgWrrgjmQZCK81pWyNnwHGIkylicW8f6gS5vUPvZTBF?=
- =?us-ascii?Q?zLDn3nSC5JRRWmganOm3r+4KDm2RxLu8ekafnrRdR8FxV8sVjyY2/hp6rE6L?=
- =?us-ascii?Q?LMmiwnHZXEbvVfUkIUpum8EmEkUGuJ1eDCb/IyWWqrLZbcy/3yNrtqH39WNQ?=
- =?us-ascii?Q?Y0PGTEq5/pB635YhTcTDDitYOVCjjuzqDbzGLq3j3WUaxVOi+aJQvlv08Ior?=
- =?us-ascii?Q?0nY1tk9qOgWst9GUJcrMs0ghOcFO+T/AzlKxqxJEuG3P2VcuNVfuMVTtofad?=
- =?us-ascii?Q?8hu+Imrmrc4Pw06OZ2Z6NbH2QCPpcihp1Lhe14/uE+Z4A3L6kT7e4tBtHJL5?=
- =?us-ascii?Q?pOrba7LZxVk5zBFbWq6PwSLAS32lHFLV5J2FvIVm/8ehgxU/SxP9tizxKeJO?=
- =?us-ascii?Q?JydCV2LLhBmUWsp5klf9zQQAmFgQ1iIQ3mEOdK++QdgMi8IC82aJnP6YeQmC?=
- =?us-ascii?Q?sXcwUCQLEDRf9cKnJ8ES4T0VgELopjUAn2hYQlwhcLmqbajXv2i089ntqqZ7?=
- =?us-ascii?Q?tY5hQvjAw7IVT56dMkTEEsu+pdTneSvgOnBm+udmbbELXp/lc13S8lQGqgNi?=
- =?us-ascii?Q?9Jlyz64zNEpiN0t3ArtBW1igaJ0ntHDjHMN5iJmqGImBc8z0cILCc8fgLpRY?=
- =?us-ascii?Q?9X5mQ0gzdGvTxR/lcmakhWFIJirMtM13ndbffpzWQFF6X2E90TVe16QQBluJ?=
- =?us-ascii?Q?gXpSI/hy1+ZAF/6+F39Na0JlO5KqjRanTxdTs2lKV0Z4fBdZf/j8ORmZx1Jv?=
- =?us-ascii?Q?D+TxBPyY4Z1KM8yg8yYBv28pu6NIGo+/qowQ0LS7PAbz5Rb6O4tEWoLtI+cg?=
- =?us-ascii?Q?l0Ot/4iDZTnEHkLyXVB9PcWr7ouPMXfhRS240WHaGRzWajvoD55cLvVeQ3zJ?=
- =?us-ascii?Q?uKSN0Lac7cYYna1IstYYWlynL/MUuv3c270UfDUWJvgcyKHEAPR+RBHzxQvF?=
- =?us-ascii?Q?3i2v7AJqX7H1jjDjDB+oN/rxGecUinvtPLv043aBd3cOUSiPI39gHd7FgThP?=
- =?us-ascii?Q?0pn3CvVJ9cj/n+hBnbbvpAST3t9QJOlkH9Q2BdtyIxfWmZtFzpPu8u32tIc9?=
- =?us-ascii?Q?ZEw3WcahdBYOsZLBKIiP1AG/w9lIdLVNzobqUfSRgQF0wCF/HC1mT5ltp6S3?=
- =?us-ascii?Q?J0AiAV/GN9Ix29ijRqaJeQjTmEUCukmRzG9CS5WH?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5ad0c70-d0ca-46b1-0367-08dcc34236bc
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 07:07:13.4831 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6ZXwq+EYMG0Pv2dU/Ep7T8ND5DHlI0Kzt1ugjIhensAjH/1rPrcj3deCnd4uH8iy8NlNQMvPxKP0Ou/Tubjkjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6980
-Cc: Yangtao Li <frank.li@vivo.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [net-next v2 9/9] net: marvell: pxa168_eth: Convert
-	to devm_clk_get_enabled()
+Content-Disposition: inline
+In-Reply-To: <20240823072122.2053401-3-frank.li@vivo.com>
+Cc: andrew@lunn.ch, marcin.s.wojtas@gmail.com, kees@kernel.org,
+ linus.walleij@linaro.org, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, f.fainelli@gmail.com,
+ sd@queasysnail.net, linux@armlinux.org.uk, joabreu@synopsys.com,
+ u.kleine-koenig@pengutronix.de, kuba@kernel.org, pabeni@redhat.com,
+ clement.leger@bootlin.com, mcoquelin.stm32@gmail.com,
+ ulli.kroll@googlemail.com, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, horms@kernel.org, justinstitt@google.com,
+ olteanv@gmail.com, davem@davemloft.net, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [net-next v2 2/9] net: stmmac: platform: Convert
+ to devm_clk_get_enabled() and devm_clk_get_optional_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,76 +92,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert devm_clk_get(), clk_prepare_enable() to a single
-call to devm_clk_get_enabled(), as this is exactly
-what this function does.
+Hi Yangtao
 
-Signed-off-by: Yangtao Li <frank.li@vivo.com>
----
- drivers/net/ethernet/marvell/pxa168_eth.c | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+On Fri, Aug 23, 2024 at 01:21:14AM -0600, Yangtao Li wrote:
+> Use devm_clk_get_enabled() and devm_clk_get_optional_enabled()
+> to simplify code.
+> 
+> Signed-off-by: Yangtao Li <frank.li@vivo.com>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+> v2:
+> -remove unused 'ret'
+> -fix incompatible-pointer-types
+> 
+>  .../ethernet/stmicro/stmmac/stmmac_platform.c | 35 +++++--------------
+>  1 file changed, 8 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index ad868e8d195d..1a66baaa4081 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -415,8 +415,6 @@ static int stmmac_of_get_mac_mode(struct device_node *np)
+>  static void stmmac_remove_config_dt(struct platform_device *pdev,
+>  				    struct plat_stmmacenet_data *plat)
+>  {
+> -	clk_disable_unprepare(plat->stmmac_clk);
+> -	clk_disable_unprepare(plat->pclk);
+>  	of_node_put(plat->phy_node);
+>  	of_node_put(plat->mdio_node);
+>  }
+> @@ -436,7 +434,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  	struct plat_stmmacenet_data *plat;
+>  	struct stmmac_dma_cfg *dma_cfg;
+>  	int phy_mode;
+> -	void *ret;
+>  	int rc;
+>  
+>  	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
+> @@ -615,21 +612,16 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  
+>  	/* clock setup */
+>  	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
+> -		plat->stmmac_clk = devm_clk_get(&pdev->dev,
+> -						STMMAC_RESOURCE_NAME);
+> +		plat->stmmac_clk = devm_clk_get_enabled(&pdev->dev, STMMAC_RESOURCE_NAME);
+>  		if (IS_ERR(plat->stmmac_clk)) {
+>  			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
+>  			plat->stmmac_clk = NULL;
+>  		}
+> -		clk_prepare_enable(plat->stmmac_clk);
+>  	}
+>  
+> -	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
+> -	if (IS_ERR(plat->pclk)) {
+> -		ret = plat->pclk;
+> -		goto error_pclk_get;
+> -	}
+> -	clk_prepare_enable(plat->pclk);
+> +	plat->pclk = devm_clk_get_optional_enabled(&pdev->dev, "pclk");
+> +	if (IS_ERR(plat->pclk))
 
-diff --git a/drivers/net/ethernet/marvell/pxa168_eth.c b/drivers/net/ethernet/marvell/pxa168_eth.c
-index 1a59c952aa01..bad91cc705e8 100644
---- a/drivers/net/ethernet/marvell/pxa168_eth.c
-+++ b/drivers/net/ethernet/marvell/pxa168_eth.c
-@@ -237,8 +237,6 @@ struct pxa168_eth_private {
- 	struct timer_list timeout;
- 	struct mii_bus *smi_bus;
- 
--	/* clock */
--	struct clk *clk;
- 	struct pxa168_eth_platform_data *pd;
- 	/*
- 	 * Ethernet controller base address.
-@@ -1394,23 +1392,19 @@ static int pxa168_eth_probe(struct platform_device *pdev)
- 
- 	printk(KERN_NOTICE "PXA168 10/100 Ethernet Driver\n");
- 
--	clk = devm_clk_get(&pdev->dev, NULL);
-+	clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(clk)) {
- 		dev_err(&pdev->dev, "Fast Ethernet failed to get clock\n");
--		return -ENODEV;
-+		return PTR_ERR(clk);
- 	}
--	clk_prepare_enable(clk);
- 
- 	dev = alloc_etherdev(sizeof(struct pxa168_eth_private));
--	if (!dev) {
--		err = -ENOMEM;
--		goto err_clk;
--	}
-+	if (!dev)
-+		return -ENOMEM;
- 
- 	platform_set_drvdata(pdev, dev);
- 	pep = netdev_priv(dev);
- 	pep->dev = dev;
--	pep->clk = clk;
- 
- 	pep->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(pep->base)) {
-@@ -1523,8 +1517,6 @@ static int pxa168_eth_probe(struct platform_device *pdev)
- 	mdiobus_free(pep->smi_bus);
- err_netdev:
- 	free_netdev(dev);
--err_clk:
--	clk_disable_unprepare(clk);
- 	return err;
- }
- 
-@@ -1542,7 +1534,6 @@ static void pxa168_eth_remove(struct platform_device *pdev)
- 	if (dev->phydev)
- 		phy_disconnect(dev->phydev);
- 
--	clk_disable_unprepare(pep->clk);
- 	mdiobus_unregister(pep->smi_bus);
- 	mdiobus_free(pep->smi_bus);
- 	unregister_netdev(dev);
--- 
-2.39.0
+> +		return (void *)plat->pclk;
 
+Use the ERR_CAST() macro instead of the open coded void type cast.
+
+>  
+>  	/* Fall-back to main clock in case of no PTP ref is passed */
+>  	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
+> @@ -644,26 +636,15 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  
+>  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
+>  							   STMMAC_RESOURCE_NAME);
+> -	if (IS_ERR(plat->stmmac_rst)) {
+> -		ret = plat->stmmac_rst;
+> -		goto error_hw_init;
+> -	}
+> +	if (IS_ERR(plat->stmmac_rst))
+
+> +		return (void *)plat->stmmac_rst;
+
+ditto
+
+>  
+>  	plat->stmmac_ahb_rst = devm_reset_control_get_optional_shared(
+>  							&pdev->dev, "ahb");
+> -	if (IS_ERR(plat->stmmac_ahb_rst)) {
+> -		ret = plat->stmmac_ahb_rst;
+> -		goto error_hw_init;
+> -	}
+> +	if (IS_ERR(plat->stmmac_ahb_rst))
+
+> +		return (void *)plat->stmmac_ahb_rst;
+
+ditto
+
+-Serge(y)
+
+>  
+>  	return plat;
+> -
+> -error_hw_init:
+> -	clk_disable_unprepare(plat->pclk);
+> -error_pclk_get:
+> -	clk_disable_unprepare(plat->stmmac_clk);
+> -
+> -	return ret;
+>  }
+>  
+>  static void devm_stmmac_remove_config_dt(void *data)
+> -- 
+> 2.39.0
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
