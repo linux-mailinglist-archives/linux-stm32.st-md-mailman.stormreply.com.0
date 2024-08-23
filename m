@@ -2,75 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6D1095CB8E
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 13:39:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E661995CBCA
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 13:57:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BF8EC71289;
-	Fri, 23 Aug 2024 11:39:30 +0000 (UTC)
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 764A1C71289;
+	Fri, 23 Aug 2024 11:57:00 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B6E5C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12E4BC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 11:39:23 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2f3ea86377aso19339751fa.1
+ Fri, 23 Aug 2024 11:56:53 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2f40a1a2c1aso13599821fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 04:39:23 -0700 (PDT)
+ Fri, 23 Aug 2024 04:56:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724413162; x=1725017962;
+ d=gmail.com; s=20230601; t=1724414212; x=1725019012;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jlruKgWSyuzMsIHMo/qBZLFbjRmtSnM9kjyIrTE/wvg=;
- b=e+K/oNF5GN9oBviGN7RLaefZa1MpBd/m+oFynBX//rQES4LTcAy/KZ+UeyRyZroNKb
- xsbJsLgNJAQM9E122uMEp8i3wc+ySvzZZ8mGUWN0OHfbrzfE2DlMKdFgEsi7heuQMP+B
- jWUJdFdI1tZeQ0cHr01ECgnx+W3cD+5MQkejQxYvKrUIKI1yFDoWv82fKRXpZY2phWwH
- xN/UOnckC4i8Urq3RXQMlslsD8Qd+moakCKqxcZU67Y9x6BNLnr8stp04AlmtlNlcQQ3
- A1+AQ/Y1KwsVeItbRsY1K2J0x1baMDP4lSedfkq3RuVJjspEgYrm9PvYgtIp5NE8rSFN
- vmlA==
+ bh=qgZV4tyks6GAMQWfK4L38P65yZL2kRRfBpNWa0hJOFY=;
+ b=RCCmy6/lVHipaQzF7zQ++YKkRypOwMEb+WlvbbDuXkuWXso+MR/TDALZqSK8GxvCC0
+ kzaoaSYv59HG5ejt9/d9vCBppX9Iu9PKxPK0xfQKuYjRYudZp4OuzC7iLvcT9/ZeHt74
+ PuzcJElZq9HmNxHuG8Q1UKH2+8//HUJQ2Vt4djO9tUiYxS7orZX72NjiBquSyHcYoDz8
+ g5C+XOz8cU0ww0pyeVlmMF0icgtHtNXU10kmeFXtCaAv6gmiYj8/L1ou4T8j3LSMcl55
+ MXQT0CGlvADGA6FGI0Z2tI9qBDGQ7ikLXy3hbn5ITyWNWQN3ce+PurXaI+dzndsp8T4D
+ P7xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724413162; x=1725017962;
+ d=1e100.net; s=20230601; t=1724414212; x=1725019012;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jlruKgWSyuzMsIHMo/qBZLFbjRmtSnM9kjyIrTE/wvg=;
- b=MgOBmku2sfWOHlDbJwYymACNFNReUnqCfpnyS2ye3vRETGBTJv02LBPA/5cmpogsYO
- omfUemEQZ67PWULnoEjFpYqiQQK5e2HY+79SO/ekYKoP/8A26NqM2XCV+b4i6fYRhzdG
- x+cd1+4cuUclX9VQB1xS+kIzTcbaFh2lZPX0J7bdGS/pop7E75o1i9IK4LWWr2on3WlT
- fQNih5nrgNDMX58ZDFM/2KJyasBn2VSD9boUf6+wuUwQT3g7GDKonf9nUfWJBZM/1mUS
- CLbMKy0Mni2DlvHdBNsjiBROOJm7zyY5QseViZuouoKEp5RNj39CQ1P0/z3Nz33c2WDE
- 6F4A==
+ bh=qgZV4tyks6GAMQWfK4L38P65yZL2kRRfBpNWa0hJOFY=;
+ b=aAD2PjuYUxMXjPM5VI85Q/5gmJlBl2Xqtit3ndTTfiGZlDEjJUfr3SYVToINpBAigG
+ 1XArnEMKtKPUwB/SF1FPS5qb1zfTIU0gL+YGfvORQNLqs+zhEE4QvocBOsPYE23lMl1K
+ XI8ld0EUBhMeQ0RMQthyDSXaPz8JLefPN+bJsvjsChKNKJLE6S/KmDzvN7uXItIJ6RxB
+ W6eRzLGswXZ0T2gDPRCdz1ahtBqpIrpXFu82NYm+SMTivaglOnT60cXnzWEqtr8g6OIf
+ zHgt9xhEpWwsuIYEd1IK+IVXAPcU5Dv9PldpCqDvbGd+hy7xv8eTxeS8nkE4/SBMTiFN
+ KDAw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXaesZptXBfXdwVUj4viFKb/EZeKT8EcSeIAsGO8ShYgFlrxkTBb3QLVaGPD6Hbu/F4i+yOWSy2Hql7KA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy+treAAc0AdfCL8vSI9cDMWvbeFN+c2QanURGkRuUPDgRyKRpo
- t2VWHbq0407NYBcesVozl2qNCvVbYLi0Fj+L3I4nLrogaOIE7JIb
-X-Google-Smtp-Source: AGHT+IGFZsbaVFFRPu1XfQgRoVIGdIfcvZRHBov5lLf0J3VMkYh9shDO4B98AiQLhmcrPhVqhMokVg==
-X-Received: by 2002:a2e:bea8:0:b0:2ef:296d:1dd5 with SMTP id
- 38308e7fff4ca-2f4f4745a34mr18409651fa.0.1724413161623; 
- Fri, 23 Aug 2024 04:39:21 -0700 (PDT)
+ AJvYcCVfSLWV9A7sNwYglS+kAvM0Dbc3Bm8GfAv+RTvdmfCbmbxujC7Ij+pEKPhOPyEzF5DEruMLdvLmslRarg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwMC2JdlYPfIwOYg3fEHuGfqr+0MHf+fcWCcG00GLH6dYLTrGBK
+ lr43/iMAtvoKyqGuoXbQo+i5nIBFBfeQiyDIQW/y3a8X3/iRV/ZS
+X-Google-Smtp-Source: AGHT+IHdAqAk6DpZd9sGZOVHkcPaqutovShJdwo7b99VJ/xrWNo1e0HoCkmY7ZKsjoXcxQ0Oe8N1rg==
+X-Received: by 2002:a05:6512:ad1:b0:533:4b76:cb59 with SMTP id
+ 2adb3069b0e04-53438869c7fmr1528825e87.57.1724414211306; 
+ Fri, 23 Aug 2024 04:56:51 -0700 (PDT)
 Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f4047a4ed4sm4527191fa.10.2024.08.23.04.39.20
+ 2adb3069b0e04-5334ea5d8b8sm532166e87.216.2024.08.23.04.56.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 04:39:21 -0700 (PDT)
-Date: Fri, 23 Aug 2024 14:39:18 +0300
+ Fri, 23 Aug 2024 04:56:50 -0700 (PDT)
+Date: Fri, 23 Aug 2024 14:56:46 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: ende.tan@starfivetech.com
-Message-ID: <hq3rdtfobswczm5aecjezmm5isitquedryhjiw64n4bp2rhqyj@mvhhyanfbmuz>
-References: <20240821060307.46350-1-ende.tan@starfivetech.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <ekzmq7y5is7em2zlsmf4bzne4z346dkyvynynmd45m7iqulamq@sle2yzzx7o4t>
+References: <cover.1724409007.git.0x1207@gmail.com>
+ <8c6e74ee569d33ee5c7db78e3964c60001b3fb48.1724409007.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240821060307.46350-1-ende.tan@starfivetech.com>
-Cc: andrew@lunn.ch, leyfoon.tan@starfivetech.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, joabreu@synopsys.com, minda.chen@starfivetech.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- endeneer@gmail.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next, v2,
- 1/1] net: stmmac: Add dma_wmb() barrier before setting OWN bit in
- set_rx_owner()
+In-Reply-To: <8c6e74ee569d33ee5c7db78e3964c60001b3fb48.1724409007.git.0x1207@gmail.com>
+Cc: Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v6 1/7] net: stmmac: move
+ stmmac_fpe_cfg to stmmac_priv data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,159 +90,269 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Tan
-
-On Wed, Aug 21, 2024 at 02:03:07PM +0800, ende.tan@starfivetech.com wrote:
-> From: Tan En De <ende.tan@starfivetech.com>
+On Fri, Aug 23, 2024 at 06:50:08PM +0800, Furong Xu wrote:
+> By moving the fpe_cfg field to the stmmac_priv data, stmmac_fpe_cfg
+> becomes platform-data eventually, instead of a run-time config.
 > 
-> Currently, some set_rx_owner() callbacks set interrupt-on-completion bit
-> in addition to OWN bit, without inserting a dma_wmb() barrier in
-> between. This might cause missed interrupt if the DMA sees the OWN bit
-> before the interrupt-on-completion bit is set.
-> 
-> Thus, this patch adds dma_wmb() barrier right before setting OWN bit in
-> each of the callbacks. Now that the responsibility of calling dma_wmb()
-> is delegated to the callbacks, let's simplify main driver code by
-> removing dma_wmb() before stmmac_set_rx_owner().
-> 
-> Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+> Suggested-by: Serge Semin <fancer.lancer@gmail.com>
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
 > ---
-> v2:
-> - Avoid introducing a new function just to set the interrupt-on-completion
->   bit, as it is wasteful to do so.
-> - Delegate the responsibility of calling dma_wmb() from main driver code
->   to set_rx_owner() callbacks (i.e. let callbacks to manage the low-level
->   ordering/barrier rather than cluttering up the main driver code).
-> v1:
-> - https://patchwork.kernel.org/project/netdevbpf/patch/20240814092438.3129-1-ende.tan@starfivetech.com/
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c   | 5 ++++-
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 5 +++--
->  drivers/net/ethernet/stmicro/stmmac/enh_desc.c       | 1 +
->  drivers/net/ethernet/stmicro/stmmac/norm_desc.c      | 1 +
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    | 2 --
->  5 files changed, 9 insertions(+), 5 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  2 ++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  | 30 ++++++++++++++++++-
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++-------
+>  .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 16 ++--------
+>  include/linux/stmmac.h                        | 28 -----------------
+>  5 files changed, 44 insertions(+), 52 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> index 1c5802e0d7f4..95aea6ad485b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> @@ -186,10 +186,13 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index 7e90f34b8c88..d3da82982012 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -26,6 +26,8 @@
+>  })
 >  
->  static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
->  {
 
-> -	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
-> +	p->des3 |= cpu_to_le32(RDES3_BUFFER1_VALID_ADDR);
->  
->  	if (!disable_rx_ic)
->  		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
-> +
-> +	dma_wmb();
-> +	p->des3 |= cpu_to_le32(RDES3_OWN);
->  }
->  
->  static int dwmac4_get_tx_ls(struct dma_desc *p)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index fc82862a612c..d76ae833c840 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -56,10 +56,11 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
->  
->  static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
->  {
-> -	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
-> -
->  	if (!disable_rx_ic)
->  		p->des3 |= cpu_to_le32(XGMAC_RDES3_IOC);
-> +
-> +	dma_wmb();
-> +	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
+>  struct stmmac_extra_stats;
+> +struct stmmac_fpe_cfg;
+> +enum   stmmac_mpacket_type;
+>  struct stmmac_priv;
+>  struct stmmac_safety_stats;
+>  struct dma_desc;
 
-I am not against moving the barrier here but really I don't see a firm
-reason of why you can't collect the flags in a local variable and
-then flush it out to the DES3 field.
+Not sure whether it's supposed to be alphabetically ordered, but using
+additional spaces to align the names seems an abnormal approach. I
+failed to find any similar sample in kernel. So seeing the driver
+doesn't implement the forward declarations as you suggest I'd convert
+this to just:
 
-Getting back to your discussion with Andrew:
-https://lore.kernel.org/netdev/06297829-0bf7-4a06-baaf-e32c39888947@lunn.ch/
-you said:
+ struct stmmac_extra_stats;
+ struct stmmac_priv;
+ struct stmmac_safety_stats;
++struct stmmac_fpe_cfg;
++enum stmmac_mpacket_type;
+ struct dma_desc;
 
-> I didn't use local variable because I worry about CPU out-of-order execution. 
-> For example,
-> ```
-> local_var = (INT_ON_COMPLETION | OWN)
-> des3 |= local_var
-> ```
-> CPU optimization might result in this
-> ```
-> des3 |= INT_ON_COMPLETION
-> des3 |= OWN
-> ```
-> or worst, out of order like this
-> ```
-> des3 |= OWN
-> des3 |= INT_ON_COMPLETION
-> ```
+Other than that the patch looks good:
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
-Why do you think the CPU would split up the pre-initialized local
-variable write into the two-staged write?
-
-Anyway Andrew is right about the descriptors memory nature. It's a
-coherent memory to which the access is expensive and should be
-minimized as much as possible.
-
+Thanks
 -Serge(y)
 
->  }
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index b23b920eedb1..458d6b16ce21 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -146,6 +146,33 @@ struct stmmac_channel {
+>  	u32 index;
+>  };
 >  
->  static int dwxgmac2_get_tx_ls(struct dma_desc *p)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> index 937b7a0466fc..9219fe69ea44 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> @@ -289,6 +289,7 @@ static void enh_desc_set_tx_owner(struct dma_desc *p)
+> +/* FPE link state */
+> +enum stmmac_fpe_state {
+> +	FPE_STATE_OFF = 0,
+> +	FPE_STATE_CAPABLE = 1,
+> +	FPE_STATE_ENTERING_ON = 2,
+> +	FPE_STATE_ON = 3,
+> +};
+> +
+> +/* FPE link-partner hand-shaking mPacket type */
+> +enum stmmac_mpacket_type {
+> +	MPACKET_VERIFY = 0,
+> +	MPACKET_RESPONSE = 1,
+> +};
+> +
+> +enum stmmac_fpe_task_state_t {
+> +	__FPE_REMOVING,
+> +	__FPE_TASK_SCHED,
+> +};
+> +
+> +struct stmmac_fpe_cfg {
+> +	bool enable;				/* FPE enable */
+> +	bool hs_enable;				/* FPE handshake enable */
+> +	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
+> +	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
+> +	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
+> +};
+> +
+>  struct stmmac_tc_entry {
+>  	bool in_use;
+>  	bool in_hw;
+> @@ -339,11 +366,12 @@ struct stmmac_priv {
+>  	struct workqueue_struct *wq;
+>  	struct work_struct service_task;
 >  
->  static void enh_desc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
->  {
-> +	dma_wmb();
->  	p->des0 |= cpu_to_le32(RDES0_OWN);
->  }
+> -	/* Workqueue for handling FPE hand-shaking */
+> +	/* Frame Preemption feature (FPE) */
+>  	unsigned long fpe_task_state;
+>  	struct workqueue_struct *fpe_wq;
+>  	struct work_struct fpe_task;
+>  	char wq_name[IFNAMSIZ + 4];
+> +	struct stmmac_fpe_cfg fpe_cfg;
 >  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> index 68a7cfcb1d8f..d0b703a3346f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> @@ -155,6 +155,7 @@ static void ndesc_set_tx_owner(struct dma_desc *p)
->  
->  static void ndesc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
->  {
-> +	dma_wmb();
->  	p->des0 |= cpu_to_le32(RDES0_OWN);
->  }
->  
+>  	/* TC Handling */
+>  	unsigned int tc_entries_max;
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d9fca8d1227c..859a2c4c9e5c 100644
+> index d9fca8d1227c..529fe31f8b04 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4848,7 +4848,6 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
->  		if (!priv->use_riwt)
->  			use_rx_wd = false;
+> @@ -968,7 +968,7 @@ static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
 >  
-> -		dma_wmb();
->  		stmmac_set_rx_owner(priv, p, use_rx_wd);
+>  static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+>  {
+> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
+> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+>  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+>  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+>  	bool *hs_enable = &fpe_cfg->hs_enable;
+> @@ -3536,7 +3536,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
+>  	if (priv->dma_cap.fpesel) {
+>  		stmmac_fpe_start_wq(priv);
 >  
->  		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
-> @@ -5205,7 +5204,6 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
->  		if (!priv->use_riwt)
->  			use_rx_wd = false;
+> -		if (priv->plat->fpe_cfg->enable)
+> +		if (priv->fpe_cfg.enable)
+>  			stmmac_fpe_handshake(priv, true);
+>  	}
 >  
-> -		dma_wmb();
->  		stmmac_set_rx_owner(priv, rx_desc, use_rx_wd);
+> @@ -5982,7 +5982,7 @@ static int stmmac_set_features(struct net_device *netdev,
 >  
->  		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_rx_size);
+>  static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
+>  {
+> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
+> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+>  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+>  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+>  	bool *hs_enable = &fpe_cfg->hs_enable;
+> @@ -7381,7 +7381,7 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+>  {
+>  	struct stmmac_priv *priv = container_of(work, struct stmmac_priv,
+>  						fpe_task);
+> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
+> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+>  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+>  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+>  	bool *hs_enable = &fpe_cfg->hs_enable;
+> @@ -7427,17 +7427,17 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+>  
+>  void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
+>  {
+> -	if (priv->plat->fpe_cfg->hs_enable != enable) {
+> +	if (priv->fpe_cfg.hs_enable != enable) {
+>  		if (enable) {
+>  			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
+> -						priv->plat->fpe_cfg,
+> +						&priv->fpe_cfg,
+>  						MPACKET_VERIFY);
+>  		} else {
+> -			priv->plat->fpe_cfg->lo_fpe_state = FPE_STATE_OFF;
+> -			priv->plat->fpe_cfg->lp_fpe_state = FPE_STATE_OFF;
+> +			priv->fpe_cfg.lo_fpe_state = FPE_STATE_OFF;
+> +			priv->fpe_cfg.lp_fpe_state = FPE_STATE_OFF;
+>  		}
+>  
+> -		priv->plat->fpe_cfg->hs_enable = enable;
+> +		priv->fpe_cfg.hs_enable = enable;
+>  	}
+>  }
+>  
+> @@ -7898,7 +7898,7 @@ int stmmac_suspend(struct device *dev)
+>  	if (priv->dma_cap.fpesel) {
+>  		/* Disable FPE */
+>  		stmmac_fpe_configure(priv, priv->ioaddr,
+> -				     priv->plat->fpe_cfg,
+> +				     &priv->fpe_cfg,
+>  				     priv->plat->tx_queues_to_use,
+>  				     priv->plat->rx_queues_to_use, false);
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> index 996f2bcd07a2..9cc41ed01882 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> @@ -282,16 +282,6 @@ static int tc_init(struct stmmac_priv *priv)
+>  	if (ret)
+>  		return -ENOMEM;
+>  
+> -	if (!priv->plat->fpe_cfg) {
+> -		priv->plat->fpe_cfg = devm_kzalloc(priv->device,
+> -						   sizeof(*priv->plat->fpe_cfg),
+> -						   GFP_KERNEL);
+> -		if (!priv->plat->fpe_cfg)
+> -			return -ENOMEM;
+> -	} else {
+> -		memset(priv->plat->fpe_cfg, 0, sizeof(*priv->plat->fpe_cfg));
+> -	}
+> -
+>  	/* Fail silently as we can still use remaining features, e.g. CBS */
+>  	if (!dma_cap->frpsel)
+>  		return 0;
+> @@ -1076,7 +1066,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  	/* Actual FPE register configuration will be done after FPE handshake
+>  	 * is success.
+>  	 */
+> -	priv->plat->fpe_cfg->enable = fpe;
+> +	priv->fpe_cfg.enable = fpe;
+>  
+>  	ret = stmmac_est_configure(priv, priv, priv->est,
+>  				   priv->plat->clk_ptp_rate);
+> @@ -1109,9 +1099,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+>  		mutex_unlock(&priv->est_lock);
+>  	}
+>  
+> -	priv->plat->fpe_cfg->enable = false;
+> +	priv->fpe_cfg.enable = false;
+>  	stmmac_fpe_configure(priv, priv->ioaddr,
+> -			     priv->plat->fpe_cfg,
+> +			     &priv->fpe_cfg,
+>  			     priv->plat->tx_queues_to_use,
+>  			     priv->plat->rx_queues_to_use,
+>  			     false);
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index 338991c08f00..d79ff252cfdc 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -138,33 +138,6 @@ struct stmmac_txq_cfg {
+>  	int tbs_en;
+>  };
+>  
+> -/* FPE link state */
+> -enum stmmac_fpe_state {
+> -	FPE_STATE_OFF = 0,
+> -	FPE_STATE_CAPABLE = 1,
+> -	FPE_STATE_ENTERING_ON = 2,
+> -	FPE_STATE_ON = 3,
+> -};
+> -
+> -/* FPE link-partner hand-shaking mPacket type */
+> -enum stmmac_mpacket_type {
+> -	MPACKET_VERIFY = 0,
+> -	MPACKET_RESPONSE = 1,
+> -};
+> -
+> -enum stmmac_fpe_task_state_t {
+> -	__FPE_REMOVING,
+> -	__FPE_TASK_SCHED,
+> -};
+> -
+> -struct stmmac_fpe_cfg {
+> -	bool enable;				/* FPE enable */
+> -	bool hs_enable;				/* FPE handshake enable */
+> -	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
+> -	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
+> -	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
+> -};
+> -
+>  struct stmmac_safety_feature_cfg {
+>  	u32 tsoee;
+>  	u32 mrxpee;
+> @@ -232,7 +205,6 @@ struct plat_stmmacenet_data {
+>  	struct fwnode_handle *port_node;
+>  	struct device_node *mdio_node;
+>  	struct stmmac_dma_cfg *dma_cfg;
+> -	struct stmmac_fpe_cfg *fpe_cfg;
+>  	struct stmmac_safety_feature_cfg *safety_feat_cfg;
+>  	int clk_csr;
+>  	int has_gmac;
 > -- 
 > 2.34.1
-> 
 > 
 _______________________________________________
 Linux-stm32 mailing list
