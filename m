@@ -2,78 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E661995CBCA
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 13:57:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7401795CE5D
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 15:49:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 764A1C71289;
-	Fri, 23 Aug 2024 11:57:00 +0000 (UTC)
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16474C71289;
+	Fri, 23 Aug 2024 13:49:12 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12E4BC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02140C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 11:56:53 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2f40a1a2c1aso13599821fa.3
+ Fri, 23 Aug 2024 13:49:04 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5334e41c30bso2129127e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 04:56:53 -0700 (PDT)
+ Fri, 23 Aug 2024 06:49:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724414212; x=1725019012;
+ d=gmail.com; s=20230601; t=1724420944; x=1725025744;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qgZV4tyks6GAMQWfK4L38P65yZL2kRRfBpNWa0hJOFY=;
- b=RCCmy6/lVHipaQzF7zQ++YKkRypOwMEb+WlvbbDuXkuWXso+MR/TDALZqSK8GxvCC0
- kzaoaSYv59HG5ejt9/d9vCBppX9Iu9PKxPK0xfQKuYjRYudZp4OuzC7iLvcT9/ZeHt74
- PuzcJElZq9HmNxHuG8Q1UKH2+8//HUJQ2Vt4djO9tUiYxS7orZX72NjiBquSyHcYoDz8
- g5C+XOz8cU0ww0pyeVlmMF0icgtHtNXU10kmeFXtCaAv6gmiYj8/L1ou4T8j3LSMcl55
- MXQT0CGlvADGA6FGI0Z2tI9qBDGQ7ikLXy3hbn5ITyWNWQN3ce+PurXaI+dzndsp8T4D
- P7xw==
+ bh=j0rAa/Diw1/WxbqtV5SQj80lVWGH9itqJcEAREaEyNk=;
+ b=lbFo7umjUtb8FXEuiaPwfUW9J8FmjfUrowu+LOJwSTFX0be45r7hpXoNTnli3irEX3
+ by5V38+e9K6rBSsbxZsEfqqUysC4p5/PbjgVRd6UQHVLR61lFWThqH8s+g5hDkUFFDYj
+ j6gww9wwXVh9RByJo9qtkI+2pw7oT48wSMwW5CcQ+l1r8/CMxhdt+HGbg9syX6fAKhdZ
+ yewK73aAl/wAlvrfbBQeeiUo/qXmqnhJ8L1rin78ZePeHc6wO2vaIoQ8xQiUhFxfvPfj
+ f5rMYUQOc0eAHEXsrX1vUi0UB836umsNoMB7gPTiCmh8Mf1gbW7GiyWhiTDnH2hCyZwa
+ 6G8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724414212; x=1725019012;
+ d=1e100.net; s=20230601; t=1724420944; x=1725025744;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qgZV4tyks6GAMQWfK4L38P65yZL2kRRfBpNWa0hJOFY=;
- b=aAD2PjuYUxMXjPM5VI85Q/5gmJlBl2Xqtit3ndTTfiGZlDEjJUfr3SYVToINpBAigG
- 1XArnEMKtKPUwB/SF1FPS5qb1zfTIU0gL+YGfvORQNLqs+zhEE4QvocBOsPYE23lMl1K
- XI8ld0EUBhMeQ0RMQthyDSXaPz8JLefPN+bJsvjsChKNKJLE6S/KmDzvN7uXItIJ6RxB
- W6eRzLGswXZ0T2gDPRCdz1ahtBqpIrpXFu82NYm+SMTivaglOnT60cXnzWEqtr8g6OIf
- zHgt9xhEpWwsuIYEd1IK+IVXAPcU5Dv9PldpCqDvbGd+hy7xv8eTxeS8nkE4/SBMTiFN
- KDAw==
+ bh=j0rAa/Diw1/WxbqtV5SQj80lVWGH9itqJcEAREaEyNk=;
+ b=jFNkSPz7qhBVtU8BtAuflmjtvzn38FN62PIma6y/YsYtdpIs53qjaxA8MnY43hlg/8
+ /I9JfnIssG+4beRcL+IP1maVLfRkLwT5gOXOPGmDxMT7HBibgNl1tQecIj5Vx54uxNrc
+ LI+IX7PHsQZBOdtjeXcI8gsQpYaRkgqI0SJkWXtJuhVYAXNZ7ZbEJKMCd6ryD6G9hPGc
+ Mfii/aoWBYHhUtfuR40f6BlMYLAFhjnntEDwrKGJHfhypDF9ab8CRueEmOhcDqRFK/bj
+ co/65n5KXA0vlE8GlXyanujj2szSG6uqZg3DFhVOp29+E7XmHeIKdDPdPd+jG7oGFUQM
+ j2wQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVfSLWV9A7sNwYglS+kAvM0Dbc3Bm8GfAv+RTvdmfCbmbxujC7Ij+pEKPhOPyEzF5DEruMLdvLmslRarg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwMC2JdlYPfIwOYg3fEHuGfqr+0MHf+fcWCcG00GLH6dYLTrGBK
- lr43/iMAtvoKyqGuoXbQo+i5nIBFBfeQiyDIQW/y3a8X3/iRV/ZS
-X-Google-Smtp-Source: AGHT+IHdAqAk6DpZd9sGZOVHkcPaqutovShJdwo7b99VJ/xrWNo1e0HoCkmY7ZKsjoXcxQ0Oe8N1rg==
-X-Received: by 2002:a05:6512:ad1:b0:533:4b76:cb59 with SMTP id
- 2adb3069b0e04-53438869c7fmr1528825e87.57.1724414211306; 
- Fri, 23 Aug 2024 04:56:51 -0700 (PDT)
+ AJvYcCW/uifqnIrwBeFV1bDbGfbj2/78ugyd3D0bptvpYrg2Kv91e8iOqwnmehR3mhfulQ944DEWpBgpiigwiw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyufohZkiGiHrbAFIKNm94R6MaHrsxzlzyjTIFryJdVPUXkD8ZC
+ njuG4ANwxWMYrqSYJcetEl+KIeFwIF6MwGJMZ/+SPnBXNS+pDOf/
+X-Google-Smtp-Source: AGHT+IGm6RnZflH6pQQEhkfwEn48Hiaxow66a2JnEtfny/y8K7ryKkohPurdHVQhp41PUetWoXRf4A==
+X-Received: by 2002:a05:6512:39c5:b0:533:46cc:a736 with SMTP id
+ 2adb3069b0e04-534387be65emr1558356e87.37.1724420943446; 
+ Fri, 23 Aug 2024 06:49:03 -0700 (PDT)
 Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334ea5d8b8sm532166e87.216.2024.08.23.04.56.50
+ 2adb3069b0e04-5334ea36c0esm544064e87.98.2024.08.23.06.49.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 04:56:50 -0700 (PDT)
-Date: Fri, 23 Aug 2024 14:56:46 +0300
+ Fri, 23 Aug 2024 06:49:03 -0700 (PDT)
+Date: Fri, 23 Aug 2024 16:48:59 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <ekzmq7y5is7em2zlsmf4bzne4z346dkyvynynmd45m7iqulamq@sle2yzzx7o4t>
-References: <cover.1724409007.git.0x1207@gmail.com>
- <8c6e74ee569d33ee5c7db78e3964c60001b3fb48.1724409007.git.0x1207@gmail.com>
+To: jitendra.vegiraju@broadcom.com
+Message-ID: <vxpwwstbvbruaafcatq5zyi257hf25x5levct3y7s7ympcsqvh@b6wmfkd4cxfy>
+References: <20240814221818.2612484-1-jitendra.vegiraju@broadcom.com>
+ <20240814221818.2612484-4-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <8c6e74ee569d33ee5c7db78e3964c60001b3fb48.1724409007.git.0x1207@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v6 1/7] net: stmmac: move
- stmmac_fpe_cfg to stmmac_priv data
+In-Reply-To: <20240814221818.2612484-4-jitendra.vegiraju@broadcom.com>
+Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, leong.ching.swee@intel.com,
+ edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
+ daniel@iogearbox.net, john.fastabend@gmail.com, linux@armlinux.org.uk,
+ joabreu@synopsys.com, bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [net-next v4 3/5] net: stmmac: Integrate dw25gmac
+ into stmmac hwif handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,267 +92,152 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 23, 2024 at 06:50:08PM +0800, Furong Xu wrote:
-> By moving the fpe_cfg field to the stmmac_priv data, stmmac_fpe_cfg
-> becomes platform-data eventually, instead of a run-time config.
+Hi Jitendra
+
+On Wed, Aug 14, 2024 at 03:18:16PM -0700, jitendra.vegiraju@broadcom.com wrote:
+> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
 > 
-> Suggested-by: Serge Semin <fancer.lancer@gmail.com>
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
+> Integrate dw25gmac support into stmmac hardware interface handling.
+> Added a new entry to the stmmac_hw table in hwif.c.
+> Define new macros DW25GMAC_CORE_4_00 and DW25GMAC_ID to identify 25GMAC
+> device.
+> Since BCM8958x is an early adaptor device, the synopsis_id reported in HW
+> is 0x32 and device_id is DWXGMAC_ID. Provide override support by defining
+> synopsys_dev_id member in struct stmmac_priv so that driver specific setup
+> functions can override the hardware reported values.
+> 
+> Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  2 ++
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  | 30 ++++++++++++++++++-
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++-------
->  .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 16 ++--------
->  include/linux/stmmac.h                        | 28 -----------------
->  5 files changed, 44 insertions(+), 52 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/common.h |  2 ++
+>  drivers/net/ethernet/stmicro/stmmac/hwif.c   | 25 ++++++++++++++++++--
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h |  1 +
+>  3 files changed, 26 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index 7e90f34b8c88..d3da82982012 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -26,6 +26,8 @@
->  })
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+> index 684489156dce..46edbe73a124 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+> @@ -38,9 +38,11 @@
+>  #define DWXGMAC_CORE_2_10	0x21
+>  #define DWXGMAC_CORE_2_20	0x22
+>  #define DWXLGMAC_CORE_2_00	0x20
+> +#define DW25GMAC_CORE_4_00	0x40
 >  
+>  /* Device ID */
+>  #define DWXGMAC_ID		0x76
+> +#define DW25GMAC_ID		0x55
+>  #define DWXLGMAC_ID		0x27
+>  
+>  #define STMMAC_CHAN0	0	/* Always supported and default for all chips */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> index 29367105df54..97e5594ddcda 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> @@ -278,6 +278,27 @@ static const struct stmmac_hwif_entry {
+>  		.est = &dwmac510_est_ops,
+>  		.setup = dwxlgmac2_setup,
+>  		.quirks = stmmac_dwxlgmac_quirks,
 
->  struct stmmac_extra_stats;
-> +struct stmmac_fpe_cfg;
-> +enum   stmmac_mpacket_type;
->  struct stmmac_priv;
->  struct stmmac_safety_stats;
->  struct dma_desc;
+> +	}, {
+> +		.gmac = false,
+> +		.gmac4 = false,
+> +		.xgmac = true,
+> +		.min_id = DW25GMAC_CORE_4_00,
+> +		.dev_id = DW25GMAC_ID,
+> +		.regs = {
+> +			.ptp_off = PTP_XGMAC_OFFSET,
+> +			.mmc_off = MMC_XGMAC_OFFSET,
+> +			.est_off = EST_XGMAC_OFFSET,
+> +		},
+> +		.desc = &dwxgmac210_desc_ops,
+> +		.dma = &dw25gmac400_dma_ops,
+> +		.mac = &dwxgmac210_ops,
+> +		.hwtimestamp = &stmmac_ptp,
+> +		.mode = NULL,
+> +		.tc = &dwmac510_tc_ops,
+> +		.mmc = &dwxgmac_mmc_ops,
+> +		.est = &dwmac510_est_ops,
+> +		.setup = dwxgmac2_setup,
+> +		.quirks = NULL,
+>  	},
 
-Not sure whether it's supposed to be alphabetically ordered, but using
-additional spaces to align the names seems an abnormal approach. I
-failed to find any similar sample in kernel. So seeing the driver
-doesn't implement the forward declarations as you suggest I'd convert
-this to just:
+This can be replaced with just:
 
- struct stmmac_extra_stats;
- struct stmmac_priv;
- struct stmmac_safety_stats;
-+struct stmmac_fpe_cfg;
-+enum stmmac_mpacket_type;
- struct dma_desc;
++	}, {
++		.gmac = false,
++		.gmac4 = false,
++		.xgmac = true,
++		.min_id = DW25GMAC_CORE_4_00,
++		.dev_id = DWXGMAC_ID, /* Early DW 25GMAC IP-core had XGMAC ID */
++		.regs = {
++			.ptp_off = PTP_XGMAC_OFFSET,
++			.mmc_off = MMC_XGMAC_OFFSET,
++			.est_off = EST_XGMAC_OFFSET,
++		},
++		.desc = &dwxgmac210_desc_ops,
++		.dma = &dw25gmac400_dma_ops,
++		.mac = &dwxgmac210_ops,
++		.hwtimestamp = &stmmac_ptp,
++		.mode = NULL,
++		.tc = &dwmac510_tc_ops,
++		.mmc = &dwxgmac_mmc_ops,
++		.est = &dwmac510_est_ops,
++		.setup = dw25gmac_setup,
++		.quirks = NULL,
+	}
 
-Other than that the patch looks good:
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+and you won't need to pre-define the setup() method in the
+glue driver. Instead you can define a new dw25xgmac_setup() method in
+the dwxgmac2_core.c as it's done for the DW XGMAC/LXGMAC IP-cores.
 
-Thanks
--Serge(y)
+Note if your device is capable to work with up to 10Gbps speed, then
+just set the plat_stmmacenet_data::max_speed field to SPEED_10000.
+Alternatively if you really need to specify the exact MAC
+capabilities, then you can implement what Russell suggested here
+sometime ago:
+https://lore.kernel.org/netdev/Zf3ifH%2FCjyHtmXE3@shell.armlinux.org.uk/
 
+If you also have a DW 25GMAC-based device with 0x55 device ID, then
+just add another stmmac_hw[] array entry.
+
+>  };
+>  
+> @@ -304,7 +325,7 @@ int stmmac_hwif_init(struct stmmac_priv *priv)
+>  
+>  	/* Save ID for later use */
+>  	priv->synopsys_id = id;
+> -
+> +	priv->synopsys_dev_id = dev_id;
+>  	/* Lets assume some safe values first */
+>  	priv->ptpaddr = priv->ioaddr +
+>  		(needs_gmac4 ? PTP_GMAC4_OFFSET : PTP_GMAC3_X_OFFSET);
+> @@ -339,7 +360,7 @@ int stmmac_hwif_init(struct stmmac_priv *priv)
+>  		/* Use synopsys_id var because some setups can override this */
+>  		if (priv->synopsys_id < entry->min_id)
+>  			continue;
+> -		if (needs_xgmac && (dev_id ^ entry->dev_id))
+> +		if (needs_xgmac && (priv->synopsys_dev_id ^ entry->dev_id))
+>  			continue;
+>  
+>  		/* Only use generic HW helpers if needed */
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index b23b920eedb1..458d6b16ce21 100644
+> index b23b920eedb1..9784bbaf9a51 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -146,6 +146,33 @@ struct stmmac_channel {
->  	u32 index;
->  };
->  
-> +/* FPE link state */
-> +enum stmmac_fpe_state {
-> +	FPE_STATE_OFF = 0,
-> +	FPE_STATE_CAPABLE = 1,
-> +	FPE_STATE_ENTERING_ON = 2,
-> +	FPE_STATE_ON = 3,
-> +};
-> +
-> +/* FPE link-partner hand-shaking mPacket type */
-> +enum stmmac_mpacket_type {
-> +	MPACKET_VERIFY = 0,
-> +	MPACKET_RESPONSE = 1,
-> +};
-> +
-> +enum stmmac_fpe_task_state_t {
-> +	__FPE_REMOVING,
-> +	__FPE_TASK_SCHED,
-> +};
-> +
-> +struct stmmac_fpe_cfg {
-> +	bool enable;				/* FPE enable */
-> +	bool hs_enable;				/* FPE handshake enable */
-> +	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
-> +	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
-> +	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
-> +};
-> +
->  struct stmmac_tc_entry {
->  	bool in_use;
->  	bool in_hw;
-> @@ -339,11 +366,12 @@ struct stmmac_priv {
->  	struct workqueue_struct *wq;
->  	struct work_struct service_task;
->  
-> -	/* Workqueue for handling FPE hand-shaking */
-> +	/* Frame Preemption feature (FPE) */
->  	unsigned long fpe_task_state;
->  	struct workqueue_struct *fpe_wq;
->  	struct work_struct fpe_task;
->  	char wq_name[IFNAMSIZ + 4];
-> +	struct stmmac_fpe_cfg fpe_cfg;
->  
->  	/* TC Handling */
->  	unsigned int tc_entries_max;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d9fca8d1227c..529fe31f8b04 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -968,7 +968,7 @@ static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
->  
->  static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
->  {
-> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
-> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
->  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
->  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
->  	bool *hs_enable = &fpe_cfg->hs_enable;
-> @@ -3536,7 +3536,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
->  	if (priv->dma_cap.fpesel) {
->  		stmmac_fpe_start_wq(priv);
->  
-> -		if (priv->plat->fpe_cfg->enable)
-> +		if (priv->fpe_cfg.enable)
->  			stmmac_fpe_handshake(priv, true);
->  	}
->  
-> @@ -5982,7 +5982,7 @@ static int stmmac_set_features(struct net_device *netdev,
->  
->  static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
->  {
-> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
-> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
->  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
->  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
->  	bool *hs_enable = &fpe_cfg->hs_enable;
-> @@ -7381,7 +7381,7 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
->  {
->  	struct stmmac_priv *priv = container_of(work, struct stmmac_priv,
->  						fpe_task);
-> -	struct stmmac_fpe_cfg *fpe_cfg = priv->plat->fpe_cfg;
-> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
->  	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
->  	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
->  	bool *hs_enable = &fpe_cfg->hs_enable;
-> @@ -7427,17 +7427,17 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
->  
->  void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
->  {
-> -	if (priv->plat->fpe_cfg->hs_enable != enable) {
-> +	if (priv->fpe_cfg.hs_enable != enable) {
->  		if (enable) {
->  			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
-> -						priv->plat->fpe_cfg,
-> +						&priv->fpe_cfg,
->  						MPACKET_VERIFY);
->  		} else {
-> -			priv->plat->fpe_cfg->lo_fpe_state = FPE_STATE_OFF;
-> -			priv->plat->fpe_cfg->lp_fpe_state = FPE_STATE_OFF;
-> +			priv->fpe_cfg.lo_fpe_state = FPE_STATE_OFF;
-> +			priv->fpe_cfg.lp_fpe_state = FPE_STATE_OFF;
->  		}
->  
-> -		priv->plat->fpe_cfg->hs_enable = enable;
-> +		priv->fpe_cfg.hs_enable = enable;
->  	}
->  }
->  
-> @@ -7898,7 +7898,7 @@ int stmmac_suspend(struct device *dev)
->  	if (priv->dma_cap.fpesel) {
->  		/* Disable FPE */
->  		stmmac_fpe_configure(priv, priv->ioaddr,
-> -				     priv->plat->fpe_cfg,
-> +				     &priv->fpe_cfg,
->  				     priv->plat->tx_queues_to_use,
->  				     priv->plat->rx_queues_to_use, false);
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> index 996f2bcd07a2..9cc41ed01882 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> @@ -282,16 +282,6 @@ static int tc_init(struct stmmac_priv *priv)
->  	if (ret)
->  		return -ENOMEM;
->  
-> -	if (!priv->plat->fpe_cfg) {
-> -		priv->plat->fpe_cfg = devm_kzalloc(priv->device,
-> -						   sizeof(*priv->plat->fpe_cfg),
-> -						   GFP_KERNEL);
-> -		if (!priv->plat->fpe_cfg)
-> -			return -ENOMEM;
-> -	} else {
-> -		memset(priv->plat->fpe_cfg, 0, sizeof(*priv->plat->fpe_cfg));
-> -	}
-> -
->  	/* Fail silently as we can still use remaining features, e.g. CBS */
->  	if (!dma_cap->frpsel)
->  		return 0;
-> @@ -1076,7 +1066,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->  	/* Actual FPE register configuration will be done after FPE handshake
->  	 * is success.
->  	 */
-> -	priv->plat->fpe_cfg->enable = fpe;
-> +	priv->fpe_cfg.enable = fpe;
->  
->  	ret = stmmac_est_configure(priv, priv, priv->est,
->  				   priv->plat->clk_ptp_rate);
-> @@ -1109,9 +1099,9 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
->  		mutex_unlock(&priv->est_lock);
->  	}
->  
-> -	priv->plat->fpe_cfg->enable = false;
-> +	priv->fpe_cfg.enable = false;
->  	stmmac_fpe_configure(priv, priv->ioaddr,
-> -			     priv->plat->fpe_cfg,
-> +			     &priv->fpe_cfg,
->  			     priv->plat->tx_queues_to_use,
->  			     priv->plat->rx_queues_to_use,
->  			     false);
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-> index 338991c08f00..d79ff252cfdc 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -138,33 +138,6 @@ struct stmmac_txq_cfg {
->  	int tbs_en;
->  };
->  
-> -/* FPE link state */
-> -enum stmmac_fpe_state {
-> -	FPE_STATE_OFF = 0,
-> -	FPE_STATE_CAPABLE = 1,
-> -	FPE_STATE_ENTERING_ON = 2,
-> -	FPE_STATE_ON = 3,
-> -};
-> -
-> -/* FPE link-partner hand-shaking mPacket type */
-> -enum stmmac_mpacket_type {
-> -	MPACKET_VERIFY = 0,
-> -	MPACKET_RESPONSE = 1,
-> -};
-> -
-> -enum stmmac_fpe_task_state_t {
-> -	__FPE_REMOVING,
-> -	__FPE_TASK_SCHED,
-> -};
-> -
-> -struct stmmac_fpe_cfg {
-> -	bool enable;				/* FPE enable */
-> -	bool hs_enable;				/* FPE handshake enable */
-> -	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
-> -	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
-> -	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
-> -};
-> -
->  struct stmmac_safety_feature_cfg {
->  	u32 tsoee;
->  	u32 mrxpee;
-> @@ -232,7 +205,6 @@ struct plat_stmmacenet_data {
->  	struct fwnode_handle *port_node;
->  	struct device_node *mdio_node;
->  	struct stmmac_dma_cfg *dma_cfg;
-> -	struct stmmac_fpe_cfg *fpe_cfg;
->  	struct stmmac_safety_feature_cfg *safety_feat_cfg;
->  	int clk_csr;
->  	int has_gmac;
+> @@ -282,6 +282,7 @@ struct stmmac_priv {
+>  	struct stmmac_counters mmc;
+>  	int hw_cap_support;
+>  	int synopsys_id;
+
+> +	int synopsys_dev_id;
+
+With the suggestion above implemented you won't need this.
+
+-Serge(y)
+
+>  	u32 msg_enable;
+>  	int wolopts;
+>  	int wol_irq;
 > -- 
 > 2.34.1
 > 
