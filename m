@@ -2,161 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACED295C900
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 11:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896E295C937
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 11:29:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F67CC71287;
-	Fri, 23 Aug 2024 09:15:19 +0000 (UTC)
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011059.outbound.protection.outlook.com [52.101.125.59])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C616C71287;
+	Fri, 23 Aug 2024 09:29:22 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3144CC6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCCE2C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 09:15:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=loDih5CWHmpc9HaX/AmsuLJRZNQx0a5oExTV0ONKfbkyEgDHf5v3KYlZiqIE1/Uz/vYdseTf+tcwwKzrdsMlHtMF4JXEvA14CdvTDVPooo1hIV3kU9fZA7g/KKD5Q2N+j5tY455JotD/RxAVPchxBK5sFtuoM+5dMa5965GJLHop/zJYnLMHp7H5ZHQQXHqugsvnulKLutyVs1L6XvHGiw8J48piqq8unugKhVPXuFCgRb3YGQygR7ft/xARLV9tdg9FHzigPT/+gYGmnbgCXODEj1Um7+0aXQZAXfAK5TGBx6L7sZxnazcnjtZZn6xwBEOl/jqtb6EH+hDnWkgVrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oVJQl/4FQGrdQODqzEXWZ862/SOEHl4gRfKNxHzXZaI=;
- b=CLuwOKlTATJx4JBRQ01HUlahyyk+/4ZGioFYy2Id23Oql4Aq1SpjWNd90zN1ajPOAo1hlyVCgAkoifGD08L1fl5nwygHiOlKcPTx3t4kFnvELYr5EqZdgKR/JSAYuz3P+FRc7UKVG3261UPlvgw6OmGgEFWNnpOuQPy3SwfaWTwZa4gc9g9EAfIgCL+wibWWbhol1Ox1hs0c5XIoCy9+GmFiwnlysKBaxXZeRGCfFdewc3LEeZy9v9xgzNSBr/ZQJRmpfJSeFG1bLmOmjfFaz4m61XjPPfc6Oa4OaITETD4Se3WctvtWQJvnkq42+JfH/pmJn4Oj2jo8xJh38ivzOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oVJQl/4FQGrdQODqzEXWZ862/SOEHl4gRfKNxHzXZaI=;
- b=MqXk+ZH/KHMxMaUkxZSleWQX1gwM/7Io/b6+gyBJNyBzAnhMMH7UNAXYbJBgNclxmxRwlMWdE3BXrnLMj09UQZVK1wjk8otFM9oohFB8PF9pHREYOe3j/vY4omHOakMJjch3svTrkjaAkRgwi6slG7OfLJf7ikQKvNSEh4EOrz4=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYVPR01MB11331.jpnprd01.prod.outlook.com (2603:1096:400:366::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Fri, 23 Aug
- 2024 09:15:06 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1%6]) with mapi id 15.20.7897.014; Fri, 23 Aug 2024
- 09:15:06 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Serge Semin <fancer.lancer@gmail.com>, Yangtao Li <frank.li@vivo.com>
-Thread-Topic: [net-next v2 2/9] net: stmmac: platform: Convert to
- devm_clk_get_enabled() and devm_clk_get_optional_enabled()
-Thread-Index: AQHa9Tx0ywHLxX1O1U+AWstZvr6hCrI0jxTg
-Date: Fri, 23 Aug 2024 09:15:06 +0000
-Message-ID: <TY3PR01MB11346C33198DE80DD9DD1CC3C86882@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20240823072122.2053401-1-frank.li@vivo.com>
- <20240823072122.2053401-3-frank.li@vivo.com>
- <qx4k2xehasda7zj6vt3bygdh3scehiiwniqvljj4b4rjde25a5@ys4oqsithhwi>
-In-Reply-To: <qx4k2xehasda7zj6vt3bygdh3scehiiwniqvljj4b4rjde25a5@ys4oqsithhwi>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYVPR01MB11331:EE_
-x-ms-office365-filtering-correlation-id: c608a8bc-ad44-4cf7-652b-08dcc3541451
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?TxQUXAtfpMWQr2QFQlH2QYd+gy85tYjsBwbxgQkaxTyd2kPhS3mU8f95nVNU?=
- =?us-ascii?Q?5yiJlgJnOPH6REScxUZZczv1ybcpEoz1kYeGLesR0rBR3j0wiD4djlbQjJBa?=
- =?us-ascii?Q?gH/7Yzw+2auKpfNYqDv+w/cC5wiuyN0nVFY1hZnTBg3rvVPpaCdPbrYdTyat?=
- =?us-ascii?Q?K10iDq/BulRjKylerOMbXRXZ6eRExBHh8BCcLfxoI5gdXXxtMAH8Y2F55Fkq?=
- =?us-ascii?Q?JZVjlpa2fCWe/WeLjskfNXjwv23GMZUh068TMKaTWz1pRQXgV6oR1RcO1cah?=
- =?us-ascii?Q?qDm/B5IBMGscclE3RrfvE3NOxng2AAZJNFbHCxRe/1z4moSE1VUHK2J8bv0q?=
- =?us-ascii?Q?si5Cy3cWA+E4XfU4zbej26J6yOlvTvypRk4XkFd5TqynSq2QErAKCoWVemWG?=
- =?us-ascii?Q?8Edrw4VTXV/mSQ+FJkcKsUoqh6KFGxYWV1XfgfuNosNuZb3raQYvjKFBHjiM?=
- =?us-ascii?Q?A/3p77cJ3F7URD1cf3I7HxV46qja5oNa/EKO5yI967ZHMm56BT7lvlXebSDV?=
- =?us-ascii?Q?GgeNF/ZEHYVkoNH572Qybh9D5HJ1mqX7uGoTE+LR3SwWBtgeYr9EKxsdjxFS?=
- =?us-ascii?Q?eHjbR83gXfzt6ZQdzW/KAFfvMqejBU4cVsusFMZ8QJ1Q6SsUZgG3Db9BWCHr?=
- =?us-ascii?Q?VxhONvnbUyJ5eV4DFykxsL/LW4AwFCeC5pyp6wGsJcKYvwkL8eMR7Uy++Y3o?=
- =?us-ascii?Q?XgpxzBi8NWjDQzfAFcKnli7ghJpfEkJEw6DGOMgIKavc//chDy8vwODfuC5Z?=
- =?us-ascii?Q?rGuT6FSTsd8rdZy0M2bsfbVRFce4Yy/fjls6G6rv2HMt4CoFrVP3WHKijhHb?=
- =?us-ascii?Q?DMbU0Fp3z4rq/TTiLyrjJY8GFpasVepG2LcFr97+3Aj3QzYsXwkHulmvrds0?=
- =?us-ascii?Q?MxnUk1WBqEmPnGzAj8ykRnPpjyARk2ly0LrZKqWuwgqHBnu+gm6EoSkEjIRM?=
- =?us-ascii?Q?8MGGsBMNgU3WlLlJLlx1D7Hyd9pQ9YEpnUlJDXA0JJCSBup9it8skwB9halP?=
- =?us-ascii?Q?QrAIAyoj7Fts3FIHKq6LqMIyq9opVXlNLO3J5rQ8ezzez5i6Wa/trTV5U8JH?=
- =?us-ascii?Q?7IUrRbnvkySn90PwVsnzBIeZ5poymm5ayeOIqwDdKUVIDV1qI1E/YBNb9NGo?=
- =?us-ascii?Q?uAcfONXZsc7U1zzA6+2m/OxZAKYzLj09WEaRdm3ZBHvtWF742RnDAOy7tC3Y?=
- =?us-ascii?Q?rrUHy27CcC3+bJwUzbNUq+TLrqmBjIPcX+DnybW2SP6SeL2lSzl3qUgWpUAp?=
- =?us-ascii?Q?KGmgDUcceSZz3lOLE1UirEFpjEuLOBheEMuYiK6z8daDG6rT9rEGatHjjBLg?=
- =?us-ascii?Q?qNH2B6btN8gk7QX5ICqWy0WS6oK1L50AeQB12O/4d3q6dpgV2sVd/yyJEqSc?=
- =?us-ascii?Q?OAaEB5lyJ4yseH5Q3Y8/L296OyeOH3IqPYXkhNVSV112Lp5e1g=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?oKS0qAzpSsl26b464RFfYOrBZbAtG9N88uF8SyzUniQYQy7C6LpAAaVZqz1c?=
- =?us-ascii?Q?yPESTMaPYMNBHXou7Dh02tgj4roNkCUcokLGSzDi9cL7loU60CFPVWJGbAb+?=
- =?us-ascii?Q?uMgSjXxF7/SmPxQrUFERrnfKmrnCDoDuqmDg6DRN5oLs1UT7IKzwFXEExLUP?=
- =?us-ascii?Q?sKVbrKLkzyxvdd4q9n8aWGEyN2s0LMOVwZyY+2evoZ0Luf/b80kp59ksFqKw?=
- =?us-ascii?Q?wctBfmxWgut5yoSF311H3r5WCICX5OUffKnpwVXfRLj85GeiDr4IOYvRq2vf?=
- =?us-ascii?Q?sAqI8I3NvUwTs7tlQdOKBATWyAOLmHnJoBSeF4bHTK3FT/umys58LLXEmd5m?=
- =?us-ascii?Q?L3cscVumaONPpiMym/dRgbe0uHfw3u0sApKa1hiE/2XZwc1jgtC5gJ/KC0Ex?=
- =?us-ascii?Q?CIJOeuS4mK+I+ormCuQ4TrtMY2HEWGGiwHzwO5vLI1oSUyRp8BQQjj28W2jb?=
- =?us-ascii?Q?u7Ttfqy8YF9EbFmh/oUScqGqmHtW2fHnO9D6RnaS+NWqsporDiFthuXyVj3b?=
- =?us-ascii?Q?6Kj11v2Z6nwkZQyjJWrcwE60BLoL1mkn6E/SuDuwb6r9/HTjLGqOs6cWs4vR?=
- =?us-ascii?Q?o9XQmRtkVfExtwP0r6I/VHwEIXOJNLHrWQu+rY9/1FyXOdXjjg/YpHJgYw7z?=
- =?us-ascii?Q?v1xX7mXM1POkUZY9Kn9XI+CAc68m3lSsYvBxOyLEmcbFOSxdkhnqMrVBF9Mc?=
- =?us-ascii?Q?rttGmDCQVU5yj10Lg/IOHQnl26BL5xL+yAFK7Xft3MOzX0W/0J5Sh9ryi0zi?=
- =?us-ascii?Q?VSuBVKX8naZ86gbHgPHXBBUL/qTO6azRwl13zvVLQEIBUYsM9cMHgLEH7eZl?=
- =?us-ascii?Q?O8rwsiNoumRrNJv6w66lZ7D7TusKRZaWE2z4I6PQl/tnIIsLL40YxVHqFOu1?=
- =?us-ascii?Q?fgCJdgGhzuFKtr60xy0jVIpCf5q/8ul3KHsDetKVvyIYUFOc2Vfufek0G9OA?=
- =?us-ascii?Q?6vgU/pHpyFV/cDVS6P4WGyFnXwzctXqX8pdYkUPBs9/E+jeqSyvdzPicPxV9?=
- =?us-ascii?Q?uOW0rFn28NRpD5ioWtS8eiPJ6YLJVq/smvn4ozfu9Tcb7BlAhAfOa00yfOsj?=
- =?us-ascii?Q?gnBPPA/EixX9NXelGCsrU6GppY/5g8qLD/N/sBJektXgNb1mp65nqSs8eytU?=
- =?us-ascii?Q?+igze6fkOjcekUN5FquTcz+64Y/0Ei/N0GWPy6vL4I5PkSNvfZxVkE3SKIS4?=
- =?us-ascii?Q?JpEyqYBJUu1j5nXxc5wipWnCRWA67r8/9eZWX9S/zkmKlB1KYoOyqdX7lxML?=
- =?us-ascii?Q?X4qGTdq9yRqVqfnng1CPS5/xTBDAqy6yKDGTRoZhUfQQeHGdjm9qYKt1ioml?=
- =?us-ascii?Q?sUAtte1HjE40newRdM47Txvmk1aNAFTW6mojAw8+jhX9Afqkng04g9KY3IUg?=
- =?us-ascii?Q?9LaIvrW544ppWLlPRo/g4NcO4c1EIeacDi2+9EpWYRNSe2u2OgZhGjwZJ8S3?=
- =?us-ascii?Q?PorCijENAoxe0X5B+PAnt4vxMM5GvdSXbPGaxN1RRJHu86VmlWe2/Q6fPpTz?=
- =?us-ascii?Q?nawsEvJOFLleURsCr3qP1g2JZUY/tc4icvlMey7E/K5BCZPNpbiHA3JNrL/M?=
- =?us-ascii?Q?/ZUEAor7He7fDWY3pTJMkD58jO6QCH5Q6AZ00YrEMpT1kv+qF12YDwostKoO?=
- =?us-ascii?Q?KQ=3D=3D?=
+ Fri, 23 Aug 2024 09:29:14 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-530e062217eso2048609e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 Aug 2024 02:29:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1724405354; x=1725010154;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HJZgnLkJ3O5ij2lr4uMh4xPM1CMCZfKHy3jKVr/xmOI=;
+ b=Gv3o7djyWl/Eoof4T7jNHIAV5rKHsvQBnP5DDvu6uUaehbRj1+wc/Qx2XRHyREpGM4
+ 91mg3sTcz1Ge0BI+UxzSRfSWrAhlDhMNSd7ye/ZsyHRpx/tRVQmGceNkRhmgvPDcMRlw
+ zEVVp8XvnBjrPVG3OuvUwOKxAFr28jMq3TYx8+nJHvff/XCAMJPRflg5yU3/yIvlv07r
+ m5t4X6rXflmhByPsPDUI7EmNWy2ULST0Z01r0Sacj/nKiO92hD9Lz6W1MZXd4w5kgHda
+ Lv9RRwwdr/uXDTMkSOSqakDcucNJNxcOU/BRIBux4sy//renA6enMrYTcjAbX2S3muuB
+ cLBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724405354; x=1725010154;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HJZgnLkJ3O5ij2lr4uMh4xPM1CMCZfKHy3jKVr/xmOI=;
+ b=YFnQPSd6cXZgo94T53aV+FgZAs/HKcDbJquiGcVzOo9wZvuNXJ+xO/qzaTeFgugQDR
+ mwhkPq4pgazUfMZn0PtxYN8az7F5t7FutRc+iU9UVO0AdNHhlhc2yOibEK19FV040NZi
+ F6MVVZmJoMAv9TmgikCeSmjXMrsX5SmNhJPuNeiHKQ3XxUdpTHRGdGXyPp1DSxTZwxBt
+ gcFQxtotlmMXIGgZmiIzV+sCuisPoeGGAycREOMzbxOXpgziO5Gvgdg66a17es5LSOUN
+ fhRAPyfWjPOIU+SCkrtMFdLlVWPactr5Ryn68/fwgxEGnqJO8LMNwAslDLvUWX24PTxH
+ z2kQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVweL9BgQnxmHXyFG9XrP+1cgp13P2KbM5k/jXyHlmA+6dNTEKD4mW0VJ0JB0lYrn3pI68HEP3kjtp9/g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwdJ4CUdQ1t8Dgx0dJf2FXI4oDQvoAB9gTyAz1T0AdIn4ddlhLh
+ S5RF3imf2LW112sDGoZOSrMS/OsXOtnZVe/YxfW77zb028T3tifq
+X-Google-Smtp-Source: AGHT+IHqOXJOWHb79RTihzE3on1iV74tjWvNfm3tTmK51dxtJorj4SeUP8Xl+KghIyqpPSU2ZAidYw==
+X-Received: by 2002:a05:6512:ba2:b0:533:3223:df91 with SMTP id
+ 2adb3069b0e04-53438773a9emr1245520e87.24.1724405353307; 
+ Fri, 23 Aug 2024 02:29:13 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5334ea5d9e6sm494618e87.226.2024.08.23.02.29.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Aug 2024 02:29:12 -0700 (PDT)
+Date: Fri, 23 Aug 2024 12:29:09 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Philipp Stanner <pstanner@redhat.com>
+Message-ID: <6q4pcpyqqt6mhj422pfkgggvwu7jhweu5446y6prcjgjql6xeq@jztt7z4fr6rg>
+References: <20240822134744.44919-1-pstanner@redhat.com>
+ <20240822134744.44919-7-pstanner@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c608a8bc-ad44-4cf7-652b-08dcc3541451
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Aug 2024 09:15:06.5143 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Du0wXL900A3P5be8ppqzRsu0diJbkP+dyIdZ+bPHJRzxtJwf1lmxOFOLAvTWrGookzvxyEMwluzno4Rx8+UtKz0CDaMSU+XfQ5NARNzDhkg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB11331
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
- "marcin.s.wojtas@gmail.com" <marcin.s.wojtas@gmail.com>,
- "kees@kernel.org" <kees@kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "edumazet@google.com" <edumazet@google.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
- "sd@queasysnail.net" <sd@queasysnail.net>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "clement.leger@bootlin.com" <clement.leger@bootlin.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "ulli.kroll@googlemail.com" <ulli.kroll@googlemail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "horms@kernel.org" <horms@kernel.org>,
- "justinstitt@google.com" <justinstitt@google.com>,
- "olteanv@gmail.com" <olteanv@gmail.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [net-next v2 2/9] net: stmmac: platform: Convert
- to devm_clk_get_enabled() and devm_clk_get_optional_enabled()
+Content-Disposition: inline
+In-Reply-To: <20240822134744.44919-7-pstanner@redhat.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
+ Andy Shevchenko <andy@kernel.org>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 6/9] ethernet: stmicro: Simplify PCI
+	devres usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -173,137 +104,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Serge Semin,
+Hi Philipp
 
-> -----Original Message-----
-> From: Serge Semin <fancer.lancer@gmail.com>
-> Sent: Friday, August 23, 2024 10:11 AM
-> Subject: Re: [net-next v2 2/9] net: stmmac: platform: Convert to devm_clk_get_enabled() and
-> devm_clk_get_optional_enabled()
+On Thu, Aug 22, 2024 at 03:47:38PM +0200, Philipp Stanner wrote:
+> stmicro uses PCI devres in the wrong way. Resources requested
+> through pcim_* functions don't need to be cleaned up manually in the
+> remove() callback or in the error unwind path of a probe() function.
 > 
-> Hi Yangtao
+> Moreover, there is an unnecessary loop which only requests and ioremaps
+> BAR 0, but iterates over all BARs nevertheless.
 > 
-> On Fri, Aug 23, 2024 at 01:21:14AM -0600, Yangtao Li wrote:
-> > Use devm_clk_get_enabled() and devm_clk_get_optional_enabled() to
-> > simplify code.
-> >
-> > Signed-off-by: Yangtao Li <frank.li@vivo.com>
-> > Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> > ---
-> > v2:
-> > -remove unused 'ret'
-> > -fix incompatible-pointer-types
-> >
-> >  .../ethernet/stmicro/stmmac/stmmac_platform.c | 35
-> > +++++--------------
-> >  1 file changed, 8 insertions(+), 27 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > index ad868e8d195d..1a66baaa4081 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > @@ -415,8 +415,6 @@ static int stmmac_of_get_mac_mode(struct
-> > device_node *np)  static void stmmac_remove_config_dt(struct platform_device *pdev,
-> >  				    struct plat_stmmacenet_data *plat)  {
-> > -	clk_disable_unprepare(plat->stmmac_clk);
-> > -	clk_disable_unprepare(plat->pclk);
-> >  	of_node_put(plat->phy_node);
-> >  	of_node_put(plat->mdio_node);
-> >  }
-> > @@ -436,7 +434,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
-> >  	struct plat_stmmacenet_data *plat;
-> >  	struct stmmac_dma_cfg *dma_cfg;
-> >  	int phy_mode;
-> > -	void *ret;
-> >  	int rc;
-> >
-> >  	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL); @@
-> > -615,21 +612,16 @@ stmmac_probe_config_dt(struct platform_device
-> > *pdev, u8 *mac)
-> >
-> >  	/* clock setup */
-> >  	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
-> > -		plat->stmmac_clk = devm_clk_get(&pdev->dev,
-> > -						STMMAC_RESOURCE_NAME);
-> > +		plat->stmmac_clk = devm_clk_get_enabled(&pdev->dev,
-> > +STMMAC_RESOURCE_NAME);
-> >  		if (IS_ERR(plat->stmmac_clk)) {
-> >  			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
-> >  			plat->stmmac_clk = NULL;
-> >  		}
-> > -		clk_prepare_enable(plat->stmmac_clk);
-> >  	}
-> >
-> > -	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
-> > -	if (IS_ERR(plat->pclk)) {
-> > -		ret = plat->pclk;
-> > -		goto error_pclk_get;
-> > -	}
-> > -	clk_prepare_enable(plat->pclk);
-> > +	plat->pclk = devm_clk_get_optional_enabled(&pdev->dev, "pclk");
-> > +	if (IS_ERR(plat->pclk))
+> Furthermore, pcim_iomap_regions() and pcim_iomap_table() have been
+> deprecated by the PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
+> pcim_iomap_table(), pcim_iomap_regions_request_all()").
 > 
-> > +		return (void *)plat->pclk;
+> Replace these functions with pcim_iomap_region().
 > 
-> Use the ERR_CAST() macro instead of the open coded void type cast.
+> Remove the unnecessary manual pcim_* cleanup calls.
+> 
+> Remove the unnecessary loop over all BARs.
+> 
+> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 
-Which is better ERR_PTR or ERR_CAST in this case?
+Thanks for the series. But please note the network subsystem
+dev-process requires to submit the cleanup/feature changes on top of
+the net-next tree:
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/
 
-Cheers,
-Biju
+Just recently a Yanteng' (+cc) series
+https://lore.kernel.org/netdev/cover.1723014611.git.siyanteng@loongson.cn/
+was merged in which significantly refactored the Loongson MAC driver.
+Seeing your patch isn't based on these changes, there is a high
+probability that the patch won't get cleanly applied onto the
+net-next tree. So please either rebase your patch onto the net-next
+tree, or at least merge in the Yanteng' series in your tree and
+rebase the patch onto it and let's hope there have been no other
+conflicting patches merged in into the net-next tree.
 
-> 
-> >
-> >  	/* Fall-back to main clock in case of no PTP ref is passed */
-> >  	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref"); @@ -644,26
-> > +636,15 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8
-> > *mac)
-> >
-> >  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
-> >  							   STMMAC_RESOURCE_NAME);
-> > -	if (IS_ERR(plat->stmmac_rst)) {
-> > -		ret = plat->stmmac_rst;
-> > -		goto error_hw_init;
-> > -	}
-> > +	if (IS_ERR(plat->stmmac_rst))
-> 
-> > +		return (void *)plat->stmmac_rst;
-> 
-> ditto
-> 
-> >
-> >  	plat->stmmac_ahb_rst = devm_reset_control_get_optional_shared(
-> >  							&pdev->dev, "ahb");
-> > -	if (IS_ERR(plat->stmmac_ahb_rst)) {
-> > -		ret = plat->stmmac_ahb_rst;
-> > -		goto error_hw_init;
-> > -	}
-> > +	if (IS_ERR(plat->stmmac_ahb_rst))
-> 
-> > +		return (void *)plat->stmmac_ahb_rst;
-> 
-> ditto
-> 
-> -Serge(y)
-> 
-> >
-> >  	return plat;
-> > -
-> > -error_hw_init:
-> > -	clk_disable_unprepare(plat->pclk);
-> > -error_pclk_get:
-> > -	clk_disable_unprepare(plat->stmmac_clk);
-> > -
-> > -	return ret;
-> >  }
-> >
-> >  static void devm_stmmac_remove_config_dt(void *data)
-> > --
-> > 2.39.0
-> >
-> >
+-Serge(y)
 
+
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-loongson.c  | 25 +++++--------------
+>  .../net/ethernet/stmicro/stmmac/stmmac_pci.c  | 18 +++++--------
+>  2 files changed, 12 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+> index 9e40c28d453a..5d42a9fad672 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+> @@ -50,7 +50,7 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+>  	struct plat_stmmacenet_data *plat;
+>  	struct stmmac_resources res;
+>  	struct device_node *np;
+> -	int ret, i, phy_mode;
+> +	int ret, phy_mode;
+>  
+>  	np = dev_of_node(&pdev->dev);
+>  
+> @@ -88,14 +88,11 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+>  		goto err_put_node;
+>  	}
+>  
+> -	/* Get the base address of device */
+> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+> -		if (pci_resource_len(pdev, i) == 0)
+> -			continue;
+> -		ret = pcim_iomap_regions(pdev, BIT(0), pci_name(pdev));
+> -		if (ret)
+> -			goto err_disable_device;
+> -		break;
+> +	memset(&res, 0, sizeof(res));
+> +	res.addr = pcim_iomap_region(pdev, 0, pci_name(pdev));
+> +	if (IS_ERR(res.addr)) {
+> +		ret = PTR_ERR(res.addr);
+> +		goto err_disable_device;
+>  	}
+>  
+>  	plat->bus_id = of_alias_get_id(np, "ethernet");
+> @@ -116,8 +113,6 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+>  
+>  	loongson_default_data(plat);
+>  	pci_enable_msi(pdev);
+> -	memset(&res, 0, sizeof(res));
+> -	res.addr = pcim_iomap_table(pdev)[0];
+>  
+>  	res.irq = of_irq_get_byname(np, "macirq");
+>  	if (res.irq < 0) {
+> @@ -158,18 +153,10 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
+>  {
+>  	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
+>  	struct stmmac_priv *priv = netdev_priv(ndev);
+> -	int i;
+>  
+>  	of_node_put(priv->plat->mdio_node);
+>  	stmmac_dvr_remove(&pdev->dev);
+>  
+> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+> -		if (pci_resource_len(pdev, i) == 0)
+> -			continue;
+> -		pcim_iounmap_regions(pdev, BIT(i));
+> -		break;
+> -	}
+> -
+>  	pci_disable_msi(pdev);
+>  	pci_disable_device(pdev);
+>  }
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> index 352b01678c22..f89a8a54c4e8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> @@ -188,11 +188,11 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+>  		return ret;
+>  	}
+>  
+> -	/* Get the base address of device */
+> +	/* Request the base address BAR of device */
+>  	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+>  		if (pci_resource_len(pdev, i) == 0)
+>  			continue;
+> -		ret = pcim_iomap_regions(pdev, BIT(i), pci_name(pdev));
+> +		ret = pcim_request_region(pdev, i, pci_name(pdev));
+>  		if (ret)
+>  			return ret;
+>  		break;
+> @@ -205,7 +205,10 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+>  		return ret;
+>  
+>  	memset(&res, 0, sizeof(res));
+> -	res.addr = pcim_iomap_table(pdev)[i];
+> +	/* Get the base address of device */
+> +	res.addr = pcim_iomap(pdev, i, 0);
+> +	if (!res.addr)
+> +		return -ENOMEM;
+>  	res.wol_irq = pdev->irq;
+>  	res.irq = pdev->irq;
+>  
+> @@ -231,16 +234,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+>   */
+>  static void stmmac_pci_remove(struct pci_dev *pdev)
+>  {
+> -	int i;
+> -
+>  	stmmac_dvr_remove(&pdev->dev);
+> -
+> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+> -		if (pci_resource_len(pdev, i) == 0)
+> -			continue;
+> -		pcim_iounmap_regions(pdev, BIT(i));
+> -		break;
+> -	}
+>  }
+>  
+>  static int __maybe_unused stmmac_pci_suspend(struct device *dev)
+> -- 
+> 2.46.0
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
