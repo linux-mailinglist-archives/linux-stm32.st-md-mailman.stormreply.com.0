@@ -2,92 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896E295C937
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 11:29:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 117A395C956
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Aug 2024 11:37:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C616C71287;
-	Fri, 23 Aug 2024 09:29:22 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B77CCC71287;
+	Fri, 23 Aug 2024 09:37:30 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCCE2C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D6E9C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 09:29:14 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-530e062217eso2048609e87.1
+ Fri, 23 Aug 2024 09:37:23 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2f43de7ad5eso16098581fa.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Aug 2024 02:29:14 -0700 (PDT)
+ Fri, 23 Aug 2024 02:37:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724405354; x=1725010154;
+ d=gmail.com; s=20230601; t=1724405843; x=1725010643;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HJZgnLkJ3O5ij2lr4uMh4xPM1CMCZfKHy3jKVr/xmOI=;
- b=Gv3o7djyWl/Eoof4T7jNHIAV5rKHsvQBnP5DDvu6uUaehbRj1+wc/Qx2XRHyREpGM4
- 91mg3sTcz1Ge0BI+UxzSRfSWrAhlDhMNSd7ye/ZsyHRpx/tRVQmGceNkRhmgvPDcMRlw
- zEVVp8XvnBjrPVG3OuvUwOKxAFr28jMq3TYx8+nJHvff/XCAMJPRflg5yU3/yIvlv07r
- m5t4X6rXflmhByPsPDUI7EmNWy2ULST0Z01r0Sacj/nKiO92hD9Lz6W1MZXd4w5kgHda
- Lv9RRwwdr/uXDTMkSOSqakDcucNJNxcOU/BRIBux4sy//renA6enMrYTcjAbX2S3muuB
- cLBw==
+ bh=4Ac5nNCVhdhZDVEQMZ1e+QZs8PBYNOPIlMHADdFcn1k=;
+ b=bsZq4E0SajNAMXkg9ZXx3jr/Qx17n9ro+EHUyJuhH+02GXMyHZq+CiPJf+OIuBtmqN
+ 0/c6glRh/QTAKSJuHl4DYm1XmLO35dSbWj4EN3ICgkYu27VMHipkrNYd/f9Q4VEEAMGO
+ IacYooswc4WgT4hspKNyslEgVgUe7oZ1QYhLhhT9XdP66r7hm7msBxNOdPsgSXdtpKB7
+ 6umA8y549UYNDRvzgsHuqFkTia4wslEpJnjm+CthaHvw30JTLSVD6oRTxcGuGgsRoSyB
+ Xl8J8c6WLzs6auOLwxnOQTusYxEDqdJ6yBhU1ejI98bqdfZYWA6hy3XoiEsyu+TkGOns
+ elug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724405354; x=1725010154;
+ d=1e100.net; s=20230601; t=1724405843; x=1725010643;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HJZgnLkJ3O5ij2lr4uMh4xPM1CMCZfKHy3jKVr/xmOI=;
- b=YFnQPSd6cXZgo94T53aV+FgZAs/HKcDbJquiGcVzOo9wZvuNXJ+xO/qzaTeFgugQDR
- mwhkPq4pgazUfMZn0PtxYN8az7F5t7FutRc+iU9UVO0AdNHhlhc2yOibEK19FV040NZi
- F6MVVZmJoMAv9TmgikCeSmjXMrsX5SmNhJPuNeiHKQ3XxUdpTHRGdGXyPp1DSxTZwxBt
- gcFQxtotlmMXIGgZmiIzV+sCuisPoeGGAycREOMzbxOXpgziO5Gvgdg66a17es5LSOUN
- fhRAPyfWjPOIU+SCkrtMFdLlVWPactr5Ryn68/fwgxEGnqJO8LMNwAslDLvUWX24PTxH
- z2kQ==
+ bh=4Ac5nNCVhdhZDVEQMZ1e+QZs8PBYNOPIlMHADdFcn1k=;
+ b=tjkGxabUNRaR36XNthIWJG+gy3nCnH430jenzqJYetfELGWg0wx3cu2NAlPoHNf5OU
+ RdQIORgnMLLgi42Xz5Pg+J1KLv+4k5hwcEcBs19HYgGLPVZi+lzVNOPn+L/E5B9A7Yjp
+ VxciYwZg1pZ865ItPkiyHivMv5ckgorzMiCdtsb3PX7yL4YnNwsY5G8t/w8VqcfbJxaK
+ cXlR2EgzFZiCVtHUjzLVMhlhISKU24NoTdqEHlNTuGbbvWLSGF6RcG/KcVYVnU3Vc6AD
+ cb1zov2o9857oMnbAvpt0R6jrShWbmrOWoGZ24B5QQVe9ByMnG3NMAVqB5bYSEq+HuHk
+ 1LVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVweL9BgQnxmHXyFG9XrP+1cgp13P2KbM5k/jXyHlmA+6dNTEKD4mW0VJ0JB0lYrn3pI68HEP3kjtp9/g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwdJ4CUdQ1t8Dgx0dJf2FXI4oDQvoAB9gTyAz1T0AdIn4ddlhLh
- S5RF3imf2LW112sDGoZOSrMS/OsXOtnZVe/YxfW77zb028T3tifq
-X-Google-Smtp-Source: AGHT+IHqOXJOWHb79RTihzE3on1iV74tjWvNfm3tTmK51dxtJorj4SeUP8Xl+KghIyqpPSU2ZAidYw==
-X-Received: by 2002:a05:6512:ba2:b0:533:3223:df91 with SMTP id
- 2adb3069b0e04-53438773a9emr1245520e87.24.1724405353307; 
- Fri, 23 Aug 2024 02:29:13 -0700 (PDT)
+ AJvYcCWzSNu7hLAhmBUFVxScFZgNyKhsMV5WVwCZVJtuBw0zDf383Nfwoe2tKRG1hNdwi595W4YctBm49NxuFQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxcbIpfEpcjiKDSx58y0AyIEQJUj0ooH/8WVktjWFBXH97HqQAo
+ JZQARnpW55kiBItysjvf0w9WDtTHaO8u9kFYqKE1aM8F+X9/di0P
+X-Google-Smtp-Source: AGHT+IEmGbUcGDz88fFiESnHSTe8A1VR8m1CYlhAGl7LSVJErE5o8dcM5mYZwvJiw622MTGNoY9ILA==
+X-Received: by 2002:a2e:8e8f:0:b0:2f1:59ed:87ab with SMTP id
+ 38308e7fff4ca-2f4f4904c5dmr9805651fa.24.1724405841764; 
+ Fri, 23 Aug 2024 02:37:21 -0700 (PDT)
 Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334ea5d9e6sm494618e87.226.2024.08.23.02.29.11
+ 38308e7fff4ca-2f40487e931sm4200131fa.104.2024.08.23.02.37.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 02:29:12 -0700 (PDT)
-Date: Fri, 23 Aug 2024 12:29:09 +0300
+ Fri, 23 Aug 2024 02:37:21 -0700 (PDT)
+Date: Fri, 23 Aug 2024 12:37:19 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: Philipp Stanner <pstanner@redhat.com>
-Message-ID: <6q4pcpyqqt6mhj422pfkgggvwu7jhweu5446y6prcjgjql6xeq@jztt7z4fr6rg>
-References: <20240822134744.44919-1-pstanner@redhat.com>
- <20240822134744.44919-7-pstanner@redhat.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Message-ID: <zxfzr5s3hpmn5nkhjess5w2ruozdsco3lcakhfid67qeld2lpi@foykn7w4ltd3>
+References: <20240823072122.2053401-1-frank.li@vivo.com>
+ <20240823072122.2053401-3-frank.li@vivo.com>
+ <qx4k2xehasda7zj6vt3bygdh3scehiiwniqvljj4b4rjde25a5@ys4oqsithhwi>
+ <TY3PR01MB11346C33198DE80DD9DD1CC3C86882@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240822134744.44919-7-pstanner@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
- Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
- Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
- Andy Shevchenko <andy@kernel.org>, Chaitanya Kulkarni <kch@nvidia.com>,
- Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
- Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
- Damien Le Moal <dlemoal@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 6/9] ethernet: stmicro: Simplify PCI
-	devres usage
+In-Reply-To: <TY3PR01MB11346C33198DE80DD9DD1CC3C86882@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
+ "marcin.s.wojtas@gmail.com" <marcin.s.wojtas@gmail.com>,
+ "kees@kernel.org" <kees@kernel.org>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
+ "sd@queasysnail.net" <sd@queasysnail.net>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "clement.leger@bootlin.com" <clement.leger@bootlin.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Yangtao Li <frank.li@vivo.com>,
+ "ulli.kroll@googlemail.com" <ulli.kroll@googlemail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "horms@kernel.org" <horms@kernel.org>,
+ "justinstitt@google.com" <justinstitt@google.com>,
+ "olteanv@gmail.com" <olteanv@gmail.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "hkallweit1@gmail.com" <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [net-next v2 2/9] net: stmmac: platform: Convert
+ to devm_clk_get_enabled() and devm_clk_get_optional_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,162 +110,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Philipp
+Hi Biju
 
-On Thu, Aug 22, 2024 at 03:47:38PM +0200, Philipp Stanner wrote:
-> stmicro uses PCI devres in the wrong way. Resources requested
-> through pcim_* functions don't need to be cleaned up manually in the
-> remove() callback or in the error unwind path of a probe() function.
+On Fri, Aug 23, 2024 at 09:15:06AM +0000, Biju Das wrote:
+> Hi Serge Semin,
 > 
-> Moreover, there is an unnecessary loop which only requests and ioremaps
-> BAR 0, but iterates over all BARs nevertheless.
+> > -----Original Message-----
+> > From: Serge Semin <fancer.lancer@gmail.com>
+> > Sent: Friday, August 23, 2024 10:11 AM
+> > Subject: Re: [net-next v2 2/9] net: stmmac: platform: Convert to devm_clk_get_enabled() and
+> > devm_clk_get_optional_enabled()
+> > 
+> > Hi Yangtao
+> > 
+> > On Fri, Aug 23, 2024 at 01:21:14AM -0600, Yangtao Li wrote:
+> > > Use devm_clk_get_enabled() and devm_clk_get_optional_enabled() to
+> > > simplify code.
+> > >
+> > > Signed-off-by: Yangtao Li <frank.li@vivo.com>
+> > > Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> > > ---
+> > > v2:
+> > > -remove unused 'ret'
+> > > -fix incompatible-pointer-types
+> > >
+> > >  .../ethernet/stmicro/stmmac/stmmac_platform.c | 35
+> > > +++++--------------
+> > >  1 file changed, 8 insertions(+), 27 deletions(-)
+> > >
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > index ad868e8d195d..1a66baaa4081 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > > @@ -415,8 +415,6 @@ static int stmmac_of_get_mac_mode(struct
+> > > device_node *np)  static void stmmac_remove_config_dt(struct platform_device *pdev,
+> > >  				    struct plat_stmmacenet_data *plat)  {
+> > > -	clk_disable_unprepare(plat->stmmac_clk);
+> > > -	clk_disable_unprepare(plat->pclk);
+> > >  	of_node_put(plat->phy_node);
+> > >  	of_node_put(plat->mdio_node);
+> > >  }
+> > > @@ -436,7 +434,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+> > >  	struct plat_stmmacenet_data *plat;
+> > >  	struct stmmac_dma_cfg *dma_cfg;
+> > >  	int phy_mode;
+> > > -	void *ret;
+> > >  	int rc;
+> > >
+> > >  	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL); @@
+> > > -615,21 +612,16 @@ stmmac_probe_config_dt(struct platform_device
+> > > *pdev, u8 *mac)
+> > >
+> > >  	/* clock setup */
+> > >  	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
+> > > -		plat->stmmac_clk = devm_clk_get(&pdev->dev,
+> > > -						STMMAC_RESOURCE_NAME);
+> > > +		plat->stmmac_clk = devm_clk_get_enabled(&pdev->dev,
+> > > +STMMAC_RESOURCE_NAME);
+> > >  		if (IS_ERR(plat->stmmac_clk)) {
+> > >  			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
+> > >  			plat->stmmac_clk = NULL;
+> > >  		}
+> > > -		clk_prepare_enable(plat->stmmac_clk);
+> > >  	}
+> > >
+> > > -	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
+> > > -	if (IS_ERR(plat->pclk)) {
+> > > -		ret = plat->pclk;
+> > > -		goto error_pclk_get;
+> > > -	}
+> > > -	clk_prepare_enable(plat->pclk);
+> > > +	plat->pclk = devm_clk_get_optional_enabled(&pdev->dev, "pclk");
+> > > +	if (IS_ERR(plat->pclk))
+> > 
+> > > +		return (void *)plat->pclk;
+> > 
+> > Use the ERR_CAST() macro instead of the open coded void type cast.
 > 
-> Furthermore, pcim_iomap_regions() and pcim_iomap_table() have been
-> deprecated by the PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
-> pcim_iomap_table(), pcim_iomap_regions_request_all()").
-> 
-> Replace these functions with pcim_iomap_region().
-> 
-> Remove the unnecessary manual pcim_* cleanup calls.
-> 
-> Remove the unnecessary loop over all BARs.
-> 
-> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 
-Thanks for the series. But please note the network subsystem
-dev-process requires to submit the cleanup/feature changes on top of
-the net-next tree:
-https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/
+> Which is better ERR_PTR or ERR_CAST in this case?
 
-Just recently a Yanteng' (+cc) series
-https://lore.kernel.org/netdev/cover.1723014611.git.siyanteng@loongson.cn/
-was merged in which significantly refactored the Loongson MAC driver.
-Seeing your patch isn't based on these changes, there is a high
-probability that the patch won't get cleanly applied onto the
-net-next tree. So please either rebase your patch onto the net-next
-tree, or at least merge in the Yanteng' series in your tree and
-rebase the patch onto it and let's hope there have been no other
-conflicting patches merged in into the net-next tree.
+The only correct macro in this case is ERR_CAST() which implies one
+error-pointer cast to another. Open-coding the pointers cast is
+discouraged.
+
+The ERR_PTR() macro is utilized to cast an _integer-error_ to an
+error-pointer.
 
 -Serge(y)
 
-
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-loongson.c  | 25 +++++--------------
->  .../net/ethernet/stmicro/stmmac/stmmac_pci.c  | 18 +++++--------
->  2 files changed, 12 insertions(+), 31 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-> index 9e40c28d453a..5d42a9fad672 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-> @@ -50,7 +50,7 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
->  	struct plat_stmmacenet_data *plat;
->  	struct stmmac_resources res;
->  	struct device_node *np;
-> -	int ret, i, phy_mode;
-> +	int ret, phy_mode;
->  
->  	np = dev_of_node(&pdev->dev);
->  
-> @@ -88,14 +88,11 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
->  		goto err_put_node;
->  	}
->  
-> -	/* Get the base address of device */
-> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> -		if (pci_resource_len(pdev, i) == 0)
-> -			continue;
-> -		ret = pcim_iomap_regions(pdev, BIT(0), pci_name(pdev));
-> -		if (ret)
-> -			goto err_disable_device;
-> -		break;
-> +	memset(&res, 0, sizeof(res));
-> +	res.addr = pcim_iomap_region(pdev, 0, pci_name(pdev));
-> +	if (IS_ERR(res.addr)) {
-> +		ret = PTR_ERR(res.addr);
-> +		goto err_disable_device;
->  	}
->  
->  	plat->bus_id = of_alias_get_id(np, "ethernet");
-> @@ -116,8 +113,6 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
->  
->  	loongson_default_data(plat);
->  	pci_enable_msi(pdev);
-> -	memset(&res, 0, sizeof(res));
-> -	res.addr = pcim_iomap_table(pdev)[0];
->  
->  	res.irq = of_irq_get_byname(np, "macirq");
->  	if (res.irq < 0) {
-> @@ -158,18 +153,10 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
->  {
->  	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
->  	struct stmmac_priv *priv = netdev_priv(ndev);
-> -	int i;
->  
->  	of_node_put(priv->plat->mdio_node);
->  	stmmac_dvr_remove(&pdev->dev);
->  
-> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> -		if (pci_resource_len(pdev, i) == 0)
-> -			continue;
-> -		pcim_iounmap_regions(pdev, BIT(i));
-> -		break;
-> -	}
-> -
->  	pci_disable_msi(pdev);
->  	pci_disable_device(pdev);
->  }
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-> index 352b01678c22..f89a8a54c4e8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-> @@ -188,11 +188,11 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
->  		return ret;
->  	}
->  
-> -	/* Get the base address of device */
-> +	/* Request the base address BAR of device */
->  	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
->  		if (pci_resource_len(pdev, i) == 0)
->  			continue;
-> -		ret = pcim_iomap_regions(pdev, BIT(i), pci_name(pdev));
-> +		ret = pcim_request_region(pdev, i, pci_name(pdev));
->  		if (ret)
->  			return ret;
->  		break;
-> @@ -205,7 +205,10 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
->  		return ret;
->  
->  	memset(&res, 0, sizeof(res));
-> -	res.addr = pcim_iomap_table(pdev)[i];
-> +	/* Get the base address of device */
-> +	res.addr = pcim_iomap(pdev, i, 0);
-> +	if (!res.addr)
-> +		return -ENOMEM;
->  	res.wol_irq = pdev->irq;
->  	res.irq = pdev->irq;
->  
-> @@ -231,16 +234,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
->   */
->  static void stmmac_pci_remove(struct pci_dev *pdev)
->  {
-> -	int i;
-> -
->  	stmmac_dvr_remove(&pdev->dev);
-> -
-> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> -		if (pci_resource_len(pdev, i) == 0)
-> -			continue;
-> -		pcim_iounmap_regions(pdev, BIT(i));
-> -		break;
-> -	}
->  }
->  
->  static int __maybe_unused stmmac_pci_suspend(struct device *dev)
-> -- 
-> 2.46.0
+> Cheers,
+> Biju
 > 
+> > 
+> > >
+> > >  	/* Fall-back to main clock in case of no PTP ref is passed */
+> > >  	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref"); @@ -644,26
+> > > +636,15 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8
+> > > *mac)
+> > >
+> > >  	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
+> > >  							   STMMAC_RESOURCE_NAME);
+> > > -	if (IS_ERR(plat->stmmac_rst)) {
+> > > -		ret = plat->stmmac_rst;
+> > > -		goto error_hw_init;
+> > > -	}
+> > > +	if (IS_ERR(plat->stmmac_rst))
+> > 
+> > > +		return (void *)plat->stmmac_rst;
+> > 
+> > ditto
+> > 
+> > >
+> > >  	plat->stmmac_ahb_rst = devm_reset_control_get_optional_shared(
+> > >  							&pdev->dev, "ahb");
+> > > -	if (IS_ERR(plat->stmmac_ahb_rst)) {
+> > > -		ret = plat->stmmac_ahb_rst;
+> > > -		goto error_hw_init;
+> > > -	}
+> > > +	if (IS_ERR(plat->stmmac_ahb_rst))
+> > 
+> > > +		return (void *)plat->stmmac_ahb_rst;
+> > 
+> > ditto
+> > 
+> > -Serge(y)
+> > 
+> > >
+> > >  	return plat;
+> > > -
+> > > -error_hw_init:
+> > > -	clk_disable_unprepare(plat->pclk);
+> > > -error_pclk_get:
+> > > -	clk_disable_unprepare(plat->stmmac_clk);
+> > > -
+> > > -	return ret;
+> > >  }
+> > >
+> > >  static void devm_stmmac_remove_config_dt(void *data)
+> > > --
+> > > 2.39.0
+> > >
+> > >
 > 
 _______________________________________________
 Linux-stm32 mailing list
