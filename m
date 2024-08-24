@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1EDC95DB27
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Aug 2024 05:49:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE07095DB28
+	for <lists+linux-stm32@lfdr.de>; Sat, 24 Aug 2024 05:49:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B5EDC7128F;
-	Sat, 24 Aug 2024 03:49:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7445AC71289;
+	Sat, 24 Aug 2024 03:49:39 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30207C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76F97C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Aug 2024 03:49:35 +0000 (UTC)
+ Sat, 24 Aug 2024 03:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=hfCFH7RPHdPA6U8oxZwM/RzFKw4srQhejXrAt6uaIy8=; b=3/wz9G3CM/7zwOw+geH+3HijIX
- cgRSROcz97yOSL7g5QA59ZHHQTGTMTrLnBSogzHi6HhvO2ymO6GbZihU8VNaYatUN7nOc36JOTCzG
- nv9v6zxENuJIXEGTG6xiIkCBcQD/zvFVoHGQR2dfVcdpBGimBGrAhzDIqn0pDuzWAWDyXWErGcyCZ
- /G5zCzSvZesYxU3tkQGvOQ513LzCGjfxlDDtS4+HfGH/JxUFBCdd26G7OSLD5F+di+wI1q1S8yUvT
- YDwvZT7nd/jKD3ZHfdFIKToJqstLH63TCtL78pykSJHnWMBU+mgwk4i4n0iLR9epU0+4FDQYmFILL
- zpFmyeCQ==;
+ bh=D9jVhl7oJxULjz2/rXwXfEOWQLpDc7NeMcx1BhhLUUk=; b=OQjhwG5q0Syjaw8wq3XKSQxyzK
+ F9hdV5VMIlZ4OpNOBRpUW4cP4Uov5jWpPSM3Ymnyux9uaOqRperERaJvNp5R7Ejwlg/31yHfe/18/
+ LDmv+Pc3eS9ZmLURoaAkGj5/EWBm5E/57XTEaSKR6lv7FfaxTScBeGXi+kCY//jkX6+8i4CyV5/bW
+ EiNNAAArjhjZm3nvjgwJlHca2s/RtGgqlkF88XC2YnoNxd/m4g8/WpQMk2XG7bKxwmXIlKo4tp65X
+ HyB+AI9FHIqoC5DkZ5Tmg5FOGfaNnqGRJYY6IjwTw/Tb1ncGAjYwXnGhfrt63FxkvdxHxOUFIVmhY
+ aGsZkdBg==;
 Received: from
  2a02-8389-2341-5b80-7457-864c-9b77-b751.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:7457:864c:9b77:b751] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1shhmM-00000001N07-2TWU; Sat, 24 Aug 2024 03:49:31 +0000
+ id 1shhmP-00000001N0f-2L3A; Sat, 24 Aug 2024 03:49:34 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: iommu@lists.linux.dev
-Date: Sat, 24 Aug 2024 05:49:12 +0200
-Message-ID: <20240824034925.1163244-2-hch@lst.de>
+Date: Sat, 24 Aug 2024 05:49:13 +0200
+Message-ID: <20240824034925.1163244-3-hch@lst.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240824034925.1163244-1-hch@lst.de>
 References: <20240824034925.1163244-1-hch@lst.de>
@@ -48,8 +48,8 @@ Cc: linux-hyperv@vger.kernel.org,
  Robin Murphy <robin.murphy@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org,
  Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Linux-stm32] [PATCH 1/4] scsi: check that busses support the DMA
-	API before setting dma parameters
+Subject: [Linux-stm32] [PATCH 2/4] dma-mapping: don't return errors from
+	dma_set_min_align_mask
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,38 +66,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We'll start throwing warnings soon when dma_set_seg_boundary and
-dma_set_max_seg_size are called on devices for buses that don't fully
-support the DMA API.  Prepare for that by making the calls in the SCSI
-midlayer conditional.
+A NULL dev->dma_parms indicates either a bus that is not DMA capable or
+grave bug in the implementation of the bus code.
+
+There isn't much the driver can do in terms of error handling for either
+case, so just warn and continue as DMA operations will fail anyway.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
 ---
- drivers/scsi/scsi_lib.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ include/linux/dma-mapping.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index 3958a6d14bf457..7f0394c4492033 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1988,8 +1988,15 @@ void scsi_init_limits(struct Scsi_Host *shost, struct queue_limits *lim)
- 	if (shost->no_highmem)
- 		lim->features |= BLK_FEAT_BOUNCE_HIGH;
- 
--	dma_set_seg_boundary(dev, shost->dma_boundary);
--	dma_set_max_seg_size(dev, shost->max_segment_size);
-+	/*
-+	 * Propagate the DMA formation properties to the dma-mapping layer as
-+	 * a courtesy service to the LLDDs.  This needs to check that the buses
-+	 * actually support the DMA API first, though.
-+	 */
-+	if (dev->dma_parms) {
-+		dma_set_seg_boundary(dev, shost->dma_boundary);
-+		dma_set_max_seg_size(dev, shost->max_segment_size);
-+	}
+diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
+index f693aafe221f2c..cfd6bafec3f944 100644
+--- a/include/linux/dma-mapping.h
++++ b/include/linux/dma-mapping.h
+@@ -575,13 +575,12 @@ static inline unsigned int dma_get_min_align_mask(struct device *dev)
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(scsi_init_limits);
  
+-static inline int dma_set_min_align_mask(struct device *dev,
++static inline void dma_set_min_align_mask(struct device *dev,
+ 		unsigned int min_align_mask)
+ {
+ 	if (WARN_ON_ONCE(!dev->dma_parms))
+-		return -EIO;
++		return;
+ 	dev->dma_parms->min_align_mask = min_align_mask;
+-	return 0;
+ }
+ 
+ #ifndef dma_get_cache_alignment
 -- 
 2.43.0
 
