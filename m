@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE07095DB28
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Aug 2024 05:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55B295DB2D
+	for <lists+linux-stm32@lfdr.de>; Sat, 24 Aug 2024 05:49:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7445AC71289;
-	Sat, 24 Aug 2024 03:49:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D887C71289;
+	Sat, 24 Aug 2024 03:49:42 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76F97C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8144BC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Aug 2024 03:49:37 +0000 (UTC)
+ Sat, 24 Aug 2024 03:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=D9jVhl7oJxULjz2/rXwXfEOWQLpDc7NeMcx1BhhLUUk=; b=OQjhwG5q0Syjaw8wq3XKSQxyzK
- F9hdV5VMIlZ4OpNOBRpUW4cP4Uov5jWpPSM3Ymnyux9uaOqRperERaJvNp5R7Ejwlg/31yHfe/18/
- LDmv+Pc3eS9ZmLURoaAkGj5/EWBm5E/57XTEaSKR6lv7FfaxTScBeGXi+kCY//jkX6+8i4CyV5/bW
- EiNNAAArjhjZm3nvjgwJlHca2s/RtGgqlkF88XC2YnoNxd/m4g8/WpQMk2XG7bKxwmXIlKo4tp65X
- HyB+AI9FHIqoC5DkZ5Tmg5FOGfaNnqGRJYY6IjwTw/Tb1ncGAjYwXnGhfrt63FxkvdxHxOUFIVmhY
- aGsZkdBg==;
+ bh=C7hSBdR/JVARfpeK58WO4kcqQWPz9QPRrMIi46F/pbw=; b=tPx46HT/1sF6ukuutt61ki7ry+
+ sYLlN62PjveNHfkOHkxK86wIX1nhFj3Q9xUyL1ZLuTJnoDMThRNOynXS6Ck6edZvEpf1ahU9yERW7
+ GMeDySrEPv4zatSYrvJx81LzFEjX3rpxznHpV+AahQQ0P7vWq004ZvUw2ismjmohd22gs0FoWSH+9
+ 1VHJBbL2y4EjO5mIHbttonms8HND50NHigQBFMaliKkv43obWb5xo+fLiV4jd+09evKLFifYpeNsj
+ z3+qEvUFtRm8Zc0n+9RHR+o0GuuURlKFb9wy/LIzx0IP79SYsH/ZDyduP+rVIOADd/Hq/y7bPYd4j
+ IQj7liPQ==;
 Received: from
  2a02-8389-2341-5b80-7457-864c-9b77-b751.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:7457:864c:9b77:b751] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1shhmP-00000001N0f-2L3A; Sat, 24 Aug 2024 03:49:34 +0000
+ id 1shhmS-00000001N17-18bn; Sat, 24 Aug 2024 03:49:36 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: iommu@lists.linux.dev
-Date: Sat, 24 Aug 2024 05:49:13 +0200
-Message-ID: <20240824034925.1163244-3-hch@lst.de>
+Date: Sat, 24 Aug 2024 05:49:14 +0200
+Message-ID: <20240824034925.1163244-4-hch@lst.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240824034925.1163244-1-hch@lst.de>
 References: <20240824034925.1163244-1-hch@lst.de>
@@ -48,8 +48,8 @@ Cc: linux-hyperv@vger.kernel.org,
  Robin Murphy <robin.murphy@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org,
  Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Linux-stm32] [PATCH 2/4] dma-mapping: don't return errors from
-	dma_set_min_align_mask
+Subject: [Linux-stm32] [PATCH 3/4] dma-mapping: don't return errors from
+	dma_set_seg_boundary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,29 +75,31 @@ case, so just warn and continue as DMA operations will fail anyway.
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Robin Murphy <robin.murphy@arm.com>
 ---
- include/linux/dma-mapping.h | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ include/linux/dma-mapping.h | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
-index f693aafe221f2c..cfd6bafec3f944 100644
+index cfd6bafec3f944..6bd1333dbacb9b 100644
 --- a/include/linux/dma-mapping.h
 +++ b/include/linux/dma-mapping.h
-@@ -575,13 +575,12 @@ static inline unsigned int dma_get_min_align_mask(struct device *dev)
- 	return 0;
+@@ -559,13 +559,11 @@ static inline unsigned long dma_get_seg_boundary_nr_pages(struct device *dev,
+ 	return (dma_get_seg_boundary(dev) >> page_shift) + 1;
  }
  
--static inline int dma_set_min_align_mask(struct device *dev,
-+static inline void dma_set_min_align_mask(struct device *dev,
- 		unsigned int min_align_mask)
+-static inline int dma_set_seg_boundary(struct device *dev, unsigned long mask)
++static inline void dma_set_seg_boundary(struct device *dev, unsigned long mask)
  {
- 	if (WARN_ON_ONCE(!dev->dma_parms))
--		return -EIO;
+-	if (dev->dma_parms) {
+-		dev->dma_parms->segment_boundary_mask = mask;
+-		return 0;
+-	}
+-	return -EIO;
++	if (WARN_ON_ONCE(!dev->dma_parms))
 +		return;
- 	dev->dma_parms->min_align_mask = min_align_mask;
--	return 0;
++	dev->dma_parms->segment_boundary_mask = mask;
  }
  
- #ifndef dma_get_cache_alignment
+ static inline unsigned int dma_get_min_align_mask(struct device *dev)
 -- 
 2.43.0
 
