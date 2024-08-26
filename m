@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A57B495ED5D
+	by mail.lfdr.de (Postfix) with ESMTPS id B7ADE95ED5E
 	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2024 11:36:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DAEAC7801C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 787ABC78020;
 	Mon, 26 Aug 2024 09:36:12 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7F21C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F31FDC78036
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Aug 2024 09:36:07 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.194])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Wsls40rFFz14HGd;
- Mon, 26 Aug 2024 17:35:20 +0800 (CST)
+ Mon, 26 Aug 2024 09:36:08 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.162.112])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Wslp91RsWz1HHQH;
+ Mon, 26 Aug 2024 17:32:49 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 8D364140120;
- Mon, 26 Aug 2024 17:36:05 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id A991E140120;
+ Mon, 26 Aug 2024 17:36:06 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 26 Aug
- 2024 17:36:04 +0800
+ 2024 17:36:05 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <miquel.raynal@bootlin.com>, <michal.simek@amd.com>, <richard@nod.at>,
  <vigneshr@ti.com>, <liang.yang@amlogic.com>, <neil.armstrong@linaro.org>,
@@ -40,8 +40,8 @@ To: <miquel.raynal@bootlin.com>, <michal.simek@amd.com>, <richard@nod.at>,
  <linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
  <linux-stm32@st-md-mailman.stormreply.com>, <krzk@kernel.org>,
  <jic23@kernel.org>
-Date: Mon, 26 Aug 2024 17:43:26 +0800
-Message-ID: <20240826094328.2991664-9-ruanjinjie@huawei.com>
+Date: Mon, 26 Aug 2024 17:43:27 +0800
+Message-ID: <20240826094328.2991664-10-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240826094328.2991664-1-ruanjinjie@huawei.com>
 References: <20240826094328.2991664-1-ruanjinjie@huawei.com>
@@ -49,8 +49,8 @@ MIME-Version: 1.0
 X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  kwepemh500013.china.huawei.com (7.202.181.146)
-Subject: [Linux-stm32] [PATCH -next RESEND 08/10] mtd: rawnand: renesas: Use
-	for_each_child_of_node_scoped()
+Subject: [Linux-stm32] [PATCH -next RESEND 09/10] mtd: rawnand: stm32_fmc2:
+	Use for_each_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +72,36 @@ from the loop.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- drivers/mtd/nand/raw/renesas-nand-controller.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/renesas-nand-controller.c b/drivers/mtd/nand/raw/renesas-nand-controller.c
-index c9a01feff8df..0e92d50c5249 100644
---- a/drivers/mtd/nand/raw/renesas-nand-controller.c
-+++ b/drivers/mtd/nand/raw/renesas-nand-controller.c
-@@ -1297,23 +1297,17 @@ static void rnandc_chips_cleanup(struct rnandc *rnandc)
- 
- static int rnandc_chips_init(struct rnandc *rnandc)
+diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+index 264556939a00..0f67e96cc240 100644
+--- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
++++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+@@ -1851,7 +1851,6 @@ static int stm32_fmc2_nfc_parse_child(struct stm32_fmc2_nfc *nfc,
+ static int stm32_fmc2_nfc_parse_dt(struct stm32_fmc2_nfc *nfc)
  {
--	struct device_node *np;
- 	int ret;
+ 	struct device_node *dn = nfc->dev->of_node;
+-	struct device_node *child;
+ 	int nchips = of_get_child_count(dn);
+ 	int ret = 0;
  
--	for_each_child_of_node(rnandc->dev->of_node, np) {
-+	for_each_child_of_node_scoped(rnandc->dev->of_node, np) {
- 		ret = rnandc_chip_init(rnandc, np);
- 		if (ret) {
--			of_node_put(np);
--			goto cleanup_chips;
-+			rnandc_chips_cleanup(rnandc);
-+			return ret;
- 		}
+@@ -1865,12 +1864,10 @@ static int stm32_fmc2_nfc_parse_dt(struct stm32_fmc2_nfc *nfc)
+ 		return -EINVAL;
  	}
  
- 	return 0;
--
--cleanup_chips:
--	rnandc_chips_cleanup(rnandc);
--
--	return ret;
- }
+-	for_each_child_of_node(dn, child) {
++	for_each_child_of_node_scoped(dn, child) {
+ 		ret = stm32_fmc2_nfc_parse_child(nfc, child);
+-		if (ret < 0) {
+-			of_node_put(child);
++		if (ret < 0)
+ 			return ret;
+-		}
+ 	}
  
- static int rnandc_probe(struct platform_device *pdev)
+ 	return ret;
 -- 
 2.34.1
 
