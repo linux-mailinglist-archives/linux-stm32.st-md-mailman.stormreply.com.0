@@ -2,54 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE50A95DB30
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Aug 2024 05:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC2595E8C9
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2024 08:30:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8638AC71289;
-	Sat, 24 Aug 2024 03:49:46 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68FB5C71287
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE20CC6DD72;
+	Mon, 26 Aug 2024 06:30:40 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DA17C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Aug 2024 03:49:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=8u46N2ek3lDTNuy7GNNzR/9GqigGRJG1lEMuJMk0DyM=; b=Rm/gqhK6gZVOfwFiY+Yf4snm4O
- IngBJA2N5Hl7BNBG9A5jyLTf+wDu4vbKjOXujQZsNQGtrYWzOQoMOgUZuxDXCHBqXBWzMCpe8y44t
- yY0nyqkeNKjKG1JA++DuurP2FavEgoEJSl+OTAMG/MqjiT/S4Wg9nu885VRz1+yhhW1k8DMPa7+XB
- JsKIGuYQSUuQgRwqL/wPYHomVT0AFFYoEEW8+mna8CIr8neWgeXegVM5kVVSkwKGrF/GLiiQdvarR
- fmM+D9NAvgjH0LuNXQ44CX98kvzLZvVrKK8c260CpNK458KVvrPUYMUwPJFkh4jLvLsKP6l0Xf+GY
- MoSBAfvw==;
-Received: from
- 2a02-8389-2341-5b80-7457-864c-9b77-b751.cable.dynamic.v6.surfer.at
- ([2a02:8389:2341:5b80:7457:864c:9b77:b751] helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1shhmU-00000001N1U-3KzC; Sat, 24 Aug 2024 03:49:39 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: iommu@lists.linux.dev
-Date: Sat, 24 Aug 2024 05:49:15 +0200
-Message-ID: <20240824034925.1163244-5-hch@lst.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240824034925.1163244-1-hch@lst.de>
-References: <20240824034925.1163244-1-hch@lst.de>
+ Mon, 26 Aug 2024 06:30:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1724653833;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5nxishIfe/1ssux79NyxoEgk0FairCh1OMu70D4Eejk=;
+ b=UKEwpdaE2SSZC81OvV04l2H0sEfpjUFQ4qdVQaJOnSX47kWZd9BwQbim7h6c0hcvWVcKwM
+ pzc4+p6ajJ1Md9KJ0BNPIiqUQPA+Sg4jZZvGJM69OndaQTvhr58WZxAV0X8TUPoIJmQ+3K
+ Dcz2IhnQUOtSNn0Wo8g8H6c6hF5rO9k=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-402-gVpv7PWPMPay8glZgd0ahA-1; Mon, 26 Aug 2024 02:30:32 -0400
+X-MC-Unique: gVpv7PWPMPay8glZgd0ahA-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6bf698a3f2eso52412816d6.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 25 Aug 2024 23:30:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724653831; x=1725258631;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jJFTNQ6Wct6NFpa/rz2wXYP7UMNXrnzBHL4pGlquRbc=;
+ b=cUtCNYUyBrkzr+SHDCT/Denpz1T+k1BZHPFTRnbyKVfOC775iKFZgcPzxXD3oVwsPH
+ bLTRfjlBrYqDeHkKqmTP3bW4bIF5LMsDC5la0jqtM0OCARFh7SDIqTUhbfnsLZZkgMsm
+ B1VvIwZhGn/WavATjqBz0TcZEd0i0c8L+8Y9QjjZTOUudzqCoHDMBou5Gt9Qm6zYZACy
+ 7tdMtHiUk5nS6X0ZcG9enm5R+jMs+E/olPVHlMzm95VT/G/jWEgrowIbvjZbL2ia/V1+
+ ZGAE2z8p3y0IEwoApe8TwTDytmr0HEw7mEN8aiFsMlgnuW+uN59TlktgNWh/qcgFXwPK
+ b2EA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/SgLEoJ0yUPKRBlEddyC3DBuNALmkNeT2CsIBCVVJiD5XkTBiwjk1nxVQaQhjLgc9qO7TY4Ivxjx2vQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyMlTeVacMJVbd3h0qiIN6NURzinBpBE9YMsi+/i89qoIWYzxzI
+ ukBbwsJx3yuCmowISjaNq4zHK/reqo05JcopoiUdAUAMnT3qj+H/IULlpqYqeors/gcnFe5Q/jh
+ xzsjT3LmGqQpp3nom9zOsHvdGHDqkoS8MYm7GLUBJ5Lhyuy9wMXcMAD3EckG3/UX4uJlllryL2u
+ //rA==
+X-Received: by 2002:a05:6214:3a87:b0:6c1:6b38:2fa4 with SMTP id
+ 6a1803df08f44-6c16dc7ae95mr108606406d6.24.1724653831059; 
+ Sun, 25 Aug 2024 23:30:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHjcrM+de6Fn6cHOIaSi480as1GF3hlSLum1vFYi4hcws7Awk5SxCY7Nx45ugpgCSJ72TftWg==
+X-Received: by 2002:a05:6214:3a87:b0:6c1:6b38:2fa4 with SMTP id
+ 6a1803df08f44-6c16dc7ae95mr108605926d6.24.1724653830595; 
+ Sun, 25 Aug 2024 23:30:30 -0700 (PDT)
+Received: from dhcp-64-164.muc.redhat.com (nat-pool-muc-t.redhat.com.
+ [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6c162db0685sm43302446d6.101.2024.08.25.23.30.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Aug 2024 23:30:30 -0700 (PDT)
+Message-ID: <6e93c43e6e513559f0306085211245578c2c9d3f.camel@redhat.com>
+From: Philipp Stanner <pstanner@redhat.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Date: Mon, 26 Aug 2024 08:30:23 +0200
+In-Reply-To: <6q4pcpyqqt6mhj422pfkgggvwu7jhweu5446y6prcjgjql6xeq@jztt7z4fr6rg>
+References: <20240822134744.44919-1-pstanner@redhat.com>
+ <20240822134744.44919-7-pstanner@redhat.com>
+ <6q4pcpyqqt6mhj422pfkgggvwu7jhweu5446y6prcjgjql6xeq@jztt7z4fr6rg>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Cc: linux-hyperv@vger.kernel.org,
- "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
- Robin Murphy <robin.murphy@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Linux-stm32] [PATCH 4/4] dma-mapping: don't return errors from
-	dma_set_max_seg_size
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
+ Eugenio =?ISO-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
+ Andy Shevchenko <andy@kernel.org>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 6/9] ethernet: stmicro: Simplify PCI
+	devres usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,251 +108,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-A NULL dev->dma_parms indicates either a bus that is not DMA capable or
-grave bug in the implementation of the bus code.
-
-There isn't much the driver can do in terms of error handling for either
-case, so just warn and continue as DMA operations will fail anyway.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Robin Murphy <robin.murphy@arm.com>
----
- drivers/accel/qaic/qaic_drv.c                         |  4 +---
- drivers/dma/idma64.c                                  |  4 +---
- drivers/dma/pl330.c                                   |  5 +----
- drivers/dma/qcom/bam_dma.c                            |  6 +-----
- drivers/dma/sh/rcar-dmac.c                            |  4 +---
- drivers/dma/ste_dma40.c                               |  6 +-----
- drivers/gpu/drm/mediatek/mtk_drm_drv.c                |  6 +-----
- drivers/media/common/videobuf2/videobuf2-dma-contig.c |  3 +--
- drivers/media/pci/intel/ipu6/ipu6.c                   |  4 +---
- drivers/mmc/host/mmci_stm32_sdmmc.c                   |  3 ++-
- drivers/net/ethernet/microsoft/mana/gdma_main.c       |  6 +-----
- drivers/scsi/lpfc/lpfc_init.c                         |  7 +------
- include/linux/dma-mapping.h                           | 10 ++++------
- 13 files changed, 17 insertions(+), 51 deletions(-)
-
-diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-index 580b29ed190217..bf10156c334e71 100644
---- a/drivers/accel/qaic/qaic_drv.c
-+++ b/drivers/accel/qaic/qaic_drv.c
-@@ -447,9 +447,7 @@ static int init_pci(struct qaic_device *qdev, struct pci_dev *pdev)
- 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
- 	if (ret)
- 		return ret;
--	ret = dma_set_max_seg_size(&pdev->dev, UINT_MAX);
--	if (ret)
--		return ret;
-+	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
- 
- 	qdev->bar_0 = devm_ioremap_resource(&pdev->dev, &pdev->resource[0]);
- 	if (IS_ERR(qdev->bar_0))
-diff --git a/drivers/dma/idma64.c b/drivers/dma/idma64.c
-index e3505e56784b1a..1398814d8fbb63 100644
---- a/drivers/dma/idma64.c
-+++ b/drivers/dma/idma64.c
-@@ -598,9 +598,7 @@ static int idma64_probe(struct idma64_chip *chip)
- 
- 	idma64->dma.dev = chip->sysdev;
- 
--	ret = dma_set_max_seg_size(idma64->dma.dev, IDMA64C_CTLH_BLOCK_TS_MASK);
--	if (ret)
--		return ret;
-+	dma_set_max_seg_size(idma64->dma.dev, IDMA64C_CTLH_BLOCK_TS_MASK);
- 
- 	ret = dma_async_device_register(&idma64->dma);
- 	if (ret)
-diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
-index 60c4de8dac1d2a..82a9fe88ad54c9 100644
---- a/drivers/dma/pl330.c
-+++ b/drivers/dma/pl330.c
-@@ -3163,10 +3163,7 @@ pl330_probe(struct amba_device *adev, const struct amba_id *id)
- 	 * This is the limit for transfers with a buswidth of 1, larger
- 	 * buswidths will have larger limits.
- 	 */
--	ret = dma_set_max_seg_size(&adev->dev, 1900800);
--	if (ret)
--		dev_err(&adev->dev, "unable to set the seg size\n");
--
-+	dma_set_max_seg_size(&adev->dev, 1900800);
- 
- 	init_pl330_debugfs(pl330);
- 	dev_info(&adev->dev,
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 5e7d332731e0c1..368ffaa4003789 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1325,11 +1325,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- 	/* set max dma segment size */
- 	bdev->common.dev = bdev->dev;
--	ret = dma_set_max_seg_size(bdev->common.dev, BAM_FIFO_SIZE);
--	if (ret) {
--		dev_err(bdev->dev, "cannot set maximum segment size\n");
--		goto err_bam_channel_exit;
--	}
-+	dma_set_max_seg_size(bdev->common.dev, BAM_FIFO_SIZE);
- 
- 	platform_set_drvdata(pdev, bdev);
- 
-diff --git a/drivers/dma/sh/rcar-dmac.c b/drivers/dma/sh/rcar-dmac.c
-index 40482cb73d798a..1094a2f821649c 100644
---- a/drivers/dma/sh/rcar-dmac.c
-+++ b/drivers/dma/sh/rcar-dmac.c
-@@ -1868,9 +1868,7 @@ static int rcar_dmac_probe(struct platform_device *pdev)
- 
- 	dmac->dev = &pdev->dev;
- 	platform_set_drvdata(pdev, dmac);
--	ret = dma_set_max_seg_size(dmac->dev, RCAR_DMATCR_MASK);
--	if (ret)
--		return ret;
-+	dma_set_max_seg_size(dmac->dev, RCAR_DMATCR_MASK);
- 
- 	ret = dma_set_mask_and_coherent(dmac->dev, DMA_BIT_MASK(40));
- 	if (ret)
-diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-index 2c489299148eee..d52e1685aed53f 100644
---- a/drivers/dma/ste_dma40.c
-+++ b/drivers/dma/ste_dma40.c
-@@ -3632,11 +3632,7 @@ static int __init d40_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto destroy_cache;
- 
--	ret = dma_set_max_seg_size(base->dev, STEDMA40_MAX_SEG_SIZE);
--	if (ret) {
--		d40_err(dev, "Failed to set dma max seg size\n");
--		goto destroy_cache;
--	}
-+	dma_set_max_seg_size(base->dev, STEDMA40_MAX_SEG_SIZE);
- 
- 	d40_hw_init(base);
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 77b50c56c124ce..3e807195a0d03a 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -559,11 +559,7 @@ static int mtk_drm_kms_init(struct drm_device *drm)
- 	 * Configure the DMA segment size to make sure we get contiguous IOVA
- 	 * when importing PRIME buffers.
- 	 */
--	ret = dma_set_max_seg_size(dma_dev, UINT_MAX);
--	if (ret) {
--		dev_err(dma_dev, "Failed to set DMA segment size\n");
--		goto err_component_unbind;
--	}
-+	dma_set_max_seg_size(dma_dev, UINT_MAX);
- 
- 	ret = drm_vblank_init(drm, MAX_CRTC);
- 	if (ret < 0)
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index 3d4fd4ef53107c..bb0b7fa67b539a 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -854,8 +854,7 @@ int vb2_dma_contig_set_max_seg_size(struct device *dev, unsigned int size)
- 		return -ENODEV;
- 	}
- 	if (dma_get_max_seg_size(dev) < size)
--		return dma_set_max_seg_size(dev, size);
--
-+		dma_set_max_seg_size(dev, size);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(vb2_dma_contig_set_max_seg_size);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index bbd646378ab3ed..83e70c692d957f 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -576,9 +576,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to set DMA mask\n");
- 
--	ret = dma_set_max_seg_size(dev, UINT_MAX);
--	if (ret)
--		return dev_err_probe(dev, ret, "Failed to set max_seg_size\n");
-+	dma_set_max_seg_size(dev, UINT_MAX);
- 
- 	ret = ipu6_pci_config_setup(pdev, isp->hw_ver);
- 	if (ret)
-diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index f5da7f9baa52d4..9dc51859c2e51e 100644
---- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-+++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -213,7 +213,8 @@ static int sdmmc_idma_setup(struct mmci_host *host)
- 		host->mmc->max_seg_size = host->mmc->max_req_size;
- 	}
- 
--	return dma_set_max_seg_size(dev, host->mmc->max_seg_size);
-+	dma_set_max_seg_size(dev, host->mmc->max_seg_size);
-+	return 0;
- }
- 
- static int sdmmc_idma_start(struct mmci_host *host, unsigned int *datactrl)
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index ddb8f68d80a206..ca4ed58f1206dd 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -1496,11 +1496,7 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (err)
- 		goto release_region;
- 
--	err = dma_set_max_seg_size(&pdev->dev, UINT_MAX);
--	if (err) {
--		dev_err(&pdev->dev, "Failed to set dma device segment size\n");
--		goto release_region;
--	}
-+	dma_set_max_seg_size(&pdev->dev, UINT_MAX);
- 
- 	err = -ENOMEM;
- 	gc = vzalloc(sizeof(*gc));
-diff --git a/drivers/scsi/lpfc/lpfc_init.c b/drivers/scsi/lpfc/lpfc_init.c
-index e1dfa96c2a553a..50620918becd59 100644
---- a/drivers/scsi/lpfc/lpfc_init.c
-+++ b/drivers/scsi/lpfc/lpfc_init.c
-@@ -13861,12 +13861,7 @@ lpfc_get_sli4_parameters(struct lpfc_hba *phba, LPFC_MBOXQ_t *mboxq)
- 	if (sli4_params->sge_supp_len > LPFC_MAX_SGE_SIZE)
- 		sli4_params->sge_supp_len = LPFC_MAX_SGE_SIZE;
- 
--	rc = dma_set_max_seg_size(&phba->pcidev->dev, sli4_params->sge_supp_len);
--	if (unlikely(rc)) {
--		lpfc_printf_log(phba, KERN_INFO, LOG_INIT,
--				"6400 Can't set dma maximum segment size\n");
--		return rc;
--	}
-+	dma_set_max_seg_size(&phba->pcidev->dev, sli4_params->sge_supp_len);
- 
- 	/*
- 	 * Check whether the adapter supports an embedded copy of the
-diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
-index 6bd1333dbacb9b..1524da363734af 100644
---- a/include/linux/dma-mapping.h
-+++ b/include/linux/dma-mapping.h
-@@ -524,13 +524,11 @@ static inline unsigned int dma_get_max_seg_size(struct device *dev)
- 	return SZ_64K;
- }
- 
--static inline int dma_set_max_seg_size(struct device *dev, unsigned int size)
-+static inline void dma_set_max_seg_size(struct device *dev, unsigned int size)
- {
--	if (dev->dma_parms) {
--		dev->dma_parms->max_segment_size = size;
--		return 0;
--	}
--	return -EIO;
-+	if (WARN_ON_ONCE(!dev->dma_parms))
-+		return;
-+	dev->dma_parms->max_segment_size = size;
- }
- 
- static inline unsigned long dma_get_seg_boundary(struct device *dev)
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAyMDI0LTA4LTIzIGF0IDEyOjI5ICswMzAwLCBTZXJnZSBTZW1pbiB3cm90ZToKPiBI
+aSBQaGlsaXBwCj4gCj4gT24gVGh1LCBBdWcgMjIsIDIwMjQgYXQgMDM6NDc6MzhQTSArMDIwMCwg
+UGhpbGlwcCBTdGFubmVyIHdyb3RlOgo+ID4gc3RtaWNybyB1c2VzIFBDSSBkZXZyZXMgaW4gdGhl
+IHdyb25nIHdheS4gUmVzb3VyY2VzIHJlcXVlc3RlZAo+ID4gdGhyb3VnaCBwY2ltXyogZnVuY3Rp
+b25zIGRvbid0IG5lZWQgdG8gYmUgY2xlYW5lZCB1cCBtYW51YWxseSBpbgo+ID4gdGhlCj4gPiBy
+ZW1vdmUoKSBjYWxsYmFjayBvciBpbiB0aGUgZXJyb3IgdW53aW5kIHBhdGggb2YgYSBwcm9iZSgp
+Cj4gPiBmdW5jdGlvbi4KPiA+IAo+ID4gTW9yZW92ZXIsIHRoZXJlIGlzIGFuIHVubmVjZXNzYXJ5
+IGxvb3Agd2hpY2ggb25seSByZXF1ZXN0cyBhbmQKPiA+IGlvcmVtYXBzCj4gPiBCQVIgMCwgYnV0
+IGl0ZXJhdGVzIG92ZXIgYWxsIEJBUnMgbmV2ZXJ0aGVsZXNzLgo+ID4gCj4gPiBGdXJ0aGVybW9y
+ZSwgcGNpbV9pb21hcF9yZWdpb25zKCkgYW5kIHBjaW1faW9tYXBfdGFibGUoKSBoYXZlIGJlZW4K
+PiA+IGRlcHJlY2F0ZWQgYnkgdGhlIFBDSSBzdWJzeXN0ZW0gaW4gY29tbWl0IGUzNTRiYjg0YTRj
+MSAoIlBDSToKPiA+IERlcHJlY2F0ZQo+ID4gcGNpbV9pb21hcF90YWJsZSgpLCBwY2ltX2lvbWFw
+X3JlZ2lvbnNfcmVxdWVzdF9hbGwoKSIpLgo+ID4gCj4gPiBSZXBsYWNlIHRoZXNlIGZ1bmN0aW9u
+cyB3aXRoIHBjaW1faW9tYXBfcmVnaW9uKCkuCj4gPiAKPiA+IFJlbW92ZSB0aGUgdW5uZWNlc3Nh
+cnkgbWFudWFsIHBjaW1fKiBjbGVhbnVwIGNhbGxzLgo+ID4gCj4gPiBSZW1vdmUgdGhlIHVubmVj
+ZXNzYXJ5IGxvb3Agb3ZlciBhbGwgQkFScy4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogUGhpbGlw
+cCBTdGFubmVyIDxwc3Rhbm5lckByZWRoYXQuY29tPgo+IAo+IFRoYW5rcyBmb3IgdGhlIHNlcmll
+cy4gQnV0IHBsZWFzZSBub3RlIHRoZSBuZXR3b3JrIHN1YnN5c3RlbQo+IGRldi1wcm9jZXNzIHJl
+cXVpcmVzIHRvIHN1Ym1pdCB0aGUgY2xlYW51cC9mZWF0dXJlIGNoYW5nZXMgb24gdG9wIG9mCj4g
+dGhlIG5ldC1uZXh0IHRyZWU6Cj4gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4
+L2tlcm5lbC9naXQvbmV0ZGV2L25ldC1uZXh0LmdpdC8KClRoYXQgc2VlbXMgYSBwb2xpY3kgSSBo
+YXZlbid0IHNlZW4gc28gZmFyOyB1c3VhbGx5IHRoZSBhc3N1bXB0aW9uIGlzCnRoYXQgeW91IGJy
+YW5jaCBvdXQgZnJvbSBMaW51cydzIG1hc3Rlci4KCkFueXdheXMsIEkgb2YgY291cnNlIGFtIGdv
+aW5nIHRvIGhlbHAgd2l0aCBzZXR0aW5nIHVwIHNvbWV0aGluZwptZXJnZWFibGUKCj4gCj4gSnVz
+dCByZWNlbnRseSBhIFlhbnRlbmcnICgrY2MpIHNlcmllcwo+IGh0dHBzOi8vbG9yZS5rZXJuZWwu
+b3JnL25ldGRldi9jb3Zlci4xNzIzMDE0NjExLmdpdC5zaXlhbnRlbmdAbG9vbmdzb24uY24vCj4g
+d2FzIG1lcmdlZCBpbiB3aGljaCBzaWduaWZpY2FudGx5IHJlZmFjdG9yZWQgdGhlIExvb25nc29u
+IE1BQyBkcml2ZXIuCj4gU2VlaW5nIHlvdXIgcGF0Y2ggaXNuJ3QgYmFzZWQgb24gdGhlc2UgY2hh
+bmdlcywgdGhlcmUgaXMgYSBoaWdoCj4gcHJvYmFiaWxpdHkgdGhhdCB0aGUgcGF0Y2ggd29uJ3Qg
+Z2V0IGNsZWFubHkgYXBwbGllZCBvbnRvIHRoZQo+IG5ldC1uZXh0IHRyZWUuIFNvIHBsZWFzZSBl
+aXRoZXIgcmViYXNlIHlvdXIgcGF0Y2ggb250byB0aGUgbmV0LW5leHQKPiB0cmVlLCBvciBhdCBs
+ZWFzdCBtZXJnZSBpbiB0aGUgWWFudGVuZycgc2VyaWVzIGluIHlvdXIgdHJlZSBhbmQKPiByZWJh
+c2UgdGhlIHBhdGNoIG9udG8gaXQgYW5kIGxldCdzIGhvcGUgdGhlcmUgaGF2ZSBiZWVuIG5vIG90
+aGVyCj4gY29uZmxpY3RpbmcgcGF0Y2hlcyBtZXJnZWQgaW4gaW50byB0aGUgbmV0LW5leHQgdHJl
+ZS4KCkknbGwgdGFrZSBhIGxvb2sgaW50byB0aGF0LCB0aHgKCgpQLgoKPiAKPiAtU2VyZ2UoeSkK
+PiAKPiAKPiA+IC0tLQo+ID4gwqAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtbG9v
+bmdzb24uY8KgIHwgMjUgKysrKystLS0tLS0tLS0tCj4gPiAtLS0tCj4gPiDCoC4uLi9uZXQvZXRo
+ZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX3BjaS5jwqAgfCAxOCArKysrKy0tLS0tLS0tCj4g
+PiDCoDIgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMzEgZGVsZXRpb25zKC0pCj4g
+PiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9k
+d21hYy1sb29uZ3Nvbi5jCj4gPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L2R3bWFjLWxvb25nc29uLmMKPiA+IGluZGV4IDllNDBjMjhkNDUzYS4uNWQ0MmE5ZmFkNjcyIDEw
+MDY0NAo+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMt
+bG9vbmdzb24uYwo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
+ZHdtYWMtbG9vbmdzb24uYwo+ID4gQEAgLTUwLDcgKzUwLDcgQEAgc3RhdGljIGludCBsb29uZ3Nv
+bl9kd21hY19wcm9iZShzdHJ1Y3QgcGNpX2Rldgo+ID4gKnBkZXYsIGNvbnN0IHN0cnVjdCBwY2lf
+ZGV2aWNlX2lkCj4gPiDCoAlzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXQ7Cj4gPiDC
+oAlzdHJ1Y3Qgc3RtbWFjX3Jlc291cmNlcyByZXM7Cj4gPiDCoAlzdHJ1Y3QgZGV2aWNlX25vZGUg
+Km5wOwo+ID4gLQlpbnQgcmV0LCBpLCBwaHlfbW9kZTsKPiA+ICsJaW50IHJldCwgcGh5X21vZGU7
+Cj4gPiDCoAo+ID4gwqAJbnAgPSBkZXZfb2Zfbm9kZSgmcGRldi0+ZGV2KTsKPiA+IMKgCj4gPiBA
+QCAtODgsMTQgKzg4LDExIEBAIHN0YXRpYyBpbnQgbG9vbmdzb25fZHdtYWNfcHJvYmUoc3RydWN0
+IHBjaV9kZXYKPiA+ICpwZGV2LCBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZAo+ID4gwqAJCWdv
+dG8gZXJyX3B1dF9ub2RlOwo+ID4gwqAJfQo+ID4gwqAKPiA+IC0JLyogR2V0IHRoZSBiYXNlIGFk
+ZHJlc3Mgb2YgZGV2aWNlICovCj4gPiAtCWZvciAoaSA9IDA7IGkgPCBQQ0lfU1REX05VTV9CQVJT
+OyBpKyspIHsKPiA+IC0JCWlmIChwY2lfcmVzb3VyY2VfbGVuKHBkZXYsIGkpID09IDApCj4gPiAt
+CQkJY29udGludWU7Cj4gPiAtCQlyZXQgPSBwY2ltX2lvbWFwX3JlZ2lvbnMocGRldiwgQklUKDAp
+LAo+ID4gcGNpX25hbWUocGRldikpOwo+ID4gLQkJaWYgKHJldCkKPiA+IC0JCQlnb3RvIGVycl9k
+aXNhYmxlX2RldmljZTsKPiA+IC0JCWJyZWFrOwo+ID4gKwltZW1zZXQoJnJlcywgMCwgc2l6ZW9m
+KHJlcykpOwo+ID4gKwlyZXMuYWRkciA9IHBjaW1faW9tYXBfcmVnaW9uKHBkZXYsIDAsIHBjaV9u
+YW1lKHBkZXYpKTsKPiA+ICsJaWYgKElTX0VSUihyZXMuYWRkcikpIHsKPiA+ICsJCXJldCA9IFBU
+Ul9FUlIocmVzLmFkZHIpOwo+ID4gKwkJZ290byBlcnJfZGlzYWJsZV9kZXZpY2U7Cj4gPiDCoAl9
+Cj4gPiDCoAo+ID4gwqAJcGxhdC0+YnVzX2lkID0gb2ZfYWxpYXNfZ2V0X2lkKG5wLCAiZXRoZXJu
+ZXQiKTsKPiA+IEBAIC0xMTYsOCArMTEzLDYgQEAgc3RhdGljIGludCBsb29uZ3Nvbl9kd21hY19w
+cm9iZShzdHJ1Y3QgcGNpX2Rldgo+ID4gKnBkZXYsIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lk
+Cj4gPiDCoAo+ID4gwqAJbG9vbmdzb25fZGVmYXVsdF9kYXRhKHBsYXQpOwo+ID4gwqAJcGNpX2Vu
+YWJsZV9tc2kocGRldik7Cj4gPiAtCW1lbXNldCgmcmVzLCAwLCBzaXplb2YocmVzKSk7Cj4gPiAt
+CXJlcy5hZGRyID0gcGNpbV9pb21hcF90YWJsZShwZGV2KVswXTsKPiA+IMKgCj4gPiDCoAlyZXMu
+aXJxID0gb2ZfaXJxX2dldF9ieW5hbWUobnAsICJtYWNpcnEiKTsKPiA+IMKgCWlmIChyZXMuaXJx
+IDwgMCkgewo+ID4gQEAgLTE1OCwxOCArMTUzLDEwIEBAIHN0YXRpYyB2b2lkIGxvb25nc29uX2R3
+bWFjX3JlbW92ZShzdHJ1Y3QKPiA+IHBjaV9kZXYgKnBkZXYpCj4gPiDCoHsKPiA+IMKgCXN0cnVj
+dCBuZXRfZGV2aWNlICpuZGV2ID0gZGV2X2dldF9kcnZkYXRhKCZwZGV2LT5kZXYpOwo+ID4gwqAJ
+c3RydWN0IHN0bW1hY19wcml2ICpwcml2ID0gbmV0ZGV2X3ByaXYobmRldik7Cj4gPiAtCWludCBp
+Owo+ID4gwqAKPiA+IMKgCW9mX25vZGVfcHV0KHByaXYtPnBsYXQtPm1kaW9fbm9kZSk7Cj4gPiDC
+oAlzdG1tYWNfZHZyX3JlbW92ZSgmcGRldi0+ZGV2KTsKPiA+IMKgCj4gPiAtCWZvciAoaSA9IDA7
+IGkgPCBQQ0lfU1REX05VTV9CQVJTOyBpKyspIHsKPiA+IC0JCWlmIChwY2lfcmVzb3VyY2VfbGVu
+KHBkZXYsIGkpID09IDApCj4gPiAtCQkJY29udGludWU7Cj4gPiAtCQlwY2ltX2lvdW5tYXBfcmVn
+aW9ucyhwZGV2LCBCSVQoaSkpOwo+ID4gLQkJYnJlYWs7Cj4gPiAtCX0KPiA+IC0KPiA+IMKgCXBj
+aV9kaXNhYmxlX21zaShwZGV2KTsKPiA+IMKgCXBjaV9kaXNhYmxlX2RldmljZShwZGV2KTsKPiA+
+IMKgfQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L3N0bW1hY19wY2kuYwo+ID4gYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9z
+dG1tYWNfcGNpLmMKPiA+IGluZGV4IDM1MmIwMTY3OGMyMi4uZjg5YThhNTRjNGU4IDEwMDY0NAo+
+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX3BjaS5j
+Cj4gPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGNp
+LmMKPiA+IEBAIC0xODgsMTEgKzE4OCwxMSBAQCBzdGF0aWMgaW50IHN0bW1hY19wY2lfcHJvYmUo
+c3RydWN0IHBjaV9kZXYKPiA+ICpwZGV2LAo+ID4gwqAJCXJldHVybiByZXQ7Cj4gPiDCoAl9Cj4g
+PiDCoAo+ID4gLQkvKiBHZXQgdGhlIGJhc2UgYWRkcmVzcyBvZiBkZXZpY2UgKi8KPiA+ICsJLyog
+UmVxdWVzdCB0aGUgYmFzZSBhZGRyZXNzIEJBUiBvZiBkZXZpY2UgKi8KPiA+IMKgCWZvciAoaSA9
+IDA7IGkgPCBQQ0lfU1REX05VTV9CQVJTOyBpKyspIHsKPiA+IMKgCQlpZiAocGNpX3Jlc291cmNl
+X2xlbihwZGV2LCBpKSA9PSAwKQo+ID4gwqAJCQljb250aW51ZTsKPiA+IC0JCXJldCA9IHBjaW1f
+aW9tYXBfcmVnaW9ucyhwZGV2LCBCSVQoaSksCj4gPiBwY2lfbmFtZShwZGV2KSk7Cj4gPiArCQly
+ZXQgPSBwY2ltX3JlcXVlc3RfcmVnaW9uKHBkZXYsIGksCj4gPiBwY2lfbmFtZShwZGV2KSk7Cj4g
+PiDCoAkJaWYgKHJldCkKPiA+IMKgCQkJcmV0dXJuIHJldDsKPiA+IMKgCQlicmVhazsKPiA+IEBA
+IC0yMDUsNyArMjA1LDEwIEBAIHN0YXRpYyBpbnQgc3RtbWFjX3BjaV9wcm9iZShzdHJ1Y3QgcGNp
+X2Rldgo+ID4gKnBkZXYsCj4gPiDCoAkJcmV0dXJuIHJldDsKPiA+IMKgCj4gPiDCoAltZW1zZXQo
+JnJlcywgMCwgc2l6ZW9mKHJlcykpOwo+ID4gLQlyZXMuYWRkciA9IHBjaW1faW9tYXBfdGFibGUo
+cGRldilbaV07Cj4gPiArCS8qIEdldCB0aGUgYmFzZSBhZGRyZXNzIG9mIGRldmljZSAqLwo+ID4g
+KwlyZXMuYWRkciA9IHBjaW1faW9tYXAocGRldiwgaSwgMCk7Cj4gPiArCWlmICghcmVzLmFkZHIp
+Cj4gPiArCQlyZXR1cm4gLUVOT01FTTsKPiA+IMKgCXJlcy53b2xfaXJxID0gcGRldi0+aXJxOwo+
+ID4gwqAJcmVzLmlycSA9IHBkZXYtPmlycTsKPiA+IMKgCj4gPiBAQCAtMjMxLDE2ICsyMzQsNyBA
+QCBzdGF0aWMgaW50IHN0bW1hY19wY2lfcHJvYmUoc3RydWN0IHBjaV9kZXYKPiA+ICpwZGV2LAo+
+ID4gwqAgKi8KPiA+IMKgc3RhdGljIHZvaWQgc3RtbWFjX3BjaV9yZW1vdmUoc3RydWN0IHBjaV9k
+ZXYgKnBkZXYpCj4gPiDCoHsKPiA+IC0JaW50IGk7Cj4gPiAtCj4gPiDCoAlzdG1tYWNfZHZyX3Jl
+bW92ZSgmcGRldi0+ZGV2KTsKPiA+IC0KPiA+IC0JZm9yIChpID0gMDsgaSA8IFBDSV9TVERfTlVN
+X0JBUlM7IGkrKykgewo+ID4gLQkJaWYgKHBjaV9yZXNvdXJjZV9sZW4ocGRldiwgaSkgPT0gMCkK
+PiA+IC0JCQljb250aW51ZTsKPiA+IC0JCXBjaW1faW91bm1hcF9yZWdpb25zKHBkZXYsIEJJVChp
+KSk7Cj4gPiAtCQlicmVhazsKPiA+IC0JfQo+ID4gwqB9Cj4gPiDCoAo+ID4gwqBzdGF0aWMgaW50
+IF9fbWF5YmVfdW51c2VkIHN0bW1hY19wY2lfc3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpCj4g
+PiAtLSAKPiA+IDIuNDYuMAo+ID4gCj4gPiAKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
