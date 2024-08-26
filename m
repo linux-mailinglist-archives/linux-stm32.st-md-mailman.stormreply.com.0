@@ -2,59 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56FB195F232
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2024 14:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 313E695F45F
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2024 16:51:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0863EC7801A;
-	Mon, 26 Aug 2024 12:56:15 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49093C6DD94
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3578C7801A;
+	Mon, 26 Aug 2024 14:51:14 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5170AC6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Aug 2024 12:56:08 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.252])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4WsrJ9268SzyR3h;
- Mon, 26 Aug 2024 20:55:37 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 79DC01800A5;
- Mon, 26 Aug 2024 20:56:05 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 26 Aug 2024 20:56:03 +0800
-Message-ID: <061c39b9-c2fb-34e8-5848-dc2d2d9ca5eb@huawei.com>
-Date: Mon, 26 Aug 2024 20:56:02 +0800
+ Mon, 26 Aug 2024 14:51:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1724683872;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=q9UCU/xJxgvWhtzFMTtdnl11yAmjwathNxQSdFSMirY=;
+ b=KUtPYJDGFQAqM32HhndtBT+HEWq2f6iP1L3pCY9MySPMk1VXA3aAW8s2FJKxV5AknX4N+e
+ pWLkCkW9RQYwECqZnPo20iAPbfOBSMof/TGhlLnLEgCI+Qe/tajUCtxuq4enL/qDVP4r9a
+ 5uGhGgNsuRijlUaLHvNTNZjHw4a6NPk=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-323-8i9aeU-MPjuOQdw2HsYc3g-1; Mon, 26 Aug 2024 10:51:11 -0400
+X-MC-Unique: 8i9aeU-MPjuOQdw2HsYc3g-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-37189fa7ad6so3260551f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 26 Aug 2024 07:51:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724683870; x=1725288670;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ygoQZIsbD2qBAAmAvknxBdRGvmvE0QFAtlIfXcqGyiA=;
+ b=DBtfH2uYXKix8/5EfmT/hML7Z6I76k9RNfluQw5Av7XGC1DVlQvMfVgb5GwZOmuBx7
+ 7SCkP4APB8IywfpNHQ604HQbinGGsEmG1bcdE6s+71olRYmMExVQJDL3w64W/WHITRRa
+ tMCxXmDsOUU6gvvMsqASqUrbo5tz+4nveVkaq0A0mgskGbGmqTVgHrk75ojw8Ln2Bjpv
+ G4XT0yBH3ImxpUgs2AlvyaqVKLQ96CHCKgeRL8pU3bNFHuRg8VmeDJmHLT0h5evDXjym
+ fn4zua6fF6bMDBW6jsyklnOdQDKRPVIBkPkK4yEwK9CHgr0n8KpcUDZBXSws7gSs3spK
+ tTbw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgIcFOwdAonAwEs4vo/k9xDuOT5qrjQLSIXovfT08ZhlQwqnxN60L4gcmyUGfzjT8toagox1cEvOkKYw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwiAttqeoXEwnRlWFPryoyZpNqPa5o704weQH+2N2ajd/xk8Kf+
+ lfr+r3mD9CSneF7KYHQjG6CpCkcg1XRloD/bL3cudkZ57DP9dOL4FkOCSBUur8EqV05gB1mmr14
+ Ahs+Qt0XP9mEzWJKPgEnf5TCVDHbD37gGi4xLIgBD04iESNhJqG/yij5rppI9kRQeoDuDVeX+/G
+ +SzA==
+X-Received: by 2002:a05:6000:18a4:b0:369:b842:5065 with SMTP id
+ ffacd0b85a97d-373118c853bmr9315231f8f.41.1724683869832; 
+ Mon, 26 Aug 2024 07:51:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGzcbeZGAiG9pR7gwgPFjZ9tQkwyQH6hKqQkC/ZviQjFl3Zuqsn+yKqro2WkBtRVRH4FkIJWQ==
+X-Received: by 2002:a05:6000:18a4:b0:369:b842:5065 with SMTP id
+ ffacd0b85a97d-373118c853bmr9315196f8f.41.1724683869319; 
+ Mon, 26 Aug 2024 07:51:09 -0700 (PDT)
+Received: from dhcp-64-164.muc.redhat.com (nat-pool-muc-t.redhat.com.
+ [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-373082096bbsm10889215f8f.89.2024.08.26.07.51.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Aug 2024 07:51:08 -0700 (PDT)
+Message-ID: <ad6af1c4194873e803df65dc4d595f8e4b26cb33.camel@redhat.com>
+From: Philipp Stanner <pstanner@redhat.com>
+To: Andy Shevchenko <andy@kernel.org>
+Date: Mon, 26 Aug 2024 16:51:07 +0200
+In-Reply-To: <ZsdO2q8uD829hP-X@smile.fi.intel.com>
+References: <20240822134744.44919-1-pstanner@redhat.com>
+ <20240822134744.44919-6-pstanner@redhat.com>
+ <ZsdO2q8uD829hP-X@smile.fi.intel.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Content-Language: en-US
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Krzysztof Kozlowski
- <krzk@kernel.org>
-References: <20240826094328.2991664-1-ruanjinjie@huawei.com>
- <20240826115213.389acaef@xps-13>
- <f7430f87-88d2-4c08-bc1e-6bb3da4e332c@kernel.org>
- <20240826144917.2c4e202d@xps-13>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20240826144917.2c4e202d@xps-13>
-X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemh500013.china.huawei.com (7.202.181.146)
-Cc: val@packett.cool, vigneshr@ti.com, kees@kernel.org,
- linux-kernel@vger.kernel.org, erick.archer@gmx.com, liang.yang@amlogic.com,
- linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- heiko@sntech.de, robh@kernel.org, samuel@sholland.org, richard@nod.at,
- jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
- u.kleine-koenig@pengutronix.de, jbrunet@baylibre.com, linux@treblig.org,
- martin.blumenstingl@googlemail.com, christophe.jaillet@wanadoo.fr,
- matthias.bgg@gmail.com, linux-amlogic@lists.infradead.org,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com, neil.armstrong@linaro.org,
- gustavoars@kernel.org, linux-renesas-soc@vger.kernel.org,
- mcoquelin.stm32@gmail.com, khilman@baylibre.com,
- linux-mediatek@lists.infradead.org, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH -next RESEND 00/10] mtd: Use
- for_each_child_of_node_scoped()
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: "Michael
+ S. Tsirkin" <mst@redhat.com>, Alvaro Karsz <alvaro.karsz@solid-run.com>,
+ Tom Rix <trix@redhat.com>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-pci@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
+ Eugenio =?ISO-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 5/9] ethernet: cavium: Replace
+ deprecated PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,21 +114,26 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyMDI0LzgvMjYgMjA6NDksIE1pcXVlbCBSYXluYWwgd3JvdGU6Cj4gSGkgS3J6eXN6dG9m
-LAo+IAo+IGtyemtAa2VybmVsLm9yZyB3cm90ZSBvbiBNb24sIDI2IEF1ZyAyMDI0IDEyOjE5OjA3
-ICswMjAwOgo+IAo+PiBPbiAyNi8wOC8yMDI0IDExOjUyLCBNaXF1ZWwgUmF5bmFsIHdyb3RlOgo+
-Pj4gSGkgSmluamllLAo+Pj4KPj4+IHJ1YW5qaW5qaWVAaHVhd2VpLmNvbSB3cm90ZSBvbiBNb24s
-IDI2IEF1ZyAyMDI0IDE3OjQzOjE4ICswODAwOgo+Pj4gICAKPj4+PiBVc2Ugc2NvcGVkIGZvcl9l
-YWNoX2F2YWlsYWJsZV9jaGlsZF9vZl9ub2RlX3Njb3BlZCgpIHdoZW4gaXRlcmF0aW5nIG92ZXIK
-Pj4+PiBkZXZpY2Ugbm9kZXMgdG8gbWFrZSBjb2RlIGEgYml0IHNpbXBsZXIuICAKPj4+Cj4+PiBX
-aHkgaXMgdGhpcyBhIHJlc2VuZCA/IERpZCBJIG1pc3MgYSBwcmV2aW91cyBpdGVyYXRpb24/ICAK
-Pj4KPj4gWW91IHdlcmUgbm90IGNjLWVkIG9uIHByZXZpb3VzIGl0ZXJhdGlvbi4gSSBhc2tlZCBm
-b3IgcHJvcGVyIHNwbGl0Cj4+IGJldHdlZW4gc3Vic3lzdGVtcyBhbmQgc2VuZGluZyB0byBtYWlu
-dGFpbmVycywgdGh1cyB0aGlzIHJlc2VuZC4KPiAKPiBPay4gTWFrZXMgc2Vuc2UsIGFuZCB0aGUg
-cGF0Y2hzZXQgbG9va3MgZmluZS4KPiAKPiBKaW5qaWUsIHBsZWFzZSBhbHdheXMgaW5jbHVkZSBh
-IGNoYW5nZWxvZyB3aGVuIHlvdSBzZW5kIG5ldyB2ZXJzaW9ucywKPiBhbmQgZXhwbGFuYXRpb25z
-IGZvciBhIFJFU0VORC4KCk9rLCB0aGFua3MgZm9yIHRoZSBhZHZpY2UuCgo+IAo+IFRoYW5rcywK
-PiBNaXF1w6hsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+T24gVGh1LCAyMDI0LTA4LTIyIGF0IDE3OjQ0ICswMzAwLCBBbmR5IFNoZXZjaGVua28gd3JvdGU6
+Cj4gT24gVGh1LCBBdWcgMjIsIDIwMjQgYXQgMDM6NDc6MzdQTSArMDIwMCwgUGhpbGlwcCBTdGFu
+bmVyIHdyb3RlOgo+ID4gcGNpbV9pb21hcF9yZWdpb25zKCkgYW5kIHBjaW1faW9tYXBfdGFibGUo
+KSBoYXZlIGJlZW4gZGVwcmVjYXRlZCBieQo+ID4gdGhlIFBDSSBzdWJzeXN0ZW0gaW4gY29tbWl0
+IGUzNTRiYjg0YTRjMSAoIlBDSTogRGVwcmVjYXRlCj4gPiBwY2ltX2lvbWFwX3RhYmxlKCksIHBj
+aW1faW9tYXBfcmVnaW9uc19yZXF1ZXN0X2FsbCgpIikuCj4gPiAKPiA+IFJlcGxhY2UgdGhlc2Ug
+ZnVuY3Rpb25zIHdpdGggdGhlIGZ1bmN0aW9uIHBjaW1faW9tYXBfcmVnaW9uKCkuCj4gCj4gLi4u
+Cj4gCj4gPiAtCWVyciA9IHBjaW1faW9tYXBfcmVnaW9ucyhwZGV2LCAxIDw8IFBDSV9QVFBfQkFS
+X05PLAo+ID4gcGNpX25hbWUocGRldikpOwo+ID4gLQlpZiAoZXJyKQo+ID4gKwljbG9jay0+cmVn
+X2Jhc2UgPSBwY2ltX2lvbWFwX3JlZ2lvbihwZGV2LCBQQ0lfUFRQX0JBUl9OTywKPiA+IHBjaV9u
+YW1lKHBkZXYpKTsKPiA+ICsJaWYgKElTX0VSUihjbG9jay0+cmVnX2Jhc2UpKSB7Cj4gPiArCQll
+cnIgPSBQVFJfRVJSKGNsb2NrLT5yZWdfYmFzZSk7Cj4gPiDCoAkJZ290byBlcnJvcl9mcmVlOwo+
+ID4gLQo+ID4gLQljbG9jay0+cmVnX2Jhc2UgPSBwY2ltX2lvbWFwX3RhYmxlKHBkZXYpW1BDSV9Q
+VFBfQkFSX05PXTsKPiA+ICsJfQo+IAo+IFBlcmhhcHMKPiAKPiAJY2xvY2stPnJlZ19iYXNlID0g
+cGNpbV9pb21hcF9yZWdpb24ocGRldiwgUENJX1BUUF9CQVJfTk8sCj4gcGNpX25hbWUocGRldikp
+Owo+IAllcnIgPSBQVFJfRVJSX09SX1pFUk8oY2xvY2stPnJlZ19iYXNlKTsKPiAJaWYgKGVycikK
+PiAJCWdvdG8gZXJyb3JfZnJlZTsKPiAKPiBUaGlzIHdpbGwgbWFrZSB5b3VyIHBhdGNoIHNtYWxs
+ZXIgYW5kIG5lYXRlci4KPiAKPiBQLlMuIERvIHlvdSB1c2UgLS1oaXN0b2dyYW0gZGlmZiBhbGdv
+IHdoZW4gcHJlcGFyaW5nIHBhdGNoZXM/CgpTbyBmYXIgbm90LgpTaG91bGQgb25lIGRvIHRoYXQ/
+CgpQLgoKCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
