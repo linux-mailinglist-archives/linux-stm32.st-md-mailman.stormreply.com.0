@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B68F960EBF
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2024 16:52:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4289960EEB
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2024 16:53:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 494AFC6DD6E;
-	Tue, 27 Aug 2024 14:52:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6557CC6DD6E;
+	Tue, 27 Aug 2024 14:53:45 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF167C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A983C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Aug 2024 14:51:53 +0000 (UTC)
+ Tue, 27 Aug 2024 14:53:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id ABA9ACE134C;
- Tue, 27 Aug 2024 14:51:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFF4C4DE06;
- Tue, 27 Aug 2024 14:51:44 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 9E32DCE134B;
+ Tue, 27 Aug 2024 14:53:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182FEC6106E;
+ Tue, 27 Aug 2024 14:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724770309;
- bh=NWB5s3i1kq4dW2CrUfpkajBrMSzQ94Hq46U32Q7Ft/c=;
+ s=k20201202; t=1724770415;
+ bh=ND1nM316SmnI2uLNfJnvcy1K3FityWNNBNH9l6o7LNo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p8iuOBjmg0viE6cadtY00LPh0+MNMt7PW9OUsvoUrh0nm2rdR/TUM6qaDTQjz18fg
- Zjy9nIq8LioA2jN83GxP/BBPmGlrYrQtoIAV2Ct2gHJRC0ISJ8MESFgGxEOnPFcw1G
- yfphDH4zRsiRR4i2BDIDga1R9Rs0rhMkQ57Sbr9jZ3Yk2CjcyWkmdQ+cYBJ5812lgy
- EqFhhzll9QJzUNZFtazSm3uVCZF4TieaeONPS04BWAR5ESkjYtoJnGY8stgBYfq0dW
- Iqu301WDbqghCwHu2hXY0JoURJPr9EPh7jnt0yYSOKfVzHu1m/e7zZTed2f5zpjAMB
- 1idVVIQyLuYPQ==
-Date: Tue, 27 Aug 2024 15:51:42 +0100
+ b=SrUT5WTGP2Dta6NNl3ZtipbShjUHbfPl9vEnh7+c/a0gfCvd3fDFkkwWcTD7MKw2n
+ Eet4agTZqcI35gqrKzDGaoHu7q2uJ07SqSYazenBUo1kNwM1ApiUZUt9XjG0ZOJo/u
+ X2McGktRiITcCGVp4FfRewwYdHqVo5CF2dFW7fZ/dfGcOI17Zrpch5UJsp86oDLRPC
+ FexFNLbzgbQF6vXpR5wmlcHgzEvPkdAuRbiiERo86APSBoFFlVrLOtiK71YDzGug01
+ MttaepYTrDfbTp9xphvsseJtrcuRVGD8yklUoQKFc/v5tti0bzAJOvTVYoyKJYYemO
+ LxjX2rSk1bieQ==
+Date: Tue, 27 Aug 2024 15:53:28 +0100
 From: Simon Horman <horms@kernel.org>
 To: Yangtao Li <frank.li@vivo.com>
-Message-ID: <20240827145142.GI1368797@kernel.org>
+Message-ID: <20240827145328.GJ1368797@kernel.org>
 References: <20240827095712.2672820-1-frank.li@vivo.com>
- <20240827095712.2672820-2-frank.li@vivo.com>
+ <20240827095712.2672820-3-frank.li@vivo.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240827095712.2672820-2-frank.li@vivo.com>
+In-Reply-To: <20240827095712.2672820-3-frank.li@vivo.com>
 Cc: andrew@lunn.ch, marcin.s.wojtas@gmail.com, linus.walleij@linaro.org,
  edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
  f.fainelli@gmail.com, sd@queasysnail.net, linux@armlinux.org.uk,
@@ -44,11 +44,11 @@ Cc: andrew@lunn.ch, marcin.s.wojtas@gmail.com, linus.walleij@linaro.org,
  kuba@kernel.org, pabeni@redhat.com, clement.leger@bootlin.com,
  ulli.kroll@googlemail.com, linux-arm-kernel@lists.infradead.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, mcoquelin.stm32@gmail.com,
- justinstitt@google.com, olteanv@gmail.com, davem@davemloft.net,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [net-next v3 1/9] net: stmmac: dwmac-intel-plat:
- Convert to devm_clk_get_enabled()
+ Serge Semin <fancer.lancer@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, justinstitt@google.com, olteanv@gmail.com,
+ davem@davemloft.net, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [net-next v3 2/9] net: stmmac: platform: Convert
+ to devm_clk_get_enabled() and devm_clk_get_optional_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,40 +65,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 27, 2024 at 03:57:04AM -0600, Yangtao Li wrote:
-> Convert devm_clk_get(), clk_prepare_enable() to a single
-> call to devm_clk_get_enabled(), as this is exactly
-> what this function does.
+On Tue, Aug 27, 2024 at 03:57:05AM -0600, Yangtao Li wrote:
+> Use devm_clk_get_enabled() and devm_clk_get_optional_enabled()
+> to simplify code.
 > 
 > Signed-off-by: Yangtao Li <frank.li@vivo.com>
 > Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Suggested-by: Serge Semin <fancer.lancer@gmail.com>
 > ---
->  .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c    | 11 ++---------
->  1 file changed, 2 insertions(+), 9 deletions(-)
+> v2:
+> -remove unused 'ret'
+> -fix incompatible-pointer-types
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> index d68f0c4e7835..dcbae653ab8c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> @@ -104,12 +104,10 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+>  .../ethernet/stmicro/stmmac/stmmac_platform.c | 35 +++++--------------
+>  1 file changed, 8 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index ad868e8d195d..4365afabf3c4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -415,8 +415,6 @@ static int stmmac_of_get_mac_mode(struct device_node *np)
+>  static void stmmac_remove_config_dt(struct platform_device *pdev,
+>  				    struct plat_stmmacenet_data *plat)
+>  {
+> -	clk_disable_unprepare(plat->stmmac_clk);
+> -	clk_disable_unprepare(plat->pclk);
+>  	of_node_put(plat->phy_node);
+>  	of_node_put(plat->mdio_node);
+>  }
+> @@ -436,7 +434,6 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  	struct plat_stmmacenet_data *plat;
+>  	struct stmmac_dma_cfg *dma_cfg;
+>  	int phy_mode;
+> -	void *ret;
+>  	int rc;
 >  
->  		/* Enable TX clock */
->  		if (dwmac->data->tx_clk_en) {
-> -			dwmac->tx_clk = devm_clk_get(&pdev->dev, "tx_clk");
-> +			dwmac->tx_clk = devm_clk_get_enabled(&pdev->dev, "tx_clk");
+>  	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
+> @@ -615,21 +612,16 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+>  
+>  	/* clock setup */
+>  	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
+> -		plat->stmmac_clk = devm_clk_get(&pdev->dev,
+> -						STMMAC_RESOURCE_NAME);
+> +		plat->stmmac_clk = devm_clk_get_enabled(&pdev->dev, STMMAC_RESOURCE_NAME);
 
-As it looks like there will be a v4 anyway, a minor nit from my side:
-IMHO, the line above could be trivially wrapped to keep it <= 80 columns wide,
+As it looks like there will be a v3 anyway, a minor nit from my side:
+Please preserve the line wrapping so that the lines remain <= 80 columns wide,
 which is still preferred by Networking code.
 
->  			if (IS_ERR(dwmac->tx_clk))
->  				return PTR_ERR(dwmac->tx_clk);
+		plat->stmmac_clk = devm_clk_get_enabled(&pdev->dev,
+							STMMAC_RESOURCE_NAME);
+
+>  		if (IS_ERR(plat->stmmac_clk)) {
+>  			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
+>  			plat->stmmac_clk = NULL;
+>  		}
+> -		clk_prepare_enable(plat->stmmac_clk);
+>  	}
 >  
-> -			clk_prepare_enable(dwmac->tx_clk);
-> -
->  			/* Check and configure TX clock rate */
->  			rate = clk_get_rate(dwmac->tx_clk);
->  			if (dwmac->data->tx_clk_rate &&
 
 ...
 _______________________________________________
