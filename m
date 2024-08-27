@@ -2,142 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04EC969680
+	by mail.lfdr.de (Postfix) with ESMTPS id BE68E969681
 	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 10:06:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 477BAC78018;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 534DBC7801B;
 	Tue,  3 Sep 2024 08:06:50 +0000 (UTC)
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01on2080.outbound.protection.outlook.com [40.107.117.80])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A03ACC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F128C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Aug 2024 11:33:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZLaZ00cg0mjTe2t0xrnqih9N/3pmYpgB9CeCk+oWDuQcaz0zmhV9cnhF2mC2q7pBPIlDE+HRk7ClybV2qFk+MYFtOxMwvDGVCBm7PKAlvQA8rDG1jHpFIjMQIcaXOCK6CIpCUL0AfsnBSOp/KzFQatDAqvmY1tzB40kIYSgfqR5XFP/3KMmIUYtVHbKP0TDXvvhwPDaa7DL9gXmCDdo4REHv28e0nHe9DYqSFMsHf2TL+asWklhzQIkSjRcmqQGow7djC35toBul5yww44V4+77ikiYo7+BSuzV4Kyn8GJa9CBAfIlCpEY5hFWkHPqRcAHcqt0WJ1oNBh3/7Yyub+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QsMgzjnnY3ZsB+QmPl0tL0sbVOWt8kUn6YkHnoiFUEQ=;
- b=sSRfQGFVrDpriAtxo/4eabebHMGGx7tuVarnd9kaB531WtkQ198/y9aNceJ3SOEF5Funghj8e43ShLlrduzvVU5hbuEiOJDTEtbyTfyLbjDTfzy+MdXkYxhIB7Df1qIyV/FjUVrEgg74qNVxOIjr0x1TgAXfNaX5KKrakxoBaOHvgqlVVEB02h8xlWW0df1bus7B0f9UQi/EwKAlaioUueYtjMYPDePptnhGuIFlycXHGhsw/lyTgtJDzXbR//qLqJhqZWENvvTtZvvw4oZUhUoFHiOv7qDJHJL0AWACOgmseJeWOAuowkEBSOWcGkMx9TwQFIIfYf8xEFYlrTER9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QsMgzjnnY3ZsB+QmPl0tL0sbVOWt8kUn6YkHnoiFUEQ=;
- b=ljuFRkeFsUGXW1PTkbh4+qRFFDUvgtSItxX5z4c6CIr92H9T8i9txzgYYRRknE+KpxYB73xI46pKXlYQSoZrE2+41Sl9xOqjEaBcN9szs9AhCMXlfLGfwjVF+ZZcIB+vCcg2slVBiDO3bE3GHfF9hZhQzPQBFtrBlBHXDtIWoP/goZEh/J6F/3PvppNCHqWQYhcH4hvJqrKuzgk/hLB4J30062tJQMPou5lHoWni3kiJ5BIRM10MFI/4+8ob0Ojvlk95JeMDIqNY+Uvnlhi32vcAAwE9x3Qe5WVf6bIJpGPfDubcJ9yz0faqtvI0PHft15WTXHK6xctymadglMncfg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5624.apcprd06.prod.outlook.com (2603:1096:101:c8::14)
- by TYZPR06MB6466.apcprd06.prod.outlook.com (2603:1096:400:45d::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.24; Mon, 26 Aug
- 2024 11:33:49 +0000
-Received: from SEZPR06MB5624.apcprd06.prod.outlook.com
- ([fe80::e837:10e3:818e:bdfd]) by SEZPR06MB5624.apcprd06.prod.outlook.com
- ([fe80::e837:10e3:818e:bdfd%5]) with mapi id 15.20.7897.021; Mon, 26 Aug 2024
- 11:33:49 +0000
-From: Lei Liu <liulei.rjpt@vivo.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Valentin Caron <valentin.caron@foss.st.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Lino Sanfilippo <l.sanfilippo@kunbus.com>,
- Erwan Le Ray <erwan.leray@foss.st.com>, Lei Liu <liulei.rjpt@vivo.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Mon, 26 Aug 2024 19:33:34 +0800
-Message-Id: <20240826113337.7364-1-liulei.rjpt@vivo.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240826112933.7249-1-liulei.rjpt@vivo.com>
-References: <20240826112933.7249-1-liulei.rjpt@vivo.com>
-X-ClientProxiedBy: SG2PR02CA0020.apcprd02.prod.outlook.com
- (2603:1096:3:17::32) To SEZPR06MB5624.apcprd06.prod.outlook.com
- (2603:1096:101:c8::14)
+ Tue, 27 Aug 2024 03:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1724729499; x=1756265499;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ZsAX6fYNBN8s4cM6prV7+Nw4KR6G6zRcui+vpWCXiiM=;
+ b=BJjUFrWIvUGXsDL8C7ZxsuDHx5rni6crZfmSc6KXUNadLlrkJL1GoIgB
+ JHOTefpR0QhGak9+rYkwNYxAXHd1MnkbtZgNBLv2jhbGdcmS5y99to6Nx
+ MiLBlfJ6G7/90nFuvAuFQpDpz8FfImoCkCSTl4UrKm1k1m1K/yn+ZSwDp
+ YrJjeSHr6Ml5iLqMSvQFlpFz8jxuYN5xHeVRvGWpEQtfi6CnHUUX8zLsE
+ kCdQuSGdExoee9DKsYFNR83HM06uCW+q4aJCHi5Bbuoyo/QMF+Rf+WFj5
+ e69uRGmFn0+40NV0lkdwTX7BzVsUOAZxE9lSVRBrLoPkuRpHiFUQt+qy0 Q==;
+X-CSE-ConnectionGUID: czWTYVWCRD2BhlFU+iOx/g==
+X-CSE-MsgGUID: O5JfxXUASbW6elSTCGK1fw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11176"; a="23154136"
+X-IronPort-AV: E=Sophos;i="6.10,179,1719903600"; d="scan'208";a="23154136"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2024 20:31:30 -0700
+X-CSE-ConnectionGUID: QDU5QLH3TqucnA37kaonFw==
+X-CSE-MsgGUID: w9+02ioqSw6jKQ/o9ovjaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,179,1719903600"; d="scan'208";a="62698679"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost)
+ ([10.239.159.165])
+ by fmviesa008.fm.intel.com with ESMTP; 26 Aug 2024 20:31:22 -0700
+Date: Tue, 27 Aug 2024 11:28:59 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Philipp Stanner <pstanner@redhat.com>
+Message-ID: <Zs1H+zgzZAuLUnza@yilunxu-OptiPlex-7050>
+References: <20240822134744.44919-1-pstanner@redhat.com>
+ <20240822134744.44919-3-pstanner@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5624:EE_|TYZPR06MB6466:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa68c48c-b378-451b-cc58-08dcc5c2f455
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|52116014|7416014|376014|1800799024|366016|921020|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?sDZBrCzfXv03pOXKz5JiKAjlFUHAxq62yofPj1Yvjfub9QAKe4xVZfgLyWiN?=
- =?us-ascii?Q?N1yj3fkXaIxZHN0Mfn8YVBxQMieyq0zk3fqvEPvFLsFzegcAAKzOyGET7juX?=
- =?us-ascii?Q?89lISwj9u3sEQIc1GHywCm8uIms1OHPbBPhbI6qT5rEFcTxJ71bbTmTt3rXO?=
- =?us-ascii?Q?gR4YKB2hb2DR1yQuRtvcVEF+u/49hOouBXpBiAlE5KKS74Ew4PZ6zcqfKKUT?=
- =?us-ascii?Q?S/qaww+PnEYRuT2m9c3zK/0TWSc0s6YfrcLZT95oFosr1wlu4RvbWoTw7hiq?=
- =?us-ascii?Q?pgCk3yPDu0BfXwxsdMiIm4TPfklF3pI6nBbrM4zzT/dKj0cdStNx/3+FnYJl?=
- =?us-ascii?Q?n4kfBweijWRPXDQlLazmSZbq0qp51CWq22RMuRC90dmrNQ3pmwc1ptpBJ0i4?=
- =?us-ascii?Q?n71vrwfdhMcBscoZIdEeQ8Oo34+nH2031fwctk38sPKhmPtRH+yo/jLrHHL5?=
- =?us-ascii?Q?Nz3Kb5tsfpSU0btWYj/sj5BK3uP4/KUvhjKwQ/KOkGBLDJ2fcitfJ3cImUvW?=
- =?us-ascii?Q?a6SBYR7YFMEpQexRqttiQat8HHuPSJH73l3zx+qMgZf9shA8Ip1gbLNHTBiz?=
- =?us-ascii?Q?aTGNqJ7oYZHV7tZ5qKYrs4u0QPoHzFPrSxBkiV3tyd3O4CXOdmLBvz94sCrT?=
- =?us-ascii?Q?I8RYidNHISv+WkLubRW4B6xelQWrN7UcItg+oniIrDJq87eAS+tQtlv2TZVP?=
- =?us-ascii?Q?6oo0HceQD11pUjB1isn9VFVjl6vbtbTFvp0CX+lniGa2EqCt/SJtoGATZ16X?=
- =?us-ascii?Q?Swoq6bRkUNg6EhMPjOAvdfUUMFNcFiPZVchvSyfE00fe2wMiix8sfW0BcdU/?=
- =?us-ascii?Q?gmir340TiAKhYs895b3F6HlK6HYM3F2rR4JMrvpggr60QR48s5GdCpJs+mT7?=
- =?us-ascii?Q?aJGQJMncZZCVDG95JOT5O/yQEAfjzmG1M6VUlOMzH94ufudCnBhMNHJYYb/o?=
- =?us-ascii?Q?TELFEfaWY5Sy7ruWh+KkiojgtnEE020CIfNBhq2/Cu9Faalb/DS3Ti5It2ok?=
- =?us-ascii?Q?YVAG3nYdEt6QYSQFavZf+4FGPj/3RPrl9IWedPSp3JFH69+PJid4k32Bv/9k?=
- =?us-ascii?Q?3ApDnsv1i71uteVUCvw6o7Fp0riv002yKOdLhbtVECEr0we3f+8LiHtTLv8Y?=
- =?us-ascii?Q?nI1Z96QQayflrvrjZo2CrOvXbM5VQ1yr0SVL0hUpyD2lPMgmMaAF0lvFdEcl?=
- =?us-ascii?Q?ZAyO59lQj0iThUQDgPmzdTSEg8CEbhiicWgduFuOOuyfkS0YSP+A7pflIXdO?=
- =?us-ascii?Q?/2SUzmvkMDUgvPKAat+KzjwpA/MKQhr0WuBaRBqBOxsxK8Wi6Qd+RvUINaxk?=
- =?us-ascii?Q?rKBrCQdgZwxRSUgnYdRS0tfErx7lUcH9dxZdhtHZGTpVwKVfn6yxsDbhfvSC?=
- =?us-ascii?Q?CMmVyTNBMP9mX7OE7YJZLRwfEiNEKkghjivHU1qg2AJRUzsLpAbXuHiiaA3g?=
- =?us-ascii?Q?G2deTghmijg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5624.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(52116014)(7416014)(376014)(1800799024)(366016)(921020)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?a2/fVkP6LrUQyVu8DpbmXWoEbVX9NR7xldfER5m2W7EdaCfpqXSoNXvEaD/R?=
- =?us-ascii?Q?ASq7eqWLnCphVIVy6p40F069kKMjVcl/dwIOGTjlbHoDg3XTgUDIs22OxZfH?=
- =?us-ascii?Q?hiIb8CSUZasH0bizM+YD/MvaTXWP7YB/sYkM+pTDaIrFlJX6B613DIJsLp1h?=
- =?us-ascii?Q?vbek2ZQeVfs7el18XGk4RlabKk2tVB9auoDQvOb53UXkHzNqXJ6z4bNRZStc?=
- =?us-ascii?Q?MPpLr6NVCukFJfoSMmwAkJ29rKT1vME98tToQ3GtrE7YWIAOvEMyR8bk/SBn?=
- =?us-ascii?Q?iVcH7sydTKEVGH5ZOQ0Exnn35qbwHdkEAjQLjykQhwcJGvXAq+3+PlB4d1te?=
- =?us-ascii?Q?Or3JzBHRK4iKXa5h03rB9WJ41uITEepj8MNr3+0d8kNWk0tCKojL0FlWG37R?=
- =?us-ascii?Q?dkjel/WrEdn6breNHH4w8ZYlxfJOyfOOHU/cIRnleILJ8WiKoYhPJaFoAyZq?=
- =?us-ascii?Q?OBYMwHR6HWRrXCsab4leRQxfDdPBYhQCeH4rjC91sgldNPcEzcZz1EjceQaZ?=
- =?us-ascii?Q?ulClFdhW0+y0nrxSxa34A/BjUXtIc5ZhTLjsgn9c/d+fSE/SN624NWceJMZp?=
- =?us-ascii?Q?iX7NZgULzSWO3hU3oo2LTU2gosCu7Lefv127zBW5AyNOT//cRsntTeL4Pdzr?=
- =?us-ascii?Q?8BpiFfFL2dXIbEzO4GjWWp/Z0DO1T5vY5gkgdKQMPQ7IvCXM0JurnDCCLxVe?=
- =?us-ascii?Q?ZwlDUgNtbJRm2LtreE8tl8axaG806Q6GorUG0natgX8M4hP5xu6TdjjdO/Se?=
- =?us-ascii?Q?ByY6lR+n0Rk64KkWJaw6d4RwrWKe4QnNqM7D3ZmGNuC3PjoYCON/UptxwOR3?=
- =?us-ascii?Q?rfi9wo+gSQR4kKmnujhj86JlOIQkFuunpLfv/hqNS3Ms1MntkegZMsNzowjR?=
- =?us-ascii?Q?B9fSEekcmncg/4nsuYpc3egfvr705rVtg0hX7+tystKgeHmRd5gexJhCi3qk?=
- =?us-ascii?Q?HuTlSNmnLHNfJT+iCYHSzV1gABE9bXJ4Lfm4KYTDiZXpPgtwASJVHCuKjFMb?=
- =?us-ascii?Q?XarwoJvYFcxd1wR8SbUSX6MzrFlS9ou8ZmMywja+p7BKmc4T+jswSobO9I0X?=
- =?us-ascii?Q?lvO4IY3xfYVJIFq3aIZTsdu0OvC54wEVGS2J5nEFWQbUqRES/3X/TwCpVtON?=
- =?us-ascii?Q?ZdZU5fp9g5HlFl/4ANpadQGnROBw3Fc0ydvyyPyf4eINfKRcBRsQ/qM6+YTw?=
- =?us-ascii?Q?3IKCg4cWxHUzo893hRoe/nvIusjo7f24KiVoeyPmUimCAJAMQsQAwB6Euey3?=
- =?us-ascii?Q?f81XRvU/NW6CVbzmKYcgW6wZOe5cs403VYHiBG/cf7TRMU7IKkAZ+DmNYQWl?=
- =?us-ascii?Q?gnFW+shEh9sokeJxCfZDtLk0ri2mqehgLuCmY1FIrOl+4OSTuOpyGBF5Lbtu?=
- =?us-ascii?Q?jHfxS24UUcDgLNJAB2TLY7DgvqpaAq4iTAux45KFR6Y2s/f8hUPtUJ5qB1p0?=
- =?us-ascii?Q?cDaD01RUOj4bkNqfWpqNSPXDcKyW7TzDPvmdLxnGEtl00SlKmfF+1i7gHnOU?=
- =?us-ascii?Q?x17xsHtbt+fwKqkBt5mHvnE4O/ZAIGoC7MRzUjo4AfGqpvqiqZLYJF7TSWH0?=
- =?us-ascii?Q?Y/njCg2oo35dy7ZcV7LA8Jec1v5Lz2f7x50iPbNj?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa68c48c-b378-451b-cc58-08dcc5c2f455
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5624.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2024 11:33:49.6173 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pLWwhxL73+glbqItvUKoNNxFDmZfiSRXv5Om8unZxjkLThnDAHxEArmDUP9VLCDhbPqvWAhLEe/oO1wR5O8toQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6466
+Content-Disposition: inline
+In-Reply-To: <20240822134744.44919-3-pstanner@redhat.com>
 X-Mailman-Approved-At: Tue, 03 Sep 2024 08:06:49 +0000
-Cc: opensource.kernel@vivo.com
-Subject: [Linux-stm32] [PATCH v2 5/5] tty: stm32-usart: Use
-	devm_clk_get_enabled() helpers
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Alvaro Karsz <alvaro.karsz@solid-run.com>, Tom Rix <trix@redhat.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-pci@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-doc@vger.kernel.org,
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Wu Hao <hao.wu@intel.com>,
+ Andy Shevchenko <andy@kernel.org>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>, virtualization@lists.linux.dev,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Hannes Reinecke <hare@suse.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+ David Lechner <dlechner@baylibre.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xu Yilun <yilun.xu@intel.com>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fpga@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 2/9] fpga/dfl-pci.c: Replace deprecated
+	PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,108 +89,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The devm_clk_get_enabled() helpers:
-    - call devm_clk_get()
-    - call clk_prepare_enable() and register what is needed in order to
-     call clk_disable_unprepare() when needed, as a managed resource.
+On Thu, Aug 22, 2024 at 03:47:34PM +0200, Philipp Stanner wrote:
+> pcim_iomap_regions() and pcim_iomap_table() have been deprecated by the
+> PCI subsystem in commit e354bb84a4c1 ("PCI: Deprecate
+> pcim_iomap_table(), pcim_iomap_regions_request_all()").
+> 
+> Port dfl-pci.c to the successor, pcim_iomap_region().
+> 
+> Consistently, replace pcim_iounmap_regions() with pcim_iounmap_region().
+> 
+> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 
-This simplifies the code and avoids calls to clk_disable_unprepare().
+Acked-by: Xu Yilun <yilun.xu@intel.com>
 
----
-v1->V2 changes
-1.stm32-usart modifies the return method and removes unused labels
-
-Signed-off-by: Lei Liu <liulei.rjpt@vivo.com>
----
- drivers/tty/serial/stm32-usart.c | 30 ++++--------------------------
- 1 file changed, 4 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index e1e7bc04c579..559fcc2659eb 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -1550,11 +1550,6 @@ static int stm32_usart_get_ftcfg(struct platform_device *pdev, struct stm32_port
- 	return fifo_size;
- }
- 
--static void stm32_usart_deinit_port(struct stm32_port *stm32port)
--{
--	clk_disable_unprepare(stm32port->clk);
--}
--
- static const struct serial_rs485 stm32_rs485_supported = {
- 	.flags = SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND | SER_RS485_RTS_AFTER_SEND |
- 		 SER_RS485_RX_DURING_TX,
-@@ -1599,19 +1594,13 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 
- 	spin_lock_init(&port->lock);
- 
--	stm32port->clk = devm_clk_get(&pdev->dev, NULL);
-+	stm32port->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(stm32port->clk))
- 		return PTR_ERR(stm32port->clk);
- 
--	/* Ensure that clk rate is correct by enabling the clk */
--	ret = clk_prepare_enable(stm32port->clk);
--	if (ret)
--		return ret;
--
- 	stm32port->port.uartclk = clk_get_rate(stm32port->clk);
- 	if (!stm32port->port.uartclk) {
--		ret = -EINVAL;
--		goto err_clk;
-+		return -EINVAL;
- 	}
- 
- 	stm32port->fifoen = stm32port->info->cfg.has_fifo;
-@@ -1625,8 +1614,7 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 
- 	stm32port->gpios = mctrl_gpio_init(&stm32port->port, 0);
- 	if (IS_ERR(stm32port->gpios)) {
--		ret = PTR_ERR(stm32port->gpios);
--		goto err_clk;
-+		return PTR_ERR(stm32port->gpios);
- 	}
- 
- 	/*
-@@ -1637,16 +1625,9 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 		if (mctrl_gpio_to_gpiod(stm32port->gpios, UART_GPIO_CTS) ||
- 		    mctrl_gpio_to_gpiod(stm32port->gpios, UART_GPIO_RTS)) {
- 			dev_err(&pdev->dev, "Conflicting RTS/CTS config\n");
--			ret = -EINVAL;
--			goto err_clk;
-+			return -EINVAL;
- 		}
- 	}
--
--	return ret;
--
--err_clk:
--	clk_disable_unprepare(stm32port->clk);
--
- 	return ret;
- }
- 
-@@ -1853,8 +1834,6 @@ static int stm32_usart_serial_probe(struct platform_device *pdev)
- 	if (stm32port->wakeup_src)
- 		device_set_wakeup_capable(&pdev->dev, false);
- 
--	stm32_usart_deinit_port(stm32port);
--
- err_dma_tx:
- 	if (stm32port->tx_ch)
- 		dma_release_channel(stm32port->tx_ch);
-@@ -1904,7 +1883,6 @@ static void stm32_usart_serial_remove(struct platform_device *pdev)
- 		device_init_wakeup(&pdev->dev, false);
- 	}
- 
--	stm32_usart_deinit_port(stm32_port);
- }
- 
- static void __maybe_unused stm32_usart_console_putchar(struct uart_port *port, unsigned char ch)
--- 
-2.34.1
-
+Thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
