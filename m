@@ -2,55 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80FF960D00
+	by mail.lfdr.de (Postfix) with ESMTPS id 51507960CFC
 	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2024 16:06:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34FFDC78020;
-	Tue, 27 Aug 2024 14:06:02 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8E68C6DD6E;
+	Tue, 27 Aug 2024 14:06:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E45AC7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 587D7C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Aug 2024 14:05:56 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47RD2FKI022301;
+ Tue, 27 Aug 2024 14:05:55 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47RDTQfE001622;
  Tue, 27 Aug 2024 16:05:45 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=OWUzcb7sZC3fpmb7ZiuMCd
- Jr03L3mabve5VPP9D+l+A=; b=Bf+7eYHp/Rd6NAA6DfRy4CLOpA4eynoi6fioTM
- gLOB+pHKiECfWGQsagJ/dS9VA99P/lXQcVSxZ7K94FKF0POqMkgncYpj5xIEGWie
- Xv3++IQcwmS4weOjiUh9cYnjJJKLrXwYDubhXeONcC3q3T77oNzTaFCzBH1XFj08
- 7mlLIbbvE/m3XPralZxdfUbgcezz2fkk09C8d4ZE/anxkWzvegauS0cJ5vPKKc1/
- fMsPLowVNc61uU/zHs7xP/Pq8GBs8q2fhzhRewm0mLRaKZkpSnRdnkkDPUXBaXzB
- ST7hARvw9avuFin3rO/Sn5RFUs0VypZEY+kMSgA1zgm52ozg==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ h2H4zfGmWKtl+SLiruiqM/WMeBQn0m8bdXnUWVPtp+0=; b=wwpRrUbODf0KwgGd
+ H6nijKxCoy8avDeMMBtoHgwVsPOCbFv42HDZbx/hcEy4CLFeqx2pVd8tH1N0qQnK
+ en4qg6SrB1YrD+i3jHXh35SSmhsq/eLXwR+k5H8gd6eNgV8obIH6rsiUwVtu8VQz
+ u2RFiadqOTKEK/TKCviLgVylrtJakGItHLx1iGgi/trBKAGNxcFSq60K+61MhtSs
+ m7DZOYYvRP2IDe/cw+D6y4IVKu4aQCI0umuGVNlSEBp7axPFOA6GTIDGRP/f7jl8
+ XYUY+qhF6NfPk67R7VpAZNOXSJJkv9cy8pmbc/SmtWvytGNEj1FYPFu3od6FSwPT
+ V4pkSw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 419fb408vb-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 419fqs850x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 Aug 2024 16:05:45 +0200 (MEST)
+ Tue, 27 Aug 2024 16:05:44 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 24F2B40047;
- Tue, 27 Aug 2024 16:05:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DF30B26C449;
- Tue, 27 Aug 2024 16:05:10 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2CF4840048;
+ Tue, 27 Aug 2024 16:05:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8168926C451;
+ Tue, 27 Aug 2024 16:05:11 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 27 Aug
- 2024 16:05:10 +0200
+ 2024 16:05:12 +0200
 Received: from localhost (10.48.86.111) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 27 Aug
- 2024 16:05:10 +0200
+ 2024 16:05:11 +0200
 From: Valentin Caron <valentin.caron@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>
-Date: Tue, 27 Aug 2024 16:04:46 +0200
-Message-ID: <20240827140455.345086-1-valentin.caron@foss.st.com>
+Date: Tue, 27 Aug 2024 16:04:47 +0200
+Message-ID: <20240827140455.345086-2-valentin.caron@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240827140455.345086-1-valentin.caron@foss.st.com>
+References: <20240827140455.345086-1-valentin.caron@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.48.86.111]
 X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
@@ -62,7 +65,8 @@ Cc: devicetree@vger.kernel.org,
  Christophe Roullier <christophe.roullier@foss.st.com>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/9] ARM: dts: st: add WLAN/BT on disco boards
+Subject: [Linux-stm32] [PATCH 1/9] ARM: dts: stm32: rtc,
+	add pin to provide LSCO on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +83,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series enable WLAN/BT module on stm32mp1x discovery boards.
-Use LSCO from RTC to supply 32kHz clock to WLAN/BT modules.
-This is done by selecting "rtc_lsco_pins_a" in the WLAN pinctrl node.
+Declare pin for LSCO in stm32-pinctrl provider node to reserve this pin
+for RTC OUT2_RMP, in stm32mp15-pinctrl.dtsi.
 
-And also add RTC nodes on stm32mp25x to enable RTC on stm32mp257f-ev1
-board.
+Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Christophe Roullier (2):
-  ARM: dts: stm32: add support of WLAN/BT on stm32mp157c-dk2
-  ARM: dts: stm32: add support of WLAN/BT on stm32mp135f-dk
-
-Valentin Caron (7):
-  ARM: dts: stm32: rtc, add pin to provide LSCO on stm32mp15
-  ARM: dts: stm32: rtc, add pin to provide LSCO on stm32mp13
-  ARM: dts: stm32: rtc, add LSCO to WLAN/BT module on stm32mp157c-dk2
-  ARM: dts: stm32: rtc, add LSCO to WLAN/BT module on stm32mp135f-dk
-  arm64: dts: st: add RTC on stm32mp25x
-  arm64: dts: st: enable RTC on stm32mp257f-ev1 board
-  ARM: dts: stm32: rtc, add pin to provide LSCO on stm32mp25
-
- arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  7 +++
- arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 52 +++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi   |  7 +++
- arch/arm/boot/dts/st/stm32mp157c-dk2.dts      | 51 +++++++++++++++++-
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  6 +++
- arch/arm64/boot/dts/st/stm32mp251.dtsi        | 10 ++++
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  4 ++
- 7 files changed, 136 insertions(+), 1 deletion(-)
-
+diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+index ae83e7b102323..0df526cc48f2b 100644
+--- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+@@ -1696,6 +1696,13 @@ pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	rtc_rsvd_pins_a: rtc-rsvd-0 {
++		pins {
++			pinmux = <STM32_PINMUX('I', 8, ANALOG)>; /* RTC_OUT2_RMP */
++		};
++	};
++
+ 	/omit-if-no-ref/
+ 	sai2a_pins_a: sai2a-0 {
+ 		pins {
 -- 
 2.25.1
 
