@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C1E960BD9
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2024 15:23:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9907F960BDD
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2024 15:24:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5430FC6DD6B;
-	Tue, 27 Aug 2024 13:23:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6109DC6DD6B;
+	Tue, 27 Aug 2024 13:24:04 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AC10C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0475C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Aug 2024 13:23:47 +0000 (UTC)
+ Tue, 27 Aug 2024 13:24:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3A073A419CD;
- Tue, 27 Aug 2024 13:23:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E0AC61041;
- Tue, 27 Aug 2024 13:23:42 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2B36AA419CC;
+ Tue, 27 Aug 2024 13:23:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E85C61041;
+ Tue, 27 Aug 2024 13:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724765026;
- bh=mDhu/iZsja8ip8Pm2FL9kdwCESYdBw1UKwf/Kf3cPCc=;
+ s=k20201202; t=1724765041;
+ bh=73+RVauxylVeoSXQPKLsgBt/WsASDjw/hrVgux1lTlQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GPPHdM9wD3DL6t8QBV6TWNJF3pGC/kAJZ+e9RYQlt0rfVg5hGwDgUjAJxXLqD5zsf
- r0EaYKdWSXe7UV9Qif+G1bA78IGft6VPPcaIApr9ykpQf5xe2AuyJTHQHlJnYad416
- At9QLUXmrOeybWoOEF5ad5ra18Vm8i6bm5avo5dp62WuDOIbPLhRrchufidq1m5mDP
- fx/os3mheeNaZn7uojTLex68vCVZF9VOvmZx+t2uJVqKnamuR3Av0S9w+JaxLUBf0J
- TThtY8jBeRczIof4mubmZRPsIyuPkLBjnMNL35Hvj1NTe9CGzsKu4tcK1Q9RZNlwlX
- 9PpROBBQznykw==
-Message-ID: <5f29a065-269d-4e72-81b8-30d247994fbd@kernel.org>
-Date: Tue, 27 Aug 2024 15:23:40 +0200
+ b=p90XrteRoMz+UCX+p3AroIYoiuNUJOOnLFy99oydxGwCEPGuNAnIdZpAxgrmygMik
+ VsnPvJa1cyvtQs4rKhUyM6P1LJ3JBm+CO4rOVeXBLRaWPPJzSuBui3KRHsHLlXmQYj
+ JGeg2a/FbCEmkzvwZqblNJhrixkn2+ght2TlU3tGN0l2obpndewVqnGJhYcC4hEqjk
+ +m/0s6AlEAiZ2qKyS2sM6TDP/q+TskoauDDAZd0yYCg7VMVsGzMB/qmY7B1H5qR6ga
+ zjxXsNV0s1R/Hjfwi4BZgxDslMzUjAJBQxIl2J+S7zr7huHBOidqxwZTvCFrRZbep5
+ md/XVfNwZy7fQ==
+Message-ID: <2e634ee8-7622-4eb8-ba5b-0d218bb092eb@kernel.org>
+Date: Tue, 27 Aug 2024 15:23:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
@@ -37,7 +37,6 @@ To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  p.zabel@pengutronix.de
 References: <20240827122459.1102889-1-christian.bruel@foss.st.com>
- <20240827122459.1102889-2-christian.bruel@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -83,12 +82,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240827122459.1102889-2-christian.bruel@foss.st.com>
+In-Reply-To: <20240827122459.1102889-1-christian.bruel@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: phy: Add STM32MP25
-	COMBOPHY bindings
+Subject: Re: [Linux-stm32] [PATCH v3 0/5] Add STM32MP25 USB3/PCIE COMBOPHY
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,95 +105,16 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 27/08/2024 14:24, Christian Bruel wrote:
-> Document the bindings for STM32 COMBOPHY interface, used to support
-> the PCIe and USB3 stm32mp25 drivers.
-> Following entries can be used to tune caracterisation parameters
->  - st,output-micro-ohms and st,output-vswing-microvolt bindings entries
-> to tune the impedance and voltage swing using discrete simulation results
->  - st,rx-equalizer register to set the internal rx equalizer filter value.
+> This patch series adds USB3/PCIE COMBOPHY driver for the STM32MP25 SoC from
+> STMicrolectronics, respective yaml schema and enable for the stm32mp257f-ev1
+> device into which it is used for PCIe.
 > 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> Changes in v3:
+> Address comments from Rob and Krzysztof:
+>    - Reorder MAINTAINERS patch
+>    - Drop wakeup-source from bindings (should be generic)
 
-v1? Or v3?
-
-> ---
->  .../bindings/phy/st,stm32-combophy.yaml       | 144 ++++++++++++++++++
->  1 file changed, 144 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml b/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
-> new file mode 100644
-> index 000000000000..c33a843b83a3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/st,stm32-combophy.yaml
-
-Filename matching compatible.
-
-> @@ -0,0 +1,144 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/st,stm32-combophy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32MP25 USB3/PCIe COMBOPHY
-> +
-> +maintainers:
-> +  - Christian Bruel <christian.bruel@foss.st.com>
-> +
-> +description:
-> +  Single lane PHY shared (exclusive) between the USB3 and PCIe controllers.
-> +  Supports 5Gbit/s for USB3 and PCIe gen2 or 2.5Gbit/s for PCIe gen1.
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32mp25-combophy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#phy-cells":
-> +    const: 1
-> +    description: |
-> +      The cells contain the following arguments.
-> +
-> +      - description: The PHY type
-
-That's some sort of mess. Is it schema within description or schema? Why
-two descriptions?
-
-> +          enum:
-> +            - PHY_TYPE_USB3
-> +            - PHY_TYPE_PCIE
-> +
-
-...
-
-> +required:
-> +  - compatible
-> +  - reg
-> +  - st,syscfg
-> +  - '#phy-cells'
-> +  - resets
-> +  - reset-names
-> +  - clocks
-> +  - clock-names
-> +
-> +allOf:
-> +  - if:
-> +      required:
-> +        - wakeup-source
-> +    then:
-> +      anyOf:
-> +        - required: [interrupts]
-> +        - required: [interrupts-extended]
-> +
-
-I do not see any improvements.
-
-The tag you received was CONDITIONAL. If you do not apply the comments,
-you cannot just apply the tag.
+Where? Point me to the exact line being dropped.
 
 Best regards,
 Krzysztof
