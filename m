@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739A8961CD8
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A7B8961CD9
 	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 05:16:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36DDFC7801B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 406BCC7801F;
 	Wed, 28 Aug 2024 03:16:08 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B25F9C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52397C78028
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Aug 2024 03:16:05 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.252])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4WtqKb23MqzyQgl;
- Wed, 28 Aug 2024 11:15:15 +0800 (CST)
+ Wed, 28 Aug 2024 03:16:06 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.174])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4WtqJ846fhzfbgy;
+ Wed, 28 Aug 2024 11:14:00 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 4F903180AE6;
- Wed, 28 Aug 2024 11:16:03 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 4FC2A14022E;
+ Wed, 28 Aug 2024 11:16:04 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 28 Aug
- 2024 11:16:02 +0800
+ 2024 11:16:03 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <olteanv@gmail.com>, <davem@davemloft.net>, <edumazet@google.com>,
@@ -37,8 +37,8 @@ To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
  <linux-stm32@st-md-mailman.stormreply.com>, <krzk@kernel.org>,
  <jic23@kernel.org>
-Date: Wed, 28 Aug 2024 11:23:41 +0800
-Message-ID: <20240828032343.1218749-12-ruanjinjie@huawei.com>
+Date: Wed, 28 Aug 2024 11:23:42 +0800
+Message-ID: <20240828032343.1218749-13-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240828032343.1218749-1-ruanjinjie@huawei.com>
 References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
@@ -47,8 +47,8 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
  kwepemh500013.china.huawei.com (7.202.181.146)
 Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH net-next v2 11/13] net: dsa: microchip: Use
-	__free() to simplfy code
+Subject: [Linux-stm32] [PATCH net-next v2 12/13] net: bcmasp: Simplify with
+	scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,56 +65,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoids the need for manual cleanup of_node_put() by using __free().
+Use scoped for_each_available_child_of_node_scoped() when
+iterating over device nodes to make code a bit simpler.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
 v2:
 - Split into 2 patches.
 ---
- drivers/net/dsa/microchip/ksz_common.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/broadcom/asp2/bcmasp.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
-index 86ed563938f6..8058a0b7c161 100644
---- a/drivers/net/dsa/microchip/ksz_common.c
-+++ b/drivers/net/dsa/microchip/ksz_common.c
-@@ -4595,7 +4595,6 @@ static int ksz_parse_drive_strength(struct ksz_device *dev)
- int ksz_switch_register(struct ksz_device *dev)
- {
- 	const struct ksz_chip_data *info;
--	struct device_node *ports;
- 	phy_interface_t interface;
- 	unsigned int port_num;
- 	int ret;
-@@ -4677,7 +4676,8 @@ int ksz_switch_register(struct ksz_device *dev)
- 		ret = of_get_phy_mode(dev->dev->of_node, &interface);
- 		if (ret == 0)
- 			dev->compat_interface = interface;
--		ports = of_get_child_by_name(dev->dev->of_node, "ethernet-ports");
-+		struct device_node *ports __free(device_node) =
-+			of_get_child_by_name(dev->dev->of_node, "ethernet-ports");
- 		if (!ports)
- 			ports = of_get_child_by_name(dev->dev->of_node, "ports");
- 		if (ports) {
-@@ -4685,16 +4685,13 @@ int ksz_switch_register(struct ksz_device *dev)
- 				if (of_property_read_u32(port, "reg",
- 							 &port_num))
- 					continue;
--				if (!(dev->port_mask & BIT(port_num))) {
--					of_node_put(ports);
-+				if (!(dev->port_mask & BIT(port_num)))
- 					return -EINVAL;
--				}
- 				of_get_phy_mode(port,
- 						&dev->ports[port_num].interface);
+diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+index 20c6529ec135..70219094b7f6 100644
+--- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
++++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+@@ -1300,7 +1300,7 @@ static void bcmasp_remove_intfs(struct bcmasp_priv *priv)
  
- 				ksz_parse_rgmii_delay(dev, port_num, port);
- 			}
--			of_node_put(ports);
+ static int bcmasp_probe(struct platform_device *pdev)
+ {
+-	struct device_node *ports_node, *intf_node;
++	struct device_node *ports_node;
+ 	const struct bcmasp_plat_data *pdata;
+ 	struct device *dev = &pdev->dev;
+ 	struct bcmasp_priv *priv;
+@@ -1374,12 +1374,11 @@ static int bcmasp_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	i = 0;
+-	for_each_available_child_of_node(ports_node, intf_node) {
++	for_each_available_child_of_node_scoped(ports_node, intf_node) {
+ 		intf = bcmasp_interface_create(priv, intf_node, i);
+ 		if (!intf) {
+ 			dev_err(dev, "Cannot create eth interface %d\n", i);
+ 			bcmasp_remove_intfs(priv);
+-			of_node_put(intf_node);
+ 			ret = -ENOMEM;
+ 			goto of_put_exit;
  		}
- 		dev->synclko_125 = of_property_read_bool(dev->dev->of_node,
- 							 "microchip,synclko-125");
 -- 
 2.34.1
 
