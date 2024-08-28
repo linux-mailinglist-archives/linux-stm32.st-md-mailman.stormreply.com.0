@@ -2,50 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7957962E1A
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 19:03:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2610962EF8
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 19:50:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0D3DC6C855;
-	Wed, 28 Aug 2024 17:03:25 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C2F1C6C855;
+	Wed, 28 Aug 2024 17:50:56 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D624C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13378C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Aug 2024 17:03:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id CD3E4A415C4;
- Wed, 28 Aug 2024 17:03:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11423C4CEC0;
- Wed, 28 Aug 2024 17:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724864596;
- bh=tqN9enw4mI37mUu92x5bRXQQESPC2OBX5/K5AzXMeIY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=PV0NQycLXQrlpKK2HsYRmhOQfVQv/4uQ8Ojy/qsOIeZ2oQ1AzqMkJFX8HgfpovAv/
- qQWLtB8cN6RDHIQKahNWnQ0exqLX3WQ6/FpsvvbSVod6k5WY1+CcBz2KZjjXbsbSUQ
- keK/ayaL56qHAykfsb3RW4byzGHdINGvtb1VJSXQrOJTfbYkCwTjwl/A7fWry5rx3L
- RSfFqYU6ly2iJfodx08UF0ZcHhAaivvc7jbhKSNhRDwGm0hcvYpmvN/aJsTdEqVTF5
- kbvwCa8toXMGkHEAahkhR/4geXZURYSBrBym5UTwslHOH1qk1M10AkRMrAXloMN6kT
- J1g+feiNSz+kQ==
-Date: Wed, 28 Aug 2024 12:03:13 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Amit Vadhavana <av2082000@gmail.com>
-Message-ID: <20240828170313.GA26255@bhelgaas>
+ Wed, 28 Aug 2024 17:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1724867436; x=1725472236; i=markus.elfring@web.de;
+ bh=LtVGxGVh9TDYbEyEfnGiuVp5FC+9j4hnBSLVAPE83ac=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=kGW+CQYNBSQqkuBaq1GlK8XiqaM5ncEdFXGuAcs0O7H1i+c2bdl7L1yFVfWiu2dU
+ mum4MNqLpcUX8NUEWIjRD9BzwK7yk3l8bV4ro7fILPsMWYNOVlhvr1QssDf4Vfa0l
+ hH3orzUY//aOozH6tfT/xmjUiXssyfjGgxGj+2bzjnRNvv7CEd4rYwFflv1YTb08g
+ rMJMt6/zueAOM03ZK33l4LpoKkYZPdYu5Qgd2R0cG+/w/IqDz58F6hb7k6IhoQKIW
+ W0t4pbTLyYkmQk6HXshTeZAOx6owbktrrG0HxuyHDCx7YSiSTgfmFyllSMH1cAFvu
+ x+5tEZKE4y2iytkekg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MSqXS-1sWcoE0zIU-00U7H7; Wed, 28
+ Aug 2024 19:50:36 +0200
+Message-ID: <7eb981c3-4a5c-4173-a62a-7180acb9f299@web.de>
+Date: Wed, 28 Aug 2024 19:50:24 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240817072724.6861-1-av2082000@gmail.com>
-Cc: linux-doc@vger.kernel.org, catalin.marinas@arm.com,
- dave.hansen@linux.intel.com, conor.dooley@microchip.com, hpa@zytor.com,
- ricardo@marliere.net, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel-mentees@lists.linux.dev,
- costa.shul@redhat.com, corbet@lwn.net, mpe@ellerman.id.au, x86@kernel.org,
- christophe.leroy@csgroup.eu, mingo@redhat.com, workflows@vger.kernel.org,
- aou@eecs.berkeley.edu, naveen@kernel.org, npiggin@gmail.com, bp@alien8.de,
- paul.walmsley@sifive.com, skhan@linuxfoundation.org, bhelgaas@google.com,
- tglx@linutronix.de, linux-arm-kernel@lists.infradead.org, palmer@dabbelt.com,
- mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH V2] Documentation: Fix spelling mistakes
+User-Agent: Mozilla Thunderbird
+To: Jie Gan <quic_jiegan@quicinc.com>, coresight@lists.linaro.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ James Clark <james.clark@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mike Leach <mike.leach@linaro.org>, Rob Herring <robh@kernel.org>,
+ Suzuki Poulouse <suzuki.poulose@arm.com>
+References: <20240828012706.543605-3-quic_jiegan@quicinc.com>
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240828012706.543605-3-quic_jiegan@quicinc.com>
+X-Provags-ID: V03:K1:rjkUlUIXEG7BqyN36JwLp90ca4DoKkKrF4nYX/VqHLE5YYvtHik
+ xl07Ou3U4ZCub7FNZ7SJQf0ONV00l3DsHMyLW2l+rBHK2wZRMOmnuhecYgCH/oEJyv3TPEy
+ HZVG5C8we3bkP8rPl1sXSWg5Jjt0zjLmr4uPbIhAU+uqJ8Wa7P/rnh1MceCoRXg3LlDQdSS
+ kleG43kfF8Koyy8NewxuQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:4H5l6eoKx5Q=;NFCpzLicFw+OLKbYbZGbHV7+FNE
+ N3E/yZCNcIbOOsqPolIn8RztVSC7/ZadGIvqR3vkHSk7zVlFuE+akgHqp+WzFb/pJ4y+08wGb
+ V7jhybsGk1exi9S2h0csm3WIYL8Lc0oxMBdxBDPsgPai9lWu4xZYfBmwMc5UBlbjU7N9FQVEy
+ Pq73arExOmIsG+WppiAjQK8dl11llbnLV4sl2juYnegn4jI46kgHHRBoAkLeZH4eTASldtHAm
+ KHIuM0HnKO7XlBfVV2P47mzYgX1d6NAkyMCB/VXATNscn/+XV/1dSSX+2uNklPitr+gAS7hFl
+ JqZvItzuQPMwBo9DmP+MAUeifQxgtuB4Y0cnnbMYM9k/maRdR3hN9Vlaz9ic/oIRpvBWDY/Rk
+ NFDIrHzwrHkzd7qCxNE9oP3F92gIJOnfTl4piCTxoHQM4JXZOev8wX48ANbyq4tibD+mjfjb2
+ ZFXi8q7ch/5gIQpf9zuILyHsJwVPjQTrU1o1CG9IdDkiCxYtCMamjJUUNo37TBV/sZ5XRp8gv
+ tVHcSJBtacjN6gy5jNmc85wD3ozy7YftWPxEjplqGXmsB5QxGvmJLjHJl5VxtDzEPNWMoKdQQ
+ avk4uRkCR515KOGmm+TI0uWX3kdorOB95/iU3BGztRQyvE3fNlo8U1pePkuWIdF5FRle6cYNV
+ ml0QMz1WtwUTN9fo1cHHjHikMyZ8ER7DIz/usbiTBZEBBhbYcEKP+h6YtKz+/JAjbXFu9T/IN
+ Ufxp+aFrPpfVRcWdKhce5K7hOqDBQdoPGjSBkhYYeJ4AgBkNaZAKDk/H/76sMvyq3N9a1iIxN
+ C8uSjzQq2wJD68Ma2k6eY+Lw==
+Cc: Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, Song Chai <quic_songchai@quicinc.com>,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>,
+ Jinlong Mao <quic_jinlmao@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>
+Subject: Re: [Linux-stm32] [PATCH v4 2/5] Coresight: Add trace_id function
+ to retrieving the trace ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,167 +86,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 17, 2024 at 12:57:24PM +0530, Amit Vadhavana wrote:
-> Correct spelling mistakes in the documentation to improve readability.
-> 
-> Signed-off-by: Amit Vadhavana <av2082000@gmail.com>
-
-I don't maintain any of these files, but all these fixes look good to
-me.  Thanks for doing them!
-
-Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-
-> ---
-> V1: https://lore.kernel.org/all/20240810183238.34481-1-av2082000@gmail.com
-> V1 -> V2:
-> - Write the commit description in imperative mode.
-> - Fix grammer mistakes in the sentence.
-> ---
->  Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst | 4 ++--
->  Documentation/arch/arm64/cpu-hotplug.rst                 | 2 +-
->  Documentation/arch/powerpc/ultravisor.rst                | 2 +-
->  Documentation/arch/riscv/vector.rst                      | 2 +-
->  Documentation/arch/x86/mds.rst                           | 2 +-
->  Documentation/arch/x86/x86_64/fsgs.rst                   | 4 ++--
->  Documentation/process/backporting.rst                    | 6 +++---
->  7 files changed, 11 insertions(+), 11 deletions(-)
-> 
-> diff --git a/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst b/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
-> index 2945e0e33104..301aa30890ae 100644
-> --- a/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
-> +++ b/Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
-> @@ -359,7 +359,7 @@ Driver updates for STM32 DMA-MDMA chaining support in foo driver
->      descriptor you want a callback to be called at the end of the transfer
->      (dmaengine_prep_slave_sg()) or the period (dmaengine_prep_dma_cyclic()).
->      Depending on the direction, set the callback on the descriptor that finishes
-> -    the overal transfer:
-> +    the overall transfer:
->  
->      * DMA_DEV_TO_MEM: set the callback on the "MDMA" descriptor
->      * DMA_MEM_TO_DEV: set the callback on the "DMA" descriptor
-> @@ -371,7 +371,7 @@ Driver updates for STM32 DMA-MDMA chaining support in foo driver
->    As STM32 MDMA channel transfer is triggered by STM32 DMA, you must issue
->    STM32 MDMA channel before STM32 DMA channel.
->  
-> -  If any, your callback will be called to warn you about the end of the overal
-> +  If any, your callback will be called to warn you about the end of the overall
->    transfer or the period completion.
->  
->    Don't forget to terminate both channels. STM32 DMA channel is configured in
-> diff --git a/Documentation/arch/arm64/cpu-hotplug.rst b/Documentation/arch/arm64/cpu-hotplug.rst
-> index 76ba8d932c72..8fb438bf7781 100644
-> --- a/Documentation/arch/arm64/cpu-hotplug.rst
-> +++ b/Documentation/arch/arm64/cpu-hotplug.rst
-> @@ -26,7 +26,7 @@ There are no systems that support the physical addition (or removal) of CPUs
->  while the system is running, and ACPI is not able to sufficiently describe
->  them.
->  
-> -e.g. New CPUs come with new caches, but the platform's cache toplogy is
-> +e.g. New CPUs come with new caches, but the platform's cache topology is
->  described in a static table, the PPTT. How caches are shared between CPUs is
->  not discoverable, and must be described by firmware.
->  
-> diff --git a/Documentation/arch/powerpc/ultravisor.rst b/Documentation/arch/powerpc/ultravisor.rst
-> index ba6b1bf1cc44..6d0407b2f5a1 100644
-> --- a/Documentation/arch/powerpc/ultravisor.rst
-> +++ b/Documentation/arch/powerpc/ultravisor.rst
-> @@ -134,7 +134,7 @@ Hardware
->  
->        * PTCR and partition table entries (partition table is in secure
->          memory). An attempt to write to PTCR will cause a Hypervisor
-> -        Emulation Assitance interrupt.
-> +        Emulation Assistance interrupt.
->  
->        * LDBAR (LD Base Address Register) and IMC (In-Memory Collection)
->          non-architected registers. An attempt to write to them will cause a
-> diff --git a/Documentation/arch/riscv/vector.rst b/Documentation/arch/riscv/vector.rst
-> index 75dd88a62e1d..3987f5f76a9d 100644
-> --- a/Documentation/arch/riscv/vector.rst
-> +++ b/Documentation/arch/riscv/vector.rst
-> @@ -15,7 +15,7 @@ status for the use of Vector in userspace. The intended usage guideline for
->  these interfaces is to give init systems a way to modify the availability of V
->  for processes running under its domain. Calling these interfaces is not
->  recommended in libraries routines because libraries should not override policies
-> -configured from the parant process. Also, users must noted that these interfaces
-> +configured from the parent process. Also, users must note that these interfaces
->  are not portable to non-Linux, nor non-RISC-V environments, so it is discourage
->  to use in a portable code. To get the availability of V in an ELF program,
->  please read :c:macro:`COMPAT_HWCAP_ISA_V` bit of :c:macro:`ELF_HWCAP` in the
-> diff --git a/Documentation/arch/x86/mds.rst b/Documentation/arch/x86/mds.rst
-> index c58c72362911..5a2e6c0ef04a 100644
-> --- a/Documentation/arch/x86/mds.rst
-> +++ b/Documentation/arch/x86/mds.rst
-> @@ -162,7 +162,7 @@ Mitigation points
->     3. It would take a large number of these precisely-timed NMIs to mount
->        an actual attack.  There's presumably not enough bandwidth.
->     4. The NMI in question occurs after a VERW, i.e. when user state is
-> -      restored and most interesting data is already scrubbed. Whats left
-> +      restored and most interesting data is already scrubbed. What's left
->        is only the data that NMI touches, and that may or may not be of
->        any interest.
->  
-> diff --git a/Documentation/arch/x86/x86_64/fsgs.rst b/Documentation/arch/x86/x86_64/fsgs.rst
-> index 50960e09e1f6..d07e445dac5c 100644
-> --- a/Documentation/arch/x86/x86_64/fsgs.rst
-> +++ b/Documentation/arch/x86/x86_64/fsgs.rst
-> @@ -125,7 +125,7 @@ FSGSBASE instructions enablement
->  FSGSBASE instructions compiler support
->  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->  
-> -GCC version 4.6.4 and newer provide instrinsics for the FSGSBASE
-> +GCC version 4.6.4 and newer provide intrinsics for the FSGSBASE
->  instructions. Clang 5 supports them as well.
->  
->    =================== ===========================
-> @@ -135,7 +135,7 @@ instructions. Clang 5 supports them as well.
->    _writegsbase_u64()  Write the GS base register
->    =================== ===========================
->  
-> -To utilize these instrinsics <immintrin.h> must be included in the source
-> +To utilize these intrinsics <immintrin.h> must be included in the source
->  code and the compiler option -mfsgsbase has to be added.
->  
->  Compiler support for FS/GS based addressing
-> diff --git a/Documentation/process/backporting.rst b/Documentation/process/backporting.rst
-> index e1a6ea0a1e8a..a71480fcf3b4 100644
-> --- a/Documentation/process/backporting.rst
-> +++ b/Documentation/process/backporting.rst
-> @@ -73,7 +73,7 @@ Once you have the patch in git, you can go ahead and cherry-pick it into
->  your source tree. Don't forget to cherry-pick with ``-x`` if you want a
->  written record of where the patch came from!
->  
-> -Note that if you are submiting a patch for stable, the format is
-> +Note that if you are submitting a patch for stable, the format is
->  slightly different; the first line after the subject line needs tobe
->  either::
->  
-> @@ -147,7 +147,7 @@ divergence.
->  It's important to always identify the commit or commits that caused the
->  conflict, as otherwise you cannot be confident in the correctness of
->  your resolution. As an added bonus, especially if the patch is in an
-> -area you're not that famliar with, the changelogs of these commits will
-> +area you're not that familiar with, the changelogs of these commits will
->  often give you the context to understand the code and potential problems
->  or pitfalls with your conflict resolution.
->  
-> @@ -197,7 +197,7 @@ git blame
->  Another way to find prerequisite commits (albeit only the most recent
->  one for a given conflict) is to run ``git blame``. In this case, you
->  need to run it against the parent commit of the patch you are
-> -cherry-picking and the file where the conflict appared, i.e.::
-> +cherry-picking and the file where the conflict appeared, i.e.::
->  
->      git blame <commit>^ -- <path>
->  
-> -- 
-> 2.25.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+4oCmCj4gKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zeXNmcy5j
+Cj4gQEAgLTE2OCw2ICsxNjgsNyBAQCBpbnQgY29yZXNpZ2h0X2VuYWJsZV9zeXNmcyhzdHJ1Y3Qg
+Y29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4gIAlpbnQgY3B1LCByZXQgPSAwOwo+ICAJc3RydWN0
+IGNvcmVzaWdodF9kZXZpY2UgKnNpbms7Cj4gIAlzdHJ1Y3QgbGlzdF9oZWFkICpwYXRoOwo+ICsJ
+c3RydWN0IGNzX3NpbmtfZGF0YSAqc2lua19kYXRhOwrigKYKCiogSG93IGRvIHlvdSB0aGluayBh
+Ym91dCB0byB1c2UgdGhlIGF0dHJpYnV0ZSDigJxfX2ZyZWUoa2ZyZWUp4oCdIGF0IG1vcmUgcGxh
+Y2VzIGFjY29yZGluZ2x5PwogIGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y2LjEx
+LXJjNS9zb3VyY2UvaW5jbHVkZS9saW51eC9zbGFiLmgjTDI4MgoKKiBXb3VsZCB5b3UgbGlrZSB0
+byByZWR1Y2UgdGhlIHNjb3BlIGZvciBzdWNoIGEgbG9jYWwgdmFyaWFibGU/CgoKUmVnYXJkcywK
+TWFya3VzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
