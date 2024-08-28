@@ -2,84 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76ED3962CB9
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 17:45:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD2A1962DDE
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 18:47:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AADDC6C855;
-	Wed, 28 Aug 2024 15:45:37 +0000 (UTC)
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
- [209.85.219.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C75FC6C855;
+	Wed, 28 Aug 2024 16:47:35 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 046C5C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E8B0C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Aug 2024 15:45:30 +0000 (UTC)
-Received: by mail-qv1-f48.google.com with SMTP id
- 6a1803df08f44-6bf6dedbfe1so38799076d6.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Aug 2024 08:45:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1724859929; x=1725464729;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PZOUe+6mBEPTZP4TSVhRf36gjDMv1iagTqH5nqm+dEk=;
- b=hKswA8Zhego4nPsKqP9efN8lItqP5pMVAcaVRxOgmG94nx9TpikCuag4wHGL3+cWlF
- Rjtsat75O5s71gL4RxU2AmELbQquxetRA/kSDqlhyLIc/x+NDOi2AGesWmBg9cRXAxyf
- e43YHFLmD8hflPv7HcjFJMAER9h0kWGtuTFaMf5+rmGs+U+omMgZLVIKdEuiSk5zUAEe
- KQTg1kfEghdn5g5rQbOrcgoCaH2uDxMph0ORQciEl5IjnIqucEEsAFTJf5df0uE7lLCC
- NJt10msqirJFbjjhfL9UQOQ5BsujQDYp+wNssGfEh4jAI7IyrSxp6kbxHTOXwyrmWbyw
- oNRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724859929; x=1725464729;
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=PZOUe+6mBEPTZP4TSVhRf36gjDMv1iagTqH5nqm+dEk=;
- b=kcJbkuGrEE8xp5dtfK3SA4nt3yIis0Jn55lRgMxQi9eWLDIeVZVYINSrTS+8qM7xY3
- +rpB/wWrzaU97ueKtas9gmvDejv7aESyRjDLUc8uQARvgtsZWG6GAx+i4EJhHi9uRlwA
- cwjocsA4u62PfnKaZ1vp9JeGDVhLdysH4FykujWx+HD0AldCuSkFYh6Gm9e5RoV4ubaV
- gTEylzvm/gJBQUvSW+qzgrH0O3Eomdm4ZVqdG2BzMu00Qus5jJRXK5o5PKLf0MI9qLbq
- hve3oT/wDkLiJnOVMPuN7m7yx5CTOj+pyQ+UKQnPJvoPqK8tXvnd2lALrRNEZbsL15p5
- aQhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdciUqcUzTiJB3HWLl7++JiQZ3Xm1g//lSSKOuBOpP9rOasZy8QTEwQ/cL+eWvtQuvMAHMCXUpchve1Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw9Yax0RQ9EdvHCPU+Wjsuw+sXCK3A2x7BfPkuaoxee9mXRVWYh
- 7Q+otcTXPwLtXfMctOMXsMtvcZfiM8lRQQTsQP/hZqfsEPBdEvLJ
-X-Google-Smtp-Source: AGHT+IFQmS19Ly4t1qu81gaSL06dZhIAsQ4bEbru5NbdTJjKT/mLIQ+HckN7wPPi8lsCzxxsTBJIfw==
-X-Received: by 2002:a05:6214:3c98:b0:6bf:7b7f:68e with SMTP id
- 6a1803df08f44-6c336337142mr33041406d6.40.1724859928753; 
- Wed, 28 Aug 2024 08:45:28 -0700 (PDT)
-Received: from localhost (193.132.150.34.bc.googleusercontent.com.
- [34.150.132.193]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c162d216fasm65998426d6.22.2024.08.28.08.45.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Aug 2024 08:45:28 -0700 (PDT)
-Date: Wed, 28 Aug 2024 11:45:28 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com, 
- andrew@lunn.ch, f.fainelli@gmail.com, olteanv@gmail.com, 
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
- pabeni@redhat.com, linus.walleij@linaro.org, alsi@bang-olufsen.dk, 
- justin.chen@broadcom.com, sebastian.hesselbarth@gmail.com, 
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, 
- mcoquelin.stm32@gmail.com, wens@csie.org, jernej.skrabec@gmail.com, 
- samuel@sholland.org, hkallweit1@gmail.com, linux@armlinux.org.uk, 
- ansuelsmth@gmail.com, UNGLinuxDriver@microchip.com, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bcm-kernel-feedback-list@broadcom.com, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-stm32@st-md-mailman.stormreply.com, krzk@kernel.org, 
- jic23@kernel.org
-Message-ID: <66cf4618f313_34a7b1294bb@willemb.c.googlers.com.notmuch>
-In-Reply-To: <20240828032343.1218749-6-ruanjinjie@huawei.com>
-References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
- <20240828032343.1218749-6-ruanjinjie@huawei.com>
-Mime-Version: 1.0
-Cc: ruanjinjie@huawei.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 05/13] net: phy: Fix missing
- of_node_put() for leds
+ Wed, 28 Aug 2024 16:47:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 47276A428B6;
+ Wed, 28 Aug 2024 16:47:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC89C4CABF;
+ Wed, 28 Aug 2024 16:11:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1724861477;
+ bh=9CtFrh3gKyelJvHQtwXVoL7gTTFZNFMEbrIHkpQX020=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=guNWp2bD47/n92FQffLtDnx3F/38XLD7Q9FpHV2RCXj3jzotPNdPUO5BN+pHTfu69
+ EW4MmLD5CEf3UXMqKMeS6UDdhEH2v6vFNL0fsdGp1Iz+Qgb0+IIa0pfk2D4yuHTXFF
+ 6LJhk6iD+rWsuaQ67bNl8uKCVi2ykNQLf9Ibmu5j9HqHq7/2aEvHeRRMphWNlobXkP
+ WkgcHxUTV+M2fC0FlDCqLN4IcEHUU2M5OCSaBiBuyYkx3NRAxMOjdvryiHPNYxtmy6
+ LDID3U86Onq4+mMmfPEqQRnguSDzZYjCBP8ugKTLsAktMs35GZMxKn9Ym3aygxWYij
+ C1I9T80hbocoQ==
+Date: Wed, 28 Aug 2024 17:11:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <20240828-handsfree-overarch-cd1af26cb0c5@spud>
+References: <20240828143452.1407532-1-christian.bruel@foss.st.com>
+ <20240828143452.1407532-2-christian.bruel@foss.st.com>
+MIME-Version: 1.0
+In-Reply-To: <20240828143452.1407532-2-christian.bruel@foss.st.com>
+Cc: kishon@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ p.zabel@pengutronix.de, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-phy@lists.infradead.org, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/5] dt-bindings: phy: Add STM32MP25
+	COMBOPHY bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,21 +54,232 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5890785782869848487=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Jinjie Ruan wrote:
-> The call of of_get_child_by_name() will cause refcount incremented
-> for leds, if it succeeds, it should call of_node_put() to decrease
-> it, fix it.
-> 
-> Fixes: 01e5b728e9e4 ("net: phy: Add a binding for PHY LEDs")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Fixes should go to net. Should not be part of this series?
+--===============5890785782869848487==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ZqexDgeCbf5zKW3c"
+Content-Disposition: inline
+
+
+--ZqexDgeCbf5zKW3c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Aug 28, 2024 at 04:34:48PM +0200, Christian Bruel wrote:
+> Document the bindings for STM32 COMBOPHY interface, used to support
+> the PCIe and USB3 stm32mp25 drivers.
+> Following entries can be used to tune caracterisation parameters
+>  - st,output-micro-ohms and st,output-vswing-microvolt bindings entries
+> to tune the impedance and voltage swing using discrete simulation results
+>  - st,rx-equalizer register to set the internal rx equalizer filter value.
+>=20
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> ---
+>  .../bindings/phy/st,stm32mp25-combophy.yaml   | 128 ++++++++++++++++++
+>  1 file changed, 128 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32mp25-co=
+mbophy.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/phy/st,stm32mp25-combophy.=
+yaml b/Documentation/devicetree/bindings/phy/st,stm32mp25-combophy.yaml
+> new file mode 100644
+> index 000000000000..8d4a40b94507
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/st,stm32mp25-combophy.yaml
+> @@ -0,0 +1,128 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/st,stm32mp25-combophy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32MP25 USB3/PCIe COMBOPHY
+> +
+> +maintainers:
+> +  - Christian Bruel <christian.bruel@foss.st.com>
+> +
+> +description:
+> +  Single lane PHY shared (exclusive) between the USB3 and PCIe controlle=
+rs.
+> +  Supports 5Gbit/s for USB3 and PCIe gen2 or 2.5Gbit/s for PCIe gen1.
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stm32mp25-combophy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +
+> +  clocks:
+> +    minItems: 2
+> +    items:
+> +      - description: apb Bus clock mandatory to access registers.
+> +      - description: ker Internal RCC reference clock for USB3 or PCIe
+> +      - description: pad Optional on board clock input for PCIe only. Ty=
+pically an
+> +                     external 100Mhz oscillator wired on dedicated CLKIN=
+ pad. Used as reference
+> +                     clock input instead of the ker
+> +
+> +  clock-names:
+> +    minItems: 2
+> +    items:
+> +      - const: apb
+> +      - const: ker
+> +      - const: pad
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    const: phy
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  wakeup-source: true
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: interrupt used for wakeup
+> +
+> +  access-controllers:
+> +    minItems: 1
+> +    maxItems: 2
+
+Can you please describe the items here?
+
+> +  st,syscfg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the SYSCON entry required for configuring PC=
+Ie
+> +      or USB3.
+
+Why is a phandle required for this lookup, rather than doing it by
+compatible?
+
+> +
+> +  st,ssc-on:
+> +    type: boolean
+
+flag, not boolean, for presence based stuff. And in the driver,
+s/of_property_read_bool/of_property_present/.
+
+> +    description:
+> +      A boolean property whose presence indicates that the SSC for commo=
+n clock
+> +      needs to be set.
+
+And what, may I ask, does "SSC" mean? "Common clock" is also a bit of a
+"linuxism", what does this actually do in the hardware block?
+
+> +
+> +  st,rx-equalizer:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 7
+> +    default: 2
+> +    description:
+> +      A 3 bit value to tune the RX fixed equalizer setting for optimal e=
+ye compliance
+> +
+> +  st,output-micro-ohms:
+> +    minimum: 3999000
+> +    maximum: 6090000
+> +    default: 4968000
+> +    description:
+> +      A value property to tune the Single Ended Output Impedance, simula=
+tions results
+> +      at 25C for a VDDP=3D0.8V. The hardware accepts discrete values in =
+this range.
+> +
+> +  st,output-vswing-microvolt:
+> +    minimum: 442000
+> +    maximum: 803000
+> +    default: 803000
+> +    description:
+> +      A value property in microvolt to tune the Single Ended Output Volt=
+age Swing to change the
+> +      Vlo, Vhi for a VDDP =3D 0.8V. The hardware accepts discrete values=
+ in this range.
+> +
+> +required:
+> +  - "#phy-cells"
+> +  - compatible
+> +  - clocks
+> +  - clock-names
+> +  - reg
+> +  - resets
+> +  - reset-names
+> +  - st,syscfg
+
+The order here should reflect the ordering in a node, so compatible and
+reg first, rather than sorted alphanumerically.=20
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+> +
+> +    combophy: phy@480c0000 {
+
+You can drop the label here, it ain't used by anything.
+
+Cheers,
+Conor.
+
+> +        compatible =3D "st,stm32mp25-combophy";
+> +        reg =3D <0x480c0000 0x1000>;
+> +        #phy-cells =3D <1>;
+> +        clocks =3D <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>;
+> +        clock-names =3D "apb", "ker";
+> +        resets =3D <&rcc USB3PCIEPHY_R>;
+> +        reset-names =3D "phy";
+> +        st,syscfg =3D <&syscfg>;
+> +        access-controllers =3D <&rifsc 67>;
+> +        power-domains =3D <&CLUSTER_PD>;
+> +        wakeup-source;
+> +        interrupts-extended =3D <&exti1 45 IRQ_TYPE_EDGE_FALLING>;
+> +    };
+> +...
+> --=20
+> 2.34.1
+>=20
+
+--ZqexDgeCbf5zKW3c
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZs9MIAAKCRB4tDGHoIJi
+0rh1AQCPLBp07OqC6pb/M6pgsgJC3wD1Sth/EdmLd/aA+HbfbQD/UrdgsGoXy9Qq
+CdxZUx/rJtHiFAP20+3XyjwVb1Gy1gU=
+=onYf
+-----END PGP SIGNATURE-----
+
+--ZqexDgeCbf5zKW3c--
+
+--===============5890785782869848487==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5890785782869848487==--
