@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DE49627C3
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 14:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903669627DA
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Aug 2024 14:53:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B73DC6DD9A;
-	Wed, 28 Aug 2024 12:51:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B977C6DD9D;
+	Wed, 28 Aug 2024 12:53:39 +0000 (UTC)
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0EAAC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BC22C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Aug 2024 12:51:47 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.18.186.31])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Wv42944X3z6K6lm;
- Wed, 28 Aug 2024 20:47:45 +0800 (CST)
+ Wed, 28 Aug 2024 12:53:32 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.18.186.231])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Wv4510rtCz6K99X;
+ Wed, 28 Aug 2024 20:50:13 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (unknown [7.191.163.240])
- by mail.maildlp.com (Postfix) with ESMTPS id EC1F01400D1;
- Wed, 28 Aug 2024 20:51:46 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 6787A140B38;
+ Wed, 28 Aug 2024 20:53:31 +0800 (CST)
 Received: from localhost (10.203.177.66) by lhrpeml500005.china.huawei.com
  (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Wed, 28 Aug
- 2024 13:51:46 +0100
-Date: Wed, 28 Aug 2024 13:51:45 +0100
+ 2024 13:53:30 +0100
+Date: Wed, 28 Aug 2024 13:53:30 +0100
 From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 To: Jinjie Ruan <ruanjinjie@huawei.com>
-Message-ID: <20240828135145.00006138@Huawei.com>
-In-Reply-To: <20240828032343.1218749-13-ruanjinjie@huawei.com>
+Message-ID: <20240828135330.00002a59@Huawei.com>
+In-Reply-To: <20240828032343.1218749-14-ruanjinjie@huawei.com>
 References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
- <20240828032343.1218749-13-ruanjinjie@huawei.com>
+ <20240828032343.1218749-14-ruanjinjie@huawei.com>
 Organization: Huawei Technologies Research and Development (UK) Ltd.
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
@@ -48,8 +48,8 @@ Cc: andrew@lunn.ch, linus.walleij@linaro.org, justin.chen@broadcom.com,
  UNGLinuxDriver@microchip.com, mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk,
  olteanv@gmail.com, linux-sunxi@lists.linux.dev, davem@davemloft.net,
  jic23@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 12/13] net: bcmasp: Simplify
- with scoped for each OF child loop
+Subject: Re: [Linux-stm32] [PATCH net-next v2 13/13] net: bcmasp: Simplify
+	with __free()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,14 +66,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 28 Aug 2024 11:23:42 +0800
+On Wed, 28 Aug 2024 11:23:43 +0800
 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
 
-> Use scoped for_each_available_child_of_node_scoped() when
-> iterating over device nodes to make code a bit simpler.
+> Avoid need to manually handle of_node_put() by using __free(), which
+> can simplfy code.
 > 
 > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+
+Longer term I'd prefer to see a lot of this stuff replaced
+with firmware independent calls from property.h but in meantime
+these are nice cleanup.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
