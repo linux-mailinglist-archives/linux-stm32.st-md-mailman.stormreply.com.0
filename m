@@ -2,48 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17844964CFF
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 19:40:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 385319650FF
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 22:49:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9570C6DD6E;
-	Thu, 29 Aug 2024 17:40:11 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 353ECC6C855
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA489C6DD6E;
+	Thu, 29 Aug 2024 20:49:17 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CBEAC6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 17:40:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 056AAAE0809;
- Thu, 29 Aug 2024 17:39:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FD9C4CEC1;
- Thu, 29 Aug 2024 17:40:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1724953203;
- bh=FJZdOA7Q0uPGc88oS6ZR10j6KaxkBtmgc09InDkmcIc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f+9B65ki0D1IZzWGAGfVWOm/e2z7BGD3HPyL6kLl2jZ6bE18vDuZTbvrB0gojnnoc
- w6TiDAtWYNv2ZmzHGyJxl8tBOY8JlCLFhEtVdX/I+OpYTI5UJ2VB7ms6qxwFNMrTXM
- ouJCNK3XA/jBOyCeJ3LtGu5MIVHvxI999URnXH9VKCz3fjAMkfodm4rFhBX7Gf1Znf
- UyCK2wrLlls4W5z5kUOkVz/XiSXsO4Jrg4SpC+1gqwQ1fOeWPd7+ZVZANdppG1mw0N
- D0cmWLRdctG+AQsmK7tHz2Yyp6FMV5GLGirJwX7Itwqb9izrleggZSE8QyvfjsBHsM
- ITqUNk/SC0MUg==
-Date: Thu, 29 Aug 2024 23:09:59 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <ZtCyb7AzLmuUoBGT@vaman>
-References: <20240828143452.1407532-1-christian.bruel@foss.st.com>
- <20240828143452.1407532-3-christian.bruel@foss.st.com>
+ Thu, 29 Aug 2024 20:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1724964549;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=VFLjaq4t+p4ySJaRjHHMD+djaojUeqjD8JR+7Pp4jkk=;
+ b=h2mRxlhGpNNSCmA10MuMxL2Ffq/MSsiY6bRS8qxBbjKZEDUGpDCrMTYGLtJk2GInD5WDRs
+ vNu+vJvgMl19bwvoKbRGAdzVnjtGErJkNjHekW+AecwfrBa4ZMJ7RjzDcps0gkSJGfNbje
+ 5uqvTu4nJ4qdvXQNkEe9bO/JBlTnXQk=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-636-gEJKtoPENnCJ-6psmtkCGg-1; Thu, 29 Aug 2024 16:49:08 -0400
+X-MC-Unique: gEJKtoPENnCJ-6psmtkCGg-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-44ff196bbfaso14218221cf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 29 Aug 2024 13:49:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724964547; x=1725569347;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VFLjaq4t+p4ySJaRjHHMD+djaojUeqjD8JR+7Pp4jkk=;
+ b=f5o3FNTzUFGux8dIrPQCrGUwIS6/z89lSLH6zqEV9NejwzFvHdpzKEWjwR/XGiw9Pg
+ sAW0GUVpzaFvawv1/UathKE3/Pqr9u7xlBxN/iJLNiDO3Dg4bXYRACKsbXWPsxKvq4LB
+ +W1BcfdB8cWTu82CVzZT4l2nbgEtPfWA/1RgM3bD3kI4YrMJboeXtjd2egg1J0b2WbyH
+ za+tmKWm0TnlMIr97Vebil+3TbrmF4GWduvmdOi6SP6sTyC+GGDhaBwXPWwh9rCw6gqv
+ PNDYc+0sMNxVdi065F6oYIs+HCehqlEyA39E6ATqdKyePypPjTJZ35+E5kyQFWHt8Tb+
+ 16BQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWB4fi6mwUGnNDOWND9nZORyXQ9/mIETztkABr2cyz8Nqr4syXcpCkJAIa+ruOZQh5HBK/J3ntlSjXdQA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwlNT5UZSnCjlXGj91hunG6Hz4Lv41O7qSfmIejL+bGSI7TPqGj
+ yruvg6fcwyJXUUcsQy59RD8SfXIGfue+Si0eKRMWPC4PjTMGgpyBFdBfJIv9KtWAbFmZlmZXQas
+ K4eou6riXysT3Q1OPmZR2WxtwE6cDTW+J7jIhh1M3mokH2nfLyhLgZVVbUEFW3+XV25u+1l+WXU
+ y2NQ==
+X-Received: by 2002:a05:622a:578f:b0:453:5d83:6275 with SMTP id
+ d75a77b69052e-4567f580d8fmr43858681cf.34.1724964547720; 
+ Thu, 29 Aug 2024 13:49:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGeb+yBjMEz9BPdapOW3IkPpcjpvG1lfzUxlrzusYIy/pZk9xn7Op0zmI0YQmjcAC+y5+roSg==
+X-Received: by 2002:a05:622a:578f:b0:453:5d83:6275 with SMTP id
+ d75a77b69052e-4567f580d8fmr43858371cf.34.1724964547321; 
+ Thu, 29 Aug 2024 13:49:07 -0700 (PDT)
+Received: from x1gen2nano.local ([2600:1700:1ff0:d0e0::33])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-45682ce3058sm8168951cf.52.2024.08.29.13.49.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 13:49:06 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+Date: Thu, 29 Aug 2024 15:48:44 -0500
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240828143452.1407532-3-christian.bruel@foss.st.com>
-Cc: kishon@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-phy@lists.infradead.org, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/5] phy: stm32: Add support for
-	STM32MP25 COMBOPHY.
+Message-Id: <20240829-stmmac-no-ethtool-begin-v2-1-a11b497a7074@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAKze0GYC/3WNwQqDMBBEf0X23C3JNgj21P8oHmzcmIWalCSII
+ v57g/Tawxwew7zZIXMSznBvdki8SJYYKtClAeuHMDHKWBlIkVGGDOYyz4PFEJGLLzG+8cWTBHQ
+ 31TpyusZAXX8SO1lP8xMCFwy8Fuhr4yWXmLbzctFn/7N3f+2LRo3K2JY6q6029Eg8+qFcbZyhP
+ 47jC+FGFz3JAAAA
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Abhishek Chauhan <quic_abchauha@quicinc.com>, 
+ Sagar Cheluvegowda <quic_scheluve@quicinc.com>, 
+ Dmitry Dolenko <d.dolenko@metrotek.ru>
+X-Mailer: b4 0.14.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: netdev@vger.kernel.org, Andrew Halaney <ahalaney@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: drop the ethtool
+	begin() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,450 +100,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28-08-24, 16:34, Christian Bruel wrote:
-> Addition of the COMBOPHY driver found on STM32MP25 platforms
-> 
-> This single lane PHY is shared (exclusive) between the USB3 and PCIE
-> controllers.
-> Supports 5Gbit/s for PCIE gen2 or 2.5Gbit/s for PCIE gen1.
-> 
-> Supports wakeup-source capability to wakeup system using remote-wakeup
-> capable USB device
-> 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> ---
->  drivers/phy/st/Kconfig              |  11 +
->  drivers/phy/st/Makefile             |   1 +
->  drivers/phy/st/phy-stm32-combophy.c | 607 ++++++++++++++++++++++++++++
->  3 files changed, 619 insertions(+)
->  create mode 100644 drivers/phy/st/phy-stm32-combophy.c
-> 
-> diff --git a/drivers/phy/st/Kconfig b/drivers/phy/st/Kconfig
-> index 3fc3d0781fb8..304614b6dabf 100644
-> --- a/drivers/phy/st/Kconfig
-> +++ b/drivers/phy/st/Kconfig
-> @@ -33,6 +33,17 @@ config PHY_STIH407_USB
->  	  Enable this support to enable the picoPHY device used by USB2
->  	  and USB3 controllers on STMicroelectronics STiH407 SoC families.
->  
-> +config PHY_STM32_COMBOPHY
-> +	tristate "STMicroelectronics COMBOPHY driver for STM32MP25"
-> +	depends on ARCH_STM32 || COMPILE_TEST
-> +	select GENERIC_PHY
-> +	help
-> +	  Enable this to support the COMBOPHY device used by USB3 or PCIe
-> +	  controllers on STMicroelectronics STM32MP25 SoC.
-> +	  This driver controls the COMBOPHY block to generate the PCIe 100Mhz
-> +	  reference clock from either the external clock generator or HSE
-> +	  internal SoC clock source.
-> +
->  config PHY_STM32_USBPHYC
->  	tristate "STMicroelectronics STM32 USB HS PHY Controller driver"
->  	depends on ARCH_STM32 || COMPILE_TEST
-> diff --git a/drivers/phy/st/Makefile b/drivers/phy/st/Makefile
-> index c862dd937b64..cb80e954ea9f 100644
-> --- a/drivers/phy/st/Makefile
-> +++ b/drivers/phy/st/Makefile
-> @@ -3,4 +3,5 @@ obj-$(CONFIG_PHY_MIPHY28LP) 		+= phy-miphy28lp.o
->  obj-$(CONFIG_PHY_ST_SPEAR1310_MIPHY)	+= phy-spear1310-miphy.o
->  obj-$(CONFIG_PHY_ST_SPEAR1340_MIPHY)	+= phy-spear1340-miphy.o
->  obj-$(CONFIG_PHY_STIH407_USB)		+= phy-stih407-usb.o
-> +obj-$(CONFIG_PHY_STM32_COMBOPHY)	+= phy-stm32-combophy.o
->  obj-$(CONFIG_PHY_STM32_USBPHYC) 	+= phy-stm32-usbphyc.o
-> diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
-> new file mode 100644
-> index 000000000000..7cd4193b0277
-> --- /dev/null
-> +++ b/drivers/phy/st/phy-stm32-combophy.c
-> @@ -0,0 +1,607 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * STMicroelectronics COMBOPHY STM32MP25 Controller driver.
-> + *
-> + * Copyright (C) 2024 STMicroelectronics
-> + * Author: Christian Bruel <christian.bruel@foss.st.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <dt-bindings/phy/phy.h>
-> +
-> +#define SYSCFG_COMBOPHY_CR1 0x4C00
-> +#define SYSCFG_COMBOPHY_CR2 0x4C04
-> +#define SYSCFG_COMBOPHY_CR4 0x4C0C
-> +#define SYSCFG_COMBOPHY_CR5 0x4C10
-> +#define SYSCFG_COMBOPHY_SR  0x4C14
+This callback doesn't seem to serve much purpose, and prevents things
+like:
 
-Lowercase hex values please
+    - systemd.link files from disabling autonegotiation
+    - carrier detection in NetworkManager
+    - any ethtool setting
 
-> +#define SYSCFG_PCIEPRGCR    0x6080
-> +
-> +/* SYSCFG PCIEPRGCR */
-> +#define STM32MP25_PCIEPRGCR_EN	  BIT(0)
-> +#define STM32MP25_PCIEPRG_IMPCTRL_OHM     GENMASK(3, 1)
-> +#define STM32MP25_PCIEPRG_IMPCTRL_VSWING  GENMASK(5, 4)
-> +
-> +/* SYSCFG SYSCFG_COMBOPHY_SR */
-> +#define STM32MP25_PIPE0_PHYSTATUS BIT(1)
-> +
-> +/* SYSCFG CR1 */
-> +#define SYSCFG_COMBOPHY_CR1_REFUSEPAD BIT(0)
-> +#define SYSCFG_COMBOPHY_CR1_MPLLMULT GENMASK(7, 1)
-> +#define SYSCFG_COMBOPHY_CR1_REFCLKSEL GENMASK(16, 8)
-> +#define SYSCFG_COMBOPHY_CR1_REFCLKDIV2 BIT(17)
-> +#define SYSCFG_COMBOPHY_CR1_REFSSPEN BIT(18)
-> +#define SYSCFG_COMBOPHY_CR1_SSCEN BIT(19)
-> +
-> +/* SYSCFG CR4 */
-> +#define SYSCFG_COMBOPHY_CR4_RX0_EQ GENMASK(2, 0)
-> +
-> +#define MPLLMULT_19_2 (0x02u << 1)
-> +#define MPLLMULT_20   (0x7Du << 1)
-> +#define MPLLMULT_24   (0x68u << 1)
-> +#define MPLLMULT_25   (0x64u << 1)
-> +#define MPLLMULT_26   (0x60u << 1)
-> +#define MPLLMULT_38_4 (0x41u << 1)
-> +#define MPLLMULT_48   (0x6Cu << 1)
-> +#define MPLLMULT_50   (0x32u << 1)
-> +#define MPLLMULT_52   (0x30u << 1)
-> +#define MPLLMULT_100  (0x19u << 1)
-> +
-> +#define REFCLKSEL_0   0
-> +#define REFCLKSEL_1   (0x108u << 8)
-> +
-> +#define REFCLDIV_0    0
-> +
-> +/* SYSCFG CR2 */
-> +#define SYSCFG_COMBOPHY_CR2_MODESEL GENMASK(1, 0)
-> +#define SYSCFG_COMBOPHY_CR2_ISO_DIS BIT(15)
-> +
-> +#define COMBOPHY_MODESEL_PCIE 0
-> +#define COMBOPHY_MODESEL_USB  3
-> +
-> +/* SYSCFG CR5 */
-> +#define SYSCFG_COMBOPHY_CR5_COMMON_CLOCKS BIT(12)
-> +
-> +#define COMBOPHY_SUP_ANA_MPLL_LOOP_CTL 0xC0
-> +#define COMBOPHY_PROP_CNTRL GENMASK(7, 4)
-> +
-> +struct stm32_combophy {
-> +	struct phy *phy;
-> +	struct regmap *regmap;
-> +	struct device *dev;
-> +	void __iomem *base;
-> +	struct reset_control *phy_reset;
-> +	struct clk *phy_clk;
-> +	struct clk *pad_clk;
-> +	struct clk *ker_clk;
-> +	unsigned int type;
-> +	bool is_init;
-> +	int irq_wakeup;
-> +};
-> +
-> +struct clk_impedance  {
-> +	u32 microohm;
-> +	u32 vswing[4];
-> +};
-> +
-> +/*
-> + * lookup table to hold the settings needed for a ref clock frequency
-> + * impedance, the offset is used to set the IMP_CTL and DE_EMP bit of the
-> + * PRG_IMP_CTRL register
-> + */
-> +static const struct clk_impedance imp_lookup[] = {
-> +	{ 6090000, { 442000, 564000, 684000, 802000 } },
-> +	{ 5662000, { 528000, 621000, 712000, 803000 } },
-> +	{ 5292000, { 491000, 596000, 700000, 802000 } },
-> +	{ 4968000, { 558000, 640000, 722000, 803000 } },
-> +	{ 4684000, { 468000, 581000, 692000, 802000 } },
-> +	{ 4429000, { 554000, 613000, 717000, 803000 } },
-> +	{ 4204000, { 511000, 609000, 706000, 802000 } },
-> +	{ 3999000, { 571000, 648000, 726000, 803000 } }
-> +};
-> +
-> +static int stm32_impedance_tune(struct stm32_combophy *combophy)
-> +{
-> +	u8 imp_size = ARRAY_SIZE(imp_lookup);
-> +	u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
-> +	u8 imp_of, vswing_of;
-> +	u32 max_imp = imp_lookup[0].microohm;
-> +	u32 min_imp = imp_lookup[imp_size - 1].microohm;
+prior to userspace bringing the link up.
 
-table is ordered, pls mention that in comments somewhere
+The only fear I can think of is accessing unclocked resources due to
+pm_runtime, but ethtool ioctls handle that as of commit
+f32a21376573 ("ethtool: runtime-resume netdev parent before ethtool ioctl ops")
 
-> +	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
-> +	u32 min_vswing = imp_lookup[0].vswing[0];
-> +	u32 val;
-> +
-> +	if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
-> +		if (val < min_imp || val > max_imp) {
-> +			dev_err(combophy->dev, "Invalid value %u for output ohm\n", val);
-> +			return -EINVAL;
-> +		}
-> +
-> +		for (imp_of = 0 ; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
-> +			if (imp_lookup[imp_of].microohm <= val)
-> +				break;
-> +
-> +		dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
-> +			imp_lookup[imp_of].microohm);
-> +
-> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-> +				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
-> +				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-> +	} else {
-> +		regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
-> +		imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-> +	}
-> +
-> +	if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
-> +		if (val < min_vswing || val > max_vswing) {
-> +			dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
-> +			return -EINVAL;
-> +		}
-> +
-> +		for (vswing_of = 0 ; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
-> +			if (imp_lookup[imp_of].vswing[vswing_of] >= val)
-> +				break;
-> +
-> +		dev_dbg(combophy->dev, "Set %u microvolt swing\n",
-> +			 imp_lookup[imp_of].vswing[vswing_of]);
-> +
-> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-> +				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
-> +				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
-> +{
-> +	int ret;
-> +	u32 refclksel, pllmult, propcntrl, val;
-> +	u32 clk_rate;
-> +
-> +	if (combophy->pad_clk)
-> +		clk_rate = clk_get_rate(combophy->pad_clk);
-> +	else
-> +		clk_rate = clk_get_rate(combophy->ker_clk);
-> +
-> +	reset_control_assert(combophy->phy_reset);
-> +
-> +	dev_dbg(combophy->dev, "%s pll init rate %d\n",
-> +		combophy->pad_clk ? "External" : "Ker", clk_rate);
-> +
-> +	/*
-> +	 * vddcombophy is interconnected with vddcore. Isolation bit should be unset
-> +	 * before using the ComboPHY.
-> +	 */
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
-> +			   SYSCFG_COMBOPHY_CR2_ISO_DIS, SYSCFG_COMBOPHY_CR2_ISO_DIS);
-> +
-> +	if (combophy->type != PHY_TYPE_PCIE)
-> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +				   SYSCFG_COMBOPHY_CR1_REFSSPEN, SYSCFG_COMBOPHY_CR1_REFSSPEN);
-> +
-> +	if (combophy->type == PHY_TYPE_PCIE && !combophy->pad_clk)
-> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-> +				   STM32MP25_PCIEPRGCR_EN, STM32MP25_PCIEPRGCR_EN);
-> +
-> +	if (of_property_read_bool(combophy->dev->of_node, "st,ssc-on")) {
-> +		dev_dbg(combophy->dev, "Enabling clock with SSC\n");
-> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +				   SYSCFG_COMBOPHY_CR1_SSCEN, SYSCFG_COMBOPHY_CR1_SSCEN);
-> +	}
-> +
-> +	if (!of_property_read_u32(combophy->dev->of_node, "st,rx-equalizer", &val)) {
-> +		dev_dbg(combophy->dev, "Set RX equalizer %u\n", val);
-> +		if (val > SYSCFG_COMBOPHY_CR4_RX0_EQ) {
-> +			dev_err(combophy->dev, "Invalid value %u for rx0 equalizer\n", val);
-> +			return -EINVAL;
-> +		}
-> +
-> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR4,
-> +			   SYSCFG_COMBOPHY_CR4_RX0_EQ, val);
-> +	}
-> +
-> +	if (combophy->type == PHY_TYPE_PCIE) {
-> +		ret = stm32_impedance_tune(combophy);
-> +		if (ret) {
-> +			reset_control_deassert(combophy->phy_reset);
-> +			goto out;
-> +		}
-> +
-> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +				   SYSCFG_COMBOPHY_CR1_REFUSEPAD,
-> +				   combophy->pad_clk ? SYSCFG_COMBOPHY_CR1_REFUSEPAD : 0);
-> +	}
-> +
-> +	switch (clk_rate) {
-> +	case 100000000:
-> +		pllmult = MPLLMULT_100;
-> +		refclksel = REFCLKSEL_0;
-> +		propcntrl = 0x8u << 4;
-> +		break;
-> +	case 19200000:
-> +		pllmult = MPLLMULT_19_2;
-> +		refclksel = REFCLKSEL_1;
-> +		propcntrl = 0x8u << 4;
-> +		break;
-> +	case 25000000:
-> +		pllmult = MPLLMULT_25;
-> +		refclksel = REFCLKSEL_0;
-> +		propcntrl = 0xEu << 4;
-> +		break;
-> +	case 24000000:
-> +		pllmult = MPLLMULT_24;
-> +		refclksel = REFCLKSEL_1;
-> +		propcntrl = 0xEu << 4;
-> +		break;
-> +	case 20000000:
-> +		pllmult = MPLLMULT_20;
-> +		refclksel = REFCLKSEL_0;
-> +		propcntrl = 0xEu << 4;
-> +		break;
-> +	default:
-> +		dev_err(combophy->dev, "Invalid rate 0x%x\n", clk_rate);
-> +		reset_control_deassert(combophy->phy_reset);
-> +		ret = -EINVAL;
-> +		goto out;
-> +	};
-> +
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +			   SYSCFG_COMBOPHY_CR1_REFCLKDIV2, REFCLDIV_0);
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +			   SYSCFG_COMBOPHY_CR1_REFCLKSEL, refclksel);
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +			   SYSCFG_COMBOPHY_CR1_MPLLMULT, pllmult);
-> +
-> +	/*
-> +	 * Force elasticity buffer to be tuned for the reference clock as
-> +	 * the separated clock model is not supported
-> +	 */
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR5,
-> +			   SYSCFG_COMBOPHY_CR5_COMMON_CLOCKS, SYSCFG_COMBOPHY_CR5_COMMON_CLOCKS);
-> +
-> +	reset_control_deassert(combophy->phy_reset);
-> +
-> +	ret = regmap_read_poll_timeout(combophy->regmap, SYSCFG_COMBOPHY_SR, val,
-> +				       !(val & STM32MP25_PIPE0_PHYSTATUS),
-> +				       10, 1000);
-> +	if (ret) {
-> +		dev_err(combophy->dev, "timeout, cannot lock PLL\n");
-> +		goto out;
-> +	}
-> +
-> +	if (combophy->type == PHY_TYPE_PCIE) {
-> +		val = readl_relaxed(combophy->base + COMBOPHY_SUP_ANA_MPLL_LOOP_CTL);
-> +		val &= ~COMBOPHY_PROP_CNTRL;
-> +		val |= propcntrl;
-> +		writel_relaxed(val, combophy->base + COMBOPHY_SUP_ANA_MPLL_LOOP_CTL);
-> +	}
-> +
-> +	return 0;
-> +
-> +out:
-> +	if (combophy->type == PHY_TYPE_PCIE && !combophy->pad_clk)
-> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-> +				   STM32MP25_PCIEPRGCR_EN, 0);
-> +
-> +	if (combophy->type != PHY_TYPE_PCIE)
-> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
-> +				   SYSCFG_COMBOPHY_CR1_REFSSPEN, 0);
-> +
-> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
-> +			   SYSCFG_COMBOPHY_CR2_ISO_DIS, 0);
-> +
-> +	return ret;
-> +}
-> +
-> +static struct phy *stm32_combophy_xlate(struct device *dev,
-> +					const struct of_phandle_args *args)
-> +{
-> +	struct stm32_combophy *combophy = dev_get_drvdata(dev);
-> +	unsigned int type;
-> +
-> +	if (args->args_count != 1) {
-> +		dev_err(dev, "invalid number of cells in 'phy' property\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	type = args->args[0];
-> +	if (type != PHY_TYPE_USB3 && type != PHY_TYPE_PCIE) {
-> +		dev_err(dev, "unsupported device type: %d\n", type);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	if (combophy->pad_clk && type != PHY_TYPE_PCIE) {
-> +		dev_err(dev, "Invalid use of clk_pad for USB3 mode\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	combophy->type = type;
-> +
-> +	return combophy->phy;
-> +}
-> +
-> +static int stm32_combophy_set_mode(struct stm32_combophy *combophy)
-> +{
-> +	int type = combophy->type;
-> +	u32 val;
-> +
-> +	switch (type) {
-> +	case PHY_TYPE_PCIE:
-> +		dev_dbg(combophy->dev, "setting PCIe ComboPHY\n");
-> +		val = COMBOPHY_MODESEL_PCIE;
-> +		break;
-> +	case PHY_TYPE_USB3:
-> +		dev_dbg(combophy->dev, "setting USB3 ComboPHY\n");
-> +		val = COMBOPHY_MODESEL_USB;
-> +		break;
-> +	default:
-> +		dev_err(combophy->dev, "Invalid PHY mode %d\n", type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
-> +				  SYSCFG_COMBOPHY_CR2_MODESEL, val);
-> +}
-> +
-> +static int stm32_combophy_enable_clocks(struct stm32_combophy *combophy)
-> +{
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(combophy->phy_clk);
-> +	if (ret) {
-> +		dev_err(combophy->dev, "Core clock enable failed %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare_enable(combophy->ker_clk);
-> +	if (ret) {
-> +		dev_err(combophy->dev, "ker_usb3pcie clock enable failed %d\n", ret);
-> +		clk_disable_unprepare(combophy->phy_clk);
-> +		return ret;
-> +	}
-> +
-> +	if (combophy->pad_clk) {
-> +		ret = clk_prepare_enable(combophy->pad_clk);
-> +		if (ret) {
-> +			dev_err(combophy->dev, "External clock enable failed %d\n", ret);
-> +			clk_disable_unprepare(combophy->ker_clk);
-> +			clk_disable_unprepare(combophy->phy_clk);
-> +			return ret;
-> +		}
-> +	}
+Reviewed-by: Dmitry Dolenko <d.dolenko@metrotek.ru>
+Tested-by: Dmitry Dolenko <d.dolenko@metrotek.ru>
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+Changes in v2:
+- Rebase on next-20240829
+- Drop RFC/RFT tags, add Dmitry's Review/Test tag
+- Link to v1: https://lore.kernel.org/r/20240429-stmmac-no-ethtool-begin-v1-1-04c629c1c142@redhat.com
 
-Can you use bulk_prepare for this?
+I'd still like a few more folks to test this to feel more confident that
+I'm not breaking anyone, but at least I've gotten one on list feedback
+and one off list that its fine for them.
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 7008219fd88d..220c582904f4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -438,13 +438,6 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
+ 
+ }
+ 
+-static int stmmac_check_if_running(struct net_device *dev)
+-{
+-	if (!netif_running(dev))
+-		return -EBUSY;
+-	return 0;
+-}
+-
+ static int stmmac_ethtool_get_regs_len(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+@@ -1273,7 +1266,6 @@ static int stmmac_set_tunable(struct net_device *dev,
+ static const struct ethtool_ops stmmac_ethtool_ops = {
+ 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
+ 				     ETHTOOL_COALESCE_MAX_FRAMES,
+-	.begin = stmmac_check_if_running,
+ 	.get_drvinfo = stmmac_ethtool_getdrvinfo,
+ 	.get_msglevel = stmmac_ethtool_getmsglevel,
+ 	.set_msglevel = stmmac_ethtool_setmsglevel,
+
+---
+base-commit: b18bbfc14a38b5234e09c2adcf713e38063a7e6e
+change-id: 20240424-stmmac-no-ethtool-begin-f306f2f1f2f4
+
+Best regards,
 -- 
-~Vinod
+Andrew Halaney <ahalaney@redhat.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
