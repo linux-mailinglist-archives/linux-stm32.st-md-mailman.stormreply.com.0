@@ -2,69 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F11D9642AB
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 13:07:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 871E59644BF
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 14:39:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B926EC6DD6E;
-	Thu, 29 Aug 2024 11:07:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 391CFC6DD6E;
+	Thu, 29 Aug 2024 12:39:39 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6040EC6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CECFC6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 11:07:24 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47T8VC3O013994;
- Thu, 29 Aug 2024 13:07:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- Jw191MdcLJDiHz3SnaEKXrLm1BcBizdG8CQxgijglLY=; b=VL/3cTgyTbAiUU9E
- d/pxaR8rJ77F2XQhP+ORaN8RJG1fUzx3CNuEPRnmpXxVp3h8+4UEDzje1YFeGlDQ
- DUMiel3vP9vEp7MYqSmcU1erpERSGsGw2sfsn8gd0kqRcxb4fg70XaJHVb2HbJ7D
- Ckke1PkQze2FyDbXrG8wcHJH/6RpOeAIzHx0pUXTAY6RxUPbVoH0jmjMFUixScOx
- UCKlkS4LxSYnvHGj67f5ZIBCnI+diqMEafJR/kmjs5CWLKS5DXzfnUKbFwwR2NgO
- HE68gZ+FLQdac/vntBD9NIzuhTr6B7jJyOmo6cU6FOgUGfkskAWytnqFPJ7AahkK
- o2Pbxw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41a4y649qr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Aug 2024 13:07:10 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4044B4002D;
- Thu, 29 Aug 2024 13:07:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E71BF25ED6F;
- Thu, 29 Aug 2024 13:07:00 +0200 (CEST)
-Received: from [10.129.178.212] (10.129.178.212) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 29 Aug
- 2024 13:07:00 +0200
-Message-ID: <005a2f7d-ab46-46c8-a0cc-b343685caf7c@foss.st.com>
-Date: Thu, 29 Aug 2024 13:06:53 +0200
+ Thu, 29 Aug 2024 12:39:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=+QyTeQW/As9IjRzVOrP1/IZ7Jkku9UOdmdk9zFQWvDM=; b=20KMQELyV/A1PdZDXK1xNzAzDD
+ yEKZShA/slL4ITbRl/MDrnlwoljjq5bv44f4wQcfBH67lWv9obxeK0rVT25FuDKpmpCx3AkVT4zEx
+ 2vzJT+sjP4HMw7ZOKajAJMEajW9AheAL2BzfXrKFZzoMj5Xfdeck5vT6dBHd4FKPkxKo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sjeQU-00621R-6Z; Thu, 29 Aug 2024 14:38:58 +0200
+Date: Thu, 29 Aug 2024 14:38:58 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Message-ID: <df7418a8-1626-4207-b23e-7f0dc3d83164@lunn.ch>
+References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
+ <20240828032343.1218749-9-ruanjinjie@huawei.com>
+ <20240828134814.0000569d@Huawei.com>
+ <c696926d-748f-1969-f684-727d495c4a12@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Conor Dooley <conor@kernel.org>
-References: <20240828143452.1407532-1-christian.bruel@foss.st.com>
- <20240828143452.1407532-2-christian.bruel@foss.st.com>
- <20240828-handsfree-overarch-cd1af26cb0c5@spud>
-Content-Language: en-US
-From: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20240828-handsfree-overarch-cd1af26cb0c5@spud>
-X-Originating-IP: [10.129.178.212]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-29_02,2024-08-29_02,2024-05-17_01
-Cc: kishon@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
- linux-phy@lists.infradead.org, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/5] dt-bindings: phy: Add STM32MP25
-	COMBOPHY bindings
+Content-Disposition: inline
+In-Reply-To: <c696926d-748f-1969-f684-727d495c4a12@huawei.com>
+Cc: linus.walleij@linaro.org, justin.chen@broadcom.com, edumazet@google.com,
+ krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ f.fainelli@gmail.com, samuel@sholland.org, linux@armlinux.org.uk,
+ jernej.skrabec@gmail.com, wens@csie.org, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ ansuelsmth@gmail.com, sebastian.hesselbarth@gmail.com,
+ woojung.huh@microchip.com, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, UNGLinuxDriver@microchip.com,
+ mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk, olteanv@gmail.com,
+ linux-sunxi@lists.linux.dev, davem@davemloft.net, jic23@kernel.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 08/13] net: mdio: mux-mmioreg:
+ Simplified with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,120 +60,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8yOC8yNCAxODoxMSwgQ29ub3IgRG9vbGV5IHdyb3RlOgo+IE9uIFdlZCwgQXVnIDI4LCAy
-MDI0IGF0IDA0OjM0OjQ4UE0gKzAyMDAsIENocmlzdGlhbiBCcnVlbCB3cm90ZToKPj4gRG9jdW1l
-bnQgdGhlIGJpbmRpbmdzIGZvciBTVE0zMiBDT01CT1BIWSBpbnRlcmZhY2UsIHVzZWQgdG8gc3Vw
-cG9ydAo+PiB0aGUgUENJZSBhbmQgVVNCMyBzdG0zMm1wMjUgZHJpdmVycy4KPj4gRm9sbG93aW5n
-IGVudHJpZXMgY2FuIGJlIHVzZWQgdG8gdHVuZSBjYXJhY3RlcmlzYXRpb24gcGFyYW1ldGVycwo+
-PiAgIC0gc3Qsb3V0cHV0LW1pY3JvLW9obXMgYW5kIHN0LG91dHB1dC12c3dpbmctbWljcm92b2x0
-IGJpbmRpbmdzIGVudHJpZXMKPj4gdG8gdHVuZSB0aGUgaW1wZWRhbmNlIGFuZCB2b2x0YWdlIHN3
-aW5nIHVzaW5nIGRpc2NyZXRlIHNpbXVsYXRpb24gcmVzdWx0cwo+PiAgIC0gc3QscngtZXF1YWxp
-emVyIHJlZ2lzdGVyIHRvIHNldCB0aGUgaW50ZXJuYWwgcnggZXF1YWxpemVyIGZpbHRlciB2YWx1
-ZS4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEJydWVsIDxjaHJpc3RpYW4uYnJ1ZWxA
-Zm9zcy5zdC5jb20+Cj4+IC0tLQo+PiAgIC4uLi9iaW5kaW5ncy9waHkvc3Qsc3RtMzJtcDI1LWNv
-bWJvcGh5LnlhbWwgICB8IDEyOCArKysrKysrKysrKysrKysrKysKPj4gICAxIGZpbGUgY2hhbmdl
-ZCwgMTI4IGluc2VydGlvbnMoKykKPj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlv
-bi9kZXZpY2V0cmVlL2JpbmRpbmdzL3BoeS9zdCxzdG0zMm1wMjUtY29tYm9waHkueWFtbAo+Pgo+
-PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3BoeS9zdCxz
-dG0zMm1wMjUtY29tYm9waHkueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9waHkvc3Qsc3RtMzJtcDI1LWNvbWJvcGh5LnlhbWwKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQK
-Pj4gaW5kZXggMDAwMDAwMDAwMDAwLi44ZDRhNDBiOTQ1MDcKPj4gLS0tIC9kZXYvbnVsbAo+PiAr
-KysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGh5L3N0LHN0bTMybXAyNS1j
-b21ib3BoeS55YW1sCj4+IEBAIC0wLDAgKzEsMTI4IEBACj4+ICsjIFNQRFgtTGljZW5zZS1JZGVu
-dGlmaWVyOiAoR1BMLTIuMCBPUiBCU0QtMi1DbGF1c2UpCj4+ICslWUFNTCAxLjIKPj4gKy0tLQo+
-PiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9waHkvc3Qsc3RtMzJtcDI1LWNv
-bWJvcGh5LnlhbWwjCj4+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hl
-bWFzL2NvcmUueWFtbCMKPj4gKwo+PiArdGl0bGU6IFNUTWljcm9lbGVjdHJvbmljcyBTVE0zMk1Q
-MjUgVVNCMy9QQ0llIENPTUJPUEhZCj4+ICsKPj4gK21haW50YWluZXJzOgo+PiArICAtIENocmlz
-dGlhbiBCcnVlbCA8Y2hyaXN0aWFuLmJydWVsQGZvc3Muc3QuY29tPgo+PiArCj4+ICtkZXNjcmlw
-dGlvbjoKPj4gKyAgU2luZ2xlIGxhbmUgUEhZIHNoYXJlZCAoZXhjbHVzaXZlKSBiZXR3ZWVuIHRo
-ZSBVU0IzIGFuZCBQQ0llIGNvbnRyb2xsZXJzLgo+PiArICBTdXBwb3J0cyA1R2JpdC9zIGZvciBV
-U0IzIGFuZCBQQ0llIGdlbjIgb3IgMi41R2JpdC9zIGZvciBQQ0llIGdlbjEuCj4+ICsKPj4gK3By
-b3BlcnRpZXM6Cj4+ICsgIGNvbXBhdGlibGU6Cj4+ICsgICAgY29uc3Q6IHN0LHN0bTMybXAyNS1j
-b21ib3BoeQo+PiArCj4+ICsgIHJlZzoKPj4gKyAgICBtYXhJdGVtczogMQo+PiArCj4+ICsgICIj
-cGh5LWNlbGxzIjoKPj4gKyAgICBjb25zdDogMQo+PiArCj4+ICsgIGNsb2NrczoKPj4gKyAgICBt
-aW5JdGVtczogMgo+PiArICAgIGl0ZW1zOgo+PiArICAgICAgLSBkZXNjcmlwdGlvbjogYXBiIEJ1
-cyBjbG9jayBtYW5kYXRvcnkgdG8gYWNjZXNzIHJlZ2lzdGVycy4KPj4gKyAgICAgIC0gZGVzY3Jp
-cHRpb246IGtlciBJbnRlcm5hbCBSQ0MgcmVmZXJlbmNlIGNsb2NrIGZvciBVU0IzIG9yIFBDSWUK
-Pj4gKyAgICAgIC0gZGVzY3JpcHRpb246IHBhZCBPcHRpb25hbCBvbiBib2FyZCBjbG9jayBpbnB1
-dCBmb3IgUENJZSBvbmx5LiBUeXBpY2FsbHkgYW4KPj4gKyAgICAgICAgICAgICAgICAgICAgIGV4
-dGVybmFsIDEwME1oeiBvc2NpbGxhdG9yIHdpcmVkIG9uIGRlZGljYXRlZCBDTEtJTiBwYWQuIFVz
-ZWQgYXMgcmVmZXJlbmNlCj4+ICsgICAgICAgICAgICAgICAgICAgICBjbG9jayBpbnB1dCBpbnN0
-ZWFkIG9mIHRoZSBrZXIKPj4gKwo+PiArICBjbG9jay1uYW1lczoKPj4gKyAgICBtaW5JdGVtczog
-Mgo+PiArICAgIGl0ZW1zOgo+PiArICAgICAgLSBjb25zdDogYXBiCj4+ICsgICAgICAtIGNvbnN0
-OiBrZXIKPj4gKyAgICAgIC0gY29uc3Q6IHBhZAo+PiArCj4+ICsgIHJlc2V0czoKPj4gKyAgICBt
-YXhJdGVtczogMQo+PiArCj4+ICsgIHJlc2V0LW5hbWVzOgo+PiArICAgIGNvbnN0OiBwaHkKPj4g
-Kwo+PiArICBwb3dlci1kb21haW5zOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+ICsKPj4gKyAgd2Fr
-ZXVwLXNvdXJjZTogdHJ1ZQo+PiArCj4+ICsgIGludGVycnVwdHM6Cj4+ICsgICAgbWF4SXRlbXM6
-IDEKPj4gKyAgICBkZXNjcmlwdGlvbjogaW50ZXJydXB0IHVzZWQgZm9yIHdha2V1cAo+PiArCj4+
-ICsgIGFjY2Vzcy1jb250cm9sbGVyczoKPj4gKyAgICBtaW5JdGVtczogMQo+PiArICAgIG1heEl0
-ZW1zOiAyCj4gQ2FuIHlvdSBwbGVhc2UgZGVzY3JpYmUgdGhlIGl0ZW1zIGhlcmU/CgpJIGNhbiBz
-cGVjaWFsaXplIHRoZSBkZXNjcmlwdGlvbjogIlBoYW5kbGUgdG8gdGhlIHJpZnNjIGZpcmV3YWxs
-IGRldmljZSB0byBjaGVjayBhY2Nlc3MgcmlnaHQuIgoKb3RoZXJ3aXNlIGRlc2NyaWJlZCBpbiBh
-Y2Nlc3MtY29udHJvbGxlcnMvYWNjZXNzLWNvbnRyb2xsZXJzLnlhbWwsIHNlZSBhbHNvIGJpbmRp
-bmdzL2J1cy9zdCxzdG0zMm1wMjUtcmlmc2MueWFtbAoKPgo+PiArICBzdCxzeXNjZmc6Cj4+ICsg
-ICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZQo+PiArICAg
-IGRlc2NyaXB0aW9uOiBQaGFuZGxlIHRvIHRoZSBTWVNDT04gZW50cnkgcmVxdWlyZWQgZm9yIGNv
-bmZpZ3VyaW5nIFBDSWUKPj4gKyAgICAgIG9yIFVTQjMuCj4gV2h5IGlzIGEgcGhhbmRsZSByZXF1
-aXJlZCBmb3IgdGhpcyBsb29rdXAsIHJhdGhlciB0aGFuIGRvaW5nIGl0IGJ5Cj4gY29tcGF0aWJs
-ZT8KCnRoZSBwaGFuZGxlIGlzIHVzZWQgdG8gc2VsZWN0IHRoZSBzeXNjb25mIFNvQyBjb25maWd1
-cmF0aW9uIHJlZ2lzdGVyIApkZXBlbmRpbmcgb24gdGhlIFBDSWUvVVNCMyBtb2RlIChzZWxlY3Rl
-ZCBiecKgeGxhdGUgZnVuY3Rpb24pLCBzbyBpdCdzIApub3QgbGlrZSBhIGxvb2t1cCBoZXJlLiBU
-aGlzIHN5c2NvbmYgcmVnaXN0ZXIgaXMgYWxzbyB1c2VkIGZvciBvdGhlciAKc2V0dGluZ3Mgc3Vj
-aCBhcyB0aGUgUExMLCBSZWZlcmVuY2UgY2xvY2sgc2VsZWN0aW9uLCAuLi4KCj4KPj4gKwo+PiAr
-ICBzdCxzc2Mtb246Cj4+ICsgICAgdHlwZTogYm9vbGVhbgo+IGZsYWcsIG5vdCBib29sZWFuLCBm
-b3IgcHJlc2VuY2UgYmFzZWQgc3R1ZmYuIEFuZCBpbiB0aGUgZHJpdmVyLAo+IHMvb2ZfcHJvcGVy
-dHlfcmVhZF9ib29sL29mX3Byb3BlcnR5X3ByZXNlbnQvLgoKb2sKCj4KPj4gKyAgICBkZXNjcmlw
-dGlvbjoKPj4gKyAgICAgIEEgYm9vbGVhbiBwcm9wZXJ0eSB3aG9zZSBwcmVzZW5jZSBpbmRpY2F0
-ZXMgdGhhdCB0aGUgU1NDIGZvciBjb21tb24gY2xvY2sKPj4gKyAgICAgIG5lZWRzIHRvIGJlIHNl
-dC4KPiBBbmQgd2hhdCwgbWF5IEkgYXNrLCBkb2VzICJTU0MiIG1lYW4/ICJDb21tb24gY2xvY2si
-IGlzIGFsc28gYSBiaXQgb2YgYQo+ICJsaW51eGlzbSIsIHdoYXQgZG9lcyB0aGlzIGFjdHVhbGx5
-IGRvIGluIHRoZSBoYXJkd2FyZSBibG9jaz8KClNTQyBmb3IgU3ByZWFkIFNwZWN0cnVtIENsb2Nr
-aW5nLiBJdCBpcyBhbiBoYXJkd2FyZSBzZXR0aW5nIGZvciB0aGUgMTAwTWh6IFBDSWUgcmVmZXJl
-bmNlIGNvbW1vbiBjbG9jaywKSSB3aWxsIHJlcGhyYXNlIHRoZSBkZXNjcmlwdGlvbgoKPgo+PiAr
-Cj4+ICsgIHN0LHJ4LWVxdWFsaXplcjoKPj4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1s
-Iy9kZWZpbml0aW9ucy91aW50MzIKPj4gKyAgICBtaW5pbXVtOiAwCj4+ICsgICAgbWF4aW11bTog
-Nwo+PiArICAgIGRlZmF1bHQ6IDIKPj4gKyAgICBkZXNjcmlwdGlvbjoKPj4gKyAgICAgIEEgMyBi
-aXQgdmFsdWUgdG8gdHVuZSB0aGUgUlggZml4ZWQgZXF1YWxpemVyIHNldHRpbmcgZm9yIG9wdGlt
-YWwgZXllIGNvbXBsaWFuY2UKPj4gKwo+PiArICBzdCxvdXRwdXQtbWljcm8tb2htczoKPj4gKyAg
-ICBtaW5pbXVtOiAzOTk5MDAwCj4+ICsgICAgbWF4aW11bTogNjA5MDAwMAo+PiArICAgIGRlZmF1
-bHQ6IDQ5NjgwMDAKPj4gKyAgICBkZXNjcmlwdGlvbjoKPj4gKyAgICAgIEEgdmFsdWUgcHJvcGVy
-dHkgdG8gdHVuZSB0aGUgU2luZ2xlIEVuZGVkIE91dHB1dCBJbXBlZGFuY2UsIHNpbXVsYXRpb25z
-IHJlc3VsdHMKPj4gKyAgICAgIGF0IDI1QyBmb3IgYSBWRERQPTAuOFYuIFRoZSBoYXJkd2FyZSBh
-Y2NlcHRzIGRpc2NyZXRlIHZhbHVlcyBpbiB0aGlzIHJhbmdlLgo+PiArCj4+ICsgIHN0LG91dHB1
-dC12c3dpbmctbWljcm92b2x0Ogo+PiArICAgIG1pbmltdW06IDQ0MjAwMAo+PiArICAgIG1heGlt
-dW06IDgwMzAwMAo+PiArICAgIGRlZmF1bHQ6IDgwMzAwMAo+PiArICAgIGRlc2NyaXB0aW9uOgo+
-PiArICAgICAgQSB2YWx1ZSBwcm9wZXJ0eSBpbiBtaWNyb3ZvbHQgdG8gdHVuZSB0aGUgU2luZ2xl
-IEVuZGVkIE91dHB1dCBWb2x0YWdlIFN3aW5nIHRvIGNoYW5nZSB0aGUKPj4gKyAgICAgIFZsbywg
-VmhpIGZvciBhIFZERFAgPSAwLjhWLiBUaGUgaGFyZHdhcmUgYWNjZXB0cyBkaXNjcmV0ZSB2YWx1
-ZXMgaW4gdGhpcyByYW5nZS4KPj4gKwo+PiArcmVxdWlyZWQ6Cj4+ICsgIC0gIiNwaHktY2VsbHMi
-Cj4+ICsgIC0gY29tcGF0aWJsZQo+PiArICAtIGNsb2Nrcwo+PiArICAtIGNsb2NrLW5hbWVzCj4+
-ICsgIC0gcmVnCj4+ICsgIC0gcmVzZXRzCj4+ICsgIC0gcmVzZXQtbmFtZXMKPj4gKyAgLSBzdCxz
-eXNjZmcKPiBUaGUgb3JkZXIgaGVyZSBzaG91bGQgcmVmbGVjdCB0aGUgb3JkZXJpbmcgaW4gYSBu
-b2RlLCBzbyBjb21wYXRpYmxlIGFuZAo+IHJlZyBmaXJzdCwgcmF0aGVyIHRoYW4gc29ydGVkIGFs
-cGhhbnVtZXJpY2FsbHkuCgpvawoKPj4gKwo+PiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNl
-Cj4+ICsKPj4gK2V4YW1wbGVzOgo+PiArICAtIHwKPj4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGlu
-Z3MvY2xvY2svc3Qsc3RtMzJtcDI1LXJjYy5oPgo+PiArICAgICNpbmNsdWRlIDxkdC1iaW5kaW5n
-cy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2ljLmg+Cj4+ICsgICAgI2luY2x1ZGUgPGR0LWJp
-bmRpbmdzL3Jlc2V0L3N0LHN0bTMybXAyNS1yY2MuaD4KPj4gKwo+PiArICAgIGNvbWJvcGh5OiBw
-aHlANDgwYzAwMDAgewo+IFlvdSBjYW4gZHJvcCB0aGUgbGFiZWwgaGVyZSwgaXQgYWluJ3QgdXNl
-ZCBieSBhbnl0aGluZy4KCm9rCgp0aGFua3MsCkNocmlzdGlhbgoKPgo+IENoZWVycywKPiBDb25v
-ci4KPgo+PiArICAgICAgICBjb21wYXRpYmxlID0gInN0LHN0bTMybXAyNS1jb21ib3BoeSI7Cj4+
-ICsgICAgICAgIHJlZyA9IDwweDQ4MGMwMDAwIDB4MTAwMD47Cj4+ICsgICAgICAgICNwaHktY2Vs
-bHMgPSA8MT47Cj4+ICsgICAgICAgIGNsb2NrcyA9IDwmcmNjIENLX0JVU19VU0IzUENJRVBIWT4s
-IDwmcmNjIENLX0tFUl9VU0IzUENJRVBIWT47Cj4+ICsgICAgICAgIGNsb2NrLW5hbWVzID0gImFw
-YiIsICJrZXIiOwo+PiArICAgICAgICByZXNldHMgPSA8JnJjYyBVU0IzUENJRVBIWV9SPjsKPj4g
-KyAgICAgICAgcmVzZXQtbmFtZXMgPSAicGh5IjsKPj4gKyAgICAgICAgc3Qsc3lzY2ZnID0gPCZz
-eXNjZmc+Owo+PiArICAgICAgICBhY2Nlc3MtY29udHJvbGxlcnMgPSA8JnJpZnNjIDY3PjsKPj4g
-KyAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmQ0xVU1RFUl9QRD47Cj4+ICsgICAgICAgIHdha2V1
-cC1zb3VyY2U7Cj4+ICsgICAgICAgIGludGVycnVwdHMtZXh0ZW5kZWQgPSA8JmV4dGkxIDQ1IElS
-UV9UWVBFX0VER0VfRkFMTElORz47Cj4+ICsgICAgfTsKPj4gKy4uLgo+PiAtLSAKPj4gMi4zNC4x
-Cj4+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+> >> +		if ((u32)reg & ~s->mask)
+> >> +			return dev_err_probe(&pdev->dev, -ENODEV,
+> >> +					     "mdio-mux child node %pOF has a 'reg' value with unmasked bits\n",
+> > I'd align these super long ones as. 
+> > 			     "mdio-mux child node %pOF has a 'reg' value with unmasked bits\n",
+> > It is ugly but then so are > 100 char lines.
+> 
+> It seems that this kind string > 100 char is fine for patch check script.
+
+Strings like this can ignore the 80 char limit because developers are
+going to grep for it when it shows up in their kernel log. If it gets
+broken in odd places, grep will not find it.
+
+I would also say the indentation is correct as is, level with &pdev.
+
+	Andrew
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
