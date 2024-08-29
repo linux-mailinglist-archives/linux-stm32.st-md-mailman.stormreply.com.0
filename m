@@ -2,44 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83B29638A8
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 05:11:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC869638C6
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 05:27:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A168C6B45B;
-	Thu, 29 Aug 2024 03:11:22 +0000 (UTC)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22250C6DD6E;
+	Thu, 29 Aug 2024 03:27:12 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDFBEC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC1B6C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 03:11:14 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.17])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4WvRBD1Lx7z2DbYd;
- Thu, 29 Aug 2024 11:11:00 +0800 (CST)
+ Thu, 29 Aug 2024 03:27:03 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.105])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4WvRWm3J4Bz18MpC;
+ Thu, 29 Aug 2024 11:26:12 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 5F5BF1A0188;
- Thu, 29 Aug 2024 11:11:12 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 85A8C1401F2;
+ Thu, 29 Aug 2024 11:27:01 +0800 (CST)
 Received: from [10.67.109.254] (10.67.109.254) by
  kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 29 Aug 2024 11:11:11 +0800
-Message-ID: <c696926d-748f-1969-f684-727d495c4a12@huawei.com>
-Date: Thu, 29 Aug 2024 11:11:10 +0800
+ 15.2.1544.11; Thu, 29 Aug 2024 11:27:00 +0800
+Message-ID: <b5b7346d-83ea-846a-1187-3d39ee5177f3@huawei.com>
+Date: Thu, 29 Aug 2024 11:26:59 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.0
 Content-Language: en-US
-To: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Andrew Lunn <andrew@lunn.ch>
 References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
- <20240828032343.1218749-9-ruanjinjie@huawei.com>
- <20240828134814.0000569d@Huawei.com>
+ <6092e318-ae0c-44f6-89fa-989a384921b7@lunn.ch>
 From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20240828134814.0000569d@Huawei.com>
+In-Reply-To: <6092e318-ae0c-44f6-89fa-989a384921b7@lunn.ch>
 X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  kwepemh500013.china.huawei.com (7.202.181.146)
-Cc: andrew@lunn.ch, linus.walleij@linaro.org, justin.chen@broadcom.com,
- edumazet@google.com, krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Cc: linus.walleij@linaro.org, justin.chen@broadcom.com, edumazet@google.com,
+ krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  f.fainelli@gmail.com, samuel@sholland.org, linux@armlinux.org.uk,
  jernej.skrabec@gmail.com, wens@csie.org, joabreu@synopsys.com,
  bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
@@ -49,8 +48,8 @@ Cc: andrew@lunn.ch, linus.walleij@linaro.org, justin.chen@broadcom.com,
  UNGLinuxDriver@microchip.com, mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk,
  olteanv@gmail.com, linux-sunxi@lists.linux.dev, davem@davemloft.net,
  jic23@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 08/13] net: mdio: mux-mmioreg:
- Simplified with dev_err_probe()
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/13] net: Simplified with
+	scoped function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,105 +68,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 2024/8/28 20:48, Jonathan Cameron wrote:
-> On Wed, 28 Aug 2024 11:23:38 +0800
-> Jinjie Ruan <ruanjinjie@huawei.com> wrote:
-> 
->> Use the dev_err_probe() helper to simplify code.
+On 2024/8/28 22:32, Andrew Lunn wrote:
+> On Wed, Aug 28, 2024 at 11:23:30AM +0800, Jinjie Ruan wrote:
+>> Simplify with scoped for each OF child loop and __free(), as well as
+>> dev_err_probe().
 >>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Ah. I should have read next patch. Sorry!
+>> Changes in v2:
+>> - Subject prefix: next -> net-next.
+>> - Split __free() from scoped for each OF child loop clean.
+>> - Fix use of_node_put() instead of __free() for the 5th patch.
 > 
-> Might be worth breaking from rule of aligning parameters
-> after brackets to keep the longest line lengths down.
-> 
-> Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-> 
->> ---
->> v2:
->> - Split into 2 patches.
->> ---
->>  drivers/net/mdio/mdio-mux-mmioreg.c | 45 ++++++++++++-----------------
->>  1 file changed, 19 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/net/mdio/mdio-mux-mmioreg.c b/drivers/net/mdio/mdio-mux-mmioreg.c
->> index 4d87e61fec7b..08c484ccdcbe 100644
->> --- a/drivers/net/mdio/mdio-mux-mmioreg.c
->> +++ b/drivers/net/mdio/mdio-mux-mmioreg.c
->> @@ -109,30 +109,26 @@ static int mdio_mux_mmioreg_probe(struct platform_device *pdev)
->>  		return -ENOMEM;
->>  
->>  	ret = of_address_to_resource(np, 0, &res);
->> -	if (ret) {
->> -		dev_err(&pdev->dev, "could not obtain memory map for node %pOF\n",
->> -			np);
->> -		return ret;
->> -	}
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret,
->> +				     "could not obtain memory map for node %pOF\n", np);
->>  	s->phys = res.start;
->>  
->>  	s->iosize = resource_size(&res);
->>  	if (s->iosize != sizeof(uint8_t) &&
->>  	    s->iosize != sizeof(uint16_t) &&
->>  	    s->iosize != sizeof(uint32_t)) {
->> -		dev_err(&pdev->dev, "only 8/16/32-bit registers are supported\n");
->> -		return -EINVAL;
->> +		return dev_err_probe(&pdev->dev, -EINVAL,
->> +				     "only 8/16/32-bit registers are supported\n");
->>  	}
->>  
->>  	iprop = of_get_property(np, "mux-mask", &len);
->> -	if (!iprop || len != sizeof(uint32_t)) {
->> -		dev_err(&pdev->dev, "missing or invalid mux-mask property\n");
->> -		return -ENODEV;
->> -	}
->> -	if (be32_to_cpup(iprop) >= BIT(s->iosize * 8)) {
->> -		dev_err(&pdev->dev, "only 8/16/32-bit registers are supported\n");
->> -		return -EINVAL;
->> -	}
->> +	if (!iprop || len != sizeof(uint32_t))
->> +		return dev_err_probe(&pdev->dev, -ENODEV,
->> +				     "missing or invalid mux-mask property\n");
->> +	if (be32_to_cpup(iprop) >= BIT(s->iosize * 8))
->> +		return dev_err_probe(&pdev->dev, -EINVAL,
->> +				     "only 8/16/32-bit registers are supported\n");
->>  	s->mask = be32_to_cpup(iprop);
->>  
->>  	/*
->> @@ -142,17 +138,14 @@ static int mdio_mux_mmioreg_probe(struct platform_device *pdev)
->>  	for_each_available_child_of_node_scoped(np, np2) {
->>  		u64 reg;
->>  
->> -		if (of_property_read_reg(np2, 0, &reg, NULL)) {
->> -			dev_err(&pdev->dev, "mdio-mux child node %pOF is "
->> -				"missing a 'reg' property\n", np2);
->> -			return -ENODEV;
->> -		}
->> -		if ((u32)reg & ~s->mask) {
->> -			dev_err(&pdev->dev, "mdio-mux child node %pOF has "
->> -				"a 'reg' value with unmasked bits\n",
->> -				np2);
->> -			return -ENODEV;
->> -		}
->> +		if (of_property_read_reg(np2, 0, &reg, NULL))
->> +			return dev_err_probe(&pdev->dev, -ENODEV,
->> +					     "mdio-mux child node %pOF is missing a 'reg' property\n",
->> +					     np2);
->> +		if ((u32)reg & ~s->mask)
->> +			return dev_err_probe(&pdev->dev, -ENODEV,
->> +					     "mdio-mux child node %pOF has a 'reg' value with unmasked bits\n",
-> I'd align these super long ones as. 
-> 			     "mdio-mux child node %pOF has a 'reg' value with unmasked bits\n",
-> It is ugly but then so are > 100 char lines.
+> I personally think all these __free() are ugly and magical. Can it
+> somehow be made part of of_get_child_by_name()? Add an
+> of_get_child_by_name_func_ref() which holds a reference to the node
+> for the scope of the function?
 
-It seems that this kind string > 100 char is fine for patch check script.
+Yes, that is a good idea, and the __free() doesn't look as readable as
+or_each_*child_of_node_scoped().
 
->> +					     np2);
->>  	}
->>  
->>  	ret = mdio_mux_init(&pdev->dev, pdev->dev.of_node,
+> 
+> for_each_available_child_of_node_scoped() is fine. Once you have fixed
+> all the reverse christmas tree, please submit them. But i would like
+> to see alternatives to __free(), once which are less ugly.
+
+Thank you!
+
+> 
+> 	Andrew
+> 
+> ---
+> pw-bot: cr
 > 
 _______________________________________________
 Linux-stm32 mailing list
