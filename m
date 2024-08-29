@@ -2,22 +2,22 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D422963B41
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 08:23:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 943CF963B3A
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 08:23:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8E16C7802E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 414D7C78018;
 	Thu, 29 Aug 2024 06:23:28 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CDA1C7801B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2250CC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 06:23:22 +0000 (UTC)
+ Thu, 29 Aug 2024 06:23:23 +0000 (UTC)
 Received: from mail.maildlp.com (unknown [172.19.88.194])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4WvWLY31HTzQr3x;
- Thu, 29 Aug 2024 14:18:29 +0800 (CST)
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4WvWRY5FRCzyR3l;
+ Thu, 29 Aug 2024 14:22:49 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 182D514035F;
+ by mail.maildlp.com (Postfix) with ESMTPS id EEE6214035F;
  Thu, 29 Aug 2024 14:23:20 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
@@ -37,8 +37,8 @@ To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <linux-stm32@st-md-mailman.stormreply.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
  <krzk@kernel.org>, <jic23@kernel.org>
-Date: Thu, 29 Aug 2024 14:31:07 +0800
-Message-ID: <20240829063118.67453-3-ruanjinjie@huawei.com>
+Date: Thu, 29 Aug 2024 14:31:08 +0800
+Message-ID: <20240829063118.67453-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240829063118.67453-1-ruanjinjie@huawei.com>
 References: <20240829063118.67453-1-ruanjinjie@huawei.com>
@@ -47,8 +47,8 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  kwepemh500013.china.huawei.com (7.202.181.146)
 Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH net-next v3 02/13] net: stmmac: dwmac-sun8i:
-	Use __free() to simplify code
+Subject: [Linux-stm32] [PATCH net-next v3 03/13] net: dsa: realtek: Use
+	for_each_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,66 +65,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoid need to manually handle of_node_put() by using __free(), which
-can simplfy code.
+Avoid need to manually handle of_node_put() by using
+for_each_child_of_node_scoped(), which can simplfy code.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 ---
 v3:
+- Sort the variables, longest first, shortest last
 - Add Reviewed-by.
+v2:
+- Split into 2 patches.
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c    | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ drivers/net/dsa/realtek/rtl8366rb.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 4a0ae92b3055..415a0d23b3a5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -774,19 +774,17 @@ static int sun8i_dwmac_reset(struct stmmac_priv *priv)
- static int get_ephy_nodes(struct stmmac_priv *priv)
+diff --git a/drivers/net/dsa/realtek/rtl8366rb.c b/drivers/net/dsa/realtek/rtl8366rb.c
+index 9e821b42e5f3..11243f89c98a 100644
+--- a/drivers/net/dsa/realtek/rtl8366rb.c
++++ b/drivers/net/dsa/realtek/rtl8366rb.c
+@@ -1009,8 +1009,8 @@ static int rtl8366rb_setup_all_leds_off(struct realtek_priv *priv)
+ 
+ static int rtl8366rb_setup_leds(struct realtek_priv *priv)
  {
- 	struct sunxi_priv_data *gmac = priv->plat->bsp_priv;
--	struct device_node *mdio_internal;
--	struct device_node *mdio_mux;
- 	int ret;
+-	struct device_node *leds_np, *led_np;
+ 	struct dsa_switch *ds = &priv->ds;
++	struct device_node *leds_np;
+ 	struct dsa_port *dp;
+ 	int ret = 0;
  
--	mdio_mux = of_get_child_by_name(priv->device->of_node, "mdio-mux");
-+	struct device_node *mdio_mux __free(device_node) =
-+		of_get_child_by_name(priv->device->of_node, "mdio-mux");
- 	if (!mdio_mux) {
- 		dev_err(priv->device, "Cannot get mdio-mux node\n");
- 		return -ENODEV;
- 	}
- 
--	mdio_internal = of_get_compatible_child(mdio_mux,
--						"allwinner,sun8i-h3-mdio-internal");
--	of_node_put(mdio_mux);
-+	struct device_node *mdio_internal __free(device_node) =
-+		of_get_compatible_child(mdio_mux, "allwinner,sun8i-h3-mdio-internal");
- 	if (!mdio_internal) {
- 		dev_err(priv->device, "Cannot get internal_mdio node\n");
- 		return -ENODEV;
-@@ -800,18 +798,14 @@ static int get_ephy_nodes(struct stmmac_priv *priv)
- 		gmac->rst_ephy = of_reset_control_get_exclusive(iphynode, NULL);
- 		if (IS_ERR(gmac->rst_ephy)) {
- 			ret = PTR_ERR(gmac->rst_ephy);
--			if (ret == -EPROBE_DEFER) {
--				of_node_put(mdio_internal);
-+			if (ret == -EPROBE_DEFER)
- 				return ret;
--			}
+@@ -1025,13 +1025,11 @@ static int rtl8366rb_setup_leds(struct realtek_priv *priv)
  			continue;
  		}
- 		dev_info(priv->device, "Found internal PHY node\n");
--		of_node_put(mdio_internal);
- 		return 0;
- 	}
  
--	of_node_put(mdio_internal);
- 	return -ENODEV;
- }
+-		for_each_child_of_node(leds_np, led_np) {
++		for_each_child_of_node_scoped(leds_np, led_np) {
+ 			ret = rtl8366rb_setup_led(priv, dp,
+ 						  of_fwnode_handle(led_np));
+-			if (ret) {
+-				of_node_put(led_np);
++			if (ret)
+ 				break;
+-			}
+ 		}
  
+ 		of_node_put(leds_np);
 -- 
 2.34.1
 
