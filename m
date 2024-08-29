@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F98696453B
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 14:50:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580FF96453E
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 14:51:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FA79C6DD6E;
-	Thu, 29 Aug 2024 12:50:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F820C6DD6E;
+	Thu, 29 Aug 2024 12:51:17 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05288C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BA93C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 12:50:48 +0000 (UTC)
+ Thu, 29 Aug 2024 12:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=x8bnkkn9uV0EFuhUKaodndY7GSkEJencD9eHTXpVbO8=; b=e7einvKDfrJg4Bghrnxa3bNsfS
- Yd7JihsyUOqI9kbU6NsknodGzy/KA8T/k4Uua0rmcFlqgol7DdqOQP0RJlUhmJKj5FXMvKO9OHMGb
- h42509kzoN76CzNmgMGMjXClJYoBQ0awOjz7vpznpMzfPhwQ1ImLWJ45X7NXXUN5iKWc=;
+ bh=Rc4FE6SeX7Q5CdpQHk0AVcFJTNneiwj+fMLYF+mxBQc=; b=jQOCrviGq8/lK0tdOdMx0HQMoJ
+ Qx9NkUERJqfO/N4E5yolObLXoC56ntqiEaZNDCd4P/u22mM3C0kMBEY5x8CWzFs6/XCc5FGn5Nw2N
+ xzJCn/F3w03A6d9If4aNnfumbw72p7SOhQpsBWXVEr7VTFpFR6w2bV7a+M3E8vO+IGdY=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1sjebd-006279-Tv; Thu, 29 Aug 2024 14:50:29 +0200
-Date: Thu, 29 Aug 2024 14:50:29 +0200
+ id 1sjec6-006288-T6; Thu, 29 Aug 2024 14:50:58 +0200
+Date: Thu, 29 Aug 2024 14:50:58 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Jinjie Ruan <ruanjinjie@huawei.com>
-Message-ID: <60afa68f-677a-490d-8c65-fad9e64beb51@lunn.ch>
+Message-ID: <96222bec-e364-41d1-a3a8-2d13fafe3a2c@lunn.ch>
 References: <20240829063118.67453-1-ruanjinjie@huawei.com>
- <20240829063118.67453-6-ruanjinjie@huawei.com>
+ <20240829063118.67453-7-ruanjinjie@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240829063118.67453-6-ruanjinjie@huawei.com>
+In-Reply-To: <20240829063118.67453-7-ruanjinjie@huawei.com>
 Cc: linus.walleij@linaro.org, justin.chen@broadcom.com, edumazet@google.com,
  krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  f.fainelli@gmail.com, samuel@sholland.org, linux@armlinux.org.uk,
@@ -44,8 +44,8 @@ Cc: linus.walleij@linaro.org, justin.chen@broadcom.com, edumazet@google.com,
  mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk, olteanv@gmail.com,
  linux-sunxi@lists.linux.dev, davem@davemloft.net, jic23@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v3 05/13] net: phy: Fix missing
- of_node_put() for leds
+Subject: Re: [Linux-stm32] [PATCH net-next v3 06/13] net: phy: Use
+ for_each_available_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,23 +62,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 29, 2024 at 02:31:10PM +0800, Jinjie Ruan wrote:
-> The call of of_get_child_by_name() will cause refcount incremented
-> for leds, if it succeeds, it should call of_node_put() to decrease
-> it, fix it.
+On Thu, Aug 29, 2024 at 02:31:11PM +0800, Jinjie Ruan wrote:
+> Avoid need to manually handle of_node_put() by using
+> for_each_available_child_of_node_scoped(), which can simplfy code.
 > 
-> Fixes: 01e5b728e9e4 ("net: phy: Add a binding for PHY LEDs")
 > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 > Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
-This is a fix. You were asked to break it out of the series, and post
-it to net, not net-next.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Jonathan, please could you step in and do some mentoring. Huawei is
-big enough it should not need Maintainers to teach its developers the
-basics.
-
-	Andrew
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
