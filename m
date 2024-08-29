@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52DBC963851
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 04:46:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BFD6963879
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Aug 2024 04:52:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5C9FC6B45B;
-	Thu, 29 Aug 2024 02:46:29 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E130C6B45B;
+	Thu, 29 Aug 2024 02:52:28 +0000 (UTC)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51C00C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34E57C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Aug 2024 02:46:22 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.252])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4WvQcp3pHfzyQWq;
- Thu, 29 Aug 2024 10:45:30 +0800 (CST)
+ Thu, 29 Aug 2024 02:52:20 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.162.112])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4WvQmN19Vtz1S8w4;
+ Thu, 29 Aug 2024 10:52:04 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id D33D4180AE6;
- Thu, 29 Aug 2024 10:46:19 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id E29DE140203;
+ Thu, 29 Aug 2024 10:52:16 +0800 (CST)
 Received: from [10.67.109.254] (10.67.109.254) by
  kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 29 Aug 2024 10:46:18 +0800
-Message-ID: <373de0af-8aa1-263b-eb5a-3dfdd1fa19fd@huawei.com>
-Date: Thu, 29 Aug 2024 10:46:17 +0800
+ 15.2.1544.11; Thu, 29 Aug 2024 10:52:15 +0800
+Message-ID: <7a1e386c-8750-1cad-de11-57deea22864f@huawei.com>
+Date: Thu, 29 Aug 2024 10:52:14 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.0
@@ -49,7 +49,7 @@ References: <20240828032343.1218749-1-ruanjinjie@huawei.com>
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 In-Reply-To: <66cf4618f313_34a7b1294bb@willemb.c.googlers.com.notmuch>
 X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
  kwepemh500013.china.huawei.com (7.202.181.146)
 Subject: Re: [Linux-stm32] [PATCH net-next v2 05/13] net: phy: Fix missing
  of_node_put() for leds
@@ -82,7 +82,9 @@ On 2024/8/28 23:45, Willem de Bruijn wrote:
 > 
 > Fixes should go to net. Should not be part of this series?
 
-Thank you! I will separate it out.
+However, they have context dependency. If one is merged, the other needs
+to be rebased.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
