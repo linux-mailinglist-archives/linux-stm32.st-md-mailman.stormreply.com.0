@@ -2,52 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15BD8965582
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 05:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0FE59657A7
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 08:34:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4C75C71287;
-	Fri, 30 Aug 2024 03:06:06 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C523C6DD9A;
+	Fri, 30 Aug 2024 06:34:51 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F837C71282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9CE8C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 03:06:05 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.48])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Ww2zK5w8kzLqyk;
- Fri, 30 Aug 2024 11:03:41 +0800 (CST)
+ Fri, 30 Aug 2024 06:34:43 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.194])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Ww7dp3fr0z18MyV;
+ Fri, 30 Aug 2024 14:33:50 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 80A3118007C;
- Fri, 30 Aug 2024 11:05:46 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
- (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 30 Aug
- 2024 11:05:45 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
- <olteanv@gmail.com>, <davem@davemloft.net>, <edumazet@google.com>,
- <kuba@kernel.org>, <pabeni@redhat.com>, <linus.walleij@linaro.org>,
- <alsi@bang-olufsen.dk>, <justin.chen@broadcom.com>,
- <sebastian.hesselbarth@gmail.com>, <alexandre.torgue@foss.st.com>,
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <hkallweit1@gmail.com>,
- <linux@armlinux.org.uk>, <UNGLinuxDriver@microchip.com>,
- <netdev@vger.kernel.org>, <bcm-kernel-feedback-list@broadcom.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-stm32@st-md-mailman.stormreply.com>, <krzk@kernel.org>,
- <jic23@kernel.org>
-Date: Fri, 30 Aug 2024 11:13:25 +0800
-Message-ID: <20240830031325.2406672-9-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240830031325.2406672-1-ruanjinjie@huawei.com>
-References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
+ by mail.maildlp.com (Postfix) with ESMTPS id 14CA1140202;
+ Fri, 30 Aug 2024 14:34:41 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 30 Aug 2024 14:34:39 +0800
+Message-ID: <c29263ae-89f1-edd7-003a-bd03cdddc821@huawei.com>
+Date: Fri, 30 Aug 2024 14:34:38 +0800
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Content-Language: en-US
+To: Miquel Raynal <miquel.raynal@bootlin.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>
+References: <20240826094328.2991664-1-ruanjinjie@huawei.com>
+ <20240826115213.389acaef@xps-13>
+ <f7430f87-88d2-4c08-bc1e-6bb3da4e332c@kernel.org>
+ <20240826144917.2c4e202d@xps-13>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20240826144917.2c4e202d@xps-13>
+X-Originating-IP: [10.67.109.254]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemh500013.china.huawei.com (7.202.181.146)
-Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH net-next v4 8/8] net: bcmasp: Simplify with
-	scoped for each OF child loop
+Cc: val@packett.cool, vigneshr@ti.com, kees@kernel.org,
+ linux-kernel@vger.kernel.org, erick.archer@gmx.com, liang.yang@amlogic.com,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ heiko@sntech.de, robh@kernel.org, samuel@sholland.org, richard@nod.at,
+ jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
+ u.kleine-koenig@pengutronix.de, jbrunet@baylibre.com, linux@treblig.org,
+ martin.blumenstingl@googlemail.com, christophe.jaillet@wanadoo.fr,
+ matthias.bgg@gmail.com, linux-amlogic@lists.infradead.org,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com, neil.armstrong@linaro.org,
+ gustavoars@kernel.org, linux-renesas-soc@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, khilman@baylibre.com,
+ linux-mediatek@lists.infradead.org, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH -next RESEND 00/10] mtd: Use
+ for_each_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,64 +66,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use scoped for_each_available_child_of_node_scoped() when
-iterating over device nodes to make code a bit simpler.
-
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Reviewed-by: Justin Chen <justin.chen@broadcom.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v4:
-- Add Reviewed-by.
-v3:
-- Sort the variables, longest first, shortest last.
-- Add Reviewed-by.
-v2:
-- Split into 2 patches.
----
- drivers/net/ethernet/broadcom/asp2/bcmasp.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/asp2/bcmasp.c b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-index 20c6529ec135..297c2682a9cf 100644
---- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-+++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
-@@ -1300,9 +1300,9 @@ static void bcmasp_remove_intfs(struct bcmasp_priv *priv)
- 
- static int bcmasp_probe(struct platform_device *pdev)
- {
--	struct device_node *ports_node, *intf_node;
- 	const struct bcmasp_plat_data *pdata;
- 	struct device *dev = &pdev->dev;
-+	struct device_node *ports_node;
- 	struct bcmasp_priv *priv;
- 	struct bcmasp_intf *intf;
- 	int ret = 0, count = 0;
-@@ -1374,12 +1374,11 @@ static int bcmasp_probe(struct platform_device *pdev)
- 	}
- 
- 	i = 0;
--	for_each_available_child_of_node(ports_node, intf_node) {
-+	for_each_available_child_of_node_scoped(ports_node, intf_node) {
- 		intf = bcmasp_interface_create(priv, intf_node, i);
- 		if (!intf) {
- 			dev_err(dev, "Cannot create eth interface %d\n", i);
- 			bcmasp_remove_intfs(priv);
--			of_node_put(intf_node);
- 			ret = -ENOMEM;
- 			goto of_put_exit;
- 		}
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAyMDI0LzgvMjYgMjA6NDksIE1pcXVlbCBSYXluYWwgd3JvdGU6Cj4gSGkgS3J6eXN6dG9m
+LAo+IAo+IGtyemtAa2VybmVsLm9yZyB3cm90ZSBvbiBNb24sIDI2IEF1ZyAyMDI0IDEyOjE5OjA3
+ICswMjAwOgo+IAo+PiBPbiAyNi8wOC8yMDI0IDExOjUyLCBNaXF1ZWwgUmF5bmFsIHdyb3RlOgo+
+Pj4gSGkgSmluamllLAo+Pj4KPj4+IHJ1YW5qaW5qaWVAaHVhd2VpLmNvbSB3cm90ZSBvbiBNb24s
+IDI2IEF1ZyAyMDI0IDE3OjQzOjE4ICswODAwOgo+Pj4gICAKPj4+PiBVc2Ugc2NvcGVkIGZvcl9l
+YWNoX2F2YWlsYWJsZV9jaGlsZF9vZl9ub2RlX3Njb3BlZCgpIHdoZW4gaXRlcmF0aW5nIG92ZXIK
+Pj4+PiBkZXZpY2Ugbm9kZXMgdG8gbWFrZSBjb2RlIGEgYml0IHNpbXBsZXIuICAKPj4+Cj4+PiBX
+aHkgaXMgdGhpcyBhIHJlc2VuZCA/IERpZCBJIG1pc3MgYSBwcmV2aW91cyBpdGVyYXRpb24/ICAK
+Pj4KPj4gWW91IHdlcmUgbm90IGNjLWVkIG9uIHByZXZpb3VzIGl0ZXJhdGlvbi4gSSBhc2tlZCBm
+b3IgcHJvcGVyIHNwbGl0Cj4+IGJldHdlZW4gc3Vic3lzdGVtcyBhbmQgc2VuZGluZyB0byBtYWlu
+dGFpbmVycywgdGh1cyB0aGlzIHJlc2VuZC4KPiAKPiBPay4gTWFrZXMgc2Vuc2UsIGFuZCB0aGUg
+cGF0Y2hzZXQgbG9va3MgZmluZS4KCkhpLCBNaXF1ZWwsCgpDb3VsZCB0aGlzIHNlcmllcyBiZSBt
+ZXJnZWQsIHRoYW5rIHlvdSEKCj4gCj4gSmluamllLCBwbGVhc2UgYWx3YXlzIGluY2x1ZGUgYSBj
+aGFuZ2Vsb2cgd2hlbiB5b3Ugc2VuZCBuZXcgdmVyc2lvbnMsCj4gYW5kIGV4cGxhbmF0aW9ucyBm
+b3IgYSBSRVNFTkQuCj4gCj4gVGhhbmtzLAo+IE1pcXXDqGwKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
