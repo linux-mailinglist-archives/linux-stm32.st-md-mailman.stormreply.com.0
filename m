@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB2E8965578
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 05:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9617965581
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 05:06:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D81BC6DD9A;
-	Fri, 30 Aug 2024 03:05:50 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA3C7C6DD9F;
+	Fri, 30 Aug 2024 03:06:06 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5677C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3879EC6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 03:05:47 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Ww2w50PLkzQqx2;
- Fri, 30 Aug 2024 11:00:53 +0800 (CST)
+ Fri, 30 Aug 2024 03:06:05 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.48])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Ww2zJ6P94zLqtS;
+ Fri, 30 Aug 2024 11:03:40 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id A950618010A;
- Fri, 30 Aug 2024 11:05:44 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 9199018007C;
+ Fri, 30 Aug 2024 11:05:45 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 30 Aug
- 2024 11:05:43 +0800
+ 2024 11:05:44 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <olteanv@gmail.com>, <davem@davemloft.net>, <edumazet@google.com>,
@@ -36,8 +36,8 @@ To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
  <linux-stm32@st-md-mailman.stormreply.com>, <krzk@kernel.org>,
  <jic23@kernel.org>
-Date: Fri, 30 Aug 2024 11:13:23 +0800
-Message-ID: <20240830031325.2406672-7-ruanjinjie@huawei.com>
+Date: Fri, 30 Aug 2024 11:13:24 +0800
+Message-ID: <20240830031325.2406672-8-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240830031325.2406672-1-ruanjinjie@huawei.com>
 References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
@@ -46,8 +46,8 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  kwepemh500013.china.huawei.com (7.202.181.146)
 Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH net-next v4 6/8] net: mv643xx_eth: Simplify
-	with scoped for each OF child loop
+Subject: [Linux-stm32] [PATCH net-next v4 7/8] net: dsa: microchip: Use
+	scoped function to simplfy code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,8 +64,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use scoped for_each_available_child_of_node_scoped() when iterating
-over device nodes to make code a bit simpler.
+Avoids the need for manual cleanup of_node_put() in early exits
+from the loop by using for_each_available_child_of_node_scoped().
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
@@ -75,35 +75,39 @@ v4:
 - Add Reviewed-by.
 v3:
 - Add Reviewed-by.
+v2:
+- Split into 2 patches.
 ---
- drivers/net/ethernet/marvell/mv643xx_eth.c | 5 ++---
+ drivers/net/dsa/microchip/ksz_common.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/mv643xx_eth.c b/drivers/net/ethernet/marvell/mv643xx_eth.c
-index f35ae2c88091..9e80899546d9 100644
---- a/drivers/net/ethernet/marvell/mv643xx_eth.c
-+++ b/drivers/net/ethernet/marvell/mv643xx_eth.c
-@@ -2802,7 +2802,7 @@ static int mv643xx_eth_shared_of_add_port(struct platform_device *pdev,
- static int mv643xx_eth_shared_of_probe(struct platform_device *pdev)
+diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+index cd3991792b69..86ed563938f6 100644
+--- a/drivers/net/dsa/microchip/ksz_common.c
++++ b/drivers/net/dsa/microchip/ksz_common.c
+@@ -4595,7 +4595,7 @@ static int ksz_parse_drive_strength(struct ksz_device *dev)
+ int ksz_switch_register(struct ksz_device *dev)
  {
- 	struct mv643xx_eth_shared_platform_data *pd;
--	struct device_node *pnp, *np = pdev->dev.of_node;
-+	struct device_node *np = pdev->dev.of_node;
+ 	const struct ksz_chip_data *info;
+-	struct device_node *port, *ports;
++	struct device_node *ports;
+ 	phy_interface_t interface;
+ 	unsigned int port_num;
  	int ret;
- 
- 	/* bail out if not registered from DT */
-@@ -2816,10 +2816,9 @@ static int mv643xx_eth_shared_of_probe(struct platform_device *pdev)
- 
- 	mv643xx_eth_property(np, "tx-checksum-limit", pd->tx_csum_limit);
- 
--	for_each_available_child_of_node(np, pnp) {
-+	for_each_available_child_of_node_scoped(np, pnp) {
- 		ret = mv643xx_eth_shared_of_add_port(pdev, pnp);
- 		if (ret) {
--			of_node_put(pnp);
- 			mv643xx_eth_shared_of_remove();
- 			return ret;
- 		}
+@@ -4681,12 +4681,11 @@ int ksz_switch_register(struct ksz_device *dev)
+ 		if (!ports)
+ 			ports = of_get_child_by_name(dev->dev->of_node, "ports");
+ 		if (ports) {
+-			for_each_available_child_of_node(ports, port) {
++			for_each_available_child_of_node_scoped(ports, port) {
+ 				if (of_property_read_u32(port, "reg",
+ 							 &port_num))
+ 					continue;
+ 				if (!(dev->port_mask & BIT(port_num))) {
+-					of_node_put(port);
+ 					of_node_put(ports);
+ 					return -EINVAL;
+ 				}
 -- 
 2.34.1
 
