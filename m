@@ -2,49 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0FE59657A7
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 08:34:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8A19658F7
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 09:46:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C523C6DD9A;
-	Fri, 30 Aug 2024 06:34:51 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52D94C6DD9A;
+	Fri, 30 Aug 2024 07:46:01 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9CE8C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28BBDC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 06:34:43 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.194])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Ww7dp3fr0z18MyV;
- Fri, 30 Aug 2024 14:33:50 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 14CA1140202;
- Fri, 30 Aug 2024 14:34:41 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemh500013.china.huawei.com (7.202.181.146) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 30 Aug 2024 14:34:39 +0800
-Message-ID: <c29263ae-89f1-edd7-003a-bd03cdddc821@huawei.com>
-Date: Fri, 30 Aug 2024 14:34:38 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Content-Language: en-US
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Krzysztof Kozlowski
- <krzk@kernel.org>
+ Fri, 30 Aug 2024 07:45:54 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 36B771BF209;
+ Fri, 30 Aug 2024 07:45:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1725003953;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VpebzrTQoNRUKh5ynrlO5Iu8naFvX7FtDOTwf/qOm4A=;
+ b=KkNtioU+WkZU8XZauR1n22NpmH71HFly2u9LmqlUqpZSjxsw4D3GNaQ5b8RXOdRP1vIblG
+ 1BuAc/S3FaJlaTnMaxMPR0UE6gbAg476eLE/QamnjS9z+uIOF2mwRoIfCgwHv835j1RtvW
+ m0zsNyod3wMcqq8cnPB1jN2H1P6rmLDO9HHI5S1UQ/laGZiXm+EjSjV2R6wuv2noboi4nH
+ 3Pq8Msc6rC+4ul0Zncwyhvt9s65q90WrR6JI+3/LBW8ChufwLbugaEO9c6DU+S+OwMiqoi
+ p4PFJKlUzZmlxJsYYFb4y8Su6oy3DiguDX/0m3yFr7XoBLtTPvwInK9gm+PLaw==
+Date: Fri, 30 Aug 2024 09:45:49 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Message-ID: <20240830094549.1c513ba2@xps-13>
+In-Reply-To: <c29263ae-89f1-edd7-003a-bd03cdddc821@huawei.com>
 References: <20240826094328.2991664-1-ruanjinjie@huawei.com>
  <20240826115213.389acaef@xps-13>
  <f7430f87-88d2-4c08-bc1e-6bb3da4e332c@kernel.org>
  <20240826144917.2c4e202d@xps-13>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20240826144917.2c4e202d@xps-13>
-X-Originating-IP: [10.67.109.254]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemh500013.china.huawei.com (7.202.181.146)
+ <c29263ae-89f1-edd7-003a-bd03cdddc821@huawei.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+X-GND-Sasl: miquel.raynal@bootlin.com
 Cc: val@packett.cool, vigneshr@ti.com, kees@kernel.org,
  linux-kernel@vger.kernel.org, erick.archer@gmx.com, liang.yang@amlogic.com,
- linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- heiko@sntech.de, robh@kernel.org, samuel@sholland.org, richard@nod.at,
- jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
+ linux-mtd@lists.infradead.org, jernej.skrabec@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, robh@kernel.org,
+ samuel@sholland.org, richard@nod.at, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-rockchip@lists.infradead.org, wens@csie.org,
  u.kleine-koenig@pengutronix.de, jbrunet@baylibre.com, linux@treblig.org,
  martin.blumenstingl@googlemail.com, christophe.jaillet@wanadoo.fr,
  matthias.bgg@gmail.com, linux-amlogic@lists.infradead.org,
@@ -71,21 +74,32 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyMDI0LzgvMjYgMjA6NDksIE1pcXVlbCBSYXluYWwgd3JvdGU6Cj4gSGkgS3J6eXN6dG9m
-LAo+IAo+IGtyemtAa2VybmVsLm9yZyB3cm90ZSBvbiBNb24sIDI2IEF1ZyAyMDI0IDEyOjE5OjA3
-ICswMjAwOgo+IAo+PiBPbiAyNi8wOC8yMDI0IDExOjUyLCBNaXF1ZWwgUmF5bmFsIHdyb3RlOgo+
-Pj4gSGkgSmluamllLAo+Pj4KPj4+IHJ1YW5qaW5qaWVAaHVhd2VpLmNvbSB3cm90ZSBvbiBNb24s
-IDI2IEF1ZyAyMDI0IDE3OjQzOjE4ICswODAwOgo+Pj4gICAKPj4+PiBVc2Ugc2NvcGVkIGZvcl9l
-YWNoX2F2YWlsYWJsZV9jaGlsZF9vZl9ub2RlX3Njb3BlZCgpIHdoZW4gaXRlcmF0aW5nIG92ZXIK
-Pj4+PiBkZXZpY2Ugbm9kZXMgdG8gbWFrZSBjb2RlIGEgYml0IHNpbXBsZXIuICAKPj4+Cj4+PiBX
-aHkgaXMgdGhpcyBhIHJlc2VuZCA/IERpZCBJIG1pc3MgYSBwcmV2aW91cyBpdGVyYXRpb24/ICAK
-Pj4KPj4gWW91IHdlcmUgbm90IGNjLWVkIG9uIHByZXZpb3VzIGl0ZXJhdGlvbi4gSSBhc2tlZCBm
-b3IgcHJvcGVyIHNwbGl0Cj4+IGJldHdlZW4gc3Vic3lzdGVtcyBhbmQgc2VuZGluZyB0byBtYWlu
-dGFpbmVycywgdGh1cyB0aGlzIHJlc2VuZC4KPiAKPiBPay4gTWFrZXMgc2Vuc2UsIGFuZCB0aGUg
-cGF0Y2hzZXQgbG9va3MgZmluZS4KCkhpLCBNaXF1ZWwsCgpDb3VsZCB0aGlzIHNlcmllcyBiZSBt
-ZXJnZWQsIHRoYW5rIHlvdSEKCj4gCj4gSmluamllLCBwbGVhc2UgYWx3YXlzIGluY2x1ZGUgYSBj
-aGFuZ2Vsb2cgd2hlbiB5b3Ugc2VuZCBuZXcgdmVyc2lvbnMsCj4gYW5kIGV4cGxhbmF0aW9ucyBm
-b3IgYSBSRVNFTkQuCj4gCj4gVGhhbmtzLAo+IE1pcXXDqGwKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+SmluamllLAoKcnVhbmppbmppZUBodWF3ZWkuY29tIHdyb3RlIG9uIEZyaSwgMzAgQXVnIDIwMjQg
+MTQ6MzQ6MzggKzA4MDA6Cgo+IE9uIDIwMjQvOC8yNiAyMDo0OSwgTWlxdWVsIFJheW5hbCB3cm90
+ZToKPiA+IEhpIEtyenlzenRvZiwKPiA+IAo+ID4ga3J6a0BrZXJuZWwub3JnIHdyb3RlIG9uIE1v
+biwgMjYgQXVnIDIwMjQgMTI6MTk6MDcgKzAyMDA6Cj4gPiAgIAo+ID4+IE9uIDI2LzA4LzIwMjQg
+MTE6NTIsIE1pcXVlbCBSYXluYWwgd3JvdGU6ICAKPiA+Pj4gSGkgSmluamllLAo+ID4+Pgo+ID4+
+PiBydWFuamluamllQGh1YXdlaS5jb20gd3JvdGUgb24gTW9uLCAyNiBBdWcgMjAyNCAxNzo0Mzox
+OCArMDgwMDoKPiA+Pj4gICAgIAo+ID4+Pj4gVXNlIHNjb3BlZCBmb3JfZWFjaF9hdmFpbGFibGVf
+Y2hpbGRfb2Zfbm9kZV9zY29wZWQoKSB3aGVuIGl0ZXJhdGluZyBvdmVyCj4gPj4+PiBkZXZpY2Ug
+bm9kZXMgdG8gbWFrZSBjb2RlIGEgYml0IHNpbXBsZXIuICAgIAo+ID4+Pgo+ID4+PiBXaHkgaXMg
+dGhpcyBhIHJlc2VuZCA/IERpZCBJIG1pc3MgYSBwcmV2aW91cyBpdGVyYXRpb24/ICAgIAo+ID4+
+Cj4gPj4gWW91IHdlcmUgbm90IGNjLWVkIG9uIHByZXZpb3VzIGl0ZXJhdGlvbi4gSSBhc2tlZCBm
+b3IgcHJvcGVyIHNwbGl0Cj4gPj4gYmV0d2VlbiBzdWJzeXN0ZW1zIGFuZCBzZW5kaW5nIHRvIG1h
+aW50YWluZXJzLCB0aHVzIHRoaXMgcmVzZW5kLiAgCj4gPiAKPiA+IE9rLiBNYWtlcyBzZW5zZSwg
+YW5kIHRoZSBwYXRjaHNldCBsb29rcyBmaW5lLiAgCj4gCj4gSGksIE1pcXVlbCwKPiAKPiBDb3Vs
+ZCB0aGlzIHNlcmllcyBiZSBtZXJnZWQsIHRoYW5rIHlvdSEKCllvdSd2ZSBzZW50IHRoaXMgc2Vy
+aWVzIG9uIE1vbmRheSwgd2UgYXJlIEZyaWRheS4gSSBhbnN3ZXJlZCBhIGZpcnN0CnRpbWUgd2l0
+aGluIDVoIGFuZCByZXZpZXdlZCBpdCB3aXRoaW4gOGguIFNvIHRoYXQgbWVhbnMgSSB3aWxsIHRh
+a2UgdGhlCnBhdGNoc2V0OgotIHdoZW4gSSBoYXZlIHRoZSB0aW1lIHRvIGRvIHNvCi0gYWZ0ZXIg
+c2V2ZXJhbCBkYXlzIHRvIGdpdmUgYSBjaGFuY2UgdG8gb3RoZXIgdG8gcmV2aWV3IGl0IGFzIHdl
+bGwKLSB1bmxlc3Mgc29tZW9uZSBzcGVha3MgdXAgYWdhaW5zdCBpdCBpbiBhICJyZWFzb25hYmxl
+IHRpbWUgZnJhbWUiCi0gdW5sZXNzIGEgcm9ib3QgdGhhdCBwYXJzZXMgdGhlIHBhdGNoZXMgb24g
+dGhlIG1haWxpbmcgbGlzdHMgY29tcGxhaW5zCiAgYWJvdXQgaXQgKHVzdWFsbHkgd2l0aGluIGZl
+dyBkYXlzLCB1cCB0byBhIHdlZWspLgoKSW4gZ2VuZXJhbCwgYSBnb29kIHJ1bGUgb2YgdGh1bWIg
+aXMgdG8gcmVmcmFpbiB5b3Vyc2VsZiBmcm9tIHBpbmdpbmcKd2l0aGluIDIgd2Vla3MgZm9yIG5v
+bi11cmdlbnQgbWF0dGVycyBsaWtlIHRoaXMgc2VyaWVzLgoKVGhhbmtzLApNaXF1w6hsCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
