@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE00F965579
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 05:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4A0965580
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 05:06:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A50FC6DD9F;
-	Fri, 30 Aug 2024 03:05:50 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CEB0C6DD9A;
+	Fri, 30 Aug 2024 03:06:06 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3AB2C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FC4FC6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 03:05:43 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.194])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Ww30f5Lbpz18MxF;
- Fri, 30 Aug 2024 11:04:50 +0800 (CST)
+ Fri, 30 Aug 2024 03:06:05 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.105])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Ww2zF2RbPzLqyD;
+ Fri, 30 Aug 2024 11:03:37 +0800 (CST)
 Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id 1FB27140202;
- Fri, 30 Aug 2024 11:05:41 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 0827E1401F3;
+ Fri, 30 Aug 2024 11:05:42 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
  (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 30 Aug
@@ -36,8 +36,8 @@ To: <woojung.huh@microchip.com>, <andrew@lunn.ch>, <f.fainelli@gmail.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
  <linux-stm32@st-md-mailman.stormreply.com>, <krzk@kernel.org>,
  <jic23@kernel.org>
-Date: Fri, 30 Aug 2024 11:13:19 +0800
-Message-ID: <20240830031325.2406672-3-ruanjinjie@huawei.com>
+Date: Fri, 30 Aug 2024 11:13:20 +0800
+Message-ID: <20240830031325.2406672-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240830031325.2406672-1-ruanjinjie@huawei.com>
 References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
@@ -46,8 +46,8 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  kwepemh500013.china.huawei.com (7.202.181.146)
 Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH net-next v4 2/8] net: dsa: realtek: Use
-	for_each_child_of_node_scoped()
+Subject: [Linux-stm32] [PATCH net-next v4 3/8] net: phy: Use
+	for_each_available_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,54 +65,48 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Avoid need to manually handle of_node_put() by using
-for_each_child_of_node_scoped(), which can simplfy code.
+for_each_available_child_of_node_scoped(), which can simplfy code.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
 v4:
+- Rebased on the previous fix patch has been stripped out.
 - Add Reviewed-by.
-- Signed-off-by: should always be last.
 v3:
-- Sort the variables, longest first, shortest last
-- Add Reviewed-by.
-v2:
+- Add Reviewed-by
+v2
 - Split into 2 patches.
 ---
- drivers/net/dsa/realtek/rtl8366rb.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/net/phy/phy_device.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8366rb.c b/drivers/net/dsa/realtek/rtl8366rb.c
-index 9e821b42e5f3..11243f89c98a 100644
---- a/drivers/net/dsa/realtek/rtl8366rb.c
-+++ b/drivers/net/dsa/realtek/rtl8366rb.c
-@@ -1009,8 +1009,8 @@ static int rtl8366rb_setup_all_leds_off(struct realtek_priv *priv)
- 
- static int rtl8366rb_setup_leds(struct realtek_priv *priv)
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 8f5314c1fecc..7c4a09455493 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -3407,7 +3407,7 @@ static int of_phy_led(struct phy_device *phydev,
+ static int of_phy_leds(struct phy_device *phydev)
  {
--	struct device_node *leds_np, *led_np;
- 	struct dsa_switch *ds = &priv->ds;
-+	struct device_node *leds_np;
- 	struct dsa_port *dp;
- 	int ret = 0;
+ 	struct device_node *node = phydev->mdio.dev.of_node;
+-	struct device_node *leds, *led;
++	struct device_node *leds;
+ 	int err;
  
-@@ -1025,13 +1025,11 @@ static int rtl8366rb_setup_leds(struct realtek_priv *priv)
- 			continue;
+ 	if (!IS_ENABLED(CONFIG_OF_MDIO))
+@@ -3420,10 +3420,9 @@ static int of_phy_leds(struct phy_device *phydev)
+ 	if (!leds)
+ 		return 0;
+ 
+-	for_each_available_child_of_node(leds, led) {
++	for_each_available_child_of_node_scoped(leds, led) {
+ 		err = of_phy_led(phydev, led);
+ 		if (err) {
+-			of_node_put(led);
+ 			phy_leds_unregister(phydev);
+ 			return err;
  		}
- 
--		for_each_child_of_node(leds_np, led_np) {
-+		for_each_child_of_node_scoped(leds_np, led_np) {
- 			ret = rtl8366rb_setup_led(priv, dp,
- 						  of_fwnode_handle(led_np));
--			if (ret) {
--				of_node_put(led_np);
-+			if (ret)
- 				break;
--			}
- 		}
- 
- 		of_node_put(leds_np);
 -- 
 2.34.1
 
