@@ -2,76 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71B5B966CEF
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 01:35:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E34BA966D19
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 01:59:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 268FFC6C841;
-	Fri, 30 Aug 2024 23:35:44 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98F3FC6DD9A;
+	Fri, 30 Aug 2024 23:59:21 +0000 (UTC)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0A01CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8541EC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 23:35:36 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-7cd830e0711so1488940a12.0
+ Fri, 30 Aug 2024 23:59:14 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2020e83eca1so25270005ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 16:35:36 -0700 (PDT)
+ Fri, 30 Aug 2024 16:59:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1725060935; x=1725665735;
+ d=gmail.com; s=20230601; t=1725062353; x=1725667153;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IGZJFABiiwQ/JcxTEIMxL9o5eO7pEFGecgwfYFoEAXo=;
- b=MkIUAda5s/56F48VuYML2Q4UKOEo/5SU96Vq6BGroTIVAR2RDZc+JumQnRiT2Bj34o
- k012ccHJ++6bWuiYK07vuuSzlhhVWepqZtCUwD6GxWUKNq3qFYTUV7XS45uPpuZTsvrV
- UtEDJ75/GH3og7u2InVGrRSJ0DkV1HTb0BX1U=
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=sr+m/MCpvguQ1PEITzYf3gtI8iZ+jxmN3Qz312mDJ+Y=;
+ b=NWNKTrFnpJ35KgSwVwyAldTaJsUzAL9xznj+xkH2JSoPGwlgOq9oc8LjTTGJljd7Wc
+ WOQMoR02zVzd+oRiY8xkd0OxePsfj/cvVba3YSJ67+BZR8bSKW1g4hISpiELMNOSABtz
+ i/l49NkEfnKillFrdZ2MOTQViFWbz75m244aDWHgO+FHT2d43wBkWqnN0ZZ5APECi3aS
+ Z244qzagsS118pfKDlPq4fKKfgWrIVE02oyMAhckndaay9aqMm6VxvopuxzcePB1Y+zR
+ LUSjz1rWaTQww46+GmTTSKsw6akPMd6ZN0T4VK8dY+C8trLUyKo8FhyXI1ESdM9e3r2X
+ Hs4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725060935; x=1725665735;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IGZJFABiiwQ/JcxTEIMxL9o5eO7pEFGecgwfYFoEAXo=;
- b=rnbbt2C//3y/+OEaRUE6FVCGFoG2a6TF3mHrPx0STBXRFl/T7paPrBJDucz1/pA7Np
- TdLlcGL5Niw7NSG4pSYWLk6kllufAlpyPwnlrKxTqJvsMv53rq+EftdF0A4cshRxD1jC
- 0jpORRBerKjgsnos17B+6CRCDjVC+B4pOOV7kgfAqL57b6lxY3gvuT9f9le/x31KxMrT
- s4mtjz3GCBOBFCQswov1BB6g/tR15oFZLFPCqA/3b4/HUmY8bgDASMhjEbcas5r7v8DK
- 82i0cQXEmHCpkq3CvCHe7OxWktts9cT7dFrTq0FcRHrhZd0veZPkPvottKo1GODYWWee
- B1og==
+ d=1e100.net; s=20230601; t=1725062353; x=1725667153;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sr+m/MCpvguQ1PEITzYf3gtI8iZ+jxmN3Qz312mDJ+Y=;
+ b=Qj956X84luv5NfH2VKdWQ99Qq8qOJCI61X/9pc3WvuPxNPYNtNG0pkJTUAJkhrQnxk
+ rMtpogocxwCJeK43y5FLRgJV+zZ9K5A94HleFvYx89ZNUDWFM9vs2/5++C30PeDTQzLw
+ qW9q0wqkP+vPd0OEprt9RQSpaPOeeUkXXy7ek4Mwm+owDL4k+mFjcNQIvhXbmDrKYULh
+ SXxxt5VgRc9tXow20rDQn0RvI8u46Zo5q/XlE/o0gA/ZdR0IHCLfWB+k2EEeSJPia58R
+ VRBJqHFnkhm7fX0MeI0SCyfFlWGiywKlLEGxsNhe4qXmNFJ7Emn0vvezyvil1mo1XXQE
+ WXCQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/EmV7lRjvYz7dDZ7lxKdwSpkl17AlJefGBhoAYM4P77wYjbdGwEzz8O4rFlokMXzMzooBoFI+vGuqFw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxDuo0QZC3LkC8weEM1n4z4R/RHF14Akl5yBs7ERD9l2WIHd6i9
- TOdR30etwTB+2FWtIyWLNjnEf3s0JNoGd49Lc6h8rOM4PEm0BtkW8YFtmpmpwPbeQhdqni/XGMM
- 9sNsZMEN4W4zWP/U/lT/J9YxzsOAanXfwD2dV
-X-Google-Smtp-Source: AGHT+IFO2EmUFEtOMUYJcEffOgckKQVp9+l73ByoEm+F4H4tX/gdEvT2YlZRRuejeicxCLqYfNh//ZKxuQ+5NID+Eao=
-X-Received: by 2002:a17:90a:e16:b0:2d8:3f7a:edf2 with SMTP id
- 98e67ed59e1d1-2d856b047f7mr11126610a91.12.1725060935251; Fri, 30 Aug 2024
- 16:35:35 -0700 (PDT)
+ AJvYcCW3IZQ9mFTN/1f3+3v9eOWz2vVDrH+P/MVFEPWOx5OEvCFIUGf3vh0Rygonbwl0J3RT4ncTKLoN6K1DCw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwzL6zHUb3CETYCf9a+Y6/kER8YUmg7rtaS9Of8z/FPXc0i1JET
+ kvXDWjoEbMLw+91hAxmglHcfx8lPRnIa+tNdsrrEsRP9xSxVIZPrOTiaYyHE
+X-Google-Smtp-Source: AGHT+IEgofVC034M7KNRqW6gP1mCFO060gmQo6PGys6HKORyv1JMDN4S7cvVuPl5BWLZMdBvTzCsLQ==
+X-Received: by 2002:a17:903:22c5:b0:201:f065:2b2c with SMTP id
+ d9443c01a7336-2050c4666b0mr94473895ad.55.1725062352960; 
+ Fri, 30 Aug 2024 16:59:12 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2051553720esm32038555ad.178.2024.08.30.16.59.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Aug 2024 16:59:11 -0700 (PDT)
+Message-ID: <82473d11-ff14-494a-bac5-4a5b1fb8ce4d@gmail.com>
+Date: Fri, 30 Aug 2024 16:59:09 -0700
 MIME-Version: 1.0
-References: <20240814221818.2612484-1-jitendra.vegiraju@broadcom.com>
- <20240814221818.2612484-4-jitendra.vegiraju@broadcom.com>
- <vxpwwstbvbruaafcatq5zyi257hf25x5levct3y7s7ympcsqvh@b6wmfkd4cxfy>
- <CAMdnO-LDw0OZRfBWmh_4AEYuwbq6dmnh=W3PZwRe1766Ys2huA@mail.gmail.com>
- <li75hdp527xa3k23za3mfnwgwdcs7j324mlqj3qcxto6t5f6mw@yvhnpxlvlt5c>
-In-Reply-To: <li75hdp527xa3k23za3mfnwgwdcs7j324mlqj3qcxto6t5f6mw@yvhnpxlvlt5c>
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Fri, 30 Aug 2024 16:35:22 -0700
-Message-ID: <CAMdnO-K8CPMihDwJnzy1KcTXNT51FGeTAYRQFHMdG6fG45wR-g@mail.gmail.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
- rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
- xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [net-next v4 3/5] net: stmmac: Integrate dw25gmac
- into stmmac hwif handling
+User-Agent: Mozilla Thunderbird
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: ende.tan@starfivetech.com, netdev@vger.kernel.org
+References: <20240829134043.323855-1-ende.tan@starfivetech.com>
+Content-Language: en-US
+In-Reply-To: <20240829134043.323855-1-ende.tan@starfivetech.com>
+Cc: andrew@lunn.ch, leyfoon.tan@starfivetech.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, joabreu@synopsys.com, minda.chen@starfivetech.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ endeneer@gmail.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next, v3,
+ 1/1] net: stmmac: Batch set RX OWN flag and other flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,122 +83,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBBdWcgMjksIDIwMjQgYXQgMzo1MuKAr0FNIFNlcmdlIFNlbWluIDxmYW5jZXIubGFu
-Y2VyQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBIaSBKaXRlbmRyYQo+Cj4gT24gTW9uLCBBdWcgMjYs
-IDIwMjQgYXQgMTE6NTM6MTNBTSAtMDcwMCwgSml0ZW5kcmEgVmVnaXJhanUgd3JvdGU6Cj4gPiBI
-aSBTZXJnZSh5KQo+ID4gVGhhbmsgeW91IGZvciByZXZpZXdpbmcgdGhlIHBhdGNoLgo+ID4KPiA+
-IE9uIEZyaSwgQXVnIDIzLCAyMDI0IGF0IDY6NDnigK9BTSBTZXJnZSBTZW1pbiA8ZmFuY2VyLmxh
-bmNlckBnbWFpbC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPiBIaSBKaXRlbmRyYQo+ID4gPgo+ID4g
-PiBPbiBXZWQsIEF1ZyAxNCwgMjAyNCBhdCAwMzoxODoxNlBNIC0wNzAwLCBqaXRlbmRyYS52ZWdp
-cmFqdUBicm9hZGNvbS5jb20gd3JvdGU6Cj4gPiA+ID4gRnJvbTogSml0ZW5kcmEgVmVnaXJhanUg
-PGppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbT4KPiA+ID4gPgo+ID4gPiA+IEludGVncmF0
-ZSBkdzI1Z21hYyBzdXBwb3J0IGludG8gc3RtbWFjIGhhcmR3YXJlIGludGVyZmFjZSBoYW5kbGlu
-Zy4KPiA+ID4gPiBBZGRlZCBhIG5ldyBlbnRyeSB0byB0aGUgc3RtbWFjX2h3IHRhYmxlIGluIGh3
-aWYuYy4KPiA+ID4gPiBEZWZpbmUgbmV3IG1hY3JvcyBEVzI1R01BQ19DT1JFXzRfMDAgYW5kIERX
-MjVHTUFDX0lEIHRvIGlkZW50aWZ5IDI1R01BQwo+ID4gPiA+IGRldmljZS4KPiA+ID4gPiBTaW5j
-ZSBCQ004OTU4eCBpcyBhbiBlYXJseSBhZGFwdG9yIGRldmljZSwgdGhlIHN5bm9wc2lzX2lkIHJl
-cG9ydGVkIGluIEhXCj4gPiA+ID4gaXMgMHgzMiBhbmQgZGV2aWNlX2lkIGlzIERXWEdNQUNfSUQu
-IFByb3ZpZGUgb3ZlcnJpZGUgc3VwcG9ydCBieSBkZWZpbmluZwo+ID4gPiA+IHN5bm9wc3lzX2Rl
-dl9pZCBtZW1iZXIgaW4gc3RydWN0IHN0bW1hY19wcml2IHNvIHRoYXQgZHJpdmVyIHNwZWNpZmlj
-IHNldHVwCj4gPiA+ID4gZnVuY3Rpb25zIGNhbiBvdmVycmlkZSB0aGUgaGFyZHdhcmUgcmVwb3J0
-ZWQgdmFsdWVzLgo+ID4gPiA+Cj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogSml0ZW5kcmEgVmVnaXJh
-anUgPGppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbT4KPiA+ID4gPiAtLS0KPiA+ID4gPiAr
-ICAgICB9LCB7Cj4gPiA+ID4gKyAgICAgICAgICAgICAuZ21hYyA9IGZhbHNlLAo+ID4gPiA+ICsg
-ICAgICAgICAgICAgLmdtYWM0ID0gZmFsc2UsCj4gPiA+ID4gKyAgICAgICAgICAgICAueGdtYWMg
-PSB0cnVlLAo+ID4gPiA+ICsgICAgICAgICAgICAgLm1pbl9pZCA9IERXMjVHTUFDX0NPUkVfNF8w
-MCwKPiA+ID4gPiArICAgICAgICAgICAgIC5kZXZfaWQgPSBEVzI1R01BQ19JRCwKPiA+ID4gPiAr
-ICAgICAgICAgICAgIC5yZWdzID0gewo+ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAucHRw
-X29mZiA9IFBUUF9YR01BQ19PRkZTRVQsCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIC5t
-bWNfb2ZmID0gTU1DX1hHTUFDX09GRlNFVCwKPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAg
-LmVzdF9vZmYgPSBFU1RfWEdNQUNfT0ZGU0VULAo+ID4gPiA+ICsgICAgICAgICAgICAgfSwKPiA+
-ID4gPiArICAgICAgICAgICAgIC5kZXNjID0gJmR3eGdtYWMyMTBfZGVzY19vcHMsCj4gPiA+ID4g
-KyAgICAgICAgICAgICAuZG1hID0gJmR3MjVnbWFjNDAwX2RtYV9vcHMsCj4gPiA+ID4gKyAgICAg
-ICAgICAgICAubWFjID0gJmR3eGdtYWMyMTBfb3BzLAo+ID4gPiA+ICsgICAgICAgICAgICAgLmh3
-dGltZXN0YW1wID0gJnN0bW1hY19wdHAsCj4gPiA+ID4gKyAgICAgICAgICAgICAubW9kZSA9IE5V
-TEwsCj4gPiA+ID4gKyAgICAgICAgICAgICAudGMgPSAmZHdtYWM1MTBfdGNfb3BzLAo+ID4gPiA+
-ICsgICAgICAgICAgICAgLm1tYyA9ICZkd3hnbWFjX21tY19vcHMsCj4gPiA+ID4gKyAgICAgICAg
-ICAgICAuZXN0ID0gJmR3bWFjNTEwX2VzdF9vcHMsCj4gPiA+ID4gKyAgICAgICAgICAgICAuc2V0
-dXAgPSBkd3hnbWFjMl9zZXR1cCwKPiA+ID4gPiArICAgICAgICAgICAgIC5xdWlya3MgPSBOVUxM
-LAo+ID4gPiA+ICAgICAgIH0sCj4gPiA+Cj4gPiA+IFRoaXMgY2FuIGJlIHJlcGxhY2VkIHdpdGgg
-anVzdDoKPiA+ID4KPiA+ID4gKyAgICAgICB9LCB7Cj4gPiA+ICsgICAgICAgICAgICAgICAuZ21h
-YyA9IGZhbHNlLAo+ID4gPiArICAgICAgICAgICAgICAgLmdtYWM0ID0gZmFsc2UsCj4gPiA+ICsg
-ICAgICAgICAgICAgICAueGdtYWMgPSB0cnVlLAo+ID4gPiArICAgICAgICAgICAgICAgLm1pbl9p
-ZCA9IERXMjVHTUFDX0NPUkVfNF8wMCwKPiA+ID4gKyAgICAgICAgICAgICAgIC5kZXZfaWQgPSBE
-V1hHTUFDX0lELCAvKiBFYXJseSBEVyAyNUdNQUMgSVAtY29yZSBoYWQgWEdNQUMgSUQgKi8KPiA+
-ID4gKyAgICAgICAgICAgICAgIC5yZWdzID0gewo+ID4gPiArICAgICAgICAgICAgICAgICAgICAg
-ICAucHRwX29mZiA9IFBUUF9YR01BQ19PRkZTRVQsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIC5tbWNfb2ZmID0gTU1DX1hHTUFDX09GRlNFVCwKPiA+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgLmVzdF9vZmYgPSBFU1RfWEdNQUNfT0ZGU0VULAo+ID4gPiArICAgICAgICAgICAgICAg
-fSwKPiA+ID4gKyAgICAgICAgICAgICAgIC5kZXNjID0gJmR3eGdtYWMyMTBfZGVzY19vcHMsCj4g
-PiA+ICsgICAgICAgICAgICAgICAuZG1hID0gJmR3MjVnbWFjNDAwX2RtYV9vcHMsCj4gPiA+ICsg
-ICAgICAgICAgICAgICAubWFjID0gJmR3eGdtYWMyMTBfb3BzLAo+ID4gPiArICAgICAgICAgICAg
-ICAgLmh3dGltZXN0YW1wID0gJnN0bW1hY19wdHAsCj4gPiA+ICsgICAgICAgICAgICAgICAubW9k
-ZSA9IE5VTEwsCj4gPiA+ICsgICAgICAgICAgICAgICAudGMgPSAmZHdtYWM1MTBfdGNfb3BzLAo+
-ID4gPiArICAgICAgICAgICAgICAgLm1tYyA9ICZkd3hnbWFjX21tY19vcHMsCj4gPiA+ICsgICAg
-ICAgICAgICAgICAuZXN0ID0gJmR3bWFjNTEwX2VzdF9vcHMsCj4gPiA+ICsgICAgICAgICAgICAg
-ICAuc2V0dXAgPSBkdzI1Z21hY19zZXR1cCwKPiA+ID4gKyAgICAgICAgICAgICAgIC5xdWlya3Mg
-PSBOVUxMLAo+ID4gPiAgICAgICAgIH0KPiA+ID4KPiA+ID4gYW5kIHlvdSB3b24ndCBuZWVkIHRv
-IHByZS1kZWZpbmUgdGhlIHNldHVwKCkgbWV0aG9kIGluIHRoZQo+ID4gPiBnbHVlIGRyaXZlci4g
-SW5zdGVhZCB5b3UgY2FuIGRlZmluZSBhIG5ldyBkdzI1eGdtYWNfc2V0dXAoKSBtZXRob2QgaW4K
-PiA+ID4gdGhlIGR3eGdtYWMyX2NvcmUuYyBhcyBpdCdzIGRvbmUgZm9yIHRoZSBEVyBYR01BQy9M
-WEdNQUMgSVAtY29yZXMuCj4gPiA+Cj4gPiA+IE5vdGUgaWYgeW91ciBkZXZpY2UgaXMgY2FwYWJs
-ZSB0byB3b3JrIHdpdGggdXAgdG8gMTBHYnBzIHNwZWVkLCB0aGVuCj4gPiA+IGp1c3Qgc2V0IHRo
-ZSBwbGF0X3N0bW1hY2VuZXRfZGF0YTo6bWF4X3NwZWVkIGZpZWxkIHRvIFNQRUVEXzEwMDAwLgo+
-ID4gPiBBbHRlcm5hdGl2ZWx5IGlmIHlvdSByZWFsbHkgbmVlZCB0byBzcGVjaWZ5IHRoZSBleGFj
-dCBNQUMKPiA+ID4gY2FwYWJpbGl0aWVzLCB0aGVuIHlvdSBjYW4gaW1wbGVtZW50IHdoYXQgUnVz
-c2VsbCBzdWdnZXN0ZWQgaGVyZQo+ID4gPiBzb21ldGltZSBhZ286Cj4gPiA+IGh0dHBzOi8vbG9y
-ZS5rZXJuZWwub3JnL25ldGRldi9aZjNpZkglMkZDanlIdG1YRTNAc2hlbGwuYXJtbGludXgub3Jn
-LnVrLwo+ID4gPgo+ID4gSSBsaWtlIHlvdXIgc3VnZ2VzdGlvbiB0byBhZGQgb25lIHN0bW1hY19o
-d1tdIGFycmF5IGVudHJ5IChlbnRyeV9hKSBmb3IgdGhpcwo+ID4gImVhcmx5IHJlbGVhc2UiIERX
-MjVHTUFDIElQIGFuZCBhbm90aGVyIGVudHJ5IChlbnRyeV9iKSBmb3IgZmluYWwgRFcyNU1BQwo+
-ID4gSVAsIGluIHRoZSBwcm9jZXNzIGVsaW1pbmF0ZSB0aGUgbmVlZCBmb3IgYSBuZXcgbWVtYmVy
-IHZhcmlhYmxlIGluIHN0cnVjdAo+ID4gc3RtbWFjX3ByaXYuCj4gPgo+Cj4gPiBIb3dldmVyLCBJ
-IHdvdWxkIGxpa2UgdG8gYnJpbmcgdG8geW91ciBhdHRlbnRpb24gdGhhdCB0aGlzIGRldmljZSBy
-ZXF1aXJlcwo+ID4gc3BlY2lhbCBoYW5kbGluZyBmb3IgYm90aCBzeW5vcHN5c19pZCBhbmQgZGV2
-X2lkLgo+ID4gVGhpcyBkZXZpY2UgaXMgcmVwb3J0aW5nIDB4MzIgZm9yIHN5bm9wc3lzX2lkIGFu
-ZCAweDc2KFhHTUFDKSBmb3IgZGV2X2lkLgo+ID4gVGhlIGZpbmFsIDI1R01BQyBzcGVjIHdpbGwg
-aGF2ZSAweDQwIGZvciBzeW5vcHN5c19pZCBhbmQgMHg1NSgyNUdNQUMpIGZvcgo+ID4gZGV2X2lk
-Lgo+Cj4gRm9yIHNvbWUgcmVhc29uIEkgd2FzIHRoaW5raW5nIHRoYXQgeW91ciBkZXZpY2UgaGFk
-IG9ubHkgdGhlIGRldmljZSBJRAo+IHByZS1kZWZpbmVkIHdpdGggdGhlIFhHTUFDIHZhbHVlIG1l
-YW53aGlsZSB0aGUgU3lub3BzeXMgSUQgd2FzIDB4NDAuCj4gSW5kZWVkIHlvdSBnZXQgdG8gb3Zl
-cnJpZGUgYm90aCBvZiB0aGVzZSBkYXRhIGluIHRoZSBwbGF0Zm9ybS1zcGVjaWZpYwo+IHNldHVw
-KCkgbWV0aG9kLgo+Cj4gPgo+ID4gU28sIGluIG9yZGVyIHRvIGF2b2lkIGZhbHNlbHkgcXVhbGlm
-eWluZyBvdGhlciBYR01BQyBkZXZpY2VzIHdpdGgKPiA+IHN5bm9wc2lzX2lkID49MHgzMiBhcyBE
-VzI1R01BQywgSSBhbSB0aGlua2luZyB3ZSB3aWxsIGhhdmUgdG8gb3ZlcndyaXRlIHRoZQo+ID4g
-c3lub3BzeXNfaWQgdG8gMHg0MCAoRFcyNUdNQUNfQ09SRV80XzAwKSBpbiBnbHVlIGRyaXZlciB1
-c2luZyBleGlzdGluZwo+ID4gZ2x1ZSBkcml2ZXIgb3ZlcnJpZGUgbWVjaGFuaXNtLgo+ID4KPiA+
-IFdlIGNhbiBpbXBsZW1lbnQgZHcyNWdtYWNfc2V0dXAoKSBpbiBkd3hnbWFjMl9jb3JlLmMgZm9y
-IGdlbmVyaWMgMjVHTUFDCj4gPiBjYXNlLiBCdXQsIHRoaXMgZ2x1ZSBkcml2ZXIgd2lsbCBoYXZl
-IHRvIHJlbHkgb24gaXRzIG93biBzZXR1cCBmdW5jdGlvbgo+ID4gdG8gb3ZlcnJpZGUgdGhlIHN5
-bm9wc3lzX2lkIGFzIERXMjVHTUFDX0NPUkVfNF8wMC4KPiA+Cj4gPiBEbyB5b3UgdGhpbmsgaXQg
-bG9va3MgcmVhc29uYWJsZT8KPgo+IFdoYXQgSSB3YXMgdHJ5aW5nIHRvIGF2b2lkIHdhcyB0aGUg
-c2V0dXAoKSBtZXRob2QgcmUtZGVmaW5pdGlvbiBqdXN0Cj4gZm9yIHRoZSBzYWtlIG9mIHRoZSBJ
-UC1jb3JlIHZlcnNpb24gb3ZlcnJpZGUuIEJlY2F1c2UgaWYgbm90IGZvciB0aGF0Cj4geW91IGNv
-dWxkIGhhdmUgY3JlYXRlZCBhbmQgdXNlZCB0aGUgZ2VuZXJpYyBEVyAyNUdNQUMgZHcyNWdtYWNf
-c2V0dXAoKQo+IGZ1bmN0aW9uLgo+Cj4gT25lIG9mIHRoZSBwb3NzaWJsZSBzb2x1dGlvbnMgSSB3
-YXMgdGhpbmtpbmcgd2FzIHRvIGludHJvZHVjZSB0aGUKPiBwbGF0X3N0bW1hY2VuZXRfZGF0YTo6
-e3NucHNfaWQsZGV2X2lkfSBmaWVsZHMgYW5kIHVzZSB0aGVpciB2YWx1ZXMgaW4KPiB0aGUgc3Rt
-bWFjX2h3aWZfaW5pdCgpIHByb2NlZHVyZSBpbnN0ZWFkIG9mIHRoZSBkYXRhIHJlYWQgZnJvbSB0
-aGUKPiBNQUMuVkVSU0lPTiBDU1IuCj4KSGkgU2VyZ2UoeSksClRoYW5rcyBmb3IgdGhlIHN1Z2dl
-c3Rpb25zLCBJIHdpbGwgaW1wbGVtZW50IHRoaXMgb3B0aW9uIHNpbmNlIHRoZQpjb2RlIGNoYW5n
-ZSBpcyBtb3N0bHkgbG9jYWwuCldlIHdpbGwgaGF2ZSB0byBhZGQgZm9sbG93aW5nIGNoZWNrIGlu
-IGh3aWYuYwpAQCAtMzEzLDcgKzMxMywxMCBAQCBpbnQgc3RtbWFjX2h3aWZfaW5pdChzdHJ1Y3Qg
-c3RtbWFjX3ByaXYgKnByaXYpCiAgICAgICAgdTMyIGlkLCBkZXZfaWQgPSAwOwogICAgICAgIGlu
-dCBpLCByZXQ7CgotICAgICAgIGlmIChuZWVkc19nbWFjKSB7CisgICAgICAgaWYgKHByaXYtPnBs
-YXQtPnNucHNfaWQgJiYgcHJpdi0+cGxhdC0+c25wc19kZXZfaWQpIHsKKyAgICAgICAgICAgICAg
-IGlkID0gcHJpdi0+cGxhdC0+c25wc19pZDsKKyAgICAgICAgICAgICAgIGRldl9pZCA9IHByaXYt
-PnBsYXQtPnNucHNfZGV2X2lkOworICAgICAgIH0gZWxzZSBpZiAobmVlZHNfZ21hYykgewogICAg
-ICAgICAgICAgICAgaWQgPSBzdG1tYWNfZ2V0X2lkKHByaXYsIEdNQUNfVkVSU0lPTik7Cgo+IEFu
-b3RoZXIgc29sdXRpb24gY291bGQgYmUgdG8gYWRkIHRoZSBwbGF0X3N0bW1hY2VuZXRfZGF0YTo6
-aGFzXzI1Z21hYwo+IGZpZWxkIGFuZCBmaXggdGhlIGdlbmVyaWMgZHJpdmVyIGNvZGUgdG8gdXNp
-bmcgaXQgd2hlcmUgaXQncyByZWxldmFudC4KPiBUaGVuIHlvdSB3b24ndCBuZWVkIHRvIHRoaW5r
-IGFib3V0IHdoYXQgYWN0dWFsIFN5bm9wc3lzIElEL0RldmljZSBJRAo+IHNpbmNlIGl0IHdvdWxk
-IG1lYW4gYSB3aG9sZSBuZXcgSVAtY29yZS4KPgo+IC1TZXJnZSh5KQo+Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 8/29/24 06:40, ende.tan@starfivetech.com wrote:
+> From: Tan En De <ende.tan@starfivetech.com>
+> 
+> Minimize access to the RX descriptor by collecting all the flags in a
+> local variable and then updating the descriptor at once.
+> 
+> Signed-off-by: Tan En De <ende.tan@starfivetech.com>
+> ---
+> v3:
+> - Use local variable to batch set the descriptor flags.
+> - This reduces the number of accesses to the descriptor.
+> v2: https://patchwork.kernel.org/project/netdevbpf/patch/20240821060307.46350-1-ende.tan@starfivetech.com/
+> - Avoid introducing a new function just to set the interrupt-on-completion
+>    bit, as it is wasteful to do so.
+> - Delegate the responsibility of calling dma_wmb() from main driver code
+>    to set_rx_owner() callbacks (i.e. let callbacks to manage the low-level
+>    ordering/barrier rather than cluttering up the main driver code).
+> v1: https://patchwork.kernel.org/project/netdevbpf/patch/20240814092438.3129-1-ende.tan@starfivetech.com/
+> ---
+>   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c   | 6 ++++--
+>   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 6 ++++--
+>   2 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> index 1c5802e0d7f4..dfcbe7036988 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> @@ -186,10 +186,12 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+>   
+>   static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+>   {
+> -	p->des3 |= cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
+> +	u32 flags = cpu_to_le32(RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
+>   
+>   	if (!disable_rx_ic)
+> -		p->des3 |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
+> +		flags |= cpu_to_le32(RDES3_INT_ON_COMPLETION_EN);
+> +
+> +	p->des3 |= flags;
+
+You could just batch the endian conversion too:
+
+	u32 flags = DES3_OWN | RDES3_BUFFER1_VALID_ADDR;
+
+	if (!disable_rx_ic)
+		flags |= RDES3_INT_ON_COMPLETION_EN;
+
+	p->desc3 |= cpu_to_le32(flags);
+
+>   }
+>   
+>   static int dwmac4_get_tx_ls(struct dma_desc *p)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index fc82862a612c..0c7ea939f787 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -56,10 +56,12 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
+>   
+>   static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+>   {
+> -	p->des3 |= cpu_to_le32(XGMAC_RDES3_OWN);
+> +	u32 flags = cpu_to_le32(XGMAC_RDES3_OWN);
+>   
+>   	if (!disable_rx_ic)
+> -		p->des3 |= cpu_to_le32(XGMAC_RDES3_IOC);
+> +		 flags |= cpu_to_le32(XGMAC_RDES3_IOC);
+> +
+> +	p->des3 |= flags;
+
+And likewise here, and that would likely squash the sparse warning, 
+since you would not be assigning an 'u32' field to a __le32 field anymore.
+-- 
+Florian
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
