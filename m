@@ -2,54 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE0CA966223
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 14:58:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865C39662D5
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 15:25:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC196C6DD9A;
-	Fri, 30 Aug 2024 12:58:12 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D906C6DD9A;
+	Fri, 30 Aug 2024 13:25:49 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D469C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D96B5C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 12:58:06 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 212C388BCF;
- Fri, 30 Aug 2024 14:58:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1725022685;
- bh=ldaBCijM7jpy64WBglfsb4+/lYq4Vb5VPPiRz9MS/oQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mC6N3ul7JXrXa3gns4aCIK7e11WQQJkuw2ODtGZ/yAGHDLUeGUwJg4C2wgJerzvSs
- 91Ab/kn4YMPxoXJywAKv2Ij+alplvKGnBBN8hP6ENiFK7AMqnMM639kGLLSj3Iqk7S
- 09M+iYp4nER0SVm0IZOoDnDeDhyeQDP2jY2J8NauPEFYKQCm/VHp+PFMON37wLH/jR
- 8nYOak+AsGLqky92sxIZwOtKkO4m1feV0H+jBOABwtefvtExv7A2onkqaGP+AsETgL
- 8fC9XyTE9ALRffCgXpnMYI+OwSRtIRezxsnhWu9DJBcUfZ2/FWompMvgXvQy7mqheb
- qWCQGwXSN5b5g==
-Message-ID: <b2bb5061-01e0-4f47-877b-edccedcf1aef@denx.de>
-Date: Fri, 30 Aug 2024 14:57:41 +0200
+ Fri, 30 Aug 2024 13:25:42 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47UCSfch029881;
+ Fri, 30 Aug 2024 15:25:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ o8btpO/cONHa3wl5inFcEt9BpKOPAQfxu+XbhlGEgtM=; b=1pFTjjXkj2hjXyBR
+ wx+fKlVjN/2TSAXHk3z4YlXRpVRgpS+2jnJ8SPBq4WbvS85xHM/hN6NFfrI2OBdm
+ jkWf9L7av8Bhb7/lQNmFW98ACaGnFXKF0dc16Wv5lID35CjzQSaUH1ANU4YPcugI
+ 3U0NJOtkengoyb1gPPx7yMnbjF1WXM7AvM1u2TMO+zZIcF1S6F4LM3wR/HD1vRlX
+ oH3J7AQelWwoKEk0tOyffzEO4BmMnDJK24AfEaonzMmkzTTZ958ies+cZWbbZ2dD
+ xxHIflAb2Aoux4jLPJXRYPmIFFQA0nmtotcAP0Goyy3uFnGKYG8JFl1LOcQZKtAw
+ RPR7uA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41b14tb40r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Aug 2024 15:25:19 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 243BB4002D;
+ Fri, 30 Aug 2024 15:25:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F2E4C2681BF;
+ Fri, 30 Aug 2024 15:24:28 +0200 (CEST)
+Received: from [10.252.31.165] (10.252.31.165) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 30 Aug
+ 2024 15:24:28 +0200
+Message-ID: <9961070c-9e8e-454d-ae85-4759da4b4e79@foss.st.com>
+Date: Fri, 30 Aug 2024 15:24:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240705215402.257070-1-marex@denx.de>
- <e38b8da5-349d-4ee2-97d4-9c46c116120c@foss.st.com>
+To: Sean Nyekjaer <sean@geanix.com>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Marcin Sloniewski
+ <marcin.sloniewski@gmail.com>, Ahmad Fatoum <a.fatoum@pengutronix.de>
+References: <20240709121619.1588520-1-sean@geanix.com>
 Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <e38b8da5-349d-4ee2-97d4-9c46c116120c@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Describe PHY LEDs in DH
- STM32MP13xx DHCOR DHSBC board DT
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240709121619.1588520-1-sean@geanix.com>
+X-Originating-IP: [10.252.31.165]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-30_08,2024-08-30_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add missing gpio options
+ for sdmmc2_d47_pins_d
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,35 +75,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8zMC8yNCAyOjQ3IFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IEhpIE1hcmVrCgpI
-aSwKCj4gSSBoYXZlIGEgeWFtbCB2YWxpZGF0aW9uIGlzc3VlIGFwcGx5aW5nIHRoaXMgcGF0Y2gu
-Cj4gCj4gIMKgIERUQ19DSEsgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGhjb3It
-ZGhzYmMuZHRiCj4gL2xvY2FsL2hvbWUvZnJxMDg2NzgvU1RMSU5VWC9rZXJuZWwvbXkta2VybmVs
-L3N0bTMyL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzVmLWRoY29yLWRoc2JjLmR0Yjog
-ZXRoZXJuZXQtcGh5QDE6IFVuZXZhbHVhdGVkIHByb3BlcnRpZXMgYXJlIG5vdCBhbGxvd2VkICgn
-aW50ZXJydXB0LXBhcmVudCcsICdpbnRlcnJ1cHRzJywgJ3JlZycsICdyZXNldC1hc3NlcnQtdXMn
-LCAncmVzZXQtZGVhc3NlcnQtdXMnLCAncmVzZXQtZ3Bpb3MnIHdlcmUgdW5leHBlY3RlZCkKPiAg
-wqDCoMKgwqBmcm9tIHNjaGVtYSAkaWQ6IAo+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFz
-L25ldC9yZWFsdGVrLHJ0bDgyeHgueWFtbCMKPiAvbG9jYWwvaG9tZS9mcnEwODY3OC9TVExJTlVY
-L2tlcm5lbC9teS1rZXJuZWwvc3RtMzIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzNWYt
-ZGhjb3ItZGhzYmMuZHRiOiBldGhlcm5ldC1waHlAMTogbGVkczpsZWRAMDpsaW51eCxkZWZhdWx0
-LXRyaWdnZXI6ICdvbmVPZicgY29uZGl0aW9uYWwgZmFpbGVkLCBvbmUgbXVzdCBiZSBmaXhlZDoK
-PiAgwqDCoMKgwqAnbmV0ZGV2JyBpcyBub3Qgb25lIG9mIFsnYmFja2xpZ2h0JywgJ2RlZmF1bHQt
-b24nLCAnaGVhcnRiZWF0JywgCj4gJ2Rpc2stYWN0aXZpdHknLCAnZGlzay1yZWFkJywgJ2Rpc2st
-d3JpdGUnLCAndGltZXInLCAncGF0dGVybicsIAo+ICdhdWRpby1taWNtdXRlJywgJ2F1ZGlvLW11
-dGUnLCAnYmx1ZXRvb3RoLXBvd2VyJywgJ2ZsYXNoJywgCj4gJ2tiZC1jYXBzbG9jaycsICdtdGQn
-LCAnbmFuZC1kaXNrJywgJ25vbmUnLCAndG9yY2gnLCAndXNiLWdhZGdldCcsIAo+ICd1c2ItaG9z
-dCcsICd1c2Jwb3J0J10KPiAgwqDCoMKgwqAnbmV0ZGV2JyBkb2VzIG5vdCBtYXRjaCAnXmNwdVsw
-LTldKiQnCj4gIMKgwqDCoMKgJ25ldGRldicgZG9lcyBub3QgbWF0Y2ggJ15oY2lbMC05XSstcAo+
-IAo+IENhbiB5b3UgaGF2ZSBhIGxvb2sgcGxlYXNlID8KClNlZSB0aGlzIGNvbW1pdCBpbiBsaW51
-eC1uZXh0LCB3aXRoIHRoYXQgdGhlIHZhbGlkYXRpb24gc2hvdWxkIHBhc3M6Cgo2MTZkYmVkNjU0
-ODUgKCJkdC1iaW5kaW5nczogbGVkczogRG9jdW1lbnQgIm5ldGRldiIgdHJpZ2dlciIpCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+Hi Sean
+
+On 7/9/24 14:16, Sean Nyekjaer wrote:
+> This enables DDR50 mode for the eMMC on Octavo OSD32MP1-RED board.
+> 
+> Fixes: be78ab4f632c ("ARM: dts: stm32: add initial support for stm32mp157-odyssey board")
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> ---
+>   arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+> index ae83e7b10232..70e132dc6147 100644
+> --- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+> @@ -2229,6 +2229,9 @@ pins {
+>   				 <STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
+>   				 <STM32_PINMUX('E', 5, AF9)>, /* SDMMC2_D6 */
+>   				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
+> +			slew-rate = <1>;
+> +			drive-push-pull;
+> +			bias-pull-up;
+>   		};
+>   	};
+>   
+
+Applied on stm32-next.
+
+Thanks.
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
