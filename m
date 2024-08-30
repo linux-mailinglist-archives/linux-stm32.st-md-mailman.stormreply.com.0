@@ -2,68 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6F58966CAD
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 00:48:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96676966CD3
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 01:20:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58050C6C841;
-	Fri, 30 Aug 2024 22:48:57 +0000 (UTC)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4646DC6C841;
+	Fri, 30 Aug 2024 23:20:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 934D3C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BBC4C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 22:48:50 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2f3f0bdbcd9so26912511fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 15:48:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725058130; x=1725662930;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JYUyqjMtyPycxjQHE/amwVFlyjc6VQU5XnqwL5FD0Mw=;
- b=nyhzuWSxbbh5hlXurOyQnagjgDNQDtcDjvj1A4s6KuB4yhOXsPkOIk6siE97SK/3nv
- r03oejDDZz8uAtYTw0xibi23U1IyMh4v3pPwDMsrf0SS/pKKCtz6s2EdB4du0C2qGWbk
- aVl4zhtwBl6MFk2D2eCMX3ypBAwEr1mehdoR5V+WBI4N3B0voQ1z5DiU/YN/B5trmwaf
- Rt5Ew+MJUrF4vNL9fCre+AWvaBx/mEaeF7j1y9AsBYKojPFstauWBO8g3Or+J13gvbia
- 3lhPjtYZeDmTScQJhZFpG/wJ4Wg1kr3+51PKPH+28QssDOW99QGRkk4RvfENpQ6UhjCG
- tktw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725058130; x=1725662930;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JYUyqjMtyPycxjQHE/amwVFlyjc6VQU5XnqwL5FD0Mw=;
- b=lI38in6UGxwp3AAW1wG/qsi4YSobzN/WWiPNVLsqKABL7iNMF5jZphNNFGcDP3yMar
- FcezmZe8HbY6x9ArltALag3WZnU9ajMXx3XYcYbxlX8+Fzhi4qoasZYON2vaNF3PRk2F
- Z6IR53vLCcJKGpYfLVjeLbw8c9+NYstYt08Wt1K6hnYOc+/Ab0TldZAIN7runS7dMoCZ
- tkSPqtLP4ox4Oey7szm/pp3tgNTwwqa5iqkFoBMHTFgG6uZJRktFbA0V3i8v2KLnRblp
- N20DhhQ98eC35mMyGZGKux1/kYKMbBpdr9tKv3hGn3Z3v/9UHfSs76MoyqOlebaoK2ME
- KHjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVHfCczNUli6wMnKUnHXqEpScz2WyMfbqy2zknoDK3t61CP09nm+dAYdn+m0jQbElMfzfZsKgRcWKPVEw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxb6H8gwKAh21x8HPTG58vcvQqENE7XzL4NafrBYV9sHQx6ET6Z
- /Mg3kpAcUBq0oIxVN8+cXl0uG6BB+HPpXXow2V3qFYLxHMwJxhwOhGHWXvH5ifHqQan1dlcRn6S
- d1+v9ZhYJV2oXy/cj82217ZLJ2lQvrnqwIdHf1g==
-X-Google-Smtp-Source: AGHT+IHb8yYNqKvXobOLtm71pbJH/2OmtII9Yv4T1KNsEkIknUIBZXanlwk7I6MTZZWDZYu7FBbkwa/j8sqao3IiWt4=
-X-Received: by 2002:a05:6512:1294:b0:534:36bf:b622 with SMTP id
- 2adb3069b0e04-53546bc7f40mr1908506e87.61.1725058129075; Fri, 30 Aug 2024
- 15:48:49 -0700 (PDT)
+ Fri, 30 Aug 2024 23:20:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725060054; x=1756596054;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=nPwrvEN9XYrbT3J+y8lcXmeIHnztMSIuwQQIDpKMEbw=;
+ b=mY0pclmyTfk2MNYvib8uWjQlZ0alKqbSQzdEydnnB5zzE2Hr5X0+3Y7u
+ tLzyh2uoT2S8J4DZPsjraVlMPGutRvkKzoVJAOtuiq3fMIqMvjXRX1QYA
+ HKJytLFvOiTTdQcMtWuTFflisLBLvZhJljiISxhohho8uoTsFeh2nanCk
+ I/BgRxcdS9B1BA+fSkGSkZwdLSkwCNntr1OsaHEEF1n9mCF+lX5Xs3imm
+ P2L353ZGtX8YmuTnPMTRsaSbpOMveX7RwfZpkuQjmj0EngxaY81wYdqkk
+ Fzx4tfTIgp0Ywa4e5ghMK9icQm36i7tQQu5YZe7ILjQDtf3VNofeqeQYr g==;
+X-CSE-ConnectionGUID: PrgVbl0nRO2rDpPV6bQKDw==
+X-CSE-MsgGUID: 1UI3imEBRZ6g9U0F/XFlhw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11180"; a="35127142"
+X-IronPort-AV: E=Sophos;i="6.10,190,1719903600"; d="scan'208";a="35127142"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2024 16:20:46 -0700
+X-CSE-ConnectionGUID: MIvltLxURYi6utmjs8MKtg==
+X-CSE-MsgGUID: X1M4ydP+RYiEybVXoNsE0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,190,1719903600"; d="scan'208";a="63990529"
+Received: from lkp-server01.sh.intel.com (HELO 9c6b1c7d3b50) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 30 Aug 2024 16:20:42 -0700
+Received: from kbuild by 9c6b1c7d3b50 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1skAv1-0002Ck-1t;
+ Fri, 30 Aug 2024 23:20:39 +0000
+Date: Sat, 31 Aug 2024 07:19:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: ende.tan@starfivetech.com, netdev@vger.kernel.org
+Message-ID: <202408310604.E3C4zDID-lkp@intel.com>
+References: <20240829134043.323855-1-ende.tan@starfivetech.com>
 MIME-Version: 1.0
-References: <20240829131051.43200-1-shenlichuan@vivo.com>
-In-Reply-To: <20240829131051.43200-1-shenlichuan@vivo.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 31 Aug 2024 00:48:38 +0200
-Message-ID: <CACRpkdYhi1syb+-PO41q18=rU0aykgNKzg2j7zmGQyH6Vbjqgg@mail.gmail.com>
-To: Shen Lichuan <shenlichuan@vivo.com>
-Cc: opensource.kernel@vivo.com, brgl@bgdev.pl, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1] gpio: stmpe: Simplify with
-	dev_err_probe()
+Content-Disposition: inline
+In-Reply-To: <20240829134043.323855-1-ende.tan@starfivetech.com>
+Cc: Tan En De <ende.tan@starfivetech.com>, andrew@lunn.ch,
+ leyfoon.tan@starfivetech.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ minda.chen@starfivetech.com, mcoquelin.stm32@gmail.com,
+ oe-kbuild-all@lists.linux.dev, kuba@kernel.org, pabeni@redhat.com,
+ endeneer@gmail.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next, v3,
+ 1/1] net: stmmac: Batch set RX OWN flag and other flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,22 +68,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBBdWcgMjksIDIwMjQgYXQgMzoxMeKAr1BNIFNoZW4gTGljaHVhbiA8c2hlbmxpY2h1
-YW5Adml2by5jb20+IHdyb3RlOgoKPiBVc2UgZGV2X2Vycl9wcm9iZSgpIHRvIHNpbXBsaWZ5IHRo
-ZSBlcnJvciBwYXRoIGFuZCB1bmlmeSBhIG1lc3NhZ2UKPiB0ZW1wbGF0ZS4KPgo+IFVzaW5nIHRo
-aXMgaGVscGVyIGlzIHRvdGFsbHkgZmluZSBldmVuIGlmIGVyciBpcyBrbm93biB0byBuZXZlcgo+
-IGJlIC1FUFJPQkVfREVGRVIuCj4KPiBUaGUgYmVuZWZpdCBjb21wYXJlZCB0byBhIG5vcm1hbCBk
-ZXZfZXJyKCkgaXMgdGhlIHN0YW5kYXJkaXplZCBmb3JtYXQKPiBvZiB0aGUgZXJyb3IgY29kZSwg
-aXQgYmVpbmcgZW1pdHRlZCBzeW1ib2xpY2FsbHkgYW5kIHRoZSBmYWN0IHRoYXQKPiB0aGUgZXJy
-b3IgY29kZSBpcyByZXR1cm5lZCB3aGljaCBhbGxvd3MgbW9yZSBjb21wYWN0IGVycm9yIHBhdGhz
-Lgo+Cj4gU2lnbmVkLW9mZi1ieTogU2hlbiBMaWNodWFuIDxzaGVubGljaHVhbkB2aXZvLmNvbT4K
-ClJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZ
-b3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on linus/master]
+[also build test WARNING on horms-ipvs/master v6.11-rc5 next-20240830]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/ende-tan-starfivetech-com/net-stmmac-Batch-set-RX-OWN-flag-and-other-flags/20240829-214324
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20240829134043.323855-1-ende.tan%40starfivetech.com
+patch subject: [net-next,v3,1/1] net: stmmac: Batch set RX OWN flag and other flags
+config: x86_64-randconfig-r132-20240830 (https://download.01.org/0day-ci/archive/20240831/202408310604.E3C4zDID-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240831/202408310604.E3C4zDID-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202408310604.E3C4zDID-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+>> drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:59:21: sparse: sparse: incorrect type in initializer (different base types) @@     expected unsigned int [usertype] flags @@     got restricted __le32 [usertype] @@
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:59:21: sparse:     expected unsigned int [usertype] flags
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:59:21: sparse:     got restricted __le32 [usertype]
+>> drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:62:24: sparse: sparse: invalid assignment: |=
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:62:24: sparse:    left side has type unsigned int
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:62:24: sparse:    right side has type restricted __le32
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:64:17: sparse: sparse: invalid assignment: |=
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:64:17: sparse:    left side has type restricted __le32
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:64:17: sparse:    right side has type unsigned int
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:110:23: sparse: sparse: restricted __le32 degrades to integer
+   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c:110:50: sparse: sparse: restricted __le32 degrades to integer
+--
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:189:21: sparse: sparse: incorrect type in initializer (different base types) @@     expected unsigned int [usertype] flags @@     got restricted __le32 [usertype] @@
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:189:21: sparse:     expected unsigned int [usertype] flags
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:189:21: sparse:     got restricted __le32 [usertype]
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:192:23: sparse: sparse: invalid assignment: |=
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:192:23: sparse:    left side has type unsigned int
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:192:23: sparse:    right side has type restricted __le32
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:194:17: sparse: sparse: invalid assignment: |=
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:194:17: sparse:    left side has type restricted __le32
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:194:17: sparse:    right side has type unsigned int
+
+vim +59 drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+
+    56	
+    57	static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+    58	{
+  > 59		u32 flags = cpu_to_le32(XGMAC_RDES3_OWN);
+    60	
+    61		if (!disable_rx_ic)
+  > 62			 flags |= cpu_to_le32(XGMAC_RDES3_IOC);
+    63	
+    64		p->des3 |= flags;
+    65	}
+    66	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
