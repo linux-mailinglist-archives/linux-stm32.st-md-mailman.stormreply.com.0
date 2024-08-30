@@ -2,71 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD5E965D79
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 11:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717D396613F
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 14:02:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3A19C6DD9D;
-	Fri, 30 Aug 2024 09:53:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23D05C6DD9A;
+	Fri, 30 Aug 2024 12:02:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE65BC6DD9D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA33AC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 09:53:25 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47U7RFuv001710;
- Fri, 30 Aug 2024 11:53:14 +0200
+ Fri, 30 Aug 2024 12:02:08 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47U7C7dT029757;
+ Fri, 30 Aug 2024 14:01:49 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- n1klpJyPZeBUDJnbCIwtPUP2m2MGVEou3m5PsEyRuSE=; b=wDSd6tn/RLMw7L77
- WBCp569PnSRg026v16tPVDpRf6F416elRI1vuZf1asjw5VBja2+aNiNrY0U0Ow7a
- xL+A6J+armE1J9jFFujgrBodKxWW7kUMMIdRvlZNfhxBWjaoGBE5k/y6RRXFZiiQ
- FGvtKzcxjjqy4v2B94bQc2dDsVJ+cmvB7yNJqKamy9WhVsvq0Dbwjvg6P3MalXmL
- lK8LMyn+DmaZbRMgIDjIel4rpHed5cn2ueqITFsbEtFJwAULitswLj81dQTKRVG9
- GAobBcHa3hP2D5Ui2vFNMqu3bRzl1mRWrVGiya7cDSlxqQpkN5B1cwsL4hNu1Qev
- WvP+9g==
+ JxLqwOI2y8G6VvTSqDDxmPj3GGBoVay6s4WFCUCC6xk=; b=wg7QFA47jBgt7nQw
+ moCsVUmfl8DGset4TFLOfjPDYRps5iabLLrrdhtmxh5j/WwjVu5kI6SXQPUYRmnp
+ VNom+FhD0ejBMkJ/w8qmJ0R3Mud3pgDzVmLL5TYHvOl9oMvWIJSmZcwm8rXFpGFv
+ VcwM+ZQ+hXocw/Ts/qag+Y3cH8Sy90cijdEL0n5uMCVAbQa5ISoFjHlTOYMwhojv
+ vWKtE5Adc0s8w7OVZkhHOHke+IPa4m/Jp8KABvNMMnU8ZJyl/ZMYfZnISSFb3dyt
+ 6HqHjhj/W4aWAa3QvxC4ZOSuMJ/rqkjxc4dGUes2Ab9jIGtQMUFXdSntQ6wjHA1I
+ FgkPlA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41b14uja1v-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41a4y693w3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Aug 2024 11:53:14 +0200 (MEST)
+ Fri, 30 Aug 2024 14:01:48 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5DEE240044;
- Fri, 30 Aug 2024 11:53:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B06A3257A80;
- Fri, 30 Aug 2024 11:52:20 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1C67A40045;
+ Fri, 30 Aug 2024 14:01:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A325261C00;
+ Fri, 30 Aug 2024 14:01:06 +0200 (CEST)
+Received: from [10.252.31.165] (10.252.31.165) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 30 Aug
- 2024 11:52:20 +0200
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 30 Aug
- 2024 11:52:20 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
-Date: Fri, 30 Aug 2024 11:51:47 +0200
-Message-ID: <20240830095147.3538047-8-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
+ 2024 14:01:05 +0200
+Message-ID: <0d338c86-5a34-4a3b-a5b8-7b87d1c32431@foss.st.com>
+Date: Fri, 30 Aug 2024 14:01:04 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
- (10.75.90.17)
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20240705075918.41213-1-marex@denx.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240705075918.41213-1-marex@denx.de>
+X-Originating-IP: [10.252.31.165]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-30_04,2024-08-30_01,2024-05-17_01
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v9 7/7] remoteproc: stm32: Add support of an
-	OP-TEE TA to load the firmware
+ definitions=2024-08-30_06,2024-08-30_01,2024-05-17_01
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] ARM: dts: stm32: Keep MDIO bus in AF
+ across suspend DH STM32MP13xx DHCOR DHSBC board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,144 +75,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The new TEE remoteproc driver is used to manage remote firmware in a
-secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
-introduced to delegate the loading of the firmware to the trusted
-execution context. In such cases, the firmware should be signed and
-adhere to the image format defined by the TEE.
+Hi Marek
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/stm32_rproc.c | 63 ++++++++++++++++++++++++++++++--
- 1 file changed, 60 insertions(+), 3 deletions(-)
+On 7/5/24 09:59, Marek Vasut wrote:
+> The RTL8211F PHY gets confused when the MDIO bus lines get switched
+> to ANALOG during suspend/resume cycle. Keep the MDIO and MDC lines
+> in AF during suspend/resume to avoid confusing the PHY. The PHY can
+> be brought out of the confused state by restarting auto-negotiation
+> too, but that seems like an odd workaround and shouldn't be in the
+> PHY driver.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+> V2: Fixup the eth2_rgmii_sleep_pins_a into AF as well
+> ---
+>   arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 20 ++++++++++++++++----
+>   1 file changed, 16 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> index ca19c8c6b6771..62c64e9c2b9f0 100644
+> --- a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
+> @@ -94,14 +94,20 @@ pins2 {
+>   	/omit-if-no-ref/
+>   	eth1_rgmii_sleep_pins_a: eth1-rgmii-sleep-0 {
+>   		pins1 {
+> +			pinmux = <STM32_PINMUX('A', 2, AF11)>, /* ETH_MDIO */
+> +				 <STM32_PINMUX('G', 2, AF11)>; /* ETH_MDC */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <2>;
+> +		};
+> +
+> +		pins2 {
+>   			pinmux = <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
+>   				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
+>   				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
+>   				 <STM32_PINMUX('E', 5, ANALOG)>, /* ETH_RGMII_TXD3 */
+>   				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
+>   				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+> -				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
+> -				 <STM32_PINMUX('G', 2, ANALOG)>, /* ETH_MDC */
+>   				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+>   				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
+>   				 <STM32_PINMUX('B', 0, ANALOG)>, /* ETH_RGMII_RXD1 */
+> @@ -178,14 +184,20 @@ pins2 {
+>   	/omit-if-no-ref/
+>   	eth2_rgmii_sleep_pins_a: eth2-rgmii-sleep-0 {
+>   		pins1 {
+> +			pinmux = <STM32_PINMUX('B', 6, AF11)>, /* ETH_MDIO */
+> +				 <STM32_PINMUX('G', 5, AF10)>; /* ETH_MDC */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <2>;
+> +		};
+> +
+> +		pins2 {
+>   			pinmux = <STM32_PINMUX('F', 7, ANALOG)>, /* ETH_RGMII_TXD0 */
+>   				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TXD1 */
+>   				 <STM32_PINMUX('G', 1, ANALOG)>, /* ETH_RGMII_TXD2 */
+>   				 <STM32_PINMUX('E', 6, ANALOG)>, /* ETH_RGMII_TXD3 */
+>   				 <STM32_PINMUX('F', 6, ANALOG)>, /* ETH_RGMII_TX_CTL */
+>   				 <STM32_PINMUX('G', 3, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+> -				 <STM32_PINMUX('B', 6, ANALOG)>, /* ETH_MDIO */
+> -				 <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_MDC */
+>   				 <STM32_PINMUX('F', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+>   				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_RXD1 */
+>   				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 79c638936163..400a7a93b1c9 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -18,6 +18,7 @@
- #include <linux/pm_wakeirq.h>
- #include <linux/regmap.h>
- #include <linux/remoteproc.h>
-+#include <linux/remoteproc_tee.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
-@@ -257,6 +258,19 @@ static int stm32_rproc_release(struct rproc *rproc)
- 	return 0;
- }
- 
-+static int stm32_rproc_tee_stop(struct rproc *rproc)
-+{
-+	int err;
-+
-+	stm32_rproc_request_shutdown(rproc);
-+
-+	err = tee_rproc_stop(rproc);
-+	if (err)
-+		return err;
-+
-+	return stm32_rproc_release(rproc);
-+}
-+
- static int stm32_rproc_prepare(struct rproc *rproc)
- {
- 	struct device *dev = rproc->dev.parent;
-@@ -693,8 +707,20 @@ static const struct rproc_ops st_rproc_ops = {
- 	.get_boot_addr	= rproc_elf_get_boot_addr,
- };
- 
-+static const struct rproc_ops st_rproc_tee_ops = {
-+	.prepare	= stm32_rproc_prepare,
-+	.start		= tee_rproc_start,
-+	.stop		= stm32_rproc_tee_stop,
-+	.kick		= stm32_rproc_kick,
-+	.load		= tee_rproc_load_fw,
-+	.parse_fw	= tee_rproc_parse_fw,
-+	.find_loaded_rsc_table = tee_rproc_find_loaded_rsc_table,
-+
-+};
-+
- static const struct of_device_id stm32_rproc_match[] = {
- 	{ .compatible = "st,stm32mp1-m4" },
-+	{ .compatible = "st,stm32mp1-m4-tee" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, stm32_rproc_match);
-@@ -853,17 +879,42 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct stm32_rproc *ddata;
- 	struct device_node *np = dev->of_node;
-+	struct tee_rproc *trproc = NULL;
- 	struct rproc *rproc;
- 	unsigned int state;
-+	u32 proc_id;
- 	int ret;
- 
- 	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret)
- 		return ret;
- 
--	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
--	if (!rproc)
--		return -ENOMEM;
-+	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
-+		/*
-+		 * Delegate the firmware management to the secure context.
-+		 * The firmware loaded has to be signed.
-+		 */
-+		ret = of_property_read_u32(np, "st,proc-id", &proc_id);
-+		if (ret) {
-+			dev_err(dev, "failed to read st,rproc-id property\n");
-+			return ret;
-+		}
-+
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_tee_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+
-+		trproc = tee_rproc_register(dev, rproc, proc_id);
-+		if (IS_ERR(trproc)) {
-+			dev_err_probe(dev, PTR_ERR(trproc),
-+				      "signed firmware not supported by TEE\n");
-+			return PTR_ERR(trproc);
-+		}
-+	} else {
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+	}
- 
- 	ddata = rproc->priv;
- 
-@@ -915,6 +966,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+	if (trproc)
-+		tee_rproc_unregister(trproc);
-+
- 	return ret;
- }
- 
-@@ -935,6 +989,9 @@ static void stm32_rproc_remove(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+	if (rproc->tee_interface)
-+		tee_rproc_unregister(rproc->tee_interface);
-+
- }
- 
- static int stm32_rproc_suspend(struct device *dev)
--- 
-2.25.1
+Applied on stm32-next.
 
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
