@@ -2,50 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0210966BBF
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 23:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA8B966C1C
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 00:12:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A3CFC71282;
-	Fri, 30 Aug 2024 21:57:36 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B98DC6C841;
+	Fri, 30 Aug 2024 22:12:12 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F92DCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DF36CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 21:57:28 +0000 (UTC)
-Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 2274288D35;
- Fri, 30 Aug 2024 23:57:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1725055048;
- bh=Kp4sunbJ6BV6TWvUBCuwZKT9yhDWSvDKaTWgWn0Po9U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=a6EeY9Di7Hg+2HVm5dE4DXoYmd4FXPfT+fPvltLyqRcmotulod4xqN74LwJ1IXoP3
- YvA5L8z3zODzRdIASOof6qzXYGbTxPyCd+GWINqhZ2WCxTGZl8tXGfmPdcWKyFEVfZ
- 5FBHz6UB8qLWiOV3SMCLzXZiRf6anc5+NO4uM2g5zLy2Ej5Q7LBy0g/UUNdkEuXpAz
- GkZ67h1IkKoV4LsYwH424iAjtZiJqSwRCZsg4a0nCfonKYF1o30glqrRH9mLoiwAi3
- YTneh54Us/Z9bPuPdev7pdEdLJDO+UEPCk7W4oNVydlwkgQFbNrHyuj3utKw3+tNIQ
- XI5+8LbGHu4Tw==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Fri, 30 Aug 2024 23:56:38 +0200
-Message-ID: <20240830215701.103262-3-marex@denx.de>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240830215701.103262-1-marex@denx.de>
-References: <20240830215701.103262-1-marex@denx.de>
+ Fri, 30 Aug 2024 22:12:05 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5344ab30508so3166141e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 30 Aug 2024 15:12:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1725055924; x=1725660724;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rwh8M6A1//w3NduZYo3bZPoTmO8CDMDW24C3pIoKiLU=;
+ b=vyGtSYm+N5QBjelCMQurJUdnls3+FImuOZLbFLi1dSfRmrCWqbCEXeMmw72/lvmFuJ
+ 44a69HReQ3Fm3n4LXCW5FdO5mR904C+wPlung//A+aJLngzUXla4F+v08838PsosSBfN
+ ++SUqC8m6LsWzzBPUbnlW4X31870a7KGrrAp9KuqSXgCczDyY22Y0hPKCXDjxbZXlj2s
+ DZlolX+3RqAJXrJ/RnX26FSqT+fnERslMrxmhrJrkX2E3nKZ4ywUiCESg8NWZHSPZucz
+ N2HJbLBvt7s7rXxTewiyQzcoK/e6yONTeJjIEL/icyMVQgo5j4Qbt7gYAPMpYExasy8N
+ eD+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725055924; x=1725660724;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rwh8M6A1//w3NduZYo3bZPoTmO8CDMDW24C3pIoKiLU=;
+ b=e58gf/qlG76eV/Zdukx7pdFqSlZEw4jbCkG8uDcdSu08ZscFc1Ex0oTx4zFaK5S3MR
+ h6Wg+ownmTwTNFx9fls1AWf1GgBQEsF996C6eHojJFwy0mJzWUIJGr71cRgLAPqVK3Kf
+ y9RTpLirzQtfLsnOxIPiIesoUeVv0V51N9XxTKAkzQBzj1SL1PHByP2miihUtivOU6kZ
+ Yeix0stnK6OcqstIoX99BVvDqrnOe92H8FRZ3mn9ERsA9OXgv5aljke3waPl5PGEgMYZ
+ jdnmNQwknafJg26kzBmgCUtkerqWXDF07G+27ZBQrdYrr554q9cU3AYwqdYxg0xYgj/0
+ LpOw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpVjVdol78IJRcHDmv9pYxYIF9KDV3VRTQAeU4/e4/vB+K48bi0la18EKTsN2aBRlilZQSHZlI2SYUZg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzlO5+J9sbdBCLEGfN7swbpkLkCkzA0vhcjrZzzQw9BwFWB3Dsi
+ zvNM3rUh5AzWH2BBCO9OYEbPBYcC9x1WxveKsZs8GN0UdshNWbKUE5LFaie5+PILEkIU9EZuLmY
+ j1oawTQar5J4UO6P3JbXIhL1BArGqC6ltv/orVQ==
+X-Google-Smtp-Source: AGHT+IG2GimMLBi5lPm379Nq+PM2LjCqEC72eUxNPBP5FlNmfqi3CtzsuE6fdy7fqHbWAp4512GJZfLvCgLXmPidcY4=
+X-Received: by 2002:a05:6512:2308:b0:534:53ce:54a8 with SMTP id
+ 2adb3069b0e04-5354636e9f9mr1052118e87.30.1725055923441; Fri, 30 Aug 2024
+ 15:12:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Use SAI to generate bit
-	and frame clock on STM32MP15xx DHCOM PDK2
+References: <20240826095306.1420628-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20240826095306.1420628-1-andriy.shevchenko@linux.intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 31 Aug 2024 00:11:52 +0200
+Message-ID: <CACRpkdabwp611SQDDkDRDT3EG-SVirLu3Eg1P6X+BLOxLdGtyg@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] pinctrl: stmfx: Use string_choices
+ API instead of ternary operator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,86 +76,17 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-By default the SGTL5000 derives bit and frame clock from MCLK, which
-does not produce particularly accurate results. The SGTL5000 PLL does
-improve the accuracy, but also increases power consumption. Using the
-SoC SAI interface as bit and frame clock source results in the best
-accuracy without the power consumption increase downside. Switch the
-bit and frame clock direction from SAI to SGTL5000, reduce mclk-fs to
-match.
-
-Signed-off-by: Marek Vasut <marex@denx.de>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
-index ea933da64903c..171d7c7658fa8 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -191,15 +191,11 @@ sgtl5000_port: port {
- 
- 			sgtl5000_tx_endpoint: endpoint@0 {
- 				reg = <0>;
--				bitclock-master;
--				frame-master;
- 				remote-endpoint = <&sai2a_endpoint>;
- 			};
- 
- 			sgtl5000_rx_endpoint: endpoint@1 {
- 				reg = <1>;
--				bitclock-master;
--				frame-master;
- 				remote-endpoint = <&sai2b_endpoint>;
- 			};
- 		};
-@@ -245,10 +241,12 @@ sai2a: audio-controller@4400b004 {
- 		sai2a_port: port {
- 			sai2a_endpoint: endpoint {
- 				remote-endpoint = <&sgtl5000_tx_endpoint>;
-+				bitclock-master;
- 				dai-format = "i2s";
- 				dai-tdm-slot-num = <2>;
- 				dai-tdm-slot-width = <16>;
--				mclk-fs = <512>;
-+				frame-master;
-+				mclk-fs = <256>;
- 			};
- 		};
- 	};
-@@ -263,10 +261,12 @@ sai2b: audio-controller@4400b024 {
- 		sai2b_port: port {
- 			sai2b_endpoint: endpoint {
- 				remote-endpoint = <&sgtl5000_rx_endpoint>;
-+				bitclock-master;
- 				dai-format = "i2s";
- 				dai-tdm-slot-num = <2>;
- 				dai-tdm-slot-width = <16>;
--				mclk-fs = <512>;
-+				frame-master;
-+				mclk-fs = <256>;
- 			};
- 		};
- 	};
--- 
-2.45.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBdWcgMjYsIDIwMjQgYXQgMTE6NTPigK9BTSBBbmR5IFNoZXZjaGVua28KPGFuZHJp
+eS5zaGV2Y2hlbmtvQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cgo+IFVzZSBtb2Rlcm4gc3RyaW5n
+X2Nob2ljZXMgQVBJIGluc3RlYWQgb2YgbWFudWFsbHkgZGV0ZXJtaW5pbmcgdGhlCj4gb3V0cHV0
+IHVzaW5nIHRlcm5hcnkgb3BlcmF0b3IuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbmR5IFNoZXZjaGVu
+a28gPGFuZHJpeS5zaGV2Y2hlbmtvQGxpbnV4LmludGVsLmNvbT4KClBhdGNoIGFwcGxpZWQhCgpZ
+b3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
