@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FF15965A6C
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 10:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FA4965A7E
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 10:37:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 260E0C6DD9A;
-	Fri, 30 Aug 2024 08:35:52 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49ED8C6DD9A;
+	Fri, 30 Aug 2024 08:37:16 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A392C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A3F3C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 08:35:45 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-42bbd16fcf2so2274615e9.2
+ Fri, 30 Aug 2024 08:37:09 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-428178fc07eso12891575e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 01:35:45 -0700 (PDT)
+ Fri, 30 Aug 2024 01:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725006945; x=1725611745;
+ d=linaro.org; s=google; t=1725007029; x=1725611829;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=MDgErpkUKnQe50JSRwQXTxpchIY80U2OBlsTDwNP1cQ=;
- b=EiXrqfp2b7tc84uy8XIighw4Ho1IPHxdgnWeY8yS1DAq3snAa45ojbBOiqIdLnYx9x
- yLnlw5t25sFPMV/ifBwLWQ0LhQlqVQPR/gSjjmbjNmoJ1vNDlc9wq038TG5BMY9hsaN4
- D+5iPX3wUun5scYQCXaBa1q3BB5Vn/UnxRqpgIeLWCIIvxygjsLAPwNDt2WO9x1e2BFx
- aaZPWxeZB1X6LNgT822CDNtc3aFqxO/Fcgfkok/k08Spy6YdevcvJuGS6nLa8zL9eh4A
- 6B5XLZy9NuzL8sRp8ZM2LcgHjHi13b2IF9utl36JmiVEbKNwjPALgM9hMdU4fBwHs9qh
- n0Lg==
+ bh=q97qi+NPXZmdP6linxr81NHdFxQIXiFaev92ohLiISM=;
+ b=by3p7haKIC7Mdojaw4BoUdDHJ8nkPQqHs559+oJwxiDp+FcDUg0Qb1B7AcYvCFclJR
+ sR6fgLWrb2GZT0jxh60f2BpyBDk1TeGAOj3PQzzaTsRnsNpzQ4yJ778KW0JZTc0UIn12
+ XV1C2wAyIaFMxMYynLv6P76FRU0rl+ekarNNRLD6jkKl27t3TndpBVpp5ZVtB0kRJc1j
+ evfG/qz1hXz0sD+D6Cwpew4sEgGRY7EdMz5DtT5ZOJtVxDjxn5FU9HNtfUhQcrxx1ZM2
+ irLO3ncemHvKoY9tRUW0LtS7XZi745P4PddITV7gKJCyFN8h1fRHpDiehCpwDH6IyxEZ
+ 7QCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725006945; x=1725611745;
+ d=1e100.net; s=20230601; t=1725007029; x=1725611829;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MDgErpkUKnQe50JSRwQXTxpchIY80U2OBlsTDwNP1cQ=;
- b=T7jkdj8g+76/QL0SwxpgEr44bR7C0EftAvXU0OuGTyHJpbw6SdKA31/rRw1eX4rdRD
- lGCSNCG4opAIxzAYpRV4QVl5E4nCQeP4V0X8gvKUuZ4N4XiZ14aM8oxTMwIn8FdX0sX6
- 6OaI+bJytpKPNBKxPvCGB0OutIV0yPLzQFE/fg2LIgWRHpWElAumy5Zc8PST0XmY0spy
- q4V7S2d1xsEoOmxLTqq3/qIggLAhI/k3ngqiCDpzJYpMcDXW6orIUD2HB8XwIEu9SpdT
- 0ELNtETqU9JTcWZEQYxNlVnXv6qAcWFmGLnU55fcwRs+VyjOCZFDebsRsIWH/aTzNUMu
- Kzxg==
+ bh=q97qi+NPXZmdP6linxr81NHdFxQIXiFaev92ohLiISM=;
+ b=SRgjd0ujKGD91k6TMQtLtwUKNxuJF/nYFOfzLs1hIp+ymNUZmlnzCVon2VDKjLt0JH
+ dyapYqbdaw3k9pgm0zluTppASRi7efpYT1zZoHC6oMC+LaOBe4gLqk87UfSjo8RTzCNb
+ UdOxMXgZ1KsCH2Px6ByaRaywcf0JabQFuv8avVsTrMFKWZxSXkENLMW8UjX4qK1bRDo8
+ R+7VUkOhzvL/tX53yPqkhmVIvCMDYiinCtor9JZbKqIZ7IGrsR7HTq8IUpL6CeJDN+Yc
+ kNqELZm7kBohB0Vk+ja+PwLKbFR8MMM+vP2xhAni8ZGp745oHZ+XBy0EgsD3W7xFBgql
+ UnEg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdEx1UkLSKhAXDfnYzQFMGE4tpTdqAaEbsZWy8Zhmzm/3bgBUrX9JgOoCkXNbB7zYb4XUy8JxlYw4drA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwK2piKoX+m55kJ/Gqxqq1tQfOg4xEa8xZ1GuZ2P+74GYOPTNII
- KV7wZyQuMlUx5iSHFyRUMDZ/ajM1jiahx1Y0eFQFUE1A3ifJ0HyxQ25YuQ/OJfE=
-X-Google-Smtp-Source: AGHT+IG2YQtB+es4bpO/DPjIWcCbaKmtKE3m6I0KAaWGTR3kPHJqRAnzrYl/zAokjrpuA+J7gIfXFQ==
-X-Received: by 2002:a05:600c:4585:b0:426:51dc:f6cd with SMTP id
- 5b1f17b1804b1-42bb01bfbdemr48151025e9.18.1725006943921; 
- Fri, 30 Aug 2024 01:35:43 -0700 (PDT)
+ AJvYcCU2lczmTuz3TdeAWnKvhZFUS9KrcqmAOlgxf9fuiXEN9NJR0HocS1SsOivy5i30Tvzv84WJsN096PiAmA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YysEbAEo1NyEwvisb/UUiNRg3QsXez+qRqd5IpR0bJXEiZ9tjte
+ /mlSnt88R8fAgn0xUjlqRE+xmDCuFw1ft24Wx7wiZMcPzGX0H8agDYkhF+DH5ww=
+X-Google-Smtp-Source: AGHT+IHg1jJiD58wDqMuaJqk1HwadfKudlUpN9Y4ONSFOCiQ/xd759tBR9XHQjM3McI2u6NEnVce5g==
+X-Received: by 2002:a05:600c:3154:b0:42b:a9bb:924a with SMTP id
+ 5b1f17b1804b1-42bb27a0dfcmr41442705e9.23.1725007028293; 
+ Fri, 30 Aug 2024 01:37:08 -0700 (PDT)
 Received: from [192.168.1.3] ([89.47.253.130])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42bb6deb239sm39581435e9.5.2024.08.30.01.35.41
+ 5b1f17b1804b1-42bb6deb3efsm39328495e9.6.2024.08.30.01.37.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 01:35:42 -0700 (PDT)
-Message-ID: <18a60d79-e94d-4fe9-ba9e-867bed175a6a@linaro.org>
-Date: Fri, 30 Aug 2024 09:35:41 +0100
+ Fri, 30 Aug 2024 01:37:07 -0700 (PDT)
+Message-ID: <8afae0a6-5322-47a8-a189-68629ea1991f@linaro.org>
+Date: Fri, 30 Aug 2024 09:37:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Arnaldo Carvalho de Melo <acme@kernel.org>
@@ -137,26 +137,12 @@ On 29/08/2024 4:31 pm, Arnaldo Carvalho de Melo wrote:
 > 
 > I'm taking this as an Acked-by: Suzuki, ok?
 > 
->>> Thanks
->>> Suzuki
->>>
->>> [0] https://lkml.kernel.org/r/172433479466.350842.6920589600831615538.b4-ty@arm.com
->>>
->>>
->>>>
->>>> Thanks,
->>>>
->>>> - Arnaldo
->>>
->>
->> Hi Arnaldo,
->>
->> I just checked and the tool patches still apply cleanly if you're able to
->> take them.
-> 
-> Sure.
-> 
-> - Arnaldo
+
+Suzuki is out of office at the moment and can't email but he said it was 
+ok for the acked-by.
+
+Thanks
+James
 
 _______________________________________________
 Linux-stm32 mailing list
