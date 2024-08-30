@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34BA966D19
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 01:59:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E543B966D1C
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 01:59:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98F3FC6DD9A;
-	Fri, 30 Aug 2024 23:59:21 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABB4FC6DD9A;
+	Fri, 30 Aug 2024 23:59:39 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8541EC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6C67C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 23:59:14 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2020e83eca1so25270005ad.2
+ Fri, 30 Aug 2024 23:59:38 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2053f6b8201so5568685ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 16:59:14 -0700 (PDT)
+ Fri, 30 Aug 2024 16:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725062353; x=1725667153;
+ d=gmail.com; s=20230601; t=1725062377; x=1725667177;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
  :cc:subject:date:message-id:reply-to;
  bh=sr+m/MCpvguQ1PEITzYf3gtI8iZ+jxmN3Qz312mDJ+Y=;
- b=NWNKTrFnpJ35KgSwVwyAldTaJsUzAL9xznj+xkH2JSoPGwlgOq9oc8LjTTGJljd7Wc
- WOQMoR02zVzd+oRiY8xkd0OxePsfj/cvVba3YSJ67+BZR8bSKW1g4hISpiELMNOSABtz
- i/l49NkEfnKillFrdZ2MOTQViFWbz75m244aDWHgO+FHT2d43wBkWqnN0ZZ5APECi3aS
- Z244qzagsS118pfKDlPq4fKKfgWrIVE02oyMAhckndaay9aqMm6VxvopuxzcePB1Y+zR
- LUSjz1rWaTQww46+GmTTSKsw6akPMd6ZN0T4VK8dY+C8trLUyKo8FhyXI1ESdM9e3r2X
- Hs4A==
+ b=lHgbzYlQIls2s8buyvBQBbVV71blaa7TJSYp3RYTrlV5cVkNUx7blEwnkJugmjgKi3
+ m06cWkIoJqk3FGe+4ITRKmHFZ2t2r//AhcEcIgJzP9euF6iSJXzpK8yZa+LvosuFSmBh
+ 0ssZ/nnugwdYHqhXU8OH4FFYorgN9Woyfv7wbGjAgpwCelpnEHInDqTo1pppD6ehhkqy
+ EEgfrHO7Uby5VwuYDEdYCXYoaCv4Ec758QAOKwh9DssosZxzuZgyFbW+VxuVe69v8gMn
+ 5Mp2SPqwff3JDCctl6jDyReyH8JtwEgJVLf+m4A+/cyjysWEgsiKUmYPs0C5sMhvSOna
+ shDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725062353; x=1725667153;
+ d=1e100.net; s=20230601; t=1725062377; x=1725667177;
  h=content-transfer-encoding:in-reply-to:content-language:references
  :cc:to:subject:from:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=sr+m/MCpvguQ1PEITzYf3gtI8iZ+jxmN3Qz312mDJ+Y=;
- b=Qj956X84luv5NfH2VKdWQ99Qq8qOJCI61X/9pc3WvuPxNPYNtNG0pkJTUAJkhrQnxk
- rMtpogocxwCJeK43y5FLRgJV+zZ9K5A94HleFvYx89ZNUDWFM9vs2/5++C30PeDTQzLw
- qW9q0wqkP+vPd0OEprt9RQSpaPOeeUkXXy7ek4Mwm+owDL4k+mFjcNQIvhXbmDrKYULh
- SXxxt5VgRc9tXow20rDQn0RvI8u46Zo5q/XlE/o0gA/ZdR0IHCLfWB+k2EEeSJPia58R
- VRBJqHFnkhm7fX0MeI0SCyfFlWGiywKlLEGxsNhe4qXmNFJ7Emn0vvezyvil1mo1XXQE
- WXCQ==
+ b=rKKiEIw0GLUDSn/iCZKByPGtl/TZkYDlTiNyhgf+14fKdB/2USIV8VZMz9Iv1N88q9
+ dnftCoDC1QSccdLuVTEuDKlbmdxokJmWi28dYS0mHe5ozIHHPMaaEN/6pxt6J67dvNdN
+ ryd7qbwV2IfuFEsNfOIJ6rojQbBFNQfQSqDeec0nsIZ89AxJiwJ3YBjSVWNTqglnP5kd
+ 4H8ygWOgJ6f5XcxJku6Ti0b2two/I/b8JjMF7mZ+ZgXaxBr0DqP/5o3VnmectOGhAWG+
+ C/8YxilWvB/RAF51WTZbH+O+GZSPX5ArqffvUtgqDDMwhT9Qa8HS4aElWNl1GYQB297u
+ HY7g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3IZQ9mFTN/1f3+3v9eOWz2vVDrH+P/MVFEPWOx5OEvCFIUGf3vh0Rygonbwl0J3RT4ncTKLoN6K1DCw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwzL6zHUb3CETYCf9a+Y6/kER8YUmg7rtaS9Of8z/FPXc0i1JET
- kvXDWjoEbMLw+91hAxmglHcfx8lPRnIa+tNdsrrEsRP9xSxVIZPrOTiaYyHE
-X-Google-Smtp-Source: AGHT+IEgofVC034M7KNRqW6gP1mCFO060gmQo6PGys6HKORyv1JMDN4S7cvVuPl5BWLZMdBvTzCsLQ==
-X-Received: by 2002:a17:903:22c5:b0:201:f065:2b2c with SMTP id
- d9443c01a7336-2050c4666b0mr94473895ad.55.1725062352960; 
- Fri, 30 Aug 2024 16:59:12 -0700 (PDT)
+ AJvYcCU/02tM9xr7oiHMwiFe0Q+F5OTOJ/YF4tG+3ZO1+tdeHjULThuj85DgZPT2Nkizf1Xcf8UJ+CcJlUUKJQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyI1+THZmpE5MdQwQ3NK4FzZIhZG5MNLeISSdSYKoT5ej2nwmMP
+ 4RV13CWjWQXEUtVAgWmuAgqYzo8oTlP68YeLSe22wiAkuj6Htvhc
+X-Google-Smtp-Source: AGHT+IHAQjId6GpdvBN5Oyuv2ZrrV71Pt4bk2AIiEuJwheyfWAw667JccSxOY37LyeSAoczElPRHIw==
+X-Received: by 2002:a17:902:da86:b0:1fc:5ed5:ff56 with SMTP id
+ d9443c01a7336-20546b55c5dmr8024345ad.61.1725062377258; 
+ Fri, 30 Aug 2024 16:59:37 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2051553720esm32038555ad.178.2024.08.30.16.59.10
+ d9443c01a7336-2052a6843f3sm15745525ad.43.2024.08.30.16.59.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 16:59:11 -0700 (PDT)
-Message-ID: <82473d11-ff14-494a-bac5-4a5b1fb8ce4d@gmail.com>
-Date: Fri, 30 Aug 2024 16:59:09 -0700
+ Fri, 30 Aug 2024 16:59:36 -0700 (PDT)
+Message-ID: <95ce8d16-17bf-490e-a084-ac16fe8ba813@gmail.com>
+Date: Fri, 30 Aug 2024 16:59:35 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Florian Fainelli <f.fainelli@gmail.com>
