@@ -2,51 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E589664A0
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 16:55:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65B7966670
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Aug 2024 18:04:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 638C4C6C841;
-	Fri, 30 Aug 2024 14:55:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39B1DC6C841;
+	Fri, 30 Aug 2024 16:04:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2DCCC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DE10CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Aug 2024 14:55:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 81786AE4A82;
- Fri, 30 Aug 2024 14:55:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5EBC4CEC2;
- Fri, 30 Aug 2024 14:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1725029711;
- bh=9FTsVXS5gV6o6qLuJP6JjRydy1fTYjBjAK227EtLTU4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jirIoIPPFjw0IxjqZulDpWUEt/3grrBuV0v1E14wpzj/zCAEfRFvyhY0fH0O0Lf6X
- +6ct6fwCyeyB9w/6Dj3WMPPDyiz/0KyznuwmrF0LnpgBa8KRJrFewbCUWY4Dz88oek
- SW49Ir10VIuF7QnQDv3IGxSD/HzVRgo6WRtUSLoq/qJz7J06aT6G1v9cmRXKZXJ74+
- bTl5DGpLduY5VJJRcW7nD3y2QZcm4k/tEYhiVe01uNv1Ay3Wrn0BvvqwWUL7LyZlRK
- mQWyH9R/Y7wpFz7Ov4eCgtuUxMtmOkKFjgyDw/JzzdMggIHLE+trhFO0fsCRRry+vY
- FAcW/g8m/fmAw==
-Date: Fri, 30 Aug 2024 15:55:06 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20240830-jumbo-wriggly-39c84108371b@spud>
-References: <20240828143452.1407532-1-christian.bruel@foss.st.com>
- <20240828143452.1407532-2-christian.bruel@foss.st.com>
- <20240828-handsfree-overarch-cd1af26cb0c5@spud>
- <005a2f7d-ab46-46c8-a0cc-b343685caf7c@foss.st.com>
- <20240829-manifesto-tray-65443d6e7e6e@spud>
- <777a92d9-ed52-4fa1-b235-e3a4a6321634@foss.st.com>
+ Fri, 30 Aug 2024 16:04:42 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 47UC9P4e003064;
+ Fri, 30 Aug 2024 18:04:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ XdUP22qiupn7VHmQeEXg1uHZc5JhTQw6VLVbjHWHSAA=; b=Ceyzy7XXvW2Y5JKO
+ 0Zw3oPGw9VBzZNNikFHAodvW7B3UyEbcrVIzE0IsECIJiXGVLkkhAk8TfkIjjdDk
+ AiLPLZSeAly39Mbr4Jw+BsQGvy45mb3iWSIsZqiPxPPvGKJn4VvPM10Hvjd4+qX1
+ /H8OncgKoBC4zZUQrNa5W7DDL6/H/T7TJUIE/jVBYYEc26C01NkDy4bV5R3zVvkv
+ HiJ8JB+gK0cXi5aklnHlFnkKJJ/Kf0B8/kiMypMYZndLOTCnmsDxEFbDexgGxaqG
+ Nr+8FOx/8Lyy9TgtBgSMvm9Q46O9CUEzVRWm6kdE7oOQvq8V6bvNaXCFD85qY1Hc
+ V7SSzA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41b14uknss-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Aug 2024 18:04:27 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 20CEE4002D;
+ Fri, 30 Aug 2024 18:04:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5553D27C231;
+ Fri, 30 Aug 2024 18:03:32 +0200 (CEST)
+Received: from [10.252.12.18] (10.252.12.18) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 30 Aug
+ 2024 18:03:31 +0200
+Message-ID: <60f38cec-1942-41a1-9d5e-0eeaaeed0667@foss.st.com>
+Date: Fri, 30 Aug 2024 18:03:30 +0200
 MIME-Version: 1.0
-In-Reply-To: <777a92d9-ed52-4fa1-b235-e3a4a6321634@foss.st.com>
-Cc: kishon@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- p.zabel@pengutronix.de, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
- linux-phy@lists.infradead.org, krzk+dt@kernel.org,
+User-Agent: Mozilla Thunderbird
+To: Oleksij Rempel <o.rempel@pengutronix.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20240812104142.2123970-1-o.rempel@pengutronix.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240812104142.2123970-1-o.rempel@pengutronix.de>
+X-Originating-IP: [10.252.12.18]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-30_10,2024-08-30_01,2024-05-17_01
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/5] dt-bindings: phy: Add STM32MP25
-	COMBOPHY bindings
+Subject: Re: [Linux-stm32] [PATCH v3] arm: dts: st: stm32mp151a-prtt1l: Fix
+ QSPI configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,100 +74,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4180965054774352148=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Oleksij,
 
---===============4180965054774352148==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="vp/iFskmsMfOFY45"
-Content-Disposition: inline
+On 8/12/24 12:41, Oleksij Rempel wrote:
+> Rename 'pins1' to 'pins' in the qspi_bk1_pins_a node to correct the
+> subnode name. The incorrect name caused the configuration to be
+> applied to the wrong subnode, resulting in QSPI not working properly.
+> 
+> Some additional changes was made:
+> - To avoid this kind of regression, all references to pin configuration
+>    nodes are now referenced directly using the format &{label/subnode}.
+> - /delete-property/ bias-disable; was added everywhere where bias-pull-up
+>    is used
+> - redundant properties like driver-push-pull are removed
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> ---
+> changes v3:
+> - extend comment message
+> ---
+>   arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts  |  12 +-
+>   arch/arm/boot/dts/st/stm32mp151a-prtt1c.dts  | 108 +++++++---------
+>   arch/arm/boot/dts/st/stm32mp151a-prtt1l.dtsi | 126 +++++++++----------
+>   arch/arm/boot/dts/st/stm32mp151a-prtt1s.dts  |  16 +--
+>   4 files changed, 116 insertions(+), 146 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts b/arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts
+> index 75874eafde11e..8e1dd84e0c0a4 100644
+> --- a/arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts
+> +++ b/arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts
+> @@ -28,16 +28,12 @@ phy0: ethernet-phy@0 {
+>   	};
+>   };
+>
+...
 
+Applied on stm32-next.
 
---vp/iFskmsMfOFY45
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Aug 30, 2024 at 02:53:15PM +0200, Christian Bruel wrote:
->=20
-> On 8/29/24 18:44, Conor Dooley wrote:
-> > On Thu, Aug 29, 2024 at 01:06:53PM +0200, Christian Bruel wrote:
-> > > On 8/28/24 18:11, Conor Dooley wrote:
-> > > > On Wed, Aug 28, 2024 at 04:34:48PM +0200, Christian Bruel wrote:
-
-> > > > > +  st,syscfg:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > > > > +    description: Phandle to the SYSCON entry required for config=
-uring PCIe
-> > > > > +      or USB3.
-> > > > Why is a phandle required for this lookup, rather than doing it by
-> > > > compatible?
-> > > the phandle is used to select the sysconf SoC configuration register
-> > > depending on the PCIe/USB3 mode (selected by=A0xlate function), so it=
-'s not
-> > > like a lookup here.
-> > If "syscon_regmap_lookup_by_phandle()" is not a lookup, then I do not
-> > know what is. An example justification for it would be that there are
-> > multiple combophys on the same soc, each using a different sysconf
-> > region. Your dts suggests that is not the case though, since you have
-> > st,syscfg =3D <&syscfg>; in it, rather than st,syscfg =3D <&syscfg0>;.
->=20
-> I didn't get your suggestion earlier to use "syscon_regmap_lookup_by_comp=
-atible()".
->=20
-> We have several other syscon in the other. That's why we choose a direct =
-syscfg phandle
-
-In the other what? SoCs?
-
-Way I see it, if you're going to support different socs in the same
-driver, it's almost a certainty that the offsets within a syscon that
-particular features lie at are going to change between socs, so even if
-you have a phandle you're going to need to have the offsets in your
-match data. And if you're going to have offsets in match data, you may
-as well have the compatibles for the syscon in match data too.
-If the layout of the syscon hasn't changed between devices, then you
-should have a fallback compatible for the syscon too, making
-syscon_regmap_lookup_by_compatible() function without changes to the
-driver.
-
-If you do have multiple syscons, but they do different things, they
-should have different compatibles, so having multiple syscons doesn't
-justify using a property for this either in and of itself. If you have
-multiple syscons with the same layout (and therefore the same
-compatible) then a phandle makes sense, but if that's the case then you
-almost certainly have multiple combophys too! Otherwise, if you have one
-syscon, but the controls for more than one combophy are in it, then
-having a phandle _with an offset_ makes sense.
-
-If you know there are other SoCs with more than one combo phy, do they
-use different syscons, or is the same syscon used for more than one
-combophy?
-
---vp/iFskmsMfOFY45
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZtHdSgAKCRB4tDGHoIJi
-0pGbAQCKAWCZmjg06h86FVbvpXKdo/qvENzO4ym5L15FMJIkNAEAtFIoyWzGJo7B
-vhqqrWfJ39dnSjvWdg+xaa8Og8rsAgM=
-=DAUE
------END PGP SIGNATURE-----
-
---vp/iFskmsMfOFY45--
-
---===============4180965054774352148==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4180965054774352148==--
