@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC5B966EB8
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB09B966ECC
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:06:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E200C6DD9F;
-	Sat, 31 Aug 2024 02:05:28 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96400C7801C;
+	Sat, 31 Aug 2024 02:06:13 +0000 (UTC)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A071C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05B2DC7801B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Aug 2024 02:05:21 +0000 (UTC)
+ Sat, 31 Aug 2024 02:06:12 +0000 (UTC)
 Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4WwdbD1D8kz1xwXg;
- Sat, 31 Aug 2024 10:03:20 +0800 (CST)
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4WwddD5KlXz1S9CP;
+ Sat, 31 Aug 2024 10:05:04 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id F1D26140133;
- Sat, 31 Aug 2024 10:05:18 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 0B26D140133;
+ Sat, 31 Aug 2024 10:05:20 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 31 Aug
- 2024 10:05:17 +0800
+ 2024 10:05:18 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
@@ -34,8 +34,8 @@ To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <ajay.kathat@microchip.com>, <claudiu.beznea@tuxon.dev>, <kvalo@kernel.org>,
  <lizetao1@huawei.com>, <u.kleine-koenig@pengutronix.de>,
  <jacky_chou@aspeedtech.com>
-Date: Sat, 31 Aug 2024 10:13:23 +0800
-Message-ID: <20240831021334.1907921-2-lizetao1@huawei.com>
+Date: Sat, 31 Aug 2024 10:13:24 +0800
+Message-ID: <20240831021334.1907921-3-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240831021334.1907921-1-lizetao1@huawei.com>
 References: <20240831021334.1907921-1-lizetao1@huawei.com>
@@ -46,8 +46,8 @@ X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
 Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 01/12] net: dsa: bcm_sf2: Convert
-	using devm_clk_get_optional_enabled() in bcm_sf2_sw_probe()
+Subject: [Linux-stm32] [PATCH net-next 02/12] net: ethernet: Convert using
+	devm_clk_get_enabled() in emac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,86 +64,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use devm_clk_get_optional_enabled() instead of devm_clk_get_optional() +
+Use devm_clk_get_enabled() instead of devm_clk_get() +
 clk_prepare_enable(), which can make the clk consistent with the device
 life cycle and reduce the risk of unreleased clk resources. Since the
 device framework has automatically released the clk resource, there is
 no need to execute clk_disable_unprepare(clk) on the error path, drop
-the out_clk_mdiv and out_clk labels, and the original error process can
-be returned directly.
+the out_clk_disable_unprepare label, and the original error process can
+changed to the out_dispose_mapping error path.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/net/dsa/bcm_sf2.c | 28 ++++++----------------------
- 1 file changed, 6 insertions(+), 22 deletions(-)
+ drivers/net/ethernet/allwinner/sun4i-emac.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-index 0e663ec0c12a..96c0fdb56601 100644
---- a/drivers/net/dsa/bcm_sf2.c
-+++ b/drivers/net/dsa/bcm_sf2.c
-@@ -1453,28 +1453,18 @@ static int bcm_sf2_sw_probe(struct platform_device *pdev)
- 		base++;
+diff --git a/drivers/net/ethernet/allwinner/sun4i-emac.c b/drivers/net/ethernet/allwinner/sun4i-emac.c
+index d761c08fe5c1..8f42501729b7 100644
+--- a/drivers/net/ethernet/allwinner/sun4i-emac.c
++++ b/drivers/net/ethernet/allwinner/sun4i-emac.c
+@@ -1005,22 +1005,16 @@ static int emac_probe(struct platform_device *pdev)
+ 	if (emac_configure_dma(db))
+ 		netdev_info(ndev, "configure dma failed. disable dma.\n");
+ 
+-	db->clk = devm_clk_get(&pdev->dev, NULL);
++	db->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(db->clk)) {
+ 		ret = PTR_ERR(db->clk);
+ 		goto out_dispose_mapping;
  	}
  
--	priv->clk = devm_clk_get_optional(&pdev->dev, "sw_switch");
-+	priv->clk = devm_clk_get_optional_enabled(&pdev->dev, "sw_switch");
- 	if (IS_ERR(priv->clk))
- 		return PTR_ERR(priv->clk);
- 
--	ret = clk_prepare_enable(priv->clk);
--	if (ret)
--		return ret;
--
--	priv->clk_mdiv = devm_clk_get_optional(&pdev->dev, "sw_switch_mdiv");
--	if (IS_ERR(priv->clk_mdiv)) {
--		ret = PTR_ERR(priv->clk_mdiv);
--		goto out_clk;
+-	ret = clk_prepare_enable(db->clk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Error couldn't enable clock (%d)\n", ret);
+-		goto out_dispose_mapping;
 -	}
 -
--	ret = clk_prepare_enable(priv->clk_mdiv);
--	if (ret)
--		goto out_clk;
-+	priv->clk_mdiv = devm_clk_get_optional_enabled(&pdev->dev, "sw_switch_mdiv");
-+	if (IS_ERR(priv->clk_mdiv))
-+		return PTR_ERR(priv->clk_mdiv);
- 
- 	ret = bcm_sf2_sw_rst(priv);
+ 	ret = sunxi_sram_claim(&pdev->dev);
  	if (ret) {
- 		pr_err("unable to software reset switch: %d\n", ret);
--		goto out_clk_mdiv;
-+		return ret;
+ 		dev_err(&pdev->dev, "Error couldn't map SRAM to device\n");
+-		goto out_clk_disable_unprepare;
++		goto out_dispose_mapping;
  	}
  
- 	bcm_sf2_crossbar_setup(priv);
-@@ -1484,7 +1474,7 @@ static int bcm_sf2_sw_probe(struct platform_device *pdev)
- 	ret = bcm_sf2_mdio_register(ds);
- 	if (ret) {
- 		pr_err("failed to register MDIO bus\n");
--		goto out_clk_mdiv;
-+		return ret;
- 	}
+ 	db->phy_node = of_parse_phandle(np, "phy-handle", 0);
+@@ -1068,8 +1062,6 @@ static int emac_probe(struct platform_device *pdev)
  
- 	bcm_sf2_gphy_enable_set(priv->dev->ds, false);
-@@ -1551,10 +1541,6 @@ static int bcm_sf2_sw_probe(struct platform_device *pdev)
+ out_release_sram:
+ 	sunxi_sram_release(&pdev->dev);
+-out_clk_disable_unprepare:
+-	clk_disable_unprepare(db->clk);
+ out_dispose_mapping:
+ 	irq_dispose_mapping(ndev->irq);
+ 	dma_release_channel(db->rx_chan);
+@@ -1095,7 +1087,6 @@ static void emac_remove(struct platform_device *pdev)
  
- out_mdio:
- 	bcm_sf2_mdio_unregister(priv);
--out_clk_mdiv:
--	clk_disable_unprepare(priv->clk_mdiv);
--out_clk:
--	clk_disable_unprepare(priv->clk);
- 	return ret;
- }
- 
-@@ -1571,8 +1557,6 @@ static void bcm_sf2_sw_remove(struct platform_device *pdev)
- 	dsa_unregister_switch(priv->dev->ds);
- 	bcm_sf2_cfp_exit(priv->dev->ds);
- 	bcm_sf2_mdio_unregister(priv);
--	clk_disable_unprepare(priv->clk_mdiv);
--	clk_disable_unprepare(priv->clk);
- 	if (priv->type == BCM7278_DEVICE_ID)
- 		reset_control_assert(priv->rcdev);
- }
+ 	unregister_netdev(ndev);
+ 	sunxi_sram_release(&pdev->dev);
+-	clk_disable_unprepare(db->clk);
+ 	irq_dispose_mapping(ndev->irq);
+ 	iounmap(db->membase);
+ 	free_netdev(ndev);
 -- 
 2.34.1
 
