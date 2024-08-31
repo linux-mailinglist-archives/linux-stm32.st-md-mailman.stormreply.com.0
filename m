@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C57B5966ECB
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:06:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D2F1966EBC
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:05:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B1E8C7801A;
-	Sat, 31 Aug 2024 02:06:13 +0000 (UTC)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EA25C7801A;
+	Sat, 31 Aug 2024 02:05:28 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEB5EC7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8825CC6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Aug 2024 02:06:11 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.234])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4WwddF55Mdz1S9QB;
- Sat, 31 Aug 2024 10:05:05 +0800 (CST)
+ Sat, 31 Aug 2024 02:05:24 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.162.112])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4WwddH3YQZz1j5Wh;
+ Sat, 31 Aug 2024 10:05:07 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 0372A140109;
- Sat, 31 Aug 2024 10:05:21 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 07782140158;
+ Sat, 31 Aug 2024 10:05:22 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 31 Aug
- 2024 10:05:19 +0800
+ 2024 10:05:20 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
@@ -34,8 +34,8 @@ To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <ajay.kathat@microchip.com>, <claudiu.beznea@tuxon.dev>, <kvalo@kernel.org>,
  <lizetao1@huawei.com>, <u.kleine-koenig@pengutronix.de>,
  <jacky_chou@aspeedtech.com>
-Date: Sat, 31 Aug 2024 10:13:25 +0800
-Message-ID: <20240831021334.1907921-4-lizetao1@huawei.com>
+Date: Sat, 31 Aug 2024 10:13:26 +0800
+Message-ID: <20240831021334.1907921-5-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240831021334.1907921-1-lizetao1@huawei.com>
 References: <20240831021334.1907921-1-lizetao1@huawei.com>
@@ -46,8 +46,8 @@ X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
 Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 03/12] net: ethernet: arc: Convert
-	using devm_clk_get_enabled() in emac_probe()
+Subject: [Linux-stm32] [PATCH net-next 04/12] net: ethernet: ethoc: Convert
+	using devm_clk_get_enabled() in ethoc_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,120 +69,73 @@ clk_prepare_enable(), which can make the clk consistent with the device
 life cycle and reduce the risk of unreleased clk resources. Since the
 device framework has automatically released the clk resource, there is
 no need to execute clk_disable_unprepare(clk) on the error path, drop
-the out_clk_disable_unprepare label, and the original error process can
-changed to the out_dispose_mapping error path.
+the free2 label, and the meaning of the free3 label is not clear, Changing
+it to free_mdiobus will make it more understandable.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/net/ethernet/arc/emac_rockchip.c | 34 +++++-------------------
- 1 file changed, 6 insertions(+), 28 deletions(-)
+ drivers/net/ethernet/ethoc.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/ethernet/arc/emac_rockchip.c b/drivers/net/ethernet/arc/emac_rockchip.c
-index 493d6356c8ca..22b3ebe059d9 100644
---- a/drivers/net/ethernet/arc/emac_rockchip.c
-+++ b/drivers/net/ethernet/arc/emac_rockchip.c
-@@ -144,7 +144,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
- 		goto out_netdev;
- 	}
+diff --git a/drivers/net/ethernet/ethoc.c b/drivers/net/ethernet/ethoc.c
+index ad41c9019018..1a56e20cb679 100644
+--- a/drivers/net/ethernet/ethoc.c
++++ b/drivers/net/ethernet/ethoc.c
+@@ -1172,13 +1172,10 @@ static int ethoc_probe(struct platform_device *pdev)
  
--	priv->refclk = devm_clk_get(dev, "macref");
-+	priv->refclk = devm_clk_get_enabled(dev, "macref");
- 	if (IS_ERR(priv->refclk)) {
- 		dev_err(dev, "failed to retrieve reference clock (%ld)\n",
- 			PTR_ERR(priv->refclk));
-@@ -152,18 +152,12 @@ static int emac_rockchip_probe(struct platform_device *pdev)
- 		goto out_netdev;
- 	}
+ 	/* Allow the platform setup code to adjust MII management bus clock. */
+ 	if (!eth_clkfreq) {
+-		struct clk *clk = devm_clk_get(&pdev->dev, NULL);
++		priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
  
--	err = clk_prepare_enable(priv->refclk);
--	if (err) {
--		dev_err(dev, "failed to enable reference clock (%d)\n", err);
--		goto out_netdev;
--	}
--
- 	/* Optional regulator for PHY */
- 	priv->regulator = devm_regulator_get_optional(dev, "phy");
- 	if (IS_ERR(priv->regulator)) {
- 		if (PTR_ERR(priv->regulator) == -EPROBE_DEFER) {
- 			err = -EPROBE_DEFER;
--			goto out_clk_disable;
-+			goto out_netdev;
- 		}
- 		dev_err(dev, "no regulator found\n");
- 		priv->regulator = NULL;
-@@ -173,7 +167,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
- 		err = regulator_enable(priv->regulator);
- 		if (err) {
- 			dev_err(dev, "failed to enable phy-supply (%d)\n", err);
--			goto out_clk_disable;
-+			goto out_netdev;
- 		}
- 	}
- 
-@@ -200,7 +194,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
- 	}
- 
- 	if (priv->soc_data->need_div_macclk) {
--		priv->macclk = devm_clk_get(dev, "macclk");
-+		priv->macclk = devm_clk_get_enabled(dev, "macclk");
- 		if (IS_ERR(priv->macclk)) {
- 			dev_err(dev, "failed to retrieve mac clock (%ld)\n",
- 				PTR_ERR(priv->macclk));
-@@ -208,37 +202,26 @@ static int emac_rockchip_probe(struct platform_device *pdev)
- 			goto out_regulator_disable;
- 		}
- 
--		err = clk_prepare_enable(priv->macclk);
--		if (err) {
--			dev_err(dev, "failed to enable mac clock (%d)\n", err);
--			goto out_regulator_disable;
+-		if (!IS_ERR(clk)) {
+-			priv->clk = clk;
+-			clk_prepare_enable(clk);
+-			eth_clkfreq = clk_get_rate(clk);
 -		}
--
- 		/* RMII TX/RX needs always a rate of 25MHz */
- 		err = clk_set_rate(priv->macclk, 25000000);
- 		if (err) {
- 			dev_err(dev,
- 				"failed to change mac clock rate (%d)\n", err);
--			goto out_clk_disable_macclk;
-+			goto out_regulator_disable;
++		if (!IS_ERR(priv->clk))
++			eth_clkfreq = clk_get_rate(priv->clk);
+ 	}
+ 	if (eth_clkfreq) {
+ 		u32 clkdiv = MIIMODER_CLKDIV(eth_clkfreq / 2500000 + 1);
+@@ -1195,7 +1192,7 @@ static int ethoc_probe(struct platform_device *pdev)
+ 	priv->mdio = mdiobus_alloc();
+ 	if (!priv->mdio) {
+ 		ret = -ENOMEM;
+-		goto free2;
++		goto free;
+ 	}
+ 
+ 	priv->mdio->name = "ethoc-mdio";
+@@ -1208,7 +1205,7 @@ static int ethoc_probe(struct platform_device *pdev)
+ 	ret = mdiobus_register(priv->mdio);
+ 	if (ret) {
+ 		dev_err(&netdev->dev, "failed to register MDIO bus\n");
+-		goto free3;
++		goto free_mdiobus;
+ 	}
+ 
+ 	ret = ethoc_mdio_probe(netdev);
+@@ -1240,10 +1237,8 @@ static int ethoc_probe(struct platform_device *pdev)
+ 	netif_napi_del(&priv->napi);
+ error:
+ 	mdiobus_unregister(priv->mdio);
+-free3:
++free_mdiobus:
+ 	mdiobus_free(priv->mdio);
+-free2:
+-	clk_disable_unprepare(priv->clk);
+ free:
+ 	free_netdev(netdev);
+ out:
+@@ -1267,7 +1262,6 @@ static void ethoc_remove(struct platform_device *pdev)
+ 			mdiobus_unregister(priv->mdio);
+ 			mdiobus_free(priv->mdio);
  		}
+-		clk_disable_unprepare(priv->clk);
+ 		unregister_netdev(netdev);
+ 		free_netdev(netdev);
  	}
- 
- 	err = arc_emac_probe(ndev, interface);
- 	if (err) {
- 		dev_err(dev, "failed to probe arc emac (%d)\n", err);
--		goto out_clk_disable_macclk;
-+		goto out_regulator_disable;
- 	}
- 
- 	return 0;
- 
--out_clk_disable_macclk:
--	if (priv->soc_data->need_div_macclk)
--		clk_disable_unprepare(priv->macclk);
- out_regulator_disable:
- 	if (priv->regulator)
- 		regulator_disable(priv->regulator);
--out_clk_disable:
--	clk_disable_unprepare(priv->refclk);
- out_netdev:
- 	free_netdev(ndev);
- 	return err;
-@@ -251,14 +234,9 @@ static void emac_rockchip_remove(struct platform_device *pdev)
- 
- 	arc_emac_remove(ndev);
- 
--	clk_disable_unprepare(priv->refclk);
--
- 	if (priv->regulator)
- 		regulator_disable(priv->regulator);
- 
--	if (priv->soc_data->need_div_macclk)
--		clk_disable_unprepare(priv->macclk);
--
- 	free_netdev(ndev);
- }
- 
 -- 
 2.34.1
 
