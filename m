@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB09B966ECC
+	by mail.lfdr.de (Postfix) with ESMTPS id C57B5966ECB
 	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:06:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96400C7801C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B1E8C7801A;
 	Sat, 31 Aug 2024 02:06:13 +0000 (UTC)
 Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05B2DC7801B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEB5EC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Aug 2024 02:06:12 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4WwddD5KlXz1S9CP;
- Sat, 31 Aug 2024 10:05:04 +0800 (CST)
+ Sat, 31 Aug 2024 02:06:11 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.88.234])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4WwddF55Mdz1S9QB;
+ Sat, 31 Aug 2024 10:05:05 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 0B26D140133;
- Sat, 31 Aug 2024 10:05:20 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 0372A140109;
+ Sat, 31 Aug 2024 10:05:21 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 31 Aug
- 2024 10:05:18 +0800
+ 2024 10:05:19 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
@@ -34,8 +34,8 @@ To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
  <ajay.kathat@microchip.com>, <claudiu.beznea@tuxon.dev>, <kvalo@kernel.org>,
  <lizetao1@huawei.com>, <u.kleine-koenig@pengutronix.de>,
  <jacky_chou@aspeedtech.com>
-Date: Sat, 31 Aug 2024 10:13:24 +0800
-Message-ID: <20240831021334.1907921-3-lizetao1@huawei.com>
+Date: Sat, 31 Aug 2024 10:13:25 +0800
+Message-ID: <20240831021334.1907921-4-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240831021334.1907921-1-lizetao1@huawei.com>
 References: <20240831021334.1907921-1-lizetao1@huawei.com>
@@ -46,8 +46,8 @@ X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
 Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 02/12] net: ethernet: Convert using
-	devm_clk_get_enabled() in emac_probe()
+Subject: [Linux-stm32] [PATCH net-next 03/12] net: ethernet: arc: Convert
+	using devm_clk_get_enabled() in emac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +74,115 @@ changed to the out_dispose_mapping error path.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/net/ethernet/allwinner/sun4i-emac.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+ drivers/net/ethernet/arc/emac_rockchip.c | 34 +++++-------------------
+ 1 file changed, 6 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/net/ethernet/allwinner/sun4i-emac.c b/drivers/net/ethernet/allwinner/sun4i-emac.c
-index d761c08fe5c1..8f42501729b7 100644
---- a/drivers/net/ethernet/allwinner/sun4i-emac.c
-+++ b/drivers/net/ethernet/allwinner/sun4i-emac.c
-@@ -1005,22 +1005,16 @@ static int emac_probe(struct platform_device *pdev)
- 	if (emac_configure_dma(db))
- 		netdev_info(ndev, "configure dma failed. disable dma.\n");
- 
--	db->clk = devm_clk_get(&pdev->dev, NULL);
-+	db->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(db->clk)) {
- 		ret = PTR_ERR(db->clk);
- 		goto out_dispose_mapping;
+diff --git a/drivers/net/ethernet/arc/emac_rockchip.c b/drivers/net/ethernet/arc/emac_rockchip.c
+index 493d6356c8ca..22b3ebe059d9 100644
+--- a/drivers/net/ethernet/arc/emac_rockchip.c
++++ b/drivers/net/ethernet/arc/emac_rockchip.c
+@@ -144,7 +144,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
+ 		goto out_netdev;
  	}
  
--	ret = clk_prepare_enable(db->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Error couldn't enable clock (%d)\n", ret);
--		goto out_dispose_mapping;
+-	priv->refclk = devm_clk_get(dev, "macref");
++	priv->refclk = devm_clk_get_enabled(dev, "macref");
+ 	if (IS_ERR(priv->refclk)) {
+ 		dev_err(dev, "failed to retrieve reference clock (%ld)\n",
+ 			PTR_ERR(priv->refclk));
+@@ -152,18 +152,12 @@ static int emac_rockchip_probe(struct platform_device *pdev)
+ 		goto out_netdev;
+ 	}
+ 
+-	err = clk_prepare_enable(priv->refclk);
+-	if (err) {
+-		dev_err(dev, "failed to enable reference clock (%d)\n", err);
+-		goto out_netdev;
 -	}
 -
- 	ret = sunxi_sram_claim(&pdev->dev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Error couldn't map SRAM to device\n");
--		goto out_clk_disable_unprepare;
-+		goto out_dispose_mapping;
+ 	/* Optional regulator for PHY */
+ 	priv->regulator = devm_regulator_get_optional(dev, "phy");
+ 	if (IS_ERR(priv->regulator)) {
+ 		if (PTR_ERR(priv->regulator) == -EPROBE_DEFER) {
+ 			err = -EPROBE_DEFER;
+-			goto out_clk_disable;
++			goto out_netdev;
+ 		}
+ 		dev_err(dev, "no regulator found\n");
+ 		priv->regulator = NULL;
+@@ -173,7 +167,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
+ 		err = regulator_enable(priv->regulator);
+ 		if (err) {
+ 			dev_err(dev, "failed to enable phy-supply (%d)\n", err);
+-			goto out_clk_disable;
++			goto out_netdev;
+ 		}
  	}
  
- 	db->phy_node = of_parse_phandle(np, "phy-handle", 0);
-@@ -1068,8 +1062,6 @@ static int emac_probe(struct platform_device *pdev)
+@@ -200,7 +194,7 @@ static int emac_rockchip_probe(struct platform_device *pdev)
+ 	}
  
- out_release_sram:
- 	sunxi_sram_release(&pdev->dev);
--out_clk_disable_unprepare:
--	clk_disable_unprepare(db->clk);
- out_dispose_mapping:
- 	irq_dispose_mapping(ndev->irq);
- 	dma_release_channel(db->rx_chan);
-@@ -1095,7 +1087,6 @@ static void emac_remove(struct platform_device *pdev)
+ 	if (priv->soc_data->need_div_macclk) {
+-		priv->macclk = devm_clk_get(dev, "macclk");
++		priv->macclk = devm_clk_get_enabled(dev, "macclk");
+ 		if (IS_ERR(priv->macclk)) {
+ 			dev_err(dev, "failed to retrieve mac clock (%ld)\n",
+ 				PTR_ERR(priv->macclk));
+@@ -208,37 +202,26 @@ static int emac_rockchip_probe(struct platform_device *pdev)
+ 			goto out_regulator_disable;
+ 		}
  
- 	unregister_netdev(ndev);
- 	sunxi_sram_release(&pdev->dev);
--	clk_disable_unprepare(db->clk);
- 	irq_dispose_mapping(ndev->irq);
- 	iounmap(db->membase);
+-		err = clk_prepare_enable(priv->macclk);
+-		if (err) {
+-			dev_err(dev, "failed to enable mac clock (%d)\n", err);
+-			goto out_regulator_disable;
+-		}
+-
+ 		/* RMII TX/RX needs always a rate of 25MHz */
+ 		err = clk_set_rate(priv->macclk, 25000000);
+ 		if (err) {
+ 			dev_err(dev,
+ 				"failed to change mac clock rate (%d)\n", err);
+-			goto out_clk_disable_macclk;
++			goto out_regulator_disable;
+ 		}
+ 	}
+ 
+ 	err = arc_emac_probe(ndev, interface);
+ 	if (err) {
+ 		dev_err(dev, "failed to probe arc emac (%d)\n", err);
+-		goto out_clk_disable_macclk;
++		goto out_regulator_disable;
+ 	}
+ 
+ 	return 0;
+ 
+-out_clk_disable_macclk:
+-	if (priv->soc_data->need_div_macclk)
+-		clk_disable_unprepare(priv->macclk);
+ out_regulator_disable:
+ 	if (priv->regulator)
+ 		regulator_disable(priv->regulator);
+-out_clk_disable:
+-	clk_disable_unprepare(priv->refclk);
+ out_netdev:
  	free_netdev(ndev);
+ 	return err;
+@@ -251,14 +234,9 @@ static void emac_rockchip_remove(struct platform_device *pdev)
+ 
+ 	arc_emac_remove(ndev);
+ 
+-	clk_disable_unprepare(priv->refclk);
+-
+ 	if (priv->regulator)
+ 		regulator_disable(priv->regulator);
+ 
+-	if (priv->soc_data->need_div_macclk)
+-		clk_disable_unprepare(priv->macclk);
+-
+ 	free_netdev(ndev);
+ }
+ 
 -- 
 2.34.1
 
