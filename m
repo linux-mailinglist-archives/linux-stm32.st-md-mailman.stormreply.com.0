@@ -2,52 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 898DA966EBF
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 04:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2999672BB
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Aug 2024 18:44:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 510E9C7801A;
-	Sat, 31 Aug 2024 02:05:34 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0361FC6DD9D;
+	Sat, 31 Aug 2024 16:44:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A3D7C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66C1FC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Aug 2024 02:05:32 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Wwdbh1Dd5zpVB5;
- Sat, 31 Aug 2024 10:03:44 +0800 (CST)
-Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 2D0CD18010A;
- Sat, 31 Aug 2024 10:05:30 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
- (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 31 Aug
- 2024 10:05:28 +0800
-From: Li Zetao <lizetao1@huawei.com>
-To: <florian.fainelli@broadcom.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
- <samuel@sholland.org>, <heiko@sntech.de>, <yisen.zhuang@huawei.com>,
- <salil.mehta@huawei.com>, <hauke@hauke-m.de>, <alexandre.torgue@foss.st.com>, 
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <wellslutw@gmail.com>,
- <radhey.shyam.pandey@amd.com>, <michal.simek@amd.com>,
- <ajay.kathat@microchip.com>, <claudiu.beznea@tuxon.dev>, <kvalo@kernel.org>,
- <lizetao1@huawei.com>, <u.kleine-koenig@pengutronix.de>,
- <jacky_chou@aspeedtech.com>
-Date: Sat, 31 Aug 2024 10:13:34 +0800
-Message-ID: <20240831021334.1907921-13-lizetao1@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240831021334.1907921-1-lizetao1@huawei.com>
-References: <20240831021334.1907921-1-lizetao1@huawei.com>
+ Sat, 31 Aug 2024 16:44:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1725122665; x=1756658665;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=YmIADE+iPJs58r7hopfHHRVRQ4cz6BqTPPb+fJDDqC4=;
+ b=RElA4g4QpZUBkkl+Vj/lpz7MyI6XvXJqmF7GeIj7azECUYq6DfFXHn4D
+ xGmR/2klJd8U7ln4/y35YlMcT2DE2qwFRy6K7ITxGtFZl6C0nLiSY6NQQ
+ HlC6jnxvKGyNafxhCMPZXi3ngxbJhCLoH4R49REYFx85SJX8zqSx9JA/S
+ sOSSGV1/v6QzPeOfGMVIzBRsX3n3GVUbgEVMwaEPoAMKlxdtwk0eq4G/A
+ ygCobm8P2Jmi+ws2phUiISiLSbniWVXOe3jN8FJeSiIiRXsCz9hXFeoHl
+ SjNCSBca40VMb/DraeHa6KUPFWqamA5ubKs/KhnINK6oOYotS+tkTDnwd w==;
+X-CSE-ConnectionGUID: fICO8d9jSX6xUxq6DwxvNA==
+X-CSE-MsgGUID: fZxdTWB7TjyJWewZdVt6tg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11181"; a="23266281"
+X-IronPort-AV: E=Sophos;i="6.10,192,1719903600"; d="scan'208";a="23266281"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2024 09:44:16 -0700
+X-CSE-ConnectionGUID: NKiGrgHAS6eiFuXtuCCbIA==
+X-CSE-MsgGUID: tyuEdc0PQwGkbWoJvl9aOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,192,1719903600"; d="scan'208";a="64537095"
+Received: from lkp-server01.sh.intel.com (HELO 9c6b1c7d3b50) ([10.239.97.150])
+ by orviesa006.jf.intel.com with ESMTP; 31 Aug 2024 09:44:13 -0700
+Received: from kbuild by 9c6b1c7d3b50 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1skRCs-0002wK-2l;
+ Sat, 31 Aug 2024 16:44:10 +0000
+Date: Sun, 1 Sep 2024 00:43:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Message-ID: <202409010034.Tln3soEY-lkp@intel.com>
+References: <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- kwepemd500012.china.huawei.com (7.221.188.25)
-Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 12/12] wifi: wilc1000: Convert using
-	devm_clk_get_optional_enabled() in wilc_bus_probe()
+Content-Disposition: inline
+In-Reply-To: <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v9 4/7] remoteproc: core: Add TEE
+ interface support for firmware release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,54 +76,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use devm_clk_get_optional_enabled() instead of devm_clk_get_optional() +
-clk_prepare_enable(), which can make the clk consistent with the device
-life cycle and reduce the risk of unreleased clk resources. Since the
-device framework has automatically released the clk resource, there is
-no need to execute clk_disable_unprepare(clk) on the error path.
+Hi Arnaud,
 
-Signed-off-by: Li Zetao <lizetao1@huawei.com>
----
- drivers/net/wireless/microchip/wilc1000/spi.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+kernel test robot noticed the following build warnings:
 
-diff --git a/drivers/net/wireless/microchip/wilc1000/spi.c b/drivers/net/wireless/microchip/wilc1000/spi.c
-index 5ff940c53ad9..05b577b1068e 100644
---- a/drivers/net/wireless/microchip/wilc1000/spi.c
-+++ b/drivers/net/wireless/microchip/wilc1000/spi.c
-@@ -228,12 +228,11 @@ static int wilc_bus_probe(struct spi_device *spi)
- 	if (ret < 0)
- 		goto netdev_cleanup;
- 
--	wilc->rtc_clk = devm_clk_get_optional(&spi->dev, "rtc");
-+	wilc->rtc_clk = devm_clk_get_optional_enabled(&spi->dev, "rtc");
- 	if (IS_ERR(wilc->rtc_clk)) {
- 		ret = PTR_ERR(wilc->rtc_clk);
- 		goto netdev_cleanup;
- 	}
--	clk_prepare_enable(wilc->rtc_clk);
- 
- 	dev_info(&spi->dev, "Selected CRC config: crc7=%s, crc16=%s\n",
- 		 enable_crc7 ? "on" : "off", enable_crc16 ? "on" : "off");
-@@ -266,7 +265,6 @@ static int wilc_bus_probe(struct spi_device *spi)
- 	return 0;
- 
- power_down:
--	clk_disable_unprepare(wilc->rtc_clk);
- 	wilc_wlan_power(wilc, false);
- netdev_cleanup:
- 	wilc_netdev_cleanup(wilc);
-@@ -280,7 +278,6 @@ static void wilc_bus_remove(struct spi_device *spi)
- 	struct wilc *wilc = spi_get_drvdata(spi);
- 	struct wilc_spi *spi_priv = wilc->bus_data;
- 
--	clk_disable_unprepare(wilc->rtc_clk);
- 	wilc_netdev_cleanup(wilc);
- 	kfree(spi_priv);
- }
+[auto build test WARNING on 5be63fc19fcaa4c236b307420483578a56986a37]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Arnaud-Pouliquen/remoteproc-core-Introduce-rproc_pa_to_va-helper/20240830-175609
+base:   5be63fc19fcaa4c236b307420483578a56986a37
+patch link:    https://lore.kernel.org/r/20240830095147.3538047-5-arnaud.pouliquen%40foss.st.com
+patch subject: [PATCH v9 4/7] remoteproc: core: Add TEE interface support for firmware release
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20240901/202409010034.Tln3soEY-lkp@intel.com/config)
+compiler: loongarch64-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240901/202409010034.Tln3soEY-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202409010034.Tln3soEY-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/remoteproc/remoteproc_core.c:32:
+>> include/linux/remoteproc_tee.h:52:12: warning: 'tee_rproc_parse_fw' defined but not used [-Wunused-function]
+      52 | static int tee_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+         |            ^~~~~~~~~~~~~~~~~~
+
+
+vim +/tee_rproc_parse_fw +52 include/linux/remoteproc_tee.h
+
+498143a453d14e Arnaud Pouliquen 2024-08-30  51  
+498143a453d14e Arnaud Pouliquen 2024-08-30 @52  static int tee_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+498143a453d14e Arnaud Pouliquen 2024-08-30  53  {
+498143a453d14e Arnaud Pouliquen 2024-08-30  54  	/* This shouldn't be possible */
+498143a453d14e Arnaud Pouliquen 2024-08-30  55  	WARN_ON(1);
+498143a453d14e Arnaud Pouliquen 2024-08-30  56  
+498143a453d14e Arnaud Pouliquen 2024-08-30  57  	return 0;
+498143a453d14e Arnaud Pouliquen 2024-08-30  58  }
+498143a453d14e Arnaud Pouliquen 2024-08-30  59  
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
