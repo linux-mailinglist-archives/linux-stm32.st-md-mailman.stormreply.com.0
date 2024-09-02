@@ -2,75 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5745968383
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 11:46:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C639683CB
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 11:55:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 601D4C71292;
-	Mon,  2 Sep 2024 09:46:44 +0000 (UTC)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB926C71292;
+	Mon,  2 Sep 2024 09:55:46 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A029C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B76D6C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Sep 2024 09:46:37 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-5c26815e174so354518a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Sep 2024 02:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1725270397; x=1725875197;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uvU0q4IqsZC3m7HbUXvgFdJn7OUlluR4GbPu5ha70so=;
- b=VDQQSfHCJL6zuk6fj6evJ+NPkkC7OTAohmY/NBjyOBTwocdLIE1J1zY7w2tGHqBiCr
- 2vWEvpcND8MpOAgFlzZkZY3acVliYl5lXQEYbq/Y8RQcuXnJatTIz69iIuTJF8kIjZh9
- XVGJgEMjdApSXiAnhtsW7Uz7LxLiRQ1nsISQXmHpkan5trHqYfX5xrslZRqBpplYh5V2
- 6XlIruFKsDiai9mWyAvXhVAg2qp1mhgqK7PZcKkggEjRX4eAD3KykbsSzxlPIl83AjoQ
- RLmelbETnTfaIyRtYtyiD0xnIImRkyXs7e33Qgnz1It9pKJxwlc9MEj1hYNgx9xi0iVF
- Efug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725270397; x=1725875197;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uvU0q4IqsZC3m7HbUXvgFdJn7OUlluR4GbPu5ha70so=;
- b=ASEX2GcEGEBX23vdWLbmImkSxv61FKaEAG5WLbMtSfXlqIrFc1qOrom5B4VPK1TyPq
- JWj4Jzs2T9+sMHlzeEgHPjKdFUb4+Butc53/i4cW4/6i3FvjmbqFCm72b1iBEKfU+Zrk
- UXIVhGghjXlvEmj5ghUgVzHFDS+5Y2KJc0QsHfycHR9sa0JpPbj0TL6QUEBesfxKQLve
- 6eM415dTobYPQW2Qrnj5WVW/X9qKL5VF/i70fM94qAUdzikcCkOgDKE8SSQHIXG4mpV4
- SBjPvLarpCOvs04eaZBSSrBQVaah70zNSGPQTV/ZTS9kHTofNFoniCJzOMzV6SxBzXQI
- YTnQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlbpbm6D8ElL48uyaCSb3IubVG71aaA3PORBpBCTBc7SF41cHb4JGB0IYIzy9RXEi6i6QfLGdaEP362g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywb7HjMset6rhpwN1nSGCtSp1mo4WIMbWQylvZCcSGRUfRGeqSI
- Y9nToamG3OjBc4kzv7Ms4+UBGRe2L8V1Dg0H1pyPxznrrs2PnOO+yQwCpojCTCQ=
-X-Google-Smtp-Source: AGHT+IH1zg1jlwXDCyd/ampfGvI2tFOVMbwlFkIFwwhxA5YtvJe4GT6oAvCh2TQyWSsKQ+egPE4Erg==
-X-Received: by 2002:a05:6402:3481:b0:5c2:112e:f106 with SMTP id
- 4fb4d7f45d1cf-5c21ed319c6mr9363383a12.3.1725270396001; 
- Mon, 02 Sep 2024 02:46:36 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:b496:9e67:73c9:9f5a])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccfeacsm5009357a12.78.2024.09.02.02.46.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 02:46:35 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: linus.walleij@linaro.org, brgl@bgdev.pl, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, Shen Lichuan <shenlichuan@vivo.com>
-Date: Mon,  2 Sep 2024 11:46:34 +0200
-Message-ID: <172527039219.21144.385699965145763717.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240829131051.43200-1-shenlichuan@vivo.com>
-References: <20240829131051.43200-1-shenlichuan@vivo.com>
+ Mon,  2 Sep 2024 09:55:39 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 481N0WlF020660;
+ Mon, 2 Sep 2024 09:55:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=+0UtkfU8O8EqtBRippx73Z
+ t/xKIk4RmzJwGe9dLxsLM=; b=garDcedaPCzJmrCWtbrUJT62pVwHdotzm5sJOr
+ YUIRU9u9tpiI1oCYG8ri03pTrltvlCKxAR5auj1zrohmIHTTgNGgraMDyW5YZ/X1
+ 27sqpIMw0bMs8jQ5GY/69PayOf3tgmSm3oRqoTV8qJwZNYQX9MU5FFsqZogUh3WT
+ ITV3pnDlfaulo59WAC6ybFTkJf990O6vIosmzbeDvzfWfqvq5MnpC0HgM9KkkLQX
+ oriSGYRpPhFavrdibWdKoUBAiI+n9UvEanIYP0jjE9LRpZjFw/TCagcZcDo/yaO3
+ 3d5kxbnWRBpTQULYFjuYJXBGnYAb8AKANKY2iVM5/xszqeXg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41bvf8v53h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Sep 2024 09:55:07 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4829t777002818
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 2 Sep 2024 09:55:07 GMT
+Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 2 Sep 2024 02:54:57 -0700
+From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
+ <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Jose Abreu" <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
+Date: Mon, 2 Sep 2024 15:24:36 +0530
+Message-ID: <20240902095436.3756093-1-quic_jsuraj@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: opensource.kernel@vivo.com,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1] gpio: stmpe: Simplify with
-	dev_err_probe()
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: SowefPK2xML-I30pU6pjQmD6hjAW__dP
+X-Proofpoint-ORIG-GUID: SowefPK2xML-I30pU6pjQmD6hjAW__dP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-09-02_02,2024-09-02_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 mlxlogscore=999
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2409020081
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net] net: stmmac: Stop using a single
+	dma_map() for multiple descriptors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,30 +95,151 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Currently same page address is shared
+between multiple buffer addresses and causing smmu fault for other
+descriptor if address hold by one descriptor got cleaned.
+Allocate separate buffer address for each descriptor
+for TSO path so that if one descriptor cleared it should not
+clean other descriptor address.
+
+Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+---
+
+Changes since v2:
+- Fixed function description 
+- Fixed handling of return value.
 
 
-On Thu, 29 Aug 2024 21:10:51 +0800, Shen Lichuan wrote:
-> Use dev_err_probe() to simplify the error path and unify a message
-> template.
-> 
-> Using this helper is totally fine even if err is known to never
-> be -EPROBE_DEFER.
-> 
-> The benefit compared to a normal dev_err() is the standardized format
-> of the error code, it being emitted symbolically and the fact that
-> the error code is returned which allows more compact error paths.
-> 
-> [...]
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 63 ++++++++++++-------
+ 1 file changed, 42 insertions(+), 21 deletions(-)
 
-Applied, thanks!
-
-[1/1] gpio: stmpe: Simplify with dev_err_probe()
-      commit: 1882e769362b8e4ef68fd30a05295f5eedf5c54a
-
-Best regards,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 83b654b7a9fd..5948774c403f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4136,16 +4136,18 @@ static bool stmmac_vlan_insert(struct stmmac_priv *priv, struct sk_buff *skb,
+ /**
+  *  stmmac_tso_allocator - close entry point of the driver
+  *  @priv: driver private structure
+- *  @des: buffer start address
++ *  @addr: Contains either skb frag address or skb->data address
+  *  @total_len: total length to fill in descriptors
+  *  @last_segment: condition for the last descriptor
+  *  @queue: TX queue index
++ * @is_skb_frag: condition to check whether skb data is part of fragment or not
+  *  Description:
+  *  This function fills descriptor and request new descriptors according to
+  *  buffer length to fill
++ *  This function returns 0 on success else -ERRNO on fail
+  */
+-static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
+-				 int total_len, bool last_segment, u32 queue)
++static int stmmac_tso_allocator(struct stmmac_priv *priv, void *addr,
++				int total_len, bool last_segment, u32 queue, bool is_skb_frag)
+ {
+ 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
+ 	struct dma_desc *desc;
+@@ -4153,6 +4155,8 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
+ 	int tmp_len;
+ 
+ 	tmp_len = total_len;
++	unsigned int offset = 0;
++	unsigned char *data = addr;
+ 
+ 	while (tmp_len > 0) {
+ 		dma_addr_t curr_addr;
+@@ -4161,20 +4165,44 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
+ 						priv->dma_conf.dma_tx_size);
+ 		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+ 
++		buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ? TSO_MAX_BUFF_SIZE : tmp_len;
++
+ 		if (tx_q->tbs & STMMAC_TBS_AVAIL)
+ 			desc = &tx_q->dma_entx[tx_q->cur_tx].basic;
+ 		else
+ 			desc = &tx_q->dma_tx[tx_q->cur_tx];
+ 
+-		curr_addr = des + (total_len - tmp_len);
++		offset = total_len - tmp_len;
++		if (!is_skb_frag) {
++			curr_addr = dma_map_single(priv->device, data + offset, buff_size,
++						   DMA_TO_DEVICE);
++
++			if (dma_mapping_error(priv->device, curr_addr))
++				return -ENOMEM;
++
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = false;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
++		} else {
++			curr_addr = skb_frag_dma_map(priv->device, addr, offset,
++						     buff_size,
++						     DMA_TO_DEVICE);
++
++			if (dma_mapping_error(priv->device, curr_addr))
++				return -ENOMEM;
++
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = true;
++			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
++		}
++
+ 		if (priv->dma_cap.addr64 <= 32)
+ 			desc->des0 = cpu_to_le32(curr_addr);
+ 		else
+ 			stmmac_set_desc_addr(priv, desc, curr_addr);
+ 
+-		buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ?
+-			    TSO_MAX_BUFF_SIZE : tmp_len;
+-
+ 		stmmac_prepare_tso_tx_desc(priv, desc, 0, buff_size,
+ 				0, 1,
+ 				(last_segment) && (tmp_len <= TSO_MAX_BUFF_SIZE),
+@@ -4182,6 +4210,7 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
+ 
+ 		tmp_len -= TSO_MAX_BUFF_SIZE;
+ 	}
++	return 0;
+ }
+ 
+ static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue)
+@@ -4351,25 +4380,17 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		pay_len = 0;
+ 	}
+ 
+-	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
++	if (stmmac_tso_allocator(priv, (skb->data + proto_hdr_len),
++				 tmp_pay_len, nfrags == 0, queue, false))
++		goto dma_map_err;
+ 
+ 	/* Prepare fragments */
+ 	for (i = 0; i < nfrags; i++) {
+-		const skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
++		skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
+ 
+-		des = skb_frag_dma_map(priv->device, frag, 0,
+-				       skb_frag_size(frag),
+-				       DMA_TO_DEVICE);
+-		if (dma_mapping_error(priv->device, des))
++		if (stmmac_tso_allocator(priv, frag, skb_frag_size(frag),
++					 (i == nfrags - 1), queue, true))
+ 			goto dma_map_err;
+-
+-		stmmac_tso_allocator(priv, des, skb_frag_size(frag),
+-				     (i == nfrags - 1), queue);
+-
+-		tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = des;
+-		tx_q->tx_skbuff_dma[tx_q->cur_tx].len = skb_frag_size(frag);
+-		tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = true;
+-		tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
+ 	}
+ 
+ 	tx_q->tx_skbuff_dma[tx_q->cur_tx].last_segment = true;
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
