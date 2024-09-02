@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A574968B04
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:29:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61980968B08
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:29:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F26AC78013;
-	Mon,  2 Sep 2024 15:29:20 +0000 (UTC)
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B14EC78013;
+	Mon,  2 Sep 2024 15:29:38 +0000 (UTC)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CDB3C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7B73C78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Sep 2024 15:29:18 +0000 (UTC)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-e1a74f8ee51so2933680276.3
+ Mon,  2 Sep 2024 15:29:36 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-2da4ea59658so253762a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Sep 2024 08:29:18 -0700 (PDT)
+ Mon, 02 Sep 2024 08:29:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725290957; x=1725895757;
+ d=gmail.com; s=20230601; t=1725290975; x=1725895775;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=fufiQCDjVzBKN77iaMjtvnLIV7U6YZAnkOFGTt2N2jM=;
- b=mw4q5aiWnzpeOnsSgFmWg3bQ3rA8WxCPZS+t/xj6zRYlHCN3ec9GTAqkUu+5hyq+VU
- 7+Na6ORImuGtnFGiEjWCuj1+jAiTXecgTRS3N/fCcRVtAiocPvnam2tEKvgKz2nmKMac
- w8o/MnRqNh24Z6z1cTVPu9qpxkukyjrfgzrVRV9S6McCX4twZ/VVDkzSUIT8ETNKiFnb
- vEw1MVC7/MGIDRCIoIoSUexlUWINCEET88UIc7w3A7JrzNVZEnP6rChv6HQDVBuV3/YT
- fjEejNfs6XWx6TuXif7VLSyxHmzCkB5j12vqfOSmfySiUlieylt4qGwxS9v0vxhxs4YT
- 8pFQ==
+ bh=yn0qNt/zGhRL+OYRVXMnNoHz4+u9oRNyoVfW+1+Klb8=;
+ b=kj2d43scm/aiL+/qTmDmzwp9IHPYbMtNP/o0DRS7A1fq2IiD94x/0ZZKceQeCMJhwI
+ pRwr/VuFyJqpzv/AhXCYm9UnRH76BJr6oQYDetIYtJhRNFPQp2P9eO5KFP0fjuHinF/k
+ Gji8M3f5aYL3tn7sWHWoKKS6JWOEdbXuKEQeZbzwbkegb35t79qunLHUhZfZ9Jtr8vAm
+ 8aFwGAPG/SGKwSknwCYfol1/gEpR+/CKF6TWlGcZ69RjmtneuSKa21/S5XrDUOhN2nDr
+ GlVPCWuyuRZtENyNUryvTGrNv8bz4s7XfYnt2YTsKQ//1zGB2oj6hYJPCBRLK/Jjy+KW
+ xLag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725290957; x=1725895757;
+ d=1e100.net; s=20230601; t=1725290975; x=1725895775;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=fufiQCDjVzBKN77iaMjtvnLIV7U6YZAnkOFGTt2N2jM=;
- b=G5YOAC7gEGyLKRDx0vNzDmMinANVpFGDZRFPX9Yg3lFFsMHxp98fT0xxWqBPx13ZTS
- QyNRolcXmoRJXEWo1lwnpopRGvLcJwW7vdFyvPEiD7mikjZTKMu5Ch868rJVCknzV/Sq
- HKdpg59t48HsSgbp/SbVDAmgf7c4s1SGRy4OTJ6cOeARHenIk+StU7u4TjPgA7vJ89ru
- T7LYYIT6tr/aiCujYAUCBoBV6nxXSO1bkR332Izo2tyo5GXI2OcMynLmV/quFaQkLbm7
- 8giF/PasCYlUwnk6aSd8QYyLDvE/aNdONUWezcLQJoemsMkNEtIyocHGU2ehean0aJnE
- t4Qg==
+ bh=yn0qNt/zGhRL+OYRVXMnNoHz4+u9oRNyoVfW+1+Klb8=;
+ b=CHFeeUluihfy6hWMvZbPsCT3wTFYSJGS043sB4YtmWISAwbCOdOmlJ0kEwd5F3l0rx
+ e61HQrZSkO9upO7xJjr1TOl3cWUtoRRftP/YaQePqQiDvhpnke/azxSwOw7CxVQhZO8U
+ h4FANiOBMDLymeL5R198Psb0ehpNVDrf1c63tMCn1EiEO0zizaaROZCrJTxOTBBHIkbq
+ do4H3dt9lGFELCTKW9y2NgtqxzLxxR4sXuNbqdjtpXlXR5gXS3MNQX+hML/oy7NiiPYE
+ cedvvqnGg8XcHlJYGHx2ugYeeuMy5qG7UAPBxucDUs1poSV7YRPfl7Fkzylg63mqJZwJ
+ rG2Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/6ri7HLZxT8KBwDrElV3KcXylaz7ChpU3KctTNF9znpa3oOqX8WZo4eee0RJpsWre5PVMEG5PjfJXug==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy8JqkaI7+l83cXPUPIUH+8d9M66wiLxlrpEuur70BFS+H13gZD
- tSzoq0apBT7zvINwhTfvooTf3Q5EfYTOJwVxUMbqNLyxyh9XzEGu
-X-Google-Smtp-Source: AGHT+IHyVyH+g+nijxrV0d5XnMz1GkNSFOfUMxQBussr7msCaVLHFmtyfyB2h1OfmDCWNb1K2wzr+w==
-X-Received: by 2002:a05:6902:248b:b0:e1a:a521:f035 with SMTP id
- 3f1490d57ef6-e1aa5220f06mr4406999276.28.1725290957294; 
- Mon, 02 Sep 2024 08:29:17 -0700 (PDT)
+ AJvYcCUg7RcVYMQVt4ixdPPWAjfrQT6vQbGBAYCQcc9mzNZ5Z7dgZmi2nhIwkdnDKVCGTJxvONlNY8P7opJ+Xw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzIyBsHpVk+w9f7DWON1jVMUen9fiUl0NrNG8VLS7JzagZuqKFC
+ 3JaI0iY5QJyCgFtlXp1kjJnFzOrjQV1jP0x4o3eOV0y244U/8HRq
+X-Google-Smtp-Source: AGHT+IEk9g8G92Wts7sRMp4Y0O/AhNU/7/wNvFNT46Axmwo7BNebAS3H8+s8EdnF/SVM0hKlaq8kFQ==
+X-Received: by 2002:a17:90a:ff14:b0:2d8:8ab3:2889 with SMTP id
+ 98e67ed59e1d1-2d88d69e9c8mr8633933a91.11.1725290975082; 
+ Mon, 02 Sep 2024 08:29:35 -0700 (PDT)
 Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c340c96825sm43273026d6.75.2024.09.02.08.29.13
+ 98e67ed59e1d1-2d8b8fe1f68sm3367192a91.31.2024.09.02.08.29.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:29:16 -0700 (PDT)
-Message-ID: <1ed619ce-1666-4dba-9cec-70c25411cd49@gmail.com>
-Date: Mon, 2 Sep 2024 08:29:13 -0700
+ Mon, 02 Sep 2024 08:29:34 -0700 (PDT)
+Message-ID: <5ddb11d3-f001-435d-b6e4-2c4881bcd1e6@gmail.com>
+Date: Mon, 2 Sep 2024 08:29:32 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
@@ -73,7 +73,7 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
  linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  krzk@kernel.org, jic23@kernel.org
 References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
- <20240830031325.2406672-7-ruanjinjie@huawei.com>
+ <20240830031325.2406672-8-ruanjinjie@huawei.com>
 Content-Language: en-US
 From: Florian Fainelli <f.fainelli@gmail.com>
 Autocrypt: addr=f.fainelli@gmail.com; keydata=
@@ -109,9 +109,9 @@ Autocrypt: addr=f.fainelli@gmail.com; keydata=
  y5arMQorqTFWlEOgRA8OP47L9knl9i4xuR0euV6DChDrguup2aJVU8JPBBgRAgAPAhsMBQJU
  X9LxBQkeXB3fAAoJEGFXmRW1Y3YOj4UAn3nrFLPZekMeqX5aD/aq/dsbXSfyAKC45Go0YyxV
  HGuUuzv+GKZ6nsysJw==
-In-Reply-To: <20240830031325.2406672-7-ruanjinjie@huawei.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 6/8] net: mv643xx_eth:
- Simplify with scoped for each OF child loop
+In-Reply-To: <20240830031325.2406672-8-ruanjinjie@huawei.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 7/8] net: dsa: microchip: Use
+ scoped function to simplfy code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,8 +131,8 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 On 8/29/2024 8:13 PM, Jinjie Ruan wrote:
-> Use scoped for_each_available_child_of_node_scoped() when iterating
-> over device nodes to make code a bit simpler.
+> Avoids the need for manual cleanup of_node_put() in early exits
+> from the loop by using for_each_available_child_of_node_scoped().
 > 
 > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
