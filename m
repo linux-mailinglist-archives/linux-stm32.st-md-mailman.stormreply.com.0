@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E0D968AF3
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A2C7968B02
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:29:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E05AFC71292;
-	Mon,  2 Sep 2024 15:27:11 +0000 (UTC)
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
- [209.85.219.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14ECBC78011;
+	Mon,  2 Sep 2024 15:29:17 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29A64C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 737BDC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Sep 2024 15:27:10 +0000 (UTC)
-Received: by mail-qv1-f52.google.com with SMTP id
- 6a1803df08f44-6c3552ce7faso19692526d6.1
+ Mon,  2 Sep 2024 15:29:09 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-7a8086485a5so269474585a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Sep 2024 08:27:10 -0700 (PDT)
+ Mon, 02 Sep 2024 08:29:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725290829; x=1725895629;
+ d=gmail.com; s=20230601; t=1725290948; x=1725895748;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=yn0qNt/zGhRL+OYRVXMnNoHz4+u9oRNyoVfW+1+Klb8=;
- b=BhwasxUtPTdVTGb0B9ya1fVJxm99Yv5CbD03sgMMoFBjiMwSoLK4YHdYmzlwtdTQkI
- RXOSBI50aMr3AqImU5MbfxDgAeF81z5ldcWI0Bq2k0ljPfpvIv/SWaW9f8TPaS6T1Rht
- 5BsI++XiawN9cre1ELq5BL5UnWhRMFLJw3vYYHjdBJcvDgBZUv4OctEjgySkoajKWSMR
- IifHgAjBsFMJQaUcUHBAshmxhhH9MmZ0UJFV216bDEYJd2V1jicLKUKO4mSjI4qk6yae
- 440ZSpX7h6bQw331+Ahuc4YJKttisERYZCbztLnn/6jDJD9Y/uYr9uv34b7/Hz29iaJL
- lXaQ==
+ bh=plSfTPexmyrm/qaFrlk31d5Kx7ZPUKuvTHifHzZ6Gv4=;
+ b=W7c/iyYU8bp9Y5yuvUKMsBZVyZTtm8xFgNNLarcTLz795zUjOZW7utnf8lLw2M9AD9
+ XpBz86Gp5QtWx6xg39MCLOrJdYnM/qqknVO1of9YndfePyM4qkfVyh2+yswRUu1aqSp6
+ D4jHmeHf8FacDOVY4emF29UGBtd+hfaBaARn9l88DvE3I/d5p9dSC+ac7oNELz01Sjqg
+ f+tV2HVMWTxbdbs8Zu954anpp9263+ay164vWfGONEGbl8OBn+MyVa1VXq+1SQlJY0PD
+ zO0Hmqsfi6wTju8hgDukOqtmTSuGQZIXejACO1IOyphHaQnM5rAkvIh6+Y1uWWe5fkEi
+ fGAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725290829; x=1725895629;
+ d=1e100.net; s=20230601; t=1725290948; x=1725895748;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=yn0qNt/zGhRL+OYRVXMnNoHz4+u9oRNyoVfW+1+Klb8=;
- b=R3tJ9iEYixC3VXCymYhqYlIxBwSpQPcaHnbWgjNVNrya0L7zJtKmgNYtWcQv3ApoiG
- M3aOMiokYwsL6Q2n+7Ft85VlTnCDOwDVpj9Hfu3vcTHGAHW8rFuxZrL2yB6T07w3yqt9
- Q7f/eRtCuHr/k34xEGojRwRAWwDIPEfKPDzDlCZNaQAqKacsxLhowkplzx1GilA0odA5
- 63TrkMoSYqt5MLSpkKbB75SAVVU5N8ZUlqd30HxZ6uk2wzcTi3Bt5wiwc0ODXJEOd7fg
- ERpLS7dg7yniVAA86CFEj4acQ6MS8J32OUbrRed7XQj6xCgDz62LHdrCNmw7++1gWCNw
- /RMg==
+ bh=plSfTPexmyrm/qaFrlk31d5Kx7ZPUKuvTHifHzZ6Gv4=;
+ b=frfG6Ua1UGZ2Lwn4lNWQq4RRWQV5VfzXTSP3uLChYGFcUJvvXkMvLbJw1Fo0XOjRh0
+ /ivEJUQQAicSSFNARRWOZAZs+vMRGfv8pd0xpALWAwbHRrH65ixjzZLxJjlsxnvSd9M3
+ beve2bPxolXmM9Oc+cg6pfq9Vky+FC/7tdCGlE8XAZ7TLNEGM/KtyMjBQ8T9CQS8gU0v
+ OjrLfIdwO5GtEY6KW0PBVvZABvi6VKoQOIzeTU6o8A0+H2GVrgPcguOUv3mcHwvBQmcy
+ dep+43yzm9meGXbTALtb8SWlvibduHf2ekSiunWf/Dtj6zHyy84ZdcUunFvOP+73gjZl
+ 478g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4nSOJAB8fR+8HrK1JfoAHP03Y+EGnMoqxy+gdrCl62HDRK6cBoCZouDk++ApMxFBmLo4R65gB18kNaA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzOq9y70iO06RU2OGz3q5Iutyc6Dp/9ZqfnLZfVf52jFzEi1+Cr
- 3fju7xhZ4apI1TKTwH1zDZSSBz6cJHBhXRCz4HWIXg7G+k3hKPE6nvkPAQ==
-X-Google-Smtp-Source: AGHT+IHsh7TbDxj/S/ueFJoif6v3pnl6T+3d2f6M9FiCfeWDaYi7kmMexXjJ6EzI0V6gM/Tf/y2NMw==
-X-Received: by 2002:a05:6214:62e:b0:6c3:7064:8175 with SMTP id
- 6a1803df08f44-6c370648831mr9215406d6.18.1725290829040; 
- Mon, 02 Sep 2024 08:27:09 -0700 (PDT)
+ AJvYcCUDrSFR/ERcEkXiSqogVrxqCFM00uWRRJC80pPXN0h0ni/1AWc5lXuLrO4tyHF6MFm96O0IWUmX7GQOIA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxNYaGgLEAxUMmKwiudjSPrd3HYIr6+fbDDiP9TZGCNsDuAyBrs
+ 1x4bzJUal+RcyT5+bQ7PMb6pZkKZo3ma3Vz2IaPlSoQaJ/CiLXbI
+X-Google-Smtp-Source: AGHT+IEnS8WLdyq76LYA7OL3T+DyPPZmn0CFDzFBQ/SinGFiTDBUPLZcW2TYcilzq6FZ6fMfBu9Mdg==
+X-Received: by 2002:ad4:4c04:0:b0:6c3:6626:9042 with SMTP id
+ 6a1803df08f44-6c36626967emr33194906d6.37.1725290948282; 
+ Mon, 02 Sep 2024 08:29:08 -0700 (PDT)
 Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c361eacd36sm16365946d6.137.2024.09.02.08.27.04
+ 6a1803df08f44-6c340c96825sm43273026d6.75.2024.09.02.08.29.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:27:08 -0700 (PDT)
-Message-ID: <1f2c95ef-465f-4f07-aece-b04d98c38adf@gmail.com>
-Date: Mon, 2 Sep 2024 08:27:04 -0700
+ Mon, 02 Sep 2024 08:29:07 -0700 (PDT)
+Message-ID: <27a0d076-ed61-486b-b961-8a0982e7b96d@gmail.com>
+Date: Mon, 2 Sep 2024 08:29:01 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
@@ -73,7 +73,7 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
  linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  krzk@kernel.org, jic23@kernel.org
 References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
- <20240830031325.2406672-5-ruanjinjie@huawei.com>
+ <20240830031325.2406672-6-ruanjinjie@huawei.com>
 Content-Language: en-US
 From: Florian Fainelli <f.fainelli@gmail.com>
 Autocrypt: addr=f.fainelli@gmail.com; keydata=
@@ -109,9 +109,9 @@ Autocrypt: addr=f.fainelli@gmail.com; keydata=
  y5arMQorqTFWlEOgRA8OP47L9knl9i4xuR0euV6DChDrguup2aJVU8JPBBgRAgAPAhsMBQJU
  X9LxBQkeXB3fAAoJEGFXmRW1Y3YOj4UAn3nrFLPZekMeqX5aD/aq/dsbXSfyAKC45Go0YyxV
  HGuUuzv+GKZ6nsysJw==
-In-Reply-To: <20240830031325.2406672-5-ruanjinjie@huawei.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 4/8] net: mdio: mux-mmioreg:
- Simplified with scoped function
+In-Reply-To: <20240830031325.2406672-6-ruanjinjie@huawei.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 5/8] net: mdio: mux-mmioreg:
+ Simplified with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,12 +131,44 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 On 8/29/2024 8:13 PM, Jinjie Ruan wrote:
-> Avoids the need for manual cleanup of_node_put() in early exits
-> from the loop by using for_each_available_child_of_node_scoped().
+> Use the dev_err_probe() helper to simplify code.
 > 
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+> v4:
+> - Remove the extra parentheses.
+> v3:
+> - Add Reviewed-by.
+> v2:
+> - Split into 2 patches.
+> ---
+>   drivers/net/mdio/mdio-mux-mmioreg.c | 48 ++++++++++++-----------------
+>   1 file changed, 20 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/net/mdio/mdio-mux-mmioreg.c b/drivers/net/mdio/mdio-mux-mmioreg.c
+> index 4d87e61fec7b..b70e6d1ad429 100644
+> --- a/drivers/net/mdio/mdio-mux-mmioreg.c
+> +++ b/drivers/net/mdio/mdio-mux-mmioreg.c
+> @@ -109,30 +109,25 @@ static int mdio_mux_mmioreg_probe(struct platform_device *pdev)
+>   		return -ENOMEM;
+>   
+>   	ret = of_address_to_resource(np, 0, &res);
+> -	if (ret) {
+> -		dev_err(&pdev->dev, "could not obtain memory map for node %pOF\n",
+> -			np);
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "could not obtain memory map for node %pOF\n", np);
+
+Besides that one, which I don't think is even a candidate for resource 
+deferral in the first place given the OF platform implementation, it 
+does not seem to help that much to switch to dev_err_probe() other than 
+just combining the error message and return code in a single statement. 
+So it's fewer lines of codes, but it is not exactly what dev_err_probe() 
+was originally intended for IMHO.
 
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
