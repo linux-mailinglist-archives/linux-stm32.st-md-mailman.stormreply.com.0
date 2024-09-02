@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F661968AE7
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:26:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06415968AEF
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2024 17:26:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3B95C71292;
-	Mon,  2 Sep 2024 15:26:32 +0000 (UTC)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF7B0C71292;
+	Mon,  2 Sep 2024 15:26:41 +0000 (UTC)
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50A77C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A876C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Sep 2024 15:26:25 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-7a8134aefe8so173044585a.2
+ Mon,  2 Sep 2024 15:26:40 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id
+ 46e09a7af769-70f645a30dcso2486396a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Sep 2024 08:26:25 -0700 (PDT)
+ Mon, 02 Sep 2024 08:26:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725290784; x=1725895584;
+ d=gmail.com; s=20230601; t=1725290799; x=1725895599;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
  bh=IA2MbtA3XQcGDEci6jrHmcUQxgw9JqO1/5DPWFqsHcE=;
- b=Rb/3rMm9Om3+W9voJABFT0HvLEZMI5OUpPD70ANHUZi1bfDHZazXSIGsou6rV0osck
- ibogC+Q2yxU17+cyI+iKVNV5T5kQEMaQ4DxO0eablq8DmlQ+kXAYR6bnSFpRE+mN9StS
- ONJ2J48NQZUWGJOYa3zs1z87yGTYt15AEhVHyMO7+b2SV4P028YbllQAAnV6GRvgiJXm
- NGt6MIulq/OzApH6BZjsf7ApxuLgvxiUzm44rr5m6xl0VdUUx00E+J2ctnmovSfkqZbb
- jNQUFQnPW7drp6OQyff5t7BTfVPDYbIsLuI0r/ws6f4nxYdz93TPciA/TCwe8jkeDo3S
- OyRw==
+ b=N7eM+nrtoZ4Et4eMFq0AWa08dVQlC77DFcbTp+Dc+/aP368zIN1phE5AZS5IUzQczZ
+ rNCDxsNg7/JiDCGH+3M9RjyzL6K2HyUZeck3gRswnnKpHw5RqpiBA9noyzoermqLWbSc
+ 4xrgAA+R0eI63eoHsAD04HDCSHa8Em8XV8gYKSx+IhS/MfEU/g/jmiw6aCbs7+Lvyxxd
+ CVpFOrJnPIWS2shbnfYhdBS6RwKf4c0k5FtA+oYWAOOjnod0J8jZwaaXdTvyvz8viaZL
+ RJwJulyai/Q0EeWHMSsS7zR8KXIjaF7HKxaTzV2V9c0FyxuGsPyHj9X8+BXs2d+2E1Yh
+ 6APg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725290784; x=1725895584;
+ d=1e100.net; s=20230601; t=1725290799; x=1725895599;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
  bh=IA2MbtA3XQcGDEci6jrHmcUQxgw9JqO1/5DPWFqsHcE=;
- b=p3BVfadmMiBfUaDvnMnXB1e09vwVnfbEvff7PgyBwHHKY23IVD3oWqIYWYb9TZEAVj
- gVgZ/Z4Kqtx4YJr0XrLPm6kXXXj9WcC7x9PEpNcmjwlvHT91TMwj8IoK7yvved9yi7oi
- okm/hVH5XViLRUoto5Rn5Dn1yTstJe16GZ9jEJ4/V+gXrioBSmBKuMtskw1H7jHGCyq+
- UAhsOSNN/nkdAqfDxZYMi5l1Eh+6ch4swUaVCINYtsMpnfrJ4fAP65hMxd3MQHccm+xD
- wTxSbGXlF65sLg9YUwdWQt0X6SJLf75h/nh/uSWmlon3Y99IRV92lEAMlF6ur037Pmnt
- SfQA==
+ b=E6SsuqX9rnPgChRAFlyHLx7d7l8bYtC6QbndXBK9tvrZq7hsbeWb6ApGqTAfKjTe3y
+ fC+6hXNekG14uM6FuaI8sZ2gzbzvmWsZg8VOzHnceEuu+jrrRTZ/z9qYAgqgfKjTv6Z2
+ eXvw3Dvrr4TTiTCvGyAOwaAE9w2OaMoXRcBVbhGjiiJSuvBNhB2iYN0BGNDqVCAqi79B
+ 86araxx1cqgi19FQSwYESSMG2ayNZxOXHFesrXqJXHeRTkKXTcQsiorWSK7Vyuk/mOLp
+ 2pnYNfDf/kHkmAX4ijUouX6B9ohhGwdGBpvO68ysAegNyk55X8F9GV0e4+XOHGeG/uwg
+ ZSWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrxzVOAmijkwzCZXi3c4os+1tQNeM7G+PsICci774Qj7OMHgfrTJmYOtLFTTZJPB9f0Tgstdyt5vEM+A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzAJVpMBft/wRsm8/rUwa81yFq4wZ7PE1bPEXTOdttGAfEat717
- /5LpSqlDldlehT4ME53rYSHg3gnLhzPwdvdmDwodeNPC7mROXv9l
-X-Google-Smtp-Source: AGHT+IE1npQhfV1lotIbUbvBPhyEHI3b8yTn1B8NEuhGG4EbcWjTrrERSirStn8sD/etwu9XF/6x5Q==
-X-Received: by 2002:a05:6214:338a:b0:6bb:84d9:8f91 with SMTP id
- 6a1803df08f44-6c3552e2518mr101950526d6.6.1725290784113; 
- Mon, 02 Sep 2024 08:26:24 -0700 (PDT)
+ AJvYcCUlowCu/Mp+/1JjYn2Wz77cX8y7FjY/Q4DWcxcsDeNJ0SyBl5h0DBqKg0iYUwfljG7A8C8wgxoE/LgEfw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YylTPPiqvgw7QTzs8eM8NAh79j3/lELwA1kz8DM3z+3t7OsDbZj
+ 62afsV4NiPFegzdbj6ufTHsySOALS5iPMUSOvVxo7H3JisUpifTS
+X-Google-Smtp-Source: AGHT+IF07bW552sPbbthy5dPnHRLYc5vy33fJ48YbbjkhNtMXom5R3SmYQ3hp72d+qvDKDmBwC3Mxw==
+X-Received: by 2002:a05:6830:61cb:b0:709:46ca:665c with SMTP id
+ 46e09a7af769-70f5c343909mr23650953a34.1.1725290798959; 
+ Mon, 02 Sep 2024 08:26:38 -0700 (PDT)
 Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c353173c45sm30606096d6.92.2024.09.02.08.26.19
+ 6a1803df08f44-6c35d6a93d9sm19189356d6.41.2024.09.02.08.26.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:26:23 -0700 (PDT)
-Message-ID: <6b90bb9c-4017-4f8b-8960-46124f93168e@gmail.com>
-Date: Mon, 2 Sep 2024 08:26:19 -0700
+ Mon, 02 Sep 2024 08:26:38 -0700 (PDT)
+Message-ID: <1527c728-87bc-4998-942c-9d6d4630e4ec@gmail.com>
+Date: Mon, 2 Sep 2024 08:26:35 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
@@ -73,7 +73,7 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, woojung.huh@microchip.com,
  linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  krzk@kernel.org, jic23@kernel.org
 References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
- <20240830031325.2406672-2-ruanjinjie@huawei.com>
+ <20240830031325.2406672-3-ruanjinjie@huawei.com>
 Content-Language: en-US
 From: Florian Fainelli <f.fainelli@gmail.com>
 Autocrypt: addr=f.fainelli@gmail.com; keydata=
@@ -109,9 +109,9 @@ Autocrypt: addr=f.fainelli@gmail.com; keydata=
  y5arMQorqTFWlEOgRA8OP47L9knl9i4xuR0euV6DChDrguup2aJVU8JPBBgRAgAPAhsMBQJU
  X9LxBQkeXB3fAAoJEGFXmRW1Y3YOj4UAn3nrFLPZekMeqX5aD/aq/dsbXSfyAKC45Go0YyxV
  HGuUuzv+GKZ6nsysJw==
-In-Reply-To: <20240830031325.2406672-2-ruanjinjie@huawei.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/8] net: stmmac: dwmac-sun8i:
- Use for_each_child_of_node_scoped()
+In-Reply-To: <20240830031325.2406672-3-ruanjinjie@huawei.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/8] net: dsa: realtek: Use
+ for_each_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
