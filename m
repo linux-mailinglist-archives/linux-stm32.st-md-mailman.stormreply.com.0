@@ -2,54 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30E3969B0D
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 13:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7005D969D2E
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 14:14:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E65DC78011;
-	Tue,  3 Sep 2024 11:00:41 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3226C78020;
+	Tue,  3 Sep 2024 12:14:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2931C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA35CC78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Sep 2024 11:00:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4749EA43272;
- Tue,  3 Sep 2024 11:00:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1404CC4CEC9;
- Tue,  3 Sep 2024 11:00:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1725361232;
- bh=ylMqV+jJH9dxcuCIPmf7jFWF++944PIohyUMVAUrUr4=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=IjbeojbNE5gbiQqgVSKXWrua+vTQU4QpXPN0ft2U2UOxsIDV1zfGRfEGqjhm+7uKA
- cSzetxYkfncpnwUTqrhz694qhDDc7ac9rsN/HuF08CJYQKaaHUAPpXo9yN5G2XYtBg
- GbixvswnB4F1pnDkMjxkz/5CG7uFpwVNsT3zHO0tmMA3mRikJDVvNZ2vjH28Hl2f6k
- N0XndhQIQFvwY4uiH1th2XXM1aPbEEJ9wv10q7gyz96hHpZxz2UBEE0fs2og8EVSAn
- siDq4zBURfBqJkJsVr85YIq1q7b5QhdlMMducpcUWIClQzm188W1Gei4vCK096vvMw
- pEB7Ixjf6fcjg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- ED8D73805D82; Tue,  3 Sep 2024 11:00:33 +0000 (UTC)
+ Tue,  3 Sep 2024 12:14:36 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 483BjWrH029157;
+ Tue, 3 Sep 2024 14:14:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=JXSvegFYtTN90pjhfv7KPP
+ 8miO/vxkxO0WY7Swryz28=; b=XFVVCikLW110y6jLA4puq0FuvCVmzi4OAQTxCX
+ PJbVjdBVKJyKpWINGpqpTr2gTE2m57i0f5mxptUbpDdDQtdjRb7okaHwKQaYXw4b
+ Dmre05zUPOdn025pxwt6CQwZgNOAolOmPojP6/HXWzPvxr3uVcajdc/NMqYAiPKB
+ HnQXWex6XRn8WS/fIMyhTu+d26i7hAeecC7uKCj2Y1NfZKXuxHcU9TjeaOicap7P
+ qV/wb3R3FdgkyFbQpnJOyYfWHj+PoH7VCVCfn+9ZQLL2Tdi6Cosz3k2vfRZUXSYp
+ g0gxxbf4H9gHT4BCd0xKO+JCUday2ju3KuGd93Cd/oiYBk0A==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41brkg4pm4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Sep 2024 14:14:15 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9AFDC4004F;
+ Tue,  3 Sep 2024 14:14:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A85C224E1F8;
+ Tue,  3 Sep 2024 14:13:20 +0200 (CEST)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 3 Sep
+ 2024 14:13:20 +0200
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <p.zabel@pengutronix.de>
+Date: Tue, 3 Sep 2024 14:12:58 +0200
+Message-ID: <20240903121303.2953150-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <172536123276.255858.14746783448329293832.git-patchwork-notify@kernel.org>
-Date: Tue, 03 Sep 2024 11:00:32 +0000
-References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
-In-Reply-To: <20240830031325.2406672-1-ruanjinjie@huawei.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: andrew@lunn.ch, linus.walleij@linaro.org, justin.chen@broadcom.com,
- edumazet@google.com, krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- f.fainelli@gmail.com, samuel@sholland.org, linux@armlinux.org.uk,
- jernej.skrabec@gmail.com, wens@csie.org, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- linux-sunxi@lists.linux.dev, sebastian.hesselbarth@gmail.com,
- woojung.huh@microchip.com, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, UNGLinuxDriver@microchip.com,
- mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk, olteanv@gmail.com,
- davem@davemloft.net, jic23@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v4 0/8] net: Simplified with
-	scoped function
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-02_06,2024-09-03_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 0/5] Add STM32MP25 USB3/PCIE COMBOPHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,47 +75,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Changes in v5:
+   - Drop syscfg phandle and change driver to use lookup_by_compatible
+   - Use clk_bulk API and drop stm32_combophy_enable/disable_clocks
+   - Reorder required: list.
+   - Fix access-controllers maxItems
+   
+Changes in v4:
+   - "#phy-cells": Drop type item description since it is specified
+     by user node phandle.
+   - Rename stm32-combophy.yaml to match compatible
+   - Drop wakeup-source from bindings (should be generic)
+   - Alphabetically reorder required: list.
+   - Drop "Reviewed-by" since those previous changes
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Changes in v3:
+   - Reorder MAINTAINERS patch
 
-On Fri, 30 Aug 2024 11:13:17 +0800 you wrote:
-> Simplify with scoped for each OF child loop, as well as dev_err_probe().
-> 
-> Changes in v4:
-> - Drop the fix patch and __free() patch.
-> - Rebased on the fix patch has been stripped out.
-> - Remove the extra parentheses.
-> - Ensure Signed-off-by: should always be last.
-> - Add Reviewed-by.
-> - Update the cover letter commit message.
-> 
-> [...]
+Changes in v2:
+   - Reorder entries
+   - Rename clock_names and reset_names bindings
+   - Rename and clarify rx-equalizer binding 
 
-Here is the summary with links:
-  - [net-next,v4,1/8] net: stmmac: dwmac-sun8i: Use for_each_child_of_node_scoped()
-    https://git.kernel.org/netdev/net-next/c/81b4eb62878a
-  - [net-next,v4,2/8] net: dsa: realtek: Use for_each_child_of_node_scoped()
-    https://git.kernel.org/netdev/net-next/c/51c884291a94
-  - [net-next,v4,3/8] net: phy: Use for_each_available_child_of_node_scoped()
-    https://git.kernel.org/netdev/net-next/c/1dce520abd46
-  - [net-next,v4,4/8] net: mdio: mux-mmioreg: Simplified with scoped function
-    https://git.kernel.org/netdev/net-next/c/b00f7f4f8e93
-  - [net-next,v4,5/8] net: mdio: mux-mmioreg: Simplified with dev_err_probe()
-    https://git.kernel.org/netdev/net-next/c/4078513fc86c
-  - [net-next,v4,6/8] net: mv643xx_eth: Simplify with scoped for each OF child loop
-    https://git.kernel.org/netdev/net-next/c/3a3eea209e6d
-  - [net-next,v4,7/8] net: dsa: microchip: Use scoped function to simplfy code
-    https://git.kernel.org/netdev/net-next/c/f834d572b7e9
-  - [net-next,v4,8/8] net: bcmasp: Simplify with scoped for each OF child loop
-    https://git.kernel.org/netdev/net-next/c/e8ac8974451e
+Christian Bruel (5):
+  dt-bindings: phy: Add STM32MP25 COMBOPHY bindings
+  phy: stm32: Add support for STM32MP25 COMBOPHY.
+  MAINTAINERS: add entry for ST STM32MP25 COMBOPHY driver
+  arm64: dts: st: Add combophy node on stm32mp251
+  arm64: dts: st: Enable COMBOPHY on the stm32mp257f-ev1 board
 
-You are awesome, thank you!
+ .../bindings/phy/st,stm32mp25-combophy.yaml   | 119 ++++
+ MAINTAINERS                                   |   6 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  16 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  14 +
+ drivers/phy/st/Kconfig                        |  11 +
+ drivers/phy/st/Makefile                       |   1 +
+ drivers/phy/st/phy-stm32-combophy.c           | 590 ++++++++++++++++++
+ 7 files changed, 757 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/st,stm32mp25-combophy.yaml
+ create mode 100644 drivers/phy/st/phy-stm32-combophy.c
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
