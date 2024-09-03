@@ -2,80 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5088296968E
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 10:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8D196984E
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 11:08:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 105C4C78013;
-	Tue,  3 Sep 2024 08:09:45 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20D36C78011;
+	Tue,  3 Sep 2024 09:08:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D06EC78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F706C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Sep 2024 08:09:44 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-534366c1aa2so5187616e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Sep 2024 01:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725350983; x=1725955783;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=DEGxfQbmvQ7ocJLBpc0e2cOp9yeV28k7sarvQaoPLOE=;
- b=lz17wLXFzO7lgxutWQ95Cdnxnx+Fd5JWdAmWYgtL6NV+v4UHeoJEv0nfvh7X6r0i0t
- nL2wC+5G+8kMboxx6DxpUiVNDGbCHedbfGKPe5ZKR1BpUH6ozzTROlmOml+fQqmTGsGG
- pvzu0wBnnXGubZrqFriVkfjHMmsZHfydUk0/zLMER9DqSUFNCz067zmF5hJXA9zasbjG
- 2g9dqi26PZHteOtNN73TS09NCPDwgtlDpzyegIXSi+dKp7iEY4st//QGplSP2JcWv1cI
- XPOeKMhVnAiQOkpKgLk6/3dsJBQOlwCCdgpqor/bIlZN+5ywhwZlofMzwdzLFp4sqE4i
- 7GTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725350983; x=1725955783;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DEGxfQbmvQ7ocJLBpc0e2cOp9yeV28k7sarvQaoPLOE=;
- b=LLGIK0M76FbmATIkrZgwtlAypsTPzTJgYO/DQNpA9WfBPVWlMLu7/4y7PNxZpe/T+T
- xe1FAWpkjV/dIzs4Cwf6BKrD0eoQPHrXJdCeT1YEGLgdqvdcW1sIceCX3x7dwoRmjs4I
- XhvacP1O6arGCQcRTqy7b0mMc7J04/VJuIv+ANvgNlrq5x0JnzLQl0cfTIYSsK5ltqjo
- Tr4k370VjYkebqEjwMgkG0yvtMw5zOh1zQl43Zxl3TPTgaTMqRAQy9738o3IwpUim6bc
- Iyg4K+0pY21m7pO3fBPcIEszwm+HWIIu7ZGgruger3ELxPDn/diN9ufby9ifTOdVprhg
- kAmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWYkMZLxaVFk8cF8kdXGSLH0azZgylqf+l2zuXz8yvefQLNVDqpBmGHX86+27jNt16X5JrciJQg9wpXcQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzTxIa5kNUcsCpfle4Bn9X7s/gCF4WThouMkRQMNpghwZwXmsNW
- bXLGxgzsrgWtaYHOTyahBuoEpfM6waxZ7evKBRidIf7SQrWnQhP0ec1vgfPViY0=
-X-Google-Smtp-Source: AGHT+IFYKyym0YuUdTDq7DecK3lEk0OE1VtjFf04ZMXnGn6KhugpgO6dUgJJH2bhiMsBfP+cs+oWvQ==
-X-Received: by 2002:a05:6512:3c81:b0:52e:a7a6:ed7f with SMTP id
- 2adb3069b0e04-53546bbdf6amr6618557e87.60.1725350983003; 
- Tue, 03 Sep 2024 01:09:43 -0700 (PDT)
-Received: from localhost (p5dc68f76.dip0.t-ipconnect.de. [93.198.143.118])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb9f7sm649600166b.42.2024.09.03.01.09.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Sep 2024 01:09:42 -0700 (PDT)
-Date: Tue, 3 Sep 2024 10:09:41 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Li Zetao <lizetao1@huawei.com>
-Message-ID: <nyfm5mxrrvfeu7s25qzjxbatvgnppq7exmca3sccmm6lz7nxan@xxsdgcrueoen>
-References: <20240831021334.1907921-1-lizetao1@huawei.com>
- <20240831021334.1907921-6-lizetao1@huawei.com>
+ Tue,  3 Sep 2024 09:08:05 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4838EA8h018130;
+ Tue, 3 Sep 2024 11:07:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Kpv58EzaKKQwQnX2LCjT5u
+ kS+64CJPv5DaZnaL6cqLg=; b=GiDljZqd1MHEjJF3yKArsY9OyxMayfZh74YT9X
+ aLynn8FeKh03autMUAjBtkIVPfecK0+nsYRfw6sH3HpprGltUHFV3XQLcXOpoeLZ
+ XtyoB2MLnkSwW57UPXffE3C5TtJ2YhTK3L+PDAdyIHeMP2oRLHjUe8FYbPvio9vC
+ nwySaOATkLUjxXN6imkn8xlqdyTPmruUDppiKccw6x1hgC3X7dISptLEG8L+j4oz
+ uviYo6UuFPnGurjfbXh/6wX2LiBbBMDeAOpmyM9GLZMdzNTIH2V0mvoY50oA624L
+ pv+MKXM3TceMVcvUx339PetIxMV2264ozNYSwJefiW7igPUA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41cuq1y32v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Sep 2024 11:07:56 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 28D794002D;
+ Tue,  3 Sep 2024 11:07:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B48A23BDFB;
+ Tue,  3 Sep 2024 11:07:32 +0200 (CEST)
+Received: from localhost (10.48.86.225) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 3 Sep
+ 2024 11:07:31 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+Date: Tue, 3 Sep 2024 11:07:22 +0200
+Message-ID: <20240903090722.89300-1-gatien.chevallier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20240831021334.1907921-6-lizetao1@huawei.com>
-Cc: andrew@lunn.ch, heiko@sntech.de, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, radhey.shyam.pandey@amd.com,
- ajay.kathat@microchip.com, florian.fainelli@broadcom.com, samuel@sholland.org,
- jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
- joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com,
- yisen.zhuang@huawei.com, linux-sunxi@lists.linux.dev,
- jacky_chou@aspeedtech.com, hauke@hauke-m.de, kvalo@kernel.org,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- salil.mehta@huawei.com, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- claudiu.beznea@tuxon.dev, mcoquelin.stm32@gmail.com, wellslutw@gmail.com,
- olteanv@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 05/12] net: ftgmac100: Convert
- using devm_clk_get_enabled() in ftgmac100_setup_clk()
+X-Originating-IP: [10.48.86.225]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-02_06,2024-09-03_01,2024-09-02_01
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] bus: rifsc: add debugfs entry to dump the
+	firewall configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,159 +68,350 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5230197756553391885=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+RIFSC configuration can be difficult to debug. Add a debugfs entry
+that dumps the configuration of the RISUPs and the RIMUs.
 
---===============5230197756553391885==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pq2mmaq7abqtyo6k"
-Content-Disposition: inline
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+ drivers/bus/stm32_rifsc.c | 302 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 302 insertions(+)
 
-
---pq2mmaq7abqtyo6k
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Sat, Aug 31, 2024 at 10:13:27AM +0800, Li Zetao wrote:
-> Use devm_clk_get_enabled() instead of devm_clk_get() +
-> clk_prepare_enable(), which can make the clk consistent with the device
-> life cycle and reduce the risk of unreleased clk resources. Since the
-> device framework has automatically released the clk resource, there is
-> no need to execute clk_disable_unprepare(clk) on the error path, drop
-> the cleanup_clk label, and the original error process can return directly.
->=20
-> Signed-off-by: Li Zetao <lizetao1@huawei.com>
-> ---
->  drivers/net/ethernet/faraday/ftgmac100.c | 27 ++++++------------------
->  1 file changed, 7 insertions(+), 20 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index 4c546c3aef0f..eb57c822c5ac 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1752,13 +1752,10 @@ static int ftgmac100_setup_clk(struct ftgmac100 *=
-priv)
->  	struct clk *clk;
->  	int rc;
-> =20
-> -	clk =3D devm_clk_get(priv->dev, NULL /* MACCLK */);
-> +	clk =3D devm_clk_get_enabled(priv->dev, NULL /* MACCLK */);
->  	if (IS_ERR(clk))
->  		return PTR_ERR(clk);
->  	priv->clk =3D clk;
-> -	rc =3D clk_prepare_enable(priv->clk);
-> -	if (rc)
-> -		return rc;
-> =20
->  	/* Aspeed specifies a 100MHz clock is required for up to
->  	 * 1000Mbit link speeds. As NCSI is limited to 100Mbit, 25MHz
-> @@ -1767,21 +1764,17 @@ static int ftgmac100_setup_clk(struct ftgmac100 *=
-priv)
->  	rc =3D clk_set_rate(priv->clk, priv->use_ncsi ? FTGMAC_25MHZ :
->  			  FTGMAC_100MHZ);
->  	if (rc)
-> -		goto cleanup_clk;
-> +		return rc;
-> =20
->  	/* RCLK is for RMII, typically used for NCSI. Optional because it's not
->  	 * necessary if it's the AST2400 MAC, or the MAC is configured for
->  	 * RGMII, or the controller is not an ASPEED-based controller.
->  	 */
-> -	priv->rclk =3D devm_clk_get_optional(priv->dev, "RCLK");
-> -	rc =3D clk_prepare_enable(priv->rclk);
-> -	if (!rc)
-> -		return 0;
-> +	priv->rclk =3D devm_clk_get_optional_enabled(priv->dev, "RCLK");
-> +	if (IS_ERR(priv->rclk))
-> +		return PTR_ERR(priv->rclk);
-> =20
-> -cleanup_clk:
-> -	clk_disable_unprepare(priv->clk);
-> -
-> -	return rc;
-> +	return 0;
-
-You're changing semantics here. Before your patch ftgmac100_setup_clk()
-was left with priv->clk disabled; now you keep it enabled.
-
-Further note that there is a bug here, because in ftgmac100_probe()
-(i.e. the caller of ftgmac100_setup_clk())
-clk_disable_unprepare(priv->clk) is called in the error path.
-(I only looked quickly, so I might have missed a detail.)
-
-So while your patch is an improvement for clock enable/disable
-balancing, it might regress on power consumption.
-
->  }
-> =20
->  static bool ftgmac100_has_child_node(struct device_node *np, const char =
-*name)
-> @@ -1996,16 +1989,13 @@ static int ftgmac100_probe(struct platform_device=
- *pdev)
->  	err =3D register_netdev(netdev);
->  	if (err) {
->  		dev_err(&pdev->dev, "Failed to register netdev\n");
-> -		goto err_register_netdev;
-> +		goto err_phy_connect;
->  	}
-> =20
->  	netdev_info(netdev, "irq %d, mapped at %p\n", netdev->irq, priv->base);
-> =20
->  	return 0;
-> =20
-> -err_register_netdev:
-> -	clk_disable_unprepare(priv->rclk);
-> -	clk_disable_unprepare(priv->clk);
->  err_phy_connect:
->  	ftgmac100_phy_disconnect(netdev);
->  err_ncsi_dev:
-> @@ -2034,9 +2024,6 @@ static void ftgmac100_remove(struct platform_device=
- *pdev)
->  		ncsi_unregister_dev(priv->ndev);
->  	unregister_netdev(netdev);
-> =20
-> -	clk_disable_unprepare(priv->rclk);
-> -	clk_disable_unprepare(priv->clk);
-> -
->  	/* There's a small chance the reset task will have been re-queued,
->  	 * during stop, make sure it's gone before we free the structure.
->  	 */
-
-Best regards
-Uwe
-
---pq2mmaq7abqtyo6k
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmbWxEIACgkQj4D7WH0S
-/k6TJAf/W0v6Vj052O0cQyhSYINBBv+sQ3nGD2cYN9LDziAoSbDf3PwBT94aietu
-gEoZvEGnvfzGCHrHLRszB/l6AIW7FxiMo0V+zz66sZS/9h/4hmtifwLWFnGieXDf
-T4Pj1jlkN0LB30u8Weay3UEPbLD9qsDFiHNisjQ164GhANBLtMuI1HkNtmEz/96z
-kd9zkwXSIbpKN64wLAfEctAZq6+UX74/6cdaEc6CtrdC8Ipv6cQqfjsedO7YfVRu
-7IgXK4ashAN8mOti5j66/tm48sDXkxsfjNEAE5xp3ei6+HB61uLmcSKb1XMDXLnP
-JDkq0K28JtDXWQyiLytwTQvbzx80mw==
-=PiiM
------END PGP SIGNATURE-----
-
---pq2mmaq7abqtyo6k--
-
---===============5230197756553391885==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/bus/stm32_rifsc.c b/drivers/bus/stm32_rifsc.c
+index 4cf1b60014b7..c0004e07179b 100644
+--- a/drivers/bus/stm32_rifsc.c
++++ b/drivers/bus/stm32_rifsc.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/debugfs.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/init.h>
+@@ -70,6 +71,303 @@
+ #define RIF_CID0			0x0
+ #define RIF_CID1			0x1
+ 
++#if defined(CONFIG_DEBUG_FS)
++#define STM32MP25_RIFSC_DEVICE_ENTRIES		128
++#define STM32MP25_RIFSC_INITIATOR_ENTRIES	16
++
++#define RIFSC_RIMC_ATTR0		0xC10
++
++#define RIFSC_RIMC_CIDSEL		BIT(2)
++#define RIFSC_RIMC_MCID_MASK		GENMASK(6, 4)
++#define RIFSC_RIMC_MSEC			BIT(8)
++#define RIFSC_RIMC_MPRIV		BIT(9)
++
++static const char *stm32mp25_rifsc_initiators_names[STM32MP25_RIFSC_INITIATOR_ENTRIES] = {
++	"ETR",
++	"SDMMC1",
++	"SDMMC2",
++	"SDMMC3",
++	"USB3DR",
++	"USBH",
++	"ETH1",
++	"ETH2",
++	"PCIE",
++	"GPU",
++	"DMCIPP",
++	"LTDC_L0/L1",
++	"LTDC_L2",
++	"LTDC_ROT",
++	"VDEC",
++	"VENC"
++};
++
++static const char *stm32mp25_rifsc_dev_names[STM32MP25_RIFSC_DEVICE_ENTRIES] = {
++	"TIM1",
++	"TIM2",
++	"TIM3",
++	"TIM4",
++	"TIM5",
++	"TIM6",
++	"TIM7",
++	"TIM8",
++	"TIM10",
++	"TIM11",
++	"TIM12",
++	"TIM13",
++	"TIM14",
++	"TIM15",
++	"TIM16",
++	"TIM17",
++	"TIM20",
++	"LPTIM1",
++	"LPTIM2",
++	"LPTIM3",
++	"LPTIM4",
++	"LPTIM5",
++	"SPI1",
++	"SPI2",
++	"SPI3",
++	"SPI4",
++	"SPI5",
++	"SPI6",
++	"SPI7",
++	"SPI8",
++	"SPDIFRX",
++	"USART1",
++	"USART2",
++	"USART3",
++	"UART4",
++	"UART5",
++	"USART6",
++	"UART7",
++	"UART8",
++	"UART9",
++	"LPUART1",
++	"I2C1",
++	"I2C2",
++	"I2C3",
++	"I2C4",
++	"I2C5",
++	"I2C6",
++	"I2C7",
++	"I2C8",
++	"SAI1",
++	"SAI2",
++	"SAI3",
++	"SAI4",
++	"RESERVED",
++	"MDF1",
++	"ADF1",
++	"FDCAN",
++	"HDP",
++	"ADC12",
++	"ADC3",
++	"ETH1",
++	"ETH2",
++	"RESERVED",
++	"USBH",
++	"RESERVED",
++	"RESERVED",
++	"USB3DR",
++	"COMBOPHY",
++	"PCIE",
++	"UCPD1",
++	"ETHSW_DEIP",
++	"ETHSW_ACM_CF",
++	"ETHSW_ACM_MSGBU",
++	"STGEN",
++	"OCTOSPI1",
++	"OCTOSPI2",
++	"SDMMC1",
++	"SDMMC2",
++	"SDMMC3",
++	"GPU",
++	"LTDC_CMN",
++	"DSI_CMN",
++	"RESERVED",
++	"RESERVED",
++	"LVDS",
++	"RESERVED",
++	"CSI",
++	"DCMIPP",
++	"DCMI_PSSI",
++	"VDEC",
++	"VENC",
++	"RESERVED",
++	"RNG",
++	"PKA",
++	"SAES",
++	"HASH",
++	"CRYP1",
++	"CRYP2",
++	"IWDG1",
++	"IWDG2",
++	"IWDG3",
++	"IWDG4",
++	"IWDG5",
++	"WWDG1",
++	"WWDG2",
++	"RESERVED",
++	"VREFBUF",
++	"DTS",
++	"RAMCFG",
++	"CRC",
++	"SERC",
++	"OCTOSPIM",
++	"GICV2M",
++	"RESERVED",
++	"I3C1",
++	"I3C2",
++	"I3C3",
++	"I3C4",
++	"ICACHE_DCACHE",
++	"LTDC_L0L1",
++	"LTDC_L2",
++	"LTDC_ROT",
++	"DSI_TRIG",
++	"DSI_RDFIFO",
++	"RESERVED",
++	"OTFDEC1",
++	"OTFDEC2",
++	"IAC",
++};
++
++struct rifsc_risup_debug_data {
++	char dev_name[15];
++	u8 dev_cid;
++	u8 dev_sem_cids;
++	u8 dev_id;
++	bool dev_cid_filt_en;
++	bool dev_sem_en;
++	bool dev_priv;
++	bool dev_sec;
++};
++
++struct rifsc_rimu_debug_data {
++	char m_name[11];
++	u8 m_cid;
++	bool cidsel;
++	bool m_sec;
++	bool m_priv;
++};
++
++static void stm32_rifsc_fill_rimu_dbg_entry(struct stm32_firewall_controller *rifsc,
++					    struct rifsc_rimu_debug_data *dbg_entry, int i)
++{
++	u32 rimc_attr = readl_relaxed(rifsc->mmio + RIFSC_RIMC_ATTR0 + 0x4 * i);
++
++	snprintf(dbg_entry->m_name, sizeof(dbg_entry->m_name), "%s",
++		 stm32mp25_rifsc_initiators_names[i]);
++	dbg_entry->m_cid = FIELD_GET(RIFSC_RIMC_MCID_MASK, rimc_attr);
++	dbg_entry->cidsel = rimc_attr & RIFSC_RIMC_CIDSEL;
++	dbg_entry->m_sec = rimc_attr & RIFSC_RIMC_MSEC;
++	dbg_entry->m_priv = rimc_attr & RIFSC_RIMC_MPRIV;
++}
++
++static void stm32_rifsc_fill_dev_dbg_entry(struct stm32_firewall_controller *rifsc,
++					   struct rifsc_risup_debug_data *dbg_entry, int i)
++{
++	u32 cid_cfgr, sec_cfgr, priv_cfgr;
++	u8 reg_id = i / IDS_PER_RISC_SEC_PRIV_REGS;
++	u8 reg_offset = i % IDS_PER_RISC_SEC_PRIV_REGS;
++
++	cid_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_PER0_CIDCFGR + 0x8 * i);
++	sec_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_SECCFGR0 + 0x4 * reg_id);
++	priv_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_PRIVCFGR0 + 0x4 * reg_id);
++
++	snprintf(dbg_entry->dev_name, sizeof(dbg_entry->dev_name), "%s",
++		 stm32mp25_rifsc_dev_names[i]);
++	dbg_entry->dev_id = i;
++	dbg_entry->dev_cid_filt_en = cid_cfgr & CIDCFGR_CFEN;
++	dbg_entry->dev_sem_en = cid_cfgr & CIDCFGR_SEMEN;
++	dbg_entry->dev_cid = FIELD_GET(RIFSC_RISC_SCID_MASK, cid_cfgr);
++	dbg_entry->dev_sem_cids = FIELD_GET(RIFSC_RISC_SEMWL_MASK, cid_cfgr);
++	dbg_entry->dev_sec = sec_cfgr & BIT(reg_offset) ?  true : false;
++	dbg_entry->dev_priv = priv_cfgr & BIT(reg_offset) ?  true : false;
++}
++
++static int stm32_rifsc_conf_dump_show(struct seq_file *s, void *data)
++{
++	struct stm32_firewall_controller *rifsc = (struct stm32_firewall_controller *)s->private;
++	int i;
++
++	seq_puts(s, "\n=============================================\n");
++	seq_puts(s, "                 RIFSC dump\n");
++	seq_puts(s, "=============================================\n\n");
++
++	seq_puts(s, "\n=============================================\n");
++	seq_puts(s, "                 RISUP dump\n");
++	seq_puts(s, "=============================================\n");
++
++	seq_printf(s, "\n| %-15s |", "Peripheral name");
++	seq_puts(s, "| Firewall ID |");
++	seq_puts(s, "| N/SECURE |");
++	seq_puts(s, "| N/PRIVILEGED |");
++	seq_puts(s, "| CID filtering |");
++	seq_puts(s, "| Semaphore mode |");
++	seq_puts(s, "| SCID |");
++	seq_printf(s, "| %7s |\n", "SEMWL");
++
++	for (i = 0; i < STM32MP25_RIFSC_DEVICE_ENTRIES; i++) {
++		struct rifsc_risup_debug_data d_dbg_entry;
++
++		stm32_rifsc_fill_dev_dbg_entry(rifsc, &d_dbg_entry, i);
++
++		seq_printf(s, "| %-15s |", d_dbg_entry.dev_name);
++		seq_printf(s, "| %-11d |", d_dbg_entry.dev_id);
++		seq_printf(s, "| %-8s |", d_dbg_entry.dev_sec ? "SEC" : "NSEC");
++		seq_printf(s, "| %-12s |", d_dbg_entry.dev_priv ? "PRIV" : "NPRIV");
++		seq_printf(s, "| %-13s |",
++			   d_dbg_entry.dev_cid_filt_en ? "enabled" : "disabled");
++		seq_printf(s, "| %-14s |",
++			   d_dbg_entry.dev_sem_en ? "enabled" : "disabled");
++		seq_printf(s, "| %-4d |", d_dbg_entry.dev_cid);
++		seq_printf(s, "| %#-7x |\n", d_dbg_entry.dev_sem_cids);
++	}
++
++	seq_puts(s, "\n=============================================\n");
++	seq_puts(s, "                  RIMU dump\n");
++	seq_puts(s, "=============================================\n");
++
++	seq_puts(s, "| RIMU's name |");
++	seq_puts(s, "| CIDSEL |");
++	seq_puts(s, "| MCID |");
++	seq_puts(s, "| N/SECURE |");
++	seq_puts(s, "| N/PRIVILEGED |\n");
++
++	for (i = 0; i < STM32MP25_RIFSC_INITIATOR_ENTRIES; i++) {
++		struct rifsc_rimu_debug_data m_dbg_entry;
++
++		stm32_rifsc_fill_rimu_dbg_entry(rifsc, &m_dbg_entry, i);
++
++		seq_printf(s, "| %-11s |", m_dbg_entry.m_name);
++		seq_printf(s, "| %-6s |", m_dbg_entry.cidsel ? "CIDSEL" : "");
++		seq_printf(s, "| %-4d |", m_dbg_entry.m_cid);
++		seq_printf(s, "| %-8s |", m_dbg_entry.m_sec ? "SEC" : "NSEC");
++		seq_printf(s, "| %-12s |\n", m_dbg_entry.m_priv ? "PRIV" : "NPRIV");
++	}
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(stm32_rifsc_conf_dump);
++
++static int stm32_rifsc_register_debugfs(struct stm32_firewall_controller *controller)
++{
++	struct dentry *root = NULL;
++
++	root = debugfs_lookup("stm32_firewall", NULL);
++	if (!root)
++		root = debugfs_create_dir("stm32_firewall", NULL);
++
++	if (IS_ERR(root))
++		return PTR_ERR(root);
++
++	debugfs_create_file("rifsc", 0444, root, controller, &stm32_rifsc_conf_dump_fops);
++
++	return 0;
++}
++#endif /* defined(CONFIG_DEBUG_FS) */
++
+ static bool stm32_rifsc_is_semaphore_available(void __iomem *addr)
+ {
+ 	return !(readl(addr) & SEMCR_MUTEX);
+@@ -228,6 +526,10 @@ static int stm32_rifsc_probe(struct platform_device *pdev)
+ 		return rc;
+ 	}
+ 
++#if defined(CONFIG_DEBUG_FS)
++	stm32_rifsc_register_debugfs(rifsc_controller);
++#endif
++
+ 	/* Populate all allowed nodes */
+ 	return of_platform_populate(np, NULL, NULL, &pdev->dev);
+ }
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5230197756553391885==--
