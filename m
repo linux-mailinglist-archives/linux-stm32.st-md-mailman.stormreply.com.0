@@ -2,67 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E3E969D3D
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 14:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F176969E69
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 14:54:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1115FC71292;
-	Tue,  3 Sep 2024 12:15:52 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E715C71292;
+	Tue,  3 Sep 2024 12:54:02 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F20BAC6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42ABDC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Sep 2024 12:15:44 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 483BOais014864;
- Tue, 3 Sep 2024 14:15:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- oFevO1WzCe1lndyKIcqDqzd48GJyNyJUl83cjIp11to=; b=BCG1W506MIIrqOJj
- OJ10QDDHba+5Tc15Db80JcnsDH1wYQa0Ay6CHCqrIf/zlVJq8Kml+hOQKKmR/zws
- Ilmp0jNelW4S5OTa7NYgSAEbCFgo8Fv8KW5HFoNbeE1ATFmEVu4gB/O870v1OGvS
- KfhHyLfrsmAb7svesdSbaQO2CgwA1C+R76lDqOS3Ma03MOu/AefEz7zUdcmSO07A
- wGm8P3VfCOmkPSZyLVrD6RTnXuZAKuOgiKaf5io+2P2Nq7A2xAIfDA6fUrKlSIQi
- vI7owgeyKOFHHx34Dvt5F0lECTE2ZSowLi/uCRd3/Xd5Ltkx30c2Ghhar94PoBqo
- 4l08Xg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41ce4j9t30-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Sep 2024 14:15:35 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 70B1E40044;
- Tue,  3 Sep 2024 14:15:31 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C194A24E9C3;
- Tue,  3 Sep 2024 14:14:41 +0200 (CEST)
-Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 3 Sep
- 2024 14:14:41 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <p.zabel@pengutronix.de>
-Date: Tue, 3 Sep 2024 14:13:03 +0200
-Message-ID: <20240903121303.2953150-6-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240903121303.2953150-1-christian.bruel@foss.st.com>
-References: <20240903121303.2953150-1-christian.bruel@foss.st.com>
+ Tue,  3 Sep 2024 12:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=Y/PFMegEDd62ur1zarCVrWPBLzIeJ3N20ZfW4Ez4TaM=; b=LCp1jyR+IICHAWThuJ0aN9V9P0
+ ++GbqJunHyY4Bpw0sGSkcx92JlhyKeXjKtxZ8zdYlqu8j2GEWS1EHM9lpp2e+jQk5i8iyxMxMI2Cg
+ m0wuS+PDEbExhY5LRl9kPBtUfYMV6UO9SzN7B+ZZ7o2HA9iKGiD6MttFcddJf6RrcxC0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1slT2B-006QUP-VC; Tue, 03 Sep 2024 14:53:23 +0200
+Date: Tue, 3 Sep 2024 14:53:23 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <38a3c576-a342-4644-8509-53a6a7f45576@lunn.ch>
+References: <20240830031325.2406672-1-ruanjinjie@huawei.com>
+ <20240830031325.2406672-6-ruanjinjie@huawei.com>
+ <27a0d076-ed61-486b-b961-8a0982e7b96d@gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.129.178.212]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-02_06,2024-09-03_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 5/5] arm64: dts: st: Enable COMBOPHY on the
-	stm32mp257f-ev1 board
+Content-Disposition: inline
+In-Reply-To: <27a0d076-ed61-486b-b961-8a0982e7b96d@gmail.com>
+Cc: linus.walleij@linaro.org, justin.chen@broadcom.com, edumazet@google.com,
+ krzk@kernel.org, linux-stm32@st-md-mailman.stormreply.com, samuel@sholland.org,
+ Jinjie Ruan <ruanjinjie@huawei.com>, linux@armlinux.org.uk,
+ jernej.skrabec@gmail.com, wens@csie.org, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-sunxi@lists.linux.dev, sebastian.hesselbarth@gmail.com,
+ woojung.huh@microchip.com, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, UNGLinuxDriver@microchip.com,
+ mcoquelin.stm32@gmail.com, alsi@bang-olufsen.dk, olteanv@gmail.com,
+ davem@davemloft.net, jic23@kernel.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v4 5/8] net: mdio: mux-mmioreg:
+ Simplified with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,49 +62,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable the COMBOPHY with external pad clock on stm32mp257f-ev1
-board, to be used for the PCIe clock provider.
+> > @@ -109,30 +109,25 @@ static int mdio_mux_mmioreg_probe(struct platform_device *pdev)
+> >   		return -ENOMEM;
+> >   	ret = of_address_to_resource(np, 0, &res);
+> > -	if (ret) {
+> > -		dev_err(&pdev->dev, "could not obtain memory map for node %pOF\n",
+> > -			np);
+> > -		return ret;
+> > -	}
+> > +	if (ret)
+> > +		return dev_err_probe(&pdev->dev, ret,
+> > +				     "could not obtain memory map for node %pOF\n", np);
+> 
+> Besides that one, which I don't think is even a candidate for resource
+> deferral in the first place given the OF platform implementation, it does
+> not seem to help that much to switch to dev_err_probe() other than just
+> combining the error message and return code in a single statement. So it's
+> fewer lines of codes, but it is not exactly what dev_err_probe() was
+> originally intended for IMHO.
 
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Agreed. Rather than abuse dev_err_probe(), maybe a dev_err_error()
+would be added with the same prototype, does the same formatting, and
+skips all the PROBE_DEFFER logic. The problem would be, it would
+encourage more of this churn.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 214191a8322b..bcf84d533cb2 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -27,6 +27,14 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	clocks {
-+		pad_clk: pad-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <100000000>;
-+		};
-+	};
-+
- 	memory@80000000 {
- 		device_type = "memory";
- 		reg = <0x0 0x80000000 0x1 0x0>;
-@@ -50,6 +58,12 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&combophy {
-+	clocks = <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>, <&pad_clk>;
-+	clock-names = "apb", "ker", "pad";
-+	status = "okay";
-+};
-+
- &ethernet2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&eth2_rgmii_pins_a>;
--- 
-2.34.1
-
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
