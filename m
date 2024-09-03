@@ -2,66 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942FC96916B
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 04:28:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5088296968E
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Sep 2024 10:09:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37DEBC78011;
-	Tue,  3 Sep 2024 02:28:04 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 105C4C78013;
+	Tue,  3 Sep 2024 08:09:45 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31E71C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D06EC78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Sep 2024 02:27:57 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4WyTxl6gknzgYtl;
- Tue,  3 Sep 2024 10:25:47 +0800 (CST)
-Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 7E3E21800FE;
- Tue,  3 Sep 2024 10:27:54 +0800 (CST)
-Received: from [10.67.111.176] (10.67.111.176) by
- kwepemd500012.china.huawei.com (7.221.188.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1258.34; Tue, 3 Sep 2024 10:27:53 +0800
-Message-ID: <73e02ee9-6631-4473-8219-d75253aaf0fc@huawei.com>
-Date: Tue, 3 Sep 2024 10:27:52 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Pandey, Radhey Shyam" <radhey.shyam.pandey@amd.com>,
- "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>,
- "andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>,
- "davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
- <edumazet@google.com>, "kuba@kernel.org" <kuba@kernel.org>,
- "pabeni@redhat.com" <pabeni@redhat.com>, "wens@csie.org" <wens@csie.org>,
- "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>, "samuel@sholland.org"
- <samuel@sholland.org>, "heiko@sntech.de" <heiko@sntech.de>,
- "yisen.zhuang@huawei.com" <yisen.zhuang@huawei.com>, "salil.mehta@huawei.com"
- <salil.mehta@huawei.com>, "hauke@hauke-m.de" <hauke@hauke-m.de>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, "wellslutw@gmail.com" <wellslutw@gmail.com>,
- "Simek, Michal" <michal.simek@amd.com>, "ajay.kathat@microchip.com"
- <ajay.kathat@microchip.com>, "claudiu.beznea@tuxon.dev"
- <claudiu.beznea@tuxon.dev>, "kvalo@kernel.org" <kvalo@kernel.org>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
- "jacky_chou@aspeedtech.com" <jacky_chou@aspeedtech.com>
+ Tue,  3 Sep 2024 08:09:44 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-534366c1aa2so5187616e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 03 Sep 2024 01:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725350983; x=1725955783;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=DEGxfQbmvQ7ocJLBpc0e2cOp9yeV28k7sarvQaoPLOE=;
+ b=lz17wLXFzO7lgxutWQ95Cdnxnx+Fd5JWdAmWYgtL6NV+v4UHeoJEv0nfvh7X6r0i0t
+ nL2wC+5G+8kMboxx6DxpUiVNDGbCHedbfGKPe5ZKR1BpUH6ozzTROlmOml+fQqmTGsGG
+ pvzu0wBnnXGubZrqFriVkfjHMmsZHfydUk0/zLMER9DqSUFNCz067zmF5hJXA9zasbjG
+ 2g9dqi26PZHteOtNN73TS09NCPDwgtlDpzyegIXSi+dKp7iEY4st//QGplSP2JcWv1cI
+ XPOeKMhVnAiQOkpKgLk6/3dsJBQOlwCCdgpqor/bIlZN+5ywhwZlofMzwdzLFp4sqE4i
+ 7GTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725350983; x=1725955783;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DEGxfQbmvQ7ocJLBpc0e2cOp9yeV28k7sarvQaoPLOE=;
+ b=LLGIK0M76FbmATIkrZgwtlAypsTPzTJgYO/DQNpA9WfBPVWlMLu7/4y7PNxZpe/T+T
+ xe1FAWpkjV/dIzs4Cwf6BKrD0eoQPHrXJdCeT1YEGLgdqvdcW1sIceCX3x7dwoRmjs4I
+ XhvacP1O6arGCQcRTqy7b0mMc7J04/VJuIv+ANvgNlrq5x0JnzLQl0cfTIYSsK5ltqjo
+ Tr4k370VjYkebqEjwMgkG0yvtMw5zOh1zQl43Zxl3TPTgaTMqRAQy9738o3IwpUim6bc
+ Iyg4K+0pY21m7pO3fBPcIEszwm+HWIIu7ZGgruger3ELxPDn/diN9ufby9ifTOdVprhg
+ kAmg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWYkMZLxaVFk8cF8kdXGSLH0azZgylqf+l2zuXz8yvefQLNVDqpBmGHX86+27jNt16X5JrciJQg9wpXcQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzTxIa5kNUcsCpfle4Bn9X7s/gCF4WThouMkRQMNpghwZwXmsNW
+ bXLGxgzsrgWtaYHOTyahBuoEpfM6waxZ7evKBRidIf7SQrWnQhP0ec1vgfPViY0=
+X-Google-Smtp-Source: AGHT+IFYKyym0YuUdTDq7DecK3lEk0OE1VtjFf04ZMXnGn6KhugpgO6dUgJJH2bhiMsBfP+cs+oWvQ==
+X-Received: by 2002:a05:6512:3c81:b0:52e:a7a6:ed7f with SMTP id
+ 2adb3069b0e04-53546bbdf6amr6618557e87.60.1725350983003; 
+ Tue, 03 Sep 2024 01:09:43 -0700 (PDT)
+Received: from localhost (p5dc68f76.dip0.t-ipconnect.de. [93.198.143.118])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8988feb9f7sm649600166b.42.2024.09.03.01.09.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Sep 2024 01:09:42 -0700 (PDT)
+Date: Tue, 3 Sep 2024 10:09:41 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Li Zetao <lizetao1@huawei.com>
+Message-ID: <nyfm5mxrrvfeu7s25qzjxbatvgnppq7exmca3sccmm6lz7nxan@xxsdgcrueoen>
 References: <20240831021334.1907921-1-lizetao1@huawei.com>
- <20240831021334.1907921-11-lizetao1@huawei.com>
- <MN0PR12MB595396074210F8390ACE409DB7912@MN0PR12MB5953.namprd12.prod.outlook.com>
-From: Li Zetao <lizetao1@huawei.com>
-In-Reply-To: <MN0PR12MB595396074210F8390ACE409DB7912@MN0PR12MB5953.namprd12.prod.outlook.com>
-X-Originating-IP: [10.67.111.176]
-X-ClientProxiedBy: dggpeml100004.china.huawei.com (7.185.36.247) To
- kwepemd500012.china.huawei.com (7.221.188.25)
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: xilinx: axienet:
- Convert using devm_clk_get_optional_enabled() in axienet_probe()
+ <20240831021334.1907921-6-lizetao1@huawei.com>
+MIME-Version: 1.0
+In-Reply-To: <20240831021334.1907921-6-lizetao1@huawei.com>
+Cc: andrew@lunn.ch, heiko@sntech.de, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, radhey.shyam.pandey@amd.com,
+ ajay.kathat@microchip.com, florian.fainelli@broadcom.com, samuel@sholland.org,
+ jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
+ joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com,
+ yisen.zhuang@huawei.com, linux-sunxi@lists.linux.dev,
+ jacky_chou@aspeedtech.com, hauke@hauke-m.de, kvalo@kernel.org,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ salil.mehta@huawei.com, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ claudiu.beznea@tuxon.dev, mcoquelin.stm32@gmail.com, wellslutw@gmail.com,
+ olteanv@gmail.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next 05/12] net: ftgmac100: Convert
+ using devm_clk_get_enabled() in ftgmac100_setup_clk()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,83 +87,159 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============5230197756553391885=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgrlnKggMjAyNC85LzEgMjA6MjgsIFBhbmRleSwgUmFkaGV5IFNoeWFtIOWGmemBkzoKPj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogTGkgWmV0YW8gPGxpemV0YW8xQGh1YXdl
-aS5jb20+Cj4+IFNlbnQ6IFNhdHVyZGF5LCBBdWd1c3QgMzEsIDIwMjQgNzo0NCBBTQo+PiBUbzog
-Zmxvcmlhbi5mYWluZWxsaUBicm9hZGNvbS5jb207IGFuZHJld0BsdW5uLmNoOyBvbHRlYW52QGdt
-YWlsLmNvbTsKPj4gZGF2ZW1AZGF2ZW1sb2Z0Lm5ldDsgZWR1bWF6ZXRAZ29vZ2xlLmNvbTsga3Vi
-YUBrZXJuZWwub3JnOwo+PiBwYWJlbmlAcmVkaGF0LmNvbTsgd2Vuc0Bjc2llLm9yZzsgamVybmVq
-LnNrcmFiZWNAZ21haWwuY29tOwo+PiBzYW11ZWxAc2hvbGxhbmQub3JnOyBoZWlrb0BzbnRlY2gu
-ZGU7IHlpc2VuLnpodWFuZ0BodWF3ZWkuY29tOwo+PiBzYWxpbC5tZWh0YUBodWF3ZWkuY29tOyBo
-YXVrZUBoYXVrZS1tLmRlOwo+PiBhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tOyBqb2FicmV1
-QHN5bm9wc3lzLmNvbTsKPj4gbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbTsgd2VsbHNsdXR3QGdt
-YWlsLmNvbTsgUGFuZGV5LCBSYWRoZXkKPj4gU2h5YW0gPHJhZGhleS5zaHlhbS5wYW5kZXlAYW1k
-LmNvbT47IFNpbWVrLCBNaWNoYWwKPj4gPG1pY2hhbC5zaW1la0BhbWQuY29tPjsgYWpheS5rYXRo
-YXRAbWljcm9jaGlwLmNvbTsKPj4gY2xhdWRpdS5iZXpuZWFAdHV4b24uZGV2OyBrdmFsb0BrZXJu
-ZWwub3JnOyBsaXpldGFvMUBodWF3ZWkuY29tOwo+PiB1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9u
-aXguZGU7IGphY2t5X2Nob3VAYXNwZWVkdGVjaC5jb20KPj4gQ2M6IG5ldGRldkB2Z2VyLmtlcm5l
-bC5vcmc7IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgtCj4+IHN1
-bnhpQGxpc3RzLmxpbnV4LmRldjsgbGludXgtcm9ja2NoaXBAbGlzdHMuaW5mcmFkZWFkLm9yZzsg
-bGludXgtc3RtMzJAc3QtCj4+IG1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb207IGxpbnV4LXdpcmVs
-ZXNzQHZnZXIua2VybmVsLm9yZwo+PiBTdWJqZWN0OiBbUEFUQ0ggbmV0LW5leHQgMTAvMTJdIG5l
-dDogeGlsaW54OiBheGllbmV0OiBDb252ZXJ0IHVzaW5nCj4+IGRldm1fY2xrX2dldF9vcHRpb25h
-bF9lbmFibGVkKCkgaW4gYXhpZW5ldF9wcm9iZSgpCj4+Cj4+IFVzZSBkZXZtX2Nsa19nZXRfb3B0
-aW9uYWxfZW5hYmxlZCgpIGluc3RlYWQgb2YgZGV2bV9jbGtfZ2V0X29wdGlvbmFsKCkgKwo+PiBj
-bGtfcHJlcGFyZV9lbmFibGUoKSwgd2hpY2ggY2FuIG1ha2UgdGhlIGNsayBjb25zaXN0ZW50IHdp
-dGggdGhlIGRldmljZSBsaWZlCj4+IGN5Y2xlIGFuZCByZWR1Y2UgdGhlIHJpc2sgb2YgdW5yZWxl
-YXNlZCBjbGsgcmVzb3VyY2VzLiBTaW5jZSB0aGUgZGV2aWNlCj4+IGZyYW1ld29yayBoYXMgYXV0
-b21hdGljYWxseSByZWxlYXNlZCB0aGUgY2xrIHJlc291cmNlLCB0aGVyZSBpcyBubyBuZWVkIHRv
-Cj4+IGV4ZWN1dGUgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGNsaykgb24gdGhlIGVycm9yIHBhdGgu
-Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IExpIFpldGFvIDxsaXpldGFvMUBodWF3ZWkuY29tPgo+IAo+
-IFJldmlld2VkLWJ5OiBSYWRoZXkgU2h5YW0gUGFuZGV5IDxyYWRoZXkuc2h5YW0ucGFuZGV5QGFt
-ZC5jb20+Cj4gVGhhbmtzIQo+IAo+PiAtLS0KPj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC94aWxp
-bngveGlsaW54X2F4aWVuZXRfbWFpbi5jIHwgMTUgKysrKy0tLS0tLS0tLS0tCj4+ICAgMSBmaWxl
-IGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC94aWxpbngveGlsaW54X2F4aWVuZXRfbWFpbi5jCj4+
-IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQveGlsaW54L3hpbGlueF9heGllbmV0X21haW4uYwo+PiBp
-bmRleCBmZTZhMGUyZTQ2M2YuLjQ4YjQxZTk1YWE3NCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9u
-ZXQvZXRoZXJuZXQveGlsaW54L3hpbGlueF9heGllbmV0X21haW4uYwo+PiArKysgYi9kcml2ZXJz
-L25ldC9ldGhlcm5ldC94aWxpbngveGlsaW54X2F4aWVuZXRfbWFpbi5jCj4+IEBAIC0yNTg0LDIy
-ICsyNTg0LDE3IEBAIHN0YXRpYyBpbnQgYXhpZW5ldF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlCj4+ICpwZGV2KQo+PiAgIAlzZXFjb3VudF9tdXRleF9pbml0KCZscC0+aHdfc3RhdHNfc2Vx
-Y291bnQsICZscC0+c3RhdHNfbG9jayk7Cj4+ICAgCUlOSVRfREVGRVJSQUJMRV9XT1JLKCZscC0+
-c3RhdHNfd29yaywgYXhpZW5ldF9yZWZyZXNoX3N0YXRzKTsKPj4KPj4gLQlscC0+YXhpX2NsayA9
-IGRldm1fY2xrX2dldF9vcHRpb25hbCgmcGRldi0+ZGV2LCAic19heGlfbGl0ZV9jbGsiKTsKPj4g
-LQlpZiAoIWxwLT5heGlfY2xrKSB7Cj4+ICsJbHAtPmF4aV9jbGsgPSBkZXZtX2Nsa19nZXRfb3B0
-aW9uYWxfZW5hYmxlZCgmcGRldi0+ZGV2LAo+PiAic19heGlfbGl0ZV9jbGsiKTsKPj4gKwlpZiAo
-IWxwLT5heGlfY2xrKQo+PiAgIAkJLyogRm9yIGJhY2t3YXJkIGNvbXBhdGliaWxpdHksIGlmIG5h
-bWVkIEFYSSBjbG9jayBpcyBub3QKPj4gcHJlc2VudCwKPj4gICAJCSAqIHRyZWF0IHRoZSBmaXJz
-dCBjbG9jayBzcGVjaWZpZWQgYXMgdGhlIEFYSSBjbG9jay4KPj4gICAJCSAqLwo+PiAtCQlscC0+
-YXhpX2NsayA9IGRldm1fY2xrX2dldF9vcHRpb25hbCgmcGRldi0+ZGV2LCBOVUxMKTsKPj4gLQl9
-Cj4+ICsJCWxwLT5heGlfY2xrID0gZGV2bV9jbGtfZ2V0X29wdGlvbmFsX2VuYWJsZWQoJnBkZXYt
-PmRldiwKPj4gTlVMTCk7Cj4+ICsKPj4gICAJaWYgKElTX0VSUihscC0+YXhpX2NsaykpIHsKPj4g
-ICAJCXJldCA9IFBUUl9FUlIobHAtPmF4aV9jbGspOwo+PiAgIAkJZ290byBmcmVlX25ldGRldjsK
-Pj4gICAJfQo+PiAtCXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShscC0+YXhpX2Nsayk7Cj4+IC0J
-aWYgKHJldCkgewo+PiAtCQlkZXZfZXJyKCZwZGV2LT5kZXYsICJVbmFibGUgdG8gZW5hYmxlIEFY
-SSBjbG9jazogJWRcbiIsCj4+IHJldCk7Cj4+IC0JCWdvdG8gZnJlZV9uZXRkZXY7Cj4+IC0JfQo+
-Pgo+PiAgIAlscC0+bWlzY19jbGtzWzBdLmlkID0gImF4aXNfY2xrIjsKPj4gICAJbHAtPm1pc2Nf
-Y2xrc1sxXS5pZCA9ICJyZWZfY2xrIjsKPj4gQEAgLTI5MTUsNyArMjkxMCw2IEBAIHN0YXRpYyBp
-bnQgYXhpZW5ldF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlCj4+ICpwZGV2KQo+PiAgIAkJ
-YXhpZW5ldF9tZGlvX3RlYXJkb3duKGxwKTsKPj4gICBjbGVhbnVwX2NsazoKPiAKPiBJIGFsc28g
-ZmluZCB0aGF0IHRoZXJlIGlzIGdvdG8gdG8gY2xlYW51cF9jbGsgd2hlbiBkZXZtX2Nsa19idWxr
-X2dldF9vcHRpb25hbC8KPiBjbGtfYnVsa19wcmVwYXJlX2VuYWJsZSBmYWlscyB3aGljaCBpcyBu
-b3QgY29ycmVjdCBidXQgYXMgaXQgaXMgZXhpc3RpbmcgYnVnIGl0Cj4gY2FuIGdvIGEgc2VwYXJh
-dGUgcGF0Y2guClRoYW5rcyBmb3IgdGhlIHJlbWluZGVyLCBJIGNvbnNpZGVyZWQgc29sdmluZyB0
-aGlzIHByb2JsZW0gYnkgdXNpbmcgCmRldm1fYWRkX2FjdGlvbl9vcl9yZXNldAoKVGhhbmtzLApM
-aSBaZXRhby4KPiAKPj4gICAJY2xrX2J1bGtfZGlzYWJsZV91bnByZXBhcmUoWEFFX05VTV9NSVND
-X0NMT0NLUywgbHAtCj4+PiBtaXNjX2Nsa3MpOwo+PiAtCWNsa19kaXNhYmxlX3VucHJlcGFyZShs
-cC0+YXhpX2Nsayk7Cj4+Cj4+ICAgZnJlZV9uZXRkZXY6Cj4+ICAgCWZyZWVfbmV0ZGV2KG5kZXYp
-Owo+PiBAQCAtMjkzOSw3ICsyOTMzLDYgQEAgc3RhdGljIHZvaWQgYXhpZW5ldF9yZW1vdmUoc3Ry
-dWN0IHBsYXRmb3JtX2RldmljZQo+PiAqcGRldikKPj4gICAJYXhpZW5ldF9tZGlvX3RlYXJkb3du
-KGxwKTsKPj4KPj4gICAJY2xrX2J1bGtfZGlzYWJsZV91bnByZXBhcmUoWEFFX05VTV9NSVNDX0NM
-T0NLUywgbHAtCj4+PiBtaXNjX2Nsa3MpOwo+PiAtCWNsa19kaXNhYmxlX3VucHJlcGFyZShscC0+
-YXhpX2Nsayk7Cj4+Cj4+ICAgCWZyZWVfbmV0ZGV2KG5kZXYpOwo+PiAgIH0KPj4gLS0KPj4gMi4z
-NC4xCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+
+--===============5230197756553391885==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pq2mmaq7abqtyo6k"
+Content-Disposition: inline
+
+
+--pq2mmaq7abqtyo6k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+On Sat, Aug 31, 2024 at 10:13:27AM +0800, Li Zetao wrote:
+> Use devm_clk_get_enabled() instead of devm_clk_get() +
+> clk_prepare_enable(), which can make the clk consistent with the device
+> life cycle and reduce the risk of unreleased clk resources. Since the
+> device framework has automatically released the clk resource, there is
+> no need to execute clk_disable_unprepare(clk) on the error path, drop
+> the cleanup_clk label, and the original error process can return directly.
+>=20
+> Signed-off-by: Li Zetao <lizetao1@huawei.com>
+> ---
+>  drivers/net/ethernet/faraday/ftgmac100.c | 27 ++++++------------------
+>  1 file changed, 7 insertions(+), 20 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
+net/faraday/ftgmac100.c
+> index 4c546c3aef0f..eb57c822c5ac 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1752,13 +1752,10 @@ static int ftgmac100_setup_clk(struct ftgmac100 *=
+priv)
+>  	struct clk *clk;
+>  	int rc;
+> =20
+> -	clk =3D devm_clk_get(priv->dev, NULL /* MACCLK */);
+> +	clk =3D devm_clk_get_enabled(priv->dev, NULL /* MACCLK */);
+>  	if (IS_ERR(clk))
+>  		return PTR_ERR(clk);
+>  	priv->clk =3D clk;
+> -	rc =3D clk_prepare_enable(priv->clk);
+> -	if (rc)
+> -		return rc;
+> =20
+>  	/* Aspeed specifies a 100MHz clock is required for up to
+>  	 * 1000Mbit link speeds. As NCSI is limited to 100Mbit, 25MHz
+> @@ -1767,21 +1764,17 @@ static int ftgmac100_setup_clk(struct ftgmac100 *=
+priv)
+>  	rc =3D clk_set_rate(priv->clk, priv->use_ncsi ? FTGMAC_25MHZ :
+>  			  FTGMAC_100MHZ);
+>  	if (rc)
+> -		goto cleanup_clk;
+> +		return rc;
+> =20
+>  	/* RCLK is for RMII, typically used for NCSI. Optional because it's not
+>  	 * necessary if it's the AST2400 MAC, or the MAC is configured for
+>  	 * RGMII, or the controller is not an ASPEED-based controller.
+>  	 */
+> -	priv->rclk =3D devm_clk_get_optional(priv->dev, "RCLK");
+> -	rc =3D clk_prepare_enable(priv->rclk);
+> -	if (!rc)
+> -		return 0;
+> +	priv->rclk =3D devm_clk_get_optional_enabled(priv->dev, "RCLK");
+> +	if (IS_ERR(priv->rclk))
+> +		return PTR_ERR(priv->rclk);
+> =20
+> -cleanup_clk:
+> -	clk_disable_unprepare(priv->clk);
+> -
+> -	return rc;
+> +	return 0;
+
+You're changing semantics here. Before your patch ftgmac100_setup_clk()
+was left with priv->clk disabled; now you keep it enabled.
+
+Further note that there is a bug here, because in ftgmac100_probe()
+(i.e. the caller of ftgmac100_setup_clk())
+clk_disable_unprepare(priv->clk) is called in the error path.
+(I only looked quickly, so I might have missed a detail.)
+
+So while your patch is an improvement for clock enable/disable
+balancing, it might regress on power consumption.
+
+>  }
+> =20
+>  static bool ftgmac100_has_child_node(struct device_node *np, const char =
+*name)
+> @@ -1996,16 +1989,13 @@ static int ftgmac100_probe(struct platform_device=
+ *pdev)
+>  	err =3D register_netdev(netdev);
+>  	if (err) {
+>  		dev_err(&pdev->dev, "Failed to register netdev\n");
+> -		goto err_register_netdev;
+> +		goto err_phy_connect;
+>  	}
+> =20
+>  	netdev_info(netdev, "irq %d, mapped at %p\n", netdev->irq, priv->base);
+> =20
+>  	return 0;
+> =20
+> -err_register_netdev:
+> -	clk_disable_unprepare(priv->rclk);
+> -	clk_disable_unprepare(priv->clk);
+>  err_phy_connect:
+>  	ftgmac100_phy_disconnect(netdev);
+>  err_ncsi_dev:
+> @@ -2034,9 +2024,6 @@ static void ftgmac100_remove(struct platform_device=
+ *pdev)
+>  		ncsi_unregister_dev(priv->ndev);
+>  	unregister_netdev(netdev);
+> =20
+> -	clk_disable_unprepare(priv->rclk);
+> -	clk_disable_unprepare(priv->clk);
+> -
+>  	/* There's a small chance the reset task will have been re-queued,
+>  	 * during stop, make sure it's gone before we free the structure.
+>  	 */
+
+Best regards
+Uwe
+
+--pq2mmaq7abqtyo6k
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmbWxEIACgkQj4D7WH0S
+/k6TJAf/W0v6Vj052O0cQyhSYINBBv+sQ3nGD2cYN9LDziAoSbDf3PwBT94aietu
+gEoZvEGnvfzGCHrHLRszB/l6AIW7FxiMo0V+zz66sZS/9h/4hmtifwLWFnGieXDf
+T4Pj1jlkN0LB30u8Weay3UEPbLD9qsDFiHNisjQ164GhANBLtMuI1HkNtmEz/96z
+kd9zkwXSIbpKN64wLAfEctAZq6+UX74/6cdaEc6CtrdC8Ipv6cQqfjsedO7YfVRu
+7IgXK4ashAN8mOti5j66/tm48sDXkxsfjNEAE5xp3ei6+HB61uLmcSKb1XMDXLnP
+JDkq0K28JtDXWQyiLytwTQvbzx80mw==
+=PiiM
+-----END PGP SIGNATURE-----
+
+--pq2mmaq7abqtyo6k--
+
+--===============5230197756553391885==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5230197756553391885==--
