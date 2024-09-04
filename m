@@ -2,91 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0BF096C984
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2024 23:26:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81D5396CB6C
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 01:55:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37B24C78011;
-	Wed,  4 Sep 2024 21:26:27 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61D8DC6DD6D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37F3EC78018;
+	Wed,  4 Sep 2024 23:55:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72CD6C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2024 21:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1725485178;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aHg8j7v3tAkrGbKIx0peuwn2yfQMcilA5Qy8cOHgpzE=;
- b=OZxFQngLw2nQHWeUGPymH11caZv2XKWWnlWTI8ZaaVKfBD428AJ4EdG9XmRshybLV31OiR
- qk+ISc5UfJmvMNl5nc3bZlGr6GpC54cYZ+cHsY810ZL8wDaPRQ6qZVxIK2KQzQQ/ZvNGr7
- 6qfYptpbJp/giWhuuVChe5yJKr1MmRM=
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
- [209.85.166.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-524-iQVkFVh2MHe-WvpC_-T9IQ-1; Wed, 04 Sep 2024 17:26:15 -0400
-X-MC-Unique: iQVkFVh2MHe-WvpC_-T9IQ-1
-Received: by mail-io1-f70.google.com with SMTP id
- ca18e2360f4ac-82a231e35ddso698339f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Sep 2024 14:26:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725485175; x=1726089975;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aHg8j7v3tAkrGbKIx0peuwn2yfQMcilA5Qy8cOHgpzE=;
- b=sUX8fEgSGHav8qLKVCu3nkVk0vbTssDRkfRtkAfA0JB11wWiXMQnW+p2SpZ+Gk22Wb
- EjEQTr9luzZeRppoVD/OcyTHJZbolTkFDfQEmysygEGpS7CmOnAuWlyKf3UwPd+oeLkl
- d/zTAmTMkT1Lu3YGClv8ZT1YoE3epNn9PVGWpu4v/ffYsAfUU3Q93JHxD9QVuZQhr2Ip
- MeZQZUumaW8FU4WLuXQxydKKWCdTwNX9F4tjniEhgGuS+dO9b5fsPkFyEbKmg6mPWhtt
- 8Z0q3spajmr6+4Cltab7giqSPBOelg3BaXUUAyxwuNZCucsIH2jf+DGeBJXivRx+CnZa
- 7kiA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWCMcmnIUoZWdHuwoTywbdJUuf/o/xBS3Frm2u/xxaM7bSckPBSu9zZut8ro2Oof3bdQ49aLCt/Oaj5wg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyvRtV0cm91S2ck/8WWhG6Iqj52qab5CWv2eEYpWLYdx3NYTIuE
- 0Q3JnPOcrzvEgmtLFYp45TBUKFmiyxYku70UynLZwG5Pl+V8aDaWu4wusEwko8o9HAO6Ei3fHUh
- JBXtXqFYdOmS0ab9/A+by+q08gUsnAvjfAcrvIfp7tPnZkrh+hvh9AtpcXOnqGPZGCFhYezVmdD
- HBMg==
-X-Received: by 2002:a05:6602:6307:b0:82a:4419:6156 with SMTP id
- ca18e2360f4ac-82a44196334mr1412310239f.14.1725485174776; 
- Wed, 04 Sep 2024 14:26:14 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFS6tEkpDev46DvGWy32ljDhFfJQqROmsOKpChFn5k1kOh3E+WhWO8dKQaAJANfqBFpAGf7bQ==
-X-Received: by 2002:a05:6602:6307:b0:82a:4419:6156 with SMTP id
- ca18e2360f4ac-82a44196334mr1412307439f.14.1725485174374; 
- Wed, 04 Sep 2024 14:26:14 -0700 (PDT)
-Received: from x1gen2nano ([2600:1700:1ff0:d0e0::40])
- by smtp.gmail.com with ESMTPSA id
- ca18e2360f4ac-82a1a2f0d9fsm379507539f.7.2024.09.04.14.26.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 14:26:14 -0700 (PDT)
-Date: Wed, 4 Sep 2024 16:26:11 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ce42fknbcp2jxzzcx2fdjs72d3kgw2psbbasgz5zvwcvu26usi@4m4wpvo5sa77>
-References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
- <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
- <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
- <d3yg5ammwevvcgs3zsy2fdvc45pce5ma2yujz7z2wp3vvpaim6@wgh6bb27c5tb>
+ Wed,  4 Sep 2024 23:55:13 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 484LFOfk005033;
+ Wed, 4 Sep 2024 23:54:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=68k4qQEoXrGyQZBkFjNkcJ8HHmo7tapvZuW
+ iVrbuvvs=; b=Vp7jx3wtzuHOjDSd0PLoDYU/VDEbeAUfG4Pp+I7tcnjTiECC3TA
+ XwulwtEYLp3c5ruWVR6mlSkJyrTgXjttSnCpYWzjPpkmWOsJApV9P9J5nn/wnBwu
+ iGVmusXgF8nyobbxIXpmwmMXOMdK+p/admyNo+QmXGttTVeUoQgYxjEbAWQkDtPk
+ seCTJTA+nJ9qYeV2rb/y1BR/pHKD4l1W8X5hCq2u17iYx3H2jkQhOUFvg+5rzGa/
+ KV1/FcWhCL5IBOF6kmbtzkYXk3wKP2WsPKU9C50sqElKCIMJRJ/jBO8J1mZgwaTU
+ REVgDwbJ+vU1ThIj8W+eehp7lYZCuzKKwHg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41bvbkm3ub-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Sep 2024 23:54:58 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 484NsvAY007763; 
+ Wed, 4 Sep 2024 23:54:57 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 41ecqfsxu6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Sep 2024 23:54:57 +0000
+Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 484NsvGS007756;
+ Wed, 4 Sep 2024 23:54:57 GMT
+Received: from hu-devc-lv-u20-a-new.qualcomm.com (hu-abchauha-lv.qualcomm.com
+ [10.81.25.35])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 484Nsu1E007684
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Sep 2024 23:54:57 +0000
+Received: by hu-devc-lv-u20-a-new.qualcomm.com (Postfix, from userid 214165)
+ id B2864229B8; Wed,  4 Sep 2024 16:54:56 -0700 (PDT)
+From: Abhishek Chauhan <quic_abchauha@quicinc.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Date: Wed,  4 Sep 2024 16:54:56 -0700
+Message-Id: <20240904235456.2663335-1-quic_abchauha@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <d3yg5ammwevvcgs3zsy2fdvc45pce5ma2yujz7z2wp3vvpaim6@wgh6bb27c5tb>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Sneh Shah <quic_snehshah@quicinc.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
- convert stmmac "pcs" to phylink
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: UMBGnH4pK9QdSnfrwN1xWdpJAAWraeKe
+X-Proofpoint-GUID: UMBGnH4pK9QdSnfrwN1xWdpJAAWraeKe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-04_21,2024-09-04_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ adultscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 mlxscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0 clxscore=1011
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2409040180
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Programming sequence
+	for VLAN packets with split header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,44 +97,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 08, 2024 at 11:42:53PM GMT, Serge Semin wrote:
-> On Wed, Aug 07, 2024 at 10:21:07AM +0100, Russell King (Oracle) wrote:
-> > On Tue, Aug 06, 2024 at 09:56:04PM +0300, Serge Semin wrote:
-> > > Hi Russell
-> > > 
+Currently reset state configuration of split header works fine for
+non-tagged packets and we see no corruption in payload of any size
 
-...
+We need additional programming sequence with reset configuration to
+handle VLAN tagged packets to avoid corruption in payload for packets
+of size greater than 256 bytes.
 
-> 
-> > I guessed that you would dig your heals in over this, and want to do
-> > it your own way despite all the points I raised against your patch
-> > series on my previous posting arguing against much of this.
-> > 
-> > So, at this point I give up with this patch series - clearly there is
-> > no room for discussion about the way forward, and you want to do it
-> > your way no matter what.
-> 
-> I actually thought that in general the approach implemented in my
-> patches didn't meet much dislikes from your side. Just several notes
-> which could be easily fixed in the next revisions.
-> 
-> Anyway thanks for understanding. I'll wait for your series to be
-> merged in. Then I'll submit my patch set based on top of it (of course
-> taking into account all the notes raised by you back then).
-> 
+Without this change ping application complains about corruption
+in payload when the size of the VLAN packet exceeds 256 bytes.
 
-Hmmm, I'll poke the bears :)
+With this change tagged and non-tagged packets of any size works fine
+and there is no corruption seen.
 
-Any chance this series will be rebased and sent out again? I
-really liked the direction of this and it seems a waste to end it at a
-stalemate here despite some differing opinions on the design and
-possible future changes.
+Signed-off-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
+---
+Changes since v0
+- The reason for posting it on net-next is to enable this new feature.
 
-I think we're all in agreement that stmmac's current PCS usage behind
-phylink's back is not good, and this is a massive improvement.
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h     |  9 +++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 11 +++++++++++
+ 2 files changed, 20 insertions(+)
 
-Thanks,
-Andrew
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+index 93a78fd0737b..4e340937dc78 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+@@ -44,6 +44,7 @@
+ #define GMAC_MDIO_DATA			0x00000204
+ #define GMAC_GPIO_STATUS		0x0000020C
+ #define GMAC_ARP_ADDR			0x00000210
++#define GMAC_EXT_CFG1			0x00000238
+ #define GMAC_ADDR_HIGH(reg)		(0x300 + reg * 8)
+ #define GMAC_ADDR_LOW(reg)		(0x304 + reg * 8)
+ #define GMAC_L3L4_CTRL(reg)		(0x900 + (reg) * 0x30)
+@@ -235,6 +236,14 @@ enum power_event {
+ #define GMAC_CONFIG_HDSMS_SHIFT		20
+ #define GMAC_CONFIG_HDSMS_256		(0x2 << GMAC_CONFIG_HDSMS_SHIFT)
+ 
++/* MAC extended config1 */
++#define GMAC_CONFIG1_SAVE_EN		BIT(24)
++#define GMAC_CONFIG1_SPLM		GENMASK(9, 8)
++#define GMAC_CONFIG1_SPLM_L2OFST_EN	BIT(0)
++#define GMAC_CONFIG1_SPLM_SHIFT		8
++#define GMAC_CONFIG1_SAVO		GENMASK(22, 16)
++#define GMAC_CONFIG1_SAVO_SHIFT		16
++
+ /* MAC HW features0 bitmap */
+ #define GMAC_HW_FEAT_SAVLANINS		BIT(27)
+ #define GMAC_HW_FEAT_ADDMAC		BIT(18)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index e0165358c4ac..dbd1be4e4a92 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -526,6 +526,17 @@ static void dwmac4_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	value |= GMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+ 	writel(value, ioaddr + GMAC_EXT_CONFIG);
+ 
++	/* Additional configuration to handle VLAN tagged packets */
++	value = readl(ioaddr + GMAC_EXT_CFG1);
++	value &= ~GMAC_CONFIG1_SPLM;
++	/* Enable Split mode for header and payload at L2  */
++	value |= GMAC_CONFIG1_SPLM_L2OFST_EN << GMAC_CONFIG1_SPLM_SHIFT;
++	value &= ~GMAC_CONFIG1_SAVO;
++	/* Enables the MAC to distinguish between tagged vs untagged pkts */
++	value |= 4 << GMAC_CONFIG1_SAVO_SHIFT;
++	value |= GMAC_CONFIG1_SAVE_EN;
++	writel(value, ioaddr + GMAC_EXT_CFG1);
++
+ 	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+ 	if (en)
+ 		value |= DMA_CONTROL_SPH;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
