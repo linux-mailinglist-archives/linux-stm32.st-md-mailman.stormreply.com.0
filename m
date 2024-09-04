@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00EA96B070
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2024 07:21:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9576096B0A2
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2024 07:48:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98C6FC78013;
-	Wed,  4 Sep 2024 05:21:27 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36F39C78013;
+	Wed,  4 Sep 2024 05:48:37 +0000 (UTC)
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com
+ [192.19.144.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E51F4C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A459EC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2024 05:21:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=0FiySO0ehAi2iikWHKUB4ZlYAWXZ+o7GoMT2M1CTeSI=; b=Wv
- Fo6HRMDncl5nsiz6wV007AXZL1lu65SAoBmZrWKLc9J1ldZzv6TadWQMvA6MBFguNWhbwtTipQMZV
- gXC5g8CfCXoHjoaD23vl2QXkIeoZP7Wdbs7c+vQa1yMqDvVQZO6j5hHr2pUvVPi/zVQkyKTW9XT1p
- XoF/5XcZwl4NZaw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1sliRV-006Ujj-0O; Wed, 04 Sep 2024 07:20:33 +0200
-Date: Wed, 4 Sep 2024 07:20:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Li Zetao <lizetao1@huawei.com>
-Message-ID: <65a6fdd6-5afc-47b6-ab24-3ba05007eb48@lunn.ch>
-References: <20240831021334.1907921-1-lizetao1@huawei.com>
- <20240831021334.1907921-10-lizetao1@huawei.com>
- <20240903151649.1b466145@kernel.org>
- <b4f6e9ae-bda8-4496-82a7-de70004e2f29@huawei.com>
+ Wed,  4 Sep 2024 05:48:29 +0000 (UTC)
+Received: from mail-lvn-it-01.lvn.broadcom.net
+ (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+ by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 6126AC0042ED;
+ Tue,  3 Sep 2024 22:48:28 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 6126AC0042ED
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+ s=dkimrelay; t=1725428908;
+ bh=tgvfjbzgnvr/873wdkcYCV0IFA5StEk9vAEP6gGVqgY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=cCkM5iTT/YAG6wBH0XWHvUQ1avxwPhz9Q5lUzpBPOyyVQ1k5x9ra3XJPEBvaBDMs8
+ ecXXaLsxf7QLsccIBEcKinFNJ2uEFVutf3OkuibKZ4sHNoId6IgKjmBmpfyGtFugPE
+ D2egRV/SHWDYlCcUVRP/svnyq9Oo6fP4V/H6UT8Y=
+Received: from pcie-dev03.dhcp.broadcom.net (pcie-dev03.dhcp.broadcom.net
+ [10.59.171.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail-lvn-it-01.lvn.broadcom.net (Postfix) with ESMTPSA id AC5AF18041C498;
+ Tue,  3 Sep 2024 22:48:27 -0700 (PDT)
+From: jitendra.vegiraju@broadcom.com
+To: netdev@vger.kernel.org
+Date: Tue,  3 Sep 2024 22:48:10 -0700
+Message-Id: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b4f6e9ae-bda8-4496-82a7-de70004e2f29@huawei.com>
-Cc: heiko@sntech.de, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, radhey.shyam.pandey@amd.com,
- ajay.kathat@microchip.com, florian.fainelli@broadcom.com, samuel@sholland.org,
- jernej.skrabec@gmail.com, linux-rockchip@lists.infradead.org, wens@csie.org,
- joabreu@synopsys.com, u.kleine-koenig@pengutronix.de,
- Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com, yisen.zhuang@huawei.com,
- linux-sunxi@lists.linux.dev, jacky_chou@aspeedtech.com, hauke@hauke-m.de,
- kvalo@kernel.org, michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- salil.mehta@huawei.com, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- claudiu.beznea@tuxon.dev, mcoquelin.stm32@gmail.com, wellslutw@gmail.com,
- olteanv@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 09/12] net: ethernet: sunplus:
- Convert using devm_clk_get_enabled() in spl2sw_probe()
+Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, jitendra.vegiraju@broadcom.com,
+ kuba@kernel.org, rohan.g.thomas@intel.com, pabeni@redhat.com,
+ ahalaney@redhat.com, hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ linux-kernel@vger.kernel.org, fancer.lancer@gmail.com, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: [Linux-stm32] [net-next v5 0/5] net: stmmac: Add PCI driver support
+	for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,19 +61,158 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBTZXAgMDQsIDIwMjQgYXQgMDk6Mjc6MDZBTSArMDgwMCwgTGkgWmV0YW8gd3JvdGU6
-Cj4gSGksCj4gCj4g5ZyoIDIwMjQvOS80IDY6MTYsIEpha3ViIEtpY2luc2tpIOWGmemBkzoKPiA+
-IE9uIFNhdCwgMzEgQXVnIDIwMjQgMTA6MTM6MzEgKzA4MDAgTGkgWmV0YW8gd3JvdGU6Cj4gPiA+
-ICsJY29tbS0+Y2xrID0gZGV2bV9jbGtfZ2V0X2VuYWJsZWQoJnBkZXYtPmRldiwgTlVMTCk7Cj4g
-PiAKPiA+IFlvdSBjYW4gcmVtb3ZlIGNsayBmcm9tIHRoZSBkcml2ZXIgc3RydWN0IG5vdy4KPiBJ
-IGRvbuKAmXQgcXVpdGUgdW5kZXJzdGFuZCB3aHkgY2xrIGNhbiBiZSByZW1vdmVkIGZyb20gdGhl
-IGRyaXZlciBzdHJ1Y3QsCgpBZnRlciB5b3UgcGF0Y2gsIHdoZXJlIGlzIGl0IHVzZWQ/CgoJQW5k
-cmV3Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+
+This patchset adds basic PCI ethernet device driver support for Broadcom
+BCM8958x Automotive Ethernet switch SoC devices.
+
+This SoC device has PCIe ethernet MAC attached to an integrated ethernet
+switch using XGMII interface. The PCIe ethernet controller is presented to
+the Linux host as PCI network device.
+
+The following block diagram gives an overview of the application.
+             +=================================+
+             |       Host CPU/Linux            |
+             +=================================+
+                        || PCIe
+                        ||
+        +==========================================+
+        |           +--------------+               |
+        |           | PCIE Endpoint|               |
+        |           | Ethernet     |               |
+        |           | Controller   |               |
+        |           |   DMA        |               |
+        |           +--------------+               |
+        |           |   MAC        |   BCM8958X    |
+        |           +--------------+   SoC         |
+        |               || XGMII                   |
+        |               ||                         |
+        |           +--------------+               |
+        |           | Ethernet     |               |
+        |           | switch       |               |
+        |           +--------------+               |
+        |             || || || ||                  |
+        +==========================================+
+                      || || || || More external interfaces
+
+The MAC block on BCM8958x is based on Synopsis XGMAC 4.00a core. This
+MAC IP introduces new DMA architecture called Hyper-DMA for virtualization
+scalability.
+
+Driver functionality specific to new MAC (DW25GMAC) is implemented in
+new file dw25gmac.c.
+
+Management of integrated ethernet switch on this SoC is not handled by
+the PCIe interface.
+This SoC device has PCIe ethernet MAC directly attached to an integrated
+ethernet switch using XGMII interface.
+
+v4->v5:
+   Summary of changes in this patch series:
+   As suggested by Serge Semin, defined common setup function for dw25gmac.
+   To accommodate early adopter DW25GMAC used in BCM8958x device, provide
+   a mechanism to override snps_id and snps_dev_id used for driver entry
+   matching in hwif.c
+
+   Patch1:
+     Added plat_stmmacenet_data::snps_id,snps_dev_id fields - Serge Semin
+   Patch2:
+     Define common setup function for dw25gmac_setup() - Serge Semin
+     Support DW25GMAC IPs with varying VDMA/PDMA count - Abhishek Chauhan
+     Allocate and initialize hdma mapping configuration data dynamically
+     based on device's VDMA/PDMA feature capabilities in dw25gmac_setup().
+     Spelling errors in commit log, lower case 0x for hex -Amit Singh Tomar
+   Patch3:
+     Glue support in hwif.c for DW25GMAC in hwif.c - Serge Semin
+     Provide an option to override snps_id and snps_dev_id when the device
+     reports version info not conformant with driver's expectations as is
+     the case with BCM8958x device. - Serge Semin
+   Patch4:
+     Remove setup function in the glue driver - Serge Semin
+     Remove unnecessary calls pci_enable_device() and pci_set_master()
+     in dwxgmac_brcm_pci_resume() - Jakub Kicinski
+     Merge variable definitions to single line - Amit Singh Tomar
+
+v3->v4:
+   Based on Serge's questions, received a confirmation from Synopsys that
+   the MAC IP is indeed the new 25GMAC design.
+   Renamed all references of XGMAC4 to 25GMAC.
+   The patch series is rearranged slightly as follows.
+   Patch1 (new): Define HDMA mapping data structure in kernel's stmmac.h
+   Patch2 (v3 Patch1): Adds dma_ops for dw25gmac in stmmac core
+       Renamed new files dwxgmac4.* to dw25gmac.* - Serge Semin
+       Defined new Synopsis version and device id macros for DW25GMAC.
+       Converted bit operations to FIELD_PREP macros - Russell King
+       Moved hwif.h to this patch, Sparse flagged warning - Simon Horman
+       Defined macros for hardcoded values TDPS etc - Serge Semin
+       Read number of PDMAs/VDMAs from hardware - Serge Semin
+   Patch3 (v3 Patch2): Hooks in hardware interface handling for dw25gmac
+       Resolved user_version quirks questions - Serge, Russell, Andrew
+       Added new stmmac_hw entry for DW25GMAC. - Serge
+       Added logic to override synopsis_dev_id by glue driver.
+   Patch4 (v3 Patch3): Adds PCI driver for BCM8958x device
+       Define bitmmap macros for hardcoded values - Andrew Lunn
+       Added per device software node - Andrew Lunn
+   Patch5(new/split): Adds BCM8958x driver to build system
+   https://lore.kernel.org/netdev/20240814221818.2612484-1-jitendra.vegiraju@broadcom.com/
+
+v2->v3:
+   Addressed v2 comments from Andrew, Jakub, Russel and Simon.
+   Based on suggestion by Russel and Andrew, added software node to create
+   phylink in fixed-link mode.
+   Moved dwxgmac4 specific functions to new files dwxgmac4.c and dwxgmac4.h
+   in stmmac core module.
+   Reorganized the code to use the existing glue logic support for xgmac in
+   hwif.c and override ops functions for dwxgmac4 specific functions.
+   The patch is split into three parts.
+     Patch#1 Adds dma_ops for dwxgmac4 in stmmac core
+     Patch#2 Hooks in the hardware interface handling for dwxgmac4
+     Patch#3 Adds PCI driver for BCM8958x device
+   https://lore.kernel.org/netdev/20240802031822.1862030-1-jitendra.vegiraju@broadcom.com/
+
+v1->v2:
+   Minor fixes to address coding style issues.
+   Sent v2 too soon by mistake, without waiting for review comments.
+   Received feedback on this version.
+   https://lore.kernel.org/netdev/20240511015924.41457-1-jitendra.vegiraju@broadcom.com/
+
+v1:  
+   https://lore.kernel.org/netdev/20240510000331.154486-1-jitendra.vegiraju@broadcom.com/
+
+Jitendra Vegiraju (5):
+  Add HDMA mapping for dw25gmac support
+  Add basic dw25gmac support in stmmac core
+  Integrate dw25gmac into stmmac hwif handling
+  Add PCI driver support for BCM8958x
+  Add BCM8958x driver to build system
+
+ MAINTAINERS                                   |   8 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   3 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   4 +
+ .../net/ethernet/stmicro/stmmac/dw25gmac.c    | 224 ++++++++
+ .../net/ethernet/stmicro/stmmac/dw25gmac.h    |  92 ++++
+ .../net/ethernet/stmicro/stmmac/dwmac-brcm.c  | 507 ++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |   1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  43 ++
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  31 ++
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |  26 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |   1 +
+ include/linux/stmmac.h                        |  48 ++
+ 13 files changed, 997 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dw25gmac.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dw25gmac.h
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
