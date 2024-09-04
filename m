@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56BD96BD8A
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2024 15:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6F9696BF94
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2024 16:05:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71DD3C78011;
-	Wed,  4 Sep 2024 13:02:36 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54EBDC78011;
+	Wed,  4 Sep 2024 14:05:00 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAED4C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82571C78010
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2024 13:02:29 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-42bb9a23ea7so8291605e9.1
+ Wed,  4 Sep 2024 14:04:53 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-42bb9c04fa5so8271465e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Sep 2024 06:02:29 -0700 (PDT)
+ Wed, 04 Sep 2024 07:04:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725454949; x=1726059749;
+ d=gmail.com; s=20230601; t=1725458693; x=1726063493;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EcbQbaIVPohzYKpW0NAJ6739Zodc4w16fXaT/0eJq+0=;
- b=COizgXv3nbf54LHl+CoULqsJFLrdc+9cxC1sWJG4BIednUFdq9J8yZLjLl6TowAuh7
- y4wJAC0LTjeG0FicNANtn+WGVc4L/z0HMzgd/0GC6NDBvQDg0syFXwjGxng5JSBYwrQA
- NlAE1eHU89p0dyQeHD3Esm8VrBPuNxpGp/aLUk4NU945FlpmzKubTgW/X3rQILCvtTGm
- dsuYPALIizys47KUJeAsJUFpk9tBEK/Yo9Xew5IAu21AIpbIJ3TEKPYu4xeUDBL67kfr
- sqrX7S/hZTk4IxgzLrYQyNjFpJY9NGCsxK/pdlJ7n2pXWuwQtmK3ppdJHZx1MFKow1rc
- zx8A==
+ bh=pcSQHDuFZNW8f8jn2HlyrNAfmNzNkeFSHZv2Ikhhg8I=;
+ b=iURoiClzm4x5+U09gzm3ALdpND8DI+6J1QER5QruTbptJb/ROl+lue4vMZ4DylhSzn
+ TSCMYyQ1vq0sja4Pj1+eZm1FedmNraIkbm2u1cgHnBwlngnSsCMWtZu1zR3HfQGnfLOs
+ jVg09NLVPG1S1ZgvsILv0w6YhGzP9an6kAvMb5iwS+Q5KAU/Ylg6x3N0xIOlp2de1M8z
+ OeuayqkHM0ezRi2i/kpCGBzJGf6Sneh73rdJRAMLjhbqfXM0eL7dgrQr3wFLVE9mbuAn
+ Dui3GONoEptYjmASxmOKciiRCfm3O1URchyMithmVrhDmVxjfNs+d4SDRDHTp1jk8hnB
+ o5HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725454949; x=1726059749;
+ d=1e100.net; s=20230601; t=1725458693; x=1726063493;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EcbQbaIVPohzYKpW0NAJ6739Zodc4w16fXaT/0eJq+0=;
- b=Wh6dO7Yu9zM4OLNPYej6JLmlF1HH6VFj98eJVRnRv79J1meU9bJM2jlW+M+liHz1/N
- sVinaPH9KnDEHhzSqFa15y/4FiqDDrXnrQUHkqLKo9KeXVQI+M2Z4ADhnbkTapDaDTzu
- XadLZsc4XaAiZMWfYl6PNRsoJMSr3FMEW709LyoEXLfBbS4f0EYrA2gqlQQ2606Vu8gr
- 06LsCdNA5/VOTyqLcPcHuULpc6OdeCTt3FfMPNBYDK+1Oo47Cn7cQcdbAuvrvPLAeipG
- 7yyALqStrmGmOSKzbw1bSZ4r0zvcrr4HvtNeBVpVH2v2JUxmCNrlz9L6AMihiOIFk3jD
- iQUA==
+ bh=pcSQHDuFZNW8f8jn2HlyrNAfmNzNkeFSHZv2Ikhhg8I=;
+ b=BkCChDtoXRCAyOVCLP27V3NZe5jrpk4wSIex+SFcAoIR1EvIeMmNv6S+jSssRIN75z
+ 8iUtrs2oGTgzkfq8elt+zp391pXrkOLFKilj59pVoWV9U/HYKk6yiE7l5zi3T5e08N8s
+ 2B1UD9SRK4T+uUgb+fhI1gXK/pWHsHJNdolPV6vWTKNfkzv6KdYIC1SXglyOckeISZDR
+ ItPP+HcXgs3UHXVcZzdbVfDW/kj9wcPM54OCvjIz/0CNqMhWnSA9SIPoQpR6SdLSsNUo
+ 9Du7BBqmPrhvkPq5DTi0fSORviEmBiOipLa6mmylU+tjfaJqdRy7fr0+bSJLTxDEU8lA
+ HpQA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV1jW631hPd8u8aN3yzunwtDRwmw2QztEHl2eW8Ov7Sd/f2x5DJlonNWBybYQy0/TGj76LT9rGQkW1xwA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyjMO6KQg2Jdt9NGNjs1gdbVhPf5AOEOQ97niUOcYcfuj/83wG7
- iigpygPJmxPyL2rnQFUwNqjnxzNJDzMIox1gc1VEYbkE97mzC3BZ
-X-Google-Smtp-Source: AGHT+IH7hReguc+nH4lTt0jjKw5fmY4WB2guwukGV6szfSaPGtYeUcThT/DU2IKUCSeJ3RODNpc+Zw==
-X-Received: by 2002:a05:600c:4fd6:b0:425:6dfa:c005 with SMTP id
- 5b1f17b1804b1-42bbb204f9dmr68776885e9.2.1725454946828; 
- Wed, 04 Sep 2024 06:02:26 -0700 (PDT)
+ AJvYcCVXqLnx2A5C4sp0Np7uZpVE/Yvv+xdwM333vo3+6FO9Z8lIGXksBiCdLbaFHY2iqfBDe+Q4EmkuOYwKHg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwDawkcikHxmIg8fS1iNbzszGmeU6tMun3Pr/iuGY0CKSQ7xsKr
+ ZzLKXYJlBumVCXY5dJ8YBFxO+Izhzs3ewMnwfn80EqNLcf8yU1VU
+X-Google-Smtp-Source: AGHT+IFwd43mImwMibDfu+DajpXj0lE+8R58B0kaRqv52bm6izGdfKSggdaX92YjEflO0z3LrM32tw==
+X-Received: by 2002:a05:600c:1554:b0:425:6962:4253 with SMTP id
+ 5b1f17b1804b1-42bbb43d5e4mr71495425e9.4.1725458691917; 
+ Wed, 04 Sep 2024 07:04:51 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42bb6df9705sm202738055e9.27.2024.09.04.06.02.24
+ ffacd0b85a97d-374cf7e2dbfsm7060858f8f.37.2024.09.04.07.04.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 06:02:25 -0700 (PDT)
-Date: Wed, 4 Sep 2024 16:02:23 +0300
+ Wed, 04 Sep 2024 07:04:51 -0700 (PDT)
+Date: Wed, 4 Sep 2024 17:04:48 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240904130223.py2yxmwo5kp6yvnu@skbuf>
+Message-ID: <20240904140448.6hvjzj3ei2k7jdbe@skbuf>
 References: <cover.1725441317.git.0x1207@gmail.com>
- <cover.1725441317.git.0x1207@gmail.com>
- <1e452525e496b28c0b1ea43afbdc3533c92930c6.1725441317.git.0x1207@gmail.com>
  <1e452525e496b28c0b1ea43afbdc3533c92930c6.1725441317.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <1e452525e496b28c0b1ea43afbdc3533c92930c6.1725441317.git.0x1207@gmail.com>
- <1e452525e496b28c0b1ea43afbdc3533c92930c6.1725441317.git.0x1207@gmail.com>
 Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
@@ -96,22 +93,104 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Wed, Sep 04, 2024 at 05:21:18PM +0800, Furong Xu wrote:
-> +static void stmmac_fpe_verify_timer_arm(struct stmmac_fpe_cfg *fpe_cfg)
-> +{
+> +/**
+> + * stmmac_fpe_verify_timer - Timer for MAC Merge verification
+> + * @t:  timer_list struct containing private info
+> + *
+> + * Verify the MAC Merge capability in the local TX direction, by
+> + * transmitting Verify mPackets up to 3 times. Wait until link
+> + * partner responds with a Response mPacket, otherwise fail.
+> + */
+> +static void stmmac_fpe_verify_timer(struct timer_list *t)
+>  {
+> -	struct stmmac_priv *priv = container_of(work, struct stmmac_priv,
+> -						fpe_task);
+> -	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+> -	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
+> -	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
+> -	bool *hs_enable = &fpe_cfg->hs_enable;
+> -	bool *enable = &fpe_cfg->enable;
+> -	int retries = 20;
+> -
+> -	while (retries-- > 0) {
+> -		/* Bail out immediately if FPE handshake is OFF */
+> -		if (*lo_state == FPE_STATE_OFF || !*hs_enable)
+> -			break;
+> -
+> -		if (*lo_state == FPE_STATE_ENTERING_ON &&
+> -		    *lp_state == FPE_STATE_ENTERING_ON) {
+> -			stmmac_fpe_configure(priv, priv->ioaddr,
+> -					     fpe_cfg,
+> -					     priv->plat->tx_queues_to_use,
+> -					     priv->plat->rx_queues_to_use,
+> -					     *enable);
+> -
+> -			netdev_info(priv->dev, "configured FPE\n");
+> +	struct stmmac_fpe_cfg *fpe_cfg = from_timer(fpe_cfg, t, verify_timer);
+> +	struct stmmac_priv *priv = container_of(fpe_cfg, struct stmmac_priv,
+> +						fpe_cfg);
 > +	struct ethtool_mm_state *state = &fpe_cfg->state;
+> +	unsigned long flags;
+> +	bool rearm = false;
+>  
+> -			*lo_state = FPE_STATE_ON;
+> -			*lp_state = FPE_STATE_ON;
+> -			netdev_info(priv->dev, "!!! BOTH FPE stations ON\n");
+> -			break;
+> -		}
+> +	spin_lock_irqsave(&fpe_cfg->lock, flags);
+>  
+> -		if ((*lo_state == FPE_STATE_CAPABLE ||
+> -		     *lo_state == FPE_STATE_ENTERING_ON) &&
+> -		     *lp_state != FPE_STATE_ON) {
+> -			netdev_info(priv->dev, SEND_VERIFY_MPAKCET_FMT,
+> -				    *lo_state, *lp_state);
+> +	switch (state->verify_status) {
+> +	case ETHTOOL_MM_VERIFY_STATUS_INITIAL:
+> +	case ETHTOOL_MM_VERIFY_STATUS_VERIFYING:
+> +		if (fpe_cfg->verify_retries != 0) {
+>  			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
+> -						fpe_cfg,
+> -						MPACKET_VERIFY);
+> +						fpe_cfg, MPACKET_VERIFY);
+> +			rearm = true;
+> +		} else {
+> +			state->verify_status = ETHTOOL_MM_VERIFY_STATUS_FAILED;
+>  		}
+> -		/* Sleep then retry */
+> -		msleep(500);
 > +
-> +	if (state->pmac_enabled && state->tx_enabled &&
-> +	    state->verify_enabled &&
-> +	    state->verify_status != ETHTOOL_MM_VERIFY_STATUS_FAILED &&
-> +	    state->verify_status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED) {
-> +		/* give caller a chance to release the spinlock */
-> +		mod_timer(&fpe_cfg->verify_timer, jiffies + 1);
-> +	}
-> +}
+> +		fpe_cfg->verify_retries--;
+> +	break;
 
-Why do you need to give the caller a chance to release the spinlock?
-Isn't the timer code blocked anyway, as stmmac_fpe_verify_timer_arm()
-runs under irqsoff?
+Odd indentation... "break;" should be on the same level with the code,
+not with the "case" statements. Not sure which editor you use, but even
+if you hit "==" in vim on this line, it will shift it by one tab to the
+right.
+
+> +
+> +	case ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED:
+> +		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+> +				     priv->plat->tx_queues_to_use,
+> +				     priv->plat->rx_queues_to_use,
+> +				     true, true);
+> +	break;
+
+Same comment here and below.
+
+> +
+> +	default:
+> +	break;
+> +	}
+> +
+> +	if (rearm) {
+> +		mod_timer(&fpe_cfg->verify_timer,
+> +			  jiffies + msecs_to_jiffies(state->verify_time));
+>  	}
+>  
+> -	clear_bit(__FPE_TASK_SCHED, &priv->fpe_task_state);
+> +	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+> +}
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
