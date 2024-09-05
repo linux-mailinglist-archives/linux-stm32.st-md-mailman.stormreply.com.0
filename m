@@ -2,51 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E88E596DA8C
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 15:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD21596DADF
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 15:54:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98636C7801A;
-	Thu,  5 Sep 2024 13:41:37 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A983C78013;
+	Thu,  5 Sep 2024 13:54:53 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9B02C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D13BC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 13:41:31 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 938C988BF2;
- Thu,  5 Sep 2024 15:41:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1725543691;
- bh=pswdXcqPStl0HoZQrt/FxfgDt4teRCM2NhpZPLEY5rc=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=ZAQCHdNnEwIQcjtofN1rEt3GQEmMSXTSz2pdfO5r/STfUzh56l1xIoEAfEwkxM2Yi
- Hgkslb9S8R71lh/sLVxVtD4nFJTql2/6ku56g5OTA7pHB7YUDrIwUU5a7CnW8neJ9l
- pyYyCaUmEIfB0NS1RieX0WmcBpBZWkj4tLV3XRu2/obnezsQW/toSoaRlLll8+zVqC
- VV6OGKBtThxuK3U8mfgXn1agy/iu37fKtAoq9P5pFu0Nd6wCj04hce2FGs6J6pc3p8
- 7m9bT8WK5bqKj+JdYtVQtQdlrNAdASDYaOEimGkwNkYbMNQpZYWoy+Xeqs2cw8k9e3
- 0KgzZJOq6FMjA==
-Message-ID: <4386a9c2-bf9e-4612-a928-dddb1adb9571@denx.de>
-Date: Thu, 5 Sep 2024 15:12:20 +0200
+ Thu,  5 Sep 2024 13:54:46 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-535be0a9b9bso132377e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Sep 2024 06:54:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725544485; x=1726149285;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=j72SRMwZbgesZJhHX6WjWoZslyaQOKCacKBuJblmEuE=;
+ b=cdLTr/PggFjoyT/P7KqYofQCH3wMckiaa2SjIXrFCmEE5ESwDGT1TPYshntzZ9XUez
+ gE/4mtBNG/oH4RYsgrIj6aFINhssJiAUo8foQoqIoSdeQYvDb6FaZIgRl1rQ32bhb9cY
+ fRWRqoQe1ThchGg57Qadj13JWIvD2a/ym9pXKIOM4IBkTnqyyxuRWppKeywkJa9TfO2i
+ 4Vg1U55r9vSYSeYc5BGxNrZGCd+XbVXsPYG7mCoFVO7XCDxKRaV2jhahbM7/mh1DxGZo
+ RLlbI1D49q/To7tWFucM3BtTNo+lL5CmfX4+LvJ/muXoH7nRvcmGaHfP8w92FBoytkMD
+ uWHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725544485; x=1726149285;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=j72SRMwZbgesZJhHX6WjWoZslyaQOKCacKBuJblmEuE=;
+ b=LGQILLxv7QXt3HTIlHsm5aEPbWXbY/611LcTVC3egqXc8cRmCxcf3v1yTJZ4wWZ9aB
+ TLiSk9i8nMnQI1wEQMbASss8O/6EXEL2Qs03Pom8Lmv4viqQQs1+xvzAfZYh8opSAkJ8
+ /SgJJahVcaeNG21MWPE7A4p4cGzu2rD7ApYxrSQD6u9kq8SuLwGxqPMh1GabyYcl73zO
+ 0YZT1SA1JjGFVKlR3adOJnItI6Ojq1xwRpu9n5DIruLDtkEgIblBAANM2b+o1U9azxMr
+ ShY5xEA00DoGHQly68gvtFPuLpGERbT/98K2xAgf4TFphLy6MQwUXs+WjqghPADuW9OQ
+ T04w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDDsZkgqG5asJJ8A7InAbPmeUEWtRQZ01VVowWCE3qsd5v1K9Wqe+DuXiPEsRGcw4g2s6eYjKuYYGGjA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyDT133RH8yZsUXlHr7jl+CH0npFgk/pplHElTM+Kt0VpFq5Xk0
+ fr20SKEjZjzFBxT5UrLBRG6yhB2s9TQhIMN+I2jREmG1Q27Jm+zP
+X-Google-Smtp-Source: AGHT+IEGHceBUm9ge3LWUoJ0fD0Z2UOrlf5AZ1gk7JTSUBOffG9cHqN+jDgXYhMUztM4Iwbd35KQOw==
+X-Received: by 2002:ac2:5695:0:b0:536:54df:c000 with SMTP id
+ 2adb3069b0e04-53654dfc031mr481122e87.8.1725544484197; 
+ Thu, 05 Sep 2024 06:54:44 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8a7c662bcdsm33568166b.34.2024.09.05.06.54.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2024 06:54:43 -0700 (PDT)
+Date: Thu, 5 Sep 2024 16:54:40 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20240905135440.hcgbva7fzic2x4ps@skbuf>
+References: <cover.1725518135.git.0x1207@gmail.com>
+ <0b72fd0463b662796fd3eaa996211f1a5d0a4341.1725518135.git.0x1207@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Marek Vasut <marex@denx.de>
-To: linux-watchdog@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
- Wim Van Sebroeck <wim@linux-watchdog.org>
-References: <20240415134903.8084-1-marex@denx.de>
- <f93b5a80-33fb-4708-ab86-6b28f626a186@denx.de>
-Content-Language: en-US
-In-Reply-To: <f93b5a80-33fb-4708-ab86-6b28f626a186@denx.de>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4] watchdog: stm32_iwdg: Add pretimeout
-	support
+Content-Disposition: inline
+In-Reply-To: <0b72fd0463b662796fd3eaa996211f1a5d0a4341.1725518135.git.0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ rmk+kernel@armlinux.org.uk, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v8 3/7] net: stmmac: refactor FPE
+ verification process
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,42 +87,206 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8yMy8yNCA4OjE4IFBNLCBNYXJlayBWYXN1dCB3cm90ZToKPiBPbiA0LzE1LzI0IDM6NDgg
-UE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBUaGUgU1RNMzJNUDE1eHggSVdERyBhZGRzIHJlZ2lz
-dGVycyB3aGljaCBwZXJtaXQgdGhpcyBJUCB0byBnZW5lcmF0ZQo+PiBwcmV0aW1lb3V0IGludGVy
-cnVwdC4gVGhpcyBpbnRlcnJ1cHQgY2FuIGFsc28gYmUgdXNlZCB0byB3YWtlIHRoZSBDUFUKPj4g
-ZnJvbSBzdXNwZW5kLiBJbXBsZW1lbnQgc3VwcG9ydCBmb3IgZ2VuZXJhdGluZyB0aGlzIGludGVy
-cnVwdCBhbmQgbGV0Cj4+IHVzZXJzcGFjZSBjb25maWd1cmUgdGhlIHByZXRpbWVvdXQuIEluIGNh
-c2UgdGhlIHByZXRpbWVvdXQgaXMgbm90Cj4+IGNvbmZpZ3VyZWQgYnkgdXNlciwgc2V0IHByZXRp
-bWVvdXQgdG8gMy80IG9mIHRoZSBXRFQgdGltZW91dCBjeWNsZS4KPj4KPj4gUmV2aWV3ZWQtYnk6
-IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4KPj4gVGVz
-dGVkLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+
-Cj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgo+PiAtLS0KPj4g
-Q2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+IENj
-OiBHdWVudGVyIFJvZWNrIDxsaW51eEByb2Vjay11cy5uZXQ+Cj4+IENjOiBNYXhpbWUgQ29xdWVs
-aW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+Cj4+IENjOiBXaW0gVmFuIFNlYnJvZWNrIDx3
-aW1AbGludXgtd2F0Y2hkb2cub3JnPgo+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZy
-YWRlYWQub3JnCj4+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cj4+IENjOiBsaW51eC13YXRjaGRvZ0B2Z2VyLmtlcm5lbC5vcmcKPj4gLS0tCj4+IFYyOiAtIFN1
-YnRyYWN0IHRoZSBwcmV0aW1lb3V0IHZhbHVlIGZyb20gdGltZW91dCB2YWx1ZSBiZWZvcmUgd3Jp
-dGluZyBpdAo+PiDCoMKgwqDCoMKgwqAgaW50byB0aGUgSVdERyBwcmV0aW1lb3V0IHJlZ2lzdGVy
-LCBiZWNhdXNlIHRoZSB3YXRjaGRvZyBjb3VudGVyCj4+IMKgwqDCoMKgwqDCoCByZWdpc3RlciBp
-cyBjb3VudGluZyBkb3duLCBhbmQgdGhlIHByZXRpbWVvdXQgaW50ZXJydXB0IHRyaWdnZXJzCj4+
-IMKgwqDCoMKgwqDCoCB3aGVuIHdhdGNoZG9nIGNvdW50ZXIgcmVnaXN0ZXIgbWF0Y2hlcyB0aGUg
-cHJldGltZW91dCByZWdpc3Rlcgo+PiDCoMKgwqDCoMKgwqAgY29udGVudC4KPj4gwqDCoMKgwqAg
-LSBTZXQgZGVmYXVsdCBwcmV0aW1lb3V0IHRvIDMvNCBvZiB0aW1lb3V0IC4KPj4gVjM6IC0gVXNl
-IGRldiBpbnN0ZWFkIG9mIHBkZXYtPmRldgo+PiDCoMKgwqDCoCAtIFN3YXAgb3JkZXIgb2YgcmV0
-L3JldHVybiAwCj4+IMKgwqDCoMKgIC0gU3BsaXQgdGhpcyBmcm9tIHRoZSBEVCBjaGFuZ2VzLCB3
-aGljaCBhcmUgb3J0aG9nb25hbAo+PiDCoMKgwqDCoCAtIFVoLCB0aGlzIHBhdGNoIGdvdCBzdHVj
-ayBpbiB1cHN0cmVhbWluZyBxdWV1ZSwgc29ycnkKPj4gVjQ6IC0gVXBkYXRlIGNvbW1pdCBtZXNz
-YWdlIHRvIG1hdGNoIFYyIGRlZmF1bHQgcHJldGltZW91dCB0byAzLzQKPj4gwqDCoMKgwqAgLSBB
-ZGQgUkIvVEIgZnJvbSBDbMOpbWVudAo+IAo+IEhpLAo+IAo+IEFyZSB0aGVyZSBzdGlsbCBhbnkg
-b3BlbiB0b3BpY3Mgd2l0aCB0aGlzIHBhdGNoID8KCkFueXRoaW5nID8KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, Sep 05, 2024 at 03:02:24PM +0800, Furong Xu wrote:
+> +void stmmac_fpe_apply(struct stmmac_priv *priv)
+> +{
+> +	struct ethtool_mm_state *state = &priv->fpe_cfg.state;
+> +	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+> +
+> +	/* If verification is disabled, configure FPE right away.
+> +	 * Otherwise let the timer code do it.
+> +	 */
+> +	if (!state->verify_enabled) {
+> +		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+> +				     priv->plat->tx_queues_to_use,
+> +				     priv->plat->rx_queues_to_use,
+> +				     state->tx_enabled,
+> +				     state->pmac_enabled);
+> +	} else {
+> +		state->verify_status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
+> +		fpe_cfg->verify_retries = STMMAC_FPE_MM_MAX_VERIFY_RETRIES;
+> +
+> +		if (netif_device_present(priv->dev) && netif_running(priv->dev))
+> +			stmmac_fpe_verify_timer_arm(fpe_cfg);
+> +	}
+>  }
+
+In the cover letter, you say:
+
+  2. check netif_running() to guarantee synchronization rules between
+  mod_timer() and timer_delete_sync()
+
+[ by the way, it would be nice if you could list the changes in
+  individual patches as well ]
+
+but I guess this helps with something other than what you say it helps
+with.
+
+netif_running() essentially checks that __dev_open() has been called,
+aka "ip link set dev eth0 up". And I don't see the ethtool_ops :: begin()
+implemented by the driver any longer, so I think you've done this in
+order to accept stmmac_set_mm() calls even before the netdev has been
+brought operationally up. Okay.
+
+As for netif_device_present(), I don't know, maybe the intention was to
+suppress stmmac_set_mm() calls made after stmmac_suspend(). But
+ethnl_ops_begin() has its own netif_device_present() call, so I'm not
+sure why it is needed - they should already be suppressed.
+
+But in v7, I was thinking about the concurrency issues here:
+
+static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+			 struct netlink_ext_ack *extack)
+{
+	/* Wait for the verification that's currently in progress to finish */
+	del_timer_sync(&fpe_cfg->verify_timer);
+
+								<- Concurrent code can run here:
+								   stmmac_fpe_link_state_handle(),
+								   called from phylink_resolve()
+								   workqueue context, rtnl_lock()
+								   not held.
+
+	spin_lock_irqsave(&fpe_cfg->lock, flags);
+	stmmac_fpe_apply(priv);
+	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+}
+
+static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+{
+	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+	unsigned long flags;
+
+	timer_delete_sync(&fpe_cfg->verify_timer);
+
+								<- Concurrent code can run here:
+								   stmmac_set_mm()
+
+	spin_lock_irqsave(&fpe_cfg->lock, flags);
+
+	if (is_up && fpe_cfg->state.pmac_enabled) {
+		/* VERIFY process requires pmac enabled when NIC comes up */
+		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+				     priv->plat->tx_queues_to_use,
+				     priv->plat->rx_queues_to_use,
+				     false, true);
+
+		/* New link => maybe new partner => new verification process */
+		stmmac_fpe_apply(priv);
+	} else {
+		/* No link => turn off EFPE */
+		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+				     priv->plat->tx_queues_to_use,
+				     priv->plat->rx_queues_to_use,
+				     false, false);
+	}
+
+	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+}
+
+[ oh btw, you forgot to replace the del_timer_sync() instance from
+  stmmac_set_mm() to timer_delete_sync() ]
+
+Because the timer can be restarted right after the timer_delete_sync()
+call, this is a half-baked implementation.
+
+I think at the end of the day, we need to ask ourselves: what is the
+timer_delete_sync() call even supposed to accomplish? What if the verify
+timer is allowed to run concurrently with us changing the settings?
+
+Well, for example, if it runs concurrently with
+stmmac_fpe_link_state_handle(is_down==false), it will not learn that the
+link is down, it will send an MPACKET_VERIFY, get no response, and fail.
+So, not very bad.
+
+And the other way around: stmmac_set_mm() stops the verify timer, but
+the link comes up, the timer is armed with the old settings, it does
+whatever (succeeds, fails), and only afterwards does stmmac_set_mm()
+manage to grab &fpe_cfg->lock, change the settings to the new ones, and
+re-trigger the verify timer once again, if needed.
+
+So bottom line, I think timer_delete_sync() is to avoid some useless
+work, but otherwise, it is not critical to have it. The choice is
+between removing the timer_delete_sync() calls from these 2 functions
+altogether, or implementing an actually effective mechanism to stop the
+timer for a while.
+
+I _think_ that the simplest way to stop it is to hold one more lock for
+the verify_timer when we call timer_delete_sync() and stmmac_fpe_verify_timer_arm(),
+lock which _is_ IRQ-safe, unlike &fpe_cfg->lock.
+
+static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+			 struct netlink_ext_ack *extack)
+{
+	spin_lock(&fpe_cfg->verify_timer_lock);
+
+	timer_delete_sync(&fpe_cfg->verify_timer);
+
+	spin_lock_irqsave(&fpe_cfg->lock, flags);
+	stmmac_fpe_apply(priv);
+	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+
+	spin_unlock(&fpe_cfg->verify_timer_lock);
+}
+
+static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+{
+	spin_lock(&fpe_cfg->verify_timer_lock);
+
+	timer_delete_sync(&fpe_cfg->verify_timer);
+
+	spin_lock_irqsave(&fpe_cfg->lock, flags);
+
+	if (is_up && fpe_cfg->state.pmac_enabled) {
+		/* VERIFY process requires pmac enabled when NIC comes up */
+		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+				     priv->plat->tx_queues_to_use,
+				     priv->plat->rx_queues_to_use,
+				     false, true);
+
+		/* New link => maybe new partner => new verification process */
+		stmmac_fpe_apply(priv);
+	} else {
+		/* No link => turn off EFPE */
+		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+				     priv->plat->tx_queues_to_use,
+				     priv->plat->rx_queues_to_use,
+				     false, false);
+	}
+
+	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+
+	spin_unlock(&fpe_cfg->verify_timer_lock);
+}
+
+Looking at the __timer_delete_sync() implementation, I don't think
+verify_timer_lock needs to be sleepable and hence a mutex (except on
+PREEMPT_RT where spinlocks are sleepable no matter what you do).
+
+But I think the implementation would be simpler without
+timer_delete_sync() in these 2 functions, and this overengineered
+mechanism.
+
+
+I would expect a comment in stmmac_release() here:
+
+	if (priv->dma_cap.fpesel)
+		timer_delete_sync(&priv->fpe_cfg.verify_timer);
+
+that timer restarts are not possible, because we have rtnl_lock() held
+and a concurrent stmmac_set_mm() cannot run now, and the earlier
+phylink_stop() has also ensured stmmac_fpe_link_state_handle() cannot
+run any longer.
+
+Similarly, I would like to see an explanation in the form of a comment
+for why timer restarts are not possible after the same pattern in
+stmmac_suspend(). The explanation is different there, I think.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
