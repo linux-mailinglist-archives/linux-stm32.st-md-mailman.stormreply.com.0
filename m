@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F3F596D73C
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 13:34:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F33B396D73F
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 13:34:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB55EC78013;
-	Thu,  5 Sep 2024 11:34:18 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6E98C78013;
+	Thu,  5 Sep 2024 11:34:31 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54C7CC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E949CC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 11:34:11 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-533521cd1c3so811525e87.1
+ Thu,  5 Sep 2024 11:34:30 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5356aa9a0afso1060880e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 04:34:11 -0700 (PDT)
+ Thu, 05 Sep 2024 04:34:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725536050; x=1726140850;
+ d=linaro.org; s=google; t=1725536070; x=1726140870;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bLDmb4u45gfKegGAaWlNWOEqcWS6avYoGfdiMI2tkYc=;
- b=tsCKetg4cGzfBLZrpf//eSVrQXcssGgd3+f1L8kjFth23P7vKoY2Blz6G/IBmySCOn
- YrtJSLsuI6xefSX2meHm7eAhnJxxMJbwOCcAfEnO3ziqXeYHPR9BdUNsIJXIx0RGksB3
- Gek+yhVife6sRt5DEwgcdAfugDuuKB521Wbr2OnjIJxNqjUf1XVoON5zq/t8WqJfWpxP
- fAuqisF04RWBI6UkZ/4NmgeM08DBKFFzB0LvgSPXzlyB4wrhr3lOaPAS9DL0jZNV2GqA
- 1GnhXgr9O04oD5KYZj7bdl4h+KQD5n2vS1c4sPC9pONosPRq9dCLe6Fur6gulUF5LqhI
- dkCA==
+ bh=5ACc2wYNgnLNcX0Rbs5d+42G8UuKrSfryrlzJzSAIts=;
+ b=wlShYZJ8lFvIJLagS2Q5KyjK6zebrBGV2fJaeW9jZu0bbQ3MSQAvDbxb42scWroKec
+ HKSB5W6+JUzxgEX0myGI9hP1mye13eNKTzKNZ0rWd5ulrSW1hVaAufecqusILLDF/DRF
+ 8xMw+20tszSx662mEfrBeqoSxvBXG0Ws0cE8g3MtmYkfmFLTvdS0XW/UEBdBE9IUfkll
+ /CviLsOVfirK941CcxCDo38S86FQwkov4J1L0nXpdAHTjj27c2RoTKzN4qZgiamwvkXL
+ 4Wg0v5qK5hz0xRVd7d3EbbjQ/aLDFV96m9q0CQl0ND//EO5NGjXwBeuIKkAO9a678Fae
+ x8iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725536050; x=1726140850;
+ d=1e100.net; s=20230601; t=1725536070; x=1726140870;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bLDmb4u45gfKegGAaWlNWOEqcWS6avYoGfdiMI2tkYc=;
- b=rrUt73KFG9EpngDoMXCYLgJ/vgssRpgbBYhBKINoeDzhzNNkEi6x9kXnNgMw/Ld31Y
- KDxVPyR+aqt8xkt8J+Gh3lYtV5wJq66JVgOGfQdx5XJhxLMxXsRFBylmkg/a5EESJEfI
- dtBNYkT4sU0zf5O9bFYGjAPgBu/+3sa+UHHRg49Wb/9twRbTRA/cuD48nVCLEzYTwV8k
- VfW2ee9TFr//lEMor2LOh9WZSxYVGPnIHGQTimVv+5+PIftGM8ZY+BFG1FcgZ4AM8ESP
- xsLp2TCZt57xKO1ZgD2tzEMYWbOT2z5dBGsMZCJzsqtqwyUTU7jUFMArbkQRjtaBKwJa
- qIrQ==
+ bh=5ACc2wYNgnLNcX0Rbs5d+42G8UuKrSfryrlzJzSAIts=;
+ b=lCBURhBZz1/cAzI35nzqD0/DwNpXjCO4uPM79qIP3CIN5tL5DAMf1n8kLswz8QuxM9
+ oCiwqQ3h14yzHwO3zB0/vDuunbOe2QY7K74w1Nou1tjuGxoRlW3rQ6OT3MTC3whdfTMj
+ oWXVLlWge7mrO6E1wahldHqW3d+RIcHm3cEdgTJNa+UaErbrny3NKDwIruOIM8NDd2Gl
+ RC6scDG+e5/wjvfRwmXO6sqKYQE9UxFCHUOyTZRo/FCty829D483eUTjnHzaGBeIpBUP
+ cOH3wkhZv/WHKudCbhzh58xlurGCiW1reiakSc61d+53vg6V0lPXeCGud+XCLNPRLGao
+ nNLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUjW6BoVkOBgNX45C44nCco3K+9jVY2fEdZ7J/X6CJmuCC63l1Gfma5FYsRkhkPIo48zxrn42egHjDm0g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwFZXZ0ZQoC80gQTdHuXW6By5K0Bl9va21hgvZJp2NspwuUrx+H
- NcezSGWBcVAcZWflqzOeIr793B3P1DedlqHgueQSRd+DGjpBAkNz7yXdJjEQZ1p7nyzRrdCQ1nB
- HeYYEMbglpM/qcrbgUiLjwuF7tE3hoom2mznBMA==
-X-Google-Smtp-Source: AGHT+IGzsgH7C+tzPtSN8VBNWiDdDaXjEPSwwJUrmvuJsG+F6lPhfUKhjc6NKXyqkx2vA55fxHGPX68sblNZHKLWO6o=
-X-Received: by 2002:a05:6512:3da4:b0:530:e0fd:4a97 with SMTP id
- 2adb3069b0e04-53546a55137mr16340997e87.0.1725536049827; Thu, 05 Sep 2024
- 04:34:09 -0700 (PDT)
+ AJvYcCUC26yLKl/KUyjyqjWFzvbqa3IbLXKQYUTNpmxDwe1WoioQnDKoPoUGkiWEg37V/A9G14h/+e5O47HYJA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz4rvzN4Q+NJlNJYGO0O1wrC/7jXacNYT3j+Gq4VZpIuQI+XT/z
+ 7h2Bq9th/MGt898Hs0ur3WINP9uaxpR/g2Avs7hYh5/yDlV0Irdsb4caBTHBHpXqquv1mtRCMfG
+ GQrHk6jETKThVlk4abbefu7ZK1L9hT8YqNyFvBwg5gsDUoBK8RaU=
+X-Google-Smtp-Source: AGHT+IGVpC5Qy1+xzqQNJjgo6dnKraFl3WJ0cAbDQLCTBkwJs4Trk5ZBWVFDjUFnDKTqTHXhQMXMA4pUSY2qB55hdUg=
+X-Received: by 2002:ac2:4c4a:0:b0:536:2356:5dce with SMTP id
+ 2adb3069b0e04-53623565f0fmr1850962e87.58.1725536069277; Thu, 05 Sep 2024
+ 04:34:29 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240902133148.2569486-1-andriy.shevchenko@linux.intel.com>
- <20240902133148.2569486-2-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20240902133148.2569486-2-andriy.shevchenko@linux.intel.com>
+ <20240902133148.2569486-3-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20240902133148.2569486-3-andriy.shevchenko@linux.intel.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Sep 2024 13:33:56 +0200
-Message-ID: <CACRpkdbskty+v0V90MrP5nm=S-mqHQq1B5C07QciaYJr09-88g@mail.gmail.com>
+Date: Thu, 5 Sep 2024 13:34:18 +0200
+Message-ID: <CACRpkdZ15jP429o2STJrjArsDRbr=sE27DnwFucpvz-ksEsReg@mail.gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/5] gpio: stmpe: Fix IRQ related error
-	messages
+Subject: Re: [Linux-stm32] [PATCH v1 2/5] gpio: stmpe: Remove unused 'dev'
+	member of struct stmpe_gpio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,18 +82,11 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 T24gTW9uLCBTZXAgMiwgMjAyNCBhdCAzOjMy4oCvUE0gQW5keSBTaGV2Y2hlbmtvCjxhbmRyaXku
-c2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBGaXJzdCBvZiBhbGwsIHJlbW92
-ZSBkdXBsaWNhdGUgbWVzc2FnZSB0aGF0IHBsYXRmb3JtX2dldF9pcnEoKQo+IGRvZXMgYWxyZWFk
-eSBwcmludC4gU2Vjb25kLCBjb3JyZWN0IHRoZSBlcnJvciBtZXNzYWdlIHdoZW4gdW5hYmxlCj4g
-dG8gcmVnaXN0ZXIgYSBoYW5kbGVyLCB3aGljaCBpcyBicm9rZW4gaW4gdHdvIHdheXM6Cj4gMSkg
-dGhlIG1pc2xlYWRpbmcgJ2dldCcgdnMuICdyZWdpc3Rlcic7Cj4gMikgbWlzc2luZyAnXG4nIGF0
-IHRoZSBlbmQuCj4KPiAoWWVzLCBmb3IgdGhlIGN1cmlvdXMgb25lcywgdGhlIGRldl8qKCkgY2Fz
-ZXMgZG8gbm90IHJlcXVpcmUgJ1xuJwo+IGFuZCBpc3N1ZSBpdCBhdXRvbWF0aWNhbGx5LCBidXQg
-aXQncyBiZXR0ZXIgdG8gaGF2ZSB0aGVtIGV4cGxpY2l0KQo+Cj4gRml4IGFsbCB0aGlzIGhlcmUu
-Cj4KPiBGaXhlczogMTg4MmU3NjkzNjJiICgiZ3Bpbzogc3RtcGU6IFNpbXBsaWZ5IHdpdGggZGV2
-X2Vycl9wcm9iZSgpIikKPiBTaWduZWQtb2ZmLWJ5OiBBbmR5IFNoZXZjaGVua28gPGFuZHJpeS5z
-aGV2Y2hlbmtvQGxpbnV4LmludGVsLmNvbT4KClJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxs
-aW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+c2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBUaGVyZSBpcyBubyBldmlkZW5j
+ZSB0aGF0IHRoZSAnZGV2JyBtZW1iZXIgb2Ygc3RydWN0IHN0bXBlX2dwaW8KPiBpcyB1c2VkLCBk
+cm9wIGl0Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmRyaXkuc2hldmNo
+ZW5rb0BsaW51eC5pbnRlbC5jb20+CgpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMu
+d2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
