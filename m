@@ -2,86 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00914970C4A
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Sep 2024 05:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF79D970DE1
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Sep 2024 08:30:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD746C7801C;
-	Mon,  9 Sep 2024 03:36:04 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45C5DC7801F;
+	Mon,  9 Sep 2024 06:30:42 +0000 (UTC)
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27570C7801B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2328CC78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Sep 2024 03:36:04 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 488NTALp023914;
- Mon, 9 Sep 2024 03:35:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- osMgB0mb3XqW8YTk8xRMOzQT5xdZ8ZkzCS7pK5HdoYo=; b=em0hMnqRUCGiPtzI
- fQFPxzDiO5uCrMxqUDNxBfC87qiUj8wcRebgZsjLMMzoQWo0f+TD/Q/x8I81bw6A
- cBAQvoqBOFYoau9N0Yy6Fm9HMT0gaTOwEEOYedoeb2b8mp/31+4YdkLIZaHXzfh1
- z3bXXjN3imF1xj4WhX1PmpvCGih50Fmixau07nm/WL+uPGEfmiTwVBDDhGYKJr7w
- y8RKg8vvZWXQoC1PwPtbbQB2bAilN/fwitY2Dbe0h909MltUeBCN1o0BZbbfF4b0
- YeNVFJhVvrkxKsTheZfgpL1JN9qfgapigw8FXQFR90DazGcZ6zHsujbP4NlcPl7T
- jrmtaw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy6p1jf2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Sep 2024 03:35:48 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4893ZlTN001745
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 9 Sep 2024 03:35:47 GMT
-Received: from jiegan-gv.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Sun, 8 Sep 2024 20:35:42 -0700
-From: Jie Gan <quic_jiegan@quicinc.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Mon, 9 Sep 2024 11:34:58 +0800
-Message-ID: <20240909033458.3118238-6-quic_jiegan@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240909033458.3118238-1-quic_jiegan@quicinc.com>
-References: <20240909033458.3118238-1-quic_jiegan@quicinc.com>
+ Thu,  5 Sep 2024 08:19:38 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id EA03A40E0284; 
+ Thu,  5 Sep 2024 08:19:36 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id j-7o-7WItxvG; Thu,  5 Sep 2024 08:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1725524372; bh=R5dGDsP5UUAqve48fbetJtWj/XRQVM4kjtwcRHxLMAQ=;
+ h=Date:From:To:Cc:Subject:From;
+ b=YI0oukfIcBgEqX45/5eMWLqZrS3JiUd4miyhCLXBj5TzeHrH66qLAP4+Qd+5mRNBP
+ 85oxAJO4MrFF1i5si0nCbjH/YhagZQYcGj97gJsHSNcw44iRLpyDzqhMt8QC/p/ZTM
+ J7rCC4CZ7lo7Ejeu/G5nMPzSupQHQojfS4skVYNXA/BuHCOyY4TF1rQ9VamQwR4hqa
+ NClV6N5oKL5UiKycbIkz9lv6rlNgIsa1RkWy15W8e8ZZeLnl5HSJdGgqP0VX3SsJZA
+ XkpelkbTyMTfU5ZJagmE/T6+rQyIptw+nJy2bX4hLT1iva1ouAY28XGLwqDUO+a8Bb
+ jS4fFCa4CskATy1EJenpNXZfAm7AfInhMv/wHlLzACOy++IuVv6mxAD6xsT3Bagc7g
+ 1mSKV/eSFpXQCrX1Vi/idqn9/7KhaiML5dE4emN0G8/fiP2F5spPINCs8SOzqU1dP4
+ h5QaLfZNc/9nTbf3TEsExuPcIpsEivDY6BGufLdtttcaz1VD3tQiFzNXCUXdaS8RDH
+ ImBkjTArDnHiKbynZKTQXEhx96onu6Y2/VYOmyTzPXI0T2ywf95rIfUsVMfr267UYo
+ OrJcSsCvRPTWiY/I1eZOG2cJ93dMJc+azmqaK65c5rZ8vXzUcSus6yHQ9FPyqQdSdP
+ iPO8kZ9XMo1/vJSkpcH0tzbs=
+Received: from zn.tnic (p5de8e8eb.dip0.t-ipconnect.de [93.232.232.235])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A61CF40E0275;
+ Thu,  5 Sep 2024 08:19:18 +0000 (UTC)
+Date: Thu, 5 Sep 2024 10:19:12 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: linux-stm32@st-md-mailman.stormreply.com
+Message-ID: <20240905081902.GAZtlpdlQp5XOm5XtO@fat_crate.local>
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: jvnNOCDB0sv-W--CU1BlIuN43YUNlREz
-X-Proofpoint-GUID: jvnNOCDB0sv-W--CU1BlIuN43YUNlREz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- bulkscore=0 lowpriorityscore=0 mlxlogscore=999 spamscore=0 phishscore=0
- impostorscore=0 suspectscore=0 mlxscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409090027
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
- coresight@lists.linaro.org, Yuanfang Zhang <quic_yuanfang@quicinc.com>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 09 Sep 2024 06:30:41 +0000
+Cc: dri-devel@lists.freedesktop.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 5/5] arm64: dts: qcom: Add CTCU and ETR
-	nodes for SA8775p
+Subject: [Linux-stm32] dw_mipi_dsi-stm.c:(.text+0x8db9a3): undefined
+ reference to `clk_hw_unregister'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,201 +74,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add CTCU and ETR nodes in DT to enable related functions.
+Hi all,
 
-Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
----
- arch/arm64/boot/dts/qcom/sa8775p.dtsi | 160 ++++++++++++++++++++++++++
- 1 file changed, 160 insertions(+)
+this fires in my randbuilds here:
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-index 23f1b2e5e624..a8b509495440 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-@@ -1664,6 +1664,35 @@ ice: crypto@1d88000 {
- 			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>;
- 		};
- 
-+		ctcu@4001000 {
-+			compatible = "qcom,sa8775p-ctcu";
-+			reg = <0x0 0x4001000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ctcu_in0: endpoint {
-+						remote-endpoint =
-+						<&etr0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ctcu_in1: endpoint {
-+						remote-endpoint =
-+						<&etr1_out>;
-+					};
-+				};
-+			};
-+		};
-+
- 		stm: stm@4002000 {
- 			compatible = "arm,coresight-stm", "arm,primecell";
- 			reg = <0x0 0x4002000 0x0 0x1000>,
-@@ -1867,6 +1896,129 @@ qdss_funnel_in1: endpoint {
- 			};
- 		};
- 
-+		replicator@4046000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x4046000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			out-ports {
-+				port {
-+					qdss_rep_out0: endpoint {
-+						remote-endpoint =
-+						<&etr_rep_in>;
-+					};
-+				};
-+			};
-+
-+			in-ports {
-+				port {
-+					qdss_rep_in: endpoint {
-+						remote-endpoint =
-+						<&swao_rep_out0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr: tmc@4048000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x4048000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04c0 0x00>;
-+
-+			arm,scatter-gather;
-+
-+			out-ports {
-+				port {
-+					etr0_out: endpoint {
-+						remote-endpoint =
-+						<&ctcu_in0>;
-+					};
-+				};
-+			};
-+
-+			in-ports {
-+				port {
-+					etr0_in: endpoint {
-+						remote-endpoint =
-+						<&etr_rep_out0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@404e000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x404e000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			out-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					etr_rep_out0: endpoint {
-+						remote-endpoint =
-+						<&etr0_in>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					etr_rep_out1: endpoint {
-+						remote-endpoint =
-+						<&etr1_in>;
-+					};
-+				};
-+			};
-+
-+			in-ports {
-+				port {
-+					etr_rep_in: endpoint {
-+						remote-endpoint =
-+						<&qdss_rep_out0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr1: tmc@404f000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x404f000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04a0 0x40>;
-+
-+			arm,scatter-gather;
-+			arm,buffer-size = <0x400000>;
-+
-+			out-ports {
-+				port {
-+					etr1_out: endpoint {
-+						remote-endpoint =
-+						<&ctcu_in1>;
-+					};
-+				};
-+			};
-+
-+			in-ports {
-+				port {
-+					etr1_in: endpoint {
-+						remote-endpoint =
-+						<&etr_rep_out1>;
-+					};
-+				};
-+			};
-+		};
-+
- 		funnel@4b04000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
- 			reg = <0x0 0x4b04000 0x0 0x1000>;
-@@ -1942,6 +2094,14 @@ out-ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-+				port@0 {
-+					reg = <0>;
-+					swao_rep_out0: endpoint {
-+						remote-endpoint =
-+						<&qdss_rep_in>;
-+					};
-+				};
-+
- 				port@1 {
- 					reg = <1>;
- 					swao_rep_out1: endpoint {
+vmlinux.o: warning: objtool: adis16400_write_raw() falls through to next function adis16400_show_serial_number()
+ld: vmlinux.o: in function `dw_mipi_dsi_stm_remove':
+dw_mipi_dsi-stm.c:(.text+0x8db9a3): undefined reference to `clk_hw_unregister'
+ld: vmlinux.o: in function `dw_mipi_dsi_clk_register':
+dw_mipi_dsi-stm.c:(.text+0x8db9f5): undefined reference to `clk_hw_register'
+ld: vmlinux.o: in function `lvds_remove':
+lvds.c:(.text+0x8dc605): undefined reference to `clk_hw_unregister'
+make[2]: *** [scripts/Makefile.vmlinux:34: vmlinux] Error 1
+make[1]: *** [/home/amd/bpetkov/kernel/linux/Makefile:1156: vmlinux] Error 2
+make: *** [Makefile:224: __sub-make] Error 2
+
+is there a fix somewhere?
+
+People love to do
+
+	depends on ... COMPILE_TEST
+
+but then if no one takes care of it in time:
+
+https://lore.kernel.org/oe-kbuild-all/202407212000.rpDH64jP-lkp@intel.com
+
+that COMPILE_TEST thing is forcing me to simply blacklist it and is not really
+helping.
+
+Thx.
+
 -- 
-2.34.1
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
