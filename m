@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213D296D746
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 13:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D0B096D749
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 13:36:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB79CC78013;
-	Thu,  5 Sep 2024 11:35:49 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7936C78013;
+	Thu,  5 Sep 2024 11:36:09 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 035BAC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 480AEC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 11:35:49 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-53653ff0251so506933e87.0
+ Thu,  5 Sep 2024 11:36:08 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5344ab30508so1643010e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 04:35:48 -0700 (PDT)
+ Thu, 05 Sep 2024 04:36:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1725536148; x=1726140948;
+ d=linaro.org; s=google; t=1725536167; x=1726140967;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7yk3x+ZbeN2BNhaMaKl08JcgwzeeYygIIBA3a3DlQOU=;
- b=eRwYWu5IrtPdCh5EYM7f9HVveF9AgvNQzRdUy02pQLcZhCITukh5pL+3j2wCRcHkqp
- u7lN27DJomAOJtZ8GP3U/sUDSFU4Ci5aeIVaKG2DkM2wGRncOsY69+VcOX0llSVKbi0V
- wOFOuxfzbo1MyC/fzApdT+Bb+EBNONvxERdwXqBGVPhnwKiey+CPGKfEziuxgibMtGsB
- sgmV8z8qF30T55TiPoWKi02N7KKMUzGWsdczZHPOeSAPRsFkUgDvmcO3FiusMgK4NejJ
- aq3DZuuxxPrAEGsfj8sJvLmr4S8NJdjtB6fdtjEwyuyfTCiqgBDX35bDBu+trx7X5xa4
- eHhQ==
+ bh=NqeRDA78MQ3vDbts7pFKQh7mMRZQyPlxwYc8d3EH1Jw=;
+ b=x20zLZUHYS2G6a7MVj/3pbX7fXBl1hL1jsFXIrxR0xEz43d3MmmTBocGKrWEmxim0n
+ ZGG+XWwivG9DFIa7a+at3UAEWijBH0pCQY5cXnYjqtZlK6MdMCsdR1HMtciF5hHkCTG2
+ Ph1o0kVRrUQFfk1HpBzkolePfInUATwRxP6mu06ELvYCeqghmBXCJwhMqYLttpJcfLCw
+ fimJ9rRUjw5XoAM8IOl92/vrwxJcKPtCNa5ayo7zlcUqae8JZj1peBa2aUVPUANUUfBg
+ WK/XFgA3x6Aq31pBVuvUYejcNQwM5N55NBas5aqi9dTV6TFvpL32fQG5x6pDFtAEIYek
+ 4pZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725536148; x=1726140948;
+ d=1e100.net; s=20230601; t=1725536167; x=1726140967;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7yk3x+ZbeN2BNhaMaKl08JcgwzeeYygIIBA3a3DlQOU=;
- b=hxJy3gkR4gi+9kVsUFVoYof44B1IedRL2rNtJ9r/IghrXPjVANq+/Zl4IRwfz229XM
- +1Jd6Z3haqL7PDADxOPyNc6qIf8LX+NYryrjTGe1pt0MCL3nlx/cYT0BBxw5GuFJoQaR
- eg4dN6zKDeICBWuYAzbH9KODPEtobi1Y0Is6VXpTq+J6UD/7q2w1UqfP1xG1HQomVq98
- iH/eKoaeP26ikgTgqRXtjORoQogDuivls0ha++5mhFmVin6hgvTRh3V1wO7FOKNZ1aMM
- HNHJtcTHaPB933bIA+iKSAPiIB9jUo9dszOqgn9PDAl0gFT1igHQ133CemsexmQ0TKxT
- ehcA==
+ bh=NqeRDA78MQ3vDbts7pFKQh7mMRZQyPlxwYc8d3EH1Jw=;
+ b=UVy6DFmPE6JEpUZ1jEvgAorc96uMrzzJ+8Ll5rhUu9ZM8AmZF/vRFZVi7yoiL1Cx90
+ dCrgfL18jEd4Gxim5yNbHYBC1+ltJCZDfSEwIOaCrLl1EvFeFhjiHm/yTLauC7c4mDwc
+ Pl0eiS6gQHgpHXP3xDgsq2eVsDZtNKNUNfcit7XFBBenAxwjbRCgmYYkySLtgnyUtSE+
+ Ejr5L5Wpr4GgAo4KlH1ztSbAB7chrrrJyJTvLNyKC0VzMUwQOowa47t5uJU8/fQzSHm6
+ /o3CGe2nyKFjeY+Fj8CBZ9t/H08SsAzEykCIvF+WDPWvJcA4tyjMBbtIUse1UWs80HLw
+ 2nXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHDW9wIp7BGTw2nO6oU9H3+Fcq3yuo1/cOKM7LPrsrzJ/vl+rWL6/nt0lqbI4AbxN4CnYA96JXql/qTg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw3Y/3BD22bi//fthkUWOMW3tSERZo8zX9b1KOmyNlXduJ+GFaA
- 1UzmCYZI0YCdYSE908T1zakRFjS3/v1Wxsb/UrT5sG07qVhoWRqK/WPofBHDgJe/3jWUVbSRT11
- NCGz2MqRq0JiCKsRrr3cp8UFhp1/tq5JDSsYwUw==
-X-Google-Smtp-Source: AGHT+IEjAFWpawyNYHX6o04UXdt1Y15kepVJVBWzcsdgvk6TbjbGz0vYtLmv8rsg/6hXc0HmbI0fHBkTDS09WeNY7AM=
-X-Received: by 2002:a05:6512:224a:b0:52b:de5b:1b30 with SMTP id
- 2adb3069b0e04-53546ba09afmr15547801e87.44.1725536147976; Thu, 05 Sep 2024
- 04:35:47 -0700 (PDT)
+ AJvYcCV04FXdobI8D1bnrcgfw2fMTk7J/OpwzJlUHgIxBhh8esTj+4k3IAtDYbalEpX3ri4VgKRESfjYXDbyQA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwANXHOC0OcLxOdBvYKyvm0Peho0fn3RcprD0CA+FcTfrNTMbnb
+ m1Aeuzr3T1MQpo9uydWMxyC/MEUol08UyMEirR0KKVFLOxHvQkLRDU0BoRmqE1DqCQJTFDIr800
+ iAAsnPKxJ028EjuNusUHuaLHG95ypStyRkoV9VQ==
+X-Google-Smtp-Source: AGHT+IH6BAyVUQLsDBUDRzOGArnxNvle63qAlyD9+MRHG/ncJc96g6GOqqfS74OGvIepzVBwxVMAFqSF0JP9xCZokxI=
+X-Received: by 2002:a05:6512:33d0:b0:52b:aae0:2d41 with SMTP id
+ 2adb3069b0e04-53567798531mr1471780e87.28.1725536167312; Thu, 05 Sep 2024
+ 04:36:07 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240902133148.2569486-1-andriy.shevchenko@linux.intel.com>
- <20240902133148.2569486-5-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20240902133148.2569486-5-andriy.shevchenko@linux.intel.com>
+ <20240902133148.2569486-6-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20240902133148.2569486-6-andriy.shevchenko@linux.intel.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Sep 2024 13:35:37 +0200
-Message-ID: <CACRpkdbVfJf_bte_0BoGK3eu80LjO1kLGP3QzgLO0_B1guuD0A@mail.gmail.com>
+Date: Thu, 5 Sep 2024 13:35:55 +0200
+Message-ID: <CACRpkdZWhWHjghg4NP2O0Jh6=gh30yt6EL9fz2nkCuHSQ+A8eg@mail.gmail.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 4/5] gpio: stmpe: Make use of device
-	properties
+Subject: Re: [Linux-stm32] [PATCH v1 5/5] gpio: stmpe: Sort headers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,12 +81,11 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 T24gTW9uLCBTZXAgMiwgMjAyNCBhdCAzOjMy4oCvUE0gQW5keSBTaGV2Y2hlbmtvCjxhbmRyaXku
-c2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBDb252ZXJ0IHRoZSBtb2R1bGUg
-dG8gYmUgcHJvcGVydHkgcHJvdmlkZXIgYWdub3N0aWMgYW5kIGFsbG93Cj4gaXQgdG8gYmUgdXNl
-ZCBvbiBub24tT0YgcGxhdGZvcm1zLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5keSBTaGV2Y2hlbmtv
-IDxhbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+CgpSZXZpZXdlZC1ieTogTGludXMg
-V2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+c2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBTb3J0IHRoZSBoZWFkZXJzIGlu
+IGFscGhhYmV0aWMgb3JkZXIgaW4gb3JkZXIgdG8gZWFzZQo+IHRoZSBtYWludGVuYW5jZSBmb3Ig
+dGhpcyBwYXJ0Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmRyaXkuc2hl
+dmNoZW5rb0BsaW51eC5pbnRlbC5jb20+CgpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGlu
+dXMud2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
+aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
