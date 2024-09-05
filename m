@@ -2,80 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF4CE96DCCA
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 16:58:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BDBA96E430
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 22:36:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F804C78013;
-	Thu,  5 Sep 2024 14:58:13 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 241AEC78013;
+	Thu,  5 Sep 2024 20:36:48 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C54BFC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B37AAC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 14:58:05 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a8a7dddd2aaso3013766b.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 07:58:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725548285; x=1726153085;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xylf9X58PdeAvnejc6uMarphR5HQ4AIAHZcsnVNJFQk=;
- b=MPXcg4cGXpW/jMrLj9IVjk+tRCpcRTDKErrB9ZP0Da3qnCu5NDBZjua2ceX1XRGpAU
- BQtQTVLrVpvgNp0dBtAX8FiQhpsNH9UQw5bYs6OT2NiR0nlrgN+x4KbQ+Mrq4K+R4Wu8
- 31e0B7aAf/pPsuyDJ8TzFkpfbTZxsA7DpLlH8P+yFWL2lvFb3hIqzvQCMN9R/iH6q57C
- VDE15GNVOStPRDXsERQSx2POzBCQN1lcR+5QU+7gXtEX1IEWpxRq2FSz1QmJ2CgPbM4Q
- 0PaEFLbd3PDFPqeS3pIY02IwuetRc7cnsHAL1KrQHdbIhFAV/cWUrOgx7WYHvmxR4bcy
- Mgrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725548285; x=1726153085;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xylf9X58PdeAvnejc6uMarphR5HQ4AIAHZcsnVNJFQk=;
- b=e6GqeOcxkaCYAYDJ8CDzFdcKyfGNNzbQCLVvb2y8VLqCMHVHEQqe3MWUuQl8Ezu0Vf
- PJTDQXUigI85Am2pgTETrcJgo3w83mZgNznqAdAcVbwL0BSoNfd70uAtQUXgwWqLZHXZ
- 5TKwGVPGpHY+k85+zoLTj8bLrshss0hw2o9IHOUGhryi6dv4yGZOtQAEU+NaUX9q6qZy
- kCOalFv8kbAibocilZotZRGpJtR6bl6aEefka3mspJQVnbE4JzIrXBWZVnYXHtUdhFa0
- llQuEZ/tUk9/pRAJjTws2v9TLbgRGRRQ/+nqosoT7pHcWXi6VuYXUMvGkSzvNUYOn70O
- PmHQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV89uU1HTSViKbWfCWXdR1YRPw8ZyxtQm4n+lAriW6LrDKxpUQugYV/SCrWRq5uxO64+76W+aNYF295iQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyfclJds+8soZMOxPc2d8rj/vGwCqYN6J0JgADWHu/hGVwMinPb
- VA6t1iypVtXfTfpg+l5Tg37dSh1bADx+Ggcui8OTbdW6TUu/tlUm
-X-Google-Smtp-Source: AGHT+IFWgUHQjpPyF03ycuCrazcYNTIjo4bK7NC3jvKTTABsJhGvL/b4OqvEVAPSV5x1wPS7VF4ZTg==
-X-Received: by 2002:a17:907:c21:b0:a7a:9d1e:3b28 with SMTP id
- a640c23a62f3a-a89a377d761mr914720066b.5.1725548285025; 
- Thu, 05 Sep 2024 07:58:05 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a623a464csm145762466b.150.2024.09.05.07.58.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 07:58:04 -0700 (PDT)
-Date: Thu, 5 Sep 2024 17:58:01 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240905145801.hyhjalu3bjfh5gs5@skbuf>
-References: <cover.1725518135.git.0x1207@gmail.com>
- <0b72fd0463b662796fd3eaa996211f1a5d0a4341.1725518135.git.0x1207@gmail.com>
+ Thu,  5 Sep 2024 20:36:40 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 8461E42B25
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+ t=1725568598; bh=xNa+Q8PSCW7m4DRccVXfDl/4+sYRB5egVm1KwZDSX3o=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=h0zoMm502MrG8P+tHBYLhudhoCbq24HA1qpkZtuUbwUtZTwObc1fXJaRRAVp8FhcR
+ nWvUYpxqk7s1CCA6d4ZAu87f2KG0CbR/VnnoPVuk9lrJafWcQ1J34H85Lvl6QXMctk
+ KLTGOAz5vZsqRLCTwY9a6AuRjwhTz367BjTSMbmRf5Iv/RsBJPWZ45b6pQ4Mlc2N5P
+ vKT+2Shk+oU/VZ6d+wxHOr8TVRNEzFrKQFe2xrVDnNqA1EOotMhzWEag/bPIy+p1na
+ 7RliLaleNk/AA3A5S6ceD25TJtqPxGrLtpWu453Kgj/JqRPvQXrzr0sGXm5eSVPugh
+ nVaTWsMGo1sYA==
+Received: from localhost (unknown [IPv6:2601:280:5e00:625::1fe])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id 8461E42B25;
+ Thu,  5 Sep 2024 20:36:38 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Amit Vadhavana <av2082000@gmail.com>, linux-doc@vger.kernel.org,
+ ricardo@marliere.net
+In-Reply-To: <20240817072724.6861-1-av2082000@gmail.com>
+References: <20240817072724.6861-1-av2082000@gmail.com>
+Date: Thu, 05 Sep 2024 14:36:37 -0600
+Message-ID: <87ttetg7my.fsf@trenco.lwn.net>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0b72fd0463b662796fd3eaa996211f1a5d0a4341.1725518135.git.0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- rmk+kernel@armlinux.org.uk, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v8 3/7] net: stmmac: refactor FPE
- verification process
+Cc: catalin.marinas@arm.com, dave.hansen@linux.intel.com,
+ conor.dooley@microchip.com, aou@eecs.berkeley.edu, hpa@zytor.com,
+ skhan@linuxfoundation.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel-mentees@lists.linux.dev,
+ costa.shul@redhat.com, mpe@ellerman.id.au, x86@kernel.org,
+ christophe.leroy@csgroup.eu, mingo@redhat.com, workflows@vger.kernel.org,
+ av2082000@gmail.com, naveen@kernel.org, npiggin@gmail.com, bp@alien8.de,
+ paul.walmsley@sifive.com, bhelgaas@google.com, tglx@linutronix.de,
+ linux-arm-kernel@lists.infradead.org, palmer@dabbelt.com,
+ mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH V2] Documentation: Fix spelling mistakes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,32 +64,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 05, 2024 at 03:02:24PM +0800, Furong Xu wrote:
->  struct stmmac_fpe_cfg {
-> -	bool enable;				/* FPE enable */
-> -	bool hs_enable;				/* FPE handshake enable */
-> -	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
-> -	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
-> +	/* Serialize access to MAC Merge state between ethtool requests
-> +	 * and link state updates.
-> +	 */
-> +	spinlock_t lock;
-> +
->  	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
-> +	struct timer_list verify_timer;
-> +	struct ethtool_mm_state state;
+Amit Vadhavana <av2082000@gmail.com> writes:
 
-I don't know what to say about keeping a full-blown struct
-ethtool_mm_state copy in struct stmmac_fpe_cfg.
+> Correct spelling mistakes in the documentation to improve readability.
+>
+> Signed-off-by: Amit Vadhavana <av2082000@gmail.com>
+> ---
+> V1: https://lore.kernel.org/all/20240810183238.34481-1-av2082000@gmail.com
+> V1 -> V2:
+> - Write the commit description in imperative mode.
+> - Fix grammer mistakes in the sentence.
+> ---
+>  Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst | 4 ++--
+>  Documentation/arch/arm64/cpu-hotplug.rst                 | 2 +-
+>  Documentation/arch/powerpc/ultravisor.rst                | 2 +-
+>  Documentation/arch/riscv/vector.rst                      | 2 +-
+>  Documentation/arch/x86/mds.rst                           | 2 +-
+>  Documentation/arch/x86/x86_64/fsgs.rst                   | 4 ++--
+>  Documentation/process/backporting.rst                    | 6 +++---
+>  7 files changed, 11 insertions(+), 11 deletions(-)
+>
 
-You don't populate two of its members: tx_active and tx_min_frag_size,
-and thus they would be invalid if anyone tried to access them. And two
-more of its member variables are populated with driver-constant values:
-max_verify_time and rx_min_frag_size.
+Applied, thanks.
 
-This leaves only verify_time, verify_status, pmac_enabled, tx_enabled,
-verify_enabled. Maybe it would be better to just open-code these
-variables directly in struct stmmac_fpe_cfg.
+jon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
