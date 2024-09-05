@@ -2,61 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8599A96D3C2
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 11:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F3F596D73C
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 13:34:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34693C78013;
-	Thu,  5 Sep 2024 09:45:44 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB55EC78013;
+	Thu,  5 Sep 2024 11:34:18 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAE9EC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54C7CC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 09:45:36 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4856GYJD014864;
- Thu, 5 Sep 2024 11:45:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=mPJMo2y3Tbwi4Cr9dgCAFk
- kPUt6Exg/qIR+SwZ3qQik=; b=JNJXRoCX21z2a/oXzIUdDlerUHbPLiyonGH6S4
- qCxHOk/uczwAR6XRZ4zPiBNybTXtfWtwFXI8b9Ubt+bvSafy1RiokEpP0DbHgu7t
- wjnbHYsZhqW09xh7sNi9wXsHSPWd/HcKZYHpuNTZ8cT+6G//Nudz4hnCYi2Ene5w
- nrDK6tRHnF9lc8zj0uFKq1fPD1DXceND5++yynKzdvjveA0Np8QYne+T0ULuUOpL
- eETTbJ1Bv1ssNnCRevdbS3F7sgL4sLXjK4cVqbHPxPvvHp5awgS7b9ONgcQv7ucV
- DQLCpmi4NOFaFnuhcd0i24Dte9072wfhFKTV2xGlwnSkazVg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41ce4jjmvp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Sep 2024 11:45:20 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6AE3740048;
- Thu,  5 Sep 2024 11:44:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 70FE4252258;
- Thu,  5 Sep 2024 11:43:33 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 5 Sep
- 2024 11:43:32 +0200
-Message-ID: <1091e600-f1e7-4d1f-b83d-c67e8073772c@foss.st.com>
-Date: Thu, 5 Sep 2024 11:43:32 +0200
+ Thu,  5 Sep 2024 11:34:11 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-533521cd1c3so811525e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Sep 2024 04:34:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1725536050; x=1726140850;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bLDmb4u45gfKegGAaWlNWOEqcWS6avYoGfdiMI2tkYc=;
+ b=tsCKetg4cGzfBLZrpf//eSVrQXcssGgd3+f1L8kjFth23P7vKoY2Blz6G/IBmySCOn
+ YrtJSLsuI6xefSX2meHm7eAhnJxxMJbwOCcAfEnO3ziqXeYHPR9BdUNsIJXIx0RGksB3
+ Gek+yhVife6sRt5DEwgcdAfugDuuKB521Wbr2OnjIJxNqjUf1XVoON5zq/t8WqJfWpxP
+ fAuqisF04RWBI6UkZ/4NmgeM08DBKFFzB0LvgSPXzlyB4wrhr3lOaPAS9DL0jZNV2GqA
+ 1GnhXgr9O04oD5KYZj7bdl4h+KQD5n2vS1c4sPC9pONosPRq9dCLe6Fur6gulUF5LqhI
+ dkCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725536050; x=1726140850;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bLDmb4u45gfKegGAaWlNWOEqcWS6avYoGfdiMI2tkYc=;
+ b=rrUt73KFG9EpngDoMXCYLgJ/vgssRpgbBYhBKINoeDzhzNNkEi6x9kXnNgMw/Ld31Y
+ KDxVPyR+aqt8xkt8J+Gh3lYtV5wJq66JVgOGfQdx5XJhxLMxXsRFBylmkg/a5EESJEfI
+ dtBNYkT4sU0zf5O9bFYGjAPgBu/+3sa+UHHRg49Wb/9twRbTRA/cuD48nVCLEzYTwV8k
+ VfW2ee9TFr//lEMor2LOh9WZSxYVGPnIHGQTimVv+5+PIftGM8ZY+BFG1FcgZ4AM8ESP
+ xsLp2TCZt57xKO1ZgD2tzEMYWbOT2z5dBGsMZCJzsqtqwyUTU7jUFMArbkQRjtaBKwJa
+ qIrQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjW6BoVkOBgNX45C44nCco3K+9jVY2fEdZ7J/X6CJmuCC63l1Gfma5FYsRkhkPIo48zxrn42egHjDm0g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwFZXZ0ZQoC80gQTdHuXW6By5K0Bl9va21hgvZJp2NspwuUrx+H
+ NcezSGWBcVAcZWflqzOeIr793B3P1DedlqHgueQSRd+DGjpBAkNz7yXdJjEQZ1p7nyzRrdCQ1nB
+ HeYYEMbglpM/qcrbgUiLjwuF7tE3hoom2mznBMA==
+X-Google-Smtp-Source: AGHT+IGzsgH7C+tzPtSN8VBNWiDdDaXjEPSwwJUrmvuJsG+F6lPhfUKhjc6NKXyqkx2vA55fxHGPX68sblNZHKLWO6o=
+X-Received: by 2002:a05:6512:3da4:b0:530:e0fd:4a97 with SMTP id
+ 2adb3069b0e04-53546a55137mr16340997e87.0.1725536049827; Thu, 05 Sep 2024
+ 04:34:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
- Hilman <khilman@baylibre.com>, <arm@kernel.org>, <soc@kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-05_05,2024-09-04_01,2024-09-02_01
-Cc: Marek Vasut <marex@denx.de>, Oleksij Rempel <o.rempel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.12#1
+References: <20240902133148.2569486-1-andriy.shevchenko@linux.intel.com>
+ <20240902133148.2569486-2-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20240902133148.2569486-2-andriy.shevchenko@linux.intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 5 Sep 2024 13:33:56 +0200
+Message-ID: <CACRpkdbskty+v0V90MrP5nm=S-mqHQq1B5C07QciaYJr09-88g@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 1/5] gpio: stmpe: Fix IRQ related error
+	messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,116 +76,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi ARM SoC maintainers,
-
-Please consider this first round of STM32 DT for v6.12 cycle.
-Main changes are for DH boards (MP13/MP15) and for Protonic
-(add of two new boards).
-
-This PR introduces YAML validation issues but all are fixed thanks to 
-subsystem next branch (net).
-
-Thanks
-Alex
-
-
-The following changes since commit 8400291e289ee6b2bf9779ff1c83a291501f017b:
-
-   Linux 6.11-rc1 (2024-07-28 14:19:55 -0700)
-
-are available in the Git repository at:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
-tags/stm32-dt-for-v6.12-1
-
-for you to fetch changes up to 7d6b8316ba139c5a7cbbaa888089d9f4eb527dc9:
-
-   ARM: dts: stm32: Use SAI to generate bit and frame clock on 
-STM32MP15xx DHCOM PDK2 (2024-09-05 11:31:56 +0200)
-
-----------------------------------------------------------------
-STM32 DT for v6.12, round 1
-
-Highlights:
------------
-
-- MPU:
-   - STM32MP13:
-     - DH DHSBC board:
-       - Fix Ethernet: MDIO lines in sleep,  disable PHY clock out.
-       - Add nvmem cells for ETH MAC address (use OTP to get MAC addr)
-       - Add led usage for RTL8211 PHY.
-
-   - STMP32MP15:
-     -  Protonic boards:
-       - Fix QSPI pins configuration for prtt1x boards.
-       - Add new MECI01 and MECT1S boards support:
-         - MECIO1: I/O and motor control used in blood sample anlysis.
-         - MECT1S: 1000 base-T1 switch for internal machine networks
-	          of blood sample analysis machines.
-
-     - DH PDK2 board:
-       - Use SAI to generate bit and frame clock.
-
-----------------------------------------------------------------
-David Jander (1):
-       ARM: dts: stm32: Add MECIO1 and MECT1S board variants
-
-Marek Vasut (7):
-       ARM: dts: stm32: Keep MDIO bus in AF across suspend DH 
-STM32MP13xx DHCOR DHSBC board
-       ARM: dts: stm32: Disable PHY clock output on DH STM32MP13xx DHCOR 
-DHSBC board
-       ARM: dts: stm32: Add ethernet MAC nvmem cells to DH STM32MP13xx 
-DHCOR DHSBC board
-       ARM: dts: stm32: Describe PHY LEDs in DH STM32MP13xx DHCOR DHSBC 
-board DT
-       ARM: dts: stm32: Sort properties in audio endpoints on 
-STM32MP15xx DHCOM PDK2
-       ARM: dts: stm32: Switch bitclock/frame-master to flag on 
-STM32MP15xx DHCOM PDK2
-       ARM: dts: stm32: Use SAI to generate bit and frame clock on 
-STM32MP15xx DHCOM PDK2
-
-Oleksij Rempel (2):
-       ARM: dts: stm32: stm32mp151a-prtt1l: Fix QSPI configuration
-       dt-bindings: arm: stm32: Add compatible strings for Protonic boards
-
-Sean Nyekjaer (1):
-       ARM: dts: stm32: Add missing gpio options for sdmmc2_d47_pins_d
-
-  Documentation/devicetree/bindings/arm/stm32/stm32.yaml |   8 ++++
-  arch/arm/boot/dts/st/Makefile                          |   3 ++
-  arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi            |  20 +++++++--
-  arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts       |  44 
-+++++++++++++++++++
-  arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi            |   3 ++
-  arch/arm/boot/dts/st/stm32mp151a-prtt1a.dts            |  12 ++---
-  arch/arm/boot/dts/st/stm32mp151a-prtt1c.dts            | 108 
-++++++++++++++++++++-------------------------
-  arch/arm/boot/dts/st/stm32mp151a-prtt1l.dtsi           | 126 
-+++++++++++++++++++++++++----------------------------
-  arch/arm/boot/dts/st/stm32mp151a-prtt1s.dts            |  16 +++----
-  arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts          |  48 
-++++++++++++++++++++
-  arch/arm/boot/dts/st/stm32mp151c-mect1s.dts            | 290 
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts          |  48 
-++++++++++++++++++++
-  arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi         | 527 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi       |  12 ++---
-  14 files changed, 1109 insertions(+), 156 deletions(-)
-  create mode 100644 arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts
-  create mode 100644 arch/arm/boot/dts/st/stm32mp151c-mect1s.dts
-  create mode 100644 arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts
-  create mode 100644 arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBTZXAgMiwgMjAyNCBhdCAzOjMy4oCvUE0gQW5keSBTaGV2Y2hlbmtvCjxhbmRyaXku
+c2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBGaXJzdCBvZiBhbGwsIHJlbW92
+ZSBkdXBsaWNhdGUgbWVzc2FnZSB0aGF0IHBsYXRmb3JtX2dldF9pcnEoKQo+IGRvZXMgYWxyZWFk
+eSBwcmludC4gU2Vjb25kLCBjb3JyZWN0IHRoZSBlcnJvciBtZXNzYWdlIHdoZW4gdW5hYmxlCj4g
+dG8gcmVnaXN0ZXIgYSBoYW5kbGVyLCB3aGljaCBpcyBicm9rZW4gaW4gdHdvIHdheXM6Cj4gMSkg
+dGhlIG1pc2xlYWRpbmcgJ2dldCcgdnMuICdyZWdpc3Rlcic7Cj4gMikgbWlzc2luZyAnXG4nIGF0
+IHRoZSBlbmQuCj4KPiAoWWVzLCBmb3IgdGhlIGN1cmlvdXMgb25lcywgdGhlIGRldl8qKCkgY2Fz
+ZXMgZG8gbm90IHJlcXVpcmUgJ1xuJwo+IGFuZCBpc3N1ZSBpdCBhdXRvbWF0aWNhbGx5LCBidXQg
+aXQncyBiZXR0ZXIgdG8gaGF2ZSB0aGVtIGV4cGxpY2l0KQo+Cj4gRml4IGFsbCB0aGlzIGhlcmUu
+Cj4KPiBGaXhlczogMTg4MmU3NjkzNjJiICgiZ3Bpbzogc3RtcGU6IFNpbXBsaWZ5IHdpdGggZGV2
+X2Vycl9wcm9iZSgpIikKPiBTaWduZWQtb2ZmLWJ5OiBBbmR5IFNoZXZjaGVua28gPGFuZHJpeS5z
+aGV2Y2hlbmtvQGxpbnV4LmludGVsLmNvbT4KClJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxs
+aW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
