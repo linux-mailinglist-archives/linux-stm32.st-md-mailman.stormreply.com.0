@@ -2,68 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94BC96D083
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 09:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B4E96D2C0
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 11:07:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 631C4C78018;
-	Thu,  5 Sep 2024 07:36:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3FE4C78013;
+	Thu,  5 Sep 2024 09:07:05 +0000 (UTC)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9ED8C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CA6DC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 07:36:36 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4857Xx6D018650;
- Thu, 5 Sep 2024 09:36:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- KjkakOszw+d3m2thfD6inylI6ygEJzIsOxIYoDK0ALw=; b=bxfBW3nHZj5NfhuI
- d36WBhM/6cEGBAtbL+Qtqzw/vW8qBsR35yKUUuAOIW1m59OFJmDorfDATgp7wxO6
- 4eLSiqkw/CCeGl7K1nw+37qJkBlwEcp3N3AK9acNHxQnb6hnJ3xd+IDYmpqrWP0V
- iBRX4J2QiUyc6KvpUzZ0TTSnakJbj3JpvYwPliSURaOPS9fwpCxpwCfTTUkYK74b
- 9hOAShZPPjPx/aCZyhJIgZT/P+rQNx2n85FN5RxojhlOhGj5IS9bHOpIsyPR3Jmy
- Zfakk0WYJxVbZVH9JH4+3x8/moWwn7mwnq1GiNfG8P9SWWnGCD+oR+GzbHjv1KdH
- qpAcEg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41btgy533w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Sep 2024 09:36:10 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7C34C40047;
- Thu,  5 Sep 2024 09:35:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 79DAD23F480;
- Thu,  5 Sep 2024 09:34:30 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 5 Sep
- 2024 09:34:29 +0200
-Message-ID: <10cc8788-260a-43a3-9f46-12a730962449@foss.st.com>
-Date: Thu, 5 Sep 2024 09:34:29 +0200
+ Thu,  5 Sep 2024 09:06:59 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2f4f8742138so5863431fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Sep 2024 02:06:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725527218; x=1726132018;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7a9eA0yUdZtAcxMzsuuAdHiqNG9lReTW+KBbCyW2EoM=;
+ b=Mm7loNuuXDL3UkFnDdyfblZthxOOgkrZUEiea/dWIN6e3cG7W8W9yvvxNRK0pIKqBx
+ 83OhH7a1U5TZsyBgxQxmtlgkupSl6erN4E3IE+FumaoubdFizIhu/DJ7sF55Xtq7iDFP
+ AcCbhkNX80+LaKdvSx+CaYB4CXVMmXyrNrevIGrsDIxUhsWbIqnamDsgjbyCZEhC5NHs
+ z4aZ6+PbrjRStiHT86f/a6rILvwnZU9evoQSF/CPUWMyewzgQzHrPQfFyXtSQiRd0zHw
+ LOLqNtklSc/teyin87KMVd0gLcQ75AeAwAeBJ1ZfG5YmDHPd45LlvMqxBwRD7kLt5Aul
+ W80A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725527218; x=1726132018;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7a9eA0yUdZtAcxMzsuuAdHiqNG9lReTW+KBbCyW2EoM=;
+ b=JyZ0Ao5Sv5DotFPpVHQ2BtYQpQWGhwuD2io++qGc/mdFTtRB/NSiDrMt1oTtLkwxVJ
+ L7NZv/0K9PvRYYVrCjFwK2PL3m2RvJIZEa0pbbUYa6CM3h8j8umQwL0LBFqAjksJab+3
+ 28Ij28S6gAQ0+C+x5dQeByOOHoWc6uwOnADjrkrgPQk71TQZgFsNnp40Y5iPT8iyMpq1
+ S4g8nh+gRjgzsrarD3aXx8CChl+C4Mmweb/3YDp9W37Yrxfs3AiTgRAMm5LxFodSj4bN
+ hr6/5S3qJxKzvsZEz4jAHZzyQToC4ebBPw4Fr7dGKRWMVb6xxB73ZeeqHUOKHVKh97ea
+ 3iNQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtVvOHbFRCxJhisoT4Wb5SN0AKI5tDnSkxIYXWDVkm/24fHxXxzzkJoPg2kiWj1suxTygY8Oqi52TQqg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzgms8A+BJMpcZ6YEehTjkxdJ70FWSaZhNc0i7ePWAAzLinfUwv
+ D3H1LCMej2Kx2Od6UbfUMGOLC6uHeJTmV0WD+Yff3twn5P2ciGQmdoJYyMMqzUQ=
+X-Google-Smtp-Source: AGHT+IFSI5lj6rwftgWCpFh5EKDnxXc7Y6Pjuctts1dZ7WJpCwziqAL0dEhqVe5Igk8aaH8eoiJBbA==
+X-Received: by 2002:a05:6512:33c8:b0:535:6bb6:e7b5 with SMTP id
+ 2adb3069b0e04-5356bb6e93dmr1854557e87.9.1725527218002; 
+ Thu, 05 Sep 2024 02:06:58 -0700 (PDT)
+Received: from localhost (p5dc68f76.dip0.t-ipconnect.de. [93.198.143.118])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8a61fbaf77sm107827666b.39.2024.09.05.02.06.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2024 02:06:57 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	linux-pwm@vger.kernel.org
+Date: Thu,  5 Sep 2024 11:06:24 +0200
+Message-ID: <20240905090627.197536-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20240830215701.103262-1-marex@denx.de>
- <20240830215701.103262-3-marex@denx.de>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20240830215701.103262-3-marex@denx.de>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-05_04,2024-09-04_01,2024-09-02_01
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1511;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=9YAv06fWG26oklo9XdJghSD4Pq6gsCOwAPUQlIpjLWc=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBm2XSTO2fuoUly3bf3CcnfPnw65cjTrC1kFih7w
+ 70NCDxDEy+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZtl0kwAKCRCPgPtYfRL+
+ TkXxB/9k3jZR9QzT8q4GtLtVtIwb1PFWDvqB+N0lA5tphTB5aoqeaEuFra/CzE7hy0C0PgKPtIG
+ 5SLugAFZukofLefe4TsoriqxVT6svyUgOSBZNUdzRpwG7QjcD1+guffh0d2L9phVROZXX+IO6PC
+ 4/7dk8xiuP6pYqe+QVdWX1GBhQLBqbpnt95Zxvlz25khvECFI7tkU0o7bz0hBmDer71e3I/08pt
+ p+GztrpUeY6/envxBziXn7FumPCfu8uL/VcOwQ9ytDDeNfEmKiZ6+ZtePsArEAm9Eij9wsi1o2q
+ CICPfk/+HJnaj/hdQXj6bZia/41Z+g8HYm7TAqhngiIMuITd
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Use SAI to generate
- bit and frame clock on STM32MP15xx DHCOM PDK2
+Subject: [Linux-stm32] [PATCH] pwm: stm32: Use the right CCxNP bit in
+	stm32_pwm_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,42 +90,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
-
-On 8/30/24 23:56, Marek Vasut wrote:
-> By default the SGTL5000 derives bit and frame clock from MCLK, which
-> does not produce particularly accurate results. The SGTL5000 PLL does
-> improve the accuracy, but also increases power consumption. Using the
-> SoC SAI interface as bit and frame clock source results in the best
-> accuracy without the power consumption increase downside. Switch the
-> bit and frame clock direction from SAI to SGTL5000, reduce mclk-fs to
-> match.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->   arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
-
-3 PHDK2 patches applied on stm32-next.
-
-Thanks
-Alex
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIHB3bSBkZXZpY2VzIGZvciBhIHB3bV9jaGlwIGFyZSBudW1iZXJlZCBzdGFydGluZyBhdCAw
+LCB0aGUgZmlyc3QgaHcKY2hhbm5lbCBob3dldmVyIGhhcyB0aGUgbnVtYmVyIDEuIFdoaWxlIGlu
+dHJvZHVjaW5nIGEgcGFyYW1ldHJpc2VkIG1hY3JvCnRvIHNpbXBsaWZ5IHJlZ2lzdGVyIGJpdCB1
+c2FnZSBhbmQgbWFraW5nIHRoYXQgb2Zmc2V0IGV4cGxpY2l0LCBvbmUgb2YKdGhlIHVzYWdlcyB3
+YXMgY29udmVydGVkIHdyb25nbHkuIFRoaXMgaXMgZml4ZWQgaGVyZS4KCkZpeGVzOiA3Y2VhMDVh
+ZTFkNGUgKCJwd20tc3RtMzI6IE1ha2UgdXNlIG9mIHBhcmFtZXRyaXNlZCByZWdpc3RlciBkZWZp
+bml0aW9ucyIpClNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2Vu
+aWdAYmF5bGlicmUuY29tPgotLS0KSGVsbG8sCgpkdXJpbmcgcmV2aWV3IG9mIGEgcGF0Y2ggdG8g
+dGhlIHN0bTMyIHB3bSBkcml2ZXIgRmFicmljZSBwb2ludGVkIG91dCBhCndyb25nIHVzYWdlIG9m
+IFRJTV9DQ0VSX0NDeE5FLiBXaGlsZSAoSSB0aGluaykgd2UgYm90aCBhc3N1bWVkIHRoaXMgd2Fz
+CmEgcHJvYmxlbSBpbiBzYWlkIHBhdGNoLCB0aGF0IHByb2JsZW0gZXhpc3RlZCBhbHJlYWR5IGJl
+Zm9yZSBhbmQgdGhlCnByb3Bvc2VkIGNoYW5nZSBqdXN0IG1vdmVkIHRoZSBwcm9ibGVtIGFyb3Vu
+ZC4gU28gaW5zdGVhZCBvZiAob25seSkKdXBkYXRpbmcgdGhlIHBhdGNoIGxhdGVyLCBoZXJlIGNv
+bWVzIGEgc2VwYXJhdGUgZml4IGZvciB0aGUgZHJpdmVyLgoKSSBpbnRlbmQgdG8gc2VuZCB0aGlz
+IHRvIExpbnVzIHRvbW9ycm93IHRvIGdldCBpdCBpbnRvIDYuMTEtcmM3LgoKQmVzdCByZWdhcmRz
+ClV3ZQoKIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEg
+aW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9wd20vcHdt
+LXN0bTMyLmMgYi9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwppbmRleCBmZDc1NGE5OWNmMmUuLmY4
+NWViNDFjYjA4NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLmMKKysrIGIvZHJp
+dmVycy9wd20vcHdtLXN0bTMyLmMKQEAgLTQxMiw3ICs0MTIsNyBAQCBzdGF0aWMgaW50IHN0bTMy
+X3B3bV9lbmFibGUoc3RydWN0IHN0bTMyX3B3bSAqcHJpdiwgdW5zaWduZWQgaW50IGNoKQogCS8q
+IEVuYWJsZSBjaGFubmVsICovCiAJbWFzayA9IFRJTV9DQ0VSX0NDeEUoY2ggKyAxKTsKIAlpZiAo
+cHJpdi0+aGF2ZV9jb21wbGVtZW50YXJ5X291dHB1dCkKLQkJbWFzayB8PSBUSU1fQ0NFUl9DQ3hO
+RShjaCk7CisJCW1hc2sgfD0gVElNX0NDRVJfQ0N4TkUoY2ggKyAxKTsKIAogCXJlZ21hcF9zZXRf
+Yml0cyhwcml2LT5yZWdtYXAsIFRJTV9DQ0VSLCBtYXNrKTsKIApiYXNlLWNvbW1pdDogODQwMDI5
+MWUyODllZTZiMmJmOTc3OWZmMWM4M2EyOTE1MDFmMDE3YgotLSAKMi40NS4yCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
