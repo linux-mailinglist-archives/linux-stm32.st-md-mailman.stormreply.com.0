@@ -2,83 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A2296CC7A
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 04:05:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7718C96CFF8
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 09:03:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F896C78018;
-	Thu,  5 Sep 2024 02:05:57 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24253C78018;
+	Thu,  5 Sep 2024 07:03:07 +0000 (UTC)
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C3EDC78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96593C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 02:05:48 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4850rGsO003593;
- Thu, 5 Sep 2024 02:05:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +JI2V/1jxpPZ4pbTR7FaveC1IbFHqMaF/rrhMycRsCA=; b=jwTeoRLoYxO013Ll
- hNI3ihFu93zwiOgIiPBfMxL3dmze+Q1VBDzJILiKq0o8DBM0OIoivRKLo7wIsBGe
- 923H4JijIExcEQue+Zq36R+LUUXFA57N7+94x9htynrA/LVMBXrdfqcKiVz0dpyR
- 9XcdZ5c2RxoUbPdiY7wBS1PBckuwDuNRDGorlbxCDrNlmedDXRiQeLXEG4AF+zn5
- U+1N8tcJifehjPQRUh+86Nxddu9MJfTbmoW+AkS51z5RPBCanuhVjo4eRHsRPO9t
- xwbG/C29L2qvws0Yl5KMsljbBo0V1yTCBM3VbtVXh2oI2620CCpCosnT4YVnnfEO
- YY1RpQ==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41buxfc9q1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Sep 2024 02:05:35 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48525YVE028438
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 5 Sep 2024 02:05:34 GMT
-Received: from [10.110.105.58] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 4 Sep 2024
- 19:05:30 -0700
-Message-ID: <e9ef3235-8e35-4918-a2a4-76573034ca59@quicinc.com>
-Date: Wed, 4 Sep 2024 19:05:22 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Sagar Cheluvegowda <quic_scheluve@quicinc.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
+ Thu,  5 Sep 2024 07:02:59 +0000 (UTC)
+Received: by mail-oo1-f42.google.com with SMTP id
+ 006d021491bc7-5e16cb56d4aso241898eaf.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Sep 2024 00:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1725519778; x=1726124578;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gGPyaa+1WDEMchRcuy5C5zdpNT7E1IN97l7V6rYpwAQ=;
+ b=bMbHvzrEKqLIArWjpaOhdtHMW7qJ+F3gXUJQO0xT3Nb8caHLAAbZ+lPtHoXxOlJ2tp
+ q5kjSm1SQpNfgb8Jmkn5t6eO1UE8eLB0gbQsg+jn1LDgrKU/9RIHsJ9tQys1wOs+UYUp
+ pF3P8M/e194IMWpF+5jLWAiwZTnSs/iakZs0lO2ezXbeHUsaAYALdBXGOgZgaTV3wIJu
+ tMNI2QXD2MpkGSS7D+5eRtPrYhhzBn3Kb+ye0N6m1FsKM7FH7u3Pka3V2YUn2DJlOpMr
+ qT7aFNIi45fW3b7zLf+Oh/QzQ8/xr6d3Wpb8V2CIuUgml6Sz3xuNZuUqkj2LlVG8hudU
+ GPWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725519778; x=1726124578;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gGPyaa+1WDEMchRcuy5C5zdpNT7E1IN97l7V6rYpwAQ=;
+ b=ZGz1FH1UiQxmoMMrNU52ultSUMmCLJ78E0DcUvCpCvgjV42C5jGHWcFhG+gmi1r7gu
+ H9yWEjPTBdzAEE9cd3mhISdtSuldnt1Qwb6T782KrnwIjqqoV6vQMRHE3/y2TQCLwteO
+ e83IQs3gr7q7CchkfzKxCJbDcme84Pi2FVki4R+nvGd5cVh/E7P7D87e8NvntHWn6oCc
+ nMT2MBEN0X9E/o6j2VUdTinkk6AoTW6xABs4JDRovcGCSMG6opaJXTNYL1zHhHRDRtRK
+ XG8TD5q1geVKoopiaKvG+fkKR/LNTSyHzF6j7Cx8wXxjxokyqQk3Zg+CV3VqKgl+zG8P
+ gdhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXBk8IK/kYsAbWWvlOnvVrxlHatI7Sji7ElSBJ1MyG1YcnonswPifPXfbU6FnFqkZEvKQoC89XUVwakUQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyxCESzdyUDSOGQwbMTNOS4q3FRaJRdqdkjova8qOJwlNe/BUtQ
+ T+fUdv//coRLQmRLW/JlmG28JcENF5UivxY2Ngz6E0FcVSreACXz
+X-Google-Smtp-Source: AGHT+IFEQpZl3ZnRXG3Y8a3KH8gtlt/4cKxL4Zrb6w6RD/CEHqKTJ40bzqvmaOsEUf2ErIgac3XQsw==
+X-Received: by 2002:a05:6358:590f:b0:1b7:fc1f:5b95 with SMTP id
+ e5c5f4694b2df-1b81240f229mr926884155d.14.1725519777913; 
+ Thu, 05 Sep 2024 00:02:57 -0700 (PDT)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-71778595107sm2604897b3a.150.2024.09.05.00.02.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2024 00:02:57 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
  "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>,
- Andrew Halaney <ahalaney@redhat.com>
-References: <20240904235456.2663335-1-quic_abchauha@quicinc.com>
- <c29ae5b4-fa2f-4dad-b32f-86838d846d35@quicinc.com>
-Content-Language: en-US
-From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-In-Reply-To: <c29ae5b4-fa2f-4dad-b32f-86838d846d35@quicinc.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: oSj-lMejUqYyyDRfPINlvdFFLLWhi40c
-X-Proofpoint-ORIG-GUID: oSj-lMejUqYyyDRfPINlvdFFLLWhi40c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-05_01,2024-09-04_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0
- adultscore=0 clxscore=1015 mlxlogscore=999 lowpriorityscore=0 phishscore=0
- bulkscore=0 mlxscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2407110000
- definitions=main-2409050015
-Cc: kernel@quicinc.com
-Subject: Re: [Linux-stm32] [PATCH net-next v1] net: stmmac: Programming
- sequence for VLAN packets with split header
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Joao Pinto <jpinto@synopsys.com>
+Date: Thu,  5 Sep 2024 15:02:21 +0800
+Message-Id: <cover.1725518135.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org, linux@armlinux.org.uk,
+ linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v8 0/7] net: stmmac: FPE via ethtool
+	+ tc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,42 +90,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Move the Frame Preemption(FPE) over to the new standard API which uses
+ethtool-mm/tc-mqprio/tc-taprio.
 
+Changes in v8:
+  1. use timer_delete_sync() instead of deprecated del_timer_sync()
+  2. check netif_running() to guarantee synchronization rules between
+  mod_timer() and timer_delete_sync()
+  3. split up stmmac_tc_ops of dwmac4, dwmac4+ and dwxgmac to give user
+  more descriptive error message
+  4. fix wrong indentation about switch-case
+  5. delete more unbalanced logs
 
-On 9/4/2024 6:12 PM, Sagar Cheluvegowda wrote:
-> 
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> index e0165358c4ac..dbd1be4e4a92 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
->> @@ -526,6 +526,17 @@ static void dwmac4_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
->>  	value |= GMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
->>  	writel(value, ioaddr + GMAC_EXT_CONFIG);
->>  
->> +	/* Additional configuration to handle VLAN tagged packets */
->> +	value = readl(ioaddr + GMAC_EXT_CFG1);
->> +	value &= ~GMAC_CONFIG1_SPLM;
->> +	/* Enable Split mode for header and payload at L2  */
->> +	value |= GMAC_CONFIG1_SPLM_L2OFST_EN << GMAC_CONFIG1_SPLM_SHIFT;
->> +	value &= ~GMAC_CONFIG1_SAVO;
->> +	/* Enables the MAC to distinguish between tagged vs untagged pkts */
->> +	value |= 4 << GMAC_CONFIG1_SAVO_SHIFT;
-> I checked the data book internally and see SAVO bit is used to indicate the
-> valueof the offset from the beginning of Length/Type field at which the header 
-> should be split, i see the length/type field remains to be 2bytes even in case
-> of tagged packets may be you need to keep the value of this field to 2bytes as
-> it was before but one thing which i am still not able to understand is that even
-> with the value of this field configured to 4 i don't see any packet corruption
-> issue, something which needs to be checked with HW folks. 
+Changes in v7:
+  1. code style fixes and clean up warnings reported by
+  patchwork netdev checks, no functional change intended
 
-Good catch Sagar. Let me check this internally and get back. 
+Changes in v6:
+  1. new FPE verification process based on Vladimir Oltean's proposal
+  2. embed ethtool_mm_state into stmmac_fpe_cfg
+  3. convert some bit ops to u32_replace_bits
+  4. register name and function name update to be more descriptive
+  5. split up stmmac_tc_ops of dwmac4+ and dwxgmac, they have different
+  implementations about mqprio
+  6. some code style fixes
 
->> +	value |= GMAC_CONFIG1_SAVE_EN;
->> +	writel(value, ioaddr + GMAC_EXT_CFG1);
->> +
->>  	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
->>  	if (en)
->>  		value |= DMA_CONTROL_SPH;
+Changes in v5:
+  1. fix typo in commit message
+  2. drop FPE capability check in tc-mqprio/tc-taprio
+
+Changes in v4:
+  1. reorder FPE-related declarations and definitions into clean groups
+  2. move mm_lock to stmmac_fpe_cfg.lock
+  3. protect user configurations across NIC up/down
+  4. block stmmac_set_mm() when fpe_task is in progress to finish
+  5. convert to ethtool_dev_mm_supported() to check FPE capability in
+  tc-mqprio/tc-taprio
+  6. silence FPE workqueue start/stop logs
+
+Changes in v3:
+  1. avoid races among ISR, workqueue, link update and
+  register configuration.
+  2. update FPE verification retry logic, so it retries
+  and fails as expected.
+
+Changes in v2:
+  1. refactor FPE verification process
+  2. suspend/resume and kselftest-ethtool_mm, all test cases passed
+  3. handle TC:TXQ remapping for DWMAC CORE4+
+
+Furong Xu (7):
+  net: stmmac: move stmmac_fpe_cfg to stmmac_priv data
+  net: stmmac: drop stmmac_fpe_handshake
+  net: stmmac: refactor FPE verification process
+  net: stmmac: configure FPE via ethtool-mm
+  net: stmmac: support fp parameter of tc-mqprio
+  net: stmmac: support fp parameter of tc-taprio
+  net: stmmac: silence FPE kernel logs
+
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  |  96 +++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  12 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   9 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |   6 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  22 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  30 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  91 ++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 276 ++++++++----------
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 153 +++++++---
+ include/linux/stmmac.h                        |  28 --
+ 11 files changed, 491 insertions(+), 242 deletions(-)
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
