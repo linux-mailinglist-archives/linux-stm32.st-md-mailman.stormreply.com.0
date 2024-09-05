@@ -2,81 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEF9C96D002
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 09:03:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B94BC96D083
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 09:36:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E9A6C7801A;
-	Thu,  5 Sep 2024 07:03:41 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 631C4C78018;
+	Thu,  5 Sep 2024 07:36:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA64AC78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9ED8C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 07:03:39 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-7cd967d8234so381894a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 00:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725519818; x=1726124618;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TfapUPCdk+siVEwgEq3PbpS5y/HhD3hQ8rgnXlxCpW0=;
- b=D8COOxkfC/8/syE0CtfPutQwsvkhLH24jWvv58tA3YPS/0ae5JfVTYi4UEp9yGfeCv
- SSgI12YwbbkyCHSqoe38lIPeHqIhGC4rL9ThlSoDVLyyHLJgzPXXaojXNpa/AAcAAZHr
- FIi8kAHvV+KSPucNGfb9FB6FUgVKfrr07SH4mktVOw5YgeqSXAvk7bKrHpTU++yZSzLI
- wrRfMfVUhcKgVxs/Z2OqkQ+Fe2hfgcKLLnml7RWJyr6HGscs+FFfvFJ4JWgDfC3zKJmi
- oq+vv/JVv7JawWQbuemKlKAuKlVoUYDjB97f0a9S42AKrisyTS3b9E46QRX2P64M5tMD
- V/ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725519818; x=1726124618;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TfapUPCdk+siVEwgEq3PbpS5y/HhD3hQ8rgnXlxCpW0=;
- b=U6fjFqLf5Gb4iAYxm6Slanc5u4Z1G4mts9jhxi2HHH05yZUYNOEz1MHTPxgFtJg9BO
- 8JmTuUZVRBRP/sVVcfRSjdnq29URaELuxxARPlJ7r76Kgor84iHnXvdJqyKsVd6izl2A
- EmGO06HWFXEFRDnD1LH9RaGFxxDq0jjTGURQkJ+yCnkYBdmalFomNd3g4OB5AzrNdAf2
- GDx9yUAGoG3PcsBMRZ5hvi9fVUYlN56HzdA+iN2x6aoDlWUMJc79FHUdei7f1TgVCIU5
- W5KMjYQvR7U1Gx2J7v1psCLxN2Ah2Dqp/eGhMWoY3a37sUKJloLbmj6owjoSm0SKdK84
- NO7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVO8K0fFL3FDzX/cJ9w53mwoOl8dZVFpLd83OKT6pWI9YGfJj6yf0lbTfCLtq6e4ECPmN4E+40uDPIYtA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyNU2qVgA52n0fJ1E3zeT/74lViciBVWnLO/XW3IYRCte+kI3g4
- tXlm02Dpr/FdCbUCHR53kNH3LinWXZ0ooPn96DslUBgyt13U0xeT
-X-Google-Smtp-Source: AGHT+IGii6PtVv9KvmKGnq1WevztWTEPtDxorA0y/riP75ryI+hbpR1PSKa2hS+6paAGe1PFO+09fg==
-X-Received: by 2002:a05:6300:4041:b0:1ce:cde2:4458 with SMTP id
- adf61e73a8af0-1ced053ba33mr16509365637.35.1725519818235; 
- Thu, 05 Sep 2024 00:03:38 -0700 (PDT)
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-71778595107sm2604897b3a.150.2024.09.05.00.03.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 00:03:37 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Serge Semin <fancer.lancer@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>
-Date: Thu,  5 Sep 2024 15:02:28 +0800
-Message-Id: <508ae4f14cf173c9bd8a630b8f48a59a777f716e.1725518136.git.0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1725518135.git.0x1207@gmail.com>
-References: <cover.1725518135.git.0x1207@gmail.com>
+ Thu,  5 Sep 2024 07:36:36 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4857Xx6D018650;
+ Thu, 5 Sep 2024 09:36:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ KjkakOszw+d3m2thfD6inylI6ygEJzIsOxIYoDK0ALw=; b=bxfBW3nHZj5NfhuI
+ d36WBhM/6cEGBAtbL+Qtqzw/vW8qBsR35yKUUuAOIW1m59OFJmDorfDATgp7wxO6
+ 4eLSiqkw/CCeGl7K1nw+37qJkBlwEcp3N3AK9acNHxQnb6hnJ3xd+IDYmpqrWP0V
+ iBRX4J2QiUyc6KvpUzZ0TTSnakJbj3JpvYwPliSURaOPS9fwpCxpwCfTTUkYK74b
+ 9hOAShZPPjPx/aCZyhJIgZT/P+rQNx2n85FN5RxojhlOhGj5IS9bHOpIsyPR3Jmy
+ Zfakk0WYJxVbZVH9JH4+3x8/moWwn7mwnq1GiNfG8P9SWWnGCD+oR+GzbHjv1KdH
+ qpAcEg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41btgy533w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Sep 2024 09:36:10 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7C34C40047;
+ Thu,  5 Sep 2024 09:35:05 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 79DAD23F480;
+ Thu,  5 Sep 2024 09:34:30 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 5 Sep
+ 2024 09:34:29 +0200
+Message-ID: <10cc8788-260a-43a3-9f46-12a730962449@foss.st.com>
+Date: Thu, 5 Sep 2024 09:34:29 +0200
 MIME-Version: 1.0
-Cc: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org, linux@armlinux.org.uk,
- linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 7/7] net: stmmac: silence FPE
-	kernel logs
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20240830215701.103262-1-marex@denx.de>
+ <20240830215701.103262-3-marex@denx.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240830215701.103262-3-marex@denx.de>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-05_04,2024-09-04_01,2024-09-02_01
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, kernel@dh-electronics.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Use SAI to generate
+ bit and frame clock on STM32MP15xx DHCOM PDK2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,78 +75,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ethtool --show-mm can get real-time state of FPE.
-fpe_irq_status logs should keep quiet.
+Hi Marek
 
-tc-taprio can always query driver state, delete unbalanced logs.
+On 8/30/24 23:56, Marek Vasut wrote:
+> By default the SGTL5000 derives bit and frame clock from MCLK, which
+> does not produce particularly accurate results. The SGTL5000 PLL does
+> improve the accuracy, but also increases power consumption. Using the
+> SoC SAI interface as bit and frame clock source results in the best
+> accuracy without the power consumption increase downside. Switch the
+> bit and frame clock direction from SAI to SGTL5000, reduce mclk-fs to
+> match.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>   arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c    | 8 ++++----
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 4 ----
- 2 files changed, 4 insertions(+), 8 deletions(-)
+3 PHDK2 patches applied on stm32-next.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index dd9583968962..580c02eaded3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -620,22 +620,22 @@ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
- 
- 	if (value & TRSP) {
- 		status |= FPE_EVENT_TRSP;
--		netdev_info(dev, "FPE: Respond mPacket is transmitted\n");
-+		netdev_dbg(dev, "FPE: Respond mPacket is transmitted\n");
- 	}
- 
- 	if (value & TVER) {
- 		status |= FPE_EVENT_TVER;
--		netdev_info(dev, "FPE: Verify mPacket is transmitted\n");
-+		netdev_dbg(dev, "FPE: Verify mPacket is transmitted\n");
- 	}
- 
- 	if (value & RRSP) {
- 		status |= FPE_EVENT_RRSP;
--		netdev_info(dev, "FPE: Respond mPacket is received\n");
-+		netdev_dbg(dev, "FPE: Respond mPacket is received\n");
- 	}
- 
- 	if (value & RVER) {
- 		status |= FPE_EVENT_RVER;
--		netdev_info(dev, "FPE: Verify mPacket is received\n");
-+		netdev_dbg(dev, "FPE: Verify mPacket is received\n");
- 	}
- 
- 	return status;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 05ffff00a524..832998bc020b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -1067,8 +1067,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 	if (ret)
- 		goto disable;
- 
--	netdev_info(priv->dev, "configured EST\n");
--
- 	return 0;
- 
- disable:
-@@ -1087,8 +1085,6 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 
- 	stmmac_fpe_map_preemption_class(priv, priv->dev, extack, 0);
- 
--	netdev_info(priv->dev, "disabled FPE\n");
--
- 	return ret;
- }
- 
--- 
-2.34.1
-
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
