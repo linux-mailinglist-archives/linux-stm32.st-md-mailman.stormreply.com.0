@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584A796DC8C
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 16:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCC096DC98
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 16:53:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CD83C78013;
-	Thu,  5 Sep 2024 14:52:42 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2275FC78013;
+	Thu,  5 Sep 2024 14:53:35 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BD59C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDAF5C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 14:52:34 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5c245580f5cso111425a12.0
+ Thu,  5 Sep 2024 14:53:33 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-5c243ef5322so148205a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 07:52:34 -0700 (PDT)
+ Thu, 05 Sep 2024 07:53:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725547954; x=1726152754;
+ d=gmail.com; s=20230601; t=1725548013; x=1726152813;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2g54gJr7dWkd7+x+HAWM4aabzzENjq1zl97emHDcyg0=;
- b=fiMZXXA2TY05GOIlmHaB5A3HY9sa61+BLg5dSPxclMqBrqE78bgHnq2oxpqA3MEcc3
- E1mWv7h4abnRENnadGaQU7cSQAjsaD3J3NzVa7e57HaVw91/n3ALNQD3npa9eJSDcjQ/
- 87/TiJLnUP0XueqDmm84k37bGkrFKDVaQozrkEAFCR4Rar26zi964Dxb6EmVVnu1zDMp
- iRwK7PrMeSwWFUSXeGfA21gwcF/gMKoCBYETa2SnD0T7xrmhioJ+5LazAy/tCY5GX30N
- ADgSz0P2y8kvIDQEV/Q4IS7OADz26vDwFiYDaKDoOsLqBVvtroDdYDCYkPXKCN1Z9SBB
- LNDg==
+ bh=ZR0iYi2IfJinEuVM0L8yEAQAxrisPIV++kgfxATokkM=;
+ b=X1KtS8BB189qT9bJmjyUMtegp6ghipN3MB+SmPRzP0VPZvK3td8es41g4hBNKPezXf
+ YZ7C2AaUvlXek2Tr4iXDyINg2rBYAYdg5FjE6R7Exl2GSyVSdOHblRKz6S5dnooNLEBq
+ tVy1Yo3Fh5TUyzSpXsw0tXWcsPZ5LuP5xdvcuHQWKAqrC9N4LRus18aQIfFXd24kdF9j
+ DgedIMGWoq2ycpcD7ntXAs9h+pIlMubfBFOONZe9EcPvrQI0y/0i9Ks4k7m+qTzmXh2e
+ 5yUFp5N9l4rRG7xYs8BgD06fRnHKdcY6HcfcPfwJPUmZG83TJR+t44y1tgm4ISqqxRxC
+ Vdag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725547954; x=1726152754;
+ d=1e100.net; s=20230601; t=1725548013; x=1726152813;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2g54gJr7dWkd7+x+HAWM4aabzzENjq1zl97emHDcyg0=;
- b=cPuG4NgIx6snwdEINp+j6yaAU8KVDLSq1/R+/TBlmhm3oRSPnli5lvfcgOzgWhT4L4
- cK4k/JKaqYYd3niHFqhadl7E3z2qK/SywYuj6wkMUm1jE6GORF7hC6+rrnxFftu4vZlG
- nTGEGFYHoWrX8b9valnBi60aJ9UPP1YjrSzjA3v3LO9F1RNAbwWznvq1vy+ZFSSYSUxE
- O8aLA3cmDhYfnBZQydTDSscfvNhg3TnpAbdt7+MD4lQDtKSIbltPamGpbEQoYDXtl7oo
- XCaBsgMggEvc3LZXHTFgYTChhRxvip83OOZ8M7OilbcnYo61lVqPBuUh8qxgHVO83r8w
- WA+g==
+ bh=ZR0iYi2IfJinEuVM0L8yEAQAxrisPIV++kgfxATokkM=;
+ b=EehG6XkMoV1wySo8wzTqfPh2i6WD7fae+zi1guA2UhCy/Itt3tcrBQslU0bgnvPqa3
+ OCKDEpgKN3V7WC1cSzXi+CdqGjNnX7aCamAYUbm4WOzRSrkU01JgMtDC4bWLwnYTU4Q5
+ JGP3dGpI+R2udjTCrmJX0Ktt/TAnTh9NsS5oDll8J4Eag8Hijixs7zN5exi1HXdBRKMT
+ gEgFn9hZgJ0GLozJqEJdXrJnQP92WcQEZw1zYJ9m7xOzRZ5rzmg1DtratluOWl+OQZfE
+ hkoZx/rjg7Fio2fPbAV5BXdlvxhWp/wqJTmSJvgzSpTlCr2JeWrcH61cO0nl2DC6jUH+
+ /3xw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUklDSnhYoo+2caRaUpJiDge38do2sJE9rvLfHDlbbOODwYd5rE7Fi9B7b6iQpZhbIszZuLC66bB4TgJQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyQRvzfAnzDmnfvZh55MpA3Jvo9pbyriOjIsqYLolNJ15HW0vMk
- hJ8d03uZEZ/7JphorG/nXTmT5ojhihfYDNAG+hKCLPbrAe7w9weF
-X-Google-Smtp-Source: AGHT+IEgYP9p1NEcW+b7LA2SeKoblfl5T6ojFMNpFfgzLYg4QChmu3Sjk2pZhSKhLGsFCf2S5rRTOQ==
-X-Received: by 2002:a05:6402:1ecb:b0:5c2:67da:9742 with SMTP id
- 4fb4d7f45d1cf-5c267da9903mr5148025a12.4.1725547953042; 
- Thu, 05 Sep 2024 07:52:33 -0700 (PDT)
+ AJvYcCXiBOZTLeL4DcIMaYOKdQk/smWukS2+ekOY02H9NbL+CtQu39+taeiYL8fQuQal8Xlv0YNpT1nBCtnXYg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy4LXpJsCJV1pelckQQdnsY/kCgVkJfhwRKPyaX+0NtQFkUOQed
+ PdzkYd2/F182Py2BamAQ88Y8SfRJ+NLvbB5Az4DUXP+619c1+ofX
+X-Google-Smtp-Source: AGHT+IHSJDF7488/JNd5/mBRKMIt/AGCz8WaJYYqZBzFyEHSWTtvg92OHespTIAyKntNsE/Yr1Q17g==
+X-Received: by 2002:a05:6402:35ca:b0:5c2:4e5b:d0cc with SMTP id
+ 4fb4d7f45d1cf-5c24e5bd937mr6396914a12.1.1725548012976; 
+ Thu, 05 Sep 2024 07:53:32 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc551234sm1303917a12.36.2024.09.05.07.52.31
+ 4fb4d7f45d1cf-5c3cc6a5cfasm1316252a12.92.2024.09.05.07.53.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 07:52:32 -0700 (PDT)
-Date: Thu, 5 Sep 2024 17:52:28 +0300
+ Thu, 05 Sep 2024 07:53:32 -0700 (PDT)
+Date: Thu, 5 Sep 2024 17:53:29 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240905145228.raglhbpikfxolgrw@skbuf>
+Message-ID: <20240905145329.bqarpzzaciluwdxi@skbuf>
 References: <cover.1725518135.git.0x1207@gmail.com>
  <cover.1725518135.git.0x1207@gmail.com>
- <55067bfa505933731cbd018d19213b89126321e3.1725518136.git.0x1207@gmail.com>
- <55067bfa505933731cbd018d19213b89126321e3.1725518136.git.0x1207@gmail.com>
+ <508ae4f14cf173c9bd8a630b8f48a59a777f716e.1725518136.git.0x1207@gmail.com>
+ <508ae4f14cf173c9bd8a630b8f48a59a777f716e.1725518136.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <55067bfa505933731cbd018d19213b89126321e3.1725518136.git.0x1207@gmail.com>
- <55067bfa505933731cbd018d19213b89126321e3.1725518136.git.0x1207@gmail.com>
+In-Reply-To: <508ae4f14cf173c9bd8a630b8f48a59a777f716e.1725518136.git.0x1207@gmail.com>
+ <508ae4f14cf173c9bd8a630b8f48a59a777f716e.1725518136.git.0x1207@gmail.com>
 Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
@@ -76,8 +76,8 @@ Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  rmk+kernel@armlinux.org.uk, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v8 6/7] net: stmmac: support fp
- parameter of tc-taprio
+Subject: Re: [Linux-stm32] [PATCH net-next v8 7/7] net: stmmac: silence FPE
+	kernel logs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,65 +94,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 05, 2024 at 03:02:27PM +0800, Furong Xu wrote:
-> tc-taprio can select whether traffic classes are express or preemptible.
+On Thu, Sep 05, 2024 at 03:02:28PM +0800, Furong Xu wrote:
+> ethtool --show-mm can get real-time state of FPE.
+> fpe_irq_status logs should keep quiet.
 > 
-> 0) tc qdisc add dev eth1 parent root handle 100 taprio \
->         num_tc 4 \
->         map 0 1 2 3 2 2 2 2 2 2 2 2 2 2 2 3 \
->         queues 1@0 1@1 1@2 1@3 \
->         base-time 1000000000 \
->         sched-entry S 03 10000000 \
->         sched-entry S 0e 10000000 \
->         flags 0x2 fp P E E E
-> 
-> 1) After some traffic tests, MAC merge layer statistics are all good.
-> 
-> Local device:
-> [ {
->         "ifname": "eth1",
->         "pmac-enabled": true,
->         "tx-enabled": true,
->         "tx-active": true,
->         "tx-min-frag-size": 60,
->         "rx-min-frag-size": 60,
->         "verify-enabled": true,
->         "verify-time": 100,
->         "max-verify-time": 128,
->         "verify-status": "SUCCEEDED",
->         "statistics": {
->             "MACMergeFrameAssErrorCount": 0,
->             "MACMergeFrameSmdErrorCount": 0,
->             "MACMergeFrameAssOkCount": 0,
->             "MACMergeFragCountRx": 0,
->             "MACMergeFragCountTx": 17837,
->             "MACMergeHoldCount": 18639
->         }
->     } ]
-> 
-> Remote device:
-> [ {
->         "ifname": "end1",
->         "pmac-enabled": true,
->         "tx-enabled": true,
->         "tx-active": true,
->         "tx-min-frag-size": 60,
->         "rx-min-frag-size": 60,
->         "verify-enabled": true,
->         "verify-time": 100,
->         "max-verify-time": 128,
->         "verify-status": "SUCCEEDED",
->         "statistics": {
->             "MACMergeFrameAssErrorCount": 0,
->             "MACMergeFrameSmdErrorCount": 0,
->             "MACMergeFrameAssOkCount": 17189,
->             "MACMergeFragCountRx": 17837,
->             "MACMergeFragCountTx": 0,
->             "MACMergeHoldCount": 0
->         }
->     } ]
-> 
-> Tested on DWMAC CORE 5.10a
+> tc-taprio can always query driver state, delete unbalanced logs.
 > 
 > Signed-off-by: Furong Xu <0x1207@gmail.com>
 > ---
