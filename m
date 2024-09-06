@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C05896F7A9
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 17:03:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B5A596F7AC
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 17:03:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1261CC78013;
-	Fri,  6 Sep 2024 15:03:45 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22DBBC7801A;
+	Fri,  6 Sep 2024 15:03:50 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BCCAC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C63EAC78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 15:03:44 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 79075E000F;
- Fri,  6 Sep 2024 15:03:41 +0000 (UTC)
+ Fri,  6 Sep 2024 15:03:49 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id F10221BF206;
+ Fri,  6 Sep 2024 15:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1725635023;
+ t=1725635029;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Ee9E1EaKOTlVdaGoV/jFTAD6cKrW6LwAZgqUGO3N8fI=;
- b=QFdduUkyT1+QwBo+jlvyJMYP3/45JVTkmvu1YL4mwpOQaUBF1aV/jkT92vRfa8v3SRbIqZ
- fk9Sf+TsTdH61rs3UzxlhLpC6Q7AP2yYrvo/6ici5ot19NZWbvbWuJfXIYTzRGW42988WJ
- I1KJDnY/Ysxq2db8P9yqJosCZpcc9iOTgQHFx0HO/ZV9wGiXDrwCM4Vh869XCOF3T0EIaI
- f0PA4B8JkRH1iJDwhoFpLxZtxIecWCDA4tbGw9FV9w6IFu2pwt0SpkPOS4cXDtMPFRNxPz
- Tfxgn6/Nl/KYg78OmDL12HTvgIlWD5IXAnugF/St6P5p8E03rJPuCp5gAa7Mbw==
+ bh=b8ODKZaCniGTHW6OkRl9tVAEUv9GIxZiiZmZyth8g8g=;
+ b=Vg4M17S0ts0e61e+Vye/efUQ1IIDQhnk6EdDJDu89ir9Pu5Y737hcF9pXu1NLMK2PEC4a7
+ NgTDWV9F3FKJX9LxL+M/+S9ZQ8/mP+T8IN5fOwRKtWlLpAdCcHdS5KWz/qY00/1+Vi12y8
+ THdSw45/vQW+CeaApXaPfGH8f9RFKLDjV4rbA7Lh+0bb+Uqv57plcCWHuputbDJKxDoBSg
+ IVEEfOHCmCtNK9t5txrASCVVXg9NNDdrN38ZjwliS3O5YvNykCR8nFDGclDB4RguZkBoTG
+ 0jh1yABAwDhXgY7mCgW6WuiUg6FDzPmpgHX8S8RTmOOYhUAWtzO4z5BRVNNbNQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Jinjie Ruan <ruanjinjie@huawei.com>, miquel.raynal@bootlin.com,
  michal.simek@amd.com, richard@nod.at, vigneshr@ti.com,
@@ -44,17 +44,17 @@ To: Jinjie Ruan <ruanjinjie@huawei.com>, miquel.raynal@bootlin.com,
  linux-amlogic@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, krzk@kernel.org, jic23@kernel.org
-Date: Fri,  6 Sep 2024 17:03:40 +0200
-Message-ID: <20240906150341.734598-1-miquel.raynal@bootlin.com>
+Date: Fri,  6 Sep 2024 17:03:46 +0200
+Message-ID: <20240906150346.734628-1-miquel.raynal@bootlin.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240826094328.2991664-8-ruanjinjie@huawei.com>
+In-Reply-To: <20240826094328.2991664-7-ruanjinjie@huawei.com>
 References: 
 MIME-Version: 1.0
 X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'8795952679494b111b7b2ba08bb54ac408daca3b'
+X-linux-mtd-patch-commit: b'ee06c7821d0426d0f998593cbc442757247e7cd6'
 X-GND-Sasl: miquel.raynal@bootlin.com
-Subject: Re: [Linux-stm32] [PATCH -next RESEND 07/10] mtd: rawnand: mtk: Use
-	for_each_child_of_node_scoped()
+Subject: Re: [Linux-stm32] [PATCH -next RESEND 06/10] mtd: rawnand: meson:
+	Use for_each_child_of_node_scoped()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,7 +71,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2024-08-26 at 09:43:25 UTC, Jinjie Ruan wrote:
+On Mon, 2024-08-26 at 09:43:24 UTC, Jinjie Ruan wrote:
 > Avoids the need for manual cleanup of_node_put() in early exits
 > from the loop.
 > 
