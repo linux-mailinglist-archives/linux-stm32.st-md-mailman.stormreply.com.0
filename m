@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C68B996E8D3
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 06:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBAF596E8D6
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 06:57:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F366C78013;
-	Fri,  6 Sep 2024 04:57:04 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 982F4C78018;
+	Fri,  6 Sep 2024 04:57:10 +0000 (UTC)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CE00C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6996FC78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 04:57:03 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-710a1bb9ecdso1130379a34.3
+ Fri,  6 Sep 2024 04:57:09 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-70f6a7c4dcdso1061939a34.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 21:57:03 -0700 (PDT)
+ Thu, 05 Sep 2024 21:57:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725598622; x=1726203422;
+ d=gmail.com; s=20230601; t=1725598628; x=1726203428;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yVrqVlledOe24UT3HTkVIrvC7QnAMFX2xjElHBP1Nwo=;
- b=lt+xLNZhpaZFO950rrtxMMnBgIuhUA6JbITtSZqs/dFv4OUdWyfqd4OQLZ8IsG/a22
- EcXt0nEtOutNrfBdJoo5mf2RyMNFKn7flrZUBe9PdSMXhiPYNn/WBO2bgGgvwYrKYWhr
- YZksCzUHIjtTcUme0JjG1Po6WGwiu5ixNLXTv9cGa2ro5FNy9DY6Qq7d55kbz/ejTu+9
- 3DNSIhJNUP/H1/2lAnUGBaJcedkrLk0EY7gAOa6VQ8NXIpDDk7I+GQMpYxayQXBBHjHo
- 42NzRS1NY3Qwa6tKiATAmHsbahUs8stQy9FLWSZoAfUAyvFZwaYTwGa11fNYQ4pdOt0i
- 2A3A==
+ bh=gj/t8zv5zEM8ykbWAIj163LrvaUZcMNe4Z//jXG9eTs=;
+ b=WefiD6YG7dFujt3DKjWYoA5du/Z2jYbfDkmWmYrRzdYn6UT/VPzMa+GwuNuamUDDHt
+ IhfJWjvKTr+ttjbb/dQu2MGnGLOWmTaadpf/KMxSS3FLoL0SKWQxXamCu4wWl98uKnUv
+ +WSfo4qtpkfKSQIBG21Zf09cKyz7T+m1ytNDvGRdYpcfGus4iJK0DoT9Vi6HE/OVNxEV
+ 0Qpidlel8UHvRG+pG0rbOkhLhJG1dWF5/73K0P6lzg8TaIynychrW3DFXgvLT+FiPjUJ
+ UrSTgWAftPpAqdhk9ZMRv01CoyS0iM5lFt9DhOa5EYBQVNXrHwVlleuk2uAMZ07uLKvK
+ S9SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725598622; x=1726203422;
+ d=1e100.net; s=20230601; t=1725598628; x=1726203428;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yVrqVlledOe24UT3HTkVIrvC7QnAMFX2xjElHBP1Nwo=;
- b=Upo8jG02TkTAxQbiplSICjGU9T4HQHPuNJdKAGHrtcVxvivKiZR0Xhh+GzmhaklTHk
- Ali/qFTEcg33W0isQ1sXP62zlxt7OZqqUKtbGemKRwApFDhPRMazkh8rDRUott5sgoUy
- 5vpe5B7neJXHX0QgpUvolzLV1hhJd3cnVmTrAVcW9E/jM/Y7SYiowk1yv7Lj3st5Yt5H
- eMNReKFttS5RGn80eX+RQP6FZZ3Mi9kvQLoyOPCWQs+1Nb/dhnsX4gLsqjw47/9Yq6iZ
- hmfzEBAPGNd+sN2X8pLek8EAK+3QFxtr7Zye1MAHL/QQ7mkSuvdepGMNaJPg5TZk+gM/
- 7LDA==
+ bh=gj/t8zv5zEM8ykbWAIj163LrvaUZcMNe4Z//jXG9eTs=;
+ b=N7srZCnDRuVtJyE5XFZ/EUVOnriyCcgAg8E4udheqgY5umF55QhkUGzMGqyTRfceM1
+ FNZdoODg/DexGT4ptJi933Ke+chUYbl7lvfxIZs13wU9oJXp9wDqi3h+i6oRe3DSag+P
+ oeYyQDfImpETgTWTtxiB4GlHvlYXx2y34JwDbBcqjfECzfSRffshdfOQlT1gDcmsMrQV
+ ZDoduy/M/Vu/GMmqFTWBVe7vM1FngO4aMbK076oqp9feAmcXOM+QSclGnbRn0En2ZKjD
+ /L020EDMk1tK6l9IhYDSmUCUqkw1s7Ni1ob2xJOS9NaYww/W/GlHxzBGAdxAJuoxd0tD
+ 2zoA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVgcpn+ROOQRWIxXuek91AdFIekmhJX2flu4U8clxYiTZN2bjiZxLKdjnhESyKLYN1YYpnC3z3auKp6Gw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzBzDJ57XAJ6qyer/DnSaIH/xiF/rG4JLPKOvlKYZUreAhxiDJJ
- x1YpHesf5lIlabeqAIr2eKX9yauuelaK1mRu5pkFmxlwjvZ6Stgo
-X-Google-Smtp-Source: AGHT+IEQQjEx8tkAfwbAeTn/6AJAVQgEFSE2ZKudGjLhzwsAULZD1vnYUnvC75zy66CTJbbtJbvyiw==
-X-Received: by 2002:a05:6358:99a0:b0:1aa:a01a:23da with SMTP id
- e5c5f4694b2df-1b8386f20c1mr160258655d.27.1725598622322; 
- Thu, 05 Sep 2024 21:57:02 -0700 (PDT)
+ AJvYcCVSiSNnj82x/qSUxR+Ukhx7SGmB1tSaWljlxasV0FEkJHq/mMQIjjJ0KhnPGG8pX8hyiSvTNsbYa7TJMQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxqS1tFMugLll8LkP6aBwvYVyi9TF9C9QzK//Noc+LaEZWCbYK+
+ cAPMJ9tvT4+RLdZIlZyaHToWkxcc2mevXUXg+16IVg8FxlTKAtan
+X-Google-Smtp-Source: AGHT+IGRYWT4g2pFYcTkuFsC+3xMEa32qeR1J75LNNbWHjFC+2w7kE4JUJE252ff/ck7oyVkmZoKrg==
+X-Received: by 2002:a05:6218:260d:b0:1aa:c73d:5a8a with SMTP id
+ e5c5f4694b2df-1b83866d4b0mr156332455d.16.1725598627965; 
+ Thu, 05 Sep 2024 21:57:07 -0700 (PDT)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-71791e54585sm1704002b3a.182.2024.09.05.21.56.57
+ d2e1a72fcca58-71791e54585sm1704002b3a.182.2024.09.05.21.57.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 21:57:01 -0700 (PDT)
+ Thu, 05 Sep 2024 21:57:07 -0700 (PDT)
 From: Furong Xu <0x1207@gmail.com>
 To: Vladimir Oltean <olteanv@gmail.com>, Serge Semin <fancer.lancer@gmail.com>,
  "David S. Miller" <davem@davemloft.net>,
@@ -64,8 +64,8 @@ To: Vladimir Oltean <olteanv@gmail.com>, Serge Semin <fancer.lancer@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Joao Pinto <jpinto@synopsys.com>
-Date: Fri,  6 Sep 2024 12:55:59 +0800
-Message-Id: <c8ca90a7b5ddc609ca15a2f6157939176cffb4bc.1725597121.git.0x1207@gmail.com>
+Date: Fri,  6 Sep 2024 12:56:00 +0800
+Message-Id: <90c7c47f89bfb1b611c20e5e4a1c477969e1dc84.1725597121.git.0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1725597121.git.0x1207@gmail.com>
 References: <cover.1725597121.git.0x1207@gmail.com>
@@ -73,8 +73,8 @@ MIME-Version: 1.0
 Cc: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org, linux@armlinux.org.uk,
  linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk, xfr@outlook.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v9 4/7] net: stmmac: configure FPE
-	via ethtool-mm
+Subject: [Linux-stm32] [PATCH net-next v9 5/7] net: stmmac: support fp
+	parameter of tc-mqprio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,232 +91,394 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Implement ethtool --show-mm and --set-mm callbacks.
+tc-mqprio can select whether traffic classes are express or preemptible.
 
-NIC up/down, link up/down, suspend/resume, kselftest-ethtool_mm,
-all tested okay.
+After some traffic tests, MAC merge layer statistics are all good.
+
+Local device:
+ethtool --include-statistics --json --show-mm eth1
+[ {
+        "ifname": "eth1",
+        "pmac-enabled": true,
+        "tx-enabled": true,
+        "tx-active": true,
+        "tx-min-frag-size": 60,
+        "rx-min-frag-size": 60,
+        "verify-enabled": true,
+        "verify-time": 100,
+        "max-verify-time": 128,
+        "verify-status": "SUCCEEDED",
+        "statistics": {
+            "MACMergeFrameAssErrorCount": 0,
+            "MACMergeFrameSmdErrorCount": 0,
+            "MACMergeFrameAssOkCount": 0,
+            "MACMergeFragCountRx": 0,
+            "MACMergeFragCountTx": 35105,
+            "MACMergeHoldCount": 0
+        }
+    } ]
+
+Remote device:
+ethtool --include-statistics --json --show-mm end1
+[ {
+        "ifname": "end1",
+        "pmac-enabled": true,
+        "tx-enabled": true,
+        "tx-active": true,
+        "tx-min-frag-size": 60,
+        "rx-min-frag-size": 60,
+        "verify-enabled": true,
+        "verify-time": 100,
+        "max-verify-time": 128,
+        "verify-status": "SUCCEEDED",
+        "statistics": {
+            "MACMergeFrameAssErrorCount": 0,
+            "MACMergeFrameSmdErrorCount": 0,
+            "MACMergeFrameAssOkCount": 35105,
+            "MACMergeFragCountRx": 35105,
+            "MACMergeFragCountTx": 0,
+            "MACMergeHoldCount": 0
+        }
+    } ]
+
+Tested on DWMAC CORE 5.10a
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
+Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  4 +
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 14 +++
- drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  6 ++
- drivers/net/ethernet/stmicro/stmmac/hwif.h    |  6 ++
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 96 +++++++++++++++++++
- 5 files changed, 126 insertions(+)
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  2 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 55 +++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  4 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |  6 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    | 12 +++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 94 +++++++++++++++++++
+ 7 files changed, 172 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 7947b1212a2d..679efcc631f1 100644
+index 679efcc631f1..a1858f083eef 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -1264,6 +1264,8 @@ const struct stmmac_ops dwmac410_ops = {
- 	.fpe_configure = dwmac5_fpe_configure,
- 	.fpe_send_mpacket = dwmac5_fpe_send_mpacket,
+@@ -1266,6 +1266,7 @@ const struct stmmac_ops dwmac410_ops = {
  	.fpe_irq_status = dwmac5_fpe_irq_status,
-+	.fpe_get_add_frag_size = dwmac5_fpe_get_add_frag_size,
-+	.fpe_set_add_frag_size = dwmac5_fpe_set_add_frag_size,
+ 	.fpe_get_add_frag_size = dwmac5_fpe_get_add_frag_size,
+ 	.fpe_set_add_frag_size = dwmac5_fpe_set_add_frag_size,
++	.fpe_map_preemption_class = dwmac5_fpe_map_preemption_class,
  	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
  	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
  	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-@@ -1316,6 +1318,8 @@ const struct stmmac_ops dwmac510_ops = {
- 	.fpe_configure = dwmac5_fpe_configure,
- 	.fpe_send_mpacket = dwmac5_fpe_send_mpacket,
+@@ -1320,6 +1321,7 @@ const struct stmmac_ops dwmac510_ops = {
  	.fpe_irq_status = dwmac5_fpe_irq_status,
-+	.fpe_get_add_frag_size = dwmac5_fpe_get_add_frag_size,
-+	.fpe_set_add_frag_size = dwmac5_fpe_set_add_frag_size,
+ 	.fpe_get_add_frag_size = dwmac5_fpe_get_add_frag_size,
+ 	.fpe_set_add_frag_size = dwmac5_fpe_set_add_frag_size,
++	.fpe_map_preemption_class = dwmac5_fpe_map_preemption_class,
  	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
  	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
  	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index 850cfc4df6eb..db7bbc50cfae 100644
+index db7bbc50cfae..ab96fc055f48 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -653,3 +653,17 @@ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
- 
- 	writel(value, ioaddr + MAC_FPE_CTRL_STS);
+@@ -667,3 +667,58 @@ void dwmac5_fpe_set_add_frag_size(void __iomem *ioaddr, u32 add_frag_size)
+ 	writel(u32_replace_bits(value, add_frag_size, DWMAC5_ADD_FRAG_SZ),
+ 	       ioaddr + MTL_FPE_CTRL_STS);
  }
 +
-+int dwmac5_fpe_get_add_frag_size(const void __iomem *ioaddr)
-+{
-+	return FIELD_GET(DWMAC5_ADD_FRAG_SZ, readl(ioaddr + MTL_FPE_CTRL_STS));
-+}
++#define ALG_ERR_MSG "TX algorithm SP is not suitable for one-to-many mapping"
++#define WEIGHT_ERR_MSG "TXQ weight %u differs across other TXQs in TC: [%u]"
 +
-+void dwmac5_fpe_set_add_frag_size(void __iomem *ioaddr, u32 add_frag_size)
++int dwmac5_fpe_map_preemption_class(struct net_device *ndev,
++				    struct netlink_ext_ack *extack, u32 pclass)
 +{
-+	u32 value;
++	u32 val, offset, count, queue_weight, preemptible_txqs = 0;
++	struct stmmac_priv *priv = netdev_priv(ndev);
++	u32 num_tc = ndev->num_tc;
 +
-+	value = readl(ioaddr + MTL_FPE_CTRL_STS);
-+	writel(u32_replace_bits(value, add_frag_size, DWMAC5_ADD_FRAG_SZ),
-+	       ioaddr + MTL_FPE_CTRL_STS);
++	if (!pclass)
++		goto update_mapping;
++
++	/* DWMAC CORE4+ can not program TC:TXQ mapping to hardware.
++	 *
++	 * Synopsys Databook:
++	 * "The number of Tx DMA channels is equal to the number of Tx queues,
++	 * and is direct one-to-one mapping."
++	 */
++	for (u32 tc = 0; tc < num_tc; tc++) {
++		count = ndev->tc_to_txq[tc].count;
++		offset = ndev->tc_to_txq[tc].offset;
++
++		if (pclass & BIT(tc))
++			preemptible_txqs |= GENMASK(offset + count - 1, offset);
++
++		/* This is 1:1 mapping, go to next TC */
++		if (count == 1)
++			continue;
++
++		if (priv->plat->tx_sched_algorithm == MTL_TX_ALGORITHM_SP) {
++			NL_SET_ERR_MSG_MOD(extack, ALG_ERR_MSG);
++			return -EINVAL;
++		}
++
++		queue_weight = priv->plat->tx_queues_cfg[offset].weight;
++
++		for (u32 i = 1; i < count; i++) {
++			if (priv->plat->tx_queues_cfg[offset + i].weight !=
++			    queue_weight) {
++				NL_SET_ERR_MSG_FMT_MOD(extack, WEIGHT_ERR_MSG,
++						       queue_weight, tc);
++				return -EINVAL;
++			}
++		}
++	}
++
++update_mapping:
++	val = readl(priv->ioaddr + MTL_FPE_CTRL_STS);
++	writel(u32_replace_bits(val, preemptible_txqs, DWMAC5_PREEMPTION_CLASS),
++	       priv->ioaddr + MTL_FPE_CTRL_STS);
++
++	return 0;
 +}
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-index c3031c1357d0..58704c15f320 100644
+index 58704c15f320..6c6eb6790e83 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-@@ -39,6 +39,10 @@
- #define MAC_PPSx_INTERVAL(x)		(0x00000b88 + ((x) * 0x10))
+@@ -40,6 +40,8 @@
  #define MAC_PPSx_WIDTH(x)		(0x00000b8c + ((x) * 0x10))
  
-+#define MTL_FPE_CTRL_STS		0x00000c90
-+/* Additional Fragment Size of preempted frames */
-+#define DWMAC5_ADD_FRAG_SZ		GENMASK(1, 0)
-+
- #define MTL_RXP_CONTROL_STATUS		0x00000ca0
- #define RXPI				BIT(31)
- #define NPE				GENMASK(23, 16)
-@@ -109,5 +113,7 @@ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr,
- 			     struct stmmac_fpe_cfg *cfg,
- 			     enum stmmac_mpacket_type type);
+ #define MTL_FPE_CTRL_STS		0x00000c90
++/* Preemption Classification */
++#define DWMAC5_PREEMPTION_CLASS		GENMASK(15, 8)
+ /* Additional Fragment Size of preempted frames */
+ #define DWMAC5_ADD_FRAG_SZ		GENMASK(1, 0)
+ 
+@@ -115,5 +117,7 @@ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr,
  int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev);
-+int dwmac5_fpe_get_add_frag_size(const void __iomem *ioaddr);
-+void dwmac5_fpe_set_add_frag_size(void __iomem *ioaddr, u32 add_frag_size);
+ int dwmac5_fpe_get_add_frag_size(const void __iomem *ioaddr);
+ void dwmac5_fpe_set_add_frag_size(void __iomem *ioaddr, u32 add_frag_size);
++int dwmac5_fpe_map_preemption_class(struct net_device *ndev,
++				    struct netlink_ext_ack *extack, u32 pclass);
  
  #endif /* __DWMAC5_H__ */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 29367105df54..88cce28b2f98 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -171,7 +171,7 @@ static const struct stmmac_hwif_entry {
+ 		.mac = &dwmac4_ops,
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.mode = NULL,
+-		.tc = &dwmac510_tc_ops,
++		.tc = &dwmac4_tc_ops,
+ 		.mmc = &dwmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwmac4_setup,
+@@ -252,7 +252,7 @@ static const struct stmmac_hwif_entry {
+ 		.mac = &dwxgmac210_ops,
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.mode = NULL,
+-		.tc = &dwmac510_tc_ops,
++		.tc = &dwxgmac_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwxgmac2_setup,
+@@ -273,7 +273,7 @@ static const struct stmmac_hwif_entry {
+ 		.mac = &dwxlgmac2_ops,
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.mode = NULL,
+-		.tc = &dwmac510_tc_ops,
++		.tc = &dwxgmac_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwxlgmac2_setup,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 4942fc398ea6..f080e271f7af 100644
+index f080e271f7af..d5a9f01ecac5 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -426,6 +426,8 @@ struct stmmac_ops {
- 				 struct stmmac_fpe_cfg *cfg,
- 				 enum stmmac_mpacket_type type);
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/netdevice.h>
+ #include <linux/stmmac.h>
++#include <net/pkt_cls.h>
+ 
+ #define stmmac_do_void_callback(__priv, __module, __cname,  __arg0, __args...) \
+ ({ \
+@@ -428,6 +429,9 @@ struct stmmac_ops {
  	int (*fpe_irq_status)(void __iomem *ioaddr, struct net_device *dev);
-+	int (*fpe_get_add_frag_size)(const void __iomem *ioaddr);
-+	void (*fpe_set_add_frag_size)(void __iomem *ioaddr, u32 add_frag_size);
+ 	int (*fpe_get_add_frag_size)(const void __iomem *ioaddr);
+ 	void (*fpe_set_add_frag_size)(void __iomem *ioaddr, u32 add_frag_size);
++	int (*fpe_map_preemption_class)(struct net_device *ndev,
++					struct netlink_ext_ack *extack,
++					u32 pclass);
  };
  
  #define stmmac_core_init(__priv, __args...) \
-@@ -530,6 +532,10 @@ struct stmmac_ops {
- 	stmmac_do_void_callback(__priv, mac, fpe_send_mpacket, __args)
- #define stmmac_fpe_irq_status(__priv, __args...) \
- 	stmmac_do_callback(__priv, mac, fpe_irq_status, __args)
-+#define stmmac_fpe_get_add_frag_size(__priv, __args...) \
-+	stmmac_do_callback(__priv, mac, fpe_get_add_frag_size, __args)
-+#define stmmac_fpe_set_add_frag_size(__priv, __args...) \
-+	stmmac_do_void_callback(__priv, mac, fpe_set_add_frag_size, __args)
+@@ -536,6 +540,8 @@ struct stmmac_ops {
+ 	stmmac_do_callback(__priv, mac, fpe_get_add_frag_size, __args)
+ #define stmmac_fpe_set_add_frag_size(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, mac, fpe_set_add_frag_size, __args)
++#define stmmac_fpe_map_preemption_class(__priv, __args...) \
++	stmmac_do_void_callback(__priv, mac, fpe_map_preemption_class, __args)
  
  /* PTP and HW Timer helpers */
  struct stmmac_hwtimestamp {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 220c582904f4..266e7d335929 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -19,6 +19,7 @@
- #include "stmmac.h"
- #include "dwmac_dma.h"
- #include "dwxgmac2.h"
-+#include "dwmac5.h"
+@@ -623,6 +629,8 @@ struct stmmac_tc_ops {
+ 			 struct tc_etf_qopt_offload *qopt);
+ 	int (*query_caps)(struct stmmac_priv *priv,
+ 			  struct tc_query_caps_base *base);
++	int (*setup_mqprio)(struct stmmac_priv *priv,
++			    struct tc_mqprio_qopt_offload *qopt);
+ };
  
- #define REG_SPACE_SIZE	0x1060
- #define GMAC4_REG_SPACE_SIZE	0x116C
-@@ -1263,6 +1264,98 @@ static int stmmac_set_tunable(struct net_device *dev,
- 	return ret;
+ #define stmmac_tc_init(__priv, __args...) \
+@@ -639,6 +647,8 @@ struct stmmac_tc_ops {
+ 	stmmac_do_callback(__priv, tc, setup_etf, __args)
+ #define stmmac_tc_query_caps(__priv, __args...) \
+ 	stmmac_do_callback(__priv, tc, query_caps, __args)
++#define stmmac_tc_setup_mqprio(__priv, __args...) \
++	stmmac_do_callback(__priv, tc, setup_mqprio, __args)
+ 
+ struct stmmac_counters;
+ 
+@@ -682,7 +692,9 @@ extern const struct stmmac_dma_ops dwmac4_dma_ops;
+ extern const struct stmmac_ops dwmac410_ops;
+ extern const struct stmmac_dma_ops dwmac410_dma_ops;
+ extern const struct stmmac_ops dwmac510_ops;
++extern const struct stmmac_tc_ops dwmac4_tc_ops;
+ extern const struct stmmac_tc_ops dwmac510_tc_ops;
++extern const struct stmmac_tc_ops dwxgmac_tc_ops;
+ extern const struct stmmac_ops dwxgmac210_ops;
+ extern const struct stmmac_ops dwxlgmac2_ops;
+ extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 4192681a8ac5..cc25fd46b33b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6215,6 +6215,8 @@ static int stmmac_setup_tc(struct net_device *ndev, enum tc_setup_type type,
+ 	switch (type) {
+ 	case TC_QUERY_CAPS:
+ 		return stmmac_tc_query_caps(priv, priv, type_data);
++	case TC_SETUP_QDISC_MQPRIO:
++		return stmmac_tc_setup_mqprio(priv, priv, type_data);
+ 	case TC_SETUP_BLOCK:
+ 		return flow_block_cb_setup_simple(type_data,
+ 						  &stmmac_block_cb_list,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index a58282d6458c..cfdb9ab1fa2a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -1174,6 +1174,13 @@ static int tc_query_caps(struct stmmac_priv *priv,
+ 			 struct tc_query_caps_base *base)
+ {
+ 	switch (base->type) {
++	case TC_SETUP_QDISC_MQPRIO: {
++		struct tc_mqprio_caps *caps = base->caps;
++
++		caps->validate_queue_counts = true;
++
++		return 0;
++	}
+ 	case TC_SETUP_QDISC_TAPRIO: {
+ 		struct tc_taprio_caps *caps = base->caps;
+ 
+@@ -1190,6 +1197,81 @@ static int tc_query_caps(struct stmmac_priv *priv,
+ 	}
  }
  
-+static int stmmac_get_mm(struct net_device *ndev,
-+			 struct ethtool_mm_state *state)
++static void stmmac_reset_tc_mqprio(struct net_device *ndev,
++				   struct netlink_ext_ack *extack)
 +{
 +	struct stmmac_priv *priv = netdev_priv(ndev);
-+	unsigned long flags;
-+	u32 frag_size;
 +
-+	if (!priv->dma_cap.fpesel)
-+		return -EOPNOTSUPP;
-+
-+	spin_lock_irqsave(&priv->fpe_cfg.lock, flags);
-+
-+	state->max_verify_time = STMMAC_FPE_MM_MAX_VERIFY_TIME_MS;
-+	state->verify_enabled = priv->fpe_cfg.verify_enabled;
-+	state->pmac_enabled = priv->fpe_cfg.pmac_enabled;
-+	state->verify_time = priv->fpe_cfg.verify_time;
-+	state->tx_enabled = priv->fpe_cfg.tx_enabled;
-+	state->verify_status = priv->fpe_cfg.status;
-+	state->rx_min_frag_size = ETH_ZLEN;
-+
-+	/* FPE active if common tx_enabled and
-+	 * (verification success or disabled(forced))
-+	 */
-+	if (state->tx_enabled &&
-+	    (state->verify_status == ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED ||
-+	     state->verify_status == ETHTOOL_MM_VERIFY_STATUS_DISABLED))
-+		state->tx_active = true;
-+	else
-+		state->tx_active = false;
-+
-+	frag_size = stmmac_fpe_get_add_frag_size(priv, priv->ioaddr);
-+	state->tx_min_frag_size = ethtool_mm_frag_size_add_to_min(frag_size);
-+
-+	spin_unlock_irqrestore(&priv->fpe_cfg.lock, flags);
-+
-+	return 0;
++	netdev_reset_tc(ndev);
++	netif_set_real_num_tx_queues(ndev, priv->plat->tx_queues_to_use);
++	stmmac_fpe_map_preemption_class(priv, ndev, extack, 0);
 +}
 +
-+static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
-+			 struct netlink_ext_ack *extack)
++static int tc_setup_dwmac510_mqprio(struct stmmac_priv *priv,
++				    struct tc_mqprio_qopt_offload *mqprio)
 +{
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
-+	unsigned long flags;
-+	u32 frag_size;
++	struct netlink_ext_ack *extack = mqprio->extack;
++	struct tc_mqprio_qopt *qopt = &mqprio->qopt;
++	u32 offset, count, num_stack_tx_queues = 0;
++	struct net_device *ndev = priv->dev;
++	u32 num_tc = qopt->num_tc;
 +	int err;
 +
-+	err = ethtool_mm_frag_size_min_to_add(cfg->tx_min_frag_size,
-+					      &frag_size, extack);
++	if (!num_tc) {
++		stmmac_reset_tc_mqprio(ndev, extack);
++		return 0;
++	}
++
++	err = netdev_set_num_tc(ndev, num_tc);
 +	if (err)
 +		return err;
 +
-+	/* Wait for the verification that's currently in progress to finish */
-+	timer_shutdown_sync(&fpe_cfg->verify_timer);
++	for (u32 tc = 0; tc < num_tc; tc++) {
++		offset = qopt->offset[tc];
++		count = qopt->count[tc];
++		num_stack_tx_queues += count;
 +
-+	spin_lock_irqsave(&fpe_cfg->lock, flags);
++		err = netdev_set_tc_queue(ndev, tc, count, offset);
++		if (err)
++			goto err_reset_tc;
++	}
 +
-+	fpe_cfg->verify_enabled = cfg->verify_enabled;
-+	fpe_cfg->pmac_enabled = cfg->pmac_enabled;
-+	fpe_cfg->verify_time = cfg->verify_time;
-+	fpe_cfg->tx_enabled = cfg->tx_enabled;
++	err = netif_set_real_num_tx_queues(ndev, num_stack_tx_queues);
++	if (err)
++		goto err_reset_tc;
 +
-+	if (!cfg->verify_enabled)
-+		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
-+
-+	stmmac_fpe_set_add_frag_size(priv, priv->ioaddr, frag_size);
-+	stmmac_fpe_apply(priv);
-+
-+	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
++	err = stmmac_fpe_map_preemption_class(priv, ndev, extack,
++					      mqprio->preemptible_tcs);
++	if (err)
++		goto err_reset_tc;
 +
 +	return 0;
++
++err_reset_tc:
++	stmmac_reset_tc_mqprio(ndev, extack);
++
++	return err;
 +}
 +
-+static void stmmac_get_mm_stats(struct net_device *ndev,
-+				struct ethtool_mm_stats *s)
++static int tc_setup_mqprio_unimplemented(struct stmmac_priv *priv,
++					 struct tc_mqprio_qopt_offload *mqprio)
 +{
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct stmmac_counters *mmc = &priv->mmc;
-+
-+	if (!priv->dma_cap.rmon)
-+		return;
-+
-+	stmmac_mmc_read(priv, priv->mmcaddr, mmc);
-+
-+	s->MACMergeFrameAssErrorCount = mmc->mmc_rx_packet_assembly_err_cntr;
-+	s->MACMergeFrameAssOkCount = mmc->mmc_rx_packet_assembly_ok_cntr;
-+	s->MACMergeFrameSmdErrorCount = mmc->mmc_rx_packet_smd_err_cntr;
-+	s->MACMergeFragCountRx = mmc->mmc_rx_fpe_fragment_cntr;
-+	s->MACMergeFragCountTx = mmc->mmc_tx_fpe_fragment_cntr;
-+	s->MACMergeHoldCount = mmc->mmc_tx_hold_req_cntr;
++	NL_SET_ERR_MSG_MOD(mqprio->extack,
++			   "mqprio HW offload is not implemented for this MAC");
++	return -EOPNOTSUPP;
 +}
 +
- static const struct ethtool_ops stmmac_ethtool_ops = {
- 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
- 				     ETHTOOL_COALESCE_MAX_FRAMES,
-@@ -1301,6 +1394,9 @@ static const struct ethtool_ops stmmac_ethtool_ops = {
- 	.set_tunable = stmmac_set_tunable,
- 	.get_link_ksettings = stmmac_ethtool_get_link_ksettings,
- 	.set_link_ksettings = stmmac_ethtool_set_link_ksettings,
-+	.get_mm = stmmac_get_mm,
-+	.set_mm = stmmac_set_mm,
-+	.get_mm_stats = stmmac_get_mm_stats,
++const struct stmmac_tc_ops dwmac4_tc_ops = {
++	.init = tc_init,
++	.setup_cls_u32 = tc_setup_cls_u32,
++	.setup_cbs = tc_setup_cbs,
++	.setup_cls = tc_setup_cls,
++	.setup_taprio = tc_setup_taprio,
++	.setup_etf = tc_setup_etf,
++	.query_caps = tc_query_caps,
++	.setup_mqprio = tc_setup_mqprio_unimplemented,
++};
++
+ const struct stmmac_tc_ops dwmac510_tc_ops = {
+ 	.init = tc_init,
+ 	.setup_cls_u32 = tc_setup_cls_u32,
+@@ -1198,4 +1280,16 @@ const struct stmmac_tc_ops dwmac510_tc_ops = {
+ 	.setup_taprio = tc_setup_taprio,
+ 	.setup_etf = tc_setup_etf,
+ 	.query_caps = tc_query_caps,
++	.setup_mqprio = tc_setup_dwmac510_mqprio,
++};
++
++const struct stmmac_tc_ops dwxgmac_tc_ops = {
++	.init = tc_init,
++	.setup_cls_u32 = tc_setup_cls_u32,
++	.setup_cbs = tc_setup_cbs,
++	.setup_cls = tc_setup_cls,
++	.setup_taprio = tc_setup_taprio,
++	.setup_etf = tc_setup_etf,
++	.query_caps = tc_query_caps,
++	.setup_mqprio = tc_setup_mqprio_unimplemented,
  };
- 
- void stmmac_set_ethtool_ops(struct net_device *netdev)
 -- 
 2.34.1
 
