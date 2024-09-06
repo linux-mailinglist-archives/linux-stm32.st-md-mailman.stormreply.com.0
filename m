@@ -2,94 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0928796E4D5
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2024 23:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D534596E77C
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 04:03:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE9F1C78013;
-	Thu,  5 Sep 2024 21:16:47 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0380EC6DD9A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3D6EC6C83A;
+	Fri,  6 Sep 2024 02:03:54 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6516CC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2024 21:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1725570999;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aCS9FGPb22Zp8YOFZ9hjWeIZgSN7BXU4B9ST/Ivvoxw=;
- b=Kp6HLDMTx52ne0QhuX2BFEU4/I8CgV5Q7vNf1HnPtC6oLUgTVxB0FLaHSZQsttxVBltenv
- 5IN7cYtyj1AcK58W1FH2GcQ8Oqcc3O4CaTTFeKqvskNwxKJ9lQ64LXaQVmiEdvvGbAXWIC
- Z+ro4u+uiqjR5XurxaTJLXSAcbgEE9M=
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-68-Qv2GpQ3ZPxKExCzLgqzLlw-1; Thu, 05 Sep 2024 17:16:37 -0400
-X-MC-Unique: Qv2GpQ3ZPxKExCzLgqzLlw-1
-Received: by mail-oo1-f72.google.com with SMTP id
- 006d021491bc7-5dfaf2a1a84so1449407eaf.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Sep 2024 14:16:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725570997; x=1726175797;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aCS9FGPb22Zp8YOFZ9hjWeIZgSN7BXU4B9ST/Ivvoxw=;
- b=tZ3zP0eOJpKVPPdtrA1KvvUz9RRPjsF6E56GAPChy4TWh5fzIIdYl0x2K6EPPGzaJx
- SLPixccI1h6ZH81QKPnd30lQEJG3o4SiWjhCInMsDTL1VgSzUaHtOW9GDktoX2HTmRfG
- 2uxjnyV/MpyD8hlF3WkCJMtk0n3L1NEy0yLcCibchMHBMFGu9iHPelj7NIYkaxCfCiju
- rxlhZCakgwJxjo9TPKfh23hIKb6u9Ayh0UXvn4Yt+VjowsUohccJF4tWSKeS4ePayYBq
- SXNt32lvKmbq42Fw2bz6lN0O2ruNv3ej9/19ruCSemgMdzlaJ+zPOyQnggstEpfQRgBs
- Fkgg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlQh5uI+q0VjGbTvCMGCsMaPdRHOF56RJIoMrSid71BeXPE9Z8FH+WvWowDqFK9bcatn774WGoK+hD8A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YypOo0Fj/ArYJ68UQns2Z0V4eMpMeVi6XyX+DzKwyPGBusfBphO
- Wc4tGj3W/XnwL+Nj1Wi0tx4z99FQJ2DMuNNno7rE21qO+/GCi1/ZIca5cAn5PuY39sPbKaYJGki
- k80jNmxJ+w0k0lZv6rVm0nDEGgd4NtpTHaeC/ypTd/JO5vbIa+I7S1GuTtOHKBeZOmCgSzoNGkI
- tnQQ==
-X-Received: by 2002:a05:6820:220f:b0:5dc:a733:d98a with SMTP id
- 006d021491bc7-5e1a9d3deaemr460136eaf.7.1725570997214; 
- Thu, 05 Sep 2024 14:16:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFcn3lC302r4cvOynTV/pTYo7UP0omv7LrahF3fXXR7CTInjmYCD99NLWRLjJz2kCarVDyMyA==
-X-Received: by 2002:a05:6820:220f:b0:5dc:a733:d98a with SMTP id
- 006d021491bc7-5e1a9d3deaemr460105eaf.7.1725570996900; 
- Thu, 05 Sep 2024 14:16:36 -0700 (PDT)
-Received: from x1gen2nano ([2600:1700:1ff0:d0e0::40])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c5201e46a4sm11023736d6.53.2024.09.05.14.16.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 14:16:36 -0700 (PDT)
-Date: Thu, 5 Sep 2024 16:16:34 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <6ktdiyivdf6pz64mck4hbxxxvvrqmyf5vabuh7zfzfpcm4cu6z@oh43gmbrs2tj>
-References: <ZrCoQZKo74zvKMhT@shell.armlinux.org.uk>
- <rq2wbrm2q3bizgxcnl6kmdiycpldjl6rllsqqgpzfhsfodnd3o@ymdfbxq2gj5j>
- <ZrM8g5KoaBi5L00b@shell.armlinux.org.uk>
- <d3yg5ammwevvcgs3zsy2fdvc45pce5ma2yujz7z2wp3vvpaim6@wgh6bb27c5tb>
- <ce42fknbcp2jxzzcx2fdjs72d3kgw2psbbasgz5zvwcvu26usi@4m4wpvo5sa77>
- <74f3f505-3781-4180-a0f3-f7beb4925b75@lunn.ch>
+ Fri,  6 Sep 2024 02:03:47 +0000 (UTC)
+Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
+ by APP-01 (Coremail) with SMTP id qwCowAAHDx_sYtpmJrR9AQ--.29972S2;
+ Fri, 06 Sep 2024 10:03:32 +0800 (CST)
+From: Ma Ke <make24@iscas.ac.cn>
+To: linus.walleij@linaro.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, bartosz.golaszewski@linaro.org,
+ antonio.borneo@foss.st.com, s.shtylyov@omp.ru, valentin.caron@foss.st.com,
+ peng.fan@nxp.com, make24@iscas.ac.cn, akpm@linux-foundation.org
+Date: Fri,  6 Sep 2024 10:03:23 +0800
+Message-Id: <20240906020323.556593-1-make24@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <74f3f505-3781-4180-a0f3-f7beb4925b75@lunn.ch>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Sneh Shah <quic_snehshah@quicinc.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Serge Semin <fancer.lancer@gmail.com>,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v4 00/14] net: stmmac:
- convert stmmac "pcs" to phylink
+X-CM-TRANSID: qwCowAAHDx_sYtpmJrR9AQ--.29972S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1kWF4xZrykCr1DAw4xWFg_yoW8Jw48pF
+ s3Gr1Ykr47J3y3CF1UJ34Y9F9agayktFyDGa1I934xZF4Yvayjqr4rKrWUZr4kKF4rXwn8
+ ZF43Jay5Zr1rCFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBI14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+ 0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+ Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+ W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+ 0VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28Icx
+ kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+ xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42
+ IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
+ 6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
+ CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
+X-Originating-IP: [183.174.60.14]
+X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
+Cc: linux-gpio@vger.kernel.org, stable@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] pinctrl: stm32: check devm_kasprintf()
+	returned value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,18 +65,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 05, 2024 at 11:00:31PM GMT, Andrew Lunn wrote:
-> > Hmmm, I'll poke the bears :)
-> 
-> Russell is away on 'medical leave', cataract surgery. It probably
-> makes sense to wait until he is back.
-> 
+devm_kasprintf() can return a NULL pointer on failure but this returned
+value is not checked. Fix this lack and check the returned value.
 
-Ahh yes, I forgot about that! Thanks for the reminder. I'll be patient
-then and hope is surgery and recovery is smooth :)
+Found by code review.
 
-Thanks,
-Andrew
+Cc: stable@vger.kernel.org
+Fixes: 32c170ff15b0 ("pinctrl: stm32: set default gpio line names using pin names")
+Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+---
+Changes in v2:
+- modified the patch according to suggestions, added braces;
+- modified the typo.
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index a8673739871d..f23b081f31b3 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1374,10 +1374,16 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 
+ 	for (i = 0; i < npins; i++) {
+ 		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
+-		if (stm32_pin && stm32_pin->pin.name)
++		if (stm32_pin && stm32_pin->pin.name) {
+ 			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
+-		else
++			if (!names[i]) {
++				err = -ENOMEM;
++				goto err_clk;
++			}
++		}
++
++		else {
+ 			names[i] = NULL;
++		}
+ 	}
+ 
+ 	bank->gpio_chip.names = (const char * const *)names;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
