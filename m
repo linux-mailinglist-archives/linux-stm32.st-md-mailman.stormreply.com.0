@@ -2,79 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5DC96F413
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 14:14:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 610F296F46D
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 14:41:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73AABC78013;
-	Fri,  6 Sep 2024 12:14:32 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24FBEC7801A;
+	Fri,  6 Sep 2024 12:41:23 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDDDBC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 258E4C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 12:14:24 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5365aec6fc1so517151e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Sep 2024 05:14:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725624864; x=1726229664;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7MCTJ64Ap0FWa8Yerpoe9k6SUGm0Hd0erFmU70Kt+Uk=;
- b=bM/L1imfpbglILIACZDjgvINHB75qFgprJoROILBtg+hcPEp6b/en1CR1vr2xIIjSP
- dIMnPrvdy+aiTGFZDLLfYwAVdCrP31CuG6zeTX4IWLBO0o6Q8JRs4UR2Pjei1YvWk+Si
- Vs4s4//ASlyx/Q7u7u/pfv5/kuY/Mwm4OGvw8skJTjlg+T9rOoL62Nc+CSp976nFB5BD
- kxIpXxyuxCQeQFzuuOe2WjXrUOjTOUUllVUsPapeOactQCWpWahf7fBSEl9LL2AOBeOq
- UisqhtJuF4J1lOjsLCZqpsEsZTRhPuUeMSXm/f6a8Q8hx6i0a7R6RLX3tZHP9JUQCXwx
- 41pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725624864; x=1726229664;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7MCTJ64Ap0FWa8Yerpoe9k6SUGm0Hd0erFmU70Kt+Uk=;
- b=pYF8eZUd4ZIhDPJxD3zGR47ezF3YCAe+a+ZXoS7S2jao+pCMXI7XK+aeQF6sNGo+D1
- 3nDJDfCGzbxBuHshWxnhvdpgpE77UyVpMNiz9f/V4Vez8/VoaJZC7zsK9wtKJt5sllR7
- Dn4DLJM/o9dbO3DKN5b9y1fb9hf67eVKcbUsoc5Rd7DJjbylSMSARLFAetC0/BjVjMGT
- bYKaM83Wps6Qo6z+8Nk73bJ+JR1FMig70301YwndRckZC90T0yCdShkiJ2Dq2SPvDctC
- ZPO5AcKWa0Wxzx11kXFsC6DX6fDq1H2Fs/OkP6D9hsOKRG/iYVnhcSOeUyPrWvvlQYBW
- 8IdA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUuGcAzwNxkeBwrrr3BvFf785UBAKrdd8KmgvkYAO91AX4syTUWZVfYejnnqU8zbYnhqtY8lh3KpWcVpw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzRfzyO6UdmaIUbTEacmXIlPaVOWOqgP4gAM1XTThA49nUq8fz9
- YAk2Ksod+N5iXTRFSVeAulRz+U60stQhhBDtTY3MfLJ8+XgsExI+
-X-Google-Smtp-Source: AGHT+IGydFRd1uISwcLNQ7/uLhpGxcjZgeGYt7HNPMfkdE+mw4ggyg3ydgWLV8t9ZR41n0MYx7mGoA==
-X-Received: by 2002:a05:6512:398d:b0:532:ef22:eb4e with SMTP id
- 2adb3069b0e04-5365880a275mr1109279e87.54.1725624863153; 
- Fri, 06 Sep 2024 05:14:23 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5356d3782e0sm464090e87.299.2024.09.06.05.14.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Sep 2024 05:14:22 -0700 (PDT)
-Date: Fri, 6 Sep 2024 15:14:20 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: jitendra.vegiraju@broadcom.com
-Message-ID: <h74bn2huz3oul27lu7b7upy6mtpbr4w4mbtquxqlvzccackoiy@74tc67lafadf>
-References: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
+ Fri,  6 Sep 2024 12:41:22 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 486CFkcU026449;
+ Fri, 6 Sep 2024 14:41:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 9glpbHtTCF0WQ+AaJaOaFsxFPEJjjJaHTg3W5Y5Bp00=; b=omyyWlJPa9o0uo1+
+ rGeatWEl+pXoj9ycdqbKTyoJ5oVf3TLtXnOjURW0cMLACakQIjCLgjMxQp4qZn4B
+ dx7fnQOEWISQU83czPa171rTK2sJKe+WdAg0AicIX3xYMn9dXJz2n1XUdE7LYmzq
+ G2qHETv5uZHny/UtT9bonPS8z91mxZHHKpG+Wm+ml5PxSzs8oO9Qcp+B0pTKd5A3
+ wIX2KYjEOxCOI0ydZl62/KogksqzIQ9fmBYhjKwo2LcZDXL7rhaQ6lJ4UohD1joe
+ Th+DaDN8iATMIQJNE/6if74J7lQL81w9jVCReburdimKUsprxW7kD/2/64FA2wtR
+ lbCU4g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41fhwquf07-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Sep 2024 14:41:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A01C440044;
+ Fri,  6 Sep 2024 14:40:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC087267F26;
+ Fri,  6 Sep 2024 14:40:02 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Sep
+ 2024 14:40:02 +0200
+Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Sep
+ 2024 14:40:02 +0200
+Message-ID: <07ad0918-c1bf-4ae2-8091-33e75aac4778@foss.st.com>
+Date: Fri, 6 Sep 2024 14:40:01 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
-Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
- rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
- xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [net-next v5 0/5] net: stmmac: Add PCI driver
- support for BCM8958x
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ <linux-pwm@vger.kernel.org>
+References: <20240905090627.197536-2-u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20240905090627.197536-2-u.kleine-koenig@baylibre.com>
+X-Originating-IP: [10.48.86.222]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_02,2024-09-05_01,2024-09-02_01
+Cc: linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Use the right CCxNP bit in
+	stm32_pwm_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,93 +77,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jitendra
-
-On Tue, Sep 03, 2024 at 10:48:10PM -0700, jitendra.vegiraju@broadcom.com wrote:
-> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-> 
-> This patchset adds basic PCI ethernet device driver support for Broadcom
-> BCM8958x Automotive Ethernet switch SoC devices.
-> 
-> This SoC device has PCIe ethernet MAC attached to an integrated ethernet
-> switch using XGMII interface. The PCIe ethernet controller is presented to
-> the Linux host as PCI network device.
-> 
-> The following block diagram gives an overview of the application.
->              +=================================+
->              |       Host CPU/Linux            |
->              +=================================+
->                         || PCIe
->                         ||
->         +==========================================+
->         |           +--------------+               |
->         |           | PCIE Endpoint|               |
->         |           | Ethernet     |               |
->         |           | Controller   |               |
->         |           |   DMA        |               |
->         |           +--------------+               |
->         |           |   MAC        |   BCM8958X    |
->         |           +--------------+   SoC         |
->         |               || XGMII                   |
->         |               ||                         |
->         |           +--------------+               |
->         |           | Ethernet     |               |
->         |           | switch       |               |
->         |           +--------------+               |
->         |             || || || ||                  |
->         +==========================================+
->                       || || || || More external interfaces
-> 
-> The MAC block on BCM8958x is based on Synopsis XGMAC 4.00a core. This
-> MAC IP introduces new DMA architecture called Hyper-DMA for virtualization
-> scalability.
-> 
-> Driver functionality specific to new MAC (DW25GMAC) is implemented in
-> new file dw25gmac.c.
-> 
-> Management of integrated ethernet switch on this SoC is not handled by
-> the PCIe interface.
-> This SoC device has PCIe ethernet MAC directly attached to an integrated
-> ethernet switch using XGMII interface.
-> 
-> v4->v5:
->    Summary of changes in this patch series:
->    As suggested by Serge Semin, defined common setup function for dw25gmac.
->    To accommodate early adopter DW25GMAC used in BCM8958x device, provide
->    a mechanism to override snps_id and snps_dev_id used for driver entry
->    matching in hwif.c
-> 
->    Patch1:
->      Added plat_stmmacenet_data::snps_id,snps_dev_id fields - Serge Semin
->    Patch2:
->      Define common setup function for dw25gmac_setup() - Serge Semin
->      Support DW25GMAC IPs with varying VDMA/PDMA count - Abhishek Chauhan
->      Allocate and initialize hdma mapping configuration data dynamically
->      based on device's VDMA/PDMA feature capabilities in dw25gmac_setup().
->      Spelling errors in commit log, lower case 0x for hex -Amit Singh Tomar
->    Patch3:
->      Glue support in hwif.c for DW25GMAC in hwif.c - Serge Semin
->      Provide an option to override snps_id and snps_dev_id when the device
->      reports version info not conformant with driver's expectations as is
->      the case with BCM8958x device. - Serge Semin
->    Patch4:
->      Remove setup function in the glue driver - Serge Semin
->      Remove unnecessary calls pci_enable_device() and pci_set_master()
->      in dwxgmac_brcm_pci_resume() - Jakub Kicinski
->      Merge variable definitions to single line - Amit Singh Tomar
-
-Thanks for the update. I'll have a closer look at the series early
-next week.
-
--Serge(y)
-
-> [...]
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA5LzUvMjQgMTE6MDYsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IFRoZSBwd20gZGV2
+aWNlcyBmb3IgYSBwd21fY2hpcCBhcmUgbnVtYmVyZWQgc3RhcnRpbmcgYXQgMCwgdGhlIGZpcnN0
+IGh3Cj4gY2hhbm5lbCBob3dldmVyIGhhcyB0aGUgbnVtYmVyIDEuIFdoaWxlIGludHJvZHVjaW5n
+IGEgcGFyYW1ldHJpc2VkIG1hY3JvCj4gdG8gc2ltcGxpZnkgcmVnaXN0ZXIgYml0IHVzYWdlIGFu
+ZCBtYWtpbmcgdGhhdCBvZmZzZXQgZXhwbGljaXQsIG9uZSBvZgo+IHRoZSB1c2FnZXMgd2FzIGNv
+bnZlcnRlZCB3cm9uZ2x5LiBUaGlzIGlzIGZpeGVkIGhlcmUuCj4gCj4gRml4ZXM6IDdjZWEwNWFl
+MWQ0ZSAoInB3bS1zdG0zMjogTWFrZSB1c2Ugb2YgcGFyYW1ldHJpc2VkIHJlZ2lzdGVyIGRlZmlu
+aXRpb25zIikKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29l
+bmlnQGJheWxpYnJlLmNvbT4KPiAtLS0KPiBIZWxsbywKPiAKPiBkdXJpbmcgcmV2aWV3IG9mIGEg
+cGF0Y2ggdG8gdGhlIHN0bTMyIHB3bSBkcml2ZXIgRmFicmljZSBwb2ludGVkIG91dCBhCj4gd3Jv
+bmcgdXNhZ2Ugb2YgVElNX0NDRVJfQ0N4TkUuIFdoaWxlIChJIHRoaW5rKSB3ZSBib3RoIGFzc3Vt
+ZWQgdGhpcyB3YXMKPiBhIHByb2JsZW0gaW4gc2FpZCBwYXRjaCwgdGhhdCBwcm9ibGVtIGV4aXN0
+ZWQgYWxyZWFkeSBiZWZvcmUgYW5kIHRoZQo+IHByb3Bvc2VkIGNoYW5nZSBqdXN0IG1vdmVkIHRo
+ZSBwcm9ibGVtIGFyb3VuZC4gU28gaW5zdGVhZCBvZiAob25seSkKPiB1cGRhdGluZyB0aGUgcGF0
+Y2ggbGF0ZXIsIGhlcmUgY29tZXMgYSBzZXBhcmF0ZSBmaXggZm9yIHRoZSBkcml2ZXIuCj4gCj4g
+SSBpbnRlbmQgdG8gc2VuZCB0aGlzIHRvIExpbnVzIHRvbW9ycm93IHRvIGdldCBpdCBpbnRvIDYu
+MTEtcmM3LgoKSGkgVVdlLAoKR29vZCBjYXRjaCwgSSBoYXZlbid0IG5vdGljZWQgdGhpcyBoYXMg
+YmVlbiBpbnRyb2R1Y2VkIGluIGVhcmxpZXIgcGF0Y2guCgpZb3UgY2FuIGFkZCBteToKUmV2aWV3
+ZWQtYnk6IEZhYnJpY2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPgoKRG9l
+cyBpdCBuZWVkIHRvIGJlIENDJ2VkIHRvIHN0YWJsZSBsaXN0IGFsc28gPwoKVGhhbmtzLApCUiwK
+RmFicmljZQoKPiAKPiBCZXN0IHJlZ2FyZHMKPiBVd2UKPiAKPiAgZHJpdmVycy9wd20vcHdtLXN0
+bTMyLmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlv
+bigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYyBiL2RyaXZlcnMv
+cHdtL3B3bS1zdG0zMi5jCj4gaW5kZXggZmQ3NTRhOTljZjJlLi5mODVlYjQxY2IwODQgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLmMKPiArKysgYi9kcml2ZXJzL3B3bS9wd20t
+c3RtMzIuYwo+IEBAIC00MTIsNyArNDEyLDcgQEAgc3RhdGljIGludCBzdG0zMl9wd21fZW5hYmxl
+KHN0cnVjdCBzdG0zMl9wd20gKnByaXYsIHVuc2lnbmVkIGludCBjaCkKPiAgCS8qIEVuYWJsZSBj
+aGFubmVsICovCj4gIAltYXNrID0gVElNX0NDRVJfQ0N4RShjaCArIDEpOwo+ICAJaWYgKHByaXYt
+PmhhdmVfY29tcGxlbWVudGFyeV9vdXRwdXQpCj4gLQkJbWFzayB8PSBUSU1fQ0NFUl9DQ3hORShj
+aCk7Cj4gKwkJbWFzayB8PSBUSU1fQ0NFUl9DQ3hORShjaCArIDEpOwo+ICAKPiAgCXJlZ21hcF9z
+ZXRfYml0cyhwcml2LT5yZWdtYXAsIFRJTV9DQ0VSLCBtYXNrKTsKPiAgCj4gYmFzZS1jb21taXQ6
+IDg0MDAyOTFlMjg5ZWU2YjJiZjk3NzlmZjFjODNhMjkxNTAxZjAxN2IKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
