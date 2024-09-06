@@ -2,78 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C76296F4A9
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 14:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48FA496F5A7
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 15:44:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAED7C78013;
-	Fri,  6 Sep 2024 12:53:09 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0965C78013;
+	Fri,  6 Sep 2024 13:44:23 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2FBDC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A653DC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 12:53:02 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5c2535b081fso175833a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Sep 2024 05:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1725627182; x=1726231982;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=690hJkBK217OakU19EFY9fs/Kc2GYaKx8HXQ7unUhlQ=;
- b=D4qv+p9Zz6kiWCxfs2Juf96LR+18Zzzi/GMBhWFAzCMRg2vPcdtbd7mYTTsAWj2tj4
- 9p8x1H5eO+y9ueUpctkUkDJAtenw4J3t1EXNIwz5jkfx3mMQNotKkzjDghco+O7eSOaD
- QcWV5GwhYbTseDvSCia0FZIJKA6V+8iTIVyBBXpaKvQRIcpZEaca9pskBcTh0REvJf8e
- RtW1K7EFdUeJmWgTrXSW0FWHucIo3y2vRvGsXowdcKhlz9hstYgrssxJdlUd6gx34t7s
- IwsUN7g5bZVI5fjN6KxFaaW/rAb5L+IXVRlvMTWTfjSzObVj0Mx4TAtQR55s107WJkWV
- iEiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725627182; x=1726231982;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=690hJkBK217OakU19EFY9fs/Kc2GYaKx8HXQ7unUhlQ=;
- b=hSabvkpZDdcVOc2k3OnBVjm/YStNvaDRR74ybd+TxBcsupr/2tOEXM3M7yrXd7o5e1
- piXrmnVcMMkRoywOBtRqkbu8GBjRu2G+UQSqP8eFnYy8H0Bgw6hii4Kmst+NJM46KHsy
- Vy/6yF9W2yP8vMRDXhXGt3qad3n6MgXK5+IK/QT35mw2VS5cLOKX0MsQBYtICHKu56oN
- 9hYi7jKWYEbSR1sxKRvSlxZx/BcFNCge4EWw/9T0qpHh6EWN4H3/eV3PQenRKFCnENbw
- Q9yDbO1VFz3LdDj2rv//jZBDFcccRwAIhEqhOjOlHJNUVIXerpqIWehEY2tOs41MDUVB
- eV0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVcRoLRxpjheOVFnbkKo9XACVrJbtfy3faFvJ35oGFwlcSo750VDzdOzLzKSonZRMukDxbt5LHSSOtGzw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwsiCEsO6lsCuDOAAdCQIUsA4ojStIxSlwXKw/I/pogGrcZqH4J
- 7pDIYASReRBOl7UAYmKiHCEYDabAnxNM4wUmOv4jpaEnXeGfwiPX
-X-Google-Smtp-Source: AGHT+IFUUlXDd8a581aFfNhl9hEBR8Xj7Vj1SfC+dxLDEYbwn71uSH7PY1/UYC/o4JTGTrHDO3gv+Q==
-X-Received: by 2002:a05:6402:50c7:b0:5c2:6850:7b2 with SMTP id
- 4fb4d7f45d1cf-5c3dc7ef8cfmr1030364a12.6.1725627181456; 
- Fri, 06 Sep 2024 05:53:01 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc56a897sm2426757a12.47.2024.09.06.05.52.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Sep 2024 05:53:00 -0700 (PDT)
-Date: Fri, 6 Sep 2024 15:52:58 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240906125258.d7rhhcjdic3quqg2@skbuf>
-References: <cover.1725597121.git.0x1207@gmail.com>
- <13f5833e52a47895864db726f090f323ec691c62.1725597121.git.0x1207@gmail.com>
+ Fri,  6 Sep 2024 13:44:22 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1smZFt-0000Lh-1c; Fri, 06 Sep 2024 15:44:05 +0200
+Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1smZFq-005xU3-5T; Fri, 06 Sep 2024 15:44:02 +0200
+Received: from pza by lupine with local (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1smZFq-0009UL-0F;
+ Fri, 06 Sep 2024 15:44:02 +0200
+Message-ID: <d743de28a5dd643cf775f4d8a3baaabd09d48c48.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org, 
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org,  mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+Date: Fri, 06 Sep 2024 15:44:01 +0200
+In-Reply-To: <20240903121303.2953150-3-christian.bruel@foss.st.com>
+References: <20240903121303.2953150-1-christian.bruel@foss.st.com>
+ <20240903121303.2953150-3-christian.bruel@foss.st.com>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <13f5833e52a47895864db726f090f323ec691c62.1725597121.git.0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, rmk+kernel@armlinux.org.uk,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v9 3/7] net: stmmac: refactor FPE
- verification process
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 2/5] phy: stm32: Add support for
+	STM32MP25 COMBOPHY.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,81 +65,215 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 06, 2024 at 12:55:58PM +0800, Furong Xu wrote:
-> @@ -5979,44 +5956,29 @@ static int stmmac_set_features(struct net_device *netdev,
->  static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
->  {
->  	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
-> -	enum stmmac_fpe_state *lo_state = &fpe_cfg->lo_fpe_state;
-> -	enum stmmac_fpe_state *lp_state = &fpe_cfg->lp_fpe_state;
-> -	bool *hs_enable = &fpe_cfg->hs_enable;
->  
-> -	if (status == FPE_EVENT_UNKNOWN || !*hs_enable)
-> -		return;
-> +	/* This is interrupt context, just spin_lock() */
-> +	spin_lock(&fpe_cfg->lock);
->  
-> -	/* If LP has sent verify mPacket, LP is FPE capable */
-> -	if ((status & FPE_EVENT_RVER) == FPE_EVENT_RVER) {
-> -		if (*lp_state < FPE_STATE_CAPABLE)
-> -			*lp_state = FPE_STATE_CAPABLE;
-> +	if (!fpe_cfg->pmac_enabled || status == FPE_EVENT_UNKNOWN)
-> +		goto unlock_out;
->  
-> -		/* If user has requested FPE enable, quickly response */
-> -		if (*hs_enable)
-> -			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
-> -						fpe_cfg,
-> -						MPACKET_RESPONSE);
-> -	}
-> +	/* LP has sent verify mPacket */
-> +	if ((status & FPE_EVENT_RVER) == FPE_EVENT_RVER)
-> +		stmmac_fpe_send_mpacket(priv, priv->ioaddr, fpe_cfg,
-> +					MPACKET_RESPONSE);
->  
-> -	/* If Local has sent verify mPacket, Local is FPE capable */
-> -	if ((status & FPE_EVENT_TVER) == FPE_EVENT_TVER) {
-> -		if (*lo_state < FPE_STATE_CAPABLE)
-> -			*lo_state = FPE_STATE_CAPABLE;
-> -	}
-> +	/* Local has sent verify mPacket */
-> +	if ((status & FPE_EVENT_TVER) == FPE_EVENT_TVER &&
-> +	    fpe_cfg->status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED)
-> +		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_VERIFYING;
->  
-> -	/* If LP has sent response mPacket, LP is entering FPE ON */
-> +	/* LP has sent response mPacket */
->  	if ((status & FPE_EVENT_RRSP) == FPE_EVENT_RRSP)
-> -		*lp_state = FPE_STATE_ENTERING_ON;
-> +		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED;
+Hi,
 
-Nitpick, doesn't affect normal behavior.
-If the link partner crafts an unsolicited Response mPacket, and we have
-verify_enabled = false, what we should do is we should ignore it.
-But what the code does is to transition the state to SUCCEEDED, as if
-verify_enabled was true.
+On Di, 2024-09-03 at 14:13 +0200, Christian Bruel wrote:
+> Addition of the COMBOPHY driver found on STM32MP25 platforms
+> 
+> This single lane PHY is shared (exclusive) between the USB3 and PCIE
+> controllers.
+> Supports 5Gbit/s for PCIE gen2 or 2.5Gbit/s for PCIE gen1.
+> 
+> Supports wakeup-source capability to wakeup system using remote-wakeup
+> capable USB device
+> 
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> ---
+>  drivers/phy/st/Kconfig              |  11 +
+>  drivers/phy/st/Makefile             |   1 +
+>  drivers/phy/st/phy-stm32-combophy.c | 590 ++++++++++++++++++++++++++++
+>  3 files changed, 602 insertions(+)
+>  create mode 100644 drivers/phy/st/phy-stm32-combophy.c
+> 
+[...]
+> diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
+> new file mode 100644
+> index 000000000000..305ba124d092
+> --- /dev/null
+> +++ b/drivers/phy/st/phy-stm32-combophy.c
+> @@ -0,0 +1,590 @@
+[...]
+> +static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
+> +{
+> +	int ret;
+> +	u32 refclksel, pllmult, propcntrl, val;
+> +	u32 clk_rate;
+> +	struct clk *clk;
+> +
+> +	if (combophy->have_pad_clk)
+> +		clk = combophy->clks[PAD_CLK].clk;
+> +	else
+> +		clk = combophy->clks[KER_CLK].clk;
+> +
+> +	clk_rate = clk_get_rate(clk);
+> +
+> +	reset_control_assert(combophy->phy_reset);
+> +
+> +	dev_dbg(combophy->dev, "%s pll init rate %d\n",
+> +		combophy->have_pad_clk ? "External" : "Ker", clk_rate);
+> +
+> +	/*
+> +	 * vddcombophy is interconnected with vddcore. Isolation bit should be unset
+> +	 * before using the ComboPHY.
+> +	 */
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
+> +			   SYSCFG_COMBOPHY_CR2_ISO_DIS, SYSCFG_COMBOPHY_CR2_ISO_DIS);
+> +
+> +	if (combophy->type != PHY_TYPE_PCIE)
+> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +				   SYSCFG_COMBOPHY_CR1_REFSSPEN, SYSCFG_COMBOPHY_CR1_REFSSPEN);
 
-We should ignore FPE_EVENT_RRSP events if we are in the
-ETHTOOL_MM_VERIFY_STATUS_DISABLED state.
+Could the multiple accesses to SYSCFG_COMBOPHY_CR1 be consolidated into
+a single regmap_update_bits()?
 
-Depending on how the maintainers feel, this could also be handled in a
-subsequent patch.
+> +
+> +	if (combophy->type == PHY_TYPE_PCIE && !combophy->have_pad_clk)
+> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+> +				   STM32MP25_PCIEPRGCR_EN, STM32MP25_PCIEPRGCR_EN);
+> +
+> +	if (of_property_present(combophy->dev->of_node, "st,ssc-on")) {
+> +		dev_dbg(combophy->dev, "Enabling clock with SSC\n");
+> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +				   SYSCFG_COMBOPHY_CR1_SSCEN, SYSCFG_COMBOPHY_CR1_SSCEN);
+> +	}
+> +
+> +	if (!of_property_read_u32(combophy->dev->of_node, "st,rx-equalizer", &val)) {
+> +		dev_dbg(combophy->dev, "Set RX equalizer %u\n", val);
+> +		if (val > SYSCFG_COMBOPHY_CR4_RX0_EQ) {
+> +			dev_err(combophy->dev, "Invalid value %u for rx0 equalizer\n", val);
 
->  
-> -	/* If Local has sent response mPacket, Local is entering FPE ON */
-> -	if ((status & FPE_EVENT_TRSP) == FPE_EVENT_TRSP)
-> -		*lo_state = FPE_STATE_ENTERING_ON;
-> -
-> -	if (!test_bit(__FPE_REMOVING, &priv->fpe_task_state) &&
-> -	    !test_and_set_bit(__FPE_TASK_SCHED, &priv->fpe_task_state) &&
-> -	    priv->fpe_wq) {
-> -		queue_work(priv->fpe_wq, &priv->fpe_task);
-> -	}
-> +unlock_out:
-> +	spin_unlock(&fpe_cfg->lock);
->  }
->  
->  static void stmmac_common_interrupt(struct stmmac_priv *priv)
+This path looks like it should deassert the phy_reset as well.
+
+> +			return -EINVAL;
+> +		}
+> +
+> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR4,
+> +			   SYSCFG_COMBOPHY_CR4_RX0_EQ, val);
+> +	}
+> +
+> +	if (combophy->type == PHY_TYPE_PCIE) {
+> +		ret = stm32_impedance_tune(combophy);
+> +		if (ret) {
+> +			reset_control_deassert(combophy->phy_reset);
+> +			goto out;
+> +		}
+> +
+> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +				   SYSCFG_COMBOPHY_CR1_REFUSEPAD,
+> +				   combophy->have_pad_clk ? SYSCFG_COMBOPHY_CR1_REFUSEPAD : 0);
+> +	}
+> +
+> +	switch (clk_rate) {
+> +	case 100000000:
+> +		pllmult = MPLLMULT_100;
+> +		refclksel = REFCLKSEL_0;
+> +		propcntrl = 0x8u << 4;
+> +		break;
+> +	case 19200000:
+> +		pllmult = MPLLMULT_19_2;
+> +		refclksel = REFCLKSEL_1;
+> +		propcntrl = 0x8u << 4;
+> +		break;
+> +	case 25000000:
+> +		pllmult = MPLLMULT_25;
+> +		refclksel = REFCLKSEL_0;
+> +		propcntrl = 0xeu << 4;
+> +		break;
+> +	case 24000000:
+> +		pllmult = MPLLMULT_24;
+> +		refclksel = REFCLKSEL_1;
+> +		propcntrl = 0xeu << 4;
+> +		break;
+> +	case 20000000:
+> +		pllmult = MPLLMULT_20;
+> +		refclksel = REFCLKSEL_0;
+> +		propcntrl = 0xeu << 4;
+> +		break;
+> +	default:
+> +		dev_err(combophy->dev, "Invalid rate 0x%x\n", clk_rate);
+> +		reset_control_deassert(combophy->phy_reset);
+> +		ret = -EINVAL;
+> +		goto out;
+> +	};
+> +
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +			   SYSCFG_COMBOPHY_CR1_REFCLKDIV2, REFCLDIV_0);
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +			   SYSCFG_COMBOPHY_CR1_REFCLKSEL, refclksel);
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +			   SYSCFG_COMBOPHY_CR1_MPLLMULT, pllmult);
+> +
+> +	/*
+> +	 * Force elasticity buffer to be tuned for the reference clock as
+> +	 * the separated clock model is not supported
+> +	 */
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR5,
+> +			   SYSCFG_COMBOPHY_CR5_COMMON_CLOCKS, SYSCFG_COMBOPHY_CR5_COMMON_CLOCKS);
+> +
+> +	reset_control_deassert(combophy->phy_reset);
+> +
+> +	ret = regmap_read_poll_timeout(combophy->regmap, SYSCFG_COMBOPHY_SR, val,
+> +				       !(val & STM32MP25_PIPE0_PHYSTATUS),
+> +				       10, 1000);
+> +	if (ret) {
+> +		dev_err(combophy->dev, "timeout, cannot lock PLL\n");
+> +		goto out;
+> +	}
+> +
+> +	if (combophy->type == PHY_TYPE_PCIE) {
+> +		val = readl_relaxed(combophy->base + COMBOPHY_SUP_ANA_MPLL_LOOP_CTL);
+> +		val &= ~COMBOPHY_PROP_CNTRL;
+> +		val |= propcntrl;
+> +		writel_relaxed(val, combophy->base + COMBOPHY_SUP_ANA_MPLL_LOOP_CTL);
+> +	}
+> +
+> +	return 0;
+> +
+> +out:
+> +	if (combophy->type == PHY_TYPE_PCIE && !combophy->have_pad_clk)
+> +		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+> +				   STM32MP25_PCIEPRGCR_EN, 0);
+> +
+> +	if (combophy->type != PHY_TYPE_PCIE)
+> +		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1,
+> +				   SYSCFG_COMBOPHY_CR1_REFSSPEN, 0);
+> +
+> +	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
+> +			   SYSCFG_COMBOPHY_CR2_ISO_DIS, 0);
+> +
+> +	return ret;
+> +}
+> +
+[...]
+> +
+> +static int stm32_combophy_probe(struct platform_device *pdev)
+> +{
+> +	struct stm32_combophy *combophy;
+> +	struct device *dev = &pdev->dev;
+> +	struct phy_provider *phy_provider;
+> +	int ret, irq;
+> +
+> +	combophy = devm_kzalloc(dev, sizeof(*combophy), GFP_KERNEL);
+> +	if (!combophy)
+> +		return -ENOMEM;
+> +
+> +	combophy->dev = dev;
+> +
+> +	dev_set_drvdata(dev, combophy);
+> +
+> +	combophy->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(combophy->base))
+> +		return PTR_ERR(combophy->base);
+> +
+> +	if (stm32_combophy_get_clocks(combophy))
+> +		return ret;
+> +
+> +	combophy->phy_reset = devm_reset_control_get(dev, "phy");
+
+Please use devm_reset_control_get_exclusive() directly.
+
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
