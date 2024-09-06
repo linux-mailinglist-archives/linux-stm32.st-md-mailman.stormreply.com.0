@@ -2,59 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9116B96F7B7
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 17:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E678F96F87F
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 17:43:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56C93C7801A;
-	Fri,  6 Sep 2024 15:04:16 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 926FCC78013;
+	Fri,  6 Sep 2024 15:43:36 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A613C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A787BC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 15:04:16 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3C59C1BF205;
- Fri,  6 Sep 2024 15:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1725635055;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gLX4GxsDjXuYrcRxyG/fXuf+Afhpxwi7So/zPttJNUw=;
- b=kRg5+knSqmEj0BHFU8nCB6ceUaYg8uGpewryyD4TR1SpbbaUtuMO8VAonAzH3uVLnsS7gw
- jrUQ5SLNAAdnc7FKr6/knZl9dhd70RR3ff31QMYqp2U4K8FLK2DZmapqd8z7IhL8aFLwj0
- VTZva4B32Bq7FhWHii/kxctEMqzdgJ9OWfeYTSDL0zBjjPK6BTdEaW8YFl9Uxb7djHPRsv
- 5WEUf10V26FyD56JhKfSMKiJyEqLEE7VOhj0K+A60uMvNT3I+iy0zNoOsplrgUcypNAHfb
- qs0CYdtjVLh+rihj0XiU5XtwhuT7zlQanOvxkBq5mi6f1NS0jUiUapji1r9HVw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>, miquel.raynal@bootlin.com,
- michal.simek@amd.com, richard@nod.at, vigneshr@ti.com,
- liang.yang@amlogic.com, neil.armstrong@linaro.org, khilman@baylibre.com,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- heiko@sntech.de, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- wens@csie.org, jernej.skrabec@gmail.com, samuel@sholland.org,
- kees@kernel.org, gustavoars@kernel.org, linux@treblig.org, robh@kernel.org,
- u.kleine-koenig@pengutronix.de, erick.archer@gmx.com,
- christophe.jaillet@wanadoo.fr, val@packett.cool,
- christophe.kerello@foss.st.com, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, krzk@kernel.org, jic23@kernel.org
-Date: Fri,  6 Sep 2024 17:04:13 +0200
-Message-ID: <20240906150413.734809-1-miquel.raynal@bootlin.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240826094328.2991664-2-ruanjinjie@huawei.com>
-References: 
+ Fri,  6 Sep 2024 15:43:29 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5c263118780so2439118a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 06 Sep 2024 08:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725637409; x=1726242209;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=MjmPcGq5VFRg/trcWFAfLiT2RKaNRMYo+KytcVSszMU=;
+ b=v7QFKBNsItUw3aGeCGXLUe0sdDp4enrDxsmJ6yCsCnGrAUzHS/Z8QvGN8kmQDQ7yVT
+ L5ihdeE6LGDdJxxBNoea2EpOXkCiVfYw2bPgm09Ynigp0jFROulx1bwcnAK4etcYlpNq
+ GKOKDdgGs6YQHVgxDAkr+xwJ2pkWCYeXiT6oE07CUX7LgzEmDv4uiOdaRnDOJsYIZ5kf
+ /U/Vtk/dGlj7YFNZLva1C40xB58tw9+SH2q5mumKwAlf1xrpca2c/PrX7pX3sH7YjojV
+ 1IwQRS6JDlf3O389Zt3AjT3vBD/kHKGJDakor+cGXQlNVKV1XLZJiA4QJzAWtI5Flbv+
+ UDVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725637409; x=1726242209;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MjmPcGq5VFRg/trcWFAfLiT2RKaNRMYo+KytcVSszMU=;
+ b=LNuUDsYd0ve/ZeO/PoAi452EMlo3Md36ytWBAf5oxBHj1qAec3N2dux7fxaTRE+/xS
+ 2yK6ON6DCNacMR0vkp6PTgFOuFSPT+aFN88kb8CcxsDEVSYSCnjvCcmCHdcqaKHPIhYa
+ 4YS6tMkvqzJq+Vh6q5mpvQiG1i/9gij+DjpGb2wtKoclfLPdyp3PT01IkG3agkcJMDcg
+ B/HIoRp0aLUFeZvhIOAHsYmaVmF0DE9ReL7dboiVpHnTbaNOrADzlUYwqksH8Jq7y2VS
+ fvqvdX+7PvrnZUd7s3StsjPXiHgsoLNesPQpSvdKwf+sxxVC+lVp8DKinFpRjrASHq3x
+ nvaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXDZ7/h4rM3fCy1l+uTgdLx5lmlduVNWINDyQT48y3OcM4g2IlBMc4Fam+DvIV/wZtSCmJOWhf943cWdg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzf1IvN2w6YzO/wVnb5fa8XJkBVMqxMBhUd+Y8NM0O4IFd50pro
+ /YaOc5kd4gGn33W/Xst5l5WGYvRhfuZ4fIL0MN14uZ/6kysv8TKs3kAMAcL5Kqs=
+X-Google-Smtp-Source: AGHT+IH8H7wUCUtT2JdrUvSGz7620gDLCP1Ri6GgPWlKZPRqpIXr9jqxs/IkSkJ8Y41lHToBIGDC2w==
+X-Received: by 2002:a05:6402:26d5:b0:5c2:4eb3:e806 with SMTP id
+ 4fb4d7f45d1cf-5c3dc7b800bmr1963773a12.24.1725637408823; 
+ Fri, 06 Sep 2024 08:43:28 -0700 (PDT)
+Received: from localhost (p5dc68d3d.dip0.t-ipconnect.de. [93.198.141.61])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3cc52d989sm2649933a12.3.2024.09.06.08.43.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Sep 2024 08:43:28 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: linux-pwm@vger.kernel.org
+Date: Fri,  6 Sep 2024 17:42:56 +0200
+Message-ID: <cover.1725635013.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'7021a797689d288a06cb48d0da44880d1dcaff8d'
-X-GND-Sasl: miquel.raynal@bootlin.com
-Subject: Re: [Linux-stm32] [PATCH -next RESEND 01/10] mtd: rawnand: arasan:
-	Use for_each_child_of_node_scoped()
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4753;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=SdA/884OUoNUTYfuujZhiUv6gnTpSFyrP/yZXl0aWnQ=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBm2yMBIjjylPYTGgYkClNl3CRKRJzeGv/xfaGKZ
+ M3/knRNgdKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZtsjAQAKCRCPgPtYfRL+
+ TkuHB/4oOdPXE/Nvd7VgU9doI8Iqc2fEhA8GrLjwN2ob+zZ/S/Q5Ie7RC8D6yN8IBSsYzZznPOi
+ /g9AKLEAmsuisG4ynZ4y5bIA3vuguPHyvGTGbcSF/Q/+biJUSMsF6Um4kcIk4lfmIcrmfZa4yqv
+ WeBA95Lg63Zgld7o7gpFMx2J8VXUUKqk0eCiuGYTxb8GqdvUhQxYUFb1UWcq0mV2ZupcTOCnHgR
+ ibMxH/VWqLoqpny0m2mxWwFD8LCn3eklOEt+UbDR6kmxYxNpGplghFNubOlaSCxDg0Dq2hDw+L3
+ 5/rlTqh6RO+nZO4DvuWWQ+4ufL+GvuWLZb35RP8BVfAFQxdF
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: Trevor Gamblin <tgamblin@baylibre.com>, Kent Gibson <warthog618@gmail.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Lechner <dlechner@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-trace-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 0/7] pwm: New abstraction and userspace API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,21 +94,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2024-08-26 at 09:43:19 UTC, Jinjie Ruan wrote:
-> Avoids the need for manual cleanup of_node_put() in early exits
-> from the loop.
-> 
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next, thanks.
-
-Miquel
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpoZXJlIGNvbWVzIHY0IG9mIHRoZSBzZXJpZXMgdG8gYWRkIHN1cHBvcnQgZm9yIGR1
+dHkgb2Zmc2V0IGluIFBXTQp3YXZlZm9ybXMuIEZvciBhIHNpbmdsZSBQV00gb3V0cHV0IHRoZXJl
+IGlzIG5vIGdhaW4sIGJ1dCBpZiB5b3UgaGF2ZSBhCmNoaXAgd2l0aCB0d28gKG9yIG1vcmUpIG91
+dHB1dHMgYW5kIGJvdGggb3BlcmF0ZSB3aXRoIHRoZSBzYW1lIHBlcmlvZCwKeW91IGNhbiBnZW5l
+cmF0ZSBhbiBvdXRwdXQgbGlrZToKCiAgICAgICAgICAgICAgIF9fX19fXyAgICAgICAgIF9fX19f
+XyAgICAgICAgIF9fX19fXyAgICAgICAgIF9fX19fXwogICBQV00gIzAgIF9fXy8gICAgICBcX19f
+X19fXy8gICAgICBcX19fX19fXy8gICAgICBcX19fX19fXy8gICAgICBcX19fX19fXwogICAgICAg
+ICAgICAgICAgIF9fICAgICAgICAgICAgIF9fICAgICAgICAgICAgIF9fICAgICAgICAgICAgIF9f
+CiAgIFBXTSAjMSAgX19fX18vICBcX19fX19fX19fX18vICBcX19fX19fX19fX18vICBcX19fX19f
+X19fX18vICBcX19fX19fX19fCiAgICAgICAgICAgICAgXiAgICAgICAgICAgICAgXiAgICAgICAg
+ICAgICAgXiAgICAgICAgICAgICAgXgoKVGhlIG9wcG9ydHVuaXR5IGZvciBhIG5ldyBhYnN0cmFj
+dGlvbiBpcy9zaG91bGQgYmUgdXNlZCB0byBhbHNvIGltcHJvdmUKcHJlY2lzaW9uIG9mIHRoZSBB
+UEkgZnVuY3Rpb25zLCB3aGljaCBpbXBsaWVzIHRoYXQgdGhlIHJ1bGVzIGZvcgpsb3dsZXZlbCBk
+cml2ZXJzIGFyZSBtb3JlIHN0cmljdCBmb3IgdGhlIG5ldyBjYWxsYmFja3MuCgpDaGFuZ2VzIHNp
+bmNlIHYzLCB3aGljaCBpcyBhdmFpbGFibGUgZnJvbQpodHRwczovL2xvcmUua2VybmVsLm9yZy9s
+aW51eC1wd20vY292ZXIuMTcyMjI2MTA1MC5naXQudS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNv
+bS8KaW5jbHVkZToKCiAtIERyb3AgUFdNX0lPQ1RMX0dFVF9OVU1fUFdNUyBpb2N0bCAocGF0Y2gg
+IzQpLCBzdWdnZXN0aW9uIGJ5IERhdmlkCiAgIExlY2huZXIKCiAtIERlZmluZSBtZW1iZXJzIG9m
+IHVzZXJzcGFjZSBBUEkgc3RydWN0IHVzaW5nIF9fdTMyIGluc3RlYWQgb2YKICAgdW5zaWduZWQg
+aW50OyB0aGFua3MgdG8gS2VudCBHaWJzb24gZm9yIHRoZSBzdWdnZXN0aW9uIChwYXRjaCAjNCkK
+CiAtIEVuc3VyZSB0aGF0IHB3bV9hcHBseV9zdGF0ZV97YXRvbWljLG1pZ2h0X3NsZWVwfSgpIGRv
+bid0IHJldHVybiAxCiAgIE5vdGljZWQgYnkgRmFicmljZSBHYXNuaWVyCgogLSBSZWJhc2VkIHRv
+IGN1cnJlbnQgcHdtL2Zvci1uZXh0LgogICAoZml4aW5nIGEgbWlzc2luZyArMSBub3RpY2VkIGJ5
+IEZhYnJpY2UpCgogLSBEcm9wcGVkIFRlc3RlZC1ieTogZnJvbSBUcmV2b3IKICAgV2hpbGUgdGhl
+IGF4aS1wd21nZW4gZHJpdmVyIGRpZG4ndCBjaGFuZ2UsIHRoZXJlIHdlcmUgY29uc2lkZXJhYmxl
+CiAgIGNoYW5nZXMgaW4gdGhlIGNvcmUuIFNvIEkgZHJvcHBlZCBpdC4KCiAtIGFkZCBzb21lIG1p
+c3NpbmcgRVhQT1JUX1NZTUJPTF9HUEwgZm9yIHRoZSBuZXcgQVBJIGZ1bmN0aW9ucwoKIC0gQWRk
+IGtlcm5lbCBkb2MgY29tbWVudHMgZm9yIHRoZSBuZXcgQVBJIGZ1bmN0aW9ucwoKIC0gZGVidWcg
+bWVzc2FnZSBpbiBzdG0zMl9wd21fcm91bmRfd2F2ZWZvcm1fZnJvbWh3IChhbm90aGVyIHN1Z2dl
+c3Rpb24KICAgYnkgRmFicmljZSkKCkkgYWxzbyB1cGRhdGVkIHRoZSBicmFuY2ggcHdtL2NoYXJk
+ZXYgaW4KaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdWts
+ZWluZWsvbGludXguZ2l0IHRvCm1hdGNoIHRoaXMgdjQuCgpJJ20gYXdhcmUgb2YgdHdvIGlzc3Vl
+cyBpbiB0aGlzIHNlcmllczoKCiAtIFRyaWdnZXJzIGEgbG9ja2RlcCB3YXJuaW5nIGluIHRoZSBw
+d20tbWVzb24gZHJpdmVyLiBUaGlzIGFmZmVjdHMgdGhlCiAgIG5ldyBwd20gbG9ja2luZyB2cyB0
+aGUgY2xrIGZyYW1ld29yaydzIHByZXBhcmUgbG9jay4gSSB0aGluayB0aGlzIGlzCiAgIGEgZmFs
+c2UgcG9zaXRpdmUgYW5kIHRvIGZpeCBpdCwgb25seSBjaGFuZ2VzIGluIHRoZSBjbGsgZnJhbWV3
+b3JrIGFyZQogICBuZWNlc3NhcnkuCgogLSBUaGUgZnVuY3Rpb25zIHB3bV9zZXRfd2F2ZWZvcm1f
+bWlnaHRfc2xlZXAoKSBhbmQKICAgcHdtX3JvdW5kX3dhdmVmb3JtX21pZ2h0X3NsZWVwKCkgaGF2
+ZSBhbiB1bnVzdWFsIHJldHVybiB2YWx1ZQogICBjb252ZW50aW9uOiBUaGV5IHJldHVybiAwIG9u
+IHN1Y2Nlc3MsIDEgaWYgdGhlIHJlcXVlc3RlZCB3YXZlZm9ybQogICBjYW5ub3QgYmUgaW1wbGVt
+ZW50ZWQgd2l0aG91dCBicmVha2luZyB0aGUgcm91bmRpbmcgcnVsZXMsIG9yIGEKICAgbmVnYXRp
+dmUgZXJybm8gaWYgYW4gZXJyb3Igb2NjdXJzLgogICBGYWJyaWNlIHJpZ2h0ZnVsbHkgcG9pbnRl
+ZCBvdXQgdGhpcyB0byBiZSBzdXJwcmlzZWQgYnkgdGhpcyBhbmQKICAgc3VnZ2VzdGVkIHRvIHVz
+ZSBhdCBsZWFzdCBhIGRlZmluZSBmb3IgaXQuCgogICBJIGNvdWxkbid0IGZpbmQgYSBkZWNpc2lv
+biB0aGF0IEknbSBlbnRpcmVseSBoYXBweSB3aXRoIGhlcmUuIE15CiAgIGNvbmZsaWN0cyBhcmU6
+CgogICAgLSBJIHdhbnQgYSBjb25zdGFudCB0aGF0IG5vdyBhbmQgaW4gdGhlIGZ1dHVyZSBvbmx5
+IG1lYW5zICJjYW5ub3QgYmUKICAgICAgZG9uZSBkdWUgdG8gdGhlIHJvdW5kaW5nIHJ1bGVzIGlu
+IHRoZSBwd20gZnJhbWV3b3JrIi4gU28gdGhlCiAgICAgIG9wdGlvbnMgYXJlOgogICAgICAgICog
+SW50cm9kdWNlIGEgbmV3IEVTT01FVEhJTkcgYW5kIHJldHVybiAtRVNPTUVUSElORwogICAgICAg
+ICAgSSB0aGluayB0aGF0J3MgaGFyZCB0byBtb3RpdmF0ZSBhbmQgYWxzbyBteXNlbGYgZG91YnQg
+dGhpcwogICAgICAgICAgd291bGQgYmUgc2Vuc2libGUuIEFzIGJlbG93LCB0aGUgcXVlc3Rpb24g
+Zm9yIGEgZ29vZCBuYW1lIGlzCiAgICAgICAgICB1bnJlc29sdmVkLgogICAgICAgICogcmV0dXJu
+IDEKICAgICAgICAgIFRoaXMgaXMgd2hhdCB3YXMgZG9uZSBpbiB0aGUgZWFybGllciByZXZpc2lv
+bnMgYW5kIGFsc28gaGVyZS4KCiAgICAtIFdoZW4ga2VlcGluZyB0aGUgcmV0dXJuIDEgc2VtYW50
+aWNzIChhbmQgYWxzbyBmb3IgYSBuZXcKICAgICAgRVNPTUVUSElORyk6CiAgICAgIEkgYWdyZWUg
+dGhhdCBhIG5hbWUgaW5zdGVhZCBvZiBhIHBsYWluIDEgd291bGQgYmUgbmljZSwgYnV0IEkKICAg
+ICAgY291bGRuJ3QgY29tZSB1cCB3aXRoIGEgbmFtZSBJIGxpa2VkLiBHaXZlbiB0aGF0IHRoaXMg
+Y2FuIGJlCiAgICAgIGludHJvZHVjZWQgbGF0ZXIgd2l0aG91dCBicmVha2luZyBhbnl0aGluZywg
+SSBkb24ndCBjb25zaWRlciB0aGF0CiAgICAgIHZlcnkgdXJnZW50LgogICAgICBNeSBjYW5kaWRh
+dGVzIHdlcmUgUFdNX1JFUVVJUkVTX0JST0tFTl9ST1VORElORywKICAgICAgUFdNX1JFUVVJUkVT
+X0ZPUkJJRERFTl9ST1VORElORyBhbmQgUFdNX0VSUl9ST1VORElORy4KICAgICAgVGhlc2UgYXJl
+IHRvbyBsb25nIG9yL2FuZCBpbXByZWNpc2UuCiAgICAgIElmIHlvdSBoYXZlIGEgZ29vZCBpZGVh
+LCBwbGVhc2UgdGVsbC4KClN0aWxsIEknZCBsaWtlIHRvIGdldCB0aGF0IGZvcndhcmQgYW5kICh1
+bmxlc3MgYSBuZXcgYW5kIHJlbGV2YW50IGlzc3VlCnBvcHMgdXAgdW50aWwgdGhlbikgaW50ZW5k
+IHRvIHB1dCBpdCBpbnRvIG5leHQgYWZ0ZXIgdGhlIG5leHQgbWVyZ2UKd2luZG93LiBOZXZlcnRo
+ZWxlc3MgSSdtIG9wZW4gZm9yIHN1Z2dlc3Rpb25zIHRvIGZ1cnRoZXIgaW1wcm92ZSB0aGlzCnNl
+cmllcy4KCkJlc3QgcmVnYXJkcwpVd2UKClV3ZSBLbGVpbmUtS8O2bmlnICg3KToKICBwd206IEFk
+ZCBtb3JlIGxvY2tpbmcKICBwd206IE5ldyBhYnN0cmFjdGlvbiBmb3IgUFdNIHdhdmVmb3Jtcwog
+IHB3bTogUHJvdmlkZSBuZXcgY29uc3VtZXIgQVBJIGZ1bmN0aW9ucyBmb3Igd2F2ZWZvcm1zCiAg
+cHdtOiBBZGQgc3VwcG9ydCBmb3IgcHdtY2hpcCBkZXZpY2VzIGZvciBmYXN0ZXIgYW5kIGVhc2ll
+ciB1c2Vyc3BhY2UKICAgIGFjY2VzcwogIHB3bTogQWRkIHRyYWNpbmcgZm9yIHdhdmVmb3JtIGNh
+bGxiYWNrcwogIHB3bTogYXhpLXB3bWdlbjogSW1wbGVtZW50YXRpb24gb2YgdGhlIHdhdmVmb3Jt
+IGNhbGxiYWNrcwogIHB3bTogc3RtMzI6IEltcGxlbWVudGF0aW9uIG9mIHRoZSB3YXZlZm9ybSBj
+YWxsYmFja3MKCiBkcml2ZXJzL3B3bS9jb3JlLmMgICAgICAgICAgIHwgODY3ICsrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKy0tCiBkcml2ZXJzL3B3bS9wd20tYXhpLXB3bWdlbi5jIHwg
+MTU0ICsrKysrLS0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jICAgICAgfCA2MTIgKysrKysrKysr
+KysrKysrKy0tLS0tLS0tLQogaW5jbHVkZS9saW51eC9wd20uaCAgICAgICAgICB8ICA1OCArKy0K
+IGluY2x1ZGUvdHJhY2UvZXZlbnRzL3B3bS5oICAgfCAxMzQgKysrKystCiBpbmNsdWRlL3VhcGkv
+bGludXgvcHdtLmggICAgIHwgIDI0ICsKIDYgZmlsZXMgY2hhbmdlZCwgMTU0NSBpbnNlcnRpb25z
+KCspLCAzMDQgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS91YXBpL2xp
+bnV4L3B3bS5oCgpiYXNlLWNvbW1pdDogY2Y2NjMxYjA3YjkwN2Q0YzY0NGNhNDJmN2NjMjM0ZTcx
+NDkyOTBhMgotLSAKMi40NS4yCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
