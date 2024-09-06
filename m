@@ -2,54 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3868F96F0D4
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 12:03:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3BC96F177
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Sep 2024 12:28:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB3A9C78013;
-	Fri,  6 Sep 2024 10:03:54 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 489D8C78013;
+	Fri,  6 Sep 2024 10:28:52 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E61DC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8883DC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Sep 2024 10:03:46 +0000 (UTC)
-Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
- by APP-01 (Coremail) with SMTP id qwCowADHzqJw09pmqc2NAQ--.6864S2;
- Fri, 06 Sep 2024 18:03:33 +0800 (CST)
-From: Ma Ke <make24@iscas.ac.cn>
-To: linus.walleij@linaro.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, bartosz.golaszewski@linaro.org,
- patrice.chotard@foss.st.com, antonio.borneo@foss.st.com, s.shtylyov@omp.ru,
- valentin.caron@foss.st.com, peng.fan@nxp.com, make24@iscas.ac.cn,
- akpm@linux-foundation.org
-Date: Fri,  6 Sep 2024 18:03:26 +0800
-Message-Id: <20240906100326.624445-1-make24@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+ Fri,  6 Sep 2024 10:28:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 3EB75A44DEA;
+ Fri,  6 Sep 2024 10:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BC3C4CEC5;
+ Fri,  6 Sep 2024 10:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1725618524;
+ bh=5BaC5tCLM4cokqPfWLvVsqm1VrOzWOAlQptFMFimM6E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VRY4rgFwAaGeU+O2i3eNekIjwHhEv82vc0hJpdLKTbZEKw2Py8dNtjYbd8m+i8rGt
+ q+EcxuziyrxlyvXET2tCtFrn5aBY26Y6pS3oOHWk2xuPkVawRg/mnkuyaExxTvaJRB
+ DHDBf93Jlqccz124foEm630PTwPncEAQZPvWpSYVoQgtSy6FRqdwfWy84seckqNQkd
+ 7c+eh3AftQqeVHOiCRH0iVGdH4CXSjz8X/QBBQihIO2hk19rCNgJE4YsNkXZkcWq+O
+ w5Ewa8tROis3p6jmCCCfKP6uXBO9WJ15SjhL1O73iDiwXFi9Qyd9xFY969cSmjy+Z4
+ UyPDAFTF5pg8Q==
+Date: Fri, 6 Sep 2024 11:28:39 +0100
+From: Simon Horman <horms@kernel.org>
+To: Abhishek Chauhan <quic_abchauha@quicinc.com>
+Message-ID: <20240906102839.GE2097826@kernel.org>
+References: <20240904235456.2663335-1-quic_abchauha@quicinc.com>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADHzqJw09pmqc2NAQ--.6864S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1kWF4xZrW8Ww13GFWUtwb_yoW8GF1rpF
- s3Gr1YkrsrJ39xCF4DJryYgF9agayktFyDGa1Ik34xZF4Yvayjqr45Kr1UZr4kKFWrXwn8
- ZF47Jay5Zr1rCFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
- F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
- 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
- 648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2
- Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
- 6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
- vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
- 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
- kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUOmhFUUUUU
-X-Originating-IP: [183.174.60.14]
-X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
-Cc: linux-gpio@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3] pinctrl: stm32: check devm_kasprintf()
-	returned value
+Content-Disposition: inline
+In-Reply-To: <20240904235456.2663335-1-quic_abchauha@quicinc.com>
+Cc: kernel@quicinc.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v1] net: stmmac: Programming
+ sequence for VLAN packets with split header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,49 +60,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-devm_kasprintf() can return a NULL pointer on failure but this returned
-value is not checked. Fix this lack and check the returned value.
+On Wed, Sep 04, 2024 at 04:54:56PM -0700, Abhishek Chauhan wrote:
+> Currently reset state configuration of split header works fine for
+> non-tagged packets and we see no corruption in payload of any size
+> 
+> We need additional programming sequence with reset configuration to
+> handle VLAN tagged packets to avoid corruption in payload for packets
+> of size greater than 256 bytes.
+> 
+> Without this change ping application complains about corruption
+> in payload when the size of the VLAN packet exceeds 256 bytes.
+> 
+> With this change tagged and non-tagged packets of any size works fine
+> and there is no corruption seen.
+> 
+> Signed-off-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
 
-Found by code review.
+...
 
-Cc: stable@vger.kernel.org
-Fixes: 32c170ff15b0 ("pinctrl: stm32: set default gpio line names using pin names")
-Signed-off-by: Ma Ke <make24@iscas.ac.cn>
----
-Changes in v3:
-- modified the code style according to suggestions.
-Changes in v2:
-- modified the patch according to suggestions, added braces;
-- modified the typo.
----
- drivers/pinctrl/stm32/pinctrl-stm32.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> index e0165358c4ac..dbd1be4e4a92 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> @@ -526,6 +526,17 @@ static void dwmac4_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+>  	value |= GMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+>  	writel(value, ioaddr + GMAC_EXT_CONFIG);
+>  
+> +	/* Additional configuration to handle VLAN tagged packets */
+> +	value = readl(ioaddr + GMAC_EXT_CFG1);
+> +	value &= ~GMAC_CONFIG1_SPLM;
+> +	/* Enable Split mode for header and payload at L2  */
+> +	value |= GMAC_CONFIG1_SPLM_L2OFST_EN << GMAC_CONFIG1_SPLM_SHIFT;
+> +	value &= ~GMAC_CONFIG1_SAVO;
+> +	/* Enables the MAC to distinguish between tagged vs untagged pkts */
+> +	value |= 4 << GMAC_CONFIG1_SAVO_SHIFT;
+> +	value |= GMAC_CONFIG1_SAVE_EN;
+> +	writel(value, ioaddr + GMAC_EXT_CFG1);
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index a8673739871d..5b7fa77c1184 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -1374,10 +1374,15 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 
- 	for (i = 0; i < npins; i++) {
- 		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
--		if (stm32_pin && stm32_pin->pin.name)
-+		if (stm32_pin && stm32_pin->pin.name) {
- 			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
--		else
-+			if (!names[i]) {
-+				err = -ENOMEM;
-+				goto err_clk;
-+			}
-+		} else {
- 			names[i] = NULL;
-+		}
- 	}
- 
- 	bank->gpio_chip.names = (const char * const *)names;
--- 
-2.25.1
+Hi Abhishek,
 
+Perhaps it is inconsistent with the code elsewhere in this file,
+in which case I would suggest a follow-up clean-up, but I
+expect that using FIELD_PREP would both lead to cleaner code here
+and remove the need for *_SHIFT.
+
+> +
+>  	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+>  	if (en)
+>  		value |= DMA_CONTROL_SPH;
+> -- 
+> 2.25.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
