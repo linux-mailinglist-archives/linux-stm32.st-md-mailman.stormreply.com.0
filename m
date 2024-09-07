@@ -2,54 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E241396FF5C
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 05:01:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A802996FF88
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 05:10:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A320FC78018;
-	Sat,  7 Sep 2024 03:01:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52167C7801A;
+	Sat,  7 Sep 2024 03:10:47 +0000 (UTC)
 Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89715C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 665E3C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Sep 2024 03:01:32 +0000 (UTC)
+ Sat,  7 Sep 2024 03:10:40 +0000 (UTC)
 Received: from mail.maildlp.com (unknown [172.19.163.17])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4X0yRL2ZlSz20nY1;
- Sat,  7 Sep 2024 10:56:30 +0800 (CST)
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4X0yds3ykNz20nY1;
+ Sat,  7 Sep 2024 11:05:37 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 5BFA91A0188;
- Sat,  7 Sep 2024 11:01:30 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 8C0041A0188;
+ Sat,  7 Sep 2024 11:10:37 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 7 Sep
- 2024 11:01:29 +0800
+ 2024 11:10:36 +0800
 From: Li Zetao <lizetao1@huawei.com>
-To: <mchehab@kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
+To: <mchehab@kernel.org>, <florian.fainelli@broadcom.com>, <andrew@lunn.ch>,
+ <olteanv@gmail.com>, <davem@davemloft.net>, <edumazet@google.com>,
  <kuba@kernel.org>, <pabeni@redhat.com>, <wens@csie.org>,
  <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <heiko@sntech.de>,
  <yisen.zhuang@huawei.com>, <salil.mehta@huawei.com>, <hauke@hauke-m.de>,
  <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
  <mcoquelin.stm32@gmail.com>, <wellslutw@gmail.com>,
  <radhey.shyam.pandey@amd.com>, <michal.simek@amd.com>, <hdegoede@redhat.com>, 
- <ilpo.jarvinen@linux.intel.com>, <lizetao1@huawei.com>,
- <ruanjinjie@huawei.com>, <hverkuil-cisco@xs4all.nl>,
+ <ilpo.jarvinen@linux.intel.com>, <ruanjinjie@huawei.com>,
+ <lizetao1@huawei.com>, <hverkuil-cisco@xs4all.nl>,
  <u.kleine-koenig@pengutronix.de>, <jacky_chou@aspeedtech.com>,
  <jacob.e.keller@intel.com>
-Date: Sat, 7 Sep 2024 11:10:09 +0800
-Message-ID: <20240907031009.3591057-12-lizetao1@huawei.com>
+Date: Sat, 7 Sep 2024 11:19:16 +0800
+Message-ID: <20240907031926.3591353-1-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240907031009.3591057-1-lizetao1@huawei.com>
-References: <20240907031009.3591057-1-lizetao1@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  kwepemd500012.china.huawei.com (7.221.188.25)
-Cc: netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-rockchip@lists.infradead.org, platform-driver-x86@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 10/10] net: xilinx: axienet:
-	Convert using devm_clk_get_optional_enabled() in axienet_probe()
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v2 00/10] net: Convert using
+	devm_clk_get_enabled()/devm_clk_get_optional_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,65 +65,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use devm_clk_get_optional_enabled() instead of devm_clk_get_optional() +
-clk_prepare_enable(), which can make the clk consistent with the device
-life cycle and reduce the risk of unreleased clk resources. Since the
-device framework has automatically released the clk resource, there is
-no need to execute clk_disable_unprepare(clk) on the error path.
+v1 -> v2:
+  1) Patch 5 optimizes the check and adds commit information for easier
+  inspection.
+  2) It is no longer necessary to use clk, so delete the clk member of
+  the spl2sw_common structure.
+  3) Remove patches 11 and 12, they should be sent to wireless-next
+  individually
 
-Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Signed-off-by: Li Zetao <lizetao1@huawei.com>
----
- drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+v1:
+https://lore.kernel.org/all/20240831021334.1907921-1-lizetao1@huawei.com/
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 374dff70ef0d..87c5dcec2325 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -2592,22 +2592,17 @@ static int axienet_probe(struct platform_device *pdev)
- 	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
- 	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
- 
--	lp->axi_clk = devm_clk_get_optional(&pdev->dev, "s_axi_lite_clk");
--	if (!lp->axi_clk) {
-+	lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, "s_axi_lite_clk");
-+	if (!lp->axi_clk)
- 		/* For backward compatibility, if named AXI clock is not present,
- 		 * treat the first clock specified as the AXI clock.
- 		 */
--		lp->axi_clk = devm_clk_get_optional(&pdev->dev, NULL);
--	}
-+		lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
-+
- 	if (IS_ERR(lp->axi_clk)) {
- 		ret = PTR_ERR(lp->axi_clk);
- 		goto free_netdev;
- 	}
--	ret = clk_prepare_enable(lp->axi_clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to enable AXI clock: %d\n", ret);
--		goto free_netdev;
--	}
- 
- 	lp->misc_clks[0].id = "axis_clk";
- 	lp->misc_clks[1].id = "ref_clk";
-@@ -2923,7 +2918,6 @@ static int axienet_probe(struct platform_device *pdev)
- 		axienet_mdio_teardown(lp);
- cleanup_clk:
- 	clk_bulk_disable_unprepare(XAE_NUM_MISC_CLOCKS, lp->misc_clks);
--	clk_disable_unprepare(lp->axi_clk);
- 
- free_netdev:
- 	free_netdev(ndev);
-@@ -2947,7 +2941,6 @@ static void axienet_remove(struct platform_device *pdev)
- 	axienet_mdio_teardown(lp);
- 
- 	clk_bulk_disable_unprepare(XAE_NUM_MISC_CLOCKS, lp->misc_clks);
--	clk_disable_unprepare(lp->axi_clk);
- 
- 	free_netdev(ndev);
- }
+There are many examples[1][2] of clk resource leakage in LTS. The
+reason is that developers need to maintain the allocation and release
+of clk resources themselves, but this will increase the burden on
+developers. Using the API related to devm_clk_get_*_enable ensures
+that the life cycle of clk is consistent with that of the device,
+reducing the risk of unreleased resources like clk.
+
+Several other developers are also working on converting to more
+secure interfaces, and this patch set is in principle the same as
+theirs.
+
+[1]:
+https://lore.kernel.org/all/20240812160128.338041191@linuxfoundation.org/
+[2]:
+https://lore.kernel.org/all/20240812160135.992451065@linuxfoundation.org/
+
+Li Zetao (10):
+  net: dsa: bcm_sf2: Convert using devm_clk_get_optional_enabled() in
+    bcm_sf2_sw_probe()
+  net: ethernet: Convert using devm_clk_get_enabled() in emac_probe()
+  net: ethernet: arc: Convert using devm_clk_get_enabled() in
+    emac_probe()
+  net: ethernet: ethoc: Convert using devm_clk_get_enabled() in
+    ethoc_probe()
+  net: ftgmac100: Convert using devm_clk_get_enabled() in
+    ftgmac100_setup_clk()
+  net: ethernet: hisilicon: Convert using devm_clk_get_enabled() in
+    hisi_femac_drv_probe()
+  net: lantiq_xrx200: Convert using devm_clk_get_enabled() in
+    xrx200_probe()
+  net: stmmac: dwmac-dwc-qos-eth: Convert using devm_clk_get_enabled()
+    in dwc_qos_probe()
+  net: ethernet: sunplus: Convert using devm_clk_get_enabled() in
+    spl2sw_probe()
+  net: xilinx: axienet: Convert using devm_clk_get_optional_enabled() in
+    axienet_probe()
+
+ drivers/net/dsa/bcm_sf2.c                     | 28 ++----
+ drivers/net/ethernet/allwinner/sun4i-emac.c   | 13 +--
+ drivers/net/ethernet/arc/emac_rockchip.c      | 34 ++-----
+ drivers/net/ethernet/ethoc.c                  | 18 ++--
+ drivers/net/ethernet/faraday/ftgmac100.c      | 26 +----
+ drivers/net/ethernet/hisilicon/hisi_femac.c   | 17 +---
+ drivers/net/ethernet/lantiq_xrx200.c          | 17 +---
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 98 ++++---------------
+ drivers/net/ethernet/sunplus/spl2sw_define.h  |  1 -
+ drivers/net/ethernet/sunplus/spl2sw_driver.c  | 25 ++---
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 15 +--
+ 11 files changed, 62 insertions(+), 230 deletions(-)
+
 -- 
 2.34.1
 
