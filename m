@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4F196FF56
+	by mail.lfdr.de (Postfix) with ESMTPS id 8578C96FF52
 	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 05:01:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 565D3C7802D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20B3FC7801C;
 	Sat,  7 Sep 2024 03:01:30 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43DE9C7801C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AAFCC6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Sep 2024 03:01:26 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.163])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4X0yVf5Dq0z1xwtx;
- Sat,  7 Sep 2024 10:59:22 +0800 (CST)
+ Sat,  7 Sep 2024 03:01:27 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.17])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4X0yXZ0L87z1j83Y;
+ Sat,  7 Sep 2024 11:01:02 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id A8586180041;
- Sat,  7 Sep 2024 11:01:24 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 9D7401A0188;
+ Sat,  7 Sep 2024 11:01:25 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 7 Sep
- 2024 11:01:23 +0800
+ 2024 11:01:24 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <mchehab@kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
  <kuba@kernel.org>, <pabeni@redhat.com>, <wens@csie.org>,
@@ -35,8 +35,8 @@ To: <mchehab@kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
  <ruanjinjie@huawei.com>, <hverkuil-cisco@xs4all.nl>,
  <u.kleine-koenig@pengutronix.de>, <jacky_chou@aspeedtech.com>,
  <jacob.e.keller@intel.com>
-Date: Sat, 7 Sep 2024 11:10:03 +0800
-Message-ID: <20240907031009.3591057-6-lizetao1@huawei.com>
+Date: Sat, 7 Sep 2024 11:10:04 +0800
+Message-ID: <20240907031009.3591057-7-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240907031009.3591057-1-lizetao1@huawei.com>
 References: <20240907031009.3591057-1-lizetao1@huawei.com>
@@ -48,8 +48,8 @@ Cc: netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-rockchip@lists.infradead.org, platform-driver-x86@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 04/10] net: ethernet: ethoc:
-	Convert using devm_clk_get_enabled() in ethoc_probe()
+Subject: [Linux-stm32] [PATCH net-next v2 05/10] net: ftgmac100: Convert
+	using devm_clk_get_enabled() in ftgmac100_setup_clk()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,73 +71,93 @@ clk_prepare_enable(), which can make the clk consistent with the device
 life cycle and reduce the risk of unreleased clk resources. Since the
 device framework has automatically released the clk resource, there is
 no need to execute clk_disable_unprepare(clk) on the error path, drop
-the free2 label, and the meaning of the free3 label is not clear, Changing
-it to free_mdiobus will make it more understandable.
+the cleanup_clk label, and the original error process can return directly.
+
+It turns out that checking the return value of clk_prepare_enable is a bit
+counter-intuitive. Here use PTR_ERR_OR_ZERO to make it more intuitive.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/net/ethernet/ethoc.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+v1 -> v2: Optimize return value checking and add commit information for easy
+understanding
+v1:
+https://lore.kernel.org/all/20240831021334.1907921-6-lizetao1@huawei.com/
 
-diff --git a/drivers/net/ethernet/ethoc.c b/drivers/net/ethernet/ethoc.c
-index ad41c9019018..1a56e20cb679 100644
---- a/drivers/net/ethernet/ethoc.c
-+++ b/drivers/net/ethernet/ethoc.c
-@@ -1172,13 +1172,10 @@ static int ethoc_probe(struct platform_device *pdev)
+ drivers/net/ethernet/faraday/ftgmac100.c | 26 +++++-------------------
+ 1 file changed, 5 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index f3cc14cc757d..f2911507d7b8 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -1767,13 +1767,10 @@ static int ftgmac100_setup_clk(struct ftgmac100 *priv)
+ 	struct clk *clk;
+ 	int rc;
  
- 	/* Allow the platform setup code to adjust MII management bus clock. */
- 	if (!eth_clkfreq) {
--		struct clk *clk = devm_clk_get(&pdev->dev, NULL);
-+		priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+-	clk = devm_clk_get(priv->dev, NULL /* MACCLK */);
++	clk = devm_clk_get_enabled(priv->dev, NULL /* MACCLK */);
+ 	if (IS_ERR(clk))
+ 		return PTR_ERR(clk);
+ 	priv->clk = clk;
+-	rc = clk_prepare_enable(priv->clk);
+-	if (rc)
+-		return rc;
  
--		if (!IS_ERR(clk)) {
--			priv->clk = clk;
--			clk_prepare_enable(clk);
--			eth_clkfreq = clk_get_rate(clk);
--		}
-+		if (!IS_ERR(priv->clk))
-+			eth_clkfreq = clk_get_rate(priv->clk);
- 	}
- 	if (eth_clkfreq) {
- 		u32 clkdiv = MIIMODER_CLKDIV(eth_clkfreq / 2500000 + 1);
-@@ -1195,7 +1192,7 @@ static int ethoc_probe(struct platform_device *pdev)
- 	priv->mdio = mdiobus_alloc();
- 	if (!priv->mdio) {
- 		ret = -ENOMEM;
--		goto free2;
-+		goto free;
- 	}
+ 	/* Aspeed specifies a 100MHz clock is required for up to
+ 	 * 1000Mbit link speeds. As NCSI is limited to 100Mbit, 25MHz
+@@ -1782,21 +1779,14 @@ static int ftgmac100_setup_clk(struct ftgmac100 *priv)
+ 	rc = clk_set_rate(priv->clk, priv->use_ncsi ? FTGMAC_25MHZ :
+ 			  FTGMAC_100MHZ);
+ 	if (rc)
+-		goto cleanup_clk;
++		return rc;
  
- 	priv->mdio->name = "ethoc-mdio";
-@@ -1208,7 +1205,7 @@ static int ethoc_probe(struct platform_device *pdev)
- 	ret = mdiobus_register(priv->mdio);
- 	if (ret) {
- 		dev_err(&netdev->dev, "failed to register MDIO bus\n");
--		goto free3;
-+		goto free_mdiobus;
- 	}
- 
- 	ret = ethoc_mdio_probe(netdev);
-@@ -1240,10 +1237,8 @@ static int ethoc_probe(struct platform_device *pdev)
- 	netif_napi_del(&priv->napi);
- error:
- 	mdiobus_unregister(priv->mdio);
--free3:
-+free_mdiobus:
- 	mdiobus_free(priv->mdio);
--free2:
+ 	/* RCLK is for RMII, typically used for NCSI. Optional because it's not
+ 	 * necessary if it's the AST2400 MAC, or the MAC is configured for
+ 	 * RGMII, or the controller is not an ASPEED-based controller.
+ 	 */
+-	priv->rclk = devm_clk_get_optional(priv->dev, "RCLK");
+-	rc = clk_prepare_enable(priv->rclk);
+-	if (!rc)
+-		return 0;
+-
+-cleanup_clk:
 -	clk_disable_unprepare(priv->clk);
- free:
- 	free_netdev(netdev);
- out:
-@@ -1267,7 +1262,6 @@ static void ethoc_remove(struct platform_device *pdev)
- 			mdiobus_unregister(priv->mdio);
- 			mdiobus_free(priv->mdio);
- 		}
--		clk_disable_unprepare(priv->clk);
- 		unregister_netdev(netdev);
- 		free_netdev(netdev);
+-
+-	return rc;
++	priv->rclk = devm_clk_get_optional_enabled(priv->dev, "RCLK");
++	return PTR_ERR_OR_ZERO(priv->rclk);
+ }
+ 
+ static bool ftgmac100_has_child_node(struct device_node *np, const char *name)
+@@ -2020,16 +2010,13 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	err = register_netdev(netdev);
+ 	if (err) {
+ 		dev_err(&pdev->dev, "Failed to register netdev\n");
+-		goto err_register_netdev;
++		goto err_phy_connect;
  	}
+ 
+ 	netdev_info(netdev, "irq %d, mapped at %p\n", netdev->irq, priv->base);
+ 
+ 	return 0;
+ 
+-err_register_netdev:
+-	clk_disable_unprepare(priv->rclk);
+-	clk_disable_unprepare(priv->clk);
+ err_phy_connect:
+ 	ftgmac100_phy_disconnect(netdev);
+ err_ncsi_dev:
+@@ -2058,9 +2045,6 @@ static void ftgmac100_remove(struct platform_device *pdev)
+ 		ncsi_unregister_dev(priv->ndev);
+ 	unregister_netdev(netdev);
+ 
+-	clk_disable_unprepare(priv->rclk);
+-	clk_disable_unprepare(priv->clk);
+-
+ 	/* There's a small chance the reset task will have been re-queued,
+ 	 * during stop, make sure it's gone before we free the structure.
+ 	 */
 -- 
 2.34.1
 
