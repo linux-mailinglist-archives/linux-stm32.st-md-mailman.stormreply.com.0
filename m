@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C85E896FF5B
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 05:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E241396FF5C
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 05:01:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 900B9C7801B;
-	Sat,  7 Sep 2024 03:01:33 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A320FC78018;
+	Sat,  7 Sep 2024 03:01:35 +0000 (UTC)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 405AEC78030
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89715C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Sep 2024 03:01:31 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4X0yY400BHz69LM;
- Sat,  7 Sep 2024 11:01:27 +0800 (CST)
+ Sat,  7 Sep 2024 03:01:32 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.17])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4X0yRL2ZlSz20nY1;
+ Sat,  7 Sep 2024 10:56:30 +0800 (CST)
 Received: from kwepemd500012.china.huawei.com (unknown [7.221.188.25])
- by mail.maildlp.com (Postfix) with ESMTPS id 6B0421800F2;
- Sat,  7 Sep 2024 11:01:29 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 5BFA91A0188;
+ Sat,  7 Sep 2024 11:01:30 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemd500012.china.huawei.com
  (7.221.188.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Sat, 7 Sep
- 2024 11:01:28 +0800
+ 2024 11:01:29 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <mchehab@kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
  <kuba@kernel.org>, <pabeni@redhat.com>, <wens@csie.org>,
@@ -35,8 +35,8 @@ To: <mchehab@kernel.org>, <davem@davemloft.net>, <edumazet@google.com>,
  <ruanjinjie@huawei.com>, <hverkuil-cisco@xs4all.nl>,
  <u.kleine-koenig@pengutronix.de>, <jacky_chou@aspeedtech.com>,
  <jacob.e.keller@intel.com>
-Date: Sat, 7 Sep 2024 11:10:08 +0800
-Message-ID: <20240907031009.3591057-11-lizetao1@huawei.com>
+Date: Sat, 7 Sep 2024 11:10:09 +0800
+Message-ID: <20240907031009.3591057-12-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240907031009.3591057-1-lizetao1@huawei.com>
 References: <20240907031009.3591057-1-lizetao1@huawei.com>
@@ -48,8 +48,8 @@ Cc: netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-rockchip@lists.infradead.org, platform-driver-x86@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 09/10] net: ethernet: sunplus:
-	Convert using devm_clk_get_enabled() in spl2sw_probe()
+Subject: [Linux-stm32] [PATCH net-next v2 10/10] net: xilinx: axienet:
+	Convert using devm_clk_get_optional_enabled() in axienet_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,125 +66,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use devm_clk_get_enabled() instead of devm_clk_get() +
+Use devm_clk_get_optional_enabled() instead of devm_clk_get_optional() +
 clk_prepare_enable(), which can make the clk consistent with the device
 life cycle and reduce the risk of unreleased clk resources. Since the
 device framework has automatically released the clk resource, there is
-no need to execute clk_disable_unprepare(clk) on the error path, drop
-the out_clk_disable label, and the original error process can return
-directly. Some comments have also been adjusted.
+no need to execute clk_disable_unprepare(clk) on the error path.
 
-After this modification , it is no longer necessary to use clk, so delete
-the clk member of the spl2sw_common structure.
-
+Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
-v1 -> v2: Delete the clk member of the spl2sw_common structure
-v1:
-https://lore.kernel.org/all/20240831021334.1907921-10-lizetao1@huawei.com/
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
- drivers/net/ethernet/sunplus/spl2sw_define.h |  1 -
- drivers/net/ethernet/sunplus/spl2sw_driver.c | 25 +++++++-------------
- 2 files changed, 9 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/ethernet/sunplus/spl2sw_define.h b/drivers/net/ethernet/sunplus/spl2sw_define.h
-index acc6c1228ebc..6318eccc6c4e 100644
---- a/drivers/net/ethernet/sunplus/spl2sw_define.h
-+++ b/drivers/net/ethernet/sunplus/spl2sw_define.h
-@@ -224,7 +224,6 @@ struct spl2sw_common {
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 374dff70ef0d..87c5dcec2325 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -2592,22 +2592,17 @@ static int axienet_probe(struct platform_device *pdev)
+ 	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
+ 	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
  
- 	struct platform_device *pdev;
- 	struct reset_control *rstc;
--	struct clk *clk;
- 
- 	void *desc_base;
- 	dma_addr_t desc_dma;
-diff --git a/drivers/net/ethernet/sunplus/spl2sw_driver.c b/drivers/net/ethernet/sunplus/spl2sw_driver.c
-index 391a1bc7f446..887da05bc204 100644
---- a/drivers/net/ethernet/sunplus/spl2sw_driver.c
-+++ b/drivers/net/ethernet/sunplus/spl2sw_driver.c
-@@ -327,6 +327,7 @@ static int spl2sw_probe(struct platform_device *pdev)
- 	struct net_device *ndev;
- 	struct spl2sw_mac *mac;
- 	u8 mac_addr[ETH_ALEN];
-+	struct clk *clk;
- 	int irq, i, ret;
- 
- 	if (platform_get_drvdata(pdev))
-@@ -355,12 +356,12 @@ static int spl2sw_probe(struct platform_device *pdev)
- 		return ret;
- 	irq = ret;
- 
--	/* Get clock controller. */
--	comm->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(comm->clk)) {
--		dev_err_probe(&pdev->dev, PTR_ERR(comm->clk),
-+	/* Get and enable clock controller. */
-+	clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(clk)) {
-+		dev_err_probe(&pdev->dev, PTR_ERR(clk),
- 			      "Failed to retrieve clock controller!\n");
--		return PTR_ERR(comm->clk);
-+		return PTR_ERR(clk);
+-	lp->axi_clk = devm_clk_get_optional(&pdev->dev, "s_axi_lite_clk");
+-	if (!lp->axi_clk) {
++	lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, "s_axi_lite_clk");
++	if (!lp->axi_clk)
+ 		/* For backward compatibility, if named AXI clock is not present,
+ 		 * treat the first clock specified as the AXI clock.
+ 		 */
+-		lp->axi_clk = devm_clk_get_optional(&pdev->dev, NULL);
+-	}
++		lp->axi_clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
++
+ 	if (IS_ERR(lp->axi_clk)) {
+ 		ret = PTR_ERR(lp->axi_clk);
+ 		goto free_netdev;
  	}
+-	ret = clk_prepare_enable(lp->axi_clk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable AXI clock: %d\n", ret);
+-		goto free_netdev;
+-	}
  
- 	/* Get reset controller. */
-@@ -371,10 +372,6 @@ static int spl2sw_probe(struct platform_device *pdev)
- 		return PTR_ERR(comm->rstc);
- 	}
+ 	lp->misc_clks[0].id = "axis_clk";
+ 	lp->misc_clks[1].id = "ref_clk";
+@@ -2923,7 +2918,6 @@ static int axienet_probe(struct platform_device *pdev)
+ 		axienet_mdio_teardown(lp);
+ cleanup_clk:
+ 	clk_bulk_disable_unprepare(XAE_NUM_MISC_CLOCKS, lp->misc_clks);
+-	clk_disable_unprepare(lp->axi_clk);
  
--	/* Enable clock. */
--	ret = clk_prepare_enable(comm->clk);
--	if (ret)
--		return ret;
- 	udelay(1);
+ free_netdev:
+ 	free_netdev(ndev);
+@@ -2947,7 +2941,6 @@ static void axienet_remove(struct platform_device *pdev)
+ 	axienet_mdio_teardown(lp);
  
- 	/* Reset MAC */
-@@ -388,7 +385,7 @@ static int spl2sw_probe(struct platform_device *pdev)
- 			       dev_name(&pdev->dev), comm);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to request irq #%d!\n", irq);
--		goto out_clk_disable;
-+		return ret;
- 	}
+ 	clk_bulk_disable_unprepare(XAE_NUM_MISC_CLOCKS, lp->misc_clks);
+-	clk_disable_unprepare(lp->axi_clk);
  
- 	/* Initialize TX and RX descriptors. */
-@@ -396,7 +393,7 @@ static int spl2sw_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_err(&pdev->dev, "Fail to initialize mac descriptors!\n");
- 		spl2sw_descs_free(comm);
--		goto out_clk_disable;
-+		return ret;
- 	}
- 
- 	/* Initialize MAC. */
-@@ -406,7 +403,7 @@ static int spl2sw_probe(struct platform_device *pdev)
- 	ret = spl2sw_mdio_init(comm);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to initialize mdio bus!\n");
--		goto out_clk_disable;
-+		return ret;
- 	}
- 
- 	/* Get child node ethernet-ports. */
-@@ -506,8 +503,6 @@ static int spl2sw_probe(struct platform_device *pdev)
- out_free_mdio:
- 	spl2sw_mdio_remove(comm);
- 
--out_clk_disable:
--	clk_disable_unprepare(comm->clk);
- 	return ret;
+ 	free_netdev(ndev);
  }
- 
-@@ -536,8 +531,6 @@ static void spl2sw_remove(struct platform_device *pdev)
- 	netif_napi_del(&comm->tx_napi);
- 
- 	spl2sw_mdio_remove(comm);
--
--	clk_disable_unprepare(comm->clk);
- }
- 
- static const struct of_device_id spl2sw_of_match[] = {
 -- 
 2.34.1
 
