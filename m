@@ -2,60 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A372970031
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Sep 2024 07:34:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D44A9706EB
+	for <lists+linux-stm32@lfdr.de>; Sun,  8 Sep 2024 13:33:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA77BC78013;
-	Sat,  7 Sep 2024 05:34:57 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-26.smtpout.orange.fr
- [80.12.242.26])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93710C712A2;
+	Sun,  8 Sep 2024 11:32:59 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EFA7C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95D63C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Sep 2024 05:34:50 +0000 (UTC)
-Received: from [192.168.1.37] ([90.11.132.44]) by smtp.orange.fr with ESMTPA
- id mo5jsZENhQYYumo5jsI8EG; Sat, 07 Sep 2024 07:34:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1725687289;
- bh=zhb/fr3/ahbe9u0OOQ3I4zVqjQ6OdAdflP4aJvLzC4g=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=Ov4MO2/EsHbrXOn9mC5X45wUoZIu5LI6TUyK0ggF1aC8TviLvfB2vCpHsKNXLYgO5
- vBaAVBW+bZ0l5ZTWIpIqG1k5s5ogB6GbmyJep53eZUBPf7UrWql6sNXCVJAV7qwJ/1
- IKAMTL4XPED5b32aaNhI45/3uOfPJ3CGw0qz15LWBCyr9YqZ3KUAXf9faq3OFP5C8r
- RcDhXSGvkEV2+CZzDd2oTGxqPwspFww7txYJdfKzDwGcoeUud15+vIoJ0S0x/fCqRZ
- 1y+Kq0GAzZTDRh8RQOXn6s6TFr9lLo8cXOffoCQL4+J2ZW41amN0iv7I2iv+YmsbqH
- V9/TpYOhfBxiA==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
-X-ME-Date: Sat, 07 Sep 2024 07:34:49 +0200
-X-ME-IP: 90.11.132.44
-Message-ID: <daf856a8-32ad-47ac-91b2-0aa2253636f8@wanadoo.fr>
-Date: Sat, 7 Sep 2024 07:34:35 +0200
+ Sun,  8 Sep 2024 11:32:52 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-53662965a05so709231e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 08 Sep 2024 04:32:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725795172; x=1726399972;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vr39MxCa3Ig2XJlwouThex9PYkaXy3rMiTg4IK35S54=;
+ b=abCMpg89SIbhIa+itXL+9j6R+9AxBY2QIDHN2buZMRP7a6PjAJoPoelE9lXgHDm91e
+ nv0UjyiBHtMcz6vwbnYvIYoFj63VOCLvIuT5CG5IAOInIgGXyxZijoFRoFt/WgoRRb3n
+ Cci+Ln8FcsohXQ2h64W9ewau6Q/7LuCVdssqH/M7ngXAX+FwzLl/EpqmmeCMZ1LJuaTM
+ AqRbpXvnF1eB4RYgXyTkfuGBlVs9KrNhDM6cbuZAkPI45juYNXKtoawHbYL/hHr9ABzd
+ pQky7jZD1htW22pvyeLCmC0yFdWqSLnb8NZ+++Z76iKZJ0pWUEhCmzSQdn4NYJlaOipe
+ 7Krg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1725795172; x=1726399972;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Vr39MxCa3Ig2XJlwouThex9PYkaXy3rMiTg4IK35S54=;
+ b=hJgYjjgaCH99b+IHDE4VCFZmdz+clRc008yk6P4bSAQZIm/DHXFVkQamOHK1PiaoTc
+ K+S7Bcjx/uldyT580TejEOPhAowQXhveA/c0wM0eS5bIkqRMLO/E077dUR0s+v0ulnDh
+ im0SXvx8TMfq/1PvglPleezBJyzfjYANtnDmaB+P4AI/fJPliQ8DIqPdAF8XhUkGWOiU
+ HE1oJbtEfJCtT88veRS87hyh8rMSGw/OnOh32WhpcwcXGlERvHEuUj77+4Qw0oOdvEfD
+ dR7qKU5e02DNuTqWE7zYMFVasbyiVhFK6VLc5J3TBTK0W8E6TUMINvs5go/Yfh1ZMO0p
+ 70sQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrfcFAfpUMPiP/t9YbjhCnIx18Z7carQXHNodW8Ss0OZQd0bv7F71I5sl06qi9WupVS75O7LCUoxlBHA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy2g9KUbMU81y7bCwiO5ot0Hc6/XujXLI052wg3i8kYCz8r5Rex
+ 2r6Pv+NW71lgqQxos46by8SEfIGhL3O6e+fC41P3SGADlSi3ZwneL0mj6+LW+80=
+X-Google-Smtp-Source: AGHT+IHgvbkne/FsPILazfWzkr9nHWvXt2VUPiGpwfZdijLsiNZyLWjCKQoepTDmG6n4QB1XaDqcvA==
+X-Received: by 2002:a05:6512:33cb:b0:536:55a3:70ad with SMTP id
+ 2adb3069b0e04-536587aaa07mr5784554e87.22.1725795171426; 
+ Sun, 08 Sep 2024 04:32:51 -0700 (PDT)
+Received: from localhost ([2a02:8071:b783:6940:a029:f6b8:fc85:4519])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d2597ac96sm191678366b.73.2024.09.08.04.32.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 Sep 2024 04:32:50 -0700 (PDT)
+Date: Sun, 8 Sep 2024 13:32:48 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: David Lechner <dlechner@baylibre.com>
+Message-ID: <wzk5h5knkitt6ocp5dtnyx2vhazei7lgkhpdbft56mbmzbqcxr@jyhwdm65p5dl>
+References: <cover.1725635013.git.u.kleine-koenig@baylibre.com>
+ <6e4b7ef4-19c7-477c-b753-d4d59ed38e3a@baylibre.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Li Zetao <lizetao1@huawei.com>, mchehab@kernel.org,
- florian.fainelli@broadcom.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, wens@csie.org, jernej.skrabec@gmail.com,
- samuel@sholland.org, heiko@sntech.de, yisen.zhuang@huawei.com,
- salil.mehta@huawei.com, hauke@hauke-m.de, alexandre.torgue@foss.st.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, wellslutw@gmail.com,
- radhey.shyam.pandey@amd.com, michal.simek@amd.com, hdegoede@redhat.com,
- ilpo.jarvinen@linux.intel.com, ruanjinjie@huawei.com,
- hverkuil-cisco@xs4all.nl, u.kleine-koenig@pengutronix.de,
- jacky_chou@aspeedtech.com, jacob.e.keller@intel.com
-References: <20240907031926.3591353-1-lizetao1@huawei.com>
- <20240907031926.3591353-3-lizetao1@huawei.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20240907031926.3591353-3-lizetao1@huawei.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- platform-driver-x86@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 02/10] net: ethernet: Convert
- using devm_clk_get_enabled() in emac_probe()
+In-Reply-To: <6e4b7ef4-19c7-477c-b753-d4d59ed38e3a@baylibre.com>
+Cc: Trevor Gamblin <tgamblin@baylibre.com>, linux-pwm@vger.kernel.org,
+ Kent Gibson <warthog618@gmail.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-trace-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 0/7] pwm: New abstraction and userspace
+	API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,60 +85,184 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4413686192970889058=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgMDcvMDkvMjAyNCDDoCAwNToxOSwgTGkgWmV0YW8gYSDDqWNyaXTCoDoKPiBVc2UgZGV2bV9j
-bGtfZ2V0X2VuYWJsZWQoKSBpbnN0ZWFkIG9mIGRldm1fY2xrX2dldCgpICsKPiBjbGtfcHJlcGFy
-ZV9lbmFibGUoKSwgd2hpY2ggY2FuIG1ha2UgdGhlIGNsayBjb25zaXN0ZW50IHdpdGggdGhlIGRl
-dmljZQo+IGxpZmUgY3ljbGUgYW5kIHJlZHVjZSB0aGUgcmlzayBvZiB1bnJlbGVhc2VkIGNsayBy
-ZXNvdXJjZXMuIFNpbmNlIHRoZQo+IGRldmljZSBmcmFtZXdvcmsgaGFzIGF1dG9tYXRpY2FsbHkg
-cmVsZWFzZWQgdGhlIGNsayByZXNvdXJjZSwgdGhlcmUgaXMKPiBubyBuZWVkIHRvIGV4ZWN1dGUg
-Y2xrX2Rpc2FibGVfdW5wcmVwYXJlKGNsaykgb24gdGhlIGVycm9yIHBhdGgsIGRyb3AKPiB0aGUg
-b3V0X2Nsa19kaXNhYmxlX3VucHJlcGFyZSBsYWJlbCwgYW5kIHRoZSBvcmlnaW5hbCBlcnJvciBw
-cm9jZXNzIGNhbgo+IGNoYW5nZWQgdG8gdGhlIG91dF9kaXNwb3NlX21hcHBpbmcgZXJyb3IgcGF0
-aC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBMaSBaZXRhbyA8bGl6ZXRhbzFAaHVhd2VpLmNvbT4KCkhp
-LAoKSSB0aGluayB0aGF0IHRoZSBzdWJqZWN0IHNob3VsZCBiZSAibmV0OiBldGhlcm5ldDogYWxs
-d2lubmVyOiIsIG9yIG1heWJlIApldmVuICJuZXQ6IGFsbHdpbm5lcjoiCgoKY2xrIGNhbiBub3cg
-YmUgcmVtb3ZlZCBmcm9tIHN0cnVjdCBlbWFjX2JvYXJkX2luZm8gSSB0aGluay4KWW91IHNob3Vs
-ZCBjaGVjayBmb3IgYWxsIHBhdGNoZXMsIGFzIGFza2VkIGluIFsxXS4KCkkndmUgbm90IGxvb2tl
-ZCBhbGwgcGF0Y2hlcywgYnV0IGxhbnRpcV94cngyMDAoKSBsb29rcyBhbHNvIGEgZ29vZCAKY2Fu
-ZGlkYXRlIGZvciByZW1vdmluZyBjbGsgZnJvbSBhIHN0cnVjdHVyZS4KCkNKCgpbMV06IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI0MDkwMzE1MTY0OS4xYjQ2NjE0NUBrZXJuZWwub3Jn
-LwoKQ0oKCj4gLS0tCj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC9hbGx3aW5uZXIvc3VuNGktZW1h
-Yy5jIHwgMTMgKystLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KSwgMTEgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L2FsbHdpbm5lci9zdW40aS1lbWFjLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9hbGx3aW5uZXIv
-c3VuNGktZW1hYy5jCj4gaW5kZXggZDc2MWMwOGZlNWMxLi44ZjQyNTAxNzI5YjcgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvYWxsd2lubmVyL3N1bjRpLWVtYWMuYwo+ICsrKyBi
-L2RyaXZlcnMvbmV0L2V0aGVybmV0L2FsbHdpbm5lci9zdW40aS1lbWFjLmMKPiBAQCAtMTAwNSwy
-MiArMTAwNSwxNiBAQCBzdGF0aWMgaW50IGVtYWNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
-ZSAqcGRldikKPiAgIAlpZiAoZW1hY19jb25maWd1cmVfZG1hKGRiKSkKPiAgIAkJbmV0ZGV2X2lu
-Zm8obmRldiwgImNvbmZpZ3VyZSBkbWEgZmFpbGVkLiBkaXNhYmxlIGRtYS5cbiIpOwo+ICAgCj4g
-LQlkYi0+Y2xrID0gZGV2bV9jbGtfZ2V0KCZwZGV2LT5kZXYsIE5VTEwpOwo+ICsJZGItPmNsayA9
-IGRldm1fY2xrX2dldF9lbmFibGVkKCZwZGV2LT5kZXYsIE5VTEwpOwo+ICAgCWlmIChJU19FUlIo
-ZGItPmNsaykpIHsKPiAgIAkJcmV0ID0gUFRSX0VSUihkYi0+Y2xrKTsKPiAgIAkJZ290byBvdXRf
-ZGlzcG9zZV9tYXBwaW5nOwo+ICAgCX0KPiAgIAo+IC0JcmV0ID0gY2xrX3ByZXBhcmVfZW5hYmxl
-KGRiLT5jbGspOwo+IC0JaWYgKHJldCkgewo+IC0JCWRldl9lcnIoJnBkZXYtPmRldiwgIkVycm9y
-IGNvdWxkbid0IGVuYWJsZSBjbG9jayAoJWQpXG4iLCByZXQpOwo+IC0JCWdvdG8gb3V0X2Rpc3Bv
-c2VfbWFwcGluZzsKPiAtCX0KPiAtCj4gICAJcmV0ID0gc3VueGlfc3JhbV9jbGFpbSgmcGRldi0+
-ZGV2KTsKPiAgIAlpZiAocmV0KSB7Cj4gICAJCWRldl9lcnIoJnBkZXYtPmRldiwgIkVycm9yIGNv
-dWxkbid0IG1hcCBTUkFNIHRvIGRldmljZVxuIik7Cj4gLQkJZ290byBvdXRfY2xrX2Rpc2FibGVf
-dW5wcmVwYXJlOwo+ICsJCWdvdG8gb3V0X2Rpc3Bvc2VfbWFwcGluZzsKPiAgIAl9Cj4gICAKPiAg
-IAlkYi0+cGh5X25vZGUgPSBvZl9wYXJzZV9waGFuZGxlKG5wLCAicGh5LWhhbmRsZSIsIDApOwo+
-IEBAIC0xMDY4LDggKzEwNjIsNiBAQCBzdGF0aWMgaW50IGVtYWNfcHJvYmUoc3RydWN0IHBsYXRm
-b3JtX2RldmljZSAqcGRldikKPiAgIAo+ICAgb3V0X3JlbGVhc2Vfc3JhbToKPiAgIAlzdW54aV9z
-cmFtX3JlbGVhc2UoJnBkZXYtPmRldik7Cj4gLW91dF9jbGtfZGlzYWJsZV91bnByZXBhcmU6Cj4g
-LQljbGtfZGlzYWJsZV91bnByZXBhcmUoZGItPmNsayk7Cj4gICBvdXRfZGlzcG9zZV9tYXBwaW5n
-Ogo+ICAgCWlycV9kaXNwb3NlX21hcHBpbmcobmRldi0+aXJxKTsKPiAgIAlkbWFfcmVsZWFzZV9j
-aGFubmVsKGRiLT5yeF9jaGFuKTsKPiBAQCAtMTA5NSw3ICsxMDg3LDYgQEAgc3RhdGljIHZvaWQg
-ZW1hY19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgIAo+ICAgCXVucmVn
-aXN0ZXJfbmV0ZGV2KG5kZXYpOwo+ICAgCXN1bnhpX3NyYW1fcmVsZWFzZSgmcGRldi0+ZGV2KTsK
-PiAtCWNsa19kaXNhYmxlX3VucHJlcGFyZShkYi0+Y2xrKTsKPiAgIAlpcnFfZGlzcG9zZV9tYXBw
-aW5nKG5kZXYtPmlycSk7Cj4gICAJaW91bm1hcChkYi0+bWVtYmFzZSk7Cj4gICAJZnJlZV9uZXRk
-ZXYobmRldik7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============4413686192970889058==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2bzw6j5f7wjbafhs"
+Content-Disposition: inline
+
+
+--2bzw6j5f7wjbafhs
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello David,
+
+On Fri, Sep 06, 2024 at 02:06:18PM -0500, David Lechner wrote:
+> On 9/6/24 10:42 AM, Uwe Kleine-K=F6nig wrote:
+> > Hello,
+> >=20
+> > here comes v4 of the series to add support for duty offset in PWM
+> > waveforms. For a single PWM output there is no gain, but if you have a
+> > chip with two (or more) outputs and both operate with the same period,
+> > you can generate an output like:
+> >=20
+> >                ______         ______         ______         ______
+> >    PWM #0  ___/      \_______/      \_______/      \_______/      \____=
+___
+> >                  __             __             __             __
+> >    PWM #1  _____/  \___________/  \___________/  \___________/  \______=
+___
+> >               ^              ^              ^              ^
+> >=20
+>=20
+> While working on an ADC driver that uses these new waveform APIs, we came
+> across a case where we wanted wf->duty_offset_ns >=3D wf->period_length_n=
+s,
+> which is currently not allowed. [1]
+>=20
+>                 ______         ______         ______         ______
+>     PWM #0  ___/      \_______/      \_______/      \_______/      \_____=
+__
+>                                __             __             __
+>     PWM #1  __________________/  \___________/  \___________/  \_________=
+__
+>                             ^              ^              ^             =
+=20
+
+I restricted to waveforms with .duty_offset_ns < .period_length_ns
+because the signal you want is only periodic once PWM #1 begins to
+toggle. Given that the pwm subsystem is about periodic signals and has a
+wide range of behaviours at the moments the configuration is changed, I
+think it's little sensible today to consider reliably implementing
+offsets bigger than the period length.
+
+Does your hardware really behave like that?
+
+> We worked around it by setting:
+>=20
+> 	wf->duty_offset_ns =3D DESIRED_NS % wf->period_length_ns
+>=20
+> Having PWM #1 trigger too early just causes the first sample data
+> read to be invalid data.
+>=20
+> But even if we allowed wf->duty_offset_ns >=3D wf->period_length_ns,
+> this offset wouldn't matter because there currently isn't a way to
+> enable two PWM outputs at exactly the same time.
+
+Yup, that's another challenge. Up to now it's even special knowledge
+about the used pwm chip that with configuring two pwms with the same
+period, the period starts are synced and you don't get:
+
+
+                   ______         ______         ______         ______
+     PWM #0  _____/      \_______/      \_______/      \_______/      \____=
+___
+                  ^              ^              ^              ^
+                 __             __             __             __
+     PWM #1  ___/  \___________/  \___________/  \___________/  \___________
+              ^              ^              ^              ^             =
+=20
+
+> >  - The functions pwm_set_waveform_might_sleep() and
+> >    pwm_round_waveform_might_sleep() have an unusual return value
+> >    convention: They return 0 on success, 1 if the requested waveform
+> >    cannot be implemented without breaking the rounding rules, or a
+> >    negative errno if an error occurs.
+> >    Fabrice rightfully pointed out this to be surprised by this and
+> >    suggested to use at least a define for it.
+> >=20
+> >    I couldn't find a decision that I'm entirely happy with here. My
+> >    conflicts are:
+> >=20
+> >     - I want a constant that now and in the future only means "cannot be
+> >       done due to the rounding rules in the pwm framework". So the
+> >       options are:
+> >         * Introduce a new ESOMETHING and return -ESOMETHING
+> >           I think that's hard to motivate and also myself doubt this
+> >           would be sensible. As below, the question for a good name is
+> >           unresolved.
+> >         * return 1
+> >           This is what was done in the earlier revisions and also here.
+> >=20
+> >     - When keeping the return 1 semantics (and also for a new
+> >       ESOMETHING):
+> >       I agree that a name instead of a plain 1 would be nice, but I
+> >       couldn't come up with a name I liked. Given that this can be
+> >       introduced later without breaking anything, I don't consider that
+> >       very urgent.
+> >       My candidates were PWM_REQUIRES_BROKEN_ROUNDING,
+> >       PWM_REQUIRES_FORBIDDEN_ROUNDING and PWM_ERR_ROUNDING.
+> >       These are too long or/and imprecise.
+> >       If you have a good idea, please tell.
+>=20
+> To avoid using the return value for status flags, we could introduce
+> an optional output parameter. Consumers where best effort is good
+> enough can just pass NULL and consumers that care can pass an unsigned
+> int to receive the status flag. This could even be a bitmap of multiple
+> flags if it would be useful to know which rule(s) could not be met.
+
+Which rule couldn't be met is obvious when you look at the resulting
+waveform because the lowlevel driver is supposed to give you the
+smallest possible value for the relevant parameter if rounding down
+doesn't work.
+
+So if you request
+
+	.period_length_ns =3D 3000
+	.duty_length_ns =3D 2
+	.duty_offset_ns =3D 10
+
+and your hardware can do 3000 ns period but the smallest duty_length is
+10, it is supposed to write
+
+	.period_length_ns =3D 3000
+	.duty_length_ns =3D 10
+	.duty_offset_ns =3D 10
+
+in the waveform parameter and return 1.
+
+My intuitive reaction is that (another) output parameter is worse than
+the return value semantics I came up with. After some more thought I
+wonder if the wish to have something PWM specific is the problem, and
+just picking one of the available error constants (ERANGE?) is the nice
+way out. Alternatively return 0 in this case and let the caller work out
+themselves that not all values were rounded down?!
+
+Best regards
+Uwe
+
+--2bzw6j5f7wjbafhs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmbdi14ACgkQj4D7WH0S
+/k7qpAf/Y5ssufaf6K1aaX1b8DvdvTR9ZtYP4d2qMkbRPEmh0ttEd77LiJKYAPYv
+8+cMq81ISOARc2fARWJUyFOKnLI1mn4AR5L8pPPCx/9MPT/hcTLTDQ4yYian5/6M
+3AtSIVl/FK4+dXzYsQP8QIWaFlWA7sH4HVwvh5o2HGAtFFl1vkzu3iYk5adKUYWR
+OX0fUsg8YX94x8CqRxdc0xezbg1yBqXJ/oxOrYbv8SArDVuJf9nWEiQiI5DRa3aO
+vLCCW0EGjgRiDP3uUF0CxTcrQJPBorId6FQPnqeGyb+NEMXcWz0Elnp9tz5XRuXN
+NI2fsiSzpOi4pzYa5f89EbLfFAgIEQ==
+=Z0Bq
+-----END PGP SIGNATURE-----
+
+--2bzw6j5f7wjbafhs--
+
+--===============4413686192970889058==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4413686192970889058==--
