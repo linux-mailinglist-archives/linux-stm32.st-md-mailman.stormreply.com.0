@@ -2,78 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D44A9706EB
-	for <lists+linux-stm32@lfdr.de>; Sun,  8 Sep 2024 13:33:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28A5970C46
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Sep 2024 05:35:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93710C712A2;
-	Sun,  8 Sep 2024 11:32:59 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70CBDC7801B;
+	Mon,  9 Sep 2024 03:35:53 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95D63C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E4B4C7801C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  8 Sep 2024 11:32:52 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-53662965a05so709231e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 08 Sep 2024 04:32:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725795172; x=1726399972;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Vr39MxCa3Ig2XJlwouThex9PYkaXy3rMiTg4IK35S54=;
- b=abCMpg89SIbhIa+itXL+9j6R+9AxBY2QIDHN2buZMRP7a6PjAJoPoelE9lXgHDm91e
- nv0UjyiBHtMcz6vwbnYvIYoFj63VOCLvIuT5CG5IAOInIgGXyxZijoFRoFt/WgoRRb3n
- Cci+Ln8FcsohXQ2h64W9ewau6Q/7LuCVdssqH/M7ngXAX+FwzLl/EpqmmeCMZ1LJuaTM
- AqRbpXvnF1eB4RYgXyTkfuGBlVs9KrNhDM6cbuZAkPI45juYNXKtoawHbYL/hHr9ABzd
- pQky7jZD1htW22pvyeLCmC0yFdWqSLnb8NZ+++Z76iKZJ0pWUEhCmzSQdn4NYJlaOipe
- 7Krg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725795172; x=1726399972;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Vr39MxCa3Ig2XJlwouThex9PYkaXy3rMiTg4IK35S54=;
- b=hJgYjjgaCH99b+IHDE4VCFZmdz+clRc008yk6P4bSAQZIm/DHXFVkQamOHK1PiaoTc
- K+S7Bcjx/uldyT580TejEOPhAowQXhveA/c0wM0eS5bIkqRMLO/E077dUR0s+v0ulnDh
- im0SXvx8TMfq/1PvglPleezBJyzfjYANtnDmaB+P4AI/fJPliQ8DIqPdAF8XhUkGWOiU
- HE1oJbtEfJCtT88veRS87hyh8rMSGw/OnOh32WhpcwcXGlERvHEuUj77+4Qw0oOdvEfD
- dR7qKU5e02DNuTqWE7zYMFVasbyiVhFK6VLc5J3TBTK0W8E6TUMINvs5go/Yfh1ZMO0p
- 70sQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrfcFAfpUMPiP/t9YbjhCnIx18Z7carQXHNodW8Ss0OZQd0bv7F71I5sl06qi9WupVS75O7LCUoxlBHA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy2g9KUbMU81y7bCwiO5ot0Hc6/XujXLI052wg3i8kYCz8r5Rex
- 2r6Pv+NW71lgqQxos46by8SEfIGhL3O6e+fC41P3SGADlSi3ZwneL0mj6+LW+80=
-X-Google-Smtp-Source: AGHT+IHgvbkne/FsPILazfWzkr9nHWvXt2VUPiGpwfZdijLsiNZyLWjCKQoepTDmG6n4QB1XaDqcvA==
-X-Received: by 2002:a05:6512:33cb:b0:536:55a3:70ad with SMTP id
- 2adb3069b0e04-536587aaa07mr5784554e87.22.1725795171426; 
- Sun, 08 Sep 2024 04:32:51 -0700 (PDT)
-Received: from localhost ([2a02:8071:b783:6940:a029:f6b8:fc85:4519])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d2597ac96sm191678366b.73.2024.09.08.04.32.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Sep 2024 04:32:50 -0700 (PDT)
-Date: Sun, 8 Sep 2024 13:32:48 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: David Lechner <dlechner@baylibre.com>
-Message-ID: <wzk5h5knkitt6ocp5dtnyx2vhazei7lgkhpdbft56mbmzbqcxr@jyhwdm65p5dl>
-References: <cover.1725635013.git.u.kleine-koenig@baylibre.com>
- <6e4b7ef4-19c7-477c-b753-d4d59ed38e3a@baylibre.com>
+ Mon,  9 Sep 2024 03:35:45 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 488NjB5N015985;
+ Mon, 9 Sep 2024 03:35:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=EXFs6WBCMRcwfj80q5hSN8
+ 9/j1417LnNAoWQ2jx06Hg=; b=TERqLrQsLOayWCmgHdewsEuF2B4fYq6qTsCQ8Y
+ aabwO7kgRMbm7QU0tHeSqXqO/6d6Maq7vML8NElq7PFWV2fi1eCnSqzRPJvG44SF
+ zqPXHGdigmBgjR2o0A5hKQKAAjCtCqvNycrNrD6CE8q61jzA7N6Cngm/qZz7j6sV
+ 6ChVZ/sV3cN75WQ1PzoaFIX9zqEYW5/Yy98en1haVfKic7tHybO+TkYktZqLUIAr
+ NmIIg5wVv5bf8r5VQJha6ILeSAoXPSQ2112p6oADH+B5MKw4EQ5kg9IzIm39cS8H
+ f/eeJgB8IC2zK1Grl5rQmWROvSlrtIlislRgrk53Mqq1IiIQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy72sjjc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Sep 2024 03:35:20 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4893ZIe3003296
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 9 Sep 2024 03:35:19 GMT
+Received: from jiegan-gv.qualcomm.com (10.80.80.8) by
+ nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Sun, 8 Sep 2024 20:35:13 -0700
+From: Jie Gan <quic_jiegan@quicinc.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+Date: Mon, 9 Sep 2024 11:34:53 +0800
+Message-ID: <20240909033458.3118238-1-quic_jiegan@quicinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <6e4b7ef4-19c7-477c-b753-d4d59ed38e3a@baylibre.com>
-Cc: Trevor Gamblin <tgamblin@baylibre.com>, linux-pwm@vger.kernel.org,
- Kent Gibson <warthog618@gmail.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/7] pwm: New abstraction and userspace
-	API
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 33QDULXl2XCf78XiJ542j1G_X-yrs6Tz
+X-Proofpoint-GUID: 33QDULXl2XCf78XiJ542j1G_X-yrs6Tz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 spamscore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=999 suspectscore=0
+ priorityscore=1501 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2408220000 definitions=main-2409090026
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Jinlong Mao <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Song Chai <quic_songchai@quicinc.com>, Tao Zhang <quic_taozha@quicinc.com>,
+ coresight@lists.linaro.org, Yuanfang Zhang <quic_yuanfang@quicinc.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 0/5] Coresight: Add Coresight TMC Control
+	Unit driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,184 +90,141 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4413686192970889058=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4413686192970889058==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2bzw6j5f7wjbafhs"
-Content-Disposition: inline
-
-
---2bzw6j5f7wjbafhs
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello David,
-
-On Fri, Sep 06, 2024 at 02:06:18PM -0500, David Lechner wrote:
-> On 9/6/24 10:42 AM, Uwe Kleine-K=F6nig wrote:
-> > Hello,
-> >=20
-> > here comes v4 of the series to add support for duty offset in PWM
-> > waveforms. For a single PWM output there is no gain, but if you have a
-> > chip with two (or more) outputs and both operate with the same period,
-> > you can generate an output like:
-> >=20
-> >                ______         ______         ______         ______
-> >    PWM #0  ___/      \_______/      \_______/      \_______/      \____=
-___
-> >                  __             __             __             __
-> >    PWM #1  _____/  \___________/  \___________/  \___________/  \______=
-___
-> >               ^              ^              ^              ^
-> >=20
->=20
-> While working on an ADC driver that uses these new waveform APIs, we came
-> across a case where we wanted wf->duty_offset_ns >=3D wf->period_length_n=
-s,
-> which is currently not allowed. [1]
->=20
->                 ______         ______         ______         ______
->     PWM #0  ___/      \_______/      \_______/      \_______/      \_____=
-__
->                                __             __             __
->     PWM #1  __________________/  \___________/  \___________/  \_________=
-__
->                             ^              ^              ^             =
-=20
-
-I restricted to waveforms with .duty_offset_ns < .period_length_ns
-because the signal you want is only periodic once PWM #1 begins to
-toggle. Given that the pwm subsystem is about periodic signals and has a
-wide range of behaviours at the moments the configuration is changed, I
-think it's little sensible today to consider reliably implementing
-offsets bigger than the period length.
-
-Does your hardware really behave like that?
-
-> We worked around it by setting:
->=20
-> 	wf->duty_offset_ns =3D DESIRED_NS % wf->period_length_ns
->=20
-> Having PWM #1 trigger too early just causes the first sample data
-> read to be invalid data.
->=20
-> But even if we allowed wf->duty_offset_ns >=3D wf->period_length_ns,
-> this offset wouldn't matter because there currently isn't a way to
-> enable two PWM outputs at exactly the same time.
-
-Yup, that's another challenge. Up to now it's even special knowledge
-about the used pwm chip that with configuring two pwms with the same
-period, the period starts are synced and you don't get:
-
-
-                   ______         ______         ______         ______
-     PWM #0  _____/      \_______/      \_______/      \_______/      \____=
-___
-                  ^              ^              ^              ^
-                 __             __             __             __
-     PWM #1  ___/  \___________/  \___________/  \___________/  \___________
-              ^              ^              ^              ^             =
-=20
-
-> >  - The functions pwm_set_waveform_might_sleep() and
-> >    pwm_round_waveform_might_sleep() have an unusual return value
-> >    convention: They return 0 on success, 1 if the requested waveform
-> >    cannot be implemented without breaking the rounding rules, or a
-> >    negative errno if an error occurs.
-> >    Fabrice rightfully pointed out this to be surprised by this and
-> >    suggested to use at least a define for it.
-> >=20
-> >    I couldn't find a decision that I'm entirely happy with here. My
-> >    conflicts are:
-> >=20
-> >     - I want a constant that now and in the future only means "cannot be
-> >       done due to the rounding rules in the pwm framework". So the
-> >       options are:
-> >         * Introduce a new ESOMETHING and return -ESOMETHING
-> >           I think that's hard to motivate and also myself doubt this
-> >           would be sensible. As below, the question for a good name is
-> >           unresolved.
-> >         * return 1
-> >           This is what was done in the earlier revisions and also here.
-> >=20
-> >     - When keeping the return 1 semantics (and also for a new
-> >       ESOMETHING):
-> >       I agree that a name instead of a plain 1 would be nice, but I
-> >       couldn't come up with a name I liked. Given that this can be
-> >       introduced later without breaking anything, I don't consider that
-> >       very urgent.
-> >       My candidates were PWM_REQUIRES_BROKEN_ROUNDING,
-> >       PWM_REQUIRES_FORBIDDEN_ROUNDING and PWM_ERR_ROUNDING.
-> >       These are too long or/and imprecise.
-> >       If you have a good idea, please tell.
->=20
-> To avoid using the return value for status flags, we could introduce
-> an optional output parameter. Consumers where best effort is good
-> enough can just pass NULL and consumers that care can pass an unsigned
-> int to receive the status flag. This could even be a bitmap of multiple
-> flags if it would be useful to know which rule(s) could not be met.
-
-Which rule couldn't be met is obvious when you look at the resulting
-waveform because the lowlevel driver is supposed to give you the
-smallest possible value for the relevant parameter if rounding down
-doesn't work.
-
-So if you request
-
-	.period_length_ns =3D 3000
-	.duty_length_ns =3D 2
-	.duty_offset_ns =3D 10
-
-and your hardware can do 3000 ns period but the smallest duty_length is
-10, it is supposed to write
-
-	.period_length_ns =3D 3000
-	.duty_length_ns =3D 10
-	.duty_offset_ns =3D 10
-
-in the waveform parameter and return 1.
-
-My intuitive reaction is that (another) output parameter is worse than
-the return value semantics I came up with. After some more thought I
-wonder if the wish to have something PWM specific is the problem, and
-just picking one of the available error constants (ERANGE?) is the nice
-way out. Alternatively return 0 in this case and let the caller work out
-themselves that not all values were rounded down?!
-
-Best regards
-Uwe
-
---2bzw6j5f7wjbafhs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmbdi14ACgkQj4D7WH0S
-/k7qpAf/Y5ssufaf6K1aaX1b8DvdvTR9ZtYP4d2qMkbRPEmh0ttEd77LiJKYAPYv
-8+cMq81ISOARc2fARWJUyFOKnLI1mn4AR5L8pPPCx/9MPT/hcTLTDQ4yYian5/6M
-3AtSIVl/FK4+dXzYsQP8QIWaFlWA7sH4HVwvh5o2HGAtFFl1vkzu3iYk5adKUYWR
-OX0fUsg8YX94x8CqRxdc0xezbg1yBqXJ/oxOrYbv8SArDVuJf9nWEiQiI5DRa3aO
-vLCCW0EGjgRiDP3uUF0CxTcrQJPBorId6FQPnqeGyb+NEMXcWz0Elnp9tz5XRuXN
-NI2fsiSzpOi4pzYa5f89EbLfFAgIEQ==
-=Z0Bq
------END PGP SIGNATURE-----
-
---2bzw6j5f7wjbafhs--
-
---===============4413686192970889058==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4413686192970889058==--
+VGhlIENvcmVzaWdodCBUTUMgQ29udHJvbCBVbml0KENUQ1UpIGRldmljZSBob3N0cyBtaXNjZWxs
+YW5lb3VzIGNvbmZpZ3VyYXRpb24KcmVnaXN0ZXJzIHRvIGNvbnRyb2wgdmFyaW91cyBmZWF0dXJl
+cyByZWxhdGVkIHRvIFRNQyBFVFIgZGV2aWNlLgoKVGhlIENUQ1UgZGV2aWNlIHdvcmtzIGFzIGEg
+aGVscGVyIGRldmljZSBwaHlzaWNhbGx5IGNvbm5lY3RlZCB0byB0aGUgVE1DIEVUUiBkZXZpY2Uu
+Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LQogICAgICAgICAgICAgfEVUUjB8ICAgICAgICAgICAgIHxFVFIxfAogICAgICAgICAgICAgIC4g
+XCAgICAgICAgICAgICAgICAgLyAuCiAgICAgICAgICAgICAgLiAgXCAgICAgICAgICAgICAgIC8g
+IC4KICAgICAgICAgICAgICAuICAgXCAgICAgICAgICAgICAvICAgLgogICAgICAgICAgICAgIC4g
+ICAgXCAgICAgICAgICAgLyAgICAuCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQpFVFIwQVRJRDAtRVRSMEFUSUQzICAgICBDVENVICAgIEVUUjFBVElE
+MC1FVFIxQVRJRDMKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tCkVhY2ggRVRSIGhhcyBmb3VyIEFUSUQgcmVnaXN0ZXJzIHdpdGggMTI4IGJpdHMgbG9u
+ZyBpbiB0b3RhbC4KZS5nLiBFVFIwQVRJRDAtRVRSMEFUSUQzIHJlZ2lzdGVycyBhcmUgdXNlZCBi
+eSBFVFIwIGRldmljZS4KCkJhc2VkIG9uIHRoZSB0cmFjZSBpZCB3aGljaCBpcyBwcm9ncmFtZWQg
+aW4gQ1RDVSBBVElEIHJlZ2lzdGVyIG9mCnNwZWNpZmljIEVUUiwgdHJhY2UgZGF0YSB3aXRoIHRo
+YXQgdHJhY2UgaWQgY2FuIGdldCBpbnRvIEVUUidzIGJ1ZmZlcgp3aGlsZSBvdGhlciB0cmFjZSBk
+YXRhIGdldHMgaWdub3JlZC4gVGhlIG51bWJlciBvZiBDVENVIEFUSUQgcmVnaXN0ZXJzCmRlcGVu
+ZHMgb24gdGhlIG51bWJlciBvZiBkZWZpbmVkIFRNQyBFVFIgZGV2aWNlcy4gRm9yIGV4YW1wbGUs
+IHR3byBUTUMKRVRSIGRldmljZXMgbmVlZCBlaWdodCBBVElEIHJlZ2lzdGVycy4gRVRSMCB3aXRo
+IEVUUjBBVElEMC1FVFIwQVRJRDMKYW5kIEVUUjEgd2l0aCBFVFIxQVRJRDAtRVRSQVRJRDMuCgpU
+aGUgc2lnbmlmaWNhbnQgY2hhbGxlbmdlIGluIGVuYWJsaW5nIHRoZSBkYXRhIGZpbHRlciBmdW5j
+dGlvbiBpcyBob3cKdG8gY29sbGVjdCB0aGUgdHJhY2UgSUQgb2YgdGhlIHNvdXJjZSBkZXZpY2Uu
+IFRoZSBpbnRyb2R1Y3Rpb24gb2YKdHJhY2VfaWQgY2FsbGJhY2sgZnVuY3Rpb24gYWRkcmVzc2Vz
+IHRoaXMgY2hhbGxlbmdlLiBUaGUgY2FsbGJhY2sgZnVuY3Rpb24KY29sbGVjdHMgdHJhY2UgSUQg
+b2YgdGhlIGRldmljZSBhbmQgcmV0dXJuIGl0IGJhY2suIFRoZSB0cmFjZSBJRCB3aWxsIGJlCnN0
+b3JlZCBpbiB0aGUgc3RydWN0dXJlIGNhbGxlZCBjc19zaW5rX2RhdGEgYW5kIHRyYW5zbWl0dGVk
+IHRvIGhlbHBlcgphbmQgc2luayBkZXZpY2VzLgoKVGhlIGNzX3NpbmtfZGF0YSBzdHJ1Y3R1cmUg
+aXMgY3JlYXRlZCB0byBhZGRyZXNzIGhvdyB0byB0cmFuc21pdApwYXJhbWV0ZXJzIG5lZWRzIGJ5
+IGNvcmVzaWdodF9lbmFibGVfcGF0aC9jb3Jlc2lnaHRfZGlzYmFsZV9wYXRoCmZ1bmN0aW9ucy4K
+CkhlcmUgaXMgYW4gZXhhbXBsZSBvZiB0aGUgc3RydWN0IGNzX3NpbmtfZGF0YToKc3RydWN0IGNz
+X3NpbmtfZGF0YSB7CiAgICAgICAgc3RydWN0IHBlcmZfb3V0cHV0X2hhbmRsZSAgKmhhbmRsZTsg
+Ly91c2VkIGJ5IHBlcmYgbW9kZQogICAgICAgIHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICAgICpz
+aW5rOyAgIC8vdXNlZCB0byByZXRyaWV2ZSBhdGlkX29mZnNldAogICAgICAgIHUzMiAgICAgICAg
+ICAgICAgICAgICAgICAgIHRyYWNlaWQ7IC8vdHJhY2VpZCBuZWVkZWQgYnkgQ1RDVQp9OwoKVGhl
+IGF0aWRfb2Zmc2V0IG1lbnRpb25lZCBiZWZvcmUgaXMgdGhlIG9mZnNldCB0byBBVElEIHJlZ2lz
+dGVyIGluIENUQ1UKZGV2aWNlLgoKRW5hYmxpbmcgdGhlIHNvdXJjZSBkZXZpY2Ugd2lsbCBjb25m
+aWd1cmUgb25lIGJpdCBpbiB0aGUgQVRJRCByZWdpc3RlciBiYXNlZApvbiBpdHMgdHJhY2UgSUQu
+CkRpc2FibGluZyB0aGUgc291cmNlIGRldmljZXMgd2lsbCByZXNldCB0aGUgYml0IGluIHRoZSBB
+SVREIHJlZ2lzdGVyCmJhc2VkIG9uIGl0cyB0cmFjZSBJRC4KClVzZWFnZToKRW5hYmxlOgpTVE0g
+ZGV2aWNlIHdpdGggdHJhY2UgSUQgNSBhbmQgRVRSMCBpcyBhY3RpdmF0ZWQuCkJpdG1hcCBiZWZv
+cmUgdGhlIGVuYWJsZW1lbnQ6CkVUUjBBVElEMDoKMzEuLi4uLi4uLi4uLi4uLi4uLi41NDMyMTAK
+PT09PT09PT09PT09PT09PT09PT09PT09PT0KMDAwMDAwMDAwMDAwMDAwMDAwMDAwMC4uLjAKPT09
+PT09PT09PT09PT09PT09PT09PT09PT0KCkJpdG1hcCBhZnRlciB0aGUgZW5hYmxlbWVudDoKMzEu
+Li4uLi4uLi4uLi4uLi4uLi41NDMyMTAKPT09PT09PT09PT09PT09PT09PT09PT09PT0KMDAwMDAw
+MDAwMDAwMC4uLjAwMDAxMDAwMDAKPT09PT09PT09PT09PT09PT09PT09PT09PT0KClRoZSBiaXQg
+NSBvZiB0aGUgRVRSMEFUSUQwIHJlZ2lzdGVyIGlzIGNvbmZpZ3VyZWQgdG8gMSB3aGVuIGVuYWJs
+aW5nIHRoZQpTVE0gZGV2aWNlLgoKRGlzYWJsZToKU1RNIGRldmljZSB3aXRoIHRyYWNlIElEIDUg
+YW5kIEVUUjAgaXMgYWN0aXZhdGVkLgpCaXRtYXAgYmVmb3JlIHRoZSBkaXNhYmxlbWVudDoKRVRS
+MEFUSUQwOgozMS4uLi4uLi4uLi4uLi4uLi42NTQzMjEwCj09PT09PT09PT09PT09PT09PT09PT09
+PT0KMDAwMDAwMDAwMDEwMTExLi4uMDEwMDAwMAo9PT09PT09PT09PT09PT09PT09PT09PT09CgpC
+aXRtYXAgYWZ0ZXIgdGhlIGRpc2FibGVtZW50CkVUUjBBVElEMDoKMzEuLi4uLi4uLi4uLi4uLi4u
+NjU0MzIxMAo9PT09PT09PT09PT09PT09PT09PT09PT09CjAwMDAwMDAwMDAxMDExMS4uLjAwMDAw
+MDAKPT09PT09PT09PT09PT09PT09PT09PT09PQoKVGhlIGJpdCA1IG9mIHRoZSBFVFIwQVRJRDAg
+cmVnaXN0ZXIgaXMgcmVzZXQgdG8gMCB3aGVuIGRpc2FibGluZyB0aGUgU1RNCmRldmljZS4KClBy
+ZXZpb3VzIGRpc2N1c3Npb24gZm9yIFYxOgpodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIw
+MjQwNjE4MDcyNzI2LjM3Njc5NzQtMS1xdWljX2ppZWdhbkBxdWljaW5jLmNvbS9ULyN0CgpDaGFu
+Z2VzIGluIFYyOgoxLiBSZW5hbWUgdGhlIGRldmljZSB0byBDb3Jlc2lnaHQgQ29udHJvbCBVbml0
+LgoyLiBJbnRyb2R1Y2UgdGhlIHRyYWNlX2lkIGZ1bmN0aW9uIHBvaW50ZXIgdG8gYWRkcmVzcyB0
+aGUgY2hhbGxlbmcgaG93IHRvCnByb3Blcmx5IGNvbGxlY3QgdGhlIHRyYWNlIElEIG9mIHRoZSBk
+ZXZpY2UuCjMuIEludHJvZHVjZSBhIG5ldyB3YXkgdG8gZGVmaW5lIHRoZSBxY29tLGNjdS1hdGlk
+LW9mZnNldCBwcm9wZXJ0eSBpbgpkZXZpY2UgdHJlZS4KNC4gRGlzYWJsaW5nIHRoZSBmaWx0ZXIg
+ZnVuY3Rpb24gYmxvY2tlZCBvbiBhY3F1aXJpbmcgdGhlIEFUSUQtb2Zmc2V0LAp3aGljaCB3aWxs
+IGJlIGFkZHJlc3NlZCBpbiBhIHNlcGFyYXRlIHBhdGNoIG9uY2UgaXTigJlzIHJlYWR5LgoKUHJl
+dmlvdXMgZGlzY3Vzc2lvbiBmb3IgVjI6Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWFy
+bS1tc20vMjAyNDA3MDUwOTAwNDkuMTY1Njk4Ni0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29tL1Qv
+I3QKCkNoYW5nZXMgaW4gVjM6CjEuIFJlbmFtZSB0aGUgZGV2aWNlIHRvIENvcmVzaWdodCBUTUMg
+Q29udHJvbCBVbml0KENUQ1UpLgoyLiBJbnRyb2R1Y2UgYSBuZXcgd2F5IHRvIGRlZmluZSB0aGUg
+cGxhdGZvcm0gcmVsYXRlZCBjb25maWdzLiBUaGUgbmV3CiAgIHN0cnVjdHVyZSwgcWNvbV9jdGN1
+X2NvbmZpZywgaXMgdXNlZCB0byBzdG9yZSBjb25maWd1cmF0aW9ucyBzcGVjaWZpYwogICB0byBh
+IHBsYXRmb3JtLiBFYWNoIHBsYXRmb3JtIHNob3VsZCBoYXZlIGl0cyBvd24gcWNvbV9jdGN1X2Nv
+bmZpZyBzdHJ1Y3R1cmUuCjMuIEluIHBlcmYgbW9kZSwgdGhlIEVUTSBkZXZpY2VzIGFsbG9jYXRl
+IHRoZWlyIHRyYWNlIElEcyB1c2luZyB0aGUKICAgcGVyZl9zaW5rX2lkX21hcC4gSW4gc3lzZnMg
+bW9kZSwgdGhlIEVUTSBkZXZpY2VzIGFsbG9jYXRlIHRoZWlyIHRyYWNlCiAgIElEcyB1c2luZyB0
+aGUgaWRfbWFwX2RlZmF1bHQuCjQuIENvbnNpZGVyaW5nIHRoZSBzY2VuYXJpbyB3aGVyZSBib3Ro
+IEVUUiBkZXZpY2VzIG1pZ2h0IGJlIGVuYWJsZWQgc2ltdWx0YW5lb3VzbHkKICAgd2l0aCBtdWx0
+aXBsZSBzb3VyY2VzLCByZXRyaWV2aW5nIGFuZCB1c2luZyB0cmFjZSBJRHMgaW5zdGVhZCBvZiBp
+ZF9tYXAgaXMgbW9yZSBlZmZlY3RpdmUKICAgZm9yIHRoZSBDVENVIGRldmljZSBpbiBzeXNmcyBt
+b2RlLiBGb3IgZXhhbXBsZSwgV2UgY2FuIGNvbmZpZ3VyZSBvbmUgRVRSIGFzIHNpbmsgZm9yIGhp
+Z2gKICAgdGhyb3VnaHB1dCB0cmFjZSBkYXRhIGxpa2UgRVRNIGFuZCBhbm90aGVyIEVUUiBmb3Ig
+bG93IHRocm91Z2hwdXQgdHJhY2UgZGF0YSBsaWtlIFNUTS4KICAgSW4gdGhpcyBjYXNlLCBTVE0g
+ZGF0YSB3b27igJl0IGJlIGZsdXNoZWQgb3V0IGJ5IEVUTSBkYXRhIHF1aWNrbHkuIEhvd2V2ZXIs
+IGlmIHdlIHVzZSBpZF9tYXAgdG8KICAgbWFuYWdlIHRoZSB0cmFjZSBJRHMsIHdlIG5lZWQgdG8g
+Y3JlYXRlIGEgc2VwYXJhdGUgaWRfbWFwIGZvciBlYWNoIEVUUiBkZXZpY2UuIEFkZHRpb25hbGx5
+LCBXZQogICB3b3VsZCBuZWVkIHRvIGl0ZXJhdGUgdGhyb3VnaCB0aGUgZW50aXJlIGlkX21hcCBm
+b3IgZWFjaCBjb25maWd1cmF0aW9uLgo1LiBBZGQgc3VwcG9ydCBmb3IgYXBiJ3MgY2xvY2sgbmFt
+ZSAiYXBiIi4gSWYgdGhlIGZ1bmN0aW9uIGZhaWxzIHRvIG9idGFpbiB0aGUgY2xvY2sgd2l0aAog
+ICB0aGUgbmFtZSAiYXBiX3BjbGsiLCBpdCB3aWxsIGF0dGVtcHQgdG8gYWNxdWlyZSB0aGUgY2xv
+Y2sgd2l0aCB0aGUgbmFtZSAiYXBiIi4KClByZXZpb3VzIGRpc2N1c3Npb24gZm9yIFYzOgpodHRw
+czovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjQwODEyMDI0MTQxLjI4Njc2
+NTUtMS1xdWljX2ppZWdhbkBxdWljaW5jLmNvbS8KCkNoYW5nZXMgaW4gVjQ6CjEuIEFkZCBUTUMg
+ZGVzY3JpcHRpb24gaW4gYmluZGluZyBmaWxlLgoyLiBSZXN0cmljdCB0aGUgbnVtYmVyIG9mIHBv
+cnRzIGZvciB0aGUgQ1RDVSBkZXZpY2UgdG8gYSByYW5nZSBvZiAwIHRvIDEgaW4gdGhlIGJpbmRp
+bmcgZmlsZSwKYmVjYXVzZSB0aGUgbWF4aW11bSBudW1iZXIgb2YgQ1RDVSBkZXZpY2VzIGlzIDIg
+Zm9yIGV4aXN0aW5nIHByb2plY3RzLgoKQ2hhbmdlcyBpbiBWNToKMS4gRml4IHRoZSBmb3JtYXQg
+aXNzdWUgZm9yIGRlc2NyaXB0aW9uIHBhcmFncmFoIGluIGR0IGJpbmRpbmcgZmlsZS4KMi4gUHJl
+dmlvdXMgZGlzY3Vzc2lvbiBmb3Igd2h5IHVzZSAiaW4tcG9ydHMiIHByb3BlcnR5IGluc3RlYWQg
+b2YgInBvcnRzIi4KUGxlYXNlIGhlbHAgdG8gY29tbWVudCB0aGlzIHBvaW50IGlmIHRoZSBwbGF0
+Zm9ybSBkcml2ZXIgbXVzdCBiZSBmaXhlZCBiZWZvcmUKc3VibWl0IHRoaXMgcGF0Y2ggc2VyaWVz
+LgpodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0tbXNtLzRiNTFkNWE5LTM3MDYtNDYz
+MC04M2MxLTAxYjAxMzU0ZDlhNEBhcm0uY29tLwoKSmllIEdhbiAoNSk6CiAgQ29yZXNpZ2h0OiBB
+ZGQgc3VwcG9ydCBmb3IgbmV3IEFQQiBjbG9jayBuYW1lCiAgQ29yZXNpZ2h0OiBBZGQgdHJhY2Vf
+aWQgZnVuY3Rpb24gdG8gcmV0cmlldmluZyB0aGUgdHJhY2UgSUQKICBkdC1iaW5kaW5nczogYXJt
+OiBBZGQgQ29yZXNpZ2h0IFRNQyBDb250cm9sIFVuaXQgaGFyZHdhcmUKICBDb3Jlc2lnaHQ6IEFk
+ZCBDb3Jlc2lnaHQgVE1DIENvbnRyb2wgVW5pdCBkcml2ZXIKICBhcm02NDogZHRzOiBxY29tOiBB
+ZGQgQ1RDVSBhbmQgRVRSIG5vZGVzIGZvciBTQTg3NzVwCgogLi4uL2JpbmRpbmdzL2FybS9xY29t
+LGNvcmVzaWdodC1jdGN1LnlhbWwgICAgIHwgIDg0ICsrKysrCiBhcmNoL2FybTY0L2Jvb3QvZHRz
+L3Fjb20vc2E4Nzc1cC5kdHNpICAgICAgICAgfCAxNjAgKysrKysrKysrKwogZHJpdmVycy9od3Ry
+YWNpbmcvY29yZXNpZ2h0L0tjb25maWcgICAgICAgICAgIHwgICA4ICsKIGRyaXZlcnMvaHd0cmFj
+aW5nL2NvcmVzaWdodC9NYWtlZmlsZSAgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL2h3dHJhY2lu
+Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWNvcmUuYyAgfCAgNTkgKysrLQogZHJpdmVycy9od3RyYWNp
+bmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jdGN1LmMgIHwgMjkyICsrKysrKysrKysrKysrKysrKwog
+ZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jdGN1LmggIHwgIDIxICsrCiBk
+cml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0YjEwLmMgfCAgIDMgKy0KIC4u
+Li9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5jICB8ICAzNyArKy0KIC4u
+Li9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LWNvcmUuYyAgICAgICAgICB8ICAzMCArKwogLi4u
+L2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtY29yZS5jICAgICAgICAgIHwgIDI5ICsrCiBkcml2
+ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXByaXYuaCAgfCAgMTMgKy0KIGRyaXZl
+cnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtc3RtLmMgICB8ICAyMiArKwogZHJpdmVy
+cy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zeXNmcy5jIHwgIDI0ICstCiAuLi4vaHd0
+cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWV0Zi5jICAgfCAgIDMgKy0KIC4uLi9od3Ry
+YWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtZXRyLmMgICB8ICAgNiArLQogZHJpdmVycy9o
+d3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cGRhLmMgIHwgIDIwICsrCiBkcml2ZXJzL2h3
+dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRyYmUuYyAgfCAgIDQgKy0KIGRyaXZlcnMvaHd0
+cmFjaW5nL2NvcmVzaWdodC91bHRyYXNvYy1zbWIuYyAgICB8ICAgMyArLQogaW5jbHVkZS9saW51
+eC9jb3Jlc2lnaHQuaCAgICAgICAgICAgICAgICAgICAgIHwgIDE2ICstCiAyMCBmaWxlcyBjaGFu
+Z2VkLCA4MDcgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2
+NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9xY29tLGNvcmVzaWdodC1j
+dGN1LnlhbWwKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQv
+Y29yZXNpZ2h0LWN0Y3UuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvaHd0cmFjaW5nL2Nv
+cmVzaWdodC9jb3Jlc2lnaHQtY3RjdS5oCgotLSAKMi4zNC4xCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
