@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F681974C9E
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 10:28:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7264974CAC
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 10:31:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 458C1C78011;
-	Wed, 11 Sep 2024 08:28:19 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84109C78015;
+	Wed, 11 Sep 2024 08:31:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7836C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76643C78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2024 08:28:17 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48B6mscR029587;
- Wed, 11 Sep 2024 10:28:09 +0200
+ Wed, 11 Sep 2024 08:30:56 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48B50DRt002414;
+ Wed, 11 Sep 2024 10:30:46 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 4fv1sQ8oNVXZbR6VQwj242LUMa622njNgXPkguclEbo=; b=x+LGvBCALBep2L2l
- 3C6UDFrX8+uZqXSFxEHH/geSK67p9IU3AFo9IMIGW2iqfb7S5RXJH3INlTQ2D91m
- GtgxMcZG3wov4Lr13AGgBWq3LAm0szoZwX6wRXSoDGQbIuL6q97fg1xJa4k8iCrf
- 7z3eeXc3yD+7KcWzya39Wl+b4dpBWo9mP/atqGmGiuUP3+bq7TrM+apsGTBu4SC3
- c9BUcbgGP/DNJ6OC2Kp++p1mzyvYq4breciMXsQgfOtO355ReDTqaliFr1ujuoGl
- EqQeKqjDMoE/jI2gEvx/O0o6zO+c3KNylg4M9zcxVAFDsW5DnVRKNMMJanId+Bzz
- fdjW4Q==
+ oFevO1WzCe1lndyKIcqDqzd48GJyNyJUl83cjIp11to=; b=CWFbjFGrTUAynJy3
+ NLxURb2NydONZ/9kndhhFnneZ7DtcXwBv3L/4mYvmWrZIgdgzWjI7mM2/BVseEUK
+ d1rmnmWQOlnQNnJZEFZoT07vy7FDJVuGhHaoCK+1f1zGvFLUdFh+k01kAlt4euJD
+ 7vlS2iBKONta+Ur7WpVLzeoU9jPV9v3iF4ZIPTQnhwEUT6QspRQm75UVnnUHmtbo
+ WpwEuDrX5Gwm3sMFiiKXc8vdrBaeomhvhonO1GlhSPcjOoS4GkkBoxeT0rpcS3AC
+ WwaiNUIAgoniUopjw/ZKXegOSPH+Jb6hfTwdxavcl+dhH/5v+tkMge++gnCXIiYC
+ 8dHe4g==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41h1sgdbyx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41gyaadhxu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Sep 2024 10:28:09 +0200 (MEST)
+ Wed, 11 Sep 2024 10:30:46 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3A9C740045;
- Wed, 11 Sep 2024 10:27:05 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 74F204008C;
+ Wed, 11 Sep 2024 10:29:01 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ADF4F24BCCD;
- Wed, 11 Sep 2024 10:26:16 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3C17F254FF1;
+ Wed, 11 Sep 2024 10:28:01 +0200 (CEST)
 Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
  (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 11 Sep
- 2024 10:26:16 +0200
+ 2024 10:28:00 +0200
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
  <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
  <p.zabel@pengutronix.de>
-Date: Wed, 11 Sep 2024 10:25:29 +0200
-Message-ID: <20240911082530.2978336-5-christian.bruel@foss.st.com>
+Date: Wed, 11 Sep 2024 10:25:30 +0200
+Message-ID: <20240911082530.2978336-6-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240911082530.2978336-1-christian.bruel@foss.st.com>
 References: <20240911082530.2978336-1-christian.bruel@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 4/5] arm64: dts: st: Add combophy node on
-	stm32mp251
+Subject: [Linux-stm32] [PATCH v6 5/5] arm64: dts: st: Enable COMBOPHY on the
+	stm32mp257f-ev1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,51 +79,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for COMBOPHY which is used either by the USB3 and PCIe
-controller.
-USB3 or PCIe mode is done with phy_set_mode().
-PCIe internal reference clock can be generated from the internal clock
-source or optionnaly from an external 100Mhz pad.
+Enable the COMBOPHY with external pad clock on stm32mp257f-ev1
+board, to be used for the PCIe clock provider.
 
 Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 1167cf63d7e8..b596afec1b6e 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -7,6 +7,7 @@
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/reset/st,stm32mp25-rcc.h>
- #include <dt-bindings/regulator/st,stm32mp25-regulator.h>
-+#include <dt-bindings/phy/phy.h>
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 214191a8322b..bcf84d533cb2 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -27,6 +27,14 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
  
- / {
- 	#address-cells = <2>;
-@@ -518,6 +519,21 @@ i2c8: i2c@46040000 {
- 				status = "disabled";
- 			};
- 
-+			combophy: phy@480c0000 {
-+				compatible = "st,stm32mp25-combophy";
-+				reg = <0x480c0000 0x1000>;
-+				#phy-cells = <1>;
-+				clocks = <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>;
-+				clock-names = "apb", "ker";
-+				resets = <&rcc USB3PCIEPHY_R>;
-+				reset-names = "phy";
-+				access-controllers = <&rifsc 67>;
-+				power-domains = <&CLUSTER_PD>;
-+				wakeup-source;
-+				interrupts-extended = <&exti1 45 IRQ_TYPE_EDGE_FALLING>;
-+				status = "disabled";
-+			};
++	clocks {
++		pad_clk: pad-clk {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <100000000>;
++		};
++	};
 +
- 			sdmmc1: mmc@48220000 {
- 				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
- 				arm,primecell-periphid = <0x00353180>;
+ 	memory@80000000 {
+ 		device_type = "memory";
+ 		reg = <0x0 0x80000000 0x1 0x0>;
+@@ -50,6 +58,12 @@ &arm_wdt {
+ 	status = "okay";
+ };
+ 
++&combophy {
++	clocks = <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>, <&pad_clk>;
++	clock-names = "apb", "ker", "pad";
++	status = "okay";
++};
++
+ &ethernet2 {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&eth2_rgmii_pins_a>;
 -- 
 2.34.1
 
