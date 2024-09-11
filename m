@@ -2,179 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6644974B48
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 09:28:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70414974C9B
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 10:28:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53A86C78021;
-	Wed, 11 Sep 2024 07:28:59 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26FF8C78017;
+	Wed, 11 Sep 2024 08:28:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFB43C712A2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4DACC78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2024 15:43:36 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48AE2bie024935;
- Tue, 10 Sep 2024 15:43:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZsHDjhju6KNA1Jr5BJ1dDUh3rqn+TnYP/0h8eRMuvXY=; b=Pn/h+4g2Kbbme8Ui
- qFjRWP3Og2MM7gW+SmaQ0GykuSf10l1Hw/FqB74mzshsAqNr39HO69QROL8dutDP
- cpJ3O0Zxz1XeSQ7tbUeFNnHjnZU35fyCIljO+WA2N7yLpQsl5Q5qvXp/JiS6a0j8
- o3xPLsMGU7E1aPQw/9qVBNKB2wfVjpnlzVH4Mkrjoq0/wlqIIXKT3TMt4nWK6l6r
- rqiKUg3lMnAzxdpFvY5Dsx4GCyYTfqnemaYf7qmFmb6t+LPTLghYmhblpU2DL0TA
- OfVwUwrWnfqqdvLRDD8X6DNsFZIeejTCi7z3eWy06xQbAoB3N6R0dZFSoxW3rKpo
- h5NgIQ==
-Received: from nam12-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam12lp2049.outbound.protection.outlook.com [104.47.66.49])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy72xg3c-3
+ Wed, 11 Sep 2024 08:28:03 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48B6VeNE022718;
+ Wed, 11 Sep 2024 10:27:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=1+gz/YBGxCwgKsUIIo9U0U
+ b75ATLDM7rfR2LQglnJLY=; b=jjJIJojuj9GzA3oTCOxjfA0pylco4j1hCaYO5Y
+ k8biPyky1lrVhgHgptJJ9ce12d/xxXNuoPLfLrn3cz4RvkNABFQWBgfRGwu5krwR
+ UMv7e+3wFUotifvocjfvT9QJ2lO0+KX+TLH69dzd2FhpGdUXhSuKZPj4hw/jqIG9
+ ZDhUuHdgUGCQZJUDeefgkCYMQSX129V9J1tTEo/K9yP1ahr5rSiYNgfItbGfqefc
+ +I7eadeKz/lxqdnjypE+nj/H2luL/5aBsBkUFUah5O3Aj1TzfBFhVfIoa5+FIh7A
+ eIx4BNtFWD5Bb1eUfM86W4RFnpldRm1SPxAxUhKofsehn+7A==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41gyauwj2u-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Sep 2024 15:43:29 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zt2EyVb1k4aZD8NjfqP6kB4kJwH7qekqxn3yjYEYu+yEMJ5gTPiU3qhWsrU0Y8M+/o+8oK7jRe9iaitA12BFj6lO8xaI4A1YDc8sKBCtrl1ViJEIz1odOd7dysyRNPltWL9DzXtNUMD3bzsL/HukufKBJnPgv1aYjJVeu29Hccg4T7spICAysxJRp+qu7SRV7v3+4urzwWSF0cM/UXHzIN1r7pmq8dTFSbG1NG7+lg4SKTzFtxeLwHc/AVKwfp5u8PhaymlQMee4ZBH+x7+Cu+zI7k/EdRHN0IoV7Um/xcIh+4UG3/mqRSmdvTqLbqysTMq2B1dQNqsA0MBiUF0v7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZsHDjhju6KNA1Jr5BJ1dDUh3rqn+TnYP/0h8eRMuvXY=;
- b=XYHmvCqfB8VGaNcmdv5b4EEdyWny7aIK5fXImZtfIogpElL2UvuTsF2nZ8OMTUE30UDM8P0mtjPg9WhS2Tf5t+rhGPkFTU5L9qlW9RLTZ9kUlHNsrSQpps+Pc2bPxxFLlQzFIuNs7RTEmrLpLH5vgYcgxGuyj5geJAABjEZZ2+pR7HAYXVXSPnStCxG8FpMDMtJx+Ba+TaHU++qTouAjZd3WkKQtutcpjcKZHJcCF+w99EZvpuhg0mCHWd/hWpXXasIjf6gm/dRgIL8C/kX3RSJQilzsVF+UgScECF8B2RGyAWQEk81+NUe/ZD7GnslzzHtMLRwRESxw+5FaRotFNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=qti.qualcomm.com; dmarc=pass action=none
- header.from=qti.qualcomm.com; dkim=pass header.d=qti.qualcomm.com; arc=none
-Received: from CYYPR02MB9788.namprd02.prod.outlook.com (2603:10b6:930:b9::10)
- by CH3PR02MB9210.namprd02.prod.outlook.com (2603:10b6:610:14a::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.28; Tue, 10 Sep
- 2024 15:43:23 +0000
-Received: from CYYPR02MB9788.namprd02.prod.outlook.com
- ([fe80::ec21:28ed:812b:5270]) by CYYPR02MB9788.namprd02.prod.outlook.com
- ([fe80::ec21:28ed:812b:5270%5]) with mapi id 15.20.7939.017; Tue, 10 Sep 2024
- 15:43:23 +0000
-From: Suraj Jaiswal <jsuraj@qti.qualcomm.com>
-To: Andrew Halaney <ahalaney@redhat.com>, "Suraj Jaiswal (QUIC)"
- <quic_jsuraj@quicinc.com>
-Thread-Topic: [PATCH net] net: stmmac: Stop using a single dma_map() for
- multiple descriptors
-Thread-Index: AQHa/R4ePGfgKVjZ6Uifzf7R+/RambJGo9cAgAqRnSA=
-Date: Tue, 10 Sep 2024 15:43:23 +0000
-Message-ID: <CYYPR02MB9788D9D0D2424B4F8361A736E79A2@CYYPR02MB9788.namprd02.prod.outlook.com>
-References: <20240902095436.3756093-1-quic_jsuraj@quicinc.com>
- <yy2prsz3tjqwjwxgsrumt3qt2d62gdvjwqsti3favtfmf7m5qs@eychxx5qz25f>
-In-Reply-To: <yy2prsz3tjqwjwxgsrumt3qt2d62gdvjwqsti3favtfmf7m5qs@eychxx5qz25f>
-Accept-Language: en-IN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9788:EE_|CH3PR02MB9210:EE_
-x-ms-office365-filtering-correlation-id: 44da1b14-a37b-4975-5e94-08dcd1af4dcb
-x-ld-processed: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|1800799024|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?vIhc2FTJeTqbSavpt4BhlQ6kVoTuUoDUuWJg7ha3wvt+3rc1sS0pRBotm4AQ?=
- =?us-ascii?Q?MMhuq7S9xgic0nAWuY/YsTthPfnqKIwWBpZbqG6zCe/2D3dfEzBetOlwUv2J?=
- =?us-ascii?Q?yN6zAoj/rBfn7It+HZgm0Dcs/WlFDPsYBa8Hm+CjMFXwbT38h+LDwJs7thZL?=
- =?us-ascii?Q?WlXaOxIB9d4nIYBcqrCSrXPoN/aNlc7STfoi0RcxRaM+M88N+AUUUyl5wF2m?=
- =?us-ascii?Q?BetpgrJr/BAhpa80R8KgnqQpavPYrF5kJgZT9CudTmHLwM+eCh5N+M2dN8Dn?=
- =?us-ascii?Q?IMHUJnttaH2/G/w1Wf8fsXJkTN3t2s21if0A2EJoee7/Uml4x5KtKbaaEGH6?=
- =?us-ascii?Q?LBXV1kKuoZgIYM+18m+9LtdAbLEk4BqZfNZTB3NZJ9ctQYI65cURus9Q0QId?=
- =?us-ascii?Q?PzJW66lfxJAjG6YQBUccVLx80y1dJtwmmZWeMpLnwMXNuo9QSiMgh3rVPVno?=
- =?us-ascii?Q?kLFP/ZOhHVb4wB3sjDyl6+jyWoqJBd3F9R54ArFBmh6/XTsPbTgqt6UnG4IY?=
- =?us-ascii?Q?1/hVKMpkaSh7KhTrP6AdhwAQ7rLLR3UmQRWJoTmitRoF0ktkjCwR0elVZ51u?=
- =?us-ascii?Q?e1XsuIZK9M3lqzN6CaVURsjbalzAnIXncAXhNHJWSkIbWVEebKgNz25P0GOk?=
- =?us-ascii?Q?6MrH6McYymmLZyqr3d4wFjTM6s21T88SnJQzPKdxYON0ad84lZwALRYMBBG3?=
- =?us-ascii?Q?2VTLP9/7pLj78HsneC5y0n1S5cJp0ZAlV2YggfT7m2hUf7CLbI50i1tEp4HJ?=
- =?us-ascii?Q?zmduTCFKMNHp1LCfLxIaFROOzH42vjcas8qCs72vM/d4N/U5htNofoIt+ptU?=
- =?us-ascii?Q?RRcJBPoJVpMQW8IBzkaFm2CmbN6QhPSeCApE02WdPFp8JMnoJRir1DZbOAQA?=
- =?us-ascii?Q?xA9Iqm0kunc5QKeVwm99kVF6N7GjJj1W+flTZz4vQ7Ghrz7p6O3SZDNY17VA?=
- =?us-ascii?Q?rfPKbwYPaYPAkmYYj0MM68hR28PT93DG7wRPZLOHLdgQRRCMGGa6cAOBgLit?=
- =?us-ascii?Q?eBQiRXTEZ3j+cKLLC9giwN5lTseT24xmtgDEPGH7gBfcHjKNDCc5p4YlsQcm?=
- =?us-ascii?Q?/Zcjwlf38qigKG1FBDfZhhg3ESAbIOtpUHKSsvsIPf76K9OGahoywWvoQ6zH?=
- =?us-ascii?Q?gm3Qyqz8c/vzwM+bn9ZXK7HfZ+pdAf7gsLvNjuKATyjdCYtp+3iZlXuMVySB?=
- =?us-ascii?Q?g9tIndd2xVPgtxG5yJlREX3QRPNBNp47c04p5GUav6x09vio92IjfubqRuzr?=
- =?us-ascii?Q?dOn/k1qRldG6hNJkOUXNwnCK60S05+fvupetuv/yVB67ZiOAJ7g+Jn02aiMZ?=
- =?us-ascii?Q?Y6rMLS+Wjl0+LcnSzzeqRi7AlaHA6bIHup46+wOCDonfnX3xXMMsp0HgKwgj?=
- =?us-ascii?Q?pFdEqZTLF0995cqbU/oIrcw6+zvAWWNaD+/u5IbwLp+ADsME5w=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR02MB9788.namprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(1800799024)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3iJYsnij1jYl+Wax9gBtrMOHGsDMXqnwMDfwJwVjO3GRr5MRBtpY3xMyGkeB?=
- =?us-ascii?Q?Wn18pc0DSNAoE/mSmdr9T5CQBnAJnF+L8JnoglCJOT+lYdyR+G2ARMtJEmuT?=
- =?us-ascii?Q?s0fpV1IaqFp0Dn22xaWIpTQYaLcetS3+w2apQpHC9lJ2xbnuW7IAk5H/XJ5h?=
- =?us-ascii?Q?wDFFzmAvLakGXmXDLSNVGLow3pidLd9qtYd/yyTdKqGsF9NimZIEKlc/RwUR?=
- =?us-ascii?Q?Lkn4u+sqQ/kM8bKVR+O45eunfSzggQ6Jf2Xp4Hv4PfFYvrwo8PMVvfOpYEyc?=
- =?us-ascii?Q?cED/XyA4mzMnnc/pxuTWl5dugdOrlQ7z8DCQ/hBQVRTnzMrh8C0T19+Zo+1J?=
- =?us-ascii?Q?MOJLXYQ3kII8oKkgyDXRzc7U+iLrfb55nQB8giphiBU+EYZEqQjWtn95aXma?=
- =?us-ascii?Q?y9BoEScuVfKyqeLC6ua27fHjfv8vp2mIpZmHmsxNVx0huEE2BmvbtvF8YL7g?=
- =?us-ascii?Q?NHtFLcwyUTY8vytKNDHxO3Dc1seHwFoH1BYEaOTexsCRYwNdipASlHuNFEZ1?=
- =?us-ascii?Q?w5JaBCJ8lquPmJMaXCqprHJCKa7IsZWFLOzUUKOUebeVaVODmoKfGwqlu+NG?=
- =?us-ascii?Q?U47vp0IMOcrt6OJtQuJNbKbi2Ki6B8yaYD6dcUNzDG64C03YnlH8mwP2UvXf?=
- =?us-ascii?Q?iEdxUMq3DP0CQcQzE4hJaFXtLVIPdOMQABpKztJHedCP7mlMMqBJxCQLMzNu?=
- =?us-ascii?Q?IjNQd8uVMBPlf+6YcyWRdKST+KJ/v+95k3TWyp+YKaUZhxlZpyztZK/P7UFJ?=
- =?us-ascii?Q?j4wCMv9yyzV0jLQ6scHoiT7Fx5OOL7sUazdLF8ZKBHBuIsu5e5Td0FPWR+HA?=
- =?us-ascii?Q?qTGDNssmvkGI25L4/ZnlOSTCbNRSmoL714sm1dsAiKi6KqBb6gRzdyvThsGO?=
- =?us-ascii?Q?D8mv1RqXJz3bnr9EXhofeJp1HeDLF9U3BjWvgxFNkG8zOmehMsI4Z4OLyNjS?=
- =?us-ascii?Q?/O91zSNKQUYokL3Bi0n7T1qqSFjWoqsBDis6AbRTeSm8q1yTw55THc1be9Ql?=
- =?us-ascii?Q?sSMumIaswMUz1n2ZIXSPMxV++cUYD5lwplhzcyl2H3AbFPqDw9UWkfYDeIPh?=
- =?us-ascii?Q?mE25yG/cPmiJXOb2TEdur8xYHd9+j4chdON9eFU7o/HoVTfN/b4F8Vvw2t3A?=
- =?us-ascii?Q?I2GJnZlSGmqCBJDe//lUrcLGmuM5Zx9ezmTS8xhqKAMPc6A+NManZoeEuOqN?=
- =?us-ascii?Q?HOtqDZZUaBnFOuomEHML5XpLPnnkAO/pJLuXzyZyvKv+i1swEFPKxdkk8iST?=
- =?us-ascii?Q?xkLe/MZjgkRD8XPO0upDl5BijVwNx2sOkJ/TdJLeHpp4GFmbTXBX2kRQ4pPw?=
- =?us-ascii?Q?he2P+bfFd943+9YZy6qsFBhhUfSRXZHI5lWn6Uad6hjyi6iW95dXdcvIFza6?=
- =?us-ascii?Q?64InggRDCGA3EBMVKa/C41T/q7cCf0xcz1ZNbKHWqAA7Zno21MT8z4ATFjkB?=
- =?us-ascii?Q?pkr9rkbm3esubltqpOBpovdcETGikF4U+bVpJq/diorf7OB24wOmxeMV6FCG?=
- =?us-ascii?Q?vInAIQq4hO1a4HahQi56rTfB4ymIUrQY/B2L+SER5omwpVHdVWviyk7Zyk0X?=
- =?us-ascii?Q?TQEBbWLl5JLkC/+kflua9IbDBMZZOtiAa1fUyXke?=
+ Wed, 11 Sep 2024 10:27:46 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 117B940044;
+ Wed, 11 Sep 2024 10:26:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1D662535F9;
+ Wed, 11 Sep 2024 10:25:50 +0200 (CEST)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 11 Sep
+ 2024 10:25:50 +0200
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <vkoul@kernel.org>, <kishon@kernel.org>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <p.zabel@pengutronix.de>
+Date: Wed, 11 Sep 2024 10:25:25 +0200
+Message-ID: <20240911082530.2978336-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: hkIDjvgQFqAJezkV0uOd9yBCliJT7IORrXsAzJc5zDxkx7H639HySkwgfKHf6RjoaiItFQqftZ796CHTFboXKj/IKJ1L5CE1SbcQMDfcTgN45orbn5hteLwYu3TEpd9b2DaMqsZnz229+8yBVYzRDUjUGo8403CPX4xEG9qaivf9LxASX7qEURxheywSZn2+4rUwE6Lg36x4YZKYPtbvLIL7euyNYNYbvLcTAQBxJw8QKjRU5IQjBb2IA9V8iWbmJL6qMKG3lVK4bg+yr7AZLUlh9SvKpbwA3pWPuTfxM6xjt1OWdnEnTHwS459Ezq+DQk2GTN2yROC2NLVCWiTdK+NeUA6CEBFKTp6322mMrbV5scuGJqsQIPtKkWa/SXirgdjlm4DBHQAREuOobiDO9xycru1gwnk/Z+txfTWBITScS+qnpnXmGI2Mu7lg6MtUNoi5MQ67fDw7H1AdyXSjf+mVCLdqSZ/NkCh6f5Oq4iQRrsd/5l+jRnO/QtAw5/Atj+jN8M5UVnoBNfGL8u3j4qfHmMFjYCSMf5grYKyo2VnnJjVMCChKd4VdxhOy3sPeLgeK0HoeSB6rCT6YJ8WBcwI+g3o3fkGbvElHp2mMg0O0gN0ctN4vcoNsTjIj5xw8
-X-OriginatorOrg: qti.qualcomm.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9788.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44da1b14-a37b-4975-5e94-08dcd1af4dcb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2024 15:43:23.3847 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Rh+6GwbV2q6xrFYe4TxQUM8FfiyECHM42UJn1vCQr65bTeU5ovLA2xzCbDNWvQnn0hVQPG/ht6aW8w7C5/zO4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR02MB9210
-X-Proofpoint-ORIG-GUID: ap_gJ3YMjB3rhix5T2Tn_vDL24_vpwA5
-X-Proofpoint-GUID: ap_gJ3YMjB3rhix5T2Tn_vDL24_vpwA5
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 spamscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 adultscore=0 mlxlogscore=999 suspectscore=0
- priorityscore=1501 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2408220000 definitions=main-2409100116
-X-Mailman-Approved-At: Wed, 11 Sep 2024 07:28:57 +0000
-Cc: Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
- kernel <kernel@quicinc.com>, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "bhupesh.sharma@linaro.org" <bhupesh.sharma@linaro.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, "David S.
- Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Stop using a single
- dma_map() for multiple descriptors
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Bruel <christian.bruel@foss.st.com>, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6 0/5] Add STM32MP25 USB3/PCIE COMBOPHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -191,231 +75,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Changes in v6:
+   - stm32_combophy_pll_init: merge combophy_cr1 accesses and error path.
+   - Use devm_reset_control_get_exclusive
 
+Changes in v5:
+   - Drop syscfg phandle and change driver to use lookup_by_compatible
+   - Use clk_bulk API and drop stm32_combophy_enable/disable_clocks
+   - Reorder required: list.
+   - Fix access-controllers maxItems
+   
+Changes in v4:
+   - "#phy-cells": Drop type item description since it is specified
+     by user node phandle.
+   - Rename stm32-combophy.yaml to match compatible
+   - Drop wakeup-source from bindings (should be generic)
+   - Alphabetically reorder required: list.
+   - Drop "Reviewed-by" since those previous changes
 
------Original Message-----
-From: Andrew Halaney <ahalaney@redhat.com> 
-Sent: Wednesday, September 4, 2024 3:47 AM
-To: Suraj Jaiswal (QUIC) <quic_jsuraj@quicinc.com>
-Cc: Vinod Koul <vkoul@kernel.org>; bhupesh.sharma@linaro.org; Andy Gross <agross@kernel.org>; Bjorn Andersson <andersson@kernel.org>; Konrad Dybcio <konrad.dybcio@linaro.org>; David S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Rob Herring <robh+dt@kernel.org>; Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley <conor+dt@kernel.org>; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-arm-msm@vger.kernel.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; Prasad Sodagudi <psodagud@quicinc.com>; Rob Herring <robh@kernel.org>; kernel <kernel@quicinc.com>
-Subject: Re: [PATCH net] net: stmmac: Stop using a single dma_map() for multiple descriptors
+Changes in v3:
+   - Reorder MAINTAINERS patch
 
-WARNING: This email originated from outside of Qualcomm. Please be wary of any links or attachments, and do not enable macros.
+Changes in v2:
+   - Reorder entries
+   - Rename clock_names and reset_names bindings
+   - Rename and clarify rx-equalizer binding 
 
-On Mon, Sep 02, 2024 at 03:24:36PM GMT, Suraj Jaiswal wrote:
-> Currently same page address is shared
-> between multiple buffer addresses and causing smmu fault for other 
-> descriptor if address hold by one descriptor got cleaned.
-> Allocate separate buffer address for each descriptor for TSO path so 
-> that if one descriptor cleared it should not clean other descriptor 
-> address.
+Christian Bruel (5):
+  dt-bindings: phy: Add STM32MP25 COMBOPHY bindings
+  phy: stm32: Add support for STM32MP25 COMBOPHY.
+  MAINTAINERS: add entry for ST STM32MP25 COMBOPHY driver
+  arm64: dts: st: Add combophy node on stm32mp251
+  arm64: dts: st: Enable COMBOPHY on the stm32mp257f-ev1 board
 
-I think maybe you mean something like:
+ .../bindings/phy/st,stm32mp25-combophy.yaml   | 119 ++++
+ MAINTAINERS                                   |   6 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  16 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  14 +
+ drivers/phy/st/Kconfig                        |  11 +
+ drivers/phy/st/Makefile                       |   1 +
+ drivers/phy/st/phy-stm32-combophy.c           | 596 ++++++++++++++++++
+ 7 files changed, 763 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/st,stm32mp25-combophy.yaml
+ create mode 100644 drivers/phy/st/phy-stm32-combophy.c
 
-    Currently in the TSO case a page is mapped with dma_map_single(), and then
-    the resulting dma address is referenced (and offset) by multiple
-    descriptors until the whole region is programmed into the descriptors.
-
-    This makes it possible for stmmac_tx_clean() to dma_unmap() the first of the
-    already processed descriptors, while the rest are still being processed
-    by the DMA engine. This leads to an iommu fault due to the DMA engine using
-    unmapped memory as seen below:
-
-    <insert splat>
-
-    You can reproduce this easily by <reproduction steps>.
-
-    To fix this, let's map each descriptor's memory reference individually.
-    This way there's no risk of unmapping a region that's still being
-    referenced by the DMA engine in a later descriptor.
-
-That's a bit nitpicky wording wise, but your first sentence is hard for me to follow (buffer addresses seems to mean descriptor?). I think showing a splat and mentioning how to reproduce is always a bonus as well.
-
->
-> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-
-Fixes: ?
-
-At a quick glance I think its f748be531d70 ("stmmac: support new GMAC4")
-
-> ---
->
-> Changes since v2:
-> - Fixed function description
-> - Fixed handling of return value.
->
-
-This is v1 as far as netdev is concerned :)
-
->
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 63 
-> ++++++++++++-------
->  1 file changed, 42 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 83b654b7a9fd..5948774c403f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4136,16 +4136,18 @@ static bool stmmac_vlan_insert(struct 
-> stmmac_priv *priv, struct sk_buff *skb,
->  /**
->   *  stmmac_tso_allocator - close entry point of the driver
->   *  @priv: driver private structure
-> - *  @des: buffer start address
-> + *  @addr: Contains either skb frag address or skb->data address
->   *  @total_len: total length to fill in descriptors
->   *  @last_segment: condition for the last descriptor
->   *  @queue: TX queue index
-> + * @is_skb_frag: condition to check whether skb data is part of 
-> + fragment or not
->   *  Description:
->   *  This function fills descriptor and request new descriptors according to
->   *  buffer length to fill
-> + *  This function returns 0 on success else -ERRNO on fail
->   */
-> -static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
-> -                              int total_len, bool last_segment, u32 queue)
-> +static int stmmac_tso_allocator(struct stmmac_priv *priv, void *addr,
-> +                             int total_len, bool last_segment, u32 
-> +queue, bool is_skb_frag)
->  {
->       struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
->       struct dma_desc *desc;
-> @@ -4153,6 +4155,8 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
->       int tmp_len;
->
->       tmp_len = total_len;
-> +     unsigned int offset = 0;
-> +     unsigned char *data = addr;
-
-Reverse xmas tree order, offset is always set below so you could just declare it, and data really doesn't seem necessary to me vs using addr directly.
-
-https://docs.kernel.org/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
-
->
->       while (tmp_len > 0) {
->               dma_addr_t curr_addr;
-> @@ -4161,20 +4165,44 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
->                                               priv->dma_conf.dma_tx_size);
->               WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
->
-> +             buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ? 
-> + TSO_MAX_BUFF_SIZE : tmp_len;
-> +
->               if (tx_q->tbs & STMMAC_TBS_AVAIL)
->                       desc = &tx_q->dma_entx[tx_q->cur_tx].basic;
->               else
->                       desc = &tx_q->dma_tx[tx_q->cur_tx];
->
-> -             curr_addr = des + (total_len - tmp_len);
-> +             offset = total_len - tmp_len;
-> +             if (!is_skb_frag) {
-> +                     curr_addr = dma_map_single(priv->device, data + offset, buff_size,
-> +                                                DMA_TO_DEVICE);
-
-Instead of defining "data" above, can't you just use "addr" directly here?
-<suraj> addr is void point . we are using data to convert into char * 
-
-> +
-> +                     if (dma_mapping_error(priv->device, curr_addr))
-> +                             return -ENOMEM;
-> +
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = false;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
-> +             } else {
-> +                     curr_addr = skb_frag_dma_map(priv->device, addr, offset,
-> +                                                  buff_size,
-> +                                                  DMA_TO_DEVICE);
-> +
-> +                     if (dma_mapping_error(priv->device, curr_addr))
-> +                             return -ENOMEM;
-> +
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = true;
-> +                     tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
-> +             }
-> +
->               if (priv->dma_cap.addr64 <= 32)
->                       desc->des0 = cpu_to_le32(curr_addr);
->               else
->                       stmmac_set_desc_addr(priv, desc, curr_addr);
->
-> -             buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ?
-> -                         TSO_MAX_BUFF_SIZE : tmp_len;
-> -
->               stmmac_prepare_tso_tx_desc(priv, desc, 0, buff_size,
->                               0, 1,
->                               (last_segment) && (tmp_len <= 
-> TSO_MAX_BUFF_SIZE), @@ -4182,6 +4210,7 @@ static void 
-> stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
->
->               tmp_len -= TSO_MAX_BUFF_SIZE;
->       }
-> +     return 0;
-
-nit: add a newline before return 0
-
->  }
->
->  static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int 
-> queue) @@ -4351,25 +4380,17 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
->               pay_len = 0;
->       }
->
-> -     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
-> +     if (stmmac_tso_allocator(priv, (skb->data + proto_hdr_len),
-> +                              tmp_pay_len, nfrags == 0, queue, false))
-> +             goto dma_map_err;
-
-Changing the second argument here is subtly changing the dma_cap.addr64 <= 32 case right before this. Is that intentional?
-
-i.e., prior, pretend des = 0 (side note but des is a very confusing variable name for "dma address" when there's also mentions of desc meaning "descriptor" in the DMA ring). In the <= 32 case, we'd call stmmac_tso_allocator(priv, 0) and in the else case we'd call stmmac_tso_allocator(priv, 0 + proto_hdr_len).
-
-With this change in both cases its called with the (not-yet-dma-mapped)
-skb->data + proto_hdr_len always (i.e. like the else case).
-
-Honestly, the <= 32 case reads weird to me without this patch. It seems some of the buffer is filled but des is not properly incremented?
-
-I don't know how this hardware is supposed to be programmed (no databook
-access) but that seems fishy (and like a separate bug, which would be nice to squash if so in its own patch). Would you be able to explain the logic there to me if it does make sense to you?
-
->
->       /* Prepare fragments */
->       for (i = 0; i < nfrags; i++) {
-> -             const skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
-> +             skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
->
-> -             des = skb_frag_dma_map(priv->device, frag, 0,
-> -                                    skb_frag_size(frag),
-> -                                    DMA_TO_DEVICE);
-> -             if (dma_mapping_error(priv->device, des))
-> +             if (stmmac_tso_allocator(priv, frag, skb_frag_size(frag),
-> +                                      (i == nfrags - 1), queue, 
-> + true))
-
-Personally I think it would be nice to change stmmac_tso_allocator() so you can keep the frag const above... i.e. something like stmmac_tso_allocator(..., void *addr, ..., const skb_frag_t *frag) and just check if frag is NULL to determine if you're dealing with a frag or not (instead of passing the boolean in to indicate that).
-
-I'm curious if someone else can think of a cleaner API than that for that function, even that's not super pretty...
-
->                       goto dma_map_err;
-> -
-> -             stmmac_tso_allocator(priv, des, skb_frag_size(frag),
-> -                                  (i == nfrags - 1), queue);
-> -
-> -             tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = des;
-> -             tx_q->tx_skbuff_dma[tx_q->cur_tx].len = skb_frag_size(frag);
-> -             tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = true;
-> -             tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
->       }
->
->       tx_q->tx_skbuff_dma[tx_q->cur_tx].last_segment = true;
-> --
-> 2.25.1
->
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
