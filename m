@@ -2,73 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2077997549B
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 15:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92009755B6
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 16:39:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA3A3C78015;
-	Wed, 11 Sep 2024 13:52:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EE5EC6C841;
+	Wed, 11 Sep 2024 14:39:25 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 333C9C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0097FC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2024 13:52:42 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48BALUbe005722;
- Wed, 11 Sep 2024 15:52:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- A8c+AY+qNssnoCfN0gZ6jZd2oPaxif5QtDT69HbwCEA=; b=W0hTDX/67HYbz70c
- mUJAZJltZcRY4co1wK6bvrv0Ar8Qnbq5kf+q/MYrXzQ9Zn3k6lq7nIaSEewkZWlp
- IUKXR8Jb3mKD6NpBbElGV/2Qctsu2DYs8J8YgjRsij03N/phG3tWkpQPEq0dqyB/
- Pb30tJsfKZjLT5TCovpjg6ma2NmvQAcn9GNxDM196GUpejB15rGaAF/erJX+z73H
- 6/rphJyfJxRvY/nAy2pRgOAYAxhi5lTe8tvnfmAHGUDWpSgXBP4QEuOE9LFiq2/H
- OHfHDQFB/9f8wFnu8N6NQw31E8Mf3VPKvnW8uFtkcGwxfTJP0R39YOGs9cEWxV2a
- aLhCGQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41gy7sfgr3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Sep 2024 15:52:29 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A50944005B;
- Wed, 11 Sep 2024 15:51:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 460C6231537;
- Wed, 11 Sep 2024 15:50:15 +0200 (CEST)
-Received: from localhost (10.48.86.208) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 11 Sep
- 2024 15:50:14 +0200
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Fritz Koenig <frkoenig@chromium.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-Date: Wed, 11 Sep 2024 15:50:11 +0200
-Message-ID: <20240911135011.161217-3-hugues.fruchet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240911135011.161217-1-hugues.fruchet@foss.st.com>
-References: <20240911135011.161217-1-hugues.fruchet@foss.st.com>
+ Wed, 11 Sep 2024 14:39:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 3E701A450E7;
+ Wed, 11 Sep 2024 14:39:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DAF5C4CEC0;
+ Wed, 11 Sep 2024 14:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726065556;
+ bh=RIl2vqs1rYnlBT7Pma3eLUwMyWxA2WhBMmHCl3yi23w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pfRI8rZkJxendEAuv296Bmdk4n5+LS0TrKnAdyRfGNFbRry3Cc8V9v5w+OCkGJquL
+ Hb546cSEeEqrKuwYHwWehHT2yTVW98jjqaDMA2oxWTAzXZj2dTJQ4VNRLRWKlGd/IR
+ OWAaxEZubpLkhCWdAa+cNhOrTYIRCu9bKeg6dZHw059FTJ/DSq5YRTPASqFenV9eeM
+ 4S9PsqZCziq4X2OTpXMXrT/JP4OJmtNUPuIhfExVz26KcvEUBsLz7VU7QleKH9r7jZ
+ RNEj2iKswTHfK4auCiezX/d9k3TPpLeStgf4y139By85RbAPGzkLlstoIn7TI6aFLL
+ QQM3q9B00ajcw==
+Date: Wed, 11 Sep 2024 09:39:15 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Jie Gan <quic_jiegan@quicinc.com>
+Message-ID: <172606555436.153197.17103030569267503329.robh@kernel.org>
+References: <20240909033458.3118238-1-quic_jiegan@quicinc.com>
+ <20240909033458.3118238-4-quic_jiegan@quicinc.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.208]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>
-Subject: [Linux-stm32] [PATCH 2/2] media: verisilicon: add WebP decoding
-	support
+Content-Disposition: inline
+In-Reply-To: <20240909033458.3118238-4-quic_jiegan@quicinc.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Song Chai <quic_songchai@quicinc.com>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, coresight@lists.linaro.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>,
+ James Clark <james.clark@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Tao Zhang <quic_taozha@quicinc.com>, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v5 3/5] dt-bindings: arm: Add Coresight
+ TMC Control Unit hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,53 +68,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add WebP picture decoding support to VP8 stateless decoder.
 
-Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
----
- drivers/media/platform/verisilicon/hantro_g1_regs.h    | 1 +
- drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c | 7 +++++++
- 2 files changed, 8 insertions(+)
+On Mon, 09 Sep 2024 11:34:56 +0800, Jie Gan wrote:
+> Add binding file to specify how to define a Coresight TMC
+> Control Unit device in device tree.
+> 
+> It is responsible for controlling the data filter function
+> based on the source device's Trace ID for TMC ETR device.
+> The trace data with that Trace id can get into ETR's buffer
+> while other trace data gets ignored.
+> 
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> ---
+>  .../bindings/arm/qcom,coresight-ctcu.yaml     | 84 +++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
+> 
 
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_regs.h b/drivers/media/platform/verisilicon/hantro_g1_regs.h
-index c623b3b0be18..e7d4db788e57 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_regs.h
-+++ b/drivers/media/platform/verisilicon/hantro_g1_regs.h
-@@ -232,6 +232,7 @@
- #define     G1_REG_DEC_CTRL7_DCT7_START_BIT(x)		(((x) & 0x3f) << 0)
- #define G1_REG_ADDR_STR					0x030
- #define G1_REG_ADDR_DST					0x034
-+#define G1_REG_ADDR_DST_CHROMA				0x038
- #define G1_REG_ADDR_REF(i)				(0x038 + ((i) * 0x4))
- #define     G1_REG_ADDR_REF_FIELD_E			BIT(1)
- #define     G1_REG_ADDR_REF_TOPC_E			BIT(0)
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c b/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-index 851eb67f19f5..c6a7584b716a 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-@@ -427,6 +427,11 @@ static void cfg_buffers(struct hantro_ctx *ctx,
- 
- 	dst_dma = hantro_get_dec_buf_addr(ctx, &vb2_dst->vb2_buf);
- 	vdpu_write_relaxed(vpu, dst_dma, G1_REG_ADDR_DST);
-+
-+	if (hdr->flags & V4L2_VP8_FRAME_FLAG_WEBP)
-+		vdpu_write_relaxed(vpu, dst_dma +
-+				   ctx->dst_fmt.height * ctx->dst_fmt.width,
-+				   G1_REG_ADDR_DST_CHROMA);
- }
- 
- int hantro_g1_vp8_dec_run(struct hantro_ctx *ctx)
-@@ -471,6 +476,8 @@ int hantro_g1_vp8_dec_run(struct hantro_ctx *ctx)
- 		reg |= G1_REG_DEC_CTRL0_SKIP_MODE;
- 	if (hdr->lf.level == 0)
- 		reg |= G1_REG_DEC_CTRL0_FILTERING_DIS;
-+	if (hdr->flags & V4L2_VP8_FRAME_FLAG_WEBP)
-+		reg |= G1_REG_DEC_CTRL0_WEBP_E;
- 	vdpu_write_relaxed(vpu, reg, G1_REG_DEC_CTRL0);
- 
- 	/* Frame dimensions */
--- 
-2.25.1
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
