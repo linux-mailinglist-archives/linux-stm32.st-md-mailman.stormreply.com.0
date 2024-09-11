@@ -2,74 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F13C975CA8
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2024 23:51:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63607975DC6
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 01:51:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3B45C6C841;
-	Wed, 11 Sep 2024 21:51:15 +0000 (UTC)
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19E57C6C855;
+	Wed, 11 Sep 2024 23:51:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2766C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB89EC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2024 21:51:07 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-7db233cef22so67963a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2024 14:51:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1726091466; x=1726696266;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=atvq8gkU6NvVoNfip7YpdVtjmePPs3eS+0+JBGapmdM=;
- b=EJ6aU78++UjvU864YHs7Me/Cx49CO3Xt8KR9bwn3+Cq8Q8KgY/adWOwh9rIweSMdyq
- rwlUl1KLD97WSVVkX67pYtKYrRXUoPYjzu8SOWgo6qs+11rKiWoaLbd4h6iFDCzQcPwU
- aaJq3CHcd0Pmka2ad8uRPAoGcNrnpkRqT01yk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726091466; x=1726696266;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=atvq8gkU6NvVoNfip7YpdVtjmePPs3eS+0+JBGapmdM=;
- b=ltCszfB5/uCH+sZdE/vNWjEViBt1z6a+KuoJfx/alz00qIDbHqZMIS3fqPcKBWJnv3
- pm/kPHBPVz5rVp5kIDgmsWZ0WQEedxmmK+/vfND1t8UoYK4DTmCwFOKONpPt6HzPXhU+
- zzw8Ul6yVqoPhse1JdUUfco1UenQPmWpQwBDjkziocuGgDrpB7Ifg5NlfFG880uyWh/c
- NBWgIv4eD4h8OSsHTcN6M1aTc5+d5W1nbtZcPeaD4eFhtXTryNu7bmfHyJSEArkwaAQg
- oy3KxyvuQYM8nXM09/gMYyIV/nMH3+W0SAF5UuqRA3ASUAT9AXKKJfkT2kvhEmWOQTQp
- 3rDg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX2FjA+p3XzJEn23/sRbgAEUMLzBxFSTJZo+v/SE5Y/nFHMcsUa0jw1+9XGw+pSY8ICjCHI6fzpEPvbXA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxVrxHE0zEl3P1p9H1HGAjvABE/XgWFBEsHX4JrW8kAmVz9yFVb
- 7A00uBnzCy+/xQXnvNUJXy19Cy+gkqE5+gwi1ofVx/QzCKssdRpK9SIMAnYk71McO0/veXa/Ou4
- r8fincGIo5DIbqYtKik86hWks8GTaAS+QfkH7
-X-Google-Smtp-Source: AGHT+IE6AjM9iNIUGGgkdelqISzU9y7VqVsFfHhd7hH+mTrRkBRlRHZFngZR/fbxEJoN18HlE/eBuMsCOSEppeavnRs=
-X-Received: by 2002:a05:6a00:1990:b0:717:8d52:643 with SMTP id
- d2e1a72fcca58-7192607f5b4mr1219152b3a.11.1726091466137; Wed, 11 Sep 2024
- 14:51:06 -0700 (PDT)
+ Wed, 11 Sep 2024 23:51:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A49F95C0773;
+ Wed, 11 Sep 2024 23:51:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AE2C4CEC0;
+ Wed, 11 Sep 2024 23:51:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726098701;
+ bh=Y6kf4Wi6KDs88Xo6Q2D9THZIQ/bLuNqar2amyrJ7IBE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=f+ZcnKWyi/9UeOBLlF/Z3b+5pgzmUkwOiy10JBnuRxQTfqc4Hosspr/wpoDJIXVtI
+ kk0Li2BICh2E/3SN852se+VptdvCM2DHcgLnkE0ORU+Y5ST9cfAITgQLxSLvpZtB8l
+ cP7ALk2w2e5Qos/NuLD9CdmEP0Ect8bsLcdMpfJ8b1+b2HAIht0Sp/fZ2cd7GyPmJy
+ 9bLOKQqMIKNXXxWOnOx+r8fPJc/IqtLrGWUeo4yJE6I75CJiYJahEgze1GP1U7y7fn
+ Ix/Lxos3H3MZngCNdicv+J6H7X8MkOpu7NQwIqH8EH1F754GbaaG0nel0DeqXjyNbk
+ 87ebwq7P0sF9A==
+Date: Wed, 11 Sep 2024 16:51:40 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Message-ID: <20240911165140.566d9fdb@kernel.org>
+In-Reply-To: <20240910124841.2205629-2-quic_jsuraj@quicinc.com>
+References: <20240910124841.2205629-1-quic_jsuraj@quicinc.com>
+ <20240910124841.2205629-2-quic_jsuraj@quicinc.com>
 MIME-Version: 1.0
-References: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
- <20240904054815.1341712-2-jitendra.vegiraju@broadcom.com>
- <7foqi3vdgc3kvyw5rrnqsqsakgfgcrhw5sihnqwza4okdnh5dd@pdsdjn32ya6u>
-In-Reply-To: <7foqi3vdgc3kvyw5rrnqsqsakgfgcrhw5sihnqwza4okdnh5dd@pdsdjn32ya6u>
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Wed, 11 Sep 2024 14:50:54 -0700
-Message-ID: <CAMdnO-+nPHsNmxYkB0v54LfcHm-Df92dyGiZM3Rwe_sDMmPyVQ@mail.gmail.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
- rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
- xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v5 1/5] net: stmmac: Add HDMA
- mapping for dw25gmac support
+Cc: Rob Herring <robh@kernel.org>, kernel@quicinc.com,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Prasad Sodagudi <psodagud@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: allocate separate page
+	for buffer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,104 +56,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgU2VyZ2UsClRoYW5rIHlvdSBmb3IgdGFraW5nIHRoZSB0aW1lIHRvIHJldmlldyB0aGUgcGF0
-Y2hlcy4KCk9uIFR1ZSwgU2VwIDEwLCAyMDI0IGF0IDExOjM34oCvQU0gU2VyZ2UgU2VtaW4gPGZh
-bmNlci5sYW5jZXJAZ21haWwuY29tPiB3cm90ZToKPgo+IEhpIEppdGVuZHJhCj4KPiBPbiBUdWUs
-IFNlcCAwMywgMjAyNCBhdCAxMDo0ODoxMVBNIC0wNzAwLCBqaXRlbmRyYS52ZWdpcmFqdUBicm9h
-ZGNvbS5jb20gd3JvdGU6Cj4gPiBGcm9tOiBKaXRlbmRyYSBWZWdpcmFqdSA8aml0ZW5kcmEudmVn
-aXJhanVAYnJvYWRjb20uY29tPgo+ID4KPiA+IEFkZCBoZG1hIGNvbmZpZ3VyYXRpb24gc3VwcG9y
-dCBpbiBpbmNsdWRlL2xpbnV4L3N0bW1hYy5oIGZpbGUuCj4gPiBUaGUgaGRtYSBjb25maWd1cmF0
-aW9uIGluY2x1ZGVzIG1hcHBpbmcgb2YgdmlydHVhbCBETUFzIHRvIHBoeXNpY2FsIERNQXMuCj4g
-PiBEZWZpbmUgYSBuZXcgZGF0YSBzdHJ1Y3R1cmUgc3RtbWFjX2hkbWFfY2ZnIHRvIHByb3ZpZGUg
-dGhlIG1hcHBpbmcuCj4gPgo+ID4gSW50cm9kdWNlIG5ldyBwbGF0X3N0bW1hY2VuZXRfZGF0YTo6
-c25wc19pZCxzbnBzX2Rldl9pZCB0byBhbGxvdyBnbHVlCj4gPiBkcml2ZXJzIHRvIHNwZWNpZnkg
-c3lub3BzeXMgSUQgYW5kIGRldmljZSBpZCByZXNwZWN0aXZlbHkuCj4gPiBUaGVzZSB2YWx1ZXMg
-dGFrZSBwcmVjZWRlbmNlIG92ZXIgcmVhZGluZyBmcm9tIEhXIHJlZ2lzdGVyLiBUaGlzIGZhY2ls
-aXR5Cj4gPiBwcm92aWRlcyBhIG1lY2hhbmlzbSB0byB1c2Ugc2V0dXAgZnVuY3Rpb24gZnJvbSBz
-dG1tYWMgY29yZSBtb2R1bGUgYW5kIHlldAo+ID4gb3ZlcnJpZGUgTUFDLlZFUlNJT04gQ1NSIGlm
-IHRoZSBnbHVlIGRyaXZlciBjaG9vc2VzIHRvIGRvIHNvLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6
-IEppdGVuZHJhIFZlZ2lyYWp1IDxqaXRlbmRyYS52ZWdpcmFqdUBicm9hZGNvbS5jb20+Cj4gPiAt
-LS0KPiA+ICBpbmNsdWRlL2xpbnV4L3N0bW1hYy5oIHwgNDggKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDQ4IGluc2VydGlvbnMo
-KykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9zdG1tYWMuaCBiL2luY2x1ZGUv
-bGludXgvc3RtbWFjLmgKPiA+IGluZGV4IDMzODk5MWMwOGYwMC4uZWI4MTM2NjgwYTdiIDEwMDY0
-NAo+ID4gLS0tIGEvaW5jbHVkZS9saW51eC9zdG1tYWMuaAo+ID4gKysrIGIvaW5jbHVkZS9saW51
-eC9zdG1tYWMuaAo+ID4gQEAgLTg5LDYgKzg5LDUxIEBAIHN0cnVjdCBzdG1tYWNfbWRpb19idXNf
-ZGF0YSB7Cj4gPiAgICAgICBib29sIG5lZWRzX3Jlc2V0Owo+ID4gIH07Cj4gPgo+ID4gKy8qIERX
-MjVHTUFDIEh5cGVyLURNQSBPdmVydmlldwo+ID4gKyAqIEh5cGVyLURNQSBhbGxvd3Mgc3VwcG9y
-dCBmb3IgbGFyZ2UgbnVtYmVyIG9mIFZpcnR1YWwgRE1BKFZETUEpCj4gPiArICogY2hhbm5lbHMg
-dXNpbmcgYSBzbWFsbGVyIHNldCBvZiBwaHlzaWNhbCBETUEgY2hhbm5lbHMoUERNQSkuCj4gPiAr
-ICogVGhpcyBpcyBzdXBwb3J0ZWQgYnkgdGhlIG1hcHBpbmcgb2YgVkRNQXMgdG8gVHJhZmZpYyBD
-bGFzcyhUQykKPiA+ICsgKiBhbmQgUERNQSB0byBUQyBpbiBlYWNoIHRyYWZmaWMgZGlyZWN0aW9u
-IGFzIHNob3duIGJlbG93Lgo+ID4gKyAqCj4gPiArICogICAgICAgIFZETUFzICAgICAgICAgICAg
-VHJhZmZpYyBDbGFzcyAgICAgIFBETUEKPiA+ICsgKiAgICAgICArLS0tLS0tLS0rICAgICAgICAg
-ICstLS0tLS0rICAgICAgICAgKy0tLS0tLS0tLS0tKwo+ID4gKyAqICAgICAgIHxWRE1BMCAgIHwt
-LS0tLS0tLS0+fCBUQzAgIHwtLS0tLS0tLT58UERNQTAvVFhRMCB8Cj4gPiArICpUWCAgICAgKy0t
-LS0tLS0tKyAgIHwtLS0tLT4rLS0tLS0tKyAgICAgICAgICstLS0tLS0tLS0tLSsKPiA+ICsgKkhv
-c3Q9PiArLS0tLS0tLS0rICAgfCAgICAgICstLS0tLS0rICAgICAgICAgKy0tLS0tLS0tLS0tKyA9
-PiBNQUMKPiA+ICsgKlNXICAgICB8VkRNQTEgICB8LS0tKyAgICAgIHwgVEMxICB8ICAgICstLS0+
-fFBETUExL1RYUTEgfAo+ID4gKyAqICAgICAgICstLS0tLS0tLSsgICAgICAgICAgKy0tLS0tLSsg
-ICAgfCAgICArLS0tLS0tLS0tLS0rCj4gPiArICogICAgICAgKy0tLS0tLS0tKyAgICAgICAgICAr
-LS0tLS0tKy0tLS0rICAgICstLS0tLS0tLS0tLSsKPiA+ICsgKiAgICAgICB8VkRNQTIgICB8LS0t
-LS0tLS0tPnwgVEMyICB8LS0tLS0tLS0+fFBETUEyL1RYUTEgfAo+ID4gKyAqICAgICAgICstLS0t
-LS0tLSsgICAgICAgICAgKy0tLS0tLSsgICAgICAgICArLS0tLS0tLS0tLS0rCj4gPiArICogICAg
-ICAgICAgICAuICAgICAgICAgICAgICAgICAuICAgICAgICAgICAgICAgICAuCj4gPiArICogICAg
-ICAgKy0tLS0tLS0tKyAgICAgICAgICArLS0tLS0tKyAgICAgICAgICstLS0tLS0tLS0tLSsKPiA+
-ICsgKiAgICAgICB8VkRNQW4tMSB8LS0tLS0tLS0tPnwgVEN4LTF8LS0tLS0tLS0+fFBETUFtL1RY
-UW0gfAo+ID4gKyAqICAgICAgICstLS0tLS0tLSsgICAgICAgICAgKy0tLS0tLSsgICAgICAgICAr
-LS0tLS0tLS0tLS0rCj4gPiArICoKPiA+ICsgKiAgICAgICArLS0tLS0tKyAgICAgICAgICArLS0t
-LS0tKyAgICAgICAgICstLS0tLS0rCj4gPiArICogICAgICAgfFBETUEwIHwtLS0tLS0tLS0+fCBU
-QzAgIHwtLS0tLS0tLT58VkRNQTAgfAo+ID4gKyAqICAgICAgICstLS0tLS0rICAgfC0tLS0tPist
-LS0tLS0rICAgICAgICAgKy0tLS0tLSsKPiA+ICsgKk1BQyA9PiArLS0tLS0tKyAgIHwgICAgICAr
-LS0tLS0tKyAgICAgICAgICstLS0tLS0rCj4gPiArICpSWFFzICAgfFBETUExIHwtLS0rICAgICAg
-fCBUQzEgIHwgICAgKy0tLT58VkRNQTEgfCAgPT4gSG9zdAo+ID4gKyAqICAgICAgICstLS0tLS0r
-ICAgICAgICAgICstLS0tLS0rICAgIHwgICAgKy0tLS0tLSsKPiA+ICsgKiAgICAgICAgICAgIC4g
-ICAgICAgICAgICAgICAgIC4gICAgICAgICAgICAgICAgIC4KPiA+ICsgKi8KPiA+ICsKPgo+ID4g
-Ky8qIEh5cGVyLURNQSBtYXBwaW5nIGNvbmZpZ3VyYXRpb24KPiA+ICsgKiBUcmFmZmljIENsYXNz
-IGFzc29jaWF0ZWQgd2l0aCBlYWNoIFZETUEvUERNQSBtYXBwaW5nCj4gPiArICogaXMgc3RvcmVk
-IGluIGNvcnJlc3BvbmRpbmcgYXJyYXkgZW50cnkuCj4gPiArICovCj4gPiArc3RydWN0IHN0bW1h
-Y19oZG1hX2NmZyB7Cj4gPiArICAgICB1MzIgdHhfdmRtYXM7ICAgLyogVFggVkRNQSBjb3VudCAq
-Lwo+ID4gKyAgICAgdTMyIHJ4X3ZkbWFzOyAgIC8qIFJYIFZETUEgY291bnQgKi8KPiA+ICsgICAg
-IHUzMiB0eF9wZG1hczsgICAvKiBUWCBQRE1BIGNvdW50ICovCj4gPiArICAgICB1MzIgcnhfcGRt
-YXM7ICAgLyogUlggUERNQSBjb3VudCAqLwo+ID4gKyAgICAgdTggKnR2ZG1hX3RjOyAgIC8qIFR4
-IFZETUEgdG8gVEMgbWFwcGluZyBhcnJheSAqLwo+ID4gKyAgICAgdTggKnJ2ZG1hX3RjOyAgIC8q
-IFJ4IFZETUEgdG8gVEMgbWFwcGluZyBhcnJheSAqLwo+ID4gKyAgICAgdTggKnRwZG1hX3RjOyAg
-IC8qIFR4IFBETUEgdG8gVEMgbWFwcGluZyBhcnJheSAqLwo+ID4gKyAgICAgdTggKnJwZG1hX3Rj
-OyAgIC8qIFJ4IFBETUEgdG8gVEMgbWFwcGluZyBhcnJheSAqLwo+ID4gK307Cj4gPiArCj4gPiAg
-c3RydWN0IHN0bW1hY19kbWFfY2ZnIHsKPiA+ICAgICAgIGludCBwYmw7Cj4gPiAgICAgICBpbnQg
-dHhwYmw7Cj4gPiBAQCAtMTAxLDYgKzE0Niw3IEBAIHN0cnVjdCBzdG1tYWNfZG1hX2NmZyB7Cj4g
-PiAgICAgICBib29sIG11bHRpX21zaV9lbjsKPiA+ICAgICAgIGJvb2wgZGNoZTsKPiA+ICAgICAg
-IGJvb2wgYXRkczsKPiA+ICsgICAgIHN0cnVjdCBzdG1tYWNfaGRtYV9jZmcgKmhkbWFfY2ZnOwo+
-Cj4gQmFzZWQgb24gd2hhdCB5b3UgYXJlIGltcGxlbWVudGluZyB0aGUgX3N0YXRpY18gVkRNQS1U
-Qy1QRE1BIGNoYW5uZWxzCj4gbWFwcGluZyBJIHJlYWxseSBkb24ndCBzZWUgYSB2YWx1ZSBvZiBh
-ZGRpbmcgYWxsIG9mIHRoZXNlIGRhdGEgaGVyZS4KPiBUaGUgd2hvbGUgaW1wbGVtZW50YXRpb24g
-Z2V0cyB0byBiZSBuZWVkbGVzc2x5IG92ZXJjb21wbGljYXRlZC4KPiBNb3Jlb3ZlciBBRkFJQ1Mg
-dGhlcmUgYXJlIHNvbWUgY2hhbm5lbHMgbGVmdCBtaXNjb25maWd1cmVkIGluIHRoZQo+IFBhdGNo
-IDIgY29kZS4gIFBsZWFzZSBzZWUgbXkgY29tbWVudHMgdGhlcmUgZm9yIG1vcmUgZGV0YWlscy4K
-PgpJIGFncmVlLCB3aXRoIF9zdGF0aWNfIFZETUEtVEMtUERNQSBjaGFubmVscywgbWFpbnRhaW5p
-bmcgdGhlIG1hcHBpbmcgZGF0YQphcHBlYXJzIGNvbXBsaWNhdGVkLgpUaGUgcmVhbCBuZWVkIGNv
-bWVzIHdoZW4gYWRkaW5nIHZpcnR1YWxpemF0aW9uIChTUklPVikgY2FwYWJpbGl0aWVzLgpJIGFt
-IGFuYWx5emluZyB5b3VyIGNvbW1lbnRzIGluIHBhdGNoMiBhbmQgd2lsbCByZXNwb25kIGFmdGVy
-IHJlLWV2YWx1YXRpb24uCgo+ID4gIH07Cj4gPgo+ID4gICNkZWZpbmUgQVhJX0JMRU4gICAgIDcK
-PiA+IEBAIC0zMDMsNSArMzQ5LDcgQEAgc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhIHsKPiA+
-ICAgICAgIGludCBtc2lfdHhfYmFzZV92ZWM7Cj4gPiAgICAgICBjb25zdCBzdHJ1Y3QgZHdtYWM0
-X2FkZHJzICpkd21hYzRfYWRkcnM7Cj4gPiAgICAgICB1bnNpZ25lZCBpbnQgZmxhZ3M7Cj4KPiA+
-ICsgICAgIHUzMiBzbnBzX2lkOwo+ID4gKyAgICAgdTMyIHNucHNfZGV2X2lkOwo+Cj4gUGxlYXNl
-IG1vdmUgdGhlc2UgZmllbGRzIHRvIHRoZSBoZWFkIG9mIHRoZSBzdHJ1Y3R1cmUgYXMgdGhlIGtp
-bmQgb2YKPiBjcnVjaWFsIG9uZXMsIGFuZCBjb252ZXJ0IHNucHNfZGV2X2lkIHRvIGp1c3QgZGV2
-X2lkLgo+Cj4gc25wc19pZCBmaWVsZCBuYW1lIHdhcyBzZWxlY3RlZCBiYXNlZCBvbiB0aGUgVkVS
-U0lPTi5TTlBTVkVSIGZpZWxkCj4gbmFtZSAoc2VlIFNOUFMgcHJlZml4KS4gRm9sbG93aW5nIHRo
-YXQgbG9naWMgdGhlIFZFUlNJT04uREVWSUQgZmllbGQKPiBzaG91bGQgYmUgY29udmVydGVkIHRv
-IHRoZSBkZXZfaWQgbmFtZS4KPgpUaGFua3MgZm9yIGV4cGxhaW5pbmcgdGhlIHRoaW5raW5nIGJl
-aGluZCB0aGUgZmllbGQgbmFtaW5nLiBUaGF0IG1ha2VzIHNlbnNlLgpJIHdhcyB0aGlua2luZyBv
-ZiBpdCBhcyBhIHByZWZpeCBmb3Igc3lub3BzeXMgZmllbGRzLgpXaWxsIG1ha2UgdGhlIGNoYW5n
-ZS4KPiAtU2VyZ2UoeSkKPgo+ID4gIH07Cj4gPiAgI2VuZGlmCj4gPiAtLQo+ID4gMi4zNC4xCj4g
-PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+On Tue, 10 Sep 2024 18:18:41 +0530 Suraj Jaiswal wrote:
+> Currently for TSO page is mapped with dma_map_single()
+> and then resulting dma address is referenced (and offset)
+> by multiple descriptors until the whole region is
+> programmed into the descriptors.
+> This makes it possible for stmmac_tx_clean() to dma_unmap()
+> the first of the already processed descriptors, while the
+> rest are still being processed by the DMA engine. This leads
+> to an iommu fault due to the DMA engine using unmapped memory
+> as seen below:
+> 
+> arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
+> iova=0xfc401000, fsynr=0x60003, cbfrsynra=0x121, cb=38
+> 
+> Descriptor content:
+>      TDES0       TDES1   TDES2   TDES3
+> 317: 0xfc400800  0x0     0x36    0xa02c0b68
+> 318: 0xfc400836  0x0     0xb68   0x90000000
+> 
+> As we can see above descriptor 317 holding a page address
+> and 318 holding the buffer address by adding offset to page
+> addess. Now if 317 descritor is cleaned as part of tx_clean()
+> then we will get SMMU fault if 318 descriptor is getting accessed.
+
+The device is completing earlier chunks of the payload before the entire
+payload is sent? That's very unusual, is there a manual you can quote
+on this?
+
+> To fix this, let's map each descriptor's memory reference individually.
+> This way there's no risk of unmapping a region that's still being
+> referenced by the DMA engine in a later descriptor.
+
+This adds overhead. Why not wait with unmapping until the full skb is
+done? Presumably you can't free half an skb, anyway.
+
+Please added Fixes tag and use "PATCH net" as the subject tag/prefix.
+-- 
+pw-bot: cr
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
