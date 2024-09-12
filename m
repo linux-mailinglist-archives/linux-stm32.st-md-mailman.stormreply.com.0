@@ -2,77 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD0E976DB3
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 17:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58A57976DE3
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 17:37:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51D28C78016;
-	Thu, 12 Sep 2024 15:26:23 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10C8CC78016;
+	Thu, 12 Sep 2024 15:37:45 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4630BC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A699C78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 15:26:16 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2d86f713557so759988a91.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 08:26:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726154775; x=1726759575;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=AW/y1gSAhKENjHL3lW9TJj79JKhDjrYNIUo6Ww7RCUs=;
- b=G6iuT/BQC/28wRrQg510Nxsyj5V3W+K9AMCFKVwLLuEmRN0eLrJfyXjOXq7WrHHWny
- q0U0sz0ZZ4QLVHQ0HeVMZnOrOw2YWIMceX5xDX4pIwDAI9tEHdL/TYTJQaZStwt9oxkE
- /3UYCBqWhnRm3jZpz3MhEDMO4WxeHTFCDC9cTwcawaaut1F9J5OEKogRBzDxeBL6ixHm
- vLYfeNh+ula8vUUIAT/M6p3Mvq3Nc2a9qhCK99zT4CtmIIxpaMamFVJh+WfeDyBrFaEd
- aN7b5a04Qo+V+9ue3CzwTepmoWfadniLnxMT9spUxc9xZcE0nTbmXV4OGbnlHQUA5t/b
- CyTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726154775; x=1726759575;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AW/y1gSAhKENjHL3lW9TJj79JKhDjrYNIUo6Ww7RCUs=;
- b=qIGsbDpPY/qWwJu5noLZPBUYTd2VZvdHYXz+Cmw4Fc8ksl5YfSgvDXjsBBkzs0Pg23
- sPjnYnthhY3vs8bPEKdjf9fcAbVvZDcht9lknC4ELSSE9PY7bgHW24bqOiR9j4PGM94h
- QWr8Ff8ZBOmhEkaUMBqjuW4VZ/dJ6SV24h5CbgoFd7mN9QoEzC2tEbLv2DLVIXoMkf1B
- MD4PZW41h6xtdUieVNqpQu3j80LeaWSI+9L1TSdQcW373gFZ8KuVNQlvXRUVwf0+dGql
- adOPI6MZzrHEoR60rlCLn3Jj1OZNICE7S6dxgzIC/1XxWExWzqoVtrwZTvkA1IXW46sx
- RtRg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZoAKP7EEgWlIwcgz58Bg4WraMAVHbgCNpFX9twYZHBF4iIcwc10p2gGWyo4yTVtGbfEzIKJmZ/nCqFQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyt9M9nsGKrIVPrNTMKG5Ovewu4f7uJJ5LW9aO8cPGS7pVXarwL
- u0NWqFuzHduuSKB1EOKnCFvGgnkd5SupT6atNOG+HvxJyykzGcfOY168gPfh75U=
-X-Google-Smtp-Source: AGHT+IEnUV2gdc2JrTZ0PDN+tPvw1sNecok9fGkCMZLj9cBqFlHeQWX0ELyRbR9mPIeM7B+XWHHF5Q==
-X-Received: by 2002:a17:90a:f00b:b0:2d8:7a3b:730d with SMTP id
- 98e67ed59e1d1-2db9ffee5e9mr3070246a91.21.1726154774608; 
- Thu, 12 Sep 2024 08:26:14 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:a82e:e104:d822:3d3c])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2dadc03d0ecsm12710893a91.23.2024.09.12.08.26.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 08:26:13 -0700 (PDT)
-Date: Thu, 12 Sep 2024 09:26:10 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZuMIEp4cVrp1hWa7@p14s>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
- <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
+ Thu, 12 Sep 2024 15:37:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8D06CA456B0;
+ Thu, 12 Sep 2024 15:37:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB574C4CEC3;
+ Thu, 12 Sep 2024 15:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726155455;
+ bh=N/+WNeF+RDLG1ngsWQ16huQXqFJqMaiTBQhwf09Ovlw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bbS1dzrJOj5tds7MBnce/FTebHyPXH1Re3Wsx5wcDhTHcThsHGJGnISRw4fyJwaNi
+ 1xSnsYtZ11ng94GVqnlMpyfivdkC3dOl+sIekye8vD7H14dk/RTmMajsIBR140jGKn
+ C9Mols8RTbIXlGeipygGOAb7oQy3DSpLwGGBeeN4XhNw5mtvEB2AksUHNLWOdBQy0u
+ oJv8k+/EPQrshEpB7GTL0Fs5+nC9H+4A2beRcsajAL+5j6Crr7wbWYHoWaEEAD16eK
+ qIHNYWrefsyKEQFZNgxWQMaIv2qEnUkeJKsXg23ratJRIjvDXnsoW/VXj9B8DlQ0kC
+ gvais+ESwUuZA==
+Date: Thu, 12 Sep 2024 16:37:30 +0100
+From: Simon Horman <horms@kernel.org>
+To: KhaiWenTan <khai.wen.tan@linux.intel.com>
+Message-ID: <20240912153730.GN572255@kernel.org>
+References: <20240912015541.363600-1-khai.wen.tan@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
+In-Reply-To: <20240912015541.363600-1-khai.wen.tan@linux.intel.com>
+Cc: Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tan Khai Wen <khai.wen.tan@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 4/7] remoteproc: core: Add TEE
- interface support for firmware release
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix zero-division
+ error when disabling tc cbs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,77 +62,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 30, 2024 at 11:51:44AM +0200, Arnaud Pouliquen wrote:
-> Add support for releasing remote processor firmware through
-> the Trusted Execution Environment (TEE) interface.
+On Thu, Sep 12, 2024 at 09:55:41AM +0800, KhaiWenTan wrote:
+> The commit b8c43360f6e4 ("net: stmmac: No need to calculate speed divider
+> when offload is disabled") allows the "port_transmit_rate_kbps" to be
+> set to a value of 0, which is then passed to the "div_s64" function when
+> tc-cbs is disabled. This leads to a zero-division error.
 > 
-> The tee_rproc_release_fw() function is called in the following cases:
+> When tc-cbs is disabled, the idleslope, sendslope, and credit values the
+> credit values are not required to be configured. Therefore, adding a return
+> statement after setting the txQ mode to DCB when tc-cbs is disabled would
+> prevent a zero-division error.
 > 
-> - An error occurs in rproc_start() between the loading of the segments and
->   the start of the remote processor.
-> - When rproc_release_fw is called on error or after stopping the remote
->   processor.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Fixes: b8c43360f6e4 ("net: stmmac: No need to calculate speed divider when offload is disabled")
+> Cc: <stable@vger.kernel.org>
+> Co-developed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+> Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
 > ---
->  drivers/remoteproc/remoteproc_core.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 7694817f25d4..32052dedc149 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -29,6 +29,7 @@
->  #include <linux/debugfs.h>
->  #include <linux/rculist.h>
->  #include <linux/remoteproc.h>
-> +#include <linux/remoteproc_tee.h>
->  #include <linux/iommu.h>
->  #include <linux/idr.h>
->  #include <linux/elf.h>
-> @@ -1258,6 +1259,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> index 996f2bcd07a2..2c3fd9c66d14 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> @@ -392,10 +392,10 @@ static int tc_setup_cbs(struct stmmac_priv *priv,
+>  	} else if (!qopt->enable) {
+>  		ret = stmmac_dma_qmode(priv, priv->ioaddr, queue,
+>  				       MTL_QUEUE_DCB);
+> -		if (ret)
+> -			return ret;
+> +		if (!ret)
+> +			priv->plat->tx_queues_cfg[queue].mode_to_use = MTL_QUEUE_DCB;
 >  
->  static void rproc_release_fw(struct rproc *rproc)
->  {
-> +	if (rproc->state == RPROC_OFFLINE && rproc->tee_interface)
-> +		tee_rproc_release_fw(rproc);
-
-Function tee_rproc_release_fw() returns a value that is ignored.  I don't know
-how it passes the Sparse checker but I already see patches coming in my Inbox to
-deal with that.  In this case there is nothing else to do if there is an error
-releasing the firware.  As such I would put a (void) in front and add a comment
-about the return value being ignore on purpose.
-
-> +
->  	/* Free the copy of the resource table */
->  	kfree(rproc->cached_table);
->  	rproc->cached_table = NULL;
-> @@ -1348,7 +1352,7 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->  	if (ret) {
->  		dev_err(dev, "failed to prepare subdevices for %s: %d\n",
->  			rproc->name, ret);
-> -		goto reset_table_ptr;
-> +		goto release_fw;
+> -		priv->plat->tx_queues_cfg[queue].mode_to_use = MTL_QUEUE_DCB;
+> +		return ret;
 >  	}
->  
->  	/* power up the remote processor */
-> @@ -1376,7 +1380,9 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->  	rproc->ops->stop(rproc);
->  unprepare_subdevices:
->  	rproc_unprepare_subdevices(rproc);
-> -reset_table_ptr:
-> +release_fw:
-> +	if (rproc->tee_interface)
-> +		tee_rproc_release_fw(rproc);
 
-Same here.
+Thanks,
 
->  	rproc->table_ptr = rproc->cached_table;
->  
->  	return ret;
-> -- 
-> 2.25.1
-> 
+I agree with your analysis. But I think it would
+be more idomatic to write it such that the main thread
+of execution is the non-error path (in any case,
+it makes it easier for me to understand the intent of the code.
+
+What I am suggesting is this (extra context provided for clarity):
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 996f2bcd07a2..308ef4241768 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -392,14 +392,15 @@ static int tc_setup_cbs(struct stmmac_priv *priv,
+ 	} else if (!qopt->enable) {
+ 		ret = stmmac_dma_qmode(priv, priv->ioaddr, queue,
+ 				       MTL_QUEUE_DCB);
+ 		if (ret)
+ 			return ret;
+ 
+ 		priv->plat->tx_queues_cfg[queue].mode_to_use = MTL_QUEUE_DCB;
++		return 0;
+ 	}
+ 
+ 	/* Final adjustments for HW */
+ 	value = div_s64(qopt->idleslope * 1024ll * ptr, port_transmit_rate_kbps);
+ 	priv->plat->tx_queues_cfg[queue].idle_slope = value & GENMASK(31, 0);
+ 
+ 	value = div_s64(-qopt->sendslope * 1024ll * ptr, port_transmit_rate_kbps);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
