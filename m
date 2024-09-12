@@ -2,51 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC6B976DF1
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 17:39:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96267976E00
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 17:41:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31C1CC78016;
-	Thu, 12 Sep 2024 15:39:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A9CDC78016;
+	Thu, 12 Sep 2024 15:41:36 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BD24C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F3DDC78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 15:39:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9D6C15C5B93;
- Thu, 12 Sep 2024 15:39:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12D59C4CEC3;
- Thu, 12 Sep 2024 15:39:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1726155558;
- bh=PsbP6YmUG40fnhWdGtrZKl7z1KBrwr8/1/qnLtehBvU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tU6FOm+E2UPgzTBO+hPEN0MmR61pBecN9uxcn9dW2BCy7Ye5D2HVdvmet/hdO03gK
- xd3apWcCZNXHrlnMvA9vw0RMS5nZ7bPofqk20OFENcYhO4cQhssZD5WoyxvElnnFZp
- F8JpDjZ4LZXdDfqnqatLPmVr4bEpqLTYPO4bSvTiXjlgrapwyx4/Dlb/On7EU4d2VX
- Kmb8c/xhld7Iyjb0WEyWeHyKvYfIB5FmSet9B4aWu8vhOxa1qsz8gWe6FMqjt3ZeWU
- 4EfkpgaTwtPFZVubrxoZco78iZ2M5rf6Eav7lob1/eMM6j3kVrUze46g0ilumRUbVD
- 0NmIMieBI0qHg==
-Date: Thu, 12 Sep 2024 16:39:13 +0100
-From: Simon Horman <horms@kernel.org>
-To: KhaiWenTan <khai.wen.tan@linux.intel.com>
-Message-ID: <20240912153913.GO572255@kernel.org>
-References: <20240912015541.363600-1-khai.wen.tan@linux.intel.com>
- <20240912153730.GN572255@kernel.org>
+ Thu, 12 Sep 2024 15:41:29 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2053525bd90so11730945ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 12 Sep 2024 08:41:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1726155687; x=1726760487;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=UX3TDD1wg3fmZECxkbsHACOqCzp6B1JzxKfaMLm2U8M=;
+ b=Uhp3rd3DbjpzDGPJNDjDyijUHl4S/L7rjeiFFPft2mHsfo39FWI5Qzi0DEchmsEC08
+ iWdz596mjiL7jlFtS2Mj5pGoMCUhmXElcYg8QxozsWzjDg5IpbkJMmXK4VwBQh30mU7b
+ wITjaXX1dVqrk+LYvFD5agIg8dSUwDvXLEmoCdxb44i4cIDWhGTdKVv+vXwdEJaka2fM
+ 4UMy4possetsrO+6ctSl5sMKsvTroxYv++uXTWSXChvetKd8x9VrlHaLz6zA0kwJ2mqD
+ aIhWkfNXtOI0HIZyB4o8tiIQCnTsr1rBYeKjGsRJNdEdipghZiUgHRYobyRyNwWmrbHL
+ tvFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726155687; x=1726760487;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UX3TDD1wg3fmZECxkbsHACOqCzp6B1JzxKfaMLm2U8M=;
+ b=RQEbhNgtg5GD1AStQwc7msdAZY22LDERVNlEZA/Enh/RZgHZZQJ3uGRJsh16RVJwD1
+ amgivDEWAadU95r9lUy1t/99Q7jnzfxRnlfiW0Yq1UvnFEgzNcXvoQU/bzr0pPmqKXMd
+ DX/DqpYhndyNQK3UEzaC75KUiNK1qjlga6dhMOzNvXvy+x01HKeFqCRQ5pcUClFUDnSt
+ 6MnKOB3vTJsmQD+1hQCk99y0c9ycz+WiL+SNoQ6KisGe9e2W+CPUewJmrhr9yScul3vo
+ f4Zk/zj+Xl/R2CrCFW7y1nRCFGtD4oLheWcgvrPHVq9D5b9bRGuDsARm/ldWtZMsEimp
+ 3yEg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXfmWyBVRAj1vo7QWUwd4uGz7/BdoH+KgbA1CgTh/Fv/sdRJAtbo0r7D4KYItxMpYNbOlN6GxgmOe57Og==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxQnSp7uXLAdnLPpaSvIJWO8cb1BSgMjEsebZoQQ0GF9IE+K/AM
+ Yl+oGvyICkHbuIdWrbKjGf4TpNAvVwwuU5ixqMr0nTPm+7x0YPjVKg6ZwQPUXkQ=
+X-Google-Smtp-Source: AGHT+IFagW7EpGoI8wKxQY38cWVqzvg3XfqIXD61efl4qhGkGiSohPvpLEyd4ziYpx5dvCOQgOsAAQ==
+X-Received: by 2002:a17:903:32c3:b0:206:ca91:1dd6 with SMTP id
+ d9443c01a7336-2076e315569mr46690225ad.9.1726155687450; 
+ Thu, 12 Sep 2024 08:41:27 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:a82e:e104:d822:3d3c])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2076afdd672sm15667935ad.156.2024.09.12.08.41.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Sep 2024 08:41:26 -0700 (PDT)
+Date: Thu, 12 Sep 2024 09:41:23 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZuMLo2+an1sxdYlt@p14s>
+References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
+ <20240830095147.3538047-7-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240912153730.GN572255@kernel.org>
-Cc: Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Khai Wen <khai.wen.tan@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+In-Reply-To: <20240830095147.3538047-7-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix zero-division
- error when disabling tc cbs
+Subject: Re: [Linux-stm32] [PATCH v9 6/7] remoteproc: stm32: Create
+ sub-functions to request shutdown and release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,30 +89,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 12, 2024 at 04:37:30PM +0100, Simon Horman wrote:
-> On Thu, Sep 12, 2024 at 09:55:41AM +0800, KhaiWenTan wrote:
-> > The commit b8c43360f6e4 ("net: stmmac: No need to calculate speed divider
-> > when offload is disabled") allows the "port_transmit_rate_kbps" to be
-> > set to a value of 0, which is then passed to the "div_s64" function when
-> > tc-cbs is disabled. This leads to a zero-division error.
-> > 
-> > When tc-cbs is disabled, the idleslope, sendslope, and credit values the
-> > credit values are not required to be configured. Therefore, adding a return
-> > statement after setting the txQ mode to DCB when tc-cbs is disabled would
-> > prevent a zero-division error.
-> > 
-> > Fixes: b8c43360f6e4 ("net: stmmac: No need to calculate speed divider when offload is disabled")
-> > Cc: <stable@vger.kernel.org>
-> > Co-developed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> > Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> > Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
+On Fri, Aug 30, 2024 at 11:51:46AM +0200, Arnaud Pouliquen wrote:
+> To prepare for the support of TEE remoteproc, create sub-functions
+> that can be used in both cases, with and without remoteproc TEE support.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 84 +++++++++++++++++++-------------
+>  1 file changed, 51 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index 8c7f7950b80e..79c638936163 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -209,6 +209,54 @@ static int stm32_rproc_mbox_idx(struct rproc *rproc, const unsigned char *name)
+>  	return -EINVAL;
+>  }
+>  
+> +static void stm32_rproc_request_shutdown(struct rproc *rproc)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	int err, dummy_data, idx;
+> +
+> +	/* Request shutdown of the remote processor */
+> +	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
+> +		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
+> +		if (idx >= 0 && ddata->mb[idx].chan) {
+> +			/* A dummy data is sent to allow to block on transmit. */
+> +			err = mbox_send_message(ddata->mb[idx].chan,
+> +						&dummy_data);
 
-...
+When refactoring functions, please do not change the inner code.  Here
+@dummy_data was introduced.  Making changes, even small ones, makes it really
+hard to review your work.  I'm pretty sure we talked about that before.
 
-One more thing, if you do post an updated patch, please
-be sure to wait until 24h after the original patch was posted.
-
-https://docs.kernel.org/process/maintainer-netdev.html
+> +			if (err < 0)
+> +				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
+> +		}
+> +	}
+> +}
+> +
+> +static int stm32_rproc_release(struct rproc *rproc)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	unsigned int err = 0;
+> +
+> +	/* To allow platform Standby power mode, set remote proc Deep Sleep. */
+> +	if (ddata->pdds.map) {
+> +		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
+> +					 ddata->pdds.mask, 1);
+> +		if (err) {
+> +			dev_err(&rproc->dev, "failed to set pdds\n");
+> +			return err;
+> +		}
+> +	}
+> +
+> +	/* Update coprocessor state to OFF if available. */
+> +	if (ddata->m4_state.map) {
+> +		err = regmap_update_bits(ddata->m4_state.map,
+> +					 ddata->m4_state.reg,
+> +					 ddata->m4_state.mask,
+> +					 M4_STATE_OFF);
+> +		if (err) {
+> +			dev_err(&rproc->dev, "failed to set copro state\n");
+> +			return err;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int stm32_rproc_prepare(struct rproc *rproc)
+>  {
+>  	struct device *dev = rproc->dev.parent;
+> @@ -519,17 +567,9 @@ static int stm32_rproc_detach(struct rproc *rproc)
+>  static int stm32_rproc_stop(struct rproc *rproc)
+>  {
+>  	struct stm32_rproc *ddata = rproc->priv;
+> -	int err, idx;
+> +	int err;
+>  
+> -	/* request shutdown of the remote processor */
+> -	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
+> -		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
+> -		if (idx >= 0 && ddata->mb[idx].chan) {
+> -			err = mbox_send_message(ddata->mb[idx].chan, "detach");
+> -			if (err < 0)
+> -				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
+> -		}
+> -	}
+> +	stm32_rproc_request_shutdown(rproc);
+>  
+>  	err = stm32_rproc_set_hold_boot(rproc, true);
+>  	if (err)
+> @@ -541,29 +581,7 @@ static int stm32_rproc_stop(struct rproc *rproc)
+>  		return err;
+>  	}
+>  
+> -	/* to allow platform Standby power mode, set remote proc Deep Sleep */
+> -	if (ddata->pdds.map) {
+> -		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
+> -					 ddata->pdds.mask, 1);
+> -		if (err) {
+> -			dev_err(&rproc->dev, "failed to set pdds\n");
+> -			return err;
+> -		}
+> -	}
+> -
+> -	/* update coprocessor state to OFF if available */
+> -	if (ddata->m4_state.map) {
+> -		err = regmap_update_bits(ddata->m4_state.map,
+> -					 ddata->m4_state.reg,
+> -					 ddata->m4_state.mask,
+> -					 M4_STATE_OFF);
+> -		if (err) {
+> -			dev_err(&rproc->dev, "failed to set copro state\n");
+> -			return err;
+> -		}
+> -	}
+> -
+> -	return 0;
+> +	return stm32_rproc_release(rproc);
+>  }
+>  
+>  static void stm32_rproc_kick(struct rproc *rproc, int vqid)
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
