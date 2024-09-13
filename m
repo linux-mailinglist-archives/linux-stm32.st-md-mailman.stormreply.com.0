@@ -2,77 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96267976E00
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2024 17:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7E3977A4C
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Sep 2024 09:49:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A9CDC78016;
-	Thu, 12 Sep 2024 15:41:36 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65517C78017;
+	Fri, 13 Sep 2024 07:49:58 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F3DDC78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08987C78016
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 15:41:29 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2053525bd90so11730945ad.0
+ Fri, 13 Sep 2024 07:49:52 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5becfd14353so707701a12.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 08:41:28 -0700 (PDT)
+ Fri, 13 Sep 2024 00:49:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726155687; x=1726760487;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1726213791; x=1726818591;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UX3TDD1wg3fmZECxkbsHACOqCzp6B1JzxKfaMLm2U8M=;
- b=Uhp3rd3DbjpzDGPJNDjDyijUHl4S/L7rjeiFFPft2mHsfo39FWI5Qzi0DEchmsEC08
- iWdz596mjiL7jlFtS2Mj5pGoMCUhmXElcYg8QxozsWzjDg5IpbkJMmXK4VwBQh30mU7b
- wITjaXX1dVqrk+LYvFD5agIg8dSUwDvXLEmoCdxb44i4cIDWhGTdKVv+vXwdEJaka2fM
- 4UMy4possetsrO+6ctSl5sMKsvTroxYv++uXTWSXChvetKd8x9VrlHaLz6zA0kwJ2mqD
- aIhWkfNXtOI0HIZyB4o8tiIQCnTsr1rBYeKjGsRJNdEdipghZiUgHRYobyRyNwWmrbHL
- tvFA==
+ bh=wa1ITqdE5/BK8kA3fdLjh8dVT7wr8VufQbhlGlfKuFA=;
+ b=grtyXp05CjZcSkO3Fgoljqk9Hk9wETnXSvLlhFU0DAlMbZNEOdQT6XN7P2eaIQS2N6
+ iFt2jIntLg/vKxPMSlc+Nb1DmTDHRn9rONsMxh5b82da9Cxksjmm2Qqub2V46PL1viaM
+ kOyD09tYNIMfLVl0t2TPKlAyBnFuTeWYKVXfqQ83QpfTvAkr8Zjb7vTE3FQWNOYKuPGX
+ IVMcu4s8owwSe4irAwJJ/MC9bSFOO2blFSpmpEAql6RY32L4K8CYORPRAfjxmQPGesEe
+ GA0WBsR7zVxpyCG/7C2831Wgo1DM/IEoKLNgh5Xr5uvXDBtFW8TCK23//j0XPCA3/Atl
+ o7kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726155687; x=1726760487;
+ d=1e100.net; s=20230601; t=1726213791; x=1726818591;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UX3TDD1wg3fmZECxkbsHACOqCzp6B1JzxKfaMLm2U8M=;
- b=RQEbhNgtg5GD1AStQwc7msdAZY22LDERVNlEZA/Enh/RZgHZZQJ3uGRJsh16RVJwD1
- amgivDEWAadU95r9lUy1t/99Q7jnzfxRnlfiW0Yq1UvnFEgzNcXvoQU/bzr0pPmqKXMd
- DX/DqpYhndyNQK3UEzaC75KUiNK1qjlga6dhMOzNvXvy+x01HKeFqCRQ5pcUClFUDnSt
- 6MnKOB3vTJsmQD+1hQCk99y0c9ycz+WiL+SNoQ6KisGe9e2W+CPUewJmrhr9yScul3vo
- f4Zk/zj+Xl/R2CrCFW7y1nRCFGtD4oLheWcgvrPHVq9D5b9bRGuDsARm/ldWtZMsEimp
- 3yEg==
+ bh=wa1ITqdE5/BK8kA3fdLjh8dVT7wr8VufQbhlGlfKuFA=;
+ b=I5y1pAifC5GajefEfJGB6v0pr007scUGzpTClX2gEtCAhiMH7/VOa+rfzS2P52AzEA
+ 1N2WM28k06wkCL0HG0t54KhrXRLK9gkzfWOm3eY439yWSiK5zKl0lji1/vGdcjKgqB7z
+ sAxD9DobN30oiB0ySFGNKS6d5fHX2qCobNaVlQPBypekazRVEQaH+nhzhJY5yG89muJv
+ ev4/71d07QbJ/yZHKXq++FPBXoraJUrD+atqADHfGH8AcVSKUDWuWlQ6Uvnfz2jUwQkq
+ zSbZlvCv6dxwAhXAMVR5orS/4RXuFQanrBP3rsRLgHfM0iHT7QwC4TZe6M//a2GpQxc3
+ gzdg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfmWyBVRAj1vo7QWUwd4uGz7/BdoH+KgbA1CgTh/Fv/sdRJAtbo0r7D4KYItxMpYNbOlN6GxgmOe57Og==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxQnSp7uXLAdnLPpaSvIJWO8cb1BSgMjEsebZoQQ0GF9IE+K/AM
- Yl+oGvyICkHbuIdWrbKjGf4TpNAvVwwuU5ixqMr0nTPm+7x0YPjVKg6ZwQPUXkQ=
-X-Google-Smtp-Source: AGHT+IFagW7EpGoI8wKxQY38cWVqzvg3XfqIXD61efl4qhGkGiSohPvpLEyd4ziYpx5dvCOQgOsAAQ==
-X-Received: by 2002:a17:903:32c3:b0:206:ca91:1dd6 with SMTP id
- d9443c01a7336-2076e315569mr46690225ad.9.1726155687450; 
- Thu, 12 Sep 2024 08:41:27 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:a82e:e104:d822:3d3c])
+ AJvYcCXvglzA7xri7WayDDKXF8wUHbYgPm+KOAAL0EXVAqxxKwBh9sULuYpBXN7FgkYSTpSEOfRGSBNacCfGWg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx0WrI2gyEtWHWDkhpJmu5Wd9fIylqWCHVzpUJKEF589U42FgfB
+ 9IDCh6xjHmfUtjxeNtG7uBGOFG3VXQFmbmzaR5LtyyU6TeqoQj/tujrRIN0mJmU=
+X-Google-Smtp-Source: AGHT+IGNol1Ptrv5HMztO+XGTt6sF30N0ildaSdHGkDcLQdc26QC+9nMuku9fBuokfORM931FkSPTw==
+X-Received: by 2002:a05:6402:1e90:b0:5c2:4dcc:b911 with SMTP id
+ 4fb4d7f45d1cf-5c41e1b2531mr1444970a12.26.1726213791184; 
+ Fri, 13 Sep 2024 00:49:51 -0700 (PDT)
+Received: from localhost (p5dc68d3d.dip0.t-ipconnect.de. [93.198.141.61])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2076afdd672sm15667935ad.156.2024.09.12.08.41.25
+ 4fb4d7f45d1cf-5c3ebd42620sm7231754a12.20.2024.09.13.00.49.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 08:41:26 -0700 (PDT)
-Date: Thu, 12 Sep 2024 09:41:23 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZuMLo2+an1sxdYlt@p14s>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
- <20240830095147.3538047-7-arnaud.pouliquen@foss.st.com>
+ Fri, 13 Sep 2024 00:49:50 -0700 (PDT)
+Date: Fri, 13 Sep 2024 09:49:49 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Andrew Kreimer <algonell@gmail.com>
+Message-ID: <hecpzmymii2aoqc5lgkycmxojin7gmrtyd3wnmhxcgeklnioky@vjkxayxmswzc>
+References: <20240912124944.43284-1-algonell@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240830095147.3538047-7-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 6/7] remoteproc: stm32: Create
- sub-functions to request shutdown and release
+In-Reply-To: <20240912124944.43284-1-algonell@gmail.com>
+Cc: linux-pwm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Fix a typo
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,139 +78,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0434587204365577510=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 30, 2024 at 11:51:46AM +0200, Arnaud Pouliquen wrote:
-> To prepare for the support of TEE remoteproc, create sub-functions
-> that can be used in both cases, with and without remoteproc TEE support.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+
+--===============0434587204365577510==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="332t5ftlx4yomxqi"
+Content-Disposition: inline
+
+
+--332t5ftlx4yomxqi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Sep 12, 2024 at 03:49:34PM +0300, Andrew Kreimer wrote:
+> Fix a typo in comments.
+>=20
+> Reported-by: Matthew Wilcox <willy@infradead.org>
+> Signed-off-by: Andrew Kreimer <algonell@gmail.com>
 > ---
->  drivers/remoteproc/stm32_rproc.c | 84 +++++++++++++++++++-------------
->  1 file changed, 51 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 8c7f7950b80e..79c638936163 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -209,6 +209,54 @@ static int stm32_rproc_mbox_idx(struct rproc *rproc, const unsigned char *name)
->  	return -EINVAL;
->  }
->  
-> +static void stm32_rproc_request_shutdown(struct rproc *rproc)
-> +{
-> +	struct stm32_rproc *ddata = rproc->priv;
-> +	int err, dummy_data, idx;
-> +
-> +	/* Request shutdown of the remote processor */
-> +	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
-> +		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
-> +		if (idx >= 0 && ddata->mb[idx].chan) {
-> +			/* A dummy data is sent to allow to block on transmit. */
-> +			err = mbox_send_message(ddata->mb[idx].chan,
-> +						&dummy_data);
-
-When refactoring functions, please do not change the inner code.  Here
-@dummy_data was introduced.  Making changes, even small ones, makes it really
-hard to review your work.  I'm pretty sure we talked about that before.
-
-> +			if (err < 0)
-> +				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
-> +		}
-> +	}
-> +}
-> +
-> +static int stm32_rproc_release(struct rproc *rproc)
-> +{
-> +	struct stm32_rproc *ddata = rproc->priv;
-> +	unsigned int err = 0;
-> +
-> +	/* To allow platform Standby power mode, set remote proc Deep Sleep. */
-> +	if (ddata->pdds.map) {
-> +		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
-> +					 ddata->pdds.mask, 1);
-> +		if (err) {
-> +			dev_err(&rproc->dev, "failed to set pdds\n");
-> +			return err;
-> +		}
-> +	}
-> +
-> +	/* Update coprocessor state to OFF if available. */
-> +	if (ddata->m4_state.map) {
-> +		err = regmap_update_bits(ddata->m4_state.map,
-> +					 ddata->m4_state.reg,
-> +					 ddata->m4_state.mask,
-> +					 M4_STATE_OFF);
-> +		if (err) {
-> +			dev_err(&rproc->dev, "failed to set copro state\n");
-> +			return err;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int stm32_rproc_prepare(struct rproc *rproc)
->  {
->  	struct device *dev = rproc->dev.parent;
-> @@ -519,17 +567,9 @@ static int stm32_rproc_detach(struct rproc *rproc)
->  static int stm32_rproc_stop(struct rproc *rproc)
->  {
->  	struct stm32_rproc *ddata = rproc->priv;
-> -	int err, idx;
-> +	int err;
->  
-> -	/* request shutdown of the remote processor */
-> -	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
-> -		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
-> -		if (idx >= 0 && ddata->mb[idx].chan) {
-> -			err = mbox_send_message(ddata->mb[idx].chan, "detach");
-> -			if (err < 0)
-> -				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
-> -		}
-> -	}
-> +	stm32_rproc_request_shutdown(rproc);
->  
->  	err = stm32_rproc_set_hold_boot(rproc, true);
->  	if (err)
-> @@ -541,29 +581,7 @@ static int stm32_rproc_stop(struct rproc *rproc)
->  		return err;
+>  drivers/pwm/pwm-stm32.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+> index f85eb41cb084..eb24054f9729 100644
+> --- a/drivers/pwm/pwm-stm32.c
+> +++ b/drivers/pwm/pwm-stm32.c
+> @@ -222,7 +222,7 @@ static int stm32_pwm_capture(struct pwm_chip *chip, s=
+truct pwm_device *pwm,
+> =20
+>  		scale =3D max_arr / min(max_arr, raw_prd);
+>  	} else {
+> -		scale =3D priv->max_arr; /* bellow resolution, use max scale */
+> +		scale =3D priv->max_arr; /* below resolution, use max scale */
 >  	}
->  
-> -	/* to allow platform Standby power mode, set remote proc Deep Sleep */
-> -	if (ddata->pdds.map) {
-> -		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
-> -					 ddata->pdds.mask, 1);
-> -		if (err) {
-> -			dev_err(&rproc->dev, "failed to set pdds\n");
-> -			return err;
-> -		}
-> -	}
-> -
-> -	/* update coprocessor state to OFF if available */
-> -	if (ddata->m4_state.map) {
-> -		err = regmap_update_bits(ddata->m4_state.map,
-> -					 ddata->m4_state.reg,
-> -					 ddata->m4_state.mask,
-> -					 M4_STATE_OFF);
-> -		if (err) {
-> -			dev_err(&rproc->dev, "failed to set copro state\n");
-> -			return err;
-> -		}
-> -	}
-> -
-> -	return 0;
-> +	return stm32_rproc_release(rproc);
->  }
->  
->  static void stm32_rproc_kick(struct rproc *rproc, int vqid)
-> -- 
-> 2.25.1
-> 
+> =20
+>  	if (psc && scale > 1) {
+
+Oh, that's an old one introduced in commit d66ffb91c374 ("pwm: stm32:
+Improve capture by tuning counter prescaler") in 2018.
+
+Applied to
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+=2E
+
+Best regards and thanks
+Uwe
+
+--332t5ftlx4yomxqi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmbj7pkACgkQj4D7WH0S
+/k6oEwf+LVChmqpZHYi9IgqxWAzp4xco9NwQ1aT4QyzvcrFPgE7d19tn9zTdxMzg
+o3OTYwnhSwgIXfYNGkvu4OOjjhuivZqLJTgvv8W6foS+s1unjMbD65u+nxfy7ih6
+YBFF1s5RYjPvVYh3cOhdwQ7HDR0V70ROQzOMtMvOlSqvS4b4zqYKY6GvxOW5cxsz
+5285CZZJAZK0dH9W4W0DDk9vkcfflnGeqeBFzL50iFf7cssTGobrJ+Unyrx2LmSx
+RiULRREupUOiCtD7FC3b1deLpNTzkLuoq8VSldVbFDfCvtR8zMUoJUm9BbiyoJFC
+IyL+b/z5ypu86BarN8XpL25to2cg2w==
+=8Lhz
+-----END PGP SIGNATURE-----
+
+--332t5ftlx4yomxqi--
+
+--===============0434587204365577510==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0434587204365577510==--
