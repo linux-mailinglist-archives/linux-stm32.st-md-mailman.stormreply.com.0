@@ -2,77 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D142B97855C
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Sep 2024 18:03:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1B109790E5
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Sep 2024 15:27:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90177C78020;
-	Fri, 13 Sep 2024 16:03:40 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 733F0C6C841;
+	Sat, 14 Sep 2024 13:27:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21657C78016
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 368F7C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Sep 2024 16:03:33 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-20573eb852aso22919865ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Sep 2024 09:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1726243412; x=1726848212;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=M4rJxA46YKftOjieYVN+HBOxnPrXbeWw//Bs8OxUrsg=;
- b=WSYUBGK7HkdjCvLz5Efd9XLbObGIGPAMUNnWv12YpiZ4YZ0ZuAVg8FCzHoTTdXj30W
- qCpKKKz/K9lTYP331GEmztTH2cZ+iD2ynCujqRF6rs4TBTP/794zJaI0OVziDKTnXbOO
- cwDKAL+Tc3Onhr739/4HFgovIBVinSIuiOzGAyqshbO4VMKffyAMXawTF02Fi5QRpTyn
- nYFp5iJ7xQN0x+Jow+CgyEc25XNmUCh2iV6NzkuIRArEbtx2PXjQ70lypvGQIQfFdii0
- okcoXZuOI7FbXnUh+j3wMoUhPvc4deZKWzhs3enTjK+naZns4wCFyjhCTYmv2FHIgEY7
- vx7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726243412; x=1726848212;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M4rJxA46YKftOjieYVN+HBOxnPrXbeWw//Bs8OxUrsg=;
- b=wXMoFCTEiO7JIC1tUPDm9VlOso5GcMeCvXYp0PpwTXus42KpC03M/wxENeBkZroB77
- g0H2quWkTJLmql17BqhILzeZCu8v8t/DG0LzQE+fGdHePfINgKfAP1UDnZksdNhYxzuC
- k5gmKjVTUnCoGi17ScyBwyQn/SnLQCjp4joofuHedfKCIaqFxVU14m0S4uKrfkdKvTbf
- P9ErwUaHxs/rUPKk5Bo8GUU6MlieCGroUoF5uSI0U9q3fq88h1YqXfwvThw5Jq5+U0SS
- op7kN/xGDWQG2lbbPmhOvZn6f6TSObtbqWJhykn7DVrMkqY3njrE9juUI2WKXvhfvGX7
- 5rAw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURF0PfyN4NEIlbIS25TGp7em8aGZNZpo5dSkj8ceKqoQHUNpmqIFAY9G9uEtqx8lp0sBN4gY1yCE0R5g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywp7cJQovW2b+yq24ZeFWn2KYYdcTrKRTdOVHrrRvm8QLqNYFVv
- jmaKN1Gur2dZzZfcoqyF45fZl5dZ+G0cW+HoCwtBhVTcq88PHuggWdZIucNWVU4=
-X-Google-Smtp-Source: AGHT+IHHG7/l+/CqolXps5oc2mC7BwomTqGBul0o12SUT9T68nYYTvdvziy3yYLjWM7QytKM7qWGwA==
-X-Received: by 2002:a17:902:ecc4:b0:207:2093:99bc with SMTP id
- d9443c01a7336-2076e591765mr96910475ad.14.1726243411549; 
- Fri, 13 Sep 2024 09:03:31 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:a6cd:be2b:8e1e:719e])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2076af49293sm29809225ad.96.2024.09.13.09.03.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Sep 2024 09:03:31 -0700 (PDT)
-Date: Fri, 13 Sep 2024 10:03:27 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZuRiTxDN7+UO42H+@p14s>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
- <20240830095147.3538047-8-arnaud.pouliquen@foss.st.com>
+ Sat, 14 Sep 2024 13:27:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1726320432; x=1757856432;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=bfwqlZPrPDDj9RmAuDLGsQEpeaFuEXu2QbOhoqDsVLI=;
+ b=nCV6gfzC53HLTaVO06j0sDPbM1rTbje0IlMo14gLDrQ0/lI3y2APQa9P
+ OCWfvLtxvkLW8iHPKO7at5L+vIGFlbcIRavLoi7qQtgmDZVkH0s9MSKDF
+ yPNe9me9dxgNepLgpdPNW8CaozIWZRbC7Ir13QB0d5y+gxf1Zk2hk1B79
+ 4tJ3V5B+FBTSjR699JnO8F5wy+8e0GZERTqfLt182PdLQw5n94G3AtnKH
+ R8HNCW+z1eR558BRTHFFHllqs/gjDGpUgW8ULZ4m6ygi9IV8JCPEXyz/x
+ T9rI4vP2pRQH9V+d6zxhQEV3njA1lG49PPCW7ORgW3LdQnfJMizPlC9cH g==;
+X-CSE-ConnectionGUID: 3a0VHBBZQOGDr1nbzmA1+w==
+X-CSE-MsgGUID: hH0u2DLsQIqHoaOZYHgKmA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11195"; a="24698600"
+X-IronPort-AV: E=Sophos;i="6.10,229,1719903600"; d="scan'208";a="24698600"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2024 06:27:04 -0700
+X-CSE-ConnectionGUID: mHzuBfSMQ6+R0oB732P08Q==
+X-CSE-MsgGUID: 7TqGNRHXQwKIO3eJz7yGZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,229,1719903600"; d="scan'208";a="68268763"
+Received: from lkp-server01.sh.intel.com (HELO 53e96f405c61) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 14 Sep 2024 06:27:00 -0700
+Received: from kbuild by 53e96f405c61 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1spSnh-0007mK-2W;
+ Sat, 14 Sep 2024 13:26:57 +0000
+Date: Sat, 14 Sep 2024 21:26:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, p.zabel@pengutronix.de
+Message-ID: <202409142143.iJkSYPUK-lkp@intel.com>
+References: <20240911104646.2980821-3-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240830095147.3538047-8-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
+In-Reply-To: <20240911104646.2980821-3-christian.bruel@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Bruel <christian.bruel@foss.st.com>, oe-kbuild-all@lists.linux.dev,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 7/7] remoteproc: stm32: Add support of
- an OP-TEE TA to load the firmware
+Subject: Re: [Linux-stm32] [PATCH v8 2/5] phy: stm32: Add support for
+	STM32MP25 COMBOPHY.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,145 +74,197 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 30, 2024 at 11:51:47AM +0200, Arnaud Pouliquen wrote:
-> The new TEE remoteproc driver is used to manage remote firmware in a
-> secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
-> introduced to delegate the loading of the firmware to the trusted
-> execution context. In such cases, the firmware should be signed and
-> adhere to the image format defined by the TEE.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/remoteproc/stm32_rproc.c | 63 ++++++++++++++++++++++++++++++--
->  1 file changed, 60 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 79c638936163..400a7a93b1c9 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -18,6 +18,7 @@
->  #include <linux/pm_wakeirq.h>
->  #include <linux/regmap.h>
->  #include <linux/remoteproc.h>
-> +#include <linux/remoteproc_tee.h>
->  #include <linux/reset.h>
->  #include <linux/slab.h>
->  #include <linux/workqueue.h>
-> @@ -257,6 +258,19 @@ static int stm32_rproc_release(struct rproc *rproc)
->  	return 0;
->  }
->  
-> +static int stm32_rproc_tee_stop(struct rproc *rproc)
-> +{
-> +	int err;
-> +
-> +	stm32_rproc_request_shutdown(rproc);
-> +
-> +	err = tee_rproc_stop(rproc);
-> +	if (err)
-> +		return err;
-> +
-> +	return stm32_rproc_release(rproc);
-> +}
-> +
->  static int stm32_rproc_prepare(struct rproc *rproc)
->  {
->  	struct device *dev = rproc->dev.parent;
-> @@ -693,8 +707,20 @@ static const struct rproc_ops st_rproc_ops = {
->  	.get_boot_addr	= rproc_elf_get_boot_addr,
->  };
->  
-> +static const struct rproc_ops st_rproc_tee_ops = {
-> +	.prepare	= stm32_rproc_prepare,
-> +	.start		= tee_rproc_start,
-> +	.stop		= stm32_rproc_tee_stop,
-> +	.kick		= stm32_rproc_kick,
-> +	.load		= tee_rproc_load_fw,
-> +	.parse_fw	= tee_rproc_parse_fw,
-> +	.find_loaded_rsc_table = tee_rproc_find_loaded_rsc_table,
-> +
-> +};
-> +
->  static const struct of_device_id stm32_rproc_match[] = {
->  	{ .compatible = "st,stm32mp1-m4" },
-> +	{ .compatible = "st,stm32mp1-m4-tee" },
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, stm32_rproc_match);
-> @@ -853,17 +879,42 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct stm32_rproc *ddata;
->  	struct device_node *np = dev->of_node;
-> +	struct tee_rproc *trproc = NULL;
->  	struct rproc *rproc;
->  	unsigned int state;
-> +	u32 proc_id;
->  	int ret;
->  
->  	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
->  	if (ret)
->  		return ret;
->  
-> -	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-> -	if (!rproc)
-> -		return -ENOMEM;
-> +	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
-> +		/*
-> +		 * Delegate the firmware management to the secure context.
-> +		 * The firmware loaded has to be signed.
-> +		 */
-> +		ret = of_property_read_u32(np, "st,proc-id", &proc_id);
-> +		if (ret) {
-> +			dev_err(dev, "failed to read st,rproc-id property\n");
-> +			return ret;
-> +		}
-> +
-> +		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_tee_ops, NULL, sizeof(*ddata));
-> +		if (!rproc)
-> +			return -ENOMEM;
-> +
-> +		trproc = tee_rproc_register(dev, rproc, proc_id);
-> +		if (IS_ERR(trproc)) {
-> +			dev_err_probe(dev, PTR_ERR(trproc),
-> +				      "signed firmware not supported by TEE\n");
-> +			return PTR_ERR(trproc);
-> +		}
-> +	} else {
-> +		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-> +		if (!rproc)
-> +			return -ENOMEM;
-> +	}
->  
->  	ddata = rproc->priv;
->  
-> @@ -915,6 +966,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->  		dev_pm_clear_wake_irq(dev);
->  		device_init_wakeup(dev, false);
->  	}
-> +	if (trproc)
+Hi Christian,
 
-        if (rproc->tee_interface)
+kernel test robot noticed the following build errors:
 
-I am done reviewing this set.
+[auto build test ERROR on atorgue-stm32/stm32-next]
+[also build test ERROR on robh/for-next linus/master v6.11-rc7 next-20240913]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> +		tee_rproc_unregister(trproc);
-> +
->  	return ret;
->  }
->  
-> @@ -935,6 +989,9 @@ static void stm32_rproc_remove(struct platform_device *pdev)
->  		dev_pm_clear_wake_irq(dev);
->  		device_init_wakeup(dev, false);
->  	}
-> +	if (rproc->tee_interface)
-> +		tee_rproc_unregister(rproc->tee_interface);
-> +
->  }
->  
->  static int stm32_rproc_suspend(struct device *dev)
-> -- 
-> 2.25.1
-> 
+url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Bruel/dt-bindings-phy-Add-STM32MP25-COMBOPHY-bindings/20240911-185452
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20240911104646.2980821-3-christian.bruel%40foss.st.com
+patch subject: [PATCH v8 2/5] phy: stm32: Add support for STM32MP25 COMBOPHY.
+config: um-randconfig-r132-20240914 (https://download.01.org/0day-ci/archive/20240914/202409142143.iJkSYPUK-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240914/202409142143.iJkSYPUK-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202409142143.iJkSYPUK-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:25:
+   In file included from include/linux/kernel_stat.h:8:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/um/include/asm/hardirq.h:5:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:548:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __raw_readb(PCI_IOBASE + addr);
+                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:561:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+   #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+                                                     ^
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:25:
+   In file included from include/linux/kernel_stat.h:8:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/um/include/asm/hardirq.h:5:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:574:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+                                                           ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
+   #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
+                                                     ^
+   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
+   In file included from include/linux/phy/phy.h:17:
+   In file included from include/linux/regulator/consumer.h:35:
+   In file included from include/linux/suspend.h:5:
+   In file included from include/linux/swap.h:9:
+   In file included from include/linux/memcontrol.h:13:
+   In file included from include/linux/cgroup.h:25:
+   In file included from include/linux/kernel_stat.h:8:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from arch/um/include/asm/hardirq.h:5:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:14:
+   In file included from arch/um/include/asm/io.h:24:
+   include/asm-generic/io.h:585:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writeb(value, PCI_IOBASE + addr);
+                               ~~~~~~~~~~ ^
+   include/asm-generic/io.h:595:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:605:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+                                                         ~~~~~~~~~~ ^
+   include/asm-generic/io.h:693:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsb(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:701:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsw(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:709:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           readsl(PCI_IOBASE + addr, buffer, count);
+                  ~~~~~~~~~~ ^
+   include/asm-generic/io.h:718:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesb(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:727:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesw(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+   include/asm-generic/io.h:736:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+           writesl(PCI_IOBASE + addr, buffer, count);
+                   ~~~~~~~~~~ ^
+>> drivers/phy/st/phy-stm32-combophy.c:140:8: error: implicit declaration of function 'FIELD_PREP' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                                      FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
+                                      ^
+>> drivers/phy/st/phy-stm32-combophy.c:143:12: error: implicit declaration of function 'FIELD_GET' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
+                            ^
+   drivers/phy/st/phy-stm32-combophy.c:161:8: error: implicit declaration of function 'FIELD_PREP' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                                      FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
+                                      ^
+   drivers/phy/st/phy-stm32-combophy.c:530:10: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+                   return ret;
+                          ^~~
+   drivers/phy/st/phy-stm32-combophy.c:515:9: note: initialize the variable 'ret' to silence this warning
+           int ret, irq;
+                  ^
+                   = 0
+   13 warnings and 3 errors generated.
+
+
+vim +/FIELD_PREP +140 drivers/phy/st/phy-stm32-combophy.c
+
+   113	
+   114	static int stm32_impedance_tune(struct stm32_combophy *combophy)
+   115	{
+   116		u8 imp_size = ARRAY_SIZE(imp_lookup);
+   117		u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
+   118		u8 imp_of, vswing_of;
+   119		u32 max_imp = imp_lookup[0].microohm;
+   120		u32 min_imp = imp_lookup[imp_size - 1].microohm;
+   121		u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
+   122		u32 min_vswing = imp_lookup[0].vswing[0];
+   123		u32 val;
+   124	
+   125		if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
+   126			if (val < min_imp || val > max_imp) {
+   127				dev_err(combophy->dev, "Invalid value %u for output ohm\n", val);
+   128				return -EINVAL;
+   129			}
+   130	
+   131			for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
+   132				if (imp_lookup[imp_of].microohm <= val)
+   133					break;
+   134	
+   135			dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
+   136				imp_lookup[imp_of].microohm);
+   137	
+   138			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+   139					   STM32MP25_PCIEPRG_IMPCTRL_OHM,
+ > 140					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
+   141		} else {
+   142			regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
+ > 143			imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
+   144		}
+   145	
+   146		if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
+   147			if (val < min_vswing || val > max_vswing) {
+   148				dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
+   149				return -EINVAL;
+   150			}
+   151	
+   152			for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
+   153				if (imp_lookup[imp_of].vswing[vswing_of] >= val)
+   154					break;
+   155	
+   156			dev_dbg(combophy->dev, "Set %u microvolt swing\n",
+   157				 imp_lookup[imp_of].vswing[vswing_of]);
+   158	
+   159			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+   160					   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
+   161					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
+   162		}
+   163	
+   164		return 0;
+   165	}
+   166	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
