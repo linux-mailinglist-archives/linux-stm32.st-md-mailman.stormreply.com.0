@@ -2,62 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B109790E5
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Sep 2024 15:27:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A948C979EAE
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Sep 2024 11:48:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 733F0C6C841;
-	Sat, 14 Sep 2024 13:27:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E7B2C78011;
+	Mon, 16 Sep 2024 09:48:31 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2101.outbound.protection.partner.outlook.cn [139.219.17.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 368F7C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3035C78010
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Sep 2024 13:27:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1726320432; x=1757856432;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=bfwqlZPrPDDj9RmAuDLGsQEpeaFuEXu2QbOhoqDsVLI=;
- b=nCV6gfzC53HLTaVO06j0sDPbM1rTbje0IlMo14gLDrQ0/lI3y2APQa9P
- OCWfvLtxvkLW8iHPKO7at5L+vIGFlbcIRavLoi7qQtgmDZVkH0s9MSKDF
- yPNe9me9dxgNepLgpdPNW8CaozIWZRbC7Ir13QB0d5y+gxf1Zk2hk1B79
- 4tJ3V5B+FBTSjR699JnO8F5wy+8e0GZERTqfLt182PdLQw5n94G3AtnKH
- R8HNCW+z1eR558BRTHFFHllqs/gjDGpUgW8ULZ4m6ygi9IV8JCPEXyz/x
- T9rI4vP2pRQH9V+d6zxhQEV3njA1lG49PPCW7ORgW3LdQnfJMizPlC9cH g==;
-X-CSE-ConnectionGUID: 3a0VHBBZQOGDr1nbzmA1+w==
-X-CSE-MsgGUID: hH0u2DLsQIqHoaOZYHgKmA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11195"; a="24698600"
-X-IronPort-AV: E=Sophos;i="6.10,229,1719903600"; d="scan'208";a="24698600"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2024 06:27:04 -0700
-X-CSE-ConnectionGUID: mHzuBfSMQ6+R0oB732P08Q==
-X-CSE-MsgGUID: 7TqGNRHXQwKIO3eJz7yGZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,229,1719903600"; d="scan'208";a="68268763"
-Received: from lkp-server01.sh.intel.com (HELO 53e96f405c61) ([10.239.97.150])
- by orviesa010.jf.intel.com with ESMTP; 14 Sep 2024 06:27:00 -0700
-Received: from kbuild by 53e96f405c61 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1spSnh-0007mK-2W;
- Sat, 14 Sep 2024 13:26:57 +0000
-Date: Sat, 14 Sep 2024 21:26:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
- kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, p.zabel@pengutronix.de
-Message-ID: <202409142143.iJkSYPUK-lkp@intel.com>
-References: <20240911104646.2980821-3-christian.bruel@foss.st.com>
+ Mon, 16 Sep 2024 09:48:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Dne6s/EqQfI8YOHw1j0f43fBeC1hTxV054AIGn0jsp21t68ELI4c8yJsw0GB7PxLsR2t6SLKQ3F70zxSLgD7dSSMLOuC64spfnSbhQpZzgs1IQ8Nood4j+ahBzNY3K/2UliE0IHCHxAd9HYsWQjGd8KwLLSJXeiV93o54jSLCo1AtXDzR4A3irXXzqVk7Zjoid+LmhFNoeyO4j+2b6BozsADEaEuVOwS834Rv+RYItksHxI6baltYNY9eSbE//BytPUnexU6CifCVv92IXHivObwiatc8hSgKcDkBSVyT+mKx55fn017z2GM5AriFeXjlNbwr/HiU4r6ixb70EPTHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GT59sCN5tWsnC3d4zLHfMDorsWWyWuyHMtbm2DPVUqQ=;
+ b=DhJ5ryHCHcLy20QocQ6sNw+bv4H4nfyGPwdBvy5DgWAqvdkG4f/yB3u+pKX1AkkqRq55xHOIGmlEoZ64PFB78v4yiX6fRrqjTIJpK0gKng9VUe9pM2DpXXXX3ThTCazZehpGSrD5jD2R+9LO8xDslQb2LKzCSGqzIacsT4TAmA/agj/rdWe9zdKnc5pnl9RrN9jaKBRRhKpp0Stt8tsx2qDLTbQ4NX4Unr4UUu5R19QTqSKE74gJB81+vEjWQIGzSm31sXRdbYNPgcVu7iHFxQSso7cGNqzQM2pdVdMwkB5qfwvwtiFK+dCRz+wpUBT/CyIkO4jEdSJvkkxBO2fiuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0814.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:24::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.22; Mon, 16 Sep
+ 2024 09:48:19 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::3f35:8db2:7fdf:9ffb]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::3f35:8db2:7fdf:9ffb%6])
+ with mapi id 15.20.7962.022; Mon, 16 Sep 2024 09:48:18 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org
+Date: Mon, 16 Sep 2024 17:48:12 +0800
+Message-Id: <20240916094812.29804-1-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: SHXPR01CA0019.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::28) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240911104646.2980821-3-christian.bruel@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Christian Bruel <christian.bruel@foss.st.com>, oe-kbuild-all@lists.linux.dev,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 2/5] phy: stm32: Add support for
-	STM32MP25 COMBOPHY.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0814:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8e13c74-7794-41cb-1176-08dcd634b14a
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|41320700013|366016|1800799024|52116014|7416014|38350700014; 
+X-Microsoft-Antispam-Message-Info: dDB53/qyRtRg9J1NevibhrRQa3CpZyY58jIUuDLfGjeiR8rQMSbO/H4Fi09py49P//IsDSYdDktwOH5Tt8KK/HSaUghlt3tdApFS5dtel7T6ME8llZ3JDiY68sGr3fHX3yzaL1E5gTVcLI9X/OyIIWV8UtbN56GjvYlUBzBnBLNDjgZ5LaZsWeN1tEEP7L6IMwhA3Ewi6le1f9L7fgyg+HBDXOwmei7Ejk8BGVDPI1UQ1IrOW7HbCp8Cf95qDAUCoEdUceRDdnWowMWzWErPWWbW6NN7rhRdetxdD0+rwvLlgJ6xKbNGTgkAVhBTsChjUX7s6zJh/CMGzZIJv7pP6prNFKvjfJ/XC3cWTxXjd6cf55yQW8N3sjslVO8MTcXxfh4qpZJyYLHcVYWIYe4vD8OYwzR1kUUB7lFKDfT17Csi93AEqETE0NH2hnLXnCmtO62dOaaBro5e5G7xakPq0NFWwmz8xspVao1KpC2/0l2tNZAXNfOJzuNT0zmB3cfWaC8DZ7ZXWvcDVC7qJXTA22UDvMf1clKv3UtZLOBq5NFjv7CDcd+gmmgJoK/B1rI7QlwrWHqJ2XSaRgvuc6qvt/usdxphKWg5489UadmJdzqQBGm078LSiLZRl3w1ZqTn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(41320700013)(366016)(1800799024)(52116014)(7416014)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?n+1dkvMkZEi6P8elUNPfWEupiIN3/oX2b4x1Hxp+VZ8W0W8tebgyUW1V8oOD?=
+ =?us-ascii?Q?2SWmXSytixa4CHbZ2NNfnUKyikkJ0fYOqGoWLDW8Zv1bYwF0f4Q5j65BSVyr?=
+ =?us-ascii?Q?vvkc5KTU0MD4PQDLiiKzO6dRoFTHsZaN+XpMpjNUYxr7BKeoo/yi/llLWCS6?=
+ =?us-ascii?Q?gJDWbFplvS1pLVU9oA7et1uMbfI9LSetfRntSP8pqYZNqFzmT5H29tUHrNE0?=
+ =?us-ascii?Q?MdKF/mJLxku2uA2dQ5KiYPd/GoWSz/0Zg//ne2Lo6itH6o/WZPWZrmjZvogX?=
+ =?us-ascii?Q?cUtrOXfsXEPrubSBA0RLufOVh7qcZgspjXhcITq/0OV9hMpsmnQcX68Dl4Bu?=
+ =?us-ascii?Q?lWF76yrJLcKAZSDLqValmIACVsum89Fz83dvX4zLutkHzgypW8EsLE4WfVLP?=
+ =?us-ascii?Q?R2NPS234S+cL/WhIidB0l7RT7BMZq85rD/bj9cysPj4tF6kncgFqVqXNwi65?=
+ =?us-ascii?Q?4U0Ny5OCjVyxLL5kfwaDBUJ8gdIDcNa2fMfRA4hBPukANmMt5LyAi75RhDDR?=
+ =?us-ascii?Q?/3Tq2qqtzpfBy+Yz1ZB9VbVRQO/PomgpLImFgSOVhrJilLFReZ8uqIkqiXDA?=
+ =?us-ascii?Q?uYY4z0t473AzYbff+HRmL6vvY175Jk3l45djCBM9VezuL66sBWxR0QeUvDjK?=
+ =?us-ascii?Q?CUPgDFY7kbt2yb6DjepxpHWMaXEokMgDUmHDwnea5Wf4BIEwq9a4wFoGKcPr?=
+ =?us-ascii?Q?It7PHNuCzgOVccXxXscJbTlekS2ijC898Zg1qA1HCbbxjpYzt88XX8xeJde4?=
+ =?us-ascii?Q?8YcvxvoaFKBS5Sv+Hi4ZgaSZSR2+G/0KAo4Da7jC08ET2CivB42e6YQSXSRK?=
+ =?us-ascii?Q?JtAGgxDVYTDVk4FOMbrIzg4QBYcD4IeMmEWMqQUOtglCOcIQZHz3NzZXqicz?=
+ =?us-ascii?Q?UJxG40Wm4G7VIN08fZBuCul4Qgse/3Zv93m40JTIlcnC7ynsoLem/Z1wsstw?=
+ =?us-ascii?Q?1vAztOgxIWa/isVoNNNaeHkxXthFB47o/+T7GE5k9G8uxTospwdSVvPCrgf6?=
+ =?us-ascii?Q?7b1uSqZ9Onr2sg2s8/RC00HQhtNyT1vgpSssL8RSfFCHNgg6gxSCqewXF4KJ?=
+ =?us-ascii?Q?clZuy4EQ4Ou1NuPD+smat68djtCIe0IEfwTwS+5K72u75OuHrsM8efESVbVE?=
+ =?us-ascii?Q?0QRLAzUq6PjRTGl56UgYptawnOWEw2VNbucAJuFedmiemUW2a7+pWCzNDn5q?=
+ =?us-ascii?Q?2UwFnF6bTmpA+fPPMRJ7NmHdj2ZJhw21XkTHsnOl4l+9LCyADVbj3lAIe379?=
+ =?us-ascii?Q?dJddVaf3uRWAt2DUMoxbV5JzfTKlc0o41LgY5emcznJlsMEnUVI2lcpksi+e?=
+ =?us-ascii?Q?FeQhkf0pwvJg/8nlT2zrcXF58t5lKdFgc06xvcEw6MGJdUz4N5bOidY3LCwQ?=
+ =?us-ascii?Q?kVLh0608cEDmgyyID8GqAD02nGfjpdIGrXrskhH4ou+oBOrDgyVPIc6DHqQL?=
+ =?us-ascii?Q?38k985FPyetoHRfMimkEHNGzK+Ve1hTss07/64HNQ7XZHAC+AFGNroUbm9Il?=
+ =?us-ascii?Q?Sn3jOuoj04co/3jMVTQU8d3VU0xrzDG+TumEb5NtnUgEAJs7DHb5TeV7JLu0?=
+ =?us-ascii?Q?gXvziCeu2tljZVvw21x1t9n5dGjFKKw8/kUKo86Hf0t7QZFi4Z4EKIk3CpMA?=
+ =?us-ascii?Q?VA=3D=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8e13c74-7794-41cb-1176-08dcd634b14a
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2024 09:48:18.8017 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zJhRW/HDJkCW+wSPrf2lVPpqvWyPzlzCAlpoOsc1dmuc/aOR6p53Pk4CPLo1E7NzG8Gor+r0tayfa41v97XH4adeXDBzUL+zo7L0bqtO1NQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0814
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v1] stmmac: mmc: dwmac4: Add ip payload error
+	statistics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,197 +119,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Christian,
+Add dwmac4 ip payload error statistics, and rename discripter bit macro
+because latest version descriptor IPCE bit claims include ip checksum
+error and l4 segment length error.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 2 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-[auto build test ERROR on atorgue-stm32/stm32-next]
-[also build test ERROR on robh/for-next linus/master v6.11-rc7 next-20240913]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Bruel/dt-bindings-phy-Add-STM32MP25-COMBOPHY-bindings/20240911-185452
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
-patch link:    https://lore.kernel.org/r/20240911104646.2980821-3-christian.bruel%40foss.st.com
-patch subject: [PATCH v8 2/5] phy: stm32: Add support for STM32MP25 COMBOPHY.
-config: um-randconfig-r132-20240914 (https://download.01.org/0day-ci/archive/20240914/202409142143.iJkSYPUK-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240914/202409142143.iJkSYPUK-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202409142143.iJkSYPUK-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:25:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:5:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:548:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __raw_readb(PCI_IOBASE + addr);
-                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:561:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-                                                           ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-   #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-                                                     ^
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:25:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:5:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:574:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-                                                           ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
-   #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-                                                     ^
-   In file included from drivers/phy/st/phy-stm32-combophy.c:12:
-   In file included from include/linux/phy/phy.h:17:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:25:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:5:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:14:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:585:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writeb(value, PCI_IOBASE + addr);
-                               ~~~~~~~~~~ ^
-   include/asm-generic/io.h:595:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-                                                         ~~~~~~~~~~ ^
-   include/asm-generic/io.h:605:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-                                                         ~~~~~~~~~~ ^
-   include/asm-generic/io.h:693:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           readsb(PCI_IOBASE + addr, buffer, count);
-                  ~~~~~~~~~~ ^
-   include/asm-generic/io.h:701:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           readsw(PCI_IOBASE + addr, buffer, count);
-                  ~~~~~~~~~~ ^
-   include/asm-generic/io.h:709:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           readsl(PCI_IOBASE + addr, buffer, count);
-                  ~~~~~~~~~~ ^
-   include/asm-generic/io.h:718:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           writesb(PCI_IOBASE + addr, buffer, count);
-                   ~~~~~~~~~~ ^
-   include/asm-generic/io.h:727:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           writesw(PCI_IOBASE + addr, buffer, count);
-                   ~~~~~~~~~~ ^
-   include/asm-generic/io.h:736:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-           writesl(PCI_IOBASE + addr, buffer, count);
-                   ~~~~~~~~~~ ^
->> drivers/phy/st/phy-stm32-combophy.c:140:8: error: implicit declaration of function 'FIELD_PREP' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                                      FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-                                      ^
->> drivers/phy/st/phy-stm32-combophy.c:143:12: error: implicit declaration of function 'FIELD_GET' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-                            ^
-   drivers/phy/st/phy-stm32-combophy.c:161:8: error: implicit declaration of function 'FIELD_PREP' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                                      FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-                                      ^
-   drivers/phy/st/phy-stm32-combophy.c:530:10: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-                   return ret;
-                          ^~~
-   drivers/phy/st/phy-stm32-combophy.c:515:9: note: initialize the variable 'ret' to silence this warning
-           int ret, irq;
-                  ^
-                   = 0
-   13 warnings and 3 errors generated.
-
-
-vim +/FIELD_PREP +140 drivers/phy/st/phy-stm32-combophy.c
-
-   113	
-   114	static int stm32_impedance_tune(struct stm32_combophy *combophy)
-   115	{
-   116		u8 imp_size = ARRAY_SIZE(imp_lookup);
-   117		u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
-   118		u8 imp_of, vswing_of;
-   119		u32 max_imp = imp_lookup[0].microohm;
-   120		u32 min_imp = imp_lookup[imp_size - 1].microohm;
-   121		u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
-   122		u32 min_vswing = imp_lookup[0].vswing[0];
-   123		u32 val;
-   124	
-   125		if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
-   126			if (val < min_imp || val > max_imp) {
-   127				dev_err(combophy->dev, "Invalid value %u for output ohm\n", val);
-   128				return -EINVAL;
-   129			}
-   130	
-   131			for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
-   132				if (imp_lookup[imp_of].microohm <= val)
-   133					break;
-   134	
-   135			dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
-   136				imp_lookup[imp_of].microohm);
-   137	
-   138			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-   139					   STM32MP25_PCIEPRG_IMPCTRL_OHM,
- > 140					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-   141		} else {
-   142			regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
- > 143			imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-   144		}
-   145	
-   146		if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
-   147			if (val < min_vswing || val > max_vswing) {
-   148				dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
-   149				return -EINVAL;
-   150			}
-   151	
-   152			for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
-   153				if (imp_lookup[imp_of].vswing[vswing_of] >= val)
-   154					break;
-   155	
-   156			dev_dbg(combophy->dev, "Set %u microvolt swing\n",
-   157				 imp_lookup[imp_of].vswing[vswing_of]);
-   158	
-   159			regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-   160					   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
-   161					   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-   162		}
-   163	
-   164		return 0;
-   165	}
-   166	
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index 1c5802e0d7f4..14d9ad146241 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -118,6 +118,8 @@ static int dwmac4_wrback_get_rx_status(struct stmmac_extra_stats *x,
+ 		x->ipv4_pkt_rcvd++;
+ 	if (rdes1 & RDES1_IPV6_HEADER)
+ 		x->ipv6_pkt_rcvd++;
++	if (rdes1 & RDES1_IP_PAYLOAD_ERROR)
++		x->ip_payload_err++;
+ 
+ 	if (message_type == RDES_EXT_NO_PTP)
+ 		x->no_ptp_rx_msg_type_ext++;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
+index 6da070ccd737..1ce6f43d545a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
+@@ -95,7 +95,7 @@
+ #define RDES1_IPV4_HEADER		BIT(4)
+ #define RDES1_IPV6_HEADER		BIT(5)
+ #define RDES1_IP_CSUM_BYPASSED		BIT(6)
+-#define RDES1_IP_CSUM_ERROR		BIT(7)
++#define RDES1_IP_PAYLOAD_ERROR		BIT(7)
+ #define RDES1_PTP_MSG_TYPE_MASK		GENMASK(11, 8)
+ #define RDES1_PTP_PACKET_TYPE		BIT(12)
+ #define RDES1_PTP_VER			BIT(13)
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
