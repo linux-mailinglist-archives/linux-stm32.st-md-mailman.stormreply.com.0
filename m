@@ -2,73 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547A3992858
+	by mail.lfdr.de (Postfix) with ESMTPS id 578F5992859
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 11:42:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7FAAC71287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D583EC7128A;
 	Mon,  7 Oct 2024 09:42:36 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FB96C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E408C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 12:49:58 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-42cb0f28bfbso8082875e9.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2024 05:49:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1726145397; x=1726750197;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3rp8VVpH/dfJ3MmMbT8/Q3u0ccTN+30a/lu2S0UiEGQ=;
- b=ifdRoWMJa1M8mYg6RK8HrDpCq59qBiqqwo+AFm/OeffQgTjy7gtsZsYocFL6gfIpeU
- IIDZxfCL4YmSGrzOFfu3uK1anyFbzUa+CxQqH/cZGsMwprFgWSHbmOPBqjhJJQ1cOSgY
- /3iRxGsioQjWzRA1Aow5VIatOhN7iso6yVG1DrDR+WXBamaQ4Hur2knqodFV5fGuIXv9
- fhJDufefY6yvTr6wWlZugTXpBitM4uqan3Ng1pB2Hh09VFjMYw+XjaghjOCaQqQc/f7a
- Mx8o0jGAIN+eFzGpP2jbmLHjIsAdV69zlSUw/bGom5a7SNg2+14TiyZ++fswenuGv142
- tKFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726145397; x=1726750197;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3rp8VVpH/dfJ3MmMbT8/Q3u0ccTN+30a/lu2S0UiEGQ=;
- b=YDn6ISG+gNLvzKxs7UILzVBfmLfgaM7VoWZFW4ONC73XMK4V8hAUyzougZ32yaaMaZ
- F4cg3LUH7urwWi8BK8IvZeg2lQZ1UPOQpF6DEx2J8DhHewYjPfxAtw5hmEzx7QC6anV2
- qBE98ZqJ0r8LEhpCcM2PXBjXB42YULzkC8uDdLIC0kjLCuxTs7eRQTaBVM5XU/OLaZn9
- RDni1Y0x7CzH5GN/poGtQsMewD4Z9Mp0eG76ReMsOt10EXzr5WXwY0U44bj1EZn1jewh
- kJjAi4V6NjHMa2IV1UsnE1DyaxpN8XbQbI5nmxCOJR0QtRn7Gb3/c9qkbWAkdp2hBxci
- 4qoQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWy18RSqaW+04WIX2qWEWxmrQXAbz4RXe1EHqsCH/2xmQ3aEMUkTC3Si03M9panFchspWmvL5/NGktdCg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx6qpL++Jr9rryiBcM+5ZhwT3Rd8e12KgXnhATZDHW9TLisyAMa
- HH0oNhj1UHb+tSRfN6afOn3brT+p0d4rwxIk4GlK+buvBzrdnB3e
-X-Google-Smtp-Source: AGHT+IHvi+LdQatFb0FXKtNS+8padGl4YLk4uDGuOprj1zEkd8AriHOoq/BcAdcDtYHdudFTCHDnHA==
-X-Received: by 2002:a05:600c:3581:b0:42c:c401:6d67 with SMTP id
- 5b1f17b1804b1-42cdb4e6966mr20929535e9.6.1726145396696; 
- Thu, 12 Sep 2024 05:49:56 -0700 (PDT)
-Received: from void.void ([141.226.9.101]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42cb5affb16sm148200105e9.37.2024.09.12.05.49.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 05:49:56 -0700 (PDT)
-From: Andrew Kreimer <algonell@gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 12 Sep 2024 15:49:34 +0300
-Message-ID: <20240912124944.43284-1-algonell@gmail.com>
-X-Mailer: git-send-email 2.46.0
+ Wed, 18 Sep 2024 02:27:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1726626464; x=1758162464;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=uS2YFxRvMGKdY4hVYbzDLw3B0Hjyf+pk1jbICas5hRA=;
+ b=feo7L9cy8FPd7VyQ1oprHtlh4ysfPFXmQixVwCKYl6/pfJRly/d3uipA
+ hsowUeie+EvwLEuSIzf9uwJbz5w/OjJpSwsxnBbMdU9VH0SinT1g2zQbU
+ dX4+GGXqqJWGKbgoXFZ8ND9JGOXf/TYQyruttSZ4XSqhPcPYoUW4oGQBo
+ K+Ky8Id5SVQJxLVM3j8x4bA46CZbiSIrmi+JmQfd/ZgFdmSwhXA/ZfLVh
+ 6rfqF8VzVRAn51vjSWWCP0ALi8c0ig//CJX6EYYqwf3eEKe7Pujlot7Vj
+ YaLpz2Z9LyTB1Ag1vBlchL1LkDKFwDNYVBgUcWqj3XjF6xJrGwDaeO0kp A==;
+X-CSE-ConnectionGUID: +FdfisG1ToeZ2Ao1TlFeNg==
+X-CSE-MsgGUID: hfKJbu18QUSOAuu+Kh37JQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11198"; a="48029183"
+X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="48029183"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2024 19:27:36 -0700
+X-CSE-ConnectionGUID: YftceeTmRu+lZhiPv3An2g==
+X-CSE-MsgGUID: JqmCe4dtQyCA8IDnL3KVMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,235,1719903600"; d="scan'208";a="74221109"
+Received: from linux.intel.com ([10.54.29.200])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2024 19:27:35 -0700
+Received: from [10.208.96.32] (unknown [10.208.96.32])
+ by linux.intel.com (Postfix) with ESMTP id B0B2320CFEE5;
+ Tue, 17 Sep 2024 19:27:31 -0700 (PDT)
+Message-ID: <7b6283e8-9a8d-4daf-9e99-f32dd55bcea5@linux.intel.com>
+Date: Wed, 18 Sep 2024 10:27:29 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Simon Horman <horms@kernel.org>
+References: <20240912015541.363600-1-khai.wen.tan@linux.intel.com>
+ <20240912153730.GN572255@kernel.org> <20240912153913.GO572255@kernel.org>
+Content-Language: en-US
+From: "Tan, Khai Wen" <khai.wen.tan@linux.intel.com>
+In-Reply-To: <20240912153913.GO572255@kernel.org>
 X-Mailman-Approved-At: Mon, 07 Oct 2024 09:42:34 +0000
-Cc: linux-pwm@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- Andrew Kreimer <algonell@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tan Khai Wen <khai.wen.tan@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pwm: stm32: Fix a typo
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix zero-division
+ error when disabling tc cbs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +74,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix a typo in comments.
+On 12/9/2024 11:39 pm, Simon Horman wrote:
+> On Thu, Sep 12, 2024 at 04:37:30PM +0100, Simon Horman wrote:
+>> On Thu, Sep 12, 2024 at 09:55:41AM +0800, KhaiWenTan wrote:
+>>> The commit b8c43360f6e4 ("net: stmmac: No need to calculate speed divider
+>>> when offload is disabled") allows the "port_transmit_rate_kbps" to be
+>>> set to a value of 0, which is then passed to the "div_s64" function when
+>>> tc-cbs is disabled. This leads to a zero-division error.
+>>>
+>>> When tc-cbs is disabled, the idleslope, sendslope, and credit values the
+>>> credit values are not required to be configured. Therefore, adding a return
+>>> statement after setting the txQ mode to DCB when tc-cbs is disabled would
+>>> prevent a zero-division error.
+>>>
+>>> Fixes: b8c43360f6e4 ("net: stmmac: No need to calculate speed divider when offload is disabled")
+>>> Cc: <stable@vger.kernel.org>
+>>> Co-developed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+>>> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+>>> Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
+> ...
+>
+> One more thing, if you do post an updated patch, please
+> be sure to wait until 24h after the original patch was posted.
+>
+> https://docs.kernel.org/process/maintainer-netdev.html
 
-Reported-by: Matthew Wilcox <willy@infradead.org>
-Signed-off-by: Andrew Kreimer <algonell@gmail.com>
----
- drivers/pwm/pwm-stm32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Simon,
 
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index f85eb41cb084..eb24054f9729 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -222,7 +222,7 @@ static int stm32_pwm_capture(struct pwm_chip *chip, struct pwm_device *pwm,
- 
- 		scale = max_arr / min(max_arr, raw_prd);
- 	} else {
--		scale = priv->max_arr; /* bellow resolution, use max scale */
-+		scale = priv->max_arr; /* below resolution, use max scale */
- 	}
- 
- 	if (psc && scale > 1) {
--- 
-2.46.0
+Thanks for the clarification. Will be updating a version 2 for this patch.
 
 _______________________________________________
 Linux-stm32 mailing list
