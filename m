@@ -2,76 +2,112 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A63B097B35C
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Sep 2024 19:03:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB8D97B688
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2024 03:15:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 484B3C6DD72;
-	Tue, 17 Sep 2024 17:03:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7F2CC6DD9A;
+	Wed, 18 Sep 2024 01:15:31 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2106.outbound.protection.partner.outlook.cn [139.219.17.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24829C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A956CC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Sep 2024 17:03:19 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48HGCkNO028765;
- Tue, 17 Sep 2024 19:02:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- v6WoFkgqeR1AGKN1R5ouXLScPCv7cEh0urGeAL+o4kM=; b=nZfvVqYFfPtoviuU
- 7tXINkM/eImoJ7mc8mJrnxk0jQzXCqgHWUvCduwJCCnNDi1DpU4FlXtFYYc1k3Yy
- FcFIkIGxJQXZD11WCMCLno5Kp49snJrU7sz2Iopqm8EaDb7iRPvkMtWMlZ+0Odpd
- 6wpEsGeqdL1y0lx0vE3HktJRsMtSrPvjM+gfcMYEF4XIfGPyO7SEKluTr1Nq3yhA
- fs2Qycs8eNxbtoVYWrKYQdi2OLep0UFOerI1xh8crwW47v22cP+nx9boxRRAS/b5
- WR8dLBv6JN83H3dcFSoVH56Ik2mRra6Y7lESpCXpK+lakug0klb0II4NQvJteSqQ
- JZ3pMA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 41n4gcv8m4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Sep 2024 19:02:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CF26B40047;
- Tue, 17 Sep 2024 19:01:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C49F2263D1E;
- Tue, 17 Sep 2024 18:56:59 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 17 Sep
- 2024 18:56:59 +0200
-Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 17 Sep
- 2024 18:56:58 +0200
-Message-ID: <fce2374e-384f-4005-b882-3e0d26897fb7@foss.st.com>
-Date: Tue, 17 Sep 2024 18:56:58 +0200
+ Wed, 18 Sep 2024 01:15:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dNgkq2j9ATKgdWcGeDZJbiS2ArpvqSoUHb/8+bbAh+BSkoy7IwrTzmHVPci3qPO8w2WOhboIzFdNW1jjDS0IPrbFNaSqwsKBM9xrTE7lS/YsLeYyl4dwj67yWiXyqshFwYg/dFshLV4gC39/9mAIVt26wI2vd7qDOlXn3FVWvMmNwUkZd34S018lFVXE6c/lv2Ul+/skQhGpclHaH8DoMIMkPWxstFl+4YdF9DkYBACa/1BNpu2x+EACJf4hcQmkIxn9RElu8S16at0EGK1hHykjzmZUpYzkYMZChhIyPkmTYnnNcNefXVta1GSG3BkFnoj514dD9J228wby7gblsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0+ipgbcmYBwqiqty7qanJ9jeT3tvGo5u3mreL/UGAKM=;
+ b=QYbFHtJ0vdh2xQee1aQnhwbVOGqQvdT4XrbvX3MLAU6FqJWsoSqckT3AxR8pcjn2NL47IXcXMvsCiRUxZH3hf1Sy9cq+XkpcBZzaKh1Nqn+nKTFQGwBFgOzSJ4O/W1nR1JM6tJkMLlnjrkftRhCXtZklq3ayMpfafJKJCVRkud4pErmymX/TyAHeRbP5MOpzxaAHPTcxrEkW5mfhldlBioMZ8+K+EfZrYK5tEibP6XGL4JLX7Apf/yXsqu/tSpdT7GVef+r37NkmS10aAjvKFIRtRIey7kOJAhFlXP0Bse5dTxez9C9KOKAFd3FWocqfKsY+7CWThI9HooVXFqfkjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0640.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.19; Wed, 18 Sep
+ 2024 01:15:20 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::3f35:8db2:7fdf:9ffb]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::3f35:8db2:7fdf:9ffb%6])
+ with mapi id 15.20.7962.022; Wed, 18 Sep 2024 01:15:19 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Simon Horman <horms@kernel.org>
+Thread-Topic: [PATCH v1] stmmac: mmc: dwmac4: Add ip payload error statistics
+Thread-Index: AQHbCB2PHZuINr2cHk6mAhsoMuUPOLJaiIOAgAI3tVA=
+Date: Wed, 18 Sep 2024 01:15:19 +0000
+Message-ID: <SHXPR01MB0863621A177B2919B51A5694E6622@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+References: <20240916094812.29804-1-minda.chen@starfivetech.com>
+ <20240916152325.GB396300@kernel.org>
+In-Reply-To: <20240916152325.GB396300@kernel.org>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0640:EE_
+x-ms-office365-filtering-correlation-id: c287f8ae-28bc-424b-7ba3-08dcd77f5ceb
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|10070799003|1800799024|7416014|41320700013|366016|38070700018; 
+x-microsoft-antispam-message-info: 5mWFn4/UbqxAVQVLyauBidRMAYeeP6x4OAXyo1hAtMUmdyVDDJ4hZ2wvUzThxIac/tRhZ9b/YcgWr8Oo0UAlwD1YnSk+1/x8BPWPRTvwQsQrcTW7iU7gEVy4xkMtUUYmKFUbOaHnJNlGOtmThezHH7YDUVLQSgF5+/pGPVmzFyLMzeFNflR4hH6WwtJ8Iq7tcE3LrxNp1IdlIR1me9ywTMqwZVFLCcwGOKJJ0QKueKQr2l6Jm12uQ9gsTcGgO3g/gJUXx2nsMUSKf1OoC24h3ioLqLEi9Hvse5Sme93nikNlnFsYq8fxgSDt+cI52+0j8U7UIQd8lm9eGebkMYoyGzXCYJ/w1u6OgTZbkywBykDjzDxqIpqPj6hh3kjTwCFfehe/0OkNn3Bhp/g5F7yAMqK+biaf5s2FUMDUH+ib1zSLkOK9pg/8xnRw9QPcOk4Lb8KfqJs6dI/IFGhGgfx2alaTZ9IfcbAAwXJSLk7x2ZAiK0/DP0L564n5bX8YcgMMb0dpUbF8oHunbVPJrkjNccHnA4moqlTdkiFXHotxWqXM2ISw+uFb4D105PH1KgWDQ5/8JePpdzO7BlBM/4momDCFfs78Fwpq5y41Q3r1Za6KadP5ZETlHzDMAq2jO0Fu
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(7416014)(41320700013)(366016)(38070700018);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PN+XiZDFlhr4kcaOcycfA78jqx+O/pJgjUAK1BqNlzQMZpcYAyU8GkEqssq3?=
+ =?us-ascii?Q?BXTLtjyeOriizf5x9allosthkMBJHAcopcEuj28MTH8weQ750GEgQoD5mzXy?=
+ =?us-ascii?Q?NWd3M2WDq3L49LXLU+hvUEAF+frUxnQ24tZ1RlfdC2KrdS9Ru40wLjH20Dn6?=
+ =?us-ascii?Q?aNfjlQ0A+lEO33LlVMDwqLAKK6QCwVEeQaMw+/cIKxvU9zgp9Ug+WLLkkbFO?=
+ =?us-ascii?Q?6Vh4NR45b4D8UVRKSG02uZjCRqVXVcWDoH2FNYCCziJq39Jr6Pw1GdZIBqBB?=
+ =?us-ascii?Q?9EU00JW8pvk6PsCAjsCZgqdN/siiq+HLcr8uE7o3lgpeojbVd1IiMMyFkj+g?=
+ =?us-ascii?Q?iykFsmT0+2EScgCPjtLMzzks2W6ao3ZaUWnlYdAYbMbqA0/SOhiP2cD4jrqU?=
+ =?us-ascii?Q?f8DzqzWeCb7GBI9yCZLU0Q19+WnurmTtD3GaDod9DCyibFDbewcS/YrvLCtt?=
+ =?us-ascii?Q?TTcC49bNMReiCHKNU2r7xM2ETo/RoylBc+5cvSzhQ8uDsT8MCaBA7yy0FPeJ?=
+ =?us-ascii?Q?vaJO4MJLHhY+RiGN6xiJxI0TQbFIY2NudyM04kyV0uIR3yDBSVLVNuR/k4Ib?=
+ =?us-ascii?Q?JY35DiJjfLY8xCC+EgivoZOz02fRGxDXUlZUbPD97sK+Pxc890iWjm+nQhtd?=
+ =?us-ascii?Q?w2BcbxA+GUCKPB3kH4CHcGGiPhkD3GeqqtkZgDeVTFsnpC4zvctt+8FBa/dX?=
+ =?us-ascii?Q?euxUjPMc3cYLgr6pEEO/cRAivIPeeXPS/WhMmUP/u3De4TtuqiRssjPvGRIo?=
+ =?us-ascii?Q?O3YmN9A02kN8mrDtX/A2FMlnr/771A1b2m3TtNm03NRPGjQd2weC5p7o3VLU?=
+ =?us-ascii?Q?NLJJmuRD48z+k1/F6zi+C20WKKYIm5xRKE9wL6j0onDMNhbpnaf/+2+zFulc?=
+ =?us-ascii?Q?dFlz1KaNgL626OP1e873H4yJNy1gcAC9x++ouWAevtU+lVSKRxJpGgrDh2Hq?=
+ =?us-ascii?Q?Pvi/EawcTO3THk3OgS0zRLGLSCvrv+A5DnmyhlmNQV7peN1JmFVGPUN9o/hs?=
+ =?us-ascii?Q?IAcGbcB84zW5wDvksubfGqX0J0YLk2aCs1QBPJ+issj/YuFbdFG0hyuh75nt?=
+ =?us-ascii?Q?VZ8opNyaM7Cg9ksTGvdeOxnLqI9lEx/k3u5K6eerpVcfYhj/TA2FiJ1RZYbR?=
+ =?us-ascii?Q?UoPBc3QSYNNsnTy6i4z1aDksMaMvhZtM5PgwpVn77X9X0p/LN81bYptcJlo8?=
+ =?us-ascii?Q?GGYxq0O2okWng27GQfmBJu6pkUH/7MLAwc0A5uH9Mh0nIquOHbs+frsdfg33?=
+ =?us-ascii?Q?cQEqakOyv8TDIhPpzZp7tk1piMuFdEMR7Xz79h0cj5+GBxJalCD0dHs8ztWu?=
+ =?us-ascii?Q?kQC1cmQR44mr9zDQJbuxx1UfZXz3G0K7qxwd0/zn+dcAWkfM4UlDKw5Uz95W?=
+ =?us-ascii?Q?5MKuFJ+7D+r/T1cT6yzAtXBcZauM4214yKmyvM7hrXu5f0lXP7qXGDpEgO2t?=
+ =?us-ascii?Q?Zo+oMVqJZfUOV0XoHLddBnJapI0mVhUs/zkOv8P84noQmaWNmqdnX5+yDU+J?=
+ =?us-ascii?Q?F1dk+3KAWJGSNiOpR9gFQ8ceh0IGmtnkS9kHhrSYHzv5Wwg4R3b+bEgC9GUD?=
+ =?us-ascii?Q?bdYG/F1KPvaGMRKEg7I=3D?=
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
- <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
- <ZuMIEp4cVrp1hWa7@p14s>
-Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <ZuMIEp4cVrp1hWa7@p14s>
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 4/7] remoteproc: core: Add TEE
- interface support for firmware release
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: c287f8ae-28bc-424b-7ba3-08dcd77f5ceb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2024 01:15:19.9302 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qFRETBxrJmxKppWzXxaDS+CJ8Oez47wFRzUWapYzArFLHSUIjyG+9BeoNFcKQxkV94NgR0guxDh3bJdot+fpcQ4bNiKpyZR9giJE9WZ2dpY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0640
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v1] stmmac: mmc: dwmac4: Add ip payload
+	error statistics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,88 +124,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Mathieu,
-
-On 9/12/24 17:26, Mathieu Poirier wrote:
-> On Fri, Aug 30, 2024 at 11:51:44AM +0200, Arnaud Pouliquen wrote:
->> Add support for releasing remote processor firmware through
->> the Trusted Execution Environment (TEE) interface.
->>
->> The tee_rproc_release_fw() function is called in the following cases:
->>
->> - An error occurs in rproc_start() between the loading of the segments and
->>   the start of the remote processor.
->> - When rproc_release_fw is called on error or after stopping the remote
->>   processor.
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->>  drivers/remoteproc/remoteproc_core.c | 10 ++++++++--
->>  1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->> index 7694817f25d4..32052dedc149 100644
->> --- a/drivers/remoteproc/remoteproc_core.c
->> +++ b/drivers/remoteproc/remoteproc_core.c
->> @@ -29,6 +29,7 @@
->>  #include <linux/debugfs.h>
->>  #include <linux/rculist.h>
->>  #include <linux/remoteproc.h>
->> +#include <linux/remoteproc_tee.h>
->>  #include <linux/iommu.h>
->>  #include <linux/idr.h>
->>  #include <linux/elf.h>
->> @@ -1258,6 +1259,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
->>  
->>  static void rproc_release_fw(struct rproc *rproc)
->>  {
->> +	if (rproc->state == RPROC_OFFLINE && rproc->tee_interface)
->> +		tee_rproc_release_fw(rproc);
-> 
-> Function tee_rproc_release_fw() returns a value that is ignored.  I don't know
-> how it passes the Sparse checker but I already see patches coming in my Inbox to
-> deal with that.  In this case there is nothing else to do if there is an error
-> releasing the firware.  As such I would put a (void) in front and add a comment
-> about the return value being ignore on purpose.
-
-Instead of ignoring the error, I wonder if we should panic in
-tee_rproc_release_fw(). Indeed, we would be in an unexpected state without any
-possible action to return to a normal state.
-
-Regards,
-Arnaud
 
 > 
->> +
->>  	/* Free the copy of the resource table */
->>  	kfree(rproc->cached_table);
->>  	rproc->cached_table = NULL;
->> @@ -1348,7 +1352,7 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->>  	if (ret) {
->>  		dev_err(dev, "failed to prepare subdevices for %s: %d\n",
->>  			rproc->name, ret);
->> -		goto reset_table_ptr;
->> +		goto release_fw;
->>  	}
->>  
->>  	/* power up the remote processor */
->> @@ -1376,7 +1380,9 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->>  	rproc->ops->stop(rproc);
->>  unprepare_subdevices:
->>  	rproc_unprepare_subdevices(rproc);
->> -reset_table_ptr:
->> +release_fw:
->> +	if (rproc->tee_interface)
->> +		tee_rproc_release_fw(rproc);
+> On Mon, Sep 16, 2024 at 05:48:12PM +0800, Minda Chen wrote:
+> > Add dwmac4 ip payload error statistics, and rename discripter bit
+> > macro because latest version descriptor IPCE bit claims include ip
+> > checksum error and l4 segment length error.
+> >
+> > Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 > 
-> Same here.
+> Hi Minda,
 > 
->>  	rproc->table_ptr = rproc->cached_table;
->>  
->>  	return ret;
->> -- 
->> 2.25.1
->>
+> Some feedback on process.
+> 
+> net-next is currently closed for the v6.12 merge window.
+> Please consider reposting this patch once it re-opens, after v6.12-rc1 is released,
+> likely about two weeks from now.
+> 
+> RFC patches, and fixes for net are, OTOH, welcome any time.
+> 
+> Also, when posting patches for net-next, please explicitly target them as such.
+> 
+> 	Subject: [PATCH net-next] ...
+> 
+> Link: https://docs.kernel.org/process/maintainer-netdev.html
+> 
+> And lastly, I don't think 'mmc: ' belongs in the patch prefix.
+> This is an Ethernet driver, right? Looking over git history, it seems that 'net:
+> stmmac: ' is appropriate here.
+> 
+> 	Subject: [PATCH net-next] net: stmmac: ...
+> 
+> --
+> pw-bot: defer
+Okay, I will resend this on 6.12-rc1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
