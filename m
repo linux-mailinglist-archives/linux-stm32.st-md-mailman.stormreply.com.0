@@ -2,130 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D40E097D6CE
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2024 16:24:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D580297D9B0
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2024 20:59:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D93DC6C841;
-	Fri, 20 Sep 2024 14:24:39 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11013049.outbound.protection.outlook.com [52.101.67.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 604B2C6C855;
+	Fri, 20 Sep 2024 18:59:33 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46FB8C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5033AC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Sep 2024 14:24:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HjATmFZiM+8+aCxPHi76h8IkvjCOQjKGoz6WZdzTjeqEZ/5LA+Hfn9CwgShesQ+CJW4oemgAbME8rahQrn49njQ4ttnzE4WbGSWM/c5OYmqoqjE/xrnCglEX8Rhp7ANPjVGmqySORNg/GFiPH1cqxoi6wrft+RckudrUjB0bRGx7UC6og/24MlVcm+gAxBRU0YFgKq0bPy2HdH0N9yCAeyTAZsiW6NyKxXDMVTaI8c77HAzvgab8hwC83f5JQ/SXHJLu+bQF4OoLbzvjUf9r0xfk4JKmPiIhb+eJAy6wEd4alpWzv3v0D2HByOC8VVCO7p92R9T5MyLuC85ms3q/5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qMwqE/Mipg5aIEYhyE+TNNI9bhuHM91/yes8kRcO1XI=;
- b=tNwUHCMHsw3vjtglPgCHGrRkYjD0ZPRa6zpCOmwHE5aONGihOS82YGiNIkyOeCTBN3TbOfR/AqNcMLB4rvlx5jbmLX8BFKCY8Xx2TsTs4qhCaWGWYCR0HZpwDutNq4RTXnN1aes7kaQO1vjHrlwsHQPxxO373A0+NMjQQHGev10aR5ju6snnNG0rQTtGjo2mYGF8R1PbQpz9z1zSOK6y4/zOB7WG7ilRY7d4MCoSiLFKhW8VroY03Q6X0lAxMLJP4+Mja5o1mU7RrhMvo8kEsXPMY2xPxzib0QZrdjkYF9So4fkoIAVSbEvB8Vj/Xwol3ckipskYC+sNgcGUOVEYnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qMwqE/Mipg5aIEYhyE+TNNI9bhuHM91/yes8kRcO1XI=;
- b=WNJSatBK1/4KSS+6bEeXrCCq8ZfUY+P7Qoy0BEJNEGxt4mY2o9SSuAcYgJpzQ/hMUYqWGttIAOzd/XInoWRkkZeDdothvLGsGELCeeZP+HB4ROUl7/gh2aLSFsZvzQmCRLGqmLfHmvPiG1NAWY+QymNXbMECA8gkqOFy/cTggIlSG4pTYG1SMtF4oGTPE7yilFGdiaH7TRCy2Om4mh1yC1UovhPazu4oY5Cd0EzFb4YImlonRwyFFfunfhqtHwBH6Vz5E2cLMAKiZEdwK9no19RRbeWu/4nE2v2ITlStmShA4ksZz2rGH3oRXayXrjrmXVrBJ8VIrtQAwkkADIa9lA==
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by GV1PR04MB10080.eurprd04.prod.outlook.com (2603:10a6:150:1a0::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.22; Fri, 20 Sep
- 2024 14:24:30 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::21bf:975e:f24d:1612]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::21bf:975e:f24d:1612%3]) with mapi id 15.20.7939.022; Fri, 20 Sep 2024
- 14:24:30 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [PATCH v2 net] net: stmmac: dwmac4: extend timeout for VLAN Tag
- register busy bit check
-Thread-Index: AQHbC2jO9KJDjF2N0Uyx2zNbResNBA==
-Date: Fri, 20 Sep 2024 14:24:29 +0000
-Message-ID: <PAXPR04MB91856DCDAB12C39631542E33896C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ Fri, 20 Sep 2024 18:59:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=aq3hCAqKsqk4dMRfVd5WIszunX0ClwtWKv8KPQdJx30=; b=edG+lfwzgYaBb2yEM992evL1tr
+ Wdk1FraHVV6RM+/McKATu7lVruBDrXhDGkg5dzShuC85MDM3moW+gljXi8Cz9ggXTmqM8ANIDIpQF
+ On2LkcfkWtMaeazkF23S1loKBPNa2dZY1sHVZa1ThGO4UD+PArpLZKgYNeJkQuhAcduY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1sriqE-007wdS-2z; Fri, 20 Sep 2024 20:58:54 +0200
+Date: Fri, 20 Sep 2024 20:58:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Message-ID: <e2ca8af5-dfca-4d3e-998c-b90d302ea61b@lunn.ch>
 References: <20240918193452.417115-1-shenwei.wang@nxp.com>
  <2ca9a20c-59a9-4b95-bfe1-5729e2361d70@lunn.ch>
-In-Reply-To: <2ca9a20c-59a9-4b95-bfe1-5729e2361d70@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|GV1PR04MB10080:EE_
-x-ms-office365-filtering-correlation-id: e9aafccb-6cf1-416a-381a-08dcd97ff092
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?rK2mw2Z3c4T/ujUqZ20GHTSIZKZaJJyUHFsA2jJTAja8qXyh5kR3xSl5h59z?=
- =?us-ascii?Q?6yrxoybGsRMeuaSqETu/vgKy3r/nFYLbeDoLsZF3a7mgl+amWAlW3tl/++h6?=
- =?us-ascii?Q?s3m1wlzTWX6lapBMp8SMX8ngUnbTNMRmL92ZOd5Ur4PVgfWfLW99bvEI6QFG?=
- =?us-ascii?Q?gdj6aFPdGMbnqvTahRqjeiTMx6BmdVDQTN1MRt6H/WBAbzZ8SYOM8Kn/+bZh?=
- =?us-ascii?Q?7lMKXKMDZet4RD2FY6M5twhCoBXVR6bnNXixZJR/lwX6vgvYcPC28FUec7WQ?=
- =?us-ascii?Q?KNXtJTTmAbRWivXslIIDWojqPVEdmmcJbvsDiwOJJ1tCERujvU+Jo6+LkBA/?=
- =?us-ascii?Q?A87HXjBIOs4j4jB3kGgahyfxObgB9ie/iuGZD0Xj7v0vpiQCzzMnhBN/drFj?=
- =?us-ascii?Q?/bnNxc3rRx18pnF8BLnw3ps2BxBV3oVWelBk8vt9aGrPmiltWU2bKiHS51Dx?=
- =?us-ascii?Q?CCD6C1eAOKx8c4ghxgDg3o+RyKUufwcf1gFJ5Kgu2vzNEgPoSgP0W6i257z/?=
- =?us-ascii?Q?VOof/BzsOnaxCiahnLoFj23Qzqg9Ir2BDncc+vEEp18wERFFrbHivC45HD3Q?=
- =?us-ascii?Q?zb2V9OeTMtYL282zWNWf6m1jdIiVfnrZ1jyQ910DTYEwRYp0c19AvCsZrFQe?=
- =?us-ascii?Q?E/zlE8Wz09u2S4FPPm2BOian9XtuqRST0ve+IM0GM2OmStcrR8MTYmAkIPUE?=
- =?us-ascii?Q?IBU0C1SzAfaDbpf9qGkOX251yVKINEyNvOVPMDF4aTqGuGJks+52M/OGHTUf?=
- =?us-ascii?Q?MMyvw5nWuamWgkiY87H7dwWmYvi+WwZlwFtxg7xkepaYGnepRncl2HUHeuZd?=
- =?us-ascii?Q?XfyJtMvyF5B0IgCedg9/vZJvxRWHsmwix4ZOqx/km4wtz2ACPKn4kfX7bQY7?=
- =?us-ascii?Q?o8huibjGi5Reo+eMq866//r3ikuPkqJg/ppCoiM3PFNsMorf/e+CEikFIXTl?=
- =?us-ascii?Q?ATT6H26l2GU03xfyzvfaMlG0kbEm8TUQuwrvcnpfexUemGmZiALYmwD25Fzz?=
- =?us-ascii?Q?mGs0SLbkxyGWewCNvShtPEtHBLb48zYXNdmGeTIesgmyuYzGrQleuHve1LV7?=
- =?us-ascii?Q?laInOQ6rD3QEsEOnUyfoGbNM7UrelHMe3CPsAwBdbQ/yqefUpXVagZ4zbPAZ?=
- =?us-ascii?Q?bXyvbPGjYJTBdo43o/VoRDurJKo7nTRPoZXw5ouGXGglJD3+fLVRJAS2qgP1?=
- =?us-ascii?Q?rOjOLNmRUTxAiLXnNQTJzgV2HBrOC59SlfG2s3PP82rdoqXa8YNlY9g6qj5l?=
- =?us-ascii?Q?KWYDYKMAJfTAcdnDTZVsh9lLYRGaJUeWQvp7g++9fcD9htbBYIERuK9hUg2Z?=
- =?us-ascii?Q?9WVvmMalwboWc4L6Gqc4Lr2p/Dz8jVow/n4QpHLlwzj4xA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?IMfWdEhoawNxqSfHLhruzDWHC1rFzrlEFXnyW6yMbThN4QoNRKTcepCIr3gk?=
- =?us-ascii?Q?66cqZquTPyEGDNQdL2D23OpThP3cYF8iTSxK76pLjptlwF4lJXCNCb2iRJcd?=
- =?us-ascii?Q?c6ahCeKJX4OMQDa42Es3SzpUFGyz2o4ZFaI70Mrs5V8xC16Xz0onVxZYl3Cr?=
- =?us-ascii?Q?hs3GyvY5MTbYJJ0GAC4R1ZTpi8sL2EZXHHMzltQhhZaZZyWEpf5sioGPWZ/x?=
- =?us-ascii?Q?4sBF2hv8kv7sghZ3V2BpnjdjyTs7QYX5dCjPa4jhC5fR+hsLK49qVU9rry12?=
- =?us-ascii?Q?ZyBcHhtf0uJwB+SZDCzvAddKozum0AdsJcLGQI9J+SWTvHutXdJrdpWgb2Na?=
- =?us-ascii?Q?8vmXmIXu3Z0AEc88cB7PoCJGzMAbxDkXEzJrZMnR8bkQtkJoHwTFYzkzrb2w?=
- =?us-ascii?Q?Q7nH17OWcFTdVWxyielI7Mqto9HhZpISrCL4mIPlespe2nQZUBMk0AmE0HPl?=
- =?us-ascii?Q?T/cZJCnufLqyYLhAYTnc2+BG3cngyI95lp4IFC+OyGEbVXIcwuCv/jAIOCW7?=
- =?us-ascii?Q?7j8ZJE7qZqHRDj0hfSzoSe2lRf273ZvKtN+LLuCvrYyjEPEk2H9878DTWPSM?=
- =?us-ascii?Q?AcmJO1ZwGMySdDllOjqsCIvY7dDw747IT9bBlMBQWmXR6KaC24IvSfB6TB/B?=
- =?us-ascii?Q?l+CRzhSpdH12OtdoE/71t2bc6sdxCKJTRh127nfNWs+hMpKttLkowcKYKjA1?=
- =?us-ascii?Q?pU2dbnfBGGUve+v/MD8Lhd/78VGZhXGNyt2aJ0Zb81z+gtt8RyN9mMKXYmKl?=
- =?us-ascii?Q?73is9KyE0YzJLlsaKtL9ryhVXJ0WKnjqA0/7qzFmZzHb6kuqtU8Ey+PVjfpE?=
- =?us-ascii?Q?vqEOzgbwM82zlBiVT+0XgxZoQblC3uNMFPP+1qV04/knE9N045YBL7hibdm2?=
- =?us-ascii?Q?FzwIuzFa6a0BMifj7h/BUHXozgtizJoS/5EO/Xb+X5lo0TmOmkTAJD1cb4UV?=
- =?us-ascii?Q?+bCvsoZ+qaGBqEYh54/xUD4f1NpQ8KIWitJ7UdcC3cr0ooXSu5f7v4ZVp35T?=
- =?us-ascii?Q?+z+TMYftjhE1KbKZYykVis4RNiIi+fKB1DnxLQw+uWFC/4wtdKU2Rjgpms8d?=
- =?us-ascii?Q?tZ9UYuvXsfPTQuOIhI4BvwqMw/jm843hJYgtkAL0U+Qg0PEbm85bJ6GPyBu4?=
- =?us-ascii?Q?lfTTrVx3VDz0W1zoG1QCdzlY30MrfC2BAxTkfDxcqhyfuvZMTkDG3unGkHeY?=
- =?us-ascii?Q?EXzm0TbUjASmmKnoPnD0UusXGKJyPEJ+Y96B35RJdg5y/yqWyxLWnV8ivXOb?=
- =?us-ascii?Q?p0rx7kzsdDX0Cdo36vIFLPubhCpsepYgxkRO9NpgNbuxxDxnlD9PBZJ5lKZB?=
- =?us-ascii?Q?jSAh65xr81QFOtygJ7oC/z/6zE6S5bFeucoPvEyO8c8uddWu7WQU0D/XB25h?=
- =?us-ascii?Q?DhVifwj+zh92RUeDz7HG3OIE0MT4fJP6MTi4QSN892aehwWwTQNVI5zYe8r0?=
- =?us-ascii?Q?nhKmDAC0CflumLvg/xnsQ+ByBMZCDnao206zMZuLKmOOj5QM1zwtslEbbG1f?=
- =?us-ascii?Q?phXYMLn/XhIO+XeiPTm0RU0OfQkle5MoFJUlhTj1PPdMuIoOgJTAqhlknOxv?=
- =?us-ascii?Q?PjnZS+SqLIeF+AEh/QI=3D?=
+ <PAXPR04MB91856DCDAB12C39631542E33896C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9aafccb-6cf1-416a-381a-08dcd97ff092
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2024 14:24:29.9871 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BGFjTS33cJe60DdNKGztgvM39ho2xnwVqX//pOHU7njsNEh0NB852Hc496MbMsDqN8cvrcsoDwaxfV9+cS6uSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10080
+Content-Disposition: inline
+In-Reply-To: <PAXPR04MB91856DCDAB12C39631542E33896C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
 Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
  Chuah Kim Tatt <kim.tatt.chuah@intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -156,48 +64,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: Wednesday, September 18, 2024 6:58 PM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
-> horms@kernel.org; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose
-> Abreu <joabreu@synopsys.com>; Ong Boon Leong <boon.leong.ong@intel.com>;
-> Wong Vee Khee <vee.khee.wong@intel.com>; Chuah Kim Tatt
-> <kim.tatt.chuah@intel.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
-> imx@lists.linux.dev; dl-linux-imx <linux-imx@nxp.com>
-> Subject: [EXT] Re: [PATCH v2 net] net: stmmac: dwmac4: extend timeout for
-> VLAN Tag register busy bit check
-> > Overnight testing revealed that when EEE is active, the busy bit can
-> > remain set for up to approximately 300ms. The new 500ms timeout
-> > provides a safety margin.
+> > Could there be other registers which suffer from the same problem?
+> > 
 > 
-> Do you know what EEE has to do with VLAN filtering?
-> 
+> So far I think it only impact the VLAN status register because those bits are driven by another clock instead of CSR clock.
+> Based on current observations, it appears that this issue primarily affects the VLAN status register. The reason for this 
+> is that the bits in the VLAN status register are driven by a clock source distinct from the CSR clock.
 
-The exact design details are not available to me, but my understanding is that the Busy Bit is synchronized to the RX clock 
-supplied by the PHY. When EEE is active and the PHY enters LPI state, the RX clock is gated, preventing updates to the Busy Bit.
+Thanks for the explanation.
 
-The question is the significant delay observed, especially considering that the PHY transitions between active and LPI states 
-multiple times during this period. There should have a lot of chances to update the Busy Bit sooner when it is in the active state.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-> Could there be other registers which suffer from the same problem?
-> 
-
-So far I think it only impact the VLAN status register because those bits are driven by another clock instead of CSR clock.
-Based on current observations, it appears that this issue primarily affects the VLAN status register. The reason for this 
-is that the bits in the VLAN status register are driven by a clock source distinct from the CSR clock.
-
-Regards,
-Shenwei
-
->       Andrew
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
