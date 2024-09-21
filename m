@@ -2,52 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D580297D9B0
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2024 20:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C24797DF00
+	for <lists+linux-stm32@lfdr.de>; Sat, 21 Sep 2024 23:12:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 604B2C6C855;
-	Fri, 20 Sep 2024 18:59:33 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7C3EC712A2;
+	Sat, 21 Sep 2024 21:12:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5033AC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D18CAC6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Sep 2024 18:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=aq3hCAqKsqk4dMRfVd5WIszunX0ClwtWKv8KPQdJx30=; b=edG+lfwzgYaBb2yEM992evL1tr
- Wdk1FraHVV6RM+/McKATu7lVruBDrXhDGkg5dzShuC85MDM3moW+gljXi8Cz9ggXTmqM8ANIDIpQF
- On2LkcfkWtMaeazkF23S1loKBPNa2dZY1sHVZa1ThGO4UD+PArpLZKgYNeJkQuhAcduY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1sriqE-007wdS-2z; Fri, 20 Sep 2024 20:58:54 +0200
-Date: Fri, 20 Sep 2024 20:58:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Message-ID: <e2ca8af5-dfca-4d3e-998c-b90d302ea61b@lunn.ch>
-References: <20240918193452.417115-1-shenwei.wang@nxp.com>
- <2ca9a20c-59a9-4b95-bfe1-5729e2361d70@lunn.ch>
- <PAXPR04MB91856DCDAB12C39631542E33896C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ Sat, 21 Sep 2024 21:12:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CEE035C03B2;
+ Sat, 21 Sep 2024 21:12:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF62C4CEC2;
+ Sat, 21 Sep 2024 21:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1726953156;
+ bh=phXqp9sx1SQ3XnHPFtM1vPkRhWKw5lBZejOf6LQt9ao=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=HPfuKriUJ7XdvindCQ93kJOi52p/hb4yEY19k6ESAe5MkEtBmJzu1PVvFJG1LoVLP
+ wt2gbB1hm8mXSgJ9yO9wDdJIgVrhnjL6MVQVoDQx5VYg2H+cNvLKGaTlLdcm/0F9iq
+ jOQTk9vsaQgUwOuDDUMLYeA6DfZceX5/WoleSw5xz1AURC+vIslXn6+LqnhKmaQUYA
+ cSMriGt6YbVN6H0msczVVKOSyNe6LmyAHERtIuW1Gld5uDFeDTwM7xayTORfk4IYUn
+ UvMSFvyEdL1tKjtYhCNEpMMYtSlvDkTCLNllo+OW+Vc1BQTTK1KvaMNDNiBlZRB4nK
+ R/h+nnCFE873g==
+Message-ID: <1a96db1609b5b3b26584d8f823d85b7f.sboyd@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <PAXPR04MB91856DCDAB12C39631542E33896C2@PAXPR04MB9185.eurprd04.prod.outlook.com>
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Chuah Kim Tatt <kim.tatt.chuah@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- "horms@kernel.org" <horms@kernel.org>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 net] net: stmmac: dwmac4: extend
- timeout for VLAN Tag register busy bit check
+In-Reply-To: <20240909144026.870565-2-u.kleine-koenig@baylibre.com>
+References: <20240909144026.870565-2-u.kleine-koenig@baylibre.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Date: Sat, 21 Sep 2024 14:12:34 -0700
+User-Agent: alot/0.10
+Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, arm-scmi@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] clk: Switch back to struct
+	platform_driver::remove()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,24 +56,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > Could there be other registers which suffer from the same problem?
-> > 
-> 
-> So far I think it only impact the VLAN status register because those bits are driven by another clock instead of CSR clock.
-> Based on current observations, it appears that this issue primarily affects the VLAN status register. The reason for this 
-> is that the bits in the VLAN status register are driven by a clock source distinct from the CSR clock.
-
-Thanks for the explanation.
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-
-    Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+UXVvdGluZyBVd2UgS2xlaW5lLUvDtm5pZyAoMjAyNC0wOS0wOSAwNzo0MDoyNSkKPiBBZnRlciBj
+b21taXQgMGVkYjU1NWE2NWQxICgicGxhdGZvcm06IE1ha2UgcGxhdGZvcm1fZHJpdmVyOjpyZW1v
+dmUoKQo+IHJldHVybiB2b2lkIikgLnJlbW92ZSgpIGlzIChhZ2FpbikgdGhlIHJpZ2h0IGNhbGxi
+YWNrIHRvIGltcGxlbWVudCBmb3IKPiBwbGF0Zm9ybSBkcml2ZXJzLgo+IAo+IENvbnZlcnQgYWxs
+IGNsayBkcml2ZXJzIHRvIHVzZSAucmVtb3ZlKCksIHdpdGggdGhlIGV2ZW50dWFsIGdvYWwgdG8g
+ZHJvcAo+IHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXI6OnJlbW92ZV9uZXcoKS4gQXMgLnJlbW92ZSgp
+IGFuZCAucmVtb3ZlX25ldygpIGhhdmUKPiB0aGUgc2FtZSBwcm90b3R5cGVzLCBjb252ZXJzaW9u
+IGlzIGRvbmUgYnkganVzdCBjaGFuZ2luZyB0aGUgc3RydWN0dXJlCj4gbWVtYmVyIG5hbWUgaW4g
+dGhlIGRyaXZlciBpbml0aWFsaXplci4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvD
+tm5pZyA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4KPiAtLS0KCkFwcGxpZWQgdG8gY2xr
+LW5leHQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
