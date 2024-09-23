@@ -2,78 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934A197EDDD
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Sep 2024 17:13:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4940097EF0B
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Sep 2024 18:18:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49E30C78006;
-	Mon, 23 Sep 2024 15:13:45 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3D06C78006;
+	Mon, 23 Sep 2024 16:18:11 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11013009.outbound.protection.outlook.com [52.101.67.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5B08C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2D35C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Sep 2024 15:13:37 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-7d4fa972cbeso3041770a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Sep 2024 08:13:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1727104416; x=1727709216;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=PHlnbW3NKllRcJspO1pNGsF1SNs+MNN94ks3ff4dHtw=;
- b=kgXUh+qgVjhRkS10lhyQL/QdDI5UaTnVLjCWxXjn+SJ7UfbgOGSgmVIPE/H01tTlBl
- 5KSizuCi8KENRg+fFC+BlOlTP66bkz5kbNukCM3FtpIkEb7Py3XAYbYy4OqFM3F+tfXq
- nQaIMJAN0SoSD0KAIFAhTFJMQ3coBGo5uCfeH38YqCN52G9qoqDBlqo3f2ZSrEOyA4ND
- c6AdGFPVn4JBY99vexzKsNxdfkV4AzG+eXuuJ0upbjQy2nb68iuZ1a6UfDB1DgScrbJW
- KmCjBX1ssdh4WyDXHHjdedFGEWmLybe7NhpFfCQ907YeNmt7t7kYr+SLT+KhSIe5yzJv
- +NvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727104416; x=1727709216;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PHlnbW3NKllRcJspO1pNGsF1SNs+MNN94ks3ff4dHtw=;
- b=HYle0kAMdKqiKNsFGX7uV/qTC8ZFIKTErSJzjjbStjarYD/tNAm1s/eUkw21q6WQ0M
- PWXxBvbL14z2AkR/loiod8NbjPc2nWtLC+Yd6plC6ySMS1XM7gd1LjiACVJj3OhRNnd2
- L2gHJypgRaPK/qpHK1ITvSLspSOoq48vn94xgqiLqXzXDEy4pWIe6hVvcUSwZhuNmUa3
- SNWmtcg8PefIG6vJIITW2CmQShEwyW8fDYpAp/dBK69GeONuVTA9IdtaxtbRKLF3yYAQ
- CZZXCXbdQBsrKd4gB+uS3WawrO5Vihe03XCwDew2FrDhVBQyHd6kRfwG8XjK7QGteQlY
- oY4Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXx8a8MD7KTb1XGayH2XWaHxhKXJv6WEppRmkFde4dC+FPcdDlCVkRlWHcL052WSaOs+jeJci8IJGy3ZQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxNfTzZuUOl7f8V68E6W1jJLHUmOtvXXYOt+4hflnQEZ2wxJle0
- Kc/qdvWn6wZ1cdaiHigbDISTF9B1CtKIVu2rU2SUnZ9+0VmWAvTVI4yHUwGNWGQ=
-X-Google-Smtp-Source: AGHT+IFbJhoxbZDPUB8xpdXKh4oBW7cnyX/oVOpugsG4Ru3LqNxXMRMWf4XdpOaiA2LQuH5+9FEH5A==
-X-Received: by 2002:a05:6a21:3414:b0:1d2:ba7c:d8cf with SMTP id
- adf61e73a8af0-1d30c989839mr15685241637.7.1727104416169; 
- Mon, 23 Sep 2024 08:13:36 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:7512:bc48:5403:2376])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71944b97e51sm13955025b3a.162.2024.09.23.08.13.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2024 08:13:35 -0700 (PDT)
-Date: Mon, 23 Sep 2024 09:13:32 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZvGFnKd3RkVY9Wb0@p14s>
-References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
- <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
- <fabec69a-3b3a-4068-8906-7996cf125c0b@foss.st.com>
+ Mon, 23 Sep 2024 16:18:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y28yEc7aU0aFuw+aWkAxb89XumQLQWMDJD62WmAPuOnMOti6jRG+Xb+ontetvc1VIZLuu3UhL0bzXOJSwWtNsb491TZWjEN7hMdwVtuR1INwpnRUK5fQy0QqFH8AFlbzNn2h2XG6HvW5+05n/Wc802HueTlErs+/C24gCdCN4FxhBtkXNcOM2Ohy0u+u0nPhxdW8EcZg2yUtnGyJDbJaoXoolPzpSB2s+jR4yEqZtuCo3rUfETWJzi+2FDm4f1EeBKVV70YVNb4BOZuahfAlF/IKU58V39CAIl23u3GKu3ivWptRAXi5ROAjCu6l87IdCiBWcCnmtyg19wHmwWhhpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fgl+0REJK9LKYUUW7XF/IhhsdnvMlo7OBXGkMWtgv6A=;
+ b=sG1dPSiosGBn1XhEM2yLCErI3m6FgUNN8lBgbtpoZ59OyntPZNbuYf40Ur6BfvbdFCw/FTPZNdr62uZM00QrOfkOZuVBjRi0pZeigzK3dZ4EJkkhJvXs+X2teE69uYKPx5FEeF2poJutXPn2Qbq1Mf+dRlESZTIGQTk/AElsB5wE/LNrc+BBEEIC3tcjUQ1OD+FbnK3TdaAjJcTd+Ou4paLslXk8qg9q2Lgti5Xnr0fk9b/nBNDy/FnXhbg1CPpUdHlzFHwfItrT3yLAzt9Ve/t2I8S6fW5AOErXx+b9hF34D50RxgZV8CTCWw6DHJ1MWJwG1CKocOGf9hyvDQ20Xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fgl+0REJK9LKYUUW7XF/IhhsdnvMlo7OBXGkMWtgv6A=;
+ b=AEnngIGOfQxt/n58J41QO/+56KfSEL8XL7Ol8CvmgqwaCTZSOKsrK9XAPX9w9d3jkdt4IiQ30cPPv76Xj/6GfzWOi6i8NJFBuOeSE3CviXiBBtfVHfz1Gw8O3PDDqP7Q+IHWA6g/287Y0M7AVvNsi30oZ/VuHI8ZIm4EXjxTkcNowF4f3r6P9SPJz/V4drP4fyml6LOgK7xQJlN7oXExISgDPlU2oIZJfuLCf2qOstm+AURrlHjKPrercupO1HoSJPCFm4zkEUgICNYIWPwkuHoEeeLi/iIFeS35bAdGGnTaUeTKC2O8jxNGyyxuGqTi1Zd+hEVMm6MKFrJV1aYWEQ==
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by AM9PR04MB8164.eurprd04.prod.outlook.com (2603:10a6:20b:3ea::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Mon, 23 Sep
+ 2024 16:18:00 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::21bf:975e:f24d:1612]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::21bf:975e:f24d:1612%3]) with mapi id 15.20.7939.022; Mon, 23 Sep 2024
+ 16:18:00 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Thread-Topic: [PATCH v2 net] net: stmmac: dwmac4: extend timeout for VLAN Tag
+ register busy bit check
+Thread-Index: AQHbDdQoAZF5k58yDUKsLlpRXAXGgA==
+Date: Mon, 23 Sep 2024 16:18:00 +0000
+Message-ID: <PAXPR04MB9185737222043AD4AE672D6B896F2@PAXPR04MB9185.eurprd04.prod.outlook.com>
+References: <20240918193452.417115-1-shenwei.wang@nxp.com>
+ <yzyezokrtcj5pnby4ak5lzrrnqu3y3k45kaibtklwrjn4ivzel@hwf6bgssykna>
+In-Reply-To: <yzyezokrtcj5pnby4ak5lzrrnqu3y3k45kaibtklwrjn4ivzel@hwf6bgssykna>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM9PR04MB8164:EE_
+x-ms-office365-filtering-correlation-id: c44c6349-c050-400d-86ea-08dcdbeb4b29
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?PE84XxEt9Ms0ZC9wIhWo6vtcj8qyko6T6i26CKz8czaLV7lHZt3uYquMr8kz?=
+ =?us-ascii?Q?91PqAsBjJ+CE/Wieqk4rPcrSflmTtCvAa7S4Er1n+r62RvBE1Aj1163P3uDS?=
+ =?us-ascii?Q?Gibhg8pWn6VekqhbylkYSX8TWvBidAwvnByZyXkERj3fEkbhOypKn19rIo9w?=
+ =?us-ascii?Q?adYJgytBHvFkO7qf2L40KFxjvgxjifcex3z+3XpJnUefNOfqictQ0TZC1Zd5?=
+ =?us-ascii?Q?nG4bKF2cKmoXZ6LylB+28gJ2XG3Rmn9IYZvdAhPhG23YMU2wK0ANmeMUFSot?=
+ =?us-ascii?Q?d6M0fbAcgRTQX69nSwuy7ywCcUgggyAVlqG83ehLO3tkFOOQv53Dh+05+9xY?=
+ =?us-ascii?Q?kHjBD8y/KPjvc5SfrXxmuCfvVT7Kv/FR1gcEmZKobu89Kh+TN+b3i7EvwDgw?=
+ =?us-ascii?Q?AxhxCXYFpvDbTgRWUXBl4JJwZ6B3BUgOYvwwwq8+HFgawUYHv0snUpJ1I3/9?=
+ =?us-ascii?Q?VXVYAFdKSYX2sGA2Hb3yj7SDfeBuY1PXasAVLl5G6Ltdiurf2y5J/cYOWxdP?=
+ =?us-ascii?Q?Y82i9RIwCl+K3TdKIM4wN4yiBmJzwIWUDSsvsRrFM17X2XzTwRq+mt2qPgfo?=
+ =?us-ascii?Q?FyauHU/in+1G0f87eVzDgEzP6HOP9nEG0EjM98x1f1a4yWpuxM8K6sfg4ESP?=
+ =?us-ascii?Q?tBgSAvYv+hq1Gogezl6WkKLnhwNJBw9jkTlhdoZgKmD3WDSpInHqV7fuCFVx?=
+ =?us-ascii?Q?HQXRpodMdpiQbqzHfVVC63aXVuCJ2e/dCDhbrp4qSRVITjFgPay41biZlmH3?=
+ =?us-ascii?Q?MVWB6KLGwNqfcboV4OELlL7t8ITulPa4p3EOVGW5b4q/VsDhIuKy80LbqgyY?=
+ =?us-ascii?Q?h81Gh6SBX1SNPuxaKdoJNXFiriTFiEDWQHgnqmpTpZVh8vbnMRmAoN2C0yCH?=
+ =?us-ascii?Q?Xl4IKky9NStnLvmI/Il7pgNORxBQzpDLpdBrytY4w8XQRvbibf+0i5p1IFLo?=
+ =?us-ascii?Q?XhsiNhmAA1j3zNr0OckdBvk9OjxVASC0nqNX7T6w24wkRVu3TL5q+I0+tgEv?=
+ =?us-ascii?Q?oJfUER6DDruDhyUNpDL36cHnVyAuGmawoCMhecuL11E0dSz1a8RFnb5B2dq5?=
+ =?us-ascii?Q?ylt9ZtMfY6TBC0lC9SSuE9Tp73fsDjWguPSS+si6ypvbcUT3Cn0hBXeC4H1w?=
+ =?us-ascii?Q?n/V+RwGOcG+Atl60+fioNgwYuotZ6SyM6yUktocSy/jOd9eBkcW0A/4QaHkA?=
+ =?us-ascii?Q?mKw2jsvFfTG/lvm46ZQE3wyi0WkxCy58e0/abL0JTND+j8dF+mz9d5QfSfd8?=
+ =?us-ascii?Q?JGfF7hWwjPJUjMc6xd0xMiA6oVVx659rzMsCUQ+/I1kgEWXI4z3+2/cxqr4Y?=
+ =?us-ascii?Q?85xXPzerSlEzU47T3KR52808/1W21cd4gugDY43VGMyZMQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nJNJPE1ZSyrAO7R7E/x/UGBbFEjKjcaR+tmblDJgTZ0goe1PYdHGnDAGYwy+?=
+ =?us-ascii?Q?MrucNna4Vi+/GNyxkVRIimnIjYcTAMFq+c7eEpXLJAdwTdNQGeWV70dcX9kb?=
+ =?us-ascii?Q?YHHfEhx1c9jFbmsdBlxFEHWfFNog7pDYBbOxhj+twItKqmSQiPGwkwFF5zq/?=
+ =?us-ascii?Q?5exzqyMJRyaQcC2qazbdr4rRyZJrCu6cpwn682lUHJvLIKijEPOU5a70XlAl?=
+ =?us-ascii?Q?Fz9698R0qYy3mHkyPA/hMQofOV2lobYSWNbFYkNbQaPszjpQtI/V0kbCulJd?=
+ =?us-ascii?Q?v+l5LM9wXH2qeqqdWq1IHCkdzh9iwJv5zLVfuK+boUxP8XWQOZpWMGbfE8Iw?=
+ =?us-ascii?Q?TlBiDqo3WTDexy6n+hr37JvyDj1Zy8gaRiSFMek+oI8Jvgs+v9Ko8LCvoc4W?=
+ =?us-ascii?Q?1AdrL43Lqhf9Y5nkYmQRFI+jaHcCnrNpv7rZeGz4jSCTrVPWqek+wOfXZOip?=
+ =?us-ascii?Q?MhhWcRoxwoMoUAFVRZZxmfPlsQOXDb7xL27ZqTXxktdReY3GuBlOWdhfFWt6?=
+ =?us-ascii?Q?YjHLdRz7GPtKGePCXLU1i5RtLxj1MKkEstVw/3BM6BFH0BlK1Urrki07Mfhn?=
+ =?us-ascii?Q?2SWlvMz0CAY8bLNSTnMLcML5Ix2Ad6BQmspretBVicSkkhotcSMM1kk8Da8D?=
+ =?us-ascii?Q?CPouxzND9LIkgbC7eRXHwGGQ5YqwbcgRBl3x3xVknmrDRAd3uEsyKRjrr9FW?=
+ =?us-ascii?Q?o5l7Ym3cDp0gP6s8KfH57j115Zrq+1kYC39dNPcWK1ckuSgALcQsl+h5Nefj?=
+ =?us-ascii?Q?EZpx78rUEv53pyF6E8XvyfOF69wLv0r1m+QtDM7RZb6xhBtOSibLBm40FzGH?=
+ =?us-ascii?Q?nRKPVSvvQvNCa0PYL77e5SO4s0Xbk7xPN6yIgfyCQHEoiolLL7tIpui3Jqwd?=
+ =?us-ascii?Q?/jzNcY2vdKSqd65WK56/WeCR2D+0tKZgYIvS134j9uKVQRPTIGYRv/OfOpq/?=
+ =?us-ascii?Q?r+DOjtHVb5p4unWttHEjU35AhKkGRm8j0HhBVY811l0P131O64X5Kfr82x4q?=
+ =?us-ascii?Q?Ev/PJyN9Xkw5c4k+MB/MSpkcu3hMz5Qhhu0by8UPjDM+N1SbDacZSPRaSTj8?=
+ =?us-ascii?Q?m7MPXhGbBVaDjJlRSbhpY4ybl0ZI+j554xR50WtDYmi9HlkQiwjrigFBFKFX?=
+ =?us-ascii?Q?KEzlZZzt+/BDY8BxehDHV6f2bSgIqcc/jFYiYG8KopZD7IWI5ODGWCYSe7QK?=
+ =?us-ascii?Q?QZY/ME0cSKHz7wuHHI5RUVtPJoY7olmEDzQjsWyJDzINbRMio6kkPqqf+LVl?=
+ =?us-ascii?Q?UsaaNIeuOrmgJTlbSp93zlcy6Ie7ZSNxvbGasFXunLuJOD46Mx9/G19BVSh1?=
+ =?us-ascii?Q?PhYcd/7zk+eQF85HiKOBD5+6Yb1DKGm9G0/acBEvJMc9ITWkzMw+JKSKhonQ?=
+ =?us-ascii?Q?ffT8EVqnPpIBQvv87lchLXr8wIg/K1uAxDxm2fm8z6gVbuDJuenhRO0ba1QN?=
+ =?us-ascii?Q?pwpiI/DjiErRXLuURW9tqDk8iTHDqSCHwR8Tl2FbyyDUpheHqTlSUnF00pzi?=
+ =?us-ascii?Q?ui36Sf1VNAyb92TC7rdoiriYQ0m8YtiXUot2REy6LN7qftipEbBHhB6Y9MW7?=
+ =?us-ascii?Q?PEykq/AEKW5wb62XESRSocakl01Bw0tHctB58lak?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <fabec69a-3b3a-4068-8906-7996cf125c0b@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 4/7] remoteproc: core: Add TEE
- interface support for firmware release
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c44c6349-c050-400d-86ea-08dcdbeb4b29
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2024 16:18:00.4238 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6U1OmjAPnHyL/UqCaUE8B6eTdMqiFumsYgHq9CAO396+Ss5SU7Yn5+xfLKY/WepUJBhR/yT/qx0mEN6PY5F+Eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8164
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ Chuah Kim Tatt <kim.tatt.chuah@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
+ "horms@kernel.org" <horms@kernel.org>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 net] net: stmmac: dwmac4: extend
+ timeout for VLAN Tag register busy bit check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,105 +156,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 18, 2024 at 04:43:32PM +0200, Arnaud POULIQUEN wrote:
-> Hello Mathieu,
-> 
-> On 8/30/24 11:51, Arnaud Pouliquen wrote:
-> > Add support for releasing remote processor firmware through
-> > the Trusted Execution Environment (TEE) interface.
-> > 
-> > The tee_rproc_release_fw() function is called in the following cases:
-> > 
-> > - An error occurs in rproc_start() between the loading of the segments and
-> >   the start of the remote processor.
-> > - When rproc_release_fw is called on error or after stopping the remote
-> >   processor.
-> > 
-> > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> > ---
-> >  drivers/remoteproc/remoteproc_core.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> > index 7694817f25d4..32052dedc149 100644
-> > --- a/drivers/remoteproc/remoteproc_core.c
-> > +++ b/drivers/remoteproc/remoteproc_core.c
-> > @@ -29,6 +29,7 @@
-> >  #include <linux/debugfs.h>
-> >  #include <linux/rculist.h>
-> >  #include <linux/remoteproc.h>
-> > +#include <linux/remoteproc_tee.h>
-> >  #include <linux/iommu.h>
-> >  #include <linux/idr.h>
-> >  #include <linux/elf.h>
-> > @@ -1258,6 +1259,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
-> >  
-> >  static void rproc_release_fw(struct rproc *rproc)
-> >  {
-> > +	if (rproc->state == RPROC_OFFLINE && rproc->tee_interface)
-> > +		tee_rproc_release_fw(rproc);
-> 
-> I'm requesting you expertise to fix an issue I'm facing during my test preparing
-> the V10.
-> 
-> My issue is that here, we can call the tee_rproc_release_fw() function, defined
-> in remoteproc_tee built as a remoteproc_tee.ko module.
-> 
-> I tried to use the IS_ENABLED and IS_REACHABLE macros in remoteproc_tee.h, but
-> without success:
-> - use IS_ENABLED() results in a link error: "undefined reference to
-> tee_rproc_release_fw."
-> - use IS_REACHABLE() returns false and remoteproc_core calls the inline
-> tee_rproc_release_fw function that just call WARN_ON(1).
-> 
-> To solve the issue, I can see three alternatives:
-> 
-> 1) Modify Kconfig and remoteproc_tee.c to support only built-in.
-> 2) Use symbol_get/symbol_put.
-> 3) Define a new rproc_ops->release_fw operation that will be initialized to
-> tee_rproc_release_fw.
->
 
-Option (1) is best but make sure people can disable the TEE interface if they
-don't wish to use it.
 
-> From my perspective, the solution 3 seems to be the cleanest way, as it also
-> removes the dependency between remoteproc_core.c and remoteproc_tee.c. But
-> regarding previous discussion/series version, it seems that it could not be your
-> preferred solution.
+> -----Original Message-----
+> From: Serge Semin <fancer.lancer@gmail.com>
+> Sent: Sunday, September 22, 2024 5:18 PM
+> To: Shenwei Wang <shenwei.wang@nxp.com>
+> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
+> horms@kernel.org; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose
+> Abreu <joabreu@synopsys.com>; Ong Boon Leong <boon.leong.ong@intel.com>;
+> Wong Vee Khee <vee.khee.wong@intel.com>; Chuah Kim Tatt
+> <kim.tatt.chuah@intel.com>; netdev@vger.kernel.org; linux-stm32@st-md-
+> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
+> imx@lists.linux.dev; dl-linux-imx <linux-imx@nxp.com>
+> Subject: [EXT] Re: [PATCH v2 net] net: stmmac: dwmac4: extend timeout for
+> VLAN Tag register busy bit check
+> >
+> > -     for (i = 0; i < timeout; i++) {
+> > -             val = readl(ioaddr + GMAC_VLAN_TAG);
+> > -             if (!(val & GMAC_VLAN_TAG_CTRL_OB))
+> > -                     return 0;
+> > -             udelay(1);
+> > -     }
 > 
-> Please, could you indicate your preference so that I can directly implement the
-> best solution (or perhaps you have another alternative to propose)?
+> > +     ret = readl_poll_timeout(ioaddr + GMAC_VLAN_TAG, val,
+> > +                              !(val & GMAC_VLAN_TAG_CTRL_OB),
+> > +                              1000, timeout);
+> > +     if (!ret)
+> > +             return 0;
+> >
+> >       netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
 > 
-> Thanks in advance!
+> 1. Just drop the timeout local variable and use the 500000 literal directly. There is
+> no point in such parametrization especially you have already added the delay as
+> is.
 > 
-> Arnaud
+> 2. A more traditional, readable and maintainable pattern is the error-check
+> statement after the call. So seeing you are changing this part of the method
+> anyway, let's convert it to:
 > 
+> +       ret = readl_poll_timeout(ioaddr + GMAC_VLAN_TAG, val,
+> +                                !(val & GMAC_VLAN_TAG_CTRL_OB),
+> +                                1000, timeout);
+> +       if (ret) {
+> +               netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
+> +               return ret;
+> +       }
+> +
+> +       return 0;
 > 
-> > +
-> >  	/* Free the copy of the resource table */
-> >  	kfree(rproc->cached_table);
-> >  	rproc->cached_table = NULL;
-> > @@ -1348,7 +1352,7 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
-> >  	if (ret) {
-> >  		dev_err(dev, "failed to prepare subdevices for %s: %d\n",
-> >  			rproc->name, ret);
-> > -		goto reset_table_ptr;
-> > +		goto release_fw;
-> >  	}
-> >  
-> >  	/* power up the remote processor */
-> > @@ -1376,7 +1380,9 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
-> >  	rproc->ops->stop(rproc);
-> >  unprepare_subdevices:
-> >  	rproc_unprepare_subdevices(rproc);
-> > -reset_table_ptr:
-> > +release_fw:
-> > +	if (rproc->tee_interface)
-> > +		tee_rproc_release_fw(rproc);
-> >  	rproc->table_ptr = rproc->cached_table;
-> >  
-> >  	return ret;
+
+Hi Serge,
+
+Good suggestions! Will send out a new version.
+
+Thanks,
+Shenwei
+
+> -Serge(y)
+> 
+> >
+> > --
+> > 2.34.1
+> >
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
