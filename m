@@ -2,99 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBFBF9849BF
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Sep 2024 18:36:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60E89984ABB
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Sep 2024 20:13:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 520D1C78017;
-	Tue, 24 Sep 2024 16:36:16 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45FF7C78002
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED3D3C6C841;
+	Tue, 24 Sep 2024 18:13:39 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 625C9C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Sep 2024 16:36:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1727195774;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XJe4D9rQuQ5l/vjHLU/ym5f3xPtTEEP3VLGt0qBDp8w=;
- b=G/0GxolyNTqAtn1VQwocAa/SvpnMZjK3nxcLS91d7RPwOeYC4WlHYEqwILc+2uNDO+TH9G
- zn23S0llbkc9Bq407BIcoUaZH29oYB9+zdPJyWhcjXRq+jfsMpQyavulbGaDwxLqmrBMev
- lvyyqbK6BLZdvaLhbR4uN1cModsLdfw=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-252-5R98CkjKP1GiCVvdwrn2OQ-1; Tue, 24 Sep 2024 12:36:13 -0400
-X-MC-Unique: 5R98CkjKP1GiCVvdwrn2OQ-1
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7a9b6181a13so1295250885a.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Sep 2024 09:36:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727195772; x=1727800572;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XJe4D9rQuQ5l/vjHLU/ym5f3xPtTEEP3VLGt0qBDp8w=;
- b=bxdDI1HL2KrU9vKkqR32Mq4dR/riTY7TuUdycLa/2sBB17LRdz41N5UlqXKi+5vgMN
- ZIp+7oCZhfot+KbBJDkCZm+4RlZuBj9VgUXpzrGSLvhBgLPHYFC+nm+fBURToLwnQs5Z
- PRELbowvjS3fwLIwWu46lBH3XRfdifenelsaNMJU64pAdNFGUBzXm4VoPMhkM93K4H70
- ALDsiqzOjOYpG82AMk3Kkt/YCEE4vYWi6uoW5HfMVFNE8M9bpDsFAeR72YVWA/txvJ78
- 8jsh6EUELXPuz3eidVEq/AOzFJkb++lkfV1BdWmUoaEIuNyxfqlrsqgtkYgJgqsZgpC3
- /LVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJ6oghGl8QijxIqZuvc8zBRpHdA7BLl2fJob8n37hlAaMcaymimrhD6kS4l2Hs53NcYuTA+XzdpynbJw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyJ9xA13TYVVmUbWCRsAx5EXkFTwbM5ELvNoOE2LUcO/rilOxk0
- 0JytzdKy7cEkCz52YfU7qiYfYTnSEytkUHMr/7LoI8Ot+Mnaz3VQUCHV0wdTfrzFnNYjp/hnqyO
- 9aNCc7ckxZGE7LGvnrQ0f2XbzRuvKZYxN67ZQ6mrVBgxaAgr3etsI/LVA5mPUL74hk0WLUOUScp
- 1Tdg==
-X-Received: by 2002:a05:6214:33c7:b0:6c3:665e:a1fa with SMTP id
- 6a1803df08f44-6c7bd4cf316mr310755056d6.11.1727195772544; 
- Tue, 24 Sep 2024 09:36:12 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGew2zuZt9ZSk16pZrqHOtQorzrABia/GALgdjyGkoRh1si8Hxu4SKK/UToMXIaBARoadMnVw==
-X-Received: by 2002:a05:6214:33c7:b0:6c3:665e:a1fa with SMTP id
- 6a1803df08f44-6c7bd4cf316mr310754546d6.11.1727195772191; 
- Tue, 24 Sep 2024 09:36:12 -0700 (PDT)
-Received: from x1gen2nano ([2600:1700:1ff0:d0e0::40])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6cb0f4e05c2sm7897726d6.60.2024.09.24.09.36.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Sep 2024 09:36:11 -0700 (PDT)
-Date: Tue, 24 Sep 2024 11:36:09 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Sarosh Hasan <quic_sarohasa@quicinc.com>
-Message-ID: <gbia6rqppcc53vmel5q5jvgdri3cmeowb64mxfk7jzo6ncuz2f@6kd7acqii62x>
-References: <20240902095436.3756093-1-quic_jsuraj@quicinc.com>
- <yy2prsz3tjqwjwxgsrumt3qt2d62gdvjwqsti3favtfmf7m5qs@eychxx5qz25f>
- <CYYPR02MB9788F524C9A5B3471871E055E79A2@CYYPR02MB9788.namprd02.prod.outlook.com>
- <ypfbzhjyqqwwzciifkwvhimrolg6haiysqmxamkhnryez4npxx@l4blfw43sxgt>
- <05909d17-0111-4080-97cc-82ed435728a7@quicinc.com>
+ Tue, 24 Sep 2024 18:13:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sGOYFr1cB7vblfz9kyYACo8VQTcho0EJzkwg8biuP01lIgI1ra9EUmep5yxWF+FqfL0vPiYFD+k7GSm/GsDMYsVQzYEpVaqZNiqMcslkYy59WOQURSJVV3MHGGWw3vCJHoRknjpt9lTjSmTWa5o29362bKIW7+VCQ7myZ4Dyu/l4g4ZYjEm2rW2B6EVncgC5LtABbA4jWGpfKxN5ttiguQRZBqwU5WRGS7PObk0Joukr3Oc1x5lvUajxqEzEepi3kBMIdehKxWuKQW+Rz1d7eM90/egsMcLxWVf6uYhfPUOppehDnBdwYdcrUGU7fDfYbrREAxwlXVOZA/QuKoznOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9mKzhTiMhes2PTe1cFyWTpREhSOL9LL4xr8NWdNErj0=;
+ b=k4bz+RyNQZdldH0KM/625EnahWafHNyJv7xXVgKOqoZaPJaXxYA5nrWX5HqTnwuJXvuNDr8hbuOjiJpuV71XFEilrM43AWOPLBPVmwwYX8YQMUY8DtWkZrczeRyiusavFiheH2DaP+GUYG1NxT1iCaQ+fK6+xv/6RHjqhEf15o0qTfw6/o3WrQNLfwyUIppAXZOPiSD3AdlHaC+4JBvPuFS3zbbmsR0uri9j3qgPkfjqjADqSfkQLMGkBmap+Bj2ZFw6oL2eesPv/EEo59AZ9nVIrsAiytNEzJQTT0Qqp8+OJda/8RMfQydxbw6FSJ5rkzO8thyPXgQmGJ3+Za6kWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9mKzhTiMhes2PTe1cFyWTpREhSOL9LL4xr8NWdNErj0=;
+ b=XtcjqhYrUzTmDA1SH1YR9whhs5mVaB3I60saPzdGfV0NCqyNmSZpAJztnpOE9O2JlFGv2eyKSDwDASapEdMYV5eZpQ91loLuxpDSq+o3K5vzsK0bSi3HA/HGA6GauqXmKbPukI/7IKAObcKJPWYFwQmBH1KTDDSACFlF0UB5JfMgi1opDYSoIi1tjqupMMtYtFAX37sPORq6cMWkCStQj0l6Jmy3lGGkvjuQEH+sTTDkKYJ04rEJtl+HTC894DdpbmXKj7dlVvV8Kb+xFIJ8N0X7mZXn4WPMP0jUw7Z0IP3ShxJxAoNsqmJak4dd4/SH2PiB040Ueg/QHJfMP02/mw==
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by AM9PR04MB8356.eurprd04.prod.outlook.com (2603:10a6:20b:3b4::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Tue, 24 Sep
+ 2024 18:13:27 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::21bf:975e:f24d:1612]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::21bf:975e:f24d:1612%3]) with mapi id 15.20.7939.022; Tue, 24 Sep 2024
+ 18:13:27 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Thread-Topic: [PATCH v3 net] net: stmmac: dwmac4: extend timeout for VLAN Tag
+ register busy bit check
+Thread-Index: AQHbDq1z8pUOmzp+VEWMWWK/FnEpiQ==
+Date: Tue, 24 Sep 2024 18:13:27 +0000
+Message-ID: <PAXPR04MB918588AD97031D9548D24A9B89682@PAXPR04MB9185.eurprd04.prod.outlook.com>
+References: <20240923202602.506066-1-shenwei.wang@nxp.com>
+ <fcu77iilcqssvcondsiwww3e2hlyfwq4ngodb4nomtqglptfwj@mphfr7hpcjsx>
+In-Reply-To: <fcu77iilcqssvcondsiwww3e2hlyfwq4ngodb4nomtqglptfwj@mphfr7hpcjsx>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM9PR04MB8356:EE_
+x-ms-office365-filtering-correlation-id: 3de3a1c1-3fcf-4106-db3c-08dcdcc4967d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?Gb330NNF+r3vVToz2o75bBv9mAYmv+P0OgUNrEnQbHNYReuCzhrpU2yzdRhk?=
+ =?us-ascii?Q?T/WVmFjyvSbYdIKA3iiwPq5i1MQDQWlxfmBuiLPLR88jOj2y4z4K34Dw7FXF?=
+ =?us-ascii?Q?fTZbdn+8GP+kX4xNDrXWqII3zPzhdEeyNf61XmcS8qtEqVKj4ilWg82oGiip?=
+ =?us-ascii?Q?iCpQednAUHhRKRYwzHqy4l4eiNIJZHgtE/YXl4guST1NFNuTgDjc6ySXse7j?=
+ =?us-ascii?Q?sWXZ/eX1WolBXO/Cy4ir01X9Qo3/WHhf0BpaKa9+rAFfhFvSTGt8MHwQsfBu?=
+ =?us-ascii?Q?FBL7QTn0o2v8WQ+TCVU9wqrgC7BunrbRKO6axky9Ys4kceGvqustnUw6ZhGs?=
+ =?us-ascii?Q?45nqX81Xij/vNUO4sf3DPwrg10ts24db8p66Y1NMSe0dq91AoAu7NSPptHs/?=
+ =?us-ascii?Q?hoI7KQ70EfAI+q2tF2VCHrSaYK3Nj5xxyUXxPb4/KZlcrHJd9bta+rtRbPkX?=
+ =?us-ascii?Q?iZUCTVsO/YKROk5exi9jbf0EOSmMhEqELOFTjN949ii7kjXCnZdFmW3Mm/XS?=
+ =?us-ascii?Q?QFUESWhpWNYATvLdsy4CBd7oGivvJXxKMC2ptwaG/807t2KiNu30z1/GN9fZ?=
+ =?us-ascii?Q?1dLGaqDuxOoigm83Swn85fH8amb9ukNcwYzFfsz2quML3+9fFYT/62DENl+F?=
+ =?us-ascii?Q?dioGPS3s+bmoH4ZzRdSV2w3S4n0f/veA8FqOUDGp/DFbGCwf4i6Mp80L6mfq?=
+ =?us-ascii?Q?hV90NuHPqcyKespF41fUpz/+35RRCm+ugbJTW1uV9xTu1G9OXy+PDLd64iXQ?=
+ =?us-ascii?Q?9hEjWf5mJ+4VYyrer6sjhKXDUFXzxjiUwWor/UdcspUraBBnLESNLWejYHTQ?=
+ =?us-ascii?Q?brRsDheq7TmXvJBw1aF01gytcKrLfjhaIuIh5kPbpci+4C+sN7VjtjE9dvhz?=
+ =?us-ascii?Q?VAEQdN9X2B3KKNVSFz+xKJHM3OG/LqtbRzzkj5etclwAwXpRfzQXcFVVE53d?=
+ =?us-ascii?Q?D1tBZbiYLblF+V8Ia7EbSSBEZe4KX9YIGC/M2+nuhyP7i/uEz3N/RwKt2TeE?=
+ =?us-ascii?Q?eTXOeRE4XImPLFM7g03yCKOchd2a15UoLbauDTq8O6h7a910P/4syB/LvvnI?=
+ =?us-ascii?Q?0HKoLj2tjs3xQTBNo6l6PFAutaysFo/WR57O18R4w7a/MtLqC5oIBztvewCH?=
+ =?us-ascii?Q?Fc/rgu/b+zFsdrYGnkdsSigS0I+Zg6C9EvU0tICzhnQIh4Kr5SfAU2IlRQeX?=
+ =?us-ascii?Q?v1BFFEpPWm2R3vc9fT1AdUmYF6CkxpFN0i18d/tCCGy9P993uKERjECcTp/d?=
+ =?us-ascii?Q?RaBAR2aSAVsZ4bKCtpqOoBotSTEPYtmh93E+1GbaJ+Dd3pcrVyh3HnF/Cg1q?=
+ =?us-ascii?Q?8y8e7ZUf3yAnKJwUmtuaHyZx+bjuISvqrcjuxZPivQo4XQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PGI4KhTWx1xtctoiNmuYIyZzTywSR5EUskSD0npHHVIHjQncPSmYpPepZxHX?=
+ =?us-ascii?Q?oLAriBk9Ld30GsFYGjvUjbliRuZGFB/RlfBZ5t5WNyqpOLNJkiZ7fUG8/+Lx?=
+ =?us-ascii?Q?JoCFZjIM80w8/wVZZMxcwskL7RcZJ7RsX0RVXexJ5skKDdxkhg9gg6OAOnxo?=
+ =?us-ascii?Q?UUcWttSoHajmBwYCECcrx+RCBbPIejESLkqAzaIg5Cttx6mYj1VmfAUon/xy?=
+ =?us-ascii?Q?qi0nrDSpHKJIL/3wp22bB1BJqXEQOAO3AFIqlXvm1bHif9pSAPA6oTPuDUZD?=
+ =?us-ascii?Q?zUJ/EezCalvi8N739o9FP9pj9ZKeq+1PgWg7FlWV+bFRZN5jGraCOyT0uqrd?=
+ =?us-ascii?Q?Gao6GbjQELqhU3rge2RcP0AA91Bby9uX6A0kV8UhixwF/AxNTiO1buMQXfx4?=
+ =?us-ascii?Q?OlfgavhWyGWiSCDRZhX0pVdWQQ2lgUaE2tQZ+8wHQnNwEZQeTCEUOtulqp4e?=
+ =?us-ascii?Q?RfCk/Cs2/Re4IJ2uhWag95GUFe2vqjl1PvkQpBv9Z6+f/iUgjmn/Iw0ue2FB?=
+ =?us-ascii?Q?jZd8/V1oHPk4t7Iex6aIs6iG4q/XG6z7HFPcNdQXO9PoM5aW7yyNpXq6hzc7?=
+ =?us-ascii?Q?9mwzNLYJ/9ffslo0y42tFjaGNNeLUFduJO4846NiIdA0JAusklQPyes/Qr2R?=
+ =?us-ascii?Q?gcM2sJ0+u1h/c+CJAcIKymsMvBbGHmxWL4IMVv8Ayq0Q1O8dMM6/6aC7Obn9?=
+ =?us-ascii?Q?STwZJL6rN47RNiOgAh7eQVglTYKfGgkCQw+nSsJieS/YFgpyFtmLKjpmISuy?=
+ =?us-ascii?Q?4c1Dgt33rUs36wdbyx0I7WD1TzON/QJDvuQayiZY4KqKEIGJoyzjzoDP4XuX?=
+ =?us-ascii?Q?+h0RjqQrlLnjmMJVcno9Fha7J6hVw8oU1nqaqx217OsmqYsCus8XNsUljNgY?=
+ =?us-ascii?Q?cC5BFv6xAaKjB7KPftCv6ewk1v5ZCmqSzn2DYQ1iG9xt+bU6qHz95NZRjYwI?=
+ =?us-ascii?Q?KimHo/MEt1bxWohC0J1PR3F6Ddt78M3anUvivmCxYnNCsNg3GRL4DwIVr0uN?=
+ =?us-ascii?Q?M6OorbAZrKwhbmPhFu46m/dqSoLkjNNYPeXq4drgJ//uDU6oxcB0kGbHoL/y?=
+ =?us-ascii?Q?862MaEZvSQnkbZ/mwDEGwZQKV4iYNELQONe/qHFU8f5FRSBa0az3evoNJCgR?=
+ =?us-ascii?Q?VJqqUIsNAWXbTYXq7H16zgHs+H8SMbRk00/mf60lWcPJNB0a8VUkkDpk9U3h?=
+ =?us-ascii?Q?f6E3j5BFkiuwWZgOXYcwgG+78YAzgcIjY/nC8NsYLsrW+T9SZBq/gS9Yw9GF?=
+ =?us-ascii?Q?lFucRBFSB0l6ROLNO9JXBSVmQ5bXGTKZW5csmolnAXqwGiIowRvRIMmi7bNY?=
+ =?us-ascii?Q?XETl9/aHJflp4ahtzlpGW21wn7dyzSQaE6nHVZCUscVcpUxcx5f9NpthX5+A?=
+ =?us-ascii?Q?pdDZJHf1AlZWpC7aougZQ64JLbUCgZTxaORIadfhgMsHsaj3AWUAe0S3Ws+t?=
+ =?us-ascii?Q?JuekUSlsgNFpNhrlZSfAfTAczJcNDcT3YlE6YD6Bfw9i6SsPPBykTIh36SGq?=
+ =?us-ascii?Q?up1A7H5Q3xi4vNzZf5XFKsd2y/rSICMalj/f0SOnYpULWpHt+gw2cr5XwmQJ?=
+ =?us-ascii?Q?50AIR8VkUFadvLVPFURmoyVC4Y/ry6xlhCHyjjRj?=
 MIME-Version: 1.0
-In-Reply-To: <05909d17-0111-4080-97cc-82ed435728a7@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: "Suraj Jaiswal \(QUIC\)" <quic_jsuraj@quicinc.com>,
- Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
- kernel <kernel@quicinc.com>, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "bhupesh.sharma@linaro.org" <bhupesh.sharma@linaro.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Suraj Jaiswal <jsuraj@qti.qualcomm.com>,
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3de3a1c1-3fcf-4106-db3c-08dcdcc4967d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2024 18:13:27.5931 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: d17nC532y3qTfMNa+I39KjnvrVTMbqrnTMZ12M699vcFrvGfgQUVlhdynKu2sZNdeJuhZhbuIAqIeFT5cPU+nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8356
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ Chuah Kim Tatt <kim.tatt.chuah@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Wong Vee Khee <vee.khee.wong@intel.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Stop using a single
- dma_map() for multiple descriptors
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
+ "horms@kernel.org" <horms@kernel.org>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3 net] net: stmmac: dwmac4: extend
+ timeout for VLAN Tag register busy bit check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,235 +156,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 24, 2024 at 04:36:59PM GMT, Sarosh Hasan wrote:
+
+
+> -----Original Message-----
+> From: Serge Semin <fancer.lancer@gmail.com>
+> Sent: Tuesday, September 24, 2024 2:30 AM
+> To: Shenwei Wang <shenwei.wang@nxp.com>
+> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
+> horms@kernel.org; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose
+> Abreu <joabreu@synopsys.com>; Ong Boon Leong <boon.leong.ong@intel.com>;
+> Wong Vee Khee <vee.khee.wong@intel.com>; Chuah Kim Tatt
+> <kim.tatt.chuah@intel.com>; netdev@vger.kernel.org; linux-stm32@st-md-
+> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
+> imx@lists.linux.dev; dl-linux-imx <linux-imx@nxp.com>; Andrew Lunn
+> <andrew@lunn.ch>
+> Subject: [EXT] Re: [PATCH v3 net] net: stmmac: dwmac4: extend timeout for
+> VLAN Tag register busy bit check
+> >
+> > Overnight testing revealed that when EEE is active, the busy bit can
+> > remain set for up to approximately 300ms. The new 500ms timeout
+> > provides a safety margin.
+> >
+> > Fixes: ed64639bc1e0 ("net: stmmac: Add support for VLAN Rx filtering")
+> > Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
+> > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > 
+> > Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 > 
-> On 9/10/2024 7:34 PM, Andrew Halaney wrote:
-> > Hey Suraj,
-> > 
-> > Your email client didn't seem to quote my response in your latest reply,
-> > so its difficult to figure out what you're writing vs me below. It also
-> > seems to have messed with the line breaks so I'm manually redoing those.
-> > 
-> > Please see if you can figure out how to make that happen for further
-> > replies!
-> > 
-> > More comments below...
-> > 
-> > On Tue, Sep 10, 2024 at 12:47:08PM GMT, Suraj Jaiswal wrote:
-> >>
-> >>
-> >> -----Original Message-----
-> >> From: Andrew Halaney <ahalaney@redhat.com> 
-> >> Sent: Wednesday, September 4, 2024 3:47 AM
-> >> To: Suraj Jaiswal (QUIC) <quic_jsuraj@quicinc.com>
-> >> Cc: Vinod Koul <vkoul@kernel.org>; bhupesh.sharma@linaro.org; Andy Gross <agross@kernel.org>; Bjorn Andersson <andersson@kernel.org>; Konrad Dybcio <konrad.dybcio@linaro.org>; David S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Rob Herring <robh+dt@kernel.org>; Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley <conor+dt@kernel.org>; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-arm-msm@vger.kernel.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; Prasad Sodagudi <psodagud@quicinc.com>; Rob Herring <robh@kernel.org>; kernel <kernel@quicinc.com>
-> >> Subject: Re: [PATCH net] net: stmmac: Stop using a single dma_map() for multiple descriptors
-> >>
-> >> WARNING: This email originated from outside of Qualcomm. Please be wary of any links or attachments, and do not enable macros.
-> >>
-> >> On Mon, Sep 02, 2024 at 03:24:36PM GMT, Suraj Jaiswal wrote:
-> >>> Currently same page address is shared
-> >>> between multiple buffer addresses and causing smmu fault for other 
-> >>> descriptor if address hold by one descriptor got cleaned.
-> >>> Allocate separate buffer address for each descriptor for TSO path so 
-> >>> that if one descriptor cleared it should not clean other descriptor 
-> >>> address.
-> > 
-> > snip...
-> > 
-> >>>
-> >>>  static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int 
-> >>> queue) @@ -4351,25 +4380,17 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
-> >>>               pay_len = 0;
-> >>>       }
-> >>>
-> >>> -     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
-> >>> +     if (stmmac_tso_allocator(priv, (skb->data + proto_hdr_len),
-> >>> +                              tmp_pay_len, nfrags == 0, queue, false))
-> >>> +             goto dma_map_err;
-> >>
-> >> Changing the second argument here is subtly changing the dma_cap.addr64 <= 32
-> >> case right before this. Is that intentional?
-> >>
-> >> i.e., prior, pretend des = 0 (side note but des is a very confusing variable
-> >> name for "dma address" when there's also mentions of desc meaning "descriptor"
-> >> in the DMA ring). In the <= 32 case, we'd call stmmac_tso_allocator(priv, 0)
-> >> and in the else case we'd call stmmac_tso_allocator(priv, 0 + proto_hdr_len).
-> >>
-> >> With this change in both cases its called with the (not-yet-dma-mapped)
-> >> skb->data + proto_hdr_len always (i.e. like the else case).
-> >>
-> >> Honestly, the <= 32 case reads weird to me without this patch. It seems some
-> >> of the buffer is filled but des is not properly incremented?
-> >>
-> >> I don't know how this hardware is supposed to be programmed (no databook
-> >> access) but that seems fishy (and like a separate bug, which would be nice to
-> >> squash if so in its own patch). Would you be able to explain the logic there
-> >> to me if it does make sense to you?
-> >>
-> > 
-> >> <Suraj> des can not be 0 . des 0 means dma_map_single() failed and it will return.
-> >> If we see if des calculation (first->des1 = cpu_to_le32(des + proto_hdr_len);)
-> >> and else case des calculator ( des += proto_hdr_len;) it is adding proto_hdr_len
-> >> to the memory that we after mapping skb->data using dma_map_single.
-> >> Same way we added proto_hdr_len in second argument . 
-> > 
-> > 
-> > 0 was just an example, and a confusing one, sorry. Let me paste the original
-> > fishy code that I think you've modified the behavior for. Here's the
-> > original:
-> > 
-> > 	if (priv->dma_cap.addr64 <= 32) {
-> > 		first->des0 = cpu_to_le32(des);
-> > 
-> > 		/* Fill start of payload in buff2 of first descriptor */
-> > 		if (pay_len)
-> > 			first->des1 = cpu_to_le32(des + proto_hdr_len);
-> > 
-> > 		/* If needed take extra descriptors to fill the remaining payload */
-> > 		tmp_pay_len = pay_len - TSO_MAX_BUFF_SIZE;
-> > 	} else {
-> > 		stmmac_set_desc_addr(priv, first, des);
-> > 		tmp_pay_len = pay_len;
-> > 		des += proto_hdr_len;
-> > 		pay_len = 0;
-> > 	}
-> > 
-> > 	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
-> > 
-> > Imagine the <= 32 case. Let's say des is address 0 (just for simplicity
-> > sake, let's assume that's valid). That means:
-> > 
-> >     first->des0 = des;
-> >     first->des1 = des + proto_hdr_len;
-> >     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue)
-> > 
-> >     if des is 0, proto_hdr_len is 64, then that means
-> > 
-> >     first->des0 = 0
-> >     first->des1 = 64
-> >     stmmac_tso_allocator(priv, 0, tmp_pay_len, (nfrags == 0), queue)
-> > 
-> > That seems fishy to me. We setup up the first descriptor with the
-> > beginning of des, and then the code goes and sets up more descriptors
-> > (stmmac_tso_allocator()) starting with the same des again?
-> tso_alloc is checking if more descriptor needed for packet . it is adding offset to get next
-> descriptor (curr_addr = des + (total_len - tmp_len)) and storing in des of next descriptor.
-
-Yes, so in stmmac_tso_allocator() we currently have:
-
-	static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
-					 int total_len, bool last_segment, u32 queue)
-	{
-		struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
-		struct dma_desc *desc;
-		u32 buff_size;
-		int tmp_len;
-
-		tmp_len = total_len;
-
-		while (tmp_len > 0) {
-			dma_addr_t curr_addr;
-
-			tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx,
-							priv->dma_conf.dma_tx_size);
-			...
-			curr_addr = des + (total_len - tmp_len);
-			if (priv->dma_cap.addr64 <= 32)
-				desc->des0 = cpu_to_le32(curr_addr);
-
-so on the first loop you've got:
-	tmp_len = total_len
-	...
-	curr_addr = des + total_len - temp_len
-	i.e.
-	curr_addr = des
-meaning with the "first" handling I've highlighted we've got
-	first->des0 = des
-	"next"->des0 = des
-
-where "next" is the cur_tx descriptor in the first loop of
-stmmac_tso_allocator() (essentially the second descriptor).
-That seems broken to me, and was that way prior to this patch.
-
-You've modified the behavior in this patch unintentionally. I think it
-needs modifying, but it should be done so explicitly in its own patch
-prior to this one. I also think the current modification in this patch
-isn't a fix. See prior reply below where I highlighted the programming as I
-understand it with this patch applied, which would result in something
-like.
-
-first->des0 = des
-first->des1 = des + proto_hdr_len
-"next"->des0 = des + proto_hdr_len
-
-Which again seems wrong, two descriptors pointing to the same address
-isn't making sense to me.
-
-Sorry to sound like a broken record, but I want to make sure we're on
-the same page! Sounds like you're looking into it based on the below
-comment, but some of these comments here made me think I didn't explain
-the situation well enough.
-
-> > 
-> > Should we be adding the payload length (TSO_MAX_BUFF_SIZE I suppose
-> > based on the tmp_pay_len = pay_len - TSO_MAX_BUFFSIZE above)? It seems
-> > that <= 32 results in duplicate data in both the "first" descriptor
-> > programmed above, and in the "second" descriptor programmed in
-> > stmmac_tso_allocator().
-> curr_addr = des + (total_len - tmp_len) is used in while loop in  tso_alloc to get address of all required descriptor . 
-> descriptor address will be updated finally in tso_alloc by below call .
->  
-> if (priv->dma_cap.addr64 <= 32)
->                                                desc->des0 = cpu_to_le32(curr_addr);
->                                else
->                                                stmmac_set_desc_addr(priv, desc, curr_addr);
-> 
->  Also, since tmp_pay_len is decremented, but des
-> > isn't, it seems that stmmac_tso_allocator() would not put all of the
-> > buffer in the descriptors and would leave the last TSO_MAX_BUFF_SIZE
-> > bytes out?
-> > 
-> > I highlight all of this because with your change here we get the
-> > following now in the <= 32 case:
-> > 
-> >     first->des0 = des
-> >     first->des1 = des + proto_hdr_len
-> >     stmmac_tso_allocator(priv, des + proto_hdr_len, ...)
-> > 
-> > which is a subtle change in the call to stmmac_tso_allocator, meaning
-> > a subtle change in the descriptor programming.
-> > 
-> > Both seem wrong for the <= 32 case, but I'm "reading between the lines"
-> > with how these descriptors are programmed (I don't have the docs to back
-> > this up, I'm inferring from the code). It seems to me that in the <= 32
-> > case we should have:
-> > 
-> >     first->des0 = des
-> >     first->des1 = des + proto_hdr_len
-> >     stmmac_tso_allocator(priv, des + TSO_MAX_BUF_SIZE, ...)
-> 
-> let me check <=32 case only on setup and get back.
-> > 
-> > or similar depending on if that really makes sense with how des0/des1 is
-> > used (the handling is different in stmmac_tso_allocator() for <= 32,
-> > only des0 is used so I'm having a tough time figuring out how much of
-> > the des is actually programmed in des0 + des1 above without knowing the
-> > hardware better).
-> > 
-> > Does that make sense? The prior code seems fishy to me, your change
-> > seems to unintentionally change that fhsy part, but it still seems fishy
-> > to me. I don't think you should be changing that code's behavior in that
-> > patch, if you think it's right then we should continue with the current
-> > behavior prior to your patch, and if you think its wrong we should
-> > probably fix that *prior* to this patch in your series.
-> > 
-> > Thanks,
-> > Andrew
-> > 
+> Please note, you can't add the R-b tag without explicitly getting one from the
+> reviewer/maintainer/etc. Please read the chapter "When to use Acked-by:, Cc:,
+> and Co-developed-by:" in Documentation/process/submitting-patches.rst
 > 
 
+I apologize, Serge. 
+I made an error in how I utilized the r-b function here. My intention was to explicitly 
+include you in the next version of the patch.
+
+Thanks,
+Shenwei
+
+> > ---
+> > Changes in V3:
+> >  - re-org the error-check flow per Serge's review.
+> >
+> > Changes in v2:
+> >  - replace the udelay with readl_poll_timeout per Simon's review.
+> >
+> > ---
+> >  .../net/ethernet/stmicro/stmmac/dwmac4_core.c  | 18
+> > +++++++++---------
+> >  1 file changed, 9 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> > index a1858f083eef..0d27dd71b43e 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+> > @@ -14,6 +14,7 @@
+> >  #include <linux/slab.h>
+> >  #include <linux/ethtool.h>
+> >  #include <linux/io.h>
+> > +#include <linux/iopoll.h>
+> >  #include "stmmac.h"
+> >  #include "stmmac_pcs.h"
+> >  #include "dwmac4.h"
+> > @@ -471,7 +472,7 @@ static int dwmac4_write_vlan_filter(struct net_device
+> *dev,
+> >                                   u8 index, u32 data)  {
+> >       void __iomem *ioaddr = (void __iomem *)dev->base_addr;
+> > -     int i, timeout = 10;
+> > +     int ret;
+> >       u32 val;
+> >
+> >       if (index >= hw->num_vlan)
+> > @@ -487,16 +488,15 @@ static int dwmac4_write_vlan_filter(struct
+> > net_device *dev,
+> >
+> >       writel(val, ioaddr + GMAC_VLAN_TAG);
+> >
+> > -     for (i = 0; i < timeout; i++) {
+> > -             val = readl(ioaddr + GMAC_VLAN_TAG);
+> > -             if (!(val & GMAC_VLAN_TAG_CTRL_OB))
+> > -                     return 0;
+> > -             udelay(1);
+> 
+> > +     ret = readl_poll_timeout(ioaddr + GMAC_VLAN_TAG, val,
+> > +                              !(val & GMAC_VLAN_TAG_CTRL_OB),
+> > +                              1000, 500000); //Timeout 500ms
+> 
+> Please drop the comment at the end of the statement. First of all the
+> C++-style comments are discouraged to be used in the kernel code except
+> when in the block of the SPDX licence identifier, or when documenting structs in
+> headers. Secondly the tail-comments are discouraged either (see
+> Documentation/process/maintainer-tip.rst - yes, it's for tip-tree, but the rule see
+> informally applicable for the entire kernel). Thirdly the comment is pointless here
+> since the literal
+> 500000 means exactly that.
+> 
+> -Serge(y)
+> 
+> > +     if (ret) {
+> > +             netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
+> > +             return -EBUSY;
+> >       }
+> >
+> > -     netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
+> > -
+> > -     return -EBUSY;
+> > +     return 0;
+> >  }
+> >
+> >  static int dwmac4_add_hw_vlan_rx_fltr(struct net_device *dev,
+> > --
+> > 2.34.1
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
