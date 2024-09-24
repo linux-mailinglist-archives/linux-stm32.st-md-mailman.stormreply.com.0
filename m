@@ -2,96 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD9298442B
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Sep 2024 13:07:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14347984522
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Sep 2024 13:50:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 381B0C78002;
-	Tue, 24 Sep 2024 11:07:53 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B041FC78002;
+	Tue, 24 Sep 2024 11:50:21 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90346C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48482C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Sep 2024 11:07:45 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 48O9fjQ7023720;
- Tue, 24 Sep 2024 11:07:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4G2/zZ+Tmn+yvHE95Xys6G0M+ZegXFUx0r1h8MVpFdk=; b=JkpcVDcMbKVq7oOI
- LRgNuEiCji8kHDyLm+kp+k9rfUMG1uSrLdrXHPaA2a8KRFxJpzerXZlRl2zKwQgV
- BJlQ0dfqB8Kl3G4I6me4p2GaTPsTsJq45dZIiIGwWXj5AL6zWoRIFGs80mTtyO8Z
- +tq0fssb9EIrwZRuaVvNzthDyL3oF2k1k5KzCnHroFG6qkuwXPxjZLL4MbVR988H
- JNoRjfenWhDlrUPEmLqHtOAqf6aSPFXy8GL9USXDj4529+GA098EicrAeqD5/A8n
- l1O0GQs4WNNcK3H5viF23of9P5roXQg74wVW8szGlOeecx9jXDbqWvmBjDhtSs4v
- HUeAQA==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41skgn8qk2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Sep 2024 11:07:32 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
- by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 48OB7U9o025133
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Sep 2024 11:07:30 GMT
-Received: from [10.218.17.232] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 24 Sep
- 2024 04:07:19 -0700
-Message-ID: <05909d17-0111-4080-97cc-82ed435728a7@quicinc.com>
-Date: Tue, 24 Sep 2024 16:36:59 +0530
+ Tue, 24 Sep 2024 11:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=TGgqC7BlQKpaoFE9lFpMvcM1xzGjol6wiHaVuiyG0pc=; b=tg
+ /SgI+IZN7nmrWgnYCK8liOxV5r/V5iXdDvXUh5knPc3F6BDUoQS5KnmfhWuNFSCTPlMDBWAqHwaSf
+ 0OUQICgu/JLwbAgbXiPB8tigFL5RVZIaeiNdZsU4NuOwcLZzMsR18aOuqEEnR2n9fSGnFORikEduj
+ M7seFL4D3ELUfWU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1st43C-008CLh-C7; Tue, 24 Sep 2024 13:49:50 +0200
+Date: Tue, 24 Sep 2024 13:49:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Message-ID: <d1c3503f-2d0f-4479-b75c-43c6c9782a2d@lunn.ch>
+References: <20240923202602.506066-1-shenwei.wang@nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Halaney <ahalaney@redhat.com>, Suraj Jaiswal
- <jsuraj@qti.qualcomm.com>
-References: <20240902095436.3756093-1-quic_jsuraj@quicinc.com>
- <yy2prsz3tjqwjwxgsrumt3qt2d62gdvjwqsti3favtfmf7m5qs@eychxx5qz25f>
- <CYYPR02MB9788F524C9A5B3471871E055E79A2@CYYPR02MB9788.namprd02.prod.outlook.com>
- <ypfbzhjyqqwwzciifkwvhimrolg6haiysqmxamkhnryez4npxx@l4blfw43sxgt>
-Content-Language: en-US
-From: Sarosh Hasan <quic_sarohasa@quicinc.com>
-In-Reply-To: <ypfbzhjyqqwwzciifkwvhimrolg6haiysqmxamkhnryez4npxx@l4blfw43sxgt>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: YYZChDULQzv_uitslpTHltc1C4LK4USA
-X-Proofpoint-GUID: YYZChDULQzv_uitslpTHltc1C4LK4USA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 bulkscore=0
- mlxlogscore=999 adultscore=0 suspectscore=0 phishscore=0 impostorscore=0
- spamscore=0 mlxscore=0 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409240078
-Cc: "Suraj Jaiswal \(QUIC\)" <quic_jsuraj@quicinc.com>,
- Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
- kernel <kernel@quicinc.com>, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "bhupesh.sharma@linaro.org" <bhupesh.sharma@linaro.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <20240923202602.506066-1-shenwei.wang@nxp.com>
+Cc: imx@lists.linux.dev, Chuah Kim Tatt <kim.tatt.chuah@intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Stop using a single
- dma_map() for multiple descriptors
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, linux-imx@nxp.com, horms@kernel.org,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 net] net: stmmac: dwmac4: extend
+ timeout for VLAN Tag register busy bit check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,181 +55,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Sep 23, 2024 at 03:26:02PM -0500, Shenwei Wang wrote:
+> Increase the timeout for checking the busy bit of the VLAN Tag register
+> from 10=B5s to 500ms. This change is necessary to accommodate scenarios
+> where Energy Efficient Ethernet (EEE) is enabled.
+> =
 
+> Overnight testing revealed that when EEE is active, the busy bit can
+> remain set for up to approximately 300ms. The new 500ms timeout provides
+> a safety margin.
+> =
 
-On 9/10/2024 7:34 PM, Andrew Halaney wrote:
-> Hey Suraj,
-> 
-> Your email client didn't seem to quote my response in your latest reply,
-> so its difficult to figure out what you're writing vs me below. It also
-> seems to have messed with the line breaks so I'm manually redoing those.
-> 
-> Please see if you can figure out how to make that happen for further
-> replies!
-> 
-> More comments below...
-> 
-> On Tue, Sep 10, 2024 at 12:47:08PM GMT, Suraj Jaiswal wrote:
->>
->>
->> -----Original Message-----
->> From: Andrew Halaney <ahalaney@redhat.com> 
->> Sent: Wednesday, September 4, 2024 3:47 AM
->> To: Suraj Jaiswal (QUIC) <quic_jsuraj@quicinc.com>
->> Cc: Vinod Koul <vkoul@kernel.org>; bhupesh.sharma@linaro.org; Andy Gross <agross@kernel.org>; Bjorn Andersson <andersson@kernel.org>; Konrad Dybcio <konrad.dybcio@linaro.org>; David S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Rob Herring <robh+dt@kernel.org>; Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley <conor+dt@kernel.org>; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-arm-msm@vger.kernel.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; Prasad Sodagudi <psodagud@quicinc.com>; Rob Herring <robh@kernel.org>; kernel <kernel@quicinc.com>
->> Subject: Re: [PATCH net] net: stmmac: Stop using a single dma_map() for multiple descriptors
->>
->> WARNING: This email originated from outside of Qualcomm. Please be wary of any links or attachments, and do not enable macros.
->>
->> On Mon, Sep 02, 2024 at 03:24:36PM GMT, Suraj Jaiswal wrote:
->>> Currently same page address is shared
->>> between multiple buffer addresses and causing smmu fault for other 
->>> descriptor if address hold by one descriptor got cleaned.
->>> Allocate separate buffer address for each descriptor for TSO path so 
->>> that if one descriptor cleared it should not clean other descriptor 
->>> address.
-> 
-> snip...
-> 
->>>
->>>  static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int 
->>> queue) @@ -4351,25 +4380,17 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
->>>               pay_len = 0;
->>>       }
->>>
->>> -     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
->>> +     if (stmmac_tso_allocator(priv, (skb->data + proto_hdr_len),
->>> +                              tmp_pay_len, nfrags == 0, queue, false))
->>> +             goto dma_map_err;
->>
->> Changing the second argument here is subtly changing the dma_cap.addr64 <= 32
->> case right before this. Is that intentional?
->>
->> i.e., prior, pretend des = 0 (side note but des is a very confusing variable
->> name for "dma address" when there's also mentions of desc meaning "descriptor"
->> in the DMA ring). In the <= 32 case, we'd call stmmac_tso_allocator(priv, 0)
->> and in the else case we'd call stmmac_tso_allocator(priv, 0 + proto_hdr_len).
->>
->> With this change in both cases its called with the (not-yet-dma-mapped)
->> skb->data + proto_hdr_len always (i.e. like the else case).
->>
->> Honestly, the <= 32 case reads weird to me without this patch. It seems some
->> of the buffer is filled but des is not properly incremented?
->>
->> I don't know how this hardware is supposed to be programmed (no databook
->> access) but that seems fishy (and like a separate bug, which would be nice to
->> squash if so in its own patch). Would you be able to explain the logic there
->> to me if it does make sense to you?
->>
-> 
->> <Suraj> des can not be 0 . des 0 means dma_map_single() failed and it will return.
->> If we see if des calculation (first->des1 = cpu_to_le32(des + proto_hdr_len);)
->> and else case des calculator ( des += proto_hdr_len;) it is adding proto_hdr_len
->> to the memory that we after mapping skb->data using dma_map_single.
->> Same way we added proto_hdr_len in second argument . 
-> 
-> 
-> 0 was just an example, and a confusing one, sorry. Let me paste the original
-> fishy code that I think you've modified the behavior for. Here's the
-> original:
-> 
-> 	if (priv->dma_cap.addr64 <= 32) {
-> 		first->des0 = cpu_to_le32(des);
-> 
-> 		/* Fill start of payload in buff2 of first descriptor */
-> 		if (pay_len)
-> 			first->des1 = cpu_to_le32(des + proto_hdr_len);
-> 
-> 		/* If needed take extra descriptors to fill the remaining payload */
-> 		tmp_pay_len = pay_len - TSO_MAX_BUFF_SIZE;
-> 	} else {
-> 		stmmac_set_desc_addr(priv, first, des);
-> 		tmp_pay_len = pay_len;
-> 		des += proto_hdr_len;
-> 		pay_len = 0;
-> 	}
-> 
-> 	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
-> 
-> Imagine the <= 32 case. Let's say des is address 0 (just for simplicity
-> sake, let's assume that's valid). That means:
-> 
->     first->des0 = des;
->     first->des1 = des + proto_hdr_len;
->     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue)
-> 
->     if des is 0, proto_hdr_len is 64, then that means
-> 
->     first->des0 = 0
->     first->des1 = 64
->     stmmac_tso_allocator(priv, 0, tmp_pay_len, (nfrags == 0), queue)
-> 
-> That seems fishy to me. We setup up the first descriptor with the
-> beginning of des, and then the code goes and sets up more descriptors
-> (stmmac_tso_allocator()) starting with the same des again?
-tso_alloc is checking if more descriptor needed for packet . it is adding offset to get next
-descriptor (curr_addr = des + (total_len - tmp_len)) and storing in des of next descriptor.
-> 
-> Should we be adding the payload length (TSO_MAX_BUFF_SIZE I suppose
-> based on the tmp_pay_len = pay_len - TSO_MAX_BUFFSIZE above)? It seems
-> that <= 32 results in duplicate data in both the "first" descriptor
-> programmed above, and in the "second" descriptor programmed in
-> stmmac_tso_allocator().
-curr_addr = des + (total_len - tmp_len) is used in while loop in  tso_alloc to get address of all required descriptor . 
-descriptor address will be updated finally in tso_alloc by below call .
- 
-if (priv->dma_cap.addr64 <= 32)
-                                               desc->des0 = cpu_to_le32(curr_addr);
-                               else
-                                               stmmac_set_desc_addr(priv, desc, curr_addr);
+> Fixes: ed64639bc1e0 ("net: stmmac: Add support for VLAN Rx filtering")
+> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
- Also, since tmp_pay_len is decremented, but des
-> isn't, it seems that stmmac_tso_allocator() would not put all of the
-> buffer in the descriptors and would leave the last TSO_MAX_BUFF_SIZE
-> bytes out?
-> 
-> I highlight all of this because with your change here we get the
-> following now in the <= 32 case:
-> 
->     first->des0 = des
->     first->des1 = des + proto_hdr_len
->     stmmac_tso_allocator(priv, des + proto_hdr_len, ...)
-> 
-> which is a subtle change in the call to stmmac_tso_allocator, meaning
-> a subtle change in the descriptor programming.
-> 
-> Both seem wrong for the <= 32 case, but I'm "reading between the lines"
-> with how these descriptors are programmed (I don't have the docs to back
-> this up, I'm inferring from the code). It seems to me that in the <= 32
-> case we should have:
-> 
->     first->des0 = des
->     first->des1 = des + proto_hdr_len
->     stmmac_tso_allocator(priv, des + TSO_MAX_BUF_SIZE, ...)
+Since you are respinning
 
-let me check <=32 case only on setup and get back.
-> 
-> or similar depending on if that really makes sense with how des0/des1 is
-> used (the handling is different in stmmac_tso_allocator() for <= 32,
-> only des0 is used so I'm having a tough time figuring out how much of
-> the des is actually programmed in des0 + des1 above without knowing the
-> hardware better).
-> 
-> Does that make sense? The prior code seems fishy to me, your change
-> seems to unintentionally change that fhsy part, but it still seems fishy
-> to me. I don't think you should be changing that code's behavior in that
-> patch, if you think it's right then we should continue with the current
-> behavior prior to your patch, and if you think its wrong we should
-> probably fix that *prior* to this patch in your series.
-> 
-> Thanks,
-> Andrew
-> 
+Your Signed-off-by: should come last.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
