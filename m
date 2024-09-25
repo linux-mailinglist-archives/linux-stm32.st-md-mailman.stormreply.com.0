@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A1349859F6
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 489C7985A44
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:06:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22AC5C78006;
-	Wed, 25 Sep 2024 12:03:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5695DC78006;
+	Wed, 25 Sep 2024 12:06:56 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A27AC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C80D5C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 12:03:49 +0000 (UTC)
+ Wed, 25 Sep 2024 12:06:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8F6D5A440BF;
- Wed, 25 Sep 2024 12:03:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543A4C4CEC3;
- Wed, 25 Sep 2024 12:03:46 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id EA1CAA440FD;
+ Wed, 25 Sep 2024 12:06:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36B7C4CEC7;
+ Wed, 25 Sep 2024 12:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727265828;
- bh=87LRPNhJ7JCbcWne8xhLvjpZMk3kUth7gjKHHeBbdf4=;
+ s=k20201202; t=1727266008;
+ bh=BxcwbgJ/CnH0K4cDKwkcguF41kZNgM81f4D/TFs+Ny4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QmJqpAXbSkNN5o61u2zQUChdtyU9MBhrGfVj5EHDKHqePoLFb+D/H5ZDOmfh8mRdB
- dLxJqXPtS7bOq4VWDuokn8yYmMDR06dfd0zG1z8WloO9RT8yRjkHZ4fFxguzbBrgkk
- EPX4eVb2rFSElNRBxM/tRFC6fIIE6Bq+TSJb85S60aEZUlubLDv2v0KN/stc4yMy8p
- kLC2U+Phl2kbh03szDd6aebRihxANfaLknFQSxQdm+ZaXRlciFrLPtFKipbbL4isGK
- iTh0J+2pntdfxtUg53nX2PAisdq0Ckf7aeWZ4uSc6fw3Okh1wjp0UtYef8dv/Y75jZ
- KTtU/9CQ5KyYQ==
+ b=PmlI72A/aHkiHH34lh9MwfJO8CoNy1jwnpDPzMi16x5QidxQqSpgkM8o9UqxwTQkL
+ yp0FVyia6YfCcNfJpS50NOLuqKnQCoLDhvjBtgrBHjsIRhs+InwfztOKubuOM1dgmv
+ OIzWIZOXj5fG878UkPddGtFg0eqY8SVZxtTFVALrlSvcSFw8XapyYzO3JWmGkdTH1a
+ yCPsHDNZ6xxRmfr0J9RXSrFAU29LlbaESre8HXXZ9G3nICGRw8M0hh2znEl88ALmbQ
+ PyKGTD4Msm3X3TfwSxUrqXeJpc7NgI22mNEArHhQa2btK73LId2AyySOGkm752hR2f
+ LSKDiIQ7KUTww==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 25 Sep 2024 07:52:11 -0400
-Message-ID: <20240925115823.1303019-112-sashal@kernel.org>
+Date: Wed, 25 Sep 2024 07:52:47 -0400
+Message-ID: <20240925115823.1303019-148-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
 References: <20240925115823.1303019-1-sashal@kernel.org>
@@ -41,12 +41,12 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.10.11
 Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org, yannick.fertre@foss.st.com,
+ dri-devel@lists.freedesktop.org, Yannick Fertre <yannick.fertre@foss.st.com>,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- Katya Orlova <e.orlova@ispras.ru>, airlied@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.10 112/197] drm/stm: Avoid
-	use-after-free issues with crtc and plane
+ airlied@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.10 148/197] drm/stm: ltdc: reset
+	plane transparency after plane disable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,151 +58,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogS2F0eWEgT3Jsb3ZhIDxlLm9ybG92YUBpc3ByYXMucnU+CgpbIFVwc3RyZWFtIGNvbW1p
-dCAxOWRkOTc4MGI3YWM2NzNiZTk1YmY2ZmQ2ODkyYTE4NGM5ZGI2MTFmIF0KCmx0ZGNfbG9hZCgp
-IGNhbGxzIGZ1bmN0aW9ucyBkcm1fY3J0Y19pbml0X3dpdGhfcGxhbmVzKCksCmRybV91bml2ZXJz
-YWxfcGxhbmVfaW5pdCgpIGFuZCBkcm1fZW5jb2Rlcl9pbml0KCkuIFRoZXNlIGZ1bmN0aW9ucwpz
-aG91bGQgbm90IGJlIGNhbGxlZCB3aXRoIHBhcmFtZXRlcnMgYWxsb2NhdGVkIHdpdGggZGV2bV9r
-emFsbG9jKCkKdG8gYXZvaWQgdXNlLWFmdGVyLWZyZWUgaXNzdWVzIFsxXS4KClVzZSBhbGxvY2F0
-aW9ucyBtYW5hZ2VkIGJ5IHRoZSBEUk0gZnJhbWV3b3JrLgoKRm91bmQgYnkgTGludXggVmVyaWZp
-Y2F0aW9uIENlbnRlciAobGludXh0ZXN0aW5nLm9yZykuCgpbMV0KaHR0cHM6Ly9sb3JlLmtlcm5l
-bC5vcmcvbGttbC91MzY2aTc2ZTNxaGgzcmE1b3hydG5nanRtMnU1bHRlcmtla2N6NnkyamtuZGh1
-eHpsaUBkaXVqb240aDdxd2IvCgpTaWduZWQtb2ZmLWJ5OiBLYXR5YSBPcmxvdmEgPGUub3Jsb3Zh
-QGlzcHJhcy5ydT4KQWNrZWQtYnk6IFJhcGhhw6tsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxh
-aXMtcG91QGZvc3Muc3QuY29tPgpMaW5rOiBodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5v
-cmcvcGF0Y2gvbXNnaWQvMjAyNDAyMTYxMjUwNDAuODk2OC0xLWUub3Jsb3ZhQGlzcHJhcy5ydQpT
-aWduZWQtb2ZmLWJ5OiBSYXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZv
-c3Muc3QuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYyAgfCAgMyArLQogZHJpdmVycy9ncHUvZHJt
-L3N0bS9sdGRjLmMgfCA3MyArKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQog
-MiBmaWxlcyBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCA1NiBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9k
-cnYuYwppbmRleCBlODUyM2FiZWYyN2E1Li4xNTJiZWMyYzAyMzg1IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vc3RtL2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKQEAg
-LTI1LDYgKzI1LDcgQEAKICNpbmNsdWRlIDxkcm0vZHJtX21vZHVsZS5oPgogI2luY2x1ZGUgPGRy
-bS9kcm1fcHJvYmVfaGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV92YmxhbmsuaD4KKyNpbmNs
-dWRlIDxkcm0vZHJtX21hbmFnZWQuaD4KIAogI2luY2x1ZGUgImx0ZGMuaCIKIApAQCAtNzUsNyAr
-NzYsNyBAQCBzdGF0aWMgaW50IGRydl9sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQogCiAJ
-RFJNX0RFQlVHKCIlc1xuIiwgX19mdW5jX18pOwogCi0JbGRldiA9IGRldm1fa3phbGxvYyhkZGV2
-LT5kZXYsIHNpemVvZigqbGRldiksIEdGUF9LRVJORUwpOworCWxkZXYgPSBkcm1tX2t6YWxsb2Mo
-ZGRldiwgc2l6ZW9mKCpsZGV2KSwgR0ZQX0tFUk5FTCk7CiAJaWYgKCFsZGV2KQogCQlyZXR1cm4g
-LUVOT01FTTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwppbmRleCA1NTc2ZmRhZTQ5NjIzLi5lZWFhYmI0ZTEwZDNl
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vc3RtL2x0ZGMuYwpAQCAtMzYsNiArMzYsNyBAQAogI2luY2x1ZGUgPGRybS9kcm1fcHJv
-YmVfaGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5oPgogI2lu
-Y2x1ZGUgPGRybS9kcm1fdmJsYW5rLmg+CisjaW5jbHVkZSA8ZHJtL2RybV9tYW5hZ2VkLmg+CiAK
-ICNpbmNsdWRlIDx2aWRlby92aWRlb21vZGUuaD4KIApAQCAtMTE5OSw3ICsxMjAwLDYgQEAgc3Rh
-dGljIHZvaWQgbHRkY19jcnRjX2F0b21pY19wcmludF9zdGF0ZShzdHJ1Y3QgZHJtX3ByaW50ZXIg
-KnAsCiB9CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2NydGNfZnVuY3MgbHRkY19jcnRjX2Z1
-bmNzID0gewotCS5kZXN0cm95ID0gZHJtX2NydGNfY2xlYW51cCwKIAkuc2V0X2NvbmZpZyA9IGRy
-bV9hdG9taWNfaGVscGVyX3NldF9jb25maWcsCiAJLnBhZ2VfZmxpcCA9IGRybV9hdG9taWNfaGVs
-cGVyX3BhZ2VfZmxpcCwKIAkucmVzZXQgPSBkcm1fYXRvbWljX2hlbHBlcl9jcnRjX3Jlc2V0LApA
-QCAtMTIxMiw3ICsxMjEyLDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY3J0Y19mdW5jcyBs
-dGRjX2NydGNfZnVuY3MgPSB7CiB9OwogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRjX2Z1
-bmNzIGx0ZGNfY3J0Y193aXRoX2NyY19zdXBwb3J0X2Z1bmNzID0gewotCS5kZXN0cm95ID0gZHJt
-X2NydGNfY2xlYW51cCwKIAkuc2V0X2NvbmZpZyA9IGRybV9hdG9taWNfaGVscGVyX3NldF9jb25m
-aWcsCiAJLnBhZ2VfZmxpcCA9IGRybV9hdG9taWNfaGVscGVyX3BhZ2VfZmxpcCwKIAkucmVzZXQg
-PSBkcm1fYXRvbWljX2hlbHBlcl9jcnRjX3Jlc2V0LApAQCAtMTU0NSw3ICsxNTQ0LDYgQEAgc3Rh
-dGljIHZvaWQgbHRkY19wbGFuZV9hdG9taWNfcHJpbnRfc3RhdGUoc3RydWN0IGRybV9wcmludGVy
-ICpwLAogc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MgbHRkY19wbGFuZV9mdW5j
-cyA9IHsKIAkudXBkYXRlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfdXBkYXRlX3BsYW5lLAog
-CS5kaXNhYmxlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfZGlzYWJsZV9wbGFuZSwKLQkuZGVz
-dHJveSA9IGRybV9wbGFuZV9jbGVhbnVwLAogCS5yZXNldCA9IGRybV9hdG9taWNfaGVscGVyX3Bs
-YW5lX3Jlc2V0LAogCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJf
-cGxhbmVfZHVwbGljYXRlX3N0YXRlLAogCS5hdG9taWNfZGVzdHJveV9zdGF0ZSA9IGRybV9hdG9t
-aWNfaGVscGVyX3BsYW5lX2Rlc3Ryb3lfc3RhdGUsCkBAIC0xNTcyLDcgKzE1NzAsNiBAQCBzdGF0
-aWMgc3RydWN0IGRybV9wbGFuZSAqbHRkY19wbGFuZV9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2Ug
-KmRkZXYsCiAJY29uc3QgdTY0ICptb2RpZmllcnMgPSBsdGRjX2Zvcm1hdF9tb2RpZmllcnM7CiAJ
-dTMyIGxvZnMgPSBpbmRleCAqIExBWV9PRlM7CiAJdTMyIHZhbDsKLQlpbnQgcmV0OwogCiAJLyog
-QWxsb2NhdGUgdGhlIGJpZ2dlc3Qgc2l6ZSBhY2NvcmRpbmcgdG8gc3VwcG9ydGVkIGNvbG9yIGZv
-cm1hdHMgKi8KIAlmb3JtYXRzID0gZGV2bV9remFsbG9jKGRldiwgKGxkZXYtPmNhcHMucGl4X2Zt
-dF9uYiArCkBAIC0xNjEzLDE0ICsxNjEwLDEwIEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX3BsYW5lICps
-dGRjX3BsYW5lX2NyZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwKIAkJfQogCX0KIAotCXBs
-YW5lID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCpwbGFuZSksIEdGUF9LRVJORUwpOwotCWlm
-ICghcGxhbmUpCi0JCXJldHVybiBOVUxMOwotCi0JcmV0ID0gZHJtX3VuaXZlcnNhbF9wbGFuZV9p
-bml0KGRkZXYsIHBsYW5lLCBwb3NzaWJsZV9jcnRjcywKLQkJCQkgICAgICAgJmx0ZGNfcGxhbmVf
-ZnVuY3MsIGZvcm1hdHMsIG5iX2ZtdCwKLQkJCQkgICAgICAgbW9kaWZpZXJzLCB0eXBlLCBOVUxM
-KTsKLQlpZiAocmV0IDwgMCkKKwlwbGFuZSA9IGRybW1fdW5pdmVyc2FsX3BsYW5lX2FsbG9jKGRk
-ZXYsIHN0cnVjdCBkcm1fcGxhbmUsIGRldiwKKwkJCQkJICAgcG9zc2libGVfY3J0Y3MsICZsdGRj
-X3BsYW5lX2Z1bmNzLCBmb3JtYXRzLAorCQkJCQkgICBuYl9mbXQsIG1vZGlmaWVycywgdHlwZSwg
-TlVMTCk7CisJaWYgKElTX0VSUihwbGFuZSkpCiAJCXJldHVybiBOVUxMOwogCiAJaWYgKGxkZXYt
-PmNhcHMueWNiY3JfaW5wdXQpIHsKQEAgLTE2NDMsMTUgKzE2MzYsNiBAQCBzdGF0aWMgc3RydWN0
-IGRybV9wbGFuZSAqbHRkY19wbGFuZV9jcmVhdGUoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYsCiAJ
-cmV0dXJuIHBsYW5lOwogfQogCi1zdGF0aWMgdm9pZCBsdGRjX3BsYW5lX2Rlc3Ryb3lfYWxsKHN0
-cnVjdCBkcm1fZGV2aWNlICpkZGV2KQotewotCXN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLCAqcGxh
-bmVfdGVtcDsKLQotCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShwbGFuZSwgcGxhbmVfdGVtcCwK
-LQkJCQkgJmRkZXYtPm1vZGVfY29uZmlnLnBsYW5lX2xpc3QsIGhlYWQpCi0JCWRybV9wbGFuZV9j
-bGVhbnVwKHBsYW5lKTsKLX0KLQogc3RhdGljIGludCBsdGRjX2NydGNfaW5pdChzdHJ1Y3QgZHJt
-X2RldmljZSAqZGRldiwgc3RydWN0IGRybV9jcnRjICpjcnRjKQogewogCXN0cnVjdCBsdGRjX2Rl
-dmljZSAqbGRldiA9IGRkZXYtPmRldl9wcml2YXRlOwpAQCAtMTY3NywxNCArMTY2MSwxNCBAQCBz
-dGF0aWMgaW50IGx0ZGNfY3J0Y19pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2LCBzdHJ1Y3Qg
-ZHJtX2NydGMgKmNydGMpCiAKIAkvKiBJbml0IENSVEMgYWNjb3JkaW5nIHRvIGl0cyBoYXJkd2Fy
-ZSBmZWF0dXJlcyAqLwogCWlmIChsZGV2LT5jYXBzLmNyYykKLQkJcmV0ID0gZHJtX2NydGNfaW5p
-dF93aXRoX3BsYW5lcyhkZGV2LCBjcnRjLCBwcmltYXJ5LCBOVUxMLAotCQkJCQkJJmx0ZGNfY3J0
-Y193aXRoX2NyY19zdXBwb3J0X2Z1bmNzLCBOVUxMKTsKKwkJcmV0ID0gZHJtbV9jcnRjX2luaXRf
-d2l0aF9wbGFuZXMoZGRldiwgY3J0YywgcHJpbWFyeSwgTlVMTCwKKwkJCQkJCSAmbHRkY19jcnRj
-X3dpdGhfY3JjX3N1cHBvcnRfZnVuY3MsIE5VTEwpOwogCWVsc2UKLQkJcmV0ID0gZHJtX2NydGNf
-aW5pdF93aXRoX3BsYW5lcyhkZGV2LCBjcnRjLCBwcmltYXJ5LCBOVUxMLAotCQkJCQkJJmx0ZGNf
-Y3J0Y19mdW5jcywgTlVMTCk7CisJCXJldCA9IGRybW1fY3J0Y19pbml0X3dpdGhfcGxhbmVzKGRk
-ZXYsIGNydGMsIHByaW1hcnksIE5VTEwsCisJCQkJCQkgJmx0ZGNfY3J0Y19mdW5jcywgTlVMTCk7
-CiAJaWYgKHJldCkgewogCQlEUk1fRVJST1IoIkNhbiBub3QgaW5pdGlhbGl6ZSBDUlRDXG4iKTsK
-LQkJZ290byBjbGVhbnVwOworCQlyZXR1cm4gcmV0OwogCX0KIAogCWRybV9jcnRjX2hlbHBlcl9h
-ZGQoY3J0YywgJmx0ZGNfY3J0Y19oZWxwZXJfZnVuY3MpOwpAQCAtMTY5OCw5ICsxNjgyLDggQEAg
-c3RhdGljIGludCBsdGRjX2NydGNfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwgc3RydWN0
-IGRybV9jcnRjICpjcnRjKQogCWZvciAoaSA9IDE7IGkgPCBsZGV2LT5jYXBzLm5iX2xheWVyczsg
-aSsrKSB7CiAJCW92ZXJsYXkgPSBsdGRjX3BsYW5lX2NyZWF0ZShkZGV2LCBEUk1fUExBTkVfVFlQ
-RV9PVkVSTEFZLCBpKTsKIAkJaWYgKCFvdmVybGF5KSB7Ci0JCQlyZXQgPSAtRU5PTUVNOwogCQkJ
-RFJNX0VSUk9SKCJDYW4gbm90IGNyZWF0ZSBvdmVybGF5IHBsYW5lICVkXG4iLCBpKTsKLQkJCWdv
-dG8gY2xlYW51cDsKKwkJCXJldHVybiAtRU5PTUVNOwogCQl9CiAJCWlmIChsZGV2LT5jYXBzLmR5
-bmFtaWNfem9yZGVyKQogCQkJZHJtX3BsYW5lX2NyZWF0ZV96cG9zX3Byb3BlcnR5KG92ZXJsYXks
-IGksIDAsIGxkZXYtPmNhcHMubmJfbGF5ZXJzIC0gMSk7CkBAIC0xNzEzLDEwICsxNjk2LDYgQEAg
-c3RhdGljIGludCBsdGRjX2NydGNfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwgc3RydWN0
-IGRybV9jcnRjICpjcnRjKQogCX0KIAogCXJldHVybiAwOwotCi1jbGVhbnVwOgotCWx0ZGNfcGxh
-bmVfZGVzdHJveV9hbGwoZGRldik7Ci0JcmV0dXJuIHJldDsKIH0KIAogc3RhdGljIHZvaWQgbHRk
-Y19lbmNvZGVyX2Rpc2FibGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyKQpAQCAtMTc3Niwy
-MyArMTc1NSwxOSBAQCBzdGF0aWMgaW50IGx0ZGNfZW5jb2Rlcl9pbml0KHN0cnVjdCBkcm1fZGV2
-aWNlICpkZGV2LCBzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlKQogCXN0cnVjdCBkcm1fZW5jb2Rl
-ciAqZW5jb2RlcjsKIAlpbnQgcmV0OwogCi0JZW5jb2RlciA9IGRldm1fa3phbGxvYyhkZGV2LT5k
-ZXYsIHNpemVvZigqZW5jb2RlciksIEdGUF9LRVJORUwpOwotCWlmICghZW5jb2RlcikKLQkJcmV0
-dXJuIC1FTk9NRU07CisJZW5jb2RlciA9IGRybW1fc2ltcGxlX2VuY29kZXJfYWxsb2MoZGRldiwg
-c3RydWN0IGRybV9lbmNvZGVyLCBkZXYsCisJCQkJCSAgICBEUk1fTU9ERV9FTkNPREVSX0RQSSk7
-CisJaWYgKElTX0VSUihlbmNvZGVyKSkKKwkJcmV0dXJuIFBUUl9FUlIoZW5jb2Rlcik7CiAKIAll
-bmNvZGVyLT5wb3NzaWJsZV9jcnRjcyA9IENSVENfTUFTSzsKIAllbmNvZGVyLT5wb3NzaWJsZV9j
-bG9uZXMgPSAwOwkvKiBObyBjbG9uaW5nIHN1cHBvcnQgKi8KIAotCWRybV9zaW1wbGVfZW5jb2Rl
-cl9pbml0KGRkZXYsIGVuY29kZXIsIERSTV9NT0RFX0VOQ09ERVJfRFBJKTsKLQogCWRybV9lbmNv
-ZGVyX2hlbHBlcl9hZGQoZW5jb2RlciwgJmx0ZGNfZW5jb2Rlcl9oZWxwZXJfZnVuY3MpOwogCiAJ
-cmV0ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgYnJpZGdlLCBOVUxMLCAwKTsKLQlpZiAo
-cmV0KSB7Ci0JCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKLQkJCWRybV9lbmNvZGVyX2NsZWFu
-dXAoZW5jb2Rlcik7CisJaWYgKHJldCkKIAkJcmV0dXJuIHJldDsKLQl9CiAKIAlEUk1fREVCVUdf
-RFJJVkVSKCJCcmlkZ2UgZW5jb2RlcjolZCBjcmVhdGVkXG4iLCBlbmNvZGVyLT5iYXNlLmlkKTsK
-IApAQCAtMTk2Miw4ICsxOTM3LDcgQEAgaW50IGx0ZGNfbG9hZChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGRldikKIAkJCWdvdG8gZXJyOwogCiAJCWlmIChwYW5lbCkgewotCQkJYnJpZGdlID0gZHJtX3Bh
-bmVsX2JyaWRnZV9hZGRfdHlwZWQocGFuZWwsCi0JCQkJCQkJICAgIERSTV9NT0RFX0NPTk5FQ1RP
-Ul9EUEkpOworCQkJYnJpZGdlID0gZHJtbV9wYW5lbF9icmlkZ2VfYWRkKGRkZXYsIHBhbmVsKTsK
-IAkJCWlmIChJU19FUlIoYnJpZGdlKSkgewogCQkJCURSTV9FUlJPUigicGFuZWwtYnJpZGdlIGVu
-ZHBvaW50ICVkXG4iLCBpKTsKIAkJCQlyZXQgPSBQVFJfRVJSKGJyaWRnZSk7CkBAIC0yMDQ1LDcg
-KzIwMTksNyBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQogCQl9CiAJ
-fQogCi0JY3J0YyA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVvZigqY3J0YyksIEdGUF9LRVJORUwp
-OworCWNydGMgPSBkcm1tX2t6YWxsb2MoZGRldiwgc2l6ZW9mKCpjcnRjKSwgR0ZQX0tFUk5FTCk7
-CiAJaWYgKCFjcnRjKSB7CiAJCURSTV9FUlJPUigiRmFpbGVkIHRvIGFsbG9jYXRlIGNydGNcbiIp
-OwogCQlyZXQgPSAtRU5PTUVNOwpAQCAtMjA3Miw5ICsyMDQ2LDYgQEAgaW50IGx0ZGNfbG9hZChz
-dHJ1Y3QgZHJtX2RldmljZSAqZGRldikKIAogCXJldHVybiAwOwogZXJyOgotCWZvciAoaSA9IDA7
-IGkgPCBuYl9lbmRwb2ludHM7IGkrKykKLQkJZHJtX29mX3BhbmVsX2JyaWRnZV9yZW1vdmUoZGRl
-di0+ZGV2LT5vZl9ub2RlLCAwLCBpKTsKLQogCWNsa19kaXNhYmxlX3VucHJlcGFyZShsZGV2LT5w
-aXhlbF9jbGspOwogCiAJcmV0dXJuIHJldDsKQEAgLTIwODIsMTYgKzIwNTMsOCBAQCBpbnQgbHRk
-Y19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQogCiB2b2lkIGx0ZGNfdW5sb2FkKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZGV2KQogewotCXN0cnVjdCBkZXZpY2UgKmRldiA9IGRkZXYtPmRldjsK
-LQlpbnQgbmJfZW5kcG9pbnRzLCBpOwotCiAJRFJNX0RFQlVHX0RSSVZFUigiXG4iKTsKIAotCW5i
-X2VuZHBvaW50cyA9IG9mX2dyYXBoX2dldF9lbmRwb2ludF9jb3VudChkZXYtPm9mX25vZGUpOwot
-Ci0JZm9yIChpID0gMDsgaSA8IG5iX2VuZHBvaW50czsgaSsrKQotCQlkcm1fb2ZfcGFuZWxfYnJp
-ZGdlX3JlbW92ZShkZGV2LT5kZXYtPm9mX25vZGUsIDAsIGkpOwotCiAJcG1fcnVudGltZV9kaXNh
-YmxlKGRkZXYtPmRldik7CiB9CiAKLS0gCjIuNDMuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Yannick Fertre <yannick.fertre@foss.st.com>
+
+[ Upstream commit 02fa62d41c8abff945bae5bfc3ddcf4721496aca ]
+
+The plane's opacity should be reseted while the plane
+is disabled. It prevents from seeing a possible global
+or layer background color set earlier.
+
+Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240712131344.98113-1-yannick.fertre@foss.st.com
+Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/stm/ltdc.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index eeaabb4e10d3e..9e76785cb2691 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -1513,6 +1513,9 @@ static void ltdc_plane_atomic_disable(struct drm_plane *plane,
+ 	/* Disable layer */
+ 	regmap_write_bits(ldev->regmap, LTDC_L1CR + lofs, LXCR_LEN | LXCR_CLUTEN |  LXCR_HMEN, 0);
+ 
++	/* Reset the layer transparency to hide any related background color */
++	regmap_write_bits(ldev->regmap, LTDC_L1CACR + lofs, LXCACR_CONSTA, 0x00);
++
+ 	/* Commit shadow registers = update plane at next vblank */
+ 	if (ldev->caps.plane_reg_shadow)
+ 		regmap_write_bits(ldev->regmap, LTDC_L1RCR + lofs,
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
