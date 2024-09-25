@@ -2,51 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C3F985B03
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:16:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3D1985C4C
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:44:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 179EAC78006;
-	Wed, 25 Sep 2024 12:16:37 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4E0AC78006;
+	Wed, 25 Sep 2024 12:44:15 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A986C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13627C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 12:16:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5CCF35C580E;
- Wed, 25 Sep 2024 12:16:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E6FC4CEC3;
- Wed, 25 Sep 2024 12:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727266589;
- bh=BxcwbgJ/CnH0K4cDKwkcguF41kZNgM81f4D/TFs+Ny4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JEvhVrjyUgbZCsuh4VdZwUUKjICcXk+psJ2slWjr2b8+Akgeq/M9zGtZv7tSM/Unk
- xfG5yNB/e5BK2I4niFz2ESv9gPApkh8nDYG+0z3qRL/RDnrL4g1AA/V34D0YKHxREy
- 1fOdbDRjLXivScqtbgM02UJKD4sG4EO3zs0W6wwuDLDgv3aFBqyCL5bA2Po5pjppZs
- x2rsRg+9Hv9NQ0amLU1l8JBl8zosQ3cXNYOcRsYAScdkCTIMefwLtJQXVYoR4J2omt
- ladOl0e9VBH0oTO0xe3sEpxRHLp9b8eUOr5uXF0dRObvt8+51FO4Yj0hxnLcidPSZF
- PmlovhndbhCxA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Wed, 25 Sep 2024 08:08:46 -0400
-Message-ID: <20240925121137.1307574-106-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240925121137.1307574-1-sashal@kernel.org>
-References: <20240925121137.1307574-1-sashal@kernel.org>
+ Wed, 25 Sep 2024 12:44:09 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-42cb1e3b449so9816235e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 25 Sep 2024 05:44:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727268248; x=1727873048;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4Eo83E3rr21/cKLc/zAZGOD/iRD2paKfELWeccpaaQQ=;
+ b=TcTtUF4KOXzp4hClo/mQ61hjHVTI2p3or5bN1WCrgw3kkwvJYuhWaXqFW/LoxnJw22
+ LsQagbU8kexhwWtkJcHHTto9dFI3m8movI7z+QOx1b8meDINiGRGkG4EQD2U8VNGI01v
+ JNOuOcW4DsaIV71cLeTHx9MCDYqaA25fQfrcvO7HqAo2WEOu5DAt5vx2u/XY62WqH2E+
+ hdT1/0l2+7tpzEsZ4terJXa+7b5XG34O2N9PdkyRLzOgPNpMdTBwH4WeFGu0qK82gDux
+ 8N00bz3zI/Y4TiQN86JbIz+s6CBlfao1/ln7MAfKlRzc55Rc4Np/HcdOs3tXNtHAWTbf
+ Ry5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727268248; x=1727873048;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4Eo83E3rr21/cKLc/zAZGOD/iRD2paKfELWeccpaaQQ=;
+ b=EQCjyVdmEUdXPSQhILZY+brJH7K/9jkeKZu0d9A6/BGY9nPi3ZHbwBXgh5QYsxejV3
+ xjb1RpvjZy7Q6ZSs+F2lDapm3T+O7PpvKwsMkfm9DESZSC+RWbQjrWS3p75ymAJDDPh6
+ zQSwxkRawH+Ia4g8qXZMmnrimsclILebfiMx3znG7PKtISwdCxU7X69uzTeoCYsjCvan
+ ea4MBVdLZX42Iu+pQ5fxbiWzDVlReh8VLNAa3wKtmbYeLp6tK+mVbqd3hFEvx7jhlRW6
+ jApmzO47+OZBZpyoptqPYx3olUNinzwRM/ITmsh6PM/UG/BuQlCKyrX05bK+mQI6pbZN
+ dE4g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUBTZN5+NwuXlJheiS1ya++6IJdnM2oypS2Ap+TmftLYUBuDq5/g0WxptBBTirppgXo0//JBvE5qqtmgQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz1/CCQrze8OA4GC6hhci/+McC6kC4C7Z6YpshAZbLysSCxx/Mk
+ PQ7oKR5jrNybemnWS9FIUwTN3Gadq6Pc0T6ZWsFIENY/JPddiiGN
+X-Google-Smtp-Source: AGHT+IFfS7vhUVhrpQ9ElZSkjpzVE5QUA1yIAFxCnd7J6P95GWbU9JMpyPawsb2SPEgug7UuG0NqYw==
+X-Received: by 2002:a5d:5f85:0:b0:374:c8d9:9094 with SMTP id
+ ffacd0b85a97d-37cc246852fmr1068284f8f.5.1727268248129; 
+ Wed, 25 Sep 2024 05:44:08 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c5cf4d74f9sm1856930a12.80.2024.09.25.05.44.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Sep 2024 05:44:07 -0700 (PDT)
+Date: Wed, 25 Sep 2024 15:44:04 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20240925124404.djjy7e4jhovhbwgt@skbuf>
+References: <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
+ <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
+ <E1ssjcZ-005Nrf-QL@rmk-PC.armlinux.org.uk>
+ <E1ssjcZ-005Nrf-QL@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.52
-Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 106/139] drm/stm: ltdc: reset
-	plane transparency after plane disable
+Content-Disposition: inline
+In-Reply-To: <E1ssjcZ-005Nrf-QL@rmk-PC.armlinux.org.uk>
+ <E1ssjcZ-005Nrf-QL@rmk-PC.armlinux.org.uk>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Florian Fainelli <f.fainelli@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 01/10] net: pcs: xpcs: move
+ PCS reset to .pcs_pre_config()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,39 +93,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Yannick Fertre <yannick.fertre@foss.st.com>
+On Mon, Sep 23, 2024 at 03:00:59PM +0100, Russell King (Oracle) wrote:
+> Move the PCS reset to .pcs_pre_config() rather than at creation time,
+> which means we call the reset function with the interface that we're
+> actually going to be using to talk to the downstream device.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
 
-[ Upstream commit 02fa62d41c8abff945bae5bfc3ddcf4721496aca ]
-
-The plane's opacity should be reseted while the plane
-is disabled. It prevents from seeing a possible global
-or layer background color set earlier.
-
-Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240712131344.98113-1-yannick.fertre@foss.st.com
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/stm/ltdc.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index eeaabb4e10d3e..9e76785cb2691 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1513,6 +1513,9 @@ static void ltdc_plane_atomic_disable(struct drm_plane *plane,
- 	/* Disable layer */
- 	regmap_write_bits(ldev->regmap, LTDC_L1CR + lofs, LXCR_LEN | LXCR_CLUTEN |  LXCR_HMEN, 0);
- 
-+	/* Reset the layer transparency to hide any related background color */
-+	regmap_write_bits(ldev->regmap, LTDC_L1CACR + lofs, LXCACR_CONSTA, 0x00);
-+
- 	/* Commit shadow registers = update plane at next vblank */
- 	if (ldev->caps.plane_reg_shadow)
- 		regmap_write_bits(ldev->regmap, LTDC_L1RCR + lofs,
--- 
-2.43.0
-
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Tested-by: Vladimir Oltean <vladimir.oltean@nxp.com> # sja1105
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
