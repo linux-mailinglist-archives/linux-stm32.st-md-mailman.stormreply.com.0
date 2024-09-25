@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00DBB985E36
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 15:30:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E24D985E63
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 15:34:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2D41C78006;
-	Wed, 25 Sep 2024 13:30:28 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED41DC78006;
+	Wed, 25 Sep 2024 13:34:22 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFC2EC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F133C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 13:30:21 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-42cdefe9ae8so9902415e9.1
+ Wed, 25 Sep 2024 13:34:16 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5c876b6c061so10197a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 06:30:21 -0700 (PDT)
+ Wed, 25 Sep 2024 06:34:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727271021; x=1727875821;
+ d=gmail.com; s=20230601; t=1727271255; x=1727876055;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=fcExjZD6GjJkh+Ch/TQ0zSPJzI/BvYIuC1gYrl2MmA0=;
- b=gplIHDx8IgLd9d40wfYOZXB/xINtGImbBQcBh9LjCUbYa4+Lj70fvlzQKiw3TV6QlG
- zQ9FpTaa8wTIGUN+1xGC5/eX/RWlXN72nrHzHEORPwLOeM6PxXHC1jKZn11wGu/wauEe
- w8oEqtewAwgfmNsDEG0X9X3Ll/BVtNkQt1LHmMUivNWCSMdbAh2oIOp4rRejGgs7Uykx
- ROM/2U2VPyf8JQLhVpktJudTklV5WxKdcKgM/AUN1RGhkV/WP36lqNWU/+fsrUoGlLsx
- 5rVRLCtpj+9J2asXG933cLlidglhqpdCS+8H2ESqVZuoVa9pWs8UMPSua8nocEVAYilo
- jB8g==
+ bh=1G9GlB0spcSQ2Hzbn1Dic1BfcSKakLMd9Fn04CdJsDE=;
+ b=YGGU377CwhRczGZjKxv1Q1Getgx2FdfWDRjT7dAphKZkiffD2/MmR3sXQor5uUW/hp
+ YBAqUZanhIZ1NA5AkDswDxvIlj7wSLa/bTd3LFrQBI47pXMeIAq2y8Ra1Q9S+0svliou
+ b9Ta4hi8hejtJT0ICGAhbAH/bO4S99bTA9Cgmh8scxjSQwNcygnckSfnfH7QGlvcGaXB
+ roO1jKoJFqmnY/z6IHHWjUlYdh0inmPDuP2tEpIGTpJepOBppNOg7IEcWHS3wZ1qjalS
+ nQ7Eq3ieONozVnyOHO4OZmehWpis5nlbUS7bo8WsP7WN5E5jGaxSlor9A0Vjljv/kAGt
+ 9b8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727271021; x=1727875821;
+ d=1e100.net; s=20230601; t=1727271255; x=1727876055;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fcExjZD6GjJkh+Ch/TQ0zSPJzI/BvYIuC1gYrl2MmA0=;
- b=W29oCe2i62HMWQrGfjfekZZo2P5L96zm5fWImm0DOyNFrgXlb2aFWI9v7scVxsxwSL
- JgB4xvLIlVJOAwYhEi1+zuHcXVS2tWStqOIux8G+cd7T16+FnjENJ++CwAJKMo7QyxCA
- 7yg89MS4v2bxpN5x3x2ea5Y7vblEbxhMFgzGxblFWNdCw4e+pulTu5IvIp8+U+Wsg3Yv
- mLwqr2QgNEfFpFKOyPqBLqeZKBqfmrcLqD05XTv85ofssDWqHDxKDzuMTmwfpuOpcDY5
- RWeC5J6z+jUO+WPpCYZY1W5QKusLRv75IGy9hFbd7cClQ/u2gP+EofnzJ5kSroedM5/1
- f5LA==
+ bh=1G9GlB0spcSQ2Hzbn1Dic1BfcSKakLMd9Fn04CdJsDE=;
+ b=cNKX3ReDszdkX9wbw/G5dG0S7bILPJEevtq60NoezpwRsWo6l89CAajxSl2ZJstSmR
+ xZZeiq3a2FmJnTL0AnDLfEDeKCD4sKGLTmI6MXb6QCf1l3zomQcoIgJ1DdUAIK2Ec3/T
+ WRDJrtZujvjJxzcmbVPqKmj1xGSTdDeCNkSJ/10xwvngk0ocTr7KYoEXH+RlQ/j4loF1
+ qACcXQ724QAIYcuN9cKf6Hc3xQhy7+ev9nq2OktIVSSrV8iqN3nhK8Z3f9w+lp+x6J70
+ UazM/NsYXwbmFiHrAeEWxqleOcie1x/7bcTDwoRr80m9tsVdgPhvTe/JDZChzgm3QiJK
+ L1cg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuJJy7swnp1HBrY+ptvjmtD4rL9ViQl2DtvzWCPkcDzN8XinetQpopVM9+J9V5FXL/3xtmbK9Z959/JA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx3EgfVvDKhZUrj21fLrpfx1GhVBfgtqPDo2bgAIO01tYhqnLdq
- mUzgUo8fkl4E3ucQL05pmjGr88k79NZDp7/P9ZrdSMQYMMjullNZ
-X-Google-Smtp-Source: AGHT+IF/+L5Ux4OC3vvpK1CYy2l0wO3oeoT3+Zdrd7bfiNMUm91iREsXW6wGQCOPxXZd1JHnIRCkvA==
-X-Received: by 2002:a05:600c:4751:b0:42c:b172:8c53 with SMTP id
- 5b1f17b1804b1-42e96144d4dmr8619215e9.5.1727271020959; 
- Wed, 25 Sep 2024 06:30:20 -0700 (PDT)
+ AJvYcCXvOHy6nAxrPUTnNH+ceIkpT1Q9dKdJigN9FalMKkjaBftKXmwyoSAZyPlHdgU9kW8X0eVJcuBtMLziZQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzxSGM92OnYhnEmh+kfwH0peSRUNoxFSRnt/nY+MvB/vYrSKAFo
+ Ek3WqIvE4HaIS11P7N+TLX6G+rJZl5aBzz7oBjPai6pthXtMOTL5
+X-Google-Smtp-Source: AGHT+IFlt8RigiKecsjAQw3jCdDTeX+psJX6Ye/0uvJWpmUJn4dFKXnuhwDgbyCk2uZZJ0TnWaWFhQ==
+X-Received: by 2002:a17:906:d554:b0:a8a:93ce:d252 with SMTP id
+ a640c23a62f3a-a93a039f506mr116078366b.6.1727271255186; 
+ Wed, 25 Sep 2024 06:34:15 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e969e1957sm19177795e9.9.2024.09.25.06.30.19
+ a640c23a62f3a-a9392f34291sm214235466b.14.2024.09.25.06.34.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 06:30:20 -0700 (PDT)
-Date: Wed, 25 Sep 2024 16:30:17 +0300
+ Wed, 25 Sep 2024 06:34:14 -0700 (PDT)
+Date: Wed, 25 Sep 2024 16:34:12 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20240925133017.qerqjslhzs7l2h7q@skbuf>
+Message-ID: <20240925133412.76bnadwfw55sw37a@skbuf>
 References: <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
  <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
- <E1ssjd4-005NsF-Gt@rmk-PC.armlinux.org.uk>
- <E1ssjd4-005NsF-Gt@rmk-PC.armlinux.org.uk>
+ <E1ssjd9-005NsL-K7@rmk-PC.armlinux.org.uk>
+ <E1ssjd9-005NsL-K7@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1ssjd4-005NsF-Gt@rmk-PC.armlinux.org.uk>
- <E1ssjd4-005NsF-Gt@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1ssjd9-005NsL-K7@rmk-PC.armlinux.org.uk>
+ <E1ssjd9-005NsL-K7@rmk-PC.armlinux.org.uk>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Florian Fainelli <f.fainelli@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
@@ -75,8 +75,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Mengyuan Lou <mengyuanlou@net-swift.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 07/10] net: dsa: sja1105:
- call PCS config/link_up via pcs_ops structure
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 08/10] net: dsa: sja1105: use
+ phylink_pcs internally
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,9 +93,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 23, 2024 at 03:01:30PM +0100, Russell King (Oracle) wrote:
-> Call the PCS operations through the ops structure, which avoids needing
-> to export xpcs internal functions.
+On Mon, Sep 23, 2024 at 03:01:35PM +0100, Russell King (Oracle) wrote:
+> Use xpcs_create_pcs_mdiodev() to create the XPCS instance, storing
+> and using the phylink_pcs pointer internally, rather than dw_xpcs.
+> Use xpcs_destroy_pcs() to destroy the XPCS instance when we've
+> finished with it.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
