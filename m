@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 326DD985C72
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:47:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C770985C79
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 14:48:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E46B7C78006;
-	Wed, 25 Sep 2024 12:47:46 +0000 (UTC)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 021C8C78006;
+	Wed, 25 Sep 2024 12:48:14 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97A05C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EA96C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 12:47:39 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a8a7dddd2c3so71203666b.3
+ Wed, 25 Sep 2024 12:48:13 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5c24648e280so994806a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 05:47:39 -0700 (PDT)
+ Wed, 25 Sep 2024 05:48:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727268459; x=1727873259;
+ d=gmail.com; s=20230601; t=1727268493; x=1727873293;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+LBbRfeJAH476Zzo/DwglJa17IfHtD4nGJ1Jvwz340c=;
- b=gCIx0ok4DJE5gqFA/oEdTHQspb8sEBE5bMkbma3YdWiwf5WfHQkU2U2P5cnsAmRGzH
- T7WfDpyBGdMeJLKtFfpvHWtBaanTUqUy0w+R7QY7xb/tUuUdLAOXZQzbbbG8k1O2YPtY
- bt6MC3pi2JW7up+NIzofTZpHD9JrNj6WQcAJp+kOyJGPI02/LGPvxsnDfG9AjZurOfyl
- 245Twn+8V/cEa4jiUR5D4BlZyx6+gReF15lTQ3j1luD4W+x/fR7Q04S2yQRyIZsw7jvV
- WW0ZjiWBGrG78z5iKdMrjdYe6/qGo377nKwdabiSJDFaNRrerlsjAXzxCtY8Zimpd8uB
- /RoQ==
+ bh=DuXdQsw+RRom/AQjZTFSHz4b4b5PpEAcJKit79ndl6w=;
+ b=FkmYNy1RsPclHX7vfCJjd58Biit/I3KgDIufIIl38m17J/uag15yIwl7HuP2Z41n6d
+ rsrpG4DUDd33/+mmREBnzd/AA5Cx7zfTMJoJgi0CQN0srNnHjUWbtSF7um2KPsrDCQyH
+ zqkatjkIoKrOnvZA8uC0SvIB6sGlhZl7b4KZxr7/ygNszsKh9Lx3/hE8bhY6QCfwMTui
+ PK5dHEp65RPCTYskgSA677UhvfBBRdzF1h0x1lDfIipY7bkXe8mYz8MMtz5uZdcNh9oM
+ DB7/x2H2ezHbA2WgnDZaLgmhuN0L9Gf09rWcwA6acLCa0Cz2vrtu+jGSCPrrvJqxpO1y
+ pR9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727268459; x=1727873259;
+ d=1e100.net; s=20230601; t=1727268493; x=1727873293;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+LBbRfeJAH476Zzo/DwglJa17IfHtD4nGJ1Jvwz340c=;
- b=vbiORFFGEWz1DWNv5F6eevC/Alpk5C9c1WfgZXEpwBS32aRE+f3cinv237WzAj1m4t
- t6s+YzAa0JZi9bS0ANfBwaZedWomjFvILKq6DrsxmXoHm37+ETni4GyQc2s6S3OwNt2V
- ppGYMGUDIr4dgglNH6p5xY5T+MjRIsqv5C1ySV526VAdAeK+fS3p2zW3IZ4lPBFcT8oe
- LdSm03q94SuIqUuDME7Nwr2rrguuN+MieCpHzojNfidqQiD7is7eTPRgObJSyWbJcoGa
- 0x0NBRZwkqIdhoSXsCR9FEExC8huycOunAEDbmu8JFThjgxlqy2cAGbdBbXe0jaKin19
- dDEQ==
+ bh=DuXdQsw+RRom/AQjZTFSHz4b4b5PpEAcJKit79ndl6w=;
+ b=JddXv+HMdPFG2CnRHr4XpHX3ZSQkVmouLTCalOD5H3VRlOZnPKGoTJyfyJ6xlggDZ4
+ qt4pjTO3tnSv0CQggaj5LFmTB049wHcWpnf6535EssRkOGycxgJ0BxRdh8xGvYk2ikYP
+ IesnRyFNva+6VV/I6ki5l3K+NRQi6uci6tSNjpkyrmEGWw9PkvXMiQ76dKGjuzbFSNzB
+ 1kY7SkgN37StqhWUgFX/Ka9he4vvw9fn5BahwsDuzeIAVfE1EOeUYOkgeIWIB+AZFIzy
+ flblmQK2ilS7BbrPglA9V5tZ/PIQvmsZkCK4F7dVCdjGAdHmtGgOUxy/atBcVAqpU374
+ wtSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOHfSkzCeZTfM0Dbmr3mOjRjZ2/SQtWONnSo3AHKv0+dvWVhTT9WHSnK4XiYlLaw5mpY0uJD2DgLBmKA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzSYsbh042dT3g/pzqNC7PWZSCNsCmg70yBg4GxINrD8y7w8zhW
- H1ibcImABhuzYcheNL1bWS5Abyo2ryEeD7kWr/pNz0D0faXd/LO9
-X-Google-Smtp-Source: AGHT+IHxuXkv4oPA1flcUn4EbmUBgsnBEfqQgzMJGZtYhKE/Cn7w4pP0ReLZxF6SU0fNuoXpjV/0Ew==
-X-Received: by 2002:a17:907:3f96:b0:a80:a294:f8a with SMTP id
- a640c23a62f3a-a93a035c2c6mr112023866b.1.1727268458883; 
- Wed, 25 Sep 2024 05:47:38 -0700 (PDT)
+ AJvYcCXH2gTF9vxfDkBZBj0YVIinpbAYZ5+vcqMyB6HHwXCARRaIHECEo4Gh/W7dn/8/wz8jgPc2JNPPe1fXQQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwGiRK5hZpiLbqOXQC45Q9XXpRwYNm73eALaaqMjAXppmmJRK8b
+ V3841CrpsQBc6VAmgCycnx0tXI4Xzs9n2YJPRUh7+SRdl0dP4KSw
+X-Google-Smtp-Source: AGHT+IEtS9Hfz450TsCH221Y56N8bpHwpAsKkJiKLbNa39+hGodyMA6e5M8gCGSjwSsuRdNKFiopvg==
+X-Received: by 2002:a17:907:9485:b0:a8b:6ee7:ba1a with SMTP id
+ a640c23a62f3a-a93a05d63e7mr129465866b.9.1727268492748; 
+ Wed, 25 Sep 2024 05:48:12 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f50b26sm206042966b.61.2024.09.25.05.47.37
+ a640c23a62f3a-a9393133c51sm204779566b.189.2024.09.25.05.48.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 05:47:38 -0700 (PDT)
-Date: Wed, 25 Sep 2024 15:47:35 +0300
+ Wed, 25 Sep 2024 05:48:12 -0700 (PDT)
+Date: Wed, 25 Sep 2024 15:48:09 +0300
 From: Vladimir Oltean <olteanv@gmail.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20240925124735.65xud5f5eo66mle5@skbuf>
+Message-ID: <20240925124809.rw7wsmcpmjn7sqxj@skbuf>
 References: <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
- <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
- <E1ssjce-005Nrl-UX@rmk-PC.armlinux.org.uk>
- <E1ssjce-005Nrl-UX@rmk-PC.armlinux.org.uk>
+ <E1ssjck-005Nrr-2B@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1ssjce-005Nrl-UX@rmk-PC.armlinux.org.uk>
- <E1ssjce-005Nrl-UX@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1ssjck-005Nrr-2B@rmk-PC.armlinux.org.uk>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Florian Fainelli <f.fainelli@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
@@ -75,8 +72,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Mengyuan Lou <mengyuanlou@net-swift.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 02/10] net: pcs: xpcs: drop
- interface argument from internal functions
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 03/10] net: pcs: xpcs: get
+ rid of xpcs_init_iface()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,9 +90,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 23, 2024 at 03:01:04PM +0100, Russell King (Oracle) wrote:
-> Now that we no longer use the "interface" argument when creating the
-> XPCS sub-driver, remove it from xpcs_create() and xpcs_init_iface().
+On Mon, Sep 23, 2024 at 03:01:10PM +0100, Russell King (Oracle) wrote:
+> xpcs_init_iface() no longer does anything with the interface mode, and
+> now merely does configuration related to the PMA ID. Move this back
+> into xpcs_create() as it doesn't warrant being a separate function
+> anymore.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
