@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85238992876
+	by mail.lfdr.de (Postfix) with ESMTPS id 96EA2992877
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 11:45:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB54EC7802E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD924C78030;
 	Mon,  7 Oct 2024 09:45:22 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F472C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36CD7C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Sep 2024 18:38:19 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2068a7c9286so13360345ad.1
+ Thu, 26 Sep 2024 18:47:51 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-205659dc63aso12818055ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Sep 2024 11:38:19 -0700 (PDT)
+ Thu, 26 Sep 2024 11:47:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tenstorrent.com; s=google; t=1727375898; x=1727980698;
+ d=tenstorrent.com; s=google; t=1727376470; x=1727981270;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5wX3yfYV/mjWNT23soPJLCRyd+y00sgy5yMqJgQHE9o=;
- b=LQ1aC7jiYfDp5Lpd8DIa/GRGeCouKu2w408C7wMm7HsB4G2kjuy9jF5DaTZb0+l8ai
- dF4PLunGBawNG0BO0C/WB/m8CezN+OF1V57mddoIXUF3H42rUS8DYbmwG0CmEp1yfd4Z
- EYmLBhEYmYRqO1dVnQiu7NtOXfviCKFWJ1Cxf+CjezUS/3QP73ONrls1pV4xjZlTIn82
- tzJ2GmdlEx881OYFdlXUoqOxF5qYguM4aHWj/2coTRZ+OgsjTYLPP7p4tzrXnL5c9VrH
- HmhhjL2T2ayhI4a6ixM7nhBNhMBebn/oiM0hHik5CVo5yTeRhJL5mHiLU3oM9fyKgMQZ
- ewWw==
+ bh=+KusUymBZTpYYnq4WmcbbE/FZsVAjrJbZNZbABf3CAo=;
+ b=gaEG8in2mlT9R69O5787w+OpM3gLOFqjTvTsiwmO9KOUo4wx4uimaRmgIKE8lZDlM/
+ sl8YlPYkkSoQiikZbAwdrFZS7hBgUaeXEXKgKfUH6Dn+8BTc1vNq83zlgS3lFd177g84
+ XMbzag41rm78bgoiDX0XPkYLtAAv1mWzVOVZfW8R1gNltsjvw221b75PEKwUpJHfW/0k
+ bSyEtRfVcc5yY/BQOa4w3e6Dwrqjij9xIqXQTjaP9drH9PQNbtKQppgxj6sZuyoVTRMp
+ LFKK4u0NBDleHo1Wz/5k0NnjCw7PQOFq6DT1gvLMjklFAbNKJRJ09UgsIlmFpw5yT/Lw
+ glJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727375898; x=1727980698;
+ d=1e100.net; s=20230601; t=1727376470; x=1727981270;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5wX3yfYV/mjWNT23soPJLCRyd+y00sgy5yMqJgQHE9o=;
- b=XpNNLYquVxihTE6YG4+0X7HHnpWsD793HCYxNrYy413X+uIhzAabWlnbOfJq3FhBMj
- tspUcf7tq5vkrg1o+E18z7xMob0OVERT40yKQaPDIX7y3Rw9CX/3Se/G5h8gHB+137xX
- xHLshzEULHvd8QYjIvpKuNrAZzl0GLSQX7S7sXtwqekcORweILhJwrA9sSQynBhIRjC3
- YghIq8rRkFpYukiaDbShVtpFkuFl38qfh7tylVV/3mHfEdyx1YgNyJs0gZL9GAYA8/4X
- YCVCuHmpX/dfYS9vB8u6koQ+8DfBt9y8c6dGAr2Eyc4hJHjXT/w5M+vxAVxxr7iGl1Hp
- Jtrg==
+ bh=+KusUymBZTpYYnq4WmcbbE/FZsVAjrJbZNZbABf3CAo=;
+ b=XlGT4sRwh4PxzKi3xx0nKShJX/bF7neMKVdm4AZKaqZSGeufeLey644CCtHf3Vi2gz
+ 8bY4QR/xDb3v5k5rY9+yXxdAbmQhUgqvuWRMCVo+sWdA2mfvaWYfifMvyQ6pRlW1JuC5
+ Bdb3xs2lXcVl3ULC0nQlEpXOQbdUf9cgAnN3R+ceXKHwpLftkCW6L9GTGQqlPGJF8Kzs
+ gT9SUX7dn5HB+hKH9GulzLZERClhjGr4k7I5Ae/DJPje57Gs/8WKzqucJ/pWCM5fqR1v
+ ujQKTv8yZPXlQYTY2HPgePoi1GZDkhPwOoZQ6xFvavw/nzkEJnzcK/Gcj1E5SXDVqHtL
+ 41Dw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVx0CwuqqgDpjPL1i8bJ6SQFfTRJmTBImzQrJDpWhItwCiuwUYmxb/vWkVPGXaT4KNZ65j4UdIXcLB0fg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxLlPBzw8ezIFzNeIJ84Bxa4imdqWOxLB1/2s32qS/AOeeZ37QU
- 3eCY+sByvtL+FLmYet/1aEvau7cRAO1fT3qFwQ4pLe6EyLKhtgufRhJrtc7VJQs=
-X-Google-Smtp-Source: AGHT+IEKfxNMgvf/9cfNHDk1L1k3ZzFqoQULZZZyf4LyzYdJuned7eyrWwn9WXqk+pz1avbSzydFmg==
-X-Received: by 2002:a17:903:24a:b0:205:8407:6321 with SMTP id
- d9443c01a7336-20b36cdcc32mr8316565ad.9.1727375897777; 
- Thu, 26 Sep 2024 11:38:17 -0700 (PDT)
+ AJvYcCUWuVF5BtoMdnj8glrtVE7YbekQdXEJxY5YmUdiJgbO8Acc3ysUr8N+HVaNimVmzFgxYdQcfUWg27Ky/A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yysy3yooHgjc/g7psmIEM+pzOkw3/68iFdgnHd+U9pPzgXOsd8Y
+ Wcc5FjBSigpovdcj4v87WlpfIwjL9NURXj6+GtaWwJemdgmbOVrUE/U2JMDr7s0=
+X-Google-Smtp-Source: AGHT+IGNxuTgkN1leT2RdvlA5PUTH+t79/qJCqmKY/KS0CmrWCtetVvj/vYEI9+Bz4MIXVKD0WkcsQ==
+X-Received: by 2002:a17:903:2285:b0:207:7952:e6d4 with SMTP id
+ d9443c01a7336-20b367ca162mr9258295ad.4.1727376469796; 
+ Thu, 26 Sep 2024 11:47:49 -0700 (PDT)
 Received: from x1 (71-34-69-82.ptld.qwest.net. [71.34.69.82])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-20b37da2195sm1594075ad.104.2024.09.26.11.38.17
+ d9443c01a7336-20b37e4ee7bsm1571565ad.234.2024.09.26.11.47.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 11:38:17 -0700 (PDT)
-Date: Thu, 26 Sep 2024 11:38:15 -0700
+ Thu, 26 Sep 2024 11:47:49 -0700 (PDT)
+Date: Thu, 26 Sep 2024 11:47:47 -0700
 From: Drew Fustini <dfustini@tenstorrent.com>
 To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <ZvWqF9DU+6i9O1VB@x1>
+Message-ID: <ZvWsUxyBoiHws1TE@x1>
 References: <20240926-th1520-dwmac-v2-0-f34f28ad1dc9@tenstorrent.com>
- <5e379911-e3de-478c-b785-61dbcc9627b1@lunn.ch>
+ <20240926-th1520-dwmac-v2-2-f34f28ad1dc9@tenstorrent.com>
+ <a64eb154-30b9-4321-b3ef-2bcb1e861800@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5e379911-e3de-478c-b785-61dbcc9627b1@lunn.ch>
+In-Reply-To: <a64eb154-30b9-4321-b3ef-2bcb1e861800@lunn.ch>
 X-Mailman-Approved-At: Mon, 07 Oct 2024 09:45:20 +0000
 Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
  Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
@@ -80,7 +81,7 @@ Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v2 0/3] Add the dwmac driver support for
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] net: stmmac: Add glue layer for
 	T-HEAD TH1520 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -98,34 +99,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 26, 2024 at 08:23:12PM +0200, Andrew Lunn wrote:
-> > Regarding rx and tx internal delays, that same section in the manual
-> > doesn't specify what unit is represented by the delay_ctrl bit field in
-> > GMAC_RXCLK_DELAY_CTRL and GMAC_TXCLK_DELAY_CTRL. It is only 5 bits and
-> > a max value of 31 seems too small to represent picoseconds. The vendor
-> > kernel [2] uses properties named "rx-clk-delay" and "tx-clk-delay" but
-> > doesn't indicate any units. I see ti,dp83867.yaml adds vendor specific
-> > rx and tx delay properties so that is what I've now done in this series.
-> > Note: the hardware default value of 0 for delay_ctrl works okay for the
-> > TH1520 hardware that I have.
+On Thu, Sep 26, 2024 at 08:32:00PM +0200, Andrew Lunn wrote:
+> > +static int thead_dwmac_init(struct platform_device *pdev, void *priv)
+> > +{
+> > +	struct thead_dwmac *dwmac = priv;
+> > +	int ret;
+> > +
+> > +	ret = thead_dwmac_set_phy_if(dwmac->plat);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = thead_dwmac_set_txclk_dir(dwmac->plat);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_write(dwmac->apb_regmap, GMAC_RXCLK_DELAY_CTRL,
+> > +			   GMAC_RXCLK_DELAY_VAL(dwmac->rx_delay));
+> > +	if (ret)
+> > +		return dev_err_probe(dwmac->dev, ret,
+> > +				     "failed to set GMAC RX clock delay\n");
+> > +
+> > +	ret = regmap_write(dwmac->apb_regmap, GMAC_TXCLK_DELAY_CTRL,
+> > +			   GMAC_TXCLK_DELAY_VAL(dwmac->tx_delay));
+> > +	if (ret)
+> > +		return dev_err_probe(dwmac->dev, ret,
+> > +				     "failed to set GMAC TX clock delay\n");
+> > +
+> > +	thead_dwmac_fix_speed(dwmac, SPEED_1000, 0);
 > 
-> I assume you are talking about RGMII delays here?
-> 
-> Do you have a board which needs to set these delays? In general, linux
-> has the PHY provide the 2ns delay. You only need the MAC to add the
-> delays if a PHY is being used which cannot add the needed
-> delays. Occasionally you need to fine tune the delay, and the MAC
-> delays can then be interesting. But since you have no idea what the
-> units are, i would prefer to simply hard code it to 0, unless is it
-> really needed.
-> 
-> 	Andrew
+> Is this needed? I would expect this to be called when the PHY has link
+> and you know the link speed. So why set it here?
 
-Yes, this is for the RGMII delays. None of the TH1520 boards that I have
-seem to need this. The hardware reset value is 0 which seems to work
-okay.
+Good point.  I've removed this line and the probe still completes okay
+and the Ethernet connection is working okay.
 
-I'll remove these custom properties in the next revision.
+> > +
+> > +	return thead_dwmac_enable_clk(dwmac->plat);
+> > +}
+> > +
+> > +static int thead_dwmac_probe(struct platform_device *pdev)
+> > +{
+> > +	struct device_node *np = pdev->dev.of_node;
+> > +	struct stmmac_resources stmmac_res;
+> > +	struct plat_stmmacenet_data *plat;
+> > +	struct thead_dwmac *dwmac;
+> > +	void __iomem *apb;
+> > +	u32 delay;
+> > +	int ret;
+> > +
+> > +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> > +	if (ret)
+> > +		return dev_err_probe(&pdev->dev, ret,
+> > +				     "failed to get resources\n");
+> > +
+> > +	plat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> > +	if (IS_ERR(plat))
+> > +		return dev_err_probe(&pdev->dev, PTR_ERR(plat),
+> > +				     "dt configuration failed\n");
+> > +
+> > +	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
+> > +	if (!dwmac)
+> > +		return -ENOMEM;
+> > +
+> > +	/* hardware default is 0 for the rx and tx internal clock delay */
+> > +	dwmac->rx_delay = 0;
+> > +	dwmac->tx_delay = 0;
+> > +
+> > +	/* rx and tx internal delay properties are optional */
+> > +	if (!of_property_read_u32(np, "thead,rx-internal-delay", &delay)) {
+> > +		if (delay > GMAC_RXCLK_DELAY_MASK)
+> > +			dev_warn(&pdev->dev,
+> > +				 "thead,rx-internal-delay (%u) exceeds max (%lu)\n",
+> > +				 delay, GMAC_RXCLK_DELAY_MASK);
+> > +		else
+> > +			dwmac->rx_delay = delay;
+> > +	}
+> > +
+> 
+> So you keep going, with an invalid value? It is better to use
+> dev_err() and return -EINVAL. The DT write will then correct their
+> error when the device fails to probe.
+
+My intention was to keep the default of 0 if the dt property exists and
+exceeds the max value. I had considered failing the probe but I wasn't
+sure that was too severe of a reaction to a bad value for the delay.
+
+> 
+> If you decide to keep this... I'm not sure these properties are
+> needed.
+
+Given your reply to the cover letter, I think it does make sense for me
+to remove handling of these delay properties since the units of the
+delay bit field are unknown and the hardware I have is okay with the
+default delay.
+
+> 
+> > +MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
+> 
+> Please add a second author, if you have taken over this driver.
+
+Yes, Jisheng is no longer working on it, so I will add myself.
 
 Thanks,
 Drew
