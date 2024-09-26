@@ -2,106 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ACAB9874D1
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Sep 2024 15:54:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A57B987519
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Sep 2024 16:07:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49C88C6DD72;
-	Thu, 26 Sep 2024 13:54:50 +0000 (UTC)
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F735C6DD72;
+	Thu, 26 Sep 2024 14:07:00 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD29CCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 925C7CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Sep 2024 13:54:42 +0000 (UTC)
-Received: from phl-compute-10.internal (phl-compute-10.phl.internal
- [10.202.2.50])
- by mailfout.phl.internal (Postfix) with ESMTP id 152F51380297;
- Thu, 26 Sep 2024 09:54:42 -0400 (EDT)
-Received: from phl-imap-11 ([10.202.2.101])
- by phl-compute-10.internal (MEProxy); Thu, 26 Sep 2024 09:54:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1727358882;
- x=1727445282; bh=6riDWHgJboduwD6LaSFNyFPLRcRPaab9kSUcfli2BKY=; b=
- Ed82I70M0gRdT9TOoYaLzrvfHoLQ2RkVw5BljDBCWBHW5/YtKj816v3sAP+b7ZSm
- cZoIFqIaVwq5PHBT/e35Wg4s5vbFREFevM//daefmaW6kP+XYxepPCYyTXHw3QZ0
- 9Za1MYRn7T98NbA5SZfsbPsmZzSiI7SC3tSrSXiBBKVyfj2pBH6mBaNrjOxrFaHE
- j49q0/22DpSKg/bsY3mml7j9HF3n4sLnbkfP6PQILPBqWhYIc1DlKnqtFgxhz20J
- 3kccxBEvmwm7gelOqzjUi/OyBkCJJShdYOKtnleaeWdN5njs6O1xbn4nIFM65Yhm
- YmauC2QVmPVGgRo9SrBwFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1727358882; x=
- 1727445282; bh=6riDWHgJboduwD6LaSFNyFPLRcRPaab9kSUcfli2BKY=; b=R
- 3y/KsXabibaJ2Z/XkVysWRaZOs8MTtsGNxYTlNWKe7wzJP2qTTNiBsy3MdawjKzW
- 0c/i8g4NVXfzSmdWt87jP66p8OWqjCS2WourGpBGTP2iwOVQgH79FH+EE3gQR0m0
- rheDEpOt7B7Dso+6iT/5xT59DHUYbAseI3FJ7vd9kVI6eGyd+dD6sxD56OuQ1Mgw
- 4YU0P7chz9BoVPa9xYbZWK0T1egLvkjZunHNa98cjf8dNOsPcURxW/lkhDQYd9uT
- 5YVDeZSGlPl3GmQQIK38QWLQjVwddi8BnzWgbhpeLRrZuKjZEtasvdnzWAy3mCM/
- WuF3u9Im8+31VwBTNF1PQ==
-X-ME-Sender: <xms:oGf1ZkqdmIpA7o2_QzgaN1fdtEYURj_XJL8PbUipRTKbPtqfIWADNA>
- <xme:oGf1ZqqQeZTrmeBKpSvohuYmfbNnevz71Ar_g3IYdL_mHSretB_U6oJUuZO9-jznk
- 16KkdMa_LQIOvQaVog>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvddtjedgjedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
- rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
- htshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddt
- necuhfhrohhmpedftehrnhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrd
- guvgeqnecuggftrfgrthhtvghrnhepgeehveefleethefhudfhjeeutedvtedttdejieff
- feeuieevhfehgeekieffgfeunecuffhomhgrihhnpehutghlihgstgdrohhrghdpuggvsg
- hirghnrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
- rhhomheprghrnhgusegrrhhnuggsrdguvgdpnhgspghrtghpthhtohepfeefpdhmohguvg
- epshhmthhpohhuthdprhgtphhtthhopehtshgsohhgvghnugesrghlphhhrgdrfhhrrghn
- khgvnhdruggvpdhrtghpthhtohepvhhlrgguihhmihhrrdhmuhhriihinhesrghrmhdrtg
- homhdprhgtphhtthhopegthhhrihhsthhophhhvgdrlhgvrhhohiestghsghhrohhuphdr
- vghupdhrtghpthhtohepmhhpvgesvghllhgvrhhmrghnrdhiugdrrghupdhrtghpthhtoh
- eprghlvgigrghnughrvgdrthhorhhguhgvsehfohhsshdrshhtrdgtohhmpdhrtghpthht
- oheprghnughrvggrshesghgrihhslhgvrhdrtghomhdprhgtphhtthhopehjtghmvhgskh
- gstgesghhmrghilhdrtghomhdprhgtphhtthhopehmrghtthhsthekkeesghhmrghilhdr
- tghomhdprhgtphhtthhopehnphhighhgihhnsehgmhgrihhlrdgtohhm
-X-ME-Proxy: <xmx:oGf1ZpOs0y-FbPti-OKl6xR1ZY2dhie4YLDkmurMdwnfxHpHtJYoFA>
- <xmx:oGf1Zr74k2DXoCSjpcxnYW6z-HhZzsyJVBY7ImllYBvWSFNv1qkDIA>
- <xmx:oGf1Zj5h518sYyyR-7X7t9gpI0zata-tw922AwVZ1WhK4IinxbpVLQ>
- <xmx:oGf1Zri38KCr4FELnXbIKGVGM8vn4Dn5Mz07V6elrrKyLhz_X1BznA>
- <xmx:omf1ZtSyM5YH_Y3K6L2LepXVBPOPk7t-GP7MIFO1kTmF_iVRLYo_xwlZ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id E77A02220071; Thu, 26 Sep 2024 09:54:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+ Thu, 26 Sep 2024 14:06:52 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a8a87c7c68dso12933966b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 26 Sep 2024 07:06:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1727359612; x=1727964412;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=dnBN6W/2Yn8YL1xAQTroO/UvJGFrAyxdRIvWWWIPJng=;
+ b=NGG4q77BXyjogqztx7lywKqSaSHRuxayp8Q7BDeHLgVXmvufTx87leUlpcb15TK9/Y
+ jrtXbgNJ43yt/IBpGt+dyPcjLZoLLFf6KVauDvId1licIGQqjy/bT/Ar2Yp2zZFpCina
+ zgpyTpguVu3xGcUpSwecsdf42jpPKAGIstGoSklJSpPCwF3QDzb/DJxvuj8VFx+H97OJ
+ RC7WqigUhxorSc6MSbckuNzRyMfNTkvt2tBXOfxc1HzzocwTElNNZ8cEzMVCuYeIp4VV
+ Tc/zbW1bSqabdikxqcLN9zqFTPiwzaI8m35rEjZ0qAlSi3lP1L5ZLczpH1fCq1y84hrU
+ /CIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727359612; x=1727964412;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dnBN6W/2Yn8YL1xAQTroO/UvJGFrAyxdRIvWWWIPJng=;
+ b=KOsKNushcLpryUYv+reIsZm0irbpsnqjHhqj/Kyb45TVcpdOTVasepU8/HzerfSo5V
+ 9Gec/ArwfTLBtKa1ZGUUtlnpNtS7cxOtqo2pcRX6inuzFI+4lrf+mMYzKXyHOEYi5jyF
+ iZBJMjIlRoVJ1v+uWxhSU5qz7LGEUjfZlBjtRM+Z4hsM0PpXcwaF4fjWgVXC5qNL2KI/
+ xjl2j/0huNHly8aWKYOolwZtD8FtEkAoid1tDs1dBsKdGRojvcYv0PImqdcm5gp4qezo
+ 54wPdpasS6wBRImHjRn+0FEnELzWJUB2apZGUfBSSx1PNou4F+ioq3uPD7XtXkLbNHUA
+ MV6g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXbz/jgAAf0C/c/6iZQXGywbooJDiQpOBR5XNbc4+n1h9v/xpbtTLFlWlQ6JphFk7TkhbiVDgzOf8L3tg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzziCMkbJUSkNP9Jqo/ZBAKTU1ZSuIhjONgJnycRcf2Kyimr0Jc
+ 8ft0Xl5OofaPH6YFR16tY0gggEhOa8vN3IMMTccAUQ1zy20MFtET
+X-Google-Smtp-Source: AGHT+IFvq+Q1MRytKOktEY4oDr+KD7iY0K65f5kEblT+8Z7cHRq/M6AykZXCgjHzqYpBKIWv2L2yRA==
+X-Received: by 2002:a17:907:d2a:b0:a8d:2623:cd4a with SMTP id
+ a640c23a62f3a-a93a06b1221mr247104366b.12.1727359604576; 
+ Thu, 26 Sep 2024 07:06:44 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2775d23sm2027766b.4.2024.09.26.07.06.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Sep 2024 07:06:40 -0700 (PDT)
+Date: Thu, 26 Sep 2024 17:06:34 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20240926140634.kpiwi7xjhkrq3kaq@skbuf>
+References: <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
+ <E1ssjcz-005Ns9-D5@rmk-PC.armlinux.org.uk>
+ <20240925131517.s562xmc5ekkslkhp@skbuf>
+ <ZvRmr3aU1Fz6z0Oc@shell.armlinux.org.uk>
+ <20240925211613.lmi2kh6hublkutbb@skbuf>
+ <ZvVNWxIRhKyNLM/J@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Date: Thu, 26 Sep 2024 13:54:09 +0000
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "David Hildenbrand" <david@redhat.com>, "Arnd Bergmann" <arnd@kernel.org>, 
- linux-mm@kvack.org
-Message-Id: <1a1f118e-9a7c-4c66-b956-d21eb36fce48@app.fastmail.com>
-In-Reply-To: <b7f7f849-00d1-49e5-8455-94eb9b45e273@redhat.com>
-References: <20240925210615.2572360-1-arnd@kernel.org>
- <20240925210615.2572360-6-arnd@kernel.org>
- <b7f7f849-00d1-49e5-8455-94eb9b45e273@redhat.com>
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
- Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
- linux-mips@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Greg Ungerer <gerg@linux-m68k.org>, Linux-Arch <linux-arch@vger.kernel.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, Christoph Hellwig <hch@lst.de>,
- Matt Turner <mattst88@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
- Vladimir Murzin <vladimir.murzin@arm.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, Damien Le Moal <dlemoal@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Vlastimil Babka <vbabka@suse.cz>,
- Christian Brauner <brauner@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] [RFC] mm: Remove MAP_UNINITIALIZED
-	support
+Content-Disposition: inline
+In-Reply-To: <ZvVNWxIRhKyNLM/J@shell.armlinux.org.uk>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Florian Fainelli <f.fainelli@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 06/10] net: dsa: sja1105:
+ simplify static configuration reload
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,52 +94,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 26, 2024, at 08:46, David Hildenbrand wrote:
-> On 25.09.24 23:06, Arnd Bergmann wrote:
->
-> The first, uncontroversial step could indeed be to make 
-> MAP_UNINITIALIZED a nop, but still leave the definitions in mman.h etc 
-> around.
->
-> This is the same we did with MAP_DENYWRITE. There might be some weird 
-> user out there, and carelessly reusing the bit could result in trouble. 
-> (people might argue that they are not using it with MAP_HUGETLB, so it 
-> would work)
->
-> Going forward and removing MAP_UNINITIALIZED is a bit more 
-> controversial, but maybe there really isn't any other user around. 
-> Software that is not getting recompiled cannot be really identified by 
-> letting it rest in -next only.
->
-> My take would be to leave MAP_UNINITIALIZED in the headers in some form 
-> for documentation purposes.
+On Thu, Sep 26, 2024 at 01:02:35PM +0100, Russell King (Oracle) wrote:
+> On Thu, Sep 26, 2024 at 12:16:13AM +0300, Vladimir Oltean wrote:
+> > On Wed, Sep 25, 2024 at 08:38:23PM +0100, Russell King (Oracle) wrote:
+> > > > There are 2 more changes which I believe should be made in sja1105_set_port_speed():
+> > > > - since it isn't called from mac_config() anymore but from mac_link_up()
+> > > >   (change which happened quite a while ago), it mustn't handle SPEED_UNKNOWN
+> > > > - we can trust that phylink will not call mac_link_up() with a speed
+> > > >   outside what we provided in mac_capabilities, so we can remove the
+> > > >   -EINVAL "default" speed_mbps case, and make this method return void,
+> > > >   as it can never truly cause an error
+> > > > 
+> > > > But I believe these are incremental changes which should be done after
+> > > > this patch. I've made a note of them and will create 2 patches on top
+> > > > when I have the spare time.
+> > > 
+> > > ... if we were to make those changes prior to this patch, then the
+> > > dev_err() will no longer be there and thus this becomes a non-issue.
+> > > So I'd suggest a patch prior to this one to make the changes you state
+> > > here, thus eliminating the need for this hunk in this patch.
+> > 
+> > That sounds good. Are you suggesting you will write up such a patch for v2?
+> 
+> Actually, the three patches become interdependent.
+> 
+> Let's say we want to eliminate SPEED_UNKNOWN. Prior to my patch in this
+> sub-thread, we have this:
+> 
+>                 speed_mbps[i] = sja1105_port_speed_to_ethtool(priv,
+>                                                               mac[i].speed);
+> ...
+>                 rc = sja1105_adjust_port_config(priv, i, speed_mbps[i]);
+> 
+> sja1105_port_speed_to_ethtool() can return SPEED_UNKNOWN if
+> mac[i].speed is not one of the four encodings. If we can't guarantee
+> that it is one of the four encodings, then SPEED_UNKNOWN may be
+> passed into sja1105_adjust_port_config().
+> 
+> Similarly, as for the default case, we can't simply delete that,
+> because that'll leave "speed" uninitialised and we'll get a build
+> warning without my changes. We could change the default case to
+> simply:
+> 
+> 	default:
+> 		return 0;
+> 
+> but that just looks perverse.
+> 
+> So, I think rather than trying to do your suggestion before my patch,
+> my patch needs to stand as it currently is, and then your suggestion
+> must happen after it - otherwise we end up introducing more complexity
+> or weirdness.
+> 
+> Hmm?
 
-I don't think there is much point in doing this in multiple
-steps, either we want to break it at compile time or leave
-it silently doing nothing. There is also very little
-difference in practice because applications almost always
-use sys/mman.h instead of linux/mman.h.
-
-FWIW, the main user appears to be the uClibc and uclibc-ng
-malloc() implementation for NOMMU targets:
-
-https://git.uclibc.org/uClibc/commit/libc/stdlib/malloc/malloc.c?id=00673f93826bf1f
-
-Both of these also define this constant itself as 0x4000000
-for all architectures.
-
-There are a few others that I could find with Debian codesearch:
-
-https://sources.debian.org/src/monado/21.0.0+git2905.e26a272c1~dfsg1-2/src/external/tracy/client/tracy_rpmalloc.cpp/?hl=890#L889
-https://sources.debian.org/src/systemtap/5.1-4/testsuite/systemtap.syscall/mmap.c/?hl=224#L224
-https://sources.debian.org/src/fuzzel/1.11.1+ds-1/shm.c/?hl=488#L488
-https://sources.debian.org/src/notcurses/3.0.7+dfsg.1-1/src/lib/fbuf.h/?hl=35#L35
-https://sources.debian.org/src/lmms/1.2.2+dfsg1-6/src/3rdparty/rpmalloc/rpmalloc/rpmalloc/rpmalloc.c/?hl=1753#L1753
-
-All of these will fall back to not passing MAP_UNINITIALIZED
-if it's not defined, which is what happens on glibc and musl.
-
-       Arnd
+Ok, if we're back to my original proposal, I'm implicitly okay with that.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
