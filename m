@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96EA2992877
+	by mail.lfdr.de (Postfix) with ESMTPS id 996F7992878
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 11:45:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD924C78030;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBE23C78032;
 	Mon,  7 Oct 2024 09:45:22 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36CD7C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6A74C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Sep 2024 18:47:51 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-205659dc63aso12818055ad.1
+ Thu, 26 Sep 2024 19:13:09 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-20b0b2528d8so14483565ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Sep 2024 11:47:51 -0700 (PDT)
+ Thu, 26 Sep 2024 12:13:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tenstorrent.com; s=google; t=1727376470; x=1727981270;
+ d=tenstorrent.com; s=google; t=1727377988; x=1727982788;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+KusUymBZTpYYnq4WmcbbE/FZsVAjrJbZNZbABf3CAo=;
- b=gaEG8in2mlT9R69O5787w+OpM3gLOFqjTvTsiwmO9KOUo4wx4uimaRmgIKE8lZDlM/
- sl8YlPYkkSoQiikZbAwdrFZS7hBgUaeXEXKgKfUH6Dn+8BTc1vNq83zlgS3lFd177g84
- XMbzag41rm78bgoiDX0XPkYLtAAv1mWzVOVZfW8R1gNltsjvw221b75PEKwUpJHfW/0k
- bSyEtRfVcc5yY/BQOa4w3e6Dwrqjij9xIqXQTjaP9drH9PQNbtKQppgxj6sZuyoVTRMp
- LFKK4u0NBDleHo1Wz/5k0NnjCw7PQOFq6DT1gvLMjklFAbNKJRJ09UgsIlmFpw5yT/Lw
- glJg==
+ bh=y4WZTo6nI26Bhfdln9Gf7wFMawvUlUInYNk7SP122zU=;
+ b=TUGyTG76odwYsxkibkjp7/LWh4DXjkQePAa6SqcXKIZsok8rQPKH+aUaM1gfB/uW6x
+ V0OVJOkGpPcyO/4kmGEfoV6+GSN7hcPQzsexRiUgTsw+gMrhc7f0RvAA+gPkAcYGf/6R
+ t7szQYfgzM1xDGOBDf5CLIrnML+WYFQ/ySzOUgqwdifKNCIxOAGO9l+bFHQGpxw7gBKP
+ LxCxhXBTyIgzaEA8WVuGlvi0qcBdXchY0kA63KhF0bsRxuTeowdHYDf0aqyPX7oPFDRb
+ 0ZIhrZ+ala05c1j7tcU4oBTK7AeaY792iwD6qu3cqWRJBRf3HmygljhfAURQ9mQIQWh4
+ jlug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727376470; x=1727981270;
+ d=1e100.net; s=20230601; t=1727377988; x=1727982788;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+KusUymBZTpYYnq4WmcbbE/FZsVAjrJbZNZbABf3CAo=;
- b=XlGT4sRwh4PxzKi3xx0nKShJX/bF7neMKVdm4AZKaqZSGeufeLey644CCtHf3Vi2gz
- 8bY4QR/xDb3v5k5rY9+yXxdAbmQhUgqvuWRMCVo+sWdA2mfvaWYfifMvyQ6pRlW1JuC5
- Bdb3xs2lXcVl3ULC0nQlEpXOQbdUf9cgAnN3R+ceXKHwpLftkCW6L9GTGQqlPGJF8Kzs
- gT9SUX7dn5HB+hKH9GulzLZERClhjGr4k7I5Ae/DJPje57Gs/8WKzqucJ/pWCM5fqR1v
- ujQKTv8yZPXlQYTY2HPgePoi1GZDkhPwOoZQ6xFvavw/nzkEJnzcK/Gcj1E5SXDVqHtL
- 41Dw==
+ bh=y4WZTo6nI26Bhfdln9Gf7wFMawvUlUInYNk7SP122zU=;
+ b=VvP7AG9GdRddFagiwr7F8SzUFJhcT/48vNa6bOjd1upaKBzXb6vNSyuCu++YOzjJnA
+ oaw6rh49+fpUy1P7BHjkprXCCi2YLXrzoGBDKCFykVgwprlMpmd9JMJvAL14HeXAF/MK
+ Fatt/izl2cL/7Sc/AwJrjNsBHVAvxCyKHMJqh1lfitJwqCTsBy7IleJA1+BejeY6XV9D
+ TznaskQTjlRhB47bw3HjX879TiK2A9RE38LdFVfqc5DDEKUkI5bPB7YOrk4pLNP8AQBc
+ wF6VwWK1JZorsvshFVw8smH14SWxuSAkzBUJLlKsM27a0yYk9DA4PBgmKf0/hNh/LBhE
+ MXaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUWuVF5BtoMdnj8glrtVE7YbekQdXEJxY5YmUdiJgbO8Acc3ysUr8N+HVaNimVmzFgxYdQcfUWg27Ky/A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yysy3yooHgjc/g7psmIEM+pzOkw3/68iFdgnHd+U9pPzgXOsd8Y
- Wcc5FjBSigpovdcj4v87WlpfIwjL9NURXj6+GtaWwJemdgmbOVrUE/U2JMDr7s0=
-X-Google-Smtp-Source: AGHT+IGNxuTgkN1leT2RdvlA5PUTH+t79/qJCqmKY/KS0CmrWCtetVvj/vYEI9+Bz4MIXVKD0WkcsQ==
-X-Received: by 2002:a17:903:2285:b0:207:7952:e6d4 with SMTP id
- d9443c01a7336-20b367ca162mr9258295ad.4.1727376469796; 
- Thu, 26 Sep 2024 11:47:49 -0700 (PDT)
+ AJvYcCVJnjJM5938y487473ziUjr1c+ITCcO5bDHZN09nEsLg3AU7a9QSsyzKyOanrS7PfIrhIzSt8GaApDvUg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyEU5q0J7zqHgmQQrRUZv7Bn0DkkwHM4rAdAjysCPAHhYrrTE+b
+ o/i/jTbd2a6R/JISDHeMvdtoaCz/iwBEg/TBDTpBxCrmjcnni6B6LqpIytqHC9E=
+X-Google-Smtp-Source: AGHT+IEMklrWdPx+X7c21DcecTVJ7lxpddUaIsHWWZy+aOWGUu3YS5G/It5NPJNOcBI2+VtqDMCCmw==
+X-Received: by 2002:a17:903:41ca:b0:206:9ab3:2ebc with SMTP id
+ d9443c01a7336-20b37b7c063mr8647165ad.47.1727377988323; 
+ Thu, 26 Sep 2024 12:13:08 -0700 (PDT)
 Received: from x1 (71-34-69-82.ptld.qwest.net. [71.34.69.82])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-20b37e4ee7bsm1571565ad.234.2024.09.26.11.47.49
+ d9443c01a7336-20b37e543dasm1740175ad.258.2024.09.26.12.13.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 11:47:49 -0700 (PDT)
-Date: Thu, 26 Sep 2024 11:47:47 -0700
+ Thu, 26 Sep 2024 12:13:08 -0700 (PDT)
+Date: Thu, 26 Sep 2024 12:13:06 -0700
 From: Drew Fustini <dfustini@tenstorrent.com>
 To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <ZvWsUxyBoiHws1TE@x1>
+Message-ID: <ZvWyQo+2mwsC1HS6@x1>
 References: <20240926-th1520-dwmac-v2-0-f34f28ad1dc9@tenstorrent.com>
- <20240926-th1520-dwmac-v2-2-f34f28ad1dc9@tenstorrent.com>
- <a64eb154-30b9-4321-b3ef-2bcb1e861800@lunn.ch>
+ <20240926-th1520-dwmac-v2-3-f34f28ad1dc9@tenstorrent.com>
+ <3e26f580-bc5d-448e-b5bd-9b607c33702b@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a64eb154-30b9-4321-b3ef-2bcb1e861800@lunn.ch>
+In-Reply-To: <3e26f580-bc5d-448e-b5bd-9b607c33702b@lunn.ch>
 X-Mailman-Approved-At: Mon, 07 Oct 2024 09:45:20 +0000
 Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
  Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
@@ -81,8 +81,8 @@ Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] net: stmmac: Add glue layer for
-	T-HEAD TH1520 SoC
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] riscv: dts: thead: Add TH1520
+	ethernet nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,109 +99,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 26, 2024 at 08:32:00PM +0200, Andrew Lunn wrote:
-> > +static int thead_dwmac_init(struct platform_device *pdev, void *priv)
-> > +{
-> > +	struct thead_dwmac *dwmac = priv;
-> > +	int ret;
+On Thu, Sep 26, 2024 at 08:39:29PM +0200, Andrew Lunn wrote:
+> > +&mdio0 {
+> > +	phy0: ethernet-phy@1 {
+> > +		reg = <1>;
+> > +	};
 > > +
-> > +	ret = thead_dwmac_set_phy_if(dwmac->plat);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = thead_dwmac_set_txclk_dir(dwmac->plat);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_write(dwmac->apb_regmap, GMAC_RXCLK_DELAY_CTRL,
-> > +			   GMAC_RXCLK_DELAY_VAL(dwmac->rx_delay));
-> > +	if (ret)
-> > +		return dev_err_probe(dwmac->dev, ret,
-> > +				     "failed to set GMAC RX clock delay\n");
-> > +
-> > +	ret = regmap_write(dwmac->apb_regmap, GMAC_TXCLK_DELAY_CTRL,
-> > +			   GMAC_TXCLK_DELAY_VAL(dwmac->tx_delay));
-> > +	if (ret)
-> > +		return dev_err_probe(dwmac->dev, ret,
-> > +				     "failed to set GMAC TX clock delay\n");
-> > +
-> > +	thead_dwmac_fix_speed(dwmac, SPEED_1000, 0);
+> > +	phy1: ethernet-phy@2 {
+> > +		reg = <2>;
+> > +	};
+> > +};
 > 
-> Is this needed? I would expect this to be called when the PHY has link
-> and you know the link speed. So why set it here?
+> Two PHYs on one bus...
 
-Good point.  I've removed this line and the probe still completes okay
-and the Ethernet connection is working okay.
-
-> > +
-> > +	return thead_dwmac_enable_clk(dwmac->plat);
-> > +}
-> > +
-> > +static int thead_dwmac_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device_node *np = pdev->dev.of_node;
-> > +	struct stmmac_resources stmmac_res;
-> > +	struct plat_stmmacenet_data *plat;
-> > +	struct thead_dwmac *dwmac;
-> > +	void __iomem *apb;
-> > +	u32 delay;
-> > +	int ret;
-> > +
-> > +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> > +	if (ret)
-> > +		return dev_err_probe(&pdev->dev, ret,
-> > +				     "failed to get resources\n");
-> > +
-> > +	plat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> > +	if (IS_ERR(plat))
-> > +		return dev_err_probe(&pdev->dev, PTR_ERR(plat),
-> > +				     "dt configuration failed\n");
-> > +
-> > +	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
-> > +	if (!dwmac)
-> > +		return -ENOMEM;
-> > +
-> > +	/* hardware default is 0 for the rx and tx internal clock delay */
-> > +	dwmac->rx_delay = 0;
-> > +	dwmac->tx_delay = 0;
-> > +
-> > +	/* rx and tx internal delay properties are optional */
-> > +	if (!of_property_read_u32(np, "thead,rx-internal-delay", &delay)) {
-> > +		if (delay > GMAC_RXCLK_DELAY_MASK)
-> > +			dev_warn(&pdev->dev,
-> > +				 "thead,rx-internal-delay (%u) exceeds max (%lu)\n",
-> > +				 delay, GMAC_RXCLK_DELAY_MASK);
-> > +		else
-> > +			dwmac->rx_delay = delay;
-> > +	}
-> > +
-> 
-> So you keep going, with an invalid value? It is better to use
-> dev_err() and return -EINVAL. The DT write will then correct their
-> error when the device fails to probe.
-
-My intention was to keep the default of 0 if the dt property exists and
-exceeds the max value. I had considered failing the probe but I wasn't
-sure that was too severe of a reaction to a bad value for the delay.
+Thanks for pointing this out. I will move phy1 to mdio1.
 
 > 
-> If you decide to keep this... I'm not sure these properties are
-> needed.
-
-Given your reply to the cover letter, I think it does make sense for me
-to remove handling of these delay properties since the units of the
-delay bit field are unknown and the hardware I have is okay with the
-default delay.
-
+> > +		gmac1: ethernet@ffe7060000 {
+> > +			compatible = "thead,th1520-gmac", "snps,dwmac-3.70a";
+> > +			reg = <0xff 0xe7060000 0x0 0x2000>, <0xff 0xec004000 0x0 0x1000>;
+> > +			reg-names = "dwmac", "apb";
+> > +			interrupts = <67 IRQ_TYPE_LEVEL_HIGH>;
+> > +			interrupt-names = "macirq";
+> > +			clocks = <&clk CLK_GMAC_AXI>, <&clk CLK_GMAC_AXI>;
+> > +			clock-names = "stmmaceth", "pclk";
+> > +			snps,pbl = <32>;
+> > +			snps,fixed-burst;
+> > +			snps,multicast-filter-bins = <64>;
+> > +			snps,perfect-filter-entries = <32>;
+> > +			snps,axi-config = <&stmmac_axi_config>;
+> > +			status = "disabled";
+> > +
+> > +			mdio1: mdio {
+> > +				compatible = "snps,dwmac-mdio";
+> > +				#address-cells = <1>;
+> > +				#size-cells = <0>;
+> > +			};
+> > +		};
+> > +
+> > +		gmac0: ethernet@ffe7070000 {
+> > +			compatible = "thead,th1520-gmac", "snps,dwmac-3.70a";
+> > +			reg = <0xff 0xe7070000 0x0 0x2000>, <0xff 0xec003000 0x0 0x1000>;
+> > +			reg-names = "dwmac", "apb";
+> > +			interrupts = <66 IRQ_TYPE_LEVEL_HIGH>;
+> > +			interrupt-names = "macirq";
+> > +			clocks = <&clk CLK_GMAC_AXI>, <&clk CLK_GMAC_AXI>;
 > 
-> > +MODULE_AUTHOR("Jisheng Zhang <jszhang@kernel.org>");
+> And the MACs are listed in opposite order. Does gmac1 probe first,
+> find the PHY does not exist, and return -EPROBE_DEFER. Then gmac0
+> probes successfully, and then sometime later gmac1 then reprobes?
 > 
-> Please add a second author, if you have taken over this driver.
+> I know it is normal to list nodes in address order, but you might be
+> able to avoid the EPROBE_DEFER if you reverse the order.
 
-Yes, Jisheng is no longer working on it, so I will add myself.
+The probe order seems to always be the ethernet@ffe7060000 (gmac1) first
+and then ethernet@ffe7070000 (gmac0). I do not see any probe deferral
+in the boot log [1].
 
 Thanks,
 Drew
+
+[1] https://gist.github.com/pdp7/02a44b024bdb6be5fe61ac21303ab29a
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
