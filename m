@@ -2,80 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF17986839
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2024 23:16:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3FA986B85
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Sep 2024 05:48:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F27AC6C841;
-	Wed, 25 Sep 2024 21:16:25 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAAA0C6C841;
+	Thu, 26 Sep 2024 03:48:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C50E8C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EDA5CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 21:16:17 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-42ee66c2c49so359435e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2024 14:16:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1727298977; x=1727903777;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Hserkp0XoO/xaxszPyfe2XUusNXhdSGovTKNC7GSS08=;
- b=HkEK0EmOiwbmuTbxik+9bzhd+AC6l+oJlE+qpH3Naj7zFi7E/nTI9veWRbxZ05Susw
- I3rJM1Z84GiAvstd3U6RC0Khxo6SB7/ma+Ucbqmkk4YGZQ1oFKYpBJHi7bYoRt7yCTsj
- YQYcB5v2vkSE/exHWQtKMtiWE4AN9tW5eIwNijNuip++5BP6CVg8z90O5q262N3esA1g
- yOKtGO2J3WS1MqnlPCmAztFeKgW7O+HoQBcG95NBuflHwZ9Q/oMg4Dr3wvSgFNiX+A9J
- mF29KnHE67yoHId38/mh/RhQblJtLl4+ersfZn5Fjw4d21LZCVxkJueXce93Lh+wsI9N
- D9zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727298977; x=1727903777;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Hserkp0XoO/xaxszPyfe2XUusNXhdSGovTKNC7GSS08=;
- b=ZjlLB/GVJPjhDrixspUf52H0mr1ftKjG3dDKDTCx2ZmUAhz5LQibzEbo8d97Giq2hD
- joL5fkR0TlF3u16/YyUi/oc9aLW55jstUjlpW1OrltQ3/DCgxOBUKnQTWH/o5pQCNpkS
- 7Ck1vwOMxpev5TB7y1xw577KBVWXM3xMuSf5JRo6wU7u8WYLlq3dBrfuzqVo/aIfnW4R
- MvsTo0dB8cmtMfyGRObblcaO2liWFYXJ32BIm7r1L1IhZ7n+NlKFXFHffRESDWVeVYph
- 417Me0IoOCLZuIeosv1D129W4Mpvfyykuljj6quOeYcgTw+dCm0glbySUMhWmLTQwZRQ
- ccsw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7XA6zBmf9qdirKP+n3iUG14wqnglqfC0pN9HD1fK8sxJRm9xRYcet2pc+70URupMVwjEmk5o2eKozuA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy5ItsKY0qWonilwptV0KQcaoUo590A8LAH3ZDTGlszAuNIYTmA
- yMvR5sFojf9FqaktQYsulU3z5qHndx/WTUkybRrrYe08rqix9zFv
-X-Google-Smtp-Source: AGHT+IHBkP25fB4BC5hSAT45OKJ8Gcfe1I3/jKVfbWU3juyKG2hV4TbANIux7w2Ze32P428dDIwKzg==
-X-Received: by 2002:a05:600c:1d25:b0:42c:ba6c:d9a7 with SMTP id
- 5b1f17b1804b1-42e96144adcmr14013805e9.4.1727298976991; 
- Wed, 25 Sep 2024 14:16:16 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37cbc2c13cesm4876658f8f.29.2024.09.25.14.16.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 14:16:16 -0700 (PDT)
-Date: Thu, 26 Sep 2024 00:16:13 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20240925211613.lmi2kh6hublkutbb@skbuf>
-References: <ZvF0er+vyciwy3Nx@shell.armlinux.org.uk>
- <E1ssjcz-005Ns9-D5@rmk-PC.armlinux.org.uk>
- <20240925131517.s562xmc5ekkslkhp@skbuf>
- <ZvRmr3aU1Fz6z0Oc@shell.armlinux.org.uk>
+ Thu, 26 Sep 2024 03:48:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 01FC45C5800;
+ Thu, 26 Sep 2024 03:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1948C4CEC5;
+ Thu, 26 Sep 2024 03:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727322518;
+ bh=TT3botE3rQaiOP2T5I00OMpgg92VH5Ma6IG0PUW7s70=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Nay9SD8PrAy9k4cW4kSnRM0bKWIICeXA1yjBB6pZ3wkuK8uDpocj2eN3cNc7nH2JL
+ ekJwqgdoAt1Tozi9kBsd0jrWuH+ROXmxtAHAi+TZmNBaplNZsTubXpffpVrvtxFrQv
+ Espaf7mRfht0hwmK1fPrvZx8Xus+ADVHFy5dR4vu/30SPzVP+Zk8yF4AjJseamyLby
+ 8htszNJJkP1ySIjN8eou0dr3KTlAKQRu3xFfianz4N6JC/uPUtJYSFMOVIJKLOqTgg
+ 0UO+2jZ3r6JEFckKXgPrpmHyTvQrT9io17YQ5X9+9pUrJf4TT9GAcYVkAE7vsQsX1e
+ ZkRwL/XM2jaSg==
+Date: Wed, 25 Sep 2024 20:51:57 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <yvax326sikpqkaygfldunjpziwwlwccfzmi6r5ikaqoyvfvama@w7kifjv5yt47>
+References: <20240830095147.3538047-1-arnaud.pouliquen@foss.st.com>
+ <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZvRmr3aU1Fz6z0Oc@shell.armlinux.org.uk>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Florian Fainelli <f.fainelli@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jiawen Wu <jiawenwu@trustnetic.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 06/10] net: dsa: sja1105:
- simplify static configuration reload
+In-Reply-To: <20240830095147.3538047-5-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v9 4/7] remoteproc: core: Add TEE
+ interface support for firmware release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,25 +62,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 25, 2024 at 08:38:23PM +0100, Russell King (Oracle) wrote:
-> > There are 2 more changes which I believe should be made in sja1105_set_port_speed():
-> > - since it isn't called from mac_config() anymore but from mac_link_up()
-> >   (change which happened quite a while ago), it mustn't handle SPEED_UNKNOWN
-> > - we can trust that phylink will not call mac_link_up() with a speed
-> >   outside what we provided in mac_capabilities, so we can remove the
-> >   -EINVAL "default" speed_mbps case, and make this method return void,
-> >   as it can never truly cause an error
-> > 
-> > But I believe these are incremental changes which should be done after
-> > this patch. I've made a note of them and will create 2 patches on top
-> > when I have the spare time.
+On Fri, Aug 30, 2024 at 11:51:44AM GMT, Arnaud Pouliquen wrote:
+> Add support for releasing remote processor firmware through
+> the Trusted Execution Environment (TEE) interface.
 > 
-> ... if we were to make those changes prior to this patch, then the
-> dev_err() will no longer be there and thus this becomes a non-issue.
-> So I'd suggest a patch prior to this one to make the changes you state
-> here, thus eliminating the need for this hunk in this patch.
+> The tee_rproc_release_fw() function is called in the following cases:
+> 
+> - An error occurs in rproc_start() between the loading of the segments and
+>   the start of the remote processor.
+> - When rproc_release_fw is called on error or after stopping the remote
+>   processor.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/remoteproc_core.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 7694817f25d4..32052dedc149 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/rculist.h>
+>  #include <linux/remoteproc.h>
+> +#include <linux/remoteproc_tee.h>
+>  #include <linux/iommu.h>
+>  #include <linux/idr.h>
+>  #include <linux/elf.h>
+> @@ -1258,6 +1259,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
+>  
+>  static void rproc_release_fw(struct rproc *rproc)
+>  {
+> +	if (rproc->state == RPROC_OFFLINE && rproc->tee_interface)
+> +		tee_rproc_release_fw(rproc);
 
-That sounds good. Are you suggesting you will write up such a patch for v2?
+I don't like the idea of having op-tee specific calls made from the
+core. If the problem is that we need to unroll something we did at load,
+can we instead come up with a more generic mechanism to unload that? Or
+can we perhaps postpone the tee interaction until start() to avoid the
+gap?
+
+
+PS. Most of the Qualcomm drivers are TEE-based...so the "tee_interface"
+boolean check here is not very nice.
+
+Regards,
+Bjorn
+
+> +
+>  	/* Free the copy of the resource table */
+>  	kfree(rproc->cached_table);
+>  	rproc->cached_table = NULL;
+> @@ -1348,7 +1352,7 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>  	if (ret) {
+>  		dev_err(dev, "failed to prepare subdevices for %s: %d\n",
+>  			rproc->name, ret);
+> -		goto reset_table_ptr;
+> +		goto release_fw;
+>  	}
+>  
+>  	/* power up the remote processor */
+> @@ -1376,7 +1380,9 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>  	rproc->ops->stop(rproc);
+>  unprepare_subdevices:
+>  	rproc_unprepare_subdevices(rproc);
+> -reset_table_ptr:
+> +release_fw:
+> +	if (rproc->tee_interface)
+> +		tee_rproc_release_fw(rproc);
+>  	rproc->table_ptr = rproc->cached_table;
+>  
+>  	return ret;
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
