@@ -2,58 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4B498839D
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2024 13:59:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D16E69883B6
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2024 14:00:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 687D6C6DD72;
-	Fri, 27 Sep 2024 11:59:09 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97427C6DD72;
+	Fri, 27 Sep 2024 12:00:50 +0000 (UTC)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B65B7C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6062AC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Sep 2024 11:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=9SUDZW4Es71/qXQBSzrGEM3NsuyUoGW8P/PUFbYZIA4=; b=LuYkyrScUAmp094kXm5CrB4SqI
- bD0g3c/LHBoFXF9vxq0zltKH8MYcEb5MIUKZy4cz3s+GrBCPY4AX7IDpWjrN+FiSBoqEMJf0A6ech
- u+VgkaueeK7a6s98+SNVXzfeOgl4jem99PE7O3VCni51eghIxcykdlATXLosRG9w+JNc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1su9cO-008SQd-4u; Fri, 27 Sep 2024 13:58:40 +0200
-Date: Fri, 27 Sep 2024 13:58:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Drew Fustini <dfustini@tenstorrent.com>
-Message-ID: <5076789c-3a35-4349-9733-f5d47528c184@lunn.ch>
-References: <20240926-th1520-dwmac-v2-0-f34f28ad1dc9@tenstorrent.com>
- <20240926-th1520-dwmac-v2-3-f34f28ad1dc9@tenstorrent.com>
- <3e26f580-bc5d-448e-b5bd-9b607c33702b@lunn.ch>
- <ZvWyQo+2mwsC1HS6@x1>
- <0b49b681-2289-412a-8969-d134ffcfb7fc@lunn.ch>
- <ZvYJfrPx75FA1IFC@x1>
+ Fri, 27 Sep 2024 12:00:43 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 48RC0MLi020296;
+ Fri, 27 Sep 2024 07:00:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1727438422;
+ bh=+jsVr4Ims5WSRmy2NLVUof7RpYlMYwogh7jR4rXlInk=;
+ h=Date:From:To:CC:Subject:References:In-Reply-To;
+ b=l4mvowJAjM9PJeOeJyl4Lw0IoQxGpHFoAmHIUeiriguabhIc4m8fYPjXtPvdf1o9e
+ px8xK7VGURl6MbTf1fWQDPL2/R8LqUjVVjmLijdXCKy1uRwXptRLzZLF2aA1vBTqVC
+ Bz/w2OXYV+xHs4q2SxmyjvE9E5mJ8nRaHRNMgeSw=
+Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 48RC0MQM110251
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 27 Sep 2024 07:00:22 -0500
+Received: from flwvowa01.ent.ti.com (10.64.41.90) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 27
+ Sep 2024 07:00:22 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by flwvowa01.ent.ti.com
+ (10.64.41.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2507.34; Fri, 27 Sep
+ 2024 07:00:21 -0500
+Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 27 Sep 2024 07:00:21 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+ by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 48RC0LAu068343;
+ Fri, 27 Sep 2024 07:00:21 -0500
+Date: Fri, 27 Sep 2024 07:00:21 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Lee Jones <lee@kernel.org>
+Message-ID: <20240927120021.b6okbwrdpguv4hp6@spiny>
+References: <20240903184710.1552067-1-nm@ti.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZvYJfrPx75FA1IFC@x1>
-Cc: Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Drew Fustini <drew@pdp7.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] riscv: dts: thead: Add TH1520
-	ethernet nodes
+In-Reply-To: <20240903184710.1552067-1-nm@ti.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Cc: Florian
+ Fainelli <florian.fainelli@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ bcm-kernel-feedback-list@broadcom.com, Shawn Guo <shawnguo@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH V2] mfd: syscon: Use regmap
+	max_register_is_0 as needed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,24 +75,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> I tried to setup an nfs server with a rootfs on my local network. I can
-> mount it okay from my laptop so I think it is working okay. However, it
-> does not seem to work on the lpi4a [3]. It appears the rgmii-id
-> validation fails and the dwmac driver can not open the phy:
+On 13:47-20240903, Nishanth Menon wrote:
+> syscon has always set the optional max_register configuration of
+> regmap to ensure the correct checks are in place. However, a recent
+> commit 0ec74ad3c157 ("regmap: rework ->max_register handling")
+> introduced explicit configuration in regmap framework for register
+> maps that is exactly 1 register, when max_register is pointing to a
+> valid register 0. This commit solved a previous limitation of regmap
+> framework.
 > 
->  thead-dwmac ffe7060000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
->  thead-dwmac ffe7060000.ethernet eth0: validation of rgmii-id with support \
->              00,00000000,00000000,00006280 and advertisementa \
-> 	     00,00000000,00000000,00006280 failed: -EINVAL
->  thead-dwmac ffe7060000.ethernet eth0: __stmmac_open: Cannot attach to PHY (error: -22)
+> Update syscon driver to consistent in regmap configuration for
+> all sizes of syscons by using this new capability by setting
+> max_register_is_0, when the max_register is valid and 0.
+> 
+> Signed-off-by: Nishanth Menon <nm@ti.com>
+> ---
+> 
+> Based on my search
+> https://gist.github.com/nmenon/d537096d041fa553565fba7577d2cd24, the
+> pattern of syscon registers that may potentially be impacted by this
+> patch (that are exactly 1 register wide) is probably limited, though
+> this patch in itself was inspired by a buggy driver code fixed in
+> https://lore.kernel.org/linux-pm/20240828131915.3198081-1-nm@ti.com/
+> I have tried to Cc lists that may be interested in looking closer to
+> avoid un-intended side-effects.
+> 
+> Changes since V1:
+> * Incorporate review comments by rewording commit message and $subject
+>   and dropped Fixes.
+> * No functional change to the patch.
+> * Expand the CC list to notify potential users.
+> 
+> V1: https://lore.kernel.org/all/20240828121008.3066002-1-nm@ti.com/
+> 
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Shawn Guo <shawnguo@kernel.org>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: bcm-kernel-feedback-list@broadcom.com
+> Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-Given what Emil said, i would suggest flipping the MDIO busses
-around. Put the PHYs on gmac1's MDIO bus, and set the pinmux so that
-its MDIO bus controller is connected to the outside world. Then, when
-gmac1 probes first, its MDIO bus will be probed at the same time, and
-its PHY found.
 
-	Andrew
+A gentle ping.
+
+> 
+>  drivers/mfd/syscon.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/mfd/syscon.c b/drivers/mfd/syscon.c
+> index 2ce15f60eb10..3e1d699ba934 100644
+> --- a/drivers/mfd/syscon.c
+> +++ b/drivers/mfd/syscon.c
+> @@ -108,6 +108,8 @@ static struct syscon *of_syscon_register(struct device_node *np, bool check_res)
+>  	syscon_config.reg_stride = reg_io_width;
+>  	syscon_config.val_bits = reg_io_width * 8;
+>  	syscon_config.max_register = resource_size(&res) - reg_io_width;
+> +	if (!syscon_config.max_register)
+> +		syscon_config.max_register_is_0 = true;
+>  
+>  	regmap = regmap_init_mmio(NULL, base, &syscon_config);
+>  	kfree(syscon_config.name);
+> @@ -357,6 +359,9 @@ static int syscon_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  
+>  	syscon_config.max_register = resource_size(res) - 4;
+> +	if (!syscon_config.max_register)
+> +		syscon_config.max_register_is_0 = true;
+> +
+>  	if (pdata)
+>  		syscon_config.name = pdata->label;
+>  	syscon->regmap = devm_regmap_init_mmio(dev, base, &syscon_config);
+> 
+> -- 
+> 2.46.0
+> 
+> 
+
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
