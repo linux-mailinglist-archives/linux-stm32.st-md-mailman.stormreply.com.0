@@ -2,63 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16E69883B6
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2024 14:00:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1593E9885B6
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2024 14:55:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97427C6DD72;
-	Fri, 27 Sep 2024 12:00:50 +0000 (UTC)
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A47C1C6DD72;
+	Fri, 27 Sep 2024 12:55:21 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6062AC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A93E6C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Sep 2024 12:00:43 +0000 (UTC)
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 48RC0MLi020296;
- Fri, 27 Sep 2024 07:00:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1727438422;
- bh=+jsVr4Ims5WSRmy2NLVUof7RpYlMYwogh7jR4rXlInk=;
- h=Date:From:To:CC:Subject:References:In-Reply-To;
- b=l4mvowJAjM9PJeOeJyl4Lw0IoQxGpHFoAmHIUeiriguabhIc4m8fYPjXtPvdf1o9e
- px8xK7VGURl6MbTf1fWQDPL2/R8LqUjVVjmLijdXCKy1uRwXptRLzZLF2aA1vBTqVC
- Bz/w2OXYV+xHs4q2SxmyjvE9E5mJ8nRaHRNMgeSw=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 48RC0MQM110251
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 27 Sep 2024 07:00:22 -0500
-Received: from flwvowa01.ent.ti.com (10.64.41.90) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 27
- Sep 2024 07:00:22 -0500
-Received: from DFLE111.ent.ti.com (10.64.6.32) by flwvowa01.ent.ti.com
- (10.64.41.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2507.34; Fri, 27 Sep
- 2024 07:00:21 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE111.ent.ti.com
- (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 27 Sep 2024 07:00:21 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
- by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 48RC0LAu068343;
- Fri, 27 Sep 2024 07:00:21 -0500
-Date: Fri, 27 Sep 2024 07:00:21 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Lee Jones <lee@kernel.org>
-Message-ID: <20240927120021.b6okbwrdpguv4hp6@spiny>
-References: <20240903184710.1552067-1-nm@ti.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240903184710.1552067-1-nm@ti.com>
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Cc: Florian
- Fainelli <florian.fainelli@broadcom.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- bcm-kernel-feedback-list@broadcom.com, Shawn Guo <shawnguo@kernel.org>,
+ Fri, 27 Sep 2024 12:55:14 +0000 (UTC)
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 9CB4540AFC
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Sep 2024 12:55:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1727441710;
+ bh=sSmJYgv7I+zUFEDVZuQHO2YXTAln9N/geQIOSH+hGyE=;
+ h=From:In-Reply-To:References:Mime-Version:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=tYdi8yaJg3oigcSudcyH/C+7biFMFiXJfrzRwVRoXUATofQRLBwPSjlIRt07WEK5a
+ 0OBPwXjn2OUXRK6j1w27L2MGYzMI+WUrw7x+6hwr9HWwcT9jDgd93PiJM0ewRCWuBe
+ U6BKCJDsk8KSGjgWgb9rX/DsQATazkwR92Fnv1ZFMnoqtvwV1qIxrAKqSAfyDStU/i
+ sWgMI2sJLOY5IFz6DSBZIn1MOMNNjQT78GqNzdjfBQDUQXPttPUNMRRpsojojFCtPz
+ hPkcgFf1V0Mq3cRm7Pf6P80NxIkKP3D/oLOkcVtsrrTJhZ0BGD+k3uFVQlNu52UtjY
+ AFN2eacTOsz2w==
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-286efde9783so1804027fac.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Sep 2024 05:55:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1727441705; x=1728046505;
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sSmJYgv7I+zUFEDVZuQHO2YXTAln9N/geQIOSH+hGyE=;
+ b=iSQi8CnzM7gWQ8wueX4H9yX+YlgjqFxGhZ/Jdo071wH9ZhHYHA+cRhJZjNVWlkTPVx
+ EK1F+bhFiEHYHhHCpApDPwqeqB+wq2l5qsSzPFmcsTd3tyPitUdnpypK1krmV2lZZHyd
+ cBC2roCOXKixg3dB9g2nxQ1XjysNVPopUPug3i7+xP/XsgLGHP1JSyfP9FelNXTqNHZs
+ ECtrPsqBK+Wl/HPJghPz8Er8MTyTI4A94D49re+YPBpTCHyxuhyX6+h4ZuMVlbsA+hov
+ /TPVDtHzbsF97RK8qTo8JH698LGZMwLOcNRbjSyOjHqp9Nhe18lcZTOf37zcyDS0cikg
+ EJKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/Of53TKG09pHKeBAR9XRlwQMSCikqCjBAZhyhm+LFa/7zsvIRgpHpfqC3Y00bH45JdQqOyuMIT00VLQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwWU+hzKGPwg4Dg4t6/7Fl3xcbYn+CdHDbgSKnOdDc8NBYQbVLU
+ TyNhQ8MZ0/y2wmn6NkyWjXGzX4TKvv8FfhfietWDrxi3JO6+YGZGM7sVTkckujUVeJZy2EY6XTp
+ H2D0nrOsI2noOBMMPe4hSPumbaf2VIgVSEiqHbynHfymv6MzkMvDAU+skYCatRjnWbvoKm8oIF0
+ VF6UicoJuFiKkCkVX4xJrN/CmTn0oB0yQjcUJwdlA+8k8387//WGt6NFP9uo3oavWFXNhy
+X-Received: by 2002:a05:6871:890e:b0:27b:66ea:add7 with SMTP id
+ 586e51a60fabf-287109f5bb4mr2306173fac.4.1727441705661; 
+ Fri, 27 Sep 2024 05:55:05 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFq2edOIUBYR+Xf5m9TknVcpYnAPqK6sQBsqv8AamrOSSkCMEyyDtCAwOwZQ7rY9zd/qv/ETMaRzLJy5zKgxVE=
+X-Received: by 2002:a05:6871:890e:b0:27b:66ea:add7 with SMTP id
+ 586e51a60fabf-287109f5bb4mr2306155fac.4.1727441705340; Fri, 27 Sep 2024
+ 05:55:05 -0700 (PDT)
+Received: from 348282803490 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 27 Sep 2024 05:55:04 -0700
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+In-Reply-To: <20240926-th1520-dwmac-v2-3-f34f28ad1dc9@tenstorrent.com>
+References: <20240926-th1520-dwmac-v2-0-f34f28ad1dc9@tenstorrent.com>
+ <20240926-th1520-dwmac-v2-3-f34f28ad1dc9@tenstorrent.com>
+Mime-Version: 1.0
+Date: Fri, 27 Sep 2024 05:55:04 -0700
+Message-ID: <CAJM55Z-FLmpFfisNpJi8FP7o_5mwoDa7r18VXW7u7nF0V6oiRw@mail.gmail.com>
+To: Drew Fustini <dfustini@tenstorrent.com>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, Jisheng Zhang <jszhang@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Drew Fustini <drew@pdp7.com>, 
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+ Conor Dooley <conor@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2] mfd: syscon: Use regmap
-	max_register_is_0 as needed
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] riscv: dts: thead: Add TH1520
+	ethernet nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,88 +107,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 13:47-20240903, Nishanth Menon wrote:
-> syscon has always set the optional max_register configuration of
-> regmap to ensure the correct checks are in place. However, a recent
-> commit 0ec74ad3c157 ("regmap: rework ->max_register handling")
-> introduced explicit configuration in regmap framework for register
-> maps that is exactly 1 register, when max_register is pointing to a
-> valid register 0. This commit solved a previous limitation of regmap
-> framework.
-> 
-> Update syscon driver to consistent in regmap configuration for
-> all sizes of syscons by using this new capability by setting
-> max_register_is_0, when the max_register is valid and 0.
-> 
-> Signed-off-by: Nishanth Menon <nm@ti.com>
+Drew Fustini wrote:
+> From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+>
+> Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+> [drew: change apb registers from syscon to second reg of gmac node]
+> [drew: add phy reset delay properties for beaglev ahead]
+> Signed-off-by: Drew Fustini <dfustini@tenstorrent.com>
 > ---
-> 
-> Based on my search
-> https://gist.github.com/nmenon/d537096d041fa553565fba7577d2cd24, the
-> pattern of syscon registers that may potentially be impacted by this
-> patch (that are exactly 1 register wide) is probably limited, though
-> this patch in itself was inspired by a buggy driver code fixed in
-> https://lore.kernel.org/linux-pm/20240828131915.3198081-1-nm@ti.com/
-> I have tried to Cc lists that may be interested in looking closer to
-> avoid un-intended side-effects.
-> 
-> Changes since V1:
-> * Incorporate review comments by rewording commit message and $subject
->   and dropped Fixes.
-> * No functional change to the patch.
-> * Expand the CC list to notify potential users.
-> 
-> V1: https://lore.kernel.org/all/20240828121008.3066002-1-nm@ti.com/
-> 
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Shawn Guo <shawnguo@kernel.org>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: Bjorn Andersson <andersson@kernel.org>
-> Cc: bcm-kernel-feedback-list@broadcom.com
-> Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+>  arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts |  91 ++++++++++++++
+>  .../boot/dts/thead/th1520-lichee-module-4a.dtsi    | 135 +++++++++++++++++++++
+>  arch/riscv/boot/dts/thead/th1520.dtsi              |  50 ++++++++
+>  3 files changed, 276 insertions(+)
 
+...
 
-A gentle ping.
-
-> 
->  drivers/mfd/syscon.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/mfd/syscon.c b/drivers/mfd/syscon.c
-> index 2ce15f60eb10..3e1d699ba934 100644
-> --- a/drivers/mfd/syscon.c
-> +++ b/drivers/mfd/syscon.c
-> @@ -108,6 +108,8 @@ static struct syscon *of_syscon_register(struct device_node *np, bool check_res)
->  	syscon_config.reg_stride = reg_io_width;
->  	syscon_config.val_bits = reg_io_width * 8;
->  	syscon_config.max_register = resource_size(&res) - reg_io_width;
-> +	if (!syscon_config.max_register)
-> +		syscon_config.max_register_is_0 = true;
->  
->  	regmap = regmap_init_mmio(NULL, base, &syscon_config);
->  	kfree(syscon_config.name);
-> @@ -357,6 +359,9 @@ static int syscon_probe(struct platform_device *pdev)
->  		return -ENOMEM;
->  
->  	syscon_config.max_register = resource_size(res) - 4;
-> +	if (!syscon_config.max_register)
-> +		syscon_config.max_register_is_0 = true;
+> diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> index ca84bc2039ef..d9d2e1f4dc68 100644
+> --- a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> +++ b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> @@ -11,6 +11,11 @@ / {
+>  	model = "Sipeed Lichee Module 4A";
+>  	compatible = "sipeed,lichee-module-4a", "thead,th1520";
+>
+> +	aliases {
+> +		ethernet0 = &gmac0;
+> +		ethernet1 = &gmac1;
+> +	};
 > +
->  	if (pdata)
->  		syscon_config.name = pdata->label;
->  	syscon->regmap = devm_regmap_init_mmio(dev, base, &syscon_config);
-> 
-> -- 
-> 2.46.0
-> 
-> 
+>  	memory@0 {
+>  		device_type = "memory";
+>  		reg = <0x0 0x00000000 0x2 0x00000000>;
+> @@ -25,6 +30,16 @@ &osc_32k {
+>  	clock-frequency = <32768>;
+>  };
+>
+> +&dmac0 {
+> +	status = "okay";
+> +};
+> +
+> +&aogpio {
+> +	gpio-line-names = "", "", "",
+> +			  "GPIO00",
+> +			  "GPIO04";
+> +};
+> +
 
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+These GPIO line names does not belong in this patch. They should
+already be included in your other patchset adding the names for the
+other lines.
+
+/Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
