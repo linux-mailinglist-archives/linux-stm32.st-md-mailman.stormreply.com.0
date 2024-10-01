@@ -2,46 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C5798C06C
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2024 16:41:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10BD98C21C
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2024 18:03:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5659C78012;
-	Tue,  1 Oct 2024 14:41:10 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F0FAC78012;
+	Tue,  1 Oct 2024 16:03:22 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A57C4C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B960C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2024 14:41:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7132FA43814;
- Tue,  1 Oct 2024 14:40:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E070EC4CEC6;
- Tue,  1 Oct 2024 14:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727793662;
- bh=yH3EYi9l7999VMvJhbJUAJ9GmVhEmuscSZSWkWCB8eE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tfiFt8H8f9Iy5Ux8P2ifGd4nOe5WPqJcQE0W29n9xYt4iS5yfGaifJqaRVskFaV8P
- T3SW+GYwqr7vy3aPyLse/BDE96odIUhBJpZI+P9BoY3m5w4Q20ByXBMuaV7Az0ldt5
- 8JY6Jr6r0y8H20aaYhC3rq7FQNNzifxxUqGDEO+yhWVs1SZchLCIJCvBbjLCxMXcSd
- bDVJ5vC2WVfY0+4dtB4Yw2j+fjSAwf2fP9ydXNXYz/v6XDC3RLcbMd4GaQTTO7GYJ6
- oYPXAiuSoT6od4r/nYgzdG+xeKr/voBwVx/tFKgIgPSEpnAbqB8u2yBeh6KyZTr7xA
- +bR6AXwGv4dVw==
-Date: Tue, 1 Oct 2024 16:40:58 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <nxle4pkngjnzguo4dzkc4hthggfovvzfvrkygdcy7mygkebxyi@yl72fievk2bh>
-References: <20240930192820.59719-1-marex@denx.de>
+ Tue,  1 Oct 2024 16:03:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lxU6m74sMOqbJJJW/j/WEzyJZ3dIO/M0FxXkS3nCyJE=; b=sCPAyHolJvckbrBVmAXO4SD+Lf
+ eP0MHUaLrmdqWKLeEym2qnB98HODvToSjQ4238haMfQQckJwqxkiVAQTe7L6DJMIHBoEdw4+QJpii
+ jySTnRHbqVq4b9ghCQXcXz2iICX+SdSNCf/4p5HndbnLTW++V4bDyBxA7+UhWuI6ujO2JJ0VvM5bN
+ PpsorjefsCHyjYVh4y8RigywgdTUhfVmY8olw/69InE9jU4TpSMqWZABzXRGVa4ugYixjtmD4Knol
+ xy/5V+tcSOdQrI59G4gSttJKxTzQrrXCcWE+v52SaRpp2pbfDbEBTg6G+ZEWD91umXgbXr7kwKndX
+ aDWEFS0Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50108)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1svfKy-00064b-0I;
+ Tue, 01 Oct 2024 17:02:55 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1svfKq-000540-29;
+ Tue, 01 Oct 2024 17:02:48 +0100
+Date: Tue, 1 Oct 2024 17:02:48 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240930192820.59719-1-marex@denx.de>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- kernel@dh-electronics.com, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] i2c: stm32f7: Do not prepare/unprepare
- clock during runtime suspend/resume
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 00/10] net: pcs: xpcs: cleanups batch
+	1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,38 +66,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 30, 2024 at 09:27:41PM GMT, Marek Vasut wrote:
-> In case there is any sort of clock controller attached to this I2C bus
-> controller, for example Versaclock or even an AIC32x4 I2C codec, then
-> an I2C transfer triggered from the clock controller clk_ops .prepare
-> callback may trigger a deadlock on drivers/clk/clk.c prepare_lock mutex.
-> 
-> This is because the clock controller first grabs the prepare_lock mutex
-> and then performs the prepare operation, including its I2C access. The
-> I2C access resumes this I2C bus controller via .runtime_resume callback,
-> which calls clk_prepare_enable(), which attempts to grab the prepare_lock
-> mutex again and deadlocks.
-> 
-> Since the clock are already prepared since probe() and unprepared in
-> remove(), use simple clk_enable()/clk_disable() calls to enable and
-> disable the clock on runtime suspend and resume, to avoid hitting the
-> prepare_lock mutex.
-> 
-> Acked-by: Alain Volmat <alain.volmat@foss.st.com>
-> Signed-off-by: Marek Vasut <marex@denx.de>
+Hi,
 
-I think we also need:
+First, sorry for the bland series subject - this is the first in a
+number of cleanup series to the XPCS driver. This series has some
+functional changes beyond merely cleanups, notably the first patch.
 
-Fixes: 4e7bca6fc07b ("i2c: i2c-stm32f7: add PM Runtime support")
-Cc: <stable@vger.kernel.org> # v5.0+
+This series starts off with a patch that moves the PCS reset from
+the xpcs_create*() family of calls to when phylink first configures
+the PHY. The motivation for this change is to get rid of the
+interface argument to the xpcs_create*() functions, which I see as
+unnecessary complexity. This patch should be tested on Wangxun
+and STMMAC drivers.
 
-I'm adding them, please, let me know if you think they are not
-needed.
+Patch 2 removes the now unnecessary interface argument from the
+internal xpcs_create() and xpcs_init_iface() functions. With this,
+xpcs_init_iface() becomes a misnamed function, but patch 3 removes
+this function, moving its now meager contents to xpcs_create().
 
-For now I merged this patch in i2c/i2c-host-fixes.
+Patch 4 adds xpcs_destroy_pcs() and xpcs_create_pcs_mdiodev()
+functions which return and take a phylink_pcs, allowing SJA1105
+and Wangxun drivers to be converted to using the phylink_pcs
+structure internally.
 
-Thanks,
-Andi
+Patches 5 through 8 convert both these drivers to that end.
+
+Patch 9 drops the interface argument from the remaining xpcs_create*()
+functions, addressing the only remaining caller of these functions,
+that being the STMMAC driver.
+
+As patch 7 removed the direct calls to the XPCS config/link-up
+functions, the last patch makes these functions static.
+
+ drivers/net/dsa/sja1105/sja1105.h                 |  2 +-
+ drivers/net/dsa/sja1105/sja1105_main.c            | 85 ++++++++++----------
+ drivers/net/dsa/sja1105/sja1105_mdio.c            | 28 ++++---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c |  7 +-
+ drivers/net/ethernet/wangxun/txgbe/txgbe_phy.c    | 18 ++---
+ drivers/net/ethernet/wangxun/txgbe/txgbe_type.h   |  2 +-
+ drivers/net/pcs/pcs-xpcs.c                        | 92 ++++++++++++++---------
+ include/linux/pcs/pcs-xpcs.h                      | 14 ++--
+ 8 files changed, 132 insertions(+), 116 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
