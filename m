@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314B198B425
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2024 08:17:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3670698B42D
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2024 08:18:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA824C78012;
-	Tue,  1 Oct 2024 06:17:04 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0C16C78012;
+	Tue,  1 Oct 2024 06:18:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BD5EC71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62095C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2024 06:16:57 +0000 (UTC)
+ Tue,  1 Oct 2024 06:18:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 30C53A428D3;
- Tue,  1 Oct 2024 06:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DDCC4CEC6;
- Tue,  1 Oct 2024 06:16:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5BF2D5C5415;
+ Tue,  1 Oct 2024 06:18:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E86C4CEC6;
+ Tue,  1 Oct 2024 06:17:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727763415;
- bh=Hg4IVEOTj4JriXTMF/0hLXqKoldcay2hkZN5Fq1Yakc=;
+ s=k20201202; t=1727763491;
+ bh=aFp3SriOPWs0xVXrnZzTQWGqrUjwlRHRfGp7sGKX3sc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BarxashMr3+CY5FBEM2U/PJW5q6wPC6dVt+mzB8egTBhcrlaVcQFYdktWYgO+j7Yv
- st50W7cT6gVEA1/dqDGaNjGnQ9AA7gJD8n39MO3BV+QS8PYRyKkFgRwCwRf2uXp2Y8
- dp0MSy8wQU32Rg+er7QSDMBsvPmxO8FtjjNjWdI+RBSy9Pkiff17xYddZcuy1U7MmD
- 8G2j28TOkFm0vYpz5O+m6VrxQgVrUbADYqKtkm4v+kH0x6BE0wOgLNe9/byQAyhzAt
- oANVnz/YuEyuHy0rS3qUYr1qmkfNjzY7Or6LCFfrX8R+CDPDSbqK8TRB8tpythzZkI
- KC1d+v2a8Gx6A==
-Message-ID: <2915d4aa-a01d-4d00-ada9-43bbc227f9eb@kernel.org>
-Date: Tue, 1 Oct 2024 08:16:38 +0200
+ b=bCGpghBSrw70nVQy4SZ+l3iTCF/jeyzhjMl8snn+Ad8CAr5veY5sqYrWH8ye1Jds/
+ d2bTkG2L1t98Fhw6tIb1RQ5MdHcKgtQ+dmbSO3AnflysQi/g2nkwD5pgS8QDMlKAf0
+ C2layRfhxwO50GLHe2mSrEUbU0qRnl5EHApVYFmqdAQDmxTxABlb2FWFVd93eEIWTw
+ vxD0cgHSqb97BdSLSYnmMJaISH055Gmp8VmDUXxLZP75L0x0r+fNpt7yd4pOQOSpH2
+ aqN7thfnjUQXtqU9l++pRCzxs1Ge0mhIg8B4e0frFI2hfiPtxcwaz8wpRJIVtG59/T
+ f2k/dmCILB+xg==
+Message-ID: <62220abe-196a-4434-a200-5e39af1d184d@kernel.org>
+Date: Tue, 1 Oct 2024 08:17:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Rosen Penev <rosenp@gmail.com>, linux-arm-kernel@lists.infradead.org
 References: <20240930223550.353882-1-rosenp@gmail.com>
- <20240930223550.353882-2-rosenp@gmail.com>
+ <20240930223550.353882-3-rosenp@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -80,7 +80,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240930223550.353882-2-rosenp@gmail.com>
+In-Reply-To: <20240930223550.353882-3-rosenp@gmail.com>
 Cc: Nishanth Menon <nm@ti.com>, Tomasz Maciej Nowak <tmn505@gmail.com>,
  "moderated list:ARM/ASPEED MACHINE SUPPORT"
  <linux-aspeed@lists.ozlabs.org>,
@@ -130,7 +130,7 @@ Cc: Nishanth Menon <nm@ti.com>, Tomasz Maciej Nowak <tmn505@gmail.com>,
  "moderated list:ARM/NUVOTON NPCM ARCHITECTURE" <openbmc@lists.ozlabs.org>,
  "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
  <linux-rpi-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: replace gpio = with gpios =
+Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: dts: assign reg to memory nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,21 +148,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 01/10/2024 00:35, Rosen Penev wrote:
-> Found with dtc:
-> 
-> Warning (deprecated_gpio_property): '[*-]gpio' is deprecated, use
-> '[*-]gpios' instead
-> 
-> Transformation performed with
-> 
-> find -name "*.dts" -exec sed -i 's/\tgpio = </\tgpios = </g' '{}' \
-> find -name "*.dtsi" -exec sed -i 's/\tgpio = </\tgpios = </g' '{}' \
+> Fixes dtc warnings:
 
-Uh, no, please check if each is correct and already handled by bindings.
+What warnings?
 
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Anyway, please list platforms where you tested this. This patch might
+break several of them.
 
+Such one huge patch, not split per subach, is another problem. There is
+no reason to make it one huge chunk.
 
 
 Best regards,
