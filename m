@@ -2,48 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3B898ACE4
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Sep 2024 21:28:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD01498B272
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2024 04:47:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D73A9C78002;
-	Mon, 30 Sep 2024 19:28:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F434C78012;
+	Tue,  1 Oct 2024 02:47:59 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05B49C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E804C78006
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Sep 2024 19:28:31 +0000 (UTC)
+ Tue,  1 Oct 2024 02:47:52 +0000 (UTC)
 Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 6144A88F6F;
- Mon, 30 Sep 2024 21:28:30 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id 1674188CBD;
+ Tue,  1 Oct 2024 04:47:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1727724510;
- bh=OREwX1JcqK3oMMSoTvHvNaOWPllgrNDfzP8nZJ/yKEw=;
+ s=phobos-20191101; t=1727750871;
+ bh=NhcdDwpsEmYCBndpQt/krb+dCGJNToK5RDdDiG8+SdQ=;
  h=From:To:Cc:Subject:Date:From;
- b=cq+9CnS9d+E3rGsryG4+eZnuluwTcS9FWDxkyVy7dCJ+3Ca+QxTlmqv010KC0qlht
- 1VpCmA3OjzuoQtM5U03ronMScYDEviuGM3osMEu4iDe2uyRJv9NLDS969uPLI8lm+0
- cyP0Vawvxm4cYEA9VRnMSiAU/EOTvfS8Xot3d2qnYOx1UgM5RE9yyk+w8863ejSRpK
- JzQkk11k3zdl0Sq1s8ctwG14BGOvqdLUyE6f9xiJCYI3zkr5QaaCdrzdnSVB8np46T
- WlWunMsO8RudfS85o2LxkhsPYp0tl5XCJJ1iNIFM+TcyZsRLV2IfS8H4+Mcxnz8Kgo
- DXg8D4Cn14glg==
+ b=Tqxdr5QyjWQtO/GZKEzyZKmWmh/BY5cNdYxNtHv3X+DJumohPcqf6m/QGzbEUkzl8
+ bUceATTrzwlIIDYXwYfPzsTz/JkVrWn0AACWZmKpAz0xYsE7Ww1AVlfXJZiOG4zcrM
+ J08UN4X/9343V42sWX1tbppO4Tip1GLncuR/vjLbZUN9t/RYgeB97qe95ZPpNwmjaa
+ Mc67RpSRNRJMNEDksvzA1/wTcHm6+zHu0uHoPpYDycnAeYoDmDQgqX5IA0ad4oEAgu
+ hRchnF+k3YR7y+UUlx1pyKUfsI/VYVPX+kaAmyfwtpAQB8X3uZN2H+ixRQu4Qey4ch
+ tsO5kdCUxvF3Q==
 From: Marek Vasut <marex@denx.de>
-To: linux-i2c@vger.kernel.org
-Date: Mon, 30 Sep 2024 21:27:41 +0200
-Message-ID: <20240930192820.59719-1-marex@denx.de>
+To: linux-leds@vger.kernel.org
+Date: Tue,  1 Oct 2024 04:45:23 +0200
+Message-ID: <20241001024731.140069-1-marex@denx.de>
 X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
 X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Andi Shyti <andi.shyti@kernel.org>, kernel@dh-electronics.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] i2c: stm32f7: Do not prepare/unprepare
-	clock during runtime suspend/resume
+Cc: Marek Vasut <marex@denx.de>, Andrew Lunn <andrew@lunn.ch>,
+ netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Daniel Golle <daniel@makrotopia.org>,
+ kernel@dh-electronics.com, Pavel Machek <pavel@ucw.cz>,
+ Lukasz Majewski <lukma@denx.de>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Subject: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload ability
+	on interface up
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,67 +62,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In case there is any sort of clock controller attached to this I2C bus
-controller, for example Versaclock or even an AIC32x4 I2C codec, then
-an I2C transfer triggered from the clock controller clk_ops .prepare
-callback may trigger a deadlock on drivers/clk/clk.c prepare_lock mutex.
+The trigger_data->hw_control indicates whether the LED is controlled by HW
+offload, i.e. the PHY. The trigger_data->hw_control = can_hw_control() is
+currently called only from netdev_led_attr_store(), i.e. when writing any
+sysfs attribute of the netdev trigger instance associated with a PHY LED.
 
-This is because the clock controller first grabs the prepare_lock mutex
-and then performs the prepare operation, including its I2C access. The
-I2C access resumes this I2C bus controller via .runtime_resume callback,
-which calls clk_prepare_enable(), which attempts to grab the prepare_lock
-mutex again and deadlocks.
+The can_hw_control() calls validate_net_dev() which internally calls
+led_cdev->hw_control_get_device(), which is phy_led_hw_control_get_device()
+for PHY LEDs. The phy_led_hw_control_get_device() returns NULL if the PHY
+is not attached.
 
-Since the clock are already prepared since probe() and unprepared in
-remove(), use simple clk_enable()/clk_disable() calls to enable and
-disable the clock on runtime suspend and resume, to avoid hitting the
-prepare_lock mutex.
+At least in case of DWMAC (STM32MP, iMX8M, ...), the PHY device is attached
+only when the interface is brought up and is detached again when the
+interface is brought down. In case e.g. udev rules configure the netdev
+LED trigger sysfs attributes before the interface is brought up, then when
+the interface is brought up, the LEDs are not blinking.
 
-Acked-by: Alain Volmat <alain.volmat@foss.st.com>
+This is because trigger_data->hw_control = can_hw_control() was called
+when udev wrote the sysfs attribute files, before the interface was up,
+so can_hw_control() resp. validate_net_dev() returned false, and the
+trigger_data->hw_control = can_hw_control() was never called again to
+update the trigger_data->hw_control content and let the offload take
+over the LED blinking.
+
+Call data->hw_control = can_hw_control() from netdev_trig_notify() to
+update the offload capability of the LED when the UP notification arrives.
+This makes the LEDs blink after the interface is brought up.
+
+On STM32MP13xx with RTL8211F, it is enough to have the following udev rule
+in place, boot the machine with cable plugged in, and the LEDs won't work
+without this patch once the interface is brought up, even if they should:
+"
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:green:wan", ATTR{trigger}="netdev", ATTR{link_10}="1", ATTR{link_100}="1", ATTR{link_1000}="1", ATTR{device_name}="end0"
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:yellow:wan", ATTR{trigger}="netdev", ATTR{rx}="1", ATTR{tx}="1", ATTR{device_name}="end0"
+"
+
 Signed-off-by: Marek Vasut <marex@denx.de>
 ---
-Cc: Alain Volmat <alain.volmat@foss.st.com>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: Daniel Golle <daniel@makrotopia.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Lee Jones <lee@kernel.org>
+Cc: Lukasz Majewski <lukma@denx.de>
+Cc: Pavel Machek <pavel@ucw.cz>
 Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-i2c@vger.kernel.org
+Cc: linux-leds@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: netdev@vger.kernel.org
 ---
-V2: - Update the error message
-    - Add AB from Alain
----
- drivers/i2c/busses/i2c-stm32f7.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index cfee2d9c09de3..0174ead99de6c 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -2395,7 +2395,7 @@ static int __maybe_unused stm32f7_i2c_runtime_suspend(struct device *dev)
- 	struct stm32f7_i2c_dev *i2c_dev = dev_get_drvdata(dev);
- 
- 	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
--		clk_disable_unprepare(i2c_dev->clk);
-+		clk_disable(i2c_dev->clk);
- 
- 	return 0;
- }
-@@ -2406,9 +2406,9 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
- 	int ret;
- 
- 	if (!stm32f7_i2c_is_slave_registered(i2c_dev)) {
--		ret = clk_prepare_enable(i2c_dev->clk);
-+		ret = clk_enable(i2c_dev->clk);
- 		if (ret) {
--			dev_err(dev, "failed to prepare_enable clock\n");
-+			dev_err(dev, "failed to enable clock\n");
- 			return ret;
- 		}
- 	}
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 4b0863db901a9..c15efe3e50780 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -605,6 +605,8 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 		trigger_data->net_dev = NULL;
+ 		break;
+ 	case NETDEV_UP:
++		trigger_data->hw_control = can_hw_control(trigger_data);
++		fallthrough;
+ 	case NETDEV_CHANGE:
+ 		get_device_state(trigger_data);
+ 		/* Refresh link_speed visibility */
 -- 
 2.45.2
 
