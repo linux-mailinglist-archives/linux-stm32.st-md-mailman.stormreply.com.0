@@ -2,50 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBC498EDE3
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 13:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5757898EEB5
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 14:05:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D0ECC78024;
-	Thu,  3 Oct 2024 11:18:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07621C78023;
+	Thu,  3 Oct 2024 12:05:36 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 337A1C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AAC6C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Oct 2024 11:18:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E65EF5C5A4C;
- Thu,  3 Oct 2024 11:18:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE624C4CEC5;
- Thu,  3 Oct 2024 11:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1727954296;
- bh=AtYWg0i+YgGT7RsQ96Mj+yOKNWur0aXD7xdQt3uW+a8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kDMpTqJPT5y+13vnCs3T53BfGSzwmvg+daUGX7k2VcNREQDIiH8jz+HBSVKyJ83Bn
- LB/uF0AOZ17LW6PcBPRykWRiCo5IaGT7byz8dWHYTyD9ocg1+yoap7ZQAp3A6duoyH
- BgHgA4tTgHA6jpeD+eHOnHygM6TEuSD88Neg1aeLsmmlr/6rigwhx2lM4Ql8hLnt3v
- JS6VpG/rWfx8o+k1TrZ7T1IKK2wdtIEdpcQCMuBRJ+J7GRijD/gY6cKviCMLjYNJ9M
- +DPvzb6/P9olrhoSWbpcj6REwyS8iJVB0E3Orh9tKERa1lARJFzJ5zMxu+r9h92Guv
- e/MbrDUWofJfQ==
-Date: Thu, 3 Oct 2024 12:18:11 +0100
-From: Simon Horman <horms@kernel.org>
-To: Vitalii Mordan <mordan@ispras.ru>
-Message-ID: <20241003111811.GJ1310185@kernel.org>
-References: <20240930183715.2112075-1-mordan@ispras.ru>
+ Thu,  3 Oct 2024 12:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=ywp8+VbD741GfBOGthIuAH6MqIGxO+3sHTl82q7Wcco=; b=uMu7pMwxdY6KPL7wmrrjGHvWyB
+ 8JuKegoLWB4c5n4Wfx/EmEtqSrfUEauxj7TiycArOWrq768ErX0Kd5S7AYVdpqIH3C/JdUWBR2Mqd
+ 0UEzYXP23/uIU3iQQ/hrUU+AKHWy9OwxEIvvbCdoUmWtSvOMWicSABCtt4PENCSRR+vk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1swKa3-008wW8-W6; Thu, 03 Oct 2024 14:05:15 +0200
+Date: Thu, 3 Oct 2024 14:05:15 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <796d0096-1cf9-4234-9117-440469c4e9d9@lunn.ch>
+References: <20241001024731.140069-1-marex@denx.de>
+ <1d72f370-3409-4b0f-b971-8f194cf1644b@lunn.ch>
+ <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240930183715.2112075-1-mordan@ispras.ru>
-Cc: linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- netdev@vger.kernel.org, Fedor Pchelkin <pchelkin@ispras.ru>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Vadim Mutilin <mutilin@ispras.ru>,
- Alexey Khoroshilov <khoroshilov@ispras.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] stmmac: dwmac-intel-plat: fix call
- balance of tx_clk handling routines
+In-Reply-To: <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
+Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Daniel Golle <daniel@makrotopia.org>, kernel@dh-electronics.com,
+ Pavel Machek <pavel@ucw.cz>, Lukasz Majewski <lukma@denx.de>,
+ Christian Marangi <ansuelsmth@gmail.com>, linux-leds@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload
+ ability on interface up
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,92 +59,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 30, 2024 at 09:37:15PM +0300, Vitalii Mordan wrote:
-> If the clock dwmac->tx_clk was not enabled in intel_eth_plat_probe,
-> it should not be disabled in any path.
-> 
-> Conversely, if it was enabled in intel_eth_plat_probe, it must be disabled
-> in all error paths to ensure proper cleanup.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with Klever.
-> 
-> Fixes: 9efc9b2b04c7 ("net: stmmac: Add dwmac-intel-plat for GBE driver")
-> Signed-off-by: Vitalii Mordan <mordan@ispras.ru>
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-intel-plat.c   | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> index d68f0c4e7835..2a2893f2f2a8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> @@ -108,7 +108,12 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
->  			if (IS_ERR(dwmac->tx_clk))
->  				return PTR_ERR(dwmac->tx_clk);
->  
-> -			clk_prepare_enable(dwmac->tx_clk);
-> +			ret = clk_prepare_enable(dwmac->tx_clk);
-> +			if (ret) {
-> +				dev_err(&pdev->dev,
-> +					"Failed to enable tx_clk\n");
-> +				return ret;
-> +			}
->  
->  			/* Check and configure TX clock rate */
->  			rate = clk_get_rate(dwmac->tx_clk);
-> @@ -117,6 +122,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
->  				rate = dwmac->data->tx_clk_rate;
->  				ret = clk_set_rate(dwmac->tx_clk, rate);
->  				if (ret) {
-> +					clk_disable_unprepare(dwmac->tx_clk);
->  					dev_err(&pdev->dev,
->  						"Failed to set tx_clk\n");
->  					return ret;
+> > Nice use of udev. I had not thought about using it for this.
 
-Hi Vitalii,
+> Is there some other way to configure the netdev-triggered PHY LEDs ?
+> I still feel the udev rule is somewhat brittle and fragile, and also not
+> available early enough for default PHY LED configuration, i.e. the LEDs are
+> not blinking when I use e.g. ip=/nfsroot= when booting from NFS root until
+> the userspace started, which is not nice. The only alternative I can imagine
+> is default configuration in DT, which was already rejected a few years ago.
 
-I think that unwinding using a goto label would be more idiomatic here
-and in the following changes to intel_eth_plat_probe().
+Device tree is the only early way i can think of, especially for NFS
+root.
 
-> @@ -131,6 +137,8 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
->  			rate = dwmac->data->ptp_ref_clk_rate;
->  			ret = clk_set_rate(plat_dat->clk_ptp_ref, rate);
->  			if (ret) {
-> +				if (dwmac->data->tx_clk_en)
-> +					clk_disable_unprepare(dwmac->tx_clk);
->  				dev_err(&pdev->dev,
->  					"Failed to set clk_ptp_ref\n");
->  				return ret;
-> @@ -150,7 +158,8 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
->  
->  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
->  	if (ret) {
-> -		clk_disable_unprepare(dwmac->tx_clk);
-> +		if (dwmac->data->tx_clk_en)
-> +			clk_disable_unprepare(dwmac->tx_clk);
+What has clearly been rejected is each vendor having their own DT
+binding. But i think we might have more success with one generic
+binding for all MAC/PHY LEDs.
 
-Smatch warns that dwmac->data may be NULL here.
+The way i was thinking about it, was to describe the label on the
+front panel. That is hardware you are describing, so fits DT.
 
->  		return ret;
->  	}
->  
-> @@ -162,7 +171,8 @@ static void intel_eth_plat_remove(struct platform_device *pdev)
->  	struct intel_dwmac *dwmac = get_stmmac_bsp_priv(&pdev->dev);
->  
->  	stmmac_pltfr_remove(pdev);
-> -	clk_disable_unprepare(dwmac->tx_clk);
-> +	if (dwmac->data->tx_clk_en)
+We are clearly in the grey area for DT, so i can understand some push
+back on this from the DT Maintainers.
 
-And I wonder if it can be NULL here too.
-
-> +		clk_disable_unprepare(dwmac->tx_clk);
->  }
->  
->  static struct platform_driver intel_eth_plat_driver = {
-> -- 
-> 2.25.1
-> 
-> 
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
