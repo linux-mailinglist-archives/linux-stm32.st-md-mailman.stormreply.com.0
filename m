@@ -2,55 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE3BF98E785
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 02:04:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0EF298E7D3
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 02:40:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70ED8C78023;
-	Thu,  3 Oct 2024 00:04:57 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95418C78023;
+	Thu,  3 Oct 2024 00:40:55 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA55C78022
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12007C78020
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Oct 2024 00:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=6gpNUZ2n+ZYIeb9jUgyu8pZsdI3EzueIgoOfHeCJegY=; b=vnIhUot1foD71vkU9UdaNoZiss
- GRwY5pWGUICSTWparQ9VtqHH7VummnPJB0YhzHFnPLO8WzqPpiaN7lJS3qeSTuq3qQ3seZ6UhicyL
- wr7HnAJKJmUu4/qtOkqnigXOLBRU6HgHI0P68JyL9FQ3WojDH090LLp3J6NZwNuiFS7A=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1sw9Ke-008uKm-8h; Thu, 03 Oct 2024 02:04:36 +0200
-Date: Thu, 3 Oct 2024 02:04:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <acdc1443-15ca-4a35-aee0-ddf760136efa@lunn.ch>
-References: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
- <E1svfMA-005ZI3-Va@rmk-PC.armlinux.org.uk>
- <fp2h6mc2346egjtcshek4jvykzklu55cbzly3sj3zxhy6sfblj@waakp6lr6u5t>
- <ZvxxJWCTD4PgoMwb@shell.armlinux.org.uk>
- <68bc05c2-6904-4d33-866f-c828dde43dff@lunn.ch>
- <pm7v7x2ttdkjygakcjjbjae764ezagf4jujn26xnk7driykbu3@hfh4lwpfuowk>
- <84c6ed98-a11a-42bf-96c0-9b1e52055d3f@lunn.ch>
- <zghybnunit6o3wq3kpb237onag2lycilwg5abl5elxxkke4myq@c72lnzkozeun>
+ Thu,  3 Oct 2024 00:40:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id ABFC5A4261A;
+ Thu,  3 Oct 2024 00:40:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3B6C4CEC2;
+ Thu,  3 Oct 2024 00:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1727916046;
+ bh=i/FMF02enEnePUBhsRhePuABn3dvoRaPyTeUzcX7aLs=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=u0a0JEJAG/opP7SPHOtwHERp/LfvG7SafcO8cSj0+oT18tUtfqa236cRLZaTWH+Th
+ pSHMFN73OPxEhfhCfo2kh9Dbtal3YpzvYhEnhIeTItgaZWJjfcR22mzbfoxd07NqW5
+ Sb6Uy+B/Jz/UwX6R9q8rnkXAioxXHR+bQVu+fcpdjLzg+ZoIA7DL6U1hKy+csR1fJp
+ QmuWyszZF9q7wr7tYmBRXIKsl0qBF63odie5pm7GosO6dIN9TstlYzYK/75cB26c/4
+ T06M2eZjVHIGvwhA4DX+aTd58RnuZCay7QSS7c0a5I47xYfcFg2yairgw0SlbpZc7N
+ 28d76c5x56/JA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33CD0380DBD1; Thu,  3 Oct 2024 00:40:51 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <zghybnunit6o3wq3kpb237onag2lycilwg5abl5elxxkke4myq@c72lnzkozeun>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 01/10] net: pcs: xpcs: move PCS
- reset to .pcs_pre_config()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <172791604974.1387504.2549279838290764330.git-patchwork-notify@kernel.org>
+Date: Thu, 03 Oct 2024 00:40:49 +0000
+References: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
+In-Reply-To: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: Jose.Abreu@synopsys.com, andrew@lunn.ch, f.fainelli@gmail.com,
+ olteanv@gmail.com, pabeni@redhat.com, netdev@vger.kernel.org,
+ joabreu@synopsys.com, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, jiawenwu@trustnetic.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, mengyuanlou@net-swift.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 00/10] net: pcs: xpcs: cleanups
+	batch 1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,14 +62,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Anyway the Russell' patch set in general looks good to me. I have no
-> more comments other than regarding the soft-reset change I described in
-> my previous message.
+Hello:
 
-Sorry, i've not been keeping track. Have you sent reviewed-by: and
-Tested-by: for them?
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-	Andrew
+On Tue, 1 Oct 2024 17:02:48 +0100 you wrote:
+> Hi,
+> 
+> First, sorry for the bland series subject - this is the first in a
+> number of cleanup series to the XPCS driver. This series has some
+> functional changes beyond merely cleanups, notably the first patch.
+> 
+> This series starts off with a patch that moves the PCS reset from
+> the xpcs_create*() family of calls to when phylink first configures
+> the PHY. The motivation for this change is to get rid of the
+> interface argument to the xpcs_create*() functions, which I see as
+> unnecessary complexity. This patch should be tested on Wangxun
+> and STMMAC drivers.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,01/10] net: pcs: xpcs: move PCS reset to .pcs_pre_config()
+    https://git.kernel.org/netdev/net-next/c/277b339c4ba5
+  - [net-next,02/10] net: pcs: xpcs: drop interface argument from internal functions
+    https://git.kernel.org/netdev/net-next/c/92fb8986083a
+  - [net-next,03/10] net: pcs: xpcs: get rid of xpcs_init_iface()
+    https://git.kernel.org/netdev/net-next/c/a487c9e7cfc4
+  - [net-next,04/10] net: pcs: xpcs: add xpcs_destroy_pcs() and xpcs_create_pcs_mdiodev()
+    https://git.kernel.org/netdev/net-next/c/bedea1539acb
+  - [net-next,05/10] net: wangxun: txgbe: use phylink_pcs internally
+    https://git.kernel.org/netdev/net-next/c/155c499ffd1d
+  - [net-next,06/10] net: dsa: sja1105: simplify static configuration reload
+    https://git.kernel.org/netdev/net-next/c/a18891b55703
+  - [net-next,07/10] net: dsa: sja1105: call PCS config/link_up via pcs_ops structure
+    https://git.kernel.org/netdev/net-next/c/907476c66d73
+  - [net-next,08/10] net: dsa: sja1105: use phylink_pcs internally
+    https://git.kernel.org/netdev/net-next/c/41bf58314b17
+  - [net-next,09/10] net: pcs: xpcs: drop interface argument from xpcs_create*()
+    https://git.kernel.org/netdev/net-next/c/bf5a61645bb2
+  - [net-next,10/10] net: pcs: xpcs: make xpcs_do_config() and xpcs_link_up() internal
+    https://git.kernel.org/netdev/net-next/c/faefc9730d07
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
