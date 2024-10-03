@@ -2,54 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 679CD98E7EB
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 02:47:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9A998EBF4
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2024 10:58:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18B66C78023;
-	Thu,  3 Oct 2024 00:47:57 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1902C78023;
+	Thu,  3 Oct 2024 08:58:43 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4D63C78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70129C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Oct 2024 00:47:49 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 88D83889C3;
- Thu,  3 Oct 2024 02:47:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1727916469;
- bh=kIblb8tGR6fk/1wR5vCritv1LtoFcFNCSySBUU+XPx8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Cb6D0MH5j8MPVSNecFq5+UjcoqBXGD0bI70hb15EmHgLR8mhYuOy+jrqBhSI2d4eh
- KezSv347rGjv3JmESwhsV5DRNNomAohAefOPsQRrsp/oQ1vKEF2gDUIAUDxMD4XgNa
- /yzyEK+pZXf6sWgxH40GsBu4RRiOXPViHr8Hk+FY0M655pdJ3YW2ZjBFZieEg6gJca
- Z9hhANyO7UMJHQaN3NuXubrtGYVUpbZUTBQtZHU56RmyAmAKn/Bphm3mU4hafIHoTU
- HOI7sQMdRFVMjGdgU6/JGhgE/SjhYXovEzIIzQQpk+iGEyrLpbasRU5GqGWS1F/K/J
- V8pvm9wuq5dww==
-Message-ID: <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
-Date: Thu, 3 Oct 2024 02:47:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ Thu,  3 Oct 2024 08:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=UFLXtPkTLY9YWYZuXI/P16YFfhLwH7LyfPFSOm6FhPE=; b=f2a3Mqy1/UmSRsEMEZEmFw98V1
+ diNLZbOIBVVY8BoDG/fZ8cqJ6SZSuVJMdn8sHRWgiyZ4RMEaRy2Slj56JvXptUHX4GOIxhd5Zv+RC
+ moH2xuEcEti3ftKGrPd+K+8EXFP5m/hRMW4/aeXAH2Xz9IpNXHpLq72hBqQ+YhupXuuXuqAY9PAcn
+ ja4ggHIvFm/b3NXcUPbBZ8dAI2w8ETSLk8eaoion8MzHPh8UokFR35lZqzEkigfHDV+QssbXYKQrf
+ oYXu0nD/paz6vYVqU23/H9TkER5gQ0an6OV1LBEhznG7EhDTUZBz4NJyqyuWkRoubFv5SqaGGY2FP
+ 6kqe37bQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48300)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1swHf9-0000EN-0r;
+ Thu, 03 Oct 2024 09:58:18 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1swHf1-0008PL-23;
+ Thu, 03 Oct 2024 09:58:11 +0100
+Date: Thu, 3 Oct 2024 09:58:11 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
-References: <20241001024731.140069-1-marex@denx.de>
- <1d72f370-3409-4b0f-b971-8f194cf1644b@lunn.ch>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <1d72f370-3409-4b0f-b971-8f194cf1644b@lunn.ch>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Daniel Golle <daniel@makrotopia.org>, kernel@dh-electronics.com,
- Pavel Machek <pavel@ucw.cz>, Lukasz Majewski <lukma@denx.de>,
- Christian Marangi <ansuelsmth@gmail.com>, linux-leds@vger.kernel.org,
+Message-ID: <Zv5co5giM1AcQxD6@shell.armlinux.org.uk>
+References: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
+ <E1svfMA-005ZI3-Va@rmk-PC.armlinux.org.uk>
+ <fp2h6mc2346egjtcshek4jvykzklu55cbzly3sj3zxhy6sfblj@waakp6lr6u5t>
+ <ZvxxJWCTD4PgoMwb@shell.armlinux.org.uk>
+ <68bc05c2-6904-4d33-866f-c828dde43dff@lunn.ch>
+ <pm7v7x2ttdkjygakcjjbjae764ezagf4jujn26xnk7driykbu3@hfh4lwpfuowk>
+ <84c6ed98-a11a-42bf-96c0-9b1e52055d3f@lunn.ch>
+ <zghybnunit6o3wq3kpb237onag2lycilwg5abl5elxxkke4myq@c72lnzkozeun>
+ <acdc1443-15ca-4a35-aee0-ddf760136efa@lunn.ch>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <acdc1443-15ca-4a35-aee0-ddf760136efa@lunn.ch>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload
- ability on interface up
+Subject: Re: [Linux-stm32] [PATCH net-next 01/10] net: pcs: xpcs: move PCS
+ reset to .pcs_pre_config()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,61 +73,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/3/24 1:21 AM, Andrew Lunn wrote:
-> On Tue, Oct 01, 2024 at 04:45:23AM +0200, Marek Vasut wrote:
->> The trigger_data->hw_control indicates whether the LED is controlled by HW
->> offload, i.e. the PHY. The trigger_data->hw_control = can_hw_control() is
->> currently called only from netdev_led_attr_store(), i.e. when writing any
->> sysfs attribute of the netdev trigger instance associated with a PHY LED.
->>
->> The can_hw_control() calls validate_net_dev() which internally calls
->> led_cdev->hw_control_get_device(), which is phy_led_hw_control_get_device()
->> for PHY LEDs. The phy_led_hw_control_get_device() returns NULL if the PHY
->> is not attached.
->>
->> At least in case of DWMAC (STM32MP, iMX8M, ...), the PHY device is attached
->> only when the interface is brought up and is detached again when the
->> interface is brought down. In case e.g. udev rules configure the netdev
->> LED trigger sysfs attributes before the interface is brought up, then when
->> the interface is brought up, the LEDs are not blinking.
->>
->> This is because trigger_data->hw_control = can_hw_control() was called
->> when udev wrote the sysfs attribute files, before the interface was up,
->> so can_hw_control() resp. validate_net_dev() returned false, and the
->> trigger_data->hw_control = can_hw_control() was never called again to
->> update the trigger_data->hw_control content and let the offload take
->> over the LED blinking.
->>
->> Call data->hw_control = can_hw_control() from netdev_trig_notify() to
->> update the offload capability of the LED when the UP notification arrives.
->> This makes the LEDs blink after the interface is brought up.
+On Thu, Oct 03, 2024 at 02:04:36AM +0200, Andrew Lunn wrote:
+> > Anyway the Russell' patch set in general looks good to me. I have no
+> > more comments other than regarding the soft-reset change I described in
+> > my previous message.
 > 
-> Have you run this code with lockdep enabled? There have been some
-> deadlocks, or potential deadlocks in this area.
+> Sorry, i've not been keeping track. Have you sent reviewed-by: and
+> Tested-by: for them?
 
-Now I did on next 20241002 , no lockdep splat reported .
+Of course Serge hasn't. He hasn't even said he's tested them. He's more
+concerned with the soft-reset change to do anything else other than
+whinge about that.
 
->> On STM32MP13xx with RTL8211F, it is enough to have the following udev rule
->> in place, boot the machine with cable plugged in, and the LEDs won't work
->> without this patch once the interface is brought up, even if they should:
->> "
->> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:green:wan", ATTR{trigger}="netdev", ATTR{link_10}="1", ATTR{link_100}="1", ATTR{link_1000}="1", ATTR{device_name}="end0"
->> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:yellow:wan", ATTR{trigger}="netdev", ATTR{rx}="1", ATTR{tx}="1", ATTR{device_name}="end0"
->> "
-> 
-> Nice use of udev. I had not thought about using it for this.
-Is there some other way to configure the netdev-triggered PHY LEDs ?
-I still feel the udev rule is somewhat brittle and fragile, and also not 
-available early enough for default PHY LED configuration, i.e. the LEDs 
-are not blinking when I use e.g. ip=/nfsroot= when booting from NFS root 
-until the userspace started, which is not nice. The only alternative I 
-can imagine is default configuration in DT, which was already rejected a 
-few years ago.
+After the previous debacle over the stmmac PCS cleanup (that I've given
+up with) I decided later in the series of XPCS cleanups I have to touch
+stmmac as little as possible because I don't want to interact with
+Serge anymore. This has now been reinforced further, to the extent that
+I'm now going to ask Serge to _remove_ all usage of phylink from stmmac
+for this very reason - I do not wish to interact further with Serge.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
