@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584D09912FD
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2024 01:29:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E146991332
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2024 01:40:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01289C7802B;
-	Fri,  4 Oct 2024 23:29:22 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFE58C7802B;
+	Fri,  4 Oct 2024 23:40:50 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21DA2C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66ECCC78028
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2024 23:29:15 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5398ec2f3c3so3478742e87.1
+ Fri,  4 Oct 2024 23:40:43 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5398e7dda5fso2767122e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Oct 2024 16:29:15 -0700 (PDT)
+ Fri, 04 Oct 2024 16:40:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728084554; x=1728689354;
+ d=gmail.com; s=20230601; t=1728085242; x=1728690042;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ex2CqobCrHYMdEDOFvV3TgWiBh8tlgxqvWb2s/WawSY=;
- b=T24Pe0HYYQiaNZ0R+lbPbIQV9tWluGtvHxvM/1Hi2G8+D/WnOm4qQROwRlgEC2jGv+
- 7NQSG1Rmo9MGHjiKirMEkQOuvGfpta1kYi1Myjnwrx39rbNMH3FGuT1yOi08+Rc/BIFR
- il5XsoUL4xJQVFywYx+eIRCRx78C8+UgVcHOIo/4MbyuKJ4WTqz+GstvJSGpCJDbiTSt
- 0BSRigaAYNY8P4av3f0WMgp8pwyueIlwO1NwFxMUaonNT/GKu1+xbEdolazYTkH4jrVt
- HUl09w18dwqXADMFC/lE9d0AnKPSQZfPLIuPK3s1cxJEPoJj5b8M1dAVY/0XNp24YxAx
- 7Rtg==
+ bh=wXB6FiMFGXfruSvEAC93ihWCz2mJmwl2xFZB57k5WVo=;
+ b=b9/zR93WPEF0b6fr7tTfX2Y2ByIaTV492AEgmN8VIcbRnY2sMobJ1ZOc2fwpcl+WFf
+ y7Wh5begVGaCHPNx7OOZ2DIjeVja0R/ptLN3iTOi5i0yG4aJTz605byVQkRqZX0y+160
+ Y4H3lqlsDYUsHpRK3ZZovmOO/dFCgTv+QcvTiGBiPegAfcICj+04CgmuhLJWpHJur2Sx
+ WPI3Z7Hp+B4uOVMz/RcAmYBgEpimM8j7PIonoYd6xGXOoaMllA/Nu8MacquZrWzgK31T
+ JLVfuPR6rpV7xArHniguQT75eVkRMPRfXrQZE+plVWl6oMvoXTxBZd0CSOEb5LdGud5J
+ dKXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728084554; x=1728689354;
+ d=1e100.net; s=20230601; t=1728085242; x=1728690042;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ex2CqobCrHYMdEDOFvV3TgWiBh8tlgxqvWb2s/WawSY=;
- b=Py+c5aYyzEkFtaUTJRURR7v1ynkq2zrlU3tGyRmXsZsfpj0jD2aS1mwzAZGhxanYJt
- F82MWzgIvDz/S7uL/rfsDYm4HJrvLZs7OlZUEWIfty/uGxQ8P2c1E7xNt8Rrva9+EnyH
- wIzBOcnORGE0t0c51h+pLjtXrZxTqKvpfY3pqFZBL9RA+yw3KErm77HYkmtMVopWWl3X
- tFuDQw7lT6tw5Fkt3eGg4F0YbzuIvIdpxUWQMZGDx798AIGqxCy1+5q4btgqAi8nQjS6
- 6ixexgJIFkvcWe8cu0Xk6c7OjqVlxVNV1HpWEtC9yJ/ozWLxFW7W+jm5BWidgsm1hM03
- RgEg==
+ bh=wXB6FiMFGXfruSvEAC93ihWCz2mJmwl2xFZB57k5WVo=;
+ b=fVTUHzW2ePhlLFUkuh1v+X1DaK56YCaV7c4VvAWighCnVNIB81VYBqhDjttBDVHSBR
+ sk+AvKKTWOYlt4V2JrVSkKRMf4Xy9uDuzh/skLfwK6FsCY1SB5giQ3KqL54f9vOy0vVJ
+ bXrNMR9RlwPfFWVxlFL2MnC5N0ESvd4q01c3o6Pwmv6A+T4xt4qrc3li2hsOmXo5yuoK
+ ojgjLT/7MssDi0Wsuo1WRJbiADuIObpNLHOR9cf5DA1o/JAh5JwUiDkuQRq5TFcvPsHf
+ CyfvxRaNmMgb5TLYozXoAVQb+uq9ZtDEDozNdT8Yy4tZWXm9avvBTEQxz4lhql8OrzP6
+ PD7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXERzL/VvOz3QppPhZZBZFRPbJ7e6W45MK6TYj+9rDsG9p4u9WbeGIcwykffDwyEkD0CNxeW6V+6WPq2w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzdbbDtgfQyv0IybifPU39CT06Xpj2tf9EZyyfADjKGcY3sPM0M
- zjZFL7RL7DFtAsi6OwumJsI7cR2TdHRgabCZIEyujg9KgmNtlWLM
-X-Google-Smtp-Source: AGHT+IH+tDh+zT+JlQyYhGaogqDETgzJYe2wwGAq406JNg1paWVoGvp/OoTKcL1enGDkx3qwp3/0Xg==
-X-Received: by 2002:a05:6512:3d0b:b0:536:a533:c03a with SMTP id
- 2adb3069b0e04-539ab87801bmr2666309e87.17.1728084553875; 
- Fri, 04 Oct 2024 16:29:13 -0700 (PDT)
+ AJvYcCXmuNUXrP7ldWq0as+mqXOsZBj566u3IInHFEIcB8Dy+CMKjyg9LW0moCd8H2SjAXKEiXdyyCypAvJrRA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzgnAWNaubxbuliclkKx7EuauGLc+dYw1Ur8ogqpxDeZvDNUlEK
+ 5mHLXUtaMe0qc0XyNN2ohSgUN2jlo+WRO1eNR1fFFqX+lmKwL8RY
+X-Google-Smtp-Source: AGHT+IE+zyxdE0SKKsLU2/zehxEygp6owIm1RLZc1ZCDM7Z5sL1pDTqegPs2EOPFXWC+TeLZdoIqng==
+X-Received: by 2002:a05:6512:1193:b0:536:55cf:3148 with SMTP id
+ 2adb3069b0e04-539ab88ae61mr2847065e87.31.1728085242332; 
+ Fri, 04 Oct 2024 16:40:42 -0700 (PDT)
 Received: from mobilestation ([95.79.225.241])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539afec828csm84367e87.77.2024.10.04.16.29.12
+ 2adb3069b0e04-539aff1d277sm83263e87.155.2024.10.04.16.40.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2024 16:29:13 -0700 (PDT)
-Date: Sat, 5 Oct 2024 02:29:10 +0300
+ Fri, 04 Oct 2024 16:40:41 -0700 (PDT)
+Date: Sat, 5 Oct 2024 02:40:38 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
  Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
-Message-ID: <dxkpa2abcz4nxmmrhrg5stwgenwdsyeah2box33fob2ssoot22@52smn4gv2qrb>
-References: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
+Message-ID: <vjmounqvfxzqpdsvzs5tzlqv7dfb4z2nect3vmuaohtfm6cn3t@qynqp6zqcd3s>
+References: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZvwdKIp3oYSenGdH@shell.armlinux.org.uk>
+In-Reply-To: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
  Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -72,8 +72,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
  Mengyuan Lou <mengyuanlou@net-swift.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 00/10] net: pcs: xpcs: cleanups
-	batch 1
+Subject: Re: [Linux-stm32] [PATCH net-next 00/13] net: pcs: xpcs: cleanups
+	batch 2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,66 +90,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 01, 2024 at 05:02:48PM GMT, Russell King (Oracle) wrote:
-> Hi,
-> 
-> First, sorry for the bland series subject - this is the first in a
-> number of cleanup series to the XPCS driver. This series has some
-> functional changes beyond merely cleanups, notably the first patch.
-> 
-> This series starts off with a patch that moves the PCS reset from
-> the xpcs_create*() family of calls to when phylink first configures
-> the PHY. The motivation for this change is to get rid of the
-> interface argument to the xpcs_create*() functions, which I see as
-> unnecessary complexity. This patch should be tested on Wangxun
-> and STMMAC drivers.
-> 
-> Patch 2 removes the now unnecessary interface argument from the
-> internal xpcs_create() and xpcs_init_iface() functions. With this,
-> xpcs_init_iface() becomes a misnamed function, but patch 3 removes
-> this function, moving its now meager contents to xpcs_create().
-> 
-> Patch 4 adds xpcs_destroy_pcs() and xpcs_create_pcs_mdiodev()
-> functions which return and take a phylink_pcs, allowing SJA1105
-> and Wangxun drivers to be converted to using the phylink_pcs
-> structure internally.
-> 
-> Patches 5 through 8 convert both these drivers to that end.
-> 
-> Patch 9 drops the interface argument from the remaining xpcs_create*()
-> functions, addressing the only remaining caller of these functions,
-> that being the STMMAC driver.
+Hi
 
-Better later than never. Just reached my hardware treasury and managed to
-test the series out on the next setup:
+On Fri, Oct 04, 2024 at 11:19:57AM GMT, Russell King (Oracle) wrote:
+> This is the second cleanup series for XPCS.
+> 
+> Patch 1 removes the enum indexing the dw_xpcs_compat array. The index is
+> never used except to place entries in the array and to size the array.
+> 
+> Patch 2 removes the interface arrays - each of which only contain one
+> interface.
+> 
+> Patch 3 makes xpcs_find_compat() take the xpcs structure rather than the
+> ID - the previous series removed the reason for xpcs_find_compat needing
+> to take the ID.
+> 
+> Patch 4 provides a helper to convert xpcs structure to a regular
+> phylink_pcs structure, which leads to patch 5.
+> 
+> Patch 5 moves the definition of struct dw_xpcs to the private xpcs
+> header - with patch 4 in place, nothing outside of the xpcs driver
+> accesses the contents of the dw_xpcs structure.
+> 
+> Patch 6 renames xpcs_get_id() to xpcs_read_id() since it's reading the
+> ID, rather than doing anything further with it. (Prior versions of this
+> series renamed it to xpcs_read_phys_id() since that more accurately
+> described that it was reading the physical ID registers.)
+> 
+> Patch 7 moves the searching of the ID list out of line as this is a
+> separate functional block.
+> 
+> Patch 8 converts xpcs to use the bitmap macros, which eliminates the
+> need for _SHIFT definitions.
+> 
+> Patch 9 adds and uses _modify() accessors as there are a large amount
+> of read-modify-write operations in this driver. This conversion found
+> a bug in xpcs-wx code that has been reported and already fixed.
+> 
+> Patch 10 converts xpcs to use read_poll_timeout() rather than open
+> coding that.
+> 
+> Patch 11 converts all printed messages to use the dev_*() functions so
+> the driver and devie name are always printed.
+> 
+> Patch 12 moves DW_VR_MII_DIG_CTRL1_2G5_EN to the correct place in the
+> header file, rather than amongst another register's definitions.
+> 
+> Patch 13 moves the Wangxun workaround to a common location rather than
+> duplicating it in two places. We also reformat this to fit within
+> 80 columns.
 
-DW XGMAC <-(XGMII)-> DW XPCS <-(10Gbase-R)-> Marvell 88x2222
-<-(10gbase-R)->
-SFP+ fiber SFP+
-<-(10gbase-r)->
-Marvell 88x2222 <-(10gbase-r)-> DW XPCS <-(XGMII)-> DW XGMAC
-
-DW XGMAC was working under the STMMAC driver control.
-
-No problem has been spotted. So
-
-Tested-by: Serge Semin <fancer.lancer@gmail.com>
+If you don't mind I'll test the series out on Monday or Tuesday on the
+next week after my local-tree changes concerning the DW XPCS driver
+are rebased onto it.
 
 -Serge(y)
 
 > 
-> As patch 7 removed the direct calls to the XPCS config/link-up
-> functions, the last patch makes these functions static.
-> 
->  drivers/net/dsa/sja1105/sja1105.h                 |  2 +-
->  drivers/net/dsa/sja1105/sja1105_main.c            | 85 ++++++++++----------
->  drivers/net/dsa/sja1105/sja1105_mdio.c            | 28 ++++---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c |  7 +-
->  drivers/net/ethernet/wangxun/txgbe/txgbe_phy.c    | 18 ++---
->  drivers/net/ethernet/wangxun/txgbe/txgbe_type.h   |  2 +-
->  drivers/net/pcs/pcs-xpcs.c                        | 92 ++++++++++++++---------
->  include/linux/pcs/pcs-xpcs.h                      | 14 ++--
->  8 files changed, 132 insertions(+), 116 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c |   2 +-
+>  drivers/net/pcs/pcs-xpcs-nxp.c                    |  24 +-
+>  drivers/net/pcs/pcs-xpcs-wx.c                     |  56 ++-
+>  drivers/net/pcs/pcs-xpcs.c                        | 445 +++++++++-------------
+>  drivers/net/pcs/pcs-xpcs.h                        |  26 +-
+>  include/linux/pcs/pcs-xpcs.h                      |  19 +-
+>  6 files changed, 237 insertions(+), 335 deletions(-)
 > 
 > -- 
 > RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
