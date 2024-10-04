@@ -2,78 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E146991332
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2024 01:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7EA991344
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2024 01:45:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFE58C7802B;
-	Fri,  4 Oct 2024 23:40:50 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C1EFC7802B;
+	Fri,  4 Oct 2024 23:45:51 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66ECCC78028
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0E00C78028
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2024 23:40:43 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5398e7dda5fso2767122e87.0
+ Fri,  4 Oct 2024 23:45:43 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5389e24a4d1so3304272e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Oct 2024 16:40:43 -0700 (PDT)
+ Fri, 04 Oct 2024 16:45:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728085242; x=1728690042;
+ d=gmail.com; s=20230601; t=1728085543; x=1728690343;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=wXB6FiMFGXfruSvEAC93ihWCz2mJmwl2xFZB57k5WVo=;
- b=b9/zR93WPEF0b6fr7tTfX2Y2ByIaTV492AEgmN8VIcbRnY2sMobJ1ZOc2fwpcl+WFf
- y7Wh5begVGaCHPNx7OOZ2DIjeVja0R/ptLN3iTOi5i0yG4aJTz605byVQkRqZX0y+160
- Y4H3lqlsDYUsHpRK3ZZovmOO/dFCgTv+QcvTiGBiPegAfcICj+04CgmuhLJWpHJur2Sx
- WPI3Z7Hp+B4uOVMz/RcAmYBgEpimM8j7PIonoYd6xGXOoaMllA/Nu8MacquZrWzgK31T
- JLVfuPR6rpV7xArHniguQT75eVkRMPRfXrQZE+plVWl6oMvoXTxBZd0CSOEb5LdGud5J
- dKXw==
+ bh=kKcY6x98VwBIZfuYWE0CTgk1MQhMRRZsUKeLS0TDxsM=;
+ b=eTyjxgbk5zCWlZko8NcALO/uyizWA/tBUvZYN1tx+94OhcRxsWjw5JXu5JlANrdK/7
+ mvvnI2VTNQSJ6KfTIMP3Lpuu+ljCxpSc3ZNOrsZ2gp5AaXOmqV/7flPcbVMrpo1PO8s+
+ W0LTZ9qfferjuIZOjWZK70pFfmvNbZVanXVVF3mb/unOvHXnapqDapNGNOEQzbLIy3L0
+ 4ph4JzTLtg2ThRJ36r7uZX5AhrX+ICumlfGSQplsZarp0zLXxhnhIAblY2xDY5SUi3Dp
+ MDtTIxUzFfxqCwThopa400zLVTrujIDQFGS0FOqYkc0ybaFU0SNIC0AnM/BS4tGt3c5P
+ yx7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728085242; x=1728690042;
+ d=1e100.net; s=20230601; t=1728085543; x=1728690343;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wXB6FiMFGXfruSvEAC93ihWCz2mJmwl2xFZB57k5WVo=;
- b=fVTUHzW2ePhlLFUkuh1v+X1DaK56YCaV7c4VvAWighCnVNIB81VYBqhDjttBDVHSBR
- sk+AvKKTWOYlt4V2JrVSkKRMf4Xy9uDuzh/skLfwK6FsCY1SB5giQ3KqL54f9vOy0vVJ
- bXrNMR9RlwPfFWVxlFL2MnC5N0ESvd4q01c3o6Pwmv6A+T4xt4qrc3li2hsOmXo5yuoK
- ojgjLT/7MssDi0Wsuo1WRJbiADuIObpNLHOR9cf5DA1o/JAh5JwUiDkuQRq5TFcvPsHf
- CyfvxRaNmMgb5TLYozXoAVQb+uq9ZtDEDozNdT8Yy4tZWXm9avvBTEQxz4lhql8OrzP6
- PD7w==
+ bh=kKcY6x98VwBIZfuYWE0CTgk1MQhMRRZsUKeLS0TDxsM=;
+ b=azdfmB3Q4AZ1BOKo6fl6a/QotpICfAkRPSb4JStQnEU+Pb5UiceF/WHTfWSL7wurWC
+ En4Z3prPkjuajOcLrF+zl363wp734c0lA/D0nRL7p+XDnUbf0mirUamSkloK7yb+6JMY
+ t/M1MSt9JrERJf5Ucxn1WPukDIOoNMEXGOqHDXXs8gOP/cubLMHyF7miW+tlMb2EqtUB
+ Cl7trqVsXFw799NcYYNHvZp5l6Dhlet46QdPVz3C3H6hQcK8Ymj6gd8kgPU3sk+THDsV
+ oAnEoj0Z1JGgz9BsV2R6Uyl+ZeHAlmZnFF7I8TfEIzvRM8tHlj/Ovh9SL5umOgb4YgQ6
+ pZ2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmuNUXrP7ldWq0as+mqXOsZBj566u3IInHFEIcB8Dy+CMKjyg9LW0moCd8H2SjAXKEiXdyyCypAvJrRA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzgnAWNaubxbuliclkKx7EuauGLc+dYw1Ur8ogqpxDeZvDNUlEK
- 5mHLXUtaMe0qc0XyNN2ohSgUN2jlo+WRO1eNR1fFFqX+lmKwL8RY
-X-Google-Smtp-Source: AGHT+IE+zyxdE0SKKsLU2/zehxEygp6owIm1RLZc1ZCDM7Z5sL1pDTqegPs2EOPFXWC+TeLZdoIqng==
-X-Received: by 2002:a05:6512:1193:b0:536:55cf:3148 with SMTP id
- 2adb3069b0e04-539ab88ae61mr2847065e87.31.1728085242332; 
- Fri, 04 Oct 2024 16:40:42 -0700 (PDT)
+ AJvYcCX+x7z8uAsn5XgayqLD3+2fvp0RY91+ly6dfvNLFBz0QLNg9RNS4iqmpRbMEohTDXtpfEodWXrM0u53ig==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzVF7hboUKIyZMTXUvrsnTIQ2hESE5fDBCVTH2BOaU7MwHGQzks
+ bEq/tYTMjM9Os6j6EcHBTKWvF609viVIlXVx8UN/r0+fzV7aIaJT
+X-Google-Smtp-Source: AGHT+IE2/OgCUxjr2/KKwuTZKAbji33Fn0uKCa1pwUQ9KxL72/DlYPR5DFLQKq2bl+asGEq37rYhoA==
+X-Received: by 2002:a05:6512:68d:b0:539:9064:9d04 with SMTP id
+ 2adb3069b0e04-539ab873f77mr2528871e87.33.1728085542646; 
+ Fri, 04 Oct 2024 16:45:42 -0700 (PDT)
 Received: from mobilestation ([95.79.225.241])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff1d277sm83263e87.155.2024.10.04.16.40.40
+ 2adb3069b0e04-539aff1d152sm84080e87.149.2024.10.04.16.45.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2024 16:40:41 -0700 (PDT)
-Date: Sat, 5 Oct 2024 02:40:38 +0300
+ Fri, 04 Oct 2024 16:45:41 -0700 (PDT)
+Date: Sat, 5 Oct 2024 02:45:37 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
-Message-ID: <vjmounqvfxzqpdsvzs5tzlqv7dfb4z2nect3vmuaohtfm6cn3t@qynqp6zqcd3s>
-References: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <js6s2vwcpqlykbmeqwp4c6ikmb5ctfz6klzxob3qao2mybboox@sz3s3f7qdv57>
+References: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
+ <20240904054815.1341712-3-jitendra.vegiraju@broadcom.com>
+ <mhfssgiv7unjlpve45rznyzr72llvchcwzk4f7obnvp5edijqc@ilmxqr5gaktb>
+ <CAMdnO-+CcCAezDXLwTe7fEZPQH6_B1zLD2g1J6uWiKi12vOxzg@mail.gmail.com>
+ <CAMdnO-JZ2crBaOEtvgMupQs7nTZ8r0_7TTQdX3B3n6F_owAMZA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 00/13] net: pcs: xpcs: cleanups
-	batch 2
+In-Reply-To: <CAMdnO-JZ2crBaOEtvgMupQs7nTZ8r0_7TTQdX3B3n6F_owAMZA@mail.gmail.com>
+Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v5 2/5] net: stmmac: Add basic
+ dw25gmac support in stmmac core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,75 +95,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+Hi Jitendra
 
-On Fri, Oct 04, 2024 at 11:19:57AM GMT, Russell King (Oracle) wrote:
-> This is the second cleanup series for XPCS.
-> 
-> Patch 1 removes the enum indexing the dw_xpcs_compat array. The index is
-> never used except to place entries in the array and to size the array.
-> 
-> Patch 2 removes the interface arrays - each of which only contain one
-> interface.
-> 
-> Patch 3 makes xpcs_find_compat() take the xpcs structure rather than the
-> ID - the previous series removed the reason for xpcs_find_compat needing
-> to take the ID.
-> 
-> Patch 4 provides a helper to convert xpcs structure to a regular
-> phylink_pcs structure, which leads to patch 5.
-> 
-> Patch 5 moves the definition of struct dw_xpcs to the private xpcs
-> header - with patch 4 in place, nothing outside of the xpcs driver
-> accesses the contents of the dw_xpcs structure.
-> 
-> Patch 6 renames xpcs_get_id() to xpcs_read_id() since it's reading the
-> ID, rather than doing anything further with it. (Prior versions of this
-> series renamed it to xpcs_read_phys_id() since that more accurately
-> described that it was reading the physical ID registers.)
-> 
-> Patch 7 moves the searching of the ID list out of line as this is a
-> separate functional block.
-> 
-> Patch 8 converts xpcs to use the bitmap macros, which eliminates the
-> need for _SHIFT definitions.
-> 
-> Patch 9 adds and uses _modify() accessors as there are a large amount
-> of read-modify-write operations in this driver. This conversion found
-> a bug in xpcs-wx code that has been reported and already fixed.
-> 
-> Patch 10 converts xpcs to use read_poll_timeout() rather than open
-> coding that.
-> 
-> Patch 11 converts all printed messages to use the dev_*() functions so
-> the driver and devie name are always printed.
-> 
-> Patch 12 moves DW_VR_MII_DIG_CTRL1_2G5_EN to the correct place in the
-> header file, rather than amongst another register's definitions.
-> 
-> Patch 13 moves the Wangxun workaround to a common location rather than
-> duplicating it in two places. We also reformat this to fit within
-> 80 columns.
+On Fri, Oct 04, 2024 at 09:05:36AM GMT, Jitendra Vegiraju wrote:
 
-If you don't mind I'll test the series out on Monday or Tuesday on the
-next week after my local-tree changes concerning the DW XPCS driver
-are rebased onto it.
+> 
+> When you get a chance, I would like to get your input on the approach we need
+> to take to incrementally add dw25gmac support.
+> 
+
+Sorry for the delay with response. I've been quite busy lately. I'll
+get back to this patch set review early next week and give you my
+thoughts regarding all your questions.
 
 -Serge(y)
-
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c |   2 +-
->  drivers/net/pcs/pcs-xpcs-nxp.c                    |  24 +-
->  drivers/net/pcs/pcs-xpcs-wx.c                     |  56 ++-
->  drivers/net/pcs/pcs-xpcs.c                        | 445 +++++++++-------------
->  drivers/net/pcs/pcs-xpcs.h                        |  26 +-
->  include/linux/pcs/pcs-xpcs.h                      |  19 +-
->  6 files changed, 237 insertions(+), 335 deletions(-)
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
