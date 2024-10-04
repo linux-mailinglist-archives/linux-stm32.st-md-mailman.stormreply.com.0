@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8DCE9900C0
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 12:20:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFA849900C1
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 12:21:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B055C78023;
-	Fri,  4 Oct 2024 10:20:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96581C78023;
+	Fri,  4 Oct 2024 10:21:00 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CD89C78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3650DC78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2024 10:20:53 +0000 (UTC)
+ Fri,  4 Oct 2024 10:20:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EDl8iDdO8g6Enhpce8/jrTV+161F1T+Rpc4/Yni614k=; b=iPW484QuVOqO7JLXJBvQ5heXcf
- hXcRtzmtJOCl1Xvxl+sImZtPBUXFyXt5Ojy+076w09FOkU1w4OB/u45zNTNukpHhNvm+hFRrmKmXe
- RL/zwi5nV4qpV5Tj150tQkyJrVCKQjaS5WQNWDbxbAgRCILj5qSvpzs+vT8ygtmXcn68JkEWiJjUl
- 1xROWlBpIxfauEYk8K4MvxHrqXgXf1eoijE0/UE8EUOukmcXaf9t2Rg45EP6dI1kW+xip8Zhf8xv5
- JjtXCpUqNrzpbHnqID3eGD32B52+6SwBqhNqvRjsWEJYqQk4X41h14q40uAvjMQHLFTxEA4mOfZLI
- TYrFXXLA==;
+ bh=l6dlWEsk1ObWrFwXZPlj5B3/mrN4qmVi0PI+FW2JyhM=; b=DHxs7l+wQL8DtRyYC+T4D1lyxb
+ QtWrTw0p+6KueJ5XVJQBSHghFWTgXM1frypSgBKdvxt4SaD0M1qYd1J5j5tYGEoZrqJkh0X1knU3L
+ A8xp3iLoQniiaf0JNk63fpXs71jb4lqz0k6AcQC8p76l/YOBOnVa18wdvNlRMfLU096Y0+UY3+VfE
+ 4eSrYs4PP7fQN48ARAJm0a5JBUwXDOpHSG3dOA7+sKwOyVp/qJZQx1JPA5PiI0je+tw+fMPdEkvqw
+ ngMZJ5ksyQACdJXMCvtxmPWkxkKl/saQLjY51JNztUqWTSudt2s4zGsjalHh0F5TnKUAin7p9a2in
+ 8ts51DAQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42496 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42510 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1swfQQ-0001fx-2e;
- Fri, 04 Oct 2024 11:20:42 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1swfQW-0001g8-0B;
+ Fri, 04 Oct 2024 11:20:47 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1swfQP-006Dew-5e; Fri, 04 Oct 2024 11:20:41 +0100
+ id 1swfQU-006Df2-EF; Fri, 04 Oct 2024 11:20:46 +0100
 In-Reply-To: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
 References: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1swfQP-006Dew-5e@rmk-PC.armlinux.org.uk>
-Date: Fri, 04 Oct 2024 11:20:41 +0100
+Message-Id: <E1swfQU-006Df2-EF@rmk-PC.armlinux.org.uk>
+Date: Fri, 04 Oct 2024 11:20:46 +0100
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
  Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
  Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
@@ -51,8 +51,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Mengyuan Lou <mengyuanlou@net-swift.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 01/13] net: pcs: xpcs: remove
-	dw_xpcs_compat enum
+Subject: [Linux-stm32] [PATCH net-next 02/13] net: pcs: xpcs: don't use
+	array for interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,174 +69,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is no reason for the struct dw_xpcs_compat arrays to be a fixed
-size other than the way we iterate over them. The index into the array
-isn't used for anything, and having them fixed size needlessly wastes
-space.
+Currently, xpcs uses an array of interfaces that each "compat" entry
+supports. When looking up the compat entry for an interface, we
+iterate over the compat entries and then over each interface.
 
-Remove the enum that defines their size, and instead use an empty
-array entry (with NULL ->supported) to mark the end of the array.
+Since each compat entry only has a single interface in its interfaces
+array, replace the array with a single member in the compat structure.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/pcs/pcs-xpcs.c | 69 ++++++++++++++------------------------
- 1 file changed, 25 insertions(+), 44 deletions(-)
+ drivers/net/pcs/pcs-xpcs.c | 71 ++++++++------------------------------
+ 1 file changed, 14 insertions(+), 57 deletions(-)
 
 diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 0a01c552f591..e1f264039c91 100644
+index e1f264039c91..4fbf7c816ed5 100644
 --- a/drivers/net/pcs/pcs-xpcs.c
 +++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -135,17 +135,6 @@ static const phy_interface_t xpcs_2500basex_interfaces[] = {
- 	PHY_INTERFACE_MODE_2500BASEX,
+@@ -107,38 +107,9 @@ static const int xpcs_2500basex_features[] = {
+ 	__ETHTOOL_LINK_MODE_MASK_NBITS,
  };
  
--enum {
--	DW_XPCS_USXGMII,
--	DW_XPCS_10GKR,
--	DW_XPCS_XLGMII,
--	DW_XPCS_10GBASER,
--	DW_XPCS_SGMII,
--	DW_XPCS_1000BASEX,
--	DW_XPCS_2500BASEX,
--	DW_XPCS_INTERFACE_MAX,
+-static const phy_interface_t xpcs_usxgmii_interfaces[] = {
+-	PHY_INTERFACE_MODE_USXGMII,
+-};
+-
+-static const phy_interface_t xpcs_10gkr_interfaces[] = {
+-	PHY_INTERFACE_MODE_10GKR,
+-};
+-
+-static const phy_interface_t xpcs_xlgmii_interfaces[] = {
+-	PHY_INTERFACE_MODE_XLGMII,
+-};
+-
+-static const phy_interface_t xpcs_10gbaser_interfaces[] = {
+-	PHY_INTERFACE_MODE_10GBASER,
+-};
+-
+-static const phy_interface_t xpcs_sgmii_interfaces[] = {
+-	PHY_INTERFACE_MODE_SGMII,
+-};
+-
+-static const phy_interface_t xpcs_1000basex_interfaces[] = {
+-	PHY_INTERFACE_MODE_1000BASEX,
+-};
+-
+-static const phy_interface_t xpcs_2500basex_interfaces[] = {
+-	PHY_INTERFACE_MODE_2500BASEX,
 -};
 -
  struct dw_xpcs_compat {
++	phy_interface_t interface;
  	const int *supported;
- 	const phy_interface_t *interface;
-@@ -163,15 +152,13 @@ struct dw_xpcs_desc {
- static const struct dw_xpcs_compat *
+-	const phy_interface_t *interface;
+-	int num_interfaces;
+ 	int an_mode;
+ 	int (*pma_config)(struct dw_xpcs *xpcs);
+ };
+@@ -153,12 +124,10 @@ static const struct dw_xpcs_compat *
  xpcs_find_compat(const struct dw_xpcs_desc *desc, phy_interface_t interface)
  {
--	int i, j;
--
--	for (i = 0; i < DW_XPCS_INTERFACE_MAX; i++) {
--		const struct dw_xpcs_compat *compat = &desc->compat[i];
-+	const struct dw_xpcs_compat *compat;
-+	int j;
+ 	const struct dw_xpcs_compat *compat;
+-	int j;
  
-+	for (compat = desc->compat; compat->supported; compat++)
- 		for (j = 0; j < compat->num_interfaces; j++)
- 			if (compat->interface[j] == interface)
- 				return compat;
--	}
+ 	for (compat = desc->compat; compat->supported; compat++)
+-		for (j = 0; j < compat->num_interfaces; j++)
+-			if (compat->interface[j] == interface)
+-				return compat;
++		if (compat->interface == interface)
++			return compat;
  
  	return NULL;
  }
-@@ -610,14 +597,12 @@ static int xpcs_validate(struct phylink_pcs *pcs, unsigned long *supported,
- 
+@@ -598,11 +567,9 @@ static int xpcs_validate(struct phylink_pcs *pcs, unsigned long *supported,
  void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
  {
--	int i, j;
--
--	for (i = 0; i < DW_XPCS_INTERFACE_MAX; i++) {
--		const struct dw_xpcs_compat *compat = &xpcs->desc->compat[i];
-+	const struct dw_xpcs_compat *compat;
-+	int j;
+ 	const struct dw_xpcs_compat *compat;
+-	int j;
  
-+	for (compat = xpcs->desc->compat; compat->supported; compat++)
- 		for (j = 0; j < compat->num_interfaces; j++)
- 			__set_bit(compat->interface[j], interfaces);
--	}
+ 	for (compat = xpcs->desc->compat; compat->supported; compat++)
+-		for (j = 0; j < compat->num_interfaces; j++)
+-			__set_bit(compat->interface[j], interfaces);
++		__set_bit(compat->interface, interfaces);
  }
  EXPORT_SYMBOL_GPL(xpcs_get_interfaces);
  
-@@ -1298,76 +1283,72 @@ static int xpcs_get_id(struct dw_xpcs *xpcs)
- 	return 0;
- }
+@@ -1285,39 +1252,32 @@ static int xpcs_get_id(struct dw_xpcs *xpcs)
  
--static const struct dw_xpcs_compat synopsys_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
--	[DW_XPCS_USXGMII] = {
-+static const struct dw_xpcs_compat synopsys_xpcs_compat[] = {
-+	{
+ static const struct dw_xpcs_compat synopsys_xpcs_compat[] = {
+ 	{
++		.interface = PHY_INTERFACE_MODE_USXGMII,
  		.supported = xpcs_usxgmii_features,
- 		.interface = xpcs_usxgmii_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_usxgmii_interfaces),
+-		.interface = xpcs_usxgmii_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_usxgmii_interfaces),
  		.an_mode = DW_AN_C73,
--	},
--	[DW_XPCS_10GKR] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_10GKR,
  		.supported = xpcs_10gkr_features,
- 		.interface = xpcs_10gkr_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_10gkr_interfaces),
+-		.interface = xpcs_10gkr_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_10gkr_interfaces),
  		.an_mode = DW_AN_C73,
--	},
--	[DW_XPCS_XLGMII] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_XLGMII,
  		.supported = xpcs_xlgmii_features,
- 		.interface = xpcs_xlgmii_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_xlgmii_interfaces),
+-		.interface = xpcs_xlgmii_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_xlgmii_interfaces),
  		.an_mode = DW_AN_C73,
--	},
--	[DW_XPCS_10GBASER] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_10GBASER,
  		.supported = xpcs_10gbaser_features,
- 		.interface = xpcs_10gbaser_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_10gbaser_interfaces),
+-		.interface = xpcs_10gbaser_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_10gbaser_interfaces),
  		.an_mode = DW_10GBASER,
--	},
--	[DW_XPCS_SGMII] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_SGMII,
  		.supported = xpcs_sgmii_features,
- 		.interface = xpcs_sgmii_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
+-		.interface = xpcs_sgmii_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
  		.an_mode = DW_AN_C37_SGMII,
--	},
--	[DW_XPCS_1000BASEX] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_1000BASEX,
  		.supported = xpcs_1000basex_features,
- 		.interface = xpcs_1000basex_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_1000basex_interfaces),
+-		.interface = xpcs_1000basex_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_1000basex_interfaces),
  		.an_mode = DW_AN_C37_1000BASEX,
--	},
--	[DW_XPCS_2500BASEX] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_2500BASEX,
  		.supported = xpcs_2500basex_features,
- 		.interface = xpcs_2500basex_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_interfaces),
+-		.interface = xpcs_2500basex_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_interfaces),
  		.an_mode = DW_2500BASEX,
--	},
-+	}, {
-+	}
- };
+ 	}, {
+ 	}
+@@ -1325,9 +1285,8 @@ static const struct dw_xpcs_compat synopsys_xpcs_compat[] = {
  
--static const struct dw_xpcs_compat nxp_sja1105_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
--	[DW_XPCS_SGMII] = {
-+static const struct dw_xpcs_compat nxp_sja1105_xpcs_compat[] = {
-+	{
+ static const struct dw_xpcs_compat nxp_sja1105_xpcs_compat[] = {
+ 	{
++		.interface = PHY_INTERFACE_MODE_SGMII,
  		.supported = xpcs_sgmii_features,
- 		.interface = xpcs_sgmii_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
+-		.interface = xpcs_sgmii_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
  		.an_mode = DW_AN_C37_SGMII,
  		.pma_config = nxp_sja1105_sgmii_pma_config,
--	},
-+	}, {
-+	}
- };
+ 	}, {
+@@ -1336,15 +1295,13 @@ static const struct dw_xpcs_compat nxp_sja1105_xpcs_compat[] = {
  
--static const struct dw_xpcs_compat nxp_sja1110_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
--	[DW_XPCS_SGMII] = {
-+static const struct dw_xpcs_compat nxp_sja1110_xpcs_compat[] = {
-+	{
+ static const struct dw_xpcs_compat nxp_sja1110_xpcs_compat[] = {
+ 	{
++		.interface = PHY_INTERFACE_MODE_SGMII,
  		.supported = xpcs_sgmii_features,
- 		.interface = xpcs_sgmii_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
+-		.interface = xpcs_sgmii_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
  		.an_mode = DW_AN_C37_SGMII,
  		.pma_config = nxp_sja1110_sgmii_pma_config,
--	},
--	[DW_XPCS_2500BASEX] = {
-+	}, {
+ 	}, {
++		.interface = PHY_INTERFACE_MODE_2500BASEX,
  		.supported = xpcs_2500basex_features,
- 		.interface = xpcs_2500basex_interfaces,
- 		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_interfaces),
+-		.interface = xpcs_2500basex_interfaces,
+-		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_interfaces),
  		.an_mode = DW_2500BASEX,
  		.pma_config = nxp_sja1110_2500basex_pma_config,
--	},
-+	}, {
-+	}
- };
- 
- static const struct dw_xpcs_desc xpcs_desc_list[] = {
+ 	}, {
 -- 
 2.30.2
 
