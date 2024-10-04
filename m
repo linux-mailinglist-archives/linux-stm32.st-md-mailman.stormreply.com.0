@@ -2,82 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F556990646
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 16:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B89990882
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 18:05:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E85B2C7802B;
-	Fri,  4 Oct 2024 14:39:21 +0000 (UTC)
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
- [209.85.219.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12AD7C7802B;
+	Fri,  4 Oct 2024 16:05:59 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15A50C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DB65C78028
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2024 14:39:14 +0000 (UTC)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-e260b266805so2086943276.0
+ Fri,  4 Oct 2024 16:05:51 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-71de9e1f374so514261b3a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Oct 2024 07:39:14 -0700 (PDT)
+ Fri, 04 Oct 2024 09:05:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728052753; x=1728657553;
+ d=broadcom.com; s=google; t=1728057949; x=1728662749;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=n0+r7C3ydLN7J4JW4zmWAe1MqpY7cd+9UFl+Vc3xTNY=;
- b=ZMhiOyyvKg+Jzrm6K8pOKCgzhmPUaJwblGP5n1E+MOcJiQ5nWZKtj+EIELckCFBdHu
- C9hAEy6iBYgmlRalqsOacAcrwElAiu8qfok2DN9US8U0Dy2ZfaJ4mLzK5sLPpvVq69UJ
- /L1ezhxeoOBjupaKLzAy1xmt/UaLkwRIra23pF/vSEwK7heRH/FrVpRoKHV7RSOb8FIe
- qmOlcOCS6sQAq89bg2lqT4s6ofy8EUoMFV3rHfifrNvbxxQbjPHhIIQH66q7Ad7qgflO
- QfWFVGhY4Ej0durQuBzRtAdopO+U1ZLsO4S2b61KCRlP9ZYhh/nRwqHHQDR5+meMCQhF
- FqFA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8DgA6gQLk526uv5nFhNrX9l/ATz98WfN6ETaxfWgW3g=;
+ b=PrS51ho7nyz9NSH3T7j2WBaT+CeRKCIJ0q6GGXZhouMguHhuVQ33uibgBRx96l1dlU
+ o8OfH+/3g4qA7AiVNeO5B66wbS/6iD+HuzAeziYmaaFXX8LUNsfjOySHCf06asvT2xAK
+ XwMwt8YBKrplrpgl9ix6MyczZCWmAc+4xkT5w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728052753; x=1728657553;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=n0+r7C3ydLN7J4JW4zmWAe1MqpY7cd+9UFl+Vc3xTNY=;
- b=gE0kLLbAHGayX66Oa/0Fa3Wz1lHtmkBNIJ798RRh/o+XtyOvnt0wnfQ7M33rAvV25T
- KPFA6Lc4GQoyapxnPgGBsEIdFNXHifn4AXRzinUfdXJhFuF5QhxL6i6/0dSz8cnzK6VU
- YPrPGSHkNKa+GBwIivBeGIazKw49dh3948iFTI578m4Bbx6T6fAe83xImSp0IwKx/IeU
- mfnkz4YWPmsHKIwgQ/iVIL6Thtos1UCpnPVpWUxmrVUKwZe0x0Td+6DW1/nv/IIQ0OZl
- 7N7bjSadw27qIeXym4UzIew0AvjwmXZqVlBw+0QxY1IYHmDdWXOT2gbl+frFehat/0ba
- 5Jig==
+ d=1e100.net; s=20230601; t=1728057949; x=1728662749;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8DgA6gQLk526uv5nFhNrX9l/ATz98WfN6ETaxfWgW3g=;
+ b=CnOualZKyUvP6FgsyJH8X4rpEUScKKtKWnDfNigjf5Gv+m3h1ATbaoNjB+SZUU1Qtf
+ NKr1EWN//zL+hozlg6uWYO0bZELWn0aPxq1jWSJFdqRaJKUHgrjB89YcYZYukJL2dYnE
+ Tgc+tWfKXl49N6qYv52s/m89fWMmLtDdKh3os/f+79Fws+S/YW3T+F8j6hj35Pkgrf0u
+ kSa9fkuSgtOQ5zCDbnzb1YtVGXDVbwaMbQtMjBQhh/O5ezjhxSmCyzXcqbT6ZbNKDF2Q
+ QvAztQAl5BLyfZbHqVHwZJSJMnDtrRDqApfIhMUO2F1nhEBpI/WJg+6GaVi59vnLUrjD
+ rtZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXI+g832P94frouZBZTstMRWam7hbsC2Rppvkda+rTO1T0+I83Z5MkSGosP/epLeLTzjbPz6vPmoxTgmg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy1NhNDzy/uLbrwn9bvNGnzmi55P5SRMFe62IW9G7Arq/6EBv7W
- igGbjVRAAOb3WbcPUbKhJAgd165EwGCACQJFxNeKvG4JSiG3PLkNnRu9AI30uE38bPVih6hzsW6
- gLlJDleZc528bvkTk+wFshh8Kg4AKdOsK05XABg==
-X-Google-Smtp-Source: AGHT+IE1kQI4PJXVDnkiYmxoxJdQtCeM/vstLIS7kgzFE5E+D/sU/FpG9q6FB6tXRDFQWi6Sd5Ul2dRXNEwpALHwRFg=
-X-Received: by 2002:a05:6902:27c8:b0:e1a:a665:1db4 with SMTP id
- 3f1490d57ef6-e289391768amr2205104276.14.1728052752782; Fri, 04 Oct 2024
- 07:39:12 -0700 (PDT)
+ AJvYcCX0WOq04uUDJBS46mwpani3ewsQneU4VBBwAdLoubEy9vyfGQYPIXmPcAspVzHE1+Se0+KolrOWLK70kA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzi8ccTob41hnw8kz/X22+vcr29EOkgvCY6DjKHvOQkATTN5Jqq
+ vk0bBs/dpINsLW+uCgI4nUPkS98SnJU08nUB2YT4MbfFYBpnHvoN54mOSCabiY1Y/WGk+KfdJmV
+ /O5Eg3OAA3JU8Sx2f+90ic2yCp6SdNDEfmlft
+X-Google-Smtp-Source: AGHT+IHrvnHw3FVjvTTNKr1bqXznfvQlmxItSYcov9d1t4vebXm+9FqwtiPXmIQyXN0EnDWTP6aS6+x4KFr52zqJG+s=
+X-Received: by 2002:a05:6a00:a09:b0:710:5848:8ae1 with SMTP id
+ d2e1a72fcca58-71de239d27bmr5411024b3a.4.1728057949123; Fri, 04 Oct 2024
+ 09:05:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
-In-Reply-To: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 4 Oct 2024 16:38:36 +0200
-Message-ID: <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: imx@lists.linux.dev, rafael@kernel.org, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-i3c@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- asahi@lists.linux.dev, linux-staging@lists.linux.dev,
- Andy Shevchenko <andy.shevchenko@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-clk@vger.kernel.org, iommu@lists.linux.dev, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, greybus-dev@lists.linaro.org,
- patches@opensource.cirrus.com, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-crypto@vger.kernel.org, netdev@vger.kernel.org,
- dmaengine@vger.kernel.org, laurent.pinchart@ideasonboard.com
-Subject: Re: [Linux-stm32] [PATCH 00/51] treewide: Switch to
-	__pm_runtime_put_autosuspend()
+References: <20240904054815.1341712-1-jitendra.vegiraju@broadcom.com>
+ <20240904054815.1341712-3-jitendra.vegiraju@broadcom.com>
+ <mhfssgiv7unjlpve45rznyzr72llvchcwzk4f7obnvp5edijqc@ilmxqr5gaktb>
+ <CAMdnO-+CcCAezDXLwTe7fEZPQH6_B1zLD2g1J6uWiKi12vOxzg@mail.gmail.com>
+In-Reply-To: <CAMdnO-+CcCAezDXLwTe7fEZPQH6_B1zLD2g1J6uWiKi12vOxzg@mail.gmail.com>
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Date: Fri, 4 Oct 2024 09:05:36 -0700
+Message-ID: <CAMdnO-JZ2crBaOEtvgMupQs7nTZ8r0_7TTQdX3B3n6F_owAMZA@mail.gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v5 2/5] net: stmmac: Add basic
+ dw25gmac support in stmmac core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,486 +82,282 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 4 Oct 2024 at 11:41, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
-> Hello everyone,
->
-> This set will switch the users of pm_runtime_put_autosuspend() to
-> __pm_runtime_put_autosuspend() while the former will soon be re-purposed
-> to include a call to pm_runtime_mark_last_busy(). The two are almost
-> always used together, apart from bugs which are likely common. Going
-> forward, most new users should be using pm_runtime_put_autosuspend().
->
-> Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
-> I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
-> and pm_runtime_mark_last_busy().
-
-That sounds like it could cause a lot of churns.
-
-Why not add a new helper function that does the
-pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
-things? Then we can start moving users over to this new interface,
-rather than having this intermediate step?
-
-Kind regards
-Uffe
-
->
-> The diff in these patches have been generated using the following
-> Coccinelle script (besides a manual change in
-> drivers/iio/magnetometer/af8133j.c):
->
-> ----------8<-------------------
-> @@
-> expression E1;
->
-> @@
->
-> - pm_runtime_put_autosuspend(E1)
-> + __pm_runtime_put_autosuspend(E1)
-> ----------8<-------------------
->
-> These patches are on top of today's linux-next (i.e. next-20241004).
->
-> Sakari Ailus (51):
->   accel/ivpu: Switch to __pm_runtime_put_autosuspend()
->   bluetooth: Switch to __pm_runtime_put_autosuspend()
->   bus: sunxi-rsb: Switch to __pm_runtime_put_autosuspend()
->   hwrng: Switch to __pm_runtime_put_autosuspend()
->   clk: Switch to __pm_runtime_put_autosuspend()
->   crypto: Switch to __pm_runtime_put_autosuspend()
->   dmaengine: Switch to __pm_runtime_put_autosuspend()
->   gpio: Switch to __pm_runtime_put_autosuspend()
->   drm/amd: Switch to __pm_runtime_put_autosuspend()
->   drm/nouveau: Switch to __pm_runtime_put_autosuspend()
->   drm/radeon: Switch to __pm_runtime_put_autosuspend()
->   drm/panfrost: Switch to __pm_runtime_put_autosuspend()
->   drivers: drm: Switch to __pm_runtime_put_autosuspend()
->   HSI: omap_ssi_port: Switch to __pm_runtime_put_autosuspend()
->   stm class: Switch to __pm_runtime_put_autosuspend()
->   i2c: Switch to __pm_runtime_put_autosuspend()
->   i3c: master: svc: Switch to __pm_runtime_put_autosuspend()
->   i3c: dw: Switch to __pm_runtime_put_autosuspend()
->   iio: Switch to __pm_runtime_put_autosuspend()
->   Input: omap4-keypad: Switch to __pm_runtime_put_autosuspend()
->   Input: cs40l50: Switch to __pm_runtime_put_autosuspend()
->   iommu/arm-smmu: Switch to __pm_runtime_put_autosuspend()
->   irqchip/imx-irqsteer: Switch to __pm_runtime_put_autosuspend()
->   mailbox: mtk-cmdq-mailbox: Switch to __pm_runtime_put_autosuspend()
->   media: Switch to __pm_runtime_put_autosuspend()
->   mfd: Switch to __pm_runtime_put_autosuspend()
->   mei: Switch to __pm_runtime_put_autosuspend()
->   mmc: Switch to __pm_runtime_put_autosuspend()
->   mtd: rawnand: gpmi: Switch to __pm_runtime_put_autosuspend()
->   net: Switch to __pm_runtime_put_autosuspend()
->   nfc: trf7970a: Switch to __pm_runtime_put_autosuspend()
->   PCI/portdrv: Switch to __pm_runtime_put_autosuspend()
->   phy: motorola: phy-mapphone-mdm6600: Switch to
->     __pm_runtime_put_autosuspend()
->   phy: ti: phy-twl4030-usb: Switch to __pm_runtime_put_autosuspend()
->   power: Switch to __pm_runtime_put_autosuspend()
->   pwm: img: Switch to __pm_runtime_put_autosuspend()
->   regulator: stm32-vrefbuf: Switch to __pm_runtime_put_autosuspend()
->   remoteproc: omap: Switch to __pm_runtime_put_autosuspend()
->   slimbus: Switch to __pm_runtime_put_autosuspend()
->   soundwire: Switch to __pm_runtime_put_autosuspend()
->   spi: Switch to __pm_runtime_put_autosuspend()
->   staging: Switch to __pm_runtime_put_autosuspend()
->   thunderbolt: Switch to __pm_runtime_put_autosuspend()
->   serial: Switch to __pm_runtime_put_autosuspend()
->   usb: Switch to __pm_runtime_put_autosuspend()
->   w1: omap-hdq: Switch to __pm_runtime_put_autosuspend()
->   staging: greybus: Switch to __pm_runtime_put_autosuspend()
->   ALSA: hda: Switch to __pm_runtime_put_autosuspend()
->   ASoC: Switch to __pm_runtime_put_autosuspend()
->   ALSA: intel_hdmi: Switch to __pm_runtime_put_autosuspend()
->   soc: apple: mailbox: Switch to __pm_runtime_put_autosuspend()
->
->  drivers/accel/ivpu/ivpu_drv.c                 |   2 +-
->  drivers/accel/ivpu/ivpu_pm.c                  |   8 +-
->  drivers/bluetooth/btmtksdio.c                 |   2 +-
->  drivers/bluetooth/hci_bcm.c                   |   6 +-
->  drivers/bluetooth/hci_h5.c                    |   4 +-
->  drivers/bluetooth/hci_intel.c                 |   6 +-
->  drivers/bus/sunxi-rsb.c                       |   4 +-
->  drivers/char/hw_random/cctrng.c               |   2 +-
->  drivers/char/hw_random/omap3-rom-rng.c        |   2 +-
->  drivers/clk/imx/clk-imx8qxp-lpcg.c            |   2 +-
->  drivers/clk/imx/clk-scu.c                     |   2 +-
->  drivers/clk/qcom/lpassaudiocc-sc7280.c        |   4 +-
->  drivers/clk/qcom/lpasscorecc-sc7180.c         |   4 +-
->  drivers/crypto/ccree/cc_pm.c                  |   2 +-
->  drivers/crypto/hisilicon/qm.c                 |   2 +-
->  drivers/crypto/omap-aes-gcm.c                 |   2 +-
->  drivers/crypto/omap-aes.c                     |   2 +-
->  drivers/crypto/omap-des.c                     |   2 +-
->  drivers/crypto/omap-sham.c                    |   2 +-
->  drivers/crypto/rockchip/rk3288_crypto_ahash.c |   2 +-
->  .../crypto/rockchip/rk3288_crypto_skcipher.c  |   2 +-
->  drivers/crypto/stm32/stm32-crc32.c            |   4 +-
->  drivers/crypto/stm32/stm32-cryp.c             |   2 +-
->  drivers/crypto/stm32/stm32-hash.c             |   2 +-
->  drivers/dma/at_xdmac.c                        |  24 +--
->  drivers/dma/pl330.c                           |  14 +-
->  drivers/dma/qcom/bam_dma.c                    |  10 +-
->  drivers/dma/qcom/hidma.c                      |  18 +-
->  drivers/dma/qcom/hidma_dbg.c                  |   2 +-
->  drivers/dma/qcom/hidma_mgmt.c                 |   4 +-
->  drivers/dma/ste_dma40.c                       |  16 +-
->  drivers/dma/ti/cppi41.c                       |  10 +-
->  drivers/dma/xilinx/zynqmp_dma.c               |   2 +-
->  drivers/gpio/gpio-arizona.c                   |  10 +-
->  drivers/gpio/gpio-mxc.c                       |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c      |   2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  16 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 120 ++++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c       |   4 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |   2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_securedisplay.c |   4 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   4 +-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 178 +++++++++---------
->  .../drm/bridge/analogix/analogix_dp_core.c    |   2 +-
->  drivers/gpu/drm/bridge/analogix/anx7625.c     |   4 +-
->  drivers/gpu/drm/bridge/parade-ps8640.c        |   4 +-
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c         |  14 +-
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  12 +-
->  drivers/gpu/drm/exynos/exynos_drm_fimc.c      |   4 +-
->  drivers/gpu/drm/exynos/exynos_drm_g2d.c       |   4 +-
->  drivers/gpu/drm/exynos/exynos_drm_gsc.c       |   6 +-
->  drivers/gpu/drm/exynos/exynos_drm_rotator.c   |   2 +-
->  drivers/gpu/drm/exynos/exynos_drm_scaler.c    |   2 +-
->  drivers/gpu/drm/i915/intel_runtime_pm.c       |   4 +-
->  drivers/gpu/drm/imx/dcss/dcss-crtc.c          |   2 +-
->  drivers/gpu/drm/lima/lima_sched.c             |   2 +-
->  drivers/gpu/drm/msm/adreno/adreno_device.c    |   2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |   2 +-
->  drivers/gpu/drm/msm/msm_gpu.c                 |   2 +-
->  drivers/gpu/drm/msm/msm_iommu.c               |   4 +-
->  drivers/gpu/drm/msm/msm_submitqueue.c         |   2 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  10 +-
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |   4 +-
->  drivers/gpu/drm/nouveau/nouveau_debugfs.c     |   8 +-
->  drivers/gpu/drm/nouveau/nouveau_display.c     |   4 +-
->  drivers/gpu/drm/nouveau/nouveau_drm.c         |  10 +-
->  drivers/gpu/drm/nouveau/nouveau_gem.c         |  10 +-
->  drivers/gpu/drm/panel/panel-edp.c             |   8 +-
->  .../gpu/drm/panel/panel-samsung-atna33xc20.c  |   6 +-
->  drivers/gpu/drm/panel/panel-simple.c          |   6 +-
->  drivers/gpu/drm/panfrost/panfrost_job.c       |   4 +-
->  drivers/gpu/drm/panfrost/panfrost_mmu.c       |   4 +-
->  drivers/gpu/drm/panfrost/panfrost_perfcnt.c   |   4 +-
->  drivers/gpu/drm/panthor/panthor_device.c      |   2 +-
->  drivers/gpu/drm/panthor/panthor_sched.c       |   6 +-
->  drivers/gpu/drm/radeon/radeon_acpi.c          |   2 +-
->  drivers/gpu/drm/radeon/radeon_connectors.c    |  20 +-
->  drivers/gpu/drm/radeon/radeon_display.c       |   6 +-
->  drivers/gpu/drm/radeon/radeon_drv.c           |   4 +-
->  drivers/gpu/drm/radeon/radeon_fbdev.c         |   4 +-
->  drivers/gpu/drm/radeon/radeon_kms.c           |  10 +-
->  drivers/gpu/drm/tegra/submit.c                |   2 +-
->  drivers/gpu/drm/tidss/tidss_drv.c             |   2 +-
->  drivers/gpu/drm/vc4/vc4_v3d.c                 |   2 +-
->  drivers/hsi/controllers/omap_ssi_port.c       |  42 ++---
->  drivers/hwtracing/stm/core.c                  |   8 +-
->  drivers/i2c/busses/i2c-amd-mp2-pci.c          |   2 +-
->  drivers/i2c/busses/i2c-amd-mp2.h              |   2 +-
->  drivers/i2c/busses/i2c-at91-master.c          |   2 +-
->  drivers/i2c/busses/i2c-cadence.c              |   2 +-
->  drivers/i2c/busses/i2c-davinci.c              |   4 +-
->  drivers/i2c/busses/i2c-designware-master.c    |   2 +-
->  drivers/i2c/busses/i2c-designware-pcidrv.c    |   2 +-
->  drivers/i2c/busses/i2c-hix5hd2.c              |   2 +-
->  drivers/i2c/busses/i2c-i801.c                 |   4 +-
->  drivers/i2c/busses/i2c-img-scb.c              |   6 +-
->  drivers/i2c/busses/i2c-imx-lpi2c.c            |   6 +-
->  drivers/i2c/busses/i2c-imx.c                  |   4 +-
->  drivers/i2c/busses/i2c-mv64xxx.c              |   2 +-
->  drivers/i2c/busses/i2c-nvidia-gpu.c           |   4 +-
->  drivers/i2c/busses/i2c-omap.c                 |   6 +-
->  drivers/i2c/busses/i2c-qcom-cci.c             |   2 +-
->  drivers/i2c/busses/i2c-qcom-geni.c            |   2 +-
->  drivers/i2c/busses/i2c-qup.c                  |   4 +-
->  drivers/i2c/busses/i2c-riic.c                 |   4 +-
->  drivers/i2c/busses/i2c-rzv2m.c                |   2 +-
->  drivers/i2c/busses/i2c-sprd.c                 |   4 +-
->  drivers/i2c/busses/i2c-stm32f7.c              |  10 +-
->  drivers/i2c/busses/i2c-xiic.c                 |   2 +-
->  drivers/i3c/master/dw-i3c-master.c            |  16 +-
->  drivers/i3c/master/svc-i3c-master.c           |  16 +-
->  drivers/iio/accel/bmc150-accel-core.c         |   2 +-
->  drivers/iio/accel/bmi088-accel-core.c         |   6 +-
->  drivers/iio/accel/fxls8962af-core.c           |   2 +-
->  drivers/iio/accel/kxcjk-1013.c                |   2 +-
->  drivers/iio/accel/kxsd9.c                     |   6 +-
->  drivers/iio/accel/mma8452.c                   |   2 +-
->  drivers/iio/accel/mma9551_core.c              |   2 +-
->  drivers/iio/accel/msa311.c                    |  12 +-
->  drivers/iio/adc/ab8500-gpadc.c                |   2 +-
->  drivers/iio/adc/at91-sama5d2_adc.c            |  20 +-
->  drivers/iio/adc/rcar-gyroadc.c                |   2 +-
->  drivers/iio/adc/stm32-adc-core.c              |   2 +-
->  drivers/iio/adc/stm32-adc.c                   |  12 +-
->  drivers/iio/adc/sun4i-gpadc-iio.c             |   4 +-
->  drivers/iio/adc/ti-ads1015.c                  |   2 +-
->  drivers/iio/adc/ti-ads1100.c                  |   2 +-
->  drivers/iio/adc/ti-ads1119.c                  |   4 +-
->  drivers/iio/chemical/atlas-sensor.c           |   4 +-
->  .../common/hid-sensors/hid-sensor-trigger.c   |   2 +-
->  drivers/iio/dac/stm32-dac.c                   |   6 +-
->  drivers/iio/gyro/bmg160_core.c                |   2 +-
->  drivers/iio/gyro/fxas21002c_core.c            |   2 +-
->  drivers/iio/gyro/mpu3050-core.c               |   6 +-
->  drivers/iio/gyro/mpu3050-i2c.c                |   2 +-
->  .../iio/imu/inv_icm42600/inv_icm42600_accel.c |  10 +-
->  .../imu/inv_icm42600/inv_icm42600_buffer.c    |   2 +-
->  .../iio/imu/inv_icm42600/inv_icm42600_gyro.c  |  10 +-
->  .../iio/imu/inv_icm42600/inv_icm42600_temp.c  |   2 +-
->  drivers/iio/imu/inv_mpu6050/inv_mpu_core.c    |  14 +-
->  drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c |   4 +-
->  drivers/iio/imu/kmx61.c                       |   2 +-
->  drivers/iio/light/apds9306.c                  |   6 +-
->  drivers/iio/light/apds9960.c                  |   4 +-
->  drivers/iio/light/bh1780.c                    |   2 +-
->  drivers/iio/light/gp2ap002.c                  |   4 +-
->  drivers/iio/light/isl29028.c                  |   2 +-
->  drivers/iio/light/ltrf216a.c                  |   2 +-
->  drivers/iio/light/pa12203001.c                |   2 +-
->  drivers/iio/light/rpr0521.c                   |   2 +-
->  drivers/iio/light/tsl2583.c                   |   2 +-
->  drivers/iio/light/tsl2591.c                   |   4 +-
->  drivers/iio/light/us5182d.c                   |   2 +-
->  drivers/iio/light/vcnl4000.c                  |   2 +-
->  drivers/iio/light/vcnl4035.c                  |   2 +-
->  drivers/iio/magnetometer/af8133j.c            |   4 +-
->  drivers/iio/magnetometer/ak8974.c             |   4 +-
->  drivers/iio/magnetometer/ak8975.c             |   2 +-
->  drivers/iio/magnetometer/bmc150_magn.c        |   2 +-
->  drivers/iio/magnetometer/tmag5273.c           |   4 +-
->  drivers/iio/magnetometer/yamaha-yas530.c      |   4 +-
->  drivers/iio/pressure/bmp280-core.c            |  10 +-
->  drivers/iio/pressure/icp10100.c               |   2 +-
->  drivers/iio/pressure/mpl115.c                 |   4 +-
->  drivers/iio/pressure/zpa2326.c                |   4 +-
->  .../iio/proximity/pulsedlight-lidar-lite-v2.c |   2 +-
->  drivers/iio/proximity/srf04.c                 |   2 +-
->  drivers/iio/temperature/mlx90614.c            |   4 +-
->  drivers/iio/temperature/mlx90632.c            |   4 +-
->  drivers/iio/temperature/mlx90635.c            |   4 +-
->  drivers/input/keyboard/omap4-keypad.c         |   8 +-
->  drivers/input/misc/cs40l50-vibra.c            |   8 +-
->  drivers/iommu/arm/arm-smmu/arm-smmu.c         |   2 +-
->  drivers/irqchip/irq-imx-irqsteer.c            |   2 +-
->  drivers/mailbox/mtk-cmdq-mailbox.c            |  10 +-
->  drivers/media/i2c/alvium-csi2.c               |   2 +-
->  drivers/media/i2c/ccs/ccs-core.c              |  10 +-
->  drivers/media/i2c/dw9719.c                    |   2 +-
->  drivers/media/i2c/gc0308.c                    |   6 +-
->  drivers/media/i2c/gc2145.c                    |   8 +-
->  drivers/media/i2c/imx283.c                    |   6 +-
->  drivers/media/i2c/imx290.c                    |   6 +-
->  drivers/media/i2c/imx296.c                    |   4 +-
->  drivers/media/i2c/imx415.c                    |   4 +-
->  drivers/media/i2c/mt9m114.c                   |  12 +-
->  drivers/media/i2c/ov2680.c                    |   2 +-
->  drivers/media/i2c/ov4689.c                    |   6 +-
->  drivers/media/i2c/ov5640.c                    |   8 +-
->  drivers/media/i2c/ov5645.c                    |   6 +-
->  drivers/media/i2c/ov5693.c                    |   2 +-
->  drivers/media/i2c/ov64a40.c                   |   8 +-
->  drivers/media/i2c/ov7251.c                    |   2 +-
->  drivers/media/i2c/ov8858.c                    |   4 +-
->  drivers/media/i2c/thp7312.c                   |   8 +-
->  drivers/media/i2c/video-i2c.c                 |   8 +-
->  .../media/platform/nvidia/tegra-vde/h264.c    |   4 +-
->  drivers/media/platform/qcom/venus/vdec.c      |   4 +-
->  drivers/media/platform/qcom/venus/venc.c      |   4 +-
->  .../platform/raspberrypi/pisp_be/pisp_be.c    |   4 +-
->  .../media/platform/st/sti/delta/delta-v4l2.c  |   4 +-
->  drivers/media/platform/st/sti/hva/hva-hw.c    |   8 +-
->  .../media/platform/verisilicon/hantro_drv.c   |   2 +-
->  drivers/media/rc/gpio-ir-recv.c               |   2 +-
->  drivers/mfd/arizona-irq.c                     |   2 +-
->  drivers/mfd/cs40l50-core.c                    |   2 +-
->  drivers/mfd/cs42l43.c                         |   2 +-
->  drivers/misc/mei/client.c                     |  14 +-
->  drivers/mmc/core/core.c                       |   4 +-
->  drivers/mmc/host/atmel-mci.c                  |   4 +-
->  drivers/mmc/host/dw_mmc-rockchip.c            |   2 +-
->  drivers/mmc/host/dw_mmc.c                     |   2 +-
->  drivers/mmc/host/mmci.c                       |   2 +-
->  drivers/mmc/host/omap_hsmmc.c                 |   6 +-
->  drivers/mmc/host/sdhci-msm.c                  |   2 +-
->  drivers/mmc/host/sdhci-of-at91.c              |   2 +-
->  drivers/mmc/host/sdhci-omap.c                 |   4 +-
->  drivers/mmc/host/sdhci-pci-core.c             |   2 +-
->  drivers/mmc/host/sdhci-pxav3.c                |   6 +-
->  drivers/mmc/host/sdhci-sprd.c                 |   2 +-
->  drivers/mmc/host/sdhci-xenon.c                |   2 +-
->  drivers/mmc/host/sdhci_am654.c                |   2 +-
->  drivers/mmc/host/tmio_mmc_core.c              |   2 +-
->  drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c    |  10 +-
->  drivers/net/ethernet/cadence/macb_main.c      |  10 +-
->  drivers/net/ethernet/freescale/fec_main.c     |  16 +-
->  drivers/net/ethernet/renesas/ravb_main.c      |   8 +-
->  drivers/net/ethernet/ti/davinci_mdio.c        |  14 +-
->  drivers/net/ipa/ipa_interrupt.c               |   2 +-
->  drivers/net/ipa/ipa_main.c                    |   2 +-
->  drivers/net/ipa/ipa_modem.c                   |   8 +-
->  drivers/net/ipa/ipa_smp2p.c                   |   4 +-
->  drivers/net/ipa/ipa_uc.c                      |   4 +-
->  drivers/net/wireless/ath/wil6210/pm.c         |   2 +-
->  drivers/net/wireless/ti/wl18xx/debugfs.c      |   6 +-
->  drivers/net/wireless/ti/wlcore/cmd.c          |   2 +-
->  drivers/net/wireless/ti/wlcore/debugfs.c      |  22 +--
->  drivers/net/wireless/ti/wlcore/main.c         |  72 +++----
->  drivers/net/wireless/ti/wlcore/scan.c         |   2 +-
->  drivers/net/wireless/ti/wlcore/sysfs.c        |   2 +-
->  drivers/net/wireless/ti/wlcore/testmode.c     |   4 +-
->  drivers/net/wireless/ti/wlcore/tx.c           |   2 +-
->  drivers/net/wireless/ti/wlcore/vendor_cmd.c   |   6 +-
->  drivers/net/wwan/qcom_bam_dmux.c              |   4 +-
->  drivers/net/wwan/t7xx/t7xx_hif_cldma.c        |   6 +-
->  drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c    |   6 +-
->  drivers/net/wwan/t7xx/t7xx_hif_dpmaif_tx.c    |   4 +-
->  drivers/nfc/trf7970a.c                        |   2 +-
->  drivers/pci/pcie/portdrv.c                    |   2 +-
->  drivers/phy/motorola/phy-mapphone-mdm6600.c   |   4 +-
->  drivers/phy/ti/phy-twl4030-usb.c              |   8 +-
->  drivers/power/supply/bq24190_charger.c        |  28 +--
->  drivers/power/supply/twl4030_charger.c        |   2 +-
->  drivers/pwm/pwm-img.c                         |   4 +-
->  drivers/regulator/stm32-vrefbuf.c             |  12 +-
->  drivers/remoteproc/omap_remoteproc.c          |   6 +-
->  drivers/slimbus/core.c                        |   2 +-
->  drivers/slimbus/messaging.c                   |   4 +-
->  drivers/soc/apple/mailbox.c                   |   2 +-
->  drivers/soundwire/bus.c                       |   2 +-
->  drivers/soundwire/cadence_master.c            |   2 +-
->  drivers/soundwire/qcom.c                      |   6 +-
->  drivers/spi/atmel-quadspi.c                   |  10 +-
->  drivers/spi/spi-cadence-quadspi.c             |   4 +-
->  drivers/spi/spi-cadence.c                     |   2 +-
->  drivers/spi/spi-dw-pci.c                      |   2 +-
->  drivers/spi/spi-fsl-espi.c                    |   4 +-
->  drivers/spi/spi-fsl-lpspi.c                   |   4 +-
->  drivers/spi/spi-imx.c                         |   6 +-
->  drivers/spi/spi-mtk-nor.c                     |   2 +-
->  drivers/spi/spi-omap2-mcspi.c                 |   6 +-
->  drivers/spi/spi-pxa2xx-pci.c                  |   2 +-
->  drivers/spi/spi-s3c64xx.c                     |   6 +-
->  drivers/spi/spi-sprd.c                        |   2 +-
->  drivers/spi/spi-stm32-qspi.c                  |  14 +-
->  drivers/spi/spi-stm32.c                       |   4 +-
->  drivers/spi/spi-ti-qspi.c                     |   4 +-
->  drivers/spi/spi-zynqmp-gqspi.c                |   2 +-
->  drivers/spi/spi.c                             |   6 +-
->  drivers/staging/greybus/gbphy.h               |   2 +-
->  drivers/staging/media/rkvdec/rkvdec.c         |   2 +-
->  drivers/thunderbolt/debugfs.c                 |  22 +--
->  drivers/thunderbolt/domain.c                  |   4 +-
->  drivers/thunderbolt/icm.c                     |  14 +-
->  drivers/thunderbolt/nhi.c                     |   2 +-
->  drivers/thunderbolt/retimer.c                 |   4 +-
->  drivers/thunderbolt/switch.c                  |   6 +-
->  drivers/thunderbolt/tb.c                      |  18 +-
->  drivers/thunderbolt/usb4_port.c               |   4 +-
->  drivers/tty/serial/8250/8250_omap.c           |  18 +-
->  drivers/tty/serial/8250/8250_port.c           |   4 +-
->  drivers/tty/serial/fsl_lpuart.c               |   2 +-
->  drivers/tty/serial/serial_core.c              |   2 +-
->  drivers/tty/serial/uartlite.c                 |   4 +-
->  drivers/tty/serial/xilinx_uartps.c            |   2 +-
->  drivers/usb/cdns3/cdns3-gadget.c              |   2 +-
->  drivers/usb/cdns3/cdnsp-gadget.c              |   2 +-
->  drivers/usb/chipidea/core.c                   |   2 +-
->  drivers/usb/chipidea/otg_fsm.c                |   2 +-
->  drivers/usb/dwc3/core.c                       |   2 +-
->  drivers/usb/dwc3/dwc3-am62.c                  |   2 +-
->  drivers/usb/dwc3/dwc3-imx8mp.c                |   2 +-
->  drivers/usb/gadget/udc/cdns2/cdns2-gadget.c   |   2 +-
->  drivers/usb/host/xhci-mtk.c                   |   2 +-
->  drivers/usb/misc/apple-mfi-fastcharge.c       |   2 +-
->  drivers/usb/mtu3/mtu3_plat.c                  |   2 +-
->  drivers/usb/musb/musb_core.c                  |  10 +-
->  drivers/usb/musb/musb_debugfs.c               |  10 +-
->  drivers/usb/musb/musb_dsps.c                  |   2 +-
->  drivers/usb/musb/musb_gadget.c                |   8 +-
->  drivers/usb/musb/omap2430.c                   |   2 +-
->  drivers/w1/masters/omap_hdq.c                 |  10 +-
->  include/linux/greybus/bundle.h                |   2 +-
->  sound/hda/hdac_device.c                       |   2 +-
->  sound/pci/hda/cs35l41_hda.c                   |   8 +-
->  sound/pci/hda/cs35l56_hda.c                   |   2 +-
->  sound/pci/hda/hda_intel.c                     |   2 +-
->  sound/pci/hda/tas2781_hda_i2c.c               |   6 +-
->  sound/soc/atmel/mchp-spdifrx.c                |  12 +-
->  sound/soc/codecs/arizona-jack.c               |  12 +-
->  sound/soc/codecs/arizona.c                    |   2 +-
->  sound/soc/codecs/cs35l41.c                    |   4 +-
->  sound/soc/codecs/cs35l45.c                    |   2 +-
->  sound/soc/codecs/cs35l56-sdw.c                |   4 +-
->  sound/soc/codecs/cs35l56-shared.c             |   2 +-
->  sound/soc/codecs/cs35l56.c                    |   2 +-
->  sound/soc/codecs/cs42l42-sdw.c                |   2 +-
->  sound/soc/codecs/cs42l42.c                    |   4 +-
->  sound/soc/codecs/cs42l43-jack.c               |  10 +-
->  sound/soc/codecs/cs42l43.c                    |   4 +-
->  sound/soc/codecs/hda.c                        |   6 +-
->  sound/soc/codecs/madera.c                     |   6 +-
->  sound/soc/codecs/max98363.c                   |   2 +-
->  sound/soc/codecs/max98373-sdw.c               |   2 +-
->  sound/soc/codecs/rt1017-sdca-sdw.c            |   2 +-
->  sound/soc/codecs/rt1308-sdw.c                 |   2 +-
->  sound/soc/codecs/rt1316-sdw.c                 |   2 +-
->  sound/soc/codecs/rt1318-sdw.c                 |   2 +-
->  sound/soc/codecs/rt1320-sdw.c                 |   2 +-
->  sound/soc/codecs/rt5682-sdw.c                 |   2 +-
->  sound/soc/codecs/rt700.c                      |   4 +-
->  sound/soc/codecs/rt711-sdca.c                 |   4 +-
->  sound/soc/codecs/rt711.c                      |   4 +-
->  sound/soc/codecs/rt712-sdca-dmic.c            |   2 +-
->  sound/soc/codecs/rt712-sdca.c                 |   4 +-
->  sound/soc/codecs/rt715-sdca.c                 |   2 +-
->  sound/soc/codecs/rt715.c                      |   2 +-
->  sound/soc/codecs/rt722-sdca.c                 |   4 +-
->  sound/soc/codecs/wcd-mbhc-v2.c                |   4 +-
->  sound/soc/codecs/wsa881x.c                    |   2 +-
->  sound/soc/codecs/wsa884x.c                    |   2 +-
->  sound/soc/intel/atom/sst/sst_pvt.c            |   2 +-
->  sound/soc/intel/avs/core.c                    |   2 +-
->  sound/soc/intel/avs/debugfs.c                 |   4 +-
->  sound/soc/intel/avs/pcm.c                     |   2 +-
->  sound/soc/intel/catpt/pcm.c                   |  12 +-
->  sound/soc/intel/catpt/sysfs.c                 |   2 +-
->  sound/soc/soc-component.c                     |   2 +-
->  sound/soc/sof/control.c                       |   2 +-
->  sound/soc/sof/debug.c                         |   2 +-
->  sound/soc/sof/ipc3-dtrace.c                   |   2 +-
->  sound/soc/sof/ipc4-loader.c                   |   2 +-
->  sound/soc/sof/pcm.c                           |   2 +-
->  sound/soc/sof/sof-client-ipc-flood-test.c     |   2 +-
->  .../soc/sof/sof-client-ipc-kernel-injector.c  |   2 +-
->  sound/soc/sof/sof-client-ipc-msg-injector.c   |   2 +-
->  sound/soc/sof/sof-client-probes.c             |   6 +-
->  sound/x86/intel_hdmi_audio.c                  |   6 +-
->  373 files changed, 1076 insertions(+), 1076 deletions(-)
->
-> --
-> 2.39.5
->
->
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgU2VyZ2UsCgpPbiBNb24sIFNlcCAxNiwgMjAyNCBhdCA0OjMy4oCvUE0gSml0ZW5kcmEgVmVn
+aXJhanUKPGppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbT4gd3JvdGU6Cj4KPiBIaSBTZXJn
+ZSwKPgo+IE9uIFR1ZSwgU2VwIDEwLCAyMDI0IGF0IDEyOjI14oCvUE0gU2VyZ2UgU2VtaW4gPGZh
+bmNlci5sYW5jZXJAZ21haWwuY29tPiB3cm90ZToKPiA+Cj4gPiA+ICtzdGF0aWMgdTMyIGRlY29k
+ZV92ZG1hX2NvdW50KHUzMiByZWd2YWwpCj4gPiA+ICt7Cj4gPiA+ICsgICAgIC8qIGNvbXByZXNz
+ZWQgZW5jb2RpbmcgZm9yIHZkbWEgY291bnQKPiA+ID4gKyAgICAgICogcmVndmFsOiBWRE1BIGNv
+dW50Cj4gPiA+ICsgICAgICAqIDAtMTUgIDogMSAtIDE2Cj4gPiA+ICsgICAgICAqIDE2LTE5IDog
+MjAsIDI0LCAyOCwgMzIKPiA+ID4gKyAgICAgICogMjAtMjMgOiA0MCwgNDgsIDU2LCA2NAo+ID4g
+PiArICAgICAgKiAyNC0yNyA6IDgwLCA5NiwgMTEyLCAxMjgKPiA+ID4gKyAgICAgICovCj4gPiA+
+ICsgICAgIGlmIChyZWd2YWwgPCAxNikKPiA+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmVndmFs
+ICsgMTsKPiA+ID4gKyAgICAgcmV0dXJuICg0IDw8ICgocmVndmFsIC0gMTYpIC8gNCkpICogKChy
+ZWd2YWwgJSA0KSArIDUpOwo+ID4KPiA+IFRoZSBzaG9ydGVzdCBjb2RlIGlzbid0IGFsd2F5cyB0
+aGUgYmVzdCBvbmUuIFRoaXMgb25lIGdpdmVzIG1lIGEKPiA+IGhlYWRhY2hlIGluIHRyeWluZyB0
+byBkZWNpcGhlciB3aGV0aGVyIGl0IHJlYWxseSBtYXRjaGVzIHRvIHdoYXQgaXMKPiA+IGRlc2Ny
+aWJlZCBpbiB0aGUgY29tbWVudC4gV2hhdCBhYm91dCBqdXN0Ogo+ID4KPiA+ICAgICAgICAgaWYg
+KHJlZ3ZhbCA8IDE2KSAvKiBEaXJlY3QgbWFwcGluZyAqLwo+ID4gICAgICAgICAgICAgICAgIHJl
+dHVybiByZWd2YWwgKyAxOwo+ID4gICAgICAgICBlbHNlIGlmIChyZWd2YWwgPCAyMCkgLyogMjAs
+IDI0LCAyOCwgMzIgKi8KPiA+ICAgICAgICAgICAgICAgICByZXR1cm4gMjAgKyAocmVndmFsIC0g
+MTYpICogNDsKPiA+ICAgICAgICAgZWxzZSBpZiAocmVndmFsIDwgMjQpIC8qIDQwLCA0OCwgNTYs
+IDY0ICovCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIDQwICsgKHJlZ3ZhbCAtIDIwKSAqIDg7
+Cj4gPiAgICAgICAgIGVsc2UgaWYgKHJlZ3ZhbCA8IDI4KSAvKiA4MCwgOTYsIDExMiwgMTI4ICov
+Cj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIDgwICsgKHJlZ3ZhbCAtIDI0KSAqIDE2Owo+ID4K
+PiA+ID8KPiBDb3VsZG4ndCBhZ3JlZSBtb3JlIDopCj4gVGhhbmtzLCBJIHdpbGwgcmVwbGFjZSBp
+dCB3aXRoIHlvdXIgY29kZSwgd2hpY2ggaXMgZGVmaW5pdGVseSBtb3JlIHJlYWRhYmxlLgo+Cj4g
+Pgo+ID4gPiArfQo+ID4gPiArCj4gPiA+ICtzdGF0aWMgdm9pZCBkdzI1Z21hY19yZWFkX2hkbWFf
+bGltaXRzKHZvaWQgX19pb21lbSAqaW9hZGRyLAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzdHJ1Y3Qgc3RtbWFjX2hkbWFfY2ZnICpoZG1hKQo+ID4gPiArewo+ID4g
+PiArICAgICB1MzIgaHdfY2FwOwo+ID4gPiArCj4gPiA+ICsgICAgIC8qIEdldCBWRE1BL1BETUEg
+Y291bnRzIGZyb20gSFcgKi8KPiA+ID4gKyAgICAgaHdfY2FwID0gcmVhZGwoaW9hZGRyICsgWEdN
+QUNfSFdfRkVBVFVSRTIpOwo+ID4KPiA+Cj4gPiA+ICsgICAgIGhkbWEtPnR4X3ZkbWFzID0gZGVj
+b2RlX3ZkbWFfY291bnQoRklFTERfR0VUKFhYVkdNQUNfSFdGRUFUX1ZETUFfVFhDTlQsCj4gPiA+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGh3X2Nh
+cCkpOwo+ID4gPiArICAgICBoZG1hLT5yeF92ZG1hcyA9IGRlY29kZV92ZG1hX2NvdW50KEZJRUxE
+X0dFVChYWFZHTUFDX0hXRkVBVF9WRE1BX1JYQ05ULAo+ID4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBod19jYXApKTsKPiA+ID4gKyAgICAgaGRt
+YS0+dHhfcGRtYXMgPSBGSUVMRF9HRVQoWEdNQUNfSFdGRUFUX1RYUUNOVCwgaHdfY2FwKSArIDE7
+Cj4gPiA+ICsgICAgIGhkbWEtPnJ4X3BkbWFzID0gRklFTERfR0VUKFhHTUFDX0hXRkVBVF9SWFFD
+TlQsIGh3X2NhcCkgKyAxOwo+ID4KPiA+IEhtbSwgdGhlc2UgYXJlIHRoZSBUeC9SeCBETUEtY2hh
+bm5lbHMgYW5kIFR4L1J4IE1UTC1xdWV1ZXMgY291bnQKPiA+IGZpZWxkcy4gQ2FuJ3QgeW91IGp1
+c3QgdXNlIHRoZQo+ID4gZG1hX2ZlYXR1cmVzOjp7bnVtYmVyX3R4X2NoYW5uZWwsbnVtYmVyX3R4
+X3F1ZXVlc30gYW5kCj4gPiBkbWFfZmVhdHVyZXM6OntudW1iZXJfcnhfY2hhbm5lbCxudW1iZXJf
+cnhfcXVldWVzfSBmaWVsZHMgdG8gc3RvcmUgdGhlCj4gPiByZXRyaWV2ZWQgZGF0YT8KPiA+Cj4g
+PiBNb3Jlb3ZlciB3aHkgbm90IHRvIGFkZCB0aGUgY29kZSBhYm92ZSB0byB0aGUgZHd4Z21hYzJf
+Z2V0X2h3X2ZlYXR1cmUoKSBtZXRob2Q/Cj4gPgo+IFRoYW5rcywgSSBtaXNzZWQgdGhlIHJldXNl
+IG9mIGV4aXN0aW5nIGZpZWxkcy4KPiBIb3dldmVyLCBzaW5jZSB0aGUgVkRNQSBjb3VudCBoYXMg
+YSBzbGlnaHRseSBiaWdnZXIgYml0bWFzaywgd2UgbmVlZCB0byBleHRyYWN0Cj4gVkRNQSBjaGFu
+bmVsIGNvdW50IGFzIHBlciBEVzI1R01BQyBzcGVjLgo+IEluc3RlYWQgb2YgZHVwbGljYXRpbmcg
+ZHd4Z21hYzJfZ2V0X2h3X2ZlYXR1cmUoKSwgc2hvdWxkIHdlIGFkZCB3cmFwcGVyIGZvcgo+IGR3
+MjVnbWFjLCBzb21ldGhpbmcgbGlrZSB0aGUgZm9sbG93aW5nPwo+IGR3MjVnbWFjX2dldF9od19m
+ZWF0dXJlKGlvYWRkciwgZG1hX2NhcCkKPiB7Cj4gICAgIHUzMiBod19jYXA7Cj4gICAgIGludCBy
+YzsKPiAgICAgcmMgPSBkd3hnbWFjMl9nZXRfaHdfZmVhdHVyZShpb2FkZHIsIGRtYV9jYXApOwo+
+ICAgICAvKiBHZXQgVkRNQSBjb3VudHMgZnJvbSBIVyAqLwo+ICAgICBod19jYXAgPSByZWFkbChp
+b2FkZHIgKyBYR01BQ19IV19GRUFUVVJFMik7Cj4gICAgZG1hX2NhcC0+bnVtX3R4X2NoYW5uZWxz
+ID0KPiBkZWNvZGVfdmRtYV9jb3VudChGSUVMRF9HRVQoWFhWR01BQ19IV0ZFQVRfVkRNQV9UWENO
+VCwKPiAgICAgIGh3X2NhcCkpOwo+ICAgIGRtYV9jYXAtPm51bV9yeF9jaGFubmVscyA9Cj4gZGVj
+b2RlX3ZkbWFfY291bnQoRklFTERfR0VUKFhYVkdNQUNfSFdGRUFUX1ZETUFfUlhDTlQsCj4gICAg
+ICBod19jYXApKTsKPiAgICByZXR1cm4gcmM7Cj4gfQo+Cj4gPiA+ICt9Cj4gPiA+ICsKPiA+ID4g
+K2ludCBkdzI1Z21hY19oZG1hX2NmZ19pbml0KHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdikKPiA+
+ID4gK3sKPiA+ID4gKyAgICAgc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0ID0gcHJp
+di0+cGxhdDsKPiA+ID4gKyAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gcHJpdi0+ZGV2aWNlOwo+
+ID4gPiArICAgICBzdHJ1Y3Qgc3RtbWFjX2hkbWFfY2ZnICpoZG1hOwo+ID4gPiArICAgICBpbnQg
+aTsKPiA+ID4gKwo+ID4gPiArICAgICBoZG1hID0gZGV2bV9remFsbG9jKGRldiwKPiA+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICBzaXplb2YoKnBsYXQtPmRtYV9jZmctPmhkbWFfY2ZnKSwK
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsKPiA+ID4gKyAgICAg
+aWYgKCFoZG1hKQo+ID4gPiArICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ID4gPiArCj4g
+PiA+ICsgICAgIGR3MjVnbWFjX3JlYWRfaGRtYV9saW1pdHMocHJpdi0+aW9hZGRyLCBoZG1hKTsK
+PiA+ID4gKwo+ID4gPiArICAgICBoZG1hLT50dmRtYV90YyA9IGRldm1fa3phbGxvYyhkZXYsCj4g
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpemVvZigqaGRtYS0+dHZk
+bWFfdGMpICogaGRtYS0+dHhfdmRtYXMsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIEdGUF9LRVJORUwpOwo+ID4gPiArICAgICBpZiAoIWhkbWEtPnR2ZG1hX3RjKQo+
+ID4gPiArICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ID4gPiArCj4gPiA+ICsgICAgIGhk
+bWEtPnJ2ZG1hX3RjID0gZGV2bV9remFsbG9jKGRldiwKPiA+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgc2l6ZW9mKCpoZG1hLT5ydmRtYV90YykgKiBoZG1hLT5yeF92ZG1h
+cywKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0ZQX0tFUk5FTCk7
+Cj4gPiA+ICsgICAgIGlmICghaGRtYS0+cnZkbWFfdGMpCj4gPiA+ICsgICAgICAgICAgICAgcmV0
+dXJuIC1FTk9NRU07Cj4gPiA+ICsKPiA+ID4gKyAgICAgaGRtYS0+dHBkbWFfdGMgPSBkZXZtX2t6
+YWxsb2MoZGV2LAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXpl
+b2YoKmhkbWEtPnRwZG1hX3RjKSAqIGhkbWEtPnR4X3BkbWFzLAo+ID4gPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsKPiA+ID4gKyAgICAgaWYgKCFoZG1h
+LT50cGRtYV90YykKPiA+ID4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPiA+ID4gKwo+
+ID4gPiArICAgICBoZG1hLT5ycGRtYV90YyA9IGRldm1fa3phbGxvYyhkZXYsCj4gPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpemVvZigqaGRtYS0+cnBkbWFfdGMpICog
+aGRtYS0+cnhfcGRtYXMsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IEdGUF9LRVJORUwpOwo+ID4gPiArICAgICBpZiAoIWhkbWEtPnJwZG1hX3RjKQo+ID4gPiArICAg
+ICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ID4gPiArCj4gPgo+ID4gPiArICAgICAvKiBJbml0
+aWFsaXplIG9uZS10by1vbmUgbWFwcGluZyBmb3IgZWFjaCBvZiB0aGUgdXNlZCBxdWV1ZXMgKi8K
+PiA+ID4gKyAgICAgZm9yIChpID0gMDsgaSA8IHBsYXQtPnR4X3F1ZXVlc190b191c2U7IGkrKykg
+ewo+ID4gPiArICAgICAgICAgICAgIGhkbWEtPnR2ZG1hX3RjW2ldID0gaTsKPiA+ID4gKyAgICAg
+ICAgICAgICBoZG1hLT50cGRtYV90Y1tpXSA9IGk7Cj4gPiA+ICsgICAgIH0KPiA+ID4gKyAgICAg
+Zm9yIChpID0gMDsgaSA8IHBsYXQtPnJ4X3F1ZXVlc190b191c2U7IGkrKykgewo+ID4gPiArICAg
+ICAgICAgICAgIGhkbWEtPnJ2ZG1hX3RjW2ldID0gaTsKPiA+ID4gKyAgICAgICAgICAgICBoZG1h
+LT5ycGRtYV90Y1tpXSA9IGk7Cj4gPiA+ICsgICAgIH0KPiA+Cj4gPiBTbyB0aGUgVHJhZmZpYyBD
+bGFzcyBJRCBpcyBpbml0aWFsaXplZCBmb3IgdGhlCj4gPiB0eF9xdWV1ZXNfdG9fdXNlL3J4X3F1
+ZXVlc190b191c2UgbnVtYmVyIG9mIGNoYW5uZWxzIG9ubHksIHJpZ2h0PyBXaGF0Cj4gPiBhYm91
+dCB0aGUgVmlydHVhbCBhbmQgUGh5c2ljYWwgRE1BLWNoYW5uZWxzIHdpdGggbnVtYmVycyBncmVh
+dGVyIHRoYW4KPiA+IHRoZXNlIHZhbHVlcz8KPiA+Cj4gWW91IGhhdmUgYnJvdWdodCB1cCBhIHF1
+ZXN0aW9uIHRoYXQgYXBwbGllcyB0byByZW1haW5pbmcgY29tbWVudHMgaW4KPiB0aGlzIGZpbGUg
+YXMgd2VsbC4KPiBIb3cgdGhlIFZETUEvUERNQSBtYXBwaW5nIGlzIHVzZWQgZGVwZW5kcyBvbiB0
+aGUgZGV2aWNlL2dsdWUgZHJpdmVyLgo+IEZvciBleGFtcGxlIGluCj4gb3VyIFNvQyB0aGUgcmVt
+YWluaW5nIFZETUFzIGFyZSBtZWFudCB0byBiZSB1c2VkIHdpdGggU1JJT1YgdmlydHVhbAo+IGZ1
+bmN0aW9ucyBhbmQgbm90Cj4gYWxsIG9mIHRoZW0gYXJlIGF2YWlsYWJsZSBmb3IgcGh5c2ljYWwg
+ZnVuY3Rpb24uCj4gU2luY2UgYWRkaXRpb25hbCBWRE1Bcy9QRE1BcyByZW1haW4gdW51c2VkIGlu
+IGhhcmR3YXJlIEkgbGV0IHRoZW0gc3RheSBhdCB0aGVpcgo+IGRlZmF1bHQgdmFsdWVzLiBObyB0
+cmFmZmljIGlzIGV4cGVjdGVkIHRvIGJlIG1hcHBlZCB0byB1bnVzZWQgVi9QRE1Bcy4KPiAgSSBj
+b3VsZG4ndCB0aGluayBvZiBhIHJlYXNvbiBmb3IgaXQgdG8gYmUgYW4gaXNzdWUgZnJvbSBhIGRy
+aXZlciBwZXJzcGVjdGl2ZS4KPiBQbGVhc2UgbGV0IG1lIGtub3csIGlmIEkgYW0gbWlzc2luZyBz
+b21ldGhpbmcgb3Igd2UgbmVlZCB0byBhZGRyZXNzIGEKPiB1c2UgY2FzZSB3aXRoIGJpZ2dlciBz
+Y29wZS4KPiBUaGUgcmVzcG9uc2VzIGZvciBmb2xsb3dpbmcgY29tbWVudHMgYWxzbyBkZXBlbmQg
+b24gd2hhdCBhcHByb2FjaCB3ZSB0YWtlIGhlcmUuCj4KPiA+ID4gKyAgICAgcGxhdC0+ZG1hX2Nm
+Zy0+aGRtYV9jZmcgPSBoZG1hOwo+ID4gPiArCj4gPiA+ICsgICAgIHJldHVybiAwOwo+ID4gPiAr
+fQo+ID4gPiArCj4gPiA+ICsKPiA+ID4gK3ZvaWQgZHcyNWdtYWNfZG1hX2luaXQodm9pZCBfX2lv
+bWVtICppb2FkZHIsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBzdG1tYWNfZG1h
+X2NmZyAqZG1hX2NmZykKPiA+ID4gK3sKPiA+ID4gKyAgICAgdTMyIHZhbHVlOwo+ID4gPiArICAg
+ICB1MzIgaTsKPiA+ID4gKwo+ID4gPiArICAgICB2YWx1ZSA9IHJlYWRsKGlvYWRkciArIFhHTUFD
+X0RNQV9TWVNCVVNfTU9ERSk7Cj4gPiA+ICsgICAgIHZhbHVlICY9IH4oWEdNQUNfQUFMIHwgWEdN
+QUNfRUFNRSk7Cj4gPiA+ICsgICAgIGlmIChkbWFfY2ZnLT5hYWwpCj4gPiA+ICsgICAgICAgICAg
+ICAgdmFsdWUgfD0gWEdNQUNfQUFMOwo+ID4gPiArICAgICBpZiAoZG1hX2NmZy0+ZWFtZSkKPiA+
+ID4gKyAgICAgICAgICAgICB2YWx1ZSB8PSBYR01BQ19FQU1FOwo+ID4gPiArICAgICB3cml0ZWwo
+dmFsdWUsIGlvYWRkciArIFhHTUFDX0RNQV9TWVNCVVNfTU9ERSk7Cj4gPiA+ICsKPiA+ID4gKyAg
+ICAgZm9yIChpID0gMDsgaSA8IGRtYV9jZmctPmhkbWFfY2ZnLT50eF92ZG1hczsgaSsrKSB7Cj4g
+PiA+ICsgICAgICAgICAgICAgdmFsdWUgPSByZF9kbWFfY2hfaW5kKGlvYWRkciwgTU9ERV9UWERF
+U0NDVFJMLCBpKTsKPiA+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WFhWR01BQ19UWERDU1o7
+Cj4gPiA+ICsgICAgICAgICAgICAgdmFsdWUgfD0gRklFTERfUFJFUChYWFZHTUFDX1RYRENTWiwK
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFhYVkdNQUNfVFhEQ1NaXzI1
+NkJZVEVTKTsKPiA+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WFhWR01BQ19URFBTOwo+ID4g
+PiArICAgICAgICAgICAgIHZhbHVlIHw9IEZJRUxEX1BSRVAoWFhWR01BQ19URFBTLCBYWFZHTUFD
+X1REUFNfSEFMRik7Cj4gPiA+ICsgICAgICAgICAgICAgd3JfZG1hX2NoX2luZChpb2FkZHIsIE1P
+REVfVFhERVNDQ1RSTCwgaSwgdmFsdWUpOwo+ID4gPiArICAgICB9Cj4gPiA+ICsKPiA+ID4gKyAg
+ICAgZm9yIChpID0gMDsgaSA8IGRtYV9jZmctPmhkbWFfY2ZnLT5yeF92ZG1hczsgaSsrKSB7Cj4g
+PiA+ICsgICAgICAgICAgICAgdmFsdWUgPSByZF9kbWFfY2hfaW5kKGlvYWRkciwgTU9ERV9SWERF
+U0NDVFJMLCBpKTsKPiA+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WFhWR01BQ19SWERDU1o7
+Cj4gPiA+ICsgICAgICAgICAgICAgdmFsdWUgfD0gRklFTERfUFJFUChYWFZHTUFDX1JYRENTWiwK
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFhYVkdNQUNfUlhEQ1NaXzI1
+NkJZVEVTKTsKPiA+ID4gKyAgICAgICAgICAgICB2YWx1ZSAmPSB+WFhWR01BQ19SRFBTOwo+ID4g
+PiArICAgICAgICAgICAgIHZhbHVlIHw9IEZJRUxEX1BSRVAoWFhWR01BQ19URFBTLCBYWFZHTUFD
+X1JEUFNfSEFMRik7Cj4gPiA+ICsgICAgICAgICAgICAgd3JfZG1hX2NoX2luZChpb2FkZHIsIE1P
+REVfUlhERVNDQ1RSTCwgaSwgdmFsdWUpOwo+ID4gPiArICAgICB9Cj4gPiA+ICsKPiA+Cj4gPiA+
+ICsgICAgIGZvciAoaSA9IDA7IGkgPCBkbWFfY2ZnLT5oZG1hX2NmZy0+dHhfcGRtYXM7IGkrKykg
+ewo+ID4gPiArICAgICAgICAgICAgIHZhbHVlID0gcmRfZG1hX2NoX2luZChpb2FkZHIsIE1PREVf
+VFhFWFRDRkcsIGkpOwo+ID4gPiArICAgICAgICAgICAgIHZhbHVlICY9IH4oWFhWR01BQ19UWFBC
+TCB8IFhYVkdNQUNfVFBCTFg4X01PREUpOwo+ID4gPiArICAgICAgICAgICAgIGlmIChkbWFfY2Zn
+LT5wYmx4OCkKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIHZhbHVlIHw9IFhYVkdNQUNfVFBC
+TFg4X01PREU7Cj4gPiA+ICsgICAgICAgICAgICAgdmFsdWUgfD0gRklFTERfUFJFUChYWFZHTUFD
+X1RYUEJMLCBkbWFfY2ZnLT5wYmwpOwo+ID4gPiArICAgICAgICAgICAgIHdyX2RtYV9jaF9pbmQo
+aW9hZGRyLCBNT0RFX1RYRVhUQ0ZHLCBpLCB2YWx1ZSk7Cj4gPiA+ICsgICAgICAgICAgICAgeGdt
+YWM0X3RwMnRjX21hcChpb2FkZHIsIGksIGRtYV9jZmctPmhkbWFfY2ZnLT50cGRtYV90Y1tpXSk7
+Cj4gPiA+ICsgICAgIH0KPiA+ID4gKwo+ID4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwgZG1hX2Nm
+Zy0+aGRtYV9jZmctPnJ4X3BkbWFzOyBpKyspIHsKPiA+ID4gKyAgICAgICAgICAgICB2YWx1ZSA9
+IHJkX2RtYV9jaF9pbmQoaW9hZGRyLCBNT0RFX1JYRVhUQ0ZHLCBpKTsKPiA+ID4gKyAgICAgICAg
+ICAgICB2YWx1ZSAmPSB+KFhYVkdNQUNfUlhQQkwgfCBYWFZHTUFDX1JQQkxYOF9NT0RFKTsKPiA+
+ID4gKyAgICAgICAgICAgICBpZiAoZG1hX2NmZy0+cGJseDgpCj4gPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICB2YWx1ZSB8PSBYWFZHTUFDX1JQQkxYOF9NT0RFOwo+ID4gPiArICAgICAgICAgICAg
+IHZhbHVlIHw9IEZJRUxEX1BSRVAoWFhWR01BQ19SWFBCTCwgZG1hX2NmZy0+cGJsKTsKPiA+ID4g
+KyAgICAgICAgICAgICB3cl9kbWFfY2hfaW5kKGlvYWRkciwgTU9ERV9SWEVYVENGRywgaSwgdmFs
+dWUpOwo+ID4gPiArICAgICAgICAgICAgIHhnbWFjNF9ycDJ0Y19tYXAoaW9hZGRyLCBpLCBkbWFf
+Y2ZnLT5oZG1hX2NmZy0+cnBkbWFfdGNbaV0pOwo+ID4KPiA+IFdoYXQgaWYgdHhfcGRtYXMgZG9l
+c24ndCBtYXRjaCBwbGF0X3N0bW1hY2VuZXRfZGF0YTo6dHhfcXVldWVzX3RvX3VzZQo+ID4gYW5k
+IHJ4X3BkbWFzIGRvZXNuJ3QgbWF0Y2ggdG8gcGxhdF9zdG1tYWNlbmV0X2RhdGE6OnJ4X3F1ZXVl
+c190b191c2U/Cj4gPgo+ID4gSWYgdGhleSBkb24ndCB0aGVuIHlvdSdsbCBnZXQgb3V0IG9mIHRo
+ZSBpbml0aWFsaXplZCB0cGRtYV90Yy9ycGRtYV90Ywo+ID4gZmllbGRzIGFuZCB0aGVzZSBjaGFu
+bmVscyB3aWxsIGJlIHByZS1pbml0aWFsaXplZCB3aXRoIHRoZSB6ZXJvIFRDLiBJcwo+ID4gdGhh
+dCB3aGF0IGV4cGVjdGVkPyBJIGRvdWJ0IHNvLgo+ID4KPiBBcyBtZW50aW9uZWQgaW4gdGhlIHBy
+ZXZpb3VzIHJlc3BvbnNlIHRoZSByZW1haW5pbmcgcmVzb3VyY2VzIGFyZSB1bnVzZWQKPiBhbmQg
+bm8gdHJhZmZpYyBpcyBtYXBwZWQgdG8gdGhvc2UgcmVzb3VyY2VzLgo+Cj4gPiA+ICsgICAgIH0K
+PiA+ID4gK30KPiA+ID4gKwo+ID4KPiA+ID4gK3ZvaWQgZHcyNWdtYWNfZG1hX2luaXRfdHhfY2hh
+bihzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdm9pZCBfX2lvbWVtICppb2FkZHIsCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgc3RydWN0IHN0bW1hY19kbWFfY2ZnICpkbWFfY2ZnLAo+ID4gPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGRtYV9hZGRyX3QgZG1hX2FkZHIsIHUzMiBjaGFuKQo+ID4gPiArewo+
+ID4gPiArICAgICB1MzIgdmFsdWU7Cj4gPiA+ICsKPiA+Cj4gPiA+ICsgICAgIHZhbHVlID0gcmVh
+ZGwoaW9hZGRyICsgWEdNQUNfRE1BX0NIX1RYX0NPTlRST0woY2hhbikpOwo+ID4gPiArICAgICB2
+YWx1ZSAmPSB+WFhWR01BQ19UVkRNQTJUQ01QOwo+ID4gPiArICAgICB2YWx1ZSB8PSBGSUVMRF9Q
+UkVQKFhYVkdNQUNfVFZETUEyVENNUCwKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICBk
+bWFfY2ZnLT5oZG1hX2NmZy0+dHZkbWFfdGNbY2hhbl0pOwo+ID4gPiArICAgICB3cml0ZWwodmFs
+dWUsIGlvYWRkciArIFhHTUFDX0RNQV9DSF9UWF9DT05UUk9MKGNoYW4pKTsKPiA+Cj4gPiBQbGVh
+c2Ugbm90ZSB0aGlzIHdpbGwgaGF2ZSBvbmx5IGZpcnN0Cj4gPiBwbGF0X3N0bW1hY2VuZXRfZGF0
+YTo6e3R4X3F1ZXVlc190b191c2UscnhfcXVldWVzX3RvX3VzZX0gVkRNQQo+ID4gY2hhbm5lbHMg
+aW5pdGlhbGl6ZWQuIERvbid0IHlvdSBoYXZlIG11Y2ggbW9yZSB0aGFuIGp1c3QgNCBjaGFubmVs
+cz8KPiA+Cj4gWWVzLCB0aGVyZSBhcmUgMzIgVkRNQSBjaGFubmVscyBvbiB0aGlzIGRldmljZS4g
+SW4gb3VyIGFwcGxpY2F0aW9uIHRoZQo+IGFkZGl0aW9uYWwgY2hhbm5lbHMgYXJlIHBhcnRpdGlv
+bmVkIGZvciB1c2Ugd2l0aCBTUklPViB2aXJ0dWFsIGZ1bmN0aW9ucy4KPiBTaW1pbGFyIHRvIFBE
+TUEgY29tbWVudCBhYm92ZSwgdGhlIGFkZGl0aW9uYWwgVkRNQXMgYXJlIG5vdCBlbmFibGVkLAo+
+IGFuZCBsZWZ0IGluIGRlZmF1bHQgc3RhdGUuCj4gTXkgdGhpbmtpbmcgaXMsIHdoZW4gYW5vdGhl
+ciAyNWdtYWMgZGV2aWNlIGNvbWVzIGFsb25nIHRoYXQgcmVxdWlyZXMgYQo+IGRpZmZlcmVudCBt
+YXBwaW5nIHdlIG1heSBuZWVkIHRvIGFkZCB0aGUgYWJpbGl0eSB0byBzZXQgdGhlIG1hcHBpbmcg
+aW4KPiBnbHVlIGRyaXZlci4KPiBXZSBjYW4gc3VwcG9ydCB0aGlzIGJ5IGFkZGluZyBhIGNoZWNr
+IGluIGR3MjVnbWFjX3NldHVwKCkKPiBAQCAtMTcwOCw4ICsxNzA4LDEwIEBAIGludCBkdzI1Z21h
+Y19zZXR1cChzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYpCj4gICAgICAgICBtYWMtPm1paS5jbGtf
+Y3NyX3NoaWZ0ID0gMTk7Cj4gICAgICAgICBtYWMtPm1paS5jbGtfY3NyX21hc2sgPSBHRU5NQVNL
+KDIxLCAxOSk7Cj4KPiAtICAgICAgIC8qIEFsbG9jYXRlIGFuZCBpbml0aWFsaXplIGhkbWEgbWFw
+cGluZyAqLwo+IC0gICAgICAgcmV0dXJuIGR3MjVnbWFjX2hkbWFfY2ZnX2luaXQocHJpdik7Cj4g
+KyAgICAgICAvKiBBbGxvY2F0ZSBhbmQgaW5pdGlhbGl6ZSBoZG1hIG1hcHBpbmcsIGlmIG5vdCBk
+b25lIGJ5IGdsdWUgZHJpdmVyLiAqLwo+ICsgICAgICAgaWYgKCFwcml2LT5wbGF0LT5kbWFfY2Zn
+LT5oZG1hX2NmZykKPiArICAgICAgICAgICAgICAgcmV0dXJuIGR3MjVnbWFjX2hkbWFfY2ZnX2lu
+aXQocHJpdik7Cj4gKyAgICAgICByZXR1cm4gMDsKPiAgfQo+Cj4gPiA+ICsKPiA+ID4gKyAgICAg
+d3JpdGVsKHVwcGVyXzMyX2JpdHMoZG1hX2FkZHIpLAo+ID4gPiArICAgICAgICAgICAgaW9hZGRy
+ICsgWEdNQUNfRE1BX0NIX1R4REVTQ19IQUREUihjaGFuKSk7Cj4gPiA+ICsgICAgIHdyaXRlbChs
+b3dlcl8zMl9iaXRzKGRtYV9hZGRyKSwKPiA+ID4gKyAgICAgICAgICAgIGlvYWRkciArIFhHTUFD
+X0RNQV9DSF9UeERFU0NfTEFERFIoY2hhbikpOwo+ID4gPiArfQo+ID4gPiArCj4gPiA+ICt2b2lk
+IGR3MjVnbWFjX2RtYV9pbml0X3J4X2NoYW4oc3RydWN0IHN0bW1hY19wcml2ICpwcml2LAo+ID4g
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZvaWQgX19pb21lbSAqaW9hZGRyLAo+ID4g
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBzdG1tYWNfZG1hX2NmZyAqZG1h
+X2NmZywKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBkbWFfYWRkcl90IGRtYV9h
+ZGRyLCB1MzIgY2hhbikKPiA+ID4gK3sKPiA+ID4gKyAgICAgdTMyIHZhbHVlOwo+ID4gPiArCj4g
+Pgo+ID4gPiArICAgICB2YWx1ZSA9IHJlYWRsKGlvYWRkciArIFhHTUFDX0RNQV9DSF9SWF9DT05U
+Uk9MKGNoYW4pKTsKPiA+ID4gKyAgICAgdmFsdWUgJj0gflhYVkdNQUNfUlZETUEyVENNUDsKPiA+
+ID4gKyAgICAgdmFsdWUgfD0gRklFTERfUFJFUChYWFZHTUFDX1JWRE1BMlRDTVAsCj4gPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgZG1hX2NmZy0+aGRtYV9jZmctPnJ2ZG1hX3RjW2NoYW5d
+KTsKPiA+ID4gKyAgICAgd3JpdGVsKHZhbHVlLCBpb2FkZHIgKyBYR01BQ19ETUFfQ0hfUlhfQ09O
+VFJPTChjaGFuKSk7Cj4gPgo+ID4gVGhlIHNhbWUgcXVlc3Rpb24uCj4gPgo+ID4gPiArCj4gPiA+
+ICsgICAgIHdyaXRlbCh1cHBlcl8zMl9iaXRzKGRtYV9hZGRyKSwKPiA+ID4gKyAgICAgICAgICAg
+IGlvYWRkciArIFhHTUFDX0RNQV9DSF9SeERFU0NfSEFERFIoY2hhbikpOwo+ID4gPiArICAgICB3
+cml0ZWwobG93ZXJfMzJfYml0cyhkbWFfYWRkciksCj4gPiA+ICsgICAgICAgICAgICBpb2FkZHIg
+KyBYR01BQ19ETUFfQ0hfUnhERVNDX0xBRERSKGNoYW4pKTsKPiA+ID4gK30KPiA+Cj4gPiBUaGVz
+ZSBtZXRob2RzIGFyZSBjYWxsZWQgZm9yIGVhY2gKPiA+IHBsYXRfc3RtbWFjZW5ldF9kYXRhOjp7
+dHhfcXVldWVzX3RvX3VzZSxyeF9xdWV1ZXNfdG9fdXNlfQo+ID4gRE1BLWNoYW5uZWwvUXVldWUu
+IFRoZSBzdGF0aWMgbWFwcGluZyBtZWFucyB5b3UnbGwgaGF2ZSBlYWNoCj4gPiBQRE1BL1F1ZXVl
+IGFzc2lnbmVkIGEgc3RhdGljIHRyYWZmaWMgY2xhc3MgSUQgY29ycmVzcG9uZGluZyB0byB0aGUK
+PiA+IGNoYW5uZWwgSUQuIE1lYW53aGlsZSB0aGUgVkRNQSBjaGFubmVscyBhcmUgc3VwcG9zZWQg
+dG8gYmUgaW5pdGlhbGl6ZWQKPiA+IHdpdGggdGhlIFRDIElEIGNvcnJlc3BvbmRpbmcgdG8gdGhl
+IG1hdGNoaW5nIFBETUEgSUQuCj4gPgo+ID4gVGhlIFRDIElEIGluIHRoaXMgY2FzZSBpcyBwYXNz
+ZWQgYXMgdGhlIERNQS9RdWV1ZSBjaGFubmVsIElELiBUaGVuIHRoZQo+ID4gVHgvUnggRE1BLWNo
+YW5uZWxzIGluaXQgbWV0aG9kcyBjYW4gYmUgY29udmVydGVkIHRvOgo+ID4KPiA+IGR3MjVnbWFj
+X2RtYV9pbml0X1h4X2NoYW4oY2hhbikKPiA+IHsKPiA+ICAgICAgICAgLyogTWFwIGVhY2ggY2hh
+bi10aCBWRE1BIHRvIHRoZSBzaW5nbGUgY2hhbiBQRE1BIGJ5IGFzc2lnbmluZwo+ID4gICAgICAg
+ICAgKiB0aGUgc3RhdGljIFRDIElELgo+ID4gICAgICAgICAgKi8KPiA+ICAgICAgICAgZm9yIChp
+ID0gY2hhbjsgaSA8IFh4X3ZkbWFzOyBpICs9IChYeF92ZG1hcyAvIFh4X3F1ZXVlc190b191c2Up
+KSB7Cj4gPiAgICAgICAgICAgICAgICAgLyogSW5pdGlhbGl6ZSBWRE1BIGNoYW5uZWxzICovCj4g
+PiAgICAgICAgICAgICAgICAgWFhWR01BQ19UVkRNQTJUQ01QID0gY2hhbjsKPiA+ICAgICAgICAg
+fQo+ID4KPiA+ICAgICAgICAgLyogQXNzaWduIHRoZSBzdGF0aWMgVEMgSUQgdG8gdGhlIHNwZWNp
+ZmllZCBQRE1BIGNoYW5uZWwgKi8KPiA+ICAgICAgICAgeGdtYWM0X3JwMnRjX21hcChjaGFuLCBj
+aGFuKQo+ID4gfQo+ID4KPiA+ICwgd2hlcmUgWD17dCxyfS4KPiA+Cj4gPiBUaHVzIHlvdSBjYW4g
+cmVkaXN0cmlidXRlIHRoZSBsb29wcyBpbXBsZW1lbnRlZCBpbiBkdzI1Z21hY19kbWFfaW5pdCgp
+Cj4gPiB0byB0aGUgcmVzcGVjdGl2ZSBUeC9SeCBETUEtY2hhbm5lbCBpbml0IG1ldGhvZHMuCj4g
+Pgo+ID4gQW0gSSBtaXNzaW5nIHNvbWV0aGluZz8KPiBJIHRoaW5rIHlvdXIgdmlzdWFsaXphdGlv
+biBvZiBIRE1BIG1heSBiZSBnb2luZyBiZXlvbmQgdGhlIGFwcGxpY2F0aW9uCj4gSSB1bmRlcnN0
+YW5kLgo+IFdlIGFyZSBhbGxvY2F0aW5nIGEgVkRNQSBmb3IgZWFjaCBvZiB0aGUgVFgvUlggY2hh
+bm5lbHMuIFRoZSB1c2Ugb2YKPiBhZGRpdGlvbmFsIFZETUFzCj4gZGVwZW5kcyBvbiBob3cgdGhl
+IGRldmljZSBpcyBwYXJ0aXRpb25lZCBmb3IgdmlydHVhbGl6YXRpb24uCj4gSW4gdGhlIG5vbi1T
+UklPViBjYXNlIHRoZSByZW1haW5pbmcgVkRNQXMgd2lsbCByZW1haW4gdW51c2VkLgo+IFBsZWFz
+ZSBsZXQgbWUga25vdyBpZiBJIG1pc3NlZCB5b3VyIHF1ZXN0aW9uLgo+ID4KPiA+IC1TZXJnZSgp
+Cj4gPgo+ID4gPiBbLi4uXQoKV2hlbiB5b3UgZ2V0IGEgY2hhbmNlLCBJIHdvdWxkIGxpa2UgdG8g
+Z2V0IHlvdXIgaW5wdXQgb24gdGhlIGFwcHJvYWNoIHdlIG5lZWQKdG8gdGFrZSB0byBpbmNyZW1l
+bnRhbGx5IGFkZCBkdzI1Z21hYyBzdXBwb3J0LgoKSW4gdGhlIGxhc3QgY29udmVyc2F0aW9uIHRo
+ZXJlIHdlcmUgc29tZSBvcGVuIHF1ZXN0aW9ucyBhcm91bmQgdGhlIGNhc2Ugb2YKaW5pdGlhbGl6
+aW5nIHVudXNlZCBWRE1BIGNoYW5uZWxzIGFuZCByZWxhdGVkIGNvbWJpbmF0aW9uIHNjZW5hcmlv
+cy4KClRoZSBoZG1hIG1hcHBpbmcgcHJvdmlkZXMgZmxleGliaWxpdHkgZm9yIHZpcnR1YWxpemF0
+aW9uLiBIb3dldmVyLCBvdXIKU29DIGRldmljZSBjYW5ub3QgdXNlIGFsbCBWRE1BcyB3aXRoIG9u
+ZSBQQ0kgZnVuY3Rpb24uIFRoZSBWRE1BcyBhcmUKcGFydGl0aW9uZWQgZm9yIFNSSU9WIHVzZSBp
+biB0aGUgZmlybXdhcmUuIFRoaXMgU29DIGRlZmF1bHRzIHRvIDggZnVuY3Rpb25zCndpdGggNCBW
+RE1BIGNoYW5uZWxzIGVhY2guIFRoZSBpbml0aWFsIGVmZm9ydCBpcyB0byBzdXBwb3J0IG9uZSBQ
+Q0kgcGh5c2ljYWwKZnVuY3Rpb24gd2l0aCA0IFZETUEgY2hhbm5lbHMuCkFsc28sIGN1cnJlbnRs
+eSB0aGUgc3RtbWFjIGRyaXZlciBoYXMgaW5mZXJyZWQgb25lLXRvLW9uZSByZWxhdGlvbiBiZXR3
+ZWVuCm5ldGlmIGNoYW5uZWxzIGFuZCBwaHlzaWNhbCBETUFzLiBJdCB3b3VsZCBiZSBhIGNvbXBs
+ZXggY2hhbmdlIHRvIHN1cHBvcnQKZWFjaCBWRE1BIGFzIGl0cyBvd24gbmV0aWYgY2hhbm5lbCBh
+bmQgbWFwcGluZyBmZXdlciBwaHlzaWNhbCBETUFzLgpIZW5jZSwgZm9yIGluaXRpYWwgc3VibWlz
+c2lvbiBvbmUtdG8tb25lIG1hcHBpbmcgaXMgYXNzdW1lZC4KCkFzIHlvdSBtZW50aW9uZWQsIGEg
+c3RhdGljIG9uZS10by1vbmUgbWFwcGluZyBvZiBWRE1BLVRDLVBETUEgZG9lc24ndApyZXF1aXJl
+IHRoZSBhZGRpdGlvbmFsIGNvbXBsZXhpdHkgb2YgbWFuYWdpbmcgdGhlc2UgbWFwcGluZ3MgYXMg
+cHJvcG9zZWQKaW4gdGhlIGN1cnJlbnQgcGF0Y2ggc2VyaWVzIHdpdGggKnN0cnVjdCBzdG1tYWNf
+aGRtYV9jZmcqLgoKVG8gaW50cm9kdWNlIGR3MjVnbWFjIGluY3JlbWVudGFsbHksIEkgYW0gdGhp
+bmtpbmcgb2YgdHdvIGFwcHJvYWNoZXMsCiAgMS4gVGFrZSB0aGUgY3VycmVudCBwYXRjaCBzZXJp
+ZXMgZm9yd2FyZCB1c2luZyAqc3RydWN0IHN0bW1hY19oZG1hX2NmZyosCiAgICAga2VlcGluZyB0
+aGUgdW51c2VkIFZETUFzIGluIGRlZmF1bHQgc3RhdGUuIFdlIG5lZWQgdG8gZml4IHRoZQppbml0
+aWFsaXphdGlvbgogICAgIGxvb3BzIHRvIG9ubHkgaW5pdGlhbGl6ZSB0aGUgVkRNQSBhbmQgUERN
+QXMgYmVpbmcgdXNlZC4KICAyLiBTaW1wbGlmeSB0aGUgaW5pdGlhbCBwYXRjaCBieSByZW1vdmlu
+ZyAqc3RydWN0IGhkbWFfY2ZnKiBmcm9tIHRoZSBwYXRjaAogICAgIHNlcmllcyBhbmQgc3RpbGwg
+dXNlIHN0YXRpYyBWRE1BLVRDLVBETUEgbWFwcGluZy4KUGxlYXNlIHNoYXJlIHlvdXIgdGhvdWdo
+dHMuCklmIGl0IGhlbHBzLCBJIGNhbiBzZW5kIHBhdGNoIHNlcmllcyB3aXRoIG9wdGlvbiAyIGFi
+b3ZlIGFmdGVyCmFkZHJlc3NpbmcgYWxsIG90aGVyCnJldmlldyBjb21tZW50cy4KCkFwcHJlY2lh
+dGUgeW91ciBndWlkYW5jZSEKLUppdGVuZHJhCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
