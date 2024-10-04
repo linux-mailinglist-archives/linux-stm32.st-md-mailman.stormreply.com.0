@@ -2,65 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8242A98FFF6
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 11:41:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBBEF9900BC
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2024 12:20:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47382C78023;
-	Fri,  4 Oct 2024 09:41:52 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CC31C78023;
+	Fri,  4 Oct 2024 10:20:28 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93D95C78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F345C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2024 09:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728034911; x=1759570911;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=caxOy/jgffzaiTHudoOppz/Vo2lQ194SRaTCVSsthec=;
- b=MVMIK5iuuceCYom5K9YG5FupT1VkDHBjIeDjfc0/H/OscHiG39wP0O+7
- +A1CBdQog9PuJXgiuJAlueWAryhthRvKA+rI/nRSapypByaZ446v9bwnh
- ZiXNuTpw+C1uWaSH07OMkoMEWJ1qWbCzJ+0wKlVT/FGoCfu62AmFXmsW8
- E9u+Yf4SoghhCNN1q/Mlu1A7T5u0gzhzWvfiz4AKLtG0TtaE+03WSQAe9
- XnQVFp9W5p6Qxu61xZCAda2inJVUqaIwjlpR3/35kU8vTF3yMDeWQ4o0Q
- TOjQ1dr2EspPHj9xTVsaBnpl504gcR1CU6zYnyw1T4sJPFoy3j9KX6Uzk g==;
-X-CSE-ConnectionGUID: s2j8+bsiQre2IyfrldsK/g==
-X-CSE-MsgGUID: /49gHPm9RhG36wU94Mt3LA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11214"; a="27136201"
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="27136201"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2024 02:41:49 -0700
-X-CSE-ConnectionGUID: CDNy/UxyQ5yR4P99lTb9gQ==
-X-CSE-MsgGUID: Ix2TPCorRyiHZW4/Nle32g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="105492071"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2024 02:41:47 -0700
-Received: from punajuuri.localdomain (punajuuri.localdomain [192.168.240.130])
- by kekkonen.fi.intel.com (Postfix) with ESMTP id 92DB211F727;
- Fri,  4 Oct 2024 12:41:44 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.96)
- (envelope-from <sakari.ailus@linux.intel.com>) id 1sweoi-000Tec-1m;
- Fri, 04 Oct 2024 12:41:44 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri,  4 Oct 2024 12:41:34 +0300
-Message-Id: <20241004094134.113980-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
-References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
+ Fri,  4 Oct 2024 10:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=g5gMsMlOt6+uUT+iqof24T3eZesuF6qztprcqRPdYLE=; b=IHsg0vzEv5qz9GOw5lXDVzbEzv
+ ZnTWNB3bY4TryT+DXC5e6vRKWDBrs9idERQ/4nTStu3sOOLkCdzzZUMAqWuiGTzge5JMxqAvizPOl
+ 8OPG9J4g6iC4ZRPghgepHAl4nD76uJnBfHJvmVxVDLFNciVljJ6aiFO9wJQgXg3p44BojTTrrg/Of
+ lI4SlghrghkX/tIv23vfVkpVppmhUiwmjQmt+XhJjmqRkuZdsPKucrA7ILwtOaov1QvVRDcwk30yc
+ U71meNoT0bamu6Qu8BfYPLZobG+xqUq6yyBxUDj53qQllXNUZSriY6hXYYXoaWCbypI/R6GPrsauw
+ pvZuJ5Mg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43032)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1swfPp-0001fb-3D;
+ Fri, 04 Oct 2024 11:20:05 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1swfPi-00016R-0C;
+ Fri, 04 Oct 2024 11:19:58 +0100
+Date: Fri, 4 Oct 2024 11:19:57 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 37/51] regulator: stm32-vrefbuf: Switch to
-	__pm_runtime_put_autosuspend()
+Content-Disposition: inline
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 00/13] net: pcs: xpcs: cleanups batch
+	2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,77 +66,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-pm_runtime_put_autosuspend() will soon be changed to include a call to
-pm_runtime_mark_last_busy(). This patch switches the current users to
-__pm_runtime_put_autosuspend() which will continue to have the
-functionality of old pm_runtime_put_autosuspend().
+This is the second cleanup series for XPCS.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/regulator/stm32-vrefbuf.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Patch 1 removes the enum indexing the dw_xpcs_compat array. The index is
+never used except to place entries in the array and to size the array.
 
-diff --git a/drivers/regulator/stm32-vrefbuf.c b/drivers/regulator/stm32-vrefbuf.c
-index 40855105dd33..870e568e5de9 100644
---- a/drivers/regulator/stm32-vrefbuf.c
-+++ b/drivers/regulator/stm32-vrefbuf.c
-@@ -68,7 +68,7 @@ static int stm32_vrefbuf_enable(struct regulator_dev *rdev)
- 	}
- 
- 	pm_runtime_mark_last_busy(priv->dev);
--	pm_runtime_put_autosuspend(priv->dev);
-+	__pm_runtime_put_autosuspend(priv->dev);
- 
- 	return ret;
- }
-@@ -88,7 +88,7 @@ static int stm32_vrefbuf_disable(struct regulator_dev *rdev)
- 	writel_relaxed(val, priv->base + STM32_VREFBUF_CSR);
- 
- 	pm_runtime_mark_last_busy(priv->dev);
--	pm_runtime_put_autosuspend(priv->dev);
-+	__pm_runtime_put_autosuspend(priv->dev);
- 
- 	return 0;
- }
-@@ -105,7 +105,7 @@ static int stm32_vrefbuf_is_enabled(struct regulator_dev *rdev)
- 	ret = readl_relaxed(priv->base + STM32_VREFBUF_CSR) & STM32_ENVR;
- 
- 	pm_runtime_mark_last_busy(priv->dev);
--	pm_runtime_put_autosuspend(priv->dev);
-+	__pm_runtime_put_autosuspend(priv->dev);
- 
- 	return ret;
- }
-@@ -126,7 +126,7 @@ static int stm32_vrefbuf_set_voltage_sel(struct regulator_dev *rdev,
- 	writel_relaxed(val, priv->base + STM32_VREFBUF_CSR);
- 
- 	pm_runtime_mark_last_busy(priv->dev);
--	pm_runtime_put_autosuspend(priv->dev);
-+	__pm_runtime_put_autosuspend(priv->dev);
- 
- 	return 0;
- }
-@@ -145,7 +145,7 @@ static int stm32_vrefbuf_get_voltage_sel(struct regulator_dev *rdev)
- 	ret = FIELD_GET(STM32_VRS, val);
- 
- 	pm_runtime_mark_last_busy(priv->dev);
--	pm_runtime_put_autosuspend(priv->dev);
-+	__pm_runtime_put_autosuspend(priv->dev);
- 
- 	return ret;
- }
-@@ -219,7 +219,7 @@ static int stm32_vrefbuf_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, rdev);
- 
- 	pm_runtime_mark_last_busy(&pdev->dev);
--	pm_runtime_put_autosuspend(&pdev->dev);
-+	__pm_runtime_put_autosuspend(&pdev->dev);
- 
- 	return 0;
- 
+Patch 2 removes the interface arrays - each of which only contain one
+interface.
+
+Patch 3 makes xpcs_find_compat() take the xpcs structure rather than the
+ID - the previous series removed the reason for xpcs_find_compat needing
+to take the ID.
+
+Patch 4 provides a helper to convert xpcs structure to a regular
+phylink_pcs structure, which leads to patch 5.
+
+Patch 5 moves the definition of struct dw_xpcs to the private xpcs
+header - with patch 4 in place, nothing outside of the xpcs driver
+accesses the contents of the dw_xpcs structure.
+
+Patch 6 renames xpcs_get_id() to xpcs_read_id() since it's reading the
+ID, rather than doing anything further with it. (Prior versions of this
+series renamed it to xpcs_read_phys_id() since that more accurately
+described that it was reading the physical ID registers.)
+
+Patch 7 moves the searching of the ID list out of line as this is a
+separate functional block.
+
+Patch 8 converts xpcs to use the bitmap macros, which eliminates the
+need for _SHIFT definitions.
+
+Patch 9 adds and uses _modify() accessors as there are a large amount
+of read-modify-write operations in this driver. This conversion found
+a bug in xpcs-wx code that has been reported and already fixed.
+
+Patch 10 converts xpcs to use read_poll_timeout() rather than open
+coding that.
+
+Patch 11 converts all printed messages to use the dev_*() functions so
+the driver and devie name are always printed.
+
+Patch 12 moves DW_VR_MII_DIG_CTRL1_2G5_EN to the correct place in the
+header file, rather than amongst another register's definitions.
+
+Patch 13 moves the Wangxun workaround to a common location rather than
+duplicating it in two places. We also reformat this to fit within
+80 columns.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c |   2 +-
+ drivers/net/pcs/pcs-xpcs-nxp.c                    |  24 +-
+ drivers/net/pcs/pcs-xpcs-wx.c                     |  56 ++-
+ drivers/net/pcs/pcs-xpcs.c                        | 445 +++++++++-------------
+ drivers/net/pcs/pcs-xpcs.h                        |  26 +-
+ include/linux/pcs/pcs-xpcs.h                      |  19 +-
+ 6 files changed, 237 insertions(+), 335 deletions(-)
+
 -- 
-2.39.5
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
