@@ -2,47 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B4F992869
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8ED99286A
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 11:42:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDD90C78F68;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5071C78F6A;
 	Mon,  7 Oct 2024 09:42:41 +0000 (UTC)
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D78C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8F6AC78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Oct 2024 12:55:40 +0000 (UTC)
-Received: from fpc (unknown [10.10.165.16])
- by mail.ispras.ru (Postfix) with ESMTPSA id 0C6E340A1DCA;
- Thu,  3 Oct 2024 12:55:39 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 0C6E340A1DCA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1727960139;
- bh=oLJL8Tnp+DfhiuU2GiH/IZbrs3LTGo8QpaQXCMytIiQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tC0eJzdmuJvC/DH1tiyxqUicewD0SWtHDHqpn1RtDcFeB1CHK6pmWFV4ABQqlYW79
- zLi5vJaLeowf1v0v72h7tkQHyxhQNzBy4SO8br+pRCjvQ0HxI4oMt/Gmlm4/cFbZWu
- S2otj442VQalj9qtjQFxNPOMTvwu9DvUDa6OJAus=
-Date: Thu, 3 Oct 2024 15:55:35 +0300
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Simon Horman <horms@kernel.org>
-Message-ID: <20241003-31f0aab72f4bccce9337303f-pchelkin@ispras.ru>
-References: <20240930183715.2112075-1-mordan@ispras.ru>
- <20241003111811.GJ1310185@kernel.org>
+ Fri,  4 Oct 2024 10:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ohWG0r7paqKLARJ0HLIf2BALfXfBnJ2YtdHxdpM8IJQ=; b=On19GnzHYHH4/04lL9T2d2Ptd4
+ BV7luodr+/skt1VeQ1yQmcOGeuvifvZlNixmQnChrahC7mkOXfdSkYnrHzT+lTFThJrfJ/tPd3WFm
+ ZF8JhFYMBYVhGHhWGcDxzpxMFwRONI/KPHQd/bopBz30DJ9X444tdpyCMgQ7bm/qWtFoZu1X+1Kbo
+ JIfr5UK7bGN7gyNEIaDTkifwBA4OQJ5hd16XupAaPSzPIDQXq8wpEuB7xIsBxz51hQWRCv0L25W4S
+ ebhsk/XGM4dsNwvk6nlg/nfRXrMFChRFMEJmTWJq6BKVsW3WnAGs+blpO+NHQwJVEc4QAhext/LQ2
+ GKXUUvsg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39954 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <rmk@armlinux.org.uk>) id 1swfQh-0001gZ-2y;
+ Fri, 04 Oct 2024 11:20:59 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1swfQe-006DfI-Mj; Fri, 04 Oct 2024 11:20:56 +0100
+In-Reply-To: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
+References: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241003111811.GJ1310185@kernel.org>
+Message-Id: <E1swfQe-006DfI-Mj@rmk-PC.armlinux.org.uk>
+Date: Fri, 04 Oct 2024 11:20:56 +0100
 X-Mailman-Approved-At: Mon, 07 Oct 2024 09:42:34 +0000
-Cc: linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- netdev@vger.kernel.org, Vadim Mutilin <mutilin@ispras.ru>,
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Vitalii Mordan <mordan@ispras.ru>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] stmmac: dwmac-intel-plat: fix call
- balance of tx_clk handling routines
+Subject: [Linux-stm32] [PATCH net-next 04/13] net: pcs: xpcs: provide a
+ helper to get the phylink pcs given xpcs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,116 +70,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+Provide a helper to provide the pointer to the phylink_pcs struct
+given a valid xpcs pointer. This will be necessary when we make
+struct dw_xpcs private to pcs-xpcs.c
 
-On Thu, 03. Oct 12:18, Simon Horman wrote:
-> On Mon, Sep 30, 2024 at 09:37:15PM +0300, Vitalii Mordan wrote:
-> > If the clock dwmac->tx_clk was not enabled in intel_eth_plat_probe,
-> > it should not be disabled in any path.
-> > 
-> > Conversely, if it was enabled in intel_eth_plat_probe, it must be disabled
-> > in all error paths to ensure proper cleanup.
-> > 
-> > Found by Linux Verification Center (linuxtesting.org) with Klever.
-> > 
-> > Fixes: 9efc9b2b04c7 ("net: stmmac: Add dwmac-intel-plat for GBE driver")
-> > Signed-off-by: Vitalii Mordan <mordan@ispras.ru>
-> > ---
-> >  .../ethernet/stmicro/stmmac/dwmac-intel-plat.c   | 16 +++++++++++++---
-> >  1 file changed, 13 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> > index d68f0c4e7835..2a2893f2f2a8 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-> > @@ -108,7 +108,12 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
-> >  			if (IS_ERR(dwmac->tx_clk))
-> >  				return PTR_ERR(dwmac->tx_clk);
-> >  
-> > -			clk_prepare_enable(dwmac->tx_clk);
-> > +			ret = clk_prepare_enable(dwmac->tx_clk);
-> > +			if (ret) {
-> > +				dev_err(&pdev->dev,
-> > +					"Failed to enable tx_clk\n");
-> > +				return ret;
-> > +			}
-> >  
-> >  			/* Check and configure TX clock rate */
-> >  			rate = clk_get_rate(dwmac->tx_clk);
-> > @@ -117,6 +122,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
-> >  				rate = dwmac->data->tx_clk_rate;
-> >  				ret = clk_set_rate(dwmac->tx_clk, rate);
-> >  				if (ret) {
-> > +					clk_disable_unprepare(dwmac->tx_clk);
-> >  					dev_err(&pdev->dev,
-> >  						"Failed to set tx_clk\n");
-> >  					return ret;
-> 
-> Hi Vitalii,
-> 
-> I think that unwinding using a goto label would be more idiomatic here
-> and in the following changes to intel_eth_plat_probe().
-> 
-> > @@ -131,6 +137,8 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
-> >  			rate = dwmac->data->ptp_ref_clk_rate;
-> >  			ret = clk_set_rate(plat_dat->clk_ptp_ref, rate);
-> >  			if (ret) {
-> > +				if (dwmac->data->tx_clk_en)
-> > +					clk_disable_unprepare(dwmac->tx_clk);
-> >  				dev_err(&pdev->dev,
-> >  					"Failed to set clk_ptp_ref\n");
-> >  				return ret;
-> > @@ -150,7 +158,8 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
-> >  
-> >  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-> >  	if (ret) {
-> > -		clk_disable_unprepare(dwmac->tx_clk);
-> > +		if (dwmac->data->tx_clk_en)
-> > +			clk_disable_unprepare(dwmac->tx_clk);
-> 
-> Smatch warns that dwmac->data may be NULL here.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 +-
+ drivers/net/pcs/pcs-xpcs.c                        | 6 ++++++
+ include/linux/pcs/pcs-xpcs.h                      | 1 +
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-FWIW, there is a patch [1] targeted at net-next which removes the seemingly
-redundant check for dwmac->data.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 83ad7c7935e3..48acba5eb178 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -451,7 +451,7 @@ static struct phylink_pcs *intel_mgbe_select_pcs(struct stmmac_priv *priv,
+ 	 * should always be an XPCS. The original code would always
+ 	 * return this if present.
+ 	 */
+-	return &priv->hw->xpcs->pcs;
++	return xpcs_to_phylink_pcs(priv->hw->xpcs);
+ }
+ 
+ static int intel_mgbe_common_data(struct pci_dev *pdev,
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index 8bde87ab971f..a7f6d56183a7 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -132,6 +132,12 @@ xpcs_find_compat(struct dw_xpcs *xpcs, phy_interface_t interface)
+ 	return NULL;
+ }
+ 
++struct phylink_pcs *xpcs_to_phylink_pcs(struct dw_xpcs *xpcs)
++{
++	return &xpcs->pcs;
++}
++EXPORT_SYMBOL_GPL(xpcs_to_phylink_pcs);
++
+ int xpcs_get_an_mode(struct dw_xpcs *xpcs, phy_interface_t interface)
+ {
+ 	const struct dw_xpcs_compat *compat;
+diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+index abda475111d1..868515f3cc88 100644
+--- a/include/linux/pcs/pcs-xpcs.h
++++ b/include/linux/pcs/pcs-xpcs.h
+@@ -64,6 +64,7 @@ struct dw_xpcs {
+ 	bool need_reset;
+ };
+ 
++struct phylink_pcs *xpcs_to_phylink_pcs(struct dw_xpcs *xpcs);
+ int xpcs_get_an_mode(struct dw_xpcs *xpcs, phy_interface_t interface);
+ void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces);
+ int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
+-- 
+2.30.2
 
-[1]: https://lore.kernel.org/netdev/20240930183926.2112546-1-mordan@ispras.ru/
-
-At the moment device_get_match_data() can't return NULL in probe function
-of this driver - it gets the data from static const intel_eth_plat_match[]
-table where every entry has defined non-NULL .data.
-
-It's not expected (at least currently) that there would be any code changes
-to the driver match table so it looks worthwhile to remove the check in
-order to reduce additional complexity in error paths and
-intel_eth_plat_remove().
-
-That said, maybe it would be more safe now to rearrange the check to fail
-at probe stage in case dwmac->data is NULL. Just not to confuse the static
-analysis tools :)
-
-Thanks!
-
-> 
-> >  		return ret;
-> >  	}
-> >  
-> > @@ -162,7 +171,8 @@ static void intel_eth_plat_remove(struct platform_device *pdev)
-> >  	struct intel_dwmac *dwmac = get_stmmac_bsp_priv(&pdev->dev);
-> >  
-> >  	stmmac_pltfr_remove(pdev);
-> > -	clk_disable_unprepare(dwmac->tx_clk);
-> > +	if (dwmac->data->tx_clk_en)
-> 
-> And I wonder if it can be NULL here too.
-> 
-> > +		clk_disable_unprepare(dwmac->tx_clk);
-> >  }
-> >  
-> >  static struct platform_driver intel_eth_plat_driver = {
-> > -- 
-> > 2.25.1
-> > 
-> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
