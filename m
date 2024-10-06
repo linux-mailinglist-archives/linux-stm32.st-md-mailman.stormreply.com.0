@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 560B799286E
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CE599286D
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 11:42:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0236EC78F70;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D537C78F72;
 	Mon,  7 Oct 2024 09:42:42 +0000 (UTC)
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B08CC6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B48DC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2024 19:29:00 +0000 (UTC)
+ Sun,  6 Oct 2024 19:30:33 +0000 (UTC)
 Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 11A741A1065;
- Sun,  6 Oct 2024 21:29:00 +0200 (CEST)
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 102E41A1065;
+ Sun,  6 Oct 2024 21:30:33 +0200 (CEST)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
  [134.27.226.22])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id EE45A1A0E06;
- Sun,  6 Oct 2024 21:28:59 +0200 (CEST)
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 02E881A0FEC;
+ Sun,  6 Oct 2024 21:30:33 +0200 (CEST)
 Received: from lsv051416.swis.nl-cdc01.nxp.com
  (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id C0CC9202E3;
- Sun,  6 Oct 2024 21:29:00 +0200 (CEST)
-Date: Sun, 6 Oct 2024 21:28:59 +0200
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id C9F4C202E3;
+ Sun,  6 Oct 2024 21:30:33 +0200 (CEST)
+Date: Sun, 6 Oct 2024 21:30:32 +0200
 From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <ZwLk+/GgMeUB7303@lsv051416.swis.nl-cdc01.nxp.com>
+To: Simon Horman <horms@kernel.org>
+Message-ID: <ZwLlWN3dlEROXjQy@lsv051416.swis.nl-cdc01.nxp.com>
 References: <AM9PR04MB85062E3A66BA92EF8D996513E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
- <d2e32a56-3020-47ac-beef-3449053c5d4c@lunn.ch>
+ <20240819141541.GE11472@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d2e32a56-3020-47ac-beef-3449053c5d4c@lunn.ch>
+In-Reply-To: <20240819141541.GE11472@kernel.org>
 X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 07 Oct 2024 09:42:34 +0000
-Cc: dl-S32 <S32@nxp.com>, Eric Dumazet <edumazet@google.com>,
+Cc: Andrew Lunn <andrew@lunn.ch>, dl-S32 <S32@nxp.com>,
+ Eric Dumazet <edumazet@google.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
  Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
@@ -70,7 +71,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 19, 2024 at 05:49:58PM +0200, Andrew Lunn wrote:
+On Mon, Aug 19, 2024 at 03:15:41PM +0100, Simon Horman wrote:
 > On Sun, Aug 18, 2024 at 09:50:46PM +0000, Jan Petrous (OSS) wrote:
 > > The helper rgmii_clock() implemented Russel's hint during stmmac
 > > glue driver review:
@@ -116,24 +117,30 @@ On Mon, Aug 19, 2024 at 05:49:58PM +0200, Andrew Lunn wrote:
 > > ---
 > > 
 > > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > ---
+> >  include/linux/phy.h | 21 +++++++++++++++++++++
+> >  1 file changed, 21 insertions(+)
+> > 
+> > diff --git a/include/linux/phy.h b/include/linux/phy.h
+> > index 6b7d40d49129..bb797364d91c 100644
+> > --- a/include/linux/phy.h
+> > +++ b/include/linux/phy.h
+> > @@ -298,6 +298,27 @@ static inline const char *phy_modes(phy_interface_t interface)
+> >  	}
+> >  }
+> >  
+> > +/**
+> > + * rgmi_clock - map link speed to the clock rate
 > 
-> This Signed-off-by: needs to be above the first ---, otherwise it gets
-> discard.
+> nit: rgmii_clock
+> 
+>      Flagged by ./scripts/kernel-doc -none
 > 
 
-I see, it is used as delimiter, my fault.
-I will change formating for v3.
-
-> When you repost, please do try to get threading correct.
-> 
-
-Yeh, I already got the same feedback from Krzysztof.
-I'm switching to b4/lei/mutt for v3 what I hope fixed
-the threading issue.
+Thanks. Fixed in v3.
 
 BR.
 /Jan
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
