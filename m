@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8748A992D58
+	by mail.lfdr.de (Postfix) with ESMTPS id CF537992D5B
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2024 15:32:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D945C71287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71AE9C7802D;
 	Mon,  7 Oct 2024 13:32:49 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99728C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B2C4C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon,  7 Oct 2024 13:32:41 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 497B4G5b021715;
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 497B0qho010445;
  Mon, 7 Oct 2024 15:32:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Kb/Wv4RQ9boMDu8e4FgyKdarjG40Bi/qBXrF2ODld5E=; b=dBsatN6yjAkVg+uC
- enJ5nDH/TG9y4/QizZ/vCg4mIWhDfmxOqQ9R/gapsLMNFWla8t80cck+RHqogTQZ
- QYsiurOdR63xCB8FpftVy/JrOA+JKNxCMBcWCyfnaVWQguQOC4EjBf9sMvm//UW7
- rxw0IxuLDBWToP3+bZKg6RqlCPkc6DI6GbETwpGEihCEsyu8oVn3g1xmwtnpHlNq
- rGaQLpDnhBGKMidXFycC24GMXdXTOqSZWbdFYea1ec3NMSCKgVcDF0moeHkq0usz
- ncm5s7iNRBtGI/wUoJtULxjhSg7mqt8u5jGKdH1mcJCafY+6NRyAxpXsTxsZA76T
- bkdvyA==
+ xzgG93BdkVXodGzAxOX10I0SBb7Z83WcOcVhqPTWIHE=; b=ZXVL4KuFhWR3yupw
+ CNjhIwgP8Q3aD3J+k0px/gGdvsFugHTNI46LA21cydUeRgTT1WozPObWTez4CRKm
+ visnFCF64fKT2mIT2kXah951ZhouDRH0iBvmv5cGnh6MvIrPyU3OF/wR4/9BnZBC
+ OxAgeEsyEnSmsyVUbPcdfPHWZ959dD23NXP5UqCR53yQmmnAInv3XbpPQMK9edAv
+ GpNdsyHR8IAOF7Ex0e34i8q15xAfVUE8gxOxhZkDm41ILHUR9T4VvHvzdQ2/9HyO
+ y2jG9yG4GPeSy6YReUMidQJq77SzSDXslbzN5JCxjdKcM73vWRTtBMUjOXzuhryb
+ KXESWA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 423f10pdkh-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 422xv714xm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 07 Oct 2024 15:32:14 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AEDD44004B;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AFE744004C;
  Mon,  7 Oct 2024 15:30:37 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3C338279E8C;
- Mon,  7 Oct 2024 15:27:46 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0329F279E99;
+ Mon,  7 Oct 2024 15:27:47 +0200 (CEST)
 Received: from localhost (10.48.86.225) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 7 Oct
- 2024 15:27:45 +0200
+ 2024 15:27:46 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
  <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>, Krzysztof
@@ -48,8 +48,8 @@ To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Marek Vasut <marex@denx.de>
-Date: Mon, 7 Oct 2024 15:27:18 +0200
-Message-ID: <20241007132721.168428-2-gatien.chevallier@foss.st.com>
+Date: Mon, 7 Oct 2024 15:27:19 +0200
+Message-ID: <20241007132721.168428-3-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241007132721.168428-1-gatien.chevallier@foss.st.com>
 References: <20241007132721.168428-1-gatien.chevallier@foss.st.com>
@@ -64,8 +64,8 @@ Cc: devicetree@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
  linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/4] dt-bindings: rng: add st,
-	stm32mp25-rng support
+Subject: [Linux-stm32] [PATCH 2/4] hwrng: stm32 - implement support for
+	STM32MP25x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,85 +82,222 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add RNG STM32MP25x platforms compatible. Update the clock
-properties management to support all versions.
+Implement the support for STM32MP25x platforms. On this platform, a
+security clock is shared between some hardware blocks. For the RNG,
+it is the RNG kernel clock. Therefore, the gate is no more shared
+between the RNG bus and kernel clocks as on STM32MP1x platforms and
+the bus clock has to be managed on its own.
 
 Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 ---
- .../devicetree/bindings/rng/st,stm32-rng.yaml | 41 +++++++++++++++++--
- 1 file changed, 38 insertions(+), 3 deletions(-)
+ drivers/char/hw_random/stm32-rng.c | 81 ++++++++++++++++++++++++++++--
+ 1 file changed, 77 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-index 340d01d481d1..c92ce92b6ac9 100644
---- a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-+++ b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-@@ -18,12 +18,19 @@ properties:
-     enum:
-       - st,stm32-rng
-       - st,stm32mp13-rng
-+      - st,stm32mp25-rng
+diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+index 9d041a67c295..e7051005768d 100644
+--- a/drivers/char/hw_random/stm32-rng.c
++++ b/drivers/char/hw_random/stm32-rng.c
+@@ -49,6 +49,7 @@
  
-   reg:
-     maxItems: 1
+ struct stm32_rng_data {
+ 	uint	max_clock_rate;
++	uint	nb_clock;
+ 	u32	cr;
+ 	u32	nscr;
+ 	u32	htcr;
+@@ -73,6 +74,7 @@ struct stm32_rng_private {
+ 	struct device *dev;
+ 	void __iomem *base;
+ 	struct clk *clk;
++	struct clk *bus_clk;
+ 	struct reset_control *rst;
+ 	struct stm32_rng_config pm_conf;
+ 	const struct stm32_rng_data *data;
+@@ -292,6 +294,14 @@ static int stm32_rng_init(struct hwrng *rng)
+ 	if (err)
+ 		return err;
  
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
++	if (priv->bus_clk) {
++		err = clk_prepare_enable(priv->bus_clk);
++		if (err) {
++			clk_disable_unprepare(priv->clk);
++			return err;
++		}
++	}
 +
-+  clock-names:
-+    items:
-+      - const: rng_clk
-+      - const: rng_hclk
+ 	/* clear error indicators */
+ 	writel_relaxed(0, priv->base + RNG_SR);
  
-   resets:
-     maxItems: 1
-@@ -57,15 +64,43 @@ allOf:
-       properties:
-         st,rng-lock-conf: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - st,stm32mp25-rng
-+    then:
-+      properties:
-+        clocks:
-+          description: >
-+            RNG bus clock must be named "rng_hclk". The RNG kernel clock
-+            must be named "rng_clk".
-+          maxItems: 2
-+      required:
-+        - clock-names
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 1
+@@ -329,6 +339,8 @@ static int stm32_rng_init(struct hwrng *rng)
+ 							10, 50000);
+ 		if (err) {
+ 			clk_disable_unprepare(priv->clk);
++			if (priv->bus_clk)
++				clk_disable_unprepare(priv->bus_clk);
+ 			dev_err(priv->dev, "%s: timeout %x!\n", __func__, reg);
+ 			return -EINVAL;
+ 		}
+@@ -356,8 +368,11 @@ static int stm32_rng_init(struct hwrng *rng)
+ 						reg & RNG_SR_DRDY,
+ 						10, 100000);
+ 	if (err || (reg & ~RNG_SR_DRDY)) {
++		if (priv->bus_clk)
++			clk_disable_unprepare(priv->bus_clk);
+ 		clk_disable_unprepare(priv->clk);
+ 		dev_err(priv->dev, "%s: timeout:%x SR: %x!\n", __func__, err, reg);
 +
- additionalProperties: false
+ 		return -EINVAL;
+ 	}
  
- examples:
-   - |
--    #include <dt-bindings/clock/stm32mp1-clks.h>
-     rng@54003000 {
-       compatible = "st,stm32-rng";
-       reg = <0x54003000 0x400>;
--      clocks = <&rcc RNG1_K>;
-+      clocks = <&rcc 124>;
-     };
+@@ -379,6 +394,9 @@ static int __maybe_unused stm32_rng_runtime_suspend(struct device *dev)
+ 	reg = readl_relaxed(priv->base + RNG_CR);
+ 	reg &= ~RNG_CR_RNGEN;
+ 	writel_relaxed(reg, priv->base + RNG_CR);
++
++	if (priv->bus_clk)
++		clk_disable_unprepare(priv->bus_clk);
+ 	clk_disable_unprepare(priv->clk);
  
-+  - |
-+    rng: rng@42020000 {
-+      compatible = "st,stm32mp25-rng";
-+      reg = <0x42020000 0x400>;
-+      clocks = <&clk_rcbsec>, <&rcc 110>;
-+      clock-names = "rng_clk", "rng_hclk";
-+      resets = <&rcc 97>;
-+      access-controllers = <&rifsc 92>;
-+    };
- ...
+ 	return 0;
+@@ -393,6 +411,14 @@ static int __maybe_unused stm32_rng_suspend(struct device *dev)
+ 	if (err)
+ 		return err;
+ 
++	if (priv->bus_clk) {
++		err = clk_prepare_enable(priv->bus_clk);
++		if (err) {
++			clk_disable_unprepare(priv->clk);
++			return err;
++		}
++	}
++
+ 	if (priv->data->has_cond_reset) {
+ 		priv->pm_conf.nscr = readl_relaxed(priv->base + RNG_NSCR);
+ 		priv->pm_conf.htcr = readl_relaxed(priv->base + RNG_HTCR);
+@@ -403,6 +429,8 @@ static int __maybe_unused stm32_rng_suspend(struct device *dev)
+ 
+ 	writel_relaxed(priv->pm_conf.cr, priv->base + RNG_CR);
+ 
++	if (priv->bus_clk)
++		clk_disable_unprepare(priv->bus_clk);
+ 	clk_disable_unprepare(priv->clk);
+ 
+ 	return 0;
+@@ -418,6 +446,14 @@ static int __maybe_unused stm32_rng_runtime_resume(struct device *dev)
+ 	if (err)
+ 		return err;
+ 
++	if (priv->bus_clk) {
++		err = clk_prepare_enable(priv->bus_clk);
++		if (err) {
++			clk_disable_unprepare(priv->clk);
++			return err;
++		}
++	}
++
+ 	/* Clean error indications */
+ 	writel_relaxed(0, priv->base + RNG_SR);
+ 
+@@ -438,6 +474,14 @@ static int __maybe_unused stm32_rng_resume(struct device *dev)
+ 	if (err)
+ 		return err;
+ 
++	if (priv->bus_clk) {
++		err = clk_prepare_enable(priv->bus_clk);
++		if (err) {
++			clk_disable_unprepare(priv->clk);
++			return err;
++		}
++	}
++
+ 	/* Clean error indications */
+ 	writel_relaxed(0, priv->base + RNG_SR);
+ 
+@@ -462,6 +506,8 @@ static int __maybe_unused stm32_rng_resume(struct device *dev)
+ 							reg & ~RNG_CR_CONDRST, 10, 100000);
+ 
+ 		if (err) {
++			if (priv->bus_clk)
++				clk_disable_unprepare(priv->bus_clk);
+ 			clk_disable_unprepare(priv->clk);
+ 			dev_err(priv->dev, "%s: timeout:%x CR: %x!\n", __func__, err, reg);
+ 			return -EINVAL;
+@@ -473,6 +519,8 @@ static int __maybe_unused stm32_rng_resume(struct device *dev)
+ 	}
+ 
+ 	clk_disable_unprepare(priv->clk);
++	if (priv->bus_clk)
++		clk_disable_unprepare(priv->bus_clk);
+ 
+ 	return 0;
+ }
+@@ -484,9 +532,19 @@ static const struct dev_pm_ops __maybe_unused stm32_rng_pm_ops = {
+ 				stm32_rng_resume)
+ };
+ 
++static const struct stm32_rng_data stm32mp25_rng_data = {
++	.has_cond_reset = true,
++	.max_clock_rate = 48000000,
++	.nb_clock = 2,
++	.cr = 0x00F00D00,
++	.nscr = 0x2B5BB,
++	.htcr = 0x969D,
++};
++
+ static const struct stm32_rng_data stm32mp13_rng_data = {
+ 	.has_cond_reset = true,
+ 	.max_clock_rate = 48000000,
++	.nb_clock = 1,
+ 	.cr = 0x00F00D00,
+ 	.nscr = 0x2B5BB,
+ 	.htcr = 0x969D,
+@@ -495,9 +553,14 @@ static const struct stm32_rng_data stm32mp13_rng_data = {
+ static const struct stm32_rng_data stm32_rng_data = {
+ 	.has_cond_reset = false,
+ 	.max_clock_rate = 3000000,
++	.nb_clock = 1,
+ };
+ 
+ static const struct of_device_id stm32_rng_match[] = {
++	{
++		.compatible = "st,stm32mp25-rng",
++		.data = &stm32mp25_rng_data,
++	},
+ 	{
+ 		.compatible = "st,stm32mp13-rng",
+ 		.data = &stm32mp13_rng_data,
+@@ -525,10 +588,6 @@ static int stm32_rng_probe(struct platform_device *ofdev)
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
+-	priv->clk = devm_clk_get(&ofdev->dev, NULL);
+-	if (IS_ERR(priv->clk))
+-		return PTR_ERR(priv->clk);
+-
+ 	priv->rst = devm_reset_control_get(&ofdev->dev, NULL);
+ 	if (!IS_ERR(priv->rst)) {
+ 		reset_control_assert(priv->rst);
+@@ -551,6 +610,20 @@ static int stm32_rng_probe(struct platform_device *ofdev)
+ 	priv->rng.read = stm32_rng_read;
+ 	priv->rng.quality = 900;
+ 
++	if (priv->data->nb_clock > 1) {
++		priv->clk = devm_clk_get(&ofdev->dev, "rng_clk");
++		if (IS_ERR(priv->clk))
++			return PTR_ERR(priv->clk);
++
++		priv->bus_clk = devm_clk_get(&ofdev->dev, "rng_hclk");
++		if (IS_ERR(priv->clk))
++			return PTR_ERR(priv->bus_clk);
++	} else {
++		priv->clk = devm_clk_get(&ofdev->dev, NULL);
++		if (IS_ERR(priv->clk))
++			return PTR_ERR(priv->clk);
++	}
++
+ 	pm_runtime_set_autosuspend_delay(dev, 100);
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_enable(dev);
 -- 
 2.25.1
 
