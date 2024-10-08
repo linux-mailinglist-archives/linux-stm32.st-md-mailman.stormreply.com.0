@@ -2,109 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1B7994650
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 13:15:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEE20994675
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 13:21:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3360C6DD6B;
-	Tue,  8 Oct 2024 11:15:01 +0000 (UTC)
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
- (mail-sh0chn02on2126.outbound.protection.partner.outlook.cn
- [139.219.146.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A3CEC6DD6B;
+	Tue,  8 Oct 2024 11:21:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2EEC7C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AE26C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2024 11:14:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=INlcg5QIQNOM1tGFpfAy/8DWrBGqskB7TxU/FrqpGJUmqSNRBUajbFQcGV7FvFirE9f81lmelHdAgH0LCgFWI5fny8EA2NN7PcKGUfK85Xi5DwzjNbdUjEzWLn6qWMFqu1LIwG/Z4jeV2hfqNFBqHjK90nxd82xofeHF3+VxcqgWJzDX/qEpty6PeD59AZBkvhW2nxesV34lsdYQQzAQpN74qqtjU90AnQwdwokP/toPqyZhzhT8aGTiwfS8xQ6WFXVAGh5k1hy5Fd2hLOTAtLWPeANd+0Wvv+GCC5NyY5E3574jYfmmQnzgeM0m46bJ/YxLQ8YYFC4VEf/T5IrZqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jdt8+2f9OFteckO8x32hLGOtZuJB4TbXJN2FXtkqkus=;
- b=Y9ZiM0M08pHppJxEzniIH0wWlnXNuqKuYN1h1LDBEypSpE4xQmC/Vw/gxhnxce/kgZ95GD3CfJjTQnKIMS8/oB298rUq81LP3q6ikxcX0AaOZLCUQu2FWnWYYTO6DK0rlMJaIhK3H2UouVdTPRiQmlQUWFlxIBkbja02TUZirHgo/pOFnszrjRhBEtjclgtC5GADv7vpM1O5nOmz8FpkWQIih0svibF8zJHSyOGrW7TztrJpkNVxR8cbnsS0aDMGxpW2SxGmjSbxM83wBPe9d475DV3DvIsxb/m6MAxtFcATxYF47jAC1jertciOarUgrB+02mb01NVr8HMZtbVo9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0718.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.31; Tue, 8 Oct
- 2024 11:14:52 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::3f35:8db2:7fdf:9ffb]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::3f35:8db2:7fdf:9ffb%5])
- with mapi id 15.20.8005.031; Tue, 8 Oct 2024 11:14:52 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org
-Date: Tue,  8 Oct 2024 19:14:43 +0800
-Message-Id: <20241008111443.81467-1-minda.chen@starfivetech.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: SHXPR01CA0006.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::15) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15)
+ Tue,  8 Oct 2024 11:21:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4989iRMb023105;
+ Tue, 8 Oct 2024 13:21:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=PrLR1FSoG364PmBEJPDnHR
+ HbRh23KLrRCGJoIZfeH28=; b=s6TpWhiI+L3zgNKWoxb+2+d2PnqAU0IO9ih1NU
+ QeLJ0HoGsVz7I5csdmcbqafj31Tyf4YGLVdVv2wZS7E1CpCeTnn0m+crP4f0OvLu
+ ZV2QNrBqvHHcaijCspTRBHtbOiQ9BYm39X+jagaYtptsDZMMtvnUl702UZz9DJXk
+ RYWvOxbDfA+LptUGr4JAHMrH9oHa2rJQSI5fLlbpo7/5QpIcv/b07oW3SYQ4hneL
+ V4ZYwL5vUOuqPagB5vVa0rnMB/YxyXdq06X/L55MEuw9vcKOn9KBK8/ZCXO+9VJa
+ ++5LVFE8/jiq7SkEvCBF0JVyJ7/rHAygGjQgvPfMPmMaBcxw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 422xtq5pyt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Oct 2024 13:21:04 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D1AFF4004C;
+ Tue,  8 Oct 2024 13:19:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CD109285187;
+ Tue,  8 Oct 2024 13:18:13 +0200 (CEST)
+Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 8 Oct
+ 2024 13:18:13 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+Date: Tue, 8 Oct 2024 13:18:02 +0200
+Message-ID: <20241008-csi_dcmipp_mp25-v1-0-e3fd0ed54b31@foss.st.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f03d98f-429e-4317-ca48-08dce78a6e5d
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|52116014|7416014|41320700013|38350700014; 
-X-Microsoft-Antispam-Message-Info: ZFBbELpTRizk7ivNWeED2qixav0vhP9fnCTYHQmz/IkmLkdN616LuUh0zeFIDofDoh14FwK1x9xbliBylIaNJikogvVx9dhkrw8cK2rdL7h2kXK37gxcrBWwUSOnVtPZWIfJ67m9g+6cM4q/Ujax3oypwUgA0sBUQhG9SmM9Nf0cU01p5wdaGi0RZirVqh+qmoPFnzlvOMn7ISVpPMB7GhBYDa0q9yLeCEVW1qhy7zK/OqSr9E9l53BkkxNEq44lZo411jnOYMSg+sts32Ui8R2yuVSexVN04aSz9S0FA+ZFktiwpOzHYKwaJAs/6XTZu89To9WKqRfmGfSZspRisVhNWlp60xPAKCdIZN00xAFKypNPK+Gz2H+j3leBsnBpnfMjq1OBlvCddnSxMSvWBXLJfxHBWvpkikuk9qgCKwMY7W9erRMkWOnUmaKMvVJwZaPHtrXcnCQ8qzrEwrHJ/mKb/iwwmnzlUe2TEslzvSCQgt2CbYyEO+etqc58k3Lc+ksCzjrRKMTROdpebFcNrr2uHH4f50AiFcb3g48uarr6BfydvJyhCaJiVJnX7RlRt81WhE5zt5kFd9twdgxlbn2H/ILtPt9x6wAxKMp++bgstntscTEhN0jLyyMUP3Fs
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(52116014)(7416014)(41320700013)(38350700014);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ezEbAHGIeJPGsEWYbIOtha9e0t8z5lMBUYyae7c5V8VO8ka2L5o4m8h/Abmc?=
- =?us-ascii?Q?fFENjLmNRn7HqTNQ2hU/sAtlRoaHaPv4jjxhpHFLjbczpgc+gjsQyuYtiuB4?=
- =?us-ascii?Q?abiGHiDvF02HGt4niFCmLNWUI51lalsaZCPAJNEL8L+NTArAG/JXR/PuvFnX?=
- =?us-ascii?Q?ltQxXilQjmm7mmn55YPogXFakrbcag2n6SbINSg4+025+a36oIAJGnrvq5Gy?=
- =?us-ascii?Q?e+V3KblZauJBAxs4DNGQbCPKncraw/oTtRQaijs4fsHImDugrhkwiH7zCa49?=
- =?us-ascii?Q?xHFCImULUUHOT/WtFsQBg/A5Gy6ojTunurHCb3DxDXOzZksDP5i2RM4GFRIk?=
- =?us-ascii?Q?oIMa/NF8OZmUbrd8mc/cXFfJrrGNXWrq2nsxhemtFplzS7w64+5LzPNDKLpC?=
- =?us-ascii?Q?MQz5zC4HfhyY3HN0UVZofGiTEs2ngXwYRjYK7K3lWh7/TzEWiNIoqgEf67ep?=
- =?us-ascii?Q?4fMj5sFXwdmbB5qMguLmlQIeVwn70OVmHCdu1mPd9T/DEh5bWe5lN30hbbTZ?=
- =?us-ascii?Q?ixTf9b2Z5HBYK8qbZAMDD7KxeZQ6mmh/bm2gkTbGjKnc513eRVle/AIFfe9+?=
- =?us-ascii?Q?EDY9Vh0gix1vR0GLpqxaPGFPpdOP/HLt6uPnfxH69OUzbUy5xEhSH7D2Ro9l?=
- =?us-ascii?Q?Mg92nEbqxguK9Gh10qHqMFn7flQSwxLUvzgHuFke1+Z+uxRGVpncO0Q2WgX/?=
- =?us-ascii?Q?trl7jw6c+gefQjE3YXPhK+iQF+4ljUw6HvTRip/6kczmWUpz4BugQf34Ozac?=
- =?us-ascii?Q?74dm1JtxNuZvVd9jTxpih6IFgKl8R0I5u56+R2xclwauFceHatxDpj7uy8NA?=
- =?us-ascii?Q?nLprIIQINbalgnS0GBgtkmMPQ4xV0tiBySUD43RO0mdBIxPVa50LczOE+00v?=
- =?us-ascii?Q?SODw314+ElW1lYZXZ7fTwhfqzKrSHVhmrgstAKJvjrcNMyXvD9zIoQoBK6QH?=
- =?us-ascii?Q?VQqXuGl3hl6lJbruZmZkAMAvAfqstw1XCz6s4HqnSEn7aaob2tHeLXITzNxY?=
- =?us-ascii?Q?CpwffaKGVLWGBxlORvyxGKhrMAcxJVxgIFgg/iPUO5xeAXsY3DIFPtRikt18?=
- =?us-ascii?Q?llk+lXCAJRoHLcTYTAEr9EUHzPh4DSOGa4QKXD1oT30LIF2uy7q99op1G4F7?=
- =?us-ascii?Q?B0gYxyhGBeJKxS4lgu7hGlEH7OWQ07SnbztUOpYeIzlgk6kYfQ+McGcXnJ5v?=
- =?us-ascii?Q?aS9ukB53wx8O5f/JAI8WitwXHwxrf3/DcV0Gr5644KHUPoA9XxdP47JtBrer?=
- =?us-ascii?Q?HaqvyFRyYfZ6G+ZXBJnP9BcVl2Ui3jeP5/56ZzYGoYL3ZYpHu5rk/ZEjTWYl?=
- =?us-ascii?Q?afpPC37atQQ/2MCwL4gM3+xkOhAyCzL/NrAVQBtZIz/1gBVcAR/As+tgQ/JN?=
- =?us-ascii?Q?z5I3w3WQaJYYPYqYE5WaDeCNItHNTic4Xw8VQGXAtZ68JMWVqQaW5NSR0zz1?=
- =?us-ascii?Q?sdMo7Qjr5/elbJi6YYkAROTvCPRR9MHKNJAjMQm0jfXXBTh4y0P1dv3marzD?=
- =?us-ascii?Q?ADmKauZ9GU6VUy30d/kB+RBwgPOGJ0CIUIDGdI11uyNaqRKfM7RaVJEWPp4O?=
- =?us-ascii?Q?wbQ5IXNMEnODw4EO2E/neTIKfiA0IQlR7POmucgoQtow+qXqI3E84abLVxYA?=
- =?us-ascii?Q?tg=3D=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f03d98f-429e-4317-ca48-08dce78a6e5d
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 11:14:52.3732 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MclU9HpPgnw6MtJU4z3SKkWbK4tNCsvC0pqJe/aerAJy7vxjtf3x7gtZQ+gtudd/VXYIffLOOEktSJzfV55wltmsn+Ftu7h8UmiIEW+KAqI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0718
-Cc: Minda Chen <minda.chen@starfivetech.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: Add DW QoS Eth v4/v5
-	ip payload error statistics
+X-B4-Tracking: v=1; b=H4sIAOoUBWcC/x3MQQqAIBBA0avErBNUsqGuEiGhU81CE4UIpLsnL
+ d/i/wqFMlOBuauQ6ebCV2xQfQfu3OJBgn0zaKkHJSUKV9h6FzglG5I2AhGnUardoN+gVSnTzs9
+ /XNb3/QBfFgf9YQAAAA==
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: b4 0.14.0
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 00/15] media: stm32: introduction of CSI /
+ DCMIPP for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,58 +81,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add DW QoS Eth v4/v5 ip payload error statistics, and rename descriptor
-bit macro because v4/v5 descriptor IPCE bit claims ip checksum
-error or TCP/UDP/ICMP segment length error.
+This series introduces the camera pipeline support for the
+STM32MP25 SOC.  The STM32MP25 has 3 pipelines, fed from a
+single camera input which can be either parallel or csi.
 
-Here is bit description from DW QoS Eth data book(Part 19.6.2.2)
+This series adds the basic support for the 1st pipe (dump)
+which, in term of features is same as the one featured on
+the STM32MP13 SOC.  It focuses on introduction of the
+CSI input stage for the DCMIPP, and the CSI specific new
+control code for the DCMIPP.
+One of the subdev of the DCMIPP, dcmipp_parallel is now
+renamed as dcmipp_input since it allows to not only control
+the parallel but also the csi interface.
 
-bit7 IPCE: IP Payload Error
-When this bit is programmed, it indicates either of the following:
-1).The 16-bit IP payload checksum (that is, the TCP, UDP, or ICMP
-   checksum) calculated by the MAC does not match the corresponding
-   checksum field in the received segment.
-2).The TCP, UDP, or ICMP segment length does not match the payload
-   length value in the IP  Header field.
-3).The TCP, UDP, or ICMP segment length is less than minimum allowed
-   segment length for TCP, UDP, or ICMP.
-
-Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 2 ++
- drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Alain Volmat (15):
+      media: stm32: dcmipp: correct dma_set_mask_and_coherent mask value
+      dt-bindings: media: addition of stm32 csi driver description
+      media: stm32: csi: addition of the STM32 CSI driver
+      media: stm32: dcmipp: use v4l2_subdev_is_streaming
+      media: stm32: dcmipp: replace s_stream with enable/disable_streams
+      media: stm32: dcmipp: rename dcmipp_parallel into dcmipp_input
+      media: stm32: dcmipp: add support for csi input into dcmipp-input
+      media: stm32: dcmipp: add bayer 10~14 bits formats
+      media: stm32: dcmipp: add 1X16 RGB / YUV formats support
+      media: stm32: dcmipp: avoid duplicated format on enum in bytecap
+      media: stm32: dcmipp: fill media ctl hw_revision field
+      dt-bindings: media: addition of stm32mp25 compatible of DCMIPP
+      media: stm32: dcmipp: add core support for the stm32mp25
+      arm64: dts: st: add csi & dcmipp node in stm32mp25
+      arm64: dts: st: enable imx335/csi/dcmipp pipeline on stm32mp257f-ev1
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-index e99401bcc1f8..a5fb31eb0192 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-@@ -118,6 +118,8 @@ static int dwmac4_wrback_get_rx_status(struct stmmac_extra_stats *x,
- 		x->ipv4_pkt_rcvd++;
- 	if (rdes1 & RDES1_IPV6_HEADER)
- 		x->ipv6_pkt_rcvd++;
-+	if (rdes1 & RDES1_IP_PAYLOAD_ERROR)
-+		x->ip_payload_err++;
- 
- 	if (message_type == RDES_EXT_NO_PTP)
- 		x->no_ptp_rx_msg_type_ext++;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
-index 6da070ccd737..1ce6f43d545a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h
-@@ -95,7 +95,7 @@
- #define RDES1_IPV4_HEADER		BIT(4)
- #define RDES1_IPV6_HEADER		BIT(5)
- #define RDES1_IP_CSUM_BYPASSED		BIT(6)
--#define RDES1_IP_CSUM_ERROR		BIT(7)
-+#define RDES1_IP_PAYLOAD_ERROR		BIT(7)
- #define RDES1_PTP_MSG_TYPE_MASK		GENMASK(11, 8)
- #define RDES1_PTP_PACKET_TYPE		BIT(12)
- #define RDES1_PTP_VER			BIT(13)
+ .../devicetree/bindings/media/st,stm32-csi.yaml    |  129 +++
+ .../devicetree/bindings/media/st,stm32-dcmipp.yaml |   53 +-
+ MAINTAINERS                                        |    8 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             |   23 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |   87 ++
+ drivers/media/platform/st/stm32/Kconfig            |   14 +
+ drivers/media/platform/st/stm32/Makefile           |    1 +
+ drivers/media/platform/st/stm32/stm32-csi.c        | 1150 ++++++++++++++++++++
+ .../media/platform/st/stm32/stm32-dcmipp/Makefile  |    2 +-
+ .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c         |  128 ++-
+ .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c        |  119 +-
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |    4 +-
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   |  116 +-
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-input.c  |  540 +++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-parallel.c        |  440 --------
+ 15 files changed, 2238 insertions(+), 576 deletions(-)
+---
+base-commit: 9852d85ec9d492ebef56dc5f229416c925758edc
+change-id: 20241007-csi_dcmipp_mp25-7779601f57da
+
+Best regards,
 -- 
-2.17.1
+Alain Volmat <alain.volmat@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
