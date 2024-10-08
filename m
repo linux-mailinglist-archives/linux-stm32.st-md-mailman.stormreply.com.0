@@ -2,82 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A4FD994845
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 14:11:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C55359948BE
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 14:16:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C51EC7128F;
-	Tue,  8 Oct 2024 12:11:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76C2EC7128F;
+	Tue,  8 Oct 2024 12:16:31 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC89BC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C84BCC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2024 12:11:14 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4984SZZS008682;
- Tue, 8 Oct 2024 12:10:59 GMT
+ Tue,  8 Oct 2024 12:16:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4989U4lx004219;
+ Tue, 8 Oct 2024 12:16:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- O+rPNhVOLSMm6I9uahJ9YI6EVuw1ePfuGwHF63aq4rE=; b=lEoKnBM683EURTz4
- vk38N/5ycM7j892E/bnfqsDuwTzysWdNcKhJ/neGSeqHdtbsF2AVJhdlq1GQUMoT
- md5ZhuMmZt9u22OV/cK+JtGaAjvvGquWDe8NRul26MAztH9hyFJzuU7Kwn7jDgzW
- qZ9uIu+0ZSq/ZWUZ+2+I4bMUoLVVRyqc24V7448wVuOrCYBAbx1snogaxxmt1O0R
- rn6l8iR5FJXATmipaqtXbQSoOjmDNSv6SyO/W5dB2oeTeY8QoBdhCvMYfymNO4Zu
- DRmmektKHEywahioj34VlPb4HWljbLY/ko9TSuCb+wJecIC7B8bEzf129jEzcnZd
- m1RZwg==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ cMwytKd96lY8DysyqJmWlSywdWT7QkTsj0FkIVOmKK8=; b=fv23Ahf7qLNGm1P0
+ Kq2Kv4gzeV2wy2Aab8cueGz3upVouIz2vvLPmz09+alXO+eajhx35UXI0nJdu3/E
+ 8KvNps4GlAegZm73CJDLfwrnarUlXfyfxvjVtkJJBp6Ej0RxhFB9mg79DPC2NC3B
+ rCb119YCRbSlguZf5RDRPMFseRYTKtDPoi/K+J407TMO/BIPMKfppf1+mXiN1gU/
+ HK12NqJjeAnWWdSW8wnEHY5r4oPDpuhhSTjaTMc6LJpXHM+vf7sMFVrqRBGNv0L/
+ 2qRocuCPZQYFQ44U4FYzXUHx3KeL45OSYgyPvndr4OO4GCNhmWNSaE2IriSTzmt2
+ nNapbQ==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 424wrc164x-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 422xq9ycb0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Oct 2024 12:10:58 +0000 (GMT)
+ Tue, 08 Oct 2024 12:16:10 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 498CAwBl002123
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 498CG9bW030217
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 8 Oct 2024 12:10:58 GMT
+ Tue, 8 Oct 2024 12:16:09 GMT
 Received: from [10.50.59.162] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 8 Oct 2024
- 05:10:49 -0700
-Message-ID: <3e765e56-0e5c-4117-88c9-37a8c1cffbea@quicinc.com>
-Date: Tue, 8 Oct 2024 17:40:46 +0530
+ 05:15:58 -0700
+Message-ID: <83872fec-4085-41db-9460-1c116afc52d6@quicinc.com>
+Date: Tue, 8 Oct 2024 17:45:54 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Simon Horman <horms@kernel.org>, Suraj Jaiswal <quic_jsuraj@quicinc.com>
-References: <20240910124841.2205629-1-quic_jsuraj@quicinc.com>
- <20240910124841.2205629-2-quic_jsuraj@quicinc.com>
- <20240912084710.GE572255@kernel.org>
+To: Andrew Halaney <ahalaney@redhat.com>
+References: <20240902095436.3756093-1-quic_jsuraj@quicinc.com>
+ <yy2prsz3tjqwjwxgsrumt3qt2d62gdvjwqsti3favtfmf7m5qs@eychxx5qz25f>
+ <CYYPR02MB9788F524C9A5B3471871E055E79A2@CYYPR02MB9788.namprd02.prod.outlook.com>
+ <ypfbzhjyqqwwzciifkwvhimrolg6haiysqmxamkhnryez4npxx@l4blfw43sxgt>
+ <05909d17-0111-4080-97cc-82ed435728a7@quicinc.com>
+ <gbia6rqppcc53vmel5q5jvgdri3cmeowb64mxfk7jzo6ncuz2f@6kd7acqii62x>
 Content-Language: en-US
 From: Sarosh Hasan <quic_sarohasa@quicinc.com>
-In-Reply-To: <20240912084710.GE572255@kernel.org>
+In-Reply-To: <gbia6rqppcc53vmel5q5jvgdri3cmeowb64mxfk7jzo6ncuz2f@6kd7acqii62x>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: tbba8WbgboOB6VR4jTA7KWrIwbtPRhrN
-X-Proofpoint-ORIG-GUID: tbba8WbgboOB6VR4jTA7KWrIwbtPRhrN
+X-Proofpoint-ORIG-GUID: v-q7ww8Pg7WMeLoEVScA3soI5QpuJc-8
+X-Proofpoint-GUID: v-q7ww8Pg7WMeLoEVScA3soI5QpuJc-8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- impostorscore=0 suspectscore=0 mlxscore=0 clxscore=1011 spamscore=0
- adultscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410080076
-Cc: Rob Herring <robh@kernel.org>, kernel@quicinc.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Prasad Sodagudi <psodagud@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: allocate separate page
-	for buffer
+ clxscore=1011 phishscore=0
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 adultscore=0 mlxlogscore=999
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410080077
+Cc: "Suraj Jaiswal \(QUIC\)" <quic_jsuraj@quicinc.com>, Eric
+ Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
+ kernel <kernel@quicinc.com>, Jose Abreu <joabreu@synopsys.com>,
+ Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "bhupesh.sharma@linaro.org" <bhupesh.sharma@linaro.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Suraj Jaiswal <jsuraj@qti.qualcomm.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Stop using a single
+ dma_map() for multiple descriptors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,176 +111,237 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 9/12/2024 2:17 PM, Simon Horman wrote:
-> On Tue, Sep 10, 2024 at 06:18:41PM +0530, Suraj Jaiswal wrote:
->> Currently for TSO page is mapped with dma_map_single()
->> and then resulting dma address is referenced (and offset)
->> by multiple descriptors until the whole region is
->> programmed into the descriptors.
->> This makes it possible for stmmac_tx_clean() to dma_unmap()
->> the first of the already processed descriptors, while the
->> rest are still being processed by the DMA engine. This leads
->> to an iommu fault due to the DMA engine using unmapped memory
->> as seen below:
->>
->> arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
->> iova=0xfc401000, fsynr=0x60003, cbfrsynra=0x121, cb=38
->>
->> Descriptor content:
->>      TDES0       TDES1   TDES2   TDES3
->> 317: 0xfc400800  0x0     0x36    0xa02c0b68
->> 318: 0xfc400836  0x0     0xb68   0x90000000
->>
->> As we can see above descriptor 317 holding a page address
->> and 318 holding the buffer address by adding offset to page
->> addess. Now if 317 descritor is cleaned as part of tx_clean()
-> 
-> Hi Suraj,
-> 
-> As it looks like there will be a v3 anyway, some minor nits from my side.
-> 
-> addess -> address
-> 
-> Flagged by checkpatch.pl --codespell
-sure . we will take care of all commnet and update latest patch after verification . 
-> 
->> then we will get SMMU fault if 318 descriptor is getting accessed.
->>
->> To fix this, let's map each descriptor's memory reference individually.
->> This way there's no risk of unmapping a region that's still being
->> referenced by the DMA engine in a later descriptor.
->>
->> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
->> ---
->>
->> Changes since v2:
->> - Update commit text with more details.
->> - fixed Reverse xmas tree order issue.
+On 9/24/2024 10:06 PM, Andrew Halaney wrote:
+> On Tue, Sep 24, 2024 at 04:36:59PM GMT, Sarosh Hasan wrote:
 >>
 >>
->> Changes since v1:
->> - Fixed function description 
->> - Fixed handling of return value.
->>
->>
->>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 63 ++++++++++++-------
->>  1 file changed, 42 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> index 83b654b7a9fd..98d5a4b64cac 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> @@ -4136,21 +4136,25 @@ static bool stmmac_vlan_insert(struct stmmac_priv *priv, struct sk_buff *skb,
->>  /**
->>   *  stmmac_tso_allocator - close entry point of the driver
->>   *  @priv: driver private structure
->> - *  @des: buffer start address
->> + *  @addr: Contains either skb frag address or skb->data address
->>   *  @total_len: total length to fill in descriptors
->>   *  @last_segment: condition for the last descriptor
->>   *  @queue: TX queue index
->> + * @is_skb_frag: condition to check whether skb data is part of fragment or not
->>   *  Description:
->>   *  This function fills descriptor and request new descriptors according to
->>   *  buffer length to fill
->> + *  This function returns 0 on success else -ERRNO on fail
+>> On 9/10/2024 7:34 PM, Andrew Halaney wrote:
+>>> Hey Suraj,
+>>>
+>>> Your email client didn't seem to quote my response in your latest reply,
+>>> so its difficult to figure out what you're writing vs me below. It also
+>>> seems to have messed with the line breaks so I'm manually redoing those.
+>>>
+>>> Please see if you can figure out how to make that happen for further
+>>> replies!
+>>>
+>>> More comments below...
+>>>
+>>> On Tue, Sep 10, 2024 at 12:47:08PM GMT, Suraj Jaiswal wrote:
+>>>>
+>>>>
+>>>> -----Original Message-----
+>>>> From: Andrew Halaney <ahalaney@redhat.com> 
+>>>> Sent: Wednesday, September 4, 2024 3:47 AM
+>>>> To: Suraj Jaiswal (QUIC) <quic_jsuraj@quicinc.com>
+>>>> Cc: Vinod Koul <vkoul@kernel.org>; bhupesh.sharma@linaro.org; Andy Gross <agross@kernel.org>; Bjorn Andersson <andersson@kernel.org>; Konrad Dybcio <konrad.dybcio@linaro.org>; David S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Rob Herring <robh+dt@kernel.org>; Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley <conor+dt@kernel.org>; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-arm-msm@vger.kernel.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; Prasad Sodagudi <psodagud@quicinc.com>; Rob Herring <robh@kernel.org>; kernel <kernel@quicinc.com>
+>>>> Subject: Re: [PATCH net] net: stmmac: Stop using a single dma_map() for multiple descriptors
+>>>>
+>>>> WARNING: This email originated from outside of Qualcomm. Please be wary of any links or attachments, and do not enable macros.
+>>>>
+>>>> On Mon, Sep 02, 2024 at 03:24:36PM GMT, Suraj Jaiswal wrote:
+>>>>> Currently same page address is shared
+>>>>> between multiple buffer addresses and causing smmu fault for other 
+>>>>> descriptor if address hold by one descriptor got cleaned.
+>>>>> Allocate separate buffer address for each descriptor for TSO path so 
+>>>>> that if one descriptor cleared it should not clean other descriptor 
+>>>>> address.
+>>>
+>>> snip...
+>>>
+>>>>>
+>>>>>  static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int 
+>>>>> queue) @@ -4351,25 +4380,17 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>>>>>               pay_len = 0;
+>>>>>       }
+>>>>>
+>>>>> -     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
+>>>>> +     if (stmmac_tso_allocator(priv, (skb->data + proto_hdr_len),
+>>>>> +                              tmp_pay_len, nfrags == 0, queue, false))
+>>>>> +             goto dma_map_err;
+>>>>
+>>>> Changing the second argument here is subtly changing the dma_cap.addr64 <= 32
+>>>> case right before this. Is that intentional?
+>>>>
+>>>> i.e., prior, pretend des = 0 (side note but des is a very confusing variable
+>>>> name for "dma address" when there's also mentions of desc meaning "descriptor"
+>>>> in the DMA ring). In the <= 32 case, we'd call stmmac_tso_allocator(priv, 0)
+>>>> and in the else case we'd call stmmac_tso_allocator(priv, 0 + proto_hdr_len).
+>>>>
+>>>> With this change in both cases its called with the (not-yet-dma-mapped)
+>>>> skb->data + proto_hdr_len always (i.e. like the else case).
+>>>>
+>>>> Honestly, the <= 32 case reads weird to me without this patch. It seems some
+>>>> of the buffer is filled but des is not properly incremented?
+>>>>
+>>>> I don't know how this hardware is supposed to be programmed (no databook
+>>>> access) but that seems fishy (and like a separate bug, which would be nice to
+>>>> squash if so in its own patch). Would you be able to explain the logic there
+>>>> to me if it does make sense to you?
+>>>>
+>>>
+>>>> <Suraj> des can not be 0 . des 0 means dma_map_single() failed and it will return.
+>>>> If we see if des calculation (first->des1 = cpu_to_le32(des + proto_hdr_len);)
+>>>> and else case des calculator ( des += proto_hdr_len;) it is adding proto_hdr_len
+>>>> to the memory that we after mapping skb->data using dma_map_single.
+>>>> Same way we added proto_hdr_len in second argument . 
+>>>
+>>>
+>>> 0 was just an example, and a confusing one, sorry. Let me paste the original
+>>> fishy code that I think you've modified the behavior for. Here's the
+>>> original:
+>>>
+>>> 	if (priv->dma_cap.addr64 <= 32) {
+>>> 		first->des0 = cpu_to_le32(des);
+>>>
+>>> 		/* Fill start of payload in buff2 of first descriptor */
+>>> 		if (pay_len)
+>>> 			first->des1 = cpu_to_le32(des + proto_hdr_len);
+>>>
+>>> 		/* If needed take extra descriptors to fill the remaining payload */
+>>> 		tmp_pay_len = pay_len - TSO_MAX_BUFF_SIZE;
+>>> 	} else {
+>>> 		stmmac_set_desc_addr(priv, first, des);
+>>> 		tmp_pay_len = pay_len;
+>>> 		des += proto_hdr_len;
+>>> 		pay_len = 0;
+>>> 	}
+>>>
+>>> 	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
+>>>
+>>> Imagine the <= 32 case. Let's say des is address 0 (just for simplicity
+>>> sake, let's assume that's valid). That means:
+>>>
+>>>     first->des0 = des;
+>>>     first->des1 = des + proto_hdr_len;
+>>>     stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue)
+>>>
+>>>     if des is 0, proto_hdr_len is 64, then that means
+>>>
+>>>     first->des0 = 0
+>>>     first->des1 = 64
+>>>     stmmac_tso_allocator(priv, 0, tmp_pay_len, (nfrags == 0), queue)
+>>>
+>>> That seems fishy to me. We setup up the first descriptor with the
+>>> beginning of des, and then the code goes and sets up more descriptors
+>>> (stmmac_tso_allocator()) starting with the same des again?
+>> tso_alloc is checking if more descriptor needed for packet . it is adding offset to get next
+>> descriptor (curr_addr = des + (total_len - tmp_len)) and storing in des of next descriptor.
 > 
-> Please consider using a "Return:" or "Returns:" section to document
-> return values.
+> Yes, so in stmmac_tso_allocator() we currently have:
 > 
-> Flagged by ./scripts/kernel-doc -none -Wall .../stmmac_main.c
+> 	static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
+> 					 int total_len, bool last_segment, u32 queue)
+> 	{
+> 		struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
+> 		struct dma_desc *desc;
+> 		u32 buff_size;
+> 		int tmp_len;
 > 
->>   */
->> -static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
->> -				 int total_len, bool last_segment, u32 queue)
->> +static int stmmac_tso_allocator(struct stmmac_priv *priv, void *addr,
->> +				int total_len, bool last_segment, u32 queue, bool is_skb_frag)
+> 		tmp_len = total_len;
 > 
-> The line above could be trivially wrapped to <= 80 columns wide, as is
-> still preferred for networking code. Likewise a little further below.
+> 		while (tmp_len > 0) {
+> 			dma_addr_t curr_addr;
 > 
-> Likewise elsewhere in this patch.
+> 			tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx,
+> 							priv->dma_conf.dma_tx_size);
+> 			...
+> 			curr_addr = des + (total_len - tmp_len);
+> 			if (priv->dma_cap.addr64 <= 32)
+> 				desc->des0 = cpu_to_le32(curr_addr);
 > 
-> You can pass an option to checkpatch.pl to check for this.
+> so on the first loop you've got:
+> 	tmp_len = total_len
+> 	...
+> 	curr_addr = des + total_len - temp_len
+> 	i.e.
+> 	curr_addr = des
+> meaning with the "first" handling I've highlighted we've got
+> 	first->des0 = des
+> 	"next"->des0 = des
 > 
->>  {
->>  	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
->>  	struct dma_desc *desc;
->>  	u32 buff_size;
->>  	int tmp_len;
->> +	unsigned char *data = addr;
->> +	unsigned int offset = 0;
+> where "next" is the cur_tx descriptor in the first loop of
+> stmmac_tso_allocator() (essentially the second descriptor).
+> That seems broken to me, and was that way prior to this patch.
 > 
-> Please consider arranging local variables in Networking code in
-> reverse xmas tree order - longest line to shortest.
+able to verify for DMA mask < 32 and > 32 . We will update final patch by taking cares of others commnet
+> You've modified the behavior in this patch unintentionally. I think it
+> needs modifying, but it should be done so explicitly in its own patch
+> prior to this one. I also think the current modification in this patch
+> isn't a fix. See prior reply below where I highlighted the programming as I
+> understand it with this patch applied, which would result in something
+> like.
 > 
-> Edward Cree's xmastree tool can be of assistance here:
-> https://github.com/ecree-solarflare/xmastree
+> first->des0 = des
+> first->des1 = des + proto_hdr_len
+> "next"->des0 = des + proto_hdr_len
 > 
+> Which again seems wrong, two descriptors pointing to the same address
+> isn't making sense to me.
+> 
+> Sorry to sound like a broken record, but I want to make sure we're on
+> the same page! Sounds like you're looking into it based on the below
+> comment, but some of these comments here made me think I didn't explain
+> the situation well enough.
+> 
+>>>
+>>> Should we be adding the payload length (TSO_MAX_BUFF_SIZE I suppose
+>>> based on the tmp_pay_len = pay_len - TSO_MAX_BUFFSIZE above)? It seems
+>>> that <= 32 results in duplicate data in both the "first" descriptor
+>>> programmed above, and in the "second" descriptor programmed in
+>>> stmmac_tso_allocator().
+>> curr_addr = des + (total_len - tmp_len) is used in while loop in  tso_alloc to get address of all required descriptor . 
+>> descriptor address will be updated finally in tso_alloc by below call .
 >>  
->>  	tmp_len = total_len;
->>  
->> @@ -4161,20 +4165,44 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
->>  						priv->dma_conf.dma_tx_size);
->>  		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
->>  
->> +		buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ? TSO_MAX_BUFF_SIZE : tmp_len;
+>> if (priv->dma_cap.addr64 <= 32)
+>>                                                desc->des0 = cpu_to_le32(curr_addr);
+>>                                else
+>>                                                stmmac_set_desc_addr(priv, desc, curr_addr);
+>>
+>>  Also, since tmp_pay_len is decremented, but des
+>>> isn't, it seems that stmmac_tso_allocator() would not put all of the
+>>> buffer in the descriptors and would leave the last TSO_MAX_BUFF_SIZE
+>>> bytes out?
+>>>
+>>> I highlight all of this because with your change here we get the
+>>> following now in the <= 32 case:
+>>>
+>>>     first->des0 = des
+>>>     first->des1 = des + proto_hdr_len
+>>>     stmmac_tso_allocator(priv, des + proto_hdr_len, ...)
+>>>
+>>> which is a subtle change in the call to stmmac_tso_allocator, meaning
+>>> a subtle change in the descriptor programming.
+>>>
+>>> Both seem wrong for the <= 32 case, but I'm "reading between the lines"
+>>> with how these descriptors are programmed (I don't have the docs to back
+>>> this up, I'm inferring from the code). It seems to me that in the <= 32
+>>> case we should have:
+>>>
+>>>     first->des0 = des
+>>>     first->des1 = des + proto_hdr_len
+>>>     stmmac_tso_allocator(priv, des + TSO_MAX_BUF_SIZE, ...)
+>>
+>> let me check <=32 case only on setup and get back.
+>>>
+>>> or similar depending on if that really makes sense with how des0/des1 is
+>>> used (the handling is different in stmmac_tso_allocator() for <= 32,
+>>> only des0 is used so I'm having a tough time figuring out how much of
+>>> the des is actually programmed in des0 + des1 above without knowing the
+>>> hardware better).
+>>>
+>>> Does that make sense? The prior code seems fishy to me, your change
+>>> seems to unintentionally change that fhsy part, but it still seems fishy
+>>> to me. I don't think you should be changing that code's behavior in that
+>>> patch, if you think it's right then we should continue with the current
+>>> behavior prior to your patch, and if you think its wrong we should
+>>> probably fix that *prior* to this patch in your series.
+>>>
+>>> Thanks,
+>>> Andrew
+>>>
+>>
 > 
-> 		FWIIW, I think that min() would allow this the intent
-> 		of the line above to be expressed more succinctly.
-> 
->> +
->>  		if (tx_q->tbs & STMMAC_TBS_AVAIL)
->>  			desc = &tx_q->dma_entx[tx_q->cur_tx].basic;
->>  		else
->>  			desc = &tx_q->dma_tx[tx_q->cur_tx];
->>  
->> -		curr_addr = des + (total_len - tmp_len);
->> +		offset = total_len - tmp_len;
->> +		if (!is_skb_frag) {
->> +			curr_addr = dma_map_single(priv->device, data + offset, buff_size,
->> +						   DMA_TO_DEVICE);
->> +
->> +			if (dma_mapping_error(priv->device, curr_addr))
->> +				return -ENOMEM;
->> +
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = false;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
->> +		} else {
->> +			curr_addr = skb_frag_dma_map(priv->device, addr, offset,
->> +						     buff_size,
->> +						     DMA_TO_DEVICE);
->> +
->> +			if (dma_mapping_error(priv->device, curr_addr))
->> +				return -ENOMEM;
->> +
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = curr_addr;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].len = buff_size;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = true;
->> +			tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
->> +		}
-> 
-> Maybe my eyes are deceiving me, but there seems to be quite a lot of
-> repetition in the two arms of the if/else condition above. If so, can it be
-> consolidated by moving everything other than the assignment of curr out of
-> the conditional blocks?  (And dropping the {}.)
-> 
->> +
->>  		if (priv->dma_cap.addr64 <= 32)
->>  			desc->des0 = cpu_to_le32(curr_addr);
->>  		else
->>  			stmmac_set_desc_addr(priv, desc, curr_addr);
->>  
->> -		buff_size = tmp_len >= TSO_MAX_BUFF_SIZE ?
->> -			    TSO_MAX_BUFF_SIZE : tmp_len;
->> -
->>  		stmmac_prepare_tso_tx_desc(priv, desc, 0, buff_size,
->>  				0, 1,
->>  				(last_segment) && (tmp_len <= TSO_MAX_BUFF_SIZE),
-> 
-> ...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
