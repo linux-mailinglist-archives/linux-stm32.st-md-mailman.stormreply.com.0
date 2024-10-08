@@ -2,64 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 738D59944DB
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 11:56:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5955D99453E
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2024 12:23:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ECD7C6C841;
-	Tue,  8 Oct 2024 09:56:02 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C00C7C6C841;
+	Tue,  8 Oct 2024 10:23:04 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2113.outbound.protection.partner.outlook.cn [139.219.17.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59A8CC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEB91C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2024 09:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728381360; x=1759917360;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=LvfAntT0wXbH5X1IhTvf7CykMVcP9BvX/yjWZiYGSvg=;
- b=gDobOAOHamrZM3p2KJo2VnT/wnkVTwrxn1YUlfXv78oKXqCN6zGngEj4
- PtFjl/CejyegtzcyPUJsfdphtGBznxF3B1i1OwmpEpLj5/mLxFu+QQ6kh
- A7Auc4a/T8ERkPlqTRASOsPh9QHByYGZXRXZfg99BGoutbbv02inwGcUg
- KfxYdBgwjvOhA8nJB7UXiEcZpmUI1bFnoY4J/Fz7lIbT8RuX69VhMiL9F
- T/q1eXoR3Zx2trkOSvVfG7gdRtNT0k5f5MqL0e9FLN50ElHOdxCXd6h6e
- LQoYUQR6UOv7mFOfCXh7dudgtkYS+dhkmd+Na0zBWw+rlMk5FrYo9wrLT w==;
-X-CSE-ConnectionGUID: HmgBL4GrQA24yBBK+r8g8Q==
-X-CSE-MsgGUID: U12ygSt0Sq6lOjHygf2xNw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11218"; a="27442864"
-X-IronPort-AV: E=Sophos;i="6.11,186,1725346800"; d="scan'208";a="27442864"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2024 02:55:52 -0700
-X-CSE-ConnectionGUID: Aq0MOba5SQyEs6fMt25THw==
-X-CSE-MsgGUID: 1A0DACjuQ1yLc+P0ti9lQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,186,1725346800"; d="scan'208";a="75755815"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 08 Oct 2024 02:55:49 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1sy6wU-0006Du-2F;
- Tue, 08 Oct 2024 09:55:46 +0000
-Date: Tue, 8 Oct 2024 17:55:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Message-ID: <202410081704.Zo2k0SZQ-lkp@intel.com>
-References: <20241007131620.2090104-8-arnaud.pouliquen@foss.st.com>
+ Tue,  8 Oct 2024 10:22:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ktAyFTVGUaJp6vKc8y66S1E/uyCf8Vxdl8mIRoFKw6U6oQs+g33V6IVY4q1K4EK8sBN6dEjuLyv0fKfQz5nnaAPiaXOQIeeaFgMh7DRGLntbWdpm18DkFGnXHzzsczLcPqiKijBNBy0vzOLrBRReWJA7pWNphgmcfKwahDosHY8TyoJ65aixmFqHMQ1IqV/W/glNa0biE5EDjriZvLqS36MgUeLHeY5Yi0szkIcH6NDLVBDmZ67gD8V9WYdxhxoOCCWLKB/nMxigxGODWlRv/68Go9bhifQ5W5BOtLYiud3vpWB9CZP+O9/ywAsXhtLHFZfIj8ksHCzGMiTbB+GL3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WNA5Vi+Wws8szwYywwSUDVbf+/xf6pyHD5DBb+OG+vY=;
+ b=IGPGznEGy7ZQzxCopqFAblyiKYG7s7RabmxZOZU5qyi+cYKsredwUHnDfn/LviWaixsziKhxEO2Aq+IJZIcy2f/JHBCoTHSfPQ0ImCo/BKQBC4bvku0RMaUZVcoIrj0h+3jy2qy7q/lzM0Deyh1q7eXrimHBGGBE0QSVZ9R/N/csIrCvbOossynOq6k4KQSjxxJpvyIMoc2KHeknKEYc/2W+NVC4/Zy28Cl54hUgSWuIVDY0idAm/9RwFhyBcA9Ye4Y3IqA2x9RVl+dkWe9HcatoiH7hQtnFnQUtrD3E8z5Dd4wTn9dqlTUJkL5NT++uCWhOUTSXLyDJX9P9vWEGOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0526.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1d::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.31; Tue, 8 Oct
+ 2024 10:22:54 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::3f35:8db2:7fdf:9ffb]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::3f35:8db2:7fdf:9ffb%5])
+ with mapi id 15.20.8005.031; Tue, 8 Oct 2024 10:22:54 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Serge Semin <fancer.lancer@gmail.com>, Jakub Kicinski <kuba@kernel.org>
+Thread-Index: AQHbEyg0iEwAqHsLX0OP4iFSwMjpobJzf9+AgABNhwCACORZkA==
+Date: Tue, 8 Oct 2024 10:22:53 +0000
+Message-ID: <SHXPR01MB0863DEE88A17DF86B4657F4EE67E2@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0526:EE_
+x-ms-office365-filtering-correlation-id: 400a8f28-37b4-4e60-8e75-08dce7832bb8
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|41320700013|7416014|38070700018; 
+x-microsoft-antispam-message-info: rOYPRtdicSIZf8blDsG2hp+L4+o1oDLEEUVFBXeL0noE6zh5PnPMgevXslrciY4zKnA8K8WI+GFCRAEgtRSYPWq/6CR0Z4WThbUxjNn5JAufc8B3tUwuMG9DMOEsB+BiYfXDjHHKuz3G37741ao7VDGmV1fxOYoTCZEaOfDuUKLHTFStJmK6b3kTsA4RyzJ0XaCkiDBrr1o1PYD1HLubXRx40JOHngnYIEFi5zy/YyZCRSXCUpr/PeDmpYPW9/BMraTq8JKeHq/nD03+BbUmlZvyNB0S74w7lNBc9c8PKi+G79J6y/mJF9a/44GOxpeyFayGmqMCGZyp5bmocnu9neZGW9TDWLraqziDJ+uHW4dM8qP+3CocaCL/JQbipZw0Cy7/gdcB2n39UaWeNrYD3CXGgIxoGHZrvM+63MyTrnW+HIAdyVnOiAuovCY1zf9INWoP6frgMkDrUBGN6JE20JT6G8dK4dlIVbGHj43tibakWI405FcB3ZEHkHVmuw0zlEMQgP6T/gKHIMJMfBDugjnvtObJtj/uMZbB/FQmqGW+ppemKQUn0dN0paAQ8ESu5I/iwKojPBM48/ugVd8R8E59gvTQuXmgLygcFXo7Ca8BUOjqnp/Nn5OtBVF9uR2w
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:zh-cn; SCL:1;
+ SRV:; IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(41320700013)(7416014)(38070700018); DIR:OUT;
+ SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cm5VME9xNVdRdS81VHFoemloejRyWkNIV0lrZC9WdzlmMVhNMUdYMzJGdksx?=
+ =?utf-8?B?dkpFMkN2cS9IUGhySmp3cnp2ejlGL1JPTWh2L21VRnR4UjhFdkJLejY3UFZ1?=
+ =?utf-8?B?aUZLdjZLMnV2OWhHd3dPdEM3MERic0wveW1xb2REbllhWWJnb1JZcW5VNnhn?=
+ =?utf-8?B?ZjUwSnhSUFZzdlM5VGtzRmFmRUcyVi94eGt1bmxQQ0JXZ3JOY2JiMjNoa2RH?=
+ =?utf-8?B?SXZOMTNNRUtTMXBycTdJYi8yeDBtdUtWV0laN2JTRTRJek9aWEpEVFUrSll5?=
+ =?utf-8?B?TS93NDlHTnhuWFFXelpNSm1mMWdhYWRRNWlVZWhTSFNhTjFWa2EvOEt6NHU0?=
+ =?utf-8?B?KzlGUDdTWG1sMXVWUnc0bUhsNkcxVGlZdVFwa2sxZXlDWHl3cmxiNUZxNURw?=
+ =?utf-8?B?NVQ2cUpMWitvbzBIdkdVeitUQ0FNS2FrVUV4YTRPYzFyZE9Qb1dINnovZGtW?=
+ =?utf-8?B?V0dlN0hCdTRwQ2phSXJvbUwyc2E2bWgwTFBjT1dKUGdQWkpucmFDWGx4aUZ4?=
+ =?utf-8?B?bVJybTMyRTRjU3E1L1Fqd0s5UmhIbHo2UStjYzlEOUN3cUFjOGc3VHp0MFhq?=
+ =?utf-8?B?ZDNFSVZ0dUtmT1FhMlcvTWZRMWtxOTZIaFVydzlkQzFjRi9MRms1VHRCSHVk?=
+ =?utf-8?B?V2JZQm1DaDdOT0svQXRVWFdFMWRDQVEwamsrZThNSHUyRzJGTWxFVW1laDZF?=
+ =?utf-8?B?WEhLS3dJSmVMV2ZBRnZ6VzNRRElKWGdDOFBRTTZpaG9ySjlvOERCVjhMTnRl?=
+ =?utf-8?B?eFVKMHFQelZBdkQvOUI5YXU0NTRFMEpWakpCampickJsa25hbkk1ekZSUnFJ?=
+ =?utf-8?B?dVFNeWhQelJaVGM0UGFVdE5YYm1jM2V0dmlEdWNQRnBoR0NWMXVkR2tocFA0?=
+ =?utf-8?B?WnJhVnZFQnZBM29qaG9aUTg4Q1YzTUY0TGJ5Y2JIdGdibWwvaXFXd0tMMWlz?=
+ =?utf-8?B?U05rZFBZZm5GRTZXWk9lRDIyaTZXVzhIM1paVUtRRFYxbVNGb0VkaE01VU5h?=
+ =?utf-8?B?cVh5NitBREp6UUZaVnNPaThycmpXd3NLb09mUFUxOTk1ZlB2MThPeGs2aXU4?=
+ =?utf-8?B?dDN3YmRob0dFRzh0cjlJUUxYRnM3MStxMTRZUlNNMWFtU3gyVE5BcjFOcmFJ?=
+ =?utf-8?B?ekR3dEZaWGxvSzZhd1ZINitDL1QzL1BLVE84Nk43RC8vSkJ4SG9mSldlTVBo?=
+ =?utf-8?B?QzhBMElPMUdidGp4ZmY2NlRXVC9IV2dHTEppbHFWQlEyQWtQbG9DREh2SUNi?=
+ =?utf-8?B?eC85YWhndHR2enFJVzEvMWxUQUwvemExOVoyZ0lpam1nZzZqMlRqL1UxWVBr?=
+ =?utf-8?B?MEN2c0swcVJwcFdnT2lhQVBuNmEwYlVYQmdvNWxYTlBmR2hCSEtzcWFZNnoz?=
+ =?utf-8?B?UWV1SzVCQXh0MUFRTy9xSy9sem80T1pMN3c0ekFxYzRXRzZidHBqWFZuRWNx?=
+ =?utf-8?B?dG5sRHlNdHo1UExRck8vaVRva0FyQmZzSkl1d2VNWENSTDRjdURWWkJEK0w4?=
+ =?utf-8?B?bG9TaDNhOG5nbDNzZm5kSzI3S2NRV002VmYzN2QxVmRURmE1aXBvRkhoamtG?=
+ =?utf-8?B?ekxUbS9KTVFNbkFqWVZtRHBlcmVaTnNkcWtlWUlNSElsZFJJcmFSZWlQV1pI?=
+ =?utf-8?B?MytTeWNlZWtPUDBremo0S3NVMnlmSEoyTHFyeG0rYkFhVCtHVjc2WGhNTkNx?=
+ =?utf-8?B?eGdPRFB2WUE1N0M1S0RKb1RySmEzNUJCbnA0b1RKZS9QRmpUOTltbmJZeTBH?=
+ =?utf-8?B?R3gxSDVZaFQ3SDdQU3BhcS9TR3BWVjJVOEtvVlFVQ1ZHclF2MTVIVnRCWHpB?=
+ =?utf-8?B?dlhBZUpkVlBvVWdYZGNEUVJFKzd4aDM0UTdKWU00dlJEM3hmaCtNWGY0a1hJ?=
+ =?utf-8?B?YWI2QTVaUmloSkNvMWxraml6eU9EZUxnZnl3T1NKN2JOdnJrdExVcU14ZUJn?=
+ =?utf-8?B?ZzdIQzRVSUhueGorWGNyR2ErcTVMQTQvUUtYK0NaTHIzWmZrT29aV29NTUZn?=
+ =?utf-8?B?UThnR29Kd3Y4VkZoRXdRQlYyYlhqTnVUQVhiRytTam02MGlQSGZ4ZmJHU21C?=
+ =?utf-8?B?VzNJNGk2MTk0R20xZXQxUk5uZ0IvSUlqUitpSFozc3lSR0JSWEhuZUdtR2lJ?=
+ =?utf-8?Q?BEDBzgi/eWr9BREnDKdUC7sp9?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241007131620.2090104-8-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v10 7/7] remoteproc: stm32: Add support of
- an OP-TEE TA to load the firmware
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 400a8f28-37b4-4e60-8e75-08dce7832bb8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2024 10:22:53.9508 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1SUqyf06oGM3ozxlQVBqV5lia+sXPb3yqaRtMajvikehsOP3MZ7OeUlRXTqz548l9PBhN93ERvifFcJoAmJ5VNq91NtwjcwaUL7pUDFhfgo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0526
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: dwmac4: Add ip
+ payload error statistics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,66 +124,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on 9852d85ec9d492ebef56dc5f229416c925758edc]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Arnaud-Pouliquen/remoteproc-core-Introduce-rproc_pa_to_va-helper/20241007-212358
-base:   9852d85ec9d492ebef56dc5f229416c925758edc
-patch link:    https://lore.kernel.org/r/20241007131620.2090104-8-arnaud.pouliquen%40foss.st.com
-patch subject: [PATCH v10 7/7] remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
-config: parisc-randconfig-001-20241008 (https://download.01.org/0day-ci/archive/20241008/202410081704.Zo2k0SZQ-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 14.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241008/202410081704.Zo2k0SZQ-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410081704.Zo2k0SZQ-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_load_fw':
->> (.text+0xa8): undefined reference to `tee_shm_register_kernel_buf'
->> hppa-linux-ld: (.text+0x160): undefined reference to `tee_client_invoke_func'
->> hppa-linux-ld: (.text+0x178): undefined reference to `tee_shm_free'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_register':
->> (.text+0x2f4): undefined reference to `tee_client_open_session'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_unregister':
->> (.text+0x3d4): undefined reference to `tee_client_close_session'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_probe':
->> (.text+0x478): undefined reference to `tee_client_open_context'
->> hppa-linux-ld: (.text+0x4f8): undefined reference to `tee_client_close_context'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_remove':
-   (.text+0x558): undefined reference to `tee_client_close_session'
-   hppa-linux-ld: (.text+0x59c): undefined reference to `tee_client_close_context'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_start':
->> (.text+0x68c): undefined reference to `tee_client_invoke_func'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_stop':
-   (.text+0x7c8): undefined reference to `tee_client_invoke_func'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_get_loaded_rsc_table':
-   (.text+0x92c): undefined reference to `tee_client_invoke_func'
-   hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o: in function `tee_rproc_release_fw':
-   (.text+0xb18): undefined reference to `tee_client_invoke_func'
->> hppa-linux-ld: drivers/remoteproc/remoteproc_tee.o:(.data+0x8): undefined reference to `tee_bus_type'
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for REMOTEPROC_TEE
-   Depends on [n]: REMOTEPROC [=y] && OPTEE [=n]
-   Selected by [y]:
-   - STM32_RPROC [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && REMOTEPROC [=y]
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+DQoNCj4gDQo+IEhpIEpha3ViDQo+IA0KPiBPbiBXZWQsIE9jdCAwMiwgMjAyNCBhdCAwNjo1ODow
+MUFNIEdNVCwgSmFrdWIgS2ljaW5za2kgd3JvdGU6DQo+ID4gT24gTW9uLCAzMCBTZXAgMjAyNCAx
+OTowMjowNSArMDgwMCBNaW5kYSBDaGVuIHdyb3RlOg0KPiA+ID4gQWRkIGR3bWFjNCBpcCBwYXls
+b2FkIGVycm9yIHN0YXRpc3RpY3MsIGFuZCByZW5hbWUgZGlzY3JpcHRlciBiaXQNCj4gPiA+IG1h
+Y3JvDQo+ID4NCj4gPiBkZXNjcmlwdG9yDQo+ID4gICAgICAgICBeDQo+ID4NCj4gPiA+IGJlY2F1
+c2UgbGF0ZXN0IHZlcnNpb24gZGVzY3JpcHRvciBJUENFIGJpdCBjbGFpbXMgaXAgY2hlY2tzdW0g
+ZXJyb3INCj4gPiA+IG9yDQo+ID4gPiBsNCBzZWdtZW50IGxlbmd0aCBlcnJvci4NCj4gPg0KPiAN
+Ckkgd2lsbCBtb2RpZnkgdGhpcy4NCg0KPiA+IFdoYXQgaXMgYW4gTDQgc2VnbWVudCBsZW5ndGgg
+ZXJyb3Igb24gUng/DQo+ID4gU2VlbXMgdG8gbWUgdGhhdCByZXVzaW5nIGlwX3BheWxvYWRfZXJy
+IGhlcmUgd2lsbCBiZSBjb25mdXNpbmcNCj4gDQo+IEZyb20gdGhlIGN1cnJlbnQgImlwX3BheWxv
+YWRfZXJyIiBmaWVsZCBzZW1hbnRpY3MsIE1pbmRhIGlzIGNvcnJlY3QgdG8gdXNlIGl0IGZvcg0K
+PiB0aGUgUnggSVAtcGF5bG9hZCBlcnJvciBzdGF0aXN0aWNzLiBIZXJlIGlzIHRoZSBkZWZpbml0
+aW9uIG9mIHRoZSBJUENFIGZsYWcgKHBhcnQgb2YNCj4gdGhlIFJERVM0IGRlc2NyaXB0b3IgZmll
+bGQpIGNpdGVkIGZyb20gdGhlIFN5bm9wc3lzIERXIFFvUyBFdGggdjUgSFctbWFudWFsOg0KPiAN
+Cj4gQml0ICBOYW1lICBEZXNjcmlwdGlvbg0KPiAgNyAgIElQQ0UgIElQIFBheWxvYWQgRXJyb3IN
+Cj4gICAgICAgICAgICBXaGVuIHRoaXMgYml0IGlzIHNldCwgaXQgaW5kaWNhdGVzIGVpdGhlciBv
+ZiB0aGUgZm9sbG93aW5nOg0KPiAgICAgICAgICAgIOKWoCBUaGUgMTYtYml0IElQIHBheWxvYWQg
+Y2hlY2tzdW0gKHRoYXQgaXMsIHRoZSBUQ1AsIFVEUCwgb3IgSUNNUA0KPiBjaGVja3N1bSkgY2Fs
+Y3VsYXRlZCBieSB0aGUNCj4gICAgICAgICAgICAgIE1BQyBkb2VzIG5vdCBtYXRjaCB0aGUgY29y
+cmVzcG9uZGluZyBjaGVja3N1bSBmaWVsZCBpbiB0aGUNCj4gcmVjZWl2ZWQgc2VnbWVudC4NCj4g
+ICAgICAgICAgICDilqAgVGhlIFRDUCwgVURQLCBvciBJQ01QIHNlZ21lbnQgbGVuZ3RoIGRvZXMg
+bm90IG1hdGNoIHRoZQ0KPiBwYXlsb2FkIGxlbmd0aCB2YWx1ZSBpbiB0aGUgSVAgSGVhZGVyDQo+
+ICAgICAgICAgICAgICBmaWVsZC4NCj4gICAgICAgICAgICDilqAgVGhlIFRDUCwgVURQLCBvciBJ
+Q01QIHNlZ21lbnQgbGVuZ3RoIGlzIGxlc3MgdGhhbiBtaW5pbXVtDQo+IGFsbG93ZWQgc2VnbWVu
+dCBsZW5ndGggZm9yIFRDUCwNCj4gICAgICAgICAgICAgIFVEUCwgb3IgSUNNUC4NCj4gDQogVGhh
+bmtzIGZvciBhZGRpbmcgZGVzY3JpcHRpb24uLiBJIHdpbGwgYWRkIHRoZSB0aGlzIHRvIGNvbW1p
+dCBtZXNzYWdlLg0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
