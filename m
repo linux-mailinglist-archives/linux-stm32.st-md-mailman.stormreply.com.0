@@ -2,78 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EDF5995BEF
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2024 02:03:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7789961B1
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2024 10:03:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 811DBC7128A;
-	Wed,  9 Oct 2024 00:03:01 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86583C712A1;
+	Wed,  9 Oct 2024 08:03:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65999C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24DF7C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Oct 2024 00:02:54 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5398939d29eso7675677e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Oct 2024 17:02:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728432173; x=1729036973;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yxwtbH453mr49OxFcpLGTroCcnxd3uo1nzwIRj8mAjY=;
- b=ggfuDgepkpWvuKo2Mq6ExO3a3r5FxDjO5q/m4pPEX7UEdrJi3Fv0+pIN1QKzv7b9sV
- IFIiLX8W4lYsSM9d9UvyOnyrwDQ/K2nffOByiHOdGNlhzmiipyB/dS3lOJPykaQZAbqN
- zObBYwkhrKfjeOsB+ohWSV3NRa7mCLIq9IUNoSfdyCIgq5MOe8q6l+4KDp3L0v7d+jBk
- q3lFVnuluvqOWAcxdu31483tOR9I3sXTC1+Z0Kr2r1YDruXhEHqt1xoDEEOJYyfkxiZM
- HGvFOX4XWaJXd9VVlPSDqz2ZqAyw0sF+nZXVMnG6uVo2su0BSCtRIc8O1f73N69MOGgt
- Gzdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728432173; x=1729036973;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yxwtbH453mr49OxFcpLGTroCcnxd3uo1nzwIRj8mAjY=;
- b=acghQeGZJtI0/90QACrInSRnf3jHXw7aXvYfJsU8f2t+3qqQSikvBI20wKFkXWD3Gu
- tqWKWy8pmMCWFbrwGU+oj80w71BRMS6/AGADhJFZhPlZJK8KnWB9guBwOgzgqaULE/bI
- QCwFTtevJoPib8Nx6OWzi4VxKCRVCAbRkP+CrSRNQZRtvgJdabeQ/QLxDuImMxY1T8zN
- RoQMNSjYp0llsBRXeX8tcmr3NEe1+B07NHxFxp4lxQ8FfJtW2kEpD87veNL3fehV7PBG
- kEJb1CCj0NYyE6OdftN6H/8KNbnReEnadY6kefzWmVVr+QBrNL4FQ0pauLhLkij24p/2
- AaIw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUH16h5xwkbLLTTX6x+VBsfYyelhj30W+DZ1Dv7XJnEYdeoOK6EXQ+qWtW1ZP761WbVcJPgGmSnoF5E4Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxbRcIiMGcWyu+NyV1bxN6jpkYgKRw6FlTWWEy/NLSiyvmn/Iax
- 2HbhylGXrDdiUn9bxWsyWERRAQffEznq2B7FpIAGf5rFS+Hyfb5H
-X-Google-Smtp-Source: AGHT+IFfScSg3RqS13Zl0PHySDZWYYC+q7HHP6edX40rKGP/tQPnLvRLh2CIs9u4G9RZhlvjAnDbSA==
-X-Received: by 2002:ac2:4e08:0:b0:533:46cc:a736 with SMTP id
- 2adb3069b0e04-539c49481b2mr207653e87.37.1728432173098; 
- Tue, 08 Oct 2024 17:02:53 -0700 (PDT)
-Received: from mobilestation ([85.249.16.95]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff2346csm1365785e87.210.2024.10.08.17.02.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Oct 2024 17:02:51 -0700 (PDT)
-Date: Wed, 9 Oct 2024 03:02:46 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
-Message-ID: <rxv7tlvbl57yq62obsqtgr7r4llnb2ejjlaeausfxpdkxgxpyo@kqrgq2hdodts>
-References: <Zv_BTd8UF7XbJF_e@shell.armlinux.org.uk>
- <vjmounqvfxzqpdsvzs5tzlqv7dfb4z2nect3vmuaohtfm6cn3t@qynqp6zqcd3s>
+ Wed,  9 Oct 2024 08:03:44 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4995evbS025759;
+ Wed, 9 Oct 2024 10:03:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=3uAma6b5+gPHWZkUYZOQ9v
+ vdFnpqFDmgkFuZHup+H1A=; b=kFCuLbeMQikeFjKHo/ij9xJHkFI4qBDfZjqSrA
+ qUJ7OloheciVW2Q6OTY5K2RWw8PR/RxASfrMEgkWCOaOvxwYOqszcJJorih29An3
+ NIEfXkd4qAAqzcu05wDBZ15H644nYs1SlNKAqffHQvBtQMueRmv6ugOcvGyamnHK
+ jhfKbLzhw7GYLIvXjVZ6JzggAdOK0HNKgdU+8MF+x1PxcZvUcYcUtvtNfcgW5b4F
+ yKC+LESp+LAVE7D2vkLmu74SdEtgi4QQwaeXRQXH+DabFGghOYnAtToYvzR4w3sB
+ 1gu7DyK9RY+L1/8afkgnk6OQpxzJbN15W3UXsYkYVEBO/ucQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 423f10yrdr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Oct 2024 10:03:22 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 870EA40050;
+ Wed,  9 Oct 2024 10:02:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C3404219BAB;
+ Wed,  9 Oct 2024 10:01:23 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 9 Oct
+ 2024 10:01:23 +0200
+Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 9 Oct
+ 2024 10:01:23 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Wed, 9 Oct 2024 10:01:01 +0200
+Message-ID: <20241009080108.4170320-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <vjmounqvfxzqpdsvzs5tzlqv7dfb4z2nect3vmuaohtfm6cn3t@qynqp6zqcd3s>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Jose Abreu <joabreu@synopsys.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Vladimir Oltean <olteanv@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 00/13] net: pcs: xpcs: cleanups
-	batch 2
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v11 0/7] Introduction of a remoteproc tee to
+	load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,49 +80,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Oct 05, 2024 at 02:40:42AM GMT, Serge Semin wrote:
-> Hi
-> 
-> On Fri, Oct 04, 2024 at 11:19:57AM GMT, Russell King (Oracle) wrote:
-> > This is the second cleanup series for XPCS.
-> > 
-> > ...
-> 
-> If you don't mind I'll test the series out on Monday or Tuesday on the
-> next week after my local-tree changes concerning the DW XPCS driver
-> are rebased onto it.
 
-As promised just finished rebasing the series onto the kernel 6.12-rc2
-and testing it out on the next HW setup:
 
-DW XGMAC <-(XGMII)-> DW XPCS <-(10Gbase-R)-> Marvell 88x2222
-<-(10gbase-r)->
-SFP+ DAC SFP+
-<-(10gbase-r)->
-Marvell 88x2222 <-(10gbase-r)-> DW XPCS <-(XGMII)-> DW XGMAC
+Main updates from version V10[1]:
+- remove "select REMOTEPROC_TEE" in STM32_RPROC config to fix kernel robot
 
-No problem has been spotted.
+To keep history of the updates I have kept in each patches the description
+of the updates versus the V9[2] revision.
 
-Tested-by: Serge Semin <fancer.lancer@gmail.com>
+Main updates from version V9[2]:
 
--Serge(y)
+- Introduce release_fw remoteproc ops to avoid direct call of
+  tee_rproc_release_fw() in remoteproc_core.c:
+  - allow to remove link between remoteproc and remoteproc_tee
+  - allow to build the remoteproc_tee as a module
 
-> 
-> -Serge(y)
-> 
-> > 
-> >  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c |   2 +-
-> >  drivers/net/pcs/pcs-xpcs-nxp.c                    |  24 +-
-> >  drivers/net/pcs/pcs-xpcs-wx.c                     |  56 ++-
-> >  drivers/net/pcs/pcs-xpcs.c                        | 445 +++++++++-------------
-> >  drivers/net/pcs/pcs-xpcs.h                        |  26 +-
-> >  include/linux/pcs/pcs-xpcs.h                      |  19 +-
-> >  6 files changed, 237 insertions(+), 335 deletions(-)
-> > 
-> > -- 
-> > RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> > FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-> > 
+[1] https://lore.kernel.org/linux-arm-kernel/ZwVATlRbo0OdRLbj@p14s/T/
+[2] https://lore.kernel.org/linux-arm-kernel/ZuMIEp4cVrp1hWa7@p14s/T/
+
+Tested-on: commit 9852d85ec9d4 ("Linux 6.12-rc1")
+
+Description of the feature:
+--------------------------
+This series proposes the implementation of a remoteproc tee driver to
+communicate with a TEE trusted application responsible for authenticating
+and loading the remoteproc firmware image in an Arm secure context.
+
+1) Principle:
+
+The remoteproc tee driver provides services to communicate with the OP-TEE
+trusted application running on the Trusted Execution Context (TEE).
+The trusted application in TEE manages the remote processor lifecycle:
+
+- authenticating and loading firmware images,
+- isolating and securing the remote processor memories,
+- supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+- managing the start and stop of the firmware by the TEE.
+
+2) Format of the signed image:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+
+3) OP-TEE trusted application API:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+
+4) OP-TEE signature script
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+
+Example of usage:
+sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+
+
+5) Impact on User space Application
+
+No sysfs impact. The user only needs to provide the signed firmware image
+instead of the ELF image.
+
+
+For more information about the implementation, a presentation is available here
+(note that the format of the signed image has evolved between the presentation
+and the integration in OP-TEE).
+
+https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+
+Arnaud Pouliquen (7):
+  remoteproc: core: Introduce rproc_pa_to_va helper
+  remoteproc: Add TEE support
+  remoteproc: core: Refactor resource table cleanup into
+    rproc_release_fw
+  remoteproc: Introduce release_fw optional operation
+  dt-bindings: remoteproc: Add compatibility for TEE support
+  remoteproc: stm32: Create sub-functions to request shutdown and
+    release
+  remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+ drivers/remoteproc/Kconfig                    |  10 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/remoteproc_core.c          |  72 ++-
+ drivers/remoteproc/remoteproc_tee.c           | 506 ++++++++++++++++++
+ drivers/remoteproc/stm32_rproc.c              | 145 +++--
+ include/linux/remoteproc.h                    |   8 +
+ include/linux/remoteproc_tee.h                | 107 ++++
+ 8 files changed, 852 insertions(+), 55 deletions(-)
+ create mode 100644 drivers/remoteproc/remoteproc_tee.c
+ create mode 100644 include/linux/remoteproc_tee.h
+
+
+base-commit: 9852d85ec9d492ebef56dc5f229416c925758edc
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
