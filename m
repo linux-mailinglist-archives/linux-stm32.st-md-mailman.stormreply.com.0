@@ -2,48 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5422B997AED
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2024 05:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF05998783
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2024 15:22:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E61FDC712A1;
-	Thu, 10 Oct 2024 03:00:38 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 975DCC6C855;
+	Thu, 10 Oct 2024 13:22:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5583FC7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55F33C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Oct 2024 03:00:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id BF8B9A41B34;
- Thu, 10 Oct 2024 03:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15FE2C4CEC3;
- Thu, 10 Oct 2024 03:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1728529230;
- bh=R+46kwx4752B6j5G/ApPrfa3me8Ik8AUV1Hj0sfi8TA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=hq5fDOgipTPppJ4Hnv5i+mf6CBbD0v/10Kz6vL2ZnJbo46VdM5mMRZXkNA9PssanD
- 4TFdydTZKMTPMS417CWApNRFfxdhaj7cpcpt+oPhJYjhuw4f5EklwGOv8GOBCmUcvR
- xlB50eL+xZ0j+nhFQAUcaabEqSCcsS0GEzrK7J/RNWUVrfONKsctq4mFMkZpv0MCKC
- kMH1H4LM/B8OGwLOeoKwGJ4PyvDEisIW51XXJODzzr18drnTzO9Ell//oIyru8VLIJ
- 6KdZshIMnXnjrzrwfao2GdR3pj/EWrNjuKX9ooDIiTzZDMNZzTPAoh9MzTPEWuU99J
- Ptnmoa/gvCrRA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 9B7983806644; Thu, 10 Oct 2024 03:00:35 +0000 (UTC)
+ Thu, 10 Oct 2024 13:22:26 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49A8iLrg000495;
+ Thu, 10 Oct 2024 15:22:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=selector1; bh=Ccn+f/QO1SGOWh5NjiitG2bf
+ +psS5zLHBT5PvfxdYR8=; b=xdy6LJKZivFTdUh1VV1XDLky5AuuZTcrXAWwIwsO
+ xTDkhIVExC/Q0Tc5IPCvrDtczIXuyTotXmE5JDF6Z3ut433A1hs1hKYWg6B2x6p7
+ 4iMon06BvLBivZOY0doHSLiNagHWbGlaD7Kh9/LJH9byEg8ll9GONLBWHTsA9SX5
+ abVuehsNY/FqSJqmR3tlxicJ7/MYbfL75u/OECm2Jz14ChQtjllpRIcqFfyJmJ5U
+ oFgZbhyXaXXAhq9czU7KQTV3g+K81baE6TEZQj2dZ0tjaZ+WR3SxdlyviILpudra
+ 2GhehTbDClUyxmZyQ+YHZb1bdFzWlI3iq2NYlu1Q0pj6fw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 423f1173q1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Oct 2024 15:22:09 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AD4B54004C;
+ Thu, 10 Oct 2024 15:21:17 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A59E23CB43;
+ Thu, 10 Oct 2024 15:19:34 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 10 Oct
+ 2024 15:19:34 +0200
+Date: Thu, 10 Oct 2024 15:19:29 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20241010131929.GA3275914@gnbcxd0016.gnb.st.com>
+References: <20241009-spi-mp25-device-fix-v1-1-8e5ca7db7838@foss.st.com>
+ <ZwavaP0QHQCyDbtB@finisterre.sirena.org.uk>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <172852923449.1548394.13199964588329484925.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Oct 2024 03:00:34 +0000
-References: <20241008111443.81467-1-minda.chen@starfivetech.com>
-In-Reply-To: <20241008111443.81467-1-minda.chen@starfivetech.com>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3] net: stmmac: Add DW QoS Eth
- v4/v5 ip payload error statistics
+Content-Disposition: inline
+In-Reply-To: <ZwavaP0QHQCyDbtB@finisterre.sirena.org.uk>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-spi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32: fix missing device mode
+ capability in stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,38 +77,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hi Mark,
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue,  8 Oct 2024 19:14:43 +0800 you wrote:
-> Add DW QoS Eth v4/v5 ip payload error statistics, and rename descriptor
-> bit macro because v4/v5 descriptor IPCE bit claims ip checksum
-> error or TCP/UDP/ICMP segment length error.
+On Wed, Oct 09, 2024 at 05:29:28PM +0100, Mark Brown wrote:
+> On Wed, Oct 09, 2024 at 06:15:52PM +0200, Alain Volmat wrote:
 > 
-> Here is bit description from DW QoS Eth data book(Part 19.6.2.2)
+> > Fixes: a4e7908abf0c ("spi: stm32: add st,stm32mp25-spi compatible supporting STM32MP25 soc")
+> > Cc: stable@vger.kernel.org
 > 
-> bit7 IPCE: IP Payload Error
-> When this bit is programmed, it indicates either of the following:
-> 1).The 16-bit IP payload checksum (that is, the TCP, UDP, or ICMP
->    checksum) calculated by the MAC does not match the corresponding
->    checksum field in the received segment.
-> 2).The TCP, UDP, or ICMP segment length does not match the payload
->    length value in the IP  Header field.
-> 3).The TCP, UDP, or ICMP segment length is less than minimum allowed
->    segment length for TCP, UDP, or ICMP.
-> 
-> [...]
+> That SHA1 doesn't exist...
 
-Here is the summary with links:
-  - [net-next,v3] net: stmmac: Add DW QoS Eth v4/v5 ip payload error statistics
-    https://git.kernel.org/netdev/net-next/c/0a316b16a6c8
+Oups, sorry about that.  Sending a v2 with correct SHA1.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Regards,
+Alain
 
 
 _______________________________________________
