@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DEF2999FB0
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2024 11:03:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C3EF99A036
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2024 11:34:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CA9AC71290;
-	Fri, 11 Oct 2024 09:03:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10AB4C71290;
+	Fri, 11 Oct 2024 09:34:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20100C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E573CC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2024 09:03:25 +0000 (UTC)
+ Fri, 11 Oct 2024 09:34:37 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49B82WQq014668;
- Fri, 11 Oct 2024 11:03:11 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49B7jxoS016451;
+ Fri, 11 Oct 2024 11:34:29 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- W32014r5y3QWUubB7ejNQ9RucL4lQCYgXfxr9DFI93s=; b=3R75dh2+n959fKbq
- +QQvxFOLciVR6SRNVBS4EZ3HqkbkSd6f5qRqAkI/AE2cAf6VyTPtc/OSY1MWLYXX
- CnLrDrcQQVEAiuAoZkOdkvDZnoVv0maRtUVEVZtqWOfICN0N3hqEL9QuC9RYl4af
- L1xZM67augvNz2FbiPvUSf5xZBMAh22MxQ9LmVF71WosnwRyJo/xoCsxQegEDfWN
- gYkt+9cc4qMRlqvEdmfVRWsZi0SLkY1vziFKBt9a2f42sbNE3MBeA3jeQaGebyod
- Ng+KlZQxLGq3bDQTempsZgwiVnb4KCIs+Fv+k+FNaAGEEU5FsMKkfHBEpmCbGUG+
- Enm9ug==
+ Cx8wCvxmonPkb1ieC6lKwP2pVMjk4uOgdXPQfU8JtJo=; b=KD7Py/Jcqjd1pUHD
+ 2TCjoUJ0n/G1MuPfk/dhYKv1031rual8A0sF+d4EuwfLW1tqnYRmRAQxl/hNap5+
+ XdRvOMQlD8UPeauFIVc3ZyYy1BWj1a52Lekel5NrS73Gv2q5wBUUy6A01nOi9X9+
+ 8y4l+irexXIUCpKxRnqxQ3CJmthQrk3lHEmnSHft6KIy+De/LBWdVhHl7Yh0FdJ5
+ SkUbE0Xm0/1z+Hx8TWnhVTs9PYkP+L6gPglTtJG9x9HLaZ9WK40wxTfkYMIyeaK+
+ KYO0MRx2BbTMh59+O2j0OQTAIvgP77/M90Jlhf2LgCYWXDD2p/tuEDn2Wf2VxIM1
+ ZICQJg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 425w9xgt74-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 425w9xh02c-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Oct 2024 11:03:11 +0200 (MEST)
+ Fri, 11 Oct 2024 11:34:25 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 93C594004B;
- Fri, 11 Oct 2024 11:02:13 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 299014005C;
+ Fri, 11 Oct 2024 11:27:58 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD55626D0AD;
- Fri, 11 Oct 2024 11:01:33 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B0A5D26D085;
+ Fri, 11 Oct 2024 11:12:28 +0200 (CEST)
 Received: from [10.48.87.35] (10.48.87.35) by SHFDAG1NODE3.st.com
  (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 11 Oct
- 2024 11:01:33 +0200
-Message-ID: <3b7b46ca-426c-44a9-b4f2-ce104e0d3b1c@foss.st.com>
-Date: Fri, 11 Oct 2024 11:01:32 +0200
+ 2024 11:12:28 +0200
+Message-ID: <20394a61-72b8-4d92-ac35-201368035bde@foss.st.com>
+Date: Fri, 11 Oct 2024 11:12:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Rob Herring <robh@kernel.org>
 References: <20241010-dma3-mp25-updates-v1-0-adf0633981ea@foss.st.com>
- <20241010-dma3-mp25-updates-v1-4-adf0633981ea@foss.st.com>
- <20241010181426.GA2107926-robh@kernel.org>
+ <20241010-dma3-mp25-updates-v1-6-adf0633981ea@foss.st.com>
+ <20241010181645.GA2121939-robh@kernel.org>
 Content-Language: en-US
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20241010181426.GA2107926-robh@kernel.org>
+In-Reply-To: <20241010181645.GA2121939-robh@kernel.org>
 X-Originating-IP: [10.48.87.35]
 X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
  (10.75.129.71)
@@ -63,8 +63,8 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 04/11] dt-bindings: dma: stm32-dma3:
- prevent linked-list refactoring
+Subject: Re: [Linux-stm32] [PATCH 06/11] dt-bindings: dma: stm32-dma3:
+ introduce st, axi-max-burst-len property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,56 +81,67 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/10/24 20:14, Rob Herring wrote:
-> On Thu, Oct 10, 2024 at 04:27:54PM +0200, Amelie Delaunay wrote:
->> stm32-dma3 driver refactors the linked-list in order to address the memory
->> with the highest possible data width.
->> It means that it can introduce up to 2 linked-list items. One with a
->> transfer length multiple of channel maximum burst length and so with the
->> highest possible data width. And an extra one with the latest bytes, with
->> lower data width.
->> Some devices (e.g. FMC ECC) don't support having several transfers instead
->> of only one.
->> So add the possibility to prevent linked-list refactoring, by setting bit
->> 17 of the 'DMA transfer requirements' bit mask.
+
+
+On 10/10/24 20:16, Rob Herring wrote:
+> On Thu, Oct 10, 2024 at 04:27:56PM +0200, Amelie Delaunay wrote:
+>> DMA3 maximum burst length (in unit of beat) may be restricted depending
+>> on bus interconnect.
 >>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
->> ---
->>   Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> index 5484848735f8ac3d2050104bbab1d986e82ba6a7..38c30271f732e0c8da48199a224a88bb647eeca7 100644
->> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> @@ -99,6 +99,9 @@ properties:
->>           -bit 16: Prevent packing/unpacking mode
->>             0x0: pack/unpack enabled when source data width/burst != destination data width/burst
->>             0x1: memory data width/burst forced to peripheral data width/burst to prevent pack/unpack
->> +        -bit 17: Prevent linked-list refactoring
->> +          0x0: don't prevent driver to refactor the linked-list for optimal performance
->> +          0x1: prevent driver to refactor the linked-list, despite not optimal performance
+>> As mentionned in STM32MP2 reference manual [1], "the maximum allowed AXI
+>> burst length is 16. The user must set [S|D]BL_1 lower or equal to 15
+>> if the Source/Destination allocated port is AXI (if [S|D]AP=0)".
 > 
-> Driver settings don't belong in DT. Perhaps reword it in terms of h/w
-> constraints (i.e. single transfer limitation).
+> This should be implied by the SoC specific compatible.
 > 
 
-Thanks for the review and suggestion. I'll reword it in V2. Indeed, it 
-is due to single transfer limitation, e.g. for ECC status registers 
-transfer.
-
--bit 17: Prevent additional transfers due to linked-list refactoring
-   0x0: don't prevent additional transfers for optimal performance
-   0x1: prevent additional transfers to accommodate user constraints 
-such as single transfer
-
+I took an example from snps,dw-axi-dmac.yaml (snps,axi-max-burst-len). 
+But I agree, it will be implied by st,stm32mp25-dma3 compatible in V2.
+Patch 8/11 will then be dropped.
 
 Regards,
 Amelie
 
+>>
+>> Introduce st,axi-max-burst-len. If used, it will clamp the burst length
+>> to that value if AXI port is used, if not, the maximum burst length value
+>> supported by DMA3 is used.
+>>
+>> [1] https://www.st.com/resource/en/reference_manual/rm0457-stm32mp2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
+>>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+>> ---
+>>   .../devicetree/bindings/dma/stm32/st,stm32-dma3.yaml          | 11 +++++++++++
+>>   1 file changed, 11 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+>> index 38c30271f732e0c8da48199a224a88bb647eeca7..90ad70bb24eb790afe72bf2085478fa4cec60b94 100644
+>> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+>> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+>> @@ -51,6 +51,16 @@ properties:
+>>     power-domains:
+>>       maxItems: 1
 >>   
->>   required:
->>     - compatible
+>> +  st,axi-max-burst-len:
+>> +    description: |
+>> +      Restrict AXI burst length in unit of beat by value specified in this property.
+>> +      The value specified in this property is clamped to the maximum burst length supported by DMA3.
+>> +      If this property is missing, the maximum burst length supported by DMA3 is used.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    minimum: 1
+>> +    maximum: 256
+>> +    default: 64
+>> +
+>>     "#dma-cells":
+>>       const: 3
+>>       description: |
+>> @@ -137,5 +147,6 @@ examples:
+>>                      <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+>>         clocks = <&rcc CK_BUS_HPDMA1>;
+>>         #dma-cells = <3>;
+>> +      st,axi-max-burst-len = <16>;
+>>       };
+>>   ...
 >>
 >> -- 
 >> 2.25.1
