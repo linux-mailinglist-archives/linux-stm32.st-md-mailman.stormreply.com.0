@@ -2,69 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C3EF99A036
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2024 11:34:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AACC99A0A8
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2024 12:02:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10AB4C71290;
-	Fri, 11 Oct 2024 09:34:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4597C71290;
+	Fri, 11 Oct 2024 10:02:12 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E573CC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2719C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2024 09:34:37 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49B7jxoS016451;
- Fri, 11 Oct 2024 11:34:29 +0200
+ Fri, 11 Oct 2024 10:02:05 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49B7kBUt015393;
+ Fri, 11 Oct 2024 12:01:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Cx8wCvxmonPkb1ieC6lKwP2pVMjk4uOgdXPQfU8JtJo=; b=KD7Py/Jcqjd1pUHD
- 2TCjoUJ0n/G1MuPfk/dhYKv1031rual8A0sF+d4EuwfLW1tqnYRmRAQxl/hNap5+
- XdRvOMQlD8UPeauFIVc3ZyYy1BWj1a52Lekel5NrS73Gv2q5wBUUy6A01nOi9X9+
- 8y4l+irexXIUCpKxRnqxQ3CJmthQrk3lHEmnSHft6KIy+De/LBWdVhHl7Yh0FdJ5
- SkUbE0Xm0/1z+Hx8TWnhVTs9PYkP+L6gPglTtJG9x9HLaZ9WK40wxTfkYMIyeaK+
- KYO0MRx2BbTMh59+O2j0OQTAIvgP77/M90Jlhf2LgCYWXDD2p/tuEDn2Wf2VxIM1
- ZICQJg==
+ 95TUYhry6R22ZNdbrt7ktasqRqP2EG69mmNh12OjVR8=; b=8cTmyw6+tRX/sJJC
+ S1mUbCmn8/44Xw1kBz0ZjAyazUxFFtlm8/d107770OLw9sKNYJBsyrgWkHNow2Tn
+ Nv18PIqhVR6zoU5THcZwZwWscbb75v+/70jw5iFcuTV5NTPdxxvI1DGBNt3o0vCQ
+ 30KngZPY3jxSxKBb0FhzE2R6eXIDjCS/CGfbgEGLhBWUAwXjaRn1JduNdwn52n3h
+ l+WnJgZopoP8pir8djXJdzQq9/jlAD1fUIcgbAbJrKHpSBGZ+559AjjoBF9lieeS
+ WiyL0pjz+STfUkgEGZkpQHWZ7am0R4msIF54fjHMJu75Gwg7jYVKNyKb2oQ5Ue1m
+ kKoVGA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 425w9xh02c-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 425q9839mh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Oct 2024 11:34:25 +0200 (MEST)
+ Fri, 11 Oct 2024 12:01:38 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 299014005C;
- Fri, 11 Oct 2024 11:27:58 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B0A5D26D085;
- Fri, 11 Oct 2024 11:12:28 +0200 (CEST)
-Received: from [10.48.87.35] (10.48.87.35) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D904C40054;
+ Fri, 11 Oct 2024 12:00:05 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6566E268186;
+ Fri, 11 Oct 2024 11:57:06 +0200 (CEST)
+Received: from [10.252.28.117] (10.252.28.117) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 11 Oct
- 2024 11:12:28 +0200
-Message-ID: <20394a61-72b8-4d92-ac35-201368035bde@foss.st.com>
-Date: Fri, 11 Oct 2024 11:12:27 +0200
+ 2024 11:57:05 +0200
+Message-ID: <9283caeb-1b84-43c2-a8a4-6b43a6962f34@foss.st.com>
+Date: Fri, 11 Oct 2024 11:55:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>
-References: <20241010-dma3-mp25-updates-v1-0-adf0633981ea@foss.st.com>
- <20241010-dma3-mp25-updates-v1-6-adf0633981ea@foss.st.com>
- <20241010181645.GA2121939-robh@kernel.org>
+To: Marek Vasut <marex@denx.de>, Olivia Mackall <olivia@selenic.com>, Herbert
+ Xu <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20241007132721.168428-1-gatien.chevallier@foss.st.com>
+ <20241007132721.168428-3-gatien.chevallier@foss.st.com>
+ <2fad1566-49f9-4586-b0d4-8a4a12f9e69e@denx.de>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20241010181645.GA2121939-robh@kernel.org>
-X-Originating-IP: [10.48.87.35]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <2fad1566-49f9-4586-b0d4-8a4a12f9e69e@denx.de>
+X-Originating-IP: [10.252.28.117]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+Cc: devicetree@vger.kernel.org, Yang Yingliang <yangyingliang@huawei.com>,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 06/11] dt-bindings: dma: stm32-dma3:
- introduce st, axi-max-burst-len property
+Subject: Re: [Linux-stm32] [PATCH 2/4] hwrng: stm32 - implement support for
+ STM32MP25x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,69 +86,25 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 10/10/24 20:16, Rob Herring wrote:
-> On Thu, Oct 10, 2024 at 04:27:56PM +0200, Amelie Delaunay wrote:
->> DMA3 maximum burst length (in unit of beat) may be restricted depending
->> on bus interconnect.
+On 10/7/24 15:54, Marek Vasut wrote:
+> On 10/7/24 3:27 PM, Gatien Chevallier wrote:
+>> Implement the support for STM32MP25x platforms. On this platform, a
+>> security clock is shared between some hardware blocks. For the RNG,
+>> it is the RNG kernel clock. Therefore, the gate is no more shared
+>> between the RNG bus and kernel clocks as on STM32MP1x platforms and
+>> the bus clock has to be managed on its own.
 >>
->> As mentionned in STM32MP2 reference manual [1], "the maximum allowed AXI
->> burst length is 16. The user must set [S|D]BL_1 lower or equal to 15
->> if the Source/Destination allocated port is AXI (if [S|D]AP=0)".
-> 
-> This should be implied by the SoC specific compatible.
-> 
+>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> A bit of a higher-level design question -- can you use 
+> drivers/clk/clk-bulk.c clk_bulk_*() to handle all these disparate count 
+> of clock easily ?
 
-I took an example from snps,dw-axi-dmac.yaml (snps,axi-max-burst-len). 
-But I agree, it will be implied by st,stm32mp25-dma3 compatible in V2.
-Patch 8/11 will then be dropped.
+Hi, I'd like to make sure that we enable the core clock before the bus
+clock so that the RNG hardware block can start its internal tests while
+we ungate the bus clock. It's not a strong opinion but it feels better.
 
-Regards,
-Amelie
-
->>
->> Introduce st,axi-max-burst-len. If used, it will clamp the burst length
->> to that value if AXI port is used, if not, the maximum burst length value
->> supported by DMA3 is used.
->>
->> [1] https://www.st.com/resource/en/reference_manual/rm0457-stm32mp2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
->>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
->> ---
->>   .../devicetree/bindings/dma/stm32/st,stm32-dma3.yaml          | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> index 38c30271f732e0c8da48199a224a88bb647eeca7..90ad70bb24eb790afe72bf2085478fa4cec60b94 100644
->> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
->> @@ -51,6 +51,16 @@ properties:
->>     power-domains:
->>       maxItems: 1
->>   
->> +  st,axi-max-burst-len:
->> +    description: |
->> +      Restrict AXI burst length in unit of beat by value specified in this property.
->> +      The value specified in this property is clamped to the maximum burst length supported by DMA3.
->> +      If this property is missing, the maximum burst length supported by DMA3 is used.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 1
->> +    maximum: 256
->> +    default: 64
->> +
->>     "#dma-cells":
->>       const: 3
->>       description: |
->> @@ -137,5 +147,6 @@ examples:
->>                      <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
->>         clocks = <&rcc CK_BUS_HPDMA1>;
->>         #dma-cells = <3>;
->> +      st,axi-max-burst-len = <16>;
->>       };
->>   ...
->>
->> -- 
->> 2.25.1
->>
+Cheers,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
