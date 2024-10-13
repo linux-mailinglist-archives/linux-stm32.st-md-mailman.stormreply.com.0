@@ -2,186 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 628E299C3AD
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3CF99C3B5
 	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2024 10:42:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA25CC78037;
-	Mon, 14 Oct 2024 08:42:53 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 614BFC78F69;
+	Mon, 14 Oct 2024 08:42:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08E93C7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48887C78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Oct 2024 14:33:36 +0000 (UTC)
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 499DfdBV004619;
- Wed, 9 Oct 2024 14:32:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=corp-2023-11-20; bh=/x8wBvaPpjmHHwKUdR
- vLLISstp7VXcDCRWcub3zAciA=; b=C4BAQQI7GSGT5qeel0JcaOoFq+roE8kVgR
- snvtkgkQzqzJGazrwXqZ70/PIjkeMc4O7Gd1Qr1PFC3sPwRwxtH/agRrARncau0x
- Qs6aO09fDIAaFpr76hCwGHCUVK91lwURuzhfAwkcB0pT1sg6ipexssmbHHmW+6Rp
- f51aIkNW7ChHeHzQ8n+Gze7dg2aCJmYfxyGSn+GDii84Yha83TLmgbZo/sX6cYD4
- /BRiV3+Eq3GjTCZ1ZwNlNgKDeI30Rb/2KmVYZMiAgfpsFOZYFmkEhtPuZp0hQSHA
- ykgWhvCMVTbxZfGRB7TIXNBXEQG/dJqlQWsH+Yrr48oES83pN1LA==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 423034rq4t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 09 Oct 2024 14:32:56 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 499DqiZv019130; Wed, 9 Oct 2024 14:32:55 GMT
-Received: from nam11-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam11lp2176.outbound.protection.outlook.com [104.47.57.176])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 422uweyfym-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 09 Oct 2024 14:32:55 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=km0kRC08812ZoVxwZA5wfh0bRxxFAc8UvSBiafsOb7VnwTLhlSUvhuqR/r2neW/8YUsTPWd8lXWZ4XtOPOWRPXPRqtcT8h08GxE8dpvndruWKRhOhe0ZzRE9dxwta8vVT3qXM5kOc+deqHou9m+2Cnkih0ZTPygr0mHYYdBaEeP3WyOxOJcmDI5Xgaqe89X3eItCIjqot2lHJCd+0hzMwlCIEJkq+PCfhTFz8E844/iSHlOo3SjizAcvXbfFvslipxYqA5h1nSYd8pBsRg6x8P+6nJ6EEzPZspWm/PH3TsCZx1QdA2+N1up4dQixdnMlpqcmbgK3euGWYx6x42vCqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/x8wBvaPpjmHHwKUdRvLLISstp7VXcDCRWcub3zAciA=;
- b=xa2HGqKgJDzJP0/KagEAs+RR9BKnjTVeCNP0iQGlI3JU12VEeZFnvpOqIfmD3PycwnLUIrabIBYBr6hh0sJyDp2VYMkTygg6K2ayQucLiXrc/2hm+apkP4u3OEEwBGIWPmdWt+vxy3oIAiBPOHu3DusM4vGR1qzWG9pUmsbw7ZGXEvV/yJt0+JHeEkDqvWjeQwoPYDy+5f1lj2Rxi6OaG/PnzLVf4Y5wXAt2O80RFlewTzGOp+EqYoFKAyj6ByxKnfklGf7/lDOpxWpn1GuDzq5VW7mtzTessWltLCuzAsE60f5HpXc8s8BoCQn/fEzcP1HIP6SlX1M5+SgI1XsdZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/x8wBvaPpjmHHwKUdRvLLISstp7VXcDCRWcub3zAciA=;
- b=TertyEBaa5YlD4tnpOkcvcPv2wyzRCF7Bdxj2xZnYnWXMGfh433cMWCmIBA9pc5w2lYHRACiRiM+wajYxkuSnx1xENAh480dHVCGkQCVpKUaxt11W8raGXKkG+pTLk5iffQyOa8PTFHcnC6aHYaSNPDeuBJ05Bxn1ZD5z88ZucU=
-Received: from SJ0PR10MB5613.namprd10.prod.outlook.com (2603:10b6:a03:3d0::5)
- by IA0PR10MB7370.namprd10.prod.outlook.com (2603:10b6:208:3dd::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Wed, 9 Oct
- 2024 14:32:48 +0000
-Received: from SJ0PR10MB5613.namprd10.prod.outlook.com
- ([fe80::4239:cf6f:9caa:940e]) by SJ0PR10MB5613.namprd10.prod.outlook.com
- ([fe80::4239:cf6f:9caa:940e%5]) with mapi id 15.20.8026.020; Wed, 9 Oct 2024
- 14:32:48 +0000
-Date: Wed, 9 Oct 2024 15:32:46 +0100
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <fcd1afe6-16f6-4a51-8bb4-08ece80337f4@lucifer.local>
-References: <20240925210615.2572360-1-arnd@kernel.org>
- <20240925210615.2572360-6-arnd@kernel.org>
- <b7f7f849-00d1-49e5-8455-94eb9b45e273@redhat.com>
- <1a1f118e-9a7c-4c66-b956-d21eb36fce48@app.fastmail.com>
-Content-Disposition: inline
-In-Reply-To: <1a1f118e-9a7c-4c66-b956-d21eb36fce48@app.fastmail.com>
-X-ClientProxiedBy: LO4P265CA0023.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::13) To SJ0PR10MB5613.namprd10.prod.outlook.com
- (2603:10b6:a03:3d0::5)
+ Sun, 13 Oct 2024 21:28:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C9ECC5C5616;
+ Sun, 13 Oct 2024 21:27:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 87542C4CEC5;
+ Sun, 13 Oct 2024 21:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1728854877;
+ bh=2J/X2hiCuNODJ8Ht7z/AVpabipXFZ+tjUjf+e1KY4Bc=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=oQyJ9f1IxArTESrxsU6Qy/b9vgNtSpYoTlB2W+1unAU1ILkDe4TQAwdL4Y3f09DbY
+ npkIB4XN3+qkAT3BOOvy25d1WmiFGHwXopcnY3F9i9+Qrkbkd10W13PgJOguBCqAOO
+ kHmN+o/5WJ/kd81Q/v51kvyohk1l4IBimFjeOCBN1v8HUL6n7rgKcyvp0JuO00F1OL
+ P6AJkFmlWm0Dd95u2EXEUrY/Xk8liyiIkl6QT7x0YQ/XN16/2UYDHJEfqhJD4uV1Fd
+ 2zdMgmgJXmh+1J2b/2Vu26wU/iD1uqmAwVsTnn7NGTooV+p5IALXAVjbkztRQnYXZ1
+ dZs/Ke1hQ7LdA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6B891CF2591;
+ Sun, 13 Oct 2024 21:27:57 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Sun, 13 Oct 2024 23:27:35 +0200
+Message-Id: <20241013-upstream_s32cc_gmac-v3-0-d84b5a67b930@oss.nxp.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5613:EE_|IA0PR10MB7370:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3802db9f-4932-4d35-b49a-08dce86f3f8e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7N/M2g5aQ6AoKg5/kd9rwV9imS3w1u41fKu43dE6q76t7KB8iUoICxwSn8jJ?=
- =?us-ascii?Q?TBihNEDEvvtlpE+uDIRc3PMe7utv9hOLJ25qaQ87egGIi+yXOwhGTY2MqeVo?=
- =?us-ascii?Q?HPmzkMOZC6DscyyjXG2MThLqZ3nWl9tl5oeKwWuORPTTseWfQiNkGEqjxSQ0?=
- =?us-ascii?Q?QAjrPV8dC+m6Tu17XCNSsUXHd+mOkP4nvoebl0N2JoV11e5DAZfIUnZBD/aU?=
- =?us-ascii?Q?5S87/vQdo59BInQkb1HRui4qT2ro4PenCQzI0Yq21zPBY9YTRORU94HAisjX?=
- =?us-ascii?Q?jNg8MosnqqWsFrEjaXwydeYPRuzQTIWlt75RBsqSDLfTGOKNHMALvBpd70VL?=
- =?us-ascii?Q?WbepA350oUpkpeFYfFh1GYCkvcbF+L43X/CKwC4N/tA8Ez1cvIGqYvEYxRD2?=
- =?us-ascii?Q?W8nmtavQZconLJaPPZQvdSdpnPK9uP4QjNJN5xW4gWeiX+gL9froXp4Pv7p/?=
- =?us-ascii?Q?N7skAV2JLM8wP7xdwJU9ISEk+v2dUG3wNVNlOHtM8THiRBBXrljfEcVmAlUB?=
- =?us-ascii?Q?EN8ZBGnX2sRrGuuFyaZgwWYMJ3mC6mDlDiWO/q1Q1Xc+USJzWdYF4j7KGfSz?=
- =?us-ascii?Q?fUPEQK2DZzmSDdABXD4ISr1x/vcBwVLWQ5xeojnIa+d6SSguGSTUpEgjZWV0?=
- =?us-ascii?Q?qrvy8ClJ+JjFgsl1rpX4ZkzS0DzYxGU6txejmr44rVYwqm1TdBT5XyX1awii?=
- =?us-ascii?Q?T07MQ2t/rL4vT8SKVwrYdH3XfAroBrncUTGxVaImG+NVnPSPXyxgNWqU483s?=
- =?us-ascii?Q?uWcCOszgsqjHRSadQDkwkTxN6tbm647jfL+b3g6h1TgBJRFqu5hGsLQnnm09?=
- =?us-ascii?Q?gbq/LDUC/CCjO57HHimRacZ5sYLQVdmds1nDc30zBIemkrzrYtBj6hSYJHXo?=
- =?us-ascii?Q?NEoBR2zruYthKNv9lXCDfGclw079DENE0e8YNhf9+dvzqeiuW1AaVJAEtT7u?=
- =?us-ascii?Q?vTtQBm/Q5k5WuwSV12USIvyccRARKSenz6KJ8CDbgMEsJRjUsB3AchpKcvab?=
- =?us-ascii?Q?dT+W7Ewl+utga8c5QG3VlS7ZtIxlLgLM/8rroqXnEwP8pQ3DAzL+YF6dEjMu?=
- =?us-ascii?Q?L36maGUU6EfKh85BSNuzYpZ2C75oc9Yjh4wxf4EFr3JLPBg6JhAHeshHVioC?=
- =?us-ascii?Q?C7szbLZpxeUV50ySQqekenKXsMueUpPQqunDIKGnFanxu2JxUon1R5sBaVOg?=
- =?us-ascii?Q?seVscXRjpsfDXZLdbS36oK1/T50/SBLsRdKVWlLoDUc1z97Mlx2hBVZSYuo/?=
- =?us-ascii?Q?FCI5mgJQDLZTEq8I1/1xnMuAH78pWppJYdLqtj45iw=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR10MB5613.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7TKMfW8DmRgAQAfVU1YAy+rqRds6e6RLtNRtNEEFdGzZH07xBU0+Xs+ujM2G?=
- =?us-ascii?Q?HT/L5mUlJQS5sH/qzidGWW0qc3IaOlnNnn/2HaJdTpOK07Xzp/Asxo+NFEkp?=
- =?us-ascii?Q?sHoSSl9kRLjo3r3XnnQga0MPIEwQfVHuWRlJFZq+NC3CzvBaZK1nLO1fBEwX?=
- =?us-ascii?Q?yDFbqdMEw2dooxsuSN+gkT7PLljsy8NrEm7T+rH/a4B5JsfPSxtLnND35SpU?=
- =?us-ascii?Q?xwUwXNpdxJfrfo1xMbPa1lgcSHs5/fq5oh7/wpdq1e6eC0AFKHryOfrE+i/C?=
- =?us-ascii?Q?kePTqJTpSP7M+nNkgb433jL9+qzm0fhp0Iz6MNvTBdipxq1qWM2UjhPjINT0?=
- =?us-ascii?Q?NM/YUFQTgu7NAqMSWQaZdY4dC8RXKSSFWoib9SsS00MYvjDg446kY4NEVYcJ?=
- =?us-ascii?Q?/quwv1gNGKm1JxH+/JFuAR3CEHs2wls6iyt03YPbUjVTo5137gn8xTKK8Y64?=
- =?us-ascii?Q?oDoZU0M64c9hXRhWJ2/HpVgGXdklYtqne3cmwm5l5ZgmV5zqreNxalmkYJxZ?=
- =?us-ascii?Q?xe7Sumz4jyMN60+1oxTiCTn4kYB8RrtBtioORAZ8WmLWw6BVBHsM/Kd5Gbyu?=
- =?us-ascii?Q?vlpUZpyRUUUvBvaZ6vblqdNTZzkf/8GlMehcUjlNtomTpjVDEwxpz8azJ9S2?=
- =?us-ascii?Q?sa61osnNzYOEZkJVPJvKTth6aWgZcWUJLuAAxVt/wXUc9BYKReLArdtywHdK?=
- =?us-ascii?Q?+2PsVrHQ6dNGG9IcJWxtkuuM5TAWeTV1X/C9UtG4TltVm/X0ev2F0kd3RHPS?=
- =?us-ascii?Q?Gm1R5elZo+vr/VQRpeVsWQgEH+RvEBIpOduzwKkyP/n59Ch+QnsWPW0jbdAi?=
- =?us-ascii?Q?JSoSjr9NLl1Iy1kGeSVxd2NhDknb08QHGBMS+Whn3tOqMv4hihWFk/PD16m7?=
- =?us-ascii?Q?X+OW+Fq2o+0I8ww8vaWMcck818GdFwXAEAgY5b7tYOiycBDFgcQ7H0gbtY+p?=
- =?us-ascii?Q?xLyl2opmEqS2NE+AkmkYvgBCiDqKnOY0XzXlYLsAICgcTRpx3rImsocd/+hP?=
- =?us-ascii?Q?hJqOG3TTB+il7LQQsmLHb3Vv05cWtqgg1Up4MLkFDSJUlNw29Vem9EYmk3QG?=
- =?us-ascii?Q?m1rhxaGpMfVkufiKVEe+SKVw7SDc2iIXXzq6cYd7oIKD2EHkr4lPGHvF3Xwo?=
- =?us-ascii?Q?myvQWT0PBrHfSxQMy03us1MI9+2z9V6C1wxper7/5Qo6emeGALQzNs2OEEJZ?=
- =?us-ascii?Q?7+fvSO9THRULKfwHd+mHzFhNGCpp4Sunwme99ca73fO8eaCDZ8eSdcrEgE2r?=
- =?us-ascii?Q?0p7bcip9SlOP6RwTLz8ecNwrdNrhOVt7IqezUvLHWEe8WDXX/3AIMIhN2j1N?=
- =?us-ascii?Q?tXlvleeu8NQ8ZYCK+jafyM3eyIqM5a4qET9Z+QIe81VOhgTfgcyPXs+BBoi0?=
- =?us-ascii?Q?sefjQfMHo1wUKTJxoWw3ZXQNK7rQxW0wPKRfqr1iRd/Vj9YY+OfUH5XUUEyw?=
- =?us-ascii?Q?/lA53pZ5w0iUSElV88oQkSK7m5DHh8+y6O/9PRQVnjzDLz8ElydRN5ztNe3j?=
- =?us-ascii?Q?lxT7+TiXVotblX4Kc6roVYjhuvoOeEpY8O3XHzKqwsYOLP4kcAZXq371NGHK?=
- =?us-ascii?Q?2oadHu6GUbcUxmocCJKZ/FhD0jBBBkbAAUBznISvZQiHgb5lbXPU7RAvD1zN?=
- =?us-ascii?Q?Ng=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: n1ZjaYGcxhlrfnybMim6imnPPMamuArFxkVrt51ixlBxg6Y023IbbAuVGPrVi2kcnKqclAOMLWfKzdACgB60pvuIleVIs5l+FC9lWDnHaRCmY8LyU9wDYjL9yBzTlMEUuM7zmsuctYAgaEobapb2ksRh2B6PReoSuesLW2K//s4Gv7LldfTZLV7FaNE6Z6ae2+bDH3VsLqoE9tANBQ7aQE9ZT86QwXfJMmYGjbMpviL4s/Rc7E1A2N9IQzolqrUO9kX+gRo+FwJ+r3EJxu5YW8cR3Er8GmTRPJt4BEpxUcSNYKa9WO1ucxRguK6igpQIErDGL7SbROMK9iUt15JNMowGI897bQMB80hRNfypMWn8XnSZpJLCovVR7IooEQIs3O/NMca8jepf1L1CL/laiyJA6QR7ABBGTwjl1sfzrNhmlaLfH0bkYxuWwyHR/q/gjZG9Pczw03tqBPFzF2pSZeejH6BP1PU9xZGkL/m0NJ2FzyTIOXE30igfRa87de1M+iZAVIvKXV2ogGfAZScvRqYDsg4Zgw9zSArXYkVUkJ6Oxv2Nl3dW/HEvjYhfbsSqCsdFQgt+sDlblQ5qupT1ZjhJXb2lUh7DQHRFaf4+Xpg=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3802db9f-4932-4d35-b49a-08dce86f3f8e
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5613.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2024 14:32:48.5893 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hvL42HVkZlRIO5pZfcpCI0uVQGxRHsnSRLeY9Xjp1wk526ou1bvWMKxffe/hiBitWHEEGXhYDKpiS6z1wpBuyZNQpVwxTEGdanffPtHv+W4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB7370
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-10-09_12,2024-10-09_02,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- phishscore=0 mlxscore=0
- malwarescore=0 bulkscore=0 mlxlogscore=900 suspectscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2409260000
- definitions=main-2410090089
-X-Proofpoint-GUID: EWmiXcNgyZcG3bW_48ouBLDLJCcMo8DG
-X-Proofpoint-ORIG-GUID: EWmiXcNgyZcG3bW_48ouBLDLJCcMo8DG
+X-B4-Tracking: v=1; b=H4sIAEc7DGcC/x3MSQqAMAxA0atI1hY0db6KSKk1ahYONCqCeHeLy
+ 7f4/wEhzyTQRA94ulh4WwN0HIGb7TqR4iEYMMEsqVGrc5fDk12MaHTOTIt1qqjqlPoy71MsIJS
+ 7p5Hv/9p27/sBCKI3SmUAAAA=
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>, 
+ Minda Chen <minda.chen@starfivetech.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>, 
+ Keyur Chudgar <keyur@os.amperecomputing.com>, 
+ Quan Nguyen <quan@os.amperecomputing.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1728854875; l=3830;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=2J/X2hiCuNODJ8Ht7z/AVpabipXFZ+tjUjf+e1KY4Bc=;
+ b=N1XXm6twcb9Ly1bnTdMtCh4TGGSqesmvTCxPJmrgU+2pNf3ToKecL1yajDIOnK73jRj1Q3EHe
+ vxK6Gt65iKWB8mchgSwkwz0/M1t85nndEj/7IowP7Z6TX/iJwOdUGoa
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 X-Mailman-Approved-At: Mon, 14 Oct 2024 08:42:52 +0000
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
- David Hildenbrand <david@redhat.com>, Ard Biesheuvel <ardb@kernel.org>,
- linux-mips@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Greg Ungerer <gerg@linux-m68k.org>, Linux-Arch <linux-arch@vger.kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Helge Deller <deller@gmx.de>,
- Andreas Larsson <andreas@gaisler.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, Christoph Hellwig <hch@lst.de>,
- Kees Cook <kees@kernel.org>, Matt Turner <mattst88@gmail.com>,
- Vladimir Murzin <vladimir.murzin@arm.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Nicholas Piggin <npiggin@gmail.com>, Damien Le Moal <dlemoal@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Vlastimil Babka <vbabka@suse.cz>,
- Arnd Bergmann <arnd@kernel.org>, Christian Brauner <brauner@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
- linux-mm@kvack.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] [RFC] mm: Remove MAP_UNINITIALIZED
-	support
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ Andrei Botila <andrei.botila@nxp.org>,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-msm@vger.kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 00/16] Add support for Synopsis DWMAC IP on
+ NXP Automotive SoCs S32G2xx/S32G3xx/S32R45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -193,62 +92,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: jan.petrous@oss.nxp.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 26, 2024 at 01:54:09PM +0000, Arnd Bergmann wrote:
-> On Thu, Sep 26, 2024, at 08:46, David Hildenbrand wrote:
-> > On 25.09.24 23:06, Arnd Bergmann wrote:
-> >
-> > The first, uncontroversial step could indeed be to make
-> > MAP_UNINITIALIZED a nop, but still leave the definitions in mman.h etc
-> > around.
-> >
-> > This is the same we did with MAP_DENYWRITE. There might be some weird
-> > user out there, and carelessly reusing the bit could result in trouble.
-> > (people might argue that they are not using it with MAP_HUGETLB, so it
-> > would work)
-> >
-> > Going forward and removing MAP_UNINITIALIZED is a bit more
-> > controversial, but maybe there really isn't any other user around.
-> > Software that is not getting recompiled cannot be really identified by
-> > letting it rest in -next only.
-> >
-> > My take would be to leave MAP_UNINITIALIZED in the headers in some form
-> > for documentation purposes.
->
-> I don't think there is much point in doing this in multiple
-> steps, either we want to break it at compile time or leave
-> it silently doing nothing. There is also very little
-> difference in practice because applications almost always
-> use sys/mman.h instead of linux/mman.h.
->
-> FWIW, the main user appears to be the uClibc and uclibc-ng
-> malloc() implementation for NOMMU targets:
->
-> https://git.uclibc.org/uClibc/commit/libc/stdlib/malloc/malloc.c?id=00673f93826bf1f
->
-> Both of these also define this constant itself as 0x4000000
-> for all architectures.
->
-> There are a few others that I could find with Debian codesearch:
->
-> https://sources.debian.org/src/monado/21.0.0+git2905.e26a272c1~dfsg1-2/src/external/tracy/client/tracy_rpmalloc.cpp/?hl=890#L889
-> https://sources.debian.org/src/systemtap/5.1-4/testsuite/systemtap.syscall/mmap.c/?hl=224#L224
-> https://sources.debian.org/src/fuzzel/1.11.1+ds-1/shm.c/?hl=488#L488
-> https://sources.debian.org/src/notcurses/3.0.7+dfsg.1-1/src/lib/fbuf.h/?hl=35#L35
-> https://sources.debian.org/src/lmms/1.2.2+dfsg1-6/src/3rdparty/rpmalloc/rpmalloc/rpmalloc/rpmalloc.c/?hl=1753#L1753
->
-> All of these will fall back to not passing MAP_UNINITIALIZED
-> if it's not defined, which is what happens on glibc and musl.
->
->        Arnd
+The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
+the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
+interface over Pinctrl device or the output can be routed
+to the embedded SerDes for SGMII connectivity.
 
-My point of view on this basis is to rip the bandaid off and get rid. Agree
-with DavidH it's worth keeping some kind of documentation that these
-existed around so somebody grepping and confused can see what happened...
+The provided stmmac glue code implements only basic functionality,
+interface support is restricted to RGMII only. More, including
+SGMII/SerDes support will come later.
+
+This patchset adds stmmac glue driver based on downstream NXP git [0].
+
+[0] https://github.com/nxp-auto-linux/linux
+
+v3:
+- switched to b4 WoW to overcome threading issue with b4
+- extracted the hunk with the typo fix from v2 patch#1 to separate patch
+  as Jacob suggested
+- removed dead code for RMII/MII support, which will be added alter
+- used new rgmii_clock() helper in other stmmac:dwmac glue drivers
+- yaml: compatible strings compressed to simple one "nxp,s32-dwmac",
+  removed duplicated required properties, already defined in snps,dwmac,
+  fixed example
+
+v2:
+- send to wider audience as first version missed many maintainers
+- created rgmi_clk() helper as Russell suggested (see patch#4)
+- address Andrew's, Russell's, Serge's and Simon's comments
+
+Message-ID: <AM9PR04MB85066576AD6848E2402DA354E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+---
+Jan Petrous (OSS) (16):
+      net: driver: stmmac: Fix CSR divider comment
+      net: driver: stmmac: Extend CSR calc support
+      net: stmmac: Fix clock rate variables size
+      net: phy: Add helper for mapping RGMII link speed to clock rate
+      net: dwmac-dwc-qos-eth: Use helper rgmii_clock
+      net: dwmac-imx: Use helper rgmii_clock
+      net: dwmac-intel-plat: Use helper rgmii_clock
+      net: dwmac-rk: Use helper rgmii_clock
+      net: dwmac-starfive: Use helper rgmii_clock
+      net: macb: Use helper rgmii_clock
+      net: xgene_enet: Use helper rgmii_clock
+      net: dwmac-sti: Use helper rgmii_clock
+      dt-bindings: net: Add DT bindings for DWMAC on NXP S32G/R SoCs
+      net: stmmac: dwmac-s32: add basic NXP S32G/S32R glue driver
+      MAINTAINERS: Add Jan Petrous as the NXP S32G/R DWMAC driver maintainer
+      net: stmmac: dwmac-s32: Read PTP clock rate when ready
+
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     |  97 +++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/apm/xgene/xgene_enet_hw.c     |  16 +-
+ drivers/net/ethernet/cadence/macb_main.c           |  14 +-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig        |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+ drivers/net/ethernet/stmicro/stmmac/common.h       |   2 +
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    |  11 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    |  15 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c |  20 +-
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     |  30 +--
+ drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 237 +++++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   |  19 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c    |  18 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |   2 +-
+ include/linux/phy.h                                |  21 ++
+ include/linux/stmmac.h                             |  10 +-
+ 21 files changed, 424 insertions(+), 119 deletions(-)
+---
+base-commit: 18ba6034468e7949a9e2c2cf28e2e123b4fe7a50
+change-id: 20240923-upstream_s32cc_gmac-6891eb75b126
+
+Best regards,
+-- 
+Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
