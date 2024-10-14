@@ -2,110 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE6299C308
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2024 10:24:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA2999C3A1
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2024 10:42:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 924B2C78013;
-	Mon, 14 Oct 2024 08:24:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C462C78013;
+	Mon, 14 Oct 2024 08:42:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9345CC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61E99C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2024 08:24:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E3DDF5C03A4;
- Mon, 14 Oct 2024 08:24:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C41C4CEC3;
- Mon, 14 Oct 2024 08:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1728894267;
- bh=NgDDNlBQFOcpJj65lJ2aMUNfcyjB71Szgakm/vBxSnM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=npCCVLlvP9kUWTji1IeZVImyV+YKKlcsOXC+7cSHHRwbPQgTTJD48+2032RMeeC7s
- sVIW97xqs7Pk5KxqThIinFsY6hBIM4pNo+Wp0BAS5yRBvau+t5h5C6qIfApbt/TQnr
- zryhi4R8S7qCfoLvVAEAJBw2aV2XuxYr/foV709Y6mr6I5xAYVmBnEcJRwLfahOEbH
- wYkS23Ijq0UpIDZtOLx9ytAk3GnBGuyX9i4QwSu/pqUO+w8eEHYcvW8aecyPcbBD+D
- saIekTs+LEUavmbqst3V8G6hmbScdq/8CLvRj8yPK+0leeGHl8F2QoUIAIdUvKOXLu
- cBgyOEYRwR8Pg==
-Message-ID: <b968706e-b48c-4eab-ab20-cf09f6ed9a25@kernel.org>
-Date: Mon, 14 Oct 2024 10:24:13 +0200
+ Mon, 14 Oct 2024 08:42:06 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49E54nkx027926;
+ Mon, 14 Oct 2024 10:41:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 5esNFNUTDUNqlWySOqU6hZQiJIQS2bs1dT2iyHYhZiQ=; b=U8LGMsmrHBNIGI+A
+ yCEYAvn1pY2AklzSiwRyoXsWjgxAJfdtNwMAi6Mkc/NiEgXx0a98lxxDwOAjxdDi
+ tkiMGumOlzzh9LefvAgUeb15mDpgsUKxcyuW/sCEtiCevgydE2ZfzIQ+qb+uZIlQ
+ aZE+53QTmCiDFuVLXEC20q95gLgRa8o3gSuqfZikIixc3wzGEFA6CeSfuts0VjcM
+ 3QXWC1ccOkBfSZDqcs/bv8fB1GdG8gxSk4a/G2Unuzy/Wm9mOZb0AFyppoXwmAjH
+ 9N158NDDaBk5DUunG3Id0kCog9xxbalwc8MP8SQiUkuAUMGfVPpERyi6BPFJaYpj
+ gAkGSw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 427gewq6jn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Oct 2024 10:41:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 941EC40050;
+ Mon, 14 Oct 2024 10:39:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C17BF269E1E;
+ Mon, 14 Oct 2024 10:38:41 +0200 (CEST)
+Received: from [10.252.14.29] (10.252.14.29) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 14 Oct
+ 2024 10:38:40 +0200
+Message-ID: <f191d034-4116-4169-8c05-201450412bbd@foss.st.com>
+Date: Mon, 14 Oct 2024 10:38:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Jan Petrous <jan.petrous@oss.nxp.com>
-References: <20241013-upstream_s32cc_gmac-v3-0-d84b5a67b930@oss.nxp.com>
- <20241013-upstream_s32cc_gmac-v3-13-d84b5a67b930@oss.nxp.com>
- <44745af3-1644-4a71-82b6-a33fb7dc1ff4@kernel.org>
- <ZwzM4tx3zj8+M/Om@lsv051416.swis.nl-cdc01.nxp.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@denx.de>, Olivia Mackall <olivia@selenic.com>, Herbert
+ Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Lionel Debieve <lionel.debieve@foss.st.com>
+References: <20241011-rng-mp25-v2-v2-0-76fd6170280c@foss.st.com>
+ <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
+ <318dbd5e-f547-4d78-b42e-4dcacc08d328@denx.de>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <ZwzM4tx3zj8+M/Om@lsv051416.swis.nl-cdc01.nxp.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v3 13/16] dt-bindings: net: Add DT
- bindings for DWMAC on NXP S32G/R SoCs
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <318dbd5e-f547-4d78-b42e-4dcacc08d328@denx.de>
+X-Originating-IP: [10.252.14.29]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 2/4] hwrng: stm32 - implement support
+ for STM32MP25x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,71 +78,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 14/10/2024 09:48, Jan Petrous wrote:
-> On Mon, Oct 14, 2024 at 08:56:58AM +0200, Krzysztof Kozlowski wrote:
->> On 13/10/2024 23:27, Jan Petrous via B4 Relay wrote:
->>> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
->>>
->>> Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
->>> and S32R45 automotive series SoCs.
->>>
->>> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
->>> ---
->>>  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 97 ++++++++++++++++++++++
->>>  .../devicetree/bindings/net/snps,dwmac.yaml        |  1 +
->>>  2 files changed, 98 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
->>> new file mode 100644
->>> index 000000000000..4c65994cbe8b
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
->>> @@ -0,0 +1,97 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +# Copyright 2021-2024 NXP
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
->>> +
->>> +maintainers:
->>> +  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
->>> +
->>> +description:
->>> +  This device is a Synopsys DWC IP, integrated on NXP S32G/R SoCs.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - nxp,s32g2-dwmac
->>
->> Where are the other compatibles? Commit msg mentions several devices.
-> 
-> Well, I removed other compatibles thinking we can re-use this only one
-> also for other SoCs as, on currect stage, we don't need to do any
-> SoC specific setup.
-> 
-> Is it ok or shall I reinsert them?
-
-Do not use compatibles from other devices for something else. Please
-consult writing-bindings.
-
-Yes, bring back all relevant compatibles, use proper fallbacks and
-compatibility when appropriate (hundreds of examples in the kernel).
-
-
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxMC8xMS8yNCAxODoxNywgTWFyZWsgVmFzdXQgd3JvdGU6Cj4gT24gMTAvMTEvMjQgNTo0
+MSBQTSwgR2F0aWVuIENoZXZhbGxpZXIgd3JvdGU6Cj4gCj4gWy4uLl0KPiAKPj4gQEAgLTU1MSw2
+ICs1NjUsNDEgQEAgc3RhdGljIGludCBzdG0zMl9ybmdfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rl
+dmljZSAKPj4gKm9mZGV2KQo+PiDCoMKgwqDCoMKgIHByaXYtPnJuZy5yZWFkID0gc3RtMzJfcm5n
+X3JlYWQ7Cj4+IMKgwqDCoMKgwqAgcHJpdi0+cm5nLnF1YWxpdHkgPSA5MDA7Cj4+ICvCoMKgwqAg
+aWYgKCFwcml2LT5kYXRhLT5uYl9jbG9jayB8fCBwcml2LT5kYXRhLT5uYl9jbG9jayA+IDIpCj4+
+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4gKwo+PiArwqDCoMKgIHByaXYtPmNs
+a19idWxrID0gZGV2bV9remFsbG9jKGRldiwgcHJpdi0+ZGF0YS0+bmJfY2xvY2sgKiAKPj4gc2l6
+ZW9mKCpwcml2LT5jbGtfYnVsayksCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCk7Cj4+ICvCoMKgwqAgaWYgKCFwcml2LT5jbGtfYnVsaykK
+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOwo+IAo+IFRyeSB0aGlzOgo+IAo+IHJl
+dCA9IGRldm1fY2xrX2J1bGtfZ2V0KGRldiwgcHJpdi0+ZGF0YS0+bmJfY2xvY2ssIHByaXYtPmNs
+a19idWxrKTsKPiAuLi4KPiAvLyBTd2FwIHRoZSBjbG9jayBpZiB0aGV5IGFyZSBub3QgaW4gdGhl
+IHJpZ2h0IG9yZGVyOgo+IGlmIChwcml2LT5kYXRhLT5uYl9jbG9jayA9PSAyICYmCj4gIMKgwqDC
+oCBzdHJjbXAoX19jbGtfZ2V0X25hbWUocHJpdi0+Y2xrX2J1bGtbMF0uY2xrKSwgImNvcmUiKSkK
+PiB7Cj4gIMKgY29uc3QgY2hhciAqaWQgPSBwcml2LT5jbGtfYnVsa1sxXS5pZDsKPiAgwqBzdHJ1
+Y3QgY2xrICpjbGsgPSBwcml2LT5jbGtfYnVsa1sxXS5jbGs7Cj4gIMKgcHJpdi0+Y2xrX2J1bGtb
+MV0uaWQgPSBwcml2LT5jbGtfYnVsa1swXS5pZDsKPiAgwqBwcml2LT5jbGtfYnVsa1sxXS5jbGsg
+PSBwcml2LT5jbGtfYnVsa1swXS5jbGs7Cj4gIMKgcHJpdi0+Y2xrX2J1bGtbMF0uaWQgPSBpZDsK
+PiAgwqBwcml2LT5jbGtfYnVsa1swXS5jbGsgPSBjbGs7Cj4gfQo+IAoKSGkgTWFyZWssCgpUaGlz
+IHdvbid0IHdvcmsgYXMgdGhlIG5hbWUgcmV0dXJuZWQgYnkgdGhpcyBBUEkgaXMgY2xrLT5jb3Jl
+LT5uYW1lLgpBRkFJQ1QsIGl0IGRvZXNuJ3QgY29ycmVzcG9uZCB0byB0aGUgbmFtZXMgcHJlc2Vu
+dCBpbiB0aGUgZGV2aWNlIHRyZWUKdW5kZXIgdGhlICJjbG9jay1uYW1lcyIgcHJvcGVydHkuCkFu
+eSBvdGhlciBpZGVhIG9yIGFyZSB5b3UgZmluZSB3aXRoIHdoYXQncyBiZWxvdz8KClRoYW5rcywK
+R2F0aWVuCgo+PiArwqDCoMKgIGlmIChwcml2LT5kYXRhLT5uYl9jbG9jayA9PSAyKSB7Cj4+ICvC
+oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY2xrICpjbGs7Cj4+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+Y2xrICpidXNfY2xrOwo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoCBjbGsgPSBkZXZtX2Nsa19nZXQo
+Jm9mZGV2LT5kZXYsICJjb3JlIik7Cj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoSVNfRVJSKGNsaykp
+Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJSKGNsayk7Cj4+ICsKPj4g
+K8KgwqDCoMKgwqDCoMKgIGJ1c19jbGsgPSBkZXZtX2Nsa19nZXQoJm9mZGV2LT5kZXYsICJidXMi
+KTsKPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChJU19FUlIoY2xrKSkKPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoYnVzX2Nsayk7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKg
+IHByaXYtPmNsa19idWxrWzBdLmNsayA9IGNsazsKPj4gK8KgwqDCoMKgwqDCoMKgIHByaXYtPmNs
+a19idWxrWzBdLmlkID0gImNvcmUiOwo+PiArwqDCoMKgwqDCoMKgwqAgcHJpdi0+Y2xrX2J1bGtb
+MV0uY2xrID0gYnVzX2NsazsKPj4gK8KgwqDCoMKgwqDCoMKgIHByaXYtPmNsa19idWxrWzFdLmlk
+ID0gImJ1cyI7Cj4+ICvCoMKgwqAgfSBlbHNlIHsKPj4gK8KgwqDCoMKgwqDCoMKgIHN0cnVjdCBj
+bGsgKmNsazsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqAgY2xrID0gZGV2bV9jbGtfZ2V0KCZvZmRl
+di0+ZGV2LCBOVUxMKTsKPj4gK8KgwqDCoMKgwqDCoMKgIGlmIChJU19FUlIoY2xrKSkKPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoY2xrKTsKPj4gKwo+PiArwqDCoMKg
+wqDCoMKgwqAgcHJpdi0+Y2xrX2J1bGtbMF0uY2xrID0gY2xrOwo+PiArwqDCoMKgwqDCoMKgwqAg
+cHJpdi0+Y2xrX2J1bGtbMF0uaWQgPSAiY29yZSI7Cj4+ICvCoMKgwqAgfQo+IApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
