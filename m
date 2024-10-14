@@ -2,37 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D7199E848
+	by mail.lfdr.de (Postfix) with ESMTPS id 545E699E849
 	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 14:04:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC7ACC78032;
-	Tue, 15 Oct 2024 12:04:06 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0987EC78034;
+	Tue, 15 Oct 2024 12:04:07 +0000 (UTC)
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0467DC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1B6AC78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2024 13:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=i7uD83M8HdHBtttrAgqQuwu1eZyhNYan0ZXlz7wnjPo=; b=qTSMvxyjq/zqIukuaYJf0dKMyr
- /H6go9IP3ae/pnexIcgBVZTNNmJXT7De+nOgjcptF9AjcrisS7UoWZTw+X5jhS/PMeVc6K608qhty
- ryO3YMpeMn3vkutjVMTVFWDlE5Ec4kU0hEGaZN77vrwknZr5OGMozpGQC5B1J3irFqMI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1t0LPU-009vjJ-Rj; Mon, 14 Oct 2024 15:46:56 +0200
-Date: Mon, 14 Oct 2024 15:46:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: jan.petrous@oss.nxp.com
-Message-ID: <1f38695e-642d-41e5-bf95-d4a4c55e416b@lunn.ch>
+ Mon, 14 Oct 2024 21:40:32 +0000 (UTC)
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4D55F200A7E;
+ Mon, 14 Oct 2024 23:40:32 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 3DCF820067A;
+ Mon, 14 Oct 2024 23:40:32 +0200 (CEST)
+Received: from lsv051416.swis.nl-cdc01.nxp.com
+ (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id BBCBD20340;
+ Mon, 14 Oct 2024 23:40:32 +0200 (CEST)
+Date: Mon, 14 Oct 2024 23:40:32 +0200
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <Zw2P0OCKGqMxh/+K@lsv051416.swis.nl-cdc01.nxp.com>
 References: <20241013-upstream_s32cc_gmac-v3-0-d84b5a67b930@oss.nxp.com>
  <20241013-upstream_s32cc_gmac-v3-5-d84b5a67b930@oss.nxp.com>
+ <1f38695e-642d-41e5-bf95-d4a4c55e416b@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241013-upstream_s32cc_gmac-v3-5-d84b5a67b930@oss.nxp.com>
+In-Reply-To: <1f38695e-642d-41e5-bf95-d4a4c55e416b@lunn.ch>
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Tue, 15 Oct 2024 12:04:05 +0000
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>,
@@ -73,19 +75,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Oct 13, 2024 at 11:27:40PM +0200, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+On Mon, Oct 14, 2024 at 03:46:56PM +0200, Andrew Lunn wrote:
+> On Sun, Oct 13, 2024 at 11:27:40PM +0200, Jan Petrous via B4 Relay wrote:
+> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> > 
+> > ???
 > 
-> ???
+> It does need to say something. The change is also not 100% obviously
+> correct. So you could explain the change a bit.
+> 
 
-It does need to say something. The change is also not 100% obviously
-correct. So you could explain the change a bit.
+Oh, my prepared commit messaged got lost. I'm sorry, I will
+fix it in v4.
 
-
-    Andrew
-
----
-pw-bot: cr
+> 
+>     Andrew
+> 
+> ---
+> pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
