@@ -2,70 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF5B99DFD2
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 09:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCB599E255
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 11:09:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83A74C7801A;
-	Tue, 15 Oct 2024 07:56:06 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E0E2C7801A;
+	Tue, 15 Oct 2024 09:09:59 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CADE6C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0973C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 07:56:04 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-539e5c15fd3so2594970e87.3
+ Tue, 15 Oct 2024 09:09:51 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-7ea78037b7eso2049273a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 00:56:04 -0700 (PDT)
+ Tue, 15 Oct 2024 02:09:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728978964; x=1729583764;
+ d=gmail.com; s=20230601; t=1728983390; x=1729588190;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W4f2iJU2YRRvkqlQGmRp0NrctfUTlxD5uwwI+OoQ05k=;
- b=iW6AnB5rmEPV+yKidnVc35VJyjFzrxgSsGWU/dSwAOD5iYLUBA9jTg37L3cgdnaD2j
- EF9FatVLSL6at506DqBICOWOmfahVxnREmylbTrFrZCayzqgNA6mOiQwazDRmVdHbjJP
- klJ7DBe+Qfo3RhiBjBEl19IWZrXa4ASb7zfKeo65TsZBCH2p6kbzRj6K7LT6wg2fAknT
- p9RARCIm0Yw2vStTq5B9DkD8OijDpYC7trNcB5M+g9s2EdmkWGbzWqhgRRUY/5q7RJ1+
- Y42p8gp/ozmqCtMWoHOr7hVrIg4FAujMqaUhp1gQy99w6qd/Uc/7WyLQKn+CcFfokmkt
- XPhw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=+rAVWSk33yzFNuxYAb2kshPjGwfRkyohC13H7ruK8yQ=;
+ b=I7YCun4usLSQZzrgj5EjqW/2fXwslwRZXQxvOYineQdy/s6Lq80AM8pDFswB/zeOQ/
+ jU4BW+cJof7InuR0Th7ueJ+KeI8lsmlj8HY6Ei3VtOsWWNGDDoBbTkn+mChsTxYGxYSV
+ VeR06ggKET5BFaEv5BRQBgGfVunl26u+Kf4G4ArXkov5/MLCXWW+RuSguVujcS7SyI/B
+ TcN3EbG3zN6Mhx3NsJ78CCS2vr3vUC2vAmcHjSlzgl0Ar16ZTyBgkVEgYabiTPxA8SnB
+ 67tkNQPzU35d3oa8nNzZdbYHID1vFM5ACc0gKROUTHQO6Wcotz4ixK1zgFc06gwiUdc1
+ gSdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728978964; x=1729583764;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=W4f2iJU2YRRvkqlQGmRp0NrctfUTlxD5uwwI+OoQ05k=;
- b=tYnVpRanKbTFBoVRHtFedoA+2Xt4s8zLWUz81eacSBazANP4dZ/RU3DCPltMIb1tES
- H9SXXh3vlyhL6MPq3jKw3ITP1GmepE818i4oww2NBiw7kPS0cwnAc+W/CIZEHIpEvRKG
- W/4w7kQHuTq2YdXRtb6gpy2uW2hKFtGspTG/tVIbjreQ5yK5T9y9S6dqGYcqpPWeuQlO
- E6oEkT0YLn+v9+Sttx1VDpxYLb7IYDnmgZuI4+s0Uy1ic4sp+4IzEQYYRWmksD7upEgW
- 4wM62KKTJ2duj9M2/329CMhcp9W8fAVwVVwpTwfwc1ijo1W2a7/u9TUA1D5LMPLx0I0G
- sTsg==
+ d=1e100.net; s=20230601; t=1728983390; x=1729588190;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+rAVWSk33yzFNuxYAb2kshPjGwfRkyohC13H7ruK8yQ=;
+ b=ZRhppmvLWFJ+8LlvAyOg844Ic66RoFmuU3YPVHqDVr6Aa5ZukJUpWk6BZzMIvW5aKK
+ 9kwCrAKwNQv+7TRh+2TRqSxS8PuUBa2nRSXWEmDco5/99cgotTdfYOwJ3L6q8klPQmCf
+ tkYpv0cKSwqLkvL5IS8mKFxWtUg3TQDuMzGP75iZSTs4G05zMVPRc1GNjjzgYk/LTP2g
+ 4U/A/k54Qn/F8xHmrHCwDYtNHeSPLxAgQa8U2ms6tvDa+Nb7T2iW8sVN3zGd4f/kHFS9
+ R1AkjRj0LFu6R7dQyhilOR+IK7uPoJjie1fGZqhWKs8NGLVKWvWD/xmMvwNi9SKkJgx5
+ 7jBg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrdR2y9rzJTrEdeMp3esfEo5rY3jhyox++EaymH67B6bT30qgx0vFRy3UG6Gd6eJ9h0eIwSYUC4E3ZUA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YztTdqLWPLIHNR1mDM312djmRDkKAL0N5q4OnqsvHvUZ6gZiWUg
- w0LykfaY08vaURfS5ljYM5rF6KuzpIL8L3uJXNT9kyZXIsf+nPIBJCDQFOG5YidPeiTtNccZ2MG
- JTeh83qHG1KqGn5WRG1REhhRepc+Rny28vne1Mw==
-X-Google-Smtp-Source: AGHT+IGxQoVV1qAm1koIq8EsNt09kbaJ+UbkKc4EVXnZTt6xt0Ql1TEN5rxOvW8w3QwasQCGnoEZst65gfgN3WuoTY4=
-X-Received: by 2002:a05:6512:695:b0:539:f37f:bed9 with SMTP id
- 2adb3069b0e04-539f37fc164mr3497720e87.8.1728978963859; Tue, 15 Oct 2024
- 00:56:03 -0700 (PDT)
+ AJvYcCWQBBRSJtNY3RDmz8wSFyvqYbngIAlLAH0Io1d26Ei2FKsd9psA/EhunYG+vZxw9re87BStKBBREaQRKQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx+MnTwk++/HYm0lV8UUWWMKwmeYIEZ5n54F0B83FH4y2YsE9Bc
+ Il/VSqbQTSMSqDA3wWy2/Cl6fMGkYPR6Ee8Dvt7JuRAXGnZjV7zb
+X-Google-Smtp-Source: AGHT+IH2FmmE/B412YTtjplQJI8buvMqqeNbFsv4Gh0T/efoJEx1gqHO/rnFjmNENHAao3BcqsnkXw==
+X-Received: by 2002:a05:6a21:e591:b0:1d5:125f:feb0 with SMTP id
+ adf61e73a8af0-1d8bcf14d2amr20182563637.18.1728983390268; 
+ Tue, 15 Oct 2024 02:09:50 -0700 (PDT)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-20d17ec8f35sm7905095ad.0.2024.10.15.02.09.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Oct 2024 02:09:49 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 15 Oct 2024 17:09:21 +0800
+Message-Id: <cover.1728980110.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
-In-Reply-To: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 15 Oct 2024 09:55:52 +0200
-Message-ID: <CACRpkdaMMsHXkgcOtw0aC=SPfJJURCyCgzDq-rEXrBGaM44Sdg@mail.gmail.com>
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-Cc: Kees Cook <kees@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] Crash on armv7-a using KASAN
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Furong Xu <0x1207@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1 0/5] net: stmmac: Refactor FPE as
+	a separate module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +80,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQ2xlbWVudCwKCnRoYW5rcyBmb3IgeW91ciByZXBvcnQhIEkgbG9va2VkIGEgYml0IGF0IGl0
-OgoKT24gTW9uLCBPY3QgMTQsIDIwMjQgYXQgMzoyMeKAr1BNIENsZW1lbnQgTEUgR09GRklDCjxj
-bGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPiB3cm90ZToKCj4gSSBoYXZlIGRldGVjdGVkIGEg
-a2VybmVsIGNyYXNoIGluIGxhdGVzdCBrZXJuZWwgb24gYXJtdjctYSB3aGVuIEthc2FuIGlzCj4g
-ZW5hYmxlZC4KKC4uLikKPiBDcmFzaCBsb2cgd2l0aCByZWNlbnQga2VybmVsICh2Ni4xMi1yYzMp
-IDoKPgo+IH4gIyBJbnN1ZmZpY2llbnQgc3RhY2sgc3BhY2UgdG8gaGFuZGxlIGV4Y2VwdGlvbiEK
-ClRoZSBjcmFzaCBsb29rcyBwcmV0dHkgImV4cGVjdGVkIiwgYXMgeW91IHNheSB5b3Ugc3RhcnQg
-YSBsb3Qgb2YKcGFyYWxsZWwgcHJvY2Vzc2VzCmFuZCB3aG9vcHMsIHlvdSBydW4gb3V0IG9mIG1l
-bW9yeSBvbiB0aGUgc3RhY2suIE5vIHNvZnR3YXJlIGNhbiBhZGQgbW9yZQptZW1vcnkgdG8gdGhl
-IG1hY2hpbmUuCgpLQVNBTiB1c2VzIGEgbG90IG9mIGV4dHJhIG1lbW9yeSBmb3IgaW50ZXJjZXB0
-aW5nIGFsbCBtZW1vcnkgYWNjZXNzZXMsCm5vbWluYWxseSBvbmUKZXh0cmEgYnl0ZSBwZXIgOCBi
-eXRlcy4gVGhpcyBpcyBmdXJ0aGVyIHJlc3RyaWN0ZWQgYnkgdGhlIGNvbXBsZXgKbmF0dXJlIG9m
-IHRoZSB2aXJ0dWFsCm1lbW9yeSBzcGFjZSBvbiBBUk0zMi4KClRoYXQgc2FpZCwgd2UgaW5jcmVh
-c2UgdGhlIHNpemUgb2YgcGVyLXRocmVhZCBzdG9yYWdlIHdoZW4gdXNpbmcgS0FTQU4sClRIUkVB
-RF9TSVpFX09SREVSIGlzIDIgaW5zdGVhZCBvZiAxLiBNYXliZSB0aGUgaW50ZXJydXB0IHN0YWNr
-cyBuZWVkCnRvIGJlIHNjYWxlZCBzaW1pbGFybHkgdG8gbWFuYWdlIHRoZSBpbmNyZWFzZWQgbG9h
-ZD8KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Refactor FPE implementation by moving common code for DWMAC4 and
+DWXGMAC into a separate FPE module.
+
+FPE implementation for DWMAC4 and DWXGMAC differs only for:
+1) Offset address of MAC_FPE_CTRL_STS and MTL_FPE_CTRL_STS
+2) FPRQ(Frame Preemption Residue Queue) field in MAC_RxQ_Ctrl1
+
+Tested on DWMAC CORE 5.20a and DWXGMAC CORE 3.20a
+
+Furong Xu (5):
+  net: stmmac: Introduce separate files for FPE implementation
+  net: stmmac: Introduce stmmac_fpe_ops for gmac4 and xgmac
+  net: stmmac: Rework marco definitions for gmac4 and xgmac
+  net: stmmac: xgmac: Rename XGMAC_RQ to XGMAC_FPRQ
+  net: stmmac: xgmac: Complete FPE support
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  12 -
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 150 ------
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  |  26 --
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |   7 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  28 --
+ drivers/net/ethernet/stmicro/stmmac/hwif.c    |   7 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  54 ++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  10 -
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |   2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 442 ++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |  38 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 149 +-----
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   |   4 +-
+ 15 files changed, 527 insertions(+), 405 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
