@@ -2,58 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2176999D7FE
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2024 22:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A47C99DEAD
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 08:47:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDCCBC78018;
-	Mon, 14 Oct 2024 20:14:23 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B16A7C78018;
+	Tue, 15 Oct 2024 06:47:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EB67C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA18DC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2024 20:14:16 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id AC58789018;
- Mon, 14 Oct 2024 22:14:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1728936855;
- bh=Xb9CBRgvPOEpxga3+Wbc1szUOkY/ao1dzvTPIwjUP3o=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=xEiUNz/GObmtvWPz61uJu77G0Jn4coceO8KwxpAXsGvRmTR66LBk7EftBsGwcnF3x
- qCoPs0UVNrKj5jALk4qSWwuSgwvbth2+a7bMQLSzDuSdcEvhPzOLcoDe6gKqTgk/WR
- wh7TyeAdMz0StdJOMDEzXl5+8IldCLzg317YcDv6Pw27Ji1TlcyACfcfuwVgRsolHS
- +BztRJZrPUPAcnvJUWZJ7vcgVTwWa75MAa80RLhBe55mWmvUmQqthN+i5iRzJeRfpP
- E8Zh2ic4KbHCGYU05M27Lu7g1txO4o36rBR62Y9fS9tpxq1oYVUAF/Gyu5+jNUOITn
- AUa1h9bWc1OTA==
-Message-ID: <dca83197-3484-4d6b-8507-118bf9e80e19@denx.de>
-Date: Mon, 14 Oct 2024 20:55:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>,
- Olivia Mackall <olivia@selenic.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tue, 15 Oct 2024 06:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1728974866; x=1760510866;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6IAKQl0FeJyqvb+jgw9De0Ep6tMaFhgHgcVDED6/PIQ=;
+ b=DiNctGYc7ImvumpTgVn+VwfOOlDu4PnTVwhsOL7vPzk2/PKPwwaaHS3C
+ QzUHcp+U//vt7PEEJZSD57vVfJ7HO5Otgw7A958nCmki8/PS+0Fm31fZV
+ lka8a5BmH5g542LPbd061ixwTqFol8sAKnKk82maQlpe1w6bci30faT/k
+ TO7kULJAwHtwXx9qqcjmcW+5FrME1DBlzg5j3/jIN/THjwouCTFutWY1B
+ GC0yRkZfib1oBHASoXk9eMY5x6pSqgODj/y8znylDIXLKTtnm78f0bymn
+ hYe7tXggzwSX0rZ/JbmgsI9UTpq2O44mVsYZ240XXD9fvj+slrHghULVA w==;
+X-CSE-ConnectionGUID: ITz8QYHqQM2R34/XOFB8rA==
+X-CSE-MsgGUID: eWf5Zk1MQVOt2+As7U8o8Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11225"; a="28539414"
+X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="28539414"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2024 23:47:37 -0700
+X-CSE-ConnectionGUID: taqcyVltRrKTjJ7B5kbwzQ==
+X-CSE-MsgGUID: 4ywyFyftQkSB6s+nkaBVhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="78138620"
+Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
+ by fmviesa010.fm.intel.com with ESMTP; 14 Oct 2024 23:47:34 -0700
+Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1t0bL9-000HiD-2f;
+ Tue, 15 Oct 2024 06:47:31 +0000
+Date: Tue, 15 Oct 2024 14:46:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lionel Debieve <lionel.debieve@foss.st.com>
-References: <20241011-rng-mp25-v2-v2-0-76fd6170280c@foss.st.com>
- <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
- <318dbd5e-f547-4d78-b42e-4dcacc08d328@denx.de>
- <f191d034-4116-4169-8c05-201450412bbd@foss.st.com>
- <8c13b0aa-7fb1-493c-9abc-5e5cfd982855@denx.de>
- <d862765e-e396-4f7c-97ff-76df9aa03216@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <d862765e-e396-4f7c-97ff-76df9aa03216@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
+ Lionel Debieve <lionel.debieve@foss.st.com>, marex@denx.de
+Message-ID: <202410151421.5UhVRFdF-lkp@intel.com>
+References: <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
+ linux-crypto@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2 2/4] hwrng: stm32 - implement support
  for STM32MP25x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -67,69 +71,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTAvMTQvMjQgMjozNiBQTSwgR2F0aWVuIENIRVZBTExJRVIgd3JvdGU6Cj4gCj4gCj4gT24g
-MTAvMTQvMjQgMTA6NTIsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiAxMC8xNC8yNCAxMDozOCBB
-TSwgR2F0aWVuIENIRVZBTExJRVIgd3JvdGU6Cj4+Pgo+Pj4KPj4+IE9uIDEwLzExLzI0IDE4OjE3
-LCBNYXJlayBWYXN1dCB3cm90ZToKPj4+PiBPbiAxMC8xMS8yNCA1OjQxIFBNLCBHYXRpZW4gQ2hl
-dmFsbGllciB3cm90ZToKPj4+Pgo+Pj4+IFsuLi5dCj4+Pj4KPj4+Pj4gQEAgLTU1MSw2ICs1NjUs
-NDEgQEAgc3RhdGljIGludCBzdG0zMl9ybmdfcHJvYmUoc3RydWN0IAo+Pj4+PiBwbGF0Zm9ybV9k
-ZXZpY2UgKm9mZGV2KQo+Pj4+PiDCoMKgwqDCoMKgIHByaXYtPnJuZy5yZWFkID0gc3RtMzJfcm5n
-X3JlYWQ7Cj4+Pj4+IMKgwqDCoMKgwqAgcHJpdi0+cm5nLnF1YWxpdHkgPSA5MDA7Cj4+Pj4+ICvC
-oMKgwqAgaWYgKCFwcml2LT5kYXRhLT5uYl9jbG9jayB8fCBwcml2LT5kYXRhLT5uYl9jbG9jayA+
-IDIpCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4+Pj4gKwo+Pj4+PiAr
-wqDCoMKgIHByaXYtPmNsa19idWxrID0gZGV2bV9remFsbG9jKGRldiwgcHJpdi0+ZGF0YS0+bmJf
-Y2xvY2sgKiAKPj4+Pj4gc2l6ZW9mKCpwcml2LT5jbGtfYnVsayksCj4+Pj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCk7Cj4+Pj4+ICvCoMKg
-wqAgaWYgKCFwcml2LT5jbGtfYnVsaykKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5P
-TUVNOwo+Pj4+Cj4+Pj4gVHJ5IHRoaXM6Cj4+Pj4KPj4+PiByZXQgPSBkZXZtX2Nsa19idWxrX2dl
-dChkZXYsIHByaXYtPmRhdGEtPm5iX2Nsb2NrLCBwcml2LT5jbGtfYnVsayk7Cj4+Pj4gLi4uCj4+
-Pj4gLy8gU3dhcCB0aGUgY2xvY2sgaWYgdGhleSBhcmUgbm90IGluIHRoZSByaWdodCBvcmRlcjoK
-Pj4+PiBpZiAocHJpdi0+ZGF0YS0+bmJfY2xvY2sgPT0gMiAmJgo+Pj4+IMKgwqDCoMKgIHN0cmNt
-cChfX2Nsa19nZXRfbmFtZShwcml2LT5jbGtfYnVsa1swXS5jbGspLCAiY29yZSIpKQo+Pj4+IHsK
-Pj4+PiDCoMKgY29uc3QgY2hhciAqaWQgPSBwcml2LT5jbGtfYnVsa1sxXS5pZDsKPj4+PiDCoMKg
-c3RydWN0IGNsayAqY2xrID0gcHJpdi0+Y2xrX2J1bGtbMV0uY2xrOwo+Pj4+IMKgwqBwcml2LT5j
-bGtfYnVsa1sxXS5pZCA9IHByaXYtPmNsa19idWxrWzBdLmlkOwo+Pj4+IMKgwqBwcml2LT5jbGtf
-YnVsa1sxXS5jbGsgPSBwcml2LT5jbGtfYnVsa1swXS5jbGs7Cj4+Pj4gwqDCoHByaXYtPmNsa19i
-dWxrWzBdLmlkID0gaWQ7Cj4+Pj4gwqDCoHByaXYtPmNsa19idWxrWzBdLmNsayA9IGNsazsKPj4+
-PiB9Cj4+Pj4KPj4+Cj4+PiBIaSBNYXJlaywKPj4+Cj4+PiBUaGlzIHdvbid0IHdvcmsgYXMgdGhl
-IG5hbWUgcmV0dXJuZWQgYnkgdGhpcyBBUEkgaXMgY2xrLT5jb3JlLT5uYW1lLgo+Pj4gQUZBSUNU
-LCBpdCBkb2Vzbid0IGNvcnJlc3BvbmQgdG8gdGhlIG5hbWVzIHByZXNlbnQgaW4gdGhlIGRldmlj
-ZSB0cmVlCj4+PiB1bmRlciB0aGUgImNsb2NrLW5hbWVzIiBwcm9wZXJ0eS4KPj4+IEFueSBvdGhl
-ciBpZGVhIG9yIGFyZSB5b3UgZmluZSB3aXRoIHdoYXQncyBiZWxvdz8KPj4gSG1tbSwgaXQgaXMg
-bm90IGdyZWF0LCBidXQgYXQgbGVhc3QgaXQgcmVkdWNlcyB0aGUgY2hhbmdlcyB0aHJvdWdob3V0
-IAo+PiB0aGUgZHJpdmVyLCBzbyB0aGF0IGlzIGFuIGltcHJvdmVtZW50Lgo+Pgo+PiBJIGd1ZXNz
-IG9uZSBjb3VsZCBkbyBzb21lIG9mX2Nsa19nZXQoKSBhbmQgY2xrX2lzX21hdGNoKCkgaW4gcHJv
-YmUgdG8gCj4+IGxvb2sgdXAgdGhlIGNsb2NrIGluIE9GIGJ5IG5hbWUgYW5kIHRoZW4gY29tcGFy
-ZSB3aGljaCBjbG9jayBpcyB3aGljaCAKPj4gYmVmb3JlIHN3YXBwaW5nIHRoZW0gaW4gY2xrX2J1
-bGtbXSBhcnJheSwgYnV0IHRoYXQgbWlnaHQgYmUgdG9vIAo+PiBjb252b2x1dGVkPwo+IAo+IFll
-cywgcHJvYmFibHkgdG9vIG11Y2guIFdoYXQncyBwcmVzZW50IGluIHRoZSBwYXRjaCBpcyBub3Qg
-Y2xvc2UgdG8KPiBwZXJmZWN0aW9uIGJ1dCBoYXMgdGhlIGFkdmFudGFnZSBvZiBiZWluZyBzdHJh
-aWdodGZvcndhcmQuIElmIHdlIGFncmVlCj4gb24gdGhhdCwgSSdsbCBzZW5kIGEgVjMgY29udGFp
-bmluZyB0aGUgbW9kaWZpY2F0aW9ucyBpbiB0aGUgYmluZGluZ3MKPiBmaWxlLgpFcnJyLCBJJ20g
-c29ycnksIG1heWJlIHRoZXJlIGlzIGEgd2F5IHRvIGRvIHRoaXMgYmV0dGVyLiBMb29rIGF0IApk
-cml2ZXJzL2Nsay9jbGstYnVsay5jIDoKCiAgMTUgc3RhdGljIGludCBfX211c3RfY2hlY2sgb2Zf
-Y2xrX2J1bGtfZ2V0KHN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAsIGludCAKbnVtX2Nsa3MsCiAgMTYg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbGtfYnVsa19k
-YXRhICpjbGtzKQogIDE3IHsKICAxOCAgICAgICAgIGludCByZXQ7CiAgMTkgICAgICAgICBpbnQg
-aTsKICAyMAogIDIxICAgICAgICAgZm9yIChpID0gMDsgaSA8IG51bV9jbGtzOyBpKyspIHsKICAy
-MiAgICAgICAgICAgICAgICAgY2xrc1tpXS5pZCA9IE5VTEw7CiAgMjMgICAgICAgICAgICAgICAg
-IGNsa3NbaV0uY2xrID0gTlVMTDsKICAyNCAgICAgICAgIH0KICAyNQogIDI2ICAgICAgICAgZm9y
-IChpID0gMDsgaSA8IG51bV9jbGtzOyBpKyspIHsKICAyNyAgICAgICAgICAgICAgICAgb2ZfcHJv
-cGVydHlfcmVhZF9zdHJpbmdfaW5kZXgobnAsICJjbG9jay1uYW1lcyIsIGksIAomY2xrc1tpXS5p
-ZCk7CiAgMjggICAgICAgICAgICAgICAgIGNsa3NbaV0uY2xrID0gb2ZfY2xrX2dldChucCwgaSk7
-CgpJZiBJIHJlYWQgdGhpcyByaWdodCwgdGhlbiBjbGtzW2ldLmlkIHNob3VsZCBiZSB0aGUgRFQg
-Y2xvY2sgbmFtZS4gU28gCnRoZSBzd2FwIGNvbmRpdGlvbmFsIGFib3ZlIGNvdWxkIHVzZSAuaWQg
-dG8gaWRlbnRpZnkgd2hldGhlciB0aGUgZmlyc3QgCnBvc2l0aW9uIGlzIGNvcmUgY2xvY2sgb3Ig
-bm90LCBsaWtlIHRoaXM6CgppZiAocHJpdi0+ZGF0YS0+bmJfY2xvY2sgPT0gMiAmJgogICAgIHN0
-cmNtcChfX2Nsa19nZXRfbmFtZShwcml2LT5jbGtfYnVsa1swXS5pZCksICJjb3JlIikpCiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5eCgpZb3UgbWlnaHQgbmVl
-ZCB0byB1c2UgZGV2bV9jbGtfYnVsa19nZXRfYWxsKCkgdG8gYWNjZXNzIHRoZSAKb2ZfY2xrX2J1
-bGtfZ2V0KCkgLgoKT3IgYW0gSSBtaXNzaW5nIHNvbWV0aGluZyBzdGlsbCA/Cl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Gatien,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on 1d227fcc72223cbdd34d0ce13541cbaab5e0d72f]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/dt-bindings-rng-add-st-stm32mp25-rng-support/20241011-234913
+base:   1d227fcc72223cbdd34d0ce13541cbaab5e0d72f
+patch link:    https://lore.kernel.org/r/20241011-rng-mp25-v2-v2-2-76fd6170280c%40foss.st.com
+patch subject: [PATCH v2 2/4] hwrng: stm32 - implement support for STM32MP25x platforms
+config: nios2-randconfig-r053-20241015 (https://download.01.org/0day-ci/archive/20241015/202410151421.5UhVRFdF-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 14.1.0
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202410151421.5UhVRFdF-lkp@intel.com/
+
+cocci warnings: (new ones prefixed by >>)
+>> drivers/char/hw_random/stm32-rng.c:585:6-12: inconsistent IS_ERR and PTR_ERR on line 586.
+
+vim +585 drivers/char/hw_random/stm32-rng.c
+
+   530	
+   531	static int stm32_rng_probe(struct platform_device *ofdev)
+   532	{
+   533		struct device *dev = &ofdev->dev;
+   534		struct device_node *np = ofdev->dev.of_node;
+   535		struct stm32_rng_private *priv;
+   536		struct resource *res;
+   537	
+   538		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+   539		if (!priv)
+   540			return -ENOMEM;
+   541	
+   542		priv->base = devm_platform_get_and_ioremap_resource(ofdev, 0, &res);
+   543		if (IS_ERR(priv->base))
+   544			return PTR_ERR(priv->base);
+   545	
+   546		priv->rst = devm_reset_control_get(&ofdev->dev, NULL);
+   547		if (!IS_ERR(priv->rst)) {
+   548			reset_control_assert(priv->rst);
+   549			udelay(2);
+   550			reset_control_deassert(priv->rst);
+   551		}
+   552	
+   553		priv->ced = of_property_read_bool(np, "clock-error-detect");
+   554		priv->lock_conf = of_property_read_bool(np, "st,rng-lock-conf");
+   555		priv->dev = dev;
+   556	
+   557		priv->data = of_device_get_match_data(dev);
+   558		if (!priv->data)
+   559			return -ENODEV;
+   560	
+   561		dev_set_drvdata(dev, priv);
+   562	
+   563		priv->rng.name = dev_driver_string(dev);
+   564		priv->rng.init = stm32_rng_init;
+   565		priv->rng.read = stm32_rng_read;
+   566		priv->rng.quality = 900;
+   567	
+   568		if (!priv->data->nb_clock || priv->data->nb_clock > 2)
+   569			return -EINVAL;
+   570	
+   571		priv->clk_bulk = devm_kzalloc(dev, priv->data->nb_clock * sizeof(*priv->clk_bulk),
+   572					      GFP_KERNEL);
+   573		if (!priv->clk_bulk)
+   574			return -ENOMEM;
+   575	
+   576		if (priv->data->nb_clock == 2) {
+   577			struct clk *clk;
+   578			struct clk *bus_clk;
+   579	
+   580			clk = devm_clk_get(&ofdev->dev, "core");
+   581			if (IS_ERR(clk))
+   582				return PTR_ERR(clk);
+   583	
+   584			bus_clk = devm_clk_get(&ofdev->dev, "bus");
+ > 585			if (IS_ERR(clk))
+ > 586				return PTR_ERR(bus_clk);
+   587	
+   588			priv->clk_bulk[0].clk = clk;
+   589			priv->clk_bulk[0].id = "core";
+   590			priv->clk_bulk[1].clk = bus_clk;
+   591			priv->clk_bulk[1].id = "bus";
+   592		} else {
+   593			struct clk *clk;
+   594	
+   595			clk = devm_clk_get(&ofdev->dev, NULL);
+   596			if (IS_ERR(clk))
+   597				return PTR_ERR(clk);
+   598	
+   599			priv->clk_bulk[0].clk = clk;
+   600			priv->clk_bulk[0].id = "core";
+   601		}
+   602	
+   603		pm_runtime_set_autosuspend_delay(dev, 100);
+   604		pm_runtime_use_autosuspend(dev);
+   605		pm_runtime_enable(dev);
+   606	
+   607		return devm_hwrng_register(dev, &priv->rng);
+   608	}
+   609	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
