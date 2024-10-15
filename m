@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79EDD99E95C
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 14:16:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694BA99E959
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 14:16:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42380C78030;
-	Tue, 15 Oct 2024 12:16:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D3BBC78030;
+	Tue, 15 Oct 2024 12:16:24 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF71BC7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D9EBC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 12:16:28 +0000 (UTC)
+ Tue, 15 Oct 2024 12:16:17 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49FBQP8Q005433;
- Tue, 15 Oct 2024 14:16:20 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49FBaDcE005320;
+ Tue, 15 Oct 2024 14:16:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- +kNC9WvxILqPos1K+zUy/g4I3JBkEYea0nY08omeYVo=; b=1Jk2rpjHqCLvUNCc
- 8RAHFA6XwWgdVDHkFt0SBWlewbtLobrW8rjC90qqm9tBVK06tDMsVvudlaEoHDrz
- 6o2iBddnp8yH8touNsOVcACaWdsdvjLzwxm2BlPegt2tcROmrrVTJdmDgsoEUijJ
- i0x1seVJ5plQ9KUI14ao039CrRXfZn3xnpnSY2CwcHOXx1BWvfNoMw3Hb0sylfXu
- tcYfC+W5l1lOR2l+8LkSl7F7Cd0Irzpa8kKWDOjmolvKPk0PphDY+2NQRGgjuqVx
- fAa/eC45zjkt85WVh/FJEPVb+73CFbR0IT68aGtPdYWPMPuWU2tTAtsmrUORgwU1
- b2/MHg==
+ KFc5UtMsTxPLpZ5ZNu4v4Ik5v+Rez2xhUaWk/edfOo0=; b=nqu3hTXr6r7bjSrJ
+ ztprP45TL35S7hlVb0vFHayMy4g7UO9fEqX+I0/ZBK/Z6UaqLsL5JGJltaSQTkDe
+ 2DIFD5leA6WIoySXIt6lrkSgvRgX8AVTNO+LDjYaNmWG7aeNi5DNJ4pBENxtIW71
+ wQgpbTL+VhQgcZBeV2Qo0cPvM4YqY3PoDVGsVkpfp55p+tbLLGXcbcrIDlgBL4QK
+ bfqBPsFk8m81Er21y12TsG0EYarliLxtamoN7sR8B98f27T0i9+fwURJyCe3djzq
+ PLyUth+yTO+/NqY9A460wg12RomJelUhUTpHeLEOgF/Ne9XyaBqlDlQu2xP46xFs
+ 1t544w==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 427ehg5n91-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 427ehg5n7t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Oct 2024 14:16:19 +0200 (MEST)
+ Tue, 15 Oct 2024 14:16:04 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0813A4004A;
- Tue, 15 Oct 2024 14:15:28 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D1BEC40050;
+ Tue, 15 Oct 2024 14:15:07 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D55B7222CB4;
- Tue, 15 Oct 2024 14:14:50 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A13A222CB7;
+ Tue, 15 Oct 2024 14:14:51 +0200 (CEST)
 Received: from localhost (10.48.87.35) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 15 Oct
- 2024 14:14:50 +0200
+ 2024 14:14:51 +0200
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 15 Oct 2024 14:14:42 +0200
+Date: Tue, 15 Oct 2024 14:14:43 +0200
 MIME-Version: 1.0
-Message-ID: <20241015-dma3-mp25-updates-v2-6-b63e21556ec8@foss.st.com>
+Message-ID: <20241015-dma3-mp25-updates-v2-7-b63e21556ec8@foss.st.com>
 References: <20241015-dma3-mp25-updates-v2-0-b63e21556ec8@foss.st.com>
 In-Reply-To: <20241015-dma3-mp25-updates-v2-0-b63e21556ec8@foss.st.com>
 To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 6/9] dmaengine: stm32-dma3: clamp AXI burst
- using match data
+Subject: [Linux-stm32] [PATCH v2 7/9] arm64: dts: st: add DMA support on
+ U(S)ART instances of stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,200 +79,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 DMA3 can be interconnected with AXI3 or AXI4 busses. In case it is
-interconnected with AXI3, the maximum burst length supported by AXI3
-protocol is 16 beats, which is lower than the maximum burst length
-supported by STM32 DMA3. So the programmed burst has to be shortened when
-AXI port is used.
-Introduce struct stm32_dma3_pdata to specify the specific configurations
-(e.g. AXI maximum burst length) required by the SoC, so implied by the SoC
-specific compatible.
+Add dmas and dma-names properties in u(s)art nodes of stm32mp251.dtsi to
+enable DMA support.
+RX channel requires to prevent pack/unpack feature of DMA to avoid losing
+bytes when interrupting RX transfer, as it uses a cyclic buffer.
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
-Changes in v2:
-- Rework AXI maximum burst length management using SoC specific compatible
-  instead of st,axi-max-burst-len DT property, as pointed out by Rob.
----
- drivers/dma/stm32/stm32-dma3.c | 59 ++++++++++++++++++++++++++++++++----------
- 1 file changed, 46 insertions(+), 13 deletions(-)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi     | 27 +++++++++++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts |  2 ++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/drivers/dma/stm32/stm32-dma3.c b/drivers/dma/stm32/stm32-dma3.c
-index fc874fec729df733fd8a6b4362fe1a937e9443c7..0c6c4258b19561c94f1c68f26ade16b82660ebe6 100644
---- a/drivers/dma/stm32/stm32-dma3.c
-+++ b/drivers/dma/stm32/stm32-dma3.c
-@@ -230,6 +230,8 @@ enum stm32_dma3_port_data_width {
- #define STM32_DMA3_CFG_SET_BOTH		(STM32_DMA3_CFG_SET_DT | STM32_DMA3_CFG_SET_DMA)
- 
- #define STM32_DMA3_MAX_BLOCK_SIZE	ALIGN_DOWN(CBR1_BNDT, 64)
-+#define STM32_DMA3_MAX_BURST_LEN	(1 + min_t(u32, FIELD_MAX(CTR1_SBL_1), \
-+							FIELD_MAX(CTR1_DBL_1)))
- #define port_is_ahb(maxdw)		({ typeof(maxdw) (_maxdw) = (maxdw); \
- 					   ((_maxdw) != DW_INVALID) && ((_maxdw) == DW_32); })
- #define port_is_axi(maxdw)		({ typeof(maxdw) (_maxdw) = (maxdw); \
-@@ -295,6 +297,10 @@ struct stm32_dma3_chan {
- 	u32 dma_status;
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 1167cf63d7e87aaa15c5c1ed70a9f6511fd818d4..9035fc7ba4857ca98a1a86246d7d0250196b2a13 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -266,6 +266,9 @@ usart2: serial@400e0000 {
+ 				reg = <0x400e0000 0x400>;
+ 				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_USART2>;
++				dmas = <&hpdma 11 0x20 0x10012>,
++				       <&hpdma 12 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 32>;
+ 				status = "disabled";
+ 			};
+@@ -275,6 +278,9 @@ usart3: serial@400f0000 {
+ 				reg = <0x400f0000 0x400>;
+ 				interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_USART3>;
++				dmas = <&hpdma 13 0x20 0x10012>,
++				       <&hpdma 14 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 33>;
+ 				status = "disabled";
+ 			};
+@@ -284,6 +290,9 @@ uart4: serial@40100000 {
+ 				reg = <0x40100000 0x400>;
+ 				interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_UART4>;
++				dmas = <&hpdma 15 0x20 0x10012>,
++				       <&hpdma 16 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 34>;
+ 				status = "disabled";
+ 			};
+@@ -293,6 +302,9 @@ uart5: serial@40110000 {
+ 				reg = <0x40110000 0x400>;
+ 				interrupts = <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_UART5>;
++				dmas = <&hpdma 17 0x20 0x10012>,
++				       <&hpdma 18 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 35>;
+ 				status = "disabled";
+ 			};
+@@ -393,6 +405,9 @@ usart6: serial@40220000 {
+ 				reg = <0x40220000 0x400>;
+ 				interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_USART6>;
++				dmas = <&hpdma 19 0x20 0x10012>,
++				       <&hpdma 20 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 36>;
+ 				status = "disabled";
+ 			};
+@@ -438,6 +453,9 @@ uart9: serial@402c0000 {
+ 				reg = <0x402c0000 0x400>;
+ 				interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_UART9>;
++				dmas = <&hpdma 25 0x20 0x10012>,
++				       <&hpdma 26 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 39>;
+ 				status = "disabled";
+ 			};
+@@ -447,6 +465,9 @@ usart1: serial@40330000 {
+ 				reg = <0x40330000 0x400>;
+ 				interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_USART1>;
++				dmas = <&hpdma 9 0x20 0x10012>,
++				       <&hpdma 10 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 31>;
+ 				status = "disabled";
+ 			};
+@@ -480,6 +501,9 @@ uart7: serial@40370000 {
+ 				reg = <0x40370000 0x400>;
+ 				interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_UART7>;
++				dmas = <&hpdma 21 0x20 0x10012>,
++				       <&hpdma 22 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 37>;
+ 				status = "disabled";
+ 			};
+@@ -489,6 +513,9 @@ uart8: serial@40380000 {
+ 				reg = <0x40380000 0x400>;
+ 				interrupts = <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>;
+ 				clocks = <&rcc CK_KER_UART8>;
++				dmas = <&hpdma 23 0x20 0x10012>,
++				       <&hpdma 24 0x20 0x3021>;
++				dma-names = "rx", "tx";
+ 				access-controllers = <&rifsc 38>;
+ 				status = "disabled";
+ 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 214191a8322b81e7ae453503863b4465d9b625e0..d468dcbe849680de812a0ddd593f30cbf507f645 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -157,6 +157,8 @@ &usart2 {
+ 	pinctrl-0 = <&usart2_pins_a>;
+ 	pinctrl-1 = <&usart2_idle_pins_a>;
+ 	pinctrl-2 = <&usart2_sleep_pins_a>;
++	/delete-property/dmas;
++	/delete-property/dma-names;
+ 	status = "okay";
  };
  
-+struct stm32_dma3_pdata {
-+	u32 axi_max_burst_len;
-+};
-+
- struct stm32_dma3_ddata {
- 	struct dma_device dma_dev;
- 	void __iomem *base;
-@@ -303,6 +309,7 @@ struct stm32_dma3_ddata {
- 	u32 dma_channels;
- 	u32 dma_requests;
- 	enum stm32_dma3_port_data_width ports_max_dw[2];
-+	u32 axi_max_burst_len;
- };
- 
- static inline struct stm32_dma3_ddata *to_stm32_dma3_ddata(struct stm32_dma3_chan *chan)
-@@ -535,7 +542,8 @@ static enum dma_slave_buswidth stm32_dma3_get_max_dw(u32 chan_max_burst,
- 	return 1 << __ffs(len | addr | max_dw);
- }
- 
--static u32 stm32_dma3_get_max_burst(u32 len, enum dma_slave_buswidth dw, u32 chan_max_burst)
-+static u32 stm32_dma3_get_max_burst(u32 len, enum dma_slave_buswidth dw,
-+				    u32 chan_max_burst, u32 bus_max_burst)
- {
- 	u32 max_burst = chan_max_burst ? chan_max_burst / dw : 1;
- 
-@@ -546,8 +554,9 @@ static u32 stm32_dma3_get_max_burst(u32 len, enum dma_slave_buswidth dw, u32 cha
- 	/*
- 	 * HW doesn't modify the burst if burst size <= half of the fifo size.
- 	 * If len is not a multiple of burst size, last burst is shortened by HW.
-+	 * Take care of maximum burst supported on interconnect bus.
- 	 */
--	return max_burst;
-+	return min_t(u32, max_burst, bus_max_burst);
- }
- 
- static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transfer_direction dir,
-@@ -556,6 +565,7 @@ static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transf
- {
- 	struct stm32_dma3_ddata *ddata = to_stm32_dma3_ddata(chan);
- 	struct dma_device dma_device = ddata->dma_dev;
-+	u32 src_max_burst = STM32_DMA3_MAX_BURST_LEN, dst_max_burst = STM32_DMA3_MAX_BURST_LEN;
- 	u32 sdw, ddw, sbl_max, dbl_max, tcem, init_dw, init_bl_max;
- 	u32 _ctr1 = 0, _ctr2 = 0;
- 	u32 ch_conf = chan->dt_config.ch_conf;
-@@ -596,10 +606,14 @@ static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transf
- 		_ctr1 |= CTR1_SINC;
- 	if (sap)
- 		_ctr1 |= CTR1_SAP;
-+	if (port_is_axi(sap_max_dw)) /* AXI - apply axi maximum burst limitation */
-+		src_max_burst = ddata->axi_max_burst_len;
- 	if (FIELD_GET(STM32_DMA3_DT_DINC, tr_conf))
- 		_ctr1 |= CTR1_DINC;
- 	if (dap)
- 		_ctr1 |= CTR1_DAP;
-+	if (port_is_axi(dap_max_dw)) /* AXI - apply axi maximum burst limitation */
-+		dst_max_burst = ddata->axi_max_burst_len;
- 
- 	_ctr2 |= FIELD_PREP(CTR2_REQSEL, chan->dt_config.req_line) & ~CTR2_SWREQ;
- 	if (FIELD_GET(STM32_DMA3_DT_BREQ, tr_conf))
-@@ -619,11 +633,12 @@ static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transf
- 		/* Set destination (device) data width and burst */
- 		ddw = min_t(u32, ddw, stm32_dma3_get_max_dw(chan->max_burst, dap_max_dw,
- 							    len, dst_addr));
--		dbl_max = min_t(u32, dbl_max, stm32_dma3_get_max_burst(len, ddw, chan->max_burst));
-+		dbl_max = min_t(u32, dbl_max, stm32_dma3_get_max_burst(len, ddw, chan->max_burst,
-+								       dst_max_burst));
- 
- 		/* Set source (memory) data width and burst */
- 		sdw = stm32_dma3_get_max_dw(chan->max_burst, sap_max_dw, len, src_addr);
--		sbl_max = stm32_dma3_get_max_burst(len, sdw, chan->max_burst);
-+		sbl_max = stm32_dma3_get_max_burst(len, sdw, chan->max_burst, src_max_burst);
- 		if (!!FIELD_GET(STM32_DMA3_DT_NOPACK, tr_conf)) {
- 			sdw = ddw;
- 			sbl_max = dbl_max;
-@@ -653,11 +668,12 @@ static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transf
- 		/* Set source (device) data width and burst */
- 		sdw = min_t(u32, sdw, stm32_dma3_get_max_dw(chan->max_burst, sap_max_dw,
- 							    len, src_addr));
--		sbl_max = min_t(u32, sbl_max, stm32_dma3_get_max_burst(len, sdw, chan->max_burst));
-+		sbl_max = min_t(u32, sbl_max, stm32_dma3_get_max_burst(len, sdw, chan->max_burst,
-+								       src_max_burst));
- 
- 		/* Set destination (memory) data width and burst */
- 		ddw = stm32_dma3_get_max_dw(chan->max_burst, dap_max_dw, len, dst_addr);
--		dbl_max = stm32_dma3_get_max_burst(len, ddw, chan->max_burst);
-+		dbl_max = stm32_dma3_get_max_burst(len, ddw, chan->max_burst, dst_max_burst);
- 		if (!!FIELD_GET(STM32_DMA3_DT_NOPACK, tr_conf) ||
- 		    ((_ctr2 & CTR2_PFREQ) && ddw > sdw)) { /* Packing to wider ddw not supported */
- 			ddw = sdw;
-@@ -689,22 +705,24 @@ static int stm32_dma3_chan_prep_hw(struct stm32_dma3_chan *chan, enum dma_transf
- 		init_dw = sdw;
- 		init_bl_max = sbl_max;
- 		sdw = stm32_dma3_get_max_dw(chan->max_burst, sap_max_dw, len, src_addr);
--		sbl_max = stm32_dma3_get_max_burst(len, sdw, chan->max_burst);
-+		sbl_max = stm32_dma3_get_max_burst(len, sdw, chan->max_burst, src_max_burst);
- 		if (chan->config_set & STM32_DMA3_CFG_SET_DMA) {
- 			sdw = min_t(u32, init_dw, sdw);
--			sbl_max = min_t(u32, init_bl_max,
--					stm32_dma3_get_max_burst(len, sdw, chan->max_burst));
-+			sbl_max = min_t(u32, init_bl_max, stm32_dma3_get_max_burst(len, sdw,
-+										   chan->max_burst,
-+										   src_max_burst));
- 		}
- 
- 		/* Set destination (memory) data width and burst */
- 		init_dw = ddw;
- 		init_bl_max = dbl_max;
- 		ddw = stm32_dma3_get_max_dw(chan->max_burst, dap_max_dw, len, dst_addr);
--		dbl_max = stm32_dma3_get_max_burst(len, ddw, chan->max_burst);
-+		dbl_max = stm32_dma3_get_max_burst(len, ddw, chan->max_burst, dst_max_burst);
- 		if (chan->config_set & STM32_DMA3_CFG_SET_DMA) {
- 			ddw = min_t(u32, init_dw, ddw);
--			dbl_max = min_t(u32, init_bl_max,
--					stm32_dma3_get_max_burst(len, ddw, chan->max_burst));
-+			dbl_max = min_t(u32, init_bl_max, stm32_dma3_get_max_burst(len, ddw,
-+										   chan->max_burst,
-+										   dst_max_burst));
- 		}
- 
- 		_ctr1 |= FIELD_PREP(CTR1_SDW_LOG2, ilog2(sdw));
-@@ -1647,8 +1665,12 @@ static u32 stm32_dma3_check_rif(struct stm32_dma3_ddata *ddata)
- 	return chan_reserved;
- }
- 
-+static struct stm32_dma3_pdata stm32mp25_pdata = {
-+	.axi_max_burst_len = 16,
-+};
-+
- static const struct of_device_id stm32_dma3_of_match[] = {
--	{ .compatible = "st,stm32mp25-dma3", },
-+	{ .compatible = "st,stm32mp25-dma3", .data = &stm32mp25_pdata, },
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, stm32_dma3_of_match);
-@@ -1656,6 +1678,7 @@ MODULE_DEVICE_TABLE(of, stm32_dma3_of_match);
- static int stm32_dma3_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
-+	const struct stm32_dma3_pdata *pdata;
- 	struct stm32_dma3_ddata *ddata;
- 	struct reset_control *reset;
- 	struct stm32_dma3_chan *chan;
-@@ -1750,6 +1773,16 @@ static int stm32_dma3_probe(struct platform_device *pdev)
- 	else /* Dual master ports */
- 		ddata->ports_max_dw[1] = FIELD_GET(G_M1_DATA_WIDTH_ENC, hwcfgr);
- 
-+	/* axi_max_burst_len is optional, if not defined, use STM32_DMA3_MAX_BURST_LEN  */
-+	ddata->axi_max_burst_len = STM32_DMA3_MAX_BURST_LEN;
-+	pdata = device_get_match_data(&pdev->dev);
-+	if (pdata && pdata->axi_max_burst_len) {
-+		ddata->axi_max_burst_len = min_t(u32, pdata->axi_max_burst_len,
-+						 STM32_DMA3_MAX_BURST_LEN);
-+		dev_dbg(&pdev->dev, "Burst is limited to %u beats through AXI port\n",
-+			ddata->axi_max_burst_len);
-+	}
-+
- 	ddata->chans = devm_kcalloc(&pdev->dev, ddata->dma_channels, sizeof(*ddata->chans),
- 				    GFP_KERNEL);
- 	if (!ddata->chans) {
 
 -- 
 2.25.1
