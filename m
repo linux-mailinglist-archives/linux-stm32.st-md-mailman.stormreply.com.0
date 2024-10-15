@@ -2,64 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A47C99DEAD
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 08:47:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBF5B99DFD2
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 09:56:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B16A7C78018;
-	Tue, 15 Oct 2024 06:47:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83A74C7801A;
+	Tue, 15 Oct 2024 07:56:06 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA18DC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CADE6C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 06:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728974866; x=1760510866;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6IAKQl0FeJyqvb+jgw9De0Ep6tMaFhgHgcVDED6/PIQ=;
- b=DiNctGYc7ImvumpTgVn+VwfOOlDu4PnTVwhsOL7vPzk2/PKPwwaaHS3C
- QzUHcp+U//vt7PEEJZSD57vVfJ7HO5Otgw7A958nCmki8/PS+0Fm31fZV
- lka8a5BmH5g542LPbd061ixwTqFol8sAKnKk82maQlpe1w6bci30faT/k
- TO7kULJAwHtwXx9qqcjmcW+5FrME1DBlzg5j3/jIN/THjwouCTFutWY1B
- GC0yRkZfib1oBHASoXk9eMY5x6pSqgODj/y8znylDIXLKTtnm78f0bymn
- hYe7tXggzwSX0rZ/JbmgsI9UTpq2O44mVsYZ240XXD9fvj+slrHghULVA w==;
-X-CSE-ConnectionGUID: ITz8QYHqQM2R34/XOFB8rA==
-X-CSE-MsgGUID: eWf5Zk1MQVOt2+As7U8o8Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11225"; a="28539414"
-X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="28539414"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 23:47:37 -0700
-X-CSE-ConnectionGUID: taqcyVltRrKTjJ7B5kbwzQ==
-X-CSE-MsgGUID: 4ywyFyftQkSB6s+nkaBVhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,204,1725346800"; d="scan'208";a="78138620"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 14 Oct 2024 23:47:34 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t0bL9-000HiD-2f;
- Tue, 15 Oct 2024 06:47:31 +0000
-Date: Tue, 15 Oct 2024 14:46:41 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lionel Debieve <lionel.debieve@foss.st.com>, marex@denx.de
-Message-ID: <202410151421.5UhVRFdF-lkp@intel.com>
-References: <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
+ Tue, 15 Oct 2024 07:56:04 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-539e5c15fd3so2594970e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Oct 2024 00:56:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1728978964; x=1729583764;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W4f2iJU2YRRvkqlQGmRp0NrctfUTlxD5uwwI+OoQ05k=;
+ b=iW6AnB5rmEPV+yKidnVc35VJyjFzrxgSsGWU/dSwAOD5iYLUBA9jTg37L3cgdnaD2j
+ EF9FatVLSL6at506DqBICOWOmfahVxnREmylbTrFrZCayzqgNA6mOiQwazDRmVdHbjJP
+ klJ7DBe+Qfo3RhiBjBEl19IWZrXa4ASb7zfKeo65TsZBCH2p6kbzRj6K7LT6wg2fAknT
+ p9RARCIm0Yw2vStTq5B9DkD8OijDpYC7trNcB5M+g9s2EdmkWGbzWqhgRRUY/5q7RJ1+
+ Y42p8gp/ozmqCtMWoHOr7hVrIg4FAujMqaUhp1gQy99w6qd/Uc/7WyLQKn+CcFfokmkt
+ XPhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728978964; x=1729583764;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=W4f2iJU2YRRvkqlQGmRp0NrctfUTlxD5uwwI+OoQ05k=;
+ b=tYnVpRanKbTFBoVRHtFedoA+2Xt4s8zLWUz81eacSBazANP4dZ/RU3DCPltMIb1tES
+ H9SXXh3vlyhL6MPq3jKw3ITP1GmepE818i4oww2NBiw7kPS0cwnAc+W/CIZEHIpEvRKG
+ W/4w7kQHuTq2YdXRtb6gpy2uW2hKFtGspTG/tVIbjreQ5yK5T9y9S6dqGYcqpPWeuQlO
+ E6oEkT0YLn+v9+Sttx1VDpxYLb7IYDnmgZuI4+s0Uy1ic4sp+4IzEQYYRWmksD7upEgW
+ 4wM62KKTJ2duj9M2/329CMhcp9W8fAVwVVwpTwfwc1ijo1W2a7/u9TUA1D5LMPLx0I0G
+ sTsg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrdR2y9rzJTrEdeMp3esfEo5rY3jhyox++EaymH67B6bT30qgx0vFRy3UG6Gd6eJ9h0eIwSYUC4E3ZUA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YztTdqLWPLIHNR1mDM312djmRDkKAL0N5q4OnqsvHvUZ6gZiWUg
+ w0LykfaY08vaURfS5ljYM5rF6KuzpIL8L3uJXNT9kyZXIsf+nPIBJCDQFOG5YidPeiTtNccZ2MG
+ JTeh83qHG1KqGn5WRG1REhhRepc+Rny28vne1Mw==
+X-Google-Smtp-Source: AGHT+IGxQoVV1qAm1koIq8EsNt09kbaJ+UbkKc4EVXnZTt6xt0Ql1TEN5rxOvW8w3QwasQCGnoEZst65gfgN3WuoTY4=
+X-Received: by 2002:a05:6512:695:b0:539:f37f:bed9 with SMTP id
+ 2adb3069b0e04-539f37fc164mr3497720e87.8.1728978963859; Tue, 15 Oct 2024
+ 00:56:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241011-rng-mp25-v2-v2-2-76fd6170280c@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/4] hwrng: stm32 - implement support
- for STM32MP25x platforms
+References: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
+In-Reply-To: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 15 Oct 2024 09:55:52 +0200
+Message-ID: <CACRpkdaMMsHXkgcOtw0aC=SPfJJURCyCgzDq-rEXrBGaM44Sdg@mail.gmail.com>
+To: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+Cc: Kees Cook <kees@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Mark Brown <broonie@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] Crash on armv7-a using KASAN
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,119 +77,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Gatien,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on 1d227fcc72223cbdd34d0ce13541cbaab5e0d72f]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/dt-bindings-rng-add-st-stm32mp25-rng-support/20241011-234913
-base:   1d227fcc72223cbdd34d0ce13541cbaab5e0d72f
-patch link:    https://lore.kernel.org/r/20241011-rng-mp25-v2-v2-2-76fd6170280c%40foss.st.com
-patch subject: [PATCH v2 2/4] hwrng: stm32 - implement support for STM32MP25x platforms
-config: nios2-randconfig-r053-20241015 (https://download.01.org/0day-ci/archive/20241015/202410151421.5UhVRFdF-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 14.1.0
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410151421.5UhVRFdF-lkp@intel.com/
-
-cocci warnings: (new ones prefixed by >>)
->> drivers/char/hw_random/stm32-rng.c:585:6-12: inconsistent IS_ERR and PTR_ERR on line 586.
-
-vim +585 drivers/char/hw_random/stm32-rng.c
-
-   530	
-   531	static int stm32_rng_probe(struct platform_device *ofdev)
-   532	{
-   533		struct device *dev = &ofdev->dev;
-   534		struct device_node *np = ofdev->dev.of_node;
-   535		struct stm32_rng_private *priv;
-   536		struct resource *res;
-   537	
-   538		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-   539		if (!priv)
-   540			return -ENOMEM;
-   541	
-   542		priv->base = devm_platform_get_and_ioremap_resource(ofdev, 0, &res);
-   543		if (IS_ERR(priv->base))
-   544			return PTR_ERR(priv->base);
-   545	
-   546		priv->rst = devm_reset_control_get(&ofdev->dev, NULL);
-   547		if (!IS_ERR(priv->rst)) {
-   548			reset_control_assert(priv->rst);
-   549			udelay(2);
-   550			reset_control_deassert(priv->rst);
-   551		}
-   552	
-   553		priv->ced = of_property_read_bool(np, "clock-error-detect");
-   554		priv->lock_conf = of_property_read_bool(np, "st,rng-lock-conf");
-   555		priv->dev = dev;
-   556	
-   557		priv->data = of_device_get_match_data(dev);
-   558		if (!priv->data)
-   559			return -ENODEV;
-   560	
-   561		dev_set_drvdata(dev, priv);
-   562	
-   563		priv->rng.name = dev_driver_string(dev);
-   564		priv->rng.init = stm32_rng_init;
-   565		priv->rng.read = stm32_rng_read;
-   566		priv->rng.quality = 900;
-   567	
-   568		if (!priv->data->nb_clock || priv->data->nb_clock > 2)
-   569			return -EINVAL;
-   570	
-   571		priv->clk_bulk = devm_kzalloc(dev, priv->data->nb_clock * sizeof(*priv->clk_bulk),
-   572					      GFP_KERNEL);
-   573		if (!priv->clk_bulk)
-   574			return -ENOMEM;
-   575	
-   576		if (priv->data->nb_clock == 2) {
-   577			struct clk *clk;
-   578			struct clk *bus_clk;
-   579	
-   580			clk = devm_clk_get(&ofdev->dev, "core");
-   581			if (IS_ERR(clk))
-   582				return PTR_ERR(clk);
-   583	
-   584			bus_clk = devm_clk_get(&ofdev->dev, "bus");
- > 585			if (IS_ERR(clk))
- > 586				return PTR_ERR(bus_clk);
-   587	
-   588			priv->clk_bulk[0].clk = clk;
-   589			priv->clk_bulk[0].id = "core";
-   590			priv->clk_bulk[1].clk = bus_clk;
-   591			priv->clk_bulk[1].id = "bus";
-   592		} else {
-   593			struct clk *clk;
-   594	
-   595			clk = devm_clk_get(&ofdev->dev, NULL);
-   596			if (IS_ERR(clk))
-   597				return PTR_ERR(clk);
-   598	
-   599			priv->clk_bulk[0].clk = clk;
-   600			priv->clk_bulk[0].id = "core";
-   601		}
-   602	
-   603		pm_runtime_set_autosuspend_delay(dev, 100);
-   604		pm_runtime_use_autosuspend(dev);
-   605		pm_runtime_enable(dev);
-   606	
-   607		return devm_hwrng_register(dev, &priv->rng);
-   608	}
-   609	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2xlbWVudCwKCnRoYW5rcyBmb3IgeW91ciByZXBvcnQhIEkgbG9va2VkIGEgYml0IGF0IGl0
+OgoKT24gTW9uLCBPY3QgMTQsIDIwMjQgYXQgMzoyMeKAr1BNIENsZW1lbnQgTEUgR09GRklDCjxj
+bGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPiB3cm90ZToKCj4gSSBoYXZlIGRldGVjdGVkIGEg
+a2VybmVsIGNyYXNoIGluIGxhdGVzdCBrZXJuZWwgb24gYXJtdjctYSB3aGVuIEthc2FuIGlzCj4g
+ZW5hYmxlZC4KKC4uLikKPiBDcmFzaCBsb2cgd2l0aCByZWNlbnQga2VybmVsICh2Ni4xMi1yYzMp
+IDoKPgo+IH4gIyBJbnN1ZmZpY2llbnQgc3RhY2sgc3BhY2UgdG8gaGFuZGxlIGV4Y2VwdGlvbiEK
+ClRoZSBjcmFzaCBsb29rcyBwcmV0dHkgImV4cGVjdGVkIiwgYXMgeW91IHNheSB5b3Ugc3RhcnQg
+YSBsb3Qgb2YKcGFyYWxsZWwgcHJvY2Vzc2VzCmFuZCB3aG9vcHMsIHlvdSBydW4gb3V0IG9mIG1l
+bW9yeSBvbiB0aGUgc3RhY2suIE5vIHNvZnR3YXJlIGNhbiBhZGQgbW9yZQptZW1vcnkgdG8gdGhl
+IG1hY2hpbmUuCgpLQVNBTiB1c2VzIGEgbG90IG9mIGV4dHJhIG1lbW9yeSBmb3IgaW50ZXJjZXB0
+aW5nIGFsbCBtZW1vcnkgYWNjZXNzZXMsCm5vbWluYWxseSBvbmUKZXh0cmEgYnl0ZSBwZXIgOCBi
+eXRlcy4gVGhpcyBpcyBmdXJ0aGVyIHJlc3RyaWN0ZWQgYnkgdGhlIGNvbXBsZXgKbmF0dXJlIG9m
+IHRoZSB2aXJ0dWFsCm1lbW9yeSBzcGFjZSBvbiBBUk0zMi4KClRoYXQgc2FpZCwgd2UgaW5jcmVh
+c2UgdGhlIHNpemUgb2YgcGVyLXRocmVhZCBzdG9yYWdlIHdoZW4gdXNpbmcgS0FTQU4sClRIUkVB
+RF9TSVpFX09SREVSIGlzIDIgaW5zdGVhZCBvZiAxLiBNYXliZSB0aGUgaW50ZXJydXB0IHN0YWNr
+cyBuZWVkCnRvIGJlIHNjYWxlZCBzaW1pbGFybHkgdG8gbWFuYWdlIHRoZSBpbmNyZWFzZWQgbG9h
+ZD8KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
