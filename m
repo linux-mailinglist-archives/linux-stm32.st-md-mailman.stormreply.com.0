@@ -2,45 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D8B99F2B5
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 18:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02BB99F350
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 18:51:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF075C78030;
-	Tue, 15 Oct 2024 16:27:57 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4332C7801A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 761E6C78039;
+	Tue, 15 Oct 2024 16:51:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7A1BC78033
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 16:27:49 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD8101763;
- Tue, 15 Oct 2024 09:28:18 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 131043F71E;
- Tue, 15 Oct 2024 09:27:46 -0700 (PDT)
-Date: Tue, 15 Oct 2024 17:27:32 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Message-ID: <Zw6X9KQT0-z7r7SY@J2N7QTR9R3.cambridge.arm.com>
-References: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
- <Zw5D2aTkkUVOK89g@J2N7QTR9R3>
- <CACRpkdY79nbBoaHe6ijuyJS9dDduNw_sv1J90pz121YDgCvC3Q@mail.gmail.com>
- <Zw51fhCkmCYrTOeV@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXEcLD3PWd-9osjo9AOe5Jg-NMOmJ8afB_x7VeboueLoeQ@mail.gmail.com>
- <Zw59x0LVS-kvs9Jv@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXEnhHkxywh8TH1i=fmyAR8cXZ8D-rvV43X-N7GpCf2Axw@mail.gmail.com>
- <Zw6Jk74-d0mhR0jx@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXG3bwMGpArYNUm-qMO7PPgb3--wy5kp-3Ks2Uv9M479xg@mail.gmail.com>
+ Tue, 15 Oct 2024 16:51:18 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49FCDp8w021367;
+ Tue, 15 Oct 2024 18:51:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=T93sAc/spARN1FDC+Kwa2t
+ Z2jrQAQ6WiRfZ/tiID6UU=; b=FUNz7yL7poJsAnRc3ffMBjXHn3pWBmH/jCABMo
+ sXbtulDn23XeCT5m2cgtI0jxVjsfpkDNK0pgdPzky5fIhzhhVpXAZbyXExoGPug+
+ XhKB5NZYBzbPXX26oul1bdqBK/3JpDXhAnPJXoZBw0KoJnKPjteF/bkyL2zBTXzk
+ sEJTA3pI3PoIIhmTprzv1AW5ZDqzN5HwW9cZDSUeBbtNtjBhcVYWYAoZuWnq+E7E
+ DdOzgGSLJo+eWXfcc64ssFbMJx1rd5CAb6/6iXbL+LLb9kIttFtvQI8+BHnXRJT2
+ L0xzCEaDnhmRovXT5uYBJjyvwvZEWLuIflKQI4y5JOgSfk9Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 427g0bp7se-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Oct 2024 18:51:00 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1F3C340069;
+ Tue, 15 Oct 2024 18:49:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C8840220B59;
+ Tue, 15 Oct 2024 18:48:57 +0200 (CEST)
+Received: from localhost (10.48.86.225) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 15 Oct
+ 2024 18:48:57 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Tue, 15 Oct 2024 18:48:53 +0200
+Message-ID: <20241015-rng-mp25-v2-v3-0-87630d73e5eb@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXG3bwMGpArYNUm-qMO7PPgb3--wy5kp-3Ks2Uv9M479xg@mail.gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] Crash on armv7-a using KASAN
+X-B4-Tracking: v=1; b=H4sIAPWcDmcC/22MQQ6CMBBFr0JmbclMxWJceQ/DQssUuqAlHdJoS
+ O9uZW3yN+8n7+0gnDwL3JodEmcvPoYK51MDdn6GiZUfK4NG3RESqRQmtaz6orJWL9MZZEfE5KA
+ aa2Ln30ftMVSevWwxfY541r/3f6cOVW/caKhHfUV7d1Gkla21cYGhlPIFyem/jqgAAAA=
+X-Change-ID: 20241011-rng-mp25-v2-b6460ef11e1f
+To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Lionel Debieve <lionel.debieve@foss.st.com>, <marex@denx.de>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.86.225]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/4] Add support for stm32mp25x RNG
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,29 +81,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 15, 2024 at 06:07:00PM +0200, Ard Biesheuvel wrote:
-> On Tue, 15 Oct 2024 at 17:26, Mark Rutland <mark.rutland@arm.com> wrote:
-> > Looking some more, I don't see how VMAP_STACK guarantees that the
-> > old/active stack is mapped in the new mm when switching from the old mm
-> > to the new mm (which happens before __switch_to()).
-> >
-> > Either I'm missing something, or we have a latent bug. Maybe we have
-> > some explicit copying/prefaulting elsewhere I'm missing?
-> 
-> We bump the vmalloc_seq counter for that. Given that the top-level
-> page table can only gain entries covering the kernel space, this
-> should be sufficient for the old task's stack to be mapped in the new
-> task's page tables.
+This patchset adds support for the Random Number
+Generator(RNG) present on the stm32mp25x platforms.
+On these platforms, the clock management and the RNG
+parameters are different.
 
-Ah, yep -- I had missed that. Thanks for the pointer!
+While there, update the RNG max clock frequency on
+stm32mp15 platforms according to the latest specs.
 
-From a superficial look, it sounds like it should be possible to extend
-that to also handle the KASAN shadow of the vmalloc area (which
-__check_vmalloc_seq() currently doesn't copy), but I'm not sure of
-exactly when we initialise the shadow for a vmalloc allocation relative
-to updating vmalloc_seq.
+Tested on the stm32mp257f-ev1 platform with a deep
+power sequence with rngtest before/after the sequence with
+satisfying results.
 
-Mark.
+Same was done on stm32mp135f-dk to make sure no regression was added.
+
+On stm32mp157c-dk2, I didn't perform a power sequence but the rngtest
+results were satisfying.
+
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+Changes in v3:
+- Add restriction on clock-names some compatibles
+- Use clk_bulk APIs in the RNG driver to avoid manually handling clocks.
+- Link to v2: https://lore.kernel.org/r/20241011-rng-mp25-v2-v2-0-76fd6170280c@foss.st.com
+
+Changes in V2:
+	-Fixes in bindings
+	-Removed MP25 RNG example
+	-Renamed RNG clocks for mp25 to "core" and "bus"
+
+---
+Gatien Chevallier (4):
+      dt-bindings: rng: add st,stm32mp25-rng support
+      hwrng: stm32 - implement support for STM32MP25x platforms
+      hwrng: stm32 - update STM32MP15 RNG max clock frequency
+      arm64: dts: st: add RNG node on stm32mp251
+
+ .../devicetree/bindings/rng/st,stm32-rng.yaml      | 34 +++++++++-
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             | 10 +++
+ drivers/char/hw_random/stm32-rng.c                 | 76 ++++++++++++++++------
+ 3 files changed, 100 insertions(+), 20 deletions(-)
+---
+base-commit: 8e929cb546ee42c9a61d24fae60605e9e3192354
+change-id: 20241011-rng-mp25-v2-b6460ef11e1f
+
+Best regards,
+-- 
+Gatien Chevallier <gatien.chevallier@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
