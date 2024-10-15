@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31D1D99FA6B
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 23:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A7B99FB3E
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Oct 2024 00:17:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8E9AC78030;
-	Tue, 15 Oct 2024 21:46:56 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCF7BC78030;
+	Tue, 15 Oct 2024 22:17:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C006C7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 751FCC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 21:46:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RUPcqvj52wd/KjEg+PkVdtP+IR/bopp5LHO/Jp2z01M=; b=cpFpC9ARaM8RcbFr8RHpRDm14t
- tOVx/wx1A9POxxO+hU821j+9zVuC+0PBN9oxjAb3hoqsdNz+JJcHJvJo5bbqnRblcVey9kaiDjg7i
- aalEeuurdqp4+hg4qrAH1v1/dsTW3m/ZTvPyfiWueMlGYIibThGgwfgoWVLM3JNbzNF3DBasKoi8I
- B2wnM8BFagGHtpMi7AYVuCTZuYwrGxq3JmDikzTCJ09QJuy+nEJ29cZshbqbSVUc7n6ejTO+TTqER
- JH3AEknjgDIqXTdPUJAkcK40sPPnW7rF2lDmFIHzUJYvgkxCYXvJkaN3dyBLqyC1SOHIUOf97rCvI
- g8ckQE7Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51334)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1t0pNJ-0004Co-17;
- Tue, 15 Oct 2024 22:46:41 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1t0pNG-0004cP-2r;
- Tue, 15 Oct 2024 22:46:38 +0100
-Date: Tue, 15 Oct 2024 22:46:38 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <Zw7ivkeqKWzkQrN2@shell.armlinux.org.uk>
-References: <20241015-arm-kasan-vmalloc-crash-v1-0-dbb23592ca83@linaro.org>
- <20241015-arm-kasan-vmalloc-crash-v1-1-dbb23592ca83@linaro.org>
+ Tue, 15 Oct 2024 22:17:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id A14695C5F0B;
+ Tue, 15 Oct 2024 22:17:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924D3C4CEC6;
+ Tue, 15 Oct 2024 22:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729030661;
+ bh=uMYkHlMKaytHOvnhHen4sk4aMkGAAmVSj+k1YxZcbDg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Q9TNb6Y7mb2ZnDSkREuBd+zIZhQ5UlL4+nGnSv6fUlRhQQYyEjJgfHNzkHJpNNUIE
+ Awwzor3n00sSb9KTvfywA+9gBoqnwxE3tSAPVgOY2MRJr90V+PqMte0D34wMA6Dyii
+ lVNrktg9wupODvZnp/zFjluPk7+q3unGwiDzeIM1OzlJbXdrzM7uBcxa7lh+xw0z9q
+ aGCi0vyTZ0Yv4Ea3RVEHowbnGY72hkqGKDskK7orwREwNTNWDUYDXWLBnaWhcU/ZBY
+ bgpMr/hvstaNV5NQKwAyLElO/cxdzaC0Qz24kVNVlkxBjst7GvqnPA9F2GeMXxAKg1
+ rftr8OQpGU9iQ==
+Date: Tue, 15 Oct 2024 17:17:40 -0500
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20241015221740.GA2100600-robh@kernel.org>
+References: <20241015-rng-mp25-v2-v3-0-87630d73e5eb@foss.st.com>
+ <20241015-rng-mp25-v2-v3-1-87630d73e5eb@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241015-arm-kasan-vmalloc-crash-v1-1-dbb23592ca83@linaro.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>,
- stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Mark Brown <broonie@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: ioremap: Flush PGDs for VMALLOC
-	shadow
+In-Reply-To: <20241015-rng-mp25-v2-v3-1-87630d73e5eb@foss.st.com>
+Cc: marex@denx.de, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivia Mackall <olivia@selenic.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: rng: add st,
+	stm32mp25-rng support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,48 +61,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 15, 2024 at 11:37:14PM +0200, Linus Walleij wrote:
-> @@ -125,6 +126,12 @@ void __check_vmalloc_seq(struct mm_struct *mm)
->  		       pgd_offset_k(VMALLOC_START),
->  		       sizeof(pgd_t) * (pgd_index(VMALLOC_END) -
->  					pgd_index(VMALLOC_START)));
-> +		if (IS_ENABLED(CONFIG_KASAN_VMALLOC)) {
-> +			memcpy(pgd_offset(mm, (unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START)),
-> +			       pgd_offset_k((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START)),
-> +			       sizeof(pgd_t) * (pgd_index((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_END)) -
-> +						pgd_index((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START))));
+On Tue, Oct 15, 2024 at 06:48:54PM +0200, Gatien Chevallier wrote:
+> Add RNG STM32MP25x platforms compatible. Update the clock
+> properties management to support all versions.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> Changes in V3:
+> 	- Add constraint on clock-names for st,stm32mp25-rng compatible
+> 
+> Changes in V2
+> 	-Fix missing min/maxItems
+> 	-Removed MP25 RNG example
+> 	-Renamed RNG clocks for mp25 to "core" and "bus"
+> ---
+>  .../devicetree/bindings/rng/st,stm32-rng.yaml      | 34 +++++++++++++++++++++-
+>  1 file changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> index 340d01d481d12ce8664a60db42182ddaf0d1385b..c276723d566ce4a0d6deca10c491510644d842f8 100644
+> --- a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> +++ b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> @@ -18,12 +18,20 @@ properties:
+>      enum:
+>        - st,stm32-rng
+>        - st,stm32mp13-rng
+> +      - st,stm32mp25-rng
+>  
+>    reg:
+>      maxItems: 1
+>  
+>    clocks:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    items:
+> +      - const: core
+> +      - const: bus
+>  
+>    resets:
+>      maxItems: 1
+> @@ -57,6 +65,30 @@ allOf:
+>        properties:
+>          st,rng-lock-conf: false
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - st,stm32-rng
+> +              - st,stm32mp13-rng
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +        clock-names: false
 
-Maybe the following would be more readable:
+It makes no sense that you allowed 1 entry, but then disallow the 
+property. Either drop the 'minItems: 1' at the top level (keeping this) 
+or put 'maxItems: 1' here, 
 
-static unsigned long arm_kasan_mem_to_shadow(unsigned long addr)
-{
-	return (unsigned long)kasan_mem_to_shadow((void *)addr);
-}
+> +    else:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +          maxItems: 2
 
-static void memcpy_pgd(struct mm_struct *mm, unsigned long start,
-		       unsigned long end)
-{
-	memcpy(pgd_offset(mm, start), pgd_offset_k(start),
-	       sizeof(pgd_t) * (pgd_index(end) - pgd_index(start)));
-}
+maxItems is already 2. Only need minItems.
 
-		seq = ...;
-		memcpy_pgd(mm, VMALLOC_START, VMALLOC_END);
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +            - const: bus
 
-		if (IS_ENABLED(CONFIG_KASAN_VMALLOC)) {
-			unsigned long start =
-				arm_kasan_mem_to_shadow(VMALLOC_START);
-			unsigned long end =
-				arm_kasan_mem_to_shadow(VMALLOC_END);
+You already defined the names, don't do it again. You need either 
+nothing or 'minItems: 2' depending on the above.
 
-			memcpy_pgd(mm, start, end);
-> +		}
-
-?
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> +      required:
+> +        - clock-names
+> +
+>  additionalProperties: false
+>  
+>  examples:
+> 
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
