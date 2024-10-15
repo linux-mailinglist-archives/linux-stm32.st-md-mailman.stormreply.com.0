@@ -2,81 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A315B99F906
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 23:24:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1710699F93D
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 23:31:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DA47C78030;
-	Tue, 15 Oct 2024 21:24:51 +0000 (UTC)
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCB11C78030;
+	Tue, 15 Oct 2024 21:31:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28AA7C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 044DBC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 21:24:44 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-2fb5638dd57so22867911fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 14:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729027483; x=1729632283;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PhjciV57JA1oiSvqUGGOuUTneeyKGywd3NuDYX8iNpU=;
- b=FVWqP9wBZXizwnoTSwLcU+euy9ELJHLh/iaqpUCfxZHLVCsB6OebtYX4FwSCpTMXTs
- Aslk/U3AcP99x2Id+11boksk5x/BBld5BjGmFNTiYlaRaBbB7uKMryky8eb4cCYSQ22h
- 1olQvvZvOHhLBZ8kD+xcrsqArve6vtcUAhUeVQTHNqHwIqslZzgu+YLrC4EyuVAuKhu2
- ouh892m0A0JhXM/R2Je+vIyGbO7B2TqIGF4hT0muf76GxoeQHi4je3PBP5UOz++pFARh
- GuWfCdbcwrBcOd3N/jeWBInmbx4OHKfrwsTT7+58EU9zqX1WGECRxfv+fC1qMlusjavo
- jVgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729027483; x=1729632283;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PhjciV57JA1oiSvqUGGOuUTneeyKGywd3NuDYX8iNpU=;
- b=lUMevtSOhLqKPyc/YtA2dWZq0YKqbDw60HG/mxSM+MbQi5xycbyM4L7pXB7Yx1zWb3
- a7KcsV8jbAK5SumvHkwRt3rc13OIWV1nlop10zAdBdFe7BnIV7FLOSvIW5mClMQHITfO
- ojdeqZMYa3FLnOagptMCvZiTGMyEB2sQ1zsgRWqrWo5DvBMuV91QPSeRX52xjOvLbUaL
- aNKFbkffnt2k8BQALb5dUjPyEylANvB1E6lKidFxE4G95WurBW509wQJCALiIYAgtX3/
- 5IKDU0BcyOSouxTJr3KkqbaJNXxWUvB+LOgMjojxDJau7gsuzuxaipnDqhhKbw7G+H9U
- SnZQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXcqXwKojMvMALsRRg8wcCvGxHwx6ISVi4dEwkyqrp45W8NZkfEMB2PRTNmXVy86obH1PeqADwE0yXT4A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzqK5yyncktx2KqYX4Gpvv0X56P6VDfkESI5jjcRAZKvS0VCvvk
- zRniZHFQikq8wKU0QsVVBqozmRpCionuSrsQyxDeEn5Vk7xIgTO1aF0ZRqAoq0lMdKYHDqLiIhv
- oQm9dc3TuLxNyTZGiPo6OFu5vexrq9oCWy5+ZPA==
-X-Google-Smtp-Source: AGHT+IF1R3ln9ac3U0sfakzsuNbOd+0ROdsV4OC8ZJQYCQZp67tLpSmpVzQ89WN+TtVyocJi0Q1Race8vWOhGwQH26c=
-X-Received: by 2002:a2e:4c1a:0:b0:2fb:6198:d230 with SMTP id
- 38308e7fff4ca-2fb61b510b1mr9173781fa.18.1729027483126; Tue, 15 Oct 2024
- 14:24:43 -0700 (PDT)
+ Tue, 15 Oct 2024 21:30:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6FB705C5F17;
+ Tue, 15 Oct 2024 21:30:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E940C4CEC6;
+ Tue, 15 Oct 2024 21:30:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729027854;
+ bh=U7XE5u0pRR0pjYvZzMuh+uJeZUztv2GjXrvRNqavzVs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TwZuXoGBhtKmtnUGkO9xhM+OkaS9RCQXoW1EB2LgyL+yZks5KwPMA3TkdudxYKAT6
+ N7Fbp+l2LfaBB1gbBDmJZ3n97fnpu/SVZIDwSw02u+nA+/AxJiA7iv5EGQxutMkpNk
+ WfGRBQWhKzGlehhRjbyCfstJtjq48xsNR0DNnZA+L31+WSZRUwXioxeqHUlDRIZ76G
+ KA52D7nTrumkV9YhnLUtxGk3Dewd+LKyXFAt7l/2a78sk/4FWo9yYbtey2P0JR3vi8
+ wKqlN916tSBZdEamcVw3Xgt4t+EW4V6i/QpH3Ew1SKMWa4UmLnodB92b5KiWEys1cP
+ jSa/R3fVTwFng==
+Date: Tue, 15 Oct 2024 16:30:53 -0500
+From: Rob Herring <robh@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <20241015213053.GA1992090-robh@kernel.org>
+References: <20241015-dma3-mp25-updates-v2-0-b63e21556ec8@foss.st.com>
+ <20241015-dma3-mp25-updates-v2-4-b63e21556ec8@foss.st.com>
 MIME-Version: 1.0
-References: <a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com>
- <Zw5D2aTkkUVOK89g@J2N7QTR9R3>
- <CACRpkdY79nbBoaHe6ijuyJS9dDduNw_sv1J90pz121YDgCvC3Q@mail.gmail.com>
- <Zw51fhCkmCYrTOeV@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXEcLD3PWd-9osjo9AOe5Jg-NMOmJ8afB_x7VeboueLoeQ@mail.gmail.com>
- <Zw59x0LVS-kvs9Jv@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXEnhHkxywh8TH1i=fmyAR8cXZ8D-rvV43X-N7GpCf2Axw@mail.gmail.com>
- <Zw6Jk74-d0mhR0jx@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXG3bwMGpArYNUm-qMO7PPgb3--wy5kp-3Ks2Uv9M479xg@mail.gmail.com>
- <Zw6X9KQT0-z7r7SY@J2N7QTR9R3.cambridge.arm.com>
- <CAMj1kXGGmsWs2XpM7zLURjKp67Uz2ePi1pSV1=rPCMgviLVUgw@mail.gmail.com>
- <CACRpkdYjeqaRzz+hBOGGLEAJn5QmFGof2ysQuVNC_+vV49WPRw@mail.gmail.com>
-In-Reply-To: <CACRpkdYjeqaRzz+hBOGGLEAJn5QmFGof2ysQuVNC_+vV49WPRw@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 15 Oct 2024 23:24:31 +0200
-Message-ID: <CACRpkdaTfrAwd8yzZLZHfuu7SB0pUTHZ9kUJq+2c2C8RSqpN9w@mail.gmail.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>,
- Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] Crash on armv7-a using KASAN
+Content-Disposition: inline
+In-Reply-To: <20241015-dma3-mp25-updates-v2-4-b63e21556ec8@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/9] dt-bindings: dma: stm32-dma3:
+ prevent additional transfers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,26 +55,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBPY3QgMTUsIDIwMjQgYXQgMTA6NTXigK9QTSBMaW51cyBXYWxsZWlqIDxsaW51cy53
-YWxsZWlqQGxpbmFyby5vcmc+IHdyb3RlOgo+IE9uIFR1ZSwgT2N0IDE1LCAyMDI0IGF0IDc6Mjji
-gK9QTSBBcmQgQmllc2hldXZlbCA8YXJkYkBrZXJuZWwub3JnPiB3cm90ZToKPgo+ID4gPiBGcm9t
-IGEgc3VwZXJmaWNpYWwgbG9vaywgaXQgc291bmRzIGxpa2UgaXQgc2hvdWxkIGJlIHBvc3NpYmxl
-IHRvIGV4dGVuZAo+ID4gPiB0aGF0IHRvIGFsc28gaGFuZGxlIHRoZSBLQVNBTiBzaGFkb3cgb2Yg
-dGhlIHZtYWxsb2MgYXJlYSAod2hpY2gKPiA+ID4gX19jaGVja192bWFsbG9jX3NlcSgpIGN1cnJl
-bnRseSBkb2Vzbid0IGNvcHkpLCBidXQgSSdtIG5vdCBzdXJlIG9mCj4gPiA+IGV4YWN0bHkgd2hl
-biB3ZSBpbml0aWFsaXNlIHRoZSBzaGFkb3cgZm9yIGEgdm1hbGxvYyBhbGxvY2F0aW9uIHJlbGF0
-aXZlCj4gPiA+IHRvIHVwZGF0aW5nIHZtYWxsb2Nfc2VxLgo+ID4KPiA+IEluZGVlZC4gSXQgYXBw
-ZWFycyBib3RoIHZtYWxsb2Nfc2VxKCkgYW5kIGFyY2hfc3luY19rZXJuZWxfbWFwcGluZ3MoKQo+
-ID4gbmVlZCB0byB0YWtlIHRoZSB2bWFsbG9jIHNoYWRvdyBpbnRvIGFjY291bnQgc3BlY2lmaWNh
-bGx5Lgo+Cj4gSSdtIHRyeWluZyB0byBsb29rIGludG8gdGhhdC4KCkkgZml4ZWQgdGhhdCB0b28g
-YW5kIG5vdyB0aGUgS0FTQU4gaXMgc3RhYmlsaXplZC4gSSdsbCBzZW5kIG91dCB0aGUKcGF0Y2hl
-cyBzbyB3ZSBnZXQgc29tZXRoaW5nIHRvIHRlc3QuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+On Tue, Oct 15, 2024 at 02:14:40PM +0200, Amelie Delaunay wrote:
+> stm32-dma3 driver refactors the linked-list in order to address the memory
+> with the highest possible data width.
+
+You are still talking about driver...
+
+> It means that it can introduce up to 2 linked-list items. One with a
+> transfer length multiple of channel maximum burst length and so with the
+> highest possible data width. And an extra one with the latest bytes, with
+> lower data width.
+> Some devices (e.g. FMC ECC) don't support having several transfers instead
+> of only one.
+> So add the possibility to prevent these additional transfers, by setting
+> bit 17 of the 'DMA transfer requirements' bit mask.
+
+Some devices require single transfers. That's about all you need to say.
+
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+> Changes in v2:
+> - Reword commit title/message/content as per Rob's suggestion.
+> ---
+>  Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+> index 5484848735f8ac3d2050104bbab1d986e82ba6a7..36f9fe860eb990e6caccedd31460ee6993772a35 100644
+> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dma3.yaml
+> @@ -99,6 +99,9 @@ properties:
+>          -bit 16: Prevent packing/unpacking mode
+>            0x0: pack/unpack enabled when source data width/burst != destination data width/burst
+>            0x1: memory data width/burst forced to peripheral data width/burst to prevent pack/unpack
+> +        -bit 17: Prevent additional transfers due to linked-list refactoring
+> +          0x0: don't prevent additional transfers for optimal performance
+> +          0x1: prevent additional transfer to accommodate user constraints such as single transfer
+>  
+>  required:
+>    - compatible
+> 
+> -- 
+> 2.25.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
