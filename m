@@ -2,73 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED8B99F9CA
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 23:37:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D1D99FA6B
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2024 23:46:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44040C78034;
-	Tue, 15 Oct 2024 21:37:38 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8E9AC78030;
+	Tue, 15 Oct 2024 21:46:56 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD0B2C78031
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C006C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 21:37:34 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2f7657f9f62so58030461fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2024 14:37:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729028254; x=1729633054;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TASGgpeqvDoWRp9bCNSBz84rkKz0n7oKXi0ntrW73xw=;
- b=gjM8vWTFTgZynaREV9PoqJYa6d7BIB42Oy5wRGy5NZ9re4okTa11tIuVq/qPa1eMAe
- hHcoO0U3ovY7v1iqXgvGGTDJ4rpy/LFmfh8SimOoIqm+BpWEeg8d396wgtoe8DELSFzB
- 7yhjFccoax7riougXNVWkt5XTH+SER164FZTdG8SnGM7RVwh0gzSUwS2caM7/qoU6luR
- 9B10q37RKIlHBPmoCQe99l1WPiMX9XSR6EasoAKaZHcUa+1rCXGtOB7zh70mVfLB1rdh
- +VVq5UXzgr+V+5WI5a0Cplt1oeAdrKFZk+JPaxRPHcHvUh2l/uf+yv94zDTwjikeemzO
- N8CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729028254; x=1729633054;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TASGgpeqvDoWRp9bCNSBz84rkKz0n7oKXi0ntrW73xw=;
- b=gwaOefnbb714Cw8NL1ENM90Fjtiig0manw1R0G8MN97i/QvAagmxsQzkTgXESfPwTy
- WFuQlm8E48q7noK9x6O9JMLcufIcqb7sL+R/OQheYFUuRfBfx0Zc19Wd1cLEiP3YkuUE
- 9EMCLWPpNjkT7VT1A3tqWBz94/I1A8gZp7xljSkltaYJfOneEa/GnM/vh0xJBRUAiJzz
- qCF1F6nAo5NTD8qKFnK8yc9T68g2Csoq8o4hiNfv0KoTJcsdVFCA6YXisjn5oCq0drBu
- dwjWyMDJiTTe0rkJuu/oWDk8xeAh0apxi+lIL4Wy5Vu4xkpQ4pdAwi8/qN+mcaAoWoJj
- 7zEA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQGMXEyha8sfzx5EjUci+SIyC/u7ptY71JdAR6sar95Aqe9WqjM48DvC7zH+FoYm+empebbYMQX9U1bw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyYhVmaIxVtmNoH3ehQlc1yWav3WoOO7nDAoWYvFh4uwSPv6eSW
- SGh2TI6XI3S1vgt2cPWN0LgFTBFgKKRfEF/rRilGPtXzvppt28nLCma9rIcspNA=
-X-Google-Smtp-Source: AGHT+IF341ab+sZLcMDbnxZTwN4quvfyU4PR7oSIdCyM9Ps18PkqToqxvjilXFBFRaDjIYv2qHNpnw==
-X-Received: by 2002:a05:6512:3e14:b0:539:f26f:d280 with SMTP id
- 2adb3069b0e04-53a03f0bdc9mr1252333e87.5.1729028253987; 
- Tue, 15 Oct 2024 14:37:33 -0700 (PDT)
-Received: from lino.lan ([85.235.12.238]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539ffff39a7sm258959e87.164.2024.10.15.14.37.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2024 14:37:31 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 15 Oct 2024 23:37:15 +0200
-MIME-Version: 1.0
-Message-Id: <20241015-arm-kasan-vmalloc-crash-v1-2-dbb23592ca83@linaro.org>
+ Tue, 15 Oct 2024 21:46:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RUPcqvj52wd/KjEg+PkVdtP+IR/bopp5LHO/Jp2z01M=; b=cpFpC9ARaM8RcbFr8RHpRDm14t
+ tOVx/wx1A9POxxO+hU821j+9zVuC+0PBN9oxjAb3hoqsdNz+JJcHJvJo5bbqnRblcVey9kaiDjg7i
+ aalEeuurdqp4+hg4qrAH1v1/dsTW3m/ZTvPyfiWueMlGYIibThGgwfgoWVLM3JNbzNF3DBasKoi8I
+ B2wnM8BFagGHtpMi7AYVuCTZuYwrGxq3JmDikzTCJ09QJuy+nEJ29cZshbqbSVUc7n6ejTO+TTqER
+ JH3AEknjgDIqXTdPUJAkcK40sPPnW7rF2lDmFIHzUJYvgkxCYXvJkaN3dyBLqyC1SOHIUOf97rCvI
+ g8ckQE7Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51334)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1t0pNJ-0004Co-17;
+ Tue, 15 Oct 2024 22:46:41 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1t0pNG-0004cP-2r;
+ Tue, 15 Oct 2024 22:46:38 +0100
+Date: Tue, 15 Oct 2024 22:46:38 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <Zw7ivkeqKWzkQrN2@shell.armlinux.org.uk>
 References: <20241015-arm-kasan-vmalloc-crash-v1-0-dbb23592ca83@linaro.org>
-In-Reply-To: <20241015-arm-kasan-vmalloc-crash-v1-0-dbb23592ca83@linaro.org>
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>, 
- Russell King <linux@armlinux.org.uk>, Kees Cook <kees@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Mark Brown <broonie@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>
-X-Mailer: b4 0.14.0
-Cc: stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Linus Walleij <linus.walleij@linaro.org>
-Subject: [Linux-stm32] [PATCH 2/2] ARM: entry: Do a dummy read from VMAP
+ <20241015-arm-kasan-vmalloc-crash-v1-1-dbb23592ca83@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20241015-arm-kasan-vmalloc-crash-v1-1-dbb23592ca83@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>,
+ stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Mark Brown <broonie@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: ioremap: Flush PGDs for VMALLOC
 	shadow
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,51 +66,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When switching task, in addition to a dummy read from the new
-VMAP stack, also do a dummy read from the VMAP stack's
-corresponding KASAN shadow memory to sync things up in
-the new MM context.
+On Tue, Oct 15, 2024 at 11:37:14PM +0200, Linus Walleij wrote:
+> @@ -125,6 +126,12 @@ void __check_vmalloc_seq(struct mm_struct *mm)
+>  		       pgd_offset_k(VMALLOC_START),
+>  		       sizeof(pgd_t) * (pgd_index(VMALLOC_END) -
+>  					pgd_index(VMALLOC_START)));
+> +		if (IS_ENABLED(CONFIG_KASAN_VMALLOC)) {
+> +			memcpy(pgd_offset(mm, (unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START)),
+> +			       pgd_offset_k((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START)),
+> +			       sizeof(pgd_t) * (pgd_index((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_END)) -
+> +						pgd_index((unsigned long)kasan_mem_to_shadow((void *)VMALLOC_START))));
 
-Cc: stable@vger.kernel.org
-Fixes: a1c510d0adc6 ("ARM: implement support for vmap'ed stacks")
-Link: https://lore.kernel.org/linux-arm-kernel/a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com/
-Reported-by: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-Suggested-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
----
- arch/arm/kernel/entry-armv.S | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Maybe the following would be more readable:
 
-diff --git a/arch/arm/kernel/entry-armv.S b/arch/arm/kernel/entry-armv.S
-index 1dfae1af8e31..12a4040a04ff 100644
---- a/arch/arm/kernel/entry-armv.S
-+++ b/arch/arm/kernel/entry-armv.S
-@@ -25,6 +25,7 @@
- #include <asm/tls.h>
- #include <asm/system_info.h>
- #include <asm/uaccess-asm.h>
-+#include <asm/kasan_def.h>
- 
- #include "entry-header.S"
- #include <asm/probes.h>
-@@ -561,6 +562,13 @@ ENTRY(__switch_to)
- 	@ entries covering the vmalloc region.
- 	@
- 	ldr	r2, [ip]
-+#ifdef CONFIG_KASAN_VMALLOC
-+	@ Also dummy read from the KASAN shadow memory for the new stack if we
-+	@ are using KASAN
-+	mov_l	r2, KASAN_SHADOW_OFFSET
-+	add	r2, ip, lsr #KASAN_SHADOW_SCALE_SHIFT
-+	ldr	r2, [r2]
-+#endif
- #endif
- 
- 	@ When CONFIG_THREAD_INFO_IN_TASK=n, the update of SP itself is what
+static unsigned long arm_kasan_mem_to_shadow(unsigned long addr)
+{
+	return (unsigned long)kasan_mem_to_shadow((void *)addr);
+}
+
+static void memcpy_pgd(struct mm_struct *mm, unsigned long start,
+		       unsigned long end)
+{
+	memcpy(pgd_offset(mm, start), pgd_offset_k(start),
+	       sizeof(pgd_t) * (pgd_index(end) - pgd_index(start)));
+}
+
+		seq = ...;
+		memcpy_pgd(mm, VMALLOC_START, VMALLOC_END);
+
+		if (IS_ENABLED(CONFIG_KASAN_VMALLOC)) {
+			unsigned long start =
+				arm_kasan_mem_to_shadow(VMALLOC_START);
+			unsigned long end =
+				arm_kasan_mem_to_shadow(VMALLOC_END);
+
+			memcpy_pgd(mm, start, end);
+> +		}
+
+?
 
 -- 
-2.46.2
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
