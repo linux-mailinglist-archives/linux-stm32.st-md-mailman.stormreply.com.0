@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 102F79A03A4
+	by mail.lfdr.de (Postfix) with ESMTPS id 045DE9A03A3
 	for <lists+linux-stm32@lfdr.de>; Wed, 16 Oct 2024 10:06:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9897CC7803A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D5A3C78038;
 	Wed, 16 Oct 2024 08:06:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC8DCC78033
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE3B1C78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 16 Oct 2024 08:06:42 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49G3SgLE011399;
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49G3xQ9L011471;
  Wed, 16 Oct 2024 10:06:26 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- QYf7I5bZM+g/zbxxwONC8wmKlEdNvZg+vARUi+5HicI=; b=tY+4DGXFGVQN7z+3
- 7G/HdKmFOCq1mtJoKRlPdY5CyHRprLFsgcWUirLNBnKEb1lLdG+vBNrclGsNdlhh
- 4/Q1DGod6MtC5unDD3bYONam8k8PeAtCvQRhSTRUjorN4uBkWUtXrHz59tCnlU0A
- IU2VrNsS95CoeVdVdhrnHD3Zo0JpPcA72bXoGGjZsGBe9IBgWwpGLD6S+hZS/KqM
- B8UZjIVpB1775y8ix7jZxvAu8DBfkwwYRZpXRTdQX6Fqbm8vQYR42knGhddaQDIE
- iNrcP0+fV4V0Th+ykhpN9aTYEwT0hK5S65JdVNqdWFi0/Depo4iWnBXoVrx0HjFc
- m/aF3A==
+ ujwJiGYrgOTn+uhgNNQmIEEtl3sMpGZHZQWu+RiZjSY=; b=khrtD/Mm7Y83qsgZ
+ nO2AgP1P/1jvUN0Aig4IA70mJ8mKWH3sx9IHAR/ffZrB+cic9evP5DSRRYDInkt8
+ 8fOr9LlHT/etBg3atLTOI85tM0RjeFrAaFdiGKZFmOMecffj6qRY7dEujiQhJZti
+ ws2q4C8jv5bmSsKQvT6dcHI6OPJi+tPJIqJGZiv0xFIruZ2RYstdgtaPOXPd81Uy
+ 69gK3dBMNgoYmui3LSSJE9I+L0vqmXRa7v1JhOEhIf9VrV/UGOS4w7dW0FmNPUNR
+ HnwrX8cYhatCSd8amxvzXoEzXnQtTFU6qsUUqoKRazn7eCoyfardu/4vs7qdhWvU
+ RPsMqg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 429qybc30u-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 429qybc30v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 16 Oct 2024 10:06:26 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0CC664004A;
- Wed, 16 Oct 2024 10:05:18 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8113840056;
+ Wed, 16 Oct 2024 10:05:21 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6071323CB55;
- Wed, 16 Oct 2024 10:04:34 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 29CF92347CF;
+ Wed, 16 Oct 2024 10:04:35 +0200 (CEST)
 Received: from localhost (10.48.86.225) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 16 Oct
  2024 10:04:34 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Date: Wed, 16 Oct 2024 10:04:20 +0200
+Date: Wed, 16 Oct 2024 10:04:21 +0200
 MIME-Version: 1.0
-Message-ID: <20241016-rng-mp25-v2-v4-3-5dca590cb092@foss.st.com>
+Message-ID: <20241016-rng-mp25-v2-v4-4-5dca590cb092@foss.st.com>
 References: <20241016-rng-mp25-v2-v4-0-5dca590cb092@foss.st.com>
 In-Reply-To: <20241016-rng-mp25-v2-v4-0-5dca590cb092@foss.st.com>
 To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
@@ -63,8 +63,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 3/4] hwrng: stm32 - update STM32MP15 RNG
- max clock frequency
+Subject: [Linux-stm32] [PATCH v4 4/4] arm64: dts: st: add RNG node on
+	stm32mp251
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,32 +81,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RNG max clock frequency can be updated to 48MHz for stm32mp1x
-platforms according to the latest specifications.
+Update the device-tree stm32mp251.dtsi by adding the Random Number
+Generator(RNG) node.
 
 Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 Reviewed-by: Marek Vasut <marex@denx.de>
 ---
+Changes in V3
+	-Applied Marek tag
 
-Changes in V3:
-	- Added Marek's tag
+Changes in V2
+	-Renamed RNG clocks to "core" and "bus"
 ---
- drivers/char/hw_random/stm32-rng.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index 279328902bf89af15b8ca9df9a061bf2a1ddcf55..5b4fb35bcb5cf7faa257286660b88c5840f0d07d 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -508,7 +508,7 @@ static const struct stm32_rng_data stm32mp13_rng_data = {
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 1167cf63d7e87aaa15c5c1ed70a9f6511fd818d4..273da5f62294422b587b13404b499b5ffe6c148e 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -493,6 +493,16 @@ uart8: serial@40380000 {
+ 				status = "disabled";
+ 			};
  
- static const struct stm32_rng_data stm32_rng_data = {
- 	.has_cond_reset = false,
--	.max_clock_rate = 3000000,
-+	.max_clock_rate = 48000000,
- 	.nb_clock = 1,
- };
- 
++			rng: rng@42020000 {
++				compatible = "st,stm32mp25-rng";
++				reg = <0x42020000 0x400>;
++				clocks = <&clk_rcbsec>, <&rcc CK_BUS_RNG>;
++				clock-names = "core", "bus";
++				resets = <&rcc RNG_R>;
++				access-controllers = <&rifsc 92>;
++				status = "disabled";
++			};
++
+ 			spi8: spi@46020000 {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
 
 -- 
 2.25.1
