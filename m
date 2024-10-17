@@ -2,47 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DEEE9A1F9A
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 12:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBEF9A2009
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 12:30:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D882BC78032;
-	Thu, 17 Oct 2024 10:19:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9BF7C5E2D2
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91B81C78032;
+	Thu, 17 Oct 2024 10:30:35 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5874C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2024 10:19:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0470E5C5DC8;
- Thu, 17 Oct 2024 10:18:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63B19C4CEC5;
- Thu, 17 Oct 2024 10:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729160342;
- bh=EwYIiVN0SdU+AkH/bqOTTx9jJa66IvHYmbDVoyJuE1I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ldn9oUebm27rhdmUNrnOOid25bg5Cnqabl8JZE4coHOkSMDkAe0L/JXRjSxp8UR1L
- cK2rQdpLhLvXQuXRvoPWb32T8XPVjrpIVkKJLsJoehDXa5qxTrfXrEbh0AAAZ4ktBY
- iFM9sgzhMBOfM8ypLdkqQdRwIT6csH5c8/TBB7IDkcvKZrlYzsCabhf5XM+Cvi9K+9
- ZjkIxqy66D7ecL44cSqTHccZaralLQVsdC6wiKhCSzMrQlylRPRwuS9qsULCGDBR0w
- mzmK/IdZ/W5WNGYiGz3I6r17rhQGInyAww+I6Et5AkEcoSFD97NDtZ5edBhATBj4uL
- vzL+hfqAm32Vg==
-Date: Thu, 17 Oct 2024 11:18:57 +0100
-From: Simon Horman <horms@kernel.org>
-To: 2694439648@qq.com
-Message-ID: <20241017101857.GE1697@kernel.org>
-References: <tencent_6BF819F333D995B4D3932826194B9B671207@qq.com>
+ Thu, 17 Oct 2024 10:30:28 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B00F7FEC;
+ Thu, 17 Oct 2024 03:30:57 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D4DD43F71E;
+ Thu, 17 Oct 2024 03:30:25 -0700 (PDT)
+Date: Thu, 17 Oct 2024 11:30:23 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Ard Biesheuvel <ardb@kernel.org>
+Message-ID: <ZxDnP3rAAHLHgEXc@J2N7QTR9R3>
+References: <20241016-arm-kasan-vmalloc-crash-v2-0-0a52fd086eef@linaro.org>
+ <20241016-arm-kasan-vmalloc-crash-v2-1-0a52fd086eef@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <tencent_6BF819F333D995B4D3932826194B9B671207@qq.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- hailong.fan@siengine.com, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: enable MAC after MTL
-	configuring
+In-Reply-To: <20241016-arm-kasan-vmalloc-crash-v2-1-0a52fd086eef@linaro.org>
+Cc: Kees Cook <kees@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] ARM: ioremap: Sync PGDs for
+	VMALLOC shadow
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,26 +48,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 14, 2024 at 01:44:03PM +0800, 2694439648@qq.com wrote:
-> From: "hailong.fan" <hailong.fan@siengine.com>
+On Wed, Oct 16, 2024 at 09:15:21PM +0200, Linus Walleij wrote:
+> When sync:ing the VMALLOC area to other CPUs, make sure to also
+> sync the KASAN shadow memory for the VMALLOC area, so that we
+> don't get stale entries for the shadow memory in the top level PGD.
 > 
-> DMA maybe block while ETH is opening,
-> Adjust the enable sequence, put the MAC enable last
+> Since we are now copying PGDs in two instances, create a helper
+> function named memcpy_pgd() to do the actual copying, and
+> create a helper to map the addresses of VMALLOC_START and
+> VMALLOC_END into the corresponding shadow memory.
 > 
-> Signed-off-by: hailong.fan <hailong.fan@siengine.com>
+> Cc: stable@vger.kernel.org
+> Fixes: 565cbaad83d8 ("ARM: 9202/1: kasan: support CONFIG_KASAN_VMALLOC")
+> Link: https://lore.kernel.org/linux-arm-kernel/a1a1d062-f3a2-4d05-9836-3b098de9db6d@foss.st.com/
+> Reported-by: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+> Suggested-by: Mark Rutland <mark.rutland@arm.com>
+> Suggested-by: Russell King (Oracle) <linux@armlinux.org.uk>
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+> ---
+>  arch/arm/mm/ioremap.c | 25 +++++++++++++++++++++----
+>  1 file changed, 21 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm/mm/ioremap.c b/arch/arm/mm/ioremap.c
+> index 794cfea9f9d4..94586015feed 100644
+> --- a/arch/arm/mm/ioremap.c
+> +++ b/arch/arm/mm/ioremap.c
+> @@ -23,6 +23,7 @@
+>   */
+>  #include <linux/module.h>
+>  #include <linux/errno.h>
+> +#include <linux/kasan.h>
+>  #include <linux/mm.h>
+>  #include <linux/vmalloc.h>
+>  #include <linux/io.h>
+> @@ -115,16 +116,32 @@ int ioremap_page(unsigned long virt, unsigned long phys,
+>  }
+>  EXPORT_SYMBOL(ioremap_page);
+>  
+> +static unsigned long arm_kasan_mem_to_shadow(unsigned long addr)
+> +{
+> +	return (unsigned long)kasan_mem_to_shadow((void *)addr);
+> +}
+> +
+> +static void memcpy_pgd(struct mm_struct *mm, unsigned long start,
+> +		       unsigned long end)
+> +{
+> +	memcpy(pgd_offset(mm, start), pgd_offset_k(start),
+> +	       sizeof(pgd_t) * (pgd_index(end) - pgd_index(start)));
+> +}
+> +
+>  void __check_vmalloc_seq(struct mm_struct *mm)
+>  {
+>  	int seq;
+>  
+>  	do {
+>  		seq = atomic_read(&init_mm.context.vmalloc_seq);
+> -		memcpy(pgd_offset(mm, VMALLOC_START),
+> -		       pgd_offset_k(VMALLOC_START),
+> -		       sizeof(pgd_t) * (pgd_index(VMALLOC_END) -
+> -					pgd_index(VMALLOC_START)));
+> +		memcpy_pgd(mm, VMALLOC_START, VMALLOC_END);
+> +		if (IS_ENABLED(CONFIG_KASAN_VMALLOC)) {
+> +			unsigned long start =
+> +				arm_kasan_mem_to_shadow(VMALLOC_START);
+> +			unsigned long end =
+> +				arm_kasan_mem_to_shadow(VMALLOC_END);
+> +			memcpy_pgd(mm, start, end);
+> +		}
 
-Hi,
+This looks good; FWIW:
 
-I think that some more explanation of this is required.
-Including if a problem has been observed, and if so under what
-conditions. Or, if not, some background information on why
-this adjustment is correct.
+Acked-by: Mark Rutland <mark.rutland@arm.com>
 
-I also think some explanation is required of the relationship
-between the changes this patch makes to setup, and the
-changes it makes to start and stop.
+As a separate thing, I believe we also need to use atomic_read_acquire()
+for the reads of vmalloc_seq to pair with the atomic_*_release() on each
+update.
 
-...
+Otherwise, this can be reordered, e.g.
+
+	do {
+		memcpy_pgd(...);
+		seq = atomic_read(&init_mm.context.vmalloc_seq);
+		atomic_set_release(&mm->context.vmalloc_seq, seq);
+	} while (seq != atomic_read(&init_mm.context.vmalloc_seq)
+
+... and we might fail to copy the relevant table entries from init_mm,
+but still think we're up-to-date and update mm's vmalloc_seq.
+
+Ard, does that sound right to you, or am I missing something?
+
+Mark.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
