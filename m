@@ -2,76 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D999A2159
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 13:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 017DC9A2235
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 14:29:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C27F8C78032;
-	Thu, 17 Oct 2024 11:43:16 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A435C78032;
+	Thu, 17 Oct 2024 12:29:49 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D46D3C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 189F8C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2024 11:43:09 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-20caea61132so7029085ad.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2024 04:43:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729165388; x=1729770188;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=puN6p+bMjYJtsrg56y32J8yDB4IjMscvJ6LWf1rgN+k=;
- b=G0RNndbNjsZ1vNpAaaLT8w6bVlBC/CiPD7g+G/FjnKY+eArlsCVqxxFwRHyL4kBV0X
- Qk43gfKrknccrh7h/RHOlLPAWCN7KhW5Yc3mFcvDwF47KTI09PAc7WanY9pvWCz+zVoq
- +W/kxt/Hx/awyxGeJuQt2lwNdSyofdTEpK72El9Yn3WzFMIXYgfQ3gx2P4JqIxwbogTD
- kJguVGVwrlwhmNRiXS4uUuwAfDPH3uoSizivzQCMwaAdL/Fy68vAG2IFNJ2c3rG5nIKb
- wu+OA+86Z2p8k6O2xfqmJIVXQaltOqYZpPa/Q0Tnuxn4od8qh9ZV+Zeh1eMA18A66xH0
- aWxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729165388; x=1729770188;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=puN6p+bMjYJtsrg56y32J8yDB4IjMscvJ6LWf1rgN+k=;
- b=VKUWhsfqNTFXe6NOMEtJcyRUEVoLJ1n/VNFnuzW1nd7suHNLxY8B8VV4EdHwa4x/KY
- pSHdin6eypD9bmNRCF0EKpO1UPKQctPtAyZmvQtGfvs3+rHag8ezUMtCs7KEV2pKv7Lf
- 8KJsQOEoSOiZgmp6z6NPtPoIfTYHzMc38Wiu02ADRYhy/G7JjHZpyNtnZ8AYMOneeIFL
- +0IlRZxGVqjLgOEnSYPV0PYz2pcvlnW1Cz5fyxiyjq+0A5bCJcUQgimjER3s1AswOr6j
- +JG5XzdZ699VX4EDmVKv6Mc88N/Dchvzid5ChQ0T5DWVbmmAtjn4e8ufYuw9tG69p8ld
- e4Ug==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXklY7D3PbbfTLAmg7NgMeC/hGo99ME6mAk0jTIMh59UKzoH4ZY50Ectw5FbbQURj71zQ5EO16BOuzBzw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx/cxClrPzH1R9Zvz1pfjv/FC6vmgVLj3Hz3mBkl+pGdRqnIYcZ
- HSiFwqbejMwB9dADBWT+bDD/M+QCaKnAVCnurOpn1hxlJ9J9lhGx
-X-Google-Smtp-Source: AGHT+IHJunnh0cmVmNuXc+ArxYGx076cO6tNN4BAqDDpgEMgZwnt3Rmb/lhQ7qL4SW+VAkF2w9+WzQ==
-X-Received: by 2002:a17:903:22d1:b0:20c:a498:1e4d with SMTP id
- d9443c01a7336-20cbb2afd17mr267223905ad.60.1729165388225; 
- Thu, 17 Oct 2024 04:43:08 -0700 (PDT)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-20d1804b2d9sm42705255ad.184.2024.10.17.04.43.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Oct 2024 04:43:07 -0700 (PDT)
-Date: Thu, 17 Oct 2024 19:42:58 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-Message-ID: <20241017194258.000044b3@gmail.com>
-In-Reply-To: <20241015121009.3903121-1-quic_jsuraj@quicinc.com>
-References: <20241015121009.3903121-1-quic_jsuraj@quicinc.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+ Thu, 17 Oct 2024 12:29:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2F980A43D65;
+ Thu, 17 Oct 2024 12:29:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E50C4CEC5;
+ Thu, 17 Oct 2024 12:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729168180;
+ bh=yd5Il7nYS8RK836o00Q0x0vsIfnv7ERNERDNUicu15c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ktuCV2Cgw0lV7EeBTGRZ3xOzke+9u/4WWh6TslyhJJMNwrCvw5axWh/HQdIn/LO+o
+ gXVDPwJhQ12qwzNdmnWPoAxMOsAT3fcoEAAdOuZ+9DvmYbQy7zXZ29+TQFBislgAzr
+ 8rdcC+nAxfpgKDz8ezw+rIFEFCnWfAwDmIry68FoZPstEhuSPQkkWe6HigQHCFhY2Q
+ 9IlU8ja64MPGj8A8Q1EalGdG4AhEW2v3IT/SoV/di1IQmLPQjGn8HnxocagWVgv8Eo
+ 3JutdfkML1Z/msj/4Fi590I6q4q/KrT3WHm3Spy3SbAhzYxdUkIMRuNjwiRy3zMLX0
+ iDN1kL1H8BxJQ==
+Date: Thu, 17 Oct 2024 13:29:36 +0100
+From: Simon Horman <horms@kernel.org>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20241017122936.GF1697@kernel.org>
+References: <cover.1728980110.git.0x1207@gmail.com>
+ <7b244a9d6550bd856298150fb4c083ca95b41f38.1728980110.git.0x1207@gmail.com>
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, kernel@quicinc.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Prasad Sodagudi <psodagud@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: allocate separate page
-	for buffer
+Content-Disposition: inline
+In-Reply-To: <7b244a9d6550bd856298150fb4c083ca95b41f38.1728980110.git.0x1207@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 5/5] net: stmmac: xgmac:
+	Complete FPE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,18 +62,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Suraj,
+On Tue, Oct 15, 2024 at 05:09:26PM +0800, Furong Xu wrote:
+> FPE implementation for DWMAC4 and DWXGMAC differs only for:
+> 1) Offset address of MAC_FPE_CTRL_STS and MTL_FPE_CTRL_STS
+> 2) FPRQ(Frame Preemption Residue Queue) field in MAC_RxQ_Ctrl1
+> 
+> Refactor stmmac_fpe_ops callback functions to avoid code duplication
+> between gmac4 and xgmac.
+> 
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
 
-Thanks for this fix.
+Hi Furong Xu,
 
-I tested your patch on XGMAC 3.20a, all goes well, except a performance
-drop of ~10%
-Like Jakub Kicinski said in V2, this involves more dma_map() and does add
-overhead :-/
+I think it would be best to split this patch so that the refactor of dwmac4
+code is in one patch, and adding xgmac code is in another.
 
-I might have a better fix for this, I will send to review and CC it to you.
+...
 
-Thanks.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+> index 6060a1d702c6..80f12b6e84e6 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+> @@ -160,41 +160,54 @@ void stmmac_fpe_apply(struct stmmac_priv *priv)
+>  	}
+>  }
+>  
+> -static void dwmac5_fpe_configure(void __iomem *ioaddr,
+> -				 struct stmmac_fpe_cfg *cfg,
+> -				 u32 num_txq, u32 num_rxq,
+> -				 bool tx_enable, bool pmac_enable)
+> +static void common_fpe_configure(void __iomem *ioaddr,
+> +				 struct stmmac_fpe_cfg *cfg, u32 rxq,
+> +				 bool tx_enable, bool pmac_enable,
+> +				 u32 rxq_addr, u32 fprq_mask, u32 fprq_shift,
+> +				 u32 mac_fpe_addr, u32 int_en_addr,
+> +				 u32 int_en_bit)
+
+This function now has a lot of parameters. Could we consider another way?
+One idea I had was that describes the addresses for different chips.
+
+...
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> index 75ad2da1a37f..6a79e6a111ed 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+> @@ -1290,8 +1290,8 @@ const struct stmmac_tc_ops dwxgmac_tc_ops = {
+>  	.setup_cls_u32 = tc_setup_cls_u32,
+>  	.setup_cbs = tc_setup_cbs,
+>  	.setup_cls = tc_setup_cls,
+> -	.setup_taprio = tc_setup_taprio_without_fpe,
+> +	.setup_taprio = tc_setup_taprio,
+>  	.setup_etf = tc_setup_etf,
+>  	.query_caps = tc_query_caps,
+> -	.setup_mqprio = tc_setup_mqprio_unimplemented,
+> +	.setup_mqprio = tc_setup_dwmac510_mqprio,
+>  };
+
+It is not clear to me how this hunk relates to the rest of the patch.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
