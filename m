@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F079A2D2D
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 21:04:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2439A2D5C
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2024 21:09:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38612C78032;
-	Thu, 17 Oct 2024 19:04:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5693C78032;
+	Thu, 17 Oct 2024 19:09:51 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58C68C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A5A5C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2024 19:04:24 +0000 (UTC)
+ Thu, 17 Oct 2024 19:09:44 +0000 (UTC)
 Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 624FC89078;
- Thu, 17 Oct 2024 21:04:23 +0200 (CEST)
+ by phobos.denx.de (Postfix) with ESMTPSA id D4C5589024;
+ Thu, 17 Oct 2024 21:09:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1729191863;
- bh=6UikRC4Qz0XD9894yyOJb/s9qvMMpRVTK+9kz5b8GeE=;
+ s=phobos-20191101; t=1729192184;
+ bh=V1K0rrehWqifWgC92YbC5mRbc/LwHLiXPIyw+pJanAM=;
  h=From:To:Cc:Subject:Date:From;
- b=c6hsltkT6GvHS0agC507lATrV89WJgcfxDIwiB+u+AZvVcHDlJV0dPs0Jn68Y8r74
- Rs9A9ldTzBFM4R4aufRo7rJFRoxvt6uRD1MOrjvuChuYlGQjoapXosTHqhAdqA9SeO
- cBdju0uGpfKc3Ugs0H7/hNsaCxEtlpJsR8AibfmhCNxiKELJPklhAX9O5UjkuXNDeF
- DNGYhOgx4t/0O+iK+5JDMGpj4XZNeA4EHt9x9s+lbGepV9hhV7ERgnbqs3MeNAf9sU
- ZDeHmeL/S6GHAdkq7Zb933Alc1w+1fU7JgEH3qX/jiWFPRhJ8MeFKYBFyVXU+7ejMt
- wtZ/2Pvsdgpfw==
+ b=E+NvFb8SWxJ0DS7Xhihi+no/YM3kBbIrS+1mKfttRW48VU7JtQAwVZFETXKf37Oc1
+ BIIdICDeWSIOJvbKekLWzdYXcFqP2x/tNZgMdd/8YshtIwQccB8LOK3lr9P9dUTCaM
+ TukrLy1PHwJ0FV0QpPwY0l5BdGdUyLraTAjlba2rHqxMvB6aEaXKgoRIsLTPIj//Gk
+ 1sH7qqHX+qFncutU5foEQrnrMIeYmTXdXEqsZXOWOB5SuaiWbnryixlMxXiHNFTEJ1
+ jfMGj0J6BriRDwoYrj/iykhQaKF9pgscn3zMxxt7k/3MPYUHrafw0rdQsp7s45ordx
+ RWFyaThCZGpjw==
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Thu, 17 Oct 2024 21:03:57 +0200
-Message-ID: <20241017190404.130838-1-marex@denx.de>
+Date: Thu, 17 Oct 2024 21:09:18 +0200
+Message-ID: <20241017190933.131441-1-marex@denx.de>
 X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
@@ -44,7 +44,7 @@ Cc: Marek Vasut <marex@denx.de>,
  kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Describe M24C32-D
+Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: Describe M24256E
 	write-lockable page in DH STM32MP13xx DHCOR SoM DT
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -82,6 +82,8 @@ Cc: kernel@dh-electronics.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+V2: Fix up the M25256E in Subject
 ---
 DEPENDS:
 - https://lore.kernel.org/linux-i2c/20241017184152.128395-1-marex@denx.de/
