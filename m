@@ -2,57 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D419A4885
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Oct 2024 22:53:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71BE79A499B
+	for <lists+linux-stm32@lfdr.de>; Sat, 19 Oct 2024 00:24:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22C55C78024;
-	Fri, 18 Oct 2024 20:53:46 +0000 (UTC)
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com
- [192.19.144.209])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02CECC78012;
+	Fri, 18 Oct 2024 22:24:34 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E1E7C6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42874C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Oct 2024 20:53:40 +0000 (UTC)
-Received: from mail-lvn-it-01.lvn.broadcom.net
- (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
- by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 3294FC003ABA;
- Fri, 18 Oct 2024 13:53:39 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 3294FC003ABA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
- s=dkimrelay; t=1729284819;
- bh=B5pHMQe6V0dWAA56a9Ep6qiKIoCxDAhjKJta+dS+6/0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cCfO/fPYCA+519rhhFetz0g8qOyEBrpselvj9Vya4G5HLdPoRUb6GNOiofUN8PBVq
- g2RIeSpWbGC++rs6YCe3bETjhxo3+vi0uvy/ie/jy6hHh0UIT/HknNEc100fKOq2Xm
- 7Hptqwh1ZypKP97gKNhC0TSyp+qhVhrLTfbdMO8E=
-Received: from pcie-dev03.dhcp.broadcom.net (pcie-dev03.dhcp.broadcom.net
- [10.59.171.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail-lvn-it-01.lvn.broadcom.net (Postfix) with ESMTPSA id 80F5818041CAC6;
- Fri, 18 Oct 2024 13:53:38 -0700 (PDT)
-From: jitendra.vegiraju@broadcom.com
-To: netdev@vger.kernel.org
-Date: Fri, 18 Oct 2024 13:53:32 -0700
-Message-Id: <20241018205332.525595-6-jitendra.vegiraju@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
-References: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
+ Fri, 18 Oct 2024 22:24:27 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49IEujid029139;
+ Fri, 18 Oct 2024 22:24:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=+cvx4qwwpEYQSvlp4LPY7BsXeKTPSa227I6
+ SuDbe0Vc=; b=oeP4fcHro0l87PCo/izzH8ZHfdO+rnqc3FfWhzNc6gOlxC7vUcQ
+ dOUg/mF32RRryVsz4/9LMLhFJplNWDmnSyQb4JWAQGyvfBEY+0iscZloMPv2Oza5
+ 6cRfBY90z7x4o4qUc11HopmzdXTm7WS1jIrukc9FnukKlWsCr+Bea98ZHrXTj68v
+ MFMvcSuth0JouE8NFdztYCYYYSh56Lh1KxuMSfdugVWjmo4VobwvxaYVE12FaAeO
+ /pF25Fi+seNJp3MReqHM7jlbJ7q3shUzyQSqX0L0TB/zeNWOvPOsRkQ7u/vkdAwx
+ /YHwAQXS5jSdWOOGjEpIlflF7xDBRbbVnCA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42bhbqapss-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Oct 2024 22:24:09 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTP id 49IMK8kv013073; 
+ Fri, 18 Oct 2024 22:24:08 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 42bphq4mt1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Oct 2024 22:24:08 +0000
+Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 49IMNNIW016809;
+ Fri, 18 Oct 2024 22:24:08 GMT
+Received: from hu-devc-lv-u20-c-new.qualcomm.com (hu-abchauha-lv.qualcomm.com
+ [10.47.232.24])
+ by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 49IMO8Hw017547
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Oct 2024 22:24:08 +0000
+Received: by hu-devc-lv-u20-c-new.qualcomm.com (Postfix, from userid 214165)
+ id 034BA22064; Fri, 18 Oct 2024 15:24:07 -0700 (PDT)
+From: Abhishek Chauhan <quic_abchauha@quicinc.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jon Hunter <jonathanh@nvidia.com>
+Date: Fri, 18 Oct 2024 15:24:07 -0700
+Message-Id: <20241018222407.1139697-1-quic_abchauha@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: andrew@lunn.ch, quic_abchauha@quicinc.com, Jianheng.Zhang@synopsys.com,
- edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
- daniel@iogearbox.net, john.fastabend@gmail.com, linux@armlinux.org.uk,
- joabreu@synopsys.com, bcm-kernel-feedback-list@broadcom.com,
- jitendra.vegiraju@broadcom.com, kuba@kernel.org, rohan.g.thomas@intel.com,
- pabeni@redhat.com, ahalaney@redhat.com, hawk@kernel.org,
- richardcochran@gmail.com, ast@kernel.org, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, xiaolei.wang@windriver.com,
- florian.fainelli@broadcom.com, linux-kernel@vger.kernel.org,
- fancer.lancer@gmail.com, horms@kernel.org, mcoquelin.stm32@gmail.com,
- bpf@vger.kernel.org, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH net-next v6 5/5] net: stmmac: Add BCM8958x
-	driver to build system
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: nw6KsqhYcNVQIR2DbZb4gluPPVHacxjE
+X-Proofpoint-GUID: nw6KsqhYcNVQIR2DbZb4gluPPVHacxjE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 mlxscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 mlxlogscore=979 priorityscore=1501
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410180143
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net v1] net: stmmac: Disable PCS Link and AN
+	interrupt when PCS AN is disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,71 +100,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Currently we disable PCS ANE when the link speed is 2.5Gbps.
+mac_link_up callback internally calls the fix_mac_speed which internally
+calls stmmac_pcs_ctrl_ane to disable the ANE for 2.5Gbps.
 
-Add PCI driver for BCM8958x to the linux build system and
-update MAINTAINERS file.
+We observed that the CPU utilization is pretty high. That is because
+we saw that the PCS interrupt status line for Link and AN always remain
+asserted. Since we are disabling the PCS ANE for 2.5Gbps it makes sense
+to also disable the PCS link status and AN complete in the interrupt
+enable register.
 
-Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Interrupt storm Issue:-
+[   25.465754][    C2] stmmac_pcs: Link Down
+[   25.469888][    C2] stmmac_pcs: Link Down
+[   25.474030][    C2] stmmac_pcs: Link Down
+[   25.478164][    C2] stmmac_pcs: Link Down
+[   25.482305][    C2] stmmac_pcs: Link Down
+[   25.486441][    C2] stmmac_pcs: Link Down
+[   25.486635][    C4] watchdog0: pretimeout event
+[   25.490585][    C2] stmmac_pcs: Link Down
+[   25.499341][    C2] stmmac_pcs: Link Down
+[   25.503484][    C2] stmmac_pcs: Link Down
+[   25.507619][    C2] stmmac_pcs: Link Down
+[   25.511760][    C2] stmmac_pcs: Link Down
+[   25.515897][    C2] stmmac_pcs: Link Down
+[   25.520038][    C2] stmmac_pcs: Link Down
+[   25.524174][    C2] stmmac_pcs: Link Down
+[   25.528316][    C2] stmmac_pcs: Link Down
+[   25.532451][    C2] stmmac_pcs: Link Down
+[   25.536591][    C2] stmmac_pcs: Link Down
+[   25.540724][    C2] stmmac_pcs: Link Down
+[   25.544866][    C2] stmmac_pcs: Link Down
+
+Once we disabled PCS ANE and Link Status interrupt issue
+disappears.
+
+Fixes: a818bd12538c ("net: stmmac: dwmac-qcom-ethqos: Add support for 2.5G SGMII")
+Signed-off-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
 ---
- MAINTAINERS                                  |  8 ++++++++
- drivers/net/ethernet/stmicro/stmmac/Kconfig  | 11 +++++++++++
- drivers/net/ethernet/stmicro/stmmac/Makefile |  1 +
- 3 files changed, 20 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d678a58c0205..f5ded80446d0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4464,6 +4464,14 @@ N:	brcmstb
- N:	bcm7038
- N:	bcm7120
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index e65a65666cc1..db77d07af9fe 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -751,7 +751,16 @@ static void dwmac4_flow_ctrl(struct mac_device_info *hw, unsigned int duplex,
+ static void dwmac4_ctrl_ane(void __iomem *ioaddr, bool ane, bool srgmi_ral,
+ 			    bool loopback)
+ {
++	u32 intr_mask = readl(ioaddr + GMAC_INT_EN);
++
+ 	dwmac_ctrl_ane(ioaddr, GMAC_PCS_BASE, ane, srgmi_ral, loopback);
++
++	if (!ane)
++		intr_mask &= ~(GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE);
++	else
++		intr_mask |= (GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE);
++
++	writel(intr_mask, ioaddr + GMAC_INT_EN);
+ }
  
-+BROADCOM BCM8958X ETHERNET DRIVER
-+M:	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-+R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	drivers/net/ethernet/stmicro/stmmac/dw25gmac.*
-+F:	drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
-+
- BROADCOM BCMBCA ARM ARCHITECTURE
- M:	William Zhang <william.zhang@broadcom.com>
- M:	Anand Gore <anand.gore@broadcom.com>
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 05cc07b8f48c..47c9db123b03 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -298,6 +298,17 @@ config DWMAC_LOONGSON
- 	  This selects the LOONGSON PCI bus support for the stmmac driver,
- 	  Support for ethernet controller on Loongson-2K1000 SoC and LS7A1000 bridge.
- 
-+config DWMAC_BRCM
-+	tristate "Broadcom XGMAC support"
-+	depends on STMMAC_ETH && PCI
-+	depends on COMMON_CLK
-+	help
-+	  Support for ethernet controllers on Broadcom BCM8958x SoCs.
-+
-+	  This selects Broadcom XGMAC specific PCI bus support for the
-+	  stmmac driver. This driver provides the glue layer on top of the
-+	  stmmac driver required for the Broadcom BCM8958x SoC devices.
-+
- config STMMAC_PCI
- 	tristate "STMMAC PCI bus support"
- 	depends on STMMAC_ETH && PCI
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 967e8a9aa432..517981b9e93a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -41,4 +41,5 @@ dwmac-altr-socfpga-objs := dwmac-socfpga.o
- obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
- obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
- obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
-+obj-$(CONFIG_DWMAC_BRCM)	+= dwmac-brcm.o
- stmmac-pci-objs:= stmmac_pci.o
+ static void dwmac4_get_adv_lp(void __iomem *ioaddr, struct rgmii_adv *adv)
 -- 
-2.34.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
