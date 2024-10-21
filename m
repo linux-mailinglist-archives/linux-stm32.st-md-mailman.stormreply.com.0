@@ -2,77 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DB119A6EDA
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 17:55:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF609A6EF3
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 18:01:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0ECFC78034;
-	Mon, 21 Oct 2024 15:55:01 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60221C6C855;
+	Mon, 21 Oct 2024 16:01:23 +0000 (UTC)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E74BC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA5A1C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Oct 2024 15:54:55 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-20c9978a221so53615615ad.1
+ Mon, 21 Oct 2024 16:01:15 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2e56750bb0dso2044676a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Oct 2024 08:54:55 -0700 (PDT)
+ Mon, 21 Oct 2024 09:01:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729526094; x=1730130894;
+ d=broadcom.com; s=google; t=1729526474; x=1730131274;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=W2P/OAPuPPfGZgym/n673Rfg3DHU/GqTqUEFYAFx22E=;
- b=qGxS/uq6b3jxf2+lH3MVWRNked3cmiGkmLuSRVU/zenQRGnlhOJ7LB9HWKc05NHZ5w
- UXY2P+Umj89DPbWsDG1Eg03vMKRyxoazrmpPaHwG4B/gyWwzIk4zKHELO6iOW0pKgGgH
- ldWtJOlGqIY4/1pSL9knTpYpg5co5ALnvAa6HRL9mklXcOD0mvkqQ6IRjRQ2kgjUSDTV
- OtTcz1CjYn1/X6zqXsTVk1RxIgw+ekyaMX+JbOJ2Yyj9jNZNWdY81TvWugaO9UffRpEa
- AsEgK2KcxjiJ4A6arqCulGh+oLQ+ZJKGAOL+PAy7npeDe/cC1SPgFIBEUgniI8HQ+vgX
- Sh2g==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=BTCEi1UWKzJyC46yxn+k8M/U6sRUXJnXMMVlcaIIX4E=;
+ b=GYCLLBInKTjNS5AvyC2A6auQ9aIa5+3ud5dEcGf1hVi2HqV4z/1sR1FAkuGdvKmeEv
+ LpG/+CBMMt3A2Ea2uAPshTZKKKrLOx8rG4qHVHGMKlm/5d5SaBYSKwjAdGjNeA1PQTf/
+ Iwwl6s5W/RsGYQSv8Bys42Fzi0IZw+HreI8ak=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729526094; x=1730130894;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W2P/OAPuPPfGZgym/n673Rfg3DHU/GqTqUEFYAFx22E=;
- b=LaTpWS1CI8keGj0/xoJagnZ3Ae30FF1zcU8y8UDNDx8yDPtDc49BBCdWuCepZMmxj/
- nGYavNDKbwoOD0vqqyVsU49svHNmu48PBx/d3n/U8j397NhdI0VgK4Ny3NTB0Z2gtczO
- jysDDtYNWMJuifCGC3RjnhsijbhRqsINhgpGDdXEWh48nKH/yuOhqfKGkoHWVdjalvEH
- rgvsoKL6kR2X7n3SQPe7sAeDBYUGsn8xmoMbORKYSCA1+KYvj8rmwiG3KEeM5q+Z213p
- AQ8JPg0bS5Aiq98GdOapS1zfgRDGbrTFPmoiwxAgWRfPc/7LR/4/1k3JMxo0zkUyyD5Y
- BCEQ==
+ d=1e100.net; s=20230601; t=1729526474; x=1730131274;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BTCEi1UWKzJyC46yxn+k8M/U6sRUXJnXMMVlcaIIX4E=;
+ b=ucK56ktYKe/tHYyqaTOr231OnyuPdz8/5GsFkZLvu64uMk6NkkCCqtpDGeT49uspRv
+ 1Okzk3sysrxIiydm96ytS274mnNrUUCFC20C5czTa30/yApC9/mvO1VBSt/luUJhX6Pq
+ 2vmQsS6tBPUG4qzUNCaZE0af30mne7msATPTlU9iLq8wcpjUawUY5607gQVHW4d6T3gZ
+ gjptrJmNbJPvr8alJbKnLrXAywKEu8AGOhbPgb6rE8KPDTKUB8TjzeM0VLwHyVDuWrKV
+ dZXWzlNJ5jYNdneT87WRhqsJXMTuAcn9O/BSqUsZrtcbnb0cLhvtdh24olSRYviqDUXS
+ Pwjg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnHLVa1N1FGooAUr478MbRP+kP7VwSIoU0G+9qJcFL8OWqUxjKWKsmQce0danV7hGSew9btSTcgRRqCA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx3BajDXBbs+Nb73dfHnQXKihmirPN9CsLdseseLx6u8/edT7yB
- UupwwMtk02TPPbxI6QZ/kPSaDaDmZkJ9o7Ht6zNkSXkKef/YDQRQxmb5Sg5PFiI=
-X-Google-Smtp-Source: AGHT+IHXumHx1fJK7C0JJjF2aFxoJi4eyEeDsc9H2M9LdVyaQELXWb/6QAXRzMTU/kCm/w8lInBwkg==
-X-Received: by 2002:a05:6a21:70cb:b0:1cf:6ef0:c6b9 with SMTP id
- adf61e73a8af0-1d92c56b9bdmr15675587637.32.1729526093768; 
- Mon, 21 Oct 2024 08:54:53 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:fb5e:248e:29ec:7946])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71ec1356780sm3137641b3a.90.2024.10.21.08.54.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 08:54:53 -0700 (PDT)
-Date: Mon, 21 Oct 2024 09:54:49 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZxZ5SdGmcBlra4zi@p14s>
-References: <20241009080108.4170320-1-arnaud.pouliquen@foss.st.com>
- <20241009080108.4170320-5-arnaud.pouliquen@foss.st.com>
+ AJvYcCX98WPjaAXiIl9NR88hAqOAeTRTlVXv5msbdkPMYXWRsqi4/rxgASgASyhwE/SNYK113KkM0blO94JGMQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw4u7btwCkU8hzyY1Bp0CQxf3UG77iYwO3MdprqBLr3Ad+rjNEm
+ kJXpMcO7nGUSto9v/9OmqJtQ8SqeNfNiYMVRHSRiYL7Ae82m2Mz4JvP/5lPRC5zQacF7jfL3nGJ
+ okyvVED9C2RwjI42MAev43kjFWNGlCX05KGtB
+X-Google-Smtp-Source: AGHT+IHr1I4ZMA1f4vEjCpseehmM06yftmSoBZJptOeiULylXyniLE922XE4M369rjgeGbUX6Ne59ULB6rQQMmQ1eVM=
+X-Received: by 2002:a17:90a:5e07:b0:2e2:b922:48a with SMTP id
+ 98e67ed59e1d1-2e56172112bmr13416271a91.18.1729526474161; Mon, 21 Oct 2024
+ 09:01:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241009080108.4170320-5-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v11 4/7] remoteproc: Introduce release_fw
- optional operation
+References: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
+ <nvc3cop5dn5yjmt4n3q64j76ulsowfw4l577pe47qmba3pvz4z@owm4jwjuhawr>
+In-Reply-To: <nvc3cop5dn5yjmt4n3q64j76ulsowfw4l577pe47qmba3pvz4z@owm4jwjuhawr>
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Date: Mon, 21 Oct 2024 09:01:05 -0700
+Message-ID: <CAMdnO-LBQtpyOhTsxhcnT+R-gRP6BtzgXZiP0jDiYxRGGmGhiA@mail.gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Cc: andrew@lunn.ch, quic_abchauha@quicinc.com, Jianheng.Zhang@synopsys.com,
+ edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
+ daniel@iogearbox.net, john.fastabend@gmail.com, linux@armlinux.org.uk,
+ joabreu@synopsys.com, bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v6 0/5] net: stmmac: Add PCI
+	driver support for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,82 +79,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============9071372952191965210=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 09, 2024 at 10:01:05AM +0200, Arnaud Pouliquen wrote:
-> This patch updates the rproc_ops struct to include an optional
-> release_fw function.
-> 
-> The release_fw ops is responsible for releasing the remote processor
-> firmware image. The ops is called in the following cases:
-> 
->  - An error occurs in rproc_start() between the loading of the segments and
->       the start of the remote processor.
->  - after stopping the remote processor.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
-> Update vs v9 revision:
-> - New commit that preplace previous one to introduce ops->release_fw
-> ---
->  drivers/remoteproc/remoteproc_core.c | 5 +++++
->  include/linux/remoteproc.h           | 3 +++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 7694817f25d4..46863e1ca307 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
->  
->  static void rproc_release_fw(struct rproc *rproc)
->  {
-> +	if (rproc->ops->release_fw)
-> +		rproc->ops->release_fw(rproc);
-> +
->  	/* Free the copy of the resource table */
->  	kfree(rproc->cached_table);
->  	rproc->cached_table = NULL;
-> @@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->  unprepare_subdevices:
->  	rproc_unprepare_subdevices(rproc);
->  reset_table_ptr:
-> +	if (rproc->ops->release_fw)
-> +		rproc->ops->release_fw(rproc);
->  	rproc->table_ptr = rproc->cached_table;
->  
->  	return ret;
-> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> index 73f640dd0fc0..bdf4d94a9e63 100644
-> --- a/include/linux/remoteproc.h
-> +++ b/include/linux/remoteproc.h
-> @@ -381,6 +381,8 @@ enum rsc_handling_status {
->   * @panic:	optional callback to react to system panic, core will delay
->   *		panic at least the returned number of milliseconds
->   * @coredump:	  collect firmware dump after the subsystem is shutdown
-> + * @release_fw:	optional function to release the firmware image from ROM memories.
-> + *              This function is called after stopping the process or in case of an error
+--===============9071372952191965210==
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000027c6510624fec3be"
 
-... after stopping the process?
+--00000000000027c6510624fec3be
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->   */
->  struct rproc_ops {
->  	int (*prepare)(struct rproc *rproc);
-> @@ -403,6 +405,7 @@ struct rproc_ops {
->  	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
->  	unsigned long (*panic)(struct rproc *rproc);
->  	void (*coredump)(struct rproc *rproc);
-> +	void (*release_fw)(struct rproc *rproc);
->  };
->  
->  /**
-> -- 
-> 2.25.1
-> 
+Hi Serge,
+
+On Mon, Oct 21, 2024 at 4:05=E2=80=AFAM Serge Semin <fancer.lancer@gmail.co=
+m> wrote:
+>
+> Hi Jitendra
+>
+> On Fri, Oct 18, 2024 at 01:53:27PM GMT, jitendra.vegiraju@broadcom.com wr=
+ote:
+> > From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+> >
+> > This patchset adds basic PCI ethernet device driver support for Broadco=
+m
+> > BCM8958x Automotive Ethernet switch SoC devices.
+> >
+>
+> Sorry for abandoning the v5 discussion for too long. I've finally
+> finished another urgent task, so I'll be more interactive in the next
+> few weeks. I'll get back to reviewing this series today or early
+> tomorrow.
+>
+No worries. I understand, you will have to deal with multiple tasks at one =
+time.
+Sorry, if I sent the patch too soon.
+Thank you for your support with our first attempt at upstreaming the work.
+
+> -Serge(y)
+>
+> >
+
+--00000000000027c6510624fec3be
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGbTCCBFWg
+AwIBAgIMGHX6KxYK3WW2YyprMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MDkyNTEzNTAzMVoXDTI2MDkyNjEzNTAzMVowgbMxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjEaMBgGA1UEAxMRSml0ZW5kcmEgVmVnaXJhanUx
+LTArBgkqhkiG9w0BCQEWHmppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbTCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAKWV+9PYvG4njqRsbQas79f8Q46VL7b1ZxvWT6ik6VMbdRZx
+tfpfZalVXksqcb02/N1H7UA9V04cV2q97FkSr/KxeFLMetPb3cVJZICg23IRO2NTPdmgPFzwkPTo
+35h9h/OYLgh3/9a1nTsC2xqJa8GtohD5+42rsskGcI57U4n1r1L4R5IL9ypSqDxX/xVEAdGI5FTj
+VgvoZC6iuEbnez+yO8TT3wun9b/PQowOB5P0CwIFv7ERW0S1s6B8yrbsoaTrz0vQaEA786k1pZkg
+ykC1+zXq/iTyZuPP4B4RkzFd43Pw+GAH0Tt2nx5V4rNisJHeAVNU92Gj01cEg0I+FnsCAwEAAaOC
+Ad8wggHbMA4GA1UdDwEB/wQEAwIFoDCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0
+dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQw
+OQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAy
+MzBlBgNVHSAEXjBcMAkGB2eBDAEFAwEwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggr
+BgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wCQYDVR0TBAIw
+ADBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWlt
+ZWNhMjAyMy5jcmwwKQYDVR0RBCIwIIEeaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tMBMG
+A1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1Ud
+DgQWBBRq5Jlxz3MqC+zEgUxK566xEc2g3DANBgkqhkiG9w0BAQsFAAOCAgEARXrmeeWA31pp9Tr0
+M6mOlMv+Pr2raES4GzPSyftvxf6tBQCBNaqi6LSbyusDYOj3mG9bp6VeVn+68OxNY9iNAk+ujtId
+f3+30BlZOQ1v8z9u2peUOUtWI60y2MxhdH0X0n2H+BCGvUOFqs5z440jqqy1HsscZTXHB7FEZmVP
+fyD+0Z6cxyh7WNC6+BgLiFwf8iqmAbu7Yb1sGTUGyS5gfYEjJbF2PJfwNUcJDd7eS4w5Ju5mK5y7
+spgjH2/JmDgbkpSk9JyuWfjGZIg4ah/q2nb6UMd1XJb6gLQZuzPOI3SgXPvd8MHGjKZrX2BHOBSC
+bJJ8rp4w4a9QMS6dde2MFObusxkZAft4tUnwo+ProchHs7iA85sL7sWEZhAmjmKKCpECpEfZm0+/
+hpvKQV3AZp5vBstb4IVL8QmLj8beDVHYnNhEicsSiG1wW7zSYyBnmGbFRrFQIJnJDWPjTZOlVEyp
+T1ShrXRCtqJpOt6rgg+rFEY3D8j6/bAkJXnmKnE2LZ0YyrrKk7eC6UfNNimx38w3NWchtcGY8zJn
+Y/1/C9Jv/mWm/2lK8nvusOFxhKmbG83Hx8toQdZ5F1kYk6zAWjfB7lwXr/En9mCmLieJ18hen9EK
+qbYyUkmCmuoLi5GXFMJy+iQv6DgMVQ7CACagybU6FUrmL9lVa+A6caBEEh4xggJkMIICYAIBATBi
+MFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9i
+YWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwYdforFgrdZbZjKmswDQYJYIZIAWUDBAIBBQCg
+gdQwLwYJKoZIhvcNAQkEMSIEIP/xJOIHHi1s1Q/jR+J3Hw69BSmiIyLe9K+4Ir6r2z9BMBgGCSqG
+SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI0MTAyMTE2MDExNFowaQYJKoZI
+hvcNAQkPMVwwWjALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG
+9w0DBzALBgkqhkiG9w0BAQowCwYJKoZIhvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEF
+AASCAQCRFIoyaGkYRUCePlD6IfKdVybuijpx5wSEmd/z8h7/zdD67D8P6RWIjY9bFnxgUdSwJvhl
+sHC8vO7QGWMJDL4IMnM4iIdjelL2B7eyj7QNhbS3AgRrTmtalqvtCYxhviAXvzFsLZt7MY/gaXlx
+LeI9Yxkk6bWJTHFeYMTiRVZGkgHqbSFbvlrMKeAfcVxcG5LOqJruyEKOqcTiomkKst6JMS0iV/9G
+AAfR5+FRauP7+wUbKILDzJBmyvGAZ94KVafnv3kxJoLCdzTTBYFwlg2+rvZWG2OU37OZI6IISdhN
+Hh2FiJnqaTQc2qQs0YctaIWFAhmEFmdH04FCxvExAs+M
+--00000000000027c6510624fec3be--
+
+--===============9071372952191965210==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============9071372952191965210==--
