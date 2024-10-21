@@ -2,73 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BB979A5E68
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 10:18:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C689A5FA6
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 11:06:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1022EC78035;
-	Mon, 21 Oct 2024 08:18:13 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27270C78035;
+	Mon, 21 Oct 2024 09:06:19 +0000 (UTC)
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
+ [67.231.156.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74A81C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A657C78033
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Oct 2024 08:18:06 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2fb5111747cso45761351fa.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Oct 2024 01:18:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729498685; x=1730103485;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eoi9k7Ygt7ktavMqWKGD7qsQYEk2fiEFaSEeoaagxAI=;
- b=pGmh99VefqcZgwpjEJgg6s0NZLWZEDhicxi3Ss293N/seet1hJBcQi6fT/pBHWoqpy
- S/pOmHKmKbegMrewai1JOoZmx055ocGsVg4EaKX1RghyAgic2dbkTT9vNLgeKdF6S1zR
- gSWpf3afuP4HxQQJJhu7B6E7sRdMV27wHi+akxsxivNZ77YbDQzFst8LfHL4Cu4xLJ5z
- lI3pA/pPjH8AMOHt3fmwU/7UlG6vMz/mZKd0iz8ijPzrL0zD/yr5+5MgyCQc/2yHPmVS
- HYOHlN5cwgNXX9bI51/W6MRq9+A4Tp4j2LolDneuJjL+OcPDx4TPIPCpcl5uqsRD/DfQ
- EJSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729498686; x=1730103486;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eoi9k7Ygt7ktavMqWKGD7qsQYEk2fiEFaSEeoaagxAI=;
- b=vJuBzF+1MoUgHVj0/NJqENEQAnRBrVFApDhRozSYM6BE87VVgtwucpI9XMINDhlc6N
- JZ8HqSHNhD0yG849fJfPV70Hbt3zrPUn6o1J4iudJepyFvn3FhOEvtPDZBSpikT4vx1Y
- OoNFgtmuj/Cu6qoGrPx/1aal8K+36B6LQm9Wli/of7jTZQuf9YPeCp+OtGDh80kGSI9k
- He6CLxQiW6t6uoWoWngcP04ELMxYOHCyYIE5sjI0U0kHfOc7Yl3okuTnER3UgFXEQAzW
- XZqMCfJJgEvhBhEz5q5N2tYefWJHHBKUnSmq70iI/XGQQkgvX2EWwQ2qDoURBjIFftdm
- FrhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVI5eLHxPnKZ93uN+9XYIcyyZ0jO+J7ZuEDt3dtERqyUBJa8ehn24rLqiIKarRY/Xt3FB6gf9y8qATt7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyHopL9tBu1SV/edZWS1fnRG9KpmQKg6N+HSMJ3AFsvJrxsxn8e
- l+/z2RCf2rAquSsSw7/05Y2B+CgAhM5l0K/MbEI6Ur8HkepJsr+tsYIxm6L6NdLga3kdAWwsA/m
- 1z0u2PIfms8e9aGHj6zak6k49x8fvqs4ABDmLoQ==
-X-Google-Smtp-Source: AGHT+IHqcu6/cs+18LQiPhDruAMJcQI78x11uXeyZZCo4iTRJVHXBAwnvIbkLUHZqP7mp8QjrS5VJe0fWAo0cI/9A4E=
-X-Received: by 2002:a05:651c:1502:b0:2fb:593c:2bf2 with SMTP id
- 38308e7fff4ca-2fb82e90cebmr38651181fa.3.1729498685512; Mon, 21 Oct 2024
- 01:18:05 -0700 (PDT)
+ Mon, 21 Oct 2024 09:06:11 +0000 (UTC)
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+ by mx0b-0016f401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49L7WkRG025994;
+ Mon, 21 Oct 2024 02:05:26 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pfpt0220; bh=0goJgfit4TjURb3XRQO6I44JY
+ U0Wpgwn0kcUIYNFrFw=; b=MGZcPNKxs/gA9AcqBKLqfRsGOj7EGl5qVAdBCetut
+ CH34pv/7LgL001uMfvmHvSxlxC7s1xmpKyz2ObN7PMYPnyM9MriY1nXAL2lCcg6D
+ YEOeRJtoWBY6Hu37520VY4s5f+zRbrlOsQW457JUtMfAHhhPXMmsoSAGYrJ42cQO
+ L1Lf+FtfJb7e+1vth/mUI/WHdNnAOIebwiYIlRdfJgsdsgmtv9akE+8eWhlVrdAS
+ BXDGfCnGi8JzcTmTxNzZW19nQRj8NgrMOP7wuo+hlVZi0t2zQ8hxWiIm/JH7Gi9y
+ LClCY2CTpGcoZP2fQxyqjBKflr5AnLGjMD2lhXP4kXn9Q==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+ by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 42djnmr5vq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Oct 2024 02:05:26 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.4; Mon, 21 Oct 2024 02:04:58 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.4 via Frontend
+ Transport; Mon, 21 Oct 2024 02:04:58 -0700
+Received: from test-OptiPlex-Tower-Plus-7010 (unknown [10.29.37.157])
+ by maili.marvell.com (Postfix) with SMTP id 495AA3F705D;
+ Mon, 21 Oct 2024 02:04:54 -0700 (PDT)
+Date: Mon, 21 Oct 2024 14:34:53 +0530
+From: Hariprasad Kelam <hkelam@marvell.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <ZxYZNc+CKWglUphG@test-OptiPlex-Tower-Plus-7010>
+References: <20241021061023.2162701-1-0x1207@gmail.com>
 MIME-Version: 1.0
-References: <20241016-arm-kasan-vmalloc-crash-v2-0-0a52fd086eef@linaro.org>
- <20241016-arm-kasan-vmalloc-crash-v2-1-0a52fd086eef@linaro.org>
-In-Reply-To: <20241016-arm-kasan-vmalloc-crash-v2-1-0a52fd086eef@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 21 Oct 2024 10:17:53 +0200
-Message-ID: <CACRpkdY8pA_z6DSzOVUH+wRt2uDpWtD=ipkCs0aZyWgfZ7fyjQ@mail.gmail.com>
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Kees Cook <kees@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Mark Brown <broonie@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Melon Liu <melon1335@163.com>
-Cc: stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Content-Disposition: inline
+In-Reply-To: <20241021061023.2162701-1-0x1207@gmail.com>
+X-Proofpoint-GUID: VKTrNVJoQBOJl-nC4JKz4dttpbbjuoBC
+X-Proofpoint-ORIG-GUID: VKTrNVJoQBOJl-nC4JKz4dttpbbjuoBC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] ARM: ioremap: Sync PGDs for
-	VMALLOC shadow
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
+ DMA map/unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +73,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBPY3QgMTYsIDIwMjQgYXQgOToxNeKAr1BNIExpbnVzIFdhbGxlaWogPGxpbnVzLndh
-bGxlaWpAbGluYXJvLm9yZz4gd3JvdGU6Cgo+IFdoZW4gc3luYzppbmcgdGhlIFZNQUxMT0MgYXJl
-YSB0byBvdGhlciBDUFVzLCBtYWtlIHN1cmUgdG8gYWxzbwo+IHN5bmMgdGhlIEtBU0FOIHNoYWRv
-dyBtZW1vcnkgZm9yIHRoZSBWTUFMTE9DIGFyZWEsIHNvIHRoYXQgd2UKPiBkb24ndCBnZXQgc3Rh
-bGUgZW50cmllcyBmb3IgdGhlIHNoYWRvdyBtZW1vcnkgaW4gdGhlIHRvcCBsZXZlbCBQR0QuCj4K
-PiBTaW5jZSB3ZSBhcmUgbm93IGNvcHlpbmcgUEdEcyBpbiB0d28gaW5zdGFuY2VzLCBjcmVhdGUg
-YSBoZWxwZXIKPiBmdW5jdGlvbiBuYW1lZCBtZW1jcHlfcGdkKCkgdG8gZG8gdGhlIGFjdHVhbCBj
-b3B5aW5nLCBhbmQKPiBjcmVhdGUgYSBoZWxwZXIgdG8gbWFwIHRoZSBhZGRyZXNzZXMgb2YgVk1B
-TExPQ19TVEFSVCBhbmQKPiBWTUFMTE9DX0VORCBpbnRvIHRoZSBjb3JyZXNwb25kaW5nIHNoYWRv
-dyBtZW1vcnkuCj4KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IEZpeGVzOiA1NjVjYmFh
-ZDgzZDggKCJBUk06IDkyMDIvMToga2FzYW46IHN1cHBvcnQgQ09ORklHX0tBU0FOX1ZNQUxMT0Mi
-KQo+IExpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWFybS1rZXJuZWwvYTFhMWQw
-NjItZjNhMi00ZDA1LTk4MzYtM2IwOThkZTlkYjZkQGZvc3Muc3QuY29tLwo+IFJlcG9ydGVkLWJ5
-OiBDbGVtZW50IExFIEdPRkZJQyA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4KPiBTdWdn
-ZXN0ZWQtYnk6IE1hcmsgUnV0bGFuZCA8bWFyay5ydXRsYW5kQGFybS5jb20+Cj4gU3VnZ2VzdGVk
-LWJ5OiBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgPGxpbnV4QGFybWxpbnV4Lm9yZy51az4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpBcyBp
-dCB0dXJucyBvdXQgaW4gbXkgY29uZnVzaW9uIEkgaGF2ZSBtaXNzZWQgdGhhdCB0aGUgbW9yZSBv
-ciBsZXNzIGlkZW50aWNhbApwYXRjaCB3aXRoIGEgZGlmZmVyZW50IHN1YmplY3QgKHRhbGtpbmcg
-YWJvdXQgcmVjdXJzaW9uKSBpcyBhbHJlYWR5IHN1Ym1pdHRlZApieSBNZWxvbiBMaXUgYW5kIHdh
-aXRpbmcgaW4gdGhlIHBhdGNoIHRyYWNrZXI6Cmh0dHBzOi8vd3d3LmFybS5saW51eC5vcmcudWsv
-ZGV2ZWxvcGVyL3BhdGNoZXMvdmlld3BhdGNoLnBocD9pZD05NDI3LzEKCkkndmUgdGVzdGVkIGl0
-IGFuZCBpdCBzb2x2ZXMgdGhlIHByb2JsZW0gZXF1YWxseSB3ZWxsLgoKSSBldmVuIHJldmlld2Vk
-IHRoYXQgYW5kIGRpZG4ndCByZW1lbWJlciBpdC4uLgoKSSB3aWxsIHN1Ym1pdCBwYXRjaCAyLzIg
-aW50byB0aGUgcGF0Y2ggdHJhY2tlciBhbmQgbGV0IE1lbG9uJ3MKcGF0Y2ggZGVhbCB3aXRoIHRo
-aXMgaXNzdWUuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 2024-10-21 at 11:40:23, Furong Xu (0x1207@gmail.com) wrote:
+> In case the non-paged data of a SKB carries protocol header and protocol
+> payload to be transmitted on a certain platform that the DMA AXI address
+> width is configured to 40-bit/48-bit, or the size of the non-paged data
+> is bigger than TSO_MAX_BUFF_SIZE on a certain platform that the DMA AXI
+> address width is configured to 32-bit, then this SKB requires at least
+> two DMA transmit descriptors to serve it.
+> 
+> For example, three descriptors are allocated to split one DMA buffer
+> mapped from one piece of non-paged data:
+>     dma_desc[N + 0],
+>     dma_desc[N + 1],
+>     dma_desc[N + 2].
+> Then three elements of tx_q->tx_skbuff_dma[] will be allocated to hold
+> extra information to be reused in stmmac_tx_clean():
+>     tx_q->tx_skbuff_dma[N + 0],
+>     tx_q->tx_skbuff_dma[N + 1],
+>     tx_q->tx_skbuff_dma[N + 2].
+> Now we focus on tx_q->tx_skbuff_dma[entry].buf, which is the DMA buffer
+> address returned by DMA mapping call. stmmac_tx_clean() will try to
+> unmap the DMA buffer _ONLY_IF_ tx_q->tx_skbuff_dma[entry].buf
+> is a valid buffer address.
+> 
+> The expected behavior that saves DMA buffer address of this non-paged
+> data to tx_q->tx_skbuff_dma[entry].buf is:
+>     tx_q->tx_skbuff_dma[N + 0].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 1].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 2].buf = dma_map_single();
+> Unfortunately, the current code misbehaves like this:
+>     tx_q->tx_skbuff_dma[N + 0].buf = dma_map_single();
+>     tx_q->tx_skbuff_dma[N + 1].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 2].buf = NULL;
+> 
+> On the stmmac_tx_clean() side, when dma_desc[N + 0] is closed by the
+> DMA engine, tx_q->tx_skbuff_dma[N + 0].buf is a valid buffer address
+> obviously, then the DMA buffer will be unmapped immediately.
+> There may be a rare case that the DMA engine does not finish the
+> pending dma_desc[N + 1], dma_desc[N + 2] yet. Now things will go
+> horribly wrong, DMA is going to access a unmapped/unreferenced memory
+> region, corrupted data will be transmited or iommu fault will be
+> triggered :(
+> 
+> In contrast, the for-loop that maps SKB fragments behaves perfectly
+> as expected, and that is how the driver should do for both non-paged
+> data and paged frags actually.
+> 
+> This patch corrects DMA map/unmap sequences by fixing the array index
+> for tx_q->tx_skbuff_dma[entry].buf when assigning DMA buffer address.
+> 
+> Tested and verified on DWXGMAC CORE 3.20a
+> 
+> Reported-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+> Fixes: f748be531d70 ("stmmac: support new GMAC4")
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 ++++++++++++++-----
+>  1 file changed, 17 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index d3895d7eecfc..208dbc68aaf9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4304,11 +4304,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	if (dma_mapping_error(priv->device, des))
+>  		goto dma_map_err;
+>  
+> -	tx_q->tx_skbuff_dma[first_entry].buf = des;
+> -	tx_q->tx_skbuff_dma[first_entry].len = skb_headlen(skb);
+> -	tx_q->tx_skbuff_dma[first_entry].map_as_page = false;
+> -	tx_q->tx_skbuff_dma[first_entry].buf_type = STMMAC_TXBUF_T_SKB;
+> -
+>  	if (priv->dma_cap.addr64 <= 32) {
+>  		first->des0 = cpu_to_le32(des);
+>  
+> @@ -4327,6 +4322,23 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>  
+>  	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
+>  
+> +	/* In case two or more DMA transmit descriptors are allocated for this
+> +	 * non-paged SKB data, the DMA buffer address should be saved to
+> +	 * tx_q->tx_skbuff_dma[].buf corresponding to the last descriptor,
+> +	 * and leave the other tx_q->tx_skbuff_dma[].buf as NULL to guarantee
+> +	 * that stmmac_tx_clean() does not unmap the entire DMA buffer too early
+> +	 * since the tail areas of the DMA buffer can be accessed by DMA engine
+> +	 * sooner or later.
+> +	 * By saving the DMA buffer address to tx_q->tx_skbuff_dma[].buf
+> +	 * corresponding to the last descriptor, stmmac_tx_clean() will unmap
+> +	 * this DMA buffer right after the DMA engine completely finishes the
+> +	 * full buffer transmission.
+> +	 */
+> +	tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = des;
+> +	tx_q->tx_skbuff_dma[tx_q->cur_tx].len = skb_headlen(skb);
+> +	tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = false;
+> +	tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
+> +
+>  	/* Prepare fragments */
+>  	for (i = 0; i < nfrags; i++) {
+>  		const skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
+> -- 
+Reviewed-by: Hariprasad Kelam <hkelam@marvell.com>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
