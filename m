@@ -2,53 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5DAF9A681A
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 14:23:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 172299A6841
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2024 14:26:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 856A6C7801A;
-	Mon, 21 Oct 2024 12:23:18 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA3C4C7801A;
+	Mon, 21 Oct 2024 12:26:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CC6CC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BD6AC7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Oct 2024 12:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=wCZNacVnsn4uhYNBEOtyeQPuRqMb/JOuMBBq3Fhgftk=; b=OEnyOhpI2IM6s9X6FJBNmFxk+w
- 4OqDLjt3Oa7VMOP2HqUEkx+9vfhD1lnCgE8tmSlTtSLRyBwXhZDtnxrb9Fja6djO2gjJSUcmpWJK8
- U4TvhRAjV18BpTkOavR+HJ6J8lGgc3iolSqYz/oQ9E007pXWvRMetETkFAkS6obQKBzo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1t2rQt-00AiYl-Hp; Mon, 21 Oct 2024 14:22:47 +0200
-Date: Mon, 21 Oct 2024 14:22:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <227daa87-1924-4b0b-80db-77507fc20f19@lunn.ch>
-References: <20241021103617.653386-1-inochiama@gmail.com>
- <20241021103617.653386-5-inochiama@gmail.com>
+ Mon, 21 Oct 2024 12:26:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C2AE85C5561;
+ Mon, 21 Oct 2024 12:26:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F5EC4CEC3;
+ Mon, 21 Oct 2024 12:26:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729513565;
+ bh=cx/tLvH9CPRgHxEav9sPf4o/gHFa4lb5PR3fe7KBDA0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HlF6z4iSE4m4KO6vx5hubfGjBlUBCwj1PXsxIH+/Xcop+vfX86LaDkpRtod2cq+MH
+ xH+iCQ7icStQOSTZEWdc7fwJ2/vdFJWRYkY8zGc56jciyDi9wjqf3ULXVX0bpDynPR
+ TABkMjgXNxkDAXPztzvpPj4Y0rCfErFGxe9c9p5bryS3zWbd8G4u9ot6FCw+FIbdfv
+ Pi3m1RlJ4bGU9Z8TSdjIx1fidU6H8IECafN4z0VFaBT+I+dzNoeq1cC5K/+tD2XSYa
+ CY3zwTqSII+OWs2FChK3B0e9JOcWROv1/xtstboToEqnH7FR+5JCEpEFWZpZ1FpbJG
+ deqz1OZtUifHg==
+Date: Mon, 21 Oct 2024 13:26:01 +0100
+From: Simon Horman <horms@kernel.org>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20241021122601.GI402847@kernel.org>
+References: <20241021061023.2162701-1-0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241021103617.653386-5-inochiama@gmail.com>
-Cc: Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Chen Wang <unicorn_wang@outlook.com>, Jose Abreu <joabreu@synopsys.com>,
- Inochi Amaoto <inochiama@outlook.com>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 4/4] net: stmmac: Add glue layer for
-	Sophgo SG2044 SoC
+In-Reply-To: <20241021061023.2162701-1-0x1207@gmail.com>
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
+ DMA map/unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,39 +61,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +static void sophgo_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
-> +{
-> +	struct sophgo_dwmac *dwmac = priv;
-> +	unsigned long rate;
-> +	int ret;
-> +
-> +	switch (speed) {
-> +	case SPEED_1000:
-> +		rate = 125000000;
-> +		break;
-> +	case SPEED_100:
-> +		rate = 25000000;
-> +		break;
-> +	case SPEED_10:
-> +		rate = 2500000;
-> +		break;
-> +	default:
-> +		dev_err(dwmac->dev, "invalid speed %u\n", speed);
-> +		break;
-> +	}
+On Mon, Oct 21, 2024 at 02:10:23PM +0800, Furong Xu wrote:
+> In case the non-paged data of a SKB carries protocol header and protocol
+> payload to be transmitted on a certain platform that the DMA AXI address
+> width is configured to 40-bit/48-bit, or the size of the non-paged data
+> is bigger than TSO_MAX_BUFF_SIZE on a certain platform that the DMA AXI
+> address width is configured to 32-bit, then this SKB requires at least
+> two DMA transmit descriptors to serve it.
+> 
+> For example, three descriptors are allocated to split one DMA buffer
+> mapped from one piece of non-paged data:
+>     dma_desc[N + 0],
+>     dma_desc[N + 1],
+>     dma_desc[N + 2].
+> Then three elements of tx_q->tx_skbuff_dma[] will be allocated to hold
+> extra information to be reused in stmmac_tx_clean():
+>     tx_q->tx_skbuff_dma[N + 0],
+>     tx_q->tx_skbuff_dma[N + 1],
+>     tx_q->tx_skbuff_dma[N + 2].
+> Now we focus on tx_q->tx_skbuff_dma[entry].buf, which is the DMA buffer
+> address returned by DMA mapping call. stmmac_tx_clean() will try to
+> unmap the DMA buffer _ONLY_IF_ tx_q->tx_skbuff_dma[entry].buf
+> is a valid buffer address.
+> 
+> The expected behavior that saves DMA buffer address of this non-paged
+> data to tx_q->tx_skbuff_dma[entry].buf is:
+>     tx_q->tx_skbuff_dma[N + 0].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 1].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 2].buf = dma_map_single();
+> Unfortunately, the current code misbehaves like this:
+>     tx_q->tx_skbuff_dma[N + 0].buf = dma_map_single();
+>     tx_q->tx_skbuff_dma[N + 1].buf = NULL;
+>     tx_q->tx_skbuff_dma[N + 2].buf = NULL;
+> 
+> On the stmmac_tx_clean() side, when dma_desc[N + 0] is closed by the
+> DMA engine, tx_q->tx_skbuff_dma[N + 0].buf is a valid buffer address
+> obviously, then the DMA buffer will be unmapped immediately.
+> There may be a rare case that the DMA engine does not finish the
+> pending dma_desc[N + 1], dma_desc[N + 2] yet. Now things will go
+> horribly wrong, DMA is going to access a unmapped/unreferenced memory
+> region, corrupted data will be transmited or iommu fault will be
+> triggered :(
+> 
+> In contrast, the for-loop that maps SKB fragments behaves perfectly
+> as expected, and that is how the driver should do for both non-paged
+> data and paged frags actually.
+> 
+> This patch corrects DMA map/unmap sequences by fixing the array index
+> for tx_q->tx_skbuff_dma[entry].buf when assigning DMA buffer address.
+> 
+> Tested and verified on DWXGMAC CORE 3.20a
+> 
+> Reported-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+> Fixes: f748be531d70 ("stmmac: support new GMAC4")
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
 
-There was a helper added recently for this, since it appears
-repeatedly in drivers.
+Thanks for the very thorough explanation, much appreciated.
 
-> +	ret = regmap_set_bits(regmap, args[0], DWMAC_SG2044_FLAG_USE_RX_DELAY);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to set the phy rx delay\n");
-
-Please could you explain what this delay is for. Is it the 2ns RGMII
-delay?
-
-	Andrew
+Reviewed-by: Simon Horman <horms@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
