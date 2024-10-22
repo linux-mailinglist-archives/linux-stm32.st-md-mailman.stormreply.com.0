@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BC209AB306
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B8659AB307
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Oct 2024 17:59:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D97D3C78035;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4AB2C78037;
 	Tue, 22 Oct 2024 15:59:57 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B36DC78027
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FCA4C78027
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Oct 2024 15:59:55 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49MBQxXx018502;
+ Tue, 22 Oct 2024 15:59:56 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49MBM6Jx009686;
  Tue, 22 Oct 2024 17:59:44 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- fbDc+QFarBuup0dVO8z2AkVIt6OoyUM+bXyZG2Cj9DI=; b=eDUT46sfaVMY7fkt
- R0bYoMA8O+jl/m7ZypiqYBWAWOYsUCveN1uxId5cX6zTuy3RpIBgpdHDMzcioWmm
- jBswKYEcmSSR94/xkqky9FAEX5cd3d+kXyowkbve527OQrR8aY+pjnvBbo/6hHGF
- w5Vj125BwxjuNOB1+D9zH4quU4xDjmbYhNQB3bpMTVLa0tYayV6vMpI1//2x2PNS
- oknxWvUJI6C8pCcE2p6bsNI87TC3IHhcATGm/HmfF2yym3ZEZ3BLCciVsZQmTWRq
- SBXGv16s9bjWkTRucS3Qyr+07NqSspnB0Gs9xg2TBD+92D0yHLM6xTWA7Awy8+Uk
- wql73Q==
+ IPb8iKoLm6aPEXvEfhIiGG9B6WnT9HIMeAmj2PtezsA=; b=vT4FUUvNUXxUpmS0
+ qyFwvGxHHc2pVAMtdZ4RHIF0egIT9xkKuVpb3QvS7hhrEHtr4vo5bUh8fP3iM+O+
+ /TuAqZINkNQNw5VKfDPRBTB8O+v0hXi+AjtB26Sj/nMWEIMLjpez64HD55sHuCz5
+ DqzMyMwYdXWXgj3Jy6j1stSEfE2TAEhA5hsTq27hUM5YeDLhvRI2TUCy2QqwW3xH
+ vc70/+vKKog25+1X2bB14qdcj7ViURLJwnpyhFoPiJM0wa0EwU+WGrdPNO3XJO3J
+ b0EwLS5uJUEvGU1OE3DAPArbYuBxR0bkeELydQ0LE+TwAZw+t38jWBwjaxjMZeaF
+ qoa4Ww==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42cpb0v8k4-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42cqqhuvb5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Oct 2024 17:59:44 +0200 (MEST)
+ Tue, 22 Oct 2024 17:59:43 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 197164005F;
- Tue, 22 Oct 2024 17:58:35 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D77BC40055;
+ Tue, 22 Oct 2024 17:58:34 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 171E6260458;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A578B26E862;
  Tue, 22 Oct 2024 17:57:32 +0200 (CEST)
 Received: from localhost (10.48.87.33) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 22 Oct
- 2024 17:57:31 +0200
+ 2024 17:57:32 +0200
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -49,8 +49,8 @@ To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
  <alexandre.torgue@foss.st.com>, Catalin Marinas <catalin.marinas@arm.com>,
  Will Deacon <will@kernel.org>, <linux-gpio@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 22 Oct 2024 17:56:52 +0200
-Message-ID: <20241022155658.1647350-9-antonio.borneo@foss.st.com>
+Date: Tue, 22 Oct 2024 17:56:53 +0200
+Message-ID: <20241022155658.1647350-10-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
 References: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: Cheick Traore <cheick.traore@foss.st.com>, linux-kernel@vger.kernel.org,
  Fabien Dessenne <fabien.dessenne@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 08/14] pinctrl: stm32: Add RIF support for
-	stm32mp257
+Subject: [Linux-stm32] [PATCH 09/14] pinctrl: stm32: Allow compile as module
+	for stm32mp257
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,252 +82,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On SoC stm32mp257, GPIO supports security and isolation compliant
-with the Resource Isolation Framework (RIF). Each GPIO line can be
-assigned to different security and compartment domains.
+From: Stephane Danieau <stephane.danieau@foss.st.com>
 
-Add the generic code to handle the RIF configuration set by the
-secure world and initialize the GPIO valid mask accordingly.
+Add ability to build pinctrl for stm32mp257 as a kernel module.
+Add kernel-doc to the exported symbols.
+Drop the Kconfig symbol MACH_STM32MP25, as it has never been
+defined.
 
-Enable the RIF support for stm32mp257.
-
-Co-developed-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Signed-off-by: Stephane Danieau <stephane.danieau@foss.st.com>
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- drivers/pinctrl/stm32/pinctrl-stm32.c      | 121 ++++++++++++++++++++-
- drivers/pinctrl/stm32/pinctrl-stm32.h      |   1 +
- drivers/pinctrl/stm32/pinctrl-stm32mp257.c |   4 +
- 3 files changed, 125 insertions(+), 1 deletion(-)
+ arch/arm64/Kconfig.platforms               |  1 -
+ drivers/pinctrl/stm32/Kconfig              |  6 +++---
+ drivers/pinctrl/stm32/pinctrl-stm32.c      |  7 +++++++
+ drivers/pinctrl/stm32/pinctrl-stm32.h      | 14 ++++++++++++++
+ drivers/pinctrl/stm32/pinctrl-stm32mp257.c | 11 ++++++-----
+ 5 files changed, 30 insertions(+), 9 deletions(-)
 
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index 6c6d11536b42e..ab77cc49b4ed7 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -308,7 +308,6 @@ config ARCH_STM32
+ 	bool "STMicroelectronics STM32 SoC Family"
+ 	select GPIOLIB
+ 	select PINCTRL
+-	select PINCTRL_STM32MP257
+ 	select ARM_SMC_MBOX
+ 	select ARM_SCMI_PROTOCOL
+ 	select REGULATOR
+diff --git a/drivers/pinctrl/stm32/Kconfig b/drivers/pinctrl/stm32/Kconfig
+index 2656d3d3ae402..6c18ac9cdeec2 100644
+--- a/drivers/pinctrl/stm32/Kconfig
++++ b/drivers/pinctrl/stm32/Kconfig
+@@ -2,7 +2,7 @@
+ if ARCH_STM32 || COMPILE_TEST
+ 
+ config PINCTRL_STM32
+-	bool
++	tristate
+ 	depends on OF
+ 	select PINMUX
+ 	select GENERIC_PINCONF
+@@ -53,8 +53,8 @@ config PINCTRL_STM32MP157
+ 	select PINCTRL_STM32
+ 
+ config PINCTRL_STM32MP257
+-	bool "STMicroelectronics STM32MP257 pin control" if COMPILE_TEST && !MACH_STM32MP25
++	tristate "STMicroelectronics STM32MP257 pin control"
+ 	depends on OF && HAS_IOMEM
+-	default MACH_STM32MP25
++	default ARM64 || COMPILE_TEST
+ 	select PINCTRL_STM32
+ endif
 diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index 5b9c637ca0c93..b6e7e34508592 100644
+index b6e7e34508592..5da2114b81420 100644
 --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
 +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -6,6 +6,7 @@
-  *
-  * Heavily based on Mediatek's pinctrl driver
-  */
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/gpio/driver.h>
- #include <linux/hwspinlock.h>
-@@ -35,6 +36,8 @@
- #include "../pinctrl-utils.h"
- #include "pinctrl-stm32.h"
+@@ -1954,6 +1954,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
  
-+#define STM32_GPIO_CID1		1
-+
- #define STM32_GPIO_MODER	0x00
- #define STM32_GPIO_TYPER	0x04
- #define STM32_GPIO_SPEEDR	0x08
-@@ -48,12 +51,22 @@
- #define STM32_GPIO_SECCFGR	0x30
- #define STM32_GPIO_DELAYRL	0x40
- #define STM32_GPIO_ADVCFGRL	0x48
-+#define STM32_GPIO_CIDCFGR(x)	(0x50 + (0x8 * (x)))
-+#define STM32_GPIO_SEMCR(x)	(0x54 + (0x8 * (x)))
- 
- #define STM32_GPIO_ADVCFGR_DLYPATH_POS		0
- #define STM32_GPIO_ADVCFGR_DE_POS		1
- #define STM32_GPIO_ADVCFGR_INVCLK_POS		2
- #define STM32_GPIO_ADVCFGR_RET_POS		3
- 
-+#define STM32_GPIO_CIDCFGR_CFEN		BIT(0)
-+#define STM32_GPIO_CIDCFGR_SEMEN	BIT(1)
-+#define STM32_GPIO_CIDCFGR_SCID_MASK	GENMASK(5, 4)
-+#define STM32_GPIO_CIDCFGR_SEMWL_CID1	BIT(16 + STM32_GPIO_CID1)
-+
-+#define STM32_GPIO_SEMCR_SEM_MUTEX	BIT(0)
-+#define STM32_GPIO_SEMCR_SEMCID_MASK	GENMASK(5, 4)
-+
- /* custom bitfield to backup pin status */
- #define STM32_GPIO_BKP_MODE_SHIFT	0
- #define STM32_GPIO_BKP_MODE_MASK	GENMASK(1, 0)
-@@ -126,6 +139,7 @@ struct stm32_gpio_bank {
- 	u8 irq_type[STM32_GPIO_PINS_PER_BANK];
- 	bool secure_control;
- 	bool io_sync_control;
-+	bool rif_control;
- };
- 
- struct stm32_pinctrl {
-@@ -233,6 +247,80 @@ static void stm32_gpio_backup_delay(struct stm32_gpio_bank *bank, u32 offset, u3
- 	bank->pin_backup[offset] |= delay << STM32_GPIO_BKP_DELAY_SHIFT;
- }
- 
-+/* RIF functions */
-+
-+static bool stm32_gpio_rif_valid(struct stm32_gpio_bank *bank, unsigned int gpio_nr)
-+{
-+	u32 cid;
-+
-+	cid = readl_relaxed(bank->base + STM32_GPIO_CIDCFGR(gpio_nr));
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_CFEN))
-+		return true;
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_SEMEN)) {
-+		if (FIELD_GET(STM32_GPIO_CIDCFGR_SCID_MASK, cid) == STM32_GPIO_CID1)
-+			return true;
-+
-+		return false;
-+	}
-+
-+	if (cid & STM32_GPIO_CIDCFGR_SEMWL_CID1)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool stm32_gpio_rif_acquire_semaphore(struct stm32_gpio_bank *bank, unsigned int gpio_nr)
-+{
-+	u32 cid, sem;
-+
-+	cid = readl_relaxed(bank->base + STM32_GPIO_CIDCFGR(gpio_nr));
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_CFEN))
-+		return true;
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_SEMEN)) {
-+		if (FIELD_GET(STM32_GPIO_CIDCFGR_SCID_MASK, cid) == STM32_GPIO_CID1)
-+			return true;
-+
-+		return false;
-+	}
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_SEMWL_CID1))
-+		return false;
-+
-+	sem = readl_relaxed(bank->base + STM32_GPIO_SEMCR(gpio_nr));
-+	if (sem & STM32_GPIO_SEMCR_SEM_MUTEX) {
-+		if (FIELD_GET(STM32_GPIO_SEMCR_SEMCID_MASK, sem) == STM32_GPIO_CID1)
-+			return true;
-+
-+		return false;
-+	}
-+
-+	writel_relaxed(STM32_GPIO_SEMCR_SEM_MUTEX, bank->base + STM32_GPIO_SEMCR(gpio_nr));
-+
-+	sem = readl_relaxed(bank->base + STM32_GPIO_SEMCR(gpio_nr));
-+	if (sem & STM32_GPIO_SEMCR_SEM_MUTEX &&
-+	    FIELD_GET(STM32_GPIO_SEMCR_SEMCID_MASK, sem) == STM32_GPIO_CID1)
-+		return true;
-+
-+	return false;
-+}
-+
-+static void stm32_gpio_rif_release_semaphore(struct stm32_gpio_bank *bank, unsigned int gpio_nr)
-+{
-+	u32 cid;
-+
-+	cid = readl_relaxed(bank->base + STM32_GPIO_CIDCFGR(gpio_nr));
-+
-+	if (!(cid & STM32_GPIO_CIDCFGR_CFEN))
-+		return;
-+
-+	if (cid & STM32_GPIO_CIDCFGR_SEMEN)
-+		writel_relaxed(0, bank->base + STM32_GPIO_SEMCR(gpio_nr));
-+}
-+
- /* GPIO functions */
- 
- static inline void __stm32_gpio_set(struct stm32_gpio_bank *bank,
-@@ -259,9 +347,26 @@ static int stm32_gpio_request(struct gpio_chip *chip, unsigned offset)
- 		return -EINVAL;
- 	}
- 
-+	if (bank->rif_control) {
-+		if (!stm32_gpio_rif_acquire_semaphore(bank, offset)) {
-+			dev_err(pctl->dev, "pin %d not available.\n", pin);
-+			return -EINVAL;
-+		}
-+	}
-+
- 	return pinctrl_gpio_request(chip, offset);
- }
- 
-+static void stm32_gpio_free(struct gpio_chip *chip, unsigned int offset)
-+{
-+	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-+
-+	pinctrl_gpio_free(chip, offset);
-+
-+	if (bank->rif_control)
-+		stm32_gpio_rif_release_semaphore(bank, offset);
-+}
-+
- static int stm32_gpio_get(struct gpio_chip *chip, unsigned offset)
- {
- 	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
-@@ -342,12 +447,25 @@ static int stm32_gpio_init_valid_mask(struct gpio_chip *chip,
- 		}
- 	}
- 
-+	if (bank->rif_control) {
-+		for (i = 0; i < ngpios; i++) {
-+			if (!test_bit(i, valid_mask))
-+				continue;
-+
-+			if (stm32_gpio_rif_valid(bank, i))
-+				continue;
-+
-+			dev_dbg(pctl->dev, "RIF semaphore ownership conflict, GPIO %u", i);
-+			clear_bit(i, valid_mask);
-+		}
-+	}
-+
  	return 0;
  }
++EXPORT_SYMBOL(stm32_pctl_probe);
  
- static const struct gpio_chip stm32_gpio_template = {
- 	.request		= stm32_gpio_request,
--	.free			= pinctrl_gpio_free,
-+	.free			= stm32_gpio_free,
- 	.get			= stm32_gpio_get,
- 	.set			= stm32_gpio_set,
- 	.direction_input	= pinctrl_gpio_direction_input,
-@@ -1529,6 +1647,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 	bank->bank_ioport_nr = bank_ioport_nr;
- 	bank->secure_control = pctl->match_data->secure_control;
- 	bank->io_sync_control = pctl->match_data->io_sync_control;
-+	bank->rif_control = pctl->match_data->rif_control;
- 	spin_lock_init(&bank->lock);
+ static int __maybe_unused stm32_pinctrl_restore_advcfgr(struct stm32_gpio_bank *bank,
+ 							int offset, u32 bpos)
+@@ -2062,6 +2063,7 @@ int __maybe_unused stm32_pinctrl_suspend(struct device *dev)
  
- 	if (pctl->domain) {
+ 	return 0;
+ }
++EXPORT_SYMBOL(stm32_pinctrl_suspend);
+ 
+ int __maybe_unused stm32_pinctrl_resume(struct device *dev)
+ {
+@@ -2077,3 +2079,8 @@ int __maybe_unused stm32_pinctrl_resume(struct device *dev)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL(stm32_pinctrl_resume);
++
++MODULE_AUTHOR("Alexandre Torgue <alexandre.torgue@foss.st.com>");
++MODULE_DESCRIPTION("STM32 core pinctrl driver");
++MODULE_LICENSE("GPL");
 diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.h b/drivers/pinctrl/stm32/pinctrl-stm32.h
-index 9b319036f206d..b8caebc55cfc5 100644
+index b8caebc55cfc5..d17cbdbba4482 100644
 --- a/drivers/pinctrl/stm32/pinctrl-stm32.h
 +++ b/drivers/pinctrl/stm32/pinctrl-stm32.h
-@@ -65,6 +65,7 @@ struct stm32_pinctrl_match_data {
- 	const unsigned int npins;
- 	bool secure_control;
- 	bool io_sync_control;
-+	bool rif_control;
+@@ -68,8 +68,22 @@ struct stm32_pinctrl_match_data {
+ 	bool rif_control;
  };
  
++/**
++ * stm32_pctl_probe() - Common probe for stm32 pinctrl drivers.
++ * @pdev: Pinctrl platform device.
++ */
  int stm32_pctl_probe(struct platform_device *pdev);
++
++/**
++ * stm32_pinctrl_suspend() - Common suspend for stm32 pinctrl drivers.
++ * @dev: Pinctrl device.
++ */
+ int stm32_pinctrl_suspend(struct device *dev);
++
++/**
++ * stm32_pinctrl_resume() - Common resume for stm32 pinctrl drivers.
++ * @dev: Pinctrl device.
++ */
+ int stm32_pinctrl_resume(struct device *dev);
+ 
+ #endif /* __PINCTRL_STM32_H */
 diff --git a/drivers/pinctrl/stm32/pinctrl-stm32mp257.c b/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
-index 293b7acd82a3e..a374918030788 100644
+index a374918030788..6709bddd97186 100644
 --- a/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
 +++ b/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
-@@ -2543,12 +2543,16 @@ static struct stm32_pinctrl_match_data stm32mp257_match_data = {
- 	.pins = stm32mp257_pins,
- 	.npins = ARRAY_SIZE(stm32mp257_pins),
- 	.io_sync_control = true,
-+	.secure_control = true,
-+	.rif_control = true,
- };
+@@ -4,6 +4,7 @@
+  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+  */
+ #include <linux/init.h>
++#include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
  
- static struct stm32_pinctrl_match_data stm32mp257_z_match_data = {
- 	.pins = stm32mp257_z_pins,
- 	.npins = ARRAY_SIZE(stm32mp257_z_pins),
- 	.io_sync_control = true,
-+	.secure_control = true,
-+	.rif_control = true,
+@@ -2566,6 +2567,7 @@ static const struct of_device_id stm32mp257_pctrl_match[] = {
+ 	},
+ 	{ }
  };
++MODULE_DEVICE_TABLE(of, stm32mp257_pctrl_match);
  
- static const struct of_device_id stm32mp257_pctrl_match[] = {
+ static const struct dev_pm_ops stm32_pinctrl_dev_pm_ops = {
+ 	 SET_LATE_SYSTEM_SLEEP_PM_OPS(stm32_pinctrl_suspend, stm32_pinctrl_resume)
+@@ -2579,9 +2581,8 @@ static struct platform_driver stm32mp257_pinctrl_driver = {
+ 		.pm = &stm32_pinctrl_dev_pm_ops,
+ 	},
+ };
++module_platform_driver(stm32mp257_pinctrl_driver);
+ 
+-static int __init stm32mp257_pinctrl_init(void)
+-{
+-	return platform_driver_register(&stm32mp257_pinctrl_driver);
+-}
+-arch_initcall(stm32mp257_pinctrl_init);
++MODULE_AUTHOR("Alexandre Torgue <alexandre.torgue@foss.st.com>");
++MODULE_DESCRIPTION("STM32MP257 pinctrl driver");
++MODULE_LICENSE("GPL");
 -- 
 2.34.1
 
