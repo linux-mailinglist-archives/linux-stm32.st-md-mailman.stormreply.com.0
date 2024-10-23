@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1DB39AC213
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 10:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC31A9AC216
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 10:47:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A50C3C71287;
-	Wed, 23 Oct 2024 08:46:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B662AC71287;
+	Wed, 23 Oct 2024 08:47:11 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDC9CC6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D3E5C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2024 08:46:31 +0000 (UTC)
+ Wed, 23 Oct 2024 08:47:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 456285C5D03;
- Wed, 23 Oct 2024 08:46:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4126C4CEC6;
- Wed, 23 Oct 2024 08:46:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A0C545C5ED7;
+ Wed, 23 Oct 2024 08:47:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508BAC4CEC6;
+ Wed, 23 Oct 2024 08:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729673190;
- bh=EyZ4QiVXvPEbdDEY9GYHE0FBEpWxqBjav2KP4V+fZmo=;
+ s=k20201202; t=1729673229;
+ bh=sQCaL8wIVaWesMEl2IuBh8yvFnEYERMyZxkVskwu+gY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FrGTwzflVTlJdLIYjkTXefJWDQspCdNwO9KK8hrcJ8ViG8MqtrEAXscjMMkwEYP+A
- T+wzl7dpb9x4hhedL38JuarGMqJjqWsjoRxeEFLJl4DDo5fm311snn7nopIYzbaqfp
- dVPRLzJsNyAN6twwq2zRatp/Y/rrZzqK/8ZFMkojCjJ9n379WOiFBUwyWpGBr1Fa3k
- dc+bgfJCa2ZVFEZyQZGkQhA2Rdo+ThVHyFj721UoR9Gh4kZJDHwhSLHYPU8CIGmQj4
- NdtMkoyp8RHC5ID7k06/gbWk+wybN0bw40moyYK7E52Nt4drdkwyY3IERFdGyQA1k/
- R07zGMfUYWV+w==
-Date: Wed, 23 Oct 2024 10:46:27 +0200
+ b=X1VlbBu3skf4BjgI8ETke0TDHkMsFdd/J0wO4Ydwx65B+gLJOzbDiuhUELm3g32uA
+ wN7IdytXIswgmShGb3dH4bMatayOTP4FigLInhS4PTYUrZ8RbQcy7av5m66uxEGhPf
+ fn0nBeGeYRO6WHBBHx5llN6eO7kIz3U1auSKhO9GHS771LdLMqNQHg6JBOiP7nLjkQ
+ 3itSdsZh2YwHK/wbafbyzupDM5uEfiuAxMPqabh+I0LD5Qrcs6NKOHUFeiCtcj4ViO
+ RP9Vd6gZuVSMcRICAL1Y8cwF/APmDkq7c88DMkw8xy3GTs+LIv3Odi6IfowmWGgM/e
+ MRzRzv6Sb19WA==
+Date: Wed, 23 Oct 2024 10:47:07 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Antonio Borneo <antonio.borneo@foss.st.com>
-Message-ID: <vvmrfkpzs4ns2bhvcx2k2fdvacxqjdx5p2oyygzgr7zjrbdl6h@cvfo6623oxl6>
+Message-ID: <swbppwzpavktjpyb6piayzzht6ta75w3g36oyndmim54oztar5@svb4452yob7g>
 References: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
  <20241022155658.1647350-5-antonio.borneo@foss.st.com>
 MIME-Version: 1.0
@@ -76,8 +76,10 @@ On Tue, Oct 22, 2024 at 05:56:48PM +0200, Antonio Borneo wrote:
 >  .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml     | 8 ++++++++
 >  include/dt-bindings/pinctrl/stm32-pinfunc.h               | 1 +
 >  2 files changed, 9 insertions(+)
+> 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+BTW, which *existing* SoCs use it? Aren't you adding it for the new
+platform?
 
 Best regards,
 Krzysztof
