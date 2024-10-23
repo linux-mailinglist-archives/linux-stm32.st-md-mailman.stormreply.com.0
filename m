@@ -2,79 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1839AC962
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 13:47:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E92A9AC992
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 14:01:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D11E4C71287;
-	Wed, 23 Oct 2024 11:47:56 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1BB1C71287;
+	Wed, 23 Oct 2024 12:01:05 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFABBC5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5237C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2024 11:47:49 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4315dfa3e0bso8740965e9.0
+ Wed, 23 Oct 2024 12:00:58 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-539f53973fdso735281e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2024 04:47:49 -0700 (PDT)
+ Wed, 23 Oct 2024 05:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729684069; x=1730288869;
+ d=linaro.org; s=google; t=1729684858; x=1730289658;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OgbVi/i2e2FmnWnQxf8m0K4GdKARclUd2e4HuJyv40I=;
- b=NRJTmkInVWDMznvPT2YxQV1ZUVi78tK9sbdNbOZLlTfCkgY6Zg80Wey6prnPDlL9Cp
- EfGPo+N2H516hy3R/4VexoLzOlbeLGHB04YjFtcKmGaFX5eQVmN1+GDUrX3yuoeFGzmd
- 3CAv8FlvGT/GCZ4HsqxCrUOj7CDdB+BmUqgw9BPYqAN76dWdx8va509LASgTWV7QAWxj
- dnlOswvoFzJvAkc3Qjc+SZz+FobZkZlQcgbzu1y6SyW/mdW/X7aPO64MN3jkQM55v2P8
- FbXZ/jJKDpbJeIlZWBq1sfMYnz9hZwau1fAJxUXpis6P5gduDjZtU+1qN0odAZJClFcF
- rSeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729684069; x=1730288869;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OgbVi/i2e2FmnWnQxf8m0K4GdKARclUd2e4HuJyv40I=;
- b=UJiLXK33ZUTNmFKKcbaCCzgBFRoswS9S8E+UCt0bwZmgFeaLW7pdl0LMmu+cIcc13W
- obW7FeSSaOY9SB4iAf7Ve+ScSzYWMF8duN4kugccScoAbkfdFmJJNEQxP1xNiuHS8d6P
- 56yatPQ9mf503FUpI5wk/Zm+0/A5a0vjPRPkAFZ0lsY9RQ1sf+zgbGyF1av6omCDsHVr
- W7KcQwVbF5L8KjjeWRSrIfJFoXm3c86Q2cFRAt7pALaDzMzwzXYkV9ssCp77Pf3wWnWk
- N30LbOv+0uNEmKu4/t52FZKWVUXMGQWQON+MdDAMw7/htApol5FFF1Cgz35zeJBO13rF
- 0Kug==
+ bh=tqbz9ghi25MyNM796HfNIo/wGiHciMSp9xBKYdZMdzs=;
+ b=dPC2MiYckUpa9DD5M0qaTFLyCK5IU8OzV0KYS088DkBcNE7OdOpWVLf5ucYEaVB+8U
+ obYZwqHDJSdwFilTNrBYIknOvNGHtUfR8JRUvPSAj384wYq/oLrsr4eAJSuN70ABUs5I
+ SQmbb9H+ySxHIRt7Sfmjol3jsetq5So8bbKTPqZihTCQ9MrpmT9FQDbmrGvxAl9+eOPH
+ SJEpA97X8YQc+e4kjdDCnm6P/zTPRlvkMzL7nqJjSklo0m9uA+WaSE3oRSHmBA8odaWA
+ yejuDtMoBDlcCRU1/w4RjLe3rTXct0il5waR279Rmxl4LVPPoL/PAiWR84ftZXx19vbm
+ cHWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729684858; x=1730289658;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tqbz9ghi25MyNM796HfNIo/wGiHciMSp9xBKYdZMdzs=;
+ b=YytHDvIztUjimKQx27ttVL0cHU0bcmUPsLft0S86MlU1pY5H3XIeueSVE/Yt4lQPx9
+ MZMhCCBi1B97G9O+LWzReSBh+O91sOqn1nrkjrEHYsQfkkbEA+tHWBvgJD3H+TXYbQgb
+ r/HoWgQHtZ/rB9WKyS/Tm1/03nsBZ5EHJw8Q8Taw4I5JZysvsSjOPpts5q8iHR8SWQNK
+ eOEtlqMSlG5NYkA52QRG0k2vI9KtpViCZN2AzTWdHtMgsGA3CV4ZnDb7RtFeT2L7lNps
+ E1QvU/OjX538j/9l9P34Ic4gdLtAmKMZ4nm5rzFlNMCBgnkcih8YGGxadprOqwgyh9fW
+ iilw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXruIH/5Nj1RBFkW+z6JeIpgu9glrGiLiuNDSBzpj00I9kF1w7MgJCkE3pqcoUFV0tnTh/6mulmxUURyw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxA3umwExAIK9qhr3RVh2qepzB+InOBL3/KNAJlxO1nXJE7nhYk
- HeWnPzGv89OdiAykg8zedfE8zk0sUgs6tv/pktjj9O/PxY8AmPG1
-X-Google-Smtp-Source: AGHT+IFsl0LMOEc+eE6a6V7EEbrOWyNMM3oYwN8FcBYWoU6umXyuPcwsTMJnCTtKZSWtjLAMEmlNCA==
-X-Received: by 2002:a05:600c:4507:b0:431:4e73:a515 with SMTP id
- 5b1f17b1804b1-43184144103mr9125455e9.3.1729684068910; 
- Wed, 23 Oct 2024 04:47:48 -0700 (PDT)
-Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37ee0a48882sm8692867f8f.30.2024.10.23.04.47.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Oct 2024 04:47:48 -0700 (PDT)
-Date: Wed, 23 Oct 2024 14:47:45 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20241023114745.kxntjsjgzzaf4lvz@skbuf>
-References: <cover.1729663066.git.0x1207@gmail.com>
- <cover.1729663066.git.0x1207@gmail.com>
- <49e20bbc94227cc4368dba01016df40dc711ad0a.1729663066.git.0x1207@gmail.com>
- <49e20bbc94227cc4368dba01016df40dc711ad0a.1729663066.git.0x1207@gmail.com>
+ AJvYcCUbmkCY+NaYXptAxuBV6/T3OoweOaqQVnWiRPdX/cYtAm2Mw7aYybX4JODPUEH7aP8EUZ38T/7t46dBNQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz1WltCCYAV0hoks5j6GFM1LKg2q1Pz52rft1nmnHs0ePIFeAHF
+ QCjxDF3fRIhdTHRqplW/v+X6k56WdDzjuj1XOesZyLKEfdurZ7oFDLBxELGWblfAmB/QJeyr03J
+ 5+iOH0c3XXAyJzV7xZaiDlvCqUDlrEupNgMFXTg==
+X-Google-Smtp-Source: AGHT+IE/UAzMY7V3eb5pkqaftwZ38vfA7061nJlGo03pDJqYCoLAKz73v+E375hMTpCsOw6OHL/EGlBNyYbkCpt8l/c=
+X-Received: by 2002:a05:6512:3992:b0:539:f1d2:725b with SMTP id
+ 2adb3069b0e04-53b19c41fbamr866738e87.4.1729684857664; Wed, 23 Oct 2024
+ 05:00:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <49e20bbc94227cc4368dba01016df40dc711ad0a.1729663066.git.0x1207@gmail.com>
- <49e20bbc94227cc4368dba01016df40dc711ad0a.1729663066.git.0x1207@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Simon Horman <horms@kernel.org>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+References: <20241021-arm-kasan-vmalloc-crash-v4-0-837d1294344f@linaro.org>
+In-Reply-To: <20241021-arm-kasan-vmalloc-crash-v4-0-837d1294344f@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 23 Oct 2024 14:00:45 +0200
+Message-ID: <CACRpkdZfbjorFjZ9P7ifYO4mVa7eVdviyqO8+KjJXW3bhOq7aA@mail.gmail.com>
+To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, 
+ Melon Liu <melon1335@163.com>, Kees Cook <kees@kernel.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Mark Brown <broonie@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>
+Cc: stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/6] net: stmmac: Introduce
- separate files for FPE implementation
+Subject: Re: [Linux-stm32] [PATCH v4 0/3] Fix KASAN crash when using
+	KASAN_VMALLOC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,22 +79,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 23, 2024 at 03:05:21PM +0800, Furong Xu wrote:
-> By moving FPE related code info separate files, FPE implementation
-> becomes a separate module initially.
-> No functional change intended.
-> 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> ---
-
-Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBPY3QgMjEsIDIwMjQgYXQgMzowM+KAr1BNIExpbnVzIFdhbGxlaWogPGxpbnVzLndh
+bGxlaWpAbGluYXJvLm9yZz4gd3JvdGU6Cgo+IFRoaXMgcHJvYmxlbSByZXBvcnRlZCBieSBDbGVt
+ZW50IExFIEdPRkZJQyBtYW5pZmVzdCB3aGVuCj4gdXNpbmcgQ09ORklHX0tBU0FOX0lOX1ZNQUxM
+T0MgYW5kIFZNQVBfU1RBQ0s6Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLWtl
+cm5lbC9hMWExZDA2Mi1mM2EyLTRkMDUtOTgzNi0zYjA5OGRlOWRiNmRAZm9zcy5zdC5jb20vCj4K
+PiBBZnRlciBzb21lIGFuYWx5c2lzIGl0IHNlZW1zIHdlIGFyZSBtaXNzaW5nIHRvIHN5bmMgdGhl
+Cj4gVk1BTExPQyBzaGFkb3cgbWVtb3J5IGluIHRvcCBsZXZlbCBQR0QgdG8gYWxsIENQVXMuCj4K
+PiBBZGQgc29tZSBjb2RlIHRvIHBlcmZvcm0gdGhpcyBzeW5jLCBhbmQgdGhlIGJ1ZyBhcHBlYXJz
+Cj4gdG8gZ28gYXdheS4KPgo+IEFzIHN1Z2dlc3RlZCBieSBBcmQsIGFsc28gcGVyZm9ybSBhIGR1
+bW15IHJlYWQgZnJvbSB0aGUKPiBzaGFkb3cgbWVtb3J5IG9mIHRoZSBuZXcgVk1BUF9TVEFDSyBp
+biB0aGUgbG93IGxldmVsCj4gYXNzZW1ibHkuCj4KPiBTaWduZWQtb2ZmLWJ5OiBMaW51cyBXYWxs
+ZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpBcyB0aGVzZSBhcmUgcmVncmVzc2lvbnMg
+dGhhdCBuZWVkIHRvIGdvIGluIGFzIGZpeGVzIEknbSBwdXR0aW5nCnRoZW0gaW50byBSdXNzZWxs
+J3MgcGF0Y2ggdHJhY2tlciBub3cuCgpUaGUgOTQyNy8xIHBhdGNoOgpodHRwczovL3d3dy5hcm0u
+bGludXgub3JnLnVrL2RldmVsb3Blci9wYXRjaGVzL3ZpZXdwYXRjaC5waHA/aWQ9OTQyNy8xCgpO
+ZWVkIHRvIGJlIGF2b2lkZWQgYXMgaXQgY2F1c2VzIGJ1aWxkIHJlZ3Jlc3Npb25zLiBQYXRjaCAx
+LzMKc3VwZXJzZWRlcyBpdC4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
