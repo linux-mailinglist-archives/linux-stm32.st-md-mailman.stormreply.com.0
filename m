@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 351A09AC225
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 10:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 732009AC231
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2024 10:52:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F22E5C71287;
-	Wed, 23 Oct 2024 08:49:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2683AC71287;
+	Wed, 23 Oct 2024 08:52:00 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A80FC6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1E12C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2024 08:49:50 +0000 (UTC)
+ Wed, 23 Oct 2024 08:51:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D475B5C5EDE;
- Wed, 23 Oct 2024 08:49:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F54C4CEC6;
- Wed, 23 Oct 2024 08:49:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E20CE5C5EE1;
+ Wed, 23 Oct 2024 08:51:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2D1C4CEC6;
+ Wed, 23 Oct 2024 08:51:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729673389;
- bh=lgGbkc6uaJYpUzsc1Gh3kVF2XFhM1rzwAZjnJSwPphI=;
+ s=k20201202; t=1729673512;
+ bh=HgvIm+497Hmdq2R0Wn5snLjGoTlA1hQo19CTjG70174=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rN6WKyaA6gR0etHHoxMHugUoM5I4bhZAvWw0Ih5lCiYC9+06idpzCaGNDt9NvmdZi
- Q19ul2J0lVL4ndKksr0hM2KOnjWV8LhUyDO5LRUIlfmS2iDUhzrf7cjOqubyJ1eHA2
- 8EsC5ZBfdj8hChTqynVuEK8Ee57NxEc5PgM/ZacW9RvRXX83tIOLW1SoOGCK1Ip7qU
- 25QoQhymEmjdUcY8Nvwr5t7g5mWV2QpwMvpcO16SqPmBwDZ/3X8Oa/rH3DR23eTbQb
- n+RINzAmQv5SOWrdMC8yUxe2O1zKphVfJDfQaH2jDrLaEmmj2HUrjJSjJvnHkhjw5a
- Ho9lsRDUwqTvA==
-Date: Wed, 23 Oct 2024 10:49:46 +0200
+ b=m+vIG12jWtj69d2TdKEb+dkCv8jMcz0EKHpltNBDS1/400GbeSIBlOjBfIXifOSao
+ 7lVwe2DOdbLkI4ynU6aWPCyBeZxpxNEIcWTRjMCNfAShdZU9wo+G3x1C5rxg8eOTz+
+ 7knWRBkXcPbr0cU4fWLfeEvpL210+BtxZhI2DF8+3Ehm7MJE3Wbh/31v+P34652Hzh
+ OSOGLh9C2YSVW6Brd2I8ce7rdwt/QowMBuh7OFAvrn85lWHrXF9gCl+iZtIX1LWEPS
+ ku7mqABnrIxLKHV9pPti3C1e8uXKFOnIUiL7oszjv+3WU3QTUrcRf/cBW1SExRfbzm
+ TM3BCIrikeLFw==
+Date: Wed, 23 Oct 2024 10:51:48 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Antonio Borneo <antonio.borneo@foss.st.com>
-Message-ID: <e6sz7p4lgkmuvgosafob5dvwtvp4ruzuzmwz4oyepcajfui2xm@fom7mj5fbik6>
+Message-ID: <2g65375shtjq4udjfarfspqtpg5q27oeerqskt2uzwj44pvnbb@rderpevnrzxs>
 References: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
- <20241022155658.1647350-8-antonio.borneo@foss.st.com>
+ <20241022155658.1647350-12-antonio.borneo@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241022155658.1647350-8-antonio.borneo@foss.st.com>
+In-Reply-To: <20241022155658.1647350-12-antonio.borneo@foss.st.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
  Linus Walleij <linus.walleij@linaro.org>,
@@ -46,8 +46,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
  Cheick Traore <cheick.traore@foss.st.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/14] dt-bindings: pinctrl: stm32:
- support IO synchronization parameters
+Subject: Re: [Linux-stm32] [PATCH 11/14] dt-bindings: pinctrl: stm32:
+ support for stm32mp215 and additional packages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,77 +64,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 22, 2024 at 05:56:51PM +0200, Antonio Borneo wrote:
-> From: Fabien Dessenne <fabien.dessenne@foss.st.com>
+On Tue, Oct 22, 2024 at 05:56:55PM +0200, Antonio Borneo wrote:
+> From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 > 
-> Support the following IO synchronization parameters:
-> - Delay (in ns)
-> - Delay path (input / output)
-> - Clock edge (single / double edge)
-> - Clock inversion
-> - Retiming
+> Add support for st,stm32mp215-pinctrl and st,stm32mp215-z-pinctrl.
 
-Why? What is missing for existing hardware support?
+So all previous patches are for this? Then they are supposed to be here.
 
+> Add packages AM, AN and AO (values : 0x1000, 0x2000 and 0x8000)
 > 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 > Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 > ---
->  .../bindings/pinctrl/st,stm32-pinctrl.yaml    | 48 +++++++++++++++++++
->  1 file changed, 48 insertions(+)
+>  .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml         | 4 +++-
+>  include/dt-bindings/pinctrl/stm32-pinfunc.h                   | 3 +++
+>  2 files changed, 6 insertions(+), 1 deletion(-)
 > 
 > diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> index 5d17d6487ae9c..9a7ecfea6eb5b 100644
+> index 9a7ecfea6eb5b..0a2d644dbece3 100644
 > --- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
 > +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> @@ -207,6 +207,54 @@ patternProperties:
->                3: High speed
->              $ref: /schemas/types.yaml#/definitions/uint32
->              enum: [0, 1, 2, 3]
-> +          st,io-delay-path:
-> +            description: |
-> +              IO synchronization delay path location
-> +              0: Delay switched into the output path
-> +              1: Delay switched into the input path
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1]
+> @@ -27,6 +27,8 @@ properties:
+>        - st,stm32mp135-pinctrl
+>        - st,stm32mp157-pinctrl
+>        - st,stm32mp157-z-pinctrl
+> +      - st,stm32mp215-pinctrl
+> +      - st,stm32mp215-z-pinctrl
+>        - st,stm32mp257-pinctrl
+>        - st,stm32mp257-z-pinctrl
+>  
+> @@ -59,7 +61,7 @@ properties:
+>        Indicates the SOC package used.
+>        More details in include/dt-bindings/pinctrl/stm32-pinfunc.h
+>      $ref: /schemas/types.yaml#/definitions/uint32
+> -    enum: [0x1, 0x2, 0x4, 0x8, 0x100, 0x400, 0x800]
+> +    enum: [0x1, 0x2, 0x4, 0x8, 0x100, 0x400, 0x800, 0x1000, 0x2000, 0x4000]
+>  
+>  patternProperties:
+>    '^gpio@[0-9a-f]*$':
+> diff --git a/include/dt-bindings/pinctrl/stm32-pinfunc.h b/include/dt-bindings/pinctrl/stm32-pinfunc.h
+> index af3fd388329a0..01bc8be78ef72 100644
+> --- a/include/dt-bindings/pinctrl/stm32-pinfunc.h
+> +++ b/include/dt-bindings/pinctrl/stm32-pinfunc.h
+> @@ -41,6 +41,9 @@
+>  #define STM32MP_PKG_AI	0x100
+>  #define STM32MP_PKG_AK	0x400
+>  #define STM32MP_PKG_AL	0x800
+> +#define STM32MP_PKG_AM	0x1000
+> +#define STM32MP_PKG_AN	0x2000
+> +#define STM32MP_PKG_AO	0x4000
 
-Why enum? Why not bool? What is the "synchronization delay"? Why this is
-needed per board?
-
-> +          st,io-clk-edge:
-> +            description: |
-> +              IO synchronization clock edge
-> +              0: Data single-edge (changing on rising or falling clock edge)
-> +              1: Data double-edge (changing on both clock edges)
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1]
-
-All the same questions.
-
-> +          st,io-clk-type:
-> +            description: |
-> +              IO synchronization clock inversion
-> +              0: IO clocks not inverted. Data retimed to rising clock edge
-> +              1: IO clocks inverted. Data retimed to falling clock edge
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1]
-
-OK, so if not bool why this cannot be a readable string?
-
-> +          st,io-retime:
-> +            description: |
-> +              IO synchronization data retime
-> +              0: Data not synchronized or retimed on clock edges
-> +              1: Data retimed to either rising or falling clock edge
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1]
-
-Missing blank lines everywhere between properties.
-
-> +          st,io-delay:
-
-Use proper unit suffix. Or is there no such?
+Why these are some random hex values but not for example 0x801, 0x802
+and 0x803? That's an enum, so bitmask does not make sense here.
 
 Best regards,
 Krzysztof
