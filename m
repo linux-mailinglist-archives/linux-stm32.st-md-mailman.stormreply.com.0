@@ -2,60 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 139099AED13
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 19:04:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19B09AF4E5
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 23:59:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0FB9C78F6B;
-	Thu, 24 Oct 2024 17:04:47 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FAF4C78F62;
+	Thu, 24 Oct 2024 21:59:00 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1A14C78F69
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 398A9C6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 17:04:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1DCD2A455D3;
- Thu, 24 Oct 2024 17:04:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29819C4CEC7;
- Thu, 24 Oct 2024 17:04:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729789478;
- bh=ywLWv1DymM9Q8rNWDVKF/A2+zd9RhYsw+C3ioFEB2fo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dBaqX6iQKVO2I3p6DrGwLpuLJB3LSA0XH7X+UprC50IkkggRW+Y2RLdcIiDwDCh1X
- k+uJyk8o/qqWWHi++gPxZfzbD15LyxpL7tsAN911NmSofjDWqtsMyWrv9j8+PQ/chd
- KKLAcTKow+XkNETi9/tPj7EgkZb4/bv4CB27O4p8I8fTzDI6cgXZ9K8Uy1q3PbZJgY
- NDAPrF/8A+KBJZchG6LgnkuCzfmc7S2vi96lqSFyQsbJKNlo6Orqoj44edCGXhcRbv
- duePaGbfb7zsTbuX4hn7EHv1IC6gyoJce7RQg5U1tvB2KYrPrVUH2+ag7ZbxPjeP1M
- FygRhSMkxMAiw==
-Date: Thu, 24 Oct 2024 18:04:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <20241024-wad-dusk-3d49f9ac4dff@spud>
-References: <20241021103617.653386-1-inochiama@gmail.com>
- <20241021103617.653386-3-inochiama@gmail.com>
- <20241022-crisply-brute-45f98632ef78@spud>
- <yt2idyivivcxctosec3lwkjbmr4tmctbs4viefxsuqlsvihdeh@alya6g27625l>
- <20241023-paper-crease-befa8239f7f0@spud>
- <5cv7wcdddxa4ruggrk36cwaquo5srcrjqqwefqzcju2s3yhl73@ekpyw6zrpfug>
+ Thu, 24 Oct 2024 21:58:53 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2fb587d0436so15365041fa.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Oct 2024 14:58:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1729807132; x=1730411932;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XFVxrWwlGXu7xwVCAmBNg01QSRfDgCIGYPTLM5Loo7A=;
+ b=ZcEkkqzLXJR2IVJDihFciLfgWVa3565CsgAj87DsmRuKkjHEQpqyc+uVzwVXvRsB5r
+ 5fFwy637y0i6KB301P90m/vqjqXvids3uM+0JXoJaKj8cdqpAMbqgCX34PIf7ksgF8WM
+ hQuuKLt8OAKAuqmtFgehsOmrLkF/su74+WRJCLK2E3FErixKBPAKCCnwjRqefomJns2F
+ znmpL9sFsv3S9PvJXd3gpHpiuce60fkArkIHDZYYy75jIfTooQ1NHzWdYVGzYtXqQizN
+ udo5LIg0snRIG+UkGa5fV9dNhyZFV0jN6BdZhTB50xTx36uYPIjrZD56XD2UzVU/+MAN
+ wyUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729807132; x=1730411932;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XFVxrWwlGXu7xwVCAmBNg01QSRfDgCIGYPTLM5Loo7A=;
+ b=OevP5d5gUpsjSkzgghPC+lrP6A+BSQFyE5C8T21TK5KjjKgx209IVIONoquJ9BBI7m
+ iTAjlr7SfrCN99vmVoc/tc0FDssZFIkQxTGInXIeTIZPEnvG3wXJAzZ8neMwRRVM4JMV
+ 6rWOm4JbN2OAxKki8Qc/6FmPUeiLq2Zf3MYmnZGBTVoAkNP1w1XhJQoheW2WOaKJ2tYg
+ eUxO7C2osYDTcXYS5jxNkm7GiNlPYGBcQOdY5VvMqub9XK/STZQKRVcxe5QEAe9ZIACM
+ dOIDXIxbloNpqjRiudXKKMOjjI3jAQGUDM/9wFKimdNCQxurAnUEf/uufLqX2qG2V+UY
+ VCwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVIpe0k9BEUnlUiyVtZa8z6cBqIYV8krYeBFkL0H67/RPJWrku40X9kp6hEV09UBR0WGqjh2/1/6OS3vw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyQH1CmKuXmG6ceIF3QaE+w3BnyN+gkLAfpWcvRBreQVrkh06qs
+ nu/qOAZw3ras20XoN4bkDNW2aAaz3PxPmKNm4Drv919vp18zfH3g5L01EAtCjrKBdEum81PG9m1
+ EK79gcllJvFccDtrcd9HIVn+zgmGZyJEKQfAuxw==
+X-Google-Smtp-Source: AGHT+IHvsIXQR72a7B+0VLm11VGicY9C2xyjpGaCCytBMfZbl/D5DRFsNMPKYNptUhXB3YcX5jP4S4kynK/SQjQw+0o=
+X-Received: by 2002:a2e:9010:0:b0:2fb:3e01:b2bd with SMTP id
+ 38308e7fff4ca-2fc9d35a589mr34560231fa.21.1729807132380; Thu, 24 Oct 2024
+ 14:58:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5cv7wcdddxa4ruggrk36cwaquo5srcrjqqwefqzcju2s3yhl73@ekpyw6zrpfug>
-Cc: Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Chen Wang <unicorn_wang@outlook.com>, Jose Abreu <joabreu@synopsys.com>,
- Inochi Amaoto <inochiama@outlook.com>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 2/4] dt-bindings: net: Add support for
-	Sophgo SG2044 dwmac
+References: <20241017-arm-kasan-vmalloc-crash-v3-0-d2a34cd5b663@linaro.org>
+ <20241017-arm-kasan-vmalloc-crash-v3-1-d2a34cd5b663@linaro.org>
+ <69f71ac8-4ba6-46ed-b2ab-e575dcada47b@foss.st.com>
+ <CACRpkdYvgZj1R4gAmzFhf4GmFOxZXhpHVTOio+hVP52OBAJP0A@mail.gmail.com>
+ <46336aba-e7dd-49dd-aa1c-c5f765006e3c@foss.st.com>
+In-Reply-To: <46336aba-e7dd-49dd-aa1c-c5f765006e3c@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 24 Oct 2024 23:58:40 +0200
+Message-ID: <CACRpkdY2=qdY_0GA1gB03yHODPEvxum+4YBjzsXRVnhLaf++6Q@mail.gmail.com>
+To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
+ Ard Biesheuvel <ardb@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Kees Cook <kees@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, kasan-dev <kasan-dev@googlegroups.com>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>, linux-arm-kernel@lists.infradead.org,
+ stable@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Dmitry Vyukov <dvyukov@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] ARM: ioremap: Sync PGDs for
+	VMALLOC shadow
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,142 +86,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0682183549613210838=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============0682183549613210838==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="r+PW8kyxnTDRk3Vc"
-Content-Disposition: inline
-
-
---r+PW8kyxnTDRk3Vc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Oct 24, 2024 at 06:38:29AM +0800, Inochi Amaoto wrote:
-> On Wed, Oct 23, 2024 at 09:49:34PM +0100, Conor Dooley wrote:
-> > On Wed, Oct 23, 2024 at 08:31:24AM +0800, Inochi Amaoto wrote:
-> > > On Tue, Oct 22, 2024 at 06:28:06PM +0100, Conor Dooley wrote:
-> > > > On Mon, Oct 21, 2024 at 06:36:15PM +0800, Inochi Amaoto wrote:
-> > > > > The GMAC IP on SG2044 is almost a standard Synopsys DesignWare MAC
-> > > > > with some extra clock.
-> > > > >=20
-> > > > > Add necessary compatible string for this device.
-> > > > >=20
-> > > > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > > > > ---
-> > > > >  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
-> > > > >  .../bindings/net/sophgo,sg2044-dwmac.yaml     | 145 ++++++++++++=
-++++++
-> > > > >  2 files changed, 146 insertions(+)
-> > > > >  create mode 100644 Documentation/devicetree/bindings/net/sophgo,=
-sg2044-dwmac.yaml
-> > > > >=20
-> > > > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yam=
-l b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > index 3c4007cb65f8..69f6bb36970b 100644
-> > > > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > @@ -99,6 +99,7 @@ properties:
-> > > > >          - snps,dwmac-5.30a
-> > > > >          - snps,dwxgmac
-> > > > >          - snps,dwxgmac-2.10
-> > > > > +        - sophgo,sg2044-dwmac
-> > > > >          - starfive,jh7100-dwmac
-> > > > >          - starfive,jh7110-dwmac
-> > > > > =20
-> > > > > diff --git a/Documentation/devicetree/bindings/net/sophgo,sg2044-=
-dwmac.yaml b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
-> > > > > new file mode 100644
-> > > > > index 000000000000..93c41550b0b6
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.y=
-aml
-> > > > > @@ -0,0 +1,145 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/net/sophgo,sg2044-dwmac.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > +
-> > > > > +title: StarFive JH7110 DWMAC glue layer
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Inochi Amaoto <inochiama@gmail.com>
-> > > > > +
-> > > > > +select:
-> > > > > +  properties:
-> > > > > +    compatible:
-> > > > > +      contains:
-> > > > > +        enum:
-> > > > > +          - sophgo,sg2044-dwmac
-> > > > > +  required:
-> > > > > +    - compatible
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    items:
-> > > > > +      - const: sophgo,sg2044-dwmac
-> > > > > +      - const: snps,dwmac-5.30a
-> > > > > +
-> > > > > +  reg:
-> > > > > +    maxItems: 1
-> > > > > +
-> > > > > +  clocks:
-> > > > > +    items:
-> > > > > +      - description: GMAC main clock
-> > > > > +      - description: PTP clock
-> > > > > +      - description: TX clock
-> > > > > +
-> > > > > +  clock-names:
-> > > > > +    items:
-> > > > > +      - const: stmmaceth
-> > > > > +      - const: ptp_ref
-> > > > > +      - const: tx
-> > > > > +
-> > > > > +  sophgo,syscon:
-> > > >=20
-> > > > How many dwmac instances does the sg2044 have?
-> > > >=20
-> > >=20
-> > > Only one, there is another 100G dwxgmac instance, but it does not
-> > > use this syscon.
-> >=20
-> > That dwxgmac is a different device, with a different compatible etc?
->=20
-> Yes, it needs a different compatiable, and maybe a new binding is needed
-> since the 100G and 1G IP are different.
-
-In that case, you don't /need/ a syscon property at all, much less one
-with offsets. You can just look up the syscon by compatible and hard
-code the offset in the driver.
-
---r+PW8kyxnTDRk3Vc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZxp+HgAKCRB4tDGHoIJi
-0mRYAQC5zNH78v/p+H9bscKX2XQ4j6+YJ0OaAX6+AvjpwXd/WAEAzV4GkyhyPnWN
-1Bs5WxGAGbqBkGnxejt/DzUIguij7wc=
-=/5rz
------END PGP SIGNATURE-----
-
---r+PW8kyxnTDRk3Vc--
-
---===============0682183549613210838==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0682183549613210838==--
+SGkgQ2xlbWVudCwKCkkgc2F3IEkgbWlzc2VkIHRvIGxvb2sgY2xvc2VyIGF0IHRoZSBuZXcgYnVn
+IGZvdW5kIGluIGV4dDQKb24gdGhlIFNUTTMyOgoKT24gTW9uLCBPY3QgMjEsIDIwMjQgYXQgMjox
+MuKAr1BNIENsZW1lbnQgTEUgR09GRklDCjxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPiB3
+cm90ZToKCj4gUGVyaGFwcyBub3QgcmVsYXRlZCB3aXRoIHRoaXMgdG9waWMgYnV0IGFzIGluIHRo
+ZSBiYWNrdHJhY2UgSSBhbSBnZXR0aW5nCj4gc29tZSBrZXl3b3JkIGZyb20gb3VyIHN0YXJ0IGV4
+Y2hhbmdlLCBJIGR1bXAgdGhlIGNyYXNoIGJlbG93Lgo+IElmIHRoaXMgYmFja3RyYWNlIGlzIHNv
+bWVob3cgcmVsYXRlZCB3aXRoIG91ciBpc3N1ZSwgcGxlYXNlIGhhdmUgYSBsb29rLgooLi4uKQo+
+IFsgMTQzOS4zNTE5NDVdIFBDIGlzIGF0IF9fcmVhZF9vbmNlX3dvcmRfbm9jaGVjaysweDAvMHg4
+Cj4gWyAxNDM5LjM1Njk2NV0gTFIgaXMgYXQgdW53aW5kX2V4ZWNfaW5zbisweDM2NC8weDY1OAoo
+Li4uKQo+IFsgMTQ0MC4zMzMxODNdICBfX3JlYWRfb25jZV93b3JkX25vY2hlY2sgZnJvbSB1bndp
+bmRfZXhlY19pbnNuKzB4MzY0LzB4NjU4Cj4gWyAxNDQwLjMzOTcyNl0gIHVud2luZF9leGVjX2lu
+c24gZnJvbSB1bndpbmRfZnJhbWUrMHgyNzAvMHg2MTgKPiBbIDE0NDAuMzQ1MzUyXSAgdW53aW5k
+X2ZyYW1lIGZyb20gYXJjaF9zdGFja193YWxrKzB4NmMvMHhlMAo+IFsgMTQ0MC4zNTA2NzRdICBh
+cmNoX3N0YWNrX3dhbGsgZnJvbSBzdGFja190cmFjZV9zYXZlKzB4OTAvMHhjMAo+IFsgMTQ0MC4z
+NTYzMDhdICBzdGFja190cmFjZV9zYXZlIGZyb20ga2FzYW5fc2F2ZV9zdGFjaysweDMwLzB4NGMK
+PiBbIDE0NDAuMzYyMDQyXSAga2FzYW5fc2F2ZV9zdGFjayBmcm9tIF9fa2FzYW5fcmVjb3JkX2F1
+eF9zdGFjaysweDg0LzB4OGMKPiBbIDE0NDAuMzY4NDczXSAgX19rYXNhbl9yZWNvcmRfYXV4X3N0
+YWNrIGZyb20gdGFza193b3JrX2FkZCsweDkwLzB4MjEwCj4gWyAxNDQwLjM3NDcwNl0gIHRhc2tf
+d29ya19hZGQgZnJvbSBzY2hlZHVsZXJfdGljaysweDE4Yy8weDI1MAo+IFsgMTQ0MC4zODAyNDVd
+ICBzY2hlZHVsZXJfdGljayBmcm9tIHVwZGF0ZV9wcm9jZXNzX3RpbWVzKzB4MTI0LzB4MTQ4Cj4g
+WyAxNDQwLjM4NjI4N10gIHVwZGF0ZV9wcm9jZXNzX3RpbWVzIGZyb20gdGlja19zY2hlZF9oYW5k
+bGUrMHg2NC8weDg4Cj4gWyAxNDQwLjM5MjUyMV0gIHRpY2tfc2NoZWRfaGFuZGxlIGZyb20gdGlj
+a19zY2hlZF90aW1lcisweDYwLzB4Y2MKPiBbIDE0NDAuMzk4MzQxXSAgdGlja19zY2hlZF90aW1l
+ciBmcm9tIF9faHJ0aW1lcl9ydW5fcXVldWVzKzB4MmM0LzB4NTljCj4gWyAxNDQwLjQwNDU3Ml0g
+IF9faHJ0aW1lcl9ydW5fcXVldWVzIGZyb20gaHJ0aW1lcl9pbnRlcnJ1cHQrMHgxYmMvMHgzYTAK
+PiBbIDE0NDAuNDExMDA5XSAgaHJ0aW1lcl9pbnRlcnJ1cHQgZnJvbSBhcmNoX3RpbWVyX2hhbmRs
+ZXJfdmlydCsweDM0LzB4M2MKPiBbIDE0NDAuNDE3NDQ3XSAgYXJjaF90aW1lcl9oYW5kbGVyX3Zp
+cnQgZnJvbQo+IGhhbmRsZV9wZXJjcHVfZGV2aWRfaXJxKzB4ZjQvMHgzNjgKPiBbIDE0NDAuNDI0
+NDgwXSAgaGFuZGxlX3BlcmNwdV9kZXZpZF9pcnEgZnJvbQo+IGdlbmVyaWNfaGFuZGxlX2RvbWFp
+bl9pcnErMHgzOC8weDQ4Cj4gWyAxNDQwLjQzMTYxOF0gIGdlbmVyaWNfaGFuZGxlX2RvbWFpbl9p
+cnEgZnJvbSBnaWNfaGFuZGxlX2lycSsweDkwLzB4YTgKPiBbIDE0NDAuNDM3OTUzXSAgZ2ljX2hh
+bmRsZV9pcnEgZnJvbSBnZW5lcmljX2hhbmRsZV9hcmNoX2lycSsweDMwLzB4NDAKPiBbIDE0NDAu
+NDQ0MDk0XSAgZ2VuZXJpY19oYW5kbGVfYXJjaF9pcnEgZnJvbSBfX2lycV9zdmMrMHg4OC8weGM4
+Cj4gWyAxNDQwLjQ0OTkyMF0gRXhjZXB0aW9uIHN0YWNrKDB4ZGU4MDNhMzAgdG8gMHhkZTgwM2E3
+OCkKPiBbIDE0NDAuNDU0OTE0XSAzYTIwOiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBkZTgwM2IwMAo+IDAwMDAwMDAwIDAwMDAwMDAxIDAwMDAwMGMwCj4gWyAxNDQwLjQ2MzE0
+MV0gM2E0MDogZTUzMzNmNDAgZGU4MDNiYTAgZGU4MDNiZDAgMDAwMDAwMDEgZTUzMzNmNDAKPiBk
+ZTgwM2IwMCBjMTI0MWQ5MCBiYWQwMDc1Ywo+IFsgMTQ0MC40NzEyNjJdIDNhNjA6IGMyMDU4NGI4
+IGRlODAzYTdjIGMwMTE0MTE0IGMwMTEzODUwIDIwMGYwMDEzIGZmZmZmZmZmCj4gWyAxNDQwLjQ3
+Nzk1OV0gIF9faXJxX3N2YyBmcm9tIHVud2luZF9leGVjX2luc24rMHg0LzB4NjU4Cj4gWyAxNDQw
+LjQ4MzA3OF0gIHVud2luZF9leGVjX2luc24gZnJvbSBjYWxsX3dpdGhfc3RhY2srMHgxOC8weDIw
+CgpUaGlzIGlzIGhhcmQgdG8gYW5hbHl6ZSB3aXRob3V0IGJlaW5nIGFibGUgdG8gcmVwcm9kdWNl
+IGl0LCBidXQgaXQgdGFsa3MKYWJvdXQgdGhlIHN0YWNrIGFuZCBLYXNhbiBhbmQgdW53aW5kaW5n
+LCBzbyBjb3VsZCBpdCAoYWxzbykgYmUgcmVsYXRlZCB0byB0aGUKVk1BUDplZCBzdGFjaz8KCkRp
+ZCB5b3UgdHJ5IHRvIHJldmVydCAob3IgY2hlY2sgb3V0IHRoZSBjb21taXQgYmVmb3JlIGFuZCBh
+ZnRlcikKYjY1MDY5ODFmODgwIEFSTTogdW53aW5kOiBzdXBwb3J0IHVud2luZGluZyBhY3Jvc3Mg
+bXVsdGlwbGUgc3RhY2tzCnRvIHNlZSBpZiB0aGlzIGlzIGFnYWluIGZpeGluZyB0aGUgaXNzdWU/
+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
