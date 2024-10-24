@@ -2,89 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A52F09AF55F
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 00:28:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507DF9AF583
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 00:38:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50B3CC78F62;
-	Thu, 24 Oct 2024 22:28:06 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E08C78F62;
+	Thu, 24 Oct 2024 22:38:28 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 896AAC6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32781C7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 22:27:58 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2e3010478e6so1059949a91.1
+ Thu, 24 Oct 2024 22:38:20 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-53a007743e7so1760272e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 15:27:58 -0700 (PDT)
+ Thu, 24 Oct 2024 15:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729808877; x=1730413677;
+ d=linaro.org; s=google; t=1729809499; x=1730414299;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=fD7JZCX3WSpRYBUjkGKdk6/F/9roVP52zuSU1cyvQeQ=;
- b=Ubawr6XAFhZm1DnWGeede+FSSozDOJTjaLjoPitlndRTEWyZiUYdkP6r86tyqFQq0X
- YDEBjis3FR5eSedbyf5nQJAcv8VVtgpoTLYvDEcV09gSddAGzwgI5tzFr8H0bnicH+y9
- 68fUUyM5g8PSwfpwTJQnuxShAER6ISixFgvYgN3npyOK6cPH9f93hRdqX8UeqPiEkMyY
- Egn19VViSgoOymrD085dXmzJXuOwGJboUL5r92cEvijSsUWZ5mD+l+5HYiTb8NAYNyaz
- Ku0ChA3er0Zz9ww6+Tz4IerA8W3vCMiIeXTW/OcftlnQ937ChNxowXlFW5Sgi9QijLG8
- oB2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729808877; x=1730413677;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fD7JZCX3WSpRYBUjkGKdk6/F/9roVP52zuSU1cyvQeQ=;
- b=rDrXpk54vUAewvC1UF8xJGJKx6BJ9PgT3x5Ac1o1Zayds1F+uotsEeXUw2yrHlsiEh
- zQzmTQumIzs2973ZRt6QUZkmLAi9ZDsFRvqcrOGzBRKPpki9tyWAgDJZsQv0XcFIHzbB
- TvGsyzbQyu7urzeLMeMgPLDjv05SyobKu2zjiWdjX6nb/VPdS4wyhThWNzZhqru6pvDS
- MlYUoQ1J5B7n/xzb6f3AeKkqK+wOojeVNjPZSpR0Es+N9PaufZ0qxw5kB1+5gK6mElm/
- Kbb4Zmyci6F7W5RmZPUiBfc7BH15ITRN0vhSN5pSjbK0PuGaP/z+YgGJl8fUd1GIA0b1
- tSeQ==
+ bh=Sd8x1e93gyeJX8KDkGrIIHUTJan7juKooq/kAucfUrQ=;
+ b=lgOBLt5iL3J7rhRVBiTtFQlADX8wInkUqHxjoDBveMN95ofmnKzGMBcdJeTCxgeaDr
+ Yk/SrnHIfy+lXhaQiuhzLh/xRG+363utyDeNLuOdALbEMRK5O6knZqhCEOnBAGzo4DYD
+ mvoRQjLsI9DLo/gMJElV8h28WKajtT3UzvofSU3/mSmKCfMzCCWoujted1Wu75tvw9x2
+ 58IrcQg3hyhtRlFs7F25PulUc1fOXzaAGWgFb1PSk8WaKY8Rm7MBFHF7M5OloFHR3lNk
+ tH6VI+woPAPw70YsqkwIYTFZR+AQmdXf2Abl/G0UCm/p2hSn/DEWc7pCKD/gm8cEIm0R
+ hdVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729809499; x=1730414299;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Sd8x1e93gyeJX8KDkGrIIHUTJan7juKooq/kAucfUrQ=;
+ b=HVTp0V0/6xwOZS3bHpGvwgp0CatGjkjLtYjb+C0w8lNxBsCdQktoi1zrdJ2q/C9dqd
+ 6BYrwqvqrRJrX5N0/+A1haR/5Kv+p8Pp8qDVcGs8aqaHONMfEDnsFKxbBeyy+Qx25MCr
+ J9XPk0sz4rOJR/jmp9qTpXZMaSa7hqAddLEvE9NNc4l+5mX4aFG2OcQVaN1RC2pXP2dD
+ 7S2iDEZwmvKcyiphsl5JVtcsKcgI10/aO5m0qks/z7X1Bo84q3L1CVlrKt6M11ARU1LI
+ WxvvdmClIU5QopGFZGG+VV24EZDCY8nAnRyRd2YUiCbJdInyTFkmj3ZBKBNzfBwMa8e7
+ uOlQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAz3ZVdgbKcJp2jl7y5QzPl94SXSj+qwijarpOco3DDtn6XfKDLyJrwo8NLsRADhFRwiLxev8udjEJtw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzOL7MjM0QYjai4dYeWqT1b1uUy8/UrBwdZT96nzM2gJALdUW2B
- bJH5trMk8VdZlKpTS023lKdsYAPpB+5MQ6zV85aYFTWo/TW8PliO
-X-Google-Smtp-Source: AGHT+IGQmCYk2RoxkOpXP4PJ+QT2gDC7178GzCSx0ES9YMS9JzYskSa3vPomTHV9tDwOnPLPR2pM0w==
-X-Received: by 2002:a17:90b:17c1:b0:2e0:9d3e:bc2a with SMTP id
- 98e67ed59e1d1-2e76b6cda50mr8866774a91.32.1729808876652; 
- Thu, 24 Oct 2024 15:27:56 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2e77e57f74asm2019615a91.46.2024.10.24.15.27.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 15:27:56 -0700 (PDT)
-Date: Fri, 25 Oct 2024 06:27:02 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Conor Dooley <conor@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <s2rbj66rarjs33fvmyrwtmeq562pbx7mif5fld56tnk3fm73m5@hlsufkbunu3t>
-References: <20241021103617.653386-1-inochiama@gmail.com>
- <20241021103617.653386-3-inochiama@gmail.com>
- <20241022-crisply-brute-45f98632ef78@spud>
- <yt2idyivivcxctosec3lwkjbmr4tmctbs4viefxsuqlsvihdeh@alya6g27625l>
- <20241023-paper-crease-befa8239f7f0@spud>
- <5cv7wcdddxa4ruggrk36cwaquo5srcrjqqwefqzcju2s3yhl73@ekpyw6zrpfug>
- <20241024-wad-dusk-3d49f9ac4dff@spud>
+ AJvYcCXDVcLkuryb61WM5POb03zxRcs0w2L3+1AyKonOKgqv6yBsQrfg0FHkiss9fM/3QMwX0nGiFNDSgE0yhg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyTEJeQESHx9PXhCXJsb2eNThEHaGoH6vpow4mkSEuLPCLKZJf9
+ 40Ng8nhHolOWgyda2zzmbeNxNGg7xZRgSvsFciBDja4MUFVDDtXfW+qbjeC9YirYYeUfs0tjpSa
+ 5tASS6bEURT7r97WI6IkAQMQXLQz3EtejUElYLA==
+X-Google-Smtp-Source: AGHT+IE5xxtC2Rc24n40JWosDcNQf9KHvHXEMlpBefnnaFUNn8d62HXfg1mRdDkM6cR/UQGw/6tcJB7OYxes1hC/wMA=
+X-Received: by 2002:a05:6512:a8d:b0:539:fbfa:4a9f with SMTP id
+ 2adb3069b0e04-53b1a3a7a4bmr3558958e87.58.1729809499262; Thu, 24 Oct 2024
+ 15:38:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241024-wad-dusk-3d49f9ac4dff@spud>
-Cc: Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Chen Wang <unicorn_wang@outlook.com>, Jose Abreu <joabreu@synopsys.com>,
- Inochi Amaoto <inochiama@outlook.com>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+References: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
+ <20241022155658.1647350-8-antonio.borneo@foss.st.com>
+In-Reply-To: <20241022155658.1647350-8-antonio.borneo@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 25 Oct 2024 00:38:08 +0200
+Message-ID: <CACRpkdZKimfE_00kxa_qAf+jjwxBtuKizDTd3RvOS_PDuZ_JKg@mail.gmail.com>
+To: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+ Cheick Traore <cheick.traore@foss.st.com>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 2/4] dt-bindings: net: Add support for
-	Sophgo SG2044 dwmac
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 07/14] dt-bindings: pinctrl: stm32:
+ support IO synchronization parameters
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,110 +80,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Oct 24, 2024 at 06:04:31PM +0100, Conor Dooley wrote:
-> On Thu, Oct 24, 2024 at 06:38:29AM +0800, Inochi Amaoto wrote:
-> > On Wed, Oct 23, 2024 at 09:49:34PM +0100, Conor Dooley wrote:
-> > > On Wed, Oct 23, 2024 at 08:31:24AM +0800, Inochi Amaoto wrote:
-> > > > On Tue, Oct 22, 2024 at 06:28:06PM +0100, Conor Dooley wrote:
-> > > > > On Mon, Oct 21, 2024 at 06:36:15PM +0800, Inochi Amaoto wrote:
-> > > > > > The GMAC IP on SG2044 is almost a standard Synopsys DesignWare MAC
-> > > > > > with some extra clock.
-> > > > > > 
-> > > > > > Add necessary compatible string for this device.
-> > > > > > 
-> > > > > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > > > > > ---
-> > > > > >  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
-> > > > > >  .../bindings/net/sophgo,sg2044-dwmac.yaml     | 145 ++++++++++++++++++
-> > > > > >  2 files changed, 146 insertions(+)
-> > > > > >  create mode 100644 Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
-> > > > > > 
-> > > > > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > > index 3c4007cb65f8..69f6bb36970b 100644
-> > > > > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > > > > > @@ -99,6 +99,7 @@ properties:
-> > > > > >          - snps,dwmac-5.30a
-> > > > > >          - snps,dwxgmac
-> > > > > >          - snps,dwxgmac-2.10
-> > > > > > +        - sophgo,sg2044-dwmac
-> > > > > >          - starfive,jh7100-dwmac
-> > > > > >          - starfive,jh7110-dwmac
-> > > > > >  
-> > > > > > diff --git a/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..93c41550b0b6
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
-> > > > > > @@ -0,0 +1,145 @@
-> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/net/sophgo,sg2044-dwmac.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > +
-> > > > > > +title: StarFive JH7110 DWMAC glue layer
-> > > > > > +
-> > > > > > +maintainers:
-> > > > > > +  - Inochi Amaoto <inochiama@gmail.com>
-> > > > > > +
-> > > > > > +select:
-> > > > > > +  properties:
-> > > > > > +    compatible:
-> > > > > > +      contains:
-> > > > > > +        enum:
-> > > > > > +          - sophgo,sg2044-dwmac
-> > > > > > +  required:
-> > > > > > +    - compatible
-> > > > > > +
-> > > > > > +properties:
-> > > > > > +  compatible:
-> > > > > > +    items:
-> > > > > > +      - const: sophgo,sg2044-dwmac
-> > > > > > +      - const: snps,dwmac-5.30a
-> > > > > > +
-> > > > > > +  reg:
-> > > > > > +    maxItems: 1
-> > > > > > +
-> > > > > > +  clocks:
-> > > > > > +    items:
-> > > > > > +      - description: GMAC main clock
-> > > > > > +      - description: PTP clock
-> > > > > > +      - description: TX clock
-> > > > > > +
-> > > > > > +  clock-names:
-> > > > > > +    items:
-> > > > > > +      - const: stmmaceth
-> > > > > > +      - const: ptp_ref
-> > > > > > +      - const: tx
-> > > > > > +
-> > > > > > +  sophgo,syscon:
-> > > > > 
-> > > > > How many dwmac instances does the sg2044 have?
-> > > > > 
-> > > > 
-> > > > Only one, there is another 100G dwxgmac instance, but it does not
-> > > > use this syscon.
-> > > 
-> > > That dwxgmac is a different device, with a different compatible etc?
-> > 
-> > Yes, it needs a different compatiable, and maybe a new binding is needed
-> > since the 100G and 1G IP are different.
-> 
-> In that case, you don't /need/ a syscon property at all, much less one
-> with offsets. You can just look up the syscon by compatible and hard
-> code the offset in the driver.
-
-Good, look up the syscon is a good idea. Thanks for this suggestion.
-
-Regards,
-Inochi
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQW50b25pby9GYWJpZW4sCgp0aGFua3MgZm9yIHlvdXIgcGF0Y2ghCgpPbiBUdWUsIE9jdCAy
+MiwgMjAyNCBhdCA1OjU54oCvUE0gQW50b25pbyBCb3JuZW8KPGFudG9uaW8uYm9ybmVvQGZvc3Mu
+c3QuY29tPiB3cm90ZToKCj4gRnJvbTogRmFiaWVuIERlc3Nlbm5lIDxmYWJpZW4uZGVzc2VubmVA
+Zm9zcy5zdC5jb20+Cj4KPiBTdXBwb3J0IHRoZSBmb2xsb3dpbmcgSU8gc3luY2hyb25pemF0aW9u
+IHBhcmFtZXRlcnM6Cj4gLSBEZWxheSAoaW4gbnMpCj4gLSBEZWxheSBwYXRoIChpbnB1dCAvIG91
+dHB1dCkKPiAtIENsb2NrIGVkZ2UgKHNpbmdsZSAvIGRvdWJsZSBlZGdlKQo+IC0gQ2xvY2sgaW52
+ZXJzaW9uCj4gLSBSZXRpbWluZwo+Cj4gU2lnbmVkLW9mZi1ieTogRmFiaWVuIERlc3Nlbm5lIDxm
+YWJpZW4uZGVzc2VubmVAZm9zcy5zdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW50b25pbyBCb3Ju
+ZW8gPGFudG9uaW8uYm9ybmVvQGZvc3Muc3QuY29tPgooLi4uKQoKSSB3YW50IHRvIGNoZWNrIGlm
+IHdlIGFscmVhZHkgaGF2ZSBzb21lIG9mIHRoZXNlIHByb3BlcnRpZXMKYW5kIGlmIHdlIGRvbid0
+LCBpZiB0aGV5IGNvdWxkIGFuZCBzaG91bGQgYmUgbWFkZSBnZW5lcmljLAppLmUuIHdpbGwgd2Ug
+c2VlIG1vcmUgb2YgdGhlbSwgYWxzbyBmcm9tIG90aGVyIHZlbmRvcnM/Cgo+ICsgICAgICAgICAg
+c3QsaW8tZGVsYXktcGF0aDoKPiArICAgICAgICAgICAgZGVzY3JpcHRpb246IHwKPiArICAgICAg
+ICAgICAgICBJTyBzeW5jaHJvbml6YXRpb24gZGVsYXkgcGF0aCBsb2NhdGlvbgo+ICsgICAgICAg
+ICAgICAgIDA6IERlbGF5IHN3aXRjaGVkIGludG8gdGhlIG91dHB1dCBwYXRoCj4gKyAgICAgICAg
+ICAgICAgMTogRGVsYXkgc3dpdGNoZWQgaW50byB0aGUgaW5wdXQgcGF0aAo+ICsgICAgICAgICAg
+ICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzIKPiArICAgICAg
+ICAgICAgZW51bTogWzAsIDFdCgpUaGlzIGxvb2tzIHJlbGF0ZWQgdG8gdGhlIHN0LGlvLWRlbGF5
+IGJlbG93IHNvIHBsZWFzZSBrZWVwIHRob3NlCnByb3BlcnRpZXMgdG9nZXRoZXIuCgpJcyB0aGlz
+IHBhdGggaWRlbnRpZmljYXRpb24gcmVhbGx5IG5lZWRlZCBpbiBwcmFjdGljZSwgaXNuJ3QgaXQK
+aW1wbGljaXQgZnJvbSBvdGhlciBwaW4gY29uZmlnIHByb3BlcnRpZXMgaWYgdGhlIHBpbiBpcyB1
+c2VkIGFzCmlucHV0IG9yIG91dHB1dCwgYW5kIGluIHRoYXQgY2FzZSB3aGVyZSB0aGUgZGVsYXkg
+YXBwbGllcz8KCkRvIHlvdSByZWFsbHkgaGF2ZSAtIGluIHByYWN0aWNlIC0gcGlucyB0aGF0IGNo
+YW5nZSBiZXR3ZWVuCmlucHV0IGFuZCBvdXRwdXQgYW5kIG5lZWQgZGlmZmVyZW50IGRlbGF5cyBh
+dCBydW50aW1lIChpLmUuIG5vdAphdCBzdGFydHVwKT8KCk90aGVyd2lzZSBJIHdvdWxkIHNheSB0
+aGF0IGp1c3QgY2hlY2tpbmcgaWYgdGhlIGxpbmUgaXMgaW4gaW5wdXQKb3Igb3V0cHV0IGZyb20g
+b3RoZXIgcHJvcGVydGllcyBzaG91bGQgYmUgZW5vdWdoIHRvIGNvbmZpZ3VyZQp0aGlzPyBpbnB1
+dC1lbmFibGUsIG91dHB1dC1lbmFibGUgdG8gbmFtZSB0aGUgb2J2aW91cy4KCgo+ICsgICAgICAg
+ICAgc3QsaW8tY2xrLWVkZ2U6Cj4gKyAgICAgICAgICAgIGRlc2NyaXB0aW9uOiB8Cj4gKyAgICAg
+ICAgICAgICAgSU8gc3luY2hyb25pemF0aW9uIGNsb2NrIGVkZ2UKPiArICAgICAgICAgICAgICAw
+OiBEYXRhIHNpbmdsZS1lZGdlIChjaGFuZ2luZyBvbiByaXNpbmcgb3IgZmFsbGluZyBjbG9jayBl
+ZGdlKQo+ICsgICAgICAgICAgICAgIDE6IERhdGEgZG91YmxlLWVkZ2UgKGNoYW5naW5nIG9uIGJv
+dGggY2xvY2sgZWRnZXMpCj4gKyAgICAgICAgICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwj
+L2RlZmluaXRpb25zL3VpbnQzMgo+ICsgICAgICAgICAgICBlbnVtOiBbMCwgMV0KClRoaXMgbG9v
+a3MgbGlrZSBpdCBzaG91bGQgYmUgbWFkZSBpbnRvIGEgZ2VuZXJpYyBwcm9wZXJ0eSwKaXQgc2Vl
+bXMgdG8gYmUgYWJvdXQgaG93IHRoZSBsb2dpYyBpcyB1c2VkIHJhdGhlciB0aGFuIHNvbWV0aGlu
+ZwplbGVjdHJvbmljIGJ1dCBhcmd1YWJsZSBmaXRzIGluIHBpbiBjb25maWcuCgpJc24ndCB0aGlz
+IHVzdWFsbHkgY2FsbGVkIEREUiAoZG91YmxlIGRhdGEgcmF0ZSkgaW4gdGVjaCBzcGVhaz8KCldo
+YXQgYWJvdXQgYSBnZW5lcmljIHByb3BlcnR5ICJkb3VibGUtZGF0YS1yYXRlIj8KCj4gKyAgICAg
+ICAgICBzdCxpby1jbGstdHlwZToKPiArICAgICAgICAgICAgZGVzY3JpcHRpb246IHwKPiArICAg
+ICAgICAgICAgICBJTyBzeW5jaHJvbml6YXRpb24gY2xvY2sgaW52ZXJzaW9uCj4gKyAgICAgICAg
+ICAgICAgMDogSU8gY2xvY2tzIG5vdCBpbnZlcnRlZC4gRGF0YSByZXRpbWVkIHRvIHJpc2luZyBj
+bG9jayBlZGdlCj4gKyAgICAgICAgICAgICAgMTogSU8gY2xvY2tzIGludmVydGVkLiBEYXRhIHJl
+dGltZWQgdG8gZmFsbGluZyBjbG9jayBlZGdlCj4gKyAgICAgICAgICAgICRyZWY6IC9zY2hlbWFz
+L3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMgo+ICsgICAgICAgICAgICBlbnVtOiBbMCwg
+MV0KCkRvZXNuJ3QgdGhpcyByZXF1aXJlIHN0LGlvLXJldGltZSB0byBiZSBzcGVjaWZpZWQgYXQg
+dGhlIHNhbWUgdGltZT8KClRoZW4gd2Ugc2hvdWxkIGFkZCBzb21lIFlBTUwgbWFnaWMgKGlmIHdl
+IGNhbikgdG8gbWFrZSBzdXJlCnRoYXQgaGFwcGVucy4KCj4gKyAgICAgICAgICBzdCxpby1yZXRp
+bWU6Cj4gKyAgICAgICAgICAgIGRlc2NyaXB0aW9uOiB8Cj4gKyAgICAgICAgICAgICAgSU8gc3lu
+Y2hyb25pemF0aW9uIGRhdGEgcmV0aW1lCj4gKyAgICAgICAgICAgICAgMDogRGF0YSBub3Qgc3lu
+Y2hyb25pemVkIG9yIHJldGltZWQgb24gY2xvY2sgZWRnZXMKPiArICAgICAgICAgICAgICAxOiBE
+YXRhIHJldGltZWQgdG8gZWl0aGVyIHJpc2luZyBvciBmYWxsaW5nIGNsb2NrIGVkZ2UKPiArICAg
+ICAgICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCj4g
+KyAgICAgICAgICAgIGVudW06IFswLCAxXQoKQ2FuJ3QgdGhlc2UgdHdvIGJlIG1lcmdlZCBpbnRv
+IG9uZSAoZ2VuZXJpYykgcHJvcGVydHk6Cgppby1yZXRpbWUKCmVudW0gWzAsIDEsIDJdCgowPW5v
+bmUKMT1yaXNpbmcgcmV0aW1lCjI9ZmFsbGluZyByZXRpbWUKClJldGltaW5nIHNlZW1zIGxpa2Ug
+YSB2ZXJ5IGdlbmVyaWMgY29uY2VwdCBzbyBJIHRoaW5rIGl0IHNob3VsZApiZSBtYWRlIGludG8g
+YSBnZW5lcmljIHByb3BlcnR5LgoKPiArICAgICAgICAgIHN0LGlvLWRlbGF5Ogo+ICsgICAgICAg
+ICAgICBkZXNjcmlwdGlvbjogfAo+ICsgICAgICAgICAgICAgIElPIHN5bmNocm9uaXphdGlvbiBk
+ZWxheSBhcHBsaWVkIHRvIHRoZSBpbnB1dCBvciBvdXRwdXQgcGF0aAo+ICsgICAgICAgICAgICAg
+IDA6IE5vIGRlbGF5Cj4gKyAgICAgICAgICAgICAgMTogRGVsYXkgMC4zMCBucwo+ICsgICAgICAg
+ICAgICAgIDI6IERlbGF5IDAuNTAgbnMKPiArICAgICAgICAgICAgICAzOiBEZWxheSAwLjc1IG5z
+Cj4gKyAgICAgICAgICAgICAgNDogRGVsYXkgMS4wMCBucwo+ICsgICAgICAgICAgICAgIDU6IERl
+bGF5IDEuMjUgbnMKPiArICAgICAgICAgICAgICA2OiBEZWxheSAxLjUwIG5zCj4gKyAgICAgICAg
+ICAgICAgNzogRGVsYXkgMS43NSBucwo+ICsgICAgICAgICAgICAgIDg6IERlbGF5IDIuMDAgbnMK
+PiArICAgICAgICAgICAgICA5OiBEZWxheSAyLjI1IG5zCj4gKyAgICAgICAgICAgICAgMTA6IERl
+bGF5IDIuNTAgbnMKPiArICAgICAgICAgICAgICAxMTogRGVsYXkgMi43NSBucwo+ICsgICAgICAg
+ICAgICAgIDEyOiBEZWxheSAzLjAwIG5zCj4gKyAgICAgICAgICAgICAgMTM6IERlbGF5IDMuMjUg
+bnMKPiArICAgICAgICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMv
+dWludDMyCj4gKyAgICAgICAgICAgIG1pbmltdW06IDAKPiArICAgICAgICAgICAgbWF4aW11bTog
+MTMKClRoaXMgbG9va3MgdmVyeSBzaW1pbGFyIHRvIHRoZSBleGlzdGluZyAic2tldy1kZWxheSIg
+cHJvcGVydHk6CgogIHNrZXctZGVsYXk6CiAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
+ZWZpbml0aW9ucy91aW50MzIKICAgIGRlc2NyaXB0aW9uOgogICAgICB0aGlzIGFmZmVjdHMgdGhl
+IGV4cGVjdGVkIGNsb2NrIHNrZXcgb24gaW5wdXQgcGlucwogICAgICBhbmQgdGhlIGRlbGF5IGJl
+Zm9yZSBsYXRjaGluZyBhIHZhbHVlIHRvIGFuIG91dHB1dAogICAgICBwaW4uIFR5cGljYWxseSBp
+bmRpY2F0ZXMgaG93IG1hbnkgZG91YmxlLWludmVydGVycyBhcmUKICAgICAgdXNlZCB0byBkZWxh
+eSB0aGUgc2lnbmFsLgoKY2FuJ3Qgd2UganVzdCB1c2UgdGhhdD8KCkZlZWwgZnJlZSB0byBlZGl0
+IHRoZSB0ZXh0IGZvciBpdCBpbgpEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGlu
+Y3RybC9waW5jZmctbm9kZS55YW1sCmlmIHRoYXQgaXMgdG9vIGNsb2NrLXNwZWNpZmljLgoKWW91
+cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
