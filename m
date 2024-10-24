@@ -2,73 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 507DF9AF583
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 00:38:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252279AF598
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 00:52:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E08C78F62;
-	Thu, 24 Oct 2024 22:38:28 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C71D5C78F62;
+	Thu, 24 Oct 2024 22:52:00 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32781C7803A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69307C7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 22:38:20 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-53a007743e7so1760272e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 15:38:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729809499; x=1730414299;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Sd8x1e93gyeJX8KDkGrIIHUTJan7juKooq/kAucfUrQ=;
- b=lgOBLt5iL3J7rhRVBiTtFQlADX8wInkUqHxjoDBveMN95ofmnKzGMBcdJeTCxgeaDr
- Yk/SrnHIfy+lXhaQiuhzLh/xRG+363utyDeNLuOdALbEMRK5O6knZqhCEOnBAGzo4DYD
- mvoRQjLsI9DLo/gMJElV8h28WKajtT3UzvofSU3/mSmKCfMzCCWoujted1Wu75tvw9x2
- 58IrcQg3hyhtRlFs7F25PulUc1fOXzaAGWgFb1PSk8WaKY8Rm7MBFHF7M5OloFHR3lNk
- tH6VI+woPAPw70YsqkwIYTFZR+AQmdXf2Abl/G0UCm/p2hSn/DEWc7pCKD/gm8cEIm0R
- hdVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729809499; x=1730414299;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Sd8x1e93gyeJX8KDkGrIIHUTJan7juKooq/kAucfUrQ=;
- b=HVTp0V0/6xwOZS3bHpGvwgp0CatGjkjLtYjb+C0w8lNxBsCdQktoi1zrdJ2q/C9dqd
- 6BYrwqvqrRJrX5N0/+A1haR/5Kv+p8Pp8qDVcGs8aqaHONMfEDnsFKxbBeyy+Qx25MCr
- J9XPk0sz4rOJR/jmp9qTpXZMaSa7hqAddLEvE9NNc4l+5mX4aFG2OcQVaN1RC2pXP2dD
- 7S2iDEZwmvKcyiphsl5JVtcsKcgI10/aO5m0qks/z7X1Bo84q3L1CVlrKt6M11ARU1LI
- WxvvdmClIU5QopGFZGG+VV24EZDCY8nAnRyRd2YUiCbJdInyTFkmj3ZBKBNzfBwMa8e7
- uOlQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXDVcLkuryb61WM5POb03zxRcs0w2L3+1AyKonOKgqv6yBsQrfg0FHkiss9fM/3QMwX0nGiFNDSgE0yhg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyTEJeQESHx9PXhCXJsb2eNThEHaGoH6vpow4mkSEuLPCLKZJf9
- 40Ng8nhHolOWgyda2zzmbeNxNGg7xZRgSvsFciBDja4MUFVDDtXfW+qbjeC9YirYYeUfs0tjpSa
- 5tASS6bEURT7r97WI6IkAQMQXLQz3EtejUElYLA==
-X-Google-Smtp-Source: AGHT+IE5xxtC2Rc24n40JWosDcNQf9KHvHXEMlpBefnnaFUNn8d62HXfg1mRdDkM6cR/UQGw/6tcJB7OYxes1hC/wMA=
-X-Received: by 2002:a05:6512:a8d:b0:539:fbfa:4a9f with SMTP id
- 2adb3069b0e04-53b1a3a7a4bmr3558958e87.58.1729809499262; Thu, 24 Oct 2024
- 15:38:19 -0700 (PDT)
+ Thu, 24 Oct 2024 22:51:53 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49OLnDGJ018730;
+ Thu, 24 Oct 2024 22:51:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5NCSjsSy1TaH+MT3HKNIAXCN5C9DoIWK8z+7vrfrX1c=; b=nFJirtoHBznmHVRY
+ DP3K3mU5NG5rGH5TwS2PPPMzfRk9vVMYgWmItfYGNPL2tojYQkUK9aQSPb7eaB8M
+ 3PeO9xvDZHRah/wn+r2by6KZ5/jXIjRH02hEfjUL0E3yr9B1+87CCQsjisbssR1Y
+ Un4zgaG82d7R9KP5Ht2OiwmFzl7x53q0F5R78QU5izu1diIzexqzQxOSsEoIkQHs
+ UyZtXXvQWAYxH/AIAG2nDNE6zyhMl95DNfGO5KPROwIBFbEaQqwwQrcKw88FlhBA
+ MxDcW+BywF8l0QbqgXWf2s5P5iV4neV52N+0NTRNbgIuTXsf+guNGfJEJ2peHjbD
+ 6KL6bg==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42em66f5y8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Oct 2024 22:51:30 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49OMpTc8022353
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Oct 2024 22:51:29 GMT
+Received: from [10.46.19.239] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 24 Oct
+ 2024 15:51:25 -0700
+Message-ID: <5e5783f0-6949-4d04-a887-e6b873ae42ff@quicinc.com>
+Date: Thu, 24 Oct 2024 15:51:24 -0700
 MIME-Version: 1.0
-References: <20241022155658.1647350-1-antonio.borneo@foss.st.com>
- <20241022155658.1647350-8-antonio.borneo@foss.st.com>
-In-Reply-To: <20241022155658.1647350-8-antonio.borneo@foss.st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 25 Oct 2024 00:38:08 +0200
-Message-ID: <CACRpkdZKimfE_00kxa_qAf+jjwxBtuKizDTd3RvOS_PDuZ_JKg@mail.gmail.com>
-To: Antonio Borneo <antonio.borneo@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- Cheick Traore <cheick.traore@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/14] dt-bindings: pinctrl: stm32:
- support IO synchronization parameters
+User-Agent: Mozilla Thunderbird
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>, Andrew Lunn
+ <andrew@lunn.ch>, Serge Semin <fancer.lancer@gmail.com>
+References: <20241018222407.1139697-1-quic_abchauha@quicinc.com>
+ <60119fa1-e7b1-4074-94ee-7e6100390444@lunn.ch>
+ <ZxYc2I9vgVL8i4Dz@shell.armlinux.org.uk>
+ <ZxYfmtPYd0yL51C5@shell.armlinux.org.uk>
+ <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: boiC3QICZ-oCiTXlNddqXcolGFMiD_b3
+X-Proofpoint-GUID: boiC3QICZ-oCiTXlNddqXcolGFMiD_b3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 mlxlogscore=553
+ suspectscore=0 clxscore=1015 mlxscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410240186
+Cc: Jon Hunter <jonathanh@nvidia.com>, kernel@quicinc.com,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric
+ Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Disable PCS Link and
+ AN interrupt when PCS AN is disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,91 +92,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW50b25pby9GYWJpZW4sCgp0aGFua3MgZm9yIHlvdXIgcGF0Y2ghCgpPbiBUdWUsIE9jdCAy
-MiwgMjAyNCBhdCA1OjU54oCvUE0gQW50b25pbyBCb3JuZW8KPGFudG9uaW8uYm9ybmVvQGZvc3Mu
-c3QuY29tPiB3cm90ZToKCj4gRnJvbTogRmFiaWVuIERlc3Nlbm5lIDxmYWJpZW4uZGVzc2VubmVA
-Zm9zcy5zdC5jb20+Cj4KPiBTdXBwb3J0IHRoZSBmb2xsb3dpbmcgSU8gc3luY2hyb25pemF0aW9u
-IHBhcmFtZXRlcnM6Cj4gLSBEZWxheSAoaW4gbnMpCj4gLSBEZWxheSBwYXRoIChpbnB1dCAvIG91
-dHB1dCkKPiAtIENsb2NrIGVkZ2UgKHNpbmdsZSAvIGRvdWJsZSBlZGdlKQo+IC0gQ2xvY2sgaW52
-ZXJzaW9uCj4gLSBSZXRpbWluZwo+Cj4gU2lnbmVkLW9mZi1ieTogRmFiaWVuIERlc3Nlbm5lIDxm
-YWJpZW4uZGVzc2VubmVAZm9zcy5zdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW50b25pbyBCb3Ju
-ZW8gPGFudG9uaW8uYm9ybmVvQGZvc3Muc3QuY29tPgooLi4uKQoKSSB3YW50IHRvIGNoZWNrIGlm
-IHdlIGFscmVhZHkgaGF2ZSBzb21lIG9mIHRoZXNlIHByb3BlcnRpZXMKYW5kIGlmIHdlIGRvbid0
-LCBpZiB0aGV5IGNvdWxkIGFuZCBzaG91bGQgYmUgbWFkZSBnZW5lcmljLAppLmUuIHdpbGwgd2Ug
-c2VlIG1vcmUgb2YgdGhlbSwgYWxzbyBmcm9tIG90aGVyIHZlbmRvcnM/Cgo+ICsgICAgICAgICAg
-c3QsaW8tZGVsYXktcGF0aDoKPiArICAgICAgICAgICAgZGVzY3JpcHRpb246IHwKPiArICAgICAg
-ICAgICAgICBJTyBzeW5jaHJvbml6YXRpb24gZGVsYXkgcGF0aCBsb2NhdGlvbgo+ICsgICAgICAg
-ICAgICAgIDA6IERlbGF5IHN3aXRjaGVkIGludG8gdGhlIG91dHB1dCBwYXRoCj4gKyAgICAgICAg
-ICAgICAgMTogRGVsYXkgc3dpdGNoZWQgaW50byB0aGUgaW5wdXQgcGF0aAo+ICsgICAgICAgICAg
-ICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzIKPiArICAgICAg
-ICAgICAgZW51bTogWzAsIDFdCgpUaGlzIGxvb2tzIHJlbGF0ZWQgdG8gdGhlIHN0LGlvLWRlbGF5
-IGJlbG93IHNvIHBsZWFzZSBrZWVwIHRob3NlCnByb3BlcnRpZXMgdG9nZXRoZXIuCgpJcyB0aGlz
-IHBhdGggaWRlbnRpZmljYXRpb24gcmVhbGx5IG5lZWRlZCBpbiBwcmFjdGljZSwgaXNuJ3QgaXQK
-aW1wbGljaXQgZnJvbSBvdGhlciBwaW4gY29uZmlnIHByb3BlcnRpZXMgaWYgdGhlIHBpbiBpcyB1
-c2VkIGFzCmlucHV0IG9yIG91dHB1dCwgYW5kIGluIHRoYXQgY2FzZSB3aGVyZSB0aGUgZGVsYXkg
-YXBwbGllcz8KCkRvIHlvdSByZWFsbHkgaGF2ZSAtIGluIHByYWN0aWNlIC0gcGlucyB0aGF0IGNo
-YW5nZSBiZXR3ZWVuCmlucHV0IGFuZCBvdXRwdXQgYW5kIG5lZWQgZGlmZmVyZW50IGRlbGF5cyBh
-dCBydW50aW1lIChpLmUuIG5vdAphdCBzdGFydHVwKT8KCk90aGVyd2lzZSBJIHdvdWxkIHNheSB0
-aGF0IGp1c3QgY2hlY2tpbmcgaWYgdGhlIGxpbmUgaXMgaW4gaW5wdXQKb3Igb3V0cHV0IGZyb20g
-b3RoZXIgcHJvcGVydGllcyBzaG91bGQgYmUgZW5vdWdoIHRvIGNvbmZpZ3VyZQp0aGlzPyBpbnB1
-dC1lbmFibGUsIG91dHB1dC1lbmFibGUgdG8gbmFtZSB0aGUgb2J2aW91cy4KCgo+ICsgICAgICAg
-ICAgc3QsaW8tY2xrLWVkZ2U6Cj4gKyAgICAgICAgICAgIGRlc2NyaXB0aW9uOiB8Cj4gKyAgICAg
-ICAgICAgICAgSU8gc3luY2hyb25pemF0aW9uIGNsb2NrIGVkZ2UKPiArICAgICAgICAgICAgICAw
-OiBEYXRhIHNpbmdsZS1lZGdlIChjaGFuZ2luZyBvbiByaXNpbmcgb3IgZmFsbGluZyBjbG9jayBl
-ZGdlKQo+ICsgICAgICAgICAgICAgIDE6IERhdGEgZG91YmxlLWVkZ2UgKGNoYW5naW5nIG9uIGJv
-dGggY2xvY2sgZWRnZXMpCj4gKyAgICAgICAgICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwj
-L2RlZmluaXRpb25zL3VpbnQzMgo+ICsgICAgICAgICAgICBlbnVtOiBbMCwgMV0KClRoaXMgbG9v
-a3MgbGlrZSBpdCBzaG91bGQgYmUgbWFkZSBpbnRvIGEgZ2VuZXJpYyBwcm9wZXJ0eSwKaXQgc2Vl
-bXMgdG8gYmUgYWJvdXQgaG93IHRoZSBsb2dpYyBpcyB1c2VkIHJhdGhlciB0aGFuIHNvbWV0aGlu
-ZwplbGVjdHJvbmljIGJ1dCBhcmd1YWJsZSBmaXRzIGluIHBpbiBjb25maWcuCgpJc24ndCB0aGlz
-IHVzdWFsbHkgY2FsbGVkIEREUiAoZG91YmxlIGRhdGEgcmF0ZSkgaW4gdGVjaCBzcGVhaz8KCldo
-YXQgYWJvdXQgYSBnZW5lcmljIHByb3BlcnR5ICJkb3VibGUtZGF0YS1yYXRlIj8KCj4gKyAgICAg
-ICAgICBzdCxpby1jbGstdHlwZToKPiArICAgICAgICAgICAgZGVzY3JpcHRpb246IHwKPiArICAg
-ICAgICAgICAgICBJTyBzeW5jaHJvbml6YXRpb24gY2xvY2sgaW52ZXJzaW9uCj4gKyAgICAgICAg
-ICAgICAgMDogSU8gY2xvY2tzIG5vdCBpbnZlcnRlZC4gRGF0YSByZXRpbWVkIHRvIHJpc2luZyBj
-bG9jayBlZGdlCj4gKyAgICAgICAgICAgICAgMTogSU8gY2xvY2tzIGludmVydGVkLiBEYXRhIHJl
-dGltZWQgdG8gZmFsbGluZyBjbG9jayBlZGdlCj4gKyAgICAgICAgICAgICRyZWY6IC9zY2hlbWFz
-L3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMgo+ICsgICAgICAgICAgICBlbnVtOiBbMCwg
-MV0KCkRvZXNuJ3QgdGhpcyByZXF1aXJlIHN0LGlvLXJldGltZSB0byBiZSBzcGVjaWZpZWQgYXQg
-dGhlIHNhbWUgdGltZT8KClRoZW4gd2Ugc2hvdWxkIGFkZCBzb21lIFlBTUwgbWFnaWMgKGlmIHdl
-IGNhbikgdG8gbWFrZSBzdXJlCnRoYXQgaGFwcGVucy4KCj4gKyAgICAgICAgICBzdCxpby1yZXRp
-bWU6Cj4gKyAgICAgICAgICAgIGRlc2NyaXB0aW9uOiB8Cj4gKyAgICAgICAgICAgICAgSU8gc3lu
-Y2hyb25pemF0aW9uIGRhdGEgcmV0aW1lCj4gKyAgICAgICAgICAgICAgMDogRGF0YSBub3Qgc3lu
-Y2hyb25pemVkIG9yIHJldGltZWQgb24gY2xvY2sgZWRnZXMKPiArICAgICAgICAgICAgICAxOiBE
-YXRhIHJldGltZWQgdG8gZWl0aGVyIHJpc2luZyBvciBmYWxsaW5nIGNsb2NrIGVkZ2UKPiArICAg
-ICAgICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCj4g
-KyAgICAgICAgICAgIGVudW06IFswLCAxXQoKQ2FuJ3QgdGhlc2UgdHdvIGJlIG1lcmdlZCBpbnRv
-IG9uZSAoZ2VuZXJpYykgcHJvcGVydHk6Cgppby1yZXRpbWUKCmVudW0gWzAsIDEsIDJdCgowPW5v
-bmUKMT1yaXNpbmcgcmV0aW1lCjI9ZmFsbGluZyByZXRpbWUKClJldGltaW5nIHNlZW1zIGxpa2Ug
-YSB2ZXJ5IGdlbmVyaWMgY29uY2VwdCBzbyBJIHRoaW5rIGl0IHNob3VsZApiZSBtYWRlIGludG8g
-YSBnZW5lcmljIHByb3BlcnR5LgoKPiArICAgICAgICAgIHN0LGlvLWRlbGF5Ogo+ICsgICAgICAg
-ICAgICBkZXNjcmlwdGlvbjogfAo+ICsgICAgICAgICAgICAgIElPIHN5bmNocm9uaXphdGlvbiBk
-ZWxheSBhcHBsaWVkIHRvIHRoZSBpbnB1dCBvciBvdXRwdXQgcGF0aAo+ICsgICAgICAgICAgICAg
-IDA6IE5vIGRlbGF5Cj4gKyAgICAgICAgICAgICAgMTogRGVsYXkgMC4zMCBucwo+ICsgICAgICAg
-ICAgICAgIDI6IERlbGF5IDAuNTAgbnMKPiArICAgICAgICAgICAgICAzOiBEZWxheSAwLjc1IG5z
-Cj4gKyAgICAgICAgICAgICAgNDogRGVsYXkgMS4wMCBucwo+ICsgICAgICAgICAgICAgIDU6IERl
-bGF5IDEuMjUgbnMKPiArICAgICAgICAgICAgICA2OiBEZWxheSAxLjUwIG5zCj4gKyAgICAgICAg
-ICAgICAgNzogRGVsYXkgMS43NSBucwo+ICsgICAgICAgICAgICAgIDg6IERlbGF5IDIuMDAgbnMK
-PiArICAgICAgICAgICAgICA5OiBEZWxheSAyLjI1IG5zCj4gKyAgICAgICAgICAgICAgMTA6IERl
-bGF5IDIuNTAgbnMKPiArICAgICAgICAgICAgICAxMTogRGVsYXkgMi43NSBucwo+ICsgICAgICAg
-ICAgICAgIDEyOiBEZWxheSAzLjAwIG5zCj4gKyAgICAgICAgICAgICAgMTM6IERlbGF5IDMuMjUg
-bnMKPiArICAgICAgICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMv
-dWludDMyCj4gKyAgICAgICAgICAgIG1pbmltdW06IDAKPiArICAgICAgICAgICAgbWF4aW11bTog
-MTMKClRoaXMgbG9va3MgdmVyeSBzaW1pbGFyIHRvIHRoZSBleGlzdGluZyAic2tldy1kZWxheSIg
-cHJvcGVydHk6CgogIHNrZXctZGVsYXk6CiAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
-ZWZpbml0aW9ucy91aW50MzIKICAgIGRlc2NyaXB0aW9uOgogICAgICB0aGlzIGFmZmVjdHMgdGhl
-IGV4cGVjdGVkIGNsb2NrIHNrZXcgb24gaW5wdXQgcGlucwogICAgICBhbmQgdGhlIGRlbGF5IGJl
-Zm9yZSBsYXRjaGluZyBhIHZhbHVlIHRvIGFuIG91dHB1dAogICAgICBwaW4uIFR5cGljYWxseSBp
-bmRpY2F0ZXMgaG93IG1hbnkgZG91YmxlLWludmVydGVycyBhcmUKICAgICAgdXNlZCB0byBkZWxh
-eSB0aGUgc2lnbmFsLgoKY2FuJ3Qgd2UganVzdCB1c2UgdGhhdD8KCkZlZWwgZnJlZSB0byBlZGl0
-IHRoZSB0ZXh0IGZvciBpdCBpbgpEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGlu
-Y3RybC9waW5jZmctbm9kZS55YW1sCmlmIHRoYXQgaXMgdG9vIGNsb2NrLXNwZWNpZmljLgoKWW91
-cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 10/21/2024 8:09 AM, Abhishek Chauhan (ABC) wrote:
+> 
+> 
+> On 10/21/2024 2:32 AM, Russell King (Oracle) wrote:
+>> On Mon, Oct 21, 2024 at 10:20:24AM +0100, Russell King (Oracle) wrote:
+>>> On Sat, Oct 19, 2024 at 04:45:16AM +0200, Andrew Lunn wrote:
+>>>> On Fri, Oct 18, 2024 at 03:24:07PM -0700, Abhishek Chauhan wrote:
+>>>>> Currently we disable PCS ANE when the link speed is 2.5Gbps.
+>>>>> mac_link_up callback internally calls the fix_mac_speed which internally
+>>>>> calls stmmac_pcs_ctrl_ane to disable the ANE for 2.5Gbps.
+>>>>>
+>>>>> We observed that the CPU utilization is pretty high. That is because
+>>>>> we saw that the PCS interrupt status line for Link and AN always remain
+>>>>> asserted. Since we are disabling the PCS ANE for 2.5Gbps it makes sense
+>>>>> to also disable the PCS link status and AN complete in the interrupt
+>>>>> enable register.
+>>>>>
+>>>>> Interrupt storm Issue:-
+>>>>> [   25.465754][    C2] stmmac_pcs: Link Down
+>>>>> [   25.469888][    C2] stmmac_pcs: Link Down
+>>>>> [   25.474030][    C2] stmmac_pcs: Link Down
+>>>>> [   25.478164][    C2] stmmac_pcs: Link Down
+>>>>> [   25.482305][    C2] stmmac_pcs: Link Down
+>>>>
+>>>> I don't know this code, so i cannot really comment if not enabling the
+>>>> interrupt is the correct fix or not. But generally an interrupt storm
+>>>> like this is cause because you are not acknowledging the interrupt
+>>>> correctly to clear its status. So rather than not enabling it, maybe
+>>>> you should check what is the correct way to clear the interrupt once
+>>>> it happens?
+>>>
+>>> stmmac PCS support is total crap and shouldn't be used, or stmmac
+>>> should not be using phylink. It's one or the other. Blame Serge for
+>>> this mess.
+>>
+>> Seriously, we could've had this fixed had the patch set I was working
+>> on that fixed stmmac's _bad_ _conversion_ to phylink progressed to the
+>> point of being merged.
+>>
+>> The whole stmmac PCS support is broken, bypassing phylink.
+>>
+>> This series also contained bug fixes for stuff like this interrupt
+>> storm after Serge tested it. However, Serge wanted to turn my series
+>> into his maze of indirect function pointers approach that I disagreed
+>> with, and he wouldn't change his mind on that, so I deleted the series.
+>>
+>> As I keep saying - either stmmac uses phylink *properly* and gets its
+>> PCS hacks sorted out, or it does not use phylink *at* *all*. It's one
+>> or the other.
+>>
+>> I am not going to patch stmmac for any future phylink changes, and if
+>> it breaks, then I'll just say "oh that's a shame, not my problem."
+>> Blame Serge for that. I've had it with the pile of crap that is
+>> stmmac.
+>>
+> Thanks Andrew and Russell for you review comments. 
+> 
+> Adding Serge here. 
+> 
+> Lets take a step back and see how i can help here to make sure 
+> we can get things merged and the discussion proceeds. 
+> 
+> Serge please help if can here. Thanks! 
+> 
+
+Andrew, I had a detailed discussion with hardware team internally. 
+
+Section 1:-
+----------------------------------------------------------------------
+Here are the updates from my side on the same. 
+1. ANE feature is disabled for 2.5 Gbps integrated PCS in the stmmac 
+for the PCS link to be up.
+Experiment was done to turn on ANE bit in the MAC register and i clearly 
+saw pcs link went down when 2.5Gbps link speed was selected 
+
+2. if ANE feature is not supported the corresponding PCS interrupts such
+as ANE and Link status has to be disabled in the MAC block according to 
+hardware team. 
+
+Note:- today stmmac driver is reading the PCS interrupt status to clear the 
+interrupt. so interrupt handling is done correctly. 
+
+Section 2:-
+---------------------------------------------------------------------
+Serge can you please respond on the PCS support in stmmac ?
+
+We can work together with Russell and see how can we join hands and take 
+things forward. 
+
+I feel PCS has to communicate to Phylink and phylink has to post the final 
+notification to MAC stating the link is up or not. 
+
+
+> 
+> 
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
