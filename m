@@ -2,67 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCD89AEAB3
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 17:37:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139099AED13
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 19:04:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8414DC78F6A;
-	Thu, 24 Oct 2024 15:37:14 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0FB9C78F6B;
+	Thu, 24 Oct 2024 17:04:47 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1702C78038
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1A14C78F69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 15:37:07 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4316f3d3c21so10606725e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 08:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1729784227; x=1730389027;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SCnstNue4jg85kEIiyesGcA8Rnj9rjVX17h62wnrdHU=;
- b=Uzl2+4v3q75IWfJe5J7/LrSaVXT6qNgHgOQmdTy0SRkAprYH3Dr0AdSbi2eH0w1tVY
- Wi7NZMxiBtTYeyb+520IMWyx466qGc8OdpHuj03ZhV+qTV6p/XL/3AsJqg497ZPyMqFC
- Jz+m3Tkaz+cDgEO/gMTZUEjcKI19/fNhdnR1th+BQLPe+TtWN98i9RaEBKehH7KIfxIH
- LwVJxkVSxiGsBbnz+kP6c9rBedDCsAHaFs6Oo8ex1B90TwUMe0JNC5jpV11M7AKcuJdg
- yDiYPPmee1L+VhpgtrZB6s7T63fu2R9rzHi5P4v2L0S/ABzOB6unnEYDrSQ0ynt2c0ug
- fBkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729784227; x=1730389027;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SCnstNue4jg85kEIiyesGcA8Rnj9rjVX17h62wnrdHU=;
- b=hU8lb27umV+jpE2Dp13cyOvvwRvl2mqqkp3eOEP2YUFuRBtNFNH3vM511TohVvdFuy
- K8nOwKPkiyTlgn9z3Vpco0zdDYcC48PuKHdwiqrE+ldzhIL49pYRDy0F/mEVA9WmHHZB
- rNMP1IHOgkhks4DLkTdEovPW0xHxfohDppYHFIgebijQZ7+K1KULp4zJ+T5IBI91pHCm
- 1FoXO0ZiuNtKZ/W+Hrqm7qX4zAXK2cJ6BGck7+Djr4+1jsp5LGBCeuQRGfyORF85dGiB
- pwOFGGR+8ypwhB9tVNwzpg4Nw6Wuy48xnoLDHW+TPjax+gKB33r2dbV46+4LLRE1gZcl
- pyDw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXnD1Ngh+IUBAuH364CFDvOyyS8oODUVt1KM7AZrbO1PtO1XDro2WPwIrHZqZWWFo3yNN2mfmnlqFJvjg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz8vN4mj8OcKWJUGu57A3XaZwKnaDJUYqrgRDzetxxWizH6esde
- ILXD86XhcEq9VYawMIC7iavSzdETNLD5B1V07cXw6NWdPtAjKq/F2K8gIvqB/Ds=
-X-Google-Smtp-Source: AGHT+IFgeY+AzYZbHlaVERgkGi+hHj+CdTnAXQEQObCERD5nPgI8ASENpM18NFTIk7TmUwfS+F2JOA==
-X-Received: by 2002:a5d:60cd:0:b0:37d:45ab:422b with SMTP id
- ffacd0b85a97d-37efcf32d1dmr4378492f8f.31.1729784227087; 
- Thu, 24 Oct 2024 08:37:07 -0700 (PDT)
-Received: from localhost (p50915d2d.dip0.t-ipconnect.de. [80.145.93.45])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37ee0b9bd6esm11615236f8f.104.2024.10.24.08.37.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 08:37:06 -0700 (PDT)
-Date: Thu, 24 Oct 2024 17:37:03 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+ Thu, 24 Oct 2024 17:04:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1DCD2A455D3;
+ Thu, 24 Oct 2024 17:04:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29819C4CEC7;
+ Thu, 24 Oct 2024 17:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729789478;
+ bh=ywLWv1DymM9Q8rNWDVKF/A2+zd9RhYsw+C3ioFEB2fo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dBaqX6iQKVO2I3p6DrGwLpuLJB3LSA0XH7X+UprC50IkkggRW+Y2RLdcIiDwDCh1X
+ k+uJyk8o/qqWWHi++gPxZfzbD15LyxpL7tsAN911NmSofjDWqtsMyWrv9j8+PQ/chd
+ KKLAcTKow+XkNETi9/tPj7EgkZb4/bv4CB27O4p8I8fTzDI6cgXZ9K8Uy1q3PbZJgY
+ NDAPrF/8A+KBJZchG6LgnkuCzfmc7S2vi96lqSFyQsbJKNlo6Orqoj44edCGXhcRbv
+ duePaGbfb7zsTbuX4hn7EHv1IC6gyoJce7RQg5U1tvB2KYrPrVUH2+ag7ZbxPjeP1M
+ FygRhSMkxMAiw==
+Date: Thu, 24 Oct 2024 18:04:31 +0100
+From: Conor Dooley <conor@kernel.org>
 To: Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <7lcmhspo5xq3numdbrfc44uqppbzigwq56vmqne5ldvg2uac6z@ivu4fmwbzajm>
+Message-ID: <20241024-wad-dusk-3d49f9ac4dff@spud>
 References: <20241021103617.653386-1-inochiama@gmail.com>
- <20241021103617.653386-5-inochiama@gmail.com>
+ <20241021103617.653386-3-inochiama@gmail.com>
+ <20241022-crisply-brute-45f98632ef78@spud>
+ <yt2idyivivcxctosec3lwkjbmr4tmctbs4viefxsuqlsvihdeh@alya6g27625l>
+ <20241023-paper-crease-befa8239f7f0@spud>
+ <5cv7wcdddxa4ruggrk36cwaquo5srcrjqqwefqzcju2s3yhl73@ekpyw6zrpfug>
 MIME-Version: 1.0
-In-Reply-To: <20241021103617.653386-5-inochiama@gmail.com>
+In-Reply-To: <5cv7wcdddxa4ruggrk36cwaquo5srcrjqqwefqzcju2s3yhl73@ekpyw6zrpfug>
 Cc: Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
  Chen Wang <unicorn_wang@outlook.com>, Jose Abreu <joabreu@synopsys.com>,
@@ -77,8 +54,8 @@ Cc: Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 4/4] net: stmmac: Add glue layer for
-	Sophgo SG2044 SoC
+Subject: Re: [Linux-stm32] [PATCH 2/4] dt-bindings: net: Add support for
+	Sophgo SG2044 dwmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,61 +67,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4273583423834368184=="
+Content-Type: multipart/mixed; boundary="===============0682183549613210838=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4273583423834368184==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aoyw5qfx5gwdpipb"
+--===============0682183549613210838==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="r+PW8kyxnTDRk3Vc"
 Content-Disposition: inline
 
 
---aoyw5qfx5gwdpipb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--r+PW8kyxnTDRk3Vc
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH 4/4] net: stmmac: Add glue layer for Sophgo SG2044 SoC
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Thu, Oct 24, 2024 at 06:38:29AM +0800, Inochi Amaoto wrote:
+> On Wed, Oct 23, 2024 at 09:49:34PM +0100, Conor Dooley wrote:
+> > On Wed, Oct 23, 2024 at 08:31:24AM +0800, Inochi Amaoto wrote:
+> > > On Tue, Oct 22, 2024 at 06:28:06PM +0100, Conor Dooley wrote:
+> > > > On Mon, Oct 21, 2024 at 06:36:15PM +0800, Inochi Amaoto wrote:
+> > > > > The GMAC IP on SG2044 is almost a standard Synopsys DesignWare MAC
+> > > > > with some extra clock.
+> > > > >=20
+> > > > > Add necessary compatible string for this device.
+> > > > >=20
+> > > > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > > > > ---
+> > > > >  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+> > > > >  .../bindings/net/sophgo,sg2044-dwmac.yaml     | 145 ++++++++++++=
+++++++
+> > > > >  2 files changed, 146 insertions(+)
+> > > > >  create mode 100644 Documentation/devicetree/bindings/net/sophgo,=
+sg2044-dwmac.yaml
+> > > > >=20
+> > > > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yam=
+l b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > > index 3c4007cb65f8..69f6bb36970b 100644
+> > > > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > > @@ -99,6 +99,7 @@ properties:
+> > > > >          - snps,dwmac-5.30a
+> > > > >          - snps,dwxgmac
+> > > > >          - snps,dwxgmac-2.10
+> > > > > +        - sophgo,sg2044-dwmac
+> > > > >          - starfive,jh7100-dwmac
+> > > > >          - starfive,jh7110-dwmac
+> > > > > =20
+> > > > > diff --git a/Documentation/devicetree/bindings/net/sophgo,sg2044-=
+dwmac.yaml b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..93c41550b0b6
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.y=
+aml
+> > > > > @@ -0,0 +1,145 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/net/sophgo,sg2044-dwmac.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: StarFive JH7110 DWMAC glue layer
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Inochi Amaoto <inochiama@gmail.com>
+> > > > > +
+> > > > > +select:
+> > > > > +  properties:
+> > > > > +    compatible:
+> > > > > +      contains:
+> > > > > +        enum:
+> > > > > +          - sophgo,sg2044-dwmac
+> > > > > +  required:
+> > > > > +    - compatible
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    items:
+> > > > > +      - const: sophgo,sg2044-dwmac
+> > > > > +      - const: snps,dwmac-5.30a
+> > > > > +
+> > > > > +  reg:
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  clocks:
+> > > > > +    items:
+> > > > > +      - description: GMAC main clock
+> > > > > +      - description: PTP clock
+> > > > > +      - description: TX clock
+> > > > > +
+> > > > > +  clock-names:
+> > > > > +    items:
+> > > > > +      - const: stmmaceth
+> > > > > +      - const: ptp_ref
+> > > > > +      - const: tx
+> > > > > +
+> > > > > +  sophgo,syscon:
+> > > >=20
+> > > > How many dwmac instances does the sg2044 have?
+> > > >=20
+> > >=20
+> > > Only one, there is another 100G dwxgmac instance, but it does not
+> > > use this syscon.
+> >=20
+> > That dwxgmac is a different device, with a different compatible etc?
+>=20
+> Yes, it needs a different compatiable, and maybe a new binding is needed
+> since the 100G and 1G IP are different.
 
-On Mon, Oct 21, 2024 at 06:36:17PM +0800, Inochi Amaoto wrote:
-> +static struct platform_driver sophgo_dwmac_driver = {
-> +	.probe  = sophgo_dwmac_probe,
-> +	.remove_new = stmmac_pltfr_remove,
-> +	.driver = {
-> +		.name = "sophgo-dwmac",
-> +		.pm = &stmmac_pltfr_pm_ops,
-> +		.of_match_table = sophgo_dwmac_match,
-> +	},
-> +};
+In that case, you don't /need/ a syscon property at all, much less one
+with offsets. You can just look up the syscon by compatible and hard
+code the offset in the driver.
 
-After commit 0edb555a65d1 ("platform: Make platform_driver::remove()
-return void") .remove() is (again) the right callback to implement for
-platform drivers. Please just drop "_new".
-
-Best regards
-Uwe
-
---aoyw5qfx5gwdpipb
+--r+PW8kyxnTDRk3Vc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmcaaYgACgkQj4D7WH0S
-/k4cDgf+KFa71VVkDyJF4Hl2zPHZr8uawn9uZBqgpPkeGPL2gMIgZeFsbW+Ta6tM
-l9QqKp1U1+CNvJx+TsnkHz0XIwAAu4+jjjLogyLd9qAvydydl7UNfs2qqtiVklt3
-QKX4PUt2WLIsjSSnXZ/xvPpcHmofvemuYZcQDgiEBlHaBn+GZjD9woBQgX79OZ3W
-ly+IQUOVBFIqnkBG7MrskeBodS69Snv9OGEkKCxn4me2uqdlscBZVrjIQ2H4u1Q5
-K+jcXjkffyRka8EVF/QuOu90nBixXNZGAa5d/H+Gt1siRRXt6Sgw/k7KSUZ8Kb7f
-UZNlLZkw0L1To+cxy3Y5F23dBVqbMA==
-=+aJM
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZxp+HgAKCRB4tDGHoIJi
+0mRYAQC5zNH78v/p+H9bscKX2XQ4j6+YJ0OaAX6+AvjpwXd/WAEAzV4GkyhyPnWN
+1Bs5WxGAGbqBkGnxejt/DzUIguij7wc=
+=/5rz
 -----END PGP SIGNATURE-----
 
---aoyw5qfx5gwdpipb--
+--r+PW8kyxnTDRk3Vc--
 
---===============4273583423834368184==
+--===============0682183549613210838==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -155,4 +205,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4273583423834368184==--
+--===============0682183549613210838==--
