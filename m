@@ -2,141 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F255C9AD947
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 03:30:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 981799AD953
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2024 03:36:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB982C6DD9F;
-	Thu, 24 Oct 2024 01:30:03 +0000 (UTC)
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011007.outbound.protection.outlook.com [52.101.125.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39802C6DD9F;
+	Thu, 24 Oct 2024 01:36:08 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EA2DC5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 365C4C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 01:30:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t+6o/ry8XNS0DQ++8LwjSifMGKo8YFfIWPyr5vokpuuVBlvqFEKWNSkRG3esnuiP2Gncwm/ujK6kvGwpcdh61fuWPKw+iSZ1ie5A+fhBaDamBuea8aDpVleb88/2G9ik/mR2r0QsH7HxsI8RRd2CFT5fKIGmTNE3WheOc5REyTg4Y0766oKlZz00ZMaPTcGNqJ6JgPxWWKF5oRTY+UDE6VVhgIrPmmetQHzR7rClqr/gMl/xWLQKkmkiqhr+LnscDHeLNaoC+1uYFQtX8ivoEP6noMmAf9sBYhFADT7AQRq4a+pbpTcz2KzDn1AUWYk5j8vAcKvwOdN82kBl7y24fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DiCPtb68hvMqTY12hBjqsqiOckeFNI1HfeSGkNlX0Yg=;
- b=OPuIrdKndE5J+Oh4MV6Bsja0iqM7ExYCd8viXI8rjU2YKCL9+A9hLq/Z5pZvz5258DwJn4z862ZrshTVSoAXmLw7zwPGpo84To/EtEFUEa0Xw1a48OOb+pVtjpS9V4Pyf30nycmIa2eGu9smt/jA6zkodigyyXVsP85BQuDcftoUY0oyMroA3jeORjnS0PumIanGmbseFoIk38gljBREPAcS0AxKEkTbepOxizjVpWwsEmGj4rzn4ljvDyDOhFkHwSUs22NHj121IQVRxvFGWHNkaFj/Dsd1kDppDuySwwZgWUCfVI+1UaqpGbVfM05q9AJfFyB9hOiyb9cvoROx+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DiCPtb68hvMqTY12hBjqsqiOckeFNI1HfeSGkNlX0Yg=;
- b=HxyFQegY+pUPPl7eDobe+zrbbq4HRHQHFXerni5VCyszXREBKb/jIALAvwO11XBh6Fmun5z739ExMdI4OQ+yDAt6lzPH8l7SS3hOpYCe2d5A8mmyyCfJUR1TadULaFKFVaby8W0D9PuJEaelCLtcHh4nYu4wS1sXqjCG8Dlrk6k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYCPR01MB12111.jpnprd01.prod.outlook.com
- (2603:1096:400:43d::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.16; Thu, 24 Oct
- 2024 01:29:59 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.8093.014; Thu, 24 Oct 2024
- 01:29:59 +0000
-Message-ID: <87plnqb84p.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
-In-Reply-To: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
-References: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Date: Thu, 24 Oct 2024 01:29:58 +0000
-X-ClientProxiedBy: TYAPR01CA0197.jpnprd01.prod.outlook.com
- (2603:1096:404:29::17) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ Thu, 24 Oct 2024 01:36:01 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49NLNEBn018287;
+ Thu, 24 Oct 2024 01:35:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7XwDKpAC/IVfsP9coZfIAlt1TYEY8w+7R/08KvHspY0=; b=Zs5BreSoiBLeTiWf
+ GE6MJCqD4Nn05TxfSdhQF0N83urOfJLZMBlCRJotVqzVutxv+v0ZOkWDmuiwRFrc
+ GHTgHQliPA7aU4v2A98ReIrJ4liIOqCpeXOmbiQ5KQnAXNSYP6BpgQ3F5DA5GYwn
+ r/xk9wBQ7WK6izXRb0w/dS9//JbSULFU8CamI2/0Z0QKsHcqqt8GDBZAOftqb0HM
+ vibvXIa+V3tFnXLK12V3rMhcEB1dI+TGgsr7OzWCs+HiEjWZYZaW2fK/0Y7EgQHL
+ mh35Ll/KvdnjwJ84cV8MJBl0sjW9Po0QXdvzzv6t2LOoJUSw3BXMVnQhq6+bkbk6
+ DZzoDw==
+Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42em3wby80-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Oct 2024 01:35:21 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49O1ZKxl027592
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Oct 2024 01:35:20 GMT
+Received: from [10.110.122.237] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 23 Oct
+ 2024 18:35:16 -0700
+Message-ID: <9f8e2b60-7bea-46f0-be07-fef75beda135@quicinc.com>
+Date: Wed, 23 Oct 2024 18:35:15 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB12111:EE_
-X-MS-Office365-Filtering-Correlation-Id: 094e79d7-1ba1-43a1-56a7-08dcf3cb5fb2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|52116014|376014|366016|1800799024|38350700014|921020; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vL5je6wGMQj+VR4L2UtHqhZxoP+wg0iE2+B+TzifCBnAenCnEfy+mh2n4Q7z?=
- =?us-ascii?Q?itWc92EitrsHZnGjRqQcKK6q3IHz9aSiRyJpGlv8P94PGX0cPpcDTFnL+7WA?=
- =?us-ascii?Q?eeqR3W5Rbp00V3kAtNzR2juYs7+UCk05Lyi7xUTDDdexPPsej9+1LverxMyA?=
- =?us-ascii?Q?7epHi1rYm3yBINM91jd7gX1lL2r03JUz0fWLRElqwnAMIOAtK4oHHBS/L15S?=
- =?us-ascii?Q?vwuWcUd8ZcZW1w5IHaGCGb6nfTXr/gRkh+fSavKICcEig3uEY132ES03PQYz?=
- =?us-ascii?Q?84Tv/vuBcqk1srrcrewapdVyamwZJAmOYS5JPPGOhRYgEtpFgNgVZQJqBq4r?=
- =?us-ascii?Q?PSrmXx5ex8KPYQj44TRtHSEz8pXfIzhZCWM3L8FLcgtEZ1N5T/VT/TXm+AD+?=
- =?us-ascii?Q?gyR5nTWWOc61yiQHU6c0ghFy3Rp2octcArYc0YAaRK0gvZSysSYErs5qnaIA?=
- =?us-ascii?Q?4+o+SKE3CccZJjn3zVt8NOcd+rxrhh74QNoMAhO6NuLkPN+ovBJ8pdFBWR2U?=
- =?us-ascii?Q?VM2NLtEznD/0q14w6kArnJtHXIqIibDzbPes4vjA0Rfm0naJ3p+SGC9EI3Dm?=
- =?us-ascii?Q?3usu7vMIO+4jWNwMR3u6fJM30ejAL/M8WN2L4F+ZymtiboO42YMfM2U9tpxl?=
- =?us-ascii?Q?QECeQAtSzV4GpZP1bdkuSD0dOi3cMB1WW09fUPwmwrHKNqfKVEV9Ed/t16Nc?=
- =?us-ascii?Q?myQW4goAlVQiSckiF28Eshr/ONMzyTfXEasjVsh/mb6FPwYlnlcc9penJV3q?=
- =?us-ascii?Q?FKf+s84FiSzVBIm2ZpEdHaSedbOETu3HOnrrFlvgzooLOGUYQyHC3U8KKkwQ?=
- =?us-ascii?Q?RrD9yZNR7sL0B1UZYEMFcRsvEKH2pLBtOhMRnfG58LFBqejhVf+rprnYhlyP?=
- =?us-ascii?Q?GgcwNd7sPaOIWDmwI7OKSydIZ90ip02zmRs0nrwM66geHBh6D74hv40NYYyD?=
- =?us-ascii?Q?WSwkrONQahilHBBPoiiANd2fWHZZ5NJURuduGibH0TzjS2So1hK9sfFTVx8N?=
- =?us-ascii?Q?OgV6K+hlk7b021k4SJrIjrNV3O+chMmJxFNRdkg7yrxkvfaEo7nkYepr6eKw?=
- =?us-ascii?Q?A8TMUVC909+q/u8lUcn7ZoiUT0hg0Jgzgu4VX4/4ZNGDp3LONW127vf6eYNX?=
- =?us-ascii?Q?uyJBd+h49JxUHY910E+okUjNPqehtyn6OUiB27uACmVf64FHawjGCM7tiHzj?=
- =?us-ascii?Q?njmWme+F/kFxqTPJl2T8eOE0YXa1gUs6hU9hvtOwnsa866LezQBWFrb6Gyy+?=
- =?us-ascii?Q?87frx+BMZ0oD9lVAmQ11l8sxE2IHcrF1KjNQFSHH7Rkn1JpzkND4fuaJsL1l?=
- =?us-ascii?Q?9SYWV4+tFcsA9FYsEixCTN/+QHli/P9tJYCoKDidn8foxCwEFy8ouqDgSLkP?=
- =?us-ascii?Q?ekfAuc/JVtLbMUufw7rU66+GiVdA?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(52116014)(376014)(366016)(1800799024)(38350700014)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?D6z40hxnf/qyF5SzeW48jDaWLr0AG4ujHQrW2ifa5TvQDZJx0h0KUmHYaGxg?=
- =?us-ascii?Q?QnDYJKeoWh6Dl19onnljHwrbLFMBilrPidlqMX/bbqJGZiAf9hAu5Nn2XOwe?=
- =?us-ascii?Q?NW5O3rIFQ8Qg4w8wyMUgop6HQ35GcjJQnLYbzq8hYkf8rNtAlenCOp8seOG1?=
- =?us-ascii?Q?Rm4gIwaW/MitbTAvMYWA9duzW//VysPW5+PgZ+NI6EvWy1B5DWknvXmmfnay?=
- =?us-ascii?Q?ZMWjcFUX5xVvI+q1d2g5A5qpHKjQzvSDaS4g3Xd8p7iljIwf0LOn/Jb+DR+8?=
- =?us-ascii?Q?7URPirxpBtZQnGBllaCc6JC4HGAexcwKN8rLE2LHcqh5r2vxsRJpYUjQKqP4?=
- =?us-ascii?Q?EtFcrBHbOclGF1wdAgQY15DZod3oCSAJq4cAyhy4O7u0yhALxojdFYDx8/26?=
- =?us-ascii?Q?MqFM/bFtVMMaSzsfBUA4Hcjw38vzKXvejVmQla1ao/+lH28OzQzmjDG5W9dY?=
- =?us-ascii?Q?d8OapbxHDi8oUbplPp/bULHRfA5UgFN7MuKtp+j1hQLBBrcISjAKb07wxjvI?=
- =?us-ascii?Q?sd2tZFmlaxqfVG5jx38LqshRXgAtnjfTbZcRVbGYCKcdAgtSq9mb4je4maRV?=
- =?us-ascii?Q?9GvINudZr+Rbsn/EN1uEL09675/cPZ20pJSXZZWdAm09KyYMJNLIZpeiJ158?=
- =?us-ascii?Q?/jMSOxf9Yd5pB8Mif8znbgH5bSiyHRFx/fDihggGogBw90LJkjR7rAWbo2wi?=
- =?us-ascii?Q?oFLe36ScAo8VasAefJfFiJkckuAHO51b/OcLuJ3uh9XBj1kj0XPHqot03KDV?=
- =?us-ascii?Q?GUQ5wVNbKUo4Be+4FWlzq5MM30z6BcedBfoOZ6puqyDd26/OHDUknZJFYNhR?=
- =?us-ascii?Q?V3GRfNnFxja7P45jRyz5DQb7b/d6tsBrAYp/82Cip38VFTJfXDRI/amCQPot?=
- =?us-ascii?Q?ByYEsqSha354vk9m5JHxUGr5vK4APYDgOZb+GtgvcBDnihngqAhVcwR0KTJw?=
- =?us-ascii?Q?8pUxgzoBeWfaYL+2Lx14LV9aqVjGdXuYq6/Y4rvDVIpMDoV2gQcu5Hgvw0lB?=
- =?us-ascii?Q?yenvTPpl1ED8/e6e2Iiu3sXOYcbyn1BhdBh6k7zZIookKwiN8U6AaKdRkmXL?=
- =?us-ascii?Q?gsZ/AYiOeUFvgNytjFVfM1wf90uNT/oeARx7qQp6kse3vo6kPlHxJpBt0R+f?=
- =?us-ascii?Q?7gwjB29/rd5Mlx1CUt5urmlUxB4gzYbo23dtwCAlc5jen9wPwOvj2tW+gqFN?=
- =?us-ascii?Q?wGI4snZm8xa8NjmEzSQshOMMOjAhz7YfVyyzrb4WLy33n9uQtAUfAv4cGFgR?=
- =?us-ascii?Q?49YZTRnQ3cLOvcMUz49BFK0fGtP9gSQpVT9Q7jiBe/gP9sH15SXY4XMK5C3e?=
- =?us-ascii?Q?71yTYh5GfLXlU7L0lyCAzwTtYHVvKpeqiu9KB291fgpe8vkh9zWo81O/bD+R?=
- =?us-ascii?Q?CcaxlgK/kA0LUR7b4OUk8Za41AqIc674WO8XdTFwvKzBuowY7pK5FTP0fvKD?=
- =?us-ascii?Q?dKJdWwRa2sAfTvGWviqgciARTRzQ5YstHTAIiGP+iF9QkJAsDPW46KswF/gi?=
- =?us-ascii?Q?ul3JFUe2636Rq5JjOF/mx0KNJ7ozAce/OkGs9MpJ4CmPLe6e1jUfy4mvdVqx?=
- =?us-ascii?Q?ASW0x5s2I4yhLLIdlz7+bmnapUoxi9NtzHYSWaaO9/N57RQjN9rkxHnTdXBh?=
- =?us-ascii?Q?uiTmgIVRFARChOn03sdyA9Y=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 094e79d7-1ba1-43a1-56a7-08dcf3cb5fb2
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2024 01:29:59.0149 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rxH+s3W3wZTv63S3yiMdnja0Yb2S9k6WQDc4EguYISWGEk/3JbHP3AROiwEWHIFzTyvQNRfva+JJ88yD+nEl+wxFB7K6wT1N8/gKIEy758GjfDb3ri89KWnKNEHPkAWw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB12111
-Subject: [Linux-stm32] [PATCH 8/8] ASoC: cleanup function parameter for rtd
-	and its id
+User-Agent: Mozilla Thunderbird
+To: <jitendra.vegiraju@broadcom.com>, <netdev@vger.kernel.org>, "Sagar
+ Cheluvegowda" <quic_scheluve@quicinc.com>
+References: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
+ <20241018205332.525595-3-jitendra.vegiraju@broadcom.com>
+Content-Language: en-US
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <20241018205332.525595-3-jitendra.vegiraju@broadcom.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: x5EqrDHEOmxmsLI1mEspLVkJOeee-rKt
+X-Proofpoint-ORIG-GUID: x5EqrDHEOmxmsLI1mEspLVkJOeee-rKt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0
+ mlxscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1011
+ priorityscore=1501 mlxlogscore=999 suspectscore=0 bulkscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410240008
+Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, kernel@quicinc.com,
+ daniel@iogearbox.net, john.fastabend@gmail.com, linux@armlinux.org.uk,
+ joabreu@synopsys.com, bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
+ hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
+ linux-kernel@vger.kernel.org, fancer.lancer@gmail.com, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v6 2/5] net: stmmac: Add basic
+ dw25gmac support in stmmac core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -153,228 +97,519 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-some functions had parameter like below
 
-	xxx(..., rtd, ..., id);
 
-This "id" is rtd->id. We don't need to have "id" on each functions
-because we can get it from "rtd". Let's cleanup it.
+On 10/18/2024 1:53 PM, jitendra.vegiraju@broadcom.com wrote:
+> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+> 
+> The BCM8958x uses early adopter version of DWC_xgmac version 4.00a for
+> Ethernet MAC. The DW25GMAC introduced in this version adds new DMA
+> architecture called Hyper-DMA (HDMA) for virtualization scalability.
+> This is realized by decoupling physical DMA channels(PDMA) from potentially
+> large number of virtual DMA channels (VDMA). The VDMAs are software
+> abstractions that map to PDMAs for frame transmission and reception.
+> 
+> Define new macros DW25GMAC_CORE_4_00 and DW25GMAC_ID to identify DW25GMAC
+> device.
+> To support the new HDMA architecture, a new instance of stmmac_dma_ops
+> dw25gmac400_dma_ops is added.
+> To support the current needs, a simple one-to-one mapping of dw25gmac's
+> logical VDMA (channel) to TC to PDMAs is used.
+> Most of the other dma operation functions in existing dwxgamc2_dma.c file
+> are reused where applicable.
+> Added setup function for DW25GMAC's stmmac_hwif_entry in stmmac core.
+> 
+> Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
+>  drivers/net/ethernet/stmicro/stmmac/common.h  |   4 +
+>  .../net/ethernet/stmicro/stmmac/dw25gmac.c    | 161 ++++++++++++++++++
+>  .../net/ethernet/stmicro/stmmac/dw25gmac.h    |  92 ++++++++++
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |   1 +
+>  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  42 +++++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  52 ++++++
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |   1 +
+>  8 files changed, 354 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dw25gmac.c
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dw25gmac.h
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index c2f0e91f6bf8..967e8a9aa432 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -6,7 +6,7 @@ stmmac-objs:= stmmac_main.o stmmac_ethtool.o stmmac_mdio.o ring_mode.o	\
+>  	      mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs.o	\
+>  	      dwmac4_dma.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \
+>  	      stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwxgmac2_descs.o \
+> -	      stmmac_xdp.o stmmac_est.o \
+> +	      stmmac_xdp.o stmmac_est.o dw25gmac.o \
+>  	      $(stmmac-y)
+>  
+>  stmmac-$(CONFIG_STMMAC_SELFTESTS) += stmmac_selftests.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+> index 684489156dce..9a747b89ba51 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+> @@ -38,9 +38,11 @@
+>  #define DWXGMAC_CORE_2_10	0x21
+>  #define DWXGMAC_CORE_2_20	0x22
+>  #define DWXLGMAC_CORE_2_00	0x20
+> +#define DW25GMAC_CORE_4_00	0x40
+>  
+>  /* Device ID */
+>  #define DWXGMAC_ID		0x76
+> +#define DW25GMAC_ID		0x55
+>  #define DWXLGMAC_ID		0x27
+>  
+>  #define STMMAC_CHAN0	0	/* Always supported and default for all chips */
+> @@ -563,6 +565,7 @@ struct mac_link {
+>  		u32 speed2500;
+>  		u32 speed5000;
+>  		u32 speed10000;
+> +		u32 speed25000;
+>  	} xgmii;
+>  	struct {
+>  		u32 speed25000;
+> @@ -621,6 +624,7 @@ int dwmac100_setup(struct stmmac_priv *priv);
+>  int dwmac1000_setup(struct stmmac_priv *priv);
+>  int dwmac4_setup(struct stmmac_priv *priv);
+>  int dwxgmac2_setup(struct stmmac_priv *priv);
+> +int dw25gmac_setup(struct stmmac_priv *priv);
+>  int dwxlgmac2_setup(struct stmmac_priv *priv);
+>  
+>  void stmmac_set_mac_addr(void __iomem *ioaddr, const u8 addr[6],
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dw25gmac.c b/drivers/net/ethernet/stmicro/stmmac/dw25gmac.c
+> new file mode 100644
+> index 000000000000..8d0b45a7607a
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dw25gmac.c
+> @@ -0,0 +1,161 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2024 Broadcom Corporation
+> + */
+> +#include "stmmac.h"
+> +#include "dwxgmac2.h"
+> +#include "dw25gmac.h"
+> +
+> +u32 dw25gmac_decode_vdma_count(u32 regval)
+> +{
+> +	/* compressed encoding for vdma count */
+> +	if (regval < 16) /* Direct mapping */
+> +		return regval + 1;
+> +	else if (regval < 20) /* 20, 24, 28, 32 */
+> +		return 20 + (regval - 16) * 4;
+> +	else if (regval < 24) /* 40, 48, 56, 64 */
+> +		return 40 + (regval - 20) * 8;
+> +	else if (regval < 28) /* 80, 96, 112, 128 */
+> +		return 80 + (regval - 24) * 16;
+> +	else  /* not defined */
+> +		return 0;
+> +}
+> +
+> +static int rd_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel)
+> +{
+> +	u32 reg_val = 0;
+> +
+> +	reg_val |= FIELD_PREP(XXVGMAC_MODE_SELECT, mode);
+> +	reg_val |= FIELD_PREP(XXVGMAC_ADDR_OFFSET, channel);
+> +	reg_val |= XXVGMAC_CMD_TYPE | XXVGMAC_OB;
+> +	writel(reg_val, ioaddr + XXVGMAC_DMA_CH_IND_CONTROL);
+> +	return readl(ioaddr + XXVGMAC_DMA_CH_IND_DATA);
+> +}
+> +
+> +static void wr_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel, u32 val)
+> +{
+> +	u32 reg_val = 0;
+> +
+> +	writel(val, ioaddr + XXVGMAC_DMA_CH_IND_DATA);
+> +	reg_val |= FIELD_PREP(XXVGMAC_MODE_SELECT, mode);
+> +	reg_val |= FIELD_PREP(XXVGMAC_ADDR_OFFSET, channel);
+> +	reg_val |= XGMAC_OB;
+> +	writel(reg_val, ioaddr + XXVGMAC_DMA_CH_IND_CONTROL);
+> +}
+> +
+> +void dw25gmac_dma_init(void __iomem *ioaddr,
+> +		       struct stmmac_dma_cfg *dma_cfg)
+> +{
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- include/sound/soc-dai.h  |  5 ++---
- include/sound/soc.h      |  6 +++---
- sound/soc/soc-compress.c |  9 ++++-----
- sound/soc/soc-core.c     |  8 +++-----
- sound/soc/soc-dai.c      |  4 ++--
- sound/soc/soc-pcm.c      | 16 ++++++++--------
- 6 files changed, 22 insertions(+), 26 deletions(-)
+Adding Sagar too. 
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 9dbeedf6da13b..b275201b02f60 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -216,8 +216,7 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- 			  struct snd_pcm_substream *substream, int rollback);
- void snd_soc_dai_suspend(struct snd_soc_dai *dai);
- void snd_soc_dai_resume(struct snd_soc_dai *dai);
--int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
--			     struct snd_soc_pcm_runtime *rtd, int id);
-+int snd_soc_dai_compress_new(struct snd_soc_dai *dai, struct snd_soc_pcm_runtime *rtd);
- bool snd_soc_dai_stream_valid(const struct snd_soc_dai *dai, int stream);
- void snd_soc_dai_action(struct snd_soc_dai *dai,
- 			int stream, int action);
-@@ -275,7 +274,7 @@ struct snd_soc_dai_ops {
- 	int (*probe)(struct snd_soc_dai *dai);
- 	int (*remove)(struct snd_soc_dai *dai);
- 	/* compress dai */
--	int (*compress_new)(struct snd_soc_pcm_runtime *rtd, int id);
-+	int (*compress_new)(struct snd_soc_pcm_runtime *rtd);
- 	/* Optional Callback used at pcm creation*/
- 	int (*pcm_new)(struct snd_soc_pcm_runtime *rtd,
- 		       struct snd_soc_dai *dai);
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 828ab19258f0a..30a9d1853dc18 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -486,11 +486,11 @@ struct snd_soc_component *snd_soc_lookup_component_nolocked(struct device *dev,
- struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
- 						   const char *driver_name);
- 
--int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int id);
-+int soc_new_pcm(struct snd_soc_pcm_runtime *rtd);
- #ifdef CONFIG_SND_SOC_COMPRESS
--int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id);
-+int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd);
- #else
--static inline int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id)
-+static inline int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd)
- {
- 	return 0;
- }
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index fb664c775dda5..3c514703fa33d 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -537,11 +537,10 @@ static struct snd_compr_ops soc_compr_dyn_ops = {
-  * snd_soc_new_compress - create a new compress.
-  *
-  * @rtd: The runtime for which we will create compress
-- * @id: the device index number (zero based - shared with normal PCMs)
-  *
-  * Return: 0 for success, else error.
-  */
--int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id)
-+int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *component;
- 	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-@@ -617,7 +616,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id)
- 		snprintf(new_name, sizeof(new_name), "(%s)",
- 			rtd->dai_link->stream_name);
- 
--		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, id,
-+		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, rtd->id,
- 				playback, capture, &be_pcm);
- 		if (ret < 0) {
- 			dev_err(rtd->card->dev,
-@@ -638,7 +637,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id)
- 		memcpy(compr->ops, &soc_compr_dyn_ops, sizeof(soc_compr_dyn_ops));
- 	} else {
- 		snprintf(new_name, sizeof(new_name), "%s %s-%d",
--			rtd->dai_link->stream_name, codec_dai->name, id);
-+			rtd->dai_link->stream_name, codec_dai->name, rtd->id);
- 
- 		memcpy(compr->ops, &soc_compr_ops, sizeof(soc_compr_ops));
- 	}
-@@ -652,7 +651,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int id)
- 		break;
- 	}
- 
--	ret = snd_compress_new(rtd->card->snd_card, id, direction,
-+	ret = snd_compress_new(rtd->card->snd_card, rtd->id, direction,
- 				new_name, compr);
- 	if (ret < 0) {
- 		component = snd_soc_rtd_to_codec(rtd, 0)->component;
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 4f0bfe73fe15e..a1dace4bb6166 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1479,7 +1479,7 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
- {
- 	struct snd_soc_dai_link *dai_link = rtd->dai_link;
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
--	int ret, id;
-+	int ret;
- 
- 	/* do machine specific initialization */
- 	ret = snd_soc_link_init(rtd);
-@@ -1494,15 +1494,13 @@ static int soc_init_pcm_runtime(struct snd_soc_card *card,
- 	/* add DPCM sysfs entries */
- 	soc_dpcm_debugfs_add(rtd);
- 
--	id = rtd->id;
--
- 	/* create compress_device if possible */
--	ret = snd_soc_dai_compress_new(cpu_dai, rtd, id);
-+	ret = snd_soc_dai_compress_new(cpu_dai, rtd);
- 	if (ret != -ENOTSUPP)
- 		goto err;
- 
- 	/* create the pcm */
--	ret = soc_new_pcm(rtd, id);
-+	ret = soc_new_pcm(rtd);
- 	if (ret < 0) {
- 		dev_err(card->dev, "ASoC: can't create pcm %s :%d\n",
- 			dai_link->stream_name, ret);
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 2feb76bf57bb7..34ba1a93a4c95 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -457,12 +457,12 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
- }
- 
- int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
--			     struct snd_soc_pcm_runtime *rtd, int id)
-+			     struct snd_soc_pcm_runtime *rtd)
- {
- 	int ret = -ENOTSUPP;
- 	if (dai->driver->ops &&
- 	    dai->driver->ops->compress_new)
--		ret = dai->driver->ops->compress_new(rtd, id);
-+		ret = dai->driver->ops->compress_new(rtd);
- 	return soc_dai_ret(dai, ret);
- }
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 81b63e547a099..fb7f25fd8ec5b 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2891,7 +2891,7 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
- 
- static int soc_create_pcm(struct snd_pcm **pcm,
- 			  struct snd_soc_pcm_runtime *rtd,
--			  int playback, int capture, int id)
-+			  int playback, int capture)
- {
- 	char new_name[64];
- 	int ret;
-@@ -2901,13 +2901,13 @@ static int soc_create_pcm(struct snd_pcm **pcm,
- 		snprintf(new_name, sizeof(new_name), "codec2codec(%s)",
- 			 rtd->dai_link->stream_name);
- 
--		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, id,
-+		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, rtd->id,
- 					   playback, capture, pcm);
- 	} else if (rtd->dai_link->no_pcm) {
- 		snprintf(new_name, sizeof(new_name), "(%s)",
- 			rtd->dai_link->stream_name);
- 
--		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, id,
-+		ret = snd_pcm_new_internal(rtd->card->snd_card, new_name, rtd->id,
- 				playback, capture, pcm);
- 	} else {
- 		if (rtd->dai_link->dynamic)
-@@ -2916,9 +2916,9 @@ static int soc_create_pcm(struct snd_pcm **pcm,
- 		else
- 			snprintf(new_name, sizeof(new_name), "%s %s-%d",
- 				rtd->dai_link->stream_name,
--				soc_codec_dai_name(rtd), id);
-+				soc_codec_dai_name(rtd), rtd->id);
- 
--		ret = snd_pcm_new(rtd->card->snd_card, new_name, id, playback,
-+		ret = snd_pcm_new(rtd->card->snd_card, new_name, rtd->id, playback,
- 			capture, pcm);
- 	}
- 	if (ret < 0) {
-@@ -2926,13 +2926,13 @@ static int soc_create_pcm(struct snd_pcm **pcm,
- 			new_name, rtd->dai_link->name, ret);
- 		return ret;
- 	}
--	dev_dbg(rtd->card->dev, "ASoC: registered pcm #%d %s\n", id, new_name);
-+	dev_dbg(rtd->card->dev, "ASoC: registered pcm #%d %s\n", rtd->id, new_name);
- 
- 	return 0;
- }
- 
- /* create a new pcm */
--int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int id)
-+int soc_new_pcm(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_component *component;
- 	struct snd_pcm *pcm;
-@@ -2943,7 +2943,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int id)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = soc_create_pcm(&pcm, rtd, playback, capture, id);
-+	ret = soc_create_pcm(&pcm, rtd, playback, capture);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.43.0
+This function expects 3 arguments and internally when we(Sagar from Qualcomm) were reviewing this patch we 
+ran into compilation errors. 
 
+Please check this function further. 
+
+
+> +	u32 tx_pdmas, rx_pdmas;
+> +	u32 hw_cap;
+> +	u32 value;
+> +	u32 i;
+> +
+> +	value = readl(ioaddr + XGMAC_DMA_SYSBUS_MODE);
+> +	value &= ~(XGMAC_AAL | XGMAC_EAME);
+> +	if (dma_cfg->aal)
+> +		value |= XGMAC_AAL;
+> +	if (dma_cfg->eame)
+> +		value |= XGMAC_EAME;
+> +	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
+> +
+> +	/* Get PDMA counts from HW */
+> +	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE2);
+> +	tx_pdmas = FIELD_GET(XGMAC_HWFEAT_TXQCNT, hw_cap) + 1;
+> +	rx_pdmas = FIELD_GET(XGMAC_HWFEAT_RXQCNT, hw_cap) + 1;
+> +
+> +	/* Intialize all PDMAs with burst length fields */
+> +	for (i = 0; i < tx_pdmas; i++) {
+> +		value = rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i);
+> +		value &= ~(XXVGMAC_TXPBL | XXVGMAC_TPBLX8_MODE);
+> +		if (dma_cfg->pblx8)
+> +			value |= XXVGMAC_TPBLX8_MODE;
+> +		value |= FIELD_PREP(XXVGMAC_TXPBL, dma_cfg->pbl);
+> +		wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, i, value);
+> +	}
+> +
+> +	for (i = 0; i < rx_pdmas; i++) {
+> +		value = rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i);
+> +		value &= ~(XXVGMAC_RXPBL | XXVGMAC_RPBLX8_MODE);
+> +		if (dma_cfg->pblx8)
+> +			value |= XXVGMAC_RPBLX8_MODE;
+> +		value |= FIELD_PREP(XXVGMAC_RXPBL, dma_cfg->pbl);
+> +		wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, i, value);
+> +	}
+> +}
+> +
+> +void dw25gmac_dma_init_tx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan)
+> +{
+> +	u32 value;
+> +	u32 tc;
+> +
+> +	/* Descriptor cache size and prefetch threshold size */
+> +	value = rd_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, chan);
+> +	value &= ~XXVGMAC_TXDCSZ;
+> +	value |= FIELD_PREP(XXVGMAC_TXDCSZ,
+> +			    XXVGMAC_TXDCSZ_256BYTES);
+> +	value &= ~XXVGMAC_TDPS;
+> +	value |= FIELD_PREP(XXVGMAC_TDPS, XXVGMAC_TDPS_HALF);
+> +	wr_dma_ch_ind(ioaddr, MODE_TXDESCCTRL, chan, value);
+> +
+> +	/* Use one-to-one mapping between VDMA, TC, and PDMA. */
+> +	tc = chan;
+> +
+> +	/* 1-to-1 PDMA to TC mapping */
+> +	value = rd_dma_ch_ind(ioaddr, MODE_TXEXTCFG, chan);
+> +	value &= ~XXVGMAC_TP2TCMP;
+> +	value |= FIELD_PREP(XXVGMAC_TP2TCMP, tc);
+> +	wr_dma_ch_ind(ioaddr, MODE_TXEXTCFG, chan, value);
+> +
+> +	/* 1-to-1 VDMA to TC mapping */
+> +	value = readl(ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +	value &= ~XXVGMAC_TVDMA2TCMP;
+> +	value |= FIELD_PREP(XXVGMAC_TVDMA2TCMP, tc);
+> +	writel(value, ioaddr + XGMAC_DMA_CH_TX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_TxDESC_HADDR(chan));
+> +	writel(lower_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_TxDESC_LADDR(chan));
+> +}
+> +
+> +void dw25gmac_dma_init_rx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan)
+> +{
+> +	u32 value;
+> +	u32 tc;
+> +
+> +	/* Descriptor cache size and prefetch threshold size */
+> +	value = rd_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, chan);
+> +	value &= ~XXVGMAC_RXDCSZ;
+> +	value |= FIELD_PREP(XXVGMAC_RXDCSZ,
+> +			    XXVGMAC_RXDCSZ_256BYTES);
+> +	value &= ~XXVGMAC_RDPS;
+> +	value |= FIELD_PREP(XXVGMAC_RDPS, XXVGMAC_RDPS_HALF);
+> +	wr_dma_ch_ind(ioaddr, MODE_RXDESCCTRL, chan, value);
+> +
+> +	/* Use one-to-one mapping between VDMA, TC, and PDMA. */
+> +	tc = chan;
+> +
+> +	/* 1-to-1 PDMA to TC mapping */
+> +	value = rd_dma_ch_ind(ioaddr, MODE_RXEXTCFG, chan);
+> +	value &= ~XXVGMAC_RP2TCMP;
+> +	value |= FIELD_PREP(XXVGMAC_RP2TCMP, tc);
+> +	wr_dma_ch_ind(ioaddr, MODE_RXEXTCFG, chan, value);
+> +
+> +	/* 1-to-1 VDMA to TC mapping */
+> +	value = readl(ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +	value &= ~XXVGMAC_RVDMA2TCMP;
+> +	value |= FIELD_PREP(XXVGMAC_RVDMA2TCMP, tc);
+> +	writel(value, ioaddr + XGMAC_DMA_CH_RX_CONTROL(chan));
+> +
+> +	writel(upper_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_RxDESC_HADDR(chan));
+> +	writel(lower_32_bits(dma_addr),
+> +	       ioaddr + XGMAC_DMA_CH_RxDESC_LADDR(chan));
+> +}
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dw25gmac.h b/drivers/net/ethernet/stmicro/stmmac/dw25gmac.h
+> new file mode 100644
+> index 000000000000..44f9601331d5
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dw25gmac.h
+> @@ -0,0 +1,92 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/* Copyright (c) 2024 Broadcom Corporation
+> + * DW25GMAC definitions.
+> + */
+> +#ifndef __STMMAC_DW25GMAC_H__
+> +#define __STMMAC_DW25GMAC_H__
+> +
+> +/* Hardware features */
+> +#define XXVGMAC_HWFEAT_VDMA_RXCNT	GENMASK(16, 12)
+> +#define XXVGMAC_HWFEAT_VDMA_TXCNT	GENMASK(22, 18)
+> +
+> +/* DMA Indirect Registers*/
+> +#define XXVGMAC_DMA_CH_IND_CONTROL	0x00003080
+> +#define XXVGMAC_MODE_SELECT		GENMASK(27, 24)
+> +enum dma_ch_ind_modes {
+> +	MODE_TXEXTCFG	 = 0x0,	  /* Tx Extended Config */
+> +	MODE_RXEXTCFG	 = 0x1,	  /* Rx Extended Config */
+> +	MODE_TXDBGSTS	 = 0x2,	  /* Tx Debug Status */
+> +	MODE_RXDBGSTS	 = 0x3,	  /* Rx Debug Status */
+> +	MODE_TXDESCCTRL	 = 0x4,	  /* Tx Descriptor control */
+> +	MODE_RXDESCCTRL	 = 0x5,	  /* Rx Descriptor control */
+> +};
+> +
+> +#define XXVGMAC_ADDR_OFFSET		GENMASK(14, 8)
+> +#define XXVGMAC_AUTO_INCR		GENMASK(5, 4)
+> +#define XXVGMAC_CMD_TYPE		BIT(1)
+> +#define XXVGMAC_OB			BIT(0)
+> +#define XXVGMAC_DMA_CH_IND_DATA		0x00003084
+> +
+> +/* TX Config definitions */
+> +#define XXVGMAC_TXPBL			GENMASK(29, 24)
+> +#define XXVGMAC_TPBLX8_MODE		BIT(19)
+> +#define XXVGMAC_TP2TCMP			GENMASK(18, 16)
+> +#define XXVGMAC_ORRQ			GENMASK(13, 8)
+> +
+> +/* RX Config definitions */
+> +#define XXVGMAC_RXPBL			GENMASK(29, 24)
+> +#define XXVGMAC_RPBLX8_MODE		BIT(19)
+> +#define XXVGMAC_RP2TCMP			GENMASK(18, 16)
+> +#define XXVGMAC_OWRQ			GENMASK(13, 8)
+> +
+> +/* Tx Descriptor control */
+> +#define XXVGMAC_TXDCSZ			GENMASK(2, 0)
+> +#define XXVGMAC_TXDCSZ_0BYTES		0
+> +#define XXVGMAC_TXDCSZ_64BYTES		1
+> +#define XXVGMAC_TXDCSZ_128BYTES		2
+> +#define XXVGMAC_TXDCSZ_256BYTES		3
+> +#define XXVGMAC_TDPS			GENMASK(5, 3)
+> +#define XXVGMAC_TDPS_ZERO		0
+> +#define XXVGMAC_TDPS_1_8TH		1
+> +#define XXVGMAC_TDPS_1_4TH		2
+> +#define XXVGMAC_TDPS_HALF		3
+> +#define XXVGMAC_TDPS_3_4TH		4
+> +
+> +/* Rx Descriptor control */
+> +#define XXVGMAC_RXDCSZ			GENMASK(2, 0)
+> +#define XXVGMAC_RXDCSZ_0BYTES		0
+> +#define XXVGMAC_RXDCSZ_64BYTES		1
+> +#define XXVGMAC_RXDCSZ_128BYTES		2
+> +#define XXVGMAC_RXDCSZ_256BYTES		3
+> +#define XXVGMAC_RDPS			GENMASK(5, 3)
+> +#define XXVGMAC_RDPS_ZERO		0
+> +#define XXVGMAC_RDPS_1_8TH		1
+> +#define XXVGMAC_RDPS_1_4TH		2
+> +#define XXVGMAC_RDPS_HALF		3
+> +#define XXVGMAC_RDPS_3_4TH		4
+> +
+> +/* DWCXG_DMA_CH(#i) Registers*/
+> +#define XXVGMAC_DSL			GENMASK(20, 18)
+> +#define XXVGMAC_MSS			GENMASK(13, 0)
+> +#define XXVGMAC_TFSEL			GENMASK(30, 29)
+> +#define XXVGMAC_TQOS			GENMASK(27, 24)
+> +#define XXVGMAC_IPBL			BIT(15)
+> +#define XXVGMAC_TVDMA2TCMP		GENMASK(6, 4)
+> +#define XXVGMAC_RPF			BIT(31)
+> +#define XXVGMAC_RVDMA2TCMP		GENMASK(30, 28)
+> +#define XXVGMAC_RQOS			GENMASK(27, 24)
+> +
+> +u32 dw25gmac_decode_vdma_count(u32 regval);
+> +
+> +void dw25gmac_dma_init(void __iomem *ioaddr,
+> +		       struct stmmac_dma_cfg *dma_cfg);
+> +
+> +void dw25gmac_dma_init_tx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan);
+> +void dw25gmac_dma_init_rx_chan(struct stmmac_priv *priv,
+> +			       void __iomem *ioaddr,
+> +			       struct stmmac_dma_cfg *dma_cfg,
+> +			       dma_addr_t dma_addr, u32 chan);
+> +#endif /* __STMMAC_DW25GMAC_H__ */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 6a2c7d22df1e..c9424c5a6ce5 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -17,6 +17,7 @@
+>  #define XGMAC_CONFIG_SS_OFF		29
+>  #define XGMAC_CONFIG_SS_MASK		GENMASK(31, 29)
+>  #define XGMAC_CONFIG_SS_10000		(0x0 << XGMAC_CONFIG_SS_OFF)
+> +#define XGMAC_CONFIG_SS_25000		(0x1 << XGMAC_CONFIG_SS_OFF)
+>  #define XGMAC_CONFIG_SS_2500_GMII	(0x2 << XGMAC_CONFIG_SS_OFF)
+>  #define XGMAC_CONFIG_SS_1000_GMII	(0x3 << XGMAC_CONFIG_SS_OFF)
+>  #define XGMAC_CONFIG_SS_100_MII		(0x4 << XGMAC_CONFIG_SS_OFF)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index f519d43738b0..96013b489af6 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -11,6 +11,7 @@
+>  #include "stmmac_ptp.h"
+>  #include "dwxlgmac2.h"
+>  #include "dwxgmac2.h"
+> +#include "dw25gmac.h"
+>  
+>  static void dwxgmac2_core_init(struct mac_device_info *hw,
+>  			       struct net_device *dev)
+> @@ -1670,6 +1671,47 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
+>  	return 0;
+>  }
+>  
+> +int dw25gmac_setup(struct stmmac_priv *priv)
+> +{
+> +	struct mac_device_info *mac = priv->hw;
+> +
+> +	dev_info(priv->device, "\tDW25GMAC\n");
+> +
+> +	priv->dev->priv_flags |= IFF_UNICAST_FLT;
+> +	mac->pcsr = priv->ioaddr;
+> +	mac->multicast_filter_bins = priv->plat->multicast_filter_bins;
+> +	mac->unicast_filter_entries = priv->plat->unicast_filter_entries;
+> +	mac->mcast_bits_log2 = 0;
+> +
+> +	if (mac->multicast_filter_bins)
+> +		mac->mcast_bits_log2 = ilog2(mac->multicast_filter_bins);
+> +
+> +	mac->link.caps = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+> +			 MAC_1000FD | MAC_2500FD | MAC_5000FD |
+> +			 MAC_10000FD | MAC_25000FD;
+> +	mac->link.duplex = 0;
+> +	mac->link.speed10 = XGMAC_CONFIG_SS_10_MII;
+> +	mac->link.speed100 = XGMAC_CONFIG_SS_100_MII;
+> +	mac->link.speed1000 = XGMAC_CONFIG_SS_1000_GMII;
+> +	mac->link.speed2500 = XGMAC_CONFIG_SS_2500_GMII;
+> +	mac->link.xgmii.speed2500 = XGMAC_CONFIG_SS_2500;
+> +	mac->link.xgmii.speed5000 = XGMAC_CONFIG_SS_5000;
+> +	mac->link.xgmii.speed10000 = XGMAC_CONFIG_SS_10000;
+> +	mac->link.xgmii.speed25000 = XGMAC_CONFIG_SS_25000;
+> +	mac->link.speed_mask = XGMAC_CONFIG_SS_MASK;
+> +
+> +	mac->mii.addr = XGMAC_MDIO_ADDR;
+> +	mac->mii.data = XGMAC_MDIO_DATA;
+> +	mac->mii.addr_shift = 16;
+> +	mac->mii.addr_mask = GENMASK(20, 16);
+> +	mac->mii.reg_shift = 0;
+> +	mac->mii.reg_mask = GENMASK(15, 0);
+> +	mac->mii.clk_csr_shift = 19;
+> +	mac->mii.clk_csr_mask = GENMASK(21, 19);
+> +
+> +	return 0;
+> +}
+> +
+>  int dwxlgmac2_setup(struct stmmac_priv *priv)
+>  {
+>  	struct mac_device_info *mac = priv->hw;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index 7840bc403788..2e86eaafd16e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/iopoll.h>
+>  #include "stmmac.h"
+>  #include "dwxgmac2.h"
+> +#include "dw25gmac.h"
+>  
+>  static int dwxgmac2_dma_reset(void __iomem *ioaddr)
+>  {
+> @@ -500,6 +501,27 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+>  	return 0;
+>  }
+>  
+> +static int dw25gmac_get_hw_feature(void __iomem *ioaddr,
+> +				   struct dma_features *dma_cap)
+> +
+> +{
+> +	u32 hw_cap;
+> +	int ret;
+> +
+> +	ret = dwxgmac2_get_hw_feature(ioaddr, dma_cap);
+> +
+> +	/* For DW25GMAC VDMA channel count is channel count */
+> +	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE2);
+> +	dma_cap->number_tx_channel =
+> +		dw25gmac_decode_vdma_count(FIELD_GET(XXVGMAC_HWFEAT_VDMA_TXCNT,
+> +					    hw_cap));
+> +	dma_cap->number_rx_channel =
+> +		dw25gmac_decode_vdma_count(FIELD_GET(XXVGMAC_HWFEAT_VDMA_RXCNT,
+> +					    hw_cap));
+> +
+> +	return ret;
+> +}
+> +
+>  static void dwxgmac2_rx_watchdog(struct stmmac_priv *priv, void __iomem *ioaddr,
+>  				 u32 riwt, u32 queue)
+>  {
+> @@ -641,3 +663,33 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+>  	.enable_sph = dwxgmac2_enable_sph,
+>  	.enable_tbs = dwxgmac2_enable_tbs,
+>  };
+> +
+> +const struct stmmac_dma_ops dw25gmac400_dma_ops = {
+> +	.reset = dwxgmac2_dma_reset,
+> +	.init = dw25gmac_dma_init,
+> +	.init_chan = dwxgmac2_dma_init_chan,
+> +	.init_rx_chan = dw25gmac_dma_init_rx_chan,
+> +	.init_tx_chan = dw25gmac_dma_init_tx_chan,
+> +	.axi = dwxgmac2_dma_axi,
+> +	.dump_regs = dwxgmac2_dma_dump_regs,
+> +	.dma_rx_mode = dwxgmac2_dma_rx_mode,
+> +	.dma_tx_mode = dwxgmac2_dma_tx_mode,
+> +	.enable_dma_irq = dwxgmac2_enable_dma_irq,
+> +	.disable_dma_irq = dwxgmac2_disable_dma_irq,
+> +	.start_tx = dwxgmac2_dma_start_tx,
+> +	.stop_tx = dwxgmac2_dma_stop_tx,
+> +	.start_rx = dwxgmac2_dma_start_rx,
+> +	.stop_rx = dwxgmac2_dma_stop_rx,
+> +	.dma_interrupt = dwxgmac2_dma_interrupt,
+> +	.get_hw_feature = dw25gmac_get_hw_feature,
+> +	.rx_watchdog = dwxgmac2_rx_watchdog,
+> +	.set_rx_ring_len = dwxgmac2_set_rx_ring_len,
+> +	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
+> +	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
+> +	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
+> +	.enable_tso = dwxgmac2_enable_tso,
+> +	.qmode = dwxgmac2_qmode,
+> +	.set_bfsize = dwxgmac2_set_bfsize,
+> +	.enable_sph = dwxgmac2_enable_sph,
+> +	.enable_tbs = dwxgmac2_enable_tbs,
+> +};
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index d5a9f01ecac5..774ea8cd5ae9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -702,6 +702,7 @@ extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
+>  extern const struct stmmac_mmc_ops dwmac_mmc_ops;
+>  extern const struct stmmac_mmc_ops dwxgmac_mmc_ops;
+>  extern const struct stmmac_est_ops dwmac510_est_ops;
+> +extern const struct stmmac_dma_ops dw25gmac400_dma_ops;
+>  
+>  #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
+>  #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
