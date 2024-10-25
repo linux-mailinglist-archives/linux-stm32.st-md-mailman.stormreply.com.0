@@ -2,52 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6A19B02BF
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 14:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E679B0365
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 15:08:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D2E1C78021;
-	Fri, 25 Oct 2024 12:45:03 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BD6CC6DD9D;
+	Fri, 25 Oct 2024 13:08:33 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EEDDC6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35CA4C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Oct 2024 12:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=2kqleHlib7lvZdeaK0vG+ttZGLYW63ynkNgZzmLrBig=; b=1ypYJ/kzQcWgZULES4gJQy5gZ9
- Wbrz0pbaOLPpZYImgB2sE+GA5ewpMqveaydnVMvVNqMK5BuQ9K/P22wx0rFJgjkQDVMGYWDBraSID
- dwFviV7YSxgH31pVRI/QG71cGAzQ/6/Ed9X1CpyT/BKiTwzYOv1SSr5m2iyXV4dXHfOM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1t4JgI-00BFBc-8z; Fri, 25 Oct 2024 14:44:42 +0200
-Date: Fri, 25 Oct 2024 14:44:42 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-Message-ID: <bc891f4e-4a3a-4664-b52c-871d173b7607@lunn.ch>
-References: <20241018222407.1139697-1-quic_abchauha@quicinc.com>
- <60119fa1-e7b1-4074-94ee-7e6100390444@lunn.ch>
- <ZxYc2I9vgVL8i4Dz@shell.armlinux.org.uk>
- <ZxYfmtPYd0yL51C5@shell.armlinux.org.uk>
- <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
- <5e5783f0-6949-4d04-a887-e6b873ae42ff@quicinc.com>
+ Fri, 25 Oct 2024 13:08:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 27C0FA42EEA;
+ Fri, 25 Oct 2024 13:06:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABB4C4CEC3;
+ Fri, 25 Oct 2024 13:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1729861704;
+ bh=MNxUl9WMfTQw3iIJsYXFRVHGk0K9abiM55dYNFiK5e0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PLuVuWRItR+u7EjCXA0r2R1yl+hrN7eOVg2JORS94Y04yKk+Ixm+Vqh096eL8VhvJ
+ fP81fSfZTeqaQKaJEqTCl/5xxvCTN1wGqura+LhwxR+o1TJMH9P2DO7iqEGgYwfWFD
+ kWvsXEHLQg9axqXHm9GLXlHi/1hwmAbte+wpH7UQNzxu6tkchcpWJPivy3PdyFoeda
+ k8NnKNuPvOclEXju8nDiTV2ZqpL/qRrvj/+pv3hWZy1jtziKnLgZwsMttvRy9rc/xO
+ 3VujCfFxoOy+tC/rwSEjJw7sg52VASkFvNdGwGyMwQrq9aqRzR8HkXDTdfiTS9NWjQ
+ tF9ocPkWMKh/w==
+Date: Fri, 25 Oct 2024 14:08:17 +0100
+From: Simon Horman <horms@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <20241025130817.GU1202098@kernel.org>
+References: <20241025011000.244350-1-inochiama@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5e5783f0-6949-4d04-a887-e6b873ae42ff@quicinc.com>
-Cc: Jon Hunter <jonathanh@nvidia.com>, kernel@quicinc.com,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Serge Semin <fancer.lancer@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Disable PCS Link and
- AN interrupt when PCS AN is disabled
+In-Reply-To: <20241025011000.244350-1-inochiama@gmail.com>
+Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
+ Jose Abreu <joabreu@synopsys.com>, Inochi Amaoto <inochiama@outlook.com>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Richard Cochran <richardcochran@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] riscv: sophgo: Add ethernet
+	support for SG2044
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,14 +69,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Serge can you please respond on the PCS support in stmmac ?
+On Fri, Oct 25, 2024 at 09:09:56AM +0800, Inochi Amaoto wrote:
+> The ethernet controller of SG2044 is Synopsys DesignWare IP with
+> custom clock. Add glue layer for it.
+> 
+> Since v2, these patch depends on that following patch that provides
+> helper function to compute rgmii clock:
+> https://lore.kernel.org/netdev/20241013-upstream_s32cc_gmac-v3-4-d84b5a67b930@oss.nxp.com/
 
-Unfortunately, Serge has been removed as Maintainer of stmmac as part
-of the Russian  sanctions.
+For future reference: patchsets for Networking, which have
+not-yet-in-tree dependancies should be marked as an RFC.
+Our CI doesn't know how to handle these and we don't have
+a mechanism to re-run it once the dependencies are present:
+the patchset needs to be sent again.
 
-stmmac currently has no active Maintainer.
+Also, I'm assuming this patch-set is targeted at net-next.
+If so, that should be included in the subject like this:
 
-	Andrew
+  [PATCH net-next vX] ...
+
+I would wait for review before posting any updated patchset.
+
+Thanks!
+
+...
+
+-- 
+pw-bot: changes-requested
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
