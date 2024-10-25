@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A7D9B1124
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 23:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4F29B1122
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 23:01:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CF54C78F63;
-	Fri, 25 Oct 2024 21:01:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22E47C7803A;
+	Fri, 25 Oct 2024 21:01:43 +0000 (UTC)
 Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB7FDC78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 228CFC7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Oct 2024 21:01:52 +0000 (UTC)
+ Fri, 25 Oct 2024 21:01:42 +0000 (UTC)
 Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49PJKt1L032047;
- Fri, 25 Oct 2024 23:01:38 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49PKGRHE031385;
+ Fri, 25 Oct 2024 23:01:32 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 3kPJXsYEG94KcBKuUOEMCPWBU+fFx4dEjFZ+fZUq5yM=; b=bYe8luM5MxaUlQyv
- ks64Y0BBmcH4bpwVwncQih/miGRSvvxhw3cwKUndToO5hT/fXWSrpwoWxKY4gD6P
- gQvotaOXVhR7/pCvL4toxN9PEf9+49DqqRpBnyVsronjN3YPSYTK8+rVmVgptzRi
- fCdYNSXBLfOjFcPpKyir3zOGnVfQP1LbAIXJKW5F9/pJSkqAnp20z4dBaQAP6KTC
- X5mBoGD6UOQa7tfCxw9FXphc7oO8MYy6ei09L9VmYRGd4cnZ2G0iftEqM132O6l/
- 3TE7dIR1skt1wDCreZxuCmhakh3J9lffwW89jtc0HZ0dgAPxhIc180LgIuLpw/XW
- lrQ9jg==
+ gaYYKQhdt5+WppBYnImCivL9U494+2hjcdM9oi2RwHw=; b=Nt9klr2hAmlE6EvN
+ b65y/MNnPwwv8n0GS6w/HnD8JpRqAZf6KrXXAGWm5OAoKlaZDCGv7Wruvn01aPN8
+ k97mH4CWC/7GgdI4WMkci6zeIBO7EpGZNbGO452/Qw7pEL5Fn0oZsnUwGFPs1b/P
+ lU+GukRZa+iVPcLUADIdix3r9SzkFVkKxoViOuxhijuwKiUw39DMhm4bnFqsTBUm
+ AHS7HYW5MHEEh68DIfqzrOXVPwLfK2OoP5NppeU3h6Xu6jewDUSCCJbOJHpo1vHq
+ 0BYbS7R2BB/8zZldznPxayQdly7jWXLErIThiD9RLnxlIxNEV3HKOK7JWZum0MX8
+ 13k4ow==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42em4dyk0s-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42em4dyk0g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Oct 2024 23:01:38 +0200 (MEST)
+ Fri, 25 Oct 2024 23:01:32 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0656140047;
- Fri, 25 Oct 2024 23:00:30 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A266231946;
- Fri, 25 Oct 2024 22:59:37 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 02A4940046;
+ Fri, 25 Oct 2024 23:00:31 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D9590231947;
+ Fri, 25 Oct 2024 22:59:38 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 25 Oct
- 2024 22:59:37 +0200
+ 2024 22:59:38 +0200
 Received: from localhost (10.252.3.121) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 25 Oct
- 2024 22:59:37 +0200
+ 2024 22:59:38 +0200
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
  <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
  "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
-Date: Fri, 25 Oct 2024 22:59:21 +0200
-Message-ID: <20241025205924.2087768-5-arnaud.pouliquen@foss.st.com>
+Date: Fri, 25 Oct 2024 22:59:22 +0200
+Message-ID: <20241025205924.2087768-6-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241025205924.2087768-1-arnaud.pouliquen@foss.st.com>
 References: <20241025205924.2087768-1-arnaud.pouliquen@foss.st.com>
@@ -65,8 +65,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v12 4/7] remoteproc: Introduce release_fw
-	optional operation
+Subject: [Linux-stm32] [PATCH v12 5/7] dt-bindings: remoteproc: Add
+	compatibility for TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,69 +83,132 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch updates the rproc_ops struct to include an optional
-release_fw function.
+The "st,stm32mp1-m4-tee" compatible is utilized in a system configuration
+where the Cortex-M4 firmware is loaded by the Trusted Execution Environment
+(TEE).
 
-The release_fw ops is responsible for releasing the remote processor
-firmware image. The ops is called in the following cases:
+For instance, this compatible is used in both the Linux and OP-TEE device
+trees:
+- In OP-TEE, a node is defined in the device tree with the
+  "st,stm32mp1-m4-tee" compatible to support signed remoteproc firmware.
+  Based on DT properties, the OP-TEE remoteproc framework is initiated to
+  expose a trusted application service to authenticate and load the remote
+  processor firmware provided by the Linux remoteproc framework, as well
+  as to start and stop the remote processor.
+- In Linux, when the compatibility is set, the Cortex-M resets should not
+  be declared in the device tree. In such a configuration, the reset is
+  managed by the OP-TEE remoteproc driver and is no longer accessible from
+  the Linux kernel.
 
- - An error occurs in rproc_start() between the loading of the segments and
-      the start of the remote processor.
- - after stopping the remote processor.
+Associated with this new compatible, add the "st,proc-id" property to
+identify the remote processor. This ID is used to define a unique ID,
+common between Linux, U-Boot, and OP-TEE, to identify a coprocessor.
+This ID will be used in requests to the OP-TEE remoteproc Trusted
+Application to specify the remote processor.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-Update vs previous revision:
-- fix typo in @release_fw comment
----
- drivers/remoteproc/remoteproc_core.c | 5 +++++
- include/linux/remoteproc.h           | 3 +++
- 2 files changed, 8 insertions(+)
+ .../bindings/remoteproc/st,stm32-rproc.yaml   | 58 ++++++++++++++++---
+ 1 file changed, 50 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 7694817f25d4..46863e1ca307 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
+diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+index 370af61d8f28..409123cd4667 100644
+--- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+@@ -16,7 +16,12 @@ maintainers:
  
- static void rproc_release_fw(struct rproc *rproc)
- {
-+	if (rproc->ops->release_fw)
-+		rproc->ops->release_fw(rproc);
+ properties:
+   compatible:
+-    const: st,stm32mp1-m4
++    enum:
++      - st,stm32mp1-m4
++      - st,stm32mp1-m4-tee
++    description:
++      Use "st,stm32mp1-m4" for the Cortex-M4 coprocessor management by non-secure context
++      Use "st,stm32mp1-m4-tee" for the Cortex-M4 coprocessor management by secure context
+ 
+   reg:
+     description:
+@@ -43,6 +48,10 @@ properties:
+           - description: The offset of the hold boot setting register
+           - description: The field mask of the hold boot
+ 
++  st,proc-id:
++    description: remote processor identifier
++    $ref: /schemas/types.yaml#/definitions/uint32
 +
- 	/* Free the copy of the resource table */
- 	kfree(rproc->cached_table);
- 	rproc->cached_table = NULL;
-@@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
- unprepare_subdevices:
- 	rproc_unprepare_subdevices(rproc);
- reset_table_ptr:
-+	if (rproc->ops->release_fw)
-+		rproc->ops->release_fw(rproc);
- 	rproc->table_ptr = rproc->cached_table;
+   st,syscfg-tz:
+     deprecated: true
+     description:
+@@ -142,21 +151,43 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - resets
  
- 	return ret;
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 2e0ddcb2d792..bce966bdca15 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -381,6 +381,8 @@ enum rsc_handling_status {
-  * @panic:	optional callback to react to system panic, core will delay
-  *		panic at least the returned number of milliseconds
-  * @coredump:	  collect firmware dump after the subsystem is shutdown
-+ * @release_fw:	optional function to release the firmware image from ROM memories.
-+ *              This function is called after stopping the remote processor or in case of an error
-  */
- struct rproc_ops {
- 	int (*prepare)(struct rproc *rproc);
-@@ -403,6 +405,7 @@ struct rproc_ops {
- 	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
- 	unsigned long (*panic)(struct rproc *rproc);
- 	void (*coredump)(struct rproc *rproc);
-+	void (*release_fw)(struct rproc *rproc);
- };
+ allOf:
+   - if:
+       properties:
+-        reset-names:
+-          not:
+-            contains:
+-              const: hold_boot
++        compatible:
++          contains:
++            const: st,stm32mp1-m4
+     then:
++      if:
++        properties:
++          reset-names:
++            not:
++              contains:
++                const: hold_boot
++      then:
++        required:
++          - st,syscfg-holdboot
++      else:
++        properties:
++          st,syscfg-holdboot: false
++        required:
++          - reset-names
+       required:
+-        - st,syscfg-holdboot
+-    else:
++        - resets
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32mp1-m4-tee
++    then:
+       properties:
+         st,syscfg-holdboot: false
++        reset-names: false
++        resets: false
++      required:
++        - st,proc-id
  
- /**
+ additionalProperties: false
+ 
+@@ -188,5 +219,16 @@ examples:
+       st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+       st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+     };
++  - |
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    m4@10000000 {
++      compatible = "st,stm32mp1-m4-tee";
++      reg = <0x10000000 0x40000>,
++            <0x30000000 0x40000>,
++            <0x38000000 0x10000>;
++      st,proc-id = <0>;
++      st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
++      st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
++    };
+ 
+ ...
 -- 
 2.25.1
 
