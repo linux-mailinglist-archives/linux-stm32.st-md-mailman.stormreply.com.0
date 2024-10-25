@@ -2,85 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 252279AF598
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 00:52:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B6119AF66F
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 03:10:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C71D5C78F62;
-	Thu, 24 Oct 2024 22:52:00 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFD8DC78F6A;
+	Fri, 25 Oct 2024 01:10:34 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69307C7803A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2C21C78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2024 22:51:53 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49OLnDGJ018730;
- Thu, 24 Oct 2024 22:51:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 5NCSjsSy1TaH+MT3HKNIAXCN5C9DoIWK8z+7vrfrX1c=; b=nFJirtoHBznmHVRY
- DP3K3mU5NG5rGH5TwS2PPPMzfRk9vVMYgWmItfYGNPL2tojYQkUK9aQSPb7eaB8M
- 3PeO9xvDZHRah/wn+r2by6KZ5/jXIjRH02hEfjUL0E3yr9B1+87CCQsjisbssR1Y
- Un4zgaG82d7R9KP5Ht2OiwmFzl7x53q0F5R78QU5izu1diIzexqzQxOSsEoIkQHs
- UyZtXXvQWAYxH/AIAG2nDNE6zyhMl95DNfGO5KPROwIBFbEaQqwwQrcKw88FlhBA
- MxDcW+BywF8l0QbqgXWf2s5P5iV4neV52N+0NTRNbgIuTXsf+guNGfJEJ2peHjbD
- 6KL6bg==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42em66f5y8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2024 22:51:30 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49OMpTc8022353
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2024 22:51:29 GMT
-Received: from [10.46.19.239] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 24 Oct
- 2024 15:51:25 -0700
-Message-ID: <5e5783f0-6949-4d04-a887-e6b873ae42ff@quicinc.com>
-Date: Thu, 24 Oct 2024 15:51:24 -0700
+ Fri, 25 Oct 2024 01:10:26 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-7204dff188eso621943b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Oct 2024 18:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1729818625; x=1730423425;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=sYpfrlq0V0bV9nsDJv9ukMK1/gCt1wSxEcrYWbmTl9Q=;
+ b=P4Kz0sUDttrPlk0EJ5VyBDDufpjUNeQlzPH+fev6wU32kmdy687JU3SeOZkh0g3HOn
+ 80PqwMwBZn543fmtIDn80VGFUZcnWdXOf3EQsijph7NjMVrYXcPOMTiynqZbUdOK1u+t
+ ylXCh12smwDwxOVGhPlGA7Ih/uowqT4i/nxXeNb7/K/ml6cwFcuGZ4YV+Y70V1SpJDdB
+ uA13ly41wTqAZTLoXMIaXIUxRVVLM3A/Zxmk9hYBVEqZGIqH5YW4GA2jH+0ivYaIER0K
+ eohEdPxh0iiM/F0IH+hQnxSSY1lMEAwaipa8PPe9G3blflXnfYbxTSJl0HLshi8VW6a5
+ B+LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729818625; x=1730423425;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sYpfrlq0V0bV9nsDJv9ukMK1/gCt1wSxEcrYWbmTl9Q=;
+ b=deEKzRU/nxKyrlEmWBBNxa0dUGhe+ZWrbP4/xp23a94kbNXVoTzfcBGJPLY07f6zY2
+ c8tyjYP+1iCuXDPynWB0XgSEqanpBIcRBWP+31wTzK4FC7s34xaaPtTCRgyV7isa02py
+ HfRaRVBWUwkPdrsEHFdw7jLbSEpsZQbXA+cwos+283M4p3YVA1pBnwypXEYilsBYGKsB
+ gLsf32NmMRvarJW/6xfg0I8EjiDn8u8TUU2beqQrGdLlZxpl1jHOxAGuqot0+84+29Ma
+ 75C6T6PsNqWJPOCi7xLaRDB5tXvk0aAds/OAvfobba9bJ98ALZvggjc1hqhwPOEkMDK+
+ DNtQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXr0VLPg5XfFW77cDPrFvmVuZJ2PH58jiwryKFaotDmDEw2k3LKVixwGWJBseoHNz8JVCVRvBC0lRguxA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwwCr9ZjshVW/dNzOofoCVHldWoe2IK5t4NcT3UptcE22AYK+lU
+ bU9cWfJJ7qXD+dtj6aUck4JJ51o6hB4yBO2KYZH20oC4v4g5gu/z
+X-Google-Smtp-Source: AGHT+IFpOd28fEHMTcKxVcGsg5KEPz6mrlaxZYvtZFvJjTxq2WDoP6vXaOQgIFHT9LXF1AJwY1a6nA==
+X-Received: by 2002:a05:6a00:190e:b0:71e:4c86:6594 with SMTP id
+ d2e1a72fcca58-72030a51d13mr11382153b3a.10.1729818624886; 
+ Thu, 24 Oct 2024 18:10:24 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-72057a0b9b1sm53397b3a.133.2024.10.24.18.10.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Oct 2024 18:10:24 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Chen Wang <unicorn_wang@outlook.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Inochi Amaoto <inochiama@outlook.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Date: Fri, 25 Oct 2024 09:09:56 +0800
+Message-ID: <20241025011000.244350-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, Andrew Lunn
- <andrew@lunn.ch>, Serge Semin <fancer.lancer@gmail.com>
-References: <20241018222407.1139697-1-quic_abchauha@quicinc.com>
- <60119fa1-e7b1-4074-94ee-7e6100390444@lunn.ch>
- <ZxYc2I9vgVL8i4Dz@shell.armlinux.org.uk>
- <ZxYfmtPYd0yL51C5@shell.armlinux.org.uk>
- <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: boiC3QICZ-oCiTXlNddqXcolGFMiD_b3
-X-Proofpoint-GUID: boiC3QICZ-oCiTXlNddqXcolGFMiD_b3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 mlxlogscore=553
- suspectscore=0 clxscore=1015 mlxscore=0 bulkscore=0 priorityscore=1501
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410240186
-Cc: Jon Hunter <jonathanh@nvidia.com>, kernel@quicinc.com,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Disable PCS Link and
- AN interrupt when PCS AN is disabled
+Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+ Inochi Amaoto <inochiama@gmail.com>, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, netdev@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] riscv: sophgo: Add ethernet support
+	for SG2044
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,104 +96,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The ethernet controller of SG2044 is Synopsys DesignWare IP with
+custom clock. Add glue layer for it.
 
+Since v2, these patch depends on that following patch that provides
+helper function to compute rgmii clock:
+https://lore.kernel.org/netdev/20241013-upstream_s32cc_gmac-v3-4-d84b5a67b930@oss.nxp.com/
 
-On 10/21/2024 8:09 AM, Abhishek Chauhan (ABC) wrote:
-> 
-> 
-> On 10/21/2024 2:32 AM, Russell King (Oracle) wrote:
->> On Mon, Oct 21, 2024 at 10:20:24AM +0100, Russell King (Oracle) wrote:
->>> On Sat, Oct 19, 2024 at 04:45:16AM +0200, Andrew Lunn wrote:
->>>> On Fri, Oct 18, 2024 at 03:24:07PM -0700, Abhishek Chauhan wrote:
->>>>> Currently we disable PCS ANE when the link speed is 2.5Gbps.
->>>>> mac_link_up callback internally calls the fix_mac_speed which internally
->>>>> calls stmmac_pcs_ctrl_ane to disable the ANE for 2.5Gbps.
->>>>>
->>>>> We observed that the CPU utilization is pretty high. That is because
->>>>> we saw that the PCS interrupt status line for Link and AN always remain
->>>>> asserted. Since we are disabling the PCS ANE for 2.5Gbps it makes sense
->>>>> to also disable the PCS link status and AN complete in the interrupt
->>>>> enable register.
->>>>>
->>>>> Interrupt storm Issue:-
->>>>> [   25.465754][    C2] stmmac_pcs: Link Down
->>>>> [   25.469888][    C2] stmmac_pcs: Link Down
->>>>> [   25.474030][    C2] stmmac_pcs: Link Down
->>>>> [   25.478164][    C2] stmmac_pcs: Link Down
->>>>> [   25.482305][    C2] stmmac_pcs: Link Down
->>>>
->>>> I don't know this code, so i cannot really comment if not enabling the
->>>> interrupt is the correct fix or not. But generally an interrupt storm
->>>> like this is cause because you are not acknowledging the interrupt
->>>> correctly to clear its status. So rather than not enabling it, maybe
->>>> you should check what is the correct way to clear the interrupt once
->>>> it happens?
->>>
->>> stmmac PCS support is total crap and shouldn't be used, or stmmac
->>> should not be using phylink. It's one or the other. Blame Serge for
->>> this mess.
->>
->> Seriously, we could've had this fixed had the patch set I was working
->> on that fixed stmmac's _bad_ _conversion_ to phylink progressed to the
->> point of being merged.
->>
->> The whole stmmac PCS support is broken, bypassing phylink.
->>
->> This series also contained bug fixes for stuff like this interrupt
->> storm after Serge tested it. However, Serge wanted to turn my series
->> into his maze of indirect function pointers approach that I disagreed
->> with, and he wouldn't change his mind on that, so I deleted the series.
->>
->> As I keep saying - either stmmac uses phylink *properly* and gets its
->> PCS hacks sorted out, or it does not use phylink *at* *all*. It's one
->> or the other.
->>
->> I am not going to patch stmmac for any future phylink changes, and if
->> it breaks, then I'll just say "oh that's a shame, not my problem."
->> Blame Serge for that. I've had it with the pile of crap that is
->> stmmac.
->>
-> Thanks Andrew and Russell for you review comments. 
-> 
-> Adding Serge here. 
-> 
-> Lets take a step back and see how i can help here to make sure 
-> we can get things merged and the discussion proceeds. 
-> 
-> Serge please help if can here. Thanks! 
-> 
+Changed from v1:
+1. patch 2: remove sophgo,syscon as this mac delay is resolved.
+2. patch 2: apply all the properties unconditionally.
+3. patch 4: remove sophgo,syscon code as this mac delay is resolved.
+4. patch 4: use the helper function to compute rgmii clock.
+5. patch 4: use remove instead of remove_new for the platform driver.
 
-Andrew, I had a detailed discussion with hardware team internally. 
+Inochi Amaoto (4):
+  dt-bindings: net: snps,dwmac: Add dwmac-5.30a version
+  dt-bindings: net: Add support for Sophgo SG2044 dwmac
+  net: stmmac: platform: Add snps,dwmac-5.30a IP compatible string
+  net: stmmac: Add glue layer for Sophgo SG2044 SoC
 
-Section 1:-
-----------------------------------------------------------------------
-Here are the updates from my side on the same. 
-1. ANE feature is disabled for 2.5 Gbps integrated PCS in the stmmac 
-for the PCS link to be up.
-Experiment was done to turn on ANE bit in the MAC register and i clearly 
-saw pcs link went down when 2.5Gbps link speed was selected 
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   4 +
+ .../bindings/net/sophgo,sg2044-dwmac.yaml     | 124 ++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 109 +++++++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |   3 +-
+ 6 files changed, 251 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
 
-2. if ANE feature is not supported the corresponding PCS interrupts such
-as ANE and Link status has to be disabled in the MAC block according to 
-hardware team. 
+--
+2.47.0
 
-Note:- today stmmac driver is reading the PCS interrupt status to clear the 
-interrupt. so interrupt handling is done correctly. 
-
-Section 2:-
----------------------------------------------------------------------
-Serge can you please respond on the PCS support in stmmac ?
-
-We can work together with Russell and see how can we join hands and take 
-things forward. 
-
-I feel PCS has to communicate to Phylink and phylink has to post the final 
-notification to MAC stating the link is up or not. 
-
-
-> 
-> 
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
