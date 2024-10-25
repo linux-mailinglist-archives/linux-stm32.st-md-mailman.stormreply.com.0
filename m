@@ -2,81 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01C989B10FD
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 22:57:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37B4A9B111F
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 23:01:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A669BC78021;
-	Fri, 25 Oct 2024 20:57:32 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0100C78021;
+	Fri, 25 Oct 2024 21:01:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 971D6C7801C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A334EC7801C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Oct 2024 20:57:25 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-539f2b95775so2888634e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Oct 2024 13:57:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1729889845; x=1730494645;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hNPFlVbZVA/OKJ3932WwecR37g7+EI0egSRr36/qweM=;
- b=eDsbN7iN8Gx7grolhuqK4yjMPHra1WIo6V0UydkwuEKLWzc6mzLcbBoU3wqPPYCKJo
- UvsOohaUnx4aDUKa52JPLanIIi4tGy63Ki8WwXto0pTzDeIvvH9kuw6V8xv0m8f21TRJ
- RFrNek+JPHA6AXaNjgDhr5+dse0YPJ98/BfPbqBJy0gi6RtqUUQ+SvufHFAoYudjXMPT
- EqdJgbtyGjo4GfXBXk6i97wX7TQS0zANkt3WxsIieh5mY/8nI8ezLz8O++7DdsNeQltN
- XABAk5RLt3AO7RM3sdjf7TSqRXnYWhWJmxj7ARNQQkVQUponidj0WX6AQJobWjhIKVqr
- 6phg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729889845; x=1730494645;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hNPFlVbZVA/OKJ3932WwecR37g7+EI0egSRr36/qweM=;
- b=TANIevGz5pvC/dizjBX2f/85ajiX/Lh/LuIvFZG6pXIGejDRqgVyLnCgkfCISlgpjC
- xJHFxT/PWI6QmG/jbCeJQKkMk0pc8Wb/mMoT0/QPhRdz2YwE0Mfs9kxFF/uPWhAixiPI
- giMP5H9++xrh0cSEqwE0KBKMWIQRLTHy+7bdABNbXbhELZKdGhHBTvwfASrfKLg3UYmj
- bGlH7vgg5qEdsYq2NOqMN7UYkwGFvkq24hF1aHSM123Syvz0t8HpZ9XqdAJpCE/CETp0
- zypgkQOIqFJhJ8kGNuACBQeuIRT/Hw/zpgevA00JYnFP5cAeueFbx4T26AFQ6ea3d/jO
- A+nQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVc7WoY863xnoLbMLpDdwhfUrEWrx44wmk9gHGzg91WYrw/mwfuZAN7u6clHnLly1TIyH9RNU8aiz1ZkQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwHdZrGoW7ibDqlSU4Abypov9LEALiIiTvdgPNJH+MzmOBhXaLi
- TpgFVxFbfHyjTaZuOb+QfzVefWEJyKtUDH85kYaorXIFtV364kBt/TC46uOvB1onSBaWcN2T4O2
- btmsT0zFO10EpwfH7M2EptcCLRYETMvKLWgWVDA==
-X-Google-Smtp-Source: AGHT+IGNM4TYAOHuoUTcKkN3riSvNQrGUI2BitGMjHxjJ9ZNHlb/Bci2C7h3R3BXPLmrz9pSyztWUOGUMtDmtzwbabk=
-X-Received: by 2002:a05:6512:3da8:b0:535:6baa:8c5d with SMTP id
- 2adb3069b0e04-53b348cbb72mr418498e87.20.1729889844751; Fri, 25 Oct 2024
- 13:57:24 -0700 (PDT)
+ Fri, 25 Oct 2024 21:01:29 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49PInJh9002936;
+ Fri, 25 Oct 2024 23:01:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Rey2MIFbXJYbf7gqd9/z8w
+ WxcJ52jSMJCnsq2KEpbKM=; b=HwFxvG+0+WmkBMhtVGNHyeVECBGX8UeMq34LnX
+ LFMKCuOS8brOr8the56XTU19CQkHSWO7RTRMx4fbA6Wt5g90Q/9R8dCweBrubQW5
+ YudbXJZnq/HFKApL7wk7XmQQtCGpb8VfuTcRfYXhXb/L8CgNWjmqpHMhjEvps5l6
+ UIwpwPniY09YARFcaIXGwyZU/2L6Y7GpajVY3dKu3jP/5zSv/a2pMhmmXke7bmBd
+ EPFdRH3y5JEtN/bypyUncVKBv0f/pxflDHxLAKXJrZYYxNgY2z5ga5G7612qmlwS
+ dAhtzUFPgrM5SHYNyXiqj69G2hsE+1oimxSHRBIQPGaYW3bg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42em4afjru-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Oct 2024 23:01:13 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 713BD4002D;
+ Fri, 25 Oct 2024 23:00:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C670E23193A;
+ Fri, 25 Oct 2024 22:59:31 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 25 Oct
+ 2024 22:59:31 +0200
+Received: from localhost (10.252.3.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 25 Oct
+ 2024 22:59:30 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Fri, 25 Oct 2024 22:59:17 +0200
+Message-ID: <20241025205924.2087768-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20241017-arm-kasan-vmalloc-crash-v3-0-d2a34cd5b663@linaro.org>
- <20241017-arm-kasan-vmalloc-crash-v3-1-d2a34cd5b663@linaro.org>
- <69f71ac8-4ba6-46ed-b2ab-e575dcada47b@foss.st.com>
- <CACRpkdYvgZj1R4gAmzFhf4GmFOxZXhpHVTOio+hVP52OBAJP0A@mail.gmail.com>
- <46336aba-e7dd-49dd-aa1c-c5f765006e3c@foss.st.com>
- <CACRpkdY2=qdY_0GA1gB03yHODPEvxum+4YBjzsXRVnhLaf++6Q@mail.gmail.com>
- <f3856158-10e6-4ee8-b4d5-b7f2fe6d1097@foss.st.com>
- <CACRpkdZa5x6NvUg0kU6F0+HaFhKhVswvK2WaaCSBx3-JCVFcag@mail.gmail.com>
-In-Reply-To: <CACRpkdZa5x6NvUg0kU6F0+HaFhKhVswvK2WaaCSBx3-JCVFcag@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 25 Oct 2024 22:57:12 +0200
-Message-ID: <CACRpkdYtG3ObRCghte2D0UgeZxkOC6oEUg39uRs+Z0nXiPhUTA@mail.gmail.com>
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Kees Cook <kees@kernel.org>, Mark Brown <broonie@kernel.org>,
- Russell King <linux@armlinux.org.uk>, kasan-dev <kasan-dev@googlegroups.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] ARM: ioremap: Sync PGDs for
-	VMALLOC shadow
+X-Originating-IP: [10.252.3.121]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v12 0/7] Introduction of a remoteproc tee to
+	load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +80,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[Me]
-> What happens if you just
->
-> git checkout b6506981f880^
->
-> And build and boot that? It's just running the commit right before the
-> unwinding patch.
 
-Another thing you can test is to disable vmap:ed stacks and see
-what happens. (General architecture-dependent options uncheck
-"Use a virtually-mapped stack".)
 
-Yours,
-Linus Walleij
+Main updates from version V11[1]:
+- rename structures, functions, and variables from "tee_rproc_xxx" to
+  "rproc_tee_xxx",
+- update rproc_tee_register to return an error instead of
+  "struct rproc_tee *" pointer
+  
+[1] https://lore.kernel.org/lkml/ZxZ4cBilIlpf3IPw@p14s/T/
+
+Tested-on: 42f7652d3eb5 ("Linux 6.12-rc4")
+
+Description of the feature:
+--------------------------
+This series proposes the implementation of a remoteproc tee driver to
+communicate with a TEE trusted application responsible for authenticating
+and loading the remoteproc firmware image in an Arm secure context.
+
+1) Principle:
+
+The remoteproc tee driver provides services to communicate with the OP-TEE
+trusted application running on the Trusted Execution Context (TEE).
+The trusted application in TEE manages the remote processor lifecycle:
+
+- authenticating and loading firmware images,
+- isolating and securing the remote processor memories,
+- supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+- managing the start and stop of the firmware by the TEE.
+
+2) Format of the signed image:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+
+3) OP-TEE trusted application API:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+
+4) OP-TEE signature script
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+
+Example of usage:
+sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+
+
+5) Impact on User space Application
+
+No sysfs impact. The user only needs to provide the signed firmware image
+instead of the ELF image.
+
+
+For more information about the implementation, a presentation is available here
+(note that the format of the signed image has evolved between the presentation
+and the integration in OP-TEE).
+
+https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+
+Arnaud Pouliquen (7):
+  remoteproc: core: Introduce rproc_pa_to_va helper
+  remoteproc: Add TEE support
+  remoteproc: core: Refactor resource table cleanup into
+    rproc_release_fw
+  remoteproc: Introduce release_fw optional operation
+  dt-bindings: remoteproc: Add compatibility for TEE support
+  remoteproc: stm32: Create sub-functions to request shutdown and
+    release
+  remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+ drivers/remoteproc/Kconfig                    |  10 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/remoteproc_core.c          |  72 ++-
+ drivers/remoteproc/remoteproc_tee.c           | 510 ++++++++++++++++++
+ drivers/remoteproc/stm32_rproc.c              | 139 +++--
+ include/linux/remoteproc.h                    |   8 +
+ include/linux/remoteproc_tee.h                | 106 ++++
+ 8 files changed, 849 insertions(+), 55 deletions(-)
+ create mode 100644 drivers/remoteproc/remoteproc_tee.c
+ create mode 100644 include/linux/remoteproc_tee.h
+
+
+base-commit: 42f7652d3eb527d03665b09edac47f85fb600924
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
