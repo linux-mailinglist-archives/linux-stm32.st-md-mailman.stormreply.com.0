@@ -2,63 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 350B49B0A90
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 19:11:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1699B0BCC
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Oct 2024 19:39:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66C0EC78021;
-	Fri, 25 Oct 2024 17:11:34 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04775C78021;
+	Fri, 25 Oct 2024 17:39:50 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 506C4C7801C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0B9EC6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Oct 2024 17:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729876293; x=1761412293;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=MYQYsh2ZM0F5hLiv9jWAnO8EjpYfnIqM2b9zMJRm42c=;
- b=SqWeQQJ7kPZZAmVqmFIrOueoTYb4wt12cmF24QWlF8m9RpNY7R7xgLk1
- Jd5m1+M/mlDL2oityBn4+oQkxjpbfHJyaw+zJKvngNTf16QFss1aWghFt
- hap5NshLqYbUQ394WJy5EYZmrX5P9SYYf7srFIJSi2Ol+49RmKWzX0dU3
- tTd9VTj32ac02pMPd01i+bQsb75AVBXWu3cEii0/kehWej5aHtgEp1qrj
- vCDshkve0uvRv3j9vHuB0GEV3q3UCnNK4V/4uifkUYLA0wxImMgpW+2Us
- ckcFP8RFLWtFzDNjFo+CQk+4oWxdWLCjWPDF6CfrrKbDek2LeXh9r/weB g==;
-X-CSE-ConnectionGUID: 0QfDKiHkRwCjOwKMa4d6Ig==
-X-CSE-MsgGUID: 35xQb+EBQ6Wm0cESujuW9Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29497046"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29497046"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 10:11:24 -0700
-X-CSE-ConnectionGUID: W8ffi6AWRIKUCKXfgRWWzw==
-X-CSE-MsgGUID: jBgwIuxpQcCrOIKJrpn2Yg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="81267315"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 25 Oct 2024 10:11:20 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t4NqH-000Yeq-1K;
- Fri, 25 Oct 2024 17:11:17 +0000
-Date: Sat, 26 Oct 2024 01:10:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Message-ID: <202410260025.sME33DwY-lkp@intel.com>
-References: <cfc647f0d031517f9ec9095235a574aad9dc2c95.1729757625.git.0x1207@gmail.com>
+ Fri, 25 Oct 2024 17:39:41 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2e2dcf4b153so1690340a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Oct 2024 10:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tenstorrent.com; s=google; t=1729877980; x=1730482780;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rRtgBgW6s/EQDOLVk7vTju3fTexfS9nXJ3lju+LyV5U=;
+ b=BrBXuIQmZpsIywAC+vvE4SasYHZhUZTh5Iik/CS+5NfVRaio3+imFJWbE558gwTQRn
+ UJoJHD/MuSijcB39fap7Wz41LvejGbCbgCqOuWFntp1TDkvBl5qPCevth5uG684Y76BF
+ zZortCta569h8HCx+hJI/oL8vDYGH6sG43IB6X8l6LXKgJNr9MSwcsXTb/UCcbdCm3w2
+ mckhIdbSXsaOBEi8sJ9UFVmUUYxRI5OptdsAy8bgqvHgc64CYh+IJJEh0IhXipqcFf5K
+ Bt3lAdRnqYUjtP6WiwFuM3etN1+tdwtAoiYKxt0bT2aMpIWCdW65vEdBFL4skUIcM2GP
+ twHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729877980; x=1730482780;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rRtgBgW6s/EQDOLVk7vTju3fTexfS9nXJ3lju+LyV5U=;
+ b=ueMzru17huHHOtv4y5ps1hIK4/PhLI8cIGRalmM58f0lGBnx2tFc+tsUAA+ivFAjPe
+ ajQVlMAhD7B/3jA+kAMdY1QPa+Yc0Fig0M3jOLQ0sAfY2vgz95BDOetFP7/z5GplkrVu
+ c74L8jusFZyHxZEGIkgQUrAh6lysN8wYjLnfrmprYfHY6MSkMFqlwnpv0jMWT+4YSV9e
+ qZCEr8IQH8USSitlmuzn1H/5qQKMoV9Tlhp6BvGwytKJzSooLDXepOKsfz2oPxhPQmzB
+ cbZA0wq3ICcIsuELaYGXZuBTP7wacDsFRTI3x3VSi0z8TydFgQq/oZ/ICvs+hzHmiHNu
+ OFrA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVE5uds+yHtDZHajW951zkhzRlXaG5JTTDh/JmECyAGFWGs0LVVMyC0YkCWnt1N7qfs7j/AX+UmHbvgWg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzubE9/Sr7G3MsvAYc6rBXMb1qqnifPLytrLMYnWXex75hM05v3
+ rLPiTTkqh3+3b2tbYkFDQQHjN8t4DiXRDoR9A6rhGyUxWIwgpEp3V+fSNwdlQ7w=
+X-Google-Smtp-Source: AGHT+IEaYZjwmDMtPye4RiuOg02mqdtcGwqC0dAPHwGmLr3SmAM/hWVbsZOksmPjY0Qxh811xJrTgQ==
+X-Received: by 2002:a17:90b:3ec9:b0:2d3:da6d:8330 with SMTP id
+ 98e67ed59e1d1-2e8f10507f6mr183354a91.4.1729877980066; 
+ Fri, 25 Oct 2024 10:39:40 -0700 (PDT)
+Received: from [127.0.1.1] ([4.28.11.157]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2e77e4ca3fcsm3813961a91.13.2024.10.25.10.39.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Oct 2024 10:39:39 -0700 (PDT)
+From: Drew Fustini <dfustini@tenstorrent.com>
+Date: Fri, 25 Oct 2024 10:39:07 -0700
+Message-Id: <20241025-th1520-gmac-v5-0-38d0a48406ff@tenstorrent.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cfc647f0d031517f9ec9095235a574aad9dc2c95.1729757625.git.0x1207@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Furong Xu <0x1207@gmail.com>, andrew+netdev@lunn.ch,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Simon Horman <horms@kernel.org>, oe-kbuild-all@lists.linux.dev,
- Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean <olteanv@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 3/6] net: stmmac: Refactor FPE
- functions to generic version
+X-B4-Tracking: v=1; b=H4sIALvXG2cC/x3MPQqAMAxA4atIZgM1WP+uIg6hRs1glbaIIN7d4
+ vgN7z0QJahEGIoHglwa9fAZtizAbexXQZ2zgQzVlSGLaassGVx3dth23DbMvXENQS7OIIve/20
+ ELwm93Amm9/0AtTd5gmcAAAA=
+To: Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>, 
+ Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>, 
+ Fu Wei <wefu@redhat.com>, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Drew Fustini <drew@pdp7.com>
+X-Mailer: b4 0.14.1
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-riscv@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v5 0/2] Add the dwmac driver support
+ for T-HEAD TH1520 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,74 +99,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Furong,
+This series adds support for dwmac gigabit ethernet in the T-Head TH1520
+RISC-V SoC used on boards like BeagleV Ahead and the LicheePi 4A.
 
-kernel test robot noticed the following build errors:
+The gigabit ethernet on these boards does need pinctrl support to mux
+the necessary pads. The pinctrl-th1520 driver, pinctrl binding, and
+related dts patches are in linux-next. However, they are not yet in
+net-next/main.
 
-[auto build test ERROR on net-next/main]
+Therefore, I am dropping the dts patch for v5 as it will not build on
+net-next/main due to the lack of the padctrl0_apsys pin controller node
+in next-next/main version th1520.dtsi. It does exist in linux-next [1]
+and the two patches in this series allow the ethernet ports to work
+correctly on the LPi4A and Ahead when applied to linux-next.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Furong-Xu/net-stmmac-Introduce-separate-files-for-FPE-implementation/20241024-163526
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/cfc647f0d031517f9ec9095235a574aad9dc2c95.1729757625.git.0x1207%40gmail.com
-patch subject: [PATCH net-next v4 3/6] net: stmmac: Refactor FPE functions to generic version
-config: arm-spear13xx_defconfig (https://download.01.org/0day-ci/archive/20241026/202410260025.sME33DwY-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241026/202410260025.sME33DwY-lkp@intel.com/reproduce)
+The dwmac-thead driver in this series does not need the pinctrl-th1520
+driver to build. Nor does the thead,th1520-gmac.yaml binding need the
+pinctrl binding to pass the schema check.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410260025.sME33DwY-lkp@intel.com/
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/riscv/boot/dts/thead/th1520.dtsi
 
-All errors (new ones prefixed by >>):
+Changes in v5:
+ - Rebase on net-next/main
+ - Drop the dts patch from this series. It applies to linux-next but
+   not net-next/main.
+ - Remove repeated properties from required: in binding
+ - Add Rb from Krzysztof for binding
+ - Link to v4: https://lore.kernel.org/r/20241020-th1520-dwmac-v4-0-c77acd33ccef@tenstorrent.com
 
-   arm-linux-gnueabi-ld: drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.o: in function `stmmac_fpe_configure':
->> drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c:205:(.text+0x154): undefined reference to `__ffsdi2'
+Changes in v4:
+ - Rebase on next for pinctrl dependency
+ - Add 'net-next' prefix to subject per maintainer-netdev.rst
+ - Add clocks, clock-names, interrupts and interrupt-names to binding
+ - Simplify driver code by switching from regmap to regualar mmio
 
+Changes in v3:
+ - Rebase on v6.12-rc1
+ - Remove thead,rx-internal-delay and thead,tx-internal-delay properties
+ - Remove unneeded call to thead_dwmac_fix_speed() during probe
+ - Fix filename for the yaml file in MAINTAINERS patch
+ - Link: https://lore.kernel.org/linux-riscv/20240930-th1520-dwmac-v3-0-ae3e03c225ab@tenstorrent.com/
 
-vim +205 drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+Changes in v2:
+ - Drop the first patch as it is no longer needed due to upstream commit
+   d01e0e98de31 ("dt-bindings: net: dwmac: Validate PBL for all IP-cores")
+ - Rename compatible from "thead,th1520-dwmac" to "thead,th1520-gmac"
+ - Add thead,rx-internal-delay and thead,tx-internal-delay properties
+   and check that it does not exceed the maximum value
+ - Convert from stmmac_dvr_probe() to devm_stmmac_pltfr_probe() and
+   delete the .remove_new hook as it is no longer needed
+ - Handle return value of regmap_write() in case it fails
+ - Add phy reset delay properties to the BeagleV Ahead device tree
+ - Link: https://lore.kernel.org/linux-riscv/20240926-th1520-dwmac-v2-0-f34f28ad1dc9@tenstorrent.com/
 
-   191	
-   192	void stmmac_fpe_configure(struct stmmac_priv *priv, u32 num_txq, u32 num_rxq,
-   193				  bool tx_enable, bool pmac_enable)
-   194	{
-   195		struct stmmac_fpe_cfg *cfg = &priv->fpe_cfg;
-   196		const struct stmmac_fpe_reg *reg = cfg->reg;
-   197		void __iomem *ioaddr = priv->ioaddr;
-   198		u32 value;
-   199	
-   200		if (tx_enable) {
-   201			cfg->fpe_csr = STMMAC_MAC_FPE_CTRL_STS_EFPE;
-   202			value = readl(ioaddr + reg->rxq_ctrl1_reg);
-   203			value &= ~reg->fprq_mask;
-   204			/* Keep this SHIFT, FIELD_PREP() expects a constant mask :-/ */
- > 205			value |= (num_rxq - 1) << __bf_shf(reg->fprq_mask);
-   206			writel(value, ioaddr + reg->rxq_ctrl1_reg);
-   207		} else {
-   208			cfg->fpe_csr = 0;
-   209		}
-   210		writel(cfg->fpe_csr, ioaddr + reg->mac_fpe_reg);
-   211	
-   212		value = readl(ioaddr + reg->int_en_reg);
-   213	
-   214		if (pmac_enable) {
-   215			if (!(value & reg->int_en_bit)) {
-   216				/* Dummy read to clear any pending masked interrupts */
-   217				readl(ioaddr + reg->mac_fpe_reg);
-   218	
-   219				value |= reg->int_en_bit;
-   220			}
-   221		} else {
-   222			value &= ~reg->int_en_bit;
-   223		}
-   224	
-   225		writel(value, ioaddr + reg->int_en_reg);
-   226	}
-   227	
+Changes in v1:
+ - remove thead,gmacapb that references syscon for APB registers
+ - add a second memory region to gmac nodes for the APB registers
+ - Link: https://lore.kernel.org/all/20240713-thead-dwmac-v1-0-81f04480cd31@tenstorrent.com/
 
+---
+Jisheng Zhang (2):
+      dt-bindings: net: Add T-HEAD dwmac support
+      net: stmmac: Add glue layer for T-HEAD TH1520 SoC
+
+ .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
+ .../devicetree/bindings/net/thead,th1520-gmac.yaml | 110 +++++++++
+ MAINTAINERS                                        |   2 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig        |  10 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c  | 268 +++++++++++++++++++++
+ 6 files changed, 392 insertions(+)
+---
+base-commit: 03fc07a24735e0be8646563913abf5f5cb71ad19
+change-id: 20241025-th1520-gmac-78a76aa90c62
+
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Drew Fustini <dfustini@tenstorrent.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
