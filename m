@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7045F9B16FC
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Oct 2024 12:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F18DA9B1833
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Oct 2024 14:46:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21129C78018;
-	Sat, 26 Oct 2024 10:22:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CF75C71292;
+	Sat, 26 Oct 2024 12:46:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B74C6DD9D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0657C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Oct 2024 10:22:02 +0000 (UTC)
+ Sat, 26 Oct 2024 12:46:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729938129; x=1761474129;
+ t=1729946775; x=1761482775;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=guKMtpxx0qM0j1Dl4we/Mt9T6SoqQOQJbdp1lVRh8gY=;
- b=nMZe6LFqKRw44Y5TVYToGyJFphIPW3PqkWgVWNAMtbvQdfPFP2zqh4W4
- LoZcyfJqpYSBiR5wCsbeEyqqw/Cbx2YFKMKaSKbv+usQLraZFHIWmxNMs
- UMpuJimVwTpvkyTOFXz/35p/zA8l8Emf9CFLGUUuTc0savgSj2b3uTBQM
- CbsrGh7EyRNRCJLqmw3OJk5svCDDaZLon7Kh2w2OABT7xwubgDQax81z9
- ocfRPMfQYFeTg2BIyTMgeY82WqfKcbgGDsi/JiLJ/4muRcA8XoarAz6XJ
- 2WwmJ++N27jo6r/cvVpwyrIHM7yOvq0MaOQdjxg7nE70WrkXF3b5Kk6S/ A==;
-X-CSE-ConnectionGUID: muIXioiMTjOT//90D9eafA==
-X-CSE-MsgGUID: g1s4Q6V8QvOS+/qNc70g2A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29557748"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29557748"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2024 03:22:01 -0700
-X-CSE-ConnectionGUID: uh1SH1KMSAWR2mhw/qK58Q==
-X-CSE-MsgGUID: oCPlxs+WQKi5wUUrldX92A==
+ bh=Ir8FkLHslMuuyZwduZxcZ09RxlFF0QcVt/0ML1tcSSw=;
+ b=L3Qb2bxftvnoRyq93Yq8pZciIOm5iyvr9xHSHUofwu279nWsV+zKrHrW
+ kMcai/Z0N/LPqdYyKXrmeSUErdonIoDnHk5+zeFzYYaEhUeIfn25tyf+z
+ AasfINER0u8B3e8hvNiPxJ2Tzhs0Qp7bq1GoosXrVWHMEo0V9n03SKzlh
+ D/zxbkcrufIhArY74vQMmx0HDCKNcTtDy0BDh2/D/GySAikQ5QIFEkwua
+ PB1AIO6jpteksby+DL1gcM9RcEXLMoOYaeQtxKg0E9VCxBiLFFMUl1z4g
+ oNkg3eK5iK7l8cfSAnyqsbvb14OC4QRe7Qm8JspIf4zTdjRf2bQHzrNh8 A==;
+X-CSE-ConnectionGUID: Be2My+ULQEKtHAv/ZmmGRA==
+X-CSE-MsgGUID: uYXRWh7xQ0+5gIyBqj9a7g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="40707429"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="40707429"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2024 05:46:07 -0700
+X-CSE-ConnectionGUID: 9HSKHftfRgSHktAkkf+4bQ==
+X-CSE-MsgGUID: ThDfStWoSiOeAgXlh2HKYg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="85720389"
+X-IronPort-AV: E=Sophos;i="6.11,235,1725346800"; d="scan'208";a="82011344"
 Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 26 Oct 2024 03:21:56 -0700
+ by orviesa008.jf.intel.com with ESMTP; 26 Oct 2024 05:46:02 -0700
 Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t4dve-000ZVa-1a;
- Sat, 26 Oct 2024 10:21:54 +0000
-Date: Sat, 26 Oct 2024 18:21:15 +0800
+ (envelope-from <lkp@intel.com>) id 1t4gB6-000Zem-1Y;
+ Sat, 26 Oct 2024 12:46:00 +0000
+Date: Sat, 26 Oct 2024 20:45:42 +0800
 From: kernel test robot <lkp@intel.com>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -49,15 +49,15 @@ To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Jens Wiklander <jens.wiklander@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
-Message-ID: <202410261837.eRmJAHKZ-lkp@intel.com>
+Message-ID: <202410262040.PWNrKv2Q-lkp@intel.com>
 References: <20241025205924.2087768-8-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20241025205924.2087768-8-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v12 7/7] remoteproc: stm32: Add support of
  an OP-TEE TA to load the firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -78,48 +78,48 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Arnaud,
 
-kernel test robot noticed the following build errors:
+kernel test robot noticed the following build warnings:
 
-[auto build test ERROR on 42f7652d3eb527d03665b09edac47f85fb600924]
+[auto build test WARNING on 42f7652d3eb527d03665b09edac47f85fb600924]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Arnaud-Pouliquen/remoteproc-core-Introduce-rproc_pa_to_va-helper/20241026-050443
 base:   42f7652d3eb527d03665b09edac47f85fb600924
 patch link:    https://lore.kernel.org/r/20241025205924.2087768-8-arnaud.pouliquen%40foss.st.com
 patch subject: [PATCH v12 7/7] remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
-config: x86_64-buildonly-randconfig-004-20241026 (https://download.01.org/0day-ci/archive/20241026/202410261837.eRmJAHKZ-lkp@intel.com/config)
-compiler: clang version 19.1.2 (https://github.com/llvm/llvm-project 7ba7d8e2f7b6445b60679da826210cdde29eaf8b)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241026/202410261837.eRmJAHKZ-lkp@intel.com/reproduce)
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20241026/202410262040.PWNrKv2Q-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 13.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241026/202410262040.PWNrKv2Q-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410261837.eRmJAHKZ-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202410262040.PWNrKv2Q-lkp@intel.com/
 
-All errors (new ones prefixed by >>):
+All warnings (new ones prefixed by >>):
 
-   In file included from drivers/remoteproc/stm32_rproc.c:9:
-   In file included from include/linux/dma-mapping.h:11:
-   In file included from include/linux/scatterlist.h:8:
-   In file included from include/linux/mm.h:2213:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/remoteproc/stm32_rproc.c:904:7: error: incompatible pointer to integer conversion assigning to 'int' from 'struct rproc_tee *' [-Wint-conversion]
+   drivers/remoteproc/stm32_rproc.c: In function 'stm32_rproc_probe':
+>> drivers/remoteproc/stm32_rproc.c:904:21: warning: assignment to 'int' from 'struct rproc_tee *' makes integer from pointer without a cast [-Wint-conversion]
      904 |                 ret = rproc_tee_register(dev, rproc, proc_id);
-         |                     ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/remoteproc/stm32_rproc.c:963:23: error: incompatible pointer types passing 'struct rproc *' to parameter of type 'struct rproc_tee *' [-Werror,-Wincompatible-pointer-types]
+         |                     ^
+   drivers/remoteproc/stm32_rproc.c:963:30: error: passing argument 1 of 'rproc_tee_unregister' from incompatible pointer type [-Werror=incompatible-pointer-types]
      963 |         rproc_tee_unregister(rproc);
          |                              ^~~~~
-   include/linux/remoteproc_tee.h:59:58: note: passing argument to parameter 'trproc' here
+         |                              |
+         |                              struct rproc *
+   In file included from drivers/remoteproc/stm32_rproc.c:21:
+   include/linux/remoteproc_tee.h:59:58: note: expected 'struct rproc_tee *' but argument is of type 'struct rproc *'
       59 | static inline int rproc_tee_unregister(struct rproc_tee *trproc)
-         |                                                          ^
-   drivers/remoteproc/stm32_rproc.c:986:23: error: incompatible pointer types passing 'struct rproc *' to parameter of type 'struct rproc_tee *' [-Werror,-Wincompatible-pointer-types]
+         |                                        ~~~~~~~~~~~~~~~~~~^~~~~~
+   drivers/remoteproc/stm32_rproc.c: In function 'stm32_rproc_remove':
+   drivers/remoteproc/stm32_rproc.c:986:30: error: passing argument 1 of 'rproc_tee_unregister' from incompatible pointer type [-Werror=incompatible-pointer-types]
      986 |         rproc_tee_unregister(rproc);
          |                              ^~~~~
-   include/linux/remoteproc_tee.h:59:58: note: passing argument to parameter 'trproc' here
+         |                              |
+         |                              struct rproc *
+   include/linux/remoteproc_tee.h:59:58: note: expected 'struct rproc_tee *' but argument is of type 'struct rproc *'
       59 | static inline int rproc_tee_unregister(struct rproc_tee *trproc)
-         |                                                          ^
-   1 warning and 3 errors generated.
+         |                                        ~~~~~~~~~~~~~~~~~~^~~~~~
+   cc1: some warnings being treated as errors
 
 
 vim +904 drivers/remoteproc/stm32_rproc.c
@@ -213,7 +213,7 @@ vim +904 drivers/remoteproc/stm32_rproc.c
    960			dev_pm_clear_wake_irq(dev);
    961			device_init_wakeup(dev, false);
    962		}
- > 963		rproc_tee_unregister(rproc);
+   963		rproc_tee_unregister(rproc);
    964	
    965		return ret;
    966	}
