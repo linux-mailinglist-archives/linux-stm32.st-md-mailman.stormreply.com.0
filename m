@@ -2,52 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3E39BBAF4
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:03:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B59909BBB5C
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:18:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4D11C7803D;
-	Mon,  4 Nov 2024 17:03:04 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4A2EC6DD9A;
+	Mon,  4 Nov 2024 17:18:36 +0000 (UTC)
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC887C7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98E8EC78016
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2024 17:03:03 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id CA89B60011;
- Mon,  4 Nov 2024 17:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1730739783;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=42kxzvTWuXxqunQIkofuM5yI8E9ydjyRl0t7IPFnnsE=;
- b=LzD3z90R2ZmbkZFhVPMAW0gFfa9+bUK16e+zoEJoUBBvhtWJPhZcznkicbtoAdTxMZrVix
- xLZJ952dU70MPKkt74w4plYF1NWSGl1mryyakbyJM9kKdBOvJYL3k24voD5zOSexzFIJdd
- UcWxH3vg5UC/a6yek1Fb2zGqahRyBZcXbctWPyaE7aq4Bm24IpEQzeUun7ep81+Ml1wFHr
- CuJbpYp6xqa36dUYYxjkkQBNR1Uwx3z9MRLAWkzqgoRt5BcjFnFVFSenBDrvAcMYxiOVIR
- FmDI5xqlgJZcG69FqRrXkwsDCpyk+yhbyXkUOdLtWptTGkk3Ou2rZONsxtvf4w==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>
-Date: Mon,  4 Nov 2024 18:02:49 +0100
-Message-ID: <20241104170251.2202270-10-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
-References: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
+ Mon, 28 Oct 2024 20:12:33 +0000 (UTC)
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 2726D1A02CA;
+ Mon, 28 Oct 2024 21:12:33 +0100 (CET)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0F99D1A12AE;
+ Mon, 28 Oct 2024 21:12:33 +0100 (CET)
+Received: from lsv051416.swis.nl-cdc01.nxp.com
+ (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 498682039A;
+ Mon, 28 Oct 2024 21:12:32 +0100 (CET)
+Date: Mon, 28 Oct 2024 21:12:32 +0100
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <Zx/wMO0YjJ+QK7qT@lsv051416.swis.nl-cdc01.nxp.com>
+References: <20241013-upstream_s32cc_gmac-v3-0-d84b5a67b930@oss.nxp.com>
+ <20241013-upstream_s32cc_gmac-v3-4-d84b5a67b930@oss.nxp.com>
+ <4686019c-f6f1-4248-9555-c736813417b7@lunn.ch>
 MIME-Version: 1.0
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 9/9] net: stmmac: dwmac_socfpga:
-	This platform has GMAC
+Content-Disposition: inline
+In-Reply-To: <4686019c-f6f1-4248-9555-c736813417b7@lunn.ch>
+X-Virus-Scanned: ClamAV using ClamSMTP
+X-Mailman-Approved-At: Mon, 04 Nov 2024 17:18:35 +0000
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 04/16] net: phy: Add helper for mapping
+ RGMII link speed to clock rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,33 +76,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Indicate that dwmac_socfpga has a gmac. This will make sure that
-gmac-specific interrupt processing is done, including timestamp
-interrupt handling. Without this, the external snapshot interrupt is
-never ack'd and we have an interrupt storm on external snapshot event.
+On Mon, Oct 14, 2024 at 03:40:51PM +0200, Andrew Lunn wrote:
+> On Sun, Oct 13, 2024 at 11:27:39PM +0200, Jan Petrous via B4 Relay wrote:
+> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> > 
+> > The helper rgmii_clock() implemented Russel's hint during stmmac
+> > glue driver review:
+> > 
+> >   > We seem to have multiple cases of very similar logic in lots of stmmac
+> >   > platform drivers, and I think it's about time we said no more to this.
+> >   > So, what I think we should do is as follows:
+> >   >
+> >   > add the following helper - either in stmmac, or more generically
+> >   > (phylib? - in which case its name will need changing.)
+> >   >
+> >   > static long stmmac_get_rgmii_clock(int speed)
+> >   > {
+> >   >        switch (speed) {
+> >   >        case SPEED_10:
+> >   >                return 2500000;
+> >   >
+> >   >        case SPEED_100:
+> >   >                return 25000000;
+> >   >
+> >   >        case SPEED_1000:
+> >   >                return 125000000;
+> >   >
+> >   >        default:
+> >   >                return -ENVAL;
+> >   >        }
+> >   > }
+> >   >
+> >   > Then, this can become:
+> >   >
+> >   >        long tx_clk_rate;
+> >   >
+> >   >        ...
+> >   >
+> >   >        tx_clk_rate = stmmac_get_rgmii_clock(speed);
+> >   >        if (tx_clk_rate < 0) {
+> >   >                dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
+> >   >                return;
+> >   >        }
+> >   >
+> >   >        ret = clk_set_rate(gmac->tx_clk, tx_clk_rate);
+> > 
+> > Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> 
+> But of an unusual commit message, but it does explain the "Why?".
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V2: new patch
+I will reformulate description in v4.
 
- drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 1 +
- 1 file changed, 1 insertion(+)
+> 
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> 
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 0745117d5872..248b30d7b864 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -485,6 +485,7 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
- 	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
- 	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
-+	plat_dat->has_gmac = true;
- 
- 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- 	if (ret)
--- 
-2.47.0
+Thanks.
 
+> >  
+> > +/**
+> > + * rgmii_clock - map link speed to the clock rate
+> > + * @speed: link speed value
+> > + *
+> > + * Description: maps RGMII supported link speeds
+> > + * into the clock rates.
+> > + */
+> 
+> A Returns: line would be nice. 
+
+ will add it in v4.
+
+Thanks
+/Jan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
