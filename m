@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8535B9BBB70
+	by mail.lfdr.de (Postfix) with ESMTPS id 980669BBB71
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:18:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 445A1C78F8D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5268CC78F8F;
 	Mon,  4 Nov 2024 17:18:38 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DF01C78016
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 823B8C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 20:24:15 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-37d6716e200so888394f8f.3
+ Tue, 29 Oct 2024 20:24:17 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-37d4fa7d3baso658451f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 13:24:15 -0700 (PDT)
+ Tue, 29 Oct 2024 13:24:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730233455; x=1730838255;
+ d=gmail.com; s=20230601; t=1730233457; x=1730838257;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rx0eMLUEzhYETTDB2Dx4nHIilzNRVf/VQgEFIdoul78=;
- b=Y6W+qjWd6uaHa2+sZxcc//wVg7elQs3FrfZRO5TegOuuF3M7z8/DylJndrzloMg7OP
- tTdTmGQc6LnaJT8K3I7BgHyNQ5BWe9BruNEv90cTa93mCNdqYSzcYLYx4PqwmYrj9wQo
- 6Kas/f9rKT1gnefeWgGg30yMG5qQoZGHb001M+yigy5ywaooRjzYsGvbfB2rOxt0xBp3
- FqW62pShuT6m80n2gWrv01P7eZ3t257BTlmXmXeCFrNL33ihTFk/9Wyrd5DRx66/JhkC
- qoAO+6RxcTR1zMM5GdNAGyEG3WPI711T4iU0VejdD95gefQ516Ul4v6IwHB4wkE4w9/f
- eX7Q==
+ bh=6tTSvfcY2engLoiGHPIJF53AHZxPkJrdqu/6M46fx3k=;
+ b=Bwkt6U0F+5xE58pSzhCkiD59D2mS9y40iRsTXsatO7oxXN5MaWZthmZjFsyPPtkW/j
+ F/K8GvnSIQpUbDR71rOXCcv5djehteAVV3X179Lgny3zWHgjWSLLn8UpfGFvFUwmQ27u
+ OyTY5/XzNu3d4FDAj7XCF6bkPYYdyYZnGuLkSC+UfjW9TM1dpczZojHFkrixSbt880nw
+ CGZ+UKXaPaXWDPUtCd7TQjukN8g6lw4xfExC3PbnSk6HGZ5tsBxU2Us1uAllqpZCIl6i
+ zDVoXh4Unum70YGd5rI/fshoQesGuoQg/2fdTd47hS4SupEFKSn/puKt9y78aoKv2wJm
+ fz2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730233455; x=1730838255;
+ d=1e100.net; s=20230601; t=1730233457; x=1730838257;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rx0eMLUEzhYETTDB2Dx4nHIilzNRVf/VQgEFIdoul78=;
- b=HO946LMqCeOgl6azYp8bBKd8F7dk5k1wLIsUtupcHCRWPqOySP6KXodMHKxj+5kquN
- jO5FWc9TIxklPg+Xvl+9/WA3Feyp2RYRBmaVLtRMXKPDS4vKxtCAE//UnLSA6B85k6ii
- dRc6Sl9HHk89IcbZF4WQsZ8J0MNJYPFFjeyywGjvaJ7EaOvFf48m+C6cFCyVmprpT1xj
- Q6/kV8pjr2hNowE2q4bE2v8FTYqhrkeCEncvPMGqnDK0va73ULFgZhyCpkC+Tl7PvMEg
- RQ8bWXwBRBZBnFdh5DdXw811ipKB6mWhUm4x0ngkrUvAC0YhkarwQons7QEFh2+qzzpw
- kHWw==
+ bh=6tTSvfcY2engLoiGHPIJF53AHZxPkJrdqu/6M46fx3k=;
+ b=KrpmaiVhXSmM/mds6Cb39Bo44eEHMHmTACSPH7QSalaipsZ4HBfXQpUI0ia0/t5AJe
+ CwZFL/js/YcWtD9jgpoG++4Cm5/qKtLihvr4+t7wblJvKa8BE9HZoXcnASVjwfED3uEn
+ 5tM3fjF4ykpaAGSOe5xKUO4nDQtFl6nX9nPkvjGDV1ih2XBnitSX1jjGeJKqEePtMOY8
+ m4EsuQMZU4deLPJlLTEnMDbGQtKvP4rJfQT2nxm4tJg+PHfjgO/xaCHU7Ae3r/XeT9CE
+ sCo2SyB6RQWZf4fOJnGBxHSz9zQ2t2ryJcvxWLM5sRWrUHisEXgPHYReRhShPhgSyNXs
+ w0QQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUFkSuS+U91WBXXNVdCkbU8bGYrLd0e60HalwBvw0gQ7N9bTbe/uhLop3ROrCt3S09OSlJ3F43cw4osvg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyaKYd0jLPcuU2uVT30vywubGRMF8NOuJHlvcLU7VdY+OjIBQ35
- Qp1qRrGVAfRFll38BhepiAC0idThrbwyZWhh3GRRfT2BCQkDoz66tPwvGQ==
-X-Google-Smtp-Source: AGHT+IEnuFjr/Zc4f6jXZAW8xbcExw/fgwTtYOC4EmQWOqcT/pxDPVKNa5Oe0HscWQqMZwS60H9tkw==
-X-Received: by 2002:a5d:47c2:0:b0:374:ca43:ac00 with SMTP id
- ffacd0b85a97d-38061126ae4mr3904749f8f.4.1730233454663; 
- Tue, 29 Oct 2024 13:24:14 -0700 (PDT)
+ AJvYcCWuGWvcRNofU0nlUpoSm24RYilnJHP+coVTZJk8+wnCWEdcgzfogK6u0psBS3LYXpR0pa4YVVKNXif39A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxlv5LeFDxnA3RpxvOBID5fJpQ3JlVWrBC+KxQFgdxK0otqOoDZ
+ yZo1R+7pwqTPK7uB4oRQfO547zLCAsXwhLRi+xR0uGXowfCB/xUV0nr18g==
+X-Google-Smtp-Source: AGHT+IFZHa2p/2WYHjMbWD4QkGM4Xxq/XW82V4PVd0qgCPADVWpPLohHrOfpWMas0eZt6gssOojehw==
+X-Received: by 2002:a5d:648c:0:b0:374:cc10:bb42 with SMTP id
+ ffacd0b85a97d-380610f0ea9mr4649702f8f.2.1730233456731; 
+ Tue, 29 Oct 2024 13:24:16 -0700 (PDT)
 Received: from 6c1d2e1f4cf4.v.cablecom.net (84-72-156-211.dclient.hispeed.ch.
  [84.72.156.211]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b3bf85sm13619976f8f.42.2024.10.29.13.24.13
+ ffacd0b85a97d-38058b3bf85sm13619976f8f.42.2024.10.29.13.24.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 13:24:14 -0700 (PDT)
+ Tue, 29 Oct 2024 13:24:15 -0700 (PDT)
 From: Lothar Rubusch <l.rubusch@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
 	a.fatoum@pengutronix.de
-Date: Tue, 29 Oct 2024 20:23:39 +0000
-Message-Id: <20241029202349.69442-14-l.rubusch@gmail.com>
+Date: Tue, 29 Oct 2024 20:23:40 +0000
+Message-Id: <20241029202349.69442-15-l.rubusch@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241029202349.69442-1-l.rubusch@gmail.com>
 References: <20241029202349.69442-1-l.rubusch@gmail.com>
@@ -73,8 +73,8 @@ Cc: marex@denx.de, devicetree@vger.kernel.org, conor+dt@kernel.org,
  edumazet@google.com, joabreu@synopsys.com, l.rubusch@gmail.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, s.trumtrar@pengutronix.de,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 13/23] ARM: dts: socfpga: add Enclustra
-	boot-mode dtsi
+Subject: [Linux-stm32] [PATCH v4 14/23] ARM: dts: socfpga: add Enclustra
+	base-board dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,79 +91,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add generic boot-mode support to Enclustra Arria10 and Cyclone5 boards.
-Some Enclustra carrier boards need hardware adjustments specific to the
-selected boot-mode.
-
-Enclustra's Arria10 SoMs allow for booting from different media. By
-muxing certain IO pins, the media can be selected. This muxing can be
-done by gpios at runtime e.g. when flashing QSPI from off the
-bootloader. But also to have statically certain boot media available,
-certain adjustments to the DT are needed:
-- SD: QSPI must be disabled
-- eMMC: QSPI must be disabled, bus width can be doubled to 8 byte
-- QSPI: any mmc is disabled, QSPI then defaults to be enabled
-
-The boot media must be accessible to the bootloader, e.g. to load a
-bitstream file, but also to the system to mount the rootfs and to use
-the specific performance.
+Add generic Enclustra base-board support for the Mercury+ PE1, the
+Mercury+ PE3 and the Mercury+ ST1 board. The carrier boards can be
+freely combined with the SoMs Mercury+ AA1, Mercury SA1 and
+Mercury+ SA2.
 
 Signed-off-by: Andreas Buerkler <andreas.buerkler@enclustra.com>
 Signed-off-by: Lothar Rubusch <l.rubusch@gmail.com>
 ---
- .../socfpga_enclustra_mercury_bootmode_emmc.dtsi     | 12 ++++++++++++
- .../socfpga_enclustra_mercury_bootmode_qspi.dtsi     |  8 ++++++++
- .../socfpga_enclustra_mercury_bootmode_sdmmc.dtsi    |  8 ++++++++
- 3 files changed, 28 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_emmc.dtsi
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_qspi.dtsi
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_sdmmc.dtsi
+ .../socfpga_enclustra_mercury_pe1.dtsi        | 33 +++++++++++
+ .../socfpga_enclustra_mercury_pe3.dtsi        | 55 +++++++++++++++++++
+ .../socfpga_enclustra_mercury_st1.dtsi        | 15 +++++
+ 3 files changed, 103 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe1.dtsi
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe3.dtsi
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_st1.dtsi
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_emmc.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_emmc.dtsi
+diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe1.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe1.dtsi
 new file mode 100644
-index 000000000..d79cb64da
+index 000000000..abc4bfb7f
 --- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_emmc.dtsi
-@@ -0,0 +1,12 @@
++++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe1.dtsi
+@@ -0,0 +1,33 @@
 +// SPDX-License-Identifier: GPL-2.0+ OR MIT
 +/*
 + * Copyright (C) 2024 Enclustra GmbH - https://www.enclustra.com
 + */
 +
-+&qspi {
-+	status = "disabled";
++&i2c_encl {
++	status = "okay";
++
++	eeprom@57 {
++		status = "okay";
++		compatible = "microchip,24c128";
++		reg = <0x57>;
++		pagesize = <64>;
++		label = "user eeprom";
++		address-width = <16>;
++	};
++
++	lm96080: temperature-sensor@2f {
++		status = "okay";
++		compatible = "national,lm80";
++		reg = <0x2f>;
++	};
++
++	si5338: clock-controller@70 {
++		compatible = "silabs,si5338";
++		reg = <0x70>;
++	};
++
 +};
 +
-+&mmc {
-+	bus-width = <8>;
++&i2c_encl_fpga {
++	status = "okay";
 +};
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_qspi.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_qspi.dtsi
+diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe3.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe3.dtsi
 new file mode 100644
-index 000000000..5ba21dd8f
+index 000000000..bc57b0680
 --- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_qspi.dtsi
-@@ -0,0 +1,8 @@
++++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_pe3.dtsi
+@@ -0,0 +1,55 @@
 +// SPDX-License-Identifier: GPL-2.0+ OR MIT
 +/*
 + * Copyright (C) 2024 Enclustra GmbH - https://www.enclustra.com
 + */
 +
-+&mmc {
-+	status = "disabled";
++&i2c_encl {
++	i2c-mux@74 {
++		status = "okay";
++		compatible = "nxp,pca9547";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0x74>;
++
++		i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++			eeprom@56 {
++				status = "okay";
++				compatible = "microchip,24c128";
++				reg = <0x56>;
++				pagesize = <64>;
++				label = "user eeprom";
++				address-width = <16>;
++			};
++
++			lm96080: temperature-sensor@2f {
++				status = "okay";
++				compatible = "national,lm80";
++				reg = <0x2f>;
++			};
++
++			pcal6416: gpio@20 {
++				status = "okay";
++				compatible = "nxp,pcal6416";
++				reg = <0x20>;
++				gpio-controller;
++				#gpio-cells = <2>;
++			};
++		};
++	};
 +};
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_sdmmc.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_sdmmc.dtsi
++
++&i2c_encl_fpga {
++	status = "okay";
++
++	i2c-mux@75 {
++		status = "okay";
++		compatible = "nxp,pca9547";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		reg = <0x75>;
++	};
++};
+diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_st1.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_st1.dtsi
 new file mode 100644
-index 000000000..2b102e0b6
+index 000000000..4c00475f4
 --- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_bootmode_sdmmc.dtsi
-@@ -0,0 +1,8 @@
++++ b/arch/arm/boot/dts/intel/socfpga/socfpga_enclustra_mercury_st1.dtsi
+@@ -0,0 +1,15 @@
 +// SPDX-License-Identifier: GPL-2.0+ OR MIT
 +/*
 + * Copyright (C) 2024 Enclustra GmbH - https://www.enclustra.com
 + */
 +
-+&qspi {
-+	status = "disabled";
++&i2c_encl {
++	si5338: clock-controller@70 {
++		compatible = "silabs,si5338";
++		reg = <0x70>;
++	};
++};
++
++&i2c_encl_fpga {
++	status = "okay";
 +};
 -- 
 2.25.1
