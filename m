@@ -2,61 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F0F9B497F
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 13:19:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6EA49B4A21
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 13:50:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71B29C71290;
-	Tue, 29 Oct 2024 12:19:08 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47622C71290;
+	Tue, 29 Oct 2024 12:50:19 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC458C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30831C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 12:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=6jVzrS/dv8I737x17bUvfsxtTXmLoqjV6On8HBWDM70=; b=hgnZALp1rshuOUnKj9DMO1vbGc
- X7BAH5/T9P0tgk5BXqbHmpQ0KDFVgI94gf74+iYr4PcgfrXdRz4AtwH8kUce84V0KbqwA7Lrx4gHc
- lynpQoYesEIit/bM+G8CldhXzpd8zoDn4VvmmlCccLeP/a+mQnG8fRBaThxNaBqagxb8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1t5lBL-00BZUT-Hm; Tue, 29 Oct 2024 13:18:43 +0100
-Date: Tue, 29 Oct 2024 13:18:43 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: jan.petrous@oss.nxp.com
-Message-ID: <9154cc5f-a330-4f6d-b161-827e64231e35@lunn.ch>
-References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
- <20241028-upstream_s32cc_gmac-v4-16-03618f10e3e2@oss.nxp.com>
+ Tue, 29 Oct 2024 12:50:12 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B976A1C0006;
+ Tue, 29 Oct 2024 12:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1730206211;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=gB3WSdXjO7v/Iei9P2xSNx89xruiqhNe99fDC+mG5Po=;
+ b=g28+V//iv+dZW0GMwuHLqnAZLIYhrPMLE/30kYpzXbU7iSDONAE1h8nzDO1/zqxtJ2RP6/
+ aFtkb9n8pfM5Sl8keTKm6+06VRwzs2MjQE59ywRQzU+P8zsG5CkGN/N1OpcHY7zhR91WfZ
+ Ni0W3Frrw1x0asdiWU4VLTLkVC/fNDFhIZ4GVYXBAiu30H9KumYpIInvZaQ5fNzx4ygIoH
+ eCH+gsa74e/NfromDTeQJ9mleEDF4PIoPeBtr3zrvJsUORUof8E/+IZQ/sanSp63RfN7g1
+ mLpzBjNlQ9IpY21e0ABIMQ6S2IhxnwyOR8Co7II0RGjR/eraRfg36zm9ZrE5pA==
+Message-ID: <1ca44f81-8c09-4745-939b-a29699fb937b@bootlin.com>
+Date: Tue, 29 Oct 2024 13:50:10 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241028-upstream_s32cc_gmac-v4-16-03618f10e3e2@oss.nxp.com>
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>,
- Andrei Botila <andrei.botila@nxp.org>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 16/16] net: stmmac: dwmac-s32: Read PTP
- clock rate when ready
+User-Agent: Mozilla Thunderbird
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>
+References: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
+ <20241029115419.1160201-4-maxime.chevallier@bootlin.com>
+From: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20241029115419.1160201-4-maxime.chevallier@bootlin.com>
+X-GND-Sasl: alexis.lothore@bootlin.com
+Cc: linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next 3/7] net: stmmac: Only update the
+ auto-discovered PTP clock features
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,23 +61,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 28, 2024 at 09:24:58PM +0100, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> 
-> The PTP clock is read by stmmac_platform during DT parse.
-> On S32G/R the clock is not ready and returns 0. Postpone
-> reading of the clock on PTP init.
-
-This needs more explanation as to why this is a feature, not a bug,
-for the PTP clock.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gTWF4aW1lLAp0aGFua3MgZm9yIHJldml2aW5nIHRoaXMgIQoKT24gMTAvMjkvMjQgMTI6
+NTQsIE1heGltZSBDaGV2YWxsaWVyIHdyb3RlOgo+IFNvbWUgRFdNQUMgdmFyaWFudHMgc3VjaCBh
+cyBkd21hYzEwMDAgZG9uJ3Qgc3VwcG9ydCBkaXNvdmVyaW5nIHRoZQo+IG51bWJlciBvZiBvdXRw
+dXQgcHBzIGFuZCBhdXhpbGlhcnkgc25hcHNob3RzLiBBbGxvdyB0aGVzZSBwYXJhbWV0ZXJzIHRv
+Cj4gYmUgZGVmaW5lZCBpbiBkZWZhdWx0IHB0cF9jbG9ja19pbmZvLCBhbmQgbGV0IHRoZW0gYmUg
+dXBkYXRlZCBvbmx5IHdoZW4KPiB0aGUgZmVhdHVyZSBkaXNjb3ZlcnkgeWllbGRlZCBhIHJlc3Vs
+dC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBNYXhpbWUgQ2hldmFsbGllciA8bWF4aW1lLmNoZXZhbGxp
+ZXJAYm9vdGxpbi5jb20+CgpuaXQ6IHMvZGlzb3ZlcmluZy9kaXNjb3ZlcmluZy8KClRoYW5rcywK
+QWxleGlzCgotLSAKQWxleGlzIExvdGhvcsOpLCBCb290bGluCkVtYmVkZGVkIExpbnV4IGFuZCBL
+ZXJuZWwgZW5naW5lZXJpbmcKaHR0cHM6Ly9ib290bGluLmNvbQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
