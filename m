@@ -2,31 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74309B48B3
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E7EC9B48B2
 	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 12:54:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CF7EC78035;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49F2AC78033;
 	Tue, 29 Oct 2024 11:54:30 +0000 (UTC)
 Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
  [217.70.183.197])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51C67C7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53701C78020
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 11:54:23 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id EFE3A1C0002;
- Tue, 29 Oct 2024 11:54:20 +0000 (UTC)
+ Tue, 29 Oct 2024 11:54:24 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D65541C000A;
+ Tue, 29 Oct 2024 11:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1730202862;
+ t=1730202863;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lJpykFaYI1xkl+2h37OQVMMCDwoLFpotNWfg5DS8+W8=;
- b=EBAqimTTsliRJJCA4biH2rIBJLlKYw9TfFmBjIsErWLNjRJs5JfIWGGlchaFpSvbbSohgj
- 4QMozgMOL/uUSh183b0LMH57cqD2OsdiUZVRaMKzDWsWfE45KqoakQxeM2cTEU2iKCaAN6
- t0bYztiTvQURcoiOXepIAcKhRT8lCZKpaydkj4cglLeGUYtWvSdZnn9X988mdRBOl0P021
- 7tWGM4kSy1rk90+2bf72Sv3vmjm5gW04rZ36HDVatNMUjT6qqWj7Tck0226b778xWB+AZj
- 9sTN1s9XFFSxgXPPpjYk45H4kMWrR3jBNiwIJQVOtsc5013jhUyIbMA4P97OYw==
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eGCWRSOQMmjS9ZFY7AhKJ0VNqkvKkp9FxTzYgROnlPc=;
+ b=Uj/zZ6Rl3V4q/IJ6WB/HHZutLTeFS1axCbwn50wEuAeNuxJNuViSCjiCNRUu6k+FY3XAM6
+ BvVqKw1NqcEjRtLhEUaaV17nma4xx26/wvwFuDzOuc8W5VaiOImCbY9xxuM1Q1h2dAvxCD
+ 4bqyKXDedHQG67rVYSFgnxrtERGXWXUeI3aWYIBRxHdNUP9wIaWgdS5vN9MHmhv4g2H7vv
+ hnLM66SRFtFVFkoAOnmLsSEnCe6qWzFisCQfO2we6xv9mptZidTcCAUh5KvpoiSVQh6Dwd
+ TcVyF3pkhh/FRFNxY3OfkTPoZSGfSXcm+jklgGIhtUVglZG5rQFMOmJ0lIeQAQ==
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -34,17 +35,19 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Richard Cochran <richardcochran@gmail.com>
-Date: Tue, 29 Oct 2024 12:54:08 +0100
-Message-ID: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
+Date: Tue, 29 Oct 2024 12:54:09 +0100
+Message-ID: <20241029115419.1160201-2-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
+References: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
 X-GND-Sasl: maxime.chevallier@bootlin.com
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/7] Support external snapshots on
-	dwmac1000
+Subject: [Linux-stm32] [PATCH net-next 1/7] net: stmmac: Don't modify the
+	global ptp ops directly
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,77 +59,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpUaGlzIHNlcmllcyBpcyBhbm90aGVyIHRha2Ugb24gdGhlIHBlcnZpb3VzIHdvcmsgWzFd
-IGRvbmUgYnkKQWxleGlzIExvdGhvcsOpLCB0aGF0IGZpeGVzIHRoZSBzdXBwb3J0IGZvciBleHRl
-cm5hbCBzbmFwc2hvdHMKdGltZXN0YW1waW5nIGluIEdNQUMzLWJhc2VkIGRldmljZXMuCgpUaGUg
-cmVnaXN0ZXJzIHRoYXQgYXJlIHVzZWQgdG8gY29uZmlndXJlIHRoaXMgZG9uJ3QgaGF2ZSB0aGUg
-c2FtZSBsYXlvdXQKaW4gdGhlIGR3bWFjMTAwMCBjb21wYXJlZCB0byBkd21hYzQgYW5kIG90aGVy
-cy4KCk9uZSBleGFtcGxlIHdvdWxkIGJlIHRoZSBUUyBzZWNvbmRzL25hbm9zZWNvbmRzIHJlZ2lz
-dGV0IGZvciBzbmFwc2hvdHMsCndoaWNoIGFyZW4ndCBtYXBwZWQgYXQgdGhlIDB4NDgvMHg0YyBi
-dXQgcmF0aGVyIGF0IDB4MzAvMHgzNC4KCkFub3RoZXIgZXhhbXBsZSBpcyB0aGUgd2FzIHRoZSBz
-bmFwc2hvdHMgYXJlIGVuYWJsZWQuIERXTUFDNCBoYXMgYQpkZWRpY2F0ZWQgYXV4aWxpYXJ5IGNv
-bnRyb2wgcmVnaXN0ZXIgKFBUUF9BQ1IgYXQgMHg0MCkgd2hpbGUgb24KRFdNQUMxMDAwLCB0aGlz
-IGlzIGNvbnRyb2xlZCB0aHJvdWdoIHRoZSBQVFAgVGltZXN0YW1wIENvbnRyb2wgUmVnIHVzaW5n
-CmZpZWxkcyBtYWtlZCBhcyByZXNlcnZlZCBvbiBEV01BQzQuCgpJbnRlcnJ1cHRzIGFyZSBhbHNv
-IG5vdCBoYW5kbGVkIHRoZSBzYW1lIHdheSwgYXMgb24gZHdtYWMxMDAwIHRoZXkgYXJlCmNsZWFy
-ZWQgYnkgcmVhZGluZyB0aGUgQXV4aWxpYXJ5IFN0YXR1cyBSZWcsIHdoaWNoIHNpbXBseSBkb2Vz
-bid0IGV4aXN0Cm9uIGR3bWFjNC4KCkFsbCBvZiB0aGlzIG1lYW5zIHRoYXQgd2l0aCB0aGUgY3Vy
-cmVudCBzdGF0ZSBvZiB0aGUgY29kZSwgYXV4aWxpYXJ5CnRpbWVzdGFtcHMgc2ltcGx5IGRvbid0
-IHdvcmsgb24gZHdtYWMxMDAwLgoKQmVzaWRlcyB0aGF0LCB0aGVyZSBhcmUgc29tZSBsaW1pdGF0
-aW9ucyBpbiB0aGUgbnVtYmVyIG9mIGV4dGVybmFsCnNuYXBzaG90IGNoYW5uZWxzLiBJdCB3YXMg
-YWxzbyBmb3VuZCB0aGF0IHRoZSBQUFMgb3V0IGNvbmZpZ3VyYXRpb24gaXMKYWxzbyBub3QgZG9u
-ZSB0aGUgc2FtZSB3YXksIGJ1dCBmaXhpbmcgUFBTIG91dCBpc24ndCBpbiB0aGUgc2NvcGUgb2YK
-dGhpcyBzZXJpZXMuCgpUbyBhZGRyZXNzIHRoYXQgaGFyZHdhcmUgZGlmZmVyZW5jZSwgd2UgaW50
-cm9kdWNlIGRlZGljYXRlZApwdHBfY2xvY2tfaW5mbyBvcHMgYW5kIHBhcmFtZXRlcnMgYXMgd2Vs
-bCBhcyBkZWRpY2F0ZWQgaHd0c3RhbXBfb3BzIGZvcgp0aGUgZHdtYWMxMDAvZHdtYWMxMDAwLiBU
-aGlzIGFsbG93cyBzaW1wbGlmeWluZyB0aGUgY29kZSBmb3IgdGhlc2UKcGxhdGZvcm1zLCBhbmQg
-YXZvaWRzIHRoZSBpbnRyb2R1Y3Rpb24gb2Ygb3RoZXIgc2V0cyBvZiBzdG1tYWMgaW50ZXJuYWwK
-Y2FsbGJhY2tzLgoKVGhlIG5hbWluZyBmb3IgdGhlIG5vbi1kd21hYzEwMDAgb3BzIHdhc24ndCBj
-aGFuZ2VkLCBzbyB3ZSBoYXZlIDoKIC0gZHdtYWMxMDAwX3B0cCAmIHN0bW1hY19wdHAKIC0gZHdt
-YWMxMDAwX3B0cF9jbG9ja19vcHMgJiBzdG1tYWNfcHRwX2Nsb2NrX29wcwoKd2hlcmUgdGhlICJz
-dG1tYWNfKiIgb3BzIHVzZSB0aGUgZHdtYWM0LW9yLWxhdGVyIGJlaGF2aW91ci4KCkkgaGF2ZSBj
-b252ZXJ0ZWQgZHdtYWMxMDAgYWxvbmcgdGhlIHdheSB0byB0aGVzZSBvcHMsIGhvd2V2ZXIgdGhh
-dCdzCmhhc24ndCBiZWVuIHRlc3RlZCBub3IgZnVsbHkgY29uZmlybWVkIHRoYXQgdGhpcyBpcyBj
-b3JyZWN0LCBhcyBJIGRvbid0CmhhdmUgZGF0YXNoZWV0cyBmb3IgZGV2aWNlcyB0aGF0IHVzZXMg
-ZHdtYWMxMDAuCgpJJ3ZlIGNvbnZlcnRlZCBkd21hYzEwMCBqdXN0IG9uIHRoZSBoeXBvdGhlc2lz
-IHRoYXQgdGhlIEdNQUMzX1ggUFRQIG9mZnNldApiZWluZyB1c2VkIGluIGJvdGggZHdtYWMxMDAw
-IGFuZCBkd21hYzEwMCBtZWFucyB0aGF0IHRoZXkgc2hhcmUgdGhlc2Ugc2FtZQpyZWdpc3RlciBs
-YXlvdXRzIGFzIHdlbGwuCgpQYXRjaCAxIHByZXBhcmVzIHRoZSB1c2Ugb2YgcGVyLWh3IGludGVy
-ZmFjZSBwdHBfY2xvY2tfaW5mbyBieSBhdm9pZGluZwp0aGUgbW9kaWZpY2F0aW9uIG9mIHRoZSBn
-bG9iYWwgcGFyYW1ldGVycy4gVGhpcyBhbGxvd3MgbWFraW5nIHRoZQpzdG1tYWNfcHRwX2Nsb2Nr
-X29wcyBjb25zdC4KClBhdGNoIDIgYWRkcyB0aGUgcHRwX2Nsb2NrX2luZm8gYXMgYW4gaHdpZiBw
-YXJhbWV0ZXIuCgpQYXRjaCAzIGFkZHJlc3NlcyB0aGUgYXV0b2Rpc2NvdmVyeSBvZiB0aGUgdGlt
-ZXN0YW1waW5nIGZlYXR1cmVzLCBhcwpkd21hYzEwMDAgZG9lc24ndCBwcm92aWRlIHRoZXNlIHBh
-cmFtZXRlcnMKClBhdGNoIDQgaW50cm9kdWNlcyB0aGUgcHRwX2Nsb2NrX2luZm8gc3BlY2lmaWMg
-dG8gZHdtYWMxMDAwIHBsYXRmb3JtcywKYW5kIFBhdGNoIDUgdGhlIGh3dHN0YW1waW5nIGluZm8u
-CgpQYXRjaCA2IGVuYWJsZXMgdGhlIHRpbWVzdGFtcGluZyBpbnRlcnJ1cHQgZm9yIGV4dGVybmFs
-IHNuYXBzaG90CgpQYXRjaCA3IHJlbW92ZXMgYSBub24tbmVjZXNzYXJ5IGluY2x1ZGUgZnJvbSBz
-dG1tYWNfcHRwLmMuCgpUaGlzIHdhcyB0ZXN0ZWQgb24gZHdtYWNfc29jZnBnYSwgaG93ZXZlciB0
-aGlzIHdhc24ndCB0ZXN0ZWQgb24gYQpkd21hYzQtYmFzZWQgcGxhdGZvcm0uCgpbMV06IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi8yMDIzMDYxNjEwMDQwOS4xNjQ1ODMtMS1hbGV4aXMu
-bG90aG9yZUBib290bGluLmNvbS8KClRoYW5rcyBBbGV4aXMgZm9yIGxheWluZyB0aGUgZ3JvdW5k
-d29yayBmb3IgdGhpcywKCkJlc3QgcmVnYXJkcywKCk1heGltZQoKTWF4aW1lIENoZXZhbGxpZXIg
-KDcpOgogIG5ldDogc3RtbWFjOiBEb24ndCBtb2RpZnkgdGhlIGdsb2JhbCBwdHAgb3BzIGRpcmVj
-dGx5CiAgbmV0OiBzdG1tYWM6IFVzZSBwZXItaHcgcHRwIGNsb2NrIG9wcwogIG5ldDogc3RtbWFj
-OiBPbmx5IHVwZGF0ZSB0aGUgYXV0by1kaXNjb3ZlcmVkIFBUUCBjbG9jayBmZWF0dXJlcwogIG5l
-dDogc3RtbWFjOiBJbnRyb2R1Y2UgZHdtYWMxMDAwIHB0cF9jbG9ja19pbmZvIGFuZCBvcGVyYXRp
-b25zCiAgbmV0OiBzdG1tYWM6IEludHJvZHVjZSBkd21hYzEwMDAgdGltZXN0YW1waW5nIG9wZXJh
-dGlvbnMKICBuZXQ6IHN0bW1hYzogRW5hYmxlIHRpbWVzdGFtcGluZyBpbnRlcnJ1cHQgb24gZHdt
-YWMxMDAwCiAgbmV0OiBzdG1tYWM6IERvbid0IGluY2x1ZGUgZHdtYWM0IGRlZmluaXRpb25zIGlu
-IHN0bW1hY19wdHAKCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24u
-aCAgfCAgNCArCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjMTAwMC5oICAg
-fCAxNSArKystCiAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMxMDAwX2NvcmUuYyAg
-fCA4NSArKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9od2lmLmMgICAgfCAxNCArKy0KIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1t
-YWNfaHd0c3RhbXAuYyB8IDExICsrKwogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9z
-dG1tYWNfcHRwLmMgIHwgMzggKysrKysrKy0tCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
-bWFjL3N0bW1hY19wdHAuaCAgfCAxMCArKysKIDcgZmlsZXMgY2hhbmdlZCwgMTY1IGluc2VydGlv
-bnMoKyksIDEyIGRlbGV0aW9ucygtKQoKLS0gCjIuNDcuMAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The stmmac_ptp_clock_ops are copied into the stmmac_priv structure
+before being registered to the PTP core. Some adjustments are made prior
+to that, such as the number of snapshots or max adjustment parameters.
+
+Instead of modifying the global definition, then copying into the local
+private data, let's first copy then modify the local parameters.
+
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+index a6b1de9a251d..11ab1d6b916a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+@@ -298,20 +298,21 @@ void stmmac_ptp_register(struct stmmac_priv *priv)
+ 		priv->pps[i].available = true;
+ 	}
+ 
+-	if (priv->plat->ptp_max_adj)
+-		stmmac_ptp_clock_ops.max_adj = priv->plat->ptp_max_adj;
+-
+ 	/* Calculate the clock domain crossing (CDC) error if necessary */
+ 	priv->plat->cdc_error_adj = 0;
+ 	if (priv->plat->has_gmac4 && priv->plat->clk_ptp_rate)
+ 		priv->plat->cdc_error_adj = (2 * NSEC_PER_SEC) / priv->plat->clk_ptp_rate;
+ 
+-	stmmac_ptp_clock_ops.n_per_out = priv->dma_cap.pps_out_num;
+-	stmmac_ptp_clock_ops.n_ext_ts = priv->dma_cap.aux_snapshot_n;
++	priv->ptp_clock_ops = stmmac_ptp_clock_ops;
++
++	priv->ptp_clock_ops.n_per_out = priv->dma_cap.pps_out_num;
++	priv->ptp_clock_ops.n_ext_ts = priv->dma_cap.aux_snapshot_n;
++
++	if (priv->plat->ptp_max_adj)
++		priv->ptp_clock_ops.max_adj = priv->plat->ptp_max_adj;
+ 
+ 	rwlock_init(&priv->ptp_lock);
+ 	mutex_init(&priv->aux_ts_lock);
+-	priv->ptp_clock_ops = stmmac_ptp_clock_ops;
+ 
+ 	priv->ptp_clock = ptp_clock_register(&priv->ptp_clock_ops,
+ 					     priv->device);
+-- 
+2.47.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
