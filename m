@@ -2,64 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FEB99B42E3
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 08:13:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E918C9B4712
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 11:40:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7DDAC71287;
-	Tue, 29 Oct 2024 07:13:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93FE9C71290;
+	Tue, 29 Oct 2024 10:40:26 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A33D5C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CE5DC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 07:13:46 +0000 (UTC)
+ Tue, 29 Oct 2024 10:40:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D3CEC5C402B;
- Tue, 29 Oct 2024 07:12:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFBFC4CECD;
- Tue, 29 Oct 2024 07:13:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3F8755C58E0;
+ Tue, 29 Oct 2024 10:39:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3A9C4CEE3;
+ Tue, 29 Oct 2024 10:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730186024;
- bh=yZacnLzwlmMaPMgCQVc6Cs2tFUW+rgsYqgTbJRGZhDA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TL+Et39/oJkVZmxXRlBodyw+QeDCk90Ru9GXqsC/xpE7MVBpuY+PMpG9PzSBo1Hd4
- EOX0DUAVQLaPlWzjdih9SCrNDmIdPIEEzPdHTHgop5Y/Ph7fMv5YJnAbDiRTtcL8WC
- 7rUEO2X/zMYuDueryjDhWYjFclRxCx+QUUlyjHyGcIo+ViuHQZZORr8b7ZMKysZ65/
- aEeBErGoi/NhPwpJPTD0a7ZVPezKt4R4eilcO+qbNAzblgQDi9tKHPI/Y2pM6UpiTl
- 0mcIG6XlpW/yyFMOGTJyMZV+r1mbN7tVEMn/P6wMjlyPnRxdeA8ZzICum+/SlfGDWz
- XcKZfURViRwsQ==
-Date: Tue, 29 Oct 2024 08:13:40 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-Message-ID: <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
-References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
- <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
+ s=k20201202; t=1730198424;
+ bh=GKQOic+Iow43xdBlnF2TJONS4WKrXxqdtwInlxWhQUs=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=JVYVQ2L//XHfQqT9rYVWZdJK4YWnkUdMRkHJP+H1nd01+Yilf8tQmUeI8ZV92SoXD
+ NUjCpC2yxYENqspHMXVneu2J6vqfjChP1Kw7jB1P6tE5ZVgpp9qzH2u07cOKFt00ds
+ nWOSkidF4goOnTMDiubY+NZr9FvONLa6fSapF4mE7kMzrOONK7FUX1lIddZVIi7h1m
+ dIHvGXFP/aYGs3RCg5oGHbKcH20zu9aYhmVSns5Uf4z1/IriYHSno/NpRfN1JKjS9j
+ dYupPKoPkjukp5C71nNmkf1hCFCvHJSrUaXkuVGiIY7cW2DSowwN6JYIFBZRRAZnmI
+ hWiVhsIeTW//w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ ADD1D380AC00; Tue, 29 Oct 2024 10:40:32 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 14/16] net: stmmac: dwmac-s32: add
- basic NXP S32G/S32R glue driver
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <173019843151.651132.13756275797117288059.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Oct 2024 10:40:31 +0000
+References: <20241021061023.2162701-1-0x1207@gmail.com>
+In-Reply-To: <20241021061023.2162701-1-0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Cc: quic_jsuraj@quicinc.com, davem@davemloft.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, xfr@outlook.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
+ DMA map/unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,25 +60,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 28, 2024 at 09:24:56PM +0100, Jan Petrous (OSS) wrote:
-> +	plat->init = s32_gmac_init;
-> +	plat->exit = s32_gmac_exit;
-> +	plat->fix_mac_speed = s32_fix_mac_speed;
-> +
-> +	plat->bsp_priv = gmac;
-> +
-> +	return stmmac_pltfr_probe(pdev, plat, &res);
-> +}
-> +
-> +static const struct of_device_id s32_dwmac_match[] = {
-> +	{ .compatible = "nxp,s32g2-dwmac" },
-> +	{ .compatible = "nxp,s32g3-dwmac" },
-> +	{ .compatible = "nxp,s32r-dwmac" },
+Hello:
 
-Why do you need three same entries?
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Best regards,
-Krzysztof
+On Mon, 21 Oct 2024 14:10:23 +0800 you wrote:
+> In case the non-paged data of a SKB carries protocol header and protocol
+> payload to be transmitted on a certain platform that the DMA AXI address
+> width is configured to 40-bit/48-bit, or the size of the non-paged data
+> is bigger than TSO_MAX_BUFF_SIZE on a certain platform that the DMA AXI
+> address width is configured to 32-bit, then this SKB requires at least
+> two DMA transmit descriptors to serve it.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v1] net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data
+    https://git.kernel.org/netdev/net/c/66600fac7a98
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
