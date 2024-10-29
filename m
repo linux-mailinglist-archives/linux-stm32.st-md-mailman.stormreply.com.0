@@ -2,52 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDAE9B48B4
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 12:54:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE5A9B496A
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 13:16:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7922FC78030;
-	Tue, 29 Oct 2024 11:54:33 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C0E3C71290;
+	Tue, 29 Oct 2024 12:16:19 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB45EC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 672DFC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 11:54:29 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id ABEE71C000F;
- Tue, 29 Oct 2024 11:54:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1730202869;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+tS5coFjCL1GpMVLn+Jt4VDJfqi7WRWtEsSocGUBw08=;
- b=huzUNewiNqRNpYVxzTQz2brPQBEvqJ336v2olcaL11JZm6/5Fv4aL5763Yhrc8kFLuC/TV
- ZPwh6Ha646K5kOCSinR1GdTqimRx6oiEr+rvXtFIDx0vr8XNq9B106KDfjbbAoEsb4ZBv/
- Vdr9j9WDpHWWFT7FO+QrHOZsGomBO5uurm5r50HLfeBlny1ATcMK6MEyecw8dqVBQJ6ZbJ
- CcS8SoHfGm0/j51F26uWN9Naou2W4aPojedCDaVyyEYOy/NWvnoRvbA4CrVq2H3OoUG4Qm
- BNKCsvWzLUJfhr+bIAQbybLsE96hJaOUrPQ9Y+8pAEmcJ9ECWPS+1mUaktiutA==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>
-Date: Tue, 29 Oct 2024 12:54:15 +0100
-Message-ID: <20241029115419.1160201-8-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
-References: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
+ Tue, 29 Oct 2024 12:16:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=crdT/4LE3Ch8R4sVRW6FF4fO9QpC+e/qUd0YNDPGHR8=; b=DwRKOyWGbuOvzXY8/pNS9G3gvj
+ akLbPChN8d3H10IX00VkcqIZZ9ZsEZP2UQRRPtDgJiZAV1oNgKNhuQiObASqE11+uCVuW/8TbdOLp
+ OO+eBC/HmmfYh1YaTLzqOFg3iThMgQmkVGv7aFwkKCm9CLLv1QrQzavaUuzYPZ/y6ZjI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1t5l8a-00BZPw-Vp; Tue, 29 Oct 2024 13:15:52 +0100
+Date: Tue, 29 Oct 2024 13:15:52 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: jan.petrous@oss.nxp.com
+Message-ID: <c902dc2a-9b2a-44a0-be1d-88fb150f4f17@lunn.ch>
+References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
+ <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
 MIME-Version: 1.0
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 7/7] net: stmmac: Don't include
-	dwmac4 definitions in stmmac_ptp
+Content-Disposition: inline
+In-Reply-To: <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v4 14/16] net: stmmac: dwmac-s32: add
+ basic NXP S32G/S32R glue driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,29 +72,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The stmmac_ptp code doesn't need the dwmac4 register definitions, remove
-the inclusion.
+> +#define GMAC_TX_RATE_125M	125000000	/* 125MHz */
+> +#define GMAC_TX_RATE_25M	25000000	/* 25MHz */
+> +#define GMAC_TX_RATE_2M5	2500000		/* 2.5MHz */
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 1 -
- 1 file changed, 1 deletion(-)
+With the swap to the new helper, i think 25M and 2M5 are no longer
+needed.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 430905f591b2..429b2d357813 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -9,7 +9,6 @@
- *******************************************************************************/
- #include "stmmac.h"
- #include "stmmac_ptp.h"
--#include "dwmac4.h"
- 
- /**
-  * stmmac_adjust_freq
--- 
-2.47.0
+> +static int s32_gmac_init(struct platform_device *pdev, void *priv)
+> +{
+> +	struct s32_priv_data *gmac = priv;
+> +	int ret;
+> +
+> +	ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
+> +	if (!ret)
+> +		ret = clk_prepare_enable(gmac->tx_clk);
+> +
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Can't set tx clock\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = clk_prepare_enable(gmac->rx_clk);
+> +	if (ret)
+> +		dev_dbg(&pdev->dev, "Can't set rx, clock source is disabled.\n");
+> +	else
+> +		gmac->rx_clk_enabled = true;
 
+Why would this fail? And if it does fail, why is it not fatal? Maybe a
+comment here.
+
+> +static void s32_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
+> +{
+> +	struct s32_priv_data *gmac = priv;
+> +	long tx_clk_rate;
+> +	int ret;
+> +
+> +	if (!gmac->rx_clk_enabled) {
+> +		ret = clk_prepare_enable(gmac->rx_clk);
+> +		if (ret) {
+> +			dev_err(gmac->dev, "Can't set rx clock\n");
+
+dev_err(), so is failing now fatal, but since this is a void function,
+you cannot report the error up the call stack?
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
