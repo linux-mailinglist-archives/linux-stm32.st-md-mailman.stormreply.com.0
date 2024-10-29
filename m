@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441B79BBB6B
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CA479BBB6C
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:18:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03270C78F83;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FAE8C78F85;
 	Mon,  4 Nov 2024 17:18:38 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB7E3C78016
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A51EC78016
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 20:24:06 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-43160c5bad8so6248875e9.3
+ Tue, 29 Oct 2024 20:24:08 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-37d58a51fa5so503492f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 13:24:06 -0700 (PDT)
+ Tue, 29 Oct 2024 13:24:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730233446; x=1730838246;
+ d=gmail.com; s=20230601; t=1730233448; x=1730838248;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QbnDXxocaCyheHFI8hTECOWKPKoXgfCmEGz3dctI1es=;
- b=IpwMUfBS18bQrrwvMNhTGWu7fqJFCEMgfmEAm3MnvQerHiOl/U1zPeZloYdQUYDCAa
- N2rm7N7wFtLzA0DD1aiYZHVuelNHSipykjlb6taOB10EtwsAZkwt7CYHXib8Vbix4X8f
- tGOJg+a4UacFSipXlQ0D3l+YmS4v88gTygFErjvW3U8YghGAIQPLr4OmhcDxP61UXvQk
- xvJu4ffVNRo9yaue5WfF/MIs+LTMoucSFQ/9KKiHhzOK7uizbon4UblVA47mPmqlF1XQ
- NAZuJ1nmBcSDrk4GcAJbo7Zbyj9OLiWjNMRD+yI7YyBkBPVmxI3JKhCDY8z4lazHNPhe
- NO3Q==
+ bh=JxrWAGvbebnl7bShJIljz1Nm6dGXiAY6T1E3WWpWzg0=;
+ b=O+a30Z2KOhjOT8NwKiGlUX8gC1+CkP8tsngq5nkFnHxKdMJTUZjGWzDGaiIUFiQHM3
+ 5pY0jTnqdvRA/G5CjbRkqGrVvR/qd6VEMoNTSeiXntjwh4WDdxp/daUv8KJBz7acMJLC
+ B9BIhsDLHDRVcERmgwx35Ka9ejU/uSaMyXtOWHHpevb9FmgsgxYLeb+d6nlgVGF3v3P4
+ YaFPPG/jfqB8ijk1HvsjiGMfuPtQtnT75E6Etv0/ukCVAjbgsPLL9hKP3DZ54HbKUkjO
+ 6o75OZbC4HxWaE3BPfV2v2bPs6spoXXO8zBpCgrP3fTVj8Ux/xpDlE+db6cNL4tYTusG
+ tNWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730233446; x=1730838246;
+ d=1e100.net; s=20230601; t=1730233448; x=1730838248;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QbnDXxocaCyheHFI8hTECOWKPKoXgfCmEGz3dctI1es=;
- b=jCeKQuLeAJe92a3t4m/rS1/CoXvaPh9fyfP0lyphJCJCOVbzjIxy4KJNgw6OPYgK9R
- qNG3kGvpE75dyl1pjPgBpqEzWXeR1HrbulBWt1YwvhaeFPdXw0m1SCpjWjxuxTNNIVIx
- HhUmmf2q21DndREpSI5XOi1+l11ooMFJhSYfm1HqZw6NLHGVYGTjv4k3ElBUoFRlqT6+
- lmmKV+jcn+l5pw0YBn2q6j8fsNzDyNzblI0PpccnUzsiFoVqb6UQxUYDCsYlOroXe6Vo
- YreNrB5dlVlDrIUL53taJ0ySuT65ot1JD/MvbZR2rIpMM2GJHm6LprQgOXf1m5UEY9+f
- agjg==
+ bh=JxrWAGvbebnl7bShJIljz1Nm6dGXiAY6T1E3WWpWzg0=;
+ b=CfVQtVcrM59BBrG7ZLtQB41Qxh1Drz1UIEbwdmFKv4J8Y77H+q6rAP7VlbvAUia9wL
+ XuJtxJ8L5FP3umLdAqJUoJlJyRXY/vVTp9apVDhKvGHGpfaOv7MJKKi6SX2iRoW8kX6a
+ ivcj8Z/yvVUEv+/ZLFx3V3wwYOuKO4PkTl4Uz07EW437ACatF+THR0qJr2/gk178xtjm
+ c7BSeg6A88ACA0+f+9tSNv7kUgb8+vigWLd6WV4pv2danGAKPHX2gBW0+mXo5S5pE+hh
+ pkhYY5w6b3wGSXdXuz1UIniTnmE9dA+TqbntAzhSC3Xn1+mlCKMJ11CqETugMhjeuXOX
+ K58A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURm8bWW2GttqweMCR3kzhHdJmKhrIspEN+rCj4DggkjNEIgfKmMjtCxsRp+cT+ayFlesxMmjnnd9Od2g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxy6KLlkcAUKpnNy/Uw/OJHGmv7MTgXolO9lLNjOMzZmSeuE1Uy
- bhaoCsYMimwSaj0Jv2v0xh+sfr0EUrSw+E42rTCLatgq9iLQu6r9
-X-Google-Smtp-Source: AGHT+IETpjLLRg+7eXu2VyfPEE1vigfdrCP6sTkEwWApr6Df5/fyHL5jVC/64h7dxa0Nz1OLwcuYIA==
-X-Received: by 2002:a05:600c:511b:b0:431:558c:d9e9 with SMTP id
- 5b1f17b1804b1-4319ad24126mr50500115e9.5.1730233446109; 
- Tue, 29 Oct 2024 13:24:06 -0700 (PDT)
+ AJvYcCWjWGlBMm/OocHgQKVVGeuyW5I5JXQ/9y4rEuVx7qiltFKxvqDMI3Y5sJChBOLTrTlxuVZooiFLT8BZqw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YznDIg3tmcvanHeNsfRzENyEtyoK+GqDvgIM5fAYhL9va0yjCMH
+ vv9PKgJ7+2JUDwZbrhkThs2Zn030puING1Qa/UQv8yWWyTSK5Vcc
+X-Google-Smtp-Source: AGHT+IFe4HEmiUudtU71Iu+vsYyyet/UvGGn2kWZSX/+5WG2rLBnApro20Grx6Z5bXjcP0EijIUzig==
+X-Received: by 2002:a05:600c:5494:b0:431:4a7e:a121 with SMTP id
+ 5b1f17b1804b1-4319ad4ee8emr46759745e9.9.1730233447776; 
+ Tue, 29 Oct 2024 13:24:07 -0700 (PDT)
 Received: from 6c1d2e1f4cf4.v.cablecom.net (84-72-156-211.dclient.hispeed.ch.
  [84.72.156.211]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b3bf85sm13619976f8f.42.2024.10.29.13.24.04
+ ffacd0b85a97d-38058b3bf85sm13619976f8f.42.2024.10.29.13.24.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 13:24:05 -0700 (PDT)
+ Tue, 29 Oct 2024 13:24:07 -0700 (PDT)
 From: Lothar Rubusch <l.rubusch@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
 	a.fatoum@pengutronix.de
-Date: Tue, 29 Oct 2024 20:23:34 +0000
-Message-Id: <20241029202349.69442-9-l.rubusch@gmail.com>
+Date: Tue, 29 Oct 2024 20:23:35 +0000
+Message-Id: <20241029202349.69442-10-l.rubusch@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241029202349.69442-1-l.rubusch@gmail.com>
 References: <20241029202349.69442-1-l.rubusch@gmail.com>
@@ -73,8 +73,8 @@ Cc: marex@denx.de, devicetree@vger.kernel.org, conor+dt@kernel.org,
  edumazet@google.com, joabreu@synopsys.com, l.rubusch@gmail.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, s.trumtrar@pengutronix.de,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 08/23] ARM: dts: socfpga: add
-	clock-frequency property
+Subject: [Linux-stm32] [PATCH v4 09/23] ARM: dts: socfpga: add ranges
+	property to sram
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,44 +91,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add 'clock-frequency' is a required property by dtschema. Initialization
-is open, similar to agilex devices.
+Add 'ranges' to the SRAM node as it is a required property by the
+dtschema.
 
 Signed-off-by: Lothar Rubusch <l.rubusch@gmail.com>
 ---
- arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
-index 65d04339f..5f4bed187 100644
+index 5f4bed187..6a2ecc7ed 100644
 --- a/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
 +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
-@@ -99,21 +99,25 @@ clocks {
- 					cb_intosc_hs_div2_clk: cb_intosc_hs_div2_clk {
- 						#clock-cells = <0>;
- 						compatible = "fixed-clock";
-+						clock-frequency = <0>;
- 					};
+@@ -691,6 +691,7 @@ ocram: sram@ffe00000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			reg = <0xffe00000 0x40000>;
++			ranges;
+ 		};
  
- 					cb_intosc_ls_clk: cb_intosc_ls_clk {
- 						#clock-cells = <0>;
- 						compatible = "fixed-clock";
-+						clock-frequency = <0>;
- 					};
- 
- 					f2s_free_clk: f2s_free_clk {
- 						#clock-cells = <0>;
- 						compatible = "fixed-clock";
-+						clock-frequency = <0>;
- 					};
- 
- 					osc1: osc1 {
- 						#clock-cells = <0>;
- 						compatible = "fixed-clock";
-+						clock-frequency = <0>;
- 					};
- 
- 					main_pll: main_pll@40 {
+ 		eccmgr: eccmgr {
 -- 
 2.25.1
 
