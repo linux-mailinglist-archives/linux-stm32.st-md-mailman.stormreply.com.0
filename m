@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E918C9B4712
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 11:40:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A74309B48B3
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 12:54:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93FE9C71290;
-	Tue, 29 Oct 2024 10:40:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CF7EC78035;
+	Tue, 29 Oct 2024 11:54:30 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CE5DC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51C67C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 10:40:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3F8755C58E0;
- Tue, 29 Oct 2024 10:39:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3A9C4CEE3;
- Tue, 29 Oct 2024 10:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730198424;
- bh=GKQOic+Iow43xdBlnF2TJONS4WKrXxqdtwInlxWhQUs=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=JVYVQ2L//XHfQqT9rYVWZdJK4YWnkUdMRkHJP+H1nd01+Yilf8tQmUeI8ZV92SoXD
- NUjCpC2yxYENqspHMXVneu2J6vqfjChP1Kw7jB1P6tE5ZVgpp9qzH2u07cOKFt00ds
- nWOSkidF4goOnTMDiubY+NZr9FvONLa6fSapF4mE7kMzrOONK7FUX1lIddZVIi7h1m
- dIHvGXFP/aYGs3RCg5oGHbKcH20zu9aYhmVSns5Uf4z1/IriYHSno/NpRfN1JKjS9j
- dYupPKoPkjukp5C71nNmkf1hCFCvHJSrUaXkuVGiIY7cW2DSowwN6JYIFBZRRAZnmI
- hWiVhsIeTW//w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- ADD1D380AC00; Tue, 29 Oct 2024 10:40:32 +0000 (UTC)
+ Tue, 29 Oct 2024 11:54:23 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id EFE3A1C0002;
+ Tue, 29 Oct 2024 11:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1730202862;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lJpykFaYI1xkl+2h37OQVMMCDwoLFpotNWfg5DS8+W8=;
+ b=EBAqimTTsliRJJCA4biH2rIBJLlKYw9TfFmBjIsErWLNjRJs5JfIWGGlchaFpSvbbSohgj
+ 4QMozgMOL/uUSh183b0LMH57cqD2OsdiUZVRaMKzDWsWfE45KqoakQxeM2cTEU2iKCaAN6
+ t0bYztiTvQURcoiOXepIAcKhRT8lCZKpaydkj4cglLeGUYtWvSdZnn9X988mdRBOl0P021
+ 7tWGM4kSy1rk90+2bf72Sv3vmjm5gW04rZ36HDVatNMUjT6qqWj7Tck0226b778xWB+AZj
+ 9sTN1s9XFFSxgXPPpjYk45H4kMWrR3jBNiwIJQVOtsc5013jhUyIbMA4P97OYw==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>
+Date: Tue, 29 Oct 2024 12:54:08 +0100
+Message-ID: <20241029115419.1160201-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173019843151.651132.13756275797117288059.git-patchwork-notify@kernel.org>
-Date: Tue, 29 Oct 2024 10:40:31 +0000
-References: <20241021061023.2162701-1-0x1207@gmail.com>
-In-Reply-To: <20241021061023.2162701-1-0x1207@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Cc: quic_jsuraj@quicinc.com, davem@davemloft.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, xfr@outlook.com, kuba@kernel.org, pabeni@redhat.com,
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
- DMA map/unmap for non-paged SKB data
+Subject: [Linux-stm32] [PATCH net-next 0/7] Support external snapshots on
+	dwmac1000
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,37 +56,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Mon, 21 Oct 2024 14:10:23 +0800 you wrote:
-> In case the non-paged data of a SKB carries protocol header and protocol
-> payload to be transmitted on a certain platform that the DMA AXI address
-> width is configured to 40-bit/48-bit, or the size of the non-paged data
-> is bigger than TSO_MAX_BUFF_SIZE on a certain platform that the DMA AXI
-> address width is configured to 32-bit, then this SKB requires at least
-> two DMA transmit descriptors to serve it.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v1] net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data
-    https://git.kernel.org/netdev/net/c/66600fac7a98
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksCgpUaGlzIHNlcmllcyBpcyBhbm90aGVyIHRha2Ugb24gdGhlIHBlcnZpb3VzIHdvcmsgWzFd
+IGRvbmUgYnkKQWxleGlzIExvdGhvcsOpLCB0aGF0IGZpeGVzIHRoZSBzdXBwb3J0IGZvciBleHRl
+cm5hbCBzbmFwc2hvdHMKdGltZXN0YW1waW5nIGluIEdNQUMzLWJhc2VkIGRldmljZXMuCgpUaGUg
+cmVnaXN0ZXJzIHRoYXQgYXJlIHVzZWQgdG8gY29uZmlndXJlIHRoaXMgZG9uJ3QgaGF2ZSB0aGUg
+c2FtZSBsYXlvdXQKaW4gdGhlIGR3bWFjMTAwMCBjb21wYXJlZCB0byBkd21hYzQgYW5kIG90aGVy
+cy4KCk9uZSBleGFtcGxlIHdvdWxkIGJlIHRoZSBUUyBzZWNvbmRzL25hbm9zZWNvbmRzIHJlZ2lz
+dGV0IGZvciBzbmFwc2hvdHMsCndoaWNoIGFyZW4ndCBtYXBwZWQgYXQgdGhlIDB4NDgvMHg0YyBi
+dXQgcmF0aGVyIGF0IDB4MzAvMHgzNC4KCkFub3RoZXIgZXhhbXBsZSBpcyB0aGUgd2FzIHRoZSBz
+bmFwc2hvdHMgYXJlIGVuYWJsZWQuIERXTUFDNCBoYXMgYQpkZWRpY2F0ZWQgYXV4aWxpYXJ5IGNv
+bnRyb2wgcmVnaXN0ZXIgKFBUUF9BQ1IgYXQgMHg0MCkgd2hpbGUgb24KRFdNQUMxMDAwLCB0aGlz
+IGlzIGNvbnRyb2xlZCB0aHJvdWdoIHRoZSBQVFAgVGltZXN0YW1wIENvbnRyb2wgUmVnIHVzaW5n
+CmZpZWxkcyBtYWtlZCBhcyByZXNlcnZlZCBvbiBEV01BQzQuCgpJbnRlcnJ1cHRzIGFyZSBhbHNv
+IG5vdCBoYW5kbGVkIHRoZSBzYW1lIHdheSwgYXMgb24gZHdtYWMxMDAwIHRoZXkgYXJlCmNsZWFy
+ZWQgYnkgcmVhZGluZyB0aGUgQXV4aWxpYXJ5IFN0YXR1cyBSZWcsIHdoaWNoIHNpbXBseSBkb2Vz
+bid0IGV4aXN0Cm9uIGR3bWFjNC4KCkFsbCBvZiB0aGlzIG1lYW5zIHRoYXQgd2l0aCB0aGUgY3Vy
+cmVudCBzdGF0ZSBvZiB0aGUgY29kZSwgYXV4aWxpYXJ5CnRpbWVzdGFtcHMgc2ltcGx5IGRvbid0
+IHdvcmsgb24gZHdtYWMxMDAwLgoKQmVzaWRlcyB0aGF0LCB0aGVyZSBhcmUgc29tZSBsaW1pdGF0
+aW9ucyBpbiB0aGUgbnVtYmVyIG9mIGV4dGVybmFsCnNuYXBzaG90IGNoYW5uZWxzLiBJdCB3YXMg
+YWxzbyBmb3VuZCB0aGF0IHRoZSBQUFMgb3V0IGNvbmZpZ3VyYXRpb24gaXMKYWxzbyBub3QgZG9u
+ZSB0aGUgc2FtZSB3YXksIGJ1dCBmaXhpbmcgUFBTIG91dCBpc24ndCBpbiB0aGUgc2NvcGUgb2YK
+dGhpcyBzZXJpZXMuCgpUbyBhZGRyZXNzIHRoYXQgaGFyZHdhcmUgZGlmZmVyZW5jZSwgd2UgaW50
+cm9kdWNlIGRlZGljYXRlZApwdHBfY2xvY2tfaW5mbyBvcHMgYW5kIHBhcmFtZXRlcnMgYXMgd2Vs
+bCBhcyBkZWRpY2F0ZWQgaHd0c3RhbXBfb3BzIGZvcgp0aGUgZHdtYWMxMDAvZHdtYWMxMDAwLiBU
+aGlzIGFsbG93cyBzaW1wbGlmeWluZyB0aGUgY29kZSBmb3IgdGhlc2UKcGxhdGZvcm1zLCBhbmQg
+YXZvaWRzIHRoZSBpbnRyb2R1Y3Rpb24gb2Ygb3RoZXIgc2V0cyBvZiBzdG1tYWMgaW50ZXJuYWwK
+Y2FsbGJhY2tzLgoKVGhlIG5hbWluZyBmb3IgdGhlIG5vbi1kd21hYzEwMDAgb3BzIHdhc24ndCBj
+aGFuZ2VkLCBzbyB3ZSBoYXZlIDoKIC0gZHdtYWMxMDAwX3B0cCAmIHN0bW1hY19wdHAKIC0gZHdt
+YWMxMDAwX3B0cF9jbG9ja19vcHMgJiBzdG1tYWNfcHRwX2Nsb2NrX29wcwoKd2hlcmUgdGhlICJz
+dG1tYWNfKiIgb3BzIHVzZSB0aGUgZHdtYWM0LW9yLWxhdGVyIGJlaGF2aW91ci4KCkkgaGF2ZSBj
+b252ZXJ0ZWQgZHdtYWMxMDAgYWxvbmcgdGhlIHdheSB0byB0aGVzZSBvcHMsIGhvd2V2ZXIgdGhh
+dCdzCmhhc24ndCBiZWVuIHRlc3RlZCBub3IgZnVsbHkgY29uZmlybWVkIHRoYXQgdGhpcyBpcyBj
+b3JyZWN0LCBhcyBJIGRvbid0CmhhdmUgZGF0YXNoZWV0cyBmb3IgZGV2aWNlcyB0aGF0IHVzZXMg
+ZHdtYWMxMDAuCgpJJ3ZlIGNvbnZlcnRlZCBkd21hYzEwMCBqdXN0IG9uIHRoZSBoeXBvdGhlc2lz
+IHRoYXQgdGhlIEdNQUMzX1ggUFRQIG9mZnNldApiZWluZyB1c2VkIGluIGJvdGggZHdtYWMxMDAw
+IGFuZCBkd21hYzEwMCBtZWFucyB0aGF0IHRoZXkgc2hhcmUgdGhlc2Ugc2FtZQpyZWdpc3RlciBs
+YXlvdXRzIGFzIHdlbGwuCgpQYXRjaCAxIHByZXBhcmVzIHRoZSB1c2Ugb2YgcGVyLWh3IGludGVy
+ZmFjZSBwdHBfY2xvY2tfaW5mbyBieSBhdm9pZGluZwp0aGUgbW9kaWZpY2F0aW9uIG9mIHRoZSBn
+bG9iYWwgcGFyYW1ldGVycy4gVGhpcyBhbGxvd3MgbWFraW5nIHRoZQpzdG1tYWNfcHRwX2Nsb2Nr
+X29wcyBjb25zdC4KClBhdGNoIDIgYWRkcyB0aGUgcHRwX2Nsb2NrX2luZm8gYXMgYW4gaHdpZiBw
+YXJhbWV0ZXIuCgpQYXRjaCAzIGFkZHJlc3NlcyB0aGUgYXV0b2Rpc2NvdmVyeSBvZiB0aGUgdGlt
+ZXN0YW1waW5nIGZlYXR1cmVzLCBhcwpkd21hYzEwMDAgZG9lc24ndCBwcm92aWRlIHRoZXNlIHBh
+cmFtZXRlcnMKClBhdGNoIDQgaW50cm9kdWNlcyB0aGUgcHRwX2Nsb2NrX2luZm8gc3BlY2lmaWMg
+dG8gZHdtYWMxMDAwIHBsYXRmb3JtcywKYW5kIFBhdGNoIDUgdGhlIGh3dHN0YW1waW5nIGluZm8u
+CgpQYXRjaCA2IGVuYWJsZXMgdGhlIHRpbWVzdGFtcGluZyBpbnRlcnJ1cHQgZm9yIGV4dGVybmFs
+IHNuYXBzaG90CgpQYXRjaCA3IHJlbW92ZXMgYSBub24tbmVjZXNzYXJ5IGluY2x1ZGUgZnJvbSBz
+dG1tYWNfcHRwLmMuCgpUaGlzIHdhcyB0ZXN0ZWQgb24gZHdtYWNfc29jZnBnYSwgaG93ZXZlciB0
+aGlzIHdhc24ndCB0ZXN0ZWQgb24gYQpkd21hYzQtYmFzZWQgcGxhdGZvcm0uCgpbMV06IGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi8yMDIzMDYxNjEwMDQwOS4xNjQ1ODMtMS1hbGV4aXMu
+bG90aG9yZUBib290bGluLmNvbS8KClRoYW5rcyBBbGV4aXMgZm9yIGxheWluZyB0aGUgZ3JvdW5k
+d29yayBmb3IgdGhpcywKCkJlc3QgcmVnYXJkcywKCk1heGltZQoKTWF4aW1lIENoZXZhbGxpZXIg
+KDcpOgogIG5ldDogc3RtbWFjOiBEb24ndCBtb2RpZnkgdGhlIGdsb2JhbCBwdHAgb3BzIGRpcmVj
+dGx5CiAgbmV0OiBzdG1tYWM6IFVzZSBwZXItaHcgcHRwIGNsb2NrIG9wcwogIG5ldDogc3RtbWFj
+OiBPbmx5IHVwZGF0ZSB0aGUgYXV0by1kaXNjb3ZlcmVkIFBUUCBjbG9jayBmZWF0dXJlcwogIG5l
+dDogc3RtbWFjOiBJbnRyb2R1Y2UgZHdtYWMxMDAwIHB0cF9jbG9ja19pbmZvIGFuZCBvcGVyYXRp
+b25zCiAgbmV0OiBzdG1tYWM6IEludHJvZHVjZSBkd21hYzEwMDAgdGltZXN0YW1waW5nIG9wZXJh
+dGlvbnMKICBuZXQ6IHN0bW1hYzogRW5hYmxlIHRpbWVzdGFtcGluZyBpbnRlcnJ1cHQgb24gZHdt
+YWMxMDAwCiAgbmV0OiBzdG1tYWM6IERvbid0IGluY2x1ZGUgZHdtYWM0IGRlZmluaXRpb25zIGlu
+IHN0bW1hY19wdHAKCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24u
+aCAgfCAgNCArCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjMTAwMC5oICAg
+fCAxNSArKystCiAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMxMDAwX2NvcmUuYyAg
+fCA4NSArKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9od2lmLmMgICAgfCAxNCArKy0KIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1t
+YWNfaHd0c3RhbXAuYyB8IDExICsrKwogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9z
+dG1tYWNfcHRwLmMgIHwgMzggKysrKysrKy0tCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL3N0bW1hY19wdHAuaCAgfCAxMCArKysKIDcgZmlsZXMgY2hhbmdlZCwgMTY1IGluc2VydGlv
+bnMoKyksIDEyIGRlbGV0aW9ucygtKQoKLS0gCjIuNDcuMAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
