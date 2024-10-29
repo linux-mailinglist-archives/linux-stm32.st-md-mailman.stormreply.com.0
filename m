@@ -2,67 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013039B4EF4
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 17:11:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D670D9B5228
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2024 19:52:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB663C71290;
-	Tue, 29 Oct 2024 16:11:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EE42C71290;
+	Tue, 29 Oct 2024 18:52:43 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A356FC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EB91C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 16:11:21 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49TCDCcJ003448;
- Tue, 29 Oct 2024 17:11:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- MkDktSYrjXNPZMAtxoSkcXW+d4aBH8F1X5a432npQX8=; b=V3PYjkVLwMqzXB4l
- CS/mON3AaOAapVnS8zQmnPVjM8PM41HaPZhQEr/F7k/lLm57SdoOUf2BS4lN3PRc
- Iu/owBTh0qL7ljgwinFl3hWtRdX7v/3ezMfe3HA9n008mD6Z1NkWHAvxSs0OiZ5a
- aWW/usqEB9fVMehHEZ9UUY+NFXzjAuGjN5io+tTzFBH9nqkCGw/oVoPTTOM2jqzw
- ZfPxcJ0VEEMY77vT3ONE7V7yQdszow1ZvxpaF0pxfZwWBw5Nj/amT/PTuUko4xWT
- kDJbaftv2kJFX24ob+StWReNIA3aMx4wkBPSjQhnri8o4MklCG0eczaO/K1zOsS/
- O8MLyg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42ha00w283-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Oct 2024 17:11:06 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B122B40049;
- Tue, 29 Oct 2024 17:10:06 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 061332649E7;
- Tue, 29 Oct 2024 17:09:26 +0100 (CET)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 29 Oct
- 2024 17:09:25 +0100
-Message-ID: <f091f532-f6b0-429c-9fde-c952c9c26382@foss.st.com>
-Date: Tue, 29 Oct 2024 17:09:24 +0100
+ Tue, 29 Oct 2024 18:52:36 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-37d450de14fso518094f8f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 29 Oct 2024 11:52:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730227955; x=1730832755;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=cQbHGrEqsKD5aF1OKVKnRulxpzJaf4NY46AhJlO9sJg=;
+ b=WWEnyucumL8/A500IOcSb3A/dG7WepH3+CC0517a02wyVBL79ig+tQSnqgoqEqylgv
+ n1GHxibrA1ZciZpB4EAH/8wvcSWHrAu0XdQ3hyWPlGQfoAW/QzskK7O40rG8CAuRL6IX
+ DWs6LP0JvBD694PFDuavipqZYIsl4Mf2AVOlT/Kf9Lvdb0zMCOQ7Ep+/qT6YN+PgDIxd
+ xXdh9ry70tSQdjFm4MZzdWz8w+W/gr1lDkEesGPN7yeMxfHI0VrubDSVzgiTbdfzllZr
+ F/d5CjnyuvCt7l8xjshNu2jcQPZ8dX1kfBhESX6cb1sD6q6NDudB9uzoSm2brpR5feP+
+ nD/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730227955; x=1730832755;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cQbHGrEqsKD5aF1OKVKnRulxpzJaf4NY46AhJlO9sJg=;
+ b=VV/Uo8w2Hr9ojCICPlxkNl+BtahV4fJlSK2Shc+Mxb36k9w/XNrLDFyaSzld2xI9na
+ 8av/Zjw4vPLuPPY+oUPiMxIhuPkYhu0hKW7+HmztDcZyCC0Vb5EsxDDz0zyYfCFEMToG
+ kG1t8OGUuBV0tgzwzhV2S3IFj2Uy/4L0JO5Wy2/wqr9eci41aceGDX3qj4PIt9t6lZFr
+ 5Dipgz00kXfaonm1ZU0e4WLacOusyjRL9syWd9I5ucuwIl9RZ7xxeUjvY5MmKd2/PxZD
+ lgaUc5qan2TC/lchM9uFkxE1exZ1+SeOVmhuCoX4AmsnzcL86c/wre/9x3oHFaBoxkEn
+ FhRw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX++mAM7HtSqvJ7aKOMjCfk55qxS5u6+0BL+zd5hsOTfif9+EJmOJ7E+dW5UinUxIZf8xPAh4ggKv+Mgw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx5XtCd1MdwWyFPQuqxafRvuuyExvonsL0c16OnlSSlQ/5PFUhp
+ XuZvagNg4kFy3KVa9W1f01LbFXQYlNWdMQHR57fa6pzhpcnW0iBR
+X-Google-Smtp-Source: AGHT+IF1JuH5GETYzM48l9lfnZfPVRTjPuBUwhpTxF2mnfjmnhq15lSAoKb5oQuP+txb+/2Ssczf8A==
+X-Received: by 2002:a05:600c:1c29:b0:431:50b9:fa81 with SMTP id
+ 5b1f17b1804b1-4319ad368f4mr46064815e9.7.1730227955179; 
+ Tue, 29 Oct 2024 11:52:35 -0700 (PDT)
+Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43193573e47sm154555825e9.8.2024.10.29.11.52.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Oct 2024 11:52:34 -0700 (PDT)
+Date: Tue, 29 Oct 2024 20:52:31 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20241029185231.fgy6tofi2uoslp3l@skbuf>
+References: <cover.1730084449.git.0x1207@gmail.com>
+ <0f13217c5f7a543121286f13b389b5800bde1730.1730084449.git.0x1207@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Vinod Koul
- <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-References: <20241016-dma3-mp25-updates-v3-0-8311fe6f228d@foss.st.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20241016-dma3-mp25-updates-v3-0-8311fe6f228d@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/9] STM32 DMA3 updates for STM32MP25
+Content-Disposition: inline
+In-Reply-To: <0f13217c5f7a543121286f13b389b5800bde1730.1730084449.git.0x1207@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Simon Horman <horms@kernel.org>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/6] net: stmmac: Refactor FPE
+ functions to generic version
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,74 +83,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+On Mon, Oct 28, 2024 at 11:07:26AM +0800, Furong Xu wrote:
+>  void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+>  {
+>  	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+>  	unsigned long flags;
+>  
+> +	if (!priv->dma_cap.fpesel)
+> +		return;
+> +
 
-On 10/16/24 14:39, Amelie Delaunay wrote:
-> The HW version of STM32 DMA3 inside STM32MP25 requires some tunings to
-> meet the needs of the interconnect. This series adds the linked list
-> refactoring feature to have optimal performance when addressing the
-> memory, and it adds the use of two new bits in the third cell specifying
-> the DMA transfer requirements:
-> - bit[16] to prevent packing/unpacking mode to avoid bytes loss in case
-> of interrupting an ongoing transfer (e.g. UART RX),
-> - bit[17] to prevent linked-list refactoring because some peripherals
-> (e.g. FMC ECC) require a one-shot transfer, they trigger the DMA only
-> once.
-> It also adds platform data to clamp the burst length on AXI port,
-> especially when it is interconnected to AXI3 bus, such as on STM32MP25.
-> Finally this series also contains STM32MP25 device tree updates, to add
-> DMA support on SPI, I2C, UART and apply the tunings introduced.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
-> Changes in v3:
-> - Refine commit description of patch 4 about preventing
->    additionnal transfers, as per Rob's suggestion.
-> - Link to v2: https://lore.kernel.org/r/20241015-dma3-mp25-updates-v2-0-b63e21556ec8@foss.st.com
-> 
-> Changes in v2:
-> - Reword commit title/message/content of patch 4 about preventing
->    additionnal transfers, as per Rob's suggestion
-> - Rework AXI maximum burst length management using SoC specific
->    compatible, as pointed out by Rob
-> - Drop former patches 6 and 8, which are no longer relevant
-> - Link to v1: https://lore.kernel.org/r/20241010-dma3-mp25-updates-v1-0-adf0633981ea@foss.st.com
-> 
-> ---
-> Amelie Delaunay (9):
->        dt-bindings: dma: stm32-dma3: prevent packing/unpacking mode
->        dmaengine: stm32-dma3: prevent pack/unpack thanks to DT configuration
->        dmaengine: stm32-dma3: refactor HW linked-list to optimize memory accesses
->        dt-bindings: dma: stm32-dma3: prevent additional transfers
->        dmaengine: stm32-dma3: prevent LL refactoring thanks to DT configuration
->        dmaengine: stm32-dma3: clamp AXI burst using match data
->        arm64: dts: st: add DMA support on U(S)ART instances of stm32mp25
->        arm64: dts: st: add DMA support on I2C instances of stm32mp25
->        arm64: dts: st: add DMA support on SPI instances of stm32mp25
-> 
+Minor nitpick: all call sites also have this test already.
 
-Patches [7], [8], and [9] applied on stm32-next.
+>  	timer_shutdown_sync(&fpe_cfg->verify_timer);
+>  
+>  	spin_lock_irqsave(&fpe_cfg->lock, flags);
+>  
+>  	if (is_up && fpe_cfg->pmac_enabled) {
+>  		/* VERIFY process requires pmac enabled when NIC comes up */
+> -		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+> -				     priv->plat->tx_queues_to_use,
+> +		stmmac_fpe_configure(priv, priv->plat->tx_queues_to_use,
+>  				     priv->plat->rx_queues_to_use,
+>  				     false, true);
+>  
+> @@ -154,6 +161,11 @@ void stmmac_fpe_init(struct stmmac_priv *priv)
+>  	priv->fpe_cfg.status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
+>  	timer_setup(&priv->fpe_cfg.verify_timer, stmmac_fpe_verify_timer, 0);
+>  	spin_lock_init(&priv->fpe_cfg.lock);
+> +
+> +	if (priv->dma_cap.fpesel && !priv->fpe_cfg.reg) {
+> +		dev_warn(priv->device, "FPE on this MAC is not supported by driver, force disable it.\n");
+> +		priv->dma_cap.fpesel = 0;
+> +	}
 
-Thanks
-Alex
+Let's not change the output of stmmac_dma_cap_show() sysfs attribute if
+we don't have to. Who knows what depends on that. It's better to
+introduce stmmac_fpe_supported(), which tests for both conditions,
+and use it throughout (except, of course, for the sysfs, which should
+still print the raw DMA capability).
 
+Which devices would those even be, which support FPE but the driver
+doesn't deal with them (after your XGMAC addition), do you have any idea?
 
+>  }
+>  
+>  void stmmac_fpe_apply(struct stmmac_priv *priv)
+> @@ -164,8 +176,7 @@ void stmmac_fpe_apply(struct stmmac_priv *priv)
+>  	 * Otherwise let the timer code do it.
+>  	 */
+>  	if (!fpe_cfg->verify_enabled) {
+> -		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
+> -				     priv->plat->tx_queues_to_use,
+> +		stmmac_fpe_configure(priv, priv->plat->tx_queues_to_use,
+>  				     priv->plat->rx_queues_to_use,
+>  				     fpe_cfg->tx_enabled,
+>  				     fpe_cfg->pmac_enabled);
+> @@ -178,50 +189,54 @@ void stmmac_fpe_apply(struct stmmac_priv *priv)
+>  	}
+>  }
+>  
+> -void dwmac5_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
+> -			  u32 num_txq, u32 num_rxq,
+> +void stmmac_fpe_configure(struct stmmac_priv *priv, u32 num_txq, u32 num_rxq,
+>  			  bool tx_enable, bool pmac_enable)
 
->   .../bindings/dma/stm32/st,stm32-dma3.yaml          |   6 ++
->   arch/arm64/boot/dts/st/stm32mp251.dtsi             |  75 +++++++++++++
->   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |   2 +
->   drivers/dma/stm32/stm32-dma3.c                     | 119 +++++++++++++++++----
->   4 files changed, 182 insertions(+), 20 deletions(-)
-> ---
-> base-commit: 76355c25e4f71ee4667ebaadd9faf8ec29d18f23
-> change-id: 20241015-dma3-mp25-updates-d7f26753b0dd
-> 
-> Best regards,
+num_txq? not used anywhere. num_rxq? can be retrieved from the "priv"
+pointer already provided.
+
+The rest of the series looks good, I have no other comments.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
