@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 520579B622D
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2024 12:47:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17089B624B
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2024 12:51:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A505C78027;
-	Wed, 30 Oct 2024 11:47:18 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59EB3C78023;
+	Wed, 30 Oct 2024 11:51:41 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7DB6C78023
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA7B1C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2024 11:47:10 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-37d6716e200so994681f8f.3
+ Wed, 30 Oct 2024 11:51:33 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4314ff68358so8010045e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2024 04:47:10 -0700 (PDT)
+ Wed, 30 Oct 2024 04:51:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730288830; x=1730893630;
+ d=gmail.com; s=20230601; t=1730289093; x=1730893893;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=71Z6N0f0s9Q9l3FMkhrwHC4fWFLGTTR2mo+j6DbIOd4=;
- b=gEe0aUyJuNxpfPILJi5RLaqkfBqY7wWrKMkK0VFBJcyh1fr3DsXUWeDcF2gtvirjRC
- 8My9bPQBEDWu0v5mg386hobGl8Wfg4llyqqrZxOMxOBBVtW5vBB9PEZxoccoitRFtNeJ
- 4YhX6EMYpdpdiIPtGkB1ZrDZLe6t8h/dn3gjXQ5Y9r/fsnnDYc1ziNI0/dCkeSTTVoeI
- tBfZArHwhxHo9w3ri6Hn6u3kptIRon8CI645WOX4JPFluFr7Hqfe7fIRGjv3WXuvaX0b
- h/4JRMauFIzLKmMWjaizJaJbF4jzzJxX0Se9QvkRVGGkA0wLV9JQj1XH04wMdMbAgWRo
- 8bFw==
+ bh=zr8em/6KB2VzZDWr+lWK7JictXqq7aOltFeo+p/9gI8=;
+ b=bh4ELHuF9gOiUP/THcjN6UzdfJBGevm47kvgm32HTLXVyPurkAdftdjwQ4RRAWuGGY
+ lB9JiPl5lFZhQJj7DyabJAXBW7XMv1HrlqasAwwVglua5KyFRqagPVHXXZCFDc6V+IPf
+ ukD9ZdI0yhrt72A5AbD4/1CF9dQfM1yFAfgm+Pco72IaSzrUG6r3HFCU6oQUgJo5g45S
+ 0XfZcFUf/XiokbrA3e4J+xcSG9oUBngH9b4QxNu6rjMJcy4DTV8GlResEbPsuk2R94aj
+ r/CKJKt2Chtk5FUayscXoxyykEUA3CLLwnUmBAKb8A6PKYsISBbeq+1Q9uyeLZhvAkS8
+ dEXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730288830; x=1730893630;
+ d=1e100.net; s=20230601; t=1730289093; x=1730893893;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=71Z6N0f0s9Q9l3FMkhrwHC4fWFLGTTR2mo+j6DbIOd4=;
- b=PMMY36wdmcZAKfqM53jdA3/NxU8bipZvfJExX1y7UbiLPRoMdqbID2GMATXIbumSm/
- h8wJ/wjW097b+OuNM+MEKd0aUO68TeEq6TUt/qarEiO/QLL47mPIc+JNGtNaLjCa8SOf
- njv8w5KlKyposLkbCzHn3A5MB1oGxFtdp3+ith2zDS/zjfHDbRZRpQrzJtbHo1eiRt4W
- AX2yoM6Bkv3JephdOCl/9IlsbLU+pKBmQhoGThg4slaDjt9LhoiBDGIKj1mT0xcwxeko
- BfM1rGfhFx0iqk7N7zjKBMvTEgEBOUZ6VoQc1MXqlKfbsl/9jl5WHt98dwhwru3wURlz
- +A6g==
+ bh=zr8em/6KB2VzZDWr+lWK7JictXqq7aOltFeo+p/9gI8=;
+ b=KKXbAC0hojRifv7rwm3D4EY0J4jM2Ff4uIA63+v4YA2relYJNbTTUjZKOyK1+mB4o+
+ vsofRc0zhUXBN2OdLa09Rb9Om4/9jz0MprjCyNI/m6EGvECcZw/mTJJXSJvcCkBNo4TC
+ 0kRD0F3Cu/3KdaDfvTFiK+sgtsUi/R2fv5nb8F3iV19hCDBtAQlQDeAMNcxs3w+qmWRO
+ ehuA1ID/GWuVr/DeLNdjwFYvPQBg5TdWApqIgwqioCxudNekAYAqzDw8A/a0/AeGggut
+ 2ti38A/HNEdCSgSxA2oGrGpyDOXiSrfMVuKfVXLiCT4AjKfMxHNmm4K/B5DWV1LC13xW
+ wIqg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVf3xkJqnzd8nqthNS3av9+HmRndzoUVJHimrC5QiUrfuXFnxVGWKotxa7Frx3MgeXYNMxB7+doY3GNWw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxS0OQH6i9AzxMH3Kll1iSzIcF9LjV4X4NrPDO9cSnbAElBOr/9
- PT46aMWWXKLgr8JIppRzGB0Nz824frERKolK5HXE3AR7/YuXunDP
-X-Google-Smtp-Source: AGHT+IH9XhTipE8INCmJM9rDpTSk6gZJf8Rw2L5Pqs2PM2odooDFAsmqFnRjL6M7rtEJXarPjCXh7g==
-X-Received: by 2002:a05:6000:18a3:b0:378:c6f5:9e54 with SMTP id
- ffacd0b85a97d-3806112785amr5406861f8f.5.1730288829817; 
- Wed, 30 Oct 2024 04:47:09 -0700 (PDT)
+ AJvYcCWjz03lwqFZ44z27DAWmZ2pOLwxjlIOPqzfhKoa1izmG8696AN5DvCKaCq0Cn1irce6kQubnPITI4vnvw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx4g1kWvyqzlEeMTxKoGUYDDd6vPleMD2RDyefXdTjHE9l1FzmS
+ CpNWv7jyXI8wDY2TGIW3TRI4KxQwXnvpvyhZ2kfQLmFffizvdU1O
+X-Google-Smtp-Source: AGHT+IHfOnqANP7C09P+cywgl9OXz0QiH/fs1DGqvzLpja17LiaKIrBmvdJfRFGCtH5Hajte3gqlzQ==
+X-Received: by 2002:a5d:64cf:0:b0:37e:d92f:8272 with SMTP id
+ ffacd0b85a97d-38061222801mr5875538f8f.6.1730289093192; 
+ Wed, 30 Oct 2024 04:51:33 -0700 (PDT)
 Received: from skbuf ([188.25.134.29]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431bd917f0bsm18906905e9.17.2024.10.30.04.47.08
+ ffacd0b85a97d-38058b70d5csm15250055f8f.89.2024.10.30.04.51.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Oct 2024 04:47:08 -0700 (PDT)
-Date: Wed, 30 Oct 2024 13:47:06 +0200
+ Wed, 30 Oct 2024 04:51:32 -0700 (PDT)
+Date: Wed, 30 Oct 2024 13:51:30 +0200
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20241030114706.yaevtgpefwfxva5v@skbuf>
+Message-ID: <20241030115130.pnfoy5iiioha5oxk@skbuf>
 References: <cover.1730263957.git.0x1207@gmail.com>
  <cover.1730263957.git.0x1207@gmail.com>
- <cc87e0e02610a5ebfb0079716061f57fb9678dfc.1730263957.git.0x1207@gmail.com>
- <cc87e0e02610a5ebfb0079716061f57fb9678dfc.1730263957.git.0x1207@gmail.com>
+ <7d6db0a3e995163b6f2ff69f88b650eea812ce5d.1730263957.git.0x1207@gmail.com>
+ <7d6db0a3e995163b6f2ff69f88b650eea812ce5d.1730263957.git.0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cc87e0e02610a5ebfb0079716061f57fb9678dfc.1730263957.git.0x1207@gmail.com>
- <cc87e0e02610a5ebfb0079716061f57fb9678dfc.1730263957.git.0x1207@gmail.com>
+In-Reply-To: <7d6db0a3e995163b6f2ff69f88b650eea812ce5d.1730263957.git.0x1207@gmail.com>
+ <7d6db0a3e995163b6f2ff69f88b650eea812ce5d.1730263957.git.0x1207@gmail.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
@@ -73,8 +73,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Simon Horman <horms@kernel.org>, xfr@outlook.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v6 3/6] net: stmmac: Refactor FPE
- functions to generic version
+Subject: Re: [Linux-stm32] [PATCH net-next v6 5/6] net: stmmac: xgmac:
+	Complete FPE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,171 +91,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 30, 2024 at 01:36:12PM +0800, Furong Xu wrote:
-> FPE implementation for DWMAC4 and DWXGMAC differs only for:
-> 1) Offset address of MAC_FPE_CTRL_STS and MTL_FPE_CTRL_STS
-> 2) FPRQ(Frame Preemption Residue Queue) field in MAC_RxQ_Ctrl1
-> 3) Bit offset of Frame Preemption Interrupt Enable
-> 
-> Refactor FPE functions to avoid code duplication.
-
-I would add "and to simplify the code flow by avoiding the use of
-function pointers".
-
-> 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> ---
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-> index 70ea475046f0..ee86658f77b4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
-> @@ -27,6 +27,20 @@
->  #define STMMAC_MAC_FPE_CTRL_STS_SVER	BIT(1)
->  #define STMMAC_MAC_FPE_CTRL_STS_EFPE	BIT(0)
->  
-> +struct stmmac_fpe_reg {
-> +	const u32 mac_fpe_reg;		/* offset of MAC_FPE_CTRL_STS */
-> +	const u32 mtl_fpe_reg;		/* offset of MTL_FPE_CTRL_STS */
-> +	const u32 rxq_ctrl1_reg;	/* offset of MAC_RxQ_Ctrl1 */
-> +	const u32 fprq_mask;		/* Frame Preemption Residue Queue */
-> +	const u32 int_en_reg;		/* offset of MAC_Interrupt_Enable */
-> +	const u32 int_en_bit;		/* Frame Preemption Interrupt Enable */
-> +};
-> +
-> +bool stmmac_fpe_supported(struct stmmac_priv *priv)
+On Wed, Oct 30, 2024 at 01:36:14PM +0800, Furong Xu wrote:
+> +int dwxgmac3_fpe_map_preemption_class(struct net_device *ndev,
+> +				      struct netlink_ext_ack *extack, u32 pclass)
 > +{
-> +	return (priv->dma_cap.fpesel && priv->fpe_cfg.reg);
+> +	u32 val, offset, count, preemptible_txqs = 0;
+> +	struct stmmac_priv *priv = netdev_priv(ndev);
+> +	u32 num_tc = ndev->num_tc;
+
+Curiously, struct net_device :: num_tc is s16. Just use netdev_get_num_tc()
+and store it as int...
+
+> +
+> +	if (!num_tc) {
+> +		/* Restore default TC:Queue mapping */
+> +		for (u32 i = 0; i < priv->plat->tx_queues_to_use; i++) {
+> +			val = readl(priv->ioaddr + XGMAC_MTL_TXQ_OPMODE(i));
+> +			writel(u32_replace_bits(val, i, XGMAC_Q2TCMAP),
+> +			       priv->ioaddr + XGMAC_MTL_TXQ_OPMODE(i));
+> +		}
+> +	}
+> +
+> +	/* Synopsys Databook:
+> +	 * "All Queues within a traffic class are selected in a round robin
+> +	 * fashion (when packets are available) when the traffic class is
+> +	 * selected by the scheduler for packet transmission. This is true for
+> +	 * any of the scheduling algorithms."
+> +	 */
+> +	for (u32 tc = 0; tc < num_tc; tc++) {
+> +		count = ndev->tc_to_txq[tc].count;
+> +		offset = ndev->tc_to_txq[tc].offset;
+> +
+> +		if (pclass & BIT(tc))
+> +			preemptible_txqs |= GENMASK(offset + count - 1, offset);
+> +
+> +		for (u32 i = 0; i < count; i++) {
+> +			val = readl(priv->ioaddr + XGMAC_MTL_TXQ_OPMODE(offset + i));
+> +			writel(u32_replace_bits(val, tc, XGMAC_Q2TCMAP),
+> +			       priv->ioaddr + XGMAC_MTL_TXQ_OPMODE(offset + i));
+> +		}
+> +	}
+> +
+> +	val = readl(priv->ioaddr + XGMAC_MTL_FPE_CTRL_STS);
+> +	writel(u32_replace_bits(val, preemptible_txqs, FPE_MTL_PREEMPTION_CLASS),
+> +	       priv->ioaddr + XGMAC_MTL_FPE_CTRL_STS);
+> +
+> +	return 0;
 > +}
-
-This is a separate logical change from just refactoring. Refactoring
-changes (which are noisy) should not have functional changes. Could
-the introduction and use of stmmac_fpe_supported() please be a separate
-patch?
-
-Also, parentheses are not necessary.
-
-> +
->  void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
->  {
->  	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
-> @@ -38,25 +52,19 @@ void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
->  
->  	if (is_up && fpe_cfg->pmac_enabled) {
->  		/* VERIFY process requires pmac enabled when NIC comes up */
-> -		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
-> -				     priv->plat->tx_queues_to_use,
-> -				     priv->plat->rx_queues_to_use,
-> -				     false, true);
-> +		stmmac_fpe_configure(priv, false, true);
->  
->  		/* New link => maybe new partner => new verification process */
->  		stmmac_fpe_apply(priv);
->  	} else {
->  		/* No link => turn off EFPE */
-> -		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
-> -				     priv->plat->tx_queues_to_use,
-> -				     priv->plat->rx_queues_to_use,
-> -				     false, false);
-> +		stmmac_fpe_configure(priv, false, false);
->  	}
->  
->  	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
->  }
->  
-> -void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
-> +static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
->  {
->  	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
->  
-> @@ -68,8 +76,7 @@ void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
->  
->  	/* LP has sent verify mPacket */
->  	if ((status & FPE_EVENT_RVER) == FPE_EVENT_RVER)
-> -		stmmac_fpe_send_mpacket(priv, priv->ioaddr, fpe_cfg,
-> -					MPACKET_RESPONSE);
-> +		stmmac_fpe_send_mpacket(priv, MPACKET_RESPONSE);
->  
->  	/* Local has sent verify mPacket */
->  	if ((status & FPE_EVENT_TVER) == FPE_EVENT_TVER &&
-> @@ -107,8 +114,7 @@ static void stmmac_fpe_verify_timer(struct timer_list *t)
->  	case ETHTOOL_MM_VERIFY_STATUS_INITIAL:
->  	case ETHTOOL_MM_VERIFY_STATUS_VERIFYING:
->  		if (fpe_cfg->verify_retries != 0) {
-> -			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
-> -						fpe_cfg, MPACKET_VERIFY);
-> +			stmmac_fpe_send_mpacket(priv, MPACKET_VERIFY);
->  			rearm = true;
->  		} else {
->  			fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_FAILED;
-> @@ -118,10 +124,7 @@ static void stmmac_fpe_verify_timer(struct timer_list *t)
->  		break;
->  
->  	case ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED:
-> -		stmmac_fpe_configure(priv, priv->ioaddr, fpe_cfg,
-> -				     priv->plat->tx_queues_to_use,
-> -				     priv->plat->rx_queues_to_use,
-> -				     true, true);
-> +		stmmac_fpe_configure(priv, true, true);
->  		break;
->  
->  	default:
-> @@ -154,6 +157,9 @@ void stmmac_fpe_init(struct stmmac_priv *priv)
->  	priv->fpe_cfg.status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
->  	timer_setup(&priv->fpe_cfg.verify_timer, stmmac_fpe_verify_timer, 0);
->  	spin_lock_init(&priv->fpe_cfg.lock);
-> +
-> +	if (priv->dma_cap.fpesel && !priv->fpe_cfg.reg)
-> +		dev_info(priv->device, "FPE on this MAC is not supported by driver.\n");
-
-This as well.
-
->  }
->  
->  void stmmac_fpe_apply(struct stmmac_priv *priv)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
-> index 25725fd5182f..00e616d7cbf1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
-> @@ -22,24 +22,21 @@ struct stmmac_priv;
->  struct stmmac_fpe_cfg;
->  
->  void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up);
-> -void stmmac_fpe_event_status(struct stmmac_priv *priv, int status);
-> +bool stmmac_fpe_supported(struct stmmac_priv *priv);
->  void stmmac_fpe_init(struct stmmac_priv *priv);
->  void stmmac_fpe_apply(struct stmmac_priv *priv);
-> -
-> -void dwmac5_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
-> -			  u32 num_txq, u32 num_rxq,
-> -			  bool tx_enable, bool pmac_enable);
-> -void dwmac5_fpe_send_mpacket(void __iomem *ioaddr,
-> -			     struct stmmac_fpe_cfg *cfg,
-> +void stmmac_fpe_configure(struct stmmac_priv *priv, bool tx_enable,
-> +			  bool pmac_enable);
-> +void stmmac_fpe_send_mpacket(struct stmmac_priv *priv,
->  			     enum stmmac_mpacket_type type);
-
-Sorry I noticed this just now. After the refactoring, stmmac_fpe_send_mpacket()
-is only used from stmmac_fpe.c, and thus can be unexported and made static.
-Same goes for enum stmmac_mpacket_type.
-
-> -int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev);
-> -int dwmac5_fpe_get_add_frag_size(const void __iomem *ioaddr);
-> -void dwmac5_fpe_set_add_frag_size(void __iomem *ioaddr, u32 add_frag_size);
-> +void stmmac_fpe_irq_status(struct stmmac_priv *priv);
-> +int stmmac_fpe_get_add_frag_size(struct stmmac_priv *priv);
-> +void stmmac_fpe_set_add_frag_size(struct stmmac_priv *priv, u32 add_frag_size);
-> +
->  int dwmac5_fpe_map_preemption_class(struct net_device *ndev,
->  				    struct netlink_ext_ack *extack, u32 pclass);
->  
-> -void dwxgmac3_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
-> -			    u32 num_txq, u32 num_rxq,
-> -			    bool tx_enable, bool pmac_enable);
-> +extern const struct stmmac_fpe_reg dwmac5_fpe_reg;
-> +extern const struct stmmac_fpe_reg dwxgmac3_fpe_reg;
->  
->  #endif
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
