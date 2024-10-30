@@ -2,89 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBF689B58C8
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2024 01:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB52E9B5986
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2024 02:47:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87A89C78020;
-	Wed, 30 Oct 2024 00:43:52 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D4E7C78020;
+	Wed, 30 Oct 2024 01:47:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0EF9C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BDE7C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2024 00:43:44 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-20cf3e36a76so61184775ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2024 17:43:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730249023; x=1730853823;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=iZ3S2WcB+zGxiJngz5Z329XPyYJE8uVordKNgTGUhwk=;
- b=KuoEOKIf0P1lecQ4ZTTdFVGrAQQ7WhTaepi+A4/4wjz28UbdDV3kqHK+ba0ie45yaz
- 08/v9Xc1V26BhuOcgnN0/XhnCtPcja9Xl3xB1GuoiKFhmo5x0DTLh/tr5JTGOnUf7rt/
- zq7arwe5g93UzDIs/VT2go1+X6H7xjpXVnip39Y6uLH/VXamnBoyyKWTYSTHGb6vB4xB
- cUxNr0L8RddCTnvaYEZKg1ODcFqJP0B8Ln5yfEN0zvNyrdL0beZpbgPNU1gNkTF6zreY
- 6mKttwtrqK1AEXPlDGnjGv+KIFV15OSDIO7J2MO4nTwQTqt41G2wuN1/HQ/yPxnRl0KK
- a7SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730249023; x=1730853823;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iZ3S2WcB+zGxiJngz5Z329XPyYJE8uVordKNgTGUhwk=;
- b=OfCav8sadtnr3YKB3Ye32N3ZVeMtZWc+KoJtWynS7QhoUtGzX5cJssqJ8LDtJcQ/lz
- c9u0iO+Z2m4EC0E227Ofed8i1CCBTCuX492dhWOQ65aRPiGaPW4tX9foXeyJ20qxL6K3
- /ld5e6RHmN37iycNT3qsPiqI1H+re37DJdoaa0dc2bS4qTzhbRieR+f3ZEbVRNp8WXCA
- O5CSZI0G4dSzXyPHxKv6geQYKy/z1xqsFbm1gS1MSHmgfh5YyMmPmEj0hZIAaw2AjUc8
- mJXtQZ03Y5QfqTCCvEnRrbAzcxwz67f1zdpjau1eYciBODrc2n6myX+ei1ldwGg3Yv+0
- 30UA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXgtPlc2/fWuzG42xKGQ+KOoY2MV8U84h8R8mDyUn/Y4Kvwb9HrlYdInxVkoFbZtgVTnu8tKhd+Z/5cnw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxGYK6SYQ9Y9vjxC/obxSKp9uLbxjIUe9NqyBwmhe0wWIqY0HlG
- 9l2hwEs+bOvFLaW6zpmq164+iHU4b1o0Ihm6xR8vBvKJDm5jU46q
-X-Google-Smtp-Source: AGHT+IHHRyGyDkKcNwaxMn/2+7uQYnlMNqSGQQ6CzP4zXPjfAAfmUzV8DyN0d/uv99tZavi9Wq36BA==
-X-Received: by 2002:a17:902:d2d2:b0:20b:6d71:4140 with SMTP id
- d9443c01a7336-210c6c7354cmr156629705ad.44.1730249023405; 
- Tue, 29 Oct 2024 17:43:43 -0700 (PDT)
-Received: from localhost ([121.250.214.124]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-210bc02eee6sm72101525ad.219.2024.10.29.17.43.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 17:43:43 -0700 (PDT)
-Date: Wed, 30 Oct 2024 08:43:16 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <kg4fvjertilaekjwuwxiojy25qsrwrmc3pxnpu35awg7klmlmw@3aar5yqe3olc>
-References: <20241025011000.244350-1-inochiama@gmail.com>
- <20241025011000.244350-3-inochiama@gmail.com>
- <4avwff7m4puralnaoh6pat62nzpovre2usqkmp3q4r4bk5ujjf@j3jzr4p74v4a>
- <mwlbdxw7yh5cqqi5mnbhelf4ihqihup4zkzppkxm7ggsb5itbb@mcbyevoat76d>
- <8eeb1f7c-3198-45ac-be9a-c3d4e5174f1f@kernel.org>
- <gcur4pgotkwp6nd557ftkvlzh5xv3shxvvl3ofictlie2hlxua@f4zxljrgzvke>
- <e134b98f-5a57-4a37-b46b-8b4017f050a6@kernel.org>
+ Wed, 30 Oct 2024 01:47:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id DE1015C56BC;
+ Wed, 30 Oct 2024 01:46:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4A2C4CECD;
+ Wed, 30 Oct 2024 01:47:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1730252854;
+ bh=yY/c+Ers7lzRZ2/3Cil0sCo9++1VJGqVZ3Deuce2yLw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VSKPNlsAp8xtYZqJ+lL3YeYwf9h/KFmuUS0SrU0Kd242zkRGAHj2tZolSWx5TqYYy
+ 4nMY2czlPWVQ7utq52nGSF20rvImvjjAqmR+9w2LTQC0Jd/gfxj3NZ9GkeXjHBfZFb
+ 493wcFo0ZPkd83UmmFKOxxYlg8TrGNdnH1pelNWwl/0f/1aPmchj9yj4oJh5/10lRP
+ oV7fTfv0EkNj5fjXslkR1HT9ZdVhkfAtoO+CBBc9i2tnpqDenWV0yzF5Ev0csWkAzl
+ 2DhqaGvlKXAJGKFu1dSBT59LPjrL7SLpRWY+1G37QnNyRq8Ix79lrwXLYqfkDisGmN
+ WjR19ra5keh9A==
+Date: Tue, 29 Oct 2024 18:47:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Drew Fustini <dfustini@tenstorrent.com>
+Message-ID: <20241029184732.2e3ef7b7@kernel.org>
+In-Reply-To: <20241025-th1520-gmac-v5-2-38d0a48406ff@tenstorrent.com>
+References: <20241025-th1520-gmac-v5-0-38d0a48406ff@tenstorrent.com>
+ <20241025-th1520-gmac-v5-2-38d0a48406ff@tenstorrent.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e134b98f-5a57-4a37-b46b-8b4017f050a6@kernel.org>
-Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Guo Ren <guoren@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
- Jose Abreu <joabreu@synopsys.com>, Inochi Amaoto <inochiama@outlook.com>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Richard Cochran <richardcochran@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paul Walmsley <paul.walmsley@sifive.com>,
+ Rob Herring <robh@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Drew Fustini <drew@pdp7.com>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Paul Walmsley <paul.walmsley@sifive.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v2 2/4] dt-bindings: net: Add support for
- Sophgo SG2044 dwmac
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 2/2] net: stmmac: Add glue
+ layer for T-HEAD TH1520 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,59 +69,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 29, 2024 at 02:27:20PM +0100, Krzysztof Kozlowski wrote:
-> On 28/10/2024 08:16, Inochi Amaoto wrote:
-> > On Mon, Oct 28, 2024 at 08:06:25AM +0100, Krzysztof Kozlowski wrote:
-> >> On 28/10/2024 00:32, Inochi Amaoto wrote:
-> >>> On Sun, Oct 27, 2024 at 09:38:00PM +0100, Krzysztof Kozlowski wrote:
-> >>>> On Fri, Oct 25, 2024 at 09:09:58AM +0800, Inochi Amaoto wrote:
-> >>>>> The GMAC IP on SG2044 is almost a standard Synopsys DesignWare MAC
-> >>>>> with some extra clock.
-> >>>>>
-> >>>>> Add necessary compatible string for this device.
-> >>>>>
-> >>>>> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> >>>>> ---
-> >>>>
-> >>>> This should be squashed with a corrected previous patch 
-> >>>
-> >>> Good, I will.
-> >>>
-> >>>> (why do you need to select snps,dwmac-5.30a?), 
-> >>>
-> >>> The is because the driver use the fallback versioned compatible 
-> >>> string to set up some common arguments. (This is what the patch
-> >>
-> >> Nope. Driver never relies on schema doing select. That's just incorrect.
-> >>
-> > 
-> > Yeah, I make a mistake on understanding you. For me, I just followed
-> > what others do. But there is a comment before this select.
-> > 
-> > """
-> > Select every compatible, including the deprecated ones. This way, we
-> > will be able to report a warning when we have that compatible, since
-> > we will validate the node thanks to the select, but won't report it
-> > as a valid value in the compatible property description
-> > """
-> > 
-> > By reading this, I think there may be some historical reason? Maybe
-> > someone can explain this.
-> 
-> I think this is left-over from older times before all specific
-> compatibles were added here and in their bindings. This binding has been
-> waiting for some cleanup for a while now, so this is fine.
-> 
-> I still think the patches should be merged, though.
-> 
-> Best regards,
-> Krzysztof
-> 
+On Fri, 25 Oct 2024 10:39:09 -0700 Drew Fustini wrote:
+> +static int thead_dwmac_set_phy_if(struct plat_stmmacenet_data *plat)
+> +{
+> +	struct thead_dwmac *dwmac = plat->bsp_priv;
+> +	u32 phyif;
+> +
+> +	switch (plat->mac_interface) {
+> +	case PHY_INTERFACE_MODE_MII:
+> +		phyif = PHY_INTF_MII_GMII;
+> +		break;
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +		phyif = PHY_INTF_RGMII;
+> +		break;
+> +	default:
+> +		dev_err(dwmac->dev, "unsupported phy interface %d\n",
+> +			plat->mac_interface);
+> +		return -EINVAL;
+> +	};
 
-Thanks, I will squash this patch in the next version
+unnecessary semicolon
 
-Regards,
-Inochi
+> +
+> +	writel(phyif, dwmac->apb_base + GMAC_INTF_CTRL);
+> +	return 0;
+> +}
+> +
+> +static int thead_dwmac_set_txclk_dir(struct plat_stmmacenet_data *plat)
+> +{
+> +	struct thead_dwmac *dwmac = plat->bsp_priv;
+> +	u32 txclk_dir;
+> +
+> +	switch (plat->mac_interface) {
+> +	case PHY_INTERFACE_MODE_MII:
+> +		txclk_dir = TXCLK_DIR_INPUT;
+> +		break;
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +		txclk_dir = TXCLK_DIR_OUTPUT;
+> +		break;
+> +	default:
+> +		dev_err(dwmac->dev, "unsupported phy interface %d\n",
+> +			plat->mac_interface);
+> +		return -EINVAL;
+> +	};
+
+unnecessary semicolon
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
