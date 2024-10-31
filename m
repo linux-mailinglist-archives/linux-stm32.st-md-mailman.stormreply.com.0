@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CC469B7D26
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2024 15:43:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1ABE9B7D7E
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2024 16:00:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4662DC78035;
-	Thu, 31 Oct 2024 14:43:28 +0000 (UTC)
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62A72C78035;
+	Thu, 31 Oct 2024 15:00:56 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD35BC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43783C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Oct 2024 14:43:20 +0000 (UTC)
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4DCAB20187D;
- Thu, 31 Oct 2024 15:43:20 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1ED58201879;
- Thu, 31 Oct 2024 15:43:20 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 6181020579;
- Thu, 31 Oct 2024 15:43:13 +0100 (CET)
-Date: Thu, 31 Oct 2024 15:43:13 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <ZyOXgdqUgg2qlCah@lsv051416.swis.nl-cdc01.nxp.com>
+ Thu, 31 Oct 2024 15:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=vH9IxEylnimSrP4rDt0pvOOOUMyhyk1CV6pRJ7l0cZ0=; b=SS/Cc20KOgLFEXcrxgamK0HYgr
+ rMQxmIJBUVUd0lAhatW4oGY7oQuQOKyRgExfLLdXNr8GRtstsKpYGjRJMx4snhB1W/lbVWKnN46LF
+ mpBd9u18hiTHO7ELPxr5iJdVKBG8Q+lTvphgJgWIBSC6W5tMlq8VqpdBSJvi3oh+oq0E=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1t6Weq-00BnNn-Mu; Thu, 31 Oct 2024 16:00:20 +0100
+Date: Thu, 31 Oct 2024 16:00:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jan Petrous <jan.petrous@oss.nxp.com>
+Message-ID: <a938f3cd-9c9c-43a6-8f06-760eec69e1d1@lunn.ch>
 References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
- <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
- <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
+ <20241028-upstream_s32cc_gmac-v4-13-03618f10e3e2@oss.nxp.com>
+ <erg5zzxgy45ucqv2nq3fkcv4sr7cxqzxz6ejdikafwfpgkkmse@7eigsyq245lu>
+ <ZyOUSgMo0chsGnCa@lsv051416.swis.nl-cdc01.nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
+In-Reply-To: <ZyOUSgMo0chsGnCa@lsv051416.swis.nl-cdc01.nxp.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
  Iyappan Subramanian <iyappan@os.amperecomputing.com>,
  Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>,
  Keyur Chudgar <keyur@os.amperecomputing.com>,
@@ -56,8 +56,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 14/16] net: stmmac: dwmac-s32: add
- basic NXP S32G/S32R glue driver
+Subject: Re: [Linux-stm32] [PATCH v4 13/16] dt-bindings: net: Add DT
+ bindings for DWMAC on NXP S32G/R SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,36 +74,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 29, 2024 at 08:13:40AM +0100, Krzysztof Kozlowski wrote:
-> On Mon, Oct 28, 2024 at 09:24:56PM +0100, Jan Petrous (OSS) wrote:
-> > +	plat->init = s32_gmac_init;
-> > +	plat->exit = s32_gmac_exit;
-> > +	plat->fix_mac_speed = s32_fix_mac_speed;
-> > +
-> > +	plat->bsp_priv = gmac;
-> > +
-> > +	return stmmac_pltfr_probe(pdev, plat, &res);
-> > +}
-> > +
-> > +static const struct of_device_id s32_dwmac_match[] = {
-> > +	{ .compatible = "nxp,s32g2-dwmac" },
-> > +	{ .compatible = "nxp,s32g3-dwmac" },
-> > +	{ .compatible = "nxp,s32r-dwmac" },
+> They are compatible on current stage of driver implementation, the
+> RGMII interface has no any difference. But later there shall be
+> added SGMII and this provides some level of difference, at least
+> from max-speed POV.
 > 
-> Why do you need three same entries?
-> 
+> The S32R allows higher speed (2G5) on SGMII, but S32G2/S32G3 has
+> 1G as maximum.
 
-We have three different SoCs and in v3 review you told me
-to return all back:
-https://patchwork.kernel.org/comment/26067257/
+Please be careful with your naming. SGMII is defined by CISCO to only
+support 10/100/1000Mbps. If you support more than 1G, it is not SGMII,
+it is likely to be 2500BaseX, etc.
 
-I'm not sure if we need s32g3 variant, it should depend on
-changes between s32g2 and s32g3, but s32r will definitely
-carry the interface max-speed value when SGMII support will
-be added.
+	Andrew
 
-BR.
-/Jan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
