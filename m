@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D52719B7F14
+	by mail.lfdr.de (Postfix) with ESMTPS id C56359B7F13
 	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2024 16:52:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8534CC78037;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72ACAC78035;
 	Thu, 31 Oct 2024 15:52:43 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AEAAC78035
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89245C78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Oct 2024 15:52:35 +0000 (UTC)
+ Thu, 31 Oct 2024 15:52:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id AA723A44475;
- Thu, 31 Oct 2024 15:50:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA274C4DE00;
- Thu, 31 Oct 2024 15:43:25 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2E018A444AF;
+ Thu, 31 Oct 2024 15:50:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C3AC4FDF9;
+ Thu, 31 Oct 2024 15:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730389416;
- bh=xSVSfWvupjWY+ia/O4hK4dAwK9UhjBvlZUksqXpgdlA=;
+ s=k20201202; t=1730389499;
+ bh=AjSVyJ3soNMNwkg1Rng8UrCX6IQ72vZl3a1rjeJpusQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=IUgafuayS19RYU6XbsKzq2l1iax8zc0B9iFDAzRwHKHTxXJ3g0wQegaYmNxiD774b
- C/Gm+WQEp3x8N6+toYU6dkYrk8XdjNGaaKaS+kU+Jqmbit3ObSJC3KQeOe4vks3pqC
- nCek6wa0KAx8VMf1oDGxj0HmrIM0Q6Io026f9njTmXeHVCN94d6c/AVPbwexWggLMm
- SFVteHXjfdEuhlrBCddcc7XdOHmHLvvfsLiVEXQv0mQ4Se1D8Q8kCou+HYSnmfWL75
- t8q34N80IRvlycQ15CzH4+BRrwFNC4ooNZg+rBgAFA/ojoHnXi8tz8qWHEwlgbkRhX
- MrNYhpRD5ABuQ==
-Message-ID: <c89d51a7-0477-471c-b4e9-0623e7b7ad67@kernel.org>
-Date: Thu, 31 Oct 2024 16:43:22 +0100
+ b=FQa3cZuMdko4Pfp0RV98q/slFMwhvpYsHTC1LT658/vDTKImF+ZCZJJIkpRZT0SnJ
+ 9ThudsjHebAs9xxLxyLzEcABhE8M+zkIOJEmbAn+dqc7p2XfQMqYPv7z1Mibe/tenG
+ /aZnqzhVUcRCusoWTYzGYH0QyT4Tc9u90EzxzzwQL/7K2zoMUXle6M+PPGWuhmF+cM
+ 52SDuVdT2aTYmRNp7BjBXUbGnfWhs0kspmR2MQfa6eXVmBlSNMEVqydFpuMLNhGmNe
+ gGODWhsXXxwvzunFCxeNg52B+HdYqR82OyvI1NJCok84WVziCKIdBbk7avVCpwxbU0
+ EH0CjPIA8sxkg==
+Message-ID: <b9aefcf2-8f0d-431c-865b-34c9b8e69c4d@kernel.org>
+Date: Thu, 31 Oct 2024 16:44:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jan Petrous <jan.petrous@oss.nxp.com>
 References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
- <20241028-upstream_s32cc_gmac-v4-13-03618f10e3e2@oss.nxp.com>
- <erg5zzxgy45ucqv2nq3fkcv4sr7cxqzxz6ejdikafwfpgkkmse@7eigsyq245lu>
- <ZyOUSgMo0chsGnCa@lsv051416.swis.nl-cdc01.nxp.com>
+ <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
+ <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
+ <ZyOXgdqUgg2qlCah@lsv051416.swis.nl-cdc01.nxp.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,7 +82,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <ZyOUSgMo0chsGnCa@lsv051416.swis.nl-cdc01.nxp.com>
+In-Reply-To: <ZyOXgdqUgg2qlCah@lsv051416.swis.nl-cdc01.nxp.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
@@ -104,8 +104,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 13/16] dt-bindings: net: Add DT
- bindings for DWMAC on NXP S32G/R SoCs
+Subject: Re: [Linux-stm32] [PATCH v4 14/16] net: stmmac: dwmac-s32: add
+ basic NXP S32G/S32R glue driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,60 +122,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 31/10/2024 15:29, Jan Petrous wrote:
-> On Tue, Oct 29, 2024 at 08:12:37AM +0100, Krzysztof Kozlowski wrote:
->> On Mon, Oct 28, 2024 at 09:24:55PM +0100, Jan Petrous (OSS) wrote:
->>> Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
->>> and S32R45 automotive series SoCs.
->>>
->>> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
->>> ---
->>>  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 98 ++++++++++++++++++++++
->>>  .../devicetree/bindings/net/snps,dwmac.yaml        |  3 +
->>>  2 files changed, 101 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
->>> new file mode 100644
->>> index 000000000000..b11ba3bc4c52
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
->>> @@ -0,0 +1,98 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +# Copyright 2021-2024 NXP
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+On 31/10/2024 15:43, Jan Petrous wrote:
+> On Tue, Oct 29, 2024 at 08:13:40AM +0100, Krzysztof Kozlowski wrote:
+>> On Mon, Oct 28, 2024 at 09:24:56PM +0100, Jan Petrous (OSS) wrote:
+>>> +	plat->init = s32_gmac_init;
+>>> +	plat->exit = s32_gmac_exit;
+>>> +	plat->fix_mac_speed = s32_fix_mac_speed;
 >>> +
->>> +title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
+>>> +	plat->bsp_priv = gmac;
 >>> +
->>> +maintainers:
->>> +  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+>>> +	return stmmac_pltfr_probe(pdev, plat, &res);
+>>> +}
 >>> +
->>> +description:
->>> +  This device is a Synopsys DWC IP, integrated on NXP S32G/R SoCs.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - nxp,s32g2-dwmac
->>> +      - nxp,s32g3-dwmac
->>> +      - nxp,s32r-dwmac
+>>> +static const struct of_device_id s32_dwmac_match[] = {
+>>> +	{ .compatible = "nxp,s32g2-dwmac" },
+>>> +	{ .compatible = "nxp,s32g3-dwmac" },
+>>> +	{ .compatible = "nxp,s32r-dwmac" },
 >>
->> Your driver says these are fully compatible, why this is not expressed
->> here?
+>> Why do you need three same entries?
 >>
 > 
-> They are compatible on current stage of driver implementation, the
-> RGMII interface has no any difference. But later there shall be
-> added SGMII and this provides some level of difference, at least
-> from max-speed POV.
-> 
-> The S32R allows higher speed (2G5) on SGMII, but S32G2/S32G3 has
-> 1G as maximum.
+> We have three different SoCs and in v3 review you told me
+> to return all back:
+> https://patchwork.kernel.org/comment/26067257/
 
-So G2/G3 will work just fine but with lower speeds? That's the meaning
-of compatibility.
+It was about binding, not driver.
+
+I also asked there: use proper fallback and compatibility. Both comments
+of course affect your driver, but why choosing only first part?
+
+> 
+> I'm not sure if we need s32g3 variant, it should depend on
+> changes between s32g2 and s32g3, but s32r will definitely
+> carry the interface max-speed value when SGMII support will
+> be added.
+> 
+> BR.
+> /Jan
 
 Best regards,
 Krzysztof
