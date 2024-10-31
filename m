@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEA49B7CD9
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2024 15:29:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CC469B7D26
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2024 15:43:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59F24C78035;
-	Thu, 31 Oct 2024 14:29:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4662DC78035;
+	Thu, 31 Oct 2024 14:43:28 +0000 (UTC)
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F8C5C78034
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD35BC6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Oct 2024 14:29:30 +0000 (UTC)
+ Thu, 31 Oct 2024 14:43:20 +0000 (UTC)
 Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 28DF8201059;
- Thu, 31 Oct 2024 15:29:30 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4DCAB20187D;
+ Thu, 31 Oct 2024 15:43:20 +0100 (CET)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
  [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 10B5320102E;
- Thu, 31 Oct 2024 15:29:30 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1ED58201879;
+ Thu, 31 Oct 2024 15:43:20 +0100 (CET)
 Received: from lsv051416.swis.nl-cdc01.nxp.com
  (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 719D52033F;
- Thu, 31 Oct 2024 15:29:29 +0100 (CET)
-Date: Thu, 31 Oct 2024 15:29:30 +0100
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 6181020579;
+ Thu, 31 Oct 2024 15:43:13 +0100 (CET)
+Date: Thu, 31 Oct 2024 15:43:13 +0100
 From: Jan Petrous <jan.petrous@oss.nxp.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <ZyOUSgMo0chsGnCa@lsv051416.swis.nl-cdc01.nxp.com>
+Message-ID: <ZyOXgdqUgg2qlCah@lsv051416.swis.nl-cdc01.nxp.com>
 References: <20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com>
- <20241028-upstream_s32cc_gmac-v4-13-03618f10e3e2@oss.nxp.com>
- <erg5zzxgy45ucqv2nq3fkcv4sr7cxqzxz6ejdikafwfpgkkmse@7eigsyq245lu>
+ <20241028-upstream_s32cc_gmac-v4-14-03618f10e3e2@oss.nxp.com>
+ <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <erg5zzxgy45ucqv2nq3fkcv4sr7cxqzxz6ejdikafwfpgkkmse@7eigsyq245lu>
+In-Reply-To: <xanb4j56u2rjwpkyj5gwh6y6t36gpvawph62jw72ksh7jximhr@cjwlp7wsxgp6>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
@@ -56,8 +56,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 13/16] dt-bindings: net: Add DT
- bindings for DWMAC on NXP S32G/R SoCs
+Subject: Re: [Linux-stm32] [PATCH v4 14/16] net: stmmac: dwmac-s32: add
+ basic NXP S32G/S32R glue driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,82 +74,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 29, 2024 at 08:12:37AM +0100, Krzysztof Kozlowski wrote:
-> On Mon, Oct 28, 2024 at 09:24:55PM +0100, Jan Petrous (OSS) wrote:
-> > Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
-> > and S32R45 automotive series SoCs.
-> > 
-> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > ---
-> >  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 98 ++++++++++++++++++++++
-> >  .../devicetree/bindings/net/snps,dwmac.yaml        |  3 +
-> >  2 files changed, 101 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
-> > new file mode 100644
-> > index 000000000000..b11ba3bc4c52
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
-> > @@ -0,0 +1,98 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +# Copyright 2021-2024 NXP
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+On Tue, Oct 29, 2024 at 08:13:40AM +0100, Krzysztof Kozlowski wrote:
+> On Mon, Oct 28, 2024 at 09:24:56PM +0100, Jan Petrous (OSS) wrote:
+> > +	plat->init = s32_gmac_init;
+> > +	plat->exit = s32_gmac_exit;
+> > +	plat->fix_mac_speed = s32_fix_mac_speed;
 > > +
-> > +title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
+> > +	plat->bsp_priv = gmac;
 > > +
-> > +maintainers:
-> > +  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > +	return stmmac_pltfr_probe(pdev, plat, &res);
+> > +}
 > > +
-> > +description:
-> > +  This device is a Synopsys DWC IP, integrated on NXP S32G/R SoCs.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - nxp,s32g2-dwmac
-> > +      - nxp,s32g3-dwmac
-> > +      - nxp,s32r-dwmac
+> > +static const struct of_device_id s32_dwmac_match[] = {
+> > +	{ .compatible = "nxp,s32g2-dwmac" },
+> > +	{ .compatible = "nxp,s32g3-dwmac" },
+> > +	{ .compatible = "nxp,s32r-dwmac" },
 > 
-> Your driver says these are fully compatible, why this is not expressed
-> here?
+> Why do you need three same entries?
 > 
 
-They are compatible on current stage of driver implementation, the
-RGMII interface has no any difference. But later there shall be
-added SGMII and this provides some level of difference, at least
-from max-speed POV.
+We have three different SoCs and in v3 review you told me
+to return all back:
+https://patchwork.kernel.org/comment/26067257/
 
-The S32R allows higher speed (2G5) on SGMII, but S32G2/S32G3 has
-1G as maximum.
+I'm not sure if we need s32g3 variant, it should depend on
+changes between s32g2 and s32g3, but s32r will definitely
+carry the interface max-speed value when SGMII support will
+be added.
 
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: Main GMAC registers
-> > +      - description: GMAC PHY mode control register
-> >
-> 
-> ...
-> 
-> > +        mdio {
-> > +          #address-cells = <1>;
-> > +          #size-cells = <0>;
-> > +          compatible = "snps,dwmac-mdio";
-> > +
-> > +          phy0: ethernet-phy@0 {
-> > +              reg = <0>;
-> 
-> Messed indentation. Keep it consistent.
-> 
-
-Thanks. I will fix it in v5.
-
-> Best regards,
-> Krzysztof
-> 
+BR.
+/Jan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
