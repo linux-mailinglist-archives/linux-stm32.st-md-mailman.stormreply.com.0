@@ -2,57 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21F99B8ACC
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Nov 2024 07:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 557159B8C60
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Nov 2024 08:51:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F6F6C78034;
-	Fri,  1 Nov 2024 06:01:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE885C78034;
+	Fri,  1 Nov 2024 07:51:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D73FC7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A637C71290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Nov 2024 06:01:35 +0000 (UTC)
+ Fri,  1 Nov 2024 07:51:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1BC6B5CB5D4;
- Fri,  1 Nov 2024 05:58:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FBCC4CECD;
- Fri,  1 Nov 2024 05:59:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B4615CBD3D;
+ Fri,  1 Nov 2024 07:50:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F071C4CECD;
+ Fri,  1 Nov 2024 07:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730440764;
- bh=bsORacs+XRwGPNAegb+drBs5u+8UfBOTbC/pTO7y+6M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nVh7VB2enHZJz2ft2TzPQ6heULNsJCk/uXeTpmnaSnRpCSLN3C+NK1iX/bEEpFt6h
- 2W87GxwcpSE6QV0JhzJLL4ZPyLIxWmPUk7IrZ91GhE+SvdErRpmR/bKPeYJBzVWBSF
- 5nmnuQ13mIjRxAt+KZj4/QkjkcQmspvZyLu7/XXJPbnJHrzicUmDx00kFnWxVUVJj4
- LSTrz3fUPlaveJozHNHqe0b/UlpNOBQKepLyfu944Z3dH6lAnjZYmBry1ulIq0rRON
- sLVHcMBAgmPa9jd5wnj5e9StQtSQNO+qIdFGgclPRPr1SvHWBeC6itjriO85bJDkOQ
- tbuAf+2fGkghw==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Fri,  1 Nov 2024 14:59:18 +0900
-Message-ID: <173044055547.648361.10787383264184720457.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241027-stm32-timer-cnt-of_node_put-v1-1-ebd903cdf7ac@gmail.com>
-References: <20241027-stm32-timer-cnt-of_node_put-v1-1-ebd903cdf7ac@gmail.com>
+ s=k20201202; t=1730447475;
+ bh=WzA5otiOSUL6o5Euerp+1UpdYOZq+P7lE1gAI6ODFsw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iYk1Kh6JVKRcNIC4hb/yBHxRh8hXwWAf+wkojDf07TMwx15qqsjpxSo/t52kJUqac
+ ytYPa2XLyaItfJWZrmCcC3Lsb9mIRII2xSvQaO58e7SWsvKJLQZGwd9NVZD95Hh7VM
+ Twzsi1uVv/zp3SoKEwj2MG7PocdrY4tFXBV5TmpttU1P9cr40QUJXLcCqz363+2YBB
+ qRASwsw/mOlxK3f/cxbHUbPcqsyBsMDerLkBhNcRQp1W/uypa991XyQgUahSa43pE/
+ fEVK3yyJrcdYDwyezahBW2QFp6i5eG0+LY9KSfrvTMwJvjXD2o1QX4S2sTTECcHlv9
+ 0zGkTZK2VMsag==
+Date: Fri, 1 Nov 2024 08:51:11 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <uzr6gpmyng3irrhuf3q3bvswlbzyxnr74jwccyosplr32ceczu@jjrva67iq4ce>
+References: <20241101014327.513732-1-inochiama@gmail.com>
+ <20241101014327.513732-2-inochiama@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=663; i=wbg@kernel.org;
- h=from:subject:message-id; bh=MbN8O+C+5FEujeJNUwaWgYqQSEexIAnJ9ZIqUSvRh8g=;
- b=owGbwMvMwCW21SPs1D4hZW3G02pJDOkquc+e8rirfDxrXaT1uHa6lYSF0KIjb/autf6fMKMth
- bvYJflDRykLgxgXg6yYIkuv+dm7Dy6pavx4MX8bzBxWJpAhDFycAjCRdxMYGTamMhRzCfX8PB7v
- sq/R65r1lmq3+ZazZ4n3fSt9cnDGV1tGhpurmXXXnq+9fmCXyx7J5mUT/63wM+6aqJei7HLGaEV
- JIAsA
-X-Developer-Key: i=wbg@kernel.org; a=openpgp;
- fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Cc: linux-iio@vger.kernel.org, William Breathitt Gray <william.gray@linaro.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- William Breathitt Gray <wbg@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: fix device_node
-	handling in probe_encoder()
+Content-Disposition: inline
+In-Reply-To: <20241101014327.513732-2-inochiama@gmail.com>
+Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
+ Jose Abreu <joabreu@synopsys.com>, Inochi Amaoto <inochiama@outlook.com>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Richard Cochran <richardcochran@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 1/3] dt-bindings: net: Add
+ support for Sophgo SG2044 dwmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,26 +70,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Sun, 27 Oct 2024 13:26:49 +0100, Javier Carrasco wrote:
-> Device nodes accessed via of_get_compatible_child() require
-> of_node_put() to be called when the node is no longer required to avoid
-> leaving a reference to the node behind, leaking the resource.
+On Fri, Nov 01, 2024 at 09:43:25AM +0800, Inochi Amaoto wrote:
+> The GMAC IP on SG2044 is almost a standard Synopsys DesignWare
+> MAC (version 5.30a) with some extra clock.
 > 
-> In this case, the usage of 'tnode' is straightforward and there are no
-> error paths, allowing for a single of_node_put() when 'tnode' is no
-> longer required.
+> Add necessary compatible string for this device.
 > 
-> [...]
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |   4 +
+>  .../bindings/net/sophgo,sg2044-dwmac.yaml     | 124 ++++++++++++++++++
+>  2 files changed, 128 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+> 
 
-Applied, thanks!
+I wish patches for review were not marked as RFC. I remember this
+patch, so I don't consider this as RFC... but that's rather exception.
 
-[1/1] counter: stm32-timer-cnt: fix device_node handling in probe_encoder()
-      commit: 147359e23e5c9652ff8c5a98a51a7323bd51c94a
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
--- 
-William Breathitt Gray <wbg@kernel.org>
+Krzysztof
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
