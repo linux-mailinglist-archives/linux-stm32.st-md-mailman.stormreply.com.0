@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04FA99BBB88
+	by mail.lfdr.de (Postfix) with ESMTPS id 045949BBB86
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:18:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3396C7A84A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8A94C7A848;
 	Mon,  4 Nov 2024 17:18:39 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30F2BC6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3298CC71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Nov 2024 11:41:26 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a9a2068f348so45110366b.2
+ Sat,  2 Nov 2024 11:41:30 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a9a1be34cc9so48143366b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 02 Nov 2024 04:41:26 -0700 (PDT)
+ Sat, 02 Nov 2024 04:41:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730547685; x=1731152485;
+ d=gmail.com; s=20230601; t=1730547689; x=1731152489;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4ODXSKIPM8Xa+YaYVLc8WanEICuRtJG6U7jSPf/7hZw=;
- b=H6JKCXnjyV1r+cjuLqG1mRxl6Cpw8Zflz196kOJ7z5LAYJyOb17Gh0F0frnGAZbgUL
- vCIKjmZL2y5tOyP/PZLecdSIDmhUgwxhPIqiRudPatgs0xYO8g0uFML+ocRHrabvWlHt
- n8n6r0Psg9cmwCfgd2qbqIUfjCK9oc08X3zrVqvf6PNFdPqrlJcYeCIwxMuzca+FxV6T
- sGlP9PUJoKCfbgpYR/8ERwMLseLVh7Pf9PEy3ZuaY68KUz4JC5pIzjFMmp5ibQbO5PIs
- YXahH4uaA53PaAENVqkgJZgl28B0xcVyKm/sD+BeWiNo0fjV8havlF3QnE7mOlG2BmdT
- s7LQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=169hA00Pja97h8hm6emVe3dB6p5nrMbDMRco0sdU1HI=;
+ b=YnoSV042vaf4DhkLW+gICAc4uccor74HyFPLXlNauf2whZCnhk4HgeUPgqlOkTnJjf
+ QEkNKeMMg7txsdVNwQuvXdiH8lZ4z6OqZ9fDodrP0sIwocPBKfL9HomJTm/uaF6HZrWs
+ y87IA0FiGYQsT1+Rs69WGSWLBCZ9M1NjqqTl0wKKwtdRVZ/bHJFLKzSRFoE1jMvu1cP3
+ KooVgxdTSpajL4AnKOCV3s6z6tkxtQRbAeqTc/AaQNeo3CVyA6OHqQDgto2lIKKVj102
+ NmIV+P66nLGtJQNSzvQylYF4a3WcMRCDRmkQfU0qTkw4eHfwAZFoNsWhuCuq3vLqBgLF
+ V7pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730547685; x=1731152485;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4ODXSKIPM8Xa+YaYVLc8WanEICuRtJG6U7jSPf/7hZw=;
- b=kJPfMOAza7SoIeh9P43uBUCBqNv/035dpGlyDs4B0/7SA5QCmHuaoUdBl3AHyES7a6
- Zuaa6hgH9BEB7rizuGqsTGxthm+VZEnkESA3ybKAcEfV5WaEm3I9BCXuV/iXI6Z23KHj
- 66sEJ3t1JoGukKtp0yppGJmNpWWu8oWFdvEMzOwWKJ5AOw9AUGWLtjLwdG2IJ24oblou
- Pq28VKmxMmYgm+DOnJPRMpSk+7biMObMyBUSgyN3F7mYMAFH0epOatuWtmlvJ5dXIev4
- aO511Byie1agaC0Uo51CeSN6zF/CI3h66bH8ZntUXbitiuleGLM/DJCuyXw16X5iLQqY
- ZYHw==
+ d=1e100.net; s=20230601; t=1730547689; x=1731152489;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=169hA00Pja97h8hm6emVe3dB6p5nrMbDMRco0sdU1HI=;
+ b=mXgn1BlFZoEwlzGQWM5fCsHcU4oLCjSKpSepoTwoFzO+rg1wPQSE9++Jr+fDrov5r1
+ pyrkSs5moRbAZEFuF275vg/DxS9F7ovFG7sxUHWKzNyksBReJI6PZRDGtFv7Mg4gXMir
+ tJwVjOh8RAHkQwY7vLiLNrkvyE1ewMVSlput9KFGhBLUT+WoZlI4aO1oHAL+bCjMH/Yo
+ FZKPjX2LkpqErFxENiIRfPYnRbhrffkGrh1cZTXavXUb6GhD9/FkR/qisINA/Fn0OY56
+ VutjTinnBBWkb4btmNLxbH+o3yhfNQEWiPtjUIIqJRdQCAPd+qQqQLOAuIWJwmw6QJsq
+ GEng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX1J1Q1xv0QoN3Dr5GQ+/1mb65BSWI1ierC/WFBzdVu5+s4r+mwE1+tqXZ/ceaXaoXtl2zdAgz8gfSL7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx4AIF2y6pSddPzgTEy+zqXm4q8j+ubO3xbZOMOS6x6v8iiowTz
- CScYvQMfUD4LZPTKVsRGSzzwMut2U7ZuMQN83dlcTfvDlXkIpjMq
-X-Google-Smtp-Source: AGHT+IGP63fQoQMFb/ObB1eGQudz2/rh/yY91dTuFfLQmvqaGKroFryYsgP1YkjTo2qDjj678icCdA==
-X-Received: by 2002:a05:6402:3546:b0:5c5:bebb:5409 with SMTP id
- 4fb4d7f45d1cf-5cbbf88efbemr8731768a12.3.1730547685210; 
- Sat, 02 Nov 2024 04:41:25 -0700 (PDT)
+ AJvYcCVuDvgnEGwXFVfqBG0HuUDOLdQMIAuBEFymwGo7o+imQPk1AFaZ6+bV2YQMmKh+i3LSLDxtXbEME3LwTQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwG7+OaA2AW2QJWwXfDOtp5LSx1w1hSx7kwrOiwEdENvkBuEbwg
+ +mSZO68BaYUt/qGZRibjwRCDNIOUgPtjGq93j7yiJEkvDDJaGFOP
+X-Google-Smtp-Source: AGHT+IEt4AjndCEebm/9RILvfW4GXYybZJT+5m7LenNVoAJdiLHQQZg3Dh2A1hqqQqIhTQOPSDbaYQ==
+X-Received: by 2002:a05:6402:34c9:b0:5ce:cfed:624 with SMTP id
+ 4fb4d7f45d1cf-5cecfed3330mr136549a12.0.1730547689088; 
+ Sat, 02 Nov 2024 04:41:29 -0700 (PDT)
 Received: from 1bb4c87f881f.v.cablecom.net (84-72-156-211.dclient.hispeed.ch.
  [84.72.156.211]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ceb11a7aaasm2224918a12.83.2024.11.02.04.41.23
+ 4fb4d7f45d1cf-5ceb11a7aaasm2224918a12.83.2024.11.02.04.41.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Nov 2024 04:41:24 -0700 (PDT)
+ Sat, 02 Nov 2024 04:41:28 -0700 (PDT)
 From: Lothar Rubusch <l.rubusch@gmail.com>
 To: robh@kernel.org,
 	kuba@kernel.org
-Date: Sat,  2 Nov 2024 11:41:20 +0000
-Message-Id: <20241102114122.4631-1-l.rubusch@gmail.com>
+Date: Sat,  2 Nov 2024 11:41:21 +0000
+Message-Id: <20241102114122.4631-2-l.rubusch@gmail.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20241102114122.4631-1-l.rubusch@gmail.com>
+References: <20241102114122.4631-1-l.rubusch@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 04 Nov 2024 17:18:35 +0000
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
@@ -69,8 +72,8 @@ Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
  joabreu@synopsys.com, l.rubusch@gmail.com, mcoquelin.stm32@gmail.com,
  peppe.cavallaro@st.com, krzk+dt@kernel.org, pabeni@redhat.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 0/2] Add support for Synopsis DesignWare
-	version 3.72a
+Subject: [Linux-stm32] [PATCH v1 1/2] net: stmmac: add support for dwmac
+	3.72a
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,22 +90,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add compatibility and dt-binding for Synopsis DesignWare version 3.72a.
-The dwmac is used on some older Altera/Intel SoCs such as Arria10.
-Updating compatibles in the driver and bindings for the DT improves the
-binding check coverage for such SoCs.
+The dwmac 3.72a is an ip version that can be found on Intel/Altera Arria10
+SoCs. Going by the hardware features "snps,multicast-filter-bins" and
+"snps,perfect-filter-entries" shall be supported. Thus add a
+compatibility flag, and extend coverage of the driver for the 3.72a.
 
 Signed-off-by: Lothar Rubusch <l.rubusch@gmail.com>
 ---
-Lothar Rubusch (2):
-  net: stmmac: add support for dwmac 3.72a
-  dt-bindings: net: snps,dwmac: add support for Arria10
-
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 ++
  drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c   | 1 +
  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 1 +
- 3 files changed, 4 insertions(+)
+ 2 files changed, 2 insertions(+)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+index 598eff926..b9218c07e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+@@ -56,6 +56,7 @@ static const struct of_device_id dwmac_generic_match[] = {
+ 	{ .compatible = "snps,dwmac-3.610"},
+ 	{ .compatible = "snps,dwmac-3.70a"},
+ 	{ .compatible = "snps,dwmac-3.710"},
++	{ .compatible = "snps,dwmac-3.72a"},
+ 	{ .compatible = "snps,dwmac-4.00"},
+ 	{ .compatible = "snps,dwmac-4.10a"},
+ 	{ .compatible = "snps,dwmac"},
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 54797edc9..e7e2d6c20 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -522,6 +522,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	if (of_device_is_compatible(np, "st,spear600-gmac") ||
+ 		of_device_is_compatible(np, "snps,dwmac-3.50a") ||
+ 		of_device_is_compatible(np, "snps,dwmac-3.70a") ||
++		of_device_is_compatible(np, "snps,dwmac-3.72a") ||
+ 		of_device_is_compatible(np, "snps,dwmac")) {
+ 		/* Note that the max-frame-size parameter as defined in the
+ 		 * ePAPR v1.1 spec is defined as max-frame-size, it's
 -- 
 2.39.2
 
