@@ -2,45 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2BFB9BA75D
-	for <lists+linux-stm32@lfdr.de>; Sun,  3 Nov 2024 19:20:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72AB89BA997
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 00:40:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 948FCC6DD9E;
-	Sun,  3 Nov 2024 18:20:27 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23F6DC6DD94;
+	Sun,  3 Nov 2024 23:40:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D60D2C6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5A6AC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 Nov 2024 18:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=KoeC812BJC1qP0utpHBC083qksYwLvvWXbWjSDq4s+A=; b=C/l/HTtVqwvFuLNKkM/AW0KD3u
- uVlWTzNtla+1d01nLpVzZP7bYItGm9/y9ZnSsmMHGpAccfccOcpzMzFT/sf21s4QmUeWUpvoNOPy1
- 2L9+4DHB/lUyGyFR+S1OqrgwUyGLNBIoqcYvC0mqihwvqGadJLAjKf7mtLzKUedyOxcE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1t7fCv-00C202-6c; Sun, 03 Nov 2024 19:20:13 +0100
-Date: Sun, 3 Nov 2024 19:20:13 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lothar Rubusch <l.rubusch@gmail.com>
-Message-ID: <0b64d49d-b0a0-45ba-aecc-febcdc557679@lunn.ch>
-References: <20241102114122.4631-1-l.rubusch@gmail.com>
- <20241102114122.4631-2-l.rubusch@gmail.com>
+ Sun,  3 Nov 2024 23:40:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 45CB95C4CB7;
+ Sun,  3 Nov 2024 23:39:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4216C4CECD;
+ Sun,  3 Nov 2024 23:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1730677220;
+ bh=Fpk5/6wEk3/C7/XnnbdYZqJeyR/d7QRxg8mqahUQje0=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=o5y1Se85YGaNi46PIpCG3IAkB/9cfCO/zEuGXlPlNZl44IP6NkIteQYvLzdTIAxRu
+ 6j124vRpxxT0uN7ViTo3CPUOUJ3/xksJhw+Zvf6w6Tcak/WGnDAKFloGWQheOy1JyP
+ +wGBZMCZnoiULs2q3l6i44ZmJtXrRYmlHOw0FHVBs9sRHzCc1ahZ4fCCo9Ydr7eH3U
+ qIQbXAH8hPHHBy5pjYvMjtjX/lQhEqDlzSuj8crVR+5Spb9HIf6TzC0w653QcdBlO2
+ sA5pqauaU3x89iv2hAz6B4rWkmZz1vOuXfBwHIYnQkJ/0UMBkaMrPZUtRznqnsjAC/
+ AuEanAEtsqQ3Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 710B738363C3; Sun,  3 Nov 2024 23:40:30 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241102114122.4631-2-l.rubusch@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/2] net: stmmac: add support for dwmac
-	3.72a
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <173067722927.3278663.4571680407072079402.git-patchwork-notify@kernel.org>
+Date: Sun, 03 Nov 2024 23:40:29 +0000
+References: <cover.1730449003.git.0x1207@gmail.com>
+In-Reply-To: <cover.1730449003.git.0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Cc: andrew@lunn.ch, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
+ horms@kernel.org, xfr@outlook.com, kuba@kernel.org, olteanv@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v8 0/8] net: stmmac: Refactor FPE
+ as a separate module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,22 +61,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Nov 02, 2024 at 11:41:21AM +0000, Lothar Rubusch wrote:
-> The dwmac 3.72a is an ip version that can be found on Intel/Altera Arria10
-> SoCs. Going by the hardware features "snps,multicast-filter-bins" and
-> "snps,perfect-filter-entries" shall be supported. Thus add a
-> compatibility flag, and extend coverage of the driver for the 3.72a.
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Fri,  1 Nov 2024 21:31:27 +0800 you wrote:
+> Refactor FPE implementation by moving common code for DWMAC4 and
+> DWXGMAC into a separate FPE module.
 > 
-> Signed-off-by: Lothar Rubusch <l.rubusch@gmail.com>
+> FPE implementation for DWMAC4 and DWXGMAC differs only for:
+> 1) Offset address of MAC_FPE_CTRL_STS and MTL_FPE_CTRL_STS
+> 2) FPRQ(Frame Preemption Residue Queue) field in MAC_RxQ_Ctrl1
+> 3) Bit offset of Frame Preemption Interrupt Enable
+> 
+> [...]
 
-Does what it says:
+Here is the summary with links:
+  - [net-next,v8,1/8] net: stmmac: Introduce separate files for FPE implementation
+    https://git.kernel.org/netdev/net-next/c/2c6ad81de163
+  - [net-next,v8,2/8] net: stmmac: Rework macro definitions for gmac4 and xgmac
+    https://git.kernel.org/netdev/net-next/c/61e6051f4bbb
+  - [net-next,v8,3/8] net: stmmac: Introduce stmmac_fpe_supported()
+    https://git.kernel.org/netdev/net-next/c/af478ca82204
+  - [net-next,v8,4/8] net: stmmac: Refactor FPE functions to generic version
+    https://git.kernel.org/netdev/net-next/c/c9cd9a5a834c
+  - [net-next,v8,5/8] net: stmmac: Get the TC number of net_device by netdev_get_num_tc()
+    https://git.kernel.org/netdev/net-next/c/2558fe30ae8b
+  - [net-next,v8,6/8] net: stmmac: xgmac: Rename XGMAC_RQ to XGMAC_FPRQ
+    https://git.kernel.org/netdev/net-next/c/df9e7b0250ad
+  - [net-next,v8,7/8] net: stmmac: xgmac: Complete FPE support
+    https://git.kernel.org/netdev/net-next/c/b440d677e15f
+  - [net-next,v8,8/8] net: stmmac: xgmac: Enable FPE for tc-mqprio/tc-taprio
+    https://git.kernel.org/netdev/net-next/c/77be7d737305
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Dumb question. What does the 'a' mean in the version? Or is this
-actually hex?
 
-    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
