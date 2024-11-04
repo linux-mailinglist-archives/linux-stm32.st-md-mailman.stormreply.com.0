@@ -2,117 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3489BBB90
+	by mail.lfdr.de (Postfix) with ESMTPS id 5970F9BBB8F
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:18:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10186C7A856;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D4A3C7A858;
 	Mon,  4 Nov 2024 17:18:40 +0000 (UTC)
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on2132.outbound.protection.partner.outlook.cn [139.219.17.132])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AFE1C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 300EEC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2024 02:37:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lpURuq2HbDEAk+ud4CmNmtq4EvU3L5YA2TsUFV2+c0q6FQFnf+cJbp3Xrc47onIOD45sJaZQQCODtLMY5cSzetsB2DqS4PO7DxQWL9Q8vBpGxHinVZ/TTpb0q6vRkntKU0qqRaFkKlj/CnTvFDedaMFmT3g7wGtR7PvQBH7KRQWuI0xCygQWNyapLRPgEMpy2Zp0U9EllJUd4KpiJLANeRyRZ0tPh1mHfDOWHYOeHr/DJjlFEaV5c/MCv4RRVbA6EDtV/8zctvtEgAXln+k5Q7eWolSaxw5QOEpPc8WUjDL9IBorPwqwEm4gREuMjRT5bqr1PvzAleqKf2mpp6zQHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VgflmcSJaurruyDMG3nunelITIT3P5xU2eXeYpB+sB8=;
- b=FnsTCm3+30B7JXZR4XSS19IozgtXHHGvWFv8gTEPOJzBVfP1RJTTwp44DNKcIMeWokz4Cw4j7yzURH5CTIq8U15PmtoyXCGg3m8iLfT0LNr+8pvlqIGY6HVTyd9IcdFOsS9A+XP3Y3v+rq49yNIoyKdEERASL/Jyb/D1CbvLEu7q3QtTv3brkdlrsQ/DkE+sNdl+upNSdm9qmWK5fqrEunA4JyDwPwX6lxkL2q9T1BjkP6i8G5WxfBnGOR85ymqjq0bcnfSw6wFvW9Nys/meQs3wNBYJ7h2vXnap9WrOO2MqwXESdkFEUmi38m2fpShkTJ+JECF2epFiFn6pQm7phA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:f::12) by ZQZPR01MB1092.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:a::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29; Mon, 4 Nov
- 2024 02:37:09 +0000
-Received: from ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn
- ([fe80::617c:34a2:c5bf:8095]) by
- ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn ([fe80::617c:34a2:c5bf:8095%5])
- with mapi id 15.20.8114.023; Mon, 4 Nov 2024 02:37:09 +0000
-From: Leyfoon Tan <leyfoon.tan@starfivetech.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: code From d0f446931dfee7afa9f6ce5b1ac032e4dfa98460 Mon Sep 17
- 00:00:00 2001
-Thread-Index: AQHbLDdnp3G5sduXf0On8c/t/k5P5LKibC2AgAP3l1A=
-Date: Mon, 4 Nov 2024 02:37:09 +0000
-Message-ID: <ZQZPR01MB097938C7F967F9707A4CC9AD8A512@ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn>
-References: <20241101082336.1552084-1-leyfoon.tan@starfivetech.com>
- <38e4fc09-7c88-448b-b9e8-f9a082f1dcf0@lunn.ch>
-In-Reply-To: <38e4fc09-7c88-448b-b9e8-f9a082f1dcf0@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQZPR01MB0979:EE_|ZQZPR01MB1092:EE_
-x-ms-office365-filtering-correlation-id: 9341335e-f0ac-4f45-4e6f-08dcfc799496
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|7416014|41320700013|1800799024|38070700018; 
-x-microsoft-antispam-message-info: TTl0Ess5/kXLCfbQhwDU7i8OAiQbe5btCUGwYR3RU4/qAdntKg5Uc2y+oe1dM5hUrahjKPVSy8ydPwRoi/RV0Jl4F6DgSAo2qmVeaK6SnJBjcKYBAIznm+0uhAs8rUVc6cTqMAB4KeD1xX71QBhhJyGqis58ZYAWcx/CarIZ1tK+lImW8NA3A8TKEJDRWwCnyxcidtJy0HZSV+7DgQe//khxVIy7Qk76julbJr/gdWrUSTmnciTaW1aUHhkbdcE83j6QFLds/OPGudlT2X3t1hTKCPE9gu7fM58gizAcxltKEj8VQwyC2a4ZhvwsqAyXFj3TzUq+YEDimKmpLIa8kyZ8Vo2Eqy8muORYG2+KDk9+7M3NIamSeqMPVbiGtkWci9erxZm6poFX94Ih3naZ/tO1pzrapTbtfjPPdkYEeEqBwrpCaHXg72BUGzw0bFQAFIWBSvaPo4CIUwl/aI1RMoz7Vb+f3UPi39y/A5Uw3l5hp776m6W0ItA2FZtI1onzGAR00O4LiE0EkPnsuSVBe/HDDRekCXATomX5pwTgrCyGy9v5WmXVRqtNJXYHYL/rk1hjVT3IEpcIk68HyOjdRuMJ4P8Er3/qlj2fRGm592vKrDI3Hpy1Qv4C3Ta3bdgE
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230040)(366016)(7416014)(41320700013)(1800799024)(38070700018); DIR:OUT;
- SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XNdfbxaSn3rk5mgLQopNVNSmf/zG7OlstFfGdlyZr6VxRhS5BDzzxtuqflIW?=
- =?us-ascii?Q?nuG5T9eMxwGfETIrt2b70oWq0s3wGzCPtOdKt2YJxT/TstRfyrgRtpDnSFQh?=
- =?us-ascii?Q?9qYW/Tmm1ZE2EbzJc2rDIEGqiZ7sP+53vHfOjbcS4AC70wObJ+xQ1bn1SUlO?=
- =?us-ascii?Q?eTRqvJNBUsSX24tIFXYMs/kPrcW3KBgThXUC5skJ2hOjtgGRYL3fEj2hJ2VA?=
- =?us-ascii?Q?M4FwwKBb5G10w9rrgsorDFoB9y4Jy48USVJty9oVGPFTmQvFyoAgnSnXGgp/?=
- =?us-ascii?Q?kvB97fWLtqXdzebcJUJ3gOn/sVBJka1GNmKCEHssVItOyYXHYrB8VMdMtdcI?=
- =?us-ascii?Q?zxdA+wEY0MP2ttSkpoNleC1m0UY1liqjmKCxm86ccydRhBz7ammnvQgiKInZ?=
- =?us-ascii?Q?DiOsq2MtKhV77cu+VfVN4Pk/t3cwvWYusLzm4gLDr6fgFQnBPf6ZHkqpx2fF?=
- =?us-ascii?Q?wXEs9uMKiVxuK+5RBS3Tof5p9h1xITK5nubDscdlyp7ol/8OgZyKmWjKU4sd?=
- =?us-ascii?Q?oEK1ciaNWn0QqQxcO9Xy/G1qCqtWQgjDvYEDBdRoFXrZFyERkO/ltwqWg2eS?=
- =?us-ascii?Q?PbxOxLODrjzNX15lX5TBW7y+ZOp0ZqNf8GetGbpPe0/RTivY9YEFz5gkaag7?=
- =?us-ascii?Q?RWWCmsB+GWqnfl7csnrgPp1RDhlAQ4HobMzoKxtPQBPbDqTZz0rFUDZnT8dp?=
- =?us-ascii?Q?QK7wjRKsJek28Pc15c3zfqqPXFoysxUiQ+3/3SpX53PHIEQ3pmvdsrFionfW?=
- =?us-ascii?Q?wjb/t1h78plLN88wUQzb0TWMZU9TJvMpqhbsEaqWJUn5YSxvx7UqnibySQTZ?=
- =?us-ascii?Q?h6BgxVqKA8cT2irtzqLGQj4jRF36sMiKlkTauyxr06K4BdUfte1hC47h8qFb?=
- =?us-ascii?Q?nLQinHcTRpFc+XTZKIa6gOy6YwGO2B0hgMVzylrecE78VvGR/Nsdhvt2rBmw?=
- =?us-ascii?Q?vO57kg2Pi1FiH29y3DxEa5yyE5+VriU5HZMpRGVjwPYQMGQMPQfEMaV6tQ9C?=
- =?us-ascii?Q?1kn7InZigEHzfBxBxE/+V72EkdvzbZqdbO+IXHt1DDXBNYLpALltjPUsnCBh?=
- =?us-ascii?Q?pzGW8iTeyAtSEc4TjbZBMS2Ug7T+QzfEcXywcFfoc8s4lWyBWJEgdaSH7bJZ?=
- =?us-ascii?Q?s1RT66sceCz4A5qXb3WdDpu6O3Mwa4vRTL6GDfQkhL+mCBDC9Q9DhSGldq+d?=
- =?us-ascii?Q?lorU1wC1XruTRn77F4y4IZXSBHMNHVmfgPrBwRPA161p6uIfXJXuLxTT5TFV?=
- =?us-ascii?Q?64SPD4M8zc5x2unhHh88a+3qR0KIEvd8xlGCyJGgPnnhCJ1XEXmLWX8XxyLc?=
- =?us-ascii?Q?o8QOHdUYLhu55IsHaoGPy+DOIxzM0k03NZj0flJ5j0uWs5gqZSmcZ8KPSvzi?=
- =?us-ascii?Q?JxVTrRgIjnqlKz1yauYiqM+TCXd6q+JjokIi4h9pkVggtBdZVU87QLKaQT2T?=
- =?us-ascii?Q?jUcGwnkq4spVNQkUZO4nElGU1tFRwscWeE/Su1lsSDl0VlOcSVwKZFl+AFad?=
- =?us-ascii?Q?KaLYFMVJOy/J8LK3mSND9DQE+FwAMh2MhLa6sa1JKGqORMwLDsH48yenEqlA?=
- =?us-ascii?Q?zJ6WEP5B7PkpbBshEG1zD1hj1LDr3setqboMNsSR2AWkBQrWqidlL7VL8TWd?=
- =?us-ascii?Q?tQ=3D=3D?=
+ Mon,  4 Nov 2024 13:38:09 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A4B02Dk001094;
+ Mon, 4 Nov 2024 14:37:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ GC977nshZkMWBVY/wKvcQDvyN5arEAKIKgjZHxchAjQ=; b=tI+JlqZ3R7Lpvn+d
+ ggNSvmsYWIGygwLRUFLaWCG7SW/rRAhDGi8/iEmxy40qI58Ms23/IxXT8fxZRS8t
+ OzKoSJMuzb4V9YPjSPBRYgr7xc5kXRz9micoyScP6v3gyaawazy1Q4j8A5ZNiXuv
+ n0sGjds0Gfi+dMWlj5nQZ5+xLRrFTaZSXlYTX5SQFN0S5mGkEGOwSG4CMTg9c/qs
+ kt4B1/XsSrKGekH2cQPszTG6VSWG03I8xAFf01BKIPunzsWmVd8H5b80e1IUQ9AQ
+ OaX9Wpefpa14RzlRCfMOWAFYZbCvkaSsNtOpHs/nFbXm/UysR+amJnYAe7Igtdp4
+ KW5A8Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42ncyyxxru-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Nov 2024 14:37:53 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B6D8840044;
+ Mon,  4 Nov 2024 14:36:48 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A12C28A87F;
+ Mon,  4 Nov 2024 14:35:54 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 4 Nov
+ 2024 14:35:54 +0100
+Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 4 Nov
+ 2024 14:35:54 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Mon, 4 Nov 2024 14:35:09 +0100
+Message-ID: <20241104133515.256497-2-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
+References: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQZPR01MB0979.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9341335e-f0ac-4f45-4e6f-08dcfc799496
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2024 02:37:09.3616 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y4hmmR4iFUKEz+IyS/1VKPQWqEYte4WY2bs+ia6eJytM49u8AoZ5haeyDqYY5lPMEyXJd08dbIovgcwZisPiao1ZdIkDHSx4Noox0vF5Djg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQZPR01MB1092
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Mailman-Approved-At: Mon, 04 Nov 2024 17:18:35 +0000
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lftan.linux@gmail.com" <lftan.linux@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] code From
- d0f446931dfee7afa9f6ce5b1ac032e4dfa98460 Mon Sep 17 00:00:00 2001
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v13 1/7] remoteproc: core: Introduce
+	rproc_pa_to_va helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,53 +84,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+When a resource table is loaded by an external entity such as U-boot or
+OP-TEE, we do not necessarily get the device address(da) but the physical
+address(pa).
+This helper performs similar translation than the rproc_da_to_va()
+but based on a physical address.
 
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 46 ++++++++++++++++++++++++++++
+ include/linux/remoteproc.h           |  1 +
+ 2 files changed, 47 insertions(+)
 
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: Friday, November 1, 2024 9:31 PM
-> To: Leyfoon Tan <leyfoon.tan@starfivetech.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu
-> <joabreu@synopsys.com>; David S . Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; lftan.linux@gmail.com
-> Subject: Re: code From d0f446931dfee7afa9f6ce5b1ac032e4dfa98460 Mon Sep
-> 17 00:00:00 2001
-> 
-> On Fri, Nov 01, 2024 at 04:23:33PM +0800, Ley Foon Tan wrote:
-> > This patch series fixes the bugs in the dwmac4 drivers:
-> >
-> > Patch #1: Fix incorrect _SHIFT and _MASK for MTL_OP_MODE_RTC_* macros.
-> > Patch #2: Fix bit mask off operation for MTL_OP_MODE_*_MASK.
-> > Patch #3: Fix Receive Watchdog Timeout (RWT) interrupt handling.
-> >
-> > Changes since v1:
-> > - Updated CC list from get_maintainers.pl.
-> > - Removed Fixes tag.
-> 
-> It looks to me that the first two patches really are fixes? The last patch is just a
-> statistics counter, so probably not a fix?
-> 
-> If this is correct, please spit these into two series. The first two should target
-> net, and have Fixes: tags. The last patch should target net-next, and does not
-> need a Fixes: tag.
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index f276956f2c5c..ace11ea17097 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -230,6 +230,52 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
+ }
+ EXPORT_SYMBOL(rproc_da_to_va);
+ 
++/**
++ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
++ * memory
++ *
++ * @rproc: handle of a remote processor
++ * @pa: remoteproc physical address
++ * @len: length of the memory region @pa is pointing to
++ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
++ *
++ * This function is a helper function similar to rproc_da_to_va() but it deals with physical
++ * addresses instead of device addresses.
++ *
++ * Return: a valid kernel address on success or NULL on failure
++ */
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
++{
++	struct rproc_mem_entry *carveout;
++	void *ptr = NULL;
++
++	list_for_each_entry(carveout, &rproc->carveouts, node) {
++		int offset = pa - carveout->dma;
++
++		/*  Verify that carveout is allocated */
++		if (!carveout->va)
++			continue;
++
++		/* try next carveout if da is too small */
++		if (offset < 0)
++			continue;
++
++		/* try next carveout if da is too large */
++		if (offset + len > carveout->len)
++			continue;
++
++		ptr = carveout->va + offset;
++
++		if (is_iomem)
++			*is_iomem = carveout->is_iomem;
++
++		break;
++	}
++
++	return ptr;
++}
++EXPORT_SYMBOL(rproc_pa_to_va);
++
+ /**
+  * rproc_find_carveout_by_name() - lookup the carveout region by a name
+  * @rproc: handle of a remote processor
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index b4795698d8c2..8fd0d7f63c8e 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -690,6 +690,7 @@ int rproc_detach(struct rproc *rproc);
+ int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
+ void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
+ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
+ 
+ /* from remoteproc_coredump.c */
+ void rproc_coredump_cleanup(struct rproc *rproc);
+-- 
+2.25.1
 
-From the comment in [1], the fixes for net should be for the user-visible problem. That's why these 3 patches are
-resend to net-next.
-
-> 
-> > - Add more description in cover letter.
-> 
-> The Subject: like of the cover letter could be better.
-
-[1] https://patchwork.kernel.org/project/netdevbpf/cover/20241016031832.3701260-1-leyfoon.tan@starfivetech.com/
-
-
-Regards
-Ley Foon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
