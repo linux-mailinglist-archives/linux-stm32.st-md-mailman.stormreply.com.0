@@ -2,72 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6F669BBDDE
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 20:18:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D0C9BC04E
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 22:49:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DB9FC6DD9A;
-	Mon,  4 Nov 2024 19:18:36 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7C1FC6DD9E;
+	Mon,  4 Nov 2024 21:49:45 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A4C8C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2C00C6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2024 19:18:29 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-460ad98b043so36536101cf.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Nov 2024 11:18:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730747908; x=1731352708;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=unJ9b+rts3y1hb3/PAxKDJbTMcuKEtEuGFYI5bvW40k=;
- b=O5ZlA5QqEkc1QkIxfLWFIXJAxj9LkUsQUGOPYh1kJTpFN/iHVNX3BKVnBlI28Ojovu
- KXyAeCCfmvMA7nKs1ZikbjfPkG629ZBCnUO/9smPKkwJQLuX+JCaiRAZYh3MZdgXfYXZ
- /ATqklF2ZGvIOl/g88Lzu781PWc8HRNWMcj+cNFWJ67r18Roi3jwYdsjK/R/jGzFkuvG
- jZ4r/YaITJDn6PueaJCXGemUrSUtY3JlqeOowvCfrXP5j5W6PQLI0mtoan3UjuuIZ7Ob
- cOXrx0NkP4xdsf6AGyf6OcWQAeaDXz/w4WB6IxODvzwa3WCB16lsdBW0VmF+1g57Zcez
- y9Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730747908; x=1731352708;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=unJ9b+rts3y1hb3/PAxKDJbTMcuKEtEuGFYI5bvW40k=;
- b=Vrnk+YSRc/FGk/5TKGrqai3ZHoI8lPqWhKhWSaMLFjWkwYRjQcuHIZyZCt5wxmEZoO
- CIKiwMEb3e4Y/Vfc94y9/VKhABnvCoynmFURkbcMHfLxCvURxcortxTtE45iYZz1hwjh
- 8SX52n5uyPHfGQeg5aBNcLIp39R1Yj9e7t9+6NRB9DZ9QGOvrdldBGe3qTzMyUpAKLBY
- wDy9m9P9jMbFlJ9ZFmMU9auMc7N2diy0D2+ry+DjAmK1BY9yZkT7YuYAsfDe6Yfn2YXY
- Gxtm80xbypzoW27GsO24qvHTLhmKjqJPCETGvD980u2431/jZn107FL8fmBYflFXs3Om
- NGKw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUP7bxF74eWkjgsyfeKH1yos/nbhTrADYYI0ad1xjcleJNcpOft7tZVWBeIW0ly1v+b4a34zhpqGvSdew==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwptUvnhIQfXag3bubCVkbUdF9oZvAa53eJo5RB+NyxxE1IgK78
- GGW6LH1sDveSXs2cDkMoYTDIbQcUOfLrYqDdwCaEmj6GlUJw5pLA
-X-Google-Smtp-Source: AGHT+IELakiFzr59EudtKLiMCMHPt484NaNIT6Kjz/ZSDX/NpW9fjmCjoWrs7c/vQ4eTZTNX7i2z4g==
-X-Received: by 2002:ac8:58ce:0:b0:44f:fb6d:4b2f with SMTP id
- d75a77b69052e-462b6e83130mr228655931cf.23.1730747908255; 
- Mon, 04 Nov 2024 11:18:28 -0800 (PST)
-Received: from newman.cs.purdue.edu ([128.10.127.250])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-462ad086e55sm50174351cf.7.2024.11.04.11.18.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Nov 2024 11:18:28 -0800 (PST)
-From: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-To: wbg@kernel.org, fabrice.gasnier@foss.st.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, Jonathan.Cameron@huawei.com,
- benjamin.gaignard@st.com, gregkh@linuxfoundation.org
-Date: Mon,  4 Nov 2024 19:18:25 +0000
-Message-Id: <20241104191825.40155-1-jiashengjiangcool@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Mon,  4 Nov 2024 21:49:37 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A4LIoAM021589;
+ Mon, 4 Nov 2024 21:49:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ hdewSeTalDhtOcLJsoqnljsUr3/ztd7Lz3JXE3vL+X0=; b=QgU7/hbyqCQQYFxZ
+ 4JVW0m6daLV78oA0mqQJJ1Lsf5t+p7xLsOcoQlFwf6gPlex5kBH4ZIXMm2yJlO/o
+ UF06dKN983NsXXM0y9ievvPGdNfBXPqU5uKIOBZLOAo+coVCvxeXt2eihf81zW/y
+ j8dI45HYfB9Pt67gFRfHF67gy0YJE+fMKgN9VJqdN+ud6YLztE/jzOUkB1jtuA6e
+ 11cbOEeBInHd4u54muW1kOLfbCtjysIHc0Q0mRy/bTg9tYMy6IXG1ZbNexjaTEpc
+ OciLrN1ZJamKIr8SapJtSg0fL0HzgDx6FyDIQD4eW6A52UHvHcD9iiyx1KbpLBSp
+ 5ZOE9Q==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42ncyxwgyj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Nov 2024 21:49:12 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4A4LnB35000548
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 4 Nov 2024 21:49:11 GMT
+Received: from [10.110.8.191] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 4 Nov 2024
+ 13:49:07 -0800
+Message-ID: <f2de77a4-d457-40d6-9651-66c2b24af378@quicinc.com>
+Date: Mon, 4 Nov 2024 13:49:02 -0800
 MIME-Version: 1.0
-Cc: linux-iio@vger.kernel.org, Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: Add check for
-	clk_enable()
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241018222407.1139697-1-quic_abchauha@quicinc.com>
+ <60119fa1-e7b1-4074-94ee-7e6100390444@lunn.ch>
+ <ZxYc2I9vgVL8i4Dz@shell.armlinux.org.uk>
+ <ZxYfmtPYd0yL51C5@shell.armlinux.org.uk>
+ <89f188d2-2d4e-43bf-98f3-aae7e9d68cab@quicinc.com>
+ <5e5783f0-6949-4d04-a887-e6b873ae42ff@quicinc.com>
+ <bc891f4e-4a3a-4664-b52c-871d173b7607@lunn.ch>
+Content-Language: en-US
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <bc891f4e-4a3a-4664-b52c-871d173b7607@lunn.ch>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Xi3iw7wjqsh69AY8gTh4haDt0C0NFoyi
+X-Proofpoint-GUID: Xi3iw7wjqsh69AY8gTh4haDt0C0NFoyi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 mlxscore=0 phishscore=0 adultscore=0 mlxlogscore=535
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411040174
+Cc: Jon Hunter <jonathanh@nvidia.com>, kernel@quicinc.com,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Serge Semin <fancer.lancer@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Disable PCS Link and
+ AN interrupt when PCS AN is disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,61 +100,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add check for the return value of clk_enable() in order to catch the
-potential exception.
 
-Fixes: c5b8425514da ("counter: stm32-timer-cnt: add power management support")
-Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
----
-Changelog:
 
-v1 -> v2:
+On 10/25/2024 5:44 AM, Andrew Lunn wrote:
+>> Serge can you please respond on the PCS support in stmmac ?
+> 
+> Unfortunately, Serge has been removed as Maintainer of stmmac as part
+> of the Russian  sanctions.
+> 
+> stmmac currently has no active Maintainer.
+> 
+> 	Andrew
+That's very unfortunate that Serge is removed as Maintainers. 
 
-1. Add dev_err() to indicate the reason for the error code.
----
- drivers/counter/stm32-timer-cnt.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Andrew, I am not sure if you are the right person to ask this question
+How can i proceed with this problem ? I am kind of stuck now. :) 
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index 186e73d6ccb4..9c188d9edd89 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -214,11 +214,17 @@ static int stm32_count_enable_write(struct counter_device *counter,
- {
- 	struct stm32_timer_cnt *const priv = counter_priv(counter);
- 	u32 cr1;
-+	int ret;
- 
- 	if (enable) {
- 		regmap_read(priv->regmap, TIM_CR1, &cr1);
--		if (!(cr1 & TIM_CR1_CEN))
--			clk_enable(priv->clk);
-+		if (!(cr1 & TIM_CR1_CEN)) {
-+			ret = clk_enable(priv->clk);
-+			if (ret) {
-+				dev_err(counter->parent, "Cannot enable clock %d\n", ret);
-+				return ret;
-+			}
-+		}
- 
- 		regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
- 				   TIM_CR1_CEN);
-@@ -816,7 +822,11 @@ static int __maybe_unused stm32_timer_cnt_resume(struct device *dev)
- 		return ret;
- 
- 	if (priv->enabled) {
--		clk_enable(priv->clk);
-+		ret = clk_enable(priv->clk);
-+		if (ret) {
-+			dev_err(dev, "Cannot enable clock %d\n", ret);
-+			return ret;
-+		}
- 
- 		/* Restore registers that may have been lost */
- 		regmap_write(priv->regmap, TIM_SMCR, priv->bak.smcr);
--- 
-2.25.1
+Please guide me through this.
+
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
