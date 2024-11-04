@@ -2,46 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 981989BB7A4
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 15:25:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 794ED9BBAED
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2024 18:03:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4753AC6DD94;
-	Mon,  4 Nov 2024 14:25:12 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B692C71287;
+	Mon,  4 Nov 2024 17:03:03 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8792C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF136C6DD9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2024 14:25:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 51FB25C5619;
- Mon,  4 Nov 2024 14:24:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A29C4CECE;
- Mon,  4 Nov 2024 14:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730730302;
- bh=aCdsocZNwSc0LaEHFPOtq6uw+UtTQbPbYCLT6rdIiSg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R89pu2SkbTOdSoRFVO+RZw5wfgA4U27LfJeYYH88bCe+nfxHdadx02d8l9jhs8zid
- VrhbYNlRXhCr0Q59Q9+5nKXv8H2c1BwKOpmeMl+iNfLAGzPE0TH0kXY5h82VjvBbuK
- PVu3y1owBEg93MLEfo812PRB9qr+j1BwMNkIt7ke+Cjars0M+tMypPYeLcBc7rBZx5
- Y9cTGR7QhoXaXhGcUbDJuLJtxMEABrinBwwWZVTLBs+DBFxogiMaitSSm4sNHLb9w1
- PzuV8Rd94Va0gkGfpz2mNKhvLiScchTKZeAOUiGVs1SOr45IOTZePGcQYR7v98RXrt
- Oah2MOc+r3XXg==
-Date: Mon, 4 Nov 2024 23:24:58 +0900
-From: William Breathitt Gray <wbg@kernel.org>
-To: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Message-ID: <ZyjZOt4LXL6vVrEC@ishi>
-References: <20241103182502.8384-1-jiashengjiangcool@gmail.com>
+ Mon,  4 Nov 2024 17:02:55 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id F00EE60005;
+ Mon,  4 Nov 2024 17:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1730739775;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=oI5s8asFDWE8LgW78P2vcd6xNJ1YtBMsqU066l+ZeeQ=;
+ b=L1WCxFcACUgATE0tjjEcTfaN33vuYwaz+WIrUnD5/83xyUJMVJiiyB7T/3nRmy9hOVxJ9B
+ hVo1p8HAmVCdN6DRXx/EDJ1s9G+aTazR3Us24cKKrUsndash/oD28BRxLPslTIBglFL78p
+ pk/Pr4sBRU07vYMX8orosVcWpBCfowNfyeLVrN88s6Mk39d2ka/lDkNQDWvYnodP2JlTIu
+ IN4c+TMmuAH0Lr/tUzdrCwKdJVA0zFfnTojebSCnxGYi01DT/k0+TyRBtzokMkRZW0WZjt
+ u+138GZMj6GP4WFGAdN3NqkdSZPDzgkUYErLjFsa8TWfu33HC8w8T/fGbP6KIA==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>
+Date: Mon,  4 Nov 2024 18:02:40 +0100
+Message-ID: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-In-Reply-To: <20241103182502.8384-1-jiashengjiangcool@gmail.com>
-Cc: benjamin.gaignard@st.com, linux-iio@vger.kernel.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Jiasheng Jiang <jiashengjiangcool@outlook.com>, mcoquelin.stm32@gmail.com,
- Jonathan.Cameron@huawei.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: Add check for
-	clk_enable()
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/9] Support external snapshots on
+	dwmac1000
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,104 +56,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4779502555957862564=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4779502555957862564==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A18abvT+dU0C7JZH"
-Content-Disposition: inline
-
-
---A18abvT+dU0C7JZH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Nov 03, 2024 at 06:25:02PM +0000, Jiasheng Jiang wrote:
-> From: Jiasheng Jiang <jiashengjiangcool@outlook.com>
->=20
-> Add check for the return value of clk_enable() in order to catch the
-> potential exception.
->=20
-> Fixes: c5b8425514da ("counter: stm32-timer-cnt: add power management supp=
-ort")
-> Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@outlook.com>
-> ---
->  drivers/counter/stm32-timer-cnt.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-ti=
-mer-cnt.c
-> index 186e73d6ccb4..0593c9b73992 100644
-> --- a/drivers/counter/stm32-timer-cnt.c
-> +++ b/drivers/counter/stm32-timer-cnt.c
-> @@ -214,11 +214,15 @@ static int stm32_count_enable_write(struct counter_=
-device *counter,
->  {
->  	struct stm32_timer_cnt *const priv =3D counter_priv(counter);
->  	u32 cr1;
-> +	int ret;
-> =20
->  	if (enable) {
->  		regmap_read(priv->regmap, TIM_CR1, &cr1);
-> -		if (!(cr1 & TIM_CR1_CEN))
-> -			clk_enable(priv->clk);
-> +		if (!(cr1 & TIM_CR1_CEN)) {
-> +			ret =3D clk_enable(priv->clk);
-> +			if (ret)
-> +				return ret;
-> +		}
-> =20
->  		regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
->  				   TIM_CR1_CEN);
-> @@ -816,7 +820,9 @@ static int __maybe_unused stm32_timer_cnt_resume(stru=
-ct device *dev)
->  		return ret;
-> =20
->  	if (priv->enabled) {
-> -		clk_enable(priv->clk);
-> +		ret =3D clk_enable(priv->clk);
-> +		if (ret)
-> +			return ret;
-> =20
->  		/* Restore registers that may have been lost */
->  		regmap_write(priv->regmap, TIM_SMCR, priv->bak.smcr);
-> --=20
-> 2.25.1
-
-It's not necessarily clear that an error in the count_enable_write()
-callback or cnt_resume() callback is due to a clk_enable() failure. You
-should call dev_err before returning to indicate the reason for the
-error code.
-
-William Breathitt Gray
-
---A18abvT+dU0C7JZH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZyjZOgAKCRC1SFbKvhIj
-K91QAQClpsDPi83ln4ZTMU9XMQcBPRklZisDe1L9SMCTzqjm3gEAq1L5KoqpNOaf
-YPPuPhpOYxmyb3wS6y/mZ8IWf4PZ9QQ=
-=zJcy
------END PGP SIGNATURE-----
-
---A18abvT+dU0C7JZH--
-
---===============4779502555957862564==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4779502555957862564==--
+SGksCgpUaGlzIHNlcmllcyBpcyBhbm90aGVyIHRha2Ugb24gdGhlIHBlcnZpb3VzIHdvcmsgWzFd
+IGRvbmUgYnkKQWxleGlzIExvdGhvcsOpLCB0aGF0IGZpeGVzIHRoZSBzdXBwb3J0IGZvciBleHRl
+cm5hbCBzbmFwc2hvdHMKdGltZXN0YW1waW5nIGluIEdNQUMzLWJhc2VkIGRldmljZXMuCgpEZXRh
+aWxzIG9uIHdoeSB0aGlzIGlzIG5lZWRlZCBhcmUgbWVudGlvbm5lZCBvbiB0aGUgY292ZXIgWzJd
+IGZyb20gVjEuCgpUaGlzIFYyIGFkZHJlc3NlcyBtdWx0aXBsZSBpc3N1ZXMgZm91bmQgaW4gVjEg
+OgoKIC0gVGhlIFBUUF9UQ1IgcmVnaXN0ZXIgaXMgY29uZmlndXJlZCBmcm9tIG11bHRpcGxlIHBs
+YWNlcywgYXMgcmVwb3J0ZWQKICAgYnkgQWxleGlzLCBzbyB3ZSBuZWVkIHRvIG1ha2Ugc3VyZSB0
+aGF0IHRoZSBleHR0cyBjb25maWd1cmF0aW9uCiAgIGRvZXNuJ3QgaW50ZXJmZXJlIHdpdGggdGhl
+IGh3dHN0YW1wIGNvbmZpZ3VyYXRpb24uCgogLSBUaGUgaW50ZXJydXB0IG1hbmFnZW1lbnQgaW4g
+VjEgd2FzIGluY29tcGxldGUsIGFzIHRoZSBpbnRlcnJ1cHQKICAgd2Fzbid0IGNvcnJlY3RseSBh
+Y2tlZC4KCiAtIFRoaXMgc2VyaWVzIGFsc28gbWFrZXMgc28gdGhhdCB3ZSBvbmx5IGVuYWJsZSB0
+aGUgZXh0dHMgaW50ZXJydXB0CiAgIHdoZW4gbmVjZXNzYXJ5LgoKWzFdOiBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9uZXRkZXYvMjAyMzA2MTYxMDA0MDkuMTY0NTgzLTEtYWxleGlzLmxvdGhvcmVA
+Ym9vdGxpbi5jb20vClsyXTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjQxMDI5
+MTE1NDE5LjExNjAyMDEtMS1tYXhpbWUuY2hldmFsbGllckBib290bGluLmNvbS8KClRoYW5rcyBB
+bGV4aXMgZm9yIGxheWluZyB0aGUgZ3JvdW5kd29yayBmb3IgdGhpcywKCkJlc3QgcmVnYXJkcywK
+Ck1heGltZQoKTGluayB0byBWMTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjQx
+MDI5MTE1NDE5LjExNjAyMDEtMS1tYXhpbWUuY2hldmFsbGllckBib290bGluLmNvbS8KCk1heGlt
+ZSBDaGV2YWxsaWVyICg5KToKICBuZXQ6IHN0bW1hYzogRG9uJ3QgbW9kaWZ5IHRoZSBnbG9iYWwg
+cHRwIG9wcyBkaXJlY3RseQogIG5ldDogc3RtbWFjOiBVc2UgcGVyLWh3IHB0cCBjbG9jayBvcHMK
+ICBuZXQ6IHN0bW1hYzogT25seSB1cGRhdGUgdGhlIGF1dG8tZGlzY292ZXJlZCBQVFAgY2xvY2sg
+ZmVhdHVyZXMKICBuZXQ6IHN0bW1hYzogSW50cm9kdWNlIGR3bWFjMTAwMCBwdHBfY2xvY2tfaW5m
+byBhbmQgb3BlcmF0aW9ucwogIG5ldDogc3RtbWFjOiBJbnRyb2R1Y2UgZHdtYWMxMDAwIHRpbWVz
+dGFtcGluZyBvcGVyYXRpb25zCiAgbmV0OiBzdG1tYWM6IEVuYWJsZSB0aW1lc3RhbXBpbmcgaW50
+ZXJydXB0IG9uIGR3bWFjMTAwMAogIG5ldDogc3RtbWFjOiBEb24ndCBpbmNsdWRlIGR3bWFjNCBk
+ZWZpbml0aW9ucyBpbiBzdG1tYWNfcHRwCiAgbmV0OiBzdG1tYWM6IENvbmZpZ3VyZSBvbmx5IHRo
+ZSByZWxldmFudCBiaXRzIGZvciB0aW1lc3RhbXBpbmcgc2V0dXAKICBuZXQ6IHN0bW1hYzogZHdt
+YWNfc29jZnBnYTogVGhpcyBwbGF0Zm9ybSBoYXMgR01BQwoKIGRyaXZlcnMvbmV0L2V0aGVybmV0
+L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oICB8ICAgNCArCiAuLi4vZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvZHdtYWMtc29jZnBnYS5jICAgfCAgIDEgKwogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3Jv
+L3N0bW1hYy9kd21hYzEwMDAuaCAgIHwgIDEyICsrKwogLi4uL2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL2R3bWFjMTAwMF9jb3JlLmMgIHwgMTAxICsrKysrKysrKysrKysrKysrKwogZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvaHdpZi5jICAgIHwgIDE1ICsrLQogLi4uL2V0aGVy
+bmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19od3RzdGFtcC5jIHwgIDI2ICsrKystCiAuLi4vbmV0
+L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19wdHAuYyAgfCAgMzggKysrKystLQogLi4u
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcHRwLmggIHwgIDEwICsrCiA4IGZp
+bGVzIGNoYW5nZWQsIDE5NiBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKCi0tIAoyLjQ3
+LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
