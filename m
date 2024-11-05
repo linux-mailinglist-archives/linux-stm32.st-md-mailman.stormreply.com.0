@@ -2,50 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A4B09BD3CD
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 18:53:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 235999BD5A8
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 20:07:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 374ECC71292;
-	Tue,  5 Nov 2024 17:53:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDE9BC71292;
+	Tue,  5 Nov 2024 19:07:37 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B126C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2FD5C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2024 17:53:13 +0000 (UTC)
+ Tue,  5 Nov 2024 19:07:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3C1A55C4636;
- Tue,  5 Nov 2024 17:52:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342D2C4CECF;
- Tue,  5 Nov 2024 17:53:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AC9785C54A5;
+ Tue,  5 Nov 2024 19:06:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96663C4CED1;
+ Tue,  5 Nov 2024 19:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730829191;
- bh=GBpdf1OVO9BOr56k/DS5sh/foQKQ7xW6cGQgQpR2NCA=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Pw5KJOOypZ+1M8BcBE1sks8BopZNvfyjIUSRrCa8l9BsQDa57h+iIrOYogz4Z/R3F
- BGgMRI3BzVtRJZnrd8EPtO9bkkwfGVHl3pH2Wb9k32RvLss5b4kESmkAPGMFvsHWU7
- HsfImJ/9oLem4OZommuIE4+MHIC+59xP2TXTed92k01Z0Ns2ew0CGMHx4DACRKU4JJ
- Rt6gUyszCPAyqEP1rDnwCN2zxwe8JKeNsA5if3fvcBrbsH+KT6vrdO2jglYiHBjqQz
- 2lzzf4V9w7F5Mxn1wsOslkLlsliJgQFtmY7DgHFTgI5KoAAPxXLXe1yuWuZKixE1Wi
- I40bxMdeGXilg==
+ s=k20201202; t=1730833648;
+ bh=bJBfX6qg8hW2kBjNewIsOi+0CyauUekBnlmZQZpbsPM=;
+ h=From:To:In-Reply-To:References:Subject:Date:From;
+ b=Ws5ZPOhUGS4BGBhjO58bXkSAOXZlJVSOeX1WL46YI1g7J7+uu0SjVJCcOPQXlZCzJ
+ 0HIHMEf3qI/TWOANCPJDa48EtIsYCWbGMV8ziP1C9N2vuTwgV3IRBCOPhTtPThjzTr
+ PCE3I+wiIQipirKQ01UEni4wshs1YoeyCDYH0Hkg0fXBPQvZukoZuE4OsvFjoqKfdT
+ AZITUrcU1TglWZUMHI8LR0Tn3GLs49h2ZQpaanmBKdspvAhhxMMeL8Jq0iQJncDgZf
+ Jqlsol00dy+q11CuOVcc7dg03m1ZL4P9h5qmFlxzIbgk8Lk3/o+CdteMFPwB2nQyuH
+ 6IFhmanLMkR+g==
 From: Mark Brown <broonie@kernel.org>
-To: amelie.delaunay@foss.st.com, 
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Olivier Moysan <olivier.moysan@foss.st.com>
-In-Reply-To: <20241105140242.527279-1-olivier.moysan@foss.st.com>
-References: <20241105140242.527279-1-olivier.moysan@foss.st.com>
-Message-Id: <173082918893.89365.2926884723667800367.b4-ty@kernel.org>
-Date: Tue, 05 Nov 2024 17:53:08 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>, 
+ Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>, 
+ alsa-devel@alsa-project.org, imx@lists.linux.dev, 
+ linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
+References: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <173083364434.105724.3803415580036211483.b4-ty@kernel.org>
+Date: Tue, 05 Nov 2024 19:07:24 +0000
 MIME-Version: 1.0
 X-Mailer: b4 0.15-dev-9b746
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/1] ASoC: stm32: spdifrx: fix dma channel
- release in stm32_spdifrx_remove
+Subject: Re: [Linux-stm32] [PATCH 0/8] ASoC: cleasnup rtd and its ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,18 +64,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 05 Nov 2024 15:02:42 +0100, Olivier Moysan wrote:
-> In case of error when requesting ctrl_chan DMA channel, ctrl_chan is not
-> null. So the release of the dma channel leads to the following issue:
-> [    4.879000] st,stm32-spdifrx 500d0000.audio-controller:
-> dma_request_slave_channel error -19
-> [    4.888975] Unable to handle kernel NULL pointer dereference
-> at virtual address 000000000000003d
-> [...]
-> [    5.096577] Call trace:
-> [    5.099099]  dma_release_channel+0x24/0x100
-> [    5.103235]  stm32_spdifrx_remove+0x24/0x60 [snd_soc_stm32_spdifrx]
-> [    5.109494]  stm32_spdifrx_probe+0x320/0x4c4 [snd_soc_stm32_spdifrx]
+On Thu, 24 Oct 2024 01:28:10 +0000, Kuninori Morimoto wrote:
+> rtd has own ID, but it is naming "num" for it. The naming is confusable.
+> This patch rename it to "id".
+> And many functions request both "rtd" and its "id" as function parameter,
+> but rtd itself has rtd->id. This patch cleanup it.
+> 
+> And, Qcom driver want to use irregular rtd ID because of its topology,
+> and thus, soc-core need irregular calculation. I'm not sure why only Qcom
+> needs such calculation, but this patch also cleanup it.
+> But I guess we want to cleanup is not soc-core but Qcom side (?)
 > 
 > [...]
 
@@ -83,8 +83,22 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: stm32: spdifrx: fix dma channel release in stm32_spdifrx_remove
-      commit: 9bb4af400c386374ab1047df44c508512c08c31f
+[1/8] ASoC: rename rtd->num to rtd->id
+      commit: 40e47e2db6864aa053a62477bd71a16be9dd4066
+[2/8] ASoC: fsl: switch to use rtd->id from rtd->num
+      commit: eae33f737c7a929d92b559fe1a1002d597b7b903
+[3/8] ASoC: meson: switch to use rtd->id from rtd->num
+      commit: b19f75df8fa9f8d4aa8b5886dca0f2d832a76baa
+[4/8] ASoC: sh: switch to use rtd->id from rtd->num
+      commit: 970a874b76d09d6a5880e8832e572850cfcb4008
+[5/8] ASoC: generic: switch to use rtd->id from rtd->num
+      commit: 742e622db67efc32affb5893fdcc0149f374533e
+[6/8] ASoC: remove rtd->num
+      commit: c59db5ed233a19f6aadd086fb89149ec5f6fa855
+[7/8] ASoC: soc-core: do rtd->id trick at snd_soc_add_pcm_runtime()
+      commit: cb18cd26039f5cdecb0ac53fb447b6f0859f3d1c
+[8/8] ASoC: cleanup function parameter for rtd and its id
+      commit: 8b12da9a18f4dd53e4b3a7393829a555e84f073c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
