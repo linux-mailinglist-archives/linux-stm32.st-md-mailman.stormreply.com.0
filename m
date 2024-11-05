@@ -2,56 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20A6B9BCA17
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 11:15:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE6509BCE8D
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 15:03:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BD30C6DD9F;
-	Tue,  5 Nov 2024 10:15:15 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62C9BC71287;
+	Tue,  5 Nov 2024 14:03:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68064C6DD9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC276C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2024 10:15:08 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1t8GaH-00021Q-OL; Tue, 05 Nov 2024 11:14:49 +0100
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1t8GaG-0027zm-0C;
- Tue, 05 Nov 2024 11:14:48 +0100
-Received: from pza by lupine with local (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1t8GaF-0005OF-39;
- Tue, 05 Nov 2024 11:14:47 +0100
-Message-ID: <8841158ed61b2b92a92ac6d2afcbd7cff12a6680.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alain Volmat <alain.volmat@foss.st.com>, Hugues Fruchet
- <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Date: Tue, 05 Nov 2024 11:14:47 +0100
-In-Reply-To: <20241105-csi_dcmipp_mp25-v2-3-b9fc8a7273c2@foss.st.com>
-References: <20241105-csi_dcmipp_mp25-v2-0-b9fc8a7273c2@foss.st.com>
- <20241105-csi_dcmipp_mp25-v2-3-b9fc8a7273c2@foss.st.com>
-User-Agent: Evolution 3.46.4-2 
+ Tue,  5 Nov 2024 14:03:00 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A5DY4vk006828;
+ Tue, 5 Nov 2024 15:02:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=r0pX1FHgLqkdgm4Z0bWZbm
+ zE7jup2PMJjNG85lq5xOw=; b=LBb2SK2rgGAzRdzHeWVMVj5wUrFOVcCj4SebnD
+ 0YjsgEzAP5ZgAP/n0I8FIcSrOD2h1muBRAcXkAgqBlkauf7r8q+SEviZGTuV2ftI
+ uLKulkkQoi74lrGQwYTCObro85lYQTeR3scvvrsNrzNk/prb3uPDRpnWNvuGpYd6
+ Bu31CkevEqmAXPAjeQiMzJGWDihzgew4S1BshrCAXr46cAm15N6ZBVdVBmsQYcc2
+ pgUIhp9EGsLHVZibfJnPX1dfHLVT6GOyWA1JdL8JenhyZLagv/e3sNe2lCN0fRzp
+ FhflMwuRzWUIY0aSrcyPRMgMKJu2LahlJJgasPs2ieP/gJ+Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42ncxbvpm2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Nov 2024 15:02:42 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8680940064;
+ Tue,  5 Nov 2024 15:01:37 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19ECB2676C6;
+ Tue,  5 Nov 2024 15:00:15 +0100 (CET)
+Received: from localhost (10.252.16.126) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 5 Nov
+ 2024 15:00:14 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 5 Nov 2024 14:59:41 +0100
+Message-ID: <20241105135942.526624-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 03/15] media: stm32: csi: addition of
- the STM32 CSI driver
+X-Originating-IP: [10.252.16.126]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: add missing port
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,91 +78,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Di, 2024-11-05 at 08:49 +0100, Alain Volmat wrote:
-> The STM32 CSI controller is tightly coupled with the DCMIPP and act as an
-> input stage to receive data coming from the sensor and transferring
-> them into the DCMIPP.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> 
-> ---
-> v2: correct data-lanes handling, using values 1 & 2
->     update yaml filename in MAINTAINERS
-> ---
->  MAINTAINERS                                 |    8 +
->  drivers/media/platform/st/stm32/Kconfig     |   14 +
->  drivers/media/platform/st/stm32/Makefile    |    1 +
->  drivers/media/platform/st/stm32/stm32-csi.c | 1144 +++++++++++++++++++++++++++
->  4 files changed, 1167 insertions(+)
-> 
-[...]
-> diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..c7f47472c6b3699e94113ce0f38b280a2e45ce15
-> --- /dev/null
-> +++ b/drivers/media/platform/st/stm32/stm32-csi.c
-> @@ -0,0 +1,1144 @@
-[...]
-> +static int stm32_csi_get_resources(struct stm32_csi_dev *csidev,
-> +				   struct platform_device *pdev)
-> +{
-> +	int irq, ret;
-> +
-> +	csidev->base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
-> +	if (IS_ERR(csidev->base))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(csidev->base),
-> +				     "Failed to ioremap resource\n");
-> +
-> +	csidev->pclk = devm_clk_get(&pdev->dev, "pclk");
-> +	if (IS_ERR(csidev->pclk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(csidev->pclk),
-> +				     "Couldn't get pclk\n");
-> +
-> +	csidev->txesc = devm_clk_get(&pdev->dev, "txesc");
-> +	if (IS_ERR(csidev->txesc))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(csidev->txesc),
-> +				     "Couldn't get txesc\n");
-> +
-> +	csidev->csi2phy = devm_clk_get(&pdev->dev, "csi2phy");
-> +	if (IS_ERR(csidev->csi2phy))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(csidev->csi2phy),
-> +				     "Couldn't get csi2phy\n");
+Add missing port property in STM32 SPDIFRX binding.
+This will prevent potential warning:
+Unevaluated properties are not allowed ('port' was unexpected)
 
-Consider using devm_clk_bulk_get().
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> +	csidev->rstc = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> +	if (IS_ERR(csidev->rstc))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(csidev->rstc),
-> +				     "Couldn't get reset control\n");
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+index 3dedc81ec12f..56c5738ea4c5 100644
+--- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
++++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+@@ -50,6 +50,10 @@ properties:
+   resets:
+     maxItems: 1
+ 
++  port:
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
++
+   access-controllers:
+     minItems: 1
+     maxItems: 2
+-- 
+2.25.1
 
-If this wasn't in a separate function, rstc wouldn't have to be stored
-on csidev as it's only ever used in stm32_csi_probe().
-
-> +
-> +	csidev->supplies[0].supply = "vdd";
-> +	csidev->supplies[1].supply = "vdda18";
-> +	ret = devm_regulator_bulk_get(&pdev->dev, ARRAY_SIZE(csidev->supplies),
-> +				      csidev->supplies);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Failed to request regulator vdd\n");
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
-> +					stm32_csi_irq_thread, IRQF_ONESHOT,
-> +					dev_name(&pdev->dev), csidev);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Unable to request irq");
-> +
-> +	return 0;
-> +}
-
-regards
-Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
