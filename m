@@ -2,52 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 235999BD5A8
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 20:07:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAFF19BD5E5
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2024 20:32:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDE9BC71292;
-	Tue,  5 Nov 2024 19:07:37 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66CFFC71292;
+	Tue,  5 Nov 2024 19:32:29 +0000 (UTC)
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2FD5C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51690C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2024 19:07:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AC9785C54A5;
- Tue,  5 Nov 2024 19:06:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96663C4CED1;
- Tue,  5 Nov 2024 19:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730833648;
- bh=bJBfX6qg8hW2kBjNewIsOi+0CyauUekBnlmZQZpbsPM=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=Ws5ZPOhUGS4BGBhjO58bXkSAOXZlJVSOeX1WL46YI1g7J7+uu0SjVJCcOPQXlZCzJ
- 0HIHMEf3qI/TWOANCPJDa48EtIsYCWbGMV8ziP1C9N2vuTwgV3IRBCOPhTtPThjzTr
- PCE3I+wiIQipirKQ01UEni4wshs1YoeyCDYH0Hkg0fXBPQvZukoZuE4OsvFjoqKfdT
- AZITUrcU1TglWZUMHI8LR0Tn3GLs49h2ZQpaanmBKdspvAhhxMMeL8Jq0iQJncDgZf
- Jqlsol00dy+q11CuOVcc7dg03m1ZL4P9h5qmFlxzIbgk8Lk3/o+CdteMFPwB2nQyuH
- 6IFhmanLMkR+g==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
- Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>, 
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- alsa-devel@alsa-project.org, imx@lists.linux.dev, 
- linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
-References: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <173083364434.105724.3803415580036211483.b4-ty@kernel.org>
-Date: Tue, 05 Nov 2024 19:07:24 +0000
+ Tue,  5 Nov 2024 19:32:22 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id
+ af79cd13be357-7b1505ef7e3so346330185a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 05 Nov 2024 11:32:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730835141; x=1731439941;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mlpXLUDiuAj4Ax3s/8PaCa808KyyiZFwFmndcMeabmA=;
+ b=ZnpaIl1+LcB6IzDksxNwW7ApgZxQEQZ+zcbfGRKQ9ShAOFDLi5cBquoQxXPjP0Nhkh
+ QTy/ytkzDg+aywg5xGckxLrCF5Uo2OSjU2/muJbmfCchrUD4Cb6pWgV3qdCvEcjKeVMU
+ WEvajLO30ykeUXg1WoNqY+Ci+rzcaFm9J+hKT/nFXnBpQK0md10UvZrP9iB/cpWv4YsN
+ dosHmzPvjV8slVuRKmgrj7BmIgv2vKdCO+1ygyaeGXgEz+JubPWj933R6BpQh///uvIm
+ cAkq8o3u8izAV80WGqKKDQE9cW1TgjuNkbecvc+hem/VwUO2jngBjnXvySqq0VYpfaAJ
+ r8yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730835141; x=1731439941;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mlpXLUDiuAj4Ax3s/8PaCa808KyyiZFwFmndcMeabmA=;
+ b=T9+LCrjHV4gS0t4CGfO90GKXAGc893CqE0jll176lt6tPcVFrr3vtUuofhCIah+asl
+ KQSBeK1+bjEE+gLTbFguLF8FwO5HJ3sysgH2VUnYB6AyFXHABMeVi5Dv3ZbebBqj007c
+ DXXTdxyf/gU5J/aM+GQ9r7QznCmyQZwpwDRh4iW4xjoRj6dJd93AV9LzqYJur5xYUGxR
+ 3ugx270k26wFUzqg2Ja07dJORZCnGykAtE9x31YkqamTuSmoYLtwJduMaqn8Cd7JrPcm
+ GvQ0VrwTccmdquX31h/DlOo0LHaf/3imBoxeUAY4hJ4CFkaU7qh1QG9OkfEvIFnULtWt
+ XCYQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWSbSf32bsnpwJWlkIAdCKIe+nLyq4Thf/9uCt1MMZgcth8qK5KPbNyDkjHop/l8Z0Od9eiDdkF0M8G7A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwDpHE4YcdCFfJf1weGwbfnc+WPtgTa4Wm/5kXd8Yen+keYG0l4
+ eOoBh/Bl8WcEEAEkv5WwDx3uq2p593MIrzx/r48DUgG02CnkzdT/
+X-Google-Smtp-Source: AGHT+IHmPYcPWfZhwOxujigyXrVRSB8kRoNxKABpVBwVCQzAOZBWznyCKjCQL89t1FiTLIwjVZF9zw==
+X-Received: by 2002:a05:620a:14e:b0:7ac:ae32:286a with SMTP id
+ af79cd13be357-7b193f041d5mr4080201485a.34.1730835141086; 
+ Tue, 05 Nov 2024 11:32:21 -0800 (PST)
+Received: from newman.cs.purdue.edu ([128.10.127.250])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7b2f3a9b991sm553343285a.127.2024.11.05.11.32.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Nov 2024 11:32:20 -0800 (PST)
+From: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+To: jic23@kernel.org, lars@metafoo.de, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, u.kleine-koenig@baylibre.com,
+ tgamblin@baylibre.com, fabrice.gasnier@st.com,
+ benjamin.gaignard@linaro.org, lee@kernel.org
+Date: Tue,  5 Nov 2024 19:32:12 +0000
+Message-Id: <20241105193212.2082-1-jiashengjiangcool@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-9b746
-Subject: Re: [Linux-stm32] [PATCH 0/8] ASoC: cleasnup rtd and its ID
+Cc: linux-iio@vger.kernel.org, Jiasheng Jiang <jiashengjiangcool@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] iio: trigger: stm32-timer-trigger: Add check
+	for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,60 +85,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 24 Oct 2024 01:28:10 +0000, Kuninori Morimoto wrote:
-> rtd has own ID, but it is naming "num" for it. The naming is confusable.
-> This patch rename it to "id".
-> And many functions request both "rtd" and its "id" as function parameter,
-> but rtd itself has rtd->id. This patch cleanup it.
-> 
-> And, Qcom driver want to use irregular rtd ID because of its topology,
-> and thus, soc-core need irregular calculation. I'm not sure why only Qcom
-> needs such calculation, but this patch also cleanup it.
-> But I guess we want to cleanup is not soc-core but Qcom side (?)
-> 
-> [...]
+Add check for the return value of clk_enable() in order to catch the
+potential exception.
 
-Applied to
+Fixes: 3192ade7b6f6 ("iio: trigger: stm32-timer: enable clock when in master mode")
+Fixes: 90938ca432e6 ("iio: trigger: stm32-timer: add enable attribute")
+Fixes: 93fbe91b5521 ("iio: Add STM32 timer trigger driver")
+Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+---
+ drivers/iio/trigger/stm32-timer-trigger.c | 40 +++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 7 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/8] ASoC: rename rtd->num to rtd->id
-      commit: 40e47e2db6864aa053a62477bd71a16be9dd4066
-[2/8] ASoC: fsl: switch to use rtd->id from rtd->num
-      commit: eae33f737c7a929d92b559fe1a1002d597b7b903
-[3/8] ASoC: meson: switch to use rtd->id from rtd->num
-      commit: b19f75df8fa9f8d4aa8b5886dca0f2d832a76baa
-[4/8] ASoC: sh: switch to use rtd->id from rtd->num
-      commit: 970a874b76d09d6a5880e8832e572850cfcb4008
-[5/8] ASoC: generic: switch to use rtd->id from rtd->num
-      commit: 742e622db67efc32affb5893fdcc0149f374533e
-[6/8] ASoC: remove rtd->num
-      commit: c59db5ed233a19f6aadd086fb89149ec5f6fa855
-[7/8] ASoC: soc-core: do rtd->id trick at snd_soc_add_pcm_runtime()
-      commit: cb18cd26039f5cdecb0ac53fb447b6f0859f3d1c
-[8/8] ASoC: cleanup function parameter for rtd and its id
-      commit: 8b12da9a18f4dd53e4b3a7393829a555e84f073c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+index 0684329956d9..0d5bb808c61d 100644
+--- a/drivers/iio/trigger/stm32-timer-trigger.c
++++ b/drivers/iio/trigger/stm32-timer-trigger.c
+@@ -119,7 +119,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+ 			     unsigned int frequency)
+ {
+ 	unsigned long long prd, div;
+-	int prescaler = 0;
++	int prescaler = 0, ret;
+ 	u32 ccer;
+ 
+ 	/* Period and prescaler values depends of clock rate */
+@@ -153,7 +153,13 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+ 	mutex_lock(&priv->lock);
+ 	if (!priv->enabled) {
+ 		priv->enabled = true;
+-		clk_enable(priv->clk);
++		ret = clk_enable(priv->clk);
++		if (ret) {
++			mutex_unlock(&priv->lock);
++			return dev_err_probe(priv->dev, ret,
++					     "failed to enable clock: %d\n",
++					     ret);
++		}
+ 	}
+ 
+ 	regmap_write(priv->regmap, TIM_PSC, prescaler);
+@@ -307,7 +313,7 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+ 	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
+ 	struct iio_trigger *trig = to_iio_trigger(dev);
+ 	u32 mask, shift, master_mode_max;
+-	int i;
++	int i, ret;
+ 
+ 	if (stm32_timer_is_trgo2_name(trig->name)) {
+ 		mask = TIM_CR2_MMS2;
+@@ -326,7 +332,13 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+ 			if (!priv->enabled) {
+ 				/* Clock should be enabled first */
+ 				priv->enabled = true;
+-				clk_enable(priv->clk);
++				ret = clk_enable(priv->clk);
++				if (ret) {
++					mutex_unlock(&priv->lock);
++					return dev_err_probe(priv->dev, ret,
++							     "failed to enable clock: %d\n",
++							     ret);
++				}
+ 			}
+ 			regmap_update_bits(priv->regmap, TIM_CR2, mask,
+ 					   i << shift);
+@@ -482,6 +494,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+ 				   int val, int val2, long mask)
+ {
+ 	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
++	int ret;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+@@ -496,7 +509,13 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+ 		if (val) {
+ 			if (!priv->enabled) {
+ 				priv->enabled = true;
+-				clk_enable(priv->clk);
++				ret = clk_enable(priv->clk);
++				if (ret) {
++					mutex_unlock(&priv->lock);
++					return dev_err_probe(priv->dev, ret,
++							     "failed to enable clock: %d\n",
++							     ret);
++				}
+ 			}
+ 			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+ 		} else {
+@@ -601,7 +620,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+ 				 unsigned int mode)
+ {
+ 	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+-	int sms = stm32_enable_mode2sms(mode);
++	int sms = stm32_enable_mode2sms(mode), ret;
+ 
+ 	if (sms < 0)
+ 		return sms;
+@@ -611,7 +630,14 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+ 	 */
+ 	mutex_lock(&priv->lock);
+ 	if (sms == 6 && !priv->enabled) {
+-		clk_enable(priv->clk);
++		ret = clk_enable(priv->clk);
++		if (ret) {
++			mutex_unlock(&priv->lock);
++			return dev_err_probe(priv->dev, ret,
++					     "failed to enable clock: %d\n",
++					     ret);
++		}
++
+ 		priv->enabled = true;
+ 	}
+ 	mutex_unlock(&priv->lock);
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
