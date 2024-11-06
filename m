@@ -2,67 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15ED39BE289
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 10:30:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDAD79BE2E8
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 10:43:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE8C0C78015;
-	Wed,  6 Nov 2024 09:30:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F7FBC78015;
+	Wed,  6 Nov 2024 09:43:09 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57262C712A1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23577C712A1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Nov 2024 09:30:45 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A66feWa015451;
- Wed, 6 Nov 2024 10:30:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 5Na2ucu6fM7s6QJT4BMpvEJuv3sVjdI3XxnANZwd4Dc=; b=dU9+ycmjtE42sb8w
- oTYYQKvMNf1mPliKCo9eSgYQpE/QmiAd/sjx5QYvDH8uK094O+5veClJIWnzfbMa
- JUaO12T9ZFiRddmBSaZ/FBllub9nuF8dW0ROzl5v3coLwKIzCs/wURciEvYL2/Yv
- QRhOIPpiWHciYVylXkGVrgqnqH5MjSMb1DuB9lPXp+A1kPSEYIPufORvYirLC9F/
- FvVLk2WVQKKNzeAgvy9TLNYh9sz1iZxna52SpgCyU5GoThmCt+uF/2GJBIt5kR5o
- JL2wIIjI0biOOqd+/2/N4vOjFpV/aVIXifefsl6bwwLHgS5qEPeRnD1SBO5p5Zei
- ySAKJw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42ncxc0cj9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 06 Nov 2024 10:30:03 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id EDD3F40058;
- Wed,  6 Nov 2024 10:28:52 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2F30C2251D3;
- Wed,  6 Nov 2024 10:27:56 +0100 (CET)
-Received: from [10.252.15.15] (10.252.15.15) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 6 Nov
- 2024 10:27:55 +0100
-Message-ID: <f2d3778d-5fd6-49db-b418-b5411e617a0a@foss.st.com>
-Date: Wed, 6 Nov 2024 10:27:54 +0100
+ Wed,  6 Nov 2024 09:43:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1179AA42B70;
+ Wed,  6 Nov 2024 09:41:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB9DC4CECD;
+ Wed,  6 Nov 2024 09:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1730886181;
+ bh=ejHS7C/7ZbSIztex4f4UJCgT1blclG9gOy/DpK24OVs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eQP/8p1wgZwWzJ45BgjroCbaVs+5YbOb5IzDHn03FJpvbP6n01CO8AbbhcdXmaGLO
+ hY0rL3z96Qi1B5gDGU0Rj190REZTEne/+z6Ki5PlzH6Ye95VbcX/8lrrWpLolzmYtK
+ DV1624pYY6hvD2OI9IYbAsCkpcHJO96r4owwoInUrTIFj6fHkKeZbKlUBHcL6hD5ri
+ pXEn3TdXFHsaNiIxhHHEOt8fmJyqg8ATnGGDP3IZ1D5L+G2S8Yw1xyO+K33XJE00XV
+ 76EVGPoaNre7RohP+kFi1TfX0kqOnBIc3WydIOuW7q49TvnmgAfflRkSNmu2zLPkfR
+ EUTjWvqKJh0NA==
+Date: Wed, 6 Nov 2024 09:42:56 +0000
+From: Simon Horman <horms@kernel.org>
+To: =?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>
+Message-ID: <20241106094256.GI4507@kernel.org>
+References: <20241101-stmmac-unbalanced-wake-single-fix-v1-1-5952524c97f0@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Luo Yifan <luoyifan@cmss.chinamobile.com>, <arnaud.pouliquen@foss.st.com>, 
- <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-References: <20241106014654.206860-1-luoyifan@cmss.chinamobile.com>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20241106014654.206860-1-luoyifan@cmss.chinamobile.com>
-X-Originating-IP: [10.252.15.15]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ASoC: stm: Prevent potential division by
- zero in stm32_sai_mclk_round_rate()
+Content-Disposition: inline
+In-Reply-To: <20241101-stmmac-unbalanced-wake-single-fix-v1-1-5952524c97f0@collabora.com>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Qiang Ma <maqianga@uniontech.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix unbalanced IRQ wake
+ disable warning on single irq case
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,65 +56,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Luo,
-
-On 11/6/24 02:46, Luo Yifan wrote:
-> This patch checks if div is less than or equal to zero (div <= 0). If
-> div is zero or negative, the function returns -EINVAL, ensuring the
-> division operation (*prate / div) is safe to perform.
-> 
-> Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
-> ---
->   sound/soc/stm/stm32_sai_sub.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-> index 7bc4a96b7..2570daa3e 100644
-> --- a/sound/soc/stm/stm32_sai_sub.c
-> +++ b/sound/soc/stm/stm32_sai_sub.c
-> @@ -378,8 +378,8 @@ static long stm32_sai_mclk_round_rate(struct clk_hw *hw, unsigned long rate,
->   	int div;
->   
->   	div = stm32_sai_get_clk_div(sai, *prate, rate);
-> -	if (div < 0)
-> -		return div;
-> +	if (div <= 0)
-> +		return -EINVAL;
->   
->   	mclk->freq = *prate / div;
->   
-
-Thanks for your patch. It looks fine, but I think that it has to
-be extended.
-
-In CR1 register, MCKDIV = 0 gives the same result as MCKDIV = 1.
-But while MCKDIV = 0 is valid, for sure div = 0 is not valid.
-
-I agree that that div = 0 has to be managed as an error
-This could be rather handled in stm32_sai_get_clk_div() function itself,
-by returning an error, if div is null.
-This is relevant as we may also get an error on test "if (input_rate % 
-div)".
-I suggest to add a specific test and error message to handle this case 
-in stm32_sai_get_clk_div().
-Something like:
-if (!div)) {
-	dev_err(&sai->pdev->dev, "Invalid null divider\n");
-	return -EINVAL;
-}
-
-BRs
-Olivier
-
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBOb3YgMDEsIDIwMjQgYXQgMDU6MTc6MjlQTSAtMDQwMCwgTsOtY29sYXMgRi4gUi4g
+QS4gUHJhZG8gd3JvdGU6Cj4gQ29tbWl0IGEyM2FhMDQwNDIxOCAoIm5ldDogc3RtbWFjOiBldGh0
+b29sOiBGaXhlZCBjYWxsdHJhY2UgY2F1c2VkIGJ5Cj4gdW5iYWxhbmNlZCBkaXNhYmxlX2lycV93
+YWtlIGNhbGxzIikgaW50cm9kdWNlZCBjaGVja3MgdG8gcHJldmVudAo+IHVuYmFsYW5jZWQgZW5h
+YmxlIGFuZCBkaXNhYmxlIElSUSB3YWtlIGNhbGxzLiBIb3dldmVyIGl0IG9ubHkKPiBpbml0aWFs
+aXplZCB0aGUgYXV4aWxpYXJ5IHZhcmlhYmxlIG9uIG9uZSBvZiB0aGUgcGF0aHMsCj4gc3RtbWFj
+X3JlcXVlc3RfaXJxX211bHRpX21zaSgpLCBtaXNzaW5nIHRoZSBvdGhlciwKPiBzdG1tYWNfcmVx
+dWVzdF9pcnFfc2luZ2xlKCkuCj4gCj4gQWRkIHRoZSBzYW1lIGluaXRpYWxpemF0aW9uIG9uIHN0
+bW1hY19yZXF1ZXN0X2lycV9zaW5nbGUoKSB0byBwcmV2ZW50Cj4gIlVuYmFsYW5jZWQgSVJRIDx4
+PiB3YWtlIGRpc2FibGUiIHdhcm5pbmdzIGZyb20gYmVpbmcgcHJpbnRlZCB0aGUgZmlyc3QKPiB0
+aW1lIGRpc2FibGVfaXJxX3dha2UoKSBpcyBjYWxsZWQgb24gcGxhdGZvcm1zIHRoYXQgcnVuIG9u
+IHRoYXQgY29kZQo+IHBhdGguCj4gCj4gRml4ZXM6IGEyM2FhMDQwNDIxOCAoIm5ldDogc3RtbWFj
+OiBldGh0b29sOiBGaXhlZCBjYWxsdHJhY2UgY2F1c2VkIGJ5IHVuYmFsYW5jZWQgZGlzYWJsZV9p
+cnFfd2FrZSBjYWxscyIpCj4gU2lnbmVkLW9mZi1ieTogTsOtY29sYXMgRi4gUi4gQS4gUHJhZG8g
+PG5mcmFwcmFkb0Bjb2xsYWJvcmEuY29tPgoKUmV2aWV3ZWQtYnk6IFNpbW9uIEhvcm1hbiA8aG9y
+bXNAa2VybmVsLm9yZz4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
