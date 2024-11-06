@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0735E9BDBB8
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 03:00:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6A059BDC5D
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 03:21:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA5DFC71292;
-	Wed,  6 Nov 2024 02:00:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7EBDC71292;
+	Wed,  6 Nov 2024 02:20:59 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78B84C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 144C5C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Nov 2024 02:00:23 +0000 (UTC)
+ Wed,  6 Nov 2024 02:20:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 341585C4BB4;
- Wed,  6 Nov 2024 01:59:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97164C4CECF;
- Wed,  6 Nov 2024 02:00:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2A6975C045E;
+ Wed,  6 Nov 2024 02:20:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF43C4CECF;
+ Wed,  6 Nov 2024 02:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730858421;
- bh=iDGn6cF39S+5ch2f8pg8ENjGiBRJzy0HvH23scQjhcQ=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=QPawd+Fx9U769Oe0hH0VRncvrDRfzDHq5qBMs7pShUOKH+0Xrzmx7OoJrTTJhcUHC
- 0IcO6mQpKWVUE/z//2UqZH8lE+UtMZ1hjJBN1Pr8lRj+IiNIQ09LKwmGie5eMkYDSJ
- 81PsQJu7PSsylnThW2p8U557I2VQVL8yKTS6m0lSL8oFBLXwVLgu93t1bOHpPFvPkC
- tlaNXJONb9+I5Djpm7cB71PiAlh+EAQu/xrUCbKEvfsY+FXGBzEzxDJc1hCmtTUmKN
- VIJZrX09TUDyPoR6T7HA4PQHyQWAgAcNXVPM0wrUYf92G5ZXj5EGyvuCq9pJ3Hxlfp
- yNpo92C769Brg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- AE12A3809A80; Wed,  6 Nov 2024 02:00:31 +0000 (UTC)
+ s=k20201202; t=1730859651;
+ bh=JQwZWqay0fD/RVvSUq/M7j+EthA8PgKPkA3/ngbOuF4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=KF/7FHeXI9aKLJBwKxLnNY6wq54eyINIDMfExomu8YLPUTv+YYLNMj7o7ajtMMxqn
+ PMAPN6PxUti4+6ybZwg4Fs4UgKJhld9T0g17Em38dezveqmQQC1+YymOrTSPJaX+h/
+ 0Z7BMzz1yoEQaIrquQwaiGB/xs3U/thQ4yYD6TxPwtlCcaqls5rO3M2oPGJUUcrNQx
+ j5qTGOiUo5tVq58m1/pRnBRwS6aK1LVivF9YFqxx+VfieFeHytAEBXDtFkEo34v+V7
+ 9zNNA75klioy00Xrw4vX5B2KCkHwgp8rbEGR/3LlJxtbww3I6jICHoMT4TDXU6MkvT
+ khDR9erObcLrg==
+Date: Tue, 5 Nov 2024 18:20:50 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <20241105182050.2839f1e7@kernel.org>
+In-Reply-To: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
+References: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173085843050.764350.5609116722213276708.git-patchwork-notify@kernel.org>
-Date: Wed, 06 Nov 2024 02:00:30 +0000
-References: <20241103-th1520-gmac-v7-0-ef094a30169c@tenstorrent.com>
-In-Reply-To: <20241103-th1520-gmac-v7-0-ef094a30169c@tenstorrent.com>
-To: Drew Fustini <dfustini@tenstorrent.com>
-Cc: andrew@lunn.ch, edumazet@google.com, guoren@kernel.org, jszhang@kernel.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, joabreu@synopsys.com, drew@pdp7.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- aou@eecs.berkeley.edu, paul.walmsley@sifive.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- krzysztof.kozlowski@linaro.org, palmer@dabbelt.com, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, emil.renner.berthing@canonical.com, davem@davemloft.net,
- wefu@redhat.com
-Subject: Re: [Linux-stm32] [PATCH net-next v7 0/2] Add the dwmac driver
- support for T-HEAD TH1520 SoC
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/9] Support external
+	snapshots on dwmac1000
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,34 +61,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On Mon,  4 Nov 2024 18:02:40 +0100 Maxime Chevallier wrote:
+>   net: stmmac: Only update the auto-discovered PTP clock features
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sun, 03 Nov 2024 08:57:58 -0800 you wrote:
-> This series adds support for dwmac gigabit ethernet in the T-Head TH1520
-> RISC-V SoC used on boards like BeagleV Ahead and the LicheePi 4A.
-> 
-> The gigabit ethernet on these boards does need pinctrl support to mux
-> the necessary pads. The pinctrl-th1520 driver, pinctrl binding, and
-> related dts patches are in linux-next. However, they are not yet in
-> net-next/main.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v7,1/2] dt-bindings: net: Add T-HEAD dwmac support
-    https://git.kernel.org/netdev/net-next/c/f920ce04c399
-  - [net-next,v7,2/2] net: stmmac: Add glue layer for T-HEAD TH1520 SoC
-    https://git.kernel.org/netdev/net-next/c/33a1a01e3afa
-
-You are awesome, thank you!
+Minor conflict in the context on this one, please respin.
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
