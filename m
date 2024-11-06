@@ -2,39 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6A059BDC5D
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 03:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7859BE174
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2024 10:00:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7EBDC71292;
-	Wed,  6 Nov 2024 02:20:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80FECC78015;
+	Wed,  6 Nov 2024 09:00:15 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 144C5C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42D5BC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Nov 2024 02:20:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2A6975C045E;
- Wed,  6 Nov 2024 02:20:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEF43C4CECF;
- Wed,  6 Nov 2024 02:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730859651;
- bh=JQwZWqay0fD/RVvSUq/M7j+EthA8PgKPkA3/ngbOuF4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=KF/7FHeXI9aKLJBwKxLnNY6wq54eyINIDMfExomu8YLPUTv+YYLNMj7o7ajtMMxqn
- PMAPN6PxUti4+6ybZwg4Fs4UgKJhld9T0g17Em38dezveqmQQC1+YymOrTSPJaX+h/
- 0Z7BMzz1yoEQaIrquQwaiGB/xs3U/thQ4yYD6TxPwtlCcaqls5rO3M2oPGJUUcrNQx
- j5qTGOiUo5tVq58m1/pRnBRwS6aK1LVivF9YFqxx+VfieFeHytAEBXDtFkEo34v+V7
- 9zNNA75klioy00Xrw4vX5B2KCkHwgp8rbEGR/3LlJxtbww3I6jICHoMT4TDXU6MkvT
- khDR9erObcLrg==
-Date: Tue, 5 Nov 2024 18:20:50 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <20241105182050.2839f1e7@kernel.org>
-In-Reply-To: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
+ Wed,  6 Nov 2024 09:00:08 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id CE518FF813;
+ Wed,  6 Nov 2024 09:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1730883607;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wggt6wmbTUXS4x4tV46Izk+39B3cnS2JlZr7SjlMcMc=;
+ b=NYBVGt3DiBgndrXBPVl9Dcp0UOdXQJi5EvQ7PonofETdX7a6LslGUKmGWg+JmEXFg6J1pD
+ FyR/lcVrtOyxtFwamRmxUJPyyXfEYmdmwAfbKnh7KsDC1h0/7yLzOOjj2gpMp95dhRwz/y
+ U00g0SRdXOhgEJZq0rGu8T3aXByEJhDW4hW+nXBF++jjIDN1ts8qCm53sryCTfxOQX8Yq2
+ dKuII9OUOqM0Vzu43RL7eym79sijjZAbCZPdwdHf4gJ5f/K/SxfiWEdk9cHrJbVbD47voo
+ Bwd3eAwpnG8PM+1m1aaL299H0EEnmxVWwlHcJWN8H4iRMAF+3tiDYbYvwJhVow==
+Date: Wed, 6 Nov 2024 10:00:04 +0100
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20241106100004.50ff4bb2@fedora.home>
+In-Reply-To: <20241105182050.2839f1e7@kernel.org>
 References: <20241104170251.2202270-1-maxime.chevallier@bootlin.com>
+ <20241105182050.2839f1e7@kernel.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
+X-GND-Sasl: maxime.chevallier@bootlin.com
 Cc: linux-kernel@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
  Richard Cochran <richardcochran@gmail.com>,
@@ -61,12 +65,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon,  4 Nov 2024 18:02:40 +0100 Maxime Chevallier wrote:
->   net: stmmac: Only update the auto-discovered PTP clock features
+On Tue, 5 Nov 2024 18:20:50 -0800
+Jakub Kicinski <kuba@kernel.org> wrote:
 
-Minor conflict in the context on this one, please respin.
--- 
-pw-bot: cr
+> On Mon,  4 Nov 2024 18:02:40 +0100 Maxime Chevallier wrote:
+> >   net: stmmac: Only update the auto-discovered PTP clock features  
+> 
+> Minor conflict in the context on this one, please respin.
+
+Sure thing, I'll respin right away.
+
+Thanks,
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
