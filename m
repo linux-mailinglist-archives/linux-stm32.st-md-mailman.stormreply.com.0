@@ -2,82 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8C09D4178
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B9D9D4179
 	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6342BC7A831;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74138C7A834;
 	Wed, 20 Nov 2024 17:49:44 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F843C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A568C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2024 10:36:32 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-71e5a62031aso618352b3a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 Nov 2024 02:36:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730975790; x=1731580590;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=xC4jScz5PMTA20yKpGgSaZvcBSA6x4Yz2EVtRJnnFPg=;
- b=nIdYL132newV9TvrREba9LNXnhm274/8GcKRD0VVT4vW8VOAOwXJBhmL9ViiWVzaRK
- BAM9gpQMepWxKhK8pOHbCL/Ue4khzrjTPEUjl5DQjtuNwdOg80YXZK+E7pnB/4CZDNMY
- 6t5EF5UXghBwPKmq+fjjcAed2Y/MMsjlBE/B3XyMY3XJwdDe7zauB7a3ex/di0qRIAmQ
- eOGxUqdIBOf53ZqWx29XKg8hGGWACJd6mwt3efTEihX2LTSvPJWyh5IKcQvXu+lVRCCa
- d0Q9vhinoQafoEAXtVEYLAH2SwVGwaltRwsoeYU6jvXcTzp3OKtYdNynbhdnc/m1P9dP
- 3m8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730975790; x=1731580590;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xC4jScz5PMTA20yKpGgSaZvcBSA6x4Yz2EVtRJnnFPg=;
- b=CPFtGvTAOjnPzzQRW7mi4T/r72RS02iGcaAqdqxqSoJCXf1hml5Lo7+bYYLXi9jlKl
- oBESG6hOz1AgFsZrYyhCn4Gm7RN47lM/lsS+IKNpNxflbcXJ/eO+hJ66nwyWZO5wT7J8
- gFV5Xrb84D++N6RAIXrlXpgt56HcKIZa1NhEaSbDT1q4u1sGlwEUV4mgnpPZwZd/iwjo
- UxqwKLXbFynGYi+3gQcoao4xN0rMI06pFLldd0M4ipGay510eIWQ/RCStjySh4ZvPpvo
- bKYHJ2w7soL3SbpvUJi++PwJo/u2j2v73PkngYOHqgpiZf9zC0cnIzIss3O3MtLj+c6z
- sZYA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUIGHmfrBpgRqujM1xO0yBFnKxrem7QuAMr0ampOeDSUJQwGlO9glwioEEO0vgS9hKHS4xvq+MlTBaUdg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx1fkJ3BwCxQiBjsHsTyCEuXXt7Hb2nUWc6/wMC8WYEKBnyGH3n
- pxtSmOkCLHtsLuo8A7fY4h09RN11Ceus6ud8odBx0g2e93W1N+gq
-X-Google-Smtp-Source: AGHT+IFEcmPOqn+X7HeywXdO6/sEgP5tjET/8PEbokkUZb1iOlKZDIKxcXvkvkXx3PWm7y2eChH7tQ==
-X-Received: by 2002:a05:6a00:2284:b0:71e:4786:98ee with SMTP id
- d2e1a72fcca58-720c99b7befmr31801669b3a.21.1730975790564; 
- Thu, 07 Nov 2024 02:36:30 -0800 (PST)
-Received: from [192.168.0.104] (60-250-192-107.hinet-ip.hinet.net.
- [60.250.192.107]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-724078a7d9esm1209196b3a.66.2024.11.07.02.36.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 02:36:30 -0800 (PST)
-Message-ID: <99fa8255-12b5-4a54-acfe-cc0fbbba9c0e@gmail.com>
-Date: Thu, 7 Nov 2024 18:36:26 +0800
+ Thu,  7 Nov 2024 19:19:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1731007191; x=1762543191;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=eN0VRTCZM2WBAT9cgFw9DTUrSpwbJpwTFubfXheWoYM=;
+ b=C5VZ7UuAmvXwV8KRXPcDGElzYkYrfukRKUJD9tGSbhUpxL8vAknUujEQ
+ WuG8riSt6gB8NtusJxm264gLFQnT/h8NBnzay8lUrtseUZRbApbAIv9ag
+ ulKLbQl7WzaxEgMT+j/vO56z/Qwsr3IFpiLEAxSXCG6OJMY9iVxag61Ol
+ Puq5a3bidTZe7tvrd6WCTI5elDyXU2w2/SmKa0JG5QRC/Lf75d9QmZycs
+ eu3NBBmRP04BqFtFHT0c3TBMgpNtI6eKOJ83G0mMxlJweuXatijF+TLkw
+ 7SPkHtknlWZSjzYOVNAC2eT7VWKzR+CD4oDzT9pKabhVK67umICSfRQfK Q==;
+X-CSE-ConnectionGUID: MDDVaqVhRqenuoSd1grXjg==
+X-CSE-MsgGUID: wGoZR4F7TSiOLGn00rOoNA==
+X-IronPort-AV: E=Sophos;i="6.12,135,1728975600"; d="scan'208";a="34539067"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+ by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 07 Nov 2024 12:19:43 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 7 Nov 2024 12:19:22 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Thu, 7 Nov 2024 12:19:20 -0700
+Date: Thu, 7 Nov 2024 19:19:19 +0000
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <20241107191919.sngc2x664lp7jeg2@DEN-DL-M70577>
+References: <20241106090331.56519-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20241106111930.218825-1-a0987203069@gmail.com>
- <20241106111930.218825-4-a0987203069@gmail.com>
- <4c018927-b6ac-4414-9dde-487453350cca@lunn.ch>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <4c018927-b6ac-4414-9dde-487453350cca@lunn.ch>
+Content-Disposition: inline
+In-Reply-To: <20241106090331.56519-1-maxime.chevallier@bootlin.com>
 X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
-Cc: robh@kernel.org, conor+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, netdev@vger.kernel.org, richardcochran@gmail.com,
- ychuang3@nuvoton.com, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- edumazet@google.com, joabreu@synopsys.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- schung@nuvoton.com, kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, yclu4@nuvoton.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
- glue for Nuvoton MA35 family
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?utf-8?Q?Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/9] Support external
+	snapshots on dwmac1000
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,25 +71,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBBbmRyZXcsCgpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuCgpBbmRyZXcgTHVubiDmlrwg
-MTEvNy8yMDI0IDI6MjMgQU0g5a+r6YGTOgo+PiArc3RydWN0IG52dF9wcml2X2RhdGEgewo+PiAr
-CXN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXY7Cj4+ICsJaW50IGlkOwo+PiArCXN0cnVjdCBy
-ZWdtYXAgKnJlZ21hcDsKPj4gKwlwaHlfaW50ZXJmYWNlX3QgcGh5X21vZGU7Cj4gcGh5X21vZGUg
-ZG9lcyBub3Qgc2VlbSB0byBiZSB1c2VkIG91dHNpZGUgb2YgbnV2b3Rvbl9nbWFjX3NldHVwKCku
-IEluCj4gZmFjdCBub3RoaW5nIGluIG52dF9wcml2X2RhdGEgaXMgdXNlZCBvdXRzaWRlIG9mCj4g
-bnV2b3Rvbl9nbWFjX3NldHVwLiBTbyBpdCBsb29rcyBsaWtlIHlvdSBjYW4gcmVtb3ZlIGl0LgpJ
-IHdpbGwgcmVtb3ZlIGl0Lgo+PiArCWlmIChvZl9wcm9wZXJ0eV9yZWFkX3UzMihkZXYtPm9mX25v
-ZGUsICJ0eF9kZWxheSIsICZ0eF9kZWxheSkpIHsKPj4gKwkJZGV2X2luZm8oZGV2LCAiU2V0IFRY
-IGRlbGF5KDB4MCkuXG4iKTsKPj4gKwkJdHhfZGVsYXkgPSAweDA7Cj4+ICsJfSBlbHNlIHsKPj4g
-KwkJZGV2X2luZm8oZGV2LCAiU2V0IFRYIGRlbGF5KDB4JXgpLlxuIiwgdHhfZGVsYXkpOwo+IFBs
-ZWFzZSBkb24ndCBzcGFtIHRoZSBsb2dzLiBkZXZfZGJnKCksIG9yIG5vIG1lc3NhZ2UgYXQgYWxs
-Lgo+Cj4gCUFuZHJldwpJIHdpbGwgZml4IGl0LgoKVGhhbmtzIQoKQlIsCgpKb2V5CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
-aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
-L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
-Mgo=
+> Hi,
+> =
+
+> This V3 is just a rebase a V2 on top of net-next to address some minor
+> conflicts. No changes were made.
+> =
+
+> This series is another take on the pervious work [1] done by
+> Alexis Lothor=E9, that fixes the support for external snapshots
+> timestamping in GMAC3-based devices.
+> =
+
+> Details on why this is needed are mentionned on the cover [2] from V1.
+> =
+
+> This V2 addresses multiple issues found in V1 :
+> =
+
+>  - The PTP_TCR register is configured from multiple places, as reported
+>    by Alexis, so we need to make sure that the extts configuration
+>    doesn't interfere with the hwtstamp configuration.
+> =
+
+>  - The interrupt management in V1 was incomplete, as the interrupt
+>    wasn't correctly acked.
+> =
+
+>  - This series also makes so that we only enable the extts interrupt
+>    when necessary.
+> =
+
+> [1]: https://lore.kernel.org/netdev/20230616100409.164583-1-alexis.lothor=
+e@bootlin.com/
+> [2]: https://lore.kernel.org/netdev/20241029115419.1160201-1-maxime.cheva=
+llier@bootlin.com/
+> =
+
+> Thanks Alexis for laying the groundwork for this,
+> =
+
+> Best regards,
+> =
+
+> Maxime
+> =
+
+> Link to V1: https://lore.kernel.org/netdev/20241029115419.1160201-1-maxim=
+e.chevallier@bootlin.com/
+> Link to V2: https://lore.kernel.org/netdev/20241104170251.2202270-1-maxim=
+e.chevallier@bootlin.com/
+
+Hi Maxime,
+
+Dont know much about this particular driver, but the patches looked good
+to me!
+
+For the series:
+
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
