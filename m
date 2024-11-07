@@ -2,47 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CFB49C0A33
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2024 16:35:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D56F79C0A7F
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2024 16:55:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 400B6C6C855;
-	Thu,  7 Nov 2024 15:35:50 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99164C6C855;
+	Thu,  7 Nov 2024 15:55:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5892C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6649C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2024 15:35:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E6B2AA447FC;
- Thu,  7 Nov 2024 15:33:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73EDC4CECC;
- Thu,  7 Nov 2024 15:35:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730993741;
- bh=GyWaCebIJB2MBOnYngkj3Xcn9uP7TVQyYFsiEtrBw/s=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=O0FdVTFC5osat40Kl8QsKEksm5KYhlIo5NrZMfDOCPV+33J80/w0sk1jN8WQLjdm2
- 2JEHzlQrUeXXnPuBQDTkIGdu+U8oPmjVOb6CtFO22CGrF1ZC7iF6DOcbf1kU/EG3kz
- ezSLxJFz3mcmYwP4tN8TcR4Xdy6Ve+8aAWY6ydQv31RiO2sD+J7piuXZMWbm+sJ3Ao
- fKXx09KCWPvrKc9YUbuAT5EEqi8cmZmXK21YH9J5bFyaj/ITJ00HNsSKXOaY9EQqM9
- YA1chybHueuY1SurPPDGmfPFR1jdyo953Hf+8tDAFvR4S/ZV7pAIs+RjXF2xw2IcOX
- Wr7u5As/3eo5Q==
-From: Mark Brown <broonie@kernel.org>
-To: olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com, 
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
- Luo Yifan <luoyifan@cmss.chinamobile.com>
-In-Reply-To: <20241106014654.206860-1-luoyifan@cmss.chinamobile.com>
-References: <20241106014654.206860-1-luoyifan@cmss.chinamobile.com>
-Message-Id: <173099373941.145735.10149404268306602537.b4-ty@kernel.org>
-Date: Thu, 07 Nov 2024 15:35:39 +0000
+ Thu,  7 Nov 2024 15:55:28 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A7BCI8G020688;
+ Thu, 7 Nov 2024 16:55:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=e2VlH/uuBQt3wReNKxARkD
+ 7iZtlOIa3l9BKSWUf02Sg=; b=aZvDmzmmkAWb2LsThYyhr48PEZCZHYnedSHamC
+ 3hRGMDbxDFXH7eFajG34rl7pbriqJv8iu3Ee3V+G9FGRrghKAL7Mfjfhz98caEcy
+ oXhEk4zq+/qno9QXP58O94nMmK/RXRoVkwb3QrQXx5ZGYGndVBKnDLpww5gLtcUp
+ 2k9lwAA1XbEqCpI0Yq70zZ3QqjVjfVf/9Rusq/pGurHA+TelsGCu1sxtq3qz9UjA
+ g+svF0ysEU0x0g/PasWbPvBqOFz79EdU5f/YUd8IQuqv/i/WG/ha1IPh1VlyN/eO
+ b5Zi6UpvUuHZBHY/2qaJo7SoAFMs88vHhDmooQ1SPTTdGVZQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42rra1jm01-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Nov 2024 16:55:08 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B01C040049;
+ Thu,  7 Nov 2024 16:53:53 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 98C802B6E40;
+ Thu,  7 Nov 2024 16:52:00 +0100 (CET)
+Received: from localhost (10.48.86.132) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 7 Nov
+ 2024 16:52:00 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>
+Date: Thu, 7 Nov 2024 16:51:40 +0100
+Message-ID: <20241107155143.1340523-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-9b746
-Cc: linux-arm-kernel@lists.infradead.org,
+X-Originating-IP: [10.48.86.132]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ASoC: stm: Prevent potential division by
- zero in stm32_sai_mclk_round_rate()
+Subject: [Linux-stm32] [PATCH 0/2] ASoC: stm32: sai: add stm32mp25 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,42 +78,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 06 Nov 2024 09:46:54 +0800, Luo Yifan wrote:
-> This patch checks if div is less than or equal to zero (div <= 0). If
-> div is zero or negative, the function returns -EINVAL, ensuring the
-> division operation (*prate / div) is safe to perform.
-> 
-> 
+Update STM32 SAI driver and binding to support STM32MP25 SoCs.
 
-Applied to
+Olivier Moysan (2):
+  ASoC: dt-bindings: add stm32mp25 support for sai
+  ASoC: stm32: sai: add stm32mp25 support
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+ .../bindings/sound/st,stm32-sai.yaml          |  26 +++-
+ sound/soc/stm/stm32_sai.c                     |  58 +++++--
+ sound/soc/stm/stm32_sai.h                     |   6 +
+ sound/soc/stm/stm32_sai_sub.c                 | 144 +++++++++++++++++-
+ 4 files changed, 216 insertions(+), 18 deletions(-)
 
-Thanks!
 
-[1/1] ASoC: stm: Prevent potential division by zero in stm32_sai_mclk_round_rate()
-      commit: 63c1c87993e0e5bb11bced3d8224446a2bc62338
-[1/1] ASoC: stm: Prevent potential division by zero in stm32_sai_get_clk_div()
-      commit: 23569c8b314925bdb70dd1a7b63cfe6100868315
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+base-commit: 2fd094b86c8ae266b618359e4154ab94e806a412
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
