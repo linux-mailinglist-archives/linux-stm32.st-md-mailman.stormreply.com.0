@@ -2,87 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0D39C0485
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2024 12:47:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CB0A9C071A
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2024 14:19:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87CCBC6C855;
-	Thu,  7 Nov 2024 11:47:31 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11CE4C6C855;
+	Thu,  7 Nov 2024 13:19:25 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C921C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9A46C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2024 11:47:24 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6448E5C105E;
- Thu,  7 Nov 2024 11:46:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341CFC4CECC;
- Thu,  7 Nov 2024 11:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1730980042;
- bh=N3STylp9DRVHJJwMV5PYjRYhRw05MG1PGIvFWU84xCM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=qk8w4ckOMlH9WIsrJp3xFR6TvNFS6mqbCTPNEENTrqTyXRTD/SaLivCii8hyI7/Ab
- npdO3gN4FYjnFTW6VoM98vlDupmNmjv8F5R+/zALaLU2FCWdG0lz49NM02wfNyrPzW
- hTgqKeyrsst8K90EGoheifTorNid5wc+qUg7yBvo14RP9pT5xIlQffkP13UPATFRPc
- +SFcD0CJpHG1unOYRq3pn2DOG9n6XGjULFLvucj8vFnWJRfYUglodKsK6AzGpY02cD
- t4pT34IROmTXygPDq3e7CxU1nqK4vvPP8lICySxlre3GLM6er3lJfSOQfduLRZVDAN
- m65pFdUTky7kQ==
-Message-ID: <f6a6f9db-2cf7-4281-b6cb-106e0897da8e@kernel.org>
-Date: Thu, 7 Nov 2024 12:47:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Joey Lu <a0987203069@gmail.com>, Conor Dooley <conor@kernel.org>
+ Thu,  7 Nov 2024 13:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=1o0PT+VvYeF2Yc1hTEqEhN6nNmR8jwyG9x4O7dGE/Wk=; b=qo
+ PZCD8fmKsuqe8MM0+5HAxgA1V6sLxp1dxWT6dgRzFLKJ+Uj612/2my5BcrbEkzNKu2cGnhqk12oGB
+ /a4BAt4NCaZn7xVX092i/qM2JCfjxaohRr5xqBfTcg7hjl+yJ2+6TiiQ3PRLlum+gfT49bcro6kXI
+ u2un0pipZbINs5Y=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1t92PO-00CSlH-Qe; Thu, 07 Nov 2024 14:18:46 +0100
+Date: Thu, 7 Nov 2024 14:18:46 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joey Lu <a0987203069@gmail.com>
+Message-ID: <9455e2f6-b41d-476e-bda9-fc01958e48d5@lunn.ch>
 References: <20241106111930.218825-1-a0987203069@gmail.com>
  <20241106111930.218825-2-a0987203069@gmail.com>
- <20241106-bloated-ranch-be94506d360c@spud>
- <7c2f6af3-5686-452a-8d8a-191899b3d225@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <7c2f6af3-5686-452a-8d8a-191899b3d225@gmail.com>
+ <f3c6b67f-5c15-43e2-832e-28392fbe52ec@lunn.ch>
+ <21a00f02-7f2f-46da-a67f-be3e64019303@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <21a00f02-7f2f-46da-a67f-be3e64019303@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
  openbmc@lists.ozlabs.org, netdev@vger.kernel.org, richardcochran@gmail.com,
@@ -104,29 +57,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07/11/2024 11:15, Joey Lu wrote:
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
->>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
->>> +    //Example 1
->>> +    eth0: ethernet@40120000 {
->> The eth0 label is not used, drop it.
-> The label is used in dtsi and dts.
-
-But we do not talk about DTSI or DTS here. Comments appear in specific
-places in specific patches. We do not discuss here other patches :/
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBOb3YgMDcsIDIwMjQgYXQgMDY6MzE6MjZQTSArMDgwMCwgSm9leSBMdSB3cm90ZToK
+PiBEZWFyIEFuZHJldywKPiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuCj4gCj4gQW5kcmV3
+IEx1bm4g5pa8IDExLzcvMjAyNCAyOjEzIEFNIOWvq+mBkzoKPiA+ID4gKyAgcGh5LW1vZGU6Cj4g
+PiA+ICsgICAgZW51bToKPiA+ID4gKyAgICAgIC0gcm1paQo+ID4gPiArICAgICAgLSByZ21paS1p
+ZAo+ID4gVGhlIHBoeS1tb2RlIGRlZXBlbmVkIG9uIHRoZSBib2FyZCBkZXNpZ24uIEFsbCBmb3Vy
+IHJnbWlpIHZhbHVlcyBhcmUKPiA+IHZhbGlkLgo+IEkgd2lsbCBhZGQgdGhlbS4KPiA+ID4gKwo+
+ID4gPiArICB0eF9kZWxheToKPiA+ID4gKyAgICBtYXhJdGVtczogMQo+ID4gPiArICAgIGRlc2Ny
+aXB0aW9uOgo+ID4gPiArICAgICAgQ29udHJvbCB0cmFuc21pdCBjbG9jayBwYXRoIGRlbGF5IGlu
+IG5hbm9zZWNvbmRzLgo+ID4gPiArCj4gPiA+ICsgIHJ4X2RlbGF5Ogo+ID4gPiArICAgIG1heEl0
+ZW1zOiAxCj4gPiA+ICsgICAgZGVzY3JpcHRpb246Cj4gPiA+ICsgICAgICBDb250cm9sIHJlY2Vp
+dmUgY2xvY2sgcGF0aCBkZWxheSBpbiBuYW5vc2Vjb25kcy4KPiA+IElmIHlvdSBhYnNvbHV0ZWx5
+IHJlYWxseSBuZWVkIHRoZXNlLCBrZWVwIHRoZW0sIGJ1dCBpIHN1Z2dlc3QgeW91IGRyb3AKPiA+
+IHRoZW0uIFRoZXkganVzdCBjYXVzZSBjb25mdXNpb24sIHdoZW4gaWRlYWxseSB3ZSB3YW50IHRo
+ZSBQSFkgdG8gYmUKPiA+IGFkZGluZyBSR01JSSBkZWxheXMsIG5vdCB0aGUgTUFDLgo+ID4gCj4g
+PiBJZiB5b3UgZG8gbmVlZCB0aGVtLCB0aGVuIHRoZXkgc2hvdWxkIGJlIGluIHBTLgo+IAo+IEkg
+d2lsbCBmaXggaXQuCj4gCj4gV2UgaGF2ZSBjdXN0b21lcnMgd2hvIHVzZSBhIGZpeGVkIGxpbmsg
+aW5zdGVhZCBvZiBhIFBIWSwgc28gdGhlc2UgcHJvcGVydGllcwo+IG1heSBiZSBuZWNlc3Nhcnku
+CgpUaGF0IGlzIGEgbGVnaXRpbWF0ZSB1c2UgY2FzZSB3aGljaCBjYW4gcmVxdWlyZSB0aGUgTUFD
+IHRvIGFkZCBkZWxheXMsCmJ1dCBpIGdlbmVyYWxseSB0cnkgdG8gZ2V0IHRoZSBzd2l0Y2ggb24g
+dGhlIG90aGVyIGVuZCB0byBhZGQgdGhlCmRlbGF5cywganVzdCB0byBrZWVwIHdpdGggdGhlIHVu
+aWZvcm0gc2V0dXAuCgpBbHNvLCBwbGVhc2UgdGFrZSBhIGxvb2sgYXQgZXRoZXJuZXQtY29udHJv
+bGxlci55YW1sLCB0aGVzZSBzaG91bGQgYmUKY2FsbGVkIHJ4LWludGVybmFsLWRlbGF5LXBzICYg
+dHgtaW50ZXJuYWwtZGVsYXktcHMuCgoJQW5kcmV3Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
