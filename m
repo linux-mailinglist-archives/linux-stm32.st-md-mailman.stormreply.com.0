@@ -2,85 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809859C1422
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Nov 2024 03:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C64B9C1817
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Nov 2024 09:35:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1788AC6C855;
-	Fri,  8 Nov 2024 02:36:17 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F301C6DD94;
+	Fri,  8 Nov 2024 08:35:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FCE8C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0CD5C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Nov 2024 02:36:09 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-723db2798caso1842026b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 Nov 2024 18:36:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=pdp7-com.20230601.gappssmtp.com; s=20230601; t=1731033368; x=1731638168;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=s+jyeFz5qLcpNF1wQeUyeaIh19p1lD8bQtGka/s8n1Q=;
- b=s6WibhcHaCRGViD7RbIYFGyec/UNBv1u+dtchkOfW5iuKeTIt2fbVNG8VOd2VDVVSC
- w/7+a/7OJt4rQspqYjghemFqLb6omn7q6yXSBvOdkQS4q+/+LlgSrn3TbKVQbLCh9/01
- DQ3pSKbmXjyk8b2v8DmAVJBb+oXDiH1GNMET00KjZRMMMFIqZ8GJbpiSfCTd5bZJhLAF
- tBkp23CtkhR+BBb7a5up5vVKGid0ddsrD2nvpkO4ywEcjPny6QuSNDxVB1fBipQhd8D2
- EKT0n4Wni7EJ+TJ59K6xsNYaVr1tyDT2LLUqOit7Tj5kNqeuFMcebkVOy7u5jb3A4qJt
- ktzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731033368; x=1731638168;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=s+jyeFz5qLcpNF1wQeUyeaIh19p1lD8bQtGka/s8n1Q=;
- b=elW29MeZpDe0OM4eBi0Q5wdQOCwFIMt0bqPdhZzECEKeg0tB9t5GjJGUDGcD22YiG8
- pFgZgpusDjHmY+gdJ7L/WQD/V9u0gZ8/TOzukK0swXZDfV5M8Yq4crsv5o6UIB8ciVkT
- AZ+L0gkuENx/epb6JMt4whpmLdUuvtqR5PuuXkCzfdJtFQoYXnYOtmbH83no0oSttkpr
- Y+f0FqDSS5PSBot51C5tt8GGwVeQdNdIttEeAGSsaaFiuYEzY0ENWogRbiKmM6SDWh2i
- MVm5uj1fhQwV1cakVVko7JeSTtwfxFfLvbDNDTeUWVhAlxpPtgdkkrLAmPRUs0BvipNL
- u20w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVcp/r3qGQk1S51ucj5M05i71fvvAouhm8Eefs92pOIebMac4Q8vWTOMrV3opIsZTRqkhc/sIikowXk3A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwtPnIzRtdP6TKgAX9bK3Via2SgqTvTJiGnYeRu6grw9JofBuzl
- Bk6khdn1ua6rpHoa+HtZZjY77FOYfqrfw1ErnLsgk4GBZkQxMaSr+BB7nnyhMHM=
-X-Google-Smtp-Source: AGHT+IFkTBYmvuaObrf/NhsL6bgy8VSLe5N8eK2nw/1LxrZ9F9SMeNiCvMwnlaaGOCdkpjvr4IsokQ==
-X-Received: by 2002:a05:6a00:1819:b0:71d:f510:b791 with SMTP id
- d2e1a72fcca58-724132cd1b1mr1832008b3a.12.1731033367828; 
- Thu, 07 Nov 2024 18:36:07 -0800 (PST)
-Received: from x1 (71-34-69-82.ptld.qwest.net. [71.34.69.82])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72407a17ed3sm2541107b3a.142.2024.11.07.18.36.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 18:36:07 -0800 (PST)
-Date: Thu, 7 Nov 2024 18:36:04 -0800
-From: Drew Fustini <drew@pdp7.com>
-To: Drew Fustini <dfustini@tenstorrent.com>
-Message-ID: <Zy15FJZrOFA2t687@x1>
-References: <20241020-th1520-dwmac-v4-0-c77acd33ccef@tenstorrent.com>
- <20241020-th1520-dwmac-v4-3-c77acd33ccef@tenstorrent.com>
+ Fri,  8 Nov 2024 08:35:34 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A880ZTr004018;
+ Fri, 8 Nov 2024 09:35:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Gw/cXB3ASlDBZf3s8ILK10
+ q8vesO8K3OAc6jVmHR4dk=; b=lUDuL5xnXsIgvcuX2AjocajlconDBdKqr2fhCq
+ buzrmhcpsb+LMMkk98yprpa4vchuWPfp3OtclclnN6p9PLwbk6d5vQzvRw5tK5OT
+ T5KDu+5cXBJZuPMoElMarev0UXVKVqgqev92Fj1cMxyhHLQ3p4eMc78QpfsE+smx
+ GocWCJB+9sPB6gt65khHWk2hcNgcmIdFsVwXSjUJeasettC8Og4hIoxDy2CfKO8g
+ fcFbeDq6jpEhzGCHTFoM2+54rlRRjS6CM1KJvnZPgCt0bctkF4uvmxydqhbn8duO
+ VX5NYtpFvJzc+qK8QvCGh3+fRnF4201OZrRfTT8q5L9Wi7ng==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42s6gbt200-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Nov 2024 09:35:26 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DD3D54004F;
+ Fri,  8 Nov 2024 09:34:30 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DD4F228C10A;
+ Fri,  8 Nov 2024 09:33:51 +0100 (CET)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 8 Nov
+ 2024 09:33:51 +0100
+Message-ID: <92d2d6df-cc5c-488f-8ebd-550b1903db12@foss.st.com>
+Date: Fri, 8 Nov 2024 09:33:50 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241020-th1520-dwmac-v4-3-c77acd33ccef@tenstorrent.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Guo Ren <guoren@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 3/3] riscv: dts: thead: Add
- TH1520 ethernet nodes
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
+ Hilman <khilman@baylibre.com>, <arm@kernel.org>, <soc@kernel.org>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.13#1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,367 +67,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Oct 20, 2024 at 07:36:02PM -0700, Drew Fustini wrote:
-> From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-> 
-> Add gmac, mdio, and phy nodes to enable the gigabit Ethernet ports on
-> the BeagleV Ahead and Sipeed Lichee Pi 4a boards.
-> 
-> Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-> [drew: change apb registers from syscon to second reg of gmac node,
->        add phy reset delay properties for beaglev ahead]
-> Signed-off-by: Drew Fustini <dfustini@tenstorrent.com>
-> ---
->  arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts |  91 ++++++++++++++++
->  .../boot/dts/thead/th1520-lichee-module-4a.dtsi    | 119 +++++++++++++++++++++
->  arch/riscv/boot/dts/thead/th1520.dtsi              |  50 +++++++++
->  3 files changed, 260 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> index 86feb3df02c8..21c33f165ba9 100644
-> --- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> +++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> @@ -15,6 +15,7 @@ / {
->  	compatible = "beagle,beaglev-ahead", "thead,th1520";
->  
->  	aliases {
-> +		ethernet0 = &gmac0;
->  		gpio0 = &gpio0;
->  		gpio1 = &gpio1;
->  		gpio2 = &gpio2;
-> @@ -98,6 +99,25 @@ &emmc {
->  	status = "okay";
->  };
->  
-> +&gmac0 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac0_pins>;
-> +	phy-handle = <&phy0>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
-> +};
-> +
-> +&mdio0 {
-> +	phy0: ethernet-phy@1 {
-> +		reg = <1>;
-> +		interrupt-parent = <&gpio3>;
-> +		interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpio3 21 GPIO_ACTIVE_LOW>;
-> +		reset-delay-us = <10000>;
-> +		reset-post-delay-us = <50000>;
-> +	};
-> +};
-> +
->  &padctrl_aosys {
->  	led_pins: led-0 {
->  		led-pins {
-> @@ -116,6 +136,77 @@ led-pins {
->  };
->  
->  &padctrl0_apsys {
-> +	gmac0_pins: gmac0-0 {
-> +		tx-pins {
-> +			pins = "GMAC0_TX_CLK",
-> +			       "GMAC0_TXEN",
-> +			       "GMAC0_TXD0",
-> +			       "GMAC0_TXD1",
-> +			       "GMAC0_TXD2",
-> +			       "GMAC0_TXD3";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <25>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		rx-pins {
-> +			pins = "GMAC0_RX_CLK",
-> +			       "GMAC0_RXDV",
-> +			       "GMAC0_RXD0",
-> +			       "GMAC0_RXD1",
-> +			       "GMAC0_RXD2",
-> +			       "GMAC0_RXD3";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <1>;
-> +			input-enable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		mdc-pins {
-> +			pins = "GMAC0_MDC";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <13>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		mdio-pins {
-> +			pins = "GMAC0_MDIO";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <13>;
-> +			input-enable;
-> +			input-schmitt-enable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		phy-reset-pins {
-> +			pins = "GMAC0_COL"; /* GPIO3_21 */
-> +			bias-disable;
-> +			drive-strength = <3>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		phy-interrupt-pins {
-> +			pins = "GMAC0_CRS"; /* GPIO3_22 */
-> +			function = "gpio";
-> +			bias-pull-up;
-> +			drive-strength = <1>;
-> +			input-enable;
-> +			input-schmitt-enable;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +
->  	uart0_pins: uart0-0 {
->  		tx-pins {
->  			pins = "UART0_TXD";
-> diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-> index 724d9645471d..8e76b63e0100 100644
-> --- a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-> +++ b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-> @@ -11,6 +11,11 @@ / {
->  	model = "Sipeed Lichee Module 4A";
->  	compatible = "sipeed,lichee-module-4a", "thead,th1520";
->  
-> +	aliases {
-> +		ethernet0 = &gmac0;
-> +		ethernet1 = &gmac1;
-> +	};
-> +
->  	memory@0 {
->  		device_type = "memory";
->  		reg = <0x0 0x00000000 0x2 0x00000000>;
-> @@ -45,6 +50,22 @@ &emmc {
->  	status = "okay";
->  };
->  
-> +&gmac0 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac0_pins>, <&mdio0_pins>;
-> +	phy-handle = <&phy0>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
-> +};
-> +
-> +&gmac1 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac1_pins>;
-> +	phy-handle = <&phy1>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
-> +};
-> +
->  &gpio0 {
->  	gpio-line-names = "", "", "", "", "", "", "", "", "", "",
->  			  "", "", "", "", "", "", "", "", "", "",
-> @@ -78,6 +99,104 @@ &gpio3 {
->  			  "GPIO10";
->  };
->  
-> +&mdio0 {
-> +	phy0: ethernet-phy@1 {
-> +		reg = <1>;
-> +	};
-> +
-> +	phy1: ethernet-phy@2 {
-> +		reg = <2>;
-> +	};
-> +};
-> +
-> +&padctrl0_apsys {
-> +	gmac0_pins: gmac0-0 {
-> +		tx-pins {
-> +			pins = "GMAC0_TX_CLK",
-> +			       "GMAC0_TXEN",
-> +			       "GMAC0_TXD0",
-> +			       "GMAC0_TXD1",
-> +			       "GMAC0_TXD2",
-> +			       "GMAC0_TXD3";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <25>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		rx-pins {
-> +			pins = "GMAC0_RX_CLK",
-> +			       "GMAC0_RXDV",
-> +			       "GMAC0_RXD0",
-> +			       "GMAC0_RXD1",
-> +			       "GMAC0_RXD2",
-> +			       "GMAC0_RXD3";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <1>;
-> +			input-enable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +
-> +	gmac1_pins: gmac1-0 {
-> +		tx-pins {
-> +			pins = "GPIO2_18", /* GMAC1_TX_CLK */
-> +			       "GPIO2_20", /* GMAC1_TXEN */
-> +			       "GPIO2_21", /* GMAC1_TXD0 */
-> +			       "GPIO2_22", /* GMAC1_TXD1 */
-> +			       "GPIO2_23", /* GMAC1_TXD2 */
-> +			       "GPIO2_24"; /* GMAC1_TXD3 */
-> +			function = "gmac1";
-> +			bias-disable;
-> +			drive-strength = <25>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		rx-pins {
-> +			pins = "GPIO2_19", /* GMAC1_RX_CLK */
-> +			       "GPIO2_25", /* GMAC1_RXDV */
-> +			       "GPIO2_30", /* GMAC1_RXD0 */
-> +			       "GPIO2_31", /* GMAC1_RXD1 */
-> +			       "GPIO3_0",  /* GMAC1_RXD2 */
-> +			       "GPIO3_1";  /* GMAC1_RXD3 */
-> +			function = "gmac1";
-> +			bias-disable;
-> +			drive-strength = <1>;
-> +			input-enable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +
-> +	mdio0_pins: mdio0-0 {
-> +		mdc-pins {
-> +			pins = "GMAC0_MDC";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <13>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		mdio-pins {
-> +			pins = "GMAC0_MDIO";
-> +			function = "gmac0";
-> +			bias-disable;
-> +			drive-strength = <13>;
-> +			input-enable;
-> +			input-schmitt-enable;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +};
-> +
->  &sdio0 {
->  	bus-width = <4>;
->  	max-frequency = <198000000>;
-> diff --git a/arch/riscv/boot/dts/thead/th1520.dtsi b/arch/riscv/boot/dts/thead/th1520.dtsi
-> index cd835aea07d2..acfe030e803a 100644
-> --- a/arch/riscv/boot/dts/thead/th1520.dtsi
-> +++ b/arch/riscv/boot/dts/thead/th1520.dtsi
-> @@ -223,6 +223,12 @@ aonsys_clk: clock-73728000 {
->  		#clock-cells = <0>;
->  	};
->  
-> +	stmmac_axi_config: stmmac-axi-config {
-> +		snps,wr_osr_lmt = <15>;
-> +		snps,rd_osr_lmt = <15>;
-> +		snps,blen = <0 0 64 32 0 0 0>;
-> +	};
-> +
->  	soc {
->  		compatible = "simple-bus";
->  		interrupt-parent = <&plic>;
-> @@ -274,6 +280,50 @@ uart0: serial@ffe7014000 {
->  			status = "disabled";
->  		};
->  
-> +		gmac1: ethernet@ffe7060000 {
-> +			compatible = "thead,th1520-gmac", "snps,dwmac-3.70a";
-> +			reg = <0xff 0xe7060000 0x0 0x2000>, <0xff 0xec004000 0x0 0x1000>;
-> +			reg-names = "dwmac", "apb";
-> +			interrupts = <67 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			clocks = <&clk CLK_GMAC_AXI>, <&clk CLK_GMAC1>;
-> +			clock-names = "stmmaceth", "pclk";
-> +			snps,pbl = <32>;
-> +			snps,fixed-burst;
-> +			snps,multicast-filter-bins = <64>;
-> +			snps,perfect-filter-entries = <32>;
-> +			snps,axi-config = <&stmmac_axi_config>;
-> +			status = "disabled";
-> +
-> +			mdio1: mdio {
-> +				compatible = "snps,dwmac-mdio";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +			};
-> +		};
-> +
-> +		gmac0: ethernet@ffe7070000 {
-> +			compatible = "thead,th1520-gmac", "snps,dwmac-3.70a";
-> +			reg = <0xff 0xe7070000 0x0 0x2000>, <0xff 0xec003000 0x0 0x1000>;
-> +			reg-names = "dwmac", "apb";
-> +			interrupts = <66 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			clocks = <&clk CLK_GMAC_AXI>, <&clk CLK_GMAC0>;
-> +			clock-names = "stmmaceth", "pclk";
-> +			snps,pbl = <32>;
-> +			snps,fixed-burst;
-> +			snps,multicast-filter-bins = <64>;
-> +			snps,perfect-filter-entries = <32>;
-> +			snps,axi-config = <&stmmac_axi_config>;
-> +			status = "disabled";
-> +
-> +			mdio0: mdio {
-> +				compatible = "snps,dwmac-mdio";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +			};
-> +		};
-> +
->  		emmc: mmc@ffe7080000 {
->  			compatible = "thead,th1520-dwcmshc";
->  			reg = <0xff 0xe7080000 0x0 0x10000>;
-> 
-> -- 
-> 2.34.1
-> 
+Hi ARM SoC maintainers,
 
-The dwmac-thead driver and dt binding have been applied to net-next [1]
-so I have now applied this dts patch to thead-dt-for-next [2].
+Please consider this first round of STM32 DT for v6.13 cycle.
 
--Drew
+Thanks
+Alex
 
-[1] https://lore.kernel.org/linux-riscv/173085843050.764350.5609116722213276708.git-patchwork-notify@kernel.org/
-[2] https://github.com/pdp7/linux/commit/7e756671a664b73b2a3c0cc37fd25abf6bcd851e
+
+The following changes since commit 9852d85ec9d492ebef56dc5f229416c925758edc:
+
+   Linux 6.12-rc1 (2024-09-29 15:06:19 -0700)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
+tags/stm32-dt-for-v6.13-1
+
+for you to fetch changes up to b0191a5cbc222fc7af3f9511b44d1f330ef980e9:
+
+   arm64: dts: st: add DMA support on SPI instances of stm32mp25 
+(2024-10-29 17:07:05 +0100)
+
+----------------------------------------------------------------
+STM32 DT for v6.13, round 1
+
+Highlights:
+----------
+
+- MPU:
+   - STM32MP13:
+     - ST DK board:
+       - Add support of WLAN/BT Murata Type 1DX module.
+     - DH SOM:
+       - Add M24256E EEPROM suport.
+
+   - STMP32MP15:
+     - Use IWDG2 as wakeup source.
+     - Add support of WLAN/BT Murata Type 1DX module on DK2 board.
+
+   - STM32MP25:
+     - Enable RTC.
+     - Add DMA support for U(S)ART, I2C and SPI instances.
+
+----------------------------------------------------------------
+Amelie Delaunay (3):
+       arm64: dts: st: add DMA support on U(S)ART instances of stm32mp25
+       arm64: dts: st: add DMA support on I2C instances of stm32mp25
+       arm64: dts: st: add DMA support on SPI instances of stm32mp25
+
+Christophe Roullier (2):
+       ARM: dts: stm32: add support of WLAN/BT on stm32mp157c-dk2
+       ARM: dts: stm32: add support of WLAN/BT on stm32mp135f-dk
+
+Gatien Chevallier (1):
+       arm64: dts: st: add RNG node on stm32mp251
+
+Marek Vasut (2):
+       ARM: dts: stm32: Add IWDG2 EXTI interrupt mapping and mark as 
+wakeup source
+       ARM: dts: stm32: Describe M24256E write-lockable page in DH 
+STM32MP13xx DHCOR SoM DT
+
+Valentin Caron (6):
+       ARM: dts: stm32: rtc, add pin to provide LSCO on stm32mp15
+       ARM: dts: stm32: rtc, add pin to provide LSCO on stm32mp13
+       ARM: dts: stm32: rtc, add LSCO to WLAN/BT module on stm32mp157c-dk2
+       ARM: dts: stm32: rtc, add LSCO to WLAN/BT module on stm32mp135f-dk
+       arm64: dts: st: add RTC on stm32mp25x
+       arm64: dts: st: enable RTC on stm32mp257f-ev1 board
+
+  arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi     |  7 +++++++
+  arch/arm/boot/dts/st/stm32mp135f-dk.dts         | 52 
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+  arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi |  6 ++++++
+  arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi     |  7 +++++++
+  arch/arm/boot/dts/st/stm32mp151.dtsi            |  2 ++
+  arch/arm/boot/dts/st/stm32mp157c-dk2.dts        | 51 
+++++++++++++++++++++++++++++++++++++++++++++++++++-
+  arch/arm64/boot/dts/st/stm32mp251.dtsi          | 95 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts      |  6 ++++++
+  8 files changed, 225 insertions(+), 1 deletion(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
