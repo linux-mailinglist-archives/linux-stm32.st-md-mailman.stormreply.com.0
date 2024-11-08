@@ -2,49 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66CD99C1D0C
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Nov 2024 13:32:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97869C2310
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Nov 2024 18:33:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18FAFC6DD94;
-	Fri,  8 Nov 2024 12:32:17 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81ED8C6DD94;
+	Fri,  8 Nov 2024 17:33:49 +0000 (UTC)
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1A27C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E2BAC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Nov 2024 12:32:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 27E36A4291A;
- Fri,  8 Nov 2024 12:30:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185C2C4CECD;
- Fri,  8 Nov 2024 12:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731069128;
- bh=OTSjLYZ9CZLdTvXs6M+Ao3qZ+7v2e9k19DVGtbucSic=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=thlXps8ZJocdFA3UPRDrvXaiiCEru2GJimSp8zo+cSiFyBtaPPVWIyjv57IESI9AF
- O+xIRj7hmQNOrdrK2C4kxu+ngrYBxXEI2vtqxr1FKjF2RTeDqxUh9hTOhEm6zxWy9+
- NmbH/K0z8F/UVdswFtDc7uGiKtR7enBggiINeMQdk6Lp1F4UuEW/B/K/y3xGkEc5xQ
- QX8HnYdMQu/mpsx7Y1DEDpQjDI+XfRi5EfDAUult+xkXxwYgYqeG43PuRkTXq61bIe
- kne8JaI1PlfgdR+0LoHJhCNE7vAuzNdvHmvs0//W4jVFSEQ4tS9iR+KnLt18rulb8p
- yAX6LV9uPrztg==
-Date: Fri, 8 Nov 2024 13:32:03 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <3nkoutm4uixuhetf5cputloooqzpvwhcnq6wklhu3euazmrybe@mjtjqnehfnvg>
-References: <20241107155143.1340523-1-olivier.moysan@foss.st.com>
- <20241107155143.1340523-2-olivier.moysan@foss.st.com>
+ Fri,  8 Nov 2024 17:33:42 +0000 (UTC)
+Received: from ldvnode.intra.ispras.ru (unknown [10.10.2.153])
+ by mail.ispras.ru (Postfix) with ESMTPSA id E969740B2274;
+ Fri,  8 Nov 2024 17:33:40 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru E969740B2274
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1731087221;
+ bh=3QYrsrBPYW43jQDvfadZZ/SbvlgS981KQOnirhhBRvU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=F5kOF/OaGdZSfFauj5TVSIstfJVU3lTPNTDHweGefjpPXpJ0XtnIpVTv1ULCVKRov
+ PD1zkrsBF3jPlQfslBxcFO3SizMaSk+ggashI9VbDmg/EmGK1EJbDK9lz0pdeW5tyC
+ jdFv4KDgaz8GCIsg5WJfS3SLQjxa0Lw0gdMSRuwE=
+From: Vitalii Mordan <mordan@ispras.ru>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri,  8 Nov 2024 20:33:34 +0300
+Message-Id: <20241108173334.2973603-1-mordan@ispras.ru>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241107155143.1340523-2-olivier.moysan@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
- linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] ASoC: dt-bindings: add stm32mp25
-	support for sai
+Cc: lvc-project@linuxtesting.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fedor Pchelkin <pchelkin@ispras.ru>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Vadim Mutilin <mutilin@ispras.ru>,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Vitalii Mordan <mordan@ispras.ru>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v2]: stmmac: dwmac-intel-plat: fix call
+	balance of tx_clk handling routines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,43 +56,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Nov 07, 2024 at 04:51:41PM +0100, Olivier Moysan wrote:
-> Add STM32MP25 support for STM32 SAI peripheral,
-> through "st,stm32mp25-sai" compatible.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../bindings/sound/st,stm32-sai.yaml          | 26 ++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> index 68f97b462598..4a7129d0b157 100644
-> --- a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> @@ -20,6 +20,7 @@ properties:
->      enum:
->        - st,stm32f4-sai
->        - st,stm32h7-sai
-> +      - st,stm32mp25-sai
->  
->    reg:
->      items:
-> @@ -43,9 +44,11 @@ properties:
->      const: 1
->  
->    clocks:
-> +    minItems: 1
->      maxItems: 3
->  
->    clock-names:
-> +    minItems: 1
+If the clock dwmac->tx_clk was not enabled in intel_eth_plat_probe,
+it should not be disabled in any path.
 
-This actually fixes the binding because it lacked minItems before :/
+Conversely, if it was enabled in intel_eth_plat_probe, it must be disabled
+in all error paths to ensure proper cleanup.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Found by Linux Verification Center (linuxtesting.org) with Klever.
 
-Best regards,
-Krzysztof
+Fixes: 9efc9b2b04c7 ("net: stmmac: Add dwmac-intel-plat for GBE driver")
+Signed-off-by: Vitalii Mordan <mordan@ispras.ru>
+---
+v2: Unwind using a goto label, as per Simon Horman's request.
+
+ .../stmicro/stmmac/dwmac-intel-plat.c         | 25 +++++++++++++------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
+index d68f0c4e7835..9739bc9867c5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
+@@ -108,7 +108,12 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+ 			if (IS_ERR(dwmac->tx_clk))
+ 				return PTR_ERR(dwmac->tx_clk);
+ 
+-			clk_prepare_enable(dwmac->tx_clk);
++			ret = clk_prepare_enable(dwmac->tx_clk);
++			if (ret) {
++				dev_err(&pdev->dev,
++					"Failed to enable tx_clk\n");
++				return ret;
++			}
+ 
+ 			/* Check and configure TX clock rate */
+ 			rate = clk_get_rate(dwmac->tx_clk);
+@@ -119,7 +124,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+ 				if (ret) {
+ 					dev_err(&pdev->dev,
+ 						"Failed to set tx_clk\n");
+-					return ret;
++					goto err_tx_clk_disable;
+ 				}
+ 			}
+ 		}
+@@ -133,7 +138,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+ 			if (ret) {
+ 				dev_err(&pdev->dev,
+ 					"Failed to set clk_ptp_ref\n");
+-				return ret;
++				goto err_tx_clk_disable;
+ 			}
+ 		}
+ 	}
+@@ -149,12 +154,15 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+-	if (ret) {
+-		clk_disable_unprepare(dwmac->tx_clk);
+-		return ret;
+-	}
++	if (ret)
++		goto err_tx_clk_disable;
+ 
+ 	return 0;
++
++err_tx_clk_disable:
++	if (dwmac->data->tx_clk_en)
++		clk_disable_unprepare(dwmac->tx_clk);
++	return ret;
+ }
+ 
+ static void intel_eth_plat_remove(struct platform_device *pdev)
+@@ -162,7 +170,8 @@ static void intel_eth_plat_remove(struct platform_device *pdev)
+ 	struct intel_dwmac *dwmac = get_stmmac_bsp_priv(&pdev->dev);
+ 
+ 	stmmac_pltfr_remove(pdev);
+-	clk_disable_unprepare(dwmac->tx_clk);
++	if (dwmac->data->tx_clk_en)
++		clk_disable_unprepare(dwmac->tx_clk);
+ }
+ 
+ static struct platform_driver intel_eth_plat_driver = {
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
