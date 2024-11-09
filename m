@@ -2,52 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19EE29C29AB
-	for <lists+linux-stm32@lfdr.de>; Sat,  9 Nov 2024 04:14:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B909C2D8F
+	for <lists+linux-stm32@lfdr.de>; Sat,  9 Nov 2024 14:38:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4F9CC6DD9A;
-	Sat,  9 Nov 2024 03:14:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 514FCC6DD66;
+	Sat,  9 Nov 2024 13:38:57 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 028F1C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37F8EC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  9 Nov 2024 03:14:02 +0000 (UTC)
+ Sat,  9 Nov 2024 13:38:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 67D5E5C5456;
- Sat,  9 Nov 2024 03:13:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1D5C4CED2;
- Sat,  9 Nov 2024 03:13:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5C12C5C012F;
+ Sat,  9 Nov 2024 13:38:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2A25C4CECE;
+ Sat,  9 Nov 2024 13:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731122041;
- bh=+fO1Ep+DCuJGkt1paLe1xt9jDCApzKVVE3M9ZNlZNOU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=oMAAu6Bw/sJeCPto/7oDxFXHp9Az63CqCb/czvofrz0f9l6/UBKFJYlABrDYC0cLM
- Ibn7/Y49pOk7Ly03Qd3dGUIPuiCMC7Fl9JfDz8/mz/lV6LGL8e0ThZpIygFEDh+0+6
- eB8zjX4WbztkB78yKPMf78QLPv5rJddJGLd1gBht0VmiPUh9vZlQyaGkmmp/+P7SGt
- JR+hKwZUpPY1LLW08y0Is/tQsDAhnPKtw8yQEMCXVb7au4VzuDjCPc06hAtHoEdcRG
- XJiCpV+6jlzvEVEmxMO6t8DSsXOA5wqQ/DS+S4sJtVAv/w7Mn8wpQHl85IeCF5mpDR
- zDoMQlOw9fyow==
-From: Mark Brown <broonie@kernel.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Olivier Moysan <olivier.moysan@foss.st.com>
-In-Reply-To: <20241107155143.1340523-1-olivier.moysan@foss.st.com>
-References: <20241107155143.1340523-1-olivier.moysan@foss.st.com>
-Message-Id: <173112203864.168194.12196332639413190423.b4-ty@kernel.org>
-Date: Sat, 09 Nov 2024 03:13:58 +0000
+ s=k20201202; t=1731159534;
+ bh=xK1EstYJfmUBR3r7y6GFUc08EvB9qxw1bqmlRdrQcF4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ADeTmWjwb3WD427+fGGhLNAluQKlEQ2wdBBtW0j+yy9VeySlBj1L9qsNqx/UIA/R1
+ 9eZfcOswmFCsgukKcl4ouBL5YZi49BlXlXygckbhYWV4JxHZ/3FFlJoYRB7Ctu/T1R
+ DfT2L045tlyctq1Y350RXrTQJHSWLWt6vJPcmWea/e1a9McHAj0aeq6uCiW13rHi6I
+ DBH4eyucf1I+R53eTWVE6A0KxS78RYW69HiZAWj33wxHUurnjM8y4VIcBdDQulDshI
+ YB4FdLmSBYIig1+vuu2JHxQok6o8KT/51vGjkli65JI9MyFmCpYRZFU/LvSQPcm2RK
+ 61uieIB7cpVYQ==
+Date: Sat, 9 Nov 2024 13:38:46 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Message-ID: <20241109133846.53d7ef06@jic23-huawei>
+In-Reply-To: <20241108200900.44727-1-jiashengjiangcool@gmail.com>
+References: <20241108200900.44727-1-jiashengjiangcool@gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-9b746
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] ASoC: stm32: sai: add stm32mp25
-	support
+Cc: tgamblin@baylibre.com, lars@metafoo.de, benjamin.gaignard@linaro.org,
+ linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ u.kleine-koenig@baylibre.com, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: trigger: stm32-timer-trigger: Add
+ check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,50 +59,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 07 Nov 2024 16:51:40 +0100, Olivier Moysan wrote:
-> Update STM32 SAI driver and binding to support STM32MP25 SoCs.
+On Fri,  8 Nov 2024 20:09:00 +0000
+Jiasheng Jiang <jiashengjiangcool@gmail.com> wrote:
+
+> Add check for the return value of clk_enable() in order to catch the
+> potential exception.
 > 
-> Olivier Moysan (2):
->   ASoC: dt-bindings: add stm32mp25 support for sai
->   ASoC: stm32: sai: add stm32mp25 support
+> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Hi,
+
+In principle this is fine, but I'd rather we made use of guard()
+/ scoped_guard() rather than adding the explicit unlocks.
+
+If you do that as a precursor patch in appropriate places
+in the driver then this will be a little cleaner.
+
+Note I'll not be taking this until next cycle now anyway.
+
+Jonathan
+
+> ---
+> Changelog:
 > 
->  .../bindings/sound/st,stm32-sai.yaml          |  26 +++-
->  sound/soc/stm/stm32_sai.c                     |  58 +++++--
->  sound/soc/stm/stm32_sai.h                     |   6 +
->  sound/soc/stm/stm32_sai_sub.c                 | 144 +++++++++++++++++-
->  4 files changed, 216 insertions(+), 18 deletions(-)
+> v1 -> v2:
 > 
-> [...]
+> 1. Remove unsuitable dev_err_probe().
+> ---
+>  drivers/iio/trigger/stm32-timer-trigger.c | 32 ++++++++++++++++++-----
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+> index 0684329956d9..e1e077122f73 100644
+> --- a/drivers/iio/trigger/stm32-timer-trigger.c
+> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
+> @@ -119,7 +119,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  			     unsigned int frequency)
+>  {
+>  	unsigned long long prd, div;
+> -	int prescaler = 0;
+> +	int prescaler = 0, ret;
+>  	u32 ccer;
+>  
+>  	/* Period and prescaler values depends of clock rate */
+> @@ -153,7 +153,11 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  	mutex_lock(&priv->lock);
+>  	if (!priv->enabled) {
+>  		priv->enabled = true;
+> -		clk_enable(priv->clk);
+> +		ret = clk_enable(priv->clk);
+> +		if (ret) {
+> +			mutex_unlock(&priv->lock);
 
-Applied to
+as below guard() for when the mutex is locked is cleaner.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> +			return ret;
+> +		}
+>  	}
+>  
+>  	regmap_write(priv->regmap, TIM_PSC, prescaler);
+> @@ -307,7 +311,7 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+>  	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
+>  	struct iio_trigger *trig = to_iio_trigger(dev);
+>  	u32 mask, shift, master_mode_max;
+> -	int i;
+> +	int i, ret;
+>  
+>  	if (stm32_timer_is_trgo2_name(trig->name)) {
+>  		mask = TIM_CR2_MMS2;
+> @@ -326,7 +330,11 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+>  			if (!priv->enabled) {
+>  				/* Clock should be enabled first */
+>  				priv->enabled = true;
+> -				clk_enable(priv->clk);
+> +				ret = clk_enable(priv->clk);
+> +				if (ret) {
+> +					mutex_unlock(&priv->lock);
+As below. Prefer use of guard() so we don't have to handle the unlock manually.
+> +					return ret;
+> +				}
+>  			}
+>  			regmap_update_bits(priv->regmap, TIM_CR2, mask,
+>  					   i << shift);
+> @@ -482,6 +490,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				   int val, int val2, long mask)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> +	int ret;
+>  
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> @@ -496,7 +505,11 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  		if (val) {
+>  			if (!priv->enabled) {
+>  				priv->enabled = true;
+> -				clk_enable(priv->clk);
+> +				ret = clk_enable(priv->clk);
+> +				if (ret) {
+> +					mutex_unlock(&priv->lock);
+Add include of cleanup.h and swithch the place where the mutex is locked to
+guard(mutex)(&priv->lock);
+then remember to drop the explicit unlocks.
 
-Thanks!
 
-[1/2] ASoC: dt-bindings: add stm32mp25 support for sai
-      commit: 8509bb1f11a1fed710271631c2e06fd66452f510
-[2/2] ASoC: stm32: sai: add stm32mp25 support
-      commit: b3ea5bec7519027a8e0d6c5c3a313e2ab11e6b2c
+> +					return ret;
+> +				}
+>  			}
+>  			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+>  		} else {
+> @@ -601,7 +614,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  				 unsigned int mode)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> -	int sms = stm32_enable_mode2sms(mode);
+> +	int sms = stm32_enable_mode2sms(mode), ret;
+>  
+>  	if (sms < 0)
+>  		return sms;
+> @@ -611,7 +624,12 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  	 */
+>  	mutex_lock(&priv->lock);
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Perhaps scoped_guard() is  appropriate here.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+>  	if (sms == 6 && !priv->enabled) {
+> -		clk_enable(priv->clk);
+> +		ret = clk_enable(priv->clk);
+> +		if (ret) {
+> +			mutex_unlock(&priv->lock);
+> +			return ret;
+> +		}
+> +
+>  		priv->enabled = true;
+>  	}
+>  	mutex_unlock(&priv->lock);
 
 _______________________________________________
 Linux-stm32 mailing list
