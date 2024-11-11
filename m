@@ -2,72 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E99B69C48F8
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 23:18:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F56C9C4909
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 23:23:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0C0AC78F6C;
-	Mon, 11 Nov 2024 22:18:19 +0000 (UTC)
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
- [209.85.160.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1B32C78F6C;
+	Mon, 11 Nov 2024 22:23:20 +0000 (UTC)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A97B9C78F6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D0EAC78F6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Nov 2024 22:18:12 +0000 (UTC)
-Received: by mail-qt1-f180.google.com with SMTP id
- d75a77b69052e-460af1a1154so33691981cf.0
+ Mon, 11 Nov 2024 22:23:14 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-7b152a923a3so343737485a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Nov 2024 14:18:12 -0800 (PST)
+ Mon, 11 Nov 2024 14:23:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731363491; x=1731968291;
+ d=gmail.com; s=20230601; t=1731363793; x=1731968593;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4gUTNs8Dh8KbUYmm7/7ZTpr23lbHf0Ptz/iifQK4G1M=;
- b=Nkqy4NnNI0GW78xVGDGfN+Usy8SG83q7e4qImIqY0xRzJiLTV7LNMKwYGiz63Znd43
- fWwfwx6XzOijuVYCIBh4a9g4GiJIeLrX0mqFJZAs3l3Lw8DIXuXqRQqzPkOuR1JQ6fCa
- CD90h44X1YTTZZi13s+/NTXXy1oFaJD5jeRqAvUoKE9oxFx8YEd8WhbKCICwtqOS95X7
- 9Yeoa/2GJzbyCB2Ps1IoeTsEVUFMTjnB3vTd49wK/EHmb6RNr1PxvJHUFiccZHnS4Wfg
- MKlCC8yxc+A3tM6zCEMUPU0vjWgC497Ge0hMCgveT1d4GUgYhjRVvZYO49J26KPkqM6h
- h0ew==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xKJrUNekn+fLC6kP93590FUWGJ6YXqoOuHlp1oOaerI=;
+ b=DCd/k+JKgsU9EdfQRFYc3Ua6mhn8J5kyx/A1HYOiPkj9tV5xXGODltsPRDRgTyln/0
+ ItiBnOhAFp9dSjKntFhYAKFvfb9gClhwVzVBRpDvoaa3FBO79xvJxbWL8FvrDh/xzFRO
+ mAHU0jHTobFiZAq/GaNMjzs4XhiKEalaNAbTdvGTttKiUuZkz5mh1PKlBxTT3V3cSxzG
+ iUYJ9v/wpSRd6q2DQW65gWqbWmst2IvoYR5x0cqvNsNTu4og9AM7AFMk6C0Vp0u6FGAE
+ DIvuKj0EujhfjjKQdRBR3ui8zjSVWkGVfSHeUbw1BOB20tMp2UxY1FX1ESV0zaj5wGJs
+ bQ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731363491; x=1731968291;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4gUTNs8Dh8KbUYmm7/7ZTpr23lbHf0Ptz/iifQK4G1M=;
- b=d6oWCznengEaZE2XJ9ttAFUJXiTXDDlNPH+t7PaqrnWAzRz+O2tOMO/c4tTePZJyq8
- qllBhanI2NwCICEIjMNimLDqcZpDekn/MTPsmSm0AkxB7FRG/rQ/7V7w5OdH9OsI9yv2
- wLXURP5ZOzrahWHuJ1JV8RnSNJgaBuvT/eLvtfrP39NRURlFpeQXrNRIJesb/xmWK1ue
- V2QgKDD0doVVjrsnTI622SiutW0dnljktOurg4ZbmfApSE3oi65ufm/XaFIGgi4x8xr7
- IiJwKAnuxYYLgaqsWh+BCrLZVCPjGdkk08D/IKk3zfZ42BhfjJ676ydVV010We7sj76L
- Vcbw==
+ d=1e100.net; s=20230601; t=1731363793; x=1731968593;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xKJrUNekn+fLC6kP93590FUWGJ6YXqoOuHlp1oOaerI=;
+ b=YhlkAKw3hCl7JhOVWZlrqxWbsJaBaSK9j24jh5bBSGGjzuhZ6Il5Zkq0FYSTAM7Vmg
+ RPSNKgx7y3cH4bUZg+IZtn3ESEEBYrCvALYkXq8iusyifHMbfWHLBcAM71toUOLmx3Ba
+ WLkq1nYe5HJjn4tcq9rDAc2SJpywcoJTIi2DiDRBZs+j7EQAOaZ0XNnFmfifu2f8+NgW
+ rih+0IYXVR5D6qrJ3TsLI3nT9TaDLEzxXOklUBEKuMqCV5/udKPddCO9SkoyqtWmAcnK
+ f4I3cQ+69N+Mrtz1x7Wc6DBGC1d+G/vGLh+bM/44T6pCsYwzSUVn15JnBoFGfeCLOi7j
+ 4Rxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWioVmJQWtTrdkkolQOC9RQSjjttEMxkGP0B5IMnHrmSwgz0oqWFKOeXdoVyb1l9OfM4Z+eT4fcZQKg0Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzR8G9jKyCpgA9SC+1Ooz3wDTzwSCbdU6bQiTNPa/mmliRdw9Hn
- LFHOQzt06ClaOiDWX6tzi5SuAvj1ekuBXCbAmCfjzJrgII2hPE3ToVmlEd9cxLedTyuzNURbELQ
- tKFSs9dbhUhySvV5Sj9Nxwhhigds=
-X-Google-Smtp-Source: AGHT+IFBSFXwho3XyINI2DcEU/Xepv/720ecvGA0qvDaPusA/yXsvod0iClvHMK0JEz9Jm2Fdz03yfn9c4Ds8BzAZio=
-X-Received: by 2002:a05:622a:1b1e:b0:461:1475:6135 with SMTP id
- d75a77b69052e-463093003c5mr217546251cf.1.1731363491551; Mon, 11 Nov 2024
- 14:18:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20241111191934.17231-1-jiashengjiangcool@gmail.com>
- <8505aa28-5f88-4fcd-b3bc-cb5db89d2a08@baylibre.com>
- <CANeGvZVE6fX5hV-p1xXsGR=Z=pABzDtvV9wY_XBbLwJUWNVtyQ@mail.gmail.com>
- <b2f6db15-51a8-498d-ab5b-52f0f6a2e098@baylibre.com>
-In-Reply-To: <b2f6db15-51a8-498d-ab5b-52f0f6a2e098@baylibre.com>
+ AJvYcCVwTY+li+JlgyRbOdOGZuUkhRNXJ2/WHd+9fBQ41TqLHgp5rASy+6z9ibOWLxjC5N6VHhe35tPSChZGHg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw868WgGng29OZF74v9CrI7eX3SaJ7ntRFqOkQyB3CKPfjxZadt
+ KPDr2pZHL+N3ymp6odROtySybnl4AQkVRwWCRX5fI4o23Ion3IKQ
+X-Google-Smtp-Source: AGHT+IGFThbZRbYxwToYYeuVu+7TuIAwrVPuAA2eieBL7N+tsgVpKFWjBEQC2tvJmKh1er5auG0BMA==
+X-Received: by 2002:a05:620a:1aaa:b0:7ac:b118:a732 with SMTP id
+ af79cd13be357-7b331dd2fb1mr2162857285a.32.1731363793253; 
+ Mon, 11 Nov 2024 14:23:13 -0800 (PST)
+Received: from newman.cs.purdue.edu ([128.10.127.250])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7b32ac2dc06sm535599885a.12.2024.11.11.14.23.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Nov 2024 14:23:13 -0800 (PST)
 From: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Date: Mon, 11 Nov 2024 17:18:00 -0500
-Message-ID: <CANeGvZW0Ja=pwLuYqZh1KWn3Y7Oany4JvALHWcHoM-jALedSbw@mail.gmail.com>
-To: David Lechner <dlechner@baylibre.com>
+To: dlechner@baylibre.com
+Date: Mon, 11 Nov 2024 22:23:10 +0000
+Message-Id: <20241111222310.12339-1-jiashengjiangcool@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Cc: tgamblin@baylibre.com, lars@metafoo.de, benjamin.gaignard@linaro.org,
  linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- u.kleine-koenig@baylibre.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3] iio: trigger: stm32-timer-trigger: Add
+ Jiasheng Jiang <jiashengjiangcool@gmail.com>, u.kleine-koenig@baylibre.com,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ jic23@kernel.org
+Subject: [Linux-stm32] [PATCH v4] iio: trigger: stm32-timer-trigger: Add
 	check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -80,106 +80,170 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBOb3YgMTEsIDIwMjQgYXQgNDoxNeKAr1BNIERhdmlkIExlY2huZXIgPGRsZWNobmVy
-QGJheWxpYnJlLmNvbT4gd3JvdGU6Cj4KPiBPbiAxMS8xMS8yNCAyOjM2IFBNLCBKaWFzaGVuZyBK
-aWFuZyB3cm90ZToKPiA+IE9uIE1vbiwgTm92IDExLCAyMDI0IGF0IDI6NDXigK9QTSBEYXZpZCBM
-ZWNobmVyIDxkbGVjaG5lckBiYXlsaWJyZS5jb20+IHdyb3RlOgo+ID4+Cj4gPj4gT24gMTEvMTEv
-MjQgMToxOSBQTSwgSmlhc2hlbmcgSmlhbmcgd3JvdGU6Cj4gPj4+IEFkZCBjaGVjayBmb3IgdGhl
-IHJldHVybiB2YWx1ZSBvZiBjbGtfZW5hYmxlKCkgaW4gb3JkZXIgdG8gY2F0Y2ggdGhlCj4gPj4+
-IHBvdGVudGlhbCBleGNlcHRpb24uCj4gPj4+Cj4gPj4+IFNpZ25lZC1vZmYtYnk6IEppYXNoZW5n
-IEppYW5nIDxqaWFzaGVuZ2ppYW5nY29vbEBnbWFpbC5jb20+Cj4gPj4+IC0tLQo+ID4+PiBDaGFu
-Z2Vsb2c6Cj4gPj4+Cj4gPj4+IHYyIC0+IHYzOgo+ID4+Pgo+ID4+PiAxLiBTaW1wbGlmeSBjb2Rl
-IHdpdGggY2xlYW51cCBoZWxwZXJzLgo+ID4+Pgo+ID4+PiB2MSAtPiB2MjoKPiA+Pj4KPiA+Pj4g
-MS4gUmVtb3ZlIHVuc3VpdGFibGUgZGV2X2Vycl9wcm9iZSgpLgo+ID4+PiAtLS0KPiA+Pgo+ID4+
-IC4uLgo+ID4+Cj4gPj4+IEBAIC00OTIsMjEgKzQ5NSwyNSBAQCBzdGF0aWMgaW50IHN0bTMyX2Nv
-dW50ZXJfd3JpdGVfcmF3KHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYsCj4gPj4+ICAgICAgICAg
-ICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPj4+Cj4gPj4+ICAgICAgIGNhc2UgSUlPX0NIQU5fSU5G
-T19FTkFCTEU6Cj4gPj4+IC0gICAgICAgICAgICAgbXV0ZXhfbG9jaygmcHJpdi0+bG9jayk7Cj4g
-Pj4+IC0gICAgICAgICAgICAgaWYgKHZhbCkgewo+ID4+PiAtICAgICAgICAgICAgICAgICAgICAg
-aWYgKCFwcml2LT5lbmFibGVkKSB7Cj4gPj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHByaXYtPmVuYWJsZWQgPSB0cnVlOwo+ID4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPj4+IC0gICAgICAgICAgICAgICAgICAgICB9Cj4g
-Pj4+IC0gICAgICAgICAgICAgICAgICAgICByZWdtYXBfc2V0X2JpdHMocHJpdi0+cmVnbWFwLCBU
-SU1fQ1IxLCBUSU1fQ1IxX0NFTik7Cj4gPj4+IC0gICAgICAgICAgICAgfSBlbHNlIHsKPiA+Pj4g
-LSAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF9jbGVhcl9iaXRzKHByaXYtPnJlZ21hcCwgVElN
-X0NSMSwgVElNX0NSMV9DRU4pOwo+ID4+PiAtICAgICAgICAgICAgICAgICAgICAgaWYgKHByaXYt
-PmVuYWJsZWQpIHsKPiA+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+ZW5h
-YmxlZCA9IGZhbHNlOwo+ID4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGtfZGlz
-YWJsZShwcml2LT5jbGspOwo+ID4+PiArCj4gPj4+ICsgICAgICAgICAgICAgc2NvcGVkX2d1YXJk
-KG11dGV4LCAmcHJpdi0+bG9jaykgewo+ID4+PiArICAgICAgICAgICAgICAgICAgICAgaWYgKHZh
-bCkgewo+ID4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoIXByaXYtPmVuYWJs
-ZWQpIHsKPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcml2LT5l
-bmFibGVkID0gdHJ1ZTsKPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICByZXQgPSBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgaWYgKHJldCkKPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPj4+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIH0KPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFw
-X3NldF9iaXRzKHByaXYtPnJlZ21hcCwgVElNX0NSMSwgVElNX0NSMV9DRU4pOwo+ID4+PiArICAg
-ICAgICAgICAgICAgICAgICAgfSBlbHNlIHsKPiA+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcmVnbWFwX2NsZWFyX2JpdHMocHJpdi0+cmVnbWFwLCBUSU1fQ1IxLCBUSU1fQ1IxX0NF
-Tik7Cj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChwcml2LT5lbmFibGVk
-KSB7Cj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+ZW5h
-YmxlZCA9IGZhbHNlOwo+ID4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGNsa19kaXNhYmxlKHByaXYtPmNsayk7Cj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIH0KPiA+Pj4gICAgICAgICAgICAgICAgICAgICAgIH0KPiA+Pj4gICAgICAgICAgICAgICB9
-Cj4gPj4+IC0gICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZwcml2LT5sb2NrKTsKPiA+Pj4gKwo+
-ID4+PiAgICAgICAgICAgICAgIHJldHVybiAwOwo+ID4+PiAgICAgICB9Cj4gPj4KPiA+Pgo+ID4+
-IEFub3RoZXIgd2F5IHRvIGRvIHRoaXMgdGhhdCBhdm9pZHMgY2hhbmdpbmcgdGhlIGluZGVudAo+
-ID4+IHNvIG11Y2ggaXMgcGxhY2luZyBicmFjZXMgYXJvdW5kIHRoZSBjYXNlIGJvZHkgbGlrZSB0
-aGlzLgo+ID4+IFRoaXMgYWxzbyBhdm9pZHMgdGhlIGNvbXBpbGUgZXJyb3IgZnJvbSB1c2luZyBn
-dWFyZCBhZnRlcgo+ID4+IGNhc2UgZGlyZWN0bHkuCj4gPj4KPiA+Pgo+ID4+ICAgICAgICAgY2Fz
-ZSBJSU9fQ0hBTl9JTkZPX0VOQUJMRTogewo+ID4+ICAgICAgICAgICAgICAgICBndWFyZChtdXRl
-eCkoJnByaXYtPmxvY2spOwo+ID4+Cj4gPj4gICAgICAgICAgICAgICAgIGlmICh2YWwpIHsKPiA+
-PiAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoIXByaXYtPmVuYWJsZWQpIHsKPiA+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHByaXYtPmVuYWJsZWQgPSB0cnVlOwo+ID4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0ID0gY2xrX2VuYWJsZShwcml2LT5jbGsp
-Owo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJldCkKPiA+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICB9Cj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgcmVnbWFw
-X3NldF9iaXRzKHByaXYtPnJlZ21hcCwgVElNX0NSMSwgVElNX0NSMV9DRU4pOwo+ID4+ICAgICAg
-ICAgICAgICAgICB9IGVsc2Ugewo+ID4+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF9j
-bGVhcl9iaXRzKHByaXYtPnJlZ21hcCwgVElNX0NSMSwgVElNX0NSMV9DRU4pOwo+ID4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIGlmIChwcml2LT5lbmFibGVkKSB7Cj4gPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwcml2LT5lbmFibGVkID0gZmFsc2U7Cj4gPj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBjbGtfZGlzYWJsZShwcml2LT5jbGspOwo+ID4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIH0KPiA+PiAgICAgICAgICAgICAgICAgfQo+ID4+Cj4gPj4gICAg
-ICAgICAgICAgICAgIHJldHVybiAwOwo+ID4+ICAgICAgICAgfQo+ID4+Cj4gPgo+ID4gTG9va3Mg
-Z3JlYXQuCj4gPiBCdXQgdGhlcmUgaXMgbm8gaW5kZW50YXRpb24gYmV0d2VlbiAic3dpdGNoIiBh
-bmQgImNhc2UiLgo+ID4gQXMgYSByZXN1bHQsIHRoZSBjbG9zaW5nIGJyYWNlcyBvZiAic3dpdGNo
-IiBhbmQgImNhc2UiIHdpbGwKPiA+IGJlIHBsYWNlZCBpbiB0aGUgc2FtZSBjb2x1bW4uCj4gPgo+
-ID4gTGlrZSB0aGlzOgo+ID4KPiA+IHN3aXRjaChtYXNrKSB7Cj4gPiBjYXNlIElJT19DSEFOX0lO
-Rk9fRU5BQkxFOiB7Cj4gPgo+ID4gfQo+ID4gfQo+ID4KPiA+IC1KaWFzaGVuZwo+Cj4KPiBVc3Vh
-bGx5LCB0aGVyZSBpcyBhIGRlZmF1bHQ6IGNhc2UgYXMgd2VsbCwgc28gd2UgY291bGQgbW92ZSB0
-aGUKPiBmaW5hbCByZXR1cm4gYW5kIG1ha2UgaXQgbG9vayBsaWtlIHRoaXM6Cj4KPiAgICAgICAg
-IHN3aXRjaCAobWFzaykgewo+ICAgICAgICAgY2FzZSBJSU9fQ0hBTl9JTkZPX1JBVzoKPiAgICAg
-ICAgICAgICAgICAgcmV0dXJuIHJlZ21hcF93cml0ZShwcml2LT5yZWdtYXAsIFRJTV9DTlQsIHZh
-bCk7Cj4KPiAgICAgICAgIGNhc2UgSUlPX0NIQU5fSU5GT19TQ0FMRToKPiAgICAgICAgICAgICAg
-ICAgLyogZml4ZWQgc2NhbGUgKi8KPiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4K
-PiAgICAgICAgIGNhc2UgSUlPX0NIQU5fSU5GT19FTkFCTEU6IHsKPiAgICAgICAgICAgICAgICAg
-Z3VhcmQobXV0ZXgpKCZwcml2LT5sb2NrKTsKPiAgICAgICAgICAgICAgICAgaWYgKHZhbCkgewo+
-ICAgICAgICAgICAgICAgICAgICAgICAgIGlmICghcHJpdi0+ZW5hYmxlZCkgewo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcHJpdi0+ZW5hYmxlZCA9IHRydWU7Cj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgfQo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF9zZXRfYml0
-cyhwcml2LT5yZWdtYXAsIFRJTV9DUjEsIFRJTV9DUjFfQ0VOKTsKPiAgICAgICAgICAgICAgICAg
-fSBlbHNlIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICByZWdtYXBfY2xlYXJfYml0cyhwcml2
-LT5yZWdtYXAsIFRJTV9DUjEsIFRJTV9DUjFfQ0VOKTsKPiAgICAgICAgICAgICAgICAgICAgICAg
-ICBpZiAocHJpdi0+ZW5hYmxlZCkgewo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cHJpdi0+ZW5hYmxlZCA9IGZhbHNlOwo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Y2xrX2Rpc2FibGUocHJpdi0+Y2xrKTsKPiAgICAgICAgICAgICAgICAgICAgICAgICB9Cj4gICAg
-ICAgICAgICAgICAgIH0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgICB9Cj4g
-ICAgICAgICAgICAgICAgIGRlZmF1bHQ6Cj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7Cj4gICAgICAgICB9Cj4KPgo+IEFuZCBpdCBpcyB1bnVzdWFsLCBidXQgSSBmb3Vu
-ZCBrdm1fYXJtX3BtdV92M19nZXRfYXR0cigpIHRoYXQKPiBhbHNvIGhhcyB0aGlzIGRvdWJsZSBp
-bmxpbmUgYnJhY2UgYXQgdGhlIGVuZCBvZiBhIHN3aXRjaCBzdGF0ZW1lbnQuCj4KPiAgICAgICAg
-IH0KPiAgICAgICAgIH0KPgo+IFNvIGV2ZW4gaWYgaXQgZG9lc24ndCBsb29rIHNvIG5pY2UsIGl0
-IGRvZXMgc2VlbSB0byBiZSB0aGUKPiAiY29ycmVjdCIgc3R5bGUuCgpUaGFua3MsIEkgd2lsbCBz
-dWJtaXQgYSB2NCBwYXRjaC4KCi1KaWFzaGVuZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Add check for the return value of clk_enable() in order to catch the
+potential exception.
+
+Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+---
+Changelog:
+
+v3 -> v4:
+
+1. Place braces around the case body.
+
+v2 -> v3:
+
+1. Simplify code with cleanup helpers.
+
+v1 -> v2:
+
+1. Remove unsuitable dev_err_probe().
+---
+ drivers/iio/trigger/stm32-timer-trigger.c | 45 ++++++++++++++---------
+ 1 file changed, 27 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+index 0684329956d9..d599d50fbb3b 100644
+--- a/drivers/iio/trigger/stm32-timer-trigger.c
++++ b/drivers/iio/trigger/stm32-timer-trigger.c
+@@ -119,7 +119,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+ 			     unsigned int frequency)
+ {
+ 	unsigned long long prd, div;
+-	int prescaler = 0;
++	int prescaler = 0, ret;
+ 	u32 ccer;
+ 
+ 	/* Period and prescaler values depends of clock rate */
+@@ -150,10 +150,12 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+ 	if (ccer & TIM_CCER_CCXE)
+ 		return -EBUSY;
+ 
+-	mutex_lock(&priv->lock);
++	guard(mutex)(&priv->lock);
+ 	if (!priv->enabled) {
+ 		priv->enabled = true;
+-		clk_enable(priv->clk);
++		ret = clk_enable(priv->clk);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	regmap_write(priv->regmap, TIM_PSC, prescaler);
+@@ -173,7 +175,6 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+ 
+ 	/* Enable controller */
+ 	regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+-	mutex_unlock(&priv->lock);
+ 
+ 	return 0;
+ }
+@@ -307,7 +308,7 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+ 	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
+ 	struct iio_trigger *trig = to_iio_trigger(dev);
+ 	u32 mask, shift, master_mode_max;
+-	int i;
++	int i, ret;
+ 
+ 	if (stm32_timer_is_trgo2_name(trig->name)) {
+ 		mask = TIM_CR2_MMS2;
+@@ -322,15 +323,16 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+ 	for (i = 0; i <= master_mode_max; i++) {
+ 		if (!strncmp(master_mode_table[i], buf,
+ 			     strlen(master_mode_table[i]))) {
+-			mutex_lock(&priv->lock);
++			guard(mutex)(&priv->lock);
+ 			if (!priv->enabled) {
+ 				/* Clock should be enabled first */
+ 				priv->enabled = true;
+-				clk_enable(priv->clk);
++				ret = clk_enable(priv->clk);
++				if (ret)
++					return ret;
+ 			}
+ 			regmap_update_bits(priv->regmap, TIM_CR2, mask,
+ 					   i << shift);
+-			mutex_unlock(&priv->lock);
+ 			return len;
+ 		}
+ 	}
+@@ -482,6 +484,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+ 				   int val, int val2, long mask)
+ {
+ 	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
++	int ret;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+@@ -491,12 +494,14 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+ 		/* fixed scale */
+ 		return -EINVAL;
+ 
+-	case IIO_CHAN_INFO_ENABLE:
+-		mutex_lock(&priv->lock);
++	case IIO_CHAN_INFO_ENABLE: {
++		guard(mutex)(&priv->lock);
+ 		if (val) {
+ 			if (!priv->enabled) {
+ 				priv->enabled = true;
+-				clk_enable(priv->clk);
++				ret = clk_enable(priv->clk);
++				if (ret)
++					return ret;
+ 			}
+ 			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+ 		} else {
+@@ -506,9 +511,10 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+ 				clk_disable(priv->clk);
+ 			}
+ 		}
+-		mutex_unlock(&priv->lock);
++
+ 		return 0;
+ 	}
++	}
+ 
+ 	return -EINVAL;
+ }
+@@ -601,7 +607,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+ 				 unsigned int mode)
+ {
+ 	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+-	int sms = stm32_enable_mode2sms(mode);
++	int sms = stm32_enable_mode2sms(mode), ret;
+ 
+ 	if (sms < 0)
+ 		return sms;
+@@ -609,12 +615,15 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+ 	 * Triggered mode sets CEN bit automatically by hardware. So, first
+ 	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
+ 	 */
+-	mutex_lock(&priv->lock);
+-	if (sms == 6 && !priv->enabled) {
+-		clk_enable(priv->clk);
+-		priv->enabled = true;
++	scoped_guard(mutex, &priv->lock) {
++		if (sms == 6 && !priv->enabled) {
++			ret = clk_enable(priv->clk);
++			if (ret)
++				return ret;
++
++			priv->enabled = true;
++		}
+ 	}
+-	mutex_unlock(&priv->lock);
+ 
+ 	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
+ 
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
