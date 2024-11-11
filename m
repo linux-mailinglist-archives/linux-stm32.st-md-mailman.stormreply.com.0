@@ -2,46 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACC59C3C27
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 11:37:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C02129C3C30
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 11:40:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 522E1C78F60;
-	Mon, 11 Nov 2024 10:37:27 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 860D6C78F60;
+	Mon, 11 Nov 2024 10:40:05 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8CA5C7803D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B5D9C7803D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Nov 2024 10:37:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 75965A41462;
- Mon, 11 Nov 2024 10:35:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86C0C4CED5;
- Mon, 11 Nov 2024 10:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731321438;
- bh=jNP3EEmQCRYGu8RVX1ba7R/suetM+TihlMSotd59zHY=;
- h=From:To:Cc:Subject:Date:From;
- b=jKHBPUQefIWzQGovAC+9QQCjuqX7+leHBXJqOsNjgQVSuF6OiCpOvaHlnDumrDreH
- l2Sk+t9JTwk7SoJJPguosMtJAkKG6CDeAekLy7lKKSH2wryDDqNbimLwO//CQB4Idx
- a77AcUqMxzLlJSEA78CqGMWrwmOnNSo2qQXNOpky4nQnB1cKdvGWtidhTnv/2C8ocF
- f8Rh98ltcCqJBU8Xgvj74dIudRl4SRHRVdVGkf0eW34ixl/xgPLdeqpFll9FUIxJwK
- dZICPzDmfB4A46avMMOYb0Li9M5siGskf591O0h/7RUw/2jPKHmj9YjdUcjhENPNE1
- C5GEMWT8gvBKw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 11 Nov 2024 11:37:02 +0100
-Message-Id: <20241111103712.3520611-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.5
+ Mon, 11 Nov 2024 10:39:58 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf0810f5f9so2816834a12.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Nov 2024 02:39:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731321598; x=1731926398;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=83Ex4i0amGXOVK4wdTZcphg7YQMJCRSlYiBwa9dai4Q=;
+ b=ivquE6tnP/jNCB1/08T6szL2PkpgxJqvAajjsvabtZLcvwa/FRVuJ6/G4/qaLkmMc6
+ oOnBwZR0q7+d8XjlLPogUGknDdtqgi1DV/2brJiD/ovlwAVL/HELwal05NAaTi7dC3Z9
+ oSvlZPSLHBlSaYNa8Mwz6l8yeQPuf8zqWQVg16Pu76S+Ye+1AlBFOm8oOw01xuCug9yZ
+ 2ODt+HciwjgaopBFX1wRw//glP05YrFUwhGDB2K1gpV6UwoNmXk9Mbn01HNAqnsQ88h6
+ GJBjcp46+vgriN0yRoTWJ19AFQv/Cidh/R05OHwWYTqsEwl/gI/VBMdlIgD74A0E/5Tv
+ ngow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731321598; x=1731926398;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=83Ex4i0amGXOVK4wdTZcphg7YQMJCRSlYiBwa9dai4Q=;
+ b=vRQD9VVcGMMP+TuyRoWt0yNXF98zi3/bdIH1EGR9Xe+HGNxQSxHWwr5TZPc+qK08xr
+ dnHwN8LgmcTXXcnfn6EEM704KQsWgYnqfJwDbVQpJaOIo45wblxjdFSVPBnoiiePIKFS
+ asCjUuC20VeP2G2RMTdEdYVmT2ho/nknYSgAqi60tmBZwDNxiMQm+ISUBxhto8XxPtP4
+ o3NPs1fvx7XlNr9eZNuZPve7+p3mlTzRbD+fBFc/ig/rQppMWM4dr2ot8Q6I4/j+HiPa
+ 9EOiqkwbayH7UYuaehvRSAmG3rBByHkf/Eo5D2OiJ22jHbMKxg3env4IYgUpHScA7Gzc
+ mZHA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkIKwY/OZfV0KVjjZkGw+qg4sjlzMNJg3+mjguRw6iFcqyqe7lR3JWNOl1jnxgr4co8yGT56fZOWLEAQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzv2o5+CKrLexb6+64NrlI2WY3BnSsimQx3/VlwDbcImbJXdodI
+ RD1Lf5fqOyMHf7b1n4LeAePmMPpPIB0ouVouuzuulRp6yzJ+yEYlHzuVUX+hcSg=
+X-Google-Smtp-Source: AGHT+IG3n2/H+iwpqZ5QO1ewQ3Ger1ZK+UE8iF8Hgk62H7RKzgwtzGUzRUPggQWQjwX8bVTQ7/DvaQ==
+X-Received: by 2002:a05:6402:51cc:b0:5ca:efe:10de with SMTP id
+ 4fb4d7f45d1cf-5cf0a4467eemr14296940a12.30.1731321597634; 
+ Mon, 11 Nov 2024 02:39:57 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cf03c4ed9fsm4794848a12.62.2024.11.11.02.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Nov 2024 02:39:57 -0800 (PST)
+Date: Mon, 11 Nov 2024 13:39:53 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Message-ID: <9e7d4adf-f147-43a8-a654-8c2ee722121e@stanley.mountain>
+References: <20241108173334.2973603-1-mordan@ispras.ru>
+ <e1b263d8-adc0-455b-adf1-9247fae1b320@stanley.mountain>
+ <20241111-def1390bf54ce26f76be250c-pchelkin@ispras.ru>
 MIME-Version: 1.0
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Yang Li <yang.lee@linux.alibaba.com>, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] phy: stm32: work around constant-value
-	overflow assertion
+Content-Disposition: inline
+In-Reply-To: <20241111-def1390bf54ce26f76be250c-pchelkin@ispras.ru>
+Cc: lvc-project@linuxtesting.org, lkp@intel.com, netdev@vger.kernel.org,
+ Vadim Mutilin <mutilin@ispras.ru>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Vitalii Mordan <mordan@ispras.ru>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, oe-kbuild@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH net v2]: stmmac: dwmac-intel-plat: fix
+ call balance of tx_clk handling routines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,99 +90,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Mon, Nov 11, 2024 at 01:25:42PM +0300, Fedor Pchelkin wrote:
+> Hi,
+> 
+> On Mon, 11. Nov 12:39, Dan Carpenter wrote:
+> > smatch warnings:
+> > drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c:163 intel_eth_plat_probe() error: we previously assumed 'dwmac->data' could be null (see line 101)
+> 
+> There is a patch [1] targeted at net-next tree which removes the check. I
+> think there should be v2 posted soon.
+> 
+> As it's not the first time Smatch is pointing at this issue [2], is there
+> something to improve? I mean, posting the patches in form of a series or
+> explaining in commit message that the check is redundant and is a subject
+> for removal? Adding new redundant checks for the fix-patch would not be
+> good..
+> 
+> What would be the most appropriate way?
+> 
+> [1]: https://lore.kernel.org/netdev/20240930183926.2112546-1-mordan@ispras.ru/
+> [2]: https://lore.kernel.org/netdev/20241003111811.GJ1310185@kernel.org/
+> 
 
-FIELD_PREP() checks that a constant fits into the available bitfield,
-but if one of the two lookup tables in stm32_impedance_tune() does
-not find a matching entry, the index is out of range, which gcc
-correctly complains about:
+Once we remove the NULL check then the warning will go away.
 
-In file included from <command-line>:
-In function 'stm32_impedance_tune',
-    inlined from 'stm32_combophy_pll_init' at drivers/phy/st/phy-stm32-combophy.c:247:9:
-include/linux/compiler_types.h:517:38: error: call to '__compiletime_assert_447' declared with attribute error: FIELD_PREP: value too large for the field
-  517 |  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |                                      ^
-include/linux/bitfield.h:68:3: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-   68 |   BUILD_BUG_ON_MSG(__builtin_constant_p(_val) ?  \
-  115 |   __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
-      |   ^~~~~~~~~~~~~~~~
-drivers/phy/st/phy-stm32-combophy.c:162:8: note: in expansion of macro 'FIELD_PREP'
-  162 |        FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-      |        ^~~~~~~~~~
+I don't look at it like a big deal that both Simon and kbuild-bot reported the
+same issue.  Especially since he reported it against an earlier version of this
+patch.
 
-Rework this so the field value gets set inside of the loop and otherwise
-set to zero.
-
-Fixes: 47e1bb6b4ba0 ("phy: stm32: Add support for STM32MP25 COMBOPHY.")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/phy/st/phy-stm32-combophy.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
-index 765bb34fe358..49e9fa90a681 100644
---- a/drivers/phy/st/phy-stm32-combophy.c
-+++ b/drivers/phy/st/phy-stm32-combophy.c
-@@ -122,6 +122,7 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
- 	u32 min_vswing = imp_lookup[0].vswing[0];
- 	u32 val;
-+	u32 regval;
- 
- 	if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
- 		if (val < min_imp || val > max_imp) {
-@@ -129,16 +130,20 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 			return -EINVAL;
- 		}
- 
--		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
--			if (imp_lookup[imp_of].microohm <= val)
-+		regval = 0;
-+		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++) {
-+			if (imp_lookup[imp_of].microohm <= val) {
-+				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of);
- 				break;
-+			}
-+		}
- 
- 		dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
- 			imp_lookup[imp_of].microohm);
- 
- 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
- 				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
--				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-+				   regval);
- 	} else {
- 		regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
- 		imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-@@ -150,16 +155,20 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 			return -EINVAL;
- 		}
- 
--		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
--			if (imp_lookup[imp_of].vswing[vswing_of] >= val)
-+		regval = 0;
-+		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++) {
-+			if (imp_lookup[imp_of].vswing[vswing_of] >= val) {
-+				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of);
- 				break;
-+			}
-+		}
- 
- 		dev_dbg(combophy->dev, "Set %u microvolt swing\n",
- 			 imp_lookup[imp_of].vswing[vswing_of]);
- 
- 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
- 				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
--				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
-+				   regval);
- 	}
- 
- 	return 0;
--- 
-2.39.5
-
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
