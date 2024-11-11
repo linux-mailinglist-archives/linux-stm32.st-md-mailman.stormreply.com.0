@@ -2,38 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A46A9C4135
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 15:47:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898809C42DF
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2024 17:44:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0596C78F66;
-	Mon, 11 Nov 2024 14:47:21 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D1CAC78F64
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C43DC78F66;
+	Mon, 11 Nov 2024 16:44:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDB5AC78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Nov 2024 14:47:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A9491CE0;
- Mon, 11 Nov 2024 06:47:44 -0800 (PST)
-Received: from [10.57.79.116] (unknown [10.57.79.116])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C84D03F66E;
- Mon, 11 Nov 2024 06:47:12 -0800 (PST)
-Message-ID: <a4168463-98e3-4048-bb38-ffc96983766f@arm.com>
-Date: Mon, 11 Nov 2024 14:47:11 +0000
+ Mon, 11 Nov 2024 16:43:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 25EF15C5B64;
+ Mon, 11 Nov 2024 16:43:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD48C4CED7;
+ Mon, 11 Nov 2024 16:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1731343435;
+ bh=+THKv8bFBNp01IW6Q6So54Rj6RkeI0Ny3NWfKq5gGK4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=BLtK4rKL+gpP+pQFX/tBVJ+hUGq8ay9mokFf+ENetcB3Ytp3YNQJcFwiroTwhNW3l
+ wOOTS6vcYOW3P3ldDnuKW4W/yrkawF6FTVY80esbz23/p79sQxOl5S1JWvCL157Z2C
+ bE7Krbjjdh5Wqp2d0tFDRXOVlioooHJWWZGTmeodd+ZXSjIGJYdYqp/iEAvuZIwo9t
+ TFF1DyePzhqw/NgfPGnJUjvrrWOzCfjj3pYCg2kXUkJvjtc4KxtIKq2+3PGlcH356k
+ 34+Bv3Q59sxsyWscJi2OpZ/okO3Z2LkkHrXU4+ReSF0iTpbVBmtopXuHAqueCypLRR
+ yKmLuiqlz2RxQ==
+From: Mark Brown <broonie@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>
+In-Reply-To: <20241105135942.526624-1-olivier.moysan@foss.st.com>
+References: <20241105135942.526624-1-olivier.moysan@foss.st.com>
+Message-Id: <173134343208.341130.17895048996231459327.b4-ty@kernel.org>
+Date: Mon, 11 Nov 2024 16:43:52 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20241111110922.334610-2-u.kleine-koenig@baylibre.com>
- <87h68duaez.fsf@ubik.fi.intel.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <87h68duaez.fsf@ubik.fi.intel.com>
-Cc: coresight@lists.linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- James Clark <james.clark@linaro.org>, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] hwtracing: Switch back to struct
- platform_driver::remove()
+X-Mailer: b4 0.15-dev-355e8
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: add missing
+	port property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,46 +58,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkKCk9uIDExLzExLzIwMjQgMTQ6MTIsIEFsZXhhbmRlciBTaGlzaGtpbiB3cm90ZToKPiBVd2Ug
-S2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4gd3JpdGVzOgo+IAo+
-PiBBZnRlciBjb21taXQgMGVkYjU1NWE2NWQxICgicGxhdGZvcm06IE1ha2UgcGxhdGZvcm1fZHJp
-dmVyOjpyZW1vdmUoKQo+PiByZXR1cm4gdm9pZCIpIC5yZW1vdmUoKSBpcyAoYWdhaW4pIHRoZSBy
-aWdodCBjYWxsYmFjayB0byBpbXBsZW1lbnQgZm9yCj4+IHBsYXRmb3JtIGRyaXZlcnMuCj4+Cj4+
-IENvbnZlcnQgYWxsIHBsYXRmb3JtIGRyaXZlcnMgYmVsb3cgZHJpdmVycy9od3RyYWNpbmcgdG8g
-dXNlIC5yZW1vdmUoKSwKPj4gd2l0aCB0aGUgZXZlbnR1YWwgZ29hbCB0byBkcm9wIHN0cnVjdCBw
-bGF0Zm9ybV9kcml2ZXI6OnJlbW92ZV9uZXcoKS4gQXMKPj4gLnJlbW92ZSgpIGFuZCAucmVtb3Zl
-X25ldygpIGhhdmUgdGhlIHNhbWUgcHJvdG90eXBlcywgY29udmVyc2lvbiBpcyBkb25lCj4+IGJ5
-IGp1c3QgY2hhbmdpbmcgdGhlIHN0cnVjdHVyZSBtZW1iZXIgbmFtZSBpbiB0aGUgZHJpdmVyIGlu
-aXRpYWxpemVyLgo+Pgo+PiBBbHNvIGFkYXB0IHNvbWUgd2hpdGVzcGFjZSB0byBtYWtlIGluZGVu
-dGlvbiBjb25zaXN0ZW50Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8
-dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4KPiAKPiBBY2tlZC1ieTogQWxleGFuZGVyIFNo
-aXNoa2luIDxhbGV4YW5kZXIuc2hpc2hraW5AbGludXguaW50ZWwuY29tPgo+IAo+PiAtLS0KPj4g
-SGVsbG8sCj4+Cj4+IEkgZGlkIGEgc2luZ2xlIHBhdGNoIGZvciBhbGwgb2YgZHJpdmVycy9od3Ry
-YWNpbmcuIFdoaWxlIEkgdXN1YWxseQo+PiBwcmVmZXIgdG8gZG8gb25lIGxvZ2ljYWwgY2hhbmdl
-IHBlciBwYXRjaCwgdGhpcyBzZWVtcyB0byBiZQo+PiBvdmVyZW5naW5lZXJpbmcgaGVyZSBhcyB0
-aGUgaW5kaXZpZHVhbCBjaGFuZ2VzIGFyZSByZWFsbHkgdHJpdmlhbCBhbmQKPj4gc2hvdWxkbid0
-IGJlIG11Y2ggaW4gdGhlIHdheSBmb3Igc3RhYmxlIGJhY2twb3J0cy4gQnV0IEknbGwgaGFwcGls
-eQo+PiBzcGxpdCB0aGUgcGF0Y2ggaWYgeW91IHByZWZlciBpdCBzcGxpdC4gTWF5YmUgc3BsaXQg
-Zm9yIGNvcmVzaWdodCB2cy4KPj4gaW50ZWxfdGg/IEFsc28gaWYgeW91IG9iamVjdCB0aGUgaW5k
-ZW50YXRpb24gc3R1ZmYsIEkgY2FuIHJld29yayB0aGF0Lgo+IAo+IEknbSBmaW5lIHdpdGggaXQg
-YXMgaXMuCj4gCj4+IFRoaXMgaXMgYmFzZWQgb24gdG9kYXkncyBuZXh0LCBpZiBjb25mbGljdHMg
-YXJpc2Ugd2hlbiB5b3UgYXBwbHkgaXQgYXQKPj4gc29tZSBsYXRlciB0aW1lIGFuZCBkb24ndCB3
-YW50IHRvIHJlc29sdmUgdGhlbSwgZmVlbCBmcmVlIHRvIGp1c3QgZHJvcAo+PiB0aGUgY2hhbmdl
-cyB0byB0aGUgY29uZmxpY3RpbmcgZmlsZXMuIEknbGwgbm90aWNlIGFuZCBmb2xsb3d1cCBhdCBh
-Cj4+IGxhdGVyIHRpbWUgdGhlbi4gT3IgYXNrIG1lIGZvciBhIGZpeGVkIHJlc2VuZC4gKEhhdmlu
-ZyBzYWlkIHRoYXQsIEkKPj4gcmVjb21tZW5kIGI0IGFtIC0zICsgZ2l0IGFtIC0zIHdoaWNoIHNo
-b3VsZCByZXNvbHZlIG1vc3QgY29uZmxpY3RzIGp1c3QKPj4gZmluZS4pCj4gCj4gRG9lcyBhbnli
-b2R5IHdhbnQgdG8gcGljayB0aGlzIHVwIG9yIHNob3VsZCBJPyBJJ20gZmluZSBlaXRoZXIgd2F5
-LCBidXQKPiBpZiB0aGVyZSBhcmUgYW55IGNvbmZsaWN0cyB0aGV5IHdvbid0IGJlIGZyb20gbXkg
-ZW5kIG9mIHRoaW5ncywgc28gaXQKPiBtaWdodCBtYWtlIHNlbnNlIHRvIHRha2UgaXQgdmlhIHRo
-ZSBjb3Jlc2lnaHQgcGF0aC4KCkkgYW0gaGFwcHkgdG8gdGFrZSB0aGVtIHZpYSBjb3Jlc2lnaHQg
-dHJlZSBhbmQgcXVldWUgdGhlbSBmb3IgdjYuMTQKClN1enVraQoKPiAKPiBUaGFua3MsCj4gLS0K
-PiBBbGV4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On Tue, 05 Nov 2024 14:59:41 +0100, Olivier Moysan wrote:
+> Add missing port property in STM32 SPDIFRX binding.
+> This will prevent potential warning:
+> Unevaluated properties are not allowed ('port' was unexpected)
+> 
+> 
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: dt-bindings: stm32: add missing port property
+      commit: 98d34ddd43de0b040bd3ff74b511be7074b0b310
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
