@@ -2,58 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 576539C5B82
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 16:12:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5769C5D4A
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 17:30:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09E1CC78F84;
-	Tue, 12 Nov 2024 15:12:27 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EA41C78F84;
+	Tue, 12 Nov 2024 16:30:42 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CF62C78F83
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7235FC78F83
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Nov 2024 15:12:20 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 5AAF7240006;
- Tue, 12 Nov 2024 15:12:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1731424339;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7/ZZ+GzA9JnknmCSiZ4KAoFAxIWZALm0qPy9dvBIJSk=;
- b=gN8R0y5rBADWu+wo+lGHeMRwjS1282FydlI9vD3kgvpHQWTYsItwv0ODr3pyxeUUL9/IZL
- szxsyvU9qROe3EZH29OPtqpzNY1CGgw47LbshgwpkgUVX6VO2bWsajgC4TmMcGHH7r9LlY
- G33EvbRmjGx8br4vfR0EeyZkdPYjWhhRewSY/WUDxk+ZEvI08pmAojF8qfmADEABnJxIG+
- qoyc+4hqVEjd2XnEyLTv/JnKdPv8cfU++ryF0rzS0cTh8FTuDEnlZfczRSAd+U2jb3EZf+
- mfFl/EYf15RQtHk91p5j5TX+qAfHgPZIWoTiawRO5TblLOHnhgPxrTSLqjvRdg==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: cathycai0714@gmail.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Avi Fishman <avifishman70@gmail.com>
-Date: Tue, 12 Nov 2024 16:12:17 +0100
-Message-ID: <7732873.EvYhyI6sBW@fw-rgant>
-In-Reply-To: <CAKKbWA6zRee9Rzee-ebLnEAvwLqnmsPswGaUo_ineyzw-b=EgQ@mail.gmail.com>
-References: <CAKKbWA7e0TmU4z4O8tHfwE=dvqPFaZbSPjxR-==fQSsNq6ELCQ@mail.gmail.com>
- <CAKKbWA6zRee9Rzee-ebLnEAvwLqnmsPswGaUo_ineyzw-b=EgQ@mail.gmail.com>
+ Tue, 12 Nov 2024 16:30:34 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ACDB1KK029351;
+ Tue, 12 Nov 2024 17:22:37 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=grK3TrtRCUh5vGmrMEKFGC
+ hLMBkQA+p427mP9eM/nRQ=; b=CYAeaJNIyVM03AaUJEH9Qb0Pi4LeJevj5Y/GaI
+ sDFMK1XBipiIJ9wlkDipotAYGXr57Hd6r772a+ggyoOaDWlgG4b+JWk1/9Fuwn76
+ 7TjHrsnhO7TTwjc89LrH0yLFKdHH4wDT0aKSQ6uMvHbU4YR1kn+g9ZL3ZFdVSiQR
+ Gtld1vrvibknO1nrVKvO5BkV2Q20t7S6W+84DVRKvoYxUC+UYyiAhuMtul4YArl3
+ lg0Mzxl7q0en8xJf1gw8PTnyYTHUZvP8cD/UYyzC8X03ZSNwAy+uTTX28K4fHvbL
+ goTXnmx5YR2oV7fB4UU9eoReTpFvq1VAbXIcenLlhFeGnEpg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42tkjnjs7t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Nov 2024 17:22:37 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 17B1D4002D;
+ Tue, 12 Nov 2024 17:21:11 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 39CDE2C6353;
+ Tue, 12 Nov 2024 17:20:06 +0100 (CET)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 12 Nov
+ 2024 17:20:05 +0100
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <lpieralisi@kernel.org>, <kw@linux.com>,
+ <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
+ <bhelgaas@google.com>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <p.zabel@pengutronix.de>, <cassel@kernel.org>,
+ <quic_schintav@quicinc.com>, <fabrice.gasnier@foss.st.com>
+Date: Tue, 12 Nov 2024 17:19:20 +0100
+Message-ID: <20241112161925.999196-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Arias Pablo <Pablo_Arias@dell.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, uri.trichter@nuvoton.com,
- Network Development <netdev@vger.kernel.org>, xuewen.yan94@gmail.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, "Silva,
- L Antonio" <Luis.A.Silva@dell.com>, Murali <murali.somarouthu@dell.com>,
- edumazet@google.com, zhiguo.niu@unisoc.com, cixi.geng1@unisoc.com,
- Somarouthu Murali <Murali_Somarouthu@dell.com>, mcoquelin.stm32@gmail.com,
- cathy.cai@unisoc.com, kuba@kernel.org, wade.shu@unisoc.com, pabeni@redhat.com,
- David Miller <davem@davemloft.net>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: Re: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
-	interrupt storm
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/5] Add STM32MP25 PCIe drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,44 +72,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8sCgpPbiBkaW1hbmNoZSAzIG5vdmVtYnJlIDIwMjQgMjA6MDA6NTQgaGV1cmUgbm9ybWFs
-ZSBk4oCZRXVyb3BlIGNlbnRyYWxlIEF2aSAKRmlzaG1hbiB3cm90ZToKPiBIaSBhbGwsCj4gCi4u
-Lgo+ID4gIFllcy4gSXQgY291bGQgYWxzbyBoYXBwZW4gYmV0d2VlbiB0aGUgZGV2X29wZW4oKSBh
-bmQKPiA+IAo+ID4gY2xlYXJfYml0KFNUTU1BQ19ET1dOKSBjYWxscy4KPiA+IEFsdGhvdWdoIHdl
-IGRpZCBub3QgcmVwcm9kdWNlIHRoaXMgc2NlbmFyaW8sIGl0IHNob3VsZCBoYXZlIGhhcHBlbmVk
-Cj4gPiBpZiB3ZSBoYWQgaW5jcmVhc2VkCj4gPiB0aGUgbnVtYmVyIG9mIHRlc3Qgc2FtcGxlcy4g
-SW4gYWRkaXRpb24sIEkgZm91bmQgdGhhdCBvdGhlciBwZW9wbGUgaGFkCj4gPiBzaW1pbGFyIHBy
-b2JsZW1zIGJlZm9yZS4KPiA+IFRoZSBsaW5rIGlzOgo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvYWxsLzIwMjEwMjA4MTQwODIwLjEwNDEwLTExLVNlcmdleS5TZW1pbkBiYWlrYWxlbGUKPiA+
-IGN0cm9uaWNzLnJ1Lz4gCj4gPiA+IE1vcmVvdmVyLCBpdCBzZWVtcyBzdHJhbmdlIHRvIG1lIHRo
-YXQgc3RtbWFjX2ludGVycnVwdCgpCj4gPiA+IHVuY29uZGl0aW9ubmFsbHkKPiA+ID4gaWdub3Jl
-cyBpbnRlcnJ1cHRzIHdoZW4gdGhlIGRyaXZlciBpcyBpbiBTVE1NQUNfRE9XTiBzdGF0ZS4gVGhp
-cyBzZWVtcwo+ID4gPiBsaWtlCj4gPiA+IGRhbmdlcm91cyBiZWhhdmlvdXIsIHNpbmNlIGl0IGNv
-dWxkIGNhdXNlIElSUSBzdG9ybSBpc3N1ZXMgd2hlbmV2ZXIKPiA+ID4gc29tZXRoaW5nIGluIHRo
-ZSBkcml2ZXIgc2V0cyB0aGlzIHN0YXRlLiBJJ20gbm90IHRvbyBmYW1pbGlhciB3aXRoIHRoZQo+
-ID4gPiBpbnRlcnJ1cHQgaGFuZGxpbmcgaW4gdGhpcyBkcml2ZXIsIGJ1dCBtYXliZSBzdG1tYWNf
-aW50ZXJydXB0KCkgY291bGQKPiA+ID4gY2xlYXIgaW50ZXJydXB0cyB1bmNvbmRpdGlvbm5hbGx5
-IGluIHRoZSBTVE1NQUNfRE9XTiBzdGF0ZT8KPiA+IAo+ID4gQ2xlYXIgaW50ZXJydXB0cyB1bmNv
-bmRpdGlvbmFsbHkgaW4gdGhlIFNUTU1BQ19ET1dOIHN0YXRlIGRpcmVjdGx5Cj4gPiBjZXJ0YWlu
-bHkgd29uJ3QgY2F1c2UgdGhpcyBwcm9ibGVtLgo+ID4gVGhpcyBtYXkgYmUgdG9vIHJvdWdoLCBt
-YXliZSB0aGlzIGRlc2lnbiBoYXMgb3RoZXIgY29uc2lkZXJhdGlvbnMuCj4gCj4gQnV0IHRoZW4g
-YWZ0ZXIgdGhlIGRldl9vcGVuKCkgeW91IG1pZ2h0IG1pc3MgaW50ZXJydXB0LCBubz8KCkluZGVl
-ZCwgYnV0IGluIGFueSBjYXNlLCB1bmNvbmRpdGlvbmFsbHkgcmV0dXJuaW5nIGZyb20gYW4gSVJR
-IGhhbmRsZXIgd2l0aG91dCAKY2xlYXJpbmcgYW55IGludGVycnVwdCBmbGFncyBzZWVtcyBsaWtl
-IHZlcnkgc3RyYW5nZSBiZWhhdmlvciB0byBtZS4KCkRpc2FibGluZyBhbmQgcmVlbmFibGluZyBp
-bnRlcnJ1cHRzIGFzIHlvdSBzdWdnZXN0ZWQgZG9lcyBzZWVtIGxpa2UgYQpnb29kIHNvbHV0aW9u
-IGZvciB0aGlzIHBhcnRpY3VsYXIgc2NlbmFyaW8sIGJ1dCBpdCBkb2Vzbid0IHNvbHZlIHRoZSBt
-b3JlCmdlbmVyYWwgaXNzdWUgb2YgdGhlIGRhbmdlcm91cyB3YXkgc3RtbWFjX2ludGVycnVwdCBo
-YW5kbGVzIHRoaXMuCgpNYXliZSB0aGUgc2V0dGluZyBhbmQgY2xlYXJpbmcgb2YgdGhpcyBTVE1N
-QUNfRE9XTiBiaXQgc2hvdWxkCmJlIHdyYXBwZWQgaW4gc29tZSBraW5kIG9mIGhhbmRsZXIgd2hp
-Y2ggYWxzbyBkaXNhYmxlcyBhbGwgaW50ZXJydXB0cz8KCkJlc3QgUmVnYXJkcwoKLS0gClJvbWFp
-biBHYW50b2lzLCBCb290bGluCkVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcK
-aHR0cHM6Ly9ib290bGluLmNvbQoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+This patch series adds PCIe drivers STM32MP25 SoC from STMicrolectronics
+and respective yaml schema for the root complex and device modes.
+
+Christian Bruel (5):
+  dt-bindings: PCI: Add STM32MP25 PCIe root complex bindings
+  PCI: stm32: Add PCIe host support for STM32MP25
+  dt-bindings: PCI: Add STM32MP25 PCIe endpoint bindings
+  PCI: stm32: Add PCIe endpoint support for STM32MP25
+  MAINTAINERS: add entry for ST STM32MP25 PCIe drivers
+
+ .../bindings/pci/st,stm32-pcie-ep.yaml        |  97 ++++
+ .../bindings/pci/st,stm32-pcie-host.yaml      | 149 ++++++
+ MAINTAINERS                                   |   7 +
+ drivers/pci/controller/dwc/Kconfig            |  23 +
+ drivers/pci/controller/dwc/Makefile           |   2 +
+ drivers/pci/controller/dwc/pcie-stm32-ep.c    | 433 +++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.c       | 493 ++++++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.h       |  24 +
+ 8 files changed, 1228 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32-ep.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
