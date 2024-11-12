@@ -2,47 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084A09C62B1
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 21:39:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A3D29C6565
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2024 00:45:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1EC1C78F85;
-	Tue, 12 Nov 2024 20:39:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E958BC78F87;
+	Tue, 12 Nov 2024 23:45:24 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5275BC78F83
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB7F8C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Nov 2024 20:39:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E3A165C58A2;
- Tue, 12 Nov 2024 20:38:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76B9C4CED7;
- Tue, 12 Nov 2024 20:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731443972;
- bh=Cz4bRV94/5MKAskZbYAn+TUSR0LBQP5CIfaO0PQZ+eA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=Ff1apUwpOiGPDm+i+5r5B3s5dmMB2dJgxctx3edd+b8FqF8Nq3n93rQlg+41y6zOA
- EPwhloVc6oGbcSWc3w0fax5DWB8hXhLMxLQJDc4PLLIMp5u3XuwJGwYPr+k0fxj1JN
- TvpI1koK8FK9Jz1qa6gsTyhc3PzbzilN2ZW+SDXjPgB15ms1yNhVgTOmpQE8s7gjNQ
- CYy8yCHHLYst8fgwZop0vbGlqErCDK4gxLXQdkg4avOvz8LJtuxCVfYTHZF2biblwf
- 5JfB0NGw1U2oK8kbGhKypOx4xWcXZKafm1zqdSAGge/7VCqmssFPjEgxVbe5+4yk3k
- Gp8simaEgiFCg==
-Date: Tue, 12 Nov 2024 14:39:31 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20241112203931.GA1858001@bhelgaas>
+ Tue, 12 Nov 2024 23:45:16 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ACMTbS2007483;
+ Tue, 12 Nov 2024 23:45:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 30OmWzI8bY1NgWJeTzK26aydq5gBzrLGNDeVe/D6eIw=; b=Llj46RG/3j9c4EQF
+ qCaWZYkQap95t5u0KygYnhHV77w7wYmy/aF+T0aysuWGyA+eJMCIrVmzcPcD17nF
+ TaNV4bTjncpRuCCwDiDCulhZQBJAsP/7diU+hAOt+fMGANlB9+W7Zo3Em4/Nqsod
+ EydU+nlD5iLx/Cd+wKIaYbz/J4rhQGBw+E3LEXp3QJ+8VZg5CLkfCcyTSRsIvV+L
+ xdq/k26VW5P6yMwRF0htqT7CPnH+1zOHB1VFbU/WGYFY56EAk2LoONwcwUiDHlsu
+ fF0SUTjRNxYTKKRHTL2jFp4Y0bchSU+np5xB4xLja8fR0pJtVo03L4T+yWRvKANK
+ Kn9PWg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42t0gm0vpb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Nov 2024 23:45:04 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4ACNj3BF022675
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Nov 2024 23:45:03 GMT
+Received: from [10.48.243.207] (10.49.16.6) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 12 Nov
+ 2024 15:45:02 -0800
+Message-ID: <c504da22-abb5-4dd5-ad57-8e7b25733237@quicinc.com>
+Date: Tue, 12 Nov 2024 15:45:02 -0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241112161925.999196-6-christian.bruel@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
- cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
- bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] MAINTAINERS: add entry for ST
-	STM32MP25 PCIe drivers
+User-Agent: Mozilla Thunderbird
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Kalle Valo
+ <kvalo@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>
+References: <78810e3ebb74ddbd3a4538f182bf1143b89baba7.1731332414.git.christophe.jaillet@wanadoo.fr>
+From: Jeff Johnson <quic_jjohnson@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <78810e3ebb74ddbd3a4538f182bf1143b89baba7.1731332414.git.christophe.jaillet@wanadoo.fr>
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: AQmCJZ-ADAi0H-gp8rhXAlFr50GaOSo0
+X-Proofpoint-GUID: AQmCJZ-ADAi0H-gp8rhXAlFr50GaOSo0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ spamscore=0 clxscore=1011 mlxscore=0 mlxlogscore=961 lowpriorityscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2411120191
+Cc: linux-wireless@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] wlcore: testmode: Constify strutc
+	nla_policy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,37 +90,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 12, 2024 at 05:19:25PM +0100, Christian Bruel wrote:
-> Add myself as STM32MP25 PCIe host and PCIe endpoint drivers
+On 11/11/2024 5:40 AM, Christophe JAILLET wrote:
+> 'struct nla_policy' is not modified in this driver.
+> 
+> Constifying this structure moves some data to a read-only section, so
+> increase overall security, especially when the structure holds some
+> function pointers.
+> 
+> On a x86_64, with allmodconfig:
+> Before:
+> ======
+>    text	   data	    bss	    dec	    hex	filename
+>    5062	    528	      0	   5590	   15d6	drivers/net/wireless/ti/wlcore/testmode.o
+> 
+> After:
+> =====
+>    text	   data	    bss	    dec	    hex	filename
+>    5178	    404	      0	   5582	   15ce	drivers/net/wireless/ti/wlcore/testmode.o
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Reviewed-by: Jeff Johnson <quic_jjohnson@quicinc.com>
 
-s/as STM32MP25/as maintainer of STM32MP25/
-
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 > ---
->  MAINTAINERS | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Compile tested only
+> ---
+>  drivers/net/wireless/ti/wlcore/testmode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 4803908768e8..277e1cc0769e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17912,6 +17912,13 @@ L:	linux-samsung-soc@vger.kernel.org
->  S:	Maintained
->  F:	drivers/pci/controller/dwc/pci-exynos.c
+> diff --git a/drivers/net/wireless/ti/wlcore/testmode.c b/drivers/net/wireless/ti/wlcore/testmode.c
+> index 3f338b8096c7..fc8ea58bc165 100644
+> --- a/drivers/net/wireless/ti/wlcore/testmode.c
+> +++ b/drivers/net/wireless/ti/wlcore/testmode.c
+> @@ -45,7 +45,7 @@ enum wl1271_tm_attrs {
+>  };
+>  #define WL1271_TM_ATTR_MAX (__WL1271_TM_ATTR_AFTER_LAST - 1)
 >  
-> +PCI DRIVER FOR STM32MP25
-> +M:	Christian Bruel <christian.bruel@foss.st.com>
-> +L:	linux-pci@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/pci/st,stm32-pcie-*.yaml
-> +F:	drivers/pci/controller/dwc/*stm32*
-> +
->  PCI DRIVER FOR SYNOPSYS DESIGNWARE
->  M:	Jingoo Han <jingoohan1@gmail.com>
->  M:	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> -- 
-> 2.34.1
-> 
+> -static struct nla_policy wl1271_tm_policy[WL1271_TM_ATTR_MAX + 1] = {
+> +static const struct nla_policy wl1271_tm_policy[WL1271_TM_ATTR_MAX + 1] = {
+>  	[WL1271_TM_ATTR_CMD_ID] =	{ .type = NLA_U32 },
+>  	[WL1271_TM_ATTR_ANSWER] =	{ .type = NLA_U8 },
+>  	[WL1271_TM_ATTR_DATA] =		{ .type = NLA_BINARY,
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
