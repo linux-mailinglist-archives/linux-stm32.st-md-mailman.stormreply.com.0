@@ -2,48 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585959C5883
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 14:04:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 576539C5B82
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 16:12:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A8A0C78F83;
-	Tue, 12 Nov 2024 13:04:21 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09E1CC78F84;
+	Tue, 12 Nov 2024 15:12:27 +0000 (UTC)
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF867C78F63
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CF62C78F83
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Nov 2024 13:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Yf/24sbBNDDoh13fZUjInsCA81I5s6NjSfUou39GZzo=; b=KudzVD96WhjqBFINviWDdpHa6r
- QGLsRhhmFYz5h85UzqrcF02t1lkbdDuRRYsT3Q2Kl+pCCe6QtmwqBIEqC9lQOjC+sGFMP+4BzUKTY
- SC2IQPSlOkMeqSssJLj70NqRqqan6sJtPQ5ABS9U1t3sl6t2W/NlfOlUa4ZkuPVvfv0Q=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1tAqYt-00D1ky-CZ; Tue, 12 Nov 2024 14:04:03 +0100
-Date: Tue, 12 Nov 2024 14:04:03 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <71b6be0e-426f-4fb4-9d28-27c55d5afa51@lunn.ch>
-References: <20241112072447.3238892-1-yong.liang.choong@linux.intel.com>
- <20241112072447.3238892-2-yong.liang.choong@linux.intel.com>
- <f8ec2c77-33fa-45a8-9b6b-4be15e5f3658@gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f8ec2c77-33fa-45a8-9b6b-4be15e5f3658@gmail.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
+ Tue, 12 Nov 2024 15:12:20 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5AAF7240006;
+ Tue, 12 Nov 2024 15:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1731424339;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7/ZZ+GzA9JnknmCSiZ4KAoFAxIWZALm0qPy9dvBIJSk=;
+ b=gN8R0y5rBADWu+wo+lGHeMRwjS1282FydlI9vD3kgvpHQWTYsItwv0ODr3pyxeUUL9/IZL
+ szxsyvU9qROe3EZH29OPtqpzNY1CGgw47LbshgwpkgUVX6VO2bWsajgC4TmMcGHH7r9LlY
+ G33EvbRmjGx8br4vfR0EeyZkdPYjWhhRewSY/WUDxk+ZEvI08pmAojF8qfmADEABnJxIG+
+ qoyc+4hqVEjd2XnEyLTv/JnKdPv8cfU++ryF0rzS0cTh8FTuDEnlZfczRSAd+U2jb3EZf+
+ mfFl/EYf15RQtHk91p5j5TX+qAfHgPZIWoTiawRO5TblLOHnhgPxrTSLqjvRdg==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: cathycai0714@gmail.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net v1 1/2] net: phy: Introduce
- phy_update_eee() to update eee_cfg values
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Avi Fishman <avifishman70@gmail.com>
+Date: Tue, 12 Nov 2024 16:12:17 +0100
+Message-ID: <7732873.EvYhyI6sBW@fw-rgant>
+In-Reply-To: <CAKKbWA6zRee9Rzee-ebLnEAvwLqnmsPswGaUo_ineyzw-b=EgQ@mail.gmail.com>
+References: <CAKKbWA7e0TmU4z4O8tHfwE=dvqPFaZbSPjxR-==fQSsNq6ELCQ@mail.gmail.com>
+ <CAKKbWA6zRee9Rzee-ebLnEAvwLqnmsPswGaUo_ineyzw-b=EgQ@mail.gmail.com>
+MIME-Version: 1.0
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Arias Pablo <Pablo_Arias@dell.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, uri.trichter@nuvoton.com,
+ Network Development <netdev@vger.kernel.org>, xuewen.yan94@gmail.com,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, "Silva,
+ L Antonio" <Luis.A.Silva@dell.com>, Murali <murali.somarouthu@dell.com>,
+ edumazet@google.com, zhiguo.niu@unisoc.com, cixi.geng1@unisoc.com,
+ Somarouthu Murali <Murali_Somarouthu@dell.com>, mcoquelin.stm32@gmail.com,
+ cathy.cai@unisoc.com, kuba@kernel.org, wade.shu@unisoc.com, pabeni@redhat.com,
+ David Miller <davem@davemloft.net>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
+	interrupt storm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,36 +65,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 12, 2024 at 12:03:15PM +0100, Heiner Kallweit wrote:
-> On 12.11.2024 08:24, Choong Yong Liang wrote:
-> > The commit fe0d4fd9285e ("net: phy: Keep track of EEE configuration")
-> > introduced eee_cfg, which is used to check the existing settings against
-> > the requested changes. When the 'ethtool --show-eee' command is issued,
-> > it reads the values from eee_cfg. However, the 'show-eee' command does
-> > not show the correct result after system boot-up, link up, and link down.
-> > 
-> 
-> In stmmac_ethtool_op_get_eee() you have the following:
-> 
-> edata->tx_lpi_timer = priv->tx_lpi_timer;
-> edata->tx_lpi_enabled = priv->tx_lpi_enabled;
-> return phylink_ethtool_get_eee(priv->phylink, edata);
-> 
-> You have to call phylink_ethtool_get_eee() first, otherwise the manually
-> set values will be overridden. However setting tx_lpi_enabled shouldn't
-> be needed if you respect phydev->enable_tx_lpi.
-
-I agree with Heiner here, this sounds like a bug somewhere, not
-something which needs new code in phylib. Lets understand why it gives
-the wrong results.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpPbiBkaW1hbmNoZSAzIG5vdmVtYnJlIDIwMjQgMjA6MDA6NTQgaGV1cmUgbm9ybWFs
+ZSBk4oCZRXVyb3BlIGNlbnRyYWxlIEF2aSAKRmlzaG1hbiB3cm90ZToKPiBIaSBhbGwsCj4gCi4u
+Lgo+ID4gIFllcy4gSXQgY291bGQgYWxzbyBoYXBwZW4gYmV0d2VlbiB0aGUgZGV2X29wZW4oKSBh
+bmQKPiA+IAo+ID4gY2xlYXJfYml0KFNUTU1BQ19ET1dOKSBjYWxscy4KPiA+IEFsdGhvdWdoIHdl
+IGRpZCBub3QgcmVwcm9kdWNlIHRoaXMgc2NlbmFyaW8sIGl0IHNob3VsZCBoYXZlIGhhcHBlbmVk
+Cj4gPiBpZiB3ZSBoYWQgaW5jcmVhc2VkCj4gPiB0aGUgbnVtYmVyIG9mIHRlc3Qgc2FtcGxlcy4g
+SW4gYWRkaXRpb24sIEkgZm91bmQgdGhhdCBvdGhlciBwZW9wbGUgaGFkCj4gPiBzaW1pbGFyIHBy
+b2JsZW1zIGJlZm9yZS4KPiA+IFRoZSBsaW5rIGlzOgo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvYWxsLzIwMjEwMjA4MTQwODIwLjEwNDEwLTExLVNlcmdleS5TZW1pbkBiYWlrYWxlbGUKPiA+
+IGN0cm9uaWNzLnJ1Lz4gCj4gPiA+IE1vcmVvdmVyLCBpdCBzZWVtcyBzdHJhbmdlIHRvIG1lIHRo
+YXQgc3RtbWFjX2ludGVycnVwdCgpCj4gPiA+IHVuY29uZGl0aW9ubmFsbHkKPiA+ID4gaWdub3Jl
+cyBpbnRlcnJ1cHRzIHdoZW4gdGhlIGRyaXZlciBpcyBpbiBTVE1NQUNfRE9XTiBzdGF0ZS4gVGhp
+cyBzZWVtcwo+ID4gPiBsaWtlCj4gPiA+IGRhbmdlcm91cyBiZWhhdmlvdXIsIHNpbmNlIGl0IGNv
+dWxkIGNhdXNlIElSUSBzdG9ybSBpc3N1ZXMgd2hlbmV2ZXIKPiA+ID4gc29tZXRoaW5nIGluIHRo
+ZSBkcml2ZXIgc2V0cyB0aGlzIHN0YXRlLiBJJ20gbm90IHRvbyBmYW1pbGlhciB3aXRoIHRoZQo+
+ID4gPiBpbnRlcnJ1cHQgaGFuZGxpbmcgaW4gdGhpcyBkcml2ZXIsIGJ1dCBtYXliZSBzdG1tYWNf
+aW50ZXJydXB0KCkgY291bGQKPiA+ID4gY2xlYXIgaW50ZXJydXB0cyB1bmNvbmRpdGlvbm5hbGx5
+IGluIHRoZSBTVE1NQUNfRE9XTiBzdGF0ZT8KPiA+IAo+ID4gQ2xlYXIgaW50ZXJydXB0cyB1bmNv
+bmRpdGlvbmFsbHkgaW4gdGhlIFNUTU1BQ19ET1dOIHN0YXRlIGRpcmVjdGx5Cj4gPiBjZXJ0YWlu
+bHkgd29uJ3QgY2F1c2UgdGhpcyBwcm9ibGVtLgo+ID4gVGhpcyBtYXkgYmUgdG9vIHJvdWdoLCBt
+YXliZSB0aGlzIGRlc2lnbiBoYXMgb3RoZXIgY29uc2lkZXJhdGlvbnMuCj4gCj4gQnV0IHRoZW4g
+YWZ0ZXIgdGhlIGRldl9vcGVuKCkgeW91IG1pZ2h0IG1pc3MgaW50ZXJydXB0LCBubz8KCkluZGVl
+ZCwgYnV0IGluIGFueSBjYXNlLCB1bmNvbmRpdGlvbmFsbHkgcmV0dXJuaW5nIGZyb20gYW4gSVJR
+IGhhbmRsZXIgd2l0aG91dCAKY2xlYXJpbmcgYW55IGludGVycnVwdCBmbGFncyBzZWVtcyBsaWtl
+IHZlcnkgc3RyYW5nZSBiZWhhdmlvciB0byBtZS4KCkRpc2FibGluZyBhbmQgcmVlbmFibGluZyBp
+bnRlcnJ1cHRzIGFzIHlvdSBzdWdnZXN0ZWQgZG9lcyBzZWVtIGxpa2UgYQpnb29kIHNvbHV0aW9u
+IGZvciB0aGlzIHBhcnRpY3VsYXIgc2NlbmFyaW8sIGJ1dCBpdCBkb2Vzbid0IHNvbHZlIHRoZSBt
+b3JlCmdlbmVyYWwgaXNzdWUgb2YgdGhlIGRhbmdlcm91cyB3YXkgc3RtbWFjX2ludGVycnVwdCBo
+YW5kbGVzIHRoaXMuCgpNYXliZSB0aGUgc2V0dGluZyBhbmQgY2xlYXJpbmcgb2YgdGhpcyBTVE1N
+QUNfRE9XTiBiaXQgc2hvdWxkCmJlIHdyYXBwZWQgaW4gc29tZSBraW5kIG9mIGhhbmRsZXIgd2hp
+Y2ggYWxzbyBkaXNhYmxlcyBhbGwgaW50ZXJydXB0cz8KCkJlc3QgUmVnYXJkcwoKLS0gClJvbWFp
+biBHYW50b2lzLCBCb290bGluCkVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcK
+aHR0cHM6Ly9ib290bGluLmNvbQoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
