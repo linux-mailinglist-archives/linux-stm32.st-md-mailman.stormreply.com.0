@@ -2,51 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7A69C542A
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 11:38:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D35139C54BF
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2024 11:50:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C857AC78F7F;
-	Tue, 12 Nov 2024 10:38:27 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EF96C78F7F;
+	Tue, 12 Nov 2024 10:50:15 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3331BC78F7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 091BAC78F77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Nov 2024 10:38:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2FF12A41966;
- Tue, 12 Nov 2024 10:36:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6583FC4CED9;
- Tue, 12 Nov 2024 10:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731407905;
- bh=rTKtriyNWvffiRqVIHWkpQOhccNRe75UQLh/YYwhxKY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TjruMj4GDJ7KqW8F0tfF7WBYBaCf4LrlFb8JyYB5g1ZgyzyfwmflkMLRn40BPd8Gn
- YO1zNlpSnyS4ApCjc9C3g0JczexZesTr6sQb/16fgMk961uDad+3enEVp52DhA/HHq
- MZpBRAwXURD73dJUQzmHz2qJWMDhG0w5qTFRgpRrfIF1dn7gepUVYt7TDG6Bp+vPEB
- unHFFZNsikrkGoC1xKog9lm/Avxpzex/SUsx85+n7aMLC8CZ/eZ/Qj7tUIR1t+tuOC
- hFEOuAOli3fItmDbZlDetNrrC9GJJnhUM8dJTKrH7QLN4ruiEAsDIX65LdF434A0uz
- dE+jwMq8CeQXQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 12 Nov 2024 05:38:14 -0500
-Message-ID: <20241112103817.1654333-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241112103817.1654333-1-sashal@kernel.org>
-References: <20241112103817.1654333-1-sashal@kernel.org>
+ Tue, 12 Nov 2024 10:50:14 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 37DEC1BF205;
+ Tue, 12 Nov 2024 10:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1731408613;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xkaaHxYMcgWp/Jayi5yY0YVWgrdbJQW2Bo/aXyuAcTM=;
+ b=isDiJkf0oDX77LXbJdSdCzRBNxcVXYU8Eai4pp6HN/z63vhnavWl1UtE70ItXhyv7QDcXF
+ Hgo8EJb7GPFkqIdTH9q/pUSAacJc7nfeAzL2kdSlKlv/Iy0k0uih6Dw0d+aJVBQ4QBW+16
+ UTjWOTeDMrFkVK1WXoIcFnZlfsDpSZDRaqIF0Ip1YFVNWBhmiS6udn0QDmXrDY/mqt9kAU
+ rReUKiWoFRLHv461lr7igdYCGG8/l1RDYhXE/IrLkZYhweOB2kEZvjgOVLsy8nhlPWOnGH
+ W4YleSe/ON9aFboToWLe5yXSTIPpSoglbRTZRjlXLyQSa5EBspMWShEGQeYvVA==
+Date: Tue, 12 Nov 2024 11:50:09 +0100
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Paolo Abeni <pabeni@redhat.com>
+Message-ID: <20241112115009.028b8724@fedora.home>
+In-Reply-To: <1b335330-900e-4620-8aaf-a27424f44321@redhat.com>
+References: <20241106090331.56519-1-maxime.chevallier@bootlin.com>
+ <20241106090331.56519-5-maxime.chevallier@bootlin.com>
+ <20241111161205.25c53c62@kernel.org>
+ <1b335330-900e-4620-8aaf-a27424f44321@redhat.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.4.285
-Cc: Luo Yifan <luoyifan@cmss.chinamobile.com>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, mcoquelin.stm32@gmail.com, tiwai@suse.com,
- lgirdwood@gmail.com, linux-sound@vger.kernel.org, perex@perex.cz,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 4/5] ASoC: stm: Prevent potential
-	division by zero in stm32_sai_get_clk_div()
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 4/9] net: stmmac: Introduce
+ dwmac1000 ptp_clock_info and operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,38 +67,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Luo Yifan <luoyifan@cmss.chinamobile.com>
+Hello Jakub, Paolo,
 
-[ Upstream commit 23569c8b314925bdb70dd1a7b63cfe6100868315 ]
+On Tue, 12 Nov 2024 10:28:21 +0100
+Paolo Abeni <pabeni@redhat.com> wrote:
 
-This patch checks if div is less than or equal to zero (div <= 0). If
-div is zero or negative, the function returns -EINVAL, ensuring the
-division operation is safe to perform.
+> On 11/12/24 01:12, Jakub Kicinski wrote:
+> > On Wed,  6 Nov 2024 10:03:25 +0100 Maxime Chevallier wrote:  
+> >> +		mutex_unlock(&priv->aux_ts_lock);
+> >> +
+> >> +		/* wait for auxts fifo clear to finish */
+> >> +		ret = readl_poll_timeout(ptpaddr + PTP_TCR, tcr_val,
+> >> +					 !(tcr_val & GMAC_PTP_TCR_ATSFC),
+> >> +					 10, 10000);  
+> > 
+> > Is there a good reason to wait for the flush to complete outside of 
+> > the mutex?   
+> 
+> Indeed looking at other `ptpaddr` access use-case, it looks like the
+> mutex protects both read and write accesses.
+> 
+> @Maxime: is the above intentional? looks race-prone
 
-Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
-Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Link: https://patch.msgid.link/20241107015936.211902-1-luoyifan@cmss.chinamobile.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/stm/stm32_sai_sub.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You're right, this is racy... It wasn't intentionnal, it's actually the
+same logic as dwmac4 uses so looks like dwmac4 is also incorrect in
+that regard.
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index b7dc9d3192597..e8cd58c0838ee 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -318,7 +318,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
- 	int div;
- 
- 	div = DIV_ROUND_CLOSEST(input_rate, output_rate);
--	if (div > SAI_XCR1_MCKDIV_MAX(version)) {
-+	if (div > SAI_XCR1_MCKDIV_MAX(version) || div <= 0) {
- 		dev_err(&sai->pdev->dev, "Divider %d out of range\n", div);
- 		return -EINVAL;
- 	}
--- 
-2.43.0
+I'll send a v4 with that change, and a fix for dwmac4 along the way
+then.
+
+Thanks for spotting this,
+
+Maxime
 
 _______________________________________________
 Linux-stm32 mailing list
