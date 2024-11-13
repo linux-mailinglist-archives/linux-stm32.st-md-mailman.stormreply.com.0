@@ -2,64 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 129A49C6C74
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2024 11:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 633049C6E73
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2024 12:59:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBDA0C78F89;
-	Wed, 13 Nov 2024 10:11:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EC83C78F88;
+	Wed, 13 Nov 2024 11:59:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0701C7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1757CC7803C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2024 10:11:16 +0000 (UTC)
+ Wed, 13 Nov 2024 11:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731492683; x=1763028683;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Vy8Iqu3OFXniKxvWbng1DoVI0tlBlU/xFf+XDj6PoTQ=;
- b=BlMXbjQOL4yNdQqoKFMdfgnl3jXYJ/gkm4jipgwpExMjDpN8G9TM2BRE
- F9qrktzvy3V2/55n8NuDq4RUhiHnJlQpdP/NKrth16/qPJeWH23moTyPJ
- fZATxXzBVDp2hGVqGfmf4sB9/x61oYSMI6xO9MSEgRWJO8yO/ZN4QWD21
- 2LzzEzn8n1gsfU+5A5CrApo6sxxNgiUTb/B4rkfPreW7AGK+SQxo1MMch
- z7t+kc/5O7rplzdtf2ngcsJBVvMwd+1wsxue3WNh747jB5lqH7y0VLvLH
- R9hsI4ZMKULLPDWbe0DkvByNV8kuxjI1MVgx3FvGAoDt3uXmSHXJsAgrm w==;
-X-CSE-ConnectionGUID: aQ+AcW39RmWg+8MUtaXKEQ==
-X-CSE-MsgGUID: Oksg3ANoQo2cw11e74+xuA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11254"; a="31608044"
-X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="31608044"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2024 02:11:15 -0800
-X-CSE-ConnectionGUID: 05tXbYHhRACmOLJ2EKDmjQ==
-X-CSE-MsgGUID: uVFc8516StGJKtpbzyMqgA==
+ t=1731499160; x=1763035160;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=S2yXI+RpE/4Z6IIWIoXWreQT7e9SUd1QZeV3E85aBM8=;
+ b=OgXHwEMud61wk7R3pJUn550iwHJ530Ts7KQOac2cVFd1UGxnhP3242dB
+ nXilBxn/5mBdFXT4TtOMv0uR2PlLxjGrsDylKMxq2078QeX6ufSy7pLr8
+ a+wbpH/tcgorjJLEvtagm7eTgousNNNCx0ZIoWpIE4hf50JxpNQXwx33e
+ 52jejEWLlwS/gr3B1GzDO7my28b5qSPMAnPL6f3eEX+VDIGZSmZaFf3Sx
+ 8pv4mNIb5ikYgag+qmx9HIqUV5gF+hIWFiBD8Nk5zvTRDLCjwNtYZSkvT
+ KvtvGlZsVCLyp1ESNbL5laCGoSLKZRUEdRCmguZKiql5wU3jE0yAZNyn7 Q==;
+X-CSE-ConnectionGUID: 59MMTDdoTcmkrg1m0agVhQ==
+X-CSE-MsgGUID: Lfr/aNYBQ828DJZFzulGDA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11254"; a="35314460"
+X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="35314460"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2024 03:59:11 -0800
+X-CSE-ConnectionGUID: mbuIIPKWTsC2Zo2OOWA+8Q==
+X-CSE-MsgGUID: Drm0ljxqRt6tHanbqPmqGA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="87395176"
-Received: from hooisan-mobl.gar.corp.intel.com (HELO [10.247.100.100])
- ([10.247.100.100])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2024 02:11:11 -0800
-Message-ID: <eb937669-d4ce-4b72-bcae-0660e1345b76@linux.intel.com>
-Date: Wed, 13 Nov 2024 18:10:55 +0800
+X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="87842391"
+Received: from lkp-server01.sh.intel.com (HELO 80bd855f15b3) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 13 Nov 2024 03:59:05 -0800
+Received: from kbuild by 80bd855f15b3 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1tBC1X-0000Kv-0X;
+ Wed, 13 Nov 2024 11:59:03 +0000
+Date: Wed, 13 Nov 2024 19:58:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joey Lu <a0987203069@gmail.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+Message-ID: <202411131946.ozq1D0f2-lkp@intel.com>
+References: <20241113051857.12732-4-a0987203069@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <20241112072447.3238892-1-yong.liang.choong@linux.intel.com>
- <20241112072447.3238892-2-yong.liang.choong@linux.intel.com>
- <f8ec2c77-33fa-45a8-9b6b-4be15e5f3658@gmail.com>
- <71b6be0e-426f-4fb4-9d28-27c55d5afa51@lunn.ch>
-Content-Language: en-US
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <71b6be0e-426f-4fb4-9d28-27c55d5afa51@lunn.ch>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net v1 1/2] net: phy: Introduce
- phy_update_eee() to update eee_cfg values
+Content-Disposition: inline
+In-Reply-To: <20241113051857.12732-4-a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
+ Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ oe-kbuild-all@lists.linux.dev, schung@nuvoton.com, yclu4@nuvoton.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: dwmac-nuvoton: Add
+ dwmac support for MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,74 +70,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Joey,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on robh/for-next]
+[also build test WARNING on net-next/main net/main linus/master v6.12-rc7 next-20241113]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Joey-Lu/dt-bindings-net-nuvoton-Add-schema-for-MA35-family-GMAC/20241113-132300
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20241113051857.12732-4-a0987203069%40gmail.com
+patch subject: [PATCH v2 3/3] net: stmmac: dwmac-nuvoton: Add dwmac support for MA35 family
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20241113/202411131946.ozq1D0f2-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241113/202411131946.ozq1D0f2-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202411131946.ozq1D0f2-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c:20: warning: expecting prototype for dwmac(). Prototype was for PATHDLY_DEC() instead
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for GET_FREE_REGION
+   Depends on [n]: SPARSEMEM [=n]
+   Selected by [m]:
+   - RESOURCE_KUNIT_TEST [=m] && RUNTIME_TESTING_MENU [=y] && KUNIT [=m]
 
 
-On 12/11/2024 9:04 pm, Andrew Lunn wrote:
-> On Tue, Nov 12, 2024 at 12:03:15PM +0100, Heiner Kallweit wrote:
->> In stmmac_ethtool_op_get_eee() you have the following:
->>
->> edata->tx_lpi_timer = priv->tx_lpi_timer;
->> edata->tx_lpi_enabled = priv->tx_lpi_enabled;
->> return phylink_ethtool_get_eee(priv->phylink, edata);
->>
->> You have to call phylink_ethtool_get_eee() first, otherwise the manually
->> set values will be overridden. However setting tx_lpi_enabled shouldn't
->> be needed if you respect phydev->enable_tx_lpi.
-> 
-> I agree with Heiner here, this sounds like a bug somewhere, not
-> something which needs new code in phylib. Lets understand why it gives
-> the wrong results.
-> 
-> 	Andrew
-Hi Russell, Andrew, and Heiner, thanks a lot for your valuable feedback.
+vim +20 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
 
-The current implementation of the 'ethtool --show-eee' command heavily 
-relies on the phy_ethtool_get_eee() in phy.c. The eeecfg values are set by 
-the 'ethtool --set-eee' command and the phy_support_eee() during the 
-initial state. The phy_ethtool_get_eee() calls eeecfg_to_eee(), which 
-returns the eeecfg containing tx_lpi_timer, tx_lpi_enabled, and eee_enable 
-for the 'ethtool --show-eee' command.
+    19	
+  > 20	#define PATHDLY_DEC         134
+    21	#define TXDLY_OFST          16
+    22	#define TXDLY_MSK           GENMASK(19, 16)
+    23	#define RXDLY_OFST          20
+    24	#define RXDLY_MSK           GENMASK(23, 20)
+    25	
 
-The tx_lpi_timer and tx_lpi_enabled values stored in the MAC or PHY driver 
-are not retrieved by the 'ethtool --show-eee' command.
-
-Currently, we are facing 3 issues:
-1. When we boot up our system and do not issue the 'ethtool --set-eee' 
-command, and then directly issue the 'ethtool --show-eee' command, it 
-always shows that EEE is disabled due to the eeecfg values not being set. 
-However, in the Maxliner GPY PHY, the driver EEE is enabled. If we try to 
-disable EEE, nothing happens because the eeecfg matches the setting 
-required to disable EEE in ethnl_set_eee(). The phy_support_eee() was 
-introduced to set the initial values to enable eee_enabled and 
-tx_lpi_enabled. This would allow 'ethtool --show-eee' to show that EEE is 
-enabled during the initial state. However, the Marvell PHY is designed to 
-have hardware disabled EEE during the initial state. Users are required to 
-use Ethtool to enable the EEE. phy_support_eee() does not show the correct 
-for Marvell PHY.
-
-2. The 'ethtool --show-eee' command does not display the correct status, 
-even if the link is down or the speed changes to one that does not support EEE.
-
-3. The tx_lpi_timer in 'ethtool --show-eee' always shows 0 if we have not 
-used 'ethtool --set-eee' to set the values, even though the driver sets 
-different values.
-
-I appreciate Russell's point that eee_enabled is a user configuration bit, 
-not a status bit. However, I am curious if tx_lpi_timer, tx_lpi_enabled, 
-and other fields are also considered configuration bits.
-
-According to the ethtool man page:
---show-eee
-Queries the specified network device for its support of Energy-Efficient 
-Ethernet (according to the IEEE 802.3az specifications)
-
-It does not specify which fields are configuration bits and which are 
-status bits.
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
