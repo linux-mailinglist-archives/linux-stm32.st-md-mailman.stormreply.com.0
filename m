@@ -2,63 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633049C6E73
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2024 12:59:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3279C7021
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2024 14:03:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EC83C78F88;
-	Wed, 13 Nov 2024 11:59:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE4F5C78F8B;
+	Wed, 13 Nov 2024 13:03:38 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1757CC7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DFFDC78F89
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2024 11:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731499160; x=1763035160;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=S2yXI+RpE/4Z6IIWIoXWreQT7e9SUd1QZeV3E85aBM8=;
- b=OgXHwEMud61wk7R3pJUn550iwHJ530Ts7KQOac2cVFd1UGxnhP3242dB
- nXilBxn/5mBdFXT4TtOMv0uR2PlLxjGrsDylKMxq2078QeX6ufSy7pLr8
- a+wbpH/tcgorjJLEvtagm7eTgousNNNCx0ZIoWpIE4hf50JxpNQXwx33e
- 52jejEWLlwS/gr3B1GzDO7my28b5qSPMAnPL6f3eEX+VDIGZSmZaFf3Sx
- 8pv4mNIb5ikYgag+qmx9HIqUV5gF+hIWFiBD8Nk5zvTRDLCjwNtYZSkvT
- KvtvGlZsVCLyp1ESNbL5laCGoSLKZRUEdRCmguZKiql5wU3jE0yAZNyn7 Q==;
-X-CSE-ConnectionGUID: 59MMTDdoTcmkrg1m0agVhQ==
-X-CSE-MsgGUID: Lfr/aNYBQ828DJZFzulGDA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11254"; a="35314460"
-X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="35314460"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2024 03:59:11 -0800
-X-CSE-ConnectionGUID: mbuIIPKWTsC2Zo2OOWA+8Q==
-X-CSE-MsgGUID: Drm0ljxqRt6tHanbqPmqGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,150,1728975600"; d="scan'208";a="87842391"
-Received: from lkp-server01.sh.intel.com (HELO 80bd855f15b3) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 13 Nov 2024 03:59:05 -0800
-Received: from kbuild by 80bd855f15b3 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tBC1X-0000Kv-0X;
- Wed, 13 Nov 2024 11:59:03 +0000
-Date: Wed, 13 Nov 2024 19:58:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joey Lu <a0987203069@gmail.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-Message-ID: <202411131946.ozq1D0f2-lkp@intel.com>
-References: <20241113051857.12732-4-a0987203069@gmail.com>
+ Wed, 13 Nov 2024 13:03:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B0CD95C57B0;
+ Wed, 13 Nov 2024 13:02:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CEDBC4CECF;
+ Wed, 13 Nov 2024 13:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1731503009;
+ bh=3hSrEerVz63flbUMSNM5kNo4q1EzHTQJwl/k9YXWWXY=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Oyn6Qk3cbXGXHOTIyYwF0JjkjWmA2gO5vSv5pD6Zb6sCBbFTXdht9wS6vqmEJy0kc
+ jovqjilanwp3ERL6LQn94WKNRoEGHOKcOTnI4cvj74SMlN7DYgYX7NfjTmsm36WCEA
+ Z0IWayIQ9JoIqhp1vuA+7YCM4JisPjeZfIF0B0iWLo+S1kxz2cW6m5gdz7ewSMVOVm
+ Dblbsl0nOklNcmy9hM9q81niWsP8RM6ghv9qAsIZDhE0sbwBJqhQFUv3c78XVmegtq
+ eOHvcnscCdq8gDnsjiF2gAhUQM7gqChgzemaBJEIErs742H0KCAXiS+xD5R+anCy/J
+ 6vSileRfaUrmA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+In-Reply-To: <ab85510f83fa901e44d5d563fe6e768054229bfe.1731398433.git.u.kleine-koenig@baylibre.com>
+References: <ab85510f83fa901e44d5d563fe6e768054229bfe.1731398433.git.u.kleine-koenig@baylibre.com>
+Message-Id: <173150300581.429927.11116814842133511799.b4-ty@kernel.org>
+Date: Wed, 13 Nov 2024 13:03:25 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241113051857.12732-4-a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
- Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
- oe-kbuild-all@lists.linux.dev, schung@nuvoton.com, yclu4@nuvoton.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: dwmac-nuvoton: Add
- dwmac support for MA35 family
+X-Mailer: b4 0.15-dev-355e8
+Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Marek Vasut <marek.vasut+renesas@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] regulator: Switch back to struct
+ platform_driver::remove()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,59 +56,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Joey,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on robh/for-next]
-[also build test WARNING on net-next/main net/main linus/master v6.12-rc7 next-20241113]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Joey-Lu/dt-bindings-net-nuvoton-Add-schema-for-MA35-family-GMAC/20241113-132300
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-patch link:    https://lore.kernel.org/r/20241113051857.12732-4-a0987203069%40gmail.com
-patch subject: [PATCH v2 3/3] net: stmmac: dwmac-nuvoton: Add dwmac support for MA35 family
-config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20241113/202411131946.ozq1D0f2-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241113/202411131946.ozq1D0f2-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411131946.ozq1D0f2-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c:20: warning: expecting prototype for dwmac(). Prototype was for PATHDLY_DEC() instead
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for GET_FREE_REGION
-   Depends on [n]: SPARSEMEM [=n]
-   Selected by [m]:
-   - RESOURCE_KUNIT_TEST [=m] && RUNTIME_TESTING_MENU [=y] && KUNIT [=m]
-
-
-vim +20 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-
-    19	
-  > 20	#define PATHDLY_DEC         134
-    21	#define TXDLY_OFST          16
-    22	#define TXDLY_MSK           GENMASK(19, 16)
-    23	#define RXDLY_OFST          20
-    24	#define RXDLY_MSK           GENMASK(23, 20)
-    25	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAxMiBOb3YgMjAyNCAwOTozNToyMSArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
+dGU6Cj4gQWZ0ZXIgY29tbWl0IDBlZGI1NTVhNjVkMSAoInBsYXRmb3JtOiBNYWtlIHBsYXRmb3Jt
+X2RyaXZlcjo6cmVtb3ZlKCkKPiByZXR1cm4gdm9pZCIpIC5yZW1vdmUoKSBpcyAoYWdhaW4pIHRo
+ZSByaWdodCBjYWxsYmFjayB0byBpbXBsZW1lbnQgZm9yCj4gcGxhdGZvcm0gZHJpdmVycy4KPiAK
+PiBDb252ZXJ0IGFsbCBwbGF0Zm9ybSBkcml2ZXJzIGJlbG93IGRyaXZlcnMvcmVndWxhdG9yIHRv
+IHVzZSAucmVtb3ZlKCksCj4gd2l0aCB0aGUgZXZlbnR1YWwgZ29hbCB0byBkcm9wIHN0cnVjdCBw
+bGF0Zm9ybV9kcml2ZXI6OnJlbW92ZV9uZXcoKS4gQXMKPiAucmVtb3ZlKCkgYW5kIC5yZW1vdmVf
+bmV3KCkgaGF2ZSB0aGUgc2FtZSBwcm90b3R5cGVzLCBjb252ZXJzaW9uIGlzIGRvbmUKPiBieSBq
+dXN0IGNoYW5naW5nIHRoZSBzdHJ1Y3R1cmUgbWVtYmVyIG5hbWUgaW4gdGhlIGRyaXZlciBpbml0
+aWFsaXplci4KPiAKPiBbLi4uXQoKQXBwbGllZCB0bwoKICAgaHR0cHM6Ly9naXQua2VybmVsLm9y
+Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9yZWd1bGF0b3IuZ2l0IGZvci1uZXh0
+CgpUaGFua3MhCgpbMS8xXSByZWd1bGF0b3I6IFN3aXRjaCBiYWNrIHRvIHN0cnVjdCBwbGF0Zm9y
+bV9kcml2ZXI6OnJlbW92ZSgpCiAgICAgIGNvbW1pdDogMWI1NTM1NDc0NWUyNzZkYjM4MjY4ZjIz
+ODY1ZWIyYzRlYmE1ZjU5YgoKQWxsIGJlaW5nIHdlbGwgdGhpcyBtZWFucyB0aGF0IGl0IHdpbGwg
+YmUgaW50ZWdyYXRlZCBpbnRvIHRoZSBsaW51eC1uZXh0CnRyZWUgKHVzdWFsbHkgc29tZXRpbWUg
+aW4gdGhlIG5leHQgMjQgaG91cnMpIGFuZCBzZW50IHRvIExpbnVzIGR1cmluZwp0aGUgbmV4dCBt
+ZXJnZSB3aW5kb3cgKG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgpLCBob3dldmVyIGlmCnBy
+b2JsZW1zIGFyZSBkaXNjb3ZlcmVkIHRoZW4gdGhlIHBhdGNoIG1heSBiZSBkcm9wcGVkIG9yIHJl
+dmVydGVkLgoKWW91IG1heSBnZXQgZnVydGhlciBlLW1haWxzIHJlc3VsdGluZyBmcm9tIGF1dG9t
+YXRlZCBvciBtYW51YWwgdGVzdGluZwphbmQgcmV2aWV3IG9mIHRoZSB0cmVlLCBwbGVhc2UgZW5n
+YWdlIHdpdGggcGVvcGxlIHJlcG9ydGluZyBwcm9ibGVtcyBhbmQKc2VuZCBmb2xsb3d1cCBwYXRj
+aGVzIGFkZHJlc3NpbmcgYW55IGlzc3VlcyB0aGF0IGFyZSByZXBvcnRlZCBpZiBuZWVkZWQuCgpJ
+ZiBhbnkgdXBkYXRlcyBhcmUgcmVxdWlyZWQgb3IgeW91IGFyZSBzdWJtaXR0aW5nIGZ1cnRoZXIg
+Y2hhbmdlcyB0aGV5CnNob3VsZCBiZSBzZW50IGFzIGluY3JlbWVudGFsIHVwZGF0ZXMgYWdhaW5z
+dCBjdXJyZW50IGdpdCwgZXhpc3RpbmcKcGF0Y2hlcyB3aWxsIG5vdCBiZSByZXBsYWNlZC4KClBs
+ZWFzZSBhZGQgYW55IHJlbGV2YW50IGxpc3RzIGFuZCBtYWludGFpbmVycyB0byB0aGUgQ0NzIHdo
+ZW4gcmVwbHlpbmcKdG8gdGhpcyBtYWlsLgoKVGhhbmtzLApNYXJrCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
+TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
