@@ -2,58 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367A49C8739
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2024 11:16:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E971F9C877E
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2024 11:27:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECE24C78F9E;
-	Thu, 14 Nov 2024 10:16:46 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 978D3C78F9E;
+	Thu, 14 Nov 2024 10:27:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B33BAC78F9D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9449C78F9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2024 10:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UQeUKWqacSfgCW37cA4xUbE+Eq7a4taaKHHUWJFU+2k=; b=EKdxYz4cjDjcDbN/5Eim1cU0zF
- m0Ab8tdmycKewlP4QFRolSJMOyGu2gyQascXJbVJQS2fjLRBP0JkVEGn4kCQWy0cvXF8BSwz6xZTL
- aHzJ8NRFeh518NKW85GgyNAfsBH1/eW8nTyH+9Oo7BD95uFBDgeV6CipZtit3ODL2JK6G+JlzybcW
- wBJRiIXQupbtFsYdCK9Mu1JwSkpOeFiSzHz+TxbqXLNDVMkzKO1J/mxvs9uC8Y3MtK7Cl61H21e0l
- SAfW+CFUDJVcvZAoU8W3eOWbElGWeTAF/zNAU0jq+H0fB7qZlk83x1OrXIk+yuNu8EZ3tqqJ34O4a
- k7zQ6aiQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46564)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tBWtw-0007oh-2N;
- Thu, 14 Nov 2024 10:16:37 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tBWtv-00012F-0T;
- Thu, 14 Nov 2024 10:16:35 +0000
-Date: Thu, 14 Nov 2024 10:16:34 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <ZzXOAvc__iQscSb4@shell.armlinux.org.uk>
-References: <20241114081653.3939346-1-yong.liang.choong@linux.intel.com>
- <20241114081653.3939346-2-yong.liang.choong@linux.intel.com>
- <ZzXBpEHs0y2_elqK@shell.armlinux.org.uk>
- <ZzXLgEjElnJD1445@shell.armlinux.org.uk>
+ Thu, 14 Nov 2024 10:27:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AE5jwNC016652;
+ Thu, 14 Nov 2024 11:27:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=7MbnE8ms6zYSIbpQhA3TMj
+ 1iM72Lewm6wm7M7VcisaY=; b=ZJukTb2OEWCMoCvRWZwh75QtRm1O0SCRqkwOzW
+ 9wFlBALJ3Zx4vYu+qf+vAh80ujPAak9qvnEr/4MmKVYQbrWrhkktFCPX7rdkQI9i
+ ZQaXem7W53Gu4TWHS1J5feYoCYetyvKo0BZRiEbDPO74ax20dW1Fz1FE3vq1rhFP
+ 8Hd4YYSCAJgj+BqoA6oCAN6Gf6gRsf7HcSBg73JEJpY5WD1s6ruz+396KIWjIzzg
+ meWbxokrGYOYZBDyOkSpc24hW3tKi95HEqk2iIM9eK50x0wiDSqfgtbACbbFcyva
+ P8pyjR1pDxsIlXOduJG7szNapmeqpn2FyyF8/z9M3GKMdCAw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42syggxh32-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Nov 2024 11:27:06 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D9E5A4002D;
+ Thu, 14 Nov 2024 11:26:00 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 60E1F23F998;
+ Thu, 14 Nov 2024 11:25:16 +0100 (CET)
+Received: from localhost (10.252.20.241) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 14 Nov
+ 2024 11:25:16 +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Olivier Moysan <olivier.moysan@foss.st.com>
+Date: Thu, 14 Nov 2024 11:24:59 +0100
+Message-ID: <20241114102459.2497178-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZzXLgEjElnJD1445@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Oleksij Rempel <o.rempel@pengutronix.de>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v1 1/2] net: phy: set eee_cfg based on
- PHY configuration
+X-Originating-IP: [10.252.20.241]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: handle label as an
+	optional property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,88 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Nov 14, 2024 at 10:05:52AM +0000, Russell King (Oracle) wrote:
-> On Thu, Nov 14, 2024 at 09:23:48AM +0000, Russell King (Oracle) wrote:
-> > On Thu, Nov 14, 2024 at 04:16:52PM +0800, Choong Yong Liang wrote:
-> > > Not all PHYs have EEE enabled by default. For example, Marvell PHYs are
-> > > designed to have EEE hardware disabled during the initial state, and it
-> > > needs to be configured to turn it on again.
-> > > 
-> > > This patch reads the PHY configuration and sets it as the initial value for
-> > > eee_cfg.tx_lpi_enabled and eee_cfg.eee_enabled instead of having them set to
-> > > true by default.
-> > 
-> > eee_cfg.tx_lpi_enabled is something phylib tracks, and it merely means
-> > that LPI needs to be enabled at the MAC if EEE was negotiated:
-> > 
-> >  * @tx_lpi_enabled: Whether the interface should assert its tx lpi, given
-> >  *      that eee was negotiated.
-> > 
-> > eee_cfg.eee_enabled means that EEE mode was enabled - which is user
-> > configuration:
-> > 
-> >  * @eee_enabled: EEE configured mode (enabled/disabled).
-> > 
-> > phy_probe() reads the initial PHY state and sets things up
-> > appropriately.
-> > 
-> > However, there is a point where the EEE configuration (advertisement,
-> > and therefore eee_enabled state) is written to the PHY, and that should
-> > be config_aneg(). Looking at the Marvell driver, it's calling
-> > genphy_config_aneg() which eventually calls
-> > genphy_c45_an_config_eee_aneg() which does this (via
-> > __genphy_config_aneg()).
-> > 
-> > Please investigate why the hardware state is going out of sync with the
-> > software state.
-> 
-> I think I've found the issue.
-> 
-> We have phydev->eee_enabled and phydev->eee_cfg.eee_enabled, which looks
-> like a bug to me. We write to phydev->eee_cfg.eee_enabled in
-> phy_support_eee(), leaving phydev->eee_enabled untouched.
-> 
-> However, most other places are using phydev->eee_enabled.
-> 
-> This is (a) confusing and (b) wrong, and having the two members leads
-> to this confusion, and makes the code more difficult to follow (unless
-> one has already clocked that there are these two different things both
-> called eee_enabled).
-> 
-> This is my untested prototype patch to fix this - it may cause breakage
-> elsewhere:
+The label property is defined as optional in the DFSDM binding.
+Parse the label property only when it is defined in the device tree.
 
-As mentioned in the other thread:
+Fixes: 3208fa0cd919 ("iio: adc: stm32-dfsdm: adopt generic channels bindings")
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ drivers/iio/adc/stm32-dfsdm-adc.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Without a call to phy_support_eee():
-
-EEE settings for eth2:
-        EEE status: disabled
-        Tx LPI: disabled
-        Supported EEE link modes:  100baseT/Full
-                                   1000baseT/Full
-        Advertised EEE link modes:  Not reported
-        Link partner advertised EEE link modes:  100baseT/Full
-                                                 1000baseT/Full
-
-With a call to phy_support_eee():
-
-EEE settings for eth2:
-        EEE status: enabled - active
-        Tx LPI: 0 (us)
-        Supported EEE link modes:  100baseT/Full
-                                   1000baseT/Full
-        Advertised EEE link modes:  100baseT/Full
-                                    1000baseT/Full
-        Link partner advertised EEE link modes:  100baseT/Full
-                                                 1000baseT/Full
-
-So the EEE status is now behaving correctly, and the Marvell PHY is
-being programmed with the advertisement correctly.
-
+diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+index 2037f73426d4..e304e3714020 100644
+--- a/drivers/iio/adc/stm32-dfsdm-adc.c
++++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+@@ -691,11 +691,14 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = fwnode_property_read_string(node, "label", &ch->datasheet_name);
+-	if (ret < 0) {
+-		dev_err(&indio_dev->dev,
+-			" Error parsing 'label' for idx %d\n", ch->channel);
+-		return ret;
++	if (fwnode_property_present(node, "label")) {
++		/* label is optional */
++		ret = fwnode_property_read_string(node, "label", &ch->datasheet_name);
++		if (ret < 0) {
++			dev_err(&indio_dev->dev,
++				" Error parsing 'label' for idx %d\n", ch->channel);
++			return ret;
++		}
+ 	}
+ 
+ 	df_ch =  &dfsdm->ch_list[ch->channel];
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
