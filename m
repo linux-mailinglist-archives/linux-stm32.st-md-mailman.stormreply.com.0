@@ -2,57 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F49B9C86D5
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2024 11:06:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C3A9C8734
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2024 11:16:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 411D5C78F9E;
-	Thu, 14 Nov 2024 10:06:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBD1EC78F9E;
+	Thu, 14 Nov 2024 10:16:04 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17626C78F9D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52446C78F9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2024 10:06:15 +0000 (UTC)
+ Thu, 14 Nov 2024 10:15:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gIPrSHgQCALCepHl6R+DTYzMov4UgSjk+ZA9/KyL5Qc=; b=CA0uCSYsodv0SQpUQLPg+KwV1j
- EOlFv+wYDpcRDgp2xP9fYXhBS0UkslmAeNFxvc/UPX/QDM9nTvMHb+Rb6cUcq/zTfCKsxIGlFmrwM
- TyoKtRmwlH4+WcAcpfp+TwMMEyi0UTdTrCScZJ7tnbJ1Df18lW2N/W4W/S3JgmLXtJlNWq7uXid7o
- aOQsjDZCkpZNfzjalZOEcIqNmHnBv3jRuVfiCkBdf6nz8dnJb1nv/+OzBsWBGtX8Sl0mRWh2ozlpd
- GBjeExq32+6wAshDmMRV/EWWV1+oJyy3Pn30P4STwNRs68DsewdJaRfxtzYgjEOaiziLFeokGZHMe
- 8LukeCIg==;
+ bh=Tfs37pvOlG3pbk6MXe8wdDHOmktqFBXJiyyi+ALByIQ=; b=X2HaR6HxWpTIR5/FBIYDWbNiUh
+ 1WpnHZk7/VV95x6NsI7vXVZiqJGpclhIxL7jR1AL8Nbxj4nVppSaZdo2yZOAuUCsjfwssPr978DKX
+ LSDQAGbDmZe0PB/m8oTOYJKpalLWxRSGLkOA6PHHRqelAxftz+tmZZZsW0DEf6yvw/dXJZXYqLPGX
+ fMLiP1NmGTrDkZPHXfejnRfszArnssjfbPdsPtYPREZ+B5VOO6geGTCs0Q28e8nCVXxQS/5jiJJ49
+ cWM0W2b8O3IPMfP9EOEkhN022Ne1cDdqhMpuGEXLs2iyuxl39BhOBre9aHpEQ3nJCfOeMVuVo8SDG
+ DKWkCFHg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58434)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45596)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tBWje-0007mr-2u;
- Thu, 14 Nov 2024 10:05:59 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tBWt7-0007oD-14;
+ Thu, 14 Nov 2024 10:15:45 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tBWjY-000113-2H;
- Thu, 14 Nov 2024 10:05:52 +0000
-Date: Thu, 14 Nov 2024 10:05:52 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tBWt4-000127-31;
+ Thu, 14 Nov 2024 10:15:42 +0000
+Date: Thu, 14 Nov 2024 10:15:42 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <ZzXLgEjElnJD1445@shell.armlinux.org.uk>
-References: <20241114081653.3939346-1-yong.liang.choong@linux.intel.com>
- <20241114081653.3939346-2-yong.liang.choong@linux.intel.com>
- <ZzXBpEHs0y2_elqK@shell.armlinux.org.uk>
+Message-ID: <ZzXNzv5dt0UozSLR@shell.armlinux.org.uk>
+References: <20241112072447.3238892-1-yong.liang.choong@linux.intel.com>
+ <20241112072447.3238892-2-yong.liang.choong@linux.intel.com>
+ <f8ec2c77-33fa-45a8-9b6b-4be15e5f3658@gmail.com>
+ <71b6be0e-426f-4fb4-9d28-27c55d5afa51@lunn.ch>
+ <eb937669-d4ce-4b72-bcae-0660e1345b76@linux.intel.com>
+ <ZzW8t2bCTXJCP7-_@shell.armlinux.org.uk>
+ <ZzW-5gj0cdbwdwZv@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZzXBpEHs0y2_elqK@shell.armlinux.org.uk>
+In-Reply-To: <ZzW-5gj0cdbwdwZv@shell.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Oleksij Rempel <o.rempel@pengutronix.de>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v1 1/2] net: phy: set eee_cfg based on
- PHY configuration
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net v1 1/2] net: phy: Introduce
+ phy_update_eee() to update eee_cfg values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,55 +72,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Nov 14, 2024 at 09:23:48AM +0000, Russell King (Oracle) wrote:
-> On Thu, Nov 14, 2024 at 04:16:52PM +0800, Choong Yong Liang wrote:
-> > Not all PHYs have EEE enabled by default. For example, Marvell PHYs are
-> > designed to have EEE hardware disabled during the initial state, and it
-> > needs to be configured to turn it on again.
+On Thu, Nov 14, 2024 at 09:12:06AM +0000, Russell King (Oracle) wrote:
+> On Thu, Nov 14, 2024 at 09:02:47AM +0000, Russell King (Oracle) wrote:
+> > On Wed, Nov 13, 2024 at 06:10:55PM +0800, Choong Yong Liang wrote:
+> > > On 12/11/2024 9:04 pm, Andrew Lunn wrote:
+> > > > On Tue, Nov 12, 2024 at 12:03:15PM +0100, Heiner Kallweit wrote:
+> > > > > In stmmac_ethtool_op_get_eee() you have the following:
+> > > > > 
+> > > > > edata->tx_lpi_timer = priv->tx_lpi_timer;
+> > > > > edata->tx_lpi_enabled = priv->tx_lpi_enabled;
+> > > > > return phylink_ethtool_get_eee(priv->phylink, edata);
+> > > > > 
+> > > > > You have to call phylink_ethtool_get_eee() first, otherwise the manually
+> > > > > set values will be overridden. However setting tx_lpi_enabled shouldn't
+> > > > > be needed if you respect phydev->enable_tx_lpi.
+> > > > 
+> > > > I agree with Heiner here, this sounds like a bug somewhere, not
+> > > > something which needs new code in phylib. Lets understand why it gives
+> > > > the wrong results.
+> > > > 
+> > > > 	Andrew
+> > > Hi Russell, Andrew, and Heiner, thanks a lot for your valuable feedback.
+> > > 
+> > > The current implementation of the 'ethtool --show-eee' command heavily
+> > > relies on the phy_ethtool_get_eee() in phy.c. The eeecfg values are set by
+> > > the 'ethtool --set-eee' command and the phy_support_eee() during the initial
+> > > state. The phy_ethtool_get_eee() calls eeecfg_to_eee(), which returns the
+> > > eeecfg containing tx_lpi_timer, tx_lpi_enabled, and eee_enable for the
+> > > 'ethtool --show-eee' command.
 > > 
-> > This patch reads the PHY configuration and sets it as the initial value for
-> > eee_cfg.tx_lpi_enabled and eee_cfg.eee_enabled instead of having them set to
-> > true by default.
+> > These three members you mention are user configuration members.
+> > 
+> > > The tx_lpi_timer and tx_lpi_enabled values stored in the MAC or PHY driver
+> > > are not retrieved by the 'ethtool --show-eee' command.
+> > 
+> > tx_lpi_timer is the only thing that the MAC driver should be concerned
+> > with - it needs to program the MAC according to the timer value
+> > specified. Whether LPI is enabled or not is determined by
+> > phydev->enable_tx_lpi. The MAC should be using nothing else.
+> > 
+> > > Currently, we are facing 3 issues:
+> > > 1. When we boot up our system and do not issue the 'ethtool --set-eee'
+> > > command, and then directly issue the 'ethtool --show-eee' command, it always
+> > > shows that EEE is disabled due to the eeecfg values not being set. However,
+> > > in the Maxliner GPY PHY, the driver EEE is enabled.
+> > 
+> > So the software state is out of sync with the hardware state. This is a
+> > bug in the GPY PHY driver.
+> > 
+> > If we look at the generic code, we can see that genphy_config_aneg()
+> > calls __genphy_config_aneg() which then goes on to call
+> > genphy_c45_an_config_eee_aneg(). genphy_c45_an_config_eee_aneg()
+> > writes the current EEE configuration to the PHY.
+> > 
+> > Now if we look at gpy_config_aneg(), it doesn't do this. Therefore,
+> > the GPY PHY is retaining its hardware state which is different from
+> > the software state. This is wrong.
 > 
-> eee_cfg.tx_lpi_enabled is something phylib tracks, and it merely means
-> that LPI needs to be enabled at the MAC if EEE was negotiated:
+> Also note that phy_probe() reads the current configuration from the
+> PHY. The supported mask is set via phydev->drv->get_features,
+> which calls genphy_c45_pma_read_abilities() via the GPY driver and
+> genphy_c45_read_eee_abilities().
 > 
->  * @tx_lpi_enabled: Whether the interface should assert its tx lpi, given
->  *      that eee was negotiated.
+> phy_probe() then moved on to genphy_c45_read_eee_adv(), which reads
+> the advertisement mask. If the advertising mask is non-zero, then
+> EEE is set as enabled.
 > 
-> eee_cfg.eee_enabled means that EEE mode was enabled - which is user
-> configuration:
-> 
->  * @eee_enabled: EEE configured mode (enabled/disabled).
-> 
-> phy_probe() reads the initial PHY state and sets things up
-> appropriately.
-> 
-> However, there is a point where the EEE configuration (advertisement,
-> and therefore eee_enabled state) is written to the PHY, and that should
-> be config_aneg(). Looking at the Marvell driver, it's calling
-> genphy_config_aneg() which eventually calls
-> genphy_c45_an_config_eee_aneg() which does this (via
-> __genphy_config_aneg()).
-> 
-> Please investigate why the hardware state is going out of sync with the
-> software state.
+> From your description, it sounds like this isn't working right, and
+> needs to be debugged. For example, is the PHY changing its EEE
+> advertisement between phy_probe() and when it is up and running?
 
-I think I've found the issue.
+For the benefit of this thread - phylib definitely has a problem. It's
+got one too many things called eee_enabled, leading to confusion about
+which should be used. I've now built this patch, and am testing it
+with a Marvell PHY.
 
-We have phydev->eee_enabled and phydev->eee_cfg.eee_enabled, which looks
-like a bug to me. We write to phydev->eee_cfg.eee_enabled in
-phy_support_eee(), leaving phydev->eee_enabled untouched.
+Without a call to phy_support_eee():
 
-However, most other places are using phydev->eee_enabled.
+EEE settings for eth2:
+        EEE status: disabled
+        Tx LPI: disabled
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  Not reported
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
 
-This is (a) confusing and (b) wrong, and having the two members leads
-to this confusion, and makes the code more difficult to follow (unless
-one has already clocked that there are these two different things both
-called eee_enabled).
+With a call to phy_support_eee():
 
-This is my untested prototype patch to fix this - it may cause breakage
-elsewhere:
+EEE settings for eth2:
+        EEE status: enabled - active
+        Tx LPI: 0 (us)
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  100baseT/Full
+                                    1000baseT/Full
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
+
+So the EEE status is now behaving correctly, and the Marvell PHY is
+being programmed with the advertisement correctly.
 
 diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
 index c1b3576c307f..2d64d3f293e5 100644
