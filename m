@@ -2,77 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B9689C9329
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2024 21:23:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6F0F9CD4DD
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2024 02:08:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54F2BC7A833;
-	Thu, 14 Nov 2024 20:23:09 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F085C7A833;
+	Fri, 15 Nov 2024 01:08:47 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E2A9C7A832
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A739FC7A832
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2024 20:23:02 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-7ea8c4ce232so1028151a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2024 12:23:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731615781; x=1732220581;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3t3j3ES+KMYiY+uHRfv46SZpfLjb2BlkXR6mS0oLpes=;
- b=lpQ7UNvWy+wt0IE+AtkVqiAJQ0TOhl3ooJ+0Okf2KJs9gNIKywk04F6gR8POX25aBR
- O6Blur7XE0qV0EoBJpquJZIaXy1LuCL/uIMNt0bzIrdHRYNF2qusono5mqcerhuDREzj
- MCZEuTOXJMWpnj/8bNSCJ5IxXsAKE44WZxoMFgBIhlnO/cHGOHUUrQ+fwSO3n+XJLJrj
- BDaNPQwSLXKuAkF116r50dhEbNjzK3XHn1gPJaFbzLdeFXZAlYFXUxpr/Y7WC1SVs8U8
- 1WplG4z9SllRTxMYhpxFQJXvoPAT74m/wx2CgaedRyD3YTuDT7tmq8qmIY0R10zzLLM7
- negg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731615781; x=1732220581;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3t3j3ES+KMYiY+uHRfv46SZpfLjb2BlkXR6mS0oLpes=;
- b=Vqgh1tI+h/XFuIyl+NRSwl2XV9955t0MQ+iv2/l9Yivyq+A7MN7dfT0DTu4HiFaKGj
- 7TC4luC/0TWO83+dP9PB5kzLdk33tzsjXNnli+5nex3UVEIYa2LJJ9M7kmI0dGonAtqC
- 3+MI/wSG31Evo5LKmXO4ifCUylaeXALNA9ykX+Ru9SgsMrX5IpPlSbL7Fc/9UanXBP7e
- 9TOXEnyv7u3Z5ZDOWRoMFqHZlzRYI8Gq45AHz9yHeyteWe+t6W+a/eltXvygWj0ou7K0
- YyJKQWTrd5UVUzvaesGNtKTOMhk0vB83mOract7rUG3jNNBhd54svkc+1WB/FXrhtzRY
- Q3bQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCULVfnitz7KUMHdpyjQkCanVhjhI3KepIWf1loDzZkPlzaS6V4ioxSCiVmgM5MS2OebworqQ+3wjDfEbw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyrQXzRa76oGVGGAacG9eEe/ceCFm+8WHrDfuu+g6ib2ooQGeHm
- zWs5q0LffVsb2g4RPc6CQy1A6LfJGYAqkRJ9nsK5TnBMwUEmOc//LAj+e/VoI44=
-X-Google-Smtp-Source: AGHT+IEWrtvYg0ycOEPvYgPz1j1Z/Gs2uiPWVaIPMlwwfbfV9OSuuEkejTWFwmCY24eOW9B2M742Dg==
-X-Received: by 2002:a05:6a20:7346:b0:1db:e9f6:8dd7 with SMTP id
- adf61e73a8af0-1dc90afcb5fmr65998637.1.1731615781071; 
- Thu, 14 Nov 2024 12:23:01 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:d240:c440:31fa:1568])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72477120aa5sm39076b3a.79.2024.11.14.12.22.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Nov 2024 12:23:00 -0800 (PST)
-Date: Thu, 14 Nov 2024 13:22:57 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZzZcITZq/U9SOqnP@p14s>
-References: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
- <20241104133515.256497-5-arnaud.pouliquen@foss.st.com>
+ Fri, 15 Nov 2024 01:08:46 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AEHIXlD028167;
+ Fri, 15 Nov 2024 01:08:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zs+u/WBcKqFMpAZC4G1CWeKDGTHkGvE+KuzQ9IOGNa4=; b=AO8n7byDtsJ8Q4sT
+ GxqOuotihj59zU/q/x6YXQZvlV18829dnnUkMDFfNr3AnErl8KT9WEPhg1jo413Q
+ WJIwWaP6E70EUDSuBs5wAo13u+GsYsC2awJnya+rU4GpRh1UwR0ukt+3ZVEgXBVn
+ SS4vqwM9PDDJth/0KBVGt5xtG7BuaCpAi/EEYMafDJ5FSO7S6uLrnxCeL5cnqaQR
+ IitYhZoRG2okq2tSGKsv2GEDxzgHaLXURw8II1ctT/ehMFASq0hfrs0MsCBwtxQF
+ m3/gx4PHJ8TfQXvb8FqENtfjYwyp/7k0kFgbZqRx1QevGYnuQo7KG4nSPP8nlS33
+ TLC9SA==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42w66gvhp6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Nov 2024 01:08:26 +0000 (GMT)
+Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
+ [10.46.141.250])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4AF18P0p015188
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Nov 2024 01:08:25 GMT
+Received: from [10.111.171.131] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 14 Nov
+ 2024 17:08:20 -0800
+Message-ID: <2ac308d7-35be-463e-9838-3bbedc2a4d68@quicinc.com>
+Date: Thu, 14 Nov 2024 17:08:13 -0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241104133515.256497-5-arnaud.pouliquen@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241112-fix_qcom_ethqos_to_support_xgmac-v1-1-f0c93b27f9b2@quicinc.com>
+ <55914c2a-95d8-4c40-a3ea-dfa6b2aeb1dd@lunn.ch>
+Content-Language: en-US
+From: Sagar Cheluvegowda <quic_scheluve@quicinc.com>
+In-Reply-To: <55914c2a-95d8-4c40-a3ea-dfa6b2aeb1dd@lunn.ch>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: VpAiDIwJg0qQK9JKi3waIpj8WD7-13GN
+X-Proofpoint-ORIG-GUID: VpAiDIwJg0qQK9JKi3waIpj8WD7-13GN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=999
+ mlxscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1011 lowpriorityscore=0
+ adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2411150009
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org, Eric
+ Dumazet <edumazet@google.com>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew
+ Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v13 4/7] remoteproc: Introduce release_fw
- optional operation
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-qcom-ethqos: Enable
+	support for XGMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,79 +94,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 04, 2024 at 02:35:12PM +0100, Arnaud Pouliquen wrote:
-> This patch updates the rproc_ops struct to include an optional
-> release_fw function.
-> 
-> The release_fw ops is responsible for releasing the remote processor
-> firmware image. The ops is called in the following cases:
-> 
->  - An error occurs in rproc_start() between the loading of the segments and
->       the start of the remote processor.
->  - after stopping the remote processor.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
-> Updates from version V11:
-> - fix typo in @release_fw comment
-> ---
->  drivers/remoteproc/remoteproc_core.c | 5 +++++
->  include/linux/remoteproc.h           | 3 +++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index 7694817f25d4..46863e1ca307 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
->  
->  static void rproc_release_fw(struct rproc *rproc)
->  {
-> +	if (rproc->ops->release_fw)
-> +		rproc->ops->release_fw(rproc);
-> +
->  	/* Free the copy of the resource table */
->  	kfree(rproc->cached_table);
->  	rproc->cached_table = NULL;
-> @@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->  unprepare_subdevices:
->  	rproc_unprepare_subdevices(rproc);
->  reset_table_ptr:
-> +	if (rproc->ops->release_fw)
-> +		rproc->ops->release_fw(rproc);
 
-I always thought that looked hackish and brittle.  I am trying to find a better
-solution.
 
-Mathieu
-
->  	rproc->table_ptr = rproc->cached_table;
->  
->  	return ret;
-> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> index 2e0ddcb2d792..08e0187a84d9 100644
-> --- a/include/linux/remoteproc.h
-> +++ b/include/linux/remoteproc.h
-> @@ -381,6 +381,8 @@ enum rsc_handling_status {
->   * @panic:	optional callback to react to system panic, core will delay
->   *		panic at least the returned number of milliseconds
->   * @coredump:	  collect firmware dump after the subsystem is shutdown
-> + * @release_fw:	optional function to release the firmware image from ROM memories.
-> + *		This function is called after stopping the remote processor or in case of an error
->   */
->  struct rproc_ops {
->  	int (*prepare)(struct rproc *rproc);
-> @@ -403,6 +405,7 @@ struct rproc_ops {
->  	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
->  	unsigned long (*panic)(struct rproc *rproc);
->  	void (*coredump)(struct rproc *rproc);
-> +	void (*release_fw)(struct rproc *rproc);
->  };
->  
->  /**
-> -- 
-> 2.25.1
+On 11/13/2024 6:51 PM, Andrew Lunn wrote:
+> On Tue, Nov 12, 2024 at 06:08:10PM -0800, Sagar Cheluvegowda wrote:
+>> All Qualcomm platforms have only supported EMAC version 4 until
+>> now whereas in future we will also be supporting XGMAC version
+>> which has higher capabilities than its peer. As both has_gmac4
+>> and has_xgmac fields cannot co-exist, make sure to disable the
+>> former flag when has_xgmac  is enabled.
 > 
+> If you say they are mutually exclusive, how can it happen that both
+> are enabled?
+> 
+> To me, this feels like you are papering over a bug somewhere else.
+> 
+> 	Andrew
+
+
+We can set either has_gmac4 or has_xgmac flags by using below
+dtsi properties as well. But since Qualcomm only supported
+GMAC4 version in all of its chipsets until now, we had enabled
+has_gmac4 flag by default within dwmac_qcom_ethqos.c instead
+of adding any of the below entries in the dtsi. But this will
+create problem for us as we start supporting Xgmac version
+in the future, so we are trying to add this change so that
+our driver can support Xgmac version when "snps,dwxgmac" is 
+defined in the dtsi and we are keeping the default supported
+configuration as gmac4.
+
+
+	if (of_device_is_compatible(np, "snps,dwmac-4.00") ||
+	    of_device_is_compatible(np, "snps,dwmac-4.10a") ||
+	    of_device_is_compatible(np, "snps,dwmac-4.20a") ||
+	    of_device_is_compatible(np, "snps,dwmac-5.10a") ||
+	    of_device_is_compatible(np, "snps,dwmac-5.20")) {
+		plat->has_gmac4 = 1;
+		plat->has_gmac = 0;
+		plat->pmt = 1;
+		if (of_property_read_bool(np, "snps,tso"))
+			plat->flags |= STMMAC_FLAG_TSO_EN;
+	}
+
+
+	if (of_device_is_compatible(np, "snps,dwxgmac")) {
+		plat->has_xgmac = 1;
+		plat->pmt = 1;
+		if (of_property_read_bool(np, "snps,tso"))
+			plat->flags |= STMMAC_FLAG_TSO_EN;
+	}
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
