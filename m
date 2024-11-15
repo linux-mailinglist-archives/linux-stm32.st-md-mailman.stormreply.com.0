@@ -2,49 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1916B9CF1B6
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2024 17:39:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E13D9CF29D
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2024 18:17:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3631C78023;
-	Fri, 15 Nov 2024 16:39:52 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 955D6C6DD9E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1351BC78023;
+	Fri, 15 Nov 2024 17:17:20 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E255C6DD9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Nov 2024 16:39:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C214AA42AD1;
- Fri, 15 Nov 2024 16:37:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC12C4CECF;
- Fri, 15 Nov 2024 16:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1731688783;
- bh=iRr3qC8xf3SocAeyPSOv4BEKnzUJ3YHOuClfGqNnj3o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AP/GnWwjAUJLjLFoxgVufPIRcVQsuuCixNyxHBMNXq00d0lDhi+r0CB0ZJyC99XZi
- sglwDivb/koS7axFD0SOzdC8byWidw6FjVRON36PCqYXjefKXEypjAo1Ut5Tw3b3t1
- 21q5Vn5Rb9IiF+fSp1XkK4qrm1FqkLpuidYcI+JgbOwnIrm9OxK7PxNJCVNfp07vdN
- 0+g/2/cgwY+a8Dck3dFLWhcc4o3yUAGyz9kkLlXx1e/UELEajk5UaqMar2+KG8ZSUy
- eSKBCwOH2KxJ5A9fhdO0qtf9YW0ajNRR2cBP/vRBSJJyeZwvEaU8jtIcQQz8vSIV6o
- 48KUb5iGtj3gg==
-Date: Fri, 15 Nov 2024 10:39:41 -0600
-From: Rob Herring <robh@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20241115163941.GA3324312-robh@kernel.org>
-References: <20241112161925.999196-1-christian.bruel@foss.st.com>
- <20241112161925.999196-4-christian.bruel@foss.st.com>
+ Fri, 15 Nov 2024 17:17:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1731691032;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WNINNbdA0F6hP6eHCYu5y4eAOKcxmjVgS1A+60t/9YU=;
+ b=ZxrymZ8FHrcZbdfPiw7mDqS58bk2+NjctsEAcu53vllQbaeF7ANlGb7abWXlt//zO2vKZQ
+ d5XG3GK1UbJwUWOsfNIkqItdnh4Ix6LP9z4c9r6HEhxS4dBtXpfXfNIXl992nKBn6BLatp
+ 4wJ/VVDI5/Uj9fiQkg5/vRlsBf70WXQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-332-vtJYfmoPNouSQ5o2ZII0uw-1; Fri, 15 Nov 2024 12:17:10 -0500
+X-MC-Unique: vtJYfmoPNouSQ5o2ZII0uw-1
+X-Mimecast-MFC-AGG-ID: vtJYfmoPNouSQ5o2ZII0uw
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-37d59ad50f3so982726f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 15 Nov 2024 09:17:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731691029; x=1732295829;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=WNINNbdA0F6hP6eHCYu5y4eAOKcxmjVgS1A+60t/9YU=;
+ b=YA1ynS+4FBCylY+bNRr5SqMesbqGTzFbWv5npSvlCcIcZKJHPMaWdk46ehyalX3QZT
+ iOkJvgesfrwB+2KXLKSqYxfyob2mkIFl+IHBzMPwQNnD2fnbDfqZpvJG1JHdmRx0JMPH
+ DaKOf34Z8i7iIVyWKzloZF7iKYRyLmniB0pXjSCGGnCSbk95NDCD4icrMaYkf2pCoUV6
+ wb8Jl4H9hZCvb6tI1/BpbLAfxaX8bfYdCJOiPnmW5tdTqOV1ThLNoMC7I/s4GnUOxXow
+ qBmcG5hgzz4Ck++OfSDPt+X2vHsNo+7GqQjxNlPe5Sbk/m9Cq3TT68dG/+u/NnR3e+ms
+ t6ug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUSYPO/kW1Az2TGX08X+aypt+UXuZcRfFDYCjjTDEVT/wVWZFsRn0sz1YXjGuTPSmuf3cWCeAE0tx8pBQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwrVUemCV6oZfMQBzVSkAah8Y12Z/8dNz+wc4VenrVip4xSzKfq
+ t+lrWF6K2rokojjT3iz2gVDKPdN+5qr/R1hyU4aOMo1Ei4GhF6iKfC+VEb7PW/8Z20nSQ9DgK3t
+ 4E8pMfvZtsuYYHpgcQ2ukSVWBIuqbkTPzFRQZH4RO22+h7DmvVv8ihnjSfU0P7pu3Zh/ooqK0/w
+ V4tw==
+X-Received: by 2002:a05:6000:1541:b0:382:2976:c26c with SMTP id
+ ffacd0b85a97d-3822976c427mr1615838f8f.31.1731691029633; 
+ Fri, 15 Nov 2024 09:17:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHqsGWeYmupRnbdYRzMnGla3oGhpbGMYhra1dRBEvJ2Cnd/70uqsVI1qXDSJV35YPP52UmDlQ==
+X-Received: by 2002:a05:6000:1541:b0:382:2976:c26c with SMTP id
+ ffacd0b85a97d-3822976c427mr1615812f8f.31.1731691029280; 
+ Fri, 15 Nov 2024 09:17:09 -0800 (PST)
+Received: from [192.168.88.24] (146-241-44-112.dyn.eolo.it. [146.241.44.112])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3821ada2a8bsm4868047f8f.17.2024.11.15.09.17.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Nov 2024 09:17:08 -0800 (PST)
+Message-ID: <ed2ec1c2-65c7-4768-99f1-987e5fa39a54@redhat.com>
+Date: Fri, 15 Nov 2024 18:17:07 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241112161925.999196-4-christian.bruel@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- linux-kernel@vger.kernel.org, cassel@kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
- bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] dt-bindings: PCI: Add STM32MP25 PCIe
- endpoint bindings
+User-Agent: Mozilla Thunderbird
+To: Parker Newman <parker@finest.io>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1731685185.git.pnewman@connecttech.com>
+ <f2a14edb5761d372ec939ccbea4fb8dfd1fdab91.1731685185.git.pnewman@connecttech.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <f2a14edb5761d372ec939ccbea4fb8dfd1fdab91.1731685185.git.pnewman@connecttech.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 3bcBL6-TeKo6W0MpwHyFYbnWQWQE_XS7J4Yjgk9g3-k_1731691030
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: Parker Newman <pnewman@connecttech.com>
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] net: stmmac: dwmac-tegra: Read
+ iommu stream id from device tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,129 +103,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 12, 2024 at 05:19:23PM +0100, Christian Bruel wrote:
-> STM32MP25 PCIe Controller is based on the DesignWare core configured as
-> end point mode from the SYSCFG register.
+On 11/15/24 17:31, Parker Newman wrote:
+> From: Parker Newman <pnewman@connecttech.com>
 > 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> ---
->  .../bindings/pci/st,stm32-pcie-ep.yaml        | 97 +++++++++++++++++++
->  1 file changed, 97 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
+> Read the iommu stream id from device tree rather than hard coding to mgbe0.
+> Fixes kernel panics when using mgbe controllers other than mgbe0.
+
+It's better to include the full Oops backtrace, possibly decoded.
+
+> Tested with Orin AGX 64GB module on Connect Tech Forge carrier board.
+
+Since this looks like a fix, you should include a suitable 'Fixes' tag
+here, and specify the 'net' target tree in the subj prefix.
+
+> @@ -241,6 +243,12 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+>  	if (IS_ERR(mgbe->xpcs))
+>  		return PTR_ERR(mgbe->xpcs);
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
-> new file mode 100644
-> index 000000000000..f0d215982794
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
-> @@ -0,0 +1,97 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32MP25 PCIe endpoint driver
-> +
-> +maintainers:
-> +  - Christian Bruel <christian.bruel@foss.st.com>
-> +
-> +description:
-> +  PCIe endpoint controller based on the Synopsys DesignWare PCIe core.
-> +
-> +allOf:
-> +  - $ref: /schemas/pci/snps,dw-pcie-common.yaml#
+> +	/* get controller's stream id from iommu property in device tree */
+> +	if (!tegra_dev_iommu_get_stream_id(mgbe->dev, &mgbe->iommu_sid)) {
+> +		dev_err(mgbe->dev, "failed to get iommu stream id\n");
+> +		return -EINVAL;
+> +	}
 
-snps,dw-pcie-ep.yaml
+I *think* it would be better to fallback (possibly with a warning or
+notice) to the previous default value when the device tree property is
+not available, to avoid regressions.
 
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32mp25-pcie-ep
-> +
-> +  reg:
-> +    items:
-> +      - description: Data Bus Interface (DBI) registers.
-> +      - description: PCIe configuration registers.
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dbi
-> +      - const: addr_space
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: PCIe system clock
-> +
-> +  clock-names:
-> +    const: core
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  reset-names:
-> +    const: core
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  phy-names:
-> +    const: pcie-phy
-> +
-> +  reset-gpios:
-> +    description: GPIO controlled connection to PERST# signal
-> +    maxItems: 1
-> +
-> +  access-controllers:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
+Thanks,
 
-All these properties common between RC and EP modes should be in 
-a shared schema.
+Paolo
 
-> +
-> +required:
-> +  - resets
-> +  - reset-names
-> +  - clocks
-> +  - clock-names
-> +  - phys
-> +  - phy-names
-> +  - reset-gpios
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/phy/phy.h>
-> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> +
-> +    pcie-ep@48400000 {
-> +        compatible = "st,stm32mp25-pcie-ep";
-> +        num-lanes = <1>;
-> +        reg = <0x48400000 0x400000>,
-> +              <0x10000000 0x8000000>;
-> +        reg-names = "dbi", "addr_space";
-> +        clocks = <&rcc CK_BUS_PCIE>;
-> +        clock-names = "core";
-> +        phys = <&combophy PHY_TYPE_PCIE>;
-> +        phy-names = "pcie-phy";
-> +        resets = <&rcc PCIE_R>;
-> +        reset-names = "core";
-> +        pinctrl-names = "default", "init";
-> +        pinctrl-0 = <&pcie_pins_a>;
-> +        pinctrl-1 = <&pcie_init_pins_a>;
-> +        reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-> +        power-domains = <&CLUSTER_PD>;
-> +        access-controllers = <&rifsc 68>;
-> +    };
-> -- 
-> 2.34.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
