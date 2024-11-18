@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CDA99D122B
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Nov 2024 14:40:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B18B9D1229
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Nov 2024 14:40:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63E29C78F84;
-	Mon, 18 Nov 2024 13:40:13 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BFC5C78F83;
+	Mon, 18 Nov 2024 13:40:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8CB0C78F7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79006C78F7C
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 18 Nov 2024 13:40:11 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AIBUIsZ010521;
- Mon, 18 Nov 2024 14:39:53 +0100
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AID5lPf003253;
+ Mon, 18 Nov 2024 14:39:52 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- VXDDwUFZyaE/RsM7y+LjqGPAbZCI0j8Q6ZVfXNBJ3xs=; b=0jSLLrLH76MZWCQf
- 4R4UlggCkN7lTg800E5B4mO6wX8eAYEClZJR5gEsqYzbTgAF3wzMVbu/zBMoGLkB
- keies0quVzK1vI6zqkEJ8qsRZ2P9OrY5CzSfMV2mOoxrBJIqh8Wv27K1ineOzTD2
- NyswxktFSI8hc45PQl4WvosWh/XjdelGfXhoaMhm4pjQjVrhz0mLCIzSJ56M0f7M
- rFe/eVmESrH5IekAdvKNksmVA16ffXOd2JiKbFG6/e3sBkl77bC4wmVdrcD1tQJk
- oEB0QJ7Bml090fqMSWS+dsRxYbHDxPPloBuCT202+Dzwe9Av8Xy06JX+ORMKm+uv
- sBwHRg==
+ UMjisKeEpQSwI1Wvbjb6PN1AjDm43YkTXsgIuNYi82g=; b=CpJJSK4GczB4Whmm
+ EyhcTzi7W6Q17/ykcRA3pLJvvAsd+/gT8Oe4Rwc9tQrRRaz4f6iTK4GzVjvxVzdM
+ anriOsTirrOisSTXQbJU/+n2xcmCyqpBcrm5wHBbdv9UrhgqxXYvolygRtWz3U+V
+ VFAKPEchRP/WeTEOVNUk7UiZL5rLu9kGFVLVfjh4ae2Gz9LFdLsUAPOCr+kt5Uay
+ jP7vkCYLf1n7rcdNINyeWRo4L5t+bVqTCAKukkhAP+ZiwmC9BHVRKeKSWwwReZoj
+ OZt3fe98OIcGp3WYKfkcYpPMQUTR8FL/C4aG7F9eF6YRz55YdoAm++On+neWTr3P
+ wtF1Yg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42y77n504t-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xknvyh8y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 18 Nov 2024 14:39:52 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7225C40061;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8629C40063;
  Mon, 18 Nov 2024 14:38:33 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6135C275655;
- Mon, 18 Nov 2024 14:35:32 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 01D16275656;
+ Mon, 18 Nov 2024 14:35:33 +0100 (CET)
 Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 18 Nov
  2024 14:35:32 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Mon, 18 Nov 2024 14:35:33 +0100
+Date: Mon, 18 Nov 2024 14:35:34 +0100
 MIME-Version: 1.0
-Message-ID: <20241118-csi_dcmipp_mp25-v3-10-c1914afb0a0f@foss.st.com>
+Message-ID: <20241118-csi_dcmipp_mp25-v3-11-c1914afb0a0f@foss.st.com>
 References: <20241118-csi_dcmipp_mp25-v3-0-c1914afb0a0f@foss.st.com>
 In-Reply-To: <20241118-csi_dcmipp_mp25-v3-0-c1914afb0a0f@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
@@ -63,8 +63,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 10/15] media: stm32: dcmipp: avoid
- duplicated format on enum in bytecap
+Subject: [Linux-stm32] [PATCH v3 11/15] media: stm32: dcmipp: fill media ctl
+ hw_revision field
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,77 +81,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoid duplication of enumerated pixelformat on the bytecap
-video capture device.  Indeed, since the bytecap format list
-contains both CSI & parallel 16bits formats, ensure that same
-pixelformat are not reported twice when performing enumeration
-of supported formats.
+Add hw_revision field information of the media controller so that
+application can distinguish between variants of DCMIPP implementations.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c         | 42 +++++++++++-----------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+ drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
-index 99732d19dc4d5f4692588118eadb236d4ed9c8a1..8f5f69a3afc413b49d82303cd4d98da15f62e34d 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
-@@ -268,34 +268,34 @@ static int dcmipp_bytecap_enum_fmt_vid_cap(struct file *file, void *priv,
- {
- 	const struct dcmipp_bytecap_pix_map *vpix;
- 	unsigned int index = f->index;
--	unsigned int i;
-+	unsigned int i, prev_pixelformat = 0;
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index 50b9b964fbc4674b870189736a49f1d6a02b2503..d2cc19bb40d77f67a1f5fe565bc62f45eff2d266 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -87,6 +87,7 @@ struct dcmipp_pipeline_config {
+ 	size_t num_ents;
+ 	const struct dcmipp_ent_link *links;
+ 	size_t num_links;
++	u32 hw_revision;
+ };
  
--	if (f->mbus_code) {
--		/*
--		 * If a media bus code is specified, only enumerate formats
--		 * compatible with it.
--		 */
--		for (i = 0; i < ARRAY_SIZE(dcmipp_bytecap_pix_map_list); i++) {
--			vpix = &dcmipp_bytecap_pix_map_list[i];
--			if (vpix->code != f->mbus_code)
--				continue;
-+	/*
-+	 * List up all formats (or only ones matching f->mbus_code), taking
-+	 * care of removing duplicated entries (due to support of both
-+	 * parallel & csi 16 bits formats
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(dcmipp_bytecap_pix_map_list); i++) {
-+		vpix = &dcmipp_bytecap_pix_map_list[i];
-+		/* Skip formats not matching requested mbus code */
-+		if (f->mbus_code && vpix->code != f->mbus_code)
-+			continue;
+ /* --------------------------------------------------------------------------
+@@ -122,11 +123,13 @@ static const struct dcmipp_ent_link stm32mp13_ent_links[] = {
+ 			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
+ };
  
--			if (index == 0)
--				break;
-+		/* Skip duplicated pixelformat */
-+		if (vpix->pixelformat == prev_pixelformat)
-+			continue;
++#define DCMIPP_STM32MP13_VERR	0x10
+ static const struct dcmipp_pipeline_config stm32mp13_pipe_cfg = {
+ 	.ents		= stm32mp13_ent_config,
+ 	.num_ents	= ARRAY_SIZE(stm32mp13_ent_config),
+ 	.links		= stm32mp13_ent_links,
+-	.num_links	= ARRAY_SIZE(stm32mp13_ent_links)
++	.num_links	= ARRAY_SIZE(stm32mp13_ent_links),
++	.hw_revision	= DCMIPP_STM32MP13_VERR
+ };
  
--			index--;
--		}
-+		prev_pixelformat = vpix->pixelformat;
+ #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
+@@ -496,6 +499,7 @@ static int dcmipp_probe(struct platform_device *pdev)
+ 	/* Initialize media device */
+ 	strscpy(dcmipp->mdev.model, DCMIPP_MDEV_MODEL_NAME,
+ 		sizeof(dcmipp->mdev.model));
++	dcmipp->mdev.hw_revision = pipe_cfg->hw_revision;
+ 	dcmipp->mdev.dev = &pdev->dev;
+ 	media_device_init(&dcmipp->mdev);
  
--		if (i == ARRAY_SIZE(dcmipp_bytecap_pix_map_list))
--			return -EINVAL;
--	} else {
--		/* Otherwise, enumerate all formats. */
--		if (f->index >= ARRAY_SIZE(dcmipp_bytecap_pix_map_list))
--			return -EINVAL;
-+		if (index == 0)
-+			break;
- 
--		vpix = &dcmipp_bytecap_pix_map_list[f->index];
-+		index--;
- 	}
- 
-+	if (i == ARRAY_SIZE(dcmipp_bytecap_pix_map_list))
-+		return -EINVAL;
-+
- 	f->pixelformat = vpix->pixelformat;
- 
- 	return 0;
 
 -- 
 2.25.1
