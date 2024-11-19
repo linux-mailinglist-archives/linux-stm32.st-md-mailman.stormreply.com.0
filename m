@@ -2,76 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771F79D2135
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 09:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64FF19D216C
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 09:17:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CCC7C78F95;
-	Tue, 19 Nov 2024 08:04:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E77C78F97;
+	Tue, 19 Nov 2024 08:17:18 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B41FC78F93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0391C78F96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 08:04:29 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AJ7lLJM013174;
- Tue, 19 Nov 2024 09:04:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 1cbqgsZsZzYjG6c8Z7Y+xn7QVPEktoe77SFvmP4EZP4=; b=oY1IGhx6wbhHg/Xx
- 3q7UfFhVqrLsldqkchqS0xGna7I4z4XsLiKeSrHPeT/xA4F5zU1hUnswk0Xr8G+r
- SQy2fKlYhUaCTWgtwdmiaWBhuAuT+tZyYdYpRvXauOiiyYIEtftlzEblWe/siibQ
- R4PCSN78bEZEapuiFX0HbPfgKoW4GV7JYMl+mrc/4dkhr2RQdKcmEKmraK8iY5fQ
- miK+hjkDQmB9+Mu+urYT0g+GMKZYxPDGuF7YhWL8xu1SUArXO/EppnTqxhf71lqQ
- D5IaXtLsozmqhR/6rmuK/034bOIR0ZzRIOMzrzBxSNZh8K+jSJLdwgRZQXH+x4tN
- BTRevQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xknw2xyn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Nov 2024 09:04:15 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A763A4002D;
- Tue, 19 Nov 2024 09:03:05 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 655ED251A69;
- Tue, 19 Nov 2024 09:02:18 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 19 Nov
- 2024 09:02:18 +0100
-Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 19 Nov
- 2024 09:02:17 +0100
-Message-ID: <be493536-aedd-4253-ad42-21821d080f41@foss.st.com>
-Date: Tue, 19 Nov 2024 09:02:16 +0100
+ Tue, 19 Nov 2024 08:17:10 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-3823eaad37aso1529556f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Nov 2024 00:17:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1732004230; x=1732609030;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rfRPeJv9b+5MklHMVSrCiVgH+hmaDNicfWnfjxpRi08=;
+ b=VYViu4NW7Pkfxzbr8khDIhjKenXSqdYoeEVxVDaq+Niac3fkHmIEHRSL4NmASyQ6Ut
+ BcAUp2llLlHTyqyhnd0fkbIFKhRNbRvvenVs0hmkLO2+YILI7lc555w7qP98dqV23xvy
+ /vp76uhIYghYQPh5UtgACu0LFSsH/vZMclyGPtOqDTWIz5yI69cW+X3DedeTU5eQF3Hj
+ JAQzHHFCODnvP73ZxhS/jRMl38BN9aOjFWc45Pyv8MkQJQtyBwfH85CT8X8khfEHxXho
+ 9ysr9NNixaeaKJrNtmnsbFxhVPWtVZSczx2sbmUeKXig93pbBEnvf2tHhNim+qDWvpLm
+ Ao8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732004230; x=1732609030;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rfRPeJv9b+5MklHMVSrCiVgH+hmaDNicfWnfjxpRi08=;
+ b=xGq6Fd3K0y+Z9Dul6nNtC3cSnPCa86pu9HvxTHU9o1ifAoKRXBXMSniqL77mmLoh/d
+ wQzMb3B6btqB3zUEmzKA2X8QaoKCdbZEtxpDidnkWbXmvXWAt6Vg5D70J4Q4PzfHMq5K
+ QcFtrdtajjcFAqyRGm3ykzkWpr/2F7W93DaEZVvc2yE+aXqLh7ZOTxQaS4AP+2UAhynU
+ nzsSrIwLHkBZKAIPY617i45i4BLvhx3jmVhJasUrRaZffNC9FXYm5hpaLXNeC6hnsSYn
+ v1XqVq7INXbNfKHXnFgXVb6nSdo3fcUol8a96Ke8Z3Hg+VsR6Z6EYUM3T74lK4zvLvJd
+ qwHg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX5PWs89wrxmPsRynmxG7u9+/reFvJ2QhcXXN30I9PZSAwYlJbk280gP1U7L+A3bIfwTdMBgQ4fopTq7g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy6dFLi6CCXvR4at+T0w9404BJgELxbQ74vIyBy6mffLqjwD7k7
+ qU2PJvBqOV5jh8gEIWXXwSrest6PNE1d8vnKCQ++MbXuMGmeFWBmPQ3l3ZOPT8I=
+X-Google-Smtp-Source: AGHT+IE8UC5xo/EXauIpi30O/6QpEs3dvAFOyd1qOQ9SCqrRP4JGzhvWxQ0rNGF/bwnRQGTw1YZ6JQ==
+X-Received: by 2002:a5d:6d82:0:b0:382:484d:45da with SMTP id
+ ffacd0b85a97d-3824cb30e81mr1673211f8f.6.1732004228585; 
+ Tue, 19 Nov 2024 00:17:08 -0800 (PST)
+Received: from localhost ([2a02:8071:b783:6940:9b70:ed4b:d274:54e5])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38244220183sm6495288f8f.99.2024.11.19.00.17.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Nov 2024 00:17:08 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Tue, 19 Nov 2024 09:16:51 +0100
+Message-ID: <6f0297ba884c670d604232c2861347940082c8e6.1732004078.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
- <20241104133515.256497-5-arnaud.pouliquen@foss.st.com>
- <Zzt+7NBdNjyzWZIb@p14s>
-Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <Zzt+7NBdNjyzWZIb@p14s>
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v13 4/7] remoteproc: Introduce release_fw
- optional operation
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7380;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=BnCPo5Jv3ffjYxxYM7XQApvz+ShJZ5fwcjW9lNQ732I=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBnPEl0l82yWH4cD9PUDIPfKIE/RnbW2FKHwIBNo
+ NRXP1KykqyJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZzxJdAAKCRCPgPtYfRL+
+ ToaTCACO97vvz1RQ3OfeVhaCoF9jIByuwurbxrlo/e4TXGjXh2MD85LTlsW7X/pdlEpXrP7LStP
+ rubeC1o9FEsFEJDpzNVhMoNb2mBLHniaqeivaaIITO1C7iOgf/7l6bUdNF6szQsgsyIOa7eK+h4
+ 6Evgz1M3LBYLhtZcwyCg8pysblUX/f+7Bpgdzo1ijgQjhinFHE0K8ep6xD7n3F0gZTUEt/9QWEa
+ fgoFuQD5sY05UOOOvRjFNRAkpP+8qV6HYJ8eSFoFVoVvAsSuYcnfHR1oaeC82Zdgm4c4nHE4sye
+ cAgefJza5W4P8GCaVvE9A7L2tHfGs7DQoQm1AUVXBMxOcDDU
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Cc: imx@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-sunxi@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH] mailbox: Switch back to struct
+	platform_driver::remove()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,115 +100,138 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hello Mathieu,
-
-On 11/18/24 18:52, Mathieu Poirier wrote:
-> On Mon, Nov 04, 2024 at 02:35:12PM +0100, Arnaud Pouliquen wrote:
->> This patch updates the rproc_ops struct to include an optional
->> release_fw function.
->>
->> The release_fw ops is responsible for releasing the remote processor
->> firmware image. The ops is called in the following cases:
->>
->>  - An error occurs in rproc_start() between the loading of the segments and
->>       the start of the remote processor.
->>  - after stopping the remote processor.
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->> Updates from version V11:
->> - fix typo in @release_fw comment
->> ---
->>  drivers/remoteproc/remoteproc_core.c | 5 +++++
->>  include/linux/remoteproc.h           | 3 +++
->>  2 files changed, 8 insertions(+)
->>
->> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->> index 7694817f25d4..46863e1ca307 100644
->> --- a/drivers/remoteproc/remoteproc_core.c
->> +++ b/drivers/remoteproc/remoteproc_core.c
->> @@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
->>  
->>  static void rproc_release_fw(struct rproc *rproc)
->>  {
->> +	if (rproc->ops->release_fw)
->> +		rproc->ops->release_fw(rproc);
->> +
->>  	/* Free the copy of the resource table */
->>  	kfree(rproc->cached_table);
->>  	rproc->cached_table = NULL;
->> @@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->>  unprepare_subdevices:
->>  	rproc_unprepare_subdevices(rproc);
->>  reset_table_ptr:
->> +	if (rproc->ops->release_fw)
->> +		rproc->ops->release_fw(rproc);
->>  	rproc->table_ptr = rproc->cached_table;
-> 
-> I suggest the following:
-> 
-> 1) Create two new functions, i.e rproc_load_fw() and rproc_release_fw().  The
-> only thing those would do is call rproc->ops->load_fw() and
-> rproc->ops->release_fw(), if they are present.  When a TEE interface is
-> available, ->load_fw() and ->release_fw() become rproc_tee_load_fw() and
-> rproc_tee_release_fw().
-> 
-> 2) Call rproc_load_fw() in rproc_boot(), just before rproc_fw_boot().  If the
-> call to rproc_fw_boot() fails, call rproc_release_fw().
-> 
-> 3) The same logic applies to rproc_boot_recovery(), i.e call rproc_load_fw()
-> before rproc_start() and call rproc_release_fw() if rproc_start() fails.
-> 
-> 4) Take rproc_tee_load_fw() out of rproc_tee_parse_fw().  It will now be called
-> in rproc_load_fw().
-> 
-> 5) As stated above function rproc_release_fw() now calls rproc_tee_release_fw().
-> The former is already called in rproc_shutdown() so we are good in that front.
-> 
-> With the above the cached_table management within the core remains the same and
-> we can get rid of patch 3.7.
-
-Thanks for your suggestion! I will try this in next revision.
-
-Regards,
-Arnaud
-
-> 
-> Thanks,
-> Mathieu
-> 
->>  
->>  	return ret;
->> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
->> index 2e0ddcb2d792..08e0187a84d9 100644
->> --- a/include/linux/remoteproc.h
->> +++ b/include/linux/remoteproc.h
->> @@ -381,6 +381,8 @@ enum rsc_handling_status {
->>   * @panic:	optional callback to react to system panic, core will delay
->>   *		panic at least the returned number of milliseconds
->>   * @coredump:	  collect firmware dump after the subsystem is shutdown
->> + * @release_fw:	optional function to release the firmware image from ROM memories.
->> + *		This function is called after stopping the remote processor or in case of an error
->>   */
->>  struct rproc_ops {
->>  	int (*prepare)(struct rproc *rproc);
->> @@ -403,6 +405,7 @@ struct rproc_ops {
->>  	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
->>  	unsigned long (*panic)(struct rproc *rproc);
->>  	void (*coredump)(struct rproc *rproc);
->> +	void (*release_fw)(struct rproc *rproc);
->>  };
->>  
->>  /**
->> -- 
->> 2.25.1
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+QWZ0ZXIgY29tbWl0IDBlZGI1NTVhNjVkMSAoInBsYXRmb3JtOiBNYWtlIHBsYXRmb3JtX2RyaXZl
+cjo6cmVtb3ZlKCkKcmV0dXJuIHZvaWQiKSAucmVtb3ZlKCkgaXMgKGFnYWluKSB0aGUgcmlnaHQg
+Y2FsbGJhY2sgdG8gaW1wbGVtZW50IGZvcgpwbGF0Zm9ybSBkcml2ZXJzLgoKQ29udmVydCBhbGwg
+cGxhdGZvcm0gZHJpdmVycyBiZWxvdyBkcml2ZXJzL21haWxib3ggdG8gdXNlIC5yZW1vdmUoKSwK
+d2l0aCB0aGUgZXZlbnR1YWwgZ29hbCB0byBkcm9wIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXI6OnJl
+bW92ZV9uZXcoKS4gQXMKLnJlbW92ZSgpIGFuZCAucmVtb3ZlX25ldygpIGhhdmUgdGhlIHNhbWUg
+cHJvdG90eXBlcywgY29udmVyc2lvbiBpcyBkb25lCmJ5IGp1c3QgY2hhbmdpbmcgdGhlIHN0cnVj
+dHVyZSBtZW1iZXIgbmFtZSBpbiB0aGUgZHJpdmVyIGluaXRpYWxpemVyLgoKTWFrZSBhIGZldyBp
+bmRlbnRpb25zIGNvbnNpc3RlbnQgd2hpbGUgdG91Y2hpbmcgdGhlc2Ugc3RydWN0CmluaXRpYWxp
+emVycy4KClNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdA
+YmF5bGlicmUuY29tPgotLS0KSGVsbG8sCgpJIGRpZCBhIHNpbmdsZSBwYXRjaCBmb3IgYWxsIG9m
+IGRyaXZlcnMvbWFpbGJveC4gV2hpbGUgSSB1c3VhbGx5IHByZWZlcgp0byBkbyBvbmUgbG9naWNh
+bCBjaGFuZ2UgcGVyIHBhdGNoLCB0aGlzIHNlZW1zIHRvIGJlIG92ZXJlbmdpbmVlcmluZwpoZXJl
+IGFzIHRoZSBpbmRpdmlkdWFsIGNoYW5nZXMgYXJlIHJlYWxseSB0cml2aWFsIGFuZCBzaG91bGRu
+J3QgYmUgbXVjaAppbiB0aGUgd2F5IGZvciBzdGFibGUgYmFja3BvcnRzLiBCdXQgSSdsbCBoYXBw
+aWx5IHNwbGl0IHRoZSBwYXRjaCBpZiB5b3UKcHJlZmVyIGl0IHNwbGl0LgoKVGhpcyBpcyBiYXNl
+ZCBvbiB0b2RheSdzIG5leHQsIGlmIGNvbmZsaWN0cyBhcmlzZSB3aGVuIHlvdSBhcHBseSBpdCBh
+dApzb21lIGxhdGVyIHRpbWUgYW5kIGRvbid0IHdhbnQgdG8gcmVzb2x2ZSB0aGVtLCBmZWVsIGZy
+ZWUgdG8ganVzdCBkcm9wCnRoZSBjaGFuZ2VzIHRvIHRoZSBjb25mbGljdGluZyBmaWxlcy4gSSds
+bCBub3RpY2UgYW5kIGZvbGxvd3VwIGF0IGEKbGF0ZXIgdGltZSB0aGVuLiBPciBhc2sgbWUgZm9y
+IGEgZml4ZWQgcmVzZW5kLgoKQmVzdCByZWdhcmRzClV3ZQoKIGRyaXZlcnMvbWFpbGJveC9iY20t
+ZmxleHJtLW1haWxib3guYyAgICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9iY20tcGRjLW1haWxi
+b3guYyAgICAgICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9pbXgtbWFpbGJveC5jICAgICAgICAg
+ICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9tYWlsYm94LXRlc3QuYyAgICAgICAgICB8IDQgKyst
+LQogZHJpdmVycy9tYWlsYm94L210ay1jbWRxLW1haWxib3guYyAgICAgIHwgMiArLQogZHJpdmVy
+cy9tYWlsYm94L3Fjb20tYXBjcy1pcGMtbWFpbGJveC5jIHwgMiArLQogZHJpdmVycy9tYWlsYm94
+L3Fjb20taXBjYy5jICAgICAgICAgICAgIHwgMiArLQogZHJpdmVycy9tYWlsYm94L3N0bTMyLWlw
+Y2MuYyAgICAgICAgICAgIHwgMiArLQogZHJpdmVycy9tYWlsYm94L3N1bjZpLW1zZ2JveC5jICAg
+ICAgICAgIHwgNCArKy0tCiBkcml2ZXJzL21haWxib3gvdGVncmEtaHNwLmMgICAgICAgICAgICAg
+fCAyICstCiBkcml2ZXJzL21haWxib3gvenlucW1wLWlwaS1tYWlsYm94LmMgICAgfCAyICstCiAx
+MSBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL21haWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMgYi9kcml2ZXJzL21h
+aWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMKaW5kZXggYjFhYmMyYTBjOTcxLi40MWY3OWU1MWQ5
+ZTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJveC9iY20tZmxleHJtLW1haWxib3guYworKysg
+Yi9kcml2ZXJzL21haWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMKQEAgLTE2NzUsNyArMTY3NSw3
+IEBAIHN0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIGZsZXhybV9tYm94X2RyaXZlciA9IHsK
+IAkJLm9mX21hdGNoX3RhYmxlID0gZmxleHJtX21ib3hfb2ZfbWF0Y2gsCiAJfSwKIAkucHJvYmUJ
+CT0gZmxleHJtX21ib3hfcHJvYmUsCi0JLnJlbW92ZV9uZXcJPSBmbGV4cm1fbWJveF9yZW1vdmUs
+CisJLnJlbW92ZQkJPSBmbGV4cm1fbWJveF9yZW1vdmUsCiB9OwogbW9kdWxlX3BsYXRmb3JtX2Ry
+aXZlcihmbGV4cm1fbWJveF9kcml2ZXIpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxib3gv
+YmNtLXBkYy1tYWlsYm94LmMgYi9kcml2ZXJzL21haWxib3gvYmNtLXBkYy1tYWlsYm94LmMKaW5k
+ZXggYTg3MzY3MmE5MDgyLi40MDZiYzQxY2JhNjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJv
+eC9iY20tcGRjLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvYmNtLXBkYy1tYWlsYm94
+LmMKQEAgLTE2MTgsNyArMTYxOCw3IEBAIHN0YXRpYyB2b2lkIHBkY19yZW1vdmUoc3RydWN0IHBs
+YXRmb3JtX2RldmljZSAqcGRldikKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcGRj
+X21ib3hfZHJpdmVyID0gewogCS5wcm9iZSA9IHBkY19wcm9iZSwKLQkucmVtb3ZlX25ldyA9IHBk
+Y19yZW1vdmUsCisJLnJlbW92ZSA9IHBkY19yZW1vdmUsCiAJLmRyaXZlciA9IHsKIAkJICAgLm5h
+bWUgPSAiYnJjbS1pcHJvYy1wZGMtbWJveCIsCiAJCSAgIC5vZl9tYXRjaF90YWJsZSA9IHBkY19t
+Ym94X29mX21hdGNoLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMg
+Yi9kcml2ZXJzL21haWxib3gvaW14LW1haWxib3guYwppbmRleCBmODE1ZGFiM2JlNTAuLjk4ODll
+NGQwZDlkYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMKKysrIGIv
+ZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMKQEAgLTExMjAsNyArMTEyMCw3IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBpbXhfbXVfcG1fb3BzID0gewogCiBzdGF0aWMgc3Ry
+dWN0IHBsYXRmb3JtX2RyaXZlciBpbXhfbXVfZHJpdmVyID0gewogCS5wcm9iZQkJPSBpbXhfbXVf
+cHJvYmUsCi0JLnJlbW92ZV9uZXcJPSBpbXhfbXVfcmVtb3ZlLAorCS5yZW1vdmUJCT0gaW14X211
+X3JlbW92ZSwKIAkuZHJpdmVyID0gewogCQkubmFtZQk9ICJpbXhfbXUiLAogCQkub2ZfbWF0Y2hf
+dGFibGUgPSBpbXhfbXVfZHRfaWRzLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L21haWxi
+b3gtdGVzdC5jIGIvZHJpdmVycy9tYWlsYm94L21haWxib3gtdGVzdC5jCmluZGV4IDMzODZiNGU3
+MjU1MS4uYzlkZDhjNDJjMGNkIDEwMDY0NAotLS0gYS9kcml2ZXJzL21haWxib3gvbWFpbGJveC10
+ZXN0LmMKKysrIGIvZHJpdmVycy9tYWlsYm94L21haWxib3gtdGVzdC5jCkBAIC00NDEsOCArNDQx
+LDggQEAgc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgbWJveF90ZXN0X2RyaXZlciA9IHsK
+IAkJLm5hbWUgPSAibWFpbGJveF90ZXN0IiwKIAkJLm9mX21hdGNoX3RhYmxlID0gbWJveF90ZXN0
+X21hdGNoLAogCX0sCi0JLnByb2JlICA9IG1ib3hfdGVzdF9wcm9iZSwKLQkucmVtb3ZlX25ldyA9
+IG1ib3hfdGVzdF9yZW1vdmUsCisJLnByb2JlID0gbWJveF90ZXN0X3Byb2JlLAorCS5yZW1vdmUg
+PSBtYm94X3Rlc3RfcmVtb3ZlLAogfTsKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIobWJveF90ZXN0
+X2RyaXZlcik7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9tdGstY21kcS1tYWlsYm94
+LmMgYi9kcml2ZXJzL21haWxib3gvbXRrLWNtZHEtbWFpbGJveC5jCmluZGV4IDRiZmY3MzUzMjA4
+NS4uYmFjNWI4ZWFhNjY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL21haWxib3gvbXRrLWNtZHEtbWFp
+bGJveC5jCisrKyBiL2RyaXZlcnMvbWFpbGJveC9tdGstY21kcS1tYWlsYm94LmMKQEAgLTc5Niw3
+ICs3OTYsNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBjbWRxX29mX2lkcyk7CiAKIHN0YXRp
+YyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIGNtZHFfZHJ2ID0gewogCS5wcm9iZSA9IGNtZHFfcHJv
+YmUsCi0JLnJlbW92ZV9uZXcgPSBjbWRxX3JlbW92ZSwKKwkucmVtb3ZlID0gY21kcV9yZW1vdmUs
+CiAJLmRyaXZlciA9IHsKIAkJLm5hbWUgPSAibXRrX2NtZHEiLAogCQkucG0gPSAmY21kcV9wbV9v
+cHMsCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94LmMg
+Yi9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94LmMKaW5kZXggN2Q5MWU3YzAx
+NmJhLi5mMGQxZmMwZmI5ZmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJveC9xY29tLWFwY3Mt
+aXBjLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94
+LmMKQEAgLTE2Nyw3ICsxNjcsNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBxY29tX2FwY3Nf
+aXBjX29mX21hdGNoKTsKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcWNvbV9hcGNz
+X2lwY19kcml2ZXIgPSB7CiAJLnByb2JlID0gcWNvbV9hcGNzX2lwY19wcm9iZSwKLQkucmVtb3Zl
+X25ldyA9IHFjb21fYXBjc19pcGNfcmVtb3ZlLAorCS5yZW1vdmUgPSBxY29tX2FwY3NfaXBjX3Jl
+bW92ZSwKIAkuZHJpdmVyID0gewogCQkubmFtZSA9ICJxY29tX2FwY3NfaXBjIiwKIAkJLm9mX21h
+dGNoX3RhYmxlID0gcWNvbV9hcGNzX2lwY19vZl9tYXRjaCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bWFpbGJveC9xY29tLWlwY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9xY29tLWlwY2MuYwppbmRleCBk
+NTM3Y2M5YzRkNGIuLjE0Yzc5MDdjNjYzMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L3Fj
+b20taXBjYy5jCisrKyBiL2RyaXZlcnMvbWFpbGJveC9xY29tLWlwY2MuYwpAQCAtMzQ2LDcgKzM0
+Niw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBxY29tX2lwY2NfZGV2X3BtX29w
+cyA9IHsKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcWNvbV9pcGNjX2RyaXZlciA9
+IHsKIAkucHJvYmUgPSBxY29tX2lwY2NfcHJvYmUsCi0JLnJlbW92ZV9uZXcgPSBxY29tX2lwY2Nf
+cmVtb3ZlLAorCS5yZW1vdmUgPSBxY29tX2lwY2NfcmVtb3ZlLAogCS5kcml2ZXIgPSB7CiAJCS5u
+YW1lID0gInFjb20taXBjYyIsCiAJCS5vZl9tYXRjaF90YWJsZSA9IHFjb21faXBjY19vZl9tYXRj
+aCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9zdG0zMi1pcGNjLmMgYi9kcml2ZXJzL21h
+aWxib3gvc3RtMzItaXBjYy5jCmluZGV4IDE0NDJmMjc1NzgyYi4uNGY2M2YxYTE0Y2E2IDEwMDY0
+NAotLS0gYS9kcml2ZXJzL21haWxib3gvc3RtMzItaXBjYy5jCisrKyBiL2RyaXZlcnMvbWFpbGJv
+eC9zdG0zMi1pcGNjLmMKQEAgLTM3OSw3ICszNzksNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3Jt
+X2RyaXZlciBzdG0zMl9pcGNjX2RyaXZlciA9IHsKIAkJLm9mX21hdGNoX3RhYmxlID0gc3RtMzJf
+aXBjY19vZl9tYXRjaCwKIAl9LAogCS5wcm9iZQkJPSBzdG0zMl9pcGNjX3Byb2JlLAotCS5yZW1v
+dmVfbmV3CT0gc3RtMzJfaXBjY19yZW1vdmUsCisJLnJlbW92ZQkJPSBzdG0zMl9pcGNjX3JlbW92
+ZSwKIH07CiAKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3RtMzJfaXBjY19kcml2ZXIpOwpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L3N1bjZpLW1zZ2JveC5jIGIvZHJpdmVycy9tYWlsYm94
+L3N1bjZpLW1zZ2JveC5jCmluZGV4IDNkY2M1NGRjODNiMi4uNmJhNjkyMGY0NjQ1IDEwMDY0NAot
+LS0gYS9kcml2ZXJzL21haWxib3gvc3VuNmktbXNnYm94LmMKKysrIGIvZHJpdmVycy9tYWlsYm94
+L3N1bjZpLW1zZ2JveC5jCkBAIC0zMDcsOCArMzA3LDggQEAgc3RhdGljIHN0cnVjdCBwbGF0Zm9y
+bV9kcml2ZXIgc3VuNmlfbXNnYm94X2RyaXZlciA9IHsKIAkJLm5hbWUgPSAic3VuNmktbXNnYm94
+IiwKIAkJLm9mX21hdGNoX3RhYmxlID0gc3VuNmlfbXNnYm94X29mX21hdGNoLAogCX0sCi0JLnBy
+b2JlICA9IHN1bjZpX21zZ2JveF9wcm9iZSwKLQkucmVtb3ZlX25ldyA9IHN1bjZpX21zZ2JveF9y
+ZW1vdmUsCisJLnByb2JlID0gc3VuNmlfbXNnYm94X3Byb2JlLAorCS5yZW1vdmUgPSBzdW42aV9t
+c2dib3hfcmVtb3ZlLAogfTsKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3VuNmlfbXNnYm94X2Ry
+aXZlcik7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC90ZWdyYS1oc3AuYyBiL2RyaXZl
+cnMvbWFpbGJveC90ZWdyYS1oc3AuYwppbmRleCAxOWVmNTZjYmNmZDMuLjhkNWUyZDdkYzAzYiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L3RlZ3JhLWhzcC5jCisrKyBiL2RyaXZlcnMvbWFp
+bGJveC90ZWdyYS1oc3AuYwpAQCAtOTUxLDcgKzk1MSw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGxhdGZv
+cm1fZHJpdmVyIHRlZ3JhX2hzcF9kcml2ZXIgPSB7CiAJCS5wbSA9ICZ0ZWdyYV9oc3BfcG1fb3Bz
+LAogCX0sCiAJLnByb2JlID0gdGVncmFfaHNwX3Byb2JlLAotCS5yZW1vdmVfbmV3ID0gdGVncmFf
+aHNwX3JlbW92ZSwKKwkucmVtb3ZlID0gdGVncmFfaHNwX3JlbW92ZSwKIH07CiAKIHN0YXRpYyBp
+bnQgX19pbml0IHRlZ3JhX2hzcF9pbml0KHZvaWQpCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxi
+b3gvenlucW1wLWlwaS1tYWlsYm94LmMgYi9kcml2ZXJzL21haWxib3gvenlucW1wLWlwaS1tYWls
+Ym94LmMKaW5kZXggNTIxZDA4YjlhYjQ3Li45MTM2NWFjZDMzNGQgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvbWFpbGJveC96eW5xbXAtaXBpLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvenlu
+cW1wLWlwaS1tYWlsYm94LmMKQEAgLTEwMTUsNyArMTAxNSw3IEBAIE1PRFVMRV9ERVZJQ0VfVEFC
+TEUob2YsIHp5bnFtcF9pcGlfb2ZfbWF0Y2gpOwogCiBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2Ry
+aXZlciB6eW5xbXBfaXBpX2RyaXZlciA9IHsKIAkucHJvYmUgPSB6eW5xbXBfaXBpX3Byb2JlLAot
+CS5yZW1vdmVfbmV3ID0genlucW1wX2lwaV9yZW1vdmUsCisJLnJlbW92ZSA9IHp5bnFtcF9pcGlf
+cmVtb3ZlLAogCS5kcml2ZXIgPSB7CiAJCSAgIC5uYW1lID0gInp5bnFtcC1pcGkiLAogCQkgICAu
+b2ZfbWF0Y2hfdGFibGUgPSBvZl9tYXRjaF9wdHIoenlucW1wX2lwaV9vZl9tYXRjaCksCgpiYXNl
+LWNvbW1pdDogNDE0Yzk3Yzk2NmI2OWU0YTZlYTdiMzI5NzBmYTE2NmIyZjliOWVmMAotLSAKMi40
+NS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
