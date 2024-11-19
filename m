@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB8DA9D28CC
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5869D28CB
 	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 16:01:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 904E3C78F9B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C881C78F99;
 	Tue, 19 Nov 2024 15:01:13 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A78DC78F9C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0C40C7A822
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 19 Nov 2024 15:01:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E1264A42B3D;
- Tue, 19 Nov 2024 14:59:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A2D2C4CECF;
+ by nyc.source.kernel.org (Postfix) with ESMTP id 03B15A42B49;
+ Tue, 19 Nov 2024 14:59:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C4EFC4CED2;
  Tue, 19 Nov 2024 15:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1732028464;
- bh=zonr3mCcTyCgwR7d1gZNImuy1doROORC9hQH8Wi0Qyg=;
+ bh=IosRVsOhXaWuKtna+S7TTj7J8IIDP2TBXfqtgenJkPY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=RDVV4hcp4eUvDGQRhU6ETJwU7idAdmiPrXhEQm3KRR2JFLdvXHySvFjXt8qMtdUFK
- 3Rpa3MfFQZz0rNn0H7wzOhA3lgFTB/MjvEY8ZrfFQ0GnfHeB9fzuSvqpyenAtIGYsh
- U7Mm6t/ucrRB4o2m0jViNqV8oDd8dKtexoPdpWK7FNWOW1HZdJqcrsBCicje4HUdbC
- UhqPX0+ELsZ18Yegy5Dvim62OJF4efTFvqnIcORXD43zR5FeR3xMS/SZLNrw4dmmh8
- NG0ONGaBcNi6iqqg75GB6FCVKAB/Lx4ouJs9dQLP5TTSPHY4jT8ply9Zu/3GUJTZ+N
- tJKFo5q/FiRIQ==
+ b=rHmW8pyzYESo0w1Bh0OvU2MjWhCyLjMvDfeLfvzyQteYRnJSV7OwbQUwfrh0iiJDc
+ BnV8vzJEAabyNT7Q9lAzrjSMaZepbOzslZ3a8KcbwFs3s9IdjjAjZe4kADrV5qVUPj
+ cZ5EQurVs5mDOVHCL7kJJBEl021RRganQhLXMo0TsriMR7zZW21nhVvoXIBdIYJro4
+ meyaK5vxsErcdbE4RyA76Azg3ld6aNV9oHt472Dh8rBWlkbVDqE9PpFA9ChNhiZ/ih
+ JG+C2BmrgMHyV7llKWR2JsNl+7Py6nqhN7KHQaMk1zImgnDmOwqr45mrf83qB8SHHa
+ bImfoWAJ22amg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 09662D44165;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 1DE76D44167;
  Tue, 19 Nov 2024 15:01:04 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Tue, 19 Nov 2024 16:00:07 +0100
+Date: Tue, 19 Nov 2024 16:00:08 +0100
 MIME-Version: 1.0
-Message-Id: <20241119-upstream_s32cc_gmac-v5-1-7dcc90fcffef@oss.nxp.com>
+Message-Id: <20241119-upstream_s32cc_gmac-v5-2-7dcc90fcffef@oss.nxp.com>
 References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
 In-Reply-To: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -59,11 +59,11 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732028461; l=958;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732028461; l=2225;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=2KaIHv/oSTo3FOtKPvkHjEF7Z3D3rI5ymtYbTqdzAuo=;
- b=VzXyPPkdD5MNgXPIsgGgKyikwTPOcuqi1aJQqTrQ5YJTNgwosCPyciyjVICWmxvJfZ5ZXqQFd
- YttUk4CqsfaBSEM3a7vTlKy8vS6gzRhr2Z4pcsxZrVfQdEZZrLOBg1+
+ bh=50kRIgWTZi5wCMka5I1DSABnnyKmmvDBzkE8UY/BAAc=;
+ b=pMklRc3dp+NTaxkgKq7mLlrrefkInnF9GNFsD5SvbHHqshUcFJtH3UvED4kFZ69nTWOQHBVTX
+ uKHpEoqqbP9BHh40hpxQr935ovrjlsPOE4NcZG8dF3iTKl9fX4IenzL
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -74,8 +74,8 @@ Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 01/16] net: driver: stmmac: Fix CSR divider
-	comment
+Subject: [Linux-stm32] [PATCH v5 02/16] net: driver: stmmac: Extend CSR calc
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,27 +95,54 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-The comment in declaration of STMMAC_CSR_250_300M
-incorrectly describes the constant as '/* MDC = clk_scr_i/122 */'
-but the DWC Ether QOS Handbook version 5.20a says it is
-CSR clock/124.
+Add support for CSR clock range up to 800 MHz.
 
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 ---
- include/linux/stmmac.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/common.h      | 2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
+ include/linux/stmmac.h                            | 2 ++
+ 3 files changed, 8 insertions(+)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 684489156dce..e364cf99d1ff 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -257,6 +257,8 @@ struct stmmac_safety_stats {
+ #define CSR_F_150M	150000000
+ #define CSR_F_250M	250000000
+ #define CSR_F_300M	300000000
++#define CSR_F_500M	500000000
++#define CSR_F_800M	800000000
+ 
+ #define	MAC_CSR_H_FRQ_MASK	0x20
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7bf275f127c9..85fa75fa6abe 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -324,6 +324,10 @@ static void stmmac_clk_csr_set(struct stmmac_priv *priv)
+ 			priv->clk_csr = STMMAC_CSR_150_250M;
+ 		else if ((clk_rate >= CSR_F_250M) && (clk_rate <= CSR_F_300M))
+ 			priv->clk_csr = STMMAC_CSR_250_300M;
++		else if ((clk_rate >= CSR_F_300M) && (clk_rate < CSR_F_500M))
++			priv->clk_csr = STMMAC_CSR_300_500M;
++		else if ((clk_rate >= CSR_F_500M) && (clk_rate < CSR_F_800M))
++			priv->clk_csr = STMMAC_CSR_500_800M;
+ 	}
+ 
+ 	if (priv->plat->flags & STMMAC_FLAG_HAS_SUN8I) {
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index d79ff252cfdc..75cbfb576358 100644
+index 75cbfb576358..865d0fe26f98 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -33,7 +33,7 @@
- #define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
+@@ -34,6 +34,8 @@
  #define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
  #define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
--#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
-+#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/124 */
+ #define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/124 */
++#define	STMMAC_CSR_300_500M	0x6	/* MDC = clk_scr_i/204 */
++#define	STMMAC_CSR_500_800M	0x7	/* MDC = clk_scr_i/324 */
  
  /* MTL algorithms identifiers */
  #define MTL_TX_ALGORITHM_WRR	0x0
