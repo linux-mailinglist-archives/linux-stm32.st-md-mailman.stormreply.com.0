@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EB79D4192
+	by mail.lfdr.de (Postfix) with ESMTPS id 294C39D4191
 	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9F61C7BF66;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA542C7BF64;
 	Wed, 20 Nov 2024 17:49:45 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EEEBC7A820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 984CFC78F9B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 15:01:06 +0000 (UTC)
+ Tue, 19 Nov 2024 15:01:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E8C0E5C5559;
- Tue, 19 Nov 2024 15:00:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 84D3BC4CEEB;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0A7CE5C5601;
+ Tue, 19 Nov 2024 15:00:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9B5AEC4CEDD;
  Tue, 19 Nov 2024 15:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1732028464;
- bh=515UImMIUwY1iiiy/6ZmqrgD+7ijxpfASmzHkHswzhk=;
+ bh=taKk9Siw72UIT4YDaZOax2tfVMCp4G8cx27SIGcTiEU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=jcav2wRAiavU678iNu9xPGuzu5a55RyALlwMuqhoGJ5NE3BLeX84JA6jmBH+w0Krd
- CgoGM/Y6PHEZgLyvqpQ8WARACpXmi4sjYxNFLPCiYAVAlEi6thxBghV3qhJ5gBEHc1
- 4NIu3U4r9VmOYFM+qTlPoYe6A9Ovmwje7pZFeYitljflRBh7cFHl9KwV4a4gg74MDd
- fPSngu9Dt3l2DdLdvvzRqBsQ7unhxHBDqeW1+tnU1V3cISYm76TD/ZesHU/Vl/h8+u
- 57koGWO1pm6ckIsqvqdxNNBx+hUGTpEte0ui9YTYQNZDs27+YcDlQ3IwxuKJAzZO85
- hd/TeT7VeEXHg==
+ b=Fx59a3jyQuxNDAR0PIYynzsjl8JfKja15cn7qYKBli6fRs7OzVPXvljuLL5W10LaN
+ /tT/b7eavBU/LWQixHtpbehkjw4IAo3aXPW4sd/3MhBcjPSedoq24ZtdC/H461c12p
+ PP/k2cVXu4A7Ju1oLTzejhlwquqv963av1Lhom1LQr+SysZFIQ4XF3pBmcskKKhUfE
+ 89vqRFdb2Rwyk9R0c8CiXhSeMMGvO4BJRDBi5EEz4MU7ADEfxSZd9OGp/yDztSmGej
+ dIRp4V/21wCvjdFLLUeWJkWbuPNqREhCBHvLqVYOeUuBvhqYwHo1jaSxukVzEj7qVU
+ O7Jf0r4c84kUw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 7B802D44167;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 8FE89D44168;
  Tue, 19 Nov 2024 15:01:04 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Tue, 19 Nov 2024 16:00:13 +0100
+Date: Tue, 19 Nov 2024 16:00:14 +0100
 MIME-Version: 1.0
-Message-Id: <20241119-upstream_s32cc_gmac-v5-7-7dcc90fcffef@oss.nxp.com>
+Message-Id: <20241119-upstream_s32cc_gmac-v5-8-7dcc90fcffef@oss.nxp.com>
 References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
 In-Reply-To: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -59,11 +59,11 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732028461; l=1227;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732028461; l=1708;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=slqRw7objjurz553hpNnHk7Oq3u52m0s/u20cRgTiOo=;
- b=X/dVu48GWo9o+7QqgePHJElMkzsTJa1PUZuhR9ytxNevODjPxQO/lj6gznC/I2xcocEtOv6kP
- +VdcspNoLSlCdmCkNPIdyCDtr+4lSb0R2aZ0D9qDZaqKCJnP0mJw4Zd
+ bh=qgV3Pn8mQViI9wI7w0SXeEm8aXeN4r9kNedskC88Gbw=;
+ b=7MX3L571k5Y4YP2dBvgCCHyWPFDCquMX+NbR+SdC1/iy+YsgRPUhs1scm81+GpypUxG1j3HkH
+ FiIQY0h2X7IDkVQDQgMM9uSR7Q52Bz3v4WJCSF2n1ENS4nYrFmvZNpc
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -75,8 +75,7 @@ Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 07/16] net: dwmac-intel-plat: Use helper
-	rgmii_clock
+Subject: [Linux-stm32] [PATCH v5 08/16] net: dwmac-rk: Use helper rgmii_clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,45 +100,61 @@ Utilize a new helper function rgmii_clock().
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c   | 20 ++++----------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 30 ++++++--------------------
+ 1 file changed, 6 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-index 9739bc9867c5..71dbb8031506 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-@@ -31,27 +31,15 @@ struct intel_dwmac_data {
- static void kmb_eth_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 50073bdade46..2fd650b3bc5c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1079,20 +1079,11 @@ static void rk3568_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
  {
- 	struct intel_dwmac *dwmac = priv;
+ 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
+ 	struct device *dev = &bsp_priv->pdev->dev;
 -	unsigned long rate;
 +	long rate;
  	int ret;
  
- 	rate = clk_get_rate(dwmac->tx_clk);
- 
 -	switch (speed) {
--	case SPEED_1000:
--		rate = 125000000;
--		break;
--
--	case SPEED_100:
--		rate = 25000000;
--		break;
--
--	case SPEED_10:
+-	case 10:
 -		rate = 2500000;
 -		break;
--
+-	case 100:
+-		rate = 25000000;
+-		break;
+-	case 1000:
+-		rate = 125000000;
+-		break;
 -	default:
 +	rate = rgmii_clock(speed);
 +	if (rate < 0) {
- 		dev_err(dwmac->dev, "Invalid speed\n");
--		break;
-+		return;
+ 		dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
+ 		return;
  	}
+@@ -1540,20 +1531,11 @@ static void rv1126_set_rgmii_speed(struct rk_priv_data *bsp_priv, int speed)
+ {
+ 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
+ 	struct device *dev = &bsp_priv->pdev->dev;
+-	unsigned long rate;
++	long rate;
+ 	int ret;
  
- 	ret = clk_set_rate(dwmac->tx_clk, rate);
+-	switch (speed) {
+-	case 10:
+-		rate = 2500000;
+-		break;
+-	case 100:
+-		rate = 25000000;
+-		break;
+-	case 1000:
+-		rate = 125000000;
+-		break;
+-	default:
++	rate = rgmii_clock(speed);
++	if (rate < 0) {
+ 		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
+ 		return;
+ 	}
 
 -- 
 2.47.0
