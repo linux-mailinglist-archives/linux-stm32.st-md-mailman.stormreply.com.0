@@ -2,82 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89A69D418E
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 319B19D24AA
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 12:18:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C3E9C7A85E;
-	Wed, 20 Nov 2024 17:49:45 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0FF5C78F96
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0294C78F99;
+	Tue, 19 Nov 2024 11:18:12 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2397C78F98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 10:08:22 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-20c8b557f91so6498235ad.2
+ Tue, 19 Nov 2024 11:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1732015090;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WSBouoRatInqJbfUCy4gUiCHF5kDVST7sA6zTlqHn1A=;
+ b=IwTp4ote9IueFqjdrOqb80yFNlFWNE3R/MdBi+Baga4oH+PXOF22U5lC6FaMH2IY4DEowY
+ o7+3RiYKCOybspGmokhMBGYA0xQZDWKGaQ/Zle8JPF0vDv27PljrvIB/ruzFOrye4U623d
+ CCo0KKx2KmSpzXOg2PbchL0FHH+41Io=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-208-QSb9UPFyPSW54Jhb3SD6Cw-1; Tue, 19 Nov 2024 06:18:08 -0500
+X-MC-Unique: QSb9UPFyPSW54Jhb3SD6Cw-1
+X-Mimecast-MFC-AGG-ID: QSb9UPFyPSW54Jhb3SD6Cw
+Received: by mail-yb1-f200.google.com with SMTP id
+ 3f1490d57ef6-e388c4bd92bso4032670276.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 02:08:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732010901; x=1732615701;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
- b=AQIvAU1iq1xiStoVnLOKLZYpypwvHqHkGAh5iIWqRrSDT+N9zr2DY41LFuxB7DgMQl
- B0AdtyYQHN5kNrGo1bl8wrLv566M92zFHMfZhj5pq4FMqWklf4byWnyXsraTmMRLs06+
- UqGPzx5SpjIqr0Be143dqtRsNdhVdzpTYwXQxBw4qvFLPgnVLQxnHnY37pNkJVu3fYmZ
- POayjCgy/IgquHmvJrEOazI/u8PIIpKfmqisvgw2zZnkNhbEQN3J9jjAmVhCGuIDek2P
- BNlT3qJgCStlE8DCXYaIg6WsNUdszBoxVnBCsGIyO9Rftsl5Tb380LtiyOEtBmtTRSTU
- A3iw==
+ Tue, 19 Nov 2024 03:18:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732010901; x=1732615701;
+ d=1e100.net; s=20230601; t=1732015088; x=1732619888;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
- b=pZuRpgkpG7wBLXfOdN0czkghownDuKJoZAu/1mW6KWIlFK095wQ9ENepzZ/YaL6+Fz
- lEZdD+Bl42AYVJpzi7QJ/DM8kUxEKVgnYgfzYeegBzudymIrtvGiQGe0APNJSdvRrzss
- QdhuLyLYS1ScjxAosPJIWX0UekdET6Em1eXIzvTPC/wBs+E66S/RrUh7AX8CNqF5sZ0S
- okpTRYr6nbPp0BFhjDWGc5s7UIsak+C42uRNxSyRqHJH77sSlORbbZLeBxAwpnp8JS+/
- Gx/TANlG2S+e3sAAmSQ+lJPBVeGYbUT48fuVCmGuCbFeYhIV9YjE8Ce8JYSkZCGMODDo
- z4qg==
+ bh=WSBouoRatInqJbfUCy4gUiCHF5kDVST7sA6zTlqHn1A=;
+ b=ct+ZkudfVLy9YAxaZ0xnOpyhR5d5+2jY8TJriLlB8oJ8aReENhHlYCSTyg9D0OMmA8
+ nCiTYdDJ3DYxO7VTRyQ3C40fIayoQhviYw9gQc0iDHX88JHd6t2IUWUyCJxLra6lPVUy
+ uRhsIY48hHnE2ARpeD2ninyxkmkckxTVMIilOAuKlqIVYEMC2a672Oa7St/11zb1uqWD
+ D318BR37KdRaTeTVbsX4gIg4V5MT/A8fqqiwdDZDyPPubaU7ifNSwWPFfV5+lVtQ0iD5
+ QF9bkPl+kU7ccLqJq1/LKz6ljzmQ47MsG03TwAiteaPma+C0RmKDosTy3bFlR4+ru8gv
+ 56GA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW9pIGOjsDE4OYCU5BuGc2sCQXrtF13POQVdhxpSgWodhGjTpD+KqMmkMFLOtf8mHJYkS4DpGdizrcHaQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzuZ8vw6npW9ft+t5WPP3aAPiTJ4JfL8CUsiGkHARHEWiADRJvA
- Odp9pAJx9nhGx17F2i8S7eqVLa3VWaoZal/sol7AZKfdqTJrK2xS
-X-Google-Smtp-Source: AGHT+IEAjyQGdRHNm7PwkX2khYpceIhQ92EAPL/Ia7j4slTtR5ja4Ryry5i8z7VVQ8n6txgqIQJr+w==
-X-Received: by 2002:a17:903:1d1:b0:20c:9983:27ae with SMTP id
- d9443c01a7336-211d0ecdac7mr237798475ad.48.1732010900702; 
- Tue, 19 Nov 2024 02:08:20 -0800 (PST)
-Received: from [192.168.0.102] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2120ac39585sm41966965ad.261.2024.11.19.02.08.17
+ AJvYcCXLT98AxIubOj8Dg3Z56MX1RvDDR3/B7ITUA2zoLKf4X27lerSddvmE1ENnrKIt/h9WsaWECsyhh2mt2w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxWeymrPmQl7IJt9oi3bwXoqAK2FXcw3XjK9CiTciVOGZYxH1xm
+ CtMC3AZE9fj+Cxki7OAgoIBCsjy5iq6fCSqPLhSpRWJqdj7aLJ5B0+f7HAhtmnaUEXV9TSc1DoP
+ FqGgdKTrm/X1HfNQPtCrLDYDbfpx5lSlMfFOaLQK+8zljIXYKRRMNpaPOv64fpqr6wy9g3MDMuJ
+ jT+Q==
+X-Received: by 2002:a05:6902:298a:b0:e30:cc00:b010 with SMTP id
+ 3f1490d57ef6-e382614f9c8mr10200276276.25.1732015088324; 
+ Tue, 19 Nov 2024 03:18:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE96zkhRwyQeB2qy8231vJaIKfZPGcGVKna3QNScGbU8jvugvr7WKVQycq/NpiNX4wDg/wBiQ==
+X-Received: by 2002:a05:6902:298a:b0:e30:cc00:b010 with SMTP id
+ 3f1490d57ef6-e382614f9c8mr10200247276.25.1732015088026; 
+ Tue, 19 Nov 2024 03:18:08 -0800 (PST)
+Received: from [192.168.1.14] (host-79-55-200-170.retail.telecomitalia.it.
+ [79.55.200.170]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-46392c44142sm9845691cf.85.2024.11.19.03.18.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 02:08:20 -0800 (PST)
-Message-ID: <191ebf4b-231d-4ebc-9ff2-4916ef718970@gmail.com>
-Date: Tue, 19 Nov 2024 18:08:14 +0800
+ Tue, 19 Nov 2024 03:18:07 -0800 (PST)
+Message-ID: <3cfc2e90-c9b4-425d-80f4-ddace9aff021@redhat.com>
+Date: Tue, 19 Nov 2024 12:18:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20241118082707.8504-1-a0987203069@gmail.com>
- <20241118082707.8504-4-a0987203069@gmail.com>
- <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
+To: Yijie Yang <quic_yijiyang@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20241118-schema-v1-0-11b7c1583c0c@quicinc.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20241118-schema-v1-0-11b7c1583c0c@quicinc.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: BISsRPGIa4HQoiJ3IC5JJVGp1OIGT4Jin-r9cdeeiKo_1732015088
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
-X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
-Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
- yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add
- dwmac glue for Nuvoton MA35 family
+Cc: quic_jsuraj@quicinc.com, devicetree@vger.kernel.org,
+ quic_tengfan@quicinc.com, netdev@vger.kernel.org, quic_tingweiz@quicinc.com,
+ quic_jiegan@quicinc.com, linux-kernel@vger.kernel.org, quic_aiquny@quicinc.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, quic_jingyw@quicinc.com,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/3] Add standalone ethernet MAC entries
+	for qcs615
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,24 +102,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CkFuZHJldyBMdW5uIOaWvCAxMS8xOS8yMDI0IDk6NDggQU0g5a+r6YGTOgo+PiArCWlmIChvZl9w
-cm9wZXJ0eV9yZWFkX3UzMihkZXYtPm9mX25vZGUsICJ0eC1pbnRlcm5hbC1kZWxheS1wcyIsICZh
-cmcpKSB7Cj4+ICsJCXR4X2RlbGF5ID0gMDsgLyogRGVmYXVsdCB2YWx1ZSBpcyAwICovCj4+ICsJ
-fSBlbHNlIHsKPj4gKwkJaWYgKGFyZyA8PSAyMDAwKSB7Cj4+ICsJCQl0eF9kZWxheSA9IChhcmcg
-PT0gMjAwMCkgPyAweEYgOiAoYXJnIC8gUEFUSF9ERUxBWV9ERUMpOwo+PiArCQkJZGV2X2RiZyhk
-ZXYsICJTZXQgVHggcGF0aCBkZWxheSB0byAweCV4XG4iLCB0eF9kZWxheSk7Cj4gVGhlIGRldmlj
-ZSB0cmVlIGJpbmRpbmcgc2F5czoKPgo+ICsgIHR4LWludGVybmFsLWRlbGF5LXBzOgo+ICsgICAg
-ZW51bTogWzAsIDIwMDBdCj4KPgo+IFNvIG9ubHkgdHdvIHZhbHVlcyBhcmUgYWxsb3dlZC4gWWV0
-IHRoZSBDIGNvZGUgaXMKPgo+IGFyZyAvIFBBVEhfREVMQVlfREVDCj4KPiB3aGljaCBzZWVtcyB0
-byBhbGxvdyAxNiB2YWx1ZXM/Cj4KPiBQbGVhc2UgbWFrZSB0aGlzIGNvbnNpc3RlbnQuCj4KPgo+
-ICAgICAgQW5kcmV3CgpPb3BzLiBUaGF0IHdhcyBteSBtaXN1c2U7IEkgd2lsbCBjaGFuZ2UgaXQg
-dG8gbWluaW11bSBhbmQgbWF4aW11bS4KClRoYW5rcyEKCkJSLAoKSm9leQoKPgo+IC0tLQo+IHB3
-LWJvdDogY3IKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+On 11/18/24 07:16, Yijie Yang wrote:
+> Add separate EMAC entries for qcs615 since its core version is 2.3.1,
+> compared to sm8150's 2.1.2.
+> 
+> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+## Form letter - net-next-closed
+
+The merge window for v6.13 has begun and net-next is closed for new
+drivers, features, code refactoring and optimizations. We are currently
+accepting bug fixes only.
+
+Please repost when net-next reopens after Dec 2nd.
+
+RFC patches sent for review only are welcome at any time.
+
+See:
+https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
