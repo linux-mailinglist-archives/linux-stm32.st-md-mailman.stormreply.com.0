@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250259D4197
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D309D4199
 	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EA87C7BF72;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F5A5C7BF74;
 	Wed, 20 Nov 2024 17:49:46 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1066C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AE98C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 16:41:35 +0000 (UTC)
+ Tue, 19 Nov 2024 16:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=820A+uqPjk3jrH0mLxNnwDGBvwyz/yvubtHzlTrrbZw=; b=aaZC67T0sa+lZ43UDQKQKt69/z
- 8VkYUpereUrC5gOPyh0zBSP9ETlYVP+htDja+DcuPS4RT7gA1EJSnBJhizZcl/1aLQmI/LGRbCxOQ
- vhZae9c3UWVvdIbCoFfEZ9JJLdb4QzDaK+ytPFLqhzJepmYuPcaZ0lEuet60q91Nuf9qHuTKTdVvN
- IdqJWQQF9UHu0xMyiOqifaWCvNe+SRGGPAIRirK6ysKtsGUKuKTZizNicVvQKkmMnC6z5RAcYFGJ1
- ZShLf5w3Ie95GCUvWiZC3TO62GUXwgXhj3znzaQqJqpLqXAkP8cGa50N7aJv9GIOs1DuvdzMvr6Yw
- gSsmJ+rQ==;
+ bh=9CfPndcwSpFi9hNnsDG4kxLyrPKMJDc10lVqC9dCYk8=; b=A7hN0Hk2Zmz++TCr166toktatF
+ QMPEZVC82D1Ar0ySXseMynMwTLhF/vcBbhlABFqUEu9L4eCj1U24tFezSQjboOjXr0KlR+5uCuRiO
+ EJobuVaIyjCRpa9LBc5x5xINgqCT8OcIyidFIZADkKSv2WF493PAEgXGYcBv0iO5uy0SpegRc7G0e
+ wRNDj/cmJAl9GBp14UuDrtXgQoRMSrT/AQxRR1//A2480LLuw0R5CyIGBOejVkJmXOTjtAFG/qDRU
+ p5lFom6osZKvaZtE1IFpYqP6WMDyk+3bho82AE/7oE4NLirBOjK4wtg9+uvfXzSnVlETckHXJe2Ht
+ aH9YLbkw==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50346)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34792)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tDRHw-0003wv-31;
- Tue, 19 Nov 2024 16:41:17 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tDRIv-0003xe-1j;
+ Tue, 19 Nov 2024 16:42:18 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tDRHv-0006Cs-07;
- Tue, 19 Nov 2024 16:41:15 +0000
-Date: Tue, 19 Nov 2024 16:41:14 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tDRIt-0006D0-1B;
+ Tue, 19 Nov 2024 16:42:15 +0000
+Date: Tue, 19 Nov 2024 16:42:15 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: jan.petrous@oss.nxp.com
-Message-ID: <Zzy_qh13euS1aTYr@shell.armlinux.org.uk>
+Message-ID: <Zzy_5wl1IRy7taow@shell.armlinux.org.uk>
 References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
- <20241119-upstream_s32cc_gmac-v5-4-7dcc90fcffef@oss.nxp.com>
+ <20241119-upstream_s32cc_gmac-v5-5-7dcc90fcffef@oss.nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241119-upstream_s32cc_gmac-v5-4-7dcc90fcffef@oss.nxp.com>
+In-Reply-To: <20241119-upstream_s32cc_gmac-v5-5-7dcc90fcffef@oss.nxp.com>
 X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
@@ -64,8 +64,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 04/16] net: phy: Add helper for mapping
- RGMII link speed to clock rate
+Subject: Re: [Linux-stm32] [PATCH v5 05/16] net: dwmac-dwc-qos-eth: Use
+	helper rgmii_clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,20 +82,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 19, 2024 at 04:00:10PM +0100, Jan Petrous via B4 Relay wrote:
+On Tue, Nov 19, 2024 at 04:00:11PM +0100, Jan Petrous via B4 Relay wrote:
 > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 > 
-> The RGMII interface supports three data rates: 10/100 Mbps
-> and 1 Gbps. These speeds correspond to clock frequencies
-> of 2.5/25 MHz and 125 MHz, respectively.
+> Utilize a new helper function rgmii_clock().
 > 
-> Many Ethernet drivers, including glues in stmmac, follow
-> a similar pattern of converting RGMII speed to clock frequency.
-> 
-> To simplify code, define the helper rgmii_clock(speed)
-> to convert connection speed to clock frequency.
-> 
-> Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
