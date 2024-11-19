@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C36C9D419F
+	by mail.lfdr.de (Postfix) with ESMTPS id 488889D41A0
 	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B389C7BF80;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41EB9C7BF82;
 	Wed, 20 Nov 2024 17:49:47 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 210DAC71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31EC1C78F9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 16:47:56 +0000 (UTC)
+ Tue, 19 Nov 2024 16:48:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Xags3HtajwzYB8rFWwD2d3OARgWaMuwfOJ9fZStPGaE=; b=t/oTHkHKBekuP5igqonGSGdXJP
- pNYwmeQqJIwNnP/RdK4eerbSnmVRcfTAGntCxGDyYLzOIJipMTDNAq+VLEhi6TWNnoRcZVtNDHCo7
- FQAgv2qO6L48/7AdcWssllMXqjDChe/4vUehUIl9YTUO2jvvfSlROmdzd1ry6A3nbIWPYT56OUevz
- q2WrHO0kfnJsvuJgBAEJM+GfmIi0d47MDih8mUXBGmALB5A6qJtN+647aG7k/tPnfNRPtyM4hSTtZ
- jpGh+H4jH1bPzXOc5Thp6Y75vUyaLnaFIMiTvV5/qXNP6lZU9BqL89WsxsygkiLF6zsRxMpXr1q7f
- To13eOXw==;
+ bh=3fvujAh94U3kGDVymnc9jtTk3gFEdDGf2+Wqo/Pnpo4=; b=gJuC4oUgF5yfaJf1hVqxnO4d/l
+ nZwoni126YdD7HgeHlxvmxyw3d9qn8oLF6+lLaH8yFtFxQ3bgaydz3ByUBjOZZ7q3YMvIV1Wx4sAF
+ oEWKn3V19Wxmg2ukOUOqO8sBYsaX7CIPNsHoAK0oKCEGSb1hZB2jj4dWmbdIvbFEiGmBBBJfK7OpE
+ sinVcRn/ed+ur58P4MZhOaA3Z8X8cTstuwmTfMZHY9DXB+7ZSUN7EKaknxuyPlR3Q6jIWDWnrs2C/
+ XbI7MA4r4eoXjzkLYZgcHMeyoLajQph4dcBob6+CslmzxPyUL0Cat1OoFgxeF06+8dZMT34FL+pcV
+ tJEL/xjA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51288)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36672)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tDRO5-000426-0a;
- Tue, 19 Nov 2024 16:47:37 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tDROz-00042u-34;
+ Tue, 19 Nov 2024 16:48:34 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tDRO2-0006Dq-2y;
- Tue, 19 Nov 2024 16:47:34 +0000
-Date: Tue, 19 Nov 2024 16:47:34 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tDROx-0006Dy-36;
+ Tue, 19 Nov 2024 16:48:32 +0000
+Date: Tue, 19 Nov 2024 16:48:31 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: jan.petrous@oss.nxp.com
-Message-ID: <ZzzBJqbmBPsL_E5U@shell.armlinux.org.uk>
+Message-ID: <ZzzBXwZNpCTKvSTp@shell.armlinux.org.uk>
 References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
- <20241119-upstream_s32cc_gmac-v5-11-7dcc90fcffef@oss.nxp.com>
+ <20241119-upstream_s32cc_gmac-v5-12-7dcc90fcffef@oss.nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241119-upstream_s32cc_gmac-v5-11-7dcc90fcffef@oss.nxp.com>
+In-Reply-To: <20241119-upstream_s32cc_gmac-v5-12-7dcc90fcffef@oss.nxp.com>
 X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
@@ -64,7 +64,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 11/16] net: xgene_enet: Use helper
+Subject: Re: [Linux-stm32] [PATCH v5 12/16] net: dwmac-sti: Use helper
 	rgmii_clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -82,7 +82,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 19, 2024 at 04:00:17PM +0100, Jan Petrous via B4 Relay wrote:
+On Tue, Nov 19, 2024 at 04:00:18PM +0100, Jan Petrous via B4 Relay wrote:
 > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 > 
 > Utilize a new helper function rgmii_clock().
