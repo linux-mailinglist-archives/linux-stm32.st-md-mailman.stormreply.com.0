@@ -2,93 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FF19D216C
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 09:17:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E2AB9D2222
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 10:06:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E77C78F97;
-	Tue, 19 Nov 2024 08:17:18 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 022E8C78F6D;
+	Tue, 19 Nov 2024 09:06:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0391C78F96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CED71C6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 08:17:10 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3823eaad37aso1529556f8f.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 00:17:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1732004230; x=1732609030;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rfRPeJv9b+5MklHMVSrCiVgH+hmaDNicfWnfjxpRi08=;
- b=VYViu4NW7Pkfxzbr8khDIhjKenXSqdYoeEVxVDaq+Niac3fkHmIEHRSL4NmASyQ6Ut
- BcAUp2llLlHTyqyhnd0fkbIFKhRNbRvvenVs0hmkLO2+YILI7lc555w7qP98dqV23xvy
- /vp76uhIYghYQPh5UtgACu0LFSsH/vZMclyGPtOqDTWIz5yI69cW+X3DedeTU5eQF3Hj
- JAQzHHFCODnvP73ZxhS/jRMl38BN9aOjFWc45Pyv8MkQJQtyBwfH85CT8X8khfEHxXho
- 9ysr9NNixaeaKJrNtmnsbFxhVPWtVZSczx2sbmUeKXig93pbBEnvf2tHhNim+qDWvpLm
- Ao8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732004230; x=1732609030;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rfRPeJv9b+5MklHMVSrCiVgH+hmaDNicfWnfjxpRi08=;
- b=xGq6Fd3K0y+Z9Dul6nNtC3cSnPCa86pu9HvxTHU9o1ifAoKRXBXMSniqL77mmLoh/d
- wQzMb3B6btqB3zUEmzKA2X8QaoKCdbZEtxpDidnkWbXmvXWAt6Vg5D70J4Q4PzfHMq5K
- QcFtrdtajjcFAqyRGm3ykzkWpr/2F7W93DaEZVvc2yE+aXqLh7ZOTxQaS4AP+2UAhynU
- nzsSrIwLHkBZKAIPY617i45i4BLvhx3jmVhJasUrRaZffNC9FXYm5hpaLXNeC6hnsSYn
- v1XqVq7INXbNfKHXnFgXVb6nSdo3fcUol8a96Ke8Z3Hg+VsR6Z6EYUM3T74lK4zvLvJd
- qwHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX5PWs89wrxmPsRynmxG7u9+/reFvJ2QhcXXN30I9PZSAwYlJbk280gP1U7L+A3bIfwTdMBgQ4fopTq7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy6dFLi6CCXvR4at+T0w9404BJgELxbQ74vIyBy6mffLqjwD7k7
- qU2PJvBqOV5jh8gEIWXXwSrest6PNE1d8vnKCQ++MbXuMGmeFWBmPQ3l3ZOPT8I=
-X-Google-Smtp-Source: AGHT+IE8UC5xo/EXauIpi30O/6QpEs3dvAFOyd1qOQ9SCqrRP4JGzhvWxQ0rNGF/bwnRQGTw1YZ6JQ==
-X-Received: by 2002:a5d:6d82:0:b0:382:484d:45da with SMTP id
- ffacd0b85a97d-3824cb30e81mr1673211f8f.6.1732004228585; 
- Tue, 19 Nov 2024 00:17:08 -0800 (PST)
-Received: from localhost ([2a02:8071:b783:6940:9b70:ed4b:d274:54e5])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38244220183sm6495288f8f.99.2024.11.19.00.17.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 00:17:08 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Tue, 19 Nov 2024 09:16:51 +0100
-Message-ID: <6f0297ba884c670d604232c2861347940082c8e6.1732004078.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.45.2
+ Tue, 19 Nov 2024 09:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732007208; x=1763543208;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=HtjEr6MyQAiTzXqILd1meE2GmGtMVF3rg86A6w3dlq4=;
+ b=d18uCJkADfMIYAaANLoTqH+Ke8DUmgkowJJqENVgDRf24b/tEf1TD+FD
+ cfCme7HdzY4vVv3J9IO8JtrBGl7mGtqgPCZ+EiLCL0vluORnbK6Pu3w03
+ EzvjBG7yHM1J4SJm8eAs4BkKAo7Km+W7MYbA7fSAAjCN5PwZqa+LLKSUL
+ /25QfWcEWFdblWucTIfbar4zqbk+V3saao/JAZGjYi/anR9GYlOblJ0vU
+ MFIuVpgIwsPTFUStWVgjLDVvRPb6C5GEcjMSsjeWoNuDzaDXrsbrYlyfW
+ eRylGOcRscfKfS5e86Q3GSv+XInEncsMhEw+/QA+wmp/vxymvZmpRWo7s A==;
+X-CSE-ConnectionGUID: l3h09zZXQpyswNtejxPYsg==
+X-CSE-MsgGUID: yBAjC1kbQEObxXQ1nHgJBA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="19605055"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="19605055"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2024 01:06:39 -0800
+X-CSE-ConnectionGUID: zsvHZ+PwTi68k0a9K6UDpA==
+X-CSE-MsgGUID: 4tKkEW0eSyiBbNpB7+8d9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="89905283"
+Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.247.75.104])
+ ([10.247.75.104])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2024 01:06:36 -0800
+Message-ID: <c1bb831c-fd88-4b03-bda6-d8f4ec4a1681@linux.intel.com>
+Date: Tue, 19 Nov 2024 17:06:33 +0800
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7380;
- i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=BnCPo5Jv3ffjYxxYM7XQApvz+ShJZ5fwcjW9lNQ732I=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBnPEl0l82yWH4cD9PUDIPfKIE/RnbW2FKHwIBNo
- NRXP1KykqyJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZzxJdAAKCRCPgPtYfRL+
- ToaTCACO97vvz1RQ3OfeVhaCoF9jIByuwurbxrlo/e4TXGjXh2MD85LTlsW7X/pdlEpXrP7LStP
- rubeC1o9FEsFEJDpzNVhMoNb2mBLHniaqeivaaIITO1C7iOgf/7l6bUdNF6szQsgsyIOa7eK+h4
- 6Evgz1M3LBYLhtZcwyCg8pysblUX/f+7Bpgdzo1ijgQjhinFHE0K8ep6xD7n3F0gZTUEt/9QWEa
- fgoFuQD5sY05UOOOvRjFNRAkpP+8qV6HYJ8eSFoFVoVvAsSuYcnfHR1oaeC82Zdgm4c4nHE4sye
- cAgefJza5W4P8GCaVvE9A7L2tHfGs7DQoQm1AUVXBMxOcDDU
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Cc: imx@lists.linux.dev, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: [Linux-stm32] [PATCH] mailbox: Switch back to struct
-	platform_driver::remove()
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <20241115111151.183108-1-yong.liang.choong@linux.intel.com>
+ <20241115111151.183108-2-yong.liang.choong@linux.intel.com>
+ <ZzdOkE0lqpl6wx2d@shell.armlinux.org.uk>
+Content-Language: en-US
+From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+In-Reply-To: <ZzdOkE0lqpl6wx2d@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net v2 1/2] net: phy: replace
+ phydev->eee_enabled with eee_cfg.eee_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,138 +71,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QWZ0ZXIgY29tbWl0IDBlZGI1NTVhNjVkMSAoInBsYXRmb3JtOiBNYWtlIHBsYXRmb3JtX2RyaXZl
-cjo6cmVtb3ZlKCkKcmV0dXJuIHZvaWQiKSAucmVtb3ZlKCkgaXMgKGFnYWluKSB0aGUgcmlnaHQg
-Y2FsbGJhY2sgdG8gaW1wbGVtZW50IGZvcgpwbGF0Zm9ybSBkcml2ZXJzLgoKQ29udmVydCBhbGwg
-cGxhdGZvcm0gZHJpdmVycyBiZWxvdyBkcml2ZXJzL21haWxib3ggdG8gdXNlIC5yZW1vdmUoKSwK
-d2l0aCB0aGUgZXZlbnR1YWwgZ29hbCB0byBkcm9wIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXI6OnJl
-bW92ZV9uZXcoKS4gQXMKLnJlbW92ZSgpIGFuZCAucmVtb3ZlX25ldygpIGhhdmUgdGhlIHNhbWUg
-cHJvdG90eXBlcywgY29udmVyc2lvbiBpcyBkb25lCmJ5IGp1c3QgY2hhbmdpbmcgdGhlIHN0cnVj
-dHVyZSBtZW1iZXIgbmFtZSBpbiB0aGUgZHJpdmVyIGluaXRpYWxpemVyLgoKTWFrZSBhIGZldyBp
-bmRlbnRpb25zIGNvbnNpc3RlbnQgd2hpbGUgdG91Y2hpbmcgdGhlc2Ugc3RydWN0CmluaXRpYWxp
-emVycy4KClNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdA
-YmF5bGlicmUuY29tPgotLS0KSGVsbG8sCgpJIGRpZCBhIHNpbmdsZSBwYXRjaCBmb3IgYWxsIG9m
-IGRyaXZlcnMvbWFpbGJveC4gV2hpbGUgSSB1c3VhbGx5IHByZWZlcgp0byBkbyBvbmUgbG9naWNh
-bCBjaGFuZ2UgcGVyIHBhdGNoLCB0aGlzIHNlZW1zIHRvIGJlIG92ZXJlbmdpbmVlcmluZwpoZXJl
-IGFzIHRoZSBpbmRpdmlkdWFsIGNoYW5nZXMgYXJlIHJlYWxseSB0cml2aWFsIGFuZCBzaG91bGRu
-J3QgYmUgbXVjaAppbiB0aGUgd2F5IGZvciBzdGFibGUgYmFja3BvcnRzLiBCdXQgSSdsbCBoYXBw
-aWx5IHNwbGl0IHRoZSBwYXRjaCBpZiB5b3UKcHJlZmVyIGl0IHNwbGl0LgoKVGhpcyBpcyBiYXNl
-ZCBvbiB0b2RheSdzIG5leHQsIGlmIGNvbmZsaWN0cyBhcmlzZSB3aGVuIHlvdSBhcHBseSBpdCBh
-dApzb21lIGxhdGVyIHRpbWUgYW5kIGRvbid0IHdhbnQgdG8gcmVzb2x2ZSB0aGVtLCBmZWVsIGZy
-ZWUgdG8ganVzdCBkcm9wCnRoZSBjaGFuZ2VzIHRvIHRoZSBjb25mbGljdGluZyBmaWxlcy4gSSds
-bCBub3RpY2UgYW5kIGZvbGxvd3VwIGF0IGEKbGF0ZXIgdGltZSB0aGVuLiBPciBhc2sgbWUgZm9y
-IGEgZml4ZWQgcmVzZW5kLgoKQmVzdCByZWdhcmRzClV3ZQoKIGRyaXZlcnMvbWFpbGJveC9iY20t
-ZmxleHJtLW1haWxib3guYyAgICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9iY20tcGRjLW1haWxi
-b3guYyAgICAgICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9pbXgtbWFpbGJveC5jICAgICAgICAg
-ICB8IDIgKy0KIGRyaXZlcnMvbWFpbGJveC9tYWlsYm94LXRlc3QuYyAgICAgICAgICB8IDQgKyst
-LQogZHJpdmVycy9tYWlsYm94L210ay1jbWRxLW1haWxib3guYyAgICAgIHwgMiArLQogZHJpdmVy
-cy9tYWlsYm94L3Fjb20tYXBjcy1pcGMtbWFpbGJveC5jIHwgMiArLQogZHJpdmVycy9tYWlsYm94
-L3Fjb20taXBjYy5jICAgICAgICAgICAgIHwgMiArLQogZHJpdmVycy9tYWlsYm94L3N0bTMyLWlw
-Y2MuYyAgICAgICAgICAgIHwgMiArLQogZHJpdmVycy9tYWlsYm94L3N1bjZpLW1zZ2JveC5jICAg
-ICAgICAgIHwgNCArKy0tCiBkcml2ZXJzL21haWxib3gvdGVncmEtaHNwLmMgICAgICAgICAgICAg
-fCAyICstCiBkcml2ZXJzL21haWxib3gvenlucW1wLWlwaS1tYWlsYm94LmMgICAgfCAyICstCiAx
-MSBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL21haWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMgYi9kcml2ZXJzL21h
-aWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMKaW5kZXggYjFhYmMyYTBjOTcxLi40MWY3OWU1MWQ5
-ZTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJveC9iY20tZmxleHJtLW1haWxib3guYworKysg
-Yi9kcml2ZXJzL21haWxib3gvYmNtLWZsZXhybS1tYWlsYm94LmMKQEAgLTE2NzUsNyArMTY3NSw3
-IEBAIHN0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIGZsZXhybV9tYm94X2RyaXZlciA9IHsK
-IAkJLm9mX21hdGNoX3RhYmxlID0gZmxleHJtX21ib3hfb2ZfbWF0Y2gsCiAJfSwKIAkucHJvYmUJ
-CT0gZmxleHJtX21ib3hfcHJvYmUsCi0JLnJlbW92ZV9uZXcJPSBmbGV4cm1fbWJveF9yZW1vdmUs
-CisJLnJlbW92ZQkJPSBmbGV4cm1fbWJveF9yZW1vdmUsCiB9OwogbW9kdWxlX3BsYXRmb3JtX2Ry
-aXZlcihmbGV4cm1fbWJveF9kcml2ZXIpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxib3gv
-YmNtLXBkYy1tYWlsYm94LmMgYi9kcml2ZXJzL21haWxib3gvYmNtLXBkYy1tYWlsYm94LmMKaW5k
-ZXggYTg3MzY3MmE5MDgyLi40MDZiYzQxY2JhNjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJv
-eC9iY20tcGRjLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvYmNtLXBkYy1tYWlsYm94
-LmMKQEAgLTE2MTgsNyArMTYxOCw3IEBAIHN0YXRpYyB2b2lkIHBkY19yZW1vdmUoc3RydWN0IHBs
-YXRmb3JtX2RldmljZSAqcGRldikKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcGRj
-X21ib3hfZHJpdmVyID0gewogCS5wcm9iZSA9IHBkY19wcm9iZSwKLQkucmVtb3ZlX25ldyA9IHBk
-Y19yZW1vdmUsCisJLnJlbW92ZSA9IHBkY19yZW1vdmUsCiAJLmRyaXZlciA9IHsKIAkJICAgLm5h
-bWUgPSAiYnJjbS1pcHJvYy1wZGMtbWJveCIsCiAJCSAgIC5vZl9tYXRjaF90YWJsZSA9IHBkY19t
-Ym94X29mX21hdGNoLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMg
-Yi9kcml2ZXJzL21haWxib3gvaW14LW1haWxib3guYwppbmRleCBmODE1ZGFiM2JlNTAuLjk4ODll
-NGQwZDlkYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMKKysrIGIv
-ZHJpdmVycy9tYWlsYm94L2lteC1tYWlsYm94LmMKQEAgLTExMjAsNyArMTEyMCw3IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBpbXhfbXVfcG1fb3BzID0gewogCiBzdGF0aWMgc3Ry
-dWN0IHBsYXRmb3JtX2RyaXZlciBpbXhfbXVfZHJpdmVyID0gewogCS5wcm9iZQkJPSBpbXhfbXVf
-cHJvYmUsCi0JLnJlbW92ZV9uZXcJPSBpbXhfbXVfcmVtb3ZlLAorCS5yZW1vdmUJCT0gaW14X211
-X3JlbW92ZSwKIAkuZHJpdmVyID0gewogCQkubmFtZQk9ICJpbXhfbXUiLAogCQkub2ZfbWF0Y2hf
-dGFibGUgPSBpbXhfbXVfZHRfaWRzLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L21haWxi
-b3gtdGVzdC5jIGIvZHJpdmVycy9tYWlsYm94L21haWxib3gtdGVzdC5jCmluZGV4IDMzODZiNGU3
-MjU1MS4uYzlkZDhjNDJjMGNkIDEwMDY0NAotLS0gYS9kcml2ZXJzL21haWxib3gvbWFpbGJveC10
-ZXN0LmMKKysrIGIvZHJpdmVycy9tYWlsYm94L21haWxib3gtdGVzdC5jCkBAIC00NDEsOCArNDQx
-LDggQEAgc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgbWJveF90ZXN0X2RyaXZlciA9IHsK
-IAkJLm5hbWUgPSAibWFpbGJveF90ZXN0IiwKIAkJLm9mX21hdGNoX3RhYmxlID0gbWJveF90ZXN0
-X21hdGNoLAogCX0sCi0JLnByb2JlICA9IG1ib3hfdGVzdF9wcm9iZSwKLQkucmVtb3ZlX25ldyA9
-IG1ib3hfdGVzdF9yZW1vdmUsCisJLnByb2JlID0gbWJveF90ZXN0X3Byb2JlLAorCS5yZW1vdmUg
-PSBtYm94X3Rlc3RfcmVtb3ZlLAogfTsKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIobWJveF90ZXN0
-X2RyaXZlcik7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9tdGstY21kcS1tYWlsYm94
-LmMgYi9kcml2ZXJzL21haWxib3gvbXRrLWNtZHEtbWFpbGJveC5jCmluZGV4IDRiZmY3MzUzMjA4
-NS4uYmFjNWI4ZWFhNjY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL21haWxib3gvbXRrLWNtZHEtbWFp
-bGJveC5jCisrKyBiL2RyaXZlcnMvbWFpbGJveC9tdGstY21kcS1tYWlsYm94LmMKQEAgLTc5Niw3
-ICs3OTYsNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBjbWRxX29mX2lkcyk7CiAKIHN0YXRp
-YyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIGNtZHFfZHJ2ID0gewogCS5wcm9iZSA9IGNtZHFfcHJv
-YmUsCi0JLnJlbW92ZV9uZXcgPSBjbWRxX3JlbW92ZSwKKwkucmVtb3ZlID0gY21kcV9yZW1vdmUs
-CiAJLmRyaXZlciA9IHsKIAkJLm5hbWUgPSAibXRrX2NtZHEiLAogCQkucG0gPSAmY21kcV9wbV9v
-cHMsCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94LmMg
-Yi9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94LmMKaW5kZXggN2Q5MWU3YzAx
-NmJhLi5mMGQxZmMwZmI5ZmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWFpbGJveC9xY29tLWFwY3Mt
-aXBjLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvcWNvbS1hcGNzLWlwYy1tYWlsYm94
-LmMKQEAgLTE2Nyw3ICsxNjcsNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBxY29tX2FwY3Nf
-aXBjX29mX21hdGNoKTsKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcWNvbV9hcGNz
-X2lwY19kcml2ZXIgPSB7CiAJLnByb2JlID0gcWNvbV9hcGNzX2lwY19wcm9iZSwKLQkucmVtb3Zl
-X25ldyA9IHFjb21fYXBjc19pcGNfcmVtb3ZlLAorCS5yZW1vdmUgPSBxY29tX2FwY3NfaXBjX3Jl
-bW92ZSwKIAkuZHJpdmVyID0gewogCQkubmFtZSA9ICJxY29tX2FwY3NfaXBjIiwKIAkJLm9mX21h
-dGNoX3RhYmxlID0gcWNvbV9hcGNzX2lwY19vZl9tYXRjaCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-bWFpbGJveC9xY29tLWlwY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9xY29tLWlwY2MuYwppbmRleCBk
-NTM3Y2M5YzRkNGIuLjE0Yzc5MDdjNjYzMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L3Fj
-b20taXBjYy5jCisrKyBiL2RyaXZlcnMvbWFpbGJveC9xY29tLWlwY2MuYwpAQCAtMzQ2LDcgKzM0
-Niw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBxY29tX2lwY2NfZGV2X3BtX29w
-cyA9IHsKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcWNvbV9pcGNjX2RyaXZlciA9
-IHsKIAkucHJvYmUgPSBxY29tX2lwY2NfcHJvYmUsCi0JLnJlbW92ZV9uZXcgPSBxY29tX2lwY2Nf
-cmVtb3ZlLAorCS5yZW1vdmUgPSBxY29tX2lwY2NfcmVtb3ZlLAogCS5kcml2ZXIgPSB7CiAJCS5u
-YW1lID0gInFjb20taXBjYyIsCiAJCS5vZl9tYXRjaF90YWJsZSA9IHFjb21faXBjY19vZl9tYXRj
-aCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9zdG0zMi1pcGNjLmMgYi9kcml2ZXJzL21h
-aWxib3gvc3RtMzItaXBjYy5jCmluZGV4IDE0NDJmMjc1NzgyYi4uNGY2M2YxYTE0Y2E2IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL21haWxib3gvc3RtMzItaXBjYy5jCisrKyBiL2RyaXZlcnMvbWFpbGJv
-eC9zdG0zMi1pcGNjLmMKQEAgLTM3OSw3ICszNzksNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3Jt
-X2RyaXZlciBzdG0zMl9pcGNjX2RyaXZlciA9IHsKIAkJLm9mX21hdGNoX3RhYmxlID0gc3RtMzJf
-aXBjY19vZl9tYXRjaCwKIAl9LAogCS5wcm9iZQkJPSBzdG0zMl9pcGNjX3Byb2JlLAotCS5yZW1v
-dmVfbmV3CT0gc3RtMzJfaXBjY19yZW1vdmUsCisJLnJlbW92ZQkJPSBzdG0zMl9pcGNjX3JlbW92
-ZSwKIH07CiAKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3RtMzJfaXBjY19kcml2ZXIpOwpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L3N1bjZpLW1zZ2JveC5jIGIvZHJpdmVycy9tYWlsYm94
-L3N1bjZpLW1zZ2JveC5jCmluZGV4IDNkY2M1NGRjODNiMi4uNmJhNjkyMGY0NjQ1IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL21haWxib3gvc3VuNmktbXNnYm94LmMKKysrIGIvZHJpdmVycy9tYWlsYm94
-L3N1bjZpLW1zZ2JveC5jCkBAIC0zMDcsOCArMzA3LDggQEAgc3RhdGljIHN0cnVjdCBwbGF0Zm9y
-bV9kcml2ZXIgc3VuNmlfbXNnYm94X2RyaXZlciA9IHsKIAkJLm5hbWUgPSAic3VuNmktbXNnYm94
-IiwKIAkJLm9mX21hdGNoX3RhYmxlID0gc3VuNmlfbXNnYm94X29mX21hdGNoLAogCX0sCi0JLnBy
-b2JlICA9IHN1bjZpX21zZ2JveF9wcm9iZSwKLQkucmVtb3ZlX25ldyA9IHN1bjZpX21zZ2JveF9y
-ZW1vdmUsCisJLnByb2JlID0gc3VuNmlfbXNnYm94X3Byb2JlLAorCS5yZW1vdmUgPSBzdW42aV9t
-c2dib3hfcmVtb3ZlLAogfTsKIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3VuNmlfbXNnYm94X2Ry
-aXZlcik7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC90ZWdyYS1oc3AuYyBiL2RyaXZl
-cnMvbWFpbGJveC90ZWdyYS1oc3AuYwppbmRleCAxOWVmNTZjYmNmZDMuLjhkNWUyZDdkYzAzYiAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9tYWlsYm94L3RlZ3JhLWhzcC5jCisrKyBiL2RyaXZlcnMvbWFp
-bGJveC90ZWdyYS1oc3AuYwpAQCAtOTUxLDcgKzk1MSw3IEBAIHN0YXRpYyBzdHJ1Y3QgcGxhdGZv
-cm1fZHJpdmVyIHRlZ3JhX2hzcF9kcml2ZXIgPSB7CiAJCS5wbSA9ICZ0ZWdyYV9oc3BfcG1fb3Bz
-LAogCX0sCiAJLnByb2JlID0gdGVncmFfaHNwX3Byb2JlLAotCS5yZW1vdmVfbmV3ID0gdGVncmFf
-aHNwX3JlbW92ZSwKKwkucmVtb3ZlID0gdGVncmFfaHNwX3JlbW92ZSwKIH07CiAKIHN0YXRpYyBp
-bnQgX19pbml0IHRlZ3JhX2hzcF9pbml0KHZvaWQpCmRpZmYgLS1naXQgYS9kcml2ZXJzL21haWxi
-b3gvenlucW1wLWlwaS1tYWlsYm94LmMgYi9kcml2ZXJzL21haWxib3gvenlucW1wLWlwaS1tYWls
-Ym94LmMKaW5kZXggNTIxZDA4YjlhYjQ3Li45MTM2NWFjZDMzNGQgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvbWFpbGJveC96eW5xbXAtaXBpLW1haWxib3guYworKysgYi9kcml2ZXJzL21haWxib3gvenlu
-cW1wLWlwaS1tYWlsYm94LmMKQEAgLTEwMTUsNyArMTAxNSw3IEBAIE1PRFVMRV9ERVZJQ0VfVEFC
-TEUob2YsIHp5bnFtcF9pcGlfb2ZfbWF0Y2gpOwogCiBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2Ry
-aXZlciB6eW5xbXBfaXBpX2RyaXZlciA9IHsKIAkucHJvYmUgPSB6eW5xbXBfaXBpX3Byb2JlLAot
-CS5yZW1vdmVfbmV3ID0genlucW1wX2lwaV9yZW1vdmUsCisJLnJlbW92ZSA9IHp5bnFtcF9pcGlf
-cmVtb3ZlLAogCS5kcml2ZXIgPSB7CiAJCSAgIC5uYW1lID0gInp5bnFtcC1pcGkiLAogCQkgICAu
-b2ZfbWF0Y2hfdGFibGUgPSBvZl9tYXRjaF9wdHIoenlucW1wX2lwaV9vZl9tYXRjaCksCgpiYXNl
-LWNvbW1pdDogNDE0Yzk3Yzk2NmI2OWU0YTZlYTdiMzI5NzBmYTE2NmIyZjliOWVmMAotLSAKMi40
-NS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+
+
+On 15/11/2024 9:37 pm, Russell King (Oracle) wrote:
+> On Fri, Nov 15, 2024 at 07:11:50PM +0800, Choong Yong Liang wrote:
+>> Not all PHYs have EEE enabled by default. For example, Marvell PHYs are
+>> designed to have EEE hardware disabled during the initial state.
+>>
+>> In the initial stage, phy_probe() sets phydev->eee_enabled to be disabled.
+>> Then, the MAC calls phy_support_eee() to set eee_cfg.eee_enabled to be
+>> enabled. However, when phy_start_aneg() is called,
+>> genphy_c45_an_config_eee_aneg() still refers to phydev->eee_enabled.
+>> This causes the 'ethtool --show-eee' command to show that EEE is enabled,
+>> but in actuality, the driver side is disabled.
+>>
+>> This patch will remove phydev->eee_enabled and replace it with
+>> eee_cfg.eee_enabled. When performing genphy_c45_an_config_eee_aneg(),
+>> it will follow the master configuration to have software and hardware
+>> in sync.
+> 
+> Hmm. I'm not happy with how you're handling my patch. I would've liked
+> some feedback on it (thanks for spotting that the set_eee case needed
+> to pass the state to genphy_c45_an_config_eee_aneg()).
+> 
+> However, what's worse is, that the bulk of this patch is my work, yet
+> you've effectively claimed complete authorship of it in the way you
+> are submitting this patch. Moreover, you are violating the kernel
+> submission rules, as the Signed-off-by does not include one for me
+> (which I need to explicitly give.) I was waiting for the results of
+> your testing before finalising the patch.
+> 
+> The patch needs to be authored by me, the first sign-off needs to be
+> me, then optionally Co-developed-by for you, and then your sign-off.
+> 
+> See Documentation/process/submitting-patches.rst
+> 
+> Thanks.
+> 
+> pw-bot: cr
+> 
+
+Sorry for the late reply; I just got back from my sick leave. I wasn't 
+aware that you had already submitted a patch. I thought I should include it 
+in my patch series. However, I think I messed up the "Signed-off" part. 
+Sorry about that.
+
+The testing part actually took quite some time to complete, and I was 
+already sick last Friday. I was only able to complete the patch series and 
+resubmit the patch, and I thought we could discuss the test results from 
+the patch series. The issue was initially found with EEE on GPY PHY working 
+together with ptp4l, and it did not meet the expected results. There are 
+many things that need to be tested, as it is not only Marvell PHY that has 
+the issue.
+
+With your patch, most of the issues were resolved based on the testing. 
+However, the set_eee was using the old value of eee_enabled and was not 
+able to turn EEE on or off. I think Heiner's patch already solved that part.
+
+With all the solutions provided, I think the only patch left that I need to 
+submit is the one calling 'phy_support_eee()' from stmmac.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
