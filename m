@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC7B9D2B0A
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 17:35:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD43F9D2B28
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 17:40:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08176C78F9A;
-	Tue, 19 Nov 2024 16:35:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 635E9C78F9A;
+	Tue, 19 Nov 2024 16:40:59 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C6B1C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4371C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 16:35:47 +0000 (UTC)
+ Tue, 19 Nov 2024 16:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7xA18VRo4Z9qnPm8nwpcEgS9wya8T5K5bzL5hA5cbhM=; b=UDpri3sOSy3XL6wD8vMGYXaz9I
- uFkGv8c9C6OrzOEX558YbBxIbG+wA4fNnowVtBRXPEuPzOcrh4R9JMyG9L9UchS7B+6YMQwt7noRM
- H60MpWZ5rmYhviuS4QRy77SDsnlrL48PfRUCkQfdx9UUhTL1oT2iBUzUIsRngk5vEPSjjbJ9ddKPK
- OvOhrs8UebepQWu0TtBJ3WdDMyJQfKN96yO24HMTwwZxP5Y5T4oBwlJ6ypqA1MFPRvbcIZiVmazIU
- SSXnHOk/rYkKCQci9B9IyJjirgrkpZ1euHCXp2ifT92GA7W6fgwNtbQn8JgWE1J0DPdL1Zu1NpU5r
- F6icPQPg==;
+ bh=RE/g2BNPpwI1+a7jDa6h1P65+UIOuMSmxiyn5r5LFgY=; b=R5Nj+u5n583xxlPvuIqY6vEv/3
+ QrXbQf1Q+5wcWzK/eW92V3vdRkaPZpiQ2SdkejIf8AjQa3FC/oqndCB1+nn8IwFabm9XNx50NIIcr
+ IrRPfreD5ACHeUNtzzCA6/9K7InB8L8YtkFqt9FsBmiYLTwezNGvV7UfcVVKUd3VOFscYlclaxPbO
+ VWF4i9LT0cJhLAUEIyxpbxwzTzB2coHGYXC1ThECu2DVtuaJSt/2foGi785yJk5XRrCs4BXlvt4YJ
+ 6qZL7mrOVLtWzPlTePznvU1//hKm0GCeAmdGcu1nhyEtA54Ke64YETCFurga62m98u8MOH2HOtIm7
+ rMRh0GcA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45606)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41294)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tDRCH-0003vE-1T;
- Tue, 19 Nov 2024 16:35:25 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tDRHC-0003wB-2y;
+ Tue, 19 Nov 2024 16:40:31 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tDRCD-0006Bj-2N;
- Tue, 19 Nov 2024 16:35:21 +0000
-Date: Tue, 19 Nov 2024 16:35:21 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tDRH8-0006Ck-2F;
+ Tue, 19 Nov 2024 16:40:26 +0000
+Date: Tue, 19 Nov 2024 16:40:26 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: jan.petrous@oss.nxp.com
-Message-ID: <Zzy-SYu3AgwaHeOD@shell.armlinux.org.uk>
+Message-ID: <Zzy_enX2VyS0YUl3@shell.armlinux.org.uk>
 References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
- <20241119-upstream_s32cc_gmac-v5-2-7dcc90fcffef@oss.nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241119-upstream_s32cc_gmac-v5-2-7dcc90fcffef@oss.nxp.com>
+In-Reply-To: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
@@ -59,13 +58,14 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Minda Chen <minda.chen@starfivetech.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Serge Semin <fancer.lancer@gmail.com>, linux-kernel@vger.kernel.org,
  Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 02/16] net: driver: stmmac: Extend CSR
-	calc support
+Subject: Re: [Linux-stm32] [PATCH v5 00/16] Add support for Synopsis DWMAC
+ IP on NXP Automotive SoCs S32G2xx/S32G3xx/S32R45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +82,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 19, 2024 at 04:00:08PM +0100, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Hi,
+
+On Tue, Nov 19, 2024 at 04:00:06PM +0100, Jan Petrous via B4 Relay wrote:
+> The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
+> the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
+> interface over Pinctrl device or the output can be routed
+> to the embedded SerDes for SGMII connectivity.
 > 
-> Add support for CSR clock range up to 800 MHz.
+> The provided stmmac glue code implements only basic functionality,
+> interface support is restricted to RGMII only. More, including
+> SGMII/SerDes support will come later.
 > 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> This patchset adds stmmac glue driver based on downstream NXP git [0].
 
-These look fine.
+A few things for the overall series:
 
-Doing the calculations:
+1. Note that net-next is closed due to the merge window, so patches should
+   be sent as RFC.
 
-100M / 42 = 2.38MHz
-150M / 62 = 2.42MHz
-35M / 16 = 2.19MHz
-60M / 26 = 2.31MHz
-250M / 102 = 2.45MHz
-300M / 124 = 2.42MHz
-500M / 204 = 2.45MHz
-800M / 324 = 2.47MHz
+2. The formatting of the subject line should include the tree to which
+   you wish the patches to be applied - that being net-next for
+   development work.
 
-Since the target MDC clock frequency is 2.5MHz, these all look
-reasonable to what is in the comment for the new clock selection
-values.
+For more information, see:
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-
-Thanks!
+https://kernel.org/doc/html/v6.12/process/maintainer-netdev.html#netdev-faq
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
