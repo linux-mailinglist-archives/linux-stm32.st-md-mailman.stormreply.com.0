@@ -2,61 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE8B9D22BC
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2024 10:47:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D89A69D418E
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B52EC78F97;
-	Tue, 19 Nov 2024 09:47:56 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C3E9C7A85E;
+	Wed, 20 Nov 2024 17:49:45 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52B42C78F96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0FF5C78F96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2024 09:47:49 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1tDKpT-0005uf-6K; Tue, 19 Nov 2024 10:47:27 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tDKpQ-001Xed-1N;
- Tue, 19 Nov 2024 10:47:24 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tDKpQ-003HSG-10;
- Tue, 19 Nov 2024 10:47:24 +0100
-Date: Tue, 19 Nov 2024 10:47:24 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <ZzxerMEiUYUhdDIy@pengutronix.de>
-References: <20241115111151.183108-1-yong.liang.choong@linux.intel.com>
- <20241115111151.183108-2-yong.liang.choong@linux.intel.com>
- <ZzdOkE0lqpl6wx2d@shell.armlinux.org.uk>
- <c1bb831c-fd88-4b03-bda6-d8f4ec4a1681@linux.intel.com>
+ Tue, 19 Nov 2024 10:08:22 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-20c8b557f91so6498235ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Nov 2024 02:08:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732010901; x=1732615701;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
+ b=AQIvAU1iq1xiStoVnLOKLZYpypwvHqHkGAh5iIWqRrSDT+N9zr2DY41LFuxB7DgMQl
+ B0AdtyYQHN5kNrGo1bl8wrLv566M92zFHMfZhj5pq4FMqWklf4byWnyXsraTmMRLs06+
+ UqGPzx5SpjIqr0Be143dqtRsNdhVdzpTYwXQxBw4qvFLPgnVLQxnHnY37pNkJVu3fYmZ
+ POayjCgy/IgquHmvJrEOazI/u8PIIpKfmqisvgw2zZnkNhbEQN3J9jjAmVhCGuIDek2P
+ BNlT3qJgCStlE8DCXYaIg6WsNUdszBoxVnBCsGIyO9Rftsl5Tb380LtiyOEtBmtTRSTU
+ A3iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732010901; x=1732615701;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
+ b=pZuRpgkpG7wBLXfOdN0czkghownDuKJoZAu/1mW6KWIlFK095wQ9ENepzZ/YaL6+Fz
+ lEZdD+Bl42AYVJpzi7QJ/DM8kUxEKVgnYgfzYeegBzudymIrtvGiQGe0APNJSdvRrzss
+ QdhuLyLYS1ScjxAosPJIWX0UekdET6Em1eXIzvTPC/wBs+E66S/RrUh7AX8CNqF5sZ0S
+ okpTRYr6nbPp0BFhjDWGc5s7UIsak+C42uRNxSyRqHJH77sSlORbbZLeBxAwpnp8JS+/
+ Gx/TANlG2S+e3sAAmSQ+lJPBVeGYbUT48fuVCmGuCbFeYhIV9YjE8Ce8JYSkZCGMODDo
+ z4qg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW9pIGOjsDE4OYCU5BuGc2sCQXrtF13POQVdhxpSgWodhGjTpD+KqMmkMFLOtf8mHJYkS4DpGdizrcHaQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzuZ8vw6npW9ft+t5WPP3aAPiTJ4JfL8CUsiGkHARHEWiADRJvA
+ Odp9pAJx9nhGx17F2i8S7eqVLa3VWaoZal/sol7AZKfdqTJrK2xS
+X-Google-Smtp-Source: AGHT+IEAjyQGdRHNm7PwkX2khYpceIhQ92EAPL/Ia7j4slTtR5ja4Ryry5i8z7VVQ8n6txgqIQJr+w==
+X-Received: by 2002:a17:903:1d1:b0:20c:9983:27ae with SMTP id
+ d9443c01a7336-211d0ecdac7mr237798475ad.48.1732010900702; 
+ Tue, 19 Nov 2024 02:08:20 -0800 (PST)
+Received: from [192.168.0.102] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2120ac39585sm41966965ad.261.2024.11.19.02.08.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Nov 2024 02:08:20 -0800 (PST)
+Message-ID: <191ebf4b-231d-4ebc-9ff2-4916ef718970@gmail.com>
+Date: Tue, 19 Nov 2024 18:08:14 +0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c1bb831c-fd88-4b03-bda6-d8f4ec4a1681@linux.intel.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v2 1/2] net: phy: replace
- phydev->eee_enabled with eee_cfg.eee_enabled
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241118082707.8504-1-a0987203069@gmail.com>
+ <20241118082707.8504-4-a0987203069@gmail.com>
+ <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
+X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add
+ dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,80 +89,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 19, 2024 at 05:06:33PM +0800, Choong Yong Liang wrote:
-> 
-> 
-> On 15/11/2024 9:37 pm, Russell King (Oracle) wrote:
-> > On Fri, Nov 15, 2024 at 07:11:50PM +0800, Choong Yong Liang wrote:
-> > > Not all PHYs have EEE enabled by default. For example, Marvell PHYs are
-> > > designed to have EEE hardware disabled during the initial state.
-> > > 
-> > > In the initial stage, phy_probe() sets phydev->eee_enabled to be disabled.
-> > > Then, the MAC calls phy_support_eee() to set eee_cfg.eee_enabled to be
-> > > enabled. However, when phy_start_aneg() is called,
-> > > genphy_c45_an_config_eee_aneg() still refers to phydev->eee_enabled.
-> > > This causes the 'ethtool --show-eee' command to show that EEE is enabled,
-> > > but in actuality, the driver side is disabled.
-> > > 
-> > > This patch will remove phydev->eee_enabled and replace it with
-> > > eee_cfg.eee_enabled. When performing genphy_c45_an_config_eee_aneg(),
-> > > it will follow the master configuration to have software and hardware
-> > > in sync.
-> > 
-> > Hmm. I'm not happy with how you're handling my patch. I would've liked
-> > some feedback on it (thanks for spotting that the set_eee case needed
-> > to pass the state to genphy_c45_an_config_eee_aneg()).
-> > 
-> > However, what's worse is, that the bulk of this patch is my work, yet
-> > you've effectively claimed complete authorship of it in the way you
-> > are submitting this patch. Moreover, you are violating the kernel
-> > submission rules, as the Signed-off-by does not include one for me
-> > (which I need to explicitly give.) I was waiting for the results of
-> > your testing before finalising the patch.
-> > 
-> > The patch needs to be authored by me, the first sign-off needs to be
-> > me, then optionally Co-developed-by for you, and then your sign-off.
-> > 
-> > See Documentation/process/submitting-patches.rst
-> > 
-> > Thanks.
-> > 
-> > pw-bot: cr
-> > 
-> 
-> Sorry for the late reply; I just got back from my sick leave. I wasn't aware
-> that you had already submitted a patch. I thought I should include it in my
-> patch series. However, I think I messed up the "Signed-off" part. Sorry
-> about that.
-> 
-> The testing part actually took quite some time to complete, and I was
-> already sick last Friday. I was only able to complete the patch series and
-> resubmit the patch, and I thought we could discuss the test results from the
-> patch series. The issue was initially found with EEE on GPY PHY working
-> together with ptp4l, and it did not meet the expected results. There are
-> many things that need to be tested, as it is not only Marvell PHY that has
-> the issue.
-
-Hm, the PTP issue with EEE is usually related to PHYs implementing the
-EEE without MAC/LPI support. This PHYs are buffering frames and changing
-the transmission time, so if the time stamp is made by MAC it will have
-different real transmission time. So far i know, Atheros and Realtek
-implement it, even if it is not always officially documented, it can be
-tested.
-
-Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CkFuZHJldyBMdW5uIOaWvCAxMS8xOS8yMDI0IDk6NDggQU0g5a+r6YGTOgo+PiArCWlmIChvZl9w
+cm9wZXJ0eV9yZWFkX3UzMihkZXYtPm9mX25vZGUsICJ0eC1pbnRlcm5hbC1kZWxheS1wcyIsICZh
+cmcpKSB7Cj4+ICsJCXR4X2RlbGF5ID0gMDsgLyogRGVmYXVsdCB2YWx1ZSBpcyAwICovCj4+ICsJ
+fSBlbHNlIHsKPj4gKwkJaWYgKGFyZyA8PSAyMDAwKSB7Cj4+ICsJCQl0eF9kZWxheSA9IChhcmcg
+PT0gMjAwMCkgPyAweEYgOiAoYXJnIC8gUEFUSF9ERUxBWV9ERUMpOwo+PiArCQkJZGV2X2RiZyhk
+ZXYsICJTZXQgVHggcGF0aCBkZWxheSB0byAweCV4XG4iLCB0eF9kZWxheSk7Cj4gVGhlIGRldmlj
+ZSB0cmVlIGJpbmRpbmcgc2F5czoKPgo+ICsgIHR4LWludGVybmFsLWRlbGF5LXBzOgo+ICsgICAg
+ZW51bTogWzAsIDIwMDBdCj4KPgo+IFNvIG9ubHkgdHdvIHZhbHVlcyBhcmUgYWxsb3dlZC4gWWV0
+IHRoZSBDIGNvZGUgaXMKPgo+IGFyZyAvIFBBVEhfREVMQVlfREVDCj4KPiB3aGljaCBzZWVtcyB0
+byBhbGxvdyAxNiB2YWx1ZXM/Cj4KPiBQbGVhc2UgbWFrZSB0aGlzIGNvbnNpc3RlbnQuCj4KPgo+
+ICAgICAgQW5kcmV3CgpPb3BzLiBUaGF0IHdhcyBteSBtaXN1c2U7IEkgd2lsbCBjaGFuZ2UgaXQg
+dG8gbWluaW11bSBhbmQgbWF4aW11bS4KClRoYW5rcyEKCkJSLAoKSm9leQoKPgo+IC0tLQo+IHB3
+LWJvdDogY3IKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
