@@ -2,61 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D789D3BB0
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 14:02:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0CC59D41A4
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 18:49:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C70A7C7803C;
-	Wed, 20 Nov 2024 13:02:02 +0000 (UTC)
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EC43C7BF8B;
+	Wed, 20 Nov 2024 17:49:47 +0000 (UTC)
+Received: from luna.linkmauve.fr (luna.linkmauve.fr [82.65.109.163])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 276A6C78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C950C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2024 13:01:55 +0000 (UTC)
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B088D201D81;
- Wed, 20 Nov 2024 14:01:54 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id AABEC200262;
- Wed, 20 Nov 2024 14:01:54 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 58A4D203C8;
- Wed, 20 Nov 2024 14:01:54 +0100 (CET)
-Date: Wed, 20 Nov 2024 14:01:54 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <Zz3dwo5lQZBNpdwM@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
- <20241119-upstream_s32cc_gmac-v5-13-7dcc90fcffef@oss.nxp.com>
- <20241119203903.GA2249015-robh@kernel.org>
+ Wed, 20 Nov 2024 13:42:04 +0000 (UTC)
+Received: by luna.linkmauve.fr (Postfix, from userid 1000)
+ id D522618559CF; Wed, 20 Nov 2024 14:42:03 +0100 (CET)
+Date: Wed, 20 Nov 2024 14:42:03 +0100
+From: Link Mauve <linkmauve@linkmauve.fr>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>
+Message-ID: <Zz3nK9FvSpxgVzmo@desktop>
+References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
+ <20241120110105.244413-2-hugues.fruchet@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241119203903.GA2249015-robh@kernel.org>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 13/16] dt-bindings: net: Add DT
- bindings for DWMAC on NXP S32G/R SoCs
+In-Reply-To: <20241120110105.244413-2-hugues.fruchet@foss.st.com>
+Jabber-ID: linkmauve@linkmauve.fr
+X-Mailman-Approved-At: Wed, 20 Nov 2024 17:49:43 +0000
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Sebastian Fricke <sebastian.fricke@collabora.com>,
+ linux-rockchip@lists.infradead.org,
+ Daniel Almeida <daniel.almeida@collabora.com>, linux-kernel@vger.kernel.org,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Fritz Koenig <frkoenig@chromium.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] media: uapi: add WebP uAPI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,157 +50,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 19, 2024 at 02:39:03PM -0600, Rob Herring wrote:
-> On Tue, Nov 19, 2024 at 04:00:19PM +0100, Jan Petrous (OSS) wrote:
-> > Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
-> > and S32R45 automotive series SoCs.
-> > 
-> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > ---
-> >  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 105 +++++++++++++++++++++
-> >  .../devicetree/bindings/net/snps,dwmac.yaml        |   3 +
-> >  2 files changed, 108 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
-> > new file mode 100644
-> > index 000000000000..a141e826a295
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
-> > @@ -0,0 +1,105 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +# Copyright 2021-2024 NXP
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
-> > +
-> > +maintainers:
-> > +  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > +
-> > +description:
-> > +  This device is a Synopsys DWC IP, integrated on NXP S32G/R SoCs.
-> > +  The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
-> > +  the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
-> > +  interface over Pinctrl device or the output can be routed
-> > +  to the embedded SerDes for SGMII connectivity.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - const: nxp,s32g2-dwmac
-> > +      - items:
-> > +        - enum:
-> > +            - nxp,s32g3-dwmac
-> > +            - nxp,s32r45-dwmac
-> > +        - const: nxp,s32g2-dwmac
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: Main GMAC registers
-> > +      - description: GMAC PHY mode control register
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  interrupt-names:
-> > +    const: macirq
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Main GMAC clock
-> > +      - description: Transmit clock
-> > +      - description: Receive clock
-> > +      - description: PTP reference clock
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: stmmaceth
-> > +      - const: tx
-> > +      - const: rx
-> > +      - const: ptp_ref
-> > +
-> > +required:
-> > +  - clocks
-> > +  - clock-names
-> > +
-> > +allOf:
-> > +  - $ref: snps,dwmac.yaml#
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +    #include <dt-bindings/phy/phy.h>
-> > +    bus {
-> > +      #address-cells = <2>;
-> > +      #size-cells = <2>;
-> > +
-> > +      ethernet@4033c000 {
-> > +        compatible = "nxp,s32g2-dwmac";
-> > +        reg = <0x0 0x4033c000 0x0 0x2000>, /* gmac IP */
-> > +              <0x0 0x4007c004 0x0 0x4>;    /* GMAC_0_CTRL_STS */
-> > +        interrupt-parent = <&gic>;
-> > +        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> > +        interrupt-names = "macirq";
-> > +        snps,mtl-rx-config = <&mtl_rx_setup>;
-> > +        snps,mtl-tx-config = <&mtl_tx_setup>;
-> > +        clocks = <&clks 24>, <&clks 17>, <&clks 16>, <&clks 15>;
-> > +        clock-names = "stmmaceth", "tx", "rx", "ptp_ref";
-> > +        phy-mode = "rgmii-id";
-> > +        phy-handle = <&phy0>;
-> > +
-> > +        mtl_rx_setup: rx-queues-config {
-> > +          snps,rx-queues-to-use = <5>;
-> > +        };
-> > +
-> > +        mtl_tx_setup: tx-queues-config {
-> > +          snps,tx-queues-to-use = <5>;
-> > +        };
-> > +
-> > +        mdio {
-> > +          #address-cells = <1>;
-> > +          #size-cells = <0>;
-> > +          compatible = "snps,dwmac-mdio";
-> > +
-> > +          phy0: ethernet-phy@0 {
-> > +            reg = <0>;
-> > +          };
-> > +        };
-> > +      };
-> > +    };
-> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > index 4e2ba1bf788c..a88d1c236eaf 100644
-> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > @@ -66,6 +66,9 @@ properties:
-> >          - ingenic,x2000-mac
-> >          - loongson,ls2k-dwmac
-> >          - loongson,ls7a-dwmac
-> > +        - nxp,s32g2-dwmac
-> > +        - nxp,s32g3-dwmac
-> > +        - nxp,s32r-dwmac
-> 
-> You really only need to add nxp,s32g2-dwmac since it's always present.
-
-Ok, I will remove those two in v6.
-
-> 
-> Other than the yamllint issue,
-> 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
-Thanks.
-/Jan
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksCgpPbiBXZWQsIE5vdiAyMCwgMjAyNCBhdCAxMjowMTowM1BNICswMTAwLCBIdWd1ZXMgRnJ1
+Y2hldCB3cm90ZToKPiBUaGlzIHBhdGNoIGFkZHMgdGhlIFdlYlAgcGljdHVyZSBkZWNvZGluZyBr
+ZXJuZWwgdUFQSS4KPiAKPiBUaGlzIGRlc2lnbiBpcyBiYXNlZCBvbiBjdXJyZW50bHkgYXZhaWxh
+YmxlIFZQOCBBUEkgaW1wbGVtZW50YXRpb24gYW5kCj4gYWltcyB0byBzdXBwb3J0IHRoZSBkZXZl
+bG9wbWVudCBvZiBXZWJQIHN0YXRlbGVzcyB2aWRlbyBjb2RlY3MKPiBvbiBMaW51eC4KCldoeSBk
+byB5b3UgbmVlZCB0aGlzIG5ldyB1QVBJIGV4YWN0bHk/ICBUaGUgV2ViUCBmb3JtYXQgaXMgbW9y
+ZSBjb21wbGV4CnRoYW4gdGhlIHNpbXBsZSAnVlA4ICcgZm9ybWF0LCB0aGUgJ1ZQOFgnIGZvdXJj
+YyBmb3IgaW5zdGFuY2UgaXMgYW4KYW5pbWF0ZWQgZm9ybWF0IHdoaWNoIG1heSBjb250YWluIG11
+bHRpcGxlIFZQOCBrZXlmcmFtZXMsIG9yIGFuIGFscGhhCnNpZGUgY2hhbm5lbCwgYW5kIGp1c3Qg
+bGlrZSBhbnkgb3RoZXIgdmlkZW8gY29udGFpbmVyIHdlIHF1ZXVlIGVhY2gKVlA4IGZyYW1lIHNl
+cGFyYXRlbHkgaW4gVjRMMiBmb3IgZGVjb2RpbmcsIG5vdCB0aGUgd2hvbGUgZmlsZS4KCkluIE9u
+aXhbMV0gSSBwYXJzZSB0aGUgV2ViUCBoZWFkZXIgYW5kIHBhc3MgdGhlIHJhdyBWUDggZnJhbWUg
+dG8gVjRMMgp3aXRob3V0IHRoZSBSSUZGIGFyb3VuZCBpdC4KClNvIEnigJlkIHJhdGhlciBOQUNL
+IHRoaXMgcGF0Y2gsIEkgZG9u4oCZdCB0aGluayBpdOKAmXMgYSBnb29kIGlkZWEgdG8KaGFyZGNv
+ZGUgdGhlIHNpbXBsZXN0IHZlcnNpb24gb2YgdGhlIFdlYlAgY29udGFpbmVyIGluIHRoZSB1QVBJ
+LCB0byB0aGUKZGV0cmltZW50IG9mIGFsbCBvdGhlciBwb3NzaWJsZSBXZWJQIGZpbGVzLgoKWzFd
+IGdpdCBjbG9uZSBodHRwczovL2dpdC5saW5rbWF1dmUuZnIvb25peC5naXQvCgo+IAo+IFNpZ25l
+ZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPiAt
+LS0KPiAgRG9jdW1lbnRhdGlvbi91c2Vyc3BhY2UtYXBpL21lZGlhL3Y0bC9iaWJsaW8ucnN0ICB8
+ICA5ICsrKysrKysrKwo+ICAuLi4vdXNlcnNwYWNlLWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXBy
+ZXNzZWQucnN0IHwgMTUgKysrKysrKysrKysrKysrCj4gIGRyaXZlcnMvbWVkaWEvdjRsMi1jb3Jl
+L3Y0bDItaW9jdGwuYyAgICAgICAgICAgICAgfCAgMSArCj4gIGluY2x1ZGUvdWFwaS9saW51eC92
+aWRlb2RldjIuaCAgICAgICAgICAgICAgICAgICAgfCAgMSArCj4gIDQgZmlsZXMgY2hhbmdlZCwg
+MjYgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFj
+ZS1hcGkvbWVkaWEvdjRsL2JpYmxpby5yc3QgYi9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkv
+bWVkaWEvdjRsL2JpYmxpby5yc3QKPiBpbmRleCAzNTY3NGVlYWUyMGQuLmRmM2U5NjNmYzU0ZiAx
+MDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkvbWVkaWEvdjRsL2JpYmxp
+by5yc3QKPiArKysgYi9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkvbWVkaWEvdjRsL2JpYmxp
+by5yc3QKPiBAQCAtNDQ3LDMgKzQ0NywxMiBAQCBBVjEKPiAgOnRpdGxlOiAgICAgQVYxIEJpdHN0
+cmVhbSAmIERlY29kaW5nIFByb2Nlc3MgU3BlY2lmaWNhdGlvbgo+ICAKPiAgOmF1dGhvcjogICAg
+UGV0ZXIgZGUgUml2YXosIEFyZ29uIERlc2lnbiBMdGQsIEphY2sgSGF1Z2h0b24sIEFyZ29uIERl
+c2lnbiBMdGQKPiArCj4gKy4uIF93ZWJwOgo+ICsKPiArV0VCUAo+ICs9PT09Cj4gKwo+ICs6dGl0
+bGU6ICAgICBXRUJQIHBpY3R1cmUgQml0c3RyZWFtICYgRGVjb2RpbmcgUHJvY2VzcyBTcGVjaWZp
+Y2F0aW9uCj4gKwo+ICs6YXV0aG9yOiAgICBHb29nbGUgKGh0dHBzOi8vZGV2ZWxvcGVycy5nb29n
+bGUuY29tL3NwZWVkL3dlYnApCj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vdXNlcnNwYWNl
+LWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXByZXNzZWQucnN0IGIvRG9jdW1lbnRhdGlvbi91c2Vy
+c3BhY2UtYXBpL21lZGlhL3Y0bC9waXhmbXQtY29tcHJlc3NlZC5yc3QKPiBpbmRleCA4MDZlZDcz
+YWM0NzQuLmU2NjRlNzBiMDYxOSAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFj
+ZS1hcGkvbWVkaWEvdjRsL3BpeGZtdC1jb21wcmVzc2VkLnJzdAo+ICsrKyBiL0RvY3VtZW50YXRp
+b24vdXNlcnNwYWNlLWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXByZXNzZWQucnN0Cj4gQEAgLTE2
+OSw2ICsxNjksMjEgQEAgQ29tcHJlc3NlZCBGb3JtYXRzCj4gIAl0aGlzIHBpeGVsIGZvcm1hdC4g
+VGhlIG91dHB1dCBidWZmZXIgbXVzdCBjb250YWluIHRoZSBhcHByb3ByaWF0ZSBudW1iZXIKPiAg
+CW9mIG1hY3JvYmxvY2tzIHRvIGRlY29kZSBhIGZ1bGwgY29ycmVzcG9uZGluZyBmcmFtZSB0byB0
+aGUgbWF0Y2hpbmcKPiAgCWNhcHR1cmUgYnVmZmVyLgo+ICsgICAgKiAuLiBfVjRMMi1QSVgtRk1U
+LVdFQlAtRlJBTUU6Cj4gKwo+ICsgICAgICAtIGBgVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUVgYAo+
+ICsgICAgICAtICdXRUJQJwo+ICsgICAgICAtIFdFQlAgVlA4IHBhcnNlZCBmcmFtZSwgZXhjbHVk
+aW5nIFdFQlAgUklGRiBoZWFkZXIsIGtlZXBpbmcgb25seSB0aGUgVlA4Cj4gKwliaXN0cmVhbSBp
+bmNsdWRpbmcgdGhlIGZyYW1lIGhlYWRlciwgYXMgZXh0cmFjdGVkIGZyb20gdGhlIGNvbnRhaW5l
+ci4KPiArCVRoaXMgZm9ybWF0IGlzIGFkYXB0ZWQgZm9yIHN0YXRlbGVzcyB2aWRlbyBkZWNvZGVy
+cyB0aGF0IGltcGxlbWVudCBhCj4gKwlXRUJQIHBpcGVsaW5lIHdpdGggdGhlIDpyZWY6YHN0YXRl
+bGVzc19kZWNvZGVyYC4KPiArCU1ldGFkYXRhIGFzc29jaWF0ZWQgd2l0aCB0aGUgZnJhbWUgdG8g
+ZGVjb2RlIGlzIHJlcXVpcmVkIHRvIGJlIHBhc3NlZAo+ICsJdGhyb3VnaCB0aGUgYGBWNEwyX0NJ
+RF9TVEFURUxFU1NfVlA4X0ZSQU1FYGAgY29udHJvbC4KPiArCVNlZSB0aGUgOnJlZjpgYXNzb2Np
+YXRlZCBDb2RlYyBDb250cm9sIElEcyA8djRsMi1jb2RlYy1zdGF0ZWxlc3MtdnA4PmAuCj4gKwlF
+eGFjdGx5IG9uZSBvdXRwdXQgYW5kIG9uZSBjYXB0dXJlIGJ1ZmZlciBtdXN0IGJlIHByb3ZpZGVk
+IGZvciB1c2Ugd2l0aAo+ICsJdGhpcyBwaXhlbCBmb3JtYXQuIFRoZSBvdXRwdXQgYnVmZmVyIG11
+c3QgY29udGFpbiB0aGUgYXBwcm9wcmlhdGUgbnVtYmVyCj4gKwlvZiBtYWNyb2Jsb2NrcyB0byBk
+ZWNvZGUgYSBmdWxsIGNvcnJlc3BvbmRpbmcgZnJhbWUgdG8gdGhlIG1hdGNoaW5nCj4gKwljYXB0
+dXJlIGJ1ZmZlci4KPiAgCj4gICAgICAqIC4uIF9WNEwyLVBJWC1GTVQtVlA5Ogo+ICAKPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0bC5jIGIvZHJpdmVycy9t
+ZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0bC5jCj4gaW5kZXggMDMwNGRhYTg0NzFkLi5lMmZmMDNk
+MGQ3NzMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0bC5j
+Cj4gKysrIGIvZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0bC5jCj4gQEAgLTE1MDEs
+NiArMTUwMSw3IEBAIHN0YXRpYyB2b2lkIHY0bF9maWxsX2ZtdGRlc2Moc3RydWN0IHY0bDJfZm10
+ZGVzYyAqZm10KQo+ICAJCWNhc2UgVjRMMl9QSVhfRk1UX1ZDMV9BTk5FWF9MOglkZXNjciA9ICJW
+Qy0xIChTTVBURSA0MTJNIEFubmV4IEwpIjsgYnJlYWs7Cj4gIAkJY2FzZSBWNEwyX1BJWF9GTVRf
+VlA4OgkJZGVzY3IgPSAiVlA4IjsgYnJlYWs7Cj4gIAkJY2FzZSBWNEwyX1BJWF9GTVRfVlA4X0ZS
+QU1FOiAgICBkZXNjciA9ICJWUDggRnJhbWUiOyBicmVhazsKPiArCQljYXNlIFY0TDJfUElYX0ZN
+VF9XRUJQX0ZSQU1FOiAgICBkZXNjciA9ICJXRUJQIFZQOCBGcmFtZSI7IGJyZWFrOwo+ICAJCWNh
+c2UgVjRMMl9QSVhfRk1UX1ZQOToJCWRlc2NyID0gIlZQOSI7IGJyZWFrOwo+ICAJCWNhc2UgVjRM
+Ml9QSVhfRk1UX1ZQOV9GUkFNRTogICAgZGVzY3IgPSAiVlA5IEZyYW1lIjsgYnJlYWs7Cj4gIAkJ
+Y2FzZSBWNEwyX1BJWF9GTVRfSEVWQzoJCWRlc2NyID0gIkhFVkMiOyBicmVhazsgLyogYWthIEgu
+MjY1ICovCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaCBiL2lu
+Y2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaAo+IGluZGV4IGU3YzRkY2UzOTAwNy4uMDlmZmYy
+NjllODUyIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaAo+ICsr
+KyBiL2luY2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaAo+IEBAIC03NTcsNiArNzU3LDcgQEAg
+c3RydWN0IHY0bDJfcGl4X2Zvcm1hdCB7Cj4gICNkZWZpbmUgVjRMMl9QSVhfRk1UX1ZDMV9BTk5F
+WF9MIHY0bDJfZm91cmNjKCdWJywgJ0MnLCAnMScsICdMJykgLyogU01QVEUgNDIxTSBBbm5leCBM
+IGNvbXBsaWFudCBzdHJlYW0gKi8KPiAgI2RlZmluZSBWNEwyX1BJWF9GTVRfVlA4ICAgICAgdjRs
+Ml9mb3VyY2MoJ1YnLCAnUCcsICc4JywgJzAnKSAvKiBWUDggKi8KPiAgI2RlZmluZSBWNEwyX1BJ
+WF9GTVRfVlA4X0ZSQU1FIHY0bDJfZm91cmNjKCdWJywgJ1AnLCAnOCcsICdGJykgLyogVlA4IHBh
+cnNlZCBmcmFtZSAqLwo+ICsjZGVmaW5lIFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FIHY0bDJfZm91
+cmNjKCdXJywgJ0InLCAnUCcsICdGJykgLyogV0VCUCBWUDggcGFyc2VkIGZyYW1lICovCj4gICNk
+ZWZpbmUgVjRMMl9QSVhfRk1UX1ZQOSAgICAgIHY0bDJfZm91cmNjKCdWJywgJ1AnLCAnOScsICcw
+JykgLyogVlA5ICovCj4gICNkZWZpbmUgVjRMMl9QSVhfRk1UX1ZQOV9GUkFNRSB2NGwyX2ZvdXJj
+YygnVicsICdQJywgJzknLCAnRicpIC8qIFZQOSBwYXJzZWQgZnJhbWUgKi8KPiAgI2RlZmluZSBW
+NEwyX1BJWF9GTVRfSEVWQyAgICAgdjRsMl9mb3VyY2MoJ0gnLCAnRScsICdWJywgJ0MnKSAvKiBI
+RVZDIGFrYSBILjI2NSAqLwo+IC0tIAo+IDIuMjUuMQo+IAo+IAo+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gTGludXgtcm9ja2NoaXAgbWFpbGluZyBs
+aXN0Cj4gTGludXgtcm9ja2NoaXBAbGlzdHMuaW5mcmFkZWFkLm9yZwo+IGh0dHA6Ly9saXN0cy5p
+bmZyYWRlYWQub3JnL21haWxtYW4vbGlzdGluZm8vbGludXgtcm9ja2NoaXAKCi0tIApMaW5rIE1h
+dXZlCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
