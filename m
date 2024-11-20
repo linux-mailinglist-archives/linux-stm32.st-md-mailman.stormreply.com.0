@@ -2,78 +2,188 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14A509D403C
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 17:40:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B1269D42B0
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 20:48:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDDF6C78021;
-	Wed, 20 Nov 2024 16:40:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCB8C78021;
+	Wed, 20 Nov 2024 19:48:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97AE7C78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AEABC71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2024 16:39:57 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AKEAXr8003253;
- Wed, 20 Nov 2024 17:39:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- kk/4ImLRfW02WqanMlOBrVlAtIDvhKl0xS3pXSUv80c=; b=puHPrJl182BfBZwd
- G4awuxSp53vzzrXidyQr7BosxKki0uluEHiMiXvAWK0t2G5W1knW/J7PXlv6Rf7N
- HR9vkPs4+w6n/FSBtP5Apdo8EJdAIKPdIF8gTLU2uZkuaePte2+Xwcu4p4Z14CSC
- aEZS+Ndxjkq7rFt17jaQFoUzq2QYQ3L+mXNkJNZ9arNOiCuM37FOuzguwmgAkftO
- g0NnutMbIJQYXm+ExT+gEDG+o4hY+X7XlLkvirnxTAf27F5mCNZ6wWAU4ykr/fqo
- Nywrn5sgzlraUZs1JWwExtRfIiTs3B2dRriOtsPA2YPHK0iiNh3snd4URm8jklFC
- jgRCBA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xknwb6ph-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Nov 2024 17:39:47 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 17AEF400A3;
- Wed, 20 Nov 2024 17:38:27 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B0EEE276BB0;
- Wed, 20 Nov 2024 17:35:50 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 20 Nov
- 2024 17:35:50 +0100
-Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 20 Nov
- 2024 17:35:49 +0100
-Message-ID: <57a66f3c-d644-4ebb-b4dd-0b9d411ec243@foss.st.com>
-Date: Wed, 20 Nov 2024 17:35:49 +0100
-MIME-Version: 1.0
+ Wed, 20 Nov 2024 19:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732132118; x=1763668118;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=KCyEvHaas/CtiV8qzM+vptXcbFv6MKaQWZrj+yX5A04=;
+ b=UnilI+bTnsRBgFNPGwuD8pTS9w1X7LFIIlgJnW4de9w6RdaYIPWDis5W
+ FwxaPcPcWZfJVWoSk0k9qs7Srs02LHW23cNBC2c/gZRGhR4JRCGlKMmYM
+ g5bNgvtzg4jze6WsDNtqJDPtfuxep4L1Hv1fdz+XyRz2YTLHsO/9m/Yl9
+ Tva3OBc3qf5cCIoC5x1NjjZOFwfM77XAJSBoEJusQPhvtovl/3rVCPtgw
+ egQuk8qAhpLiKBJyIBoI6ctba67jE4vKdUStOEUuQQFHIn4ys6InPDas3
+ hWskbNRHB2yjPg4JWeXWg8fSCNL+XVQudfa6XgaDwXS5s4zaAZFxt3wjj w==;
+X-CSE-ConnectionGUID: AKMxvsDjTTeZy6/B7CBK/w==
+X-CSE-MsgGUID: jvOcXOJ1RsumZTUn09Agnw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11262"; a="31607862"
+X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="31607862"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2024 11:48:30 -0800
+X-CSE-ConnectionGUID: YsTjfRIORkirO1/0NwqHfA==
+X-CSE-MsgGUID: cgQ+qS2gRBCLJSC2i2F2xg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="127552876"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orviesa001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 20 Nov 2024 11:48:30 -0800
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 20 Nov 2024 11:48:29 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Wed, 20 Nov 2024 11:48:29 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.174)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 20 Nov 2024 11:48:29 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZKV0DA3ByQ4hnofAy6LxgczcO12qPS2KORPIzbSWezX8Nt5KebqJ8G+QKvM3pogP15286mrFz2hXn0dpSyA4dnCRS/TQixeFoJF95emgqkJHgANx/tM0Lt/NeQstSl/KWxgBbXCVuV0MK+KrcLWrEvUGvPj6jJfF1LjPNC8PUQWohIkscvX8lCWKKIhmqxsmc5eXdg7uOMmpYDgXS8mBD1CZ0c4Q9GHiEJngmG5FzCVv9xyXU2pmKNDzgMT5es0CwNOUG8sdx59IOW7VSGXKf6Nqeuc+TNRhQa9XUKqJ1zQWzFcGsCphTY9ZDUkivVKVeforsSRHf0/zoqHtzh2STg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=745UOAP2+MF5mTpJd+RtAUIFrC55sdzVWckk4JLZS6o=;
+ b=hslAqfpXWJDw7UL+3nsV3+4oaOJQlg9T34BUArQ1LncTSQdIl5jejli4o0MKWkaZUP5eWBSN4zHBEOwVl+PP3RoJ72OrHCfloUX/FxNrNnD74iD/0AGUMFLlEyXxhhPojBJ8YRjT8Kr+DO5+I3UDQJjnAU/LcViYiGxMcTOEJlAxx3BIjQNQwx+QaovcWRIInnPc3RdKPEzq++gOCZ0m4ZWYbJ5cAgV/3RLUpwiZlvE05VLsFHfFCjG+PMN82P614Pb7puFUR4hDtrHKHYaAXW7Op9fpnEA+zp6IhBiFih8XFUSxM1Cdspjq9xoyhOmXiLGahSot9ew9PC7splALhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by IA1PR11MB6345.namprd11.prod.outlook.com (2603:10b6:208:38b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.22; Wed, 20 Nov
+ 2024 19:48:23 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::7de8:e1b1:a3b:b8a8]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::7de8:e1b1:a3b:b8a8%4]) with mapi id 15.20.8158.023; Wed, 20 Nov 2024
+ 19:48:23 +0000
+Message-ID: <9b768de9-5404-4efb-be17-86dcef21dbd9@intel.com>
+Date: Wed, 20 Nov 2024 11:48:22 -0800
 User-Agent: Mozilla Thunderbird
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
- <20241104133515.256497-5-arnaud.pouliquen@foss.st.com>
- <Zzt+7NBdNjyzWZIb@p14s> <0d9075cd-68c2-49ec-9b9c-4315aa8c8517@foss.st.com>
- <CANLsYkxvTuLv8Omw-UeyPaA9g9QokmtMaMYD0eoUPo20wUuONQ@mail.gmail.com>
- <CANLsYkwPDFvJxgXrAV=92w+sT8tXB=-=K8Qs8eRVKm2C2v+0aA@mail.gmail.com>
+To: Choong Yong Liang <yong.liang.choong@linux.intel.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Russell King <linux@armlinux.org.uk>, "David S .
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Oleksij Rempel
+ <o.rempel@pengutronix.de>
+References: <20241120083818.1079456-1-yong.liang.choong@linux.intel.com>
 Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <CANLsYkwPDFvJxgXrAV=92w+sT8tXB=-=K8Qs8eRVKm2C2v+0aA@mail.gmail.com>
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v13 4/7] remoteproc: Introduce release_fw
- optional operation
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <20241120083818.1079456-1-yong.liang.choong@linux.intel.com>
+X-ClientProxiedBy: MW4PR03CA0282.namprd03.prod.outlook.com
+ (2603:10b6:303:b5::17) To CO1PR11MB5089.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|IA1PR11MB6345:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7cfa1061-2def-427d-5205-08dd099c4b28
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|921020|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OHVnVEhaQllSQXRXd2QwbWx1aUVsekxBTitCMVVlcmMyRFJMeGtrNG5ZcVIw?=
+ =?utf-8?B?K3RGdjZrRDBRbHdrK281bDQ0S3IyMlNRaFBFN3NwY2JxbEt1TjB2aTIvVWFn?=
+ =?utf-8?B?bHJ6eCtieUhJL2JmYkF3T24xcjhnZncyQ3VrU0swVm91bjIxbXp1VUtTM2Zk?=
+ =?utf-8?B?Qm0reDlkR3pMV21YaUZkc1A4N2F3LzBKQ2NBV1lYYXE5QU16M3hCZjZWbktp?=
+ =?utf-8?B?dUtkUVkyWXBuOWVJcDlTL3F6NlVvaUQrWmVGYUhMSWhyb1hLbUZvMDgvOGpB?=
+ =?utf-8?B?ZjZFS3VyaVZTWmJ6aGZXSTNURlVEQzJTci9GSkY3UmsrZXIrTG5XSm1jV3Fa?=
+ =?utf-8?B?ZnViMDNCSWw4WGtyNU9tZkZ3RGdiUzNTYkgwVkdoMSszdnMxYjl2VnFtbHRs?=
+ =?utf-8?B?NEw4NXpETzgxMDFxSzJ1MVFvQ3Q1ZnV3UG1vU3hNckY1cEdWRVYvdHk5WE91?=
+ =?utf-8?B?TDRua1Z1TGxUY2lMbEExcHRUSmZPRVM3MUhTT0dLZHdZSURlMStvcG93eVhp?=
+ =?utf-8?B?SVg0MC8vTkpYOU9VanM4alBEVGdEMXpBcklXd1JORndiRzE2WThRL2VlZ1hp?=
+ =?utf-8?B?bXVYU21YRDlhOUZrY0dKbHYrNHhRcXFWMlM2VjJPRVlFMHdTOEloMEZ4NUty?=
+ =?utf-8?B?b3liUjNobkd3OXpaWWUyeENLUHB1aXYwOWp3aVZmUUprOG9naW5JS3hEL3cy?=
+ =?utf-8?B?NUlGaXdTRzlCQmNySkdKc1RpTjZ3ajN3c3RQU0U2TEkreGErVWZZU3hpQ1RR?=
+ =?utf-8?B?Tmh6V2srNW1VdjVOMzJGR1BSQ2ZkNUcxOElDWk5NbFB1SlJDY1k0Vm5iTzdX?=
+ =?utf-8?B?OWg0OGliQ3IwMWM3TVBjS1dYdVFMeGdYQWpOOW1McHcydnJ3QStQK1RSNmMy?=
+ =?utf-8?B?bXFKU2JLRW43YXRTQmJWbnZUUUlESXhVdS91RTFGc3ZycGhvc2dlVXRLSS9V?=
+ =?utf-8?B?NWVlUmVDdm1HTGxoVDNLT2xpTTVMeXRLL00zZWRoS3JRNlhUM1lwazdxT05U?=
+ =?utf-8?B?MzBkeGxXZ0xwemU5TXg2YUkvbUFpM3J1K1M2QzhscWJLblNTV3JwQUNHOWo4?=
+ =?utf-8?B?Yk15OWlqbms5REVZejZ2RUhUbGtlTzNTbnMramNNYzdVVTV5cGk5enVpVEdM?=
+ =?utf-8?B?VmFjWEdLdDhhdmpTTmppR0dZc092T0lWZGk2eFhYQXo1MTh5NkNsaHhtKzhP?=
+ =?utf-8?B?a1pKSmRLZlhZTkMrL2M1dzdVaGZLS3hWclA2ZWhtVnJydmY3NUtRY1dOYlJa?=
+ =?utf-8?B?WlBVYllXM1VHWVBnL2d2VEFLbmI1QkQ3aC9ycmhwWjhMNkhiVkRhWWQrdVBE?=
+ =?utf-8?B?WVJ2RUFCcHRFU1pqM1g2YlNYU3lFMHU1b0hzNmdkczVhK0lLcTVYUHdmeU05?=
+ =?utf-8?B?bUxRY1owbWFob1FtV0JTRnpPb2hsQ3Q4V1VHSDg2UGRJV1V4KzZ4bGlPQm5k?=
+ =?utf-8?B?UHpuT0EzSElwNEJSOTViN3p1Mjg0UHQyWXlBSGxvZXJlYkxLb2E4VmZjNlhV?=
+ =?utf-8?B?RUI2WmZHYjdmUlEyTVNPbFhNaSswc1ZwQXRGTFBxTU5FQ1ZUUHNPRHBzN3M1?=
+ =?utf-8?B?SE1qSnN2Z1I2NDR0eTAwVFJwbEtFMWI4NFo0T3BIa3drMDU0d0hWNnJyWXpM?=
+ =?utf-8?B?dTJLNXl3enJKSE1ucVE1Tjc1RlFCUGJ0bzVOUjlyaktaUGJMWHhJL1R0NGVQ?=
+ =?utf-8?B?Q0lzZzJNMjZhQ3VHVEduVWpySnVoNUZ0MXl1REJCbGo2cFlpYUxYZnczMXRa?=
+ =?utf-8?B?UmtmT1NwUHhYRlRsSktqaXV3Rk9NeURnSHd6UXh5WU9NNk56OXlyUXNJZ3Zw?=
+ =?utf-8?Q?oudfHVADaSXNw5s53XQ3jfjSKQOQ5O1kaecBI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V05xTFhIVm9KWnVWR2xkeDRHTVVpOXZNVmdWRnZGZlBiWDBPaVcvMFZDWWFF?=
+ =?utf-8?B?ak90ZEErZmVJQXJtUmdOVmppVWh2RGV0b2dTbk5XMHV2cGYwNHVJdzF0ZTRV?=
+ =?utf-8?B?ZktZSTlkUHFQc1orYm03M2piM1k3VlhENEVLK0FsNEhiMWQzaHZrendxdDJs?=
+ =?utf-8?B?Rm5LeUxYZDBabFpRUUxaeEU2eE0vcnFjR1FDd0NhZDF6Q0dHM3JPMWJjUUcy?=
+ =?utf-8?B?MVlTZG5sazRwMndjSmpyaXl4a0RHM1lFcmR1TGlCNCtWZ00vTTNKVkgrWUpB?=
+ =?utf-8?B?Ty9BbGdQN3JqeGtad3VkejNDU3VUeisvVk9CUXZpU2JXSnJnOFF6ZEo1SHhL?=
+ =?utf-8?B?NUJGbGlTSUdDNUR0bFowTkR3VEptK3pWcFRhV1JINFY1K1JqQm9YU21LNXJM?=
+ =?utf-8?B?YS9iTnBLVjlqUXkwY0pSZWFBM1h4VElVSEl4Y2x1WC9UdUxMbU9FWlVMR1d0?=
+ =?utf-8?B?VWlQN05YT1pjVE9IdHdUQTIyZDJXdzVQaWZwMTRqNnJMRTg5TTd0ckJoNVV4?=
+ =?utf-8?B?Rk52T2xqL1JKSkIvWDVXTzh5VnNiSlJtb3lsRktJSTlES2xoT0ZBdlU0VWxW?=
+ =?utf-8?B?aHNhWVgvSjBaNnNOb3pwb3BnQ3Uyd0RYQ2hlK2hZVmJnQThxNnRlcVJ6RnZG?=
+ =?utf-8?B?cnBad1g4VHVLZ1k4aTNFa1hpcjZrenRsLzh5UjhDL0l5Z2d3cldTalhxNHJW?=
+ =?utf-8?B?NWJhb0lRNWo4SWRZd2lqYWJTMVlrZG5QejFraVBlcFE2cVAyb3FGcG9HMzBi?=
+ =?utf-8?B?MVBnVmRUNThrcmJNUzJIM3dhWTZkeHQxOFZHVkxVa0hhTW1PZ3c4a0NGUy9P?=
+ =?utf-8?B?MWR3cWE3dHMySG4vTy9YMFRydCtRK2VxNGJJRHkzeWVtbVo0QW1VWU93Y2JZ?=
+ =?utf-8?B?dVdlaTRDUXNUU0kxd3VDaXlFS3VGMU43L05nNzZxOHJrZW9PQUlvaVB0bTJZ?=
+ =?utf-8?B?L1gvSG90dkg0VjV5VCtNbXVibEtUalFzSWxSdjl3S0o0aEhkUm5GazdraWhz?=
+ =?utf-8?B?My9jd2NwYWRwNGFtQVpyOWFxeXpPMVYxeTRxUEs5Q3pSVnlsd2diYnl5V0VM?=
+ =?utf-8?B?WVRMMjVNRkFqbzJVcmZzNFF4b3Q1L1BYRTBNZ0N0cGE3OWV2cHdjbzV0Z1Yv?=
+ =?utf-8?B?Uyt5ZUloZzNaVTJWcUdrZXR1cE4wQXVZc1hMQTJFTnM0MFdBd3hSMVp6K0JK?=
+ =?utf-8?B?RE5sY3Q2YldlQXhDZ0hqcWxxeXo3Z25TVkdSeWE0Nm9BcFl1cnJGZC9UQmM1?=
+ =?utf-8?B?YURUWHNyS1RJNDhMN1U1d3JjS0Q5eThWZ1g5Y3hxLy9kMkJFUWNhb3Rtakc1?=
+ =?utf-8?B?WU9vdGFVV3JqVzhYTjVkeUd3YlFham1scVdORDl0RkhYMktDaGMxN01iN3NR?=
+ =?utf-8?B?NGkvZzl1cGRoRTJJUGdqeG1nZy9EOHhKZ0U3Q2xMNnZ1c3JiN05oSndjZEJz?=
+ =?utf-8?B?UEw3TWh3bzNKUWVBL1NEZkpUOHNYS0dac3J0Q3JCWTNrTUMrakFkUFlmaW5E?=
+ =?utf-8?B?dUliOGhKYThKWm9VSEl4T0NYL2E1VnZ1VUNpMFcvcVJEbVpsekhsdXNZeHgy?=
+ =?utf-8?B?RzJPcEt0czVYUkhidkpUdHZhcVY3VjNUano4eVBzS1padXZISGZXc0FXVXNU?=
+ =?utf-8?B?M2pDL2ppMUQ2K040MERvRUE4SHJsR1orNFZMdzU0aEpNQjJ2NTZITjBhQnZv?=
+ =?utf-8?B?d1lpNTlnSXVveDJmOEZJejdxUllPVENKeXdEZHBBSzhGN0RBaWc0Yk03bXp4?=
+ =?utf-8?B?cC82NWg2WjNoWWd6dE0rempRQUxDUWQwSm56L3FsZTYwajN2bkUyQTJFdlpX?=
+ =?utf-8?B?UlhZU2tYalJiL3dOZEtoV1hBdDNnM1I3eG94MC9mRUE3Tm1sRHhpRHRNMlRl?=
+ =?utf-8?B?RXMzc0JoNVVRY1dKaEhVLzkyWnBRSVhhM0UyOWZ1eFVSWTgzdVBMZE85Mldh?=
+ =?utf-8?B?SnYzYmtzUjZFM1VaNlczUUVISmNnQUlVblI4NlNxei9yeTFxR0M0ZnFGUCtO?=
+ =?utf-8?B?dlhvaHRlU3hnMURhMVBDcE9wOVNXTmNQaDFDc1NuNnJvUVN2c2xTMGdYU2lN?=
+ =?utf-8?B?YUNweWZjY2RBYzBBOHFTNm9BcE84TmhWUDVtRHBub0NCV29ZSG9OR1pmOVds?=
+ =?utf-8?B?RERxZndpR3ljcU9BcEplaDVQcThRWXY3UHRIOXJGZWtwWHJiVjJvK3BJcTQr?=
+ =?utf-8?B?eWc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7cfa1061-2def-427d-5205-08dd099c4b28
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2024 19:48:23.8322 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hvBKpCEbccpcyqnkl+juEOnnAaAVlkQx1wAlABUxEBRlH/pZ+9QG5gAJgEjV2UApqkLfEr0JSsGabdlR69II9kDn0E6hrUSG/M1T9YqiEyA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6345
+X-OriginatorOrg: intel.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: set initial EEE
+	policy configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,158 +202,41 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 11/20/24 17:04, Mathieu Poirier wrote:
-> On Tue, 19 Nov 2024 at 13:38, Mathieu Poirier
-> <mathieu.poirier@linaro.org> wrote:
->>
->> On Tue, 19 Nov 2024 at 11:14, Arnaud POULIQUEN
->> <arnaud.pouliquen@foss.st.com> wrote:
->>>
->>> Hello Mathieu,
->>>
->>> On 11/18/24 18:52, Mathieu Poirier wrote:
->>>> On Mon, Nov 04, 2024 at 02:35:12PM +0100, Arnaud Pouliquen wrote:
->>>>> This patch updates the rproc_ops struct to include an optional
->>>>> release_fw function.
->>>>>
->>>>> The release_fw ops is responsible for releasing the remote processor
->>>>> firmware image. The ops is called in the following cases:
->>>>>
->>>>>  - An error occurs in rproc_start() between the loading of the segments and
->>>>>       the start of the remote processor.
->>>>>  - after stopping the remote processor.
->>>>>
->>>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>>> ---
->>>>> Updates from version V11:
->>>>> - fix typo in @release_fw comment
->>>>> ---
->>>>>  drivers/remoteproc/remoteproc_core.c | 5 +++++
->>>>>  include/linux/remoteproc.h           | 3 +++
->>>>>  2 files changed, 8 insertions(+)
->>>>>
->>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->>>>> index 7694817f25d4..46863e1ca307 100644
->>>>> --- a/drivers/remoteproc/remoteproc_core.c
->>>>> +++ b/drivers/remoteproc/remoteproc_core.c
->>>>> @@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
->>>>>
->>>>>  static void rproc_release_fw(struct rproc *rproc)
->>>>>  {
->>>>> +    if (rproc->ops->release_fw)
->>>>> +            rproc->ops->release_fw(rproc);
->>>>> +
->>>>>      /* Free the copy of the resource table */
->>>>>      kfree(rproc->cached_table);
->>>>>      rproc->cached_table = NULL;
->>>>> @@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->>>>>  unprepare_subdevices:
->>>>>      rproc_unprepare_subdevices(rproc);
->>>>>  reset_table_ptr:
->>>>> +    if (rproc->ops->release_fw)
->>>>> +            rproc->ops->release_fw(rproc);
->>>>>      rproc->table_ptr = rproc->cached_table;
->>>>
->>>> I suggest the following:
->>>>
->>>> 1) Create two new functions, i.e rproc_load_fw() and rproc_release_fw().  The
->>>> only thing those would do is call rproc->ops->load_fw() and
->>>> rproc->ops->release_fw(), if they are present.  When a TEE interface is
->>>> available, ->load_fw() and ->release_fw() become rproc_tee_load_fw() and
->>>> rproc_tee_release_fw().
->>>
->>>
->>> I'm wondering if it should be ->preload_fw() instead of ->load_fw() ops, as the
->>> ->load() op already exists.
->>>
->>
->> I agree that ->load() and ->load_fw() will lead to confusion.  I would
->> support ->preload_fw() but there is no obvious antonyme.
->>
->> Since we already have rproc_ops::prepare() and rproc_prepare_device()
->> I suggest rproc_ops::prepare_fw() and rproc_prepare_fw().  The
->> corollary would be rproc_ops::unprepare_fw() and rproc_unprepare_fm().
->> That said, I'm open to other ideas should you be interested in finding
->> other alternatives.
->>
+On 11/20/2024 12:38 AM, Choong Yong Liang wrote:
+> Set the initial eee_cfg values to have 'ethtool --show-eee ' display
+> the initial EEE configuration.
 > 
-> Actually...  A better approach might to rename rproc::load to
-> rproc::load_segments.  That way we can use rproc::load_fw() and
-> rproc_load_fw() without confusion.
-
-Concerning this proposal, please correct me if I'm wrong
-- ops::load_segments() would be used for ELF format only as segment notion seems
-linked to this format.
-- ops:rproc_load_fw should be used for other formats.
-
-The risk is that someone may later come with a requirement to get a resource
-table first to configure some memories before loading a non-ELF firmware.
-
-
+> Fixes: 49168d1980e2 ("net: phy: Add phy_support_eee() indicating MAC support EEE")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
->>>>
->>>> 2) Call rproc_load_fw() in rproc_boot(), just before rproc_fw_boot().  If the
->>>> call to rproc_fw_boot() fails, call rproc_release_fw().
->>>>
->>>> 3) The same logic applies to rproc_boot_recovery(), i.e call rproc_load_fw()
->>>> before rproc_start() and call rproc_release_fw() if rproc_start() fails.
->>>
->>>
->>> I implemented this and I'm currently testing it.
->>> Thise second part requires a few adjustments to work. The ->load() ops needs to
->>> becomes optional to not be called if the "->preload_fw()" is used.
->>>
->>> For that, I propose to return 0 in rproc_load_segments if rproc->ops->load is
->>> NULL and compensate by checking that at least "->preload_fw()" or ->load() is
->>> non-null in rproc_alloc_ops.
->>>
->>
->> I agree.
->>
->>> Thanks,
->>> Arnaud
->>>
->>>
->>>>
->>>> 4) Take rproc_tee_load_fw() out of rproc_tee_parse_fw().  It will now be called
->>>> in rproc_load_fw().
->>>>
->>>> 5) As stated above function rproc_release_fw() now calls rproc_tee_release_fw().
->>>> The former is already called in rproc_shutdown() so we are good in that front.
->>>>
->>>> With the above the cached_table management within the core remains the same and
->>>> we can get rid of patch 3.7.
->>>
->>>>
->>>> Thanks,
->>>> Mathieu
->>>>
->>>>>
->>>>>      return ret;
->>>>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
->>>>> index 2e0ddcb2d792..08e0187a84d9 100644
->>>>> --- a/include/linux/remoteproc.h
->>>>> +++ b/include/linux/remoteproc.h
->>>>> @@ -381,6 +381,8 @@ enum rsc_handling_status {
->>>>>   * @panic:  optional callback to react to system panic, core will delay
->>>>>   *          panic at least the returned number of milliseconds
->>>>>   * @coredump:         collect firmware dump after the subsystem is shutdown
->>>>> + * @release_fw:     optional function to release the firmware image from ROM memories.
->>>>> + *          This function is called after stopping the remote processor or in case of an error
->>>>>   */
->>>>>  struct rproc_ops {
->>>>>      int (*prepare)(struct rproc *rproc);
->>>>> @@ -403,6 +405,7 @@ struct rproc_ops {
->>>>>      u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
->>>>>      unsigned long (*panic)(struct rproc *rproc);
->>>>>      void (*coredump)(struct rproc *rproc);
->>>>> +    void (*release_fw)(struct rproc *rproc);
->>>>>  };
->>>>>
->>>>>  /**
->>>>> --
->>>>> 2.25.1
->>>>>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 7bf275f127c9..766213ee82c1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1205,6 +1205,9 @@ static int stmmac_init_phy(struct net_device *dev)
+>  			return -ENODEV;
+>  		}
+>  
+> +		if (priv->dma_cap.eee)
+> +			phy_support_eee(phydev);
+> +
+
+Ok, so priv->dma_cap.eee is true, then this device supports EEE, and we
+call phy_support_eee which will initialize the values indicating that we
+support the feature for ethtool.
+
+Makes sense.
+
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+
+>  		ret = phylink_connect_phy(priv->phylink, phydev);
+>  	} else {
+>  		fwnode_handle_put(phy_fwnode);
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
