@@ -2,56 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36BB89D3D7F
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 15:25:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 102B49D3E33
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 15:56:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC863C78028;
-	Wed, 20 Nov 2024 14:25:50 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B34B4C78021;
+	Wed, 20 Nov 2024 14:56:56 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55D5AC71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6013C78020
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2024 14:25:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1732112742;
- bh=KvjyYEigGAIEzNiagxO3KwdHG5J+fB7bQo5wDhPsuow=;
- h=Subject:From:To:Date:In-Reply-To:References:From;
- b=D8wUmjZ773YcWqtqoIdCnL8G3IgaI23r8gG0+swCd2x2iZnoLK/WlpWSVGF5lohqm
- X6rgiHmLh5amj44p62PlpxdOxN50lgFChNYhm4+R4mW1lWRAkLnvwIRsYrNviE3mJm
- mQuV/BXTfbsnXxLz1B3NwTLQ7o+afmpqAZ13XA9QA/avQPLObf4DtiKjl7xXP3o0pY
- hBvSGUhCFaSJIdjxQqMO2i3Lt4bdkGxPxP9bfRrVA1+VgCFKfNJ5tI5pdvHeeiZHx0
- z9C9p99iL4NZDqK4ICtTWBz/k0YRbuMOVyyIHbK8vFHHil5oSnnRtHGkxpnCd63cGG
- qe6qZNXXnwfzQ==
-Received: from nicolas-tpx395.localdomain (unknown
- [IPv6:2606:6d00:15:862e::580])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3653417E36B9;
- Wed, 20 Nov 2024 15:25:41 +0100 (CET)
-Message-ID: <c9f19faacccd47b8a72fc4a29a0f75b30bce1aa1.camel@collabora.com>
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Fritz Koenig	 <frkoenig@chromium.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,  Daniel Almeida
- <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 20 Nov 2024 09:25:39 -0500
-In-Reply-To: <20241120110105.244413-3-hugues.fruchet@foss.st.com>
-References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
- <20241120110105.244413-3-hugues.fruchet@foss.st.com>
-Organization: Collabora
-User-Agent: Evolution 3.54.1 (3.54.1-1.fc41) 
+ Wed, 20 Nov 2024 14:56:48 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4315f24a6bbso18747625e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Nov 2024 06:56:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1732114608; x=1732719408;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/WhX7sy9ylH8oB54T8NmaXKVtwnhmbfEVEz1XB5edX8=;
+ b=b562a7kn4oya3BepDGf78WTsgI5ekgZ1a/T7Hiq8aqpdFlSschI9RHzZSTuM3pYMs/
+ Z6WU/oYS6xkUa3AIhXhrO49OIlNh0T+hDn0QcNyDs7IyH1qPbfm6rRkQbmqCrfADRCQD
+ LHnbcvrgC5rn8fa7ek7AQ4Tp13nBGAHx2tphY7fRSp8Z5O4wFDYGB/LmlUcJ3dQS1MEo
+ aA+lejILN+pVK5Gd5NG4Q/oZxW32hE981AHhG7eQ+LQ9tpa7f3ATJ1mtz2h0PirxVZ67
+ ZAuXrdJfWZ5JP6rgC7hCkCTOxogmIaafOuNuz7gxZ4dAL8IGQYNf9MYm/rVolcNhUpqe
+ BKmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732114608; x=1732719408;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/WhX7sy9ylH8oB54T8NmaXKVtwnhmbfEVEz1XB5edX8=;
+ b=Ygr4Wa2ZVRuVmoGOLtweHDSTi/2ZHUSMS0SJOFEeveDCU5fPAFIwJX1YpnhbHogejo
+ gKjFDPWNeRDRySOQpoFuPciJfycPQbyS1HIuJJJ05AAlplIf4NaDzEXXOKJvrw8xlPRT
+ nDzsOGhVf5/jNGPxXg3ElRnqK9bIJx9zCnD2VGDXBOLTNA4ySLkrDUal6bxwDEj+L++2
+ tpUDkLhlV0zavf17iOhjW2w0ufrxKYbRO8s8iCRg/eNnpaYPBc2VbhSMHkT0AGomTLJn
+ bjUXs2wISCm5vEHgiSpiHuf6//+JEGXduzlxHb+YZDVsIywaVoLRwNlzKhNHlVIHmilH
+ PqsA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsYjK1fhG0XRlM0KCJ+z542VI6RtKtuXck8wbInsS1jTVklTZskJn/SbOa4gkyleejEQ1uZI3xSrMsUg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxEECXUESGZknukifZ2fsYgYnQZ1/SVgKOA54mDJufAzIo6ru1t
+ LpA9rhORliZw84Vg663fQUGQ/iro8RrIfDzEQKwLJX5WGYI3dpO3WsN27jM3gvU=
+X-Google-Smtp-Source: AGHT+IHrKfGLOGxnCvfbK0rlizot2Xe7bNWUl7+WlgkZB4qaV364sHZfb2rsYw8BE+EFPgwo4ike+Q==
+X-Received: by 2002:a05:600c:4f83:b0:431:50fa:89c4 with SMTP id
+ 5b1f17b1804b1-433489868e5mr29893195e9.3.1732114608102; 
+ Wed, 20 Nov 2024 06:56:48 -0800 (PST)
+Received: from localhost (p509159f1.dip0.t-ipconnect.de. [80.145.89.241])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825493ea7fsm2279732f8f.90.2024.11.20.06.56.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Nov 2024 06:56:47 -0800 (PST)
+Date: Wed, 20 Nov 2024 15:56:46 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Joey Lu <a0987203069@gmail.com>
+Message-ID: <klp4a7orsswfvh7s33575glcxhlwql2b7otrpchvucajydihsi@dqdkugwf5ze5>
+References: <20241118082707.8504-1-a0987203069@gmail.com>
+ <20241118082707.8504-4-a0987203069@gmail.com>
 MIME-Version: 1.0
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] media: verisilicon: add WebP
-	decoding support
+In-Reply-To: <20241118082707.8504-4-a0987203069@gmail.com>
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add
+ dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,103 +84,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4850286818454179603=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgbWVyY3JlZGkgMjAgbm92ZW1icmUgMjAyNCDDoCAxMjowMSArMDEwMCwgSHVndWVzIEZydWNo
-ZXQgYSDDqWNyaXTCoDoKPiBBZGQgV2ViUCBwaWN0dXJlIGRlY29kaW5nIHN1cHBvcnQgdG8gVlA4
-IHN0YXRlbGVzcyBkZWNvZGVyLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxo
-dWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPiAtLS0KPiAgLi4uL21lZGlhL3BsYXRmb3JtL3Zl
-cmlzaWxpY29uL2hhbnRyb19nMV9yZWdzLmggfCAgMSArCj4gIC4uLi9wbGF0Zm9ybS92ZXJpc2ls
-aWNvbi9oYW50cm9fZzFfdnA4X2RlYy5jICAgIHwgMTQgKysrKysrKysrKysrKysKPiAgLi4uL21l
-ZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMgICAgfCAgMiArKwo+ICAuLi4v
-cGxhdGZvcm0vdmVyaXNpbGljb24vc3RtMzJtcDI1X3ZwdV9ody5jICAgICB8IDE3ICsrKysrKysr
-KysrKysrKy0tCj4gIDQgZmlsZXMgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
-bnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNv
-bi9oYW50cm9fZzFfcmVncy5oIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9o
-YW50cm9fZzFfcmVncy5oCj4gaW5kZXggYzYyM2IzYjBiZTE4Li5lN2Q0ZGI3ODhlNTcgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVn
-cy5oCj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFf
-cmVncy5oCj4gQEAgLTIzMiw2ICsyMzIsNyBAQAo+ICAjZGVmaW5lICAgICBHMV9SRUdfREVDX0NU
-Ukw3X0RDVDdfU1RBUlRfQklUKHgpCQkoKCh4KSAmIDB4M2YpIDw8IDApCj4gICNkZWZpbmUgRzFf
-UkVHX0FERFJfU1RSCQkJCQkweDAzMAo+ICAjZGVmaW5lIEcxX1JFR19BRERSX0RTVAkJCQkJMHgw
-MzQKPiArI2RlZmluZSBHMV9SRUdfQUREUl9EU1RfQ0hST01BCQkJCTB4MDM4Cj4gICNkZWZpbmUg
-RzFfUkVHX0FERFJfUkVGKGkpCQkJCSgweDAzOCArICgoaSkgKiAweDQpKQo+ICAjZGVmaW5lICAg
-ICBHMV9SRUdfQUREUl9SRUZfRklFTERfRQkJCUJJVCgxKQo+ICAjZGVmaW5lICAgICBHMV9SRUdf
-QUREUl9SRUZfVE9QQ19FCQkJQklUKDApCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxh
-dGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYyBiL2RyaXZlcnMvbWVkaWEvcGxh
-dGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+IGluZGV4IDg1MWViNjdmMTlm
-NS4uYzgzZWU2ZjVlZGM4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVy
-aXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZv
-cm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+IEBAIC0zMDcsNiArMzA3LDEyIEBA
-IHN0YXRpYyB2b2lkIGNmZ19wYXJ0cyhzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4LAo+ICAJCQkgICBH
-MV9SRUdfREVDX0NUUkwzX1NUUkVBTV9MRU4oZGN0X3BhcnRfdG90YWxfbGVuKSwKPiAgCQkJICAg
-RzFfUkVHX0RFQ19DVFJMMyk7Cj4gIAo+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9
-PSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRSkKPiArCQl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LAo+
-ICsJCQkJICAgRzFfUkVHX0RFQ19DVFJMM19TVFJFQU1fTEVOX0VYVAo+ICsJCQkJCShkY3RfcGFy
-dF90b3RhbF9sZW4gPj4gMjQpLAo+ICsJCQkJICAgRzFfUkVHX0RFQ19DVFJMMyk7Cj4gKwo+ICAJ
-LyogRENUIHBhcnRpdGlvbnMgYmFzZSBhZGRyZXNzICovCj4gIAlmb3IgKGkgPSAwOyBpIDwgaGRy
-LT5udW1fZGN0X3BhcnRzOyBpKyspIHsKPiAgCQl1MzIgYnl0ZV9vZmZzZXQgPSBkY3RfcGFydF9v
-ZmZzZXQgKyBkY3Rfc2l6ZV9wYXJ0X3NpemUgKyBjb3VudDsKPiBAQCAtNDI3LDYgKzQzMywxMiBA
-QCBzdGF0aWMgdm9pZCBjZmdfYnVmZmVycyhzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4LAo+ICAKPiAg
-CWRzdF9kbWEgPSBoYW50cm9fZ2V0X2RlY19idWZfYWRkcihjdHgsICZ2YjJfZHN0LT52YjJfYnVm
-KTsKPiAgCXZkcHVfd3JpdGVfcmVsYXhlZCh2cHUsIGRzdF9kbWEsIEcxX1JFR19BRERSX0RTVCk7
-Cj4gKwo+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9PSBWNEwyX1BJWF9GTVRfV0VC
-UF9GUkFNRSkKPiArCQl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LCBkc3RfZG1hICsKPiArCQkJCSAg
-IGN0eC0+ZHN0X2ZtdC5wbGFuZV9mbXRbMF0uYnl0ZXNwZXJsaW5lICoKPiArCQkJCSAgIGN0eC0+
-ZHN0X2ZtdC5oZWlnaHQsCj4gKwkJCQkgICBHMV9SRUdfQUREUl9EU1RfQ0hST01BKTsKPiAgfQo+
-ICAKPiAgaW50IGhhbnRyb19nMV92cDhfZGVjX3J1bihzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4KQo+
-IEBAIC00NzEsNiArNDgzLDggQEAgaW50IGhhbnRyb19nMV92cDhfZGVjX3J1bihzdHJ1Y3QgaGFu
-dHJvX2N0eCAqY3R4KQo+ICAJCXJlZyB8PSBHMV9SRUdfREVDX0NUUkwwX1NLSVBfTU9ERTsKPiAg
-CWlmIChoZHItPmxmLmxldmVsID09IDApCj4gIAkJcmVnIHw9IEcxX1JFR19ERUNfQ1RSTDBfRklM
-VEVSSU5HX0RJUzsKPiArCWlmIChjdHgtPnZwdV9zcmNfZm10LT5mb3VyY2MgPT0gVjRMMl9QSVhf
-Rk1UX1dFQlBfRlJBTUUpCj4gKwkJcmVnIHw9IEcxX1JFR19ERUNfQ1RSTDBfV0VCUF9FOwo+ICAJ
-dmRwdV93cml0ZV9yZWxheGVkKHZwdSwgcmVnLCBHMV9SRUdfREVDX0NUUkwwKTsKPiAgCj4gIAkv
-KiBGcmFtZSBkaW1lbnNpb25zICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZv
-cm0vdmVyaXNpbGljb24vaGFudHJvX3Y0bDIuYyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVy
-aXNpbGljb24vaGFudHJvX3Y0bDIuYwo+IGluZGV4IDI1MTNhZGZiZDgyNS4uNzA3NWIyYmExZWMy
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJv
-X3Y0bDIuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJv
-X3Y0bDIuYwo+IEBAIC00NzAsNiArNDcwLDcgQEAgaGFudHJvX3VwZGF0ZV9yZXF1aXJlc19yZXF1
-ZXN0KHN0cnVjdCBoYW50cm9fY3R4ICpjdHgsIHUzMiBmb3VyY2MpCj4gIAkJYnJlYWs7Cj4gIAlj
-YXNlIFY0TDJfUElYX0ZNVF9NUEVHMl9TTElDRToKPiAgCWNhc2UgVjRMMl9QSVhfRk1UX1ZQOF9G
-UkFNRToKPiArCWNhc2UgVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUU6Cj4gIAljYXNlIFY0TDJfUElY
-X0ZNVF9IMjY0X1NMSUNFOgo+ICAJY2FzZSBWNEwyX1BJWF9GTVRfSEVWQ19TTElDRToKPiAgCWNh
-c2UgVjRMMl9QSVhfRk1UX1ZQOV9GUkFNRToKPiBAQCAtNDkyLDYgKzQ5Myw3IEBAIGhhbnRyb191
-cGRhdGVfcmVxdWlyZXNfaG9sZF9jYXB0dXJlX2J1ZihzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4LCB1
-MzIgZm91cmNjKQo+ICAJY2FzZSBWNEwyX1BJWF9GTVRfSlBFRzoKPiAgCWNhc2UgVjRMMl9QSVhf
-Rk1UX01QRUcyX1NMSUNFOgo+ICAJY2FzZSBWNEwyX1BJWF9GTVRfVlA4X0ZSQU1FOgo+ICsJY2Fz
-ZSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRToKPiAgCWNhc2UgVjRMMl9QSVhfRk1UX0hFVkNfU0xJ
-Q0U6Cj4gIAljYXNlIFY0TDJfUElYX0ZNVF9WUDlfRlJBTUU6Cj4gIAkJdnEtPnN1YnN5c3RlbV9m
-bGFncyAmPSB+KFZCMl9WNEwyX0ZMX1NVUFBPUlRTX00yTV9IT0xEX0NBUFRVUkVfQlVGKTsKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVf
-dnB1X2h3LmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92
-cHVfaHcuYwo+IGluZGV4IDgzMzgyMTEyMGIyMC4uNDhkNjkxMmMzYmFiIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vc3RtMzJtcDI1X3ZwdV9ody5jCj4g
-KysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdnB1X2h3
-LmMKPiBAQCAtMjIsMTAgKzIyLDEwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGFudHJvX2ZtdCBz
-dG0zMm1wMjVfdmRlY19mbXRzW10gPSB7Cj4gIAkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9O
-T05FLAo+ICAJCS5mcm1zaXplID0gewo+ICAJCQkubWluX3dpZHRoID0gRk1UX01JTl9XSURUSCwK
-PiAtCQkJLm1heF93aWR0aCA9IEZNVF9GSERfV0lEVEgsCj4gKwkJCS5tYXhfd2lkdGggPSBGTVRf
-NEtfV0lEVEgsCj4gIAkJCS5zdGVwX3dpZHRoID0gTUJfRElNLAo+ICAJCQkubWluX2hlaWdodCA9
-IEZNVF9NSU5fSEVJR0hULAo+IC0JCQkubWF4X2hlaWdodCA9IEZNVF9GSERfSEVJR0hULAo+ICsJ
-CQkubWF4X2hlaWdodCA9IEZNVF80S19IRUlHSFQsCgpJJ20gYSBsaXR0bGUgc3VycHJpc2VkIG9m
-IHRoaXMgY2hhbmdlLCBzaW5jZSB0aGlzIGlzIG1vZGlmeWluZyBWUDhfRlJBTUUsIHdoaWxlCndl
-IHNob3VsZCBpbnN0ZWFkIGludHJvZHVjZSBXRUJQX0ZSQU1FLgoKPiAgCQkJLnN0ZXBfaGVpZ2h0
-ID0gTUJfRElNLAo+ICAJCX0sCj4gIAl9LAo+IEBAIC02OCw2ICs2OCwxOSBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IGhhbnRyb19mbXQgc3RtMzJtcDI1X3ZlbmNfZm10c1tdID0gewo+ICAJCS5jb2Rl
-Y19tb2RlID0gSEFOVFJPX01PREVfTk9ORSwKPiAgCQkuZW5jX2ZtdCA9IFJPQ0tDSElQX1ZQVV9F
-TkNfRk1UX1lVVjQyMFNQLAo+ICAJfSwKPiArCXsKPiArCQkuZm91cmNjID0gVjRMMl9QSVhfRk1U
-X1dFQlBfRlJBTUUsCj4gKwkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9WUDhfREVDLAo+ICsJ
-CS5tYXhfZGVwdGggPSAyLAo+ICsJCS5mcm1zaXplID0gewo+ICsJCQkubWluX3dpZHRoID0gRk1U
-X01JTl9XSURUSCwKPiArCQkJLm1heF93aWR0aCA9IEZNVF80S19XSURUSCwKPiArCQkJLnN0ZXBf
-d2lkdGggPSBNQl9ESU0sCj4gKwkJCS5taW5faGVpZ2h0ID0gRk1UX01JTl9IRUlHSFQsCj4gKwkJ
-CS5tYXhfaGVpZ2h0ID0gRk1UXzRLX0hFSUdIVCwKPiArCQkJLnN0ZXBfaGVpZ2h0ID0gTUJfRElN
-LAo+ICsJCX0sCj4gKwl9LAoKVGhpcyBpcyB2ZW5jX2ZtdCAoZW5jb2RlciksIHRoaXMgc2hvdWxk
-bid0IGJlIHRoZXJlLgoKPiAgCXsKPiAgCQkuZm91cmNjID0gVjRMMl9QSVhfRk1UX1lVWVYsCj4g
-IAkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============4850286818454179603==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xlycwx5h2jmtpvei"
+Content-Disposition: inline
+
+
+--xlycwx5h2jmtpvei
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for
+ Nuvoton MA35 family
+MIME-Version: 1.0
+
+Hello,
+
+On Mon, Nov 18, 2024 at 04:27:07PM +0800, Joey Lu wrote:
+> +static struct platform_driver nuvoton_dwmac_driver = {
+> +	.probe  = nuvoton_gmac_probe,
+> +	.remove_new = stmmac_pltfr_remove,
+
+Please use .remove instead of .remove_new.
+
+Thanks
+Uwe
+
+--xlycwx5h2jmtpvei
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmc9+KwACgkQj4D7WH0S
+/k7LQgf9Gwj9QyarYndFEA5e8v9OUMxfn6Cu7vJ3gmwOZLcBm0Oi+KHCfrK/5oMe
+BYJvIWmrL6AbSFQqaIp38aZmWH2UiKV3KCeRx2kikFou49njcPVyqAKzwpCCi5TE
+6XTZpAg/OHN3kJOiLwN4RZVsnsA4pR1VQVIdch+oGFMyKEgyu85MLpjeQecxRCT/
+RP/bgKRO/OTWrrtnIewHNV2YsehEzx/+wY9gCh6lEVzBJYDGNNkZf49WdTO5nF1G
+KB/pOfKMX4LrldyqelhrRyOOkqDa2mtB5gVdJf5vGP64XwbyxPhzUbblHk/cc5O3
+wThAhMtIKX1kBcxmm20loeBenE3nrg==
+=CCaY
+-----END PGP SIGNATURE-----
+
+--xlycwx5h2jmtpvei--
+
+--===============4850286818454179603==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4850286818454179603==--
