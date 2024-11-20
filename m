@@ -2,67 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED959D38AC
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 11:48:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9599D3909
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 12:04:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D3C8C78F87;
-	Wed, 20 Nov 2024 10:48:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70B59C7A833;
+	Wed, 20 Nov 2024 11:04:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46E3DC78F67
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00029C7A82E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2024 10:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732099705; x=1763635705;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DdnwLC1nlOOJXfXe14SuzanZGrbtUU6kyE6ng30glmk=;
- b=XTEKrmcFbOhuVLGEV8QKj8g6IpZUaz8FZjTfFYi74ON2qVmiwqQ2jZvH
- C62x2dfbJMe6f7uUPvHdNkMC9+ycUyOJ6PtjLIpZrF9q09ISXxy6Im/ry
- ALFWfEDR7bKKvdEyjAqhhdsTCOJzHR3ghexN0eo1J5FqJy3R9oBHPgZu1
- lFHhRwMz6/5B2xznZuv72ob/GWE26ZsrLyYc9rTH2WpQfsRx/wZmUn6ci
- IBrL/6lrmJGVrcECkyfzsPLepgr30XAD1092xo5dFkz4X0mfFZyns7hAP
- +EmvLM6Mb4/tuv9sakJQF56MxQs6p7P6SxQMGziM/0DEQZxMiD1DIn0EI g==;
-X-CSE-ConnectionGUID: Zu1uUNz6SSmxIl3VcdwmSA==
-X-CSE-MsgGUID: +/McGuUXRL2BhIjc8WQVWg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11261"; a="31521009"
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="31521009"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 02:48:17 -0800
-X-CSE-ConnectionGUID: W48YHOZpTiGL35DWyTxvhg==
-X-CSE-MsgGUID: BIrFOaQ7Sv+bsw9FnoXbDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="89677797"
-Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.247.82.175])
- ([10.247.82.175])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 02:48:13 -0800
-Message-ID: <14202f42-5408-4127-8664-8ad958fb2046@linux.intel.com>
-Date: Wed, 20 Nov 2024 18:48:10 +0800
+ Wed, 20 Nov 2024 11:04:21 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AK8X5Hh000467;
+ Wed, 20 Nov 2024 12:04:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=PRYNH4mrXgpLGGkA/dYqVr
+ jp+qKkdlxRYRK4Gx/0a50=; b=NIHTE7GBrxeVaoKr2H8zrCSXlH458tDSItEyY2
+ vqTE3unOn0ZDFocaXyXkSCINW8BMCghm2ML8ijcDF1J1PYNbsBHe/DwXnRf/o2FI
+ 7YbstArp6DPhxioCrGsP2HJDiajTpF00lGjSr0SNTOHIVtwwOohjFR7NBXEZKNxx
+ wqp3g6qWjWHN+YG+1ULWnEdt9et2SVsJlMI8QZIm9Ax33wLQvOQw/TwtBy0MwtKI
+ FmY6usRKfAw6uT1AlBVo5AiOu1lRCxeGI6OiYXhNkRzJhldlbgKtJfjcqFg001Se
+ A5jkSUdykcGaw3sHhBZAG3ju/OuEZqPAb3HHOu2bsI92cYmw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xkq61e9a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 20 Nov 2024 12:04:09 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5E23140077;
+ Wed, 20 Nov 2024 12:02:47 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7164027870D;
+ Wed, 20 Nov 2024 12:01:34 +0100 (CET)
+Received: from localhost (10.48.86.208) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 20 Nov
+ 2024 12:01:34 +0100
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Fritz Koenig <frkoenig@chromium.org>,
+ Sebastian Fricke <sebastian.fricke@collabora.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
+ <andrzej.p@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>
+Date: Wed, 20 Nov 2024 12:01:02 +0100
+Message-ID: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-References: <20241115111151.183108-1-yong.liang.choong@linux.intel.com>
- <20241115111151.183108-2-yong.liang.choong@linux.intel.com>
- <ZzdOkE0lqpl6wx2d@shell.armlinux.org.uk>
- <c1bb831c-fd88-4b03-bda6-d8f4ec4a1681@linux.intel.com>
- <ZzxerMEiUYUhdDIy@pengutronix.de>
-Content-Language: en-US
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <ZzxerMEiUYUhdDIy@pengutronix.de>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v2 1/2] net: phy: replace
- phydev->eee_enabled with eee_cfg.eee_enabled
+X-Originating-IP: [10.48.86.208]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>
+Subject: [Linux-stm32] [PATCH v2 0/3] Add WebP support to hantro decoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,48 +76,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Add WebP image decoding support to stateless V4L2 VP8 decoder.
+
+This have been tested on STM32MP257-EV board using GStreamer.
+
+Simple basic test:
+$> wget https://www.gstatic.com/webp/gallery/1.webp
+$> gst-launch-1.0 filesrc location= 1.webp ! typefind ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
+
+Slideshow of a set of WebP pictures and WebM video files:
+$> wget https://www.gstatic.com/webp/gallery/2.webp
+$> wget https://www.gstatic.com/webp/gallery/3.webp
+$> wget https://www.gstatic.com/webp/gallery/4.webp
+$> wget https://www.gstatic.com/webp/gallery/5.webp
+$> wget https://samplemedia.linaro.org/VP8/big_buck_bunny_480p_VP8_VORBIS_25fps_1900K_short.WebM
+$> gst-play-1.0 *.webp *.webm *.WebM --wait-on-eos
+<hit key ">" to display next file >
+
+Large WebP image > 16777215 (size > 2^24)
+$> gst-launch-1.0 fakesrc num-buffers=1 format=4 do-timestamp=true filltype=3 sizetype=2 sizemax=25165824 blocksize=25165824 ! video/x-raw, format=I420, width=4096, height=3072, framerate=1/1 ! webpenc quality=100 ! filesink location=4096x3072_HQ_random.webp
+$> ls -l 4096x3072_HQ_random.webp
+[...] 16877404 Nov 20 11:40 4096x3072_HQ_random.webp
+$> gst-launch-1.0 filesrc location= 4096x3072_HQ_random.webp blocksize=16876610 ! image/webp, width=1, height=1, framerate=0/1 ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
+
+Large WebP image decoding using post-processor is untested because of lack
+of hardware support on this platform, nevertheless support is provided in
+this serie for further testing on another platform having post-processor
+support.
 
 
-On 19/11/2024 5:47 pm, Oleksij Rempel wrote:
->> Sorry for the late reply; I just got back from my sick leave. I wasn't aware
->> that you had already submitted a patch. I thought I should include it in my
->> patch series. However, I think I messed up the "Signed-off" part. Sorry
->> about that.
->>
->> The testing part actually took quite some time to complete, and I was
->> already sick last Friday. I was only able to complete the patch series and
->> resubmit the patch, and I thought we could discuss the test results from the
->> patch series. The issue was initially found with EEE on GPY PHY working
->> together with ptp4l, and it did not meet the expected results. There are
->> many things that need to be tested, as it is not only Marvell PHY that has
->> the issue.
-> 
-> Hm, the PTP issue with EEE is usually related to PHYs implementing the
-> EEE without MAC/LPI support. This PHYs are buffering frames and changing
-> the transmission time, so if the time stamp is made by MAC it will have
-> different real transmission time. So far i know, Atheros and Realtek
-> implement it, even if it is not always officially documented, it can be
-> tested.
-> 
-> Regards,
-> Oleksij
+Hugues Fruchet (3):
+  media: uapi: add WebP uAPI
+  media: verisilicon: add WebP decoding support
+  media: verisilicon: postproc: 4K support
 
-Thanks, Oleksij, for the suggestion.
-The actual problem we are facing is that the software and hardware 
-configuration is not in sync.
+ .../userspace-api/media/v4l/biblio.rst          |  9 +++++++++
+ .../media/v4l/pixfmt-compressed.rst             | 15 +++++++++++++++
+ drivers/media/platform/verisilicon/hantro.h     |  2 ++
+ .../media/platform/verisilicon/hantro_g1_regs.h |  3 ++-
+ .../platform/verisilicon/hantro_g1_vp8_dec.c    | 14 ++++++++++++++
+ .../platform/verisilicon/hantro_postproc.c      |  6 +++++-
+ .../media/platform/verisilicon/hantro_v4l2.c    |  2 ++
+ .../platform/verisilicon/stm32mp25_vpu_hw.c     | 17 +++++++++++++++--
+ drivers/media/v4l2-core/v4l2-ioctl.c            |  1 +
+ include/uapi/linux/videodev2.h                  |  1 +
+ 10 files changed, 66 insertions(+), 4 deletions(-)
 
-With the following patches applied, the issues were fixed:
-- 
-https://patchwork.kernel.org/project/netdevbpf/patch/E1tBXAF-00341F-EQ@rmk-PC.armlinux.org.uk/
-- 
-https://patchwork.kernel.org/project/netdevbpf/patch/a5efc274-ce58-49f3-ac8a-5384d9b41695@gmail.com/
-- 
-https://patchwork.kernel.org/project/netdevbpf/patch/20241120083818.1079456-1-yong.liang.choong@linux.intel.com/
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
