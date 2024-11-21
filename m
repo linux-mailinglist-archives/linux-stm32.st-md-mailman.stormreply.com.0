@@ -2,74 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5349D4E93
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 15:20:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 811369D4E94
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 15:20:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D7B7C7A82E;
-	Thu, 21 Nov 2024 14:20:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B33FC7A82F;
+	Thu, 21 Nov 2024 14:20:57 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5FD4C78F6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59367C7A82E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2024 14:20:40 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ALA95BP028349;
- Thu, 21 Nov 2024 15:20:18 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- JAlbkjqBlD0R3FSv5bX889vfuMU5j/rR8gfcpzLu/u0=; b=sbpl/LPiBr3D4gPg
- /K8PcSO2DSu650saG5zzqbJeDCpFlqysf98wDAZP5pxSfKeqK14PEK7ZkP778mtM
- NWHfndCwMrgNgej4wfQ4OzKyNmITFvbKSu6Fb3bbnexoFvZb1ZXi2uPz4/S7XGrb
- zZMFOA6Friu12I7rzLjB8rUDO1m9SRGrmJWkaxJm2W1dU5fdpYlITvCEX7id04F4
- ccW6yQkfDlbYzacvJvVmbiKajZrhaHpKPwrWND5BAyI5CMxsFgz4nyTgFqBlhL/9
- CJV1BvgvvvPzrlJFqdmN96OxBN4ICUnYFHuslXTafavZiU1h+y6JCgiSmR0dVLP7
- VsBwxQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xkqf713x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Nov 2024 15:20:18 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 86B6340046;
- Thu, 21 Nov 2024 15:18:33 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5C0A828D457;
- Thu, 21 Nov 2024 15:16:43 +0100 (CET)
-Received: from [10.48.86.208] (10.48.86.208) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 21 Nov
- 2024 15:16:42 +0100
-Message-ID: <86907cc9-5339-435a-a346-08beea21b886@foss.st.com>
-Date: Thu, 21 Nov 2024 15:16:41 +0100
+ Thu, 21 Nov 2024 14:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1732198855;
+ bh=XrWNbUaQHxdhVGLsaRR8H43ccZOPiVT7ZhEp9+0lG/g=;
+ h=Subject:From:To:Date:In-Reply-To:References:From;
+ b=hkCQDWlaMSNNUraJPT4ZbovKwKwtSdjoGf2KYIXNRxoGTf7nYTXBlfueOPIsi/HAC
+ sOFYoLwdfFJwNdN1X6mweGfkcwsz8Oiys+2AGowHXgarFYtod23BW1WDm+hTdcY1cg
+ Drf4G6eL+JuUlQ1aCXb1KAvRei5N6GaWFritjKVy8OsnHQY3QXEJznS+bWLKlO5lb1
+ XZtWUW0RuUd+PAfTT6CyYQCQjr3HXabYULDOa6R6y0xApX3Bn5kgRXp5S44nFYh1FG
+ jub+J2k29eLCGBXDC+TsnxyCZ9b4zkDfJCAq6GG0UjbKGbfcafS45wC8jUUAU9AjU5
+ UoB1otOh5MwPA==
+Received: from nicolas-tpx395.localdomain (unknown
+ [IPv6:2606:6d00:15:862e::7a9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: nicolas)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 145C317E3684;
+ Thu, 21 Nov 2024 15:20:53 +0100 (CET)
+Message-ID: <41310959a7b40f8e28fb324e00c4a51966bec803.camel@collabora.com>
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Hugues FRUCHET <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>, Fritz Koenig	 <frkoenig@chromium.org>,
+ Sebastian Fricke <sebastian.fricke@collabora.com>,  Daniel Almeida
+ <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
+ <andrzej.p@collabora.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com
+Date: Thu, 21 Nov 2024 09:20:52 -0500
+In-Reply-To: <cf81e5f2-45a4-4c82-890c-c8a4d17b22df@foss.st.com>
+References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
+ <20241120110105.244413-3-hugues.fruchet@foss.st.com>
+ <c9f19faacccd47b8a72fc4a29a0f75b30bce1aa1.camel@collabora.com>
+ <cf81e5f2-45a4-4c82-890c-c8a4d17b22df@foss.st.com>
+Organization: Collabora
+User-Agent: Evolution 3.54.1 (3.54.1-1.fc41) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Sebastian Fricke
- <sebastian.fricke@collabora.com>, Ricardo Ribalda <ribalda@chromium.org>,
- Erling Ljunggren <hljunggr@cisco.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Jean-Michel Hautbois <jeanmichel.hautbois@ideasonboard.com>, Benjamin
- Gaignard <benjamin.gaignard@collabora.com>,
- <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20241121131904.261230-1-hugues.fruchet@foss.st.com>
-Content-Language: en-US
-From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-In-Reply-To: <20241121131904.261230-1-hugues.fruchet@foss.st.com>
-X-Originating-IP: [10.48.86.208]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Subject: Re: [Linux-stm32] [PATCH v3 0/3] Add WebP support to hantro decoder
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] media: verisilicon: add WebP
+	decoding support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,85 +65,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi all,
-
-The corresponding GStreamer code has been pushed here (v4l2slwebpdec):
-https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/7939
-
-BR,
-Hugues.
-
-On 11/21/24 14:19, Hugues Fruchet wrote:
-> Add WebP image decoding support to stateless V4L2 VP8 decoder.
-> 
-> This have been tested on STM32MP257-EV board using GStreamer.
-> 
-> Simple basic test:
-> $> wget https://www.gstatic.com/webp/gallery/1.webp
-> $> gst-launch-1.0 filesrc location= 1.webp ! typefind ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
-> 
-> Slideshow of a set of WebP pictures and WebM video files:
-> $> wget https://www.gstatic.com/webp/gallery/2.webp
-> $> wget https://www.gstatic.com/webp/gallery/3.webp
-> $> wget https://www.gstatic.com/webp/gallery/4.webp
-> $> wget https://www.gstatic.com/webp/gallery/5.webp
-> $> wget https://samplemedia.linaro.org/VP8/big_buck_bunny_480p_VP8_VORBIS_25fps_1900K_short.WebM
-> $> gst-play-1.0 *.webp *.webm *.WebM --wait-on-eos
-> <hit key ">" to display next file >
-> 
-> Large WebP image > 16777215 (size > 2^24)
-> $> gst-launch-1.0 fakesrc num-buffers=1 format=4 do-timestamp=true filltype=3 sizetype=2 sizemax=25165824 blocksize=25165824 ! video/x-raw, format=I420, width=4096, height=3072, framerate=1/1 ! webpenc quality=100 ! filesink location=4096x3072_HQ_random.webp
-> $> ls -l 4096x3072_HQ_random.webp
-> [...] 16877404 Nov 20 11:40 4096x3072_HQ_random.webp
-> $> gst-launch-1.0 filesrc location= 4096x3072_HQ_random.webp blocksize=16876610 ! image/webp, width=1, height=1, framerate=0/1 ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
-> 
-> Large WebP image decoding using post-processor is untested because of lack
-> of hardware support on this platform, nevertheless support is provided in
-> this serie for further testing on another platform having post-processor
-> support.
-> 
-> ===========
-> = history =
-> ===========
-> version 3:
->     - Fix remarks from Nicolas Dufresne:
->      - Document constraint about key frame only for WebP
->      - Fix rebase issue
->     - Fix typo detected by Diederik de Haas
-> 
-> version 2:
->     - Fix remarks from Nicolas Dufresne:
->      - Use bytesperline helper to compute chroma size
->      - Introduce a new explicit WEBP frame compressed format
->        instead of relying on VP8 + WebP flag
->      - 4K support in both decoder and post-proc
-> 
-> version 1:
->    - Initial submission
-> 
-> Hugues Fruchet (3):
->    media: uapi: add WebP uAPI
->    media: verisilicon: add WebP decoding support
->    media: verisilicon: postproc: 4K support
-> 
->   .../userspace-api/media/v4l/biblio.rst          |  9 +++++++++
->   .../media/v4l/pixfmt-compressed.rst             | 17 +++++++++++++++++
->   drivers/media/platform/verisilicon/hantro.h     |  2 ++
->   .../media/platform/verisilicon/hantro_g1_regs.h |  3 ++-
->   .../platform/verisilicon/hantro_g1_vp8_dec.c    | 14 ++++++++++++++
->   .../platform/verisilicon/hantro_postproc.c      |  6 +++++-
->   .../media/platform/verisilicon/hantro_v4l2.c    |  2 ++
->   .../platform/verisilicon/stm32mp25_vpu_hw.c     | 17 +++++++++++++++--
->   drivers/media/v4l2-core/v4l2-ioctl.c            |  1 +
->   include/uapi/linux/videodev2.h                  |  1 +
->   10 files changed, 68 insertions(+), 4 deletions(-)
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgSHVndWVzLAoKTGUgamV1ZGkgMjEgbm92ZW1icmUgMjAyNCDDoCAxMTowNyArMDEwMCwgSHVn
+dWVzIEZSVUNIRVQgYSDDqWNyaXTCoDoKPiBIaSBOaWNvbGFzLAo+IAo+IE9uIDExLzIwLzI0IDE1
+OjI1LCBOaWNvbGFzIER1ZnJlc25lIHdyb3RlOgo+ID4gTGUgbWVyY3JlZGkgMjAgbm92ZW1icmUg
+MjAyNCDDoCAxMjowMSArMDEwMCwgSHVndWVzIEZydWNoZXQgYSDDqWNyaXTCoDoKPiA+ID4gQWRk
+IFdlYlAgcGljdHVyZSBkZWNvZGluZyBzdXBwb3J0IHRvIFZQOCBzdGF0ZWxlc3MgZGVjb2Rlci4K
+PiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hl
+dEBmb3NzLnN0LmNvbT4KPiA+ID4gLS0tCj4gPiA+ICAgLi4uL21lZGlhL3BsYXRmb3JtL3Zlcmlz
+aWxpY29uL2hhbnRyb19nMV9yZWdzLmggfCAgMSArCj4gPiA+ICAgLi4uL3BsYXRmb3JtL3Zlcmlz
+aWxpY29uL2hhbnRyb19nMV92cDhfZGVjLmMgICAgfCAxNCArKysrKysrKysrKysrKwo+ID4gPiAg
+IC4uLi9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fdjRsMi5jICAgIHwgIDIgKysK
+PiA+ID4gICAuLi4vcGxhdGZvcm0vdmVyaXNpbGljb24vc3RtMzJtcDI1X3ZwdV9ody5jICAgICB8
+IDE3ICsrKysrKysrKysrKysrKy0tCj4gPiA+ICAgNCBmaWxlcyBjaGFuZ2VkLCAzMiBpbnNlcnRp
+b25zKCspLCAyIGRlbGV0aW9ucygtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaCBiL2RyaXZlcnMvbWVk
+aWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaAo+ID4gPiBpbmRleCBjNjIz
+YjNiMGJlMTguLmU3ZDRkYjc4OGU1NyAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9tZWRpYS9w
+bGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVncy5oCj4gPiA+ICsrKyBiL2RyaXZlcnMv
+bWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaAo+ID4gPiBAQCAtMjMy
+LDYgKzIzMiw3IEBACj4gPiA+ICAgI2RlZmluZSAgICAgRzFfUkVHX0RFQ19DVFJMN19EQ1Q3X1NU
+QVJUX0JJVCh4KQkJKCgoeCkgJiAweDNmKSA8PCAwKQo+ID4gPiAgICNkZWZpbmUgRzFfUkVHX0FE
+RFJfU1RSCQkJCQkweDAzMAo+ID4gPiAgICNkZWZpbmUgRzFfUkVHX0FERFJfRFNUCQkJCQkweDAz
+NAo+ID4gPiArI2RlZmluZSBHMV9SRUdfQUREUl9EU1RfQ0hST01BCQkJCTB4MDM4Cj4gPiA+ICAg
+I2RlZmluZSBHMV9SRUdfQUREUl9SRUYoaSkJCQkJKDB4MDM4ICsgKChpKSAqIDB4NCkpCj4gPiA+
+ICAgI2RlZmluZSAgICAgRzFfUkVHX0FERFJfUkVGX0ZJRUxEX0UJCQlCSVQoMSkKPiA+ID4gICAj
+ZGVmaW5lICAgICBHMV9SRUdfQUREUl9SRUZfVE9QQ19FCQkJQklUKDApCj4gPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19nMV92cDhfZGVj
+LmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19nMV92cDhfZGVj
+LmMKPiA+ID4gaW5kZXggODUxZWI2N2YxOWY1Li5jODNlZTZmNWVkYzggMTAwNjQ0Cj4gPiA+IC0t
+LSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMu
+Ywo+ID4gPiArKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19n
+MV92cDhfZGVjLmMKPiA+ID4gQEAgLTMwNyw2ICszMDcsMTIgQEAgc3RhdGljIHZvaWQgY2ZnX3Bh
+cnRzKHN0cnVjdCBoYW50cm9fY3R4ICpjdHgsCj4gPiA+ICAgCQkJICAgRzFfUkVHX0RFQ19DVFJM
+M19TVFJFQU1fTEVOKGRjdF9wYXJ0X3RvdGFsX2xlbiksCj4gPiA+ICAgCQkJICAgRzFfUkVHX0RF
+Q19DVFJMMyk7Cj4gPiA+ICAgCj4gPiA+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9
+PSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRSkKPiA+ID4gKwkJdmRwdV93cml0ZV9yZWxheGVkKHZw
+dSwKPiA+ID4gKwkJCQkgICBHMV9SRUdfREVDX0NUUkwzX1NUUkVBTV9MRU5fRVhUCj4gPiA+ICsJ
+CQkJCShkY3RfcGFydF90b3RhbF9sZW4gPj4gMjQpLAo+ID4gPiArCQkJCSAgIEcxX1JFR19ERUNf
+Q1RSTDMpOwo+ID4gPiArCj4gPiA+ICAgCS8qIERDVCBwYXJ0aXRpb25zIGJhc2UgYWRkcmVzcyAq
+Lwo+ID4gPiAgIAlmb3IgKGkgPSAwOyBpIDwgaGRyLT5udW1fZGN0X3BhcnRzOyBpKyspIHsKPiA+
+ID4gICAJCXUzMiBieXRlX29mZnNldCA9IGRjdF9wYXJ0X29mZnNldCArIGRjdF9zaXplX3BhcnRf
+c2l6ZSArIGNvdW50Owo+ID4gPiBAQCAtNDI3LDYgKzQzMywxMiBAQCBzdGF0aWMgdm9pZCBjZmdf
+YnVmZmVycyhzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4LAo+ID4gPiAgIAo+ID4gPiAgIAlkc3RfZG1h
+ID0gaGFudHJvX2dldF9kZWNfYnVmX2FkZHIoY3R4LCAmdmIyX2RzdC0+dmIyX2J1Zik7Cj4gPiA+
+ICAgCXZkcHVfd3JpdGVfcmVsYXhlZCh2cHUsIGRzdF9kbWEsIEcxX1JFR19BRERSX0RTVCk7Cj4g
+PiA+ICsKPiA+ID4gKwlpZiAoY3R4LT52cHVfc3JjX2ZtdC0+Zm91cmNjID09IFY0TDJfUElYX0ZN
+VF9XRUJQX0ZSQU1FKQo+ID4gPiArCQl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LCBkc3RfZG1hICsK
+PiA+ID4gKwkJCQkgICBjdHgtPmRzdF9mbXQucGxhbmVfZm10WzBdLmJ5dGVzcGVybGluZSAqCj4g
+PiA+ICsJCQkJICAgY3R4LT5kc3RfZm10LmhlaWdodCwKPiA+ID4gKwkJCQkgICBHMV9SRUdfQURE
+Ul9EU1RfQ0hST01BKTsKPiA+ID4gICB9Cj4gPiA+ICAgCj4gPiA+ICAgaW50IGhhbnRyb19nMV92
+cDhfZGVjX3J1bihzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4KQo+ID4gPiBAQCAtNDcxLDYgKzQ4Myw4
+IEBAIGludCBoYW50cm9fZzFfdnA4X2RlY19ydW4oc3RydWN0IGhhbnRyb19jdHggKmN0eCkKPiA+
+ID4gICAJCXJlZyB8PSBHMV9SRUdfREVDX0NUUkwwX1NLSVBfTU9ERTsKPiA+ID4gICAJaWYgKGhk
+ci0+bGYubGV2ZWwgPT0gMCkKPiA+ID4gICAJCXJlZyB8PSBHMV9SRUdfREVDX0NUUkwwX0ZJTFRF
+UklOR19ESVM7Cj4gPiA+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9PSBWNEwyX1BJ
+WF9GTVRfV0VCUF9GUkFNRSkKPiA+ID4gKwkJcmVnIHw9IEcxX1JFR19ERUNfQ1RSTDBfV0VCUF9F
+Owo+ID4gPiAgIAl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LCByZWcsIEcxX1JFR19ERUNfQ1RSTDAp
+Owo+ID4gPiAgIAo+ID4gPiAgIAkvKiBGcmFtZSBkaW1lbnNpb25zICovCj4gPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMgYi9k
+cml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMKPiA+ID4gaW5k
+ZXggMjUxM2FkZmJkODI1Li43MDc1YjJiYTFlYzIgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMv
+bWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX3Y0bDIuYwo+ID4gPiArKysgYi9kcml2
+ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMKPiA+ID4gQEAgLTQ3
+MCw2ICs0NzAsNyBAQCBoYW50cm9fdXBkYXRlX3JlcXVpcmVzX3JlcXVlc3Qoc3RydWN0IGhhbnRy
+b19jdHggKmN0eCwgdTMyIGZvdXJjYykKPiA+ID4gICAJCWJyZWFrOwo+ID4gPiAgIAljYXNlIFY0
+TDJfUElYX0ZNVF9NUEVHMl9TTElDRToKPiA+ID4gICAJY2FzZSBWNEwyX1BJWF9GTVRfVlA4X0ZS
+QU1FOgo+ID4gPiArCWNhc2UgVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUU6Cj4gPiA+ICAgCWNhc2Ug
+VjRMMl9QSVhfRk1UX0gyNjRfU0xJQ0U6Cj4gPiA+ICAgCWNhc2UgVjRMMl9QSVhfRk1UX0hFVkNf
+U0xJQ0U6Cj4gPiA+ICAgCWNhc2UgVjRMMl9QSVhfRk1UX1ZQOV9GUkFNRToKPiA+ID4gQEAgLTQ5
+Miw2ICs0OTMsNyBAQCBoYW50cm9fdXBkYXRlX3JlcXVpcmVzX2hvbGRfY2FwdHVyZV9idWYoc3Ry
+dWN0IGhhbnRyb19jdHggKmN0eCwgdTMyIGZvdXJjYykKPiA+ID4gICAJY2FzZSBWNEwyX1BJWF9G
+TVRfSlBFRzoKPiA+ID4gICAJY2FzZSBWNEwyX1BJWF9GTVRfTVBFRzJfU0xJQ0U6Cj4gPiA+ICAg
+CWNhc2UgVjRMMl9QSVhfRk1UX1ZQOF9GUkFNRToKPiA+ID4gKwljYXNlIFY0TDJfUElYX0ZNVF9X
+RUJQX0ZSQU1FOgo+ID4gPiAgIAljYXNlIFY0TDJfUElYX0ZNVF9IRVZDX1NMSUNFOgo+ID4gPiAg
+IAljYXNlIFY0TDJfUElYX0ZNVF9WUDlfRlJBTUU6Cj4gPiA+ICAgCQl2cS0+c3Vic3lzdGVtX2Zs
+YWdzICY9IH4oVkIyX1Y0TDJfRkxfU1VQUE9SVFNfTTJNX0hPTERfQ0FQVFVSRV9CVUYpOwo+ID4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1w
+MjVfdnB1X2h3LmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAy
+NV92cHVfaHcuYwo+ID4gPiBpbmRleCA4MzM4MjExMjBiMjAuLjQ4ZDY5MTJjM2JhYiAxMDA2NDQK
+PiA+ID4gLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVf
+dnB1X2h3LmMKPiA+ID4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9z
+dG0zMm1wMjVfdnB1X2h3LmMKPiA+ID4gQEAgLTIyLDEwICsyMiwxMCBAQCBzdGF0aWMgY29uc3Qg
+c3RydWN0IGhhbnRyb19mbXQgc3RtMzJtcDI1X3ZkZWNfZm10c1tdID0gewo+ID4gPiAgIAkJLmNv
+ZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAo+ID4gPiAgIAkJLmZybXNpemUgPSB7Cj4gPiA+
+ICAgCQkJLm1pbl93aWR0aCA9IEZNVF9NSU5fV0lEVEgsCj4gPiA+IC0JCQkubWF4X3dpZHRoID0g
+Rk1UX0ZIRF9XSURUSCwKPiA+ID4gKwkJCS5tYXhfd2lkdGggPSBGTVRfNEtfV0lEVEgsCj4gPiA+
+ICAgCQkJLnN0ZXBfd2lkdGggPSBNQl9ESU0sCj4gPiA+ICAgCQkJLm1pbl9oZWlnaHQgPSBGTVRf
+TUlOX0hFSUdIVCwKPiA+ID4gLQkJCS5tYXhfaGVpZ2h0ID0gRk1UX0ZIRF9IRUlHSFQsCj4gPiA+
+ICsJCQkubWF4X2hlaWdodCA9IEZNVF80S19IRUlHSFQsCj4gPiAKPiA+IEknbSBhIGxpdHRsZSBz
+dXJwcmlzZWQgb2YgdGhpcyBjaGFuZ2UsIHNpbmNlIHRoaXMgaXMgbW9kaWZ5aW5nIFZQOF9GUkFN
+RSwgd2hpbGUKPiA+IHdlIHNob3VsZCBpbnN0ZWFkIGludHJvZHVjZSBXRUJQX0ZSQU1FLgo+IAo+
+IFRoaXMgaXMgdGhlIHJlc29sdXRpb24gb2YgdGhlIFlVViBvdXRwdXQgb2YgZGVjb2Rlciwgbm90
+IHRoZSBXZWJQIGlucHV0LCAKPiBhbmQgYmVjYXVzZSBvZiBsYWNrIG9mIHBvc3QtcHJvY2Vzc29y
+LCB0aGUgb3V0cHV0IGlzIG5vdCBzY2FsZWQsIHNvIGNhbiAKPiBnbyB1cCB0byA0SyB3aXRoIFdl
+YlAuCj4gQmVmb3JlIFdlYlAgaW50cm9kdWN0aW9uLCB0aGUgbWF4aW11bSBvdXRwdXQgcmVzb2x1
+dGlvbiB3YXMgRkhEIGZvciBhbGwgCj4gY29kZWNzLiBOb3cgV2ViUCBhbGxvd3MgdXAgdG8gNEsg
+YnV0IEZIRCBjb25zdHJhaW50IHJlbWFpbnMgZm9yIAo+IEgyNjQvVlA4LiBJIGRvbid0IHNlZSBy
+ZWFsIHByb2JsZW1zIGJlY2F1c2UgVlA4L0gyNjQgY29tcHJlc3NlZCBpbnB1dHMgCj4gYXJlIHdl
+bGwgbGltaXRlZCB0byBGSEQgYW5kIG9ubHkgV2ViUCBhbGxvd3MgNEsuLi4KCkdvb2QgcG9pbnQu
+IFdvdWxkIHlvdSBtaW5kIGFkZGluZyBhIGp1c3RpZmljYXRpb24gZm9yIHRoaXMgY2hhbmdlIHdp
+dGhpbiB0aGUKY29tbWl0IG1lc3NhZ2UgaW4gdjMgPwoKPiAKPiA+IAo+ID4gPiAgIAkJCS5zdGVw
+X2hlaWdodCA9IE1CX0RJTSwKPiA+ID4gICAJCX0sCj4gPiA+ICAgCX0sCj4gPiA+IEBAIC02OCw2
+ICs2OCwxOSBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGhhbnRyb19mbXQgc3RtMzJtcDI1X3ZlbmNf
+Zm10c1tdID0gewo+ID4gPiAgIAkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAo+ID4g
+PiAgIAkJLmVuY19mbXQgPSBST0NLQ0hJUF9WUFVfRU5DX0ZNVF9ZVVY0MjBTUCwKPiA+ID4gICAJ
+fSwKPiA+ID4gKwl7Cj4gPiA+ICsJCS5mb3VyY2MgPSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRSwK
+PiA+ID4gKwkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9WUDhfREVDLAo+ID4gPiArCQkubWF4
+X2RlcHRoID0gMiwKPiA+ID4gKwkJLmZybXNpemUgPSB7Cj4gPiA+ICsJCQkubWluX3dpZHRoID0g
+Rk1UX01JTl9XSURUSCwKPiA+ID4gKwkJCS5tYXhfd2lkdGggPSBGTVRfNEtfV0lEVEgsCj4gPiA+
+ICsJCQkuc3RlcF93aWR0aCA9IE1CX0RJTSwKPiA+ID4gKwkJCS5taW5faGVpZ2h0ID0gRk1UX01J
+Tl9IRUlHSFQsCj4gPiA+ICsJCQkubWF4X2hlaWdodCA9IEZNVF80S19IRUlHSFQsCj4gPiA+ICsJ
+CQkuc3RlcF9oZWlnaHQgPSBNQl9ESU0sCj4gPiA+ICsJCX0sCj4gPiA+ICsJfSwKPiA+IAo+ID4g
+VGhpcyBpcyB2ZW5jX2ZtdCAoZW5jb2RlciksIHRoaXMgc2hvdWxkbid0IGJlIHRoZXJlLgo+IAo+
+IEFsbCBhcG9sb2dpemVzIGZvciB0aGlzIHJlYmFzZSBpc3N1ZSwgaXQgaXMgb2YgY291cnNlIHBh
+cnQgb2YgCj4gc3RtMzJtcDI1X3ZkZWNfZm10cy4KCkFjaywgbGV0J3MgZ2V0IHRoaXMgcmlnaHQg
+aW4gdjMgOi1ECgo+IAo+ID4gCj4gPiA+ICAgCXsKPiA+ID4gICAJCS5mb3VyY2MgPSBWNEwyX1BJ
+WF9GTVRfWVVZViwKPiA+ID4gICAJCS5jb2RlY19tb2RlID0gSEFOVFJPX01PREVfTk9ORSwKPiA+
+IAo+IAo+IEJSLAo+IEh1Z3Vlcy4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
