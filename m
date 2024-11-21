@@ -2,188 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B1269D42B0
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2024 20:48:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F999D4849
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 08:46:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCB8C78021;
-	Wed, 20 Nov 2024 19:48:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AEABC71292
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37F70C78F88;
+	Thu, 21 Nov 2024 07:46:18 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16E56C78F87
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2024 19:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732132118; x=1763668118;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=KCyEvHaas/CtiV8qzM+vptXcbFv6MKaQWZrj+yX5A04=;
- b=UnilI+bTnsRBgFNPGwuD8pTS9w1X7LFIIlgJnW4de9w6RdaYIPWDis5W
- FwxaPcPcWZfJVWoSk0k9qs7Srs02LHW23cNBC2c/gZRGhR4JRCGlKMmYM
- g5bNgvtzg4jze6WsDNtqJDPtfuxep4L1Hv1fdz+XyRz2YTLHsO/9m/Yl9
- Tva3OBc3qf5cCIoC5x1NjjZOFwfM77XAJSBoEJusQPhvtovl/3rVCPtgw
- egQuk8qAhpLiKBJyIBoI6ctba67jE4vKdUStOEUuQQFHIn4ys6InPDas3
- hWskbNRHB2yjPg4JWeXWg8fSCNL+XVQudfa6XgaDwXS5s4zaAZFxt3wjj w==;
-X-CSE-ConnectionGUID: AKMxvsDjTTeZy6/B7CBK/w==
-X-CSE-MsgGUID: jvOcXOJ1RsumZTUn09Agnw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11262"; a="31607862"
-X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="31607862"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2024 11:48:30 -0800
-X-CSE-ConnectionGUID: YsTjfRIORkirO1/0NwqHfA==
-X-CSE-MsgGUID: cgQ+qS2gRBCLJSC2i2F2xg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,170,1728975600"; d="scan'208";a="127552876"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orviesa001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 20 Nov 2024 11:48:30 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 20 Nov 2024 11:48:29 -0800
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Wed, 20 Nov 2024 11:48:29 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.174)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Wed, 20 Nov 2024 11:48:29 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZKV0DA3ByQ4hnofAy6LxgczcO12qPS2KORPIzbSWezX8Nt5KebqJ8G+QKvM3pogP15286mrFz2hXn0dpSyA4dnCRS/TQixeFoJF95emgqkJHgANx/tM0Lt/NeQstSl/KWxgBbXCVuV0MK+KrcLWrEvUGvPj6jJfF1LjPNC8PUQWohIkscvX8lCWKKIhmqxsmc5eXdg7uOMmpYDgXS8mBD1CZ0c4Q9GHiEJngmG5FzCVv9xyXU2pmKNDzgMT5es0CwNOUG8sdx59IOW7VSGXKf6Nqeuc+TNRhQa9XUKqJ1zQWzFcGsCphTY9ZDUkivVKVeforsSRHf0/zoqHtzh2STg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=745UOAP2+MF5mTpJd+RtAUIFrC55sdzVWckk4JLZS6o=;
- b=hslAqfpXWJDw7UL+3nsV3+4oaOJQlg9T34BUArQ1LncTSQdIl5jejli4o0MKWkaZUP5eWBSN4zHBEOwVl+PP3RoJ72OrHCfloUX/FxNrNnD74iD/0AGUMFLlEyXxhhPojBJ8YRjT8Kr+DO5+I3UDQJjnAU/LcViYiGxMcTOEJlAxx3BIjQNQwx+QaovcWRIInnPc3RdKPEzq++gOCZ0m4ZWYbJ5cAgV/3RLUpwiZlvE05VLsFHfFCjG+PMN82P614Pb7puFUR4hDtrHKHYaAXW7Op9fpnEA+zp6IhBiFih8XFUSxM1Cdspjq9xoyhOmXiLGahSot9ew9PC7splALhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
- by IA1PR11MB6345.namprd11.prod.outlook.com (2603:10b6:208:38b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.22; Wed, 20 Nov
- 2024 19:48:23 +0000
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::7de8:e1b1:a3b:b8a8]) by CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::7de8:e1b1:a3b:b8a8%4]) with mapi id 15.20.8158.023; Wed, 20 Nov 2024
- 19:48:23 +0000
-Message-ID: <9b768de9-5404-4efb-be17-86dcef21dbd9@intel.com>
-Date: Wed, 20 Nov 2024 11:48:22 -0800
-User-Agent: Mozilla Thunderbird
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Russell King <linux@armlinux.org.uk>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Oleksij Rempel
- <o.rempel@pengutronix.de>
-References: <20241120083818.1079456-1-yong.liang.choong@linux.intel.com>
-Content-Language: en-US
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <20241120083818.1079456-1-yong.liang.choong@linux.intel.com>
-X-ClientProxiedBy: MW4PR03CA0282.namprd03.prod.outlook.com
- (2603:10b6:303:b5::17) To CO1PR11MB5089.namprd11.prod.outlook.com
- (2603:10b6:303:9b::16)
+ Thu, 21 Nov 2024 07:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1732175169;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QDdn0M+k8yyKr2FkBT1Y8LYWzdJLNp3idrs1OmCygfk=;
+ b=I49OEa1XckFPID6Ga4F9gLu1zYvy9HJi+JFsNclmXsNAyoMbjFUt1jX2Iv/D9hse3IiBmm
+ hzHv+3QrMSw4zmT1kDxvXQ1ghirwaUP2URDBPdYUCxNjGqFfyXsDLyGacTbUleU4BdyO5c
+ mwXeqY57w8+4o1EOgF9uH4ki7D5ijfw=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-511-F_54-cl2NcyaTAdtBf28ag-1; Thu, 21 Nov 2024 02:45:26 -0500
+X-MC-Unique: F_54-cl2NcyaTAdtBf28ag-1
+X-Mimecast-MFC-AGG-ID: F_54-cl2NcyaTAdtBf28ag
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-382428c2564so350172f8f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Nov 2024 23:45:25 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732175125; x=1732779925;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QDdn0M+k8yyKr2FkBT1Y8LYWzdJLNp3idrs1OmCygfk=;
+ b=DHg7Dc1z4iI92SfysLu5z9VskQUDNGTMykYtLfWAhhUA9QyuqiGJwMNHqZFILYQigk
+ k0BE48t93d+mhVF+14kmiBJpqCrKZSxYSlpqLphtPglgnW38nHuR7KnCq2h5zouxmZ6B
+ 7oDtxcpISObn2MK5VfzA1wJCbqBg07/jq2WQEWKmJx2pZlSwFppVESNtmcvZpmi8X7F6
+ SjDclm5yNCc+eX5VV3LNwx3TKjPRrj3nYaqEyziPydRVvBwn0QckPNWSpohUFDUXtmp/
+ JrrNHZm+Y75V+FDiNfKKOi6eeKpk1f1Gcg8lXV25t7iNoGtqIwGviFp3OQLH0dA2cOz5
+ kbGg==
+X-Gm-Message-State: AOJu0YwA9+7m7t1f2xyqqBb8DCTEatFaGQkdZS/os8VqCiEuhIxO35Xb
+ znOX91PIZlmQznmEQohaP/z86SdeXpMxhiY9Xa7iINHzzv8NkmLlSK8X9UlFZ6mlzowtatISahD
+ xI6w3i7J5PtMiBoXgVzeJC56KVrgXMtyIyphuUofaFw3ffYg+fE+k3rrnjOCEkOMOtMvXU7jxZF
+ T98g==
+X-Received: by 2002:a05:6000:796:b0:382:6d2:2aa9 with SMTP id
+ ffacd0b85a97d-38254b14c09mr4474157f8f.37.1732175124854; 
+ Wed, 20 Nov 2024 23:45:24 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IENjccaFYv9DnUII4IHVDnz1NtdHN+oocHRHWQvgpwzqO3y5Gm8BoZsAyaTjYXow73ws0CY0g==
+X-Received: by 2002:a05:6000:796:b0:382:6d2:2aa9 with SMTP id
+ ffacd0b85a97d-38254b14c09mr4474144f8f.37.1732175124527; 
+ Wed, 20 Nov 2024 23:45:24 -0800 (PST)
+Received: from [192.168.88.24] (146-241-6-75.dyn.eolo.it. [146.241.6.75])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-433b4634c9fsm45793895e9.34.2024.11.20.23.45.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Nov 2024 23:45:24 -0800 (PST)
+Message-ID: <d6794550-07f2-46df-aa4f-c728b06d50bd@redhat.com>
+Date: Thu, 21 Nov 2024 08:45:20 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|IA1PR11MB6345:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cfa1061-2def-427d-5205-08dd099c4b28
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|921020|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OHVnVEhaQllSQXRXd2QwbWx1aUVsekxBTitCMVVlcmMyRFJMeGtrNG5ZcVIw?=
- =?utf-8?B?K3RGdjZrRDBRbHdrK281bDQ0S3IyMlNRaFBFN3NwY2JxbEt1TjB2aTIvVWFn?=
- =?utf-8?B?bHJ6eCtieUhJL2JmYkF3T24xcjhnZncyQ3VrU0swVm91bjIxbXp1VUtTM2Zk?=
- =?utf-8?B?Qm0reDlkR3pMV21YaUZkc1A4N2F3LzBKQ2NBV1lYYXE5QU16M3hCZjZWbktp?=
- =?utf-8?B?dUtkUVkyWXBuOWVJcDlTL3F6NlVvaUQrWmVGYUhMSWhyb1hLbUZvMDgvOGpB?=
- =?utf-8?B?ZjZFS3VyaVZTWmJ6aGZXSTNURlVEQzJTci9GSkY3UmsrZXIrTG5XSm1jV3Fa?=
- =?utf-8?B?ZnViMDNCSWw4WGtyNU9tZkZ3RGdiUzNTYkgwVkdoMSszdnMxYjl2VnFtbHRs?=
- =?utf-8?B?NEw4NXpETzgxMDFxSzJ1MVFvQ3Q1ZnV3UG1vU3hNckY1cEdWRVYvdHk5WE91?=
- =?utf-8?B?TDRua1Z1TGxUY2lMbEExcHRUSmZPRVM3MUhTT0dLZHdZSURlMStvcG93eVhp?=
- =?utf-8?B?SVg0MC8vTkpYOU9VanM4alBEVGdEMXpBcklXd1JORndiRzE2WThRL2VlZ1hp?=
- =?utf-8?B?bXVYU21YRDlhOUZrY0dKbHYrNHhRcXFWMlM2VjJPRVlFMHdTOEloMEZ4NUty?=
- =?utf-8?B?b3liUjNobkd3OXpaWWUyeENLUHB1aXYwOWp3aVZmUUprOG9naW5JS3hEL3cy?=
- =?utf-8?B?NUlGaXdTRzlCQmNySkdKc1RpTjZ3ajN3c3RQU0U2TEkreGErVWZZU3hpQ1RR?=
- =?utf-8?B?Tmh6V2srNW1VdjVOMzJGR1BSQ2ZkNUcxOElDWk5NbFB1SlJDY1k0Vm5iTzdX?=
- =?utf-8?B?OWg0OGliQ3IwMWM3TVBjS1dYdVFMeGdYQWpOOW1McHcydnJ3QStQK1RSNmMy?=
- =?utf-8?B?bXFKU2JLRW43YXRTQmJWbnZUUUlESXhVdS91RTFGc3ZycGhvc2dlVXRLSS9V?=
- =?utf-8?B?NWVlUmVDdm1HTGxoVDNLT2xpTTVMeXRLL00zZWRoS3JRNlhUM1lwazdxT05U?=
- =?utf-8?B?MzBkeGxXZ0xwemU5TXg2YUkvbUFpM3J1K1M2QzhscWJLblNTV3JwQUNHOWo4?=
- =?utf-8?B?Yk15OWlqbms5REVZejZ2RUhUbGtlTzNTbnMramNNYzdVVTV5cGk5enVpVEdM?=
- =?utf-8?B?VmFjWEdLdDhhdmpTTmppR0dZc092T0lWZGk2eFhYQXo1MTh5NkNsaHhtKzhP?=
- =?utf-8?B?a1pKSmRLZlhZTkMrL2M1dzdVaGZLS3hWclA2ZWhtVnJydmY3NUtRY1dOYlJa?=
- =?utf-8?B?WlBVYllXM1VHWVBnL2d2VEFLbmI1QkQ3aC9ycmhwWjhMNkhiVkRhWWQrdVBE?=
- =?utf-8?B?WVJ2RUFCcHRFU1pqM1g2YlNYU3lFMHU1b0hzNmdkczVhK0lLcTVYUHdmeU05?=
- =?utf-8?B?bUxRY1owbWFob1FtV0JTRnpPb2hsQ3Q4V1VHSDg2UGRJV1V4KzZ4bGlPQm5k?=
- =?utf-8?B?UHpuT0EzSElwNEJSOTViN3p1Mjg0UHQyWXlBSGxvZXJlYkxLb2E4VmZjNlhV?=
- =?utf-8?B?RUI2WmZHYjdmUlEyTVNPbFhNaSswc1ZwQXRGTFBxTU5FQ1ZUUHNPRHBzN3M1?=
- =?utf-8?B?SE1qSnN2Z1I2NDR0eTAwVFJwbEtFMWI4NFo0T3BIa3drMDU0d0hWNnJyWXpM?=
- =?utf-8?B?dTJLNXl3enJKSE1ucVE1Tjc1RlFCUGJ0bzVOUjlyaktaUGJMWHhJL1R0NGVQ?=
- =?utf-8?B?Q0lzZzJNMjZhQ3VHVEduVWpySnVoNUZ0MXl1REJCbGo2cFlpYUxYZnczMXRa?=
- =?utf-8?B?UmtmT1NwUHhYRlRsSktqaXV3Rk9NeURnSHd6UXh5WU9NNk56OXlyUXNJZ3Zw?=
- =?utf-8?Q?oudfHVADaSXNw5s53XQ3jfjSKQOQ5O1kaecBI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V05xTFhIVm9KWnVWR2xkeDRHTVVpOXZNVmdWRnZGZlBiWDBPaVcvMFZDWWFF?=
- =?utf-8?B?ak90ZEErZmVJQXJtUmdOVmppVWh2RGV0b2dTbk5XMHV2cGYwNHVJdzF0ZTRV?=
- =?utf-8?B?ZktZSTlkUHFQc1orYm03M2piM1k3VlhENEVLK0FsNEhiMWQzaHZrendxdDJs?=
- =?utf-8?B?Rm5LeUxYZDBabFpRUUxaeEU2eE0vcnFjR1FDd0NhZDF6Q0dHM3JPMWJjUUcy?=
- =?utf-8?B?MVlTZG5sazRwMndjSmpyaXl4a0RHM1lFcmR1TGlCNCtWZ00vTTNKVkgrWUpB?=
- =?utf-8?B?Ty9BbGdQN3JqeGtad3VkejNDU3VUeisvVk9CUXZpU2JXSnJnOFF6ZEo1SHhL?=
- =?utf-8?B?NUJGbGlTSUdDNUR0bFowTkR3VEptK3pWcFRhV1JINFY1K1JqQm9YU21LNXJM?=
- =?utf-8?B?YS9iTnBLVjlqUXkwY0pSZWFBM1h4VElVSEl4Y2x1WC9UdUxMbU9FWlVMR1d0?=
- =?utf-8?B?VWlQN05YT1pjVE9IdHdUQTIyZDJXdzVQaWZwMTRqNnJMRTg5TTd0ckJoNVV4?=
- =?utf-8?B?Rk52T2xqL1JKSkIvWDVXTzh5VnNiSlJtb3lsRktJSTlES2xoT0ZBdlU0VWxW?=
- =?utf-8?B?aHNhWVgvSjBaNnNOb3pwb3BnQ3Uyd0RYQ2hlK2hZVmJnQThxNnRlcVJ6RnZG?=
- =?utf-8?B?cnBad1g4VHVLZ1k4aTNFa1hpcjZrenRsLzh5UjhDL0l5Z2d3cldTalhxNHJW?=
- =?utf-8?B?NWJhb0lRNWo4SWRZd2lqYWJTMVlrZG5QejFraVBlcFE2cVAyb3FGcG9HMzBi?=
- =?utf-8?B?MVBnVmRUNThrcmJNUzJIM3dhWTZkeHQxOFZHVkxVa0hhTW1PZ3c4a0NGUy9P?=
- =?utf-8?B?MWR3cWE3dHMySG4vTy9YMFRydCtRK2VxNGJJRHkzeWVtbVo0QW1VWU93Y2JZ?=
- =?utf-8?B?dVdlaTRDUXNUU0kxd3VDaXlFS3VGMU43L05nNzZxOHJrZW9PQUlvaVB0bTJZ?=
- =?utf-8?B?L1gvSG90dkg0VjV5VCtNbXVibEtUalFzSWxSdjl3S0o0aEhkUm5GazdraWhz?=
- =?utf-8?B?My9jd2NwYWRwNGFtQVpyOWFxeXpPMVYxeTRxUEs5Q3pSVnlsd2diYnl5V0VM?=
- =?utf-8?B?WVRMMjVNRkFqbzJVcmZzNFF4b3Q1L1BYRTBNZ0N0cGE3OWV2cHdjbzV0Z1Yv?=
- =?utf-8?B?Uyt5ZUloZzNaVTJWcUdrZXR1cE4wQXVZc1hMQTJFTnM0MFdBd3hSMVp6K0JK?=
- =?utf-8?B?RE5sY3Q2YldlQXhDZ0hqcWxxeXo3Z25TVkdSeWE0Nm9BcFl1cnJGZC9UQmM1?=
- =?utf-8?B?YURUWHNyS1RJNDhMN1U1d3JjS0Q5eThWZ1g5Y3hxLy9kMkJFUWNhb3Rtakc1?=
- =?utf-8?B?WU9vdGFVV3JqVzhYTjVkeUd3YlFham1scVdORDl0RkhYMktDaGMxN01iN3NR?=
- =?utf-8?B?NGkvZzl1cGRoRTJJUGdqeG1nZy9EOHhKZ0U3Q2xMNnZ1c3JiN05oSndjZEJz?=
- =?utf-8?B?UEw3TWh3bzNKUWVBL1NEZkpUOHNYS0dac3J0Q3JCWTNrTUMrakFkUFlmaW5E?=
- =?utf-8?B?dUliOGhKYThKWm9VSEl4T0NYL2E1VnZ1VUNpMFcvcVJEbVpsekhsdXNZeHgy?=
- =?utf-8?B?RzJPcEt0czVYUkhidkpUdHZhcVY3VjNUano4eVBzS1padXZISGZXc0FXVXNU?=
- =?utf-8?B?M2pDL2ppMUQ2K040MERvRUE4SHJsR1orNFZMdzU0aEpNQjJ2NTZITjBhQnZv?=
- =?utf-8?B?d1lpNTlnSXVveDJmOEZJejdxUllPVENKeXdEZHBBSzhGN0RBaWc0Yk03bXp4?=
- =?utf-8?B?cC82NWg2WjNoWWd6dE0rempRQUxDUWQwSm56L3FsZTYwajN2bkUyQTJFdlpX?=
- =?utf-8?B?UlhZU2tYalJiL3dOZEtoV1hBdDNnM1I3eG94MC9mRUE3Tm1sRHhpRHRNMlRl?=
- =?utf-8?B?RXMzc0JoNVVRY1dKaEhVLzkyWnBRSVhhM0UyOWZ1eFVSWTgzdVBMZE85Mldh?=
- =?utf-8?B?SnYzYmtzUjZFM1VaNlczUUVISmNnQUlVblI4NlNxei9yeTFxR0M0ZnFGUCtO?=
- =?utf-8?B?dlhvaHRlU3hnMURhMVBDcE9wOVNXTmNQaDFDc1NuNnJvUVN2c2xTMGdYU2lN?=
- =?utf-8?B?YUNweWZjY2RBYzBBOHFTNm9BcE84TmhWUDVtRHBub0NCV29ZSG9OR1pmOVds?=
- =?utf-8?B?RERxZndpR3ljcU9BcEplaDVQcThRWXY3UHRIOXJGZWtwWHJiVjJvK3BJcTQr?=
- =?utf-8?B?eWc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cfa1061-2def-427d-5205-08dd099c4b28
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2024 19:48:23.8322 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hvBKpCEbccpcyqnkl+juEOnnAaAVlkQx1wAlABUxEBRlH/pZ+9QG5gAJgEjV2UApqkLfEr0JSsGabdlR69II9kDn0E6hrUSG/M1T9YqiEyA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6345
-X-OriginatorOrg: intel.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: set initial EEE
-	policy configuration
+User-Agent: Mozilla Thunderbird
+To: jan.petrous@oss.nxp.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com>
+ <20241119-upstream_s32cc_gmac-v5-16-7dcc90fcffef@oss.nxp.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20241119-upstream_s32cc_gmac-v5-16-7dcc90fcffef@oss.nxp.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wfgxkAHWPfDH8u2ckiqWZ5FkEQC95Pq0nFLUuRjpXNg_1732175125
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 16/16] net: stmmac: platform: Fix PTP
+ clock rate reading
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -200,42 +112,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 11/20/2024 12:38 AM, Choong Yong Liang wrote:
-> Set the initial eee_cfg values to have 'ethtool --show-eee ' display
-> the initial EEE configuration.
+On 11/19/24 16:00, Jan Petrous (OSS) wrote:
+> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 > 
-> Fixes: 49168d1980e2 ("net: phy: Add phy_support_eee() indicating MAC support EEE")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
->  1 file changed, 3 insertions(+)
+> The stmmac driver supports many vendors SoCs using Synopsys-licensed
+> Ethernet controller IP. Most of these vendors reuse the stmmac_platform
+> codebase, which has a potential PTP clock initialization issue.
+> The PTP clock rate reading might require ungating what is not provided.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 7bf275f127c9..766213ee82c1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1205,6 +1205,9 @@ static int stmmac_init_phy(struct net_device *dev)
->  			return -ENODEV;
->  		}
->  
-> +		if (priv->dma_cap.eee)
-> +			phy_support_eee(phydev);
-> +
+> Fix the PTP clock initialization by enabling it immediately.
+> 
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-Ok, so priv->dma_cap.eee is true, then this device supports EEE, and we
-call phy_support_eee which will initialize the values indicating that we
-support the feature for ethtool.
+Side, process-related note: it would be great if you could trim the
+patch series below 16 (currently off-by-one):
 
-Makes sense.
+https://elixir.bootlin.com/linux/v6.11.8/source/Documentation/process/maintainer-netdev.rst#L14
 
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+This patch looks like an independent fix, possibly worth the 'net' tree.
+If so, please submit this patch separately, including a suitable fixes
+tag and including the 'net' keyword in the patch subj prefix.
 
->  		ret = phylink_connect_phy(priv->phylink, phydev);
->  	} else {
->  		fwnode_handle_put(phy_fwnode);
+Thanks,
+
+Paolo
 
 _______________________________________________
 Linux-stm32 mailing list
