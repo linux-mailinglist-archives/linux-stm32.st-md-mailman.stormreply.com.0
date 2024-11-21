@@ -2,76 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B079D4EAF
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 15:31:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DAB39D5030
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 16:54:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC737C7A82E;
-	Thu, 21 Nov 2024 14:31:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5ED9C7A832;
+	Thu, 21 Nov 2024 15:54:33 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 284EFC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48AE0C7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2024 14:31:30 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4ALE4fYk031954;
- Thu, 21 Nov 2024 15:31:16 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- L4AhvO+uIes1NeK6LJvz0UDQof4cSrasjC8QG7eav24=; b=RhiYRIJLqI/rs9dj
- 4pQFFoDcYma+OlI8+OX3qgew523W1gwyHsWc4yWMeTEicu2yiX7QK7DQNFsBg6To
- T4IXByDciwGzLr+sn51vOR1hrX5eIgeoTQJXlXoVEk+m0z/hS4P1oMJuWXkoXZV8
- Zk6LKksoPXv5JvT1U5E/meGxIUZzhkcdNttTCzozz7V/+cP2k6MH5EuApueo9C5e
- SeUN4jgBt/DJ9/mEgy5TH1TxZX/gp2vXljt+2K2NTpkAj/b466vFGw025IJkEATF
- Wf76BYXyMB1DSBwSaBl5hBZ9xexuGAas2L98U/BbtjGtnCe6HDKv+nrY8a5yKqtT
- Xi/tPA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xkq67g2h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Nov 2024 15:31:16 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2F4264002D;
- Thu, 21 Nov 2024 15:29:55 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 773652786E2;
- Thu, 21 Nov 2024 15:28:57 +0100 (CET)
-Received: from [10.48.86.208] (10.48.86.208) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 21 Nov
- 2024 15:28:56 +0100
-Message-ID: <41f0b8e4-d6aa-4a42-8633-9ea77873d275@foss.st.com>
-Date: Thu, 21 Nov 2024 15:28:56 +0100
+ Thu, 21 Nov 2024 15:54:26 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfaeed515bso1396469a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 21 Nov 2024 07:54:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1732204466; x=1732809266;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=hBc/oNyGgbYuy8gAk9An/ZS4ZJV6hZ/cN5oiQZlgySc=;
+ b=lvBIPtllTDOZGojklFUjfTBvUnQpDOxCNuM+36j726N83fHInbf2SB+I9d6tmmuf/2
+ BcLdLZmpR0CoHHdLdpFDrpgMbXnDxHwplOOQtevTlbxniMFUOdQLqSqt6BHkkLW0uA0N
+ dyheoCAnt1Ma+hQWyYVjQhKlB29RPZ/aH8WrRtlYfrF0j12P68am69us3vH7XMenGw8n
+ Hx4ldk4HI6pvPYWEX9rQ6H7Bhh5gupuiH2ll0Nx43LyfAkR0eo1LZcpDO5PmUnuRjk+M
+ jzubY0wAM9HUBzdp6/e5Rx34Jl3BZB2ciioShXtn5nyrOmvb62rmXQOWqx7TdLyAMo4u
+ 2gqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732204466; x=1732809266;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hBc/oNyGgbYuy8gAk9An/ZS4ZJV6hZ/cN5oiQZlgySc=;
+ b=MAOV1f7k/ze+NV/bidLU8lSEBkvzJsrNrHv66RXoWWUGkJOALsc2mW877wf+sN8otV
+ xmZzpljFXLnpvruD0dwTKCnqJUjJT//Eud6rDi3y2ZpHdD8OfoXDNcdnoNLBJt5fyJjk
+ GB9plMxCS2bQuWk0Aq4RJz7HOu/uE0BF487lKfgAfan9TlP0GVG1GfFP1MhDFlsaqwjm
+ 5pNFJI/pLy9AnXkRB2XvcSqtBTREaCDxBL/WQhgkSEQSnjGhjMKR491zkXxEKNzEFVdM
+ uTer6Yy9KpFfYJagHx8btr9YerRS08B5UY8gbOYLGJv2RpNPAp43Pc+rM2cVQ+WOKL+a
+ SwNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWmF9LbtA+bCgF35uueR533lEwJ/T0ULE9AJKQhQ04CTv79aGHfAYG/xnbJm3/wM1ysNmZ00InE8vjsBA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyYeNPM4DBBU4wkdTVeSsVfnuUjgpOrA6upLy3mK1i1aP32jAox
+ ww6xL8ZVO5mUvt0gjPx780CS8PKSwVuFy4fwIlB8shAHaf8xm3oYHy2V1de8xViMOMX/r7pfAOu
+ BLUQZplA2VnKB28iDZz5vNYbKCl0AKdC2+FPWfA==
+X-Gm-Gg: ASbGnctNgTUR/UEAAK36BEO63MW0BTFzq3DEd9el1it+UDY/2moJ42BbsMpV2DQBEVH
+ S9VcTOlw7nkriCCVNBpIHovvfxx94OfIzeJXXDa4b/33ZQXIhlsRZZda6pRTKU/PI3A==
+X-Google-Smtp-Source: AGHT+IFoL3MuaOxZJPwqRnPiiiww3g12j7OhKiUmIMC687dA/kXZIiIIWIX8g53oxzmYJo/i2m0qsy19dsfZz5Mmzog=
+X-Received: by 2002:a05:6402:518b:b0:5cf:c8ac:cad1 with SMTP id
+ 4fb4d7f45d1cf-5cff4c55511mr4596509a12.14.1732204465635; Thu, 21 Nov 2024
+ 07:54:25 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Philipp Zabel <p.zabel@pengutronix.de>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Fritz Koenig <frkoenig@chromium.org>, Sebastian
- Fricke <sebastian.fricke@collabora.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,
- <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
- <20241120110105.244413-3-hugues.fruchet@foss.st.com>
- <c9f19faacccd47b8a72fc4a29a0f75b30bce1aa1.camel@collabora.com>
- <cf81e5f2-45a4-4c82-890c-c8a4d17b22df@foss.st.com>
- <41310959a7b40f8e28fb324e00c4a51966bec803.camel@collabora.com>
-Content-Language: en-US
-From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-In-Reply-To: <41310959a7b40f8e28fb324e00c4a51966bec803.camel@collabora.com>
-X-Originating-IP: [10.48.86.208]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] media: verisilicon: add WebP
-	decoding support
+References: <20241104133515.256497-1-arnaud.pouliquen@foss.st.com>
+ <20241104133515.256497-5-arnaud.pouliquen@foss.st.com> <Zzt+7NBdNjyzWZIb@p14s>
+ <0d9075cd-68c2-49ec-9b9c-4315aa8c8517@foss.st.com>
+ <CANLsYkxvTuLv8Omw-UeyPaA9g9QokmtMaMYD0eoUPo20wUuONQ@mail.gmail.com>
+ <CANLsYkwPDFvJxgXrAV=92w+sT8tXB=-=K8Qs8eRVKm2C2v+0aA@mail.gmail.com>
+ <57a66f3c-d644-4ebb-b4dd-0b9d411ec243@foss.st.com>
+In-Reply-To: <57a66f3c-d644-4ebb-b4dd-0b9d411ec243@foss.st.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Thu, 21 Nov 2024 08:54:14 -0700
+Message-ID: <CANLsYkx-dpMvYwQN3XgbPS6xQ9Vv6smP1krNYTYpBzdbBJjCrQ@mail.gmail.com>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v13 4/7] remoteproc: Introduce release_fw
+	optional operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,131 +85,175 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTmljb2xhcywKCk9uIDExLzIxLzI0IDE1OjIwLCBOaWNvbGFzIER1ZnJlc25lIHdyb3RlOgo+
-IEhpIEh1Z3VlcywKPiAKPiBMZSBqZXVkaSAyMSBub3ZlbWJyZSAyMDI0IMOgIDExOjA3ICswMTAw
-LCBIdWd1ZXMgRlJVQ0hFVCBhIMOpY3JpdMKgOgo+PiBIaSBOaWNvbGFzLAo+Pgo+PiBPbiAxMS8y
-MC8yNCAxNToyNSwgTmljb2xhcyBEdWZyZXNuZSB3cm90ZToKPj4+IExlIG1lcmNyZWRpIDIwIG5v
-dmVtYnJlIDIwMjQgw6AgMTI6MDEgKzAxMDAsIEh1Z3VlcyBGcnVjaGV0IGEgw6ljcml0wqA6Cj4+
-Pj4gQWRkIFdlYlAgcGljdHVyZSBkZWNvZGluZyBzdXBwb3J0IHRvIFZQOCBzdGF0ZWxlc3MgZGVj
-b2Rlci4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMuZnJ1
-Y2hldEBmb3NzLnN0LmNvbT4KPj4+PiAtLS0KPj4+PiAgICAuLi4vbWVkaWEvcGxhdGZvcm0vdmVy
-aXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaCB8ICAxICsKPj4+PiAgICAuLi4vcGxhdGZvcm0vdmVy
-aXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYyAgICB8IDE0ICsrKysrKysrKysrKysrCj4+Pj4g
-ICAgLi4uL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMgICAgfCAgMiAr
-Kwo+Pj4+ICAgIC4uLi9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdnB1X2h3LmMgICAg
-IHwgMTcgKysrKysrKysrKysrKysrLS0KPj4+PiAgICA0IGZpbGVzIGNoYW5nZWQsIDMyIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
-ZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVncy5oIGIvZHJpdmVycy9tZWRp
-YS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVncy5oCj4+Pj4gaW5kZXggYzYyM2Iz
-YjBiZTE4Li5lN2Q0ZGI3ODhlNTcgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0
-Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVncy5oCj4+Pj4gKysrIGIvZHJpdmVycy9tZWRp
-YS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfcmVncy5oCj4+Pj4gQEAgLTIzMiw2ICsy
-MzIsNyBAQAo+Pj4+ICAgICNkZWZpbmUgICAgIEcxX1JFR19ERUNfQ1RSTDdfRENUN19TVEFSVF9C
-SVQoeCkJCSgoKHgpICYgMHgzZikgPDwgMCkKPj4+PiAgICAjZGVmaW5lIEcxX1JFR19BRERSX1NU
-UgkJCQkJMHgwMzAKPj4+PiAgICAjZGVmaW5lIEcxX1JFR19BRERSX0RTVAkJCQkJMHgwMzQKPj4+
-PiArI2RlZmluZSBHMV9SRUdfQUREUl9EU1RfQ0hST01BCQkJCTB4MDM4Cj4+Pj4gICAgI2RlZmlu
-ZSBHMV9SRUdfQUREUl9SRUYoaSkJCQkJKDB4MDM4ICsgKChpKSAqIDB4NCkpCj4+Pj4gICAgI2Rl
-ZmluZSAgICAgRzFfUkVHX0FERFJfUkVGX0ZJRUxEX0UJCQlCSVQoMSkKPj4+PiAgICAjZGVmaW5l
-ICAgICBHMV9SRUdfQUREUl9SRUZfVE9QQ19FCQkJQklUKDApCj4+Pj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYyBiL2Ry
-aXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+Pj4+
-IGluZGV4IDg1MWViNjdmMTlmNS4uYzgzZWU2ZjVlZGM4IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZl
-cnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+Pj4+ICsr
-KyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMu
-Ywo+Pj4+IEBAIC0zMDcsNiArMzA3LDEyIEBAIHN0YXRpYyB2b2lkIGNmZ19wYXJ0cyhzdHJ1Y3Qg
-aGFudHJvX2N0eCAqY3R4LAo+Pj4+ICAgIAkJCSAgIEcxX1JFR19ERUNfQ1RSTDNfU1RSRUFNX0xF
-TihkY3RfcGFydF90b3RhbF9sZW4pLAo+Pj4+ICAgIAkJCSAgIEcxX1JFR19ERUNfQ1RSTDMpOwo+
-Pj4+ICAgIAo+Pj4+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9PSBWNEwyX1BJWF9G
-TVRfV0VCUF9GUkFNRSkKPj4+PiArCQl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LAo+Pj4+ICsJCQkJ
-ICAgRzFfUkVHX0RFQ19DVFJMM19TVFJFQU1fTEVOX0VYVAo+Pj4+ICsJCQkJCShkY3RfcGFydF90
-b3RhbF9sZW4gPj4gMjQpLAo+Pj4+ICsJCQkJICAgRzFfUkVHX0RFQ19DVFJMMyk7Cj4+Pj4gKwo+
-Pj4+ICAgIAkvKiBEQ1QgcGFydGl0aW9ucyBiYXNlIGFkZHJlc3MgKi8KPj4+PiAgICAJZm9yIChp
-ID0gMDsgaSA8IGhkci0+bnVtX2RjdF9wYXJ0czsgaSsrKSB7Cj4+Pj4gICAgCQl1MzIgYnl0ZV9v
-ZmZzZXQgPSBkY3RfcGFydF9vZmZzZXQgKyBkY3Rfc2l6ZV9wYXJ0X3NpemUgKyBjb3VudDsKPj4+
-PiBAQCAtNDI3LDYgKzQzMywxMiBAQCBzdGF0aWMgdm9pZCBjZmdfYnVmZmVycyhzdHJ1Y3QgaGFu
-dHJvX2N0eCAqY3R4LAo+Pj4+ICAgIAo+Pj4+ICAgIAlkc3RfZG1hID0gaGFudHJvX2dldF9kZWNf
-YnVmX2FkZHIoY3R4LCAmdmIyX2RzdC0+dmIyX2J1Zik7Cj4+Pj4gICAgCXZkcHVfd3JpdGVfcmVs
-YXhlZCh2cHUsIGRzdF9kbWEsIEcxX1JFR19BRERSX0RTVCk7Cj4+Pj4gKwo+Pj4+ICsJaWYgKGN0
-eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9PSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRSkKPj4+PiAr
-CQl2ZHB1X3dyaXRlX3JlbGF4ZWQodnB1LCBkc3RfZG1hICsKPj4+PiArCQkJCSAgIGN0eC0+ZHN0
-X2ZtdC5wbGFuZV9mbXRbMF0uYnl0ZXNwZXJsaW5lICoKPj4+PiArCQkJCSAgIGN0eC0+ZHN0X2Zt
-dC5oZWlnaHQsCj4+Pj4gKwkJCQkgICBHMV9SRUdfQUREUl9EU1RfQ0hST01BKTsKPj4+PiAgICB9
-Cj4+Pj4gICAgCj4+Pj4gICAgaW50IGhhbnRyb19nMV92cDhfZGVjX3J1bihzdHJ1Y3QgaGFudHJv
-X2N0eCAqY3R4KQo+Pj4+IEBAIC00NzEsNiArNDgzLDggQEAgaW50IGhhbnRyb19nMV92cDhfZGVj
-X3J1bihzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4KQo+Pj4+ICAgIAkJcmVnIHw9IEcxX1JFR19ERUNf
-Q1RSTDBfU0tJUF9NT0RFOwo+Pj4+ICAgIAlpZiAoaGRyLT5sZi5sZXZlbCA9PSAwKQo+Pj4+ICAg
-IAkJcmVnIHw9IEcxX1JFR19ERUNfQ1RSTDBfRklMVEVSSU5HX0RJUzsKPj4+PiArCWlmIChjdHgt
-PnZwdV9zcmNfZm10LT5mb3VyY2MgPT0gVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUUpCj4+Pj4gKwkJ
-cmVnIHw9IEcxX1JFR19ERUNfQ1RSTDBfV0VCUF9FOwo+Pj4+ICAgIAl2ZHB1X3dyaXRlX3JlbGF4
-ZWQodnB1LCByZWcsIEcxX1JFR19ERUNfQ1RSTDApOwo+Pj4+ICAgIAo+Pj4+ICAgIAkvKiBGcmFt
-ZSBkaW1lbnNpb25zICovCj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
-dmVyaXNpbGljb24vaGFudHJvX3Y0bDIuYyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNp
-bGljb24vaGFudHJvX3Y0bDIuYwo+Pj4+IGluZGV4IDI1MTNhZGZiZDgyNS4uNzA3NWIyYmExZWMy
-IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFu
-dHJvX3Y0bDIuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24v
-aGFudHJvX3Y0bDIuYwo+Pj4+IEBAIC00NzAsNiArNDcwLDcgQEAgaGFudHJvX3VwZGF0ZV9yZXF1
-aXJlc19yZXF1ZXN0KHN0cnVjdCBoYW50cm9fY3R4ICpjdHgsIHUzMiBmb3VyY2MpCj4+Pj4gICAg
-CQlicmVhazsKPj4+PiAgICAJY2FzZSBWNEwyX1BJWF9GTVRfTVBFRzJfU0xJQ0U6Cj4+Pj4gICAg
-CWNhc2UgVjRMMl9QSVhfRk1UX1ZQOF9GUkFNRToKPj4+PiArCWNhc2UgVjRMMl9QSVhfRk1UX1dF
-QlBfRlJBTUU6Cj4+Pj4gICAgCWNhc2UgVjRMMl9QSVhfRk1UX0gyNjRfU0xJQ0U6Cj4+Pj4gICAg
-CWNhc2UgVjRMMl9QSVhfRk1UX0hFVkNfU0xJQ0U6Cj4+Pj4gICAgCWNhc2UgVjRMMl9QSVhfRk1U
-X1ZQOV9GUkFNRToKPj4+PiBAQCAtNDkyLDYgKzQ5Myw3IEBAIGhhbnRyb191cGRhdGVfcmVxdWly
-ZXNfaG9sZF9jYXB0dXJlX2J1ZihzdHJ1Y3QgaGFudHJvX2N0eCAqY3R4LCB1MzIgZm91cmNjKQo+
-Pj4+ICAgIAljYXNlIFY0TDJfUElYX0ZNVF9KUEVHOgo+Pj4+ICAgIAljYXNlIFY0TDJfUElYX0ZN
-VF9NUEVHMl9TTElDRToKPj4+PiAgICAJY2FzZSBWNEwyX1BJWF9GTVRfVlA4X0ZSQU1FOgo+Pj4+
-ICsJY2FzZSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRToKPj4+PiAgICAJY2FzZSBWNEwyX1BJWF9G
-TVRfSEVWQ19TTElDRToKPj4+PiAgICAJY2FzZSBWNEwyX1BJWF9GTVRfVlA5X0ZSQU1FOgo+Pj4+
-ICAgIAkJdnEtPnN1YnN5c3RlbV9mbGFncyAmPSB+KFZCMl9WNEwyX0ZMX1NVUFBPUlRTX00yTV9I
-T0xEX0NBUFRVUkVfQlVGKTsKPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9y
-bS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdnB1X2h3LmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
-L3ZlcmlzaWxpY29uL3N0bTMybXAyNV92cHVfaHcuYwo+Pj4+IGluZGV4IDgzMzgyMTEyMGIyMC4u
-NDhkNjkxMmMzYmFiIDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVy
-aXNpbGljb24vc3RtMzJtcDI1X3ZwdV9ody5jCj4+Pj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0
-Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdnB1X2h3LmMKPj4+PiBAQCAtMjIsMTAgKzIyLDEw
-IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGFudHJvX2ZtdCBzdG0zMm1wMjVfdmRlY19mbXRzW10g
-PSB7Cj4+Pj4gICAgCQkuY29kZWNfbW9kZSA9IEhBTlRST19NT0RFX05PTkUsCj4+Pj4gICAgCQku
-ZnJtc2l6ZSA9IHsKPj4+PiAgICAJCQkubWluX3dpZHRoID0gRk1UX01JTl9XSURUSCwKPj4+PiAt
-CQkJLm1heF93aWR0aCA9IEZNVF9GSERfV0lEVEgsCj4+Pj4gKwkJCS5tYXhfd2lkdGggPSBGTVRf
-NEtfV0lEVEgsCj4+Pj4gICAgCQkJLnN0ZXBfd2lkdGggPSBNQl9ESU0sCj4+Pj4gICAgCQkJLm1p
-bl9oZWlnaHQgPSBGTVRfTUlOX0hFSUdIVCwKPj4+PiAtCQkJLm1heF9oZWlnaHQgPSBGTVRfRkhE
-X0hFSUdIVCwKPj4+PiArCQkJLm1heF9oZWlnaHQgPSBGTVRfNEtfSEVJR0hULAo+Pj4KPj4+IEkn
-bSBhIGxpdHRsZSBzdXJwcmlzZWQgb2YgdGhpcyBjaGFuZ2UsIHNpbmNlIHRoaXMgaXMgbW9kaWZ5
-aW5nIFZQOF9GUkFNRSwgd2hpbGUKPj4+IHdlIHNob3VsZCBpbnN0ZWFkIGludHJvZHVjZSBXRUJQ
-X0ZSQU1FLgo+Pgo+PiBUaGlzIGlzIHRoZSByZXNvbHV0aW9uIG9mIHRoZSBZVVYgb3V0cHV0IG9m
-IGRlY29kZXIsIG5vdCB0aGUgV2ViUCBpbnB1dCwKPj4gYW5kIGJlY2F1c2Ugb2YgbGFjayBvZiBw
-b3N0LXByb2Nlc3NvciwgdGhlIG91dHB1dCBpcyBub3Qgc2NhbGVkLCBzbyBjYW4KPj4gZ28gdXAg
-dG8gNEsgd2l0aCBXZWJQLgo+PiBCZWZvcmUgV2ViUCBpbnRyb2R1Y3Rpb24sIHRoZSBtYXhpbXVt
-IG91dHB1dCByZXNvbHV0aW9uIHdhcyBGSEQgZm9yIGFsbAo+PiBjb2RlY3MuIE5vdyBXZWJQIGFs
-bG93cyB1cCB0byA0SyBidXQgRkhEIGNvbnN0cmFpbnQgcmVtYWlucyBmb3IKPj4gSDI2NC9WUDgu
-IEkgZG9uJ3Qgc2VlIHJlYWwgcHJvYmxlbXMgYmVjYXVzZSBWUDgvSDI2NCBjb21wcmVzc2VkIGlu
-cHV0cwo+PiBhcmUgd2VsbCBsaW1pdGVkIHRvIEZIRCBhbmQgb25seSBXZWJQIGFsbG93cyA0Sy4u
-Lgo+IAo+IEdvb2QgcG9pbnQuIFdvdWxkIHlvdSBtaW5kIGFkZGluZyBhIGp1c3RpZmljYXRpb24g
-Zm9yIHRoaXMgY2hhbmdlIHdpdGhpbiB0aGUKPiBjb21taXQgbWVzc2FnZSBpbiB2MyA/Cgp2MyBh
-bHJlYWR5IHNlbnQgYnV0IEknbGwgbm90ZSB0aGF0IGZvciB0aGUgZnV0dXJlIHY0LgpDb3VsZCB5
-b3UgdGVzdCAmIGFjayB0aGUgNEsgc3VwcG9ydCBvbiB5b3VyIHBsYXRmb3JtIGhhdmluZyAKcG9z
-dC1wcm9jZXNzb3Igc3VwcG9ydCA/Cgo+IAo+Pgo+Pj4KPj4+PiAgICAJCQkuc3RlcF9oZWlnaHQg
-PSBNQl9ESU0sCj4+Pj4gICAgCQl9LAo+Pj4+ICAgIAl9LAo+Pj4+IEBAIC02OCw2ICs2OCwxOSBA
-QCBzdGF0aWMgY29uc3Qgc3RydWN0IGhhbnRyb19mbXQgc3RtMzJtcDI1X3ZlbmNfZm10c1tdID0g
-ewo+Pj4+ICAgIAkJLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAo+Pj4+ICAgIAkJLmVu
-Y19mbXQgPSBST0NLQ0hJUF9WUFVfRU5DX0ZNVF9ZVVY0MjBTUCwKPj4+PiAgICAJfSwKPj4+PiAr
-CXsKPj4+PiArCQkuZm91cmNjID0gVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUUsCj4+Pj4gKwkJLmNv
-ZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9WUDhfREVDLAo+Pj4+ICsJCS5tYXhfZGVwdGggPSAyLAo+
-Pj4+ICsJCS5mcm1zaXplID0gewo+Pj4+ICsJCQkubWluX3dpZHRoID0gRk1UX01JTl9XSURUSCwK
-Pj4+PiArCQkJLm1heF93aWR0aCA9IEZNVF80S19XSURUSCwKPj4+PiArCQkJLnN0ZXBfd2lkdGgg
-PSBNQl9ESU0sCj4+Pj4gKwkJCS5taW5faGVpZ2h0ID0gRk1UX01JTl9IRUlHSFQsCj4+Pj4gKwkJ
-CS5tYXhfaGVpZ2h0ID0gRk1UXzRLX0hFSUdIVCwKPj4+PiArCQkJLnN0ZXBfaGVpZ2h0ID0gTUJf
-RElNLAo+Pj4+ICsJCX0sCj4+Pj4gKwl9LAo+Pj4KPj4+IFRoaXMgaXMgdmVuY19mbXQgKGVuY29k
-ZXIpLCB0aGlzIHNob3VsZG4ndCBiZSB0aGVyZS4KPj4KPj4gQWxsIGFwb2xvZ2l6ZXMgZm9yIHRo
-aXMgcmViYXNlIGlzc3VlLCBpdCBpcyBvZiBjb3Vyc2UgcGFydCBvZgo+PiBzdG0zMm1wMjVfdmRl
-Y19mbXRzLgo+IAo+IEFjaywgbGV0J3MgZ2V0IHRoaXMgcmlnaHQgaW4gdjMgOi1ECj4gCj4+Cj4+
-Pgo+Pj4+ICAgIAl7Cj4+Pj4gICAgCQkuZm91cmNjID0gVjRMMl9QSVhfRk1UX1lVWVYsCj4+Pj4g
-ICAgCQkuY29kZWNfbW9kZSA9IEhBTlRST19NT0RFX05PTkUsCj4+Pgo+Pgo+PiBCUiwKPj4gSHVn
-dWVzLgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+On Wed, 20 Nov 2024 at 09:39, Arnaud POULIQUEN
+<arnaud.pouliquen@foss.st.com> wrote:
+>
+>
+>
+> On 11/20/24 17:04, Mathieu Poirier wrote:
+> > On Tue, 19 Nov 2024 at 13:38, Mathieu Poirier
+> > <mathieu.poirier@linaro.org> wrote:
+> >>
+> >> On Tue, 19 Nov 2024 at 11:14, Arnaud POULIQUEN
+> >> <arnaud.pouliquen@foss.st.com> wrote:
+> >>>
+> >>> Hello Mathieu,
+> >>>
+> >>> On 11/18/24 18:52, Mathieu Poirier wrote:
+> >>>> On Mon, Nov 04, 2024 at 02:35:12PM +0100, Arnaud Pouliquen wrote:
+> >>>>> This patch updates the rproc_ops struct to include an optional
+> >>>>> release_fw function.
+> >>>>>
+> >>>>> The release_fw ops is responsible for releasing the remote processor
+> >>>>> firmware image. The ops is called in the following cases:
+> >>>>>
+> >>>>>  - An error occurs in rproc_start() between the loading of the segments and
+> >>>>>       the start of the remote processor.
+> >>>>>  - after stopping the remote processor.
+> >>>>>
+> >>>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >>>>> ---
+> >>>>> Updates from version V11:
+> >>>>> - fix typo in @release_fw comment
+> >>>>> ---
+> >>>>>  drivers/remoteproc/remoteproc_core.c | 5 +++++
+> >>>>>  include/linux/remoteproc.h           | 3 +++
+> >>>>>  2 files changed, 8 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >>>>> index 7694817f25d4..46863e1ca307 100644
+> >>>>> --- a/drivers/remoteproc/remoteproc_core.c
+> >>>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> >>>>> @@ -1258,6 +1258,9 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
+> >>>>>
+> >>>>>  static void rproc_release_fw(struct rproc *rproc)
+> >>>>>  {
+> >>>>> +    if (rproc->ops->release_fw)
+> >>>>> +            rproc->ops->release_fw(rproc);
+> >>>>> +
+> >>>>>      /* Free the copy of the resource table */
+> >>>>>      kfree(rproc->cached_table);
+> >>>>>      rproc->cached_table = NULL;
+> >>>>> @@ -1377,6 +1380,8 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+> >>>>>  unprepare_subdevices:
+> >>>>>      rproc_unprepare_subdevices(rproc);
+> >>>>>  reset_table_ptr:
+> >>>>> +    if (rproc->ops->release_fw)
+> >>>>> +            rproc->ops->release_fw(rproc);
+> >>>>>      rproc->table_ptr = rproc->cached_table;
+> >>>>
+> >>>> I suggest the following:
+> >>>>
+> >>>> 1) Create two new functions, i.e rproc_load_fw() and rproc_release_fw().  The
+> >>>> only thing those would do is call rproc->ops->load_fw() and
+> >>>> rproc->ops->release_fw(), if they are present.  When a TEE interface is
+> >>>> available, ->load_fw() and ->release_fw() become rproc_tee_load_fw() and
+> >>>> rproc_tee_release_fw().
+> >>>
+> >>>
+> >>> I'm wondering if it should be ->preload_fw() instead of ->load_fw() ops, as the
+> >>> ->load() op already exists.
+> >>>
+> >>
+> >> I agree that ->load() and ->load_fw() will lead to confusion.  I would
+> >> support ->preload_fw() but there is no obvious antonyme.
+> >>
+> >> Since we already have rproc_ops::prepare() and rproc_prepare_device()
+> >> I suggest rproc_ops::prepare_fw() and rproc_prepare_fw().  The
+> >> corollary would be rproc_ops::unprepare_fw() and rproc_unprepare_fm().
+> >> That said, I'm open to other ideas should you be interested in finding
+> >> other alternatives.
+> >>
+> >
+> > Actually...  A better approach might to rename rproc::load to
+> > rproc::load_segments.  That way we can use rproc::load_fw() and
+> > rproc_load_fw() without confusion.
+>
+> Concerning this proposal, please correct me if I'm wrong
+> - ops::load_segments() would be used for ELF format only as segment notion seems
+> linked to this format.
+
+Correct - nothing different from what it is now.
+
+> - ops:rproc_load_fw should be used for other formats.
+>
+> The risk is that someone may later come with a requirement to get a resource
+> table first to configure some memories before loading a non-ELF firmware.
+>
+
+We can address that problem if/when it comes about.
+
+>
+> >
+> >>>>
+> >>>> 2) Call rproc_load_fw() in rproc_boot(), just before rproc_fw_boot().  If the
+> >>>> call to rproc_fw_boot() fails, call rproc_release_fw().
+> >>>>
+> >>>> 3) The same logic applies to rproc_boot_recovery(), i.e call rproc_load_fw()
+> >>>> before rproc_start() and call rproc_release_fw() if rproc_start() fails.
+> >>>
+> >>>
+> >>> I implemented this and I'm currently testing it.
+> >>> Thise second part requires a few adjustments to work. The ->load() ops needs to
+> >>> becomes optional to not be called if the "->preload_fw()" is used.
+> >>>
+> >>> For that, I propose to return 0 in rproc_load_segments if rproc->ops->load is
+> >>> NULL and compensate by checking that at least "->preload_fw()" or ->load() is
+> >>> non-null in rproc_alloc_ops.
+> >>>
+> >>
+> >> I agree.
+> >>
+> >>> Thanks,
+> >>> Arnaud
+> >>>
+> >>>
+> >>>>
+> >>>> 4) Take rproc_tee_load_fw() out of rproc_tee_parse_fw().  It will now be called
+> >>>> in rproc_load_fw().
+> >>>>
+> >>>> 5) As stated above function rproc_release_fw() now calls rproc_tee_release_fw().
+> >>>> The former is already called in rproc_shutdown() so we are good in that front.
+> >>>>
+> >>>> With the above the cached_table management within the core remains the same and
+> >>>> we can get rid of patch 3.7.
+> >>>
+> >>>>
+> >>>> Thanks,
+> >>>> Mathieu
+> >>>>
+> >>>>>
+> >>>>>      return ret;
+> >>>>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> >>>>> index 2e0ddcb2d792..08e0187a84d9 100644
+> >>>>> --- a/include/linux/remoteproc.h
+> >>>>> +++ b/include/linux/remoteproc.h
+> >>>>> @@ -381,6 +381,8 @@ enum rsc_handling_status {
+> >>>>>   * @panic:  optional callback to react to system panic, core will delay
+> >>>>>   *          panic at least the returned number of milliseconds
+> >>>>>   * @coredump:         collect firmware dump after the subsystem is shutdown
+> >>>>> + * @release_fw:     optional function to release the firmware image from ROM memories.
+> >>>>> + *          This function is called after stopping the remote processor or in case of an error
+> >>>>>   */
+> >>>>>  struct rproc_ops {
+> >>>>>      int (*prepare)(struct rproc *rproc);
+> >>>>> @@ -403,6 +405,7 @@ struct rproc_ops {
+> >>>>>      u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
+> >>>>>      unsigned long (*panic)(struct rproc *rproc);
+> >>>>>      void (*coredump)(struct rproc *rproc);
+> >>>>> +    void (*release_fw)(struct rproc *rproc);
+> >>>>>  };
+> >>>>>
+> >>>>>  /**
+> >>>>> --
+> >>>>> 2.25.1
+> >>>>>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
