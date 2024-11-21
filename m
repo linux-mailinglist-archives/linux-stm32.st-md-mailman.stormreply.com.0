@@ -2,74 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BBDA9D4A83
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 11:11:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA3BC9D4DA8
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2024 14:22:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E23FC7A82E;
-	Thu, 21 Nov 2024 10:11:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E8F9C7A82E;
+	Thu, 21 Nov 2024 13:22:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04F62C7A82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4FF4C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2024 10:11:22 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AL6ZhtZ001379;
- Thu, 21 Nov 2024 11:10:56 +0100
+ Thu, 21 Nov 2024 13:22:05 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AL8uHZN023498;
+ Thu, 21 Nov 2024 14:21:44 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- Pd6rBNZoxGrLvF9FQXRoGek58FWnqhqX5GnjHcs3NLk=; b=6vd8F/EnNyXjiTE4
- Kt/8PzXjQwodIPp7yu8Qh8X9qbzbGbVheYiTaL+VWQWDDMW63+wz4NVUaf44XZDP
- 0uvVS8pwa7D/ZfB+y4XVmj24XG7YZcVC70AUfEn8sjoUy5TsD5JoiDzThmNP35lT
- Y5KRrrRQEuII6h+26WNWqcbsphCsY97aMtevxwNTj2N22dgmztMwluhcZGQJrBJv
- 3rUQvHWOUPjQ1fZ07ItAAGC+Wgh542nkBZfS8dH90Jjc/Rxm0+Ntr+K2grWrG0nL
- DL62qCnU1+gp/wS2SL6ug56aWN/LroXHtsEHYhLqGheyqrIwNl2AhY0KAmcu6J5H
- b9fn5g==
+ content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=zcbz2RZe19TKsqJ/WRoGlA
+ +GN683d7b2Sedzfexr4xs=; b=xRlBS17GulkvBcIRw2A99BQ5bQfr9VXDJCe3xv
+ URB6gDpw/9bVL/bXicPoiRIphkg0g38zTXktA0KykKFIeadxXyOwvMCe7YzcgjVm
+ 6UBVu01ArNDlNfj+E1rkWbyqbYEWL57FQEWYzD7+AxYWsovktOdBMp8Y9p57KWUA
+ wmc3XSPayp5XkFAGb+D/lStsx/IQ/vmKATVSZ1pbNbBeAPPOD8fGSvEfDU6ThGjZ
+ k5LXX3DKe7jPTakMTDPXbSEzYfY3GFINArDZyK9U8Uv16ToOXaRGJrZILZzXBXVB
+ gejQNNu0gv4yQ9WusAqFJNPYxRoD8v8CuFUK/F1vEoqApzlw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xknwegxy-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42xkqf6rrc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Nov 2024 11:10:56 +0100 (CET)
+ Thu, 21 Nov 2024 14:21:44 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7F86740044;
- Thu, 21 Nov 2024 11:09:15 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2697640047;
+ Thu, 21 Nov 2024 14:19:56 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3856B266B17;
- Thu, 21 Nov 2024 11:08:13 +0100 (CET)
-Received: from [10.48.86.208] (10.48.86.208) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1DB422843CB;
+ Thu, 21 Nov 2024 14:19:07 +0100 (CET)
+Received: from localhost (10.48.86.208) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 21 Nov
- 2024 11:08:12 +0100
-Message-ID: <2404c3d0-140c-4481-b45f-f762cce8ecf6@foss.st.com>
-Date: Thu, 21 Nov 2024 11:08:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Diederik de Haas <didi.debian@cknow.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Philipp Zabel <p.zabel@pengutronix.de>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Fritz Koenig <frkoenig@chromium.org>, Sebastian
- Fricke <sebastian.fricke@collabora.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ 2024 14:19:06 +0100
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Hugues Fruchet
+ <hugues.fruchet@foss.st.com>, Sebastian Fricke
+ <sebastian.fricke@collabora.com>, Ricardo Ribalda <ribalda@chromium.org>,
+ Erling Ljunggren <hljunggr@cisco.com>, Hans Verkuil <hverkuil@xs4all.nl>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Jean-Michel Hautbois <jeanmichel.hautbois@ideasonboard.com>, Benjamin
+ Gaignard <benjamin.gaignard@collabora.com>,
  <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
- <20241120110105.244413-2-hugues.fruchet@foss.st.com>
- <D5R4DD00Z0A4.3BHMO8E5IZ6CH@cknow.org>
-Content-Language: en-US
-From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-In-Reply-To: <D5R4DD00Z0A4.3BHMO8E5IZ6CH@cknow.org>
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+Date: Thu, 21 Nov 2024 14:19:01 +0100
+Message-ID: <20241121131904.261230-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 X-Originating-IP: [10.48.86.208]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] media: uapi: add WebP uAPI
+Subject: [Linux-stm32] [PATCH v3 0/3] Add WebP support to hantro decoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,66 +78,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Diederik,
+Add WebP image decoding support to stateless V4L2 VP8 decoder.
 
-On 11/20/24 16:43, Diederik de Haas wrote:
-> On Wed Nov 20, 2024 at 12:01 PM CET, Hugues Fruchet wrote:
->> This patch adds the WebP picture decoding kernel uAPI.
->>
->> This design is based on currently available VP8 API implementation and
->> aims to support the development of WebP stateless video codecs
->> on Linux.
->>
->> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
->> ---
->>   Documentation/userspace-api/media/v4l/biblio.rst  |  9 +++++++++
->>   .../userspace-api/media/v4l/pixfmt-compressed.rst | 15 +++++++++++++++
->>   drivers/media/v4l2-core/v4l2-ioctl.c              |  1 +
->>   include/uapi/linux/videodev2.h                    |  1 +
->>   4 files changed, 26 insertions(+)
->>
->> ...
->>
->> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst b/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
->> index 806ed73ac474..e664e70b0619 100644
->> --- a/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
->> +++ b/Documentation/userspace-api/media/v4l/pixfmt-compressed.rst
->> @@ -169,6 +169,21 @@ Compressed Formats
->>   	this pixel format. The output buffer must contain the appropriate number
->>   	of macroblocks to decode a full corresponding frame to the matching
->>   	capture buffer.
->> +    * .. _V4L2-PIX-FMT-WEBP-FRAME:
->> +
->> +      - ``V4L2_PIX_FMT_WEBP_FRAME``
->> +      - 'WEBP'
->> +      - WEBP VP8 parsed frame, excluding WEBP RIFF header, keeping only the VP8
->> +	bistream including the frame header, as extracted from the container.
-> 
-> s/bistream/bitstream/ ?
+This have been tested on STM32MP257-EV board using GStreamer.
 
-Thanks for noticing this typo, will fix in v3...
+Simple basic test:
+$> wget https://www.gstatic.com/webp/gallery/1.webp
+$> gst-launch-1.0 filesrc location= 1.webp ! typefind ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
 
-> 
->> +	This format is adapted for stateless video decoders that implement a
->> +	WEBP pipeline with the :ref:`stateless_decoder`.
->> +	Metadata associated with the frame to decode is required to be passed
->> +	through the ``V4L2_CID_STATELESS_VP8_FRAME`` control.
->> +	See the :ref:`associated Codec Control IDs <v4l2-codec-stateless-vp8>`.
->> +	Exactly one output and one capture buffer must be provided for use with
->> +	this pixel format. The output buffer must contain the appropriate number
->> +	of macroblocks to decode a full corresponding frame to the matching
->> +	capture buffer.
->>   
->>       * .. _V4L2-PIX-FMT-VP9:
->>   
+Slideshow of a set of WebP pictures and WebM video files:
+$> wget https://www.gstatic.com/webp/gallery/2.webp
+$> wget https://www.gstatic.com/webp/gallery/3.webp
+$> wget https://www.gstatic.com/webp/gallery/4.webp
+$> wget https://www.gstatic.com/webp/gallery/5.webp
+$> wget https://samplemedia.linaro.org/VP8/big_buck_bunny_480p_VP8_VORBIS_25fps_1900K_short.WebM
+$> gst-play-1.0 *.webp *.webm *.WebM --wait-on-eos
+<hit key ">" to display next file >
 
-BR,
-Hugues.
+Large WebP image > 16777215 (size > 2^24)
+$> gst-launch-1.0 fakesrc num-buffers=1 format=4 do-timestamp=true filltype=3 sizetype=2 sizemax=25165824 blocksize=25165824 ! video/x-raw, format=I420, width=4096, height=3072, framerate=1/1 ! webpenc quality=100 ! filesink location=4096x3072_HQ_random.webp
+$> ls -l 4096x3072_HQ_random.webp
+[...] 16877404 Nov 20 11:40 4096x3072_HQ_random.webp
+$> gst-launch-1.0 filesrc location= 4096x3072_HQ_random.webp blocksize=16876610 ! image/webp, width=1, height=1, framerate=0/1 ! v4l2slwebpdec ! imagefreeze num-buffers=20 ! waylandsink fullscreen=true
+
+Large WebP image decoding using post-processor is untested because of lack
+of hardware support on this platform, nevertheless support is provided in
+this serie for further testing on another platform having post-processor
+support.
+
+===========
+= history =
+===========
+version 3:
+   - Fix remarks from Nicolas Dufresne:
+    - Document constraint about key frame only for WebP
+    - Fix rebase issue
+   - Fix typo detected by Diederik de Haas
+
+version 2:
+   - Fix remarks from Nicolas Dufresne:
+    - Use bytesperline helper to compute chroma size
+    - Introduce a new explicit WEBP frame compressed format
+      instead of relying on VP8 + WebP flag
+    - 4K support in both decoder and post-proc
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (3):
+  media: uapi: add WebP uAPI
+  media: verisilicon: add WebP decoding support
+  media: verisilicon: postproc: 4K support
+
+ .../userspace-api/media/v4l/biblio.rst          |  9 +++++++++
+ .../media/v4l/pixfmt-compressed.rst             | 17 +++++++++++++++++
+ drivers/media/platform/verisilicon/hantro.h     |  2 ++
+ .../media/platform/verisilicon/hantro_g1_regs.h |  3 ++-
+ .../platform/verisilicon/hantro_g1_vp8_dec.c    | 14 ++++++++++++++
+ .../platform/verisilicon/hantro_postproc.c      |  6 +++++-
+ .../media/platform/verisilicon/hantro_v4l2.c    |  2 ++
+ .../platform/verisilicon/stm32mp25_vpu_hw.c     | 17 +++++++++++++++--
+ drivers/media/v4l2-core/v4l2-ioctl.c            |  1 +
+ include/uapi/linux/videodev2.h                  |  1 +
+ 10 files changed, 68 insertions(+), 4 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
