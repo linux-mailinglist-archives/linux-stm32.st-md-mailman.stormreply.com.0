@@ -2,48 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDBD9D602E
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2024 15:13:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0BB9D6396
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2024 18:53:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A994C7A84E;
-	Fri, 22 Nov 2024 14:13:08 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 388D5C7A850;
+	Fri, 22 Nov 2024 17:53:56 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A3C8C7A84D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F4B6C7A84F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Nov 2024 14:13:01 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D9B381BF204;
- Fri, 22 Nov 2024 14:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1732284781;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=+01xzJeV3qRX2WUWGKaOOxbz2v9CPnb9VQR2tAoftiY=;
- b=EPxDcobPHDeJCBnjLXZtIBQaHN3OS6jpELxflv23dxJ/V44WfAMfNEUKav0FLPtpF0C2s7
- rKbYlya+ZEhOac2lw0RWwCdf6/Y9b6/LMgXWyvz7STEx7lCwbMzmMZPDUysI6HB/FbPM+1
- NMb5euWe1AY54iZoHTnqm4LACVr3Xohdk+Cl/1izvYTxbS2c07+4Je7B+4Utd/3yR33wm8
- paLh3eWkk4sBJtvGIQbQ4uXUdIzjZ8Qyy+gqCDtLPjYCR2YS2AlzmIHxvAChQ6Bvl2G1ek
- Tfycg8ero7EGeQFugWRS4PRZ9YgL0mA1QyUrjUcdkQNWQQaM6R52V9uuyK2xMA==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 22 Nov 2024 15:12:55 +0100
-Message-ID: <20241122141256.764578-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.47.0
+ Fri, 22 Nov 2024 17:53:48 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AMGMheB010521;
+ Fri, 22 Nov 2024 18:53:34 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=nJkjxzVfnCioMHZUj0mDGO
+ q0e4V+G6DBTikNsBt0udA=; b=KMe+EJFOLxo7ILBk5qRyzGa0a5Cyoe95ChTLSH
+ lj7lG+EIjbMLmaVEvmW+TBSoG/ELxj/q1Q9z0b7Q5lyCYZXeTbZMeCMmLKAO87g0
+ CoNiuuq8QHR/t+CB6O3hItNTqY9rJwiB837/zmtzmYieNPUICL4dXoHSzBz3ZCyx
+ meUAIgoA6RtXqQPKsXhWpKagdtTOSoTUMqcaL2qe02cBCx91FtIZg1tFm9anyILt
+ /QQ2+6uzXRUg4jMgQ6BpfN/MFUEDXUeNo5IaHi2f70HQdFtoVZ5ckSBLo4uVNqbo
+ ukeXlEEtSHdyDnwJX6pb+gGYeBNm8LwTZzzhCfObcYSKs4fg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 42y77ntkbb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Nov 2024 18:53:34 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id BEE5F40047;
+ Fri, 22 Nov 2024 18:52:31 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7052126EEE0;
+ Fri, 22 Nov 2024 18:51:36 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 22 Nov
+ 2024 18:51:36 +0100
+Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 22 Nov
+ 2024 18:51:35 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Fri, 22 Nov 2024 18:51:27 +0100
+Message-ID: <20241122175127.2188037-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: dwmac-socfpga: Set RX
-	watchdog interrupt as broken
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] remoteproc: core: Fix ida_free call while not
+	allocated
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,43 +77,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On DWMAC3 and later, there's a RX Watchdog interrupt that's used for
-interrupt coalescing. It's known to be buggy on some platforms, and
-dwmac-socfpga appears to be one of them. Changing the interrupt
-coalescing from ethtool doesn't appear to have any effect here.
+In the rproc_alloc() function, on error, put_device(&rproc->dev) is
+called, leading to the call of the rproc_type_release() function.
+An error can occurs before ida_alloc is called.
 
-Without disabling RIWT (Received Interrupt Watchdog Timer, I
-believe...), we observe latencies while receiving traffic that amount to
-around ~0.4ms. This was discovered with NTP but can be easily reproduced
-with a simple ping. Without this patch :
+In such case in rproc_type_release(), the condition (rproc->index >= 0) is
+true as rproc->index has been  initialized to 0.
+ida_free() is called reporting a warning:
+[    4.181906] WARNING: CPU: 1 PID: 24 at lib/idr.c:525 ida_free+0x100/0x164
+[    4.186378] stm32-display-dsi 5a000000.dsi: Fixed dependency cycle(s) with /soc/dsi@5a000000/panel@0
+[    4.188854] ida_free called for id=0 which is not allocated.
+[    4.198256] mipi-dsi 5a000000.dsi.0: Fixed dependency cycle(s) with /soc/dsi@5a000000
+[    4.203556] Modules linked in: panel_orisetech_otm8009a dw_mipi_dsi_stm(+) gpu_sched dw_mipi_dsi stm32_rproc stm32_crc32 stm32_ipcc(+) optee(+)
+[    4.224307] CPU: 1 UID: 0 PID: 24 Comm: kworker/u10:0 Not tainted 6.12.0 #442
+[    4.231481] Hardware name: STM32 (Device Tree Support)
+[    4.236627] Workqueue: events_unbound deferred_probe_work_func
+[    4.242504] Call trace:
+[    4.242522]  unwind_backtrace from show_stack+0x10/0x14
+[    4.250218]  show_stack from dump_stack_lvl+0x50/0x64
+[    4.255274]  dump_stack_lvl from __warn+0x80/0x12c
+[    4.260134]  __warn from warn_slowpath_fmt+0x114/0x188
+[    4.265199]  warn_slowpath_fmt from ida_free+0x100/0x164
+[    4.270565]  ida_free from rproc_type_release+0x38/0x60
+[    4.275832]  rproc_type_release from device_release+0x30/0xa0
+[    4.281601]  device_release from kobject_put+0xc4/0x294
+[    4.286762]  kobject_put from rproc_alloc.part.0+0x208/0x28c
+[    4.292430]  rproc_alloc.part.0 from devm_rproc_alloc+0x80/0xc4
+[    4.298393]  devm_rproc_alloc from stm32_rproc_probe+0xd0/0x844 [stm32_rproc]
+[    4.305575]  stm32_rproc_probe [stm32_rproc] from platform_probe+0x5c/0xbc
 
-64 bytes from 192.168.5.2: icmp_seq=1 ttl=64 time=0.657 ms
 
-With this patch :
+Calling ida_alloc earlier in rproc_alloc ensures that the rproc->index is
+properly set.
 
-64 bytes from 192.168.5.2: icmp_seq=1 ttl=64 time=0.254 ms
+Fixes: 08333b911f01 ("remoteproc: Directly use ida_alloc()/free()")
 
-Fixes: 801d233b7302 ("net: stmmac: Add SOCFPGA glue driver")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 2 ++
- 1 file changed, 2 insertions(+)
+Note for backporting to previous kernel versions: The SHA 08333b911f01
+seems to correspond to the last commit that updated IDA allocation.
+The issue existed before, but the fix could not be applied without some
+rework.
+---
+ drivers/remoteproc/remoteproc_core.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 248b30d7b864..16020b72dec8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -487,6 +487,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
- 	plat_dat->has_gmac = true;
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index f276956f2c5c..ef6febe35633 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -2486,6 +2486,13 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	rproc->dev.driver_data = rproc;
+ 	idr_init(&rproc->notifyids);
  
-+	plat_dat->riwt_off = 1;
++	/* Assign a unique device index and name */
++	rproc->index = ida_alloc(&rproc_dev_index, GFP_KERNEL);
++	if (rproc->index < 0) {
++		dev_err(dev, "ida_alloc failed: %d\n", rproc->index);
++		goto put_device;
++	}
 +
- 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- 	if (ret)
- 		return ret;
+ 	rproc->name = kstrdup_const(name, GFP_KERNEL);
+ 	if (!rproc->name)
+ 		goto put_device;
+@@ -2496,13 +2503,6 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	if (rproc_alloc_ops(rproc, ops))
+ 		goto put_device;
+ 
+-	/* Assign a unique device index and name */
+-	rproc->index = ida_alloc(&rproc_dev_index, GFP_KERNEL);
+-	if (rproc->index < 0) {
+-		dev_err(dev, "ida_alloc failed: %d\n", rproc->index);
+-		goto put_device;
+-	}
+-
+ 	dev_set_name(&rproc->dev, "remoteproc%d", rproc->index);
+ 
+ 	atomic_set(&rproc->power, 0);
+
+base-commit: adc218676eef25575469234709c2d87185ca223a
 -- 
-2.47.0
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
