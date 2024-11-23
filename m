@@ -2,48 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8C039D6989
-	for <lists+linux-stm32@lfdr.de>; Sat, 23 Nov 2024 16:03:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3267B9D698F
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 Nov 2024 16:08:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AD84C6DD9F;
-	Sat, 23 Nov 2024 15:03:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC187C6DD9F;
+	Sat, 23 Nov 2024 15:08:25 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E54DC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D204FC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 23 Nov 2024 15:02:58 +0000 (UTC)
+ Sat, 23 Nov 2024 15:08:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 180145C4BA3;
- Sat, 23 Nov 2024 15:02:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D12C4CECD;
- Sat, 23 Nov 2024 15:02:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D3CE55C48EF;
+ Sat, 23 Nov 2024 15:07:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548DFC4CECD;
+ Sat, 23 Nov 2024 15:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732374176;
- bh=P157WcS5ohYQAn6edzPl90GuO3alev9bLB/aKLVAonA=;
+ s=k20201202; t=1732374496;
+ bh=mV0DYgkf1CnqnfVd7iq3ygJgMJskcY+V1ypQ6J1wbnU=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=a2i9jlGpP4BY6M3sO6UvZGtTn48iTlYRswftLo6T216t08sIJe8jGSigKCHnMe0LP
- /DCUGBZ4MPSDbU/CS9GdyV1H+/prcZ+6O/6jrvC1YGrL0bHHcSF/vONpdWnZPC4Z70
- lQItjByFZ+PXk96ckzl6Nd2+ghTQQFeCZHJOKM/l0JKqmvnbnS2AHAk5gtOw77FGOk
- qYGE+/yHOTQjHX523ydlcgUTBD3L2156BZP9Glret02gBGijXBajFBY9ms9c5YIQeE
- ZcFlgRH4L8968l7+vzPNW5vlWIgf426zAhTWzlV+hiimoLcMnmEcZFEA8JX9peP0Mk
- +hDck6GqSJF7Q==
-Date: Sat, 23 Nov 2024 15:02:47 +0000
+ b=kbSj3ip+kaRWJybPm0YerFXgRKWPbUxyNOlWqPF9hZucBq4TIwJ1pJODwn42DZBAQ
+ kTUbAWtjGmM3e270KmKubkZ0b4a9JH6G+OEp8AKzbxeszA/zdjM4BKNqhALK5EzhUp
+ /SpKx9XRX3e7ll2dFaIbyzx91/fs2BBy5u5p8MPR2ANlYnAvyljVsHP91nAYoAZOKK
+ 0SzQEYwyUKxMXGPMtzLtfMclJ+MYQcKh58QSZYfVOLthrvFWdahA2+eCXLpZOuJt8K
+ 3oSOkbKWFsoWWnpyteSqBaajD7mI9SFOC1GhoodDzggAsqQLG6hOoys32PtkqI3eJr
+ gNCxUFVt5qjSA==
+Date: Sat, 23 Nov 2024 15:08:08 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Message-ID: <20241123150247.718ee116@jic23-huawei>
-In-Reply-To: <CANeGvZVxte61_FgrrYEt_oTRXXzCESrvq4q90xSWz4JqpMAtYg@mail.gmail.com>
-References: <20241108200900.44727-1-jiashengjiangcool@gmail.com>
- <20241109133846.53d7ef06@jic23-huawei>
- <CANeGvZVxte61_FgrrYEt_oTRXXzCESrvq4q90xSWz4JqpMAtYg@mail.gmail.com>
+Message-ID: <20241123150808.1426c6f8@jic23-huawei>
+In-Reply-To: <20241111222310.12339-1-jiashengjiangcool@gmail.com>
+References: <20241111222310.12339-1-jiashengjiangcool@gmail.com>
 X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: tgamblin@baylibre.com, lars@metafoo.de, benjamin.gaignard@linaro.org,
- linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- u.kleine-koenig@baylibre.com, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: trigger: stm32-timer-trigger: Add
+ fabrice.gasnier@st.com, linux-iio@vger.kernel.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, u.kleine-koenig@baylibre.com,
+ mcoquelin.stm32@gmail.com, dlechner@baylibre.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4] iio: trigger: stm32-timer-trigger: Add
  check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -56,121 +54,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxMSBOb3YgMjAyNCAxNDoxNTo0MyAtMDUwMApKaWFzaGVuZyBKaWFuZyA8amlhc2hl
-bmdqaWFuZ2Nvb2xAZ21haWwuY29tPiB3cm90ZToKCj4gT24gU2F0LCBOb3YgOSwgMjAyNCBhdCA4
-OjM44oCvQU0gSm9uYXRoYW4gQ2FtZXJvbiA8amljMjNAa2VybmVsLm9yZz4gd3JvdGU6Cj4gPgo+
-ID4gT24gRnJpLCAgOCBOb3YgMjAyNCAyMDowOTowMCArMDAwMAo+ID4gSmlhc2hlbmcgSmlhbmcg
-PGppYXNoZW5namlhbmdjb29sQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiAgCj4gPiA+IEFkZCBjaGVj
-ayBmb3IgdGhlIHJldHVybiB2YWx1ZSBvZiBjbGtfZW5hYmxlKCkgaW4gb3JkZXIgdG8gY2F0Y2gg
-dGhlCj4gPiA+IHBvdGVudGlhbCBleGNlcHRpb24uCj4gPiA+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6
-IEppYXNoZW5nIEppYW5nIDxqaWFzaGVuZ2ppYW5nY29vbEBnbWFpbC5jb20+ICAKPiA+IEhpLAo+
-ID4KPiA+IEluIHByaW5jaXBsZSB0aGlzIGlzIGZpbmUsIGJ1dCBJJ2QgcmF0aGVyIHdlIG1hZGUg
-dXNlIG9mIGd1YXJkKCkKPiA+IC8gc2NvcGVkX2d1YXJkKCkgcmF0aGVyIHRoYW4gYWRkaW5nIHRo
-ZSBleHBsaWNpdCB1bmxvY2tzLgo+ID4KPiA+IElmIHlvdSBkbyB0aGF0IGFzIGEgcHJlY3Vyc29y
-IHBhdGNoIGluIGFwcHJvcHJpYXRlIHBsYWNlcwo+ID4gaW4gdGhlIGRyaXZlciB0aGVuIHRoaXMg
-d2lsbCBiZSBhIGxpdHRsZSBjbGVhbmVyLgo+ID4KPiA+IE5vdGUgSSdsbCBub3QgYmUgdGFraW5n
-IHRoaXMgdW50aWwgbmV4dCBjeWNsZSBub3cgYW55d2F5Lgo+ID4KPiA+IEpvbmF0aGFuCj4gPiAg
-Cj4gPiA+IC0tLQo+ID4gPiBDaGFuZ2Vsb2c6Cj4gPiA+Cj4gPiA+IHYxIC0+IHYyOgo+ID4gPgo+
-ID4gPiAxLiBSZW1vdmUgdW5zdWl0YWJsZSBkZXZfZXJyX3Byb2JlKCkuCj4gPiA+IC0tLQo+ID4g
-PiAgZHJpdmVycy9paW8vdHJpZ2dlci9zdG0zMi10aW1lci10cmlnZ2VyLmMgfCAzMiArKysrKysr
-KysrKysrKysrKystLS0tLQo+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyks
-IDcgZGVsZXRpb25zKC0pCj4gPiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby90cmln
-Z2VyL3N0bTMyLXRpbWVyLXRyaWdnZXIuYyBiL2RyaXZlcnMvaWlvL3RyaWdnZXIvc3RtMzItdGlt
-ZXItdHJpZ2dlci5jCj4gPiA+IGluZGV4IDA2ODQzMjk5NTZkOS4uZTFlMDc3MTIyZjczIDEwMDY0
-NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2lpby90cmlnZ2VyL3N0bTMyLXRpbWVyLXRyaWdnZXIuYwo+
-ID4gPiArKysgYi9kcml2ZXJzL2lpby90cmlnZ2VyL3N0bTMyLXRpbWVyLXRyaWdnZXIuYwo+ID4g
-PiBAQCAtMTE5LDcgKzExOSw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfdGltZXJfc3RhcnQoc3RydWN0
-IHN0bTMyX3RpbWVyX3RyaWdnZXIgKnByaXYsCj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHVuc2lnbmVkIGludCBmcmVxdWVuY3kpCj4gPiA+ICB7Cj4gPiA+ICAgICAgIHVuc2lnbmVk
-IGxvbmcgbG9uZyBwcmQsIGRpdjsKPiA+ID4gLSAgICAgaW50IHByZXNjYWxlciA9IDA7Cj4gPiA+
-ICsgICAgIGludCBwcmVzY2FsZXIgPSAwLCByZXQ7Cj4gPiA+ICAgICAgIHUzMiBjY2VyOwo+ID4g
-Pgo+ID4gPiAgICAgICAvKiBQZXJpb2QgYW5kIHByZXNjYWxlciB2YWx1ZXMgZGVwZW5kcyBvZiBj
-bG9jayByYXRlICovCj4gPiA+IEBAIC0xNTMsNyArMTUzLDExIEBAIHN0YXRpYyBpbnQgc3RtMzJf
-dGltZXJfc3RhcnQoc3RydWN0IHN0bTMyX3RpbWVyX3RyaWdnZXIgKnByaXYsCj4gPiA+ICAgICAg
-IG11dGV4X2xvY2soJnByaXYtPmxvY2spOwo+ID4gPiAgICAgICBpZiAoIXByaXYtPmVuYWJsZWQp
-IHsKPiA+ID4gICAgICAgICAgICAgICBwcml2LT5lbmFibGVkID0gdHJ1ZTsKPiA+ID4gLSAgICAg
-ICAgICAgICBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPiA+ICsgICAgICAgICAgICAgcmV0ID0g
-Y2xrX2VuYWJsZShwcml2LT5jbGspOwo+ID4gPiArICAgICAgICAgICAgIGlmIChyZXQpIHsKPiA+
-ID4gKyAgICAgICAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmcHJpdi0+bG9jayk7ICAKPiA+
-Cj4gPiBhcyBiZWxvdyBndWFyZCgpIGZvciB3aGVuIHRoZSBtdXRleCBpcyBsb2NrZWQgaXMgY2xl
-YW5lci4KPiA+ICAKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiA+
-ICsgICAgICAgICAgICAgfQo+ID4gPiAgICAgICB9Cj4gPiA+Cj4gPiA+ICAgICAgIHJlZ21hcF93
-cml0ZShwcml2LT5yZWdtYXAsIFRJTV9QU0MsIHByZXNjYWxlcik7Cj4gPiA+IEBAIC0zMDcsNyAr
-MzExLDcgQEAgc3RhdGljIHNzaXplX3Qgc3RtMzJfdHRfc3RvcmVfbWFzdGVyX21vZGUoc3RydWN0
-IGRldmljZSAqZGV2LAo+ID4gPiAgICAgICBzdHJ1Y3Qgc3RtMzJfdGltZXJfdHJpZ2dlciAqcHJp
-diA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOwo+ID4gPiAgICAgICBzdHJ1Y3QgaWlvX3RyaWdnZXIg
-KnRyaWcgPSB0b19paW9fdHJpZ2dlcihkZXYpOwo+ID4gPiAgICAgICB1MzIgbWFzaywgc2hpZnQs
-IG1hc3Rlcl9tb2RlX21heDsKPiA+ID4gLSAgICAgaW50IGk7Cj4gPiA+ICsgICAgIGludCBpLCBy
-ZXQ7Cj4gPiA+Cj4gPiA+ICAgICAgIGlmIChzdG0zMl90aW1lcl9pc190cmdvMl9uYW1lKHRyaWct
-Pm5hbWUpKSB7Cj4gPiA+ICAgICAgICAgICAgICAgbWFzayA9IFRJTV9DUjJfTU1TMjsKPiA+ID4g
-QEAgLTMyNiw3ICszMzAsMTEgQEAgc3RhdGljIHNzaXplX3Qgc3RtMzJfdHRfc3RvcmVfbWFzdGVy
-X21vZGUoc3RydWN0IGRldmljZSAqZGV2LAo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgaWYg
-KCFwcml2LT5lbmFibGVkKSB7Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8q
-IENsb2NrIHNob3VsZCBiZSBlbmFibGVkIGZpcnN0ICovCj4gPiA+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHByaXYtPmVuYWJsZWQgPSB0cnVlOwo+ID4gPiAtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHJldCA9IGNsa19lbmFibGUocHJpdi0+Y2xrKTsKPiA+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJldCkgewo+ID4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmcHJpdi0+bG9jayk7ICAKPiA+IEFz
-IGJlbG93LiBQcmVmZXIgdXNlIG9mIGd1YXJkKCkgc28gd2UgZG9uJ3QgaGF2ZSB0byBoYW5kbGUg
-dGhlIHVubG9jayBtYW51YWxseS4gIAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IH0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIH0KPiA+ID4gICAgICAgICAgICAgICAgICAg
-ICAgIHJlZ21hcF91cGRhdGVfYml0cyhwcml2LT5yZWdtYXAsIFRJTV9DUjIsIG1hc2ssCj4gPiA+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaSA8PCBzaGlmdCk7Cj4g
-PiA+IEBAIC00ODIsNiArNDkwLDcgQEAgc3RhdGljIGludCBzdG0zMl9jb3VudGVyX3dyaXRlX3Jh
-dyhzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2LAo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBpbnQgdmFsLCBpbnQgdmFsMiwgbG9uZyBtYXNrKQo+ID4gPiAgewo+ID4gPiAg
-ICAgICBzdHJ1Y3Qgc3RtMzJfdGltZXJfdHJpZ2dlciAqcHJpdiA9IGlpb19wcml2KGluZGlvX2Rl
-dik7Cj4gPiA+ICsgICAgIGludCByZXQ7Cj4gPiA+Cj4gPiA+ICAgICAgIHN3aXRjaCAobWFzaykg
-ewo+ID4gPiAgICAgICBjYXNlIElJT19DSEFOX0lORk9fUkFXOgo+ID4gPiBAQCAtNDk2LDcgKzUw
-NSwxMSBAQCBzdGF0aWMgaW50IHN0bTMyX2NvdW50ZXJfd3JpdGVfcmF3KHN0cnVjdCBpaW9fZGV2
-ICppbmRpb19kZXYsCj4gPiA+ICAgICAgICAgICAgICAgaWYgKHZhbCkgewo+ID4gPiAgICAgICAg
-ICAgICAgICAgICAgICAgaWYgKCFwcml2LT5lbmFibGVkKSB7Cj4gPiA+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHByaXYtPmVuYWJsZWQgPSB0cnVlOwo+ID4gPiAtICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHJldCA9IGNsa19lbmFibGUocHJpdi0+Y2xrKTsKPiA+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJldCkgewo+ID4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmcHJpdi0+bG9jayk7ICAKPiA+
-IEFkZCBpbmNsdWRlIG9mIGNsZWFudXAuaCBhbmQgc3dpdGhjaCB0aGUgcGxhY2Ugd2hlcmUgdGhl
-IG11dGV4IGlzIGxvY2tlZCB0bwo+ID4gZ3VhcmQobXV0ZXgpKCZwcml2LT5sb2NrKTsKPiA+IHRo
-ZW4gcmVtZW1iZXIgdG8gZHJvcCB0aGUgZXhwbGljaXQgdW5sb2Nrcy4gIAo+IAo+IEkgZm91bmQg
-dGhhdCBjbGVhbnVwLmggaXMgYWxyZWFkeSBpbmNsdWRlZC4KPiAKPiBNb3Jlb3Zlciwgc2luY2Ug
-bGFiZWxzIGNhbm5vdCBiZSBmb2xsb3dlZCBieSBkZWNsYXJhdGlvbnMsCj4gSSBlbmNvdW50ZXJl
-ZCBhIGNvbXBpbGF0aW9uIGVycm9yIHdoZW4gdXNpbmcgZ3VhcmQoKS4KPiBUaGVyZWZvcmUsIEkg
-c3dpdGNoZWQgdG8gdXNpbmcgc2NvcGVkX2d1YXJkKCkuClNvbWV0aW1lcyBpdCBpcyBiZXR0ZXIg
-dG8ganVzdCBhZGQgc2NvcGUgZm9yIGJsb2NrcyBpbiBzd2l0Y2ggc3RhdGVtZW50CndpdGggCmNh
-c2UgWFhYOiB7CglndWFyZCgpCn0KYmVjYXVzZSB0aGVuIHdlIGRvbid0IGdldCB0aGUgZXh0cmEg
-aW5kZW50IGEgc2NvcGVkX2d1YXJkKCkgcmVxdWlyZXMuCgpJJ2xsIHRha2UgYSBsb29rIGF0IHRo
-ZSByZXN1bHQgaW4gdGhpcyBjYXNlIHRob3VnaCEKCkpvbmF0aGFuCgo+ID4gIAo+ID4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiA+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIH0KPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIH0K
-PiA+ID4gICAgICAgICAgICAgICAgICAgICAgIHJlZ21hcF9zZXRfYml0cyhwcml2LT5yZWdtYXAs
-IFRJTV9DUjEsIFRJTV9DUjFfQ0VOKTsKPiA+ID4gICAgICAgICAgICAgICB9IGVsc2Ugewo+ID4g
-PiBAQCAtNjAxLDcgKzYxNCw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfc2V0X2VuYWJsZV9tb2RlKHN0
-cnVjdCBpaW9fZGV2ICppbmRpb19kZXYsCj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICB1bnNpZ25lZCBpbnQgbW9kZSkKPiA+ID4gIHsKPiA+ID4gICAgICAgc3RydWN0IHN0bTMy
-X3RpbWVyX3RyaWdnZXIgKnByaXYgPSBpaW9fcHJpdihpbmRpb19kZXYpOwo+ID4gPiAtICAgICBp
-bnQgc21zID0gc3RtMzJfZW5hYmxlX21vZGUyc21zKG1vZGUpOwo+ID4gPiArICAgICBpbnQgc21z
-ID0gc3RtMzJfZW5hYmxlX21vZGUyc21zKG1vZGUpLCByZXQ7Cj4gPiA+Cj4gPiA+ICAgICAgIGlm
-IChzbXMgPCAwKQo+ID4gPiAgICAgICAgICAgICAgIHJldHVybiBzbXM7Cj4gPiA+IEBAIC02MTEs
-NyArNjI0LDEyIEBAIHN0YXRpYyBpbnQgc3RtMzJfc2V0X2VuYWJsZV9tb2RlKHN0cnVjdCBpaW9f
-ZGV2ICppbmRpb19kZXYsCj4gPiA+ICAgICAgICAqLwo+ID4gPiAgICAgICBtdXRleF9sb2NrKCZw
-cml2LT5sb2NrKTsgIAo+ID4KPiA+IFBlcmhhcHMgc2NvcGVkX2d1YXJkKCkgaXMgIGFwcHJvcHJp
-YXRlIGhlcmUuCj4gPiAgCj4gPiA+ICAgICAgIGlmIChzbXMgPT0gNiAmJiAhcHJpdi0+ZW5hYmxl
-ZCkgewo+ID4gPiAtICAgICAgICAgICAgIGNsa19lbmFibGUocHJpdi0+Y2xrKTsKPiA+ID4gKyAg
-ICAgICAgICAgICByZXQgPSBjbGtfZW5hYmxlKHByaXYtPmNsayk7Cj4gPiA+ICsgICAgICAgICAg
-ICAgaWYgKHJldCkgewo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZw
-cml2LT5sb2NrKTsKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiA+
-ICsgICAgICAgICAgICAgfQo+ID4gPiArCj4gPiA+ICAgICAgICAgICAgICAgcHJpdi0+ZW5hYmxl
-ZCA9IHRydWU7Cj4gPiA+ICAgICAgIH0KPiA+ID4gICAgICAgbXV0ZXhfdW5sb2NrKCZwcml2LT5s
-b2NrKTsgIAo+ID4gIAo+IAo+IFRoYW5rcywgSSB3aWxsIHN1Ym1pdCBhIHYyIHRvIHNpbXBsaWZ5
-IGNvZGUgd2l0aCBjbGVhbnVwIGhlbHBlcnMuCj4gCj4gLUppYXNoZW5nCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Mon, 11 Nov 2024 22:23:10 +0000
+Jiasheng Jiang <jiashengjiangcool@gmail.com> wrote:
+
+> Add check for the return value of clk_enable() in order to catch the
+> potential exception.
+> 
+> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Hi Jiasheng,
+
+
+Should definitely mention the changes to use guard() to simplify
+the resulting code.
+
+One minor comment on the code inline. Otherwise looks good to me.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changelog:
+> 
+> v3 -> v4:
+> 
+> 1. Place braces around the case body.
+> 
+> v2 -> v3:
+> 
+> 1. Simplify code with cleanup helpers.
+> 
+> v1 -> v2:
+> 
+> 1. Remove unsuitable dev_err_probe().
+
+> @@ -482,6 +484,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				   int val, int val2, long mask)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> +	int ret;
+>  
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> @@ -491,12 +494,14 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  		/* fixed scale */
+>  		return -EINVAL;
+>  
+> -	case IIO_CHAN_INFO_ENABLE:
+> -		mutex_lock(&priv->lock);
+> +	case IIO_CHAN_INFO_ENABLE: {
+> +		guard(mutex)(&priv->lock);
+>  		if (val) {
+>  			if (!priv->enabled) {
+>  				priv->enabled = true;
+> -				clk_enable(priv->clk);
+> +				ret = clk_enable(priv->clk);
+> +				if (ret)
+> +					return ret;
+>  			}
+>  			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+>  		} else {
+> @@ -506,9 +511,10 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				clk_disable(priv->clk);
+>  			}
+>  		}
+> -		mutex_unlock(&priv->lock);
+> +
+>  		return 0;
+>  	}
+Add a default for reasons David mentioned and it also makes it visually clear
+that we expect to get in here for other cases but they are all errors.
+	default:
+		return -EINVAL;
+> +	}
+>  
+And drop this return as unreachable.
+
+>  	return -EINVAL;
+>  }
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
