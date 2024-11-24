@@ -2,46 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F8A9D6F2A
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Nov 2024 14:02:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1BE9D708D
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Nov 2024 14:36:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D78DC78F6D;
-	Sun, 24 Nov 2024 13:02:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16433C78F6D;
+	Sun, 24 Nov 2024 13:36:17 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFA67C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A85C78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Nov 2024 13:02:51 +0000 (UTC)
+ Sun, 24 Nov 2024 13:36:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3A0FC5C432C;
- Sun, 24 Nov 2024 13:02:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B6DC4CECC;
- Sun, 24 Nov 2024 13:02:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D75D25C54D6;
+ Sun, 24 Nov 2024 13:35:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66611C4CED1;
+ Sun, 24 Nov 2024 13:36:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732453370;
- bh=V0Bs0Zy6s73HavYwwymncXPcs1ZrjCVcI3abEBI8kTo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kvgsWMVFDc8l3JAe/gPaphm8u9pGpy8kBrXIHOyFRUMmn6TtyoMF6OCneBCQSdacj
- KsOz6wtjYSXlCCWByw1JHoT6gYN4b7nMm9eqnmYjV0Fs/A1T/1TnHU/oKnoimBro1o
- b66ii7FId/S2qyMAlFrgv75ppIOA9xULNGtQFbDvWPCB9K4Wh4PsjIpsBk1M5XxYeA
- oVYt2IYlIVlJNqnYIqF0Xvo5hUvGr1+9rQb2XrXncfUBrlJws11bdcxHg+rb8x7mXh
- yKF3kL+GqsXuWto+2Es8l38TQKx9RLFtZMNAznpgglzFk6rvQqdUTi26hNL+EAuF/a
- UkHh1s6pS05Sg==
-Date: Sun, 24 Nov 2024 13:02:41 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <20241124130241.60e922ff@jic23-huawei>
-In-Reply-To: <20241114102459.2497178-1-olivier.moysan@foss.st.com>
-References: <20241114102459.2497178-1-olivier.moysan@foss.st.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+ s=k20201202; t=1732455367;
+ bh=sfWFd3icHSRnkoiMXTal+qogUpQZ5ZrxbHARsApRrTU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Wm+A6JQVRfe7sBxOIdbNGW1pxueO8zQPcwe4yGRJVem70N+oCwZQyJGgaeA92/FCW
+ jx0ZzDQjfspjuoANWtOj3eGBCzUBf2o5boEVmMD/5nhFz4gT2pGWFjJva34+nkXZ9h
+ /uLCato4cJhcuYmSCO0OEPmJxNSwd2Ht8yKg4pNMQjVDibj2pDR/1HsC0zFAn+ly2i
+ 9mjI4oBPUAvZxK523aIfYnM5jKm9E2mAsLwuu7nhspwUZLYkR00drSRq9QvnZzU+jW
+ TLwafgX+TpEJVBkfeM1iVRhc7BF1l1J5STVUaDcAba9UcnbN7kSykoLuO1GwtkJL4e
+ TjfMk66RRJXuA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun, 24 Nov 2024 08:29:17 -0500
+Message-ID: <20241124133301.3341829-57-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241124133301.3341829-1-sashal@kernel.org>
+References: <20241124133301.3341829-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: handle label as an
- optional property
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.12.1
+Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>, Simon Horman <horms@kernel.org>,
+ kuba@kernel.org, Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.12 057/107] net: stmmac: Programming
+	sequence for VLAN packets with split header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,52 +64,116 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 14 Nov 2024 11:24:59 +0100
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+From: Abhishek Chauhan <quic_abchauha@quicinc.com>
 
-> The label property is defined as optional in the DFSDM binding.
-> Parse the label property only when it is defined in the device tree.
-> 
-> Fixes: 3208fa0cd919 ("iio: adc: stm32-dfsdm: adopt generic channels bindings")
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-This could be done by just ignoring the return of fw_node_property_read_string()
-but your fix will do a little more such as report an error if the property is
-the wrong type etc, so I'll take it.
+[ Upstream commit d10f1a4e44c3bf874701f86f8cc43490e1956acf ]
 
-Applied to the fixes-togreg branch of iio.git.
+Currently reset state configuration of split header works fine for
+non-tagged packets and we see no corruption in payload of any size
 
-Thanks,
+We need additional programming sequence with reset configuration to
+handle VLAN tagged packets to avoid corruption in payload for packets
+of size greater than 256 bytes.
 
-Jonathan
+Without this change ping application complains about corruption
+in payload when the size of the VLAN packet exceeds 256 bytes.
 
-> ---
->  drivers/iio/adc/stm32-dfsdm-adc.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-> index 2037f73426d4..e304e3714020 100644
-> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> @@ -691,11 +691,14 @@ static int stm32_dfsdm_generic_channel_parse_of(struct stm32_dfsdm *dfsdm,
->  		return -EINVAL;
->  	}
->  
-> -	ret = fwnode_property_read_string(node, "label", &ch->datasheet_name);
-> -	if (ret < 0) {
-> -		dev_err(&indio_dev->dev,
-> -			" Error parsing 'label' for idx %d\n", ch->channel);
-> -		return ret;
-> +	if (fwnode_property_present(node, "label")) {
-> +		/* label is optional */
-> +		ret = fwnode_property_read_string(node, "label", &ch->datasheet_name);
-> +		if (ret < 0) {
-> +			dev_err(&indio_dev->dev,
-> +				" Error parsing 'label' for idx %d\n", ch->channel);
-> +			return ret;
-> +		}
->  	}
->  
->  	df_ch =  &dfsdm->ch_list[ch->channel];
+With this change tagged and non-tagged packets of any size works fine
+and there is no corruption seen.
+
+Current configuration which has the issue for VLAN packet
+----------------------------------------------------------
+
+Split happens at the position at Layer 3 header
+|MAC-DA|MAC-SA|Vlan Tag|Ether type|IP header|IP data|Rest of the payload|
+                         2 bytes            ^
+                                            |
+
+With the fix we are making sure that the split happens now at
+Layer 2 which is end of ethernet header and start of IP payload
+
+Ip traffic split
+-----------------
+
+Bits which take care of this are SPLM and SPLOFST
+SPLM = Split mode is set to Layer 2
+SPLOFST = These bits indicate the value of offset from the beginning
+of Length/Type field at which header split should take place when the
+appropriate SPLM is selected. Reset value is 2bytes.
+
+Un-tagged data (without VLAN)
+|MAC-DA|MAC-SA|Ether type|IP header|IP data|Rest of the payload|
+                  2bytes ^
+			 |
+
+Tagged data (with VLAN)
+|MAC-DA|MAC-SA|VLAN Tag|Ether type|IP header|IP data|Rest of the payload|
+                          2bytes  ^
+				  |
+
+Non-IP traffic split such AV packet
+------------------------------------
+
+Bits which take care of this are
+SAVE = Split AV Enable
+SAVO = Split AV Offset, similar to SPLOFST but this is for AVTP
+packets.
+
+|Preamble|MAC-DA|MAC-SA|VLAN tag|Ether type|IEEE 1722 payload|CRC|
+				    2bytes ^
+					   |
+
+Signed-off-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20241016234313.3992214-1-quic_abchauha@quicinc.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h     | 5 +++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+index 93a78fd0737b6..28fff6cab812e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+@@ -44,6 +44,7 @@
+ #define GMAC_MDIO_DATA			0x00000204
+ #define GMAC_GPIO_STATUS		0x0000020C
+ #define GMAC_ARP_ADDR			0x00000210
++#define GMAC_EXT_CFG1			0x00000238
+ #define GMAC_ADDR_HIGH(reg)		(0x300 + reg * 8)
+ #define GMAC_ADDR_LOW(reg)		(0x304 + reg * 8)
+ #define GMAC_L3L4_CTRL(reg)		(0x900 + (reg) * 0x30)
+@@ -284,6 +285,10 @@ enum power_event {
+ #define GMAC_HW_FEAT_DVLAN		BIT(5)
+ #define GMAC_HW_FEAT_NRVF		GENMASK(2, 0)
+ 
++/* MAC extended config 1 */
++#define GMAC_CONFIG1_SAVE_EN		BIT(24)
++#define GMAC_CONFIG1_SPLM(v)		FIELD_PREP(GENMASK(9, 8), v)
++
+ /* GMAC GPIO Status reg */
+ #define GMAC_GPO0			BIT(16)
+ #define GMAC_GPO1			BIT(17)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index 77b35abc6f6fa..22a044d93e172 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -534,6 +534,11 @@ static void dwmac4_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	value |= GMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+ 	writel(value, ioaddr + GMAC_EXT_CONFIG);
+ 
++	value = readl(ioaddr + GMAC_EXT_CFG1);
++	value |= GMAC_CONFIG1_SPLM(1); /* Split mode set to L2OFST */
++	value |= GMAC_CONFIG1_SAVE_EN; /* Enable Split AV mode */
++	writel(value, ioaddr + GMAC_EXT_CFG1);
++
+ 	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+ 	if (en)
+ 		value |= DMA_CONTROL_SPH;
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
