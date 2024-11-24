@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F1BE9D708D
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Nov 2024 14:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23EF9D710B
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Nov 2024 14:43:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16433C78F6D;
-	Sun, 24 Nov 2024 13:36:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8356BC78F6D;
+	Sun, 24 Nov 2024 13:43:34 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A85C78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 708F4C78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Nov 2024 13:36:08 +0000 (UTC)
+ Sun, 24 Nov 2024 13:43:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D75D25C54D6;
- Sun, 24 Nov 2024 13:35:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66611C4CED1;
- Sun, 24 Nov 2024 13:36:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 993E35C56E6;
+ Sun, 24 Nov 2024 13:42:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B707C4CED3;
+ Sun, 24 Nov 2024 13:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732455367;
- bh=sfWFd3icHSRnkoiMXTal+qogUpQZ5ZrxbHARsApRrTU=;
+ s=k20201202; t=1732455806;
+ bh=qv5uR2tjx0Fy6RsqPV3TVLAUoC7db9QSAc69i5NeHZY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Wm+A6JQVRfe7sBxOIdbNGW1pxueO8zQPcwe4yGRJVem70N+oCwZQyJGgaeA92/FCW
- jx0ZzDQjfspjuoANWtOj3eGBCzUBf2o5boEVmMD/5nhFz4gT2pGWFjJva34+nkXZ9h
- /uLCato4cJhcuYmSCO0OEPmJxNSwd2Ht8yKg4pNMQjVDibj2pDR/1HsC0zFAn+ly2i
- 9mjI4oBPUAvZxK523aIfYnM5jKm9E2mAsLwuu7nhspwUZLYkR00drSRq9QvnZzU+jW
- TLwafgX+TpEJVBkfeM1iVRhc7BF1l1J5STVUaDcAba9UcnbN7kSykoLuO1GwtkJL4e
- TjfMk66RRJXuA==
+ b=YmE4SycXFE8BWE2FWttHg3qN3oSgcrIjDlj5AsHvqyGnosE+2nmqIjhbp5tEgvM2h
+ GfYJDlBT82kUiiTLtakKPxAcdDNb2eoOxfAxw27xv7rT3vxvvdNOheuoN0ayeHdFgn
+ CZj0ebDm8TGGrymvhT5N/k4XjBJ1Rz6aR0+8lN0ehMPFLddhKXoso3BU+BDaJ3FanM
+ IZo6E8VDmS2cdiPrQLMwbN5kNOINZybd0ZX3agYrh0xi2OQYZ4jcZPu0XELDSfnSx/
+ LmqgTnCfuJHW5n9aEj6cIxYzEFgY5dD1GQVHN//GBNv82ZEpXfLrVsmL97OfBG7psM
+ ePsLKXfyKePyw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 24 Nov 2024 08:29:17 -0500
-Message-ID: <20241124133301.3341829-57-sashal@kernel.org>
+Date: Sun, 24 Nov 2024 08:38:24 -0500
+Message-ID: <20241124134102.3344326-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241124133301.3341829-1-sashal@kernel.org>
-References: <20241124133301.3341829-1-sashal@kernel.org>
+In-Reply-To: <20241124134102.3344326-1-sashal@kernel.org>
+References: <20241124134102.3344326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.1
+X-stable-base: Linux 6.11.10
 Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
  Abhishek Chauhan <quic_abchauha@quicinc.com>, Simon Horman <horms@kernel.org>,
  kuba@kernel.org, Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.12 057/107] net: stmmac: Programming
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.11 46/87] net: stmmac: Programming
 	sequence for VLAN packets with split header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -157,7 +157,7 @@ index 93a78fd0737b6..28fff6cab812e 100644
  #define GMAC_GPO0			BIT(16)
  #define GMAC_GPO1			BIT(17)
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-index 77b35abc6f6fa..22a044d93e172 100644
+index 071f128aa4907..7805a66a0bc08 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
 @@ -534,6 +534,11 @@ static void dwmac4_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
