@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7902B9D8584
+	by mail.lfdr.de (Postfix) with ESMTPS id AA3B99D8586
 	for <lists+linux-stm32@lfdr.de>; Mon, 25 Nov 2024 13:40:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 273D0C78F81;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44BCCC78F86;
 	Mon, 25 Nov 2024 12:40:48 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9788C78F7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF505C78F80
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun, 24 Nov 2024 22:43:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4264D5C57A3;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7A32F5C57CE;
  Sun, 24 Nov 2024 22:42:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EDF25C4CEE2;
- Sun, 24 Nov 2024 22:43:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D933C4CEE5;
+ Sun, 24 Nov 2024 22:43:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1732488194;
- bh=ASdzTe34Z+d59Brp4wy1vpf4xly9YpxzqxiqU7BbVP0=;
+ bh=cDLcuBxu4MlG3S8lQE9mNu4I9S677lFh6lW7mFum0/A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=shGXhO9qj4Vod1iK+HMfXSDtqQM9s5/H9cVNvy9RVzvhnza9IjZ027ogdED4byS5t
- s+MJfWb+EDnSjLCrQE2wkRMpy2r+OT48KiIvxre5hd/5jRTpuVzNTGxXvleFFsPJ/s
- twNYGcGnOdfSSA4U92WGbF+F1BfSSTx/aUIHBvq4PQDUQFMgjgmiU+yahbdvA2m3BP
- OwzxwkFlUzZuQyGMhKzAMDNxInvEU0t75cAPpm0UB+6r/9H+SXmRUZ+u0b+E1UutWI
- xX+WUhbR06ib5z6Rv1oYqcUunJUV5uebXwulyGyLs5F+WHyZqfwE2Yi1KUDX4nKw7n
- ZgYsYAVZZsJSw==
+ b=NdfMb726ww0KfATG3uJuXG93d5eFU7hJ/kXKPSco/6uKIGr0970+aOTcElAOPaI6E
+ zUp+GONdgCXRRFgT2a4vXKVAi1pYsKCJOsUBJCAIAqpBMr0HE56OkHj0AHG6VhX8fI
+ sUKdbq619MuK+ucfVzMWw7hCktO0UQP/ofX2pDJrjfnYiLLcoar15RB1H3PP1WJ4/m
+ KbJsO/gqsKNj1TbZFTF0zmtAZmJxGQD/TqQnoPeiw4rpxxyP3jmyWdR+pa7zLQdLA/
+ vO0/LWlF5u3vhxyK3S1/S6/ruEQv6FO5Itp9LD18z1moGqgwc5EpDTRINaOXvNkf+X
+ zZ0xbDlD14wrg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DA9EED3B7C4;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id F2859D3B7C3;
  Sun, 24 Nov 2024 22:43:13 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Sun, 24 Nov 2024 23:42:35 +0100
+Date: Sun, 24 Nov 2024 23:42:36 +0100
 MIME-Version: 1.0
-Message-Id: <20241124-upstream_s32cc_gmac-v6-4-dc5718ccf001@oss.nxp.com>
+Message-Id: <20241124-upstream_s32cc_gmac-v6-5-dc5718ccf001@oss.nxp.com>
 References: <20241124-upstream_s32cc_gmac-v6-0-dc5718ccf001@oss.nxp.com>
 In-Reply-To: <20241124-upstream_s32cc_gmac-v6-0-dc5718ccf001@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -60,11 +60,11 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732488190; l=1509;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732488190; l=1290;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=fpWmpczGATKRZSZUfvD41WjUjGR83jNPIPJUZeOtjsk=;
- b=n+FUBIb08C4MW29U1TwIN+jAnwb5gQDX3x+iM8uBEh3wGvLkmbG8sYsamLmxZ3aCohoJLLMAT
- Zv6nMCNB+zzDPC7y7MBxFnFTGp/4Qv7JsyO2YTO7YrQKqRXCBCU24Ks
+ bh=ZX+NwH2HQko3cIWDQjmmck130Lb3TijMXiPn59w6r/U=;
+ b=5f2wvoUkBkxm9GyZz8o8nQ+XG6DNA+DUtQv3u0hsNIs6JY1TmH2rxm9R/RkqWpXkI20dNIQCq
+ 7op/XU1+JoaBWyiiCiwiurfYiH4ioAXYvhDBA5EMT4R/OLIVS2kAzsX
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -77,8 +77,8 @@ Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next v6 04/15] net: phy: Add helper
- for mapping RGMII link speed to clock rate
+Subject: [Linux-stm32] [PATCH RFC net-next v6 05/15] net: dwmac-dwc-qos-eth:
+ Use helper rgmii_clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,58 +98,47 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-The RGMII interface supports three data rates: 10/100 Mbps
-and 1 Gbps. These speeds correspond to clock frequencies
-of 2.5/25 MHz and 125 MHz, respectively.
+Utilize a new helper function rgmii_clock().
 
-Many Ethernet drivers, including glues in stmmac, follow
-a similar pattern of converting RGMII speed to clock frequency.
-
-To simplify code, define the helper rgmii_clock(speed)
-to convert connection speed to clock frequency.
-
-Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- include/linux/phy.h | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 77c6d6451638..9d0717ccd5c0 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -298,6 +298,29 @@ static inline const char *phy_modes(phy_interface_t interface)
- 	}
- }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index 83290e707df5..bd4eb187f8c6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -181,24 +181,19 @@ static void dwc_qos_remove(struct platform_device *pdev)
+ static void tegra_eqos_fix_speed(void *priv, unsigned int speed, unsigned int mode)
+ {
+ 	struct tegra_eqos *eqos = priv;
+-	unsigned long rate = 125000000;
+ 	bool needs_calibration = false;
++	long rate = 125000000;
+ 	u32 value;
+ 	int err;
  
-+/**
-+ * rgmii_clock - map link speed to the clock rate
-+ * @speed: link speed value
-+ *
-+ * Description: maps RGMII supported link speeds
-+ * into the clock rates.
-+ *
-+ * Returns: clock rate or negative errno
-+ */
-+static inline long rgmii_clock(int speed)
-+{
-+	switch (speed) {
-+	case SPEED_10:
-+		return 2500000;
-+	case SPEED_100:
-+		return 25000000;
-+	case SPEED_1000:
-+		return 125000000;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- #define PHY_INIT_TIMEOUT	100000
- #define PHY_FORCE_TIMEOUT	10
+ 	switch (speed) {
+ 	case SPEED_1000:
+-		needs_calibration = true;
+-		rate = 125000000;
+-		break;
+-
+ 	case SPEED_100:
+ 		needs_calibration = true;
+-		rate = 25000000;
+-		break;
++		fallthrough;
  
+ 	case SPEED_10:
+-		rate = 2500000;
++		rate = rgmii_clock(speed);
+ 		break;
+ 
+ 	default:
 
 -- 
 2.47.0
