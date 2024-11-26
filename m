@@ -2,56 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6F139D94F1
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 10:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E5EB9D94B5
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 10:39:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B43BC78023;
-	Tue, 26 Nov 2024 09:56:29 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AA66C78016;
+	Tue, 26 Nov 2024 09:39:48 +0000 (UTC)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C112C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EB59C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 09:30:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6D80E5C5D16;
- Tue, 26 Nov 2024 09:29:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0A3C4CECF;
- Tue, 26 Nov 2024 09:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732613410;
- bh=9Ay6+imSrXagOd8Xd0hPE8chBJ5GelgKMPvVGoiR2e8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WQdq2LZE9YTWOxAyv7FnmGEL6ltFHnouW2WMUelybvVewvAWZm15QH/lf4XnmpQIj
- rlQos5T4MqJKm0b4DQ+XG/dwzrlSHYISKPwh1eT8EYKMDTbHpep6jNgk2xbMKdFDiJ
- hn4GR7SeIgMtyW1i5NZi60c+PAJdj3CDW3nvknu4LQcgmMSBr9kw1YUcB0r0hL6u0b
- AfWWeTAU1kj3t137X4AI3F7clejrXfnU7TD+LNP9Sb/TNVQXlciE6FtXt9h8HzQmly
- XJFQtHV2onhmWl+5d/rCLPRImcGfpHpSC1OHCVSX9Yh2hwq7dtq9rUmpxlO9EKusN2
- dq3Ud11z9oHyg==
-Date: Tue, 26 Nov 2024 10:30:07 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <20241126-silver-skylark-of-expertise-bba576@houat>
-References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
- <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
- <20241125-gleaming-anteater-of-perfection-42bd2b@houat>
- <bfuj6w6hsbfpdw24th6dl3ugvj45op6jb45gx5ab5pulud7hiz@o2zbn45z3lt4>
- <725aafb8-abfa-40c0-967a-62122206f736@foss.st.com>
+ Tue, 26 Nov 2024 09:39:40 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-3ea49cc8b88so908750b6e.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 Nov 2024 01:39:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732613979; x=1733218779;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=5VqTNP1l3I0fkOuZ3WrWUQyb1/49E8EQXioZGwnik0g=;
+ b=Yaf++DWMinxgJ2qwc1im1THs77Mhx63ozpY1GftL+gmsShXHoQy1HtzdOGautjzhJD
+ 1dqPCXIYMDAtVSDbeQdjxQ7SjXAgFbPd9D3+Xk7Xe47u0Jrl8VzBgCp7xEtNQiTVTVKZ
+ tpuFyZZTK7ahOMmo3BC6t9L7LiFMDcYrli2+0t8Sy28h1leWPKHB8ry0ij3kEEhuvECX
+ JwL1U3d2GCgY4snIoDhoQh0nBfdwpPu5U0kakelmI7OY2BL/xi3iR1cesl9sVCmpsSif
+ +BnK3p0UXVHNXUHMZxP4/bmNKSWhgG8zWUCQpplvZGBOeUKk2mQ9u6PsQ/pS4j2hyiJb
+ QGkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732613979; x=1733218779;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5VqTNP1l3I0fkOuZ3WrWUQyb1/49E8EQXioZGwnik0g=;
+ b=vAfrSvE30KN1zRpkzoOjDaRM27Abb2Y5SXrJfT6XZhT+1yUZyLhsT0puWRL+MzvlcY
+ U6C3om25sKO4sJqEWE5fWxuE+C2fbDY88tnFc4U/4Bn1PLAb9v95RB7C4IJfjie4n3Sp
+ krFUScyZUqXRzXsw1d+/Bpr0ui+9LGCW2mBK9XSs/GCuPgfAqmUVKVST3rGA4rD3tLgE
+ 8eyICt57a85rLm4qHYg4QQeAs62FVnSHCZFiazjCy+bC6Zg0vvg3XZUrzebXmxQZJxXE
+ qSDr/oNA6LJqcERJsbGgm2/SG2j2P0CzlW0IpsSVFoHkOFsiG5pDKEnqn/eoqCbkvIVC
+ 0Luw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVNJhbfF6VJ9hlZ7HeWsHH20qCKH4HMU6J/lG1ST3VuYf9yaPqHCI2DoIce7NsaLa9v+FHt6M5+pRPfVA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywzoi5y24CvYSsZhQeD64AOmMpQj3NblODZpEpMIHpKJk3AZhd8
+ gLjthOkXl+apjwGzCgp96PUkmX5yjL37aoMmobF8rTSI/2fFKa4w
+X-Gm-Gg: ASbGncv7p0jEixeGg1JZyZrGClPRu0Ng9ZM/r97xOyvGmh0DW8O2oBZ9O+DTMdpRqOJ
+ g8+NtLsEA18ZB517z8L2zQn8sf8KnL8c+o7SvS18aO/60PR539wP3Lv/JRiGpapvVwMEw0ukvzI
+ gnmrx0rCgMqDaxwD0m5etNCowiYmG42WsW6IgsXFnN1ufVUqrCYqArrdFcgqLK7iNV/fu7E5AUM
+ yp28J1wMmWLn7vPR/mqCPoueiWmzsux1ckEi1sMd7y7eW8ryMdWfDsDg7qRcylLGc4KhP37Iiil
+ RKK5uX08300w8RgTJMhYFoBRikAB
+X-Google-Smtp-Source: AGHT+IGrPjDu68pnnnryOtllFazbBZWaKbpvb8qp33lzobhDwUA1rKma6IACU9y0c2nXW4nq4Bk1hA==
+X-Received: by 2002:a05:6808:2395:b0:3e7:5cfa:87d1 with SMTP id
+ 5614622812f47-3e915aef033mr13135476b6e.27.1732613978760; 
+ Tue, 26 Nov 2024 01:39:38 -0800 (PST)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-724de531247sm8159148b3a.104.2024.11.26.01.39.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Nov 2024 01:39:38 -0800 (PST)
+Message-ID: <75e4881c-8b04-4b57-ab0d-e7eb18b31a84@gmail.com>
+Date: Tue, 26 Nov 2024 17:39:31 +0800
 MIME-Version: 1.0
-In-Reply-To: <725aafb8-abfa-40c0-967a-62122206f736@foss.st.com>
-X-Mailman-Approved-At: Tue, 26 Nov 2024 09:56:28 +0000
-Cc: Simona Vetter <simona@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dri-devel@lists.freedesktop.org,
- Samuel Holland <samuel@sholland.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Nyekjaer <sean@geanix.com>,
- David Airlie <airlied@gmail.com>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
- drm_mode_validate_mode() helper function
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20241118082707.8504-1-a0987203069@gmail.com>
+ <20241118082707.8504-4-a0987203069@gmail.com>
+ <klp4a7orsswfvh7s33575glcxhlwql2b7otrpchvucajydihsi@dqdkugwf5ze5>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <klp4a7orsswfvh7s33575glcxhlwql2b7otrpchvucajydihsi@dqdkugwf5ze5>
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add
+ dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,142 +93,19 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8551226995088981856=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8551226995088981856==
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="ivjgiyez6uyhrxcb"
-Content-Disposition: inline
-
-
---ivjgiyez6uyhrxcb
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/3] drm/modes: introduce drm_mode_validate_mode()
- helper function
-MIME-Version: 1.0
-
-On Tue, Nov 26, 2024 at 09:47:17AM +0100, Raphael Gallais-Pou wrote:
->=20
-> On 11/26/24 08:36, Sean Nyekjaer wrote:
-> > Hi Maxime,
-> >
-> > On Mon, Nov 25, 2024 at 05:00:56PM +0100, Maxime Ripard wrote:
-> >> Hi Sean,
-> >>
-> >> On Mon, Nov 25, 2024 at 02:49:26PM +0100, Sean Nyekjaer wrote:
-> >>> Check if the required pixel clock is in within .5% range of the
-> >>> desired pixel clock.
-> >>> This will match the requirement for HDMI where a .5% tolerance is all=
-owed.
-> >>>
-> >>> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> >>> ---
-> >>>  drivers/gpu/drm/drm_modes.c | 34 ++++++++++++++++++++++++++++++++++
-> >>>  include/drm/drm_modes.h     |  2 ++
-> >>>  2 files changed, 36 insertions(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-> >>> index 6ba167a3346134072d100af0adbbe9b49e970769..4068b904759bf80502efd=
-e6e4d977b297f5d5359 100644
-> >>> --- a/drivers/gpu/drm/drm_modes.c
-> >>> +++ b/drivers/gpu/drm/drm_modes.c
-> >>> @@ -1623,6 +1623,40 @@ bool drm_mode_equal_no_clocks_no_stereo(const =
-struct drm_display_mode *mode1,
-> >>>  }
-> >>>  EXPORT_SYMBOL(drm_mode_equal_no_clocks_no_stereo);
-> >>> =20
-> >>> +/**
-> >>> + * drm_mode_validate_mode
-> >>> + * @mode: mode to check
-> >>> + * @rounded_rate: output pixel clock
-> >>> + *
-> >>> + * VESA DMT defines a tolerance of 0.5% on the pixel clock, while the
-> >>> + * CVT spec reuses that tolerance in its examples, so it looks to be=
- a
-> >>> + * good default tolerance for the EDID-based modes. Define it to 5 p=
-er
-> >>> + * mille to avoid floating point operations.
-> >>> + *
-> >>> + * Returns:
-> >>> + * The mode status
-> >>> + */
-> >>> +enum drm_mode_status drm_mode_validate_mode(const struct drm_display=
-_mode *mode,
-> >>> +					    unsigned long long rounded_rate)
-> >>> +{
-> >>> +	enum drm_mode_status status;
-> >>> +	unsigned long long rate =3D mode->clock * 1000;
-> >>> +	unsigned long long lowest, highest;
-> >>> +
-> >>> +	lowest =3D rate * (1000 - 5);
-> >>> +	do_div(lowest, 1000);
-> >>> +	if (rounded_rate < lowest)
-> >>> +		return MODE_CLOCK_LOW;
-> >>> +
-> >>> +	highest =3D rate * (1000 + 5);
-> >>> +	do_div(highest, 1000);
-> >>> +	if (rounded_rate > highest)
-> >>> +		return MODE_CLOCK_HIGH;
-> >>> +
-> >>> +	return MODE_OK;
-> >>> +}
-> >>> +EXPORT_SYMBOL(drm_mode_validate_mode);
-> Hi Sean, Maxime,
-> >> Thanks a lot for doing that!
-> >>
-> >> I wonder about the naming though (and prototype). I doesn't really
-> >> validates a mode, but rather makes sure that a given rate is a good
-> >> approximation of a pixel clock. So maybe something like
-> >> drm_mode_check_pixel_clock?
-> > Naming is hard :) I will use drm_mode_check_pixel_clock() for V2.
-> >
-> > Would it make sense to have the pixel clock requirement as a input
-> > parameter? For HDMI it is 0.5% and in my case the LVDS panel 10%.
-> >
-> > enum drm_mode_status drm_mode_validate_mode(const struct drm_display_mo=
-de *mode,
-> > 					    unsigned long long rounded_rate, unsigned tolerance)
-> > ?
->=20
->=20
-> IMO adding the tolerance as input parameter is a good idea.=A0 This
-> would useful other than for HDMI pixel clock validation (and LVDS in
-> your case).
-
-It depends on the intent. If it's justified, why not. If it's to
-workaround another issue, absolutely not. And so, generally speaking, I
-don't think it's a good idea.
-
-Maxime
-
---ivjgiyez6uyhrxcb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ0WVGgAKCRAnX84Zoj2+
-dt6vAYD/ha6rSzfdB8Hdtt8QyIin6959mZS2o1Kfzj2g79x6jBpKlT0JtMgi//O3
-OUV40OgBfROD6tZDvz9F+STrxg9e7rBW0RrVft6ey02AdwVIWtaNpvVoJEMn/cnG
-vhycHMk+wA==
-=7JWg
------END PGP SIGNATURE-----
-
---ivjgiyez6uyhrxcb--
-
---===============8551226995088981856==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8551226995088981856==--
+RGVhciBVd2UsCgpUaGFuayB5b3UgZm9yIHRoZSBkZXRhaWxzIQoKVXdlIEtsZWluZS1Lw7ZuaWcg
+5pa8IDExLzIwLzIwMjQgMTA6NTYgUE0g5a+r6YGTOgo+IEhlbGxvLAo+Cj4gT24gTW9uLCBOb3Yg
+MTgsIDIwMjQgYXQgMDQ6Mjc6MDdQTSArMDgwMCwgSm9leSBMdSB3cm90ZToKPj4gK3N0YXRpYyBz
+dHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIG51dm90b25fZHdtYWNfZHJpdmVyID0gewo+PiArCS5wcm9i
+ZSAgPSBudXZvdG9uX2dtYWNfcHJvYmUsCj4+ICsJLnJlbW92ZV9uZXcgPSBzdG1tYWNfcGx0ZnJf
+cmVtb3ZlLAo+IFBsZWFzZSB1c2UgLnJlbW92ZSBpbnN0ZWFkIG9mIC5yZW1vdmVfbmV3Lgo+Cj4g
+VGhhbmtzCj4gVXdlCgpJIHdpbGwgdXNlIC5yZW1vdmUgaW5zdGVhZC4KClRoYW5rcyEKCkJSLAoK
+Sm9leQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
