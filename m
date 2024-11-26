@@ -2,69 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63ACE9D97EC
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 14:04:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83F6C9D9763
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 13:47:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EE27C78F83;
-	Tue, 26 Nov 2024 13:04:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 254B8C78021;
+	Tue, 26 Nov 2024 12:47:17 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B95AC78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0848FC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 12:24:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732623870; x=1764159870;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ZTHfXgFGRlIILfuHL+qBGlAm9C8PxmMo8Z9AFzfvBdw=;
- b=Wkdq7HCTuo/o/CGVflLZAMBb0tweK/9uFPlY45lkEkQcS12IbPRYFOGv
- 9BOJRogdtMo41Nrli2SJnSeRKEyVUI/6k/cWObfvd169Ht+HYhqAIdcdT
- A+FppUGtfXbmpUxOb4tn3d8pScPw+5UfqnfoRJMwJsHm1K/I9xSn5a+HJ
- EImwoDLZXHMQ/qKpDYNrZn7U5BhEaLSzxCc6NLvXwwmiP15kWrRzSmfZk
- wryD9m4B8cApTM/bdTW3jFPLbcbg6tjQ6D/gAFbiLva7ewVCLka67+WZ0
- qwIHr/98ZeSY0+6A1lg/ljzBhD9pjI9/CAMPev9wyLQJVIz9slLbEJWNh w==;
-X-CSE-ConnectionGUID: kCvaZts/RbWMrw9QnGNd3Q==
-X-CSE-MsgGUID: 7/sh9zmAQ9iT9cqC67c62w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11268"; a="55278923"
-X-IronPort-AV: E=Sophos;i="6.12,185,1728975600"; d="scan'208";a="55278923"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2024 04:24:22 -0800
-X-CSE-ConnectionGUID: p7mmBzIqQaSRBB7X5+uHcw==
-X-CSE-MsgGUID: wzxtY/mSSE24Fp3vXFkb0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="96661073"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.49])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2024 04:24:15 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-In-Reply-To: <20241126-spry-wildebeest-of-cubism-da0a9e@houat>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
- <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
- <20241125-gleaming-anteater-of-perfection-42bd2b@houat>
- <874j3uxptp.fsf@intel.com>
- <20241126-spry-wildebeest-of-cubism-da0a9e@houat>
-Date: Tue, 26 Nov 2024 14:24:12 +0200
-Message-ID: <871pyyxjwz.fsf@intel.com>
+ Tue, 26 Nov 2024 12:47:10 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1tFuyC-0004Gh-85; Tue, 26 Nov 2024 13:47:08 +0100
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
+ helo=bjornoya.blackshift.org)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <mkl@pengutronix.de>) id 1tFuyA-000FfK-0g;
+ Tue, 26 Nov 2024 13:47:07 +0100
+Received: from pengutronix.de (pd9e59fec.dip0.t-ipconnect.de [217.229.159.236])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id 9E8CB37DA3A;
+ Tue, 26 Nov 2024 12:47:06 +0000 (UTC)
+Date: Tue, 26 Nov 2024 13:47:06 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <20241126-bald-paper-ringtail-661462-mkl@pengutronix.de>
+References: <20241119-lxa-tac-gen3-v1-0-e0ab0a369372@pengutronix.de>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 26 Nov 2024 13:04:30 +0000
-Cc: Simona Vetter <simona@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dri-devel@lists.freedesktop.org,
- Samuel Holland <samuel@sholland.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Nyekjaer <sean@geanix.com>,
- David Airlie <airlied@gmail.com>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
- drm_mode_validate_mode() helper function
+In-Reply-To: <20241119-lxa-tac-gen3-v1-0-e0ab0a369372@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Leonard =?utf-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/6] ARM: dts: stm32: lxa-tac: fix gen{1,
+ 2} boards and add gen3 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,48 +61,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7706717853223902114=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 26 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
-> On Tue, Nov 26, 2024 at 12:16:34PM +0200, Jani Nikula wrote:
->> On Mon, 25 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
->> > I wonder about the naming though (and prototype). I doesn't really
->> > validates a mode, but rather makes sure that a given rate is a good
->> > approximation of a pixel clock. So maybe something like
->> > drm_mode_check_pixel_clock?
->> 
->> Quoting myself from a few weeks back:
->> 
->> """
->> Random programming thought of the day: "check" is generally a terrible
->> word in a function name.
->> 
->> Checking stuff is great, but what do you expect to happen if the check
->> passes/fails? Do you expect the function to return on fail, or throw an
->> exception? Or just log about it? If you return a value, what should the
->> return value mean? It's hard to know without looking it up.
->> 
->> Prefer predicates instead, is_stuff_okay() is better than
->> check_stuff(). Or assert_stuff() if you don't return on failures.
->> """
->
-> Both is_stuff_okay() or assert_stuff() return a boolean in my mind. If
-> you want to return a mode status enum, I don't think they are better
-> names.
 
-Most functions returning enum drm_mode_status are called
-something_something_mode_valid(). Not check something.
-
-BR,
-Jani.
+--===============7706717853223902114==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6c2nwor5larsiucg"
+Content-Disposition: inline
 
 
--- 
-Jani Nikula, Intel
+--6c2nwor5larsiucg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/6] ARM: dts: stm32: lxa-tac: fix gen{1,2} boards and
+ add gen3 board
+MIME-Version: 1.0
+
+Hello Alexandre,
+
+On 19.11.2024 12:34:57, Marc Kleine-Budde wrote:
+> Hello,
+>=20
+> this series fixes some problems found in the lxa-tac generation 1 and
+> 2 boards and add support for the generation 3 board. It's based on an
+> STM32MP153c, while the generation 1 and 2 are based on the
+> STM32MP157c.
+
+is there an ETA when this series will be merged, is there something
+missing?
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--6c2nwor5larsiucg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEUEC6huC2BN0pvD5fKDiiPnotvG8FAmdFw0cACgkQKDiiPnot
+vG9EKwgAi5XkzgfNgY7ixrqcwOoyuuX6KNLwCoxeHNrfzr5giHyilo0qGoi8eoOm
+4gRl8j1NkMCgZl9O5lsUwqelHDQM7yx7sJ1agE2pBTC8NbjhKo/BdqfnQRYxNtST
+t+wpaGLsn6/QH3v0gBrD9Ne5vvkXVEywskzPDZgfnyzBt9XAn0CNRxtdwCK9+uk1
+2Jz5VfSu7MkaFIE9K6ET/oNx589yjTPj6nLpp9vwXndBlJ2v0dxybJ/Mkyf+KxbU
+GtHOPzWyK3aTfdUDFn6w5ssXoErNy2v+HNSgfJt3mUtgAJEMch+URzWR6nkD4Zzi
+N7zolS05uqsPqMNxoFuN1iAx5cC5Dw==
+=EJkB
+-----END PGP SIGNATURE-----
+
+--6c2nwor5larsiucg--
+
+--===============7706717853223902114==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7706717853223902114==--
