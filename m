@@ -2,48 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412419D99BF
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 15:38:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81D0F9DA34C
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 08:46:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9F46C78023;
-	Tue, 26 Nov 2024 14:38:41 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34693C78F91;
+	Wed, 27 Nov 2024 07:46:00 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10499C78021
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04AE1C78028
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 14:38:35 +0000 (UTC)
+ Tue, 26 Nov 2024 15:49:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6A4A85C04FC;
- Tue, 26 Nov 2024 14:37:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54A0CC4CECF;
- Tue, 26 Nov 2024 14:38:33 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id D3E6AA4068C;
+ Tue, 26 Nov 2024 15:48:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2231EC4CECF;
+ Tue, 26 Nov 2024 15:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732631913;
- bh=gaEdBLAIz7P49l/o5H51QYLoUNT4ajXgna3oxySU6X0=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=QWGqYGU+7lxDyWQ8GeVwa/EskJ57WuPDmJc0ZGG66OFNNvafWBoJ8aT/8lI8IH+3p
- 2JIycrGmAyWX72drR7fejKuWiLjLnrXMX22HviT0VACSLoIa578e28lkp+11Abjxa2
- o0s9QLoEruipfKCI+6JkM16sxH1F9R7yYWPIK/B9ggQA0SET3+qyBgrmkb2FU/Vpwh
- ZJaUHYwB/AUh0ypc/4DMGeTZH4I0thXfJVdrI96162zNPbQIsB6T+yMcb+31Yhk03a
- WkgOUV4u90G7dE+WIZSKkmjL8FyvwcJjU0zMEcgQzVdpCo5nCnak43MCmOq4GMeBmr
- nAc0kUCrFYyug==
-Date: Tue, 26 Nov 2024 08:38:31 -0600
+ s=k20201202; t=1732636193;
+ bh=6Rt7X6trwtI4ie0hc51FZJdn4GbvbMtfe8wO6UjtBzw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=P8xuwu7sljAdjyfrf+RgyQtiiUPiAvBND0E7GJKfgtMXKO7b2Dirk9Z69rkLX5U93
+ 9oL+NRUzPoh8B66YJTC4vdSy0qsyqrqF23DrC+klqLF02NtyfX2TsVl8bJnovzIK8I
+ qbQJhIVt7w4Etk2f1T8ISxhrDbbx7YpoHn6aaTB+X3i78RofhU4tnTyNY1TFHsqD21
+ iUWgLBqJyuYVgi/a8Ypn/ylYz+u5T3thSUKT5f0OX3evZi2d92ZMdojGOTg+QjBnVv
+ zhUujVEK0bnX655teG4S/T2pY68QY3aqPeGlierI88/+395AN7zrwztaWvOVxiY4R3
+ jAvEAgdK+9bHg==
+Date: Tue, 26 Nov 2024 16:49:50 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20241126-tentacled-busy-catfish-c451fc@houat>
+References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
+ <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
+ <20241125-gleaming-anteater-of-perfection-42bd2b@houat>
+ <874j3uxptp.fsf@intel.com>
+ <20241126-spry-wildebeest-of-cubism-da0a9e@houat>
+ <871pyyxjwz.fsf@intel.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20241126130004.1570091-2-christian.bruel@foss.st.com>
-References: <20241126130004.1570091-1-christian.bruel@foss.st.com>
- <20241126130004.1570091-2-christian.bruel@foss.st.com>
-Message-Id: <173263191160.224313.7510313063987746316.robh@kernel.org>
-Cc: kw@linux.com, conor+dt@kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
- cassel@kernel.org, p.zabel@pengutronix.de, manivannan.sadhasivam@linaro.org,
- bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/5] dt-bindings: PCI: Add STM32MP25
- PCIe root complex bindings
+In-Reply-To: <871pyyxjwz.fsf@intel.com>
+X-Mailman-Approved-At: Wed, 27 Nov 2024 07:45:59 +0000
+Cc: Simona Vetter <simona@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dri-devel@lists.freedesktop.org,
+ Samuel Holland <samuel@sholland.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Sean Nyekjaer <sean@geanix.com>,
+ David Airlie <airlied@gmail.com>, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
+ drm_mode_validate_mode() helper function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,63 +64,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3617259773591553028=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Tue, 26 Nov 2024 14:00:00 +0100, Christian Bruel wrote:
-> Document the bindings for STM32MP25 PCIe Controller configured in
-> root complex mode.
-> 
-> Supports 4 legacy interrupts and MSI interrupts from the ARM
-> GICv2m controller.
-> 
-> STM32 PCIe may be in a power domain which is the case for the STM32MP25
-> based boards.
-> 
-> Supports wake# from wake-gpios
-> 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> ---
->  .../bindings/pci/st,stm32-pcie-common.yaml    | 45 +++++++++
->  .../bindings/pci/st,stm32-pcie-host.yaml      | 99 +++++++++++++++++++
->  2 files changed, 144 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
-> 
+--===============3617259773591553028==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="g7loz4mo7azlnu2z"
+Content-Disposition: inline
 
-My bot found errors running 'make dt_binding_check' on your patch:
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml:45:1: [warning] too many blank lines (2 > 1) (empty-lines)
+--g7loz4mo7azlnu2z
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/3] drm/modes: introduce drm_mode_validate_mode()
+ helper function
+MIME-Version: 1.0
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml: 'oneOf' conditional failed, one must be fixed:
-	'unevaluatedProperties' is a required property
-	'additionalProperties' is a required property
-	hint: Either unevaluatedProperties or additionalProperties must be present
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+On Tue, Nov 26, 2024 at 02:24:12PM +0200, Jani Nikula wrote:
+> On Tue, 26 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
+> > On Tue, Nov 26, 2024 at 12:16:34PM +0200, Jani Nikula wrote:
+> >> On Mon, 25 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
+> >> > I wonder about the naming though (and prototype). I doesn't really
+> >> > validates a mode, but rather makes sure that a given rate is a good
+> >> > approximation of a pixel clock. So maybe something like
+> >> > drm_mode_check_pixel_clock?
+> >>=20
+> >> Quoting myself from a few weeks back:
+> >>=20
+> >> """
+> >> Random programming thought of the day: "check" is generally a terrible
+> >> word in a function name.
+> >>=20
+> >> Checking stuff is great, but what do you expect to happen if the check
+> >> passes/fails? Do you expect the function to return on fail, or throw an
+> >> exception? Or just log about it? If you return a value, what should the
+> >> return value mean? It's hard to know without looking it up.
+> >>=20
+> >> Prefer predicates instead, is_stuff_okay() is better than
+> >> check_stuff(). Or assert_stuff() if you don't return on failures.
+> >> """
+> >
+> > Both is_stuff_okay() or assert_stuff() return a boolean in my mind. If
+> > you want to return a mode status enum, I don't think they are better
+> > names.
+>=20
+> Most functions returning enum drm_mode_status are called
+> something_something_mode_valid(). Not check something.
 
-doc reference errors (make refcheckdocs):
+But it doesn't check whether the mode is valid or not. It checks whether
+a given clock rate is within reasonable tolerance from the expected
+pixel clock.
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20241126130004.1570091-2-christian.bruel@foss.st.com
+Maxime
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+--g7loz4mo7azlnu2z
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+-----BEGIN PGP SIGNATURE-----
 
-pip3 install dtschema --upgrade
+iJQEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ0XuHgAKCRAnX84Zoj2+
+dohPAX0YE0oc7Ylv3K+UerPmQNwXmwiAn6twEbExXtsLUXP4id5aKXyzo9JTq04u
+X1BMcUcBeKSLYRTuhVuJctlLHOuKqmXClpJuleYA41+uZ/r34Z8EwLT1++YgVE/q
+CITAXPq+
+=/XnF
+-----END PGP SIGNATURE-----
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+--g7loz4mo7azlnu2z--
+
+--===============3617259773591553028==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3617259773591553028==--
