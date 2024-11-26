@@ -2,57 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9769D97E0
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 14:01:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E44849D9973
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 15:18:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23799C78023;
-	Tue, 26 Nov 2024 13:01:32 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A880C78023;
+	Tue, 26 Nov 2024 14:18:32 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE66EC78021
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A745CC78020
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 13:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ky6HbS31SSAdMYxozY6xIMAs0Cpmlvp4GWo+IUxC3Gc=; b=sA/wh2QdMDG6PLLquxIEEkTzeN
- r8oRRbixq8aAWGNui9FskfeZ+s+CruyDf1QNYcJu1YTw1B59tqTMhKJR5jcBCUo9aYxQfbbZSAbcy
- UpRmoq+0oztPAtiTZR6Jf3kg5fvS/1q+fWAJT5LrwrQ3ap6KoivSQLAQ9JoXquDPGhH60kjpyU37Z
- ch0Ypjw60dLf9Z4KZrdjMH+PaZkow2p6pzin2z+wpe5l+BuIFlWrY+PUbynf8x03RargY5D9GF0m1
- X4wNGVCYilk3TcsMtkI4sJ0U6Rpug2xNX4sO5o4186DptWdSkvOXoUIFEfbvq1X8w7oRZhuxM13zB
- aQRGky1w==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54564)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tFvBq-00070g-17;
- Tue, 26 Nov 2024 13:01:15 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tFvBn-0004ZI-1q;
- Tue, 26 Nov 2024 13:01:11 +0000
-Date: Tue, 26 Nov 2024 13:01:11 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z0XGl0caztvVarmZ@shell.armlinux.org.uk>
-References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
+ Tue, 26 Nov 2024 13:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID; bh=BAOgYh5j+SwhH6if2YDkf+cLk18YFHVIqBQI2gqekAg=; b=jH9q2g
+ fpav4/Xv0+OPZFBUl80Ui6EaVsSTNnRONJnzH8v2l98vyBaMIz8KF8gGtlXxGatJEWN/Aqt65O4PF
+ kDVlk4qu6t2uggymvlx6V9TM1JQ62SDkaN8dcWEVd2c/tDzC1GKShrpCRzE52rj4W1lUvL/XlTNqz
+ 7t+dlP4I/2lv+CweUmGrhdNxYn+yWNBrKnMxWjEncChobYMmYh9TeWZ2u/86geXxbrP57peTGDZih
+ V1R3V5SqHRwvcZ25izIkFIfmCrNrGKe++E0PhMtJdNHPG927Qt/TRbs5axJ5xCiycV2fE+nq1I+N2
+ J2lN9BwRaCost6IjzKjr0pHUQ9Sw==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1tFveZ-0007CU-RO; Tue, 26 Nov 2024 14:30:55 +0100
+Received: from [185.17.218.86] (helo=Seans-MacBook-Pro.local)
+ by sslproxy02.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <sean@geanix.com>) id 1tFveY-0003aF-26;
+ Tue, 26 Nov 2024 14:30:54 +0100
+Date: Tue, 26 Nov 2024 14:30:53 +0100
+From: Sean Nyekjaer <sean@geanix.com>
+To: Maxime Ripard <mripard@kernel.org>
+Message-ID: <tzcjzgp7xalhhezcv5hfa7cjscxg44phqcw2ap54lesly4gk6o@6dtco2d3jahj>
+References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
+ <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
+ <20241125-gleaming-anteater-of-perfection-42bd2b@houat>
+ <bfuj6w6hsbfpdw24th6dl3ugvj45op6jb45gx5ab5pulud7hiz@o2zbn45z3lt4>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
-Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 00/23] net: phylink managed
-	EEE support
+In-Reply-To: <bfuj6w6hsbfpdw24th6dl3ugvj45op6jb45gx5ab5pulud7hiz@o2zbn45z3lt4>
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.10/27469/Tue Nov 26 10:58:20 2024)
+X-Mailman-Approved-At: Tue, 26 Nov 2024 14:18:31 +0000
+Cc: Simona Vetter <simona@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dri-devel@lists.freedesktop.org,
+ Samuel Holland <samuel@sholland.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
+ drm_mode_validate_mode() helper function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,39 +73,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 26, 2024 at 12:51:36PM +0000, Russell King (Oracle) wrote:
-> Patch 11 adds phylink managed EEE support. Two new MAC APIs are added,
-> to enable and disable LPI. The enable method is passed the LPI timer
-> setting which it is expected to program into the hardware, and also a
-> flag ehther the transmit clock should be stopped.
+Hi Maxime,
+
+On Tue, Nov 26, 2024 at 08:36:01AM +0100, Sean Nyekjaer wrote:
+> Hi Maxime,
 > 
->  *** There are open questions here. Eagle eyed reviewers will notice
->    pl->config->lpi_interfaces. There are MACs out there which only
->    support LPI signalling on a subset of their interface types. Phylib
->    doesn't understand this. I'm handling this at the moment by simply
->    not activating LPI at the MAC, but that leads to ethtool --show-eee
->    suggesting that EEE is active when it isn't.
->  *** Should we pass the phy_interface_t to these functions?
->  *** Should mac_enable_tx_lpi() be allowed to fail if the MAC doesn't
->    support the interface mode?
 
-There is another point to raise here - should we have a "validate_eee"
-method in struct phylink_mac_ops so that MAC drivers can validate
-settings such as the tx_lpi_timer value can be programmed into the
-hardware?
+[...]
 
-We do have the situation on Marvell platforms where the programmed
-value depends on the MAC speed, and is only 8 bit, which makes
-validating its value rather difficult - at 1G speeds, it's a
-resolution of 1us so we can support up to 255us. At 100M speeds,
-it's 10us, supporting up to 2.55ms. This makes it awkward to be able
-to validate the set_eee() settings are sane for the hardware. Should
-Marvell platforms instead implement a hrtimer above this? That sounds
-a bit problematical to manage sanely.
+> > 
+> > We probably need some kunit tests here too.
+> 
+> Good idea, will be my first :)
+> 
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Would something like this work?
+
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 294773342e71..26e4ff02df85 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -1364,6 +1364,7 @@ static void drm_test_check_output_bpc_format_display_rgb_only(struct kunit *test
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_display_info *info;
+ 	struct drm_display_mode *preferred;
++	enum drm_mode_status mode_status;
+ 	unsigned long long rate;
+ 	struct drm_connector *conn;
+ 	struct drm_device *drm;
+@@ -1408,6 +1409,9 @@ static void drm_test_check_output_bpc_format_display_rgb_only(struct kunit *test
+ 	rate = drm_hdmi_compute_mode_clock(preferred, 12, HDMI_COLORSPACE_YUV422);
+ 	KUNIT_ASSERT_LT(test, rate, info->max_tmds_clock * 1000);
+ 
++	mode_status = drm_mode_check_pixel_clock(preferred, rate);
++	KUNIT_ASSERT_EQ(test, mode_status, MODE_OK);
++
+ 	drm = &priv->drm;
+ 	crtc = priv->crtc;
+ 	ret = light_up_connector(test, drm, crtc, conn, preferred, ctx);
+
+/Sean
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
