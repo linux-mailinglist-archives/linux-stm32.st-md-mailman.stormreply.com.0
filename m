@@ -2,58 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402209D9B23
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 17:14:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FB259D9BEA
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 17:56:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E402DC7803C;
-	Tue, 26 Nov 2024 16:14:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CBC2C7803C;
+	Tue, 26 Nov 2024 16:56:05 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75156C78028
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A5B7C78023
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 16:14:33 +0000 (UTC)
+ Tue, 26 Nov 2024 16:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9bEh6Q7is7zSazUqVxNmESa5J70olV6E8GbbdcoIHsY=; b=jYKJk0lqp9AxjkXjONk4Z8DHnS
- 08uv8y6truPlScfoINQPnTqTF72NJJfAWNTtKWFizUFT96U1SV3AjccJEwV2KshentVPJRfd5wfzN
- EQ8hOrN7+qEy9CBbU3Fi4PyUrkea0PWtLvofFuW13bGuau8b+h3x3VX7xxv9EwwuYCzP3wnllvtUt
- hJ5VbYZoIeyyeo0yCOYThYzWHHlnHc4CSGcANEHfPYrXwNveznqfArowCdefAw9gHvWb5CDqUDaby
- XsHvj2L3+Dmz1O1qawZmIDfWWS2QR0XGDB3JWlBIwwLupw/bWe6B/ZusH6mQp3Lce/gDGWiVZo1MU
- 7+p6MAmQ==;
+ bh=Vi83y/8B3Gubm1QfFkkHpp9kuAcCX8lWoAL/8HKghRw=; b=lqj0VSmLHjU0d/oG8cpuR8TM88
+ 9JLF2np7GplvnvAjtFYNVFnPif6QNYPrimeY3ZhlZeNM4HPwDeOpNTZoaYVLrboAkOItRuTJg9RbV
+ clGXZOP6hygYwfJf9N7detcqyasKYrUSVkgOr1IxYMgJ6av4A8jBKYI5VRmYwdX4rIBsuhWwlDONH
+ p42ZQE3N+0SM/sUbq9FidT4vbG6yxWfVqtWxgSLwkqzaOHEJXCeAlmWajjHouVrcdxo2Gbto76miW
+ I98PF9G+jRUgpKiPX8Y0N+NQg1MVAnOmn36Y84IOYVDKiY7wb5KhhlSctIBefUh4GzWJrteJKrAcw
+ 2INfuvng==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48132)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36036)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tFyCf-0007Iq-38;
- Tue, 26 Nov 2024 16:14:18 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tFyqm-0007NI-2j;
+ Tue, 26 Nov 2024 16:55:45 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tFyCY-0004fu-2X;
- Tue, 26 Nov 2024 16:14:10 +0000
-Date: Tue, 26 Nov 2024 16:14:10 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tFyqk-0004hL-06;
+ Tue, 26 Nov 2024 16:55:42 +0000
+Date: Tue, 26 Nov 2024 16:55:41 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <Z0Xz0pQGXMIcG4jB@shell.armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z0X9jVhpLvBGkRXD@shell.armlinux.org.uk>
 References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
- <Z0XGl0caztvVarmZ@shell.armlinux.org.uk>
- <Z0XZZszZFVbVl_kN@pengutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Z0XZZszZFVbVl_kN@pengutronix.de>
-Cc: UNGLinuxDriver@microchip.com, Andrew Lunn <andrew@lunn.ch>,
- Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+In-Reply-To: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
+Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
  Bryan Whitehead <bryan.whitehead@microchip.com>,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH RFC net-next 00/23] net: phylink managed
 	EEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -67,103 +64,159 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBOb3YgMjYsIDIwMjQgYXQgMDM6MjE6MjZQTSArMDEwMCwgT2xla3NpaiBSZW1wZWwg
-d3JvdGU6Cj4gSGkgUnVzc2VsbCwKPiAKPiBPbiBUdWUsIE5vdiAyNiwgMjAyNCBhdCAwMTowMTox
-MVBNICswMDAwLCBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgd3JvdGU6Cj4gPiBPbiBUdWUsIE5vdiAy
-NiwgMjAyNCBhdCAxMjo1MTozNlBNICswMDAwLCBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgd3JvdGU6
-Cj4gPiA+IFBhdGNoIDExIGFkZHMgcGh5bGluayBtYW5hZ2VkIEVFRSBzdXBwb3J0LiBUd28gbmV3
-IE1BQyBBUElzIGFyZSBhZGRlZCwKPiA+ID4gdG8gZW5hYmxlIGFuZCBkaXNhYmxlIExQSS4gVGhl
-IGVuYWJsZSBtZXRob2QgaXMgcGFzc2VkIHRoZSBMUEkgdGltZXIKPiA+ID4gc2V0dGluZyB3aGlj
-aCBpdCBpcyBleHBlY3RlZCB0byBwcm9ncmFtIGludG8gdGhlIGhhcmR3YXJlLCBhbmQgYWxzbyBh
-Cj4gPiA+IGZsYWcgZWh0aGVyIHRoZSB0cmFuc21pdCBjbG9jayBzaG91bGQgYmUgc3RvcHBlZC4K
-PiA+ID4gCj4gPiA+ICAqKiogVGhlcmUgYXJlIG9wZW4gcXVlc3Rpb25zIGhlcmUuIEVhZ2xlIGV5
-ZWQgcmV2aWV3ZXJzIHdpbGwgbm90aWNlCj4gPiA+ICAgIHBsLT5jb25maWctPmxwaV9pbnRlcmZh
-Y2VzLiBUaGVyZSBhcmUgTUFDcyBvdXQgdGhlcmUgd2hpY2ggb25seQo+ID4gPiAgICBzdXBwb3J0
-IExQSSBzaWduYWxsaW5nIG9uIGEgc3Vic2V0IG9mIHRoZWlyIGludGVyZmFjZSB0eXBlcy4gUGh5
-bGliCj4gPiA+ICAgIGRvZXNuJ3QgdW5kZXJzdGFuZCB0aGlzLiBJJ20gaGFuZGxpbmcgdGhpcyBh
-dCB0aGUgbW9tZW50IGJ5IHNpbXBseQo+ID4gPiAgICBub3QgYWN0aXZhdGluZyBMUEkgYXQgdGhl
-IE1BQywgYnV0IHRoYXQgbGVhZHMgdG8gZXRodG9vbCAtLXNob3ctZWVlCj4gPiA+ICAgIHN1Z2dl
-c3RpbmcgdGhhdCBFRUUgaXMgYWN0aXZlIHdoZW4gaXQgaXNuJ3QuCj4gPiA+ICAqKiogU2hvdWxk
-IHdlIHBhc3MgdGhlIHBoeV9pbnRlcmZhY2VfdCB0byB0aGVzZSBmdW5jdGlvbnM/Cj4gPiA+ICAq
-KiogU2hvdWxkIG1hY19lbmFibGVfdHhfbHBpKCkgYmUgYWxsb3dlZCB0byBmYWlsIGlmIHRoZSBN
-QUMgZG9lc24ndAo+ID4gPiAgICBzdXBwb3J0IHRoZSBpbnRlcmZhY2UgbW9kZT8KPiA+IAo+ID4g
-VGhlcmUgaXMgYW5vdGhlciBwb2ludCB0byByYWlzZSBoZXJlIC0gc2hvdWxkIHdlIGhhdmUgYSAi
-dmFsaWRhdGVfZWVlIgo+ID4gbWV0aG9kIGluIHN0cnVjdCBwaHlsaW5rX21hY19vcHMgc28gdGhh
-dCBNQUMgZHJpdmVycyBjYW4gdmFsaWRhdGUKPiA+IHNldHRpbmdzIHN1Y2ggYXMgdGhlIHR4X2xw
-aV90aW1lciB2YWx1ZSBjYW4gYmUgcHJvZ3JhbW1lZCBpbnRvIHRoZQo+ID4gaGFyZHdhcmU/Cj4g
-PiAKPiA+IFdlIGRvIGhhdmUgdGhlIHNpdHVhdGlvbiBvbiBNYXJ2ZWxsIHBsYXRmb3JtcyB3aGVy
-ZSB0aGUgcHJvZ3JhbW1lZAo+ID4gdmFsdWUgZGVwZW5kcyBvbiB0aGUgTUFDIHNwZWVkLCBhbmQg
-aXMgb25seSA4IGJpdCwgd2hpY2ggbWFrZXMKPiA+IHZhbGlkYXRpbmcgaXRzIHZhbHVlIHJhdGhl
-ciBkaWZmaWN1bHQgLSBhdCAxRyBzcGVlZHMsIGl0J3MgYQo+ID4gcmVzb2x1dGlvbiBvZiAxdXMg
-c28gd2UgY2FuIHN1cHBvcnQgdXAgdG8gMjU1dXMuIEF0IDEwME0gc3BlZWRzLAo+ID4gaXQncyAx
-MHVzLCBzdXBwb3J0aW5nIHVwIHRvIDIuNTVtcy4gVGhpcyBtYWtlcyBpdCBhd2t3YXJkIHRvIGJl
-IGFibGUKPiA+IHRvIHZhbGlkYXRlIHRoZSBzZXRfZWVlKCkgc2V0dGluZ3MgYXJlIHNhbmUgZm9y
-IHRoZSBoYXJkd2FyZS4gU2hvdWxkCj4gPiBNYXJ2ZWxsIHBsYXRmb3JtcyBpbnN0ZWFkIGltcGxl
-bWVudCBhIGhydGltZXIgYWJvdmUgdGhpcz8gVGhhdCBzb3VuZHMKPiA+IGEgYml0IHByb2JsZW1h
-dGljYWwgdG8gbWFuYWdlIHNhbmVseS4KPiAKPiBJIGFncmVlIHRoYXQgdHhfbHBpX3RpbWVyIGNh
-biBiZSBhIHByb2JsZW0sIGFuZCB0aGlzIGlzIG5vdCBqdXN0IGEKPiBNYXJ2ZWxsIGlzc3VlLiAg
-Rm9yIGV4YW1wbGUsIEkgdGhpbmsgdGhlIEZFQyBNQUMgb24gaS5NWDhNUCBtaWdodCBhbHNvCj4g
-YmUgYWZmZWN0ZWQuICBCdXQgSSBjYW4ndCBjb25maXJtIHRoaXMgYmVjYXVzZSBJIGRvbid0IGhh
-dmUgYW4gaS5NWDhNUAo+IGJvYXJkIHdpdGggYSBQSFkgdGhhdCBzdXBwb3J0cyBNQUMtY29udHJv
-bGxlZCBFRUUgbW9kZS4gVGhlIFJlYWx0ZWsgUEhZCj4gSSBoYXZlIHVzZXMgUEhZLWNvbnRyb2xs
-ZWQgRUVFIChTbWFydEVFRSkuCj4gCj4gRXhjZXB0IGZvciB0aGlzLCBJIHRoaW5rIHRoZXJlIHNo
-b3VsZCBiZSBzYW5lIGRlZmF1bHQgdmFsdWVzIGZvcgo+IHR4X2xwaV90aW1lci4gIFRoZSBJRUVF
-IDgwMi4zLTIwMjIgc3RhbmRhcmQgKFNlY3Rpb24gNzguMikgZGVzY3JpYmVzIEVFRQo+IHRpbWlu
-ZywgYnV0IGl0IGRvZXNu4oCZdCBnaXZlIGEgY2xlYXIgcmVjb21tZW5kYXRpb24gZm9yIHR4X2xw
-aV90aW1lci4KClRoZXJlIGFyZSBvZiBjb3Vyc2Ugc29tZSBwYXJhbWV0ZXJzIG9mIEVFRSB0aGF0
-IHNob3VsZCBiZSBmaXhlZCwgYW5kCklFRUUgc3BlY2lmaWVzIHRoZW0gaW4gdGhhdCBzZWN0aW9u
-LiBUaGVzZSBhcmUgVHMsIFRxIGFuZCBUciwgYW5kIElFRUUKZ2l2ZXMgYSByYW5nZSBvZiB2YWx1
-ZXMgZm9yIHRoZXNlIHdoaWNoIG5lZWQgdG8gYmUgY29uZm9ybWVkIHdpdGggaW4gYQpjb21wbGlh
-bnQgaW1wbGVtZW50YXRpb24uCgpQbGVhc2UgZG9uJ3QgZ2V0IGNvbmZ1c2VkIGJ5IHRoZSBtdm5l
-dGEvbXZwcDIgaW1wbGVtZW50YXRpb24sIHRoZXJlIGFyZQpwYXJhbWV0ZXJzIGZvciBUcyBhbmQg
-VHcsIGJ1dCB0aGUgVHMgdmFsdWUgaXMgbm90IHRoZSBzYW1lIGFzIFRzIGluCklFRUUuIElFRUUg
-ZGVmaW5lcyBpdCBhcyB0aGUgcGVyaW9kIG9mIHRpbWUgYmV0d2VlbiB0aGUgUEhZIHRyYW5zbWl0
-dGluZwpzbGVlcCBhbmQgdHVybmluZyBhbGwgdHJhbnNtaXR0ZXJzIG9mZi4gTWFydmVsbCBkZWZp
-bmUgaXQgYXMgdGhlIG1pbmltdW0KdGltZSBmcm9tIHRoZSBUeCBGSUZPIGJlaW5nIGVtcHR5IHRv
-IGFzc2VydGluZyBMUEkgLSBxdWl0ZSBkaWZmZXJlbnQhCgpPdGhlciBwYXJhbWV0ZXJzIGRlcGVu
-ZCBvbiB0aGUgaW1wbGVtZW50YXRpb24sIHN1Y2ggYXMgdGhlIHByb3BhZ2F0aW9uCmRlbGF5IG9m
-IGRhdGEgdGhyb3VnaCB0aGUgUEhZLiBUaGVzZSwgd2UgZG9uJ3QgY3VycmVudGx5IHRha2UgYWNj
-b3VudApvZi4gSSBkb24ndCByZWNhbGwgb2ZmLWhhbmQgd2hldGhlciB0aGVyZSdzIGFueSBzdGFu
-ZGFyZHMgZGVmaW5lZApyZWdpc3RlcnMgZGVzY3JpYmluZyB0aGVzZSBwYXJhbWV0ZXJzIGluIHRo
-ZSBQSFkgKEkgbmVlZCB0byBkZWx2ZSBpbnRvCjgwMi4zLi4uKSBUaGF0J3MgYWxsIG5lZWRlZCBm
-b3IgY29tcHV0aW5nIFR3LgoKPiBJTU8sIHRoZSBiZXN0IHZhbHVlIGZvciB0eF9scGlfdGltZXIg
-c2hvdWxkIGJlIHRoZSBzdW0gb2YgdGhlIHRpbWUKPiBuZWVkZWQgdG8gcHV0IHRoZSBmdWxsIGNo
-YWluIChNQUMgLT4gUEhZIC0+IHJlbW90ZSBQSFkpIGludG8gc2xlZXAgbW9kZQo+IGFuZCB0aGUg
-dGltZSBuZWVkZWQgdG8gd2FrZSB0aGUgY2hhaW4uIFRoZXNlIHRpbWVzIGFyZSBsaW5rLXNwZWVk
-Cj4gc3BlY2lmaWMsIHNvIGRlZmF1bHRzIHNob3VsZCBjb25zaWRlciBQSFkgdGltaW5ncyBmb3Ig
-ZWFjaCBsaW5rIHNwZWVkLgoKT25lIGNhbiBvbmx5IG1ha2UgYSBzZXQgb2YgZGVmYXVsdHMgdGhh
-dCBkZXBlbmQgb24gdGhlIHNwZWVkIGlmIHdlIGFsc28KZ2l2ZSB0aGUgdXNlciB0aGUgYWJpbGl0
-eSB0byBzZXQgdGhlIHR4X2xwaV90aW1lciB2YWx1ZXMgb24gYSBwZXItc3BlZWQKYmFzaXMsIG90
-aGVyd2lzZSBob3cgZG8gd2UgdXBkYXRlIHRoZSB2YWx1ZXMgd2hlbiBzZXRfZWVlKCkgZ2V0cyBj
-YWxsZWQ/CgpBbHNvIGhvdyBkbyB3ZSBrbm93IHdoYXQgdGhlIHJlcXVpcmVtZW50cyBvZiB0aGUg
-cmVtb3RlIFBIWSBhcmU/IEkgdGhpbmsKdGhlIG9ubHkgd2F5IHRoYXQgY291bGQgYmUga25vd24g
-aXMgYnkgZXhjaGFuZ2luZyB0aGUgRUVFIFRMViB3aXRoIHRoZQpsaW5rIHBhcnRuZXIgYXMgZGVz
-Y3JpYmVkIGluIHNlY3Rpb24gNzguCgo+IEV4Y2VwdCBmb3IgdHhfbHBpX3RpbWVyLCBzb21lIE1B
-Q3MgYWxzbyBhbGxvdyBjb25maWd1cmF0aW9uIG9mIHRoZSBUd2FrZQo+IHRpbWVyLiAgRm9yIGV4
-YW1wbGUsIHRoZSBGRUMgZHJpdmVyIHVzZXMgdGhlIGxwaV90aW1lciB2YWx1ZSB0bwo+IGNvbmZp
-Z3VyZSB0aGUgVHdha2UgdGltZXIsIGFuZCB0aGUgTEFONzh4eCBkcml2ZXIgYWxzbyBwcm92aWRl
-cyBhCj4gY29uZmlndXJhYmxlIFR3YWtlIHRpbWVyIHJlZ2lzdGVyLgo+IAo+IElmIHRoZSBUd2Fr
-ZSB0aW1lciBpcyBub3QgY29uZmlndXJlZCBwcm9wZXJseSwgb3IgaWYgdGhlIHN5c3RlbSBoYXMK
-PiBxdWlya3MgY2F1c2luZyB0aGUgYWN0dWFsIFR3YWtlIHRpbWUgdG8gYmUgbG9uZ2VyIHRoYW4g
-ZXhwZWN0ZWQsIGl0IGNhbgo+IHJlc3VsdCBpbiBmcmFtZSBjb3JydXB0aW9uLiAKCkkgaGF2ZSBi
-ZWVuIGF3YXJlIG9mIGl0LCBhbmQgdG8gbWUgaXQgc291bmRzIGxpa2UgYW5vdGhlciBjYW4gb2Yg
-d29ybXMKdGhhdCByaWdodCBub3cgSSdkIHJhdGhlciBub3Qgb3BlbiB1bnRpbCB3ZSBoYXZlIHNv
-bHZlZCB0aGUgYmFzaWNzIG9mCkVFRSBhbmQgZ290IE1BQyBkcml2ZXJzIGludG8gYmV0dGVyIHNo
-YXBlIGZvciB0aGUgYmFzaWNzLiBJIGhhZCBiZWVuCndvbmRlcmluZyB3aGV0aGVyIHdlIHdvdWxk
-IGV2ZW50dWFsbHkgbmVlZCBwaHlsaW5rIHRvIHBhc3MgVHcgYWxvbmcKd2l0aCB0aGUgTFBJIHRp
-bWVyLCBhbmQgSSB0aGluayBldmVudHVhbGx5IHdlIHdvdWxkIG5lZWQgdG8gLSBhbmQgd2UKYWxz
-byBuZWVkIHNvbWUgaW5mcmFzdHJ1Y3R1cmUgZm9yIHRoZSBFRUUgVExWLCBib3RoIHNlbmRpbmcg
-aXQgYXQgdGhlCmFwcHJvcHJpYXRlIHRpbWUsIGFuZCBwcm9jZXNzaW5nIGl0IHdoZW4gcmVjZWl2
-ZWQuIEkgZG9uJ3QgdGhpbmsgd2UKaGF2ZSBhbnkgb2YgdGhhdCBhdCB0aGUgbW9tZW50LCBzbyBp
-dCB3b3VsZCBiZSBhbm90aGVyIGNodW5rIG9mCmRldmVsb3BtZW50LgoKLS0gClJNSydzIFBhdGNo
-IHN5c3RlbTogaHR0cHM6Ly93d3cuYXJtbGludXgub3JnLnVrL2RldmVsb3Blci9wYXRjaGVzLwpG
-VFRQIGlzIGhlcmUhIDgwTWJwcyBkb3duIDEwTWJwcyB1cC4gRGVjZW50IGNvbm5lY3Rpdml0eSBh
-dCBsYXN0IQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On Tue, Nov 26, 2024 at 12:51:36PM +0000, Russell King (Oracle) wrote:
+> In doing this, I came across the fact that the addition of phylib
+> managed EEE support has actually broken a huge number of drivers -
+> phylib will now overwrite all members of struct ethtool_keee whether
+> the netdev driver wants it or not. This leads to weird scenarios where
+> doing a get_eee() op followed by a set_eee() op results in e.g.
+> tx_lpi_timer being zeroed, because the MAC driver doesn't know it needs
+> to initialise phylib's phydev->eee_cfg.tx_lpi_timer member. This mess
+> really needs urgently addressing, and I believe it came about because
+> Andrew's patches were only partly merged via another party - I guess
+> highlighting the inherent danger of "thou shalt limit your patch series
+> to no more than 15 patches" when one has a subsystem who's in-kernel
+> API is changing.
+
+Note that, I think, fec_main.c isn't broken, although a quick review
+only looking at fec_enet_get_eee() may suggest otherwise:
+
+static int
+fec_enet_get_eee(struct net_device *ndev, struct ethtool_keee *edata)
+{
+        struct fec_enet_private *fep = netdev_priv(ndev);
+        struct ethtool_keee *p = &fep->eee;
+
+        if (!(fep->quirks & FEC_QUIRK_HAS_EEE))
+                return -EOPNOTSUPP;
+
+        if (!netif_running(ndev))
+                return -ENETDOWN;
+
+        edata->tx_lpi_timer = p->tx_lpi_timer; // <===========================
+
+        return phy_ethtool_get_eee(ndev->phydev, edata);
+}
+
+static int
+fec_enet_set_eee(struct net_device *ndev, struct ethtool_keee *edata)
+{
+...
+        p->tx_lpi_timer = edata->tx_lpi_timer;
+
+Since the driver does not touch phydev->eee_cfg.tx_lpi_timer,
+phy_ethtool_get_eee() above will overwrite edata->tx_lpi_timer with
+zero. If ethtool does a read-modify-write on the EEE settings, then
+fec_enet_set_eee() will be passed a value of zero for
+edata->tx_lpi_timer.
+
+This will result in FEC_LPI_SLEEP and FEC_LPI_WAKE being written with
+zero, and from what I can see in fec_enet_eee_mode_set(), that disables
+EEE.
+
+The saving grace for this driver is that p->tx_lpi_timer also starts
+off as zero.
+
+A better implementation would be to get rid of p->tx_lpi_timer
+entirely, and instead rely on phydev->eee_cfg.tx_lpi_timer to be
+managed by phylib, obtaining its value from there in
+fec_enet_eee_mode_set(). At least the driver doesn't attempt to
+maintain any other EEE state!
+
+So something like this:
+
+
+diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
+index 1cca0425d493..c81f2ea588f2 100644
+--- a/drivers/net/ethernet/freescale/fec.h
++++ b/drivers/net/ethernet/freescale/fec.h
+@@ -671,8 +671,6 @@ struct fec_enet_private {
+ 	unsigned int tx_time_itr;
+ 	unsigned int itr_clk_rate;
+ 
+-	/* tx lpi eee mode */
+-	struct ethtool_keee eee;
+ 	unsigned int clk_ref_rate;
+ 
+ 	/* ptp clock period in ns*/
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 1b55047c0237..25c842835d52 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -2045,14 +2045,14 @@ static int fec_enet_us_to_tx_cycle(struct net_device *ndev, int us)
+ 	return us * (fep->clk_ref_rate / 1000) / 1000;
+ }
+ 
+-static int fec_enet_eee_mode_set(struct net_device *ndev, bool enable)
++static int fec_enet_eee_mode_set(struct net_device *ndev, u32 lpi_timer,
++				 bool enable)
+ {
+ 	struct fec_enet_private *fep = netdev_priv(ndev);
+-	struct ethtool_keee *p = &fep->eee;
+ 	unsigned int sleep_cycle, wake_cycle;
+ 
+ 	if (enable) {
+-		sleep_cycle = fec_enet_us_to_tx_cycle(ndev, p->tx_lpi_timer);
++		sleep_cycle = fec_enet_us_to_tx_cycle(lpi_timer);
+ 		wake_cycle = sleep_cycle;
+ 	} else {
+ 		sleep_cycle = 0;
+@@ -2105,7 +2105,9 @@ static void fec_enet_adjust_link(struct net_device *ndev)
+ 			napi_enable(&fep->napi);
+ 		}
+ 		if (fep->quirks & FEC_QUIRK_HAS_EEE)
+-			fec_enet_eee_mode_set(ndev, phy_dev->enable_tx_lpi);
++			fec_enet_eee_mode_set(ndev,
++					      phy_dev->eee_cfg.tx_lpi_timer,
++					      phy_dev->enable_tx_lpi);
+ 	} else {
+ 		if (fep->link) {
+ 			netif_stop_queue(ndev);
+@@ -3181,7 +3183,6 @@ static int
+ fec_enet_get_eee(struct net_device *ndev, struct ethtool_keee *edata)
+ {
+ 	struct fec_enet_private *fep = netdev_priv(ndev);
+-	struct ethtool_keee *p = &fep->eee;
+ 
+ 	if (!(fep->quirks & FEC_QUIRK_HAS_EEE))
+ 		return -EOPNOTSUPP;
+@@ -3189,8 +3190,6 @@ fec_enet_get_eee(struct net_device *ndev, struct ethtool_keee *edata)
+ 	if (!netif_running(ndev))
+ 		return -ENETDOWN;
+ 
+-	edata->tx_lpi_timer = p->tx_lpi_timer;
+-
+ 	return phy_ethtool_get_eee(ndev->phydev, edata);
+ }
+ 
+@@ -3198,7 +3197,6 @@ static int
+ fec_enet_set_eee(struct net_device *ndev, struct ethtool_keee *edata)
+ {
+ 	struct fec_enet_private *fep = netdev_priv(ndev);
+-	struct ethtool_keee *p = &fep->eee;
+ 
+ 	if (!(fep->quirks & FEC_QUIRK_HAS_EEE))
+ 		return -EOPNOTSUPP;
+@@ -3206,8 +3204,6 @@ fec_enet_set_eee(struct net_device *ndev, struct ethtool_keee *edata)
+ 	if (!netif_running(ndev))
+ 		return -ENETDOWN;
+ 
+-	p->tx_lpi_timer = edata->tx_lpi_timer;
+-
+ 	return phy_ethtool_set_eee(ndev->phydev, edata);
+ }
+ 
+Another patch to be added to my stack...
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
