@@ -2,57 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D0F9DA34C
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 08:46:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC9F79D9AC5
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 16:55:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34693C78F91;
-	Wed, 27 Nov 2024 07:46:00 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C679C78F6C;
+	Tue, 26 Nov 2024 15:55:18 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04AE1C78028
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0194AC78F80
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 15:49:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D3E6AA4068C;
- Tue, 26 Nov 2024 15:48:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2231EC4CECF;
- Tue, 26 Nov 2024 15:49:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732636193;
- bh=6Rt7X6trwtI4ie0hc51FZJdn4GbvbMtfe8wO6UjtBzw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=P8xuwu7sljAdjyfrf+RgyQtiiUPiAvBND0E7GJKfgtMXKO7b2Dirk9Z69rkLX5U93
- 9oL+NRUzPoh8B66YJTC4vdSy0qsyqrqF23DrC+klqLF02NtyfX2TsVl8bJnovzIK8I
- qbQJhIVt7w4Etk2f1T8ISxhrDbbx7YpoHn6aaTB+X3i78RofhU4tnTyNY1TFHsqD21
- iUWgLBqJyuYVgi/a8Ypn/ylYz+u5T3thSUKT5f0OX3evZi2d92ZMdojGOTg+QjBnVv
- zhUujVEK0bnX655teG4S/T2pY68QY3aqPeGlierI88/+395AN7zrwztaWvOVxiY4R3
- jAvEAgdK+9bHg==
-Date: Tue, 26 Nov 2024 16:49:50 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <20241126-tentacled-busy-catfish-c451fc@houat>
-References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
- <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
- <20241125-gleaming-anteater-of-perfection-42bd2b@houat>
- <874j3uxptp.fsf@intel.com>
- <20241126-spry-wildebeest-of-cubism-da0a9e@houat>
- <871pyyxjwz.fsf@intel.com>
+ Tue, 26 Nov 2024 15:55:17 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AQAk6Hh013064;
+ Tue, 26 Nov 2024 16:54:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=OCFqWclPmUiwBGMA9TvOm8
+ HW+jw9fUr1fqfQLbTs/3g=; b=Uc3ZNNMOGjnqkvgFgH4+Y3M0wPp0tRezlOzyPh
+ C2aodbCr018B2nroJVqc/r3SSrKVtN+f7s/Hyj+YvoqAWFfM2hcACekQCcgw2sNP
+ Jo7kgdcjurzMWQldJtYKdB/dftyF44I6BN9v8SkDocieUcmzWmIm4dGnfnHYNN6w
+ BF6Iqqa3Pn3P3wxDE159EknrSqkUzbRRvFrP2hmFp9vk+GsAn1y0kcPlqihx+IkB
+ HKif0rCn5F0nFEuDxq3SK8zBi8yDmClzNgI/KtFNLF7JP6fiN+Ygy2Bj8d6VI4rE
+ JmosNWc/o9I2+Wg6DPiL5fQvSgtpVhqFsKF9SLvpbLtdB+Yg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 433tvnk7yr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Nov 2024 16:54:52 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7C84E40045;
+ Tue, 26 Nov 2024 16:53:26 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9469529DE92;
+ Tue, 26 Nov 2024 16:51:36 +0100 (CET)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 26 Nov
+ 2024 16:51:36 +0100
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <lpieralisi@kernel.org>, <kw@linux.com>,
+ <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
+ <bhelgaas@google.com>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <p.zabel@pengutronix.de>, <cassel@kernel.org>,
+ <quic_schintav@quicinc.com>, <fabrice.gasnier@foss.st.com>
+Date: Tue, 26 Nov 2024 16:51:14 +0100
+Message-ID: <20241126155119.1574564-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <871pyyxjwz.fsf@intel.com>
-X-Mailman-Approved-At: Wed, 27 Nov 2024 07:45:59 +0000
-Cc: Simona Vetter <simona@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dri-devel@lists.freedesktop.org,
- Samuel Holland <samuel@sholland.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Sean Nyekjaer <sean@geanix.com>,
- David Airlie <airlied@gmail.com>, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
- drm_mode_validate_mode() helper function
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/5] Add STM32MP25 PCIe drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,85 +72,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3617259773591553028=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This patch series adds PCIe drivers STM32MP25 SoC from STMicrolectronics
+and respective yaml schema for the root complex and device modes.
 
---===============3617259773591553028==
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="g7loz4mo7azlnu2z"
-Content-Disposition: inline
+Changes in v2:
+   - Fix st,stm32-pcie-common.yaml dt_binding_check	
 
+Changes in v1:
+   Address comments from Rob Herring and Bjorn Helgaas:
+   - Drop st,limit-mrrs and st,max-payload-size from this patchset
+   - Remove single reset and clocks binding names and misc yaml cleanups
+   - Split RC/EP common bindings to a separate schema file
+   - Use correct PCIE_T_PERST_CLK_US and PCIE_T_RRS_READY_MS defines
+   - Use .remove instead of .remove_new
+   - Fix bar reset sequence in EP driver
+   - Use cleanup blocks for error handling
+   - Cosmetic fixes
+   
+Christian Bruel (5):
+  dt-bindings: PCI: Add STM32MP25 PCIe root complex bindings
+  PCI: stm32: Add PCIe host support for STM32MP25
+  dt-bindings: PCI: Add STM32MP25 PCIe endpoint bindings
+  PCI: stm32: Add PCIe endpoint support for STM32MP25
+  MAINTAINERS: add entry for ST STM32MP25 PCIe drivers
 
---g7loz4mo7azlnu2z
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/3] drm/modes: introduce drm_mode_validate_mode()
- helper function
-MIME-Version: 1.0
+ .../bindings/pci/st,stm32-pcie-common.yaml    |  45 ++
+ .../bindings/pci/st,stm32-pcie-ep.yaml        |  61 +++
+ .../bindings/pci/st,stm32-pcie-host.yaml      |  99 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/pci/controller/dwc/Kconfig            |  24 +
+ drivers/pci/controller/dwc/Makefile           |   2 +
+ drivers/pci/controller/dwc/pcie-stm32-ep.c    | 445 ++++++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.c       | 402 ++++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.h       |  17 +
+ 9 files changed, 1102 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32-ep.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
 
-On Tue, Nov 26, 2024 at 02:24:12PM +0200, Jani Nikula wrote:
-> On Tue, 26 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
-> > On Tue, Nov 26, 2024 at 12:16:34PM +0200, Jani Nikula wrote:
-> >> On Mon, 25 Nov 2024, Maxime Ripard <mripard@kernel.org> wrote:
-> >> > I wonder about the naming though (and prototype). I doesn't really
-> >> > validates a mode, but rather makes sure that a given rate is a good
-> >> > approximation of a pixel clock. So maybe something like
-> >> > drm_mode_check_pixel_clock?
-> >>=20
-> >> Quoting myself from a few weeks back:
-> >>=20
-> >> """
-> >> Random programming thought of the day: "check" is generally a terrible
-> >> word in a function name.
-> >>=20
-> >> Checking stuff is great, but what do you expect to happen if the check
-> >> passes/fails? Do you expect the function to return on fail, or throw an
-> >> exception? Or just log about it? If you return a value, what should the
-> >> return value mean? It's hard to know without looking it up.
-> >>=20
-> >> Prefer predicates instead, is_stuff_okay() is better than
-> >> check_stuff(). Or assert_stuff() if you don't return on failures.
-> >> """
-> >
-> > Both is_stuff_okay() or assert_stuff() return a boolean in my mind. If
-> > you want to return a mode status enum, I don't think they are better
-> > names.
->=20
-> Most functions returning enum drm_mode_status are called
-> something_something_mode_valid(). Not check something.
-
-But it doesn't check whether the mode is valid or not. It checks whether
-a given clock rate is within reasonable tolerance from the expected
-pixel clock.
-
-Maxime
-
---g7loz4mo7azlnu2z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJQEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ0XuHgAKCRAnX84Zoj2+
-dohPAX0YE0oc7Ylv3K+UerPmQNwXmwiAn6twEbExXtsLUXP4id5aKXyzo9JTq04u
-X1BMcUcBeKSLYRTuhVuJctlLHOuKqmXClpJuleYA41+uZ/r34Z8EwLT1++YgVE/q
-CITAXPq+
-=/XnF
------END PGP SIGNATURE-----
-
---g7loz4mo7azlnu2z--
-
---===============3617259773591553028==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3617259773591553028==--
