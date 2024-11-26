@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0379D9E5D
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 21:19:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A58839D9E5F
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 21:20:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51CE1C78F6E;
-	Tue, 26 Nov 2024 20:19:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C8B0C78F6E;
+	Tue, 26 Nov 2024 20:20:32 +0000 (UTC)
 Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
  [209.85.218.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB732C78F6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 206C6C78F6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 20:19:42 +0000 (UTC)
+ Tue, 26 Nov 2024 20:20:31 +0000 (UTC)
 Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-a9e44654ae3so810249966b.1
+ a640c23a62f3a-aa535eed875so546483766b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 12:19:42 -0800 (PST)
+ Tue, 26 Nov 2024 12:20:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732652382; x=1733257182;
+ d=gmail.com; s=20230601; t=1732652430; x=1733257230;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=bIdOM98L3EBQwsq5FQMMGgLWqa/7d6Lq3LNh7wTZfHQ=;
- b=dqMVW4MrmXpP4Y5GCDNRV+r6zS8gfI641jLFhVAV1FgOoWmkvw2alv3/gSYczJx4Sd
- FBEtwAjthfPrb0aBICU4ZT8nJFsImI7rS3/kWB/3DaGOw3B6XEnlmSasunoZFB5ANr8m
- Z55tn5MB9L+toqPyHjDu0+Xt8G4eSo6jxgtcMnZIh3BUP5lFc8059DgS8v7no0io+Ui0
- YOvr9dZgel9TXLMABblU7ReMOe1Fj6tbq2+3l5NxvMJ/Dz7VPd+7rPXAyk1ijO2GCYIT
- MALdwPiLklasXnuYaLMYP60yv/ZW/kGTwIyYrT8RIF4Z0Kd+BoOvmywFdMi5pEjE7jxc
- 0Pog==
+ bh=EDIpeb3JMBwFv1oZ+7PJFJMHR0Hd5nE3HVJPYq0ihls=;
+ b=ZRkfii8Q9CTCy1kLY45Vzl5OHWWdKMJ6zcmEmapAf2S4zkq7mQhYliXVBrnM4HkEPh
+ aRozDoQgXeyFb4Z68YeygsHxrfidTP2svCErKtb7o6enydl3tJhReHRPRnNJQBKvC96q
+ p8O2Ma8q8xHkbq7s7ZCxFc29DKSwg1h6m2CGeEMfFKljk6jhRVeWJjqHUSOvTxFWrSmD
+ ztzFFGTqIDkbeBBA3HetnWSytr6WI33d9K9YW8/1mpCDIfpQZ1wQRmxvZ5FeMfsteHgA
+ HQmdf0iEtXX50bbZNH2aD6Yt05ge1by0nZxHMb7xxv+bqccYZhVn4Ljmhfqm5GX9YVcZ
+ W++w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732652382; x=1733257182;
+ d=1e100.net; s=20230601; t=1732652430; x=1733257230;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bIdOM98L3EBQwsq5FQMMGgLWqa/7d6Lq3LNh7wTZfHQ=;
- b=cnk6HJrEYZ/ABSGlesFHqyMKFFaTMc0SwN1MH/cjmIlZcVjOIbfXaeQVDPUoMDgKwd
- A2IANRTMWpvoFC4NKbAMSQe1n+D5VyCzlAJZE+8jfcq57lqWkFELIOVtE35LGfhubFJm
- 8gfg4nizomRQaXHpjiOAQJ4Zu4m6ysvyOdjTeM9brxhVBSDI1lkbyVSuTvyI09WzJfzi
- oMBbqdt8BEn8OKRmhnAr0P/aFqciD+vsKx1QeXYhcuOzkQAC2V+ZLRYz4w8aXVVzWP6z
- /hFWT5NKYXeNSehMvUtquhTOjirGZa3cFho911GHJBzAPb6eA8KVlMtqO0dFPqhjnBZ6
- KUlg==
+ bh=EDIpeb3JMBwFv1oZ+7PJFJMHR0Hd5nE3HVJPYq0ihls=;
+ b=vzrp1leCR2aIdKGXeEKWfb5V6FNmKodF4u0f7G8HsvKzZP5B7Bv9DV/1Oo7yBbO/DF
+ PMmUgq6qfAjt/WDq+9GA8W5iwOOXUakpdVYT8K3y90CzYXIPyaGwO6VLa0IiJWVsF7Af
+ rJDJ2deWBlL5aqslIq3l1anvHY/ALBn4oSP7YRkhEDVtHiLc8UAqAoV8sLLYgwZ7zlVq
+ DKMIrt1rEiN0h15102BI/tJA2gFzIfB/wkmNK+pIXsKl/+5c9cocl2hdCIr0c9vXXdpB
+ ws4BIfJnylejIjJEv+qBdqT1H1ZdQif7UG4sOdFavOdf6HdfUyzJ+LmSrYnOYj7PR7aU
+ 2MUg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVe5FdFLT5nqNgCZwJ0u91jeWVncmHTx0nfzFBacN7vRwxwL5sWjexGx7VIS68qSGqoqGvDZcO2zFBOSA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxuxa5tc+xlQANoI8K/+vdntqdAt22wMcgzrSVyYp3vIpLXdoxk
- KAqSXaAh2fwk5M1yIJEyUqUIzdeAjDOinl28SqxtATniyy2XRwMW
-X-Gm-Gg: ASbGncvM13UylAYZNBitB0KenOMAjkQ/EkfVwKm1vowtbTzYyyLvEl7tyEn02ofe39Q
- E67Pll5eICFnazC5wmaFC0I+89HA26cTqFX44BGCQV9w7eiPWR5CINARBjRK+5BY0Wp88G94TV0
- Zf1cijCX46DRWJfA7j8B7cpH9CrEL3OM84lLXHkEr12UtT9xdbHts1UWz+GV9ehXKuviZRfZGIw
- iv6+5g9YRXeL1R40VgNGzbSbNel99jekUz5YGEs1+Gy3d9ojiA3PVQB9IDAOhjJ9umZAG41qKbQ
- YwrKhK9ZpFv3ldPOevV+om2IoP6EnCYsB2Q3zE9nFFSUUldb9rmzxI3gvwLhBJEYJaWvD5uxSLa
- DOKb5KOQ1VGHWuQVNdjJ2opOj4djsBPkLQ9ZaqtUK6g==
-X-Google-Smtp-Source: AGHT+IFJzXI+QGnug04VkzBBZH3/3gOfiit7iwiUpCdN3K1kV7d0P626vyqQmw6ZO1DajOX9UOmxZw==
-X-Received: by 2002:a17:907:6ea6:b0:aa5:4c3a:3b55 with SMTP id
- a640c23a62f3a-aa580f5814amr26638366b.36.1732652381959; 
- Tue, 26 Nov 2024 12:19:41 -0800 (PST)
+ AJvYcCVRNrQ5JoxwnyGk0U2sVXdN3Mr1FtI0ewu4Xm3Rujjj5NKw50vsWOe06whZd15AhyaeDROCQO2QrdNHhQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxGaFQEhQCGEvjw9PjR596WxY70imv7v7WDm/oISpo400jU+MAd
+ +6rQ3jPHtXeRBoqUQFKgdRxTmuioCprk5LIg+kQcs4vpCec8MW2l
+X-Gm-Gg: ASbGncvCxtRZgNBzS5u8XSLXTHKyD+I4zljkqKcWD1BSRCw5XNvsISMyOI2sXkBl8dy
+ 1ctpBBnX2zhEglVq8DvNxYMW6enOtPI4R0bsNpo8dm7k5tlL3I3MLdOOQF0EhgCGOBIVpo0PbYx
+ /noFsQ5CqI6OIBtXgaUQQ4NIsInp806UEGZeUAhO5MTY+SOto/aqoqITQiKq8l5R4N9yEvgk9bN
+ DlWoaXcAABED27EvmK2g46vVNFaqNsuq9mUAMLdoRo1frQqyzlbqsm5rpbJxcNkkid2zKwoQhWs
+ VENFIif5don3pnbx+mbi2fDrpy6nWf7cK9naEYOAIweOs8PI7118rR4m537fSp83L9wynPrqqou
+ a3rt4sXiJXJ3g8ONVp7s2FJAmZECMKJVtGt5RSGOXhQ==
+X-Google-Smtp-Source: AGHT+IEQ+GUY00gDNSfoYzGgyx8asHOxAIhNjERgZcKduGGgVFJK+5xW0EhYGKlEcMvQnyyoY63gFg==
+X-Received: by 2002:a17:906:328f:b0:aa5:4b7f:e705 with SMTP id
+ a640c23a62f3a-aa580eee492mr24716366b.1.1732652430538; 
+ Tue, 26 Nov 2024 12:20:30 -0800 (PST)
 Received: from ?IPV6:2a02:3100:b1b1:7000:f43f:954d:8ddd:f91b?
  (dynamic-2a02-3100-b1b1-7000-f43f-954d-8ddd-f91b.310.pool.telefonica.de.
  [2a02:3100:b1b1:7000:f43f:954d:8ddd:f91b])
  by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-aa50b3000e6sm628933066b.80.2024.11.26.12.19.39
+ a640c23a62f3a-aa51a449c24sm590832966b.178.2024.11.26.12.20.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 12:19:40 -0800 (PST)
-Message-ID: <fd994907-0d37-41a6-87fe-1064543bf9fc@gmail.com>
-Date: Tue, 26 Nov 2024 21:19:39 +0100
+ Tue, 26 Nov 2024 12:20:29 -0800 (PST)
+Message-ID: <14b3a67f-416a-479c-bd28-887ea06cd435@gmail.com>
+Date: Tue, 26 Nov 2024 21:20:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>
 References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
- <E1tFv3K-005yhZ-E8@rmk-PC.armlinux.org.uk>
+ <E1tFv3P-005yhf-Ho@rmk-PC.armlinux.org.uk>
 Content-Language: en-US
 From: Heiner Kallweit <hkallweit1@gmail.com>
 Autocrypt: addr=hkallweit1@gmail.com; keydata=
@@ -118,7 +118,7 @@ Autocrypt: addr=hkallweit1@gmail.com; keydata=
  H/0Z53okMykVs3a8tECPHIxnre2UxKdTbCEkjkR4V6JyplTS47oWMw3zyI7zkaadfzVFBxk2
  lo/Tny+FX1Azea3Ce7oOnRUEZtWSsUidtIjmL8YUQFZYm+JUIgfRmSpMFq8JP4VH43GXpB/S
  OCrl+/xujzvoUBFV/cHKjEQYBxo+MaiQa1U54ykM2W4DnHb1UiEf5xDkFd4=
-In-Reply-To: <E1tFv3K-005yhZ-E8@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1tFv3P-005yhf-Ho@rmk-PC.armlinux.org.uk>
 Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
  Oleksij Rempel <o.rempel@pengutronix.de>,
@@ -128,8 +128,8 @@ Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 03/23] net: phy: marvell: use
- phydev->eee_cfg.eee_enabled
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 04/23] net: phy: avoid
+ genphy_c45_ethtool_get_eee() setting eee_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,40 +147,13 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 26.11.2024 13:52, Russell King (Oracle) wrote:
-> Rather than calling genphy_c45_ethtool_get_eee() to retrieve whether
-> EEE is enabled, use the value stored in the phy_device eee_cfg
-> structure.
+> genphy_c45_ethtool_get_eee() is only called from phy_ethtool_get_eee(),
+> which then calls eeecfg_to_eee(). eeecfg_to_eee() will overwrite
+> keee.eee_enabled, so there's no point setting keee.eee_enabled in
+> genphy_c45_ethtool_get_eee(). Remove this assignment.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
->  drivers/net/phy/marvell.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-> index cd50cd6a7f75..1d117fa8c564 100644
-> --- a/drivers/net/phy/marvell.c
-> +++ b/drivers/net/phy/marvell.c
-> @@ -1508,7 +1508,6 @@ static int m88e1540_get_fld(struct phy_device *phydev, u8 *msecs)
->  
->  static int m88e1540_set_fld(struct phy_device *phydev, const u8 *msecs)
->  {
-> -	struct ethtool_keee eee;
->  	int val, ret;
->  
->  	if (*msecs == ETHTOOL_PHY_FAST_LINK_DOWN_OFF)
-> @@ -1518,8 +1517,7 @@ static int m88e1540_set_fld(struct phy_device *phydev, const u8 *msecs)
->  	/* According to the Marvell data sheet EEE must be disabled for
->  	 * Fast Link Down detection to work properly
->  	 */
-> -	ret = genphy_c45_ethtool_get_eee(phydev, &eee);
-> -	if (!ret && eee.eee_enabled) {
-> +	if (phydev->eee_cfg.eee_enabled) {
->  		phydev_warn(phydev, "Fast Link Down detection requires EEE to be disabled!\n");
->  		return -EBUSY;
->  	}
-
-This one I had on my list too. Old and new check aren't waterproof as the user can still
-enable EEE later, silently disabling FLD. But the check is better than nothing.
 
 Reviewed-by: Heiner Kallweit <hkallweit1@gmail.com>
 
