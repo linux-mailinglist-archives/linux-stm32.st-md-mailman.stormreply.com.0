@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9210D9D9528
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 11:09:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58139D9530
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Nov 2024 11:10:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D753C78016;
-	Tue, 26 Nov 2024 10:09:08 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 742C6C7801B;
+	Tue, 26 Nov 2024 10:10:53 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF6C8C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09392C78016
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Nov 2024 10:09:00 +0000 (UTC)
+ Tue, 26 Nov 2024 10:10:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1AD78A41B97;
- Tue, 26 Nov 2024 10:07:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB49AC4CECF;
- Tue, 26 Nov 2024 10:08:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 867C35C5C99;
+ Tue, 26 Nov 2024 10:10:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CABDC4CED0;
+ Tue, 26 Nov 2024 10:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732615739;
- bh=Tebs3ugs2aGJ3acWfA3ph5gJOpJqpLnIB3l/SR+YbG8=;
+ s=k20201202; t=1732615851;
+ bh=Byra4Kx0/QZ5Uz0Ky2GZAawD0zrEdfweETc4Lk5nnIs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=EGIWVjyoydTiJvuc1ZUZhSqpAeY2sZhNEWLCA3S+X192vYeq/MGk9N88dM90Kiqpg
- 9Fip6SmUHoaaz0oBlJUlxS2Sm8Aj6CffgLn97xP3pxowQi7EdJaeZjGBrd4Z0UHCV1
- 39ce8gA0M8IOnhCygwQilpJKL9utKk58XsuLh3uv6AHhmMqOkuJOqsZjieQyfo7K56
- aa3eCn24N5EaGaA8gVSXSnXcyjO/RtjRpO4HEIW3d7hp12a35pY2AHEDD//kx5zcCT
- RsJTN9FtPzcatXkydp2p3tnhOnwY8qBQzPb40EOqjBVv3L04GeF7Tf1Ts5MeBEiVIj
- vc0PcOJeRXC2w==
-Message-ID: <a220d407-de40-4398-a837-de11e01d2381@kernel.org>
-Date: Tue, 26 Nov 2024 11:08:52 +0100
+ b=WYjFnX4y0o0UuVhysolvR/eLfEB1pJTaXWYL0wyi9+r7CdSRSi23fWiMoWP8CBomE
+ dZE+1qYJt0RUXqHdXAr+TCkgxG6es0uDy+lyZoF+xdTQrtDklmEi+lrJWed9vzZwFB
+ TS0WhOvTkxr0KFoUasehLvvJyKutxDxHnLwU4v0cfx/oYoxA8xY/2q1uzfxYa3c7UM
+ fLJRMa603+pw2x6cxUh33PIRsR0RPPa4HFtEnX1Jk4naJr62Gvm38dUbN0oj6T9Qyx
+ q36MswkTleWWmlU8fep9hpgmDid2VsU7r2qoV2Amia3F3AleJCP2iC+uiT2Ap5D70b
+ 466l6Gl+C0G7Q==
+Message-ID: <7c132784-87db-44f9-8be4-a0805e438735@kernel.org>
+Date: Tue, 26 Nov 2024 11:10:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Joey Lu <a0987203069@gmail.com>, andrew+netdev@lunn.ch,
@@ -37,7 +37,7 @@ To: Joey Lu <a0987203069@gmail.com>, andrew+netdev@lunn.ch,
  pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  mcoquelin.stm32@gmail.com, richardcochran@gmail.com
 References: <20241118082707.8504-1-a0987203069@gmail.com>
- <20241118082707.8504-3-a0987203069@gmail.com>
+ <20241118082707.8504-4-a0987203069@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -83,13 +83,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20241118082707.8504-3-a0987203069@gmail.com>
+In-Reply-To: <20241118082707.8504-4-a0987203069@gmail.com>
 Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com, netdev@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
  schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/3] arm64: dts: nuvoton: Add Ethernet
-	nodes
+Subject: Re: [Linux-stm32] [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add
+ dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,30 +107,58 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 18/11/2024 09:27, Joey Lu wrote:
-> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-> index e51b98f5bdce..2e0071329309 100644
-> --- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-> @@ -379,5 +379,57 @@ uart16: serial@40880000 {
->  			clocks = <&clk UART16_GATE>;
->  			status = "disabled";
->  		};
 > +
-> +		gmac0: ethernet@40120000 {
-> +			compatible = "nuvoton,ma35d1-dwmac";
-> +			reg = <0x0 0x40120000 0x0 0x10000>;
-> +			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
-> +			clock-names = "stmmaceth", "ptp_ref";
+> +static struct nvt_priv_data *
+> +nuvoton_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct nvt_priv_data *bsp_priv;
+> +	phy_interface_t phy_mode;
+> +	u32 tx_delay, rx_delay;
+> +	u32 macid, arg, reg;
 > +
-> +			nuvoton,sys = <&sys 0>;
-> +			resets = <&sys MA35D1_RESET_GMAC0>;
-> +			reset-names = "stmmaceth";
-> +			status = "disabled";
+> +	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
+> +	if (!bsp_priv)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	bsp_priv->regmap =
+> +		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
+> +	if (IS_ERR(bsp_priv->regmap)) {
+> +		dev_err(dev, "Failed to get sys register\n");
 
-Status is always, always the last property. Please read and follow DTS
-coding style.
+Syntax is: return dev_err_probe
+
+> +		return ERR_PTR(-ENODEV);
+> +	}
+> +	if (macid > 1) {
+> +		dev_err(dev, "Invalid sys arguments\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+
+
+
+...
+
+
+> +
+> +	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* We support WoL by magic packet, override pmt to make it work! */
+> +	plat_dat->pmt = 1;
+> +	dev_info(&pdev->dev, "Wake-Up On Lan supported\n");
+
+
+Drop, driver should be silent on success.
+
+> +	device_set_wakeup_capable(&pdev->dev, 1);
+> +
+> +	return 0;
+> +}
+
+
 
 Best regards,
 Krzysztof
