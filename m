@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84059DA69B
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 12:12:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EBE99DA6BE
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 12:20:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63739C7129D;
-	Wed, 27 Nov 2024 11:12:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE887C7129D;
+	Wed, 27 Nov 2024 11:20:29 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05F39C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06886C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2024 11:12:44 +0000 (UTC)
+ Wed, 27 Nov 2024 11:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YV7Ng+UILJGgeX2OpLHjyU7yknzjQ5R3jvrdw+xvoG8=; b=nUjmzZSp0723C2w0rHv8ZaBBLX
- XrkG0T8d+DtE6S1tVqA9igzcoRFqbPXKGKBIZ4RCgzvAxBiu8zSDZRkP20hWC2zi8ejzAABOEMym7
- kYc3vo4iaWZF96oJya2fXWPR/2ADrBQ2Zc0LVayYCZsQVkNbns4K+a83WfHjjVGA5cDWoE8WNokM1
- BTj6Cw6Y2MGA2Jun7EV5DrGKSxIzwuJwfIzhGN8NocCwFQ8KLj+3vKYKXnyWG1EIJTTSRYRTqE4Ok
- SFB0hKL53Udq4ZcTt7L3qRABwslS07W0/G/N7Vg31EgBkjZdFOHliWC/4WxGFkZcvzPgVJTyDpfDt
- SsxAZIxQ==;
+ bh=3pnFazxY8HzLhh4gTcIsD9NoAcCruO+q2t9IKoBKYJw=; b=MSah3XyKasAIMaryEwuVLGuety
+ aV5UulyDIACFz2Fga7NQ4B3f+aS2m3NVO7MErNGrPkCd3cj/0I1CpmFK0f4Ngqiq0FOL/ZHPTHOvK
+ /ckaHb7ObAZDGfZtkQIbsB102cURe9h/f7H//YFkWHFEbMlOJ6mlDiRcwIsXyRrSlbWogeyFpZH8v
+ qCZJuSTKO4Eg4WLoFCef52QMAcuoAjzp0fhe7MaZOiagtSYi2jKQ1gpB4aXKd36D3Uco9+7Oy0Vag
+ 3tdkB8WZ1RZzSbHq9VUXWLF0kcS5OmlnP6WvlS+M8IZz8IAYiAkS+SCG1V+Y0jU2Adsb1r7PDqsdX
+ GfM0qPQg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39324)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36484)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tGFyC-0000E0-0T;
- Wed, 27 Nov 2024 11:12:32 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tGG5b-0000FS-2u;
+ Wed, 27 Nov 2024 11:20:12 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tGFy8-00076l-1e;
- Wed, 27 Nov 2024 11:12:28 +0000
-Date: Wed, 27 Nov 2024 11:12:28 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tGG5Y-00076z-1d;
+ Wed, 27 Nov 2024 11:20:08 +0000
+Date: Wed, 27 Nov 2024 11:20:08 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z0b-nJ7bt8IlBMpz@shell.armlinux.org.uk>
+Message-ID: <Z0cAaH30cXo38xwE@shell.armlinux.org.uk>
 References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
- <E1tFv3F-005yhT-AA@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1tFv3F-005yhT-AA@rmk-PC.armlinux.org.uk>
+In-Reply-To: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
 Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
  Oleksij Rempel <o.rempel@pengutronix.de>,
@@ -52,8 +51,8 @@ Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 02/23] net: phy: fix
- phy_ethtool_set_eee() incorrectly enabling LPI
+Subject: Re: [Linux-stm32] net: ti: weirdness (was Re: [PATCH RFC net-next
+ 00/23] net: phylink managed EEE support)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,40 +69,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 26, 2024 at 12:52:21PM +0000, Russell King (Oracle) wrote:
-> @@ -1685,15 +1685,21 @@ EXPORT_SYMBOL(phy_ethtool_get_eee);
->  static void phy_ethtool_set_eee_noneg(struct phy_device *phydev,
->  				      const struct eee_config *old_cfg)
->  {
-> -	if (phydev->eee_cfg.tx_lpi_enabled != old_cfg->tx_lpi_enabled ||
-> +	bool enable_tx_lpi;
-> +
-> +	if (!phydev->link)
-> +		return;
-> +
-> +	enable_tx_lpi = phydev->eee_cfg.tx_lpi_enabled && phydev->eee_active;
-> +
-> +	if (phydev->enable_tx_lpi != enable_tx_lpi ||
->  	    phydev->eee_cfg.tx_lpi_timer != old_cfg->tx_lpi_timer) {
+On Tue, Nov 26, 2024 at 12:51:36PM +0000, Russell King (Oracle) wrote:
+> In doing this, I came across the fact that the addition of phylib
+> managed EEE support has actually broken a huge number of drivers -
+> phylib will now overwrite all members of struct ethtool_keee whether
+> the netdev driver wants it or not. This leads to weird scenarios where
+> doing a get_eee() op followed by a set_eee() op results in e.g.
+> tx_lpi_timer being zeroed, because the MAC driver doesn't know it needs
+> to initialise phylib's phydev->eee_cfg.tx_lpi_timer member. This mess
+> really needs urgently addressing, and I believe it came about because
+> Andrew's patches were only partly merged via another party - I guess
+> highlighting the inherent danger of "thou shalt limit your patch series
+> to no more than 15 patches" when one has a subsystem who's in-kernel
+> API is changing.
 
-I'm wondering whether this should be:
-
-	if (phydev->enable_tx_lpi != enable_tx_lpi ||
-	    (phydev->enable_tx_lpi &&
-	     phydev->eee_cfg.tx_lpi_timer != old_cfg->tx_lpi_timer)) {
-
-The argument for this change would be to avoid cycling the link when the
-LPI timer changes but we're not using LPI.
-
-The argument against this change would be that then we don't program the
-hardware, and if the driver reads the initial value from hardware and
-is unbound/rebound, we'll lose that update whereas before the phylib
-changes, it would have been preserved.
-
-The problem, however, are drivers where the LPI timer is dependent on
-the speed.
-
-Any thoughts?
+Looking at the two TI offerings that call phy_ethtool_get_eee(), both
+of them call the phylib functions from their ethtool ops, but it looks
+like the driver does diddly squat with LPI state, which makes me wonder
+why they implemented the calls to phy_ethtool_get_eee() and
+phy_ethtool_set_eee(), since EEE will not be functional unless the PHY
+has been configured with a SmartEEE mode outside the kernel.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
