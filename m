@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC5BE9DAA2E
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 15:52:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82AD89DAA3D
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 15:59:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3BAFC78036;
-	Wed, 27 Nov 2024 14:52:02 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3691BC78036;
+	Wed, 27 Nov 2024 14:59:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C284C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39276C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2024 14:52:01 +0000 (UTC)
+ Wed, 27 Nov 2024 14:59:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7CCC9A438E0;
- Wed, 27 Nov 2024 14:50:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40AAC4CECC;
- Wed, 27 Nov 2024 14:51:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A087A5C5BC3;
+ Wed, 27 Nov 2024 14:58:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753AEC4CECC;
+ Wed, 27 Nov 2024 14:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732719120;
- bh=4AGyVOnYw0w4dA8qEhJmW3K+EMnHj8IiVSZHynrM+v0=;
+ s=k20201202; t=1732719564;
+ bh=SVhXyj/ZbRJBm3pGNYNcl/3ggq+hcnNG3Esckkf/+Yw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T+0diw/SG+LpWSeAMVxpAb/FmmbAkmMGG4B7vDhTX4AJVjigqTnN6FJoNLQIeH/Zt
- JSwce2GHbaJki8uXr4zdsMlGJi7I4ZnMR27D4EGyQJj4kBliw44EyMT2eWb3IhQABx
- 8+7ydZJomGric4n4nS17nh/VHVhZLHhJ4lkRqmtzdoqBZUBDMioIuSueVVFlitriZy
- faz3ac/nf1mI9mvxZN3k80Owjx218EAyBOr5mhiXennGgJACEavucWOVfkFOuDqtYn
- 0ElH5Ab4Z+VsvYq89DktlYtAlQHccODmNWBWiAUjkcmQc+kgUrxApHJnF0T21tn1Av
- 97VJRqWszflzQ==
-Date: Wed, 27 Nov 2024 08:51:58 -0600
-From: Rob Herring <robh@kernel.org>
+ b=TGTTDtjwHXPmzkERIfnnt1B08xP9zER2IuaQCb6KIZPwaS6Gja8vheY34Uo/TfQF0
+ Uvrmiz1eloyHIZind1vhluijfaF7fPXrqKw6Jj17pD/ONXPyxYyZu85V+gsevxU2Gm
+ T8Hnl4x6Yd6Od8VwiJbyY5sObEOqEeBkpXseFFSkYX0UhWw5hadQ2J8SuD2Zo0WLDD
+ tNtEoCHAIwNO8nAx9k1yoiUz/RyJvYXG8d2a1u/MhHdibUF+rYHVsOuZ7ZP5nTe/Yc
+ 8x/H4AmzuryL/HTW9M+bc4VTgALSWNEubNbu4PNmdMWIAMHAyYoOHPfYGtqXAusS6J
+ 0M6eMhpeTELfg==
+Date: Wed, 27 Nov 2024 08:59:22 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20241127145158.GA3480289-robh@kernel.org>
+Message-ID: <173271956195.3489911.2255772456897177524.robh@kernel.org>
 References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
  <20241126155119.1574564-4-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20241126155119.1574564-4-christian.bruel@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ kw@linux.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
  linux-kernel@vger.kernel.org, cassel@kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
- bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ p.zabel@pengutronix.de, manivannan.sadhasivam@linaro.org, bhelgaas@google.com,
+ krzk+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2 3/5] dt-bindings: PCI: Add STM32MP25
  PCIe endpoint bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -61,7 +61,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 26, 2024 at 04:51:17PM +0100, Christian Bruel wrote:
+
+On Tue, 26 Nov 2024 16:51:17 +0100, Christian Bruel wrote:
 > STM32MP25 PCIe Controller is based on the DesignWare core configured as
 > end point mode from the SYSCFG register.
 > 
@@ -71,23 +72,9 @@ On Tue, Nov 26, 2024 at 04:51:17PM +0100, Christian Bruel wrote:
 >  1 file changed, 61 insertions(+)
 >  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
-> new file mode 100644
-> index 000000000000..0da3ee012ba8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32MP25 PCIe endpoint driver
-
-Bindings are not a driver. Otherwise,
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
