@@ -2,57 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EBE99DA6BE
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 12:20:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE219DA78C
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2024 13:16:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE887C7129D;
-	Wed, 27 Nov 2024 11:20:29 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 339AEC78015;
+	Wed, 27 Nov 2024 12:16:21 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06886C6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BDA9C7129D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2024 11:20:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3pnFazxY8HzLhh4gTcIsD9NoAcCruO+q2t9IKoBKYJw=; b=MSah3XyKasAIMaryEwuVLGuety
- aV5UulyDIACFz2Fga7NQ4B3f+aS2m3NVO7MErNGrPkCd3cj/0I1CpmFK0f4Ngqiq0FOL/ZHPTHOvK
- /ckaHb7ObAZDGfZtkQIbsB102cURe9h/f7H//YFkWHFEbMlOJ6mlDiRcwIsXyRrSlbWogeyFpZH8v
- qCZJuSTKO4Eg4WLoFCef52QMAcuoAjzp0fhe7MaZOiagtSYi2jKQ1gpB4aXKd36D3Uco9+7Oy0Vag
- 3tdkB8WZ1RZzSbHq9VUXWLF0kcS5OmlnP6WvlS+M8IZz8IAYiAkS+SCG1V+Y0jU2Adsb1r7PDqsdX
- GfM0qPQg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36484)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ Wed, 27 Nov 2024 12:16:14 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1tGGxc-0004FC-Pe; Wed, 27 Nov 2024 13:16:00 +0100
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tGG5b-0000FS-2u;
- Wed, 27 Nov 2024 11:20:12 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tGG5Y-00076z-1d;
- Wed, 27 Nov 2024 11:20:08 +0000
-Date: Wed, 27 Nov 2024 11:20:08 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z0cAaH30cXo38xwE@shell.armlinux.org.uk>
+ (envelope-from <ore@pengutronix.de>) id 1tGGxY-000QYm-2q;
+ Wed, 27 Nov 2024 13:15:57 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tGGxZ-000xja-1h;
+ Wed, 27 Nov 2024 13:15:57 +0100
+Date: Wed, 27 Nov 2024 13:15:57 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <Z0cNfdxInR0XDQaV@pengutronix.de>
 References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
-Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: UNGLinuxDriver@microchip.com, Andrew Lunn <andrew@lunn.ch>,
+ Marcin Wojtas <marcin.s.wojtas@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
  Bryan Whitehead <bryan.whitehead@microchip.com>,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] net: ti: weirdness (was Re: [PATCH RFC net-next
- 00/23] net: phylink managed EEE support)
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] net: sxgbe: using lpi_timer for Twake timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,30 +71,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 26, 2024 at 12:51:36PM +0000, Russell King (Oracle) wrote:
-> In doing this, I came across the fact that the addition of phylib
-> managed EEE support has actually broken a huge number of drivers -
-> phylib will now overwrite all members of struct ethtool_keee whether
-> the netdev driver wants it or not. This leads to weird scenarios where
-> doing a get_eee() op followed by a set_eee() op results in e.g.
-> tx_lpi_timer being zeroed, because the MAC driver doesn't know it needs
-> to initialise phylib's phydev->eee_cfg.tx_lpi_timer member. This mess
-> really needs urgently addressing, and I believe it came about because
-> Andrew's patches were only partly merged via another party - I guess
-> highlighting the inherent danger of "thou shalt limit your patch series
-> to no more than 15 patches" when one has a subsystem who's in-kernel
-> API is changing.
+For archive:
 
-Looking at the two TI offerings that call phy_ethtool_get_eee(), both
-of them call the phylib functions from their ethtool ops, but it looks
-like the driver does diddly squat with LPI state, which makes me wonder
-why they implemented the calls to phy_ethtool_get_eee() and
-phy_ethtool_set_eee(), since EEE will not be functional unless the PHY
-has been configured with a SmartEEE mode outside the kernel.
+static void  sxgbe_set_eee_timer(void __iomem *ioaddr,
+				 const int ls, const int tw)
+{
+	int value = ((tw & 0xffff)) | ((ls & 0x7ff) << 16);
+
+	/* Program the timers in the LPI timer control register:
+	 * LS: minimum time (ms) for which the link
+	 *  status from PHY should be ok before transmitting
+	 *  the LPI pattern.
+	 * TW: minimum time (us) for which the core waits
+	 *  after it has stopped transmitting the LPI pattern.
+	 */
+	writel(value, ioaddr + SXGBE_CORE_LPI_TIMER_CTRL);
+}
+
+bool sxgbe_eee_init(struct sxgbe_priv_data * const priv)
+{
+....
+	/* MAC core supports the EEE feature. */
+	if (priv->hw_cap.eee) {
+		/* Check if the PHY supports EEE */
+		if (phy_init_eee(ndev->phydev, true))
+			return false;
+
+		timer_setup(&priv->eee_ctrl_timer, sxgbe_eee_ctrl_timer, 0);
+		priv->eee_ctrl_timer.expires = SXGBE_LPI_TIMER(eee_timer);
+		add_timer(&priv->eee_ctrl_timer);
+
+		priv->hw->mac->set_eee_timer(priv->ioaddr,
+					     SXGBE_DEFAULT_LPI_TIMER,
+					     priv->tx_lpi_timer);
+                                                   ^^^^^^^^^^^^
+                                                   LPI timer is used for
+						   Twake timer.
+}
+
+In case user configures lpi_timer value to too low, it will case frame
+corruption instead of expected performance drop.
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
