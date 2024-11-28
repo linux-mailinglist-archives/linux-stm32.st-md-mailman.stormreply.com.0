@@ -2,73 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CCE9DB2AB
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2024 06:59:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE7D9DB2E1
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2024 07:46:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19764C7802D;
-	Thu, 28 Nov 2024 05:59:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CDA5C78022;
+	Thu, 28 Nov 2024 06:46:35 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 615BBC78022
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76EADC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Nov 2024 05:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732773580; x=1764309580;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=c0KVSQsmu1rPPpFE3S5HnK03A6rk+5gg33/ro18oufE=;
- b=gqcq4y9J4fcKkUFEaH0K9fjsegzykykN4cBi3oi5mbH1tjKp50ixG9R5
- ANEQBjOXeeON4e2oS3xOSIMON1R8/SAY8jsF9b3oOixVmECMsrETu5hwZ
- Nxi0Qtb4B/L9OQd7unbrsCe2w7G3SRS4A2GJOEeS36gL15lKaB2Z0Vw+P
- SJDsVOfej3Vb259c/sWc8Ok7WcCYf18/4p+mkmqlw5gXoWoDFcNV3kOG8
- Y8m68728yNkdiVCvwxmE3OrTBGdg7ZGDyOuN90+gObLsWte7nmax/QdrU
- Wp8vtLwxb47WweIPfoYaIYqn02+daFOTziYKcSAtF/KKv1+3tl+dZ64Yt w==;
-X-CSE-ConnectionGUID: mFlKycuiQlqNl+IvDQj77A==
-X-CSE-MsgGUID: r0pjVyzdSoGla8Ua5WUezw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11269"; a="43662854"
-X-IronPort-AV: E=Sophos;i="6.12,191,1728975600"; d="scan'208";a="43662854"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2024 21:59:32 -0800
-X-CSE-ConnectionGUID: kPW4/6JXQPuGryDD7XfTRQ==
-X-CSE-MsgGUID: lmzrxaPdSyinw+0AgZvGbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,191,1728975600"; d="scan'208";a="91751016"
-Received: from lkp-server01.sh.intel.com (HELO 8122d2fc1967) ([10.239.97.150])
- by fmviesa006.fm.intel.com with ESMTP; 27 Nov 2024 21:59:27 -0800
-Received: from kbuild by 8122d2fc1967 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tGXYi-00097f-2U;
- Thu, 28 Nov 2024 05:59:24 +0000
-Date: Thu, 28 Nov 2024 13:58:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <202411281332.Ra70nJAW-lkp@intel.com>
-References: <20241126091042.918144-5-arnaud.pouliquen@foss.st.com>
+ Thu, 28 Nov 2024 06:46:27 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-7fbc65f6c72so447250a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 Nov 2024 22:46:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732776386; x=1733381186;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JAjb6ZpXEC+1NOjeuLOAmg/8jYxuF/vimdMJw+lRbKY=;
+ b=npqwqRdqknhjIIEtVr/+aJLpB5+bbVSTX9Rhl29x8sxc4VXaJpJ8huniWmjLG8Jqdw
+ xF96OR7tqvXHsRoAzDSmZHpgiMIFHg8X5XpsklI0ehZN0wr2/ucZl08g/jpadkb80NVx
+ dEHfrMhFp969hOxu2hIIUKny5I6zO+nBC5E96Fin8dma0tImYOIYTUnb1I9nAx12VyVa
+ gkswM7lW8tSpbV9hzJmCQfZTDbcgZQbJR0ysKqFw9j5h0XOdoGfl95uT+7L3Aha6HMM2
+ 5AkCe5I0YYa/nqf+dvV+9diSZzDIhH0CGsvebR/J66rOpnWlysZMjcwcaZSxfSRgv/33
+ XDVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732776386; x=1733381186;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JAjb6ZpXEC+1NOjeuLOAmg/8jYxuF/vimdMJw+lRbKY=;
+ b=wMZvWjLmh+Ly5WBIT57Vm3so6PITSRqKbSyWVDjilLZEhGengBKgR/Bjms/vzfHEsc
+ QlVUM0NKGsnRHN/HellMgPxARhWTuiMXsTU6GoSceu5ylbNOD7Tf6fsU6mC0PbBi/dZm
+ rBV+ZatARJYgoR59Bl+Sdqd2WXRGTxWascpB3t60ILYTrsZHZfp/8FCPu4ahOh3UuMqF
+ IbtElTAGlrdwv86SVIuN13wT7/YWqcTBNR5iWRJ6PchZiqrmXqAd1MFDyRLzPCqm3V78
+ /1PeHXtlooPWz98juSnFoIguX2Fs4ixMvUwJ96sAAxeROy5EubLBCB6Rj74RKqeVeKW2
+ uodQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXPArYT/fRgkaG751mj+K+GFeVB08ngWepX6MyZEst69jFhGptc1pvZPlTFR8HO5DexdaN99SujkfaYMg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxgj73vcOk+/KQrixvL6pL6dCudO4gFOJhPwua2lhtGsAlfP4eP
+ FTMttUd9SltSvpcGGCkgGUK+aoFWebvfIe7LnC5HHBYxEDf9fZLN
+X-Gm-Gg: ASbGnctG7QngyiPHHWGw5mCAfVoNrqOlMrnp77u47+B36BUJQSV9aQwV8yIl/qcJZ7I
+ 9b/x3WZI8T3T98069IyiNpJnTGEdNl+hMuTX699f3gMVPwz8l8Fu/71mqqdMn1ms1G2X8CfwClx
+ 8NwLrDh6theW0wHxFhfElqZW7EnobXM+DKENuEq846CblgzTgI4fU+CB3QlPLQTliMYPqnOKoC/
+ wk4+radN+NYq3cz1CfaoJefeQ16meHP0PQZ6UW0DHJg2Bk=
+X-Google-Smtp-Source: AGHT+IFpO1VQXaKHxnjRjpCl3gIEGLuAkIv7foeRJn6U3EckFUAJnHf5fhZ35vp4j35VEpP/1x6iZA==
+X-Received: by 2002:a05:6a21:3291:b0:1e0:c5d2:f215 with SMTP id
+ adf61e73a8af0-1e0e0adcdc3mr8858908637.12.1732776385861; 
+ Wed, 27 Nov 2024 22:46:25 -0800 (PST)
+Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-72541848924sm735843b3a.180.2024.11.27.22.45.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Nov 2024 22:46:25 -0800 (PST)
+Date: Thu, 28 Nov 2024 14:45:01 +0800
+From: Furong Xu <0x1207@gmail.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <20241128144501.0000619b@gmail.com>
+In-Reply-To: <d8112193-0386-4e14-b516-37c2d838171a@nvidia.com>
+References: <20241021061023.2162701-1-0x1207@gmail.com>
+ <d8112193-0386-4e14-b516-37c2d838171a@nvidia.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241126091042.918144-5-arnaud.pouliquen@foss.st.com>
-Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, oe-kbuild-all@lists.linux.dev,
- linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v14 4/8] remoteproc: Rename load()
- operation to load_segments() in rproc_ops struct
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Thierry Reding <treding@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
+ DMA map/unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,142 +94,185 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
+Hi Jon,
 
-kernel test robot noticed the following build errors:
+On Wed, 27 Nov 2024 18:39:53 +0000, Jon Hunter <jonathanh@nvidia.com> wrote:
+> 
+> I have noticed a lot of intermittent failures on a couple of our boards
+> starting with Linux v6.12. I have finally bisected the issue to this
+> change and reverting this change fixes the problem.
+> 
+> The boards where I am seeing this issue on are our Tegra186 Jetson TX2
+> (tegra186-p2771-0000) and Tegra194 Jetson AGX Xavier
+> (tegra194-p2972-0000).
+> 
+> Tegra184 has:
+>   dwc-eth-dwmac 2490000.ethernet: User ID: 0x10, Synopsys ID: 0x41
+> 
+> Tegra194 has:
+>   dwc-eth-dwmac 2490000.ethernet: User ID: 0x10, Synopsys ID: 0x50
+> 
+> Otherwise all the other propreties printed on boot are the same for both ...
+> 
+>   dwc-eth-dwmac 2490000.ethernet: 	DWMAC4/5
+>   dwc-eth-dwmac 2490000.ethernet: DMA HW capability register supported
+>   dwc-eth-dwmac 2490000.ethernet: RX Checksum Offload Engine supported
+>   dwc-eth-dwmac 2490000.ethernet: TX Checksum insertion supported
+>   dwc-eth-dwmac 2490000.ethernet: Wake-Up On Lan supported
+>   dwc-eth-dwmac 2490000.ethernet: TSO supported
+>   dwc-eth-dwmac 2490000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+>   dwc-eth-dwmac 2490000.ethernet: Enabled L3L4 Flow TC (entries=8)
+>   dwc-eth-dwmac 2490000.ethernet: Enabled RFS Flow TC (entries=10)
+>   dwc-eth-dwmac 2490000.ethernet: TSO feature enabled
+>   dwc-eth-dwmac 2490000.ethernet: Using 40/40 bits DMA host/device width
+> 
+> 
+> Looking at the console logs, when the problem occurs I see the
+> following prints ...
+> 
+> [  245.571688] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+> [  245.575349] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+> 
+> I also caught this crash ...
+> 
+> [  245.576690] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
+> [  245.576715] Mem abort info:
+> [  245.577009]   ESR = 0x0000000096000004
+> [  245.577040]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [  245.577142]   SET = 0, FnV = 0
+> [  245.577355]   EA = 0, S1PTW = 0
+> [  245.577439]   FSC = 0x04: level 0 translation fault
+> [  245.577557] Data abort info:
+> [  245.577628]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+> [  245.577753]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+> [  245.577878]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> [  245.578018] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000106300000
+> [  245.578168] [0000000000000008] pgd=0000000000000000, p4d=0000000000000000
+> [  245.578390] Internal error: Oops: 0000000096000004 [#1] PREEMPT SMP
+> [  245.578528] Modules linked in: snd_soc_tegra210_admaif snd_soc_tegra_pcm tegra_drm snd_soc_tegra186_asrc snd_soc_tegra210_mixer snd_soc_tegra210_mvc snd_soc_tegra210_ope snd_soc_tegra210_dmic drm_dp_aux_bus snd_soc_tegra210_adx snd_soc_tegra210_amx cec snd_soc_tegra210_sfc drm_display_helper snd_soc_tegra210_i2s drm_kms_helper snd_soc_tegra_audio_graph_card ucsi_ccg typec_ucsi snd_soc_rt5659 snd_soc_audio_graph_card drm backlight tegra210_adma snd_soc_tegra210_ahub crct10dif_ce snd_soc_simple_card_utils pwm_fan snd_soc_rl6231 typec ina3221 snd_hda_codec_hdmi tegra_aconnect pwm_tegra snd_hda_tegra snd_hda_codec snd_hda_core phy_tegra194_p2u tegra_xudc at24 lm90 pcie_tegra194 host1x tegra_bpmp_thermal ip_tables x_tables ipv6
+> [  245.626942] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G        W          6.12.0 #5
+> [  245.635072] Tainted: [W]=WARN
+> [  245.638220] Hardware name: NVIDIA Jetson AGX Xavier Developer Kit (DT)
+> [  245.645039] pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [  245.651870] pc : skb_release_data+0x100/0x1e4
+> [  245.656334] lr : sk_skb_reason_drop+0x44/0xb0
+> [  245.660797] sp : ffff800080003c80
+> [  245.664206] x29: ffff800080003c80 x28: ffff000083d58980 x27: 0000000000000900
+> [  245.671813] x26: ffff000083d5c980 x25: ffff0000937c03c0 x24: 0000000000000002
+> [  245.678906] x23: 00000000ffffffff x22: 0000000000000001 x21: ffff000096ae8200
+> [  245.686258] x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000004860
+> [  245.693605] x17: ffff80037be97000 x16: ffff800080000000 x15: ffff8000827d4968
+> [  245.700870] x14: fffffffffffe485f x13: 2e656572662d7265 x12: 7466612d65737520
+> [  245.707957] x11: ffff8000827d49e8 x10: ffff8000827d49e8 x9 : 00000000ffffefff
+> [  245.715306] x8 : ffff80008282c9e8 x7 : 0000000000017fe8 x6 : 00000000fffff000
+> [  245.722825] x5 : ffff0003fde07348 x4 : ffff0000937c03c0 x3 : ffff0000937c0280
+> [  245.729762] x2 : 0000000000000140 x1 : ffff0000937c03c0 x0 : 0000000000000000
+> [  245.737009] Call trace:
+> [  245.739459]  skb_release_data+0x100/0x1e4
+> [  245.743657]  sk_skb_reason_drop+0x44/0xb0
+> [  245.747684]  dev_kfree_skb_any_reason+0x44/0x50
+> [  245.752490]  stmmac_tx_clean+0x1ec/0x798
+> [  245.756177]  stmmac_napi_poll_tx+0x6c/0x144
+> [  245.760199]  __napi_poll+0x38/0x190
+> [  245.763868]  net_rx_action+0x140/0x294
+> [  245.767888]  handle_softirqs+0x120/0x24c
+> [  245.771574]  __do_softirq+0x14/0x20
+> [  245.775326]  ____do_softirq+0x10/0x1c
+> [  245.778748]  call_on_irq_stack+0x24/0x4c
+> [  245.782510]  do_softirq_own_stack+0x1c/0x2c
+> [  245.786964]  irq_exit_rcu+0x8c/0xc4
+> [  245.790463]  el1_interrupt+0x38/0x68
+> [  245.794139]  el1h_64_irq_handler+0x18/0x24
+> [  245.798166]  el1h_64_irq+0x64/0x68
+> [  245.801318]  default_idle_call+0x28/0x3c
+> [  245.805166]  do_idle+0x208/0x264
+> [  245.808576]  cpu_startup_entry+0x34/0x3c
+> [  245.812088]  kernel_init+0x0/0x1d8
+> [  245.815594]  start_kernel+0x5c0/0x708
+> [  245.819076]  __primary_switched+0x80/0x88
+> [  245.823295] Code: 97fff632 72001c1f 54000161 370005b3 (f9400661)
+> [  245.829151] ---[ end trace 0000000000000000 ]---
+> 
+> 
+> And here is another crash ...
+> 
+> [  149.986210] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+> [  149.992845] kernel BUG at lib/dynamic_queue_limits.c:99!
+> [  149.998152] Internal error: Oops - BUG: 00000000f2000800 [#1] PREEMPT SMP
+> [  150.004928] Modules linked in: snd_soc_tegra210_admaif snd_soc_tegra186_asrc snd_soc_tegra_pcm snd_soc_tegra210_mixer snd_soc_tegra210_mvc snd_soc_tegra210_ope snd_soc_tegra210_dmic snd_soc_tegra186_dspk snd_soc_tegra210_adx snd_soc_tegra210_amx snd_soc_tegra210_sfc snd_soc_tegra210_i2s tegra_drm drm_dp_aux_bus cec drm_display_helper drm_kms_helper tegra210_adma snd_soc_tegra210_ahub drm backlight snd_soc_tegra_audio_graph_card snd_soc_audio_graph_card snd_soc_simple_card_utils crct10dif_ce tegra_bpmp_thermal at24 tegra_aconnect snd_hda_codec_hdmi tegra_xudc snd_hda_tegra snd_hda_codec snd_hda_core ina3221 host1x ip_tables x_tables ipv6
+> [  150.061268] CPU: 5 UID: 102 PID: 240 Comm: systemd-resolve Tainted: G S      W          6.12.0-dirty #7
+> [  150.070654] Tainted: [S]=CPU_OUT_OF_SPEC, [W]=WARN
+> [  150.075438] Hardware name: NVIDIA Jetson TX2 Developer Kit (DT)
+> [  150.081348] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [  150.088303] pc : dql_completed+0x1fc/0x20c
+> [  150.092401] lr : stmmac_tx_clean+0x3b4/0x798
+> [  150.096669] sp : ffff800082d73d00
+> [  150.099979] x29: ffff800082d73d00 x28: ffff000080898980 x27: 0000000000002ce0
+> [  150.107115] x26: ffff00008089c980 x25: 0000000000000000 x24: ffff000083c88000
+> [  150.114248] x23: 0000000000000000 x22: 0000000000000001 x21: ffff000080898980
+> [  150.121380] x20: 0000000000000000 x19: 0000000000000168 x18: 0000000000006540
+> [  150.128513] x17: ffff800172d32000 x16: ffff800082d70000 x15: ffff8000827d4968
+> [  150.135646] x14: fffffffffffe653f x13: 2e656572662d7265 x12: 7466612d65737520
+> [  150.142781] x11: ffff8000827d49e8 x10: ffff8000827d49e8 x9 : 0000000000000000
+> [  150.149913] x8 : 000000000003ca11 x7 : 0000000000017fe8 x6 : 000000000003ca11
+> [  150.157046] x5 : ffff000080d09140 x4 : ffff0001f4cb0840 x3 : 000000000010fe05
+> [  150.164181] x2 : 0000000000000000 x1 : 000000000000004a x0 : ffff000083c88080
+> [  150.171314] Call trace:
+> [  150.173757]  dql_completed+0x1fc/0x20c
+> [  150.177507]  stmmac_napi_poll_tx+0x6c/0x144
+> [  150.181688]  __napi_poll+0x38/0x190
+> [  150.185174]  net_rx_action+0x140/0x294
+> [  150.188921]  handle_softirqs+0x120/0x24c
+> [  150.192843]  __do_softirq+0x14/0x20
+> [  150.196328]  ____do_softirq+0x10/0x1c
+> [  150.199987]  call_on_irq_stack+0x24/0x4c
+> [  150.203908]  do_softirq_own_stack+0x1c/0x2c
+> [  150.208088]  do_softirq+0x54/0x6c
+> [  150.211401]  __local_bh_enable_ip+0x8c/0x98
+> [  150.215583]  __dev_queue_xmit+0x4e4/0xd6c
+> [  150.219588]  ip_finish_output2+0x4cc/0x5e8
+> [  150.223682]  __ip_finish_output+0xac/0x17c
+> [  150.227776]  ip_finish_output+0x34/0x10c
+> [  150.231696]  ip_output+0x68/0xfc
+> [  150.234921]  __ip_queue_xmit+0x16c/0x464
+> [  150.238840]  ip_queue_xmit+0x14/0x20
+> [  150.242413]  __tcp_transmit_skb+0x490/0xc4c
+> [  150.246593]  tcp_connect+0xa08/0xdbc
+> [  150.250167]  tcp_v4_connect+0x35c/0x494
+> [  150.253999]  __inet_stream_connect+0xf8/0x3c8
+> [  150.258354]  inet_stream_connect+0x48/0x70
+> [  150.262447]  __sys_connect+0xe0/0xfc
+> [  150.266021]  __arm64_sys_connect+0x20/0x30
+> [  150.270113]  invoke_syscall+0x48/0x110
+> [  150.273860]  el0_svc_common.constprop.0+0xc8/0xe8
+> [  150.278561]  do_el0_svc+0x20/0x2c
+> [  150.281875]  el0_svc+0x30/0xd0
+> [  150.284929]  el0t_64_sync_handler+0x13c/0x158
+> [  150.289282]  el0t_64_sync+0x190/0x194
+> [  150.292945] Code: 7a401860 5400008b 2a0403e3 17ffff9c (d4210000)
+> [  150.299033] ---[ end trace 0000000000000000 ]---
+> [  150.303647] Kernel panic - not syncing: Oops - BUG: Fatal exception in interrupt
+> 
+> Let me know if you need any more information.
+> 
 
-[auto build test ERROR on adc218676eef25575469234709c2d87185ca223a]
+[  149.986210] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+and
+[  245.571688] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+[  245.575349] dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+are reported by stmmac_xmit() obviously, but not stmmac_tso_xmit().
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Arnaud-Pouliquen/remoteproc-core-Introduce-rproc_pa_to_va-helper/20241128-094434
-base:   adc218676eef25575469234709c2d87185ca223a
-patch link:    https://lore.kernel.org/r/20241126091042.918144-5-arnaud.pouliquen%40foss.st.com
-patch subject: [PATCH v14 4/8] remoteproc: Rename load() operation to load_segments() in rproc_ops struct
-config: i386-buildonly-randconfig-002-20241128 (https://download.01.org/0day-ci/archive/20241128/202411281332.Ra70nJAW-lkp@intel.com/config)
-compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241128/202411281332.Ra70nJAW-lkp@intel.com/reproduce)
+And these crashes are caused by "Tx DMA map failed", as you can see that
+current driver code does not handle this kind of failure so well. It is clear
+that we need to figure out why Tx DMA map failed.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411281332.Ra70nJAW-lkp@intel.com/
+This patch corrects the sequence and timing of DMA unmap by waiting all
+DMA transmit descriptors to be closed by DMA engine for one DMA map in
+stmmac_tso_xmit(), it never leaks DMA addresses and never introduces
+other side effect.
 
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/remoteproc/pru_rproc.c:24:
-   In file included from include/linux/remoteproc.h:40:
-   In file included from include/linux/virtio.h:7:
-   In file included from include/linux/scatterlist.h:8:
-   In file included from include/linux/mm.h:2213:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/remoteproc/pru_rproc.c:1018:14: error: no member named 'load' in 'struct rproc_ops'
-    1018 |         rproc->ops->load = pru_rproc_load_elf_segments;
-         |         ~~~~~~~~~~  ^
-   1 warning and 1 error generated.
-
-
-vim +1018 drivers/remoteproc/pru_rproc.c
-
-d4ce2de7e4af8b Suman Anna      2020-12-08   987  
-d4ce2de7e4af8b Suman Anna      2020-12-08   988  static int pru_rproc_probe(struct platform_device *pdev)
-d4ce2de7e4af8b Suman Anna      2020-12-08   989  {
-d4ce2de7e4af8b Suman Anna      2020-12-08   990  	struct device *dev = &pdev->dev;
-d4ce2de7e4af8b Suman Anna      2020-12-08   991  	struct device_node *np = dev->of_node;
-d4ce2de7e4af8b Suman Anna      2020-12-08   992  	struct platform_device *ppdev = to_platform_device(dev->parent);
-d4ce2de7e4af8b Suman Anna      2020-12-08   993  	struct pru_rproc *pru;
-d4ce2de7e4af8b Suman Anna      2020-12-08   994  	const char *fw_name;
-d4ce2de7e4af8b Suman Anna      2020-12-08   995  	struct rproc *rproc = NULL;
-d4ce2de7e4af8b Suman Anna      2020-12-08   996  	struct resource *res;
-d4ce2de7e4af8b Suman Anna      2020-12-08   997  	int i, ret;
-1d39f4d199214f Suman Anna      2020-12-08   998  	const struct pru_private_data *data;
-d4ce2de7e4af8b Suman Anna      2020-12-08   999  	const char *mem_names[PRU_IOMEM_MAX] = { "iram", "control", "debug" };
-d4ce2de7e4af8b Suman Anna      2020-12-08  1000  
-1d39f4d199214f Suman Anna      2020-12-08  1001  	data = of_device_get_match_data(&pdev->dev);
-1d39f4d199214f Suman Anna      2020-12-08  1002  	if (!data)
-1d39f4d199214f Suman Anna      2020-12-08  1003  		return -ENODEV;
-1d39f4d199214f Suman Anna      2020-12-08  1004  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1005  	ret = of_property_read_string(np, "firmware-name", &fw_name);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1006  	if (ret) {
-d4ce2de7e4af8b Suman Anna      2020-12-08  1007  		dev_err(dev, "unable to retrieve firmware-name %d\n", ret);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1008  		return ret;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1009  	}
-d4ce2de7e4af8b Suman Anna      2020-12-08  1010  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1011  	rproc = devm_rproc_alloc(dev, pdev->name, &pru_rproc_ops, fw_name,
-d4ce2de7e4af8b Suman Anna      2020-12-08  1012  				 sizeof(*pru));
-d4ce2de7e4af8b Suman Anna      2020-12-08  1013  	if (!rproc) {
-d4ce2de7e4af8b Suman Anna      2020-12-08  1014  		dev_err(dev, "rproc_alloc failed\n");
-d4ce2de7e4af8b Suman Anna      2020-12-08  1015  		return -ENOMEM;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1016  	}
-d4ce2de7e4af8b Suman Anna      2020-12-08  1017  	/* use a custom load function to deal with PRU-specific quirks */
-d4ce2de7e4af8b Suman Anna      2020-12-08 @1018  	rproc->ops->load = pru_rproc_load_elf_segments;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1019  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1020  	/* use a custom parse function to deal with PRU-specific resources */
-d4ce2de7e4af8b Suman Anna      2020-12-08  1021  	rproc->ops->parse_fw = pru_rproc_parse_fw;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1022  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1023  	/* error recovery is not supported for PRUs */
-d4ce2de7e4af8b Suman Anna      2020-12-08  1024  	rproc->recovery_disabled = true;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1025  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1026  	/*
-d4ce2de7e4af8b Suman Anna      2020-12-08  1027  	 * rproc_add will auto-boot the processor normally, but this is not
-d4ce2de7e4af8b Suman Anna      2020-12-08  1028  	 * desired with PRU client driven boot-flow methodology. A PRU
-d4ce2de7e4af8b Suman Anna      2020-12-08  1029  	 * application/client driver will boot the corresponding PRU
-d4ce2de7e4af8b Suman Anna      2020-12-08  1030  	 * remote-processor as part of its state machine either through the
-d4ce2de7e4af8b Suman Anna      2020-12-08  1031  	 * remoteproc sysfs interface or through the equivalent kernel API.
-d4ce2de7e4af8b Suman Anna      2020-12-08  1032  	 */
-d4ce2de7e4af8b Suman Anna      2020-12-08  1033  	rproc->auto_boot = false;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1034  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1035  	pru = rproc->priv;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1036  	pru->dev = dev;
-1d39f4d199214f Suman Anna      2020-12-08  1037  	pru->data = data;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1038  	pru->pruss = platform_get_drvdata(ppdev);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1039  	pru->rproc = rproc;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1040  	pru->fw_name = fw_name;
-919e8942548aa8 MD Danish Anwar 2023-01-06  1041  	pru->client_np = NULL;
-102853400321ba Roger Quadros   2023-01-06  1042  	spin_lock_init(&pru->rmw_lock);
-919e8942548aa8 MD Danish Anwar 2023-01-06  1043  	mutex_init(&pru->lock);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1044  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1045  	for (i = 0; i < ARRAY_SIZE(mem_names); i++) {
-d4ce2de7e4af8b Suman Anna      2020-12-08  1046  		res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
-d4ce2de7e4af8b Suman Anna      2020-12-08  1047  						   mem_names[i]);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1048  		pru->mem_regions[i].va = devm_ioremap_resource(dev, res);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1049  		if (IS_ERR(pru->mem_regions[i].va)) {
-d4ce2de7e4af8b Suman Anna      2020-12-08  1050  			dev_err(dev, "failed to parse and map memory resource %d %s\n",
-d4ce2de7e4af8b Suman Anna      2020-12-08  1051  				i, mem_names[i]);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1052  			ret = PTR_ERR(pru->mem_regions[i].va);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1053  			return ret;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1054  		}
-d4ce2de7e4af8b Suman Anna      2020-12-08  1055  		pru->mem_regions[i].pa = res->start;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1056  		pru->mem_regions[i].size = resource_size(res);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1057  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1058  		dev_dbg(dev, "memory %8s: pa %pa size 0x%zx va %pK\n",
-d4ce2de7e4af8b Suman Anna      2020-12-08  1059  			mem_names[i], &pru->mem_regions[i].pa,
-d4ce2de7e4af8b Suman Anna      2020-12-08  1060  			pru->mem_regions[i].size, pru->mem_regions[i].va);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1061  	}
-d4ce2de7e4af8b Suman Anna      2020-12-08  1062  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1063  	ret = pru_rproc_set_id(pru);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1064  	if (ret < 0)
-d4ce2de7e4af8b Suman Anna      2020-12-08  1065  		return ret;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1066  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1067  	platform_set_drvdata(pdev, rproc);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1068  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1069  	ret = devm_rproc_add(dev, pru->rproc);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1070  	if (ret) {
-d4ce2de7e4af8b Suman Anna      2020-12-08  1071  		dev_err(dev, "rproc_add failed: %d\n", ret);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1072  		return ret;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1073  	}
-d4ce2de7e4af8b Suman Anna      2020-12-08  1074  
-20ad1de0f14fbd Suman Anna      2020-12-08  1075  	pru_rproc_create_debug_entries(rproc);
-20ad1de0f14fbd Suman Anna      2020-12-08  1076  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1077  	dev_dbg(dev, "PRU rproc node %pOF probed successfully\n", np);
-d4ce2de7e4af8b Suman Anna      2020-12-08  1078  
-d4ce2de7e4af8b Suman Anna      2020-12-08  1079  	return 0;
-d4ce2de7e4af8b Suman Anna      2020-12-08  1080  }
-d4ce2de7e4af8b Suman Anna      2020-12-08  1081  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+"Tx DMA map failed" is a weird failure, and I cannot reproduce this failure
+on my device with DWMAC CORE 5.10a(Synopsys ID: 0x51) and DWXGMAC CORE 3.20a.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
