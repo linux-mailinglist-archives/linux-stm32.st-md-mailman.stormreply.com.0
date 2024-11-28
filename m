@@ -2,69 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC789DB423
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2024 09:49:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06059DB94D
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2024 15:12:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE46CC78036;
-	Thu, 28 Nov 2024 08:49:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47BCDC7802D;
+	Thu, 28 Nov 2024 14:12:15 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BBE2C78036
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8A66C78015
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Nov 2024 08:49:10 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AS20ga6032593;
- Thu, 28 Nov 2024 09:48:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- SAfvJ3TEs0/PCnOeD3h2G0c1LftVV4b4PpZbNQaqv2s=; b=CkrdQkYhhZKw0WRi
- ImF9n7YPOPpwdh0B/YQ7kzioWdqjXyf7WBhIpjL8zE2EleJV9LnZo8AXoMwVIcGK
- rNIS/HDQ9iwNSKXNuXUsO+Rl//ujxyr0LEOauRyIVlxdFIiV8qrnPQDplqWKgB2T
- nweCF/o4u9v4Pz4kA9YdGWzjrS+FE/b1XC0JKdk52kFTZRA1bQiPM6JLGZFBa6vp
- Y9XN2nIbAn9WzjmPDRs6PI8GCGdPJuu6udqWzkvaZ7b82nLhkRuBNHXLfhncSzPR
- tqZ8s8FIMrW+Q49P66HLVF2+XWE6IUu34a7Lz8dOVIrzOYwb65JMIMW1jcvl+Stt
- Agte+A==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 436713k662-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 28 Nov 2024 09:48:59 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E555F40069;
- Thu, 28 Nov 2024 09:47:33 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C7277269E10;
- Thu, 28 Nov 2024 09:43:09 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 28 Nov
- 2024 09:43:09 +0100
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 28 Nov
- 2024 09:43:09 +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 28 Nov 2024 09:42:15 +0100
-Message-ID: <20241128084219.2159197-9-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241128084219.2159197-1-arnaud.pouliquen@foss.st.com>
-References: <20241128084219.2159197-1-arnaud.pouliquen@foss.st.com>
+ Thu, 28 Nov 2024 14:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=kftlvdSPNN2/qEIMi2IQIekU3CLHwUEfGfLj5UP8QHU=; b=h20AFG9jT3cuoAi2yE6w7EFyp3
+ fj+TAnqizyy7nuytM97J2K97nfMOlvbGwli5n0+ZPpPl+czYij/Ku2QNYLKPPkNGDY6Y+14fRWG4n
+ oHlkBTnWjaT+pNzB9buunLYN3St+uJ3k2RrdxU3IQ+MHMwq0vrEQbk93wIUCCO2Tcmqw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1tGfFF-00EiC6-5Z; Thu, 28 Nov 2024 15:11:49 +0100
+Date: Thu, 28 Nov 2024 15:11:49 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <4e0fd2d9-ab05-4e0c-9179-ca5c7572084f@lunn.ch>
+References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
+ <E1tFv3F-005yhT-AA@rmk-PC.armlinux.org.uk>
+ <Z0b-nJ7bt8IlBMpz@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v15 8/8] remoteproc: stm32: Add support of an
-	OP-TEE TA to load the firmware
+Content-Disposition: inline
+In-Reply-To: <Z0b-nJ7bt8IlBMpz@shell.armlinux.org.uk>
+Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 02/23] net: phy: fix
+ phy_ethtool_set_eee() incorrectly enabling LPI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,136 +62,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The new TEE remoteproc driver is used to manage remote firmware in a
-secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
-introduced to delegate the loading of the firmware to the trusted
-execution context. In such cases, the firmware should be signed and
-adhere to the image format defined by the TEE.
+On Wed, Nov 27, 2024 at 11:12:28AM +0000, Russell King (Oracle) wrote:
+> On Tue, Nov 26, 2024 at 12:52:21PM +0000, Russell King (Oracle) wrote:
+> > @@ -1685,15 +1685,21 @@ EXPORT_SYMBOL(phy_ethtool_get_eee);
+> >  static void phy_ethtool_set_eee_noneg(struct phy_device *phydev,
+> >  				      const struct eee_config *old_cfg)
+> >  {
+> > -	if (phydev->eee_cfg.tx_lpi_enabled != old_cfg->tx_lpi_enabled ||
+> > +	bool enable_tx_lpi;
+> > +
+> > +	if (!phydev->link)
+> > +		return;
+> > +
+> > +	enable_tx_lpi = phydev->eee_cfg.tx_lpi_enabled && phydev->eee_active;
+> > +
+> > +	if (phydev->enable_tx_lpi != enable_tx_lpi ||
+> >  	    phydev->eee_cfg.tx_lpi_timer != old_cfg->tx_lpi_timer) {
+> 
+> I'm wondering whether this should be:
+> 
+> 	if (phydev->enable_tx_lpi != enable_tx_lpi ||
+> 	    (phydev->enable_tx_lpi &&
+> 	     phydev->eee_cfg.tx_lpi_timer != old_cfg->tx_lpi_timer)) {
+> 
+> The argument for this change would be to avoid cycling the link when the
+> LPI timer changes but we're not using LPI.
+> 
+> The argument against this change would be that then we don't program the
+> hardware, and if the driver reads the initial value from hardware and
+> is unbound/rebound, we'll lose that update whereas before the phylib
+> changes, it would have been preserved.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
-updates vs version V13:
-- register load_fw() ops instead of load() to call rproc_tee_load_fw()
+unbound/rebound is a pretty unusual use case. I would not consider
+that a strong argument against it.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/stm32_rproc.c | 57 ++++++++++++++++++++++++++++++--
- 1 file changed, 54 insertions(+), 3 deletions(-)
+This is the case where we don't need to perform negotiation. So it is
+going to be a fast operation compared to when we do need negotiation.
+So i wounder if we really need to care?  Donald Knuth, Premature
+optimisation is the root of all evil, etc...
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 1586978c5757..c155822324d8 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -18,6 +18,7 @@
- #include <linux/pm_wakeirq.h>
- #include <linux/regmap.h>
- #include <linux/remoteproc.h>
-+#include <linux/remoteproc_tee.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
-@@ -255,6 +256,19 @@ static int stm32_rproc_release(struct rproc *rproc)
- 	return 0;
- }
- 
-+static int stm32_rproc_tee_stop(struct rproc *rproc)
-+{
-+	int err;
-+
-+	stm32_rproc_request_shutdown(rproc);
-+
-+	err = rproc_tee_stop(rproc);
-+	if (err)
-+		return err;
-+
-+	return stm32_rproc_release(rproc);
-+}
-+
- static int stm32_rproc_prepare(struct rproc *rproc)
- {
- 	struct device *dev = rproc->dev.parent;
-@@ -691,8 +705,20 @@ static const struct rproc_ops st_rproc_ops = {
- 	.get_boot_addr	= rproc_elf_get_boot_addr,
- };
- 
-+static const struct rproc_ops st_rproc_tee_ops = {
-+	.prepare	= stm32_rproc_prepare,
-+	.start		= rproc_tee_start,
-+	.stop		= stm32_rproc_tee_stop,
-+	.kick		= stm32_rproc_kick,
-+	.load_fw	= rproc_tee_load_fw,
-+	.parse_fw	= rproc_tee_parse_fw,
-+	.find_loaded_rsc_table = rproc_tee_find_loaded_rsc_table,
-+	.release_fw	= rproc_tee_release_fw,
-+};
-+
- static const struct of_device_id stm32_rproc_match[] = {
- 	{ .compatible = "st,stm32mp1-m4" },
-+	{ .compatible = "st,stm32mp1-m4-tee" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, stm32_rproc_match);
-@@ -853,15 +879,36 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	struct rproc *rproc;
- 	unsigned int state;
-+	u32 proc_id;
- 	int ret;
- 
- 	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret)
- 		return ret;
- 
--	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
--	if (!rproc)
--		return -ENOMEM;
-+	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
-+		/*
-+		 * Delegate the firmware management to the secure context.
-+		 * The firmware loaded has to be signed.
-+		 */
-+		ret = of_property_read_u32(np, "st,proc-id", &proc_id);
-+		if (ret) {
-+			dev_err(dev, "failed to read st,rproc-id property\n");
-+			return ret;
-+		}
-+
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_tee_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+
-+		ret = rproc_tee_register(dev, rproc, proc_id);
-+		if (ret)
-+			return dev_err_probe(dev, ret,  "signed firmware not supported by TEE\n");
-+	} else {
-+		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-+		if (!rproc)
-+			return -ENOMEM;
-+	}
- 
- 	ddata = rproc->priv;
- 
-@@ -913,6 +960,8 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+	rproc_tee_unregister(rproc);
-+
- 	return ret;
- }
- 
-@@ -933,6 +982,8 @@ static void stm32_rproc_remove(struct platform_device *pdev)
- 		dev_pm_clear_wake_irq(dev);
- 		device_init_wakeup(dev, false);
- 	}
-+
-+	rproc_tee_unregister(rproc);
- }
- 
- static int stm32_rproc_suspend(struct device *dev)
--- 
-2.25.1
-
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
