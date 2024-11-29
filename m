@@ -2,49 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543279DB97D
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2024 15:22:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB589DECC4
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Nov 2024 21:58:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB4F6C7802D;
-	Thu, 28 Nov 2024 14:22:19 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E6BFC6C855;
+	Fri, 29 Nov 2024 20:58:34 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22EEFC78015
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83588C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Nov 2024 14:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=PmKBbKYuoLleqExWJCCCSze5Rdx0CWrSTJ6oO6RpaSM=; b=MW64YBdgJ+mct0zLl1Xod9CUgv
- lvEaoPD4oOeg9rzPup/jyaNJ8lfKoRZR8Ol8VNvh467jvNxNXa7HOCtTNtcu7MxaC47EhsDXY69AT
- tPY8pvSsDJHciOBE7d4+V+KaVUNbbuPE0AfLheBR1OyNg7Bi14obRx+WFPEhU8xU0dpI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1tGfP5-00EiFo-8J; Thu, 28 Nov 2024 15:21:59 +0100
-Date: Thu, 28 Nov 2024 15:21:59 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <46498cdf-3582-4bbc-a00d-c02ff72cf600@lunn.ch>
-References: <Z0XEWGqLJ8okNSIr@shell.armlinux.org.uk>
- <Z0cAaH30cXo38xwE@shell.armlinux.org.uk>
+ Fri, 29 Nov 2024 20:58:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 9F35AA412FE;
+ Fri, 29 Nov 2024 20:56:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75BDC4CECF;
+ Fri, 29 Nov 2024 20:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1732913905;
+ bh=zZKblG1oW6ilUbzaYkY0HepGVylQVjpGP80Xxjdr6Pk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=KQiVBSEXjNg3lOwoGvXRCuJjrm7xatbZwYoYfv8aYFd2HC0x5IJwKuqgoADK5cx9K
+ +KX+jmQbgvhKJQM5fpzL2YlJNdEYoFU52WttObfeKoS51O5ro2RHnsjH0sbHk9v4jY
+ mZ01idn5tzWZJrtgbtOuJnR9QciqUf3vbKpMkiMsrzTUEVedYbbKlXa+qwBpRIpc7o
+ j+JCVS5cVlgBCevSGvuoEVGWDx9TIVWsyegp2YjjAfCfT4NCKKbPs/KphT0mSysSZW
+ 8jgaVREpqN7BRnHS8uFMKh7fbOU8g8VMxSepgeHdPF4OoFOGbZAZqPDYvxd+5nR92a
+ F2eJxFgKs3hvQ==
+Date: Fri, 29 Nov 2024 14:58:22 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Christian Bruel <christian.bruel@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>
+Message-ID: <20241129205822.GA2772018@bhelgaas>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Z0cAaH30cXo38xwE@shell.armlinux.org.uk>
-Cc: UNGLinuxDriver@microchip.com, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] net: ti: weirdness (was Re: [PATCH RFC net-next
- 00/23] net: phylink managed EEE support)
+In-Reply-To: <20241126155119.1574564-3-christian.bruel@foss.st.com>
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
+ cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
+ mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
+ bhelgaas@google.com, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/5] PCI: stm32: Add PCIe host support
+	for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,55 +60,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 27, 2024 at 11:20:08AM +0000, Russell King (Oracle) wrote:
-> On Tue, Nov 26, 2024 at 12:51:36PM +0000, Russell King (Oracle) wrote:
-> > In doing this, I came across the fact that the addition of phylib
-> > managed EEE support has actually broken a huge number of drivers -
-> > phylib will now overwrite all members of struct ethtool_keee whether
-> > the netdev driver wants it or not. This leads to weird scenarios where
-> > doing a get_eee() op followed by a set_eee() op results in e.g.
-> > tx_lpi_timer being zeroed, because the MAC driver doesn't know it needs
-> > to initialise phylib's phydev->eee_cfg.tx_lpi_timer member. This mess
-> > really needs urgently addressing, and I believe it came about because
-> > Andrew's patches were only partly merged via another party - I guess
-> > highlighting the inherent danger of "thou shalt limit your patch series
-> > to no more than 15 patches" when one has a subsystem who's in-kernel
-> > API is changing.
-> 
-> Looking at the two TI offerings that call phy_ethtool_get_eee(), both
-> of them call the phylib functions from their ethtool ops, but it looks
-> like the driver does diddly squat with LPI state, which makes me wonder
-> why they implemented the calls to phy_ethtool_get_eee() and
-> phy_ethtool_set_eee(), since EEE will not be functional unless the PHY
-> has been configured with a SmartEEE mode outside the kernel.
+[+to Rob, DMA mask question]
 
-Probably because they did not know what they were doing, and it got
-past reviewers.
+On Tue, Nov 26, 2024 at 04:51:16PM +0100, Christian Bruel wrote:
+> Add driver for the STM32MP25 SoC PCIe Gen2 controller based on the
+> DesignWare PCIe core.
 
-Well, actually:
+Can you include the numeric rate, not just "gen2", so we don't have to
+search for it?
 
-commit a090994980a15f8cc14fc188b5929bd61d2ae9c3
-Author: Yegor Yefremov <yegorslists@googlemail.com>
-Date:   Mon Nov 28 09:41:33 2016 +0100
+> +static int stm32_pcie_resume_noirq(struct device *dev)
+> +{
+> +	struct stm32_pcie *stm32_pcie = dev_get_drvdata(dev);
+> +	struct dw_pcie *pci = stm32_pcie->pci;
+> +	struct dw_pcie_rp *pp = &pci->pp;
+> +	int ret;
+> +
+> +	/* init_state must be called first to force clk_req# gpio when no
+> +	 * device is plugged.
+> +	 */
 
-    cpsw: ethtool: add support for getting/setting EEE registers
-    
-    Add the ability to query and set Energy Efficient Ethernet parameters
-    via ethtool for applicable devices.
-    
-    This patch doesn't activate full EEE support in cpsw driver, but it
-    enables reading and writing EEE advertising settings. This way one
-    can disable advertising EEE for certain speeds.
-    
-    Signed-off-by: Yegor Yefremov <yegorslists@googlemail.com>
-    Acked-by: Rami Rosen <roszenrami@gmail.com>
-    Signed-off-by: David S. Miller <davem@davemloft.net>
+Use drivers/pci/ conventional comment style:
 
-Seems like somebody had an issue and did the minimum to work around
-the issue. This also suggests the hardware is doing EEE by default,
-hopefully with some sort of sensible hardware defaults.
+  /*
+   * text ...
+   */
 
-	Andrew
+> +static bool is_stm32_pcie_driver(struct device *dev)
+> +{
+> +	/* PCI bridge */
+> +	dev = get_device(dev);
+> +
+> +	/* Platform driver */
+> +	dev = get_device(dev->parent);
+> +
+> +	return (dev->driver == &stm32_pcie_driver.driver);
+> +}
+> +
+> +/*
+> + * DMA masters can only access the first 4GB of memory space,
+> + * so we setup the bus DMA limit accordingly.
+> + */
+> +static int stm32_dma_limit(struct pci_dev *pdev, void *data)
+> +{
+> +	dev_dbg(&pdev->dev, "disabling DMA DAC for device");
+> +
+> +	pdev->dev.bus_dma_limit = DMA_BIT_MASK(32);
+
+I don't think this is the right way to do this.  Surely there's a way
+to describe the DMA capability of the bridge once instead of iterating
+over all the downstream devices?  This quirk can't work for hot-added
+devices anyway.
+
+> +	return 0;
+> +}
+> +
+> +static void quirk_stm32_dma_mask(struct pci_dev *pci)
+> +{
+> +	struct pci_dev *root_port;
+> +
+> +	root_port = pcie_find_root_port(pci);
+> +
+> +	if (root_port && is_stm32_pcie_driver(root_port->dev.parent))
+> +		pci_walk_bus(pci->bus, stm32_dma_limit, NULL);
+> +}
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SYNOPSYS, 0x0550, quirk_stm32_dma_mask);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
