@@ -2,45 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC1309DECDC
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Nov 2024 22:19:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E15CA9DF59D
+	for <lists+linux-stm32@lfdr.de>; Sun,  1 Dec 2024 13:55:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86F79C6C855;
-	Fri, 29 Nov 2024 21:19:18 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85C73C6B47E;
+	Sun,  1 Dec 2024 12:55:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2DCEC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F07FC03FC0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Nov 2024 21:19:10 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[IPv6:::1]) by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1tH8Nv-00058G-Qc; Fri, 29 Nov 2024 22:18:43 +0100
-Message-ID: <9ca967aea19d6c28327f3a9bb77e23f6245603e9.camel@pengutronix.de>
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Bjorn Helgaas <helgaas@kernel.org>, Christian Bruel
- <christian.bruel@foss.st.com>, Rob Herring <robh+dt@kernel.org>
-Date: Fri, 29 Nov 2024 22:18:40 +0100
-In-Reply-To: <20241129205822.GA2772018@bhelgaas>
-References: <20241129205822.GA2772018@bhelgaas>
-User-Agent: Evolution 3.52.4 (3.52.4-2.fc40) 
+ Sun,  1 Dec 2024 12:55:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3BFA05C578F;
+ Sun,  1 Dec 2024 12:54:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29958C4CECF;
+ Sun,  1 Dec 2024 12:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733057728;
+ bh=+wExzTFQM8nAve73xnTS4Dc8Iv9ma5WmvnqKO14ZKkw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=EjKm+X5TsDeRu2LYkynq7HbezMY9D1Jk2/dOPBpl6uEJBT1tzmMNhIhhegG+hJv9u
+ DAlafUYOu0MoHnwTMutTGPsYZIWDeyxBl3jZ+wugs3WZlf8bfSnedW8Hfu2WhhnP3m
+ ydKWaRVxMLcnw5rRpW808yU0ijQ0lwjfbxHIxiVQ2zEpecJoJibgbL6uVhEvA5mh48
+ 88Gx67Fa/PI26uGXTcEa6klm4/OUi+JKGe4OOkXcVoxdvU855bxs6YSyua9HY+6liM
+ Ya8cgOu1xCPZem0yE9MDAc/GBg/VB3pDI8SevKl6WqwEmWU+MRc34/mMGfhNt0apLz
+ fbFYs6Bhf9UkA==
+Date: Sun, 1 Dec 2024 12:55:18 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Message-ID: <20241201125518.29373281@jic23-huawei>
+In-Reply-To: <20241123220149.30655-1-jiashengjiangcool@gmail.com>
+References: <20241123220149.30655-1-jiashengjiangcool@gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
- cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
- bhelgaas@google.com, krzk+dt@kernel.org,
+Cc: tgamblin@baylibre.com, lars@metafoo.de, benjamin.gaignard@linaro.org,
+ fabrice.gasnier@st.com, linux-iio@vger.kernel.org, lee@kernel.org,
+ linux-kernel@vger.kernel.org, u.kleine-koenig@baylibre.com,
+ mcoquelin.stm32@gmail.com, dlechner@baylibre.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/5] PCI: stm32: Add PCIe host support
-	for STM32MP25
+Subject: Re: [Linux-stm32] [PATCH v5] iio: trigger: stm32-timer-trigger: Add
+ check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,80 +59,179 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Freitag, dem 29.11.2024 um 14:58 -0600 schrieb Bjorn Helgaas:
-> [+to Rob, DMA mask question]
-> 
-> On Tue, Nov 26, 2024 at 04:51:16PM +0100, Christian Bruel wrote:
-> > Add driver for the STM32MP25 SoC PCIe Gen2 controller based on the
-> > DesignWare PCIe core.
-> 
-> Can you include the numeric rate, not just "gen2", so we don't have to
-> search for it?
-> 
-> > +static int stm32_pcie_resume_noirq(struct device *dev)
-> > +{
-> > +	struct stm32_pcie *stm32_pcie = dev_get_drvdata(dev);
-> > +	struct dw_pcie *pci = stm32_pcie->pci;
-> > +	struct dw_pcie_rp *pp = &pci->pp;
-> > +	int ret;
-> > +
-> > +	/* init_state must be called first to force clk_req# gpio when no
-> > +	 * device is plugged.
-> > +	 */
-> 
-> Use drivers/pci/ conventional comment style:
-> 
->   /*
->    * text ...
->    */
-> 
-> > +static bool is_stm32_pcie_driver(struct device *dev)
-> > +{
-> > +	/* PCI bridge */
-> > +	dev = get_device(dev);
-> > +
-> > +	/* Platform driver */
-> > +	dev = get_device(dev->parent);
-> > +
-> > +	return (dev->driver == &stm32_pcie_driver.driver);
-> > +}
-> > +
-> > +/*
-> > + * DMA masters can only access the first 4GB of memory space,
-> > + * so we setup the bus DMA limit accordingly.
-> > + */
-> > +static int stm32_dma_limit(struct pci_dev *pdev, void *data)
-> > +{
-> > +	dev_dbg(&pdev->dev, "disabling DMA DAC for device");
-> > +
-> > +	pdev->dev.bus_dma_limit = DMA_BIT_MASK(32);
-> 
-> I don't think this is the right way to do this.  Surely there's a way
-> to describe the DMA capability of the bridge once instead of iterating
-> over all the downstream devices?  This quirk can't work for hot-added
-> devices anyway.
-> 
-This should simply be a dma-ranges property in the PCIe host controller
-DT node, which should describe the DMA address range limits for
-transactions passing through the host.
+On Sat, 23 Nov 2024 22:01:49 +0000
+Jiasheng Jiang <jiashengjiangcool@gmail.com> wrote:
 
-Regards,
-Lucas
-
-> > +	return 0;
-> > +}
-> > +
-> > +static void quirk_stm32_dma_mask(struct pci_dev *pci)
-> > +{
-> > +	struct pci_dev *root_port;
-> > +
-> > +	root_port = pcie_find_root_port(pci);
-> > +
-> > +	if (root_port && is_stm32_pcie_driver(root_port->dev.parent))
-> > +		pci_walk_bus(pci->bus, stm32_dma_limit, NULL);
-> > +}
-> > +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SYNOPSYS, 0x0550, quirk_stm32_dma_mask);
+> Add check for the return value of clk_enable() in order to catch the
+> potential exception.
 > 
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Applied.
+
+thanks,
+
+Jonathan
+
+> ---
+> Changelog:
+> 
+> v4 -> v5:
+> 
+> 1. Add a default in the switch.
+> 
+> v3 -> v4:
+> 
+> 1. Place braces around the case body.
+> 
+> v2 -> v3:
+> 
+> 1. Use guard() to simplify the resulting code.
+> 
+> v1 -> v2:
+> 
+> 1. Remove unsuitable dev_err_probe().
+> ---
+>  drivers/iio/trigger/stm32-timer-trigger.c | 49 ++++++++++++++---------
+>  1 file changed, 29 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+> index 0684329956d9..67528ec7d0a5 100644
+> --- a/drivers/iio/trigger/stm32-timer-trigger.c
+> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
+> @@ -119,7 +119,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  			     unsigned int frequency)
+>  {
+>  	unsigned long long prd, div;
+> -	int prescaler = 0;
+> +	int prescaler = 0, ret;
+>  	u32 ccer;
+>  
+>  	/* Period and prescaler values depends of clock rate */
+> @@ -150,10 +150,12 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  	if (ccer & TIM_CCER_CCXE)
+>  		return -EBUSY;
+>  
+> -	mutex_lock(&priv->lock);
+> +	guard(mutex)(&priv->lock);
+>  	if (!priv->enabled) {
+>  		priv->enabled = true;
+> -		clk_enable(priv->clk);
+> +		ret = clk_enable(priv->clk);
+> +		if (ret)
+> +			return ret;
+>  	}
+>  
+>  	regmap_write(priv->regmap, TIM_PSC, prescaler);
+> @@ -173,7 +175,6 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  
+>  	/* Enable controller */
+>  	regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+> -	mutex_unlock(&priv->lock);
+>  
+>  	return 0;
+>  }
+> @@ -307,7 +308,7 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+>  	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
+>  	struct iio_trigger *trig = to_iio_trigger(dev);
+>  	u32 mask, shift, master_mode_max;
+> -	int i;
+> +	int i, ret;
+>  
+>  	if (stm32_timer_is_trgo2_name(trig->name)) {
+>  		mask = TIM_CR2_MMS2;
+> @@ -322,15 +323,16 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+>  	for (i = 0; i <= master_mode_max; i++) {
+>  		if (!strncmp(master_mode_table[i], buf,
+>  			     strlen(master_mode_table[i]))) {
+> -			mutex_lock(&priv->lock);
+> +			guard(mutex)(&priv->lock);
+>  			if (!priv->enabled) {
+>  				/* Clock should be enabled first */
+>  				priv->enabled = true;
+> -				clk_enable(priv->clk);
+> +				ret = clk_enable(priv->clk);
+> +				if (ret)
+> +					return ret;
+>  			}
+>  			regmap_update_bits(priv->regmap, TIM_CR2, mask,
+>  					   i << shift);
+> -			mutex_unlock(&priv->lock);
+>  			return len;
+>  		}
+>  	}
+> @@ -482,6 +484,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				   int val, int val2, long mask)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> +	int ret;
+>  
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> @@ -491,12 +494,14 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  		/* fixed scale */
+>  		return -EINVAL;
+>  
+> -	case IIO_CHAN_INFO_ENABLE:
+> -		mutex_lock(&priv->lock);
+> +	case IIO_CHAN_INFO_ENABLE: {
+> +		guard(mutex)(&priv->lock);
+>  		if (val) {
+>  			if (!priv->enabled) {
+>  				priv->enabled = true;
+> -				clk_enable(priv->clk);
+> +				ret = clk_enable(priv->clk);
+> +				if (ret)
+> +					return ret;
+>  			}
+>  			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
+>  		} else {
+> @@ -506,11 +511,12 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				clk_disable(priv->clk);
+>  			}
+>  		}
+> -		mutex_unlock(&priv->lock);
+> +
+>  		return 0;
+>  	}
+> -
+> -	return -EINVAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+>  }
+>  
+>  static int stm32_counter_validate_trigger(struct iio_dev *indio_dev,
+> @@ -601,7 +607,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  				 unsigned int mode)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> -	int sms = stm32_enable_mode2sms(mode);
+> +	int sms = stm32_enable_mode2sms(mode), ret;
+>  
+>  	if (sms < 0)
+>  		return sms;
+> @@ -609,12 +615,15 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  	 * Triggered mode sets CEN bit automatically by hardware. So, first
+>  	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
+>  	 */
+> -	mutex_lock(&priv->lock);
+> -	if (sms == 6 && !priv->enabled) {
+> -		clk_enable(priv->clk);
+> -		priv->enabled = true;
+> +	scoped_guard(mutex, &priv->lock) {
+> +		if (sms == 6 && !priv->enabled) {
+> +			ret = clk_enable(priv->clk);
+> +			if (ret)
+> +				return ret;
+> +
+> +			priv->enabled = true;
+> +		}
+>  	}
+> -	mutex_unlock(&priv->lock);
+>  
+>  	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
