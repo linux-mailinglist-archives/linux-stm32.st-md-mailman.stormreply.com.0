@@ -2,75 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC85F9E0902
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Dec 2024 17:48:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A2E9E0E57
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Dec 2024 23:03:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38FDAC78002;
-	Mon,  2 Dec 2024 16:48:58 +0000 (UTC)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E270DC78006;
+	Mon,  2 Dec 2024 22:03:52 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E374CC71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81A68C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Dec 2024 16:48:50 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-7ea9739647bso3118631a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Dec 2024 08:48:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733158129; x=1733762929;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Klyt3BeokDN44ugCW3DvcncSUZPVR3R8tgu53HoR6yc=;
- b=eeje1ENNnsnPCNN/DJraFHqZZSnBgDk1iZ1CA6ZaGrPn2abPAtZS8xiT3hoKLW/aoU
- pFmgxmKWVv5IBbwfg0gcwmM0byXmbyL6iyeVP6jMi/VVD5Y7fCJOHRSJ937ZxcnEPh0J
- Zro4ywdaI8ZGUSco5aROo6gPmBF6v2nuYzc/AhoBd3rJOCIZ89qHB5SN0rXaNs2LY9CA
- xWyYFOrTjxzCgKyRLhnFWp8oAknDOMdd4VcEnTnFON40Ek2/yOaaqJj9iJttNGAhHrV+
- 3dmOkcGD9qPPkFNDHk4+WMFGAt+eQdLVgCqO0yVZZGvzcllNQMqaDWQTDtCs/h1TAymo
- 2Hlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733158129; x=1733762929;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Klyt3BeokDN44ugCW3DvcncSUZPVR3R8tgu53HoR6yc=;
- b=Mci46OFZoxxSjAk5g8v9DF2mizv/ydvQ7Gg4Alpw80Lup6/xijJOL1xagnSq8InLrL
- qbeS4tHJk5l4AZCm8FS1PZqQ4x59glrb2RTR2VzhpvB9Dq6qm3U4VXTfHHqoaeQIsG7v
- cAjJNkhRInjuZe/s9RTmmW4ZUYWfunb2MGmUgVGm3WDVDzLRrXfrsKR6x+21QDqO/4rf
- Kqj6QOtOyqR1jxP/f1N2bBuHAQaLce2mw9E69amH/BQO8sJSSVMJNS+0BitR7sNNwhUV
- A7NykIf+3mATNZNNmLSD1YHRKTeVtkBIBw4YI2lLnUCWRzBDXUjn9qHjpHWTbCRO8ZGX
- lmjQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFRvEBD/QP86/pJ18I8PBxibxXj4N0ghp+h7SN2+pAH38vl4x2yx3OoSDqgmceahl5+4lCpZGgb2jBFg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw6V0ZDrA6/iSwdtuObwpz695V0AFW7bYKqKdYLB2zhOwuqkfck
- loseLZZJwPC98fI7k8Z3mqq2rQ5AFCXQoyqZ1HaTdrGGvJDOv0PLLgt/Jii983c=
-X-Gm-Gg: ASbGnct8tV7haC2eDICXeQY2gWGfJDD5ulYNiMck6XIkVjNHe9mb56mf5C9ilDVpeBF
- +OXX6BlsEA9pxx/w6UlcstdNiaVammhPL0zgVr2iisXa9TIOD3DYnfvYu5QM6mT7Om0sXcBUq+c
- sbeSC47fd3PuS/JPWfkNOnIpLGGK0JjKCzYi4Js4L/bkuKVeUuf3vlCAzajJcImHKQMv6l8sAaj
- gj4VT67HUARjpRsR/UwUOddVPExgaJM7QsmyCRWhTfLTP2FOBkzhA==
-X-Google-Smtp-Source: AGHT+IH0BcQMvBTUCDM/IzMifwY/P/r9GOVp7WKhH22kmbfItDPKR+9O2x4fGXRN0aWb5E49FibgUA==
-X-Received: by 2002:a05:6a20:158a:b0:1cf:27bf:8e03 with SMTP id
- adf61e73a8af0-1e0e0b10997mr34022178637.26.1733158129360; 
- Mon, 02 Dec 2024 08:48:49 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:813b:da83:de65:fc6a])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72541849509sm8706120b3a.197.2024.12.02.08.48.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 08:48:48 -0800 (PST)
-Date: Mon, 2 Dec 2024 09:48:46 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <Z03k7v6JuA2bCj9x@p14s>
-References: <20241122175127.2188037-1-arnaud.pouliquen@foss.st.com>
+ Mon,  2 Dec 2024 22:03:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 33A8FA412F0;
+ Mon,  2 Dec 2024 22:01:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21DA7C4CED2;
+ Mon,  2 Dec 2024 22:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733177024;
+ bh=m97YtqZ0nOeP7DlKMU96/zqeCgvOSU2UBu4HI+SXTrE=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=suBtcrMhV2fSZlAboW4SMzYp4uycjSteA321rOR2y3MQy6nRZyGCykqAWRyeOZnL1
+ Hgwz8cAQkkeUYr3JRXYvW2p7pbjiXUiHiPTi0VyTHKNEoJWl1qsHQXg/PVhly0oGJm
+ 3ZnPS4imCA/chjMTa/5ZncC7XB7w0mXydoewcK8EfZSbVCQ5GGmiuXRbgbbw0szYfz
+ w31uCh1NtP2HpTmp99XXbh6T2MlK60DyvN2GMlGdtrPehDhyHpPGbKSHxVRQTall0B
+ p7TI2DzApXS1JGCZ8EbYcEqnmXs2qABO7x/RSagzTmKnTaE0+ZYijv/F+oo7Pkg+nz
+ 0JKYADbX0K1Lw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 00CD2E69E92;
+ Mon,  2 Dec 2024 22:03:44 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Mon, 02 Dec 2024 23:03:39 +0100
+Message-Id: <20241202-upstream_s32cc_gmac-v7-0-bc3e1f9f656e@oss.nxp.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241122175127.2188037-1-arnaud.pouliquen@foss.st.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: core: Fix ida_free call while
-	not allocated
+X-B4-Tracking: v=1; b=H4sIALsuTmcC/23PTW6DMBAF4KtEXtfR2MZ/XfUeVRXBME68wCCbI
+ qqIu9dh01Rh+fQ039PcWaEcqbD3051lWmKJY6rBvp0Y3tp0JR77mpkE2YCXin9PZc7UDpeiJOL
+ lOrTIjfOCOqs7IQ2rl1OmENdd/WSJZp5ondlXbW6xzGP+2ecWtfcPWYA4lhfFgfeu6XRrbOcVf
+ IylnNM6nXEcdnFpnhTpjpWmKqCMcEEAKZKviv5ThPDHiq6K7RE9BAyBwqtinhTZHCvm8RFqKxx
+ iABD/lW3bfgH71upxlAEAAA==
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>, 
+ Minda Chen <minda.chen@starfivetech.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>, 
+ Keyur Chudgar <keyur@os.amperecomputing.com>, 
+ Quan Nguyen <quan@os.amperecomputing.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733177021; l=4944;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=m97YtqZ0nOeP7DlKMU96/zqeCgvOSU2UBu4HI+SXTrE=;
+ b=LRmGIZz1oyy/VKtHAoJ/DaPlHu7EU9479mUEusQCDeEqkwrULahRx/1/l+G9AxGE+is73m0Su
+ mLi9xojFVa1CiygfStQophpuhjf6feJFlQKOt3U21G5ch+PknJ1KOFu
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
+ fancer.lancer@gmail.com, 0x1207@gmail.com,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-msm@vger.kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v7 00/15] Add support for Synopsis
+ DWMAC IP on NXP Automotive SoCs S32G2xx/S32G3xx/S32R45
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,100 +93,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: jan.petrous@oss.nxp.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 22, 2024 at 06:51:27PM +0100, Arnaud Pouliquen wrote:
-> In the rproc_alloc() function, on error, put_device(&rproc->dev) is
-> called, leading to the call of the rproc_type_release() function.
-> An error can occurs before ida_alloc is called.
-> 
-> In such case in rproc_type_release(), the condition (rproc->index >= 0) is
-> true as rproc->index has been  initialized to 0.
-> ida_free() is called reporting a warning:
-> [    4.181906] WARNING: CPU: 1 PID: 24 at lib/idr.c:525 ida_free+0x100/0x164
-> [    4.186378] stm32-display-dsi 5a000000.dsi: Fixed dependency cycle(s) with /soc/dsi@5a000000/panel@0
-> [    4.188854] ida_free called for id=0 which is not allocated.
-> [    4.198256] mipi-dsi 5a000000.dsi.0: Fixed dependency cycle(s) with /soc/dsi@5a000000
-> [    4.203556] Modules linked in: panel_orisetech_otm8009a dw_mipi_dsi_stm(+) gpu_sched dw_mipi_dsi stm32_rproc stm32_crc32 stm32_ipcc(+) optee(+)
-> [    4.224307] CPU: 1 UID: 0 PID: 24 Comm: kworker/u10:0 Not tainted 6.12.0 #442
-> [    4.231481] Hardware name: STM32 (Device Tree Support)
-> [    4.236627] Workqueue: events_unbound deferred_probe_work_func
-> [    4.242504] Call trace:
-> [    4.242522]  unwind_backtrace from show_stack+0x10/0x14
-> [    4.250218]  show_stack from dump_stack_lvl+0x50/0x64
-> [    4.255274]  dump_stack_lvl from __warn+0x80/0x12c
-> [    4.260134]  __warn from warn_slowpath_fmt+0x114/0x188
-> [    4.265199]  warn_slowpath_fmt from ida_free+0x100/0x164
-> [    4.270565]  ida_free from rproc_type_release+0x38/0x60
-> [    4.275832]  rproc_type_release from device_release+0x30/0xa0
-> [    4.281601]  device_release from kobject_put+0xc4/0x294
-> [    4.286762]  kobject_put from rproc_alloc.part.0+0x208/0x28c
-> [    4.292430]  rproc_alloc.part.0 from devm_rproc_alloc+0x80/0xc4
-> [    4.298393]  devm_rproc_alloc from stm32_rproc_probe+0xd0/0x844 [stm32_rproc]
-> [    4.305575]  stm32_rproc_probe [stm32_rproc] from platform_probe+0x5c/0xbc
-> 
-> 
-> Calling ida_alloc earlier in rproc_alloc ensures that the rproc->index is
-> properly set.
-> 
-> Fixes: 08333b911f01 ("remoteproc: Directly use ida_alloc()/free()")
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
-> Note for backporting to previous kernel versions: The SHA 08333b911f01
-> seems to correspond to the last commit that updated IDA allocation.
-> The issue existed before, but the fix could not be applied without some
-> rework.
-> ---
->  drivers/remoteproc/remoteproc_core.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index f276956f2c5c..ef6febe35633 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -2486,6 +2486,13 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->  	rproc->dev.driver_data = rproc;
->  	idr_init(&rproc->notifyids);
->  
-> +	/* Assign a unique device index and name */
-> +	rproc->index = ida_alloc(&rproc_dev_index, GFP_KERNEL);
-> +	if (rproc->index < 0) {
-> +		dev_err(dev, "ida_alloc failed: %d\n", rproc->index);
-> +		goto put_device;
-> +	}
-> +
->  	rproc->name = kstrdup_const(name, GFP_KERNEL);
->  	if (!rproc->name)
->  		goto put_device;
-> @@ -2496,13 +2503,6 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->  	if (rproc_alloc_ops(rproc, ops))
->  		goto put_device;
->  
-> -	/* Assign a unique device index and name */
-> -	rproc->index = ida_alloc(&rproc_dev_index, GFP_KERNEL);
-> -	if (rproc->index < 0) {
-> -		dev_err(dev, "ida_alloc failed: %d\n", rproc->index);
-> -		goto put_device;
-> -	}
-> -
+The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
+the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
+interface over Pinctrl device or the output can be routed
+to the embedded SerDes for SGMII connectivity.
 
-I have applied this patch.
+The provided stmmac glue code implements only basic functionality,
+interface support is restricted to RGMII only. More, including
+SGMII/SerDes support will come later.
 
-Thanks,
-Mathieu
+This patchset adds stmmac glue driver based on downstream NXP git [0].
 
->  	dev_set_name(&rproc->dev, "remoteproc%d", rproc->index);
->  
->  	atomic_set(&rproc->power, 0);
-> 
-> base-commit: adc218676eef25575469234709c2d87185ca223a
-> -- 
-> 2.25.1
-> 
+[0] https://github.com/nxp-auto-linux/linux
+
+v7:
+- rebased on v6.13-rc1 and removed RFC prefix
+- Link to v6: https://lore.kernel.org/r/20241124-upstream_s32cc_gmac-v6-0-dc5718ccf001@oss.nxp.com
+
+v6:
+- removed dead code in dwmac-intel-plat.c
+- yaml: fix indention
+- validate interface mode in probe
+- dropped patch#16 to fit in max 15 patches in series
+- Link to v5: https://lore.kernel.org/r/20241119-upstream_s32cc_gmac-v5-0-7dcc90fcffef@oss.nxp.com
+
+v5:
+- yaml: refactored compatible string to use fallback
+- yaml: fix indention in example
+- fix xmas tree formating in local variable declarations
+- removed lazy rx clk setup
+- drop PTP clock reading patch and replace it with stmmac_platform fix
+- Link to v4: https://lore.kernel.org/r/20241028-upstream_s32cc_gmac-v4-0-03618f10e3e2@oss.nxp.com
+
+v4:
+- fixed empty commit messages for rgmi_clock() helper patches
+- fixed yaml path in MAINTAINERS
+- switched to platform_driver::remove() as suggested Uwe
+- yaml: returned back all compatibility sting values
+- added better commit description for rgmii_clock() helper
+- Link to v3: https://lore.kernel.org/r/20241013-upstream_s32cc_gmac-v3-0-d84b5a67b930@oss.nxp.com
+
+v3:
+- switched to b4 WoW to overcome threading issue with b4
+- extracted the hunk with the typo fix from v2 patch#1 to separate patch
+  as Jacob suggested
+- removed dead code for RMII/MII support, which will be added alter
+- used new rgmii_clock() helper in other stmmac:dwmac glue drivers
+- yaml: compatible strings compressed to simple one "nxp,s32-dwmac",
+  removed duplicated required properties, already defined in snps,dwmac,
+  fixed example
+
+v2:
+- send to wider audience as first version missed many maintainers
+- created rgmi_clk() helper as Russell suggested (see patch#4)
+- address Andrew's, Russell's, Serge's and Simon's comments
+
+Message-ID: <AM9PR04MB85066576AD6848E2402DA354E2832@AM9PR04MB8506.eurprd04.prod.outlook.com>
+
+Cc: 
+
+Cc: 
+
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+---
+---
+Jan Petrous (OSS) (15):
+      net: driver: stmmac: Fix CSR divider comment
+      net: driver: stmmac: Extend CSR calc support
+      net: stmmac: Fix clock rate variables size
+      net: phy: Add helper for mapping RGMII link speed to clock rate
+      net: dwmac-dwc-qos-eth: Use helper rgmii_clock
+      net: dwmac-imx: Use helper rgmii_clock
+      net: dwmac-intel-plat: Use helper rgmii_clock
+      net: dwmac-rk: Use helper rgmii_clock
+      net: dwmac-starfive: Use helper rgmii_clock
+      net: macb: Use helper rgmii_clock
+      net: xgene_enet: Use helper rgmii_clock
+      net: dwmac-sti: Use helper rgmii_clock
+      dt-bindings: net: Add DT bindings for DWMAC on NXP S32G/R SoCs
+      net: stmmac: dwmac-s32: add basic NXP S32G/S32R glue driver
+      MAINTAINERS: Add Jan Petrous as the NXP S32G/R DWMAC driver maintainer
+
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 105 ++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/apm/xgene/xgene_enet_hw.c     |  16 +-
+ drivers/net/ethernet/cadence/macb_main.c           |  14 +-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig        |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+ drivers/net/ethernet/stmicro/stmmac/common.h       |   2 +
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    |  11 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    |  15 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c |  22 +--
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     |  30 +---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 189 +++++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   |  19 +--
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c    |  18 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |   2 +-
+ include/linux/phy.h                                |  23 +++
+ include/linux/stmmac.h                             |  10 +-
+ 21 files changed, 386 insertions(+), 121 deletions(-)
+---
+base-commit: 40384c840ea1944d7c5a392e8975ed088ecf0b37
+change-id: 20240923-upstream_s32cc_gmac-6891eb75b126
+
+Best regards,
+-- 
+Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
