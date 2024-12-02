@@ -2,47 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E15CA9DF59D
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Dec 2024 13:55:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726A89DF8F2
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Dec 2024 03:37:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85C73C6B47E;
-	Sun,  1 Dec 2024 12:55:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A1D5C6B47E;
+	Mon,  2 Dec 2024 02:37:10 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F07FC03FC0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E665CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Dec 2024 12:55:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3BFA05C578F;
- Sun,  1 Dec 2024 12:54:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29958C4CECF;
- Sun,  1 Dec 2024 12:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733057728;
- bh=+wExzTFQM8nAve73xnTS4Dc8Iv9ma5WmvnqKO14ZKkw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=EjKm+X5TsDeRu2LYkynq7HbezMY9D1Jk2/dOPBpl6uEJBT1tzmMNhIhhegG+hJv9u
- DAlafUYOu0MoHnwTMutTGPsYZIWDeyxBl3jZ+wugs3WZlf8bfSnedW8Hfu2WhhnP3m
- ydKWaRVxMLcnw5rRpW808yU0ijQ0lwjfbxHIxiVQ2zEpecJoJibgbL6uVhEvA5mh48
- 88Gx67Fa/PI26uGXTcEa6klm4/OUi+JKGe4OOkXcVoxdvU855bxs6YSyua9HY+6liM
- Ya8cgOu1xCPZem0yE9MDAc/GBg/VB3pDI8SevKl6WqwEmWU+MRc34/mMGfhNt0apLz
- fbFYs6Bhf9UkA==
-Date: Sun, 1 Dec 2024 12:55:18 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Message-ID: <20241201125518.29373281@jic23-huawei>
-In-Reply-To: <20241123220149.30655-1-jiashengjiangcool@gmail.com>
-References: <20241123220149.30655-1-jiashengjiangcool@gmail.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+ Mon,  2 Dec 2024 02:37:02 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-724fc1aaa91so3350618b3a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 01 Dec 2024 18:37:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733107021; x=1733711821;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bDFs4/7sYxUQAdmK+DmPfpiIkb/3lOGS37ALBYfbAeQ=;
+ b=IgfdMMrSW5vWs/Ox8827JSm4ImlnY2dPeauWyV1eaBuuzSLQz3BV881/CyPcBE3NZ0
+ aTSos0q3DD+5NlNvOEPArIdfPlI8q9sQdE/uOJXdQFSYZUXIt1pWKS+/C2NwneQLJxDd
+ qq1JmAyGYUz6jnkjf4foI3fLJqQ5i4SxToOa7opEeJn0EChD72SSmxc9ASXzLOoMq4Re
+ nKChQLVZ/q8Mz2TpypWN0NGmdagtinDyFf1Gj1/PSLsvP5vFjV4ko0h6kAS61xdgAADi
+ flI0JWtPnaBKD1ktW+nA47nSE1EwwQqvQPfSSH9l0/KLVYGq3MCNma6BhKPcHtXyLeH5
+ 6wWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733107021; x=1733711821;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bDFs4/7sYxUQAdmK+DmPfpiIkb/3lOGS37ALBYfbAeQ=;
+ b=VYX8tpm/dmSuDlZUKrHDdBM1LWKePfbQ4GJnHnpFmz2TQuSLZRLbQ6wQk0B45ycgDX
+ LZA492YELj6VHgt2ndgl1bgv2uXzf8EjOT2tr1xGhaWKE+yHfs0SWvot6VpFd3ue5Z+j
+ zav4DiZY0/PrC2j5OHQVzl0iNJpEpMWSjVJpGInAI+eFhVskftAMkyPURwYwfQGt6nOo
+ 92sbHotSMyKshCchiMGr0DKAPawu9PKUd3tWhzWhY8mXIalUg51Mqb+ZbTzIJyS2E12t
+ +zIdr6LqOYr8ATXs6xysZYX7+Quk3XWEOC9y5l0ATUJc0rOgDM17NcHaO86FxEaODw+6
+ VxoQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUpuIHOJS+zrQzxIp94sqIcsD74PrbqrcsJTaeXZJ1GiwncAQ+02KFKCX00TtwedZalbHSy65I57e3x9w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwhPgGA++LUOcyVsDZNHu51CAi57U2quOh667BCWL4ZyzCBUqBZ
+ 8JXT1riqbHBvFAsQ6ZU8cuQRzW92WH06zwQSaalH+rTGI5nGRcjO
+X-Gm-Gg: ASbGncvqN2eizbo6L4LbVnuFkrYsC3tXUAQF2rEX2HUtMHt9gkmBltatGSaliIFUi8Q
+ p/ERJKpYKgIWOu6CATQIgeAL0SU61/P/aTIcpEX9Eup4a0jMlX2iaB2QEDGPgvTY3t2fdTClkEo
+ f7+X/CaOJKW7b8pIz09GUtF53myDAimvE6NkzVblgV58KFRJGICZBabixfcoOcS2QowmE4zvGK+
+ cZbDEx9RJeLbURULMjaQKAglKw9/OodpKkn/XHLQs9kM6ocNrpdejsLRyAG55tBryTvEiLkvvCK
+ ZOSQVI3JC75bfnI=
+X-Google-Smtp-Source: AGHT+IGLWJOBt6A4ZzleNpaTexfFquv9ndvXCA2owoRgs9f4h1shTttjNxjyQrv9s0g8p/Xs1tMZ1A==
+X-Received: by 2002:a17:902:d491:b0:215:4e40:e4b0 with SMTP id
+ d9443c01a7336-2154e40e808mr142897375ad.9.1733107021039; 
+ Sun, 01 Dec 2024 18:37:01 -0800 (PST)
+Received: from yclu-ubuntu.. (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2159ebee334sm2306375ad.67.2024.12.01.18.36.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Dec 2024 18:37:00 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+Date: Mon,  2 Dec 2024 10:36:40 +0800
+Message-Id: <20241202023643.75010-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: tgamblin@baylibre.com, lars@metafoo.de, benjamin.gaignard@linaro.org,
- fabrice.gasnier@st.com, linux-iio@vger.kernel.org, lee@kernel.org,
- linux-kernel@vger.kernel.org, u.kleine-koenig@baylibre.com,
- mcoquelin.stm32@gmail.com, dlechner@baylibre.com,
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
+ Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5] iio: trigger: stm32-timer-trigger: Add
- check for clk_enable()
+Subject: [Linux-stm32] [PATCH v4 0/3] Add support for Nuvoton MA35D1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,179 +90,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 23 Nov 2024 22:01:49 +0000
-Jiasheng Jiang <jiashengjiangcool@gmail.com> wrote:
+This patch series is submitted to add GMAC support for Nuvoton MA35D1
+SoC platform. This work involves implementing a GMAC driver glue layer
+based on Synopsys DWMAC driver framework to leverage MA35D1's dual GMAC
+interface capabilities.
 
-> Add check for the return value of clk_enable() in order to catch the
-> potential exception.
-> 
-> Reviewed-by: David Lechner <dlechner@baylibre.com>
-> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Applied.
+Overview:
+  1. Added a GMAC driver glue layer for MA35D1 SoC, providing support for
+  the platform's two GMAC interfaces.
+  2. Added device tree settings, with specific configurations for our
+  development boards:
+    a. SOM board: Configured for two RGMII interfaces.
+    b. IoT board: Configured with one RGMII and one RMII interface.
+  3. Added dt-bindings for the GMAC interfaces.
 
-thanks,
+v4:
+  - Update nuvoton,ma35d1-dwmac.yaml
+    - Remove unnecessary property 'select'.
+    - Remove unnecessary compatible entries and fix items.
+    - Specify number of entries for 'reg'.
+    - Remove already defined property 'phy-handle'.
+    - Update example.
+    - Modify the property internal path delay to match the driver.
+  - Update dtsi
+    - Move 'status' to be the last property.
+  - Update dwmac-nuvoton driver
+    - Use .remove instead of .remove_new.
+    - Use dev_err_probe instead.
 
-Jonathan
+v3:
+  - Update nuvoton,ma35d1-dwmac.yaml
+    - Fix for dt_binding_check warnings/errors.
+    - Add compatible in snps,dwmac.yaml.
+  - Update dtsi
+    - Update dtsi to follow examples in yaml.
+  - Update dwmac-nuvoton driver
+    - Fix for auto build test warnings.
+    - Invalid path delay arguments will be returned.
 
-> ---
-> Changelog:
-> 
-> v4 -> v5:
-> 
-> 1. Add a default in the switch.
-> 
-> v3 -> v4:
-> 
-> 1. Place braces around the case body.
-> 
-> v2 -> v3:
-> 
-> 1. Use guard() to simplify the resulting code.
-> 
-> v1 -> v2:
-> 
-> 1. Remove unsuitable dev_err_probe().
-> ---
->  drivers/iio/trigger/stm32-timer-trigger.c | 49 ++++++++++++++---------
->  1 file changed, 29 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
-> index 0684329956d9..67528ec7d0a5 100644
-> --- a/drivers/iio/trigger/stm32-timer-trigger.c
-> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
-> @@ -119,7 +119,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->  			     unsigned int frequency)
->  {
->  	unsigned long long prd, div;
-> -	int prescaler = 0;
-> +	int prescaler = 0, ret;
->  	u32 ccer;
->  
->  	/* Period and prescaler values depends of clock rate */
-> @@ -150,10 +150,12 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->  	if (ccer & TIM_CCER_CCXE)
->  		return -EBUSY;
->  
-> -	mutex_lock(&priv->lock);
-> +	guard(mutex)(&priv->lock);
->  	if (!priv->enabled) {
->  		priv->enabled = true;
-> -		clk_enable(priv->clk);
-> +		ret = clk_enable(priv->clk);
-> +		if (ret)
-> +			return ret;
->  	}
->  
->  	regmap_write(priv->regmap, TIM_PSC, prescaler);
-> @@ -173,7 +175,6 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->  
->  	/* Enable controller */
->  	regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
-> -	mutex_unlock(&priv->lock);
->  
->  	return 0;
->  }
-> @@ -307,7 +308,7 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
->  	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
->  	struct iio_trigger *trig = to_iio_trigger(dev);
->  	u32 mask, shift, master_mode_max;
-> -	int i;
-> +	int i, ret;
->  
->  	if (stm32_timer_is_trgo2_name(trig->name)) {
->  		mask = TIM_CR2_MMS2;
-> @@ -322,15 +323,16 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
->  	for (i = 0; i <= master_mode_max; i++) {
->  		if (!strncmp(master_mode_table[i], buf,
->  			     strlen(master_mode_table[i]))) {
-> -			mutex_lock(&priv->lock);
-> +			guard(mutex)(&priv->lock);
->  			if (!priv->enabled) {
->  				/* Clock should be enabled first */
->  				priv->enabled = true;
-> -				clk_enable(priv->clk);
-> +				ret = clk_enable(priv->clk);
-> +				if (ret)
-> +					return ret;
->  			}
->  			regmap_update_bits(priv->regmap, TIM_CR2, mask,
->  					   i << shift);
-> -			mutex_unlock(&priv->lock);
->  			return len;
->  		}
->  	}
-> @@ -482,6 +484,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
->  				   int val, int val2, long mask)
->  {
->  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
-> +	int ret;
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
-> @@ -491,12 +494,14 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
->  		/* fixed scale */
->  		return -EINVAL;
->  
-> -	case IIO_CHAN_INFO_ENABLE:
-> -		mutex_lock(&priv->lock);
-> +	case IIO_CHAN_INFO_ENABLE: {
-> +		guard(mutex)(&priv->lock);
->  		if (val) {
->  			if (!priv->enabled) {
->  				priv->enabled = true;
-> -				clk_enable(priv->clk);
-> +				ret = clk_enable(priv->clk);
-> +				if (ret)
-> +					return ret;
->  			}
->  			regmap_set_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN);
->  		} else {
-> @@ -506,11 +511,12 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
->  				clk_disable(priv->clk);
->  			}
->  		}
-> -		mutex_unlock(&priv->lock);
-> +
->  		return 0;
->  	}
-> -
-> -	return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
->  }
->  
->  static int stm32_counter_validate_trigger(struct iio_dev *indio_dev,
-> @@ -601,7 +607,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
->  				 unsigned int mode)
->  {
->  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
-> -	int sms = stm32_enable_mode2sms(mode);
-> +	int sms = stm32_enable_mode2sms(mode), ret;
->  
->  	if (sms < 0)
->  		return sms;
-> @@ -609,12 +615,15 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
->  	 * Triggered mode sets CEN bit automatically by hardware. So, first
->  	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
->  	 */
-> -	mutex_lock(&priv->lock);
-> -	if (sms == 6 && !priv->enabled) {
-> -		clk_enable(priv->clk);
-> -		priv->enabled = true;
-> +	scoped_guard(mutex, &priv->lock) {
-> +		if (sms == 6 && !priv->enabled) {
-> +			ret = clk_enable(priv->clk);
-> +			if (ret)
-> +				return ret;
-> +
-> +			priv->enabled = true;
-> +		}
->  	}
-> -	mutex_unlock(&priv->lock);
->  
->  	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
->  
+v2:
+  - Update nuvoton,ma35d1-dwmac.yaml
+    - Rename file to align with the compatible property.
+    - Add an argument to syscon to replace mac-id,
+      with corresponding descriptions.
+    - Use tx-internal-delay-ps and rx-internal-delay-ps properties for
+      configurable path delay with corresponding descriptions,
+      allowing selection between GMAC internal and PHY.
+    - Add all supported phy-mode options.
+    - Remove unused properties.
+  - Update dtsi
+    - Modify syscon configuration to include an argument for
+      GMAC interface selection.
+  - Update dwmac-nuvoton driver
+    - Remove redundant device information print statements.
+    - Remove non-global parameters.
+    - Retrieve GMAC interface selection from the syscon argument.
+    - Parse Tx and Rx path delays by correct properties.
+    - Update configurations to support Wake-on-LAN.
+
+Joey Lu (3):
+  dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
+  arm64: dts: nuvoton: Add Ethernet nodes
+  net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 134 +++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  12 ++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  10 +
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  54 ++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 179 ++++++++++++++++++
+ 8 files changed, 402 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
