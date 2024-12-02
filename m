@@ -2,63 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 971C09E1360
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 07:33:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D295C9E1470
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 08:41:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46503C6C83D;
-	Tue,  3 Dec 2024 06:33:22 +0000 (UTC)
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63FEEC78002;
+	Tue,  3 Dec 2024 07:41:25 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EE53C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89143C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Dec 2024 06:33:15 +0000 (UTC)
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 099B91A05B3;
- Tue,  3 Dec 2024 07:33:15 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F00441A05A5;
- Tue,  3 Dec 2024 07:33:14 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 48117202A7;
- Tue,  3 Dec 2024 07:33:14 +0100 (CET)
-Date: Tue, 3 Dec 2024 07:33:14 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <Z06mKpcvBO23RSx+@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20241202-upstream_s32cc_gmac-v7-0-bc3e1f9f656e@oss.nxp.com>
- <20241202-upstream_s32cc_gmac-v7-14-bc3e1f9f656e@oss.nxp.com>
- <b9ad385b-7702-4c71-b14f-64f2714a35a4@lunn.ch>
+ Mon,  2 Dec 2024 22:03:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 0E713A41320;
+ Mon,  2 Dec 2024 22:01:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 83AB3C4AF15;
+ Mon,  2 Dec 2024 22:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733177024;
+ bh=qT18XtbzllFJO6K/EGbpIUkVOz74iHPo6IUZe3P4fQc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=bz/JxYz3eyi1DhpbrkglrRzAgfLElTXav/19j3GXNtp9SZKMkT0FbRY4kdp/8LZkc
+ iQZ6sWk6qhKcy5iPHVNu150Hq+ybHvOrrexkJ7axObU7AAF8dRPn5jRrFWt1LDWmt7
+ w+31n7cHdbE/wf6G9niNqiYv5fHO5d7swxbpmJpAz+g3U3+o6ep/8d9uIn5GeQTEal
+ B7mvhWI+P3l54DcUQLiGcraB7ibaDn1sM3Sw3Bmj2k8I/gruj2d5ek5yMdi0w62KJs
+ UXkFboGXWZQTGEiOGHJwpXyOlkIp/Iud7FZM0u1XRPEygZ86pX2uKSfW31fLhuMPxx
+ 7JCZLiSzH9wgw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 742CCE69E92;
+ Mon,  2 Dec 2024 22:03:44 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Mon, 02 Dec 2024 23:03:43 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b9ad385b-7702-4c71-b14f-64f2714a35a4@lunn.ch>
-X-Virus-Scanned: ClamAV using ClamSMTP
+Message-Id: <20241202-upstream_s32cc_gmac-v7-4-bc3e1f9f656e@oss.nxp.com>
+References: <20241202-upstream_s32cc_gmac-v7-0-bc3e1f9f656e@oss.nxp.com>
+In-Reply-To: <20241202-upstream_s32cc_gmac-v7-0-bc3e1f9f656e@oss.nxp.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>, 
+ Minda Chen <minda.chen@starfivetech.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>, 
+ Keyur Chudgar <keyur@os.amperecomputing.com>, 
+ Quan Nguyen <quan@os.amperecomputing.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733177022; l=1509;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=3exSjKEVuojsQxBeLN9HdAigOEc+2YUOvrl9BYstKAs=;
+ b=G3P71RfPl33hdVrDlllnb16IbsYPoOcbVUfjx5BRK9sLuAk1f23ksXhvEFKSyHDK31XhRAOK2
+ U1oVgeCKwORDNS5e53cGGVvj7ThJyNr6urmK7ABSgVasVuimT0ur8iv
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+X-Mailman-Approved-At: Tue, 03 Dec 2024 07:41:23 +0000
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Minda Chen <minda.chen@starfivetech.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, 0x1207@gmail.com, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, fancer.lancer@gmail.com,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 14/15] net: stmmac: dwmac-s32:
- add basic NXP S32G/S32R glue driver
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
+ fancer.lancer@gmail.com, 0x1207@gmail.com,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v7 04/15] net: phy: Add helper for
+ mapping RGMII link speed to clock rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,59 +91,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: jan.petrous@oss.nxp.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 03, 2024 at 12:43:58AM +0100, Andrew Lunn wrote:
-> > +static int s32_gmac_init(struct platform_device *pdev, void *priv)
-> > +{
-> > +	struct s32_priv_data *gmac = priv;
-> > +	int ret;
-> > +
-> > +	ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
-> > +	if (!ret)
-> > +		ret = clk_prepare_enable(gmac->tx_clk);
-> > +
-> > +	if (ret) {
-> > +		dev_err(&pdev->dev, "Can't set tx clock\n");
-> > +		return ret;
-> > +	}
-> 
-> The ordering is a bit odd here. Normally you would test each operation
-> individually for errors. So:
-> 
-> 	ret = clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
-> 	if (ret) {
-> 		dev_err(&pdev->dev, "Can't set tx clock\n");
-> 		return ret;
-> 	}
-> 	ret = clk_prepare_enable(gmac->tx_clk);
-> 	if (ret) {
-> 		dev_err(&pdev->dev, "Can't enable tx clock\n");
-> 		return ret;
-> 	}
-> 
+From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-Thanks for it. The ordering is incorrect, agree. I will fix it in v8.
+The RGMII interface supports three data rates: 10/100 Mbps
+and 1 Gbps. These speeds correspond to clock frequencies
+of 2.5/25 MHz and 125 MHz, respectively.
 
-> 
-> > +
-> > +	ret = clk_prepare_enable(gmac->rx_clk);
-> > +	if (ret) {
-> > +		clk_disable_unprepare(gmac->tx_clk);
-> > +		dev_err(&pdev->dev, "Can't set rx clock\n");
-> > +		return ret;
-> > +	}
-> 
-> Is there no need to set the TX clock rate?
-> 
+Many Ethernet drivers, including glues in stmmac, follow
+a similar pattern of converting RGMII speed to clock frequency.
 
-Do you mean RX clock, right? Yes, I'll add it in v8 too.
+To simplify code, define the helper rgmii_clock(speed)
+to convert connection speed to clock frequency.
 
-BR.
-/Jan
+Suggested-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+---
+ include/linux/phy.h | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 563c46205685..a746f056ed57 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -298,6 +298,29 @@ static inline const char *phy_modes(phy_interface_t interface)
+ 	}
+ }
+ 
++/**
++ * rgmii_clock - map link speed to the clock rate
++ * @speed: link speed value
++ *
++ * Description: maps RGMII supported link speeds
++ * into the clock rates.
++ *
++ * Returns: clock rate or negative errno
++ */
++static inline long rgmii_clock(int speed)
++{
++	switch (speed) {
++	case SPEED_10:
++		return 2500000;
++	case SPEED_100:
++		return 25000000;
++	case SPEED_1000:
++		return 125000000;
++	default:
++		return -EINVAL;
++	}
++}
++
+ #define PHY_INIT_TIMEOUT	100000
+ #define PHY_FORCE_TIMEOUT	10
+ 
+
+-- 
+2.47.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
