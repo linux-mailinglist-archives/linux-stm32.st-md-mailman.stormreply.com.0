@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB7D99E1336
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 07:09:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03F649E133C
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 07:10:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5F23C6C83D;
-	Tue,  3 Dec 2024 06:09:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0500C6C83D;
+	Tue,  3 Dec 2024 06:10:15 +0000 (UTC)
 Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A14BCC5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76BDBC5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Dec 2024 06:09:23 +0000 (UTC)
+ Tue,  3 Dec 2024 06:10:09 +0000 (UTC)
 Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 499851A05A5;
- Tue,  3 Dec 2024 07:09:23 +0100 (CET)
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 19D9E1A0A46;
+ Tue,  3 Dec 2024 07:10:09 +0100 (CET)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
  [134.27.226.22])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 32E421A0631;
- Tue,  3 Dec 2024 07:09:23 +0100 (CET)
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 03BD61A0469;
+ Tue,  3 Dec 2024 07:10:09 +0100 (CET)
 Received: from lsv051416.swis.nl-cdc01.nxp.com
  (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 8198D203A7;
- Tue,  3 Dec 2024 07:09:22 +0100 (CET)
-Date: Tue, 3 Dec 2024 07:09:23 +0100
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 52D27203CD;
+ Tue,  3 Dec 2024 07:10:08 +0100 (CET)
+Date: Tue, 3 Dec 2024 07:10:08 +0100
 From: Jan Petrous <jan.petrous@oss.nxp.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <Z06gk37G65vTJ/3z@lsv051416.swis.nl-cdc01.nxp.com>
+Message-ID: <Z06gwINwnA7Xcnd8@lsv051416.swis.nl-cdc01.nxp.com>
 References: <20241202-upstream_s32cc_gmac-v7-0-bc3e1f9f656e@oss.nxp.com>
- <20241202-upstream_s32cc_gmac-v7-1-bc3e1f9f656e@oss.nxp.com>
- <Z04veAM7wBJCLkhu@shell.armlinux.org.uk>
+ <20241202-upstream_s32cc_gmac-v7-2-bc3e1f9f656e@oss.nxp.com>
+ <Z04voJN9uj1Vefef@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Z04veAM7wBJCLkhu@shell.armlinux.org.uk>
+In-Reply-To: <Z04voJN9uj1Vefef@shell.armlinux.org.uk>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
@@ -57,8 +57,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 01/15] net: driver: stmmac:
- Fix CSR divider comment
+Subject: Re: [Linux-stm32] [PATCH net-next v7 02/15] net: driver: stmmac:
+ Extend CSR calc support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,10 +75,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 02, 2024 at 10:06:48PM +0000, Russell King (Oracle) wrote:
+On Mon, Dec 02, 2024 at 10:07:28PM +0000, Russell King (Oracle) wrote:
 > Hi,
 > 
-> No need for "driver:" in the subject line.
+> As per patch 1, no need for "driver:" in the subject line.
 > 
 
 Will fix it in v8, thanks.
