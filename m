@@ -2,79 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4963A9E2249
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 16:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF6C9E286B
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Dec 2024 17:59:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1444C6C83D;
-	Tue,  3 Dec 2024 15:22:46 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 738F4C6C83D;
+	Tue,  3 Dec 2024 16:59:45 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA45AC6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 615C4C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Dec 2024 15:22:38 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-724d8422f37so4617682b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Dec 2024 07:22:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733239357; x=1733844157;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=3axE8hWFEOAcBbBVlVC5J9i71o0iCzSmsJDKDt+tz5A=;
- b=Y+LZMLfnEfOzNYGbMMEWW/GYeKFvvFMaQvNquZjmATtkDBuEO29dFWsHKkNsGJhuhS
- 4Rh7Yk4bu+X6aOHE4LdNlINt4vd9sOAkor8ni034RVqfXvthPWluhzimVj/p2t1hCy+4
- maLw7xcGYB9zOBLni5Sa2Sd7r5l8O2mjfm9aW+M8XK0PYs6ZupPhKI4Ec9oPTE2SLshz
- adldcZrUe8NyReq8Lc5beEiKi4MkIutYhZ1cSZYKMCf+KQhKV1rO2DJdBIbibU7vG0Vo
- S4nBnFHy9rUBkqYx44IW79AYQioGHYftfUUHjh81Dg7lb/WahDLFNaQL1utvaATm4CUF
- fB6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733239357; x=1733844157;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3axE8hWFEOAcBbBVlVC5J9i71o0iCzSmsJDKDt+tz5A=;
- b=pz/JgG/7Vx+93OUiHwjnT0UYllE4SyB/MJSFQsQQmrcjdXT+GurImqH1gH8E6/XznZ
- thMokUOjMrS5UYUmfhMVgc7CT3wJO597BBB+p1tQcKOmyPl4a1XkuYWjMdYAI+wIcdP+
- bAfZnnG7im4U6bDIF9tahZsxMEqqa2iiADO/v8svGrfmDbOyjwENQHcYhSQufsn8Gu5S
- EPb5RSz3UeI7HQ8mSLlqtORQwzM+fs79ZVHvyjoEnwkOheMPzFw7EQtattr744xDNmOX
- J/+J/xZcAXRVSX2UaGM61PvDk7bD0Mn2a9PUaMuQp53dy+g7S24MhG1y8pD0WZ13qoCh
- 392Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/vfe3K7AgDxSMnuAj9B7zCsVQlW6evy8FDwVcG3aKFU4rlxT31mHot5tM8shLuQJmBU1Xxt+FkzUaOg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwmSm5u4CRbXYFJJSUuZ8vt5w23UFY0q8y5/P2m6FT7pq6RgY6B
- YqKTW/xEGtrZfNq88vevYEkPBsDDwqNMuzXDWtIKmxKdgQXmN++huZ68jk3H3w==
-X-Gm-Gg: ASbGncuwoyy0WS37nqSnjpZPqi9CPy2VwRLmv5RUAFuXKdIgn9KSfScCOfPWCfybUm+
- +sEg+KuSD21WQbXBMM3zZCymj1IeBjLUibfjFQkXM1bYVIdpZQYiIL5q7fGtPVb/KOV2pigkaui
- pDoVUWE3q67iF3t+A3fH53HinL3QSx1Rm6cnGVnFCwRiv8ZHV0f+TXGCvaOML/Fh4pqF+cEzQL6
- 2LCov8a5oft/qI11g8I3cwL+11aojnVt+TNW7p9t4KaTD5/aCam7YARyu6r
-X-Google-Smtp-Source: AGHT+IEZzaiAa/sDP0NIqy+9CcPtC9S0iqjWkUM0fW3/+Qg2jpqxzNaED37DXLoNtAbdVeskjdanNg==
-X-Received: by 2002:a05:6a00:1826:b0:71e:74bf:6b1a with SMTP id
- d2e1a72fcca58-7257fcae158mr3814643b3a.16.1733239357479; 
- Tue, 03 Dec 2024 07:22:37 -0800 (PST)
-Received: from thinkpad ([120.60.48.217]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7254176f8f9sm10906738b3a.66.2024.12.03.07.22.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2024 07:22:37 -0800 (PST)
-Date: Tue, 3 Dec 2024 20:52:30 +0530
-From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20241203152230.5mdrt27u5u5ecwcz@thinkpad>
-References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
- <20241126155119.1574564-5-christian.bruel@foss.st.com>
+ Tue,  3 Dec 2024 16:59:37 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B3C8lFK020831;
+ Tue, 3 Dec 2024 17:59:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ q/Xhc9aYsCrB35OHKPGNT6A2apruI007LpsUF64OvsA=; b=hp1Q6c8fchh0K+FE
+ 4VRHW9jkgg76o9u0YLe9Q0bJwSuAPbdsWEFBTT8wSwNKb37Surw35LbIi+bu6TZ+
+ grPKoQ8iImnUHBv+SftlMki5t8j8j7ZhUPafW8QWV2a5PW8CONXFAp9i/3YHsm5M
+ TCfoENMHDPY2L3NAL+arifGyV/RIzZwpFZw9g5GU//n9xKQtAoChCyiDfe397htR
+ lhlY2pM1VCOuo4tOUTiiw9vGqWmI56MhU0E87mBobWw5dMqFBFkUe1S6SaUrP5hu
+ K5YhIBtNSpS90D2X8nCpJovuoLMDujg1PlKJCxJihvvuH0hGWTLkqL5BpTEdnBEF
+ fZy0EQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 438d54bsfc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Dec 2024 17:59:08 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CD3EC4008D;
+ Tue,  3 Dec 2024 17:57:40 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A8F84270D6D;
+ Tue,  3 Dec 2024 17:55:35 +0100 (CET)
+Received: from [10.129.178.212] (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 3 Dec
+ 2024 17:55:34 +0100
+Message-ID: <4a56d133-0173-4ad5-8d36-70d538c88ba7@foss.st.com>
+Date: Tue, 3 Dec 2024 17:55:28 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241126155119.1574564-5-christian.bruel@foss.st.com>
+User-Agent: Mozilla Thunderbird
+To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
+ <20241126155119.1574564-2-christian.bruel@foss.st.com>
+ <20241203133434.2qbohwi3wrjjja5a@thinkpad>
+Content-Language: en-US
+From: Christian Bruel <christian.bruel@foss.st.com>
+In-Reply-To: <20241203133434.2qbohwi3wrjjja5a@thinkpad>
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
  linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
  cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
  mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/5] PCI: stm32: Add PCIe endpoint
- support for STM32MP25
+Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: PCI: Add STM32MP25
+ PCIe root complex bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,97 +76,186 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBOb3YgMjYsIDIwMjQgYXQgMDQ6NTE6MThQTSArMDEwMCwgQ2hyaXN0aWFuIEJydWVs
-IHdyb3RlOgoKWy4uLl0KCj4gK3N0YXRpYyBpbnQgc3RtMzJfcGNpZV9zdGFydF9saW5rKHN0cnVj
-dCBkd19wY2llICpwY2kpCj4gK3sKPiArCXN0cnVjdCBzdG0zMl9wY2llICpzdG0zMl9wY2llID0g
-dG9fc3RtMzJfcGNpZShwY2kpOwo+ICsJaW50IHJldDsKPiArCj4gKwlpZiAoc3RtMzJfcGNpZS0+
-bGlua19zdGF0dXMgPT0gU1RNMzJfUENJRV9FUF9MSU5LX0VOQUJMRUQpIHsKPiArCQlkZXZfZGJn
-KHBjaS0+ZGV2LCAiTGluayBpcyBhbHJlYWR5IGVuYWJsZWRcbiIpOwo+ICsJCXJldHVybiAwOwo+
-ICsJfQo+ICsKPiArCXJldCA9IHN0bTMyX3BjaWVfZW5hYmxlX2xpbmsocGNpKTsKPiArCWlmIChy
-ZXQpIHsKPiArCQlkZXZfZXJyKHBjaS0+ZGV2LCAiUENJZSBjYW5ub3QgZXN0YWJsaXNoIGxpbms6
-ICVkXG4iLCByZXQpOwo+ICsJCXJldHVybiByZXQ7Cj4gKwl9CgpIb3cgdGhlIFJFRkNMSyBpcyBz
-dXBwbGllZCB0byB0aGUgZW5kcG9pbnQ/IEZyb20gaG9zdCBvciBnZW5lcmF0ZWQgbG9jYWxseT8K
-Cj4gKwo+ICsJc3RtMzJfcGNpZS0+bGlua19zdGF0dXMgPSBTVE0zMl9QQ0lFX0VQX0xJTktfRU5B
-QkxFRDsKPiArCj4gKwllbmFibGVfaXJxKHN0bTMyX3BjaWUtPnBlcnN0X2lycSk7Cj4gKwo+ICsJ
-cmV0dXJuIDA7Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIHN0bTMyX3BjaWVfc3RvcF9saW5rKHN0
-cnVjdCBkd19wY2llICpwY2kpCj4gK3sKPiArCXN0cnVjdCBzdG0zMl9wY2llICpzdG0zMl9wY2ll
-ID0gdG9fc3RtMzJfcGNpZShwY2kpOwo+ICsKPiArCWlmIChzdG0zMl9wY2llLT5saW5rX3N0YXR1
-cyA9PSBTVE0zMl9QQ0lFX0VQX0xJTktfRElTQUJMRUQpIHsKPiArCQlkZXZfZGJnKHBjaS0+ZGV2
-LCAiTGluayBpcyBhbHJlYWR5IGRpc2FibGVkXG4iKTsKPiArCQlyZXR1cm47Cj4gKwl9Cj4gKwo+
-ICsJZGlzYWJsZV9pcnEoc3RtMzJfcGNpZS0+cGVyc3RfaXJxKTsKPiArCj4gKwlzdG0zMl9wY2ll
-X2Rpc2FibGVfbGluayhwY2kpOwo+ICsKPiArCXN0bTMyX3BjaWUtPmxpbmtfc3RhdHVzID0gU1RN
-MzJfUENJRV9FUF9MSU5LX0RJU0FCTEVEOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW50IHN0bTMyX3Bj
-aWVfcmFpc2VfaXJxKHN0cnVjdCBkd19wY2llX2VwICplcCwgdTggZnVuY19ubywKPiArCQkJCXVu
-c2lnbmVkIGludCB0eXBlLCB1MTYgaW50ZXJydXB0X251bSkKPiArewo+ICsJc3RydWN0IGR3X3Bj
-aWUgKnBjaSA9IHRvX2R3X3BjaWVfZnJvbV9lcChlcCk7Cj4gKwo+ICsJc3dpdGNoICh0eXBlKSB7
-Cj4gKwljYXNlIFBDSV9JUlFfSU5UWDoKPiArCQlyZXR1cm4gZHdfcGNpZV9lcF9yYWlzZV9pbnR4
-X2lycShlcCwgZnVuY19ubyk7Cj4gKwljYXNlIFBDSV9JUlFfTVNJOgo+ICsJCXJldHVybiBkd19w
-Y2llX2VwX3JhaXNlX21zaV9pcnEoZXAsIGZ1bmNfbm8sIGludGVycnVwdF9udW0pOwo+ICsJZGVm
-YXVsdDoKPiArCQlkZXZfZXJyKHBjaS0+ZGV2LCAiVU5LTk9XTiBJUlEgdHlwZVxuIik7Cj4gKwkJ
-cmV0dXJuIC1FSU5WQUw7Cj4gKwl9Cj4gK30KPiArCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcGNp
-X2VwY19mZWF0dXJlcyBzdG0zMl9wY2llX2VwY19mZWF0dXJlcyA9IHsKPiArCS5tc2lfY2FwYWJs
-ZSA9IHRydWUsCj4gKwkuYWxpZ24gPSAxIDw8IDE2LAoKVXNlIFNaXzY0SwoKPiArfTsKPiArCgpb
-Li4uXQoKPiArc3RhdGljIGludCBzdG0zMl9hZGRfcGNpZV9lcChzdHJ1Y3Qgc3RtMzJfcGNpZSAq
-c3RtMzJfcGNpZSwKPiArCQkJICAgICBzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICt7
-Cj4gKwlzdHJ1Y3QgZHdfcGNpZSAqcGNpID0gc3RtMzJfcGNpZS0+cGNpOwo+ICsJc3RydWN0IGR3
-X3BjaWVfZXAgKmVwID0gJnBjaS0+ZXA7Cj4gKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+
-ZGV2Owo+ICsJaW50IHJldDsKPiArCj4gKwlyZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMoc3RtMzJf
-cGNpZS0+cmVnbWFwLCBTWVNDRkdfUENJRUNSLAo+ICsJCQkJIFNUTTMyTVAyNV9QQ0lFQ1JfVFlQ
-RV9NQVNLLAo+ICsJCQkJIFNUTTMyTVAyNV9QQ0lFQ1JfRVApOwo+ICsJaWYgKHJldCkKPiArCQly
-ZXR1cm4gcmV0Owo+ICsKPiArCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoZGV2KTsK
-PiArCWlmIChyZXQgPCAwKSB7Cj4gKwkJZGV2X2VycihkZXYsICJwbSBydW50aW1lIHJlc3VtZSBm
-YWlsZWQ6ICVkXG4iLCByZXQpOwo+ICsJCXJldHVybiByZXQ7Cj4gKwl9CgpZb3UgbWlnaHQgd2Fu
-dCB0byBkbyBydW50aW1lIHJlc3VtZSBiZWZvcmUgYWNjZXNzaW5nIHJlZ21hcC4KCj4gKwo+ICsJ
-cmVzZXRfY29udHJvbF9hc3NlcnQoc3RtMzJfcGNpZS0+cnN0KTsKPiArCXJlc2V0X2NvbnRyb2xf
-ZGVhc3NlcnQoc3RtMzJfcGNpZS0+cnN0KTsKPiArCj4gKwllcC0+b3BzID0gJnN0bTMyX3BjaWVf
-ZXBfb3BzOwo+ICsKPiArCXJldCA9IGR3X3BjaWVfZXBfaW5pdChlcCk7Cj4gKwlpZiAocmV0KSB7
-Cj4gKwkJZGV2X2VycihkZXYsICJmYWlsZWQgdG8gaW5pdGlhbGl6ZSBlcDogJWRcbiIsIHJldCk7
-Cj4gKwkJZ290byBlcnJfaW5pdDsKPiArCX0KPiArCj4gKwlyZXQgPSBzdG0zMl9wY2llX2VuYWJs
-ZV9yZXNvdXJjZXMoc3RtMzJfcGNpZSk7Cj4gKwlpZiAocmV0KSB7Cj4gKwkJZGV2X2VycihkZXYs
-ICJmYWlsZWQgdG8gZW5hYmxlIHJlc291cmNlczogJWRcbiIsIHJldCk7Cj4gKwkJZ290byBlcnJf
-Y2xrOwo+ICsJfQo+ICsKPiArCXJldCA9IGR3X3BjaWVfZXBfaW5pdF9yZWdpc3RlcnMoZXApOwo+
-ICsJaWYgKHJldCkgewo+ICsJCWRldl9lcnIoZGV2LCAiRmFpbGVkIHRvIGluaXRpYWxpemUgRFdD
-IGVuZHBvaW50IHJlZ2lzdGVyc1xuIik7Cj4gKwkJZ290byBlcnJfaW5pdF9yZWdzOwo+ICsJfQo+
-ICsKPiArCXBjaV9lcGNfaW5pdF9ub3RpZnkoZXAtPmVwYyk7Cj4gKwo+ICsJcmV0dXJuIDA7Cj4g
-Kwo+ICtlcnJfaW5pdF9yZWdzOgo+ICsJc3RtMzJfcGNpZV9kaXNhYmxlX3Jlc291cmNlcyhzdG0z
-Ml9wY2llKTsKPiArCj4gK2Vycl9jbGs6Cj4gKwlkd19wY2llX2VwX2RlaW5pdChlcCk7Cj4gKwo+
-ICtlcnJfaW5pdDoKPiArCXBtX3J1bnRpbWVfcHV0X3N5bmMoZGV2KTsKPiArCXJldHVybiByZXQ7
-Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgc3RtMzJfcGNpZV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1f
-ZGV2aWNlICpwZGV2KQo+ICt7Cj4gKwlzdHJ1Y3Qgc3RtMzJfcGNpZSAqc3RtMzJfcGNpZTsKPiAr
-CXN0cnVjdCBkd19wY2llICpkdzsKPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7
-Cj4gKwlpbnQgcmV0Owo+ICsKPiArCXN0bTMyX3BjaWUgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXpl
-b2YoKnN0bTMyX3BjaWUpLCBHRlBfS0VSTkVMKTsKPiArCWlmICghc3RtMzJfcGNpZSkKPiArCQly
-ZXR1cm4gLUVOT01FTTsKPiArCj4gKwlkdyA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVvZigqZHcp
-LCBHRlBfS0VSTkVMKTsKPiArCWlmICghZHcpCj4gKwkJcmV0dXJuIC1FTk9NRU07CgpXaHkgY2Fu
-J3QgeW91IGFsbG9jYXRlIGl0IHN0YXRpY2FsbHkgaW5zaWRlICdzdHJ1Y3Qgc3RtMzJfcGNpZSc/
-Cgo+ICsKPiArCXN0bTMyX3BjaWUtPnBjaSA9IGR3Owo+ICsKPiArCWR3LT5kZXYgPSBkZXY7Cj4g
-Kwlkdy0+b3BzID0gJmR3X3BjaWVfb3BzOwo+ICsKPiArCXN0bTMyX3BjaWUtPnJlZ21hcCA9IHN5
-c2Nvbl9yZWdtYXBfbG9va3VwX2J5X2NvbXBhdGlibGUoInN0LHN0bTMybXAyNS1zeXNjZmciKTsK
-PiArCWlmIChJU19FUlIoc3RtMzJfcGNpZS0+cmVnbWFwKSkKPiArCQlyZXR1cm4gZGV2X2Vycl9w
-cm9iZShkZXYsIFBUUl9FUlIoc3RtMzJfcGNpZS0+cmVnbWFwKSwKPiArCQkJCSAgICAgIk5vIHN5
-c2NmZyBzcGVjaWZpZWRcbiIpOwo+ICsKPiArCXN0bTMyX3BjaWUtPnBoeSA9IGRldm1fcGh5X2dl
-dChkZXYsICJwY2llLXBoeSIpOwo+ICsJaWYgKElTX0VSUihzdG0zMl9wY2llLT5waHkpKQo+ICsJ
-CXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihzdG0zMl9wY2llLT5waHkpLAo+ICsJ
-CQkJICAgICAiZmFpbGVkIHRvIGdldCBwY2llLXBoeVxuIik7Cj4gKwo+ICsJc3RtMzJfcGNpZS0+
-Y2xrID0gZGV2bV9jbGtfZ2V0KGRldiwgTlVMTCk7Cj4gKwlpZiAoSVNfRVJSKHN0bTMyX3BjaWUt
-PmNsaykpCj4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKHN0bTMyX3BjaWUt
-PmNsayksCj4gKwkJCQkgICAgICJGYWlsZWQgdG8gZ2V0IFBDSWUgY2xvY2sgc291cmNlXG4iKTsK
-PiArCj4gKwlzdG0zMl9wY2llLT5yc3QgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X2V4Y2x1c2l2
-ZShkZXYsIE5VTEwpOwo+ICsJaWYgKElTX0VSUihzdG0zMl9wY2llLT5yc3QpKQo+ICsJCXJldHVy
-biBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihzdG0zMl9wY2llLT5yc3QpLAo+ICsJCQkJICAg
-ICAiRmFpbGVkIHRvIGdldCBQQ0llIHJlc2V0XG4iKTsKPiArCj4gKwlzdG0zMl9wY2llLT5wZXJz
-dF9ncGlvID0gZGV2bV9ncGlvZF9nZXQoZGV2LCAicmVzZXQiLCBHUElPRF9JTik7Cj4gKwlpZiAo
-SVNfRVJSKHN0bTMyX3BjaWUtPnBlcnN0X2dwaW8pKQo+ICsJCXJldHVybiBkZXZfZXJyX3Byb2Jl
-KGRldiwgUFRSX0VSUihzdG0zMl9wY2llLT5wZXJzdF9ncGlvKSwKPiArCQkJCSAgICAgIkZhaWxl
-ZCB0byBnZXQgcmVzZXQgR1BJT1xuIik7Cj4gKwo+ICsJcmV0ID0gcGh5X3NldF9tb2RlKHN0bTMy
-X3BjaWUtPnBoeSwgUEhZX01PREVfUENJRSk7CgpIbW0sIHNvIFBIWSBtb2RlIGlzIGNvbW1vbiBm
-b3IgYm90aCBlbmRwb2ludCBhbmQgaG9zdD8KCi0gTWFuaQoKLS0gCuCuruCuo+Cuv+CuteCuo+Cv
-jeCuo+CuqeCvjSDgrprgrqTgrr7grprgrr/grrXgrq7gr40KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 12/3/24 14:34, Manivannan Sadhasivam wrote:
+> On Tue, Nov 26, 2024 at 04:51:15PM +0100, Christian Bruel wrote:
+>> Document the bindings for STM32MP25 PCIe Controller configured in
+>> root complex mode.
+>>
+>> Supports 4 legacy interrupts and MSI interrupts from the ARM
+>> GICv2m controller.
+>>
+>> STM32 PCIe may be in a power domain which is the case for the STM32MP25
+>> based boards.
+>>
+>> Supports wake# from wake-gpios
+>>
+>> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+>> ---
+>>   .../bindings/pci/st,stm32-pcie-common.yaml    | 45 +++++++++
+>>   .../bindings/pci/st,stm32-pcie-host.yaml      | 99 +++++++++++++++++++
+>>   2 files changed, 144 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
+>>   create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
+>> new file mode 100644
+>> index 000000000000..479c03134da3
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
+>> @@ -0,0 +1,45 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/pci/st,stm32-pcie-common.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STM32MP25 PCIe RC/EP controller
+>> +
+>> +maintainers:
+>> +  - Christian Bruel <christian.bruel@foss.st.com>
+>> +
+>> +description:
+>> +  STM32MP25 PCIe RC/EP common properties
+>> +
+>> +properties:
+>> +  clocks:
+>> +    maxItems: 1
+>> +    description: PCIe system clock
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  phys:
+>> +    maxItems: 1
+>> +
+>> +  phy-names:
+>> +    const: pcie-phy
+>> +
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +  access-controllers:
+>> +    maxItems: 1
+>> +
+>> +  reset-gpios:
+>> +    description: GPIO controlled connection to PERST# signal
+>> +    maxItems: 1
+>> +
+>> +required:
+>> +  - clocks
+>> +  - resets
+>> +  - phys
+>> +  - phy-names
+>> +
+>> +additionalProperties: true
+>> diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+>> new file mode 100644
+>> index 000000000000..18083cc69024
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+>> @@ -0,0 +1,99 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/pci/st,stm32-pcie-host.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STM32MP25 PCIe root complex driver
+>> +
+>> +maintainers:
+>> +  - Christian Bruel <christian.bruel@foss.st.com>
+>> +
+>> +description:
+>> +  PCIe root complex controller based on the Synopsys DesignWare PCIe core.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+>> +  - $ref: /schemas/pci/st,stm32-pcie-common.yaml#
+>> +
+>> +select:
+>> +  properties:
+>> +    compatible:
+>> +      const: st,stm32mp25-pcie-rc
+>> +  required:
+>> +    - compatible
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: st,stm32mp25-pcie-rc
+>> +
+>> +  reg:
+>> +    items:
+>> +      - description: Data Bus Interface (DBI) registers.
+>> +      - description: PCIe configuration registers.
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: dbi
+>> +      - const: config
+>> +
+>> +  num-lanes:
+>> +    const: 1
+>> +
+>> +  msi-parent:
+>> +    maxItems: 1
+>> +
+>> +  wake-gpios:
+>> +    description: GPIO controlled connection to WAKE# input signal
+>> +    maxItems: 1
+>> +
+>> +  wakeup-source: true
+>> +
+>> +dependentRequired:
+>> +  wakeup-source: [ wake-gpios ]
+>> +
+>> +required:
+>> +  - interrupt-map
+>> +  - interrupt-map-mask
+>> +  - ranges
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
+>> +    #include <dt-bindings/gpio/gpio.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/phy/phy.h>
+>> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+>> +
+>> +    pcie@48400000 {
+>> +        compatible = "st,stm32mp25-pcie-rc";
+>> +        device_type = "pci";
+>> +        num-lanes = <1>;
+>> +        reg = <0x48400000 0x400000>,
+>> +              <0x10000000 0x10000>;
+>> +        reg-names = "dbi", "config";
+>> +        #interrupt-cells = <1>;
+>> +        interrupt-map-mask = <0 0 0 7>;
+>> +        interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 264 IRQ_TYPE_LEVEL_HIGH>,
+>> +                        <0 0 0 2 &intc 0 0 GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>,
+>> +                        <0 0 0 3 &intc 0 0 GIC_SPI 266 IRQ_TYPE_LEVEL_HIGH>,
+>> +                        <0 0 0 4 &intc 0 0 GIC_SPI 267 IRQ_TYPE_LEVEL_HIGH>;
+>> +        #address-cells = <3>;
+>> +        #size-cells = <2>;
+>> +        ranges = <0x01000000 0 0x10010000 0x10010000 0 0x10000>,
+> 
+> PCI address of I/O region should start from address 0x00000000.
+> 
+ok, thanks !
+
+> Also use hex notation for all values.
+> 
+> - Mani
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
