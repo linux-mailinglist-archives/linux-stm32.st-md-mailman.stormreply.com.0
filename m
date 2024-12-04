@@ -2,92 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E0B9E3EDF
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2024 16:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F8789E3F85
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2024 17:24:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB283C71292;
-	Wed,  4 Dec 2024 15:58:45 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2398CC71292;
+	Wed,  4 Dec 2024 16:24:04 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 286DBC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0024AC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Dec 2024 15:58:38 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-434ab114753so59036275e9.0
+ Wed,  4 Dec 2024 16:23:56 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-434a14d6bf4so63395605e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Dec 2024 07:58:38 -0800 (PST)
+ Wed, 04 Dec 2024 08:23:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733327917; x=1733932717;
+ d=gmail.com; s=20230601; t=1733329436; x=1733934236;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mMG9VWcGW6XK+xMZkzrylicgj/+zPFuMCrXN5cYEltk=;
- b=ZLuvEq3wP5tmu/KdynkBSNQ47PdXl61BSTKj98o3Nm4aOVMbRpmbMHArG/VHMDy0Xk
- Kj1Tlk2ZsfQpHkK3+cgtxDeFsypfG3qd7df4/S1tQ/Djyt6FeKdcxgnmH7VO4XHZS7hk
- 59uoMzVVgTydS6PBD9mdjREKeTo2mFYWBe4BfNGwz/ZkTSxl+dom3CF6exVP9nGHxJY/
- SsLKiFdilrobpkmSjw0xStOtHmD1OXz9Eq29LiP7CQlP203sp/mUsR2GcOh9QTqwk6TE
- LyhwAv24xGAU2jiCRnmtN2S7pQXXEyJGI26cMX0Izlp6AjljPeNJ+sUuLZOgCFQQyKBx
- 2img==
+ bh=ZopfNxUqKzOig+vq2vgMrOIZ/FkZeqWW6Q7fCMolsnI=;
+ b=ff7a9lPl9KGMIsadvTrwgoYQa9CKtN8Evl0w/2Gwt7IEXu2j3twQxdzcZ0prxdjoE1
+ SCxcstXYZrD6Ips/uMNoc2FgtVkoWAaqHhyNVWu07+NHepW91382Jd/w/r8LVBF6OmvV
+ mFSe58zwgU7ZXCIFVrDPdX6ypMypz5AYYQDTdoM8xg+VqeDUblg2MaySO21K4fNF/hbq
+ jMqPrOr68Ra2TMot6QUMIXabwL2uUhsNmAcqZwl/ppXw0kY0nc2aPcwsN5ebWNtWoHZ5
+ k4tiwLvO3PGpoyvMYSVZgB8Bulq0eUm5ZpqNiAG27Azc4SyMrkZEzZfoakjG4qKruZNE
+ rwIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733327917; x=1733932717;
+ d=1e100.net; s=20230601; t=1733329436; x=1733934236;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mMG9VWcGW6XK+xMZkzrylicgj/+zPFuMCrXN5cYEltk=;
- b=mYvBqLkZRShJkRztHZtaV8RYbREsSKbs2M/D8lET3c/pfTDviLvxhOY6p1z4nXV0BZ
- jJd0q+M1oM1jFmFEyHyZhbuN2VeKACyRBlq3QooPDniqSdEFjkdSoOSlnuepEJtjKtuH
- IcV3ljd3gn9SeqkiVUKEeqYd/UaC85MZjLx6+BLwefnxd31k8G91VVvJSyiJO4c3RKer
- N4tJflUR/4bRk2hde7/XwxJXxErNnWSoYClkd+ok/Gj9hvpT/O3ywSrrkI5Ppm1wXGsR
- iRSfp8whJ56Ok9boBfQNHAUGtCL4OPi5cqzNENuWnz5LT2zIHoGaL3FDSSSx5/vEzTrH
- r+Iw==
+ bh=ZopfNxUqKzOig+vq2vgMrOIZ/FkZeqWW6Q7fCMolsnI=;
+ b=i4VOpSWTSF+uLCtcLMiNmMZJ+gbd4nXipOfEIjonRSazBjs3cxN3R0++Qjdu4UXQFA
+ l4fHmj9mwFRL4s4nzpCjEMrjW5IxH5QK/vR6yidJIOaaku+s5kSOJLmCUvl9Aj8royM6
+ B5WSybBr3u2USObEs5P7IsZepPwVVyeGNfLW8F29Y9p7+04d2lzxui3ahTzA/9ISDlNI
+ favhotUD6gosrLg1bkb7L1+ECTJ5pSwyUMvkg+x0i/hJzYXJZ/V0So7N5QtpaJAK4HQ2
+ r/xSDfYxy6AsUhxCSeqROi2VDUeLaRyF2Ln/4PjP4pYzqmptrHfkEzjAMn3oMArfJmMf
+ 2EmQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9jvVTYzzCAzi7OqwtkXeJhdf3Hq6BXEEPGdUwAgR/yjx4u1SPvF0Reysv74RQnoWnjVOxpOFEelaQFQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz8vAGhXHj94k5DKsNMiyPWwXlz6gnS9RVAceXHZPmrbS5ohgKZ
- ecDvO03pIC1mxnyJ/5TmZvYAhkR6GjeRcBxLHMl4g6cVrrDjstj4
-X-Gm-Gg: ASbGnctIp4EwSYcAFJfiTzRHPKqYGAsw7tHHPKzwx2tx7jsULrqvYxCXqu+aFj7bs6d
- e8VIGBBkKaTHirUomt63jHbHq7RJnYOOBH3YqVfoPSkIsLc0c92HjBYMS0dLlQaZJjPe11/WuVF
- qPqQlDKzts60H99O32Q08bdCl5WutaDkfbshrIW4iKJstg1gz0b1LCWFjVTDg5ED4gwE/fXjhpS
- 1v/H/X81CO7R3p+SqveN3B9CMD1KK4gQv/NL+Sylg9SNXro0X/1zCGuU2zGBd1DWzZsTtWl/Z+O
- LIm8/LdU7JYysKGLsTJeDccpndfJKQgdFemm
-X-Google-Smtp-Source: AGHT+IHO71cSsB7ROtvHoZs2gzZ0MtQJUhn4XUUKyoKwjM4QzdG/kDeL3+etQeFOAswozQMP3lNc1g==
-X-Received: by 2002:a05:600c:3554:b0:431:6083:cd38 with SMTP id
- 5b1f17b1804b1-434d09b0020mr60787685e9.6.1733327917130; 
- Wed, 04 Dec 2024 07:58:37 -0800 (PST)
+ AJvYcCUOWIVf95oTyTxlLr3/EgwSgV/JqSAxTGAAXdun5meVcy46SlufQsnbsMg+69lc+w7y/mnUT045J1vuyA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyVW+4qNLoJnIsMg9bjMIWjK3LR/DEckrFYePNalYyPvrJmtWyN
+ aIS90wTYo8ni1ctw7wo/ND9Vj1Cyl+2Vm7RWm4wiPKkKeAlvUuaj
+X-Gm-Gg: ASbGncuQW3U6eM3jcraTecIEPa6KjH3MDfDcJwwxru1cRym2DiR9L+YigB2Pni6Xxj6
+ tSi2p/NvAENX3qdYWv8sE8/Lip/MAVZJj+pbrDtYLlVTw06H2/ZgLCFfyWjcMSynxfNkBGFQk4o
+ IeeDn395Lt4aXo/udPsHFtszjKgbSUTAcZsQ5A0cIMgBxaJH5A878AXbdVR39xeY7LO2guqf7pU
+ cYM7RARIax7t+9VWTyAs9nrZ70TmYjUoIpc4YNIn0Pw6eg8q94zrTBouFRzphY+12OLkpk+/EXX
+ SzOS4W5ih3Z/tQCiV7H3tOf+NMO1NKonKXiF
+X-Google-Smtp-Source: AGHT+IEBAuqD6aE0GozRqXuDmFoNCDvwnIaAsz1vt2MpdwK3ooetePeFd9j6ErzZeQHLGJ23gIUJhA==
+X-Received: by 2002:a05:600c:3b23:b0:431:1868:417f with SMTP id
+ 5b1f17b1804b1-434d09c154fmr72688655e9.17.1733329436035; 
+ Wed, 04 Dec 2024 08:23:56 -0800 (PST)
 Received: from orome (p200300e41f281900f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f28:1900:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434d52a46e6sm29690685e9.30.2024.12.04.07.58.35
+ 5b1f17b1804b1-434d04defb7sm47745125e9.0.2024.12.04.08.23.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Dec 2024 07:58:36 -0800 (PST)
-Date: Wed, 4 Dec 2024 16:58:34 +0100
+ Wed, 04 Dec 2024 08:23:55 -0800 (PST)
+Date: Wed, 4 Dec 2024 17:23:53 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <2g2lp3bkadc4wpeslmdoexpidoiqzt7vejar5xhjx5ayt3uox3@dqdyfzn6khn6>
-References: <20241021061023.2162701-1-0x1207@gmail.com>
- <d8112193-0386-4e14-b516-37c2d838171a@nvidia.com>
- <20241128144501.0000619b@gmail.com>
- <20241202163309.05603e96@kernel.org>
- <20241203100331.00007580@gmail.com>
- <20241202183425.4021d14c@kernel.org>
- <20241203111637.000023fe@gmail.com>
- <klkzp5yn5kq5efgtrow6wbvnc46bcqfxs65nz3qy77ujr5turc@bwwhelz2l4dw>
- <df3a6a9d-4b53-4338-9bc5-c4eea48b8a40@arm.com>
+To: Parker Newman <parker@finest.io>
+Message-ID: <mpgilwqb5zg5kb4n7r6zwbhy4uutdh6rq5s2yc6ndhcj6gqgri@qkfr4qwjj3ym>
+References: <cover.1731685185.git.pnewman@connecttech.com>
+ <f2a14edb5761d372ec939ccbea4fb8dfd1fdab91.1731685185.git.pnewman@connecttech.com>
+ <ed2ec1c2-65c7-4768-99f1-987e5fa39a54@redhat.com>
+ <20241115135940.5f898781.parker@finest.io>
+ <bb52bdc1-df2e-493d-a58f-df3143715150@lunn.ch>
+ <20241118084400.35f4697a.parker@finest.io>
+ <984a8471-7e49-4549-9d8a-48e1a29950f6@lunn.ch>
+ <20241119131336.371af397.parker@finest.io>
+ <f00bccd3-62d5-46a9-b448-051894267c7a@lunn.ch>
+ <20241119144729.72e048a5.parker@finest.io>
 MIME-Version: 1.0
-In-Reply-To: <df3a6a9d-4b53-4338-9bc5-c4eea48b8a40@arm.com>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
+In-Reply-To: <20241119144729.72e048a5.parker@finest.io>
+Cc: Andrew Lunn <andrew@lunn.ch>, Parker Newman <pnewman@connecttech.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jonathan Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unbalanced
- DMA map/unmap for non-paged SKB data
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] net: stmmac: dwmac-tegra: Read
+ iommu stream id from device tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,276 +98,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4736249635604038357=="
+Content-Type: multipart/mixed; boundary="===============7673964388677088519=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4736249635604038357==
+--===============7673964388677088519==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="lrjlcvs3uibftgsq"
+	protocol="application/pgp-signature"; boundary="qqjxn4twghzwb4kk"
 Content-Disposition: inline
 
 
---lrjlcvs3uibftgsq
+--qqjxn4twghzwb4kk
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net v1] net: stmmac: TSO: Fix unbalanced DMA map/unmap
- for non-paged SKB data
+Subject: Re: [PATCH v1 1/1] net: stmmac: dwmac-tegra: Read iommu stream id
+ from device tree
 MIME-Version: 1.0
 
-On Wed, Dec 04, 2024 at 02:06:00PM +0000, Robin Murphy wrote:
-> On 2024-12-04 1:57 pm, Thierry Reding wrote:
-> > On Tue, Dec 03, 2024 at 11:16:37AM +0800, Furong Xu wrote:
-> > > On Mon, 2 Dec 2024 18:34:25 -0800, Jakub Kicinski <kuba@kernel.org> w=
-rote:
-> > >=20
-> > > > On Tue, 3 Dec 2024 10:03:31 +0800 Furong Xu wrote:
-> > > > > I requested Jon to provide more info about "Tx DMA map failed" in=
- previous
-> > > > > reply, and he does not respond yet.
-> > > >=20
-> > > > What does it mean to provide "more info" about a print statement fr=
-om
-> > > > the driver? Is there a Kconfig which he needs to set to get more in=
-fo?
-> > > > Perhaps you should provide a debug patch he can apply on his tree, =
-that
-> > > > will print info about (1) which buffer mapping failed (head or frag=
-s);
-> > > > (2) what the physical address was of the buffer that couldn't be ma=
-pped.
-> > >=20
-> > > A debug patch to print info about buffer makes no sense here.
-> > > Both Tegra186 Jetson TX2(tegra186-p2771-0000) and Tegra194 Jetson AGX=
- Xavier
-> > > (tegra194-p2972-0000) enable IOMMU/SMMU for stmmac in its device-tree=
- node,
-> > > buffer info should be investigated with detailed IOMMU/SMMU debug inf=
-o from
-> > > drivers/iommu/arm/arm-smmu/arm-smmu-nvidia.c together.
-> > >=20
-> > > I am not an expert in IOMMU, so I cannot help more.
-> > >=20
-> > > Without the help from Jon, our only choice is revert as you said.
-> >=20
-> > I was able to reproduce this locally and I get this splat:
-> >=20
-> > --- >8 ---
-> > [  228.179234] WARNING: CPU: 0 PID: 0 at drivers/iommu/io-pgtable-arm.c=
-:346 __arm_lpae_map+0x388/0x4e4
-> > [  228.188300] Modules linked in: snd_soc_tegra210_mixer snd_soc_tegra2=
-10_admaif snd_soc_tegra_pcm snd_soc_tegra186_asrc snd_soc_tegra210_ope snd_=
-soc_tegra210_adx snd_soc_tegra210_mvc snd_soc_tegra210_dmic snd_soc_tegra18=
-6_dspk snd_soc_tegra210_sfc snd_soc_tegra210_amx snd_soc_tegra210_i2s tegra=
-_drm drm_dp_aux_bus cec drm_display_helper drm_client_lib tegra210_adma snd=
-_soc_tegra210_ahub drm_kms_helper snd_hda_codec_hdmi snd_hda_tegra snd_soc_=
-tegra_audio_graph_card at24 snd_hda_codec ina3221 snd_soc_audio_graph_card =
-snd_soc_simple_card_utils tegra_bpmp_thermal tegra_xudc snd_hda_core tegra_=
-aconnect host1x fuse drm backlight ipv6
-> > [  228.243750] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S       =
-          6.13.0-rc1-next-20241203 #30
-> > [  228.253412] Tainted: [S]=3DCPU_OUT_OF_SPEC
-> > [  228.257336] Hardware name: nvidia NVIDIA P2771-0000-500/NVIDIA P2771=
--0000-500, BIOS 2025.01-rc3-00040-g36352ae2e68e-dirty 01/01/2025
-> > [  228.269239] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BT=
-YPE=3D--)
-> > [  228.276205] pc : __arm_lpae_map+0x388/0x4e4
-> > [  228.280398] lr : __arm_lpae_map+0x120/0x4e4
-> > [  228.284587] sp : ffff8000800037f0
-> > [  228.287901] x29: ffff800080003800 x28: 0000000000000002 x27: 0000000=
-000000001
-> > [  228.295050] x26: 0000000000000001 x25: 0000000111580000 x24: 0000000=
-000001000
-> > [  228.302197] x23: 000000ffffc72000 x22: 0000000000000ec0 x21: 0000000=
-000000003
-> > [  228.309342] x20: 0000000000000001 x19: ffff00008574b000 x18: 0000000=
-000000001
-> > [  228.316486] x17: 0000000000000000 x16: 0000000000000001 x15: ffff800=
-080003ad0
-> > [  228.323631] x14: ffff00008574d000 x13: 0000000000000000 x12: 0000000=
-000000001
-> > [  228.330775] x11: 0000000000000001 x10: 0000000000000001 x9 : 0000000=
-000001000
-> > [  228.337921] x8 : ffff00008674c390 x7 : ffff00008674c000 x6 : 0000000=
-000000003
-> > [  228.345066] x5 : 0000000000000003 x4 : 0000000000000001 x3 : 0000000=
-000000002
-> > [  228.352209] x2 : 0000000000000001 x1 : 0000000000000000 x0 : ffff000=
-08574b000
-> > [  228.359356] Call trace:
-> > [  228.361807]  __arm_lpae_map+0x388/0x4e4 (P)
-> > [  228.366002]  __arm_lpae_map+0x120/0x4e4 (L)
-> > [  228.370198]  __arm_lpae_map+0x120/0x4e4
-> > [  228.374042]  __arm_lpae_map+0x120/0x4e4
-> > [  228.377886]  __arm_lpae_map+0x120/0x4e4
-> > [  228.381730]  arm_lpae_map_pages+0x108/0x250
-> > [  228.385922]  arm_smmu_map_pages+0x40/0x120
-> > [  228.390029]  __iommu_map+0xfc/0x1bc
-> > [  228.393525]  iommu_map+0x38/0xc0
-> > [  228.396759]  __iommu_dma_map+0xb4/0x1a4
-> > [  228.400604]  iommu_dma_map_page+0x14c/0x27c
-> > [  228.404795]  dma_map_page_attrs+0x1fc/0x280
-> > [  228.408987]  stmmac_tso_xmit+0x2d0/0xbac
-> > [  228.412920]  stmmac_xmit+0x230/0xd14
-> > [  228.416505]  dev_hard_start_xmit+0x94/0x11c
-> > [  228.420697]  sch_direct_xmit+0x8c/0x380
-> > [  228.424540]  __qdisc_run+0x11c/0x66c
-> > [  228.428121]  net_tx_action+0x168/0x228
-> > [  228.431875]  handle_softirqs+0x100/0x244
-> > [  228.435809]  __do_softirq+0x14/0x20
-> > [  228.439303]  ____do_softirq+0x10/0x20
-> > [  228.442972]  call_on_irq_stack+0x24/0x64
-> > [  228.446903]  do_softirq_own_stack+0x1c/0x40
-> > [  228.451091]  __irq_exit_rcu+0xd4/0x10c
-> > [  228.454847]  irq_exit_rcu+0x10/0x1c
-> > [  228.458343]  el1_interrupt+0x38/0x68
-> > [  228.461927]  el1h_64_irq_handler+0x18/0x24
-> > [  228.466032]  el1h_64_irq+0x6c/0x70
-> > [  228.469438]  default_idle_call+0x28/0x58 (P)
-> > [  228.473718]  default_idle_call+0x24/0x58 (L)
-> > [  228.477998]  do_idle+0x1fc/0x260
-> > [  228.481234]  cpu_startup_entry+0x34/0x3c
-> > [  228.485163]  rest_init+0xdc/0xe0
-> > [  228.488401]  console_on_rootfs+0x0/0x6c
-> > [  228.492250]  __primary_switched+0x88/0x90
-> > [  228.496270] ---[ end trace 0000000000000000 ]---
-> > [  228.500950] dwc-eth-dwmac 2490000.ethernet: Tx dma map failed
-> > --- >8 ---
-> >=20
-> > This looks to be slightly different from what Jon was seeing. Looking at
-> > the WARN_ON() that triggers this, it seems like for some reason the page
-> > is getting mapped twice.
-> >=20
-> > Not exactly sure why that would be happening, so adding Robin and Will,
-> > maybe they can shed some light on this from the ARM SMMU side.
-> >=20
-> > Robin, Will, any idea who could be the culprit here? Is this a map/unmap
-> > imbalance or something else entirely?
+On Tue, Nov 19, 2024 at 02:47:29PM -0500, Parker Newman wrote:
+> On Tue, 19 Nov 2024 20:18:00 +0100
+> Andrew Lunn <andrew@lunn.ch> wrote:
 >=20
-> If valid PTEs are getting left behind in the pagetable, that would indica=
-te
-> that a previous dma_unmap_page() was called with a size smaller than its
-> original dma_map_page(). Throwing CONFIG_DMA_API_DEBUG at it should
-> hopefully shed more light.
+> > > I think there is some confusion here. I will try to summarize:
+> > > - Ihe iommu is supported by the Tegra SOC.
+> > > - The way the mgbe driver is written the iommu DT property is REQUIRE=
+D.
+> >
+> > If it is required, please also include a patch to
+> > nvidia,tegra234-mgbe.yaml and make iommus required.
+> >
+>=20
+> I will add this when I submit a v2 of the patch.
+>=20
+> > > - "iommus" is a SOC DT property and is defined in tegra234.dtsi.
+> > > - The mgbe device tree nodes in tegra234.dtsi DO have the iommus prop=
+erty.
+> > > - There are no device tree changes required to to make this patch wor=
+k.
+> > > - This patch works fine with existing device trees.
+> > >
+> > > I will add the fallback however in case there is changes made to the =
+iommu
+> > > subsystem in the future.
+> >
+> > I would suggest you make iommus a required property and run the tests
+> > over the existing .dts files.
+> >
+> > I looked at the history of tegra234.dtsi. The ethernet nodes were
+> > added in:
+> >
+> > 610cdf3186bc604961bf04851e300deefd318038
+> > Author: Thierry Reding <treding@nvidia.com>
+> > Date:   Thu Jul 7 09:48:15 2022 +0200
+> >
+> >     arm64: tegra: Add MGBE nodes on Tegra234
+> >
+> > and the iommus property is present. So the requires is safe.
+> >
+> > Please expand the commit message. It is clear from all the questions
+> > and backwards and forwards, it does not provide enough details.
+> >
+>=20
+> I will add more details when I submit V2.
+>=20
+> > I just have one open issue. The code has been like this for over 2
+> > years. Why has it only now started crashing?
+> >
+>=20
+> It is rare for Nvidia Jetson users to use the mainline kernel. Nvidia
+> provides a custom kernel package with many out of tree drivers including a
+> driver for the mgbe controllers.
+>=20
+> Also, while the Orin AGX SOC (tegra234) has 4 instances of the mgbe contr=
+oller,
+> the Nvidia Orin AGX devkit only uses mgbe0. Connect Tech has carrier boar=
+ds
+> that use 2 or more of the mgbe controllers which is why we found the bug.
 
-Bull's-eye! DMA_API_DEBUG does flag this:
+Correct. Also, this was a really stupid thing that I overlooked. I don't
+recall the exact circumstances, but I vaguely recall there had been
+discussions about adding the tegra_dev_iommu_get_stream_id() helper
+(that this patch uses) around the time that this driver was created. In
+the midst of all of this I likely forgot to update the driver after the
+discussions had settled.
 
---- >8 ---
-[   60.469121] DMA-API: dwc-eth-dwmac 2490000.ethernet: device driver tries=
- to free DMA memory it has not allocated [device add ress=3D0x000000ffffcf6=
-5c0] [size=3D66 bytes]
-1
-[   60.486534] WARNING: CPU: 0 PID: 0 at kernel/dma/debug.c:972 check_unmap=
-+0x564/0x8f0
-[   60.494493] Modules linked in: snd_soc_tegra210_admaif snd_soc_tegra_pcm=
- snd_soc_tegra210_ope snd_soc_tegra186_asrc snd_soc_tegra210_amx snd_soc_te=
-gra210_mv
-c snd_soc_tegra210_mixer snd_soc_tegra210_dmic snd_soc_tegra210_sfc snd_soc=
-_tegra186_dspk snd_soc_tegra210_i2s snd_soc_tegra210_adx tegra_drm drm_dp_a=
-ux_bus ce
-c drm_display_helper drm_client_lib drm_kms_helper tegra210_adma snd_soc_te=
-gra210_ahub snd_hda_codec_hdmi snd_soc_tegra_audio_graph_card snd_hda_tegra=
- snd_soc_
-audio_graph_card snd_hda_codec snd_soc_simple_card_utils at24 snd_hda_core =
-ina3221 tegra_aconnect tegra_xudc tegra_bpmp_thermal host1x fuse drm backli=
-ght ipv6
-[   60.549857] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S           =
-      6.13.0-rc1-next-20241203 #31
-[   60.559504] Tainted: [S]=3DCPU_OUT_OF_SPEC
-[   60.563423] Hardware name: nvidia NVIDIA P2771-0000-500/NVIDIA P2771-000=
-0-500, BIOS 2025.01-rc3-00040-g36352ae2e68e-dirty 01/01/2025
-[   60.575317] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=
-=3D--)
-[   60.582273] pc : check_unmap+0x564/0x8f0
-[   60.586197] lr : check_unmap+0x564/0x8f0
-[   60.590117] sp : ffff800080003b50
-[   60.593428] x29: ffff800080003b50 x28: ffff0000825309c0 x27: ffff0000825=
-313c0
-[   60.600562] x26: 00000000000001b9 x25: 0000000000000001 x24: ffff0000801=
-1b410
-[   60.607696] x23: ffff800082059ec0 x22: 0000000000000000 x21: ffff8000825=
-b25c8
-[   60.614829] x20: ffff800080003bc0 x19: 000000ffffcf65c0 x18: 00000000000=
-00006
-[   60.621962] x17: 645b206465746163 x16: 0000000000000000 x15: 07200720072=
-00720
-[   60.629095] x14: ffff800082074960 x13: 0720072007200720 x12: 07200720072=
-00720
-[   60.636229] x11: ffff800082074960 x10: 0000000000000299 x9 : ffff8000820=
-cc960
-[   60.643362] x8 : 0000000000017fe8 x7 : 00000000fffff000 x6 : ffff8000820=
-cc960
-[   60.650496] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 00000000000=
-00000
-[   60.657629] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff8000820=
-64900
-[   60.664763] Call trace:
-[   60.667206]  check_unmap+0x564/0x8f0 (P)
-[   60.671131]  check_unmap+0x564/0x8f0 (L)
-[   60.675055]  debug_dma_unmap_page+0xac/0xc0
-[   60.679239]  dma_unmap_page_attrs+0xf4/0x200
-[   60.683508]  stmmac_tx_clean.constprop.0+0x1ac/0x7bc
-[   60.688474]  stmmac_napi_poll_tx+0xdc/0x168
-[   60.692657]  __napi_poll+0x38/0x180
-[   60.696148]  net_rx_action+0x158/0x2c0
-[   60.699897]  handle_softirqs+0x100/0x244
-[   60.703821]  __do_softirq+0x14/0x20
-[   60.707309]  ____do_softirq+0x10/0x20
-[   60.710970]  call_on_irq_stack+0x24/0x64
-[   60.714891]  do_softirq_own_stack+0x1c/0x40
-[   60.719072]  __irq_exit_rcu+0xd4/0x10c
-[   60.722821]  irq_exit_rcu+0x10/0x1c
-[   60.726308]  el1_interrupt+0x38/0x68
-[   60.729886]  el1h_64_irq_handler+0x18/0x24
-[   60.733980]  el1h_64_irq+0x6c/0x70
-[   60.737381]  default_idle_call+0x28/0x58 (P)
-[   60.741652]  default_idle_call+0x24/0x58 (L)
-[   60.745920]  do_idle+0x1fc/0x260
-[   60.749149]  cpu_startup_entry+0x34/0x3c
-[   60.753068]  rest_init+0xdc/0xe0
-[   60.756296]  console_on_rootfs+0x0/0x6c
-[   60.760135]  __primary_switched+0x88/0x90
-[   60.764146] ---[ end trace 0000000000000000 ]---
---- >8 ---
+Anyway, I agree with the conclusion that we don't need a compatibility
+fallback for this, both because it would be actively wrong to do it and
+we've had the required IOMMU properties in device tree since the start,
+so there can't be any regressions caused by this.
 
-This doesn't match the location from earlier, but at least there's
-something afoot here that needs fixing. I suppose this could simply be
-hiding any subsequent errors, so once this is fixed we might see other
-similar issues.
+I don't think it's necessary to make the iommus property required,
+though, because there's technically no requirement for these devices to
+be attached to an IOMMU. They usually are, and it's better if they are,
+but they should be able to work correctly without an IOMMU.
 
-Furong, I can look into this some more, but I'm not at all familiar with
-this part of the driver, so I don't really know where this could be
-originating from. Any pointers would be appreciated. Also, if you think
-there's anything I should try, I do have this setup that I can test on
-locally.
-
+Thanks, and apologies for dropping the ball on this,
 Thierry
 
---lrjlcvs3uibftgsq
+--qqjxn4twghzwb4kk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmdQfCYACgkQ3SOs138+
-s6FjWhAAni5ilnFd5G+xoW+k7BqHpNA7A+YjYGceNk3Ae7gX/rgCXRHqjnoCFS/o
-qqLEJr/IQ7HvXYyBbfXEaGtXTX3v6QM/RXPqZOAFt4K/e7+4X0zJC51UAmdtcGpp
-jV0FflBnCVvMd+LdLqAN7OEIQnFyXp8wb1+k3V9BOqj/CG/V2QbIyJU3Ff4v0GlX
-ljiHkd3gQcd5te7e0u5H4O9tf794jEc2iQBf+wKeEZLN5Dqkf8XRDpP8GSWiwVhx
-EgqjxxaVLcRZb0wiPmulyoWx7iKi0a1He1SefSbAqTkxuLP7iaXmMtffrZfYEkyT
-W+MLvtEmpp1+7MSL7I3JD/UYXh5gXqIE3I/flECwPcpH+tTmmW+NvA5kmvS/Z7y4
-aYnAez5jv65vGpwFMkFZTbw7oaPV00BKpXliyCe25ghDwKA2NOHlR1qt1bz+d/jE
-gUYO2wWBWnX2zpuUfYEVzPjKWsFSsand4WUwRQOcsGNk1UKXMI4aoTagOU1vG2aZ
-DIHJFVQx/bHAZh025m30UdcKr8mwpQHQHkOGEmmxJhxW5YzHHOLNTU7ANPXawPUR
-Uvqqql88Luxfw9EU+DYABmP6kFll+Gh2kOs81IjZkc4uyrNNzGL6/ydluzntwoEq
-TiP+c/2g0jY+/mJquWKvs2S7qjv9h5L/XG4NKeOX+xxN+mYxNAI=
-=HkJp
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmdQghYACgkQ3SOs138+
+s6GbwA//QaUQrLioM0UTRNYWW6ecsfiMO/nk5jBbz5LbMh7211gzUPPg83dUc3w8
+PnF586hTlqDo6mLikH3nc7DOt18GNUfjadV8xtLuJX6kYH/VDUEvjQaznfVpfrXo
+QdsbMn8MJT6DCq9Qcjvv3shtaGlDyJY/CFKkdKUVwvaw5IXzWdtoxX5Q9vF3v/W3
+fxoHRE90syhc9GmFKH9ntlt1Ku+mpNOm6pWYB6QLNTMqctjXJZsxnM+EvGqL57k7
++UCaJvfR2laTf41FkDbLGziIrHmSwoZLMIh08eyIjTGFfOvKqtpO9/a5ckCo9a+t
+zjlhdWI0GzRplmw2KYxkWGboZCUrGHzNSbp2GRUKaBs0MB7UVVrVCIDJ2Vj81l4f
+JoVhBQUQjNXSuQtZM3GKNq/8SkuQUfdSSt7xCw1lBMBCxXtbEtz7FvbmBjd2qx5o
+8vIzqLhXQNp5QfJZT+tTtWnAIm+5GEIZG2mr/pg9CCPKqtAhugSNZc18Me/IS+CM
+xXZWZLTQrfmHzUq2eTe0l9iVaTwLUf9ZDF3giHwXoyposgYTugBcHzbp10v1jB4M
+L/GJKcC8Lmv1vHMtTrhRJk/UWNSL4TVC7gmcvfXPQRdPB4Q9lXFTuHs0w+ggZVi4
+W2Ino7yR62yUh5iLveyTQqBAv5FT2c2EkB7TECfxyb0xGOLYpTw=
+=kEPd
 -----END PGP SIGNATURE-----
 
---lrjlcvs3uibftgsq--
+--qqjxn4twghzwb4kk--
 
---===============4736249635604038357==
+--===============7673964388677088519==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -379,4 +230,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4736249635604038357==--
+--===============7673964388677088519==--
