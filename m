@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B3AF9E5BB9
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 17:43:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3CC9E5BBF
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 17:43:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90578C78036;
-	Thu,  5 Dec 2024 16:43:38 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C4D5C78F6F;
+	Thu,  5 Dec 2024 16:43:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBC44C7802D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20993C7802C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 16:43:34 +0000 (UTC)
+ Thu,  5 Dec 2024 16:43:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A4F6DA43839;
- Thu,  5 Dec 2024 16:41:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DF30BC4CEE5;
- Thu,  5 Dec 2024 16:43:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4D3215C6BFF;
+ Thu,  5 Dec 2024 16:42:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B665C4AF64;
+ Thu,  5 Dec 2024 16:43:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733417011;
- bh=prEv+e0GG/OD65Qb7TwYdsqNMCpYICnodlwVYKCW350=;
+ s=k20201202; t=1733417013;
+ bh=hRTYBgd5aMrqxBD9zYQNvdPGPWcLGVS6g40811SQlp8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=GGzJNXn31M94/47WhfVe5KNP5fWaCLN9VTNnNLEF5Lg1wQd5tiLZKhf/8XdlgCOdS
- fEqH+ZAFXLWXWE0yjRcnYxBqI9GCikHpRNya3pcn7SA0s0FRu6nflQJJsYs6kAtPyg
- hsduLiBrd5X7gEcuMmsqXLmgkpgExKY3JGpmRwyULVtMjUGj8cZ2RRW5/iizme8/vd
- 2g4kTWa/vUuihUI9ktGiZKR6KjFmeJ20NsZ+RQLpOPY5EMsOAm+EJSzWzo38o3C2y0
- FutFvJviiX+m1Pka8vJSoTMzuKykhqv8TO3+bONfSEM+llSR7b7oEDpzBVOUqUB8ir
- A5KR1XmOiPB2A==
+ b=aVeP6mdXCNn292kteUDrYdf1yfvZFaTpbm4g7pxBnLfCLgP1o58t+awWSGq1i04tH
+ mEgQ0XOdiJbmQ0ehBmOrzYMxuyRgukyNZSpkGViMWaFf2kHmUVyBgT9+L6VcVfh3WH
+ q3QXfVZjEz6LOYQGCunwPF/0J6T8OSqMOgTetzlbFKcJggw2BknBu2l2VsXCqtcMo1
+ 48prGCdlvYYMG8T4Icp0gIC/IwqnJ3PQ8UiswekPi2QPSSv24O/sHq7um/uoXUeoAV
+ aTRBStwBezi+AvqZsgOSQn/Ov0rdeRxt4J8qa/VOvtyKJR03w5EIwvJ7Ko6RlMOcwA
+ YHQPVbE0GaVog==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CEBBBE7716C;
- Thu,  5 Dec 2024 16:43:31 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 11F24E7716D;
+ Thu,  5 Dec 2024 16:43:33 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Thu, 05 Dec 2024 17:43:00 +0100
+Date: Thu, 05 Dec 2024 17:43:10 +0100
 MIME-Version: 1.0
-Message-Id: <20241205-upstream_s32cc_gmac-v8-3-ec1d180df815@oss.nxp.com>
+Message-Id: <20241205-upstream_s32cc_gmac-v8-13-ec1d180df815@oss.nxp.com>
 References: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
 In-Reply-To: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -60,11 +60,11 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733417009; l=4080;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733417009; l=4096;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=MBmDp2CoF+dbqWlxm3bedxlXiboLWf0OxlOUmswN3oE=;
- b=8uHChxyIMSVZ0sLlUHsuSF/lowaFTxpDQYDwaIyAUy7QxgcGBTDGIIbxtarvCJivFXktl9Q37
- 8F1uSfvC6i8D/yJXSIPYKNIbZ+O+yaCVkgno9jXKCpuEvJjniOSU3Qy
+ bh=HHjvFK+MHmQc/THlQijGySkp22UNi4Qf+z7YD0xfSdU=;
+ b=F6PbHPEfkdJBXld6Aef064uiC+FFrYJk8IuaodDsSLA0Ew54pX44H2unpaE1B5CkdAWwOlLDS
+ s1hqDsqvLC7BL9axrTDnAhjnUK0mc8CIF6ZutaRSUMsc8QrsKtc3CW+
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -73,12 +73,10 @@ X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
- fancer.lancer@gmail.com, 0x1207@gmail.com,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 03/15] net: stmmac: Fix clock rate
- variables size
+ fancer.lancer@gmail.com, 0x1207@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v8 13/15] dt-bindings: net: Add DT
+ bindings for DWMAC on NXP S32G/R SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,99 +96,139 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-The clock API clk_get_rate() returns unsigned long value.
-Expand affected members of stmmac platform data and
-convert the stmmac_clk_csr_set() and dwmac4_core_init() methods
-to defining the unsigned long clk_rate local variables.
+Add basic description for DWMAC ethernet IP on NXP S32G2xx, S32G3xx
+and S32R45 automotive series SoCs.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c       | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c       | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c   | 2 +-
- include/linux/stmmac.h                                  | 6 +++---
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 105 +++++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
+ 2 files changed, 106 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 901a3c1959fa..2a5b38723635 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -777,7 +777,7 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
- 		netdev_err(priv->dev, "Failed to max out clk_ptp_ref: %d\n", err);
- 	plat_dat->clk_ptp_rate = clk_get_rate(plat_dat->clk_ptp_ref);
- 
--	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
-+	netdev_dbg(priv->dev, "PTP rate %lu\n", plat_dat->clk_ptp_rate);
- }
- 
- static int qcom_ethqos_probe(struct platform_device *pdev)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index c25781874aa7..c36f90a782c5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -27,7 +27,7 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	void __iomem *ioaddr = hw->pcsr;
- 	u32 value = readl(ioaddr + GMAC_CONFIG);
--	u32 clk_rate;
-+	unsigned long clk_rate;
- 
- 	value |= GMAC_CORE_INIT;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3cb7ad6ccc4e..d45fd7a3acd5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -301,7 +301,7 @@ static void stmmac_global_err(struct stmmac_priv *priv)
-  */
- static void stmmac_clk_csr_set(struct stmmac_priv *priv)
- {
--	u32 clk_rate;
-+	unsigned long clk_rate;
- 
- 	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 3ac32444e492..06e07e6e180b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -640,7 +640,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 		dev_info(&pdev->dev, "PTP uses main clock\n");
- 	} else {
- 		plat->clk_ptp_rate = clk_get_rate(plat->clk_ptp_ref);
--		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
-+		dev_dbg(&pdev->dev, "PTP rate %lu\n", plat->clk_ptp_rate);
- 	}
- 
- 	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 865d0fe26f98..c9878a612e53 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -252,8 +252,8 @@ struct plat_stmmacenet_data {
- 	struct clk *stmmac_clk;
- 	struct clk *pclk;
- 	struct clk *clk_ptp_ref;
--	unsigned int clk_ptp_rate;
--	unsigned int clk_ref_rate;
-+	unsigned long clk_ptp_rate;
-+	unsigned long clk_ref_rate;
- 	unsigned int mult_fact_100ns;
- 	s32 ptp_max_adj;
- 	u32 cdc_error_adj;
-@@ -265,7 +265,7 @@ struct plat_stmmacenet_data {
- 	int mac_port_sel_speed;
- 	int has_xgmac;
- 	u8 vlan_fail_q;
--	unsigned int eee_usecs_rate;
-+	unsigned long eee_usecs_rate;
- 	struct pci_dev *pdev;
- 	int int_snapshot_num;
- 	int msi_mac_vec;
+diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
+new file mode 100644
+index 000000000000..2b8b74c5feec
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2021-2024 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP S32G2xx/S32G3xx/S32R45 GMAC ethernet controller
++
++maintainers:
++  - Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
++
++description:
++  This device is a Synopsys DWC IP, integrated on NXP S32G/R SoCs.
++  The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
++  the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
++  interface over Pinctrl device or the output can be routed
++  to the embedded SerDes for SGMII connectivity.
++
++properties:
++  compatible:
++    oneOf:
++      - const: nxp,s32g2-dwmac
++      - items:
++          - enum:
++              - nxp,s32g3-dwmac
++              - nxp,s32r45-dwmac
++          - const: nxp,s32g2-dwmac
++
++  reg:
++    items:
++      - description: Main GMAC registers
++      - description: GMAC PHY mode control register
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: macirq
++
++  clocks:
++    items:
++      - description: Main GMAC clock
++      - description: Transmit clock
++      - description: Receive clock
++      - description: PTP reference clock
++
++  clock-names:
++    items:
++      - const: stmmaceth
++      - const: tx
++      - const: rx
++      - const: ptp_ref
++
++required:
++  - clocks
++  - clock-names
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/phy/phy.h>
++    bus {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      ethernet@4033c000 {
++        compatible = "nxp,s32g2-dwmac";
++        reg = <0x0 0x4033c000 0x0 0x2000>, /* gmac IP */
++              <0x0 0x4007c004 0x0 0x4>;    /* GMAC_0_CTRL_STS */
++        interrupt-parent = <&gic>;
++        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "macirq";
++        snps,mtl-rx-config = <&mtl_rx_setup>;
++        snps,mtl-tx-config = <&mtl_tx_setup>;
++        clocks = <&clks 24>, <&clks 17>, <&clks 16>, <&clks 15>;
++        clock-names = "stmmaceth", "tx", "rx", "ptp_ref";
++        phy-mode = "rgmii-id";
++        phy-handle = <&phy0>;
++
++        mtl_rx_setup: rx-queues-config {
++          snps,rx-queues-to-use = <5>;
++        };
++
++        mtl_tx_setup: tx-queues-config {
++          snps,tx-queues-to-use = <5>;
++        };
++
++        mdio {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          compatible = "snps,dwmac-mdio";
++
++          phy0: ethernet-phy@0 {
++            reg = <0>;
++          };
++        };
++      };
++    };
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index eb1f3ae41ab9..91e75eb3f329 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -67,6 +67,7 @@ properties:
+         - ingenic,x2000-mac
+         - loongson,ls2k-dwmac
+         - loongson,ls7a-dwmac
++        - nxp,s32g2-dwmac
+         - qcom,qcs404-ethqos
+         - qcom,sa8775p-ethqos
+         - qcom,sc8280xp-ethqos
 
 -- 
 2.47.0
