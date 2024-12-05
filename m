@@ -2,70 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD099E5DFD
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 19:07:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8D7F9E606B
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 23:22:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64004C7802B;
-	Thu,  5 Dec 2024 18:07:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83690C78033;
+	Thu,  5 Dec 2024 22:22:48 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C172C7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADD45C7802D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 18:06:54 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B5G4HBk019839;
- Thu, 5 Dec 2024 19:06:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 0JnhlkT+86La11TTNlcsIBnITx15puWkRfuAEfVFs/I=; b=G5nZotVwCco3qDt6
- 3Cfl9zzcdOOU/Uml9SI6+Fw7T1PoD+tUBhguTxQqOSCFrZl4j6YaIKRFFUSUsiU6
- Z6iGESJ+JSmq9RTT1t3VA0DFwQJ/Tm6hJnSkA69uFFtZMyJqrtuK7FELR3ZTBTrK
- S3s21nK0xDo+JIR2VMGa8d3iOmV8DY445J5iDbsysAGTRpdMXryOLz5RnGT76Ar8
- 6seG7FYjzqNSVuXp9r0ifTCCPcdi+nC9M07N/9QOT0Rzif4ecraID5m2AoIhGBS1
- 14KhdkgN7fTr44dxms2+AewXh3kKtod4nNUch5Ho3mf5FBvTX1vRFu9/CPIl0cGW
- ZAkXGQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 437rq9gssg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Dec 2024 19:06:40 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 69D6840049;
- Thu,  5 Dec 2024 19:05:36 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 52D9D267F27;
- Thu,  5 Dec 2024 19:04:41 +0100 (CET)
-Received: from [10.252.15.31] (10.252.15.31) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 5 Dec
- 2024 19:04:40 +0100
-Message-ID: <bdfeceb6-962a-4f20-b76c-4fe5e5ff80c3@foss.st.com>
-Date: Thu, 5 Dec 2024 19:04:39 +0100
+ Thu,  5 Dec 2024 22:22:40 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-aa54adcb894so248528866b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Dec 2024 14:22:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733437360; x=1734042160;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=m3lyXrqzIu+Kk45XA+AociMWK/OJuQLe7K4aBvShe1s=;
+ b=Ynw1zZRGZ8ZSwtD6GGEsFvAGbSd+IkpOzOs5Rn+DZyVjM6dhPqNebdUs6tpNLGtGov
+ 64PQ46wRhSRPaXeoGF7O14I/dWyqW1OdGPSI4HIjlC8ujmdldHTj8SPyVDG5e68/L0bd
+ 1z/aHfZ4CuaIkYTJ1ThE1grb5se4OT64yB+xktNvR3lpQAA5dWVzO9PIZO3Ot5OQ+UWs
+ yxURE9YkZ9l3ZaQ2cxCQFt/M/g5R9yJe0pPfmRl84IMVjgpo39mDGqZLEpw2JXW7Caw1
+ x1osr1OyDPcEfazqmXlsc8dmJ5FHOzaZIGwQw/Oi54j3JghDHUOCbP9GqsYWvQq1zzjz
+ /b6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733437360; x=1734042160;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=m3lyXrqzIu+Kk45XA+AociMWK/OJuQLe7K4aBvShe1s=;
+ b=gssQx9FFFSAaw4A5QfIbhAi4LRw+rb3cWP+RzkxvFIuOyLSCzC7f+H1Y+GNEDfiyjr
+ 3kGyTMzTx/L8EoyJogQ2Lm8heHQhb4OTEPaJqSifgB7pu9kmmGiBkn0G2BsklmgTmlTB
+ 6HQ8FFmDUJWjhK/6KOiHaTLV+WHnm6vxVJxqkgpzCHdeBJQ5PUtW37zNZEAiCGIVMHqH
+ orxCJx+9/jpW8AYweDBJoS9XqPb1y94IxO+SpcPAbGxByBCCIOn/mptgmbdl3dOC0QYX
+ BRcbrXh0M68rOVSQEJM7IM0lGZOzSK/OoqYPJLTG96ltK16TxU8yBRVIfvM4iyDLf6Js
+ YpgQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUpqWLMbEHFPcrRA737WZXHcN+j420RbmLD6Al30v5LgBkbq30Fpz6+LlI9/tVkWH0O/zkM8y2sSLewUA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx+LIbhGXAba/o/Wr9WPFmfP0w3eajsXKM2WYqcv27yYDFJYPqm
+ KH69Qiqm3DAJ2QcuEGWHHDPpogWpLoAYrmNA+G2zj27iN3i0JXmt
+X-Gm-Gg: ASbGncsyGTyHZMIBquyijjeUsBr5kOhCSEgnlJUgSu0Peyc62XWF6P9JNsZzoYO93sf
+ XO2mXyWbiMgyOv8TuqDksrr0iQzLg0ytDGy0PlwCP4ACSg8N0FAwWKpJaAamLabD/YlOCAswmP8
+ BJ3NRQ9KMBdWSbFlFpJKMH+NWke7UfnRAXVUBZKFFkLDyNSkursEOcvEm0KWWXjVnc07+VqAdtw
+ VvpdeSsGPjaHfWdjWGC/7uIDfIx7y4XL83tYDfbSX80TcP+wkB6Iw03QsJj
+X-Google-Smtp-Source: AGHT+IGcrLT4gONP5gatqkYWWG2Utr7wcaZ76fP3t5w0AD0MTmF9LBS0SpqfRAOkQ11uPNvWm5iasQ==
+X-Received: by 2002:a17:907:7703:b0:aa5:449e:1a1d with SMTP id
+ a640c23a62f3a-aa639fa434cmr49156166b.2.1733437359965; 
+ Thu, 05 Dec 2024 14:22:39 -0800 (PST)
+Received: from localhost.localdomain ([83.168.79.145])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa6260e33f7sm148805566b.183.2024.12.05.14.22.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Dec 2024 14:22:39 -0800 (PST)
+From: Karol Przybylski <karprzy7@gmail.com>
+To: karprzy7@gmail.com, jikos@kernel.org, bentiss@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Date: Thu,  5 Dec 2024 23:22:21 +0100
+Message-Id: <20241205222221.3094702-1-karprzy7@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Ken Sloat
- <ksloat@cornersoftsolutions.com>
-References: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
- <d53538ea-f846-4a6a-bc14-22ec7ee57e53@kernel.org>
- <CADRqkYDnDNL_H2CzxjsPOdM++iYp-9Ak3PVFBw2qcjR_M=GeBA@mail.gmail.com>
- <28d1bb46-ab18-42da-9ca2-ff498c888d66@kernel.org>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <28d1bb46-ab18-42da-9ca2-ff498c888d66@kernel.org>
-X-Originating-IP: [10.252.15.31]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
- dmaengine@vger.kernel.org, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1] dt-bindings: dma: st-stm32-dmamux: Add
- description for dma-cell values
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+040e8b3db6a96908d470@syzkaller.appspotmail.com,
+ skhan@linuxfoundation.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCHv2] HID: hid-thrustmaster: Fix warning in
+	thrustmaster_probe by adding endpoint check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,62 +83,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+syzbot has found a type mismatch between a USB pipe and the transfer
+endpoint, which is triggered by the hid-thrustmaster driver[1].
+There is a number of similar, already fixed issues [2].
+In this case as in others, implementing check for endpoint type fixes the issue.
 
-On 12/5/24 17:09, Krzysztof Kozlowski wrote:
-> On 05/12/2024 17:07, Ken Sloat wrote:
->>>> + 1. The mux input number/line for the request
->>>> + 2. Bitfield representing DMA channel configuration that is passed
->>>> + to the real DMA controller
->>>> + 3. Bitfield representing device dependent DMA features passed to
->>>> + the real DMA controller
->>>> +
->>>> + For bitfield definitions of cells 2 and 3, see the associated
->>>> + bindings doc for the actual DMA controller the mux is connected
->>>
->>> This does not sound right. This is the binding for DMA controller, so
->>> you are saying "please look at itself". I suggest to drop this as well.
->>>
->>
->> While logically it is the DMA controller, this doc is specifically for
->> the mux - the DMA controller has its own driver and binding docs in
->> Documentation/devicetree/bindings/dma/stm32/st,stm32-dma.yaml
->>
->> I can reference st,stm32-dma.yaml directly, but I was unsure if this
->> mux IP was used with another DMA controller from ST on a different
->> SoC.
->>
->> What do you suggest here?
-> 
-> Thanks for explanation, I think it is fine.
-> 
-> Best regards,
-> Krzysztof
+[1] https://syzkaller.appspot.com/bug?extid=040e8b3db6a96908d470
+[2] https://syzkaller.appspot.com/bug?extid=348331f63b034f89b622
 
-This description was lost when STM32 DMAMUX binding txt file was 
-converted to yaml:
-0b7c446fa9f7 ("dt-bindings: dma: Convert stm32 DMAMUX bindings to 
-json-schema")
+Fixes: c49c33637802 ("HID: support for initialization of some Thrustmaster wheels")
+Reported-by: syzbot+040e8b3db6a96908d470@syzkaller.appspotmail.com
+Tested-by: syzbot+040e8b3db6a96908d470@syzkaller.appspotmail.com
+Signed-off-by: Karol Przybylski <karprzy7@gmail.com>
+---
+ drivers/hid/hid-thrustmaster.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
--- #dma-cells:	Should be set to <3>.
--		First parameter is request line number.
--		Second is DMA channel configuration
--		Third is Fifo threshold
--		For more details about the three cells, please see
--		stm32-dma.txt documentation binding file
+diff --git a/drivers/hid/hid-thrustmaster.c b/drivers/hid/hid-thrustmaster.c
+index cf1679b0d..6c3e758bb 100644
+--- a/drivers/hid/hid-thrustmaster.c
++++ b/drivers/hid/hid-thrustmaster.c
+@@ -170,6 +170,14 @@ static void thrustmaster_interrupts(struct hid_device *hdev)
+ 	ep = &usbif->cur_altsetting->endpoint[1];
+ 	b_ep = ep->desc.bEndpointAddress;
+ 
++	/* Are the expected endpoints present? */
++	u8 ep_addr[1] = {b_ep};
++
++	if (!usb_check_int_endpoints(usbif, ep_addr)) {
++		hid_err(hdev, "Unexpected non-int endpoint\n");
++		return;
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(setup_arr); ++i) {
+ 		memcpy(send_buf, setup_arr[i], setup_arr_sizes[i]);
+ 
+-- 
+2.34.1
 
-
-stm32-dmamux exclusively muxes stm32-dma channels. It is not used with 
-other ST DMA controllers (STM32 MDMA, STM32 DMA3).
-
-So it is fine to refer to st,stm32-dma.yaml.
-
-Regards,
-Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
