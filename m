@@ -2,43 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05B29E5CF2
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 18:20:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AF599E5CFB
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 18:23:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1DB4C7802B;
-	Thu,  5 Dec 2024 17:20:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6C89C7802B;
+	Thu,  5 Dec 2024 17:23:21 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E642C7801F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A9EBC7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 17:20:25 +0000 (UTC)
+ Thu,  5 Dec 2024 17:23:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4A37D5C67D6;
- Thu,  5 Dec 2024 17:19:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FD3C4CED1;
- Thu,  5 Dec 2024 17:20:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CA65A5C6BD2;
+ Thu,  5 Dec 2024 17:22:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C484C4CED1;
+ Thu,  5 Dec 2024 17:23:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733419223;
- bh=J4RkZ5QcEl8BbbxZ0oiUNZ6PyUOhfVv0KK0hpYX0QHI=;
+ s=k20201202; t=1733419392;
+ bh=fi2WY3gBh65WYtY2fRxW1m7CZSc00650cfNmqqUnA18=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=rftU0Zqtc9rZbHZ3b72ZLSyJ+U1EXcTYa5W6E7+3oB48oYixbQ6rPv41EdATIKyPA
- eceinoMbrJOg2T+pWNemssUo+s2q2FALIGGfuMiyZNOHhkdFw42D/2FcopxvVKJXC4
- 8lL5dr+LSh7aWZZMYTtFB1nvFOS2f0GurLvUb8wNkB3SgOa9p9Oon25AEz+X5Ne/6/
- xM5wD4MOqGx00Q37pa0Htl/wWXrID9mZszE8JWqVlDzqZi6uG1Iq2vjVQkZ+o9AQgp
- rjypv9377pYhtbLIceudyFqTvMInGom0gyAtzceg/vyPdXLTTEgFh7GD03QzOZK6yd
- e0wjh2DmCu4BQ==
-Date: Thu, 5 Dec 2024 11:20:22 -0600
+ b=N0ziBbO/Al108sgzgpgfqlBHui/9lVvto/OgeBeezQS2smZibRfyFkaN8yazfWTy/
+ cEkEQTw3Fbupk5EJG3IejmoW5HBwAJJFUSc6fW/p9AHQ53kkSDp9wTlZpmD0xdNY1p
+ 3cSnOtR/P4D70ZVo9Tu+C72eD4uGGr5co+aG+GpFvXB/vKreQntGU0zE6EOKjQLiX6
+ Y1aWDK8wXTHZsrxqEqFmKZBeWgaoJov5ut0ZtF4cXXgoaCic2mgR3d6Lx6TshMec/f
+ vXNqjKMtAxBa7DyyeNupzOqD8qd8jIeQfjkDhamsBTx8eDzwcPMITuA/7pxI3RrYku
+ zHHlNpSFiy7rA==
+Date: Thu, 5 Dec 2024 11:23:10 -0600
 From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>
-Message-ID: <20241205172022.GA3053765@bhelgaas>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <20241205172310.GA3055111@bhelgaas>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <569904ad-2b70-4a58-98fe-4f24e1089e17@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- linux-kernel@vger.kernel.org, cassel@kernel.org, quic_schintav@quicinc.com,
+In-Reply-To: <20241126155119.1574564-2-christian.bruel@foss.st.com>
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
+ cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
  mcoquelin.stm32@gmail.com, manivannan.sadhasivam@linaro.org,
  bhelgaas@google.com, krzk+dt@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -60,71 +59,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[cc->to: Rob for RC/RP separation conversation]
+On Tue, Nov 26, 2024 at 04:51:15PM +0100, Christian Bruel wrote:
+> Document the bindings for STM32MP25 PCIe Controller configured in
+> root complex mode.
+> ...
 
-On Thu, Dec 05, 2024 at 02:41:26PM +0100, Christian Bruel wrote:
-> On 12/3/24 23:25, Bjorn Helgaas wrote:
-> > On Tue, Nov 26, 2024 at 04:51:15PM +0100, Christian Bruel wrote:
-> > > Document the bindings for STM32MP25 PCIe Controller configured in
-> > > root complex mode.
-> > > 
-> > > Supports 4 legacy interrupts and MSI interrupts from the ARM
-> > > GICv2m controller.
+> +        power-domains = <&CLUSTER_PD>;
+> +    };
+> +
 
-> > > +  wake-gpios:
-> > > +    description: GPIO controlled connection to WAKE# input signal
-> > 
-> > I'm not a hardware guy, but this sounds like a GPIO that *reads*
-> > WAKE#, not controls it.
-> 
-> Rephrasing as
-> "GPIO used as WAKE# input signal" (output for the endpoint bindings)
+Nit:
 
-Perfect, that makes a lot of sense.
+  Applying: dt-bindings: PCI: Add STM32MP25 PCIe root complex bindings
+  .git/rebase-apply/patch:163: new blank line at EOF.
+  +
+  warning: 1 line adds whitespace errors.
 
-> > > +    pcie@48400000 {
-> > > +        compatible = "st,stm32mp25-pcie-rc";
-> > > +        device_type = "pci";
-> > > +        num-lanes = <1>;
-> > 
-> > num-lanes applies to a Root Port, not to a Root Complex.  I know most
-> > bindings conflate Root Ports with the Root Complex, maybe because many
-> > of these controllers only support a single Root Port?
-> > 
-> > But are we ever going to separate these out?  I assume someday
-> > controllers will support multiple Root Ports and/or additional devices
-> > on the root bus, like RCiEPs, RCECs, etc., and we'll need per-RP phys,
-> > max-link-speed, num-lanes, reset-gpios, etc.
-> > 
-> > Seems like it would be to our benefit to split out the Root Ports when
-> > we can, even if the current hardware only supports one, so we can
-> > start untangling the code and data structures.
-> 
-> OK. and we support only 1 lane anyway, so drop it.
-
-Makes sense.  What about phys, resets, etc?  I'm pretty sure a PHY
-would be a per-Root Port thing, and some resets and wakeup signals
-also.
-
-For new drivers, I think we should start adding Root Port stanzas to
-specifically associate those things with the Root Port, e.g.,
-something like this?
-
-  pcie@48400000 {
-    compatible = "st,stm32mp25-pcie-rc";
-
-    pcie@0,0 {
-      reg = <0x0000 0 0 0 0>;
-      phys = <&combophy PHY_TYPE_PCIE>;
-      phy-names = "pcie-phy";
-    };
-  };
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/pci/mediatek,mt7621-pcie.yaml?id=v6.12#n111
-is one binding that does this, others include apple,pcie.yaml,
-brcm,stb-pcie.yaml, hisilicon,kirin-pcie.yaml.
-
-Bjorn
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
