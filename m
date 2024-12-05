@@ -2,48 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702CD9E5802
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 14:58:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA189E5A7A
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 16:59:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EE8FC7801A;
-	Thu,  5 Dec 2024 13:58:21 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95CAAC7801B;
+	Thu,  5 Dec 2024 15:59:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E32F8C7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 511E0C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 13:58:13 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1])
- by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1tJCMh-0000kQ-S9; Thu, 05 Dec 2024 14:57:59 +0100
-Message-ID: <361b3a14-db86-4c3c-9f07-4ebc1dd40d0e@pengutronix.de>
-Date: Thu, 5 Dec 2024 14:57:59 +0100
+ Thu,  5 Dec 2024 15:59:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 538F85C6122;
+ Thu,  5 Dec 2024 15:58:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90BCC4CED1;
+ Thu,  5 Dec 2024 15:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733414355;
+ bh=I0pA0LIVOtMR1rdK5y5+lGusd/6Von4ontGZrXx9GoY=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=aEnFd6hFAmSmK2pHhN6Vvrznhdk2WNpck3AkX6V8tnag3Yd9SjKXwt4j7otb8wAhh
+ rJb6ZEY1qjEFPhIDBJS2Qu0YeTfij7aQWxB0fumEUZENJCz0a5NYrETQF8RdygNQM+
+ CPhPPiOR+m8+9IO4L8/UG3aBq9zVTnxRDKB6jdmHulOVMdvFRx44sBrUBVr/27mGED
+ sK0357KDwaWutMpw9FTjLRjSxQOuWVxK8uo4dRi0OvAZcbqqvg+CPoLjLPMt/rUdlN
+ JNfNX5GYvy2cd/e77MS8NwcN2i+FTJlRLgVjLCWufpMobGsh+ff42RBtmA7/91ahgs
+ SagHO3VBpPrbw==
+Message-ID: <d53538ea-f846-4a6a-bc14-22ec7ee57e53@kernel.org>
+Date: Thu, 5 Dec 2024 16:59:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20240806120517.406714-1-o.rempel@pengutronix.de>
- <20dc2cd4-7684-4894-9db3-23c3f4abd661@pengutronix.de>
- <a483fb50-f978-4e48-b38e-6d79632540f1@foss.st.com>
+To: Ken Sloat <ksloat@cornersoftsolutions.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, dmaengine@vger.kernel.org,
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+ conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, vkoul@kernel.org,
+ amelie.delaunay@foss.st.com
+References: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <a483fb50-f978-4e48-b38e-6d79632540f1@foss.st.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1] arm: dts: st: stm32mp151a-prtt1l: Fix
- QSPI configuration
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v1] dt-bindings: dma: st-stm32-dmamux: Add
+ description for dma-cell values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,47 +98,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gQWxleCwKCk9uIDI5LjEwLjI0IDE2OjM5LCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+
-IE9uIDgvNy8yNCAxMTozOCwgQWhtYWQgRmF0b3VtIHdyb3RlOgo+PiBIZWxsbyBPbGVrc2lqLAo+
-Pgo+PiBPbiAwNi4wOC4yNCAxNDowNSwgT2xla3NpaiBSZW1wZWwgd3JvdGU6Cj4+IFRoZXJlJ3Mg
-Ymlhcy1kaXNhYmxlIGluIHN0bTMybXAxNS1waW5jdHJsLmR0c2kuIFlvdSBtYXkgd2FudCB0byBh
-ZGQKPj4gYSAvZGVsZXRlLXByb3BlcnR5LyBmb3IgdGhhdCB0byBtYWtlIHN1cmUsIGl0J3Mgbm90
-IHVwIHRvIHRoZSBkcml2ZXIKPj4gd2hpY2ggb25lIGhhcyBwcmlvcml0eS4KPj4KPj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCBkcml2ZS1wdXNoLXB1bGw7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgc2xl
-dy1yYXRlID0gPDE+Owo+Pgo+PiBUaGVzZSBhcmUgYWxyZWFkeSBpbiBxc3BpX2JrMV9waW5zX2Eu
-IElmIHJlcGVhdGluZyB0aG9zZSBpcyBvaywgd2h5Cj4+IG5vdCBnbyBhIHN0ZXAgZnVydGhlciBh
-bmQganVzdCBkdXBsaWNhdGUgdGhlIHBpbm11eCBwcm9wZXJ0eSBhbmQgc3RheQo+PiBjbGVhciBv
-ZiB0aGlzIGlzc3VlIGFsdG9nZXRoZXIsIHByb3ZpZGVkIEFsZXggaXMgYW1lbmFibGUgdG8gY2hh
-bmdpbmcKPj4gaGlzIG1pbmQgcmVnYXJkaW5nIHBpbmN0cmwgZ3JvdXBzIGluIGJvYXJkIGRldmlj
-ZSB0cmVlcy4KPiAKPiBJIHN0aWxsIHByZWZlciB0byBoYXZlIHBpbiBjb25maWd1cmF0aW9uIGRl
-ZmluZWQgaW4gcGluY3RybCBkdHNpIGZpbGUgYW5kIEknbGwgY29udGludWUgbGlrZSB0aGlzIGZv
-ciBTVCBib2FyZC4gVGhlIHJlYXNvbiBpcyB0aGF0IHdlIHRyeSB0byByZXVzZSBhcyBtdWNoIGFz
-IHBvc3NpYmxlIHBpbnMgd2hlbiB3ZSBjcmVhdGUgYSBuZXcgYm9hcmQgYW5kIHNvIGl0IGlzIGVh
-c2llciB0byBtYWludGFpbiBpZiB3ZSBkZWNsYXJlIHRoZW0gb25seSBvbmUgdGltZS4KCkkgY2Fu
-IHNlZSB0aGUgcG9pbnQgZm9yIFNUIGV2YWx1YXRpb24ga2l0cyBhcyBTVCBjdXN0b21lciBoYXJk
-d2FyZQp3aWxsIG9mdGVuIGNvcHkgdGhlIHJlZmVyZW5jZSBkZXNpZ25zLgoKPiBCdXQsIEknbSBu
-b3QgYmxvY2tlZCBmb3IgIm90aGVyIiBib2FyZHMgYmFzZWQgb24gU1RNMzIgU29DLiBJIG1lYW4s
-IGlmIGl0IGlzIHNpbXBsZXIgZm9yIHlvdSBhbmQgYWJvdmUgYWxsIGlmIGl0IGF2b2lkIGlzc3Vl
-cy9jb21wbGV4aXRpZXMgdGhlbiwgeW91IGNhbiBkZWNsYXJlIHNvbWUgcGluIGdyb3VwcyBpbiB5
-b3VyIGJvYXJkIGR0cyBmaWxlLiBJbiB0aGlzIGNhc2Ugd2UgbmVlZCB0byB0YWtlIGNhcmUgb2Yg
-dGhlIElPIGdyb3VwcyBsYWJlbCBuYW1lLgoKVGhhdCdzIGdvb2QgdG8gaGVhciBhbmQgd2hhdCBJ
-IHdhbnRlZCB0byBjbGFyaWZ5LiBFc3BlY2lhbGx5IGZvciB0aGluZ3MgbGlrZQpBRENzLCB0aGVy
-ZSBhcmUgc28gbWFueSBwb3NzaWJsZSBwZXJtdXRhdGlvbnMgdGhhdCB0aGVyZSBpcyBubyBwb2lu
-dCBmb3IKYm9hcmRzIHRvIGFkZCB0aGVpciBwaW5jdHJsIGdyb3VwIHRvIHRoZSBtYWluIERUU0kg
-aW5zdGVhZCBvZiBqdXN0IGxpc3RpbmcKdGhlaXIgc3BlY2lmaWMgcGluIGNvbmZpZ3VyYXRpb24g
-aW4gdGhlIGJvYXJkIERUUy4KClRoYW5rcywKQWhtYWQKCj4gCj4gcmVnYXJkcwo+IGFsZXgKPiAK
-Pj4KPj4KPj4gQ2hlZXJzLAo+PiBBaG1hZAo+Pgo+IAoKCi0tIApQZW5ndXRyb25peCBlLksuICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfApT
-dGV1ZXJ3YWxkZXIgU3RyLiAyMSAgICAgICAgICAgICAgICAgICAgICAgfCBodHRwOi8vd3d3LnBl
-bmd1dHJvbml4LmRlLyAgfAozMTEzNyBIaWxkZXNoZWltLCBHZXJtYW55ICAgICAgICAgICAgICAg
-ICAgfCBQaG9uZTogKzQ5LTUxMjEtMjA2OTE3LTAgICAgfApBbXRzZ2VyaWNodCBIaWxkZXNoZWlt
-LCBIUkEgMjY4NiAgICAgICAgICAgfCBGYXg6ICAgKzQ5LTUxMjEtMjA2OTE3LTU1NTUgfApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+On 05/12/2024 16:32, Ken Sloat wrote:
+> The dma-cell values for the stm32-dmamux are used to craft the DMA spec
+> for the actual controller. These values are currently undocumented
+> leaving the user to reverse engineer the driver in order to determine
+> their meaning. Add a basic description, while avoiding duplicating
+> information by pointing the user to the associated DMA docs that
+> describe the fields in depth.
+> 
+> Signed-off-by: Ken Sloat <ksloat@cornersoftsolutions.com>
+> ---
+> .../bindings/dma/stm32/st,stm32-dmamux.yaml | 11 +++++++++++
+> 1 file changed, 11 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+> b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+> index f26c914a3a9a..aa2e52027ee6 100644
+> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+> @@ -15,6 +15,17 @@ allOf:
+> properties:
+> "#dma-cells":
+> const: 3
+
+Your patch is corrupted. Please use git send-email or b4 or b4+relay.
+
+> + description: |
+> + Should be set to <3> with each cell representing the following:
+
+Drop this part, const says this.
+
+> + 1. The mux input number/line for the request
+> + 2. Bitfield representing DMA channel configuration that is passed
+> + to the real DMA controller
+> + 3. Bitfield representing device dependent DMA features passed to
+> + the real DMA controller
+> +
+> + For bitfield definitions of cells 2 and 3, see the associated
+> + bindings doc for the actual DMA controller the mux is connected
+
+This does not sound right. This is the binding for DMA controller, so
+you are saying "please look at itself". I suggest to drop this as well.
+
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
