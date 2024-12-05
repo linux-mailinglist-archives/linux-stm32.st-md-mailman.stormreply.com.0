@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D8E9E67BB
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A43D9E67B5
 	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 08:15:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30D50C78F7C;
-	Fri,  6 Dec 2024 07:15:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 876F8C78F62;
+	Fri,  6 Dec 2024 07:15:44 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15384C78020
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2347C78038
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 16:43:38 +0000 (UTC)
+ Thu,  5 Dec 2024 16:43:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 520F25C68B6;
- Thu,  5 Dec 2024 16:42:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51ED8C4CEE2;
+ by nyc.source.kernel.org (Postfix) with ESMTP id 45E3DA43E7A;
+ Thu,  5 Dec 2024 16:41:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 72B87C4CEF8;
  Thu,  5 Dec 2024 16:43:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1733417012;
- bh=MdqsHWxoEbswm9BrGX6SpwNbcHkCUMsgVrFUDFuO4JM=;
+ bh=8EXZPVBYXlmWobRbQGHWVYHGGh1m+iUrmdn4povZRwc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Denyvrpf0tWH62oxZRuwZeV9cAUf7quM7F8qC3nvWM+wA8PpUg8GrE8rX+zLe7hKx
- YUxvUd93ULGbaCpdFox/yMriOn05fbgq/hSMNHbHPqdKugAgpTRqTlorwTquAJgJKa
- pKfyk/rkcxMirulLIMF/WfNnVt5KyUsCaXAcVn0+s1kaZomIygajUnxl4CoDlvr1nP
- gIvSB+aDzuPhF0n4wXEss02OjaaYU+aEq+IGCoTBlkJdyUlQALb8i3mni35++UY6c2
- gM2Aed4MwzhUXBgazf6V6ShmmmnAXLX/34wCKRmwUQbkBv8sTXgarQptn6cxZLA0iR
- C0r4LJvxZCWlw==
+ b=LWFXkx/8HF6Rq2j2sUucPlrvEA1Paa0iVHD3pIuQX0BY/whfa8kuhnek763HSD/AK
+ qvjw1sNDvx9zstD+R2I1yJeadCXaSUPX7Pv2frtc6xaHPBshwHdnIxobp8eDnjjKrN
+ IDL1+i7BoB44ofTP+pQV2lGz32snAwxPvGxdj1WiugCUSyxbzcEK9FVnmHxkIjE5T3
+ +PABD1Rs7cjnutFK5Eg6H3rRwMMDs8IxAEJjL+36EbDQNecB3mwArxK1sUeu2JDyzy
+ BtnkCFAhPdbPQ4Tsgd/70NRxQUGV4BN8+ayvQK1obhtPWQVdHM6G5GDm3OLjlr9hHO
+ m6HQR3DdAZw1Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 43098E7716D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5E745E7716C;
  Thu,  5 Dec 2024 16:43:32 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Thu, 05 Dec 2024 17:43:04 +0100
+Date: Thu, 05 Dec 2024 17:43:05 +0100
 MIME-Version: 1.0
-Message-Id: <20241205-upstream_s32cc_gmac-v8-7-ec1d180df815@oss.nxp.com>
+Message-Id: <20241205-upstream_s32cc_gmac-v8-8-ec1d180df815@oss.nxp.com>
 References: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
 In-Reply-To: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -60,11 +60,11 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733417009; l=1284;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733417009; l=1773;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=Ku8xMy0eJs5aGJR44zqrL9wRlkD9lntzlgmaMXGJpvg=;
- b=SlpOh7v4nNVm0pLzCwptN0QBO2ldqsCSY8Sf9nSyQhquMj3GTfNs51jbIqb7A69K9Y2Oz4E7Y
- PdHJq4FPfOODeNV5AMzSER5GuG4JDLjTKCNEpQfcqWKrIuUZAvOaO+n
+ bh=gyls2APUKHLlHqQNKqSG/VCF+Tkp2Zbsb4S51j4pUXE=;
+ b=qbnpqhoTgsRvcMIEUD4goyvuHM5dCLfQoGYQwklMsFdan4e1Zue3UvG0j2mDkqaMy8CsHkIel
+ zdqdSPX83MqB51zs9IE1oQLfkrzH1L/X+4uLO8G7tpEZy2NLVFfkJP0
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -74,10 +74,12 @@ X-Mailman-Approved-At: Fri, 06 Dec 2024 07:15:43 +0000
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
- fancer.lancer@gmail.com, 0x1207@gmail.com, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 07/15] net: dwmac-intel-plat: Use
- helper rgmii_clock
+ fancer.lancer@gmail.com, 0x1207@gmail.com,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v8 08/15] net: dwmac-rk: Use helper
+	rgmii_clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,50 +101,65 @@ From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
 Utilize a new helper function rgmii_clock().
 
-When in, remove dead code in kmb_eth_fix_mac_speed().
-
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c | 22 ++++------------------
- 1 file changed, 4 insertions(+), 18 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 30 ++++++--------------------
+ 1 file changed, 6 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-index d94f0a150e93..ddee6154d40b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-@@ -31,27 +31,13 @@ struct intel_dwmac_data {
- static void kmb_eth_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 8cb374668b74..a4dc89e23a68 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1079,20 +1079,11 @@ static void rk3568_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
  {
- 	struct intel_dwmac *dwmac = priv;
+ 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
+ 	struct device *dev = &bsp_priv->pdev->dev;
 -	unsigned long rate;
 +	long rate;
  	int ret;
  
--	rate = clk_get_rate(dwmac->tx_clk);
--
 -	switch (speed) {
--	case SPEED_1000:
--		rate = 125000000;
--		break;
--
--	case SPEED_100:
--		rate = 25000000;
--		break;
--
--	case SPEED_10:
+-	case 10:
 -		rate = 2500000;
 -		break;
--
+-	case 100:
+-		rate = 25000000;
+-		break;
+-	case 1000:
+-		rate = 125000000;
+-		break;
 -	default:
 +	rate = rgmii_clock(speed);
 +	if (rate < 0) {
- 		dev_err(dwmac->dev, "Invalid speed\n");
--		break;
-+		return;
+ 		dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
+ 		return;
  	}
+@@ -1540,20 +1531,11 @@ static void rv1126_set_rgmii_speed(struct rk_priv_data *bsp_priv, int speed)
+ {
+ 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
+ 	struct device *dev = &bsp_priv->pdev->dev;
+-	unsigned long rate;
++	long rate;
+ 	int ret;
  
- 	ret = clk_set_rate(dwmac->tx_clk, rate);
+-	switch (speed) {
+-	case 10:
+-		rate = 2500000;
+-		break;
+-	case 100:
+-		rate = 25000000;
+-		break;
+-	case 1000:
+-		rate = 125000000;
+-		break;
+-	default:
++	rate = rgmii_clock(speed);
++	if (rate < 0) {
+ 		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
+ 		return;
+ 	}
 
 -- 
 2.47.0
