@@ -2,60 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A929E6730
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 07:13:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9618F9E67B1
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 08:15:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CB72C6DD9A;
-	Fri,  6 Dec 2024 06:13:18 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B847C6DD9A;
+	Fri,  6 Dec 2024 07:15:44 +0000 (UTC)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FB4FC6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FF02C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 06:13:12 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1tJRaR-0005UF-LC; Fri, 06 Dec 2024 07:13:11 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tJRaO-001wrV-1O;
- Fri, 06 Dec 2024 07:13:09 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tJRaP-000huU-0I;
- Fri, 06 Dec 2024 07:13:09 +0100
-Date: Fri, 6 Dec 2024 07:13:09 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Conor Dooley <conor@kernel.org>
-Message-ID: <Z1KV9bCW0iafJ2hF@pengutronix.de>
-References: <20241205125640.1253996-1-o.rempel@pengutronix.de>
- <20241205125640.1253996-3-o.rempel@pengutronix.de>
- <20241205-hamstring-mantis-b8b3a25210ef@spud>
+ Thu,  5 Dec 2024 15:32:30 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-29e3721ded9so699014fac.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Dec 2024 07:32:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cornersoftsolutions.com; s=google; t=1733412749; x=1734017549;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=mSVWv3kzGyP7Ixr3DcJKWQ/Cs0NKKVxGUdtaJxvtNOU=;
+ b=CA5o1atH2rmtZa3nVDoFinidFTIzjYFXt2l9HYwfJyZFc3mi566naDhGExJcE/5X2z
+ dXxpcwTuywo0GKOAY/Vt0CdfyYyBxYVx6BY19NpeKi3ml6qs1cqhU86wxvwsrDpe+XZI
+ bYDhdp1I3GVOJNQAtV7pbjXorVl8i/VPodE6IPe1iZnK13GsZ/nybt44nAtviTO4QyJd
+ h1b0MMv9pUvRXxy0r7xRSrBPUVQ6EbzPzy9bW3gEEXeU/IzplhH9Gsx33mBHscyZ/rmn
+ 8hUtPkPj9FI8rfQX0T/x29lkwN7TvXbX8t4fgz2lEp+8Z77rx9jP122xspO19PShkuIL
+ ISug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733412749; x=1734017549;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mSVWv3kzGyP7Ixr3DcJKWQ/Cs0NKKVxGUdtaJxvtNOU=;
+ b=TWcm9epQSeWPNfp5kjKSWZmaHHuMSPoLhAkGeYtBmt7uggrpLnUi2QaJHjF6oNICmH
+ UOmUTEYRuVp2wHannfruXV4LRHdlsMpIIDC1eKrjedLKEmUJMLujfnI5igw0w9pcFhd9
+ vsaseZ2w6C6JnW2G9m5zqzz2zExpD4caHdlefUOLVQhk9jezadVi1PNCTMXgqRuX0WK7
+ Ei25DDKMkjI33yU708Jj9eMhdzZr6IWxqpLLpqFLLEYOWCBiqwbWDmUlQczswakjK0iW
+ H740kXs0E6IvpIsloTOyCD3G9FYeMEaxwr0G1nzp2e8X0XiIRUouN/1E/OO78VnLZQQ4
+ v/ng==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvh00yRQ6GdGu+DSaahEnlyuqIoAWHXoHo3OBCShjlPDu8AlgwB1koEHVCRpNPFvDvc9X6CIaJokSRAg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yyf+QcQKDWeI/dOCQHHYThv8eLgE7l0HLHfpCWLLlbnZo8PpXWy
+ nO3jPXDg95JTKPJdRUh/+h9arMrcaeLI7BBC6RBns5JdYNfgU+yiQJSltf5ILT0FzEZgIvSMsAy
+ u99oPZ/uBCje+zKe4Y8HvUW6BBnkexJDMzspw1Q==
+X-Gm-Gg: ASbGncvXB+ZNhLJr+/oRuVnUuOSTDtW1onKWtrGQVjGKLM7wJRu+PBpIDxSGzKz1E5r
+ 2TNLGkczpYjbHUccir3PkYjLrx5i0hUnO
+X-Google-Smtp-Source: AGHT+IEXh3wkarBLzAyKqYC0kT/Y8r28C1neLlKp6rQpRD5NvnZVxaGgz+SOmihpuXwnZlzhFMNga5hrHKjeRZiwzUg=
+X-Received: by 2002:a05:6871:606:b0:296:ee2e:a23c with SMTP id
+ 586e51a60fabf-29e88560c9bmr11677702fac.5.1733412749132; Thu, 05 Dec 2024
+ 07:32:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241205-hamstring-mantis-b8b3a25210ef@spud>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Woojung Huh <woojung.huh@microchip.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- "David S. Miller" <davem@davemloft.net>, kernel@pengutronix.de,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v1 2/5] dt-bindings: vendor-prefixes: Add
-	prefix for Priva
+From: Ken Sloat <ksloat@cornersoftsolutions.com>
+Date: Thu, 5 Dec 2024 10:32:17 -0500
+Message-ID: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
+To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ dmaengine@vger.kernel.org, alexandre.torgue@foss.st.com, 
+ mcoquelin.stm32@gmail.com, conor+dt@kernel.org, krzk+dt@kernel.org, 
+ robh@kernel.org, vkoul@kernel.org, amelie.delaunay@foss.st.com
+X-Mailman-Approved-At: Fri, 06 Dec 2024 07:15:43 +0000
+Cc: Ken Sloat <ksloat@cornersoftsolutions.com>
+Subject: [Linux-stm32] [PATCH v1] dt-bindings: dma: st-stm32-dmamux: Add
+ description for dma-cell values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,41 +81,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 05, 2024 at 05:16:14PM +0000, Conor Dooley wrote:
-> On Thu, Dec 05, 2024 at 01:56:37PM +0100, Oleksij Rempel wrote:
-> > Introduce the 'pri' vendor prefix for Priva, a company specializing in
-> > sustainable solutions for building automation, energy, and climate
-> > control.  More information about Priva can be found at
-> > https://www.priva.com
-> > 
-> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> > ---
-> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > index da01616802c7..9a9ac3adc5ef 100644
-> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > @@ -1198,6 +1198,8 @@ patternProperties:
-> >      description: Primux Trading, S.L.
-> >    "^probox2,.*":
-> >      description: PROBOX2 (by W2COMP Co., Ltd.)
-> > +  "^pri,.*":
-> > +    description: Priva
-> 
-> Why not "priva"? Saving two chars doesn't seem worth less info.
+The dma-cell values for the stm32-dmamux are used to craft the DMA spec
+for the actual controller. These values are currently undocumented
+leaving the user to reverse engineer the driver in order to determine
+their meaning. Add a basic description, while avoiding duplicating
+information by pointing the user to the associated DMA docs that
+describe the fields in depth.
 
-This is typical prefix which is used by this vendor, if it is possible
-i would prefer not to change it. But, last decision is on your side :)
+Signed-off-by: Ken Sloat <ksloat@cornersoftsolutions.com>
+---
+.../bindings/dma/stm32/st,stm32-dmamux.yaml | 11 +++++++++++
+1 file changed, 11 insertions(+)
 
-Regards,
-Oleksij
+diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+index f26c914a3a9a..aa2e52027ee6 100644
+--- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
++++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
+@@ -15,6 +15,17 @@ allOf:
+properties:
+"#dma-cells":
+const: 3
++ description: |
++ Should be set to <3> with each cell representing the following:
++ 1. The mux input number/line for the request
++ 2. Bitfield representing DMA channel configuration that is passed
++ to the real DMA controller
++ 3. Bitfield representing device dependent DMA features passed to
++ the real DMA controller
++
++ For bitfield definitions of cells 2 and 3, see the associated
++ bindings doc for the actual DMA controller the mux is connected
++ to.
+compatible:
+const: st,stm32h7-dmamux
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.34.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
