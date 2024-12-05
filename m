@@ -2,44 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C469E4FD0
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 09:34:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5805F9E5114
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 10:19:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 114D6C71292;
-	Thu,  5 Dec 2024 08:34:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06178C71292;
+	Thu,  5 Dec 2024 09:19:46 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 788A5C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8882CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 08:34:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 750CE5C718D;
- Thu,  5 Dec 2024 08:33:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF60C4CED1;
- Thu,  5 Dec 2024 08:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733387676;
- bh=gKCbD7Svx+y4jFvtnoFhWfAzzEJNorqOmAWV9TmCq9c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NOVY2eowOfL3vNW8Xwy5XggMKNW3YYHT+8993h3w9/y8N1zctDMuY7oVKQfrb/Shm
- XZoSoyO7+uNHD8uaqywzHVzQdlixDFafBXjnbpSJiNKB7dJ4WF5wC/wYemnYNRPl7D
- 30F4TCXZQPxhMIo8oO/P6rN10HxY/wFCS+nieVBBTB/MrCWCHYSIOdCv0G5aSrwMtL
- 6cLO7bCYv6wsLJC+NDMaCd93D4AZ01fRD8MBXj3QhMlNNdK3fCbHxiZAYJQ0uLndCY
- TGVt4FZ1Xyh8sDS1ekD1atTSyi3kuhNvWTdcVeG0NQLTn9HuWutbzvaaQuyz6bQrbJ
- k6oIIa9CsKNlw==
-Date: Thu, 5 Dec 2024 09:34:32 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Mingwei Zheng <zmw12306@gmail.com>
-Message-ID: <geyicxufezkbu7cdvnbgnr2qeuwrn5ubz5ent3spk5biuozxrs@gsqx2chgiiot>
-References: <20241205051746.2465490-1-zmw12306@gmail.com>
+ Thu,  5 Dec 2024 09:19:37 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2153e642114so6029645ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Dec 2024 01:19:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733390376; x=1733995176;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=y0HmfRBKBkLsgyW/HeIjKXTJHSnwiReWOxGDbcg2lig=;
+ b=XL7ua9GAYxFqDqP9TYpQuCHnWVEMRj0bk6oisrH+RwEzE/fPM8u+rpZfyciwuvZ8TM
+ ZEQjBbGrH3rs0jNyNEA9N1+mX7espsG1usNYr3AHmxM4jBmsl4yECSdgd1715nylMj57
+ pUKNko3DZ6zXniwHlcZYxuITQeWs9FkkoN0PM7t7FBK7o6X6b2N7d7UKmHZvfCvMPdc7
+ WWy4FuvsGgjd1pOeiANF97z+1roRu/I/r/K2BOZ2fw42aLI3yOTNAKOb4OXJDblWDIHE
+ P21kQV/TW6lDVnV/nl685zFPPEZvteowMwfmQajqbvW7v2i3pNAuukMAywiQCIL7eBUb
+ foZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733390376; x=1733995176;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=y0HmfRBKBkLsgyW/HeIjKXTJHSnwiReWOxGDbcg2lig=;
+ b=IBxn5HwRHCgn3TP46gHqoyd9WavhKaW3yliboM/WafKQqpNN8/0Re7XwJp1Dsaiyu3
+ gIkewgWox8S5VOLZHlWnbhbkyn/wsZddD+39odC69sa2ZqNaDzFxOwkNqLSNM+sVxxTg
+ fi9oe3q9q4hZhpCEcDzZlU/fG75yZ98FNiE3Ol4OPLLVX9DZOmQp5EAX8XWb4NedihYE
+ 8OeaQ2kKnNBwXahIkpATioysez48yus4LHmAzc6uVgpdJ32Uy1LjSmQuSLBh67gmpG+9
+ iIBDGZOUlnaScLz+c3dn4kn33JDZQ8XUW4p0ecepfDBiMe0RP71TopOC+xEG0ufCnlJo
+ ihZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUkSKFNMFdksVQbrnT+QPTrG2ewEC0NcKzN0Hj9gSrZguERhdhhUAPLKE4WC9nlf1wujvzFmUfkejqraw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxBbcM+GApH8ba1nAgQa6WvV4P2NePbtrBax6X8minUHnbE6A9F
+ g026XOA4OSbSbM+Rdnwy+CcxMRo5BqgmOkWd0G0gJN2i8i4kz/Qb
+X-Gm-Gg: ASbGncuW3+Eus7jo1/g5m/akm/WlNQidrAu/6+5QZxyUrPVwzce+CkZfFuX2kdScAOF
+ 7uE3iKdawUKasAcB9ijEOO5ZiKHPFZDyuCeqit+eUAb/dn9hMfP45oXNmtOk0uCvw9Eg/Z7UA8W
+ uPtap7pzRbgQvIn7LrbgxAZrY9r/6xlEzFqT3jL0HIm9vN7VEIiewQq4Flb3u8OXRr1B3AL17LU
+ L0mnj7caoUg3ckJ6eQj82v0GzkFG3HFEENDW5PE511UZrOYtdl4TNAjbFRa8O4=
+X-Google-Smtp-Source: AGHT+IHFjK3cGcjfncsTvxz/JQr72PK97p7r+aYYZQ6H2u3kZ0kfRozsXNPN9a0ZsbcFy3VaXfTZ0g==
+X-Received: by 2002:a17:903:1ca:b0:20b:8a71:b5c1 with SMTP id
+ d9443c01a7336-215bd1b4604mr141553115ad.1.1733390376224; 
+ Thu, 05 Dec 2024 01:19:36 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-215f8f09270sm8234895ad.203.2024.12.05.01.19.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Dec 2024 01:19:35 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu,  5 Dec 2024 17:18:30 +0800
+Message-Id: <20241205091830.3719609-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <20241205051746.2465490-1-zmw12306@gmail.com>
-Cc: linux-pwm@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- thierry.reding@gmail.com, linux-arm-kernel@lists.infradead.org,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, coquelin.stm32@gmail.com
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32-lp: Add check for clk_enable()
+Cc: Jon Hunter <jonathanh@nvidia.com>, Russell King <linux@armlinux.org.uk>,
+ Furong Xu <0x1207@gmail.com>, andrew+netdev@lunn.ch,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unaligned DMA
+	unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,83 +86,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4447479737038729231=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Commit 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap for
+non-paged SKB data") assigns a wrong DMA buffer address that is added an
+offset of proto_hdr_len to tx_q->tx_skbuff_dma[entry].buf on a certain
+platform that the DMA AXI address width is configured to 40-bit/48-bit,
+stmmac_tx_clean() will try to unmap this illegal DMA buffer address
+and many crashes are reported: [1] [2].
 
---===============4447479737038729231==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="shdmdu5ypwpb65ru"
-Content-Disposition: inline
+This patch guarantees that DMA address is passed to stmmac_tx_clean()
+unmodified and without offset.
 
+[1] https://lore.kernel.org/all/d8112193-0386-4e14-b516-37c2d838171a@nvidia.com/
+[2] https://lore.kernel.org/all/klkzp5yn5kq5efgtrow6wbvnc46bcqfxs65nz3qy77ujr5turc@bwwhelz2l4dw/
 
---shdmdu5ypwpb65ru
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: stm32-lp: Add check for clk_enable()
-MIME-Version: 1.0
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Reported-by: Thierry Reding <thierry.reding@gmail.com>
+Suggested-by: Russell King (Oracle) <linux@armlinux.org.uk>
+Fixes: 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data")
+Signed-off-by: Furong Xu <0x1207@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-On Thu, Dec 05, 2024 at 12:17:46AM -0500, Mingwei Zheng wrote:
-> Add check for the return value of clk_enable() to catch the potential
-> error.
-
-Is this something that you actually hit, or just a janitoral fix you
-noticed while browsing the code (or reading some checker output)?
-
-> Fixes: e70a540b4e02 ("pwm: Add STM32 LPTimer PWM driver")
-> Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
-> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-> ---
->  drivers/pwm/pwm-stm32-lp.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-stm32-lp.c b/drivers/pwm/pwm-stm32-lp.c
-> index 989731256f50..4abef304417d 100644
-> --- a/drivers/pwm/pwm-stm32-lp.c
-> +++ b/drivers/pwm/pwm-stm32-lp.c
-> @@ -163,12 +163,16 @@ static int stm32_pwm_lp_get_state(struct pwm_chip *=
-chip,
->  	unsigned long rate =3D clk_get_rate(priv->clk);
->  	u32 val, presc, prd;
->  	u64 tmp;
-> +	int ret;
-
-Please move this variable to the block where it's used. No need for such
-a big scope.
-
-Otherwise looks fine.
-
-Best regards
-Uwe
-
---shdmdu5ypwpb65ru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmdRZZUACgkQj4D7WH0S
-/k4TXwf/Wzw/hs8+EisqpH4An6STPdmc8pwIJCKQu1lwE6fQKkTYk5nYTs4JMxRx
-9JLhTTsBNGJrQ3mjJrjjOEPscREqkZoVBxdlZFEPaPpYukjgvSiYQwvPERXQNqbR
-y+Xb+CZuo5cITA51Jd3UDRIHktAIABl3Ox8GcqDhGgMq1Cje+XE24dwQ85kMyFJq
-2ncZRb7TuNhF9XtQkUmGcWXsEUq5iVlhG25UziKlX+ZhMz9MJaU5LnVOFSy9HAPb
-DTUS7vmaNGJiePZagOduLZ5Z/f7q/xMu311Xi4ylcjc59I54Ohp+VKuEnTMVzqaR
-R1M+5N2Zbe9/BZGXpnHvfs9MOLb7pg==
-=wFbu
------END PGP SIGNATURE-----
-
---shdmdu5ypwpb65ru--
-
---===============4447479737038729231==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 9b262cdad60b..7227f8428b5e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4192,8 +4192,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct stmmac_txq_stats *txq_stats;
+ 	struct stmmac_tx_queue *tx_q;
+ 	u32 pay_len, mss, queue;
++	dma_addr_t tso_hdr, des;
+ 	u8 proto_hdr_len, hdr;
+-	dma_addr_t des;
+ 	bool set_ic;
+ 	int i;
+ 
+@@ -4279,6 +4279,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			     DMA_TO_DEVICE);
+ 	if (dma_mapping_error(priv->device, des))
+ 		goto dma_map_err;
++	tso_hdr = des;
+ 
+ 	if (priv->dma_cap.addr64 <= 32) {
+ 		first->des0 = cpu_to_le32(des);
+@@ -4310,7 +4311,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	 * this DMA buffer right after the DMA engine completely finishes the
+ 	 * full buffer transmission.
+ 	 */
+-	tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = des;
++	tx_q->tx_skbuff_dma[tx_q->cur_tx].buf = tso_hdr;
+ 	tx_q->tx_skbuff_dma[tx_q->cur_tx].len = skb_headlen(skb);
+ 	tx_q->tx_skbuff_dma[tx_q->cur_tx].map_as_page = false;
+ 	tx_q->tx_skbuff_dma[tx_q->cur_tx].buf_type = STMMAC_TXBUF_T_SKB;
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4447479737038729231==--
