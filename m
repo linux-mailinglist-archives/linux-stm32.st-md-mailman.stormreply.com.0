@@ -2,45 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA189E5A7A
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 16:59:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B72A59E5ACE
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Dec 2024 17:09:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95CAAC7801B;
-	Thu,  5 Dec 2024 15:59:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56117C7801B;
+	Thu,  5 Dec 2024 16:09:49 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 511E0C7801A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9BE4C7801A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Dec 2024 15:59:17 +0000 (UTC)
+ Thu,  5 Dec 2024 16:09:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 538F85C6122;
- Thu,  5 Dec 2024 15:58:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90BCC4CED1;
- Thu,  5 Dec 2024 15:59:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id C61335C6718;
+ Thu,  5 Dec 2024 16:08:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471FBC4CED1;
+ Thu,  5 Dec 2024 16:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733414355;
- bh=I0pA0LIVOtMR1rdK5y5+lGusd/6Von4ontGZrXx9GoY=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=aEnFd6hFAmSmK2pHhN6Vvrznhdk2WNpck3AkX6V8tnag3Yd9SjKXwt4j7otb8wAhh
- rJb6ZEY1qjEFPhIDBJS2Qu0YeTfij7aQWxB0fumEUZENJCz0a5NYrETQF8RdygNQM+
- CPhPPiOR+m8+9IO4L8/UG3aBq9zVTnxRDKB6jdmHulOVMdvFRx44sBrUBVr/27mGED
- sK0357KDwaWutMpw9FTjLRjSxQOuWVxK8uo4dRi0OvAZcbqqvg+CPoLjLPMt/rUdlN
- JNfNX5GYvy2cd/e77MS8NwcN2i+FTJlRLgVjLCWufpMobGsh+ff42RBtmA7/91ahgs
- SagHO3VBpPrbw==
-Message-ID: <d53538ea-f846-4a6a-bc14-22ec7ee57e53@kernel.org>
-Date: Thu, 5 Dec 2024 16:59:09 +0100
+ s=k20201202; t=1733414981;
+ bh=BI10j7N0jmfF33MEnsfZwYICaNRriKAkr2hC+nrTV4M=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ZpDheFUQFZF1KsFrDt3raluPbU97o/WPag0C1znA7lmuGlahxo5PQ/0XWo7wtJ9rV
+ MhRBeg94WgoGDeDyIptBRu8GcGRIWy/lbhHcOM8LB+A7C0NrNov1KE+S47pChZ8kkg
+ IJ7MGNo9vniAqWfkTRQaafQRwsYNvH1jwTjI9gzrOHiQ/lX7DH3ORLlOcyiYbkHYnb
+ l6N6/oopErvt+Y9kyNPLqtI4xRK/whEuxSfqscEakwsaJ5W7wTwt77sWPyRrjiZxqy
+ oLU8UOaGLT8fpwJlgJVpl2y8xICDRZBdI5KEZEVmq6l4meSK4zHGch2RFX7qyisyJr
+ DbcqWCrTQwXpg==
+Message-ID: <28d1bb46-ab18-42da-9ca2-ff498c888d66@kernel.org>
+Date: Thu, 5 Dec 2024 17:09:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ken Sloat <ksloat@cornersoftsolutions.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, dmaengine@vger.kernel.org,
- alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
- conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, vkoul@kernel.org,
- amelie.delaunay@foss.st.com
+To: Ken Sloat <ksloat@cornersoftsolutions.com>
 References: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <d53538ea-f846-4a6a-bc14-22ec7ee57e53@kernel.org>
+ <CADRqkYDnDNL_H2CzxjsPOdM++iYp-9Ak3PVFBw2qcjR_M=GeBA@mail.gmail.com>
 Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
@@ -84,7 +81,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <CADRqkYAaCYvo3ybGdKO1F_y9jFEcwTBxZzRN-Av-adq_4fVu6g@mail.gmail.com>
+In-Reply-To: <CADRqkYDnDNL_H2CzxjsPOdM++iYp-9Ak3PVFBw2qcjR_M=GeBA@mail.gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
+ dmaengine@vger.kernel.org, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v1] dt-bindings: dma: st-stm32-dmamux: Add
  description for dma-cell values
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -103,48 +104,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/12/2024 16:32, Ken Sloat wrote:
-> The dma-cell values for the stm32-dmamux are used to craft the DMA spec
-> for the actual controller. These values are currently undocumented
-> leaving the user to reverse engineer the driver in order to determine
-> their meaning. Add a basic description, while avoiding duplicating
-> information by pointing the user to the associated DMA docs that
-> describe the fields in depth.
+On 05/12/2024 17:07, Ken Sloat wrote:
+>>> + 1. The mux input number/line for the request
+>>> + 2. Bitfield representing DMA channel configuration that is passed
+>>> + to the real DMA controller
+>>> + 3. Bitfield representing device dependent DMA features passed to
+>>> + the real DMA controller
+>>> +
+>>> + For bitfield definitions of cells 2 and 3, see the associated
+>>> + bindings doc for the actual DMA controller the mux is connected
+>>
+>> This does not sound right. This is the binding for DMA controller, so
+>> you are saying "please look at itself". I suggest to drop this as well.
+>>
 > 
-> Signed-off-by: Ken Sloat <ksloat@cornersoftsolutions.com>
-> ---
-> .../bindings/dma/stm32/st,stm32-dmamux.yaml | 11 +++++++++++
-> 1 file changed, 11 insertions(+)
+> While logically it is the DMA controller, this doc is specifically for
+> the mux - the DMA controller has its own driver and binding docs in
+> Documentation/devicetree/bindings/dma/stm32/st,stm32-dma.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-> b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-> index f26c914a3a9a..aa2e52027ee6 100644
-> --- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-> +++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-> @@ -15,6 +15,17 @@ allOf:
-> properties:
-> "#dma-cells":
-> const: 3
+> I can reference st,stm32-dma.yaml directly, but I was unsure if this
+> mux IP was used with another DMA controller from ST on a different
+> SoC.
+> 
+> What do you suggest here?
 
-Your patch is corrupted. Please use git send-email or b4 or b4+relay.
-
-> + description: |
-> + Should be set to <3> with each cell representing the following:
-
-Drop this part, const says this.
-
-> + 1. The mux input number/line for the request
-> + 2. Bitfield representing DMA channel configuration that is passed
-> + to the real DMA controller
-> + 3. Bitfield representing device dependent DMA features passed to
-> + the real DMA controller
-> +
-> + For bitfield definitions of cells 2 and 3, see the associated
-> + bindings doc for the actual DMA controller the mux is connected
-
-This does not sound right. This is the binding for DMA controller, so
-you are saying "please look at itself". I suggest to drop this as well.
-
+Thanks for explanation, I think it is fine.
 
 Best regards,
 Krzysztof
