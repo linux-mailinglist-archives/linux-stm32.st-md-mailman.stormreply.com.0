@@ -2,76 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C8C9E635C
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 02:23:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DDCB9E6386
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 02:45:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 132C7C78033;
-	Fri,  6 Dec 2024 01:23:17 +0000 (UTC)
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
- [209.85.160.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47114C78033;
+	Fri,  6 Dec 2024 01:45:24 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A285C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C769C7802D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 01:23:09 +0000 (UTC)
-Received: by mail-qt1-f180.google.com with SMTP id
- d75a77b69052e-46689dba2fbso9281141cf.2
+ Fri,  6 Dec 2024 01:45:16 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2ee76929a98so1269482a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Dec 2024 17:23:09 -0800 (PST)
+ Thu, 05 Dec 2024 17:45:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733448188; x=1734052988;
+ d=gmail.com; s=20230601; t=1733449515; x=1734054315;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jvGV4uV7dd9ya0e1OrNzeXExW0G1jrTQiEOMfyJbCNQ=;
- b=E92Jzz+cvA/CJ+y9u+82xtt8KG2BFE6b17FF/L/ZWu4Cw0TE++RpAsygIBVGLGYsIY
- dpLWGfINR80w+HJYrRrIM7Pqlm3tmbAiIa0fyaIFr36SSX519JOmSBBmKbjnUEW4v8rt
- /3XMs0ULIuBWDtDFMupayI6AYLIqCHvoKgZXypRrcEnv1L91cDkR1WLcDRrEfosvZkBp
- xCXptSpkUbXZkO0oX37ffPbVmpuZMnaeTVrEQAE6lhv80EO6wthzZ52Gz+CnFTbhNSyE
- gYnA3GBDXFJhPue1x8K60x/fjGE4QKgtVZRSY/7/egaOCLJXc56eh30MVg877SlhKoDw
- MjlA==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+7OGBrM+Ds5/EU59L+lS8dg3ydHTx6BnOQHdjJwv4g8=;
+ b=FjY60I4M15vdFSQjgG3EdUUyUCDAYH6YKkAb+UOcM9f70gOMVW02hGE4yl47NJEJ0Q
+ oOrtS8q8864dRN+lH3PyNR8aazURBnCLUSk5J12XtA+GlM2wMrxx6SHAyVj7v7i/z5PV
+ svEqaGeG8kxCOgXB7jyZHhi9J8/CP5D3DpMaJ/4VMAunXRiAQe/itm3fhGrHaXN8Gh2F
+ XBCO1IJdl/s0LtRaKHNYsWJks6Jz9vE1kFyb/an3K2CNxwNUTcHzmMTVYTL63oK/NDvX
+ BPEbbMd3xZ1RqgEbdCkgdC5XxnAkkF02+CDCLW0kFdQXm+wDY04LamFsl327njE35wqg
+ lqDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733448188; x=1734052988;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jvGV4uV7dd9ya0e1OrNzeXExW0G1jrTQiEOMfyJbCNQ=;
- b=QuDo08Sqa7hEU6Y2l69S5JgL9uSLQWRlcIPF9o4D6xnx15XfWpC3KewgdAsgHkoMfw
- eS16DtMIcQFKbaA0/iG0fQ6mkV132TVUA5HbXzm5/IJUsBF7M1Y2liEryVBaxNaqBDIJ
- yKKldi4mxXqDjhHZnN6c+z7fClCs4vECBlHQ81otlSL9q/bmN6HHC53czX4s7ZPVLa6U
- TCsiWrxkCrNh5++ByE+Xu7OKQdgW7zRRomwKK4Zlnicmk3WrKph9HlnB55S3dLKQwQkh
- ePtj7mFa5eJqCwJerkZruH9LDcFeOtAD0Q5QUarPSb9OR5XNH90Fj4WosFwZrkkRDYjY
- yAWw==
+ d=1e100.net; s=20230601; t=1733449515; x=1734054315;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+7OGBrM+Ds5/EU59L+lS8dg3ydHTx6BnOQHdjJwv4g8=;
+ b=Q5R5/L5GhDp7Q/Erh7SrsbvhKix/3ZFXZiFQsIG3FYemeRGVJjZJdhjLGkZ+fxI9j4
+ LVUZNK7XMpt30F46sW8BijU8xxjaNnCPYxopgnlvNuk4OoSfyFzRDJpkSF5uGTiwjIMR
+ 8B7o+H8EtAklo+Hfb1jE/WNg7E0s3Fsy06hHt6usevT+kB4BQkv4M5wRXcW+84j48qfM
+ /yqFkJ5KE34YR+SsmYkpN233o474rohwxJK3pjEkNy50gaVHhErgWLjb4kP6dKpj3ASo
+ DBtgXRrt/jKaIeA3iFefI2vyRCPOExzMoJ+xYzJHAJh0wmbcMfB8r3pxKa0pUgJW1kj8
+ 7hIg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXJQRgRg58mU5o/Rkt/hAdeK71QRkn2dZBY3jMVF4N2/Psri3HGIqPqwk8VnkELMlAToBm6a+l2qluzA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzDHOyuM6hkxXgnPw7T1fKoimO8IZgeP9kvTa1Qg4WxgvOoxCh6
- 4SiBDMDC17L/4rW5KURJ49JWzmIH/JAkU9wMMCH6AghN1rQYswq/
-X-Gm-Gg: ASbGncu+46i1vmH/TxZfYVsIi4rV2eUMxflmoHtD9EuASA53PiBaqRbfBYDiBNQkoF5
- fV2E1ItMh7n+AiVPDrMEEp7F8O7OyWev9Cx82N6xhd0jsmLSDrrkr9pc4pTStGj4eoMykXXAf/K
- Fynu3LKSURRmGqK9U80UgifpKbPI0gJaM/HWv6J2KykRyZ3xg/cuq177+ZF44GTHaKOH8n6ZN5H
- gK6TnYdSqVYLXfcH5LAINmVo14ja5wop2SetaeNq8R82bB6zmQRw1Eqhrg2cw==
-X-Google-Smtp-Source: AGHT+IHK+wEHEpKWNH9K1+ZII620j8IfRKrpZnPMtL3z9CL/V1j63cap8ccn1cWykpj5ec/jt9vrgQ==
-X-Received: by 2002:ac8:5d12:0:b0:461:1fc4:1016 with SMTP id
- d75a77b69052e-46734cbf6b3mr19416161cf.7.1733448188457; 
- Thu, 05 Dec 2024 17:23:08 -0800 (PST)
-Received: from localhost.localdomain ([128.10.127.250])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-467296d4d42sm14619631cf.32.2024.12.05.17.23.05
+ AJvYcCVIGJ//Kv3/m5cDl+UeGT3gU1GnsxzKK3esF1N0ClN1Y5K/JyTBF7hwWDUCI/ieE6T2exD9GmB4h4BakA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxE8V+I8C6/9TP/kw/4mHYloBd5rtT41nIh5836MFzi/H/sMJ3T
+ Xh5gn4OQRjHODcPhWoK8IK53SvhovysjX8iGaq9TZcFT8Kv9ggik
+X-Gm-Gg: ASbGncvmNaB42x72C4ZOpHjtfjTPSwhsYXnBHCZw4VQrbpAqwOo/BzR+YstUk2+5A+s
+ r4Maznuv4huyzMd3CS9i3vTKMO+/zaOcoWds17cjQX4VwNQFy1giIypCw7A2cgLq5acj8CUXia3
+ NgAl1AcTV56EQLL7RqDb5Pm95TPpz5MEsj+tqmIgtZnUreajzqD6nxW/gRTORFoGH28rPZR28cW
+ kQ8wKEZfK6zAlyTDWhCTdQVQB+IKCeKpD6yflMsIQ8OMFk=
+X-Google-Smtp-Source: AGHT+IHFjL05H9QqEdxBhvGferOk0PgAeiYGY9/70kKdEA1TFewoP80NXEZbHvZ4XqWoW1SHDKN0wQ==
+X-Received: by 2002:a17:90b:3f44:b0:2e2:c2b0:d03e with SMTP id
+ 98e67ed59e1d1-2ef68d99261mr2300618a91.5.1733449514616; 
+ Thu, 05 Dec 2024 17:45:14 -0800 (PST)
+Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2ef2708becesm3962772a91.52.2024.12.05.17.45.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Dec 2024 17:23:07 -0800 (PST)
-From: Mingwei Zheng <zmw12306@gmail.com>
-To: fabrice.gasnier@foss.st.com, ukleinek@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- hierry.reding@gmail.com, lee@kernel.org
-Date: Thu,  5 Dec 2024 20:26:05 -0500
-Message-Id: <20241206012605.2877412-1-zmw12306@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Thu, 05 Dec 2024 17:45:14 -0800 (PST)
+Date: Fri, 6 Dec 2024 09:45:02 +0800
+From: Furong Xu <0x1207@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20241206094502.000062e8@gmail.com>
+In-Reply-To: <Z1HYKh9eCwkYGlrA@shell.armlinux.org.uk>
+References: <20241205091830.3719609-1-0x1207@gmail.com>
+ <Z1HYKh9eCwkYGlrA@shell.armlinux.org.uk>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- Mingwei Zheng <zmw12306@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V2] pwm: stm32-lp: Add check for clk_enable()
+Cc: Jon Hunter <jonathanh@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: TSO: Fix unaligned
+ DMA unmap for non-paged SKB data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,44 +93,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add check for the return value of clk_enable() to catch the potential
-error.
+Hi Russell,
 
-Fixes: e70a540b4e02 ("pwm: Add STM32 LPTimer PWM driver")
-Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
----
-Changelog:
+On Thu, 5 Dec 2024 16:43:22 +0000, "Russell King (Oracle)" <linux@armlinux.org.uk> wrote:
+> I'm slightly disappointed to have my patch turned into a commit under
+> someone else's authorship before I've had a chance to do that myself.
+> Next time I won't send a patch out until I've done that.
+> 
+I am really sorry for this, I should have requested your permission first.
 
-v1 -> v2
+> 
+> Please use rmk+kernel@armlinux.org.uk there.
+> 
+So another iteration is required here.
+Would you mind me send the v2 of this fix?
+I will not send v2 without your permission.
 
-1. Move int ret declaration into if block.
----
- drivers/pwm/pwm-stm32-lp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pwm/pwm-stm32-lp.c b/drivers/pwm/pwm-stm32-lp.c
-index 989731256f50..f09d097d6284 100644
---- a/drivers/pwm/pwm-stm32-lp.c
-+++ b/drivers/pwm/pwm-stm32-lp.c
-@@ -167,8 +167,12 @@ static int stm32_pwm_lp_get_state(struct pwm_chip *chip,
- 	regmap_read(priv->regmap, STM32_LPTIM_CR, &val);
- 	state->enabled = !!FIELD_GET(STM32_LPTIM_ENABLE, val);
- 	/* Keep PWM counter clock refcount in sync with PWM initial state */
--	if (state->enabled)
--		clk_enable(priv->clk);
-+	if (state->enabled) {
-+		int ret = clk_enable(priv->clk);
-+
-+		if (ret)
-+			return ret;
-+	}
- 
- 	regmap_read(priv->regmap, STM32_LPTIM_CFGR, &val);
- 	presc = FIELD_GET(STM32_LPTIM_PRESC, val);
--- 
-2.34.1
-
+Thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
