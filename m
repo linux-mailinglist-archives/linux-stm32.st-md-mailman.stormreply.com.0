@@ -2,86 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991549E64B6
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 04:19:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A929E6730
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 07:13:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59110C6DD9A;
-	Fri,  6 Dec 2024 03:19:57 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CB72C6DD9A;
+	Fri,  6 Dec 2024 06:13:18 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1A05C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FB4FC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 03:19:49 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-724ffe64923so1871022b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Dec 2024 19:19:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733455188; x=1734059988;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=o1J08d2GpR5DBDse4TbjdicR+imRnKLikvjMWBZLku0=;
- b=Pyb1+5KdgFjxgl4QMak8AW4K+0QhzMOEv+pd/ZvOm++aFz1Wc6bNZw3PcRQC5PZF8F
- Ym/j7bjJfC3VjHi5iM2/0N6a4fdfV+UFIoboJjHPoAAcJsCU5g4VZzDPnk3H3uGm8U8r
- dS4xePjLbIWKwY+7FKhHOtXWXDS0t5tL/IZaJHoNWAUq161IgSvrhCLBsDYT1UeifBG5
- EOWDhedy8G8qxiPRABoxExD2cb6TnuaR/t4oAXcVXihPcpTm6FdJ3M2ihQRnGXP8Mgt1
- nCSFtW8MhGZYT+0wUz0fOEz18DotqyWe0nskd025il1nxmRyGgoT/lPwf9g0YhQPDFLW
- DyjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733455188; x=1734059988;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=o1J08d2GpR5DBDse4TbjdicR+imRnKLikvjMWBZLku0=;
- b=bfn3xFkPOza6hk3Pdislo223xtRYgggwVwYDDCVe0g7v6Bze3X/purUT5SJkhhyv2O
- U2N5Q7OJbZhiQVGaWwINRmeX+0OgOIqF5XKzmygcKHKJ4VE8N/mHwCHr6MaDXJnDG5Uw
- w23/38r0+P0HAEfgXlnZRsnYmCteK52ZQ3g4h65QFUeRpVxBTh4sr1nZ0c+PrzJboMQE
- urmZjy8dYz+MaMUdvwsldUWhXvr0XSPBxmONL6Gm4a5dR/ycDv1rcNGqkJrScR6dHsQ4
- 0RmkmrqnpqNBEKy4w3SjJv3fKUkqKPtfQI9b/MUE9qB5Qyt2XH3hVIVOhFmRSD05f/Gk
- YjqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUT/YXhsOZrqXNqmFEJ1Lgbu0gIBz0eiEwftJcmuwYIQsxKxJhKQrEuXjhlSnPgMc6zBTFkvaf34EwKDQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw5vrS7aKg1GUgWQT5KBJ7n+uo2xj8K+BKyoERm8MV7fCa4pKRH
- t0OY9O0szZmjgcoE1/u9Fn1DjVFr5kSoTUiW0yJkB04PC+5Mkf+0
-X-Gm-Gg: ASbGncs3iEWEw5BwidwKmLQHMCl0y7BXopswGRsUVErSa6rC6cP1RaZerTWCV96eF05
- 0upqTmGIijACOfvVouX3i70Z2zpn48HgHc9kfLz8IBpqr7VV47wZf42+KHzK9Y2c9ceHvrZ/31i
- +Vld94kCixGJ7nXS+9mQ3WOSZfQyguwE/eaAt6dKC6bmqgYZaMzhWiif1HYRDegodO9LXr2xsrs
- ZmfY4gaFdT+btb1Mm2YHhaKd+aZQIxyWiZwnY3AIuTV+nwKgdXJ+6u49UU9mIPTmGnxi5Rl58Y9
- YgjPUHT1uZNYKrrFKy5uXdPAsmd1
-X-Google-Smtp-Source: AGHT+IF785ewAXxfZzF45gbEj/3x8DTYf9enjYTZG3Qjck/WxskvwgRBw9uMc142aJEKW0klUE6onw==
-X-Received: by 2002:a17:903:240a:b0:215:6816:6345 with SMTP id
- d9443c01a7336-21614d74ed8mr23832465ad.16.1733455188374; 
- Thu, 05 Dec 2024 19:19:48 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21610638673sm5075265ad.271.2024.12.05.19.19.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 19:19:47 -0800 (PST)
-Message-ID: <a04cd927-63cb-4271-bfc7-3ec97c5a978d@gmail.com>
-Date: Fri, 6 Dec 2024 11:19:43 +0800
+ Fri,  6 Dec 2024 06:13:12 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1tJRaR-0005UF-LC; Fri, 06 Dec 2024 07:13:11 +0100
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tJRaO-001wrV-1O;
+ Fri, 06 Dec 2024 07:13:09 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tJRaP-000huU-0I;
+ Fri, 06 Dec 2024 07:13:09 +0100
+Date: Fri, 6 Dec 2024 07:13:09 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <Z1KV9bCW0iafJ2hF@pengutronix.de>
+References: <20241205125640.1253996-1-o.rempel@pengutronix.de>
+ <20241205125640.1253996-3-o.rempel@pengutronix.de>
+ <20241205-hamstring-mantis-b8b3a25210ef@spud>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>
-References: <20241202023643.75010-1-a0987203069@gmail.com>
- <20241202023643.75010-2-a0987203069@gmail.com>
- <20241204142722.GA177756-robh@kernel.org>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20241204142722.GA177756-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org,
- netdev@vger.kernel.org, richardcochran@gmail.com, ychuang3@nuvoton.com,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, edumazet@google.com,
- joabreu@synopsys.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, schung@nuvoton.com,
- kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- yclu4@nuvoton.com
-Subject: Re: [Linux-stm32] [PATCH v4 1/3] dt-bindings: net: nuvoton: Add
- schema for Nuvoton MA35 family GMAC
+Content-Disposition: inline
+In-Reply-To: <20241205-hamstring-mantis-b8b3a25210ef@spud>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Woojung Huh <woojung.huh@microchip.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ "David S. Miller" <davem@davemloft.net>, kernel@pengutronix.de,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v1 2/5] dt-bindings: vendor-prefixes: Add
+	prefix for Priva
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,103 +67,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBSb2IsCgpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuCgpSb2IgSGVycmluZyDmlrwgMTIv
-NC8yMDI0IDEwOjI3IFBNIOWvq+mBkzoKPiBPbiBNb24sIERlYyAwMiwgMjAyNCBhdCAxMDozNjo0
-MUFNICswODAwLCBKb2V5IEx1IHdyb3RlOgo+PiBDcmVhdGUgaW5pdGlhbCBzY2hlbWEgZm9yIE51
-dm90b24gTUEzNSBmYW1pbHkgR2lnYWJpdCBNQUMuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEpvZXkg
-THUgPGEwOTg3MjAzMDY5QGdtYWlsLmNvbT4KPj4gLS0tCj4+ICAgLi4uL2JpbmRpbmdzL25ldC9u
-dXZvdG9uLG1hMzVkMS1kd21hYy55YW1sICAgIHwgMTM0ICsrKysrKysrKysrKysrKysrKwo+PiAg
-IC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9zbnBzLGR3bWFjLnlhbWwgICB8ICAgMSArCj4+
-ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMzUgaW5zZXJ0aW9ucygrKQo+PiAgIGNyZWF0ZSBtb2RlIDEw
-MDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L251dm90b24sbWEzNWQx
-LWR3bWFjLnlhbWwKPj4KPj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9uZXQvbnV2b3RvbixtYTM1ZDEtZHdtYWMueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9uZXQvbnV2b3RvbixtYTM1ZDEtZHdtYWMueWFtbAo+PiBuZXcgZmls
-ZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAwMDAwMDAuLmU0NGFiYWY0ZGEzZQo+PiAtLS0g
-L2Rldi9udWxsCj4+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQv
-bnV2b3RvbixtYTM1ZDEtZHdtYWMueWFtbAo+PiBAQCAtMCwwICsxLDEzNCBAQAo+PiArIyBTUERY
-LUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4+ICsl
-WUFNTCAxLjIKPj4gKy0tLQo+PiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9u
-ZXQvbnV2b3RvbixtYTM1ZDEtZHdtYWMueWFtbCMKPj4gKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0
-cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIwo+PiArCj4+ICt0aXRsZTogTnV2b3RvbiBE
-V01BQyBnbHVlIGxheWVyIGNvbnRyb2xsZXIKPj4gKwo+PiArbWFpbnRhaW5lcnM6Cj4+ICsgIC0g
-Sm9leSBMdSA8eWNsdTRAbnV2b3Rvbi5jb20+Cj4+ICsKPj4gK2Rlc2NyaXB0aW9uOgo+PiArICBO
-dXZvdG9uIDEwLzEwMC8xMDAwTWJwcyBHaWdhYml0IEV0aGVybmV0IE1BQyBDb250cm9sbGVyIGlz
-IGJhc2VkIG9uCj4+ICsgIFN5bm9wc3lzIERlc2lnbldhcmUgTUFDICh2ZXJzaW9uIDMuNzNhKS4K
-Pj4gKwo+PiArYWxsT2Y6Cj4+ICsgIC0gJHJlZjogc25wcyxkd21hYy55YW1sIwo+PiArCj4+ICtw
-cm9wZXJ0aWVzOgo+PiArICBjb21wYXRpYmxlOgo+PiArICAgIGl0ZW1zOgo+PiArICAgICAgLSBl
-bnVtOgo+PiArICAgICAgICAgIC0gbnV2b3RvbixtYTM1ZDEtZHdtYWMKPj4gKwo+PiArICByZWc6
-Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKyAgICBkZXNjcmlwdGlvbjoKPj4gKyAgICAgIFJlZ2lz
-dGVyIHJhbmdlIHNob3VsZCBiZSBvbmUgb2YgdGhlIEdNQUMgaW50ZXJmYWNlLgo+PiArCj4+ICsg
-IGludGVycnVwdHM6Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArICBjbG9ja3M6Cj4+ICsg
-ICAgaXRlbXM6Cj4+ICsgICAgICAtIGRlc2NyaXB0aW9uOiBNQUMgY2xvY2sKPj4gKyAgICAgIC0g
-ZGVzY3JpcHRpb246IFBUUCBjbG9jawo+PiArCj4+ICsgIGNsb2NrLW5hbWVzOgo+PiArICAgIGl0
-ZW1zOgo+PiArICAgICAgLSBjb25zdDogc3RtbWFjZXRoCj4+ICsgICAgICAtIGNvbnN0OiBwdHBf
-cmVmCj4+ICsKPj4gKyAgbnV2b3RvbixzeXM6Cj4+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMu
-eWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZS1hcnJheQo+PiArICAgIGl0ZW1zOgo+PiArICAgICAg
-LSBpdGVtczoKPj4gKyAgICAgICAgICAtIGRlc2NyaXB0aW9uOiBwaGFuZGxlIHRvIGFjY2VzcyBz
-eXNjb24gcmVnaXN0ZXJzLgo+PiArICAgICAgICAgIC0gZGVzY3JpcHRpb246IEdNQUMgaW50ZXJm
-YWNlIElELgo+PiArICAgICAgICAgICAgZW51bToKPj4gKyAgICAgICAgICAgICAgLSAwCj4+ICsg
-ICAgICAgICAgICAgIC0gMQo+PiArICAgIGRlc2NyaXB0aW9uOgo+PiArICAgICAgQSBwaGFuZGxl
-IHRvIHRoZSBzeXNjb24gd2l0aCBvbmUgYXJndW1lbnQgdGhhdCBjb25maWd1cmVzIHN5c3RlbSBy
-ZWdpc3RlcnMKPj4gKyAgICAgIGZvciBNQTM1RDEncyB0d28gR01BQ3MuIFRoZSBhcmd1bWVudCBz
-cGVjaWZpZXMgdGhlIEdNQUMgaW50ZXJmYWNlIElELgo+PiArCj4+ICsgIHJlc2V0czoKPj4gKyAg
-ICBtYXhJdGVtczogMQo+PiArCj4+ICsgIHJlc2V0LW5hbWVzOgo+PiArICAgIGl0ZW1zOgo+PiAr
-ICAgICAgLSBjb25zdDogc3RtbWFjZXRoCj4+ICsKPj4gKyAgcGh5LW1vZGU6Cj4+ICsgICAgZW51
-bToKPj4gKyAgICAgIC0gcm1paQo+PiArICAgICAgLSByZ21paQo+PiArICAgICAgLSByZ21paS1p
-ZAo+PiArICAgICAgLSByZ21paS10eGlkCj4+ICsgICAgICAtIHJnbWlpLXJ4aWQKPj4gKwo+PiAr
-ICB0eC1pbnRlcm5hbC1kZWxheS1wczoKPj4gKyAgICBkZWZhdWx0OiAwCj4+ICsgICAgbWluaW11
-bTogMAo+PiArICAgIG1heGltdW06IDIwMDAKPj4gKyAgICBkZXNjcmlwdGlvbjoKPj4gKyAgICAg
-IFJHTUlJIFRYIHBhdGggZGVsYXkgdXNlZCBvbmx5IHdoZW4gUEhZIG9wZXJhdGVzIGluIFJHTUlJ
-IG1vZGUgd2l0aAo+PiArICAgICAgaW50ZXJuYWwgZGVsYXkgKHBoeS1tb2RlIGlzICdyZ21paS1p
-ZCcgb3IgJ3JnbWlpLXR4aWQnKSBpbiBwaWNvLXNlY29uZHMuCj4+ICsgICAgICBBbGxvd2VkIHZh
-bHVlcyBhcmUgZnJvbSAwIHRvIDIwMDAuCj4+ICsKPj4gKyAgcngtaW50ZXJuYWwtZGVsYXktcHM6
-Cj4+ICsgICAgZGVmYXVsdDogMAo+PiArICAgIG1pbmltdW06IDAKPj4gKyAgICBtYXhpbXVtOiAy
-MDAwCj4+ICsgICAgZGVzY3JpcHRpb246Cj4+ICsgICAgICBSR01JSSBSWCBwYXRoIGRlbGF5IHVz
-ZWQgb25seSB3aGVuIFBIWSBvcGVyYXRlcyBpbiBSR01JSSBtb2RlIHdpdGgKPj4gKyAgICAgIGlu
-dGVybmFsIGRlbGF5IChwaHktbW9kZSBpcyAncmdtaWktaWQnIG9yICdyZ21paS1yeGlkJykgaW4g
-cGljby1zZWNvbmRzLgo+PiArICAgICAgQWxsb3dlZCB2YWx1ZXMgYXJlIGZyb20gMCB0byAyMDAw
-Lgo+PiArCj4+ICsgIG1kaW86Cj4+ICsgICAgJHJlZjogL3NjaGVtYXMvbmV0L21kaW8ueWFtbCMK
-PiBEcm9wLiBzbnBzLGR3bWFjLnlhbWwgYWxyZWFkeSBoYXMgdGhpcy4KR290IGl0Lgo+Cj4+ICsK
-Pj4gK3JlcXVpcmVkOgo+PiArICAtIGNvbXBhdGlibGUKPj4gKyAgLSByZWcKPj4gKyAgLSBpbnRl
-cnJ1cHRzCj4+ICsgIC0gaW50ZXJydXB0LW5hbWVzCj4gRHJvcCBhbGwgNC4gQWxyZWFkeSByZXF1
-aXJlZCBieSBzbnBzLGR3bWFjLnlhbWwuCkdvdCBpdC4KPgo+PiArICAtIGNsb2Nrcwo+PiArICAt
-IGNsb2NrLW5hbWVzCj4+ICsgIC0gbnV2b3RvbixzeXMKPj4gKyAgLSByZXNldHMKPj4gKyAgLSBy
-ZXNldC1uYW1lcwo+PiArICAtIHBoeS1tb2RlCj4gRHJvcCB0aGlzIG9uZSB0b28uCkdvdCBpdC4K
-Pj4gKwo+PiArdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQo+PiArCj4+ICtleGFtcGxlczoK
-Pj4gKyAgLSB8Cj4+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2ludGVycnVwdC1jb250cm9s
-bGVyL2FybS1naWMuaD4KPj4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvY2xvY2svbnV2b3Rv
-bixtYTM1ZDEtY2xrLmg+Cj4+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL3Jlc2V0L251dm90
-b24sbWEzNWQxLXJlc2V0Lmg+Cj4+ICsgICAgZXRoZXJuZXRANDAxMjAwMDAgewo+PiArICAgICAg
-ICBjb21wYXRpYmxlID0gIm51dm90b24sbWEzNWQxLWR3bWFjIjsKPj4gKyAgICAgICAgcmVnID0g
-PDB4NDAxMjAwMDAgMHgxMDAwMD47Cj4+ICsgICAgICAgIGludGVycnVwdHMgPSA8R0lDX1NQSSAy
-MyBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPj4gKyAgICAgICAgaW50ZXJydXB0LW5hbWVzID0gIm1h
-Y2lycSI7Cj4+ICsgICAgICAgIGNsb2NrcyA9IDwmY2xrIEVNQUMwX0dBVEU+LCA8JmNsayBFUExM
-X0RJVjg+Owo+PiArICAgICAgICBjbG9jay1uYW1lcyA9ICJzdG1tYWNldGgiLCAicHRwX3JlZiI7
-Cj4+ICsKPj4gKyAgICAgICAgbnV2b3RvbixzeXMgPSA8JnN5cyAwPjsKPj4gKyAgICAgICAgcmVz
-ZXRzID0gPCZzeXMgTUEzNUQxX1JFU0VUX0dNQUMwPjsKPj4gKyAgICAgICAgcmVzZXQtbmFtZXMg
-PSAic3RtbWFjZXRoIjsKPj4gKwo+PiArICAgICAgICBwaHktbW9kZSA9ICJyZ21paS1pZCI7Cj4+
-ICsgICAgICAgIHBoeS1oYW5kbGUgPSA8JmV0aF9waHkwPjsKPj4gKyAgICAgICAgbWRpbyB7Cj4+
-ICsgICAgICAgICAgICBjb21wYXRpYmxlID0gInNucHMsZHdtYWMtbWRpbyI7Cj4+ICsgICAgICAg
-ICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsKPj4gKyAgICAgICAgICAgICNzaXplLWNlbGxzID0g
-PDA+Owo+PiArCj4+ICsgICAgICAgICAgICBldGhlcm5ldC1waHlAMCB7Cj4+ICsgICAgICAgICAg
-ICAgICAgcmVnID0gPDA+Owo+PiArICAgICAgICAgICAgfTsKPj4gKyAgICAgICAgfTsKPj4gKyAg
-ICB9Owo+PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25l
-dC9zbnBzLGR3bWFjLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0
-L3NucHMsZHdtYWMueWFtbAo+PiBpbmRleCBlYjFmM2FlNDFhYjkuLjRiZjU5YWI5MTBjYyAxMDA2
-NDQKPj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9zbnBzLGR3
-bWFjLnlhbWwKPj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9z
-bnBzLGR3bWFjLnlhbWwKPj4gQEAgLTY3LDYgKzY3LDcgQEAgcHJvcGVydGllczoKPj4gICAgICAg
-ICAgIC0gaW5nZW5pYyx4MjAwMC1tYWMKPj4gICAgICAgICAgIC0gbG9vbmdzb24sbHMyay1kd21h
-Ywo+PiAgICAgICAgICAgLSBsb29uZ3NvbixsczdhLWR3bWFjCj4+ICsgICAgICAgIC0gbnV2b3Rv
-bixtYTM1ZDEtZHdtYWMKPj4gICAgICAgICAgIC0gcWNvbSxxY3M0MDQtZXRocW9zCj4+ICAgICAg
-ICAgICAtIHFjb20sc2E4Nzc1cC1ldGhxb3MKPj4gICAgICAgICAgIC0gcWNvbSxzYzgyODB4cC1l
-dGhxb3MKPj4gLS0gCj4+IDIuMzQuMQoKVGhhbmtzIQoKQlIsCgpKb2V5CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Thu, Dec 05, 2024 at 05:16:14PM +0000, Conor Dooley wrote:
+> On Thu, Dec 05, 2024 at 01:56:37PM +0100, Oleksij Rempel wrote:
+> > Introduce the 'pri' vendor prefix for Priva, a company specializing in
+> > sustainable solutions for building automation, energy, and climate
+> > control.  More information about Priva can be found at
+> > https://www.priva.com
+> > 
+> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > ---
+> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > index da01616802c7..9a9ac3adc5ef 100644
+> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > @@ -1198,6 +1198,8 @@ patternProperties:
+> >      description: Primux Trading, S.L.
+> >    "^probox2,.*":
+> >      description: PROBOX2 (by W2COMP Co., Ltd.)
+> > +  "^pri,.*":
+> > +    description: Priva
+> 
+> Why not "priva"? Saving two chars doesn't seem worth less info.
+
+This is typical prefix which is used by this vendor, if it is possible
+i would prefer not to change it. But, last decision is on your side :)
+
+Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
