@@ -2,78 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F2379E6D97
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 12:51:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD719E6E68
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 13:40:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13A13C6DD9D;
-	Fri,  6 Dec 2024 11:51:30 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A295C6DD9D;
+	Fri,  6 Dec 2024 12:40:36 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95C28C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA73C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 11:51:22 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-e3990bbe22cso1912918276.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Dec 2024 03:51:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cornersoftsolutions.com; s=google; t=1733485881; x=1734090681;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=q62PPXsE+VSeYwcr9qAvv8yZnUeLKqIqrisYrdVxhtU=;
- b=T+tjLxwhS+68jbQ7vev8VkFfpqqaDYMReu8uwxDFhluk0e2J8GTjxWlqGJFIvBN73o
- sTzfM31sfn7y7h5ADEIWR6+vn1dUL7E+LrE95U4dI0DniTteVEPK96wkGi38oQpRuvti
- /EJhiTL+5XDhY7ts3PMNhbi95z3vzOIeJekCKD9wzGnER+BnOR6RompDZJT5rhEW89ct
- 0p+XiwRxv6OZIUALwoH6TRM2CtnCS/dfQfHOJATlldQflM9B8OWuHkNTzciD33fo6xQi
- 4+s4+HTvX0qCwprXwMmFV3mBIG1Z/UaV+8zsPMO8pU7HnkQ938T1O1zJULv4gd0zCP5T
- Nz4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733485881; x=1734090681;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=q62PPXsE+VSeYwcr9qAvv8yZnUeLKqIqrisYrdVxhtU=;
- b=s8LiMYwsCQF+l0ifNYW3OVyNW/CRds+bh64RcNtKFPvxvG5OOwW+hqcN9sDind0PnU
- Turb/61x6kA7FVehAOY+lxlhWQ2Zkzy2bp2uSdhdgIplbe05Q6Z3GtO6z3ugVYgXNOcV
- gahKx2PJNjjkxubJUWlB/JIGvaCHAwvBBLta0rltTkxaaIvFM9kWXxJgT+5erJmRWV/e
- SyeloAf37xduiZ4ufwYOhtJyAOzC3/tJAS/UiGhD8ciFmizMKwbWCVIlzxG9NWsxuwec
- dvfdkgdxADTRY5XBfX1OOq85MLHONYEZThIa+ptMFUFl83zcBuiypxZl1QMEczMqEuOL
- LJ2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqcife5jFEPAGyL5IngtTzlOthxfaxDz8z8Gkk3yloYdf6lbAUZwdu+fo43shctmIe1IRZPtwhHVVVGA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzKvqHkvqeE1stcIYj+kwtStd+DMYKOfvRL/wkElGG1lwRC2AMI
- yeC30roGMBJZE6Tkltz/TzLHOs/5VW3g5RkafF6XC3FeSEC8d4bm/foiUSBJxKI=
-X-Gm-Gg: ASbGncuaetiMjIWkFFl1EkvtIQ2d0IBa0EQeIXpgv+TQePbRrEvOGx2RHW4kxVr1qEq
- NGUH1aGZA71qTWl3GFUuoaxJ20P8/qVeeH5UEfowGJ23hRmxSnuMq9zt3G6c4MjjBaNomgOiaZR
- XR83SHtm7rexWAz/YywPmaSDax3LvhZp/I/XGdXSo6Fqv5QA+Zawsvil2ud53rOILwo7isYtv3O
- qTRodRoAAQGioGBUiO+5F/jvUzNOcBbMMf8hM9vgaQ142TLDDLOvZqaDYr+qY83m0tW3ar5kODr
- i0lBodC1BvuCLeR36iBUSJiUI68=
-X-Google-Smtp-Source: AGHT+IG4eyt1sQPkyNP04ZtSf+u7M13/3ucraXNd9uqXuxzTv7vxnzMKhLqN6poDe47NCkgRh5GBaA==
-X-Received: by 2002:a05:6902:2388:b0:e39:787e:d9a with SMTP id
- 3f1490d57ef6-e3a0b786147mr1906937276.53.1733485881356; 
- Fri, 06 Dec 2024 03:51:21 -0800 (PST)
-Received: from ken-engineering-laptop.tail1e0d8d.ts.net ([47.196.152.243])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-6efee2fc130sm802467b3.4.2024.12.06.03.51.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 03:51:21 -0800 (PST)
-From: Ken Sloat <ksloat@cornersoftsolutions.com>
-To: 
-Date: Fri,  6 Dec 2024 06:50:18 -0500
-Message-Id: <20241206115018.1155149-1-ksloat@cornersoftsolutions.com>
-X-Mailer: git-send-email 2.34.1
+ Fri,  6 Dec 2024 12:40:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=fOGpSJqozf26dVxmBeF8vIRHibOPe4MJoalCqug07Qc=; b=lWrWWtWtS6V8FLcQmZwm+noR35
+ caPPCLFIo+KloRv5ELucm544Cratny6sAhIU1iCcOxXbPSJ0DMF8sAInugAWqMwlnxdT4hgjI/ObL
+ 0SmvTOIdcnl6L8XQbucsfe4erswIwnipyAIfKTbFqLPtGGYn8WiFlD0rhK2d6Nw/5tUZsea8hnnSN
+ jC3RHvpam93LPXgHMqz/jj77I2j2lzpOaT3gbxYVMw9zJa+mQm7ZFINypFJELKn+TsTHf373i92Gj
+ hgyTGP4LgIA9cYT/danRMYVkMYHZaLidpkK9Azb21EfwDt6unjj434eX7W6AwojJGb5WxObeof53M
+ gJaw1ETA==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59856 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <rmk@armlinux.org.uk>) id 1tJXcz-0006FN-0B;
+ Fri, 06 Dec 2024 12:40:13 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1tJXcx-006N4Z-PC; Fri, 06 Dec 2024 12:40:11 +0000
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- dmaengine@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Ken Sloat <ksloat@cornersoftsolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: dma: st-stm32-dmamux: Add
-	description for dma-cell values
+Content-Disposition: inline
+Message-Id: <E1tJXcx-006N4Z-PC@rmk-PC.armlinux.org.uk>
+Date: Fri, 06 Dec 2024 12:40:11 +0000
+Cc: Jon Hunter <jonathanh@nvidia.com>, Simon Horman <horms@kernel.org>,
+ Hariprasad Kelam <hkelam@marvell.com>, Furong Xu <0x1207@gmail.com>,
+ andrew+netdev@lunn.ch, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net] net: stmmac: fix TSO DMA API usage
+	causing oops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,46 +66,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The dma-cell values for the stm32-dmamux are used to craft the DMA spec
-for the actual controller. These values are currently undocumented
-leaving the user to reverse engineer the driver in order to determine
-their meaning. Add a basic description, while avoiding duplicating
-information by pointing the user to the associated DMA docs that
-describe the fields in depth.
+Commit 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap
+for non-paged SKB data") moved the assignment of tx_skbuff_dma[]'s
+members to be later in stmmac_tso_xmit().
 
-Signed-off-by: Ken Sloat <ksloat@cornersoftsolutions.com>
+The buf (dma cookie) and len stored in this structure are passed to
+dma_unmap_single() by stmmac_tx_clean(). The DMA API requires that
+the dma cookie passed to dma_unmap_single() is the same as the value
+returned from dma_map_single(). However, by moving the assignment
+later, this is not the case when priv->dma_cap.addr64 > 32 as "des"
+is offset by proto_hdr_len.
+
+This causes problems such as:
+
+  dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+
+and with DMA_API_DEBUG enabled:
+
+  DMA-API: dwc-eth-dwmac 2490000.ethernet: device driver tries to +free DMA memory it has not allocated [device address=0x000000ffffcf65c0] [size=66 bytes]
+
+Fix this by maintaining "des" as the original DMA cookie, and use
+tso_des to pass the offset DMA cookie to stmmac_tso_allocator().
+
+Full details of the crashes can be found at:
+https://lore.kernel.org/all/d8112193-0386-4e14-b516-37c2d838171a@nvidia.com/
+https://lore.kernel.org/all/klkzp5yn5kq5efgtrow6wbvnc46bcqfxs65nz3qy77ujr5turc@bwwhelz2l4dw/
+
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Reported-by: Thierry Reding <thierry.reding@gmail.com>
+Fixes: 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data")
+Tested-by: Jon Hunter <jonathanh@nvidia.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Changes in v2:
-    - Remove redundant comment regarding dma-cells val
-    - Reference bindings doc for DMA controller
-
- .../devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-index f26c914a3a9a..b7bca1a83769 100644
---- a/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-+++ b/Documentation/devicetree/bindings/dma/stm32/st,stm32-dmamux.yaml
-@@ -15,6 +15,16 @@ allOf:
- properties:
-   "#dma-cells":
-     const: 3
-+    description: |
-+      Each cell represents the following:
-+      1. The mux input number/line for the request
-+      2. Bitfield representing DMA channel configuration that is passed
-+         to the real DMA controller
-+      3. Bitfield representing device dependent DMA features passed to
-+         the real DMA controller
-+
-+      For bitfield definitions of cells 2 and 3, see the associated
-+      bindings doc for the actual DMA controller in st,stm32-dma.yaml.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 9b262cdad60b..c81ea8cdfe6e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4192,8 +4192,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct stmmac_txq_stats *txq_stats;
+ 	struct stmmac_tx_queue *tx_q;
+ 	u32 pay_len, mss, queue;
++	dma_addr_t tso_des, des;
+ 	u8 proto_hdr_len, hdr;
+-	dma_addr_t des;
+ 	bool set_ic;
+ 	int i;
  
-   compatible:
-     const: st,stm32h7-dmamux
+@@ -4289,14 +4289,15 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 		/* If needed take extra descriptors to fill the remaining payload */
+ 		tmp_pay_len = pay_len - TSO_MAX_BUFF_SIZE;
++		tso_des = des;
+ 	} else {
+ 		stmmac_set_desc_addr(priv, first, des);
+ 		tmp_pay_len = pay_len;
+-		des += proto_hdr_len;
++		tso_des = des + proto_hdr_len;
+ 		pay_len = 0;
+ 	}
+ 
+-	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
++	stmmac_tso_allocator(priv, tso_des, tmp_pay_len, (nfrags == 0), queue);
+ 
+ 	/* In case two or more DMA transmit descriptors are allocated for this
+ 	 * non-paged SKB data, the DMA buffer address should be saved to
 -- 
-2.34.1
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
