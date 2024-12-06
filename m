@@ -2,52 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 389D89E7688
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 17:57:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5699E76E6
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 18:21:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8F7FC6DD9D;
-	Fri,  6 Dec 2024 16:57:15 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FA61C6DD9D;
+	Fri,  6 Dec 2024 17:21:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 139F4C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFE02C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 16:57:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 61D77A4430C;
- Fri,  6 Dec 2024 16:55:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63A8C4CED1;
- Fri,  6 Dec 2024 16:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733504228;
- bh=IlbyNXzPNPA3XWALgOApHSlRf9t/sdvMEQkGLZZhe2A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BKFuZvVHuFHoCSNTrhMzKMGPYetsabsJvzKRQduJkh2nmwUv2hWQ4m3yXQLJ1/fnZ
- L1o7TBpt6IpSo0pXNvUwIyjEcNlG5VaKfVgVX/sS8BoYVTsioyQygrbznr86Gw8aX+
- rADfDYdzNjthGrzunUaadGx2yVOLtHeXbLbGA+JrTz6vhIYemmRmuGWcaOtrPyawxu
- kgnnG9ceBfSJKzjHgJg5wRhOaO/Era+tKF8MZ7xLPr1vtpjXiUJq+IcWTCRjA6B1zF
- WyGZlhzMo2s7+CXpIbGsRYq+CHT5ciGpfYoH1xzP/PL346ARbkbrCHaxnHKYYYQiMP
- 2KyT+RG/0Pfwg==
-Date: Fri, 6 Dec 2024 16:57:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Message-ID: <20241206-wrought-jailbreak-52cc4a21a713@spud>
-References: <20241205125640.1253996-1-o.rempel@pengutronix.de>
- <20241205125640.1253996-2-o.rempel@pengutronix.de>
- <20241205-immortal-sneak-8c5a348a8563@spud>
- <Z1KxZmRekrYGSdd4@pengutronix.de>
+ Fri,  6 Dec 2024 17:21:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B6CiBsX017977;
+ Fri, 6 Dec 2024 18:20:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=jnlcCs3H5ImZ7T8Lmudwer
+ 0XmkeISsLyy/yE335F2HU=; b=caFJ6LytSjeVQpvsrAyiNnmOzCtcssl7+z/tar
+ 2vqONMoKgX9UeoCr1vbKTNcHofsIT9AIMJGOTi3laHROiRNrImLqLSuc5gJK2mOG
+ 1M9fU1lY+aa9Wnu5JC4cmXZV+6cDLcltCaS3bYbhAhg7n2Z0OI6IdBM3gq3/rwFW
+ 80Ggnjvq1nt4nvfLzenBfYWEcD618JInIv7x6nuhkNsMY3LFetr12gVL7fy9VxAi
+ dyduLPyBg47ZHlaDQRtluOBRBOjkMOlucYTKvSfHbrygQw1eIq5uK+tWtHrnPIRd
+ xBsI6MEugPYXCka4G3OFo2IfHFVbVGspPKXZotALNWapo6Qg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43bwj6jan4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Dec 2024 18:20:27 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1A32D40044;
+ Fri,  6 Dec 2024 18:19:27 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 034F029F32D;
+ Fri,  6 Dec 2024 18:18:22 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Dec
+ 2024 18:18:21 +0100
+Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Dec
+ 2024 18:18:21 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>
+Date: Fri, 6 Dec 2024 18:17:59 +0100
+Message-ID: <20241206171759.135342-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <Z1KxZmRekrYGSdd4@pengutronix.de>
-Cc: Woojung Huh <woojung.huh@microchip.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, kernel@pengutronix.de,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v1 1/5] dt-bindings: net: Add TI DP83TD510
-	10BaseT1L PHY
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix IPCC EXTI declaration on
+	stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,99 +75,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5221617023598279393=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The GIC IRQ type used for IPCC RX should be IRQ_TYPE_LEVEL_HIGH.
+Replacing the interrupt with the EXTI event changes the type to
+the numeric value 1, meaning IRQ_TYPE_EDGE_RISING.
 
---===============5221617023598279393==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1+XZodfQGimtFoRM"
-Content-Disposition: inline
+The issue is that EXTI event 61 is a direct event.The IRQ type of
+direct events is not used by EXTI and is propagated to the parent
+IRQ controller of EXTI, the GIC.
 
+Align the IRQ type to the value expected by the GIC by replacing
+the second parameter "1" with IRQ_TYPE_LEVEL_HIGH.
 
---1+XZodfQGimtFoRM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fixes: 7d9802bb0e34 ("ARM: dts: stm32: remove the IPCC "wakeup" IRQ on stm32mp151")
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp151.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Fri, Dec 06, 2024 at 09:10:14AM +0100, Oleksij Rempel wrote:
-> On Thu, Dec 05, 2024 at 05:18:59PM +0000, Conor Dooley wrote:
-> > On Thu, Dec 05, 2024 at 01:56:36PM +0100, Oleksij Rempel wrote:
-> > > Introduce devicetree binding for the Texas Instruments DP83TD510
-> > > Ultra Low Power 802.3cg 10Base-T1L Single Pair Ethernet PHY.
-> > >=20
-> > > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> > > ---
-> > >  .../devicetree/bindings/net/ti,dp83td510.yaml | 35 +++++++++++++++++=
-++
-> > >  1 file changed, 35 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/net/ti,dp83td51=
-0.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83td510.yaml =
-b/Documentation/devicetree/bindings/net/ti,dp83td510.yaml
-> > > new file mode 100644
-> > > index 000000000000..cf13e86a4017
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/net/ti,dp83td510.yaml
-> > > @@ -0,0 +1,35 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/net/ti,dp83td510.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: TI DP83TD510 10BaseT1L PHY
-> > > +
-> > > +maintainers:
-> > > +  - Oleksij Rempel <o.rempel@pengutronix.de>
-> > > +
-> > > +description:
-> > > +  DP83TD510E Ultra Low Power 802.3cg 10Base-T1L 10M Single Pair Ethe=
-rnet PHY
-> > > +
-> > > +allOf:
-> > > +  - $ref: ethernet-phy.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - ethernet-phy-id2000.0181
-> >=20
-> > There's nothing specific here, can someone remind me why the generic
-> > binding is not enough?
->=20
-> The missing binding was blamed by checkpatch. Haw should I proceed with t=
-his
-> patch?
-
-Does dtbs_check complain when you use it in a dts? What you have here
-matches against the pattern ^ethernet-phy-id[a-f0-9]{4}\\.[a-f0-9]{4}$
-so I think it won't. checkpatch might be too dumb to evaluate the regex?
-
---1+XZodfQGimtFoRM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ1Ms3QAKCRB4tDGHoIJi
-0lUpAP9+qqmvW19GgRq0c+lbiZOY7fIICF4B/h1qoUeHagDQTQD/fDngZjYfswC5
-hPbbjp55rWg5MrwOXxr3+f02ruaodws=
-=XnGn
------END PGP SIGNATURE-----
-
---1+XZodfQGimtFoRM--
-
---===============5221617023598279393==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+index b28dc90926bd..e7e3ce8066ec 100644
+--- a/arch/arm/boot/dts/st/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+@@ -129,7 +129,7 @@ ipcc: mailbox@4c001000 {
+ 			reg = <0x4c001000 0x400>;
+ 			st,proc-id = <0>;
+ 			interrupts-extended =
+-				<&exti 61 1>,
++				<&exti 61 IRQ_TYPE_LEVEL_HIGH>,
+ 				<&intc GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "rx", "tx";
+ 			clocks = <&rcc IPCC>;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5221617023598279393==--
