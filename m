@@ -2,68 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5699E76E6
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 18:21:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96EDF9E7A56
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 22:04:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FA61C6DD9D;
-	Fri,  6 Dec 2024 17:21:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 345FEC78038;
+	Fri,  6 Dec 2024 21:04:51 +0000 (UTC)
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
+ [209.85.219.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFE02C6C855
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45092C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 17:21:02 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B6CiBsX017977;
- Fri, 6 Dec 2024 18:20:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=jnlcCs3H5ImZ7T8Lmudwer
- 0XmkeISsLyy/yE335F2HU=; b=caFJ6LytSjeVQpvsrAyiNnmOzCtcssl7+z/tar
- 2vqONMoKgX9UeoCr1vbKTNcHofsIT9AIMJGOTi3laHROiRNrImLqLSuc5gJK2mOG
- 1M9fU1lY+aa9Wnu5JC4cmXZV+6cDLcltCaS3bYbhAhg7n2Z0OI6IdBM3gq3/rwFW
- 80Ggnjvq1nt4nvfLzenBfYWEcD618JInIv7x6nuhkNsMY3LFetr12gVL7fy9VxAi
- dyduLPyBg47ZHlaDQRtluOBRBOjkMOlucYTKvSfHbrygQw1eIq5uK+tWtHrnPIRd
- xBsI6MEugPYXCka4G3OFo2IfHFVbVGspPKXZotALNWapo6Qg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43bwj6jan4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Dec 2024 18:20:27 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1A32D40044;
- Fri,  6 Dec 2024 18:19:27 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 034F029F32D;
- Fri,  6 Dec 2024 18:18:22 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Dec
- 2024 18:18:21 +0100
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 6 Dec
- 2024 18:18:21 +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>
-Date: Fri, 6 Dec 2024 18:17:59 +0100
-Message-ID: <20241206171759.135342-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Fri,  6 Dec 2024 21:04:43 +0000 (UTC)
+Received: by mail-qv1-f49.google.com with SMTP id
+ 6a1803df08f44-6d8e7df7199so11058826d6.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 06 Dec 2024 13:04:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733519082; x=1734123882;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tIsQxVZOmSisxuVH5z4x+NyiZyPKlPsv2rD1mEtYR5Y=;
+ b=gzckI/ymc55EHx+ej8zfL2PfeSk9s7tNoV4MXbU/f/iAmxxFF34kjAy8i3g3Lt1FxA
+ sbXVhqnS4Qx1T8ZNg795UHjKb908u5UhgEhubIvpzYRG9y0gQerkU5qwpsW5KFGGP0Pn
+ xJHQFNzLpCiZ9bzRm/9WsUWkikPTkp5TVoX5p7VVD3uT/X/PTryFBNVJWSidgbFV5jfN
+ mFtqpQJcZG/XDeszjwn6RO+z34/be6MBAe/8PeewIx2In3u7IJ/cARWjBecB2xY1uHPX
+ 3JQjJLuxvkxtkfuXIdEmhyqi8ObD0xBfGZPJmXzOslukIbe1TlCAyH/6T+IsG/5UM4iu
+ J0lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733519082; x=1734123882;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tIsQxVZOmSisxuVH5z4x+NyiZyPKlPsv2rD1mEtYR5Y=;
+ b=YFaywuItJnF8Oohaz1+5x+fW8Dvsd81Tk4oNjYVjbAmR9SZXUXMRXU94dPlTy1DYe9
+ 6A1GC6+DRvpJtnSnNugvvrXz9HZ/LmdHHV/jp3QTdRwBCrcjj8r+CAPJvi63UUo3dCZJ
+ aNaw26pwecMKtLgy57vnqmpToMYBhCqiOZGrEWwlPUxrc33IRo+3GOw3RyoQtWQW2+QW
+ 12aKVaKswIe//BtkqTH5OQM1zMJOqcgbBlXxOjARgx3Ozh4HFel/HyOnN8HVqcxE4ZWw
+ AsVkMGsIARYuCMHXeSaJBRbwgoXb00QBbsFFexsqvvjFre+kBNrrZbDdmECxvFdtfRUP
+ JWpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUIm9Ri/556KcYu6vjB60+3IxJckBA5pfH50yS8A5hUfnaFjl12rje0kEsD9a/7/EJXQ+fR5CZPp5XNwA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzzd8Hm7+vEE4q0NpssxZ7VWfIyYgHHOQEHh5mIuZrtOB8X2sJ7
+ sJC15ocexZMKMc+LqbrUZDRUeQ+jqj6vQ6SgrKkKRGKaP6ZEKikd
+X-Gm-Gg: ASbGncs26tEpVHoGLZo3O4dofZUw5IsixBtsVKPEoxRhANqLOMxts4L+mvdsX7JdGG/
+ tZoHGOHDVx+HuI8c76qWbPR4IjeeTsBhdKsRCbxgNbsVIf5noZfs8rod89NWgEFHZVyvUgHgB4e
+ sMUI2wUNjAlC8VIpxuPw0ur29aTsH9mTe2gdiBSjT7vhcIrj7qsz5lhB60v8V24CmIPMxoNqg5Q
+ J6KTJjBPAzJhN3Ah81a+oHZ6dwKRadsI3rF5EGUCesiG586avBXl4drh/s7cA==
+X-Google-Smtp-Source: AGHT+IEQdKZujTj7jjBxjOcAodQ9XvJwI3WBewZCeAsZZLW6wO5g4aM64JIpWh3fzo/92H8adS9G7Q==
+X-Received: by 2002:a05:6214:20c3:b0:6d4:36ff:4358 with SMTP id
+ 6a1803df08f44-6d8e718552amr89532996d6.25.1733519082094; 
+ Fri, 06 Dec 2024 13:04:42 -0800 (PST)
+Received: from localhost.localdomain ([128.10.127.250])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6d8da675214sm23068256d6.11.2024.12.06.13.04.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Dec 2024 13:04:41 -0800 (PST)
+From: Mingwei Zheng <zmw12306@gmail.com>
+To: marex@denx.de
+Date: Fri,  6 Dec 2024 16:08:00 -0500
+Message-Id: <20241206210800.3346579-1-zmw12306@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix IPCC EXTI declaration on
-	stm32mp151
+Cc: peng.fan@nxp.com, make24@iscas.ac.cn, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Jiasheng Jiang <jiashengjiangcool@gmail.com>, fabien.dessenne@foss.st.com,
+ mcoquelin.stm32@gmail.com, Mingwei Zheng <zmw12306@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] pinctrl: stm32: Add check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,38 +87,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The GIC IRQ type used for IPCC RX should be IRQ_TYPE_LEVEL_HIGH.
-Replacing the interrupt with the EXTI event changes the type to
-the numeric value 1, meaning IRQ_TYPE_EDGE_RISING.
+Convert the driver to clk_bulk*() API.
+Add check for the return value of clk_bulk_enable() to catch
+the potential error.
 
-The issue is that EXTI event 61 is a direct event.The IRQ type of
-direct events is not used by EXTI and is propagated to the parent
-IRQ controller of EXTI, the GIC.
-
-Align the IRQ type to the value expected by the GIC by replacing
-the second parameter "1" with IRQ_TYPE_LEVEL_HIGH.
-
-Fixes: 7d9802bb0e34 ("ARM: dts: stm32: remove the IPCC "wakeup" IRQ on stm32mp151")
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Fixes: 05d8af449d93 ("pinctrl: stm32: Keep pinctrl block clock enabled when LEVEL IRQ requested")
+Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
+Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
 ---
- arch/arm/boot/dts/st/stm32mp151.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changelog:
 
-diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
-index b28dc90926bd..e7e3ce8066ec 100644
---- a/arch/arm/boot/dts/st/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
-@@ -129,7 +129,7 @@ ipcc: mailbox@4c001000 {
- 			reg = <0x4c001000 0x400>;
- 			st,proc-id = <0>;
- 			interrupts-extended =
--				<&exti 61 1>,
-+				<&exti 61 IRQ_TYPE_LEVEL_HIGH>,
- 				<&intc GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "rx", "tx";
- 			clocks = <&rcc IPCC>;
+v1 -> v2:
+
+1. Convert the driver to clk_bulk*() API.
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 5b7fa77c1184..188de29ac281 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -86,7 +86,6 @@ struct stm32_pinctrl_group {
+ 
+ struct stm32_gpio_bank {
+ 	void __iomem *base;
+-	struct clk *clk;
+ 	struct reset_control *rstc;
+ 	spinlock_t lock;
+ 	struct gpio_chip gpio_chip;
+@@ -108,6 +107,7 @@ struct stm32_pinctrl {
+ 	unsigned ngroups;
+ 	const char **grp_names;
+ 	struct stm32_gpio_bank *banks;
++	struct clk_bulk_data *clks;
+ 	unsigned nbanks;
+ 	const struct stm32_pinctrl_match_data *match_data;
+ 	struct irq_domain	*domain;
+@@ -1308,7 +1308,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 	if (IS_ERR(bank->base))
+ 		return PTR_ERR(bank->base);
+ 
+-	err = clk_prepare_enable(bank->clk);
++	err = clk_prepare_enable(pctl->clks[pctl->nbanks].clk);
+ 	if (err) {
+ 		dev_err(dev, "failed to prepare_enable clk (%d)\n", err);
+ 		return err;
+@@ -1397,7 +1397,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 	return 0;
+ 
+ err_clk:
+-	clk_disable_unprepare(bank->clk);
++	clk_disable_unprepare(pctl->clks[pctl->nbanks].clk);
+ 	return err;
+ }
+ 
+@@ -1631,11 +1631,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 			fwnode_handle_put(child);
+ 			return -EPROBE_DEFER;
+ 		}
+-
+-		bank->clk = of_clk_get_by_name(np, NULL);
+-		if (IS_ERR(bank->clk)) {
++		pctl->clks[i].clk = of_clk_get_by_name(np, NULL);
++		if (IS_ERR(pctl->clks[i].clk)) {
+ 			fwnode_handle_put(child);
+-			return dev_err_probe(dev, PTR_ERR(bank->clk),
++			return dev_err_probe(dev, PTR_ERR(pctl->clks[i].clk),
+ 					     "failed to get clk\n");
+ 		}
+ 		i++;
+@@ -1647,7 +1646,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 			fwnode_handle_put(child);
+ 
+ 			for (i = 0; i < pctl->nbanks; i++)
+-				clk_disable_unprepare(pctl->banks[i].clk);
++				clk_disable_unprepare(pctl->clks[i].clk);
+ 
+ 			return ret;
+ 		}
+@@ -1726,10 +1725,8 @@ static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
+ int __maybe_unused stm32_pinctrl_suspend(struct device *dev)
+ {
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
+-	int i;
+ 
+-	for (i = 0; i < pctl->nbanks; i++)
+-		clk_disable(pctl->banks[i].clk);
++	clk_bulk_disable(pctl->nbanks, pctl->clks);
+ 
+ 	return 0;
+ }
+@@ -1738,10 +1735,11 @@ int __maybe_unused stm32_pinctrl_resume(struct device *dev)
+ {
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
+ 	struct stm32_pinctrl_group *g = pctl->groups;
+-	int i;
++	int i, ret;
+ 
+-	for (i = 0; i < pctl->nbanks; i++)
+-		clk_enable(pctl->banks[i].clk);
++	ret = clk_bulk_enable(pctl->nbanks, pctl->clks);
++	if (ret)
++		return ret;
+ 
+ 	for (i = 0; i < pctl->ngroups; i++, g++)
+ 		stm32_pinctrl_restore_gpio_regs(pctl, g->pin);
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
