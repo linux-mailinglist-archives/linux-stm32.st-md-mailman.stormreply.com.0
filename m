@@ -2,77 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E959E7E9D
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2024 08:03:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CD59E7ED6
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2024 09:00:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10A67C7802D;
-	Sat,  7 Dec 2024 07:03:25 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D14FC7802D;
+	Sat,  7 Dec 2024 08:00:59 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EFCCC7802B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45D31C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Dec 2024 07:03:17 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2161eb95317so10728545ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Dec 2024 23:03:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733554996; x=1734159796;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7VBksAF/T3d2c5+s8Bg+ubv6vEd7NOr/os/9LSHT35Y=;
- b=IQ6+fFUWxkNFQ6DJkpXnduuYzJ/9mm5x3LlXqTB5t0Bits+NU5t7WkCoMGBE3gR0+L
- OqQeSi/LBWEHK75P9bjb4JvMbCH+yrprT0mvqXl0N4xvN7Bb1oAvZY/G0Lvf/DLQyb+S
- ep6X20N2CNfz36FM5PLDnpZdvF05x0aRWXMU+F+SOBSiZcjMuKXiWEAPTynmEdbAtRxy
- 2oWsRdqSOKFx87bV5Uk2MxkT4iN5aYVGZLRVG/59dziqhBngsc14n0YD6FxCd3ET6ky2
- 0NQJwR/SwdrU9au/vqxfI9UzoNqIBkkMis9ppsiaOQMKiMUYwOwHbysairJgzPyxTJDO
- 9uZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733554996; x=1734159796;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7VBksAF/T3d2c5+s8Bg+ubv6vEd7NOr/os/9LSHT35Y=;
- b=tzvepjV447E5/cbhl6owuvzqziDmE/TUR2ZW47koao8bv3zu5mqYn+16qmXkzy6SUB
- SQRlGFkzjGhOtyV6CZuVbON7fP7WzDF45GqHSh2Pys2CtZwfDoGCjClX9nCKtvxTd+ya
- atCHd16YrDL3BVrXLeIdEHCU0DEFshQSnWvKx/9fqW12DhJj/3RowR/bZFDBp7Kk+Ndy
- +lsv+8QBXs291oC2ffWvLyQ5Meb1N/71eZS+om5P7tPRbmf/Bj3oX9fFK777RIatFnND
- teNyHxJjWW1hQXeVe3biw6K8f4xa+c62Ay2iOyR4VVJbxXlLl7PfAJ0n1ja5Q9sXNGLI
- DZkQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVxhjy5lRUwtCnxYxzztEaC1ygeNRGCh/bQWI1eGGMgt1cySPXytMHsjVgv8XNbQDv56eQH2arpKhJkSA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy+ROEkz34z4tlHwzJwbZgUbKzlS1MV47Uzb78eW7pEvJ6ASCin
- Zy0AugixLKpH8840mpg7cIg2ojvm/vUjwxoJ0On0PRGSLbkmtzUD
-X-Gm-Gg: ASbGncuBslnDmKHmeeBsTyuxspNCBNVZJlPLrqCvq1a5vpHAvl4hicqa76yoNIaBb5+
- KqBN1EoKDA+/uS8jbPuNpTqg+Dj9TlKObmzfRAYUMRon5UuCcTYO/w1zdsBFVYg2klUP9wTAvkm
- yZTKH+13a21fUabpZwX/Br4p3kf9N9GlDBJNPZXQ87veNBrf7nxrAIDTbYKD6Gu8Z6ISw6mbtZd
- e5yzomUrLNlfM9CzZPmD5BjMHRl85RjTB2slysJWzOXHowES6kz831lVaBDcYc=
-X-Google-Smtp-Source: AGHT+IGRLV9tlr/2SHhgZD19JnwDMG0W/wwF7xuVg/N9Skwvi9GkZLfzfL0GTpIhC8/5P3oAOgPTeg==
-X-Received: by 2002:a17:902:f542:b0:215:a60d:bcc9 with SMTP id
- d9443c01a7336-21614d1ef83mr97323535ad.2.1733554996066; 
- Fri, 06 Dec 2024 23:03:16 -0800 (PST)
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-215f8efa2aesm38395105ad.142.2024.12.06.23.03.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 23:03:15 -0800 (PST)
-From: Furong Xu <0x1207@gmail.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat,  7 Dec 2024 15:02:48 +0800
-Message-Id: <20241207070248.4049877-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Sat,  7 Dec 2024 08:00:58 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1tJpju-00061t-9k; Sat, 07 Dec 2024 09:00:34 +0100
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tJpjr-0028W7-1K;
+ Sat, 07 Dec 2024 09:00:32 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tJpjs-002fei-0E;
+ Sat, 07 Dec 2024 09:00:32 +0100
+Date: Sat, 7 Dec 2024 09:00:32 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <Z1QAoAmXlBoixIS4@pengutronix.de>
+References: <20241205125640.1253996-1-o.rempel@pengutronix.de>
+ <20241205125640.1253996-2-o.rempel@pengutronix.de>
+ <20241205-immortal-sneak-8c5a348a8563@spud>
+ <Z1KxZmRekrYGSdd4@pengutronix.de>
+ <20241206-wrought-jailbreak-52cc4a21a713@spud>
 MIME-Version: 1.0
-Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+Content-Disposition: inline
+In-Reply-To: <20241206-wrought-jailbreak-52cc4a21a713@spud>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Woojung Huh <woojung.huh@microchip.com>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, kernel@pengutronix.de,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Move extern
-	declarations from common.h to hwif.h
+Subject: Re: [Linux-stm32] [PATCH v1 1/5] dt-bindings: net: Add TI DP83TD510
+	10BaseT1L PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,78 +74,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-These extern declarations are referenced in hwif.c only.
-Move them to hwif.h just like the other extern declarations.
+On Fri, Dec 06, 2024 at 04:57:01PM +0000, Conor Dooley wrote:
+> On Fri, Dec 06, 2024 at 09:10:14AM +0100, Oleksij Rempel wrote:
+> > On Thu, Dec 05, 2024 at 05:18:59PM +0000, Conor Dooley wrote:
+> > > On Thu, Dec 05, 2024 at 01:56:36PM +0100, Oleksij Rempel wrote:
+> > > > Introduce devicetree binding for the Texas Instruments DP83TD510
+> > > > Ultra Low Power 802.3cg 10Base-T1L Single Pair Ethernet PHY.
+> > > > 
+> > > > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > > > ---
+> > > >  .../devicetree/bindings/net/ti,dp83td510.yaml | 35 +++++++++++++++++++
+> > > >  1 file changed, 35 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/net/ti,dp83td510.yaml
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83td510.yaml b/Documentation/devicetree/bindings/net/ti,dp83td510.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..cf13e86a4017
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/net/ti,dp83td510.yaml
+> > > > @@ -0,0 +1,35 @@
+> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/net/ti,dp83td510.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: TI DP83TD510 10BaseT1L PHY
+> > > > +
+> > > > +maintainers:
+> > > > +  - Oleksij Rempel <o.rempel@pengutronix.de>
+> > > > +
+> > > > +description:
+> > > > +  DP83TD510E Ultra Low Power 802.3cg 10Base-T1L 10M Single Pair Ethernet PHY
+> > > > +
+> > > > +allOf:
+> > > > +  - $ref: ethernet-phy.yaml#
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - ethernet-phy-id2000.0181
+> > > 
+> > > There's nothing specific here, can someone remind me why the generic
+> > > binding is not enough?
+> > 
+> > The missing binding was blamed by checkpatch. Haw should I proceed with this
+> > patch?
+> 
+> Does dtbs_check complain when you use it in a dts? What you have here
+> matches against the pattern ^ethernet-phy-id[a-f0-9]{4}\\.[a-f0-9]{4}$
+> so I think it won't. checkpatch might be too dumb to evaluate the regex?
 
-Compile tested only.
-No functional change intended.
+dtbs_check didn't complained about it, only checkpatch.
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h | 14 --------------
- drivers/net/ethernet/stmicro/stmmac/hwif.h   | 14 ++++++++++++++
- 2 files changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 1367fa5c9b8e..fbcf07d201cf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -543,18 +543,8 @@ struct dma_features {
- #define STMMAC_VLAN_INSERT	0x2
- #define STMMAC_VLAN_REPLACE	0x3
- 
--extern const struct stmmac_desc_ops enh_desc_ops;
--extern const struct stmmac_desc_ops ndesc_ops;
--
- struct mac_device_info;
- 
--extern const struct stmmac_hwtimestamp stmmac_ptp;
--extern const struct stmmac_hwtimestamp dwmac1000_ptp;
--extern const struct stmmac_mode_ops dwmac4_ring_mode_ops;
--
--extern const struct ptp_clock_info stmmac_ptp_clock_ops;
--extern const struct ptp_clock_info dwmac1000_ptp_clock_ops;
--
- struct mac_link {
- 	u32 caps;
- 	u32 speed_mask;
-@@ -641,8 +631,4 @@ void stmmac_dwmac4_set_mac(void __iomem *ioaddr, bool enable);
- 
- void dwmac_dma_flush_tx_fifo(void __iomem *ioaddr);
- 
--extern const struct stmmac_mode_ops ring_mode_ops;
--extern const struct stmmac_mode_ops chain_mode_ops;
--extern const struct stmmac_desc_ops dwmac4_desc_ops;
--
- #endif /* __COMMON_H__ */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 64f8ed67dcc4..58a962e0b768 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -665,6 +665,20 @@ struct stmmac_regs_off {
- 	u32 est_off;
- };
- 
-+extern const struct stmmac_desc_ops ndesc_ops;
-+extern const struct stmmac_desc_ops enh_desc_ops;
-+extern const struct stmmac_desc_ops dwmac4_desc_ops;
-+
-+extern const struct stmmac_hwtimestamp stmmac_ptp;
-+extern const struct stmmac_hwtimestamp dwmac1000_ptp;
-+
-+extern const struct ptp_clock_info stmmac_ptp_clock_ops;
-+extern const struct ptp_clock_info dwmac1000_ptp_clock_ops;
-+
-+extern const struct stmmac_mode_ops ring_mode_ops;
-+extern const struct stmmac_mode_ops chain_mode_ops;
-+extern const struct stmmac_mode_ops dwmac4_ring_mode_ops;
-+
- extern const struct stmmac_ops dwmac100_ops;
- extern const struct stmmac_dma_ops dwmac100_dma_ops;
- extern const struct stmmac_ops dwmac1000_ops;
 -- 
-2.34.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
