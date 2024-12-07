@@ -2,75 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C1409E7B2C
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2024 22:50:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C759E7E72
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2024 06:52:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC86CC78038;
-	Fri,  6 Dec 2024 21:50:10 +0000 (UTC)
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com
- [209.85.219.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0759AC7802D;
+	Sat,  7 Dec 2024 05:52:47 +0000 (UTC)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D44D7C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08401C5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2024 21:50:03 +0000 (UTC)
-Received: by mail-yb1-f181.google.com with SMTP id
- 3f1490d57ef6-e388503c0d7so2465151276.0
+ Sat,  7 Dec 2024 05:52:39 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-7ee51d9ae30so1956429a12.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Dec 2024 13:50:03 -0800 (PST)
+ Fri, 06 Dec 2024 21:52:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733521803; x=1734126603;
+ d=gmail.com; s=20230601; t=1733550753; x=1734155553;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=E1ATQ+hwSVg06F/3XJmwp6Pc51et8mTf/y94acpTuzc=;
- b=Tu6S/fJptO7ouvB1O5wRHqBz7kgQsr5VHzNeFS/tpq69KQlNU4wfLygjDzd6+JVt5f
- k5tkCO25A69E9byTyh3tcTIY/2O62zhmXU+Ll4guT5gzNiHqWYDuE5u8xByrcqQc4ZRo
- gLcK0ErUPDj3cEJRhPjTqlli93MjztruFoBYD3eY1zp3MyXrb+oq6JFfoUAWlsHkD2kE
- dSAOWfSJicTH9Sw/ufIyE0dKLkiA2vUehgBMCi1KbTh/MdLmrSAXJORJRQkL70K9ssFh
- +XOI5eLXAv5F7OrNxedUOIH4M7ybmo781lspP+iuGaLTgsRdS6pwwo9M67V15npKq12n
- apMg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2+IwYaynpcQ+9RTCAJedrXXepYT48CIPEoJXkJRmDR8=;
+ b=TyhFayJEnlwPilIpcBTjmQSH+K7R6VWvptdF50A08B1CG67AJclUW7vEh0KKev4rds
+ yDcIgkyE7ldqj8qoism2GYJVq9tICQbJvBY9rXbZEvsKv0d2dH0pOMN+BYOWJrsd/yod
+ NghIOemhuCkiNUgxmCftH7lUvLqYpzQT1d2LOIEijzDX4Ia38aRxReuNw6VSL01Q9IHK
+ V2B1MB/t2HcR5Vq9v6LbWNEUnYg3yLiAN6Y5Ifv/bO4jcXFB3mLxMnGLmdNPQqC0i2kI
+ 5tsg8rYTu9e0rEFjKJXGDpSl3E9QJxc0BWw6dfFegXhGTPHXYLma0nJUqA94e6LK+Icw
+ LAZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733521803; x=1734126603;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=E1ATQ+hwSVg06F/3XJmwp6Pc51et8mTf/y94acpTuzc=;
- b=aXf0oBM/nzGWqTK+4HbRLYQqdMprgbstaYbQ/MNBglj08RNFxuSsZS6L30f8DZDMfv
- f/0J9DRJgBdN0fwhRFiYVW4FA1ywnApE2W3Pl01t6/XgNO6r7QJsF1so1iQUBjG1ajvC
- LCCrL+SS59tBO6GvGP0/tQPgfap2wgqXac3CWxq6XeKiztCL+feypPiJAaqXeJUFNET5
- XJjtNND/3KP/t30fqh/JmX2e/CLYwZBeZrVnUtu9XJGbmtyg1nEy3Mz+CsDNiwsYXGHV
- +T0tC2SeqwQMuHwUtOaN59oEs9o3kKOafP1NEe+uhVXkQU68+H5sLoaqyBMHQUWXMbus
- G69w==
+ d=1e100.net; s=20230601; t=1733550753; x=1734155553;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2+IwYaynpcQ+9RTCAJedrXXepYT48CIPEoJXkJRmDR8=;
+ b=HTAJNK+IqpQIckWhCnhL9mOdMnsEyu8M+4fl6+r/4v6H6L+7nJvyEWahpguh5g6Q5b
+ rLh6AO/7dpr/wuW4Rt3af4Vw29mRgGssybCtIW7uXHANe9flOUyac9wBr2ZPRHH0vFv/
+ qM7q6d1I64PXvQ6yftkdUOA6ffLVsajUqpAerXvbOntU7KcqzNdj8P8BLbMIB8MCx0OI
+ Iez/g1WkoHkf2cwM+KZjieE4rOSUj39wGZjyEEvjzEwIpizm4o1ECodEOE1YvwqD8SK7
+ 4rouxFXc9aGUXHnqOi5di8H0n64+eeK8tbaBqqRixZ1sEN4Jk6ftSsRcX0Hmds9mi9cL
+ rHbQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUeci9jdRNoSn3qMfYvK+bhl62PbsL4WNTg5LBgi1QAa6G8d05W3AEKgNwyZ7f8KyIVQ+uw8Xx+qsNyWA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzZKPEBe4wXobrIoz4tQ2fCgUpzDDZMHQa0PyJdlm9yHGc24DTC
- TQnFreR1W4MRRiNJOSg7CaSCVZDf35Q3hPKoxoR1tH/yjVldBf88
-X-Gm-Gg: ASbGnctnPQe0WnZh9jF08t5XdVPY0yfISrgJC54TOiQKu4DXAuSkQCSv4xnXk4KDbhO
- SaVmbXJeMNWD4uRr4p/h4hdw2It44D5mk+qrT7m/qvKSgrGDUsPHqwNKV8VfyA+tEaXKty5sptM
- Cad/rw8LPW9XyU88dOxF9ggHoUXqICT1X+zGEQG1tKidU4XBwEl2PK9AusSFvFjZDXe9oDe/ZB+
- +xOjbAVHfgGSdqgC/59V7re61buITVs6dF3O59DpaIymRkrH2eT7MkAxmd/0Q==
-X-Google-Smtp-Source: AGHT+IHkD9Ci5WOwSKQRn4HpRXLx7B5Rbt64C1MzXq6No2+Ek1WnLIKvhB0xUCl9WeQHCE1aUg0ICQ==
-X-Received: by 2002:a05:6902:2b88:b0:e39:a3d9:48eb with SMTP id
- 3f1490d57ef6-e3a0b133286mr5243945276.26.1733521802732; 
- Fri, 06 Dec 2024 13:50:02 -0800 (PST)
-Received: from localhost.localdomain ([128.10.127.250])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-467296f2d0bsm25474161cf.39.2024.12.06.13.49.59
+ AJvYcCWW3q3tlqZVSu9xuOtXT1rIJEoRG7LWnQNLnM/07gakJL4ovPa+Mq5W2J578EYxdS9Eejl+LYN3RfBjrw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzzwEzeUuO/Od/hzVvTGxLqkNmer9wvOg0hlKjcTWUFgvu8IZ2W
+ 0zIfOMkhqnpqJBf+rgLw8X/6o6Z0PcFsHMdiBbQ+3FUp0gsbpsJ6
+X-Gm-Gg: ASbGnctf4+Bk+SYTJkMlvfCe1pacnQRjlnD+izvcc7jYozB7z4wDm97MWGVjgLwkRgF
+ ufuQdzPpXciCf7E6+tKAah2l4O6wOvssU1WJTZ4rUzv8hMfWz1sZq4nbl917DWUDtbFv9U+wWvL
+ RtRC0wYLyQUMVjn1NqKD8v0W9eO2VdIRbVKXu+2XXQ32FbVxS1xYp7XpWAjzjqYRfis9Hr66Tkl
+ XCNiXg72HXZSiQvYpyBeLlz0WZJ+Ex2KWXevunG3w0dDMc=
+X-Google-Smtp-Source: AGHT+IFd+wuygMRSPeO8wa52NvVHAGLuFfQ5jfbHspHxQMyW7jzkp1weeY7rmM4U0gg8Uv3suuUZQA==
+X-Received: by 2002:a05:6a21:3e04:b0:1e0:c3bf:7909 with SMTP id
+ adf61e73a8af0-1e187132cf7mr8429490637.41.1733550752776; 
+ Fri, 06 Dec 2024 21:52:32 -0800 (PST)
+Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-725a2a903a3sm3811288b3a.116.2024.12.06.21.52.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 13:50:01 -0800 (PST)
-From: Mingwei Zheng <zmw12306@gmail.com>
-To: ukleinek@kernel.org
-Date: Fri,  6 Dec 2024 16:53:18 -0500
-Message-Id: <20241206215318.3402860-1-zmw12306@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Fri, 06 Dec 2024 21:52:32 -0800 (PST)
+Date: Sat, 7 Dec 2024 13:52:17 +0800
+From: Furong Xu <0x1207@gmail.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20241207135217.00000f0f@gmail.com>
+In-Reply-To: <E1tJXcx-006N4Z-PC@rmk-PC.armlinux.org.uk>
+References: <E1tJXcx-006N4Z-PC@rmk-PC.armlinux.org.uk>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Cc: linux-pwm@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, hierry.reding@gmail.com,
- Mingwei Zheng <zmw12306@gmail.com>,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>,
+Cc: Jon Hunter <jonathanh@nvidia.com>, Simon Horman <horms@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ Hariprasad Kelam <hkelam@marvell.com>, linux-kernel@vger.kernel.org,
+ andrew+netdev@lunn.ch, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Thierry Reding <thierry.reding@gmail.com>,
+ MaximeCoquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3] pwm: stm32-lp: Add check for clk_enable()
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix TSO DMA API usage
+	causing oops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,48 +93,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add check for the return value of clk_enable() to catch the potential
-error.
-We used APP-Miner to find it.
+On Fri, 06 Dec 2024 12:40:11 +0000, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-Fixes: e70a540b4e02 ("pwm: Add STM32 LPTimer PWM driver")
-Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
----
-Changelog:
+> Commit 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap
+> for non-paged SKB data") moved the assignment of tx_skbuff_dma[]'s
+> members to be later in stmmac_tso_xmit().
+> 
+> The buf (dma cookie) and len stored in this structure are passed to
+> dma_unmap_single() by stmmac_tx_clean(). The DMA API requires that
+> the dma cookie passed to dma_unmap_single() is the same as the value
+> returned from dma_map_single(). However, by moving the assignment
+> later, this is not the case when priv->dma_cap.addr64 > 32 as "des"
+> is offset by proto_hdr_len.
+> 
+> This causes problems such as:
+> 
+>   dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
+> 
+> and with DMA_API_DEBUG enabled:
+> 
+>   DMA-API: dwc-eth-dwmac 2490000.ethernet: device driver tries to +free DMA memory it has not allocated [device address=0x000000ffffcf65c0] [size=66 bytes]
+> 
+> Fix this by maintaining "des" as the original DMA cookie, and use
+> tso_des to pass the offset DMA cookie to stmmac_tso_allocator().
+> 
+> Full details of the crashes can be found at:
+> https://lore.kernel.org/all/d8112193-0386-4e14-b516-37c2d838171a@nvidia.com/
+> https://lore.kernel.org/all/klkzp5yn5kq5efgtrow6wbvnc46bcqfxs65nz3qy77ujr5turc@bwwhelz2l4dw/
+> 
+> Reported-by: Jon Hunter <jonathanh@nvidia.com>
+> Reported-by: Thierry Reding <thierry.reding@gmail.com>
+> Fixes: 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data")
 
-v2 -> v3:
+Much appreciated for this fix.
 
-1. Add tool name in the commit log.
-
-v1 -> v2:
-
-1. Move int ret declaration into if block.
----
- drivers/pwm/pwm-stm32-lp.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pwm/pwm-stm32-lp.c b/drivers/pwm/pwm-stm32-lp.c
-index 989731256f50..f09d097d6284 100644
---- a/drivers/pwm/pwm-stm32-lp.c
-+++ b/drivers/pwm/pwm-stm32-lp.c
-@@ -167,8 +167,12 @@ static int stm32_pwm_lp_get_state(struct pwm_chip *chip,
- 	regmap_read(priv->regmap, STM32_LPTIM_CR, &val);
- 	state->enabled = !!FIELD_GET(STM32_LPTIM_ENABLE, val);
- 	/* Keep PWM counter clock refcount in sync with PWM initial state */
--	if (state->enabled)
--		clk_enable(priv->clk);
-+	if (state->enabled) {
-+		int ret = clk_enable(priv->clk);
-+
-+		if (ret)
-+			return ret;
-+	}
- 
- 	regmap_read(priv->regmap, STM32_LPTIM_CFGR, &val);
- 	presc = FIELD_GET(STM32_LPTIM_PRESC, val);
--- 
-2.34.1
+Reviewed-by: Furong Xu <0x1207@gmail.com>
 
 _______________________________________________
 Linux-stm32 mailing list
