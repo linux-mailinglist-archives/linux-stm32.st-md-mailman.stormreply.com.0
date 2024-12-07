@@ -2,81 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C759E7E72
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2024 06:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E959E7E9D
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2024 08:03:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0759AC7802D;
-	Sat,  7 Dec 2024 05:52:47 +0000 (UTC)
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
- [209.85.215.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10A67C7802D;
+	Sat,  7 Dec 2024 07:03:25 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08401C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EFCCC7802B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Dec 2024 05:52:39 +0000 (UTC)
-Received: by mail-pg1-f178.google.com with SMTP id
- 41be03b00d2f7-7ee51d9ae30so1956429a12.1
+ Sat,  7 Dec 2024 07:03:17 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2161eb95317so10728545ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Dec 2024 21:52:38 -0800 (PST)
+ Fri, 06 Dec 2024 23:03:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733550753; x=1734155553;
+ d=gmail.com; s=20230601; t=1733554996; x=1734159796;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2+IwYaynpcQ+9RTCAJedrXXepYT48CIPEoJXkJRmDR8=;
- b=TyhFayJEnlwPilIpcBTjmQSH+K7R6VWvptdF50A08B1CG67AJclUW7vEh0KKev4rds
- yDcIgkyE7ldqj8qoism2GYJVq9tICQbJvBY9rXbZEvsKv0d2dH0pOMN+BYOWJrsd/yod
- NghIOemhuCkiNUgxmCftH7lUvLqYpzQT1d2LOIEijzDX4Ia38aRxReuNw6VSL01Q9IHK
- V2B1MB/t2HcR5Vq9v6LbWNEUnYg3yLiAN6Y5Ifv/bO4jcXFB3mLxMnGLmdNPQqC0i2kI
- 5tsg8rYTu9e0rEFjKJXGDpSl3E9QJxc0BWw6dfFegXhGTPHXYLma0nJUqA94e6LK+Icw
- LAZw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7VBksAF/T3d2c5+s8Bg+ubv6vEd7NOr/os/9LSHT35Y=;
+ b=IQ6+fFUWxkNFQ6DJkpXnduuYzJ/9mm5x3LlXqTB5t0Bits+NU5t7WkCoMGBE3gR0+L
+ OqQeSi/LBWEHK75P9bjb4JvMbCH+yrprT0mvqXl0N4xvN7Bb1oAvZY/G0Lvf/DLQyb+S
+ ep6X20N2CNfz36FM5PLDnpZdvF05x0aRWXMU+F+SOBSiZcjMuKXiWEAPTynmEdbAtRxy
+ 2oWsRdqSOKFx87bV5Uk2MxkT4iN5aYVGZLRVG/59dziqhBngsc14n0YD6FxCd3ET6ky2
+ 0NQJwR/SwdrU9au/vqxfI9UzoNqIBkkMis9ppsiaOQMKiMUYwOwHbysairJgzPyxTJDO
+ 9uZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733550753; x=1734155553;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=2+IwYaynpcQ+9RTCAJedrXXepYT48CIPEoJXkJRmDR8=;
- b=HTAJNK+IqpQIckWhCnhL9mOdMnsEyu8M+4fl6+r/4v6H6L+7nJvyEWahpguh5g6Q5b
- rLh6AO/7dpr/wuW4Rt3af4Vw29mRgGssybCtIW7uXHANe9flOUyac9wBr2ZPRHH0vFv/
- qM7q6d1I64PXvQ6yftkdUOA6ffLVsajUqpAerXvbOntU7KcqzNdj8P8BLbMIB8MCx0OI
- Iez/g1WkoHkf2cwM+KZjieE4rOSUj39wGZjyEEvjzEwIpizm4o1ECodEOE1YvwqD8SK7
- 4rouxFXc9aGUXHnqOi5di8H0n64+eeK8tbaBqqRixZ1sEN4Jk6ftSsRcX0Hmds9mi9cL
- rHbQ==
+ d=1e100.net; s=20230601; t=1733554996; x=1734159796;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7VBksAF/T3d2c5+s8Bg+ubv6vEd7NOr/os/9LSHT35Y=;
+ b=tzvepjV447E5/cbhl6owuvzqziDmE/TUR2ZW47koao8bv3zu5mqYn+16qmXkzy6SUB
+ SQRlGFkzjGhOtyV6CZuVbON7fP7WzDF45GqHSh2Pys2CtZwfDoGCjClX9nCKtvxTd+ya
+ atCHd16YrDL3BVrXLeIdEHCU0DEFshQSnWvKx/9fqW12DhJj/3RowR/bZFDBp7Kk+Ndy
+ +lsv+8QBXs291oC2ffWvLyQ5Meb1N/71eZS+om5P7tPRbmf/Bj3oX9fFK777RIatFnND
+ teNyHxJjWW1hQXeVe3biw6K8f4xa+c62Ay2iOyR4VVJbxXlLl7PfAJ0n1ja5Q9sXNGLI
+ DZkQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWW3q3tlqZVSu9xuOtXT1rIJEoRG7LWnQNLnM/07gakJL4ovPa+Mq5W2J578EYxdS9Eejl+LYN3RfBjrw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzzwEzeUuO/Od/hzVvTGxLqkNmer9wvOg0hlKjcTWUFgvu8IZ2W
- 0zIfOMkhqnpqJBf+rgLw8X/6o6Z0PcFsHMdiBbQ+3FUp0gsbpsJ6
-X-Gm-Gg: ASbGnctf4+Bk+SYTJkMlvfCe1pacnQRjlnD+izvcc7jYozB7z4wDm97MWGVjgLwkRgF
- ufuQdzPpXciCf7E6+tKAah2l4O6wOvssU1WJTZ4rUzv8hMfWz1sZq4nbl917DWUDtbFv9U+wWvL
- RtRC0wYLyQUMVjn1NqKD8v0W9eO2VdIRbVKXu+2XXQ32FbVxS1xYp7XpWAjzjqYRfis9Hr66Tkl
- XCNiXg72HXZSiQvYpyBeLlz0WZJ+Ex2KWXevunG3w0dDMc=
-X-Google-Smtp-Source: AGHT+IFd+wuygMRSPeO8wa52NvVHAGLuFfQ5jfbHspHxQMyW7jzkp1weeY7rmM4U0gg8Uv3suuUZQA==
-X-Received: by 2002:a05:6a21:3e04:b0:1e0:c3bf:7909 with SMTP id
- adf61e73a8af0-1e187132cf7mr8429490637.41.1733550752776; 
- Fri, 06 Dec 2024 21:52:32 -0800 (PST)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-725a2a903a3sm3811288b3a.116.2024.12.06.21.52.26
+ AJvYcCVxhjy5lRUwtCnxYxzztEaC1ygeNRGCh/bQWI1eGGMgt1cySPXytMHsjVgv8XNbQDv56eQH2arpKhJkSA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy+ROEkz34z4tlHwzJwbZgUbKzlS1MV47Uzb78eW7pEvJ6ASCin
+ Zy0AugixLKpH8840mpg7cIg2ojvm/vUjwxoJ0On0PRGSLbkmtzUD
+X-Gm-Gg: ASbGncuBslnDmKHmeeBsTyuxspNCBNVZJlPLrqCvq1a5vpHAvl4hicqa76yoNIaBb5+
+ KqBN1EoKDA+/uS8jbPuNpTqg+Dj9TlKObmzfRAYUMRon5UuCcTYO/w1zdsBFVYg2klUP9wTAvkm
+ yZTKH+13a21fUabpZwX/Br4p3kf9N9GlDBJNPZXQ87veNBrf7nxrAIDTbYKD6Gu8Z6ISw6mbtZd
+ e5yzomUrLNlfM9CzZPmD5BjMHRl85RjTB2slysJWzOXHowES6kz831lVaBDcYc=
+X-Google-Smtp-Source: AGHT+IGRLV9tlr/2SHhgZD19JnwDMG0W/wwF7xuVg/N9Skwvi9GkZLfzfL0GTpIhC8/5P3oAOgPTeg==
+X-Received: by 2002:a17:902:f542:b0:215:a60d:bcc9 with SMTP id
+ d9443c01a7336-21614d1ef83mr97323535ad.2.1733554996066; 
+ Fri, 06 Dec 2024 23:03:16 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-215f8efa2aesm38395105ad.142.2024.12.06.23.03.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Dec 2024 21:52:32 -0800 (PST)
-Date: Sat, 7 Dec 2024 13:52:17 +0800
+ Fri, 06 Dec 2024 23:03:15 -0800 (PST)
 From: Furong Xu <0x1207@gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20241207135217.00000f0f@gmail.com>
-In-Reply-To: <E1tJXcx-006N4Z-PC@rmk-PC.armlinux.org.uk>
-References: <E1tJXcx-006N4Z-PC@rmk-PC.armlinux.org.uk>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat,  7 Dec 2024 15:02:48 +0800
+Message-Id: <20241207070248.4049877-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: Jon Hunter <jonathanh@nvidia.com>, Simon Horman <horms@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- Hariprasad Kelam <hkelam@marvell.com>, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Thierry Reding <thierry.reding@gmail.com>,
- MaximeCoquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix TSO DMA API usage
-	causing oops
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Move extern
+	declarations from common.h to hwif.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,41 +89,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 06 Dec 2024 12:40:11 +0000, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
+These extern declarations are referenced in hwif.c only.
+Move them to hwif.h just like the other extern declarations.
 
-> Commit 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap
-> for non-paged SKB data") moved the assignment of tx_skbuff_dma[]'s
-> members to be later in stmmac_tso_xmit().
-> 
-> The buf (dma cookie) and len stored in this structure are passed to
-> dma_unmap_single() by stmmac_tx_clean(). The DMA API requires that
-> the dma cookie passed to dma_unmap_single() is the same as the value
-> returned from dma_map_single(). However, by moving the assignment
-> later, this is not the case when priv->dma_cap.addr64 > 32 as "des"
-> is offset by proto_hdr_len.
-> 
-> This causes problems such as:
-> 
->   dwc-eth-dwmac 2490000.ethernet eth0: Tx DMA map failed
-> 
-> and with DMA_API_DEBUG enabled:
-> 
->   DMA-API: dwc-eth-dwmac 2490000.ethernet: device driver tries to +free DMA memory it has not allocated [device address=0x000000ffffcf65c0] [size=66 bytes]
-> 
-> Fix this by maintaining "des" as the original DMA cookie, and use
-> tso_des to pass the offset DMA cookie to stmmac_tso_allocator().
-> 
-> Full details of the crashes can be found at:
-> https://lore.kernel.org/all/d8112193-0386-4e14-b516-37c2d838171a@nvidia.com/
-> https://lore.kernel.org/all/klkzp5yn5kq5efgtrow6wbvnc46bcqfxs65nz3qy77ujr5turc@bwwhelz2l4dw/
-> 
-> Reported-by: Jon Hunter <jonathanh@nvidia.com>
-> Reported-by: Thierry Reding <thierry.reding@gmail.com>
-> Fixes: 66600fac7a98 ("net: stmmac: TSO: Fix unbalanced DMA map/unmap for non-paged SKB data")
+Compile tested only.
+No functional change intended.
 
-Much appreciated for this fix.
+Signed-off-by: Furong Xu <0x1207@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/common.h | 14 --------------
+ drivers/net/ethernet/stmicro/stmmac/hwif.h   | 14 ++++++++++++++
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-Reviewed-by: Furong Xu <0x1207@gmail.com>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 1367fa5c9b8e..fbcf07d201cf 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -543,18 +543,8 @@ struct dma_features {
+ #define STMMAC_VLAN_INSERT	0x2
+ #define STMMAC_VLAN_REPLACE	0x3
+ 
+-extern const struct stmmac_desc_ops enh_desc_ops;
+-extern const struct stmmac_desc_ops ndesc_ops;
+-
+ struct mac_device_info;
+ 
+-extern const struct stmmac_hwtimestamp stmmac_ptp;
+-extern const struct stmmac_hwtimestamp dwmac1000_ptp;
+-extern const struct stmmac_mode_ops dwmac4_ring_mode_ops;
+-
+-extern const struct ptp_clock_info stmmac_ptp_clock_ops;
+-extern const struct ptp_clock_info dwmac1000_ptp_clock_ops;
+-
+ struct mac_link {
+ 	u32 caps;
+ 	u32 speed_mask;
+@@ -641,8 +631,4 @@ void stmmac_dwmac4_set_mac(void __iomem *ioaddr, bool enable);
+ 
+ void dwmac_dma_flush_tx_fifo(void __iomem *ioaddr);
+ 
+-extern const struct stmmac_mode_ops ring_mode_ops;
+-extern const struct stmmac_mode_ops chain_mode_ops;
+-extern const struct stmmac_desc_ops dwmac4_desc_ops;
+-
+ #endif /* __COMMON_H__ */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 64f8ed67dcc4..58a962e0b768 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -665,6 +665,20 @@ struct stmmac_regs_off {
+ 	u32 est_off;
+ };
+ 
++extern const struct stmmac_desc_ops ndesc_ops;
++extern const struct stmmac_desc_ops enh_desc_ops;
++extern const struct stmmac_desc_ops dwmac4_desc_ops;
++
++extern const struct stmmac_hwtimestamp stmmac_ptp;
++extern const struct stmmac_hwtimestamp dwmac1000_ptp;
++
++extern const struct ptp_clock_info stmmac_ptp_clock_ops;
++extern const struct ptp_clock_info dwmac1000_ptp_clock_ops;
++
++extern const struct stmmac_mode_ops ring_mode_ops;
++extern const struct stmmac_mode_ops chain_mode_ops;
++extern const struct stmmac_mode_ops dwmac4_ring_mode_ops;
++
+ extern const struct stmmac_ops dwmac100_ops;
+ extern const struct stmmac_dma_ops dwmac100_dma_ops;
+ extern const struct stmmac_ops dwmac1000_ops;
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
