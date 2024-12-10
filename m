@@ -2,59 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6219EA791
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2024 06:10:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C149EAA75
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2024 09:20:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5888BC78021;
-	Tue, 10 Dec 2024 05:10:31 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 064D0C78006;
+	Tue, 10 Dec 2024 08:20:39 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D90C78014
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5548C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2024 05:10:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 74BEB5C4CED;
- Tue, 10 Dec 2024 05:09:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE6FC4CED6;
- Tue, 10 Dec 2024 05:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733807421;
- bh=3PFxSSpWAf1uej3O7h8d+RzULqKyQZ0CsWOcHahIS8Y=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=r5DIW0r/VhAd2ECaJf98oP2OK0PH5pluM0LmVmvuXQftBAz3Kvc0GBB1gYNAWofoU
- OvWYB4nuOAJP48oZC8JU3OMa89t5wynMF/6vWpKf6mgKoLBg15ElQJcYnPRRIZZQ3g
- 7BPWUKVGpiTSTo1uzVTiyeFOTVmFlEn/wjsc5dX60ETAFfBFEj4dnZ0w9MnPa5tXy4
- YO4s3JkG5/CuHuN3to7O8HnS3i3evzVxJWa7ivs39csiVplv63toxbTbTnwJfRexh0
- QCrB7X697iWUdw0gmKR4deBPF9E0U5bVl8MpuuTTkwq7NjjMEoXt057QK6aOP1oc3L
- /foaMsTnmJ8Kg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 716FC380A95E; Tue, 10 Dec 2024 05:10:38 +0000 (UTC)
+ Tue, 10 Dec 2024 08:20:37 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BA1j9qH011970;
+ Tue, 10 Dec 2024 09:20:17 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 07Fd8DkwCPGnXqaDXNFNioTlMvSHdNYm3+AlnpXUsyU=; b=j8KEIdASWSUHpF4z
+ jd0uFUpTuHZ18OSkyat11UB6tfPsMrMuYGGVefLXkbjNPdkOJlaLHNaADNpHHZrV
+ PT/H2yE7F+qOO8HfMwMb9mc/miQ/CyoqqrkBTxZPNnqxzRHLlRjCgyrbxRwofIc+
+ UFAFGkhxXdBKslAFP3OwbefvLfZ+sq/7kE38n4D/iY0v7Ye9P7RvhlLPBUXWBE72
+ aoh80H6uULVoUf8MARzXouXotk6os6qnU6YlxQ1CFaP+oJUYHJ5lafrfycCxYZii
+ ejodAnpCvshi4bjjrYW817twNqgzU29y/nxCSLdlXqLc4vswmScUScL9P/bXjTi1
+ 4tCzxg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43e2w9jwp4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Dec 2024 09:20:17 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6214E40044;
+ Tue, 10 Dec 2024 09:18:52 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 953E422AA44;
+ Tue, 10 Dec 2024 09:16:00 +0100 (CET)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 10 Dec
+ 2024 09:16:00 +0100
+Message-ID: <ce05c6db-7baa-4268-96c5-fbefeee2e77f@foss.st.com>
+Date: Tue, 10 Dec 2024 09:15:59 +0100
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173380743727.355055.17303486442146316315.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Dec 2024 05:10:37 +0000
-References: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
-In-Reply-To: <20241205-upstream_s32cc_gmac-v8-0-ec1d180df815@oss.nxp.com>
-To: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Cc: andrew@lunn.ch, s32@nxp.com, kernel@esmil.dk, imx@lists.linux.dev,
- claudiu.beznea@tuxon.dev, edumazet@google.com, iyappan@os.amperecomputing.com,
- quan@os.amperecomputing.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- linux@armlinux.org.uk, joabreu@synopsys.com, jacob.e.keller@intel.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- keyur@os.amperecomputing.com, jan.petrous@oss.nxp.com,
- minda.chen@starfivetech.com, rmk+kernel@armlinux.org.uk,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, 0x1207@gmail.com,
- netdev@vger.kernel.org, nicolas.ferre@microchip.com, fancer.lancer@gmail.com,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, vkoul@kernel.org,
- kernel@pengutronix.de, krzk+dt@kernel.org, emil.renner.berthing@canonical.com,
- shawnguo@kernel.org, davem@davemloft.net, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v8 00/15] Add support for
- Synopsis DWMAC IP on NXP Automotive SoCs S32G2xx/S32G3xx/S32R45
+User-Agent: Mozilla Thunderbird
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Fabien
+ Dessenne <fabien.dessenne@foss.st.com>
+References: <20241206171759.135342-1-arnaud.pouliquen@foss.st.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20241206171759.135342-1-arnaud.pouliquen@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix IPCC EXTI
+	declaration on stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,66 +74,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hi Arnaud
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 05 Dec 2024 17:42:57 +0100 you wrote:
-> The SoC series S32G2xx and S32G3xx feature one DWMAC instance,
-> the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
-> interface over Pinctrl device or the output can be routed
-> to the embedded SerDes for SGMII connectivity.
+On 12/6/24 18:17, Arnaud Pouliquen wrote:
+> The GIC IRQ type used for IPCC RX should be IRQ_TYPE_LEVEL_HIGH.
+> Replacing the interrupt with the EXTI event changes the type to
+> the numeric value 1, meaning IRQ_TYPE_EDGE_RISING.
 > 
-> The provided stmmac glue code implements only basic functionality,
-> interface support is restricted to RGMII only. More, including
-> SGMII/SerDes support will come later.
+> The issue is that EXTI event 61 is a direct event.The IRQ type of
+> direct events is not used by EXTI and is propagated to the parent
+> IRQ controller of EXTI, the GIC.
 > 
-> [...]
+> Align the IRQ type to the value expected by the GIC by replacing
+> the second parameter "1" with IRQ_TYPE_LEVEL_HIGH.
+> 
+> Fixes: 7d9802bb0e34 ("ARM: dts: stm32: remove the IPCC "wakeup" IRQ on stm32mp151")
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>   arch/arm/boot/dts/st/stm32mp151.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+> index b28dc90926bd..e7e3ce8066ec 100644
+> --- a/arch/arm/boot/dts/st/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+> @@ -129,7 +129,7 @@ ipcc: mailbox@4c001000 {
+>   			reg = <0x4c001000 0x400>;
+>   			st,proc-id = <0>;
+>   			interrupts-extended =
+> -				<&exti 61 1>,
+> +				<&exti 61 IRQ_TYPE_LEVEL_HIGH>,
+>   				<&intc GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
+>   			interrupt-names = "rx", "tx";
+>   			clocks = <&rcc IPCC>;
 
-Here is the summary with links:
-  - [net-next,v8,01/15] net: stmmac: Fix CSR divider comment
-    https://git.kernel.org/netdev/net-next/c/31cdd8418234
-  - [net-next,v8,02/15] net: stmmac: Extend CSR calc support
-    https://git.kernel.org/netdev/net-next/c/c8fab05d021d
-  - [net-next,v8,03/15] net: stmmac: Fix clock rate variables size
-    https://git.kernel.org/netdev/net-next/c/cb09f61a9ab8
-  - [net-next,v8,04/15] net: phy: Add helper for mapping RGMII link speed to clock rate
-    https://git.kernel.org/netdev/net-next/c/386aa60abdb6
-  - [net-next,v8,05/15] net: dwmac-dwc-qos-eth: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/37b66c483e4c
-  - [net-next,v8,06/15] net: dwmac-imx: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/839b75ea4d94
-  - [net-next,v8,07/15] net: dwmac-intel-plat: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/8470bfc83515
-  - [net-next,v8,08/15] net: dwmac-rk: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/30b4a9b5c335
-  - [net-next,v8,09/15] net: dwmac-starfive: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/b561d717a799
-  - [net-next,v8,10/15] net: macb: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/04207d28f468
-  - [net-next,v8,11/15] net: xgene_enet: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/fd59bca4d5ea
-  - [net-next,v8,12/15] net: dwmac-sti: Use helper rgmii_clock
-    https://git.kernel.org/netdev/net-next/c/1ead57775507
-  - [net-next,v8,13/15] dt-bindings: net: Add DT bindings for DWMAC on NXP S32G/R SoCs
-    https://git.kernel.org/netdev/net-next/c/91f10e589520
-  - [net-next,v8,14/15] net: stmmac: dwmac-s32: add basic NXP S32G/S32R glue driver
-    https://git.kernel.org/netdev/net-next/c/cd197ac5d661
-  - [net-next,v8,15/15] MAINTAINERS: Add Jan Petrous as the NXP S32G/R DWMAC driver maintainer
-    https://git.kernel.org/netdev/net-next/c/6bc6234cbd5e
+Applied on stm32-next.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
