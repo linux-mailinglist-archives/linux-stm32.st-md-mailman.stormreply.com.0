@@ -2,84 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A7119EB99E
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2024 19:49:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CA789EBBFD
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2024 22:42:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C532BC78006;
-	Tue, 10 Dec 2024 18:49:57 +0000 (UTC)
-Received: from mout.perfora.net (mout.perfora.net [74.208.4.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2942C78006;
+	Tue, 10 Dec 2024 21:42:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 681C3C7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C55AC7129D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2024 18:49:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=finest.io;
- s=s1-ionos; t=1733856574; x=1734461374; i=parker@finest.io;
- bh=sXGDoDjkGFFSl51u8zxIYJIcqrg3qf0vQUL25ISmdXo=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
- References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=HLsKZhmZn5EV78icqXKZwd+lbxo6+tUK0g14xjb6HGLXz6inIBXEiEShNnb2zk0c
- w/JERmS2bidwQuhgYmZ9+uZfwgprFCP3L4K/IQXyLXpH2i9w7GKAJEhXjbmvWgFTg
- Rnd02iyDf9oplvzRUA7iwrPA14ex37NLpFQsbGYT5ltovGzh5tUZW0urijPNDlixx
- oxdfezbNhYSy4L78sHkb/OS5XZcKsWGSUqpdysK2AnYlmHRoUUgC6EF1DUxTvvNM5
- fwtMgdVUUuxwiBQLJdtFuUS7rD8oN7r9+YX3UW8x0hKtcxog6w8pcR7PRmdViNP4i
- RRFJ/eDCu2l8ksVxvQ==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from SWDEV2.connecttech.local ([98.159.241.229]) by
- mrelay.perfora.net (mreueus002 [74.208.5.2]) with ESMTPSA (Nemesis) id
- 0MGknn-1tPoFQ2dNJ-009LJs; Tue, 10 Dec 2024 19:49:33 +0100
-Date: Tue, 10 Dec 2024 13:49:30 -0500
-From: Parker Newman <parker@finest.io>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <20241210134930.0f963709.parker@finest.io>
-In-Reply-To: <vyzrfrkvwwbi66zemgjywdzpk75mebr47vxaon5jwnn2vprahl@ndzjlez3ywgv>
-References: <bb52bdc1-df2e-493d-a58f-df3143715150@lunn.ch>
- <20241118084400.35f4697a.parker@finest.io>
- <984a8471-7e49-4549-9d8a-48e1a29950f6@lunn.ch>
- <20241119131336.371af397.parker@finest.io>
- <f00bccd3-62d5-46a9-b448-051894267c7a@lunn.ch>
- <20241119144729.72e048a5.parker@finest.io>
- <mpgilwqb5zg5kb4n7r6zwbhy4uutdh6rq5s2yc6ndhcj6gqgri@qkfr4qwjj3ym>
- <20241204115317.008f497c.parker@finest.io>
- <uad6id6omswjm7e4eqwd75c52sy5pddtxru3bcuxlukhecvj4u@klzgrws24r2q>
- <20241206084203.2502ab95.parker@finest.io>
- <vyzrfrkvwwbi66zemgjywdzpk75mebr47vxaon5jwnn2vprahl@ndzjlez3ywgv>
-Organization: Connect Tech Inc.
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Tue, 10 Dec 2024 21:42:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B4B45C62CA;
+ Tue, 10 Dec 2024 21:41:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C22C4CED6;
+ Tue, 10 Dec 2024 21:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733866922;
+ bh=eMB4BERgg0UcMa0SMSP2cNR/GwixDiZtVw4VPXs5cTE=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=CGUlodseObfVPj3hiYJxhiXbZsEPZpsH23S+zoCmMvLMQnnbIU0JLOP9hWJzmuRDx
+ RtC8q/UxA4NHet4EyYjfivZBBJB99SuL6jPhTnXBe7jy0S+5xx82g/g0IaHcKeQqG9
+ aUc6/dnLbUJxN8ek959LpitRRFEIWtwZ5RrZU37JPTxei3C6AZchUr0OoudUu11py9
+ ygJzjUdIhPClcWfe5OjpuItqxWMmLEdR/mfHFnPWsJBTBJsb6RAxqDePbe9Bk80MBR
+ GglhVj4D71ZQpTgCUAGsrEPAxLn5Z5bpu8irWqswMkC+z5arwkewHO9fIqL8vI5i2N
+ Yo4OuTxOOuOYg==
+Date: Tue, 10 Dec 2024 15:42:00 -0600
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:YH2jGO95AdX7oPzjLch72mMQO5TSMAiGw1gFaJeEQ8bYIyNDqgc
- 6uSgtqvI9N/SkrLZTX1E6RaIcOyizSttMBzs8K0GBkymI7PI0gVKjgBjRbWt3v15dHMwrUB
- TDTfMznV2ZtimFGzzYvWbxC4eUDek+mUYN1VTrm0ECvtnu7DTYIgGlzGfwNRmcwPHn31lYI
- dWAAq4hReSBo5+Qe1ui9A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:f1o3tPPtBnU=;vSmAOKOkEElLwW6kf2XQdeBsfMF
- YUVRGvNG7ndwxxTCRvVKx/FNa2Uk71AGWTIFfjo2LzpPv1+BZAx9WkTiVS6J4RYSrkz4eU51c
- 32Auwoj6FUbodmHP2jKZltaXeYzefZ19oTIeJJfXZP8axMGz9Kh0ILZrbrVDt0P6zlRWOCy/u
- w9w2nH7t6KYUXoEeoR45iZ2Wsb6rhPSGUatO3xlpW6OnLEG2r+r8CLQDftt4rSnvi55j3gOmg
- kNltiO1AvMAIxWzl+92m0AdEUACxRGwDRT98o7U3tL/tB0fs7m3eLF70xIu6j8Ft8ryZMfOIe
- NKNVI9zqI3qo0GEHpJ2XG221RutkKlLT7mb3QgPL5NgYrI1W8o049e4f5hsoQ483zsGGD6vI9
- qtzuh89Ie9ldy52m9IMnhCJfDuaWMLvFPwV1QATZWTxWLAKnJ2TS5kjl2Tg9YgWjX3PugEr7H
- RTth/KNa805ChPXzsOYpvVrsKfAQtbsV1LytI36zIHmNTBihX9yKrQpXxF4EwGfXNtYbG5tap
- 1FBFVfjrsNKknJ4l4UhP8qKRdgZ52RM+jXNNNzJ0E0WWcTiDD6Yipt6yyK9oH9qG8bE6YjQBL
- qXVD1fYaEQS7Limq/9B+YNvE2v7DqWjyIOF/FTuA3PBC22mRsapTYi3pw3+NKeGbrDmmsYkER
- 3ewSj/2jNeLfHQS0r24wbE0kHrKlX/QiY6kJIk8poIps92+CbpKrG6oc350RsFIwIu1TS++Yi
- Mx71vH8hU7D984VM1K+gsU8pRwOFGzXz/wpjL32kRWqWfB4/71683mP0Lu4rXOet7Bk6TxmWP
- F7ObvdQTAjCtg89IsysBes7aCmCspujilY1QnZGcNL6c0yUCuQEXMA5Esdh3amv22/fuOf9X7
- zZ7D3j0HNfpYWUZ+PKxBa+ihw4MiE1pG9cK1tJGQxGoqdCNGWwVsfzNcrS+VRMyL33K3vkxei
- tD/wv+p87Khm+pmE+ALTWWPcm+14b43Ago1aY6YRD+4KpoJfoJen0EaguY8Da9n3bqgGws3vk
- /zah2f1Zk6OoHdiiRB4iCWz42O9QGDscsOrbzr+
-Cc: Andrew Lunn <andrew@lunn.ch>, Parker Newman <pnewman@connecttech.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Jonathan Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] net: stmmac: dwmac-tegra: Read
- iommu stream id from device tree
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+In-Reply-To: <20241209103434.359522-1-o.rempel@pengutronix.de>
+References: <20241209103434.359522-1-o.rempel@pengutronix.de>
+Message-Id: <173386568446.497546.553726469163110460.robh@kernel.org>
+Cc: Woojung Huh <woojung.huh@microchip.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, kernel@pengutronix.de,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] Add support for Priva
+	E-Measuringbox board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,162 +61,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 6 Dec 2024 17:01:01 +0100
-Thierry Reding <thierry.reding@gmail.com> wrote:
 
-> On Fri, Dec 06, 2024 at 08:42:03AM -0500, Parker Newman wrote:
-> > On Wed, 4 Dec 2024 19:06:30 +0100
-> > Thierry Reding <thierry.reding@gmail.com> wrote:
-> >
-> > > On Wed, Dec 04, 2024 at 11:53:17AM -0500, Parker Newman wrote:
-> > > > On Wed, 4 Dec 2024 17:23:53 +0100
-> > > > Thierry Reding <thierry.reding@gmail.com> wrote:
-> > > >
-> > > > > On Tue, Nov 19, 2024 at 02:47:29PM -0500, Parker Newman wrote:
-> > > > > > On Tue, 19 Nov 2024 20:18:00 +0100
-> > > > > > Andrew Lunn <andrew@lunn.ch> wrote:
-> > > > > >
-> > > > > > > > I think there is some confusion here. I will try to summarize:
-> > > > > > > > - Ihe iommu is supported by the Tegra SOC.
-> > > > > > > > - The way the mgbe driver is written the iommu DT property is REQUIRED.
-> > > > > > >
-> > > > > > > If it is required, please also include a patch to
-> > > > > > > nvidia,tegra234-mgbe.yaml and make iommus required.
-> > > > > > >
-> > > > > >
-> > > > > > I will add this when I submit a v2 of the patch.
-> > > > > >
-> > > > > > > > - "iommus" is a SOC DT property and is defined in tegra234.dtsi.
-> > > > > > > > - The mgbe device tree nodes in tegra234.dtsi DO have the iommus property.
-> > > > > > > > - There are no device tree changes required to to make this patch work.
-> > > > > > > > - This patch works fine with existing device trees.
-> > > > > > > >
-> > > > > > > > I will add the fallback however in case there is changes made to the iommu
-> > > > > > > > subsystem in the future.
-> > > > > > >
-> > > > > > > I would suggest you make iommus a required property and run the tests
-> > > > > > > over the existing .dts files.
-> > > > > > >
-> > > > > > > I looked at the history of tegra234.dtsi. The ethernet nodes were
-> > > > > > > added in:
-> > > > > > >
-> > > > > > > 610cdf3186bc604961bf04851e300deefd318038
-> > > > > > > Author: Thierry Reding <treding@nvidia.com>
-> > > > > > > Date:   Thu Jul 7 09:48:15 2022 +0200
-> > > > > > >
-> > > > > > >     arm64: tegra: Add MGBE nodes on Tegra234
-> > > > > > >
-> > > > > > > and the iommus property is present. So the requires is safe.
-> > > > > > >
-> > > > > > > Please expand the commit message. It is clear from all the questions
-> > > > > > > and backwards and forwards, it does not provide enough details.
-> > > > > > >
-> > > > > >
-> > > > > > I will add more details when I submit V2.
-> > > > > >
-> > > > > > > I just have one open issue. The code has been like this for over 2
-> > > > > > > years. Why has it only now started crashing?
-> > > > > > >
-> > > > > >
-> > > > > > It is rare for Nvidia Jetson users to use the mainline kernel. Nvidia
-> > > > > > provides a custom kernel package with many out of tree drivers including a
-> > > > > > driver for the mgbe controllers.
-> > > > > >
-> > > > > > Also, while the Orin AGX SOC (tegra234) has 4 instances of the mgbe controller,
-> > > > > > the Nvidia Orin AGX devkit only uses mgbe0. Connect Tech has carrier boards
-> > > > > > that use 2 or more of the mgbe controllers which is why we found the bug.
-> > > > >
-> > > > > Correct. Also, this was a really stupid thing that I overlooked. I don't
-> > > > > recall the exact circumstances, but I vaguely recall there had been
-> > > > > discussions about adding the tegra_dev_iommu_get_stream_id() helper
-> > > > > (that this patch uses) around the time that this driver was created. In
-> > > > > the midst of all of this I likely forgot to update the driver after the
-> > > > > discussions had settled.
-> > > > >
-> > > > > Anyway, I agree with the conclusion that we don't need a compatibility
-> > > > > fallback for this, both because it would be actively wrong to do it and
-> > > > > we've had the required IOMMU properties in device tree since the start,
-> > > > > so there can't be any regressions caused by this.
-> > > > >
-> > > > > I don't think it's necessary to make the iommus property required,
-> > > > > though, because there's technically no requirement for these devices to
-> > > > > be attached to an IOMMU. They usually are, and it's better if they are,
-> > > > > but they should be able to work correctly without an IOMMU.
-> > > > >
-> > > > Thanks for confirming from the Nvidia side! I wasn't sure if they would
-> > > > work without the iommu. That said, if you did NOT want to use the iommu
-> > > > and removed the iommu DT property then the probe will fail after my patch.
-> > > > Would we not need a guard around the writes to MGBE_WRAP_AXI_ASID0_CTRL as well?
-> > >
-> > > Well... frankly, I don't know. There's an override in the memory
-> > > controller which we set when a device is attached to an IOMMU. That's
-> > > usually how the stream ID is programmed. If we don't do that it will
-> > > typically default to a special passthrough stream ID (technically the
-> > > firmware can lock down those register and force them to a specific
-> > > stream ID all the time). I'm not sure what exactly the impact is of
-> > > these ASID registers (there's a few other instances where those are
-> > > needed). They are required if you want to use the IOMMU, but I don't
-> > > know what their meaning is if the IOMMU is not enabled.
-> > >
-> > > There's also different cases: the IOMMU can be disabled altogether, in
-> > > which case no page tables and such exist for any device and no
-> > > translation should happen whatsoever. But there's also the case where an
-> > > IOMMU is enabled, but certain devices shouldn't attach to them. I should
-> > > make it very clear that both of these are not recommended setups and I
-> > > don't know if they'll work. And they are mostly untested. I've been
-> > > meaning, but haven't found the time, to test some of these cases.
-> > >
-> >
-> > Yes I agree, all of those situations are very niche and not recommended for
-> > a Tegra platform that should always have the iommu enabled anyways. Adding an
-> > iommu bypass would probably be outside of the scope of this patch.
-> >
-> > I will not add a patch marking the iommu as required in the device tree
-> > bindings when I submit v2 unless anyone else feels different.
->
-> I was able to find a bit more information on this. Starting with
-> Tegra234 it's usually no longer possible to even enable bypass. It can
-> still be done, but it needs to be carefully coordinated between the
-> secure bootloader/firmware and the OS. Basically the secure firmware
-> can lock down the ability to bypass the IOMMU. If the firmware was
-> configured to allow bypass, the driver can then do so by writing the
-> special stream ID 0x7f into the stream ID register.
->
-> On these newer chips the memory controller override no longer has any
-> effect and writing the per-device stream ID registers is the only way to
-> attach to the IOMMU.
->
-> There's still the case where you can disable the IOMMU altogether, in
-> which case the IOMMU will still be bypassed, no matter what the firmware
-> did. My understanding is that it doesn't matter in those cases whether
-> we write the stream ID registers or not, they will simply get ignored.
-> With one exception perhaps being the bypass SID. If you write that, then
-> there's a protection mechanism that kicks in.
->
-> Well, after all this this still isn't entirely clear to me, but I think
-> what it means in a nutshell is that a) we'll want to keep the IOMMU
-> always on for security and because the firmware is by default configured
-> to not allow bypassing, b) IOMMU isn't strictly required because the
-> IOMMU might be completely disabled and c) we shouldn't need to
-> conditionalize the stream ID register writes.
->
-> That said, the tegra_dev_iommu_get_stream_id() function returns a bool
-> specifically to support the latter case. So the intention with the
-> design was that drivers would call that function and only need to write
-> the stream ID register if it returns true. That's not always great
-> because you may want (or need) to rewrite the register after suspend/
-> resume, in which case you probably want to resort to a cached value
-> rather than call that API. On the other hand the API is quite simple, so
-> it could serve as a cache as well.
->
+On Mon, 09 Dec 2024 11:34:30 +0100, Oleksij Rempel wrote:
+> This patch series introduces support for the Priva E-Measuringbox board
+> based on the ST STM32MP133 SoC. The set includes all the necessary
+> changes for device tree bindings, vendor prefixes, thermal support, and
+> board-specific devicetree to pass devicetree validation and checkpatch
+> tests.
+> 
+> changes v2:
+> - drop: dt-bindings: net: Add TI DP83TD510 10BaseT1L PHY
+> 
+> Oleksij Rempel (2):
+>   dt-bindings: vendor-prefixes: Add prefix for Priva
+>   dt-bindings: arm: stm32: Add Priva E-Measuringbox board
+> 
+> Roan van Dijk (2):
+>   arm: dts: stm32: Add thermal support for STM32MP131
+>   arm: dts: stm32: Add Priva E-Measuringbox devicetree
+> 
+>  .../devicetree/bindings/arm/stm32/stm32.yaml  |   6 +
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  arch/arm/boot/dts/st/Makefile                 |   1 +
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          |  35 ++
+>  arch/arm/boot/dts/st/stm32mp133c-prihmb.dts   | 496 ++++++++++++++++++
+>  5 files changed, 540 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/st/stm32mp133c-prihmb.dts
+> 
+> --
+> 2.39.5
+> 
+> 
+> 
 
-I guess I could add an IS_ENABLED(CONFIG_IOMMU_API) check if
-tegra_dev_iommu_get_stream_id() returns false in probe?
 
-That would cover if the IOMMU_API is not enabled but not if the Tegra's
-iommu is disabled in other ways.
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
--Parker
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y st/stm32mp133c-prihmb.dtb' for 20241209103434.359522-1-o.rempel@pengutronix.de:
+
+arch/arm/boot/dts/st/stm32mp133c-prihmb.dtb: adc@48004000: adc@0:interrupts: 0 was expected
+	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
+arch/arm/boot/dts/st/stm32mp133c-prihmb.dtb: adc@48003000: adc@0:interrupts: 0 was expected
+	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
+
+
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
