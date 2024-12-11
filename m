@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CA789EBBFD
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2024 22:42:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C43F9EC21E
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2024 03:30:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2942C78006;
-	Tue, 10 Dec 2024 21:42:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38582C7801C;
+	Wed, 11 Dec 2024 02:30:31 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C55AC7129D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAD44C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2024 21:42:04 +0000 (UTC)
+ Wed, 11 Dec 2024 02:30:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9B4B45C62CA;
- Tue, 10 Dec 2024 21:41:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C22C4CED6;
- Tue, 10 Dec 2024 21:42:02 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 46C1AA41D95;
+ Wed, 11 Dec 2024 02:28:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53049C4CEDD;
+ Wed, 11 Dec 2024 02:30:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733866922;
- bh=eMB4BERgg0UcMa0SMSP2cNR/GwixDiZtVw4VPXs5cTE=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=CGUlodseObfVPj3hiYJxhiXbZsEPZpsH23S+zoCmMvLMQnnbIU0JLOP9hWJzmuRDx
- RtC8q/UxA4NHet4EyYjfivZBBJB99SuL6jPhTnXBe7jy0S+5xx82g/g0IaHcKeQqG9
- aUc6/dnLbUJxN8ek959LpitRRFEIWtwZ5RrZU37JPTxei3C6AZchUr0OoudUu11py9
- ygJzjUdIhPClcWfe5OjpuItqxWMmLEdR/mfHFnPWsJBTBJsb6RAxqDePbe9Bk80MBR
- GglhVj4D71ZQpTgCUAGsrEPAxLn5Z5bpu8irWqswMkC+z5arwkewHO9fIqL8vI5i2N
- Yo4OuTxOOuOYg==
-Date: Tue, 10 Dec 2024 15:42:00 -0600
+ s=k20201202; t=1733884222;
+ bh=y9rtjkxbnTlOCutyUOOiDTGb+6al6ycCqwU8ocBVdzM=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=uo8Ha9AM7fvVhmBPtoowkrzIhRuXaYM05R4DUeirANT5z9tJBiJgkIWHpBOLmXU2K
+ 4Uhz1imZ8YTs3Ip84tPWSy1NZmv0M5RxR9mnrr+cDlACWhO/gU4xPa6Of0GCCC1s0q
+ MA25s6i/Ih1CQeRngG+NG6KK7uYS4wWJn1KlSkSg8t4rMNLjug75pOfbi0PWgLL+pW
+ TnaMxE3wTYlhcNfcg360nQgR1xz8olgjJBKqFA38Z7bw/8uC56WGpMeu9PgzOPuQ8F
+ sk2DH2PJeH6o6gXtvgzYi11AKsQHa2EeY8on1XMHbDtB6PEvnDOYhzhouddFsyGzrb
+ jjtozLougI9dQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 70E08380A954; Wed, 11 Dec 2024 02:30:39 +0000 (UTC)
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-In-Reply-To: <20241209103434.359522-1-o.rempel@pengutronix.de>
-References: <20241209103434.359522-1-o.rempel@pengutronix.de>
-Message-Id: <173386568446.497546.553726469163110460.robh@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, kernel@pengutronix.de,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 0/4] Add support for Priva
-	E-Measuringbox board
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <173388423806.1090195.16162842583087657883.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Dec 2024 02:30:38 +0000
+References: <20241208070202.203931-1-0x1207@gmail.com>
+In-Reply-To: <20241208070202.203931-1-0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Cc: davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, xfr@outlook.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1] net: stmmac: Relocate extern
+ declarations in common.h and hwif.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,63 +61,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
-On Mon, 09 Dec 2024 11:34:30 +0100, Oleksij Rempel wrote:
-> This patch series introduces support for the Priva E-Measuringbox board
-> based on the ST STM32MP133 SoC. The set includes all the necessary
-> changes for device tree bindings, vendor prefixes, thermal support, and
-> board-specific devicetree to pass devicetree validation and checkpatch
-> tests.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sun,  8 Dec 2024 15:02:02 +0800 you wrote:
+> The extern declarations should be in a header file that corresponds to
+> their definition, move these extern declarations to its header file.
+> Some of them have nowhere to go, so move them to hwif.h since they are
+> referenced in hwif.c only.
 > 
-> changes v2:
-> - drop: dt-bindings: net: Add TI DP83TD510 10BaseT1L PHY
+> dwmac100_* dwmac1000_* dwmac4_* dwmac410_* dwmac510_* stay in hwif.h,
+> otherwise you will be flooded with name conflicts from dwmac100.h,
+> dwmac1000.h and dwmac4.h if hwif.c try to #include these .h files.
 > 
-> Oleksij Rempel (2):
->   dt-bindings: vendor-prefixes: Add prefix for Priva
->   dt-bindings: arm: stm32: Add Priva E-Measuringbox board
-> 
-> Roan van Dijk (2):
->   arm: dts: stm32: Add thermal support for STM32MP131
->   arm: dts: stm32: Add Priva E-Measuringbox devicetree
-> 
->  .../devicetree/bindings/arm/stm32/stm32.yaml  |   6 +
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  arch/arm/boot/dts/st/Makefile                 |   1 +
->  arch/arm/boot/dts/st/stm32mp131.dtsi          |  35 ++
->  arch/arm/boot/dts/st/stm32mp133c-prihmb.dts   | 496 ++++++++++++++++++
->  5 files changed, 540 insertions(+)
->  create mode 100644 arch/arm/boot/dts/st/stm32mp133c-prihmb.dts
-> 
-> --
-> 2.39.5
-> 
-> 
-> 
+> [...]
 
+Here is the summary with links:
+  - [net-next,v1] net: stmmac: Relocate extern declarations in common.h and hwif.h
+    https://git.kernel.org/netdev/net-next/c/46afe345ff18
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
-
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-New warnings running 'make CHECK_DTBS=y st/stm32mp133c-prihmb.dtb' for 20241209103434.359522-1-o.rempel@pengutronix.de:
-
-arch/arm/boot/dts/st/stm32mp133c-prihmb.dtb: adc@48004000: adc@0:interrupts: 0 was expected
-	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
-arch/arm/boot/dts/st/stm32mp133c-prihmb.dtb: adc@48003000: adc@0:interrupts: 0 was expected
-	from schema $id: http://devicetree.org/schemas/iio/adc/st,stm32-adc.yaml#
-
-
-
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
 _______________________________________________
