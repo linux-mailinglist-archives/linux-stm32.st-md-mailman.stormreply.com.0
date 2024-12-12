@@ -2,54 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D829ED4F7
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2024 19:51:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFCD79EDDEE
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Dec 2024 04:34:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B251FC7128A;
-	Wed, 11 Dec 2024 18:51:35 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 323D3C6DD9D;
+	Thu, 12 Dec 2024 03:34:00 +0000 (UTC)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D514AC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C17DBC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Dec 2024 18:51:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 75838A41853;
- Wed, 11 Dec 2024 18:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A09BC4CED2;
- Wed, 11 Dec 2024 18:51:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733943086;
- bh=G23ISlTQsn+UxkPYjZ6UcT2vsN4WM+vB1blxFeR4rFM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oL44R3UyDtM3kKMjGmZXNR0uu9fTbbCCZSF0FVmVdQxqBqqFmj4r8LyxEQ80W5hbn
- Qsg8ksZ+39vfiaJu4e+pkqQ4hs1ncsYNhmWnCnrkcUVmK0O2qAieuMyWDx0g1KPWJq
- j15sahN/jBsvU41Yqw6+wo+WMNB6rhz/x9Xg8EkkTry7gw16sYvzibCYUiZ6dXazep
- Ekp3e8BSStL7n4aZNeAMas5OvMCzVeNEvvcbGMkSc74n1iYChcgNAhndo0fnh3RfcR
- usCGXuGkykVxbzdsZ5SN/T6euInd2PrBH6BxzFK4t0csL21gNhdHyEo2J95t43ERcG
- HL34dzyMjKzFQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Wed, 11 Dec 2024 13:49:37 -0500
-Message-ID: <20241211185028.3841047-21-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241211185028.3841047-1-sashal@kernel.org>
-References: <20241211185028.3841047-1-sashal@kernel.org>
+ Thu, 12 Dec 2024 03:33:58 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-728f337a921so166204b3a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 11 Dec 2024 19:33:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733974437; x=1734579237;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7pzYjRDOZjwQLGfG7tztY2fF9MD2eQ633kRSm3R85gQ=;
+ b=NRZ3EMuCKllJKag8wep8biOUmFk46FpXi3vt04B/gGTbDoJUYGF6aInWASH1AEbJs2
+ 6Xr6U91hIF55/L+O59FNUK9cK8vj2mLirRWewVi4yfY6lkCh4inztjB4Q1D/chkc11Fv
+ hRA84GYR1yHl2vLcjA7W7U11jB6WmL/3ob8Atwx5xPeGrLaeEl/G+4W/PBy6GVsNuVVX
+ B/QBf9Xz/7ZJJnTbIKFOx3JP+vJWA/d2yW12ptaNe6KXZGz/j0WHBkoQ2c+zdkGELIbp
+ 3IEBFKA2LJ5t5lX1XvYKVtdE0nn11pN5IcC1fIHvSc/PzqyRkxcOm5ZpTEf7wn6BjK1Z
+ QBvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733974437; x=1734579237;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7pzYjRDOZjwQLGfG7tztY2fF9MD2eQ633kRSm3R85gQ=;
+ b=PPAn/VRhbaI3RqMgJiVg/RC/lUOMNjijivS3H8P+JUwYKNFSWQmL7rboxQe+xY3PsK
+ FQ2PvoBjFYAHsLKdfvwQotN/y/fX4IIgV5yh1Xn4A1va6vkKL4ZEHFKmmbh/sVo1mJzD
+ Yzkev3rhDvfO/KMdwb/gwbhZcVUMO6d52a8qzX6IZg0IdYJE+lq95kA8dma1rg1Xgiyd
+ DU7QteQ0WzDa/v++k6dNbE8BCqaaDmxuIuFyji6re7g2NswsJKO4mPW+uNOT8FzIH3FB
+ U8lfZK40aVP7nqbkm+YfsIKWoopW0WHKz95lF1GSXEpvzxKzDdfqwug6mODc5paZe7Or
+ wRhw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVkoKrOOIvbq86DsQBe9sibmZMND24y5QGPoAPQG62RdlMcvMWM01yYyumeU52ju6XIP9s1vijefqeh1A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxEOvcHym7aq4k17Wqcxc9kpDmIvc/tZWiGOCPsPNaEaubR8cSP
+ WlEy+U0RRzFAVtacswLC5i0y2X4aWrz/ZJ+5rvI0iePblCFJQh5X
+X-Gm-Gg: ASbGnctzH5zlhkQTpO/Wtc9mdGfK+m7Z4ocXHsl/1S8VBsfaBX9XLqHsKZ9cp2ZNSmF
+ UqQxkGXwi54Lox9uVyh4G71Jk9v/ZdsKf8kitu7rszkXC3sEKVeM95znPdO8mxNXTJ72sUaynH+
+ rvkISoXk4yBhL55MOuXl5++Lt0Ccgiq86KAfCZK9ekNVIvtTsUn3bpP0rFj/TPt9Q2R4uCMXgFP
+ W7638pUMWYh2xbhZJuNWhpQ8Qp4QCUDp1q6iiGUGzoHX1sSw1WT1urxVAMek60cLR5YDw==
+X-Google-Smtp-Source: AGHT+IF2HUGVgJTHXHp2yZPxjGH98+Grs5GenuoQqTTyxoTeHaymmzl37DBT8/NhlfehPqg/7Ou6EQ==
+X-Received: by 2002:a05:6a00:17a7:b0:725:df1a:27c with SMTP id
+ d2e1a72fcca58-728faa2e5a2mr2417893b3a.14.1733974437292; 
+ Wed, 11 Dec 2024 19:33:57 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-725f03a0ca4sm5879236b3a.113.2024.12.11.19.33.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 19:33:56 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 12 Dec 2024 11:33:25 +0800
+Message-Id: <20241212033325.282817-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.4
-Cc: Sasha Levin <sashal@kernel.org>, mattbobrowski@google.com,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org, daniel@iogearbox.net,
- lulie@linux.alibaba.com, yangfeng@kylinos.cn,
- linux-stm32@st-md-mailman.stormreply.com, Alexei Starovoitov <ast@kernel.org>,
- Andrii Nakryiko <andrii@kernel.org>, eddyz87@gmail.com, laoar.shao@gmail.com,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, mcoquelin.stm32@gmail.com,
- houtao1@huawei.com, cupertino.miranda@oracle.com, shuah@kernel.org,
- tao.lyu@epfl.ch, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.12 21/36] bpf: Zero index arg error
-	string for dynptr and iter
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Drop redundant
+	dwxgmac_tc_ops variable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,318 +89,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+dwmac510_tc_ops and dwxgmac_tc_ops are completely identical,
+keep dwmac510_tc_ops to provide better backward compatibility.
 
-[ Upstream commit bd74e238ae6944b462f57ce8752440a011ba4530 ]
-
-Andrii spotted that process_dynptr_func's rejection of incorrect
-argument register type will print an error string where argument numbers
-are not zero-indexed, unlike elsewhere in the verifier.  Fix this by
-subtracting 1 from regno. The same scenario exists for iterator
-messages. Fix selftest error strings that match on the exact argument
-number while we're at it to ensure clean bisection.
-
-Suggested-by: Andrii Nakryiko <andrii@kernel.org>
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Link: https://lore.kernel.org/r/20241203002235.3776418-1-memxor@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- kernel/bpf/verifier.c                         | 12 +++++-----
- .../testing/selftests/bpf/progs/dynptr_fail.c | 22 +++++++++----------
- .../selftests/bpf/progs/iters_state_safety.c  | 14 ++++++------
- .../selftests/bpf/progs/iters_testmod_seq.c   |  4 ++--
- .../bpf/progs/test_kfunc_dynptr_param.c       |  2 +-
- .../selftests/bpf/progs/verifier_bits_iter.c  |  4 ++--
- 6 files changed, 29 insertions(+), 29 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/hwif.c      |  4 ++--
+ drivers/net/ethernet/stmicro/stmmac/hwif.h      |  1 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 11 -----------
+ 3 files changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 91317857ea3ee..436a83784b7d2 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -7903,7 +7903,7 @@ static int process_dynptr_func(struct bpf_verifier_env *env, int regno, int insn
- 	if (reg->type != PTR_TO_STACK && reg->type != CONST_PTR_TO_DYNPTR) {
- 		verbose(env,
- 			"arg#%d expected pointer to stack or const struct bpf_dynptr\n",
--			regno);
-+			regno - 1);
- 		return -EINVAL;
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 4bd79de2e222..31bdbab9a46c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -267,7 +267,7 @@ static const struct stmmac_hwif_entry {
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.ptp = &stmmac_ptp_clock_ops,
+ 		.mode = NULL,
+-		.tc = &dwxgmac_tc_ops,
++		.tc = &dwmac510_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwxgmac2_setup,
+@@ -290,7 +290,7 @@ static const struct stmmac_hwif_entry {
+ 		.hwtimestamp = &stmmac_ptp,
+ 		.ptp = &stmmac_ptp_clock_ops,
+ 		.mode = NULL,
+-		.tc = &dwxgmac_tc_ops,
++		.tc = &dwmac510_tc_ops,
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwxlgmac2_setup,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index e428c82b7d31..2f7295b6c1c5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -685,7 +685,6 @@ extern const struct stmmac_dma_ops dwmac410_dma_ops;
+ extern const struct stmmac_ops dwmac510_ops;
+ extern const struct stmmac_tc_ops dwmac4_tc_ops;
+ extern const struct stmmac_tc_ops dwmac510_tc_ops;
+-extern const struct stmmac_tc_ops dwxgmac_tc_ops;
  
-@@ -7957,7 +7957,7 @@ static int process_dynptr_func(struct bpf_verifier_env *env, int regno, int insn
- 		if (!is_dynptr_reg_valid_init(env, reg)) {
- 			verbose(env,
- 				"Expected an initialized dynptr as arg #%d\n",
--				regno);
-+				regno - 1);
- 			return -EINVAL;
- 		}
- 
-@@ -7965,7 +7965,7 @@ static int process_dynptr_func(struct bpf_verifier_env *env, int regno, int insn
- 		if (!is_dynptr_type_expected(env, reg, arg_type & ~MEM_RDONLY)) {
- 			verbose(env,
- 				"Expected a dynptr of type %s as arg #%d\n",
--				dynptr_type_str(arg_to_dynptr_type(arg_type)), regno);
-+				dynptr_type_str(arg_to_dynptr_type(arg_type)), regno - 1);
- 			return -EINVAL;
- 		}
- 
-@@ -8029,7 +8029,7 @@ static int process_iter_arg(struct bpf_verifier_env *env, int regno, int insn_id
- 	 */
- 	btf_id = btf_check_iter_arg(meta->btf, meta->func_proto, regno - 1);
- 	if (btf_id < 0) {
--		verbose(env, "expected valid iter pointer as arg #%d\n", regno);
-+		verbose(env, "expected valid iter pointer as arg #%d\n", regno - 1);
- 		return -EINVAL;
- 	}
- 	t = btf_type_by_id(meta->btf, btf_id);
-@@ -8039,7 +8039,7 @@ static int process_iter_arg(struct bpf_verifier_env *env, int regno, int insn_id
- 		/* bpf_iter_<type>_new() expects pointer to uninit iter state */
- 		if (!is_iter_reg_valid_uninit(env, reg, nr_slots)) {
- 			verbose(env, "expected uninitialized iter_%s as arg #%d\n",
--				iter_type_str(meta->btf, btf_id), regno);
-+				iter_type_str(meta->btf, btf_id), regno - 1);
- 			return -EINVAL;
- 		}
- 
-@@ -8063,7 +8063,7 @@ static int process_iter_arg(struct bpf_verifier_env *env, int regno, int insn_id
- 			break;
- 		case -EINVAL:
- 			verbose(env, "expected an initialized iter_%s as arg #%d\n",
--				iter_type_str(meta->btf, btf_id), regno);
-+				iter_type_str(meta->btf, btf_id), regno - 1);
- 			return err;
- 		case -EPROTO:
- 			verbose(env, "expected an RCU CS when using %s\n", meta->func_name);
-diff --git a/tools/testing/selftests/bpf/progs/dynptr_fail.c b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-index 8f36c9de75915..dfd817d0348c4 100644
---- a/tools/testing/selftests/bpf/progs/dynptr_fail.c
-+++ b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-@@ -149,7 +149,7 @@ int ringbuf_release_uninit_dynptr(void *ctx)
- 
- /* A dynptr can't be used after it has been invalidated */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #3")
-+__failure __msg("Expected an initialized dynptr as arg #2")
- int use_after_invalid(void *ctx)
- {
- 	struct bpf_dynptr ptr;
-@@ -428,7 +428,7 @@ int invalid_helper2(void *ctx)
- 
- /* A bpf_dynptr is invalidated if it's been written into */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int invalid_write1(void *ctx)
- {
- 	struct bpf_dynptr ptr;
-@@ -1407,7 +1407,7 @@ int invalid_slice_rdwr_rdonly(struct __sk_buff *skb)
- 
- /* bpf_dynptr_adjust can only be called on initialized dynptrs */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int dynptr_adjust_invalid(void *ctx)
- {
- 	struct bpf_dynptr ptr = {};
-@@ -1420,7 +1420,7 @@ int dynptr_adjust_invalid(void *ctx)
- 
- /* bpf_dynptr_is_null can only be called on initialized dynptrs */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int dynptr_is_null_invalid(void *ctx)
- {
- 	struct bpf_dynptr ptr = {};
-@@ -1433,7 +1433,7 @@ int dynptr_is_null_invalid(void *ctx)
- 
- /* bpf_dynptr_is_rdonly can only be called on initialized dynptrs */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int dynptr_is_rdonly_invalid(void *ctx)
- {
- 	struct bpf_dynptr ptr = {};
-@@ -1446,7 +1446,7 @@ int dynptr_is_rdonly_invalid(void *ctx)
- 
- /* bpf_dynptr_size can only be called on initialized dynptrs */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int dynptr_size_invalid(void *ctx)
- {
- 	struct bpf_dynptr ptr = {};
-@@ -1459,7 +1459,7 @@ int dynptr_size_invalid(void *ctx)
- 
- /* Only initialized dynptrs can be cloned */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #1")
-+__failure __msg("Expected an initialized dynptr as arg #0")
- int clone_invalid1(void *ctx)
- {
- 	struct bpf_dynptr ptr1 = {};
-@@ -1493,7 +1493,7 @@ int clone_invalid2(struct xdp_md *xdp)
- 
- /* Invalidating a dynptr should invalidate its clones */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #3")
-+__failure __msg("Expected an initialized dynptr as arg #2")
- int clone_invalidate1(void *ctx)
- {
- 	struct bpf_dynptr clone;
-@@ -1514,7 +1514,7 @@ int clone_invalidate1(void *ctx)
- 
- /* Invalidating a dynptr should invalidate its parent */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #3")
-+__failure __msg("Expected an initialized dynptr as arg #2")
- int clone_invalidate2(void *ctx)
- {
- 	struct bpf_dynptr ptr;
-@@ -1535,7 +1535,7 @@ int clone_invalidate2(void *ctx)
- 
- /* Invalidating a dynptr should invalidate its siblings */
- SEC("?raw_tp")
--__failure __msg("Expected an initialized dynptr as arg #3")
-+__failure __msg("Expected an initialized dynptr as arg #2")
- int clone_invalidate3(void *ctx)
- {
- 	struct bpf_dynptr ptr;
-@@ -1723,7 +1723,7 @@ __noinline long global_call_bpf_dynptr(const struct bpf_dynptr *dynptr)
- }
- 
- SEC("?raw_tp")
--__failure __msg("arg#1 expected pointer to stack or const struct bpf_dynptr")
-+__failure __msg("arg#0 expected pointer to stack or const struct bpf_dynptr")
- int test_dynptr_reg_type(void *ctx)
- {
- 	struct task_struct *current = NULL;
-diff --git a/tools/testing/selftests/bpf/progs/iters_state_safety.c b/tools/testing/selftests/bpf/progs/iters_state_safety.c
-index d47e59aba6de3..f41257eadbb25 100644
---- a/tools/testing/selftests/bpf/progs/iters_state_safety.c
-+++ b/tools/testing/selftests/bpf/progs/iters_state_safety.c
-@@ -73,7 +73,7 @@ int create_and_forget_to_destroy_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int destroy_without_creating_fail(void *ctx)
- {
- 	/* init with zeros to stop verifier complaining about uninit stack */
-@@ -91,7 +91,7 @@ int destroy_without_creating_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int compromise_iter_w_direct_write_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-@@ -143,7 +143,7 @@ int compromise_iter_w_direct_write_and_skip_destroy_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int compromise_iter_w_helper_write_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-@@ -230,7 +230,7 @@ int valid_stack_reuse(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected uninitialized iter_num as arg #1")
-+__failure __msg("expected uninitialized iter_num as arg #0")
- int double_create_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-@@ -258,7 +258,7 @@ int double_create_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int double_destroy_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-@@ -284,7 +284,7 @@ int double_destroy_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int next_without_new_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-@@ -305,7 +305,7 @@ int next_without_new_fail(void *ctx)
- }
- 
- SEC("?raw_tp")
--__failure __msg("expected an initialized iter_num as arg #1")
-+__failure __msg("expected an initialized iter_num as arg #0")
- int next_after_destroy_fail(void *ctx)
- {
- 	struct bpf_iter_num iter;
-diff --git a/tools/testing/selftests/bpf/progs/iters_testmod_seq.c b/tools/testing/selftests/bpf/progs/iters_testmod_seq.c
-index 4a176e6aede89..6543d5b6e0a97 100644
---- a/tools/testing/selftests/bpf/progs/iters_testmod_seq.c
-+++ b/tools/testing/selftests/bpf/progs/iters_testmod_seq.c
-@@ -79,7 +79,7 @@ int testmod_seq_truncated(const void *ctx)
- 
- SEC("?raw_tp")
- __failure
--__msg("expected an initialized iter_testmod_seq as arg #2")
-+__msg("expected an initialized iter_testmod_seq as arg #1")
- int testmod_seq_getter_before_bad(const void *ctx)
- {
- 	struct bpf_iter_testmod_seq it;
-@@ -89,7 +89,7 @@ int testmod_seq_getter_before_bad(const void *ctx)
- 
- SEC("?raw_tp")
- __failure
--__msg("expected an initialized iter_testmod_seq as arg #2")
-+__msg("expected an initialized iter_testmod_seq as arg #1")
- int testmod_seq_getter_after_bad(const void *ctx)
- {
- 	struct bpf_iter_testmod_seq it;
-diff --git a/tools/testing/selftests/bpf/progs/test_kfunc_dynptr_param.c b/tools/testing/selftests/bpf/progs/test_kfunc_dynptr_param.c
-index e68667aec6a65..cd4d752bd089c 100644
---- a/tools/testing/selftests/bpf/progs/test_kfunc_dynptr_param.c
-+++ b/tools/testing/selftests/bpf/progs/test_kfunc_dynptr_param.c
-@@ -45,7 +45,7 @@ int BPF_PROG(not_valid_dynptr, int cmd, union bpf_attr *attr, unsigned int size)
- }
- 
- SEC("?lsm.s/bpf")
--__failure __msg("arg#1 expected pointer to stack or const struct bpf_dynptr")
-+__failure __msg("arg#0 expected pointer to stack or const struct bpf_dynptr")
- int BPF_PROG(not_ptr_to_stack, int cmd, union bpf_attr *attr, unsigned int size)
- {
- 	unsigned long val = 0;
-diff --git a/tools/testing/selftests/bpf/progs/verifier_bits_iter.c b/tools/testing/selftests/bpf/progs/verifier_bits_iter.c
-index 7c881bca9af5c..497febf5c578d 100644
---- a/tools/testing/selftests/bpf/progs/verifier_bits_iter.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_bits_iter.c
-@@ -32,7 +32,7 @@ int BPF_PROG(no_destroy, struct bpf_iter_meta *meta, struct cgroup *cgrp)
- 
- SEC("iter/cgroup")
- __description("uninitialized iter in ->next()")
--__failure __msg("expected an initialized iter_bits as arg #1")
-+__failure __msg("expected an initialized iter_bits as arg #0")
- int BPF_PROG(next_uninit, struct bpf_iter_meta *meta, struct cgroup *cgrp)
- {
- 	struct bpf_iter_bits *it = NULL;
-@@ -43,7 +43,7 @@ int BPF_PROG(next_uninit, struct bpf_iter_meta *meta, struct cgroup *cgrp)
- 
- SEC("iter/cgroup")
- __description("uninitialized iter in ->destroy()")
--__failure __msg("expected an initialized iter_bits as arg #1")
-+__failure __msg("expected an initialized iter_bits as arg #0")
- int BPF_PROG(destroy_uninit, struct bpf_iter_meta *meta, struct cgroup *cgrp)
- {
- 	struct bpf_iter_bits it = {};
+ #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
+ #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 6a79e6a111ed..694d6ee14381 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -1284,14 +1284,3 @@ const struct stmmac_tc_ops dwmac510_tc_ops = {
+ 	.query_caps = tc_query_caps,
+ 	.setup_mqprio = tc_setup_dwmac510_mqprio,
+ };
+-
+-const struct stmmac_tc_ops dwxgmac_tc_ops = {
+-	.init = tc_init,
+-	.setup_cls_u32 = tc_setup_cls_u32,
+-	.setup_cbs = tc_setup_cbs,
+-	.setup_cls = tc_setup_cls,
+-	.setup_taprio = tc_setup_taprio,
+-	.setup_etf = tc_setup_etf,
+-	.query_caps = tc_query_caps,
+-	.setup_mqprio = tc_setup_dwmac510_mqprio,
+-};
 -- 
-2.43.0
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
