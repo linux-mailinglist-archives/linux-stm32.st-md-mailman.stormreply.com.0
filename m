@@ -2,55 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 474E29EE8F6
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Dec 2024 15:35:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92EA09EE93E
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Dec 2024 15:46:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83EC9C7129D;
-	Thu, 12 Dec 2024 14:35:02 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42DB7C7129D;
+	Thu, 12 Dec 2024 14:46:29 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 117F7C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBE93C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Dec 2024 14:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1734014094;
- bh=f8wwbNlUI4/hCgH0ao1Kdr78oJ1QPgQ7FcpPKSXXwbA=;
- h=Subject:From:To:Date:In-Reply-To:References:From;
- b=akf5SeEVlGo+i/UJl7eiwQ2rJRSYE4IdnAV8l6kJoNXOF7YmMcgEibCPzVq6NhRXN
- UmiC3kf+e27EzXJKp8j148YVny3HW2EPXGud9MEsYJ560Hwp/f/SfIS6E8z7etWbKg
- QJ7/vdxAJG4utBVouRPoeYOCIwUB644lWkOVKNnrAQk1jFngijdu40Q5SraOPCMw47
- CAa6u+weUvLBINW4ijgeDm5bpZODfgiXoTu9FNLCKcmD3obRa6gB0MqhOLfK7v9Bjj
- oNGtBHpfnguStu1WANmxJa0s/rIDaKS5iF/LBjaH9mtIwKx9ogrCu9o8A/Bx/CwSKA
- MRNTsHYqpxfwA==
-Received: from nicolas-tpx395.localdomain (unknown
- [IPv6:2606:6d00:15:862e::7a9])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D6FF817E3779;
- Thu, 12 Dec 2024 15:34:52 +0100 (CET)
-Message-ID: <f04760c3631784cf40e077ab84a76f508ab96012.camel@collabora.com>
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>, Fritz Koenig	 <frkoenig@chromium.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,  Daniel Almeida
- <daniel.almeida@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 12 Dec 2024 09:34:51 -0500
-In-Reply-To: <20241120110105.244413-2-hugues.fruchet@foss.st.com>
-References: <20241120110105.244413-1-hugues.fruchet@foss.st.com>
- <20241120110105.244413-2-hugues.fruchet@foss.st.com>
-Organization: Collabora
-User-Agent: Evolution 3.54.2 (3.54.2-1.fc41) 
+ Thu, 12 Dec 2024 14:46:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZkrXX153lKu3k/l3jT/iu1cloY9TaUjnBUlB62dxb9w=; b=ZQWhfJRJtI5LqxCpw7MJ14SgcT
+ vXk32dFCdmOPf+ZiAv1JAf0ZBJbhLG6BodeEN6UHNB5uBqDSjcZQdel0JS0QwAVCE1FaNIMEd8qvb
+ KfpwjB7bwyrnKOm+DEY2f8xhcCaf2Qa4aEbj8MGY0WPYf7nqf3KwQ4cQqBIMXin0sAquDVB4tWmRD
+ YBIO4h3SjY3LA5ft1qPdX9UqnlltVOZ73wqQIYg6UfdqzKVdQn/fXgHafIYqwk5J2hPgfJ+Y0BGQ8
+ fSWJhhBWO4WqjnfWArVzmwB04MtzVvs25hjlIYAxHGlmKNq75f8w0FoVDmz0hPNl1q8l8PEeHZj7a
+ tYIfrYsg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:44810)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tLkSD-0005KA-0D;
+ Thu, 12 Dec 2024 14:46:13 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tLkS9-0005PQ-1i;
+ Thu, 12 Dec 2024 14:46:09 +0000
+Date: Thu, 12 Dec 2024 14:46:09 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z1r3MWZOt36SgGxf@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] media: uapi: add WebP uAPI
+Content-Disposition: inline
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: clean up and fix
+	EEE implementation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,101 +58,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSHVndWVzLAoKYXMgeW91IGtub3csIG5hbWluZyBpcyBoYXJkIGFuZCBJIGhhZCB0byB0aGlu
-ayBhYm91dCB0aGlzIG9uZSBhIGxpdHRsZSwgc2VlIG15CmNvbW1lbnQgYmVsb3cuCgpMZSBtZXJj
-cmVkaSAyMCBub3ZlbWJyZSAyMDI0IMOgIDEyOjAxICswMTAwLCBIdWd1ZXMgRnJ1Y2hldCBhIMOp
-Y3JpdMKgOgo+IFRoaXMgcGF0Y2ggYWRkcyB0aGUgV2ViUCBwaWN0dXJlIGRlY29kaW5nIGtlcm5l
-bCB1QVBJLgo+IAo+IFRoaXMgZGVzaWduIGlzIGJhc2VkIG9uIGN1cnJlbnRseSBhdmFpbGFibGUg
-VlA4IEFQSSBpbXBsZW1lbnRhdGlvbiBhbmQKPiBhaW1zIHRvIHN1cHBvcnQgdGhlIGRldmVsb3Bt
-ZW50IG9mIFdlYlAgc3RhdGVsZXNzIHZpZGVvIGNvZGVjcwo+IG9uIExpbnV4Lgo+IAo+IFNpZ25l
-ZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPiAt
-LS0KPiAgRG9jdW1lbnRhdGlvbi91c2Vyc3BhY2UtYXBpL21lZGlhL3Y0bC9iaWJsaW8ucnN0ICB8
-ICA5ICsrKysrKysrKwo+ICAuLi4vdXNlcnNwYWNlLWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXBy
-ZXNzZWQucnN0IHwgMTUgKysrKysrKysrKysrKysrCj4gIGRyaXZlcnMvbWVkaWEvdjRsMi1jb3Jl
-L3Y0bDItaW9jdGwuYyAgICAgICAgICAgICAgfCAgMSArCj4gIGluY2x1ZGUvdWFwaS9saW51eC92
-aWRlb2RldjIuaCAgICAgICAgICAgICAgICAgICAgfCAgMSArCj4gIDQgZmlsZXMgY2hhbmdlZCwg
-MjYgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFj
-ZS1hcGkvbWVkaWEvdjRsL2JpYmxpby5yc3QgYi9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkv
-bWVkaWEvdjRsL2JpYmxpby5yc3QKPiBpbmRleCAzNTY3NGVlYWUyMGQuLmRmM2U5NjNmYzU0ZiAx
-MDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkvbWVkaWEvdjRsL2JpYmxp
-by5yc3QKPiArKysgYi9Eb2N1bWVudGF0aW9uL3VzZXJzcGFjZS1hcGkvbWVkaWEvdjRsL2JpYmxp
-by5yc3QKPiBAQCAtNDQ3LDMgKzQ0NywxMiBAQCBBVjEKPiAgOnRpdGxlOiAgICAgQVYxIEJpdHN0
-cmVhbSAmIERlY29kaW5nIFByb2Nlc3MgU3BlY2lmaWNhdGlvbgo+ICAKPiAgOmF1dGhvcjogICAg
-UGV0ZXIgZGUgUml2YXosIEFyZ29uIERlc2lnbiBMdGQsIEphY2sgSGF1Z2h0b24sIEFyZ29uIERl
-c2lnbiBMdGQKPiArCj4gKy4uIF93ZWJwOgo+ICsKPiArV0VCUAo+ICs9PT09Cj4gKwo+ICs6dGl0
-bGU6ICAgICBXRUJQIHBpY3R1cmUgQml0c3RyZWFtICYgRGVjb2RpbmcgUHJvY2VzcyBTcGVjaWZp
-Y2F0aW9uCj4gKwo+ICs6YXV0aG9yOiAgICBHb29nbGUgKGh0dHBzOi8vZGV2ZWxvcGVycy5nb29n
-bGUuY29tL3NwZWVkL3dlYnApCj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vdXNlcnNwYWNl
-LWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXByZXNzZWQucnN0IGIvRG9jdW1lbnRhdGlvbi91c2Vy
-c3BhY2UtYXBpL21lZGlhL3Y0bC9waXhmbXQtY29tcHJlc3NlZC5yc3QKPiBpbmRleCA4MDZlZDcz
-YWM0NzQuLmU2NjRlNzBiMDYxOSAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL3VzZXJzcGFj
-ZS1hcGkvbWVkaWEvdjRsL3BpeGZtdC1jb21wcmVzc2VkLnJzdAo+ICsrKyBiL0RvY3VtZW50YXRp
-b24vdXNlcnNwYWNlLWFwaS9tZWRpYS92NGwvcGl4Zm10LWNvbXByZXNzZWQucnN0Cj4gQEAgLTE2
-OSw2ICsxNjksMjEgQEAgQ29tcHJlc3NlZCBGb3JtYXRzCj4gIAl0aGlzIHBpeGVsIGZvcm1hdC4g
-VGhlIG91dHB1dCBidWZmZXIgbXVzdCBjb250YWluIHRoZSBhcHByb3ByaWF0ZSBudW1iZXIKPiAg
-CW9mIG1hY3JvYmxvY2tzIHRvIGRlY29kZSBhIGZ1bGwgY29ycmVzcG9uZGluZyBmcmFtZSB0byB0
-aGUgbWF0Y2hpbmcKPiAgCWNhcHR1cmUgYnVmZmVyLgo+ICsgICAgKiAuLiBfVjRMMi1QSVgtRk1U
-LVdFQlAtRlJBTUU6Cj4gKwo+ICsgICAgICAtIGBgVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUVgYAo+
-ICsgICAgICAtICdXRUJQJwo+ICsgICAgICAtIFdFQlAgVlA4IHBhcnNlZCBmcmFtZSwgZXhjbHVk
-aW5nIFdFQlAgUklGRiBoZWFkZXIsIGtlZXBpbmcgb25seSB0aGUgVlA4Cj4gKwliaXN0cmVhbSBp
-bmNsdWRpbmcgdGhlIGZyYW1lIGhlYWRlciwgYXMgZXh0cmFjdGVkIGZyb20gdGhlIGNvbnRhaW5l
-ci4KPiArCVRoaXMgZm9ybWF0IGlzIGFkYXB0ZWQgZm9yIHN0YXRlbGVzcyB2aWRlbyBkZWNvZGVy
-cyB0aGF0IGltcGxlbWVudCBhCj4gKwlXRUJQIHBpcGVsaW5lIHdpdGggdGhlIDpyZWY6YHN0YXRl
-bGVzc19kZWNvZGVyYC4KPiArCU1ldGFkYXRhIGFzc29jaWF0ZWQgd2l0aCB0aGUgZnJhbWUgdG8g
-ZGVjb2RlIGlzIHJlcXVpcmVkIHRvIGJlIHBhc3NlZAo+ICsJdGhyb3VnaCB0aGUgYGBWNEwyX0NJ
-RF9TVEFURUxFU1NfVlA4X0ZSQU1FYGAgY29udHJvbC4KPiArCVNlZSB0aGUgOnJlZjpgYXNzb2Np
-YXRlZCBDb2RlYyBDb250cm9sIElEcyA8djRsMi1jb2RlYy1zdGF0ZWxlc3MtdnA4PmAuCj4gKwlF
-eGFjdGx5IG9uZSBvdXRwdXQgYW5kIG9uZSBjYXB0dXJlIGJ1ZmZlciBtdXN0IGJlIHByb3ZpZGVk
-IGZvciB1c2Ugd2l0aAo+ICsJdGhpcyBwaXhlbCBmb3JtYXQuIFRoZSBvdXRwdXQgYnVmZmVyIG11
-c3QgY29udGFpbiB0aGUgYXBwcm9wcmlhdGUgbnVtYmVyCj4gKwlvZiBtYWNyb2Jsb2NrcyB0byBk
-ZWNvZGUgYSBmdWxsIGNvcnJlc3BvbmRpbmcgZnJhbWUgdG8gdGhlIG1hdGNoaW5nCj4gKwljYXB0
-dXJlIGJ1ZmZlci4KClNvIGFmdGVyIHJlYWRpbmcgbW9yZSBhYm91dCBpdCwgSSB0aGluayB3ZSBz
-aG91bGQgYXZvaWQgdGhlIHVzYWdlIG9mIHRoZSBXRUJQCm5hbWUsIGFzIFdFQlAgaXMgY2xlYXJs
-eSBhIFJJRkYgYmFzZWQgY29udGFpbmVyIGZvcm1hdCBhbmQgc3VwcG9ydHMgMiB0b3RhbGx5CmRp
-ZmZlcmVudCBjb2RlY3MuIEkgdGhpbmsgd2Ugc2hvdWxkIGluc3RlYWQgY2FsbCB0aGlzClY0TDJf
-UElYX0ZNVF9WUDhfSU5UUkFfRlJBTUUuIFdlIHNob3VsZCBzdGlsbCBkb2N1bWVudCB0aGF0IHRo
-ZXNlIGFyZSB1c2VkIGJ5CldlYlAgZm9yIGxvc3N5IGNvbXByZXNzaW9uLCBzbyB0aGF0ICByZWFk
-ZXJzIGNhbiBjb3JyZWxhdGUuCgpTb21lIGZvbGtzIHdpbGwgc3RpbGwgd29uZGVyIHdoeSBhIHNl
-cGFyYXRlIGZvcm1hdCwgYW5kIHRoZSBJIHN0aWxsIGhvbGQgdGhhdCBpdApmaXRzIGJldHRlciBm
-b3IgdGhlIGNhc2Ugd2UgaGF2ZSBvbmUgZHJpdmVyLCB3aXRoIG9uZSB2aWRlbyBub2RlIHRoYXQg
-Y2FuIGhhbmRsZQpib3RoLCBzaW5jZSB5b3UgY2FuIHByb2JlIHRoZXNlIGJ5IHNpbXBseSB1c2lu
-ZyBWSURJT0NfRU5VTV9GTVQsIGl0cyBlYXNpbHkKZGlzY292ZXJhYmxlIHdpdGhvdXQgaW50cm9k
-dWNpbmcgYSBuZXcgY29udHJvbCwgZXRjLgoKcmVnYXJkcywKTmljb2xhcwoKPiAgCj4gICAgICAq
-IC4uIF9WNEwyLVBJWC1GTVQtVlA5Ogo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS92
-NGwyLWNvcmUvdjRsMi1pb2N0bC5jIGIvZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0
-bC5jCj4gaW5kZXggMDMwNGRhYTg0NzFkLi5lMmZmMDNkMGQ3NzMgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1pb2N0bC5jCj4gKysrIGIvZHJpdmVycy9tZWRpYS92
-NGwyLWNvcmUvdjRsMi1pb2N0bC5jCj4gQEAgLTE1MDEsNiArMTUwMSw3IEBAIHN0YXRpYyB2b2lk
-IHY0bF9maWxsX2ZtdGRlc2Moc3RydWN0IHY0bDJfZm10ZGVzYyAqZm10KQo+ICAJCWNhc2UgVjRM
-Ml9QSVhfRk1UX1ZDMV9BTk5FWF9MOglkZXNjciA9ICJWQy0xIChTTVBURSA0MTJNIEFubmV4IEwp
-IjsgYnJlYWs7Cj4gIAkJY2FzZSBWNEwyX1BJWF9GTVRfVlA4OgkJZGVzY3IgPSAiVlA4IjsgYnJl
-YWs7Cj4gIAkJY2FzZSBWNEwyX1BJWF9GTVRfVlA4X0ZSQU1FOiAgICBkZXNjciA9ICJWUDggRnJh
-bWUiOyBicmVhazsKPiArCQljYXNlIFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FOiAgICBkZXNjciA9
-ICJXRUJQIFZQOCBGcmFtZSI7IGJyZWFrOwo+ICAJCWNhc2UgVjRMMl9QSVhfRk1UX1ZQOToJCWRl
-c2NyID0gIlZQOSI7IGJyZWFrOwo+ICAJCWNhc2UgVjRMMl9QSVhfRk1UX1ZQOV9GUkFNRTogICAg
-ZGVzY3IgPSAiVlA5IEZyYW1lIjsgYnJlYWs7Cj4gIAkJY2FzZSBWNEwyX1BJWF9GTVRfSEVWQzoJ
-CWRlc2NyID0gIkhFVkMiOyBicmVhazsgLyogYWthIEguMjY1ICovCj4gZGlmZiAtLWdpdCBhL2lu
-Y2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaCBiL2luY2x1ZGUvdWFwaS9saW51eC92aWRlb2Rl
-djIuaAo+IGluZGV4IGU3YzRkY2UzOTAwNy4uMDlmZmYyNjllODUyIDEwMDY0NAo+IC0tLSBhL2lu
-Y2x1ZGUvdWFwaS9saW51eC92aWRlb2RldjIuaAo+ICsrKyBiL2luY2x1ZGUvdWFwaS9saW51eC92
-aWRlb2RldjIuaAo+IEBAIC03NTcsNiArNzU3LDcgQEAgc3RydWN0IHY0bDJfcGl4X2Zvcm1hdCB7
-Cj4gICNkZWZpbmUgVjRMMl9QSVhfRk1UX1ZDMV9BTk5FWF9MIHY0bDJfZm91cmNjKCdWJywgJ0Mn
-LCAnMScsICdMJykgLyogU01QVEUgNDIxTSBBbm5leCBMIGNvbXBsaWFudCBzdHJlYW0gKi8KPiAg
-I2RlZmluZSBWNEwyX1BJWF9GTVRfVlA4ICAgICAgdjRsMl9mb3VyY2MoJ1YnLCAnUCcsICc4Jywg
-JzAnKSAvKiBWUDggKi8KPiAgI2RlZmluZSBWNEwyX1BJWF9GTVRfVlA4X0ZSQU1FIHY0bDJfZm91
-cmNjKCdWJywgJ1AnLCAnOCcsICdGJykgLyogVlA4IHBhcnNlZCBmcmFtZSAqLwo+ICsjZGVmaW5l
-IFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FIHY0bDJfZm91cmNjKCdXJywgJ0InLCAnUCcsICdGJykg
-LyogV0VCUCBWUDggcGFyc2VkIGZyYW1lICovCj4gICNkZWZpbmUgVjRMMl9QSVhfRk1UX1ZQOSAg
-ICAgIHY0bDJfZm91cmNjKCdWJywgJ1AnLCAnOScsICcwJykgLyogVlA5ICovCj4gICNkZWZpbmUg
-VjRMMl9QSVhfRk1UX1ZQOV9GUkFNRSB2NGwyX2ZvdXJjYygnVicsICdQJywgJzknLCAnRicpIC8q
-IFZQOSBwYXJzZWQgZnJhbWUgKi8KPiAgI2RlZmluZSBWNEwyX1BJWF9GTVRfSEVWQyAgICAgdjRs
-Ml9mb3VyY2MoJ0gnLCAnRScsICdWJywgJ0MnKSAvKiBIRVZDIGFrYSBILjI2NSAqLwoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+Hi,
+
+This is a rework of stmmac's EEE support in light of the addition of EEE
+management to phylib.
+
+Patch 1 adds configuration of the receive clock phy_eee_rx_clock_stop()
+(which was part of another series.)
+
+Patch 2 moves the tracking of tx_lpi_timer to phylib.
+
+Patch 3 makes stmmac EEE state depend on phylib's enable_tx_lpi flag.
+
+Patch 4 removes redundant code from the ethtool EEE operations.
+
+Patch 5 removes the driver private tx_lpi_enabled, which will now be
+managed by phylib.
+
+Patch 6 removes the dependence of EEE error statistics on the EEE
+enable state, instead depending on whether EEE is supported by the
+hardware.
+
+Patch 7 removes phy_init_eee(), instead using phy_eee_rx_clock_stop()
+to configure whether the PHY may stop the receive clock.
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  1 -
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 25 ++------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 26 +++++++++++++--------
+ drivers/net/phy/phy.c                              | 27 ++++++++++++++++++----
+ include/linux/phy.h                                |  1 +
+ 5 files changed, 42 insertions(+), 38 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
