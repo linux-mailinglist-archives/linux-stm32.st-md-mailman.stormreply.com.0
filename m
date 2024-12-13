@@ -2,59 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE939F1712
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2024 21:06:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFCFE9F1922
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2024 23:32:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50512C78011;
-	Fri, 13 Dec 2024 20:06:41 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D6A3C78011;
+	Fri, 13 Dec 2024 22:32:56 +0000 (UTC)
+Received: from mx.denx.de (mx.denx.de [89.58.32.78])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF91AC78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75A4EC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2024 20:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:To:From:Date:Reply-To:Cc:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=q6XBpg/4IY/h2oG4Vm6RRozZRxiEoSr8X5lqGM2zVMQ=; b=aNI5GnhQ6591BedH7CtBIbwC3F
- pPegR4DND7Y/V0E+4t4zeoFoiA4JLIzRvfkwicxC81fLd2Ni+pEJlR5DEadz7cng3p7F5+jqj7ut2
- 0gy193TVuR83XUqRwvK60EUJQZjeEznMo5DK7ygI8PaY2FTQGbMeBIk/Jubz49CQe9Wnm1H1onRjF
- rWaijsyAlwiEioPkzZyU/rLwFrv3gujLHJGlaVMDMUlkgpfe6YqA6E4pmsgDMdYb7YtV+yd5VIpxF
- peu09WWvvSxecCx9Bc+jUMX103IOvU51cBhnpqBHpmJh/c9W2gjBpkthcxqGqa6l/3oYMHIl7KNp6
- XeeBe0yA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35158)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tMBvd-0007Iw-2d;
- Fri, 13 Dec 2024 20:06:25 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tMBva-0006ZC-0s;
- Fri, 13 Dec 2024 20:06:22 +0000
-Date: Fri, 13 Dec 2024 20:06:22 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>
-Message-ID: <Z1yTviYUZ8sbNOsK@shell.armlinux.org.uk>
-References: <Z1r3MWZOt36SgGxf@shell.armlinux.org.uk>
- <E1tLkSX-006qfS-Rx@rmk-PC.armlinux.org.uk>
- <Z1wTqh-BnvPYLqU8@shell.armlinux.org.uk>
+ Fri, 13 Dec 2024 22:32:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 2BF71103B8FD5; Fri, 13 Dec 2024 23:32:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de; s=mx-20241105;
+ t=1734129167;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=G3lMENMefBk6pUR9W4xYAZB0rcngf/adMQ7Rd64R32A=;
+ b=TtUhHujoQYV7chB9SEaTrnGogUxwq5ffO+LBzAu0R980y8NtSb8AGVxW1K6Nii5SKgzXqp
+ D4wlV6E0Y3vRsVIGQmaE9VDzvj8NxFJqeDvjwrQJr88EnPeIRqz/5sgIA9HtGAbfz5T9i3
+ rR9O+tS5cdGYRSWhiKb3MtLf0vRp9xK6hOfImDmIBDiviWgBYHmpJ/Z+Scs94CCO3s7sjz
+ DOI2UUaZoAcru0Jcx+rVY28NPHjS9uRXPTDlJYIih00GwzdDfNWP7dmSoVYx4bacBlzusK
+ HBZkuG3tWujNwgrEEOuuwJkNGR8II1x6qCwBjpql5fW7o+t6OfekUWkYK/8VUQ==
+Message-ID: <72383917-4bbe-4b95-9e2f-4e364f5288bd@denx.de>
+Date: Fri, 13 Dec 2024 23:15:09 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z1wTqh-BnvPYLqU8@shell.armlinux.org.uk>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/7] net: stmmac: move
- tx_lpi_timer tracking to phylib
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241001024731.140069-1-marex@denx.de>
+ <6f848ef7-c921-4694-9fd5-4a777d5271d0@lunn.ch>
+Content-Language: en-US
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <6f848ef7-c921-4694-9fd5-4a777d5271d0@lunn.ch>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Daniel Golle <daniel@makrotopia.org>, kernel@dh-electronics.com,
+ Pavel Machek <pavel@ucw.cz>, Lukasz Majewski <lukma@denx.de>,
+ Christian Marangi <ansuelsmth@gmail.com>, linux-leds@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload
+ ability on interface up
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,76 +58,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 13, 2024 at 10:59:54AM +0000, Russell King (Oracle) wrote:
-> On Thu, Dec 12, 2024 at 02:46:33PM +0000, Russell King (Oracle) wrote:
-> > @@ -1092,6 +1092,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
-> >  			phy_init_eee(phy, !(priv->plat->flags &
-> >  				STMMAC_FLAG_RX_CLK_RUNS_IN_LPI)) >= 0;
-> >  		priv->eee_enabled = stmmac_eee_init(priv);
-> > +		priv->tx_lpi_timer = phy->eee_cfg.tx_lpi_timer;
-> >  		priv->tx_lpi_enabled = priv->eee_enabled;
-> >  		stmmac_set_eee_pls(priv, priv->hw, true);
-> >  	}
+On 10/3/24 2:06 PM, Andrew Lunn wrote:
+> On Tue, Oct 01, 2024 at 04:45:23AM +0200, Marek Vasut wrote:
+>> The trigger_data->hw_control indicates whether the LED is controlled by HW
+>> offload, i.e. the PHY. The trigger_data->hw_control = can_hw_control() is
+>> currently called only from netdev_led_attr_store(), i.e. when writing any
+>> sysfs attribute of the netdev trigger instance associated with a PHY LED.
+>>
+>> The can_hw_control() calls validate_net_dev() which internally calls
+>> led_cdev->hw_control_get_device(), which is phy_led_hw_control_get_device()
+>> for PHY LEDs. The phy_led_hw_control_get_device() returns NULL if the PHY
+>> is not attached.
+>>
+>> At least in case of DWMAC (STM32MP, iMX8M, ...), the PHY device is attached
+>> only when the interface is brought up and is detached again when the
+>> interface is brought down. In case e.g. udev rules configure the netdev
+>> LED trigger sysfs attributes before the interface is brought up, then when
+>> the interface is brought up, the LEDs are not blinking.
+>>
+>> This is because trigger_data->hw_control = can_hw_control() was called
+>> when udev wrote the sysfs attribute files, before the interface was up,
+>> so can_hw_control() resp. validate_net_dev() returned false, and the
+>> trigger_data->hw_control = can_hw_control() was never called again to
+>> update the trigger_data->hw_control content and let the offload take
+>> over the LED blinking.
+>>
+>> Call data->hw_control = can_hw_control() from netdev_trig_notify() to
+>> update the offload capability of the LED when the UP notification arrives.
+>> This makes the LEDs blink after the interface is brought up.
+>>
+>> On STM32MP13xx with RTL8211F, it is enough to have the following udev rule
+>> in place, boot the machine with cable plugged in, and the LEDs won't work
+>> without this patch once the interface is brought up, even if they should:
+>> "
+>> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:green:wan", ATTR{trigger}="netdev", ATTR{link_10}="1", ATTR{link_100}="1", ATTR{link_1000}="1", ATTR{device_name}="end0"
+>> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:yellow:wan", ATTR{trigger}="netdev", ATTR{rx}="1", ATTR{tx}="1", ATTR{device_name}="end0"
+>> "
+>>
+>> Signed-off-by: Marek Vasut <marex@denx.de>
 > 
-> While looking deeper at stmmac, there's a bug in the above hunk -
-> stmmac_eee_init() makes use of priv->tx_lpi_timer, so this member
-> needs to be set before calling this function. I'll post a v2 shortly.
-
-I'm going to hold off v2, there's a lot more that can be cleaned up
-here - the EEE code is rather horrid in stmmac, and there's definitely
-one race, and one logical error in it (e.g. why mark software EEE mode
-*enabled* when EEE mode is being disabled - which can lead to the EEE
-timer being added back onto the timer list.)
-
-There's also weirdness with dwmac4's EEE register fiddling.
-
-The stmmac driver uses hardware timed LPI entry if the timer is small
-enough to be programmed into hardware, otherwise it uses software mode.
-
-When software mode wants to enter LPI mode, it sets both:
-
-	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-
-When software mode wants to exit LPI mode, it clears both of these
-two bits.
-
-In hardware mode, when enabling LPI generation, we set the hardware LPI
-entry timer (separate register) to a non-zero value, and then set:
-
-	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
-
-That seems logical. However, in hardware mode, when we want to then
-disable hardware LPI generation, we set the hardware LPI entry timer to
-zero, the following bits:
-
-	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-
-and clear:
-
-	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
-
-So, hardware mode, disabled, ends up setting the same bits as
-software mode wanting to generate LPI state on the transmit side.
-This makes no sense to me, and looks like another bug in this driver.
-
-Can anyone suggest any hardware that I could source which uses the
-dwmac4 code and which supports EEE please, so that I have hardware to
-run some tests on.
-
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Is there anything blocking this patch from being picked up ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
