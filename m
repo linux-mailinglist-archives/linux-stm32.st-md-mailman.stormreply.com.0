@@ -2,190 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7D399F0C9D
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2024 13:44:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2B59F0C24
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2024 13:23:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 564F6C78015;
-	Fri, 13 Dec 2024 12:44:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E908C78015;
+	Fri, 13 Dec 2024 12:23:12 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89A66C78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BC59C78006
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2024 12:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734091503; x=1765627503;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=IJj2A0TpahfSDjQbTxH0M41Gz9q3uEE5ittvsXt6JEc=;
- b=K62/0KYa3jpKsTFM0rVpOMjxnqjNYp0oMnzI25dhrZT+Iae3kWEAllGn
- cpWRKD+8235z7f4NYzZXaR+HNYfPyN04MG9nnV2vRqOzzdSYnjJ1RrDDC
- 5loGSIv9eCPV2SsnkViABCfzzsIV+zaL4D1QVEGWy+EV5gnWPW1ppydhQ
- V01SSeL4IXBoGZpzBo0wbaF5m3x9eBqNQyL1PVIOmNUyeA/xi8336WY/K
- Ofcuk/bvVmseiVenwsJ2hQDf1SUv7JHHHEQTlZZZlVmKtED9dNfBHeWuu
- z2lkUmO56nJpDKbTlxNrUmn9pYKWte99OPoqapK+kFyiOtxx6d8kadKPI A==;
-X-CSE-ConnectionGUID: ZR68vn5MRQWLVMFd6G6ITg==
-X-CSE-MsgGUID: TRl2hnYkSLObW4KVsFvXXQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11284"; a="33870015"
-X-IronPort-AV: E=Sophos;i="6.12,231,1728975600"; d="scan'208";a="33870015"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2024 04:04:54 -0800
-X-CSE-ConnectionGUID: 8KYD8N5JSqaN2cjS85YV0A==
-X-CSE-MsgGUID: YNFEv/HgStKG8uAY6twq1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,231,1728975600"; d="scan'208";a="96937658"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by fmviesa010.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 13 Dec 2024 04:04:54 -0800
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Fri, 13 Dec 2024 04:04:53 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Fri, 13 Dec 2024 04:04:53 -0800
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.48) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Fri, 13 Dec 2024 04:04:53 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aqA/XYJxU+ioXDXkeDc/FFV81XTMaVJVfph8OAl2nUxOxGfX9uuusuifhhOdCg64JJDekKovRI4uJXQAvBt3KHs+jeLX3CLCR30upKzCxCoiQv8DPovyeZVK5fMx0+brWXY8Pv5xnuUw++cuwBhzojGjO+u2DZpXNXzrUcitdUt6PZ87FnI3Rn/s1BPcQwSv4w/+RVWlrS3FggepMG4wTqtH3PXRvyOh9t5iQxzf7Fu3OlDlKktSUMTGnB5IXEjs9E1uhgTk7hm1DA5UrEwNNHnRRPiAh6HFtasIFTjw3jLnDP6xt1GJQ6UmODPTW9rUVJMsf7Pj12eslsHe2fzunQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OqCDbEADje7fO21Qa02fh5oNDuq7n3wLt2xjV7uGqj4=;
- b=OgTo5MCPyE6juL5vSeDOym7iAKy7yQMfJa5XT7C9wAywdiS/y9/C97jI2YEa6ZAYMkh6yFdG2O9RdAl+ngJjH3EArHfx9ytjvch02LwmuLJZpGPKmRRFCNwZQmjINLFhSuPwAMeFhSpTQ3QVRbd0WqxRGETONCW42M+IqvOvDNqxEV2rBYFM6br8zU4DaeMnSPtjxmB2OBe/EzgyzroN+9YzmSLqaCfhXoBUDQ6gR40JuzYIsGtWaEU0TXPZ1YELu85DKJB89TaptQufxrH7H7kljoDtvqODdL4blWls/KZgw23r8r3rlTT2cCTVke7WVS31qGwgE39rh2+1hxizNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL1PR11MB5399.namprd11.prod.outlook.com (2603:10b6:208:318::12)
- by IA0PR11MB8335.namprd11.prod.outlook.com (2603:10b6:208:493::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Fri, 13 Dec
- 2024 12:04:11 +0000
-Received: from BL1PR11MB5399.namprd11.prod.outlook.com
- ([fe80::b8f1:4502:e77d:e2dc]) by BL1PR11MB5399.namprd11.prod.outlook.com
- ([fe80::b8f1:4502:e77d:e2dc%5]) with mapi id 15.20.8251.015; Fri, 13 Dec 2024
- 12:04:11 +0000
-Message-ID: <bc9fe988-76f5-4106-b063-96941b5fc7fe@intel.com>
-Date: Fri, 13 Dec 2024 13:04:04 +0100
-User-Agent: Mozilla Thunderbird
-To: Furong Xu <0x1207@gmail.com>, <netdev@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20241212033325.282817-1-0x1207@gmail.com>
-Content-Language: pl
-From: Mateusz Polchlopek <mateusz.polchlopek@intel.com>
-Organization: Intel
-In-Reply-To: <20241212033325.282817-1-0x1207@gmail.com>
-X-ClientProxiedBy: VI1PR09CA0127.eurprd09.prod.outlook.com
- (2603:10a6:803:12c::11) To BL1PR11MB5399.namprd11.prod.outlook.com
- (2603:10b6:208:318::12)
+ Fri, 13 Dec 2024 12:23:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8o62DSx4bVg4R+vubTqLz/49UYeh2IHQsgoBXnPSoeY=; b=nm/VgZJaaGNr3qq3O2J2BpfjOy
+ zAxxKNtWRr5bjL8YFcYmb7sVk3TEZEI3BfnL9VDeLRh5JJCPeDkqQdUZnanAqpQRvGEM0gB8Toi8o
+ L5cWUv2bnjpZO3hEVRdzaQQhovHZ/sHuy1cXwHGJ/MUo2kv6LZmQSG6OZAU4xbDHfEAKF5khexb65
+ Jynpcj6Gvpk4R+isbCAyEbVFi8MVmU3h3MSM7LKTTuMhwF7iIUewsfVJTx0IGdRLt6iAagplGxgn6
+ Gk6g6lxO4ipv+GQ5L2j92NTaVUGqcCiIFUZszetmcGRCC/8C3zP5FhRD+tGsn/BIMd3E3fKRytJ3p
+ Op5ULE4Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53938)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tM4h0-0006gB-13;
+ Fri, 13 Dec 2024 12:22:50 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tM4gv-0006J0-2R;
+ Fri, 13 Dec 2024 12:22:45 +0000
+Date: Fri, 13 Dec 2024 12:22:45 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <Z1wnFXlgEU84VX8F@shell.armlinux.org.uk>
+References: <20241213090526.71516-1-maxime.chevallier@bootlin.com>
+ <20241213090526.71516-3-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR11MB5399:EE_|IA0PR11MB8335:EE_
-X-MS-Office365-Filtering-Correlation-Id: f28af127-e8be-4ded-89ff-08dd1b6e4124
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MStjd2ZHYkFHelhLMnEyS0FYazlyTlJ4MGtWcmhoQ2FIZVNodXR2eVZFcUdo?=
- =?utf-8?B?Vm1xd05KVjNFZkRLQklROW9helVqRmdjMUQvNHpNVVptTjloSHRYOUlTL3Mv?=
- =?utf-8?B?UkRYYmdPeVhxbzlzQmVwNDdWKzFGWkJZaC9Ga0ZBUFhTVlE5WEMrRFllRE1Z?=
- =?utf-8?B?SFBESHEyTjFIdS9CQkxPZEh5UzRrWThydkdOY09WNnFFTGJCQW1idUsrcUYy?=
- =?utf-8?B?L3NselR5cndhUG8zVW1uKzByOUcwNHU2MkNHeFgrM21vQ3BZT0R1bFRhemR4?=
- =?utf-8?B?UHNFZ1ZPNmdGcE95bytDK2l6ZzVSWnlXbHFwYlgreGE3WkMzaUhZK0R0Zjlm?=
- =?utf-8?B?Z3YxbktzRGN5TlQ5cVQ0Um94QTZ4WFlyUS85KzlEZjRMdVpNTU1hZUFhUDU0?=
- =?utf-8?B?aVI1MkJUM3cwZTFFTmN4K3BUSUNwZTVpcUlXMFZpaWFWSis5Mnluekt6Y2VC?=
- =?utf-8?B?aVRSUUNnaFFWcjV0Qy9ieTZjZEhiaTlLRk9EeUlIbVc2a0dveEpRZ2JzT29v?=
- =?utf-8?B?RGk4bWhlRDFLNkk3S0lSMk42UUx3dndjWjNlRjlOZ2Ira0J3MSthekJwNUR2?=
- =?utf-8?B?WTg3QWMxaGFkZm1lZWhncUdVMlMwUSt3ZkUwTnFpYzEvSGF4bm1mVHJHY2RH?=
- =?utf-8?B?Yy9qR3hKdE4yQWlsNmNhaWdPbllNRENSRWZZWVUvK3N2THZUZ1FkTEZUcE9n?=
- =?utf-8?B?UXZPV05qOG1KN0greG9YZnNnZlluVkVmd2NjcUFqWldySlhZK3RGWjZPd1J2?=
- =?utf-8?B?RnpPZ1VyT2ZrM0hJZzR1eWphYmh4RTNYV0tRQjhNWk5PTXNqOGRyKzU5NEV0?=
- =?utf-8?B?ZCthcWcrbkNpUFM3ZXBCaE9aTjFhTmFmTXk1anZqSjhDMmtCRm04d1E5amZj?=
- =?utf-8?B?a0dqV2ZRM1dqaGRadUtnUDlQTXRtOFlRQmRZR05DUjd1ZFU1dEplQVBLOVZa?=
- =?utf-8?B?RDVwT0ZTZHpqOE4xM0JTdWk3RjBBbUdIeURGV0ZUYUVqNzc2Qm1JK3cxZFk0?=
- =?utf-8?B?Rm9GYlU2V1doT2ZZOG55THBmRFlkSXFBaXFGTTBGd1hteGl0UVJ4ZDE4c0Rz?=
- =?utf-8?B?WVl4Qjc1K2JKU0ljWHF6Z1JLRzU2eEU4QUJRcVRRakVyNmJ5QldDSndxcDZJ?=
- =?utf-8?B?VzR4M20wU0hzejBGQXN0VnlHZkpSZWxyS1cyNFlOdnVFTkUrMy8zK0NSVFls?=
- =?utf-8?B?L0ZNM1MrWXlmQ1VqUlA1Y1JYZ2NEQkhNYmtsb0o1ZThwWDlES0ZlNXJHNjVS?=
- =?utf-8?B?V2F4MTZLS1VZaEpkTXBRZEtHUWpXUERWUU5wanZaeWZpS2tyMGpxSFM2NWFJ?=
- =?utf-8?B?ZzdOUlNsRThjVmVzMEQySWxPT2NkZ0hNSkNXajk5Ky95Zk1VeXR2a3MwMFAz?=
- =?utf-8?B?c1JBNjByb2Q3Nms3R09FWlBET255eERabjZBcE9WMnVzMU5GSjd0SDFMeDBJ?=
- =?utf-8?B?U2lHWC9YcVg0Z2FacHNURUVtcm43YzNGSkdiQmNzVFdxaW5GM3B1dEQyZkFz?=
- =?utf-8?B?YXlUcExjckZNa2dITnFrb3VNMEYvYndUSHNKMjh0UjgwaTBrZmZMKy9ZemFX?=
- =?utf-8?B?Y3VKSVh2bDIvSHZDaFdOb01KTUNWWS9sUlJNcGk2VWMvNEZvNndVUDJSRExF?=
- =?utf-8?B?eXB4MFRGK0F5VUloY2xhRnNoWkRFeVhEcUZ1VHVtWlRpdzN4OUNVTGxDa1Jt?=
- =?utf-8?B?bEFjNXZtZEZJeDlVWUFkVWNreHB6R0IxZzZUU0dJQkl6Zkp3cU1SUEZoR3Jx?=
- =?utf-8?B?b0huL21ZMVVUNW5nUG9tUE40Q0NmZTFtdEN6SGpydXhacHFtcDV4YXVWdEJ4?=
- =?utf-8?B?eFl3OTlXNi9mU2xKazB6QXowUnJ6dGZRQzBnRWs5T1FLaytpRDR6NkhPd1kr?=
- =?utf-8?Q?YxEx1Ae704tcd?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR11MB5399.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dlB1ZXhveU1UTVg4Z1U0NG1MeWkyaW83TVYxekdxN1JUQ3NJdzRUNmVrODlq?=
- =?utf-8?B?bXhhaXMvZU5JUWxGQjZaSmRkZzIxbWR5RDV0T0Fpc2pjNE1jTEUrZ3pHMnJp?=
- =?utf-8?B?STN6Rm1iRENSL2ZqSnpiUmN6OHlvQ2ZVYko4VzJBYUE0UVJzQlZWOFIrTHZm?=
- =?utf-8?B?ZjhhQ0pNeFEzM0pXRjRoWFNOOWwzOXhXTUxjcjZLUU9EMG1uMjBDcEo1cTdN?=
- =?utf-8?B?T00yVDNyWDR4dVZxTCt4MlVFbFFHQzNJZmdpb2hOWnJ6YklFdG5taHZXZVRt?=
- =?utf-8?B?dmdUQksrM1YzUy9jaHVPMUxTWG9VazdYZ3QxWkYvbzVzb1FGTVVvZlE0Zkdx?=
- =?utf-8?B?RzJPalRaVlRYOVRMQ21UdUtGY1dzbEJHZUpUUktsaWRqYUJyYnlBK1BCT3Ft?=
- =?utf-8?B?SUxSSG9HWTRrSkUzTW85dGg3bHNmd2psdFpyN2o3YnlXYUNLQjhUbDk5eWcv?=
- =?utf-8?B?bCt0eTAxQzBhSDF0bVYyWEx0NnJjbkMwWGRBQk04bWdYTU5xcnVlN0pZSzd2?=
- =?utf-8?B?WmFxUTQrOUVsK3ltUitidUdZS1lyOTlxMzRMbCtJd0dwOE9USldWMzhPVThZ?=
- =?utf-8?B?dlIzZ0l5dmJ3bDJuZlRvUnBYVFVCV0xNcEh5TkwvV1ArdEFhRy9EZFFEekoy?=
- =?utf-8?B?aWhUYzFnd1FoV09WczVhWmN1ZlNuM08wOTBvNE8zOHVNZEQ4UnByNUhwanln?=
- =?utf-8?B?L0I5d1FUdlRRS09QdXRSTnd5OEVveGIzdlc3WlhVWmo2c1FBdExGbzBraVlU?=
- =?utf-8?B?RXpVbGdOaDdtYS9sdTZMQ3lSckswaFg4b1ZiL1poa0ZId01mUDI2QXhxaXVI?=
- =?utf-8?B?N0M5VzdFbnBXU2V4d1d1WFYvSnJUNGJEOUkvWmNqRzdrb0VDR0hCZTNua0lT?=
- =?utf-8?B?TDJqTUp2anlBTXhRd0JjT1piaEpnL0lOZFhPREJSZy82NHN4dk5obVZRREd3?=
- =?utf-8?B?eS9VRUs5emZ1TUMyNDZNTkxxZ0ZTd3dNejFmMWVNaEJ0NjMzWjAvZHVianFu?=
- =?utf-8?B?blBZMXVlakluZnFieVhFdGZGakdJaTF4SFV2bVlxVFVRcWpyZDcvKzlRNDlZ?=
- =?utf-8?B?R0lwRDFkWDRvTStCWUdUa3o2MUlVZmtScktkVnhHS1h1dHFycWJOaGhwcWY5?=
- =?utf-8?B?OEtMdXNVcDRqdzB1WGNUOWpjdGpoanpGVGZ5SGtSMjhGOVdWR0x1ZHFubmo3?=
- =?utf-8?B?b3BCenBCUWdVSE5UOUk4bXczR0VzUmVtSk0xVWxhMzh2UTZsZHpFakQyQmla?=
- =?utf-8?B?dm44cEk5cWJlSHJ6aVFLTHVmZkFoKzgrWjJzeW1zYnNjMWtXaEVjNHR3ZTky?=
- =?utf-8?B?S0hTTEE0dWdzSFZVcm9sY2FncUxKYnQ3eGtPS2NPVHFtZ05EK3NtdS8xVTNI?=
- =?utf-8?B?SUxEM3hKVzhSdTNmKytuaFZ1bklJalRzbnZRQTgyWFhHbmdOcUJFUC9Xdy9X?=
- =?utf-8?B?VlpoTzhjV250RFdBYnE3MHpzMnNveHNEMkI2dTRmdm5SRmpOMkZFUlB5UVFi?=
- =?utf-8?B?Unh5NkFzc2VRem50SmVRbk5yOEdweUdxOGZZOU5YbmIweEh1ejR1RStpbUVa?=
- =?utf-8?B?U2ZrSE9PRlFlQmllRENzNm1YWjRYeTduTElvaVZsRFpRK3c5ZmVHcDlMM0Nh?=
- =?utf-8?B?cnB0aXk2K1V2TFdDQUZhUzNxUHFaN29KMElpN2N1dVJpbk5vNHQzUk5oQmR3?=
- =?utf-8?B?YktzT1I5dUg4a04zUnhPTG1kcU9YZi9SVVBIbWxqUVg4ZkhWL3F6QXRTdUM1?=
- =?utf-8?B?THNYQVE2aWIwWXpMNXZVTVg3M2pSQWhHSzBtTTNuRkMxalVNblk2WkpZVSth?=
- =?utf-8?B?bTVtQm96bjZwajRYaVRtdk9jRVFJZ21lTE14MjlKWGxQTHhKSEpwd2Z1K1VN?=
- =?utf-8?B?WU1WdzhCZUsvNlJYWWV5QnMwSDBtUHo1eTNFcTZ2ZGM4dG1McGJ6OHpiVUxw?=
- =?utf-8?B?KzZZbjlJMy9pN2tLL2tnNWxLYk1oSzN4aUNFTTVaZDlQOEdRYi8rRm1OeXpJ?=
- =?utf-8?B?ZG1PZUkxUW0vdDNkQlFxcFF3SkMraC9PTTc3bjVGUlpIcm5VbGlzY1JxK081?=
- =?utf-8?B?bXh2S1AzL1JaQmRWcWxoekFQeitKNDIvT1g5NExwSGJJWmpTZU5ZSFI2dmVy?=
- =?utf-8?B?S0I5YnA5eWU1MWtHQ05GM1JnRTVhbUVSOXZkL0F1cnNQMFVocUVtL2RYN2Ew?=
- =?utf-8?B?Umc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f28af127-e8be-4ded-89ff-08dd1b6e4124
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR11MB5399.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 12:04:11.2157 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lVk5z81BhhlQI2gL1zVnxHEuejCaKnawAVCsvlQuY+GAxcss3myHqaVXDaMnMDVdONKkrnhgeko2GxnP8860PgVHBiZSigqajC/POS0kITA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB8335
-X-OriginatorOrg: intel.com
-X-Mailman-Approved-At: Fri, 13 Dec 2024 12:44:29 +0000
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S.
- Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v1] net: stmmac: Drop redundant
- dwxgmac_tc_ops variable
+Content-Disposition: inline
+In-Reply-To: <20241213090526.71516-3-maxime.chevallier@bootlin.com>
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-socfpga:
+ Set interface modes from Lynx PCS as supported
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -197,80 +64,97 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 12/12/2024 4:33 AM, Furong Xu wrote:
-> dwmac510_tc_ops and dwxgmac_tc_ops are completely identical,
-> keep dwmac510_tc_ops to provide better backward compatibility.
+On Fri, Dec 13, 2024 at 10:05:25AM +0100, Maxime Chevallier wrote:
+> On Socfpga, the dwmac controller uses a variation of the Lynx PCS to get
+> additional support for SGMII and 1000BaseX. The switch between these
+> modes may occur at runtime (e.g. when the interface is wired to an SFP
+> cage). In such case, phylink will validate the newly selected interface
+> between the MAC and SFP based on the internal "supported_interfaces"
+> field.
 > 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> ---
->   drivers/net/ethernet/stmicro/stmmac/hwif.c      |  4 ++--
->   drivers/net/ethernet/stmicro/stmmac/hwif.h      |  1 -
->   drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 11 -----------
->   3 files changed, 2 insertions(+), 14 deletions(-)
+> For now in stmmac, this field is populated based on :
+>  - The interface specified in firmware (DT)
+>  - The interfaces supported by XPCS, when XPCS is in use.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> index 4bd79de2e222..31bdbab9a46c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> @@ -267,7 +267,7 @@ static const struct stmmac_hwif_entry {
->   		.hwtimestamp = &stmmac_ptp,
->   		.ptp = &stmmac_ptp_clock_ops,
->   		.mode = NULL,
-> -		.tc = &dwxgmac_tc_ops,
-> +		.tc = &dwmac510_tc_ops,
->   		.mmc = &dwxgmac_mmc_ops,
->   		.est = &dwmac510_est_ops,
->   		.setup = dwxgmac2_setup,
-> @@ -290,7 +290,7 @@ static const struct stmmac_hwif_entry {
->   		.hwtimestamp = &stmmac_ptp,
->   		.ptp = &stmmac_ptp_clock_ops,
->   		.mode = NULL,
-> -		.tc = &dwxgmac_tc_ops,
-> +		.tc = &dwmac510_tc_ops,
->   		.mmc = &dwxgmac_mmc_ops,
->   		.est = &dwmac510_est_ops,
->   		.setup = dwxlgmac2_setup,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index e428c82b7d31..2f7295b6c1c5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -685,7 +685,6 @@ extern const struct stmmac_dma_ops dwmac410_dma_ops;
->   extern const struct stmmac_ops dwmac510_ops;
->   extern const struct stmmac_tc_ops dwmac4_tc_ops;
->   extern const struct stmmac_tc_ops dwmac510_tc_ops;
-> -extern const struct stmmac_tc_ops dwxgmac_tc_ops;
->   
->   #define GMAC_VERSION		0x00000020	/* GMAC CORE Version */
->   #define GMAC4_VERSION		0x00000110	/* GMAC4+ CORE Version */
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> index 6a79e6a111ed..694d6ee14381 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> @@ -1284,14 +1284,3 @@ const struct stmmac_tc_ops dwmac510_tc_ops = {
->   	.query_caps = tc_query_caps,
->   	.setup_mqprio = tc_setup_dwmac510_mqprio,
->   };
-> -
-> -const struct stmmac_tc_ops dwxgmac_tc_ops = {
-> -	.init = tc_init,
-> -	.setup_cls_u32 = tc_setup_cls_u32,
-> -	.setup_cbs = tc_setup_cbs,
-> -	.setup_cls = tc_setup_cls,
-> -	.setup_taprio = tc_setup_taprio,
-> -	.setup_etf = tc_setup_etf,
-> -	.query_caps = tc_query_caps,
-> -	.setup_mqprio = tc_setup_dwmac510_mqprio,
-> -};
+> In our case, the PCS in Lynx and not XPCS.
+> 
+> This commit makes so that the .pcs_init() implementation of
+> dwmac-socfpga populates the supported_interface when the Lynx PCS was
+> successfully initialized.
 
-Reviewed-by: Mateusz Polchlopek <mateusz.polchlopek@intel.com>
+I think it would also be worth adding this to Lynx, so phylink also
+gets to know (via its validation) which PHY interface modes the PCS
+can support.
 
+However, maybe at this point we need to introduce an interface bitmap
+into struct phylink_pcs so that these kinds of checks can be done in
+phylink itself when it has the PCS, and it would also mean that stmmac
+could do something like:
+
+	struct phylink_pcs *pcs;
+
+	if (priv->hw->xpcs)
+		pcs = xpcs_to_phylink_pcs(priv->hw->xpcs);
+	else
+		pcs = priv->hw->phylink_pcs;
+
+	if (pcs)
+		phy_interface_or(priv->phylink_config.supported_interfaces,
+				 priv->phylink_config.supported_interfaces,
+				 pcs->supported_interfaces);
+
+and not have to worry about this from individual PCS or platform code.
+
+8<===
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH net-next] net: pcs: lynx: implement pcs_validate()
+
+Implement .pcs_validate() to restrict the interfaces to those which the
+Lynx PCS supports.
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/pcs/pcs-lynx.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/net/pcs/pcs-lynx.c b/drivers/net/pcs/pcs-lynx.c
+index 767a8c0714ac..fd2e06dba92e 100644
+--- a/drivers/net/pcs/pcs-lynx.c
++++ b/drivers/net/pcs/pcs-lynx.c
+@@ -326,7 +326,22 @@ static void lynx_pcs_link_up(struct phylink_pcs *pcs, unsigned int neg_mode,
+ 	}
+ }
+ 
++static int lynx_pcs_validate(struct phylink_pcs *pcs, unsigned long *supported,
++			     const struct phylink_link_state *state)
++{
++	if (state->interface != PHY_INTERFACE_MODE_SGMII &&
++	    state->interface != PHY_INTERFACE_MODE_QSGMII &&
++	    state->interface != PHY_INTERFACE_MODE_1000BASEX &&
++	    state->interface != PHY_INTERFACE_MODE_2500BASEX &&
++	    state->interface != PHY_INTERFACE_MODE_10GBASER &&
++	    state->interface != PHY_INTERFACE_MODE_USXGMII)
++		return -EINVAL;
++
++	return 0;
++}
++
+ static const struct phylink_pcs_ops lynx_pcs_phylink_ops = {
++	.pcs_validate = lynx_pcs_validate,
+ 	.pcs_inband_caps = lynx_pcs_inband_caps,
+ 	.pcs_get_state = lynx_pcs_get_state,
+ 	.pcs_config = lynx_pcs_config,
+-- 
+2.30.2
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
