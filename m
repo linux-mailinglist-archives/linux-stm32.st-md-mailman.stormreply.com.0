@@ -2,81 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D85B9F23F7
-	for <lists+linux-stm32@lfdr.de>; Sun, 15 Dec 2024 13:55:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A0B9F260C
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Dec 2024 21:37:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35AB9C57194;
-	Sun, 15 Dec 2024 12:55:47 +0000 (UTC)
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFF02C69063;
+	Sun, 15 Dec 2024 20:37:11 +0000 (UTC)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C0CFCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE28AC5E2D2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 15 Dec 2024 12:55:40 +0000 (UTC)
-Received: from hillosipuli.retiisi.eu
- (2a00-1190-d1dd-0-c641-1eff-feae-163c.v6.cust.suomicom.net
- [IPv6:2a00:1190:d1dd:0:c641:1eff:feae:163c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sailus)
- by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4YB32z3c7Jz49QBk;
- Sun, 15 Dec 2024 14:55:39 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu; 
- t=1734267339;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rR6pZZS0ZDDFfUHhWMUaeQf9IKgj0ketQ2YGNGavCF0=;
- b=Z7OF1xrl2/DLXFi+OxNlp8Tet3vO0Slf/sVBkH68AobQrHeUMXiwPG27brZmuTs056Vq9d
- vfh+VTAiq9sLNGyQ4Di95J8EbwO9aZzpk3dWfcVlSQSwYqoniG6AmY7I/LjohAVrc4IO9q
- BWGFmqG1VFNVny5jGTGqsur5km/hcuBtkMXvKHaZEjrLd0syf5dZnICpg/l44QvTfRgNwo
- tfkeTDx+jzXQ57EbQlvTzIvjfJg2vmBaspfpTkfxHdMr0kFG3dSsdCESX2FtuRwmTZCfd3
- IV2SSwijt9YG9K+RVhtsD0PRDxXOUS1+ZIEndNRnG0MXP95kLqOAeRnkCoIDnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
- s=lahtoruutu; t=1734267339;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rR6pZZS0ZDDFfUHhWMUaeQf9IKgj0ketQ2YGNGavCF0=;
- b=sZYEBqMLfaqjU/1vEASnZ2Mvfet5EWs1rKA5be1F2h3SkbAqcu9hA7PcVfuWpzMpZ4/nWI
- kww6iyevduvcqNs8STT9uFnFtb0ne1Fv5Gp2WWynnbsxM9P/dWETS3lxJ1xfVT198MGy6n
- 4DaBAkwcZNvsQLJf48MovlOO+PRPQcg9Lz8VFQ3Ty3issCpZmUMLdU6hZ1NU+3kb0QBbE2
- KIL26Dx8/afIMjDJz9NUM7Jq3FGMS49jjz9It1L3jpPlksuA7WWIYZRQBAW2xfYxE0dORq
- x+HgPa8V1p+l/NtzFrd3dYJBQvmsByoOb7OnLLkm5DpkekJW3WPRBAbNlDdl5Q==
-ARC-Seal: i=1; s=lahtoruutu; d=iki.fi; t=1734267339; a=rsa-sha256; cv=none;
- b=hhcNrbF4GI3xil+8BGByigVJSpnagb9EFPiKU/pgIikybFf8QdlqYWGQlO9YeJosfi0irX
- REHxFfhIZ//MACBCYedu/tmkXsxLyfdqu8VpYS/3Bo7mykC0Gmsg3eQFBxpSLMnjBMyec8
- xZlLSwvi6hhve1iEp9rw9Ct1VI6AYJv6MBVpiBAPcxb/PUBBllcmKHcuuO4BpNBk2FWcWJ
- /uqdTBv3EW+YYYj+AFHTxzSfpiGAa0h8oUPyQ3Uwxpx+/PSleE2f9/qt+62uv49djmONXD
- k1gvTYFTY1pMon/fUuH4EXGrpz52PKccFn8fh2vb4xd6vaXY6EehRNrmfj9lOQ==
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.localdomain [192.168.4.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 27CD3634C94;
- Sun, 15 Dec 2024 14:55:39 +0200 (EET)
-Date: Sun, 15 Dec 2024 12:55:39 +0000
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <Z17Ry6Z9OMqP1MV-@valkosipuli.retiisi.eu>
-References: <20241212-csi_dcmipp_mp25-v4-0-fbeb55a05ed7@foss.st.com>
- <20241212-csi_dcmipp_mp25-v4-13-fbeb55a05ed7@foss.st.com>
+ Sun, 15 Dec 2024 20:37:04 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-844d67eb693so256327139f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 15 Dec 2024 12:37:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734295024; x=1734899824;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CTfdf5nMQc4EWge5pFOY3vdTy/j5chcCgYemMh7oSNk=;
+ b=MNSE8gW4sDQ44ea2QkGjiB5ekP45uro1ctHDSLZWuY2xADAV09IgOPCjWjRWVgVYLB
+ K2cTCoDDrHJRDzi/OqWZJk7PuXdxFST1j2m1MOCorL+lvuvtavRRW5BtAZsGsLk9T9Iq
+ BkmsWx6uJJvmTdHVv/R8UVuYBFpnSaxIJ1LjcNvPEJx7oRjYkRc0iTsDwbIena2L4mgQ
+ o6hlbkmhQ5g2U61Hv4MF1HjcpVTtRvmhE4xcWSUP+EewIobYpYMK1TGoG9YZiSOtkpVX
+ lKXxfvRk3UQ0kJmXeW8ehA0A/nb7F1H4vFzU4wRhEMzltICuyyMSO6wEorXxgmWKp5O8
+ cF9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734295024; x=1734899824;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CTfdf5nMQc4EWge5pFOY3vdTy/j5chcCgYemMh7oSNk=;
+ b=RDC9KCkQnxAVEesROvv0HGBeZcNfUYPHwBkGHBxTmClAgLyJC/KmE62SNefSuzEXPI
+ 2+VVWA3elsdFw7a2JaSZ98IJ3VYnjR17cEJxkrcxhviXP3qAVJwerxq8+o+P8q6Jc4md
+ Y3jOw2nbonjn5nPba2DF9dN+AZIRKPcbXmzfxxcPVksIDnGBtQIiXw8caGlUvjfuTKdk
+ aRNEBHM7mPw3ZkKN+3b1RzpiRAqZd86XHwGDbQOKXB3mwut6aEmwHRILfCyX7J1rrpFw
+ l68gKjpkhzwKuZWJOebAc0HRKnrKU7B+1MOwcHJbQ4uCliCw1vPNbBM8bGJyVSUNkk+x
+ spkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXI4chSU602eS7zVdXFgJ1zDpVKqfjtDJIPBJycXihPj7jew4UrOLSIXKZfzmRUTRLxlUjSNAGcouhQ/w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyHtXoYSNB+/wQlC/QzQjb/fAXA75o9wamdQToq0VPBBileNCIB
+ 1prOtTpEd1a6GDhWyh9w+662aXPtXU5uLJqTfbRsyV+Mjy1r0uFn
+X-Gm-Gg: ASbGnctPrjH9OjL0agOHKlUZWijiFZPD6Spgc3hvDVmVKUseci3XtvORywWZP4nraX1
+ d0vfsZQJvtFqsX7VxmPbsHnVZ4VPFJZJkogTEKDBeFy1gWg3EWGHc3ozP8+Qzyb7o98Af5IYVBw
+ e+JT+31qETQGqWfjJTqx8CNbROJ86x96gkA4Vc+nrWGsIg5Ox7qe14TehD5a2zJU49Wm7olTMmb
+ KjGMookEO44mNbvpSOI/OnB3CiB1Z80/Pltntn9YLqafKZJnwyPCrDkhAQsDekZ4+xE
+X-Google-Smtp-Source: AGHT+IEgLKb6YqAkp/sb/aFLexcbRJzAt4rZw2ltZ964YL9/S1xZekP6D1npsz0NfYXIDmMoBDXGeA==
+X-Received: by 2002:a05:6602:2b0e:b0:83d:e526:fde7 with SMTP id
+ ca18e2360f4ac-844e87be5c6mr1146615539f.6.1734295023634; 
+ Sun, 15 Dec 2024 12:37:03 -0800 (PST)
+Received: from localhost.localdomain ([128.10.127.250])
+ by smtp.gmail.com with ESMTPSA id
+ 8926c6da1cb9f-4e5e32a336bsm892166173.100.2024.12.15.12.37.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 15 Dec 2024 12:37:02 -0800 (PST)
+From: Mingwei Zheng <zmw12306@gmail.com>
+To: antonio.borneo@foss.st.com
+Date: Sun, 15 Dec 2024 15:40:14 -0500
+Message-Id: <20241215204014.4076659-1-zmw12306@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241212-csi_dcmipp_mp25-v4-13-fbeb55a05ed7@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, devicetree@vger.kernel.org,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil@xs4all.nl>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 13/15] media: stm32: dcmipp: add core
- support for the stm32mp25
+Cc: marex@denx.de, peng.fan@nxp.com, make24@iscas.ac.cn,
+ linus.walleij@linaro.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Jiasheng Jiang <jiashengjiangcool@gmail.com>,
+ fabien.dessenne@foss.st.com, mcoquelin.stm32@gmail.com,
+ Mingwei Zheng <zmw12306@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5] pinctrl: stm32: Add check for clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,236 +88,209 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain,
+Convert the driver to clk_bulk*() API.
+Add check for the return value of clk_bulk_enable() to catch
+the potential error.
 
-On Thu, Dec 12, 2024 at 10:17:37AM +0100, Alain Volmat wrote:
-> The stm32mp25 supports both parallel & csi inputs.
-> An additional clock control is necessary.
-> Skeleton of the subdev structures for the stm32mp25 is added,
-> identical for the time being to the stm32mp13 however more subdeves
-> will be added in further commits.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
-> v4:
->   - correct clock handling within dcmipp_runtime_resume
-> ---
->  .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 104 +++++++++++++++++----
->  1 file changed, 85 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> index 62dd17e0488d..71acf539e1f3 100644
-> --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> @@ -40,6 +40,7 @@ struct dcmipp_device {
->  
->  	/* Hardware resources */
->  	void __iomem			*regs;
-> +	struct clk			*mclk;
->  	struct clk			*kclk;
->  
->  	/* The pipeline configuration */
-> @@ -132,6 +133,40 @@ static const struct dcmipp_pipeline_config stm32mp13_pipe_cfg = {
->  	.hw_revision	= DCMIPP_STM32MP13_VERR
->  };
->  
-> +static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
-> +	{
-> +		.name = "dcmipp_input",
-> +		.init = dcmipp_inp_ent_init,
-> +		.release = dcmipp_inp_ent_release,
-> +	},
-> +	{
-> +		.name = "dcmipp_dump_postproc",
-> +		.init = dcmipp_byteproc_ent_init,
-> +		.release = dcmipp_byteproc_ent_release,
-> +	},
-> +	{
-> +		.name = "dcmipp_dump_capture",
-> +		.init = dcmipp_bytecap_ent_init,
-> +		.release = dcmipp_bytecap_ent_release,
-> +	},
-> +};
-> +
-> +static const struct dcmipp_ent_link stm32mp25_ent_links[] = {
-> +	DCMIPP_ENT_LINK(ID_INPUT, 1, ID_DUMP_BYTEPROC, 0,
-> +			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-> +	DCMIPP_ENT_LINK(ID_DUMP_BYTEPROC, 1, ID_DUMP_CAPTURE,  0,
-> +			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-> +};
-> +
-> +#define DCMIPP_STM32MP25_VERR  0x30
-> +static const struct dcmipp_pipeline_config stm32mp25_pipe_cfg = {
-> +	.ents		= stm32mp25_ent_config,
-> +	.num_ents	= ARRAY_SIZE(stm32mp25_ent_config),
-> +	.links		= stm32mp25_ent_links,
-> +	.num_links	= ARRAY_SIZE(stm32mp25_ent_links),
-> +	.hw_revision    = DCMIPP_STM32MP25_VERR
-> +};
-> +
->  #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
->  			     (f) == MEDIA_LNK_FL_ENABLED ? "ENABLED" :\
->  			     (f) == MEDIA_LNK_FL_IMMUTABLE ? "IMMUTABLE" :\
-> @@ -212,6 +247,7 @@ static int dcmipp_create_subdevs(struct dcmipp_device *dcmipp)
->  
->  static const struct of_device_id dcmipp_of_match[] = {
->  	{ .compatible = "st,stm32mp13-dcmipp", .data = &stm32mp13_pipe_cfg },
-> +	{ .compatible = "st,stm32mp25-dcmipp", .data = &stm32mp25_pipe_cfg },
->  	{ /* end node */ },
->  };
->  MODULE_DEVICE_TABLE(of, dcmipp_of_match);
-> @@ -261,13 +297,22 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  {
->  	struct dcmipp_device *dcmipp = notifier_to_dcmipp(notifier);
->  	unsigned int ret;
-> -	int src_pad;
-> +	int src_pad, i;
+Fixes: 05d8af449d93 ("pinctrl: stm32: Keep pinctrl block clock enabled when LEVEL IRQ requested")
+Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
+Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+---
+Changelog:
 
-unsigned int?
+v4 -> v5:
+1. Move the clock handling from stm32_gpiolib_register_bank() 
+and moving it to its caller.
+2. Call clk_bulk_prepare_enable() in stm32_pctl_probe() 
+and clk_bulk_disable_unprepare() for error.
 
->  	struct dcmipp_ent_device *sink;
-> -	struct v4l2_fwnode_endpoint vep = { .bus_type = V4L2_MBUS_PARALLEL };
-> +	struct v4l2_fwnode_endpoint vep = { 0 };
->  	struct fwnode_handle *ep;
-> +	enum v4l2_mbus_type supported_types[] = {
-> +		V4L2_MBUS_PARALLEL, V4L2_MBUS_BT656, V4L2_MBUS_CSI2_DPHY
-> +	};
-> +	int supported_types_nb = ARRAY_SIZE(supported_types);
->  
->  	dev_dbg(dcmipp->dev, "Subdev \"%s\" bound\n", subdev->name);
->  
-> +	/* Only MP25 supports CSI input */
-> +	if (!of_device_is_compatible(dcmipp->dev->of_node,
-> +				     "st,stm32mp25-dcmipp"))
+v3 -> v4:
+1. Add initialization for  pctl->clks.
+2. Adjust alignment.
 
-This would be much cleaner with match data. You seem to already be using it
-for other purposes. 
+v2 -> v3:
 
-> +		supported_types_nb--;
-> +
->  	/*
->  	 * Link this sub-device to DCMIPP, it could be
->  	 * a parallel camera sensor or a CSI-2 to parallel bridge
-> @@ -284,21 +329,23 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  		return -ENODEV;
->  	}
->  
-> -	/* Check for parallel bus-type first, then bt656 */
-> -	ret = v4l2_fwnode_endpoint_parse(ep, &vep);
-> -	if (ret) {
-> -		vep.bus_type = V4L2_MBUS_BT656;
-> +	/* Check for supported MBUS type */
-> +	for (i = 0; i < supported_types_nb; i++) {
-> +		vep.bus_type = supported_types[i];
->  		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
-> -		if (ret) {
-> -			dev_err(dcmipp->dev, "Could not parse the endpoint\n");
-> -			fwnode_handle_put(ep);
-> -			return ret;
-> -		}
-> +		if (!ret)
-> +			break;
->  	}
->  
->  	fwnode_handle_put(ep);
->  
-> -	if (vep.bus.parallel.bus_width == 0) {
-> +	if (ret) {
-> +		dev_err(dcmipp->dev, "Could not parse the endpoint\n");
-> +		return ret;
-> +	}
-> +
-> +	if (vep.bus_type != V4L2_MBUS_CSI2_DPHY &&
-> +	    vep.bus.parallel.bus_width == 0) {
->  		dev_err(dcmipp->dev, "Invalid parallel interface bus-width\n");
->  		return -ENODEV;
->  	}
-> @@ -311,11 +358,13 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  		return -ENODEV;
->  	}
->  
-> -	/* Parallel input device detected, connect it to parallel subdev */
-> +	/* Connect input device to the dcmipp_input subdev */
->  	sink = dcmipp->entity[ID_INPUT];
-> -	sink->bus.flags = vep.bus.parallel.flags;
-> -	sink->bus.bus_width = vep.bus.parallel.bus_width;
-> -	sink->bus.data_shift = vep.bus.parallel.data_shift;
-> +	if (vep.bus_type != V4L2_MBUS_CSI2_DPHY) {
-> +		sink->bus.flags = vep.bus.parallel.flags;
-> +		sink->bus.bus_width = vep.bus.parallel.bus_width;
-> +		sink->bus.data_shift = vep.bus.parallel.data_shift;
-> +	}
->  	sink->bus_type = vep.bus_type;
->  	ret = media_create_pad_link(&subdev->entity, src_pad, sink->ent, 0,
->  				    MEDIA_LNK_FL_IMMUTABLE |
-> @@ -414,7 +463,7 @@ static int dcmipp_graph_init(struct dcmipp_device *dcmipp)
->  static int dcmipp_probe(struct platform_device *pdev)
->  {
->  	struct dcmipp_device *dcmipp;
-> -	struct clk *kclk;
-> +	struct clk *kclk, *mclk;
->  	const struct dcmipp_pipeline_config *pipe_cfg;
->  	struct reset_control *rstc;
->  	int irq;
-> @@ -474,12 +523,20 @@ static int dcmipp_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->  
-> -	kclk = devm_clk_get(&pdev->dev, NULL);
-> +	kclk = devm_clk_get(&pdev->dev, "kclk");
->  	if (IS_ERR(kclk))
->  		return dev_err_probe(&pdev->dev, PTR_ERR(kclk),
->  				     "Unable to get kclk\n");
->  	dcmipp->kclk = kclk;
->  
-> +	if (!of_device_is_compatible(pdev->dev.of_node, "st,stm32mp13-dcmipp")) {
+1. Convert clk_disable_unprepare to clk_bulk_disable
+and clk_bulk_unprepare.
 
-Same here.
+v1 -> v2:
 
-> +		mclk = devm_clk_get(&pdev->dev, "mclk");
-> +		if (IS_ERR(mclk))
-> +			return dev_err_probe(&pdev->dev, PTR_ERR(mclk),
-> +					     "Unable to get mclk\n");
-> +		dcmipp->mclk = mclk;
-> +	}
-> +
->  	dcmipp->entity = devm_kcalloc(&pdev->dev, dcmipp->pipe_cfg->num_ents,
->  				      sizeof(*dcmipp->entity), GFP_KERNEL);
->  	if (!dcmipp->entity)
-> @@ -542,6 +599,7 @@ static int dcmipp_runtime_suspend(struct device *dev)
->  	struct dcmipp_device *dcmipp = dev_get_drvdata(dev);
->  
->  	clk_disable_unprepare(dcmipp->kclk);
-> +	clk_disable_unprepare(dcmipp->mclk);
->  
->  	return 0;
->  }
-> @@ -551,9 +609,17 @@ static int dcmipp_runtime_resume(struct device *dev)
->  	struct dcmipp_device *dcmipp = dev_get_drvdata(dev);
->  	int ret;
->  
-> +	ret = clk_prepare_enable(dcmipp->mclk);
-> +	if (ret) {
-> +		dev_err(dev, "%s: Failed to prepare_enable mclk\n", __func__);
-> +		return ret;
-> +	}
-> +
->  	ret = clk_prepare_enable(dcmipp->kclk);
-> -	if (ret)
-> +	if (ret) {
-> +		clk_disable_unprepare(dcmipp->mclk);
->  		dev_err(dev, "%s: Failed to prepare_enable kclk\n", __func__);
-> +	}
->  
->  	return ret;
->  }
-> 
-> 
+1. Move int ret declaration into if block.
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 70 ++++++++++++---------------
+ 1 file changed, 32 insertions(+), 38 deletions(-)
 
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 5b7fa77c1184..5874a054dc48 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -86,7 +86,6 @@ struct stm32_pinctrl_group {
+ 
+ struct stm32_gpio_bank {
+ 	void __iomem *base;
+-	struct clk *clk;
+ 	struct reset_control *rstc;
+ 	spinlock_t lock;
+ 	struct gpio_chip gpio_chip;
+@@ -108,6 +107,7 @@ struct stm32_pinctrl {
+ 	unsigned ngroups;
+ 	const char **grp_names;
+ 	struct stm32_gpio_bank *banks;
++	struct clk_bulk_data *clks;
+ 	unsigned nbanks;
+ 	const struct stm32_pinctrl_match_data *match_data;
+ 	struct irq_domain	*domain;
+@@ -1308,12 +1308,6 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 	if (IS_ERR(bank->base))
+ 		return PTR_ERR(bank->base);
+ 
+-	err = clk_prepare_enable(bank->clk);
+-	if (err) {
+-		dev_err(dev, "failed to prepare_enable clk (%d)\n", err);
+-		return err;
+-	}
+-
+ 	bank->gpio_chip = stm32_gpio_template;
+ 
+ 	fwnode_property_read_string(fwnode, "st,bank-name", &bank->gpio_chip.label);
+@@ -1360,26 +1354,21 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 							   bank->fwnode, &stm32_gpio_domain_ops,
+ 							   bank);
+ 
+-		if (!bank->domain) {
+-			err = -ENODEV;
+-			goto err_clk;
+-		}
++		if (!bank->domain)
++			return -ENODEV;
+ 	}
+ 
+ 	names = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
+-	if (!names) {
+-		err = -ENOMEM;
+-		goto err_clk;
+-	}
++	if (!names)
++		return -ENOMEM;
+ 
+ 	for (i = 0; i < npins; i++) {
+ 		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
+ 		if (stm32_pin && stm32_pin->pin.name) {
+ 			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
+-			if (!names[i]) {
+-				err = -ENOMEM;
+-				goto err_clk;
+-			}
++			if (!names[i])
++				return -ENOMEM;
++
+ 		} else {
+ 			names[i] = NULL;
+ 		}
+@@ -1390,15 +1379,11 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 	err = gpiochip_add_data(&bank->gpio_chip, bank);
+ 	if (err) {
+ 		dev_err(dev, "Failed to add gpiochip(%d)!\n", bank_nr);
+-		goto err_clk;
++		return err;
+ 	}
+ 
+ 	dev_info(dev, "%s bank added\n", bank->gpio_chip.label);
+ 	return 0;
+-
+-err_clk:
+-	clk_disable_unprepare(bank->clk);
+-	return err;
+ }
+ 
+ static struct irq_domain *stm32_pctrl_get_irq_domain(struct platform_device *pdev)
+@@ -1617,10 +1602,18 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
+ 	pctl->banks = devm_kcalloc(dev, banks, sizeof(*pctl->banks),
+-			GFP_KERNEL);
++				   GFP_KERNEL);
+ 	if (!pctl->banks)
+ 		return -ENOMEM;
+ 
++	pctl->clks = devm_kcalloc(dev, banks, sizeof(*pctl->clks),
++				  GFP_KERNEL);
++	if (!pctl->clks)
++		return -ENOMEM;
++
++	for (i = 0; i < banks; ++i)
++		pctl->clks[i].id = "";
++
+ 	i = 0;
+ 	for_each_gpiochip_node(dev, child) {
+ 		struct stm32_gpio_bank *bank = &pctl->banks[i];
+@@ -1631,11 +1624,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 			fwnode_handle_put(child);
+ 			return -EPROBE_DEFER;
+ 		}
+-
+-		bank->clk = of_clk_get_by_name(np, NULL);
+-		if (IS_ERR(bank->clk)) {
++		pctl->clks[i].clk = of_clk_get_by_name(np, NULL);
++		if (IS_ERR(pctl->clks[i].clk)) {
+ 			fwnode_handle_put(child);
+-			return dev_err_probe(dev, PTR_ERR(bank->clk),
++			return dev_err_probe(dev, PTR_ERR(pctl->clks[i].clk),
+ 					     "failed to get clk\n");
+ 		}
+ 		i++;
+@@ -1646,15 +1638,18 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 		if (ret) {
+ 			fwnode_handle_put(child);
+ 
+-			for (i = 0; i < pctl->nbanks; i++)
+-				clk_disable_unprepare(pctl->banks[i].clk);
+-
+ 			return ret;
+ 		}
+ 
+ 		pctl->nbanks++;
+ 	}
+ 
++	ret = clk_bulk_prepare_enable(pctl->nbanks, pctl->clks);
++	if (ret) {
++		dev_err(dev, "failed to prepare_enable clk (%d)\n", ret);
++		return ret;
++	}
++
+ 	dev_info(dev, "Pinctrl STM32 initialized\n");
+ 
+ 	return 0;
+@@ -1726,10 +1721,8 @@ static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
+ int __maybe_unused stm32_pinctrl_suspend(struct device *dev)
+ {
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
+-	int i;
+ 
+-	for (i = 0; i < pctl->nbanks; i++)
+-		clk_disable(pctl->banks[i].clk);
++	clk_bulk_disable(pctl->nbanks, pctl->clks);
+ 
+ 	return 0;
+ }
+@@ -1738,10 +1731,11 @@ int __maybe_unused stm32_pinctrl_resume(struct device *dev)
+ {
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
+ 	struct stm32_pinctrl_group *g = pctl->groups;
+-	int i;
++	int i, ret;
+ 
+-	for (i = 0; i < pctl->nbanks; i++)
+-		clk_enable(pctl->banks[i].clk);
++	ret = clk_bulk_enable(pctl->nbanks, pctl->clks);
++	if (ret)
++		return ret;
+ 
+ 	for (i = 0; i < pctl->ngroups; i++, g++)
+ 		stm32_pinctrl_restore_gpio_regs(pctl, g->pin);
 -- 
-Kind regards,
+2.34.1
 
-Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
