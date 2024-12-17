@@ -2,64 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99699F4EB6
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 16:02:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB4559F4ED2
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 16:07:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63B8FC78014;
-	Tue, 17 Dec 2024 15:02:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACAFCC78012;
+	Tue, 17 Dec 2024 15:07:10 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7674FC78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70AA4C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2024 15:02:15 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHDCT19020655;
- Tue, 17 Dec 2024 16:02:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=SykAPbdT9Bxh/XN2cwTtfy
- OFKxm8MvNOlBJR/xt+HXc=; b=NUN1FDnTHPaBMDjtMJ99rycVqvNClpey4FEnhw
- 21CMwgO38ncdfS5ViO5jG9M5+oPBwvRnSBBPGXoMQLFmTJeQ5AVP2GPOw5XtCcDG
- 7g6qGQOlmYCsY4idVXpoTO3vJ2yK4d93COYCETwRS3dp6iyIPP/j9FTLlu69QmRC
- GxgjQrYfgR6YFU0hLUsx1IohN+HcZ7xbzPazirZBr+db/hlzrK1st7E/xCON/WX5
- slMw8vUe6rS5ZAQqz67SxtnrO67cOIk6XNEg+ZNODj3B3+hjEwe9XSOt95yduTUF
- RYPuijPAV6ugYft7DXJ/pilVNWyK+EKHWLjKRux7+z8MZxHA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43k5dgtaq4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 16:02:05 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4DED440046;
- Tue, 17 Dec 2024 16:01:16 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A8AB27C23C;
- Tue, 17 Dec 2024 16:00:54 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 17 Dec
- 2024 16:00:53 +0100
-Received: from localhost (10.48.86.222) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 17 Dec
- 2024 16:00:53 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <ukleinek@kernel.org>
-Date: Tue, 17 Dec 2024 16:00:21 +0100
-Message-ID: <20241217150021.2030213-1-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 17 Dec 2024 15:07:03 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D11BB60009;
+ Tue, 17 Dec 2024 15:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1734448023;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+eGcF78PnRCgMjDMS2quanXGAcbh8iyhTUjv/20yif4=;
+ b=SybrRRdAVa2Ax8rFkE/tHwWK1Xxc+xoZXDJA7QbI6ffdDgfUtjl25UhREeafQ9s/BKMHZz
+ c3QZmEFctAvFxDW2M/pwe7zcZDpYTO40Lh1C1lYqgguAhVGeRNistALf/X4S0gEP7dxhKo
+ ay1dKhF+eFe/RYKGUJhARD6pTleL7Vomqcc1gmFJfHacSSCKy51a+wkAfjLK0MUU1EInZq
+ zQB7YRqm9ydvmwz4DhcKuyRcr+d6FR5j+q2RlRM4vpXXPTBUV6rzPsCV/4LHEz/W/tbO8F
+ idPN2p90Sa5oXPUPb5VmvGCFK5VcNMr9zqwgX9Ov2P3I8hdnMaedbeU3j/wUBQ==
+Date: Tue, 17 Dec 2024 16:07:00 +0100
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20241217160700.1b4256b4@fedora.home>
+In-Reply-To: <20241217064907.0e509769@kernel.org>
+References: <20241213090526.71516-1-maxime.chevallier@bootlin.com>
+ <20241213090526.71516-3-maxime.chevallier@bootlin.com>
+ <Z1wnFXlgEU84VX8F@shell.armlinux.org.uk>
+ <20241213182904.55eb2504@fedora.home>
+ <Z1yJQikqneoFNJT4@shell.armlinux.org.uk>
+ <20241216094224.199e8df7@fedora.home>
+ <20241216173333.55e35f34@kernel.org>
+ <20241217135932.60711288@fedora.home>
+ <20241217064907.0e509769@kernel.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.222]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pwm: stm32: fix complementary output in
-	round_waveform_tohw
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-socfpga:
+ Set interface modes from Lynx PCS as supported
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,32 +73,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the timer supports complementary output, the enable bit is
-overridden. It should be OR'ed. This makes all PWM channels for
-such timer not to work.
+On Tue, 17 Dec 2024 06:49:07 -0800
+Jakub Kicinski <kuba@kernel.org> wrote:
 
-Fixes: deaba9cff809 ("pwm: stm32: Implementation of the waveform callbacks")
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/pwm/pwm-stm32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Let me triple check ;)
+> 
+> On Tue, 17 Dec 2024 13:59:32 +0100 Maxime Chevallier wrote:
+> > - The priv->phylink_config.supported_interfaces is incomplete on
+> > dwmac-socfpga. Russell's patch 5 intersects these modes with that the  
+>                                    ^^^^^^^^^^
+> > PCS supports :
+> > 
+> > +		phy_interface_or(priv->phylink_config.supported_interfaces,  
+>                               ^^
+> > +				 priv->phylink_config.supported_interfaces,
+> > +				 pcs->supported_interfaces);
+> > 
+> > So without patch 2 in the series, we'll be missing
+> > PHY_INTERFACE_MODE_1000BASEX in the end result :)  
+> 
+> "Or" is a sum/union, not intersection.
+> 
+> You set the bits in priv->phylink_config.supported_interfaces.
+> Russell does:
+> 
+> 	priv->phylink_config.supported_interfaces |=
+> 		pcs->supported_interfaces;
+> 
+> If I'm missing the point please repost once Russell's patches 
+> are merged :)
 
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index b889e64522c3..17e591f61efb 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -84,7 +84,7 @@ static int stm32_pwm_round_waveform_tohw(struct pwm_chip *chip,
- 
- 	wfhw->ccer = TIM_CCER_CCxE(ch + 1);
- 	if (priv->have_complementary_output)
--		wfhw->ccer = TIM_CCER_CCxNE(ch + 1);
-+		wfhw->ccer |= TIM_CCER_CCxNE(ch + 1);
- 
- 	rate = clk_get_rate(priv->clk);
- 
--- 
-2.25.1
+Erf no I was missing the point, time to catch-up on some sleep I
+guess... I read an 'and' and it was firmly stuck in my mind...
 
+nevermind then, patch 2 isn't required anymore...
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
