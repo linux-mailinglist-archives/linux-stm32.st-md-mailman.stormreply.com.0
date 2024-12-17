@@ -2,59 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4724B9F4B5F
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 13:59:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A68899F4B8C
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 14:06:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE101C78012;
-	Tue, 17 Dec 2024 12:59:44 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 600A9C78014;
+	Tue, 17 Dec 2024 13:06:28 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E4D3C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91874C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2024 12:59:38 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 20B3460002;
- Tue, 17 Dec 2024 12:59:33 +0000 (UTC)
+ Tue, 17 Dec 2024 13:06:21 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6FC6C40009;
+ Tue, 17 Dec 2024 13:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1734440377;
+ t=1734440781;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nI25amw8mKM1HUCW0J89cbc4oV1eC9Wev0IA+2/p98M=;
- b=b9Mvdrgk1gOB+P6K9XMFfCT86n5yIqey2T6btCwQpOPjmkMEhdo+bdktDZbWNe8soVdAE3
- LowYzA2SUu2X0MPvuk5nJxStHOkDykumdcRoIHfmAsnqYUtEiRFlUG85B5TcYvihSNfvAb
- 5J9pCRemqeaF5jrWwhAB5AdAKc1JtpDALj3nANjEuatRhLSxmoQCEdSZhYLH3dz6hkNoET
- bNOdqFyci3R+hRclrlTymBcRCeXcnHJZdgh2Cwiw5Ii5Uyq8BIWDCuicrW9B7jCw4fxJGE
- cQfPFYGtcPFsmXt2wUaFeqxIXUmleh0kGWs5jFHT4jbTaXQodFc2EsrmudIWjw==
-Date: Tue, 17 Dec 2024 13:59:32 +0100
+ bh=0HD5+UGwPhPjBTRomgMW1WMHP3Ot9+Wi9ed4vzq6Oo4=;
+ b=oRbaBnyXDJFZn1UBMCOUL8udFQoFdfQ/7OLxQ6Av1DNPffbCo2AS9KhCVm6RuJK2VKy57R
+ pqSivEIciVVKEoGDz+rJaFC1c/DgDUqoPkhccB75V2bHN+Cz6ZNCGJgYrEH5MqdEQQMNGq
+ bOUb1h/rlXCZF6q6JGvMm8Q6gbCP5IN3aIKU7I2XqNDBC2ixLOpR3bJRlnB8GCdAPNs5Eo
+ cchPboxxjf9s5kcAk8gziPNqTJMltTjYcM46078lyB5ZfMVeR8vpodyQ5KoPMhIc2TJc9g
+ lzulpSxwHX4RS/4eMQUXRL3p0OwvGXsmv+xCMy5+ir1PVHcIYzsKazRIQG4fMQ==
+Date: Tue, 17 Dec 2024 14:06:18 +0100
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20241217135932.60711288@fedora.home>
-In-Reply-To: <20241216173333.55e35f34@kernel.org>
-References: <20241213090526.71516-1-maxime.chevallier@bootlin.com>
- <20241213090526.71516-3-maxime.chevallier@bootlin.com>
- <Z1wnFXlgEU84VX8F@shell.armlinux.org.uk>
- <20241213182904.55eb2504@fedora.home>
- <Z1yJQikqneoFNJT4@shell.armlinux.org.uk>
- <20241216094224.199e8df7@fedora.home>
- <20241216173333.55e35f34@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20241217140618.0debd644@fedora.home>
+In-Reply-To: <E1tMBR5-006vaS-Ou@rmk-PC.armlinux.org.uk>
+References: <Z1yJQikqneoFNJT4@shell.armlinux.org.uk>
+ <E1tMBR5-006vaS-Ou@rmk-PC.armlinux.org.uk>
 Organization: Bootlin
 X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 X-GND-Sasl: maxime.chevallier@bootlin.com
 Cc: linux-kernel@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-socfpga:
- Set interface modes from Lynx PCS as supported
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/5] net: phylink: add support
+ for PCS supported_interfaces bitmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,45 +65,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jakub,
+Hi Russell,
 
-On Mon, 16 Dec 2024 17:33:33 -0800
-Jakub Kicinski <kuba@kernel.org> wrote:
+On Fri, 13 Dec 2024 19:34:51 +0000
+"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-> On Mon, 16 Dec 2024 09:42:24 +0100 Maxime Chevallier wrote:
-> > > I've actually already created that series!    
-> > 
-> > Woaw that was fast ! I'll review and give it a test on my setup then.
-> > 
-> > Maybe one thing to clarify with the net maintainers is that this work
-> > you've done doesn't replace the series this thread is replying to,
-> > which still makes sense (we need the
-> > stmmac_priv->phylink_config.supported_interfaces to be correctly
-> > populated on socfpga).  
+> Add support for the PCS to specify which interfaces it supports, which
+> can be used by MAC drivers to build the main supported_interfaces
+> bitmap. Phylink also validates that the PCS returned by the MAC driver
+> supports the interface that the MAC was asked for.
 > 
-> Ah, sorry. Should have asked. 
+> An empty supported_interfaces bitmap from the PCS indicates that it
+> does not provide this information, and we handle that appropriately.
 > 
-> I assumed since Lynx PCS will have the SGMII and 1000BASEX set -
-> Russell's patch 5 will copy them for you to
-> priv->phylink_config.supported_interfaces. Your patch 1 is still needed.
-> Did I get it wrong?
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Both are needed actually :) There are 2 issues on socfpga :
-
- - 1000BaseX needs to be understood by the socfpga wrapper
-(dwmac-socfpga) so that the internal serdes is enabled in the wrapper,
-that would be patch 1
-
-- The priv->phylink_config.supported_interfaces is incomplete on
-dwmac-socfpga. Russell's patch 5 intersects these modes with that the
-PCS supports :
-
-+		phy_interface_or(priv->phylink_config.supported_interfaces,
-+				 priv->phylink_config.supported_interfaces,
-+				 pcs->supported_interfaces);
-
-So without patch 2 in the series, we'll be missing
-PHY_INTERFACE_MODE_1000BASEX in the end result :)
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
 Thanks,
 
