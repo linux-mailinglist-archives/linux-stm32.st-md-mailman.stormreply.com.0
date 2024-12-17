@@ -2,44 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C354A9F560A
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 19:24:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6104C9F5884
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 22:13:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6182BC71292;
-	Tue, 17 Dec 2024 18:24:55 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15697C78012;
+	Tue, 17 Dec 2024 21:13:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD81AC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97DF0C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2024 18:24:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4C579A40FA3;
- Tue, 17 Dec 2024 18:22:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A90C4CED3;
- Tue, 17 Dec 2024 18:24:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734459887;
- bh=WmVhbvyITgDCUN/Q9QgBlJc5BHM0NXp2JvRUV7TbNx4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TlQT8h2Gba0qDyGj0NxRkEsTbuCxVEUeTs9AR2Zg/fj4qjjAgZfxdNs8hk2E2P/5h
- TyjVTn5z+6DwPfYTjhhTiGOP3le/rTpuCeX4rIru5835orQ3MLq4cmsqiI6nXTRxMG
- QYbirz1BpNceUoIDBYa5GZonOsOD0DRbVPCyRA3qSukm6Cp7V53kEDBNDlal18jojY
- FJOc7loci9KKJPtMEFZVGMp7IJJjF4pAMp3ihHDdNAVr/HlICmvD8+TTssKvdy8E80
- RZqZBVZzR5spmQJE9wZcVbjF88m+5hcI6Ctq2lQSoX277tBS4mbef77dV/mIQDWZRN
- Qbgge9+ybbO/w==
-Date: Tue, 17 Dec 2024 18:24:42 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20241217-crawfish-tiring-792c535301d0@spud>
+ Tue, 17 Dec 2024 21:13:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734469991; x=1766005991;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=RSlut8jUC8sevFzKiIGq9DG8Ecu/yvybyXCy7aSosFQ=;
+ b=lOwrjf0gQ6XeudG9LwEfbw7aZyGyM+2a1hEsisWodRsH9xXOojOQnwlW
+ CGDUZsDiOGFJl9SD0CncFoTfpS8BO8PQjIPcupbujeimXcwsdzCF1UtGp
+ w7ksGenzJuKHX9trFEtFKnRQTMcQfxjZqFEESkX2SH13ysDbjSN2NrSMa
+ 6neSfqo303niNROpLVkK46KBxY5/n98fdLRmuv2/N/8WBFXrG3lLkGPhE
+ dWrTS7FGtcOIK+cw6Mu1UEwGqXi8LPaHPG45Pakdhv5yYJxluzrXXiKRS
+ 6pT9in3NvZ1HC9mA3pcw0yz2d8tE7sASJ5g1baKLJSy35R1TanE6bPBqG Q==;
+X-CSE-ConnectionGUID: OmfnLTpKTJup1WpLgGp7Og==
+X-CSE-MsgGUID: vVWMWnn0ToeQUWAp9QBYhQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11289"; a="34640516"
+X-IronPort-AV: E=Sophos;i="6.12,242,1728975600"; d="scan'208";a="34640516"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2024 13:13:03 -0800
+X-CSE-ConnectionGUID: zNA3MaSrSiiBsrQK8IoBcA==
+X-CSE-MsgGUID: TS6rTs+rQfySfEs9bMD6Aw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="98457163"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.237.72.44])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2024 13:12:59 -0800
+Received: from kekkonen.localdomain (localhost [127.0.0.1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id E9F8C11F89A;
+ Tue, 17 Dec 2024 23:12:55 +0200 (EET)
+Date: Tue, 17 Dec 2024 21:12:55 +0000
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <Z2HpVyVEs7jn0VPd@kekkonen.localdomain>
 References: <20241217-csi_dcmipp_mp25_enhancements-v1-0-2b432805d17d@foss.st.com>
  <20241217-csi_dcmipp_mp25_enhancements-v1-2-2b432805d17d@foss.st.com>
+ <20241217-crawfish-tiring-792c535301d0@spud>
 MIME-Version: 1.0
-In-Reply-To: <20241217-csi_dcmipp_mp25_enhancements-v1-2-2b432805d17d@foss.st.com>
+Content-Disposition: inline
+In-Reply-To: <20241217-crawfish-tiring-792c535301d0@spud>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, devicetree@vger.kernel.org,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil@xs4all.nl>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
@@ -57,89 +75,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0763105475588719528=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Conor,
 
---===============0763105475588719528==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="xXE3zBG6hEnuSLIF"
-Content-Disposition: inline
+On Tue, Dec 17, 2024 at 06:24:42PM +0000, Conor Dooley wrote:
+> On Tue, Dec 17, 2024 at 06:39:19PM +0100, Alain Volmat wrote:
+> > Clarify the description of the stm32 csi by mentioning CSI-2 and
+> > D-PHY.
+> 
+> > Remove the bus-type property from the example.
+> 
+> Why? What's there to gain from the example being (seemingly?) less
+> comprehensive?
 
+As the device has D-PHY, other options are excluded. I.e. that property is
+redundant for this device.
 
---xXE3zBG6hEnuSLIF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> 
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > ---
+> >  Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml | 5 ++---
+> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml b/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
+> > index 33bedfe41924..e9fa3cfea5d2 100644
+> > --- a/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
+> > +++ b/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
+> > @@ -7,8 +7,8 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >  title: STMicroelectronics STM32 CSI controller
+> >  
+> >  description:
+> > -  The STM32 CSI controller allows connecting a CSI based
+> > -  camera to the DCMIPP camera pipeline.
+> > +  The STM32 CSI controller, coupled with a D-PHY allows connecting a CSI-2
+> > +  based camera to the DCMIPP camera pipeline.
+> >  
+> >  maintainers:
+> >    - Alain Volmat <alain.volmat@foss.st.com>
+> > @@ -109,7 +109,6 @@ examples:
+> >                  endpoint {
+> >                      remote-endpoint = <&imx335_ep>;
+> >                      data-lanes = <1 2>;
+> > -                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> >                  };
+> >              };
+> >  
+> > 
 
-On Tue, Dec 17, 2024 at 06:39:19PM +0100, Alain Volmat wrote:
-> Clarify the description of the stm32 csi by mentioning CSI-2 and
-> D-PHY.
+-- 
+Kind regards,
 
-> Remove the bus-type property from the example.
-
-Why? What's there to gain from the example being (seemingly?) less
-comprehensive?
-
->=20
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yam=
-l b/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
-> index 33bedfe41924..e9fa3cfea5d2 100644
-> --- a/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
-> +++ b/Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml
-> @@ -7,8 +7,8 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->  title: STMicroelectronics STM32 CSI controller
-> =20
->  description:
-> -  The STM32 CSI controller allows connecting a CSI based
-> -  camera to the DCMIPP camera pipeline.
-> +  The STM32 CSI controller, coupled with a D-PHY allows connecting a CSI=
--2
-> +  based camera to the DCMIPP camera pipeline.
-> =20
->  maintainers:
->    - Alain Volmat <alain.volmat@foss.st.com>
-> @@ -109,7 +109,6 @@ examples:
->                  endpoint {
->                      remote-endpoint =3D <&imx335_ep>;
->                      data-lanes =3D <1 2>;
-> -                    bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
->                  };
->              };
-> =20
->=20
-> --=20
-> 2.34.1
->=20
-
---xXE3zBG6hEnuSLIF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ2HB6gAKCRB4tDGHoIJi
-0igKAPoDrf1wD6vhulE5XAy6M4DSbGrhREGhL8rIC2ao7oWAHwD/TCNKL8PFi+YB
-35xu7mty1a7YqzisPAib+kIEA3XxSAw=
-=g7v+
------END PGP SIGNATURE-----
-
---xXE3zBG6hEnuSLIF--
-
---===============0763105475588719528==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0763105475588719528==--
