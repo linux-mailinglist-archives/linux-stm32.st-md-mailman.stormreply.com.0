@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6839F5469
+	by mail.lfdr.de (Postfix) with ESMTPS id B9AAE9F546C
 	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2024 18:41:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A9A2C78014;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B055C78031;
 	Tue, 17 Dec 2024 17:41:49 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AADFC7801F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94B63C78014
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2024 17:41:42 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHDQcJP030946;
- Tue, 17 Dec 2024 18:41:30 +0100
+ Tue, 17 Dec 2024 17:41:41 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHD9qtI008410;
+ Tue, 17 Dec 2024 18:41:26 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- WMhEQ5FyK9OrG4uMjs+kjYbwMOyJiryWj2ETzJ64ZW8=; b=zNX30k2PU6TmCfAg
- KEHZWF2oHtjXM2VYUN1fVCnHIuiHFD3S2xQdQA5LLsGIl2W1k4KWahzxEeWfXTDz
- GdlleZx36i6/ziR/VPj6HM34UInNtItiBzaDv99sU0Bqdqc0oFgUOAj6Ytw9xCs1
- HGWnRDGQxDv522vQx9DE3Cz9p6b52qZKJJ7yNAgHtGKXnjPxXNy2Pzg525L6qvsw
- 5ieqQ8NDEQNTnuRmjd93S4l00leE3eROOFZ66JVe0cGsNC0cLw4e1FoNz6aaQK+N
- Q38KAgBu1BNfdrfJ0Pdl4uFF2KId3rYZAcGCFY6AqWjZ2kACngH3NkvtYgRgc12P
- 6MygOA==
+ KypdGnyKgLl4nhvMId8FZobhUoEfqEaVUPzgI6v5dkk=; b=H335tpHYP5jCXwXe
+ NWSYmv2md7kclq5VcyXzN/bMfS8tH3ZI+xMOZ0t0eoNWLgmRLFP2xBJWEprcZ2ox
+ g5zM7l6wYjEQT84EK2tjCTVTt4VbSaNVXyMFXdGOx+sUbnlq72Pxz7eeJ/+UDBXN
+ B+7DOKBMLhBPlM8QAOMBznjLq/ZwOzYdAsGQSuBapjuJSyTwDVXl0/xQsIOE01Fj
+ BHvGbiPQLuVxrgBPPseS4zUwNg5zbaj9UF4joYICoMPNqkGwn4A9MZ8Bm5iD/lYx
+ joTQtv6593rWMbb5GB/Mcs+LPpu9qHKjHL23zg27qJ1OEIK8qeKZoq0zzS4agO9G
+ T3CU2Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43k5c4u3be-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43k5h9jwa0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 18:41:30 +0100 (CET)
+ Tue, 17 Dec 2024 18:41:25 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 57B9440046;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7C6C640049;
  Tue, 17 Dec 2024 18:40:16 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E9C228FD76;
- Tue, 17 Dec 2024 18:39:27 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8DCFB28A65A;
+ Tue, 17 Dec 2024 18:39:28 +0100 (CET)
 Received: from localhost (10.252.23.235) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 17 Dec
- 2024 18:39:27 +0100
+ 2024 18:39:28 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Tue, 17 Dec 2024 18:39:20 +0100
+Date: Tue, 17 Dec 2024 18:39:21 +0100
 MIME-Version: 1.0
-Message-ID: <20241217-csi_dcmipp_mp25_enhancements-v1-3-2b432805d17d@foss.st.com>
+Message-ID: <20241217-csi_dcmipp_mp25_enhancements-v1-4-2b432805d17d@foss.st.com>
 References: <20241217-csi_dcmipp_mp25_enhancements-v1-0-2b432805d17d@foss.st.com>
 In-Reply-To: <20241217-csi_dcmipp_mp25_enhancements-v1-0-2b432805d17d@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 3/9] media: stm32: csi: add missing
-	pm_runtime_put on error
+Subject: [Linux-stm32] [PATCH 4/9] media: stm32: csi: register subdev only
+ at end of probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,59 +82,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Within the stm32_csi_start function, pm_runtime_put should
-be called upon error following pm_runtime_get_sync.
-Rework the function error handling by putting a label in
-order to have common error handling for all calls requiring
-pm_runtime_put.
+Call v4l2_async_register_subdev only whenever all initialization
+are completed at the end of the probe function.
+Remove as well useless err_free_priv label by returning directly
+upon error.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/media/platform/st/stm32/stm32-csi.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/media/platform/st/stm32/stm32-csi.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-index 48941aae8c9b..e2f63bb47d33 100644
+index e2f63bb47d33..89fcd7d07904 100644
 --- a/drivers/media/platform/st/stm32/stm32-csi.c
 +++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -497,21 +497,19 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
+@@ -991,11 +991,11 @@ static int stm32_csi_probe(struct platform_device *pdev)
  
- 	ret = pm_runtime_get_sync(csidev->dev);
+ 	ret = stm32_csi_get_resources(csidev, pdev);
+ 	if (ret)
+-		goto err_free_priv;
++		return ret;
+ 
+ 	ret = stm32_csi_parse_dt(csidev);
+ 	if (ret)
+-		goto err_free_priv;
++		return ret;
+ 
+ 	csidev->sd.owner = THIS_MODULE;
+ 	csidev->sd.dev = &pdev->dev;
+@@ -1020,10 +1020,6 @@ static int stm32_csi_probe(struct platform_device *pdev)
  	if (ret < 0)
--		return ret;
-+		goto error_put;
+ 		goto err_cleanup;
  
- 	/* Retrieve CSI2PHY clock rate to compute CCFR value */
- 	phy_clk_frate = clk_get_rate(csidev->clks[STM32_CSI_CLK_CSI2PHY].clk);
- 	if (!phy_clk_frate) {
--		pm_runtime_put(csidev->dev);
- 		dev_err(csidev->dev, "CSI2PHY clock rate invalid (0)\n");
--		return ret;
-+		ret = -EINVAL;
-+		goto error_put;
- 	}
+-	ret = v4l2_async_register_subdev(&csidev->sd);
+-	if (ret < 0)
+-		goto err_cleanup;
+-
+ 	/* Reset device */
+ 	rstc = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+ 	if (IS_ERR(rstc)) {
+@@ -1050,6 +1046,10 @@ static int stm32_csi_probe(struct platform_device *pdev)
  
- 	ret = stm32_csi_setup_lane_merger(csidev);
--	if (ret) {
--		pm_runtime_put(csidev->dev);
--		return ret;
--	}
-+	if (ret)
-+		goto error_put;
+ 	pm_runtime_enable(&pdev->dev);
  
- 	/* Enable the CSI */
- 	writel_relaxed(STM32_CSI_CR_CSIEN, csidev->base + STM32_CSI_CR);
-@@ -567,6 +565,10 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
- 	writel_relaxed(0, csidev->base + STM32_CSI_PMCR);
- 
- 	return ret;
++	ret = v4l2_async_register_subdev(&csidev->sd);
++	if (ret < 0)
++		goto err_cleanup;
 +
-+error_put:
-+	pm_runtime_put(csidev->dev);
-+	return ret;
+ 	dev_info(&pdev->dev,
+ 		 "Probed CSI with %u lanes\n", csidev->num_lanes);
+ 
+@@ -1057,7 +1057,6 @@ static int stm32_csi_probe(struct platform_device *pdev)
+ 
+ err_cleanup:
+ 	v4l2_async_nf_cleanup(&csidev->notifier);
+-err_free_priv:
+ 	return ret;
  }
  
- static void stm32_csi_stop(struct stm32_csi_dev *csidev)
 
 -- 
 2.34.1
