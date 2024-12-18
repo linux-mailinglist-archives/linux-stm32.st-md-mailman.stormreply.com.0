@@ -2,47 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 365C39F6BDD
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2024 18:05:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F229F6D3A
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2024 19:25:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7BC0C78012;
-	Wed, 18 Dec 2024 17:05:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83B59C78012;
+	Wed, 18 Dec 2024 18:25:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE113C5E2D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90A37C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2024 17:05:35 +0000 (UTC)
+ Wed, 18 Dec 2024 18:25:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A99F95C1B99;
- Wed, 18 Dec 2024 17:04:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B563C4CECD;
- Wed, 18 Dec 2024 17:05:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 598665C5EB3;
+ Wed, 18 Dec 2024 18:24:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626BCC4CECD;
+ Wed, 18 Dec 2024 18:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734541534;
- bh=vdCGcaMayzhDEz8c0LDs81VDSkOesnvIbxDPEyYGWXc=;
+ s=k20201202; t=1734546316;
+ bh=D6u2L19JS6pbTNNuvH1fm6hioIhl6wEIC6EicTPp610=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qwaxwWxbAZQkrVs7P4XNx3LVJhXjA7NCYHNRzFdn+0OamVDIUQNm3wptViBHeVAp9
- vqeNlVy8ms4bU1UFGbYnqB3umTWeEOtqA/X3N8+EMyn24tylg087xQwKSrZ3JfwpHa
- DOkF+gtazUmJLJir111SbohFjqlA1k6nfO6Urqwa33LiZgemwdhuc8uigS8nLxWY2I
- DLeIKIsbERhGaqjHlMmDoFKcJnALw2YxuiCZgPk7liH+5wVB6Z6Cit3k1aAuHpO6Fw
- fDQZ73alDWiSiUQB/qX+wd8kfPUodNrTk8mVp4qq3O9B7feZGpoSL9JhGoZDMMIzHD
- 5nA4/D3BgnX4A==
-Date: Wed, 18 Dec 2024 17:05:29 +0000
+ b=RIIiVOrJhpS4mof2OVCscKCGFjYkMtydgnNgGl+n07x+zrtd45qEeG3yepUU3d+00
+ JioGl9EWw9Wd8DM5GwWKl0UTaDCVEQ3Fg5oLaY5trT3zIAG43bzPzLBriiLG0epXw1
+ os5hshz4vbltC3BAn4TObhZViNPU9KcGhGd7PVtN53Y0F0aQVJESZyTn4tBTicUXqo
+ cMlViXOom2Tik2+JLWGzIzQEaajTOjKG+zTn99zt3/wXU+LqBdkx/oftVaKb0Lun6M
+ vrcwBsQPjYpsF/7dQk/hF8B+gGiC1aFZKAidMgwORmEgkocYtVSv6FK5iu2ev2GWG1
+ MrRTg4kZIt6fw==
+Date: Wed, 18 Dec 2024 18:25:11 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20241218-debating-campus-1d92c4fb5730@spud>
-References: <20241218090153.742869-1-fabrice.gasnier@foss.st.com>
- <20241218090153.742869-2-fabrice.gasnier@foss.st.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Message-ID: <20241218-yelling-palm-da676b67afb9@spud>
+References: <20241217-csi_dcmipp_mp25_enhancements-v1-0-2b432805d17d@foss.st.com>
+ <20241217-csi_dcmipp_mp25_enhancements-v1-2-2b432805d17d@foss.st.com>
+ <20241217-crawfish-tiring-792c535301d0@spud>
+ <Z2HpVyVEs7jn0VPd@kekkonen.localdomain>
 MIME-Version: 1.0
-In-Reply-To: <20241218090153.742869-2-fabrice.gasnier@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, ukleinek@kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] dt-bindings: mfd: stm32-timers: add
- support for stm32mp25
+In-Reply-To: <Z2HpVyVEs7jn0VPd@kekkonen.localdomain>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: media: clarify stm32 csi
+ & simplify example
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,53 +59,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1515310841327705300=="
+Content-Type: multipart/mixed; boundary="===============8121673376645467930=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1515310841327705300==
+--===============8121673376645467930==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="EoOWfOi1n9QKUU+q"
+	protocol="application/pgp-signature"; boundary="e6nk/t1HXQvWcK4R"
 Content-Disposition: inline
 
 
---EoOWfOi1n9QKUU+q
+--e6nk/t1HXQvWcK4R
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 18, 2024 at 10:01:45AM +0100, Fabrice Gasnier wrote:
-> Add a new stm32mp25 compatible to stm32-timer dt-bindings in order to
-> support the STM32MP25 SoC. Some features has been added or updated in
-> the stm32-timer timer such as:
-> - hardware configuration and identification registers to read the timer
->   version and capabilities (counter width, number of channels...)
-> - dithering mode (can be used to extend PWM resolution)
-> - input triggers list
-> - new counter modes
-> - various bit-field updates
-> - power-domains property
-> Timer trigger identifier can be up to 19 (from timer 20)
+On Tue, Dec 17, 2024 at 09:12:55PM +0000, Sakari Ailus wrote:
+> Hi Conor,
 >=20
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> On Tue, Dec 17, 2024 at 06:24:42PM +0000, Conor Dooley wrote:
+> > On Tue, Dec 17, 2024 at 06:39:19PM +0100, Alain Volmat wrote:
+> > > Clarify the description of the stm32 csi by mentioning CSI-2 and
+> > > D-PHY.
+> >=20
+> > > Remove the bus-type property from the example.
+> >=20
+> > Why? What's there to gain from the example being (seemingly?) less
+> > comprehensive?
+>=20
+> As the device has D-PHY, other options are excluded. I.e. that property is
+> redundant for this device.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+That should be mentioned in the commit message.
 
---EoOWfOi1n9QKUU+q
+--e6nk/t1HXQvWcK4R
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ2MA2AAKCRB4tDGHoIJi
-0vUcAQDHt1a291qOikCk+YbFAxxytC/jHrnDcNjqTbJpnfpkxwEA/WPnp/cnmyv9
-ApGtO9lFz3BQAdvpCZ2662o9jnd3OAw=
-=h9U4
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ2MThwAKCRB4tDGHoIJi
+0o0EAQDdidjMXnrkFQSJAvyE/XWYtA2L1k+FW4aOm16Xb96MYwD/eAxuFSIsmUDZ
++vFPpziEjTA32zkU1AjGcSfHJIsolAs=
+=TaR/
 -----END PGP SIGNATURE-----
 
---EoOWfOi1n9QKUU+q--
+--e6nk/t1HXQvWcK4R--
 
---===============1515310841327705300==
+--===============8121673376645467930==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -111,4 +117,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1515310841327705300==--
+--===============8121673376645467930==--
