@@ -2,82 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904E89F6531
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2024 12:45:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB219F653C
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2024 12:46:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 599CAC78018;
-	Wed, 18 Dec 2024 11:45:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78AB1C78012;
+	Wed, 18 Dec 2024 11:46:40 +0000 (UTC)
 Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
  [209.85.215.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 591BDC78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60B2CC6DD9D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2024 11:45:04 +0000 (UTC)
+ Wed, 18 Dec 2024 11:46:33 +0000 (UTC)
 Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-801c081a652so506303a12.0
+ 41be03b00d2f7-7fd17f231a7so3799468a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2024 03:45:04 -0800 (PST)
+ Wed, 18 Dec 2024 03:46:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734522303; x=1735127103;
+ d=linaro.org; s=google; t=1734522392; x=1735127192;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NiozAIbAch5ehbFvYachJlRvMKlUEEfH30ZvBdsBbJM=;
- b=kVXnZU5w9TSEwIwtwT74yCj1VZeEOBZBISMsDMrr6ZFy951u13mJplm9KuXIZUBbxE
- OSB985m5ovFpOCIqmwcU+uklKGPIwDCJ99lU+yUDv18fFKaPsde3SurWPu388+3OeITX
- 1WWJSHEr1uoe+5iOfjmPbj3kyqbHCulAqg0IIDpGIaTdr3qU2YB7Fy+Po0CWc/tzEnr3
- saLlttJ9GbKQgGFdi8ArLrNu7ukmQp+lBW3/V0v3IUgd6c6czQ2cmYNxxNcR7uXf7FZc
- XNKUANlrjOe/DIA+xKwhei5Bi2qDgNnc0kdG5xexo+7cvw5GFmIfvxZQGdEqifWtrWGc
- lvkQ==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=TrVaSMgbTfMEJQGridzhaDtd8gpO8DG1MuI/x/WUz/s=;
+ b=XjCYsfNzsFIV/qCaAk7bwrZ5wQrmgUsSuJZyCRgvMDsy1yAzFbvaorJntxM1jFIITr
+ cc5JdauvrEEr8eHP9DOD0WBa/7gfrF/D8mbBMeswf54RD2QGNssxFI45pxVJyUGqbeTV
+ E0bCbKgFlj1/ykyxUvklTpDc1QFRLSeCB+E+UDtY9rq6ZZM7lSjxwaVf8ALRD6xuXiKN
+ 3Na9Ms4vJ6Y+gELvAvvzJL04pQQSdL/FxLiS4kZ2RqUyEPZYmzqekad3epUEFfeWLClc
+ oyf7dFomp9KHALpP+1d9AM0f9HVuXcLGKoM2h9EJ0sJ+G3CmJDyLSz9yfx2KaN115OdL
+ hUFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734522303; x=1735127103;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NiozAIbAch5ehbFvYachJlRvMKlUEEfH30ZvBdsBbJM=;
- b=orMM217iSakrzegHOrdf/LkFxShJYE1NRy8vDDLk8c1swBa/Qb9BbuTzrDrCGJYmMk
- CxsSqDsqL+kjljbXYCc8A513ONt0vqv23CD03b/adq1xDhXNQHpmssYzwBmGvzMhTbGo
- NbbPKc/UkoT3OtiuQVC6nF0FDYLMDOmc3b2D3FjmUh74yoXEbiWL4iShc1v+z8Al9v6v
- 3K2N73UrTq4gS5Aibvcx5bQMOPyWyTZAM8SAPL67xOXpEwdn/1gBGY7GDqcT5mIxlxV6
- 5QJUjyBbZzZB9Su+yzD/FXTWqfu8nZ2yz9FspWEHIEGN/V+aQhmG6isM4Kmqt6K2G5A7
- oxRw==
+ d=1e100.net; s=20230601; t=1734522392; x=1735127192;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=TrVaSMgbTfMEJQGridzhaDtd8gpO8DG1MuI/x/WUz/s=;
+ b=TfAlz5MrH+r68otPUK7wUOTAdFOBuKN25iz97hR3SENy2nm61J/F+8bLYVtj7UrLdt
+ p1tq4CgU07ThMptLb8Jicg5mFS+vzN5EH2732sN6xV4mXX2kJsI/Kwz+ZTCMsQdHFinU
+ sqH9LxNpweCZzrz9X8RX1HFPUoCCijkpx5sa2VkfoPeaKYdsl7MsSvHih3dVj+1HTruz
+ cl80VZ0VILxr3wksu7w8CjpVlRwr4EI95AnxDmiK6HahwEwsyw8lmHIRY7LjR221CxQs
+ zup9JIzH02hI0rgOApP88AG/1g8xuMO5Y71GIQEePqyhHle3jVkGNxE30U5+WSBUNcfP
+ qcng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXGy0a5FjB/DE7MjOYr1LQXZZix7l7uSArsgz55V4XuCpJ4h604e8RDVyyXoKDEmeXqR/K130GJ9mxiyw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YygsB8XR0lwzA3+hl+0IaHxC4uS1ORTvPkSjejQ7BcKkJ2Ul7YI
- h7DVC1+msXLPGIkh2chi5vl/JBgYzbLNRJ4oxFagKvhGMDREhCxg
-X-Gm-Gg: ASbGnctg2o70/ghzqWsaMkfqUMwrAHA7NQTKK/cjQHohW2b1TRvdLOL/8b2TcgluwjX
- TwpsqdHDCQKLwZ5SLFQpNME/hHhRIjqMygFXj+svKb/vYAZK2Ni8+NXn1G++Pca3s+HWPqeBLt7
- epwgFcHyj/RvlTOLbiyjhnQZZ1jgAbJbbDVN+HF23Ue6QDRVI6A1dZgutU0HrE3GvVMU6tqw03k
- 5d1DlwSw/LY6Uz8F94OcNXVvzL/ZEvz3CWeJz9s9wnxpsWHVJwOpvQoX6Z/nYVSGDwI3qzpgjM6
- 3NBQamyfXgXAp9XOGs4JaQ==
-X-Google-Smtp-Source: AGHT+IE6625a3zz+jwuwR+ZM2W8rdYS+MlxZLIdkTumi+AeaBxvzwCMuG/fLPvKuIAteZsDbVs/QmQ==
-X-Received: by 2002:a17:90b:1e4c:b0:2ee:e2f6:8abc with SMTP id
- 98e67ed59e1d1-2f2d87f672fmr9972766a91.10.1734522302783; 
- Wed, 18 Dec 2024 03:45:02 -0800 (PST)
-Received: from yclu-ubuntu.. (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f2ed62cddbsm1324362a91.15.2024.12.18.03.44.59
+ AJvYcCVTTpOkZK4OOneQpwWU0C11mdP4Gea6yzRAYFlCo7dexvSzYV+TDdHz9KauCbm0l5hRJVPfvrJuef9Ixw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyUFJ4fgPDHSMIhvvrwNgQsCpHP1L9heqCchsq0j3oDKTRLTunO
+ BlqJMFI47qUMoVcxlIebMJUJLe93a9AFOr8xRtEiSX/Fjh39EbT6QXESXU/KfQ==
+X-Gm-Gg: ASbGncvFs6PwDEC5jqVxUzUVZDkO97bzZo/S0XP1nD26K1DTKYzVLxxYxFbGdB1i88e
+ uxJDyz0Juf5ZIKM1HC1n1IsRGaG3wNDvJyK9VZGCJPO0JGYKE2X8C5DgA2Ro1yhy+1bjEQT2x6i
+ jeWMro5rpT4JV6RtY7oFbl2Qo77S2PL3BOP/ssBFHdCq/ERM6ihDamAlx4yXTWTEbEiITu/KOYr
+ Q1FdJojx3qryR6U+DhrRjUKFFPEsYymlXPRxM3vLqHZYlFItwWqZ5h5KkP6cl0KnTfO
+X-Google-Smtp-Source: AGHT+IGQCgOq49R63ovvMukQoYUb7D03BYa7ObLjFwjqufc6miUeckdIMCl7aC+v7+RULldgNi6Ukw==
+X-Received: by 2002:a17:90b:548f:b0:2ee:8e75:4aeb with SMTP id
+ 98e67ed59e1d1-2f2e91f6469mr4114590a91.17.1734522391875; 
+ Wed, 18 Dec 2024 03:46:31 -0800 (PST)
+Received: from thinkpad ([117.213.97.217]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2f2ee06dd84sm1313616a91.38.2024.12.18.03.46.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Dec 2024 03:45:02 -0800 (PST)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-Date: Wed, 18 Dec 2024 19:44:42 +0800
-Message-Id: <20241218114442.137884-4-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241218114442.137884-1-a0987203069@gmail.com>
-References: <20241218114442.137884-1-a0987203069@gmail.com>
+ Wed, 18 Dec 2024 03:46:31 -0800 (PST)
+Date: Wed, 18 Dec 2024 17:16:22 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <20241218114622.3fgdooag6hwlmipr@thinkpad>
+References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
+ <20241126155119.1574564-3-christian.bruel@foss.st.com>
+ <20241203145244.trgrobtfmumtiwuc@thinkpad>
+ <ced7a55a-d968-497f-abc2-663855882a3f@foss.st.com>
+ <20241218094606.sljdx2w27thc5ahj@thinkpad>
+ <d15cec4e-e06a-47f7-aa8a-744c0829d244@foss.st.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
- Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
- schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com,
+Content-Disposition: inline
+In-Reply-To: <d15cec4e-e06a-47f7-aa8a-744c0829d244@foss.st.com>
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
+ cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
+ mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
-	glue for Nuvoton MA35 family
+Subject: Re: [Linux-stm32] [PATCH v2 2/5] PCI: stm32: Add PCIe host support
+	for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,247 +90,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
-
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 182 ++++++++++++++++++
- 3 files changed, 194 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 6658536a4e17..c8cbc0ec1311 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -121,6 +121,17 @@ config DWMAC_MESON
- 	  the stmmac device driver. This driver is used for Meson6,
- 	  Meson8, Meson8b and GXBB SoCs.
- 
-+config DWMAC_NUVOTON
-+	tristate "Nuvoton MA35 dwmac support"
-+	default ARCH_MA35
-+	depends on OF && (ARCH_MA35 || COMPILE_TEST)
-+	select MFD_SYSCON
-+	help
-+	  Support for Ethernet controller on Nuvoton MA35 series SoC.
-+
-+	  This selects the Nuvoton MA35 series SoC glue layer support
-+	  for the stmmac device driver.
-+
- config DWMAC_QCOM_ETHQOS
- 	tristate "Qualcomm ETHQOS support"
- 	default ARCH_QCOM
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 2389fd261344..9812b824459f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -19,6 +19,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
- obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
- obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
- obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
-+obj-$(CONFIG_DWMAC_NUVOTON)	+= dwmac-nuvoton.o
- obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
- obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
- obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-new file mode 100644
-index 000000000000..c5b8933c1f44
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-@@ -0,0 +1,182 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nuvoton DWMAC specific glue layer
-+ *
-+ * Copyright (C) 2024 Nuvoton Technology Corp.
-+ *
-+ * Author: Joey Lu <yclu4@nuvoton.com>
-+ */
-+
-+#include <linux/mfd/syscon.h>
-+#include <linux/of_device.h>
-+#include <linux/of_net.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/stmmac.h>
-+
-+#include "stmmac.h"
-+#include "stmmac_platform.h"
-+
-+#define REG_SYS_GMAC0MISCR  0x108
-+#define REG_SYS_GMAC1MISCR  0x10C
-+
-+#define MISCR_RMII          BIT(0)
-+
-+/* 2000ps is mapped to 0 ~ 0xF */
-+#define PATH_DELAY_DEC      134
-+#define TX_DELAY_OFFSET     16
-+#define TX_DELAY_MASK       GENMASK(19, 16)
-+#define RX_DELAY_OFFSET     20
-+#define RX_DELAY_MASK       GENMASK(23, 20)
-+
-+struct nvt_priv_data {
-+	struct platform_device *pdev;
-+	struct regmap *regmap;
-+};
-+
-+static struct nvt_priv_data *
-+nuvoton_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct nvt_priv_data *bsp_priv;
-+	phy_interface_t phy_mode;
-+	u32 tx_delay, rx_delay;
-+	u32 macid, arg, reg;
-+
-+	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
-+	if (!bsp_priv)
-+		return ERR_PTR(-ENOMEM);
-+
-+	bsp_priv->regmap =
-+		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
-+	if (IS_ERR(bsp_priv->regmap)) {
-+		dev_err_probe(dev, PTR_ERR(bsp_priv->regmap), "Failed to get sys register\n");
-+		return ERR_PTR(-ENODEV);
-+	}
-+	if (macid > 1) {
-+		dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
-+		tx_delay = 0; /* Default value is 0 */
-+	} else {
-+		if (arg <= 2000) {
-+			tx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Tx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+	if (of_property_read_u32(dev->of_node, "rx-internal-delay-ps", &arg)) {
-+		rx_delay = 0; /* Default value is 0 */
-+	} else {
-+		if (arg <= 2000) {
-+			rx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Rx path delay to 0x%x\n", rx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Rx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+
-+	regmap_read(bsp_priv->regmap,
-+		    macid == 0 ? REG_SYS_GMAC0MISCR : REG_SYS_GMAC1MISCR, &reg);
-+	reg &= ~(TX_DELAY_MASK | RX_DELAY_MASK);
-+
-+	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode)) {
-+		dev_err(dev, "missing phy mode property\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	switch (phy_mode) {
-+	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		reg &= ~MISCR_RMII;
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		reg |= MISCR_RMII;
-+		break;
-+	default:
-+		dev_err(dev, "Unsupported phy-mode (%d)\n", phy_mode);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (!(reg & MISCR_RMII)) {
-+		reg |= tx_delay << TX_DELAY_OFFSET;
-+		reg |= rx_delay << RX_DELAY_OFFSET;
-+	}
-+
-+	regmap_write(bsp_priv->regmap,
-+		     macid == 0 ? REG_SYS_GMAC0MISCR : REG_SYS_GMAC1MISCR, reg);
-+
-+	bsp_priv->pdev = pdev;
-+
-+	return bsp_priv;
-+}
-+
-+static int nuvoton_gmac_probe(struct platform_device *pdev)
-+{
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	int ret;
-+
-+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return PTR_ERR(plat_dat);
-+
-+	/* Nuvoton DWMAC configs */
-+	plat_dat->has_gmac = 1;
-+	plat_dat->tx_fifo_size = 2048;
-+	plat_dat->rx_fifo_size = 4096;
-+	plat_dat->multicast_filter_bins = 0;
-+	plat_dat->unicast_filter_entries = 8;
-+	plat_dat->flags &= ~STMMAC_FLAG_USE_PHY_WOL;
-+
-+	plat_dat->bsp_priv = nuvoton_gmac_setup(pdev, plat_dat);
-+	if (IS_ERR(plat_dat->bsp_priv)) {
-+		ret = PTR_ERR(plat_dat->bsp_priv);
-+		return ret;
-+	}
-+
-+	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	/* The PMT flag is determined by the RWK property.
-+	 * However, our hardware is configured to support only MGK.
-+	 * This is an override on PMT to enable WoL capability.
-+	 */
-+	plat_dat->pmt = 1;
-+	device_set_wakeup_capable(&pdev->dev, 1);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id nuvoton_dwmac_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-dwmac"},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nuvoton_dwmac_match);
-+
-+static struct platform_driver nuvoton_dwmac_driver = {
-+	.probe  = nuvoton_gmac_probe,
-+	.remove = stmmac_pltfr_remove,
-+	.driver = {
-+		.name           = "nuvoton-dwmac",
-+		.pm		= &stmmac_pltfr_pm_ops,
-+		.of_match_table = nuvoton_dwmac_match,
-+	},
-+};
-+module_platform_driver(nuvoton_dwmac_driver);
-+
-+MODULE_AUTHOR("Joey Lu <yclu4@nuvoton.com>");
-+MODULE_DESCRIPTION("Nuvoton DWMAC specific glue layer");
-+MODULE_LICENSE("GPL v2");
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBEZWMgMTgsIDIwMjQgYXQgMTI6MjQ6MjFQTSArMDEwMCwgQ2hyaXN0aWFuIEJydWVs
+IHdyb3RlOgoKWy4uLl0KCj4gPiA+ID4gPiArc3RhdGljIGludCBzdG0zMl9wY2llX3N1c3BlbmRf
+bm9pcnEoc3RydWN0IGRldmljZSAqZGV2KQo+ID4gPiA+ID4gK3sKPiA+ID4gPiA+ICsJc3RydWN0
+IHN0bTMyX3BjaWUgKnN0bTMyX3BjaWUgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKPiA+ID4gPiA+
+ICsKPiA+ID4gPiA+ICsJc3RtMzJfcGNpZS0+bGlua19pc191cCA9IGR3X3BjaWVfbGlua191cChz
+dG0zMl9wY2llLT5wY2kpOwo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlzdG0zMl9wY2llX3N0b3Bf
+bGluayhzdG0zMl9wY2llLT5wY2kpOwo+ID4gPiA+IAo+ID4gPiA+IEkgZG9uJ3QgdW5kZXJzdGFu
+ZCBob3cgZW5kcG9pbnQgY2FuIHdha2V1cCB0aGUgaG9zdCBpZiBQRVJTVCMgZ2V0cyBhc3NlcnRl
+ZC4KPiA+ID4gCj4gPiA+IFRoZSBzdG0zMiBQQ0llIGRvZXNuJ3Qgc3VwcG9ydCBMMiwgd2UgZG9u
+J3QgZXhwZWN0IGFuIGluLWJhbmQgYmVhY29uIGZvciB0aGUKPiA+ID4gd2FrZXVwLiBXZSBzdXBw
+b3J0IHdha2V1cCBvbmx5IGZyb20gc2lkZWJhbmQgV0FLRSMsIHRoYXQgd2lsbCByZXN0YXJ0IHRo
+ZQo+ID4gPiBsaW5rIGZyb20gSVJRCj4gPiA+IAo+ID4gCj4gPiBJIGRvbid0IHVuZGVyc3RhbmQg
+aG93IFdBS0UjIGlzIHN1cHBvcnRlZCB3aXRob3V0IEwyLiBPbmx5IGluIEwyIHN0YXRlLCBlbmRw
+b2ludAo+ID4gd2lsbCBtYWtlIHVzZSBvZiBWYXV4IGFuZCBpdCB3aWxsIHdha2V1cCB0aGUgaG9z
+dCB1c2luZyBlaXRoZXIgYmVhY29uIG9yIFdBS0UjLgo+ID4gSWYgeW91IGRvbid0IHN1cHBvcnQg
+TDIsIHRoZW4gdGhlIGVuZHBvaW50IHdpbGwgcmVhY2ggTDMgKGxpbmsgb2ZmKSBzdGF0ZS4KPiAK
+PiBJIHRoaW5rIHRoaXMgaXMgd2hhdCBoYXBwZW5zLCBteSB1bmRlcnN0YW5kaW5nIGlzIHRoYXQg
+dGhlIGRldmljZSBpcyBzdGlsbAo+IHBvd2VyZWQgdG8gZ2V0IHRoZSB3YWtldXAgZXZlbnQgKGVn
+IFdvTCBtYWdpYyBwYWNrZXQpLCB0cmlnZ2VycyB0aGUgUENJZQo+IHdha2VfSVJRIGZyb20gdGhl
+IFdBS0UjLgo+IAoKSG9uZXN0bHksIEkgc3RpbGwgY2Fubm90IHVuZGVyc3RhbmQgaG93IHRoaXMg
+Y2FuIGhhcHBlbi4KCj4gPiAKPiA+ID4gPiAKPiA+ID4gPiA+ICsJY2xrX2Rpc2FibGVfdW5wcmVw
+YXJlKHN0bTMyX3BjaWUtPmNsayk7Cj4gPiA+ID4gPiArCj4gPiA+ID4gPiArCWlmICghZGV2aWNl
+X21heV93YWtldXAoZGV2KSAmJiAhZGV2aWNlX3dha2V1cF9wYXRoKGRldikpCj4gPiA+ID4gPiAr
+CQlwaHlfZXhpdChzdG0zMl9wY2llLT5waHkpOwo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlyZXR1
+cm4gcGluY3RybF9wbV9zZWxlY3Rfc2xlZXBfc3RhdGUoZGV2KTsKPiA+ID4gPiA+ICt9Cj4gPiA+
+ID4gPiArCj4gPiA+ID4gPiArc3RhdGljIGludCBzdG0zMl9wY2llX3Jlc3VtZV9ub2lycShzdHJ1
+Y3QgZGV2aWNlICpkZXYpCj4gPiA+ID4gPiArewo+ID4gPiA+ID4gKwlzdHJ1Y3Qgc3RtMzJfcGNp
+ZSAqc3RtMzJfcGNpZSA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOwo+ID4gPiA+ID4gKwlzdHJ1Y3Qg
+ZHdfcGNpZSAqcGNpID0gc3RtMzJfcGNpZS0+cGNpOwo+ID4gPiA+ID4gKwlzdHJ1Y3QgZHdfcGNp
+ZV9ycCAqcHAgPSAmcGNpLT5wcDsKPiA+ID4gPiA+ICsJaW50IHJldDsKPiA+ID4gPiA+ICsKPiA+
+ID4gPiA+ICsJLyogaW5pdF9zdGF0ZSBtdXN0IGJlIGNhbGxlZCBmaXJzdCB0byBmb3JjZSBjbGtf
+cmVxIyBncGlvIHdoZW4gbm8KPiA+ID4gPiAKPiA+ID4gPiBDTEtSRVEjCj4gPiA+ID4gCj4gPiA+
+ID4gV2h5IFJDIHNob3VsZCBjb250cm9sIENMS1JFUSM/Cj4gPiA+IAo+ID4gPiBSRUZDTEsgaXMg
+Z2F0ZWQgd2l0aCBDTEtSRVEjLCBTbyB3ZSBjYW5ub3QgYWNjZXNzIHRoZSBjb3JlCj4gPiA+IHdp
+dGhvdXQgQ0xLUkVRIyBpZiBubyBkZXZpY2UgaXMgcHJlc2VudC4gU28gZm9yY2UgaXQgd2l0aCBh
+IGluaXQgcGlubXV4Cj4gPiA+IHRoZSB0aW1lIHRvIGluaXQgdGhlIFBIWSBhbmQgdGhlIGNvcmUg
+REJJIHJlZ2lzdGVycwo+ID4gPiAKPiA+IAo+ID4gT2suIFlvdSBzaG91bGQgYWRkIGEgY29tbWVu
+dCB0byBjbGFyaWZ5IGl0IGluIHRoZSBjb2RlIGFzIHRoaXMgaXMgbm90IGEgc3RhbmRhcmQKPiA+
+IGJlaGF2aW9yLgo+ID4gCj4gCj4gT0sKPiAKPiA+ID4gPiAKPiA+ID4gPiBBbHNvIHBsZWFzZSB1
+c2UgcHJlZmVycmVkIHN0eWxlIGZvciBtdWx0aS1saW5lIGNvbW1lbnRzOgo+ID4gPiA+IAo+ID4g
+PiA+IAkvKgo+ID4gPiA+IAkgKiAuLi4KPiA+ID4gPiAJICovCj4gPiA+ID4gCj4gPiA+ID4gPiAr
+CSAqIGRldmljZSBpcyBwbHVnZ2VkLgo+ID4gPiA+ID4gKwkgKi8KPiA+ID4gPiA+ICsJaWYgKCFJ
+U19FUlIoZGV2LT5waW5zLT5pbml0X3N0YXRlKSkKPiA+ID4gPiA+ICsJCXJldCA9IHBpbmN0cmxf
+c2VsZWN0X3N0YXRlKGRldi0+cGlucy0+cCwgZGV2LT5waW5zLT5pbml0X3N0YXRlKTsKPiA+ID4g
+PiA+ICsJZWxzZQo+ID4gPiA+ID4gKwkJcmV0ID0gcGluY3RybF9wbV9zZWxlY3RfZGVmYXVsdF9z
+dGF0ZShkZXYpOwo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlpZiAocmV0KSB7Cj4gPiA+ID4gPiAr
+CQlkZXZfZXJyKGRldiwgIkZhaWxlZCB0byBhY3RpdmF0ZSBwaW5jdHJsIHBtIHN0YXRlOiAlZFxu
+IiwgcmV0KTsKPiA+ID4gPiA+ICsJCXJldHVybiByZXQ7Cj4gPiA+ID4gPiArCX0KPiA+ID4gPiA+
+ICsKPiA+ID4gPiA+ICsJaWYgKCFkZXZpY2VfbWF5X3dha2V1cChkZXYpICYmICFkZXZpY2Vfd2Fr
+ZXVwX3BhdGgoZGV2KSkgewo+ID4gPiA+ID4gKwkJcmV0ID0gcGh5X2luaXQoc3RtMzJfcGNpZS0+
+cGh5KTsKPiA+ID4gPiA+ICsJCWlmIChyZXQpIHsKPiA+ID4gPiA+ICsJCQlwaW5jdHJsX3BtX3Nl
+bGVjdF9kZWZhdWx0X3N0YXRlKGRldik7Cj4gPiA+ID4gPiArCQkJcmV0dXJuIHJldDsKPiA+ID4g
+PiA+ICsJCX0KPiA+ID4gPiA+ICsJfQo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlyZXQgPSBjbGtf
+cHJlcGFyZV9lbmFibGUoc3RtMzJfcGNpZS0+Y2xrKTsKPiA+ID4gPiA+ICsJaWYgKHJldCkKPiA+
+ID4gPiA+ICsJCWdvdG8gY2xrX2VycjsKPiA+ID4gPiAKPiA+ID4gPiBQbGVhc2UgbmFtZSB0aGUg
+Z290byBsYWJlbHMgb2YgdGhlaXIgcHVycG9zZS4gTGlrZSBlcnJfcGh5X2V4aXQuCj4gPiA+IAo+
+ID4gPiBPSwo+ID4gPiAKPiA+ID4gPiAKPiA+ID4gPiA+ICsKPiA+ID4gPiA+ICsJcmV0ID0gZHdf
+cGNpZV9zZXR1cF9yYyhwcCk7Cj4gPiA+ID4gPiArCWlmIChyZXQpCj4gPiA+ID4gPiArCQlnb3Rv
+IHBjaWVfZXJyOwo+ID4gPiA+IAo+ID4gPiA+IFRoaXMgc2hvdWxkIGJlLCAnZXJyX2Rpc2FibGVf
+Y2xrJy4KPiA+ID4gPiAKPiA+ID4gPiA+ICsKPiA+ID4gPiA+ICsJaWYgKHN0bTMyX3BjaWUtPmxp
+bmtfaXNfdXApIHsKPiA+ID4gPiAKPiA+ID4gPiBXaHkgZG8geW91IG5lZWQgdGhpcyBjaGVjaz8g
+WW91IGNhbm5vdCBzdGFydCB0aGUgbGluayBpbiB0aGUgYWJzZW5jZSBvZiBhbgo+ID4gPiA+IGVu
+ZHBvaW50Pwo+ID4gPiA+IAo+ID4gPiAKPiA+ID4gSXQgaXMgYW4gb3B0aW1pemF0aW9uIHRvIGF2
+b2lkIHVubmVjZXNzYXJ5ICJkd19wY2llX3dhaXRfZm9yX2xpbmsiIGlmIG5vCj4gPiA+IGRldmlj
+ZSBpcyBwcmVzZW50IGR1cmluZyBzdXNwZW5kCj4gPiA+IAo+ID4gCj4gPiBJbiB0aGF0IGNhc2Ug
+eW91J2xsIG5vdCB0cmlnZ2VyIExUU1NNIGlmIHRoZXJlIHdhcyBubyBlbmRwb2ludCBjb25uZWN0
+ZWQgYmVmb3JlCj4gPiBzdXNwZW5kLiBXaGF0IGlmIHVzZXJzIGNvbm5lY3QgYW4gZW5kcG9pbnQg
+YWZ0ZXIgcmVzdW1lPwo+IAo+IFllcywgZXhhY3RseS4gV2UgZG9uJ3Qgc3VwcG9ydCBob3RwbHVn
+LCBhbmQgcGx1Z2dpbmcgYSBkZXZpY2Ugd2hpbGUgdGhlCj4gc3lzdGVtIGlzIGluIHN0YW5kLWJ5
+IGlzIHNvbWV0aGluZyB0aGF0IHdlIGRvbid0IGV4cGVjdC4gVGhlIGlteDYgcGxhdGZvcm0KPiBk
+b2VzIHRoaXMgYWxzby4KPiAKCllvdSBzaG91bGQgcmVjb25zaWRlciB0aGlzIGFwcHJvYWNoLiBZ
+b3UnbGwgbmV2ZXIga25vdyBob3cgdGhlIE9FTXMgYXJlIGdvaW5nIHRvCnVzZSB0aGUgUENJZSBz
+bG90LiBBbmQgbGFjayBvZiBzdGFuZGFyZCBob3RwbHVnIGlzIG5vdCBwcmV2ZW50aW5nIHVzZXJz
+IGZyb20KZG9pbmcgaG90cGx1ZyAodGhleSBjb3VsZCB0cnkgdG8gZG8gcmVzY2FuIHRoZW1zZWx2
+ZXMgZXRjLi4uKQoKLSBNYW5pCgotLSAK4K6u4K6j4K6/4K614K6j4K+N4K6j4K6p4K+NIOCumuCu
+pOCuvuCumuCuv+CuteCuruCvjQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
