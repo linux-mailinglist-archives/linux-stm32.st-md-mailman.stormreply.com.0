@@ -2,92 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71D29F920B
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 13:22:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE419F92A8
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 13:57:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67429C78027;
-	Fri, 20 Dec 2024 12:22:06 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EDE8C78034;
+	Fri, 20 Dec 2024 12:57:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 629F8C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BBCDC78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2024 12:21:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EBEE4A41B25;
- Fri, 20 Dec 2024 12:20:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B3BC4CECD;
- Fri, 20 Dec 2024 12:21:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1734697316;
- bh=JduFaswRmxN5tGLStvzwUiaywMEIItZVTSmKsVx9nOI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Yq+tb1psbAD0EEaGVo62BeRkwh9Xj1zwGjU1RnX9bPc3zuKVZ+vFaKjzZirLF0O5Q
- cWqZTrj/8oUOashMDH0in9idt9Jf9pCN3xfKSbuna7zWsHJDYmyLi1Jgqy+04F5+b+
- WkFCtRLWZn13uCsuIFDP/5NAmVeHVQ3OLBfdEu0A=
-Date: Fri, 20 Dec 2024 13:21:51 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Kever Yang <kever.yang@rock-chips.com>
-Message-ID: <2024122018-groove-glitzy-f3bc@gregkh>
-References: <20241220103825.3509421-1-kever.yang@rock-chips.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20241220103825.3509421-1-kever.yang@rock-chips.com>
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, heiko@sntech.de,
- linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Dragan Simic <dsimic@manjaro.org>, linux-phy@lists.infradead.org,
- Eric Dumazet <edumazet@google.com>, Finley Xiao <finley.xiao@rock-chips.com>,
- Michael Riesch <michael.riesch@wolfvision.net>,
- Jisheng Zhang <jszhang@kernel.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Shresth Prasad <shresthprasad7@gmail.com>, Jamie Iles <jamie@jamieiles.com>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- linux-watchdog@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- Simon Xue <xxm@rock-chips.com>, devicetree@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, Lee Jones <lee@kernel.org>,
- Andy Yan <andyshrk@163.com>, Tim Lunn <tim@feathertop.org>,
- linux-stm32@st-md-mailman.stormreply.com,
+ Fri, 20 Dec 2024 12:57:21 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BKBdFUi004018;
+ Fri, 20 Dec 2024 13:57:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=dTNG0nibu7UYo45+nRmB7l
+ qVuql0kGdP8sbH3SBpRbk=; b=cbNqS2HHeHCpZwYociD56gu52aYjKaeVeum1vu
+ 2NSL2Vs9on0oSTYygyae2nBwFolnr9WR1esvA5M7nsI1bEiyT5brGk/pc2Ealp77
+ 9d0KfCRyE3c3kZJVUkxNhzUEYA2wFUrGFK8TiAQhM9TavDO87lW1HWYHVOr3p5Mz
+ aLaKNyTx9mWU7455jTl1CWDbcXqxyMuC/koH6iyEP5RlPHO4I/+Fo4BTATtXr7a6
+ dNEa7oFsZZAFtaC22jeQAjul27YJ1X+V4KfviGhT58iM8TMzNRqUJBKk4v0bkxjf
+ vgv4krrhOadXoMWTVkgVDx+0EXQ+VX9cJrAby19hFuk1hIRw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43n34bsrpc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 20 Dec 2024 13:57:01 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E8A8E4004F;
+ Fri, 20 Dec 2024 13:55:51 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3B02C272C3A;
+ Fri, 20 Dec 2024 13:55:10 +0100 (CET)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 20 Dec
+ 2024 13:55:09 +0100
+From: <patrice.chotard@foss.st.com>
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-rockchip@lists.infradead.org, Jonas Karlman <jonas@kwiboo.se>,
- Jose Abreu <joabreu@synopsys.com>, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Rob Herring <robh@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, linux-pm@vger.kernel.org,
- Frank Wang <frank.wang@rock-chips.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Chris Morgan <macromorgan@hotmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Johan Jonker <jbx6244@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- linux-spi@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- FUKAUMI Naoki <naoki@radxa.com>, Jonathan Cameron <jic23@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Wu <david.wu@rock-chips.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Diederik de Haas <didi.debian@cknow.org>,
- "David S. Miller" <davem@davemloft.net>, Lukasz Luba <lukasz.luba@arm.com>,
- linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/38] rockchip: Add rk3562 support
+ Petr Mladek <pmladek@suse.com>, Yoann Congal <yoann.congal@smile.fr>
+Date: Fri, 20 Dec 2024 13:55:02 +0100
+Message-ID: <20241220125506.3157268-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: soc@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 0/4] ARM: config: stm32: Remove useless
+	flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,21 +76,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 20, 2024 at 06:37:46PM +0800, Kever Yang wrote:
-> 
-> This patch set adds rk3562 SoC and its evb support.
-> 
-> The patch number is a little bit too big, some of them may need to split
-> out for different maintainers, please let me know which patch need to
-> split out.
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-I recommend you doing the split-apart as you know the dependencies here
-the best, right?  Otherwise we all will just probably ignore them
-assuming someone else is going to review/accept them...
+Running "make savedefconfig" highlights that some flags are no more used,
+remove them.
+Remove some flags to reduce the kernel image size as STM32 MCU's board
+embeds low amount of RAM.
 
-thanks,
+Changes in V2:
+  _ squash patches 2-7
+  _ split patch 1 in three parts and add epxlanations about flags removal.
 
-greg k-h
+Patrice Chotard (4):
+  ARM: configs: stm32: Remove FLASH_MEM_BASE and FLASH_SIZE in STM32
+    defconfig
+  ARM: configs: stm32: Clean STM32 defconfig
+  ARM: configs: stm32: Remove CRYPTO in STM32 defconfig
+  ARM: configs: stm32: Remove useless flags in STM32 defconfig
+
+ arch/arm/configs/stm32_defconfig | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
