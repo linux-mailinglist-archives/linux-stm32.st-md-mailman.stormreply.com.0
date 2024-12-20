@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65B69F92A6
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 13:57:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0D69F92AA
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 13:57:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ABA2C78027;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7AD1C78F62;
 	Fri, 20 Dec 2024 12:57:28 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77902C78027
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DFB4C78033
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 20 Dec 2024 12:57:20 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BKBdFeP004201;
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BKBdHQF005325;
  Fri, 20 Dec 2024 13:57:02 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- ZFQLjA+qCdmK/6bkXjOa7RkL7bqQFU/Akn66EgpB5fM=; b=QJPTzdPPboM5yU27
- HTlg80IHvZzQ1v7UG7kAe61SbepE8iTa56/Z9kiErjJp/RblZdl5SqLQ0owNANkR
- HBQ5MUtyfzCKBctJUZ8lL8SL0UDobHe3kewqT0Iyik7jOb0xkqvNXGHJMxMLla5w
- LDbpKi3fchPL8SLoUHfDaFJ/HAOx1D/EmEa7FrR2zZHMTwFpj2+1zvef0kgVWkj2
- OMfC6W63ygY3pMQ7Q2x5ZVzs6450b9qAOoTitQLyQX8goyPNYbUKrlpYgZDNSwQ6
- Sjaljdo8C+47VKFeB6c+E2BM/ShmL/vSsUBrxCajD5mWzCwo8rYvoABJ/LNFH7SX
- gPDMtw==
+ 8d0M5vH214nW5hWYmS4DvqlNBlCNRLTZNSi1A6vgKkE=; b=3TRX3D/PmM4vGP5E
+ YjDqSrLncoXckuU/gmpLex+umB8CExH3JyRoyBdS59MRjXMdaPo8fZzXoPhhelLl
+ 9TyXLkB9ALX3RSq6yHZrMdM1YWy0ZPbsPm3V8lkpSXynaF/u9YM3BO3Aeka+xtmz
+ MyCxr/8IV8d+OmjA95NxX5y39+ksYs0fbKR8oUFfdpkkNc8AYJeyUIdw/sYAKwxB
+ SJ3t64+eQWRvjfyNarG+sf/8yMzkn8bLbWFNyjsq0dkvkEfWrCKGu07AoWERj61h
+ T/z+jS9jPYJArss1zA/9fkJntOlngq7gqQ7z5ODHPsthWZkFsGZ+LRhJvGq7VoB3
+ hQr1rQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43n6dcrrk0-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43n4vu1b2a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 20 Dec 2024 13:57:02 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5ADCB40053;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1171640052;
  Fri, 20 Dec 2024 13:55:53 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AB98F27665C;
- Fri, 20 Dec 2024 13:55:11 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 668A427665D;
+ Fri, 20 Dec 2024 13:55:12 +0100 (CET)
 Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 20 Dec
- 2024 13:55:11 +0100
+ 2024 13:55:12 +0100
 From: <patrice.chotard@foss.st.com>
 To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Alexandre
  Torgue <alexandre.torgue@foss.st.com>,
  Russell King <linux@armlinux.org.uk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Petr Mladek <pmladek@suse.com>, Yoann Congal <yoann.congal@smile.fr>
-Date: Fri, 20 Dec 2024 13:55:04 +0100
-Message-ID: <20241220125506.3157268-3-patrice.chotard@foss.st.com>
+Date: Fri, 20 Dec 2024 13:55:05 +0100
+Message-ID: <20241220125506.3157268-4-patrice.chotard@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241220125506.3157268-1-patrice.chotard@foss.st.com>
 References: <20241220125506.3157268-1-patrice.chotard@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 Cc: soc@kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 2/4] ARM: configs: stm32: Clean STM32
-	defconfig
+Subject: [Linux-stm32] [PATCH v2 3/4] ARM: configs: stm32: Remove CRYPTO in
+	STM32 defconfig
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,45 +83,23 @@ From: Patrice Chotard <patrice.chotard@foss.st.com>
 
 Running make savedefconfig highlights some useless flags.
 
-Since 54a48aa3d558 ("Compiler Attributes: remove CONFIG_ENABLE_MUST_CHECK")
-flag ENABLE_MUST_CHECK has been removed.
-
-Since 35260cf54522 ("Kconfig.debug: fix SCHED_DEBUG dependency")
-SCHED_DEBUG depends on DEBUG_KERNEL and PROC_FS.
-As PROC_FS is not set, SCHED_DEBUG reference can be removed.
-
-Since 78011042684d ("scsi: bsg: Move bsg_scsi_ops to drivers/scsi/")
-BLK_DEV_BSG depends on SCSI. As SCSI is not set, BLK_DEV_BSG reference
-can be removed.
+Since 1c92d4a0edcf ("ARM: configs: stm32: Enable MMC_ARMMMCI and EXT3_FS support")
+CRYPTO is selected by EXT3_FS, so CRYPTO can be removed in stm32_defconfig.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm/configs/stm32_defconfig | 3 ---
- 1 file changed, 3 deletions(-)
+ arch/arm/configs/stm32_defconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm/configs/stm32_defconfig b/arch/arm/configs/stm32_defconfig
-index 973bf7c8236b..be7b63036730 100644
+index be7b63036730..d62a0c0b7ce5 100644
 --- a/arch/arm/configs/stm32_defconfig
 +++ b/arch/arm/configs/stm32_defconfig
-@@ -12,7 +12,6 @@ CONFIG_BASE_SMALL=y
- # CONFIG_SIGNALFD is not set
- # CONFIG_EVENTFD is not set
- # CONFIG_AIO is not set
--# CONFIG_BLK_DEV_BSG is not set
- # CONFIG_MMU is not set
- CONFIG_ARCH_STM32=y
- CONFIG_CPU_V7M_NUM_IRQ=240
-@@ -72,10 +71,8 @@ CONFIG_NLS=y
- CONFIG_CRC_ITU_T=y
- CONFIG_CRC7=y
- CONFIG_PRINTK_TIME=y
--# CONFIG_ENABLE_MUST_CHECK is not set
- # CONFIG_DEBUG_BUGVERBOSE is not set
+@@ -75,4 +75,3 @@ CONFIG_PRINTK_TIME=y
  CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
  CONFIG_MAGIC_SYSRQ=y
  # CONFIG_SLUB_DEBUG is not set
--# CONFIG_SCHED_DEBUG is not set
- CONFIG_CRYPTO=y
+-CONFIG_CRYPTO=y
 -- 
 2.25.1
 
