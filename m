@@ -2,94 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D159F9765
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 18:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FB59F97B2
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2024 18:19:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 263EDC7801F;
-	Fri, 20 Dec 2024 17:07:14 +0000 (UTC)
-Received: from fhigh-b2-smtp.messagingengine.com
- (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB2D8C7801F;
+	Fri, 20 Dec 2024 17:19:34 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20981C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 709ECC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2024 17:07:07 +0000 (UTC)
-Received: from phl-compute-10.internal (phl-compute-10.phl.internal
- [10.202.2.50])
- by mailfhigh.stl.internal (Postfix) with ESMTP id D0B412540140;
- Fri, 20 Dec 2024 12:07:05 -0500 (EST)
-Received: from phl-imap-11 ([10.202.2.101])
- by phl-compute-10.internal (MEProxy); Fri, 20 Dec 2024 12:07:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1734714425;
- x=1734800825; bh=gKbh784gSKI3i+Xb8BoJ8RM+wuGg+Udul1q+E+iU8Fc=; b=
- cVwnjnieistFLbwIZ2ck2NZjatfgBOiKFR/kAQQ4K+FKRlL8KQQbjhZhOWU069zs
- +zgIU3AbXP9+gkyt95dE3SIBNNA3kvw4E6UfF6OherufYWAvX0YKfApKCxp2i6zQ
- 77g1yeVh0zAyGNG0wE9mzRntgkKspASoDW22pp6IITndzi2lTJ4HKwNs5nqoii3w
- 4+HCH21yGGTdbQnKhCQRJ8uTM84A67EBk6bF2z8ez9dzxMBOu+tSLlYPfnH3AMRd
- YFaO1Joe4dFYu/kUD9v5QjDF3u4hCIvbGv8Ior03+1p2/LvTO+X2ZwJGkdDw3QD0
- lNjjkbwJvjrkXka7ONY9IQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1734714425; x=
- 1734800825; bh=gKbh784gSKI3i+Xb8BoJ8RM+wuGg+Udul1q+E+iU8Fc=; b=d
- CQGlbiemfZDolaPsSx6dIh3Zy2pEsHaBs/FZwjo7AmR7XFj4fZqn3BZLQdNw1iJT
- 17ecwD/VcWs3jAAGF/y28KdkqdfS4RvC91W+gHU+NxdA07uf0Jy1dTliDTv2nve9
- uIN7IaraXNbD84wpTAQ3BQJ6F1LxqG79Bbx/yyD4aTv6AAzTy5aClB4clbt5FO2P
- bNAyX/j7Lb8biFooKHhqg6Y0ij1PqAFSytVswDMlf4cy7sk1Ilc7uzBMTfsTA/H2
- IUCSKaTPdpIAUeqgmK189ibMDmyW7sZqRv3FHL7xXnUDc4+A64Hmfa+y7OiZoAn+
- hI4XcznclYJ9zInqBynoQ==
-X-ME-Sender: <xms:OaRlZ84R-kzFHFhkxsWwmtvoGpFX4liL6es0xQYwIJnB1iBIbzOgzg>
- <xme:OaRlZ97EVsjrhU7qvxO6iZHcXvuiYymsnzpAg2IH0XFadKew3I4Osk_NFfVU8vMWX
- Y7ShD4EnHxq3ihh1a8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddruddtvddgleegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
- rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
- htshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddt
- necuhfhrohhmpedftehrnhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrd
- guvgeqnecuggftrfgrthhtvghrnhephfdthfdvtdefhedukeetgefggffhjeeggeetfefg
- gfevudegudevledvkefhvdeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
- hmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvgdpnhgspghrtghpthhtohepuddu
- pdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehlihhnuhigsegrrhhmlhhinhhugi
- drohhrghdruhhkpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhs
- shdrshhtrdgtohhmpdhrtghpthhtohepphgrthhrihgtvgdrtghhohhtrghrugesfhhosh
- hsrdhsthdrtghomhdprhgtphhtthhopehmtghoqhhuvghlihhnrdhsthhmfedvsehgmhgr
- ihhlrdgtohhmpdhrtghpthhtohepshhotgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
- eplhhinhhugidqrghrmhdqkhgvrhhnvghlsehlihhsthhsrdhinhhfrhgruggvrggurdho
- rhhgpdhrtghpthhtohepohhlohhfsehlihigohhmrdhnvghtpdhrtghpthhtohephihorg
- hnnhdrtghonhhgrghlsehsmhhilhgvrdhfrhdprhgtphhtthhopehlihhnuhigqdhsthhm
- fedvsehsthdqmhguqdhmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomh
-X-ME-Proxy: <xmx:OaRlZ7ee2TnH3FQ-LBboFcEmjH5NZAZmDHibOgB9dxwBhty6GDqMuw>
- <xmx:OaRlZxJq2G0x78tz8ranjIqb-HRx0z0Sc6uSXruoYjFja-nwQBHW3g>
- <xmx:OaRlZwIaTdUokn6guHcSSJk27WlOZv8Gly2XG0BNutc7tLGd2upGwQ>
- <xmx:OaRlZyx78E0kyHNq3r1UCyOgvVimBZkit4uOjMFCSjSgFHOvsIbixA>
- <xmx:OaRlZ9AwFtxX37i_8NvGG0tbPEz9bSRIyR74VdXQgqSEXJjnaCvnOuU3>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 15B872220073; Fri, 20 Dec 2024 12:07:05 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+ Fri, 20 Dec 2024 17:19:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1FDD0A42516;
+ Fri, 20 Dec 2024 17:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7491CC4CECD;
+ Fri, 20 Dec 2024 17:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1734715166;
+ bh=FUIqa+Gitn30dawnqBvseQbi6wEPRxT9Aw0rFXxUhzs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ptLZbOdk4hkPS7sLJGgNDzID6wVCo/WUmov2dWeJwFeW1b54vCS8XTfK3IUCres8I
+ vC21u/08rQ0XHBDtkzTHB7pAZoI14szwxeY+hq2ypcVwcxUnEdpKmc6mFD0zdTg+yv
+ ViEkipvCrPkIy+w89dQFFR6HVAJHjuvr4EjuudrUazMFNEir+Dz8iXhthtISGTLxGO
+ qd0gjTFmgibNOVSUldAo/SeEcasfylKAR+DEP2gZATvyqz6Jm7Xqbp5WtsnN57WlMG
+ 3pxfl4/Aa1Qh3DgqWxHze/kBTsLDgw6o3q5TLObYWB5IdlZ0qFwXyVTXkHAQuCoDA6
+ zai2Huh/QaVgw==
+Date: Fri, 20 Dec 2024 09:19:24 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "=?UTF-8?B?TsOtY29sYXM=?= F. R. A. Prado" <nfraprado@collabora.com>
+Message-ID: <20241220091924.6be11286@kernel.org>
+In-Reply-To: <876cf020-e2ba-46a7-b9b2-82dcd47f7a04@notapiano>
+References: <20241109-mediatek-mac-wol-noninverted-v2-0-0e264e213878@collabora.com>
+ <173155682775.1476954.16636894744432122406.git-patchwork-notify@kernel.org>
+ <876cf020-e2ba-46a7-b9b2-82dcd47f7a04@notapiano>
 MIME-Version: 1.0
-Date: Fri, 20 Dec 2024 18:06:44 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>,
- "Olof Johansson" <olof@lixom.net>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Russell King" <linux@armlinux.org.uk>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Petr Mladek" <pmladek@suse.com>, "Yoann Congal" <yoann.congal@smile.fr>
-Message-Id: <c48b7e84-5287-4da0-84a0-7747581f49d0@app.fastmail.com>
-In-Reply-To: <20241220125506.3157268-5-patrice.chotard@foss.st.com>
-References: <20241220125506.3157268-1-patrice.chotard@foss.st.com>
- <20241220125506.3157268-5-patrice.chotard@foss.st.com>
-Cc: soc@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 4/4] ARM: configs: stm32: Remove
- useless flags in STM32 defconfig
+Cc: , edumazet@google.com, patchwork-bot+netdevbpf@kernel.org,
+	kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+	robh@kernel.org, bartosz.golaszewski@linaro.org,
+	joabreu@synopsys.com, pabeni@redhat.com, ahalaney@redhat.com,
+	devicetree@vger.kernel.org, conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	"=?UTF-8?B?TsOtY29sYXM=?= F. R. A.  Prado" <nfraprado@collabora.com>,
+	biao.huang@mediatek.com, linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
+	aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org@stm-ict-prod-mailman-01.stormreply.prv,
+	linux-arm-kernel@lists.infradead.org,
+	angelogioacchino.delregno@collabora.com,
+	""@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	andrew+netdev@lunn.ch, horms@kernel.org, krzk+dt@kernel.org,
+	davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] net: stmmac: dwmac-mediatek: Fix
+ inverted logic for mediatek, mac-wol
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,30 +66,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 20, 2024, at 13:55, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
->
-> As stm32_defconfig is dedicated to STM32 MCUs, disable
-> CONFIG_COMMON_CLK_STM32MP flag which is only used by STM32 MPUs.
->
-> Disable CONFIG_SUSPEND, CONFIG_ADVISE_SYSCALLS, CONFIG_IO_URING
-> CONFIG_POSIX_TIMERS, CONFIG_GCC_PLUGINS, it will reduce the kernel
-> image size for these platforms which embed a low amount of memory.
->
-> Tested on STM32F746-DISCO board which embeds 8MB of memory.
-
-Out of curiosity, what is the smallest memory configuration that
-you see people using on stm32f7/h7 these days? I know we had
-configs that kind-of worked on 2MB in the past, but I assume there
-has been a lot of bloat since.
-
-       Arnd
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAyMCBEZWMgMjAyNCAxMzowOTo0NSAtMDMwMCBOw61jb2xhcyBGLiBSLiBBLiBQcmFk
+byB3cm90ZToKPiBUaGlzIG1lc3NhZ2UgaW1wbGllcyBwYXRjaCAyIHdhcyBhbHNvIGFwcGxpZWQs
+IGJ1dCBJIG9ubHkgc2VlIHBhdGNoIDEsIG5vdCBwYXRjaAo+IDIgdGhlcmU6Cj4gaHR0cHM6Ly9n
+aXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvbmV0ZGV2L25ldC5naXQvbG9n
+Lz9xdD1ncmVwJnE9bWFjLXdvbAo+IAo+IFNvIEkganVzdCB3YW50ZWQgdG8gY29uZmlybSB3aGV0
+aGVyIGl0IHdhcyBhcHBsaWVkIG9yIG5vdC4gSXQgd291bGQgYmUgZmluZSBmb3IKPiBwYXRjaCAy
+IHRvIGJlIG1lcmdlZCB0aHJvdWdoIHRoZSBtZWRpYXRlayB0cmVlIGFzIGlzIHVzdWFsIGlmIHlv
+dSBoYXZlbid0Cj4gYWxyZWFkeSB0YWtlbiBpdC4KClllcywgdGhlIERUUyBwYXRjaCBuZWVkcyB0
+byBnbyB2aWEgdGhlIGFwcHJvcHJpYXRlIHBsYXRmb3JtIHRyZWUuClNvcnJ5IGZvciBub3QgY2Fs
+bGluZyBpdCBvdXQuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
