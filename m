@@ -2,88 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF3609FBB52
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 10:37:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5563A9FBB62
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 10:41:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97215C78030;
-	Tue, 24 Dec 2024 09:37:46 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2B30C78F65;
+	Tue, 24 Dec 2024 09:41:40 +0000 (UTC)
+Received: from mail-m12778.qiye.163.com (mail-m12778.qiye.163.com
+ [115.236.127.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1991C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDDAEC78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 09:37:38 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-21680814d42so46256555ad.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 01:37:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735033057; x=1735637857;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jLmFWbWd3SQkC6J4LYdTAks5WNvEgPSVXIlgEkT9qUk=;
- b=VcLps48rNMivgIRtJeW74OLwb9JXwehjvNXsSlBUm89G7gvK5/TdIe/rmiuwTfNiAa
- ueR4eA1yMYGfyQR3RkeXH91CHDfnxAZlynVDtAk/r1bnUqJYKBy1LKU6JFWAPdJZoue+
- z2iSMV43oUYYARkHFErLbbFT6PFra1tWUL7f0oLkRmmNeKZKzc1PzCBBDprtb8UfxJiY
- 3/cYL5OklaSV2w6GoS2pMQHXqL3nBC9PUkeLZMfrwkeR60/VWd6W+9J7t3gzhMPVSFpl
- prm8I0xLuNCPlhDOqQ8tfGOWod5fcuHwxkf9cNuSn7ujCbQJ1M1KSIHSb5mjJCzXYDJ9
- IDtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735033057; x=1735637857;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jLmFWbWd3SQkC6J4LYdTAks5WNvEgPSVXIlgEkT9qUk=;
- b=UJ23/v0OqUaGie3kMgx8YsD6mtxchTsrzF/g6sehdwA7OpVRD9pBAuFIk+fcdapDX/
- 4ryGue0CTRuTcH1zues+61sroLGt6BlJ3ivlmgw3o4lHw+HLMDkMwPyJcdFz1tWQRCg6
- 1FsdlXnz3x3m+U3bjiXsKt0k1WAlKrHmuZDcE02wPb/E5QNZ12uaFRocsKnw1Qc3GM5v
- 4QEXSUL+95OZT07PUpRitBVNtMXHXfBh9tPiUuJunnjCTdQsmuXd1i0S1Cg8UMuOekGv
- UvXOWf/R3YfAe46eqaflYo1ndo5h8jxKT61sFZBkmObdHJZ8lDlM6wxM4+YXRAbW7DBf
- 00Ww==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQYcfFT7Aus67379ySOfy+TRXA4FJ0aJIHgB5ttyD+lT+fy+ieCZkAWebBvGQ15hEf858cwOgjTSzseg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwrSKInkZD+zLxk5uSlWQthqShkI5c7df7ejJpsczXikneJhpfJ
- EnZvWfrC6OmZ2noUTH5LxFsOXnP90IFASchQS2anx644EGAmc4Hr
-X-Gm-Gg: ASbGnctYLt4XBecrFWtgR+eGPBW4XVUhOg6IPD3eIG+QSDKDSb1ryk5IoiJ2tg3qN0p
- pwwrkUJAPV2aSoMOx/4P695hCdL9jIe3eDIWAzWEXd3tKZvSZhsTHo4fqsCYPgwl1JjWcx4Fn9H
- LJN20K2yobadsSRj9Oj+S8Gvka/To3T1lqK6zclgFei3csepovUYJnqfaKDL4MJE/xGMF+OxcJt
- GQPS4NEC4d9IpWwhZzzJYHHF+oltbcilCwxGU/WJ1GKLedWzvyFvFQxHV5oyxQc6Vx4R92LSoMX
- SU8vhMvj0rtpwY/chB1hakV5ksfnB/ZbxA0=
-X-Google-Smtp-Source: AGHT+IHeB/WWKd6mmgZbT26UjUM4RGWZKImwzEuCo8jzyGFGDy66eiSE5XasK5+ZN6cxtxmkvDMOCA==
-X-Received: by 2002:a05:6a00:8085:b0:725:ae5f:7f06 with SMTP id
- d2e1a72fcca58-72abe096383mr24761611b3a.23.1735033057380; 
- Tue, 24 Dec 2024 01:37:37 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72aad90c1bcsm9590252b3a.187.2024.12.24.01.37.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Dec 2024 01:37:36 -0800 (PST)
-Message-ID: <5ae923d7-3b4f-430c-bb43-edee7f549e56@gmail.com>
-Date: Tue, 24 Dec 2024 17:37:30 +0800
+ Tue, 24 Dec 2024 09:41:32 +0000 (UTC)
+Received: from localhost.localdomain (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 6aaa2b9a;
+ Tue, 24 Dec 2024 17:41:28 +0800 (GMT+08:00)
+From: Kever Yang <kever.yang@rock-chips.com>
+To: heiko@sntech.de
+Date: Tue, 24 Dec 2024 17:41:23 +0800
+Message-Id: <20241224094124.3816698-2-kever.yang@rock-chips.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241224094124.3816698-1-kever.yang@rock-chips.com>
+References: <20241224094124.3816698-1-kever.yang@rock-chips.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-References: <20241218114442.137884-1-a0987203069@gmail.com>
- <20241218114442.137884-4-a0987203069@gmail.com>
- <7a4f5769-0010-40fd-8bb7-a20f2725114f@intel.com>
- <216e7c97-e0b1-4833-b344-a71834020b15@gmail.com>
- <c800e544-82af-43d3-b07a-e7b1a4028330@intel.com>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <c800e544-82af-43d3-b07a-e7b1a4028330@intel.com>
-Cc: edumazet@google.com, schung@nuvoton.com, yclu4@nuvoton.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, ychuang3@nuvoton.com,
- richardcochran@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, conor+dt@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] net: stmmac: dwmac-nuvoton: Add
- dwmac glue for Nuvoton MA35 family
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGhlJTVZPThkZHRlOShpKSxlWFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhCSE
+ NVSktLVUpCS0tZBg++
+X-HM-Tid: 0a93f80af73303afkunm6aaa2b9a
+X-HM-MType: 1
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6MTI6TRw6TzIOIko0LDEBNx4P
+ EkoKFEtVSlVKTEhOS0hISUJLSktPVTMWGhIXVRAeDR4JVQIaFRw7CRQYEFYYExILCFUYFBZFWVdZ
+ EgtZQVlOQ1VJSVVMVUpKT1lXWQgBWUFDTEpNNwY+
+DKIM-Signature: a=rsa-sha256;
+ b=ROpZ6nyL8cU91dm/aCCpnd28Kk2p1rFj8eRYuHFR0r9miK9DbL9yqEyG+LLxqePcmlp/uQj7pCUZbtqXf07Tiv2sr8C1AoJD13z94wu0YiMh52Z9KlfhHut6qz6TftYIr+B4quuxuCtTSqYkwUaYk7UtNUSSuiOrWAU8p8gDd+k=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=avd2/YOVOG9PyXntzE8cm7GSXLINL24lkUb/JeShTws=;
+ h=date:mime-version:subject:message-id:from;
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Kever Yang <kever.yang@rock-chips.com>, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 2/3] ethernet: stmmac: dwmac-rk: Add gmac
+	support for rk3562
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +60,266 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ClByemVtZWsgS2l0c3plbCDmlrwgMTIvMjAvMjAyNCA2OjU5IFBNIOWvq+mBkzoKPiBPbiAxMi8y
-MC8yNCAwODowNywgSm9leSBMdSB3cm90ZToKPj4gRGVhciBQcnplbWVrLAo+Pgo+PiBUaGFuayB5
-b3UgZm9yIHlvdXIgcmVwbHkuCj4KPiBzdXJlIDopCj4gcGxlYXNlIGFsc28gY29uZmlndXJlIHlv
-dXIgZW1haWwgdG8gd3JpdGUgcmVwbGllcyBhcyBwbGFpbi10ZXh0LCBpbnN0ZWFkCj4gb2YgSFRN
-TApUaGFuayB5b3UgZm9yIHRoZSByZW1pbmRlcvCfmYIKPgo+IEkgYWxzbyBmb3Jnb3QgdG8gc2F5
-LCB0aGF0IHlvdSBzaG91bGQgaGF2ZSB0YXJnZXQgdGhpcyBzZXJpZXMgZm9yIHRoZQo+IG5ldC1u
-ZXh0ICgtLXN1YmplY3QtcHJlZml4IGZvciBnaXQtc2VuZC1lbWFpbCkKPgpNYXkgSSBjb25maXJt
-IGlmIHlvdSBhcmUgcmVmZXJyaW5nIHRvIG5ldGRldi9uZXQtbmV4dD8KPgo+IFBsZWFzZSBhbHNv
-IG5vdGUgdGhhdCB5b3VyIHYyIHNob3VsZCB3YWl0IHRvIGJlIHNlbmQgaW4gdGhlIG5ldyB5ZWFy
-LAo+IGFzIHdlIHdpbGwgYmVnaW4gdGhlIFdpbnRlciBCcmVhayBmb3IgbmV0ZGV2IE1MIGluIGEg
-bW9tZW50Lgo+CkdvdCBpdCEgSGFwcHkgaG9saWRheXMhIPCfjokKPgo+Pj4+ICsvKiAyMDAwcHMg
-aXMgbWFwcGVkIHRvIDAgfiAweEYgKi8KPj4+PiArI2RlZmluZSBQQVRIX0RFTEFZX0RFQ8KgwqDC
-oMKgwqAgMTM0Cj4+Pgo+Pj4gd291bGQgYmUgZ3JlYXQgdG8gcHJldml4IHlvdXIgbWFjcm9zIGJ5
-IE5WVF8KPj4gR290IGl0Lgo+Pj4KPj4+IHdoeSAxMzQgYW5kIG5vdCAxMjU/Cj4+Cj4+IFRoZSBp
-bnRlcnZhbCBpcyBjb25maXJtZWQgdG8gYmUgMTM0LiBUaGUgbWFwcGluZyBpcyBhcyBmb2xsb3dz
-Ogo+Pgo+PiB8MDAwMHwgPSAwLjAwIG5zCj4+IHwwMDAxfCA9IDAuMTMgbnMKPj4gfDAwMTB8ID0g
-MC4yNyBucwo+PiAuLi4KPj4gfDExMTF8ID0gMi4wMCBucwo+Cj4gdGhhbmtzLCB0aGF0J3MgY29y
-cmVjdCwgc29ycnkgZm9yIGNvbmZ1c2lvbgo+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: David Wu <david.wu@rock-chips.com>
+
+Add constants and callback functions for the dwmac on RK3562 soc.
+As can be seen, the base structure is the same.
+
+Signed-off-by: David Wu <david.wu@rock-chips.com>
+Signed-off-by: Kever Yang <kever.yang@rock-chips.com>
+---
+
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 207 +++++++++++++++++-
+ 1 file changed, 205 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 8cb374668b74..2ce38bf205d4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -2,8 +2,7 @@
+ /**
+  * DOC: dwmac-rk.c - Rockchip RK3288 DWMAC specific glue layer
+  *
+- * Copyright (C) 2014 Chen-Zhi (Roger Chen)
+- *
++ * Copyright (c) 2014 Rockchip Electronics Co., Ltd.
+  * Chen-Zhi (Roger Chen)  <roger.chen@rock-chips.com>
+  */
+ 
+@@ -91,6 +90,16 @@ struct rk_priv_data {
+ 	(((tx) ? soc##_GMAC_TXCLK_DLY_ENABLE : soc##_GMAC_TXCLK_DLY_DISABLE) | \
+ 	 ((rx) ? soc##_GMAC_RXCLK_DLY_ENABLE : soc##_GMAC_RXCLK_DLY_DISABLE))
+ 
++#define DELAY_VALUE(soc, tx, rx) \
++	((((tx) >= 0) ? soc##_GMAC_CLK_TX_DL_CFG(tx) : 0) | \
++	 (((rx) >= 0) ? soc##_GMAC_CLK_RX_DL_CFG(rx) : 0))
++
++#define GMAC_RGMII_CLK_DIV_BY_ID(soc, id, div) \
++		(soc##_GMAC##id##_CLK_RGMII_DIV##div)
++
++#define GMAC_RMII_CLK_DIV_BY_ID(soc, id, div) \
++		(soc##_GMAC##id##_CLK_RMII_DIV##div)
++
+ #define PX30_GRF_GMAC_CON1		0x0904
+ 
+ /* PX30_GRF_GMAC_CON1 */
+@@ -1013,6 +1022,199 @@ static const struct rk_gmac_ops rk3399_ops = {
+ 	.set_rmii_speed = rk3399_set_rmii_speed,
+ };
+ 
++/* sys_grf */
++#define RK3562_GRF_SYS_SOC_CON0			0X0400
++#define RK3562_GRF_SYS_SOC_CON1			0X0404
++
++#define RK3562_GMAC0_CLK_RMII_MODE		GRF_BIT(5)
++#define RK3562_GMAC0_CLK_RGMII_MODE		GRF_CLR_BIT(5)
++
++#define RK3562_GMAC0_CLK_RMII_GATE		GRF_BIT(6)
++#define RK3562_GMAC0_CLK_RMII_NOGATE		GRF_CLR_BIT(6)
++
++#define RK3562_GMAC0_CLK_RMII_DIV2		GRF_BIT(7)
++#define RK3562_GMAC0_CLK_RMII_DIV20		GRF_CLR_BIT(7)
++
++#define RK3562_GMAC0_CLK_RGMII_DIV1		\
++				(GRF_CLR_BIT(7) | GRF_CLR_BIT(8))
++#define RK3562_GMAC0_CLK_RGMII_DIV5		\
++				(GRF_BIT(7) | GRF_BIT(8))
++#define RK3562_GMAC0_CLK_RGMII_DIV50		\
++				(GRF_CLR_BIT(7) | GRF_BIT(8))
++
++#define RK3562_GMAC0_CLK_RMII_DIV2		GRF_BIT(7)
++#define RK3562_GMAC0_CLK_RMII_DIV20		GRF_CLR_BIT(7)
++
++#define RK3562_GMAC0_CLK_SELET_CRU		GRF_CLR_BIT(9)
++#define RK3562_GMAC0_CLK_SELET_IO		GRF_BIT(9)
++
++#define RK3562_GMAC1_CLK_RMII_GATE		GRF_BIT(12)
++#define RK3562_GMAC1_CLK_RMII_NOGATE		GRF_CLR_BIT(12)
++
++#define RK3562_GMAC1_CLK_RMII_DIV2		GRF_BIT(13)
++#define RK3562_GMAC1_CLK_RMII_DIV20		GRF_CLR_BIT(13)
++
++#define RK3562_GMAC1_RMII_SPEED100		GRF_BIT(11)
++#define RK3562_GMAC1_RMII_SPEED10		GRF_CLR_BIT(11)
++
++#define RK3562_GMAC1_CLK_SELET_CRU		GRF_CLR_BIT(15)
++#define RK3562_GMAC1_CLK_SELET_IO		GRF_BIT(15)
++
++/* ioc_grf */
++#define RK3562_GRF_IOC_GMAC_IOFUNC0_CON0	0X10400
++#define RK3562_GRF_IOC_GMAC_IOFUNC0_CON1	0X10404
++#define RK3562_GRF_IOC_GMAC_IOFUNC1_CON0	0X00400
++#define RK3562_GRF_IOC_GMAC_IOFUNC1_CON1	0X00404
++
++#define RK3562_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
++#define RK3562_GMAC_RXCLK_DLY_DISABLE		GRF_CLR_BIT(1)
++#define RK3562_GMAC_TXCLK_DLY_ENABLE		GRF_BIT(0)
++#define RK3562_GMAC_TXCLK_DLY_DISABLE		GRF_CLR_BIT(0)
++
++#define RK3562_GMAC_CLK_RX_DL_CFG(val)		HIWORD_UPDATE(val, 0xFF, 8)
++#define RK3562_GMAC_CLK_TX_DL_CFG(val)		HIWORD_UPDATE(val, 0xFF, 0)
++
++#define RK3562_GMAC0_IO_EXTCLK_SELET_CRU	GRF_CLR_BIT(2)
++#define RK3562_GMAC0_IO_EXTCLK_SELET_IO		GRF_BIT(2)
++
++#define RK3562_GMAC1_IO_EXTCLK_SELET_CRU	GRF_CLR_BIT(3)
++#define RK3562_GMAC1_IO_EXTCLK_SELET_IO		GRF_BIT(3)
++
++static void rk3562_set_to_rgmii(struct rk_priv_data *bsp_priv,
++				int tx_delay, int rx_delay)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++
++	if (IS_ERR(bsp_priv->grf) || IS_ERR(bsp_priv->php_grf)) {
++		dev_err(dev, "Missing rockchip,grf or rockchip,php_grf property\n");
++		return;
++	}
++
++	if (bsp_priv->id > 0)
++		return;
++
++	regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON0,
++		     RK3562_GMAC0_CLK_RGMII_MODE);
++
++	regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC0_CON1,
++		     DELAY_ENABLE(RK3562, tx_delay, rx_delay));
++	regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC0_CON0,
++		     DELAY_VALUE(RK3562, tx_delay, rx_delay));
++
++	regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC1_CON1,
++		     DELAY_ENABLE(RK3562, tx_delay, rx_delay));
++	regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC1_CON0,
++		     DELAY_VALUE(RK3562, tx_delay, rx_delay));
++}
++
++static void rk3562_set_to_rmii(struct rk_priv_data *bsp_priv)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++
++	if (IS_ERR(bsp_priv->grf)) {
++		dev_err(dev, "%s: Missing rockchip,grf property\n", __func__);
++		return;
++	}
++
++	if (!bsp_priv->id)
++		regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON0,
++			     RK3562_GMAC0_CLK_RMII_MODE);
++}
++
++static void rk3562_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++	unsigned int val = 0, offset, id = bsp_priv->id;
++
++	switch (speed) {
++	case 10:
++		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII) {
++			if (id > 0) {
++				val = GMAC_RMII_CLK_DIV_BY_ID(RK3562, 1, 20);
++				regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON0,
++					     RK3562_GMAC1_RMII_SPEED10);
++			} else {
++				val = GMAC_RMII_CLK_DIV_BY_ID(RK3562, 0, 20);
++			}
++		} else {
++			val = GMAC_RGMII_CLK_DIV_BY_ID(RK3562, 0, 50);
++		}
++		break;
++	case 100:
++		if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_RMII) {
++			if (id > 0) {
++				val = GMAC_RMII_CLK_DIV_BY_ID(RK3562, 1, 2);
++				regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON0,
++					     RK3562_GMAC1_RMII_SPEED100);
++			} else {
++				val = GMAC_RMII_CLK_DIV_BY_ID(RK3562, 0, 2);
++			}
++		} else {
++			val = GMAC_RGMII_CLK_DIV_BY_ID(RK3562, 0, 5);
++		}
++		break;
++	case 1000:
++		if (bsp_priv->phy_iface != PHY_INTERFACE_MODE_RMII)
++			val = GMAC_RGMII_CLK_DIV_BY_ID(RK3562, 0, 1);
++		else
++			goto err;
++		break;
++	default:
++		goto err;
++	}
++
++	offset = (bsp_priv->id > 0) ? RK3562_GRF_SYS_SOC_CON1 :
++					  RK3562_GRF_SYS_SOC_CON0;
++	regmap_write(bsp_priv->grf, offset, val);
++
++	return;
++err:
++	dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
++}
++
++static void rk3562_set_clock_selection(struct rk_priv_data *bsp_priv, bool input,
++				       bool enable)
++{
++	struct device *dev = &bsp_priv->pdev->dev;
++	unsigned int value;
++
++	if (IS_ERR(bsp_priv->grf) || IS_ERR(bsp_priv->php_grf)) {
++		dev_err(dev, "Missing rockchip,grf or rockchip,php_grf property\n");
++		return;
++	}
++
++	if (!bsp_priv->id) {
++		value = input ? RK3562_GMAC0_CLK_SELET_IO :
++				RK3562_GMAC0_CLK_SELET_CRU;
++		value |= enable ? RK3562_GMAC0_CLK_RMII_NOGATE :
++				  RK3562_GMAC0_CLK_RMII_GATE;
++		regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON0, value);
++
++		value = input ? RK3562_GMAC0_IO_EXTCLK_SELET_IO :
++				RK3562_GMAC0_IO_EXTCLK_SELET_CRU;
++		regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC0_CON1, value);
++		regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC1_CON1, value);
++	} else {
++		value = input ? RK3562_GMAC1_CLK_SELET_IO :
++				RK3562_GMAC1_CLK_SELET_CRU;
++		value |= enable ? RK3562_GMAC1_CLK_RMII_NOGATE :
++				 RK3562_GMAC1_CLK_RMII_GATE;
++		regmap_write(bsp_priv->grf, RK3562_GRF_SYS_SOC_CON1, value);
++
++		value = input ? RK3562_GMAC1_IO_EXTCLK_SELET_IO :
++				RK3562_GMAC1_IO_EXTCLK_SELET_CRU;
++		regmap_write(bsp_priv->php_grf, RK3562_GRF_IOC_GMAC_IOFUNC1_CON1, value);
++	}
++}
++
++static const struct rk_gmac_ops rk3562_ops = {
++	.set_to_rgmii = rk3562_set_to_rgmii,
++	.set_to_rmii = rk3562_set_to_rmii,
++	.set_rgmii_speed = rk3562_set_gmac_speed,
++	.set_rmii_speed = rk3562_set_gmac_speed,
++	.set_clock_selection = rk3562_set_clock_selection,
++};
++
+ #define RK3568_GRF_GMAC0_CON0		0x0380
+ #define RK3568_GRF_GMAC0_CON1		0x0384
+ #define RK3568_GRF_GMAC1_CON0		0x0388
+@@ -2062,6 +2264,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
+ 	{ .compatible = "rockchip,rk3366-gmac", .data = &rk3366_ops },
+ 	{ .compatible = "rockchip,rk3368-gmac", .data = &rk3368_ops },
+ 	{ .compatible = "rockchip,rk3399-gmac", .data = &rk3399_ops },
++	{ .compatible = "rockchip,rk3562-gmac", .data = &rk3562_ops },
+ 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
+ 	{ .compatible = "rockchip,rk3576-gmac", .data = &rk3576_ops },
+ 	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
