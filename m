@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043739FC0B1
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:08:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B54A9FC0B4
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE0A1C78F65;
-	Tue, 24 Dec 2024 17:08:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0748C78F65;
+	Tue, 24 Dec 2024 17:08:30 +0000 (UTC)
 Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
  [217.70.183.194])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C421C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71A0EC78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Dec 2024 17:08:29 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6BD5240004;
  Tue, 24 Dec 2024 17:08:24 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E75BA40003;
- Tue, 24 Dec 2024 17:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1735060104;
+ t=1735060109;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+afwOEQnbaba+LXNGTuAYGtAsSXdRwU1zxfezGFUpKo=;
- b=d0I+Ib/8YxcbnQcn2sSQWaONcDnUHh95Y9JAP+oVs5WXmg2Uy0E5rDGRGpBGrDUJEyXQon
- VxhiFm+4tYji9gfM7q8vOOnXLtn+IvHFMGbNkB7dzoEczXAsiFUlyn4zrnLALlp1Ce0Jlu
- Hw9d4UR7pSwa/0gyR+riIqoOgQyQXFb5tRp2R2K3Xa3yjB3oZK0MekHyBcKnbdzkQy9sNJ
- E0XAxwcMD6aGjkrFFhK74YZt8QwlIhwb0Z1w6mNo9dmz4p4dEnC5gJB/4Cle4brwrReQAN
- TCisk9Cu9cEY8OTBN0HgMsbouJ6mBlOzAoR85kwDXQ5vlT5VbKdRcGLUnqSGcA==
+ bh=st7iZmfts2tp/8JHKFXB7UyuKEKOlhrYdKjKeGEcYRI=;
+ b=C6PU0+1oRp15Veqp9zxnzsWiEF4EXFnjn/8rqCWVdcYin0pJ2xwfhRPvZRHBNh0jF+5OK2
+ ybueriz7GuiSPXhebd+kw8TvM3Np469mC+/RmPtvvOULmkxUcLApE+gZhr0NAeUtYc1HY4
+ 0bBususlDBpKDw5EHbp5TH5AQ4qGppu4b7AtWUNqdiU3dFi7kevDTJ4tvv5m27FYwj8r5K
+ vGW6SjZOKYr9SFdM8I2QDjP1wwpUF1MbDQmQVPfOvQP93eBhPxxV31sh2SCJyt9BRQv6+/
+ fCiLuztwNjULwAHbXZVaUw+WenD6DT1nMBqCN5356EYSnmpCgCS4nxil91kYFw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Dec 2024 18:06:11 +0100
+Date: Tue, 24 Dec 2024 18:06:12 +0100
 MIME-Version: 1.0
-Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-26-ad218dbc406f@bootlin.com>
+Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-27-ad218dbc406f@bootlin.com>
 References: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 In-Reply-To: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,8 +63,8 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 26/27] mtd: spinand: winbond: Add comment
-	about naming
+Subject: [Linux-stm32] [PATCH v2 27/27] mtd: spinand: winbond: Add support
+ for DTR operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,7 +81,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Make the link between the core macros and the datasheet.
+W25N01JW and W25N02JW support many DTR read modes in single, dual and
+quad configurations.
+
+DTR modes however cannot be used at 166MHz, as the bus frequency in
+this case must be lowered to 80MHz.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
@@ -89,21 +93,25 @@ Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
-index 97517d495e57a6e9e616ed7e66b4a8e9fc1fe62a..51972ba0f193c7b27ece0296c1590ddfed0ac813 100644
+index 51972ba0f193c7b27ece0296c1590ddfed0ac813..8394a1b1fb0c125ddb614269069d107463e905a3 100644
 --- a/drivers/mtd/nand/spi/winbond.c
 +++ b/drivers/mtd/nand/spi/winbond.c
-@@ -18,6 +18,11 @@
+@@ -24,10 +24,15 @@
+  */
  
- #define W25N04KV_STATUS_ECC_5_8_BITFLIPS	(3 << 4)
- 
-+/*
-+ * "X2" in the core is equivalent to "dual output" in the datasheets,
-+ * "X4" in the core is equivalent to "quad output" in the datasheets.
-+ */
-+
  static SPINAND_OP_VARIANTS(read_cache_dtr_variants,
++		SPINAND_PAGE_READ_FROM_CACHE_QUADIO_DTR_OP(0, 8, NULL, 0, 80 * HZ_PER_MHZ),
++		SPINAND_PAGE_READ_FROM_CACHE_X4_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
  		SPINAND_PAGE_READ_FROM_CACHE_QUADIO_OP(0, 2, NULL, 0),
  		SPINAND_PAGE_READ_FROM_CACHE_X4_OP(0, 1, NULL, 0),
++		SPINAND_PAGE_READ_FROM_CACHE_DUALIO_DTR_OP(0, 4, NULL, 0, 80 * HZ_PER_MHZ),
++		SPINAND_PAGE_READ_FROM_CACHE_X2_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
+ 		SPINAND_PAGE_READ_FROM_CACHE_DUALIO_OP(0, 1, NULL, 0),
+ 		SPINAND_PAGE_READ_FROM_CACHE_X2_OP(0, 1, NULL, 0),
++		SPINAND_PAGE_READ_FROM_CACHE_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
+ 		SPINAND_PAGE_READ_FROM_CACHE_FAST_OP(0, 1, NULL, 0),
+ 		SPINAND_PAGE_READ_FROM_CACHE_OP(0, 1, NULL, 0, 54 * HZ_PER_MHZ));
+ 
 
 -- 
 2.47.0
