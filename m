@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E246E9FC084
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:06:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA449FC086
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:06:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9444C78F65;
-	Tue, 24 Dec 2024 17:06:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3839C78F67;
+	Tue, 24 Dec 2024 17:06:52 +0000 (UTC)
 Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
  [217.70.183.194])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AEC2C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3AE4C78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Dec 2024 17:06:51 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7169F40002;
  Tue, 24 Dec 2024 17:06:47 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id A86AA40008;
- Tue, 24 Dec 2024 17:06:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1735060007;
+ t=1735060011;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dplhgiiMhu5lUlvijJ09whzPZ6kRkT4F5CXKBJnyGI0=;
- b=UEJYhyDx8PzhaDvY3g2VxeMGh4jzAc6hrVPewf+sulS+8TOM4yRf5unw8Z196fbszetW94
- vyPxxNqOXKAqzrwGmHS4egH0hNeHt3iWfJFg48ivq2UpiEjxVYTwHdca7ZJz5J9eQGmRI7
- WgdrwvrXMtWajCTF/ZXrjnCUL5/Cfm3+HdnwHI+2gb7CGSEV6yRmZ/GB4JBHF+MUTaOzth
- IME5p8vg39e0zjUlKZmUnB7076zPvjQYMQf7TIPiF+Rc/hHugDnHk8pvYTU7GFnLczvYi0
- Wq/a4rrIDtBn0xkWKhY081ckeKTW7qMSBFPcnOMn4k/c60G+3mBTiFyHIp9ezA==
+ bh=GhS+zZ6UEvQnr62N11JkbnpzTV68YUYjNDNf+0QneiY=;
+ b=mjyzG3GWELMq6c7f+8BEGOXFcDyZWw4zZFu5oZ2bXKmWLasrMO/ecJD+oTC5EHpPnh+quK
+ /9s58HlReb6/z8C6P81U5uRXkQ/ZJaKPQTrjuCT/5lQKUh2hQHsGUUhSbHbz0u6oIDbciG
+ /zw6CNFxXPEpc3SSOGj3alSbFeE499xV08jk+3HCwMJr8finn7su+O60xgOJj2KFY6ObfM
+ Mb3x4z4jl8wpvnGBpRpLOJwKLFsP/QLpyr4h0RG5G1uW7kB++G9tcFYX5WEzbFWVmDjOHx
+ HFM8urZlhjo6nG0RNMZ4fEgRUPTufSjchTwx2YIgxI17pCukEoKI0IFNCA6Bzg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Dec 2024 18:05:50 +0100
+Date: Tue, 24 Dec 2024 18:05:51 +0100
 MIME-Version: 1.0
-Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-5-ad218dbc406f@bootlin.com>
+Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-6-ad218dbc406f@bootlin.com>
 References: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 In-Reply-To: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -59,11 +59,12 @@ X-GND-Sasl: miquel.raynal@bootlin.com
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Steam Lin <stlin2@winbond.com>, linux-spi@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ linux-mediatek@lists.infradead.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 05/27] spi: amlogic-spifc-a1: Support per
+Subject: [Linux-stm32] [PATCH v2 06/27] spi: cadence-qspi: Support per
  spi-mem operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,43 +92,33 @@ device value will be given anyway.
 The per-operation frequency capability is thus advertised to the spi-mem
 core.
 
+Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-amlogic-spifc-a1.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/spi/spi-cadence-quadspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-amlogic-spifc-a1.c b/drivers/spi/spi-amlogic-spifc-a1.c
-index fadf6667cd51c40a29749b378b82161a337edc62..18c9aa2cbc290d8ac179438ab42c27e1a722d422 100644
---- a/drivers/spi/spi-amlogic-spifc-a1.c
-+++ b/drivers/spi/spi-amlogic-spifc-a1.c
-@@ -259,7 +259,7 @@ static int amlogic_spifc_a1_exec_op(struct spi_mem *mem,
- 	size_t data_size = op->data.nbytes;
- 	int ret;
+diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+index 0b45b7b2b3ab30951d94ea2ce57dcba3a2600847..e4862163252ed35053f743c74f1175e033940b17 100644
+--- a/drivers/spi/spi-cadence-quadspi.c
++++ b/drivers/spi/spi-cadence-quadspi.c
+@@ -1407,7 +1407,7 @@ static int cqspi_mem_process(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	struct cqspi_flash_pdata *f_pdata;
  
--	ret = amlogic_spifc_a1_set_freq(spifc, mem->spi->max_speed_hz);
-+	ret = amlogic_spifc_a1_set_freq(spifc, op->max_freq);
- 	if (ret)
- 		return ret;
+ 	f_pdata = &cqspi->f_pdata[spi_get_chipselect(mem->spi, 0)];
+-	cqspi_configure(f_pdata, mem->spi->max_speed_hz);
++	cqspi_configure(f_pdata, op->max_freq);
  
-@@ -320,6 +320,10 @@ static const struct spi_controller_mem_ops amlogic_spifc_a1_mem_ops = {
- 	.adjust_op_size = amlogic_spifc_a1_adjust_op_size,
+ 	if (op->data.dir == SPI_MEM_DATA_IN && op->data.buf.in) {
+ 	/*
+@@ -1655,6 +1655,7 @@ static const struct spi_controller_mem_ops cqspi_mem_ops = {
+ 
+ static const struct spi_controller_mem_caps cqspi_mem_caps = {
+ 	.dtr = true,
++	.per_op_freq = true,
  };
  
-+static const struct spi_controller_mem_caps amlogic_spifc_a1_mem_caps = {
-+	.per_op_freq = true,
-+};
-+
- static int amlogic_spifc_a1_probe(struct platform_device *pdev)
- {
- 	struct spi_controller *ctrl;
-@@ -356,6 +360,7 @@ static int amlogic_spifc_a1_probe(struct platform_device *pdev)
- 	ctrl->bits_per_word_mask = SPI_BPW_MASK(8);
- 	ctrl->auto_runtime_pm = true;
- 	ctrl->mem_ops = &amlogic_spifc_a1_mem_ops;
-+	ctrl->mem_caps = &amlogic_spifc_a1_mem_caps;
- 	ctrl->min_speed_hz = SPIFC_A1_MIN_HZ;
- 	ctrl->max_speed_hz = SPIFC_A1_MAX_HZ;
- 	ctrl->mode_bits = (SPI_RX_DUAL | SPI_TX_DUAL |
+ static int cqspi_setup_flash(struct cqspi_st *cqspi)
 
 -- 
 2.47.0
