@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D705D9FBADB
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 10:02:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E44149FBAE3
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 10:04:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 884B9C78011;
-	Tue, 24 Dec 2024 09:02:29 +0000 (UTC)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A82ECC78011;
+	Tue, 24 Dec 2024 09:04:00 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FBD4C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE892C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 09:02:22 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-aa67773ffd4so88165166b.2
+ Tue, 24 Dec 2024 09:03:53 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-aa69599b4b0so86167766b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 01:02:22 -0800 (PST)
+ Tue, 24 Dec 2024 01:03:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1735030942; x=1735635742;
+ d=linaro.org; s=google; t=1735031033; x=1735635833;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=rqjl308OuNRMbWugA4jzjOfqs1qN28qDlrGRi1lmlOA=;
- b=a97mlyxIMsSxktzUexu9rNeiT8gbElu5BcItHZLCogsLQbuqIeBeFcOHCuCj/HyOk6
- UhyjejyLF025w5ld7KvWqdWIbjn5xdF/tqQCHgg7H7pXr5a+ZnFFU9oq0wRMF33oToQL
- ZQcSDWSDQuQrbJVR/gOsJ03f1FrlMzZSru7I2fpeX/PI8QL+xYEH8Q7CMdQS55ysUYuT
- Mjx7AAAdujd8MLMOQ9hK9KakGdSBiYsmsy1RhE5szHDc9GuU3r9BRkJs7o7yt3vezY+j
- XhRE413xrA7TPdeAiQQ4eBU6ZZ23jxYDfXjizPHxYP0bXNoTXuDbAco7JIWKVZrcVBE0
- NUqA==
+ bh=z0IZpYux0PQ21H1xi7uGwUCeGViaLFCCBjvWm749ZIg=;
+ b=V/9U36ea/3uIE0TrvC29kWTek6NiOEpsPZ2OgIY0LFFMHTtXjNo5l52/QptGv0Zlqt
+ mXFABK925DHjTGJihfu9Jq35Y0aKqdAStlWX6tHYVWmL6MCIKvXaaNhd3gSTbvPt67sH
+ 5SnDOhgs5tCrCiLDwFgmcrsBjvtuzSiCyikT+stL3M1YndjZpK6dHHeUmp/WC+fgaUmM
+ SBN3H71LZhs5/qfeutlTwhoCLLOySqT+oYALEQAa8NC4LOc4BdOUtKCCX6Z7ro3nerm2
+ tvffbuW7riz9UqDmGakP9+je1j89wWVf51C0k7IDT2TfCeoqVCjpfRH3m9e/Rj0scAZ4
+ qeOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735030942; x=1735635742;
+ d=1e100.net; s=20230601; t=1735031033; x=1735635833;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=rqjl308OuNRMbWugA4jzjOfqs1qN28qDlrGRi1lmlOA=;
- b=WUOPlattMdSmkAlG4+LwUfY7DK/Qkedg/WBbay4xxlGiSK1EGzJWeAspnJEZNbyaj2
- PR99jAHCBtNojvggqVj4QRLAz76fKy5iqf2CPrytxGHOGfA0ni1KOF4d3K2/GIlVxe3A
- bSOVh+DopyvDFb+Cbkmdtq5egFI6k3f52FdjU24Uh7wq12uimhATNjGtItJgMkA/bpvJ
- UVDVomaC/irHWZLSWEWuILyh7e9t3u0rx2Jsy+kSLjGAg9LrXtpeen8nqkiJI8ErjKHd
- 5AKRZNQWnwksqnY1Huu2f5dpA6FMD0fV6yYCxkVu7PYYhZDX+GSNBvWm9a0P5sW7lWJ6
- P/QQ==
+ bh=z0IZpYux0PQ21H1xi7uGwUCeGViaLFCCBjvWm749ZIg=;
+ b=Sk7yi7DrR6FSWT9ptw9hJT0YdGUFlUbu8/Wm5BBHoLcRpEfevRhnXNSbRrQKSxiSHn
+ enU/emmp8SHC6jAAxegulm+FmZEDTygiBvj+23KyGG7B9h7Xs5AjSighdQ8RwziePLJK
+ zJ5xp8EyQ57kGZRfidboePC3yi6BpGkirKRVancDAkcA71i5YlsHB9iS6i5SY9p5mRai
+ btCC/1G9UcIrbopMfCJU8ZXwGqlz0WCwThspC7wPhhOAOYBO9o/UmFYjDxJ9BML3PaG8
+ MjnfBJX8Myv797UJVC20+2knBzHOVm7epHiEI7QNxn47AJO1cSkvPhURZJFM/GBM1Bgv
+ curQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUA2uyX5zRKBe5Qbqeqh59+7mJD4zW9ujDTJ6ItGQXp19ECESm34Znyua/Ap+ir/ODfx6T6Ttc7tlRKJw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwQSGKnw2wCFXUQOC2awW2aDHoyOigpYcL5CGJMlXoSewX6Owkl
- Pk3dxTHVXYQ8BpAww/5i/YnwiigNn/QDTW2KhsdMR0D4685Zu0JEeLl6+K6Em+w=
-X-Gm-Gg: ASbGncvWgyiUPDWYq2HFL5yv7zRbVksOwQII/HS3sdG7wFBaahjl4XK7GwzQIXeYoDH
- GTGO2DPGWMND2zA7+thRcgAfhDspWnRv9TOR0h21PU4QuoO6FtkmTQwAn0/0PA9ZnmyMkqtBYWU
- AAo0M0CWCk5dH6y10HVs4H3PiGSVAu7i0ybJAGegSDNZ3n5exWIY6spJ7Wiv64tk/eaDFLtAZjB
- W076N4Z63+E3JIXvHT4R84T2ZxPrn2CL2NJnv4TGuXM9qMPowmKxURV0uPvcv+IjbiBG1jiSxQ1
- admkqBwnTErwIHNxC3uItISwBY/XgNsjj+o=
-X-Google-Smtp-Source: AGHT+IGykTi7JHcE7u3RIbhw9nHMoGJBAN6VL/xBiSZ3UlC0+Pn4XzS4kF3dFtZfJ0nP0IfLmC2iOA==
-X-Received: by 2002:a17:907:2683:b0:a9a:8216:2f4d with SMTP id
- a640c23a62f3a-aac2714a5ecmr510447666b.3.1735030941539; 
- Tue, 24 Dec 2024 01:02:21 -0800 (PST)
+ AJvYcCXOFgcFKBrzq/nY++hk/v6D1P5hwDKTRtX1t7Wzqa2kUCU9AgLbLgb98t/zhYPp5OnRekr+KjCN/8c4BQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzkAdfbb6gZbfXpkCLXbvK7K3nY+wpxPWFhCwT7y6o94HBoqSEE
+ awWeBBGu6KHnZbhLr1fLBrgijt7kLRf2Yl5gaoOv9okPKnTuF+VRuov4/i/0MMs=
+X-Gm-Gg: ASbGncshwil51uQmzoSBoF0/C7OVdLK9nqqBDLC5GYeA13G7jGgEyjoBsLHwvmPd/I6
+ I3SUo34kpjN1UhkfmetgHNeq2stVC5trzsCK+oNLjviRpHRcH0Q/pCNqv1skNDYF490YY7BLxsd
+ cURDfZ69MgjCCGmhSMnq30bhzdcV7zfpNd36CKPMDbO0VYxbyiq6ROIUnblQ489gV2kKleDAb4J
+ wKAp/Qib62BshwA2pWhF9LAAdBmh/RMrGfPEw3SHrXp1aN4fPnqZ96m0MgvpujPU8JwDQaoiIUd
+ BzONzgT4FZkf+7V7/2Go7xTeVv8k3V0ZSfw=
+X-Google-Smtp-Source: AGHT+IGww99qrBBuovvVWKdRBOFSplKcqorPH8QQi3151rHPzuzT+tIstiqWmsZPCGiK7Ga5fpjAnw==
+X-Received: by 2002:a17:907:9621:b0:aa6:a9a4:7bd6 with SMTP id
+ a640c23a62f3a-aac2adb6962mr589868266b.6.1735031033293; 
+ Tue, 24 Dec 2024 01:03:53 -0800 (PST)
 Received: from [192.168.0.18] (78-11-220-99.static.ip.netia.com.pl.
  [78.11.220.99]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0efe4b6bsm630137966b.93.2024.12.24.01.02.19
+ a640c23a62f3a-aac0efe4c55sm624557866b.130.2024.12.24.01.03.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Dec 2024 01:02:19 -0800 (PST)
-Message-ID: <7813f2b0-e76a-463c-91f9-c0bd50da1f0a@linaro.org>
-Date: Tue, 24 Dec 2024 10:02:18 +0100
+ Tue, 24 Dec 2024 01:03:52 -0800 (PST)
+Message-ID: <b0e8a58f-530b-485a-81fb-208fa7840980@linaro.org>
+Date: Tue, 24 Dec 2024 10:03:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Yijie Yang <quic_yijiyang@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
@@ -78,7 +78,7 @@ To: Yijie Yang <quic_yijiyang@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
  Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
 References: <20241224-schema-v2-0-000ea9044c49@quicinc.com>
- <20241224-schema-v2-1-000ea9044c49@quicinc.com>
+ <20241224-schema-v2-2-000ea9044c49@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -125,12 +125,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20241224-schema-v2-1-000ea9044c49@quicinc.com>
+In-Reply-To: <20241224-schema-v2-2-000ea9044c49@quicinc.com>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: net: qcom,
- ethqos: Drop fallback compatible for qcom, qcs615-ethqos
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] dt-bindings: net: snps,
+ dwmac: add description for qcs615
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,22 +148,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 24/12/2024 04:07, Yijie Yang wrote:
-> The core version of EMAC on qcs615 has minor differences compared to that
-> on sm8150. During the bring-up routine, the loopback bit needs to be set,
-> and the Power-On Reset (POR) status of the registers isn't entirely
-> consistent with sm8150 either.
-> Therefore, it should be treated as a separate entity rather than a
-> fallback option.
-
-... and explanation of ABI impact? You were asked about this last time,
-so this is supposed to end up here.
-
+> Add the necessary compatible entries for qcs615 to ensure its validation.
 > 
-> Fixes: 32535b9410b8 ("dt-bindings: net: qcom,ethqos: add description for qcs615")
 > Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
 > ---
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+This should be squashed with previous, otherwise patchset is not bisectable.
+
 Best regards,
 Krzysztof
 _______________________________________________
