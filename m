@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E719FC082
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:06:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E246E9FC084
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 18:06:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99AFCC78F67;
-	Tue, 24 Dec 2024 17:06:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9444C78F65;
+	Tue, 24 Dec 2024 17:06:48 +0000 (UTC)
 Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
  [217.70.183.194])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6F08C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AEC2C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Dec 2024 17:06:47 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A86AA40008;
  Tue, 24 Dec 2024 17:06:42 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C5BD740007;
- Tue, 24 Dec 2024 17:06:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1735060002;
+ t=1735060007;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dHPofq5XZq7az/ZH3pSbnokgc8b9g3SIFoGkVNSo6iM=;
- b=dCoBmN1Zsbg4xR1kd5uwqWvdqw5NRNRqTHsjVIAxvOPpWGjePVJdoiMUap/IIyk1IZgVED
- bpU8xzpiemf1TCGirkGDqJbA2yfArVvUS0fkMLO4/cOBw4bsSCH33Eel9/vHSHFIPYU3Fx
- Pskt2ss8OSIR41cfnMJ6Qii9rwsehhu7SEliVI5KQycD9YnPhxf1gvwikQPrV6zly2XPcm
- hmWPX0JtoOYwWlBEH791HIfeXbCLgJ661nUu0/BjwTV6ohz1wjw6bLRgUiZvVZax/J7dZK
- rd9ljXu6CJ1UiZTTk1CDbGn8Xb/aP4eRUm3FzlYllBkt7ne3RGqccrBfk7c9vw==
+ bh=dplhgiiMhu5lUlvijJ09whzPZ6kRkT4F5CXKBJnyGI0=;
+ b=UEJYhyDx8PzhaDvY3g2VxeMGh4jzAc6hrVPewf+sulS+8TOM4yRf5unw8Z196fbszetW94
+ vyPxxNqOXKAqzrwGmHS4egH0hNeHt3iWfJFg48ivq2UpiEjxVYTwHdca7ZJz5J9eQGmRI7
+ WgdrwvrXMtWajCTF/ZXrjnCUL5/Cfm3+HdnwHI+2gb7CGSEV6yRmZ/GB4JBHF+MUTaOzth
+ IME5p8vg39e0zjUlKZmUnB7076zPvjQYMQf7TIPiF+Rc/hHugDnHk8pvYTU7GFnLczvYi0
+ Wq/a4rrIDtBn0xkWKhY081ckeKTW7qMSBFPcnOMn4k/c60G+3mBTiFyHIp9ezA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Dec 2024 18:05:49 +0100
+Date: Tue, 24 Dec 2024 18:05:50 +0100
 MIME-Version: 1.0
-Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-4-ad218dbc406f@bootlin.com>
+Message-Id: <20241224-winbond-6-11-rc1-quad-support-v2-5-ad218dbc406f@bootlin.com>
 References: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 In-Reply-To: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,7 +63,8 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 04/27] spi: amd: Drop redundant check
+Subject: [Linux-stm32] [PATCH v2 05/27] spi: amlogic-spifc-a1: Support per
+ spi-mem operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,65 +81,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Both spi and spi-mem cores already take care of checking the minimum and
-maximum speed for transfers depending on the controller
-capabilities. There is no reason to repeat this check in controller
-drivers.
+Every ->exec_op() call correctly configures the spi bus speed to the
+maximum allowed frequency for the memory using the constant spi default
+parameter. Since we can now have per-operation constraints, let's use
+the value that comes from the spi-mem operation structure instead. In
+case there is no specific limitation for this operation, the default spi
+device value will be given anyway.
 
-Once this possible error condition removed from the function, it makes
-no longer sense to return an int.
+The per-operation frequency capability is thus advertised to the spi-mem
+core.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-amd.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/spi/spi-amlogic-spifc-a1.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
-index 485ae1e382e3eb8f4d72ebb0fb15c51b9a118d3b..fbe795bbcf507abcbbd973b226b5db0de1584898 100644
---- a/drivers/spi/spi-amd.c
-+++ b/drivers/spi/spi-amd.c
-@@ -298,19 +298,16 @@ static const struct amd_spi_freq amd_spi_freq[] = {
- 	{ AMD_SPI_MIN_HZ,   F_800KHz,         0},
+diff --git a/drivers/spi/spi-amlogic-spifc-a1.c b/drivers/spi/spi-amlogic-spifc-a1.c
+index fadf6667cd51c40a29749b378b82161a337edc62..18c9aa2cbc290d8ac179438ab42c27e1a722d422 100644
+--- a/drivers/spi/spi-amlogic-spifc-a1.c
++++ b/drivers/spi/spi-amlogic-spifc-a1.c
+@@ -259,7 +259,7 @@ static int amlogic_spifc_a1_exec_op(struct spi_mem *mem,
+ 	size_t data_size = op->data.nbytes;
+ 	int ret;
+ 
+-	ret = amlogic_spifc_a1_set_freq(spifc, mem->spi->max_speed_hz);
++	ret = amlogic_spifc_a1_set_freq(spifc, op->max_freq);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -320,6 +320,10 @@ static const struct spi_controller_mem_ops amlogic_spifc_a1_mem_ops = {
+ 	.adjust_op_size = amlogic_spifc_a1_adjust_op_size,
  };
  
--static int amd_set_spi_freq(struct amd_spi *amd_spi, u32 speed_hz)
-+static void amd_set_spi_freq(struct amd_spi *amd_spi, u32 speed_hz)
++static const struct spi_controller_mem_caps amlogic_spifc_a1_mem_caps = {
++	.per_op_freq = true,
++};
++
+ static int amlogic_spifc_a1_probe(struct platform_device *pdev)
  {
- 	unsigned int i, spd7_val, alt_spd;
- 
--	if (speed_hz < AMD_SPI_MIN_HZ)
--		return -EINVAL;
--
- 	for (i = 0; i < ARRAY_SIZE(amd_spi_freq); i++)
- 		if (speed_hz >= amd_spi_freq[i].speed_hz)
- 			break;
- 
- 	if (amd_spi->speed_hz == amd_spi_freq[i].speed_hz)
--		return 0;
-+		return;
- 
- 	amd_spi->speed_hz = amd_spi_freq[i].speed_hz;
- 
-@@ -329,8 +326,6 @@ static int amd_set_spi_freq(struct amd_spi *amd_spi, u32 speed_hz)
- 		amd_spi_setclear_reg32(amd_spi, AMD_SPI_SPEED_REG, spd7_val,
- 				       AMD_SPI_SPD7_MASK);
- 	}
--
--	return 0;
- }
- 
- static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
-@@ -679,9 +674,7 @@ static int amd_spi_exec_mem_op(struct spi_mem *mem,
- 
- 	amd_spi = spi_controller_get_devdata(mem->spi->controller);
- 
--	ret = amd_set_spi_freq(amd_spi, op->max_freq);
--	if (ret)
--		return ret;
-+	amd_set_spi_freq(amd_spi, op->max_freq);
- 
- 	if (amd_spi->version == AMD_SPI_V2)
- 		amd_set_spi_addr_mode(amd_spi, op);
+ 	struct spi_controller *ctrl;
+@@ -356,6 +360,7 @@ static int amlogic_spifc_a1_probe(struct platform_device *pdev)
+ 	ctrl->bits_per_word_mask = SPI_BPW_MASK(8);
+ 	ctrl->auto_runtime_pm = true;
+ 	ctrl->mem_ops = &amlogic_spifc_a1_mem_ops;
++	ctrl->mem_caps = &amlogic_spifc_a1_mem_caps;
+ 	ctrl->min_speed_hz = SPIFC_A1_MIN_HZ;
+ 	ctrl->max_speed_hz = SPIFC_A1_MAX_HZ;
+ 	ctrl->mode_bits = (SPI_RX_DUAL | SPI_TX_DUAL |
 
 -- 
 2.47.0
