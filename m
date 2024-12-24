@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F8D9FC1CD
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 20:57:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE3149FC1D9
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 21:03:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1256BC78F65;
-	Tue, 24 Dec 2024 19:57:06 +0000 (UTC)
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75595C78F65;
+	Tue, 24 Dec 2024 20:03:12 +0000 (UTC)
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 354C8C78037
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA44FC78037
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 19:56:58 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-3a9cb667783so40803075ab.1
+ Tue, 24 Dec 2024 20:03:04 +0000 (UTC)
+Received: by mail-il1-f170.google.com with SMTP id
+ e9e14a558f8ab-3a813899384so19678045ab.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 11:56:58 -0800 (PST)
+ Tue, 24 Dec 2024 12:03:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735070217; x=1735675017;
+ d=gmail.com; s=20230601; t=1735070583; x=1735675383;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=TpbE32YrRX7k68vHgrK8mf3gbDDES5zEOdwfZIy6I+0=;
- b=isWaw6TGqqi6GOs8RlgZgffi4EaBpgY8H0cXk6jW10cEnhenLMEmFn18OrK5h3vbRG
- BTHvOgsz1mxQpnr1sjaEapIP5oH9YnUuROSOtPcd++Zv8FEAcKWHvj2W1kOBzJulcNX3
- CGTrfbO0XOdo6OsP/PBwb0OwAWkevn8TIwx9jM9O2QCSqgirFeoTqj6J56J5BQyqgkjW
- aW9bz+tfW8jHK/vFKlSQb7s6Muq2eTXacEXWBUnnFOG+w05u59yIHuhret6GxseRcSXV
- GotWZLzFJoXUnkX6oGDPdOnNgOdRpgaBihcPRdUqYmJ/Io+rjEs+iUeiGfz+v1luQCnl
- 92Zw==
+ bh=poncxOnZdDcZKHqz0owUgHxjpuHE1fKkza/gUQopM84=;
+ b=jdB7833ibCFtPnNL/JR1p/Lbzw9zbuy8p2ErvOU4XHuwHuWn724Y/0GuGrd5vWj3U7
+ T4tRcfFwxd4c8ZqJURLPMF4Sy8/rNvuVaG3z6wioqivGMPbLClOMwahJ84LVr5qOFPEE
+ kvcnvvO2nDOAbt6hxNaxtiTqcferfJtDloCDEbuEWUm65Cmytpr+QazljsrN2DPn8YiU
+ KdTYjFDXjebt4RIGWYTqzjwCoqNf9sQ6jaCV7THQGkM4cKnHS6fKShxufHWZzBhlgyn/
+ EWnTyX64a5Me74ZfaV2I+HCjItcuVyuOl7w1bhpn4Q3MM1gubtD2pKA5+0mHJcaYr+Ou
+ xY7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735070217; x=1735675017;
+ d=1e100.net; s=20230601; t=1735070583; x=1735675383;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=TpbE32YrRX7k68vHgrK8mf3gbDDES5zEOdwfZIy6I+0=;
- b=hGLalwcJdhCqqz+XMfGNxE6zHdRZiwRNoFkA6ttgH69cntIw87MHMUvVNMD69HuyHU
- 2PF2BMtj52XMGIWfLS/Jo9b7A3l05pSa0lg8Dk+z8CRgeY3YttpUzWbFmuUZaNX835g4
- EHJup9RHs4DgoRUuhnovAxPbzFVMCa+UZtkbIIqJrMCy0YkNi7Y7lizcOnSWAjWfqOs+
- hkXfv+qjlEclnBH9D4WgjpjrQb2Q1cjojruup7OFUINWOGcbx4tsThu4OJuF1cxpRxBB
- DfwVUCT9EzvSmj8UNVlj3mi2il4ZLPXpkzF4oE7Fst/LNi4kecJAfp0QT7vBv6LZ54Uh
- 9Uuw==
+ bh=poncxOnZdDcZKHqz0owUgHxjpuHE1fKkza/gUQopM84=;
+ b=LPYZW71COerhdXdPYta7hQmBo2/kxTTlkqpgy4eTQ/Cqm6hQPvs/98VjNYJpZL0885
+ zrp+vDDofe+fH6iVR9AgZ08p3yu114/F+qPRc9CoET31y6MyrCtGbA2H+RMSub8ru6+8
+ rFDqyZX5hwLuUXPLFDE2Z6pOd/eYgqxIW0EOFd2BH0Hc8o8gVdFPNKz6hUfaInBUht2r
+ OolH1v7rUs/DMAeQqgrkR+pEB5jLQSNaJEapyfoYFszz+JsqzTLeSvAtVb/DLKQfXg/y
+ YqaBwoUSHKOK5RFIuEsqmwjvnsP9hHeKgiZzgeIdr0BypsXEJMyKu2agMYdZlj0JNN30
+ u7DA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWasTq+ttzgszIlB0C8W85+S16EKTHeZXq1l7rn/HGZnqBc3OEz0W0ayXq/WOUANJGQ7oSTHkkDYKZyKQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx/YdbgB1Vz8VfLsnkGDO/o2FdhnMcFlDqf8sJ1YVL6MQBRYljf
- LPMMiRwfJX8D6xXCxyuyFaLfr14MkS3czwAJlsE5rYzxT8qY1BmU
-X-Gm-Gg: ASbGnctWFiBEprIqB+C7HNyOrUbmHLrj0bEuSFs8n5VtFqM7r6ByYoDJNxJHB46YNCD
- zjQhxC1pqFNELO3o7yuZ39YVg4loblThbp380aC3g/24BJvB+pRTMT5+ZEjJBkRjx6MLm85Cz5j
- xKOHAMaCFkpbw87vPSa1F1NBQQaYTRcHW5k10DSchWjCNs/Q4W8jR1KtM3jW7RF+ifQAPmxXq4F
- tAsw9Loln576V4CvWsqQpmlxdtpW0SGD96hnCDBFapzc/Xg1QzjV86qo+XunYYJesTb
-X-Google-Smtp-Source: AGHT+IHX4vrmb8xk5P7zI2PSaxST8v5YjWWt+HzJlZhWJGjYPjLwHvnt47dobMyGbrbLFCDBd6cTxQ==
-X-Received: by 2002:a92:c24c:0:b0:3a7:c5cb:8bf3 with SMTP id
- e9e14a558f8ab-3c2d277f5aamr146379315ab.9.1735070217031; 
- Tue, 24 Dec 2024 11:56:57 -0800 (PST)
+ AJvYcCWK3ukr0vlgdl3X4qCUb6EC4weEIokWvbgheVfDKutF00Zg9VNUMg6WCmYH0etEVdjgvDcMERB9aOnVxg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzn8K/EYCKJUoBxU8cwrhhF7QS1QgMq4wxxpqSG12HjBnhg8SBK
+ XqXI9RPyQhBi26mh2dAzK4QbECAY06C44wCPbMZ81dRhPF82kD29
+X-Gm-Gg: ASbGncs1zzsLS0jjOXbpz1A9dibwgE/9afh1N2Us+I0zlhoToYcYIT1JirrTqDgVnHd
+ f5KhWVTjVavJyjMWjR/RGvFCIFxUTraldmA4QeUZDSkSwnK+oIj5SwQ+SiOQWdSaQW9f0ld7kDe
+ GOh8J+N2H6geTQZ0zXxKGIpfUrwIRHCJC15mscGR52Q+vNUfItKWiHreaNOXu0NdZ/XqMO6o018
+ eL4JZwyzN6kltKAR5uH18xls5JKu1l18qi+y99Ot2XKQP4QNPiOTrppeJRSQprEs8p0
+X-Google-Smtp-Source: AGHT+IFCS4C7fNiL6P/tkM9845PTEQ0rb/c/Qe3WOuiYEvVQ+LydZky1ohM7JeCfVoiEmoAcbg9QqQ==
+X-Received: by 2002:a05:6e02:174d:b0:3a7:e7a9:8a78 with SMTP id
+ e9e14a558f8ab-3c2d515168fmr129378365ab.17.1735070583459; 
+ Tue, 24 Dec 2024 12:03:03 -0800 (PST)
 Received: from localhost.localdomain ([128.10.127.250])
  by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-3c0de053105sm29963655ab.15.2024.12.24.11.56.55
+ 8926c6da1cb9f-4e68c1dab95sm2842435173.123.2024.12.24.12.03.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Dec 2024 11:56:56 -0800 (PST)
+ Tue, 24 Dec 2024 12:03:02 -0800 (PST)
 From: Mingwei Zheng <zmw12306@gmail.com>
 To: marex@denx.de
-Date: Tue, 24 Dec 2024 15:00:00 -0500
-Message-Id: <20241224200000.76661-1-zmw12306@gmail.com>
+Date: Tue, 24 Dec 2024 15:06:08 -0500
+Message-Id: <20241224200608.84923-1-zmw12306@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Cc: make24@iscas.ac.cn, linux-kernel@vger.kernel.org, linus.walleij@linaro.org,
@@ -70,7 +70,8 @@ Cc: make24@iscas.ac.cn, linux-kernel@vger.kernel.org, linus.walleij@linaro.org,
  Jiasheng Jiang <jiashengjiangcool@gmail.com>, fabien.dessenne@foss.st.com,
  mcoquelin.stm32@gmail.com, Mingwei Zheng <zmw12306@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7] pinctrl: stm32: Add check for clk_enable()
+Subject: [Linux-stm32] [PATCH RESEND v7] pinctrl: stm32: Add check for
+	clk_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,6 +95,34 @@ the potential error.
 Fixes: 05d8af449d93 ("pinctrl: stm32: Keep pinctrl block clock enabled when LEVEL IRQ requested")
 Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
 Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+---
+Changelog:
+
+v6 -> v7:
+1. Move clk_bulk_prepare_enable() before calling 
+stm32_gpiolib_register_bank().
+
+v5 -> v6:
+1. Call devm_clk_bulk_get_all in stm32_pctl_probe().
+
+v4 -> v5:
+1. Move the clock handling from stm32_gpiolib_register_bank()
+and moving it to its caller.
+2. Call clk_bulk_prepare_enable() in stm32_pctl_probe() 
+and clk_bulk_disable_unprepare() for error.
+
+v3 -> v4:
+1. Add initialization for pctl->clks.
+2. Adjust alignment.
+
+v2 -> v3:
+
+1. Convert clk_disable_unprepare to clk_bulk_disable
+and clk_bulk_unprepare.
+
+v1 -> v2:
+
+1. Move int ret declaration into if block.
 ---
  drivers/pinctrl/stm32/pinctrl-stm32.c | 71 +++++++++++----------------
  1 file changed, 29 insertions(+), 42 deletions(-)
