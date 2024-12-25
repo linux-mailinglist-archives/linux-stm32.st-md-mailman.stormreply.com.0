@@ -2,76 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE3149FC1D9
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Dec 2024 21:03:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174A99FC442
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Dec 2024 09:48:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75595C78F65;
-	Tue, 24 Dec 2024 20:03:12 +0000 (UTC)
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
- [209.85.166.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC629C78F69;
+	Wed, 25 Dec 2024 08:48:25 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA44FC78037
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E7FAC78039
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 20:03:04 +0000 (UTC)
-Received: by mail-il1-f170.google.com with SMTP id
- e9e14a558f8ab-3a813899384so19678045ab.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Dec 2024 12:03:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735070583; x=1735675383;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=poncxOnZdDcZKHqz0owUgHxjpuHE1fKkza/gUQopM84=;
- b=jdB7833ibCFtPnNL/JR1p/Lbzw9zbuy8p2ErvOU4XHuwHuWn724Y/0GuGrd5vWj3U7
- T4tRcfFwxd4c8ZqJURLPMF4Sy8/rNvuVaG3z6wioqivGMPbLClOMwahJ84LVr5qOFPEE
- kvcnvvO2nDOAbt6hxNaxtiTqcferfJtDloCDEbuEWUm65Cmytpr+QazljsrN2DPn8YiU
- KdTYjFDXjebt4RIGWYTqzjwCoqNf9sQ6jaCV7THQGkM4cKnHS6fKShxufHWZzBhlgyn/
- EWnTyX64a5Me74ZfaV2I+HCjItcuVyuOl7w1bhpn4Q3MM1gubtD2pKA5+0mHJcaYr+Ou
- xY7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735070583; x=1735675383;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=poncxOnZdDcZKHqz0owUgHxjpuHE1fKkza/gUQopM84=;
- b=LPYZW71COerhdXdPYta7hQmBo2/kxTTlkqpgy4eTQ/Cqm6hQPvs/98VjNYJpZL0885
- zrp+vDDofe+fH6iVR9AgZ08p3yu114/F+qPRc9CoET31y6MyrCtGbA2H+RMSub8ru6+8
- rFDqyZX5hwLuUXPLFDE2Z6pOd/eYgqxIW0EOFd2BH0Hc8o8gVdFPNKz6hUfaInBUht2r
- OolH1v7rUs/DMAeQqgrkR+pEB5jLQSNaJEapyfoYFszz+JsqzTLeSvAtVb/DLKQfXg/y
- YqaBwoUSHKOK5RFIuEsqmwjvnsP9hHeKgiZzgeIdr0BypsXEJMyKu2agMYdZlj0JNN30
- u7DA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWK3ukr0vlgdl3X4qCUb6EC4weEIokWvbgheVfDKutF00Zg9VNUMg6WCmYH0etEVdjgvDcMERB9aOnVxg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzn8K/EYCKJUoBxU8cwrhhF7QS1QgMq4wxxpqSG12HjBnhg8SBK
- XqXI9RPyQhBi26mh2dAzK4QbECAY06C44wCPbMZ81dRhPF82kD29
-X-Gm-Gg: ASbGncs1zzsLS0jjOXbpz1A9dibwgE/9afh1N2Us+I0zlhoToYcYIT1JirrTqDgVnHd
- f5KhWVTjVavJyjMWjR/RGvFCIFxUTraldmA4QeUZDSkSwnK+oIj5SwQ+SiOQWdSaQW9f0ld7kDe
- GOh8J+N2H6geTQZ0zXxKGIpfUrwIRHCJC15mscGR52Q+vNUfItKWiHreaNOXu0NdZ/XqMO6o018
- eL4JZwyzN6kltKAR5uH18xls5JKu1l18qi+y99Ot2XKQP4QNPiOTrppeJRSQprEs8p0
-X-Google-Smtp-Source: AGHT+IFCS4C7fNiL6P/tkM9845PTEQ0rb/c/Qe3WOuiYEvVQ+LydZky1ohM7JeCfVoiEmoAcbg9QqQ==
-X-Received: by 2002:a05:6e02:174d:b0:3a7:e7a9:8a78 with SMTP id
- e9e14a558f8ab-3c2d515168fmr129378365ab.17.1735070583459; 
- Tue, 24 Dec 2024 12:03:03 -0800 (PST)
-Received: from localhost.localdomain ([128.10.127.250])
- by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-4e68c1dab95sm2842435173.123.2024.12.24.12.03.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Dec 2024 12:03:02 -0800 (PST)
-From: Mingwei Zheng <zmw12306@gmail.com>
-To: marex@denx.de
-Date: Tue, 24 Dec 2024 15:06:08 -0500
-Message-Id: <20241224200608.84923-1-zmw12306@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 25 Dec 2024 08:48:18 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BP0xUh6006885;
+ Wed, 25 Dec 2024 08:48:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 2td9t4sfIhhiNuVIvJwjDuBHMbZHT4OKnAbzZuz6hjk=; b=nk4u6hX0zh4QRYqI
+ 3yimNKrxrtvFuY22barlktzg24lqHylki76coa8kqeYkzO0Kv160S17sTTuF6WDn
+ GzClWYof2aham6ePrq1atz+DktvvE1Q7bV5HD/B+En5G1UJyCM2Aeu2yRQogWc7R
+ XGGNevivuLNxiafdcXUkauXTpJL631+3pmbn9w2KIZp9sDDCrVqhHPpV4B5/tthA
+ 7K2QjRhT0IJTJmrm1sSlfU+oUG4MOgu4GMTJrjYQg6JcIsj07vgiTrISahHLvrtp
+ 5AYhScpclENPDjQnY1xL9XsaNBBpBe8sC7EgdvtN1sZEmk6vcHsS/mGWaWXU8ica
+ vqR+0Q==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43qyv7usa2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 Dec 2024 08:47:59 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4BP8lwLF006187
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 Dec 2024 08:47:58 GMT
+Received: from [10.253.36.144] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 25 Dec
+ 2024 00:47:53 -0800
+Message-ID: <d7b78ab4-bc3d-41b0-ad74-28a8ed630070@quicinc.com>
+Date: Wed, 25 Dec 2024 16:47:50 +0800
 MIME-Version: 1.0
-Cc: make24@iscas.ac.cn, linux-kernel@vger.kernel.org, linus.walleij@linaro.org,
- peng.fan@nxp.com, linux-gpio@vger.kernel.org,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>, fabien.dessenne@foss.st.com,
- mcoquelin.stm32@gmail.com, Mingwei Zheng <zmw12306@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RESEND v7] pinctrl: stm32: Add check for
-	clk_enable()
+User-Agent: Mozilla Thunderbird
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20241224-schema-v2-0-000ea9044c49@quicinc.com>
+ <20241224-schema-v2-3-000ea9044c49@quicinc.com>
+ <62wm4samob5bzsk2br75fmllkrgptxxj2pgo7hztnhkhvwt54v@zz7edyq6ys77>
+ <bc143292-24e0-4887-bc56-ecaceebf3d82@quicinc.com>
+ <htnq5jjxwbsn3fjc3m6tzvyqrwzckipd3z63j2dotkliiwnqgk@lifzh4q35dqg>
+Content-Language: en-US
+From: Yijie Yang <quic_yijiyang@quicinc.com>
+In-Reply-To: <htnq5jjxwbsn3fjc3m6tzvyqrwzckipd3z63j2dotkliiwnqgk@lifzh4q35dqg>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: Eutn9DNG8oTpUHbKArQu5mSd4FWJxpA_
+X-Proofpoint-ORIG-GUID: Eutn9DNG8oTpUHbKArQu5mSd4FWJxpA_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 mlxlogscore=999 malwarescore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412250076
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: dwmac-qcom-ethqos:
+ add support for EMAC on qcs615 platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,218 +95,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the driver to clk_bulk*() API.
-Add check for the return value of clk_bulk_enable() to catch
-the potential error.
 
-Fixes: 05d8af449d93 ("pinctrl: stm32: Keep pinctrl block clock enabled when LEVEL IRQ requested")
-Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
----
-Changelog:
 
-v6 -> v7:
-1. Move clk_bulk_prepare_enable() before calling 
-stm32_gpiolib_register_bank().
+On 2024-12-24 13:05, Dmitry Baryshkov wrote:
+> On Tue, Dec 24, 2024 at 12:36:29PM +0800, Yijie Yang wrote:
+>>
+>>
+>> On 2024-12-24 12:18, Dmitry Baryshkov wrote:
+>>> On Tue, Dec 24, 2024 at 11:07:03AM +0800, Yijie Yang wrote:
+>>>> qcs615 uses EMAC version 2.3.1, add the relevant defines and add the new
+>>>> compatible.
+>>>>
+>>>> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+>>>> ---
+>>>>    drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 17 +++++++++++++++++
+>>>>    1 file changed, 17 insertions(+)
+>>>>
+>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> index 901a3c1959fa57efb078da795ad4f92a8b6f71e1..8c76beaee48821eb2853f4e3f8bfd37db8cadf78 100644
+>>>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> @@ -249,6 +249,22 @@ static const struct ethqos_emac_driver_data emac_v2_1_0_data = {
+>>>>    	.has_emac_ge_3 = false,
+>>>>    };
+>>>> +static const struct ethqos_emac_por emac_v2_3_1_por[] = {
+>>>> +	{ .offset = RGMII_IO_MACRO_CONFIG,	.value = 0x00C01343 },
+>>>> +	{ .offset = SDCC_HC_REG_DLL_CONFIG,	.value = 0x2004642C },
+>>>
+>>> lowercase the hex, please.
+>>
+>> I will take care of it.
+>>
+>>>
+>>>> +	{ .offset = SDCC_HC_REG_DDR_CONFIG,	.value = 0x00000000 },
+>>>> +	{ .offset = SDCC_HC_REG_DLL_CONFIG2,	.value = 0x00200000 },
+>>>> +	{ .offset = SDCC_USR_CTL,		.value = 0x00010800 },
+>>>> +	{ .offset = RGMII_IO_MACRO_CONFIG2,	.value = 0x00002060 },
+>>>> +};
+>>>> +
+>>>> +static const struct ethqos_emac_driver_data emac_v2_3_1_data = {
+>>>> +	.por = emac_v2_3_1_por,
+>>>> +	.num_por = ARRAY_SIZE(emac_v2_3_1_por),
+>>>> +	.rgmii_config_loopback_en = true,
+>>>> +	.has_emac_ge_3 = false,
+>>>> +};
+>>>
+>>> Modulo emac_v2_3_1_por vs emac_v2_3_0_por, this is the same as
+>>> emac_v2_3_0_data. Which means that bindings for qcs615-ethqos should be
+>>> corrected to use qcom,qcs404-ethqos as as fallback entry, making this
+>>> patch unused. Please correct the bindings instead.
+>>
+>> Although they currently share the same data, they are actually two different
+>> versions. Their differences are not apparent now but will become evident
+>> once new features are uploaded. If I revert to qcom,qcs404-ethqos now, it
+>> will be challenging to distinguish between them in the future.
+> 
+> Which features? Moreover, note, the use of the fallback doesn't preclude
+> you from addign a new compat entry later on. By having a fallback you
+> simply declare that the device A is also compatible with the device B.
+> 
 
-v5 -> v6:
-1. Call devm_clk_bulk_get_all in stm32_pctl_probe().
+Yes, you're right. I confirmed with the hardware team that the EMAC of 
+qcs615-ride is the same as that of qcs404. I will fall back the 
+compatible of qcs615 to the latter and drop the unnecessary patches.
 
-v4 -> v5:
-1. Move the clock handling from stm32_gpiolib_register_bank()
-and moving it to its caller.
-2. Call clk_bulk_prepare_enable() in stm32_pctl_probe() 
-and clk_bulk_disable_unprepare() for error.
+>>
+>>>
+>>>> +
+>>>>    static const struct ethqos_emac_por emac_v3_0_0_por[] = {
+>>>>    	{ .offset = RGMII_IO_MACRO_CONFIG,	.value = 0x40c01343 },
+>>>>    	{ .offset = SDCC_HC_REG_DLL_CONFIG,	.value = 0x2004642c },
+>>>> @@ -898,6 +914,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>>>>    static const struct of_device_id qcom_ethqos_match[] = {
+>>>>    	{ .compatible = "qcom,qcs404-ethqos", .data = &emac_v2_3_0_data},
+>>>> +	{ .compatible = "qcom,qcs615-ethqos", .data = &emac_v2_3_1_data},
+>>>>    	{ .compatible = "qcom,sa8775p-ethqos", .data = &emac_v4_0_0_data},
+>>>>    	{ .compatible = "qcom,sc8280xp-ethqos", .data = &emac_v3_0_0_data},
+>>>>    	{ .compatible = "qcom,sm8150-ethqos", .data = &emac_v2_1_0_data},
+>>>>
+>>>> -- 
+>>>> 2.34.1
+>>>>
+>>>
+>>
+>> -- 
+>> Best Regards,
+>> Yijie
+>>
+> 
 
-v3 -> v4:
-1. Add initialization for pctl->clks.
-2. Adjust alignment.
-
-v2 -> v3:
-
-1. Convert clk_disable_unprepare to clk_bulk_disable
-and clk_bulk_unprepare.
-
-v1 -> v2:
-
-1. Move int ret declaration into if block.
----
- drivers/pinctrl/stm32/pinctrl-stm32.c | 71 +++++++++++----------------
- 1 file changed, 29 insertions(+), 42 deletions(-)
-
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index 5b7fa77c1184..9c32ae3e5d45 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -86,7 +86,6 @@ struct stm32_pinctrl_group {
- 
- struct stm32_gpio_bank {
- 	void __iomem *base;
--	struct clk *clk;
- 	struct reset_control *rstc;
- 	spinlock_t lock;
- 	struct gpio_chip gpio_chip;
-@@ -108,6 +107,7 @@ struct stm32_pinctrl {
- 	unsigned ngroups;
- 	const char **grp_names;
- 	struct stm32_gpio_bank *banks;
-+	struct clk_bulk_data *clks;
- 	unsigned nbanks;
- 	const struct stm32_pinctrl_match_data *match_data;
- 	struct irq_domain	*domain;
-@@ -1308,12 +1308,6 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 	if (IS_ERR(bank->base))
- 		return PTR_ERR(bank->base);
- 
--	err = clk_prepare_enable(bank->clk);
--	if (err) {
--		dev_err(dev, "failed to prepare_enable clk (%d)\n", err);
--		return err;
--	}
--
- 	bank->gpio_chip = stm32_gpio_template;
- 
- 	fwnode_property_read_string(fwnode, "st,bank-name", &bank->gpio_chip.label);
-@@ -1360,26 +1354,21 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 							   bank->fwnode, &stm32_gpio_domain_ops,
- 							   bank);
- 
--		if (!bank->domain) {
--			err = -ENODEV;
--			goto err_clk;
--		}
-+		if (!bank->domain)
-+			return -ENODEV;
- 	}
- 
- 	names = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
--	if (!names) {
--		err = -ENOMEM;
--		goto err_clk;
--	}
-+	if (!names)
-+		return -ENOMEM;
- 
- 	for (i = 0; i < npins; i++) {
- 		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
- 		if (stm32_pin && stm32_pin->pin.name) {
- 			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
--			if (!names[i]) {
--				err = -ENOMEM;
--				goto err_clk;
--			}
-+			if (!names[i])
-+				return -ENOMEM;
-+
- 		} else {
- 			names[i] = NULL;
- 		}
-@@ -1390,15 +1379,11 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 	err = gpiochip_add_data(&bank->gpio_chip, bank);
- 	if (err) {
- 		dev_err(dev, "Failed to add gpiochip(%d)!\n", bank_nr);
--		goto err_clk;
-+		return err;
- 	}
- 
- 	dev_info(dev, "%s bank added\n", bank->gpio_chip.label);
- 	return 0;
--
--err_clk:
--	clk_disable_unprepare(bank->clk);
--	return err;
- }
- 
- static struct irq_domain *stm32_pctrl_get_irq_domain(struct platform_device *pdev)
-@@ -1621,6 +1606,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
- 	if (!pctl->banks)
- 		return -ENOMEM;
- 
-+	ret = devm_clk_bulk_get_all(dev, &pctl->clks);
-+	if (ret < 0)
-+		return ret;
-+
- 	i = 0;
- 	for_each_gpiochip_node(dev, child) {
- 		struct stm32_gpio_bank *bank = &pctl->banks[i];
-@@ -1631,25 +1620,20 @@ int stm32_pctl_probe(struct platform_device *pdev)
- 			fwnode_handle_put(child);
- 			return -EPROBE_DEFER;
- 		}
--
--		bank->clk = of_clk_get_by_name(np, NULL);
--		if (IS_ERR(bank->clk)) {
--			fwnode_handle_put(child);
--			return dev_err_probe(dev, PTR_ERR(bank->clk),
--					     "failed to get clk\n");
--		}
- 		i++;
- 	}
- 
-+	ret = clk_bulk_prepare_enable(banks, pctl->clks);
-+	if (ret) {
-+		dev_err(dev, "failed to prepare_enable clk (%d)\n", ret);
-+		return ret;
-+	}
-+
- 	for_each_gpiochip_node(dev, child) {
- 		ret = stm32_gpiolib_register_bank(pctl, child);
- 		if (ret) {
- 			fwnode_handle_put(child);
--
--			for (i = 0; i < pctl->nbanks; i++)
--				clk_disable_unprepare(pctl->banks[i].clk);
--
--			return ret;
-+			goto err_clk;
- 		}
- 
- 		pctl->nbanks++;
-@@ -1658,6 +1642,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
- 	dev_info(dev, "Pinctrl STM32 initialized\n");
- 
- 	return 0;
-+
-+err_clk:
-+	clk_bulk_disable_unprepare(banks, pctl->clks);
-+	return ret;
- }
- 
- static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
-@@ -1726,10 +1714,8 @@ static int __maybe_unused stm32_pinctrl_restore_gpio_regs(
- int __maybe_unused stm32_pinctrl_suspend(struct device *dev)
- {
- 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
--	int i;
- 
--	for (i = 0; i < pctl->nbanks; i++)
--		clk_disable(pctl->banks[i].clk);
-+	clk_bulk_disable(pctl->nbanks, pctl->clks);
- 
- 	return 0;
- }
-@@ -1738,10 +1724,11 @@ int __maybe_unused stm32_pinctrl_resume(struct device *dev)
- {
- 	struct stm32_pinctrl *pctl = dev_get_drvdata(dev);
- 	struct stm32_pinctrl_group *g = pctl->groups;
--	int i;
-+	int i, ret;
- 
--	for (i = 0; i < pctl->nbanks; i++)
--		clk_enable(pctl->banks[i].clk);
-+	ret = clk_bulk_enable(pctl->nbanks, pctl->clks);
-+	if (ret)
-+		return ret;
- 
- 	for (i = 0; i < pctl->ngroups; i++, g++)
- 		stm32_pinctrl_restore_gpio_regs(pctl, g->pin);
 -- 
-2.34.1
+Best Regards,
+Yijie
 
 _______________________________________________
 Linux-stm32 mailing list
