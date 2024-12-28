@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0CB9FD919
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2024 06:44:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71BF59FD9CC
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2024 11:10:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37576C78031;
-	Sat, 28 Dec 2024 05:44:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 276B1C78032;
+	Sat, 28 Dec 2024 10:10:56 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EF42C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABB5EC78031
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2024 05:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1735364688; x=1766900688;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=7+MJqD3C48EXjWCp0o71PXcfiXhqzoReRXFzpsHCzo0=;
- b=VL6QpJ9UOBW1+ftvz5JP+f2GQ5y+VAf5l620LLAtcHTLs7oIINmwaWQD
- 0W0DZQUIxyjdhuX1I2SwuzBhOv0ebLzvHwtIfdHmL1iTpHJUus5cTRtDm
- e6zgk7odfIs6zNjABrO3ia/8ljB9Bdvz6GYa3E4cEMkXgNJQKnt97bERX
- nMYjQjwh3m/OU8CyHQDCFr3l6FXKz+fBREztkaCMtaOUTNMNVkuP9GhB6
- kH7482e/Ep5a/IZm7w67t9zTgO4pixygf6JL1QIM3Wia2xqOElhzeFwbA
- gujOc1rfWeh9E+gS0WcoKf4dDaxqYy/Vk58yfpkuLaJH9Sq+0W4J2ctQK Q==;
-X-CSE-ConnectionGUID: 1FeH6Y/CQ0OV6nVYpJ6Skg==
-X-CSE-MsgGUID: 2TY+jpSyT/+6cpUitz+SDA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11298"; a="35864200"
-X-IronPort-AV: E=Sophos;i="6.12,271,1728975600"; d="scan'208";a="35864200"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Dec 2024 21:44:40 -0800
-X-CSE-ConnectionGUID: BbyMppGaSKywwZy7sbq9gg==
-X-CSE-MsgGUID: XIGLvPlGQVWDxl/TReHwHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,271,1728975600"; d="scan'208";a="100492194"
-Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by fmviesa008.fm.intel.com with ESMTP; 27 Dec 2024 21:44:35 -0800
-Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tRPcm-0003tE-25;
- Sat, 28 Dec 2024 05:44:32 +0000
-Date: Sat, 28 Dec 2024 13:43:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Daire McNamara <daire.mcnamara@microchip.com>
-Message-ID: <202412281302.N1Bd2W48-lkp@intel.com>
-References: <20241228-wake_irq-v1-6-09cfca77cd47@nxp.com>
+ Sat, 28 Dec 2024 10:10:48 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 4D9191BF203;
+ Sat, 28 Dec 2024 10:10:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1735380648;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ncWYXnUi6mk+o8Emqu4x+YEeix+m7qnAVflQKfWOvnU=;
+ b=XCIDTksVVP4MKIPW77YWhn5eQnvC48fM7XT38sMO4GL+S2x3Df1Ewj/szBh5xIFIqsA2Z5
+ ZilzcEnS0ob4kPcYJWo88q53OLtd7SamktyTld8/ykS5ad9aHtO7ShlIBUvjk+nBt0QW5J
+ myFBF+iN4oCB0jXlbMsfqtkMizt/w77iQVe9W7M9LtSxoo6OTA5KHxrcgkphpt8L5CByY1
+ xg+gw54EfF9RaAE9czfc7Nlyb3vjZjVSG0fNA9q0UQtOtz8AnyO7G5irHp4pYROlBGSfmn
+ c0RlJWVwKaPGic630SqefQTeKf9SJuvfmVmrN1Vmevo6n6oweZ6GjhiunOcb6w==
+Date: Sat, 28 Dec 2024 11:10:46 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Message-ID: <20241228101046e64adfb2@mail.local>
+References: <20241228-wake_irq-v1-0-09cfca77cd47@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241228-wake_irq-v1-6-09cfca77cd47@nxp.com>
-Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 06/12] rtc: stm32: Use resource managed
- API to simplify code
+In-Reply-To: <20241228-wake_irq-v1-0-09cfca77cd47@nxp.com>
+X-GND-Sasl: alexandre.belloni@bootlin.com
+Cc: linux-rtc@vger.kernel.org, Len Brown <len.brown@intel.com>,
+ Peng Fan <peng.fan@nxp.com>, Pavel Machek <pavel@ucw.cz>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/12] pm: Introduce devm_pm_set_wake_irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +65,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Peng,
+On 28/12/2024 09:14:36+0800, Peng Fan (OSS) wrote:
+> This was a retry to address [1][2], to let common code handle
+> dev_pm_clear_wake_irq. Then no need to call dev_pm_clear_wake_irq
+> in each driver.remove() hook and error handling path.
+> 
+> In this patchset, I include input and rtc patches to show the usage
+> to avoid that introducing an API without users. There are still
+> other places using dev_pm_clear_wake_irq. If this patchset is
+> good for you, I could start to clean up other drivers such as mmc and
+> etc.
+> 
+> [1] https://lore.kernel.org/all/20241111092131.1693319-1-peng.fan@oss.nxp.com/
+> [2] https://lore.kernel.org/all/ZymxvLMkkktRoCXZ@google.com/
 
-kernel test robot noticed the following build errors:
+It seems your patchset depends on devm_device_init_wakeup which did not
+make it yet.
 
-[auto build test ERROR on 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Peng-Fan-OSS/PM-sleep-wakeirq-Introduce-device-managed-variant-of-dev_pm_set_wake_irq/20241228-091859
-base:   8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
-patch link:    https://lore.kernel.org/r/20241228-wake_irq-v1-6-09cfca77cd47%40nxp.com
-patch subject: [PATCH 06/12] rtc: stm32: Use resource managed API to simplify code
-config: arm64-randconfig-003-20241228 (https://download.01.org/0day-ci/archive/20241228/202412281302.N1Bd2W48-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241228/202412281302.N1Bd2W48-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202412281302.N1Bd2W48-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
-WARNING: modpost: missing MODULE_DESCRIPTION() in mm/kasan/kasan_test.o
-ERROR: modpost: "devm_pm_set_wake_irq" [drivers/input/touchscreen/ti_am335x_tsc.ko] undefined!
->> ERROR: modpost: "devm_pm_set_wake_irq" [drivers/rtc/rtc-stm32.ko] undefined!
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> Peng Fan (12):
+>       PM: sleep: wakeirq: Introduce device-managed variant of dev_pm_set_wake_irq
+>       input: keyboard: ep93xx_keypad: Use devm_pm_set_wake_irq
+>       input: keyboard: omap4_keypad: Use devm_pm_set_wake_irq
+>       input: misc: nxp-bbnsm-pwrkey: Use resource managed API to simplify code
+>       input: touchscreen: ti_am335x_tsc: Use resource managed API to simplify code
+>       rtc: stm32: Use resource managed API to simplify code
+>       rtc: nxp-bbnsm: Use resource managed API to simplify code
+>       rtc: ds1343: Use devm_pm_set_wake_irq
+>       rtc: pm8xxx: Use devm_pm_set_wake_irq
+>       rtc: ab8500: Use resource managed API to simplify code
+>       rtc: mpfs: Use devm_pm_set_wake_irq
+>       rtc: pl031: Use resource managed API to simplify code
+> 
+>  drivers/base/power/wakeirq.c              | 25 ++++++++++++++++++
+>  drivers/input/keyboard/ep93xx_keypad.c    |  8 +-----
+>  drivers/input/keyboard/omap4-keypad.c     |  8 +-----
+>  drivers/input/misc/nxp-bbnsm-pwrkey.c     | 15 ++++-------
+>  drivers/input/touchscreen/ti_am335x_tsc.c | 43 ++++++++++---------------------
+>  drivers/rtc/rtc-ab8500.c                  | 11 ++------
+>  drivers/rtc/rtc-ds1343.c                  |  8 +-----
+>  drivers/rtc/rtc-mpfs.c                    |  8 +-----
+>  drivers/rtc/rtc-nxp-bbnsm.c               | 29 +++++++--------------
+>  drivers/rtc/rtc-pl031.c                   |  6 ++---
+>  drivers/rtc/rtc-pm8xxx.c                  | 12 +--------
+>  drivers/rtc/rtc-stm32.c                   | 10 ++-----
+>  include/linux/pm_wakeirq.h                |  6 +++++
+>  13 files changed, 70 insertions(+), 119 deletions(-)
+> ---
+> base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+> change-id: 20241227-wake_irq-b68d604dd902
+> 
+> Best regards,
+> -- 
+> Peng Fan <peng.fan@nxp.com>
+> 
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
