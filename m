@@ -2,51 +2,173 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D281F9FD585
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Dec 2024 16:19:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B9A9FD871
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2024 02:15:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D535C78027;
-	Fri, 27 Dec 2024 15:19:00 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 329CBC78031;
+	Sat, 28 Dec 2024 01:15:26 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2060.outbound.protection.outlook.com [40.107.22.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB42BC6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5A78C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Dec 2024 15:18:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2CCBBA4192A;
- Fri, 27 Dec 2024 15:17:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EF17C4CED0;
- Fri, 27 Dec 2024 15:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1735312731;
- bh=F6s7hJRFnqwtVpl84yOmcA6diAh5+fNZK0zM5H7eyqs=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=BWDZ8i3CdANnV79TD8EM84ZfwN0Zwea5YPdowKbjMxJrMt8oiows+rIzPaTUbc/ji
- 7NaK1dfG6JqBXsInpl2+sg6gCmONa4jakyaxG8ImXLKcEem1hkGGQdbuWzE4fDIp7W
- ddTYzTvZ0I8c3W9ZelEAVz84VaoA9pN4vX1beYbukijsCaTwYPmv8vkhT1QGQ2jmgK
- dxLjdA/i0MOyiHhTTw0cDAAmJT4MzLcU3QJnganUy4KGq+rzRxVyPjZoyWVH6yqXUG
- 6rgvpr+GpD4u3zgbxlud7WQtqeSgMU+JKLJK8I1wCD6WLKmMrT/1ZoYeVhlakPIea1
- DIoK12JxfphjQ==
-Date: Fri, 27 Dec 2024 09:18:49 -0600
+ Sat, 28 Dec 2024 01:15:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jHL/oecvV+6GyJIW4WP1MleHLGhSkswB8K4fSV4F3yQH+6t3xRQMFmPfXv0e9A7w2nViRVgIdBQmSM5tYB4MKxqtBheZ2pZilnU9No0MmetMDzYn99Ee1jGMgkfzFV8XP5USuaCobzcRT3UTQ5l3q96Nu9/f92Nqe1BMbe1z62iDxc9nRy7Fz9gA2Ly3Mb87kR3B6aKyF7iCdfIW7fmNrTxOJb0xWKhv1o3Fr+di2nZSgLVyousZJ+7eL0XAgC9LSFqu6KeV+/1rVWZC5+XtjFHZvHycNaEiHdiCL1d5mFt1KuwM980jYYjCkRJC7nzrAxOv0nHVq5M6L+/EuRn1VA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vSrHaMAKu4cD6BEf4GE/0e+NMcSLtzqoORvfYtRP5q8=;
+ b=bn5l9Eu48gofdn5KiVO63ldNKxHAu3ZexGpevPehbHDNfz7x3JiKjXF1mMENZ/svyOYGszAeesYNwr3hosMTloe5ipmogN0Tth6g2XLZQqaSGgBYj09eNkg/478odSk79lfj8RQBFr0IA555bBUOc+bkaMqC9k+rhlvOd0QI13MAYo3wtzOl6sDhrgfK/hq81GrOE61v5DQFTFvBn14Zww7AhZoazl8M4CX+qIzvXh/ub0Up/egFVY1ZtipSpkamFPhkOtjDHFsAW+EdTBn6afMBJJtmzx6IQ1QNmybPB/qYNpGNbt9yokyOukqn3R+7WfhfNgy8A9wEMt3EP8BvXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vSrHaMAKu4cD6BEf4GE/0e+NMcSLtzqoORvfYtRP5q8=;
+ b=PfgY/mhaL2j7wIkOQRife2wUidD6N+CtYq39SnPQqRGqcsUef5h03IGTA4I7NuWT+h+1g3cbZrzpmvJy4Up5a+JDbeuW1rw1efErhDeEE9fO9OEfImPnRbWTqqZTircAr+9K2R2p4klUQzZwphbMD3Glo9B745ZgmtdDa6BEIMbqRpwIBI750wec3k9iWUXOkF+NFpxm0DgEAMPPdFluZTNCFXuDlUWwb59/NmOnAlxhVbwCNkoKjBfk0yTGFZ4/SjdXG1kUdZeCSHrWWCbhFaZWykxB6mg4hUsNDLfpC5LTPK1C2A93SChZ4fG8LPbqJVkOCqJsHpxHx8+K4GI6tw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
+ by AM0PR04MB7140.eurprd04.prod.outlook.com (2603:10a6:208:192::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.15; Sat, 28 Dec
+ 2024 01:15:13 +0000
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630%5]) with mapi id 15.20.8293.000; Sat, 28 Dec 2024
+ 01:15:12 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Sat, 28 Dec 2024 09:14:36 +0800
+Message-Id: <20241228-wake_irq-v1-0-09cfca77cd47@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAPxQb2cC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxNDIyNz3fLE7NT4zKJC3SQzixQzA5OUFEsDIyWg8oKi1LTMCrBR0bG1tQB
+ /hX0mWgAAAA==
+X-Change-ID: 20241227-wake_irq-b68d604dd902
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1735348488; l=2428;
+ i=peng.fan@nxp.com; s=20230812; h=from:subject:message-id;
+ bh=KayTLg0Rpss1Xcxxs3o+LQMJcaWZRMXytsYCOw+QzIs=;
+ b=MXcdJkhhjnB1OROKylILiFNT4gm1U7nz3Z+jLd1SkSuZ+537eZVCNCNQgIIujmKSGkGNrC75w
+ iaDZij7p0gEC6AElT+fIQ9++x3sBWotIeTImqXFA8P410WyI+toMNBV
+X-Developer-Key: i=peng.fan@nxp.com; a=ed25519;
+ pk=I4sJg7atIT1g63H7bb5lDRGR2gJW14RKDD0wFL8TT1g=
+X-ClientProxiedBy: SG2PR02CA0099.apcprd02.prod.outlook.com
+ (2603:1096:4:92::15) To PAXPR04MB8459.eurprd04.prod.outlook.com
+ (2603:10a6:102:1da::15)
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Yijie Yang <quic_yijiyang@quicinc.com>
-In-Reply-To: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
-References: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
-Message-Id: <173531253248.3886388.7160234857723146083.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/3] Support tuning the RX sampling swap
-	of the MAC.
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|AM0PR04MB7140:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49689c47-6b4b-420b-7c40-08dd26dd142b
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|52116014|376014|7416014|366016|921020|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y0hCQmhDOExxTkUzWWNWVnJUM3JFRzhZSW0ybFdTem42bzBiZFVrSDlLUDFZ?=
+ =?utf-8?B?bnArQkNTUWJUZVgrRDhodE5lRWl2QkxZUk83L1JxRjRuMTVwaEVZWk1pMXRH?=
+ =?utf-8?B?RlJJeTVHMlpaMXpFTmtTTHc1MjZEOXluWFhqR09SS2dVUkNMTTZtWWIrelY2?=
+ =?utf-8?B?OFFETUsrVjBXUEVOREtGY0pLdDcxdjhDS1hLbG5FczRkVVBkRFBhYXpWc1ln?=
+ =?utf-8?B?VFp6R3FSOGFQa3lQaTJvM1Q4MTZXWXV4U0cvekgxTnpOdDhncEtXRnhoS21Z?=
+ =?utf-8?B?dXU2Z0ZJNmZIZzJiNjRTWkRnRHp3MjdIdnl1d1ZXaHZGYThaY0JaQWlvTzVZ?=
+ =?utf-8?B?SWNvQTZhRkdIRkc2SWkrTzh3SXl4YUlRY1FUcDVnTmRHN0FaR1paSFhCVWVn?=
+ =?utf-8?B?TzE2TEdEOG4rZ0pSME1DcllGM1hmOTNkNnlHcTJxam9VVFRUaXFiZHU3Nk1x?=
+ =?utf-8?B?cFFUdVZVazIwVWwxQXJUR3BIWHhSUExRM0NNMmg1VUVFTUQ2QWswa1JpN2R0?=
+ =?utf-8?B?Y1I2YTg2QU9vNXJmd1Y1UnV5TlF4SVRiOFVReFplbXlEUkxNMXZGWEJhdndh?=
+ =?utf-8?B?Y1FNTmRNZWhiOXVXRDcyTGdnRFRqaThPNWF3cFE4KzVURjZXWXdvTnpxQVJu?=
+ =?utf-8?B?S1l5N1duRUVzZld4NXVjbW15L3ZiaFZ1UkNpcENWdERheVNib3l3SlBWQldm?=
+ =?utf-8?B?bUFqb1JKaEFscXRsaHdKNXU1WkRWdENiWEN0RDhrL2dZNWhkeGJnQjVWdmNi?=
+ =?utf-8?B?bUZOUFdTQnB4VENvRmMrZlRpc1o4Y2dRRXk3ZE9SNE1kKzcrQzNvQ2UyTnNV?=
+ =?utf-8?B?OHJwSjRZZS9sSWdCVUtTbzJ1UDlMMzdCL2xzcVh2VTZ3Y1NKc204UHk4dTZn?=
+ =?utf-8?B?TWpqK0pTcTc0OUQyeHRQZFRoT2o5T0NxMys1RXFNUURodG1XVlhETy94WU1o?=
+ =?utf-8?B?SjlyVkdOMFRRRjIxcElpa3BzY1VwOUdic24yazA2bk5vSkErV1NlMFBkZmlo?=
+ =?utf-8?B?Vng2TWgzRWpQV296Z240SjVIK2prTk16c1MydEtWWUoyYnBsbERQdHMvN0lQ?=
+ =?utf-8?B?Z3BMbndTOGhjMXFINUZDd1FMU2xianV6dlhyRVZpUWN1OGN3N3JXOVJ3V3ha?=
+ =?utf-8?B?TzN3TWIyY3BNckhOZFpGRmZBTllmZjE2Qzl6bUhzcHlKMktIemN2MFh0M0RD?=
+ =?utf-8?B?ZWpOTFFMN3VKNUxsdStyZS9aUWdZaDBPSGgzaTVudVFWR05uNlhESkpkVlRJ?=
+ =?utf-8?B?bUVBZzVkMytMcWpNeWcwUURFV3krY3NPckpaSVJ1QkZDWTh0OFI2MTh4dENS?=
+ =?utf-8?B?WHBud0xpU0MzMjVuYVVqWUJVSUdDb3YrMGUxQmxqbzlBZW0zeXkwV1JEUHZr?=
+ =?utf-8?B?Sm80eWpIcVhGTnRTWTJPM0FyNjlpSFlVMG5RbDVHZDV2SXlYTElMODhlQ1JU?=
+ =?utf-8?B?SW9Nd01GVEdMTTZ1Z3NUdGlneXExdllJRlk4dUVwZDM4Z0RkU2wvQjB0SmdR?=
+ =?utf-8?B?dThPOVZYTDhjTGxKbFhMaHB5Z0MySGJDM2dGMXYrVGk1RktKbGJLZmRWaDYy?=
+ =?utf-8?B?U1lEWFB2bmlCbUh2Q1FrY3NnOGwvYnZFOEUzMVB3SlFJeHZrdlJQK3d3ekZR?=
+ =?utf-8?B?ak9WQlhCUWJGTUQ3ZVRsR3Z0NGF0RWVpRVM4NmJHOVh2aGp1VC90UTNENjBU?=
+ =?utf-8?B?cGpxZlBwc1daVm1GTFJVd09iQ3Zwemc5Y0l1SEZFSjE3VDloU1BsM0dQeW0y?=
+ =?utf-8?B?NCtISkFqaVA3N3hKb1JnVnpEc2RKaHBlejVKTUFwNmpsa0FrZXgyWFUzcEFa?=
+ =?utf-8?B?T3ppNi8xbUJtdDl6dEVBcEFjbGJwWEczUndMdlZxVS9kWFFNc0tOamRzQ2ZG?=
+ =?utf-8?B?L2JUdms5V3hGNkgxR0dVUllMVGJkcjV3SnhmUUw3dzc5OTMwZ1Y2R3c5NlFz?=
+ =?utf-8?B?RGt2NUpSZjVyU1lNa09janJBcEJCTlhSSktBTGxUaDRrL1JkVUgxdXJzZEMy?=
+ =?utf-8?Q?+vjuqmO5X0Zav3BRg8wijQKk5IldMs=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(52116014)(376014)(7416014)(366016)(921020)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTNrMS9qTkpFM0JTekJHbEtieWQ2U0pPaFhCdU9TM1VEOTlZTG0xVlUxbjJs?=
+ =?utf-8?B?bjEvNVBsWWJpMFhyRGhRTVlLTTY5TEplNWhjTnNoOTdrb3ZDTW5pd2JxYVpG?=
+ =?utf-8?B?ajFleHEyczl0TGJCZ2w3STJSRjdlc3FxYWFPQnBZYWY3UndXZzNtdVh6NzZD?=
+ =?utf-8?B?UC9BcEFQSm44djJiRDJkZ2syZTlxVnhlcDRyYW5EcmdWNGxOVE9DTTFSSU9E?=
+ =?utf-8?B?TVl0SVVzWE1GeEVSdjNDM3gyMUlEUEp6b3hWNEI5cXBXdEI3RGlNbFNibEFu?=
+ =?utf-8?B?Nm13amtrbC9qZ250dE51VGdOYXQ2bXMwWGdNWWRzUHMrQy9uNnlLUG9tcWky?=
+ =?utf-8?B?bzVVR0dJUXZnRkhiTE9QWjg2TTdneC9CMUluNEVRWnpRZEQ4Mnp1ZjU0UWJQ?=
+ =?utf-8?B?a0hwdjBtUm8rcnZIaXpxZjd6NDZjbHNFdDdyMk9MYzhEVCthOTNqQ29GTFpl?=
+ =?utf-8?B?ZEVFZHZNclhuZ1djSHVXQmE2MGxjQ014T2UrbDFZZTVwOHJtTk1xV0NmcWM4?=
+ =?utf-8?B?OGhhdktQL3dLMEllV2lLbkxDWHI1UWZna0swU2FZREZBU1hTMkE1bWFJYmJQ?=
+ =?utf-8?B?OTJCNWpFeW9uQU51NWM3V3dVZXlXVU1naTVjczdqU1ovSmIzRk9FUkkwRjBI?=
+ =?utf-8?B?RTE2bEJsQU9JQjVEOS93aDlrSnJrN1BDZ0ViZTNoVEtaNzJnbktHaGN1akVW?=
+ =?utf-8?B?WElOOUJCU3R1eTNtUEpBUWw4WmZWNmtJSjdtemROcmhOd3FsT2Vkd0Q2a3V2?=
+ =?utf-8?B?elFTNTE2bXZyd1BFRFRwZlowQW90SXVVU1hGOFYzOE1DaURaS25oL2tOQW5M?=
+ =?utf-8?B?RXdZRFFwNGlCdDNkbTNhTnVUN2wwTnlFbGU2YnFSUWMvSDh0bDV3SmEzelNn?=
+ =?utf-8?B?UU42L0ZTZFFBUGFCU3FQdU15d1kxSVJucGZXdnFiREdKVEJyTUJGRmczUmda?=
+ =?utf-8?B?Qk9vRzdTQTJjZngwUDJSdmZTbG1yd1N0NXY3OFBZR3doTnNNWlRBSUpablJp?=
+ =?utf-8?B?ajFZTEgxU1pUQ05UY0tmZHFGZEwzbGlrSzhyQnRtN3BWdDlVN2dldVpNeWo3?=
+ =?utf-8?B?VTdTUlJ5Sjgzc3d2aUdsV0FINFc0QUlFbnkwNlVqWnJQR1BONXZNZC93WVRn?=
+ =?utf-8?B?OVlxMVlNK2JrbVltTzI2Y3JTOXhIVGljNENEK1NxODY5aXZrZ1czais4L1RP?=
+ =?utf-8?B?K2dFUkhKTjVHUnlPd3dxMnMzVHo0NGFOTXVnamR6M0ZnNm9Fc1N0VkhOdHV2?=
+ =?utf-8?B?WHp4amZOOEZPMmM4ZUpOUEZheWpKMVpEaEkxWWEyQmpWcU1zVG9TUGk0Rlpw?=
+ =?utf-8?B?RzVuSUpmUWE0OWJ2eGlma3cvVk9yeXZJZUEwb2YxZC9WRmZlRXZyTlJtM04x?=
+ =?utf-8?B?TWM3dGtiUzcycjZZOHJVS29pNFpaSGI4cytXbG5FdTQyZ2JSR0xUVDBJUkE1?=
+ =?utf-8?B?UW96Zy95M2tDRkM0U3hmRi9mM2YvdU9qbm96VVJQZlpmL3d0QW1yOUNNMEpH?=
+ =?utf-8?B?cFdRR1NtbDRVWWhLb3pMVVdXdVJvYXNOSndqVXhOaHpjSG1iVk0zRlJUdXdP?=
+ =?utf-8?B?amE3cmkzbmhTcDFQZnQ4THlUSmlJTXFvN01oWUhSRFp3R3RMT0VQTWV5Nm9T?=
+ =?utf-8?B?R3cvM2xERVdCYnVvenhTbVQyVGRlUG1KaCtoMEp4eXlMWm5PMVJuUFF5R2ls?=
+ =?utf-8?B?SFY1VGNjditVQWRwY2tGbkJSRmJ2NU81UmlLMFNsSjRhSWx2UjFma0hmVWF1?=
+ =?utf-8?B?UTJWWTVzUjE3Skg2T3dEYzRhMjNXR1E2UHZHYXhGeWRHUkh5TXpNTE9kbUxy?=
+ =?utf-8?B?QU1vdG42T1l5cXhKNUtJaWc4bEhJNXNQTEVhSEU3LzJZdWpsMXRERFJER2dI?=
+ =?utf-8?B?YU5sd0REQ21UQkRFNk1QYmVrK0NqaEtYcytHYms4NmdSdnN3ZUF1UjJsU2VL?=
+ =?utf-8?B?Smt6akhCNklsNSsvTmVObml6dURaTHNzQk8zQnV2SmNvS3VyMytHM21mTURq?=
+ =?utf-8?B?ZUR3YlpDS29BcnF2bkRoelUraXRxbmdwa0RIV3NOZndHY0xJVHg5UGVxTWR5?=
+ =?utf-8?B?dHNOWFlDc3JBVEZSZ3RJWmlxdzcwV25Wb293U05yL3NKNFZocDhuRUhCU1ND?=
+ =?utf-8?Q?/254HgjXQAZIUM6e5IqYc8fzs?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49689c47-6b4b-420b-7c40-08dd26dd142b
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2024 01:15:12.6751 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BqF/j5NVvH8yDgg/B7nZKR+p3VvW391XVJqGmOr4eJxRdLbSfW6kZbtBvYIAR1jMQpSUX9LCW7WL7cliIFYpdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7140
+Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/12] pm: Introduce devm_pm_set_wake_irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,83 +185,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This was a retry to address [1][2], to let common code handle
+dev_pm_clear_wake_irq. Then no need to call dev_pm_clear_wake_irq
+in each driver.remove() hook and error handling path.
 
-On Wed, 25 Dec 2024 18:04:44 +0800, Yijie Yang wrote:
-> The Ethernet MAC requires precise sampling times at Rx, but signals on the
-> Rx side after transmission on the board may vary due to different hardware
-> layouts. The RGMII_CONFIG2_RX_PROG_SWAP can be used to switch the sampling
-> occasion between the rising edge and falling edge of the clock to meet the
-> sampling requirements. Consequently, the configuration of this bit in the
-> Ethernet MAC can vary between boards, even if they are of the same version.
-> It should be adjustable rather than simply determined by the version. For
-> example, the MAC version is less than 3, but it needs to enable this bit.
-> Therefore, this patch set introduces a new flag for each board to control
-> whether to open it.
-> The dependency patch set detailed below has introduced and enabled an
-> Ethernet node that supports 1G speed on qcs615. The current patch set now
-> allows tuning of the MAC's RX swap, thereby supporting 10M and 100M speeds.
-> 
-> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
-> ---
-> This patch series depends on below patch series:
-> https://lore.kernel.org/all/20241118-dts_qcs615-v2-0-e62b924a3cbd@quicinc.com/
-> 
-> ---
-> Yijie Yang (3):
->       dt-bindings: net: stmmac: Tune rx sampling occasion
->       net: stmmac: qcom-ethqos: Enable RX programmable swap on qcs615
->       arm64: dts: qcom: qcs615-ride: Enable RX programmable swap on qcs615-ride
-> 
->  .../devicetree/bindings/net/qcom,ethqos.yaml       |  6 ++++
->  arch/arm64/boot/dts/qcom/qcs615-ride.dts           |  1 +
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 36 ++++++++++++----------
->  3 files changed, 27 insertions(+), 16 deletions(-)
-> ---
-> base-commit: 532900dbb7c1be5c9e6aab322d9af3a583888f25
-> change-id: 20241217-support_10m100m-16239916fa12
-> prerequisite-message-id: <20241118-dts_qcs615-v2-0-e62b924a3cbd@quicinc.com>
-> prerequisite-patch-id: ab55582f3bfce00f051fddd75bb66b2ef5e0677d
-> prerequisite-patch-id: 514acd303f0ef816ff6e61e59ecbaaff7f1b06ec
-> 
-> Best regards,
-> --
-> Yijie Yang <quic_yijiyang@quicinc.com>
-> 
-> 
-> 
+In this patchset, I include input and rtc patches to show the usage
+to avoid that introducing an API without users. There are still
+other places using dev_pm_clear_wake_irq. If this patchset is
+good for you, I could start to clean up other drivers such as mmc and
+etc.
 
+[1] https://lore.kernel.org/all/20241111092131.1693319-1-peng.fan@oss.nxp.com/
+[2] https://lore.kernel.org/all/ZymxvLMkkktRoCXZ@google.com/
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Peng Fan (12):
+      PM: sleep: wakeirq: Introduce device-managed variant of dev_pm_set_wake_irq
+      input: keyboard: ep93xx_keypad: Use devm_pm_set_wake_irq
+      input: keyboard: omap4_keypad: Use devm_pm_set_wake_irq
+      input: misc: nxp-bbnsm-pwrkey: Use resource managed API to simplify code
+      input: touchscreen: ti_am335x_tsc: Use resource managed API to simplify code
+      rtc: stm32: Use resource managed API to simplify code
+      rtc: nxp-bbnsm: Use resource managed API to simplify code
+      rtc: ds1343: Use devm_pm_set_wake_irq
+      rtc: pm8xxx: Use devm_pm_set_wake_irq
+      rtc: ab8500: Use resource managed API to simplify code
+      rtc: mpfs: Use devm_pm_set_wake_irq
+      rtc: pl031: Use resource managed API to simplify code
 
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
+ drivers/base/power/wakeirq.c              | 25 ++++++++++++++++++
+ drivers/input/keyboard/ep93xx_keypad.c    |  8 +-----
+ drivers/input/keyboard/omap4-keypad.c     |  8 +-----
+ drivers/input/misc/nxp-bbnsm-pwrkey.c     | 15 ++++-------
+ drivers/input/touchscreen/ti_am335x_tsc.c | 43 ++++++++++---------------------
+ drivers/rtc/rtc-ab8500.c                  | 11 ++------
+ drivers/rtc/rtc-ds1343.c                  |  8 +-----
+ drivers/rtc/rtc-mpfs.c                    |  8 +-----
+ drivers/rtc/rtc-nxp-bbnsm.c               | 29 +++++++--------------
+ drivers/rtc/rtc-pl031.c                   |  6 ++---
+ drivers/rtc/rtc-pm8xxx.c                  | 12 +--------
+ drivers/rtc/rtc-stm32.c                   | 10 ++-----
+ include/linux/pm_wakeirq.h                |  6 +++++
+ 13 files changed, 70 insertions(+), 119 deletions(-)
+---
+base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+change-id: 20241227-wake_irq-b68d604dd902
 
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-New warnings running 'make CHECK_DTBS=y qcom/qcs615-ride.dtb' for 20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com:
-
-arch/arm64/boot/dts/qcom/qcs615-ride.dtb: ethernet@20000: compatible: ['qcom,qcs615-ethqos'] does not contain items matching the given schema
-	from schema $id: http://devicetree.org/schemas/net/qcom,ethqos.yaml#
-arch/arm64/boot/dts/qcom/qcs615-ride.dtb: ethernet@20000: snps,tso: False schema does not allow True
-	from schema $id: http://devicetree.org/schemas/net/qcom,ethqos.yaml#
-arch/arm64/boot/dts/qcom/qcs615-ride.dtb: ethernet@20000: compatible: 'oneOf' conditional failed, one must be fixed:
-	['qcom,qcs615-ethqos'] is too short
-	'qcom,qcs615-ethqos' is not one of ['qcom,qcs8300-ethqos']
-	'qcom,qcs615-ethqos' is not one of ['qcom,qcs404-ethqos', 'qcom,sa8775p-ethqos', 'qcom,sc8280xp-ethqos', 'qcom,sm8150-ethqos']
-	from schema $id: http://devicetree.org/schemas/net/qcom,ethqos.yaml#
-arch/arm64/boot/dts/qcom/qcs615-ride.dtb: ethernet@20000: Unevaluated properties are not allowed ('compatible', 'max-speed', 'mdio', 'phy-handle', 'phy-mode', 'power-domains', 'resets', 'rx-fifo-depth', 'rx-queues-config', 'snps,mtl-rx-config', 'snps,mtl-tx-config', 'snps,pbl', 'snps,tso', 'tx-fifo-depth', 'tx-queues-config' were unexpected)
-	from schema $id: http://devicetree.org/schemas/net/qcom,ethqos.yaml#
-
-
-
-
+Best regards,
+-- 
+Peng Fan <peng.fan@nxp.com>
 
 _______________________________________________
 Linux-stm32 mailing list
