@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A4629FDCAD
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7D29FDCAE
 	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2024 00:33:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC6A1C78F63;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFD58C78F67;
 	Sat, 28 Dec 2024 23:33:01 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3380C78037
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7D7EC7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2024 23:32:59 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4361f65ca01so82251015e9.1
+ Sat, 28 Dec 2024 23:33:00 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-385de59c1a0so4918816f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sat, 28 Dec 2024 15:32:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735428778; x=1736033578;
+ d=gmail.com; s=20230601; t=1735428779; x=1736033579;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DfubF/yufWY092c2cPTjDejWqTWBBJxWn/OStLH2dG0=;
- b=CB8TafQ76U6GLjYzFi6I+mjx/dT0e/ExgXOHOTXTWXGHIXe08qgGacPhAmZ8rIsSXY
- wjpXQv/MHFHCKrVAvowm88M4bL8fFGhHd0FE1OGfUXYRchAXguCwsRBt6qXaMtg4N0V7
- 7bjH37P0dIs91lZD8jaZjlX6Y9i7FbLTBs+XmjPlDa5jGe/Y/r+mPzjkjfV2BiEjfR01
- inGdphOu/b0/YyL4H2sHeR8ErrAy6sIblRCmcPmvyQOA82wwMhy/A2baPngC+EzB1113
- oUn9RE1b1PbSmw9V9cllfjkUOwZjodPYXq/9WuwlOLYEOkVcC9NYve/7uHOare098F3f
- Sd4A==
+ :reply-to; bh=NOT7K8Ya5QmS9KbZEm2dNA6PzTUyykxaRlEoFqze/Wo=;
+ b=SX/hvGz91U6CDKRTsvrHerEVRaEoc15AWDjSEEon0TkuHzDMvg6AOLPodxmhBZRS6K
+ JtbW6PxH8cYpsMgnDCTUhJyR/TFp9t+5GCA22nQQ01jyMIozR+b7IujdjaTwS67zu0Nu
+ i4Ix/59GDq7KcADS85HCnn23XfWrByhJwVgqHqwvCW+6XXO+BYt3ZZVzN4PaxdiPpxLM
+ nol6ogxEGT/h8CNsjSSiO87GcLtV6MqgO11WBScuuq33uIbzaDVvKMJo+TFko2yKYo0G
+ aalSWxv7OQ5s6BgSKAFK1BxsAZBnmlyUdbWIyOTUmCplsnxik2XTtN3uZHPBwr6Y+5C/
+ c0iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735428778; x=1736033578;
+ d=1e100.net; s=20230601; t=1735428779; x=1736033579;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DfubF/yufWY092c2cPTjDejWqTWBBJxWn/OStLH2dG0=;
- b=a0TRr6Pk2TfBXoScguvY1N3oDOy+lJ/VvIfZJSMuki2Li0xPOnJmrZ02hFeSfXrA/8
- sbo3F86FYiKQHe2qoJfoMtZnvT/39rMchmON7mbfo/JKC/MJGozWkeUBy6keIBfqhS1d
- iFABCm+IqIQ1yx+KUsA4akAc3GFEEDZ6xcnkjlo1kQkAm7JQ892stmzwbEDAGaK3UvCl
- bgQrEPnNNd2zDobxHmSdjumTKJZnJWSAjKlx5gBiQe/+7mJX5ufLJTCx9v3dR6V0SC0o
- +Fy9tp8OIrQP1EurWIM++GDSqBYACeF+bK4TGwq/vSmiFw8GRrVP5CEFSqERujgphtBS
- 1GlQ==
+ bh=NOT7K8Ya5QmS9KbZEm2dNA6PzTUyykxaRlEoFqze/Wo=;
+ b=w6Gy/oNKA39lQWL18aQzqt/U5IHA+RN8q5DlnepScjQfTzprT+GYqqnxTdbItCSTKB
+ qt3AeYj+e4QC49AHFLAWrWbErNV9gAg0nVFymXxZ9w+vOq2dJap/FDmVuxFTCzHCrIfd
+ D8Dq0hYQnlKLyh1HT8e54DYsVnCzzvglDNggUkcgJciWkNwU8L0+QfzRsiq28BtloiTZ
+ l1Soi72WOLVXwb8hQzDovqIs1Vyyb7KtrGV9cPmMDcE0RMKs5v5eDZbFdM623SMxYOUK
+ TNpBWnv0JXU6mYFlan4XjEudApMZ9MO5T0P0P1Rkg93vutGq2z1iDX7Jmo8r8V/RXKbB
+ EXOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU+RzDFwgL9P4aZ5armG8TmQqqC3KycLJ5B1mMsWzqDk7XJbusqyi4+dapXkx66JXe4DVW1RtdDlEpaQg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxgIYYT3ye/3q6X5BBTV5/vBvokL2Q9STqtaDbupk6rDePxYqh0
- +o8w01K3n31l9KvMno5ECuUHLCsW6pSilcJJa7jFya4Vh3L9CdtD
-X-Gm-Gg: ASbGncvqNFFXOp2bew2mE5ig6UM2jBfsOVV0hgM6FjIQ+m6JRYePs1Sxr35kyqcT2ey
- wRBcmiw4c8oX8UC2Odj0fLpij+Qq8HItVQ38nBGnIpnrI3LHMT6Bh5d35KqWv87XwbXI/PNGa7S
- vVdS3gYKHJ3nuJgYPZptpPRa8miIE4tfvvmJu1x5H2o/V6tLENQx3vtsju1rF5jcIxjgCj6UgEg
- K7D2sOiUs41mzioERNujZ9bYVGJNdy79RJzA04Ypj2/ubEkMB4B1SwNAw==
-X-Google-Smtp-Source: AGHT+IF2ClbgecNehGE5fWNtec9ewXlro34blBIKLgyQx5qEfdd7BFdxq3aJXVLuA8KbNB+TQ/BMPg==
-X-Received: by 2002:a05:600c:1c9f:b0:435:32e:8270 with SMTP id
- 5b1f17b1804b1-43668642f9dmr262491285e9.14.1735428778151; 
- Sat, 28 Dec 2024 15:32:58 -0800 (PST)
+ AJvYcCUTRGzTXDa3mnlbba1od265FGcslpuGLCQRoB64IBb+pFEUHdaYAnoqOfDT0VUXB+fJiq2K6swE1lIsow==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyBpb58Lz4RnEPW1HqdW/I/If+MHVyZfFgEhEkJVQumJin4FJ+Q
+ +Vw8HLz53g3Hzlpc/1CKETUtKUExTpVRBl45GFLm29UUofG0N91l
+X-Gm-Gg: ASbGncu0O+BehyVV7dij+Mji34rviI64KzJB/GF2g5KpJXjUFrOHO7dY48qjwlnJSYV
+ xfEfS4fVIW4N140JAE/U+/aGPbBmKxZ3ulYR1zdvmo21LoaG3Hz9CjlJ7eA8YiITW75ql7A+YtC
+ 6Mhu8zyjc3QnVX9P+L2QM3S0QBTeKt2iHZIbo4OUb3XB8OprXD1inx1r0dewh9bnxAGZ/y9JSBK
+ 9QRC4zf4uHGj5EJRzcVNMfB0JeYAJDcpoENHTSukTgHYBB8hQW0q17twQ==
+X-Google-Smtp-Source: AGHT+IEDx7wvGkLVUnT9AMtJHUHuNgRawRAtN+qgnC0Cj3E/aztBEivykLbd/wn9yN327aAFyzdA4Q==
+X-Received: by 2002:a05:6000:1542:b0:385:fc70:7f6 with SMTP id
+ ffacd0b85a97d-38a221e1f67mr24709765f8f.7.1735428779386; 
+ Sat, 28 Dec 2024 15:32:59 -0800 (PST)
 Received: from localhost ([2a01:e0a:d9a:4c20:d6da:7147:f20e:31de])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436612008b1sm307077615e9.15.2024.12.28.15.32.57
+ ffacd0b85a97d-38a1c8a6ca5sm26538490f8f.86.2024.12.28.15.32.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Dec 2024 15:32:57 -0800 (PST)
+ Sat, 28 Dec 2024 15:32:59 -0800 (PST)
 From: Raphael Gallais-Pou <rgallaispou@gmail.com>
-Date: Sun, 29 Dec 2024 00:32:43 +0100
+Date: Sun, 29 Dec 2024 00:32:44 +0100
 MIME-Version: 1.0
-Message-Id: <20241229-update_pm_macro-v1-4-c7d4c4856336@gmail.com>
+Message-Id: <20241229-update_pm_macro-v1-5-c7d4c4856336@gmail.com>
 References: <20241229-update_pm_macro-v1-0-c7d4c4856336@gmail.com>
 In-Reply-To: <20241229-update_pm_macro-v1-0-c7d4c4856336@gmail.com>
 To: Patrice Chotard <patrice.chotard@foss.st.com>, 
@@ -80,21 +80,21 @@ To: Patrice Chotard <patrice.chotard@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1549; i=rgallaispou@gmail.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1773; i=rgallaispou@gmail.com; 
  h=from:subject:message-id;
- bh=puiG5xEDdJCtQ8qmQzW/cyD8qGWndW0XH0vnx7xw1nQ=; 
- b=owEBbQKS/ZANAwAIAechimjUEsK1AcsmYgBncIqkWao0M4f63BMEsxa8BRIQnaXQWygL0phkf
- tdecngcH0aJAjMEAAEIAB0WIQQgmXv2E+fvbV/9ui/nIYpo1BLCtQUCZ3CKpAAKCRDnIYpo1BLC
- tQJWD/9qfpDmwRN6zrCJNqZMU53EqDWlK+stpQdz2PxOgWM3IiMDfRC+jyRnvxeiWM9DBojy3CM
- eVzk/pzBMVdce6RrqEdBvSXEOhqvQtC1rwivdehnng1VXuGW7/WzqQ16lvPoYhaOeOSnH7v4S/Y
- 5OJd33Yy8upYHZK+CHEDoRw7Y1JJcLzOGrgX4WjCVSnnCwzlncx6xZwhUkwtvI1FO18X5Jhgjh1
- yX6RZxXVxYc+3wdbKn6W9rDZZlfws37B0DfFdap3GBWMTfkNCgs+DGNgoEuYhZcMQxmwx66wb2o
- 0BwEpi5PF9IGK6bHuLEEX2cr4gV9784GayGuaSythX1VMWzo4yVE6o9ETY0gdEdQUx5oxA+R5iZ
- QkPazXjn8VJIjnJgxjrVaVcCjDt/PomoWdeLWNdPtcslOtcTqTWVA3PxK3YuF/r4p+9hHbaizB2
- gnOwVzHIaLIKng0moZCBSHKUejWzwgkT/D692Qnwo1jzezsRFXBAHYBXxYC47FPUqrrNVLZ1IGW
- LSc+5kqpqWoJbf/J6FUi77wzfUAa7wwVSAr/kgt0ep2DMsyTxaWYy8N5KKmBIYr4eXWmdCr5IUv
- 4HsYTrNo1Tx7bDH04sfmhHiXxDpwdR5kjuWexjioIGfPKVsju98eeYPPJy1R6MG0pnsXFTTm3AW
- 1UCYQhk+nmIQ2hQ==
+ bh=Xy7AdPQ3XNeeLhZR/TYDcrnRFX91WkBoxIfX4qqZmFU=; 
+ b=owEBbQKS/ZANAwAIAechimjUEsK1AcsmYgBncIqkdCM7I2+fjKtHyJmXuIMRiTT3ConPrpraf
+ j4VH3GYg+CJAjMEAAEIAB0WIQQgmXv2E+fvbV/9ui/nIYpo1BLCtQUCZ3CKpAAKCRDnIYpo1BLC
+ tWOLD/9mLv8T49Aj92DxuFqK+5R3cczwAA+SNhe7B2SwXvfVYYd3E77Y+/6R7e61V78SrnbI8gz
+ uaBNqyvNBthY5MeF0I+NbwVeOCkA2B23GaLT+QSAAgc/lpqQ7wFVR3ISSUhZfAT5dU4co5VkvHM
+ xnEYsquomiIFCIsoOVZw7fvrHUaCfpBwiyPXjs+jaTzfcq++bCknVVo0bsn9SrV9v6OIEzL4CxJ
+ 2Gec/Ah9nHgtAISBD8U11Ay92zy0/x8J2tmMEkLxjOFcmqZmJyYB0X1eyMts89qT1Xz+qxVwJ4b
+ eGSEySEwcjMA401vbYtcTwgiaRaERA8MMXj2OjAznA2N2n1aswBx2ElmwHm1wBW2FXPfVapYd9u
+ cKDauqd2bZioY7er4gOxCHnT7cvL+mGopN2wMggQ7N2mnGfAnVhUwo1BvvKnALB6XZUt4riUWco
+ td11vz8xganX4BAkgJUrdabbCavIB95y7cYJOMpKAnQGDHRALdO3K/R9opffcvMi6xvmOl/amaJ
+ z/7BF43VuNbdS0NTjhHxD5V9G5FlkeT31KscpPYrGl4XpRe4HaazkrXfMZr0DbWSBESGgi8Rj7V
+ +MXQFC/biruMtBy8YzlG9rLxu1xkClx8ECgKGVnRJBpUo0oBdpjoD8/QjoS35kjJWNjGSlKyI9T
+ uq80NJHRbLeVYQg==
 X-Developer-Key: i=rgallaispou@gmail.com; a=openpgp;
  fpr=20997BF613E7EF6D5FFDBA2FE7218A68D412C2B5
 Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
@@ -102,8 +102,8 @@ Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-ide@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/6] ahci: st: Switch from CONFIG_PM_SLEEP
- guards to pm_sleep_ptr()
+Subject: [Linux-stm32] [PATCH 5/6] net: stmmac: sti: Switch from
+ CONFIG_PM_SLEEP guards to pm_sleep_ptr()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,41 +127,43 @@ use of #ifdef based kernel configuration guards.
 Link: https://lore.kernel.org/all/20240716180010.126987-1-rgallaispou@gmail.com
 Signed-off-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
 ---
- drivers/ata/ahci_st.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/ata/ahci_st.c b/drivers/ata/ahci_st.c
-index 6b9b4a1dfa15bb6f395cc742f25251376b869a21..4336c8a6e20871fe25b61d6e2043fa15902b3559 100644
---- a/drivers/ata/ahci_st.c
-+++ b/drivers/ata/ahci_st.c
-@@ -176,7 +176,6 @@ static int st_ahci_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
+index eabc4da9e1a985101643908d2efdb0b4acaa9d60..de9b6dfef15b3d0a503a3b55b3e9a42ee68c6141 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
+@@ -313,7 +313,6 @@ static void sti_dwmac_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(dwmac->clk);
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int st_ahci_suspend(struct device *dev)
+ static int sti_dwmac_suspend(struct device *dev)
  {
- 	struct ata_host *host = dev_get_drvdata(dev);
-@@ -221,9 +220,8 @@ static int st_ahci_resume(struct device *dev)
+ 	struct sti_dwmac *dwmac = get_stmmac_bsp_priv(dev);
+@@ -333,10 +332,9 @@ static int sti_dwmac_resume(struct device *dev)
  
- 	return ahci_platform_resume_host(dev);
+ 	return stmmac_resume(dev);
  }
--#endif
+-#endif /* CONFIG_PM_SLEEP */
  
--static SIMPLE_DEV_PM_OPS(st_ahci_pm_ops, st_ahci_suspend, st_ahci_resume);
-+static DEFINE_SIMPLE_DEV_PM_OPS(st_ahci_pm_ops, st_ahci_suspend, st_ahci_resume);
+-static SIMPLE_DEV_PM_OPS(sti_dwmac_pm_ops, sti_dwmac_suspend,
+-					   sti_dwmac_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(sti_dwmac_pm_ops, sti_dwmac_suspend,
++						  sti_dwmac_resume);
  
- static const struct of_device_id st_ahci_match[] = {
- 	{ .compatible = "st,ahci", },
-@@ -234,7 +232,7 @@ MODULE_DEVICE_TABLE(of, st_ahci_match);
- static struct platform_driver st_ahci_driver = {
+ static const struct sti_dwmac_of_data stih4xx_dwmac_data = {
+ 	.fix_retime_src = stih4xx_fix_retime_src,
+@@ -353,7 +351,7 @@ static struct platform_driver sti_dwmac_driver = {
+ 	.remove = sti_dwmac_remove,
  	.driver = {
- 		.name = DRV_NAME,
--		.pm = &st_ahci_pm_ops,
-+		.pm = pm_sleep_ptr(&st_ahci_pm_ops),
- 		.of_match_table = st_ahci_match,
+ 		.name           = "sti-dwmac",
+-		.pm		= &sti_dwmac_pm_ops,
++		.pm		= pm_sleep_ptr(&sti_dwmac_pm_ops),
+ 		.of_match_table = sti_dwmac_match,
  	},
- 	.probe = st_ahci_probe,
+ };
 
 -- 
 2.47.1
