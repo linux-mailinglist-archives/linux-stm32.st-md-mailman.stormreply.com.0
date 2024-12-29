@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA6F49FDD16
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2024 02:39:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3144F9FDD67
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2024 06:39:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63F85C78032;
-	Sun, 29 Dec 2024 01:39:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5E86C78F62;
+	Sun, 29 Dec 2024 05:39:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1926BC78030
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 403F9C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Dec 2024 01:39:38 +0000 (UTC)
+ Sun, 29 Dec 2024 05:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1735436385; x=1766972385;
+ t=1735450745; x=1766986745;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=rFQfnH8g9qnvAm/orX7H7+JRj5OpvCxqGxR6Qhq2ETY=;
- b=aCpeDwtpExwyA1LSGQW89gZ1BSCJdRUPqORH6Dgs8xBXPiB5Asuo4G5F
- oJp6I2ukktW7UF7V8/ZGgikDrUTVZmeCI1h+tzprC5CSEj8h7cbnr0CMN
- xpdJhm7sEYf2La4oggowqYv6hZaCwoiIzwbSzvqlee8+TEQh47QWlHzTx
- ZJwP4o7DCzfrrnYdf61Xvuy2v9IUOb1+yUKzRgU6xDkyQjUq+J3P+ZEHX
- NiRXdsbazPF6O4hGIwSgJJz1uwUPI+2K6gtrRDr2HMIJIZHgVsQbJ09Kh
- XHsLU4pRbSmXQ2Y/3uKvVqjZaApdXDpxqp+aobQC9bBdYg0QIusLnIvIJ A==;
-X-CSE-ConnectionGUID: Q+1GBx+TR/qVFo9h2YfrXQ==
-X-CSE-MsgGUID: IUSqkC3NTwi5JcdYAuSMwA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11299"; a="35802052"
-X-IronPort-AV: E=Sophos;i="6.12,273,1728975600"; d="scan'208";a="35802052"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Dec 2024 17:39:37 -0800
-X-CSE-ConnectionGUID: Oy4svG45T4qIdA2Vlwx06g==
-X-CSE-MsgGUID: xNOqO8z6T+WhcD2uqXjGIg==
+ bh=2ZAfvEapeqlQxdPGabGekF/vOEsQwkH6pIqCbZL1qVs=;
+ b=PoZ3DqZdHhZ3BcJYDTcI/ket5Z2gKZFCVCrlS51Z1vGFcgS7HB9MRYJz
+ xlIiIb2eALDAOZu+g0sOrcJyIPTqGKEm8ti3GB7hKps0PVSdMRmgEYA3i
+ vtCDl9i1DgboMEAyM7/EWdGt9n/SlC3WKdHnRcdn2NH2IzzykhzmOMycx
+ g6YUUaaHzh07nMgiQHpsh4Y/Lam/b2p7EhTwVdqNb5qhKEsT3sJjQ+nSV
+ JEvju4ceYbILinXKhSdH+1zZYFBiTMAn3tP4NZdufYTT1vVXXWAoG2jxb
+ Km5LuffMUoGFubnCQePS4S/2MmYEiflcXcvgNX5OEjhUCD6BzK7+JA0wd A==;
+X-CSE-ConnectionGUID: sL1gbmo1Sg6tSLE/4m/wAA==
+X-CSE-MsgGUID: m/ufT1Y9R5Ckg3I9SBBqtA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11299"; a="39714093"
+X-IronPort-AV: E=Sophos;i="6.12,273,1728975600"; d="scan'208";a="39714093"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Dec 2024 21:38:57 -0800
+X-CSE-ConnectionGUID: 3s/MFmMNTKGc/r/0Xdc6Eg==
+X-CSE-MsgGUID: pWJT/xodQjqlIGcz6VIFSA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="100302592"
+X-IronPort-AV: E=Sophos;i="6.12,273,1728975600"; d="scan'208";a="100868774"
 Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by orviesa010.jf.intel.com with ESMTP; 28 Dec 2024 17:39:31 -0800
+ by fmviesa010.fm.intel.com with ESMTP; 28 Dec 2024 21:38:51 -0800
 Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tRiHA-0004QO-0J;
- Sun, 29 Dec 2024 01:39:28 +0000
-Date: Sun, 29 Dec 2024 09:39:05 +0800
+ (envelope-from <lkp@intel.com>) id 1tRm0m-0004V6-2X;
+ Sun, 29 Dec 2024 05:38:48 +0000
+Date: Sun, 29 Dec 2024 13:38:40 +0800
 From: kernel test robot <lkp@intel.com>
 To: Raphael Gallais-Pou <rgallaispou@gmail.com>,
  Patrice Chotard <patrice.chotard@foss.st.com>,
@@ -59,12 +59,12 @@ To: Raphael Gallais-Pou <rgallaispou@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Message-ID: <202412290939.43oNt9t6-lkp@intel.com>
+Message-ID: <202412291320.lZkWz3Yv-lkp@intel.com>
 References: <20241229-update_pm_macro-v1-2-c7d4c4856336@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20241229-update_pm_macro-v1-2-c7d4c4856336@gmail.com>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-ide@vger.kernel.org,
  linux-mtd@lists.infradead.org, oe-kbuild-all@lists.linux.dev,
@@ -97,31 +97,30 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Raphael-Gallais-Pou/usb-d
 base:   8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
 patch link:    https://lore.kernel.org/r/20241229-update_pm_macro-v1-2-c7d4c4856336%40gmail.com
 patch subject: [PATCH 2/6] mmc: sdhci-st: Switch from CONFIG_PM_SLEEP guards to pm_sleep_ptr()
-config: hexagon-randconfig-001-20241229 (https://download.01.org/0day-ci/archive/20241229/202412290939.43oNt9t6-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 319b89197348b7cad1215e235bdc7b5ec8f9b72c)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241229/202412290939.43oNt9t6-lkp@intel.com/reproduce)
+config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20241229/202412291320.lZkWz3Yv-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241229/202412291320.lZkWz3Yv-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202412290939.43oNt9t6-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202412291320.lZkWz3Yv-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/mmc/host/sdhci-st.c:460:8: error: call to undeclared function 'sdhci_suspend_host'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   drivers/mmc/host/sdhci-st.c: In function 'sdhci_st_suspend':
+>> drivers/mmc/host/sdhci-st.c:460:15: error: implicit declaration of function 'sdhci_suspend_host'; did you mean 'sdhci_add_host'? [-Wimplicit-function-declaration]
      460 |         ret = sdhci_suspend_host(host);
-         |               ^
->> drivers/mmc/host/sdhci-st.c:494:9: error: call to undeclared function 'sdhci_resume_host'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+         |               ^~~~~~~~~~~~~~~~~~
+         |               sdhci_add_host
+   drivers/mmc/host/sdhci-st.c: In function 'sdhci_st_resume':
+>> drivers/mmc/host/sdhci-st.c:494:16: error: implicit declaration of function 'sdhci_resume_host'; did you mean 'sdhci_remove_host'? [-Wimplicit-function-declaration]
      494 |         return sdhci_resume_host(host);
-         |                ^
-   drivers/mmc/host/sdhci-st.c:494:9: note: did you mean 'sdhci_remove_host'?
-   drivers/mmc/host/sdhci.h:827:6: note: 'sdhci_remove_host' declared here
-     827 | void sdhci_remove_host(struct sdhci_host *host, int dead);
-         |      ^
-   2 errors generated.
+         |                ^~~~~~~~~~~~~~~~~
+         |                sdhci_remove_host
 
 
-vim +/sdhci_suspend_host +460 drivers/mmc/host/sdhci-st.c
+vim +460 drivers/mmc/host/sdhci-st.c
 
 f52d9c4f459bda Peter Griffin 2014-07-09  449  
 f52d9c4f459bda Peter Griffin 2014-07-09  450  static int sdhci_st_suspend(struct device *dev)
