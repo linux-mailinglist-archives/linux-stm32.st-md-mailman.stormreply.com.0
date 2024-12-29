@@ -2,75 +2,145 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3144F9FDD67
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2024 06:39:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34169FDE01
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2024 09:25:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5E86C78F62;
-	Sun, 29 Dec 2024 05:39:06 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70065C7802C;
+	Sun, 29 Dec 2024 08:25:35 +0000 (UTC)
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2047.outbound.protection.outlook.com [40.107.103.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 403F9C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62A55C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Dec 2024 05:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1735450745; x=1766986745;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2ZAfvEapeqlQxdPGabGekF/vOEsQwkH6pIqCbZL1qVs=;
- b=PoZ3DqZdHhZ3BcJYDTcI/ket5Z2gKZFCVCrlS51Z1vGFcgS7HB9MRYJz
- xlIiIb2eALDAOZu+g0sOrcJyIPTqGKEm8ti3GB7hKps0PVSdMRmgEYA3i
- vtCDl9i1DgboMEAyM7/EWdGt9n/SlC3WKdHnRcdn2NH2IzzykhzmOMycx
- g6YUUaaHzh07nMgiQHpsh4Y/Lam/b2p7EhTwVdqNb5qhKEsT3sJjQ+nSV
- JEvju4ceYbILinXKhSdH+1zZYFBiTMAn3tP4NZdufYTT1vVXXWAoG2jxb
- Km5LuffMUoGFubnCQePS4S/2MmYEiflcXcvgNX5OEjhUCD6BzK7+JA0wd A==;
-X-CSE-ConnectionGUID: sL1gbmo1Sg6tSLE/4m/wAA==
-X-CSE-MsgGUID: m/ufT1Y9R5Ckg3I9SBBqtA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11299"; a="39714093"
-X-IronPort-AV: E=Sophos;i="6.12,273,1728975600"; d="scan'208";a="39714093"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Dec 2024 21:38:57 -0800
-X-CSE-ConnectionGUID: 3s/MFmMNTKGc/r/0Xdc6Eg==
-X-CSE-MsgGUID: pWJT/xodQjqlIGcz6VIFSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,273,1728975600"; d="scan'208";a="100868774"
-Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 28 Dec 2024 21:38:51 -0800
-Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tRm0m-0004V6-2X;
- Sun, 29 Dec 2024 05:38:48 +0000
-Date: Sun, 29 Dec 2024 13:38:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Message-ID: <202412291320.lZkWz3Yv-lkp@intel.com>
-References: <20241229-update_pm_macro-v1-2-c7d4c4856336@gmail.com>
-MIME-Version: 1.0
+ Sun, 29 Dec 2024 08:25:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CQN4uNuqz23rc0xYlFfKnAdCm34Vk0qXlTh2jGH/bWODlynC5ZFcVBak9s4iuAYCPe2bfVI1qPJGrFqdnKMni/v6nHRWGuyq3E+sqZ/0lT1I1WQMB8cbY+3OI8uZe7VlUDrkVmThAWc1s7V+ui29Pjb6I6829RG0MVDsIFmoGSc00tGYlnVumk600l7N/dJiGs7H164KysgrpNRY7aLvfctxNZmauqKWAsJLwozw3Wtna34649fzmGlNLJquwxfbEXbcab06Dd0FxwSoUaaCZVZ0rv3wSSZ67a6TRM26iA392LZTsrMQ+pU5CkngRgMC+ilk5Uhf820eGfs0efL/OA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Lxv9OMRbb48AefBBZ1zT1EcpDq513rj5Kp94hTVbYZY=;
+ b=OzCr1uM6voTfQZMDez9JjempXY9XZN5Y3nuW3qiGVITsV2LMUsUwHFyXVtNC++4aF8aEH4DNcmx9v4FPY1mqkUTOVlM/oL09rWeief6l558uq6zFH5yscN97CtDXcHG46SEZStTkArQJN9GxPpvRtdJs5Zp9ri9UzDj+Iz290TyTgWTRxEAA8aMsHwR/ilUQ2t9BVybwDDIDF8j32I65UKbrMphhuEdTZajWBouFtRo7Spr+SDI0pfnnQmFnUGwXPPbT4GE1CzLF03TgRUvPvxPhSklImakPyv0AXKs1Mo4EYrj1dsGc3vG1/H2louMZw+kbYRndYI4a121kmUjawg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lxv9OMRbb48AefBBZ1zT1EcpDq513rj5Kp94hTVbYZY=;
+ b=p+eKJT35glDRDCbxZSQWv7KB4T4Nfg2t11iIaRaok4kxi2O867XJ1bXb3K6Yw+gFFKAxAWWl+ySEivMFEWth+oLzjRnWNbtAIFy4rGddLGaTM4uC4u/3hs4egGAdtymaHevubDpPFJvxDYBGuTQcd3G8BwdCXw66K0ZVCeA55l5Pvt2O3WMRyrIwDSOFwU4/HZQhINBCtQAHJbQ/8B/RL6EliGykUl2BCYupt4zz0DvWJih7rBB31PuG/5EeOaIO6pUc/HXEOw131M8P7w5sN1B1q9BTYyz3NdZxiXNnH5AHx27ggQgvTBGaAOqaow1mSP7uyI1vja9o5KRrX8QNcg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
+ by PA4PR04MB8064.eurprd04.prod.outlook.com (2603:10a6:102:cf::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.17; Sun, 29 Dec
+ 2024 08:25:22 +0000
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630%5]) with mapi id 15.20.8293.000; Sun, 29 Dec 2024
+ 08:25:22 +0000
+Date: Sun, 29 Dec 2024 17:31:02 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Message-ID: <20241229093102.GA11533@localhost.localdomain>
+References: <20241228-wake_irq-v1-0-09cfca77cd47@nxp.com>
+ <20241228101046e64adfb2@mail.local>
 Content-Disposition: inline
-In-Reply-To: <20241229-update_pm_macro-v1-2-c7d4c4856336@gmail.com>
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-mtd@lists.infradead.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/6] mmc: sdhci-st: Switch from
- CONFIG_PM_SLEEP guards to pm_sleep_ptr()
+In-Reply-To: <20241228101046e64adfb2@mail.local>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: SG2PR06CA0251.apcprd06.prod.outlook.com
+ (2603:1096:4:ac::35) To PAXPR04MB8459.eurprd04.prod.outlook.com
+ (2603:10a6:102:1da::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|PA4PR04MB8064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 964af8ed-a974-474a-49b5-08dd27e25610
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|52116014|366016|7053199007|38350700014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oUiarl131e1wEg14BRNIQl9JpiQRkggfhls8os9u9LBtHfc6TSFEnUJiA7w0?=
+ =?us-ascii?Q?Gi8Tm3bM0fHk39nEJx4aOITBMObMawdTc6rAGVzy+LByzjPvyHPZba7/pdnL?=
+ =?us-ascii?Q?HOpQRhnYEGuGMCYnEsLgxotikvl6iiBtc46Z5gWD3AZYufqbdFsnywUA69Ru?=
+ =?us-ascii?Q?O+OFJDWTgCpy0P7Aqko1egmFn80FKnFMz7Q/L52vO1e5X9hSQMk93LRfYczQ?=
+ =?us-ascii?Q?mS7h8WkwII0TE60kT9InArEfeV+b38WtvDcVsOsrP+Vtxy3hSZBneBFkGM1l?=
+ =?us-ascii?Q?Z2W2DUjlN3317f5kIuyXuYTQrwug+CujnDdYOYo8XI2tAyixscwUOVqwAKnA?=
+ =?us-ascii?Q?j9Yg2aLESMgvjeq2NdrcCvRLRaFqUx3c6oJPQl2WF/0YQ7FhMh75ewjhbjEJ?=
+ =?us-ascii?Q?OdfxKDW4ixSZurxg/ogKbt7qrxwB2M9nB0Z87FtN7d1IwZkoVq3Oi7iE94nx?=
+ =?us-ascii?Q?ZLy0+WRZ2A4w2nu5XLqpyYkCnsZXh/mvp4irBQeuvL5kSCl60oWd+u0TAiSO?=
+ =?us-ascii?Q?g9hgOQ6PNRxFmSoPnkT4HnOtYrq7L6yzH+t02JAPfXh5D8cN0VsD2qHDoKvm?=
+ =?us-ascii?Q?25b+uFmFGugTu2oAG0GPfnc1jR+dgFu8ftx9deqDG9455oqf7vrzpxj4vGqY?=
+ =?us-ascii?Q?lZQivoghVaI3OeAseEAt65C4gJmCmtNn4Jx5sGxV/Ji3usk7mTf2MNHwnqdT?=
+ =?us-ascii?Q?r1dAg+JT8GsdvUEL/QrSra3PGN5zlhKO1UzSJ3rpT4VgXd8Uk8YXUkw1RBE6?=
+ =?us-ascii?Q?n8Wz8xzeGuACyP4xwya7yk4iwcE1ou4hKnr75cVW1TSQjmCvWF2WplKIMNHJ?=
+ =?us-ascii?Q?mj24ICOtjrOYaNEgkguKdJuxUyCiKBMzaeacilMwVWq/NFZlgEraVjZAKmIg?=
+ =?us-ascii?Q?/sR6ry1RM7yr+cHF6TZjMEMCSK4IolwonNM2VI/oxd54hcH8Va/wdMRJa61v?=
+ =?us-ascii?Q?emPyCvd+GxlEsQF6DDk6Vrp+FFKpnCX9/afjVyYngf00OHaSVsW5ik5kpzO5?=
+ =?us-ascii?Q?bQS4mb0rWA5jKOcccIIMT/m+p8B+Y+PzIpvzjeGr8wxq+GJPEB5HTqrzmvlQ?=
+ =?us-ascii?Q?dsgdtVwepKbbtoP2gmAFWufkNO3cvBDDVarN9oL42HnH5EEyYPnQoxcmf8La?=
+ =?us-ascii?Q?XZAy8dQj9xpZvl5Ws66NKFOUbZM69nKoKSHQY6B70uzeCpdrp7vslzvJBgVz?=
+ =?us-ascii?Q?F8Fal1X/hLoizA/BA0sr0yPrph8C1G5LwW+FyWodqrCUxnDGOV0QaJxWkzRA?=
+ =?us-ascii?Q?AMSg+rqGT3x0Gc6BPZ249ZOHniTfR311n/1GQnodDvvU5+7IqC6kEnMRccFZ?=
+ =?us-ascii?Q?W7od45AWK/oK8GPA+1wyDMytK3+FQ812uH05YlLHNrH5GXRFQNsgMXonJgMZ?=
+ =?us-ascii?Q?qeb1lVkfXLWbUBzUM9sNIbuhsCTBoTpCU3Kv3kL/lz9SJ+bn1Q=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(52116014)(366016)(7053199007)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hmo7YHJ/2SfhXlYsjA8ycNXFgGq0zO+f+EjlJNO/bAKJvTGtVSJoYx8Q6Iou?=
+ =?us-ascii?Q?hVIZO6RmfR8n/wnAJa4ps0Zxlg62lP4Yuu0n1RUTQOxU2WR6WHabPZSKX0Oz?=
+ =?us-ascii?Q?7W6vsDIuh5xZ48G4hUAPmdwd+LRUtjWH6B9xkFCutX6sX5RUvzORNoMK69Rk?=
+ =?us-ascii?Q?GSHkPe4IMVlZ9yacNzoqjdKzs79YH+viKkyeZFLtq2A7eSIBIfv+1Jy9Fd9k?=
+ =?us-ascii?Q?jmOS5k4oOesXYsXtup4qHpzsAUNK0/xlNqHMCRkHHxmglBAjln4tMfznddVb?=
+ =?us-ascii?Q?lRxShYXMgtd+qp5iuL6d/TcB5r8fzHcpvb8jh17vtZepH/qWpg70+AgojG+/?=
+ =?us-ascii?Q?BSbitXNbhmwPhS9sACY/XgHp2sD46JTDY28t2Qp2/SGcxvQ6qqJIxVsMiVq2?=
+ =?us-ascii?Q?8rx2mCXfh4yVIb4hjZ+Rv03Br7zNmbq7PHydoa1Ruwl1a2uotg/fABVfW973?=
+ =?us-ascii?Q?x6OiM2PV1eCpLN272DebrQgPiKR7wa1Jw9txp7oNjJ7c9EHiF+7mALg6EGys?=
+ =?us-ascii?Q?p0rjTEO/iiPY6hCJ7f2WMDtcjgGZrcewMOrYY26QJsJ9fJDBHyp/DNRIsNn0?=
+ =?us-ascii?Q?BIQ/nTCMHYS/Z2hiYnObhXrOLHy1dH0A1Dh8xT8wPoVM17q+9Zizy1Gx4m9r?=
+ =?us-ascii?Q?8PSQdZDvD2PL75LJ+0WT15ZBCkC5iHdTOxa+x2JDGd8/yBMIncDjnXMCFZff?=
+ =?us-ascii?Q?ic4IS9JagL/pxtUPLBq+JVcu3M2CC3Y502CbqTBcPz2Id86j6C1cstn0QVE9?=
+ =?us-ascii?Q?FEC4GxRT9Avg6CcjNfu58qBZ2fyt1efNhPZS0SZeIxMmpuRF4Mjj+afrIYtI?=
+ =?us-ascii?Q?tMiV05Gsbiw2x8qfv3m5xhsiT1L9E1E5lKULAv3iP/b9YjpTxcnmb61sAQMm?=
+ =?us-ascii?Q?ADfdSOo7H++ygrpW7JaC+3/UgZUQd08HysDBa+pbITriFz1kkiE0HB8Oka1P?=
+ =?us-ascii?Q?NIO6n7Fs6gZ038D7xQffjfSnza1DMR2Ddj3ibwtukQwLEgLzNv/dfs62QGyq?=
+ =?us-ascii?Q?iUQxwpYWrO41MwPsxRhPuwY0VQ9HQ+73eBbulidThXgNaJQF9q5IiPmBPWj1?=
+ =?us-ascii?Q?9A9A/Ivw8lCXicpsVmyL4AqrDKVKQuDY4CpI5wy2PXgRhtw+zDz9i7xZvVcM?=
+ =?us-ascii?Q?rxtSTezjk9XH2lUEn1fcOyimmbe7Gq5BsWFY6iaflwvkPjUZj4/L0VosF0j2?=
+ =?us-ascii?Q?tITPxkv8zzIRPSU+Ys49ymHKCKCgFPFBEnlJKbh+oljAy8Um0EO2I2B0ueJT?=
+ =?us-ascii?Q?RgW10kWl+7gQ//T4lcDA2se3j7xZ1jLdXYLxu8sVNPbC6vCZJNfqssNKJfL6?=
+ =?us-ascii?Q?vQti6agTMSfNLA2NUYMsAXF8HJs3IfLe+PNbWMXNtEBdCmpZyTbNguItuteI?=
+ =?us-ascii?Q?jacFIa/24psA1YdRmhlbPn5bfEh9KiqNyVzaVqSTY6EV3s1C0M3fWDtD1Kw4?=
+ =?us-ascii?Q?A5oWY7dNFIKUxTnZ26CIacpj2b63DsYRu5CKyuvJQv8xwLH7LOhaSTqh7Mo/?=
+ =?us-ascii?Q?c3PC2LCEXAC0TvySMZ0LF7aQBJvxOSx1mB3gDT529RnQmy/ciGReuYLK+8AM?=
+ =?us-ascii?Q?QVcYml2vddx6XnJPsHCXIpcuVyMmlemLu90t+qB7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 964af8ed-a974-474a-49b5-08dd27e25610
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Dec 2024 08:25:21.8896 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fe79KQmpNt7OY8oztbz5cpTdWjyNqqejEUNB2bB5onhY2Yz2SE1DLpsKlpeZD8QxZL2nvuDq8KjmabW+026UEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8064
+Cc: linux-rtc@vger.kernel.org, Len Brown <len.brown@intel.com>,
+ Peng Fan <peng.fan@nxp.com>, Pavel Machek <pavel@ucw.cz>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/12] pm: Introduce devm_pm_set_wake_irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,93 +157,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Raphael,
+On Sat, Dec 28, 2024 at 11:10:46AM +0100, Alexandre Belloni wrote:
+>On 28/12/2024 09:14:36+0800, Peng Fan (OSS) wrote:
+>> This was a retry to address [1][2], to let common code handle
+>> dev_pm_clear_wake_irq. Then no need to call dev_pm_clear_wake_irq
+>> in each driver.remove() hook and error handling path.
+>> 
+>> In this patchset, I include input and rtc patches to show the usage
+>> to avoid that introducing an API without users. There are still
+>> other places using dev_pm_clear_wake_irq. If this patchset is
+>> good for you, I could start to clean up other drivers such as mmc and
+>> etc.
+>> 
+>> [1] https://lore.kernel.org/all/20241111092131.1693319-1-peng.fan@oss.nxp.com/
+>> [2] https://lore.kernel.org/all/ZymxvLMkkktRoCXZ@google.com/
+>
+>It seems your patchset depends on devm_device_init_wakeup which did not
+>make it yet.
 
-kernel test robot noticed the following build errors:
+The devm_device_init_wakeup patch in linux-next/master
 
-[auto build test ERROR on 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2]
+commit b317268368546d6401af788648668f82e3ba1bd3
+Author: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+Date:   Wed Dec 18 13:09:35 2024 +0900
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Raphael-Gallais-Pou/usb-dwc3-st-Switch-from-CONFIG_PM_SLEEP-guards-to-pm_sleep_ptr/20241229-073700
-base:   8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
-patch link:    https://lore.kernel.org/r/20241229-update_pm_macro-v1-2-c7d4c4856336%40gmail.com
-patch subject: [PATCH 2/6] mmc: sdhci-st: Switch from CONFIG_PM_SLEEP guards to pm_sleep_ptr()
-config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20241229/202412291320.lZkWz3Yv-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241229/202412291320.lZkWz3Yv-lkp@intel.com/reproduce)
+    PM: wakeup: implement devm_device_init_wakeup() helper
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202412291320.lZkWz3Yv-lkp@intel.com/
+    Some drivers that enable device wakeup fail to properly disable it
+    during their cleanup, which results in a memory leak.
 
-All errors (new ones prefixed by >>):
+    To address this, introduce devm_device_init_wakeup(), a managed variant
+    of device_init_wakeup(dev, true).
 
-   drivers/mmc/host/sdhci-st.c: In function 'sdhci_st_suspend':
->> drivers/mmc/host/sdhci-st.c:460:15: error: implicit declaration of function 'sdhci_suspend_host'; did you mean 'sdhci_add_host'? [-Wimplicit-function-declaration]
-     460 |         ret = sdhci_suspend_host(host);
-         |               ^~~~~~~~~~~~~~~~~~
-         |               sdhci_add_host
-   drivers/mmc/host/sdhci-st.c: In function 'sdhci_st_resume':
->> drivers/mmc/host/sdhci-st.c:494:16: error: implicit declaration of function 'sdhci_resume_host'; did you mean 'sdhci_remove_host'? [-Wimplicit-function-declaration]
-     494 |         return sdhci_resume_host(host);
-         |                ^~~~~~~~~~~~~~~~~
-         |                sdhci_remove_host
+    With this managed helper, wakeup functionality will be automatically
+    disabled when the device is released, ensuring a more reliable cleanup
+    process.
 
+    This need for this addition arose during a previous discussion [1].
 
-vim +460 drivers/mmc/host/sdhci-st.c
+    Link: https://lore.kernel.org/linux-rtc/20241212100403.3799667-1-joe@pf.is.s.u-tokyo.ac.jp/ [1]
+    Suggested-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+    Signed-off-by: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+    Link: https://patch.msgid.link/20241218040935.1921416-1-joe@pf.is.s.u-tokyo.ac.jp
+    Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-f52d9c4f459bda Peter Griffin 2014-07-09  449  
-f52d9c4f459bda Peter Griffin 2014-07-09  450  static int sdhci_st_suspend(struct device *dev)
-f52d9c4f459bda Peter Griffin 2014-07-09  451  {
-f52d9c4f459bda Peter Griffin 2014-07-09  452  	struct sdhci_host *host = dev_get_drvdata(dev);
-f52d9c4f459bda Peter Griffin 2014-07-09  453  	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-1531675269c833 Jisheng Zhang 2016-02-16  454  	struct st_mmc_platform_data *pdata = sdhci_pltfm_priv(pltfm_host);
-d38dcad4e7b48f Adrian Hunter 2017-03-20  455  	int ret;
-d38dcad4e7b48f Adrian Hunter 2017-03-20  456  
-d38dcad4e7b48f Adrian Hunter 2017-03-20  457  	if (host->tuning_mode != SDHCI_TUNING_MODE_3)
-d38dcad4e7b48f Adrian Hunter 2017-03-20  458  		mmc_retune_needed(host->mmc);
-f52d9c4f459bda Peter Griffin 2014-07-09  459  
-d38dcad4e7b48f Adrian Hunter 2017-03-20 @460  	ret = sdhci_suspend_host(host);
-f52d9c4f459bda Peter Griffin 2014-07-09  461  	if (ret)
-f52d9c4f459bda Peter Griffin 2014-07-09  462  		goto out;
-f52d9c4f459bda Peter Griffin 2014-07-09  463  
-406c24310a7bd7 Peter Griffin 2015-04-10  464  	reset_control_assert(pdata->rstc);
-406c24310a7bd7 Peter Griffin 2015-04-10  465  
-3ae50f4512ce83 Lee Jones     2016-09-08  466  	clk_disable_unprepare(pdata->icnclk);
-f52d9c4f459bda Peter Griffin 2014-07-09  467  	clk_disable_unprepare(pltfm_host->clk);
-f52d9c4f459bda Peter Griffin 2014-07-09  468  out:
-f52d9c4f459bda Peter Griffin 2014-07-09  469  	return ret;
-f52d9c4f459bda Peter Griffin 2014-07-09  470  }
-f52d9c4f459bda Peter Griffin 2014-07-09  471  
-f52d9c4f459bda Peter Griffin 2014-07-09  472  static int sdhci_st_resume(struct device *dev)
-f52d9c4f459bda Peter Griffin 2014-07-09  473  {
-f52d9c4f459bda Peter Griffin 2014-07-09  474  	struct sdhci_host *host = dev_get_drvdata(dev);
-f52d9c4f459bda Peter Griffin 2014-07-09  475  	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-1531675269c833 Jisheng Zhang 2016-02-16  476  	struct st_mmc_platform_data *pdata = sdhci_pltfm_priv(pltfm_host);
-2053812f6e1af0 Peter Griffin 2015-04-10  477  	struct device_node *np = dev->of_node;
-7f55eb101d4a75 Arvind Yadav  2017-06-20  478  	int ret;
-f52d9c4f459bda Peter Griffin 2014-07-09  479  
-7f55eb101d4a75 Arvind Yadav  2017-06-20  480  	ret = clk_prepare_enable(pltfm_host->clk);
-7f55eb101d4a75 Arvind Yadav  2017-06-20  481  	if (ret)
-7f55eb101d4a75 Arvind Yadav  2017-06-20  482  		return ret;
-7f55eb101d4a75 Arvind Yadav  2017-06-20  483  
-7f55eb101d4a75 Arvind Yadav  2017-06-20  484  	ret = clk_prepare_enable(pdata->icnclk);
-7f55eb101d4a75 Arvind Yadav  2017-06-20  485  	if (ret) {
-7f55eb101d4a75 Arvind Yadav  2017-06-20  486  		clk_disable_unprepare(pltfm_host->clk);
-7f55eb101d4a75 Arvind Yadav  2017-06-20  487  		return ret;
-7f55eb101d4a75 Arvind Yadav  2017-06-20  488  	}
-f52d9c4f459bda Peter Griffin 2014-07-09  489  
-406c24310a7bd7 Peter Griffin 2015-04-10  490  	reset_control_deassert(pdata->rstc);
-406c24310a7bd7 Peter Griffin 2015-04-10  491  
-2053812f6e1af0 Peter Griffin 2015-04-10  492  	st_mmcss_cconfig(np, host);
-2053812f6e1af0 Peter Griffin 2015-04-10  493  
-f52d9c4f459bda Peter Griffin 2014-07-09 @494  	return sdhci_resume_host(host);
-f52d9c4f459bda Peter Griffin 2014-07-09  495  }
-f52d9c4f459bda Peter Griffin 2014-07-09  496  
+Thanks,
+Peng.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>
+>> 
+>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>> ---
+>> Peng Fan (12):
+>>       PM: sleep: wakeirq: Introduce device-managed variant of dev_pm_set_wake_irq
+>>       input: keyboard: ep93xx_keypad: Use devm_pm_set_wake_irq
+>>       input: keyboard: omap4_keypad: Use devm_pm_set_wake_irq
+>>       input: misc: nxp-bbnsm-pwrkey: Use resource managed API to simplify code
+>>       input: touchscreen: ti_am335x_tsc: Use resource managed API to simplify code
+>>       rtc: stm32: Use resource managed API to simplify code
+>>       rtc: nxp-bbnsm: Use resource managed API to simplify code
+>>       rtc: ds1343: Use devm_pm_set_wake_irq
+>>       rtc: pm8xxx: Use devm_pm_set_wake_irq
+>>       rtc: ab8500: Use resource managed API to simplify code
+>>       rtc: mpfs: Use devm_pm_set_wake_irq
+>>       rtc: pl031: Use resource managed API to simplify code
+>> 
+>>  drivers/base/power/wakeirq.c              | 25 ++++++++++++++++++
+>>  drivers/input/keyboard/ep93xx_keypad.c    |  8 +-----
+>>  drivers/input/keyboard/omap4-keypad.c     |  8 +-----
+>>  drivers/input/misc/nxp-bbnsm-pwrkey.c     | 15 ++++-------
+>>  drivers/input/touchscreen/ti_am335x_tsc.c | 43 ++++++++++---------------------
+>>  drivers/rtc/rtc-ab8500.c                  | 11 ++------
+>>  drivers/rtc/rtc-ds1343.c                  |  8 +-----
+>>  drivers/rtc/rtc-mpfs.c                    |  8 +-----
+>>  drivers/rtc/rtc-nxp-bbnsm.c               | 29 +++++++--------------
+>>  drivers/rtc/rtc-pl031.c                   |  6 ++---
+>>  drivers/rtc/rtc-pm8xxx.c                  | 12 +--------
+>>  drivers/rtc/rtc-stm32.c                   | 10 ++-----
+>>  include/linux/pm_wakeirq.h                |  6 +++++
+>>  13 files changed, 70 insertions(+), 119 deletions(-)
+>> ---
+>> base-commit: 8155b4ef3466f0e289e8fcc9e6e62f3f4dceeac2
+>> change-id: 20241227-wake_irq-b68d604dd902
+>> 
+>> Best regards,
+>> -- 
+>> Peng Fan <peng.fan@nxp.com>
+>> 
+>
+>-- 
+>Alexandre Belloni, co-owner and COO, Bootlin
+>Embedded Linux and Kernel engineering
+>https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
