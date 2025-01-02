@@ -2,51 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763B79FF6DC
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jan 2025 09:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34EA19FF746
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jan 2025 10:09:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B83EC78032;
-	Thu,  2 Jan 2025 08:26:08 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB3AEC7801F;
+	Thu,  2 Jan 2025 09:09:02 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D42B3C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACEE5C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Jan 2025 08:26:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D575DA40F02;
- Thu,  2 Jan 2025 08:24:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E9EC4CED0;
- Thu,  2 Jan 2025 08:26:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1735806365;
- bh=a/jkkhb22rDc0sD75YrgckrNRNFXB+uJYJPu/qpNb34=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rJIduz3j/Mgsc+RQLc2lRQPnBT3B2RDVJm/v94aXsLOaj5plXcXia+0kQ+H0BoGo+
- g9MA7qg0yRsm5cX4rTyksx67XUKH80Tr17YM9IWqKUKyAkJdR3HYgy2+7vnQnAqO1w
- tobC0mH2jpwTUCT+Afehy+yopQeNNPqHXbPzGvY4d6/kLLWzVWFfYun/LJ1rr7kwKn
- UgI3PIeztxP9Il6HKi5qfFRzwGFSTl7vYpr+VVh6eLA3kF9I3wV7M4OOmNZ3oup/xu
- k05ZAmB1jN4UhvOsAe33F4RKoWOHWYYqLga/nYDdYgIA0K3G1UI8bGISk2LlvS9COX
- 3Dwxc0Ntoor8g==
-Date: Thu, 2 Jan 2025 09:26:02 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Message-ID: <gtisijd2uxatrfu6yppkv4zeddilmsxjoqiaugxqregfyqgbed@4dryamubwyqx>
-References: <20241231150144.4035938-1-dario.binacchi@amarulasolutions.com>
- <20241231150144.4035938-2-dario.binacchi@amarulasolutions.com>
+ Thu,  2 Jan 2025 09:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=N2/lJMrShdKFF/LCN9VGIHz6yfGl2Ad/fJkiczIYxJk=; b=L4pPXnCQ9/MJcPrdVq87EETWV0
+ YDKENkOXhbSxIPBk+Fja0LuH8yLVErcGMrtKbOeNwLJrx0Q1b1cVhgbCsdctxHwteht7k98Ox7cLK
+ MoRfX66zRHw7bblH1gYjqVZYzwdvk0Gj4o/vArejDnQkzany+qP73vcTOikSRfaME3xbZR7kxP0pw
+ soBjvplC+RcHJpTBAxSoixRJaUArYlSYFBFjx1INgvnf6nBptKYRysgz0dkMaqUF5tukvPeVtAAmL
+ Enhth10wOgC4RkuAx5idJIPV/id+reUcAeYsNI709XYEVelZVerZKiQABcdZZ3Uw/GIpbH+lcf0Y8
+ yT9odH4Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43370)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tTHC9-0001nF-0g;
+ Thu, 02 Jan 2025 09:08:45 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tTHC5-00008P-0K;
+ Thu, 02 Jan 2025 09:08:41 +0000
+Date: Thu, 2 Jan 2025 09:08:40 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <Z3ZXmAIAHmYVbdbl@shell.armlinux.org.uk>
+References: <Z1yJQikqneoFNJT4@shell.armlinux.org.uk>
+ <E1tMBRQ-006vat-7F@rmk-PC.armlinux.org.uk>
+ <20241217141912.34cdd5ae@fedora.home>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20241231150144.4035938-2-dario.binacchi@amarulasolutions.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-clk@vger.kernel.org,
+In-Reply-To: <20241217141912.34cdd5ae@fedora.home>
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] dt-bindings: clock: st,
- stm32mp1-rcc: complete the reference path
+Subject: Re: [Linux-stm32] [PATCH net-next 5/5] net: stmmac: use PCS
+	supported_interfaces
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,19 +70,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 31, 2024 at 04:01:41PM +0100, Dario Binacchi wrote:
-> All other paths referenced in the file follow a scheme starting from the
-> Linux root. The patch adjusts the single file that deviated from this
-> scheme, making it consistent with the others.
+On Tue, Dec 17, 2024 at 02:19:12PM +0100, Maxime Chevallier wrote:
+> Hi Russell,
 > 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> ---
+> On Fri, 13 Dec 2024 19:35:12 +0000
+> "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
+> 
+> > Use the PCS' supported_interfaces member to build the MAC level
+> > supported_interfaces bitmap.
+> > 
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > ---
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++++--
+> >  1 file changed, 9 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index d45fd7a3acd5..0e45c4a48bb5 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -1206,6 +1206,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+> >  	struct stmmac_mdio_bus_data *mdio_bus_data;
+> >  	int mode = priv->plat->phy_interface;
+> >  	struct fwnode_handle *fwnode;
+> > +	struct phylink_pcs *pcs;
+> >  	struct phylink *phylink;
+> >  
+> >  	priv->phylink_config.dev = &priv->dev->dev;
+> > @@ -1227,8 +1228,14 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+> >  
+> >  	/* If we have an xpcs, it defines which PHY interfaces are supported. */
+> >  	if (priv->hw->xpcs)
+> > -		xpcs_get_interfaces(priv->hw->xpcs,
+> > -				    priv->phylink_config.supported_interfaces);
+> > +		pcs = xpcs_to_phylink_pcs(priv->hw->xpcs);
+> > +	else
+> > +		pcs = priv->hw->phylink_pcs;
+> > +
+> > +	if (pcs)
+> > +		phy_interface_or(priv->phylink_config.supported_interfaces,
+> > +				 priv->phylink_config.supported_interfaces,
+> > +				 pcs->supported_interfaces);
+> >  
+> >  	fwnode = priv->plat->port_node;
+> >  	if (!fwnode)
+> 
+> I think that we could even make xpcs_get_interfaces a static
+> non-exported function now :) But this can be done in a subsequent patch.
 
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+Yes, that can definitely be done. I already have a patch for this.
 
-Best regards,
-Krzysztof
+Thanks.
 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
