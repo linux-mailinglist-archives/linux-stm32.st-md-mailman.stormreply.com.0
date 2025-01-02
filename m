@@ -2,67 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D5319FF8A1
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jan 2025 12:17:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4A89A000FD
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jan 2025 23:02:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6805C7801F;
-	Thu,  2 Jan 2025 11:17:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65460C78F66;
+	Thu,  2 Jan 2025 22:02:57 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A09CC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53DAAC78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Jan 2025 11:17:30 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 502A1PJ6028659;
- Thu, 2 Jan 2025 12:17:18 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 0xItSIxShYGLizEiPeNAw2E0IXnl6XenbDcDTP5neiw=; b=qAgP656flRQouaIy
- 0guIhoP9E0Yyyue5L0iYG8n4UuLuxjanolFg/wSdO26j4SsjxLTMlK9ogzVvvcmv
- 83n7ThZ02ljMPZUA4PgDL9axSQJN0ZYt4u6iJAhh/I2IrnEa4QB8zp34yzZEEzWb
- Bp5NggKq2nUNSPwRIEwbUomKdhI1WWe6l5qVAw/6nuvXPRIrj6sO8etAI9nqagI7
- IoUiKbTX5QJZKKQnr4dUL+xzM7A68ldBT34As8vH9366pjOd+v5UOCZVktj88Zhh
- iAYJt5yJbio0PrXb2y020wSITZhhk2E6bLUZN+AQHGtT7T7eyA9ur0YTtzCoeHr6
- n1M8PA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43vuwmbx6b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Jan 2025 12:17:18 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4DCB540048;
- Thu,  2 Jan 2025 12:16:04 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7FA0627607A;
- Thu,  2 Jan 2025 12:15:18 +0100 (CET)
-Received: from [192.168.8.15] (10.252.9.169) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 2 Jan
- 2025 12:15:17 +0100
-Message-ID: <01c0ce6be637669ed07cfaf0aa6ef27fed7b8b16.camel@foss.st.com>
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Marek Vasut <marex@denx.de>, Mingwei Zheng <zmw12306@gmail.com>
-Date: Thu, 2 Jan 2025 12:15:15 +0100
-In-Reply-To: <9745b3ee-ae89-4edb-8ff7-b20096dbe1de@denx.de>
-References: <20241215204014.4076659-1-zmw12306@gmail.com>
- <9745b3ee-ae89-4edb-8ff7-b20096dbe1de@denx.de>
-User-Agent: Evolution 3.48.4 
+ Thu,  2 Jan 2025 22:02:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:To:From:Date:Reply-To:Cc:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=flhDoTWszixGfZPN6AOG1Kbft1s/lql3hbGGxPrleY8=; b=Qyy2EzkeztfaArvMkfHife79Ug
+ 9mQxwcT2GZuEs9PnDjVTD4WeTUQJCrRpPLvtvgYR19N+827e2vvXLvaLiV4etpXf/AYhSeE6bb/oz
+ YSQP7e3uiC9+62RHteTzoLkBq3S6NeeTMku8Fgxbg0C+6XwfGUMQWC6PMmiw1P74J4G+Y9/PhTLrT
+ oA73aILo0VoMwypPccrltiS0J4qmszRBCr2wYbir7YCiU6FU8gqkmlRB2lgGzMEt3Rj7htCV/Iz43
+ hei0v+MieMRXrRU/BJ7k7yqTpbCyHqos1rQ6+yAK3luur6S1DaFLurb0G/SdPh0CsB+r0Knuglo8X
+ nAJ3p0bw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49174)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tTTH5-0002Qh-0q;
+ Thu, 02 Jan 2025 22:02:39 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tTTH1-0000e4-0k;
+ Thu, 02 Jan 2025 22:02:35 +0000
+Date: Thu, 2 Jan 2025 22:02:35 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>
+Message-ID: <Z3cM-5tShVza0M58@shell.armlinux.org.uk>
+References: <Z1r3MWZOt36SgGxf@shell.armlinux.org.uk>
+ <E1tLkSX-006qfS-Rx@rmk-PC.armlinux.org.uk>
+ <Z1wTqh-BnvPYLqU8@shell.armlinux.org.uk>
+ <Z1yTviYUZ8sbNOsK@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.252.9.169]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: peng.fan@nxp.com, make24@iscas.ac.cn, linus.walleij@linaro.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>, fabien.dessenne@foss.st.com,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5] pinctrl: stm32: Add check for
-	clk_enable()
+Content-Disposition: inline
+In-Reply-To: <Z1yTviYUZ8sbNOsK@shell.armlinux.org.uk>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/7] net: stmmac: move
+ tx_lpi_timer tracking to phylib
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,37 +67,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyMDI0LTEyLTE2IGF0IDAwOjQxICswMTAwLCBNYXJlayBWYXN1dCB3cm90ZToKPiBP
-biAxMi8xNS8yNCA5OjQwIFBNLCBNaW5nd2VpIFpoZW5nIHdyb3RlOgo+IAo+IFsuLi5dCj4gCj4g
-PiBAQCAtMTYxNywxMCArMTYwMiwxOCBAQCBpbnQgc3RtMzJfcGN0bF9wcm9iZShzdHJ1Y3QgcGxh
-dGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
-ZXR1cm4gLUVJTlZBTDsKPiA+IMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiDCoMKgwqDCoMKgwqDCoMKg
-cGN0bC0+YmFua3MgPSBkZXZtX2tjYWxsb2MoZGV2LCBiYW5rcywgc2l6ZW9mKCpwY3RsLT5iYW5r
-cyksCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoEdG
-UF9LRVJORUwpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHRlBfS0VSTkVMKTsKPiAKPiBQbGVhc2UgZHJvcCB0
-aGlzIG9uZSBjaGFuZ2UuCj4gCj4gPiDCoMKgwqDCoMKgwqDCoMKgaWYgKCFwY3RsLT5iYW5rcykK
-PiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIC1FTk9NRU07Cj4gPiDC
-oCAKPiA+ICvCoMKgwqDCoMKgwqDCoHBjdGwtPmNsa3MgPSBkZXZtX2tjYWxsb2MoZGV2LCBiYW5r
-cywgc2l6ZW9mKCpwY3RsLT5jbGtzKSwKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdGUF9LRVJORUwpOwo+ID4gK8Kg
-wqDCoMKgwqDCoMKgaWYgKCFwY3RsLT5jbGtzKQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoHJldHVybiAtRU5PTUVNOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgZm9yIChpID0g
-MDsgaSA8IGJhbmtzOyArK2kpCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcGN0
-bC0+Y2xrc1tpXS5pZCA9ICIiOwo+IAo+IElzIHRoaXMgXiBhc3NpZ25tZW50IG5lY2Vzc2FyeSA/
-IElmIHNvLCB3aHkgPwoKVGhlIGV4aXN0aW5nIERUcyBkb24ndCBoYXZlIHRoZSAnY2xvY2stbmFt
-ZXMnIHByb3BlcnR5LCB3aG9zZSB2YWx1ZSBpcyB1c2VkIHRvIHNldCB0aGlzIHN0cnVjdCBjbGtf
-YnVsa19kYXRhOjppZC4KV2l0aCB0aGlzIGZpZWxkIGtlcHQgYXQgTlVMTCwgdGhlIGVycm9yIG1l
-c3NhZ2VzIGluIGNsa19idWxrX2VuYWJsZSgpIGFuZCBzaW1pbGFyIHNob3VsZCBwcmludCAnKG51
-bGwpJy4KVGhpcyBsaW5lIHNldHMgaXQgdG8gZW1wdHkgc3RyaW5nLgpJIHdvdWxkIHNheSBpdCdz
-IG5vdCBuZWNlc3NhcnksIGJ1dCBJIGRvbid0IGtub3cgaWYgaXQncyBiZXR0ZXIgdG8gaGF2ZToK
-IkZhaWxlZCB0byBlbmFibGUgY2xrICcnOiAlZCIKb3IKIkZhaWxlZCB0byBlbmFibGUgY2xrICco
-bnVsbCknOiAlZCIKCkFudG9uaW8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, Dec 13, 2024 at 08:06:22PM +0000, Russell King (Oracle) wrote:
+> On Fri, Dec 13, 2024 at 10:59:54AM +0000, Russell King (Oracle) wrote:
+> > On Thu, Dec 12, 2024 at 02:46:33PM +0000, Russell King (Oracle) wrote:
+> > > @@ -1092,6 +1092,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+> > >  			phy_init_eee(phy, !(priv->plat->flags &
+> > >  				STMMAC_FLAG_RX_CLK_RUNS_IN_LPI)) >= 0;
+> > >  		priv->eee_enabled = stmmac_eee_init(priv);
+> > > +		priv->tx_lpi_timer = phy->eee_cfg.tx_lpi_timer;
+> > >  		priv->tx_lpi_enabled = priv->eee_enabled;
+> > >  		stmmac_set_eee_pls(priv, priv->hw, true);
+> > >  	}
+> > 
+> > While looking deeper at stmmac, there's a bug in the above hunk -
+> > stmmac_eee_init() makes use of priv->tx_lpi_timer, so this member
+> > needs to be set before calling this function. I'll post a v2 shortly.
+> 
+> I'm going to hold off v2, there's a lot more that can be cleaned up
+> here - the EEE code is rather horrid in stmmac, and there's definitely
+> one race, and one logical error in it (e.g. why mark software EEE mode
+> *enabled* when EEE mode is being disabled - which can lead to the EEE
+> timer being added back onto the timer list.)
+> 
+> There's also weirdness with dwmac4's EEE register fiddling.
+> 
+> The stmmac driver uses hardware timed LPI entry if the timer is small
+> enough to be programmed into hardware, otherwise it uses software mode.
+> 
+> When software mode wants to enter LPI mode, it sets both:
+> 
+> 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
+> 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
+> 
+> When software mode wants to exit LPI mode, it clears both of these
+> two bits.
+> 
+> In hardware mode, when enabling LPI generation, we set the hardware LPI
+> entry timer (separate register) to a non-zero value, and then set:
+> 
+> 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
+> 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
+> 	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
+> 
+> That seems logical. However, in hardware mode, when we want to then
+> disable hardware LPI generation, we set the hardware LPI entry timer to
+> zero, the following bits:
+> 
+> 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
+> 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
+> 
+> and clear:
+> 
+> 	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
+> 
+> So, hardware mode, disabled, ends up setting the same bits as
+> software mode wanting to generate LPI state on the transmit side.
+> This makes no sense to me, and looks like another bug in this driver.
+
+I've found a document that describes the GMAC:
+
+https://www.st.com/resource/en/reference_manual/rm0441-stm32mp151-advanced-armbased-32bit-mpus-stmicroelectronics.pdf
+
+Page 3302 gives the definitions for the ETH_MACLCSR, which is this
+register.
+
+LPITE (bit 20) - allows the ETH_MACLETR register to define how long to
+wait before the TX path enters LPI. Requires LPITXA and LPIEN to both
+be set. LPIEN is *not* automatically cleared when the TX path exits
+LPI.
+
+LPITXA (bit 19) - if this and LPIEN are set, then LPI is entered once
+all outstanding packets have been transmitted, and exits when there's
+a packet to be transmitted or the Tx FIFO is flushed. When it exits,
+it clears the LPIEN bit (making this a one-shot LPI enter-exit.)
+
+PLS (bit 17) needs to be programmed to reflect the PHY link status,
+and is used to hold off LPI state for the LS timer.
+
+LPIEN (bit 16) instructs the MAC to enter (when set) or exit (when
+cleared) LPI state. It doesn't say what the behaviour of this bit is
+if LPITXA is clear.
+
+So:
+
+LPIEN	LPITXA	LPITE	Effect
+0	x	x	No LPI, or LPI exited if active
+1	0	0	Undocumented
+1	1	0	Tx LPI entered if PLS has been set for the LS
+			timer, and once all packets have been sent.
+			LPIEN clears when Tx LPI exits.
+1	1	1	Tx LPI entered if PLS has been set for the LS
+			timer, and transmitter has been idle for
+			ETH_MACLETR. Exits do not clear LPIEN, allowing
+			for subsequent idle periods to enter LPI.
+
+Therefore, given this description, I believe the code to be wrong.
+In the case where we've set LPIEN=1 LPITXA=1 LPITE=1, and we want
+to exit/disable LPI, we should not be clearing LPIATE and leaving
+LPIEN and LPITXA as they were. According to my reading, this would
+cause LPI to remain active until there is a packet to be sent or the
+TX FIFO is flushed. At that point, Tx LPI will be exited, causing
+LPIEN to be cleared - but the code is wanting to disable Tx LPI
+(e.g. because the user configured through ethtool for LPI to be
+disabled.)
+
+The question is... does this get fixed? Is there anyone who can test
+this (beyond the "patch doesn't seem to cause regressions" but can
+actually confirm entry/exit from LPI state?)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
