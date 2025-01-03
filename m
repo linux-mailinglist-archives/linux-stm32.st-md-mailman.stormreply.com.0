@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79E93A00879
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 12:17:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90710A0087B
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 12:17:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40554C78F67;
-	Fri,  3 Jan 2025 11:17:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58599C78F67;
+	Fri,  3 Jan 2025 11:17:13 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 250ACC78F66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91BF3C78F69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2025 11:17:08 +0000 (UTC)
+ Fri,  3 Jan 2025 11:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4s396obXaI1f8Yz3z+7hU/+8e3s2TBg9V0/XcDUux8s=; b=P7wgdPrI4AcqfEfWWuDx1a/tNT
- 0Ax1clrro5GRgNFgLC8VP3GtrZYGo/YJNafuQ01+Lgv6h+TC4LRtbGfBunbBWoEXzV/2KoggfwLiv
- vwD/IHr0bV/PVYwuhdIeTG9jn4q4zxkOemjdPO0SLtPXymx4W8tEc3dBKRPr0XPU4IPRBK+W/LEOf
- tbwCumzIj9YiwFyYiKT8B3f0k/sK9OGW98C+ZCEReksBwvdTd3RoJD9VNpvQLkiFxv/QqAF2wcC7q
- /cLRRUFbHMIbpVPX3o9AiUubFdmaMScAPhUYMH0aAx68R83LfavnW39ixzTxTK0c0/QJdt/iDPcfv
- EDLSZ1iw==;
+ bh=/MH/1XbuHmmzMIpU0/jitxqDYSfeHmJOlhMeOQiQWSQ=; b=kyq2ffionUdzxezwxw1n7SSUNJ
+ QOwJve95yZcDFYj/8AbI4Cd7R27VoBHYCihpPknn1P/j1BxO3KEhCfgxJqhvq0TnDSeEOzj3Ps0uh
+ zHmXaY0gXRIM9i/eJtzcnExq8UkRkzCESa+xUsBtpWvg7x7gJALYXj1t8eHTgWxUdlMPzinWZeX7G
+ cJARELl9wB4lXw1v7OAaH+hyFepu73JhFPIMuxmjWQ39FAw/ZJHwPRBEuZHOvrPH9XijDcPAm+QBz
+ sr8R3d8+C0vbT6YLCbMOodxu7X5mr9qbkCvtWOcMjJ4r8iBbqV0myf5LRi4BWRNrGhHc466Pv5EPn
+ IAOHlwDA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38368 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39002 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tTffj-00031K-0s;
- Fri, 03 Jan 2025 11:16:55 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1tTffn-00031h-2c;
+ Fri, 03 Jan 2025 11:16:59 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tTfff-007Roc-Ff; Fri, 03 Jan 2025 11:16:51 +0000
+ id 1tTffk-007Roi-JM; Fri, 03 Jan 2025 11:16:56 +0000
 In-Reply-To: <Z3fG9oTY9F9fCYHv@shell.armlinux.org.uk>
 References: <Z3fG9oTY9F9fCYHv@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1tTfff-007Roc-Ff@rmk-PC.armlinux.org.uk>
-Date: Fri, 03 Jan 2025 11:16:51 +0000
+Message-Id: <E1tTffk-007Roi-JM@rmk-PC.armlinux.org.uk>
+Date: Fri, 03 Jan 2025 11:16:56 +0000
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
  linux-mediatek@lists.infradead.org, Daniel Golle <daniel@makrotopia.org>,
@@ -53,8 +53,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
  Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [Linux-stm32] [PATCH net-next 5/6] net: stmmac: use PCS
-	supported_interfaces
+Subject: [Linux-stm32] [PATCH net-next 6/6] net: pcs: xpcs: make
+ xpcs_get_interfaces() static
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,44 +71,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the PCS' supported_interfaces member to build the MAC level
-supported_interfaces bitmap.
+xpcs_get_interfaces() should no longer be used outside of the XPCS
+code, so make it static.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/net/pcs/pcs-xpcs.c   | 3 +--
+ include/linux/pcs/pcs-xpcs.h | 1 -
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6bc10ffe7a2b..fcb5649fb738 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1203,6 +1203,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
- 	struct stmmac_mdio_bus_data *mdio_bus_data;
- 	int mode = priv->plat->phy_interface;
- 	struct fwnode_handle *fwnode;
-+	struct phylink_pcs *pcs;
- 	struct phylink *phylink;
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index cf41dc5e74e8..c06b66f40022 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -594,14 +594,13 @@ static unsigned int xpcs_inband_caps(struct phylink_pcs *pcs,
+ 	}
+ }
  
- 	priv->phylink_config.dev = &priv->dev->dev;
-@@ -1224,8 +1225,14 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+-void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
++static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
+ {
+ 	const struct dw_xpcs_compat *compat;
  
- 	/* If we have an xpcs, it defines which PHY interfaces are supported. */
- 	if (priv->hw->xpcs)
--		xpcs_get_interfaces(priv->hw->xpcs,
--				    priv->phylink_config.supported_interfaces);
-+		pcs = xpcs_to_phylink_pcs(priv->hw->xpcs);
-+	else
-+		pcs = priv->hw->phylink_pcs;
-+
-+	if (pcs)
-+		phy_interface_or(priv->phylink_config.supported_interfaces,
-+				 priv->phylink_config.supported_interfaces,
-+				 pcs->supported_interfaces);
+ 	for (compat = xpcs->desc->compat; compat->supported; compat++)
+ 		__set_bit(compat->interface, interfaces);
+ }
+-EXPORT_SYMBOL_GPL(xpcs_get_interfaces);
  
- 	fwnode = priv->plat->port_node;
- 	if (!fwnode)
+ int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns, int enable)
+ {
+diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+index b5b5d17998b8..733f4ddd2ef1 100644
+--- a/include/linux/pcs/pcs-xpcs.h
++++ b/include/linux/pcs/pcs-xpcs.h
+@@ -50,7 +50,6 @@ struct dw_xpcs;
+ 
+ struct phylink_pcs *xpcs_to_phylink_pcs(struct dw_xpcs *xpcs);
+ int xpcs_get_an_mode(struct dw_xpcs *xpcs, phy_interface_t interface);
+-void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces);
+ int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
+ 		    int enable);
+ struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr);
 -- 
 2.30.2
 
