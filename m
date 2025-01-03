@@ -2,77 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B030A00727
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 10:38:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B3BA0086D
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 12:16:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52ECCC78F67;
-	Fri,  3 Jan 2025 09:38:07 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFEDAC78F67;
+	Fri,  3 Jan 2025 11:16:37 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E53DC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0031FC78F66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2025 09:37:59 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2166f1e589cso202880515ad.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 Jan 2025 01:37:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735897078; x=1736501878;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=tIWKiLB8KnEZOm+SI6dbLJmqYzCWnnlF58g0NlWh4Tg=;
- b=UlCllxkctyQ4aqy0dcckRk5K+oaUNXtzYWgWrCbeO0JJzktY7pQr8gMnNJEgJEgAkP
- ENA/NnT8ufdad0EENUMPR5Z3/wJWcXcGrbR5OgIlsjtCrXPhPimtZLq2DEcn92vUYV0J
- lzrqT+cd2+tM820//M5V6cH2lTu0ah0K5Zg13XWGqVi/zrHCCKL7+mu2HB/b09PgpVeI
- XGamc5ywgEyUcVG4OlIsw/+lPOIrbUQKnswgee2HwU76MMiSZOQtjkOAw0kJKUFiyevO
- Gf5ga21J/WenXy/oGGngium8PSgVPrfq48D5j6IZCuOyKQN/qtbdTKGNCcE0q7aGcMaO
- 5v/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735897078; x=1736501878;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tIWKiLB8KnEZOm+SI6dbLJmqYzCWnnlF58g0NlWh4Tg=;
- b=NknlL8p4Sh34ZUTYep2Kj/bKn9eSEx4f7PLRURrI1OW94cXU6JxaNl/goByui2Xn8w
- 410ZN/CZhQQmceZo6MkQqZi4c6cfxPMN3Clj8Kizhb24UyxOEdrN4YcfINX4Yk9xauww
- Tk5/kwMQEsTZ7kQW9KOmNsIrcedWW/CO0np/+6llOv3ERQh972u3ArXyA1gL6pcxDk27
- EjoRADNYo9lIYxh8CNd065yIR8zjU+KivpUp2Md9GQAlbx2FkXv9PdqHe1u2zEso5mww
- YWgH5BWmI63e1+VZuHxYG/NgItoBpgNRETYnMezf9yrV+8kWP4Yv5/ZC1YNBNdnmWeNz
- 2FEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXvB4+MWdSMeNyh/el6+G1hah3DVhz1jt/jYJ2yxGNEkjwCXHc2FxioKCu5LAzANTjQXEsD6F/BR0N79A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwfVCV9NWm/OghOrNJJUAIb+o7UFA8BTE6CMzoJBLQyhtIKPNXO
- 26gyEHqUlEUMx+DDY3q9h/unf9PNl/VBoUqVfVlZLiJzMBtXMicY
-X-Gm-Gg: ASbGncvlE/79MuNkXPF2DaLqfC/R6z4Kx7NXRV4G5mpivFJ22wZyTfqfNP/89cF8T49
- kRSS4NgUfMgiqRYUEZS7rBPEE+GHMYYiZXlVnPp8xK3mgT5yLxA7O7CzxZ6Z2Kep8QwsYbTT0wm
- JVy1NPpNofUhjJTjF7M9QqYRaoOlOAhAWkVK4XxpH3ti4PWGaGAJ0uWTuT+H6RefXh0BOXYmd/u
- rix3YmNBjAj6Rgm976kOZkiVxkKx1o++8b1CudDoJ83QveYZzsTu92Yb+MjTKyQxELCiw==
-X-Google-Smtp-Source: AGHT+IEsfYK7/PGJhM8Gb1hlU/h+2ggzuQZhcjiI2RfwOotYgSfS9FXc9Ht12SveoR4AdIe31Pb6mg==
-X-Received: by 2002:a05:6300:7113:b0:1e6:5323:58d1 with SMTP id
- adf61e73a8af0-1e653235b45mr18248605637.26.1735897077548; 
- Fri, 03 Jan 2025 01:37:57 -0800 (PST)
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-72aad848020sm25860479b3a.81.2025.01.03.01.37.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jan 2025 01:37:57 -0800 (PST)
-From: Furong Xu <0x1207@gmail.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri,  3 Jan 2025 17:37:33 +0800
-Message-Id: <20250103093733.3872939-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Fri,  3 Jan 2025 11:16:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=KnnKr1tOZVG12cK+LLFuxnU9SlvnnOfbe1CXtqwo2co=; b=omu4oSb2n/Rx3anVtN7y8fsq6W
+ ILbT06ESY8/18a0G6Ad4YiG8uXgbgd8tbeEuBBkTzg9YBJD6H/UkK/6vmh9BhGmWeWg5pDxeBoO+r
+ EmcLWybCYb+EcQCxZKg0O/KOhAklMJgpzc7kc6eMm2yDrHmsLA6dWTJrQnmjhYFs0J7a3xkTp3v0b
+ 7ZwaxxwEJFfvNiD6ifORIUJnEUixetrKN8hGBATpO4Kk5ajHUf8lerm1RZMzyQ4y6Qs7v/u485vsS
+ 2phrRtLXhA8QRs9kPW4ke7a1I5gNa6M+icLSRRmZwdPF8Vh8d4vzqgXUrXJBK+ZglEUaE4H5ua5XA
+ qmVOteUw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38220)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tTff2-0002zj-35;
+ Fri, 03 Jan 2025 11:16:13 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tTfew-0001H9-1H;
+ Fri, 03 Jan 2025 11:16:06 +0000
+Date: Fri, 3 Jan 2025 11:16:06 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z3fG9oTY9F9fCYHv@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Set dma_sync_size to
-	zero for discarded frames
+Content-Disposition: inline
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, Daniel Golle <daniel@makrotopia.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Alexander Couzens <lynxis@fe80.eu>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: pcs: add
+ supported_interfaces bitmap for PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,33 +68,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If a frame is going to be discarded by driver, this frame is never touched
-by driver and the cache lines never become dirty obviously,
-page_pool_recycle_direct() wastes CPU cycles on unnecessary calling of
-page_pool_dma_sync_for_device() to sync entire frame.
-page_pool_put_page() with sync_size setting to 0 is the proper method.
+Hi,
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series adds supported_interfaces for PCS, which gives MAC code a
+way to determine the interface modes that the PCS supports without
+having to implement functions such as xpcs_get_interfaces(), or
+workarounds such as in
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6bc10ffe7a2b..1cdbf66574b3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5472,7 +5472,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		if (priv->extend_desc)
- 			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
- 		if (unlikely(status == discard_frame)) {
--			page_pool_recycle_direct(rx_q->page_pool, buf->page);
-+			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
- 			buf->page = NULL;
- 			error = 1;
- 			if (!priv->hwts_rx_en)
+https://lore.kernel.org/r/20241213090526.71516-3-maxime.chevallier@bootlin.com
+
+Patch 1 adds the new bitmask to struct phylink_pcs, and code within
+phylink to validate that the PCS returned by the MAC driver supports
+the interface mode - but only if this bitmask is non-empty.
+
+Patch 2 through 4 fills in the interface modes for XPCS, Mediatek LynxI
+and Lynx PCS.
+
+Patch 5 adds support to stmmac to make use of this bitmask when filling
+in phylink_config.supported_interfaces, eliminating the call to
+xpcs_get_interfaces.
+
+As xpcs_get_interfaces() is now unused outside of pcs-xpcs.c, patch 6
+makes this function static and removes it from the header file.
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++++--
+ drivers/net/pcs/pcs-lynx.c                        | 13 +++++++++++++
+ drivers/net/pcs/pcs-mtk-lynxi.c                   |  4 ++++
+ drivers/net/pcs/pcs-xpcs.c                        |  5 +++--
+ drivers/net/phy/phylink.c                         | 11 +++++++++++
+ include/linux/pcs/pcs-xpcs.h                      |  1 -
+ include/linux/phylink.h                           |  3 +++
+ 7 files changed, 43 insertions(+), 5 deletions(-)
+
 -- 
-2.34.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
