@@ -2,43 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05D55A0088F
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 12:22:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8653A00C0E
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 17:28:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3E66C78F67;
-	Fri,  3 Jan 2025 11:22:09 +0000 (UTC)
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4207C78F66
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85757C78F68;
+	Fri,  3 Jan 2025 16:28:00 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4B1DC78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2025 11:22:01 +0000 (UTC)
-Received: from local
- by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_128_GCM_SHA256:128)
- (Exim 4.98) (envelope-from <daniel@makrotopia.org>)
- id 1tTfkQ-000000005Zl-06kY; Fri, 03 Jan 2025 11:21:46 +0000
-Date: Fri, 03 Jan 2025 11:21:41 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-User-Agent: K-9 Mail for Android
-In-Reply-To: <E1tTffV-007RoP-8D@rmk-PC.armlinux.org.uk>
-References: <Z3fG9oTY9F9fCYHv@shell.armlinux.org.uk>
- <E1tTffV-007RoP-8D@rmk-PC.armlinux.org.uk>
-Message-ID: <0FB3C53E-2F15-4ACB-9567-C0400762C4C0@makrotopia.org>
+ Fri,  3 Jan 2025 16:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=bhv0V3Xq90p2Zx9s6tdiOx4Xuhn7HTGGCsvmN7JlFWU=; b=bmdwkbJ+2QGX1R+x5t1PluRNym
+ uGqLLBBuClRCbtveL23IFNyT307MRDjD40jvDm5eVegSIGVV5yRBtFj6tGnxZ+oPVBlxdUEJabV+5
+ ws/8M+DN7ceC6kF88GSteaFNW8V4BJMibPIJK202W4FNlKSxN/mnqdVdfTHqdjmkeM6w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1tTkWN-0015Oq-11; Fri, 03 Jan 2025 17:27:35 +0100
+Date: Fri, 3 Jan 2025 17:27:35 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joey Lu <a0987203069@gmail.com>
+Message-ID: <4a6cd601-1926-47c9-ad04-9b77c5b8a501@lunn.ch>
+References: <20250103063241.2306312-1-a0987203069@gmail.com>
+ <20250103063241.2306312-4-a0987203069@gmail.com>
 MIME-Version: 1.0
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Alexander Couzens <lynxis@fe80.eu>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: pcs: mtk-lynxi: fill in
- PCS supported_interfaces
+Content-Disposition: inline
+In-Reply-To: <20250103063241.2306312-4-a0987203069@gmail.com>
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v6 3/3] net: stmmac:
+ dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,35 +59,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 3 January 2025 11:16:41 UTC, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
->Fill in the new PCS supported_interfaces member with the interfaces
->that the Mediatek LynxI supports.
->
->Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-
-Acked-by: Daniel Golle <daniel@makrotopia.org>
-
->---
-> drivers/net/pcs/pcs-mtk-lynxi.c | 4 ++++
-> 1 file changed, 4 insertions(+)
->
->diff --git a/drivers/net/pcs/pcs-mtk-lynxi.c b/drivers/net/pcs/pcs-mtk-lynxi.c
->index 7de804535229..a6153e9999a7 100644
->--- a/drivers/net/pcs/pcs-mtk-lynxi.c
->+++ b/drivers/net/pcs/pcs-mtk-lynxi.c
->@@ -306,6 +306,10 @@ struct phylink_pcs *mtk_pcs_lynxi_create(struct device *dev,
-> 	mpcs->pcs.poll = true;
-> 	mpcs->interface = PHY_INTERFACE_MODE_NA;
+On Fri, Jan 03, 2025 at 02:32:41PM +0800, Joey Lu wrote:
+> Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
 > 
->+	__set_bit(PHY_INTERFACE_MODE_SGMII, mpcs->pcs.supported_interfaces);
->+	__set_bit(PHY_INTERFACE_MODE_1000BASEX, mpcs->pcs.supported_interfaces);
->+	__set_bit(PHY_INTERFACE_MODE_2500BASEX, mpcs->pcs.supported_interfaces);
->+
-> 	return &mpcs->pcs;
-> }
-> EXPORT_SYMBOL(mtk_pcs_lynxi_create);
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
