@@ -2,172 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A30A005FF
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 09:43:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B030A00727
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2025 10:38:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35F90C78F67;
-	Fri,  3 Jan 2025 08:43:09 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2049.outbound.protection.outlook.com [40.107.22.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52ECCC78F67;
+	Fri,  3 Jan 2025 09:38:07 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E83CBC78F66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E53DC78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2025 08:43:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zQWhPDj1ofOw6tAbwxQfq8y7SsMShquk/MtqtByTVkNA9Vc9pVvpZpP8Z6YJJv4bSZXruHE7oWL5E4dzNaVdYbobLU1yxv4nW/Dfx9K3RepTJcqJMdS0YHcPFfuoXlxm2/c3mE5aC6phLfiYB2yavJR/nYbBRLZ9RdgbviTSooASvh+KW0lGgd6/xq83zxTaR2Bm3eDbNa57Rl4fWlOjXTMphnBVcoy8WeO8w90u4Ouu/n2uEoLtx7Mpp6BS4xNeFZLIGT+1CJ2ihrqTqpnKMHJa6BXGCF+ZEFHCsnGIWAp6QwIi6H7h3No8CkrpgFzYZZxIbzq3Tbx5C4BwfC55EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EwjZqLy9UAzAbl6jmLkoboiwEpYZWe0ARcy3BM/gy6g=;
- b=Ls1klEqDwOGqx+74HAzT8Q09y30G/aIXIA51Dkpc7iF09f18N16idakmdNhFM2Z/v6m342eFUMk2ML2f4saShR7xUgaeeujzH6q5M7lpgBFlKbMcFdRpjFgFv2TbD+anH0PZEvCKF9Pa56kSNcsLahu3FgS6n4fDAHP0HYglbC5q1RAr9CaG9zuTjrWmDnynvQzXeUh6s+tVa4fO5ooOyquSNvk3zD0ejj1YkTMKe8kZ9NeaHgmRfmScmsu56haPpBScnTc5ZIbtwTa4IthVBL+f4ZTcqT1olC/ZwKfT5eSxVXifGAZ3AKvNkPtbRmFPHe75pnlfdOKRJ3/ucmC8Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwjZqLy9UAzAbl6jmLkoboiwEpYZWe0ARcy3BM/gy6g=;
- b=vxTtPFskRMLEgHTyP/fgpcXoOnZE1EqlrYdZ2rMxNKdrjgULKw6PTiA0yxz3Uw/Bxxfmqg7Q8Q+D+JkkbClTC80gWGg0rdgqcIBvWqzD+Q7+R+/igdZgIU/OyKxyP+/wCOKnFCpoX3VY6brTJX0PM7bQ0bpxZK6tnj0rkNjKQ/kYhoCXxbWB0fqzaKPw8iv62R3HUYewE5VbJQekz/9REa1wkAqJhmccyUcrCSVBpF+C5Dq7NUpZ7ulQgUVrXw8w8+le7flSPCKKtNZmmaNT2hz1t4rM4yyN6rX9RCu+QfbAgPprYFeSk01dpoKE2dT0Dq7DwJIuUSLtu8dXblVBEg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by PA4PR04MB7599.eurprd04.prod.outlook.com (2603:10a6:102:ea::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.14; Fri, 3 Jan
- 2025 08:43:02 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630%5]) with mapi id 15.20.8314.013; Fri, 3 Jan 2025
- 08:43:02 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Fri, 03 Jan 2025 16:41:24 +0800
-Message-Id: <20250103-wake_irq-v2-12-e3aeff5e9966@nxp.com>
-References: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
-In-Reply-To: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1735893689; l=1457;
- i=peng.fan@nxp.com; s=20230812; h=from:subject:message-id;
- bh=836X+TA/l2wfm7yon8oTf/+NEC4So+0tkKKh8ZKoqD0=;
- b=wPNPC7HHmF7S3u6pMjmQqPHx6RwH3WIKfRhJYkNt9qByWhu1R+qotgzVAjq/sEWPG4hhwi942
- RKN2EzFG34NA0T/RCWXd5Lugy7TNOKAcYWyHlzqRweLvVc2ZyR8wknu
-X-Developer-Key: i=peng.fan@nxp.com; a=ed25519;
- pk=I4sJg7atIT1g63H7bb5lDRGR2gJW14RKDD0wFL8TT1g=
-X-ClientProxiedBy: SI2PR02CA0003.apcprd02.prod.outlook.com
- (2603:1096:4:194::13) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+ Fri,  3 Jan 2025 09:37:59 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2166f1e589cso202880515ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 03 Jan 2025 01:37:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1735897078; x=1736501878;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tIWKiLB8KnEZOm+SI6dbLJmqYzCWnnlF58g0NlWh4Tg=;
+ b=UlCllxkctyQ4aqy0dcckRk5K+oaUNXtzYWgWrCbeO0JJzktY7pQr8gMnNJEgJEgAkP
+ ENA/NnT8ufdad0EENUMPR5Z3/wJWcXcGrbR5OgIlsjtCrXPhPimtZLq2DEcn92vUYV0J
+ lzrqT+cd2+tM820//M5V6cH2lTu0ah0K5Zg13XWGqVi/zrHCCKL7+mu2HB/b09PgpVeI
+ XGamc5ywgEyUcVG4OlIsw/+lPOIrbUQKnswgee2HwU76MMiSZOQtjkOAw0kJKUFiyevO
+ Gf5ga21J/WenXy/oGGngium8PSgVPrfq48D5j6IZCuOyKQN/qtbdTKGNCcE0q7aGcMaO
+ 5v/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735897078; x=1736501878;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tIWKiLB8KnEZOm+SI6dbLJmqYzCWnnlF58g0NlWh4Tg=;
+ b=NknlL8p4Sh34ZUTYep2Kj/bKn9eSEx4f7PLRURrI1OW94cXU6JxaNl/goByui2Xn8w
+ 410ZN/CZhQQmceZo6MkQqZi4c6cfxPMN3Clj8Kizhb24UyxOEdrN4YcfINX4Yk9xauww
+ Tk5/kwMQEsTZ7kQW9KOmNsIrcedWW/CO0np/+6llOv3ERQh972u3ArXyA1gL6pcxDk27
+ EjoRADNYo9lIYxh8CNd065yIR8zjU+KivpUp2Md9GQAlbx2FkXv9PdqHe1u2zEso5mww
+ YWgH5BWmI63e1+VZuHxYG/NgItoBpgNRETYnMezf9yrV+8kWP4Yv5/ZC1YNBNdnmWeNz
+ 2FEw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXvB4+MWdSMeNyh/el6+G1hah3DVhz1jt/jYJ2yxGNEkjwCXHc2FxioKCu5LAzANTjQXEsD6F/BR0N79A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwfVCV9NWm/OghOrNJJUAIb+o7UFA8BTE6CMzoJBLQyhtIKPNXO
+ 26gyEHqUlEUMx+DDY3q9h/unf9PNl/VBoUqVfVlZLiJzMBtXMicY
+X-Gm-Gg: ASbGncvlE/79MuNkXPF2DaLqfC/R6z4Kx7NXRV4G5mpivFJ22wZyTfqfNP/89cF8T49
+ kRSS4NgUfMgiqRYUEZS7rBPEE+GHMYYiZXlVnPp8xK3mgT5yLxA7O7CzxZ6Z2Kep8QwsYbTT0wm
+ JVy1NPpNofUhjJTjF7M9QqYRaoOlOAhAWkVK4XxpH3ti4PWGaGAJ0uWTuT+H6RefXh0BOXYmd/u
+ rix3YmNBjAj6Rgm976kOZkiVxkKx1o++8b1CudDoJ83QveYZzsTu92Yb+MjTKyQxELCiw==
+X-Google-Smtp-Source: AGHT+IEsfYK7/PGJhM8Gb1hlU/h+2ggzuQZhcjiI2RfwOotYgSfS9FXc9Ht12SveoR4AdIe31Pb6mg==
+X-Received: by 2002:a05:6300:7113:b0:1e6:5323:58d1 with SMTP id
+ adf61e73a8af0-1e653235b45mr18248605637.26.1735897077548; 
+ Fri, 03 Jan 2025 01:37:57 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-72aad848020sm25860479b3a.81.2025.01.03.01.37.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jan 2025 01:37:57 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri,  3 Jan 2025 17:37:33 +0800
+Message-Id: <20250103093733.3872939-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|PA4PR04MB7599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89a94550-10e6-4f5c-c545-08dd2bd2a28c
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|52116014|366016|1800799024|921020|7053199007|38350700014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WkFzZmsxcEJ4VWZMSVQ2RnlJblJ0QkE1SEdVUlkwc0grNnlNakQ3My9JWW4y?=
- =?utf-8?B?MkUwblA1Y0dyQnBacnlYZ0d1Rm1lY1NMd0lXZ2xETElSSENVS3FtSXpZdkpy?=
- =?utf-8?B?MGJvNVM2UVpmVzNpcExiR3VwSFpWbno3bVN1ZmoxSy9zYnpra2pLRkNhY1Y1?=
- =?utf-8?B?SDhzblpXTFJ0d2Y1Q0U2L2pmTThoT3FrUkFwQ3ZGL3cyaVFTNDd3ak40V1VR?=
- =?utf-8?B?TDNsSFM0MHJpSTdoQ1RONmlObG8zQysvSENlTnhwQlRGSXJRU0F2WkhWdmtW?=
- =?utf-8?B?N1lGdVZQZUJaOXFOS0FkV25obFU3Nm1MeFdLWEovSVdscXlFRW5QcitLcDdC?=
- =?utf-8?B?b3l6YzRmeDBjTDBIdEdSbDdNTWllQmZ4TVlKdjNmaE1ZMmhUalNuYlpqSEdv?=
- =?utf-8?B?b0lXalpyNkZ3NGo2WHAyTmUxdHFaeERtczZUVE5nanNkN3BWZUdqbVNBVytY?=
- =?utf-8?B?QURTSi9DQVEzWU94d0lwV2FIMEhXdWRSRURkckFvUmgwV2hWTkFLck5CU1lJ?=
- =?utf-8?B?ZmRRaVovTWpIREh5dTdCM3RFNXV5b0I4azZxRTJLclR5ZG9VZ0laZVJmU2w2?=
- =?utf-8?B?SGgrbDVDNWw5bEI2dHREVG9vUnhYWC95RFk2aGl3Q0FFejFqZXV5SjQ4QW5t?=
- =?utf-8?B?eWdDM1ZGSDZab25wM25QZjNETTA4NnFuc2piM0h0cFpjangxaE5aQ21oMmVS?=
- =?utf-8?B?ZjVGZSsvbjIxMWhBNlQ3U1JjL0VlZHlpczliaWdQMVA3b3o3b1N4V1BhbUl5?=
- =?utf-8?B?RTF3Z2dxLzFLRTNFQzFCMk4vc3d2Y3RIekxKRDQ3Ymh6cUFneWdBVTFtbVZy?=
- =?utf-8?B?ZjEwMDJ1aVpsSW5yc2Jtbk5PZkRNN01ONW90VlVtTGVWRXhDa0pKeXRZaTFx?=
- =?utf-8?B?NngreDlxdGNtKzRaM3ZNUlZEdkhwNXVtSlhqSXVzcG5yTm91WGlsK0lEMmgy?=
- =?utf-8?B?dVVJdkJTRFFpeWl2ZTRCV2loRTFIeTN0TXRFQ2diWEZxMERkVlZEdU0xTXM1?=
- =?utf-8?B?Q1Znd1hzcFBWdHA1RVVkMzFWT3MwWi9nRU5kMjRmeVkraXdicGsxam40UXB4?=
- =?utf-8?B?QWQ1SFdLa0hSSDJCVWVGR0ROdDliWno0emwvTXkvVTlKTHN1eHZBMFhsNCtD?=
- =?utf-8?B?Rnk5bjljQWZpOHcwNU9abVhCR3BhbDlpb0Q1cUg5dHovZnppRmxVcFlIajZI?=
- =?utf-8?B?Nm1zL0RaMDdITGFDdm8rRy8vaS9zODJCUGdsaDBZb3FLSTRSbEpOQlk2TS9E?=
- =?utf-8?B?M0RLSjBwZC9vSDZ6c3RyME04UEl5Uk5wcFY0aFBIRU85ZkRwdmE3Sm9YeTQw?=
- =?utf-8?B?YUFBcVVjaVBaRXR4NUlqMFdtUUI4S2Nab0lWWUpEVnFyWlZzbERIMGhvZUFB?=
- =?utf-8?B?Nk14WkNybGJEVEozOUIrWnVib1hmdSt2d3RwRGpCWWlOMFVCUHBpV3FGWE1w?=
- =?utf-8?B?L1EvUmJFSjZHWENTbGxjUG1samEyM2ZGQTAzak1jaTArejNCbWx0ZEtGWVRl?=
- =?utf-8?B?YTQ4RkRLTm1zM1ROa0pzcmdIZWkxemo3MG9lRUhWWFYvVWlsb3dnRGpGNGk5?=
- =?utf-8?B?OFpBaC9mSjVta2NPWmlyTjJZMjVHMHBRTHJXc0ZOdkdMdkJBQmlPMVR3bU82?=
- =?utf-8?B?ZFU0VnFVMUFTUW5MS25PZFNXbDZVVE1zVkxsVTVpMW15dTdkR1lVRGVkc2Qv?=
- =?utf-8?B?YlB4WS9TczF3MDdCWG9ER1NlSHUxZUlVbzRPS1dYcFFWT2ozS2JYMWxCdlRG?=
- =?utf-8?B?UjRmd3hkSmdIUHpQRG5KMEFqOHhyNGVVajdpOS9veU5ncUp4UGc2L0haS2xK?=
- =?utf-8?B?TUs1cGJUeUZSc3IxVW5WNFhqMUJ2bmJLY000WDUvUXFTY3NzN016Y0d5ak1t?=
- =?utf-8?B?anJpdE5Dc0h1UG80TlBBOGtTQW92U05HYWNYV2gyMzVxVTY4Y1ZmS3BOY2dn?=
- =?utf-8?B?SDVBQ3BDTGRmY2oydkJQbDA2SjNRQkVmSytVUWFGK01JOUdBYmpTdkV3aGI5?=
- =?utf-8?B?LzFyK1ZiOEFRPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(921020)(7053199007)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGkvekZpTVpVdXNUWnZuSFRqeG1JZFdQYWpOcFVTQ2lDWXRjaURSUkhlN2U5?=
- =?utf-8?B?N3JraStOSWhCN0VXVjN5OU43bkljei9TU1d4aDBoT3VKMTBsR0U2aVplc1Az?=
- =?utf-8?B?YzZkbCtkdDRjdVhiWUNFejVXYnk2dzdZVklRTVRhTUxKMXp4Zko0elVsbHhZ?=
- =?utf-8?B?Vk9ycGdHZkUrT1M5Q21IeEc0dXE3N29BZExza2EvZlR0NFlyWXBUNjhkNG9H?=
- =?utf-8?B?WEs4VElDbFN6Wi9BYzlYL2VRVXFEOUYyNHgweFlQTjJjT0d6L1FkUkptUTYx?=
- =?utf-8?B?UC9RS3hqTmVERjRESHBudTI3VjBYTWlKc1hFaXl3Q0NvSE81YXV1RnBYdTBm?=
- =?utf-8?B?ejY5bWpKNE90OFRrTHcxdWVmanp6ZlZHeFlLSWQ5UEh4ckxLUG5JUGNFWHpO?=
- =?utf-8?B?UUdONmU0UitrL3NERzVCSmdJbW1JaUFTbVQvRVlQbVFFQkFmTjVwOStiTmJp?=
- =?utf-8?B?bEMxcGY2em1HTlpsSUtVR3QyZ3dOMjFmZHE3VUdlQmdXN3MwbHUvdXVUa1BM?=
- =?utf-8?B?Snlidk55Mi9WMHpPU3VaUEFYRUdRR3dzTHhxdFFSOER0dHNPK2tvZTFqZ3FB?=
- =?utf-8?B?T1VTNndvbXd0cTZRV3RMSmp0ZWk0cXJ6WlBsWWdvd0FYY3N0R2FEYWIzRW5D?=
- =?utf-8?B?c0dXZlNBNE93dUhEY2JGN3pDK2tvQjE3QW1xSkNFNlo3SnpydTFvYmlaaHFz?=
- =?utf-8?B?V3p3cGZwRmt3QkQrdm1kdnlqWUtXZThab3N0eGhPWEFQdUlHWWUyNDBkeWVZ?=
- =?utf-8?B?dGpqZTFEcWNKN1ZsaEhJdFJqNndNeTZxcDBXd2lFZjBpeTg2ck5mRkRHbVlF?=
- =?utf-8?B?bkcydHNmdDc3bmFlcWFwbmcwc0l2NVpyUmxFdmtQeVBpbVlwQXVLc2hXWnBl?=
- =?utf-8?B?TUxtMlIvRm9GUjZOVHpveFhCVjNLOW5weE0vZjZ0SFJIYlErcnJTWnhHVTFG?=
- =?utf-8?B?OEhFQmtHd1ZVRDBQZUtQQ082U0FjOGhPeEZFbzd5akdFblNBcnZzU3NhTzYw?=
- =?utf-8?B?Nkw4Ri9BMHU4anh3dkZOaUgwRlYxeU1sQWVpR0Zod0t5TTVMcTBJRnI2d3k4?=
- =?utf-8?B?Y2psVFVqdVFXdzBlWmIraHVod0I5WS9QQXEweFFDcE5ObFo2TDZrZXdkcUtY?=
- =?utf-8?B?RWZobEtoQUsvVEhiTWt1d3VMbEdzS2VRQlM2UHEzZFd5NmtIalRNZVIzcGYx?=
- =?utf-8?B?bWNzSHVEdkdJUTJSbWxnZEtTdFFSYUo1b1RPSW9tS0tIc0lEUGtRVWIzUVVI?=
- =?utf-8?B?T3NGNGZGcG4wTnN2YitSb1RmQ0lqcW94OXFmeFVBME5KaUZqN0NQMWlQS0h1?=
- =?utf-8?B?Z0k2TWVsaGIycHREMjB2cEtYeTI4QlVCM1pnc3VIOWhMNkxuT2tXL3dCN1NP?=
- =?utf-8?B?WEpTSVpZcWo1cHBRWjF1L2JSQ0NVNWVqbGpzTWF4SklvQ3k0MXEzVTVZWFYr?=
- =?utf-8?B?UTk4bDJGYldaYy92YXExV0NITjdkczRHbWd0a3N3YURWQzV3Y2RLY2FOZ1hM?=
- =?utf-8?B?UU5aWEFxUlc4YVZUWmxkNTZCQUEvWW4zMHNBL2hFckNhVlFJWU1kS3VnMmZL?=
- =?utf-8?B?ZFFHdkdCL2QxZHV0SW1YNFYvWTQwSUJ5VitzekUwb29NY0tOeklUTmEwNGRs?=
- =?utf-8?B?VWZON215am5aN2N4MGZ5SWszVmFtWXdzbzIxa2NUUU9CL1N3ZzRUSG9yZnNY?=
- =?utf-8?B?ZkZNT1hjWVlBbXdwbERpcnR0S1phQmNOTlE3TjlsSXRIdHVKcHJzMVBhU1ZY?=
- =?utf-8?B?REZJUVFoakxUbmc1QmdLeGFTWHdNK0RrM3BCbmthM2tMSXQydFArdG5RZ2hZ?=
- =?utf-8?B?cFduSVJwenBuakhYWnh1SXlFWFBhcDZOMTd2S3NJczllVHIyQ0dYNnA0ZmMr?=
- =?utf-8?B?aW42b2pnT2V5YzRwd1F6S2F3YmVhTjZ4aWhYWjkwQnFoQnJSL1Zlc2xKbi9n?=
- =?utf-8?B?dkxBbGlITmpTaUEzdmFvcDNXalQ1WlVRUlNsRWJNalFrU3JvNjJzTjlHZWNQ?=
- =?utf-8?B?V01SbGROL0dMOWNOU2hmRU82OU8yeWNNRGhnU0hRVzl5dkE3b1I5Z2VHeGxJ?=
- =?utf-8?B?QnllQVJHd3VGV1BuTHFWNzNGOGNLSytwclNiMGZIRkQrSUU3QWhkeUNKY0xq?=
- =?utf-8?Q?IpLBTuQ/8LPSKkHrCC+Q6wSK3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89a94550-10e6-4f5c-c545-08dd2bd2a28c
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2025 08:43:02.8080 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vbRkWz8ZpFt7a5nsJBlpqqRsT9miE424tJjzPiFVpLHNJKjBfmnaampVFv6MfS9OdqFC6I3d4BehT/R/OnDJfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7599
-Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 12/12] rtc: pl031: Use resource managed API
- to simplify code
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Set dma_sync_size to
+	zero for discarded frames
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -184,51 +89,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Peng Fan <peng.fan@nxp.com>
+If a frame is going to be discarded by driver, this frame is never touched
+by driver and the cache lines never become dirty obviously,
+page_pool_recycle_direct() wastes CPU cycles on unnecessary calling of
+page_pool_dma_sync_for_device() to sync entire frame.
+page_pool_put_page() with sync_size setting to 0 is the proper method.
 
-Use devm_pm_set_wake_irq and devm_device_init_wakeup to cleanup the
-error handling code and 'driver.remove()' hook.
-
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/rtc/rtc-pl031.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-pl031.c b/drivers/rtc/rtc-pl031.c
-index bad6a5d9c6839ca70905e3d46286b9729c1fd435..47bfc5395e5908b7722b98276399120f1ba65af0 100644
---- a/drivers/rtc/rtc-pl031.c
-+++ b/drivers/rtc/rtc-pl031.c
-@@ -284,8 +284,6 @@ static void pl031_remove(struct amba_device *adev)
- {
- 	struct pl031_local *ldata = dev_get_drvdata(&adev->dev);
- 
--	dev_pm_clear_wake_irq(&adev->dev);
--	device_init_wakeup(&adev->dev, false);
- 	if (adev->irq[0])
- 		free_irq(adev->irq[0], ldata);
- 	amba_release_regions(adev);
-@@ -350,7 +348,7 @@ static int pl031_probe(struct amba_device *adev, const struct amba_id *id)
- 		}
- 	}
- 
--	device_init_wakeup(&adev->dev, true);
-+	devm_device_init_wakeup(&adev->dev);
- 	ldata->rtc = devm_rtc_allocate_device(&adev->dev);
- 	if (IS_ERR(ldata->rtc)) {
- 		ret = PTR_ERR(ldata->rtc);
-@@ -373,7 +371,7 @@ static int pl031_probe(struct amba_device *adev, const struct amba_id *id)
- 				  vendor->irqflags, "rtc-pl031", ldata);
- 		if (ret)
- 			goto out;
--		dev_pm_set_wake_irq(&adev->dev, adev->irq[0]);
-+		devm_pm_set_wake_irq(&adev->dev, adev->irq[0]);
- 	}
- 	return 0;
- 
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6bc10ffe7a2b..1cdbf66574b3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5472,7 +5472,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (priv->extend_desc)
+ 			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
+ 		if (unlikely(status == discard_frame)) {
+-			page_pool_recycle_direct(rx_q->page_pool, buf->page);
++			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
+ 			buf->page = NULL;
+ 			error = 1;
+ 			if (!priv->hwts_rx_en)
 -- 
-2.37.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
