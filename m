@@ -2,69 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9A4A0272D
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 14:55:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47757A02730
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 14:56:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0413C78013;
-	Mon,  6 Jan 2025 13:55:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06F57C78013;
+	Mon,  6 Jan 2025 13:56:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD95DC6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E565DC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jan 2025 13:55:27 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 506Aw0eo010310;
- Mon, 6 Jan 2025 14:55:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- /WVn2MaI0Sf+kXloTCoRvABk6rQrChQx5pkM7ZFBsy8=; b=i7QcQNqO1ZBWfdw6
- lJqeM7RuYQOYjT9aMGB9zWL4upwSOV3mCtAGWtiHl10LxEBt/zaag5/Ppqb+dzmk
- 4aZp3jH2az5HMXh7jaeFBhUtOl+l5YYf5rSGLLSvtzAgl3uNh/4ZSa8gLXSLRCYV
- bm9A6W+dnBS91P6c22P6cS6tpmjjB5ZDDn+s7VW9HjJB5lZRYZD48qoqgvKqc/2k
- 95yPMRaxO0MW9+HsV6eGdERBpI2kWSI7sFOVCvEZknfguUXlA8mxPTi5rtKzVrUA
- 5yB1neEFgiDSwNndb/9buUeYirCrO5WdZM6Luk5iOpC9TWCKZ0PywadcrgzRYSo4
- OEUMcw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 43xvrfpxb8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jan 2025 14:55:04 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DE47F40050;
- Mon,  6 Jan 2025 14:53:59 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5A09327BCF0;
- Mon,  6 Jan 2025 14:52:08 +0100 (CET)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 6 Jan
- 2025 14:52:07 +0100
-Message-ID: <11c927b6-ebf8-4c02-9fdf-86303144b4aa@foss.st.com>
-Date: Mon, 6 Jan 2025 14:52:06 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Arnd Bergmann <arnd@arndb.de>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ Mon,  6 Jan 2025 13:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736171761; x=1767707761;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Fe/o7Mk5+uc0GHrVMRFeiFpbIufBfq1Z8jHhoCn17v8=;
+ b=AxYL+f/r6EGUwEMVdBbLmLI3xhkLJ1GrhDRMs1P8bMr3RLqrQi9y7RhA
+ pbK3BKno6L6xAKMYFjTPEeGI2Hi+2eHEBM5qUsrlz2tMLInKX/kcnqZQC
+ fKkcP54YFaYTA6/iFlQ+WIW/J7fehxZDiltja3jVn8sdUKI3Ot0FW8wSj
+ ihHL6KZhBItBgIoGFwrqly8bvk07+z/cgUaPfYdtjBrSJ91BDHypGrs5l
+ JUDX4zMVXPdL2ItXEFrBo8UAQBidAl1b1OR7JxCNi6nhhsofV7/IvyRVW
+ 3WXyURJypi4rrmkqSZeF41q/VM+zV0P+2lkPV6EREeaXYBpy580czCa7I g==;
+X-CSE-ConnectionGUID: qA/db8hpS4KsZgFS/BEBBA==
+X-CSE-MsgGUID: gn64LjeERPGlvj7wjCEDNw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="36473739"
+X-IronPort-AV: E=Sophos;i="6.12,292,1728975600"; d="scan'208";a="36473739"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2025 05:55:59 -0800
+X-CSE-ConnectionGUID: A4LxAHlWSWC9cCNEMxi8Kw==
+X-CSE-MsgGUID: QReHGKT/TvOdkEroFunAVg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,292,1728975600"; d="scan'208";a="107407969"
+Received: from unknown (HELO P12ILL20yoongsia.png.intel.com) ([10.88.227.38])
+ by orviesa004.jf.intel.com with ESMTP; 06 Jan 2025 05:55:48 -0800
+From: Song Yoong Siang <yoong.siang.song@intel.com>
+To: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Willem de Bruijn <willemb@google.com>,
+ Florian Bezdeka <florian.bezdeka@siemens.com>,
+ Donald Hunter <donald.hunter@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bjorn Topel <bjorn@kernel.org>,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Joe Damato <jdamato@fastly.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Mina Almasry <almasrymina@google.com>, Daniel Jurgens <danielj@nvidia.com>,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ Amritha Nambiar <amritha.nambiar@intel.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Mykola Lysenko <mykolal@fb.com>, Martin KaFai Lau <martin.lau@linux.dev>,
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+ KP Singh <kpsingh@kernel.org>, Hao Luo <haoluo@google.com>,
+ Jiri Olsa <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Petr Mladek <pmladek@suse.com>, Yoann Congal <yoann.congal@smile.fr>
-References: <20241220125506.3157268-1-patrice.chotard@foss.st.com>
- <20241220125506.3157268-5-patrice.chotard@foss.st.com>
- <c48b7e84-5287-4da0-84a0-7747581f49d0@app.fastmail.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <c48b7e84-5287-4da0-84a0-7747581f49d0@app.fastmail.com>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: soc@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 4/4] ARM: configs: stm32: Remove
- useless flags in STM32 defconfig
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Date: Mon,  6 Jan 2025 21:55:06 +0800
+Message-Id: <20250106135506.9687-1-yoong.siang.song@intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
+ bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH bpf-next v4 0/4] xsk: TX metadata Launch Time
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,36 +95,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This series expands the XDP TX metadata framework to allow user
+applications to pass per packet 64-bit launch time directly to the kernel
+driver, requesting launch time hardware offload support. The XDP TX
+metadata framework will not perform any clock conversion or packet
+reordering.
 
+Please note that the role of Tx metadata is just to pass the launch time,
+not to enable the offload feature. Users will need to enable the launch
+time hardware offload feature of the device by using the respective
+command, such as the tc-etf command.
 
-On 12/20/24 18:06, Arnd Bergmann wrote:
-> On Fri, Dec 20, 2024, at 13:55, patrice.chotard@foss.st.com wrote:
->> From: Patrice Chotard <patrice.chotard@foss.st.com>
->>
->> As stm32_defconfig is dedicated to STM32 MCUs, disable
->> CONFIG_COMMON_CLK_STM32MP flag which is only used by STM32 MPUs.
->>
->> Disable CONFIG_SUSPEND, CONFIG_ADVISE_SYSCALLS, CONFIG_IO_URING
->> CONFIG_POSIX_TIMERS, CONFIG_GCC_PLUGINS, it will reduce the kernel
->> image size for these platforms which embed a low amount of memory.
->>
->> Tested on STM32F746-DISCO board which embeds 8MB of memory.
-> 
-> Out of curiosity, what is the smallest memory configuration that
-> you see people using on stm32f7/h7 these days? I know we had
-> configs that kind-of worked on 2MB in the past, but I assume there
-> has been a lot of bloat since.
-> 
->        Arnd
+Although some devices use the tc-etf command to enable their launch time
+hardware offload feature, xsk packets will not go through the etf qdisc.
+Therefore, in my opinion, the launch time should always be based on the PTP
+Hardware Clock (PHC). Thus, i did not include a clock ID to indicate the
+clock source.
 
-Hi Arnd
+To simplify the test steps, I modified the xdp_hw_metadata bpf self-test
+tool in such a way that it will set the launch time based on the offset
+provided by the user and the value of the Receive Hardware Timestamp, which
+is against the PHC. This will eliminate the need to discipline System Clock
+with the PHC and then use clock_gettime() to get the time.
 
-Currently, i have no idea about what is the smallest memory configuration on stm32f4/f7/h7
-used by people using these SoCs. As you said, kernel Linux size is increasing version after version.
+Please note that AF_XDP lacks a feedback mechanism to inform the
+application if the requested launch time is invalid. So, users are expected
+to familiar with the horizon of the launch time of the device they use and
+not request a launch time that is beyond the horizon. Otherwise, the driver
+might interpret the launch time incorrectly and react wrongly. For stmmac
+and igc, where modulo computation is used, a launch time larger than the
+horizon will cause the device to transmit the packet earlier that the
+requested launch time.
 
-My goal was just to ensure that official ST boards are still booting a kernel Linux.
+Although there is no feedback mechanism for the launch time request
+for now, user still can check whether the requested launch time is
+working or not, by requesting the Transmit Completion Hardware Timestamp.
 
-Patrice
+Changes since v1:
+- renamed to use Earliest TxTime First (Willem)
+- renamed to use txtime (Willem)
+
+Changes since v2:
+- renamed to use launch time (Jesper & Willem)
+- changed the default launch time in xdp_hw_metadata apps from 1s to 0.1s
+  because some NICs do not support such a large future time.
+
+Changes since v3:
+- added XDP launch time support to the igc driver (Jesper & Florian)
+- added per-driver launch time limitation on xsk-tx-metadata.rst (Jesper)
+- added explanation on FIFO behavior on xsk-tx-metadata.rst (Jakub)
+- added step to enable launch time in the commit message (Jesper & Willem)
+- explicitly documented the type of launch_time and which clock source
+  it is against (Willem)
+
+v1: https://patchwork.kernel.org/project/netdevbpf/cover/20231130162028.852006-1-yoong.siang.song@intel.com/
+v2: https://patchwork.kernel.org/project/netdevbpf/cover/20231201062421.1074768-1-yoong.siang.song@intel.com/
+v3: https://patchwork.kernel.org/project/netdevbpf/cover/20231203165129.1740512-1-yoong.siang.song@intel.com/
+
+Song Yoong Siang (4):
+  xsk: Add launch time hardware offload support to XDP Tx metadata
+  selftests/bpf: Add Launch Time request to xdp_hw_metadata
+  net: stmmac: Add launch time support to XDP ZC
+  igc: Add launch time support to XDP ZC
+
+ Documentation/netlink/specs/netdev.yaml       |  4 +
+ Documentation/networking/xsk-tx-metadata.rst  | 64 +++++++++++++++
+ drivers/net/ethernet/intel/igc/igc_main.c     | 78 +++++++++++++------
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 13 ++++
+ include/net/xdp_sock.h                        | 10 +++
+ include/net/xdp_sock_drv.h                    |  1 +
+ include/uapi/linux/if_xdp.h                   | 10 +++
+ include/uapi/linux/netdev.h                   |  3 +
+ net/core/netdev-genl.c                        |  2 +
+ net/xdp/xsk.c                                 |  3 +
+ tools/include/uapi/linux/if_xdp.h             | 10 +++
+ tools/include/uapi/linux/netdev.h             |  3 +
+ tools/testing/selftests/bpf/xdp_hw_metadata.c | 30 ++++++-
+ 14 files changed, 208 insertions(+), 25 deletions(-)
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
