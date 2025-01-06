@@ -2,61 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF14A024C7
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 13:05:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695BBA02536
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 13:22:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06F28C78013;
-	Mon,  6 Jan 2025 12:05:58 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A04DC78013;
+	Mon,  6 Jan 2025 12:22:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64B02C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78808C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jan 2025 12:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:To:From:Date:Reply-To:Cc:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VBEB/kPkyShxtQOE4BUx0N3kQ+bMX24x7MYUpCfVD4U=; b=FnVCA4Ll25t01UQcl1Yvy7W1Vu
- ghtQLVRHU9PL3+UgCeZ+oON6zHk2AqFeyh8egxV7mx3gZX7zyM5s0Lzg3XcZJ8VIWJyn+3BiGvTod
- MbqT1dld7Y3lQZJPU4rRK9i8pBfutZo8hSeHFPZ1j3SO1aUg3SSkFC6Edbhrhk2QE46QFijtYfm4j
- YySctcQV3551o7cAi5LO8yNRp0Yf80yD0fn99J0p9wRtppoJmA42EFc2DGNJggDwwfKAolpUF3MY4
- 1dImpueDCbtDd5ECYko8G/cM0qzRuKaJw6WlGjiop4pGmQL/NUO1tWWWy6IWa8nlDhkLX7a/6jlLO
- Ifb9dUNg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49610)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tUlrY-0005nj-0r;
- Mon, 06 Jan 2025 12:05:40 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tUlrV-0004Fl-0h;
- Mon, 06 Jan 2025 12:05:37 +0000
-Date: Mon, 6 Jan 2025 12:05:37 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>
-Message-ID: <Z3vHEdgG2RXXKY8N@shell.armlinux.org.uk>
-References: <Z1r3MWZOt36SgGxf@shell.armlinux.org.uk>
- <E1tLkSX-006qfS-Rx@rmk-PC.armlinux.org.uk>
- <Z1wTqh-BnvPYLqU8@shell.armlinux.org.uk>
- <Z1yTviYUZ8sbNOsK@shell.armlinux.org.uk>
- <Z3cM-5tShVza0M58@shell.armlinux.org.uk>
+ Mon,  6 Jan 2025 12:22:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id DA81B5C060D;
+ Mon,  6 Jan 2025 12:21:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1170C4CEE1;
+ Mon,  6 Jan 2025 12:21:51 +0000 (UTC)
+Message-ID: <f11653a7-bc49-48cd-9cdb-1659147453e4@xs4all.nl>
+Date: Mon, 6 Jan 2025 13:21:50 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z3cM-5tShVza0M58@shell.armlinux.org.uk>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/7] net: stmmac: move
- tx_lpi_timer tracking to phylib
+User-Agent: Mozilla Thunderbird
+To: Ricardo Ribalda <ribalda@chromium.org>,
+ Martin Tuma <martin.tuma@digiteqautomotive.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Chen-Yu Tsai
+ <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sergey Kozlov <serjk@netup.ru>, Abylay Ospan <aospan@netup.ru>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>
+References: <20240429-fix-cocci-v3-0-3c4865f5a4b0@chromium.org>
+ <20240429-fix-cocci-v3-23-3c4865f5a4b0@chromium.org>
+Content-Language: en-US, nl
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ xsFNBFQ84W0BEAC7EF1iL4s3tY8cRTVkJT/297h0Hz0ypA+ByVM4CdU9sN6ua/YoFlr9k0K4
+ BFUlg7JzJoUuRbKxkYb8mmqOe722j7N3HO8+ofnio5cAP5W0WwDpM0kM84BeHU0aPSTsWiGR
+ yw55SOK2JBSq7hueotWLfJLobMWhQii0Zd83hGT9SIt9uHaHjgwmtTH7MSTIiaY6N14nw2Ud
+ C6Uykc1va0Wqqc2ov5ihgk/2k2SKa02ookQI3e79laOrbZl5BOXNKR9LguuOZdX4XYR3Zi6/
+ BsJ7pVCK9xkiVf8svlEl94IHb+sa1KrlgGv3fn5xgzDw8Z222TfFceDL/2EzUyTdWc4GaPMC
+ E/c1B4UOle6ZHg02+I8tZicjzj5+yffv1lB5A1btG+AmoZrgf0X2O1B96fqgHx8w9PIpVERN
+ YsmkfxvhfP3MO3oHh8UY1OLKdlKamMneCLk2up1Zlli347KMjHAVjBAiy8qOguKF9k7HOjif
+ JCLYTkggrRiEiE1xg4tblBNj8WGyKH+u/hwwwBqCd/Px2HvhAsJQ7DwuuB3vBAp845BJYUU3
+ 06kRihFqbO0vEt4QmcQDcbWINeZ2zX5TK7QQ91ldHdqJn6MhXulPKcM8tCkdD8YNXXKyKqNl
+ UVqXnarz8m2JCbHgjEkUlAJCNd6m3pfESLZwSWsLYL49R5yxIwARAQABzSFIYW5zIFZlcmt1
+ aWwgPGh2ZXJrdWlsQHhzNGFsbC5ubD7CwZUEEwEKAD8CGwMGCwkIBwMCBhUIAgkKCwQWAgMB
+ Ah4BAheAFiEEBSzee8IVBTtonxvKvS1hSGYUO0wFAmaU3GkFCRf7lXsACgkQvS1hSGYUO0wZ
+ cw//cLMiaV+p2rCyzdpDjWon2XD6M646THYvqXLb9eVWicFlVG78kNtHrHyEWKPhN3OdWWjn
+ kOzXseVR/nS6vZvqCaT3rwgh3ZMb0GvOQk1/7V8UbcIERy036AjQoZmKo5tEDIv48MSvqxjj
+ H6wbKXbCyvnIwpGICLyb0xAwvvpTaJkwZjvGqeo5EL0Z+cQ8fCelfKNO5CFFP3FNd3dH8wU6
+ CHRtdZE03iIVEWpgCTjsG2zwsX/CKfPx0EKcrQajW3Tc50Jm0uuRUEKCVphlYORAPtFAF1dj
+ Ly8zpN1bEXH+0FDXe/SHhzbvgS4sL0J4KQCCZ/GcbKh/vsDC1VLsGS5C7fKOhAtOkUPWRjF+
+ kOEEcTOROMMvSUVokO+gCdb9nA/e3WMgiTwWRumWy5eCEnCpM9+rfI2HzTeACrVgGEDkOTHW
+ eaGHEy8nS9a25ejQzsBhi+T7MW53ZTIjklR7dFl/uuK+EJ6DLbDpVbwyYo2oeiwP+sf8/Rgv
+ WfJv4wzfUo/JABwrsbfWfycVZwFWBzqq+TaKFkMPm017dkLdg4MzxvvTMP7nKfJxU1bQ2OOr
+ xkPk5KDcz+aRYBvTqEXgYZ6OZtnOUFKD+uPlbWf68vuz/1iFbQYnNJkTxwWhiIMN7BULK74d
+ Ek89MU7JlbYNSv0v21lRF+uDo0J6zyoTt0ZxSPzOwU0EVDzhbQEQANzLiI6gHkIhBQKeQaYs
+ p2SSqF9c++9LOy5x6nbQ4s0X3oTKaMGfBZuiKkkU6NnHCSa0Az5ScRWLaRGu1PzjgcVwzl5O
+ sDawR1BtOG/XoPRNB2351PRp++W8TWo2viYYY0uJHKFHML+ku9q0P+NkdTzFGJLP+hn7x0RT
+ DMbhKTHO3H2xJz5TXNE9zTJuIfGAz3ShDpijvzYieY330BzZYfpgvCllDVM5E4XgfF4F/N90
+ wWKu50fMA01ufwu+99GEwTFVG2az5T9SXd7vfSgRSkzXy7hcnxj4IhOfM6Ts85/BjMeIpeqy
+ TDdsuetBgX9DMMWxMWl7BLeiMzMGrfkJ4tvlof0sVjurXibTibZyfyGR2ricg8iTbHyFaAzX
+ 2uFVoZaPxrp7udDfQ96sfz0hesF9Zi8d7NnNnMYbUmUtaS083L/l2EDKvCIkhSjd48XF+aO8
+ VhrCfbXWpGRaLcY/gxi2TXRYG9xCa7PINgz9SyO34sL6TeFPSZn4bPQV5O1j85Dj4jBecB1k
+ z2arzwlWWKMZUbR04HTeAuuvYvCKEMnfW3ABzdonh70QdqJbpQGfAF2p4/iCETKWuqefiOYn
+ pR8PqoQA1DYv3t7y9DIN5Jw/8Oj5wOeEybw6vTMB0rrnx+JaXvxeHSlFzHiD6il/ChDDkJ9J
+ /ejCHUQIl40wLSDRABEBAAHCwXwEGAEKACYCGwwWIQQFLN57whUFO2ifG8q9LWFIZhQ7TAUC
+ ZpTcxwUJF/uV2gAKCRC9LWFIZhQ7TMlPD/9ppgrN4Z9gXta9IdS8a+0E7lj/dc0LnF9T6MMq
+ aUC+CFffTiOoNDnfXh8sfsqTjAT50TsVpdlH6YyPlbU5FR8bC8wntrJ6ZRWDdHJiCDLqNA/l
+ GVtIKP1YW8fA01thMcVUyQCdVUqnByMJiJQDzZYrX+E/YKUTh2RL5Ye0foAGE7SGzfZagI0D
+ OZN92w59e1Jg3zBhYXQIjzBbhGIy7usBfvE882GdUbP29bKfTpcOKkJIgO6K+w82D/1d5TON
+ SD146+UySmEnjYxHI8kBYaZJ4ubyYrDGgXT3jIBPq8i9iZP3JSeZ/0F9UIlX4KeMSG8ymgCR
+ SqL1y9pl9R2ewCepCahEkTT7IieGUzJZz7fGUaxrSyexPE1+qNosfrUIu3yhRA6AIjhwPisl
+ aSwDxLI6qWDEQeeWNQaYUSEIFQ5XkZxd/VN8JeMwGIAq17Hlym+JzjBkgkm1LV9LXw9D8MQL
+ e8tSeEXX8BZIen6y/y+U2CedzEsMKGjy5WNmufiPOzB3q2JwFQCw8AoNic7soPN9CVCEgd2r
+ XS+OUZb8VvEDVRSK5Yf79RveqHvmhAdNOVh70f5CvwR/bfX/Ei2Szxz47KhZXpn1lxmcds6b
+ LYjTAZF0anym44vsvOEuQg3rqxj/7Hiz4A3HIkrpTWclV6ru1tuGp/ZJ7aY8bdvztP2KTw==
+In-Reply-To: <20240429-fix-cocci-v3-23-3c4865f5a4b0@chromium.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 23/26] media: venus: vdec: Make the
+ range of us_per_frame explicit
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,122 +122,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 02, 2025 at 10:02:35PM +0000, Russell King (Oracle) wrote:
-> On Fri, Dec 13, 2024 at 08:06:22PM +0000, Russell King (Oracle) wrote:
-> > On Fri, Dec 13, 2024 at 10:59:54AM +0000, Russell King (Oracle) wrote:
-> > > On Thu, Dec 12, 2024 at 02:46:33PM +0000, Russell King (Oracle) wrote:
-> > > > @@ -1092,6 +1092,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
-> > > >  			phy_init_eee(phy, !(priv->plat->flags &
-> > > >  				STMMAC_FLAG_RX_CLK_RUNS_IN_LPI)) >= 0;
-> > > >  		priv->eee_enabled = stmmac_eee_init(priv);
-> > > > +		priv->tx_lpi_timer = phy->eee_cfg.tx_lpi_timer;
-> > > >  		priv->tx_lpi_enabled = priv->eee_enabled;
-> > > >  		stmmac_set_eee_pls(priv, priv->hw, true);
-> > > >  	}
-> > > 
-> > > While looking deeper at stmmac, there's a bug in the above hunk -
-> > > stmmac_eee_init() makes use of priv->tx_lpi_timer, so this member
-> > > needs to be set before calling this function. I'll post a v2 shortly.
-> > 
-> > I'm going to hold off v2, there's a lot more that can be cleaned up
-> > here - the EEE code is rather horrid in stmmac, and there's definitely
-> > one race, and one logical error in it (e.g. why mark software EEE mode
-> > *enabled* when EEE mode is being disabled - which can lead to the EEE
-> > timer being added back onto the timer list.)
-> > 
-> > There's also weirdness with dwmac4's EEE register fiddling.
-> > 
-> > The stmmac driver uses hardware timed LPI entry if the timer is small
-> > enough to be programmed into hardware, otherwise it uses software mode.
-> > 
-> > When software mode wants to enter LPI mode, it sets both:
-> > 
-> > 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-> > 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-> > 
-> > When software mode wants to exit LPI mode, it clears both of these
-> > two bits.
-> > 
-> > In hardware mode, when enabling LPI generation, we set the hardware LPI
-> > entry timer (separate register) to a non-zero value, and then set:
-> > 
-> > 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-> > 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-> > 	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
-> > 
-> > That seems logical. However, in hardware mode, when we want to then
-> > disable hardware LPI generation, we set the hardware LPI entry timer to
-> > zero, the following bits:
-> > 
-> > 	GMAC4_LPI_CTRL_STATUS_LPIEN (LPI enable)
-> > 	GMAC4_LPI_CTRL_STATUS_LPITXA (LPI TX Automate)
-> > 
-> > and clear:
-> > 
-> > 	GMAC4_LPI_CTRL_STATUS_LPIATE (LPI Timer enable)
-> > 
-> > So, hardware mode, disabled, ends up setting the same bits as
-> > software mode wanting to generate LPI state on the transmit side.
-> > This makes no sense to me, and looks like another bug in this driver.
+On 29/04/2024 17:05, Ricardo Ribalda wrote:
+> Unless the fps is smaller than 0.000232829 fps, this fits in a 32 bit
+> number. Make that explicit.
 > 
-> I've found a document that describes the GMAC:
+> Found by cocci:
+> drivers/media/platform/qcom/venus/vdec.c:488:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
 > 
-> https://www.st.com/resource/en/reference_manual/rm0441-stm32mp151-advanced-armbased-32bit-mpus-stmicroelectronics.pdf
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+>  drivers/media/platform/qcom/venus/vdec.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
 > 
-> Page 3302 gives the definitions for the ETH_MACLCSR, which is this
-> register.
-> 
-> LPITE (bit 20) - allows the ETH_MACLETR register to define how long to
-> wait before the TX path enters LPI. Requires LPITXA and LPIEN to both
-> be set. LPIEN is *not* automatically cleared when the TX path exits
-> LPI.
-> 
-> LPITXA (bit 19) - if this and LPIEN are set, then LPI is entered once
-> all outstanding packets have been transmitted, and exits when there's
-> a packet to be transmitted or the Tx FIFO is flushed. When it exits,
-> it clears the LPIEN bit (making this a one-shot LPI enter-exit.)
-> 
-> PLS (bit 17) needs to be programmed to reflect the PHY link status,
-> and is used to hold off LPI state for the LS timer.
-> 
-> LPIEN (bit 16) instructs the MAC to enter (when set) or exit (when
-> cleared) LPI state. It doesn't say what the behaviour of this bit is
-> if LPITXA is clear.
-> 
-> So:
-> 
-> LPIEN	LPITXA	LPITE	Effect
-> 0	x	x	No LPI, or LPI exited if active
-> 1	0	0	Undocumented
-> 1	1	0	Tx LPI entered if PLS has been set for the LS
-> 			timer, and once all packets have been sent.
-> 			LPIEN clears when Tx LPI exits.
-> 1	1	1	Tx LPI entered if PLS has been set for the LS
-> 			timer, and transmitter has been idle for
-> 			ETH_MACLETR. Exits do not clear LPIEN, allowing
-> 			for subsequent idle periods to enter LPI.
-> 
-> Therefore, given this description, I believe the code to be wrong.
-> In the case where we've set LPIEN=1 LPITXA=1 LPITE=1, and we want
-> to exit/disable LPI, we should not be clearing LPIATE and leaving
-> LPIEN and LPITXA as they were. According to my reading, this would
-> cause LPI to remain active until there is a packet to be sent or the
-> TX FIFO is flushed. At that point, Tx LPI will be exited, causing
-> LPIEN to be cleared - but the code is wanting to disable Tx LPI
-> (e.g. because the user configured through ethtool for LPI to be
-> disabled.)
-> 
-> The question is... does this get fixed? Is there anyone who can test
-> this (beyond the "patch doesn't seem to cause regressions" but can
-> actually confirm entry/exit from LPI state?)
+> diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+> index 29130a9441e7..2b2874aedb2d 100644
+> --- a/drivers/media/platform/qcom/venus/vdec.c
+> +++ b/drivers/media/platform/qcom/venus/vdec.c
+> @@ -464,7 +464,7 @@ static int vdec_s_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
+>  	struct venus_inst *inst = to_inst(file);
+>  	struct v4l2_captureparm *cap = &a->parm.capture;
+>  	struct v4l2_fract *timeperframe = &cap->timeperframe;
+> -	u64 us_per_frame, fps;
+> +	u64 us_per_frame;
+>  
+>  	if (a->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE &&
+>  	    a->type != V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+> @@ -484,10 +484,7 @@ static int vdec_s_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
+>  	if (!us_per_frame)
+>  		return -EINVAL;
+>  
+> -	fps = (u64)USEC_PER_SEC;
+> -	do_div(fps, us_per_frame);
+> -
+> -	inst->fps = fps;
+> +	inst->fps = USEC_PER_SEC / (u32)us_per_frame;
 
-Okay, given the lack of engagement on this patch set, I'm going to
-submit it in its latest form anyway (with a few more patches of the
-same ilk) so we can at least move forward cleaning up the code.
+What happens if us_per_frame > USEC_PER_SEC? inst->fps is now 0, and I wonder what
+issues that may cause.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+I will drop this patch from the PR, as it is probably wise to return an error if
+us_per_frame > USEC_PER_SEC.
+
+The same issue is present with the venc patch (24/26), but that wasn't included in
+the PR anyway.
+
+Regards,
+
+	Hans
+
+>  	inst->timeperframe = *timeperframe;
+>  
+>  	return 0;
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
