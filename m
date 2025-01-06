@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A054A02744
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 14:57:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9899EA0274E
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 14:57:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41C42C78013;
-	Mon,  6 Jan 2025 13:57:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54638C78022;
+	Mon,  6 Jan 2025 13:57:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A30D9C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E5C5C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jan 2025 13:57:12 +0000 (UTC)
+ Mon,  6 Jan 2025 13:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736171833; x=1767707833;
+ t=1736171861; x=1767707861;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=/+i8FYAafrrfqRSuGKBUIfPXgTCEk4S697hIJh7teK4=;
- b=GlEhSMfrAa7thyvo1NvKInX1KXodS6Xb1l8PrrFasnOQ/soQ9f6xqnui
- cP21+6V8rYA9c7P8wolbvGviVQ2itj0evgeNKkNS6j/g5ScrgWYH+kd0E
- Dxk7YDdMAdgOm7v1D970e3WmY8DwbA7riGavxmBUUQRt9bGggnl7us4S8
- i0DdfJf6KxRTvb+WmPZfTe92WKijJ/UcW2Op/J1lInWKNlLlB3taJoWwv
- 2XBeTyxqnNQjPZ5fFNSjBuDXJCBN/qRVR+gJFq5lhuz12/Z0EowDRl9mn
- Oo5ccLipCKB3lnFsNa854ZTNHZSY6BgF2NXloluINtESZsK9LabxTJoeN g==;
-X-CSE-ConnectionGUID: JwLiGnv/SfOk1Hl0OOvYPw==
-X-CSE-MsgGUID: bFPi8ec/RNiXgdTqYUYCmQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="36214400"
-X-IronPort-AV: E=Sophos;i="6.12,292,1728975600"; d="scan'208";a="36214400"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2025 05:57:11 -0800
-X-CSE-ConnectionGUID: M6+cb+MjRTC9JvS0857Mbg==
-X-CSE-MsgGUID: FJybESsMTdaPa83cjklrFw==
+ bh=qGCwaypJFSzHfD7SuLIe+AzV2lEwzPgKj63Q4p347so=;
+ b=DNOPwhdrk3lpn77YrH0/ksoSofAjtW9FBijRAqL6t7jUOyEuhPoLyUV7
+ ppwCPO72xb5VD7P9W2ypzRv+Ggy1s1IKfG9CxnviHWzizr3dxZe/dMmON
+ Q1N9SgMD56zCuh1wIJ/yIK3fjpbezd+SDtoAFM6iqd8zjgzR4V9bpxY9R
+ AwGe5de61HT89l363j+DwKZRTJticxttGLDhUud6/CQuPwT0uUmZxRhLN
+ TuxRLV7gZMg98i1c2t7IRde4hgpLhL21q0pMsTuSDIq9BV70TM3QVJ57H
+ nZ6wWNrcBoZGfnX01WOcsvbW9JsnR2wsAQTiCvOwXZKXSQJ1LKVL4EkHh A==;
+X-CSE-ConnectionGUID: UXcftXULQh+GZgMKWmADPA==
+X-CSE-MsgGUID: Y7zdp11OS9aAyRKEV+IF6Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="36473840"
+X-IronPort-AV: E=Sophos;i="6.12,292,1728975600"; d="scan'208";a="36473840"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2025 05:57:39 -0800
+X-CSE-ConnectionGUID: 5mNEh76+SQOPHNjCosOwZg==
+X-CSE-MsgGUID: 7Q1uLqm2TRCloWfgYIj/Pg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="125728751"
+X-IronPort-AV: E=Sophos;i="6.12,292,1728975600"; d="scan'208";a="107408167"
 Received: from unknown (HELO P12ILL20yoongsia.png.intel.com) ([10.88.227.38])
- by fmviesa002.fm.intel.com with ESMTP; 06 Jan 2025 05:57:01 -0800
+ by orviesa004.jf.intel.com with ESMTP; 06 Jan 2025 05:57:27 -0800
 From: Song Yoong Siang <yoong.siang.song@intel.com>
 To: "David S . Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -68,8 +68,8 @@ To: "David S . Miller" <davem@davemloft.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Tony Nguyen <anthony.l.nguyen@intel.com>,
  Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Date: Mon,  6 Jan 2025 21:56:58 +0800
-Message-Id: <20250106135658.9734-1-yoong.siang.song@intel.com>
+Date: Mon,  6 Jan 2025 21:57:24 +0800
+Message-Id: <20250106135724.9749-1-yoong.siang.song@intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
@@ -77,8 +77,8 @@ Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
  intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
  bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH bpf-next v4 3/4] net: stmmac: Add launch time
-	support to XDP ZC
+Subject: [Linux-stm32] [PATCH bpf-next v4 4/4] igc: Add launch time support
+	to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,107 +95,181 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable launch time (Time-Based Scheduling) support to XDP zero copy via XDP
-Tx metadata framework.
+Enable Launch Time Control (LTC) support to XDP zero copy via XDP Tx
+metadata framework.
 
 This patch is tested with tools/testing/selftests/bpf/xdp_hw_metadata on
 Intel Tiger Lake platform. Below are the test steps and result.
 
 Test Steps:
 1. Add mqprio qdisc:
-   $ sudo tc qdisc add dev enp0s30f4 handle 8001: parent root mqprio num_tc
-     4 map 0 1 2 3 3 3 3 3 3 3 3 3 3 3 3 3 queues 1@0 1@1 1@2 1@3 hw 0
+   $ sudo tc qdisc add dev enp2s0 handle 8001: parent root mqprio num_tc 4
+     map 3 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 queues 1@0 1@1 1@2 1@3 hw 0
 
 2. Enable launch time hardware offload on hardware queue 1:
-   $ sudo tc qdisc replace dev enp0s30f4 parent 8001:2 etf offload clockid
+   $ sudo tc qdisc replace dev enp2s0 parent 8001:2 etf offload clockid
      CLOCK_TAI delta 500000
 
-3. Add an ingress qdisc:
-   $ sudo tc qdisc add dev enp0s30f4 ingress
+3. Change RSS to route all incoming IP packets into hardware queue 1:
+   $ sudo ethtool -X enp2s0 start 1 equal 1
 
-4. Add a flower filter to route incoming packet with VLAN priority 1 into
-   hardware queue 1:
-   $ sudo tc filter add dev enp0s30f4 parent ffff: protocol 802.1Q flower
-     vlan_prio 1 hw_tc 1
+4. Start xdp_hw_metadata selftest application:
+   $ sudo ./xdp_hw_metadata enp2s0 -l 1000000000
 
-5. Enable VLAN tag stripping:
-   $ sudo ethtool -K enp0s30f4 rxvlan on
-
-6. Start xdp_hw_metadata selftest application:
-   $ sudo ./xdp_hw_metadata enp0s30f4 -l 1000000000
-
-7. Send an UDP packet with VLAN priority 1 to port 9091 of DUT.
+5. Send an UDP packet to port 9091 of DUT.
+   $ echo -n xdp | nc -u -q0 169.254.1.1 9091
 
 When launch time is set to 1s in the future, the delta between launch time
-and transmit hardware timestamp is equal to 16.963us, as shown in result
+and transmit hardware timestamp is equal to 0.016us, as shown in result
 below:
-  0x55b5864717a8: rx_desc[4]->addr=88100 addr=88100 comp_addr=88100 EoP
-  No rx_hash, err=-95
-  HW RX-time:   1734579065767717328 (sec:1734579065.7677) delta to User RX-time sec:0.0004 (375.624 usec)
-  XDP RX-time:   1734579065768004454 (sec:1734579065.7680) delta to User RX-time sec:0.0001 (88.498 usec)
+  0x562ff5dc8880: rx_desc[4]->addr=84110 addr=84110 comp_addr=84110 EoP
+  rx_hash: 0xE343384 with RSS type:0x1
+  HW RX-time:   1734578015467548904 (sec:1734578015.4675) delta to User RX-time sec:0.0002 (183.103 usec)
+  XDP RX-time:   1734578015467651698 (sec:1734578015.4677) delta to User RX-time sec:0.0001 (80.309 usec)
   No rx_vlan_tci or rx_vlan_proto, err=-95
-  0x55b5864717a8: ping-pong with csum=5619 (want 0000) csum_start=34 csum_offset=6
-  HW RX-time:   1734579065767717328 (sec:1734579065.7677) delta to HW Launch-time sec:1.0000 (1000000.000 usec)
-  0x55b5864717a8: complete tx idx=4 addr=4018
-  HW Launch-time:   1734579066767717328 (sec:1734579066.7677) delta to HW TX-complete-time sec:0.0000 (16.963 usec)
-  HW TX-complete-time:   1734579066767734291 (sec:1734579066.7677) delta to User TX-complete-time sec:0.0001 (130.408 usec)
-  XDP RX-time:   1734579065768004454 (sec:1734579065.7680) delta to User TX-complete-time sec:0.9999 (999860.245 usec)
-  HW RX-time:   1734579065767717328 (sec:1734579065.7677) delta to HW TX-complete-time sec:1.0000 (1000016.963 usec)
-  0x55b5864717a8: complete rx idx=132 addr=88100
+  0x562ff5dc8880: ping-pong with csum=561c (want c7dd) csum_start=34 csum_offset=6
+  HW RX-time:   1734578015467548904 (sec:1734578015.4675) delta to HW Launch-time sec:1.0000 (1000000.000 usec)
+  0x562ff5dc8880: complete tx idx=4 addr=4018
+  HW Launch-time:   1734578016467548904 (sec:1734578016.4675) delta to HW TX-complete-time sec:0.0000 (0.016 usec)
+  HW TX-complete-time:   1734578016467548920 (sec:1734578016.4675) delta to User TX-complete-time sec:0.0000 (32.546 usec)
+  XDP RX-time:   1734578015467651698 (sec:1734578015.4677) delta to User TX-complete-time sec:0.9999 (999929.768 usec)
+  HW RX-time:   1734578015467548904 (sec:1734578015.4675) delta to HW TX-complete-time sec:1.0000 (1000000.016 usec)
+  0x562ff5dc8880: complete rx idx=132 addr=84110
 
 Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++++++++++
- 2 files changed, 15 insertions(+)
+ drivers/net/ethernet/intel/igc/igc_main.c | 78 ++++++++++++++++-------
+ 1 file changed, 56 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 1d86439b8a14..c80462d42989 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -106,6 +106,8 @@ struct stmmac_metadata_request {
- 	struct stmmac_priv *priv;
- 	struct dma_desc *tx_desc;
- 	bool *set_ic;
-+	struct dma_edesc *edesc;
-+	int tbs;
- };
- 
- struct stmmac_xsk_tx_complete {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c81ea8cdfe6e..3a083e3684ed 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2445,9 +2445,20 @@ static u64 stmmac_xsk_fill_timestamp(void *_priv)
- 	return 0;
+diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
+index 27872bdea9bd..6857f5f5b4b2 100644
+--- a/drivers/net/ethernet/intel/igc/igc_main.c
++++ b/drivers/net/ethernet/intel/igc/igc_main.c
+@@ -1566,6 +1566,26 @@ static bool igc_request_tx_tstamp(struct igc_adapter *adapter, struct sk_buff *s
+ 	return false;
  }
  
-+static void stmmac_xsk_request_launch_time(u64 launch_time, void *_priv)
++static void igc_insert_empty_packet(struct igc_ring *tx_ring)
 +{
-+	struct stmmac_metadata_request *meta_req = _priv;
-+	struct timespec64 ts = ns_to_timespec64(launch_time);
++	struct igc_tx_buffer *empty_info;
++	struct sk_buff *empty;
++	void *data;
 +
-+	if (meta_req->tbs & STMMAC_TBS_EN)
-+		stmmac_set_desc_tbs(meta_req->priv, meta_req->edesc, ts.tv_sec,
-+				    ts.tv_nsec);
++	empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
++	empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
++	if (!empty)
++		return;
++
++	data = skb_put(empty, IGC_EMPTY_FRAME_SIZE);
++	memset(data, 0, IGC_EMPTY_FRAME_SIZE);
++
++	igc_tx_ctxtdesc(tx_ring, 0, false, 0, 0, 0);
++
++	if (igc_init_tx_empty_descriptor(tx_ring, empty, empty_info) < 0)
++		dev_kfree_skb_any(empty);
 +}
 +
- static const struct xsk_tx_metadata_ops stmmac_xsk_tx_metadata_ops = {
- 	.tmo_request_timestamp		= stmmac_xsk_request_timestamp,
- 	.tmo_fill_timestamp		= stmmac_xsk_fill_timestamp,
-+	.tmo_request_launch_time	= stmmac_xsk_request_launch_time,
+ static netdev_tx_t igc_xmit_frame_ring(struct sk_buff *skb,
+ 				       struct igc_ring *tx_ring)
+ {
+@@ -1603,26 +1623,8 @@ static netdev_tx_t igc_xmit_frame_ring(struct sk_buff *skb,
+ 	skb->tstamp = ktime_set(0, 0);
+ 	launch_time = igc_tx_launchtime(tx_ring, txtime, &first_flag, &insert_empty);
+ 
+-	if (insert_empty) {
+-		struct igc_tx_buffer *empty_info;
+-		struct sk_buff *empty;
+-		void *data;
+-
+-		empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
+-		empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
+-		if (!empty)
+-			goto done;
+-
+-		data = skb_put(empty, IGC_EMPTY_FRAME_SIZE);
+-		memset(data, 0, IGC_EMPTY_FRAME_SIZE);
+-
+-		igc_tx_ctxtdesc(tx_ring, 0, false, 0, 0, 0);
+-
+-		if (igc_init_tx_empty_descriptor(tx_ring,
+-						 empty,
+-						 empty_info) < 0)
+-			dev_kfree_skb_any(empty);
+-	}
++	if (insert_empty)
++		igc_insert_empty_packet(tx_ring);
+ 
+ done:
+ 	/* record the location of the first descriptor for this packet */
+@@ -2955,9 +2957,33 @@ static u64 igc_xsk_fill_timestamp(void *_priv)
+ 	return *(u64 *)_priv;
+ }
+ 
++static void igc_xsk_request_launch_time(u64 launch_time, void *_priv)
++{
++	struct igc_metadata_request *meta_req = _priv;
++	struct igc_ring *tx_ring = meta_req->tx_ring;
++	__le32 launch_time_offset;
++	bool insert_empty = false;
++	bool first_flag = false;
++
++	if (!tx_ring->launchtime_enable)
++		return;
++
++	launch_time_offset = igc_tx_launchtime(tx_ring,
++					       ns_to_ktime(launch_time),
++					       &first_flag, &insert_empty);
++	if (insert_empty) {
++		igc_insert_empty_packet(tx_ring);
++		meta_req->tx_buffer =
++			&tx_ring->tx_buffer_info[tx_ring->next_to_use];
++	}
++
++	igc_tx_ctxtdesc(tx_ring, launch_time_offset, first_flag, 0, 0, 0);
++}
++
+ const struct xsk_tx_metadata_ops igc_xsk_tx_metadata_ops = {
+ 	.tmo_request_timestamp		= igc_xsk_request_timestamp,
+ 	.tmo_fill_timestamp		= igc_xsk_fill_timestamp,
++	.tmo_request_launch_time	= igc_xsk_request_launch_time,
  };
  
- static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
-@@ -2531,6 +2542,8 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
- 		meta_req.priv = priv;
- 		meta_req.tx_desc = tx_desc;
- 		meta_req.set_ic = &set_ic;
-+		meta_req.tbs = tx_q->tbs;
-+		meta_req.edesc = &tx_q->dma_entx[entry];
- 		xsk_tx_metadata_request(meta, &stmmac_xsk_tx_metadata_ops,
+ static void igc_xdp_xmit_zc(struct igc_ring *ring)
+@@ -2980,7 +3006,7 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
+ 	ntu = ring->next_to_use;
+ 	budget = igc_desc_unused(ring);
+ 
+-	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget--) {
++	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget >= 4) {
+ 		struct igc_metadata_request meta_req;
+ 		struct xsk_tx_metadata *meta = NULL;
+ 		struct igc_tx_buffer *bi;
+@@ -3004,6 +3030,12 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
+ 		xsk_tx_metadata_request(meta, &igc_xsk_tx_metadata_ops,
  					&meta_req);
- 		if (set_ic) {
+ 
++		/* xsk_tx_metadata_request() may have updated next_to_use */
++		ntu = ring->next_to_use;
++
++		/* xsk_tx_metadata_request() may have updated Tx buffer info */
++		bi = meta_req.tx_buffer;
++
+ 		tx_desc = IGC_TX_DESC(ring, ntu);
+ 		tx_desc->read.cmd_type_len = cpu_to_le32(meta_req.cmd_type);
+ 		tx_desc->read.olinfo_status = cpu_to_le32(olinfo_status);
+@@ -3021,9 +3053,11 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
+ 		ntu++;
+ 		if (ntu == ring->count)
+ 			ntu = 0;
++
++		ring->next_to_use = ntu;
++		budget = igc_desc_unused(ring);
+ 	}
+ 
+-	ring->next_to_use = ntu;
+ 	if (tx_desc) {
+ 		igc_flush_tx_descriptors(ring);
+ 		xsk_tx_release(pool);
 -- 
 2.34.1
 
