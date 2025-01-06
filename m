@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32534A02E30
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 17:48:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61921A02E34
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 17:49:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA0EDC78011;
-	Mon,  6 Jan 2025 16:48:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F39FCC78011;
+	Mon,  6 Jan 2025 16:49:30 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15D47C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91F6BC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jan 2025 16:48:42 +0000 (UTC)
+ Mon,  6 Jan 2025 16:49:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=OUWR+zB34gQucD9TutxNRjsruuEg8bng53IkXPVvSQE=; b=yvf2PkxZLIL2hq1wmUMNlSKchr
- ybXJsLCgxPzKgLpg2XTtyD4D6s5RzYLfEJUiXlGs3Vz9wRcF6AiYrB1iY0Ust1sTfH0Ohfnk2FWts
- v27nV5JBNvC6AuTTNvtFngJ2yOFJAn6JAdVx8fpUQX3HPya5zrcWTji/TjA4Ld8ckVy0=;
+ bh=qna5S093nBbRkl20/MOVRPodP8BDCikiUJuROyhXVgI=; b=gzbu6GThbiT1OZ4tfL4yvjvSKf
+ mTUjX5xfuWPGLoSDw4ewW8YQDy4XTPD5JVHgboHzTQdO73hMlgpiXwh/oNGN4gSAYDFBqUL1bliOl
+ 6Iobp8uc+VOR8Bh/zjVK64ZDPdhF8Z2YiVvB06QFtk8kAHiuOfcBhW825t3oTEsZ87+o=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1tUqHK-001vx2-PC; Mon, 06 Jan 2025 17:48:34 +0100
-Date: Mon, 6 Jan 2025 17:48:34 +0100
+ id 1tUqI5-001vyd-ME; Mon, 06 Jan 2025 17:49:21 +0100
+Date: Mon, 6 Jan 2025 17:49:21 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <435a1b40-12f5-4eca-a9d8-030c0661a9b3@lunn.ch>
+Message-ID: <1b9bf0ad-a929-45b2-901a-b997d7686dec@lunn.ch>
 References: <Z3vLbRQ9Ctl-Rpdg@shell.armlinux.org.uk>
- <E1tUmAK-007VX1-2Q@rmk-PC.armlinux.org.uk>
+ <E1tUmAP-007VX7-5s@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1tUmAK-007VX1-2Q@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1tUmAP-007VX7-5s@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 04/17] net: stmmac: make EEE
- depend on phy->enable_tx_lpi
+Subject: Re: [Linux-stm32] [PATCH net-next v2 05/17] net: stmmac: remove
+ redundant code from ethtool EEE ops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,15 +57,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 06, 2025 at 12:25:04PM +0000, Russell King (Oracle) wrote:
-> Make stmmac EEE depend on phylib's evaluation of user settings and PHY
-> negotiation, as indicated by phy->enable_tx_lpi. This will ensure when
-> phylib has evaluated that the user has disabled LPI, phy_init_eee()
-> will not be called, and priv->eee_active will be false, causing LPI/EEE
-> to be disabled.
+On Mon, Jan 06, 2025 at 12:25:09PM +0000, Russell King (Oracle) wrote:
+> Setting edata->tx_lpi_enabled in stmmac_ethtool_op_get_eee() gets
+> overwritten by phylib, so there's no point setting this.
 > 
-> This is an interim measure - phy_init_eee() will be removed in a later
-> patch.
+> In stmmac_ethtool_op_set_eee(), now that stmmac is using the result of
+> phylib's evaluation of EEE, there is no need to handle anything in the
+> ethtool EEE ops other than calling through to the appropriate phylink
+> function, which will pass on to phylib the users request.
+> 
+> As stmmac_disable_eee_mode() is now no longer called from outside
+> stmmac_main.c, make it static.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
