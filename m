@@ -2,81 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60492A01B4E
-	for <lists+linux-stm32@lfdr.de>; Sun,  5 Jan 2025 19:15:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE59CA01F32
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2025 07:29:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B28BC78030;
-	Sun,  5 Jan 2025 18:15:44 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BAA5C6C83D;
+	Mon,  6 Jan 2025 06:29:04 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25655C78030
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B31CC6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  5 Jan 2025 18:15:43 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-aaec111762bso2171269866b.2
+ Mon,  6 Jan 2025 06:28:57 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2ee67e9287fso20247865a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 05 Jan 2025 10:15:43 -0800 (PST)
+ Sun, 05 Jan 2025 22:28:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1736100942; x=1736705742;
+ d=gmail.com; s=20230601; t=1736144936; x=1736749736;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CYt+s6fkrUpxe5XF17lxHByzQRCB3AxfRzKWTwCyBC0=;
- b=VWKv/+/1PWEkqHwZgi3BH9RPPkzfLuesbvese4IiUw7CYKpJyfQuzereTwMTm76JyU
- NWBxVmHXKaID6mEbU0lS0h/Me+IkliEA9ssmqzTVrSgbmqpCTqdQAVc4FF4PTx41ofXa
- H/t6txj4N4umia//QEhQqnMbGoOhGGQfldbJk=
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tYngp+0tGgTHKQ6I1Sn7h1pVz+z67CiGfUZ8/I0y7MY=;
+ b=TQgSD5tdbrny4r24DkofPSiZupQ1jf2hYbv2J/RX+RLec8KlZKG+EfnFjgvHyFkO09
+ xpUtFFce4VztVVF5lEo2T+UwssFPIEM3q9MijtA5h3LCfOwFY4rhkM2WjVf+TF/FXSha
+ LulGKJyopRpZhS1kgcxTR++luVWl4ZjeP6YzV0A7Rd5mPAIJN7W4awq8KTC2P/48IG6S
+ LzLgQdXxjMivh/ZuFc63RVe4LfsmNgxdv6SzgNBP/evdI0GrCTSNLp9jT9hGtP9/bS2x
+ Dyb3blvARwkNHsRG6YTmI7nmOzi+GuLQQXuTAgXtOlDq+j7SSl9eEIgDt3PR6qm0YRyZ
+ Kzcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736100942; x=1736705742;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CYt+s6fkrUpxe5XF17lxHByzQRCB3AxfRzKWTwCyBC0=;
- b=wX6Q4ekF9k1EOr8O1kmqM81DPf/tQVGuB7ip2jyJDAv+L19Vl6hozA/pRatvg3n1tW
- tTYlI3sNeT0AXGfiyltDdIIEC+HOrSntMNR7aodZgA5/wcEA9Y1gYINCCnHNsJM+KvwV
- cJNL7uvtR59tD6DRChvT7iy61sytbR8QMCMOKUzTB0WQzm25qDmzPgf0lCvtZXi+iFB2
- +sUlGklDkl06LcVLoXurD/VYFS1cRGZVnH9LLnLO1/Jo8ugKjpLuW4jMfw2a+lxK9ENg
- dUSZ2vAYuzDgNNLRlQeRrevnVGfJ9lPadX9PU0LCkL0b2uW8NVYm0uZbzD+dD1w/mI6K
- ePUQ==
+ d=1e100.net; s=20230601; t=1736144936; x=1736749736;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tYngp+0tGgTHKQ6I1Sn7h1pVz+z67CiGfUZ8/I0y7MY=;
+ b=E8YzprcCtJsXUU8RXQocCID6y2EFA7F9fF5b3CsvRlca3dkKBjkCaIkgoQb4iBG74D
+ 3LMaivIQh7Ztb+8qQEtnztplpuqtZCtAs0HYumKSZuQibHH/2gkPf9o4vlvavY9DCWPL
+ nXr5jgTBC65rswH+o4dHqKuRviRcYak8C8XHqy2L7MaTZxBlbrkgkKTH0tcGDUUmC1kq
+ JIIo6ySJeA4VtaGOhjfXC1w32H7qYUHL6E+YDBrogEEneXp3PgquytDgAAM51NzBXT3J
+ 15YXXQesY64CkdO2jNMFk/Zr8A7JlW+Bz5K8ciXHbrgFNK/uTm5erokp5zVtTd5xb4YL
+ xJ5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVZB22CIpx1jDlWoNHQppJlwq9PrSsC4g8T1/wEUD5n1RdlAwJEZMHVmX33NdcT/swjVEB4aKKq/tUH/g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzkDIedTi6iVdlK/I0VFhOXclXnzjvuIx/PwbVIKGsLLHTRyYRb
- NbwkjnWP+PkdhHtlvs4++7C3a2w1UKfwRqQz21S7ye2dJZcjwPzu8vhWZgCXw98=
-X-Gm-Gg: ASbGnctGz3r0ICuQA9xtWjZQx9isoBFpVPGZ64blcTBnbxsCUwCbPTH0Gr3t8mbGvlm
- V1cKar5u0N9FWRCs6fvUIF9rrjjPTo0qU3ahG5GLdyNb3b0yp9DM65V36pk+yjczrYevFFzuL3F
- Q5c6P+tBJa68TQmy2ChpxfSGrH0rqkBVGRBW2PCxvds3C7NWcXgC3WJulTwgYffEKGxe3n7LUSM
- PNRCQpt5/lN64RnKFUDpy15/gTF6SjDaJ/+pmdj3lvor8mzoy+2ZZUtAiHIfhyyoFpeYZjxFJcq
- Tgz40JqNAn42k5Mhhru+UaaS+arwsM3I9EfGWHyXF2FfMr+ypd71789FGlxcJWBAsgVf+BEb9ZK
- nQs5mkfr8MlBpVo9ZVA==
-X-Google-Smtp-Source: AGHT+IHKfniWL7KIZr5UBchy8RdTJDMipbRucCKrppnn1VBJEdWfGEKF6uqo/1J4HGrc00eEihpFhA==
-X-Received: by 2002:a17:907:7e86:b0:aaf:ada2:181e with SMTP id
- a640c23a62f3a-aafada219d8mr879413566b.26.1736100942566; 
- Sun, 05 Jan 2025 10:15:42 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-79-41-6-15.retail.telecomitalia.it. [79.41.6.15])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0e82f178sm2138185066b.38.2025.01.05.10.15.41
+ AJvYcCULjC5y6L6JqRa687bCeJzPmJa6pbH4uNkqObyS5kTfgRHOLZnL0al+xB+O6HwiCN+W4P90uPQ9OFcbHQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw00LTwsatZEfKqa12kZiNPEXx4XTJkzX9Wx5rjilMZA5clgw2j
+ eX0jVbUFCMw0ciPhmMSvLPwyl8iauACZTm0ox9abFJ4sxrxWkXry
+X-Gm-Gg: ASbGncsdzgPqOfGpaUTRTs/yTOHOHFwSMFsZepv3PFniCptRzegbCxgQ15s23dsHoQ1
+ n/eJ1AakSJVysldwjrCCKji/g4Mt3NVsYYd9jJY4YaR/7j8ik7zFbEtYyRGn3DxohXtZjSaZDVF
+ y7HpJLFe/DPr92rPBdRmcs4OJnR6O6sevdDyWUye9YdqQeQFk5qhoZYu14z6pEuUKwwuFARiMTn
+ Flr0u7WoiDnANcVFqBzPd5jXAiw8z7FZNRWh/w+QUUgG3v4Nx65nyZMAO+iOvOiXlHlGQ==
+X-Google-Smtp-Source: AGHT+IGuTNnabIlYRQUcGvQBWWJUxIneQ+plJz0/THIdtZNbQlkm7E3w2PkIyku4BmKuXXI3eBVv5g==
+X-Received: by 2002:a17:90a:f950:b0:2ea:5054:6c49 with SMTP id
+ 98e67ed59e1d1-2f452d258bfmr101856874a91.0.1736144935767; 
+ Sun, 05 Jan 2025 22:28:55 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ 98e67ed59e1d1-2f2ed62cddbsm38807091a91.15.2025.01.05.22.28.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jan 2025 10:15:42 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Sun,  5 Jan 2025 19:14:18 +0100
-Message-ID: <20250105181525.1370822-7-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250105181525.1370822-1-dario.binacchi@amarulasolutions.com>
-References: <20250105181525.1370822-1-dario.binacchi@amarulasolutions.com>
+ Sun, 05 Jan 2025 22:28:55 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon,  6 Jan 2025 14:28:45 +0800
+Message-Id: <20250106062845.3943846-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6/6] clk: stm32f4: support spread spectrum
-	clock generation
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1] net: stmmac: Unexport
+	stmmac_rx_offset() from stmmac.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,244 +89,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Support spread spectrum clock generation for the main PLL, the only one
-for which this functionality is available.
+stmmac_rx_offset() is referenced in stmmac_main.c only,
+let's move it to stmmac_main.c.
 
-Tested on the STM32F469I-DISCO board.
+Compile tested only.
+No functional change intended.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
+Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 8 --------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
- drivers/clk/clk-stm32f4.c | 143 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 140 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index db1c56c8d54f..6c80c0dbb0a3 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -35,6 +35,7 @@
- #define STM32F4_RCC_APB2ENR		0x44
- #define STM32F4_RCC_BDCR		0x70
- #define STM32F4_RCC_CSR			0x74
-+#define STM32F4_RCC_SSCGR		0x80
- #define STM32F4_RCC_PLLI2SCFGR		0x84
- #define STM32F4_RCC_PLLSAICFGR		0x88
- #define STM32F4_RCC_DCKCFGR		0x8c
-@@ -42,6 +43,12 @@
- 
- #define STM32F4_RCC_PLLCFGR_N_MASK	GENMASK(14, 6)
- 
-+#define STM32F4_RCC_SSCGR_SSCGEN	BIT(31)
-+#define STM32F4_RCC_SSCGR_SPREADSEL	BIT(30)
-+#define STM32F4_RCC_SSCGR_RESERVED_MASK	GENMASK(29, 28)
-+#define STM32F4_RCC_SSCGR_INCSTEP_MASK	GENMASK(27, 13)
-+#define STM32F4_RCC_SSCGR_MODPER_MASK	GENMASK(12, 0)
-+
- #define NONE -1
- #define NO_IDX  NONE
- #define NO_MUX  NONE
-@@ -512,6 +519,17 @@ static const struct clk_div_table pll_divr_table[] = {
- 	{ 2, 2 }, { 3, 3 }, { 4, 4 }, { 5, 5 }, { 6, 6 }, { 7, 7 }, { 0 }
- };
- 
-+enum stm32f4_pll_ssc_mod_type {
-+	STM32F4_PLL_SSC_CENTER_SPREAD,
-+	STM32F4_PLL_SSC_DOWN_SPREAD,
-+};
-+
-+struct stm32f4_pll_ssc {
-+	unsigned int mod_freq;
-+	unsigned int mod_depth;
-+	enum stm32f4_pll_ssc_mod_type mod_type;
-+};
-+
- struct stm32f4_pll {
- 	spinlock_t *lock;
- 	struct	clk_gate gate;
-@@ -519,6 +537,8 @@ struct stm32f4_pll {
- 	u8 bit_rdy_idx;
- 	u8 status;
- 	u8 n_start;
-+	bool ssc_enable;
-+	struct stm32f4_pll_ssc ssc_conf;
- };
- 
- #define to_stm32f4_pll(_gate) container_of(_gate, struct stm32f4_pll, gate)
-@@ -541,6 +561,7 @@ struct stm32f4_vco_data {
- 	u8 offset;
- 	u8 bit_idx;
- 	u8 bit_rdy_idx;
-+	bool sscg;
- };
- 
- static const struct stm32f4_vco_data  vco_data[] = {
-@@ -661,6 +682,34 @@ static long stm32f4_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	return *prate * n;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index b8d631e559c0..548b28fed9b6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -416,14 +416,6 @@ static inline bool stmmac_xdp_is_enabled(struct stmmac_priv *priv)
+ 	return !!priv->xdp_prog;
  }
  
-+static void stm32f4_pll_set_ssc(struct clk_hw *hw, unsigned long parent_rate,
-+				unsigned int ndiv)
-+{
-+	struct clk_gate *gate = to_clk_gate(hw);
-+	struct stm32f4_pll *pll = to_stm32f4_pll(gate);
-+	struct stm32f4_pll_ssc *ssc = &pll->ssc_conf;
-+	u32 modeper, incstep;
-+	u32 sscgr;
-+
-+	sscgr = readl(base + STM32F4_RCC_SSCGR);
-+	/* reserved field must be kept at reset value */
-+	sscgr &= STM32F4_RCC_SSCGR_RESERVED_MASK;
-+
-+	modeper = DIV_ROUND_CLOSEST(parent_rate, 4 * ssc->mod_freq);
-+	incstep = DIV_ROUND_CLOSEST(((1 << 15) - 1) * ssc->mod_depth * ndiv,
-+				    5 * 10000 * modeper);
-+	sscgr |= STM32F4_RCC_SSCGR_SSCGEN |
-+		FIELD_PREP(STM32F4_RCC_SSCGR_INCSTEP_MASK, incstep) |
-+		FIELD_PREP(STM32F4_RCC_SSCGR_MODPER_MASK, modeper);
-+
-+	if (ssc->mod_type)
-+		sscgr |= STM32F4_RCC_SSCGR_SPREADSEL;
-+
-+	pr_debug("%s: pll: %s: modeper: %d, incstep: %d, sscgr: 0x%08x\n",
-+		 __func__, clk_hw_get_name(hw), modeper, incstep, sscgr);
-+	writel(sscgr, base + STM32F4_RCC_SSCGR);
-+}
-+
- static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 				unsigned long parent_rate)
- {
-@@ -683,6 +732,9 @@ static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- 	writel(val, base + pll->offset);
- 
-+	if (pll->ssc_enable)
-+		stm32f4_pll_set_ssc(hw, parent_rate, n);
-+
- 	if (pll_state)
- 		stm32f4_pll_enable(hw);
- 
-@@ -788,6 +840,87 @@ static struct clk_hw *clk_register_pll_div(const char *name,
- 	return hw;
+-static inline unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
+-{
+-	if (stmmac_xdp_is_enabled(priv))
+-		return XDP_PACKET_HEADROOM;
+-
+-	return 0;
+-}
+-
+ void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue);
+ void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue);
+ void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 99eaec8bac4a..37b21d2d6f4b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1308,6 +1308,14 @@ static void stmmac_display_rings(struct stmmac_priv *priv,
+ 	stmmac_display_tx_rings(priv, dma_conf);
  }
  
-+static int stm32f4_pll_init_ssc(struct clk_hw *hw, struct stm32f4_pll_ssc *conf)
++static inline unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
 +{
-+	struct clk_gate *gate = to_clk_gate(hw);
-+	struct stm32f4_pll *pll = to_stm32f4_pll(gate);
-+	struct clk_hw *parent;
-+	unsigned long parent_rate;
-+	int pll_state;
-+	unsigned long n, val;
-+
-+	parent = clk_hw_get_parent(hw);
-+	if (!parent) {
-+		pr_err("%s: failed to get clock parent\n", __func__);
-+		return -ENODEV;
-+	}
-+
-+	parent_rate = clk_hw_get_rate(parent);
-+
-+	pll->ssc_enable = true;
-+	memcpy(&pll->ssc_conf, conf, sizeof(pll->ssc_conf));
-+
-+	pll_state = stm32f4_pll_is_enabled(hw);
-+
-+	if (pll_state)
-+		stm32f4_pll_disable(hw);
-+
-+	val = readl(base + pll->offset);
-+	n = FIELD_GET(STM32F4_RCC_PLLCFGR_N_MASK, val);
-+
-+	pr_debug("%s: pll: %s, parent: %s, parent-rate: %lu, n: %lu\n",
-+		 __func__, clk_hw_get_name(hw), clk_hw_get_name(parent),
-+		 parent_rate, n);
-+
-+	stm32f4_pll_set_ssc(hw, parent_rate, n);
-+
-+	if (pll_state)
-+		stm32f4_pll_enable(hw);
++	if (stmmac_xdp_is_enabled(priv))
++		return XDP_PACKET_HEADROOM;
 +
 +	return 0;
 +}
 +
-+static int stm32f4_pll_ssc_parse_dt(struct device_node *np,
-+				    struct stm32f4_pll_ssc *conf)
-+{
-+	int ret;
-+	const char *s;
-+
-+	if (!conf)
-+		return -EINVAL;
-+
-+	ret = of_property_read_u32(np, "st,ssc-modfreq-hz", &conf->mod_freq);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_property_read_u32(np, "st,ssc-moddepth-permyriad",
-+				   &conf->mod_depth);
-+	if (ret) {
-+		pr_err("%pOF: missing st,ssc-moddepth-permyriad\n", np);
-+		return ret;
-+	}
-+
-+	ret = of_property_read_string(np, "st,ssc-modmethod", &s);
-+	if (ret) {
-+		pr_err("%pOF: missing st,ssc-modmethod\n", np);
-+		return ret;
-+	}
-+
-+	if (!strcmp(s, "down-spread")) {
-+		conf->mod_type = STM32F4_PLL_SSC_DOWN_SPREAD;
-+	} else if (!strcmp(s, "center-spread")) {
-+		conf->mod_type = STM32F4_PLL_SSC_CENTER_SPREAD;
-+	} else {
-+		pr_err("%pOF: wrong value (%s) for fsl,ssc-modmethod\n", np, s);
-+		return -EINVAL;
-+	}
-+
-+	pr_debug("%pOF: SSCG settings: mod_freq: %d, mod_depth: %d mod_method: %s [%d]\n",
-+		 np, conf->mod_freq, conf->mod_depth, s, conf->mod_type);
-+
-+	return 0;
-+}
-+
- static struct clk_hw *stm32f4_rcc_register_pll(const char *pllsrc,
- 		const struct stm32f4_pll_data *data,  spinlock_t *lock)
+ static int stmmac_set_bfsize(int mtu, int bufsize)
  {
-@@ -1695,7 +1828,8 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	const struct of_device_id *match;
- 	const struct stm32f4_clk_data *data;
- 	unsigned long pllm;
--	struct clk_hw *pll_src_hw;
-+	struct clk_hw *pll_src_hw, *pll_vco_hw;
-+	struct stm32f4_pll_ssc ssc_conf;
- 
- 	base = of_iomap(np, 0);
- 	if (!base) {
-@@ -1754,8 +1888,8 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	clk_hw_register_fixed_factor(NULL, "vco_in", pll_src,
- 				     0, 1, pllm);
- 
--	stm32f4_rcc_register_pll("vco_in", &data->pll_data[0],
--			&stm32f4_clk_lock);
-+	pll_vco_hw = stm32f4_rcc_register_pll("vco_in", &data->pll_data[0],
-+					      &stm32f4_clk_lock);
- 
- 	clks[PLL_VCO_I2S] = stm32f4_rcc_register_pll("vco_in",
- 			&data->pll_data[1], &stm32f4_clk_lock);
-@@ -1900,6 +2034,9 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 
- 	of_clk_add_hw_provider(np, stm32f4_rcc_lookup_clk, NULL);
- 
-+	if (!stm32f4_pll_ssc_parse_dt(np, &ssc_conf))
-+		stm32f4_pll_init_ssc(pll_vco_hw, &ssc_conf);
-+
- 	return;
- fail:
- 	kfree(clks);
+ 	int ret = bufsize;
 -- 
-2.43.0
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
