@@ -2,85 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05D25A0380E
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 07:38:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2BCFA03869
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 08:08:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC142C78018;
-	Tue,  7 Jan 2025 06:38:17 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EE64C78018;
+	Tue,  7 Jan 2025 07:08:28 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3954DC78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0534C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 06:38:11 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2163dc5155fso217277385ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jan 2025 22:38:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736231890; x=1736836690;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=orCDsDNFA6uclIQ3/usGvXWL2lE5OsemzFx60WJJZsA=;
- b=Jntd4iNjmdekOKLpJ8wYlGRvtUBVOAkSTzD4aiWpQdE9Xm2qkZWg8r2gc3Facwgfe6
- PaxDRUb5Ud1mw5pzEnE1t2NmrEAeGz5r6N8mg9HkjmE9ARTUNqmnVs7zgwyyoub3YPbJ
- aVxPdFpmwCrkKhj+Rzk/UGJN8092NxnwwmR4mtBq+nmA+0oDiW6mw/QNQMyf2lMiykFo
- 5NMpYWP5pVbIL+vNTOuv8haixwQwv6oYLzFJqVwJw7oHi6JTmX9r/Qce+tIFd/MPWJom
- vce0kpaInKl75mB0zGNppIlvWu0czJDP3LWB8JSbrHAEdWN/zDPJNdqn6wd4eM2tIN46
- 1hYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736231890; x=1736836690;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=orCDsDNFA6uclIQ3/usGvXWL2lE5OsemzFx60WJJZsA=;
- b=fHvMkro1KKG52WI+TLk4hITmHmGHwk64cuYZ4dsFFo8RgGqL0ctQvl2fMQUd3hRv1t
- Qb9lOewYrhoimO5Fnj3O0j6S6jI+J/PaqrbFl0gMPdsBs7ueglYtkUzwrDWb3Cp/eFtC
- lD6BaaE8PxX4EnEooJT2iWM+liJwEtYrjaYVkjXO8mRbZUbSKFW3bF1J5FPzlJSmrLsQ
- hmpyL/GZYyUdBoDVq87bsjHSn/XgHdwh+pRQGelAnOWQ0w3DjB2JR/A8M5bCg5BstanD
- H8iKH2qCLww8YmfgUsAIbn2fBLfqftUkCubx4LYtCRXmmkOYWwicCQPI7lXxEUT8LSAD
- smxA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWAN5Hs1CiGNhqeNdM6vgVkfD30wACXDt0qsAxE0Cuv5EURr/c6LhsauW3Z8gJPmzf3jS6oM8T66Cy/Gg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwJ/7KrJPDg96i4f2RCMydxqq46NSg/5bWzTVYMVhbIg5b4/dDs
- oIEJ/gcPGh3cydd4VNTXV6dG2QBGmpEr73EvkalVoVOn9/az1ScV
-X-Gm-Gg: ASbGncvjeOxfwNzuwBHgOEoqdkquGgwcIBihnGYGNTdSaUF331PpzuQ3Iq6m48l/TTo
- x0i22u/wlKjIqaxl0+JZVCHT6EwdXW5nokeQ54B3IOCklDkliR7xqn0Xvm91jidwK2PSbM3hgrF
- 9iJ7zesB1iK/qOGv7Rh89vt3jGi7/xOySK8pljm4NvrC3eCGtQrz1rDx0pu0CKdNIl3t0rR02N2
- wkvKMj/nIAr4aR0raaZaq/datSW04zrXkEvnLz54l68YrQqXW1cfEHClMoi8x5DEi/+VJqbEEJF
- IVsqkN+t2fAeAUOEhdejjfzWem6n0EnfgdI=
-X-Google-Smtp-Source: AGHT+IGWjFIAveI9yo5Dqy+7qm6ujTkxPVuxedvySkpkmuvq5Mxo0g2bGXtAvQZqm2ic1gDjzturbQ==
-X-Received: by 2002:a17:902:d2c9:b0:216:4c88:d939 with SMTP id
- d9443c01a7336-219e6f133b6mr907204635ad.38.1736231889846; 
- Mon, 06 Jan 2025 22:38:09 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-219dc9f5227sm305467095ad.185.2025.01.06.22.38.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 22:38:09 -0800 (PST)
-Message-ID: <39e559f4-375b-4e4e-8c81-3d1d8858e839@gmail.com>
-Date: Tue, 7 Jan 2025 14:38:05 +0800
+ Tue,  7 Jan 2025 07:08:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id F0B81A40277;
+ Tue,  7 Jan 2025 07:06:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC357C4CED6;
+ Tue,  7 Jan 2025 07:08:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736233699;
+ bh=R8h9eLfpu3xvbqL1BO+eFKtQtfe7sm2Zwb1q9DoGnrI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U5OVSucKvFdrOhO+k/lAkfQjEvBEBrt/yTbAsyIHLY8P9NzbulizOX2EbuDdm2XbB
+ w8X00HgngAr3UEqsK404FmI4/JpdStdRUVQe2H5HUKuRn0x1ojRR9nB3quLpMVkbqE
+ rXDW+Hl0Ip52LjfbqqHT2VvajsaaLDmViY7KQUiXTYUa+3gPZRJ0VLGetZ+7kf2t1a
+ GChhTxJOZ/+FyE+TMNTaabUJ21a0ZsDSkqxEvE1YGLZ9TbFg7gJfRgFvpQY9xi/3jQ
+ fRzAlLJJf7wuMQR/XysRaeOd4FneWv3hwm7US1lub/XOUXtJIrtlxynrF4P81wnn6+
+ nS2a3/U/HsJ5A==
+Date: Tue, 7 Jan 2025 08:08:16 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <tedqfrtcnx66j5tlkgmiv4wr6towpwwso4pjzraxm76cjejory@3cktakntjbab>
+References: <20250105181525.1370822-1-dario.binacchi@amarulasolutions.com>
+ <20250105181525.1370822-2-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20250103063241.2306312-1-a0987203069@gmail.com>
- <20250106163054.79cdd533@kernel.org>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20250106163054.79cdd533@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, netdev@vger.kernel.org, richardcochran@gmail.com,
- ychuang3@nuvoton.com, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- edumazet@google.com, joabreu@synopsys.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- schung@nuvoton.com, peppe.cavallaro@st.com, krzk+dt@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, yclu4@nuvoton.com
-Subject: Re: [Linux-stm32] [PATCH net-next v6 0/3] Add support for Nuvoton
-	MA35D1 GMAC
+Content-Disposition: inline
+In-Reply-To: <20250105181525.1370822-2-dario.binacchi@amarulasolutions.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: clock: convert stm32 rcc
+ bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,23 +57,193 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ckpha3ViIEtpY2luc2tpIOaWvCAxLzcvMjAyNSA4OjMwIEFNIOWvq+mBkzoKPiBPbiBGcmksICAz
-IEphbiAyMDI1IDE0OjMyOjM4ICswODAwIEpvZXkgTHUgd3JvdGU6Cj4+IFRoaXMgcGF0Y2ggc2Vy
-aWVzIGlzIHN1Ym1pdHRlZCB0byBhZGQgR01BQyBzdXBwb3J0IGZvciBOdXZvdG9uIE1BMzVEMQo+
-PiBTb0MgcGxhdGZvcm0uIFRoaXMgd29yayBpbnZvbHZlcyBpbXBsZW1lbnRpbmcgYSBHTUFDIGRy
-aXZlciBnbHVlIGxheWVyCj4+IGJhc2VkIG9uIFN5bm9wc3lzIERXTUFDIGRyaXZlciBmcmFtZXdv
-cmsgdG8gbGV2ZXJhZ2UgTUEzNUQxJ3MgZHVhbCBHTUFDCj4+IGludGVyZmFjZSBjYXBhYmlsaXRp
-ZXMuCj4gV291bGQgYmUgZ29vZCBpZiB5b3UgY291bGQgcmVwbHkgdG8gQ2hyaXN0b3BoZSdzIHF1
-ZXN0aW9uLgo+Cj4gVGhlbiBwbGVhc2UgcmViYXNlIG9uIHRvcCBvZiBuZXQtbmV4dC9tYWluIGFu
-ZCByZXBvc3QuCj4gVGhlIGZpcnN0IHBhdGNoIGRvZXNuJ3QgY3VycmVudGx5IGFwcGx5IGNsZWFu
-bHkuCj4gUGxlYXNlIGxlYXZlIG91dCB0aGUgc2Vjb25kIHBhdGNoLCBpdCBoYXMgdG8gZ28gdmlh
-Cj4gdGhlIGFwcHJvcHJpYXRlIHBsYXRmb3JtIHRyZWUsIHJhdGhlciB0aGFuIHRoZSBuZXR3b3Jr
-aW5nCj4gdHJlZS4KCkkgZ290IGl0LiBUaGFuayB5b3UhCgpCUiwKCkpvZXkKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Sun, Jan 05, 2025 at 07:14:13PM +0100, Dario Binacchi wrote:
+> diff --git a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+> new file mode 100644
+> index 000000000000..ae9e5b26d876
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+> @@ -0,0 +1,143 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/st,stm32-rcc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 Reset Clock Controller
+> +
+> +maintainers:
+> +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> +
+> +description: |
+> +  The RCC IP is both a reset and a clock controller.
+> +
+> +  This binding uses common clock and reset bindings
+> +  Documentation/devicetree/bindings/clock/clock-bindings.txt
+> +  Documentation/devicetree/bindings/reset/reset.txt
+
+Drop paragraph.
+
+> +
+> +  Specifying softreset control of devices
+> +  =======================================
+> +
+> +  Device nodes should specify the reset channel required in their "resets"
+> +  property, containing a phandle to the reset device node and an index specifying
+> +  which channel to use.
+
+Drop paragraph and rephrase it that reset phandle argument is "... the bit
+number within the RCC...."
+
+> +  The index is the bit number within the RCC registers bank, starting from RCC
+> +  base address.
+> +  It is calculated as: index = register_offset / 4 * 32 + bit_offset.
+> +  Where bit_offset is the bit offset within the register.
+> +
+> +  For example, for CRC reset:
+> +  crc = AHB1RSTR_offset / 4 * 32 + CRCRST_bit_offset = 0x10 / 4 * 32 + 12 = 140
+> +
+> +  The list of valid indices is available in:
+> +  - include/dt-bindings/mfd/stm32f4-rcc.h for STM32F4 series
+> +  - include/dt-bindings/mfd/stm32f7-rcc.h for STM32F7 series
+> +  - include/dt-bindings/mfd/stm32h7-rcc.h for STM32H7 series
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - enum:
+> +              - st,stm32f469-rcc
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - const: st,stm32f746-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - enum:
+> +              - st,stm32f769-rcc
+> +          - const: st,stm32f746-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - const: st,stm32h743-rcc
+> +          - const: st,stm32-rcc
+
+Old binding did not mention any fallbacks, so you need to explain this
+in commit msg. You only said "st,stm32h743-rcc"
+
+> + 
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#reset-cells':
+> +    const: 1
+> +
+> +  '#clock-cells':
+> +    enum: [1, 2]
+> +
+> +  clocks:
+> +    minItems: 2
+> +    maxItems: 3
+
+You need to list the items with description. Narrow the clock numbers
+per varian in allOf:if:then and explain this in commit msg (old binding
+did not say three clocks, so that's another change).
+
+> +
+> +  st,syscfg:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to system configuration controller. It can be used to control the
+> +      power domain circuitry.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#reset-cells'
+> +  - '#clock-cells'
+> +  - clocks
+> +  - st,syscfg
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32h743-rcc
+> +    then:
+> +      properties:
+> +        '#clock-cells':
+> +          const: 1
+> +          description: |
+> +            The clock index for the specified type.
+> +    else:
+> +      properties:
+> +        '#clock-cells':
+> +          const: 2
+> +          description: |
+> +            - The first cell is the clock type, possible values are 0 for
+> +              gated clocks and 1 otherwise.
+> +            - The second cell is the clock index for the specified type.
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  # Reset and Clock Control Module node:
+> +  - |
+> +    rcc@40023800 {
+> +        #reset-cells = <1>;
+> +        #clock-cells = <2>;
+> +        compatible = "st,stm32f42xx-rcc", "st,stm32-rcc";
+> +        reg = <0x40023800 0x400>;
+
+compatible and reg are alwys the first.
+
+> +        clocks = <&clk_hse>, <&clk_i2s_ckin>;
+> +        st,syscfg = <&pwrcfg>;
+
+Only one example.
+
+> +    };
+> +
+> +  - |
+> +    rcc@40023800 {
+> +        #reset-cells = <1>;
+> +        #clock-cells = <2>;
+> +        compatible = "st,stm32f746-rcc", "st,stm32-rcc";
+> +        reg = <0x40023800 0x400>;
+> +        clocks = <&clk_hse>, <&clk_i2s_ckin>;
+> +        st,syscfg = <&pwrcfg>;
+> +    };
+> +
+> +  - |
+> +    rcc@58024400 {
+
+clock-controller@58024400
+
+> +        compatible = "st,stm32h743-rcc", "st,stm32-rcc";
+> +        reg = <0x58024400 0x400>;
+> +        #clock-cells = <1>;
+> +        #reset-cells = <1>;
+> +        clocks = <&clk_hse>, <&clk_lse>, <&clk_i2s>;
+> +        st,syscfg = <&pwrcfg>;
+
+So maybe just keep this example only.
+
+> +    };
+> +
+> +...
+> -- 
+> 2.43.0
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
