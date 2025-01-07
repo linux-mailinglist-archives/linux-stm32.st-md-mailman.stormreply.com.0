@@ -2,61 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ABB4A038C7
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 08:29:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA7CFA0391B
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 08:55:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFBECC78018;
-	Tue,  7 Jan 2025 07:29:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AA80C7128F;
+	Tue,  7 Jan 2025 07:55:17 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D850C78013
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FD26C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 07:29:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736234965; x=1767770965;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uat2YMlEc7Xp6j7gAomimDsLGJKKKHa/p6RKV8tc0a8=;
- b=MTcPACjwkpJ7pFhzgADzyKv/3JgBrrQbDKBMjC6Ann7UDGFcQtV+Meml
- EBMg1CYjYgIXfPGBHiVUzWf/xcG2VplojnSWoxAbXYsMRfj3bLfxDMFL9
- pXxEDbF0Od7fgO44ajUURo96LjuNCnpAOraINmLj+rw1POb1MIDWdJO2G
- ffgzSgEW92KvrlnNG+8cx82eHzTTPy5VexrTcvCbLC81q7Bt/yNye+Wm+
- JpBbquXRJ7E51k3tKeiiH6H1zfK+M0AYl7iepR3ybtl7LOitnRhGNDV4l
- bEEmp/sVbVSuXa4B/H5eeiMsSvD8DCiU68xoq27LtnURctfF+Osb13UV2 Q==;
-X-CSE-ConnectionGUID: ilGMXkQCRdCDzF2nuL18ig==
-X-CSE-MsgGUID: fLAwxQksQC6WjsCwam11Pw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11307"; a="40174516"
-X-IronPort-AV: E=Sophos;i="6.12,294,1728975600"; d="scan'208";a="40174516"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2025 23:29:16 -0800
-X-CSE-ConnectionGUID: 1FALSZDjTGunzAkFKziNaQ==
-X-CSE-MsgGUID: v8zTB9WhTaWnmmAkffTGsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,294,1728975600"; d="scan'208";a="102573726"
-Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by fmviesa007.fm.intel.com with ESMTP; 06 Jan 2025 23:29:13 -0800
-Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tV41W-000EMZ-31;
- Tue, 07 Jan 2025 07:29:10 +0000
-Date: Tue, 7 Jan 2025 15:28:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <202501071547.L5CjLObQ-lkp@intel.com>
-References: <E1tUmAz-007VXn-0o@rmk-PC.armlinux.org.uk>
+ Tue,  7 Jan 2025 07:55:10 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-216728b1836so201915285ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Jan 2025 23:55:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736236509; x=1736841309;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fMRSb4dnSsNjNB0J5PZBlf9Y068CCmYN8ovILPTjdbA=;
+ b=A0SapOGKiJ/CqJ2fLa8f9f9ZIC3mKVqn5abg7kah71YU50T9M4PNlrCIxfFG/S3dHC
+ OOIrMfRZjSwpGm5zfW1+BGyQYSTtWZ8UF209CjIan9BruoPOquDUbcN+DOD0lDoPUbwR
+ C4lpV7EBox6TNhAM4KgB9XmRSTWMf0kjxwxD3oAP2D1n0Coss+aki13eEYnSMvzwoUiO
+ uVCIoBWs4cMZCzwqcg/V6RuStXfIdUKAuZ+hkVz4n5tbYEr0TzJXcTSmJjEWeme4pJID
+ txHyaMhCg1zi9i2C4tODCCGenaHgFW2d0PmL2OlJ9Z8hRqL5HQ4xhflUdd28OUtbOzqH
+ OMhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736236509; x=1736841309;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fMRSb4dnSsNjNB0J5PZBlf9Y068CCmYN8ovILPTjdbA=;
+ b=nN1gr6leuap8QjhU3OwYWoAo7CxVv8Jxk/E4NW6xNkuGuxgCbLrWvk1QftwG3hmWES
+ +Z2Wxkwk/lSlQrIIiD/UTA/fJ3NuZzla0QjLu8FM+ATEyR+T9081ve+RIl/xOpObsf5f
+ wY9J07iUV8dRkuS6MAmbUAg30KS/fJZRmToGw6+wymxcLMjpG9w2vd+nDFWMKabR1IBV
+ BF3Ov/Zk8rPInbiewefMdvT0bO3wbv5F26Zz/q24ohYgfdZWYx61+GVGhR/tEQ+LqbQT
+ FbuolOmwk9NpzyDG1sLZIYuwKklS9A1v+a+tBh7MHKwXurY46TdeFcfmuNDFzG2V5muF
+ ocrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUj8oInhnt6FCcVwv2++poKRHAgyRaT+16KhczNhC6W23GNskmoyMSG03WxPqA9Ts4qEobL3ECgOo5qWQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyhCKh0uHIsmEdFwwQCEY8zUJfwNYY+jRrUJDM8Z6lPVxCqUz0s
+ BLnGNzIb3zOns8j8gPFqeM+xbYLLTY6+ckb0zjZSIKiY+WirrZ/V
+X-Gm-Gg: ASbGncsAh3KnTxCvhCdPJtMQS3wPaQT6W1HCoYm2cLbVu9017DaBjhOxJeCZXguUGDq
+ El+zjHvBtg8BvTsqr1X9duiijeF7fIzMR0WHiRhWC94ahl/yYZt6dYgsG3XOdShryyLo598gRAA
+ oxWvm2Oqf7QdiL+ngVmZXiEgGxwibNNHI8aVX7z4nqH0QzMk7A3zRDJKrdz+j15Kb8ezk7Drq5D
+ 3B51T/U44oDVUfQrXMuUbui7P9199mq9ga9Z2TjAQaDtp+NBTdVyz7l+79Rq9R1A9A3nQ==
+X-Google-Smtp-Source: AGHT+IHTiLKTTvGlPvf762xL6WD6qZDn+dCSTlEUSBZ2KuE+CZ/5XDACbnpOBQG5E+loF0NezMfxjw==
+X-Received: by 2002:a17:902:db11:b0:216:282d:c69b with SMTP id
+ d9443c01a7336-219e6f4312dmr754512945ad.50.1736236508633; 
+ Mon, 06 Jan 2025 23:55:08 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-219dc9f7e49sm304468635ad.217.2025.01.06.23.55.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2025 23:55:08 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue,  7 Jan 2025 15:54:48 +0800
+Message-Id: <20250107075448.4039925-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1tUmAz-007VXn-0o@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 12/17] net: stmmac: move
- priv->eee_active into stmmac_eee_init()
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: Unexport
+	stmmac_rx_offset() from stmmac.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,101 +89,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
+stmmac_rx_offset() is referenced in stmmac_main.c only,
+let's move it to stmmac_main.c.
 
-kernel test robot noticed the following build warnings:
+Drop the inline keyword by the way, it is better to let the compiler
+to decide.
 
-[auto build test WARNING on net-next/main]
+Compile tested only.
+No functional change intended.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-move-tx_lpi_timer-tracking-to-phylib/20250107-002808
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/E1tUmAz-007VXn-0o%40rmk-PC.armlinux.org.uk
-patch subject: [PATCH net-next v2 12/17] net: stmmac: move priv->eee_active into stmmac_eee_init()
-config: i386-buildonly-randconfig-005-20250107 (https://download.01.org/0day-ci/archive/20250107/202501071547.L5CjLObQ-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250107/202501071547.L5CjLObQ-lkp@intel.com/reproduce)
+Signed-off-by: Furong Xu <0x1207@gmail.com>
+---
+V1 -> V2: Drop the inline keyword (Andrew Lunn)
+V1: https://lore.kernel.org/r/20250106062845.3943846-1-0x1207@gmail.com
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 8 --------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202501071547.L5CjLObQ-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:468: warning: Function parameter or struct member 'active' not described in 'stmmac_eee_init'
-
-
-vim +468 drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  458  
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  459  /**
-732fdf0e5253e9 Giuseppe CAVALLARO       2014-11-18  460   * stmmac_eee_init - init EEE
-32ceabcad3c8ab Giuseppe CAVALLARO       2013-04-08  461   * @priv: driver private structure
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  462   * Description:
-732fdf0e5253e9 Giuseppe CAVALLARO       2014-11-18  463   *  if the GMAC supports the EEE (from the HW cap reg) and the phy device
-732fdf0e5253e9 Giuseppe CAVALLARO       2014-11-18  464   *  can also manage EEE, this function enable the LPI state and start related
-732fdf0e5253e9 Giuseppe CAVALLARO       2014-11-18  465   *  timer.
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  466   */
-5ad24fd233fa83 Russell King (Oracle     2025-01-06  467) static void stmmac_eee_init(struct stmmac_priv *priv, bool active)
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27 @468  {
-5ad24fd233fa83 Russell King (Oracle     2025-01-06  469) 	priv->eee_active = active;
-5ad24fd233fa83 Russell King (Oracle     2025-01-06  470) 
-74371272f97fd1 Jose Abreu               2019-06-11  471  	/* Check if MAC core supports the EEE feature. */
-418ee895284762 Russell King (Oracle     2025-01-06  472) 	if (!priv->dma_cap.eee) {
-418ee895284762 Russell King (Oracle     2025-01-06  473) 		priv->eee_enabled = false;
-418ee895284762 Russell King (Oracle     2025-01-06  474) 		return;
-418ee895284762 Russell King (Oracle     2025-01-06  475) 	}
-83bf79b6bb64e6 Giuseppe CAVALLARO       2014-03-10  476  
-29555fa3de8656 Thierry Reding           2018-05-24  477  	mutex_lock(&priv->lock);
-74371272f97fd1 Jose Abreu               2019-06-11  478  
-74371272f97fd1 Jose Abreu               2019-06-11  479  	/* Check if it needs to be deactivated */
-177d935a13703e Jon Hunter               2019-06-26  480  	if (!priv->eee_active) {
-177d935a13703e Jon Hunter               2019-06-26  481  		if (priv->eee_enabled) {
-38ddc59d65b6d9 LABBE Corentin           2016-11-16  482  			netdev_dbg(priv->dev, "disable EEE\n");
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  483  			stmmac_lpi_entry_timer_config(priv, 0);
-83bf79b6bb64e6 Giuseppe CAVALLARO       2014-03-10  484  			del_timer_sync(&priv->eee_ctrl_timer);
-26dbf37afd5d4b Russell King (Oracle     2025-01-06  485) 			stmmac_set_eee_timer(priv, priv->hw, 0,
-26dbf37afd5d4b Russell King (Oracle     2025-01-06  486) 					     STMMAC_DEFAULT_TWT_LS);
-d4aeaed80b0ebb Wong Vee Khee            2021-10-05  487  			if (priv->hw->xpcs)
-d4aeaed80b0ebb Wong Vee Khee            2021-10-05  488  				xpcs_config_eee(priv->hw->xpcs,
-d4aeaed80b0ebb Wong Vee Khee            2021-10-05  489  						priv->plat->mult_fact_100ns,
-d4aeaed80b0ebb Wong Vee Khee            2021-10-05  490  						false);
-177d935a13703e Jon Hunter               2019-06-26  491  		}
-418ee895284762 Russell King (Oracle     2025-01-06  492) 		priv->eee_enabled = false;
-0867bb9768deda Jon Hunter               2019-06-26  493  		mutex_unlock(&priv->lock);
-418ee895284762 Russell King (Oracle     2025-01-06  494) 		return;
-83bf79b6bb64e6 Giuseppe CAVALLARO       2014-03-10  495  	}
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  496  
-74371272f97fd1 Jose Abreu               2019-06-11  497  	if (priv->eee_active && !priv->eee_enabled) {
-74371272f97fd1 Jose Abreu               2019-06-11  498  		timer_setup(&priv->eee_ctrl_timer, stmmac_eee_ctrl_timer, 0);
-74371272f97fd1 Jose Abreu               2019-06-11  499  		stmmac_set_eee_timer(priv, priv->hw, STMMAC_DEFAULT_LIT_LS,
-26dbf37afd5d4b Russell King (Oracle     2025-01-06  500) 				     STMMAC_DEFAULT_TWT_LS);
-656ed8b015f19b Wong Vee Khee            2021-09-30  501  		if (priv->hw->xpcs)
-656ed8b015f19b Wong Vee Khee            2021-09-30  502  			xpcs_config_eee(priv->hw->xpcs,
-656ed8b015f19b Wong Vee Khee            2021-09-30  503  					priv->plat->mult_fact_100ns,
-656ed8b015f19b Wong Vee Khee            2021-09-30  504  					true);
-71965352eedd0c Giuseppe CAVALLARO       2014-08-28  505  	}
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  506  
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  507  	if (priv->plat->has_gmac4 && priv->tx_lpi_timer <= STMMAC_ET_MAX) {
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  508  		del_timer_sync(&priv->eee_ctrl_timer);
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  509  		priv->tx_path_in_lpi_mode = false;
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  510  		stmmac_lpi_entry_timer_config(priv, 1);
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  511  	} else {
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  512  		stmmac_lpi_entry_timer_config(priv, 0);
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  513  		mod_timer(&priv->eee_ctrl_timer,
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  514  			  STMMAC_LPI_T(priv->tx_lpi_timer));
-be1c7eae8c7dfc Vineetha G. Jaya Kumaran 2020-10-28  515  	}
-388e201d41fa1e Vineetha G. Jaya Kumaran 2020-10-01  516  
-418ee895284762 Russell King (Oracle     2025-01-06  517) 	priv->eee_enabled = true;
-418ee895284762 Russell King (Oracle     2025-01-06  518) 
-29555fa3de8656 Thierry Reding           2018-05-24  519  	mutex_unlock(&priv->lock);
-38ddc59d65b6d9 LABBE Corentin           2016-11-16  520  	netdev_dbg(priv->dev, "Energy-Efficient Ethernet initialized\n");
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  521  }
-d765955d2ae0b8 Giuseppe CAVALLARO       2012-06-27  522  
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index b8d631e559c0..548b28fed9b6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -416,14 +416,6 @@ static inline bool stmmac_xdp_is_enabled(struct stmmac_priv *priv)
+ 	return !!priv->xdp_prog;
+ }
+ 
+-static inline unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
+-{
+-	if (stmmac_xdp_is_enabled(priv))
+-		return XDP_PACKET_HEADROOM;
+-
+-	return 0;
+-}
+-
+ void stmmac_disable_rx_queue(struct stmmac_priv *priv, u32 queue);
+ void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue);
+ void stmmac_disable_tx_queue(struct stmmac_priv *priv, u32 queue);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 2f518ec845ec..24cc39d8edbd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1315,6 +1315,14 @@ static void stmmac_display_rings(struct stmmac_priv *priv,
+ 	stmmac_display_tx_rings(priv, dma_conf);
+ }
+ 
++static unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
++{
++	if (stmmac_xdp_is_enabled(priv))
++		return XDP_PACKET_HEADROOM;
++
++	return 0;
++}
++
+ static int stmmac_set_bfsize(int mtu, int bufsize)
+ {
+ 	int ret = bufsize;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
