@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F8AA0462F
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 17:29:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD36A04632
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 17:29:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC39FC78025;
-	Tue,  7 Jan 2025 16:29:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8A70C78025;
+	Tue,  7 Jan 2025 16:29:07 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39665C78F6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1DFDC78022
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 16:29:01 +0000 (UTC)
+ Tue,  7 Jan 2025 16:29:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=m7sRj8MyoTLWqspxEn08rVS2H9QlJQS/1BnosoK5uUE=; b=xg9kxxd0sospqxYjcrJa2w6E/X
- 5y/Nwj/KkPQ/2OFt7FuwkYzuqvvKOLFKPu4ha2jEFOdz0ckKVwN8aNDauUlbaeMArbUmEIjl62hDO
- sXYM+SlKJKoY8zT0KPfa0EQY64AATcNOSeDK3SyqPMAnAj3HHceR/qmYrNyqAShQRZCNOFbBRFdoz
- 8XApR5tkq4MOh69sEtRXz0hG6K2Jf1J+TQzBfRMXRYwy28lkdmfUMvfosqEq91sIO3p6R58IbQ1nJ
- gUPKDkZttQ5m6McsfD+bOrpQ64rzVggOnMH4KIOnaI4zi0YvWB47n1gpJikpxnwFEx6nqRXE5MPeA
- gSg5B7cQ==;
+ bh=htW5qn6DvTQCml5FV0+E9wXF615rxk0Wx5RrDokY4q4=; b=g7LZS4O03GoODV7ZMw6IA3/zKa
+ E4/SqypXx8d5THWhxizbJvTu3vtq/sCdhTBYEKCBqeUPKNbHtvLc9s4lBljDKLNhu1Am5eGj1afTN
+ fGSv4A6fTeQPDySGkNcAP0ob3121fj1J0dwufxIQZxgI2ecWh5yXfJ7u/LxZuPArPp2tj8Hu3INhr
+ +N9JXoHkqAbfBDXs3UXJysgXnbY4RVETGqs5gYCCebKri3wZkH4xjy6JPYAueV/B+bwBh2F5rEViQ
+ L4Bcb/uuuswzRiFsDsD7FsjCwx6wUvp2e7hZii1fGblspNK6pTiPs72KDe5Bs+txDAYA0IgAZ9X6i
+ UoBgIYqw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58284 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50278 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tVCRr-0007lz-1x;
- Tue, 07 Jan 2025 16:28:55 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1tVCRw-0007mG-2e;
+ Tue, 07 Jan 2025 16:29:00 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tVCRo-007Y3N-Kl; Tue, 07 Jan 2025 16:28:52 +0000
+ id 1tVCRt-007Y3T-OJ; Tue, 07 Jan 2025 16:28:57 +0000
 In-Reply-To: <Z31V9O8SATRbu2L3@shell.armlinux.org.uk>
 References: <Z31V9O8SATRbu2L3@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,15 +41,15 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1tVCRo-007Y3N-Kl@rmk-PC.armlinux.org.uk>
-Date: Tue, 07 Jan 2025 16:28:52 +0000
+Message-Id: <E1tVCRt-007Y3T-OJ@rmk-PC.armlinux.org.uk>
+Date: Tue, 07 Jan 2025 16:28:57 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 05/18] net: stmmac: make EEE
- depend on phy->enable_tx_lpi
+Subject: [Linux-stm32] [PATCH net-next v3 06/18] net: stmmac: remove
+ redundant code from ethtool EEE ops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,34 +66,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Make stmmac EEE depend on phylib's evaluation of user settings and PHY
-negotiation, as indicated by phy->enable_tx_lpi. This will ensure when
-phylib has evaluated that the user has disabled LPI, phy_init_eee()
-will not be called, and priv->eee_active will be false, causing LPI/EEE
-to be disabled.
+Setting edata->tx_lpi_enabled in stmmac_ethtool_op_get_eee() gets
+overwritten by phylib, so there's no point setting this.
 
-This is an interim measure - phy_init_eee() will be removed in a later
-patch.
+In stmmac_ethtool_op_set_eee(), now that stmmac is using the result of
+phylib's evaluation of EEE, there is no need to handle anything in the
+ethtool EEE ops other than calling through to the appropriate phylink
+function, which will pass on to phylib the users request.
+
+As stmmac_disable_eee_mode() is now no longer called from outside
+stmmac_main.c, make it static.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h         | 1 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 9 ---------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    | 2 +-
+ 3 files changed, 1 insertion(+), 11 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 984e708d019f..2eee3c5c4d1e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -405,7 +405,6 @@ void stmmac_dvr_remove(struct device *dev);
+ int stmmac_dvr_probe(struct device *device,
+ 		     struct plat_stmmacenet_data *plat_dat,
+ 		     struct stmmac_resources *res);
+-void stmmac_disable_eee_mode(struct stmmac_priv *priv);
+ int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt);
+ int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size);
+ int stmmac_bus_clks_config(struct stmmac_priv *priv, bool enabled);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 0429a99a8114..693f59c3c47a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -898,8 +898,6 @@ static int stmmac_ethtool_op_get_eee(struct net_device *dev,
+ 	if (!priv->dma_cap.eee)
+ 		return -EOPNOTSUPP;
+ 
+-	edata->tx_lpi_enabled = priv->tx_lpi_enabled;
+-
+ 	return phylink_ethtool_get_eee(priv->phylink, edata);
+ }
+ 
+@@ -911,13 +909,6 @@ static int stmmac_ethtool_op_set_eee(struct net_device *dev,
+ 	if (!priv->dma_cap.eee)
+ 		return -EOPNOTSUPP;
+ 
+-	if (priv->tx_lpi_enabled != edata->tx_lpi_enabled)
+-		netdev_warn(priv->dev,
+-			    "Setting EEE tx-lpi is not supported\n");
+-
+-	if (!edata->eee_enabled)
+-		stmmac_disable_eee_mode(priv);
+-
+ 	return phylink_ethtool_set_eee(priv->phylink, edata);
+ }
+ 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 96393e6feda0..3135bfdbee3c 100644
+index 3135bfdbee3c..1ccfa40ceddd 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1083,7 +1083,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
- 
- 	stmmac_mac_set(priv, priv->ioaddr, true);
- 	if (phy && priv->dma_cap.eee) {
--		priv->eee_active =
-+		priv->eee_active = phy->enable_tx_lpi &&
- 			phy_init_eee(phy, !(priv->plat->flags &
- 				STMMAC_FLAG_RX_CLK_RUNS_IN_LPI)) >= 0;
- 		priv->tx_lpi_timer = phy->eee_cfg.tx_lpi_timer;
+@@ -432,7 +432,7 @@ static int stmmac_enable_eee_mode(struct stmmac_priv *priv)
+  * Description: this function is to exit and disable EEE in case of
+  * LPI state is true. This is called by the xmit.
+  */
+-void stmmac_disable_eee_mode(struct stmmac_priv *priv)
++static void stmmac_disable_eee_mode(struct stmmac_priv *priv)
+ {
+ 	if (!priv->eee_sw_timer_en) {
+ 		stmmac_lpi_entry_timer_config(priv, 0);
 -- 
 2.30.2
 
