@@ -2,93 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67F67A04B14
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 21:37:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55E98A04B8A
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 22:26:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13FE3C78025;
-	Tue,  7 Jan 2025 20:37:44 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E20AC78025;
+	Tue,  7 Jan 2025 21:26:10 +0000 (UTC)
+Received: from mout.perfora.net (mout.perfora.net [74.208.4.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15D9EC78022
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65489C78022
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 20:37:36 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-216395e151bso2391865ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jan 2025 12:37:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20230601; t=1736282254; x=1736887054;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=C1H/J3xaLiB+SOTacWZ1CrgmLpcpSfI8SMqoIoJuoKI=;
- b=IKTGYlpCB84t+WmiMwiB4BgT5frz/L+SmhofKDGVI8FH3P3tZCJtLct5RnXL5sjrX5
- ukN2ZNAwbISgHmogGdduYfUo4n8T96KuDtndju73Pk3SgldafbvBnIABOUJadpJZW6jz
- 9AN1OB4mhWBjoKUvpaCOCztb2/1cZmhtNYQdWwNLsWz/Azh03yV0TmwCFw57zHZ26Zm9
- Qx1swzcViqW6T5qo7uQdGVL5KTFaB4wrd4RyLVyYmwiN5IiY5Ncr9YCX/L928sF2dh/4
- 8VoBIkpJdkNKElxVU/ckEQzeLin0E+ljwyuNZVxyiumc/S/GnniS5vGy7cOoo2Lk7ZNu
- F/aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736282254; x=1736887054;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=C1H/J3xaLiB+SOTacWZ1CrgmLpcpSfI8SMqoIoJuoKI=;
- b=JgJp/4huFeHsTAX8KHzCWLvDNZgvm3QJWmKIoIm/G5YwT4tzObdwb2LXgDNEd67pZo
- tLiTMlLyhgXBXGvkVwb5RIbxTlhcClHG++sDFDQOe9q7jSHRn335+lWHuPOxROYgnhjv
- +9ohSFyigkUJntxNv7rOdAmwGLRwTlOrO6gGC8BYxEncrahOPLKAmEgaYWucqGlJm/dw
- ALCCPIr8jJWyUXihsldBLAeXxL9rFBdtsX/Qjzv+AtPhxJkn6jh2UeBwAjOyiTAidzMp
- yD+Ing3TBoyq/u09WC9NcCrPQ4y9BTUpWCFsPtK9TsAN211MtHijcOnSWC6gJHmPlw8F
- tniw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV+zVozlDMJCjHsZ2TQkNFAggoNWB8VXgx8nbh9Wfm/T+SLhGKkXae1pLx+l6fsC1Rbe7ticJfF4zYBZg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzJhnQff0zr3sEZayWROuuGu2XJklG86NUEqllWEW695hJkuzEx
- iJgyVBqLEA7XQZPkfye3idLOjT26YpmPZXwHj2BQp2yZjcZp9apbZC9Irxo7X5Gbz+YJMIBiZb/
- wMbokXZkkjhCqK5oINZ8X/9Q0wKk=
-X-Gm-Gg: ASbGncvz6g5RCSLPmXzxtTef6NCFuIJhsF54D2c+blxQyuSAZMZKz0LlM60ktNwo3LZ
- hRbDgpyAsDF34QeSKT8jmkApbTeUWf0+IcfOOK1YCarWkD4b6tog3
-X-Google-Smtp-Source: AGHT+IFpy/zEv8gV0glc3e85eskiQiRjVRs6FkoV/+B0RRM/Pns1lF2tiJiK6t7vuZVqLlK8YkI/dPy0Q3JwAvn8b/M=
-X-Received: by 2002:a17:903:41c6:b0:215:758c:52e8 with SMTP id
- d9443c01a7336-21a83c148abmr6677255ad.12.1736282254604; Tue, 07 Jan 2025
- 12:37:34 -0800 (PST)
+ Tue,  7 Jan 2025 21:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=finest.io;
+ s=s1-ionos; t=1736285132; x=1736889932; i=parker@finest.io;
+ bh=/brQQayzpusAC1S4Zx7Av705xAT7WNHQ+b64nsO7Lf4=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+ MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=S8Uy9QXEdeN6+G7BmIROkQRq2EIARCjiUBHVtk82oZ73hRuEg/u0yclMQOAoqOXA
+ cnlfluFtuPOUUXa1P2GUqP9NGuD0C44V8VzAIYGOnwdqWDXOjEbR6gglO/dQPLSCQ
+ XVtyymJToNJIbtEmZV4OvGxP/PwwOGs4FE7Evj+cFNn2zAa8WlpeCihmEuoJ5lX/a
+ 6P84hKEcToSnBwXWTTyhotCKmhDRSEGJvF62OhXLRu3PCLoozXNVLpVndegtA+mpR
+ OszNqSrktovTRDtfVTjX+vG1C3QXRuyjOuNEjRTUDVtwrVV3MlthkIy9ZCsZOI14D
+ MrCfdw6IIx2SWLbj9A==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from finest.io ([98.159.241.229]) by mrelay.perfora.net (mreueus003
+ [74.208.5.2]) with ESMTPSA (Nemesis) id 0MPF2s-1tQrEa07CC-008E1i;
+ Tue, 07 Jan 2025 22:25:32 +0100
+From: Parker Newman <parker@finest.io>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue,  7 Jan 2025 16:24:59 -0500
+Message-ID: <6fb97f32cf4accb4f7cf92846f6b60064ba0a3bd.1736284360.git.pnewman@connecttech.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-References: <20250107125613.211478-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20250107125613.211478-1-krzysztof.kozlowski@linaro.org>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 7 Jan 2025 21:37:23 +0100
-X-Gm-Features: AbW1kvYyTE4JPE8j-clACseuWPbFM0gz7gQf2hau2axwDVbwPBqu3atU2f_bDWs
-Message-ID: <CAFBinCCwASspnr2u94K=SqTaheS00zwJVjoHOO67-qgw8hNbcg@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>, Rob Herring <robh@kernel.org>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Kevin Hilman <khilman@baylibre.com>, Brian Norris <briannorris@chromium.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-arm-kernel@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- Siddharth Vadapalli <s-vadapalli@ti.com>, Paolo Abeni <pabeni@redhat.com>,
- Dario Binacchi <dariobin@libero.it>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Grygorii Strashko <grygorii.strashko@ti.com>, Ray Jui <rjui@broadcom.com>,
- Kalle Valo <kvalo@kernel.org>, linux-can@vger.kernel.org,
- Roger Quadros <rogerq@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>,
- linux-amlogic@lists.infradead.org,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Scott Branden <sbranden@broadcom.com>, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next] dt-bindings: net: Correct
- indentation and style in DTS example
+X-Provags-ID: V03:K1:3cF6Lf2FPSJYeTOfnlwfnoLs8V65pV/CjFR0Bt2bRPBVWkZYpfC
+ zoLEm36PcbLQod8MRyFZE2fTIdgBb5FHZh1bMd7SOK2JczwK++q/urPVKd91Cg4KxbMd/Mm
+ xGEuKB0dSkv4Tgd8cYq1lCUii5B2zeNgKUNc9B18hzzSdRDCfNem8IHpDdA/BPc4kQT11oJ
+ xptxXyDxRWCM8uhoO/nwQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:LT1OCKW1FRA=;SRulpHqOygDN/wHftgkfQJy+Dbg
+ xSMt44C7PNd2NEq2WrPzdZlesaaMEsbEoNDzLTLiYrHTTsMEgI173iAFZJeeCtOAhoOpDAN3p
+ dy6vTATSq5+xkFmeh9xRBkPqpgclLXmBy77sgLTytprsqI8wlA5fk+kTm7HdnLeymbnaMJyXO
+ isdvMBNa9AZFcb6jvXzOJkk5dGOx5eQK6R4xhROvXhkvIVLLo2RdnqJmlKN27u7asfnVhrJJ5
+ FLcN534tjWNG6Cf2DCaCy20uGMLS9EXx5/tQpl7oH4qnl3hnyoquX5Hn/VODBlquIH6tqq3aY
+ V8jDZHe1wFmtCV94PIOLS3Ow7yTOHqBG9UscNVxWgVuuXhVNlw1Pa/s+ILz/OJS8Hfpm7F55I
+ x1kxvNLhSwyQU0M9xtO8YvM5EJTmGwzUFuwgdgmwXdcipfFAfZ/i1FHho8Z91pBUuQtEyUBuG
+ qBIC02KAcjwNjYFcCIFfcX702T/ldklGh37Bs1ReJBvQsyBNncLt5G6yFoBad8B/cAUkRzf2D
+ jYCNqt86p+1IPdeuxKuMezK+U8sIn9QF2enowmH5/qPwOMwlbJjwXg+I7NtHN+Z9UDFpo+vG1
+ FU9eXfH153Sr0nfcYNlRaRi9oboE1ckikVy/ubSfSQQFMoGNr/W053wYECrMtpDQEiPUqV4z0
+ z/wluQD/BjwCeRLs3oK3nA+6fs/Y0B1mD54nvb2P7slGnVA16VFpKwu3qAisN6y2Yo5VsMBd8
+ x1x3tb0bjRJOQbVzOFmdZJtUtpKTvhmHGlSCZ49Ji35ZO4MK5m++BxkIOxQw4h3j2iKKx9egy
+ 2MN6Y0jJtGpG7bm+Ez+Z4y+rHkg3eA2rOgc0vy+knMIfFXIw9Si7KWKdXngTDcw6ReOKUEEXo
+ 5AAO4lCHwVFzXNbdUeaxzT+62/qV3CcOdiIy+ZXlau6m1X67Gc9KJtin93kTldP20o7M1UUOg
+ LqH5Y3OTiQtJsDaGk7npDoReJVNF5d8YeuhxrZWtcvvbDeKz3++aKDDlojzu8JO12KG3txHUF
+ 7Q0DV+LC08fDo/arsr8YhNuoleAjZCCG7pFTajU
+Cc: Parker Newman <pnewman@connecttech.com>
+Subject: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: dwmac-tegra: Read
+	iommu stream id from device tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,23 +79,225 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKYW4gNywgMjAyNSBhdCAxOjU24oCvUE0gS3J6eXN6dG9mIEtvemxvd3NraQo8a3J6
-eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPiB3cm90ZToKPgo+IERUUyBleGFtcGxlIGluIHRo
-ZSBiaW5kaW5ncyBzaG91bGQgYmUgaW5kZW50ZWQgd2l0aCAyLSBvciA0LXNwYWNlcyBhbmQKPiBh
-bGlnbmVkIHdpdGggb3BlbmluZyAnLSB8Jywgc28gY29ycmVjdCBhbnkgZGlmZmVyZW5jZXMgbGlr
-ZSAzLXNwYWNlcyBvcgo+IG1peHR1cmVzIDItIGFuZCA0LXNwYWNlcyBpbiBvbmUgYmluZGluZy4K
-Pgo+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlcyBoZXJlLCBidXQgc2F2ZXMgc29tZSBjb21tZW50cyBk
-dXJpbmcgcmV2aWV3cyBvZgo+IG5ldyBwYXRjaGVzIGJ1aWx0IG9uIGV4aXN0aW5nIGNvZGUuCj4K
-PiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tp
-QGxpbmFyby5vcmc+Cj4gLS0tCj4gIC4uLi9iaW5kaW5ncy9uZXQvYW1sb2dpYyxtZXNvbi1kd21h
-Yy55YW1sICAgICB8IDE0ICstLQpGb3IgYW1sb2dpYyxtZXNvbi1kd21hYy55YW1sOgpSZXZpZXdl
-ZC1ieTogTWFydGluIEJsdW1lbnN0aW5nbCA8bWFydGluLmJsdW1lbnN0aW5nbEBnb29nbGVtYWls
-LmNvbT4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+From: Parker Newman <pnewman@connecttech.com>
+
+Nvidia's Tegra MGBE controllers require the IOMMU "Stream ID" (SID) to be
+written to the MGBE_WRAP_AXI_ASID0_CTRL register.
+
+The current driver is hard coded to use MGBE0's SID for all controllers.
+This causes softirq time outs and kernel panics when using controllers
+other than MGBE0.
+
+Example dmesg errors when an ethernet cable is connected to MGBE1:
+
+[  116.133290] tegra-mgbe 6910000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
+[  121.851283] tegra-mgbe 6910000.ethernet eth1: NETDEV WATCHDOG: CPU: 5: transmit queue 0 timed out 5690 ms
+[  121.851782] tegra-mgbe 6910000.ethernet eth1: Reset adapter.
+[  121.892464] tegra-mgbe 6910000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[  121.905920] tegra-mgbe 6910000.ethernet eth1: PHY [stmmac-1:00] driver [Aquantia AQR113] (irq=171)
+[  121.907356] tegra-mgbe 6910000.ethernet eth1: Enabling Safety Features
+[  121.907578] tegra-mgbe 6910000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
+[  121.908399] tegra-mgbe 6910000.ethernet eth1: registered PTP clock
+[  121.908582] tegra-mgbe 6910000.ethernet eth1: configuring for phy/10gbase-r link mode
+[  125.961292] tegra-mgbe 6910000.ethernet eth1: Link is Up - 1Gbps/Full - flow control rx/tx
+[  181.921198] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+[  181.921404] rcu: 	7-....: (1 GPs behind) idle=540c/1/0x4000000000000002 softirq=1748/1749 fqs=2337
+[  181.921684] rcu: 	(detected by 4, t=6002 jiffies, g=1357, q=1254 ncpus=8)
+[  181.921878] Sending NMI from CPU 4 to CPUs 7:
+[  181.921886] NMI backtrace for cpu 7
+[  181.922131] CPU: 7 UID: 0 PID: 0 Comm: swapper/7 Kdump: loaded Not tainted 6.13.0-rc3+ #6
+[  181.922390] Hardware name: NVIDIA CTI Forge + Orin AGX/Jetson, BIOS 202402.1-Unknown 10/28/2024
+[  181.922658] pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  181.922847] pc : handle_softirqs+0x98/0x368
+[  181.922978] lr : __do_softirq+0x18/0x20
+[  181.923095] sp : ffff80008003bf50
+[  181.923189] x29: ffff80008003bf50 x28: 0000000000000008 x27: 0000000000000000
+[  181.923379] x26: ffffce78ea277000 x25: 0000000000000000 x24: 0000001c61befda0
+[  181.924486] x23: 0000000060400009 x22: ffffce78e99918bc x21: ffff80008018bd70
+[  181.925568] x20: ffffce78e8bb00d8 x19: ffff80008018bc20 x18: 0000000000000000
+[  181.926655] x17: ffff318ebe7d3000 x16: ffff800080038000 x15: 0000000000000000
+[  181.931455] x14: ffff000080816680 x13: ffff318ebe7d3000 x12: 000000003464d91d
+[  181.938628] x11: 0000000000000040 x10: ffff000080165a70 x9 : ffffce78e8bb0160
+[  181.945804] x8 : ffff8000827b3160 x7 : f9157b241586f343 x6 : eeb6502a01c81c74
+[  181.953068] x5 : a4acfcdd2e8096bb x4 : ffffce78ea277340 x3 : 00000000ffffd1e1
+[  181.960329] x2 : 0000000000000101 x1 : ffffce78ea277340 x0 : ffff318ebe7d3000
+[  181.967591] Call trace:
+[  181.970043]  handle_softirqs+0x98/0x368 (P)
+[  181.974240]  __do_softirq+0x18/0x20
+[  181.977743]  ____do_softirq+0x14/0x28
+[  181.981415]  call_on_irq_stack+0x24/0x30
+[  181.985180]  do_softirq_own_stack+0x20/0x30
+[  181.989379]  __irq_exit_rcu+0x114/0x140
+[  181.993142]  irq_exit_rcu+0x14/0x28
+[  181.996816]  el1_interrupt+0x44/0xb8
+[  182.000316]  el1h_64_irq_handler+0x14/0x20
+[  182.004343]  el1h_64_irq+0x80/0x88
+[  182.007755]  cpuidle_enter_state+0xc4/0x4a8 (P)
+[  182.012305]  cpuidle_enter+0x3c/0x58
+[  182.015980]  cpuidle_idle_call+0x128/0x1c0
+[  182.020005]  do_idle+0xe0/0xf0
+[  182.023155]  cpu_startup_entry+0x3c/0x48
+[  182.026917]  secondary_start_kernel+0xdc/0x120
+[  182.031379]  __secondary_switched+0x74/0x78
+[  212.971162] rcu: INFO: rcu_preempt detected expedited stalls on CPUs/tasks: { 7-.... } 6103 jiffies s: 417 root: 0x80/.
+[  212.985935] rcu: blocking rcu_node structures (internal RCU debug):
+[  212.992758] Sending NMI from CPU 0 to CPUs 7:
+[  212.998539] NMI backtrace for cpu 7
+[  213.004304] CPU: 7 UID: 0 PID: 0 Comm: swapper/7 Kdump: loaded Not tainted 6.13.0-rc3+ #6
+[  213.016116] Hardware name: NVIDIA CTI Forge + Orin AGX/Jetson, BIOS 202402.1-Unknown 10/28/2024
+[  213.030817] pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  213.040528] pc : handle_softirqs+0x98/0x368
+[  213.046563] lr : __do_softirq+0x18/0x20
+[  213.051293] sp : ffff80008003bf50
+[  213.055839] x29: ffff80008003bf50 x28: 0000000000000008 x27: 0000000000000000
+[  213.067304] x26: ffffce78ea277000 x25: 0000000000000000 x24: 0000001c61befda0
+[  213.077014] x23: 0000000060400009 x22: ffffce78e99918bc x21: ffff80008018bd70
+[  213.087339] x20: ffffce78e8bb00d8 x19: ffff80008018bc20 x18: 0000000000000000
+[  213.097313] x17: ffff318ebe7d3000 x16: ffff800080038000 x15: 0000000000000000
+[  213.107201] x14: ffff000080816680 x13: ffff318ebe7d3000 x12: 000000003464d91d
+[  213.116651] x11: 0000000000000040 x10: ffff000080165a70 x9 : ffffce78e8bb0160
+[  213.127500] x8 : ffff8000827b3160 x7 : 0a37b344852820af x6 : 3f049caedd1ff608
+[  213.138002] x5 : cff7cfdbfaf31291 x4 : ffffce78ea277340 x3 : 00000000ffffde04
+[  213.150428] x2 : 0000000000000101 x1 : ffffce78ea277340 x0 : ffff318ebe7d3000
+[  213.162063] Call trace:
+[  213.165494]  handle_softirqs+0x98/0x368 (P)
+[  213.171256]  __do_softirq+0x18/0x20
+[  213.177291]  ____do_softirq+0x14/0x28
+[  213.182017]  call_on_irq_stack+0x24/0x30
+[  213.186565]  do_softirq_own_stack+0x20/0x30
+[  213.191815]  __irq_exit_rcu+0x114/0x140
+[  213.196891]  irq_exit_rcu+0x14/0x28
+[  213.202401]  el1_interrupt+0x44/0xb8
+[  213.207741]  el1h_64_irq_handler+0x14/0x20
+[  213.213519]  el1h_64_irq+0x80/0x88
+[  213.217541]  cpuidle_enter_state+0xc4/0x4a8 (P)
+[  213.224364]  cpuidle_enter+0x3c/0x58
+[  213.228653]  cpuidle_idle_call+0x128/0x1c0
+[  213.233993]  do_idle+0xe0/0xf0
+[  213.237928]  cpu_startup_entry+0x3c/0x48
+[  213.243791]  secondary_start_kernel+0xdc/0x120
+[  213.249830]  __secondary_switched+0x74/0x78
+
+This bug has existed since the dwmac-tegra driver was added in Dec 2022
+(See Fixes tag below for commit hash).
+
+The Tegra234 SOC has 4 MGBE controllers, however Nvidia's Developer Kit
+only uses MGBE0 which is why the bug was not found previously. Connect Tech
+has many products that use 2 (or more) MGBE controllers.
+
+The solution is to read the controller's SID from the existing "iommus"
+device tree property. The 2nd field of the "iommus" device tree property
+is the controller's SID.
+
+Device tree snippet from tegra234.dtsi showing MGBE1's "iommus" property:
+
+smmu_niso0: iommu@12000000 {
+        compatible = "nvidia,tegra234-smmu", "nvidia,smmu-500";
+...
+}
+
+/* MGBE1 */
+ethernet@6900000 {
+	compatible = "nvidia,tegra234-mgbe";
+...
+	iommus = <&smmu_niso0 TEGRA234_SID_MGBE_VF1>;
+...
+}
+
+Nvidia's arm-smmu driver reads the "iommus" property and stores the SID in
+the MGBE device's "fwspec" struct. The dwmac-tegra driver can access the
+SID using the tegra_dev_iommu_get_stream_id() helper function found in
+linux/iommu.h.
+
+Calling tegra_dev_iommu_get_stream_id() should not fail unless the "iommus"
+property is removed from the device tree or the IOMMU is disabled.
+
+While the Tegra234 SOC technically supports bypassing the IOMMU, it is not
+supported by the current firmware, has not been tested and not recommended.
+More detailed discussion with Thierry Reding from Nvidia linked below.
+
+Fixes: d8ca113724e7 ("net: stmmac: tegra: Add MGBE support")
+Link: https://lore.kernel.org/netdev/cover.1731685185.git.pnewman@connecttech.com
+Signed-off-by: Parker Newman <pnewman@connecttech.com>
+---
+
+Changes v2:
+- dropped cover letter
+- added more detail to commit message
+- rebased to latest netdev tree
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+index 3827997d2132..dc903b846b1b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0-only
++#include <linux/iommu.h>
+ #include <linux/platform_device.h>
+ #include <linux/of.h>
+ #include <linux/module.h>
+@@ -19,6 +20,8 @@ struct tegra_mgbe {
+ 	struct reset_control *rst_mac;
+ 	struct reset_control *rst_pcs;
+
++	u32 iommu_sid;
++
+ 	void __iomem *hv;
+ 	void __iomem *regs;
+ 	void __iomem *xpcs;
+@@ -50,7 +53,6 @@ struct tegra_mgbe {
+ #define MGBE_WRAP_COMMON_INTR_ENABLE	0x8704
+ #define MAC_SBD_INTR			BIT(2)
+ #define MGBE_WRAP_AXI_ASID0_CTRL	0x8400
+-#define MGBE_SID			0x6
+
+ static int __maybe_unused tegra_mgbe_suspend(struct device *dev)
+ {
+@@ -84,7 +86,7 @@ static int __maybe_unused tegra_mgbe_resume(struct device *dev)
+ 	writel(MAC_SBD_INTR, mgbe->regs + MGBE_WRAP_COMMON_INTR_ENABLE);
+
+ 	/* Program SID */
+-	writel(MGBE_SID, mgbe->hv + MGBE_WRAP_AXI_ASID0_CTRL);
++	writel(mgbe->iommu_sid, mgbe->hv + MGBE_WRAP_AXI_ASID0_CTRL);
+
+ 	value = readl(mgbe->xpcs + XPCS_WRAP_UPHY_STATUS);
+ 	if ((value & XPCS_WRAP_UPHY_STATUS_TX_P_UP) == 0) {
+@@ -241,6 +243,12 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mgbe->xpcs))
+ 		return PTR_ERR(mgbe->xpcs);
+
++	/* get controller's stream id from iommu property in device tree */
++	if (!tegra_dev_iommu_get_stream_id(mgbe->dev, &mgbe->iommu_sid)) {
++		dev_err(mgbe->dev, "failed to get iommu stream id\n");
++		return -EINVAL;
++	}
++
+ 	res.addr = mgbe->regs;
+ 	res.irq = irq;
+
+@@ -346,7 +354,7 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+ 	writel(MAC_SBD_INTR, mgbe->regs + MGBE_WRAP_COMMON_INTR_ENABLE);
+
+ 	/* Program SID */
+-	writel(MGBE_SID, mgbe->hv + MGBE_WRAP_AXI_ASID0_CTRL);
++	writel(mgbe->iommu_sid, mgbe->hv + MGBE_WRAP_AXI_ASID0_CTRL);
+
+ 	plat->flags |= STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP;
+
+
+base-commit: 8ce4f287524c74a118b0af1eebd4b24a8efca57a
+--
+2.47.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
