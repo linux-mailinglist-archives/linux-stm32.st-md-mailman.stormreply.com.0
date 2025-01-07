@@ -2,101 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1C7A04137
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 14:51:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83912A042D0
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 15:41:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34AEFC78022;
-	Tue,  7 Jan 2025 13:51:45 +0000 (UTC)
-Received: from fout-a6-smtp.messagingengine.com
- (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3088AC78022;
+	Tue,  7 Jan 2025 14:41:16 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D251AC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44027C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 13:51:38 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfout.phl.internal (Postfix) with ESMTP id 0910113800C3;
- Tue,  7 Jan 2025 08:51:38 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Tue, 07 Jan 2025 08:51:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1736257898;
- x=1736344298; bh=mJ3gsu/+Nz0H/GR7MsuvkCswY4cSY5Uv50se5eJ30HE=; b=
- eXwKXoxw1efnvQuiHMe9BGJeNRaZzvMWmanR5rhdTomqoUpH+W7tXaqIE1/OQDNX
- TXzv2r763Y5MQ0oezeiZUSBFbixOHnJIEFTLxUYacn/YDj/LAjGUSxRN+AGoJj6+
- p9X4ACV2LuDuHywV6qvqjICqukWvYPLGtlt/H7hMRQUOClQ3QUMjhvAinyWmtYL+
- bobSHj6gFlqBI5GJFeJF9PL9HnE4k5YjROMZxnJJOfX4OULhE1T/+BL0GFDCVk/L
- ogBcPFkSGwo/2TQayrPJkQFrV84Zv1hhwli5rQaiNyCpnUdUSyksnwC7m9Nkr8ag
- it0bdiSQ0h5IWqhGhCn42g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1736257898; x=
- 1736344298; bh=mJ3gsu/+Nz0H/GR7MsuvkCswY4cSY5Uv50se5eJ30HE=; b=G
- sY70qUrEP1gl1JmqNzVK6Mx/8c28BJ78vUcJO7JNM8lh3w89azzet2NIx1atdgh6
- 6tBRFn/253U21TJl7yHSP5M/HrS/VlKJ1DH4lmkzXEP5PTlJ0+9KfA7hzFykjdSP
- uco1O/NCvQ3yvmhxgK7ELeZSFpxpdKWaK5bWgIMxw3ptwN+k8+1DWa1JLWgOtJUt
- 76OvMJlHqqr/wc3llkI7OC0+NI4u8XOWGtAVekAR43qKHsETu6mCHFg054HAOJRd
- zCX+XouxB3rMt6Mg/F15ChHNUSaTYnXYwyor6PaSRnSbjyTSekLfx8rAfkIuMse3
- 8+TTyTfkPrZ7xTWfzYdSg==
-X-ME-Sender: <xms:aDF9Z3pV41Z8ilSxpuZ6kZwq1soEpbhUJmxiYaggnn3WSIgN3xVh_A>
- <xme:aDF9ZxodBR77iuH6RTcFq32Z35Tz46y4z6EWn-Mpwce-RfDyz3bd81AckneW_6Qo9
- A7IvVhlnPPmdhWiz1Q>
-X-ME-Received: <xmr:aDF9Z0MYq7euBag4bww9oThV2Lxc8ly3ollEx864zINLN2DoVtD_7oEvR5VGk8Z7NyFijjGGDgGCA5OD4zJ9LRvqT1kUHV6OnQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudegvddgheehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
- rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
- htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttdej
- necuhfhrohhmpefpihhklhgrshcuufpnuggvrhhluhhnugcuoehnihhklhgrshdrshhoug
- gvrhhluhhnugesrhgrghhnrghtvggthhdrshgvqeenucggtffrrghtthgvrhhnpeevteeg
- tddvvdfhtdekgefhfeefheetheekkeegfeejudeiudeuleegtdehkeekteenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehnihhklhgrshdrshho
- uggvrhhluhhnugesrhgrghhnrghtvggthhdrshgvpdhnsggprhgtphhtthhopedvfedpmh
- houggvpehsmhhtphhouhhtpdhrtghpthhtohepkhhriiihshiithhofhdrkhhoiihlohif
- shhkiheslhhinhgrrhhordhorhhgpdhrtghpthhtohepuggrnhhivghlrdhlvgiitggrnh
- hosehlihhnrghrohdrohhrghdprhgtphhtthhopehtghhlgieslhhinhhuthhrohhnihig
- rdguvgdprhgtphhtthhopehrohgshheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepkh
- hriihkodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheptghonhhorhdoughtsehk
- vghrnhgvlhdrohhrghdprhgtphhtthhopehmtghoqhhuvghlihhnrdhsthhmfedvsehgmh
- grihhlrdgtohhmpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhs
- shdrshhtrdgtohhmpdhrtghpthhtohepphgruhhlrdifrghlmhhslhgvhiesshhifhhivh
- gvrdgtohhm
-X-ME-Proxy: <xmx:aDF9Z67yTKirpIXhr7uOAnUFRHp29z-QED0WIUbsrTWDoHQwn46erw>
- <xmx:aDF9Z25sd6O7ooA9V9pC0JGVHYZoM0pVMgN7_K0p-x3LVp09locyaA>
- <xmx:aDF9Zyibkr81z35nI-9gUnSq7HyHIl1ixbleLn2TH9p5Nz05Xdu-jg>
- <xmx:aDF9Z46RT3TQJMg8X0ITjlQIq-BEw3jgaz1VKShuv7wY1i_1OQWOkQ>
- <xmx:ajF9ZxKisACKEQRyKzxYwIjSDnzb92ZSmhtFGzptkKUq9ZkjNYrOmHLR>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Jan 2025 08:51:36 -0500 (EST)
-Date: Tue, 7 Jan 2025 14:51:33 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20250107135133.GA3765919@ragnatech.se>
-References: <20250107131024.246561-1-krzysztof.kozlowski@linaro.org>
+ Tue,  7 Jan 2025 14:41:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CF2C75C630D;
+ Tue,  7 Jan 2025 14:40:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08487C4CED6;
+ Tue,  7 Jan 2025 14:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736260867;
+ bh=Fm54NFKxpCer1yj0tlCPm8daKKZ3zQKs8KdgFK7i0r0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sCc0pZLn5PRwtj2bDqvy9l0P08SW3iNYULWsw9OD4KMgEwI7FImqoRhAsK61anQtY
+ bsnW1U7j/UYZQr6m5feLqcycuFT+1lO28KfR5d7ABZ58afQbFF3fzxnSNcsjW9uY62
+ C2LgXTKRRObyPWgald3Ce2Mu6IRDZK9vqX/WNUg8WU8sK7XYFwAtyXpk/pkkO/N42M
+ uEK1SIeDIsKrJgyxpcV8D//caXY2pz1bCc7pJgjxI7Rsopo55xMME/Gn6/lnef2uIO
+ Mx6+t3jO6PrQ6AH/AtWgu2bZbVp7lpFb6vbJzEsC6rWTRlhTkvSqp/0I6/+ir1MouF
+ m2H2PsWVOXVEw==
+Date: Tue, 7 Jan 2025 14:41:03 +0000
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20250107144103.GB5872@kernel.org>
+References: <Z3vLbRQ9Ctl-Rpdg@shell.armlinux.org.uk>
+ <E1tUmAE-007VWv-UW@rmk-PC.armlinux.org.uk>
+ <20250107112851.GE33144@kernel.org>
+ <Z30WmPpMp_BRgrOI@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250107131024.246561-1-krzysztof.kozlowski@linaro.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Chris Brandt <chris.brandt@renesas.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Anup Patel <anup@brainfault.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
- linux-renesas-soc@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: Correct indentation
- and style in DTS example
+In-Reply-To: <Z30WmPpMp_BRgrOI@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 03/17] net: stmmac: use
+ correct type for tx_lpi_timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,202 +58,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gS3J6eXN6dG9mLAoKVGhhbmtzIGZvciB5b3VyIHdvcmsuCgpPbiAyMDI1LTAxLTA3IDE0
-OjEwOjIyICswMTAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOgo+IERUUyBleGFtcGxlIGlu
-IHRoZSBiaW5kaW5ncyBzaG91bGQgYmUgaW5kZW50ZWQgd2l0aCAyLSBvciA0LXNwYWNlcyBhbmQK
-PiBhbGlnbmVkIHdpdGggb3BlbmluZyAnLSB8Jywgc28gY29ycmVjdCBhbnkgZGlmZmVyZW5jZXMg
-bGlrZSAzLXNwYWNlcyBvcgo+IG1peHR1cmVzIDItIGFuZCA0LXNwYWNlcyBpbiBvbmUgYmluZGlu
-Zy4KPiAKPiBObyBmdW5jdGlvbmFsIGNoYW5nZXMgaGVyZSwgYnV0IHNhdmVzIHNvbWUgY29tbWVu
-dHMgZHVyaW5nIHJldmlld3Mgb2YKPiBuZXcgcGF0Y2hlcyBidWlsdCBvbiBleGlzdGluZyBjb2Rl
-Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3ps
-b3dza2lAbGluYXJvLm9yZz4KCkZvciByZW5lc2FzLCoKClJldmlld2VkLWJ5OiBOaWtsYXMgU8O2
-ZGVybHVuZCA8bmlrbGFzLnNvZGVybHVuZCtyZW5lc2FzQHJhZ25hdGVjaC5zZT4KCj4gLS0tCj4g
-IC4uLi9iaW5kaW5ncy90aW1lci9hcm0sdHdkLXRpbWVyLnlhbWwgICAgICAgICB8ICA2ICstLQo+
-ICAuLi4vYmluZGluZ3MvdGltZXIvcmVuZXNhcyxjbXQueWFtbCAgICAgICAgICAgfCA0NCArKysr
-KysrKystLS0tLS0tLS0tCj4gIC4uLi9iaW5kaW5ncy90aW1lci9yZW5lc2FzLGVtLXN0aS55YW1s
-ICAgICAgICB8IDEwICsrLS0tCj4gIC4uLi9iaW5kaW5ncy90aW1lci9yZW5lc2FzLG10dTIueWFt
-bCAgICAgICAgICB8IDE0ICsrKy0tLQo+ICAuLi4vYmluZGluZ3MvdGltZXIvcmVuZXNhcyxvc3Rt
-LnlhbWwgICAgICAgICAgfCAxMCArKy0tLQo+ICAuLi4vYmluZGluZ3MvdGltZXIvcmVuZXNhcyx0
-bXUueWFtbCAgICAgICAgICAgfCAyMiArKysrKy0tLS0tCj4gIC4uLi9iaW5kaW5ncy90aW1lci9y
-ZW5lc2FzLHRwdS55YW1sICAgICAgICAgICB8ICA4ICsrLS0KPiAgLi4uL2JpbmRpbmdzL3RpbWVy
-L3NpZml2ZSxjbGludC55YW1sICAgICAgICAgIHwgIDIgKy0KPiAgOCBmaWxlcyBjaGFuZ2VkLCA1
-OCBpbnNlcnRpb25zKCspLCA1OCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL2FybSx0d2QtdGltZXIueWFtbCBiL0Rv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9hcm0sdHdkLXRpbWVyLnlhbWwK
-PiBpbmRleCA1Njg0ZGY2NDQ4ZWYuLmViMTEyNzM1MmM3YiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvYXJtLHR3ZC10aW1lci55YW1sCj4gKysr
-IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL2FybSx0d2QtdGltZXIu
-eWFtbAo+IEBAIC01MCw3ICs1MCw3IEBAIGV4YW1wbGVzOgo+ICAgICAgI2luY2x1ZGUgPGR0LWJp
-bmRpbmdzL2ludGVycnVwdC1jb250cm9sbGVyL2FybS1naWMuaD4KPiAgCj4gICAgICB0aW1lckAy
-YzAwMDYwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXJtLGFybTExbXAtdHdkLXRp
-bWVyIjsKPiAtICAgICAgICAgICAgcmVnID0gPDB4MmMwMDA2MDAgMHgyMD47Cj4gLSAgICAgICAg
-ICAgIGludGVycnVwdHMgPSA8R0lDX1BQSSAxMyAweGYwMT47Cj4gKyAgICAgICAgY29tcGF0aWJs
-ZSA9ICJhcm0sYXJtMTFtcC10d2QtdGltZXIiOwo+ICsgICAgICAgIHJlZyA9IDwweDJjMDAwNjAw
-IDB4MjA+Owo+ICsgICAgICAgIGludGVycnVwdHMgPSA8R0lDX1BQSSAxMyAweGYwMT47Cj4gICAg
-ICB9Owo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGlt
-ZXIvcmVuZXNhcyxjbXQueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90
-aW1lci9yZW5lc2FzLGNtdC55YW1sCj4gaW5kZXggNWUwOWMwNGRhMzBlLi4yNjBiMDVmMjEzZTYg
-MTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL3Jl
-bmVzYXMsY210LnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-dGltZXIvcmVuZXNhcyxjbXQueWFtbAo+IEBAIC0xNzgsMjkgKzE3OCwyOSBAQCBleGFtcGxlczoK
-PiAgICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2lj
-Lmg+Cj4gICAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvcG93ZXIvcjhhNzc5MC1zeXNjLmg+Cj4g
-ICAgICBjbXQwOiB0aW1lckBmZmNhMDAwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUgPSAi
-cmVuZXNhcyxyOGE3NzkwLWNtdDAiLCAicmVuZXNhcyxyY2FyLWdlbjItY210MCI7Cj4gLSAgICAg
-ICAgICAgIHJlZyA9IDwweGZmY2EwMDAwIDB4MTAwND47Cj4gLSAgICAgICAgICAgIGludGVycnVw
-dHMgPSA8R0lDX1NQSSAxNDIgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgICA8R0lDX1NQSSAxNDMgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gLSAgICAgICAg
-ICAgIGNsb2NrcyA9IDwmY3BnIENQR19NT0QgMTI0PjsKPiAtICAgICAgICAgICAgY2xvY2stbmFt
-ZXMgPSAiZmNrIjsKPiAtICAgICAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmc3lzYyBSOEE3Nzkw
-X1BEX0FMV0FZU19PTj47Cj4gLSAgICAgICAgICAgIHJlc2V0cyA9IDwmY3BnIDEyND47Cj4gKyAg
-ICAgICAgY29tcGF0aWJsZSA9ICJyZW5lc2FzLHI4YTc3OTAtY210MCIsICJyZW5lc2FzLHJjYXIt
-Z2VuMi1jbXQwIjsKPiArICAgICAgICByZWcgPSA8MHhmZmNhMDAwMCAweDEwMDQ+Owo+ICsgICAg
-ICAgIGludGVycnVwdHMgPSA8R0lDX1NQSSAxNDIgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKyAg
-ICAgICAgICAgICAgICAgICAgIDxHSUNfU1BJIDE0MyBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPiAr
-ICAgICAgICBjbG9ja3MgPSA8JmNwZyBDUEdfTU9EIDEyND47Cj4gKyAgICAgICAgY2xvY2stbmFt
-ZXMgPSAiZmNrIjsKPiArICAgICAgICBwb3dlci1kb21haW5zID0gPCZzeXNjIFI4QTc3OTBfUERf
-QUxXQVlTX09OPjsKPiArICAgICAgICByZXNldHMgPSA8JmNwZyAxMjQ+Owo+ICAgICAgfTsKPiAg
-Cj4gICAgICBjbXQxOiB0aW1lckBlNjEzMDAwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUg
-PSAicmVuZXNhcyxyOGE3NzkwLWNtdDEiLCAicmVuZXNhcyxyY2FyLWdlbjItY210MSI7Cj4gLSAg
-ICAgICAgICAgIHJlZyA9IDwweGU2MTMwMDAwIDB4MTAwND47Cj4gLSAgICAgICAgICAgIGludGVy
-cnVwdHMgPSA8R0lDX1NQSSAxMjAgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgICA8R0lDX1NQSSAxMjEgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAxMjIgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4g
-LSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAxMjMgSVJRX1RZUEVfTEVWRUxfSElH
-SD4sCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAxMjQgSVJRX1RZUEVfTEVW
-RUxfSElHSD4sCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAxMjUgSVJRX1RZ
-UEVfTEVWRUxfSElHSD4sCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAxMjYg
-SVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQ
-SSAxMjcgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gLSAgICAgICAgICAgIGNsb2NrcyA9IDwmY3Bn
-IENQR19NT0QgMzI5PjsKPiAtICAgICAgICAgICAgY2xvY2stbmFtZXMgPSAiZmNrIjsKPiAtICAg
-ICAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmc3lzYyBSOEE3NzkwX1BEX0FMV0FZU19PTj47Cj4g
-LSAgICAgICAgICAgIHJlc2V0cyA9IDwmY3BnIDMyOT47Cj4gKyAgICAgICAgY29tcGF0aWJsZSA9
-ICJyZW5lc2FzLHI4YTc3OTAtY210MSIsICJyZW5lc2FzLHJjYXItZ2VuMi1jbXQxIjsKPiArICAg
-ICAgICByZWcgPSA8MHhlNjEzMDAwMCAweDEwMDQ+Owo+ICsgICAgICAgIGludGVycnVwdHMgPSA8
-R0lDX1NQSSAxMjAgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKyAgICAgICAgICAgICAgICAgICAg
-IDxHSUNfU1BJIDEyMSBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKPiArICAgICAgICAgICAgICAgICAg
-ICAgPEdJQ19TUEkgMTIyIElSUV9UWVBFX0xFVkVMX0hJR0g+LAo+ICsgICAgICAgICAgICAgICAg
-ICAgICA8R0lDX1NQSSAxMjMgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKyAgICAgICAgICAgICAg
-ICAgICAgIDxHSUNfU1BJIDEyNCBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKPiArICAgICAgICAgICAg
-ICAgICAgICAgPEdJQ19TUEkgMTI1IElSUV9UWVBFX0xFVkVMX0hJR0g+LAo+ICsgICAgICAgICAg
-ICAgICAgICAgICA8R0lDX1NQSSAxMjYgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKyAgICAgICAg
-ICAgICAgICAgICAgIDxHSUNfU1BJIDEyNyBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPiArICAgICAg
-ICBjbG9ja3MgPSA8JmNwZyBDUEdfTU9EIDMyOT47Cj4gKyAgICAgICAgY2xvY2stbmFtZXMgPSAi
-ZmNrIjsKPiArICAgICAgICBwb3dlci1kb21haW5zID0gPCZzeXNjIFI4QTc3OTBfUERfQUxXQVlT
-X09OPjsKPiArICAgICAgICByZXNldHMgPSA8JmNwZyAzMjk+Owo+ICAgICAgfTsKPiBkaWZmIC0t
-Z2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL3JlbmVzYXMsZW0t
-c3RpLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNh
-cyxlbS1zdGkueWFtbAo+IGluZGV4IDIzM2Q3NGQ1NDAyYy4uYTczODVkODY1YmNhIDEwMDY0NAo+
-IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9yZW5lc2FzLGVt
-LXN0aS55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVy
-L3JlbmVzYXMsZW0tc3RpLnlhbWwKPiBAQCAtMzgsOSArMzgsOSBAQCBleGFtcGxlczoKPiAgICAt
-IHwKPiAgICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0t
-Z2ljLmg+Cj4gICAgICB0aW1lckBlMDE4MDAwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUg
-PSAicmVuZXNhcyxlbS1zdGkiOwo+IC0gICAgICAgICAgICByZWcgPSA8MHhlMDE4MDAwMCAweDU0
-PjsKPiAtICAgICAgICAgICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDEyNSBJUlFfVFlQRV9MRVZF
-TF9ISUdIPjsKPiAtICAgICAgICAgICAgY2xvY2tzID0gPCZzdGlfc2Nsaz47Cj4gLSAgICAgICAg
-ICAgIGNsb2NrLW5hbWVzID0gInNjbGsiOwo+ICsgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNh
-cyxlbS1zdGkiOwo+ICsgICAgICAgIHJlZyA9IDwweGUwMTgwMDAwIDB4NTQ+Owo+ICsgICAgICAg
-IGludGVycnVwdHMgPSA8R0lDX1NQSSAxMjUgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKyAgICAg
-ICAgY2xvY2tzID0gPCZzdGlfc2Nsaz47Cj4gKyAgICAgICAgY2xvY2stbmFtZXMgPSAic2NsayI7
-Cj4gICAgICB9Owo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvdGltZXIvcmVuZXNhcyxtdHUyLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvdGltZXIvcmVuZXNhcyxtdHUyLnlhbWwKPiBpbmRleCAxNWQ4ZGRkZjRhZTkuLmU1NmMx
-MmYwM2Y3MiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-dGltZXIvcmVuZXNhcyxtdHUyLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvdGltZXIvcmVuZXNhcyxtdHUyLnlhbWwKPiBAQCAtNjYsMTEgKzY2LDExIEBAIGV4
-YW1wbGVzOgo+ICAgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2Nsb2NrL3I3czcyMTAwLWNsb2Nr
-Lmg+Cj4gICAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIvYXJt
-LWdpYy5oPgo+ICAgICAgbXR1MjogdGltZXJAZmNmZjAwMDAgewo+IC0gICAgICAgICAgICBjb21w
-YXRpYmxlID0gInJlbmVzYXMsbXR1Mi1yN3M3MjEwMCIsICJyZW5lc2FzLG10dTIiOwo+IC0gICAg
-ICAgICAgICByZWcgPSA8MHhmY2ZmMDAwMCAweDQwMD47Cj4gLSAgICAgICAgICAgIGludGVycnVw
-dHMgPSA8R0lDX1NQSSAxMDcgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gLSAgICAgICAgICAgIGlu
-dGVycnVwdC1uYW1lcyA9ICJ0Z2kwYSI7Cj4gLSAgICAgICAgICAgIGNsb2NrcyA9IDwmbXN0cDNf
-Y2xrcyBSN1M3MjEwMF9DTEtfTVRVMj47Cj4gLSAgICAgICAgICAgIGNsb2NrLW5hbWVzID0gImZj
-ayI7Cj4gLSAgICAgICAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JmNwZ19jbG9ja3M+Owo+ICsgICAg
-ICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyxtdHUyLXI3czcyMTAwIiwgInJlbmVzYXMsbXR1MiI7
-Cj4gKyAgICAgICAgcmVnID0gPDB4ZmNmZjAwMDAgMHg0MDA+Owo+ICsgICAgICAgIGludGVycnVw
-dHMgPSA8R0lDX1NQSSAxMDcgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKyAgICAgICAgaW50ZXJy
-dXB0LW5hbWVzID0gInRnaTBhIjsKPiArICAgICAgICBjbG9ja3MgPSA8Jm1zdHAzX2Nsa3MgUjdT
-NzIxMDBfQ0xLX01UVTI+Owo+ICsgICAgICAgIGNsb2NrLW5hbWVzID0gImZjayI7Cj4gKyAgICAg
-ICAgcG93ZXItZG9tYWlucyA9IDwmY3BnX2Nsb2Nrcz47Cj4gICAgICB9Owo+IGRpZmYgLS1naXQg
-YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyxvc3RtLnlh
-bWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyxvc3Rt
-LnlhbWwKPiBpbmRleCBlOGM2NDIxNjY0NjIuLjliYTg1OGYwOTRhYiAxMDA2NDQKPiAtLS0gYS9E
-b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyxvc3RtLnlhbWwK
-PiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyxv
-c3RtLnlhbWwKPiBAQCAtNzEsOSArNzEsOSBAQCBleGFtcGxlczoKPiAgICAgICNpbmNsdWRlIDxk
-dC1iaW5kaW5ncy9jbG9jay9yN3M3MjEwMC1jbG9jay5oPgo+ICAgICAgI2luY2x1ZGUgPGR0LWJp
-bmRpbmdzL2ludGVycnVwdC1jb250cm9sbGVyL2FybS1naWMuaD4KPiAgICAgIG9zdG0wOiB0aW1l
-ckBmY2ZlYzAwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyxyN3M3MjEw
-MC1vc3RtIiwgInJlbmVzYXMsb3N0bSI7Cj4gLSAgICAgICAgICAgIHJlZyA9IDwweGZjZmVjMDAw
-IDB4MzA+Owo+IC0gICAgICAgICAgICBpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMTAyIElSUV9UWVBF
-X0VER0VfUklTSU5HPjsKPiAtICAgICAgICAgICAgY2xvY2tzID0gPCZtc3RwNV9jbGtzIFI3Uzcy
-MTAwX0NMS19PU1RNMD47Cj4gLSAgICAgICAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JmNwZ19jbG9j
-a3M+Owo+ICsgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyxyN3M3MjEwMC1vc3RtIiwgInJl
-bmVzYXMsb3N0bSI7Cj4gKyAgICAgICAgcmVnID0gPDB4ZmNmZWMwMDAgMHgzMD47Cj4gKyAgICAg
-ICAgaW50ZXJydXB0cyA9IDxHSUNfU1BJIDEwMiBJUlFfVFlQRV9FREdFX1JJU0lORz47Cj4gKyAg
-ICAgICAgY2xvY2tzID0gPCZtc3RwNV9jbGtzIFI3UzcyMTAwX0NMS19PU1RNMD47Cj4gKyAgICAg
-ICAgcG93ZXItZG9tYWlucyA9IDwmY3BnX2Nsb2Nrcz47Cj4gICAgICB9Owo+IGRpZmYgLS1naXQg
-YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyx0bXUueWFt
-bCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9yZW5lc2FzLHRtdS55
-YW1sCj4gaW5kZXggNzViMGU3YzcwYjYyLi5iMTIyOTU5NWFjZmIgMTAwNjQ0Cj4gLS0tIGEvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL3JlbmVzYXMsdG11LnlhbWwKPiAr
-KysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvcmVuZXNhcyx0bXUu
-eWFtbAo+IEBAIC0xMjIsMTUgKzEyMiwxNSBAQCBleGFtcGxlczoKPiAgICAgICNpbmNsdWRlIDxk
-dC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2ljLmg+Cj4gICAgICAjaW5jbHVk
-ZSA8ZHQtYmluZGluZ3MvcG93ZXIvcjhhNzc3OS1zeXNjLmg+Cj4gICAgICB0bXUwOiB0aW1lckBm
-ZmQ4MDAwMCB7Cj4gLSAgICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyx0bXUtcjhhNzc3
-OSIsICJyZW5lc2FzLHRtdSI7Cj4gLSAgICAgICAgICAgIHJlZyA9IDwweGZmZDgwMDAwIDB4MzA+
-Owo+IC0gICAgICAgICAgICBpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMzIgSVJRX1RZUEVfTEVWRUxf
-SElHSD4sCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1NQSSAzMyBJUlFfVFlQRV9M
-RVZFTF9ISUdIPiwKPiAtICAgICAgICAgICAgICAgICAgICAgICAgIDxHSUNfU1BJIDM0IElSUV9U
-WVBFX0xFVkVMX0hJR0g+LAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgPEdJQ19TUEkgMzUg
-SVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gLSAgICAgICAgICAgIGludGVycnVwdC1uYW1lcyA9ICJ0
-dW5pMCIsICJ0dW5pMSIsICJ0dW5pMiIsICJ0aWNwaTIiOwo+IC0gICAgICAgICAgICBjbG9ja3Mg
-PSA8Jm1zdHAwX2Nsa3MgUjhBNzc3OV9DTEtfVE1VMD47Cj4gLSAgICAgICAgICAgIGNsb2NrLW5h
-bWVzID0gImZjayI7Cj4gLSAgICAgICAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JnN5c2MgUjhBNzc3
-OV9QRF9BTFdBWVNfT04+Owo+IC0gICAgICAgICAgICAjcmVuZXNhcyxjaGFubmVscyA9IDwzPjsK
-PiArICAgICAgICBjb21wYXRpYmxlID0gInJlbmVzYXMsdG11LXI4YTc3NzkiLCAicmVuZXNhcyx0
-bXUiOwo+ICsgICAgICAgIHJlZyA9IDwweGZmZDgwMDAwIDB4MzA+Owo+ICsgICAgICAgIGludGVy
-cnVwdHMgPSA8R0lDX1NQSSAzMiBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKPiArICAgICAgICAgICAg
-ICAgICAgICAgPEdJQ19TUEkgMzMgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKyAgICAgICAgICAg
-ICAgICAgICAgIDxHSUNfU1BJIDM0IElSUV9UWVBFX0xFVkVMX0hJR0g+LAo+ICsgICAgICAgICAg
-ICAgICAgICAgICA8R0lDX1NQSSAzNSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPiArICAgICAgICBp
-bnRlcnJ1cHQtbmFtZXMgPSAidHVuaTAiLCAidHVuaTEiLCAidHVuaTIiLCAidGljcGkyIjsKPiAr
-ICAgICAgICBjbG9ja3MgPSA8Jm1zdHAwX2Nsa3MgUjhBNzc3OV9DTEtfVE1VMD47Cj4gKyAgICAg
-ICAgY2xvY2stbmFtZXMgPSAiZmNrIjsKPiArICAgICAgICBwb3dlci1kb21haW5zID0gPCZzeXNj
-IFI4QTc3NzlfUERfQUxXQVlTX09OPjsKPiArICAgICAgICAjcmVuZXNhcyxjaGFubmVscyA9IDwz
-PjsKPiAgICAgIH07Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy90aW1lci9yZW5lc2FzLHRwdS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL3RpbWVyL3JlbmVzYXMsdHB1LnlhbWwKPiBpbmRleCAwMTU1NGRmZjIzZDguLjdhNDcz
-YjMwMjc3NSAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-dGltZXIvcmVuZXNhcyx0cHUueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy90aW1lci9yZW5lc2FzLHRwdS55YW1sCj4gQEAgLTQ5LDggKzQ5LDggQEAgYWRkaXRp
-b25hbFByb3BlcnRpZXM6IGZhbHNlCj4gIGV4YW1wbGVzOgo+ICAgIC0gfAo+ICAgICAgdHB1OiB0
-cHVAZmZmZmUwIHsKPiAtICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJyZW5lc2FzLHRwdSI7Cj4g
-LSAgICAgICAgICAgIHJlZyA9IDwweGZmZmZlMCAxNj4sIDwweGZmZmZmMCAxMj47Cj4gLSAgICAg
-ICAgICAgIGNsb2NrcyA9IDwmcGNsaz47Cj4gLSAgICAgICAgICAgIGNsb2NrLW5hbWVzID0gImZj
-ayI7Cj4gKyAgICAgICAgY29tcGF0aWJsZSA9ICJyZW5lc2FzLHRwdSI7Cj4gKyAgICAgICAgcmVn
-ID0gPDB4ZmZmZmUwIDE2PiwgPDB4ZmZmZmYwIDEyPjsKPiArICAgICAgICBjbG9ja3MgPSA8JnBj
-bGs+Owo+ICsgICAgICAgIGNsb2NrLW5hbWVzID0gImZjayI7Cj4gICAgICB9Owo+IGRpZmYgLS1n
-aXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvc2lmaXZlLGNsaW50
-LnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvc2lmaXZlLGNs
-aW50LnlhbWwKPiBpbmRleCBiNDJkNDNkMmRlNDguLmQ2YTczYmU2Njc2NSAxMDA2NDQKPiAtLS0g
-YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvc2lmaXZlLGNsaW50Lnlh
-bWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvc2lmaXZl
-LGNsaW50LnlhbWwKPiBAQCAtNzYsNiArNzYsNiBAQCBleGFtcGxlczoKPiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIDwmY3B1MmludGMgMz4sIDwmY3B1MmludGMgNz4sCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICA8JmNwdTNpbnRjIDM+LCA8JmNwdTNpbnRjIDc+LAo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgPCZjcHU0aW50YyAzPiwgPCZjcHU0aW50YyA3PjsKPiAt
-ICAgICAgIHJlZyA9IDwweDIwMDAwMDAgMHgxMDAwMD47Cj4gKyAgICAgIHJlZyA9IDwweDIwMDAw
-MDAgMHgxMDAwMD47Cj4gICAgICB9Owo+ICAuLi4KPiAtLSAKPiAyLjQzLjAKPiAKPiAKCi0tIApL
-aW5kIFJlZ2FyZHMsCk5pa2xhcyBTw7ZkZXJsdW5kCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Jan 07, 2025 at 11:57:12AM +0000, Russell King (Oracle) wrote:
+> On Tue, Jan 07, 2025 at 11:28:51AM +0000, Simon Horman wrote:
+> > On Mon, Jan 06, 2025 at 12:24:58PM +0000, Russell King (Oracle) wrote:
+> > > The ethtool interface uses u32 for tx_lpi_timer, and so does phylib.
+> > > Use u32 to store this internally within stmmac rather than "int"
+> > > which could misinterpret large values.
+> > > 
+> > > Since eee_timer is used to initialise priv->tx_lpi_timer, this also
+> > > should be unsigned to avoid a negative number being interpreted as a
+> > > very large positive number.
+> > > 
+> > > Also correct "value" in dwmac4_set_eee_lpi_entry_timer() to use u32
+> > > rather than int, which is derived from tx_lpi_timer, even though
+> > > masking with STMMAC_ET_MAX will truncate the sign bits. u32 is the
+> > > value argument type for writel().
+> > > 
+> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > 
+> > ...
+> > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > index 9a9169ca7cd2..b0ef439b715b 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > @@ -111,8 +111,8 @@ static const u32 default_msg_level = (NETIF_MSG_DRV | NETIF_MSG_PROBE |
+> > >  				      NETIF_MSG_IFDOWN | NETIF_MSG_TIMER);
+> > >  
+> > >  #define STMMAC_DEFAULT_LPI_TIMER	1000
+> > > -static int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > > -module_param(eee_timer, int, 0644);
+> > > +static unsigned int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > > +module_param(eee_timer, uint, 0644);
+> > >  MODULE_PARM_DESC(eee_timer, "LPI tx expiration time in msec");
+> > >  #define STMMAC_LPI_T(x) (jiffies + usecs_to_jiffies(x))
+> > >  
+> > 
+> > Hi Russell,
+> > 
+> > now that eee_timer is unsigned the following check in stmmac_verify_args()
+> > can never be true. I guess it should be removed.
+> > 
+> >         if (eee_timer < 0)
+> >                 eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > 
+> 
+> Thanks for finding that. The parameter description doesn't seem to
+> detail whether this is intentional behaviour or not, or whether it is
+> "because someone used int and we shouldn't have negative values here".
+> 
+> I can't see why someone would pass a negative number for eee_timer
+> given that it already defaults to STMMAC_DEFAULT_LPI_TIMER.
+> 
+> So, I'm tempted to remove this.
+
+I'm not sure either. It did cross my mind that the check could be changed,
+to disallow illegal values (if the range of legal values is not all
+possible unsigned integer values). But it was just an idea without any
+inspection of the code or thought about it's practicality. And my first
+instinct was the same as yours: remove the check.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
