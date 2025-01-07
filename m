@@ -2,66 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35E28A03D3A
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 12:06:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 977B6A03DAC
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2025 12:29:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D18FFC78022;
-	Tue,  7 Jan 2025 11:06:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3987FC78022;
+	Tue,  7 Jan 2025 11:29:05 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B7D3C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECE3BC78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2025 11:06:00 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5079JpOV026708;
- Tue, 7 Jan 2025 12:05:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 93Rb+Ogkxz3F4UcRyaPH1HS1f7gZEjIEkrgdACGwwuk=; b=mh2QRgB08IDXzC+U
- BmwYIOLcWK0qAYMBVvbB87uoyS7SXLCjlj16b+tYqXXXFVvZ0oriOtPMVYsgl7uW
- /DzkR2boobP8NnBRkxVnAOV8nTD/3k8JB5W4QjqDbyrU0byRGsQPHJM1d8i8g6q8
- w/8qjrs0sYRSwTvcivKVbbg1O5dilr1y+6iSEORwCYolIqiAZO+MhxnJKruMzZi/
- WFndIvLr0p/gK3dHaESlCOBaFyX2DdT0kuUBh6IsAB8lXSVF/rvWyC8XHhpOLsh5
- RuIEaz8HdHKeMBMMpOkMwUWHv1PyRBYfTjPt93HFJpTouK5R+ODDU+RWMfs3sXGA
- zLOGZQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4410vgrrxm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2025 12:05:36 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5756C40048;
- Tue,  7 Jan 2025 12:04:30 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 112D22649E9;
- Tue,  7 Jan 2025 12:03:47 +0100 (CET)
-Received: from [192.168.8.15] (10.48.86.148) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 7 Jan
- 2025 12:03:46 +0100
-Message-ID: <2f37dd23a4bf04c5c66aa193c6604f24a5f59011.camel@foss.st.com>
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Mingwei Zheng <zmw12306@gmail.com>
-Date: Tue, 7 Jan 2025 12:03:43 +0100
-In-Reply-To: <20250106220659.2640365-1-zmw12306@gmail.com>
-References: <20250106220659.2640365-1-zmw12306@gmail.com>
-User-Agent: Evolution 3.48.4 
+ Tue,  7 Jan 2025 11:28:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 25E8DA40AC8;
+ Tue,  7 Jan 2025 11:27:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF24DC4CED6;
+ Tue,  7 Jan 2025 11:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736249336;
+ bh=a/nUa1LpYlu8s73KEhuvs+6oTFnQ69UQk445ZrCficQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gImPgzFWKdaLfhzGloiicMj18CgRTePlPywu2sxqZzJB7pXfAAPZTTzPlM2C7keyA
+ AAwwEKlIqBk+qKD6ZN670879wOhRm2SVeuE1Q5WW5BVoso2KdTqx5BOD6XMEKOpQD7
+ vcrMImtbS9DRqzk2wHZjJp7TnPk+xw2R6tOrquuOIIxtuzSEVLhvw4KxP1I9u2r0mR
+ A0zSxUozsvlgs/KDIbGMSn3t5vIhlNGvSN2Teu0WhSqU4STXkemsvEqruKTHLnWZ/4
+ efI7l28N48n3OW3n7inOwPcRKmfyLLpiDbkhBA049t33h1iAmYfpV3CFTvjUg/Xk7T
+ hk7erpGh03HAw==
+Date: Tue, 7 Jan 2025 11:28:51 +0000
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250107112851.GE33144@kernel.org>
+References: <Z3vLbRQ9Ctl-Rpdg@shell.armlinux.org.uk>
+ <E1tUmAE-007VWv-UW@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.148]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: marex@denx.de, peng.fan@nxp.com, make24@iscas.ac.cn,
- linus.walleij@linaro.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- fabien.dessenne@foss.st.com, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v10] pinctrl: stm32: Add check for
-	clk_enable()
+Content-Disposition: inline
+In-Reply-To: <E1tUmAE-007VWv-UW@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 03/17] net: stmmac: use
+ correct type for tx_lpi_timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,25 +61,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2025-01-06 at 17:06 -0500, Mingwei Zheng wrote:
-> Convert the driver to clk_bulk*() API.
-> Add check for the return value of clk_bulk_enable() to catch
-> the potential error.
+On Mon, Jan 06, 2025 at 12:24:58PM +0000, Russell King (Oracle) wrote:
+> The ethtool interface uses u32 for tx_lpi_timer, and so does phylib.
+> Use u32 to store this internally within stmmac rather than "int"
+> which could misinterpret large values.
 > 
-> Fixes: 05d8af449d93 ("pinctrl: stm32: Keep pinctrl block clock enabled when LEVEL IRQ requested")
-> Signed-off-by: Mingwei Zheng <zmw12306@gmail.com>
-> Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-> ---
-> Changelog:
+> Since eee_timer is used to initialise priv->tx_lpi_timer, this also
+> should be unsigned to avoid a negative number being interpreted as a
+> very large positive number.
 > 
-> v9 -> v10:
-> 1. Move the id assignment into pctl->clks[i].clk assignment loop.
-> 2. Remove empty lines.
+> Also correct "value" in dwmac4_set_eee_lpi_entry_timer() to use u32
+> rather than int, which is derived from tx_lpi_timer, even though
+> masking with STMMAC_ET_MAX will truncate the sign bits. u32 is the
+> value argument type for writel().
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+...
 
-Thanks!
-Antonio
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 9a9169ca7cd2..b0ef439b715b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -111,8 +111,8 @@ static const u32 default_msg_level = (NETIF_MSG_DRV | NETIF_MSG_PROBE |
+>  				      NETIF_MSG_IFDOWN | NETIF_MSG_TIMER);
+>  
+>  #define STMMAC_DEFAULT_LPI_TIMER	1000
+> -static int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> -module_param(eee_timer, int, 0644);
+> +static unsigned int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> +module_param(eee_timer, uint, 0644);
+>  MODULE_PARM_DESC(eee_timer, "LPI tx expiration time in msec");
+>  #define STMMAC_LPI_T(x) (jiffies + usecs_to_jiffies(x))
+>  
+
+Hi Russell,
+
+now that eee_timer is unsigned the following check in stmmac_verify_args()
+can never be true. I guess it should be removed.
+
+        if (eee_timer < 0)
+                eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+
+Flagged by Smatch.
+
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
