@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 701EEA05C7E
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8FAEA05C9C
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:21:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19271C78F6C;
-	Wed,  8 Jan 2025 13:18:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87BACC78032;
+	Wed,  8 Jan 2025 13:21:22 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B28FC78032
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11929C78022
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 13:18:16 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5089S79s008366;
- Wed, 8 Jan 2025 14:18:03 +0100
+ Wed,  8 Jan 2025 13:21:15 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508DL3fj027097;
+ Wed, 8 Jan 2025 14:21:03 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 7zKVl4ErJTsqC1L8EpP30Wrq/2TXXpHRlMyoxXlbIuI=; b=J6MpeN4Wx4L8S1vc
- dbQteZccsNBgU4hreVdOlI0aGn4eook9GTSHAqNkiddJrCD0s/A8kV0HxDrhDZ3S
- cRUJmX0u/OJLPQ7SXFgNby2VBSV07flu7y4jRXTf4/9mh61ttcbemG4tDYg+WgVZ
- pC+MSJyHZI4F7RooDjVr5b5YoN/iLvf+xGE2jEaei9wV8L3EjETzfZuFRC5VyRxg
- I1WRsAaX0VQY+XSarTsD3rzy7KftQKQNr1EHi9paqqFzdJx7eH2bFOILS6YHliuz
- Zvg7GwhNaoIbxDKYncphIcccA0RPjTsPqgfUBtHiDgkw86n+PevN2p+od0K5rN2F
- rJVifg==
+ fuFnMO3ijaaacswBw6QbcsmE5nKXXLvyIsQw+1GMwgY=; b=u9RZxc70cXLvchBK
+ iYjHnAd3gcyecsNcts+g7QfKgG3n9T2Ob2yyg03VgrBBdK7rHRAidZqYzO1tH+m5
+ X7pO7OrEh0wUwNKW0RZO4g1By5wt3Adey527HOe69Y0u/9QfKKd1VfJMOzP7saCE
+ H+E2iYGyYhUh7G12J4hhyWRkeKlxQ+ULXfOnNmSYavI2ztBN1gC/nkvNGWZIJAkX
+ RdWS3XEN0B12uNNtRa62GLfqGmFG9CDfhA7nZmc5ZSQ1e7RAjJnonFYIS0JX34IA
+ vKZbBeP5N8tA6vfy7RyDx0Q33zYxlhMBWZ8jIiObj83MpxFrB+1pZO8Hze8byZkl
+ 5Wp46w==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 441m7t9md8-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 441at8k85j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 14:18:02 +0100 (CET)
+ Wed, 08 Jan 2025 14:21:03 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 252384004C;
- Wed,  8 Jan 2025 14:17:08 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7697D40044;
+ Wed,  8 Jan 2025 14:19:37 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4AB172B0E18;
- Wed,  8 Jan 2025 14:16:14 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6975126E530;
+ Wed,  8 Jan 2025 14:16:15 +0100 (CET)
 Received: from localhost (10.252.31.140) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 8 Jan
- 2025 14:16:13 +0100
+ 2025 14:16:15 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Wed, 8 Jan 2025 14:16:07 +0100
+Date: Wed, 8 Jan 2025 14:16:08 +0100
 MIME-Version: 1.0
-Message-ID: <20250108-csi_dcmipp_mp25_enhancements-v2-4-05808ce50e41@foss.st.com>
+Message-ID: <20250108-csi_dcmipp_mp25_enhancements-v2-5-05808ce50e41@foss.st.com>
 References: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
 In-Reply-To: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 4/8] media: stm32: csi: use ARRAY_SIZE to
- search D-PHY table
+Subject: [Linux-stm32] [PATCH v2 5/8] media: stm32: csi: simplify
+ enable_streams error handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,73 +82,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Within stm32_csi_start, use ARRAY_SIZE loop in order to search
-for the right setting.
-Avoid useless init of lanes_ie / lanes_en.
+Put all error handling for VC stop and CSI stop together
+to avoid duplication of code.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/media/platform/st/stm32/stm32-csi.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ drivers/media/platform/st/stm32/stm32-csi.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-index 89fcd7d07904..3654f9895dbc 100644
+index 3654f9895dbc..4affbc00b042 100644
 --- a/drivers/media/platform/st/stm32/stm32-csi.c
 +++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -325,7 +325,6 @@ static const struct stm32_csi_mbps_phy_reg snps_stm32mp25[] = {
- 	{ .mbps = 2400, .hsfreqrange = 0x47,	.osc_freq_target = 442 },
- 	{ .mbps = 2450, .hsfreqrange = 0x48,	.osc_freq_target = 451 },
- 	{ .mbps = 2500, .hsfreqrange = 0x49,	.osc_freq_target = 460 },
--	{ /* sentinel */ }
- };
- 
- static const struct v4l2_mbus_framefmt fmt_default = {
-@@ -444,13 +443,13 @@ static void stm32_csi_phy_reg_write(struct stm32_csi_dev *csidev,
- static int stm32_csi_start(struct stm32_csi_dev *csidev,
- 			   struct v4l2_subdev_state *state)
- {
--	const struct stm32_csi_mbps_phy_reg *phy_regs;
-+	const struct stm32_csi_mbps_phy_reg *phy_regs = NULL;
- 	struct v4l2_mbus_framefmt *sink_fmt;
- 	const struct stm32_csi_fmts *fmt;
- 	unsigned long phy_clk_frate;
-+	u32 lanes_ie, lanes_en;
- 	unsigned int mbps;
--	u32 lanes_ie = 0;
--	u32 lanes_en = 0;
-+	unsigned int i;
- 	s64 link_freq;
- 	int ret;
- 	u32 ccfr;
-@@ -474,11 +473,14 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
- 	mbps = div_s64(link_freq, 500000);
- 	dev_dbg(csidev->dev, "Computed Mbps: %u\n", mbps);
- 
--	for (phy_regs = snps_stm32mp25; phy_regs->mbps != 0; phy_regs++)
--		if (phy_regs->mbps >= mbps)
-+	for (i = 0; i < ARRAY_SIZE(snps_stm32mp25); i++) {
-+		if (snps_stm32mp25[i].mbps >= mbps) {
-+			phy_regs = &snps_stm32mp25[i];
- 			break;
-+		}
-+	}
- 
--	if (!phy_regs->mbps) {
-+	if (!phy_regs) {
- 		dev_err(csidev->dev, "Unsupported PHY speed (%u Mbps)", mbps);
- 		return -ERANGE;
+@@ -694,19 +694,21 @@ static int stm32_csi_enable_streams(struct v4l2_subdev *sd,
+ 	ret = stm32_csi_start_vc(csidev, state, 0);
+ 	if (ret) {
+ 		dev_err(csidev->dev, "Failed to start VC0\n");
+-		stm32_csi_stop(csidev);
+-		return ret;
++		goto failed_start_vc;
  	}
-@@ -488,8 +490,8 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
- 		phy_regs->osc_freq_target);
  
- 	/* Prepare lanes related configuration bits */
--	lanes_ie |= STM32_CSI_SR1_DL0_ERRORS;
--	lanes_en |= STM32_CSI_PCR_DL0EN;
-+	lanes_ie = STM32_CSI_SR1_DL0_ERRORS;
-+	lanes_en = STM32_CSI_PCR_DL0EN;
- 	if (csidev->num_lanes == 2) {
- 		lanes_ie |= STM32_CSI_SR1_DL1_ERRORS;
- 		lanes_en |= STM32_CSI_PCR_DL1EN;
+ 	ret = v4l2_subdev_enable_streams(csidev->s_subdev,
+ 					 csidev->s_subdev_pad_nb, BIT_ULL(0));
+-	if (ret) {
+-		stm32_csi_stop_vc(csidev, 0);
+-		stm32_csi_stop(csidev);
+-		return ret;
+-	}
++	if (ret)
++		goto failed_enable_streams;
+ 
+ 	return 0;
++
++failed_enable_streams:
++	stm32_csi_stop_vc(csidev, 0);
++failed_start_vc:
++	stm32_csi_stop(csidev);
++	return ret;
+ }
+ 
+ static int stm32_csi_init_state(struct v4l2_subdev *sd,
 
 -- 
 2.34.1
