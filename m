@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF23DA05CA0
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:22:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB36A05CA2
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:22:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8AC9C78032;
-	Wed,  8 Jan 2025 13:22:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0F6FC78F6E;
+	Wed,  8 Jan 2025 13:22:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33856C78022
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 469D0C78022
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 13:22:13 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508DL64g031316;
+ Wed,  8 Jan 2025 13:22:14 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508DL3ZV002861;
  Wed, 8 Jan 2025 14:22:02 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 1OijE7D/bwZ86UgAtBbLF2m/QNftawfwPt9+VBoGOMA=; b=fOzfeV6PM+6g+WXQ
- noL5+wer5LSkjZ6XlOg55wd9znIkPf5SSKj1v8OpBxr2mFZ14wU5mnAPj/3sZdyW
- tv3vPTcssxbPTRheYzKbiypoVypA+ypcPS2uci2apHSTY5sYO9n3GaUHiM0qBpKN
- 2aXctXyHgqED5DhEspCUaQFrFcCV4xLuQ2YY0KVTwWcQczdZxhEpyZH4AMOjTAsg
- qKm97xsVgEc954AFLrm/pmlTnix/vfiPyH0jQF8/cXpPPpjR2NKEmLvm0WmQqfJE
- 1nQmH4Jqj3HQaH66FBj+lD3+acaIWAYtU0HIYyqIl5+5Lacc7omtvCWd8yrnevUJ
- pbbMpw==
+ mvpHg9TQ6IL1UuT8hLct/OvilUvBkO53Z6F+HaXouII=; b=mIuFO2W/T/pz+RBI
+ kRfhDHXuRKgwKBJ4fTDFiKnvamwsyPhFq124XIsmx11kOoW6JcJHuITQ85R3zXwY
+ eym4A06l/6jxEm69xaUB1Jdjk/8SB+Xw+JXBrAQ3YReXd00QPSUzc7l4LiVTfwsM
+ L2UPLAETeg98XwkBeFImbHbG499mIHERgzOvsvAeuvWaVjPVePc6pgtPEpQQco2h
+ tXCojQP4+DQ01edcxKEGjC+jPLYCoU3jLXN/Vcat8JqHpchIX2ufA273VrfMC/aU
+ QYhPcdcC0GfzexHMpI7sMlJi7d+h53UYRaoAq9xx+mgfmhU4VSDnruVWGjcjv/rG
+ QbHbRA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 441pu4rwn8-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 441kvw1rwa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 14:22:01 +0100 (CET)
+ Wed, 08 Jan 2025 14:22:02 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1034240073;
- Wed,  8 Jan 2025 14:20:41 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 205F040052;
+ Wed,  8 Jan 2025 14:20:40 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A1B19225DF0;
- Wed,  8 Jan 2025 14:16:17 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B8E7A270D63;
+ Wed,  8 Jan 2025 14:16:18 +0100 (CET)
 Received: from localhost (10.252.31.140) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 8 Jan
- 2025 14:16:17 +0100
+ 2025 14:16:18 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Wed, 8 Jan 2025 14:16:10 +0100
+Date: Wed, 8 Jan 2025 14:16:11 +0100
 MIME-Version: 1.0
-Message-ID: <20250108-csi_dcmipp_mp25_enhancements-v2-7-05808ce50e41@foss.st.com>
+Message-ID: <20250108-csi_dcmipp_mp25_enhancements-v2-8-05808ce50e41@foss.st.com>
 References: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
 In-Reply-To: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 7/8] media: stm32: csi: correct unsigned or
- useless variable settings
+Subject: [Linux-stm32] [PATCH v2 8/8] media: stm32: dcmipp: add has_csi2 &
+ needs_mclk in match data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,81 +82,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Correct several missing unsigned type missing for loop variables
-and also remove useless initialization of variables.
+Introduce two variable has_csi and has_mclk within the
+match data of the driver in order to know, depending on
+the compatible if CSI-2 interface is available and if
+the mclk clk should be retrieved.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/media/platform/st/stm32/stm32-csi.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 23 ++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-index 1be12c9dcf55..602b0879f21e 100644
---- a/drivers/media/platform/st/stm32/stm32-csi.c
-+++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -357,7 +357,7 @@ static inline struct stm32_csi_dev *to_csidev(struct v4l2_subdev *sd)
- static int stm32_csi_setup_lane_merger(struct stm32_csi_dev *csidev)
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index 5a04018a6a9d..1b7bae3266c8 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -89,6 +89,8 @@ struct dcmipp_pipeline_config {
+ 	const struct dcmipp_ent_link *links;
+ 	size_t num_links;
+ 	u32 hw_revision;
++	bool has_csi2;
++	bool needs_mclk;
+ };
+ 
+ /* --------------------------------------------------------------------------
+@@ -164,7 +166,9 @@ static const struct dcmipp_pipeline_config stm32mp25_pipe_cfg = {
+ 	.num_ents	= ARRAY_SIZE(stm32mp25_ent_config),
+ 	.links		= stm32mp25_ent_links,
+ 	.num_links	= ARRAY_SIZE(stm32mp25_ent_links),
+-	.hw_revision    = DCMIPP_STM32MP25_VERR
++	.hw_revision    = DCMIPP_STM32MP25_VERR,
++	.has_csi2	= true,
++	.needs_mclk	= true
+ };
+ 
+ #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
+@@ -296,7 +300,7 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
+ 				     struct v4l2_async_connection *asd)
  {
- 	u32 lmcfgr = 0;
--	int i;
-+	unsigned int i;
+ 	struct dcmipp_device *dcmipp = notifier_to_dcmipp(notifier);
+-	int ret;
++	int ret = -EINVAL;
+ 	int src_pad, i;
+ 	struct dcmipp_ent_device *sink;
+ 	struct v4l2_fwnode_endpoint vep = { 0 };
+@@ -304,15 +308,9 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
+ 	enum v4l2_mbus_type supported_types[] = {
+ 		V4L2_MBUS_PARALLEL, V4L2_MBUS_BT656, V4L2_MBUS_CSI2_DPHY
+ 	};
+-	int supported_types_nb = ARRAY_SIZE(supported_types);
  
- 	for (i = 0; i < csidev->num_lanes; i++) {
- 		if (!csidev->lanes[i] || csidev->lanes[i] > STM32_CSI_LANES_MAX) {
-@@ -595,20 +595,20 @@ static int stm32_csi_start_vc(struct stm32_csi_dev *csidev,
- {
- 	struct v4l2_mbus_framefmt *mbus_fmt;
- 	const struct stm32_csi_fmts *fmt;
--	u32 cfgr1 = 0;
--	int ret = 0;
- 	u32 status;
-+	u32 cfgr1;
-+	int ret;
+ 	dev_dbg(dcmipp->dev, "Subdev \"%s\" bound\n", subdev->name);
  
- 	mbus_fmt = v4l2_subdev_state_get_format(state, STM32_CSI_PAD_SOURCE);
- 	fmt = stm32_csi_code_to_fmt(mbus_fmt->code);
+-	/* Only MP25 supports CSI input */
+-	if (!of_device_is_compatible(dcmipp->dev->of_node,
+-				     "st,stm32mp25-dcmipp"))
+-		supported_types_nb--;
+-
+ 	/*
+ 	 * Link this sub-device to DCMIPP, it could be
+ 	 * a parallel camera sensor or a CSI-2 to parallel bridge
+@@ -330,7 +328,12 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
+ 	}
  
- 	/* If the mbus code is JPEG, don't enable filtering */
- 	if (mbus_fmt->code == MEDIA_BUS_FMT_JPEG_1X8) {
--		cfgr1 |= STM32_CSI_VCXCFGR1_ALLDT;
-+		cfgr1 = STM32_CSI_VCXCFGR1_ALLDT;
- 		cfgr1 |= fmt->input_fmt << STM32_CSI_VCXCFGR1_CDTFT_SHIFT;
- 		dev_dbg(csidev->dev, "VC%d: enable AllDT mode\n", vc);
- 	} else {
--		cfgr1 |= fmt->datatype << STM32_CSI_VCXCFGR1_DT0_SHIFT;
-+		cfgr1 = fmt->datatype << STM32_CSI_VCXCFGR1_DT0_SHIFT;
- 		cfgr1 |= fmt->input_fmt << STM32_CSI_VCXCFGR1_DT0FT_SHIFT;
- 		cfgr1 |= STM32_CSI_VCXCFGR1_DT0EN;
- 		dev_dbg(csidev->dev, "VC%d: enable DT0(0x%x)/DT0FT(0x%x)\n",
-@@ -634,8 +634,8 @@ static int stm32_csi_start_vc(struct stm32_csi_dev *csidev,
+ 	/* Check for supported MBUS type */
+-	for (i = 0; i < supported_types_nb; i++) {
++	for (i = 0; i < ARRAY_SIZE(supported_types); i++) {
++		/* Only MP25 supports CSI input */
++		if (supported_types[i] == V4L2_MBUS_CSI2_DPHY &&
++		    !dcmipp->pipe_cfg->has_csi2)
++			continue;
++
+ 		vep.bus_type = supported_types[i];
+ 		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
+ 		if (!ret)
+@@ -529,7 +532,7 @@ static int dcmipp_probe(struct platform_device *pdev)
+ 				     "Unable to get kclk\n");
+ 	dcmipp->kclk = kclk;
  
- static int stm32_csi_stop_vc(struct stm32_csi_dev *csidev, u32 vc)
- {
--	int ret = 0;
- 	u32 status;
-+	int ret;
- 
- 	/* Stop the Virtual Channel */
- 	writel_relaxed(STM32_CSI_CR_VCXSTOP(vc) | STM32_CSI_CR_CSIEN,
-@@ -714,7 +714,7 @@ static int stm32_csi_enable_streams(struct v4l2_subdev *sd,
- static int stm32_csi_init_state(struct v4l2_subdev *sd,
- 				struct v4l2_subdev_state *state)
- {
--	int i;
-+	unsigned int i;
- 
- 	for (i = 0; i < sd->entity.num_pads; i++)
- 		*v4l2_subdev_state_get_format(state, i) = fmt_default;
-@@ -879,7 +879,8 @@ static irqreturn_t stm32_csi_irq_thread(int irq, void *arg)
- static int stm32_csi_get_resources(struct stm32_csi_dev *csidev,
- 				   struct platform_device *pdev)
- {
--	int irq, ret, i;
-+	unsigned int i;
-+	int irq, ret;
- 
- 	csidev->base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
- 	if (IS_ERR(csidev->base))
+-	if (!of_device_is_compatible(pdev->dev.of_node, "st,stm32mp13-dcmipp")) {
++	if (dcmipp->pipe_cfg->needs_mclk) {
+ 		mclk = devm_clk_get(&pdev->dev, "mclk");
+ 		if (IS_ERR(mclk))
+ 			return dev_err_probe(&pdev->dev, PTR_ERR(mclk),
 
 -- 
 2.34.1
