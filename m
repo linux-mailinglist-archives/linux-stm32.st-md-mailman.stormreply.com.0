@@ -2,70 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BB36A05CA2
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:22:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3094A05CC3
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 14:29:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0F6FC78F6E;
-	Wed,  8 Jan 2025 13:22:15 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5241FC78F6C;
+	Wed,  8 Jan 2025 13:29:26 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 469D0C78022
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F8DC78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 13:22:14 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 508DL3ZV002861;
- Wed, 8 Jan 2025 14:22:02 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- mvpHg9TQ6IL1UuT8hLct/OvilUvBkO53Z6F+HaXouII=; b=mIuFO2W/T/pz+RBI
- kRfhDHXuRKgwKBJ4fTDFiKnvamwsyPhFq124XIsmx11kOoW6JcJHuITQ85R3zXwY
- eym4A06l/6jxEm69xaUB1Jdjk/8SB+Xw+JXBrAQ3YReXd00QPSUzc7l4LiVTfwsM
- L2UPLAETeg98XwkBeFImbHbG499mIHERgzOvsvAeuvWaVjPVePc6pgtPEpQQco2h
- tXCojQP4+DQ01edcxKEGjC+jPLYCoU3jLXN/Vcat8JqHpchIX2ufA273VrfMC/aU
- QYhPcdcC0GfzexHMpI7sMlJi7d+h53UYRaoAq9xx+mgfmhU4VSDnruVWGjcjv/rG
- QbHbRA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 441kvw1rwa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 14:22:02 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 205F040052;
- Wed,  8 Jan 2025 14:20:40 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B8E7A270D63;
- Wed,  8 Jan 2025 14:16:18 +0100 (CET)
-Received: from localhost (10.252.31.140) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 8 Jan
- 2025 14:16:18 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Wed, 8 Jan 2025 14:16:11 +0100
+ Wed,  8 Jan 2025 13:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=8NWugOCTua3U4zM1I0sMTHCzc7ebPizCAQxQ1HTI358=; b=5MCclyICiavifLu+is6XHXo+lL
+ JMlKc9c2kEDa4HeGyBpaP//rY02AHLVjfDoVIPuhsn5rQCgm4I0NPI+i0f0mO8/a4sOcbRenvudAh
+ ZapVFOfxUZ3YvjWIQ85GWtVRltJHsKjePk3aA+9PwD7Hf1fTQTgzY8gES+EbDBsywjh4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1tVW7L-002Zoo-A9; Wed, 08 Jan 2025 14:29:03 +0100
+Date: Wed, 8 Jan 2025 14:29:03 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yijie Yang <quic_yijiyang@quicinc.com>
+Message-ID: <7e046761-7787-4f01-b47b-9374402489ac@lunn.ch>
+References: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
+ <20241225-support_10m100m-v1-2-4b52ef48b488@quicinc.com>
+ <4b4ef1c1-a20b-4b65-ad37-b9aabe074ae1@kernel.org>
+ <278de6e8-de8f-458a-a4b9-92b3eb81fa77@quicinc.com>
+ <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
+ <87a7729d-ccdd-46f0-bcfd-3915452344fd@quicinc.com>
 MIME-Version: 1.0
-Message-ID: <20250108-csi_dcmipp_mp25_enhancements-v2-8-05808ce50e41@foss.st.com>
-References: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
-In-Reply-To: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.14.1
-X-Originating-IP: [10.252.31.140]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 8/8] media: stm32: dcmipp: add has_csi2 &
- needs_mclk in match data
+Content-Disposition: inline
+In-Reply-To: <87a7729d-ccdd-46f0-bcfd-3915452344fd@quicinc.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: qcom-ethqos: Enable RX
+ programmable swap on qcs615
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,92 +66,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Introduce two variable has_csi and has_mclk within the
-match data of the driver in order to know, depending on
-the compatible if CSI-2 interface is available and if
-the mclk clk should be retrieved.
+> > Why is it specific to this board? Does the board have a PHY which is
+> > broken and requires this property? What we are missing are the details
+> > needed to help you get to the correct way to solve the problem you are
+> > facing.
+> > 
+> 
+> Let me clarify why this bit is necessary and why it's board-specific. The RX
+> programming swap bit can introduce a time delay of half a clock cycle. This
+> bit, along with the clock delay adjustment functionality, is implemented by
+> a module called 'IO Macro.' This is a Qualcomm-specific hardware design
+> located between the MAC and PHY in the SoC, serving the RGMII interface. The
+> bit works in conjunction with delay adjustment to meet the sampling
+> requirements. The sampling of RX data is also handled by this module.
+> 
+> During the board design stage, the RGMII requirements may not have been
+> strictly followed, leading to uncertainty in the relationship between the
+> clock and data waveforms when they reach the IO Macro.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 23 ++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+So this indicates any board might need this feature, not just this one
+board. Putting the board name in the driver then does not scale.
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index 5a04018a6a9d..1b7bae3266c8 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -89,6 +89,8 @@ struct dcmipp_pipeline_config {
- 	const struct dcmipp_ent_link *links;
- 	size_t num_links;
- 	u32 hw_revision;
-+	bool has_csi2;
-+	bool needs_mclk;
- };
- 
- /* --------------------------------------------------------------------------
-@@ -164,7 +166,9 @@ static const struct dcmipp_pipeline_config stm32mp25_pipe_cfg = {
- 	.num_ents	= ARRAY_SIZE(stm32mp25_ent_config),
- 	.links		= stm32mp25_ent_links,
- 	.num_links	= ARRAY_SIZE(stm32mp25_ent_links),
--	.hw_revision    = DCMIPP_STM32MP25_VERR
-+	.hw_revision    = DCMIPP_STM32MP25_VERR,
-+	.has_csi2	= true,
-+	.needs_mclk	= true
- };
- 
- #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
-@@ -296,7 +300,7 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
- 				     struct v4l2_async_connection *asd)
- {
- 	struct dcmipp_device *dcmipp = notifier_to_dcmipp(notifier);
--	int ret;
-+	int ret = -EINVAL;
- 	int src_pad, i;
- 	struct dcmipp_ent_device *sink;
- 	struct v4l2_fwnode_endpoint vep = { 0 };
-@@ -304,15 +308,9 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
- 	enum v4l2_mbus_type supported_types[] = {
- 		V4L2_MBUS_PARALLEL, V4L2_MBUS_BT656, V4L2_MBUS_CSI2_DPHY
- 	};
--	int supported_types_nb = ARRAY_SIZE(supported_types);
- 
- 	dev_dbg(dcmipp->dev, "Subdev \"%s\" bound\n", subdev->name);
- 
--	/* Only MP25 supports CSI input */
--	if (!of_device_is_compatible(dcmipp->dev->of_node,
--				     "st,stm32mp25-dcmipp"))
--		supported_types_nb--;
--
- 	/*
- 	 * Link this sub-device to DCMIPP, it could be
- 	 * a parallel camera sensor or a CSI-2 to parallel bridge
-@@ -330,7 +328,12 @@ static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
- 	}
- 
- 	/* Check for supported MBUS type */
--	for (i = 0; i < supported_types_nb; i++) {
-+	for (i = 0; i < ARRAY_SIZE(supported_types); i++) {
-+		/* Only MP25 supports CSI input */
-+		if (supported_types[i] == V4L2_MBUS_CSI2_DPHY &&
-+		    !dcmipp->pipe_cfg->has_csi2)
-+			continue;
-+
- 		vep.bus_type = supported_types[i];
- 		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
- 		if (!ret)
-@@ -529,7 +532,7 @@ static int dcmipp_probe(struct platform_device *pdev)
- 				     "Unable to get kclk\n");
- 	dcmipp->kclk = kclk;
- 
--	if (!of_device_is_compatible(pdev->dev.of_node, "st,stm32mp13-dcmipp")) {
-+	if (dcmipp->pipe_cfg->needs_mclk) {
- 		mclk = devm_clk_get(&pdev->dev, "mclk");
- 		if (IS_ERR(mclk))
- 			return dev_err_probe(&pdev->dev, PTR_ERR(mclk),
+> This means the time
+> delay introduced by the PC board may not be zero. Therefore, it's necessary
+> for software developers to tune both the RX programming swap bit and the
+> delay to ensure correct sampling.
 
--- 
-2.34.1
+O.K. Now look at how other boards tune their delays. There are
+standard properties for this:
 
+        rx-internal-delay-ps:
+          description:
+            RGMII Receive Clock Delay defined in pico seconds. This is used for
+            controllers that have configurable RX internal delays. If this
+            property is present then the MAC applies the RX delay.
+        tx-internal-delay-ps:
+          description:
+            RGMII Transmit Clock Delay defined in pico seconds. This is used for
+            controllers that have configurable TX internal delays. If this
+            property is present then the MAC applies the TX delay.
+
+I think you can use these properties, maybe with an additional comment
+in the binding. RGMII running at 1G has a clock of 125MHz. That is a
+period of 8ns. So a half clock cycle delay is then 4ns.
+
+So an rx-internal-delay-ps of 0-2000 means this clock invert should be
+disabled. A rx-internal-delay-ps of 4000-6000 means the clock invert
+should be enabled.
+
+Now, ideally, you want the PHY to add the RGMII delays, that is what i
+request all MAC/PHY pairs do, so we have a uniform setup across all
+boards. So unless the PHY does not support RGMII delays, you would
+expect rx-internal-delay-ps to be either just a small number of
+picoseconds for fine tuning, or a small number of picoseconds + 4ns
+for fine tuning.
+
+This scales, since it can be used by an board with poor design, and it
+does not require anything proprietary to Qualcomm, except the extended
+range, and hopefully nobody except Qualcomms broken RDK will require
+it, because obviously you will document the issue with the RDK and
+tell customers how to correctly design their board to be RGMII
+compliant with the clocks.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
