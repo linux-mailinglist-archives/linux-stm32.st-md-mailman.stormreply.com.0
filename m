@@ -2,92 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14CEFA0570F
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 10:38:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3FBA05732
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 10:43:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3B6DC78030;
-	Wed,  8 Jan 2025 09:38:51 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 314DFC78031;
+	Wed,  8 Jan 2025 09:43:05 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BD2EC78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 732A2C78030
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 09:38:44 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-3862d161947so7820451f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jan 2025 01:38:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736329124; x=1736933924;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mDL559tBrr/c+O7uNT1qWo/LHQ82r4NDbguV4lcJTVs=;
- b=aeQcAVDS1wLmlIc6Y7zm7KPsRvM4rt3bdCfPHs7litangP40vqTOfA1+iFo2QEmlXI
- i83lWNlTPuS/csoNnxtoaSRd0TbYrt0vsqtdFXCFjDtaJ8mSTeD70IfKJbpzQU2EY04j
- jx9c65U9Yk5p6YXIOn7/BxHVsrXqSCgKSFApcJIItl4F6uUULCB2c5kqi2OAmohAnpKe
- UiK9kBKjlRRgoIXDeaIBFaZu9WxDJW7dnKNXQBYajdUb5bVaCF+3QjO7VjO35lNQE0Z3
- 7kfl7rY56USKpaetwYLm6nHXq5kB0AAVMPSBK5URH8WqxF6A/HeJZDceuA1b4y/dHYSQ
- J+Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736329124; x=1736933924;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mDL559tBrr/c+O7uNT1qWo/LHQ82r4NDbguV4lcJTVs=;
- b=KM6PNhrCC2fjBCz8LMjEItH0tvacYjO2NLNReW1+ldKb0gQZq/nFGDC+DZsCWayFtU
- Ytow/qSAV4rJrQ9K8lFQD3VPAqgtyprdKrTX1QguYPl2qNdPnnryB1FEHgJmJz7cysOw
- cWvcmVSMQDDLFnNCSF6/TKxxC4DRrJkMewwqKx3AFxGR3mDkyUhy20OmzinNZ0yuLwd1
- YkxaIZo4deGakfZxTdyCVrKr7l2adY+rHLAH9c8IS/kBKUuFoH8JO6nBTGKgU6F2KjDN
- i8K7CxupPlTvM4rWixn3JgVRq2gdEmbUnil42N7UO4Y2nXjmOEcCSoqKH3qreMHybO33
- 72bA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVrJsflgoS82eQyCnHPgaEI0VMnnGtpUtGk6efjanGjX2wzAWtviUSV9nati4teBsZyZfUOJ7HmOD/BPw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxt+nKzoJYdmKT1uTW2R5Kfvu9hM9p2DtHGhK6yisr18IdcpbPI
- AI7wVtuwhSUgWbLMtygRqRZxzs6xj0aUI4v6CnwFjGrAvGJ4zXY/qc0zE/PfXrg=
-X-Gm-Gg: ASbGnct17gVkuc1olnaiv7jMn6XcVUTB9oWfLwisFb9lQB4Dc9vZ9uT5CzMhhAqyRJv
- UEUbHt4vBjFO/1PFdXP/8gO3Qkr0EUv5vZ04JT69HSh09s8bjFv9p4FLtLO0vLmKXw3V2QzQRhm
- iI+qIJZggZIfXzzfBScwakyp946KS2jeN6ctpptAmaCM1h5IDT+hpkWmbnv9Kz65uANrmVegofq
- boloIq7on86GFDbhj+t9VdiTwEUh9fEZgid+fxwU5SndFCMnjvdgadAGnTQwGLHCFffDMQIzE72
- Ip99NQHhkNWFaL3Ewc3s
-X-Google-Smtp-Source: AGHT+IEYud8HXrnnBRfQKSjaBRvM+YCl9Bp382tGy2B0NHlzlfFxJe7Ru+DWxpOuAvFe6cE/t2KRgA==
-X-Received: by 2002:a05:6000:18a3:b0:385:f0dc:c9fd with SMTP id
- ffacd0b85a97d-38a8730dcf2mr1495919f8f.27.1736329123722; 
- Wed, 08 Jan 2025 01:38:43 -0800 (PST)
-Received: from [192.168.10.46] (146725694.box.freepro.com. [130.180.211.218])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8a636asm53864908f8f.88.2025.01.08.01.38.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jan 2025 01:38:43 -0800 (PST)
-Message-ID: <71aceba7-d610-4550-a8a8-352c8dd4b44f@linaro.org>
-Date: Wed, 8 Jan 2025 10:38:42 +0100
+ Wed,  8 Jan 2025 09:43:04 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5089AvcF010610;
+ Wed, 8 Jan 2025 09:42:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ jP2UVcYe43DrsnUl3Ch2ueDEccTyGDvlbJ9rlGh+p0I=; b=HgmGUnVr2aATS1Me
+ r+hwiVOHh7VfpTzPu1IuBNkweTByuEqtIMlIhVSiOEK/K2wRAdXaj7JOlT+dCj04
+ DNRcXixb+0Cya1PR9X1SSiPh2J354trIauOE6f02hZ7/GSfM08BSpa5oBkx2ArJJ
+ bUAnBTXc/f6siB6UAiTUyoQgsdvA8lXG0GxMxM7+xABCPX7rAo2VcwOPlj/Yg1CI
+ Uqkg+vZXAUZ6jrbrMawPQKZ0C1JyCv0MWjVuaLcS2ZHYkEpf0lfBcFNbEoN3X81a
+ 8xFq5QvQX60QRTEmlSAWQ0v7m07WAtstKjm4T3e10sIWdcekqpBueTsQtJ0K9x+7
+ UPaRyw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441pgnr2nm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jan 2025 09:42:46 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5089gjTL004331
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 8 Jan 2025 09:42:45 GMT
+Received: from [10.253.35.161] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
+ 01:42:39 -0800
+Message-ID: <87a7729d-ccdd-46f0-bcfd-3915452344fd@quicinc.com>
+Date: Wed, 8 Jan 2025 17:42:37 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Samuel Holland <samuel.holland@sifive.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Chris Brandt <chris.brandt@renesas.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
- Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org
-References: <20250107131024.246561-1-krzysztof.kozlowski@linaro.org>
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
+ <20241225-support_10m100m-v1-2-4b52ef48b488@quicinc.com>
+ <4b4ef1c1-a20b-4b65-ad37-b9aabe074ae1@kernel.org>
+ <278de6e8-de8f-458a-a4b9-92b3eb81fa77@quicinc.com>
+ <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-In-Reply-To: <20250107131024.246561-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: Correct indentation
- and style in DTS example
+From: Yijie Yang <quic_yijiyang@quicinc.com>
+In-Reply-To: <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: pqYADZSimNJLSAOnC9od8e9uOx41DZJZ
+X-Proofpoint-ORIG-GUID: pqYADZSimNJLSAOnC9od8e9uOx41DZJZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 mlxlogscore=891
+ mlxscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501080079
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: qcom-ethqos: Enable RX
+ programmable swap on qcs615
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,24 +95,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDcvMDEvMjAyNSAxNDoxMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiBEVFMgZXhh
-bXBsZSBpbiB0aGUgYmluZGluZ3Mgc2hvdWxkIGJlIGluZGVudGVkIHdpdGggMi0gb3IgNC1zcGFj
-ZXMgYW5kCj4gYWxpZ25lZCB3aXRoIG9wZW5pbmcgJy0gfCcsIHNvIGNvcnJlY3QgYW55IGRpZmZl
-cmVuY2VzIGxpa2UgMy1zcGFjZXMgb3IKPiBtaXh0dXJlcyAyLSBhbmQgNC1zcGFjZXMgaW4gb25l
-IGJpbmRpbmcuCj4gCj4gTm8gZnVuY3Rpb25hbCBjaGFuZ2VzIGhlcmUsIGJ1dCBzYXZlcyBzb21l
-IGNvbW1lbnRzIGR1cmluZyByZXZpZXdzIG9mCj4gbmV3IHBhdGNoZXMgYnVpbHQgb24gZXhpc3Rp
-bmcgY29kZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0
-b2Yua296bG93c2tpQGxpbmFyby5vcmc+Cj4gLS0tCgpBcHBsaWVkLCB0aGFua3MKCi0tIAo8aHR0
-cDovL3d3dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUg
-Zm9yIEFSTSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6Ly93d3cuZmFjZWJvb2suY29tL3Bh
-Z2VzL0xpbmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0ZXIuY29tLyMhL2xpbmFyb29yZz4g
-VHdpdHRlciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGluYXJvLWJsb2cvPiBCbG9nCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+
+
+On 2024-12-27 01:21, Andrew Lunn wrote:
+> On Thu, Dec 26, 2024 at 10:29:45AM +0800, Yijie Yang wrote:
+>>
+>>
+>> On 2024-12-25 19:37, Krzysztof Kozlowski wrote:
+>>> On 25/12/2024 11:04, Yijie Yang wrote:
+>>>
+>>>>    static int qcom_ethqos_probe(struct platform_device *pdev)
+>>>>    {
+>>>> -	struct device_node *np = pdev->dev.of_node;
+>>>> +	struct device_node *np = pdev->dev.of_node, *root;
+>>>>    	const struct ethqos_emac_driver_data *data;
+>>>>    	struct plat_stmmacenet_data *plat_dat;
+>>>>    	struct stmmac_resources stmmac_res;
+>>>> @@ -810,6 +805,15 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>>>>    	ret = of_get_phy_mode(np, &ethqos->phy_mode);
+>>>>    	if (ret)
+>>>>    		return dev_err_probe(dev, ret, "Failed to get phy mode\n");
+>>>> +
+>>>> +	root = of_find_node_by_path("/");
+>>>> +	if (root && of_device_is_compatible(root, "qcom,sa8540p-ride"))
+>>>
+>>>
+>>> Nope, your drivers are not supposed to poke root compatibles. Drop and
+>>> fix your driver to behave correctly for all existing devices.
+>>>
+>>
+>> Since this change introduces a new flag in the DTS, we must maintain ABI
+>> compatibility with the kernel. The new flag is specific to the board, so I
+>> need to ensure root nodes are matched to allow older boards to continue
+>> functioning as before. I'm happy to adopt that approach if there are any
+>> more elegant solutions.
+> 
+> Why is it specific to this board? Does the board have a PHY which is
+> broken and requires this property? What we are missing are the details
+> needed to help you get to the correct way to solve the problem you are
+> facing.
+> 
+
+Let me clarify why this bit is necessary and why it's board-specific. 
+The RX programming swap bit can introduce a time delay of half a clock 
+cycle. This bit, along with the clock delay adjustment functionality, is 
+implemented by a module called 'IO Macro.' This is a Qualcomm-specific 
+hardware design located between the MAC and PHY in the SoC, serving the 
+RGMII interface. The bit works in conjunction with delay adjustment to 
+meet the sampling requirements. The sampling of RX data is also handled 
+by this module.
+
+During the board design stage, the RGMII requirements may not have been 
+strictly followed, leading to uncertainty in the relationship between 
+the clock and data waveforms when they reach the IO Macro. This means 
+the time delay introduced by the PC board may not be zero. Therefore, 
+it's necessary for software developers to tune both the RX programming 
+swap bit and the delay to ensure correct sampling.
+
+> 	Andrew
+> 
+
+-- 
+Best Regards,
+Yijie
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
