@@ -2,88 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B3FBA05732
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 10:43:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5920AA0572C
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 10:42:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 314DFC78031;
-	Wed,  8 Jan 2025 09:43:05 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14AC6C78031;
+	Wed,  8 Jan 2025 09:42:55 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 732A2C78030
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8CD9C78030
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 09:43:04 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5089AvcF010610;
- Wed, 8 Jan 2025 09:42:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jP2UVcYe43DrsnUl3Ch2ueDEccTyGDvlbJ9rlGh+p0I=; b=HgmGUnVr2aATS1Me
- r+hwiVOHh7VfpTzPu1IuBNkweTByuEqtIMlIhVSiOEK/K2wRAdXaj7JOlT+dCj04
- DNRcXixb+0Cya1PR9X1SSiPh2J354trIauOE6f02hZ7/GSfM08BSpa5oBkx2ArJJ
- bUAnBTXc/f6siB6UAiTUyoQgsdvA8lXG0GxMxM7+xABCPX7rAo2VcwOPlj/Yg1CI
- Uqkg+vZXAUZ6jrbrMawPQKZ0C1JyCv0MWjVuaLcS2ZHYkEpf0lfBcFNbEoN3X81a
- 8xFq5QvQX60QRTEmlSAWQ0v7m07WAtstKjm4T3e10sIWdcekqpBueTsQtJ0K9x+7
- UPaRyw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 441pgnr2nm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Jan 2025 09:42:46 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5089gjTL004331
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 8 Jan 2025 09:42:45 GMT
-Received: from [10.253.35.161] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 Jan 2025
- 01:42:39 -0800
-Message-ID: <87a7729d-ccdd-46f0-bcfd-3915452344fd@quicinc.com>
-Date: Wed, 8 Jan 2025 17:42:37 +0800
+ Wed,  8 Jan 2025 09:42:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 82E695C1ECA;
+ Wed,  8 Jan 2025 09:42:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F55C4CEE0;
+ Wed,  8 Jan 2025 09:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736329366;
+ bh=rAAJB23TaaJIaXUpZUUa/qWZJRWIZmWNo/u6nwx5HzA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OjjUICPLs/LoW1PyprRp1lnp/tZKSOWO4ehhjLcJ+K/CZZY1ysTIi5SPNDhMhnNxu
+ eExZCi6apmXpawI/bBsZRqUc6bV7I+p0ufJhgE640aVZ5ys6wTdrEVpOEUYj4YN+3M
+ R7z1Q3vefFHTWUvnA9uj7fStZOFv2WM5aNyMRik/rsCv7JfP7rLv2g31Uhwcxr+8CU
+ Ip7ZMKPyttguxA2VNfABElNn8UDMxMzydjZjIQVbqvGA97SputE20sNx3AkRqBvbkU
+ zHEUcUkNjXD9MTjgu7CK03zl3rMA8aPVGWwmBfjGFC6hUzWslGg5BpJRGdOU/58lS9
+ X049ltnN3XIvg==
+Date: Wed, 8 Jan 2025 09:42:41 +0000
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20250108094241.GD2772@kernel.org>
+References: <Z3vLbRQ9Ctl-Rpdg@shell.armlinux.org.uk>
+ <E1tUmAE-007VWv-UW@rmk-PC.armlinux.org.uk>
+ <20250107112851.GE33144@kernel.org>
+ <Z30WmPpMp_BRgrOI@shell.armlinux.org.uk>
+ <20250107144103.GB5872@kernel.org>
+ <Z31Hjlp_3jIeSpWH@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
- <20241225-support_10m100m-v1-2-4b52ef48b488@quicinc.com>
- <4b4ef1c1-a20b-4b65-ad37-b9aabe074ae1@kernel.org>
- <278de6e8-de8f-458a-a4b9-92b3eb81fa77@quicinc.com>
- <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
-Content-Language: en-US
-From: Yijie Yang <quic_yijiyang@quicinc.com>
-In-Reply-To: <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: pqYADZSimNJLSAOnC9od8e9uOx41DZJZ
-X-Proofpoint-ORIG-GUID: pqYADZSimNJLSAOnC9od8e9uOx41DZJZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=891
- mlxscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2501080079
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+Content-Disposition: inline
+In-Reply-To: <Z31Hjlp_3jIeSpWH@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: qcom-ethqos: Enable RX
- programmable swap on qcs615
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 03/17] net: stmmac: use
+ correct type for tx_lpi_timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,75 +60,95 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2024-12-27 01:21, Andrew Lunn wrote:
-> On Thu, Dec 26, 2024 at 10:29:45AM +0800, Yijie Yang wrote:
->>
->>
->> On 2024-12-25 19:37, Krzysztof Kozlowski wrote:
->>> On 25/12/2024 11:04, Yijie Yang wrote:
->>>
->>>>    static int qcom_ethqos_probe(struct platform_device *pdev)
->>>>    {
->>>> -	struct device_node *np = pdev->dev.of_node;
->>>> +	struct device_node *np = pdev->dev.of_node, *root;
->>>>    	const struct ethqos_emac_driver_data *data;
->>>>    	struct plat_stmmacenet_data *plat_dat;
->>>>    	struct stmmac_resources stmmac_res;
->>>> @@ -810,6 +805,15 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->>>>    	ret = of_get_phy_mode(np, &ethqos->phy_mode);
->>>>    	if (ret)
->>>>    		return dev_err_probe(dev, ret, "Failed to get phy mode\n");
->>>> +
->>>> +	root = of_find_node_by_path("/");
->>>> +	if (root && of_device_is_compatible(root, "qcom,sa8540p-ride"))
->>>
->>>
->>> Nope, your drivers are not supposed to poke root compatibles. Drop and
->>> fix your driver to behave correctly for all existing devices.
->>>
->>
->> Since this change introduces a new flag in the DTS, we must maintain ABI
->> compatibility with the kernel. The new flag is specific to the board, so I
->> need to ensure root nodes are matched to allow older boards to continue
->> functioning as before. I'm happy to adopt that approach if there are any
->> more elegant solutions.
+On Tue, Jan 07, 2025 at 03:26:06PM +0000, Russell King (Oracle) wrote:
+> On Tue, Jan 07, 2025 at 02:41:03PM +0000, Simon Horman wrote:
+> > On Tue, Jan 07, 2025 at 11:57:12AM +0000, Russell King (Oracle) wrote:
+> > > On Tue, Jan 07, 2025 at 11:28:51AM +0000, Simon Horman wrote:
+> > > > On Mon, Jan 06, 2025 at 12:24:58PM +0000, Russell King (Oracle) wrote:
+> > > > > The ethtool interface uses u32 for tx_lpi_timer, and so does phylib.
+> > > > > Use u32 to store this internally within stmmac rather than "int"
+> > > > > which could misinterpret large values.
+> > > > > 
+> > > > > Since eee_timer is used to initialise priv->tx_lpi_timer, this also
+> > > > > should be unsigned to avoid a negative number being interpreted as a
+> > > > > very large positive number.
+> > > > > 
+> > > > > Also correct "value" in dwmac4_set_eee_lpi_entry_timer() to use u32
+> > > > > rather than int, which is derived from tx_lpi_timer, even though
+> > > > > masking with STMMAC_ET_MAX will truncate the sign bits. u32 is the
+> > > > > value argument type for writel().
+> > > > > 
+> > > > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > > > 
+> > > > ...
+> > > > 
+> > > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > > index 9a9169ca7cd2..b0ef439b715b 100644
+> > > > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > > @@ -111,8 +111,8 @@ static const u32 default_msg_level = (NETIF_MSG_DRV | NETIF_MSG_PROBE |
+> > > > >  				      NETIF_MSG_IFDOWN | NETIF_MSG_TIMER);
+> > > > >  
+> > > > >  #define STMMAC_DEFAULT_LPI_TIMER	1000
+> > > > > -static int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > > > > -module_param(eee_timer, int, 0644);
+> > > > > +static unsigned int eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > > > > +module_param(eee_timer, uint, 0644);
+> > > > >  MODULE_PARM_DESC(eee_timer, "LPI tx expiration time in msec");
+> > > > >  #define STMMAC_LPI_T(x) (jiffies + usecs_to_jiffies(x))
+> > > > >  
+> > > > 
+> > > > Hi Russell,
+> > > > 
+> > > > now that eee_timer is unsigned the following check in stmmac_verify_args()
+> > > > can never be true. I guess it should be removed.
+> > > > 
+> > > >         if (eee_timer < 0)
+> > > >                 eee_timer = STMMAC_DEFAULT_LPI_TIMER;
+> > > > 
+> > > 
+> > > Thanks for finding that. The parameter description doesn't seem to
+> > > detail whether this is intentional behaviour or not, or whether it is
+> > > "because someone used int and we shouldn't have negative values here".
+> > > 
+> > > I can't see why someone would pass a negative number for eee_timer
+> > > given that it already defaults to STMMAC_DEFAULT_LPI_TIMER.
+> > > 
+> > > So, I'm tempted to remove this.
+> > 
+> > I'm not sure either. It did cross my mind that the check could be changed,
+> > to disallow illegal values (if the range of legal values is not all
+> > possible unsigned integer values). But it was just an idea without any
+> > inspection of the code or thought about it's practicality. And my first
+> > instinct was the same as yours: remove the check.
 > 
-> Why is it specific to this board? Does the board have a PHY which is
-> broken and requires this property? What we are missing are the details
-> needed to help you get to the correct way to solve the problem you are
-> facing.
+> My reasoning is as follows:
 > 
-
-Let me clarify why this bit is necessary and why it's board-specific. 
-The RX programming swap bit can introduce a time delay of half a clock 
-cycle. This bit, along with the clock delay adjustment functionality, is 
-implemented by a module called 'IO Macro.' This is a Qualcomm-specific 
-hardware design located between the MAC and PHY in the SoC, serving the 
-RGMII interface. The bit works in conjunction with delay adjustment to 
-meet the sampling requirements. The sampling of RX data is also handled 
-by this module.
-
-During the board design stage, the RGMII requirements may not have been 
-strictly followed, leading to uncertainty in the relationship between 
-the clock and data waveforms when they reach the IO Macro. This means 
-the time delay introduced by the PC board may not be zero. Therefore, 
-it's necessary for software developers to tune both the RX programming 
-swap bit and the delay to ensure correct sampling.
-
-> 	Andrew
+> In the existing code with the module paramter is a signed int, then it
+> take a value up to INT_MAX. Provided sizeof(int) == sizeof(u32), then
+> this can be reported through the ethtool API. However, ethtool can set
+> the timer to U32_MAX which can exceed INT_MAX in this case. The driver
+> doesn't stop this, and uses a software based timer for any delay greater
+> than the capabilities of the hardware timer (if any.)
 > 
+> So, through ethtool one can set the LPI delay to anything between 0 and
+> U32_MAX, whereas through the module parameter it's between 0 and
+> INT_MAX. values between INT_MIN and -1 inclusive result in the default
+> being used.
+> 
+> It is, of course, absurd to have a negative delay, or even a delay
+> anywhere near INT_MAX or U32_MAX.
+> 
+> I'll separate out the change to eee_timer so if necessary, that can be
+> reverted without reverting the entire patch. Oh goodo, an extra patch
+> for a patchset which already exceeds netdev's 15 patches...
 
--- 
-Best Regards,
-Yijie
-
+Thanks Russell, FWIIW this sounds entirely reasonable to me.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
