@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996D1A065FD
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2025 21:25:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0243A069AD
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2025 00:48:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 291E2C78F66;
-	Wed,  8 Jan 2025 20:25:28 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CBA8C78F66;
+	Wed,  8 Jan 2025 23:48:10 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07EFAC78030
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A247FC78030
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2025 20:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PUDw2uMXlvZKFnYf/nGhrEOQlOnEKNrdrSrZUwzH9YU=; b=bgULs6bQzGZW9Uddr1Ln/594zs
- Vt9+DfsqfV4bSp5A8CpFEk5PVqbyagYxOG7eiUkt6KlN4zYgexHHHRGZ67E1YtT19gt9Qcu16kQPM
- +vbDAsasIt/5/6e4pO8EbTtvDNh0nfECU6D/UZqrKAdZqaDqlrwjAJMMzYPHE0FWqHVfGbFHqctMy
- I6jniHa56A1hvkHEb0KzrCJPhzOqbxZTqn4LmoUuajDAL4SwFSjf3sJkYuu823oHxUr/t9cnYpmZ3
- zb/pTPwV/3iL4UnidBODEqp9wCcq7lH6Ul3+G1adhBnAplyCbvsedd7k5ITwUu45l93vhG+TS6+M1
- oSzGG/8Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50228)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tVcc3-0001BL-1g;
- Wed, 08 Jan 2025 20:25:11 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tVcbz-0006a3-24;
- Wed, 08 Jan 2025 20:25:07 +0000
-Date: Wed, 8 Jan 2025 20:25:07 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z37fI8dMLOS7-ky7@shell.armlinux.org.uk>
-References: <Z36sHIlnExQBuFJE@shell.armlinux.org.uk>
- <E1tVZDw-0002KL-Gg@rmk-PC.armlinux.org.uk>
+ Wed,  8 Jan 2025 23:48:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1A173A41DB5;
+ Wed,  8 Jan 2025 23:46:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24ECDC4CED3;
+ Wed,  8 Jan 2025 23:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736380088;
+ bh=ESRJ1GfGU3MEBCTm3oBsNj+1YXHsyQuA8Y9s6R22loo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ugheSgSbDS6hkRB7HGXL3laCrlZxbxaHkELksEr8U6G2shFSLX5jXoxpp/lQF/XDX
+ fKZX05yJSKLKNDhgHUtDtEP05NbPvlI/9+cbhQI0l+PE/FDN7lJWGDz42j7gq/udmf
+ kBoUCzqLu5Ywl23r5nW3c5wvpZCZ7UGWhxnLIymHPGVlIwYuQjQQENYEVdo4pmEjca
+ pdcq4X3bRJvuNuUP32F7QuOq3p2BzT2bbkbQeVFTb3XmLhHRoYNLt1xPBrqBCQeY3p
+ UdWIQBAaN10nJVjRsMrCJzH5izPzpeCcG5dukXzA0PjpmXt03ga4GHH0fS6SQs+Z9O
+ SXqyTL9IkqaXA==
+Date: Wed, 8 Jan 2025 17:48:07 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <20250108234807.GA1247672-robh@kernel.org>
+References: <20250105181525.1370822-1-dario.binacchi@amarulasolutions.com>
+ <20250105181525.1370822-5-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1tVZDw-0002KL-Gg@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 07/18] net: stmmac: clean up
- stmmac_disable_eee_mode()
+In-Reply-To: <20250105181525.1370822-5-dario.binacchi@amarulasolutions.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/6] dt-bindings: clock: st,
+ stm32-rcc: support spread spectrum clocking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,49 +61,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 08, 2025 at 04:48:04PM +0000, Russell King (Oracle) wrote:
-> stmmac_disable_eee_mode() is now only called from stmmac_xmit() when
-> both priv->tx_path_in_lpi_mode and priv->eee_sw_timer_en are true.
-> Therefore:
+On Sun, Jan 05, 2025 at 07:14:16PM +0100, Dario Binacchi wrote:
+> The addition of DT bindings for enabling and tuning spread spectrum
+> clocking generation is available only for the main PLL.
 > 
-> 	if (!priv->eee_sw_timer_en)
-> 
-> in stmmac_disable_eee_mode() will never be true, so this is dead code.
-> Remove it, and rename the function to indicate that it now only deals
-> with software based EEE mode.
-> 
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Tested-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index de06aa1ff3f6..9a043d19ebac 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -427,18 +427,13 @@ static int stmmac_enable_eee_mode(struct stmmac_priv *priv)
->  }
+>  .../bindings/clock/st,stm32-rcc.yaml          | 27 +++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+> index ae9e5b26d876..c345d3ff3fc4 100644
+> --- a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+> @@ -77,6 +77,26 @@ properties:
+>        Phandle to system configuration controller. It can be used to control the
+>        power domain circuitry.
 >  
->  /**
-> - * stmmac_disable_eee_mode - disable and exit from LPI mode
-> + * stmmac_disable_sw_eee_mode - disable and exit from LPI mode
->   * @priv: driver private structure
->   * Description: this function is to exit and disable EEE in case of
->   * LPI state is true. This is called by the xmit.
->   */
-> -static void stmmac_disable_eee_mode(struct stmmac_priv *priv)
-> +static void stmmac_disable_sw_eee_mode(struct stmmac_priv *priv)
+> +  st,ssc-modfreq-hz:
+> +    description:
+> +      The modulation frequency for main PLL (in Hz)
 
-Looking at this again, I'm still not happy with the function name, but
-not enough to send another version. I'll change it to
-stmmac_stop_sw_lpi() in the next batch of stmmac EEE cleanups (there
-is more to come!)
+No constraints?
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> +
+> +  st,ssc-moddepth-permyriad:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The modulation rate for main PLL (in permyriad, i.e. 0.01%)
+> +    minimum: 25
+> +    maximum: 200
+> +
+> +  st,ssc-modmethod:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    description:
+> +      The modulation techniques for main PLL.
+> +    items:
+> +      enum:
+> +        - center-spread
+> +        - down-spread
+
+What's the default? If there's only 2 possibilities, then you can use a 
+boolean instead. Though I assume you want to support spread-spectrum 
+disabled.
+
+Are there dependencies between these properties? 
+
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -97,6 +117,10 @@ allOf:
+>            const: 1
+>            description: |
+>              The clock index for the specified type.
+> +        st,ssc-modfreq-hz: false
+> +        st,ssc-moddepth-permyriad: false
+> +        st,ssc-modmethod: false
+> +
+>      else:
+>        properties:
+>          '#clock-cells':
+> @@ -118,6 +142,9 @@ examples:
+>          reg = <0x40023800 0x400>;
+>          clocks = <&clk_hse>, <&clk_i2s_ckin>;
+>          st,syscfg = <&pwrcfg>;
+> +        st,ssc-modfreq-hz = <10000>;
+> +        st,ssc-moddepth-permyriad = <200>;
+> +        st,ssc-modmethod = "center-spread";
+>      };
+>  
+>    - |
+> -- 
+> 2.43.0
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
