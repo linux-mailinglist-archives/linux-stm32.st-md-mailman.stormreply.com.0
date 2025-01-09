@@ -2,83 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E5EA0821A
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2025 22:19:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680B2A0821B
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2025 22:19:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19ACAC78011;
-	Thu,  9 Jan 2025 21:19:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EE98C78F69;
+	Thu,  9 Jan 2025 21:19:21 +0000 (UTC)
 Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
  [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DB78C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE35AC78F67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jan 2025 21:19:17 +0000 (UTC)
+ Thu,  9 Jan 2025 21:19:19 +0000 (UTC)
 Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-5d3bdccba49so2097261a12.1
+ 4fb4d7f45d1cf-5d3d2a30afcso2194643a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Jan 2025 13:19:17 -0800 (PST)
+ Thu, 09 Jan 2025 13:19:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1736457557; x=1737062357;
+ d=amarulasolutions.com; s=google; t=1736457559; x=1737062359;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kMDwINMgp57JdnWDRo35bVQVHIu764enuWXH+P8QtD8=;
- b=rFLxaFNdujD1Ed6P4BOpN+itX06uPO0nZj0d7KtNZ0icIPKuTbqcUhkhrVYD8B4oFe
- R8HJV5WNvqfBKzOvo9VS7YAP3NxNwMCYkvOPpjv9ob/O4W4r4VNOswB5Jae5Ffxvq4b9
- DO4+xYQXMOVo/mVyFR+HFaN+kEb+GcpKJPwTI=
+ bh=68CdHAZCqU/700PS8wNVBBVrBBOJwhpJC23uvX7+CAE=;
+ b=rxqcBP8JUJkZT/ouMieiYH5Sv1lpNGM582+SIKG48mQ9BltzQEW58p368itVOI7HaY
+ kvTjkr9zqsvFB1T6+55Yf/xr0JEEZ7+pSGf5TvRKy7izNT9c9E2GfhQ6SCbo8RUri53O
+ p1r9FaGuTk7V7CCXlMFQ4RZs07XW5E9/BpI8c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736457557; x=1737062357;
+ d=1e100.net; s=20230601; t=1736457559; x=1737062359;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kMDwINMgp57JdnWDRo35bVQVHIu764enuWXH+P8QtD8=;
- b=eCSRhXgi5UW/M1vQpQ7ttC2Sm7/4K8hI2D+SeGfm00nKnUWtJrB0DK0ay8ksUKmL4/
- InH6BQ9lMbZhZOkl2qJU+nw3ULic0CLtnGBfHABDRL0CkjrywJSKOKJ5YdXRgfL4Rzqx
- y4ht6iCK5f9hvy1OGf21vDD9W2MFZpjWgxFD/pu5nDWobY9sXIhxE1kSwTSx56242t1z
- OK168/lYNElkBkZD0NcGaIHNR0hPttgNPOU01rHD03NK3IEWkIU9JqX434wARk3OYrDe
- 5NCaYNLr+m5YfPCnojfGb6Bf0cq3AhMOCJNqY/sfkeTkyiL3SUV19c2M0ujxSsRCvr4A
- jn/Q==
+ bh=68CdHAZCqU/700PS8wNVBBVrBBOJwhpJC23uvX7+CAE=;
+ b=rLDmmTwm8rOUF57J30XW4bnP8FLYNOqTPvC1pOzziW/A/CA+CzPIW16L6VyhJ2xwQO
+ MFkMgHAwzlW3gEdNty8n5s4YHu2xE9jN16H4iuKHV3NIWARK2BAK09c1USXScURVh7y2
+ xmAAaJAgEA3ygWpxY8Xrr1d5LQIyb/yN2Gnfbm/gMxoKa3rumMlzu1orkdx4mDBObheH
+ YA1jyBQrZ5Po/QZIuOv1mtAKbBLxlZDiJP4M/ZzBFCdokFNHTh97bN9SGpUNCzJGJ5Cu
+ +E5Cdo/glBVcoqwZXdITi5iPMLMaPcWxsS2Amz7ii4EdLord/T5XPsMy3q9Xr/C9YeFh
+ PWrA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXSklnl5Va9Vh9rkkeCU8SE3I+8ZLHKQdG7nZHqrmEGj06L7Oiz6uQim7efSMNm/AuzLQjLAYco534XGw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwOwGBcA4ivnHCAwL/AfTvr0EZKVqNVyIYw0/0NFwaiy7h2hITj
- 69V0U0Rhfr41RtlGcARIjrj6AQLVDzIiVGbaFOQZFgLXSL6oamHB+etcmICuxDM=
-X-Gm-Gg: ASbGncsNWKGn73tB9sqStpYIUl+MTDv9eVg+pAL8b00nfWDjP1ZKJbCwRpmx+ueCw90
- qVAd86tiMCiai5/SUW9BEFzW8dcC80LUFUNooF9qWvjJQbyO5YuOo1NUh+9XLkX+/ZI0dPxE9Tq
- LyHBZF5+/cglhMjopo+FYLtIzzQb6xINbs7y8QzvIG/4QUQqNgsCmeIEwxXoiJMWPV6RyHwRLU7
- ho0VpTlzUfUZhnwTPsJs9lB5ezbqSVLJsl3MTPanZFsoBNJXWQXsC2+tBGVLwdvuSSpKQEr9L/V
- Ojxx1DIALOkCXPOALE13lpGthg5TeltJ52DosUi/jeDTlhtbs1LHs2yZbH2Vrx/9tyEQXHEhfNl
- iIrAdBgpbJD81aoMwIw==
-X-Google-Smtp-Source: AGHT+IHUAVP6+PgKfM9g4JVq2jFqpWDWI9WunzPqIfkbBNq/oJX0XMZspcKrfWFqNV5TF87Psj1xjg==
-X-Received: by 2002:a05:6402:3225:b0:5d9:b8a:9e08 with SMTP id
- 4fb4d7f45d1cf-5d972e1b768mr7727175a12.16.1736457556741; 
- Thu, 09 Jan 2025 13:19:16 -0800 (PST)
+ AJvYcCWhWAwk0upmvdy6sCb2vSbt2hALcVmACSsYssTIPimMhbL+e0DsNwQrEZ9mWmbkROeaNXFQ2zKwuz/DLw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxhwsUtxdSaifnHcK8EOdKjZRTHXidfyV4Ysn8b2//6jb2o9YqS
+ YlAFCu6zFr9fx72rahZmLQyVZC54DgCBDn9S/OokHTaBUM3q3iyeRHY41zv+Q2U=
+X-Gm-Gg: ASbGnctSSDt8LSBnpanmFaLgVSfMNyD7rV9SImL+XfEPuTlpFpvCtRFgDXHJISJ5Uem
+ uTaBzauHxrp6spIhJy9m4PrOPYV+Z5KFiof5DE7jJ+clRSovGG57rFACyxmseUdKRm2HyzFdD/u
+ VTVPchSHkjLM0o/+Omt8zlfynq8EZe32sZG352xd4ciaJ48O974Z3TH9ERjo2GTyfdPKFlyWNnq
+ G5w7r3iaZdZ/wJ29QqJ6ZpHhBEXQOFD/And63GT4+5rBr6A3JcN4QBp7OkWNIEBivqyThUQgGfx
+ Ob6fCZRI2zIiOnObUICZqpPHdf1JmGnP1czAisouQRRQdElqA/fUK782IiVBNw+PbO05vA2FG/n
+ DpK5mdW232ZJujxaurg==
+X-Google-Smtp-Source: AGHT+IFfiDSYYvGnEgMP2QwNnIkAkHlHP9l0zHJQ4yI1SUJQxTP9wEsEdwJ81wysyqIM0rn1EM70nA==
+X-Received: by 2002:a05:6402:4407:b0:5d3:d733:7ad4 with SMTP id
+ 4fb4d7f45d1cf-5d972dfe6abmr8251883a12.3.1736457559390; 
+ Thu, 09 Jan 2025 13:19:19 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-79-41-6-15.retail.telecomitalia.it. [79.41.6.15])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9900c4b56sm925567a12.32.2025.01.09.13.19.14
+ 4fb4d7f45d1cf-5d9900c4b56sm925567a12.32.2025.01.09.13.19.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 13:19:15 -0800 (PST)
+ Thu, 09 Jan 2025 13:19:18 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu,  9 Jan 2025 22:18:28 +0100
-Message-ID: <20250109211908.1553072-2-dario.binacchi@amarulasolutions.com>
+Date: Thu,  9 Jan 2025 22:18:29 +0100
+Message-ID: <20250109211908.1553072-3-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250109211908.1553072-1-dario.binacchi@amarulasolutions.com>
 References: <20250109211908.1553072-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ devicetree@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 1/4] dt-bindings: clock: convert stm32 rcc
-	bindings to json-schema
+Subject: [Linux-stm32] [PATCH v2 2/4] dt-bindings: clock: st,
+	stm32-rcc: support spread spectrum clocking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,322 +95,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch converts st,stm32-rcc.txt to the JSON schema, but it does more
-than that. The old bindings, in fact, only covered the stm32f{4,7}
-platforms and not the stm32h7. Therefore, to avoid patch submission tests
-failing, it was necessary to add the corresponding compatible (i. e.
-st,stm32h743-rcc) and specify that, in this case, 3 are the clocks instead
-of the 2 required for the stm32f{4,7} platforms.
-Additionally, the old bindings made no mention of the st,syscfg property,
-which is used by both the stm32f{4,7} and the stm32h7 platforms.
-
-The patch also fixes the files referencing to the old st,stm32-rcc.txt.
+The addition of DT bindings for enabling and tuning spread spectrum
+clocking generation is available only for the main PLL of stm32f{4,7}
+platforms.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
 ---
 
 Changes in v2:
-- Fixup patches:
-  2/6 dt-bindings: reset: st,stm32-rcc: update reference due to rename
-  3/6 dt-bindings: clock: stm32fx: update reference due to rename
 - Update the commit message
-- Reduce the description section of the yaml file
-- List the items with description for the clocks property
-- Use only one example
-- Rename rcc to clock-controller@58024400 for the node of the example
+- Change st,ssc-modmethod type from non-unique-string-array to string
 
- .../bindings/clock/st,stm32-rcc.txt           | 138 ------------------
- .../bindings/clock/st,stm32-rcc.yaml          | 111 ++++++++++++++
- .../bindings/reset/st,stm32-rcc.txt           |   2 +-
- include/dt-bindings/clock/stm32fx-clock.h     |   2 +-
- 4 files changed, 113 insertions(+), 140 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/clock/st,stm32-rcc.txt
- create mode 100644 Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
+ .../bindings/clock/st,stm32-rcc.yaml          | 36 +++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/st,stm32-rcc.txt b/Documentation/devicetree/bindings/clock/st,stm32-rcc.txt
-deleted file mode 100644
-index cfa04b614d8a..000000000000
---- a/Documentation/devicetree/bindings/clock/st,stm32-rcc.txt
-+++ /dev/null
-@@ -1,138 +0,0 @@
--STMicroelectronics STM32 Reset and Clock Controller
--===================================================
--
--The RCC IP is both a reset and a clock controller.
--
--Please refer to clock-bindings.txt for common clock controller binding usage.
--Please also refer to reset.txt for common reset controller binding usage.
--
--Required properties:
--- compatible: Should be:
--  "st,stm32f42xx-rcc"
--  "st,stm32f469-rcc"
--  "st,stm32f746-rcc"
--  "st,stm32f769-rcc"
--
--- reg: should be register base and length as documented in the
--  datasheet
--- #reset-cells: 1, see below
--- #clock-cells: 2, device nodes should specify the clock in their "clocks"
--  property, containing a phandle to the clock device node, an index selecting
--  between gated clocks and other clocks and an index specifying the clock to
--  use.
--- clocks: External oscillator clock phandle
--  - high speed external clock signal (HSE)
--  - external I2S clock (I2S_CKIN)
--
--Example:
--
--	rcc: rcc@40023800 {
--		#reset-cells = <1>;
--		#clock-cells = <2>
--		compatible = "st,stm32f42xx-rcc", "st,stm32-rcc";
--		reg = <0x40023800 0x400>;
--		clocks = <&clk_hse>, <&clk_i2s_ckin>;
--	};
--
--Specifying gated clocks
--=======================
--
--The primary index must be set to 0.
--
--The secondary index is the bit number within the RCC register bank, starting
--from the first RCC clock enable register (RCC_AHB1ENR, address offset 0x30).
--
--It is calculated as: index = register_offset / 4 * 32 + bit_offset.
--Where bit_offset is the bit offset within the register (LSB is 0, MSB is 31).
--
--To simplify the usage and to share bit definition with the reset and clock
--drivers of the RCC IP, macros are available to generate the index in
--human-readble format.
--
--For STM32F4 series, the macro are available here:
-- - include/dt-bindings/mfd/stm32f4-rcc.h
--
--Example:
--
--	/* Gated clock, AHB1 bit 0 (GPIOA) */
--	... {
--		clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOA)>
--	};
--
--	/* Gated clock, AHB2 bit 4 (CRYP) */
--	... {
--		clocks = <&rcc 0 STM32F4_AHB2_CLOCK(CRYP)>
--	};
--
--Specifying other clocks
--=======================
--
--The primary index must be set to 1.
--
--The secondary index is bound with the following magic numbers:
--
--	0	SYSTICK
--	1	FCLK
--	2	CLK_LSI		(low-power clock source)
--	3	CLK_LSE		(generated from a 32.768 kHz low-speed external
--				 crystal or ceramic resonator)
--	4	CLK_HSE_RTC	(HSE division factor for RTC clock)
--	5	CLK_RTC		(real-time clock)
--	6	PLL_VCO_I2S	(vco frequency of I2S pll)
--	7	PLL_VCO_SAI	(vco frequency of SAI pll)
--	8	CLK_LCD		(LCD-TFT)
--	9	CLK_I2S		(I2S clocks)
--	10	CLK_SAI1	(audio clocks)
--	11	CLK_SAI2
--	12	CLK_I2SQ_PDIV	(post divisor of pll i2s q divisor)
--	13	CLK_SAIQ_PDIV	(post divisor of pll sai q divisor)
--
--	14	CLK_HSI		(Internal ocscillator clock)
--	15	CLK_SYSCLK	(System Clock)
--	16	CLK_HDMI_CEC	(HDMI-CEC clock)
--	17	CLK_SPDIF	(SPDIF-Rx clock)
--	18	CLK_USART1	(U(s)arts clocks)
--	19	CLK_USART2
--	20	CLK_USART3
--	21	CLK_UART4
--	22	CLK_UART5
--	23	CLK_USART6
--	24	CLK_UART7
--	25	CLK_UART8
--	26	CLK_I2C1	(I2S clocks)
--	27	CLK_I2C2
--	28	CLK_I2C3
--	29	CLK_I2C4
--	30	CLK_LPTIMER	(LPTimer1 clock)
--	31	CLK_PLL_SRC
--	32	CLK_DFSDM1
--	33	CLK_ADFSDM1
--	34	CLK_F769_DSI
--)
--
--Example:
--
--	/* Misc clock, FCLK */
--	... {
--		clocks = <&rcc 1 STM32F4_APB1_CLOCK(TIM2)>
--	};
--
--
--Specifying softreset control of devices
--=======================================
--
--Device nodes should specify the reset channel required in their "resets"
--property, containing a phandle to the reset device node and an index specifying
--which channel to use.
--The index is the bit number within the RCC registers bank, starting from RCC
--base address.
--It is calculated as: index = register_offset / 4 * 32 + bit_offset.
--Where bit_offset is the bit offset within the register.
--For example, for CRC reset:
--  crc = AHB1RSTR_offset / 4 * 32 + CRCRST_bit_offset = 0x10 / 4 * 32 + 12 = 140
--
--example:
--
--	timer2 {
--		resets	= <&rcc STM32F4_APB1_RESET(TIM2)>;
--	};
 diff --git a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-new file mode 100644
-index 000000000000..779e547700be
---- /dev/null
+index 779e547700be..628bbbcf2875 100644
+--- a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
 +++ b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-@@ -0,0 +1,111 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/st,stm32-rcc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Reset Clock Controller
-+
-+maintainers:
-+  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+
-+description: |
-+  The RCC IP is both a reset and a clock controller.
-+  The reset phandle argument is the bit number within the RCC registers bank,
-+  starting from RCC base address.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: st,stm32f42xx-rcc
-+          - const: st,stm32-rcc
-+      - items:
-+          - enum:
-+              - st,stm32f469-rcc
-+          - const: st,stm32f42xx-rcc
-+          - const: st,stm32-rcc
-+      - items:
-+          - const: st,stm32f746-rcc
-+          - const: st,stm32-rcc
-+      - items:
-+          - enum:
-+              - st,stm32f769-rcc
-+          - const: st,stm32f746-rcc
-+          - const: st,stm32-rcc
-+      - items:
-+          - const: st,stm32h743-rcc
-+          - const: st,stm32-rcc
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#reset-cells':
-+    const: 1
-+
-+  '#clock-cells':
-+    enum: [1, 2]
-+
-+  clocks:
-+    minItems: 2
-+    maxItems: 3
-+
-+  st,syscfg:
-+    $ref: /schemas/types.yaml#/definitions/phandle
+@@ -56,6 +56,26 @@ properties:
+       Phandle to system configuration controller. It can be used to control the
+       power domain circuitry.
+ 
++  st,ssc-modfreq-hz:
 +    description:
-+      Phandle to system configuration controller. It can be used to control the
-+      power domain circuitry.
++      The modulation frequency for main PLL (in Hz)
 +
-+required:
-+  - compatible
-+  - reg
-+  - '#reset-cells'
-+  - '#clock-cells'
-+  - clocks
-+  - st,syscfg
++  st,ssc-moddepth-permyriad:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The modulation rate for main PLL (in permyriad, i.e. 0.01%)
++    minimum: 25
++    maximum: 200
 +
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32h743-rcc
-+    then:
-+      properties:
-+        '#clock-cells':
-+          const: 1
-+          description: |
-+            The clock index for the specified type.
-+        clocks:
-+          items:
-+            - description: high speed external (HSE) clock input
-+            - description: low speed external (LSE) clock input
-+            - description: Inter-IC sound (I2S) clock input
-+    else:
-+      properties:
-+        '#clock-cells':
-+          const: 2
-+          description: |
-+            - The first cell is the clock type, possible values are 0 for
-+              gated clocks and 1 otherwise.
-+            - The second cell is the clock index for the specified type.
-+        clocks:
-+          items:
-+            - description: high speed external (HSE) clock input
-+            - description: Inter-IC sound (I2S) clock input
++  st,ssc-modmethod:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      The modulation techniques for main PLL.
++    items:
++      enum:
++        - center-spread
++        - down-spread
 +
-+additionalProperties: false
+ required:
+   - compatible
+   - reg
+@@ -81,6 +101,10 @@ allOf:
+             - description: high speed external (HSE) clock input
+             - description: low speed external (LSE) clock input
+             - description: Inter-IC sound (I2S) clock input
++        st,ssc-modfreq-hz: false
++        st,ssc-moddepth-permyriad: false
++        st,ssc-modmethod: false
 +
-+examples:
-+  # Reset and Clock Control Module node:
+     else:
+       properties:
+         '#clock-cells':
+@@ -98,6 +122,18 @@ additionalProperties: false
+ 
+ examples:
+   # Reset and Clock Control Module node:
 +  - |
-+    clock-controller@58024400 {
-+        compatible = "st,stm32h743-rcc", "st,stm32-rcc";
-+        reg = <0x58024400 0x400>;
-+        #clock-cells = <1>;
++    clock-controller@40023800 {
++        compatible = "st,stm32f42xx-rcc", "st,stm32-rcc";
++        reg = <0x40023800 0x400>;
++        #clock-cells = <2>;
 +        #reset-cells = <1>;
-+        clocks = <&clk_hse>, <&clk_lse>, <&clk_i2s>;
++        clocks = <&clk_hse>, <&clk_i2s_ckin>;
 +        st,syscfg = <&pwrcfg>;
++        st,ssc-modfreq-hz = <10000>;
++        st,ssc-moddepth-permyriad = <200>;
++        st,ssc-modmethod = "center-spread";
 +    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/reset/st,stm32-rcc.txt b/Documentation/devicetree/bindings/reset/st,stm32-rcc.txt
-index 01db34375192..384035e8e60b 100644
---- a/Documentation/devicetree/bindings/reset/st,stm32-rcc.txt
-+++ b/Documentation/devicetree/bindings/reset/st,stm32-rcc.txt
-@@ -3,4 +3,4 @@ STMicroelectronics STM32 Peripheral Reset Controller
- 
- The RCC IP is both a reset and a clock controller.
- 
--Please see Documentation/devicetree/bindings/clock/st,stm32-rcc.txt
-+Please see Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-diff --git a/include/dt-bindings/clock/stm32fx-clock.h b/include/dt-bindings/clock/stm32fx-clock.h
-index e5dad050d518..b6ff9c68cb3f 100644
---- a/include/dt-bindings/clock/stm32fx-clock.h
-+++ b/include/dt-bindings/clock/stm32fx-clock.h
-@@ -10,7 +10,7 @@
-  * List of clocks which are not derived from system clock (SYSCLOCK)
-  *
-  * The index of these clocks is the secondary index of DT bindings
-- * (see Documentation/devicetree/bindings/clock/st,stm32-rcc.txt)
-+ * (see Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml)
-  *
-  * e.g:
- 	<assigned-clocks = <&rcc 1 CLK_LSE>;
+   - |
+     clock-controller@58024400 {
+         compatible = "st,stm32h743-rcc", "st,stm32-rcc";
 -- 
 2.43.0
 
