@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392F8A08B6F
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:22:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455C1A08B71
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:22:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC7A3C78F72;
-	Fri, 10 Jan 2025 09:22:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C727C78F6C;
+	Fri, 10 Jan 2025 09:22:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAC85C78F69
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93555C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 09:22:10 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50A6FGc1018530;
- Fri, 10 Jan 2025 10:21:57 +0100
+ Fri, 10 Jan 2025 09:22:20 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50A7SrSc028490;
+ Fri, 10 Jan 2025 10:22:12 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Yj7wk1ojqsG5cEsvMY/9dT7A7BOoz8ul/MspVsxUvtg=; b=U9CS0vQLEwuZ7Fdb
- 4evf3Vq1nCD5CsRnCsTFqA71GqLpANGeiUW3hbPjBgbcKdXu6T2JR71MP+J1r2aY
- Q7q0qjVL5LIjgwlmAStMCqOwbEQsgjwrUsLzNr1pZft/yecHCsIZ9OnHMwrEposl
- 0bFH5NQCaKN1H9aSFIfInXTn+59j13WS1/55LLC1Ks4rYyh+X0kQSCUnra0mJ31W
- R3LOQNguxWreNzE03wKAGsEkEcLh8YktWp0SN3RApwfSHjks7pblAu2tptcO7PH9
- ss6V5Py6CGlz5Fr3Avn94HmHNQjwsqmsHeoL4pzIpIxz8WNbedJR6KsrMRHguMe1
- v6htCg==
+ OjXTcsvIAL+4FtVS8P5fKPwNHbwBgsvtSCaYyw6ZUH0=; b=Oknqug/S7ORofoe4
+ zFBPH/Phtt+nOSMIVzJDqoAJM61AghhDIlNnbIqMacRKx4HMfGCXdYQcSMfL4O9s
+ JBKmiXIhI6bvgllSSRn6f3ij/KOxHh4GIZch+GfnNKi/urOPRf+OuOUPhBP/ZH6c
+ ismOC32rxnhsxDHVw1+iyH8lzVtEMUV8RZHVXVYkDW44JkLKEfFDf5w0TfLy7bBX
+ hXImyURWjvAOp6hJ+NGeLPWUZZOmWTyf7XYJqqQHeN+9IfqFdP1zWw6bGavqjtG8
+ zii58OPR5lnHDPE1dxlNO1oFPoCBo79ePyOrw1ybUtWZC8RJJqoRBPaU5o7HfXTP
+ XFPRSA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 442f5q43v4-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 442mw0j93t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Jan 2025 10:21:57 +0100 (CET)
+ Fri, 10 Jan 2025 10:22:12 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B6AFA4004F;
- Fri, 10 Jan 2025 10:21:01 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E6B0228A676;
- Fri, 10 Jan 2025 10:20:02 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 86A804005C;
+ Fri, 10 Jan 2025 10:21:05 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BE70528A675;
+ Fri, 10 Jan 2025 10:20:03 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
- 2025 10:20:02 +0100
+ 2025 10:20:03 +0100
 Received: from localhost (10.252.28.64) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
- 2025 10:20:02 +0100
+ 2025 10:20:03 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <lee@kernel.org>, <ukleinek@kernel.org>, <alexandre.torgue@foss.st.com>
-Date: Fri, 10 Jan 2025 10:19:18 +0100
-Message-ID: <20250110091922.980627-5-fabrice.gasnier@foss.st.com>
+Date: Fri, 10 Jan 2025 10:19:19 +0100
+Message-ID: <20250110091922.980627-6-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
 References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
@@ -64,7 +64,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: [Linux-stm32] [PATCH v3 4/8] pwm: stm32: add support for stm32mp25
+Subject: [Linux-stm32] [PATCH v3 5/8] arm64: defconfig: enable STM32 timers
+	drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,126 +82,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for STM32MP25 SoC. Use newly introduced compatible to handle
-new features along with registers and bits diversity.
-The MFD part of the driver fills in ipidr, so it is used to check the
-hardware configuration register, when available to gather the number
-of PWM channels and complementary outputs.
+Enable the STM32 timer drivers: MFD, counter, PWM and trigger as module.
+These drivers can be used on STM32MP25.
 
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-Changes in v2:
-Address Uwe review comments:
-- Make MAX_PWM_OUTPUT definition less generic: STM32_PWM_MAX_OUTPUT
-- No need to initialize 'npwm'
-- refactor code, for *num_enabled to use same code path
----
- drivers/pwm/pwm-stm32.c | 42 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 7 deletions(-)
+ arch/arm64/configs/defconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index 17e591f61efb..b9aadc473280 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -19,6 +19,7 @@
- #define CCMR_CHANNEL_SHIFT 8
- #define CCMR_CHANNEL_MASK  0xFF
- #define MAX_BREAKINPUT 2
-+#define STM32_MAX_PWM_OUTPUT 4
- 
- struct stm32_breakinput {
- 	u32 index;
-@@ -775,10 +776,19 @@ static int stm32_pwm_probe_breakinputs(struct stm32_pwm *priv,
- 	return stm32_pwm_apply_breakinputs(priv);
- }
- 
--static void stm32_pwm_detect_complementary(struct stm32_pwm *priv)
-+static void stm32_pwm_detect_complementary(struct stm32_pwm *priv, struct stm32_timers *ddata)
- {
- 	u32 ccer;
- 
-+	if (ddata->ipidr) {
-+		u32 val;
-+
-+		/* Simply read from HWCFGR the number of complementary outputs (MP25). */
-+		regmap_read(priv->regmap, TIM_HWCFGR1, &val);
-+		priv->have_complementary_output = !!FIELD_GET(TIM_HWCFGR1_NB_OF_DT, val);
-+		return;
-+	}
-+
- 	/*
- 	 * If complementary bit doesn't exist writing 1 will have no
- 	 * effect so we can detect it.
-@@ -790,22 +800,39 @@ static void stm32_pwm_detect_complementary(struct stm32_pwm *priv)
- 	priv->have_complementary_output = (ccer != 0);
- }
- 
--static unsigned int stm32_pwm_detect_channels(struct regmap *regmap,
-+static unsigned int stm32_pwm_detect_channels(struct stm32_timers *ddata,
- 					      unsigned int *num_enabled)
- {
-+	struct regmap *regmap = ddata->regmap;
- 	u32 ccer, ccer_backup;
- 
-+	regmap_read(regmap, TIM_CCER, &ccer_backup);
-+	*num_enabled = hweight32(ccer_backup & TIM_CCER_CCXE);
-+
-+	if (ddata->ipidr) {
-+		u32 hwcfgr;
-+		unsigned int npwm;
-+
-+		/* Deduce from HWCFGR the number of outputs (MP25). */
-+		regmap_read(regmap, TIM_HWCFGR1, &hwcfgr);
-+
-+		/*
-+		 * Timers may have more capture/compare channels than the
-+		 * actual number of PWM channel outputs (e.g. TIM_CH[1..4]).
-+		 */
-+		npwm = FIELD_GET(TIM_HWCFGR1_NB_OF_CC, hwcfgr);
-+
-+		return npwm < STM32_MAX_PWM_OUTPUT ? npwm : STM32_MAX_PWM_OUTPUT;
-+	}
-+
- 	/*
- 	 * If channels enable bits don't exist writing 1 will have no
- 	 * effect so we can detect and count them.
- 	 */
--	regmap_read(regmap, TIM_CCER, &ccer_backup);
- 	regmap_set_bits(regmap, TIM_CCER, TIM_CCER_CCXE);
- 	regmap_read(regmap, TIM_CCER, &ccer);
- 	regmap_write(regmap, TIM_CCER, ccer_backup);
- 
--	*num_enabled = hweight32(ccer_backup & TIM_CCER_CCXE);
--
- 	return hweight32(ccer & TIM_CCER_CCXE);
- }
- 
-@@ -820,7 +847,7 @@ static int stm32_pwm_probe(struct platform_device *pdev)
- 	unsigned int i;
- 	int ret;
- 
--	npwm = stm32_pwm_detect_channels(ddata->regmap, &num_enabled);
-+	npwm = stm32_pwm_detect_channels(ddata, &num_enabled);
- 
- 	chip = devm_pwmchip_alloc(dev, npwm, sizeof(*priv));
- 	if (IS_ERR(chip))
-@@ -841,7 +868,7 @@ static int stm32_pwm_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to configure breakinputs\n");
- 
--	stm32_pwm_detect_complementary(priv);
-+	stm32_pwm_detect_complementary(priv, ddata);
- 
- 	ret = devm_clk_rate_exclusive_get(dev, priv->clk);
- 	if (ret)
-@@ -911,6 +938,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(stm32_pwm_pm_ops, stm32_pwm_suspend, stm32_pwm_r
- 
- static const struct of_device_id stm32_pwm_of_match[] = {
- 	{ .compatible = "st,stm32-pwm",	},
-+	{ .compatible = "st,stm32mp25-pwm", },
- 	{ /* end node */ },
- };
- MODULE_DEVICE_TABLE(of, stm32_pwm_of_match);
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index c62831e61586..d6aabdc103d7 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -764,6 +764,7 @@ CONFIG_MFD_TI_LP873X=m
+ CONFIG_MFD_TPS65219=y
+ CONFIG_MFD_TPS6594_I2C=m
+ CONFIG_MFD_ROHM_BD718XX=y
++CONFIG_MFD_STM32_TIMERS=m
+ CONFIG_MFD_WCD934X=m
+ CONFIG_MFD_KHADAS_MCU=m
+ CONFIG_REGULATOR_FIXED_VOLTAGE=y
+@@ -1499,6 +1500,7 @@ CONFIG_IIO_CROS_EC_LIGHT_PROX=m
+ CONFIG_SENSORS_ISL29018=m
+ CONFIG_VCNL4000=m
+ CONFIG_IIO_ST_MAGN_3AXIS=m
++CONFIG_IIO_STM32_TIMER_TRIGGER=m
+ CONFIG_IIO_CROS_EC_BARO=m
+ CONFIG_MPL3115=m
+ CONFIG_PWM=y
+@@ -1516,6 +1518,7 @@ CONFIG_PWM_ROCKCHIP=y
+ CONFIG_PWM_RZ_MTU3=m
+ CONFIG_PWM_SAMSUNG=y
+ CONFIG_PWM_SL28CPLD=m
++CONFIG_PWM_STM32=m
+ CONFIG_PWM_SUN4I=m
+ CONFIG_PWM_TEGRA=m
+ CONFIG_PWM_TIECAP=m
+@@ -1650,6 +1653,7 @@ CONFIG_INTERCONNECT_QCOM_SM8650=y
+ CONFIG_INTERCONNECT_QCOM_X1E80100=y
+ CONFIG_COUNTER=m
+ CONFIG_RZ_MTU3_CNT=m
++CONFIG_STM32_TIMER_CNT=m
+ CONFIG_HTE=y
+ CONFIG_HTE_TEGRA194=y
+ CONFIG_HTE_TEGRA194_TEST=m
 -- 
 2.25.1
 
