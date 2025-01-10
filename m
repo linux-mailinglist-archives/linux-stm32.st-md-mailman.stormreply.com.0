@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F2CA093DB
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06C5AA093DD
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B07B9C78F6F;
-	Fri, 10 Jan 2025 14:45:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1A9CC78F73;
+	Fri, 10 Jan 2025 14:45:43 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B230C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08BE5C78F73
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jan 2025 14:45:43 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 1B95AFF810;
  Fri, 10 Jan 2025 14:45:41 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 49FA9FF808;
- Fri, 10 Jan 2025 14:45:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520341;
+ t=1736520342;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fr6JNepud+tKAg7jOJTxXgDVqn2KcjPpqjlaMsDjliI=;
- b=ZebDYByHE33a7LeN0d16Z2K5AgycCh4dnYQ7GH+/uHJhNemb3JKQ1t6h4Yw8oBS9qOloDh
- nmOB3EKTa1kK2EXFVRbDP8q7lw3yI3SclQfM1RKw74ROifWiAwWuKYNpuKLS/v0ed2d1Yp
- 2/j7vAD+pkm9dqIlwhLvhMB9SGU5a13qAIdbQsFYpMeZinZQWid2GBUWwO+5PPoZS1dzXJ
- RC0VpJoU8hoinYlYzNuvCYdOHju+cwnZr7+eBJ4tQOO0jgfCZLimkVoTIX4CUheDfBvMVA
- dHz0ctzJ+1xzFzcldVMSCXhCiZ6x87JQzLvlOc8N4LMzewvknsViz7uZSGMIhQ==
+ bh=lEtesl+ZX1jKYhDEYl+ivyiJHI5wxENJqdJo8H/qVyg=;
+ b=AkbPtjemgG9FqkgaJjGa7C36NW/gvGEGOzho02DMPBK5j+7nW502+8z88v+WAS2eOxAaTW
+ jdd3fWrMtdBZRiaxFSFPkK5hhbaP8601o/yp8LIzTaCn+jWEXCY4B8rpfBs3w4TeizkUrp
+ /c8OzoVQIw7OI3/2ScJfim+8fsfxnZJDtdtsMs+cfzm+/316SnJ92sJ6gGsfdnkcydBXAG
+ /plgKoiGdFPETi8haezUpgiK8UVF1bIY34tC0wHJqUa9ohbe3rmM/ktTbXf+aRSynONBcz
+ 7O4qHF218EFZ2GR1d8YNBk2ecn164hsNQ+y4u2mp+yWtZVr7XTMJOLjrqGqzUw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:14 +0100
+Date: Fri, 10 Jan 2025 15:45:15 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-12-7ab4bd56cf6e@bootlin.com>
+Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-13-7ab4bd56cf6e@bootlin.com>
 References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,8 +63,8 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 12/27] spi: nxp-fspi: Support per spi-mem
- operation frequency switches
+Subject: [Linux-stm32] [PATCH v3 13/27] spi: rockchip-sfc: Support per
+ spi-mem operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,57 +91,52 @@ device value will be given anyway.
 The per-operation frequency capability is thus advertised to the spi-mem
 core.
 
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Han Xu <han.xu@nxp.com>
+Cc: Haibo Chen <haibo.chen@nxp.com>
+Cc: Yogesh Gaur <yogeshgaur.83@gmail.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-nxp-fspi.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/spi/spi-rockchip-sfc.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
-index 1161b9e5a4dce633718e22022410b5e7435bb51c..bad6b30bab0ecb90d0aaf603b6de5bc834d19de6 100644
---- a/drivers/spi/spi-nxp-fspi.c
-+++ b/drivers/spi/spi-nxp-fspi.c
-@@ -705,9 +705,10 @@ static void nxp_fspi_dll_calibration(struct nxp_fspi *f)
-  * Value for rest of the CS FLSHxxCR0 register would be zero.
-  *
-  */
--static void nxp_fspi_select_mem(struct nxp_fspi *f, struct spi_device *spi)
-+static void nxp_fspi_select_mem(struct nxp_fspi *f, struct spi_device *spi,
-+				const struct spi_mem_op *op)
- {
--	unsigned long rate = spi->max_speed_hz;
-+	unsigned long rate = op->max_freq;
+diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
+index 69d0f21755684a8a01724c29eb97123044dcf6ae..a8163fbc18923f8a96114785e46623476cf97d04 100644
+--- a/drivers/spi/spi-rockchip-sfc.c
++++ b/drivers/spi/spi-rockchip-sfc.c
+@@ -491,11 +491,11 @@ static int rockchip_sfc_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op
+ 	u32 len = op->data.nbytes;
  	int ret;
- 	uint64_t size_kb;
  
-@@ -931,7 +932,7 @@ static int nxp_fspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 				   FSPI_STS0_ARB_IDLE, 1, POLL_TOUT, true);
- 	WARN_ON(err);
- 
--	nxp_fspi_select_mem(f, mem->spi);
-+	nxp_fspi_select_mem(f, mem->spi, op);
- 
- 	nxp_fspi_prepare_lut(f, op);
- 	/*
-@@ -1149,6 +1150,10 @@ static const struct spi_controller_mem_ops nxp_fspi_mem_ops = {
- 	.get_name = nxp_fspi_get_name,
+-	if (unlikely(mem->spi->max_speed_hz != sfc->frequency)) {
+-		ret = clk_set_rate(sfc->clk, mem->spi->max_speed_hz);
++	if (unlikely(op->max_freq != sfc->frequency)) {
++		ret = clk_set_rate(sfc->clk, op->max_freq);
+ 		if (ret)
+ 			return ret;
+-		sfc->frequency = mem->spi->max_speed_hz;
++		sfc->frequency = op->max_freq;
+ 		dev_dbg(sfc->dev, "set_freq=%dHz real_freq=%ldHz\n",
+ 			sfc->frequency, clk_get_rate(sfc->clk));
+ 	}
+@@ -535,6 +535,10 @@ static const struct spi_controller_mem_ops rockchip_sfc_mem_ops = {
+ 	.adjust_op_size = rockchip_sfc_adjust_op_size,
  };
  
-+static const struct spi_controller_mem_caps nxp_fspi_mem_caps = {
++static const struct spi_controller_mem_caps rockchip_sfc_mem_caps = {
 +	.per_op_freq = true,
 +};
 +
- static int nxp_fspi_probe(struct platform_device *pdev)
+ static irqreturn_t rockchip_sfc_irq_handler(int irq, void *dev_id)
  {
- 	struct spi_controller *ctlr;
-@@ -1246,6 +1251,7 @@ static int nxp_fspi_probe(struct platform_device *pdev)
- 	ctlr->bus_num = -1;
- 	ctlr->num_chipselect = NXP_FSPI_MAX_CHIPSELECT;
- 	ctlr->mem_ops = &nxp_fspi_mem_ops;
-+	ctlr->mem_caps = &nxp_fspi_mem_caps;
+ 	struct rockchip_sfc *sfc = dev_id;
+@@ -567,6 +571,7 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
  
- 	nxp_fspi_default_setup(f);
- 
+ 	host->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	host->mem_ops = &rockchip_sfc_mem_ops;
++	host->mem_caps = &rockchip_sfc_mem_caps;
+ 	host->dev.of_node = pdev->dev.of_node;
+ 	host->mode_bits = SPI_TX_QUAD | SPI_TX_DUAL | SPI_RX_QUAD | SPI_RX_DUAL;
+ 	host->max_speed_hz = SFC_MAX_SPEED;
 
 -- 
 2.47.0
