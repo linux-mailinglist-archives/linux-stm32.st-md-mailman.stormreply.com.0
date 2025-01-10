@@ -2,25 +2,25 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A59FA0948A
+	by mail.lfdr.de (Postfix) with ESMTPS id 4113EA09487
 	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 16:02:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5C26C78F78;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2A3EC78F72;
 	Fri, 10 Jan 2025 15:02:26 +0000 (UTC)
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2126.outbound.protection.outlook.com [40.107.22.126])
+ (mail-am6eur05on2138.outbound.protection.outlook.com [40.107.22.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A37EC78F6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98425C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 10 Jan 2025 15:02:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FTUafoasIbWJF+rBbSafFSUobjzvyilTIqTpnDHV2gTa+qzeZW79tKicejVzbSUXrbJjBveT+CgTf+SAHIYqb82mo2DO+ZT8czL9wo9w5cMzsN8I2YjlrU7b+c0yW82M2AWk0xUHvUa8f3oydN4xhzVrZkCshB/oLauuukWxFnZI7zBEyJhipoFYR7/LJDA/hM1fJQi2B/nHqx4CTef2HYLmq6lrs531owYyNnHfQEVAkiHhZIC0qUDnEShGgcLe+gXMvmHJvutuFGdwg2CnNqMTWsi7l1n5spo/W9cT4ivtOA7acbIDQHu6lIB/jr6hj8wbDc3yeH2TTReZwKnE4Q==
+ b=XWzzEEaSHUM4pfurzVBb56V9RVAeepNErmkLCXShGB3MfxBmxaiD1pWDoFBfxjo0b/gXqku5AhQt+QLanxjBt0xn8avCXEQ6uCf3WSjPp/biCX+BVk3vGni9miYz7KH5YTLj6BV2IzKFz4u4laybmhCM/Z/Q4YfyoeYC0HiRS6VcOARi3escaP5W0aJ1+47+WA6RCugOuiC5uZsuY/TZ3VdNwltR6dLFgL485CKIitgg6OFdhH4BOkGLjirYoV/343bKadabvT/0iU7VrMY1BO1KuVvTg8xXYDMgbJqGzIrQOuHkRz09Ih2sPVg1GIQMKztWPLWFGsiLfnhdjWIkvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dl6Ki9DEGT5choe27M1bsc5lfZ/VeCFcHJhhxs6rYGs=;
- b=FQTTk1F33wBQ2JiBynEltHWfhykIdod1Sy6DFM8VYUlKN2TL+6ohnxCCZJF9WFb+Lv/nKKpQ1r1+A5KAXKZfvqsCfwPttbcvTrc/sKvZnbEevoO1Yj9Vb1iEs9Cm85wvWKP0UQK/6iEzkmq6CrpZIx2d6HizaZL+9oewjtbSsPP0y70pJt78ZK1CU4PL56JtzNc+HG3VygEK0FILRse5oCjaex9Kc5OUt4mt9brIuy97cVi7XGuA1ARyoXl4Noet3K425W6Hynh6Fn3/Wwc2VBB3Yhkww1rZvjJPZ1YfU2FHL/nVhUdEUK1F2tcsHDfEdRoK9x6xRBTJyb7uGFnj+A==
+ bh=618aVCeqqxOhFEOhyAaT5uxIcpZHp+h1MBKM0qNLDYE=;
+ b=kUdTzD53FbHFfOvC8oV5TS1fhwGmJqqE6GifftIfcrGLIuFMhV126J9fxwkxhLHYPZjl8O5FBCY0c82Bktt29g+xII5OXM6E7xTnya+BTtgi5qLPe9jMxn8Buc0jU3ahns6PaNtRumIh++u9nxH9XOodSE0FtWNZ+FtKDPmzJHoDAjzIkNLEkfON5EPY0WGp18NQrH+3dcGdjB1Ev+lqTcurHkcyI9zTosOdsaoYgXu0or58PQjLLXuoWbrzkAQJ70JcgheK1WSzeNUoirxEsApvNU8+yjwjvQfly/1DlkZ0bJywea1P9/CZ28CqBBKb7VrfyuaEI1QVygRajW/Umg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  91.26.50.189) smtp.rcpttodomain=st-md-mailman.stormreply.com
  smtp.mailfrom=phytec.fr; dmarc=fail (p=none sp=none pct=100) action=none
@@ -29,17 +29,17 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=phytecmesstechnikgmbh.onmicrosoft.com;
  s=selector1-phytecmesstechnikgmbh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dl6Ki9DEGT5choe27M1bsc5lfZ/VeCFcHJhhxs6rYGs=;
- b=d3WIeG56K/JRHdvyqIM3sdfMwYB7UUDfrOpulR/hzH7QW/R2R40ck5/zyMKVbhz38S0WPBQYd54MCiC431rDx10Ve8nCcwU+8vHN4AWWIsX6wjYqTiRMaT7597BFRakPVEpDjkoaFQ93VXfyoxFEBPh2lYFNePgs8xFPLNV3U/I=
-Received: from DUZP191CA0052.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4fa::15)
- by VI2P195MB2490.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:227::19) with
+ bh=618aVCeqqxOhFEOhyAaT5uxIcpZHp+h1MBKM0qNLDYE=;
+ b=o0CUHm44fcEx5thDf37+o78YgcOuJaPmFv3xKbnru0IEE+YgnY/xWoUjoOf9fG6YOHjG3pRIipX+KleauREiPxTS87/LaXjBBKAR42C3RilnK/CFbB4aOZsQcKwLsTZ0LHFH4wPhtrFUhm5NbMyO6iXrgjdYpXVOBRLY7Whbqs8=
+Received: from DUZP191CA0054.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4fa::27)
+ by PAXP195MB1261.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:1ad::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.13; Fri, 10 Jan
- 2025 15:02:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.12; Fri, 10 Jan
+ 2025 15:02:19 +0000
 Received: from DB5PEPF00014B8B.eurprd02.prod.outlook.com
- (2603:10a6:10:4fa:cafe::49) by DUZP191CA0052.outlook.office365.com
- (2603:10a6:10:4fa::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.13 via Frontend Transport; Fri,
+ (2603:10a6:10:4fa:cafe::83) by DUZP191CA0054.outlook.office365.com
+ (2603:10a6:10:4fa::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.11 via Frontend Transport; Fri,
  10 Jan 2025 15:02:18 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 91.26.50.189)
  smtp.mailfrom=phytec.fr; dkim=none (message not signed)
@@ -64,11 +64,11 @@ Received: from idefix.phytec.de (172.25.0.20) by mailrelayint.phytec.de
  Transport; Fri, 10 Jan 2025 16:02:17 +0100
 Received: from pc.. ([172.25.39.2])
  by idefix.phytec.de (IBM Domino Release 9.0.1FP7)
- with ESMTP id 2025011016021697-24 ; Fri, 10 Jan 2025 16:02:16 +0100 
+ with ESMTP id 2025011016021714-25 ; Fri, 10 Jan 2025 16:02:17 +0100 
 From: Christophe Parant <c.parant@phytec.fr>
 To: <linux-stm32@st-md-mailman.stormreply.com>
-Date: Fri, 10 Jan 2025 16:02:07 +0100
-Message-ID: <20250110150216.309760-3-c.parant@phytec.fr>
+Date: Fri, 10 Jan 2025 16:02:08 +0100
+Message-ID: <20250110150216.309760-4-c.parant@phytec.fr>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250110150216.309760-1-c.parant@phytec.fr>
 References: <20250110150216.309760-1-c.parant@phytec.fr>
@@ -80,55 +80,55 @@ X-MIMETrack: Itemize by SMTP Server on Idefix/Phytec(Release 9.0.1FP7|August
 X-TNEFEvaluated: 1
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B8B:EE_|VI2P195MB2490:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e367430-40b9-408d-30a3-08dd3187c6df
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B8B:EE_|PAXP195MB1261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18341029-1e4d-42e9-67b3-08dd3187c737
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/TNRDxWUwPUSlFOc2u5+UJjvQT4LMfZLCTFTzNBf4UcWIHUl5iDX+8gjIO2b?=
- =?us-ascii?Q?Hu5DEYIgMXK2tYIlejbol+CiZ2UNUXaDvA30D9LGFoB3XVcOKaOCbUZq/Lrf?=
- =?us-ascii?Q?nlxby9Wio83iTXsumVauZs1s6qPhzlB3UHIGeDJ90Bp60Gx4HxGBqXub3RW3?=
- =?us-ascii?Q?YBKegyiWdQr20fIt9s7c4KX1JKZf22le9hyCS07ln02N65aXURBKO4aPaA/X?=
- =?us-ascii?Q?pE9QfcYp7MvB1RfRqJEk/8TrBfSmBHXTmCQxFmEax1C0rBVPuSJ1N7zG3oms?=
- =?us-ascii?Q?BmzXlnqkYzyhHO1MLSKvzpdeUmYmiUMrTBc/UXLcxYsNpnXsDU1qG4y2EHc+?=
- =?us-ascii?Q?jM3O8igK3ooB+aHIhX2JRwHQcXa5djCyGYRsOVndYThKmDvet+G/dqnA0efq?=
- =?us-ascii?Q?RwW4o162S6kXI5c/6MfBedvg8uF4bnIoFWkTswzEFJgbUhB+RBKjSC4dSLFa?=
- =?us-ascii?Q?RLP2BNU+t7LRHFE+X2UyjkQGuWtKXy3W7aSNE0FSsJHucOYRTYaIZQxiWtT6?=
- =?us-ascii?Q?M7gN/T/e/wVt7nQJ2/nQbGZ7o43gQoQGI6UKpO1X6znYltrQY8ElusyRGaW9?=
- =?us-ascii?Q?kMxtMoKk+YpBHoDbGGPimEfqkhTKnkCG/+eM1bAEtvEXIZQH5XHB07uRBjKe?=
- =?us-ascii?Q?/q7bvBnBqJ9uvpR0Grfzo9EXJiey0+k16hlaKb1HO3WpePYy2Kg5nOcvg+ih?=
- =?us-ascii?Q?vcBuTUnq1k3twQwBc5gBeMCzUqywxAtR5DaqVYvSCeYw2/8TYmuRiFa20Ien?=
- =?us-ascii?Q?/y8mcoqyae2oM4hxAHjyqFgf1vBxclKShA/4Q0lt+vh63OJ8Ggq4x83/He9Y?=
- =?us-ascii?Q?68gO5+fErdylxbzXT08m3/hgKZseLGkVVZxs8pjoKbKwJxKiAj4qtXlA3dVl?=
- =?us-ascii?Q?3z7S2H+F9aoNo68E+7b55vay5aHvIN7cqSfov4PLiB66XNL0lOhXAas1b87u?=
- =?us-ascii?Q?xBOqSdZkncDpXLiVUSNuFinXClJ1Sj6r6YtLguxccwQbCNOxmfUOi5cdQGHx?=
- =?us-ascii?Q?7K/ailn27q2nr7OCdQ0QUZZRDKDCA/qy9Mmgbi0UJktzTJlD9erUvYGPO5TD?=
- =?us-ascii?Q?7WPvZ39YCgA9TMtuEqwZ197U4xOpfMb+r0XB5/iV6tDv1hPNJ43+3DXFNAA8?=
- =?us-ascii?Q?ONGTjLd8AxhsSfGAoWW2DRvbF1zQJA+3dZRK6t1SrgVAUwBqiRU7X3eqNzOJ?=
- =?us-ascii?Q?nwgX9alsbw+D9xhFuSrCIgtnVvlLoTHxEdyV2cEXg4/Okf/6isb9HBq/+SEO?=
- =?us-ascii?Q?rkUBiExzKwdAIfsIiJR6BMxJAjDT4xbqCtBCt4Fr3h/ZmI/nQWLmYR0QeeOD?=
- =?us-ascii?Q?25SY/r6PkvluiAMYW/l171nioiZin+ahC31qjWG6uNXBt8WdVv51ZeM8vG9K?=
- =?us-ascii?Q?aLjUmLFBkPPh30gAmjMfuJZWMRvM2gxWFZAwappnC0GIeA/VCEztkZ8nyBSp?=
- =?us-ascii?Q?dtZeG1b2ZflQOaJrOwOh6+IQ+u3kIYdXkuPVSJO+TPDjL0XVCshWPktS57TK?=
- =?us-ascii?Q?jGmF1K0Yuzkarmg=3D?=
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OyN9R1qU6gPzQEz84VzD7heRfo5GwSygWFcVRLbT9eD7m8Q9DQA2lByT9yzJ?=
+ =?us-ascii?Q?soiD4Pye9Vwq5vgnCH+kDMLYFllT488SCgbl9IpvSisFBqVeVFsJ9aJu6tq1?=
+ =?us-ascii?Q?o1xjmSPp0kN5Reg3NfiVLCQ/Drq4G/SwYI9lHE7/yXjn0RCgT8vADykkbuor?=
+ =?us-ascii?Q?s9hn1OP/QQhRWHj3CWJVI0I7kOMXS8CLmZVdi+qfm/gR57+iuErTum5/WcAQ?=
+ =?us-ascii?Q?pAIyd/SkuhQz42lh5oYEHTLBWYcR2sI8d62BmWNtfevoHwiJ93MMBhtRZtGc?=
+ =?us-ascii?Q?40lmxW0/SBDEPjlhkAg3XMW73HXrbPYnaemmigh/uEY2n+z0kCkZcxu/OGvN?=
+ =?us-ascii?Q?J9yFfmPlD8+WSorYy9AU5iSKhIfrJL9NrUD01Q76gm+xwLNjOpVE1Aj7cs2T?=
+ =?us-ascii?Q?AhCjcAqqg23MFqDFIdyD4cBWmgSc0/NinZ4yujRyms+fIqqImyZd5FPK7JEB?=
+ =?us-ascii?Q?9s4wh5tCDIv+9VcmU48j7As2ySRQtcArirQYWfi7VAENHVqDduUgHDRX9V8k?=
+ =?us-ascii?Q?TMUPCLLAXB43CaMA6GXIgXQqJIx5RBjS9NO+Wz7Jphujl9a6sDftX3Kh3Bpv?=
+ =?us-ascii?Q?rZL0kGD3lUy2RmfyvS8eV2sIhEGAhXR/GB2EQwX1zIwWcFAtqHLUmAN4oK4X?=
+ =?us-ascii?Q?iXr8DMYnoviMjUZtHO7Wd1cP8s3GdtAtXWU648RhwX3aR1yRhATk8DIQQQYs?=
+ =?us-ascii?Q?uxMRKwiZcUxkqlpAyIwSbzUUkzveCLAiTrjgKGl7NqGDLo1tzltbTXTkxQ+o?=
+ =?us-ascii?Q?IPHg54B39TSsmxi6A4LGD1nubfPPMeI1aMLqdaZFYLLyAbinDzpg7Ypdu/A6?=
+ =?us-ascii?Q?dUJgNnMyAbSHju8ATyr3y0D6NeKm/wtg6hJB+KtuqcGXY+sxegln+Vxx0bBp?=
+ =?us-ascii?Q?p447lft9bSr4xSn4c6XUp3dBscBYst5xsg95FGK4D1WZRcNkdm4tTQHr9usm?=
+ =?us-ascii?Q?tApeoTkcWwFRJnD3B78zKhQZ++o79AuxNFolWlsDmHBco9uwdm4Pir+cLtVM?=
+ =?us-ascii?Q?YHKahZwOV0QOuaG81RGU+JckrO9DAgblFQn1ksCU2CANibwKNntCIW+hW1Y4?=
+ =?us-ascii?Q?eFmY6IvFR/xEggOTUP5W3Bys+DlfmFy0yYN22HeFGFRZJxOo+NHp7n2szRaN?=
+ =?us-ascii?Q?p2bsKjCrnHv7jgI2wH8D67Qmv7fy4lxqi2b/5CPADdxGFcA7+9/boW8xRm31?=
+ =?us-ascii?Q?2bDNpnBIrInAOMqgKkiq72EpQaH6pQDZ00qP75RwnXRnxjgf8WcO53HxMeq1?=
+ =?us-ascii?Q?+Wq5A6vvnKNn2d8whPGr5lDznrsyGYOv8hS8Ybv0I75I4+/RWImtr2uVc3Gy?=
+ =?us-ascii?Q?a09ev1MWaePk7sRkVI+TUcyM0STVbpCwrHVa1oF3f/Yey/EsCCeqjSLE5pgg?=
+ =?us-ascii?Q?ijoFVxJ1qNT5p3GhP1paebtYAAQlsZXgK7EPnOhSQLPz186aEtOF064rU7bf?=
+ =?us-ascii?Q?JeWQgw2YQmXDTNtvTxeFwxGdlbgqLevdiVO/Sk1ryeZhTcQO2Hj7R2gwO6qh?=
+ =?us-ascii?Q?Q9xKA4vBoEB6abY=3D?=
 X-Forefront-Antispam-Report: CIP:91.26.50.189; CTRY:DE; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:Diagnostix.phytec.de; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
  SFP:1102; 
 X-OriginatorOrg: phytec.fr
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 15:02:18.2558 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e367430-40b9-408d-30a3-08dd3187c6df
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 15:02:18.8340 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18341029-1e4d-42e9-67b3-08dd3187c737
 X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29; Ip=[91.26.50.189];
  Helo=[Diagnostix.phytec.de]
 X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B8B.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2P195MB2490
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP195MB1261
 Cc: upstream@lists.phytec.de, mcoquelin.stm32@gmail.com
-Subject: [Linux-stm32] [PATCH 02/11] ARM: dts: stm32mp15: phyboard-sargas:
-	Introduce SoM device tree
+Subject: [Linux-stm32] [PATCH 03/11] dt-bindings: arm: stm32: Rename
+	STM32MP15x Phytec board and SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,734 +145,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add stm32mp15xx-phycore-som.dtsi device tree file to slit hardware
-features between the phyBOARD (baseboard) and the phyCORE (SoM).
+Modifications following new PHYTEC stm32mp15x SoM and board device tree
+naming.
 
 Signed-off-by: Christophe Parant <c.parant@phytec.fr>
 ---
- .../st/stm32mp157c-phyboard-sargas-rdk.dts    |   2 +-
- .../dts/st/stm32mp15xx-phyboard-sargas.dtsi   | 317 +----------------
- .../boot/dts/st/stm32mp15xx-phycore-som.dtsi  | 329 ++++++++++++++++++
- 3 files changed, 331 insertions(+), 317 deletions(-)
- create mode 100644 arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-phyboard-sargas-rdk.dts b/arch/arm/boot/dts/st/stm32mp157c-phyboard-sargas-rdk.dts
-index cb5a55798036..43592234573c 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-phyboard-sargas-rdk.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-phyboard-sargas-rdk.dts
-@@ -9,7 +9,7 @@
- #include <dt-bindings/pinctrl/stm32-pinfunc.h>
- #include "stm32mp157.dtsi"
- #include "stm32mp15xc.dtsi"
--#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp15xx-phycore-som.dtsi"
- #include "stm32mp15xx-phyboard-sargas.dtsi"
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 703d4b574398..e633a1cd8a63 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -162,10 +162,11 @@ properties:
+           - const: seeed,stm32mp157c-odyssey-som
+           - const: st,stm32mp157
  
- / {
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-phyboard-sargas.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-phyboard-sargas.dtsi
-index ebbb82c09a1e..2fdab99fc562 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-phyboard-sargas.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-phyboard-sargas.dtsi
-@@ -5,23 +5,13 @@
-  * Author: Dom VOVARD <dom.vovard@linrt.com>.
-  */
+-      - description: Phytec STM32MP1 SoM based Boards
++      - description: Phytec STM32MP15x SoM based Boards
+         items:
+-          - const: phytec,phycore-stm32mp1-3
+-          - const: phytec,phycore-stm32mp157c-som
++          - enum:
++              - phytec,stm32mp157c-phyboard-sargas-rdk
++          - const: phytec,stm32mp157c-phycore-som
+           - const: st,stm32mp157
  
--#include <dt-bindings/gpio/gpio.h>
--#include <dt-bindings/input/input.h>
-+
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/leds/leds-pca9532.h>
--#include <dt-bindings/mfd/st,stpmic1.h>
--#include <dt-bindings/net/ti-dp83867.h>
--#include "stm32mp15-pinctrl.dtsi"
- 
- / {
--	aliases {
--		ethernet0 = &ethernet0;
--		rtc0 = &i2c4_rtc;
--		rtc1 = &rtc;
--	};
--
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-@@ -42,48 +32,6 @@ key-enter {
- 		};
- 	};
- 
--	reserved-memory {
--		#address-cells = <1>;
--		#size-cells = <1>;
--		ranges;
--
--		retram: retram@38000000 {
--			compatible = "shared-dma-pool";
--			reg = <0x38000000 0x10000>;
--			no-map;
--		};
--
--		mcuram: mcuram@30000000 {
--			compatible = "shared-dma-pool";
--			reg = <0x30000000 0x40000>;
--			no-map;
--		};
--
--		mcuram2: mcuram2@10000000 {
--			compatible = "shared-dma-pool";
--			reg = <0x10000000 0x40000>;
--			no-map;
--		};
--
--		vdev0vring0: vdev0vring0@10040000 {
--			compatible = "shared-dma-pool";
--			reg = <0x10040000 0x1000>;
--			no-map;
--		};
--
--		vdev0vring1: vdev0vring1@10041000 {
--			compatible = "shared-dma-pool";
--			reg = <0x10041000 0x1000>;
--			no-map;
--		};
--
--		vdev0buffer: vdev0buffer@10042000 {
--			compatible = "shared-dma-pool";
--			reg = <0x10042000 0x4000>;
--			no-map;
--		};
--	};
--
- 	sound {
- 		compatible = "audio-graph-card";
- 		label = "STM32MP1-PHYCORE";
-@@ -93,44 +41,6 @@ sound {
- 		dais = <&sai2b_port>,
- 		       <&sai2a_port>;
- 	};
--
--	regulator_vin: regulator {
--		compatible = "regulator-fixed";
--		regulator-name = "vin";
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--		regulator-always-on;
--	};
--};
--
--&ethernet0 {
--	pinctrl-0 = <&ethernet0_rgmii_pins_d>;
--	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_d>;
--	pinctrl-names = "default", "sleep";
--	phy-mode = "rgmii-id";
--	max-speed = <1000>;
--	phy-handle = <&phy0>;
--	st,eth-clk-sel;
--	status = "okay";
--
--	mdio {
--		#address-cells = <1>;
--		#size-cells = <0>;
--		compatible = "snps,dwmac-mdio";
--
--		phy0: ethernet-phy@1 {
--			compatible = "ethernet-phy-ieee802.3-c22";
--			reg = <1>;
--			interrupt-parent = <&gpiog>;
--			interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
--			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
--			ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
--			ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
--			ti,min-output-impedance;
--			enet-phy-lane-no-swap;
--			ti,clk-output-sel = <DP83867_CLK_O_SEL_OFF>;
--		};
--	};
- };
- 
- &i2c1 {
-@@ -222,176 +132,6 @@ led-2 {
- 	};
- };
- 
--&i2c4 {
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&i2c4_pins_a>;
--	pinctrl-1 = <&i2c4_sleep_pins_a>;
--	i2c-scl-rising-time-ns = <185>;
--	i2c-scl-falling-time-ns = <20>;
--	status = "okay";
--
--	pmic@33 {
--		compatible = "st,stpmic1";
--		reg = <0x33>;
--		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
--		interrupt-controller;
--		#interrupt-cells = <2>;
--
--		regulators {
--			compatible = "st,stpmic1-regulators";
--			buck1-supply = <&regulator_vin>;
--			buck2-supply = <&regulator_vin>;
--			buck3-supply = <&regulator_vin>;
--			buck4-supply = <&regulator_vin>;
--			ldo1-supply = <&v3v3>;
--			ldo2-supply = <&v3v3>;
--			ldo3-supply = <&vdd_ddr>;
--			ldo4-supply = <&regulator_vin>;
--			ldo5-supply = <&v3v3>;
--			ldo6-supply = <&v3v3>;
--			boost-supply = <&regulator_vin>;
--			pwr_sw1-supply = <&bst_out>;
--			pwr_sw2-supply = <&bst_out>;
--
--			vddcore: buck1 {
--				regulator-name = "vddcore";
--				regulator-min-microvolt = <1200000>;
--				regulator-max-microvolt = <1350000>;
--				regulator-always-on;
--				regulator-initial-mode = <0>;
--			};
--
--			vdd_ddr: buck2 {
--				regulator-name = "vdd_ddr";
--				regulator-min-microvolt = <1350000>;
--				regulator-max-microvolt = <1350000>;
--				regulator-always-on;
--				regulator-initial-mode = <0>;
--			};
--
--			vdd: buck3 {
--				regulator-name = "vdd";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-always-on;
--				st,mask-reset;
--				regulator-initial-mode = <0>;
--			};
--
--			v3v3: buck4 {
--				regulator-name = "v3v3";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-always-on;
--				regulator-initial-mode = <0>;
--			};
--
--			v1v8_audio: ldo1 {
--				regulator-name = "v1v8_audio";
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <1800000>;
--				regulator-always-on;
--				interrupts = <IT_CURLIM_LDO1 0>;
--
--			};
--
--			vdd_eth_2v5: ldo2 {
--				regulator-name = "dd_eth_2v5";
--				regulator-min-microvolt = <2500000>;
--				regulator-max-microvolt = <2500000>;
--				regulator-always-on;
--				interrupts = <IT_CURLIM_LDO2 0>;
--
--			};
--
--			vtt_ddr: ldo3 {
--				regulator-name = "vtt_ddr";
--				regulator-min-microvolt = <500000>;
--				regulator-max-microvolt = <750000>;
--				regulator-always-on;
--				regulator-over-current-protection;
--			};
--
--			vdd_usb: ldo4 {
--				regulator-name = "vdd_usb";
--				interrupts = <IT_CURLIM_LDO4 0>;
--			};
--
--			vdda: ldo5 {
--				regulator-name = "vdda";
--				regulator-min-microvolt = <2900000>;
--				regulator-max-microvolt = <2900000>;
--				interrupts = <IT_CURLIM_LDO5 0>;
--				regulator-boot-on;
--			};
--
--			vdd_eth_1v0: ldo6 {
--				regulator-name = "vdd_eth_1v0";
--				regulator-min-microvolt = <1000000>;
--				regulator-max-microvolt = <1000000>;
--				regulator-always-on;
--				interrupts = <IT_CURLIM_LDO6 0>;
--
--			};
--
--			vref_ddr: vref_ddr {
--				regulator-name = "vref_ddr";
--				regulator-always-on;
--			};
--
--			bst_out: boost {
--				regulator-name = "bst_out";
--				interrupts = <IT_OCP_BOOST 0>;
--			};
--
--			vbus_otg: pwr_sw1 {
--				regulator-name = "vbus_otg";
--				interrupts = <IT_OCP_OTG 0>;
--				regulator-active-discharge = <1>;
--			};
--
--			vbus_sw: pwr_sw2 {
--				regulator-name = "vbus_sw";
--				interrupts = <IT_OCP_SWOUT 0>;
--				regulator-active-discharge = <1>;
--			};
--		};
--
--		onkey {
--			compatible = "st,stpmic1-onkey";
--			interrupts = <IT_PONKEY_F 0>,
--				     <IT_PONKEY_R 0>;
--			interrupt-names = "onkey-falling",
--					  "onkey-rising";
--			power-off-time-sec = <10>;
--		};
--
--		watchdog {
--			compatible = "st,stpmic1-wdt";
--		};
--	};
--
--	i2c4_eeprom: eeprom@50 {
--		compatible = "microchip,24c32",
--			     "atmel,24c32";
--		reg = <0x50>;
--	};
--
--	i2c4_rtc: rtc@52 {
--		compatible = "microcrystal,rv3028";
--		reg = <0x52>;
--	};
--};
--
--&ipcc {
--	status = "okay";
--};
--
--&iwdg2 {
--	timeout-sec = <32>;
--	status = "okay";
--};
--
- &m_can2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&m_can2_pins_a>;
-@@ -399,46 +139,6 @@ &m_can2 {
- 	status = "okay";
- };
- 
--&m4_rproc {
--	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
--			<&vdev0vring1>, <&vdev0buffer>;
--	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
--	mbox-names = "vq0", "vq1", "shutdown", "detach";
--	interrupt-parent = <&exti>;
--	interrupts = <68 1>;
--	status = "okay";
--};
--
--&pwr_regulators {
--	vdd-supply = <&vdd>;
--	vdd_3v3_usbfs-supply = <&vdd_usb>;
--};
--
--&qspi {
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
--	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
--	status = "okay";
--
--	flash0: flash@0 {
--		compatible = "winbond,w25q128", "jedec,spi-nor";
--		reg = <0>;
--		spi-rx-bus-width = <4>;
--		spi-max-frequency = <50000000>;
--		m25p,fast-read;
--		#address-cells = <1>;
--		#size-cells = <1>;
--	};
--};
--
--&rng1 {
--	status = "okay";
--};
--
--&rtc {
--	status = "okay";
--};
--
- &sai2 {
- 	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
- 	clock-names = "pclk", "x8k", "x11k";
-@@ -492,21 +192,6 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
--&sdmmc2 {
--	pinctrl-names = "default", "opendrain", "sleep";
--	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_e>;
--	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_e>;
--	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_e>;
--	non-removable;
--	no-sd;
--	no-sdio;
--	st,neg-edge;
--	bus-width = <8>;
--	vmmc-supply = <&v3v3>;
--	vqmmc-supply = <&v3v3>;
--	mmc-ddr-3_3v;
--};
--
- &spi1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&spi1_pins_a>;
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
-new file mode 100644
-index 000000000000..660cdc260963
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
-@@ -0,0 +1,329 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) Phytec GmbH 2019-2020 - All Rights Reserved
-+ * Author: Dom VOVARD <dom.vovard@linrt.com>
-+ * Copyright (C) 2022-2023 Steffen Trumtrar <kernel@pengutronix.de>
-+ * Copyright (C) 2024 PHYTEC Messtechnik GmbH
-+ * Author: Christophe Parant <c.parant@phytec.fr>
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/mfd/st,stpmic1.h>
-+#include <dt-bindings/net/ti-dp83867.h>
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+
-+/ {
-+
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		rtc0 = &i2c4_rtc;
-+		rtc1 = &rtc;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		retram: retram@38000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x38000000 0x10000>;
-+			no-map;
-+		};
-+
-+		mcuram: mcuram@30000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x30000000 0x40000>;
-+			no-map;
-+		};
-+
-+		mcuram2: mcuram2@10000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10000000 0x40000>;
-+			no-map;
-+		};
-+
-+		vdev0vring0: vdev0vring0@10040000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10040000 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: vdev0vring1@10041000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10041000 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: vdev0buffer@10042000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10042000 0x4000>;
-+			no-map;
-+		};
-+	};
-+
-+	regulator_vin: regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vin";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&ethernet0 {
-+	pinctrl-0 = <&ethernet0_rgmii_pins_d>;
-+	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_d>;
-+	pinctrl-names = "default", "sleep";
-+	phy-mode = "rgmii-id";
-+	max-speed = <1000>;
-+	phy-handle = <&phy0>;
-+	st,eth-clk-sel;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+
-+		phy0: ethernet-phy@1 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <1>;
-+			interrupt-parent = <&gpiog>;
-+			interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
-+			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
-+			ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
-+			ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-+			ti,min-output-impedance;
-+			enet-phy-lane-no-swap;
-+			ti,clk-output-sel = <DP83867_CLK_O_SEL_OFF>;
-+		};
-+	};
-+};
-+
-+&i2c4 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c4_pins_a>;
-+	pinctrl-1 = <&i2c4_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+
-+	pmic@33 {
-+		compatible = "st,stpmic1";
-+		reg = <0x33>;
-+		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		regulators {
-+			compatible = "st,stpmic1-regulators";
-+			buck1-supply = <&regulator_vin>;
-+			buck2-supply = <&regulator_vin>;
-+			buck3-supply = <&regulator_vin>;
-+			buck4-supply = <&regulator_vin>;
-+			ldo1-supply = <&v3v3>;
-+			ldo2-supply = <&v3v3>;
-+			ldo3-supply = <&vdd_ddr>;
-+			ldo4-supply = <&regulator_vin>;
-+			ldo5-supply = <&v3v3>;
-+			ldo6-supply = <&v3v3>;
-+			boost-supply = <&regulator_vin>;
-+			pwr_sw1-supply = <&bst_out>;
-+			pwr_sw2-supply = <&bst_out>;
-+
-+			vddcore: buck1 {
-+				regulator-name = "vddcore";
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-always-on;
-+				regulator-initial-mode = <0>;
-+			};
-+
-+			vdd_ddr: buck2 {
-+				regulator-name = "vdd_ddr";
-+				regulator-min-microvolt = <1350000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-always-on;
-+				regulator-initial-mode = <0>;
-+			};
-+
-+			vdd: buck3 {
-+				regulator-name = "vdd";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				st,mask-reset;
-+				regulator-initial-mode = <0>;
-+			};
-+
-+			v3v3: buck4 {
-+				regulator-name = "v3v3";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-initial-mode = <0>;
-+			};
-+
-+			v1v8_audio: ldo1 {
-+				regulator-name = "v1v8_audio";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO1 0>;
-+
-+			};
-+
-+			vdd_eth_2v5: ldo2 {
-+				regulator-name = "dd_eth_2v5";
-+				regulator-min-microvolt = <2500000>;
-+				regulator-max-microvolt = <2500000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO2 0>;
-+
-+			};
-+
-+			vtt_ddr: ldo3 {
-+				regulator-name = "vtt_ddr";
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-always-on;
-+				regulator-over-current-protection;
-+			};
-+
-+			vdd_usb: ldo4 {
-+				regulator-name = "vdd_usb";
-+				interrupts = <IT_CURLIM_LDO4 0>;
-+			};
-+
-+			vdda: ldo5 {
-+				regulator-name = "vdda";
-+				regulator-min-microvolt = <2900000>;
-+				regulator-max-microvolt = <2900000>;
-+				interrupts = <IT_CURLIM_LDO5 0>;
-+				regulator-boot-on;
-+			};
-+
-+			vdd_eth_1v0: ldo6 {
-+				regulator-name = "vdd_eth_1v0";
-+				regulator-min-microvolt = <1000000>;
-+				regulator-max-microvolt = <1000000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO6 0>;
-+
-+			};
-+
-+			vref_ddr: vref_ddr {
-+				regulator-name = "vref_ddr";
-+				regulator-always-on;
-+			};
-+
-+			bst_out: boost {
-+				regulator-name = "bst_out";
-+				interrupts = <IT_OCP_BOOST 0>;
-+			};
-+
-+			vbus_otg: pwr_sw1 {
-+				regulator-name = "vbus_otg";
-+				interrupts = <IT_OCP_OTG 0>;
-+				regulator-active-discharge = <1>;
-+			};
-+
-+			vbus_sw: pwr_sw2 {
-+				regulator-name = "vbus_sw";
-+				interrupts = <IT_OCP_SWOUT 0>;
-+				regulator-active-discharge = <1>;
-+			};
-+		};
-+
-+		onkey {
-+			compatible = "st,stpmic1-onkey";
-+			interrupts = <IT_PONKEY_F 0>,
-+				     <IT_PONKEY_R 0>;
-+			interrupt-names = "onkey-falling",
-+					  "onkey-rising";
-+			power-off-time-sec = <10>;
-+		};
-+
-+		watchdog {
-+			compatible = "st,stpmic1-wdt";
-+		};
-+	};
-+
-+	i2c4_eeprom: eeprom@50 {
-+		compatible = "microchip,24c32",
-+			     "atmel,24c32";
-+		reg = <0x50>;
-+	};
-+
-+	i2c4_rtc: rtc@52 {
-+		compatible = "microcrystal,rv3028";
-+		reg = <0x52>;
-+	};
-+};
-+
-+&ipcc {
-+	status = "okay";
-+};
-+
-+&iwdg2 {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&m4_rproc {
-+	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
-+			<&vdev0vring1>, <&vdev0buffer>;
-+	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
-+	mbox-names = "vq0", "vq1", "shutdown", "detach";
-+	interrupt-parent = <&exti>;
-+	interrupts = <68 1>;
-+	status = "okay";
-+};
-+
-+&pwr_regulators {
-+	vdd-supply = <&vdd>;
-+	vdd_3v3_usbfs-supply = <&vdd_usb>;
-+};
-+
-+&qspi {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
-+	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
-+	status = "okay";
-+
-+	flash0: flash@0 {
-+		compatible = "winbond,w25q128", "jedec,spi-nor";
-+		reg = <0>;
-+		spi-rx-bus-width = <4>;
-+		spi-max-frequency = <50000000>;
-+		m25p,fast-read;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+	};
-+};
-+
-+&rng1 {
-+	status = "okay";
-+};
-+
-+&rtc {
-+	status = "okay";
-+};
-+
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_e>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_e>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_e>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	st,neg-edge;
-+	bus-width = <8>;
-+	vmmc-supply = <&v3v3>;
-+	vqmmc-supply = <&v3v3>;
-+	mmc-ddr-3_3v;
-+};
+       - description: ST STM32MP257 based Boards
 -- 
 2.34.1
 
