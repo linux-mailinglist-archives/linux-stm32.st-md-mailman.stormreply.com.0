@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88A29A0898B
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 09:09:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82699A08992
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 09:10:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 267F9C71292;
-	Fri, 10 Jan 2025 08:09:02 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BDA0C71292;
+	Fri, 10 Jan 2025 08:10:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 177B6C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB77FC6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 08:08:54 +0000 (UTC)
+ Fri, 10 Jan 2025 08:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736496541; x=1768032541;
+ t=1736496636; x=1768032636;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=0vZxoqsAEaUyi0cIZM9avr4/Zblqn0Qq4dg6nBL6UVs=;
- b=heg0jLxT8Kxrregmc3Bcr4IAlXsjBUKMbMVRzmQkk0sZek4mJITXt7+4
- qgRI1+Gy/kKY3prf1stEeEWa/eXvF60kIfFJivgkm9uixjlLhzYZ6SCOq
- 2ja+CBuE3aOTzgVAZ1PebDXOnkhU5Ha0rE9l72OmNteBkZp8xvZj3Lux3
- eZ2EObsxBcTF2h8Cdvn7w8RiLvXhYamUGj/GVyWPk/qGlXw1xn7LOpkom
- 1hJ2d2kA17P7i/33uyk6H38TweueSZayheTmDWon+wnQEqZ+szZ6wusLf
- uPtonhuB2AKcbpU7alRD6u/+11RIbsfR/j6I0gPrJa4b6hmvNzZcFSZSJ A==;
-X-CSE-ConnectionGUID: gMG4bJbmR6Omq4Lf/at6tg==
-X-CSE-MsgGUID: N/1etQlDT0ihZaD14PYwLA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11310"; a="62154032"
-X-IronPort-AV: E=Sophos;i="6.12,303,1728975600"; d="scan'208";a="62154032"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2025 00:08:53 -0800
-X-CSE-ConnectionGUID: guE/BhWbT7q99Q6DlK+Jqg==
-X-CSE-MsgGUID: AG7Q+tLwTymHN1MgC8HhnQ==
+ bh=u0SlY39EHudaIchSfeH9EDK+XhR46+IbBeM2GLNudWc=;
+ b=h0dKGKZdl39ip5e/tWjKetOrpiaA7v6uo799KHf7MdBmAToIGMcOkO6i
+ bPaF+3i8YMwsbI5qNF0YpdJvrWACroamqqY30x6SN9Cyl49IRFxx4m+BL
+ jAgr/bdOqH0KDjP9fY8WgaPKg1a1aho+GJCwYKt6iNoi6QRdjoxobap2H
+ kH/hw6BB94GlF4hNWjoWEiJm3hbJdIenjZDT+QV+t0JPf0Qj4ITLaiqPm
+ OPhBP3Ei33iCGzAO+ZHZ6sURfbsJ77cKkRu17Hy9Jq854Trhf1PcLOdBB
+ VTWUvKLDQjCWZGTqGw4hhuE1bdJC1Ivk5GcBOMSqywyAm+503dZ6ql/mk g==;
+X-CSE-ConnectionGUID: 4XKqiS0XRm2QwLROcJrnuw==
+X-CSE-MsgGUID: IhndpS4JQ2uo1OdDI8TITQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11310"; a="36471690"
+X-IronPort-AV: E=Sophos;i="6.12,303,1728975600"; d="scan'208";a="36471690"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2025 00:10:33 -0800
+X-CSE-ConnectionGUID: i7ifN1BaQc2OMi34W+qoTA==
+X-CSE-MsgGUID: WYJk5AcTQVGQibvApw/qYQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="104185433"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="134566256"
 Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
  ([10.237.72.44])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2025 00:08:50 -0800
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2025 00:10:30 -0800
 Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 2AF3A11F89A;
- Fri, 10 Jan 2025 10:08:47 +0200 (EET)
-Date: Fri, 10 Jan 2025 08:08:47 +0000
+ by kekkonen.fi.intel.com (Postfix) with SMTP id 91FA511F89A;
+ Fri, 10 Jan 2025 10:10:27 +0200 (EET)
+Date: Fri, 10 Jan 2025 08:10:27 +0000
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <Z4DVj9ubGkAmkZKN@kekkonen.localdomain>
+Message-ID: <Z4DV8zVqQf9Bl0X5@kekkonen.localdomain>
 References: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
+ <Z4DVj9ubGkAmkZKN@kekkonen.localdomain>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
+In-Reply-To: <Z4DVj9ubGkAmkZKN@kekkonen.localdomain>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
  linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
@@ -78,30 +79,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain,
-
-On Wed, Jan 08, 2025 at 02:16:03PM +0100, Alain Volmat wrote:
-> Various fixes within the stm32 csi bindings/drivers and
-> stm32 dcmipp driver.
+On Fri, Jan 10, 2025 at 08:08:47AM +0000, Sakari Ailus wrote:
+> Hi Alain,
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> On Wed, Jan 08, 2025 at 02:16:03PM +0100, Alain Volmat wrote:
+> > Various fixes within the stm32 csi bindings/drivers and
+> > stm32 dcmipp driver.
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> 
+> Thanks for the update. I tried to apply this but it doesn't, and the
+> culprit appears to be this line in dcmipp_graph_notify_bound():
+> 
+> 	unsigned int ret;
+> 
+> That appears to be a bug as such. The interesting thing is that the patch
+> changing things around it presumes
+> 
+> 	int ret;
+> 
+> so it won't apply. Do you already have a patch that fixes it? It should be
+> cc'd to stable, too, with a Fixes: tag.
 
-Thanks for the update. I tried to apply this but it doesn't, and the
-culprit appears to be this line in dcmipp_graph_notify_bound():
-
-	unsigned int ret;
-
-That appears to be a bug as such. The interesting thing is that the patch
-changing things around it presumes
-
-	int ret;
-
-so it won't apply. Do you already have a patch that fixes it? It should be
-cc'd to stable, too, with a Fixes: tag.
+Ok, the tag isn't necessary as there lack of the sign doesn't seem to
+matter in this case.
 
 -- 
-Regards,
-
 Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
