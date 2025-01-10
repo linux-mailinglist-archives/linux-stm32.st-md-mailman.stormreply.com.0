@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51EFEA093E8
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ECC3A093EB
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10DEFC78F75;
-	Fri, 10 Jan 2025 14:45:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B118C78F6F;
+	Fri, 10 Jan 2025 14:45:55 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39C5BC78F71
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BC2BC78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jan 2025 14:45:54 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 1D260FF803;
  Fri, 10 Jan 2025 14:45:52 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 52486FF809;
- Fri, 10 Jan 2025 14:45:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520352;
+ t=1736520353;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=EpRU8Ni8GjnsQQyxRFEa2zYtIybiX1a/U99sUmUB8ik=;
- b=ps2xwVTlM2PTpfSbUiaA7GQikbBH2xvfr/ZvvllsjJplPe0WaeZjLR3zfkV5ZPJo9Fsvfw
- Hvr/eNi/+vf5xgAEq3I6OWryO5KLCo2GlusGdMXRZQN3ls18h+0riFckUUqD9oNbjI/gR5
- 0m3WtbaalZjIWYBQtsudpoGqxwxL12PtG0RvDneXjNijWN6EDWlsydN6yevpu2gg7yKNUr
- a/p/z1DcxBrwliH5lFJMR7tggXrkA4gBMPupZ1/c4m30EBZPNtO3XRfczF2zZwitdePeJE
- Y4T+AovB8ht2v/imVIx+K6HoyMofI2fs3bA6uDikBjR/LNw8J9gnI5lezSkcNw==
+ bh=kbQep8baX7V18i3WQzlRcus+JcLBQAZAEQ0EVnsTNJ0=;
+ b=UGGaSxpeKOOJ3smxkaQdJ4uOZ/MUdMTMNMLdUC3NRxNJC9B4WACDnbR9qRE+I7bOkWY6kU
+ lfB1YXjaXDpN/gQouuRUMZaZZ6D0ztSlPImxP59iebcja/YDP33+M4kyTV+QayseGwChzi
+ rrhkGfBfUMN/pv9PtFcRkeCvANIxHGMdN2l9sQN89C8Wkb+F6wCcEEX5u5cQ8lbu+vuQ/d
+ IrmEnS/iIwMERZpG8xY8YhlSlNZ00Ru0Jb/RactVoWvHnHFV0QBA3Yfy7s1GZ6hKmpoxCY
+ ifQDXpruMfUXf8Wl0v+TlCuVunKObkvHLcKfp2zwWGwVPQFUrgGXePDYvV4y3w==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:20 +0100
+Date: Fri, 10 Jan 2025 15:45:21 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-18-7ab4bd56cf6e@bootlin.com>
+Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-19-7ab4bd56cf6e@bootlin.com>
 References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,8 +63,8 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 18/27] spi: spi-mem: Reorder spi-mem macro
-	assignments
+Subject: [Linux-stm32] [PATCH v3 19/27] spi: spi-mem: Create macros for DTR
+	operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,60 +81,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Follow the order in which all the `struct spi_mem_op` members are
-defined.
-
-This is purely aesthetics, there is no functional change.
+We do have macros for defining command, address, dummy and data
+cycles. We also have a .dtr flag that implies sampling the bus on both
+edges, but there are currently no macros enabling it. We might make use
+of such macros, so let's create:
+- SPI_MEM_DTR_OP_CMD
+- SPI_MEM_DTR_OP_ADDR
+- SPI_MEM_DTR_OP_DUMMY
+- SPI_MEM_DTR_OP_DATA_OUT
+- SPI_MEM_DTR_OP_DATA_OUT
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- include/linux/spi/spi-mem.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/spi/spi-mem.h | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
-index c7a7719c264846ad9fce613ba96d9284ad7893e7..ca6ea01c40f85095ac2730cb424cfb21d7daa700 100644
+index ca6ea01c40f85095ac2730cb424cfb21d7daa700..306c05dd13789017da2c5339cddc031f03302bb9 100644
 --- a/include/linux/spi/spi-mem.h
 +++ b/include/linux/spi/spi-mem.h
-@@ -15,16 +15,16 @@
- 
- #define SPI_MEM_OP_CMD(__opcode, __buswidth)			\
- 	{							\
-+		.nbytes = 1,					\
- 		.buswidth = __buswidth,				\
+@@ -20,6 +20,14 @@
  		.opcode = __opcode,				\
--		.nbytes = 1,					\
  	}
  
++#define SPI_MEM_DTR_OP_CMD(__opcode, __buswidth)		\
++	{							\
++		.nbytes = 1,					\
++		.opcode = __opcode,				\
++		.buswidth = __buswidth,				\
++		.dtr = true,					\
++	}
++
  #define SPI_MEM_OP_ADDR(__nbytes, __val, __buswidth)		\
  	{							\
  		.nbytes = __nbytes,				\
--		.val = __val,					\
- 		.buswidth = __buswidth,				\
-+		.val = __val,					\
+@@ -27,6 +35,14 @@
+ 		.val = __val,					\
  	}
  
++#define SPI_MEM_DTR_OP_ADDR(__nbytes, __val, __buswidth)	\
++	{							\
++		.nbytes = __nbytes,				\
++		.val = __val,					\
++		.buswidth = __buswidth,				\
++		.dtr = true,					\
++	}
++
  #define SPI_MEM_OP_NO_ADDR	{ }
-@@ -39,18 +39,18 @@
+ 
+ #define SPI_MEM_OP_DUMMY(__nbytes, __buswidth)			\
+@@ -35,6 +51,13 @@
+ 		.buswidth = __buswidth,				\
+ 	}
+ 
++#define SPI_MEM_DTR_OP_DUMMY(__nbytes, __buswidth)		\
++	{							\
++		.nbytes = __nbytes,				\
++		.buswidth = __buswidth,				\
++		.dtr = true,					\
++	}
++
+ #define SPI_MEM_OP_NO_DUMMY	{ }
  
  #define SPI_MEM_OP_DATA_IN(__nbytes, __buf, __buswidth)		\
- 	{							\
-+		.buswidth = __buswidth,				\
- 		.dir = SPI_MEM_DATA_IN,				\
- 		.nbytes = __nbytes,				\
+@@ -45,6 +68,15 @@
  		.buf.in = __buf,				\
--		.buswidth = __buswidth,				\
  	}
  
++#define SPI_MEM_DTR_OP_DATA_IN(__nbytes, __buf, __buswidth)	\
++	{							\
++		.dir = SPI_MEM_DATA_IN,				\
++		.nbytes = __nbytes,				\
++		.buf.in = __buf,				\
++		.buswidth = __buswidth,				\
++		.dtr = true,					\
++	}
++
  #define SPI_MEM_OP_DATA_OUT(__nbytes, __buf, __buswidth)	\
  	{							\
-+		.buswidth = __buswidth,				\
- 		.dir = SPI_MEM_DATA_OUT,			\
- 		.nbytes = __nbytes,				\
+ 		.buswidth = __buswidth,				\
+@@ -53,6 +85,15 @@
  		.buf.out = __buf,				\
--		.buswidth = __buswidth,				\
  	}
  
++#define SPI_MEM_DTR_OP_DATA_OUT(__nbytes, __buf, __buswidth)	\
++	{							\
++		.dir = SPI_MEM_DATA_OUT,			\
++		.nbytes = __nbytes,				\
++		.buf.out = __buf,				\
++		.buswidth = __buswidth,				\
++		.dtr = true,					\
++	}
++
  #define SPI_MEM_OP_NO_DATA	{ }
+ 
+ /**
 
 -- 
 2.47.0
