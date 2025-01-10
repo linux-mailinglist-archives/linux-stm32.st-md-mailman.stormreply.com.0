@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82699A08992
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 09:10:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8793A08B6A
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:22:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BDA0C71292;
-	Fri, 10 Jan 2025 08:10:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B964C78011;
+	Fri, 10 Jan 2025 09:22:15 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB77FC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C64E0C78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 08:10:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736496636; x=1768032636;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=u0SlY39EHudaIchSfeH9EDK+XhR46+IbBeM2GLNudWc=;
- b=h0dKGKZdl39ip5e/tWjKetOrpiaA7v6uo799KHf7MdBmAToIGMcOkO6i
- bPaF+3i8YMwsbI5qNF0YpdJvrWACroamqqY30x6SN9Cyl49IRFxx4m+BL
- jAgr/bdOqH0KDjP9fY8WgaPKg1a1aho+GJCwYKt6iNoi6QRdjoxobap2H
- kH/hw6BB94GlF4hNWjoWEiJm3hbJdIenjZDT+QV+t0JPf0Qj4ITLaiqPm
- OPhBP3Ei33iCGzAO+ZHZ6sURfbsJ77cKkRu17Hy9Jq854Trhf1PcLOdBB
- VTWUvKLDQjCWZGTqGw4hhuE1bdJC1Ivk5GcBOMSqywyAm+503dZ6ql/mk g==;
-X-CSE-ConnectionGUID: 4XKqiS0XRm2QwLROcJrnuw==
-X-CSE-MsgGUID: IhndpS4JQ2uo1OdDI8TITQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11310"; a="36471690"
-X-IronPort-AV: E=Sophos;i="6.12,303,1728975600"; d="scan'208";a="36471690"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2025 00:10:33 -0800
-X-CSE-ConnectionGUID: i7ifN1BaQc2OMi34W+qoTA==
-X-CSE-MsgGUID: WYJk5AcTQVGQibvApw/qYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="134566256"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2025 00:10:30 -0800
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 91FA511F89A;
- Fri, 10 Jan 2025 10:10:27 +0200 (EET)
-Date: Fri, 10 Jan 2025 08:10:27 +0000
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <Z4DV8zVqQf9Bl0X5@kekkonen.localdomain>
-References: <20250108-csi_dcmipp_mp25_enhancements-v2-0-05808ce50e41@foss.st.com>
- <Z4DVj9ubGkAmkZKN@kekkonen.localdomain>
+ Fri, 10 Jan 2025 09:22:08 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50A3QQOU006235;
+ Fri, 10 Jan 2025 10:21:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=ug/esXvlXPzNIJKb14lQ1+
+ ZPUlmHKKmJRUVvjbEcQN8=; b=cGHshVnYAZgSPIuTPu4gOXOzUKK5GWcPsiYzHC
+ uXWvuwaIfErhVfjTkLwkcufyaqL/ElzbJaeKQchN2ErwXs4NXUhHk491vp5WXr8Y
+ F2BbbcbTT3dn/TKG01Cn7ju87Hdfb+r4HDvGjzPZMoAWjESauKKZl+3+TDqzD2t7
+ vPUcTg+sLFjCG5+ntVs5TwDPnWP0LVrbvYvFLF6yEyyhVJvK5ROv4CkZ4ouFo2yH
+ r5JZo2v10f4N6oRsGB+ushyh+/ZbML3zJDJhxBD5885qc2ouk7ns4naTnkFbyvuc
+ qhnCtPb/4yhxZXiJnslKzdiZ49YG4jD5UDqU3/OSbM4E5TRw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 442hnxay3t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jan 2025 10:21:57 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B6A734004D;
+ Fri, 10 Jan 2025 10:21:01 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 967E7289EF1;
+ Fri, 10 Jan 2025 10:19:59 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
+ 2025 10:19:59 +0100
+Received: from localhost (10.252.28.64) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
+ 2025 10:19:59 +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <lee@kernel.org>, <ukleinek@kernel.org>, <alexandre.torgue@foss.st.com>
+Date: Fri, 10 Jan 2025 10:19:14 +0100
+Message-ID: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z4DVj9ubGkAmkZKN@kekkonen.localdomain>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/8] media: stm32: csi / dcmipp
-	corrections
+X-Originating-IP: [10.252.28.64]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/8] Add STM32MP25 timers support: MFD, PWM,
+	IIO and counter drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,33 +79,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 10, 2025 at 08:08:47AM +0000, Sakari Ailus wrote:
-> Hi Alain,
-> 
-> On Wed, Jan 08, 2025 at 02:16:03PM +0100, Alain Volmat wrote:
-> > Various fixes within the stm32 csi bindings/drivers and
-> > stm32 dcmipp driver.
-> > 
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> 
-> Thanks for the update. I tried to apply this but it doesn't, and the
-> culprit appears to be this line in dcmipp_graph_notify_bound():
-> 
-> 	unsigned int ret;
-> 
-> That appears to be a bug as such. The interesting thing is that the patch
-> changing things around it presumes
-> 
-> 	int ret;
-> 
-> so it won't apply. Do you already have a patch that fixes it? It should be
-> cc'd to stable, too, with a Fixes: tag.
+This series adds STM32MP25 support on MFD PWM, IIO, counter timer drivers.
+This new timer variant is managed by using a new DT compatible string.
+It comes with a slightly updated register set, some new features and new
+interconnect signals inside the SoC. There is also a new instance (TIM20).
+Same feature list as on STM32MP1x is supported currently, except for PWM
+capture (not enabled, by DT).
+The device tree files add all instances in stm32mp251 dtsi. PWM, counter
+and trigger examples are provided for stm32mp257f-ev1 board.
 
-Ok, the tag isn't necessary as there lack of the sign doesn't seem to
-matter in this case.
+Changes in V3
+---
+- MFD updated since Lee's coments
+- IIO patch dropped since applied by Jonathan
+
+Changes in V2
+---
+- PMW driver updated to address Uwe's review comments
+- Collected Acked-by
+
+Fabrice Gasnier (8):
+  dt-bindings: mfd: stm32-timers: add support for stm32mp25
+  mfd: stm32-timers: add support for stm32mp25
+  counter: stm32-timer-cnt: add support for stm32mp25
+  pwm: stm32: add support for stm32mp25
+  arm64: defconfig: enable STM32 timers drivers
+  arm64: dts: st: add timer nodes on stm32mp251
+  arm64: dts: st: add timer pins for stm32mp257f-ev1
+  arm64: dts: st: add timer nodes on stm32mp257f-ev1
+
+ .../bindings/mfd/st,stm32-timers.yaml         |  18 +-
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  61 ++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        | 524 ++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  58 ++
+ arch/arm64/configs/defconfig                  |   4 +
+ drivers/counter/stm32-timer-cnt.c             |   7 +-
+ drivers/mfd/stm32-timers.c                    |  31 +-
+ drivers/pwm/pwm-stm32.c                       |  42 +-
+ include/linux/mfd/stm32-timers.h              |   9 +
+ 9 files changed, 740 insertions(+), 14 deletions(-)
 
 -- 
-Sakari Ailus
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
