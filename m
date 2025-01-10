@@ -2,70 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36988A08B70
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:22:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79C8EA08CFE
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:54:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED23CC78F67;
-	Fri, 10 Jan 2025 09:22:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26A69C78011;
+	Fri, 10 Jan 2025 09:54:17 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96748C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CCF1C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 09:22:20 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50A7e8A5025749;
- Fri, 10 Jan 2025 10:22:13 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- yo5Xx8h3uCqqmk4Dv0r1R0rtmXCq2HKncRpeohdg7BQ=; b=LoygjO/45V6Walxy
- E5dE23zxyL+/awaQXUeyY3omwKiFjYPxeyQypajXO1QOydEUpqltWa/jhQzRZmv5
- Zz6Mt8FY25Hz33qXOK4dtE3IoJye2UKrVFM6QyfmydPy7OjjBfxjYHZ0WENh9F0S
- JeelT9tefwYQrSE26osjKH9OFo+R+dOO+YdfH8DPiQvVAK+W/msXk5lsjlfQ5BGf
- XmeH2BSF7rtiI/oEz4qr91msgu+MAz6ff/CZIhK+YdS8HPL1KKdIPwFkwis8OHPB
- 5JSl1f406aMVZItY6l7vjT+fr/JC70/jZSfHUGCYUIlE7uf59J2lWa9pHEsScZ/P
- tD+nzg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 442mw0j93y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Jan 2025 10:22:13 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E6B5F4005F;
- Fri, 10 Jan 2025 10:21:05 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 349B028A866;
- Fri, 10 Jan 2025 10:20:06 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
- 2025 10:20:06 +0100
-Received: from localhost (10.252.28.64) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
- 2025 10:20:05 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <lee@kernel.org>, <ukleinek@kernel.org>, <alexandre.torgue@foss.st.com>
-Date: Fri, 10 Jan 2025 10:19:22 +0100
-Message-ID: <20250110091922.980627-9-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
-References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
+ Fri, 10 Jan 2025 09:54:09 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2166022c5caso28759045ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jan 2025 01:54:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736502848; x=1737107648;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nFjtc361L1m3WrvhcILanOsHvqG76+wLYkWt5yxv28I=;
+ b=FvB4PUPdYqqutseuSQ9hWM2OKdY17RYvaO0UFESHtEN/P6q3PhS9Go3nj3qpwiqQ8o
+ 2wWBCssoPWmii7hEQwasllj3VzR+kXalHuoVe6waDJRLwG2bj8IXgBSaOUHHhmq11DRZ
+ W6lmUq80hoPm1/OVEHOYCjQan6taUmREQvCP6DCC54o1cNo6TrrqbEViXALdiHAvB3YZ
+ Ks7CEimkiIde2JG3TwyoPTHRDEXy/vxSaMXNgNnmlKRgdYKOTLpRNSSwosE7S4j4E5C4
+ BWW8DQGDUye/8/Ko7qylkZV5Av5wyqMTPk5PNHP/l+aGunkP0cQE2+vs/QGLDs8IRS2Z
+ 2UAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736502848; x=1737107648;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=nFjtc361L1m3WrvhcILanOsHvqG76+wLYkWt5yxv28I=;
+ b=FVBB/bCvgAepYY31MGVTUkXCNMQqM9nZUP5N4JeJZ/SeLlOp9nQAKdUnYTXkKLWXn1
+ 94aRXt901WOvqh6C7VC1R7JmEKoXvH+8Yph5peE7NpFJyl5xbtsjWbK1ttvMivglJs/Q
+ DNby3lq/FVOTZ14vTX9u0YtdqUMwWVkGQ38GO1+KIvDT2Q3OVF3yQ3tGlS3HSQTtHKWr
+ ibTsUZaIVwkR59epyuMbaIbJlApZIALSCesq/CbLZ/MxpNr6++3yiX8gTsAR/QLEHprk
+ k+yVs0qATEiZUTHtDzvZiHFUClojpvN0RGXuhK/Z2XBZ0Uu1LGkUXj+1BWsGcAUFDsU8
+ 069g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5QMhlbIgu+3POyzvNZI+MM8RKyeQFKXNOLfPjbZ4z7Lv8zZ86dk0WBAAq5RrfIetxE133M1m02umayg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz8WInlc/3bBbiOm2sk1QcU4Y1HvH8DVHwVuyW8Y/VQgIrBu7lP
+ 3xagcwI6Ps8I/SPAUUGEZByyZFrCCoPUjkut57LyVaK5LdDEVCGf
+X-Gm-Gg: ASbGncv8EJAtKLlgc+Ayl2ltdlcVvMJc5giMWQVXlJtZeziDkJOYtH6L8N36VLgLLQ+
+ Bw6GqKGRmAW7dGGNwWk2V0W04nCRh59r0CRDlOKyN7Kpf4WdAaczK3ra24apErq4oaYmeQ56LPp
+ EmwiwzeVbvLnJt+nSXzU60nE6Gp5HPNKnZwHoT/Gbljxe5jLbqceOSYGwJsx16dOHPX40v17QnM
+ I/qKoKVXnd0S2RoUApON8kH45du0kp2P01Kbwt1dcBsVS5ZyA+pZDpxGCX70oT1VIXf0w==
+X-Google-Smtp-Source: AGHT+IHidL4NMTe1WTqflVHXmcGk6gO9iCsHE6DEmrgSOMzB5+zgj5qg5pxONnHGy9PfSNiUkL8Uog==
+X-Received: by 2002:a05:6a21:4a4b:b0:1e0:cbd1:8046 with SMTP id
+ adf61e73a8af0-1e88cd28733mr15562582637.0.1736502847835; 
+ Fri, 10 Jan 2025 01:54:07 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-72d4069217dsm1186183b3a.151.2025.01.10.01.54.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jan 2025 01:54:07 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 10 Jan 2025 17:53:56 +0800
+Message-Id: <cover.1736500685.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.252.28.64]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: [Linux-stm32] [PATCH v3 8/8] arm64: dts: st: add timer nodes on
-	stm32mp257f-ev1
+Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v1 0/3] net: stmmac: RX performance
+	improvement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,92 +89,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Configure timer nodes on stm32mp257f-ev1:
-- Timer3 CH2 is available on mikroBUS connector for PWM
-- timer8 CH1, timer8 CH4, timer10 CH1 and timer12 CH2 are available
-  on EXPANSION connector.
-Timers are kept disabled by default, so the pins can be used for any
-other purpose (and the timers can be assigned to any of the processors).
-Arbitrary choice is to use all these timers as PWM (or counter on
-internal clock signal), except for timer10 that is configured with
-CH1 as an input (for capture).
+This series improves RX performance a lot, ~34% TCP RX throughput boost
+has been observed with DWXGMAC CORE 3.20a running on Cortex-A65 CPUs:
+from 2.18 Gbits/sec increased to 2.92 Gbits/sec.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 58 ++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+Furong Xu (3):
+  net: stmmac: Switch to zero-copy in non-XDP RX path
+  net: stmmac: Set page_pool_params.max_len to a precise size
+  net: stmmac: Optimize cache prefetch in RX path
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 6f393b082789..6601ca411006 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -156,6 +156,64 @@ &spi8 {
- 	status = "disabled";
- };
- 
-+&timers3 {
-+	status = "disabled";
-+	counter {
-+		status = "okay";
-+	};
-+	pwm {
-+		pinctrl-0 = <&pwm3_pins_a>;
-+		pinctrl-1 = <&pwm3_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+	timer@2 {
-+		status = "okay";
-+	};
-+};
-+
-+&timers8 {
-+	status = "disabled";
-+	counter {
-+		status = "okay";
-+	};
-+	pwm {
-+		pinctrl-0 = <&pwm8_pins_a>;
-+		pinctrl-1 = <&pwm8_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+	timer@7 {
-+		status = "okay";
-+	};
-+};
-+
-+&timers10 {
-+	status = "disabled";
-+	counter {
-+		pinctrl-0 = <&tim10_counter_pins_a>;
-+		pinctrl-1 = <&tim10_counter_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+};
-+
-+&timers12 {
-+	status = "disabled";
-+	counter {
-+		status = "okay";
-+	};
-+	pwm {
-+		pinctrl-0 = <&pwm12_pins_a>;
-+		pinctrl-1 = <&pwm12_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+	timer@11 {
-+		status = "okay";
-+	};
-+};
-+
- &usart2 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 32 +++++++++++--------
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  1 -
+ 3 files changed, 19 insertions(+), 15 deletions(-)
+
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
