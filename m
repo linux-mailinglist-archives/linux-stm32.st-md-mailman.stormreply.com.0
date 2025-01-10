@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B19DEA093CF
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D7FA093D1
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70629C78F6F;
-	Fri, 10 Jan 2025 14:45:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82219C78F72;
+	Fri, 10 Jan 2025 14:45:34 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08230C78F71
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFCAEC78F73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 14:45:32 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 1317AFF807;
- Fri, 10 Jan 2025 14:45:30 +0000 (UTC)
+ Fri, 10 Jan 2025 14:45:33 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DF20FFF817;
+ Fri, 10 Jan 2025 14:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520331;
+ t=1736520333;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BZ7N9DxFJs+ypWx4tpIWo4afnbo0gO3jjiMo2DbsJnA=;
- b=Ep+W3RwwhmDUkoOO8gMAhVAvq+JxfEHNNEhlItnkm6ggFf2cddQXzxap3MgR9mXKCDscmq
- m/wfrLsZs+FKMbbg3tKL/2WRy+/PqYCmxdj31+BFkJ6U5x977eYrMYR4dWMjtIP/3LrZOr
- +9YwOhVFPYowtfyY29H0gM+j+73hpW4Om/PtB2G7ZEY2XAWCJZ8fN34jETT6A7RWvtNVug
- +95UyUbdJXRSJsOX/bPjB6A+lRpnt8Hsb4V24g0Id8tv5VrIKh/LnBd4/KNLdRLwc3FzxP
- 0132EdjtSokHP0suQe2WqJ8kvsWTOT3s3qDIdFB6l5xjeBP3BxhjdUWbwB3+gg==
+ bh=JrcFdkL7v8hevVCz++URbVmucpyX6fBOW8nqTnbI9/s=;
+ b=gQIfRcfGmYYAoyUyZ0m3FuxYEZ2Vhp0yGExEna36qZIVu0OMGDf3EYZj0i1/xdhyZUUBMS
+ VGzcm/2MGkihSOmL+wjLfusd6OmVosbXg7TDvLO/D9+1XtbRlvunCI/OZtiAIsQegjQClm
+ fR+2U8uPTsx7DZykr/2TkVTTt5jx0gM2zt3h73KX0TIP7GfigvYGWczUp9QQw/cooYoXit
+ k+0rbpdIhC53zQLF78O68haof3hDkEE9O29a+Ox7cOCzRRmEObX4dNH3SpTWt+rLQWd9QA
+ 7W1kK52WnoQalg1NZh0Npkq4yuQWlphw9tpc/D51Qkb6ndqHS2QKZ4zPZIeOLA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:09 +0100
+Date: Fri, 10 Jan 2025 15:45:10 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-7-7ab4bd56cf6e@bootlin.com>
+Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-8-7ab4bd56cf6e@bootlin.com>
 References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,7 +63,7 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 07/27] spi: dw: Support per spi-mem
+Subject: [Linux-stm32] [PATCH v3 08/27] spi: fsl-qspi: Support per spi-mem
  operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,47 +91,57 @@ device value will be given anyway.
 The per-operation frequency capability is thus advertised to the spi-mem
 core.
 
+Cc: Han Xu <han.xu@nxp.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-dw-core.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/spi/spi-fsl-qspi.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index 431788dd848cea1d854affe0d1fb971f680824a1..3d49b1dbaed4d491c0df659c061582e71f2c514d 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -677,7 +677,7 @@ static int dw_spi_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	 * operation. Transmit-only mode is suitable for the rest of them.
- 	 */
- 	cfg.dfs = 8;
--	cfg.freq = clamp(mem->spi->max_speed_hz, 0U, dws->max_mem_freq);
-+	cfg.freq = clamp(op->max_freq, 0U, dws->max_mem_freq);
- 	if (op->data.dir == SPI_MEM_DATA_IN) {
- 		cfg.tmode = DW_SPI_CTRLR0_TMOD_EPROMREAD;
- 		cfg.ndf = op->data.nbytes;
-@@ -894,6 +894,10 @@ static void dw_spi_hw_init(struct device *dev, struct dw_spi *dws)
- 		dw_writel(dws, DW_SPI_CS_OVERRIDE, 0xF);
+diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
+index 9ec53bf0dda8ead27bc7a11a9bb09a08efe2ea05..355e6a39fb41896f460e2474a90b8f0b42068ff3 100644
+--- a/drivers/spi/spi-fsl-qspi.c
++++ b/drivers/spi/spi-fsl-qspi.c
+@@ -522,9 +522,10 @@ static void fsl_qspi_invalidate(struct fsl_qspi *q)
+ 	qspi_writel(q, reg, q->iobase + QUADSPI_MCR);
  }
  
-+static const struct spi_controller_mem_caps dw_spi_mem_caps = {
+-static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi)
++static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
++				const struct spi_mem_op *op)
+ {
+-	unsigned long rate = spi->max_speed_hz;
++	unsigned long rate = op->max_freq;
+ 	int ret;
+ 
+ 	if (q->selected == spi_get_chipselect(spi, 0))
+@@ -652,7 +653,7 @@ static int fsl_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	fsl_qspi_readl_poll_tout(q, base + QUADSPI_SR, (QUADSPI_SR_IP_ACC_MASK |
+ 				 QUADSPI_SR_AHB_ACC_MASK), 10, 1000);
+ 
+-	fsl_qspi_select_mem(q, mem->spi);
++	fsl_qspi_select_mem(q, mem->spi, op);
+ 
+ 	if (needs_amba_base_offset(q))
+ 		addr_offset = q->memmap_phy;
+@@ -839,6 +840,10 @@ static const struct spi_controller_mem_ops fsl_qspi_mem_ops = {
+ 	.get_name = fsl_qspi_get_name,
+ };
+ 
++static const struct spi_controller_mem_caps fsl_qspi_mem_caps = {
 +	.per_op_freq = true,
 +};
 +
- int dw_spi_add_host(struct device *dev, struct dw_spi *dws)
+ static int fsl_qspi_probe(struct platform_device *pdev)
  {
- 	struct spi_controller *host;
-@@ -941,8 +945,10 @@ int dw_spi_add_host(struct device *dev, struct dw_spi *dws)
- 		host->set_cs = dw_spi_set_cs;
- 	host->transfer_one = dw_spi_transfer_one;
- 	host->handle_err = dw_spi_handle_err;
--	if (dws->mem_ops.exec_op)
-+	if (dws->mem_ops.exec_op) {
- 		host->mem_ops = &dws->mem_ops;
-+		host->mem_caps = &dw_spi_mem_caps;
-+	}
- 	host->max_speed_hz = dws->max_freq;
- 	host->flags = SPI_CONTROLLER_GPIO_SS;
- 	host->auto_runtime_pm = true;
+ 	struct spi_controller *ctlr;
+@@ -923,6 +928,7 @@ static int fsl_qspi_probe(struct platform_device *pdev)
+ 	ctlr->bus_num = -1;
+ 	ctlr->num_chipselect = 4;
+ 	ctlr->mem_ops = &fsl_qspi_mem_ops;
++	ctlr->mem_caps = &fsl_qspi_mem_caps;
+ 
+ 	fsl_qspi_default_setup(q);
+ 
 
 -- 
 2.47.0
