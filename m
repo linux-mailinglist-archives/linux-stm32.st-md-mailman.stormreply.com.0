@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD56BA09400
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:46:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D36A09450
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:53:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8599DC78F6F;
-	Fri, 10 Jan 2025 14:46:10 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10D05C78F6F;
+	Fri, 10 Jan 2025 14:53:03 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA60C78F6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E741C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 14:46:09 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 380BBFF80D;
- Fri, 10 Jan 2025 14:46:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520369;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=st7iZmfts2tp/8JHKFXB7UyuKEKOlhrYdKjKeGEcYRI=;
- b=NBs6xgbjlIU9ybAGE44SAOa4S8hvC4+KpOFAQfLaiE9FM/aTo/UVX1PPcrZ5Du60REZx0S
- spGiWaHXSNubiOWCGUiz2LtRj4HbR9Htr3yXMQCWq+PzaSKCnQZ9S8Li5BnQtzR4vHeAME
- abkERuAUxMNyr4EfhfRFV96cEB6APwvLT65rFWXtmt0chDZbOl24GISzTE1LSmuYjyuZng
- vefRcAMPfkRs6k0TE9v67XDgOwmrBoVla+NDLdTy1U0212V5Dtz9e6zMryo6jTAk0ly/sF
- xoIR1a6dwnYYC65PE/lh0eOHpzJuPgucYuloOKp4MNz3Mqg93/n5B5TnTiR67g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:29 +0100
+ Fri, 10 Jan 2025 14:53:01 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50ABpGCR019273;
+ Fri, 10 Jan 2025 15:51:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 7Qc8B9n8Wk0ETebdx29AGZE+bnYd24Q0I0YVr1DZ2f0=; b=qGesxML4Mz6fX7wF
+ GEzxs2lDns+ZtEKh+nByR5NtjNc78e35EGatN7/MaD6LQcwyZPw6s94uUTQsGLbP
+ pCfTZGu6AuaSY3bYm7g5rOVIXmdMK+sctCkDjm4q/LgoYHAZADhFMPegvHnqkbP2
+ ld3V+KO0gxHMm9XCMDlFmWM1ec/Pu3JwLrWK51wIUovyeZOzTt2JU/n2yzeezO1U
+ jp1w35ELvKmPfJxrHCSYbp2k+L0yeF15E90eOh53PaBsgROP4rnAf6YfEPy3ft3I
+ Yytr5vGRxFRR9o2AH4YAu74OuNH25z19redaPRy0Q4W/WFu2kaMDfK6iQMOG1N+r
+ 0AQZ3A==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44331t8pn5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jan 2025 15:51:43 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6672D4004F;
+ Fri, 10 Jan 2025 15:50:26 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ECCF12BC88C;
+ Fri, 10 Jan 2025 15:49:19 +0100 (CET)
+Received: from [10.129.178.212] (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
+ 2025 15:49:18 +0100
+Message-ID: <181e2e45-9d00-414e-a0cb-60f61afa488f@foss.st.com>
+Date: Fri, 10 Jan 2025 15:49:17 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-27-7ab4bd56cf6e@bootlin.com>
-References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
-In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
-To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
- Serge Semin <fancer.lancer@gmail.com>, Han Xu <han.xu@nxp.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Haibo Chen <haibo.chen@nxp.com>, Yogesh Gaur <yogeshgaur.83@gmail.com>, 
- Heiko Stuebner <heiko@sntech.de>, Michal Simek <michal.simek@amd.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, 
- =?utf-8?q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Raju Rangoju <Raju.Rangoju@amd.com>
-X-Mailer: b4 0.15-dev
-X-GND-Sasl: miquel.raynal@bootlin.com
-Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Steam Lin <stlin2@winbond.com>, linux-spi@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 27/27] mtd: spinand: winbond: Add support
- for DTR operations
+User-Agent: Mozilla Thunderbird
+To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
+ <20241126155119.1574564-5-christian.bruel@foss.st.com>
+ <20241203152230.5mdrt27u5u5ecwcz@thinkpad>
+Content-Language: en-US
+From: Christian Bruel <christian.bruel@foss.st.com>
+In-Reply-To: <20241203152230.5mdrt27u5u5ecwcz@thinkpad>
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
+ cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
+ mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/5] PCI: stm32: Add PCIe endpoint
+ support for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,46 +76,212 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-W25N01JW and W25N02JW support many DTR read modes in single, dual and
-quad configurations.
+Hi Mani,
 
-DTR modes however cannot be used at 166MHz, as the bus frequency in
-this case must be lowered to 80MHz.
+On 12/3/24 16:22, Manivannan Sadhasivam wrote:
+> On Tue, Nov 26, 2024 at 04:51:18PM +0100, Christian Bruel wrote:
+> 
+> [...]
+> 
+>> +static int stm32_pcie_start_link(struct dw_pcie *pci)
+>> +{
+>> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
+>> +	int ret;
+>> +
+>> +	if (stm32_pcie->link_status == STM32_PCIE_EP_LINK_ENABLED) {
+>> +		dev_dbg(pci->dev, "Link is already enabled\n");
+>> +		return 0;
+>> +	}
+>> +
+>> +	ret = stm32_pcie_enable_link(pci);
+>> +	if (ret) {
+>> +		dev_err(pci->dev, "PCIe cannot establish link: %d\n", ret);
+>> +		return ret;
+>> +	}
+> 
+> How the REFCLK is supplied to the endpoint? From host or generated locally?
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/mtd/nand/spi/winbond.c | 5 +++++
- 1 file changed, 5 insertions(+)
+The REFCLK is supplied from the host, it does not support separated clocks
+> 
+>> +
+>> +	stm32_pcie->link_status = STM32_PCIE_EP_LINK_ENABLED;
+>> +
+>> +	enable_irq(stm32_pcie->perst_irq);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void stm32_pcie_stop_link(struct dw_pcie *pci)
+>> +{
+>> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
+>> +
+>> +	if (stm32_pcie->link_status == STM32_PCIE_EP_LINK_DISABLED) {
+>> +		dev_dbg(pci->dev, "Link is already disabled\n");
+>> +		return;
+>> +	}
+>> +
+>> +	disable_irq(stm32_pcie->perst_irq);
+>> +
+>> +	stm32_pcie_disable_link(pci);
+>> +
+>> +	stm32_pcie->link_status = STM32_PCIE_EP_LINK_DISABLED;
+>> +}
+>> +
+>> +static int stm32_pcie_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
+>> +				unsigned int type, u16 interrupt_num)
+>> +{
+>> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
+>> +
+>> +	switch (type) {
+>> +	case PCI_IRQ_INTX:
+>> +		return dw_pcie_ep_raise_intx_irq(ep, func_no);
+>> +	case PCI_IRQ_MSI:
+>> +		return dw_pcie_ep_raise_msi_irq(ep, func_no, interrupt_num);
+>> +	default:
+>> +		dev_err(pci->dev, "UNKNOWN IRQ type\n");
+>> +		return -EINVAL;
+>> +	}
+>> +}
+>> +
+>> +static const struct pci_epc_features stm32_pcie_epc_features = {
+>> +	.msi_capable = true,
+>> +	.align = 1 << 16,
+> 
+> Use SZ_64K
+> 
+>> +};
+>> +
+> 
+> [...]
+> 
+>> +static int stm32_add_pcie_ep(struct stm32_pcie *stm32_pcie,
+>> +			     struct platform_device *pdev)
+>> +{
+>> +	struct dw_pcie *pci = stm32_pcie->pci;
+>> +	struct dw_pcie_ep *ep = &pci->ep;
+>> +	struct device *dev = &pdev->dev;
+>> +	int ret;
+>> +
+>> +	ret = regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
+>> +				 STM32MP25_PCIECR_TYPE_MASK,
+>> +				 STM32MP25_PCIECR_EP);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = pm_runtime_resume_and_get(dev);
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "pm runtime resume failed: %d\n", ret);
+>> +		return ret;
+>> +	}
+> 
+> You might want to do runtime resume before accessing regmap.
 
-diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
-index 51972ba0f193c7b27ece0296c1590ddfed0ac813..8394a1b1fb0c125ddb614269069d107463e905a3 100644
---- a/drivers/mtd/nand/spi/winbond.c
-+++ b/drivers/mtd/nand/spi/winbond.c
-@@ -24,10 +24,15 @@
-  */
- 
- static SPINAND_OP_VARIANTS(read_cache_dtr_variants,
-+		SPINAND_PAGE_READ_FROM_CACHE_QUADIO_DTR_OP(0, 8, NULL, 0, 80 * HZ_PER_MHZ),
-+		SPINAND_PAGE_READ_FROM_CACHE_X4_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
- 		SPINAND_PAGE_READ_FROM_CACHE_QUADIO_OP(0, 2, NULL, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_X4_OP(0, 1, NULL, 0),
-+		SPINAND_PAGE_READ_FROM_CACHE_DUALIO_DTR_OP(0, 4, NULL, 0, 80 * HZ_PER_MHZ),
-+		SPINAND_PAGE_READ_FROM_CACHE_X2_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
- 		SPINAND_PAGE_READ_FROM_CACHE_DUALIO_OP(0, 1, NULL, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_X2_OP(0, 1, NULL, 0),
-+		SPINAND_PAGE_READ_FROM_CACHE_DTR_OP(0, 2, NULL, 0, 80 * HZ_PER_MHZ),
- 		SPINAND_PAGE_READ_FROM_CACHE_FAST_OP(0, 1, NULL, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_OP(0, 1, NULL, 0, 54 * HZ_PER_MHZ));
- 
+ok
 
--- 
-2.47.0
+> 
+>> +
+>> +	reset_control_assert(stm32_pcie->rst);
+>> +	reset_control_deassert(stm32_pcie->rst);
+>> +
+>> +	ep->ops = &stm32_pcie_ep_ops;
+>> +
+>> +	ret = dw_pcie_ep_init(ep);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to initialize ep: %d\n", ret);
+>> +		goto err_init;
+>> +	}
+>> +
+>> +	ret = stm32_pcie_enable_resources(stm32_pcie);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to enable resources: %d\n", ret);
+>> +		goto err_clk;
+>> +	}
+>> +
+>> +	ret = dw_pcie_ep_init_registers(ep);
+>> +	if (ret) {
+>> +		dev_err(dev, "Failed to initialize DWC endpoint registers\n");
+>> +		goto err_init_regs;
+>> +	}
+>> +
+>> +	pci_epc_init_notify(ep->epc);
+>> +
+>> +	return 0;
+>> +
+>> +err_init_regs:
+>> +	stm32_pcie_disable_resources(stm32_pcie);
+>> +
+>> +err_clk:
+>> +	dw_pcie_ep_deinit(ep);
+>> +
+>> +err_init:
+>> +	pm_runtime_put_sync(dev);
+>> +	return ret;
+>> +}
+>> +
+>> +static int stm32_pcie_probe(struct platform_device *pdev)
+>> +{
+>> +	struct stm32_pcie *stm32_pcie;
+>> +	struct dw_pcie *dw;
+>> +	struct device *dev = &pdev->dev;
+>> +	int ret;
+>> +
+>> +	stm32_pcie = devm_kzalloc(dev, sizeof(*stm32_pcie), GFP_KERNEL);
+>> +	if (!stm32_pcie)
+>> +		return -ENOMEM;
+>> +
+>> +	dw = devm_kzalloc(dev, sizeof(*dw), GFP_KERNEL);
+>> +	if (!dw)
+>> +		return -ENOMEM;
+> 
+> Why can't you allocate it statically inside 'struct stm32_pcie'?
+> 
 
+will do, as for the rc
+
+>> +
+>> +	stm32_pcie->pci = dw;
+>> +
+>> +	dw->dev = dev;
+>> +	dw->ops = &dw_pcie_ops;
+>> +
+>> +	stm32_pcie->regmap = syscon_regmap_lookup_by_compatible("st,stm32mp25-syscfg");
+>> +	if (IS_ERR(stm32_pcie->regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->regmap),
+>> +				     "No syscfg specified\n");
+>> +
+>> +	stm32_pcie->phy = devm_phy_get(dev, "pcie-phy");
+>> +	if (IS_ERR(stm32_pcie->phy))
+>> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->phy),
+>> +				     "failed to get pcie-phy\n");
+>> +
+>> +	stm32_pcie->clk = devm_clk_get(dev, NULL);
+>> +	if (IS_ERR(stm32_pcie->clk))
+>> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->clk),
+>> +				     "Failed to get PCIe clock source\n");
+>> +
+>> +	stm32_pcie->rst = devm_reset_control_get_exclusive(dev, NULL);
+>> +	if (IS_ERR(stm32_pcie->rst))
+>> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->rst),
+>> +				     "Failed to get PCIe reset\n");
+>> +
+>> +	stm32_pcie->perst_gpio = devm_gpiod_get(dev, "reset", GPIOD_IN);
+>> between PCIE and USB3+	if (IS_ERR(stm32_pcie->perst_gpio))
+>> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->perst_gpio),
+>> +				     "Failed to get reset GPIO\n");
+>> +
+>> +	ret = phy_set_mode(stm32_pcie->phy, PHY_MODE_PCIE);
+> 
+> Hmm, so PHY mode is common for both endpoint and host?
+
+the COMBOPHY MODESEL sysconf takes PCIE or USB3 as value
+> 
+> - Mani
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
