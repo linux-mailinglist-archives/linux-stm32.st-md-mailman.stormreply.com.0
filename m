@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1E76A093D6
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDFD8A093D9
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98DA8C78F6F;
-	Fri, 10 Jan 2025 14:45:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6A17C78F6F;
+	Fri, 10 Jan 2025 14:45:40 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97446C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69EB6C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jan 2025 14:45:39 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 79EF1FF804;
  Fri, 10 Jan 2025 14:45:37 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id A46A0FF809;
- Fri, 10 Jan 2025 14:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520337;
+ t=1736520339;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NPTwujdULqDMAWJvUaFFPZ6Ty000e2Bmk5z+jRzLZ3I=;
- b=NdcWYGi1v9pxLBZsF3uk8cw7BXVazpNl372ViS/+mQi5NYuRvTcZpVJSjQyLpYYOdqwPB0
- IE+9az2ocBWsu7R9mPdVrxkPW6brhIIFmQOMfdU8qzRbJPwkPzZ4z/9KT0DUeRkDkh/Xdc
- 4f7KS1JcMFPfscC+Wvdqle7XCFjgPaXNOeFIfFw5D1VClohHzyTCHGEF4C7JtF+7QpcYtT
- tCuXXhXSHACZGtQZ9Olam9DqrbdkPCIw+qb7mMjqLen0IXXudi2z7tzzW1zrC24lt6iJC0
- ljUSZf1Dl07xg/1WWqy9zI3EGG3qFB/FKnzloYnFFIsJiShp/NNGAfeLmBaREA==
+ bh=BuQ/lBXfZRP3KmcoAIIIjIvvj0TWlpOZ+bgtTbc13Ew=;
+ b=o768u8Otcsz2Km36EsCHtEU5he37v6Eo3tHx2ozWdVQJXyjPuDsZOLWsGba3bIrjUGzP3Y
+ ZKMtr/uwbqHC46+jWufNx7PWLIwMnBH4aJ6sEMdVfCV8HAhGEHQVGqGLotvIca27+WPBuL
+ yOYCXHbamw/Fza1JVQB8BxpUv3JwMtiWKyY36HQvZJUgUz4AKqRGGOTi1nV+zrn46NfUnH
+ 7l1qgd/5NDOdgHrKm/HRIPARiCzrTBfQeaoPVReZVp/hi/ZkjK1/Aev3gYDSUJXhFzBB8n
+ WQ/TWkmqAKqBwPY7IYCXgedFtcQDEzwIu4zfe5VBYWnCbnbHoSolOh4XAQoFvA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:12 +0100
+Date: Fri, 10 Jan 2025 15:45:13 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-10-7ab4bd56cf6e@bootlin.com>
+Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-11-7ab4bd56cf6e@bootlin.com>
 References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -63,7 +63,7 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 10/27] spi: mt65xx: Support per spi-mem
+Subject: [Linux-stm32] [PATCH v3 11/27] spi: mxic: Support per spi-mem
  operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,44 +91,32 @@ device value will be given anyway.
 The per-operation frequency capability is thus advertised to the spi-mem
 core.
 
-Cc: Matthias Brugger <matthias.bgg@gmail.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-mt65xx.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/spi/spi-mxic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
-index 85f3bafc975dbc3fd95f77b8dcfc0ca9aac32f5d..197bf2dbe5de7e853ccddf2c90d8bff40202f025 100644
---- a/drivers/spi/spi-mt65xx.c
-+++ b/drivers/spi/spi-mt65xx.c
-@@ -961,7 +961,7 @@ static int mtk_spi_mem_exec_op(struct spi_mem *mem,
+diff --git a/drivers/spi/spi-mxic.c b/drivers/spi/spi-mxic.c
+index 809767d3145c17291525ab7c246085597e0ff5e6..eeaea6a5e3103952e71a474e0de84099bc476a79 100644
+--- a/drivers/spi/spi-mxic.c
++++ b/drivers/spi/spi-mxic.c
+@@ -522,7 +522,7 @@ static int mxic_spi_mem_exec_op(struct spi_mem *mem,
+ 	int i, ret;
+ 	u8 addr[8], cmd[2];
  
- 	mtk_spi_reset(mdata);
- 	mtk_spi_hw_init(mem->spi->controller, mem->spi);
--	mtk_spi_prepare_transfer(mem->spi->controller, mem->spi->max_speed_hz);
-+	mtk_spi_prepare_transfer(mem->spi->controller, op->max_freq);
+-	ret = mxic_spi_set_freq(mxic, mem->spi->max_speed_hz);
++	ret = mxic_spi_set_freq(mxic, op->max_freq);
+ 	if (ret)
+ 		return ret;
  
- 	reg_val = readl(mdata->base + SPI_CFG3_IPM_REG);
- 	/* opcode byte len */
-@@ -1122,6 +1122,10 @@ static const struct spi_controller_mem_ops mtk_spi_mem_ops = {
- 	.exec_op = mtk_spi_mem_exec_op,
+@@ -582,6 +582,7 @@ static const struct spi_controller_mem_caps mxic_spi_mem_caps = {
+ 	.dtr = true,
+ 	.ecc = true,
+ 	.swap16 = true,
++	.per_op_freq = true,
  };
  
-+static const struct spi_controller_mem_caps mtk_spi_mem_caps = {
-+	.per_op_freq = true,
-+};
-+
- static int mtk_spi_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1160,6 +1164,7 @@ static int mtk_spi_probe(struct platform_device *pdev)
- 	if (mdata->dev_comp->ipm_design) {
- 		mdata->dev = dev;
- 		host->mem_ops = &mtk_spi_mem_ops;
-+		host->mem_caps = &mtk_spi_mem_caps;
- 		init_completion(&mdata->spimem_done);
- 	}
- 
+ static void mxic_spi_set_cs(struct spi_device *spi, bool lvl)
 
 -- 
 2.47.0
