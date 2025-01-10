@@ -2,71 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4277A095D4
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 16:37:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B09A0964E
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 16:47:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83C61C78F6F;
-	Fri, 10 Jan 2025 15:37:07 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39A60C78F6F;
+	Fri, 10 Jan 2025 15:47:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A09D3C78F6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49BD1C78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 15:36:59 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50ABpdGv019917;
- Fri, 10 Jan 2025 16:36:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- c/Qxz5rQoH3z73VG+7QliAVS43rJ+oVZjv3N8LtNERY=; b=VKOOHwJaVzU8zyc3
- Uk9mCiTKiBn1qwVaMlM4DE41fylBp7Puq5fLrwLYv8Y1j4qfDi8bCNLq/F6b7Axu
- hJsSgAEs5FaNiK7HnvLIuwGn0NP+hwJgk7ZxgL+rxy5uYLbEDeQoT2YYzWLgNtko
- S4ECUMMopB0lUXNyAl2QBvB5mRZyGID237XbR7xFGEbrHWVBz362SkNVhj6fMzaE
- eC1bt81A0XlHltOab7UVE9HmRGeCACRfUtCva8nLiZdo7PkWcsbKX2xBi8e1VAPA
- cr3CiQ2XLg/jj+87txfqVvfYjkqAETA2ZE46FAH4moL0GpTKOgrn9PzzNUwdyxwf
- WtKY7g==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44331t8vb8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Jan 2025 16:36:20 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id EB3CC40092;
- Fri, 10 Jan 2025 16:34:55 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AF63C2954B8;
- Fri, 10 Jan 2025 16:33:12 +0100 (CET)
-Received: from [10.129.178.212] (10.129.178.212) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
- 2025 16:33:12 +0100
-Message-ID: <96492d7e-8039-43be-9f63-eff81083f790@foss.st.com>
-Date: Fri, 10 Jan 2025 16:33:05 +0100
+ Fri, 10 Jan 2025 15:47:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BA8BD5C338E;
+ Fri, 10 Jan 2025 15:46:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF99C4CEE1;
+ Fri, 10 Jan 2025 15:47:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736524046;
+ bh=v73Vw62MTNkPdqw8cVZvUOLB+25Ygi2g/dhpqPSNGOs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=l/Tqf1J0YeqgmGTlb9OUQ/Wvq+oCw2zgnE8wFFqL59zvdOgp7O+gqxEegYCMlag5B
+ Q6YYo8nE4BAqap4CwWdBHEB5spPiRJAR3xfPANPsrUl8QBsBJkFuY9/mmloDugDn53
+ oTrzlRuyCsQh3Pip0J9mKHKMBRqWqQrHqvRlba7lqg2A2mhrzj5cyWW+hzMCeL8RK0
+ 5GclltoKebgtyrLyhSxH8ccfanUNpL8t1yEknIhnlxVvFmJDoCR6QoQO2CNOzLGW18
+ eGfHAbzkQCEt/QvPwSazROLltVeDVxhce+xTw1U85pnahOGx6/HmZUCI7bRjv8s9WC
+ Mv9KDA4WfFk4A==
+From: Mark Brown <broonie@kernel.org>
+To: Sanjay R Mehta <sanju.mehta@amd.com>, Han Xu <han.xu@nxp.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Haibo Chen <haibo.chen@nxp.com>, Yogesh Gaur <yogeshgaur.83@gmail.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Michal Simek <michal.simek@amd.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, 
+ =?utf-8?q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Raju Rangoju <Raju.Rangoju@amd.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+In-Reply-To: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
+References: <20241224-winbond-6-11-rc1-quad-support-v2-0-ad218dbc406f@bootlin.com>
+Message-Id: <173652403824.316821.7989247622292618802.b4-ty@kernel.org>
+Date: Fri, 10 Jan 2025 15:47:18 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-References: <20241126155119.1574564-1-christian.bruel@foss.st.com>
- <20241126155119.1574564-5-christian.bruel@foss.st.com>
- <20241203152230.5mdrt27u5u5ecwcz@thinkpad>
- <4e257489-4d90-4e47-a4d9-a2444627c356@foss.st.com>
- <20241216161700.dtldi7fari6kafrr@thinkpad>
-Content-Language: en-US
-From: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20241216161700.dtldi7fari6kafrr@thinkpad>
-X-Originating-IP: [10.129.178.212]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, linux-kernel@vger.kernel.org,
- cassel@kernel.org, devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/5] PCI: stm32: Add PCIe endpoint
- support for STM32MP25
+X-Mailer: b4 0.15-dev-1b0d6
+Cc: stable+noautosel@kernel.org, imx@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Steam Lin <stlin2@winbond.com>,
+ linux-spi@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-mediatek@lists.infradead.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 00/27] spi-nand/spi-mem DTR
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,93 +76,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 12/16/24 17:17, Manivannan Sadhasivam wrote:
-> On Mon, Dec 16, 2024 at 11:02:07AM +0100, Christian Bruel wrote:
->> Hi Manivanna,
->>
->> On 12/3/24 16:22, Manivannan Sadhasivam wrote:
->>> On Tue, Nov 26, 2024 at 04:51:18PM +0100, Christian Bruel wrote:
->>>
->>> [...]
->>>
->>>> +static int stm32_pcie_start_link(struct dw_pcie *pci)
->>>> +{
->>>> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
->>>> +	int ret;
->>>> +
->>>> +	if (stm32_pcie->link_status == STM32_PCIE_EP_LINK_ENABLED) {
->>>> +		dev_dbg(pci->dev, "Link is already enabled\n");
->>>> +		return 0;
->>>> +	}
->>>> +
->>>> +	ret = stm32_pcie_enable_link(pci);
->>>> +	if (ret) {
->>>> +		dev_err(pci->dev, "PCIe cannot establish link: %d\n", ret);
->>>> +		return ret;
->>>> +	}
->>>
->>> How the REFCLK is supplied to the endpoint? From host or generated locally?
->>
->>  From Host only, we don't support the separated clock model.
->>
+On Tue, 24 Dec 2024 18:05:45 +0100, Miquel Raynal wrote:
+> Here is a (big) series supposed to bring DTR support in SPI-NAND.
 > 
-> OK. So even without refclk you are still able to access the controller
-> registers? So the controller CSRs should be accessible by separate local clock I
-> believe.
-> 
-> Anyhow, please add this limitation (refclk dependency from host) in commit
-> message.
+> I could have split this into two but I eventually preferred showing the
+> big picture. Once v1 will be over, I can make it two. However when we'll
+> discuss merging, we'll have to share an immutable tag among the two
+> subsystems.
 > 
 > [...]
-> 
->>>> +	ret = phy_set_mode(stm32_pcie->phy, PHY_MODE_PCIE);
->>>
->>> Hmm, so PHY mode is common for both endpoint and host?
->>
->> Yes it is. We need to init the phy here because it is a clock source for the
->> PCIe core clk
->>
-> 
-> Clock source? Is it coming directly to PCIe or through RCC? There is no direct
-> clock representation from PHY to PCIe in DT binding.
 
-We have the following simplified clock dependencies (details in the RM)
+Applied to
 
-                                 _____________
-RCC  ck_icn_pcie--- ------------|-> dbi_clk  |
-                     _________   |            |
-      ck_icn_phy ---|->       |  |            |
-                    |  pipe0--|--|->core_clk  |
-      ck_ker ----- -|->       |  |            |
-                    |         |  |            |
-      100mhz pad ---|-> pll   |  |            |
-                    |_________|  |____________|
-                      COMBOPHY      PCIE
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
+Thanks!
 
-I considered adding the COMBOPHY pipe0 as the clock provider for the 
-PCIe core_clk, but this did not provide any advantage since the PLL 
-needs to be locked first and all settings need to be completed. 
-Therefore, using clock_prepare_enable(pipe0) would be redundant with 
-what phy_init already accomplishes. The phy_init function is necessary 
-because it is used by the USB3 driver.
+[01/27] spi: spi-mem: Extend spi-mem operations with a per-operation maximum frequency
+        commit: 0fefeade90e74bc8f40ab0e460f483565c492e28
+[02/27] spi: spi-mem: Add a new controller capability
+        commit: 1248c9b8d54120950fda10fbeb98fb8932b4d45c
+[03/27] spi: amd: Support per spi-mem operation frequency switches
+        commit: d0e5faccb229b1dacc4c9fa11f6df33bb1fdabd8
+[04/27] spi: amd: Drop redundant check
+        commit: e6204f39fe3a7b4538815a2d778b601bd543649e
+[05/27] spi: amlogic-spifc-a1: Support per spi-mem operation frequency switches
+        commit: 5baa189789e8894c58eacc7803e3c163c1d0fc0a
+[06/27] spi: cadence-qspi: Support per spi-mem operation frequency switches
+        commit: 06e9f5a1f6ba774d8942a168d3ec5ed5a008fbcb
+[07/27] spi: dw: Support per spi-mem operation frequency switches
+        commit: eee7bc9e7ade6f7ac17d9ec02887cd5509ba9427
+[08/27] spi: fsl-qspi: Support per spi-mem operation frequency switches
+        commit: 2438db5253eb17a7c0ccb15aea4252a150dda057
+[09/27] spi: microchip-core-qspi: Support per spi-mem operation frequency switches
+        commit: 13529647743d906ed3cf991f1d77727e7ff1fb6f
+[10/27] spi: mt65xx: Support per spi-mem operation frequency switches
+        commit: 13fd04b53053bbfa741a0f2a781837ab80e485f6
+[11/27] spi: mxic: Support per spi-mem operation frequency switches
+        commit: 67707cb094f134f5b3931eefbedbb9ca7e3209d0
+[12/27] spi: nxp-fspi: Support per spi-mem operation frequency switches
+        commit: 26851cf65ffca2d3a8d529a125e54cf0084d69e7
+[13/27] spi: rockchip-sfc: Support per spi-mem operation frequency switches
+        commit: d3f35dd3ad968256ed1080e3ea2022f947861cff
+[14/27] spi: spi-sn-f-ospi: Support per spi-mem operation frequency switches
+        commit: 1a206344218cc15ad8f321e3abab3f3d36ab639f
+[15/27] spi: spi-ti-qspi: Support per spi-mem operation frequency switches
+        commit: b2fac3192919dd07e7ce30558e34abd7e07dde77
+[16/27] spi: zynq-qspi: Support per spi-mem operation frequency switches
+        commit: 9a68f6c8d6cfddeac7c5874528ed04e50a1cb579
+[17/27] spi: zynqmp-gqspi: Support per spi-mem operation frequency switches
+        commit: 30eb2e6e78225f92f04a2325c6fd77fe8f5b4aab
+[18/27] spi: spi-mem: Reorder spi-mem macro assignments
+        commit: d1f85873d2d62d6980e68d21d3a21f20b0664cc3
+[19/27] spi: spi-mem: Create macros for DTR operation
+        commit: f0006897a96c736623ddeb9b68c3880eb5cdebe7
+[20/27] spi: spi-mem: Estimate the time taken by operations
+        (no commit info)
 
-Since the core_clk is operational when all three other clocks are 
-enabled and the PLL is locked, modeling pipe0 had minimal value, 
-especially considering the dependencies of the USB3 driver.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-I will add a comment in the code to explain this.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> 
-> - Mani
-> 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
