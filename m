@@ -2,83 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B5AA0AEF8
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 06:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F68A0AFF3
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 08:19:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57877C7801F;
-	Mon, 13 Jan 2025 05:56:29 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9331C78F75;
+	Mon, 13 Jan 2025 07:19:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16204C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6290DC78F69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 05:56:28 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2ef8c012913so4858308a91.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jan 2025 21:56:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736747787; x=1737352587;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=U48TSgabfztIChpY/YcUw3f4s/Na48EmHD0/5TQejLo=;
- b=HwJkbhM0Zewem1hYrzsNlBX28NTuqrwg7bYuypnDMsqTW9TcyvGtu38+4v2Hcqrvh7
- 7/gKrxLQavY106mRXhfcRBuAGEj+JqT+nG4IPGI+bHZz/wBCAlj4CVzG9aG8tkrItmHK
- 59YGHJE0LxZDFUivvrC+rZ/bXbMxppsU047mmsPncSd1RXTZcuYrJlSTOb6U2xNvhhbU
- qUi8LLoLZiE4uLwbe8zWafIPh1jWpSFkG3NfXmJ8iLEQjqo0y/Vc3lFnB6v7qvTqpOMj
- tUrUCSXf9r0Lj+NYqrVeAHM1NVLzGzTA8etRgoj+5U1xtZw3ZfmolR205zK+FdwFFS/P
- pimA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736747787; x=1737352587;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=U48TSgabfztIChpY/YcUw3f4s/Na48EmHD0/5TQejLo=;
- b=TWRoijlSpY3+9R0fmSdHmTflSAubWf3G6zERQvL0A7+aSS/cPeyUjxrJQzbC2afvkN
- 0pNi9dHp0DOKQIA5TtzFAh6NuYtGDknaV5DPOEgBnshl2PzGNdmi1iAcARLjBIbhscau
- C5IAjRgfrXg5EkQBxclGefKLZejxsckPHJ9EbVBZi2yDzfTaypg+Xdd304qMiRTB4noO
- TsfP+nxN7Qvcmj2ciqXJuEn0r51dGBDZ7Z7IZFABzaRkPzWmrh2Ikz3MJTqUQGwX+F1G
- XK051/7fMwFYik6vJ10JcrcTXR6BImCdYK1mvEZCBEqHACPvaPqv5BFmdGXdIHiHLK3X
- R9/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV8YASJY4Lwadpbbr6tO378Di3QR4rICfokDm6otldSX0dW5GVlgDTiGe8m+ca6Ywh+z6OKZ4UwnOW/ug==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwohkrfPiflZd3w1JAk8q/qtPMhWb0YWGZJFEtjtrKw+9i6nu5K
- KuJt49d9A7Z138gYIaLaV2FQYPPB8c1Ov7lYnOKYB9XSYmrwO9y6
-X-Gm-Gg: ASbGnctA3hPk4jP4NSRMWjKYreTpnUhTh4CHYv58M9hJzbUR4/yonGxRYYPRFnhduQJ
- 3mVcmtrBnQjIZjujbNEBEkmrixIo4lFynmtznt2dZeC9zigpMmro0HCmq80eQfn3q1TqL4Ifukx
- WQTbT38/asbF+loGHkynN28hQChEph0Ed6GDb8lC9QkxrRQRNrbhB03pG1mSz2vA6+DD8qSd2oA
- h6yNyZKPuUclojLq0KsCrEy64kuoEsjDtKlf8V3UGVk0Yob9Kyuq4i/VYYADAliixfb2swZjNGs
- Ivmq9D54zPo0f8epI/Oq8g==
-X-Google-Smtp-Source: AGHT+IHq4nFYCX5oUS/d00SLHYVZ4r1y9q1MsRKolWEZOp+Pi9Kz0fTEOdLKt+U5D9jMV30/g0WbUg==
-X-Received: by 2002:a17:90b:288a:b0:2f2:a664:df19 with SMTP id
- 98e67ed59e1d1-2f548e991b9mr29698807a91.7.1736747786582; 
- Sun, 12 Jan 2025 21:56:26 -0800 (PST)
-Received: from yclu-ubuntu.. (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f55942188csm7768806a91.23.2025.01.12.21.56.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jan 2025 21:56:26 -0800 (PST)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-Date: Mon, 13 Jan 2025 13:54:34 +0800
-Message-Id: <20250113055434.3377508-4-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250113055434.3377508-1-a0987203069@gmail.com>
-References: <20250113055434.3377508-1-a0987203069@gmail.com>
+ Fri, 10 Jan 2025 09:26:41 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50A7RkRP025601;
+ Fri, 10 Jan 2025 10:26:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=selector1; bh=fVpk+5d+aUq4dE7U3H7XuMNH
+ 86mBRUVN3YH6VPCeM5k=; b=wvpugXPIbFoLhm7ZtPsJK1sDkNJFg4JwlAlN7qdH
+ 8FGcocPbj7lziw6EVb4sKcE4QdZgfwVCclQTEqXM1kOx1urwyvwLB/Ud2MKtX45F
+ O2xMdw7QxxnJgFU18ozKVRz85ErtcR6TcRAfQcR2hpAAdJBV+zpXxQRbdibOSjI7
+ 1IUXp6jNUz49z2HCoZ8SFg5x8qGHrA+XjpFq+6yANRjnPSTrBonE96DAO7mZVocU
+ lYwuY3yE0oZPeqUogTsXxr/ytz70Vd8cZiKfQelyUEk9WNsQncwueqoWzB44Q7g1
+ TbRkdpf2zkD34muFbbMPh2W3VUuoFnw+DGgUKZcDg5FyiQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 442mw0j9py-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jan 2025 10:26:04 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id BDFB840054;
+ Fri, 10 Jan 2025 10:24:09 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E30528A885;
+ Fri, 10 Jan 2025 10:22:22 +0100 (CET)
+Received: from [10.252.28.181] (10.252.28.181) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Fri, 10 Jan
+ 2025 10:22:21 +0100
+Message-ID: <5fec34de-015a-4d89-ad15-d065574193ab@foss.st.com>
+Date: Fri, 10 Jan 2025 10:22:06 +0100
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
- Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
- Andrew Lunn <andrew@lunn.ch>, schung@nuvoton.com, peppe.cavallaro@st.com,
- yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v7 3/3] net: stmmac: dwmac-nuvoton:
-	Add dwmac glue for Nuvoton MA35 family
+User-Agent: Mozilla Thunderbird
+To: Sean Nyekjaer <sean@geanix.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Raphael
+ Gallais-Pou <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20241125-dsi-relax-v2-0-9113419f4a40@geanix.com>
+ <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
+Content-Language: en-US
+From: Yannick FERTRE <yannick.fertre@foss.st.com>
+In-Reply-To: <20241125-dsi-relax-v2-1-9113419f4a40@geanix.com>
+X-Originating-IP: [10.252.28.181]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Mailman-Approved-At: Mon, 13 Jan 2025 07:19:29 +0000
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] drm/modes: introduce
+ drm_mode_validate_mode() helper function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,245 +81,205 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4348036192369860293=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
+--===============4348036192369860293==
+Content-Type: multipart/alternative;
+	boundary="------------oTpMEcdj0Z5wCOh9C3Uag3sF"
+Content-Language: en-US
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+--------------oTpMEcdj0Z5wCOh9C3Uag3sF
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Sean,
+
+Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
+
+Thanks for this patch,
+
+Yannick
+
+Le 25/11/2024 à 14:49, Sean Nyekjaer a écrit :
+> Check if the required pixel clock is in within .5% range of the
+> desired pixel clock.
+> This will match the requirement for HDMI where a .5% tolerance is allowed.
+>
+> Signed-off-by: Sean Nyekjaer<sean@geanix.com>
+> ---
+>   drivers/gpu/drm/drm_modes.c | 34 ++++++++++++++++++++++++++++++++++
+>   include/drm/drm_modes.h     |  2 ++
+>   2 files changed, 36 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+> index 6ba167a3346134072d100af0adbbe9b49e970769..4068b904759bf80502efde6e4d977b297f5d5359 100644
+> --- a/drivers/gpu/drm/drm_modes.c
+> +++ b/drivers/gpu/drm/drm_modes.c
+> @@ -1623,6 +1623,40 @@ bool drm_mode_equal_no_clocks_no_stereo(const struct drm_display_mode *mode1,
+>   }
+>   EXPORT_SYMBOL(drm_mode_equal_no_clocks_no_stereo);
+>   
+> +/**
+> + * drm_mode_validate_mode
+> + * @mode: mode to check
+> + * @rounded_rate: output pixel clock
+> + *
+> + * VESA DMT defines a tolerance of 0.5% on the pixel clock, while the
+> + * CVT spec reuses that tolerance in its examples, so it looks to be a
+> + * good default tolerance for the EDID-based modes. Define it to 5 per
+> + * mille to avoid floating point operations.
+> + *
+> + * Returns:
+> + * The mode status
+> + */
+> +enum drm_mode_status drm_mode_validate_mode(const struct drm_display_mode *mode,
+> +					    unsigned long long rounded_rate)
+> +{
+> +	enum drm_mode_status status;
+> +	unsigned long long rate = mode->clock * 1000;
+> +	unsigned long long lowest, highest;
+> +
+> +	lowest = rate * (1000 - 5);
+> +	do_div(lowest, 1000);
+> +	if (rounded_rate < lowest)
+> +		return MODE_CLOCK_LOW;
+> +
+> +	highest = rate * (1000 + 5);
+> +	do_div(highest, 1000);
+> +	if (rounded_rate > highest)
+> +		return MODE_CLOCK_HIGH;
+> +
+> +	return MODE_OK;
+> +}
+> +EXPORT_SYMBOL(drm_mode_validate_mode);
+> +
+>   static enum drm_mode_status
+>   drm_mode_validate_basic(const struct drm_display_mode *mode)
+>   {
+> diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+> index b9bb92e4b0295a5cbe0eb0da13e77449ff04f51d..4b638992f3e50d2aba5088644744457d72dbe10a 100644
+> --- a/include/drm/drm_modes.h
+> +++ b/include/drm/drm_modes.h
+> @@ -549,6 +549,8 @@ bool drm_mode_equal_no_clocks(const struct drm_display_mode *mode1,
+>   			      const struct drm_display_mode *mode2);
+>   bool drm_mode_equal_no_clocks_no_stereo(const struct drm_display_mode *mode1,
+>   					const struct drm_display_mode *mode2);
+> +enum drm_mode_status drm_mode_validate_mode(const struct drm_display_mode *mode,
+> +					    unsigned long long rounded_rate);
+>   
+>   /* for use by the crtc helper probe functions */
+>   enum drm_mode_status drm_mode_validate_driver(struct drm_device *dev,
+>
+--------------oTpMEcdj0Z5wCOh9C3Uag3sF
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre class="moz-quote-pre" wrap="">Hi Sean,
+
+<span style="white-space: normal">Tested-by: Yannick Fertre <a class="moz-txt-link-rfc2396E" href="mailto:yannick.fertre@foss.st.com">&lt;yannick.fertre@foss.st.com&gt;</a> </span></pre>
+    <pre class="moz-quote-pre" wrap="">Thanks for this patch,
+
+Yannick
+
+</pre>
+    <div class="moz-cite-prefix">Le 25/11/2024 à 14:49, Sean Nyekjaer a
+      écrit :<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20241125-dsi-relax-v2-1-9113419f4a40@geanix.com">
+      <pre class="moz-quote-pre" wrap="">Check if the required pixel clock is in within .5% range of the
+desired pixel clock.
+This will match the requirement for HDMI where a .5% tolerance is allowed.
+
+Signed-off-by: Sean Nyekjaer <a class="moz-txt-link-rfc2396E" href="mailto:sean@geanix.com">&lt;sean@geanix.com&gt;</a>
 ---
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 179 ++++++++++++++++++
- 3 files changed, 191 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+ drivers/gpu/drm/drm_modes.c | 34 ++++++++++++++++++++++++++++++++++
+ include/drm/drm_modes.h     |  2 ++
+ 2 files changed, 36 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 4cc85a36a1ab..2b424544cf6f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -121,6 +121,17 @@ config DWMAC_MESON
- 	  the stmmac device driver. This driver is used for Meson6,
- 	  Meson8, Meson8b and GXBB SoCs.
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 6ba167a3346134072d100af0adbbe9b49e970769..4068b904759bf80502efde6e4d977b297f5d5359 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -1623,6 +1623,40 @@ bool drm_mode_equal_no_clocks_no_stereo(const struct drm_display_mode *mode1,
+ }
+ EXPORT_SYMBOL(drm_mode_equal_no_clocks_no_stereo);
  
-+config DWMAC_NUVOTON
-+	tristate "Nuvoton MA35 dwmac support"
-+	default ARCH_MA35
-+	depends on OF && (ARCH_MA35 || COMPILE_TEST)
-+	select MFD_SYSCON
-+	help
-+	  Support for Ethernet controller on Nuvoton MA35 series SoC.
-+
-+	  This selects the Nuvoton MA35 series SoC glue layer support
-+	  for the stmmac device driver.
-+
- config DWMAC_QCOM_ETHQOS
- 	tristate "Qualcomm ETHQOS support"
- 	default ARCH_QCOM
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index b26f0e79c2b3..48e25b85ea06 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -19,6 +19,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
- obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
- obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
- obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
-+obj-$(CONFIG_DWMAC_NUVOTON)	+= dwmac-nuvoton.o
- obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
- obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
- obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-new file mode 100644
-index 000000000000..edf1b88ce1cd
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-@@ -0,0 +1,179 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nuvoton DWMAC specific glue layer
++/**
++ * drm_mode_validate_mode
++ * @mode: mode to check
++ * @rounded_rate: output pixel clock
 + *
-+ * Copyright (C) 2024 Nuvoton Technology Corp.
++ * VESA DMT defines a tolerance of 0.5% on the pixel clock, while the
++ * CVT spec reuses that tolerance in its examples, so it looks to be a
++ * good default tolerance for the EDID-based modes. Define it to 5 per
++ * mille to avoid floating point operations.
 + *
-+ * Author: Joey Lu <yclu4@nuvoton.com>
++ * Returns:
++ * The mode status
 + */
-+
-+#include <linux/mfd/syscon.h>
-+#include <linux/of_device.h>
-+#include <linux/of_net.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/stmmac.h>
-+
-+#include "stmmac.h"
-+#include "stmmac_platform.h"
-+
-+#define NVT_REG_SYS_GMAC0MISCR  0x108
-+#define NVT_REG_SYS_GMAC1MISCR  0x10C
-+
-+#define NVT_MISCR_RMII          BIT(0)
-+
-+/* 2000ps is mapped to 0x0 ~ 0xF */
-+#define NVT_PATH_DELAY_DEC      134
-+#define NVT_TX_DELAY_MASK       GENMASK(19, 16)
-+#define NVT_RX_DELAY_MASK       GENMASK(23, 20)
-+
-+struct nvt_priv_data {
-+	struct platform_device *pdev;
-+	struct regmap *regmap;
-+};
-+
-+static struct nvt_priv_data *
-+nvt_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
++enum drm_mode_status drm_mode_validate_mode(const struct drm_display_mode *mode,
++					    unsigned long long rounded_rate)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct nvt_priv_data *bsp_priv;
-+	phy_interface_t phy_mode;
-+	u32 tx_delay, rx_delay;
-+	u32 macid, arg, reg;
++	enum drm_mode_status status;
++	unsigned long long rate = mode-&gt;clock * 1000;
++	unsigned long long lowest, highest;
 +
-+	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
-+	if (!bsp_priv)
-+		return ERR_PTR(-ENOMEM);
++	lowest = rate * (1000 - 5);
++	do_div(lowest, 1000);
++	if (rounded_rate &lt; lowest)
++		return MODE_CLOCK_LOW;
 +
-+	bsp_priv->regmap =
-+		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
-+	if (IS_ERR(bsp_priv->regmap)) {
-+		dev_err_probe(dev, PTR_ERR(bsp_priv->regmap), "Failed to get sys register\n");
-+		return ERR_PTR(-ENODEV);
-+	}
-+	if (macid > 1) {
-+		dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
-+		return ERR_PTR(-EINVAL);
-+	}
++	highest = rate * (1000 + 5);
++	do_div(highest, 1000);
++	if (rounded_rate &gt; highest)
++		return MODE_CLOCK_HIGH;
 +
-+	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
-+		tx_delay = 0;
-+	} else {
-+		if (arg <= 2000) {
-+			tx_delay = (arg == 2000) ? 0xF : (arg / NVT_PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Tx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+	if (of_property_read_u32(dev->of_node, "rx-internal-delay-ps", &arg)) {
-+		rx_delay = 0;
-+	} else {
-+		if (arg <= 2000) {
-+			rx_delay = (arg == 2000) ? 0xF : (arg / NVT_PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Rx path delay to 0x%x\n", rx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Rx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+
-+	regmap_read(bsp_priv->regmap,
-+		    macid == 0 ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR, &reg);
-+	reg &= ~(NVT_TX_DELAY_MASK | NVT_RX_DELAY_MASK);
-+
-+	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode)) {
-+		dev_err(dev, "missing phy mode property\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	switch (phy_mode) {
-+	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		reg &= ~NVT_MISCR_RMII;
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		reg |= NVT_MISCR_RMII;
-+		break;
-+	default:
-+		dev_err(dev, "Unsupported phy-mode (%d)\n", phy_mode);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (!(reg & NVT_MISCR_RMII)) {
-+		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, tx_delay);
-+		reg |= FIELD_PREP(NVT_RX_DELAY_MASK, rx_delay);
-+	}
-+
-+	regmap_write(bsp_priv->regmap,
-+		     macid == 0 ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR, reg);
-+
-+	bsp_priv->pdev = pdev;
-+
-+	return bsp_priv;
++	return MODE_OK;
 +}
++EXPORT_SYMBOL(drm_mode_validate_mode);
 +
-+static int nvt_gmac_probe(struct platform_device *pdev)
-+{
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	struct nvt_priv_data *priv_data;
-+	int ret;
-+
-+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return PTR_ERR(plat_dat);
-+
-+	/* Nuvoton DWMAC configs */
-+	plat_dat->has_gmac = 1;
-+	plat_dat->tx_fifo_size = 2048;
-+	plat_dat->rx_fifo_size = 4096;
-+	plat_dat->multicast_filter_bins = 0;
-+	plat_dat->unicast_filter_entries = 8;
-+	plat_dat->flags &= ~STMMAC_FLAG_USE_PHY_WOL;
-+
-+	priv_data = nvt_gmac_setup(pdev, plat_dat);
-+	if (IS_ERR(priv_data))
-+		return PTR_ERR(priv_data);
-+
-+	ret = stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	/* The PMT flag is determined by the RWK property.
-+	 * However, our hardware is configured to support only MGK.
-+	 * This is an override on PMT to enable WoL capability.
-+	 */
-+	plat_dat->pmt = 1;
-+	device_set_wakeup_capable(&pdev->dev, 1);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id nvt_dwmac_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-dwmac"},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nvt_dwmac_match);
-+
-+static struct platform_driver nvt_dwmac_driver = {
-+	.probe  = nvt_gmac_probe,
-+	.remove = stmmac_pltfr_remove,
-+	.driver = {
-+		.name           = "nuvoton-dwmac",
-+		.pm		= &stmmac_pltfr_pm_ops,
-+		.of_match_table = nvt_dwmac_match,
-+	},
-+};
-+module_platform_driver(nvt_dwmac_driver);
-+
-+MODULE_AUTHOR("Joey Lu <yclu4@nuvoton.com>");
-+MODULE_DESCRIPTION("Nuvoton DWMAC specific glue layer");
-+MODULE_LICENSE("GPL v2");
--- 
-2.34.1
+ static enum drm_mode_status
+ drm_mode_validate_basic(const struct drm_display_mode *mode)
+ {
+diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+index b9bb92e4b0295a5cbe0eb0da13e77449ff04f51d..4b638992f3e50d2aba5088644744457d72dbe10a 100644
+--- a/include/drm/drm_modes.h
++++ b/include/drm/drm_modes.h
+@@ -549,6 +549,8 @@ bool drm_mode_equal_no_clocks(const struct drm_display_mode *mode1,
+ 			      const struct drm_display_mode *mode2);
+ bool drm_mode_equal_no_clocks_no_stereo(const struct drm_display_mode *mode1,
+ 					const struct drm_display_mode *mode2);
++enum drm_mode_status drm_mode_validate_mode(const struct drm_display_mode *mode,
++					    unsigned long long rounded_rate);
+ 
+ /* for use by the crtc helper probe functions */
+ enum drm_mode_status drm_mode_validate_driver(struct drm_device *dev,
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------oTpMEcdj0Z5wCOh9C3Uag3sF--
+
+--===============4348036192369860293==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4348036192369860293==--
