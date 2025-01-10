@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 757B8A08D00
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:54:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 872EDA08D04
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 10:54:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41240C78F67;
-	Fri, 10 Jan 2025 09:54:19 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A2A5C78011;
+	Fri, 10 Jan 2025 09:54:23 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28CA0C78F6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BDC0C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 09:54:18 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2166360285dso30952125ad.1
+ Fri, 10 Jan 2025 09:54:22 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-21675fd60feso40166585ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2025 01:54:18 -0800 (PST)
+ Fri, 10 Jan 2025 01:54:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736502857; x=1737107657;
+ d=gmail.com; s=20230601; t=1736502861; x=1737107661;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SUq/PWSOM6Jgkh8a1Vg6y06uVsWzXgd/e9CTRW/3aLI=;
- b=XCImcsyHOwExuWFMlSQ/o5lnWSUy6NtB95l9Dj433BQ6qJ67z/qPRRiRy+P3pWZ7jM
- Kh1fXg6+CnpiYKOmslMlugXPu6mzJu0IJm35F8REtH0FeRd/H4abh5fHwZ71atGBHSPF
- jWk63h3ICl1CS0IOe4Mz3/R7YG081iQh/emqiRWYCJSlo5wS07bkiDIXkDhM0T0WivTU
- SRvpJoU7YCTLJvArJxJbAUX2sfXZqAIU2R1yrSLtXHm0yNRdu0qEUQS5iE73stDzl3M7
- rQVB2GYA1w2yuqnGMCsv6IwKuMS4dOOvZOjM4QUtbRCe0v1O76OgzBQ/XLwq3mJAJiFE
- yfMg==
+ bh=Ion4rvgZVuG6XSBAcwwShmk186Mw8JOkfuQ4D1b8sOM=;
+ b=FmFNyF6Poh5HUsNfDQUek/HR4mqpALwdP/PrO27H7J8ppZAAErpJORQFz9bPHQPsWx
+ uxv41zXlI2syVXCbWfp4I8ZUpK5xApLW80VjFvdcbJRl2E2oONeO08qMBAG0ljciQ12b
+ RnPSbP1p2U0FFsIhqXcSOdOoL8jpI+jBhAmTpVapn0kvhvcj0mSLTCwVCANKONyK4g1Y
+ hjFF3PJEfL1GKol6NvhqDnppeOlLWW0DQ27fVSrRg3y52Al3YHa+jUKKmkqffEqdf6eb
+ zKYA/3iOrC2XlR12tdB2PkXONjXk2dkdt2a+pwM2DdtNFEzTsvxlUtJcJEsKsoSgtwji
+ lqrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736502857; x=1737107657;
+ d=1e100.net; s=20230601; t=1736502861; x=1737107661;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SUq/PWSOM6Jgkh8a1Vg6y06uVsWzXgd/e9CTRW/3aLI=;
- b=C3hR/YwAM1YTbXVRk8mod/379koG2MGNKE/g3wVrK4ZdxkI2Xt1USNkGuxtx6IXUh0
- zq4FmwBik1HxoenVUyIU/yqV9ved1EZOa8+5yLmURxWKqsmzAo19iRMcJLHRAN0oCFR9
- H/k4DmxOiD1T4mjmyXZ32yrQEzww7PDllI/jh1x5O/x0eV1EgtmkL3dNmbneLskSM8sC
- IoUEoyuAnjjYYUtRNb8U1w4Ajnqol27JrjmLnvtOU3B79AoiQMFUTlr+plMFk8pxv0zi
- X4BJ/ZHUUTST1W5aZHP+Lyo2i3eCspUGRIJs5JBj39Yllc4xB2GcmP0MQbfiut7e4a3w
- jO1Q==
+ bh=Ion4rvgZVuG6XSBAcwwShmk186Mw8JOkfuQ4D1b8sOM=;
+ b=FSYwH0hnl6PInAMQZGRQX/dKoexViVD50bYMZKaUycMs4/b8eBe9A+z2OdFS73zdDc
+ qD9ff/ukBcSxNOFizSCkvZeIxQkN+B8bjeLCAGblBXrFKn+xHMIrvz1lif6s0qfXd/jD
+ XQFudoM1QA0bxAcx2wv8wBBY0koHey/7l4t94/4pTRiXlpF9BcerQjQn/6h5ckH2/awn
+ 1/4Da6vnk4cKvYDa3mX6Jgpa41sNHxS7v8P16VjJiJL7heRrl8TS+3AywE5kgRYvQf01
+ 6aNAfUWh0JmMJ04TP3G5AnRmBQoVhD25JvuOkJfK9NR3w3j3ziIMIOXWmhQdFUR1Acjd
+ LDag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEynC3+cyc3GhLm4dJcslFQL10RpHDY8cXgUID5wZfTqQmo43asP/zLBvvdYqWZfuQpRHmuq0beslYRw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzcWzIil16UvYFJXT/yQgnHLrnMZ79S8vFpPhN5NT6Kdemz5/7Z
- F22lGiV06SiKTQsOPUN3kygmzCPiICoOlgrhoVrUARO2jmlHOAXS
-X-Gm-Gg: ASbGnctIKFcQNNaIQUdiOb/ESCe8F7p8ch2Bkri1ThGRCQ36S9mfwU8uroTWUmoeZTQ
- BJjYj4YNJVj5hDAKISuSwm9Rx/Bl8wUTeJ5h5o83lW6mdhBdRfiZRrb6OzQvVk/XrgWdIrUP1gc
- tI0lvqIufbLMszT5fXta1LsxEqWy65dCEnuVmnfhg7Pxif8WgXwPfRt+pdoPa4xvPxwgB4KwxG0
- /MhU99JjdykSQ4UmEpcGHJcU8GLqxwIMA2BQcW6IjEAL5eog4SGZBoeMTniMGboMddAig==
-X-Google-Smtp-Source: AGHT+IHNOyExXpjKEAJvj5VF4TsAcm/8iRdMra6jEOVD+0OivVdVmbGUe1wn2Z9fO5OhUfPCMwcgdA==
-X-Received: by 2002:a05:6a00:91cb:b0:72a:bc54:84a5 with SMTP id
- d2e1a72fcca58-72d21f296edmr12960201b3a.6.1736502856641; 
- Fri, 10 Jan 2025 01:54:16 -0800 (PST)
+ AJvYcCVRZT3ENmaXnUrpDdUsBioTuywfTbplr2M9gmllbRKoaL7HhkCTHSfYl2EGizV/oPqpOh/sXGsXBSajug==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwMpY20OfnNQR8YOvQxnB6SuHYLtzBNRrm/K1l/WNFpWDy8E4al
+ NcAg4bm+tefqom0jRuyxQ3TJcHj3NCLcxZTfsKI8t7lbCv0luB95
+X-Gm-Gg: ASbGncv50yMfIXZ5AiTvHl6sLfyEKvfXmOEdVaWynyKBcLRjb6OKrJIzskPsxxcxHb3
+ ZnFfyCNGx3hXWWkmpuVGZZrCBnpIIw2w3uP/93tf9h2P0y4Nnn1CF7qsZVdkZ82jWtZ/rP8R3Gb
+ rn3TDF+oDpdNYOGKh1mbIPEN2NxX38xafjLqHx7zCX1RdpNE/fOxzbuE11WF9eKCNKcZGFIMgsj
+ 0I1pIzeFGxKfps3aiwJGqdYQ/doI/ABjaJRLtW1Ydz7S8y8xjeIsWLJ0aiMl/aUDEuaIg==
+X-Google-Smtp-Source: AGHT+IFujh/KkTTFRhKx5MyKUB6ge9k+IJCqCvJTkEaAIWn/8HcGt05DziMhWszOmGBiewczqCOY1A==
+X-Received: by 2002:a05:6a21:339b:b0:1e8:bd4e:c330 with SMTP id
+ adf61e73a8af0-1e8bd4ec502mr734199637.30.1736502861030; 
+ Fri, 10 Jan 2025 01:54:21 -0800 (PST)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-72d4069217dsm1186183b3a.151.2025.01.10.01.54.12
+ d2e1a72fcca58-72d4069217dsm1186183b3a.151.2025.01.10.01.54.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jan 2025 01:54:16 -0800 (PST)
+ Fri, 10 Jan 2025 01:54:20 -0800 (PST)
 From: Furong Xu <0x1207@gmail.com>
 To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 10 Jan 2025 17:53:58 +0800
-Message-Id: <4bfc67ece5ef615ce65972173f5256f10ea27f9a.1736500685.git.0x1207@gmail.com>
+Date: Fri, 10 Jan 2025 17:53:59 +0800
+Message-Id: <b992690bf7197e4b967ed9f7a0422edae50129f2.1736500685.git.0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1736500685.git.0x1207@gmail.com>
 References: <cover.1736500685.git.0x1207@gmail.com>
@@ -74,8 +74,8 @@ Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v1 2/3] net: stmmac: Set
-	page_pool_params.max_len to a precise size
+Subject: [Linux-stm32] [PATCH net-next v1 3/3] net: stmmac: Optimize cache
+	prefetch in RX path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,48 +92,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DMA engine will always write no more than dma_buf_sz bytes of a received
-frame into a page buffer, the remaining spaces are unused or used by CPU
-exclusively.
-Setting page_pool_params.max_len to almost the full size of page(s) helps
-nothing more, but wastes more CPU cycles on cache maintenance.
+Current code prefetches cache lines for the received frame first, and
+then dma_sync_single_for_cpu() against this frame, this is wrong.
+Cache prefetch should be triggered after dma_sync_single_for_cpu().
 
-For a standard MTU of 1500, then dma_buf_sz is assigned to 1536, and this
-patch brings ~16.9% driver performance improvement in a TCP RX
+This patch brings ~2.8% driver performance improvement in a TCP RX
 throughput test with iPerf tool on a single isolated Cortex-A65 CPU
-core, from 2.43 Gbits/sec increased to 2.84 Gbits/sec.
+core, 2.84 Gbits/sec increased to 2.92 Gbits/sec.
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h  | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 43125a6f8f6b..c1aeaec53b4c 100644
+index c1aeaec53b4c..1b4e8b035b1a 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2038,7 +2038,7 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	pp_params.dev = priv->device;
- 	pp_params.dma_dir = xdp_prog ? DMA_BIDIRECTIONAL : DMA_FROM_DEVICE;
- 	pp_params.offset = stmmac_rx_offset(priv);
--	pp_params.max_len = STMMAC_MAX_RX_BUF_SIZE(num_pages);
-+	pp_params.max_len = dma_conf->dma_buf_sz;
+@@ -5497,10 +5497,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
  
- 	rx_q->page_pool = page_pool_create(&pp_params);
- 	if (IS_ERR(rx_q->page_pool)) {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
-index 896dc987d4ef..77ce8cfbe976 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
-@@ -4,7 +4,6 @@
- #ifndef _STMMAC_XDP_H_
- #define _STMMAC_XDP_H_
+ 		/* Buffer is good. Go on. */
  
--#define STMMAC_MAX_RX_BUF_SIZE(num)	(((num) * PAGE_SIZE) - XDP_PACKET_HEADROOM)
- #define STMMAC_RX_DMA_ATTR	(DMA_ATTR_SKIP_CPU_SYNC | DMA_ATTR_WEAK_ORDERING)
+-		prefetch(page_address(buf->page) + buf->page_offset);
+-		if (buf->sec_page)
+-			prefetch(page_address(buf->sec_page));
+-
+ 		buf1_len = stmmac_rx_buf1_len(priv, p, status, len);
+ 		len += buf1_len;
+ 		buf2_len = stmmac_rx_buf2_len(priv, p, status, len);
+@@ -5522,6 +5518,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
  
- int stmmac_xdp_setup_pool(struct stmmac_priv *priv, struct xsk_buff_pool *pool,
+ 			dma_sync_single_for_cpu(priv->device, buf->addr,
+ 						buf1_len, dma_dir);
++			prefetch(page_address(buf->page) + buf->page_offset);
+ 
+ 			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
+ 			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
+@@ -5596,6 +5593,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		} else if (buf1_len) {
+ 			dma_sync_single_for_cpu(priv->device, buf->addr,
+ 						buf1_len, dma_dir);
++			prefetch(page_address(buf->page) + buf->page_offset);
+ 			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
+ 					buf->page, buf->page_offset, buf1_len,
+ 					priv->dma_conf.dma_buf_sz);
+@@ -5608,6 +5606,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (buf2_len) {
+ 			dma_sync_single_for_cpu(priv->device, buf->sec_addr,
+ 						buf2_len, dma_dir);
++			prefetch(page_address(buf->sec_page));
+ 			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
+ 					buf->sec_page, 0, buf2_len,
+ 					priv->dma_conf.dma_buf_sz);
 -- 
 2.34.1
 
