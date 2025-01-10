@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4526DA093C2
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E51A093C3
 	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2025 15:45:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD9E8C78F72;
-	Fri, 10 Jan 2025 14:45:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A021C78F75;
+	Fri, 10 Jan 2025 14:45:27 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5037BC78F6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 524B1C78F71
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Jan 2025 14:45:24 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 71785FF805;
  Fri, 10 Jan 2025 14:45:22 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8E516FF808;
- Fri, 10 Jan 2025 14:45:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1736520322;
+ t=1736520324;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=i9S+oPEuCyhLEGvNj6fnjb+ZIh78/rEM10hMcWWJezk=;
- b=jNf0OrcAs6DsWJYEnkFU2FEsFw+5PEjJbwC6b68fzB7ILAMfvVwQkA5jRMxb7VOdLd36bz
- y2QteFNU5AIHxrSSQ/Tm8f7w1ol0I1kbls0VlDonMzBduIcwwcwbrlspcrvBPewG8O7Kc/
- PWnjovuFLHtK97xoSlFXOtFlSR/AlRQhjHQuI7TvPNWz3hAulV2RfYRHAhxffvD4I2oEMe
- LirBC7eMwQ9VtZPF9Azq7BckGo/KJhCvEc8TG/Eyv11sQ2b5xDli0UlRkpVqP5vuPTyH4a
- XxwZ0u7S6WQYc6Ol13zIjHcoze+2/1L7QGo9zbPcROmaAtvqVZUBumPkYbs46w==
+ bh=bezjIfKOhlEJE79cO6ZVpXOH6/T+183qkN81Q6qLp7w=;
+ b=RbLkbagOqMBunaMN2YnZGz8JsuiihcjK44O9gcXrDXaOSpGj9LecBmMp+KB2ELkudoPqYt
+ Wteh4r4LazTg5RTKap7aOspopZKGe1jYNRi/d6AMySaB64R4a7k3SvPucgTT45G72I1a0A
+ KhChutdGDp8rCVf3bOJ9dsAEIQEUXstxys6Qx1hEmZ1mjtuiISzkB16lZJsj2weAgzPptN
+ 7zlh6/0hmBjbz8hgOws8vE9W4eC84DkgYPLWsD9p6+yays2TV4Se9dpVedM43wyq04ct+5
+ aGc7ZwnDsdFUvUudRDRIyTNtab4yU14nycOZLIxMRRYdpVsOu26qtFIXl8uZ2w==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 10 Jan 2025 15:45:04 +0100
+Date: Fri, 10 Jan 2025 15:45:05 +0100
 MIME-Version: 1.0
-Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-2-7ab4bd56cf6e@bootlin.com>
+Message-Id: <20250110-winbond-6-11-rc1-quad-support-v3-3-7ab4bd56cf6e@bootlin.com>
 References: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 In-Reply-To: <20250110-winbond-6-11-rc1-quad-support-v3-0-7ab4bd56cf6e@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, 
@@ -59,13 +59,12 @@ X-GND-Sasl: miquel.raynal@bootlin.com
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Steam Lin <stlin2@winbond.com>, linux-spi@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Tudor Ambarus <tudor.ambarus@linaro.org>,
- linux-mediatek@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 02/27] spi: spi-mem: Add a new controller
-	capability
+Subject: [Linux-stm32] [PATCH v3 03/27] spi: amd: Support per spi-mem
+ operation frequency switches
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,63 +81,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There are spi devices with multiple frequency limitations depending on
-the invoked command. We probably do not want to afford running at the
-lowest supported frequency all the time, so if we want to get the most
-of our hardware, we need to allow per-operation frequency limitations.
+Every ->exec_op() call correctly configures the spi bus speed to the
+maximum allowed frequency for the memory using the constant spi default
+parameter. Since we can now have per-operation constraints, let's use
+the value that comes from the spi-mem operation structure instead. In
+case there is no specific limitation for this operation, the default spi
+device value will be given anyway.
 
-Among all the SPI memory controllers, I believe all are capable of
-changing the spi frequency on the fly. Some of the drivers do not make
-any frequency setup though. And some others will derive a per chip
-prescaler value which will be used forever.
+This controller however performed a frequency check, which is also
+observed during the ->check_op() phase.
 
-Actually changing the frequency on the fly is something new in Linux, so
-we need to carefully flag the drivers which do and do not support it. A
-controller capability is created for that, and the presence for this
-capability will always be checked before accepting such pattern.
+The per-operation frequency capability is thus advertised to the spi-mem
+core.
 
+Cc: Sanjay R Mehta <sanju.mehta@amd.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 ---
- drivers/spi/spi-mem.c       | 6 ++++++
- include/linux/spi/spi-mem.h | 2 ++
- 2 files changed, 8 insertions(+)
+ drivers/spi/spi-amd.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-index 12299ce89a1cc80495858dbbbaa822f2968bb7ab..96374afd0193ca2cf4f50004f66c36dce32894e8 100644
---- a/drivers/spi/spi-mem.c
-+++ b/drivers/spi/spi-mem.c
-@@ -191,6 +191,12 @@ bool spi_mem_default_supports_op(struct spi_mem *mem,
- 	    op->max_freq < mem->spi->controller->min_speed_hz)
+diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
+index d30a21b0b05f96fe5361d16a1fca3467260e0a08..485ae1e382e3eb8f4d72ebb0fb15c51b9a118d3b 100644
+--- a/drivers/spi/spi-amd.c
++++ b/drivers/spi/spi-amd.c
+@@ -479,6 +479,9 @@ static bool amd_spi_supports_op(struct spi_mem *mem,
  		return false;
+ 	}
  
-+	if (op->max_freq &&
-+	    op->max_freq < mem->spi->max_speed_hz) {
-+		if (!spi_mem_controller_is_capable(ctlr, per_op_freq))
-+			return false;
-+	}
++	if (op->max_freq < mem->spi->controller->min_speed_hz)
++		return false;
 +
- 	return spi_mem_check_buswidth(mem, op);
+ 	return spi_mem_default_supports_op(mem, op);
  }
- EXPORT_SYMBOL_GPL(spi_mem_default_supports_op);
-diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
-index 84ec524987921a95963235de4b6f728ef2fc5987..c7a7719c264846ad9fce613ba96d9284ad7893e7 100644
---- a/include/linux/spi/spi-mem.h
-+++ b/include/linux/spi/spi-mem.h
-@@ -311,11 +311,13 @@ struct spi_controller_mem_ops {
-  * @ecc: Supports operations with error correction
-  * @swap16: Supports swapping bytes on a 16 bit boundary when configured in
-  *	    Octal DTR
-+ * @per_op_freq: Supports per operation frequency switching
-  */
- struct spi_controller_mem_caps {
- 	bool dtr;
- 	bool ecc;
- 	bool swap16;
-+	bool per_op_freq;
+ 
+@@ -676,7 +679,7 @@ static int amd_spi_exec_mem_op(struct spi_mem *mem,
+ 
+ 	amd_spi = spi_controller_get_devdata(mem->spi->controller);
+ 
+-	ret = amd_set_spi_freq(amd_spi, mem->spi->max_speed_hz);
++	ret = amd_set_spi_freq(amd_spi, op->max_freq);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -705,6 +708,10 @@ static const struct spi_controller_mem_ops amd_spi_mem_ops = {
+ 	.supports_op = amd_spi_supports_op,
  };
  
- #define spi_mem_controller_is_capable(ctlr, cap)	\
++static const struct spi_controller_mem_caps amd_spi_mem_caps = {
++	.per_op_freq = true,
++};
++
+ static int amd_spi_host_transfer(struct spi_controller *host,
+ 				   struct spi_message *msg)
+ {
+@@ -782,6 +789,7 @@ static int amd_spi_probe(struct platform_device *pdev)
+ 	host->setup = amd_spi_host_setup;
+ 	host->transfer_one_message = amd_spi_host_transfer;
+ 	host->mem_ops = &amd_spi_mem_ops;
++	host->mem_caps = &amd_spi_mem_caps;
+ 	host->max_transfer_size = amd_spi_max_transfer_size;
+ 	host->max_message_size = amd_spi_max_transfer_size;
+ 
 
 -- 
 2.47.0
