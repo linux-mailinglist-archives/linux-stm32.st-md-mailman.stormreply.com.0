@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EAF4A0A038
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jan 2025 03:10:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51D89A0A244
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jan 2025 10:25:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE4BBC78F72;
-	Sat, 11 Jan 2025 02:10:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 053B5C78F75;
+	Sat, 11 Jan 2025 09:25:57 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A049CC78F6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FBE6C78F71
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jan 2025 02:10:24 +0000 (UTC)
+ Sat, 11 Jan 2025 09:25:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 589265C595C;
- Sat, 11 Jan 2025 02:09:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2990C4CED6;
- Sat, 11 Jan 2025 02:10:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CA7B95C5361;
+ Sat, 11 Jan 2025 09:25:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFF1C4CEDD;
+ Sat, 11 Jan 2025 09:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736561423;
- bh=DEfwp4XBTsdzzsNRV5w7wnpG6wWSu/8qAaGrRyAKc5I=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=qJf7OL/sLA88XpOeplNMc/0+yDnKglR9KA5yWmzEG+Nl5sT2fSuIK6KhvRAroa/6p
- QlctkjG3cK5lGL+ficRQBy8nLWEN3mkxJrUVyuoZFRp58EUCVfsFOBuLtMk6mb2Z1V
- pwLz7I+Tr3vp94q7sUbS4presUbVgwvyTsBYc+0JDJnqlepbVEdZ5F9xUtCFGe9wlL
- OXTcQjNx2fogkqNzVI+c3NhmKGoXoDRIXrY0qzJUHkJixQoSDRsoQDCk4x7f2s7Wcu
- emBvY+6tj5t44/urzVpXdLaQMtwezVL2MzrYioIQn35EzwqqfLm7wn8W1/7K4g3CEL
- xn5/csFmZpkdA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33C89380AA57; Sat, 11 Jan 2025 02:10:46 +0000 (UTC)
+ s=k20201202; t=1736587548;
+ bh=Z83WXJZoT28SBDIuoOe79g+ADfiCinqPsdEf+EaBKnI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jsKT0sWer0S+oyjZTnsrYwJwGgp70I+ShlBu3pf7DVCCEaSKzGqLLZNz7ThLBitUv
+ vLxgsh6E9TKKC+UeBCwL4y398nARXKbk7VHtD5SMUXdL8DKlZDlzsicjR9c87CMaGj
+ 1tKKgli2nbvcSskJveAG9eP3qqtt8kPYSBIL5UHH5N8kuQuXfzRn68/ujbT58klMxo
+ ZPWjL/bfwtcWKu69sEa7I7ClWvg/tnvjsVPCwo5dCDuSJKdDdUpx87K1GF64uDG6ki
+ sy1cLecLOOrG7zKU27CgYA3bvBbkl0H17wLc/awhiJCg2mPGX5X9R/VrGxVSwAEwk/
+ HXBw/CP8a03CA==
+Date: Sat, 11 Jan 2025 10:25:45 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Message-ID: <bfxyod5l2s6g3j47be7mjh6i7wgjapka2q5b6f2mleipiai6gm@hfvclvkzrtyd>
+References: <20250109211908.1553072-1-dario.binacchi@amarulasolutions.com>
+ <20250109211908.1553072-2-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173656144498.2267647.15302002781849970108.git-patchwork-notify@kernel.org>
-Date: Sat, 11 Jan 2025 02:10:44 +0000
-References: <Z36sHIlnExQBuFJE@shell.armlinux.org.uk>
-In-Reply-To: <Z36sHIlnExQBuFJE@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v4 00/18] net: stmmac: clean up
- and fix EEE implementation
+Content-Disposition: inline
+In-Reply-To: <20250109211908.1553072-2-dario.binacchi@amarulasolutions.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] dt-bindings: clock: convert stm32
+ rcc bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,66 +62,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On Thu, Jan 09, 2025 at 10:18:28PM +0100, Dario Binacchi wrote:
+> +maintainers:
+> +  - Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> +
+> +description: |
+> +  The RCC IP is both a reset and a clock controller.
+> +  The reset phandle argument is the bit number within the RCC registers bank,
+> +  starting from RCC base address.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - enum:
+> +              - st,stm32f469-rcc
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - const: st,stm32f746-rcc
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Why this isn't just part of enum with first group/list? Different
+groups/lists are for different fallbacks and I am pretty sure fallback
+is the same.
 
-On Wed, 8 Jan 2025 16:47:24 +0000 you wrote:
-> Hi,
-> 
-> This is a rework of stmmac's EEE support in light of the addition of EEE
-> management to phylib. It's slightly more than 15 patches, but I think it
-> makes sense to be so.
-> 
-> Patch 1 adds configuration of the receive clock phy_eee_rx_clock_stop()
-> (which was part of another series, but is necessary for this patch set.)
-> 
-> [...]
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - enum:
+> +              - st,stm32f769-rcc
+> +          - const: st,stm32f746-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - const: st,stm32h743-rcc
 
-Here is the summary with links:
-  - [net-next,v4,01/18] net: phy: add configuration of rx clock stop mode
-    https://git.kernel.org/netdev/net-next/c/cf337105ad38
-  - [net-next,v4,02/18] net: stmmac: move tx_lpi_timer tracking to phylib
-    https://git.kernel.org/netdev/net-next/c/1991819debaa
-  - [net-next,v4,03/18] net: stmmac: use correct type for tx_lpi_timer
-    https://git.kernel.org/netdev/net-next/c/bba9f4765515
-  - [net-next,v4,04/18] net: stmmac: use unsigned int for eee_timer
-    https://git.kernel.org/netdev/net-next/c/7e19a351b22d
-  - [net-next,v4,05/18] net: stmmac: make EEE depend on phy->enable_tx_lpi
-    https://git.kernel.org/netdev/net-next/c/beb1e0148e6d
-  - [net-next,v4,06/18] net: stmmac: remove redundant code from ethtool EEE ops
-    https://git.kernel.org/netdev/net-next/c/80fada6c0d3e
-  - [net-next,v4,07/18] net: stmmac: clean up stmmac_disable_eee_mode()
-    https://git.kernel.org/netdev/net-next/c/e40dd46d2fc5
-  - [net-next,v4,08/18] net: stmmac: remove priv->tx_lpi_enabled
-    https://git.kernel.org/netdev/net-next/c/865ff410a071
-  - [net-next,v4,09/18] net: stmmac: report EEE error statistics if EEE is supported
-    https://git.kernel.org/netdev/net-next/c/517dc0450675
-  - [net-next,v4,10/18] net: stmmac: convert to use phy_eee_rx_clock_stop()
-    https://git.kernel.org/netdev/net-next/c/a3242177d9f2
-  - [net-next,v4,11/18] net: stmmac: remove priv->eee_tw_timer
-    https://git.kernel.org/netdev/net-next/c/2914a5cd811a
-  - [net-next,v4,12/18] net: stmmac: move priv->eee_enabled into stmmac_eee_init()
-    https://git.kernel.org/netdev/net-next/c/0a900ea89a0c
-  - [net-next,v4,13/18] net: stmmac: move priv->eee_active into stmmac_eee_init()
-    https://git.kernel.org/netdev/net-next/c/1797dd4e3e8e
-  - [net-next,v4,14/18] net: stmmac: use boolean for eee_enabled and eee_active
-    https://git.kernel.org/netdev/net-next/c/cfd49e5fc30c
-  - [net-next,v4,15/18] net: stmmac: move setup of eee_ctrl_timer to stmmac_dvr_probe()
-    https://git.kernel.org/netdev/net-next/c/84f2776e3919
-  - [net-next,v4,16/18] net: stmmac: remove unnecessary EEE handling in stmmac_release()
-    https://git.kernel.org/netdev/net-next/c/27af08164247
-  - [net-next,v4,17/18] net: stmmac: split hardware LPI timer control
-    https://git.kernel.org/netdev/net-next/c/17f47da103a6
-  - [net-next,v4,18/18] net: stmmac: remove stmmac_lpi_entry_timer_config()
-    https://git.kernel.org/netdev/net-next/c/1655a2279971
+Same here.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Rest looks good, so with combining entries above:
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
