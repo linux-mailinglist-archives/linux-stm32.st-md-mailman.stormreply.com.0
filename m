@@ -2,75 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29765A0A566
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jan 2025 19:54:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E3AA0A991
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Jan 2025 14:33:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1BAAC78F71;
-	Sat, 11 Jan 2025 18:54:15 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F28B7C7128F;
+	Sun, 12 Jan 2025 13:33:04 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0F4FC7802E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44922C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jan 2025 18:54:07 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4363299010dso2889295e9.1
+ Sun, 12 Jan 2025 13:32:58 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3be7f663cso642977a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jan 2025 10:54:07 -0800 (PST)
+ Sun, 12 Jan 2025 05:32:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736621647; x=1737226447;
+ d=linaro.org; s=google; t=1736688778; x=1737293578;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xPRSMg1Y79bflHzzHnMnAqsVQxqcpqEauFJNoySqrOM=;
- b=AwuteI434WjxF1n/E0IBpnRQ8Z7PTYRVuJQrgsKj+zEADLoegIHm7a15GyuqwRC1kR
- gMi0UOoQPFnEa9qmdt5IaIabZHH0rjkKyq27B96amy9d+O+PYDBP0dt3lA4HzwU4nZZq
- qL1k1lJQvh6cM18ObsdUr61sJ6t+harmiaFvXbke+EKd5nK6bJ/NoW9GYRx/XwiAVfHy
- 7LC8H/1tK7+sRTnRjf1+2i8sFJnI5F6zHR9HsySWbgcYk+Yit1jgUI7rSWMf8ivwg3PY
- sWhZ7BTJT13q4U6NlGupprm5Mjtu51+FjbL107nePmSXyMqia6lw8HvXxVx2Kd/yi9Jk
- TGvg==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qagkZ/LU4rtTQes27vALssH2ImJamgS/6MR4uWjQHuc=;
+ b=VlXHKE62z2ftsNrC/ojCyAxI8XvWeAbl4wTGrXn5KsKwhvQMP2XGLGWC6O7DyYP2Qn
+ Zipm803Qtx8nVh/yoC6iaxxhk7Dw8Ysu1Ukt9iQdRAQwBt4GWWrUT0M0G6w+7Y1qcsq/
+ EEi9lACAYhw63dfiqigIW0UGseiD/Sb7erkVk8b0x4FxcPnSDkwmOISR2PXFUIyWopoM
+ b3s10QCS9rFUnyn2+oZsX/hQH+DOonWXOkhSaWDsqnmuJvRmvSh+ZAZQ28My3Q9ziurv
+ U17tXkGug45GBEY9YMwrQuS/yVRT60aRtm+WW0ex+kFY4F67brfQWrF+6ds+UGQB3Vf0
+ EUpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736621647; x=1737226447;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1736688778; x=1737293578;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=xPRSMg1Y79bflHzzHnMnAqsVQxqcpqEauFJNoySqrOM=;
- b=PnathWs+dNap0rBaSOrWhU1FmX29GdTDTG2/wEFb8on6Jr0s9tx1noe/T/bwItbjwS
- itwSfWYUFHXTC8rcbV5BGXjD/MhZ+WMG+Jtuj9aPEQ60F46nbEvo3fRabKOxOrCGRq9U
- p/IeIQ8G0uLwjtskh1nI77+NRuS5/S9Y7nbfFZA5kVe0/LXbIEEjbd7VRwfG12PmeQEE
- VZ14L5NWoY7t7l79dM5FBN41bFxIi8ebQyS/9uSnocHsAPlhYDn5cjgqDkUKM0XhUT7g
- n+52BwBth8ET8DTGwZARdyDiGE7lZ1Z1ubbI53kWss8gPN/8U5ihEl0zIWVg5q2MDkqP
- 67Ew==
+ bh=qagkZ/LU4rtTQes27vALssH2ImJamgS/6MR4uWjQHuc=;
+ b=GU4ccl61wHJSG5SD8L6kgppFRoSA3Scz4s2Nne27U38tqfrb4Qi89pAji1ojVhKPwD
+ IyYHNsUIXB0ij9MFZxv4HIWtyqxhkfyj5vmeuJ7+MUpp3Kg1ruoTSQtSJP6ODe0rUiXg
+ iM8fiBqHmBnJ5u87rGQEuoeLCQQC3LjPYiypPQY1iYDfgCQkTBRP9JsVfy0nhuG4gNSE
+ wq8+CvsL+tLwwDFGZog1Czv2t1e3KWtvGtYQtSr1PTKKvAKwx3jv1q9WPplUhT0jObUL
+ 4EXFI3kwzYqq0HGCC5wEZ42qOy+JoGmUk5FNis6b+gcA+7HGwMWL+tQJzcPTPdj0hHJb
+ laJw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMq3ByqjEvUNhp3JRTdbTIWuc6/FPblRTjIX0L3hBm65yqQsl/No3fMvdJ9oTHEOZvkBr/9EGKVD9r0g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw8X3gj+8EFIUudoQt24Sx+8OBTRojrTOJNj048fiEjy7FY27Pl
- igSxfNx7xVNAi20PwTl3iYKPbaiVYeGYCKVGtyxYl2afBQEKXO2UGxRPKCYVS4I=
-X-Gm-Gg: ASbGncvFZaQe7vp8aFnt+DUrvMMIiopLv3xAgRUoD4A2BagdDn4UWcgPibGteFaI7pY
- Y6xJYRTprUVjXl3PEuX+345KnnfqvPsQZUzS3C/Nw2T5NtgGXfkGcTYJhAXg3abQ4zcVwrXkryN
- UkcUyprX8MNPmQoDaiwK2pnIgd343DJObhGjee6GmySNNnEeqb/Mk0+pZgPCIaPeY8Y5VSC7ZGq
- AepEKiMl5EXLsanVOIWUU8LcMiN8tmY7ZReSbus806UlzJVj9kp3MhoxDa5Ionmji07uqc=
-X-Google-Smtp-Source: AGHT+IGKMCNZ9lSIpKE90rRk19Kureh0VeUXVKcP8mbMQG8DavWdzbFmeA+Vz1ozm2bjDyjv4IITPQ==
-X-Received: by 2002:adf:e3c4:0:b0:38a:888c:6785 with SMTP id
- ffacd0b85a97d-38a888c69bcmr4077895f8f.6.1736621647135; 
- Sat, 11 Jan 2025 10:54:07 -0800 (PST)
-Received: from krzk-bin.. ([178.197.223.165]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a9fcb7a11sm2315556f8f.75.2025.01.11.10.54.05
+ AJvYcCVUpc+TqLQ5epIjVwJ7ULLKb12yzE2GagmmkRY1+AeoQtRbiX23N9YdLQQC5qoBmgc533qcs4rSyI0+aQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YztT/MSzKxhEK0HeTHk2Iz/Tr5Z/gjRHr+cbdO3IbEPj/FjMHKL
+ rf6UanpJULuO6KhPK971LZi4Xv6GKV+EOFs17hMa9g9jwneDmYVHE2xbiI3dk9w=
+X-Gm-Gg: ASbGncsewg5C50BQtCQWYHSakaEpnzAQvW0i+I6lIZ3W8T1NkYVyjveDP1xD84NzRtu
+ NKMyWGI2mtYLnP19UItiJs3H8YSrueybT/288JSNIqHFdPkXSLS3u/OrFI1oaGv4gL3HHtvwdnU
+ BY4mRlTGLPvUd4S8l+dGttGq7zZgjuRDckMhTPa5ChBaqcjZJVZBiEXq1FHRtnUz7Fy4ahJo+ND
+ XRgcdZoRCATFn+1CiEikShLCTn5M+bzDtlxfhl7Vj6x2jnjS7vXmFgR0o23VWpiyHwbJ7A6
+X-Google-Smtp-Source: AGHT+IHGPI5G9xAGCnu9erfmrPb75d7mnwukM12RbyFiKbkogF5yX4joUi45dN7aTJobJQAhBKZ7tA==
+X-Received: by 2002:a05:6402:1e8e:b0:5cf:f39f:3410 with SMTP id
+ 4fb4d7f45d1cf-5d972dfaf04mr5579529a12.2.1736688777399; 
+ Sun, 12 Jan 2025 05:32:57 -0800 (PST)
+Received: from [127.0.1.1] ([178.197.223.165])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d9903c4477sm3584609a12.51.2025.01.12.05.32.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jan 2025 10:54:06 -0800 (PST)
+ Sun, 12 Jan 2025 05:32:55 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-rtc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 11 Jan 2025 19:54:05 +0100
-Message-ID: <20250111185405.183824-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+Date: Sun, 12 Jan 2025 14:32:42 +0100
+Message-Id: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH] rtc: stm32: Use
-	syscon_regmap_lookup_by_phandle_args
+X-B4-Tracking: v=1; b=H4sIAHvEg2cC/x2M0QqDMBAEf0Xu2YMkoi39leKDJKselFNyUhTx3
+ 5v6OOzsnGTIAqNXdVLGV0wWLeDriuI86ASWVJiCC63zPrAdFhfltYzpAx7yZKzYuHl2ybUIMT1
+ A5b1mjLLf5Tf9BcW+UX9dPyiJad9zAAAA
+X-Change-ID: 20250112-syscon-phandle-args-net-386d05e2cd7e
+To: MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=XKxgPXkqRoVDNfOxWtITwzSpA1j1CzTTW6TU8zpRG9Q=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBng8SAA643Zo2cp/l+bcjvA4yh2jmRGdEETJsAm
+ Enhfy8ebEeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ4PEgAAKCRDBN2bmhouD
+ 16MrEACXZ72WUcShffV++I09qMxK0HXHtn8vUtnKitu0FCIocOPj/7yXCn5UNkwMiowlUD/SJU2
+ eJcDaunCkjH8J0KQfk7GFxGX5vk93eYQxv0HlD+RMRxaKnL9IJJFTwy7UCU53xCeMtLDPVo/iO8
+ GHcTw4W6rf9JhAdFzQAzZCXIyih19x9F+wejqS6Q1gbhTzpQdH0zpZ2eA5iOE9U/D1m5rfzBZDk
+ B4CBqgq+Km8WkZvkDsFtGQLV8vHiL8OxkQa9UFtrUOzVTyLmgh4iuCLXVz4qgeO/AoojroJ6UD9
+ UqyQTPPbEevML2onTmd6zO8u8P35sCy5mei8XuP6tTx/9xY4zj8vUBmIgNnDJTd1cdWIRpCaG2j
+ ASmSe/phuj/0Yn7KYirpKOECOZkvSWcwS0ScdA4DTLxpnwGyacg3B+7MZc2TcaLQiNtfKO26d5j
+ vaQiFJ75DmoCxwQabf+RYQ9umr+3c6yKY+pO7BC5z5DTLPv/NXBa8xTJNI03dK8YQMIC0dDCkpl
+ qxGQp/Vb4x8lv1ftODbrjU03Z4MWTeI6ahuBLX5mJC+L20oY2fVmZ1vIL6n+9noDROXO/WrRhD0
+ DlJiC2bxqKx7hcdSoCThDAzy30sDLBihn08oRSXZ0t9wxIhbCZYyeVSq539LUav3T/PLQgdIMwh
+ 6aN+wRTr39PFWGA==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Cc: imx@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/5] net: ethernet: Simplify few
+	things
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,61 +116,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use syscon_regmap_lookup_by_phandle_args() which is a wrapper over
-syscon_regmap_lookup_by_phandle() combined with getting the syscon
-argument.  Except simpler code this annotates within one line that given
-phandle has arguments, so grepping for code would be easier.
+Few code simplifications without functional impact.  Not tested on
+hardware.
 
-There is also no real benefit in printing errors on missing syscon
-argument, because this is done just too late: runtime check on
-static/build-time data.  Dtschema and Devicetree bindings offer the
-static/build-time check for this already.
+Best regards,
+Krzysztof
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/rtc/rtc-stm32.c | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+Krzysztof Kozlowski (5):
+      net: ti: icssg-prueth: Do not print physical memory addresses
+      net: ti: icssg-prueth: Use syscon_regmap_lookup_by_phandle_args
+      net: stmmac: imx: Use syscon_regmap_lookup_by_phandle_args
+      net: stmmac: sti: Use syscon_regmap_lookup_by_phandle_args
+      net: stmmac: stm32: Use syscon_regmap_lookup_by_phandle_args
 
-diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index 9f1a019ec8af..a0564d443569 100644
---- a/drivers/rtc/rtc-stm32.c
-+++ b/drivers/rtc/rtc-stm32.c
-@@ -1074,26 +1074,18 @@ static int stm32_rtc_probe(struct platform_device *pdev)
- 	regs = &rtc->data->regs;
- 
- 	if (rtc->data->need_dbp) {
--		rtc->dbp = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
--							   "st,syscfg");
-+		unsigned int args[2];
-+
-+		rtc->dbp = syscon_regmap_lookup_by_phandle_args(pdev->dev.of_node,
-+								"st,syscfg",
-+								2, args);
- 		if (IS_ERR(rtc->dbp)) {
- 			dev_err(&pdev->dev, "no st,syscfg\n");
- 			return PTR_ERR(rtc->dbp);
- 		}
- 
--		ret = of_property_read_u32_index(pdev->dev.of_node, "st,syscfg",
--						 1, &rtc->dbp_reg);
--		if (ret) {
--			dev_err(&pdev->dev, "can't read DBP register offset\n");
--			return ret;
--		}
--
--		ret = of_property_read_u32_index(pdev->dev.of_node, "st,syscfg",
--						 2, &rtc->dbp_mask);
--		if (ret) {
--			dev_err(&pdev->dev, "can't read DBP register mask\n");
--			return ret;
--		}
-+		rtc->dbp_reg = args[0];
-+		rtc->dbp_mask = args[1];
- 	}
- 
- 	if (!rtc->data->has_pclk) {
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   | 10 +++-------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c   |  9 ++-------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c |  9 ++-------
+ drivers/net/ethernet/ti/am65-cpsw-nuss.c          |  9 ++-------
+ drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c  |  2 --
+ 5 files changed, 9 insertions(+), 30 deletions(-)
+---
+base-commit: 8a7b73388d7ab9aed82d5b81f943cc512ee54e9e
+change-id: 20250112-syscon-phandle-args-net-386d05e2cd7e
+
+Best regards,
 -- 
-2.43.0
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 _______________________________________________
 Linux-stm32 mailing list
