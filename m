@@ -2,71 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65E3AA0A991
+	by mail.lfdr.de (Postfix) with ESMTPS id 68227A0A992
 	for <lists+linux-stm32@lfdr.de>; Sun, 12 Jan 2025 14:33:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F28B7C7128F;
-	Sun, 12 Jan 2025 13:33:04 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F77DC78028;
+	Sun, 12 Jan 2025 13:33:05 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44922C7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4293BCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jan 2025 13:32:58 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-5d3be7f663cso642977a12.2
+ Sun, 12 Jan 2025 13:33:00 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-5d44550adb7so597007a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jan 2025 05:32:58 -0800 (PST)
+ Sun, 12 Jan 2025 05:33:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736688778; x=1737293578;
+ d=linaro.org; s=google; t=1736688780; x=1737293580;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qagkZ/LU4rtTQes27vALssH2ImJamgS/6MR4uWjQHuc=;
- b=VlXHKE62z2ftsNrC/ojCyAxI8XvWeAbl4wTGrXn5KsKwhvQMP2XGLGWC6O7DyYP2Qn
- Zipm803Qtx8nVh/yoC6iaxxhk7Dw8Ysu1Ukt9iQdRAQwBt4GWWrUT0M0G6w+7Y1qcsq/
- EEi9lACAYhw63dfiqigIW0UGseiD/Sb7erkVk8b0x4FxcPnSDkwmOISR2PXFUIyWopoM
- b3s10QCS9rFUnyn2+oZsX/hQH+DOonWXOkhSaWDsqnmuJvRmvSh+ZAZQ28My3Q9ziurv
- U17tXkGug45GBEY9YMwrQuS/yVRT60aRtm+WW0ex+kFY4F67brfQWrF+6ds+UGQB3Vf0
- EUpg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=mRUu7xwt0GOb8hs+BKrBffaLbY4C8ptCLopKQNeTlgY=;
+ b=v9Jskv8UiS0LB8af6BlCW9j30KVe5IQIFGMVpH+r8hDas5T65KbbvOU2AQswIvG71Z
+ Cmjl2ppwcKGRn6Z3lGTa+eQBmrJhORubztaULDZXFXIbrgkLeRZhtNdLa+eB8m0bU4bn
+ 1uKcXjvaQP5V71em5L4ymaeM7o1gy7exyZ7eC1GAGUeGam8wNZjokdMQAd3uB3A+UrKR
+ RS4AVOXGNhuWRx7eW7istaONmBInTv9Wr+CJtfKeTHsDY5X2dDkvStAZokif3Tk4wzbC
+ qf/8OtTwflKgumDAyuF+P/qY0XI3zslBKH/dtM2FzsVIHzQngdhwUqMOgh0RDreWrFiZ
+ ZxpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736688778; x=1737293578;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qagkZ/LU4rtTQes27vALssH2ImJamgS/6MR4uWjQHuc=;
- b=GU4ccl61wHJSG5SD8L6kgppFRoSA3Scz4s2Nne27U38tqfrb4Qi89pAji1ojVhKPwD
- IyYHNsUIXB0ij9MFZxv4HIWtyqxhkfyj5vmeuJ7+MUpp3Kg1ruoTSQtSJP6ODe0rUiXg
- iM8fiBqHmBnJ5u87rGQEuoeLCQQC3LjPYiypPQY1iYDfgCQkTBRP9JsVfy0nhuG4gNSE
- wq8+CvsL+tLwwDFGZog1Czv2t1e3KWtvGtYQtSr1PTKKvAKwx3jv1q9WPplUhT0jObUL
- 4EXFI3kwzYqq0HGCC5wEZ42qOy+JoGmUk5FNis6b+gcA+7HGwMWL+tQJzcPTPdj0hHJb
- laJw==
+ d=1e100.net; s=20230601; t=1736688780; x=1737293580;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mRUu7xwt0GOb8hs+BKrBffaLbY4C8ptCLopKQNeTlgY=;
+ b=iE8zGabfXUjAoMiaQs6hplEm/jT0XTNkfs4T9Ha0mpojCINsSNk4oVUobqFIMLeyG/
+ W8BD6Sx2dz7gUAvrkc7sRNEIRyuMYagmzwPd5/z/F+0PQ9pjfnUfTIlqVmqbDTNAVPtS
+ J+AY15ZhFTiQt6vrPiEmanhN9KqZ5dARDlqN9wL3QBonvmp/LrHDzrm3NF1W8F9lJYJ+
+ 35k+vwmr37NArKK6cr+gD3BIK98taEbRmy3khYdyUgVXx6+FMoMzl75sS5GZGtImSjo7
+ FiHpe3O3/cCTRvGawvlMv/BCdAcodyky7J5Gduz/3NexQEk6/1/stTXDEf7oyEL3VVmn
+ ea6g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUpc+TqLQ5epIjVwJ7ULLKb12yzE2GagmmkRY1+AeoQtRbiX23N9YdLQQC5qoBmgc533qcs4rSyI0+aQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YztT/MSzKxhEK0HeTHk2Iz/Tr5Z/gjRHr+cbdO3IbEPj/FjMHKL
- rf6UanpJULuO6KhPK971LZi4Xv6GKV+EOFs17hMa9g9jwneDmYVHE2xbiI3dk9w=
-X-Gm-Gg: ASbGncsewg5C50BQtCQWYHSakaEpnzAQvW0i+I6lIZ3W8T1NkYVyjveDP1xD84NzRtu
- NKMyWGI2mtYLnP19UItiJs3H8YSrueybT/288JSNIqHFdPkXSLS3u/OrFI1oaGv4gL3HHtvwdnU
- BY4mRlTGLPvUd4S8l+dGttGq7zZgjuRDckMhTPa5ChBaqcjZJVZBiEXq1FHRtnUz7Fy4ahJo+ND
- XRgcdZoRCATFn+1CiEikShLCTn5M+bzDtlxfhl7Vj6x2jnjS7vXmFgR0o23VWpiyHwbJ7A6
-X-Google-Smtp-Source: AGHT+IHGPI5G9xAGCnu9erfmrPb75d7mnwukM12RbyFiKbkogF5yX4joUi45dN7aTJobJQAhBKZ7tA==
-X-Received: by 2002:a05:6402:1e8e:b0:5cf:f39f:3410 with SMTP id
- 4fb4d7f45d1cf-5d972dfaf04mr5579529a12.2.1736688777399; 
- Sun, 12 Jan 2025 05:32:57 -0800 (PST)
+ AJvYcCWyKrNPiILshlh3cV40dj6Ilz3KigVIAOmB+96MOsfIggFn7ts/lc/DVGTw+MJxUJSIZ0vjCL2B2AAfRw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxkCo8xTWEsiV4VWiH5y0OizEFSFXo182GnX8cup4SF7O8BcStH
+ PAbZpUQ1V9wDxMMY8HsNAx6lqH4IMH7b5yDhCglfVD+XS38yoQn4XmwO93ZLR9I=
+X-Gm-Gg: ASbGncuAM3cXM0dGGONy5RuSQ9Mo+HqhLQHJRZGWDNn4F13vYzk6SSSRHAZk6fExRlT
+ wiHS1U+hZEaRcxD1dp7lnNgkP139qCwu7Mn+l8hU5Hkwdo8mo+KgwXjbxtlmOcBxBXGT2JZqYRy
+ AWrqwGMyfzeeWBXrVKTjzk2wl5/sDcuUoCn9CnJMKagneHnPh3sdDbuF5DocqM1733BHM08G9TO
+ WaJ/6ihx/t0Xx+xo8JcxMkxCWsvskdcAw1FWnZabiZe4eoRrTnffYvlH9GCvOCunoohsOaL
+X-Google-Smtp-Source: AGHT+IHe7/2lTE7/Nj6QfvaBW+C/pcgDJDaV2DeHYFVEZqu1pr4HggBi1zI3dnd6icGke5g9aysmUg==
+X-Received: by 2002:a05:6402:42ca:b0:5d0:eb6b:1a31 with SMTP id
+ 4fb4d7f45d1cf-5d972e1eb67mr5915789a12.5.1736688780172; 
+ Sun, 12 Jan 2025 05:33:00 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.223.165])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d9903c4477sm3584609a12.51.2025.01.12.05.32.53
+ 4fb4d7f45d1cf-5d9903c4477sm3584609a12.51.2025.01.12.05.32.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jan 2025 05:32:55 -0800 (PST)
+ Sun, 12 Jan 2025 05:32:59 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Sun, 12 Jan 2025 14:32:42 +0100
-Message-Id: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
+Date: Sun, 12 Jan 2025 14:32:43 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAHvEg2cC/x2M0QqDMBAEf0Xu2YMkoi39leKDJKselFNyUhTx3
- 5v6OOzsnGTIAqNXdVLGV0wWLeDriuI86ASWVJiCC63zPrAdFhfltYzpAx7yZKzYuHl2ybUIMT1
- A5b1mjLLf5Tf9BcW+UX9dPyiJad9zAAAA
-X-Change-ID: 20250112-syscon-phandle-args-net-386d05e2cd7e
+Message-Id: <20250112-syscon-phandle-args-net-v1-1-3423889935f7@linaro.org>
+References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
+In-Reply-To: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
 To: MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -78,28 +76,28 @@ To: MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1232;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=XKxgPXkqRoVDNfOxWtITwzSpA1j1CzTTW6TU8zpRG9Q=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBng8SAA643Zo2cp/l+bcjvA4yh2jmRGdEETJsAm
- Enhfy8ebEeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ4PEgAAKCRDBN2bmhouD
- 16MrEACXZ72WUcShffV++I09qMxK0HXHtn8vUtnKitu0FCIocOPj/7yXCn5UNkwMiowlUD/SJU2
- eJcDaunCkjH8J0KQfk7GFxGX5vk93eYQxv0HlD+RMRxaKnL9IJJFTwy7UCU53xCeMtLDPVo/iO8
- GHcTw4W6rf9JhAdFzQAzZCXIyih19x9F+wejqS6Q1gbhTzpQdH0zpZ2eA5iOE9U/D1m5rfzBZDk
- B4CBqgq+Km8WkZvkDsFtGQLV8vHiL8OxkQa9UFtrUOzVTyLmgh4iuCLXVz4qgeO/AoojroJ6UD9
- UqyQTPPbEevML2onTmd6zO8u8P35sCy5mei8XuP6tTx/9xY4zj8vUBmIgNnDJTd1cdWIRpCaG2j
- ASmSe/phuj/0Yn7KYirpKOECOZkvSWcwS0ScdA4DTLxpnwGyacg3B+7MZc2TcaLQiNtfKO26d5j
- vaQiFJ75DmoCxwQabf+RYQ9umr+3c6yKY+pO7BC5z5DTLPv/NXBa8xTJNI03dK8YQMIC0dDCkpl
- qxGQp/Vb4x8lv1ftODbrjU03Z4MWTeI6ahuBLX5mJC+L20oY2fVmZ1vIL6n+9noDROXO/WrRhD0
- DlJiC2bxqKx7hcdSoCThDAzy30sDLBihn08oRSXZ0t9wxIhbCZYyeVSq539LUav3T/PLQgdIMwh
- 6aN+wRTr39PFWGA==
+ bh=/XBAGwsAFpwFBBQSU961+beyZLkCUNZ5sGTLi9rt57I=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBng8SBqm1C6n54I2y3MlkXEqlfvD/rdrdWXja7l
+ F8+5Is0j1KJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZ4PEgQAKCRDBN2bmhouD
+ 17VVD/4qthD2/zGGxdy7/UvqcrbSUvelem2TFjP4otSbOQQWt2FoBYJM9pNa/ia4nDRzVPRxvWp
+ AB684QLqy1jsKUV6CGPT3D+zER5yVvYN4twzngQrr02IRwqmYMGieUhT4C5lGveMXOBMmGa2mfU
+ udJ4cuPGtlhH3fISl4u+3noNIZKMzIg3tNCkfvRsZDOAxAPyLpaePpjLMBYlgfahKqDSJJ3Ymly
+ +xpGJ/hwDta2luGxIuxazAdQWU4lIeXdwHWgMBrdSensqJLq59XmNTDvSvGOYe6RhYYZEOGkBh+
+ dowV/JQhEousq+sLQk8Vg6rJ20bAffXxCqMtmMMKK0iPtwmP7eeWQipA3SOUCyoWyqstPFDnJef
+ WwaKd5jhJ6isWq6wImBLMXOke7etQoi8jD70/MBSBHYv5utAytgbAPEPSfrKdDyrDKanOHAS3Uw
+ 3qfAbOu3ld+3DGyNuxGR9gKUfogV69mX1twFMUXFg01h/7HOcmqFUu4qyW79JH9Fm5zJO/kIneA
+ HbwYf3HvIrn7L1rWNCiZIli0eXsOgM6StdpoUZ9ty2Vp8tBg21cFVNlkY77/RG/d4ZAsx89Kw1p
+ bp3xe0sin6kUFa1weHxNQaVneoV7PfrWRYHktdBkv66MzEVc9Yneu5Hxr8HS3MmFxNSjVv5cFp0
+ Mqd3su6GpsWZLIQ==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: imx@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/5] net: ethernet: Simplify few
-	things
+Subject: [Linux-stm32] [PATCH net-next 1/5] net: ti: icssg-prueth: Do not
+ print physical memory addresses
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,33 +114,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Few code simplifications without functional impact.  Not tested on
-hardware.
+Debugging messages should not reveal anything about memory addresses.
+This also solves arm compile test warnings:
 
-Best regards,
-Krzysztof
+  drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c:1034:49: error:
+    format specifies type 'unsigned long long' but the argument has type 'phys_addr_t' (aka 'unsigned int') [-Werror,-Wformat]
 
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
-Krzysztof Kozlowski (5):
-      net: ti: icssg-prueth: Do not print physical memory addresses
-      net: ti: icssg-prueth: Use syscon_regmap_lookup_by_phandle_args
-      net: stmmac: imx: Use syscon_regmap_lookup_by_phandle_args
-      net: stmmac: sti: Use syscon_regmap_lookup_by_phandle_args
-      net: stmmac: stm32: Use syscon_regmap_lookup_by_phandle_args
+ drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c | 2 --
+ 1 file changed, 2 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   | 10 +++-------
- drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c   |  9 ++-------
- drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c |  9 ++-------
- drivers/net/ethernet/ti/am65-cpsw-nuss.c          |  9 ++-------
- drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c  |  2 --
- 5 files changed, 9 insertions(+), 30 deletions(-)
----
-base-commit: 8a7b73388d7ab9aed82d5b81f943cc512ee54e9e
-change-id: 20250112-syscon-phandle-args-net-386d05e2cd7e
+diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
+index 3dc86397c367d2b195badcf1fcb5f1ef39ffabd6..64a19ff39562fa4a6ba6f7e9de903f689a3d5715 100644
+--- a/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
++++ b/drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c
+@@ -1031,8 +1031,6 @@ static int prueth_probe(struct platform_device *pdev)
+ 						   (unsigned long)prueth->msmcram.va);
+ 	prueth->msmcram.size = msmc_ram_size;
+ 	memset_io(prueth->msmcram.va, 0, msmc_ram_size);
+-	dev_dbg(dev, "sram: pa %llx va %p size %zx\n", prueth->msmcram.pa,
+-		prueth->msmcram.va, prueth->msmcram.size);
+ 
+ 	prueth->iep0 = icss_iep_get_idx(np, 0);
+ 	if (IS_ERR(prueth->iep0)) {
 
-Best regards,
 -- 
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
