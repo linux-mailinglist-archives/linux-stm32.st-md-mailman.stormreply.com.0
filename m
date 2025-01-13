@@ -2,81 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C393A0B70A
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 13:37:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AADADA0B948
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 15:21:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31C4AC78012;
-	Mon, 13 Jan 2025 12:37:37 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59B18C78012;
+	Mon, 13 Jan 2025 14:21:00 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 729D4C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC635C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 12:37:29 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2f43d17b0e3so7415737a91.0
+ Mon, 13 Jan 2025 14:20:52 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-216281bc30fso90507035ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 04:37:29 -0800 (PST)
+ Mon, 13 Jan 2025 06:20:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736771848; x=1737376648;
+ d=gmail.com; s=20230601; t=1736778051; x=1737382851;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XYspswNAJVbjIJeGSav8oevdZS2Al30TlAOrfrWoHgI=;
- b=KGvxlvVc6MT1tnLfGytAHLLjviajtGOpvCyi8rHMTNCBUVSjnj7pbEOcLqkgn9wKgz
- KmekSJv1soVRNfcZ5cx1s2ghZLYi5p7xghBR84uf5kPS4iSTTC20Ryb6/j0AXM7bZXo3
- AoBa579e57ENNrSgDpLMkctdpYL8oJUU2eORN83W0MbVrVpoB+QJjfpVh066m8hN5zws
- xzwVHBVXar7FI9Il/1cri9i6FL7/olgz9lOXJshujeUVeIWRTDMwQgA+KNXaQwQA12Hj
- C4KESaqf8xyQJY4ua48NwRH0FvbeJcEOQjdLiabLV6tYnV0BsCIZ7hPbIBfPO+v3rolN
- EP8A==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=yjgJEm+zsHpgnh6MvvlrOCLzGs3HMBzj7m6xU9nO/zQ=;
+ b=J7QAYVa6b4ZM11i+nfEZrWLyUtOQTQ9Eh8kRSSdoJBiPzLf4oDKFJHnfGCEp8vTMv/
+ YgVTkVIu8zi9ZJJB2pCkgRAjTJ0kmvhC7OCTEc5eVOTKJIKPBW4/KWe2VChMbkjJKCh2
+ PPkL2ZmkvHwdBStTK/2OFcqFEtunkmfvnHvdOb2ncUinE3jUxIXZDiaWaCdfFI5SYYBI
+ s+ta7TGFICtODg+0xvIvZWiK2p2JQLqpC930I6qcCdMa9SptRRZw+ke34s5S3twcJRRK
+ t2TZ5Js3JZjszQ0xS0AerFVwYuSaoQiJbOxKKeKspmVKsdG6wSDDJXhG+s6OE5gHQl/a
+ bzWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736771848; x=1737376648;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XYspswNAJVbjIJeGSav8oevdZS2Al30TlAOrfrWoHgI=;
- b=vfQqJjiXOJIULaiRUzOjuYY+r6ShXxbyyRIHJ2dgyRBxkT3I3kiR5Z4MoaoO4WsqGJ
- rHsZJ5sUU4z9HtF33srTPDL5kzlHQwZ4bmZmf2cDrRUp6YYNpRWIFnQ3mfKVshk7iFSq
- DfsrHqvh1CtzJadLOIJCjJUQEjtvupkYQzDNqWFq6+hI6TYwN2hoxvzOeYAfehzAhJ0N
- qXl6ZDpn+XdKiDTGgo374M5T8OwTz/WS962XccTCDTVgFlHOtxDi9ULp0dEXjSPw2sCg
- FrTLBQsDjx1iQn5FQPA5W0JSrAHCY9R0UbumFrBheaoVRJELUO0/OBcTC3UK3W85xvRG
- Qxpg==
+ d=1e100.net; s=20230601; t=1736778051; x=1737382851;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yjgJEm+zsHpgnh6MvvlrOCLzGs3HMBzj7m6xU9nO/zQ=;
+ b=loWFV+eDrDoMvJsI9rNUOjesdjC4XmfGoyZBOTvkvvFT5RZEqvvT0G4MaTKr6e7HFq
+ /E7HFID7kJ7dCW8gKiY+XY1XpHAi6aauCmL8tFbBuX+kPVkis8UsMY6r/7HElgaaelNx
+ Loa9mm8noLRFmstqidNMt5Zor6V6ebOqf8wW3dEVfZAauoF35JmggZ4+WqhqgUtLLfDG
+ gw7S+hIVX0awYhMpQ1siF7TBidUAVte6zAODbiiFFeJeE0sizngk6tt4UU9JwsvMIyib
+ kj84eHIfJ/P2TZHgE2SahgyMk1CDYU/bfg8ZUrBwlYQ/lY17P+ajjBHS9q+d4+QxbvT/
+ zjaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVJ91Q57mfSlNliKLvOhP9ytenqXNwbjUsAj9T+aWGXjY/0Fzk2Td8IDMZzrQY2FFN9tNu9FK7tlQ4s0g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw//nLUlJYIkPG56DSZc5x3dyVSJxofpTkPHjXcuLNih4ijxm4V
- EErzDoFjcXwgo3G8oLHzIb3+xF7CE1zVqfjGLeXPa1k/wP9Gh6JB
-X-Gm-Gg: ASbGnct74c+ws1Wa9NfFcBOXHxWZKa/N+NDrGSgwv6FQqWGHR3Hj+dcZP+/kLg0M6vC
- Aszx6e+4iC56yhHdVZ4YC0ExstqC9AVjG01jWzeSUrjginJzsPVmyWoSBNJvtWirkSlgkf5p7SM
- irwW7l+MAsHVPUKxBieubLxXuq05XnZlqir7hpoFudpzzSRwHUdl5+kFFneFVEsgNmJX+Ct9rjn
- x9YuoRFIKGQ748JUMkyk+pCbygbYp/j8AEqpF1bqy2D1BSWZJr9vQ==
-X-Google-Smtp-Source: AGHT+IHe1pVSKvtAf8tEME92BvPU8bFiXiKYwUp2o19enb2ske+ljaAhyVZKHCMtZv5/6JQqhbrv8A==
-X-Received: by 2002:a17:90b:53c5:b0:2f2:f6e0:3f6a with SMTP id
- 98e67ed59e1d1-2f548f3979bmr32049199a91.14.1736771847927; 
- Mon, 13 Jan 2025 04:37:27 -0800 (PST)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f5593d07cbsm8624004a91.3.2025.01.13.04.37.23
+ AJvYcCVsG87Z1TyRuJIdrEhYqY6plnJ+NzpNidWme5e6KI0P4W6JrKQDOeV1UWFex+s5pK7SgrfI+CHYhS2azw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxfn0OMk/XLYFnqGRNgKTylmMNhiM803FdswiCKunGwL+DCb+oe
+ 9c1/yKuatwb/7+FD8yqRLwMfK8cRSQalRNB57RUPGXCSaRmG3vmd
+X-Gm-Gg: ASbGncuyPdYM1A/osuIlw2b8D9FTJZC3ybfU5pBeXTzkJ8r3+zrxq0XcCjFSFXUBwkP
+ uqNF4EFIErS1eGYiAduBnX6m4hIN0oIvkyqEL0aXtnjpyHZqX3UMmv3gc3UaAmRV+fhGogTLOGw
+ AGrSr/FYH8aw31fKep8fPWwaCNACN4QEcLMYg3ismDxplpLfERDgfatl0MxBkkZ5pL10hlNNxHn
+ 1dp4qt/dNiNsfgw9bki9rjRMQdKhJ6IubTWNw0aL7DKlRZHFHcmx44PBGsfMsSaOE0brw==
+X-Google-Smtp-Source: AGHT+IGOgpQygxHN474HH35BO8I0IxWuOevbbQ53X03NN01ieJAvLtEHwfIjUcmb+msVKrMaDxXj3A==
+X-Received: by 2002:a05:6a00:3c83:b0:71e:4296:2e with SMTP id
+ d2e1a72fcca58-72d21f4bc9emr28805500b3a.11.1736778051319; 
+ Mon, 13 Jan 2025 06:20:51 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-72d4067f0d1sm6089222b3a.136.2025.01.13.06.20.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 04:37:27 -0800 (PST)
-Date: Mon, 13 Jan 2025 20:37:10 +0800
+ Mon, 13 Jan 2025 06:20:50 -0800 (PST)
 From: Furong Xu <0x1207@gmail.com>
-To: Alexander Lobakin <aleksander.lobakin@intel.com>
-Message-ID: <20250113203710.000033dc@gmail.com>
-In-Reply-To: <f20c339f-5286-477c-9255-e2e1fbeba57c@intel.com>
-References: <cover.1736500685.git.0x1207@gmail.com>
- <b992690bf7197e4b967ed9f7a0422edae50129f2.1736500685.git.0x1207@gmail.com>
- <f20c339f-5286-477c-9255-e2e1fbeba57c@intel.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 13 Jan 2025 22:20:28 +0800
+Message-Id: <cover.1736777576.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Furong Xu <0x1207@gmail.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
  Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v1 3/3] net: stmmac: Optimize
- cache prefetch in RX path
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v2 0/3] net: stmmac: RX performance
+	improvement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,26 +90,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 13 Jan 2025 13:10:46 +0100, Alexander Lobakin <aleksander.lobakin@intel.com> wrote:
+This series improves RX performance a lot, ~34% TCP RX throughput boost
+has been observed with DWXGMAC CORE 3.20a running on Cortex-A65 CPUs:
+from 2.18 Gbits/sec increased to 2.92 Gbits/sec.
 
-> > @@ -5596,6 +5593,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
-> >  		} else if (buf1_len) {
-> >  			dma_sync_single_for_cpu(priv->device, buf->addr,
-> >  						buf1_len, dma_dir);
-> > +			prefetch(page_address(buf->page) + buf->page_offset);
-> >  			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-> >  					buf->page, buf->page_offset, buf1_len,
-> >  					priv->dma_conf.dma_buf_sz);  
-> 
-> Are you sure you need to prefetch frags as well? I'd say this is a waste
-> of cycles, as the kernel core stack barely looks at payload...
-> Probably prefetching only header buffers would be enough.
-> 
+---
+Changes in v2:
+  1. No cache prefetch for frags (Alexander Lobakin)
+  2. Fix code style warning reported by netdev CI on Patchwork
 
-Yes, do not prefetch for frags is more reasonable.
-Thanks!
+  v1: https://patchwork.kernel.org/project/netdevbpf/list/?series=924103&state=%2A&archive=both
+---
 
-pw-bot: changes-requested
+Furong Xu (3):
+  net: stmmac: Switch to zero-copy in non-XDP RX path
+  net: stmmac: Set page_pool_params.max_len to a precise size
+  net: stmmac: Optimize cache prefetch in RX path
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 33 +++++++++++--------
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  1 -
+ 3 files changed, 20 insertions(+), 15 deletions(-)
+
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
