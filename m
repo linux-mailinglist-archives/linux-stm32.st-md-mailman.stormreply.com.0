@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADAE8A0B94A
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 15:21:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4807A0B94B
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 15:21:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 727C6C78012;
-	Mon, 13 Jan 2025 14:21:02 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C177C78027;
+	Mon, 13 Jan 2025 14:21:03 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA4E7C030CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9151C78027
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 14:20:57 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-21670dce0a7so92239905ad.1
+ Mon, 13 Jan 2025 14:21:02 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-21670dce0a7so92243985ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 06:20:57 -0800 (PST)
+ Mon, 13 Jan 2025 06:21:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736778056; x=1737382856;
+ d=gmail.com; s=20230601; t=1736778061; x=1737382861;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ccKpY1leYRtGPw2tEgtgVTc2GSp/SOKDOJPp9BmSe4Y=;
- b=SRne0mw2rq1+JVdaCCakjEfcMAfP2RI5Lmck5QWexxK95KIDaXuQ9EEubvTaUA5Hfl
- CZRcbKHggHArYFGvfGzgLQUGLXkULk1ysDst03n9m/+qs7pSiHS6Pfj6Qksm8XQnBHGl
- 5YEbIKt3b9hqE+od4NeE04SbCmrVqfSG40asnhKxHNYRwceLXA8W+0JJyB45LHcCjHwq
- GD0+IhQJGf4dNDXai6ReyocBc5IEkOG4ZxU5aXHSQvk8T/yZEuK6MLWjHGcTiHIvTFpz
- UUrIzvK4Z1X0n5Pu/pNF0qHCAeD8iaFfVlGJYFGlmo9IMe7N5lHoNMlSysZfKI6+9kN+
- Xc4A==
+ bh=YMPRQoz16EyCK3xxuYYjiNmaFFaTgtlHtG3fh6pk8TQ=;
+ b=TwwMAfziawi30hzcbtzQBILVTuZ7d88IFCJxpb/1IRBDJ5WJ0hq11TmPKVLOm8RHO8
+ RyKkdMCWWkAMc9Y6aj1SrDhxVCW9H/6irl6N6KdyF4Rheet9DsVzamo40HmZ8cv7u3jU
+ NyHGCC2oG794cABEsRlotGepG9FH9rKQrTQu0kg4J+awC0nPLr3V2WtT59tagjQh95qE
+ lfcs8UCGHh8fu94J27reLs4GhwQZAHhh2kq4fgHoNQsHBAfBDIi61+rn+w5yoZcjMS++
+ ckeGL1/XJHa0hd1l2BaOYEmnGAMReuGUAStukWVRS5yIbtNa+JWzWEFKhSRyzCIez26Q
+ KERA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736778056; x=1737382856;
+ d=1e100.net; s=20230601; t=1736778061; x=1737382861;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ccKpY1leYRtGPw2tEgtgVTc2GSp/SOKDOJPp9BmSe4Y=;
- b=t9YNvwPKLscMfAkzXsHjzgFWz+eCD/UsIwdTOnYVjX0ZmT2tqWens+ouQJm1b6bWie
- p1ir6/eMT0QGsd3/5bc4X3miFFqY4RI/se0+CyRYBLIg7uFkYvepc80JhLirqW5gmdJK
- pD6kcUXqzXsj5T3X8pT3Qx3R/tA+Nzu4137uGcziOSQSd/r+BzCt1s5bVluz0YHT4YKG
- cVzqDmFgU3GOvefrUOhOw2c8Voo07u7W7U/Q4VM+FyYy1B5aJeoUXNzBIik+KliYTghX
- lo1cSrByyapTsJhgPv3nhyIQf4L9n1be+RcOdflcvy7fRGpQYk5K99TiUyH1rbTjVOSt
- VoWw==
+ bh=YMPRQoz16EyCK3xxuYYjiNmaFFaTgtlHtG3fh6pk8TQ=;
+ b=l3yyiEInrk6SOIAbnNviLaS99x9d3UWa8d8oSlQwBGxj/i1IO5cr8ZuROi4ZPvgMpR
+ DqmRw5SSXuSKcA+coEbaQ8X7wZh1cCd6Ida+l4Ako8z0gqBjNu1O4OgqMfQbPug4Nube
+ v+KWT9KYIh/OvVPBr5enJCwY3npvuUgsmO5WmAA/SilP+yK8g5iLGwHr9DfnV4jH6oro
+ bNCd1neGeINyDafa0oE/WfOCj+baIW0lYBEcdU7smjgKk2wyOiD2HGa8O2C79l7MSFOh
+ aZmW0uggcyi93zSY2q5QSCmLmT4ncr+f7LiGK5C3C9f/znPMpf9KHhJtico9AMmm0kf+
+ ieRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW/Rwpr/t5MxGweCfEeRcie31CSbC8/2Tn/YaXrJFeuXKkesSAK7GoztZOXHyEee0FEHsQAw74ffU2uhQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwLFRySaDQBeBuGbvTg5IWkUvL9eCi/QMFxIlNcfON34rcDTd0n
- eTFpDyJFaPGaEjUAuglihIdeqg4WUxA5Lo8ktsHJs1L/vMfzdzxR
-X-Gm-Gg: ASbGnctZkzG8atE5mOuKOj2AVYvrcIGxSsh/mhRFpiX6R9EgUj9bCujyzLQY0RBvaTr
- b8vrTiUOzUgSKj3pZWQ8MwltTSDAkyY7oja1FqNzAhyyombQ73X620cZkef9FV1hk2tbr3vp3MV
- q5ZbXrLcN2Rd7A4DYItroDLNSc4xyakFaoFRbIp3h6TLaDNyKL5byIO034gPkb/Dia7ICM+NH3v
- mIZniMRrzk3yl59c7wxKyMOxSxCPY9ADez+PMpgqWLu+X29dFdeRUGoMoNX0WE0OfnBGQ==
-X-Google-Smtp-Source: AGHT+IGKv3lMSzF+D1LHruGGkM9/Rgx0EUTXEe4+mf7NCbt27F7Ct+oQGMUGSmcsLeFCk+WT+xqn0A==
-X-Received: by 2002:a05:6a21:4a41:b0:1e3:e836:8ad8 with SMTP id
- adf61e73a8af0-1e88d0ef9f6mr36157231637.38.1736778056233; 
- Mon, 13 Jan 2025 06:20:56 -0800 (PST)
+ AJvYcCWTtEum5wPeN4eiL3Osz+PQLt9oEGeGciz7FnQK81TSIeRl4kRYwN10d80r9bCwZnEeEvUmI1DSBJ3DdA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzMvcIqhszbIlllDQ0XadyGQJ99lFyz4CItCWNxcqpVse028O3n
+ t5GXipIc/uaWQXT1R81rnnPjXz5hLY5zc6aQT8rlJWn5i6ns/QXr
+X-Gm-Gg: ASbGncvMdh7JV8/QDr9nD9XmihsjAaDTYDuyNrBFJOQhL2db+ORhqbMS+gJ4RF9lqsa
+ 2NP/WSjlXD6rQJAPtUbBMVj1eqoCOueQevzUs5fnZryih5XCFGRq00L4d2cTrnegiS+sYByhTWT
+ DAM5qdEEKg3J4ahNPNH3PSUIr5gdcSyLtaMaYwluV1gELV2O9eKH+9hAEKkgGgFy1hgD5xdGZbw
+ JDLcPVKEh0i9FwIkiTHV4vZWkh4qnDJnDJBXV2xwlEW6VY2qUwdFob5+F4rN4zw05c6Jg==
+X-Google-Smtp-Source: AGHT+IEzC0EK5taqL22BOdLKvphG994lgupCqXrHRE6t3LRIiNlReqX+BVov6VJfmVVXuiJkjK9M/A==
+X-Received: by 2002:a05:6a20:7491:b0:1e1:a06b:375a with SMTP id
+ adf61e73a8af0-1e88d0ddc82mr38181731637.35.1736778061055; 
+ Mon, 13 Jan 2025 06:21:01 -0800 (PST)
 Received: from localhost.localdomain ([129.146.253.192])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-72d4067f0d1sm6089222b3a.136.2025.01.13.06.20.51
+ d2e1a72fcca58-72d4067f0d1sm6089222b3a.136.2025.01.13.06.20.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2025 06:20:55 -0800 (PST)
+ Mon, 13 Jan 2025 06:21:00 -0800 (PST)
 From: Furong Xu <0x1207@gmail.com>
 To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 13 Jan 2025 22:20:29 +0800
-Message-Id: <7e7c594913b003b3eb7a836042fe00515421218e.1736777576.git.0x1207@gmail.com>
+Date: Mon, 13 Jan 2025 22:20:30 +0800
+Message-Id: <3f0cad344d45bb15957e20059f9cda44d6369419.1736777576.git.0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1736777576.git.0x1207@gmail.com>
 References: <cover.1736777576.git.0x1207@gmail.com>
@@ -75,8 +75,8 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Furong Xu <0x1207@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v2 1/3] net: stmmac: Switch to
-	zero-copy in non-XDP RX path
+Subject: [Linux-stm32] [PATCH net-next v2 2/3] net: stmmac: Set
+	page_pool_params.max_len to a precise size
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,101 +93,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoid memcpy in non-XDP RX path by marking all allocated SKBs to
-be recycled in the upper network stack.
+DMA engine will always write no more than dma_buf_sz bytes of a received
+frame into a page buffer, the remaining spaces are unused or used by CPU
+exclusively.
+Setting page_pool_params.max_len to almost the full size of page(s) helps
+nothing more, but wastes more CPU cycles on cache maintenance.
 
-This patch brings ~11.5% driver performance improvement in a TCP RX
+For a standard MTU of 1500, then dma_buf_sz is assigned to 1536, and this
+patch brings ~16.9% driver performance improvement in a TCP RX
 throughput test with iPerf tool on a single isolated Cortex-A65 CPU
-core, from 2.18 Gbits/sec increased to 2.43 Gbits/sec.
+core, from 2.43 Gbits/sec increased to 2.84 Gbits/sec.
 
 Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 26 ++++++++++++-------
- 2 files changed, 18 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h  | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index e8dbce20129c..f05cae103d83 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -126,6 +126,7 @@ struct stmmac_rx_queue {
- 	unsigned int cur_rx;
- 	unsigned int dirty_rx;
- 	unsigned int buf_alloc_num;
-+	unsigned int napi_skb_frag_size;
- 	dma_addr_t dma_rx_phy;
- 	u32 rx_tail_addr;
- 	unsigned int state_saved;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 58b013528dea..6ec7bc61df9b 100644
+index 6ec7bc61df9b..ca340fd8c937 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1330,7 +1330,7 @@ static unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
- 	if (stmmac_xdp_is_enabled(priv))
- 		return XDP_PACKET_HEADROOM;
- 
--	return 0;
-+	return NET_SKB_PAD;
- }
- 
- static int stmmac_set_bfsize(int mtu, int bufsize)
-@@ -2029,17 +2029,21 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	struct stmmac_channel *ch = &priv->channel[queue];
- 	bool xdp_prog = stmmac_xdp_is_enabled(priv);
- 	struct page_pool_params pp_params = { 0 };
--	unsigned int num_pages;
-+	unsigned int dma_buf_sz_pad, num_pages;
- 	unsigned int napi_id;
- 	int ret;
- 
-+	dma_buf_sz_pad = stmmac_rx_offset(priv) + dma_conf->dma_buf_sz +
-+			 SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
-+	num_pages = DIV_ROUND_UP(dma_buf_sz_pad, PAGE_SIZE);
-+
- 	rx_q->queue_index = queue;
- 	rx_q->priv_data = priv;
-+	rx_q->napi_skb_frag_size = num_pages * PAGE_SIZE;
- 
- 	pp_params.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
- 	pp_params.pool_size = dma_conf->dma_rx_size;
--	num_pages = DIV_ROUND_UP(dma_conf->dma_buf_sz, PAGE_SIZE);
--	pp_params.order = ilog2(num_pages);
-+	pp_params.order = order_base_2(num_pages);
- 	pp_params.nid = dev_to_node(priv->device);
+@@ -2048,7 +2048,7 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
  	pp_params.dev = priv->device;
  	pp_params.dma_dir = xdp_prog ? DMA_BIDIRECTIONAL : DMA_FROM_DEVICE;
-@@ -5574,22 +5578,26 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		}
+ 	pp_params.offset = stmmac_rx_offset(priv);
+-	pp_params.max_len = STMMAC_MAX_RX_BUF_SIZE(num_pages);
++	pp_params.max_len = dma_conf->dma_buf_sz;
  
- 		if (!skb) {
-+			unsigned int head_pad_len;
-+
- 			/* XDP program may expand or reduce tail */
- 			buf1_len = ctx.xdp.data_end - ctx.xdp.data;
+ 	rx_q->page_pool = page_pool_create(&pp_params);
+ 	if (IS_ERR(rx_q->page_pool)) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+index 896dc987d4ef..77ce8cfbe976 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+@@ -4,7 +4,6 @@
+ #ifndef _STMMAC_XDP_H_
+ #define _STMMAC_XDP_H_
  
--			skb = napi_alloc_skb(&ch->rx_napi, buf1_len);
-+			skb = napi_build_skb(page_address(buf->page),
-+					     rx_q->napi_skb_frag_size);
- 			if (!skb) {
-+				page_pool_recycle_direct(rx_q->page_pool,
-+							 buf->page);
- 				rx_dropped++;
- 				count++;
- 				goto drain_data;
- 			}
+-#define STMMAC_MAX_RX_BUF_SIZE(num)	(((num) * PAGE_SIZE) - XDP_PACKET_HEADROOM)
+ #define STMMAC_RX_DMA_ATTR	(DMA_ATTR_SKIP_CPU_SYNC | DMA_ATTR_WEAK_ORDERING)
  
- 			/* XDP program may adjust header */
--			skb_copy_to_linear_data(skb, ctx.xdp.data, buf1_len);
-+			head_pad_len = ctx.xdp.data - ctx.xdp.data_hard_start;
-+			skb_reserve(skb, head_pad_len);
- 			skb_put(skb, buf1_len);
--
--			/* Data payload copied into SKB, page ready for recycle */
--			page_pool_recycle_direct(rx_q->page_pool, buf->page);
-+			skb_mark_for_recycle(skb);
- 			buf->page = NULL;
- 		} else if (buf1_len) {
- 			dma_sync_single_for_cpu(priv->device, buf->addr,
+ int stmmac_xdp_setup_pool(struct stmmac_priv *priv, struct xsk_buff_pool *pool,
 -- 
 2.34.1
 
