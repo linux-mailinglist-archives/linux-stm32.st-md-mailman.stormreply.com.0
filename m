@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10357A0BE39
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 18:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B032A0C10E
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 20:12:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B501BC78018;
-	Mon, 13 Jan 2025 17:02:01 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBA5DC78018;
+	Mon, 13 Jan 2025 19:12:26 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3652C030CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C823C030CB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 17:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=258ufSRhmAKCNH7ZmIiFnUQr7BuMTzRbL7O6cvZOqdU=; b=f8
- iBETVcZeENe2KuK9+Iy18jnMuirgQ/hRPCOx2rLaLlicuMaOXL8rdhDRoW1J3quvkUQKdiLu1YWeV
- YGTl1z0lCXqNWsCoGTCykYSkg5wl8hkOkkrX04qPOoRlQH8xIGw6S3hbgdVKClW2y1BsZNomObUrY
- reA/JawS4XnvhSs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1tXNol-0049xb-4Q; Mon, 13 Jan 2025 18:01:35 +0100
-Date: Mon, 13 Jan 2025 18:01:35 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yanteng Si <si.yanteng@linux.dev>
-Message-ID: <c4714984-8250-4bf2-9ac1-5a9204d3aca8@lunn.ch>
-References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
- <20250112-syscon-phandle-args-net-v1-5-3423889935f7@linaro.org>
- <5d97dd34-f293-4403-b605-c0ae7b5490fd@linux.dev>
+ Mon, 13 Jan 2025 19:12:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id F0350A412FB;
+ Mon, 13 Jan 2025 19:10:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61D3C4CED6;
+ Mon, 13 Jan 2025 19:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736795543;
+ bh=jCOB8aOzNhWI9qttXZRifzoIBgrVVWf/a92tgmgzrwA=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=HN9yx449EQxLOrNAvGNn9irfi+2rJJpk/6PEosDIO9CBH0RbAVxhy/bbpQAosnOQr
+ 4MiPb0aHyqbI1zpSxlNAaXGyoCXDa+Hjcs4ktJCbLdMFu2J8vVXwxohYLbmvOsCalo
+ FjBuU9eSfrclmjBtKLK9Ozt/L0rSH3d/6br0mPUECpe7T2gL8EuVbfBf909TQO2qy4
+ cvJlaBttOtm/f/7jwbEaB9AF37wPfx+MpPnUgAs6ob9Wf6byI0uuxgTIu5KmVU+hfA
+ Mtna0ceEensBP7JFfcgHmsUphBAecSY65k4195gqUYk8CWXtx3uo7flhZKKo9wJZiD
+ PnURzcV80O2yQ==
+Message-ID: <9cc9071129187fbc1498ec25fb1c985d.sboyd@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5d97dd34-f293-4403-b605-c0ae7b5490fd@linux.dev>
-Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 5/5] net: stmmac: stm32: Use
- syscon_regmap_lookup_by_phandle_args
+In-Reply-To: <20250109211908.1553072-5-dario.binacchi@amarulasolutions.com>
+References: <20250109211908.1553072-1-dario.binacchi@amarulasolutions.com>
+ <20250109211908.1553072-5-dario.binacchi@amarulasolutions.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-kernel@vger.kernel.org
+Date: Mon, 13 Jan 2025 11:12:21 -0800
+User-Agent: alot/0.12.dev1+gaa8c22fdeedb
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] clk: stm32f4: support spread
+	spectrum clock generation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,51 +57,221 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBKYW4gMTMsIDIwMjUgYXQgMDQ6MDU6MTNQTSArMDgwMCwgWWFudGVuZyBTaSB3cm90
-ZToKPiDlnKggMjAyNS8xLzEyIDIxOjMyLCBLcnp5c3p0b2YgS296bG93c2tpIOWGmemBkzoKPiA+
-IFVzZSBzeXNjb25fcmVnbWFwX2xvb2t1cF9ieV9waGFuZGxlX2FyZ3MoKSB3aGljaCBpcyBhIHdy
-YXBwZXIgb3Zlcgo+ID4gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZSgpIGNvbWJpbmVk
-IHdpdGggZ2V0dGluZyB0aGUgc3lzY29uCj4gPiBhcmd1bWVudC4gIEV4Y2VwdCBzaW1wbGVyIGNv
-ZGUgdGhpcyBhbm5vdGF0ZXMgd2l0aGluIG9uZSBsaW5lIHRoYXQgZ2l2ZW4KPiA+IHBoYW5kbGUg
-aGFzIGFyZ3VtZW50cywgc28gZ3JlcHBpbmcgZm9yIGNvZGUgd291bGQgYmUgZWFzaWVyLgo+ID4g
-Cj4gPiBUaGVyZSBpcyBhbHNvIG5vIHJlYWwgYmVuZWZpdCBpbiBwcmludGluZyBlcnJvcnMgb24g
-bWlzc2luZyBzeXNjb24KPiA+IGFyZ3VtZW50LCBiZWNhdXNlIHRoaXMgaXMgZG9uZSBqdXN0IHRv
-byBsYXRlOiBydW50aW1lIGNoZWNrIG9uCj4gPiBzdGF0aWMvYnVpbGQtdGltZSBkYXRhLiAgRHRz
-Y2hlbWEgYW5kIERldmljZXRyZWUgYmluZGluZ3Mgb2ZmZXIgdGhlCj4gPiBzdGF0aWMvYnVpbGQt
-dGltZSBjaGVjayBmb3IgdGhpcyBhbHJlYWR5Lgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBLcnp5
-c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+Cj4gPiAtLS0K
-PiA+ICAgZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtc3RtMzIuYyB8
-IDkgKystLS0tLS0tCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDcgZGVs
-ZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
-Y3JvL3N0bW1hYy9kd21hYy1zdG0zMi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvZHdtYWMtc3RtMzIuYwo+ID4gaW5kZXggMWU4YmFjNjY1Y2M5YmM5NWMzYWE5NmU4N2E4
-ZTk1ZDljNjNiYThlMS4uMWZjYjc0ZTllM2ZmYWNkYzc1ODFiMjY3ZmViYjU1ZDAxNWE4M2FlZCAx
-MDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFj
-LXN0bTMyLmMKPiA+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3
-bWFjLXN0bTMyLmMKPiA+IEBAIC00MTksMTYgKzQxOSwxMSBAQCBzdGF0aWMgaW50IHN0bTMyX2R3
-bWFjX3BhcnNlX2RhdGEoc3RydWN0IHN0bTMyX2R3bWFjICpkd21hYywKPiA+ICAgCX0KPiA+ICAg
-CS8qIEdldCBtb2RlIHJlZ2lzdGVyICovCj4gPiAtCWR3bWFjLT5yZWdtYXAgPSBzeXNjb25fcmVn
-bWFwX2xvb2t1cF9ieV9waGFuZGxlKG5wLCAic3Qsc3lzY29uIik7Cj4gPiArCWR3bWFjLT5yZWdt
-YXAgPSBzeXNjb25fcmVnbWFwX2xvb2t1cF9ieV9waGFuZGxlX2FyZ3MobnAsICJzdCxzeXNjb24i
-LAo+ID4gKwkJCQkJCQkgICAgIDEsICZkd21hYy0+bW9kZV9yZWcpOwo+IFRoZSBuZXR3b3JrIHN1
-YnN5c3RlbSBzdGlsbCByZXF1aXJlcyB0aGF0IHRoZSBsZW5ndGggb2YKPiBlYWNoIGxpbmUgb2Yg
-Y29kZSBzaG91bGQgbm90IGV4Y2VlZCA4MCBjaGFyYWN0ZXJzLgo+IFNvLCBsZXQncyBzaWxlbmNl
-IHRoZSB3YXJuaW5nOgo+IAo+IFdBUk5JTkc6IGxpbmUgbGVuZ3RoIG9mIDgzIGV4Y2VlZHMgODAg
-Y29sdW1ucwo+ICMzMzogRklMRTogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
-ZHdtYWMtaW14LmM6MzA3Ogo+ICsJCQkJCQkJICAgICAmZHdtYWMtPmludGZfcmVnX29mZik7Cgpj
-aGVja3BhdGNoIHNob3VsZCBiZSBjb25zaWRlcmVkIGEgZ3VpZGUsIG5vdCBhIHN0cmljdCBjb25m
-b3JtYW5jZQp0b29sLiBZb3Ugb2Z0ZW4gbmVlZCB0byBsb29rIGF0IGl0cyBvdXRwdXQgYW5kIGNv
-bnNpZGVyIGRvZXMgd2hhdCBpdApzdWdnZXN0IHJlYWxseSBtYWtlIHRoZSBjb2RlIGJldHRlcj8g
-SW4gdGhpcyBjYXNlLCBpIHdvdWxkIGRpc2FncmVlCndpdGggY2hlY2twYXRjaCBhbmQgYWxsb3cg
-dGhpcyBjb2RlLgoKSWYgdGhlIGNvZGUgaGFkIGFsbCBiZWVuIG9uIG9uZSBsb25nIGxpbmUsIHRo
-ZW4gaSB3b3VsZCBzdWdnZXN0IHRvCndyYXAgaXQuIEJ1dCBhcyBpdCBpcywgaXQga2VlcHMgd2l0
-aCB0aGUgc3Bpcml0IG9mIDgwIGNoYXJhY3RlcnMsIGV2ZW4KaWYgaXQgaXMgdGVjaG5pY2FsbHkg
-bm90LgoKCUFuZHJldwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Quoting Dario Binacchi (2025-01-09 13:18:31)
+> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+> index db1c56c8d54f..6c80c0dbb0a3 100644
+> --- a/drivers/clk/clk-stm32f4.c
+> +++ b/drivers/clk/clk-stm32f4.c
+> @@ -35,6 +35,7 @@
+>  #define STM32F4_RCC_APB2ENR            0x44
+>  #define STM32F4_RCC_BDCR               0x70
+>  #define STM32F4_RCC_CSR                        0x74
+> +#define STM32F4_RCC_SSCGR              0x80
+>  #define STM32F4_RCC_PLLI2SCFGR         0x84
+>  #define STM32F4_RCC_PLLSAICFGR         0x88
+>  #define STM32F4_RCC_DCKCFGR            0x8c
+> @@ -42,6 +43,12 @@
+>  
+>  #define STM32F4_RCC_PLLCFGR_N_MASK     GENMASK(14, 6)
+>  
+> +#define STM32F4_RCC_SSCGR_SSCGEN       BIT(31)
+> +#define STM32F4_RCC_SSCGR_SPREADSEL    BIT(30)
+> +#define STM32F4_RCC_SSCGR_RESERVED_MASK        GENMASK(29, 28)
+> +#define STM32F4_RCC_SSCGR_INCSTEP_MASK GENMASK(27, 13)
+> +#define STM32F4_RCC_SSCGR_MODPER_MASK  GENMASK(12, 0)
+> +
+>  #define NONE -1
+>  #define NO_IDX  NONE
+>  #define NO_MUX  NONE
+> @@ -512,6 +519,17 @@ static const struct clk_div_table pll_divr_table[] = {
+>         { 2, 2 }, { 3, 3 }, { 4, 4 }, { 5, 5 }, { 6, 6 }, { 7, 7 }, { 0 }
+>  };
+>  
+> +enum stm32f4_pll_ssc_mod_type {
+> +       STM32F4_PLL_SSC_CENTER_SPREAD,
+> +       STM32F4_PLL_SSC_DOWN_SPREAD,
+> +};
+> +
+> +struct stm32f4_pll_ssc {
+> +       unsigned int mod_freq;
+> +       unsigned int mod_depth;
+> +       enum stm32f4_pll_ssc_mod_type mod_type;
+> +};
+> +
+>  struct stm32f4_pll {
+>         spinlock_t *lock;
+>         struct  clk_gate gate;
+> @@ -519,6 +537,8 @@ struct stm32f4_pll {
+>         u8 bit_rdy_idx;
+>         u8 status;
+>         u8 n_start;
+> +       bool ssc_enable;
+> +       struct stm32f4_pll_ssc ssc_conf;
+>  };
+>  
+>  #define to_stm32f4_pll(_gate) container_of(_gate, struct stm32f4_pll, gate)
+> @@ -541,6 +561,7 @@ struct stm32f4_vco_data {
+>         u8 offset;
+>         u8 bit_idx;
+>         u8 bit_rdy_idx;
+> +       bool sscg;
+>  };
+>  
+>  static const struct stm32f4_vco_data  vco_data[] = {
+> @@ -661,6 +682,34 @@ static long stm32f4_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+>         return *prate * n;
+>  }
+>  
+> +static void stm32f4_pll_set_ssc(struct clk_hw *hw, unsigned long parent_rate,
+> +                               unsigned int ndiv)
+> +{
+> +       struct clk_gate *gate = to_clk_gate(hw);
+> +       struct stm32f4_pll *pll = to_stm32f4_pll(gate);
+> +       struct stm32f4_pll_ssc *ssc = &pll->ssc_conf;
+> +       u32 modeper, incstep;
+> +       u32 sscgr;
+> +
+> +       sscgr = readl(base + STM32F4_RCC_SSCGR);
+> +       /* reserved field must be kept at reset value */
+> +       sscgr &= STM32F4_RCC_SSCGR_RESERVED_MASK;
+> +
+> +       modeper = DIV_ROUND_CLOSEST(parent_rate, 4 * ssc->mod_freq);
+> +       incstep = DIV_ROUND_CLOSEST(((1 << 15) - 1) * ssc->mod_depth * ndiv,
+> +                                   5 * 10000 * modeper);
+> +       sscgr |= STM32F4_RCC_SSCGR_SSCGEN |
+> +               FIELD_PREP(STM32F4_RCC_SSCGR_INCSTEP_MASK, incstep) |
+> +               FIELD_PREP(STM32F4_RCC_SSCGR_MODPER_MASK, modeper);
+> +
+> +       if (ssc->mod_type)
+> +               sscgr |= STM32F4_RCC_SSCGR_SPREADSEL;
+> +
+> +       pr_debug("%s: pll: %s: modeper: %d, incstep: %d, sscgr: 0x%08x\n",
+> +                __func__, clk_hw_get_name(hw), modeper, incstep, sscgr);
+
+Do we need to keep all this pr_debug()? It's tested code right?
+
+> +       writel(sscgr, base + STM32F4_RCC_SSCGR);
+> +}
+> +
+>  static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+>                                 unsigned long parent_rate)
+>  {
+> @@ -683,6 +732,9 @@ static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+>  
+>         writel(val, base + pll->offset);
+>  
+> +       if (pll->ssc_enable)
+> +               stm32f4_pll_set_ssc(hw, parent_rate, n);
+> +
+>         if (pll_state)
+>                 stm32f4_pll_enable(hw);
+>  
+> @@ -788,6 +840,87 @@ static struct clk_hw *clk_register_pll_div(const char *name,
+>         return hw;
+>  }
+>  
+> +static int stm32f4_pll_init_ssc(struct clk_hw *hw, struct stm32f4_pll_ssc *conf)
+
+__init
+
+const conf?
+
+> +{
+> +       struct clk_gate *gate = to_clk_gate(hw);
+> +       struct stm32f4_pll *pll = to_stm32f4_pll(gate);
+> +       struct clk_hw *parent;
+> +       unsigned long parent_rate;
+> +       int pll_state;
+> +       unsigned long n, val;
+> +
+> +       parent = clk_hw_get_parent(hw);
+> +       if (!parent) {
+> +               pr_err("%s: failed to get clock parent\n", __func__);
+> +               return -ENODEV;
+> +       }
+> +
+> +       parent_rate = clk_hw_get_rate(parent);
+> +
+> +       pll->ssc_enable = true;
+> +       memcpy(&pll->ssc_conf, conf, sizeof(pll->ssc_conf));
+> +
+> +       pll_state = stm32f4_pll_is_enabled(hw);
+> +
+> +       if (pll_state)
+> +               stm32f4_pll_disable(hw);
+> +
+> +       val = readl(base + pll->offset);
+> +       n = FIELD_GET(STM32F4_RCC_PLLCFGR_N_MASK, val);
+> +
+> +       pr_debug("%s: pll: %s, parent: %s, parent-rate: %lu, n: %lu\n",
+> +                __func__, clk_hw_get_name(hw), clk_hw_get_name(parent),
+> +                parent_rate, n);
+> +
+> +       stm32f4_pll_set_ssc(hw, parent_rate, n);
+> +
+> +       if (pll_state)
+> +               stm32f4_pll_enable(hw);
+> +
+> +       return 0;
+> +}
+> +
+> +static int stm32f4_pll_ssc_parse_dt(struct device_node *np,
+
+__init
+
+> +                                   struct stm32f4_pll_ssc *conf)
+> +{
+> +       int ret;
+> +       const char *s;
+> +
+> +       if (!conf)
+> +               return -EINVAL;
+> +
+> +       ret = of_property_read_u32(np, "st,ssc-modfreq-hz", &conf->mod_freq);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret = of_property_read_u32(np, "st,ssc-moddepth-permyriad",
+> +                                  &conf->mod_depth);
+> +       if (ret) {
+> +               pr_err("%pOF: missing st,ssc-moddepth-permyriad\n", np);
+> +               return ret;
+> +       }
+> +
+> +       ret = of_property_read_string(np, "st,ssc-modmethod", &s);
+> +       if (ret) {
+> +               pr_err("%pOF: missing st,ssc-modmethod\n", np);
+> +               return ret;
+> +       }
+> +
+> +       if (!strcmp(s, "down-spread")) {
+> +               conf->mod_type = STM32F4_PLL_SSC_DOWN_SPREAD;
+> +       } else if (!strcmp(s, "center-spread")) {
+> +               conf->mod_type = STM32F4_PLL_SSC_CENTER_SPREAD;
+> +       } else {
+> +               pr_err("%pOF: wrong value (%s) for fsl,ssc-modmethod\n", np, s);
+> +               return -EINVAL;
+> +       }
+
+Can you use match_string() like fwnode_property_match_property_string()
+does?
+
+> +
+> +       pr_debug("%pOF: SSCG settings: mod_freq: %d, mod_depth: %d mod_method: %s [%d]\n",
+> +                np, conf->mod_freq, conf->mod_depth, s, conf->mod_type);
+> +
+> +       return 0;
+> +}
+> +
+>  static struct clk_hw *stm32f4_rcc_register_pll(const char *pllsrc,
+>                 const struct stm32f4_pll_data *data,  spinlock_t *lock)
+>  {
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
