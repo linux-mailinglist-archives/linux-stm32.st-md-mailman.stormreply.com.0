@@ -2,48 +2,133 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E658A0B350
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 10:42:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E24BDA0B508
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 12:04:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF0B8C78018;
-	Mon, 13 Jan 2025 09:42:47 +0000 (UTC)
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
- [91.218.175.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88F8BC78012;
+	Mon, 13 Jan 2025 11:04:45 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5042C030CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 168C1C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 09:42:40 +0000 (UTC)
-Message-ID: <f1062d1c-f39d-4c9e-9b50-f6ae0bcf27d5@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1736761355;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RjB6WK0e1BonkXyM1rzb2pTfxLH0vAZTTZRJAaWMzIU=;
- b=FSvBoOR/2lGsPOrxt2XCfKh4xJt4s9aq0Soaqo+ujJeGo1zgsSoFjz/dbxC0X6Wt6Wzm1h
- gUnPg9mGmD2dnliNDp+r/yXxQpGllafOGvKp2C9uQVepdcAO9uVnIchrJHbE1UMid6zH6e
- feKvgHJ/zRi0H+1a5Gyl3/QcoKX+jIY=
-Date: Mon, 13 Jan 2025 17:41:41 +0800
+ Mon, 13 Jan 2025 11:04:38 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-436203f1203so3764865e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 Jan 2025 03:04:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736766277; x=1737371077;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=gEmfuSom1K4g2Z3xa5ZnSesfn3qFrMdTPJjB5HBZZu8=;
+ b=AsBKlqW0/XHQ/bCeNm2M7USED4GPFeEJ1gBELip+SfVX2rMHIlCYu7qphv4IpWFnQW
+ dmd3rGDy6iRLdlUwZrugQHmCXLtvsPf4+ABDtR0a1x1G8f5iNPHMHFp+6Y/S9MQqHFO5
+ m+gYRtNOYhdKoWifmO9aWIem/jcyb/vuKlc5+OBRLr4PqfpBvMUnslrjmvwRwu7rSe0c
+ EMAwhRV9HCysjguf5vYEklISwh6sYWuIGwdfcZI96io1C44juRARbjOeDuj23jR/GBSx
+ o/Mok1c9EKaKlyRjrScxle6QZvD8CKxTntIEzjiebE3NC1fbbkaiW8QZVpbLF3ZswVKf
+ MkiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736766277; x=1737371077;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gEmfuSom1K4g2Z3xa5ZnSesfn3qFrMdTPJjB5HBZZu8=;
+ b=LfIYxwUj/gzFyXuQ4X6MHqxdKxf80EdLszeIJwpA6YP/6VAxyA46BE2vWs+/tBglLD
+ NcqgkYxB0+iu1FZRPxcTZQNz9nUIFhCZgFNg2CkEOWCMmUPsQFAjoJ/MZJzPUucpE33J
+ rrfbCdILueqCBgQ5W/dTfuXz+db3YykFuy4E7hvvIi0D46IhX9GB+q/Y/RqMUfqukcfA
+ Eco3BHHoYjd7dIqY1HnIfQL9W3R+FAYNdgnjtAZN7gx0yuH2Jkn0EW+BrzuybW6NxvkB
+ PET1zyHcQS9t0DqyszhascHHP3sF4Gjaj9CZZskmR6453QhRioyQsmxcdOiyZvsAwFUD
+ CCkA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXvBVXVixAbn2SCMTMlqRL2iIm3NITZilP47r+tyPsk15vHnCiWhwNgDwtt7b9399I0KFJ2kL+Gz9NoDA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyvA5P/uwYXnFBY9FHsF+LkZwVRKJojIVGbx7slo/l8zIMpwLJ3
+ oGV4dBB9uHBIBny5Z6RzYHOLpu5e2pUoELSif14agv11fLOp8wSaJzGH+gfoUpM=
+X-Gm-Gg: ASbGncvDux+/s+iu+SjkHfenXs7wOe+hnFrfr5ghy+MCELDP7wAhqGGqUrB9ac2XTVa
+ 1a7HPFsq0NcrOk7q0gyIAwVvyR8tZM5ysjC9jJjiQP35qyNhzjitOZkl5SvrfdLR7xGbt9NuQwr
+ vS6F+cTikPOYCfrG4Ob2Z4FhPLIgrxv/l9k2dmj82xO2mxexC1p+PmE5T1dh6z68B7l1h0XiaE3
+ ldEnHzXgUoQOwueCEhPqEs+O3A8uzWoraSObB6ZB3MxYR6pueAN4GpZfl6kgX6kjX1mGPopYztY
+X-Google-Smtp-Source: AGHT+IFBhgHEBA9yuB0/M8KWfTrBEJrfmm5y1LllORvx6tSaZm1AW8LC5fWL6ENzzzSz3Irm4PbRow==
+X-Received: by 2002:a05:600c:35c2:b0:434:941c:9df2 with SMTP id
+ 5b1f17b1804b1-436e272c89cmr71879115e9.8.1736766277438; 
+ Mon, 13 Jan 2025 03:04:37 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.223.165])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436e9e37d74sm139859755e9.29.2025.01.13.03.04.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jan 2025 03:04:36 -0800 (PST)
+Message-ID: <1376b2b3-90c4-4f06-b05c-10b9e5d1535e@linaro.org>
+Date: Mon, 13 Jan 2025 12:04:35 +0100
 MIME-Version: 1.0
-To: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <cover.1736500685.git.0x1207@gmail.com>
- <600c76e88b6510f6a4635401ec1e224b3bbb76ec.1736500685.git.0x1207@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Yanteng Si <si.yanteng@linux.dev>
-In-Reply-To: <600c76e88b6510f6a4635401ec1e224b3bbb76ec.1736500685.git.0x1207@gmail.com>
-X-Migadu-Flow: FLOW_OUT
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+User-Agent: Mozilla Thunderbird
+To: MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v1 1/3] net: stmmac: Switch to
- zero-copy in non-XDP RX path
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo
+ <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
+ <20250112-syscon-phandle-args-net-v1-2-3423889935f7@linaro.org>
+ <0eaff868-f67f-4e8a-ade8-4bdf98d9d094@ti.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <0eaff868-f67f-4e8a-ade8-4bdf98d9d094@ti.com>
+Cc: netdev@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: ti: icssg-prueth: Use
+ syscon_regmap_lookup_by_phandle_args
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,77 +140,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-5ZyoIDIwMjUvMS8xMCAxNzo1MywgRnVyb25nIFh1IOWGmemBkzoKPiBBdm9pZCBtZW1jcHkgaW4g
-bm9uLVhEUCBSWCBwYXRoIGJ5IG1hcmtpbmcgYWxsIGFsbG9jYXRlZCBTS0JzIHRvCj4gYmUgcmVj
-eWNsZWQgaW4gdGhlIHVwcGVyIG5ldHdvcmsgc3RhY2suCj4gCj4gVGhpcyBwYXRjaCBicmluZ3Mg
-fjExLjUlIGRyaXZlciBwZXJmb3JtYW5jZSBpbXByb3ZlbWVudCBpbiBhIFRDUCBSWAo+IHRocm91
-Z2hwdXQgdGVzdCB3aXRoIGlQZXJmIHRvb2wgb24gYSBzaW5nbGUgaXNvbGF0ZWQgQ29ydGV4LUE2
-NSBDUFUKPiBjb3JlLCBmcm9tIDIuMTggR2JpdHMvc2VjIGluY3JlYXNlZCB0byAyLjQzIEdiaXRz
-L3NlYy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBGdXJvbmcgWHUgPDB4MTIwN0BnbWFpbC5jb20+Cj4g
-LS0tCj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWMuaCAgfCAg
-MSArCj4gICAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCAy
-MyArKysrKysrKysrKy0tLS0tLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMo
-KyksIDkgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3N0bWljcm8vc3RtbWFjL3N0bW1hYy5oIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjLmgKPiBpbmRleCA1NDhiMjhmZWQ5YjYuLjVjMzkyOTIzMTNkZSAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWMuaAo+ICsr
-KyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hYy5oCj4gQEAgLTEy
-Niw2ICsxMjYsNyBAQCBzdHJ1Y3Qgc3RtbWFjX3J4X3F1ZXVlIHsKPiAgIAl1bnNpZ25lZCBpbnQg
-Y3VyX3J4Owo+ICAgCXVuc2lnbmVkIGludCBkaXJ0eV9yeDsKPiAgIAl1bnNpZ25lZCBpbnQgYnVm
-X2FsbG9jX251bTsKPiArCXVuc2lnbmVkIGludCBuYXBpX3NrYl9mcmFnX3NpemU7Cj4gICAJZG1h
-X2FkZHJfdCBkbWFfcnhfcGh5Owo+ICAgCXUzMiByeF90YWlsX2FkZHI7Cj4gICAJdW5zaWduZWQg
-aW50IHN0YXRlX3NhdmVkOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
-Y3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjX21haW4uYwo+IGluZGV4IDAzOGRmMWIyYmI1OC4uNDMxMjVhNmY4ZjZiIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19t
-YWluLmMKPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
-bWFpbi5jCj4gQEAgLTEzMjAsNyArMTMyMCw3IEBAIHN0YXRpYyB1bnNpZ25lZCBpbnQgc3RtbWFj
-X3J4X29mZnNldChzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYpCj4gICAJaWYgKHN0bW1hY194ZHBf
-aXNfZW5hYmxlZChwcml2KSkKPiAgIAkJcmV0dXJuIFhEUF9QQUNLRVRfSEVBRFJPT007Cj4gICAK
-PiAtCXJldHVybiAwOwo+ICsJcmV0dXJuIE5FVF9TS0JfUEFEOwo+ICAgfQo+ICAgCj4gICBzdGF0
-aWMgaW50IHN0bW1hY19zZXRfYmZzaXplKGludCBtdHUsIGludCBidWZzaXplKQo+IEBAIC0yMDE5
-LDE3ICsyMDE5LDIxIEBAIHN0YXRpYyBpbnQgX19hbGxvY19kbWFfcnhfZGVzY19yZXNvdXJjZXMo
-c3RydWN0IHN0bW1hY19wcml2ICpwcml2LAo+ICAgCXN0cnVjdCBzdG1tYWNfY2hhbm5lbCAqY2gg
-PSAmcHJpdi0+Y2hhbm5lbFtxdWV1ZV07Cj4gICAJYm9vbCB4ZHBfcHJvZyA9IHN0bW1hY194ZHBf
-aXNfZW5hYmxlZChwcml2KTsKPiAgIAlzdHJ1Y3QgcGFnZV9wb29sX3BhcmFtcyBwcF9wYXJhbXMg
-PSB7IDAgfTsKPiAtCXVuc2lnbmVkIGludCBudW1fcGFnZXM7Cj4gKwl1bnNpZ25lZCBpbnQgZG1h
-X2J1Zl9zel9wYWQsIG51bV9wYWdlczsKPiAgIAl1bnNpZ25lZCBpbnQgbmFwaV9pZDsKPiAgIAlp
-bnQgcmV0Owo+ICAgCj4gKwlkbWFfYnVmX3N6X3BhZCA9IHN0bW1hY19yeF9vZmZzZXQocHJpdikg
-KyBkbWFfY29uZi0+ZG1hX2J1Zl9zeiArCj4gKwkJCSBTS0JfREFUQV9BTElHTihzaXplb2Yoc3Ry
-dWN0IHNrYl9zaGFyZWRfaW5mbykpOwo+ICsJbnVtX3BhZ2VzID0gRElWX1JPVU5EX1VQKGRtYV9i
-dWZfc3pfcGFkLCBQQUdFX1NJWkUpOwo+ICsKPiAgIAlyeF9xLT5xdWV1ZV9pbmRleCA9IHF1ZXVl
-Owo+ICAgCXJ4X3EtPnByaXZfZGF0YSA9IHByaXY7Cj4gKwlyeF9xLT5uYXBpX3NrYl9mcmFnX3Np
-emUgPSBudW1fcGFnZXMgKiBQQUdFX1NJWkU7Cj4gICAKPiAgIAlwcF9wYXJhbXMuZmxhZ3MgPSBQ
-UF9GTEFHX0RNQV9NQVAgfCBQUF9GTEFHX0RNQV9TWU5DX0RFVjsKPiAgIAlwcF9wYXJhbXMucG9v
-bF9zaXplID0gZG1hX2NvbmYtPmRtYV9yeF9zaXplOwo+IC0JbnVtX3BhZ2VzID0gRElWX1JPVU5E
-X1VQKGRtYV9jb25mLT5kbWFfYnVmX3N6LCBQQUdFX1NJWkUpOwo+IC0JcHBfcGFyYW1zLm9yZGVy
-ID0gaWxvZzIobnVtX3BhZ2VzKTsKPiArCXBwX3BhcmFtcy5vcmRlciA9IG9yZGVyX2Jhc2VfMihu
-dW1fcGFnZXMpOwo+ICAgCXBwX3BhcmFtcy5uaWQgPSBkZXZfdG9fbm9kZShwcml2LT5kZXZpY2Up
-Owo+ICAgCXBwX3BhcmFtcy5kZXYgPSBwcml2LT5kZXZpY2U7Cj4gICAJcHBfcGFyYW1zLmRtYV9k
-aXIgPSB4ZHBfcHJvZyA/IERNQV9CSURJUkVDVElPTkFMIDogRE1BX0ZST01fREVWSUNFOwo+IEBA
-IC01NTc0LDE5ICs1NTc4LDIwIEBAIHN0YXRpYyBpbnQgc3RtbWFjX3J4KHN0cnVjdCBzdG1tYWNf
-cHJpdiAqcHJpdiwgaW50IGxpbWl0LCB1MzIgcXVldWUpCj4gICAJCQkvKiBYRFAgcHJvZ3JhbSBt
-YXkgZXhwYW5kIG9yIHJlZHVjZSB0YWlsICovCj4gICAJCQlidWYxX2xlbiA9IGN0eC54ZHAuZGF0
-YV9lbmQgLSBjdHgueGRwLmRhdGE7Cj4gICAKPiAtCQkJc2tiID0gbmFwaV9hbGxvY19za2IoJmNo
-LT5yeF9uYXBpLCBidWYxX2xlbik7Cj4gKwkJCXNrYiA9IG5hcGlfYnVpbGRfc2tiKHBhZ2VfYWRk
-cmVzcyhidWYtPnBhZ2UpLAo+ICsJCQkJCSAgICAgcnhfcS0+bmFwaV9za2JfZnJhZ19zaXplKTsK
-PiAgIAkJCWlmICghc2tiKSB7Cj4gKwkJCQlwYWdlX3Bvb2xfcmVjeWNsZV9kaXJlY3QocnhfcS0+
-cGFnZV9wb29sLAo+ICsJCQkJCQkJIGJ1Zi0+cGFnZSk7Cj4gICAJCQkJcnhfZHJvcHBlZCsrOwo+
-ICAgCQkJCWNvdW50Kys7Cj4gICAJCQkJZ290byBkcmFpbl9kYXRhOwo+ICAgCQkJfQo+ICAgCj4g
-ICAJCQkvKiBYRFAgcHJvZ3JhbSBtYXkgYWRqdXN0IGhlYWRlciAqLwo+IC0JCQlza2JfY29weV90
-b19saW5lYXJfZGF0YShza2IsIGN0eC54ZHAuZGF0YSwgYnVmMV9sZW4pOwo+ICsJCQlza2JfcmVz
-ZXJ2ZShza2IsIGN0eC54ZHAuZGF0YSAtIGN0eC54ZHAuZGF0YV9oYXJkX3N0YXJ0KTsKVGhlIG5l
-dHdvcmsgc3Vic3lzdGVtIHN0aWxsIHJlcXVpcmVzIHRoYXQgdGhlIGxlbmd0aApvZiBlYWNoIGxp
-bmUgb2YgY29kZSBzaG91bGQgbm90IGV4Y2VlZCA4MCBjaGFyYWN0ZXJzLgpTbyBsZXQncyBzaWxl
-bmNlIHRoZSB3YXJuaW5nOgoKV0FSTklORzogbGluZSBsZW5ndGggb2YgODEgZXhjZWVkcyA4MCBj
-b2x1bW5zCiM4NzogRklMRTogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3Rt
-bWFjX21haW4uYzo1NTkyOgorCQkJc2tiX3Jlc2VydmUoc2tiLCBjdHgueGRwLmRhdGEgLSBjdHgu
-eGRwLmRhdGFfaGFyZF9zdGFydCk7CgpUaGFua3MsCllhbnRlbmcKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 13/01/2025 09:07, MD Danish Anwar wrote:
+> 
+> 
+> On 12/01/25 7:02 pm, Krzysztof Kozlowski wrote:
+>> Use syscon_regmap_lookup_by_phandle_args() which is a wrapper over
+>> syscon_regmap_lookup_by_phandle() combined with getting the syscon
+>> argument.  Except simpler code this annotates within one line that given
+>> phandle has arguments, so grepping for code would be easier.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> ---
+>>  drivers/net/ethernet/ti/am65-cpsw-nuss.c | 9 ++-------
+>>  1 file changed, 2 insertions(+), 7 deletions(-)
+>>
+> 
+> The patch only touches `drivers/net/ethernet/ti/am65-cpsw-nuss.c`
+> however the subject suggests the patch is related to "icssg-prueth".
+> 
+> I suppose the subject should be changed to "am65-cpsw-nuss" instead of
+> "icssg-prueth"
+
+Indeed, copy paste.
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
