@@ -2,63 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F8AA0B29B
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 10:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E658A0B350
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 10:42:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A60FEC78018;
-	Mon, 13 Jan 2025 09:22:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF0B8C78018;
+	Mon, 13 Jan 2025 09:42:47 +0000 (UTC)
+Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
+ [91.218.175.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1091AC030CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5042C030CB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 09:22:22 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50D5nK3n026544;
- Mon, 13 Jan 2025 10:22:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=m0FPfJ7gKA+absR2EDaCck
- e919XXBg34hJsIHU+bQhA=; b=7XW3MQD+1MlnteAcvHTQpn3daRxAHyY2ULDOlK
- eNl6AHFLTbfgk4dLMpAdMD3wB4lvYeNWMuScV0oUfZBtrO+z04t9JKaTCv3KrrX/
- jr0XpFWp+o4ox5GZXSYHPeTcN6Eedwa3U81svnQYd9KYihAMafgQ1dVSHDrwv8Tp
- 80KNueNxafWvA1S7fhoRDOn2NzASeIEHx5FaZT1LD0K+0//CY/GmSMfSAVokJWfh
- C/QgOrCizX1ldVx/IVY83m+UsVimFILTdXQl/inodsEXIvzLMCoPdNva8EsWydKq
- rmaMKh6XYG4f0qz/vnFdmqtrCiKSoEwbQxqNgSRrwuzT/p2g==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 444w17gt9y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Jan 2025 10:22:09 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id EEA0D40048;
- Mon, 13 Jan 2025 10:21:04 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7B58C236E67;
- Mon, 13 Jan 2025 10:20:31 +0100 (CET)
-Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 13 Jan
- 2025 10:20:31 +0100
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <vkoul@kernel.org>, <kishon@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <p.zabel@pengutronix.de>,
- <linux-phy@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <fabrice.gasnier@foss.st.com>
-Date: Mon, 13 Jan 2025 10:20:01 +0100
-Message-ID: <20250113092001.1344151-1-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
+ Mon, 13 Jan 2025 09:42:40 +0000 (UTC)
+Message-ID: <f1062d1c-f39d-4c9e-9b50-f6ae0bcf27d5@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1736761355;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RjB6WK0e1BonkXyM1rzb2pTfxLH0vAZTTZRJAaWMzIU=;
+ b=FSvBoOR/2lGsPOrxt2XCfKh4xJt4s9aq0Soaqo+ujJeGo1zgsSoFjz/dbxC0X6Wt6Wzm1h
+ gUnPg9mGmD2dnliNDp+r/yXxQpGllafOGvKp2C9uQVepdcAO9uVnIchrJHbE1UMid6zH6e
+ feKvgHJ/zRi0H+1a5Gyl3/QcoKX+jIY=
+Date: Mon, 13 Jan 2025 17:41:41 +0800
 MIME-Version: 1.0
-X-Originating-IP: [10.129.178.212]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-Cc: Christian Bruel <christian.bruel@foss.st.com>
-Subject: [Linux-stm32] [PATCH v2] phy: stm32: Optimize tuning values from DT.
+To: Furong Xu <0x1207@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1736500685.git.0x1207@gmail.com>
+ <600c76e88b6510f6a4635401ec1e224b3bbb76ec.1736500685.git.0x1207@gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Yanteng Si <si.yanteng@linux.dev>
+In-Reply-To: <600c76e88b6510f6a4635401ec1e224b3bbb76ec.1736500685.git.0x1207@gmail.com>
+X-Migadu-Flow: FLOW_OUT
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/3] net: stmmac: Switch to
+ zero-copy in non-XDP RX path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,193 +55,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-phy_init can be recalled during PM resume. Thus cache the tuning values
-read from the device tree.
-Don't read the known default ohm value from regmap.
-
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
-v2: Fix 'val' uninitialized variable from clang build bot
-
- drivers/phy/st/phy-stm32-combophy.c | 84 ++++++++++++++---------------
- 1 file changed, 42 insertions(+), 42 deletions(-)
-
-diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
-index 49e9fa90a681..5c09c4e48bd0 100644
---- a/drivers/phy/st/phy-stm32-combophy.c
-+++ b/drivers/phy/st/phy-stm32-combophy.c
-@@ -86,6 +86,10 @@ struct stm32_combophy {
- 	struct clk_bulk_data clks[ARRAY_SIZE(combophy_clks)];
- 	int num_clks;
- 	bool have_pad_clk;
-+	bool have_ssc;
-+	int rx_eq;
-+	u32 microohm;
-+	u32 microvolt;
- 	unsigned int type;
- 	bool is_init;
- 	int irq_wakeup;
-@@ -112,27 +116,15 @@ static const struct clk_impedance imp_lookup[] = {
- 	{ 3999000, { 571000, 648000, 726000, 803000 } }
- };
- 
--static int stm32_impedance_tune(struct stm32_combophy *combophy)
-+static void stm32_impedance_tune(struct stm32_combophy *combophy)
- {
--	u8 imp_size = ARRAY_SIZE(imp_lookup);
--	u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
- 	u8 imp_of, vswing_of;
--	u32 max_imp = imp_lookup[0].microohm;
--	u32 min_imp = imp_lookup[imp_size - 1].microohm;
--	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
--	u32 min_vswing = imp_lookup[0].vswing[0];
--	u32 val;
- 	u32 regval;
- 
--	if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
--		if (val < min_imp || val > max_imp) {
--			dev_err(combophy->dev, "Invalid value %u for output ohm\n", val);
--			return -EINVAL;
--		}
--
-+	if (combophy->microohm) {
- 		regval = 0;
- 		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++) {
--			if (imp_lookup[imp_of].microohm <= val) {
-+			if (imp_lookup[imp_of].microohm <= combophy->microohm) {
- 				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of);
- 				break;
- 			}
-@@ -145,19 +137,14 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
- 				   regval);
- 	} else {
--		regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
--		imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
-+		/* default is 50 ohm */
-+		imp_of = 3;
- 	}
- 
--	if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
--		if (val < min_vswing || val > max_vswing) {
--			dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
--			return -EINVAL;
--		}
--
-+	if (combophy->microvolt) {
- 		regval = 0;
- 		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++) {
--			if (imp_lookup[imp_of].vswing[vswing_of] >= val) {
-+			if (imp_lookup[imp_of].vswing[vswing_of] >= combophy->microvolt) {
- 				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of);
- 				break;
- 			}
-@@ -170,8 +157,6 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
- 				   regval);
- 	}
--
--	return 0;
- }
- 
- static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
-@@ -197,7 +182,7 @@ static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
- 		cr1_val |= SYSCFG_COMBOPHY_CR1_REFSSPEN;
- 	}
- 
--	if (of_property_present(combophy->dev->of_node, "st,ssc-on")) {
-+	if (combophy->have_ssc) {
- 		dev_dbg(combophy->dev, "Enabling clock with SSC\n");
- 		cr1_mask |= SYSCFG_COMBOPHY_CR1_SSCEN;
- 		cr1_val |= SYSCFG_COMBOPHY_CR1_SSCEN;
-@@ -253,24 +238,16 @@ static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
- 	reset_control_assert(combophy->phy_reset);
- 
- 	if (combophy->type == PHY_TYPE_PCIE) {
--		ret = stm32_impedance_tune(combophy);
--		if (ret)
--			goto out_iso;
-+		stm32_impedance_tune(combophy);
- 
- 		cr1_mask |= SYSCFG_COMBOPHY_CR1_REFUSEPAD;
- 		cr1_val |= combophy->have_pad_clk ? SYSCFG_COMBOPHY_CR1_REFUSEPAD : 0;
- 	}
- 
--	if (!of_property_read_u32(combophy->dev->of_node, "st,rx-equalizer", &val)) {
--		dev_dbg(combophy->dev, "Set RX equalizer %u\n", val);
--		if (val > SYSCFG_COMBOPHY_CR4_RX0_EQ) {
--			dev_err(combophy->dev, "Invalid value %u for rx0 equalizer\n", val);
--			ret = -EINVAL;
--			goto out_iso;
--		}
--
-+	if (combophy->rx_eq != -1) {
-+		dev_dbg(combophy->dev, "Set RX equalizer %u\n", combophy->rx_eq);
- 		regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR4,
--			   SYSCFG_COMBOPHY_CR4_RX0_EQ, val);
-+			   SYSCFG_COMBOPHY_CR4_RX0_EQ, combophy->rx_eq);
- 	}
- 
- 	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR1, cr1_mask, cr1_val);
-@@ -314,9 +291,6 @@ static int stm32_combophy_pll_init(struct stm32_combophy *combophy)
- 
- 	return 0;
- 
--out_iso:
--	reset_control_deassert(combophy->phy_reset);
--
- out:
- 	regmap_update_bits(combophy->regmap, SYSCFG_COMBOPHY_CR2,
- 			   SYSCFG_COMBOPHY_CR2_ISO_DIS, 0);
-@@ -522,6 +496,12 @@ static int stm32_combophy_probe(struct platform_device *pdev)
- 	struct stm32_combophy *combophy;
- 	struct device *dev = &pdev->dev;
- 	struct phy_provider *phy_provider;
-+	u8 imp_size = ARRAY_SIZE(imp_lookup);
-+	u8 vswing_size = ARRAY_SIZE(imp_lookup[0].vswing);
-+	u32 max_imp = imp_lookup[0].microohm;
-+	u32 min_imp = imp_lookup[imp_size - 1].microohm;
-+	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
-+	u32 min_vswing = imp_lookup[0].vswing[0];
- 	int ret, irq;
- 
- 	combophy = devm_kzalloc(dev, sizeof(*combophy), GFP_KERNEL);
-@@ -569,6 +549,26 @@ static int stm32_combophy_probe(struct platform_device *pdev)
- 						 combophy->irq_wakeup);
- 	}
- 
-+	if (of_property_present(dev->of_node, "st,ssc-on"))
-+		combophy->have_ssc = true;
-+
-+	if (!of_property_read_u32(dev->of_node, "st,rx-equalizer", &combophy->rx_eq)) {
-+		if (combophy->rx_eq > SYSCFG_COMBOPHY_CR4_RX0_EQ)
-+			return dev_err_probe(dev, combophy->rx_eq,
-+					     "Invalid value for rx0 equalizer\n");
-+	} else
-+		combophy->rx_eq = -1;
-+
-+	if (!of_property_read_u32(dev->of_node, "st,output-micro-ohms", &combophy->microohm))
-+		if (combophy->microohm < min_imp || combophy->microohm > max_imp)
-+			return dev_err_probe(dev, combophy->microohm,
-+					     "Invalid value for output ohm\n");
-+
-+	if (!of_property_read_u32(dev->of_node, "st,output-vswing-microvolt", &combophy->microvolt))
-+		if (combophy->microvolt < min_vswing || combophy->microvolt > max_vswing)
-+			return dev_err_probe(dev, combophy->microvolt,
-+					     "Invalid value for output vswing\n");
-+
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to enable pm runtime\n");
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+5ZyoIDIwMjUvMS8xMCAxNzo1MywgRnVyb25nIFh1IOWGmemBkzoKPiBBdm9pZCBtZW1jcHkgaW4g
+bm9uLVhEUCBSWCBwYXRoIGJ5IG1hcmtpbmcgYWxsIGFsbG9jYXRlZCBTS0JzIHRvCj4gYmUgcmVj
+eWNsZWQgaW4gdGhlIHVwcGVyIG5ldHdvcmsgc3RhY2suCj4gCj4gVGhpcyBwYXRjaCBicmluZ3Mg
+fjExLjUlIGRyaXZlciBwZXJmb3JtYW5jZSBpbXByb3ZlbWVudCBpbiBhIFRDUCBSWAo+IHRocm91
+Z2hwdXQgdGVzdCB3aXRoIGlQZXJmIHRvb2wgb24gYSBzaW5nbGUgaXNvbGF0ZWQgQ29ydGV4LUE2
+NSBDUFUKPiBjb3JlLCBmcm9tIDIuMTggR2JpdHMvc2VjIGluY3JlYXNlZCB0byAyLjQzIEdiaXRz
+L3NlYy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBGdXJvbmcgWHUgPDB4MTIwN0BnbWFpbC5jb20+Cj4g
+LS0tCj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWMuaCAgfCAg
+MSArCj4gICAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCAy
+MyArKysrKysrKysrKy0tLS0tLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMo
+KyksIDkgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0
+L3N0bWljcm8vc3RtbWFjL3N0bW1hYy5oIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvc3RtbWFjLmgKPiBpbmRleCA1NDhiMjhmZWQ5YjYuLjVjMzkyOTIzMTNkZSAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWMuaAo+ICsr
+KyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hYy5oCj4gQEAgLTEy
+Niw2ICsxMjYsNyBAQCBzdHJ1Y3Qgc3RtbWFjX3J4X3F1ZXVlIHsKPiAgIAl1bnNpZ25lZCBpbnQg
+Y3VyX3J4Owo+ICAgCXVuc2lnbmVkIGludCBkaXJ0eV9yeDsKPiAgIAl1bnNpZ25lZCBpbnQgYnVm
+X2FsbG9jX251bTsKPiArCXVuc2lnbmVkIGludCBuYXBpX3NrYl9mcmFnX3NpemU7Cj4gICAJZG1h
+X2FkZHJfdCBkbWFfcnhfcGh5Owo+ICAgCXUzMiByeF90YWlsX2FkZHI7Cj4gICAJdW5zaWduZWQg
+aW50IHN0YXRlX3NhdmVkOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
+Y3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvc3RtbWFjX21haW4uYwo+IGluZGV4IDAzOGRmMWIyYmI1OC4uNDMxMjVhNmY4ZjZiIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19t
+YWluLmMKPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
+bWFpbi5jCj4gQEAgLTEzMjAsNyArMTMyMCw3IEBAIHN0YXRpYyB1bnNpZ25lZCBpbnQgc3RtbWFj
+X3J4X29mZnNldChzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYpCj4gICAJaWYgKHN0bW1hY194ZHBf
+aXNfZW5hYmxlZChwcml2KSkKPiAgIAkJcmV0dXJuIFhEUF9QQUNLRVRfSEVBRFJPT007Cj4gICAK
+PiAtCXJldHVybiAwOwo+ICsJcmV0dXJuIE5FVF9TS0JfUEFEOwo+ICAgfQo+ICAgCj4gICBzdGF0
+aWMgaW50IHN0bW1hY19zZXRfYmZzaXplKGludCBtdHUsIGludCBidWZzaXplKQo+IEBAIC0yMDE5
+LDE3ICsyMDE5LDIxIEBAIHN0YXRpYyBpbnQgX19hbGxvY19kbWFfcnhfZGVzY19yZXNvdXJjZXMo
+c3RydWN0IHN0bW1hY19wcml2ICpwcml2LAo+ICAgCXN0cnVjdCBzdG1tYWNfY2hhbm5lbCAqY2gg
+PSAmcHJpdi0+Y2hhbm5lbFtxdWV1ZV07Cj4gICAJYm9vbCB4ZHBfcHJvZyA9IHN0bW1hY194ZHBf
+aXNfZW5hYmxlZChwcml2KTsKPiAgIAlzdHJ1Y3QgcGFnZV9wb29sX3BhcmFtcyBwcF9wYXJhbXMg
+PSB7IDAgfTsKPiAtCXVuc2lnbmVkIGludCBudW1fcGFnZXM7Cj4gKwl1bnNpZ25lZCBpbnQgZG1h
+X2J1Zl9zel9wYWQsIG51bV9wYWdlczsKPiAgIAl1bnNpZ25lZCBpbnQgbmFwaV9pZDsKPiAgIAlp
+bnQgcmV0Owo+ICAgCj4gKwlkbWFfYnVmX3N6X3BhZCA9IHN0bW1hY19yeF9vZmZzZXQocHJpdikg
+KyBkbWFfY29uZi0+ZG1hX2J1Zl9zeiArCj4gKwkJCSBTS0JfREFUQV9BTElHTihzaXplb2Yoc3Ry
+dWN0IHNrYl9zaGFyZWRfaW5mbykpOwo+ICsJbnVtX3BhZ2VzID0gRElWX1JPVU5EX1VQKGRtYV9i
+dWZfc3pfcGFkLCBQQUdFX1NJWkUpOwo+ICsKPiAgIAlyeF9xLT5xdWV1ZV9pbmRleCA9IHF1ZXVl
+Owo+ICAgCXJ4X3EtPnByaXZfZGF0YSA9IHByaXY7Cj4gKwlyeF9xLT5uYXBpX3NrYl9mcmFnX3Np
+emUgPSBudW1fcGFnZXMgKiBQQUdFX1NJWkU7Cj4gICAKPiAgIAlwcF9wYXJhbXMuZmxhZ3MgPSBQ
+UF9GTEFHX0RNQV9NQVAgfCBQUF9GTEFHX0RNQV9TWU5DX0RFVjsKPiAgIAlwcF9wYXJhbXMucG9v
+bF9zaXplID0gZG1hX2NvbmYtPmRtYV9yeF9zaXplOwo+IC0JbnVtX3BhZ2VzID0gRElWX1JPVU5E
+X1VQKGRtYV9jb25mLT5kbWFfYnVmX3N6LCBQQUdFX1NJWkUpOwo+IC0JcHBfcGFyYW1zLm9yZGVy
+ID0gaWxvZzIobnVtX3BhZ2VzKTsKPiArCXBwX3BhcmFtcy5vcmRlciA9IG9yZGVyX2Jhc2VfMihu
+dW1fcGFnZXMpOwo+ICAgCXBwX3BhcmFtcy5uaWQgPSBkZXZfdG9fbm9kZShwcml2LT5kZXZpY2Up
+Owo+ICAgCXBwX3BhcmFtcy5kZXYgPSBwcml2LT5kZXZpY2U7Cj4gICAJcHBfcGFyYW1zLmRtYV9k
+aXIgPSB4ZHBfcHJvZyA/IERNQV9CSURJUkVDVElPTkFMIDogRE1BX0ZST01fREVWSUNFOwo+IEBA
+IC01NTc0LDE5ICs1NTc4LDIwIEBAIHN0YXRpYyBpbnQgc3RtbWFjX3J4KHN0cnVjdCBzdG1tYWNf
+cHJpdiAqcHJpdiwgaW50IGxpbWl0LCB1MzIgcXVldWUpCj4gICAJCQkvKiBYRFAgcHJvZ3JhbSBt
+YXkgZXhwYW5kIG9yIHJlZHVjZSB0YWlsICovCj4gICAJCQlidWYxX2xlbiA9IGN0eC54ZHAuZGF0
+YV9lbmQgLSBjdHgueGRwLmRhdGE7Cj4gICAKPiAtCQkJc2tiID0gbmFwaV9hbGxvY19za2IoJmNo
+LT5yeF9uYXBpLCBidWYxX2xlbik7Cj4gKwkJCXNrYiA9IG5hcGlfYnVpbGRfc2tiKHBhZ2VfYWRk
+cmVzcyhidWYtPnBhZ2UpLAo+ICsJCQkJCSAgICAgcnhfcS0+bmFwaV9za2JfZnJhZ19zaXplKTsK
+PiAgIAkJCWlmICghc2tiKSB7Cj4gKwkJCQlwYWdlX3Bvb2xfcmVjeWNsZV9kaXJlY3QocnhfcS0+
+cGFnZV9wb29sLAo+ICsJCQkJCQkJIGJ1Zi0+cGFnZSk7Cj4gICAJCQkJcnhfZHJvcHBlZCsrOwo+
+ICAgCQkJCWNvdW50Kys7Cj4gICAJCQkJZ290byBkcmFpbl9kYXRhOwo+ICAgCQkJfQo+ICAgCj4g
+ICAJCQkvKiBYRFAgcHJvZ3JhbSBtYXkgYWRqdXN0IGhlYWRlciAqLwo+IC0JCQlza2JfY29weV90
+b19saW5lYXJfZGF0YShza2IsIGN0eC54ZHAuZGF0YSwgYnVmMV9sZW4pOwo+ICsJCQlza2JfcmVz
+ZXJ2ZShza2IsIGN0eC54ZHAuZGF0YSAtIGN0eC54ZHAuZGF0YV9oYXJkX3N0YXJ0KTsKVGhlIG5l
+dHdvcmsgc3Vic3lzdGVtIHN0aWxsIHJlcXVpcmVzIHRoYXQgdGhlIGxlbmd0aApvZiBlYWNoIGxp
+bmUgb2YgY29kZSBzaG91bGQgbm90IGV4Y2VlZCA4MCBjaGFyYWN0ZXJzLgpTbyBsZXQncyBzaWxl
+bmNlIHRoZSB3YXJuaW5nOgoKV0FSTklORzogbGluZSBsZW5ndGggb2YgODEgZXhjZWVkcyA4MCBj
+b2x1bW5zCiM4NzogRklMRTogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3Rt
+bWFjX21haW4uYzo1NTkyOgorCQkJc2tiX3Jlc2VydmUoc2tiLCBjdHgueGRwLmRhdGEgLSBjdHgu
+eGRwLmRhdGFfaGFyZF9zdGFydCk7CgpUaGFua3MsCllhbnRlbmcKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
