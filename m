@@ -2,54 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94122A0B08B
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 09:06:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DEC1A0B133
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2025 09:35:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43283C78024;
-	Mon, 13 Jan 2025 08:06:11 +0000 (UTC)
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
- [91.218.175.188])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D1C4C7802B;
+	Mon, 13 Jan 2025 08:35:27 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52843C78023
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B3E1C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2025 08:06:04 +0000 (UTC)
-Message-ID: <5d97dd34-f293-4403-b605-c0ae7b5490fd@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1736755559;
+ Mon, 13 Jan 2025 08:35:20 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id EBF7A1C0009;
+ Mon, 13 Jan 2025 08:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1736757319;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pcuNFQWJylkhPh7t8gonvzvwWsZ6sN4LnbhC8eusAv0=;
- b=X8Hz6+4QavDAiS3Ew+4O7uWu/tOuSMl4stek9qSeQKLJAusNsXpq1L88iuACDbzN77VEkg
- dwdnWW1K6ANumpRwxOSgxq1C3eSzvUt0qkcxWVD99BYd1ErmKtoYhWWYw2jQuObsjnhUpf
- UnCeBErX+lqVQJ7NUvQ5rjqnRMFbWy4=
-Date: Mon, 13 Jan 2025 16:05:13 +0800
-MIME-Version: 1.0
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- MD Danish Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ bh=2M/xnJphBUzCcjZlLtKi3iA13j5DEXJ9BhN7BnaNhrk=;
+ b=NwDC8x5ICmGvURqTj97rfvXYBQ216mS20T8xfQvMwMsToJeZtQ4coiFoqyeL5H3io1wULa
+ yt2j8pq1retjB4JIx43HldsiClXWAruCWuJ2HqEu2jE1g6BfsWmfFSY6d7rpuYCsURqtde
+ k2DvJk0gCa1IuX6tVEVkF9Jzty/dJr1e7Y33FNc5ClzdrvdKppQ0NzDUhC4v0OdHI7ReUD
+ E4gFY0O0A7qDaWmTePOU7o2EHUtTz7J0HTjnqYGrGGGclPhSNF1tnbIzLHkFqP7NUr4Nd9
+ W1oxdb9YLEsxRruqWMR2crGBMvib3k8Td/FJX3HCTbhW2pIzDB0SG8/XXGvtdQ==
+Date: Mon, 13 Jan 2025 09:35:18 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
- <20250112-syscon-phandle-args-net-v1-5-3423889935f7@linaro.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Yanteng Si <si.yanteng@linux.dev>
-In-Reply-To: <20250112-syscon-phandle-args-net-v1-5-3423889935f7@linaro.org>
-X-Migadu-Flow: FLOW_OUT
-Cc: netdev@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH net-next 5/5] net: stmmac: stm32: Use
- syscon_regmap_lookup_by_phandle_args
+ linux-rtc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <173675730307.1496086.4868139037996576854.b4-ty@bootlin.com>
+References: <20250111185405.183824-1-krzysztof.kozlowski@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250111185405.183824-1-krzysztof.kozlowski@linaro.org>
+X-GND-Sasl: alexandre.belloni@bootlin.com
+Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Use
+	syscon_regmap_lookup_by_phandle_args
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,44 +53,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-5ZyoIDIwMjUvMS8xMiAyMTozMiwgS3J6eXN6dG9mIEtvemxvd3NraSDlhpnpgZM6Cj4gVXNlIHN5
-c2Nvbl9yZWdtYXBfbG9va3VwX2J5X3BoYW5kbGVfYXJncygpIHdoaWNoIGlzIGEgd3JhcHBlciBv
-dmVyCj4gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZSgpIGNvbWJpbmVkIHdpdGggZ2V0
-dGluZyB0aGUgc3lzY29uCj4gYXJndW1lbnQuICBFeGNlcHQgc2ltcGxlciBjb2RlIHRoaXMgYW5u
-b3RhdGVzIHdpdGhpbiBvbmUgbGluZSB0aGF0IGdpdmVuCj4gcGhhbmRsZSBoYXMgYXJndW1lbnRz
-LCBzbyBncmVwcGluZyBmb3IgY29kZSB3b3VsZCBiZSBlYXNpZXIuCj4gCj4gVGhlcmUgaXMgYWxz
-byBubyByZWFsIGJlbmVmaXQgaW4gcHJpbnRpbmcgZXJyb3JzIG9uIG1pc3Npbmcgc3lzY29uCj4g
-YXJndW1lbnQsIGJlY2F1c2UgdGhpcyBpcyBkb25lIGp1c3QgdG9vIGxhdGU6IHJ1bnRpbWUgY2hl
-Y2sgb24KPiBzdGF0aWMvYnVpbGQtdGltZSBkYXRhLiAgRHRzY2hlbWEgYW5kIERldmljZXRyZWUg
-YmluZGluZ3Mgb2ZmZXIgdGhlCj4gc3RhdGljL2J1aWxkLXRpbWUgY2hlY2sgZm9yIHRoaXMgYWxy
-ZWFkeS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yu
-a296bG93c2tpQGxpbmFyby5vcmc+Cj4gLS0tCj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
-Y3JvL3N0bW1hYy9kd21hYy1zdG0zMi5jIHwgOSArKy0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2Vk
-LCAyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXN0bTMyLmMgYi9kcml2ZXJzL25l
-dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1zdG0zMi5jCj4gaW5kZXggMWU4YmFjNjY1
-Y2M5YmM5NWMzYWE5NmU4N2E4ZTk1ZDljNjNiYThlMS4uMWZjYjc0ZTllM2ZmYWNkYzc1ODFiMjY3
-ZmViYjU1ZDAxNWE4M2FlZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
-Y3JvL3N0bW1hYy9kd21hYy1zdG0zMi5jCj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
-aWNyby9zdG1tYWMvZHdtYWMtc3RtMzIuYwo+IEBAIC00MTksMTYgKzQxOSwxMSBAQCBzdGF0aWMg
-aW50IHN0bTMyX2R3bWFjX3BhcnNlX2RhdGEoc3RydWN0IHN0bTMyX2R3bWFjICpkd21hYywKPiAg
-IAl9Cj4gICAKPiAgIAkvKiBHZXQgbW9kZSByZWdpc3RlciAqLwo+IC0JZHdtYWMtPnJlZ21hcCA9
-IHN5c2Nvbl9yZWdtYXBfbG9va3VwX2J5X3BoYW5kbGUobnAsICJzdCxzeXNjb24iKTsKPiArCWR3
-bWFjLT5yZWdtYXAgPSBzeXNjb25fcmVnbWFwX2xvb2t1cF9ieV9waGFuZGxlX2FyZ3MobnAsICJz
-dCxzeXNjb24iLAo+ICsJCQkJCQkJICAgICAxLCAmZHdtYWMtPm1vZGVfcmVnKTsKVGhlIG5ldHdv
-cmsgc3Vic3lzdGVtIHN0aWxsIHJlcXVpcmVzIHRoYXQgdGhlIGxlbmd0aCBvZgplYWNoIGxpbmUg
-b2YgY29kZSBzaG91bGQgbm90IGV4Y2VlZCA4MCBjaGFyYWN0ZXJzLgpTbywgbGV0J3Mgc2lsZW5j
-ZSB0aGUgd2FybmluZzoKCldBUk5JTkc6IGxpbmUgbGVuZ3RoIG9mIDgzIGV4Y2VlZHMgODAgY29s
-dW1ucwojMzM6IEZJTEU6IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFj
-LWlteC5jOjMwNzoKKwkJCQkJCQkgICAgICZkd21hYy0+aW50Zl9yZWdfb2ZmKTsKCgpCVFcsIFRo
-ZSBvdGhlciB0d28gc3RtbWFjIHBhdGNoZXMgYWxzbyBuZWVkIHRvIGFkanVzdAp0aGUgY29kZSBz
-byB0aGF0IGVhY2ggbGluZSBkb2Vzbid0IGV4Y2VlZCA4MCBjaGFyYWN0ZXJzLgoKVGhhbmtzLApZ
-YW50ZW5nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+On Sat, 11 Jan 2025 19:54:05 +0100, Krzysztof Kozlowski wrote:
+> Use syscon_regmap_lookup_by_phandle_args() which is a wrapper over
+> syscon_regmap_lookup_by_phandle() combined with getting the syscon
+> argument.  Except simpler code this annotates within one line that given
+> phandle has arguments, so grepping for code would be easier.
+> 
+> There is also no real benefit in printing errors on missing syscon
+> argument, because this is done just too late: runtime check on
+> static/build-time data.  Dtschema and Devicetree bindings offer the
+> static/build-time check for this already.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] rtc: stm32: Use syscon_regmap_lookup_by_phandle_args
+      https://git.kernel.org/abelloni/c/3f76ba88c3fd
+
+Best regards,
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
