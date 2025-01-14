@@ -2,81 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C72A117C7
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 04:27:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A210A11A0C
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 07:49:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3611C78F65;
-	Wed, 15 Jan 2025 03:27:49 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20D37C78F7C;
+	Wed, 15 Jan 2025 06:49:18 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86DC0C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9338AC7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 03:27:48 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-216728b1836so108900315ad.0
+ Tue, 14 Jan 2025 09:11:37 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-aaf60d85238so968970066b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 19:27:48 -0800 (PST)
+ Tue, 14 Jan 2025 01:11:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736911667; x=1737516467;
+ d=amarulasolutions.com; s=google; t=1736845897; x=1737450697;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vrnZOWuzbTsFJQSfUdSJAVwNu1OpPEJIPOluJRIjDnY=;
- b=M/AJXC/CI09M+dO8DrplA4z9cvZKcj43LCg53tgDQEcJKE/kyAaNghv4xlgUa/5d+X
- mBYvmcAgjrGcLhDMt6YE9AIzVt4n3e5oGnUpW3pu7UTU2PioKI0wc7klelHmpdDpinmf
- cXJmOide54pGeunO9mkJapMLjy70iVyty67FdRngWutHLtZdrfymY4pWkZs+k6ZpJmze
- dLLFi6ATwVmX25myoQRA0gTGr16IyhmRv14ZJX4+OOGouKvVhs/BauzyPrwCL+4BweY8
- 84tdOW6Nbqeebz1ipB36A63pWFmEbYQGQy30JdcmYD6ZIwZ8evo6/ZCLsvEhLD5YqdOK
- aRwA==
+ bh=4PuckIz6TtMrm6FhKB7AMqxRoyDL7dpmszhuAU6edRg=;
+ b=rocJbqtbbp9Oj1LkgeJeI7Kwd0AOYsMOCcOuueQ3hLTFoc0Ccj7EIt3gRo0R9IYOoa
+ ybVXMYY7hlsy2tqIwWcTmpdXYpBiLo8cyGIO8BCuSH3NsZ7oOvQ7/jHKQNu2rG7PLIVU
+ 5fWDv/Q5+Or/F4KgC300yQPTpUuYyNBaZoXvs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736911667; x=1737516467;
+ d=1e100.net; s=20230601; t=1736845897; x=1737450697;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vrnZOWuzbTsFJQSfUdSJAVwNu1OpPEJIPOluJRIjDnY=;
- b=XCwVmk1fHIvU/HhZZYaE1v+Mza+NG9GZkVG0KLVHVRNsN+uCt3JbJKgHS+mNpeM+hm
- 0cq0C6YGZKRH8mVnNCMbnhEjxjNNJz65ImsWQx5lWQ+TKAR1/ov8gioX65/eqNhsdVKS
- vbiNDfxsH0jsO9E6Ta8/OIcpd/6Qo5v3ZHRJSBi+PSZ6STuJr/U0JTLmQhPFR7ykvoxJ
- tCcYMvxkXvD0Mh9JhYx15IILkafBcmfsuxUmmTJThJO7Nd25kG3rK61o/l1ty0SmvaU1
- QjewOhDVBait2hV9zKPUzFkA/jF9HhUGDu2caToOblub+/qtc912Jru+ECL946SvWZsv
- A63A==
+ bh=4PuckIz6TtMrm6FhKB7AMqxRoyDL7dpmszhuAU6edRg=;
+ b=L7DwAvUVpTTazt6pCgvYLuvii8JqNHzwd7WD8/Nfs/FTFTQdRc5dhEEh65FpYcgVfB
+ 9CAEbt/aH8SjZ06SGPxw2ygOjLPe2h6QdAQNHd2o8lu0U2y94BpAc9uSO4qfGMiOC40b
+ cD3aakaVpCLkOFaooWlN88S6KTOrqpNB7AW9p7Zf3viXCcof5TtAFAdDl174aHcxmJWk
+ ZPxpAkqViXpBKNPvUrujJsm5y/MTh4V+35b5B7vL4t14yinRAUVmP7Di4XByZaJrK4nm
+ AHS5I+aRP/YfqGyuV2fJFVc3BK2khTgmMfnK/PYiejyEjMjMRBwDXfAyGYRupP5IcsUH
+ hzDA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWve465dvTcjSV0FMv2Z7PjHj1FcyHNZDgo9C1ncLHcfq210uShhAxftZx5qOiuI9xE0hoKS+CFtalBCg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzSaCZJodBteMXWR5c6+eqImmbQJgEhLlTKvw9qeeInDLdI5jzq
- YhJwN3gMNz8S0PPxiYHqRAVpR8SASWJ2/yyVt7pcRXlPSXbwPnik
-X-Gm-Gg: ASbGnct+sHsyqXGOlCGUmlf0PNsotUBF6XVIrcYlyTX5Xq4e1mnekNlmKRQxRYMdn7d
- cuEZYOgVOHWLBdBGFG47Cqhkxx8ZmOaDfYO9ywTxniELRtHS9uW5UmbS7jn7ubF0+5lWho1iFVS
- 8KaFzLB5y1AW3og+bn6RyvQaWZ0eOxXTkWdtcIAjiWQ6g3rQTFa879mue+ttFXSbzF/ONXqx+O7
- f4OTN+en1XHlB+sYgLDZYX1FbLVJNVGbYynjZFNoH7FgnjsDGw59nP0fJiH0OJxkvLyhg==
-X-Google-Smtp-Source: AGHT+IEgvbbedPhMmlQrROuWhBJEvCl3rJhkcO1ll2KbOYDFwCkOh7dbSjQ3/MMG4kA76MxUXWGidA==
-X-Received: by 2002:a05:6a00:39a7:b0:728:e382:5f14 with SMTP id
- d2e1a72fcca58-72d21f314e9mr32614582b3a.9.1736911665971; 
- Tue, 14 Jan 2025 19:27:45 -0800 (PST)
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-72d405493basm8166452b3a.27.2025.01.14.19.27.41
+ AJvYcCWv1r3Mf33RXYDrhYlkQPK6GVjF4S0ZGijYXKc31owws7gWdVDZEp66Wx9bIsXwO4oB0z/rqVxOB0N2Ig==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyRNOwZmtpfElxFhf64YL+ZZ/WrdkQ/W1CUdmjiuSOnHsOXElll
+ OvoftxDM7/+C87SEN0Cfx/5H7dep7mrcQyqIYnloYWW/3JUPdOY6CXi2RaMl2c8=
+X-Gm-Gg: ASbGncs3e1v8ccmxUfwPgHX/xVNTsim84sW2NwabDA/OVba5wk+p9k/9rzm+zlwfQUH
+ rJcb/4hfehmUknaVtDgZOvVHJS2UylWxqcmHY69APEZzCDhjMLjI4q4HmtgmkYoYfTDfSvRfaEo
+ 8zY1+d/Z+5gWoX6ezvn39JXE4YgapIsfVl5+TpIQ9txsj0CmkhQN9bl+NzLcEA6yP3ASA1B+00z
+ 7RoWorUGD34R0I7ow673np6jcvCtQGqmyn2C1fiDBvEePkNs2LtZdE1to3Yn7pfFeMMPlKuKL5M
+ zHA+XL/VeRxdVs0YlBkz/Q==
+X-Google-Smtp-Source: AGHT+IFg5688v9iu2Z6jN1GBfV5nDayopSS598535VN8IIxu6UQsTzwr6yLMykzma1EPL9vJgQo+tw==
+X-Received: by 2002:a17:907:7e95:b0:aaf:c19a:cc1c with SMTP id
+ a640c23a62f3a-ab2ab6c6625mr1898191166b.22.1736845897042; 
+ Tue, 14 Jan 2025 01:11:37 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.. ([2.196.42.147])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab2c95b7317sm599640766b.154.2025.01.14.01.11.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 19:27:45 -0800 (PST)
-From: Furong Xu <0x1207@gmail.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 15 Jan 2025 11:27:05 +0800
-Message-Id: <909631f38edfac07244ea62d94dc76953d52035e.1736910454.git.0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1736910454.git.0x1207@gmail.com>
-References: <cover.1736910454.git.0x1207@gmail.com>
+ Tue, 14 Jan 2025 01:11:36 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 14 Jan 2025 10:11:15 +0100
+Message-ID: <20250114091128.528757-4-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250114091128.528757-1-dario.binacchi@amarulasolutions.com>
+References: <20250114091128.528757-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Joe Damato <jdamato@fastly.com>,
- Furong Xu <0x1207@gmail.com>, Alexander Lobakin <aleksander.lobakin@intel.com>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v3 4/4] net: stmmac: Convert
-	prefetch() to net_prefetch() for received frames
+X-Mailman-Approved-At: Wed, 15 Jan 2025 06:49:15 +0000
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 3/4] clk: stm32f4: use FIELD helpers to
+	access the PLLCFGR fields
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,35 +92,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The size of DMA descriptors is 32 bytes at most.
-net_prefetch() for received frames, and keep prefetch() for descriptors.
+Use GENMASK() along with FIELD_GET() and FIELD_PREP() helpers to access
+the PLLCFGR fields instead of manually masking and shifting.
 
-This patch brings ~4.8% driver performance improvement in a TCP RX
-throughput test with iPerf tool on a single isolated Cortex-A65 CPU
-core, 2.92 Gbits/sec increased to 3.06 Gbits/sec.
-
-Suggested-by: Joe Damato <jdamato@fastly.com>
-Signed-off-by: Furong Xu <0x1207@gmail.com>
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ad928e8e21a9..49b41148d594 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5529,7 +5529,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+(no changes since v1)
+
+ drivers/clk/clk-stm32f4.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+index 07c13ebe327d..db1c56c8d54f 100644
+--- a/drivers/clk/clk-stm32f4.c
++++ b/drivers/clk/clk-stm32f4.c
+@@ -5,6 +5,7 @@
+  * Inspired by clk-asm9260.c .
+  */
  
- 			dma_sync_single_for_cpu(priv->device, buf->addr,
- 						buf1_len, dma_dir);
--			prefetch(page_address(buf->page) + buf->page_offset);
-+			net_prefetch(page_address(buf->page) +
-+				     buf->page_offset);
++#include <linux/bitfield.h>
+ #include <linux/clk-provider.h>
+ #include <linux/err.h>
+ #include <linux/io.h>
+@@ -39,6 +40,8 @@
+ #define STM32F4_RCC_DCKCFGR		0x8c
+ #define STM32F7_RCC_DCKCFGR2		0x90
  
- 			xdp_init_buff(&ctx.xdp, buf_sz, &rx_q->xdp_rxq);
- 			xdp_prepare_buff(&ctx.xdp, page_address(buf->page),
++#define STM32F4_RCC_PLLCFGR_N_MASK	GENMASK(14, 6)
++
+ #define NONE -1
+ #define NO_IDX  NONE
+ #define NO_MUX  NONE
+@@ -632,9 +635,11 @@ static unsigned long stm32f4_pll_recalc(struct clk_hw *hw,
+ {
+ 	struct clk_gate *gate = to_clk_gate(hw);
+ 	struct stm32f4_pll *pll = to_stm32f4_pll(gate);
++	unsigned long val;
+ 	unsigned long n;
+ 
+-	n = (readl(base + pll->offset) >> 6) & 0x1ff;
++	val = readl(base + pll->offset);
++	n = FIELD_GET(STM32F4_RCC_PLLCFGR_N_MASK, val);
+ 
+ 	return parent_rate * n;
+ }
+@@ -673,9 +678,10 @@ static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ 	n = rate  / parent_rate;
+ 
+-	val = readl(base + pll->offset) & ~(0x1ff << 6);
++	val = readl(base + pll->offset) & ~STM32F4_RCC_PLLCFGR_N_MASK;
++	val |= FIELD_PREP(STM32F4_RCC_PLLCFGR_N_MASK, n);
+ 
+-	writel(val | ((n & 0x1ff) <<  6), base + pll->offset);
++	writel(val, base + pll->offset);
+ 
+ 	if (pll_state)
+ 		stm32f4_pll_enable(hw);
 -- 
-2.34.1
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
