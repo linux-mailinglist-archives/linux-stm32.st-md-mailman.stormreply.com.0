@@ -2,79 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D9A8A10FD1
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2025 19:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41FBCA1111D
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2025 20:27:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0470C78F75;
-	Tue, 14 Jan 2025 18:20:34 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D41FEC78032;
+	Tue, 14 Jan 2025 19:27:08 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E11CC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD46BC78031
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 18:20:32 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-3863494591bso3107627f8f.1
+ Tue, 14 Jan 2025 19:27:01 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-43658c452f5so5231235e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 10:20:32 -0800 (PST)
+ Tue, 14 Jan 2025 11:27:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1736878832; x=1737483632;
+ d=gmail.com; s=20230601; t=1736882821; x=1737487621;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zkVJ9sQJb2vv3dExk46APkrSl3qRZZR081phjk5hrNg=;
- b=ln9IZT9KFgNO++sK+z8wPIJmChX/lW5kZ4e/a0CsqWaDLlsdfLsVH3OPLatI230GLE
- 85LOcSGq+xL80xKtRq2fuoHnfmVYbKcCln7YwIKIy9WjIWQTYtkSjt1A1pD6YEE0bFBQ
- ErvA+trZxnJOv2zlsbLvoTd9zqmY4JSdC6KOw=
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QPDOC2//XkjZODpmg0y0cTcEshGv93e+h8EC+PgTW2w=;
+ b=iQfEnxzc/JmOkbQTs+K03Oz3gaAwHlWpRG0tpHuU2n0W7VI24wVrGgBVKMKeJVbh0i
+ Is+YYVE4AkJCG1CIVqKonaA7sUXWokV4nkg6sI0yT+eVQroQL39Cchg+WuPCzyeggdKA
+ +Ivnaiq+6KsDLq2O4w13ws/jetNjY/IqDj+YXr4YNTyUfIw8IQak8nXUD7L8PJWWQ2su
+ ldCjodxbNEPB89qPFSw1K4iqKyw7jtlI865KGl+PJLfLQvjl7sKtPHm9gq5aJV9wFPAU
+ uDQfjCdJAlkpjgOHqxbSfrA4hFQ5e4h1owj8QEo9xq4b2TylMJpFafaGz8LGtaxWP+Z5
+ CCIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736878832; x=1737483632;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zkVJ9sQJb2vv3dExk46APkrSl3qRZZR081phjk5hrNg=;
- b=YbTKHAfYXgWiMcCA/wJ0a7kkoeyUhVP295qFeoLlz6ppmSFxkZVIpSr7sSiqpgiHpr
- Ny38RS3m7087onuROfiPbh5rSYUO7bFDJPWb4LI0kYalObgs25LZM8z+28UJf7N8KtyR
- T5PQCm0AP501r9Lw0DXwxL6o3meC6jp81tT6MNa/1OrA6K88c1uAvz55YI+A64zuEzzl
- Tm9AGUMdLShHCrrKPuzGjq2bDM6pCKEUwl3UhpKxdJs2KqRbDXt2qaY2h7imgbI08RNy
- B5M6Ydq9W+NM16YArq02yVFL4VHDMGzt6VBf9TSEgYgn80qXCSIA6VoquoINaydiDFZA
- bu1g==
+ d=1e100.net; s=20230601; t=1736882821; x=1737487621;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QPDOC2//XkjZODpmg0y0cTcEshGv93e+h8EC+PgTW2w=;
+ b=WnMAYgY2H6dpBX5hkJGiF3hmKrsP05mxxlqt6O47dND1pP5uIeLfhgMyRqcTEeE386
+ kOKsDSnrLHRsMQBQAeX65BX805ieV6GMM7o1RUAKrE8AanY0OU24c2TH3XZ5x+dPSmNR
+ MeY1hbnr8eCybrCSIukDaHsI8xah4zZtrizq6RdTuyIf6VuAqLlUwO5DgfkCqkANQZA6
+ s6cJCmwPyziDVBN89EiWS+277ceynt9wKcjcA4hhAnnOaWVP+MRGgff4IM4r8VOAN5dM
+ NP4CnxNBslgcxXexlhCEEtT7Sd/EhiJfd0ltgvpGeNNTlMclAolPHy7X3bC8lWY7r+D8
+ RXCg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXQdYHCzV+edczgdiYi/15Uv6B05Q4Jq7thwN46w46haYYsOEaxLy/G8DPMT803+SiFuF1g/asrBezqIA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzxredNRqfU92R4ItUJca6tu0fDUmSz1rs+4cDjsStNDu51G+zM
- guKk2A06KCR4df8DRbXMiHn2xNU403Ukgz06b0soW0TRaMzraSVfFQYhSixXPTI=
-X-Gm-Gg: ASbGncurD7C4UnA3AZ1jbVlqgrZArE3Ofn9HA9AfZFjI9PPmml8aCM/qmLUENOp2OE/
- TeYuPqzfXFrm5FJeiHLOvcUTNPT/64pgn+WAwlE9TwhAQXu2TmkAAgO3tJFCsgQFhUErKuZHtTo
- plEzp4YfxfWf2HIMwDqq2nXFRBjsNWVy/uFSw9+nqzHFtQ5PfEFJ/oG4ur31Od8mJFl2DxTLevr
- DTiEx1nVJ3kBmvCJVS6FQBRssrfNozwIyeXnCeI6otBpKW7X+g5KIoLwm8hK2M2DRUKxEnLWp11
- CuNc5xyjB4S6KdgeWCXTmw==
-X-Google-Smtp-Source: AGHT+IFTHsaO4pRWj/ycSK7tK4wq2QnfEdwhDWA14Pe+guQjbbmIcKTGCb6cXgJjyJ8q3PXu6BJlEQ==
-X-Received: by 2002:a5d:6c68:0:b0:385:fd07:85f8 with SMTP id
- ffacd0b85a97d-38a872ebfbdmr20001278f8f.29.1736878831746; 
- Tue, 14 Jan 2025 10:20:31 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.. ([2.196.42.147])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38be66b01c7sm278970f8f.22.2025.01.14.10.20.30
+ AJvYcCX6j9gu9GtiSLtF7b6lBMJHnFHYunRmpheJPMLlX2wHEhlcOykQ+ALxaZfI+nlk12S56KmjMAA252TR0g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyYrYWjqftKL0pb9Cl5Whtp+9cM3RnJQce/4NdSlGyTn92QBhr1
+ hYiM1wl7ly9UBAmpU/KTnTEnW6Ypx7p7bwIjPdp+laxUs1Aejg8l
+X-Gm-Gg: ASbGncsInsIRYgj1avogbOEy0mBreFt7xMW5/BJOPK5Q1Otd04VtLSiwxMR6EALyxAL
+ 1q+EAH8t/8q90HMCqNlRYxmTodYcx9cefReCWQKyns1InQARxO5kd8lnffuYimg2Eo7Zun8NaEk
+ asHjsl/yybm5iRs7M2TrUvIC01jRx+fEJDQUcZZcrcZPWKjlmJNuh6biJfOvdhqU13l/gdNAMpj
+ wtODXtRz27eWenOm6BZlOf+9EMfBF8Bd62k2bGyuX+4
+X-Google-Smtp-Source: AGHT+IFRMhm4Uswt+iLT80MZuXuKVqSaWMPJbe10Y7O9d5L2JP8nrXQetkrsSgWyKgweQMeH2SjLVA==
+X-Received: by 2002:a05:600c:35c2:b0:434:941c:9df2 with SMTP id
+ 5b1f17b1804b1-436e272c89cmr94080655e9.8.1736882820898; 
+ Tue, 14 Jan 2025 11:27:00 -0800 (PST)
+Received: from skbuf ([86.127.124.81]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436e2e89f29sm219901715e9.28.2025.01.14.11.26.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 10:20:31 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Tue, 14 Jan 2025 19:19:49 +0100
-Message-ID: <20250114182021.670435-5-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250114182021.670435-1-dario.binacchi@amarulasolutions.com>
-References: <20250114182021.670435-1-dario.binacchi@amarulasolutions.com>
+ Tue, 14 Jan 2025 11:26:59 -0800 (PST)
+Date: Tue, 14 Jan 2025 21:26:56 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250114192656.l5xlipbe4fkirkq4@skbuf>
+References: <Z4ZtoeeHIXPucjUv@shell.armlinux.org.uk>
+ <E1tXhVK-000n18-3C@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 4/4] clk: stm32f4: support spread spectrum
-	clock generation
+Content-Disposition: inline
+In-Reply-To: <E1tXhVK-000n18-3C@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+ UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 10/10] net: dsa: allow use of
+ phylink managed EEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,274 +93,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Support spread spectrum clock generation for the main PLL, the only one
-for which this functionality is available.
+On Tue, Jan 14, 2025 at 02:02:50PM +0000, Russell King (Oracle) wrote:
+> In order to allow DSA drivers to use phylink managed EEE, changes are
+> necessary to the DSA .set_eee() and .get_eee() methods. Where drivers
+> make use of phylink managed EEE, these should just pass the method on
+> to their phylink implementation without calling the DSA specific
+> operations.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
 
-Tested on the STM32F469I-DISCO board.
+What is the reason for including this patch with this set, where
+it is of no use until at least one DSA driver provides the new API
+implementations?
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+>  net/dsa/user.c | 25 ++++++++++++++++---------
+>  1 file changed, 16 insertions(+), 9 deletions(-)
+> 
+> diff --git a/net/dsa/user.c b/net/dsa/user.c
+> index c74f2b2b92de..6912d2d57486 100644
+> --- a/net/dsa/user.c
+> +++ b/net/dsa/user.c
+> @@ -1233,16 +1233,23 @@ static int dsa_user_set_eee(struct net_device *dev, struct ethtool_keee *e)
+>  	if (!ds->ops->support_eee || !ds->ops->support_eee(ds, dp->index))
+>  		return -EOPNOTSUPP;
+>  
+> -	/* Port's PHY and MAC both need to be EEE capable */
+> -	if (!dev->phydev)
+> -		return -ENODEV;
+> -
+> -	if (!ds->ops->set_mac_eee)
+> -		return -EOPNOTSUPP;
+> +	/* If the port is using phylink managed EEE, then get_mac_eee is
 
----
+set_mac_eee() is what is unnecessary.
 
-Changes in v4:
-- Improve the compatible property in patch 1/4 "dt-bindings: clock:
-  convert stm32 rcc bindings to json-schema"
+> +	 * unnecessary.
+> +	 */
+> +	if (!ds->phylink_mac_ops ||
+> +	    !ds->phylink_mac_ops->mac_disable_tx_lpi ||
+> +	    !ds->phylink_mac_ops->mac_enable_tx_lpi) {
 
-Changes in v3:
-- Changes to patch 4/4 "clk: stm32f4: support spread spectrum clock generation"
-  according to Stephen Boyd's suggestions.
-- Drop pr_debug() from stm32f4_pll_set_ssc()
-- Add __init to stm32f4_pll_init_ssc() and stm32f4_pll_ssc_parse_dt().
-- Add const to conf parameter of stm32f4_pll_init_ssc().
-- Use fwnode_property_match_property_string() to parse the
-  st,ssc-modmethod dts property.
+Does it make sense to export pl->mac_supports_eee_ops wrapped into a
+helper function and call that here? To avoid making DSA too tightly
+coupled with the phylink MAC operation names.
 
-Changes in v2:
-- Fixup patches:
-  2/6 dt-bindings: reset: st,stm32-rcc: update reference due to rename
-  3/6 dt-bindings: clock: stm32fx: update reference due to rename
-  to
-  1/6 dt-bindings: clock: convert stm32 rcc bindings to json-schema
-- Changes to dt-bindings: clock: convert stm32 rcc bindings to json-schema
-- Changes to dt-bindings: clock: st,stm32-rcc: support spread spectrum clocking
-
- drivers/clk/clk-stm32f4.c | 143 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 140 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index db1c56c8d54f..f476883bc93b 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -35,6 +35,7 @@
- #define STM32F4_RCC_APB2ENR		0x44
- #define STM32F4_RCC_BDCR		0x70
- #define STM32F4_RCC_CSR			0x74
-+#define STM32F4_RCC_SSCGR		0x80
- #define STM32F4_RCC_PLLI2SCFGR		0x84
- #define STM32F4_RCC_PLLSAICFGR		0x88
- #define STM32F4_RCC_DCKCFGR		0x8c
-@@ -42,6 +43,12 @@
- 
- #define STM32F4_RCC_PLLCFGR_N_MASK	GENMASK(14, 6)
- 
-+#define STM32F4_RCC_SSCGR_SSCGEN	BIT(31)
-+#define STM32F4_RCC_SSCGR_SPREADSEL	BIT(30)
-+#define STM32F4_RCC_SSCGR_RESERVED_MASK	GENMASK(29, 28)
-+#define STM32F4_RCC_SSCGR_INCSTEP_MASK	GENMASK(27, 13)
-+#define STM32F4_RCC_SSCGR_MODPER_MASK	GENMASK(12, 0)
-+
- #define NONE -1
- #define NO_IDX  NONE
- #define NO_MUX  NONE
-@@ -367,6 +374,16 @@ static const struct stm32f4_gate_data stm32f769_gates[] __initconst = {
- 	{ STM32F4_RCC_APB2ENR, 30,	"mdio",		"apb2_div" },
- };
- 
-+enum stm32f4_pll_ssc_mod_type {
-+	STM32F4_PLL_SSC_CENTER_SPREAD,
-+	STM32F4_PLL_SSC_DOWN_SPREAD,
-+};
-+
-+static const char * const stm32f4_ssc_mod_methods[] __initconst = {
-+	[STM32F4_PLL_SSC_DOWN_SPREAD] = "down-spread",
-+	[STM32F4_PLL_SSC_CENTER_SPREAD] = "center-spread",
-+};
-+
- /*
-  * This bitmask tells us which bit offsets (0..192) on STM32F4[23]xxx
-  * have gate bits associated with them. Its combined hweight is 71.
-@@ -512,6 +529,12 @@ static const struct clk_div_table pll_divr_table[] = {
- 	{ 2, 2 }, { 3, 3 }, { 4, 4 }, { 5, 5 }, { 6, 6 }, { 7, 7 }, { 0 }
- };
- 
-+struct stm32f4_pll_ssc {
-+	unsigned int mod_freq;
-+	unsigned int mod_depth;
-+	enum stm32f4_pll_ssc_mod_type mod_type;
-+};
-+
- struct stm32f4_pll {
- 	spinlock_t *lock;
- 	struct	clk_gate gate;
-@@ -519,6 +542,8 @@ struct stm32f4_pll {
- 	u8 bit_rdy_idx;
- 	u8 status;
- 	u8 n_start;
-+	bool ssc_enable;
-+	struct stm32f4_pll_ssc ssc_conf;
- };
- 
- #define to_stm32f4_pll(_gate) container_of(_gate, struct stm32f4_pll, gate)
-@@ -541,6 +566,7 @@ struct stm32f4_vco_data {
- 	u8 offset;
- 	u8 bit_idx;
- 	u8 bit_rdy_idx;
-+	bool sscg;
- };
- 
- static const struct stm32f4_vco_data  vco_data[] = {
-@@ -661,6 +687,32 @@ static long stm32f4_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	return *prate * n;
- }
- 
-+static void stm32f4_pll_set_ssc(struct clk_hw *hw, unsigned long parent_rate,
-+				unsigned int ndiv)
-+{
-+	struct clk_gate *gate = to_clk_gate(hw);
-+	struct stm32f4_pll *pll = to_stm32f4_pll(gate);
-+	struct stm32f4_pll_ssc *ssc = &pll->ssc_conf;
-+	u32 modeper, incstep;
-+	u32 sscgr;
-+
-+	sscgr = readl(base + STM32F4_RCC_SSCGR);
-+	/* reserved field must be kept at reset value */
-+	sscgr &= STM32F4_RCC_SSCGR_RESERVED_MASK;
-+
-+	modeper = DIV_ROUND_CLOSEST(parent_rate, 4 * ssc->mod_freq);
-+	incstep = DIV_ROUND_CLOSEST(((1 << 15) - 1) * ssc->mod_depth * ndiv,
-+				    5 * 10000 * modeper);
-+	sscgr |= STM32F4_RCC_SSCGR_SSCGEN |
-+		FIELD_PREP(STM32F4_RCC_SSCGR_INCSTEP_MASK, incstep) |
-+		FIELD_PREP(STM32F4_RCC_SSCGR_MODPER_MASK, modeper);
-+
-+	if (ssc->mod_type)
-+		sscgr |= STM32F4_RCC_SSCGR_SPREADSEL;
-+
-+	writel(sscgr, base + STM32F4_RCC_SSCGR);
-+}
-+
- static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 				unsigned long parent_rate)
- {
-@@ -683,6 +735,9 @@ static int stm32f4_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- 	writel(val, base + pll->offset);
- 
-+	if (pll->ssc_enable)
-+		stm32f4_pll_set_ssc(hw, parent_rate, n);
-+
- 	if (pll_state)
- 		stm32f4_pll_enable(hw);
- 
-@@ -788,6 +843,84 @@ static struct clk_hw *clk_register_pll_div(const char *name,
- 	return hw;
- }
- 
-+static int __init stm32f4_pll_init_ssc(struct clk_hw *hw,
-+				       const struct stm32f4_pll_ssc *conf)
-+{
-+	struct clk_gate *gate = to_clk_gate(hw);
-+	struct stm32f4_pll *pll = to_stm32f4_pll(gate);
-+	struct clk_hw *parent;
-+	unsigned long parent_rate;
-+	int pll_state;
-+	unsigned long n, val;
-+
-+	parent = clk_hw_get_parent(hw);
-+	if (!parent) {
-+		pr_err("%s: failed to get clock parent\n", __func__);
-+		return -ENODEV;
-+	}
-+
-+	parent_rate = clk_hw_get_rate(parent);
-+
-+	pll->ssc_enable = true;
-+	memcpy(&pll->ssc_conf, conf, sizeof(pll->ssc_conf));
-+
-+	pll_state = stm32f4_pll_is_enabled(hw);
-+
-+	if (pll_state)
-+		stm32f4_pll_disable(hw);
-+
-+	val = readl(base + pll->offset);
-+	n = FIELD_GET(STM32F4_RCC_PLLCFGR_N_MASK, val);
-+
-+	pr_debug("%s: pll: %s, parent: %s, parent-rate: %lu, n: %lu\n",
-+		 __func__, clk_hw_get_name(hw), clk_hw_get_name(parent),
-+		 parent_rate, n);
-+
-+	stm32f4_pll_set_ssc(hw, parent_rate, n);
-+
-+	if (pll_state)
-+		stm32f4_pll_enable(hw);
-+
-+	return 0;
-+}
-+
-+static int __init stm32f4_pll_ssc_parse_dt(struct device_node *np,
-+					   struct stm32f4_pll_ssc *conf)
-+{
-+	int ret;
-+	const char *s;
-+
-+	if (!conf)
-+		return -EINVAL;
-+
-+	ret = of_property_read_u32(np, "st,ssc-modfreq-hz", &conf->mod_freq);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_property_read_u32(np, "st,ssc-moddepth-permyriad",
-+				   &conf->mod_depth);
-+	if (ret) {
-+		pr_err("%pOF: missing st,ssc-moddepth-permyriad\n", np);
-+		return ret;
-+	}
-+
-+	ret = fwnode_property_match_property_string(of_fwnode_handle(np),
-+						    "st,ssc-modmethod",
-+						    stm32f4_ssc_mod_methods,
-+						    ARRAY_SIZE(stm32f4_ssc_mod_methods));
-+	if (ret < 0) {
-+		pr_err("%pOF: failed to get st,ssc-modmethod\n", np);
-+		return ret;
-+	}
-+
-+	conf->mod_type = ret;
-+
-+	pr_debug("%pOF: SSCG settings: mod_freq: %d, mod_depth: %d mod_method: %s [%d]\n",
-+		 np, conf->mod_freq, conf->mod_depth, s, conf->mod_type);
-+
-+	return 0;
-+}
-+
- static struct clk_hw *stm32f4_rcc_register_pll(const char *pllsrc,
- 		const struct stm32f4_pll_data *data,  spinlock_t *lock)
- {
-@@ -1695,7 +1828,8 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	const struct of_device_id *match;
- 	const struct stm32f4_clk_data *data;
- 	unsigned long pllm;
--	struct clk_hw *pll_src_hw;
-+	struct clk_hw *pll_src_hw, *pll_vco_hw;
-+	struct stm32f4_pll_ssc ssc_conf;
- 
- 	base = of_iomap(np, 0);
- 	if (!base) {
-@@ -1754,8 +1888,8 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	clk_hw_register_fixed_factor(NULL, "vco_in", pll_src,
- 				     0, 1, pllm);
- 
--	stm32f4_rcc_register_pll("vco_in", &data->pll_data[0],
--			&stm32f4_clk_lock);
-+	pll_vco_hw = stm32f4_rcc_register_pll("vco_in", &data->pll_data[0],
-+					      &stm32f4_clk_lock);
- 
- 	clks[PLL_VCO_I2S] = stm32f4_rcc_register_pll("vco_in",
- 			&data->pll_data[1], &stm32f4_clk_lock);
-@@ -1900,6 +2034,9 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 
- 	of_clk_add_hw_provider(np, stm32f4_rcc_lookup_clk, NULL);
- 
-+	if (!stm32f4_pll_ssc_parse_dt(np, &ssc_conf))
-+		stm32f4_pll_init_ssc(pll_vco_hw, &ssc_conf);
-+
- 	return;
- fail:
- 	kfree(clks);
--- 
-2.43.0
-
+> +		/* Port's PHY and MAC both need to be EEE capable */
+> +		if (!dev->phydev)
+> +			return -ENODEV;
+> +
+> +		if (!ds->ops->set_mac_eee)
+> +			return -EOPNOTSUPP;
+>  
+> -	ret = ds->ops->set_mac_eee(ds, dp->index, e);
+> -	if (ret)
+> -		return ret;
+> +		ret = ds->ops->set_mac_eee(ds, dp->index, e);
+> +		if (ret)
+> +			return ret;
+> +	}
+>  
+>  	return phylink_ethtool_set_eee(dp->pl, e);
+>  }
+> -- 
+> 2.30.2
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
