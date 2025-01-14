@@ -2,41 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED9FA102FB
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2025 10:28:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD0EA10302
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2025 10:29:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3BE1C7802D;
-	Tue, 14 Jan 2025 09:28:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7810C7802D;
+	Tue, 14 Jan 2025 09:29:17 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00BFDC7801E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CDF4C7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 09:28:31 +0000 (UTC)
+ Tue, 14 Jan 2025 09:29:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CB4665C57EB;
- Tue, 14 Jan 2025 09:27:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B31FC4CEDD;
- Tue, 14 Jan 2025 09:28:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7F3845C57D6;
+ Tue, 14 Jan 2025 09:28:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3400CC4CEDD;
+ Tue, 14 Jan 2025 09:29:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736846910;
- bh=OJWtwbRS0GQYnP2iRmQnG5KMhHxA7svt0XHwtX+wAlQ=;
+ s=k20201202; t=1736846955;
+ bh=T1sIry+8mI5T3ts4+Qf/PkZMMcr3MjrDvmE1fdOgRPs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=XcRvbyADGXCNuCGb751eenW4IeCS5w2PZMR+MDGpDES3t1vihwuObyxnVh4+FBgfs
- 0Zc+pq+f2s9W4zzip8qVD1dptDvGnkl+Vx28MGiFHHNN46lUJKicHQ1A2EOhw2t2J5
- cMJxoVzgMVrNtq/ofu70qxsy4JwzZVkBTeae6w7Yd7jquayBVXOlHKjNjF4WrvBXP2
- BzkfFJSSdFclwuZJw+g60Uew5Mr4q/jUa02NIgPgtBqzxGQuq7Klo3F9FDt35clXyr
- zuc2wAFGnIMV/4q3CidjXnApB4n6GyOPEgyekXas1sAGFhwmnj2KAWJR1P1nmp3OJD
- QZxsG/72WyTSw==
-Message-ID: <679440a5-5ee2-47a3-9811-3be96cdcf2a2@kernel.org>
-Date: Tue, 14 Jan 2025 10:28:19 +0100
+ b=JtA0yHfgVGFQxZm46u0Yvaxe6YngCVxDpLWhr0IJ6ksDpjbHaSIX62blmV7+kn7Xr
+ XsnorIIlVn4V0mfQmYuN349xfrktb3rnnN5FPkinwwbLDtB3grvxsIUjNSPdRNf8/j
+ TwyEkNWcAAxEQfduPS4bg5DDKORcbMDRJ7UoJIdj8IjNF/X9lwDh3CMJL5a40wNCue
+ 6bjjLcKKB9CkwHkGzS/jxWJ1jUKhkbkUOEiGrPOX2PD0UAN/VSQMNPq3CjnG5YKX/5
+ l2y5iBKyTRxv6sHOJSC1OZ4EAydD33Wq+3Qxxcc5BJJqfjRr5fTmwrEoNAstbLwXZY
+ RLTFxYSwgNB9w==
+Message-ID: <79a90c01-9e21-4e3f-a334-6ba9e1df4150@kernel.org>
+Date: Tue, 14 Jan 2025 10:29:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-References: <20250109211908.1553072-1-dario.binacchi@amarulasolutions.com>
- <20250109211908.1553072-2-dario.binacchi@amarulasolutions.com>
- <bfxyod5l2s6g3j47be7mjh6i7wgjapka2q5b6f2mleipiai6gm@hfvclvkzrtyd>
- <CABGWkvqu10dyW6y5S7qvY4G7uh0OaUgr6k-F7BA1AU0H9bA9GQ@mail.gmail.com>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-kernel@vger.kernel.org
+References: <20250114091128.528757-1-dario.binacchi@amarulasolutions.com>
+ <20250114091128.528757-2-dario.binacchi@amarulasolutions.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,15 +81,16 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <CABGWkvqu10dyW6y5S7qvY4G7uh0OaUgr6k-F7BA1AU0H9bA9GQ@mail.gmail.com>
+In-Reply-To: <20250114091128.528757-2-dario.binacchi@amarulasolutions.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
  Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/4] dt-bindings: clock: convert stm32
+Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: clock: convert stm32
  rcc bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -103,32 +103,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTQvMDEvMjAyNSAxMDoxMCwgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4gT24gU2F0LCBKYW4g
-MTEsIDIwMjUgYXQgMTA6MjXigK9BTSBLcnp5c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5v
-cmc+IHdyb3RlOgo+Pgo+PiBPbiBUaHUsIEphbiAwOSwgMjAyNSBhdCAxMDoxODoyOFBNICswMTAw
-LCBEYXJpbyBCaW5hY2NoaSB3cm90ZToKPj4+ICttYWludGFpbmVyczoKPj4+ICsgIC0gRGFyaW8g
-QmluYWNjaGkgPGRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1dGlvbnMuY29tPgo+Pj4gKwo+Pj4g
-K2Rlc2NyaXB0aW9uOiB8Cj4+PiArICBUaGUgUkNDIElQIGlzIGJvdGggYSByZXNldCBhbmQgYSBj
-bG9jayBjb250cm9sbGVyLgo+Pj4gKyAgVGhlIHJlc2V0IHBoYW5kbGUgYXJndW1lbnQgaXMgdGhl
-IGJpdCBudW1iZXIgd2l0aGluIHRoZSBSQ0MgcmVnaXN0ZXJzIGJhbmssCj4+PiArICBzdGFydGlu
-ZyBmcm9tIFJDQyBiYXNlIGFkZHJlc3MuCj4+PiArCj4+PiArcHJvcGVydGllczoKPj4+ICsgIGNv
-bXBhdGlibGU6Cj4+PiArICAgIG9uZU9mOgo+Pj4gKyAgICAgIC0gaXRlbXM6Cj4+PiArICAgICAg
-ICAgIC0gY29uc3Q6IHN0LHN0bTMyZjQyeHgtcmNjCj4+PiArICAgICAgICAgIC0gY29uc3Q6IHN0
-LHN0bTMyLXJjYwo+Pj4gKyAgICAgIC0gaXRlbXM6Cj4+PiArICAgICAgICAgIC0gZW51bToKPj4+
-ICsgICAgICAgICAgICAgIC0gc3Qsc3RtMzJmNDY5LXJjYwo+Pj4gKyAgICAgICAgICAtIGNvbnN0
-OiBzdCxzdG0zMmY0Mnh4LXJjYwo+Pj4gKyAgICAgICAgICAtIGNvbnN0OiBzdCxzdG0zMi1yY2MK
-Pj4+ICsgICAgICAtIGl0ZW1zOgo+Pj4gKyAgICAgICAgICAtIGNvbnN0OiBzdCxzdG0zMmY3NDYt
-cmNjCj4+Cj4+IFdoeSB0aGlzIGlzbid0IGp1c3QgcGFydCBvZiBlbnVtIHdpdGggZmlyc3QgZ3Jv
-dXAvbGlzdD8gRGlmZmVyZW50Cj4+IGdyb3Vwcy9saXN0cyBhcmUgZm9yIGRpZmZlcmVudCBmYWxs
-YmFja3MgYW5kIEkgYW0gcHJldHR5IHN1cmUgZmFsbGJhY2sKPj4gaXMgdGhlIHNhbWUuCj4gCj4g
-SSB0cmllZCBydW5uaW5nIHRlc3RzIGFmdGVyIGFwcGx5aW5nIHRoZSBjaGFuZ2VzIHlvdSBzdWdn
-ZXN0ZWQsIGJ1dAo+IHRoZSB0ZXN0cyBhcmUgZmFpbGluZy4KQW5kPyBGaXggdGhlIGNvZGUgdGhl
-bj8KCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 14/01/2025 10:11, Dario Binacchi wrote:
+> The patch converts st,stm32-rcc.txt to the JSON schema, but it does more
+> than that. The old bindings, in fact, only covered the stm32f{4,7}
+> platforms and not the stm32h7. Therefore, to avoid patch submission tests
+> failing, it was necessary to add the corresponding compatible (i. e.
+> st,stm32h743-rcc) and specify that, in this case, 3 are the clocks instead
+> of the 2 required for the stm32f{4,7} platforms.
+> Additionally, the old bindings made no mention of the st,syscfg property,
+> which is used by both the stm32f{4,7} and the stm32h7 platforms.
+> 
+> The patch also fixes the files referencing to the old st,stm32-rcc.txt.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Drop the tag. It was conditional.
+
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - enum:
+> +              - st,stm32f469-rcc
+> +          - const: st,stm32f42xx-rcc
+> +          - const: st,stm32-rcc
+> +      - items:
+> +          - const: st,stm32f746-rcc
+> +          - const: st,stm32-rcc
+
+Nothing improved here.
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
