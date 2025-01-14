@@ -2,83 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24AEAA11A0F
+	by mail.lfdr.de (Postfix) with ESMTPS id 4600EA11A10
 	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 07:49:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4936CC78F87;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58AF6C78F89;
 	Wed, 15 Jan 2025 06:49:18 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 474A0C78031
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C01B7C7802D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 19:14:45 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-38625aa01b3so562468f8f.3
+ Tue, 14 Jan 2025 20:36:06 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-436246b1f9bso7491465e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2025 11:14:45 -0800 (PST)
+ Tue, 14 Jan 2025 12:36:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1736882085; x=1737486885;
+ d=linaro.org; s=google; t=1736886966; x=1737491766;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=oQ6kl1euqxUXFmiD96nPxmfZ3b58EO9sP3qhQv0QOX0=;
- b=zzldojQFoeY1W2FgvSfP7vu7FzKGaPxuYygARZA8AhEjMKqIqWj0I5OWifgEfUNz45
- 6fIWA7vSQMaolcfN96tNOr5heITBqkG6nXwjCqfO/fDGVAeLVZ73Sm/hrAn95EmgIpQi
- FFeUpPYQh6Es7wgNdiAaXzxwYIZdIx8Gcx16Dl94VP3d3ujWkeP/07ZuuuMUaT+Ji4+X
- 3O3ogRfXNoK3WDyr7pcQxSOE5xkNlI2x70hKDdC9QGy5xlb/V/Pjls5fZxAD5oOkDuEv
- C5n9bYmIuRSVwd/2Z+MXHLVc7SnbjQxUNT57qwcc6cNymzoHTuethRiWQlBofWKabXik
- ZTHg==
+ bh=HbH/voKF25Fs4JYbEAVD7Vza/rm5Lq/+qQ/NpgvqfSw=;
+ b=muKNN6LkPGF3iEN5JWWMhO1J3gdAUB6xaFXflqoKOWUc0eGOeEQfpfxpU87LDIXHcJ
+ UfCoXGdKjjh3kko2CdvS7ozShaba8F+ayk7JNd/ciQCBXr4EqXEa4FWZCtnblh1JMYtd
+ JjpLlx0xgGmb3f4qZtLmjl9CqLI6CdEZGQDTFyFVWaYtPwUC2lulhojbQ0DadhwG4RZN
+ nLYnPM4mnJXzHX7OlzpeWwhqutQEVCCfl8GZ8JUjTPZzLxvFjvNuPpg6RfHdnYV0/fSW
+ iTADz1vfIiDFTzJQokQasbSSsN9vISrsQvC7BIRWq4Yqn3HBPZl/nUvcH6emtdNFceRw
+ wO8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736882085; x=1737486885;
+ d=1e100.net; s=20230601; t=1736886966; x=1737491766;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=oQ6kl1euqxUXFmiD96nPxmfZ3b58EO9sP3qhQv0QOX0=;
- b=ELu0JnLXgs4Wm3c4Y8Idi7M/6LLxWHbHOyvlUSfwD7GGI3c4eoat5rBEHIsXmbIB/F
- QpCtHDGpOKftSE0abvDIH8pyvtyBtStoKT8cfhlfWmH3gqOzMpU+w4hOtdknbvSH9Wrp
- tCpAnaahE50O1M9VqN1VXGzs54TE1wWpQZXEls2ZMOdPD6z1uz3ovwaO5Jjgw2hNsBT5
- pMWAKk3WnpZeN9eBABRjQNwoP3e9y/pZNdFw1mqVZ0E7IFnaTff3nkqwtuslwBECU/8b
- k37gbQhF6gNyg4B7Vdaofy4aapHtWGgoPghikIwbzc62+TjDKGZB13tw0aZnA75Zej7v
- kTGA==
+ bh=HbH/voKF25Fs4JYbEAVD7Vza/rm5Lq/+qQ/NpgvqfSw=;
+ b=EOocG0XBrrlzZmEVsdtClbk54ruVGrsS0SMqvaWQpNFEsBxXDfUTFyAYVQb7/B7OK1
+ 4fidUoVAnU33h+cRNILUprD6R1VPnO1u+NlNqeAYWwRn4OAi3lxivFNG8BhLDQXbbX0L
+ u70ZRCS/hZOB5u1YrK6xqEQ8Hg/wqI23KkHV78TjWLTk+yZnulDqCgZoCIGamVWu2yZq
+ QN1pQsgXVGP6BaUPF2rrp6ps1sDUePdgwIf2XACGQLmFJtcz9U2E2rF5LVwsai1luqJG
+ MjbRIoc9qH3uX0K4GmZXyWagcmj97DtCDYUMVC7NPIFHbyAD0lvnhPPrYHxZQ+QfqkQd
+ PGaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFmsjIhgUZVaPhSlQKh92lf2L5l5tDiL0yf8Vp9urhCnZcM2RyeqCz4Wf5D1lF+lT39nDNFK1iIbxwog==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyk+vuPzvF7P6VKOyS7F7qwGtqP73bVCeuQgeLVQ0k8GRKADAyD
- 3n+iCRA1W37qYRw4tK3zXDcTxaZ5eeYZVjiAvZBxBw3XsON9UFKDr6SR7GY1HSA=
-X-Gm-Gg: ASbGnctjwW7+qaRGoIToqHMNzxrlSgG2GIUI2yCpHj0sUzE3neVVnZ3J+FL7s6xxmlo
- Ct7ZS3o75CdKFCoG4KxldPIsiXPgl1VpR36S8kjL3Ta3gdQ/tiHdZ62JhUyO1di82Je8PZMzD2r
- hzZoVjNEnucPjR5u4tcGGvw4SlNeufICLwYqqtzQvwR6lIg+ymNluYUpObcpjUwHfgVXVB4uhk9
- MGScE9NuF0BedqkK8kgXjKa1W4Scnf5Yc8tdj0dgctufipaczbS1NpBOX6lQ8/gook71IA=
-X-Google-Smtp-Source: AGHT+IH1zV4TdpuGEzXlmDKzlhTZeOglE/e6Vh0NhLYPgPb3r+w0Yshbz4UIzt3sqXZwggicjeJV+A==
-X-Received: by 2002:a05:6000:18a3:b0:38a:615c:8266 with SMTP id
- ffacd0b85a97d-38a872d2e1cmr9347396f8f.1.1736882084522; 
- Tue, 14 Jan 2025 11:14:44 -0800 (PST)
+ AJvYcCU7qrH2dl0kZ7zl+ez94Y8HOd8mZMXJgtiV1xZZEqGfW98EArPi+4uwWKG/oKdo31V9WoHtBtAtX8gd3w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy+NfyLVas1CV7zX5zMjtY8xlJT83cpzlzFuc5cWvRGQ0ijmaGj
+ T3iGjACnVSvVYTzUzI9r0XhhRxspg6TTD77BlR2yrEcG37WfHq5obaLoz74PpHg=
+X-Gm-Gg: ASbGncs27PN7QI9qD0+Z/9DDaDkNmK/03K9eyEfQWLALW7YQzjLmbJa+kP8V/NGv7Bz
+ NZVuW7RB5GZYwiBSjBhxhTXb9Bs32cS33c4H2/BJE21kJblo0iVZTtiMAxHwQCTJnHNiXM+3iyF
+ YCBd48QoPhuZPq66IJxlo0Wu3JLdEDtgRE6+Khp5RPXrx2FS1GwJIBbx0vyVDgI0n26cIBHgauT
+ ifoUwguWUMpaShjHL9U0+HRKxcmI7e+YdJlJPuG0HqqLw9+PldcVly4jQKwb89oyAVMeq4=
+X-Google-Smtp-Source: AGHT+IEmnDRCiFUzVpMMNcRLd0A3Y1MS6nFOyUmHSYtTVhJ7ylQMchNI3gHDhJrSomau6Vg1xNwZJg==
+X-Received: by 2002:a05:600c:1c1a:b0:42c:bfd6:9d2f with SMTP id
+ 5b1f17b1804b1-436e26867ebmr101130925e9.1.1736886966041; 
+ Tue, 14 Jan 2025 12:36:06 -0800 (PST)
 Received: from krzk-bin.. ([178.197.223.165]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a8e4b80b2sm15415992f8f.80.2025.01.14.11.14.42
+ 5b1f17b1804b1-436e2dc05a1sm224190415e9.15.2025.01.14.12.36.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jan 2025 11:14:43 -0800 (PST)
+ Tue, 14 Jan 2025 12:36:05 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
+To: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Nandor Han <nandor.han@ge.com>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- patches@opensource.cirrus.com
-Date: Tue, 14 Jan 2025 20:14:38 +0100
-Message-ID: <20250114191438.857656-1-krzysztof.kozlowski@linaro.org>
+ Bjorn Andersson <andersson@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-msm@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Date: Tue, 14 Jan 2025 21:36:02 +0100
+Message-ID: <20250114203602.1013275-1-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 15 Jan 2025 06:49:15 +0000
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v2] gpio: Use str_enable_disable-like helpers
+Subject: [Linux-stm32] [PATCH] pinctrl: Use str_enable_disable-like helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,254 +110,395 @@ from string_choices.h because:
 4. Allows deduping by the linker, which results in a smaller binary
    file.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
+ drivers/pinctrl/bcm/pinctrl-nsp-gpio.c     |  3 ++-
+ drivers/pinctrl/cirrus/pinctrl-lochnagar.c |  3 ++-
+ drivers/pinctrl/nomadik/pinctrl-abx500.c   |  5 +++--
+ drivers/pinctrl/nomadik/pinctrl-nomadik.c  |  7 ++++---
+ drivers/pinctrl/pinctrl-amd.c              |  3 ++-
+ drivers/pinctrl/pinctrl-gemini.c           | 11 ++++++-----
+ drivers/pinctrl/pinctrl-stmfx.c            |  2 +-
+ drivers/pinctrl/qcom/pinctrl-msm.c         |  3 ++-
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c   |  3 ++-
+ drivers/pinctrl/qcom/pinctrl-spmi-mpp.c    |  3 ++-
+ drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c   |  3 ++-
+ drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c    | 10 ++++------
+ drivers/pinctrl/samsung/pinctrl-exynos.c   |  3 ++-
+ drivers/pinctrl/stm32/pinctrl-stm32.c      |  5 +++--
+ 14 files changed, 37 insertions(+), 27 deletions(-)
 
-Changes in v2:
-1. Many more files changed.
----
- drivers/gpio/gpio-brcmstb.c     | 3 ++-
- drivers/gpio/gpio-crystalcove.c | 3 ++-
- drivers/gpio/gpio-grgpio.c      | 3 ++-
- drivers/gpio/gpio-mvebu.c       | 7 ++++---
- drivers/gpio/gpio-nomadik.c     | 3 ++-
- drivers/gpio/gpio-stmpe.c       | 6 +++---
- drivers/gpio/gpio-wcove.c       | 3 ++-
- drivers/gpio/gpio-wm831x.c      | 3 ++-
- drivers/gpio/gpio-xra1403.c     | 3 ++-
- drivers/gpio/gpiolib.c          | 3 ++-
- 10 files changed, 23 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpio/gpio-brcmstb.c b/drivers/gpio/gpio-brcmstb.c
-index 491b529d25f8..ca3472977431 100644
---- a/drivers/gpio/gpio-brcmstb.c
-+++ b/drivers/gpio/gpio-brcmstb.c
-@@ -9,6 +9,7 @@
- #include <linux/irqchip/chained_irq.h>
- #include <linux/interrupt.h>
+diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+index 84af6aae36d1..a96be8f244e0 100644
+--- a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+@@ -21,6 +21,7 @@
+ #include <linux/pinctrl/pinctrl.h>
  #include <linux/platform_device.h>
+ #include <linux/slab.h>
 +#include <linux/string_choices.h>
  
- enum gio_reg_index {
- 	GIO_REG_ODEN = 0,
-@@ -224,7 +225,7 @@ static int brcmstb_gpio_priv_set_wake(struct brcmstb_gpio_priv *priv,
- 		ret = disable_irq_wake(priv->parent_wake_irq);
- 	if (ret)
- 		dev_err(&priv->pdev->dev, "failed to %s wake-up interrupt\n",
--				enable ? "enable" : "disable");
-+			str_enable_disable(enable));
- 	return ret;
+ #include "../pinctrl-utils.h"
+ 
+@@ -254,7 +255,7 @@ static int nsp_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ 	raw_spin_unlock_irqrestore(&chip->lock, flags);
+ 
+ 	dev_dbg(chip->dev, "gpio:%u level_low:%s falling:%s\n", gpio,
+-		level_low ? "true" : "false", falling ? "true" : "false");
++		str_true_false(level_low), str_true_false(falling));
+ 	return 0;
  }
  
-diff --git a/drivers/gpio/gpio-crystalcove.c b/drivers/gpio/gpio-crystalcove.c
-index 25db014494a4..56effd0f50c7 100644
---- a/drivers/gpio/gpio-crystalcove.c
-+++ b/drivers/gpio/gpio-crystalcove.c
+diff --git a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+index 014297a3fbd2..0f32866a4aef 100644
+--- a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
++++ b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
 @@ -15,6 +15,7 @@
+ #include <linux/of.h>
  #include <linux/platform_device.h>
  #include <linux/regmap.h>
++#include <linux/string_choices.h>
+ 
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pinctrl/pinconf-generic.h>
+@@ -1068,7 +1069,7 @@ static void lochnagar_gpio_set(struct gpio_chip *chip,
+ 	value = !!value;
+ 
+ 	dev_dbg(priv->dev, "Set GPIO %s to %s\n",
+-		pin->name, value ? "high" : "low");
++		pin->name, str_high_low(value));
+ 
+ 	switch (pin->type) {
+ 	case LN_PTYPE_MUX:
+diff --git a/drivers/pinctrl/nomadik/pinctrl-abx500.c b/drivers/pinctrl/nomadik/pinctrl-abx500.c
+index 4ce2e35a6373..8cd4ba5cf0bd 100644
+--- a/drivers/pinctrl/nomadik/pinctrl-abx500.c
++++ b/drivers/pinctrl/nomadik/pinctrl-abx500.c
+@@ -22,6 +22,7 @@
+ #include <linux/property.h>
  #include <linux/seq_file.h>
+ #include <linux/slab.h>
 +#include <linux/string_choices.h>
  #include <linux/types.h>
  
- #define CRYSTALCOVE_GPIO_NUM	16
-@@ -317,7 +318,7 @@ static void crystalcove_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip
- 		offset = gpio % 8;
- 		seq_printf(s, " gpio-%-2d %s %s %s %s ctlo=%2x,%s %s %s\n",
- 			   gpio, ctlo & CTLO_DIR_OUT ? "out" : "in ",
--			   ctli & 0x1 ? "hi" : "lo",
-+			   str_hi_lo(ctli & 0x1),
- 			   ctli & CTLI_INTCNT_NE ? "fall" : "    ",
- 			   ctli & CTLI_INTCNT_PE ? "rise" : "    ",
- 			   ctlo,
-diff --git a/drivers/gpio/gpio-grgpio.c b/drivers/gpio/gpio-grgpio.c
-index 169f33c41c59..30a0522ae735 100644
---- a/drivers/gpio/gpio-grgpio.c
-+++ b/drivers/gpio/gpio-grgpio.c
+ #include <linux/mfd/abx500.h>
+@@ -496,7 +497,7 @@ static void abx500_gpio_dbg_show_one(struct seq_file *s,
+ 
+ 		seq_printf(s, " %-9s", pull_up_down[pd]);
+ 	} else
+-		seq_printf(s, " %-9s", chip->get(chip, offset) ? "hi" : "lo");
++		seq_printf(s, " %-9s", str_hi_lo(chip->get(chip, offset)));
+ 
+ 	mode = abx500_get_mode(pctldev, chip, offset);
+ 
+@@ -865,7 +866,7 @@ static int abx500_pin_config_set(struct pinctrl_dev *pctldev,
+ 			pin, configs[i],
+ 			(param == PIN_CONFIG_OUTPUT) ? "output " : "input",
+ 			(param == PIN_CONFIG_OUTPUT) ?
+-			(argument ? "high" : "low") :
++			str_high_low(argument) :
+ 			(argument ? "pull up" : "pull down"));
+ 
+ 		/* on ABx500, there is no GPIO0, so adjust the offset */
+diff --git a/drivers/pinctrl/nomadik/pinctrl-nomadik.c b/drivers/pinctrl/nomadik/pinctrl-nomadik.c
+index dcc662be0800..8940e04fcf4c 100644
+--- a/drivers/pinctrl/nomadik/pinctrl-nomadik.c
++++ b/drivers/pinctrl/nomadik/pinctrl-nomadik.c
+@@ -28,6 +28,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
++#include <linux/string_choices.h>
+ #include <linux/types.h>
+ 
+ /* Since we request GPIOs from ourself */
+@@ -1125,15 +1126,15 @@ static int nmk_pin_config_set(struct pinctrl_dev *pctldev, unsigned int pin,
+ 				slpm_pull ? pullnames[pull] : "same",
+ 				slpm_output ? (output ? "output" : "input")
+ 				: "same",
+-				slpm_val ? (val ? "high" : "low") : "same");
++				slpm_val ? str_high_low(val) : "same");
+ 		}
+ 
+ 		dev_dbg(nmk_chip->chip.parent,
+ 			"pin %d [%#lx]: pull %s, slpm %s (%s%s), lowemi %s\n",
+ 			pin, cfg, pullnames[pull], slpmnames[slpm],
+ 			output ? "output " : "input",
+-			output ? (val ? "high" : "low") : "",
+-			lowemi ? "on" : "off");
++			output ? str_high_low(val) : "",
++			str_on_off(lowemi));
+ 
+ 		ret = clk_enable(nmk_chip->clk);
+ 		if (ret)
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index fff6d4209ad5..6d395a528f55 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
 @@ -30,6 +30,7 @@
- #include <linux/platform_device.h>
+ #include <linux/pinctrl/pinconf.h>
+ #include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinmux.h>
++#include <linux/string_choices.h>
+ #include <linux/suspend.h>
+ 
+ #include "core.h"
+@@ -458,7 +459,7 @@ static int amd_gpio_irq_set_wake(struct irq_data *d, unsigned int on)
+ 
+ 	if (err)
+ 		dev_err(&gpio_dev->pdev->dev, "failed to %s wake-up interrupt\n",
+-			on ? "enable" : "disable");
++			str_enable_disable(on));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/pinctrl/pinctrl-gemini.c b/drivers/pinctrl/pinctrl-gemini.c
+index 631612539af7..e9f61927858d 100644
+--- a/drivers/pinctrl/pinctrl-gemini.c
++++ b/drivers/pinctrl/pinctrl-gemini.c
+@@ -14,6 +14,7 @@
+ #include <linux/regmap.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
++#include <linux/string_choices.h>
+ 
+ #include <linux/pinctrl/machine.h>
+ #include <linux/pinctrl/pinconf-generic.h>
+@@ -2237,7 +2238,7 @@ static int gemini_pmx_set_mux(struct pinctrl_dev *pctldev,
+ 				"pin group %s could not be %s: "
+ 				"probably a hardware limitation\n",
+ 				gemini_padgroups[i],
+-				enabled ? "enabled" : "disabled");
++				str_enabled_disabled(enabled));
+ 			dev_err(pmx->dev,
+ 				"GLOBAL MISC CTRL before: %08x, after %08x, expected %08x\n",
+ 				before, after, expected);
+@@ -2245,7 +2246,7 @@ static int gemini_pmx_set_mux(struct pinctrl_dev *pctldev,
+ 			dev_dbg(pmx->dev,
+ 				"padgroup %s %s\n",
+ 				gemini_padgroups[i],
+-				enabled ? "enabled" : "disabled");
++				str_enabled_disabled(enabled));
+ 		}
+ 	}
+ 
+@@ -2259,7 +2260,7 @@ static int gemini_pmx_set_mux(struct pinctrl_dev *pctldev,
+ 				"pin group %s could not be %s: "
+ 				"probably a hardware limitation\n",
+ 				gemini_padgroups[i],
+-				enabled ? "enabled" : "disabled");
++				str_enabled_disabled(enabled));
+ 			dev_err(pmx->dev,
+ 				"GLOBAL MISC CTRL before: %08x, after %08x, expected %08x\n",
+ 				before, after, expected);
+@@ -2267,7 +2268,7 @@ static int gemini_pmx_set_mux(struct pinctrl_dev *pctldev,
+ 			dev_dbg(pmx->dev,
+ 				"padgroup %s %s\n",
+ 				gemini_padgroups[i],
+-				enabled ? "enabled" : "disabled");
++				str_enabled_disabled(enabled));
+ 		}
+ 	}
+ 
+@@ -2588,7 +2589,7 @@ static int gemini_pmx_probe(struct platform_device *pdev)
+ 	tmp = val;
+ 	for_each_set_bit(i, &tmp, PADS_MAXBIT) {
+ 		dev_dbg(dev, "pad group %s %s\n", gemini_padgroups[i],
+-			(val & BIT(i)) ? "enabled" : "disabled");
++			str_enabled_disabled(val & BIT(i)));
+ 	}
+ 
+ 	/* Check if flash pin is set */
+diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+index 521f6fef0b9f..aae01120dc52 100644
+--- a/drivers/pinctrl/pinctrl-stmfx.c
++++ b/drivers/pinctrl/pinctrl-stmfx.c
+@@ -380,7 +380,7 @@ static void stmfx_pinconf_dbg_show(struct pinctrl_dev *pctldev,
+ 		seq_printf(s, "input %s ", str_high_low(val));
+ 		if (type)
+ 			seq_printf(s, "with internal pull-%s ",
+-				   pupd ? "up" : "down");
++				   str_up_down(pupd));
+ 		else
+ 			seq_printf(s, "%s ", pupd ? "floating" : "analog");
+ 	}
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+index ec913c2e200f..47daa47153c9 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -19,6 +19,7 @@
+ #include <linux/seq_file.h>
  #include <linux/slab.h>
  #include <linux/spinlock.h>
 +#include <linux/string_choices.h>
  
- #define GRGPIO_MAX_NGPIO 32
- 
-@@ -438,7 +439,7 @@ static int grgpio_probe(struct platform_device *ofdev)
+ #include <linux/pinctrl/machine.h>
+ #include <linux/pinctrl/pinconf-generic.h>
+@@ -714,7 +715,7 @@ static void msm_gpio_dbg_show_one(struct seq_file *s,
  	}
  
- 	dev_info(dev, "regs=0x%p, base=%d, ngpio=%d, irqs=%s\n",
--		 priv->regs, gc->base, gc->ngpio, priv->domain ? "on" : "off");
-+		 priv->regs, gc->base, gc->ngpio, str_on_off(priv->domain));
- 
- 	return 0;
- }
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 5ffb332e9849..363bad286c32 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -49,6 +49,7 @@
- #include <linux/pwm.h>
- #include <linux/regmap.h>
+ 	seq_printf(s, " %-8s: %-3s", g->grp.name, is_out ? "out" : "in");
+-	seq_printf(s, " %-4s func%d", val ? "high" : "low", func);
++	seq_printf(s, " %-4s func%d", str_high_low(val), func);
+ 	seq_printf(s, " %dmA", msm_regval_to_drive(drive));
+ 	if (pctrl->soc->pull_no_keeper)
+ 		seq_printf(s, " %s", pulls_no_keeper[pull]);
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+index 0c806b8128b6..c8ce61066070 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+@@ -14,6 +14,7 @@
+ #include <linux/seq_file.h>
  #include <linux/slab.h>
+ #include <linux/spmi.h>
 +#include <linux/string_choices.h>
+ #include <linux/types.h>
  
- /*
-  * GPIO unit register offsets.
-@@ -907,14 +908,14 @@ static void mvebu_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
- 
- 		if (is_out) {
- 			seq_printf(s, " out %s %s\n",
--				   out & msk ? "hi" : "lo",
-+				   str_hi_lo(out & msk),
- 				   blink & msk ? "(blink )" : "");
- 			continue;
- 		}
- 
- 		seq_printf(s, " in  %s (act %s) - IRQ",
--			   (data_in ^ in_pol) & msk  ? "hi" : "lo",
--			   in_pol & msk ? "lo" : "hi");
-+			   str_hi_lo((data_in ^ in_pol) & msk),
-+			   str_lo_hi(in_pol & msk));
- 		if (!((edg_msk | lvl_msk) & msk)) {
- 			seq_puts(s, " disabled\n");
- 			continue;
-diff --git a/drivers/gpio/gpio-nomadik.c b/drivers/gpio/gpio-nomadik.c
-index 836f1cc760c2..fa19a44943fd 100644
---- a/drivers/gpio/gpio-nomadik.c
-+++ b/drivers/gpio/gpio-nomadik.c
-@@ -30,6 +30,7 @@
- #include <linux/reset.h>
+ #include <linux/pinctrl/pinconf-generic.h>
+@@ -702,7 +703,7 @@ static void pmic_gpio_config_dbg_show(struct pinctrl_dev *pctldev,
+ 		else
+ 			seq_printf(s, " %-4s",
+ 					pad->output_enabled ? "out" : "in");
+-		seq_printf(s, " %-4s", pad->out_value ? "high" : "low");
++		seq_printf(s, " %-4s", str_high_low(pad->out_value));
+ 		seq_printf(s, " %-7s", pmic_gpio_functions[function]);
+ 		seq_printf(s, " vin-%d", pad->power_source);
+ 		seq_printf(s, " %-27s", biases[pad->pullup]);
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-mpp.c b/drivers/pinctrl/qcom/pinctrl-spmi-mpp.c
+index 84de584cf7eb..7b28c5fb2402 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-mpp.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-mpp.c
+@@ -11,6 +11,7 @@
+ #include <linux/regmap.h>
  #include <linux/seq_file.h>
  #include <linux/slab.h>
 +#include <linux/string_choices.h>
  #include <linux/types.h>
  
- #include <linux/gpio/gpio-nomadik.h>
-@@ -430,7 +431,7 @@ void nmk_gpio_dbg_show_one(struct seq_file *s, struct pinctrl_dev *pctldev,
- 		seq_printf(s, " gpio-%-3d (%-20.20s) out %s           %s",
- 			   gpio,
- 			   label ?: "(none)",
--			   data_out ? "hi" : "lo",
-+			   str_hi_lo(data_out),
- 			   (mode < 0) ? "unknown" : modes[mode]);
- 	} else {
- 		int irq = chip->to_irq(chip, offset);
-diff --git a/drivers/gpio/gpio-stmpe.c b/drivers/gpio/gpio-stmpe.c
-index 75a3633ceddb..2e22e1eb7495 100644
---- a/drivers/gpio/gpio-stmpe.c
-+++ b/drivers/gpio/gpio-stmpe.c
-@@ -15,6 +15,7 @@
- #include <linux/platform_device.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
-+#include <linux/string_choices.h>
- 
- /*
-  * These registers are modified under the irq bus lock and cached to avoid
-@@ -273,8 +274,7 @@ static void stmpe_dbg_show_one(struct seq_file *s,
- 
- 	if (dir) {
- 		seq_printf(s, " gpio-%-3d (%-20.20s) out %s",
--			   gpio, label ?: "(none)",
--			   val ? "hi" : "lo");
-+			   gpio, label ?: "(none)", str_hi_lo(val));
- 	} else {
- 		u8 edge_det_reg;
- 		u8 rise_reg;
-@@ -343,7 +343,7 @@ static void stmpe_dbg_show_one(struct seq_file *s,
- 
- 		seq_printf(s, " gpio-%-3d (%-20.20s) in  %s %13s %13s %25s %25s",
- 			   gpio, label ?: "(none)",
--			   val ? "hi" : "lo",
-+			   str_hi_lo(val),
- 			   edge_det_values[edge_det],
- 			   irqen ? "IRQ-enabled" : "IRQ-disabled",
- 			   rise_values[rise],
-diff --git a/drivers/gpio/gpio-wcove.c b/drivers/gpio/gpio-wcove.c
-index 94ca9d03c094..1ec24f6f9300 100644
---- a/drivers/gpio/gpio-wcove.c
-+++ b/drivers/gpio/gpio-wcove.c
-@@ -15,6 +15,7 @@
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/seq_file.h>
-+#include <linux/string_choices.h>
- 
- /*
-  * Whiskey Cove PMIC has 13 physical GPIO pins divided into 3 banks:
-@@ -393,7 +394,7 @@ static void wcove_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
- 
- 		seq_printf(s, " gpio-%-2d %s %s %s %s ctlo=%2x,%s %s\n",
- 			   gpio, ctlo & CTLO_DIR_OUT ? "out" : "in ",
--			   ctli & 0x1 ? "hi" : "lo",
-+			   str_hi_lo(ctli & 0x1),
- 			   ctli & CTLI_INTCNT_NE ? "fall" : "    ",
- 			   ctli & CTLI_INTCNT_PE ? "rise" : "    ",
- 			   ctlo,
-diff --git a/drivers/gpio/gpio-wm831x.c b/drivers/gpio/gpio-wm831x.c
-index f7d5120ff8f1..61bb83a1e8ae 100644
---- a/drivers/gpio/gpio-wm831x.c
-+++ b/drivers/gpio/gpio-wm831x.c
-@@ -16,6 +16,7 @@
- #include <linux/mfd/core.h>
- #include <linux/platform_device.h>
- #include <linux/seq_file.h>
-+#include <linux/string_choices.h>
- 
- #include <linux/mfd/wm831x/core.h>
- #include <linux/mfd/wm831x/pdata.h>
-@@ -234,7 +235,7 @@ static void wm831x_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
- 		seq_printf(s, " %s %s %s %s%s\n"
- 			   "                                  %s%s (0x%4x)\n",
- 			   reg & WM831X_GPN_DIR ? "in" : "out",
--			   wm831x_gpio_get(chip, i) ? "high" : "low",
-+			   str_high_low(wm831x_gpio_get(chip, i)),
- 			   pull,
- 			   powerdomain,
- 			   reg & WM831X_GPN_POL ? "" : " inverted",
-diff --git a/drivers/gpio/gpio-xra1403.c b/drivers/gpio/gpio-xra1403.c
-index dc2710c21c50..842cf875bb92 100644
---- a/drivers/gpio/gpio-xra1403.c
-+++ b/drivers/gpio/gpio-xra1403.c
+ #include <linux/pinctrl/pinconf-generic.h>
+@@ -544,7 +545,7 @@ static void pmic_mpp_config_dbg_show(struct pinctrl_dev *pctldev,
+ 		seq_printf(s, " %d", pad->aout_level);
+ 		if (pad->has_pullup)
+ 			seq_printf(s, " %-8s", biases[pad->pullup]);
+-		seq_printf(s, " %-4s", pad->out_value ? "high" : "low");
++		seq_printf(s, " %-4s", str_high_low(pad->out_value));
+ 		if (pad->dtest)
+ 			seq_printf(s, " dtest%d", pad->dtest);
+ 		if (pad->paired)
+diff --git a/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c b/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
+index 2225dc49d477..82679417e25f 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
 @@ -13,6 +13,7 @@
- #include <linux/mutex.h>
+ #include <linux/regmap.h>
  #include <linux/seq_file.h>
- #include <linux/spi/spi.h>
+ #include <linux/slab.h>
++#include <linux/string_choices.h>
+ 
+ #include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinconf.h>
+@@ -569,7 +570,7 @@ static void pm8xxx_gpio_dbg_show_one(struct seq_file *s,
+ 		seq_printf(s, " VIN%d", pin->power_source);
+ 		seq_printf(s, " %-27s", biases[pin->bias]);
+ 		seq_printf(s, " %-10s", buffer_types[pin->open_drain]);
+-		seq_printf(s, " %-4s", pin->output_value ? "high" : "low");
++		seq_printf(s, " %-4s", str_high_low(pin->output_value));
+ 		seq_printf(s, " %-7s", strengths[pin->output_strength]);
+ 		if (pin->inverted)
+ 			seq_puts(s, " inverted");
+diff --git a/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c b/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
+index 9b1039c08aa6..4841bbfe4864 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
++++ b/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
+@@ -13,6 +13,7 @@
+ #include <linux/regmap.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
++#include <linux/string_choices.h>
+ 
+ #include <linux/pinctrl/pinconf-generic.h>
+ #include <linux/pinctrl/pinconf.h>
+@@ -576,8 +577,7 @@ static void pm8xxx_mpp_dbg_show_one(struct seq_file *s,
+ 			seq_puts(s, "out ");
+ 
+ 			if (!pin->paired) {
+-				seq_puts(s, pin->output_value ?
+-					 "high" : "low");
++				seq_puts(s, str_high_low(pin->output_value));
+ 			} else {
+ 				seq_puts(s, pin->output_value ?
+ 					 "inverted" : "follow");
+@@ -589,8 +589,7 @@ static void pm8xxx_mpp_dbg_show_one(struct seq_file *s,
+ 		if (pin->output) {
+ 			seq_printf(s, "out %s ", aout_lvls[pin->aout_level]);
+ 			if (!pin->paired) {
+-				seq_puts(s, pin->output_value ?
+-					 "high" : "low");
++				seq_puts(s, str_high_low(pin->output_value));
+ 			} else {
+ 				seq_puts(s, pin->output_value ?
+ 					 "inverted" : "follow");
+@@ -605,8 +604,7 @@ static void pm8xxx_mpp_dbg_show_one(struct seq_file *s,
+ 			seq_printf(s, "dtest%d", pin->dtest);
+ 		} else {
+ 			if (!pin->paired) {
+-				seq_puts(s, pin->output_value ?
+-					 "high" : "low");
++				seq_puts(s, str_high_low(pin->output_value));
+ 			} else {
+ 				seq_puts(s, pin->output_value ?
+ 					 "inverted" : "follow");
+diff --git a/drivers/pinctrl/samsung/pinctrl-exynos.c b/drivers/pinctrl/samsung/pinctrl-exynos.c
+index ac6dc22b37c9..42093bae8bb7 100644
+--- a/drivers/pinctrl/samsung/pinctrl-exynos.c
++++ b/drivers/pinctrl/samsung/pinctrl-exynos.c
+@@ -23,6 +23,7 @@
+ #include <linux/of_irq.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
 +#include <linux/string_choices.h>
  #include <linux/regmap.h>
+ #include <linux/err.h>
+ #include <linux/soc/samsung/exynos-pmu.h>
+@@ -442,7 +443,7 @@ static int exynos_wkup_irq_set_wake(struct irq_data *irqd, unsigned int on)
+ 	struct samsung_pin_bank *bank = irq_data_get_irq_chip_data(irqd);
+ 	unsigned long bit = 1UL << (2 * bank->eint_offset + irqd->hwirq);
  
- /* XRA1403 registers */
-@@ -140,7 +141,7 @@ static void xra1403_dbg_show(struct seq_file *s, struct gpio_chip *chip)
- 		seq_printf(s, " gpio-%-3d (%-12s) %s %s\n",
- 			   chip->base + i, label,
- 			   (gcr & BIT(i)) ? "in" : "out",
--			   (gsr & BIT(i)) ? "hi" : "lo");
-+			   str_hi_lo(gsr & BIT(i)));
- 	}
- }
- #else
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index 679ed764cb14..be3351583508 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -26,6 +26,7 @@
+-	pr_info("wake %s for irq %u (%s-%lu)\n", on ? "enabled" : "disabled",
++	pr_info("wake %s for irq %u (%s-%lu)\n", str_enabled_disabled(on),
+ 		irqd->irq, bank->name, irqd->hwirq);
+ 
+ 	if (!on)
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 5b7fa77c1184..563dd3abd428 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -22,6 +22,7 @@
+ #include <linux/reset.h>
+ #include <linux/seq_file.h>
  #include <linux/slab.h>
- #include <linux/srcu.h>
- #include <linux/string.h>
 +#include <linux/string_choices.h>
  
- #include <linux/gpio.h>
- #include <linux/gpio/driver.h>
-@@ -5007,7 +5008,7 @@ static void gpiolib_dbg_show(struct seq_file *s, struct gpio_device *gdev)
- 			seq_printf(s, " gpio-%-3u (%-20.20s|%-20.20s) %s %s %s%s\n",
- 				   gpio, desc->name ?: "", gpiod_get_label(desc),
- 				   is_out ? "out" : "in ",
--				   value >= 0 ? (value ? "hi" : "lo") : "?  ",
-+				   value >= 0 ? str_hi_lo(value) : "?  ",
- 				   is_irq ? "IRQ " : "",
- 				   active_low ? "ACTIVE LOW" : "");
- 		} else if (desc->name) {
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pinctrl/machine.h>
+@@ -1217,7 +1218,7 @@ static void stm32_pconf_dbg_show(struct pinctrl_dev *pctldev,
+ 	case 0:
+ 		val = stm32_pconf_get(bank, offset, true);
+ 		seq_printf(s, "- %s - %s",
+-			   val ? "high" : "low",
++			   str_high_low(val),
+ 			   biasing[bias]);
+ 		break;
+ 
+@@ -1227,7 +1228,7 @@ static void stm32_pconf_dbg_show(struct pinctrl_dev *pctldev,
+ 		speed = stm32_pconf_get_speed(bank, offset);
+ 		val = stm32_pconf_get(bank, offset, false);
+ 		seq_printf(s, "- %s - %s - %s - %s %s",
+-			   val ? "high" : "low",
++			   str_high_low(val),
+ 			   drive ? "open drain" : "push pull",
+ 			   biasing[bias],
+ 			   speeds[speed], "speed");
 -- 
 2.43.0
 
