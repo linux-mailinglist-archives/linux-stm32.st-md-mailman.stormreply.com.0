@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 922E6A11D8D
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 10:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8263DA11F17
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 11:20:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A2EFC78F76;
-	Wed, 15 Jan 2025 09:25:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C0A8C78F77;
+	Wed, 15 Jan 2025 10:20:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44F51C78F76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44ECEC6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 09:25:41 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F3vKUp006090;
- Wed, 15 Jan 2025 10:25:22 +0100
+ Wed, 15 Jan 2025 09:25:46 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F9BMmA032417;
+ Wed, 15 Jan 2025 10:25:21 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- R+v8YEDPM9qwCaN40fdrufdPM9Z1gKJlioLogDnlb4Y=; b=k70vEt5I++WQPKFH
- JTsMbrPO/zB/Oh8J0VrnQgmgvjXSsLlbUSyJSWCL+0jghS78o2PKxi9aSeEOD9zC
- OHNPEatic41NnPF7QGDOJ+brwVz1pahl4sWzXq14MZVb0Zhlrt2hkAaLTOJlwQha
- NmOKzQx9geR3W88Au4D2g18HOVMI/+Gq6muAoheJaO7JLPDQvCeWHEsxATSD81XG
- 4fX98K9jILQwrHMhK4mkC7oPS9T+K8ftu8OdnpcowkXJp3UBt51QXzlMvITLVWhz
- timHTbX/JuvZw1WkO1qqOvcMRiu4Z2EwxdHDuCBf2TNl936PKfz9z1Tw9oWpwsEM
- l4TlOA==
+ LCgsY73vctF07UL0jpejFuqgl70gK02rg3oWbuscZtA=; b=77W+QIs5hYl1w1E4
+ af3I/Yw1+mCxE4qieETdXiZB0PsKsTnGfKM55rsmoO7h9idRA7IJcAbwdHF5nREp
+ Ir0gGCOkUdxr43fjr5MQWB2HrxPi00lo+LngLtFjAE9CRSScTeJNlRJrbZIvlZzt
+ SLdo2iu95WDerFbYRkd5qi/BDqu3T9zl/6eZYI7HjtcbccLldjQmRfJPbL+4DC1C
+ Y97/0r9OXErEJfluIHUWcYksur1SpJE4mjSCLJy4UOGYR0ifAcFC+nloh7py+fMH
+ ZMTqxpfJAHvOymjYZF580IDOOaqqYQI7TIsjXhiOJO3UWbwnEeUue9Dsuek/6A9u
+ jZzjKw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4465jns5p6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 446a5wg26w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Jan 2025 10:25:22 +0100 (CET)
+ Wed, 15 Jan 2025 10:25:21 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C916440048;
- Wed, 15 Jan 2025 10:23:53 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0D45A4004C;
+ Wed, 15 Jan 2025 10:23:54 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0BE2E246459;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A1D624645C;
  Wed, 15 Jan 2025 10:22:41 +0100 (CET)
 Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
  (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
- 2025 10:22:40 +0100
+ 2025 10:22:41 +0100
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
  <lpieralisi@kernel.org>, <kw@linux.com>,
@@ -49,8 +49,8 @@ To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
  <jingoohan1@gmail.com>, <p.zabel@pengutronix.de>,
  <johan+linaro@kernel.org>, <quic_schintav@quicinc.com>, <cassel@kernel.org>
-Date: Wed, 15 Jan 2025 10:21:25 +0100
-Message-ID: <20250115092134.2904773-2-christian.bruel@foss.st.com>
+Date: Wed, 15 Jan 2025 10:21:26 +0100
+Message-ID: <20250115092134.2904773-3-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250115092134.2904773-1-christian.bruel@foss.st.com>
 References: <20250115092134.2904773-1-christian.bruel@foss.st.com>
@@ -61,11 +61,12 @@ X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-01-15_03,2025-01-15_02,2024-11-22_01
+X-Mailman-Approved-At: Wed, 15 Jan 2025 10:20:39 +0000
 Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 01/10] dt-bindings: PCI: Add STM32MP25 PCIe
-	Root Complex bindings
+Subject: [Linux-stm32] [PATCH v3 02/10] PCI: dwc: Add
+	dw_pcie_wake_irq_handler helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,199 +83,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document the bindings for STM32MP25 PCIe Controller configured in
-root complex mode.
-
-Supports 4 INTx and MSI interrupts from the ARM GICv2m controller.
-
-STM32 PCIe may be in a power domain which is the case for the STM32MP25
-based boards.
-
-Supports WAKE# from wake-gpios
+Introduce dw_pcie_wake_irq_handler function to support host wakeup from
+the WAKE# irq.
 
 Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 ---
- .../bindings/pci/st,stm32-pcie-common.yaml    |  43 +++++++
- .../bindings/pci/st,stm32-pcie-host.yaml      | 120 ++++++++++++++++++
- 2 files changed, 163 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
- create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+ drivers/pci/controller/dwc/pcie-designware-host.c | 15 +++++++++++++++
+ drivers/pci/controller/dwc/pcie-designware.h      |  2 ++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
-new file mode 100644
-index 000000000000..9ee25bb25aac
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pci/st,stm32-pcie-common.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+index bcbbe02f8f86..35cbb686d3f3 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-host.c
++++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+@@ -16,6 +16,7 @@
+ #include <linux/of_pci.h>
+ #include <linux/pci_regs.h>
+ #include <linux/platform_device.h>
++#include <linux/suspend.h>
+ 
+ #include "../../pci.h"
+ #include "pcie-designware.h"
+@@ -991,3 +992,17 @@ int dw_pcie_resume_noirq(struct dw_pcie *pci)
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dw_pcie_resume_noirq);
 +
-+title: STM32MP25 PCIe RC/EP controller
++irqreturn_t dw_pcie_wake_irq_handler(int irq, void *arg)
++{
++	struct device *dev = arg;
 +
-+maintainers:
-+  - Christian Bruel <christian.bruel@foss.st.com>
++	dev_dbg(dev, "host wakeup by EP");
 +
-+description:
-+  STM32MP25 PCIe RC/EP common properties
++	/* Notify PM core we are wakeup source */
++	pm_wakeup_event(dev, 0);
++	pm_system_wakeup();
 +
-+properties:
-+  clocks:
-+    maxItems: 1
-+    description: PCIe system clock
++	return IRQ_HANDLED;
++}
++EXPORT_SYMBOL_GPL(dw_pcie_wake_irq_handler);
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index 110cbac7dde1..434cb6a00f01 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -502,6 +502,8 @@ void dw_pcie_edma_remove(struct dw_pcie *pci);
+ int dw_pcie_suspend_noirq(struct dw_pcie *pci);
+ int dw_pcie_resume_noirq(struct dw_pcie *pci);
+ 
++irqreturn_t dw_pcie_wake_irq_handler(int irq, void *arg);
 +
-+  resets:
-+    maxItems: 1
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    const: pcie-phy
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  access-controllers:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description: GPIO controlled connection to PERST# signal
-+    maxItems: 1
-+
-+required:
-+  - clocks
-+  - resets
-+
-+additionalProperties: true
-diff --git a/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml b/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
-new file mode 100644
-index 000000000000..b5b8c92522e0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
-@@ -0,0 +1,120 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pci/st,stm32-pcie-host.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32MP25 PCIe Root Complex
-+
-+maintainers:
-+  - Christian Bruel <christian.bruel@foss.st.com>
-+
-+description:
-+  PCIe root complex controller based on the Synopsys DesignWare PCIe core.
-+
-+allOf:
-+  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-+  - $ref: /schemas/pci/st,stm32-pcie-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: st,stm32mp25-pcie-rc
-+
-+  reg:
-+    items:
-+      - description: Data Bus Interface (DBI) registers.
-+      - description: PCIe configuration registers.
-+
-+  reg-names:
-+    items:
-+      - const: dbi
-+      - const: config
-+
-+  msi-parent:
-+    maxItems: 1
-+
-+  wake-gpios:
-+    description: GPIO used as WAKE# input signal
-+    maxItems: 1
-+
-+  wakeup-source: true
-+
-+dependentRequired:
-+  wakeup-source: [ wake-gpios ]
-+
-+patternProperties:
-+  '^pcie@[0-2],0$':
-+    type: object
-+    $ref: /schemas/pci/pci-pci-bridge.yaml#
-+
-+    properties:
-+      reg:
-+        maxItems: 1
-+
-+      phys:
-+        maxItems: 1
-+
-+      phy-names:
-+        const: pcie-phy
-+
-+    required:
-+      - phys
-+      - phy-names
-+      - ranges
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - interrupt-map
-+  - interrupt-map-mask
-+  - ranges
-+  - dma-ranges
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/phy/phy.h>
-+    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-+
-+    pcie@48400000 {
-+        compatible = "st,stm32mp25-pcie-rc";
-+        device_type = "pci";
-+        reg = <0x48400000 0x400000>,
-+              <0x10000000 0x10000>;
-+        reg-names = "dbi", "config";
-+        #interrupt-cells = <1>;
-+        interrupt-map-mask = <0 0 0 7>;
-+        interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 264 IRQ_TYPE_LEVEL_HIGH>,
-+                        <0 0 0 2 &intc 0 0 GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>,
-+                        <0 0 0 3 &intc 0 0 GIC_SPI 266 IRQ_TYPE_LEVEL_HIGH>,
-+                        <0 0 0 4 &intc 0 0 GIC_SPI 267 IRQ_TYPE_LEVEL_HIGH>;
-+        #address-cells = <3>;
-+        #size-cells = <2>;
-+        ranges = <0x01000000 0x0 0x00000000 0x10010000 0x0 0x10000>,
-+                 <0x02000000 0x0 0x10020000 0x10020000 0x0 0x7fe0000>,
-+                 <0x42000000 0x0 0x18000000 0x18000000 0x0 0x8000000>;
-+        dma-ranges = <0x42000000 0x0 0x80000000 0x80000000 0x0 0x80000000>;
-+        clocks = <&rcc CK_BUS_PCIE>;
-+        resets = <&rcc PCIE_R>;
-+        msi-parent = <&v2m0>;
-+        wakeup-source;
-+        wake-gpios = <&gpioh 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+        reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-+        access-controllers = <&rifsc 68>;
-+        power-domains = <&CLUSTER_PD>;
-+
-+        pcie@0,0 {
-+          device_type = "pci";
-+          reg = <0x0 0x0 0x0 0x0 0x0>;
-+          phys = <&combophy PHY_TYPE_PCIE>;
-+          phy-names = "pcie-phy";
-+          #address-cells = <3>;
-+          #size-cells = <2>;
-+          ranges;
-+        };
-+
-+    };
+ static inline void dw_pcie_writel_dbi(struct dw_pcie *pci, u32 reg, u32 val)
+ {
+ 	dw_pcie_write_dbi(pci, reg, 0x4, val);
 -- 
 2.34.1
 
