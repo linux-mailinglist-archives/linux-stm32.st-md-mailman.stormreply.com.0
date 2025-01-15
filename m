@@ -2,75 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68119A12497
+	by mail.lfdr.de (Postfix) with ESMTPS id 55988A12498
 	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 14:17:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1ADA8C78F77;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 296E7C78F7B;
 	Wed, 15 Jan 2025 13:17:11 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3370FC78F74
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF7BCC7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 10:25:35 +0000 (UTC)
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F10new023378;
- Wed, 15 Jan 2025 04:25:19 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=PODMain02222019; bh=BwBSIk74OQkD8K05wG
- C9E85ouIOUoZbue+TY8sE50NU=; b=OTC7Rn79ZlLG9B6zXwTbutpaqqWA5IYAZn
- xXOLqPfR3tldRuqMPbOI7fq7BjmpnwPaU+s0XEHdzBs7Poy/5JcAplJ2HK4VoQD/
- lawzjifOmRqHrqi4CPSCnC9YOSGzjsL6YxcwgPMs3x58LugwlRY2vP7KAckUXpbh
- XnBwWsihA3xhZKWygMp4HX18UA7J7mNqFdDPLQTgaD3l5gp2DFVTETQh1a1GX7AJ
- ObbVJYVR7akDB55uE9ZQXxegH6MJqRzPxgp6+S5HUZqATiElf7Zcr3FqIrABeUkX
- TzDWisNVbYg+bNwoDgaisDzutYegcuwfXoAVNprXbZkckt5OU3Wg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 443px4mfaa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Jan 2025 04:25:19 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.13; Wed, 15 Jan
- 2025 10:25:17 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.13 via Frontend Transport; Wed, 15 Jan 2025 10:25:17 +0000
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
- by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id E85FA82026C;
- Wed, 15 Jan 2025 10:25:16 +0000 (UTC)
-Date: Wed, 15 Jan 2025 10:25:15 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <Z4eNC/wWsW5mxkmN@opensource.cirrus.com>
-References: <20250114203602.1013275-1-krzysztof.kozlowski@linaro.org>
+ Wed, 15 Jan 2025 11:52:04 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-30219437e63so8335021fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Jan 2025 03:52:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1736941924; x=1737546724;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PqOgdxN7YgR6Di9i7BQMXG7Ou3Po/90jfs2TtmrHKmQ=;
+ b=OXyzSwKbzmjRFfqaIVZ9MqE4MuUAyzTDMb/m2SwJFEdWA9V5zpoZmkYzkJMX7PmOCo
+ Wp8X/Ki7SIKueqiQOziHCYlXdJ04tstviqpopuL20DbWaYjTzYWD75M8EVdpXjFxGTIA
+ PPGNsLzLFHi9zcunbP3PJ+ApLe/Cv9Q6gSjPFjHlKzfRPgXaUcO7t1Kq8Dn9vqyL4UAX
+ VDD290VQPtPFFYX7U+am6Hj2IUacpZV58tjciyZbHkS5439LCQf5lFY/YVRHXmKRJDsv
+ XgBtwJrtg6HJLZhKauc+6FhHa37TXzqfE/95scBMOWUGeHcErgyCAP/dPwzvdAyH8MAZ
+ 7rWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736941924; x=1737546724;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PqOgdxN7YgR6Di9i7BQMXG7Ou3Po/90jfs2TtmrHKmQ=;
+ b=HIoh2aFAPnO4JQyXnEMn0LAR0tKcLr+DRRChM68XPKL3rS4j0wbymqMSjnrfem9eqy
+ aKAFMdUi8TKf6zSk3prZtIiGIJcp+aznC0iEw7s6ujB6w25a5dBClQq4zAB2UzxNkGOa
+ DdD2na7yNcaFEVMHUsE+fCND8LXekejHE0B/sTfzcW8TCWCUBqoDPxd6OyIr+eyzQE7S
+ l/4zQ9i23Y0BG+etY4WtWvGeqZZ/5p+eJEkHCsOe06r+DVouK2ERGqTzbKXNzLMFa/1q
+ ogDgBg8+mMSJh8McOlgfIB0JqOqpFq+GRIIez10CiFS/kbSeAeNN9av6Er1llUt3u14j
+ 9JxQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV07hQWqViXFCBeFmkCvvrUgOep+SCPpd7FnaguJQGVBH8YnUq2pODy1PpOF5g9/RhiJIl1IimTlYbvsQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwePNmrmmffpkubua4IaSiH0SyJo3bfHwh4l7SErpy01DR4LVgI
+ pm2yIS07e8yk614s3xSoZEVuHgWS0kiU553QLN6d8p570B6pbJ0hIm/pGAzNpkLbUAL9fYwKS1y
+ BfqYImkJQXtdFGooTxWgaJGUxUqLE7ULXODKngQ==
+X-Gm-Gg: ASbGncvHPdr+3fc/rRN1+V9qGTd4s0ZoB3bFB4vI6qVvUP7WhvM44DKHQnPBgC9CJXl
+ fPeLYaEtq7Z/l8Ty01gVbxs2sOOIqSuiTxM/rDw==
+X-Google-Smtp-Source: AGHT+IGKcxZyPOd7E7UVx7R0mhE5720LI7mD2xNitAn5d4klzms7tIsW6xzgbwpkS78QWTFRsjjqnZvLe4xu3sB+q9I=
+X-Received: by 2002:a05:651c:2226:b0:2fa:d086:bca0 with SMTP id
+ 38308e7fff4ca-306305b3d9dmr9266981fa.10.1736941924002; Wed, 15 Jan 2025
+ 03:52:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250114203602.1013275-1-krzysztof.kozlowski@linaro.org>
-X-Proofpoint-ORIG-GUID: JgCM6RfomLyrgsV5M_Ad-wIhmpzVbKEd
-X-Proofpoint-GUID: JgCM6RfomLyrgsV5M_Ad-wIhmpzVbKEd
-X-Authority-Analysis: v=2.4 cv=XdhzzJ55 c=1 sm=1 tr=0 ts=67878d0f cx=c_pps
- a=uGhh+3tQvKmCLpEUO+DX4w==:117 a=uGhh+3tQvKmCLpEUO+DX4w==:17
- a=kj9zAlcOel0A:10 a=VdSt8ZQiCzkA:10 a=KKAkSRfTAAAA:8 a=w1d2syhTAAAA:8
- a=4kLLQdw-iMVuSiU5jB4A:9 a=CjuIK1q_8ugA:10
- a=cvBusfyB2V15izCimMoJ:22 a=YXXWInSmI4Sqt1AkVdoW:22
-X-Proofpoint-Spam-Reason: safe
+References: <20250114191438.857656-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250114191438.857656-1-krzysztof.kozlowski@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 15 Jan 2025 12:51:52 +0100
+X-Gm-Features: AbW1kvZ75WbEH74lqZTgQ1yROwYhyIN7pTh9_hdZdknNaesgXbnLlLUetNHb884
+Message-ID: <CACRpkdaer2vedtupM7QW6W2KZF6N+yKN2V93URd2PbT9xfZKeQ@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Approved-At: Wed, 15 Jan 2025 13:17:09 +0000
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- Linus Walleij <linus.walleij@linaro.org>, Sylwester
- Nawrocki <s.nawrocki@samsung.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+Cc: Andy Shevchenko <andy@kernel.org>, linux-pwm@vger.kernel.org,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ patches@opensource.cirrus.com, Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Nandor Han <nandor.han@ge.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Ray Jui <rjui@broadcom.com>, linux-arm-msm@vger.kernel.org,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
- patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: Use str_enable_disable-like
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] gpio: Use str_enable_disable-like
 	helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -83,32 +86,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 14, 2025 at 09:36:02PM +0100, Krzysztof Kozlowski wrote:
-> Replace ternary (condition ? "enable" : "disable") syntax with helpers
-> from string_choices.h because:
-> 1. Simple function call with one argument is easier to read.  Ternary
->    operator has three arguments and with wrapping might lead to quite
->    long code.
-> 2. Is slightly shorter thus also easier to read.
-> 3. It brings uniformity in the text - same string.
-> 4. Allows deduping by the linker, which results in a smaller binary
->    file.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
-
-For the Lochnagar bits:
-
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBKYW4gMTQsIDIwMjUgYXQgODoxNOKAr1BNIEtyenlzenRvZiBLb3psb3dza2kKPGty
+enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4gd3JvdGU6Cgo+IFJlcGxhY2UgdGVybmFyeSAo
+Y29uZGl0aW9uID8gImVuYWJsZSIgOiAiZGlzYWJsZSIpIHN5bnRheCB3aXRoIGhlbHBlcnMKPiBm
+cm9tIHN0cmluZ19jaG9pY2VzLmggYmVjYXVzZToKPiAxLiBTaW1wbGUgZnVuY3Rpb24gY2FsbCB3
+aXRoIG9uZSBhcmd1bWVudCBpcyBlYXNpZXIgdG8gcmVhZC4gIFRlcm5hcnkKPiAgICBvcGVyYXRv
+ciBoYXMgdGhyZWUgYXJndW1lbnRzIGFuZCB3aXRoIHdyYXBwaW5nIG1pZ2h0IGxlYWQgdG8gcXVp
+dGUKPiAgICBsb25nIGNvZGUuCj4gMi4gSXMgc2xpZ2h0bHkgc2hvcnRlciB0aHVzIGFsc28gZWFz
+aWVyIHRvIHJlYWQuCj4gMy4gSXQgYnJpbmdzIHVuaWZvcm1pdHkgaW4gdGhlIHRleHQgLSBzYW1l
+IHN0cmluZy4KPiA0LiBBbGxvd3MgZGVkdXBpbmcgYnkgdGhlIGxpbmtlciwgd2hpY2ggcmVzdWx0
+cyBpbiBhIHNtYWxsZXIgYmluYXJ5Cj4gICAgZmlsZS4KPgo+IFJldmlld2VkLWJ5OiBGbG9yaWFu
+IEZhaW5lbGxpIDxmbG9yaWFuLmZhaW5lbGxpQGJyb2FkY29tLmNvbT4KPiBTaWduZWQtb2ZmLWJ5
+OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+CgpG
+b3IgYSB3aGlsZSBJIHdhcyBjcml0aWNhbCBhYm91dCB0aGUgc3RyaW5nIGhlbHBlcnMgYnV0IHNp
+bmNlIGJvdGggQW5keQphbmQgS3J6eXN6dG9mIGxpa2UgdGhlbSwgSSB3aWxsIGNvbnNpZGVyIG15
+c2VsZiBjb252aW5jZWQgYW5kIHN0YXJ0IHRvCmxpa2UgdGhlbSBpbnN0ZWFkLgoKUmV2aWV3ZWQt
+Ynk6IExpbnVzIFdhbGxlaWogPGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4KCllvdXJzLApMaW51
+cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
