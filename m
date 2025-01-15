@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9187A11D9D
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 10:26:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6482A11D9B
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 10:26:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A0B3C78F7D;
-	Wed, 15 Jan 2025 09:26:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80894C78F77;
+	Wed, 15 Jan 2025 09:26:42 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47371C78F76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5143BC78F76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 09:26:42 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F9BMD6032409;
- Wed, 15 Jan 2025 10:26:25 +0100
+ Wed, 15 Jan 2025 09:26:41 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F5MRD6014666;
+ Wed, 15 Jan 2025 10:26:26 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Oxqz3gPKLjUeq3RC+gzdPgb15H4SWpt1bnaDWPNbrFk=; b=yU+ATsdQ1OL7r7hp
- 1snKFWosd//UR/WxqwcJiS2Y2QYWbOEXdtRmGGi25ztiWomiJyre/EApeJ2QrgOn
- KR8LEPBNGJfJ/RFYtlvqSA3eQQ2WbFjMfYjf+ZjrZPDpohl5kW1F/AWbu5qqKNks
- yCF36rYfL3uBPQUat7AaIuNIZVRPV3/u00Uu8Fi8ljEmDfwugiV6eDvExZYLnYvN
- rUCJ51KbuhSjgD/oFoosJGHBsthOUsP0JwPm12wDIvfgRBjMVfnPaoTzBbXrJSTk
- 9xOPKWBzFr22jjjpIIkMOE+KJHPmlCjpCb7GefokzA0geQRsb+6p7EMdQfl3NC9Q
- wVamrg==
+ Yuse7uWBhtZ6b/kXx1LL2sBJrBAPLPk9y6kI3fEfjnY=; b=P5qa9PFOV1StrgXO
+ 0a4RMvS9Kffp4UgPxAxBKNJ2I1C6KHvpo3oACw/a60jxRlRvc+SwDk4kEjUbYG4i
+ 87znaCsMKSDuKBEmsunU/jTsl8I+sHQpoZcGAYl52FYy51xwS0uZWn10pp8LhVpI
+ DauB23TBEpkRFBXfDs3LOpX/p2lwj0TDpCPIvy/2yAjIRCoDjhjQPZ1P2z8q9XRR
+ zpgcy9r64KvInYCXoTeEiXcmCeZsc2ihqnCrFUI/c0NepHLz59y3B2hSaFyXaNcA
+ JDiL3cAj3BOnChY2plKNgdT+d773R9fvTWDmciQqTxbjz2r4w1AUGRhJ35z290Ud
+ mzWJ/g==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 446a5wg2h1-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4466tjrxrt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 15 Jan 2025 10:26:25 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 782474005A;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1259840059;
  Wed, 15 Jan 2025 10:24:58 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A6636246987;
- Wed, 15 Jan 2025 10:23:44 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 44E6524698F;
+ Wed, 15 Jan 2025 10:23:45 +0100 (CET)
 Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
  (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
- 2025 10:23:44 +0100
+ 2025 10:23:45 +0100
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
  <lpieralisi@kernel.org>, <kw@linux.com>,
@@ -49,8 +49,8 @@ To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
  <jingoohan1@gmail.com>, <p.zabel@pengutronix.de>,
  <johan+linaro@kernel.org>, <quic_schintav@quicinc.com>, <cassel@kernel.org>
-Date: Wed, 15 Jan 2025 10:21:31 +0100
-Message-ID: <20250115092134.2904773-8-christian.bruel@foss.st.com>
+Date: Wed, 15 Jan 2025 10:21:32 +0100
+Message-ID: <20250115092134.2904773-9-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250115092134.2904773-1-christian.bruel@foss.st.com>
 References: <20250115092134.2904773-1-christian.bruel@foss.st.com>
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 07/10] arm64: dts: st: add PCIe pinctrl
-	entries in stm32mp25-pinctrl.dtsi
+Subject: [Linux-stm32] [PATCH v3 08/10] arm64: dts: st: Add PCIe Rootcomplex
+	mode on stm32mp251
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,49 +82,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add PCIe pinctrl entries in stm32mp25-pinctrl.dtsi
-init: forces GPIO to low while probing so CLKREQ is low for
-phy_init
-default: restore the AFMUX after controller probe
+Add pcie_rc node to support STM32 MP25 PCIe driver based on the
+DesignWare PCIe core configured as Rootcomplex mode
 
-Add Analog pins of PCIe to perform power cycle
+Supports Gen1/Gen2, single lane, MSI interrupts using the ARM GICv2m
 
 Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 45 +++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index 8fdd5f020425..f0d814bc7c60 100644
---- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -82,6 +82,26 @@ pins {
- 		};
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index f3c6cdfd7008..ee30bc516fbb 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -117,12 +117,20 @@ scmi_vdda18adc: regulator@7 {
+ 	intc: interrupt-controller@4ac00000 {
+ 		compatible = "arm,cortex-a7-gic";
+ 		#interrupt-cells = <3>;
+-		#address-cells = <1>;
++		#address-cells = <2>;
++		#size-cells = <2>;
+ 		interrupt-controller;
+ 		reg = <0x0 0x4ac10000 0x0 0x1000>,
+ 		      <0x0 0x4ac20000 0x0 0x2000>,
+ 		      <0x0 0x4ac40000 0x0 0x2000>,
+ 		      <0x0 0x4ac60000 0x0 0x2000>;
++		ranges;
++
++		v2m0: v2m@48090000 {
++			compatible = "arm,gic-v2m-frame";
++			reg = <0x0 0x48090000 0x0 0x1000>;
++			msi-controller;
++		};
  	};
  
-+	pcie_pins_a: pcie-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('J', 0, AF4)>;
-+			bias-disable;
-+		};
-+	};
+ 	psci {
+@@ -900,6 +908,41 @@ stmmac_axi_config_1: stmmac-axi-config {
+ 					snps,wr_osr_lmt = <0x7>;
+ 				};
+ 			};
 +
-+	pcie_init_pins_a: pcie-init-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('J', 0, GPIO)>;
-+			output-low;
-+		};
-+	};
++			pcie_rc: pcie@48400000 {
++				compatible = "st,stm32mp25-pcie-rc";
++				device_type = "pci";
++				reg = <0x48400000 0x400000>,
++				      <0x10000000 0x10000>;
++				reg-names = "dbi", "config";
++				#interrupt-cells = <1>;
++				interrupt-map-mask = <0 0 0 7>;
++				interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 264 IRQ_TYPE_LEVEL_HIGH>,
++						<0 0 0 2 &intc 0 0 GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>,
++						<0 0 0 3 &intc 0 0 GIC_SPI 266 IRQ_TYPE_LEVEL_HIGH>,
++						<0 0 0 4 &intc 0 0 GIC_SPI 267 IRQ_TYPE_LEVEL_HIGH>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges = <0x01000000 0x0 0x00000000 0x10010000 0x0 0x10000>,
++					 <0x02000000 0x0 0x10020000 0x10020000 0x0 0x7fe0000>,
++					 <0x42000000 0x0 0x18000000 0x18000000 0x0 0x8000000>;
++				dma-ranges = <0x42000000 0x0 0x80000000 0x80000000 0x0 0x80000000>;
++				clocks = <&rcc CK_BUS_PCIE>;
++				resets = <&rcc PCIE_R>;
++				msi-parent = <&v2m0>;
++				access-controllers = <&rifsc 68>;
++				status = "disabled";
 +
-+	pcie_sleep_pins_a: pcie-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('J', 0, ANALOG)>;
-+		};
-+	};
-+
- 	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('E', 4, AF10)>, /* SDMMC1_D0 */
++				pcie@0,0 {
++					device_type = "pci";
++					reg = <0x0 0x0 0x0 0x0 0x0>;
++					phys = <&combophy PHY_TYPE_PCIE>;
++					phy-names = "pcie-phy";
++					#address-cells = <3>;
++					#size-cells = <2>;
++					ranges;
++				};
++			};
+ 		};
+ 
+ 		bsec: efuse@44000000 {
 -- 
 2.34.1
 
