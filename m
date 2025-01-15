@@ -2,58 +2,219 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AD95A127EF
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 16:55:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC167A12831
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 17:07:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B281AC78F6C;
-	Wed, 15 Jan 2025 15:55:36 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A83CC78F74;
+	Wed, 15 Jan 2025 16:07:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57943C7801F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1E5BC78F6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 15:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YMPOFGdyj84J2ye+wJ0aXvtsP3NEoSOPoej4rayVbzg=; b=zWOfLaCmnzXYSVoMjQ65XsLomQ
- IcHHOuuGVV4U1LNofDaBuYtPJ872hC2P7bJ9dVTjYZViHT9pRHxzFAHa8JYGoZLesYZwt+gq2iuQC
- SF2SmXfmf30JI17Dc9MGpvmWUTnP2gdK7bwdpEgv6dBIY/wW9O4LyYBx1LYdx0GX809Y8LzPYeMLH
- VPQ4KZu2U6PMzeluXFEHxXoF72rao1XtyR8+9E4KDcXjzp+Gzf2jxplgmvkS2p6Gez5ztBe/D7GRV
- ht0r75ASPiJuASikd2K2BGADRs27BCcAwu+m+tJmbG0RsUyZgnumF6Ye+wRR1RsPbjL5LQJaytdz7
- Q5V0C9Fw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53616)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tY5jn-0001NL-2b;
- Wed, 15 Jan 2025 15:55:23 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tY5jl-0006HS-1G;
- Wed, 15 Jan 2025 15:55:21 +0000
-Date: Wed, 15 Jan 2025 15:55:21 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z4faaYXMD13tSlT5@shell.armlinux.org.uk>
-References: <Z4ZtoeeHIXPucjUv@shell.armlinux.org.uk>
- <E1tXhUp-000n0Y-BA@rmk-PC.armlinux.org.uk>
+ Wed, 15 Jan 2025 16:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736957278; x=1768493278;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=l+mKUTX4XgjVtZeOzn12fckpu4Qs2uK2E88AM5LntjU=;
+ b=n9OmSFtRwJwHDORU7afHb2Z+TRo4E7Y3humYWESV/WypaBSId7R4flp+
+ sS63jjLuQ9uLS3eiX4YZrk5ThYaRc8S55DdLjx9GK0q+WTDBUSAKjk9b4
+ j4kmXh4WI/xsbEXvVknG4VyA0cXAbVOq7UBw/lfEqpnbnUck7cvAl1yJY
+ /Tyd0SNvFb06mcGcAe7XDfcoD0Mtl2TJEI3+B+W0De4Pc6RHdrCPUUK4J
+ SEpkMAyUeftaLM1qeIo8zuswwmTQw9oHKvRkUS52gYkKI9ahmo9uajS4z
+ whVWXWgulTEipnMfILhyDRAFKX1eK6ve/QXHNXwVIiyE/PunyoKm32tCp g==;
+X-CSE-ConnectionGUID: r4+97RvESe+/zT/1wTq9xQ==
+X-CSE-MsgGUID: m80TLi9eTf6Z83NsIX00GA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11316"; a="40111884"
+X-IronPort-AV: E=Sophos;i="6.13,206,1732608000"; d="scan'208";a="40111884"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2025 08:07:50 -0800
+X-CSE-ConnectionGUID: vBHhzdA3SrSPVN6WbXmRjQ==
+X-CSE-MsgGUID: Kp6HWIEdTL2SmyW5xa4F1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="110167419"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orviesa003.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 15 Jan 2025 08:07:50 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Wed, 15 Jan 2025 08:07:45 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Wed, 15 Jan 2025 08:07:45 -0800
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.46) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Wed, 15 Jan 2025 08:07:45 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nA6fqowfaKOEPcge0wZuRAc8bE3DUDqHPergtzpQxYJVGZlZgRHe4H1pQw61fCZTgfv5dfX5DCPHoI+NfUpMzMYYO+z69y8j9EkAjyRZm2t4AB6HzML6eESaM7t30ZCEu7GRRl/AJBhSXSVQzCV4k9r5bgC+z4Xlq0/xMNNtf2vIWkrG28Zi8QohKioDZFDV8orIg/Pq0k8qK1DU7Ei+2of/garj9NdK+0p+/PwdmrD9gA2nHFe2IXl8G8ldauP8nMtfod97HGbkW3kRoSLOA69tpFowMz3Dcu1KbnI1u7Y/PmQzuAQvmf84YzUWLK0qgt/3/50D+B4YwRKs6FoCnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l+mKUTX4XgjVtZeOzn12fckpu4Qs2uK2E88AM5LntjU=;
+ b=Vx8G7m9W2nxWhsZlWWw07Pnd2Eqsxje2ZS5Ko9JJkQBKAkmakHmQPUnbuIi5yTiXPZLP57x/Ko8GYfe+UpRUy8UTtdhrdnNHMMXTFAHDYUdTynBcRMKRjjGJMep/dmIOR/phU3C22LlYS3ICH5YIG+wpd3g8k5ocxP/o+G0nur4XoXMgPVVN5BOmTBQJlc6rzYv0hpyMsb5fyJTzl2fk0Y1FI925fA7E24pxxxpKe0YT/qGj4otSXZicJExoIe9C237g2PS9fv+Fg70WVqepYnoG0tO3XlZe6ZoAopeFZjg7ify9GJHoiVm34hI+RGlwesJCCmXnVYaq0drkWz9+iA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH0PR11MB5830.namprd11.prod.outlook.com (2603:10b6:510:129::20)
+ by CH0PR11MB5233.namprd11.prod.outlook.com (2603:10b6:610:e0::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.14; Wed, 15 Jan
+ 2025 16:07:29 +0000
+Received: from PH0PR11MB5830.namprd11.prod.outlook.com
+ ([fe80::c80d:3b17:3f40:10d6]) by PH0PR11MB5830.namprd11.prod.outlook.com
+ ([fe80::c80d:3b17:3f40:10d6%7]) with mapi id 15.20.8356.010; Wed, 15 Jan 2025
+ 16:07:29 +0000
+From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
+To: Daniel Borkmann <daniel@iogearbox.net>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, "Bezdeka, Florian"
+ <florian.bezdeka@siemens.com>, Donald Hunter <donald.hunter@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>, Bjorn Topel <bjorn@kernel.org>, "Karlsson,
+ Magnus" <magnus.karlsson@intel.com>, "Fijalkowski, Maciej"
+ <maciej.fijalkowski@intel.com>, Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, "Damato, Joe" <jdamato@fastly.com>, "Stanislav
+ Fomichev" <sdf@fomichev.me>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "Mina
+ Almasry" <almasrymina@google.com>, Daniel Jurgens <danielj@nvidia.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Mykola Lysenko <mykolal@fb.com>, Martin KaFai Lau <martin.lau@linux.dev>,
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, KP Singh
+ <kpsingh@kernel.org>, Hao Luo <haoluo@google.com>, Jiri Olsa
+ <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, "Nguyen, Anthony L"
+ <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+ <przemyslaw.kitszel@intel.com>
+Thread-Topic: [PATCH bpf-next v5 2/4] selftests/bpf: Add launch time request
+ to xdp_hw_metadata
+Thread-Index: AQHbZpj4tA6LH2vFfkKKBd9KW6OKwrMX7isAgAASx8A=
+Date: Wed, 15 Jan 2025 16:07:28 +0000
+Message-ID: <PH0PR11MB58300DA3845D1E3F788C4FC8D8192@PH0PR11MB5830.namprd11.prod.outlook.com>
+References: <20250114152718.120588-1-yoong.siang.song@intel.com>
+ <20250114152718.120588-3-yoong.siang.song@intel.com>
+ <e273b1f1-868f-440e-b226-84b493ef7ee2@iogearbox.net>
+In-Reply-To: <e273b1f1-868f-440e-b226-84b493ef7ee2@iogearbox.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|CH0PR11MB5233:EE_
+x-ms-office365-filtering-correlation-id: c4a7fdc5-0ad5-4eb4-9ab0-08dd357eb5d5
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|921020|38070700018; 
+x-microsoft-antispam-message-info: =?utf-8?B?YlBaYXo4V1dUR0s0dkl6NG9SN29TNitpdFlsY0JSdDg4Qi9CK0ptVERFa3U2?=
+ =?utf-8?B?QTlPZ0ZUc2crbXlQNVl4OXVlWHRjMHY2ZFh1cDNpQUlKNmRtL0d0ekJIQjFX?=
+ =?utf-8?B?RUFMYW5qUGhTUlRrcFlJak9tcTRHbEgvM0VBc2pXTVRrbDh3akRrKzk3czFO?=
+ =?utf-8?B?LzdxSFRQck1Qd2VuYnkvQTBIclhyczNYa3ZoOWdyMDRIbHFxWkVQaFBaWWVp?=
+ =?utf-8?B?WDVuUTBYRnQ5STN5dlNwcitaVmVTdUtCTFBDMnRyNVRFemN6U05CVHZJNGt6?=
+ =?utf-8?B?ZEtyRE9xUEVzOFhlWHJXY2ZUcUpOR01seEVNRnI0TUtXM2llQ1FoWmkxbndw?=
+ =?utf-8?B?QnpEV1RmS0NnMkdNK1VoS24zYTlMZnRGKzkwR3E4OG9EZ0xWd2l4RlpsY1cx?=
+ =?utf-8?B?UFo5Q0FrU0ppV1A0NjZ4UTdLMGs5aHJ6bWFtSHpLZ2lDRHVYV0ljaG5XWlJM?=
+ =?utf-8?B?ZHo5WWFPSndRdDVPOXltbHpsK1ZmdytibkR2QkR1ejNkQnF5T0tqQXg3Z0t3?=
+ =?utf-8?B?d1NOV0dYcVFXQVpyR1k3UmhnMnI3K2RMOHFENFhEYitMMHNKUW9iM3NRTWVp?=
+ =?utf-8?B?QXJSRVVyTGZvZjc5UzJrZWoxOTZKZ0F2WmtITkw3WTM2MTdwWXlsR211Qms2?=
+ =?utf-8?B?eUorMGhFV2xlbnZKdzh3UmtseUhTY2h3clU2T2RJeTllMGhJL3VzdWd5MVNL?=
+ =?utf-8?B?cGIxYzJhUnM0VTBMU3VrY0pTaUdaOGFGRkRrNk1Qb0IrdjdqQmE2cEFVclcx?=
+ =?utf-8?B?Lzg2ZFZzaVBBVGY5TjQ5enZLczlDVTg5OEdDakVHeGpvQzFOb2NpTDdScHUr?=
+ =?utf-8?B?NDlDYXdOcDJFcGswVnF2ZlJVcVlaWVJZTWszeUluUUUxVXFob0xYT2pidXc1?=
+ =?utf-8?B?VXVEUFBkb3pXREorS2V1d1ZwR0gzdVljeWJET0g0L1Y1R05iREo0NTZZSVhW?=
+ =?utf-8?B?czlOS3diMS9QRE85ZFN4R1EwT1JPL3Y2dEo0M3k5Y2drUDVBN0VINlp3Nzht?=
+ =?utf-8?B?ZEFVQXhJRUdNTGZLTkdLcFVlRVd5SkxvZjdPRE8xWjFSNWZvTE94RXFJL1Z5?=
+ =?utf-8?B?WUI2TlZCM084U3ZYRVRBb0wvYlh5dDdZanFmZlZ3alovNDFsdzJOSTVvaHhE?=
+ =?utf-8?B?YXN1eFFxTTZOb29lcEdKMXN1eWNiekJRc3pMS00xRis5dmdsVVlQNm9NeDRR?=
+ =?utf-8?B?RTF0UzF3RWJFbU5lcG53clU0VEY2VUpzQ0pXakYyY3R2UERNVGMwQVAzdmtv?=
+ =?utf-8?B?dGUxdCtUUEZJcElDWUoyaEdxb1hVYWZtQktPU2ZER1FnV091NDNuYXZZUVhO?=
+ =?utf-8?B?UEtEV2NKajlNSzc4RTNNVjZEMmYyT2Z2c0lxZWp4ZjVTbFVnY1ZmUTJpMmhV?=
+ =?utf-8?B?YTZsNFNHYXJSK2xKR0xRT3FOd1NFdGE2VTQ3QTdLcUVzN1dPQ1d1VmtMbHda?=
+ =?utf-8?B?L25kRGFZVHdBWEJRMWV2SXFxTEJVKzJ5ZThOMXBPcWVzTHlSUjZ4ZjNXZ3dp?=
+ =?utf-8?B?RW55NmRnUDF2M3VNVUFiOTF6eVQwZ1hPcGNNeGQrVTc1Tit0VFVXUnIrTkRx?=
+ =?utf-8?B?Mm11eGZkR0wyOVRSZEVQTmFldmdVK0JKcnRPNTBURDVRRUFia1JHMDBJUmdS?=
+ =?utf-8?B?YTAvRTNUUEUrQmVtT0h3TzgwczBUSEgvTmRvTjU1YUwrMW5lT0g4bngyWGtZ?=
+ =?utf-8?B?cnkra0x2QVhnYXNlMG9lcUtQU3JLZS9ZeForTGFLMjBDRW9tQzNub1RNbUJO?=
+ =?utf-8?B?blFpU0FFNnllWmhYZ2E1YkVQUFFKaTk0WmhEdkZiM2s5cHRGSHQxT003ZVF0?=
+ =?utf-8?B?eitGNlY1N0lsbDZURjZmcklmVy9zUmFUUDM2UlpBM2RJODJOMzR6MmdzK2pJ?=
+ =?utf-8?B?N2ZxMkQ0c3dUOWQyWmJIaUV6c0xPWjEvMFhNcmh0TTdaSTNWdzlLSER4Mzc5?=
+ =?utf-8?B?MjA5a3R5eS9CbXZTblU5K2ZhcG9SYkRILytyR0ExbUJ1WUlKcURqSFpaTGNw?=
+ =?utf-8?B?Z2hQeTZ1UUhnPT0=?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB5830.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(921020)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bFI4KzhUb0xHVWxJL1Nkb2swSzk5K21tVzd6eGxHd3ExRGYrdEJBVHVWb3dx?=
+ =?utf-8?B?OTFGRitlTENJOTNyaEdiZExtL3VzQlY3bUlxUkEwWE16eE5Qc2ZjWDF4SENY?=
+ =?utf-8?B?akI0MnRwaU1GelQxM2xBOHdtbGdiVHN4QlQ4VVc5SlpmTnNmb0Frd2ZUWjND?=
+ =?utf-8?B?U3o2Ylo1TGI2U0FUSHREOGdMYVpIdGppMFFEbFR3dTlkb0Eyd0JXZEFrZVhq?=
+ =?utf-8?B?RUNlM3luSjduVWtWTGkydmxWTjhzMDFWOHppT3JQaWloSG5menJTNDYyU0M3?=
+ =?utf-8?B?Vm0vZFQ3R2kvejBEUm9aN2pUa3RKWGEvRXdtRDh5cVEyTDl0YStXTHZMMnpF?=
+ =?utf-8?B?RWZOeVRBYzVpcndPcW5HU0FGdlF3dzdGTjVpTXFsSEZvZUk0bzlnRzhPbEdM?=
+ =?utf-8?B?WE83ZkxDdndPcFZkeGZXelVxOGRESDFScm5kRzBOU3dQaEtHMFRPOVNnQUxQ?=
+ =?utf-8?B?S3lqVi9UM290anQwdjFMTWJxUXFLZ05VOTB1dnhtMFhuSGptR1Q3WVZTZWgz?=
+ =?utf-8?B?WlZEaXBFNythbmYwTWxOTjB4R2pKRmF5Qk0wSmxTc3crNVNhMExyRWx4MU9q?=
+ =?utf-8?B?RlRPTEdvLy9DOXhPRjY4bHhCMkNWa3hxNnNRNjROK2plbkQzRWtPbzRYaEZQ?=
+ =?utf-8?B?UERmYVQ1UTIwNC9MSUhWNDJDSm1UT3hJTzd6UW1pTkZ3TUJ6L3huL3FDSGk3?=
+ =?utf-8?B?M2tEN3prMDU3akROL1k2UHc2SGNjcklrbHZwci9wcnRCeGhFakpuMnFMVWty?=
+ =?utf-8?B?bDdpM1VEclphTjZ5d25Nd2R5b0k3K3RCbngzclcyNkFhQ0loOCtTT3Q1QTdl?=
+ =?utf-8?B?Rm1mOGtLdkFiaE1zWTBjSE50L1lzcGxhR3RsK1NPbytoajgxRW9vaDNWTFlG?=
+ =?utf-8?B?Q3pzNndmU1hjZmFnbnJnZ1VjSkI1aHBFZEZTTlNkV2RHbmtreFpRV3cwbHA3?=
+ =?utf-8?B?RWUwTloxS1ZjUlB1OXlWMjQrdU9LNG1LZXJLZllBRHdnREdSRW1HTEVOdG43?=
+ =?utf-8?B?Uy9rZ085UkVVdHdqcjhFa2NKa3haVHZEN0lHK3Q3bGk1NVdtRHg0OEwrVGpp?=
+ =?utf-8?B?V1RhTmhiSDEzWDdqRm5vMVdwWERRZWs2aWh2RzRDODFHMzRubWtCOVFpY0tJ?=
+ =?utf-8?B?NDY4WWcwQzhhbTJ1Nno4ZXdnTGVzT2x2OStEbVlrbDB5OHBNVHdPN2pZUGJ3?=
+ =?utf-8?B?SFJlM2JLY3pyZlJ0YkI0elJOWDR2aHhuRHJPcHoxWGRsM0ROVzJXU1RVRjlp?=
+ =?utf-8?B?RFoxNnlybk1lYzlxVTl5bGlnREdacVpFSEs1N2RULzdibC9TRlFEVjBGVjJr?=
+ =?utf-8?B?b0hHdTN1d1pKN3pWd1JCQStNd05nRUwrRXJpSDgzZXF6OEl6RjJhdmlzaFNr?=
+ =?utf-8?B?UWhsTDdsK3hQSGpkZ2ZKQjRNQ1NvNWozVEpTbVlSaUYxTzBGYkVWelpUVmpR?=
+ =?utf-8?B?THdINisxT3ZSSHJxbVBKKzN0bWlJZlEwYXRaWDdJNUJJWWpjWUhIS08rSUdB?=
+ =?utf-8?B?bzZ1R1A2QzMwZmtuMTM4MU1YeG1kRmlUajhldWYyNkVRcVlXdXpGdzdVZE5r?=
+ =?utf-8?B?UkpWdmR4T09TeXMxbjdSc3RBemQ1bXVPV04rR3Rza2dqRzJDMEFGY1Q3L2ZB?=
+ =?utf-8?B?QWhXaU5kTnErUmhSYndXNVVHdmNpYithVVpYSFprdmtnN2cybXZLQ0R5RjNP?=
+ =?utf-8?B?M05uYlhTZVFGYW1TcjlKZXJzeXhzSWtsNVN3Y2VJRmtPazYxUFRrSU5kWGs4?=
+ =?utf-8?B?NXhiTG9lUGVzNmlJWGpHUHRhRDcrSnk0NVVBaCtwY2FQM2g0UzlSQXB0Uk9U?=
+ =?utf-8?B?ZGh2M0g4STFlc3A5Sm9va05sR2JqSlRNb0RvcW5UVnVySGJhN2N1SWJINWpv?=
+ =?utf-8?B?bUxiOUUyNVJ6VjJjc2lOc3Z3SjVUaStFaE1Rc0ZkYzBUb2ZCaGhzTXJKK0ww?=
+ =?utf-8?B?OUYrQWFJdzZZMEY0WkRTOGlXSVAvaDErMC9scU1MWTk4dFlXUi9YMm92bXBH?=
+ =?utf-8?B?bFJNNDU5SGNFbk4xeVJRUzNJd0ptSDM0dnY5aTAwTVg1K3hMaC9LZUo0OUhh?=
+ =?utf-8?B?R0xBeWU1RmJZZiswUHNzSldzZjQ5eXVnZ0Zoa0hCY2JMZTVrUUtpVzlkb2FT?=
+ =?utf-8?B?UzdJVlBoUHdGWXJBelR5NlhWNnNCMVM2R1ZQdHl6MDdLbStSSEJjZTBIVDVz?=
+ =?utf-8?B?Ync9PQ==?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1tXhUp-000n0Y-BA@rmk-PC.armlinux.org.uk>
-Cc: Vladimir Oltean <olteanv@gmail.com>,
- Marcin Wojtas <marcin.s.wojtas@gmail.com>, UNGLinuxDriver@microchip.com,
- Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 04/10] net: phylink: add EEE
-	management
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5830.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4a7fdc5-0ad5-4eb4-9ab0-08dd357eb5d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2025 16:07:28.8819 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3YDbExcS/3Z4mCkTF3uftPI+QAT3s5DmUa5RROSuIMQh2+/51TsruHOu+yzb9VmsxOmXNSUA6KMLnpPTYOW0CBPR7Z9prC8uV/88xjACZDw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5233
+X-OriginatorOrg: intel.com
+Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH bpf-next v5 2/4] selftests/bpf: Add launch
+ time request to xdp_hw_metadata
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,140 +226,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 14, 2025 at 02:02:19PM +0000, Russell King (Oracle) wrote:
-> Add EEE management to phylink, making use of the phylib implementation.
-> This will only be used where a MAC driver populates the methods and
-> capabilities bitfield, otherwise we keep our old behaviour.
-> 
-> Phylink will keep track of the EEE configuration, including the clock
-> stop abilities at each end of the MAC to PHY link, programming the PHY
-> appropriately and preserving the LPI configuration should the PHY go
-> away.
-> 
-> Phylink will call into the MAC driver when LPI needs to be enabled or
-> disabled, with the requirement that the MAC have LPI disabled prior
-> to the netdev being brought up (in other words, it will only call
-> mac_disable_tx_lpi() if it has already called mac_enable_tx_lpi().)
-> 
-> Support for phylink managed EEE is enabled by populating both tx_lpi
-> MAC operations method pointers, and filling in both LPI interfaces
-> and capabilities. If the methods are provided but the LPI interfaces
-> or capabilities remain empty, this indicates to phylink that EEE is
-> implemented by the driver but the hardware it is driving does not
-> support EEE, and thus the ethtool set_eee() and get_eee() methods will
-> return EOPNOTSUPP.
-> 
-> No validation of the LPI timer value is performed by this patch.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/phy/phylink.c | 133 ++++++++++++++++++++++++++++++++++++--
->  include/linux/phylink.h   |  45 +++++++++++++
->  2 files changed, 174 insertions(+), 4 deletions(-)
-
-In discussion with Herner, it came to my attention that the way I'm
-restricting EEE modes in this patch is actually buggy. I've been
-intending to update this patch once Herner's patch set has been merged,
-but this morning, Jakub asked for changes to it.
-
-So, rather than waiting for that, I'm intending to use a different
-solution - rather than waiting for Herner's patch set and adapting mine
-to it. So, the patch below will change the way EEE modes are restricted
-in such a way that this is independent of Herner's series. We
-basically apply our own restriction to the supported modes after
-calling phylib's get_eee() method, and restrict the advertised modes
-before attaching the PHY and before calling phylib's set_eee() method.
-
-Once Herner's patch set is merged, maybe I can manipulate the
-eee disabled modes mask instead, and leave this to phylib to deal
-with.
-
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index c430ac2e5e9f..b561a8228612 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -60,6 +60,7 @@ struct phylink {
- 	u8 act_link_an_mode;		/* Active MLO_AN_xxx mode */
- 	u8 link_port;			/* The current non-phy ethtool port */
- 	__ETHTOOL_DECLARE_LINK_MODE_MASK(supported);
-+	__ETHTOOL_DECLARE_LINK_MODE_MASK(supported_lpi);
- 
- 	/* The link configuration settings */
- 	struct phylink_link_state link_config;
-@@ -1623,19 +1624,6 @@ static void phylink_activate_lpi(struct phylink *pl)
- 			    pl->mac_ops->mac_enable_tx_lpi, ERR_PTR(err));
- }
- 
--static void phylink_phy_restrict_eee(struct phylink *pl, struct phy_device *phy)
--{
--	__ETHTOOL_DECLARE_LINK_MODE_MASK(eee_supported);
--
--	/* Convert the MAC's LPI capabilities to linkmodes */
--	linkmode_zero(eee_supported);
--	phylink_caps_to_linkmodes(eee_supported, pl->config->lpi_capabilities);
--
--	/* Mask out EEE modes that are not supported */
--	linkmode_and(phy->supported_eee, phy->supported_eee, eee_supported);
--	linkmode_and(phy->advertising_eee, phy->advertising_eee, eee_supported);
--}
--
- static void phylink_link_up(struct phylink *pl,
- 			    struct phylink_link_state link_state)
- {
-@@ -2242,10 +2230,16 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
- 		phy->eee_cfg.tx_lpi_enabled = pl->eee_cfg.tx_lpi_enabled;
- 		phy->eee_cfg.tx_lpi_timer = pl->eee_cfg.tx_lpi_timer;
- 
-+		/* Convert the MAC's LPI capabilities to linkmodes */
-+		linkmode_zero(pl->supported_lpi);
-+		phylink_caps_to_linkmodes(pl->supported_lpi,
-+					  pl->config->lpi_capabilities);
-+
- 		/* Restrict the PHYs EEE support/advertisement to the modes
- 		 * that the MAC supports.
- 		 */
--		phylink_phy_restrict_eee(pl, phy);
-+		linkmode_and(phy->advertising_eee, phy->advertising_eee,
-+			     pl->supported_lpi);
- 	} else if (pl->mac_supports_eee_ops) {
- 		/* MAC supports phylink EEE, but wants EEE always disabled. */
- 		phy_disable_eee(phy);
-@@ -3188,8 +3182,13 @@ int phylink_ethtool_get_eee(struct phylink *pl, struct ethtool_keee *eee)
- 	if (pl->mac_supports_eee_ops && !pl->mac_supports_eee)
- 		return ret;
- 
--	if (pl->phydev)
-+	if (pl->phydev) {
- 		ret = phy_ethtool_get_eee(pl->phydev, eee);
-+		/* Restrict supported linkmode mask */
-+		if (ret == 0 && pl->mac_supports_eee_ops)
-+			linkmode_and(eee->supported, eee->supported,
-+				     pl->supported_lpi);
-+	}
- 
- 	return ret;
- }
-@@ -3232,6 +3231,10 @@ int phylink_ethtool_set_eee(struct phylink *pl, struct ethtool_keee *eee)
- 	ret = -EOPNOTSUPP;
- 
- 	if (pl->phydev) {
-+		/* Restrict advertisement mask */
-+		if (pl->mac_supports_eee_ops)
-+			linkmode_and(eee->advertised, eee->advertised,
-+				     pl->supported_lpi);
- 		ret = phy_ethtool_set_eee(pl->phydev, eee);
- 		if (ret == 0)
- 			eee_to_eeecfg(&pl->eee_cfg, eee);
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkbmVzZGF5LCBKYW51YXJ5IDE1LCAyMDI1IDEwOjU3IFBNLCBEYW5pZWwgQm9ya21hbm4g
+PGRhbmllbEBpb2dlYXJib3gubmV0PiB3cm90ZToNCj5PbiAxLzE0LzI1IDQ6MjcgUE0sIFNvbmcg
+WW9vbmcgU2lhbmcgd3JvdGU6DQo+Wy4uLl0NCj4+ICsJLyogQWRkIG1xcHJpbyBxZGlzYyB3aXRo
+IFRDIGFuZCBoYXJkd2FyZSBxdWV1ZSBvbmUtdG8tb25lIG1hcHBpbmcgKi8NCj4+ICsJY2hhciBt
+YXBbMjU2XSA9IHswfTsNCj4+ICsJY2hhciBxdWV1ZXNbMjU2XSA9IHswfTsNCj4+ICsNCj4+ICsJ
+Zm9yIChpID0gMDsgaSA8IHJ4cTsgaSsrKSB7DQo+PiArCQljaGFyIGJ1Zls4XTsNCj4+ICsNCj4+
+ICsJCXNucHJpbnRmKGJ1Ziwgc2l6ZW9mKGJ1ZiksICIlZCAiLCBpKTsNCj4+ICsJCXN0cmNhdCht
+YXAsIGJ1Zik7DQo+PiArDQo+PiArCQlzbnByaW50ZihidWYsIHNpemVvZihidWYpLCAiMUAlZCAi
+LCBpKTsNCj4+ICsJCXN0cmNhdChxdWV1ZXMsIGJ1Zik7DQo+PiArCX0NCj4+ICsJcnVuX2NvbW1h
+bmQoInN1ZG8gdGMgcWRpc2MgYWRkIGRldiAlcyBoYW5kbGUgODAwMTogcGFyZW50IHJvb3QgbXFw
+cmlvDQo+bnVtX3RjICVkIG1hcCAlcyBxdWV1ZXMgJXMgaHcgMCIsDQo+PiArCQkgICAgaWZuYW1l
+LCByeHEsIG1hcCwgcXVldWVzKTsNCj4NCj5GeWksIGFib3ZlIHRyaWdnZXJzIHNlbGZ0ZXN0IGJ1
+aWxkIGVycm9yczoNCj4NCj4gICB4ZHBfaHdfbWV0YWRhdGEuYzogSW4gZnVuY3Rpb24g4oCYbWFp
+buKAmToNCj4gICB4ZHBfaHdfbWV0YWRhdGEuYzo3NjM6NDU6IGVycm9yOiDigJglZOKAmSBkaXJl
+Y3RpdmUgb3V0cHV0IG1heSBiZSB0cnVuY2F0ZWQNCj53cml0aW5nIGJldHdlZW4gMSBhbmQgMTAg
+Ynl0ZXMgaW50byBhIHJlZ2lvbiBvZiBzaXplIDggWy1XZXJyb3I9Zm9ybWF0LQ0KPnRydW5jYXRp
+b249XQ0KPiAgICAgNzYzIHwgICAgICAgICAgICAgICAgIHNucHJpbnRmKGJ1Ziwgc2l6ZW9mKGJ1
+ZiksICIlZCAiLCBpKTsNCj4gICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgXn4NCj4gICAgIFRFU1QtT0JKIFt0ZXN0X3Byb2dzXSBhcmdfcGFyc2lu
+Zy50ZXN0Lm8NCj4gICB4ZHBfaHdfbWV0YWRhdGEuYzo3NjM6NDQ6IG5vdGU6IGRpcmVjdGl2ZSBh
+cmd1bWVudCBpbiB0aGUgcmFuZ2UgWzAsDQo+MjE0NzQ4MzY0Nl0NCj4gICAgIDc2MyB8ICAgICAg
+ICAgICAgICAgICBzbnByaW50ZihidWYsIHNpemVvZihidWYpLCAiJWQgIiwgaSk7DQo+ICAgICAg
+ICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn4NCj4g
+ICB4ZHBfaHdfbWV0YWRhdGEuYzo3NjM6MTc6IG5vdGU6IOKAmHNucHJpbnRm4oCZIG91dHB1dCBi
+ZXR3ZWVuIDMgYW5kIDEyIGJ5dGVzIGludG8NCj5hIGRlc3RpbmF0aW9uIG9mIHNpemUgOA0KPiAg
+ICAgNzYzIHwgICAgICAgICAgICAgICAgIHNucHJpbnRmKGJ1Ziwgc2l6ZW9mKGJ1ZiksICIlZCAi
+LCBpKTsNCj4gICAgICAgICB8ICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn4NCj4gICB4ZHBfaHdfbWV0YWRhdGEuYzo3NjY6NDc6IGVycm9yOiDigJgl
+ZOKAmSBkaXJlY3RpdmUgb3V0cHV0IG1heSBiZSB0cnVuY2F0ZWQNCj53cml0aW5nIGJldHdlZW4g
+MSBhbmQgMTAgYnl0ZXMgaW50byBhIHJlZ2lvbiBvZiBzaXplIDYgWy1XZXJyb3I9Zm9ybWF0LQ0K
+PnRydW5jYXRpb249XQ0KPiAgICAgNzY2IHwgICAgICAgICAgICAgICAgIHNucHJpbnRmKGJ1Ziwg
+c2l6ZW9mKGJ1ZiksICIxQCVkICIsIGkpOw0KPiAgICAgICAgIHwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+DQo+ICAgeGRwX2h3X21ldGFkYXRhLmM6NzY2
+OjQ0OiBub3RlOiBkaXJlY3RpdmUgYXJndW1lbnQgaW4gdGhlIHJhbmdlIFswLA0KPjIxNDc0ODM2
+NDZdDQo+ICAgICA3NjYgfCAgICAgICAgICAgICAgICAgc25wcmludGYoYnVmLCBzaXplb2YoYnVm
+KSwgIjFAJWQgIiwgaSk7DQo+ICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgXn5+fn5+fg0KPiAgIHhkcF9od19tZXRhZGF0YS5jOjc2NjoxNzogbm90
+ZTog4oCYc25wcmludGbigJkgb3V0cHV0IGJldHdlZW4gNSBhbmQgMTQgYnl0ZXMgaW50bw0KPmEg
+ZGVzdGluYXRpb24gb2Ygc2l6ZSA4DQo+ICAgICA3NjYgfCAgICAgICAgICAgICAgICAgc25wcmlu
+dGYoYnVmLCBzaXplb2YoYnVmKSwgIjFAJWQgIiwgaSk7DQo+ICAgICAgICAgfCAgICAgICAgICAg
+ICAgICAgXn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4NCg0KVGhhbmtzIGZv
+ciBwb2ludGluZyB0aGlzIG91dC4NCkJ0dywgZG8geW91IGtub3cgd2hpY2ggYnVpbGQgY29tbWFu
+ZCB3aWxsIHRyaWdnZXIgdGhlc2UgZXJyb3JzPw0KSSBhbSB1c2luZyAibWFrZSAtQyB0b29scy90
+ZXN0aW5nL3NlbGZ0ZXN0cy9icGYiIGJ1dCBjYW5ub3QNCnJlcHJvZHVjZSB0aGUgYnVpbGQgZXJy
+b3IuDQoNClRoYW5rcyAmIFJlZ2FyZHMNClNpYW5nDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
