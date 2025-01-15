@@ -2,86 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B750A11CF6
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 10:09:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9B0A11D8C
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 10:25:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 145E9C78F76;
-	Wed, 15 Jan 2025 09:09:22 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54D9CC78F7A;
+	Wed, 15 Jan 2025 09:25:48 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C5E4C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46FE0C78F77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 09:09:15 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-216728b1836so113072485ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 01:09:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736932154; x=1737536954;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=GZu3RRCSZ6fAo+lWLsGDi7lH9XSyk6eapVHs6gKrrgo=;
- b=KgISGIEFVFr9C+JmNaH7JuSdjXdnt2R5kGNrKIR21XEtgs11g4Mw5XbWegBIK/wi0/
- rVsRPV4j0rFPdfceD7hds3CdbEfqf4KJWTLQRIwOW0NC9mFCGB5FYgaBVL+wpJEJ5KCm
- aTiYUXiP/KsMJ3pnMdvPvfHypaDzeeyoP+sKUsEF5fNOZ6pLGj+qrm5h2nfswx+8yXln
- qQucxRoGopA2iqqJeXuyFXhzqZEFcvCGCXZ1BpIPOWQ4qsuWl5HF4N6OMd/sHETaG6DJ
- oNIk5B/kp1izHzztn20ZZ/r5HC8TvaHqv+py7A9q8l0I2FyfVvq9qNj+XNJE61HCbJQb
- 6MTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736932154; x=1737536954;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GZu3RRCSZ6fAo+lWLsGDi7lH9XSyk6eapVHs6gKrrgo=;
- b=fVz3XMtXCcbuLcVyKy9Kpgdmu+7Oir9eX67xVpJ2Z26bpONFConFISWhLc9j1twU9s
- 4eXmQJcqlk4uuiC7wCXONxY69ms4OuVghJczOqiVZhxy0L6XhVZfgOCh02wvA6Nu6v5j
- xagTG/lgUgVuOEH8vIdMhu2A+RPC85VAz74ZQJaBn/NdTEljqAe1QH8pt9kCTgRx34G8
- OSblBFsOcDCtiZfp0vB0plLZSXV99ypD9B7oN5wMUySupUeP708oWGIzHDnRYr9kZXXb
- IR1zeJmxawKidE9RreID72JH0D5FNkwktNuHZ7ttoTLHUPDsxTxoWsQIzlUzm0OcGRjY
- r9+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0xEmqk7M1ARai4DhQHlzeUQgxtthyTZdqIj7/v1zMBQjzSxv34tIgP9WOknBWnAoK+qv8pcjAML8qlg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyuYXCLHhCcILHY4ssgVscW5DXHyPwARY0mijZlV4fABXHAgxuJ
- RjNC1aXQiygBjA3PR5Vj8ocz0S7C/ZR/9Vl/8p5kfYtcbRE8tIdd
-X-Gm-Gg: ASbGnctBN2/Ybsb+Dm3G/PaZNjqIU0hJ9lCP4Yj6CJC42KKhheTtwogQQs0vdoL8Gqe
- gcasOT6JymuQjzbU6yhPQ3EdgCGeYpduBkqcJehNabkpTWfCB6iLTU57JKg62Zben1rYUVGDlCH
- YnqVrQRHKszvtyn9IrEvlwioNvwDtu4aeY6QT3r+fB9P12Pv4wvdT0HhYvMVJtnCRJS63znDj2y
- fPxjHqClWxeNPYxHqnieuLpR4SAoyKQSpPoS1ho6p8oYb6AJ5AF0iBTjWFl9EBUov8sO0trK6y7
- UWj+OAnX3g9kLxUoSB1rcmT8c8mth8/v8n0=
-X-Google-Smtp-Source: AGHT+IFzyRepggFFHtQT8D4fkFN2tkBOOiPSmaRhjKsx+myOrF3U4xxdVBjzw1AHpDW/+2qMjfDQIg==
-X-Received: by 2002:a17:902:e747:b0:216:3c2b:a5d0 with SMTP id
- d9443c01a7336-21a84002a70mr352529525ad.51.1736932153585; 
- Wed, 15 Jan 2025 01:09:13 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21a9f21a21csm78826285ad.109.2025.01.15.01.09.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jan 2025 01:09:13 -0800 (PST)
-Message-ID: <72e993f1-bb8d-43fb-a9cd-210f1f8f02c5@gmail.com>
-Date: Wed, 15 Jan 2025 17:09:08 +0800
+ Wed, 15 Jan 2025 09:25:44 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50F5ML3E014124;
+ Wed, 15 Jan 2025 10:25:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=9owZYWldyGAG1uOZhjbxaI
+ MKcEQdzt2KxxW/sTB4+Tw=; b=pTQ1M0V4ZZYOGL4EXal28dnHqeq0HpQXUSpHbL
+ 07VsBf5mvcSEgXy2rI/rpMMT+mNJoKDUESu/Df+AvOInHKP3O6esHEyVpLVbbACC
+ cLAy8xRt0gLQINxYVj8wCHj2tRW4TOQq5dc5iPXLOiXNPAgwu69T4R4xyoFcOPC8
+ xZ/tKlEj1cL2PUQ4iH+WhCP9EScuT+uDUBctgM41JOnp6XUygOlqunBWnRdt9DK6
+ K5QXFHjQ3lS6PEfm8r8idCN5yn/swadZrr2sgVuJ1DZQjzW74WDimCNmdl398KHr
+ I80XYZcG+vLgFrjF9H5E4OdhuZsO5fULLmgfPwgtLe5n8+Dg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4466tjrxes-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2025 10:25:22 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A8DFA4002D;
+ Wed, 15 Jan 2025 10:23:49 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 498AE245F9F;
+ Wed, 15 Jan 2025 10:22:35 +0100 (CET)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
+ 2025 10:22:35 +0100
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
+ <lpieralisi@kernel.org>, <kw@linux.com>,
+ <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+ <jingoohan1@gmail.com>, <p.zabel@pengutronix.de>,
+ <johan+linaro@kernel.org>, <quic_schintav@quicinc.com>, <cassel@kernel.org>
+Date: Wed, 15 Jan 2025 10:21:24 +0100
+Message-ID: <20250115092134.2904773-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20250113055434.3377508-1-a0987203069@gmail.com>
- <20250113055434.3377508-4-a0987203069@gmail.com>
- <20250114153323.527d4f63@kernel.org>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20250114153323.527d4f63@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, ychuang3@nuvoton.com, edumazet@google.com,
- schung@nuvoton.com, yclu4@nuvoton.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- openbmc@lists.ozlabs.org, joabreu@synopsys.com, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, richardcochran@gmail.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v7 3/3] net: stmmac:
- dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-15_03,2025-01-15_02,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/9] Add STM32MP25 PCIe drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,22 +73,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBKYWt1YiwKClRoYW5rIHlvdSBmb3IgdGhlIHJlcGx5LgoKSmFrdWIgS2ljaW5za2kg5pa8
-IDEvMTUvMjAyNSA3OjMzIEFNIOWvq+mBkzoKPiBPbiBNb24sIDEzIEphbiAyMDI1IDEzOjU0OjM0
-ICswODAwIEpvZXkgTHUgd3JvdGU6Cj4+ICsJcmVnbWFwX3dyaXRlKGJzcF9wcml2LT5yZWdtYXAs
-Cj4+ICsJCSAgICAgbWFjaWQgPT0gMCA/IE5WVF9SRUdfU1lTX0dNQUMwTUlTQ1IgOiBOVlRfUkVH
-X1NZU19HTUFDMU1JU0NSLCByZWcpOwo+IFRoaXMgaXMgYSBwcmV0dHkgbG9uZyBsaW5lIGFuZCB5
-b3UgZG8gaXQgdHdpY2UsIHNvIHNhdmUgdGhlIGFkZHJlc3MKPiB0byBhIHRlbXAgdmFyaWFibGUs
-IHBscwpHb3QgaXQhCj4+ICtNT0RVTEVfTElDRU5TRSgiR1BMIHYyIik7Cj4gY2hlY2twYXRjaCBp
-bnNpc3RzOgo+Cj4gV0FSTklORzogUHJlZmVyICJHUEwiIG92ZXIgIkdQTCB2MiIgLSBzZWUgY29t
-bWl0IGJmN2ZiZWVhZTZkYiAoIm1vZHVsZTogQ3VyZSB0aGUgTU9EVUxFX0xJQ0VOU0UgIkdQTCIg
-dnMuICJHUEwgdjIiIGJvZ29zaXR5IikKClVuZGVyc3Rvb2QuIEkgd2lsbCBmaXggdGhlIHdhcm5p
-bmcuCgpCUiwKCkpvZXkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Changes in v3:
+   Address comments from Manivanna, Rob and Bjorn:
+   - Move host wakeup helper to dwc core (Mani)
+   - Drop num-lanes=<1> from bindings (Rob)
+   - Fix PCI address of I/O region (Mani)
+   - Moved PHY to a RC rootport subsection (Bjorn, Mani)
+   - Replaced dma-limit quirk by dma-ranges property (Bjorn)
+   - Moved out perst assert/deassert from start/stop link (Mani)
+   - Drop link_up test optim (Mani)
+   - DT and comments rephrasing (Bjorn)
+   - Add dts entries now that the combophy entries has landed
+   - Drop delaying Configuration Requests
+
+Changes in v2:
+   - Fix st,stm32-pcie-common.yaml dt_binding_check	
+
+Changes in v1:
+   Address comments from Rob Herring and Bjorn Helgaas:
+   - Drop st,limit-mrrs and st,max-payload-size from this patchset
+   - Remove single reset and clocks binding names and misc yaml cleanups
+   - Split RC/EP common bindings to a separate schema file
+   - Use correct PCIE_T_PERST_CLK_US and PCIE_T_RRS_READY_MS defines
+   - Use .remove instead of .remove_new
+   - Fix bar reset sequence in EP driver
+   - Use cleanup blocks for error handling
+   - Cosmetic fixes
+
+Christian Bruel (9):
+  dt-bindings: PCI: Add STM32MP25 PCIe Root Complex bindings
+  PCI: stm32: Add PCIe host support for STM32MP25
+  dt-bindings: PCI: Add STM32MP25 PCIe Endpoint bindings
+  PCI: stm32: Add PCIe endpoint support for STM32MP25
+  MAINTAINERS: add entry for ST STM32MP25 PCIe drivers
+  arm64: dts: st: add PCIe pinctrl entries in stm32mp25-pinctrl.dtsi
+  arm64: dts: st: Add PCIe Rootcomplex mode on stm32mp251
+  arm64: dts: st: Enable PCIe on the stm32mp257f-ev1 board
+  arm64: dts: st: Add PCIe Endpoint mode on stm32mp251
+
+ .../bindings/pci/st,stm32-pcie-common.yaml    |  43 ++
+ .../bindings/pci/st,stm32-pcie-ep.yaml        |  68 +++
+ .../bindings/pci/st,stm32-pcie-host.yaml      | 120 +++++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  20 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  59 ++-
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  18 +
+ drivers/pci/controller/dwc/Kconfig            |  24 +
+ drivers/pci/controller/dwc/Makefile           |   2 +
+ drivers/pci/controller/dwc/pcie-stm32-ep.c    | 442 ++++++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.c       | 367 +++++++++++++++
+ drivers/pci/controller/dwc/pcie-stm32.h       |  17 +
+ 12 files changed, 1186 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
+ create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32-ep.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
+ create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
