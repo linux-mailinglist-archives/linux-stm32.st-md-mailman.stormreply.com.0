@@ -2,51 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078C1A11706
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 03:10:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA359A11735
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 03:20:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B77E1C78F64;
-	Wed, 15 Jan 2025 02:10:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E8ECC78F65;
+	Wed, 15 Jan 2025 02:20:09 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E6D1C6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E718AC78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 02:10:11 +0000 (UTC)
+ Wed, 15 Jan 2025 02:20:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 36F115C5A9E;
- Wed, 15 Jan 2025 02:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A632EC4CEDD;
- Wed, 15 Jan 2025 02:10:09 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E8975A41275;
+ Wed, 15 Jan 2025 02:18:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379E2C4CEDD;
+ Wed, 15 Jan 2025 02:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736907009;
- bh=VkD0rcWwKLY34VeqN/EnCIzaNzNTN+EiI+U6FIg54dM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=WMgDowTqRPpbE57sxITSzs/kv1ehXK1gTO23zp8BZbecDWQc0eAcp6YLK85IGhlWI
- XG9NokMApljZw4MpAguV2jINE7uVcMsvRxasVIXR9zmy7POqMnTn9Yjt0NAO+G8uWw
- t1BOa82Z04DnOA/6lbKvNWx3fBT9k7qtg+lo675KgzLhqHn5xkMC2mQoXQVBeKOq3e
- gstguUqUKDFkVT0l5Ax6/3xEKBTbWjCQ5MzACJV5uL7vMkWpNvEDb2bb/wadS5bcKz
- hwqVpJYUD0xppn4PLKxTpFs5VbFP/Pkrkfd+KsvhxEvug5S5Xnq+uu3lIWlrtxxSHK
- r7Ah36iSz4htA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- AE10A380AA5F; Wed, 15 Jan 2025 02:10:33 +0000 (UTC)
+ s=k20201202; t=1736907601;
+ bh=k5zcdfRd+dirvcL8WCDgycvlSRDQLgmbaRl4EKUNh8k=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=F18nyyAYLuvENyVSSD71xF45K2a6V9tKMNA9Jg5utrotWZdfHvUhkle8ERQPMAF/j
+ 9X2YVem+hIZKDHX+CHUCaSP6kW3XEbjsX5mky8Vn6aLbtV64WIqrAGZrJjMtsjnGFV
+ 5WbNyMLFhHYZBf5qz7P5JbXLAqZkSKdbBIb9aBJ5Sfv+VGkc/i5LchZZeCX0/w3uMn
+ Kve9q964/87EekbJHWGGPpvg55HqskaqJHZHXsn9kEkCMjJ2u9A7+WVPXrWxqRZdER
+ yloi7L0GfaMhe0P/MDptWxXLeLmsW2lHzpEUmYIOcKRo3nDtt+qF6jCBpotrYlorde
+ FXY4LTwo5Yu9A==
+Date: Tue, 14 Jan 2025 18:20:00 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Joe Damato <jdamato@fastly.com>
+Message-ID: <20250114182000.4ca2c433@kernel.org>
+In-Reply-To: <Z4bzuToquRAMfvvu@LQ3V64L9R2>
+References: <cover.1736777576.git.0x1207@gmail.com>
+ <668cfa117e41a0f1325593c94f6bb739c3bb38da.1736777576.git.0x1207@gmail.com>
+ <Z4bzuToquRAMfvvu@LQ3V64L9R2>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173690703250.220881.14038994805665516239.git-patchwork-notify@kernel.org>
-Date: Wed, 15 Jan 2025 02:10:32 +0000
-References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
-In-Reply-To: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: imx@lists.linux.dev, kernel@pengutronix.de, festevam@gmail.com,
- s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- danishanwar@ti.com, linux-kernel@vger.kernel.org, rogerq@kernel.org,
- andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Furong Xu <0x1207@gmail.com>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/5] net: ethernet: Simplify few
-	things
+Subject: Re: [Linux-stm32] [PATCH net-next v2 3/3] net: stmmac: Optimize
+ cache prefetch in RX path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,39 +62,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Sun, 12 Jan 2025 14:32:42 +0100 you wrote:
-> Few code simplifications without functional impact.  Not tested on
-> hardware.
+On Tue, 14 Jan 2025 15:31:05 -0800 Joe Damato wrote:
+> > @@ -5525,6 +5521,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+> >  
+> >  			dma_sync_single_for_cpu(priv->device, buf->addr,
+> >  						buf1_len, dma_dir);
+> > +			prefetch(page_address(buf->page) + buf->page_offset);  
 > 
-> Best regards,
-> Krzysztof
-> 
-> 
-> [...]
+> Minor nit: I've seen in other drivers authors using net_prefetch.
+> Probably not worth a re-roll just for something this minor.
 
-Here is the summary with links:
-  - [net-next,1/5] net: ti: icssg-prueth: Do not print physical memory addresses
-    https://git.kernel.org/netdev/net-next/c/136fff12a759
-  - [net-next,2/5] net: ti: icssg-prueth: Use syscon_regmap_lookup_by_phandle_args
-    https://git.kernel.org/netdev/net-next/c/621c88a39276
-  - [net-next,3/5] net: stmmac: imx: Use syscon_regmap_lookup_by_phandle_args
-    https://git.kernel.org/netdev/net-next/c/1e38b398b671
-  - [net-next,4/5] net: stmmac: sti: Use syscon_regmap_lookup_by_phandle_args
-    https://git.kernel.org/netdev/net-next/c/92ef3e4b3a5b
-  - [net-next,5/5] net: stmmac: stm32: Use syscon_regmap_lookup_by_phandle_args
-    https://git.kernel.org/netdev/net-next/c/6e9c6882f9ef
-
-You are awesome, thank you!
+Let's respin. I don't know how likely stmmac is to be integrated into
+an SoC with 64B cachelines these days, but since you caught this - 
+why not potentially save someone from investigating this later..
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
