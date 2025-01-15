@@ -2,49 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7222A11778
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 03:50:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF932A117C3
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 04:27:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A252C78F74;
-	Wed, 15 Jan 2025 02:50:20 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7165C78F75;
+	Wed, 15 Jan 2025 03:27:35 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0594C78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E95FC6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 02:50:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 9FC6BA416E6;
- Wed, 15 Jan 2025 02:48:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C91EC4CEDD;
- Wed, 15 Jan 2025 02:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736909412;
- bh=XZnxBk+FcFoHxx191qImvZNg7w+IyFMnBMHTXx6L5ZE=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=ro8Q5VSGF3ozPz8UtYtwIDdO3bUq+DZXh2zvyVFoMzBbsLYiAfm0Vhyg06qEZ6YAm
- hUU7XtQe6frBDOBahLq5YkoW0eCCXPnnQrKvt9HrlyJ7sADGmfRjJyL84Y7sVoDhEY
- xyeLkf5MwkMqaeLR2neatqE0uO95H+6LLQotiMElQEwL2hd20j4CxXyRxVq6b1CFhv
- 1BDnko5EJzTjyqnD38D9cijquhOAfRudMIUk62JMZc55P0HJvHJCJ95c4bshAwlSYQ
- YWsmpNQDzQyrO8HcMLjOlVmpNMEoRPRe0QH71rBohz9nhmnTjuCtVBYevmCab+XFwS
- c5TgBbBqAT9Ng==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 34A5F380AA5F; Wed, 15 Jan 2025 02:50:36 +0000 (UTC)
+ Wed, 15 Jan 2025 03:27:28 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2166022c5caso97562495ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Jan 2025 19:27:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736911647; x=1737516447;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OA13Zni3URzGAidEIRgBrp/qP4ozxw97b88r2lO+YJs=;
+ b=cX6l8IIfLc9cmF2kIuEAFjd4rSMheKRHs1sRyymmtNPz64qodoVVHMXU/42laHSXwC
+ kPglMbsc5PhmRNnJlH3L8DLt+kxlgrEXenX8702lH4eUkMcACrierUYC0HAF4f5h3+3l
+ 5KONfp2o+TL/nR9vh91N/LiQIZjn7U4mOKf6s7UsaJB75vAglrnKXeDI26Jltl++Xu+H
+ bdRnng8s/zHwaIa4DlhHKaJR4F1luurB25VYDudI0M5Inzv3GHkp0GfcKJdijMzTfKzo
+ lQDCqqLNye9AqyPGFow4EdNNC7BqhCqD42Gz3Ccy616hjVYAgOKmZC5RGIyIRG/ww/5t
+ wfWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736911647; x=1737516447;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=OA13Zni3URzGAidEIRgBrp/qP4ozxw97b88r2lO+YJs=;
+ b=WT1P1boEmwFijjT2DNo3T6GK6g/cI8FcF/AgOdzJNw48rTAz2VCYdr13J7NtcNph22
+ dQcqNRxjKJOuFG1VKW+S2SUOqOj1xkZHyBBfiQPiqpSVnqsvCSznuGfv41vn29YDZjff
+ fX6ltehFwmKgx5kMfKDzkwyA6Q3+vkuJ1HynxqlC7AlE8k2SdkBP4WLfaxDv7n61B/G2
+ zqs4/hI4/OZ+tVwpihQNteSxog3MpHThL7qnpdD2n1Jta+CoKdzBIO9JnhguUOji2Ydh
+ OAkvWjj7f0yv86HQTDQdiByLq/rDVAB5lqcFHcUAiBzQo+Ak/ETp2KKtMHXQ7kj/4njw
+ 5ovg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWzMeuv46wEwRvPjFeY4QAehy1bzSjk2r+Oz0XxTYJlUCba067d56PoWuYbspjk6h36Jk/8liPFyYecpQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwNMXQYVOSFH4NtIZs5BFGvCbODFHH48SuE1niQYF4aMZAqj+N6
+ v0Da2eJ7EMzppsEwiS38pCBN/BZX0q9MvlZVbHi6Gr5wISTRqzb0
+X-Gm-Gg: ASbGncsxUWmmOyPOZTzYilX1R83Bkl9ibuZyY8XLlt8uXt0HAO4eTHs55Se4poVfXFR
+ sfG5Bc8x+AJGVqCNuZq4QrRGJK/MC9EfXmXROVM4VMeZc/Uduv4H+pvXK0C0e1AXvoHK3XQIiFj
+ a/5DdMtWn+WW3lOrBwSJK8h7Z+WbmuxF3dOAGf7WVp+QV3GwoaUZaS9ToXXejar7Z3EYweT09EY
+ sSv/XD6NS461m5gbJJUzP7onXozxK55osqIl35beRbCjX+JItU7ztJbPT0Yl+PeVAk7Jw==
+X-Google-Smtp-Source: AGHT+IFlSEMkAXEPqWgqCAfQugdN95Q538mq9KIKYO4zUWWbGb5CTB8WHYGyQSp6aFpnsVw3r4VLzg==
+X-Received: by 2002:a05:6a20:6a11:b0:1e1:ad39:cc5c with SMTP id
+ adf61e73a8af0-1e88cfa6a52mr49396788637.14.1736911646648; 
+ Tue, 14 Jan 2025 19:27:26 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-72d405493basm8166452b3a.27.2025.01.14.19.27.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2025 19:27:26 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 15 Jan 2025 11:27:01 +0800
+Message-Id: <cover.1736910454.git.0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <173690943498.230797.5869251402223823826.git-patchwork-notify@kernel.org>
-Date: Wed, 15 Jan 2025 02:50:34 +0000
-References: <Z4T84SbaC4D-fN5y@shell.armlinux.org.uk>
-In-Reply-To: <Z4T84SbaC4D-fN5y@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, ericwouds@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 0/9] net: stmmac: further EEE
-	cleanups (and one fix!)
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Joe Damato <jdamato@fastly.com>,
+ Furong Xu <0x1207@gmail.com>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next v3 0/4] net: stmmac: RX performance
+	improvement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,50 +90,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+This series improves RX performance a lot, ~40% TCP RX throughput boost
+has been observed with DWXGMAC CORE 3.20a running on Cortex-A65 CPUs:
+from 2.18 Gbits/sec increased to 3.06 Gbits/sec.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+---
+Changes in v3:
+  1. Convert prefetch() to net_prefetch() to get better performance (Joe Damato)
 
-On Mon, 13 Jan 2025 11:45:37 +0000 you wrote:
-> Hi,
-> 
-> This series continues the EEE cleanup of the stmmac driver, and
-> includes one fix.
-> 
-> As mentioned in the previous series, I wasn't entirely happy with the
-> "stmmac_disable_sw_eee_mode" name, so the first patch renames this to
-> "stmmac_stop_sw_lpi" instead, which I think better describes what this
-> function is doing - stopping the transmit of the LPI state because we
-> have a packet ot send.
-> 
-> [...]
+  v2: https://patchwork.kernel.org/project/netdevbpf/list/?series=924912&state=%2A&archive=both
 
-Here is the summary with links:
-  - [net-next,1/9] net: stmmac: rename stmmac_disable_sw_eee_mode()
-    https://git.kernel.org/netdev/net-next/c/900782a029e5
-  - [net-next,2/9] net: stmmac: correct priv->eee_sw_timer_en setting
-    https://git.kernel.org/netdev/net-next/c/4fe09a0d64d5
-  - [net-next,3/9] net: stmmac: simplify TX cleanup decision for ending sw LPI mode
-    https://git.kernel.org/netdev/net-next/c/bfa9e131c9b2
-  - [net-next,4/9] net: stmmac: check priv->eee_sw_timer_en in suspend path
-    https://git.kernel.org/netdev/net-next/c/c920e6402523
-  - [net-next,5/9] net: stmmac: add stmmac_try_to_start_sw_lpi()
-    https://git.kernel.org/netdev/net-next/c/0cf44bd0c118
-  - [net-next,6/9] net: stmmac: provide stmmac_eee_tx_busy()
-    https://git.kernel.org/netdev/net-next/c/82f2025dda76
-  - [net-next,7/9] net: stmmac: provide function for restarting sw LPI timer
-    https://git.kernel.org/netdev/net-next/c/af5dc22bdb5f
-  - [net-next,8/9] net: stmmac: combine stmmac_enable_eee_mode()
-    https://git.kernel.org/netdev/net-next/c/ec8553673b1f
-  - [net-next,9/9] net: stmmac: restart LPI timer after cleaning transmit descriptors
-    https://git.kernel.org/netdev/net-next/c/d28e89244978
+Changes in v2:
+  1. No cache prefetch for frags (Alexander Lobakin)
+  2. Fix code style warning reported by netdev CI on Patchwork
 
-You are awesome, thank you!
+  v1: https://patchwork.kernel.org/project/netdevbpf/list/?series=924103&state=%2A&archive=both
+---
+
+Furong Xu (4):
+  net: stmmac: Switch to zero-copy in non-XDP RX path
+  net: stmmac: Set page_pool_params.max_len to a precise size
+  net: stmmac: Optimize cache prefetch in RX path
+  net: stmmac: Convert prefetch() to net_prefetch() for received frames
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 34 +++++++++++--------
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  1 -
+ 3 files changed, 21 insertions(+), 15 deletions(-)
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
