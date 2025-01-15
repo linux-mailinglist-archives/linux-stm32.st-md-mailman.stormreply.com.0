@@ -2,57 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ABD5A1339B
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F43A1339A
 	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2025 08:14:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5E4AC78F83;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2155C78F84;
 	Thu, 16 Jan 2025 07:14:00 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEB4FC6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E30CC78F7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 20:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=weR9Z/CkPANR3PvdWqGOb/Y+LHB/KJHILnKwZHgGiFY=; b=N0/VZvONhngbqSzpyFGBIJ/qN4
- 003l5PbF+73jtiFHm3O2tlNy+gA2/VVmXIVmEFLICiHaoIV4uZae6JFTzqms80aXGnfVJaOSbdlRD
- rdzJMSevekXXjGBSf7tMEAE7KUnzOyhCIfNFPgH9N3vO1pZWAm2sZq2VfmtxVgRas/u4GgeN54dc0
- auw1I2zWE2xzKw0srxWUpMOuoPeAUr4eAfSUwBdG6fGG92uyOUeaov+X4ydb95d4FN6gibmxaKm1k
- hYfAdERvA+03hxA9vloZEPgB3msrh0W4mNGVInWIlzijY/1kZAGDDBsJYcRF/8NvjHD3x7eUzmYR4
- g8IJ0vPw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54728 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tYAE4-0001ij-29;
- Wed, 15 Jan 2025 20:42:56 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tYADl-0014Ph-EV; Wed, 15 Jan 2025 20:42:37 +0000
-In-Reply-To: <Z4gdtOaGsBhQCZXn@shell.armlinux.org.uk>
-References: <Z4gdtOaGsBhQCZXn@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Wed, 15 Jan 2025 23:23:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 34BC5A425E8;
+ Wed, 15 Jan 2025 23:21:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C834CC4CED1;
+ Wed, 15 Jan 2025 23:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736983382;
+ bh=ntnUUEYRWUl/PgEoKPF65jVBJ8fvSk7zrQV2c99N08g=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=UMSKqnyNzlFOwc5UoulfKPqHVtNn8tslfQmIsKWtb66RLPyor/5n4vWyQTByOT7XQ
+ i1zai1MPiyStb5PwNcEwlcNMtdMF6w8CyD5o3jLoge99Ob4D+ANQUsZuQyQNJ5V+g4
+ hKX8Jy2GrJ1Ck6688jVfiFLNFObbFag9SkSs92coTc2tZVaNbRJExaPLVBWK8+iiC4
+ J4KU2ihW69+Iokn+CC4GrAlDI7YBZWaFKQSYIKXpsm2ORYVzeuHVsSF2xQEZgCB2iE
+ uITdxPoWedmFeX0XnqyUIB27nd3q6Fa6ZdMHMqljhn+yu3c0dcZXaCF4vauGtHS2+v
+ gPUx2nkKe2dnA==
+Message-ID: <54dc2e52123267e1885be09fbb91d39a.sboyd@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1tYADl-0014Ph-EV@rmk-PC.armlinux.org.uk>
-Date: Wed, 15 Jan 2025 20:42:37 +0000
+In-Reply-To: <20250114182021.670435-4-dario.binacchi@amarulasolutions.com>
+References: <20250114182021.670435-1-dario.binacchi@amarulasolutions.com>
+ <20250114182021.670435-4-dario.binacchi@amarulasolutions.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-kernel@vger.kernel.org
+Date: Wed, 15 Jan 2025 15:23:00 -0800
+User-Agent: alot/0.12.dev1+gaa8c22fdeedb
 X-Mailman-Approved-At: Thu, 16 Jan 2025 07:13:59 +0000
-Cc: Marcin Wojtas <marcin.s.wojtas@gmail.com>, UNGLinuxDriver@microchip.com,
- Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/9] net: phylink: add
-	phylink_link_is_up() helper
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 3/4] clk: stm32f4: use FIELD helpers to
+	access the PLLCFGR fields
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,50 +63,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a helper to determine whether the link is up or down. Currently
-this is only used in one location, but becomes necessary to test
-when reconfiguring EEE.
+Quoting Dario Binacchi (2025-01-14 10:19:48)
+> Use GENMASK() along with FIELD_GET() and FIELD_PREP() helpers to access
+> the PLLCFGR fields instead of manually masking and shifting.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> ---
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/phy/phylink.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 31754d5fd659..e3fc1d1be1ed 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -1641,20 +1641,21 @@ static void phylink_link_down(struct phylink *pl)
- 	phylink_info(pl, "Link is Down\n");
- }
- 
-+static bool phylink_link_is_up(struct phylink *pl)
-+{
-+	return pl->netdev ? netif_carrier_ok(pl->netdev) : pl->old_link_state;
-+}
-+
- static void phylink_resolve(struct work_struct *w)
- {
- 	struct phylink *pl = container_of(w, struct phylink, resolve);
- 	struct phylink_link_state link_state;
--	struct net_device *ndev = pl->netdev;
- 	bool mac_config = false;
- 	bool retrigger = false;
- 	bool cur_link_state;
- 
- 	mutex_lock(&pl->state_mutex);
--	if (pl->netdev)
--		cur_link_state = netif_carrier_ok(ndev);
--	else
--		cur_link_state = pl->old_link_state;
-+	cur_link_state = phylink_link_is_up(pl);
- 
- 	if (pl->phylink_disable_state) {
- 		pl->link_failed = false;
--- 
-2.30.2
-
+Applied to clk-next
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
