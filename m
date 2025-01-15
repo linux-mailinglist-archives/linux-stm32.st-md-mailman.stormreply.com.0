@@ -2,53 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0A0FA11701
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 03:07:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078C1A11706
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2025 03:10:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81345C78F64;
-	Wed, 15 Jan 2025 02:07:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B77E1C78F64;
+	Wed, 15 Jan 2025 02:10:17 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A9EBC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E6D1C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2025 02:06:54 +0000 (UTC)
+ Wed, 15 Jan 2025 02:10:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EC4615C5A83;
- Wed, 15 Jan 2025 02:06:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3A2C4CEDD;
- Wed, 15 Jan 2025 02:06:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 36F115C5A9E;
+ Wed, 15 Jan 2025 02:09:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A632EC4CEDD;
+ Wed, 15 Jan 2025 02:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736906812;
- bh=Is2DEKJqxrZolAAhs79aRj+JZ1MAa+Qb4ZhMoIVs3d8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gZyofTVxT+u0L1znLIHaVN7i/eistrx0gCPsPi/UxOgGoHuAjcBiP6ME2pKBxTacu
- zFM1j6uCI7pcHUql7guwQmcGIuNSL3tQcbl9j2CbHRJ61+aODAhHOJ7cU6sOx1zv/i
- q+gJCXt/eCmA/hOWlACdyak6CaezRoe/2rLWeDI5jIvDIsbLB+2AsJtOqMYiLRx0CA
- 3KdE7YelM4LW+HUdQwrvQl2ep73dZ22N2wBND0ITlX4VnZTu8usyuK037Q3acaCgWq
- mDse7By8hi98ni1zoNYA7Ug/AO/THF1IxXS8zkiBQbtnpcAgYLKZXh2euq5Il7jQoC
- GmtnMio6JkIMg==
-Date: Tue, 14 Jan 2025 18:06:50 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20250114180650.4ba50ea4@kernel.org>
-In-Reply-To: <1376b2b3-90c4-4f06-b05c-10b9e5d1535e@linaro.org>
-References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
- <20250112-syscon-phandle-args-net-v1-2-3423889935f7@linaro.org>
- <0eaff868-f67f-4e8a-ade8-4bdf98d9d094@ti.com>
- <1376b2b3-90c4-4f06-b05c-10b9e5d1535e@linaro.org>
+ s=k20201202; t=1736907009;
+ bh=VkD0rcWwKLY34VeqN/EnCIzaNzNTN+EiI+U6FIg54dM=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=WMgDowTqRPpbE57sxITSzs/kv1ehXK1gTO23zp8BZbecDWQc0eAcp6YLK85IGhlWI
+ XG9NokMApljZw4MpAguV2jINE7uVcMsvRxasVIXR9zmy7POqMnTn9Yjt0NAO+G8uWw
+ t1BOa82Z04DnOA/6lbKvNWx3fBT9k7qtg+lo675KgzLhqHn5xkMC2mQoXQVBeKOq3e
+ gstguUqUKDFkVT0l5Ax6/3xEKBTbWjCQ5MzACJV5uL7vMkWpNvEDb2bb/wadS5bcKz
+ hwqVpJYUD0xppn4PLKxTpFs5VbFP/Pkrkfd+KsvhxEvug5S5Xnq+uu3lIWlrtxxSHK
+ r7Ah36iSz4htA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ AE10A380AA5F; Wed, 15 Jan 2025 02:10:33 +0000 (UTC)
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, MD Danish Anwar <danishanwar@ti.com>,
- linux-kernel@vger.kernel.org, Roger Quadros <rogerq@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <173690703250.220881.14038994805665516239.git-patchwork-notify@kernel.org>
+Date: Wed, 15 Jan 2025 02:10:32 +0000
+References: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
+In-Reply-To: <20250112-syscon-phandle-args-net-v1-0-3423889935f7@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: imx@lists.linux.dev, kernel@pengutronix.de, festevam@gmail.com,
+ s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ danishanwar@ti.com, linux-kernel@vger.kernel.org, rogerq@kernel.org,
+ andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: ti: icssg-prueth: Use
- syscon_regmap_lookup_by_phandle_args
+Subject: Re: [Linux-stm32] [PATCH net-next 0/5] net: ethernet: Simplify few
+	things
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,16 +63,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 13 Jan 2025 12:04:35 +0100 Krzysztof Kozlowski wrote:
-> > The patch only touches `drivers/net/ethernet/ti/am65-cpsw-nuss.c`
-> > however the subject suggests the patch is related to "icssg-prueth".
-> > 
-> > I suppose the subject should be changed to "am65-cpsw-nuss" instead of
-> > "icssg-prueth"  
-> 
-> Indeed, copy paste.
+Hello:
 
-Will fix when applying.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sun, 12 Jan 2025 14:32:42 +0100 you wrote:
+> Few code simplifications without functional impact.  Not tested on
+> hardware.
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,1/5] net: ti: icssg-prueth: Do not print physical memory addresses
+    https://git.kernel.org/netdev/net-next/c/136fff12a759
+  - [net-next,2/5] net: ti: icssg-prueth: Use syscon_regmap_lookup_by_phandle_args
+    https://git.kernel.org/netdev/net-next/c/621c88a39276
+  - [net-next,3/5] net: stmmac: imx: Use syscon_regmap_lookup_by_phandle_args
+    https://git.kernel.org/netdev/net-next/c/1e38b398b671
+  - [net-next,4/5] net: stmmac: sti: Use syscon_regmap_lookup_by_phandle_args
+    https://git.kernel.org/netdev/net-next/c/92ef3e4b3a5b
+  - [net-next,5/5] net: stmmac: stm32: Use syscon_regmap_lookup_by_phandle_args
+    https://git.kernel.org/netdev/net-next/c/6e9c6882f9ef
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
