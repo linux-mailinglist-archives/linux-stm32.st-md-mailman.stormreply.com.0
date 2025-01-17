@@ -2,79 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C748DA14B43
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2025 09:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E10EA14BCF
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2025 10:05:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5413AC78F80;
-	Fri, 17 Jan 2025 08:38:25 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF924C78F80;
+	Fri, 17 Jan 2025 09:05:41 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90A9FC78F7D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A96FC78F7D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jan 2025 08:38:18 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4361e89b6daso11677565e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jan 2025 00:38:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737103098; x=1737707898;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=eJ1ei5cf4bIYP2dhBSNsW7gRWvtxXhyGMsyM2uckNOk=;
- b=zGmW8r/Qk87BvcvM60BY6A0shSOvClN4xrz//XG76J6JTbVS9jM9Xniq24T5b45+65
- ag6h5HFMXS1Bh8PtaYySng+X/JJIhPaSfINRxAdB7BqnYRPKtEm5OFWJ6VGxAJ65X+vn
- wzcboqlWcEU3oCvxR4XFqnmwoLd3i42CFagv2pzWYNsJE/drzw6XP21Twd3I97Ms3MwZ
- w+SsiNQO5xayxa5x1wzF16fi2O+KynZGJH3XJafkWlwE9B2xGe+sgG7+jnrHizepZfJi
- THCqfUJKYn+3ODYupITh5Rbm5i3WEB14Hm/XSYEA47AE/uXRpHGZu+WI1rpWnjYRE6zz
- dQ3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737103098; x=1737707898;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=eJ1ei5cf4bIYP2dhBSNsW7gRWvtxXhyGMsyM2uckNOk=;
- b=bezKaS/pZSP1gpsUUlpGmbMfAHWCUzVowOJ4rRd/g75MP8OKkrKeyUhsHfRqAbBsBR
- LdGdNFw6TDLAilfh8Bfk0Ubd9OBIV8zMafZK0srf8BMjyKom/u24fceBGZfrsdJR5u6O
- KGwgearipbJ1AdPVoanzQfg7br+IRPsX+4+RKaMmTniFE5sPVd5WHZd9R2x4dMuCFKbM
- 8XTOK64J3r93P5BRr6Il+SdgHKNogAGl6ARMkn2/bN8WCVWbTAGbcUvxmMLRDozTJMh9
- LoGj3MUocivZMxZDS0PWnesYOOv8AMLbcOOWeTdQ0509hXtblI5LhdkKZku5+1yvp36Y
- mhWQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX6nNjWfKkQhayT0oHB/vU0zN4bNGVFRNlkZUJ7YXghU7iuqij8v1/RPX2IjlomSzplsjyEgTy38I7epg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz+4QXgQBzHOWNVZBhfKp4Yx3KFfSHKvMOhCmljQHNVF1A9foSS
- uvtXVT6IqJyFqjv1qNhDn9a+px+EIGdtFh+KNN1RZKH/IrfRcHjrAEupKx1MeZU=
-X-Gm-Gg: ASbGncutTbp4MZpQVunMguQxbtBDKDgGbtHb3p677/3/JMLz8pqw/wXBZHy9imFZV3x
- 9DSnOdtlozkD9KhADSOagL+vGJRv025l19U4dCNp3f8bsl0p+sYlcCwONgM5Fs0YunKPyq/ZM5H
- WxO+4+eM2DP9ROnfFbMuCD2vseYB7LA8Mfv74Pd3A/W5j2+R8iXclCTE4dTjyLv8VVCJLpYotUD
- 4ZWk9RKJDAXGBHvtODIn0Iem+6zEzw6O/8rmpn5wzkH4ybkEs2ZuMRikqtLhA==
-X-Google-Smtp-Source: AGHT+IHHCRSsCNB3Pr//Zs9JSCQC5BMsN2QD0gja4Pnf4e3R/D/iBTCkc6sIgLA7rH4i2gWt+Va7zw==
-X-Received: by 2002:a05:600c:138a:b0:434:9d62:aa23 with SMTP id
- 5b1f17b1804b1-4389142e88dmr14685205e9.20.1737103098043; 
- Fri, 17 Jan 2025 00:38:18 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-437c0f03984sm81066365e9.0.2025.01.17.00.38.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jan 2025 00:38:17 -0800 (PST)
-Date: Fri, 17 Jan 2025 11:38:14 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: oe-kbuild@lists.linux.dev,
- Christian Bruel <christian.bruel@foss.st.com>, vkoul@kernel.org,
- kishon@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, p.zabel@pengutronix.de,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@foss.st.com
-Message-ID: <d40db5ae-5db8-4541-8d20-e7bacef4ecf2@stanley.mountain>
+ Fri, 17 Jan 2025 09:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=803wd+XrzBXv/QN065wJvFDvqjKzNdhjPPcBp4nDMNs=; b=HX3fKtFbUqxKAN4DIM4+2//X1i
+ 6RoO4ZdaRl4KVIRBvmMhjilyidMLFXYNUp91yf4wC7jeyfugFaMkd40yPnqs9IkPvTRCYco9FNYlB
+ 29Iq3e/UvpgMywxIbMobGrpzNA70pFIXZWf8owPazU4DMbuzYpTu8OmcbiarPlMSxdK+9tjCS1xFo
+ 8jJkGWlk4w2K/+pf+qPDCL8SH0BYLwBCx7cOrBhGLQgUdxmpK+F6c0ekKXY9OICgFjIZBIY1citnO
+ /k5FnhUkM9oPhUN/PSKxpp0OBW+oF9aGjKg0WaplA3lxunJ+l9m0GO3FW+t/WUCLd/2iYNX6q0gKp
+ sep/HoBw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:60586)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tYiI8-0003U5-1q;
+ Fri, 17 Jan 2025 09:05:24 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tYiI4-00089U-0u;
+ Fri, 17 Jan 2025 09:05:20 +0000
+Date: Fri, 17 Jan 2025 09:05:20 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jiawen Wu <jiawenwu@trustnetic.com>
+Message-ID: <Z4odUIWmYb8TelZS@shell.armlinux.org.uk>
+References: <Z4gdtOaGsBhQCZXn@shell.armlinux.org.uk>
+ <06d301db68bd$b59d3c90$20d7b5b0$@trustnetic.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250113092001.1344151-1-christian.bruel@foss.st.com>
-Cc: Christian Bruel <christian.bruel@foss.st.com>, lkp@intel.com,
- oe-kbuild-all@lists.linux.dev
-Subject: Re: [Linux-stm32] [PATCH v2] phy: stm32: Optimize tuning values
-	from DT.
+In-Reply-To: <06d301db68bd$b59d3c90$20d7b5b0$@trustnetic.com>
+Cc: 'Andrew Lunn' <andrew@lunn.ch>, 'Paolo Abeni' <pabeni@redhat.com>,
+ 'Marcin Wojtas' <marcin.s.wojtas@gmail.com>, UNGLinuxDriver@microchip.com,
+ 'Bryan Whitehead' <bryan.whitehead@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ 'Andrew Lunn' <andrew+netdev@lunn.ch>, 'Eric Dumazet' <edumazet@google.com>,
+ 'Maxime Coquelin' <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ 'Jakub Kicinski' <kuba@kernel.org>, mengyuanlou@net-swift.com,
+ "'David S. Miller'" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, 'Heiner Kallweit' <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/9] net: add phylink managed EEE
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,84 +70,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Christian,
+On Fri, Jan 17, 2025 at 04:56:34PM +0800, Jiawen Wu wrote:
+> > Hi,
+> > 
+> > Adding managed EEE support to phylink has been on the cards ever since
+> > the idea in phylib was mooted. This overly large series attempts to do
+> > so. I've included all the patches as it's important to get the driver
+> > patches out there.
+> > 
+> > Patch 1 adds a definition for the clock stop capable bit in the PCS
+> > MMD status register.
+> > 
+> > Patch 2 adds a phylib API to query whether the PHY allows the transmit
+> > xMII clock to be stopped while in LPI mode. This capability is for MAC
+> > drivers to save power when LPI is active, to allow them to stop their
+> > transmit clock.
+> > 
+> > Patch 3 extracts a phylink internal helper for determining whether the
+> > link is up.
+> > 
+> > Patch 4 adds basic phylink managed EEE support. Two new MAC APIs are
+> > added, to enable and disable LPI. The enable method is passed the LPI
+> > timer setting which it is expected to program into the hardware, and
+> > also a flag ehther the transmit clock should be stopped.
+> > 
+> > I have taken the decision to make enable_tx_lpi() to return an error
+> > code, but not do much with it other than report it - the intention
+> > being that we can later use it to extend functionality if needed
+> > without reworking loads of drivers.
+> > 
+> > I have also dropped the validation/limitation of the LPI timer, and
+> > left that in the driver code prior to calling phylink_ethtool_set_eee().
+> > 
+> > The remainder of the patches convert mvneta, lan743x and stmmac, and
+> > add support for mvneta.
+> > 
+> > Since yesterday's RFC:
+> > - fixed the mvpp2 GENMASK()
+> > - dropped the DSA patch
+> > - changed how phylink restricts EEE advertisement, and the EEE support
+> >   reported to userspace which fixes a bug.
+> > 
+> >  drivers/net/ethernet/marvell/mvneta.c             | 107 ++++++++++------
+> >  drivers/net/ethernet/marvell/mvpp2/mvpp2.h        |   5 +
+> >  drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c   |  86 +++++++++++++
+> >  drivers/net/ethernet/microchip/lan743x_ethtool.c  |  21 ---
+> >  drivers/net/ethernet/microchip/lan743x_main.c     |  46 ++++++-
+> >  drivers/net/ethernet/microchip/lan743x_main.h     |   1 -
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  57 +++++++--
+> >  drivers/net/phy/phy.c                             |  20 +++
+> >  drivers/net/phy/phylink.c                         | 149 ++++++++++++++++++++--
+> >  include/linux/phy.h                               |   1 +
+> >  include/linux/phylink.h                           |  45 +++++++
+> >  include/uapi/linux/mdio.h                         |   1 +
+> >  12 files changed, 446 insertions(+), 93 deletions(-)
+> 
+> Since merging these patches, phylink_connect_phy() can no longer be
+> invoked correctly in ngbe_open(). The error is returned from the function
+> phy_eee_rx_clock_stop(). Since EEE is not supported on our NGBE hardware.
 
-kernel test robot noticed the following build warnings:
-
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Bruel/phy-stm32-Optimize-tuning-values-from-DT/20250113-172435
-base:   v6.13-rc7
-patch link:    https://lore.kernel.org/r/20250113092001.1344151-1-christian.bruel%40foss.st.com
-patch subject: [PATCH v2] phy: stm32: Optimize tuning values from DT.
-config: arm-randconfig-r071-20250117 (https://download.01.org/0day-ci/archive/20250117/202501171619.0XDYDyBZ-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 14.2.0
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-| Closes: https://lore.kernel.org/r/202501171619.0XDYDyBZ-lkp@intel.com/
-
-New smatch warnings:
-drivers/phy/st/phy-stm32-combophy.c:147 stm32_impedance_tune() error: buffer overflow 'imp_lookup' 8 <= 8 (assuming for loop doesn't break)
-drivers/phy/st/phy-stm32-combophy.c:564 stm32_combophy_probe() warn: passing zero to 'dev_err_probe'
-
-vim +147 drivers/phy/st/phy-stm32-combophy.c
-
-31219ca5436f01 Christian Bruel 2025-01-13  119  static void stm32_impedance_tune(struct stm32_combophy *combophy)
-47e1bb6b4ba098 Christian Bruel 2024-09-30  120  {
-47e1bb6b4ba098 Christian Bruel 2024-09-30  121  	u8 imp_of, vswing_of;
-2de679ecd724b8 Arnd Bergmann   2024-11-11  122  	u32 regval;
-47e1bb6b4ba098 Christian Bruel 2024-09-30  123  
-31219ca5436f01 Christian Bruel 2025-01-13  124  	if (combophy->microohm) {
-2de679ecd724b8 Arnd Bergmann   2024-11-11  125  		regval = 0;
-2de679ecd724b8 Arnd Bergmann   2024-11-11  126  		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++) {
-31219ca5436f01 Christian Bruel 2025-01-13  127  			if (imp_lookup[imp_of].microohm <= combophy->microohm) {
-2de679ecd724b8 Arnd Bergmann   2024-11-11  128  				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of);
-47e1bb6b4ba098 Christian Bruel 2024-09-30  129  				break;
-2de679ecd724b8 Arnd Bergmann   2024-11-11  130  			}
-2de679ecd724b8 Arnd Bergmann   2024-11-11  131  		}
-
-If we don't hit the break sttaement above
-
-47e1bb6b4ba098 Christian Bruel 2024-09-30  132  
-47e1bb6b4ba098 Christian Bruel 2024-09-30  133  		dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
-47e1bb6b4ba098 Christian Bruel 2024-09-30  134  			imp_lookup[imp_of].microohm);
-                                                                                   ^^^^^^
-Then this is an out of bounds access.
-
-47e1bb6b4ba098 Christian Bruel 2024-09-30  135  
-47e1bb6b4ba098 Christian Bruel 2024-09-30  136  		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-47e1bb6b4ba098 Christian Bruel 2024-09-30  137  				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
-2de679ecd724b8 Arnd Bergmann   2024-11-11  138  				   regval);
-47e1bb6b4ba098 Christian Bruel 2024-09-30  139  	} else {
-31219ca5436f01 Christian Bruel 2025-01-13  140  		/* default is 50 ohm */
-31219ca5436f01 Christian Bruel 2025-01-13  141  		imp_of = 3;
-47e1bb6b4ba098 Christian Bruel 2024-09-30  142  	}
-47e1bb6b4ba098 Christian Bruel 2024-09-30  143  
-31219ca5436f01 Christian Bruel 2025-01-13  144  	if (combophy->microvolt) {
-2de679ecd724b8 Arnd Bergmann   2024-11-11  145  		regval = 0;
-2de679ecd724b8 Arnd Bergmann   2024-11-11  146  		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++) {
-31219ca5436f01 Christian Bruel 2025-01-13 @147  			if (imp_lookup[imp_of].vswing[vswing_of] >= combophy->microvolt) {
-2de679ecd724b8 Arnd Bergmann   2024-11-11  148  				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of);
-47e1bb6b4ba098 Christian Bruel 2024-09-30  149  				break;
-2de679ecd724b8 Arnd Bergmann   2024-11-11  150  			}
-2de679ecd724b8 Arnd Bergmann   2024-11-11  151  		}
-47e1bb6b4ba098 Christian Bruel 2024-09-30  152  
-47e1bb6b4ba098 Christian Bruel 2024-09-30  153  		dev_dbg(combophy->dev, "Set %u microvolt swing\n",
-47e1bb6b4ba098 Christian Bruel 2024-09-30  154  			 imp_lookup[imp_of].vswing[vswing_of]);
-47e1bb6b4ba098 Christian Bruel 2024-09-30  155  
-47e1bb6b4ba098 Christian Bruel 2024-09-30  156  		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
-47e1bb6b4ba098 Christian Bruel 2024-09-30  157  				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
-2de679ecd724b8 Arnd Bergmann   2024-11-11  158  				   regval);
-47e1bb6b4ba098 Christian Bruel 2024-09-30  159  	}
-47e1bb6b4ba098 Christian Bruel 2024-09-30  160  }
+That would mean phy_modify_mmd() is failing, but the question is why
+that is. Please investigate. Thanks.
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
