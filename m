@@ -2,149 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF07A167A7
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jan 2025 08:51:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76BAA168E8
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jan 2025 10:08:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B61FCC78002;
-	Mon, 20 Jan 2025 07:51:17 +0000 (UTC)
-Received: from outbound.mail.protection.outlook.com
- (mail-francecentralazon11013039.outbound.protection.outlook.com
- [40.107.162.39])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C0B1C78002;
+	Mon, 20 Jan 2025 09:08:24 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D95D3C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D9ECCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Jan 2025 07:51:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eXCd0TC4t/k2hEeCaB2zmGuJ0cpiWduX9HPfkoFW222o4GUIVH4xrdo0jLa3L4i26XobkCLQ/WG410IIdtx8+87LGG8MKqpooKFiTYpF8EzYhqFZ2Do5XI0AFT9Am3AW7dO8Sur+YoAHvM/Qspb2MHdcqTDTCFFH32pYnERFmj2OjxxNnPd/wJ/WBHkpj/XnKb/2lW4uwYRlFFy9QKmL6DqH0JOx4jxtuF3z/ezGGKpBYRwoPFYY/0sUbTIg6cR9UCxmMmZEH5Gkl1Hly5Ody1Kh1X1w8/39Xa+S6SBvVW/jMY6/KJASki6KjO+c3ibLBxyfNPxE1rylrh/xJ+vF4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zNpZgGJGHThDvqH9099nZzmdMKwU8M4kd0hAg2JY+HY=;
- b=NYcy4/ZhvstrEMLg274orsp93+4UTsX+v+AnhSU1qkgOAEbn3s24l7TugiMdsjzlOLgJS1StNDC0iz5f16hfnr/ZnmrtEfywBDmmGnluPHH8pUENLPQmBGk2y8JdHykoanEPdGaXAfm8RZAA1c3ReDDzlSDFkxPkqyexJE+14ktpwWtHTCCZIJZa4dAQbgzEXCl9IrFHZty2d5LwuCdA8KPF7aPSsYH4rFPfOSlEuLLmbTrVcsdNbXslhANAkyx6ZmmLkg7R275Mp7JJsCLIbiPiIoJb6uzUCUibwg6FymwE3qgGONzfeLpxrcEOKvEp6UuBLrkZDcdCk8IFEFvCLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zNpZgGJGHThDvqH9099nZzmdMKwU8M4kd0hAg2JY+HY=;
- b=WPpDCDNM9pgKFXXwoMT2W9ygCCDOa2ZyfAhLZZPwLT1riMba2YY8VlITvWjCHvWFJqHeOrfxaTwQdkWK4fzV/4oea6Zrfk2tAT/ZQQ9nr+oLUkp3fS1ycCqFPLzr0Q6/Xsr1bdo2FDGQmKs0/iIquL3ExfoOH4I22Wn8crumCwEiRQ0r17O5hqx1kLRc8ftR5W9FR13E3H6emq30ObM1fisTsrYbvtrr2iXy23lCsIAY+BTZdurTcS/ZbE9L5ihdPITrm942kKJpbAEpFLXSiTLDOnCRzKJ5VMreEBre0zivMZ0EWtSO6ljC9qh3AH5jtqTUfKLPnGDE5D8Vm+NAsw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by VE1PR04MB7487.eurprd04.prod.outlook.com (2603:10a6:800:1a2::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.21; Mon, 20 Jan
- 2025 07:51:07 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630%5]) with mapi id 15.20.8356.020; Mon, 20 Jan 2025
- 07:51:07 +0000
-Date: Mon, 20 Jan 2025 16:57:13 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Daire McNamara <daire.mcnamara@microchip.com>
-Message-ID: <20250120085713.GA11473@localhost.localdomain>
-References: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
-Content-Disposition: inline
-In-Reply-To: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-ClientProxiedBy: SI2PR06CA0006.apcprd06.prod.outlook.com
- (2603:1096:4:186::19) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+ Mon, 20 Jan 2025 09:08:17 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50K6gxTe007185;
+ Mon, 20 Jan 2025 09:07:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ h+vNN5xoXznfhtWxbNTpB0BOmc+kHjlUL1TlQ4NcoLk=; b=fAh7oNwBtqeKxsr/
+ fAGGaGIlv45aqyoUZ1uuLXsvMK6RLqfuK0MmO+v6SbdHOqcx1APVSidPeZYptY3w
+ +VVmvRBKOJpjaB3LKJwz5s9Lp41AQLP0iRLs8cdtfuf4quDBvapyyPVmk7zokJhR
+ VAv+66oTnyyGc46nBmVxXdreukpthVekIeQqq+3eE5SCkj5tHYxWs3UxiVLHW22O
+ KEofz6aBebzUOuZVQvWlfvuMlkIIsClv4+9HH8PMo+ZALonRKj3+Em8VFaqRTv0+
+ eFMgVlCiNS/n2e2FLAHBGFc5W1k5PuNzmzwq/qUIbstcXJ1lP9Mb1ucgBP6HAYtz
+ WWcQ6Q==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 449hfb0b61-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Jan 2025 09:07:55 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50K97sMP024218
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Jan 2025 09:07:54 GMT
+Received: from [10.253.35.93] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 20 Jan
+ 2025 01:07:48 -0800
+Message-ID: <5bc3f4e0-6c3f-412c-a825-54707c70f779@quicinc.com>
+Date: Mon, 20 Jan 2025 17:07:44 +0800
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|VE1PR04MB7487:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65b984b7-5378-489a-de6e-08dd392732b7
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|52116014|921020|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bK2JZc6pipO6y/Kg+CzPKvVl+iTlbOCMNhnLdiKoJg3oaaqEqVhSo4vdvXLQ?=
- =?us-ascii?Q?uhuF28TowGDpMq8YhHliGXX3hdm0xhufJY5rst2LoalJm0jfsCseBeR31ca2?=
- =?us-ascii?Q?1DKTT7u8KBax7sOAm8GwcttsTcDWTS8tKCqzGuVyFf7L4rATkYUPb5qyy0Qn?=
- =?us-ascii?Q?yMiYkksEO8XETh2l3I8rhOUR5998txQOHoyUrKLTRHmr0MQotUlw3Ixsumcr?=
- =?us-ascii?Q?o9wGAYjXIF7rQNQxZ/+qu7pfeLyOjlOS/q+KrHYJIi1zTlhu5yz9EqP69E0i?=
- =?us-ascii?Q?VmAhEh35HLi1jNo82RbyCzTApM9UE7cvPIFraRraJ5MyMRrUNSzec4lUUXsT?=
- =?us-ascii?Q?a27iYywr+BAq+U/KbPSjlOVLTL3O8F3ZPotZVJQDcbGXnkEpX9NnExNo/8Rk?=
- =?us-ascii?Q?n9BH2oVPs8ZrMLJgXYi7wpHL0vnKPfJsoeFDIwJ8XyD212G2NaI/T2ABwHUh?=
- =?us-ascii?Q?x95BgLNiJ9JdEk+j3nn1Wd/hDxHCMOwHrDKb1A8g7+mOZ6SV2goOh56XFHUU?=
- =?us-ascii?Q?KFD0IOYhVBgnfwJiY0n3xMPj+ULJV4jG7aU4f5lWF8o0Vhu7eWITiJ76Pxtk?=
- =?us-ascii?Q?xg0j5Ju5B3uIZ1DTBArn0mWkzmfBOjhxbVhmE0uqoR9SjfCnmxq8DOrWv4lf?=
- =?us-ascii?Q?hAbncfbfsvu0ns47mEtMP6EgcKOAybnkghjBSe6nSHZkub+IGvwJt8HwP1ZU?=
- =?us-ascii?Q?Uv5K+KpL2iL0VlgudhO9ZcAXvlS6GR69kPGmxshrXsVOhzWpIeS5c5x+8C7a?=
- =?us-ascii?Q?qsFrjI8zCMwgWkGa/dGZS+s089G5FCzBKK73DNweJJi7QzszWhL7kPezg6h4?=
- =?us-ascii?Q?7dKx4Jt3DkrCsHTK452IDc7x3ZUltQHGmgcHy+SZ67w9fVqcvkNXOBiD8yPe?=
- =?us-ascii?Q?KE4LEzSIvfqKYdLa9XTpqsJs8EwxPXlVbJBvwfDvLUy4dp6gnkND4VdYj+8b?=
- =?us-ascii?Q?XrJ47Lw+wz9aBeiUGpefoIBGUbsvStI7YgWC3tpG2Z7H6zVPPeIXaD93fj4Q?=
- =?us-ascii?Q?jBhJVK19Ow0B2v2tSL7jmaE1lqiLSJZxcK1OYt5Zm8fjK0ObhaPhNywI95Al?=
- =?us-ascii?Q?btkUj/rJcQMOcmtCtEOw5jzuQWRSybwM4AyCvGGsUJQwh6lMLR5cf2/TiZYe?=
- =?us-ascii?Q?uD3K8xaTVkYNdGSTz58fCFuah0qG6m9tPSq0sGVwerHZtq5KyRul2A1HF/bY?=
- =?us-ascii?Q?vL7HqaT9MJDEa2O6z+iBpeG5uGRRQ8AhU7tbX5AKqVVJCQmAtYkp209hg8Jc?=
- =?us-ascii?Q?7KA9v+zeHfeF57p+0y93fT5fPdLTTN4efrJKwr2xxzHEllvJis6qjVEbeNGT?=
- =?us-ascii?Q?+Qrmg/nOJXn+vWCaGIF7pilDPPGrs+12MC5jug0dwg661OcrQZVPgcARcDhq?=
- =?us-ascii?Q?esA7/dM+8ZMu/U64yO15pZIF3P7WymJ7vF86OJqMFlofQbgcS/3YJVeMgNwX?=
- =?us-ascii?Q?LmHKxvPOXYhiCTFbJ2czEb3wcMVR07og?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(52116014)(921020)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MlYCCekcIK2h3IHYX+2IOuWCKuT8321c9KrGhMMJElWyFGC+P6JVUPhcPbsx?=
- =?us-ascii?Q?6mEPTgdP2imt8R0plt/TLbmqlp89cZ1z0EDYJIC9i9oMNmMYcQj2TYVpuI8N?=
- =?us-ascii?Q?3/NOa+pCO81T0064W3kppn4DR9ijDuCvkOo/RjhRsfBu11mcoYSEX7mqb4f4?=
- =?us-ascii?Q?9tB2+Zfb4S9JjIuBUV3xVF//s1LGZXYP8NRk3nSoJadhxUDUnZkFxqrL3Oyk?=
- =?us-ascii?Q?vDeRXsXrRgbsg2vwUr6vnLUz/UIW8KLne3VujzIgUHFhLSOe1Qg3yzttnj2S?=
- =?us-ascii?Q?4aY2lEa9MkbUHrZlhkGA/hRFHCISnxxzyZrSrTnSXGvOYlGA7t4NhA91sa6T?=
- =?us-ascii?Q?SneNJFZP1UIJRslOA1SgE84i06jIdU2f29dUmGflwfoDzN6CtzFZgFmDw+zZ?=
- =?us-ascii?Q?MOLS7DTbjAJ/0cGoLqODR9xQCz3Yfk6bwnoaYYPJwe4TYyyiugD+chFiVkJP?=
- =?us-ascii?Q?0Hud9CZU5kyo7ZArznDs7+rfskoV3VVumt+jPekbwvH5iSQDyx+3osYU4vu4?=
- =?us-ascii?Q?zhkoBZVKLvHWE4ncJWS82Xw0wclkiQUh3CvQ9geYYqvSDZmv/8oOA3AZgadM?=
- =?us-ascii?Q?zP0IdaPFUCw2So7bSKvIx09qHK5xq+637EYf8KxtRp4/H0j6L45vHukQjNFW?=
- =?us-ascii?Q?3YuTq22WmGzUMEjlLmlNFRCdBvm00sxAID4LBPXPyJ3dmtyj/3IBXhb9aQsn?=
- =?us-ascii?Q?2PbCkvLeuQXRvrsN+OB0yZGKZh/3oMvMe6jYNdizL/2ccZHHswBjEU2etG8H?=
- =?us-ascii?Q?GFY7kTmbultCJn2MYMgFO14I6admaaLGtBWL5OSc9nKPRstJXEGAVD0lcO7+?=
- =?us-ascii?Q?nsTbhugfU4LffTdQ3s1ihKxHvyVBrY73LXBAjgj7IKPUKCqg2Pax5tW8Bk4i?=
- =?us-ascii?Q?VBTEaYQ6lElWP8DqBiIPR5A8WXkvRUO97OjQVJ38MeQg7Xuj2o72rbpAc6qi?=
- =?us-ascii?Q?THbZclyur4f2pEie7DPCDP/2ovw9BHsl5qD1c95j7bUY50JSEkUmUkOS5TAM?=
- =?us-ascii?Q?xqEt/DtYNHxsgO33LQP+z11bJccqaS2dlKUL2jwdY17LzFYcTURp7TERhn5u?=
- =?us-ascii?Q?ySeEcVWwqxRU9MwDYdvndWyXIbHyRjZp3VzEYZkrt5sgrCZyC/jsYazmzt+E?=
- =?us-ascii?Q?msOTKHjnyu/G9+inOwdwwzwrO7BKrDyREGcTgIWBoYnismG1AUI4cmE/oh9R?=
- =?us-ascii?Q?V9vdxHzHzsiPUdUoUR2h3nXA55J2+K0dqMx5dhkBIqI5jaSZTi206a1/HXVn?=
- =?us-ascii?Q?heKi4GDkutfryUP/mubj1/Svf5xwmkV5js89JE0Lhn7S8xJmDaqQ9NWS7Wib?=
- =?us-ascii?Q?+qgSyG2lYxKGq+g/SxrPF+MQkssYLvYjoeDaPk+RSGqeC7QoafLlwoYmmiCj?=
- =?us-ascii?Q?QmSgpWwyrcXuYhS+Uuy0z1bREXBzakr0dibtorC9/HBQnH98nq4rEun/ta6k?=
- =?us-ascii?Q?2hjzf5W9847gQw/X2tmRIOt3vm1SwRa7RLyUme3St7ABDWULstifuPf4QDnI?=
- =?us-ascii?Q?Kmdn7B4ZTWOQcfwxrvb1B18lF7xb5O2fsE9Z+7jgCMaYY6ISo05l34yQ/5h7?=
- =?us-ascii?Q?2faQ1YV2JubzJdkB2NRfNZvqn1QOVaS1Ma5ILrAm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65b984b7-5378-489a-de6e-08dd392732b7
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 07:51:07.6211 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MQs0XptAhdx1TsDG/p61/UhxakYiA2hubrEBK4VxdJImGYmHUpQ3eqTBLB8GwGADy/gXdWaDstnAvugia2UthA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7487
-Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 00/12] pm: Introduce
-	devm_pm_set_wake_irq
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241225-support_10m100m-v1-0-4b52ef48b488@quicinc.com>
+ <20241225-support_10m100m-v1-2-4b52ef48b488@quicinc.com>
+ <4b4ef1c1-a20b-4b65-ad37-b9aabe074ae1@kernel.org>
+ <278de6e8-de8f-458a-a4b9-92b3eb81fa77@quicinc.com>
+ <e47f3b5c-9efa-4b71-b854-3a5124af06d7@lunn.ch>
+ <87a7729d-ccdd-46f0-bcfd-3915452344fd@quicinc.com>
+ <7e046761-7787-4f01-b47b-9374402489ac@lunn.ch>
+Content-Language: en-US
+From: Yijie Yang <quic_yijiyang@quicinc.com>
+In-Reply-To: <7e046761-7787-4f01-b47b-9374402489ac@lunn.ch>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: NP9eBnT9zEvKqkraLR4B_uiSrrYEmpmo
+X-Proofpoint-ORIG-GUID: NP9eBnT9zEvKqkraLR4B_uiSrrYEmpmo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-20_01,2025-01-20_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0
+ lowpriorityscore=0 mlxscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 mlxlogscore=615 bulkscore=0 spamscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501200075
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: qcom-ethqos: Enable RX
+ programmable swap on qcs615
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,24 +97,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alexandre, Dmitry
 
-On Fri, Jan 03, 2025 at 04:41:12PM +0800, Peng Fan (OSS) wrote:
->This was a retry to address [1][2], to let common code handle
->dev_pm_clear_wake_irq. Then no need to call dev_pm_clear_wake_irq
->in each driver.remove() hook and error handling path.
 
-Patch 1 has been accepted into pm tree.
+On 2025-01-08 21:29, Andrew Lunn wrote:
+>>> Why is it specific to this board? Does the board have a PHY which is
+>>> broken and requires this property? What we are missing are the details
+>>> needed to help you get to the correct way to solve the problem you are
+>>> facing.
+>>>
+>>
+>> Let me clarify why this bit is necessary and why it's board-specific. The RX
+>> programming swap bit can introduce a time delay of half a clock cycle. This
+>> bit, along with the clock delay adjustment functionality, is implemented by
+>> a module called 'IO Macro.' This is a Qualcomm-specific hardware design
+>> located between the MAC and PHY in the SoC, serving the RGMII interface. The
+>> bit works in conjunction with delay adjustment to meet the sampling
+>> requirements. The sampling of RX data is also handled by this module.
+>>
+>> During the board design stage, the RGMII requirements may not have been
+>> strictly followed, leading to uncertainty in the relationship between the
+>> clock and data waveforms when they reach the IO Macro.
+> 
+> So this indicates any board might need this feature, not just this one
+> board. Putting the board name in the driver then does not scale.
+> 
 
-For the rtc and input patches, are you ok with them?
+Should I ignore this if I choose to use the following standard properties?
 
-Thanks,
-Peng
+>> This means the time
+>> delay introduced by the PC board may not be zero. Therefore, it's necessary
+>> for software developers to tune both the RX programming swap bit and the
+>> delay to ensure correct sampling.
+> 
+> O.K. Now look at how other boards tune their delays. There are
+> standard properties for this:
+> 
+>          rx-internal-delay-ps:
+>            description:
+>              RGMII Receive Clock Delay defined in pico seconds. This is used for
+>              controllers that have configurable RX internal delays. If this
+>              property is present then the MAC applies the RX delay.
+>          tx-internal-delay-ps:
+>            description:
+>              RGMII Transmit Clock Delay defined in pico seconds. This is used for
+>              controllers that have configurable TX internal delays. If this
+>              property is present then the MAC applies the TX delay.
+> 
+> I think you can use these properties, maybe with an additional comment
+> in the binding. RGMII running at 1G has a clock of 125MHz. That is a
+> period of 8ns. So a half clock cycle delay is then 4ns.
+> 
+> So an rx-internal-delay-ps of 0-2000 means this clock invert should be
+> disabled. A rx-internal-delay-ps of 4000-6000 means the clock invert
+> should be enabled.
+
+This board was designed to operate at different speed rates, not a fixed 
+speed, and the clock rate varies for each speed. Thus, the delay 
+introduced by inverting the clock is not fixed. Additionally, I noticed 
+that some vendors apply the same routine for this property across all 
+speeds in their driver code. Can this property be used just as a flag, 
+regardless of its actual value?
+
+> 
+> Now, ideally, you want the PHY to add the RGMII delays, that is what i
+> request all MAC/PHY pairs do, so we have a uniform setup across all
+> boards. So unless the PHY does not support RGMII delays, you would
+> expect rx-internal-delay-ps to be either just a small number of
+> picoseconds for fine tuning, or a small number of picoseconds + 4ns
+> for fine tuning.
+
+The delay for both TX and RX sides is added by the MAC in the Qualcomm 
+driver, which was introduced by the initial patch. I believe there may 
+be a refactor in the future to ensure it follows the requirements.
+
+> 
+> This scales, since it can be used by an board with poor design, and it
+> does not require anything proprietary to Qualcomm, except the extended
+> range, and hopefully nobody except Qualcomms broken RDK will require
+> it, because obviously you will document the issue with the RDK and
+> tell customers how to correctly design their board to be RGMII
+> compliant with the clocks.
+
+Yes, I will make a note of it.
+
+> 
+> 	Andrew
+
+-- 
+Best Regards,
+Yijie
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
