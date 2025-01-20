@@ -2,88 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B15A1674A
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jan 2025 08:25:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC01FA16844
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jan 2025 09:36:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EA44C78018;
-	Mon, 20 Jan 2025 07:25:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73EECC78002;
+	Mon, 20 Jan 2025 08:36:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B099FC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56950CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Jan 2025 07:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737357921; x=1768893921;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=k4ykqooUPTL/roXw/fFpliH2XGWlf7OfDPK35rRh9HA=;
- b=lPD11AI2e809UPZ5rEvvTxJQMXDot00SLle7PuJ5lSQIEHE/TjgsKQAO
- OANVelHyc3+SANcnJkTc8DkJ35f28V/PRm9FaQKv2zvPbBAEUwxgo2QOn
- F+p8M7p3n0i/YszbtrucQ2dlLXwYlCkD7kQQ8jEVYLH/OeY7bstWp6tqI
- Dv4TlrqubSwE4v5ss8nvKInsbA/RrlmNWnf36vaKuwY3GdtXDJkrbmsP0
- iCPxWHxe6B3VHAxHkvWgyI0DR34PA+kt9uLA6/k8bbzfuiZbvbM5us0M7
- zjYsbak5ULD9q481u/QfVyRMFIQA119tv6LOr4QDg9t3Orexd3MeB/3D+ A==;
-X-CSE-ConnectionGUID: kWVYGMS2Q9S2Qc+w/MxYYA==
-X-CSE-MsgGUID: ShJDFyfxRzSqrQaquz8Oeg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11320"; a="37601871"
-X-IronPort-AV: E=Sophos;i="6.13,218,1732608000"; d="scan'208";a="37601871"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2025 23:25:12 -0800
-X-CSE-ConnectionGUID: vyQrnkD1RKuZNocxarZucg==
-X-CSE-MsgGUID: 4NfaGBcnSKmXfEo/7NNF7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,218,1732608000"; d="scan'208";a="106224522"
-Received: from unknown (HELO [10.107.2.109]) ([10.107.2.109])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2025 23:25:02 -0800
-Message-ID: <20fa0b55-405c-4b7c-8c10-1f8d71c956b9@linux.intel.com>
-Date: Mon, 20 Jan 2025 15:24:46 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Willem de Bruijn <willemb@google.com>,
- Florian Bezdeka <florian.bezdeka@siemens.com>,
- Donald Hunter <donald.hunter@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Bjorn Topel <bjorn@kernel.org>, Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Joe Damato <jdamato@fastly.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Mina Almasry <almasrymina@google.com>,
- Daniel Jurgens <danielj@nvidia.com>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Mykola Lysenko <mykolal@fb.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Shuah Khan <shuah@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
+ Mon, 20 Jan 2025 08:36:32 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50K8VeAT027721;
+ Mon, 20 Jan 2025 09:36:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ iPRD2KWoZvbHZFTPohaghCcVvZX1drMbrOqQgWvHJmg=; b=CXYXMxsVof+3Wz47
+ pE44y6yoapWMYfryXmQmgwWCVrd1MV0ICGv6PCjjCMpIGQttUaApGosIU58zgpIy
+ vfdnQJxX6cGKfRGAp3ZpqnpIE7lZsFFFXHdLnyFbraBYqqeX3+/5oAX1Pbbh1H/g
+ Z1zTGqiGugZk7RQcr0gTqlv93umVokS7DlAb9sFO5hlHNEJSBXw0+ZY+mD6TTi8q
+ wd2UcMwGP0xxMcy1k29Bv3kXT/8msT6uHT/J0WL9iuUCn+QdGxedMk/pXBcccG5m
+ 0McvNf2JQUoo1Ch89bbYfGv1cFMej52XR4TunA24staAgIpqHMkvR8bmpyyMAHax
+ nVGU9g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 449jdf875u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Jan 2025 09:36:03 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1005640048;
+ Mon, 20 Jan 2025 09:33:58 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 17DC127B404;
+ Mon, 20 Jan 2025 09:32:10 +0100 (CET)
+Received: from [192.168.8.15] (10.48.86.148) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Mon, 20 Jan
+ 2025 09:32:09 +0100
+Message-ID: <98652dc2f29b172a9caafe55d04cb965768e2a66.camel@foss.st.com>
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Len Brown <len.brown@intel.com>, Pavel Machek
+ <pavel@ucw.cz>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Dmitry
+ Torokhov" <dmitry.torokhov@gmail.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>
-References: <20250116155350.555374-1-yoong.siang.song@intel.com>
- <20250116155350.555374-5-yoong.siang.song@intel.com>
- <84770113-2546-4035-8bd4-bf9cedcfb00f@linux.intel.com>
-Content-Language: en-US
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <84770113-2546-4035-8bd4-bf9cedcfb00f@linux.intel.com>
-Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Linus Walleij
+ <linus.walleij@linaro.org>, Conor Dooley <conor.dooley@microchip.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>
+Date: Mon, 20 Jan 2025 09:32:07 +0100
+In-Reply-To: <20250103-wake_irq-v2-6-e3aeff5e9966@nxp.com>
+References: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
+ <20250103-wake_irq-v2-6-e3aeff5e9966@nxp.com>
+User-Agent: Evolution 3.48.4 
+MIME-Version: 1.0
+X-Originating-IP: [10.48.86.148]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-20_01,2025-01-20_02,2024-11-22_01
+Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v6 4/4] igc: Add launch time
-	support to XDP ZC
+Subject: Re: [Linux-stm32] [PATCH v2 06/12] rtc: stm32: Use resource managed
+ API to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,22 +82,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 20/1/2025 2:25 pm, Abdul Rahim, Faizal wrote:
+On Fri, 2025-01-03 at 16:41 +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> To be cautious, could we perform a stress test by sending a higher number 
-> of packets with launch time? For example, we could send 200 packets, each 
-> configured with a launch time, and verify that the driver continues to 
-> function correctly afterward.
+> Use devm_pm_set_wake_irq and devm_device_init_wakeup to cleanup the
+> error handling code and 'driver.remove()' hook.
 > 
-I agree on this point. Could you perform the same stress test on the STMMAC 
-driver as well?
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+
+Thanks,
+Antonio
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
