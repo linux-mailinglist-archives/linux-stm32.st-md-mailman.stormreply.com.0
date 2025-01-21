@@ -2,61 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944EBA17D3F
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2025 12:51:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180A2A17E03
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2025 13:48:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 399A2C78F74;
-	Tue, 21 Jan 2025 11:51:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8174C78F6E;
+	Tue, 21 Jan 2025 12:48:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0732C78F6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDDC8C01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jan 2025 11:51:06 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50L9D6t0003828;
- Tue, 21 Jan 2025 12:50:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=/JxEK8gd2DKUYFHUImvOGy
- 5ibdZjUbYdrztpRvTmVbM=; b=bWzyn92s9NU2kARkgKSzj5i/ePkqu9HjHIv1n2
- dipRXPMbsQRHFdTHIUH6KZBbfxklMOXh2BFbDYHUPtlNvUmuCfQFCRv9EECyyfmo
- ZV2PORDPW0OTL/+UkXVJxephYh0q5VpeDqOJJVMTxllSHWwepDP4JPboLo2jUWYX
- 0k2s4d7wFS2tF8lmzwdGhOpBXsEQw9WFAosXs++uxD4hIKY1Kw/hrn/Nmtj0vV+C
- bGjPbRG3eiYJWpwpMk7N2GksbynHkqHCpcweeiqiUTPa0ZFgszuboqvp9kVDISaj
- GNZ6geqhFk4wnb2jNdOQVuJNVqldkT6dVYtHXKXHDoC62fGw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44a213j8gj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 21 Jan 2025 12:50:42 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 35B3040049;
- Tue, 21 Jan 2025 12:49:44 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 60D732A3D06;
- Tue, 21 Jan 2025 12:49:15 +0100 (CET)
-Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 21 Jan
- 2025 12:49:15 +0100
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <christian.bruel@foss.st.com>, <vkoul@kernel.org>, <kishon@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
-Date: Tue, 21 Jan 2025 12:49:00 +0100
-Message-ID: <20250121114900.3838224-1-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
+ Tue, 21 Jan 2025 12:48:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3DC225C55F8;
+ Tue, 21 Jan 2025 12:47:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9874C4CEDF;
+ Tue, 21 Jan 2025 12:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1737463684;
+ bh=bZ3iAARff09ov9iRrXfGPOz8X00Oc9kE3YkguQwOw1w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=mUFdwdFMgeRGJRzN2slQ5/dIjrzdV4DVxfeWia/RrXQ7t69QsUFj9MombPn5kJc+T
+ +GM7G2jscsa0ymnryYfyueCBup55lk38WhVua6Y5zuye3yZsY2ac/3K/7+2eLmMvDq
+ YqZg8yrLahqLLepvl2cH99fxmd8dfvvJyE17ZjXeAvFmRzOEZgEOdkW4cRxOaEhHzw
+ W2lVcASVd/wanQCXNjo8Q1i6Zzmgm4dj8vGQY1yJjL++65J3sYKyiqb8cxU1yV5jj4
+ 1d3a+eyh1+FoNW8vVE+40ay76QFBIOEsExl4qOsLyggFP7dM1ag1Ht9vi7ped7IgiK
+ MryVN5HDbJtXA==
+Message-ID: <30450f09-83d4-4ff0-96b2-9f251f0c0896@kernel.org>
+Date: Tue, 21 Jan 2025 13:47:55 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.129.178.212]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-21_05,2025-01-21_02,2024-11-22_01
-Cc: linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- arnd@arndb.de, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] [PATCH v2] phy: stm32: Fix constant-value
-	overflow assertion
+User-Agent: Mozilla Thunderbird
+To: Yijie Yang <quic_yijiyang@quicinc.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>
+References: <20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com>
+ <20250121-dts_qcs615-v3-2-fa4496950d8a@quicinc.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250121-dts_qcs615-v3-2-fa4496950d8a@quicinc.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 2/4] net: stmmac: dwmac-qcom-ethqos:
+ Mask PHY mode if configured with rgmii-id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,110 +112,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Guard against false positives with a WARN_ON check to make the compiler
-happy: This should not happen because the offset range is checked against
-the sorted imp_lookup_table values.
+On 21/01/2025 08:54, Yijie Yang wrote:
+> The Qualcomm board always chooses the MAC to provide the delay instead of
+> the PHY, which is completely opposite to the suggestion of the Linux
+> kernel.
 
-Guard against a true warning found for the max_vswing, as a given
-vswing value can be 802000 or 803000 depending on the current impedance
 
-Fixes: 2de679ecd724 ("phy: stm32: work around constant-value overflow assertion")
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
-v2: Change title and Fixes tag
----
- drivers/phy/st/phy-stm32-combophy.c | 38 ++++++++++++++---------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+How does the Linux kernel suggest it?
 
-diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
-index 49e9fa90a681..607b4d607eb5 100644
---- a/drivers/phy/st/phy-stm32-combophy.c
-+++ b/drivers/phy/st/phy-stm32-combophy.c
-@@ -111,6 +111,7 @@ static const struct clk_impedance imp_lookup[] = {
- 	{ 4204000, { 511000, 609000, 706000, 802000 } },
- 	{ 3999000, { 571000, 648000, 726000, 803000 } }
- };
-+#define DEFAULT_IMP_INDEX 3 /* Default impedance is 50 Ohm */
- 
- static int stm32_impedance_tune(struct stm32_combophy *combophy)
- {
-@@ -119,10 +120,9 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 	u8 imp_of, vswing_of;
- 	u32 max_imp = imp_lookup[0].microohm;
- 	u32 min_imp = imp_lookup[imp_size - 1].microohm;
--	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
-+	u32 max_vswing;
- 	u32 min_vswing = imp_lookup[0].vswing[0];
- 	u32 val;
--	u32 regval;
- 
- 	if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
- 		if (val < min_imp || val > max_imp) {
-@@ -130,45 +130,43 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
- 			return -EINVAL;
- 		}
- 
--		regval = 0;
--		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++) {
--			if (imp_lookup[imp_of].microohm <= val) {
--				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of);
-+		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
-+			if (imp_lookup[imp_of].microohm <= val)
- 				break;
--			}
--		}
-+
-+		if (WARN_ON(imp_of == ARRAY_SIZE(imp_lookup)))
-+			return -EINVAL;
- 
- 		dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
- 			imp_lookup[imp_of].microohm);
- 
- 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
- 				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
--				   regval);
--	} else {
--		regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
--		imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
--	}
-+				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
-+	} else
-+		imp_of = DEFAULT_IMP_INDEX;
- 
- 	if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
-+		max_vswing = imp_lookup[imp_of].vswing[vswing_size - 1];
-+
- 		if (val < min_vswing || val > max_vswing) {
- 			dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
- 			return -EINVAL;
- 		}
- 
--		regval = 0;
--		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++) {
--			if (imp_lookup[imp_of].vswing[vswing_of] >= val) {
--				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of);
-+		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
-+			if (imp_lookup[imp_of].vswing[vswing_of] >= val)
- 				break;
--			}
--		}
-+
-+		if (WARN_ON(vswing_of == ARRAY_SIZE(imp_lookup[imp_of].vswing)))
-+			return -EINVAL;
- 
- 		dev_dbg(combophy->dev, "Set %u microvolt swing\n",
- 			 imp_lookup[imp_of].vswing[vswing_of]);
- 
- 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
- 				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
--				   regval);
-+				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
- 	}
- 
- 	return 0;
--- 
-2.34.1
+> The usage of phy-mode in legacy DTS was also incorrect. Change the
+> phy_mode passed from the DTS to the driver from PHY_INTERFACE_MODE_RGMII_ID
+> to PHY_INTERFACE_MODE_RGMII to ensure correct operation and adherence to
+> the definition.
+> To address the ABI compatibility issue between the kernel and DTS caused by
+> this change, handle the compatible string 'qcom,qcs404-evb-4000' in the
+> code, as it is the only legacy board that mistakenly uses the 'rgmii'
+> phy-mode.
+> 
+> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index 2a5b38723635b5ef9233ca4709e99dd5ddf06b77..e228a62723e221d58d8c4f104109e0dcf682d06d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -401,14 +401,11 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+>  static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+>  {
+>  	struct device *dev = &ethqos->pdev->dev;
+> -	int phase_shift;
+> +	int phase_shift = 0;
+>  	int loopback;
+>  
+>  	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+> -	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
+> -	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+> -		phase_shift = 0;
+> -	else
+> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID)
+>  		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
+>  
+>  	/* Disable loopback mode */
+> @@ -810,6 +807,17 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  	ret = of_get_phy_mode(np, &ethqos->phy_mode);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "Failed to get phy mode\n");
+> +
+> +	root = of_find_node_by_path("/");
+> +	if (root && of_device_is_compatible(root, "qcom,qcs404-evb-4000"))
 
+
+First, just check if machine is compatible, don't open code it.
+
+Second, drivers should really, really not rely on the machine. I don't
+think how this resolves ABI break for other users at all.
+
+You need to check what the ABI is here and do not break it.
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
