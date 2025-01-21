@@ -2,60 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCEA7A17E27
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2025 13:58:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655CEA17E82
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2025 14:08:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6401FC78F6E;
-	Tue, 21 Jan 2025 12:58:22 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19502C01E99;
+	Tue, 21 Jan 2025 13:08:56 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89320C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A799CCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jan 2025 12:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uA940mkLL9KHlcuBfwiSIb3vbphWe9IhllR+VjD8CvI=; b=mdoYhlVkty1GpM8FmQVp5QiD8B
- Ey/KgEeTwABBdYcLZ8oufPHyJNj06JsuXdwDZ2At1jFQYoY8NSrNxToQMKjJJgXDVmAte4E5SWw4j
- /PwfJf345eUnb/jLHwSizUujKKl1TbDiLYZ6wB2+ZT7TPBSNq3R/ozp9G9Wa7k7zovVTx6XoIFOFA
- a6P2hkmZ+NpyKk1TU2ThKzoUm4aDcZzWLwM/L92ii27ehWKOJlgO+d9B64cqK0IP+3Gq7cfxMCcon
- urxGSXPMgPVEoj5FX0zOmw9JlirdcMaDtjWzgNZAujqR3hMI7qoY8WW3vlSBsPqlLbRuvgalgAsJn
- OGHodGUA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:60812)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1taDpM-0007FN-2u;
- Tue, 21 Jan 2025 12:57:57 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1taDpI-0003uT-0r;
- Tue, 21 Jan 2025 12:57:52 +0000
-Date: Tue, 21 Jan 2025 12:57:52 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <Z4-Z0CKtiHWCC3TM@shell.armlinux.org.uk>
+ Tue, 21 Jan 2025 13:08:48 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2EE2040009;
+ Tue, 21 Jan 2025 13:08:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1737464928;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Il75rMT0w7WTkKxYVfwvba2fwzPLmWHPL1i8BZIxLOA=;
+ b=SMDboO55VeXLOhdnmLSX/T4/NgRLenuWdo3wC8VmF3yKhXnBb+H2k3FDKDDlCipf0foJqm
+ NIPGdoTw4bCIE6Z+QjEPlKxN425MXs2+bmuVSKZNbrDTOPenmuF1xqoeK/MzlhYLwf2nGE
+ MYdz978SMSg1YpvyiN1wPsUQNIIO7iWsD3ZDlYTuH1g7q/aJHj7Cjf2c9ijkYDjKPfxFia
+ 8dLDqtKxcTG8ca0X6G119mu6LVR6HBYCpS4izqstRRMZ8PhATz+hzx2AEGiwvTnbtmW7Jy
+ /vNYZE32/MRATqTpKs03Aj6eA/r/woYAnM17C+fsBFGLjsgH/KAG4ZhM82joMA==
+Date: Tue, 21 Jan 2025 14:08:40 +0100
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Yijie Yang <quic_yijiyang@quicinc.com>
+Message-ID: <20250121140840.18f85323@device-291.home>
+In-Reply-To: <20250121-dts_qcs615-v3-1-fa4496950d8a@quicinc.com>
 References: <20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com>
- <20250121-dts_qcs615-v3-2-fa4496950d8a@quicinc.com>
- <30450f09-83d4-4ff0-96b2-9f251f0c0896@kernel.org>
+ <20250121-dts_qcs615-v3-1-fa4496950d8a@quicinc.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <30450f09-83d4-4ff0-96b2-9f251f0c0896@kernel.org>
+X-GND-Sasl: maxime.chevallier@bootlin.com
 Cc: Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, Vinod Koul <vkoul@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, linux-arm-kernel@lists.infradead.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
- Yijie Yang <quic_yijiyang@quicinc.com>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/4] net: stmmac: dwmac-qcom-ethqos:
- Mask PHY mode if configured with rgmii-id
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: net:
+ ethernet-controller: Correct the definition of phy-mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,49 +67,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 21, 2025 at 01:47:55PM +0100, Krzysztof Kozlowski wrote:
-> On 21/01/2025 08:54, Yijie Yang wrote:
-> > The Qualcomm board always chooses the MAC to provide the delay instead of
-> > the PHY, which is completely opposite to the suggestion of the Linux
-> > kernel.
+On Tue, 21 Jan 2025 15:54:53 +0800
+Yijie Yang <quic_yijiyang@quicinc.com> wrote:
 
-You still need to explain why it's preferable to match this in the mainline
-kernel. Does it not work when you use the phylib maintainers suggestion
-(if that is so, you need to state as much.)
+> Correct the definition of 'phy-mode' to reflect that RX and TX delays are
+> added by the board, not the MAC, to prevent confusion and ensure accurate
+> documentation.
 
-> How does the Linux kernel suggest it?
+That's not entirely correct though. The purpose of the RGMII variants
+(TXID, RXID, ID) are mostly to know whether or not the PHY must add
+internal delays. That would be when the MAC can't AND there's no PCB
+delay traces. Some MAC can insert delays.
 
-It's what phylib maintainers prefer, as documented in many emails from
-Andrew Lunn and in Documentation/networking/phy.rst:
+There's documentation here as well on that point :
 
-"Whenever possible, use the PHY side RGMII delay for these reasons:
+https://elixir.bootlin.com/linux/v6.13-rc3/source/Documentation/networking/phy.rst#L82
 
-* PHY devices may offer sub-nanosecond granularity in how they allow a
-  receiver/transmitter side delay (e.g: 0.5, 1.0, 1.5ns) to be specified. Such
-  precision may be required to account for differences in PCB trace lengths
+So, MACs may insert delays. A modification for the doc, if needed,
+would rather be :
 
-* PHY devices are typically qualified for a large range of applications
-  (industrial, medical, automotive...), and they provide a constant and
-  reliable delay across temperature/pressure/voltage ranges
+-      # RX and TX delays are added by the MAC when required
++      # RX and TX delays are added by the MAC or PCB traces when required
 
-* PHY device drivers in PHYLIB being reusable by nature, being able to
-  configure correctly a specified delay enables more designs with similar delay
-  requirements to be operated correctly
-"
+Thanks,
 
-> > The usage of phy-mode in legacy DTS was also incorrect. Change the
-> > phy_mode passed from the DTS to the driver from PHY_INTERFACE_MODE_RGMII_ID
-> > to PHY_INTERFACE_MODE_RGMII to ensure correct operation and adherence to
-> > the definition.
-
-If the delays dependent on the phy-mode are going to be implemented at
-the MAC end, then changing the PHY mode indicated to phylink and phylib
-to PHY_INTERFACE_MODE_RGMII is the right thing to be doing. However,
-as mentioned in the documentation and by Andrew, this is discouraged.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
