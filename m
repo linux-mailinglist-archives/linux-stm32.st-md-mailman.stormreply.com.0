@@ -2,75 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE5F8A18E13
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jan 2025 10:07:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404C6A18EA3
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jan 2025 10:47:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A440C78F75;
-	Wed, 22 Jan 2025 09:07:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9F07C78F75;
+	Wed, 22 Jan 2025 09:47:33 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE269C7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEC33C78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Jan 2025 09:07:09 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50M4XT7N029449;
- Wed, 22 Jan 2025 09:06:46 GMT
+ Wed, 22 Jan 2025 09:47:26 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50M1gZwS017163;
+ Wed, 22 Jan 2025 09:47:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- vkQFLh6xLHsI2CxC96/YoRHNzOH+kkMYSIC+Pxqdhdo=; b=gWKUQ/2Dgnv+3NBj
- bXUOHQoWyh0NWIf05dH/A2uxKuFboNcQdeFT0sCXEj6ni/E0LVU6snwIAwNbPNnG
- /8BOLtUFHDTTqOStsec7bthFNZwLjLPaddT85QbpfgITIwAUQbvcsRe9a13K5FB6
- kb5O1uUYVxX6ed/33Ab/0mbrhEtY76zGyr1azLKfbiBYwZuUOEbRo8c/z919K3N3
- Lu7u/G5JtJ26jMKRnjtFcy+WUkWPeg0XTTQHB92Oeaqq2WcfMzYus6aqVI9ulJkl
- R4fmhgzQTN374C0TdetaS1x2KY4HhkrwryIeDyfX2QCpPlln5HrJjody6upi9tlt
- BhTTQg==
+ 5jyPDQeLL7dQCNZCqR0yGuA8VrKPQJzFBh9HiXi/qzY=; b=TxBHNVC2HydGZY8c
+ TAw/8gaGuW2FYjZRQiPmK/cIVb85bT2IS3lS+Vd6i6UiE7M5Rmw+AAFwC0Byb1dh
+ eHGhBJOfIZ0mKgpemWgwNWzNKyJ/Qye6VPXhMw9ARIGTGOTcWh5hYDorpcVCL7OJ
+ WfVwic/xzCjiwCW8mEPzAD8YN5zMqXeC8lXAAJhv0CtROjZ7VTMutI9KOYj+4+ux
+ 67cTkSH6lzevbsZEu/dbeqTrqN4HFh7xBmf9qsfr7U1+A7tDEUWIb46s8mvn6/Mq
+ pBSgdP7DjVwGqXUhNZJVUOTrfX57Bvl1xN1GBewk3pDKg7JK3L6imzHQcADAKbzG
+ fpSCQg==
 Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44asrnrks3-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44aq8gs1mr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jan 2025 09:06:46 +0000 (GMT)
+ Wed, 22 Jan 2025 09:47:10 +0000 (GMT)
 Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
  [10.47.97.35])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50M96j4X013601
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 50M9l9aL014454
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jan 2025 09:06:45 GMT
+ Wed, 22 Jan 2025 09:47:09 GMT
 Received: from [10.253.35.93] (10.80.80.8) by nalasex01c.na.qualcomm.com
  (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 22 Jan
- 2025 01:06:28 -0800
-Message-ID: <fad78436-8263-46af-b669-3bcd75f036a4@quicinc.com>
-Date: Wed, 22 Jan 2025 17:06:22 +0800
+ 2025 01:46:53 -0800
+Message-ID: <6f0aa596-25e5-4c02-9de9-6ee856cea314@quicinc.com>
+Date: Wed, 22 Jan 2025 17:46:47 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, Krzysztof Kozlowski
- <krzk@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
 References: <20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com>
  <20250121-dts_qcs615-v3-2-fa4496950d8a@quicinc.com>
- <30450f09-83d4-4ff0-96b2-9f251f0c0896@kernel.org>
- <Z4-Z0CKtiHWCC3TM@shell.armlinux.org.uk>
+ <20250121141734.164ef891@device-291.home>
 Content-Language: en-US
 From: Yijie Yang <quic_yijiyang@quicinc.com>
-In-Reply-To: <Z4-Z0CKtiHWCC3TM@shell.armlinux.org.uk>
+In-Reply-To: <20250121141734.164ef891@device-291.home>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01c.na.qualcomm.com (10.47.97.35)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: odx1Rgb5QmadLm_bSlJHMe-MZJhxbKP0
-X-Proofpoint-ORIG-GUID: odx1Rgb5QmadLm_bSlJHMe-MZJhxbKP0
+X-Proofpoint-GUID: NUVrdCCtMKwE2XojRjP3EnrdEHuOEZuK
+X-Proofpoint-ORIG-GUID: NUVrdCCtMKwE2XojRjP3EnrdEHuOEZuK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-01-22_04,2025-01-22_02,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 mlxlogscore=999 malwarescore=0 bulkscore=0 mlxscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501220065
+ mlxscore=0 priorityscore=1501
+ mlxlogscore=999 spamscore=0 suspectscore=0 clxscore=1011 phishscore=0
+ impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501220071
 Cc: Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
@@ -101,53 +99,72 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 2025-01-21 20:57, Russell King (Oracle) wrote:
-> On Tue, Jan 21, 2025 at 01:47:55PM +0100, Krzysztof Kozlowski wrote:
->> On 21/01/2025 08:54, Yijie Yang wrote:
->>> The Qualcomm board always chooses the MAC to provide the delay instead of
->>> the PHY, which is completely opposite to the suggestion of the Linux
->>> kernel.
+On 2025-01-21 21:17, Maxime Chevallier wrote:
+> Hi,
 > 
-> You still need to explain why it's preferable to match this in the mainline
-> kernel. Does it not work when you use the phylib maintainers suggestion
-> (if that is so, you need to state as much.)
+> On Tue, 21 Jan 2025 15:54:54 +0800
+> Yijie Yang <quic_yijiyang@quicinc.com> wrote:
+> 
+>> The Qualcomm board always chooses the MAC to provide the delay instead of
+>> the PHY, which is completely opposite to the suggestion of the Linux
+>> kernel. The usage of phy-mode in legacy DTS was also incorrect. Change the
+>> phy_mode passed from the DTS to the driver from PHY_INTERFACE_MODE_RGMII_ID
+>> to PHY_INTERFACE_MODE_RGMII to ensure correct operation and adherence to
+>> the definition.
+>> To address the ABI compatibility issue between the kernel and DTS caused by
+>> this change, handle the compatible string 'qcom,qcs404-evb-4000' in the
+>> code, as it is the only legacy board that mistakenly uses the 'rgmii'
+>> phy-mode.
+>>
+>> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+>> ---
+>>   .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 18 +++++++++++++-----
+>>   1 file changed, 13 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> index 2a5b38723635b5ef9233ca4709e99dd5ddf06b77..e228a62723e221d58d8c4f104109e0dcf682d06d 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>> @@ -401,14 +401,11 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+>>   static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+>>   {
+>>   	struct device *dev = &ethqos->pdev->dev;
+>> -	int phase_shift;
+>> +	int phase_shift = 0;
+>>   	int loopback;
+>>   
+>>   	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+>> -	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
+>> -	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+>> -		phase_shift = 0;
+>> -	else
+>> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID)
+>>   		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
+> 
+> So this looks like a driver modification to deal with errors in
+> devicetree, and these modifications don't seem to be correct.
+> 
+> You should set RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN (i.e. adding a delay
+> n the TX line) when the PHY does not add internal delays on that line
+> (so, when the mode is rgmii or rgmii-rxid. The previous logic looks
+> correct in that regard.
+> 
+> Can you elaborate a bit more on the issue you are seeing ? On what
+> hardware is this happening ? What's the RGMII setup used (i.e. which
+> PHY, which mode, is there any delay lines on the PCB ?)
 
-Okay, I will include that explanation in the next version.
+As discussed following the first patch, the previous method of using 
+'rgmii' in DTS while adding delay via the MAC was incorrect. We need to 
+correct this misuse in both the DTS and the driver. For new boards, the 
+phy-mode should be 'rgmii-id', while legacy boards will remain 'rgmii'. 
+Both configurations will still enable 
+RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN and allow the MAC to add the delay, 
+ensuring the behavior remains consistent before and after the change.
 
 > 
->> How does the Linux kernel suggest it?
+> Thanks,
 > 
-> It's what phylib maintainers prefer, as documented in many emails from
-> Andrew Lunn and in Documentation/networking/phy.rst:
-> 
-> "Whenever possible, use the PHY side RGMII delay for these reasons:
-> 
-> * PHY devices may offer sub-nanosecond granularity in how they allow a
->    receiver/transmitter side delay (e.g: 0.5, 1.0, 1.5ns) to be specified. Such
->    precision may be required to account for differences in PCB trace lengths
-> 
-> * PHY devices are typically qualified for a large range of applications
->    (industrial, medical, automotive...), and they provide a constant and
->    reliable delay across temperature/pressure/voltage ranges
-> 
-> * PHY device drivers in PHYLIB being reusable by nature, being able to
->    configure correctly a specified delay enables more designs with similar delay
->    requirements to be operated correctly
-> "
-> 
->>> The usage of phy-mode in legacy DTS was also incorrect. Change the
->>> phy_mode passed from the DTS to the driver from PHY_INTERFACE_MODE_RGMII_ID
->>> to PHY_INTERFACE_MODE_RGMII to ensure correct operation and adherence to
->>> the definition.
-> 
-> If the delays dependent on the phy-mode are going to be implemented at
-> the MAC end, then changing the PHY mode indicated to phylink and phylib
-> to PHY_INTERFACE_MODE_RGMII is the right thing to be doing. However,
-> as mentioned in the documentation and by Andrew, this is discouraged.
-> 
-Adding delay by the MAC side is generally discouraged, but the current 
-driver configuration sequence was designed to do so. We need to follow 
-this approach until we can rewrite it, correct?
+> Maxime
 
 -- 
 Best Regards,
