@@ -2,58 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135A5A1A788
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2025 17:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47BCA1A7EE
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2025 17:35:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EBABC78F86;
-	Thu, 23 Jan 2025 16:05:43 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61575C78F8B;
+	Thu, 23 Jan 2025 16:35:26 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F01D9C78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C242C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2025 16:05:36 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1tazht-00084o-JU; Thu, 23 Jan 2025 17:05:25 +0100
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
- helo=bjornoya.blackshift.org)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mkl@pengutronix.de>) id 1tazhs-001UE9-22;
- Thu, 23 Jan 2025 17:05:24 +0100
-Received: from pengutronix.de (pd9e59fec.dip0.t-ipconnect.de [217.229.159.236])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id 49E273AF8C5;
- Thu, 23 Jan 2025 16:05:24 +0000 (UTC)
-Date: Thu, 23 Jan 2025 17:05:23 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Message-ID: <20250123-urban-belligerent-bullfinch-2fa9e6-mkl@pengutronix.de>
-References: <20250121-lxa-fairytux-v3-0-8d42d7d232fb@pengutronix.de>
- <173764775141.3793586.6690578690442295161.robh@kernel.org>
+ Thu, 23 Jan 2025 16:35:19 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-21636268e43so24436335ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Jan 2025 08:35:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737650117; x=1738254917;
+ darn=st-md-mailman.stormreply.com; 
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=37PCcaFsphtONjU1WuGj3LJHxxawzOceGVtfL5iTpqc=;
+ b=H6kejPIBDIDiNwuviJ3vxae6F0GYyol8h0X73ItuBEP0t1HeRx3K+Vc+MkcpkZjjj6
+ mBaDz/mtnin0zGLXa02/5IAz8cbNNptW8zimF4JSNi2utujfIrqCXyIrmGYwTc43OWnx
+ 15DEIA+VQwyoKsHZOlNuhKw4QFxr7sYrqZCwDsGWp8bQWSmDnnfuSoJZmEGnFwVnb2kD
+ LaDFbXqJWV7/DrAiKBI/uLGQVBELmNZWqnXg8Gctjvh1lgcYZ4NQiMawMlReOkb3StkF
+ BOeGB+IsvnTRHqOkfEhuGpDoSZJA4QRkavD2xXQsEAS8oGfgAT+VUzHIrZY139bP7RTj
+ CK9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737650117; x=1738254917;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=37PCcaFsphtONjU1WuGj3LJHxxawzOceGVtfL5iTpqc=;
+ b=TZR5476kV3e0J/QTToykNSYQ01fM1BxEqvhD9am2xWO7kpDVtA5tIOH7k6W2ONyvlM
+ VDPBdxkxmN23gjlDSAEsENAgKgIcj3CedCYZxFPit3EJYZvwUWQVzUB+WH9zSQxdmb8p
+ KJKeh4+RBBwffzf6EUsKyr+678X7E256lFMKPata/7oP/V8pq1h4wBNAkEe6cl0hllTV
+ PTPDJLvGNCpuVh/6x56+jn9FwXNMjotTQs1CQug49RLPLen1xYebLYF/pgh3m7fRSZs0
+ uw9bA65LKSYfcO/+HCCx5ydGxuirKn18yBA9dqbrTx7dguJHB1ipdGzPxfRsM9M8Bk3h
+ mR2w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXS1SqRX8dUdZAgUAYcKBu2X0an3Baev/y0PJZYPt7SvTDSrbU6DolT5VFWbQJVLilOLhiyOSX00hi+xQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyfBsxwpY5ofkpwhz0jRn9BTLntrClZeTL07WH/14EulDPmo9U1
+ blxmVbZWumIHaaomYCt1MZt3d6F1MRLTo3ORov/6lLhVunQm5U5k
+X-Gm-Gg: ASbGncsr+qDExxWayt6ZSfX92+B3NzQyK54Hrh2Oh2+dipP2/1UqKboOqDUZahsKiA1
+ w2BT0yXz7t7H32KZB9e2K1lZ51BI6d6osbzH3dB1E4gSeV0sUXPDIVze6wjlN6VLIro0Fd/kwoZ
+ uq/rHZrrlK8aVKNO/BGscPrvnD3DubofwmoxLLgyHlovWQnRJSB0cN9tJir4LGbqp0bDG1nXBWr
+ lGZWPDdBx2O7iOriGdGVQagfTdDCsJ6wZaPeWzhQ8znZdwQupgjNvvM4J2tZPJ4nsZHoppx17X+
+ W+bMOug9
+X-Google-Smtp-Source: AGHT+IFs4lUJjgFulZgoKt9vLCAMNVT+ssvpUR3RYJq7IZyHJnj6PWguIOa0Hbt9lV14uqVBhXgqSw==
+X-Received: by 2002:a05:6a20:394b:b0:1e1:d22d:cf38 with SMTP id
+ adf61e73a8af0-1eb214f0f61mr39291398637.21.1737650117287; 
+ Thu, 23 Jan 2025 08:35:17 -0800 (PST)
+Received: from orangepi5-plus ([129.146.253.192])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-72f8a76115bsm117705b3a.108.2025.01.23.08.35.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2025 08:35:16 -0800 (PST)
+Date: Fri, 24 Jan 2025 00:35:01 +0800
+From: Furong Xu <0x1207@gmail.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <20250124003501.5fff00bc@orangepi5-plus>
+In-Reply-To: <d465f277-bac7-439f-be1d-9a47dfe2d951@nvidia.com>
+References: <cover.1736910454.git.0x1207@gmail.com>
+ <bd7aabf4d9b6696885922ed4bef8fc95142d3004.1736910454.git.0x1207@gmail.com>
+ <d465f277-bac7-439f-be1d-9a47dfe2d951@nvidia.com>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <173764775141.3793586.6690578690442295161.robh@kernel.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- kernel@pengutronix.de, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Leonard =?utf-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>,
+Content-Type: multipart/mixed; boundary="MP_/uWm=6.JKohvenzJ_Cv9eW2I"
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
+ Joe Damato <jdamato@fastly.com>, linux-kernel@vger.kernel.org,
+ Brad Griffis <bgriffis@nvidia.com>, "David S.
+ Miller" <davem@davemloft.net>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH stm32-next v3 0/2] ARM: dts: stm32:
- lxa-fairytux2: add gen{1, 2} boards
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/4] net: stmmac: Switch to
+ zero-copy in non-XDP RX path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,126 +92,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8064403716967744314=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8064403716967744314==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5glw5y5axtjwbyh2"
+--MP_/uWm=6.JKohvenzJ_Cv9eW2I
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
+Hi Jon,
 
---5glw5y5axtjwbyh2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH stm32-next v3 0/2] ARM: dts: stm32: lxa-fairytux2: add
- gen{1,2} boards
-MIME-Version: 1.0
+On Thu, 23 Jan 2025 14:06:42 +0000, Jon Hunter wrote: 
+> We have noticed a boot regression on -next when booting with NFS.
+> Bisect is pointing to this commit and reverting this on top of -next
+> does fix the problem.
+> 
+> I only see this on Tegra234 which uses the 
+> drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c driver. Tegra194
+> which uses the
+> drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c driver
+> appears to be fine.
 
-On 23.01.2025 09:57:47, Rob Herring (Arm) wrote:
->=20
-> On Tue, 21 Jan 2025 12:14:04 +0100, Marc Kleine-Budde wrote:
-> > Hello,
-> >=20
-> > this series adds support for the Linux Automation GmbH FairyTux2
-> > boards generation 1 and 2.
-> >=20
-> > The FairyTux2 is a small Linux device based on an Octavo Systems
-> > OSD32MP153c SiP, that occupies just two slots on a DIN rail.
-> >=20
-> > regards,
-> > Marc
-> >=20
-> > Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> > ---
-> > Changes in v3:
-> > - 2/2: fix use generic node names for external GPIO and USB Type-C cont=
-roller (thanks Krzysztof)
-> > - 2/2: LEDs: replace label by color and function property (thanks Krzys=
-ztof)
-> > - 2/2: gen2: sort nodes of i2c1 by address (thanks Krzysztof)
-> > - Link to v2: https://patch.msgid.link/20250120-lxa-fairytux-v2-0-95f4a=
-0eaa44d@pengutronix.de
-> >=20
-> > Changes in v2:
-> > - 1/2: Added Krzysztof's Acked-by
-> > - 2/2: fix alignment for gpio-line-names (thanks Krzysztof)
-> > - 2/2: only use color:function for LED labels (thanks Krzysztof)
-> > - 2/2: use generic node names for external GPIO and USB Type-C controll=
-er
-> > - Link to v1: https://patch.msgid.link/20241210-lxa-fairytux-v1-0-9aea0=
-1cdb83e@pengutronix.de
-> >=20
-> > ---
-> > Leonard G=C3=B6hrs (2):
-> >       dt-bindings: arm: stm32: add compatible strings for Linux Automat=
-ion GmbH LXA FairyTux 2
-> >       ARM: dts: stm32: lxa-fairytux2: add Linux Automation GmbH FairyTu=
-x 2
-> >=20
-> >  .../devicetree/bindings/arm/stm32/stm32.yaml       |   2 +
-> >  arch/arm/boot/dts/st/Makefile                      |   2 +
-> >  .../boot/dts/st/stm32mp153c-lxa-fairytux2-gen1.dts | 103 ++++++
-> >  .../boot/dts/st/stm32mp153c-lxa-fairytux2-gen2.dts | 147 ++++++++
-> >  .../arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 397 +++++++++++++=
-++++++++
->=20
-> My bot found new DTB warnings on the .dts files added or changed in this
-> series.
+What is the MTU of Tegra234 and NFS server? Are they both 1500?
 
-This patch doesn't touch the offending file "ste-hrefv60plus-tvk.dtb".
-Might be a new warning, but not due to this patch, could this be a false
-positive?
+Could you please try attached patch to confirm if this regression is
+fixed?
 
-> Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-> are fixed by another series. Ultimately, it is up to the platform
-> maintainer whether these warnings are acceptable or not. No need to reply
-> unless the platform maintainer has comments.
->=20
-> If you already ran DT checks and didn't see these error(s), then
-> make sure dt-schema is up to date:
->=20
->   pip3 install dtschema --upgrade
->=20
->=20
-> New warnings running 'make CHECK_DTBS=3Dy for arch/arm/boot/dts/st/' for =
-20250121-lxa-fairytux-v3-0-8d42d7d232fb@pengutronix.de:
->=20
-> arch/arm/boot/dts/st/ste-hrefv60plus-tvk.dtb: gpio@a03fe000: compatible:0=
-: 'stericsson,db8500-gpio' is not one of ['st,nomadik-gpio', 'mobileye,eyeq=
-5-gpio']
-> 	from schema $id: http://devicetree.org/schemas/gpio/st,nomadik-gpio.yaml#
+If the attached patch fixes this regression, and so it seems to be a
+cache coherence issue specific to Tegra234, since this patch avoid
+memcpy and the page buffers may be modified by upper network stack of
+course, then cache lines of page buffers may become dirty. But by
+reverting this patch, cache lines of page buffers never become dirty,
+this is the core difference.
 
-regards,
-Marc
+--MP_/uWm=6.JKohvenzJ_Cv9eW2I
+Content-Type: text/x-patch
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=force-disable-rx-checksum.diff
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index edbf8994455d..f00bcfc65dd0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5442,7 +5442,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+        struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+        struct stmmac_channel *ch = &priv->channel[queue];
+        unsigned int count = 0, error = 0, len = 0;
+-       int status = 0, coe = priv->hw->rx_csum;
++       int status = 0, coe = 0;
+        unsigned int next_entry = rx_q->cur_rx;
+        enum dma_data_direction dma_dir;
+        unsigned int desc_size;
 
---5glw5y5axtjwbyh2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEUEC6huC2BN0pvD5fKDiiPnotvG8FAmeSaMAACgkQKDiiPnot
-vG/PZwf/UagrJM7N/hgPOTZ1djtmzSaapwvYjGPyTLOK6TTo/jrr3LvDrzJYcviB
-aAbkB/qbQJ3E5ljfdlxycABDeDhUfJfmI9eCVrqWmhr2U1ldilqqG0al8CXX5JFK
-VbiAkm+2Vt1iNGo/HVXkKVb/1ixmmpNWM2/pQ6/CWtJRali3JWrXXSb3fqX9l/yW
-Hae5rzVkAzO6L99vVhlhj0qhvAwPNB1yhRHbxsm+hmrVfho8uW+af5v2UKRDzwhW
-ZLioeRjMJPOIO7x0oSijwDTbuKxoo2FIsJBq2oBqtUCAhgWnLKv73hedohOJiIPi
-6YPte1AsanWYVLsYmodY2B6/iWFUBA==
-=brpD
------END PGP SIGNATURE-----
-
---5glw5y5axtjwbyh2--
-
---===============8064403716967744314==
+--MP_/uWm=6.JKohvenzJ_Cv9eW2I
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -195,4 +155,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============8064403716967744314==--
+--MP_/uWm=6.JKohvenzJ_Cv9eW2I--
