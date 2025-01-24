@@ -2,74 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9542A1B492
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2025 12:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE6DA1B4F5
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2025 12:45:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A1C1C78F8E;
-	Fri, 24 Jan 2025 11:17:23 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D58D4C78F8D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24205C78F8F;
+	Fri, 24 Jan 2025 11:45:56 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB3C9C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jan 2025 11:17:15 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-436a39e4891so13086225e9.1
+ Fri, 24 Jan 2025 11:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1737719148;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=odeNkl2pdZWzjMRmLzJX8QVcRedjnH492ZzohS0yuak=;
+ b=fOZ/4rFaBmtsjmoJDr4nL3v+JlI1sGzn0ofk1uj58wwg8SXTF6LajAFSoYNzZgCU93txyL
+ pjZoEtmPBS+iPeNUJb64GQ7lylk95l1WtvxbJoztpIQzAAIZa/AenhPnwiUooPa3R8lA2q
+ VZJnp6PAk82FKzTT99oyHm9+iXYyISo=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-331-s8JTeI4dOkaBD2jJ3uakNA-1; Fri, 24 Jan 2025 06:45:46 -0500
+X-MC-Unique: s8JTeI4dOkaBD2jJ3uakNA-1
+X-Mimecast-MFC-AGG-ID: s8JTeI4dOkaBD2jJ3uakNA
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-aa67f03ca86so169203266b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jan 2025 03:17:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1737717435; x=1738322235;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cVXKrB+O1fh/6+48GtXPh7iohUuDCptQ4J19ggAdm2o=;
- b=OFfb0tutpHHGYUBHHk4xgTB2uLDykr037S1fQrRIaMIJNee+dq0avDY9AUko8h7aXb
- cAQ4TEFoJuBH06AuiLVCkohkGKOMTSRRXawIej6DlNURUVOCbyTK5SqFRV7/T+lSU9yP
- uEzeVjfTNEyCh2iGuwcndAnFoGg6Piaa6qYV0=
+ Fri, 24 Jan 2025 03:45:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737717435; x=1738322235;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cVXKrB+O1fh/6+48GtXPh7iohUuDCptQ4J19ggAdm2o=;
- b=s78LP2kIHqJF7eWSZO/Ssu6W037dgMgneQFKzbGs+o0LUBkqc2RwB6/AzifB2Gh7I+
- 2+51l8aRtgxNGYLktGzTMM5usOSK6uejVedJj4sIkqZNasNIQIvC68mJrQtJcGpV2UJM
- SfNn1eepUo3sGv+RRe+S3tTmRJUmsGyN7WhdzYAsZP+DOQ52bnGDvH9cY22g+9BAvab7
- WMbMstLItVbUZJGQT211IAdXsXq+IQMxXSN2ShdF+nNd5JelW18cZ13ZzzJQO1mI1W0q
- j0zdCg3BFS4G3R0yDa/Dwb9aCG8RByJKllOIVz733QB1c1y5HOKTGlXdU+FpnRZPGKzs
- SitA==
+ d=1e100.net; s=20230601; t=1737719145; x=1738323945;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=odeNkl2pdZWzjMRmLzJX8QVcRedjnH492ZzohS0yuak=;
+ b=fYFFt6n+1/5COjeskbW+rr2LnFzX+GGBKQh2/6JEW/ShdVAaWyvI9C3WSeV7GTz95R
+ CEKf1wW0YBuA2vQ/GD+nInssCeyo7ZJqmrMHe/bxNq3bWM/G05BcCZhU51nBlfvV+RHC
+ cqy1NKIFGg7K/Nlepr9Yh0gZSkz3ogZQAjj9IaU1L+GI6rasYVUp7OiIhDD4wCkmpLoq
+ vAwrsZjxnWVEQaeVUSuJilLkTXTx25AkYXJgK8FXJSsYpxfYeD2DzpMK0+4uH8eSJUhk
+ j3Baea9/DY/+VDRLKUIn6Na0XTpHoUMGc1aYFfq3CmmjnNhh6cVE3qjn/IwaDD6X/oCh
+ faWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXQVI/l/I4/pvwjPkkRYRq0Mn0Ut3M43EWUHxgNcbggygGKsyCtyzaj0eXuDGqGLeOsMvWEiBUzu8wIg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YytMrXrjPFMEybLfcrmLpGlTlpGjT0MRnACfNMeRpKlzmC57P6m
- Lb9iYCRxgi4YVIJLhlUrEpdYPRCF1uv2un0MR2oG8aiK5OjeH2FSfSS/XHtgHDE=
-X-Gm-Gg: ASbGncuXFcUFRzO41JPiQ+UCb1paM7vP+TKvmJY8yLMFapVY65Z+t+RqgkL+V5UM++3
- X6GT6kUyf4sVnBmzZnmAYVQv2YvUPChvsexCnKO0Rm8FAPgRV8MOL35MCEdpbxdz9DB1UQ6YHT9
- NLl+2ue705IPbtMdwXEai1CZx3F2ipCZi+WYr7aivevR1J5c0Ce0HBg/HhqqtszhRgtu+8kRFr2
- eZM3BJXWeNkPSrSPcn2t8W1nPU2qBC7xdw4T2EBVasZA21eDKp2QGiyZY6HV73PgF3jcFozhkiV
- 9ClW6MEEiwp/oXMJ5QUVhyIMDEXlw2caghLz3c25LA==
-X-Google-Smtp-Source: AGHT+IF7P9coZufZpIyRLi78wcbOmVrALszhypBmaNuECTkf3A9PTixnF+7VqbmWI7lij1JXG+mT6Q==
-X-Received: by 2002:a05:6000:1a8c:b0:38a:888c:6786 with SMTP id
- ffacd0b85a97d-38bf57c063fmr27161921f8f.52.1737717435139; 
- Fri, 24 Jan 2025 03:17:15 -0800 (PST)
-Received: from localhost.localdomain ([2001:b07:6474:ebbf:a445:7786:b555:5259])
+ AJvYcCVj9YuAGdA52gkWFL5sC5gPxl1UVaoX8W/AuWHZk2XU4BJNpCqNco0R356h737NWMN+hr9LUr5YE7xEDg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyM+UchShdpPpzIaeaGe4IMlgIZPdaGStcyRXFppqbzlnQwnqoN
+ FRN//5eOqvElqoEMqDBd69cy/mKdfN5bLowB+QRzY7yv4HziA73NvWYcWc3wRpk6HIopT6pmzoU
+ OWQAUHcUcCU5CGOQWrKxnbaNXwaXX6LGcosETaqEbiN5Vbc2CsJmgAycdBi44nMwY83ETKA9Xoo
+ DMXA==
+X-Gm-Gg: ASbGncu84p9H4MO5uTHaOyVU6tZYkwL/liv4KTBgF4Gwps2AvTYP87pzEAlcsUqBVLN
+ WkYFqrFYQjms3kxSzqnlYEOiZqgfCdPWONzu89tpWg2bZ6APstjtOKbSjBGK1oNIvt+qZJKWVO4
+ idlwI7u9nHsfEfyCWWXHG9OOwIo9HhldERXvp0tvuabsRKGZnnXQohlxtfyF4++ZDMphJDL5n9X
+ auJ+GgfQZfK9ky4l1l7kDRX48CInkas70J7OUwzTbUzXDBs933C6j8vlGzQftF1Q0x5irxy0hpY
+ 6SmwDzaxklG99lKI2Zg=
+X-Received: by 2002:a05:6402:1e8e:b0:5dc:1059:6b2 with SMTP id
+ 4fb4d7f45d1cf-5dc105a5ec1mr11805713a12.7.1737719144843; 
+ Fri, 24 Jan 2025 03:45:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGeWFYBPETVo309BerlvPgux0XnsYsjMKjnLErW6dJ05V2oA4Fpf2Q3nZFN4K3N5AK1bx4cSA==
+X-Received: by 2002:a05:6402:1e8e:b0:5dc:1059:6b2 with SMTP id
+ 4fb4d7f45d1cf-5dc105a5ec1mr11805656a12.7.1737719144333; 
+ Fri, 24 Jan 2025 03:45:44 -0800 (PST)
+Received: from alrua-x1.borgediget.toke.dk ([45.145.92.2])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38c2a188bf5sm2431547f8f.50.2025.01.24.03.17.14
+ a640c23a62f3a-ab6760ab1d7sm117046766b.109.2025.01.24.03.45.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 03:17:14 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 24 Jan 2025 12:16:54 +0100
-Message-ID: <20250124111711.1051436-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 24 Jan 2025 03:45:43 -0800 (PST)
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+ id 9DF17180AA6E; Fri, 24 Jan 2025 12:45:42 +0100 (CET)
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
+To: Stanislav Fomichev <stfomichev@gmail.com>, Florian Bezdeka
+ <florian.bezdeka@siemens.com>
+In-Reply-To: <Z5KdSlzmyCKUyXTn@mini-arch>
+References: <20250116155350.555374-1-yoong.siang.song@intel.com>
+ <20250116155350.555374-5-yoong.siang.song@intel.com>
+ <AS1PR10MB5675499EE0ED3A579151D3D3EBE02@AS1PR10MB5675.EURPRD10.PROD.OUTLOOK.COM>
+ <PH0PR11MB583095A2F12DA10D57781D18D8E02@PH0PR11MB5830.namprd11.prod.outlook.com>
+ <ea087229cc6f7953875fc69f1b73df1ae1ee9b72.camel@siemens.com>
+ <Z5KdSlzmyCKUyXTn@mini-arch>
+X-Clacks-Overhead: GNU Terry Pratchett
+Date: Fri, 24 Jan 2025 12:45:42 +0100
+Message-ID: <87bjvwqvtl.fsf@toke.dk>
 MIME-Version: 1.0
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: z_V4txcQgPBpNa55-oHKNEYRhRrDLhEDqQ2hoLS55lo_1737719145
+X-Mimecast-Originator: redhat.com
+Cc: Jose Abreu <joabreu@synopsys.com>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "Damato, 
+ Joe" <jdamato@fastly.com>, Alexei Starovoitov <ast@kernel.org>,
+ Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>, "Nguyen,
+ Anthony L" <anthony.l.nguyen@intel.com>, Daniel Jurgens <danielj@nvidia.com>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Mykola Lysenko <mykolal@fb.com>,
+ "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
+ Donald Hunter <donald.hunter@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-clk@vger.kernel.org, Dan Carpenter <dan.carpenter@linaro.org>
-Subject: [Linux-stm32] [PATCH] clk: stm32f4: fix an uninitialized variable
+ Eduard Zingerman <eddyz87@gmail.com>, "Fijalkowski,
+ Maciej" <maciej.fijalkowski@intel.com>, "Song,
+ Yoong Siang" <yoong.siang.song@intel.com>, KP Singh <kpsingh@kernel.org>,
+ "Karlsson, Magnus" <magnus.karlsson@intel.com>, Hao Luo <haoluo@google.com>,
+ Willem de Bruijn <willemb@google.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Bouska,
+ Zdenek" <zdenek.bouska@siemens.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Bjorn Topel <bjorn@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [xdp-hints] Re: [PATCH bpf-next v6 4/4] igc: Add
+ launch time support to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +137,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The variable s, used by pr_debug() to print the mnemonic of the modulation
-depth in use, was not initialized. Fix the output by addressing the correct
-mnemonic.
+Stanislav Fomichev <stfomichev@gmail.com> writes:
 
-Fixes: 65b3516dbe50 ("clk: stm32f4: support spread spectrum clock generation")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> On 01/23, Florian Bezdeka wrote:
+>> Hi all,
+>> 
+>> On Thu, 2025-01-23 at 16:41 +0000, Song, Yoong Siang wrote:
+>> > On Thursday, January 23, 2025 11:40 PM, Bouska, Zdenek <zdenek.bouska@siemens.com> wrote:
+>> > > 
+>> > > Hi Siang,
+>> > > 
+>> > > I tested this patch series on 6.13 with Intel I226-LM (rev 04).
+>> > > 
+>> > > I also applied patch "selftests/bpf: Actuate tx_metadata_len in xdp_hw_metadata" [1]
+>> > > and "selftests/bpf: Enable Tx hwtstamp in xdp_hw_metadata" [2] so that TX timestamps
+>> > > work.
+>> > > 
+>> > > HW RX-timestamp was small (0.5956 instead of 1737373125.5956):
+>> > > 
+>> > > HW RX-time:   595572448 (sec:0.5956) delta to User RX-time sec:1737373124.9873 (1737373124987318.750 usec)
+>> > > XDP RX-time:   1737373125582798388 (sec:1737373125.5828) delta to User RX-time sec:0.0001 (92.733 usec)
+>> > > 
+>> > > Igc's raw HW RX-timestamp in front of frame data was overwritten by BPF program on
+>> > > line 90 in tools/testing/selftests/bpf: meta->hint_valid = 0;
+>> > > 
+>> > > "HW timestamp has been copied into local variable" comment is outdated on
+>> > > line 2813 in drivers/net/ethernet/intel/igc/igc_main.c after
+>> > > commit 069b142f5819 igc: Add support for PTP .getcyclesx64() [3].
+>> > > 
+>> > > Workaround is to add unused data to xdp_meta struct:
+>> > > 
+>> > > --- a/tools/testing/selftests/bpf/xdp_metadata.h
+>> > > +++ b/tools/testing/selftests/bpf/xdp_metadata.h
+>> > > @@ -49,4 +49,5 @@ struct xdp_meta {
+>> > >                __s32 rx_vlan_tag_err;
+>> > >        };
+>> > >        enum xdp_meta_field hint_valid;
+>> > > +       __u8 avoid_IGC_TS_HDR_LEN[16];
+>> > > };
+>> > > 
+>> > 
+>> > Hi Zdenek Bouska, 
+>> > 
+>> > Thanks for your help on testing this patch set.
+>> > You are right, there is some issue with the Rx hw timestamp,
+>> > I will submit the bug fix patch when the solution is finalized,
+>> > but the fix will not be part of this launch time patch set.
+>> > Until then, you can continue to use your WA.
+>> 
+>> I think there is no simple fix for that. That needs some discussion
+>> around the "expectations" to the headroom / meta data area in front of
+>> the actual packet data.
+>
+> By 'simple' you mean without some new UAPI to signal the size of that
+> 'reserved area' by the driver? I don't see any other easy way out as well :-/
 
----
+Yeah, I don't think we can impose UAPI restrictions on the metadata area
+at this point. I guess the best we can do is to educate users that they
+should call the timestamp kfunc before they modify the metadata?
 
- drivers/clk/clk-stm32f4.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index f476883bc93b..85e23961ec34 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -888,7 +888,6 @@ static int __init stm32f4_pll_ssc_parse_dt(struct device_node *np,
- 					   struct stm32f4_pll_ssc *conf)
- {
- 	int ret;
--	const char *s;
- 
- 	if (!conf)
- 		return -EINVAL;
-@@ -916,7 +915,8 @@ static int __init stm32f4_pll_ssc_parse_dt(struct device_node *np,
- 	conf->mod_type = ret;
- 
- 	pr_debug("%pOF: SSCG settings: mod_freq: %d, mod_depth: %d mod_method: %s [%d]\n",
--		 np, conf->mod_freq, conf->mod_depth, s, conf->mod_type);
-+		 np, conf->mod_freq, conf->mod_depth,
-+		 stm32f4_ssc_mod_methods[ret], conf->mod_type);
- 
- 	return 0;
- }
--- 
-2.43.0
+-Toke
 
 _______________________________________________
 Linux-stm32 mailing list
