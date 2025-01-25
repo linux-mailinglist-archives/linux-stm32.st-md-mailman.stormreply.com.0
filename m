@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D01A1C3CC
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 Jan 2025 15:44:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43850A1C3E3
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 Jan 2025 16:04:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFC8CC78011;
-	Sat, 25 Jan 2025 14:44:11 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD9EAC78011;
+	Sat, 25 Jan 2025 15:04:13 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62323C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 136DDC71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Jan 2025 14:44:04 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2163b0c09afso57422375ad.0
+ Sat, 25 Jan 2025 15:04:06 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-21c2f1b610dso69624855ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Jan 2025 06:44:04 -0800 (PST)
+ Sat, 25 Jan 2025 07:04:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737816243; x=1738421043;
+ d=gmail.com; s=20230601; t=1737817444; x=1738422244;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MgdWUzewQLGutGWm0yU3b4mLrNsMLQvksBxEqgoq+88=;
- b=gcTbyK5gUvfDcfuPBoy8tVUw7cpvzMW8HfdHh39/1BRB1qaRbiTbJZ4X2rbMYWJ0+S
- eXZaGaxAcPXNp4smtM9/mdyg0pDlnBGzVYgBn+9dmNygJklWiQbJu1Ns14iEDTMpoenr
- 8/ZQlVJ9TJ7igdEEHd+UCX/KYcjIkjAr1pVq8LSkcj6rAxfKSUS+KSzQ/9w0pwN+4MdL
- vBGuFTWiIxP6tDZ8YlGncwge5HLiPW6zo0y5ijKzWuAruEkSiVsb/PfPSHLA8IfQ1OTL
- UOBFxH9Qzdq/8tXjUk9YDHoYRVYXBB8h4KEbhxpRJXqy6bNvCjEoZXQKHLu6YxmgAg3j
- KOjQ==
+ bh=UKw2SOCMf2JGxTXIqSAP0tOzr6+c+Tge86dZCU0DFh8=;
+ b=BUyxAUbhz9CRwenQp/TwD8sRNQkdutl8/Vkc+dPIkiNRKioNjlpze4aDbxgu/JMaA8
+ k1vHUnwJSE3arvk/XpfiroiS66E4qRam3lxH6M9/kNj7a9PgbnZHZL+BpEbX+HcweBMC
+ e8qSm5VHEs1kcuTzsIsFdDVlZaisv4K2CvQ18b2yWtoAOrk1XJZhQdTdJgkqJaW7xkYr
+ slNeIW0+wFuasPtS4Zs8MTnN4WRfuEkk2iAIkNvnclDOujf7kBGOuVNGPosDTP4HgpGa
+ dE92G5tGuhgdhzlRi8KowrzKBeYBPcqlYC66zHSSjeKkY6eCxyvtw4MDnTnZH/II2UKm
+ G+Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737816243; x=1738421043;
+ d=1e100.net; s=20230601; t=1737817444; x=1738422244;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MgdWUzewQLGutGWm0yU3b4mLrNsMLQvksBxEqgoq+88=;
- b=lAnfFMvDXux+JVODEwlQP9+gHyS6FX+P+4bxJP7i5mKIP9C6FnT/GUd6N+MstwHc9e
- eYCltOySTSTwaLkzBobOBiC3k91HqCbfZP9KmkahI7SPPATA/ZtfMh3WTYyXHEetwF3h
- w8iNMNYMxBibPaTit6jWTvduOYRmUkEHxkbfhnqaypRRWspQk0WYcGbDzru/SLRae3NX
- nJKrgzYo2yPnmYZNo6/mJj3Iwu7JQ3K5U/TfuQnAZFjD9+TSrqjVYRpGB1SqbaDGSN1b
- qbBEFS0iFrJ/S2sWyK7xnpapiWkLo25fznpqXwFpKn9aADxxUdFT4mPKtAL9NJezanXf
- CCeg==
+ bh=UKw2SOCMf2JGxTXIqSAP0tOzr6+c+Tge86dZCU0DFh8=;
+ b=mMTk9vI6H4Gj2deOuCaAN6vFHEiNx1iWD0zE0PyVfGPDJE+wJPIv45Wvf8fqAhkHh0
+ cAZF55d9SQ7pVF2Uu3PHsFCG66DPcJ2AgO3eslLISJH6AtZLIkGC+xEMFtnD0vUX+tl1
+ 2yV4rna0YQjKp2QX2ym3j90Byi545NPWNNuGcAcQeh1sItbcD2V11cn519kgl1QrqdOm
+ 3iAhbSe9dMqBDadnTjg7AIy4bdWVFD7biciX9THPPUAclVg73B+8WCAE2N6PMZxYZzdM
+ 0asdAdIWur1xkpm8QQB7HwUyJYGRQb29HcyXRjJjAMtF4O0No862e3CZnHVfX9hfuUGn
+ TfuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX7RpSlM29NLoXO5ftw2BDwgYCTRfGGAmKvDr3yAJzZ2yaLmVR3lrzq+0ASR/3h/Tt5nV50Nf6QgQv6hw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywq4n/745ngxZLzjetjBvfpxVb8PimzCOB4Ao8kwYolWuPnKyKM
- SO6Gn26w86fuq1yjjES7eb8CtiBqB2klnPLgM7eUKE03AvIiYRs8
-X-Gm-Gg: ASbGncvFwHtrmIPqyWjsKL0E7jMfcvud+Y3csyTe35nYlwTGPlJp9BQ48MYDZl07b6s
- b8dNCgbQnurdAN5BrtcnBY+V30dX28kMenNdkpOYAC2kok3MN4/k7asjVbtT62CucosK0M/DH1u
- usHwIxMn1R+VJjGGLsiYxNwkPuV+aX+SSfPRFthPJMjndBAzklDgPY0SotN/d3F6M1PYvsCGcYY
- mzIz56h7LxBZQ2275sDapuwvv8EswQsJerR3n/NpMGPX/pCAThBysDPckMzmnJkSxlwTWHZFAGW
- +w==
-X-Google-Smtp-Source: AGHT+IHA+4rV48inAhpZB8n1PkLhWTEJWQ25mbCFZqNsfRh6vVjT5iQKXj9RhiGTNIQSvXLlnOGvHQ==
-X-Received: by 2002:a17:902:c943:b0:215:5bd8:9f92 with SMTP id
- d9443c01a7336-21c351d328amr566604515ad.5.1737816242783; 
- Sat, 25 Jan 2025 06:44:02 -0800 (PST)
+ AJvYcCU/cK5GIy/KIz+HQ2fQjxDclVXeVjdknWKO9iJ5ffmTg+nPSCJVDQnYR76DeFQnqJWbE2HuY4ZN+8x0gQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxTFQGYT6FGxBoq4VZtdw2lTP1ia+YTqL9R1f3LjULaPJL9melq
+ cgGH5BzOmOeXyMPnSvBNGwBRA8M+rbgHK1uU82mnJths6QRJLhdc
+X-Gm-Gg: ASbGncv53In0qFYbmmLDYV/2hXJJtEnzZVQoda19MKRRYuaYSHZVihLI8udhL6wsep2
+ gfNuQZ4bDpu3ohBmda/JgyNeWTZxgFcDlK4CbxMa0N6auw63TCluaiW8FUJEMsver4ny2xEZbnr
+ KDwWXgnVp/lcpdKNk4FrXjozBYuMtoMGL9pIJBwXv3XIsNxBlYbzO4rLcS37YC1AaWKXhL+A5/Y
+ 42bhU2Ue5AXuoa9GUj44hRdaSUeIKP7LYuAy4gJuxqMWKrHAGSaRC+grfSkFfACSVu0F3fv2OKw
+ tg==
+X-Google-Smtp-Source: AGHT+IFVzWzSGBn66Dc2tB9vnmWyHkByC3/61GF44GlshncBb/NN1MnhhqsxwhJuUAHRXdCbEwQ2Dw==
+X-Received: by 2002:a05:6a00:92a0:b0:725:df1a:27c with SMTP id
+ d2e1a72fcca58-72dafa4ce00mr48575267b3a.14.1737817444411; 
+ Sat, 25 Jan 2025 07:04:04 -0800 (PST)
 Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21da3ea332esm33441735ad.87.2025.01.25.06.43.56
+ d2e1a72fcca58-72f8a69fde0sm3933161b3a.18.2025.01.25.07.03.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Jan 2025 06:44:02 -0800 (PST)
-Date: Sat, 25 Jan 2025 22:43:42 +0800
+ Sat, 25 Jan 2025 07:04:04 -0800 (PST)
+Date: Sat, 25 Jan 2025 23:03:47 +0800
 From: Furong Xu <0x1207@gmail.com>
 To: Ido Schimmel <idosch@idosch.org>
-Message-ID: <20250125224342.00006ced@gmail.com>
+Message-ID: <20250125230347.0000187b@gmail.com>
 In-Reply-To: <Z5S69kb7Qz_QZqOh@shredder>
 References: <cover.1736910454.git.0x1207@gmail.com>
  <bd7aabf4d9b6696885922ed4bef8fc95142d3004.1736910454.git.0x1207@gmail.com>
@@ -72,7 +72,6 @@ References: <cover.1736910454.git.0x1207@gmail.com>
  <e6305e71-5633-48bf-988d-fa2886e16aae@nvidia.com>
  <ccbecd2a-7889-4389-977e-10da6a00391c@lunn.ch>
  <20250124104256.00007d23@gmail.com> <Z5S69kb7Qz_QZqOh@shredder>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
 Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
@@ -102,7 +101,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ido
+Hi Thierry
 
 On Sat, 25 Jan 2025 12:20:38 +0200, Ido Schimmel wrote:
 
@@ -137,40 +136,15 @@ On Sat, 25 Jan 2025 12:20:38 +0200, Ido Schimmel wrote:
 > I asked Thierry to test the following patch [1] and initial testing
 > seems OK. He also confirmed that "SPH feature enabled" shows up in the
 > kernel log.
-> BTW, the commit that added split header support (67afd6d1cfdf0) says
-> that it "reduces CPU usage because without the feature all the entire
-> packet is memcpy'ed, while that with the feature only the header is".
-> This is no longer correct after your patch, so is there still value in
-> the split header feature? With two large buffers being allocated from
 
-Thanks for these great insights!
+It is recommended to disable the "SPH feature" by default unless some
+certain cases depend on it. Like Ido said, two large buffers being
+allocated from the same page pool for each packet, this is a huge waste
+of memory, and brings performance drops for most of general cases.
 
-Yes, when "SPH feature enabled", it is not correct after my patch,
-pp_params.offset should be updated to match the offset of split payload.
-
-But I would like to let pp_params.max_len remains to
-dma_conf->dma_buf_sz since the sizes of both header and payload are
-limited to dma_conf->dma_buf_sz by DMA engine, no more than
-dma_conf->dma_buf_sz bytes will be written into a page buffer.
-So my patch would be like [2]:
-
-BTW, the split header feature will be very useful on some certain
-cases, stmmac driver should support this feature always.
-
-[2]
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index edbf8994455d..def0d893efbb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2091,7 +2091,7 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
-        pp_params.nid = dev_to_node(priv->device);
-        pp_params.dev = priv->device;
-        pp_params.dma_dir = xdp_prog ? DMA_BIDIRECTIONAL : DMA_FROM_DEVICE;
--       pp_params.offset = stmmac_rx_offset(priv);
-+       pp_params.offset = priv->sph ? 0 : stmmac_rx_offset(priv);
-        pp_params.max_len = dma_conf->dma_buf_sz;
-
-        rx_q->page_pool = page_pool_create(&pp_params);
+Our downstream driver and two mainline drivers disable SPH by default:
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/tree/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c#n357
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/tree/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c#n471
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
