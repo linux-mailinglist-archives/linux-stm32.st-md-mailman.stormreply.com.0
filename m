@@ -2,86 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D273DA1C7C7
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Jan 2025 13:56:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0057CA1D37D
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2025 10:32:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83474C78032;
-	Sun, 26 Jan 2025 12:56:52 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 907ACC78032;
+	Mon, 27 Jan 2025 09:32:59 +0000 (UTC)
+Received: from fout-a6-smtp.messagingengine.com
+ (fout-a6-smtp.messagingengine.com [103.168.172.149])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38085C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0A3BC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Jan 2025 12:56:45 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-21c2f1b610dso82428525ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Jan 2025 04:56:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737896204; x=1738501004;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9KGHfLuP3yfCvrd6niU02daJ3MN3GQPttYCq64ynsaU=;
- b=KPWn62e9+L4tyEAFnl+bW6H74je6RHAtlzKGUiI3A6n+VpVwmdK1Nx7fla1e8ZNkY5
- IF6JzHVCzXyeUXJV1cIQUCwng4GflsZwuPapO+U54rvZ/75PKxA1nsCGNsJGai8NL/69
- vYuGFM719IUWMOgvzVq/7n3yqUJLy10BJS8p8Udxv68hHWPSDciLgtGgjtF/6g/vePYb
- yL7KTrHwlbiaQiqMvBkv3OVL8jbGJ6GH67mwPdcf2WSDajU/RHLghkQcW2svKsBySkEq
- FliDkeidu8YkjH5BETs5ARqrcb91RE9lpiIzWPEz+6bjh5YDVRaccO/H6NSeOVcdVS79
- E2ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737896204; x=1738501004;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9KGHfLuP3yfCvrd6niU02daJ3MN3GQPttYCq64ynsaU=;
- b=t6xfyGejWpsSEFZWaFXMldDNe5mT/D/Y/tpniERrWb1TWuVwz7sSul6Bdvrn/4R4/M
- a/hnGcGl/nUd+a2gYKWo+VXFUXetVG0juMcn23phnfHhUF9E85L5gCLevXMaF21pbbho
- C292OT+JckxYV27umKuYiAg1nxDkwkgd4qOV2nyUJzPu7Issdzzfp+Ll2QQZ87iIPvkS
- 3ObmHq/XFmCbpNI9ug8XydQbOVw79DyPEDBtCIlJV15JY6s2GkrKHPcSH19LjECRDLng
- UVnIImcQ28dwF9sOZvvbQk/h35cE6juOpqKDqaKzmOoK3Rru774lX4BBdoLrau6inohl
- jQSQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSWgbDqn9WLF7j6bsyZdpzZOsSmCUqIJXa5RPsBIBG4bRAcFPpC9m3AkKV11ifKPQaxwFL7cds5+dZCQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yys3fB5MSNOONPOrhJyH7fzj6R+2+K9nWMSJtHEloOEeiZaPHBT
- XKY9eU74uuxzJkMi7kcWVDTfH+H1KnUiTa6ZUzOIf+BqPABQYx4w
-X-Gm-Gg: ASbGncsbztNBzRZAql2Gtk6iDJd3xRad1m+lr9MsWFdWs1Oe0Cj/yDITuVR+H2GZa5b
- JRKCgSAem4jVOku9DNEz/xgfbflarLeGmbXoG9SCBjruXQSmKDB1+GPyiQnEk+O9HallN/WMZ9A
- Za62KU6WR2Uuvsf77zh7DBISILMGZRshxaGF8UvXiLQaRVbf2QvMsb+qkeik3hr3/C6xwLl7YlE
- x+z32vap6oLwNno3rWlHslacu15UOhjuoRs36FIWdgUOcCVW9tPlwDN2/03O9lwfkbBFU6qUpMB
- WQ==
-X-Google-Smtp-Source: AGHT+IGYKczzJcB4xAPfGWm8estAlez/srV9f9KVlzRCuc8f9pkMAG6+IqGmDY3HU1400WQhVY/Cuw==
-X-Received: by 2002:a05:6a00:330b:b0:724:59e0:5d22 with SMTP id
- d2e1a72fcca58-72dafba2625mr53847801b3a.20.1737896203562; 
- Sun, 26 Jan 2025 04:56:43 -0800 (PST)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72f8a77c7casm5263334b3a.139.2025.01.26.04.56.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Jan 2025 04:56:43 -0800 (PST)
-Date: Sun, 26 Jan 2025 20:56:25 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Ido Schimmel <idosch@idosch.org>
-Message-ID: <20250126205625.00006d64@gmail.com>
-In-Reply-To: <Z5YeEVrI3zx4VOtF@shredder>
-References: <bd7aabf4d9b6696885922ed4bef8fc95142d3004.1736910454.git.0x1207@gmail.com>
+ Sat, 25 Jan 2025 10:20:44 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.phl.internal
+ [10.202.2.43])
+ by mailfout.phl.internal (Postfix) with ESMTP id B7DEF138016A;
+ Sat, 25 Jan 2025 05:20:43 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-03.internal (MEProxy); Sat, 25 Jan 2025 05:20:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1737800443; x=1737886843; bh=wfvSpCX+V5zYmBnjZfj8HnP796xfwBWgA/B
+ GlazT0N8=; b=Liy6QBKKq1vNslG0frNNQ8ZOZF4YVO28jfSlWo/+BChqGJ9nMuY
+ PIhEdzwsITQ/MTcZerYpypwH3iSKKukVDIIU9ZHpNMVj49a8PZpPL2G6wLcv8CI/
+ ctsQoxXEAwTbL/zFKgj4PE1pWTWtkV21mcYjMnTyoZGA0u+O4edtNhXPBAg5E4V0
+ vBJ0tZZYNpQZ2/4SQhjjR6Mrl78uoUfyZEeApow7TRE7UUVMepOe0c8q3CCh+ax/
+ nwXiBjePKol90O9nv4jBsxZPY+nlf+3xM4bXoj5PSxerJkzx6h+5AUBr37C+TAyP
+ QLcdJSHO2OH5GcSFHS1C7fq5sThA2EE7ngQ==
+X-ME-Sender: <xms:-rqUZ2YMP4eMQkA9PwoRDquitQv8LWBv4bIbsMKroykPh4tsCPFsxA>
+ <xme:-rqUZ5YH-mRh6rN3RejNVMY2WFRU059L7CQj7w7BwzCU2yOlh4kXC4b8cXeYw3OGa
+ 8DzNRs9NDg1WO0>
+X-ME-Received: <xmr:-rqUZw9X7qoxovCS-1F2_Xel_tMnaev6tiHbmmxDmsukOHy2X_BRaUqnfQq21QNW-gvdnMBA0nDQSn1r4hAvl3xAuy_ynw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudejgedgjedufecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+ uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+ hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddv
+ necuhfhrohhmpefkughoucfutghhihhmmhgvlhcuoehiughoshgthhesihguohhstghhrd
+ horhhgqeenucggtffrrghtthgvrhhnpedvudefveekheeugeeftddvveefgfduieefudei
+ fefgleekheegleegjeejgeeghfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
+ epmhgrihhlfhhrohhmpehiughoshgthhesihguohhstghhrdhorhhgpdhnsggprhgtphht
+ thhopedukedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheptdiguddvtdejsehgmh
+ grihhlrdgtohhmpdhrtghpthhtoheprghnughrvgifsehluhhnnhdrtghhpdhrtghpthht
+ ohepsghgrhhifhhfihhssehnvhhiughirgdrtghomhdprhgtphhtthhopehjohhnrghthh
+ grnhhhsehnvhhiughirgdrtghomhdprhgtphhtthhopehnvghtuggvvhesvhhgvghrrdhk
+ vghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhsthhmfedvsehsthdqmhguqd
+ hmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomhdprhgtphhtthhopehlihhnuhig
+ qdgrrhhmqdhkvghrnhgvlheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtph
+ htthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgt
+ phhtthhopegrlhgvkhhsrghnuggvrhdrlhhosggrkhhinhesihhnthgvlhdrtghomh
+X-ME-Proxy: <xmx:-rqUZ4r3aXKJCGS03zlXoSDGv-ALNpPNWBnJHO0xsV8nQHDYy4CIEw>
+ <xmx:-rqUZxomAAfsoCiaBh8luWaktb77QMLNqWymjbIWlgZOiDtQZnRTHg>
+ <xmx:-rqUZ2QxKkrfCRmjI2btgCo-I5egxZ0KJbMZAgE6oImhMvsAfLBlIw>
+ <xmx:-rqUZxpxJC_77A3I1JfEIDCMeXO5pza8XHbENEUeokqmimNPCe2K0Q>
+ <xmx:-7qUZw-X2p7RTI4nSrbACn3sVCY2G7iwO7hQ0e3D7H5fq0AnGAzFxI4Q>
+Feedback-ID: i494840e7:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 25 Jan 2025 05:20:41 -0500 (EST)
+Date: Sat, 25 Jan 2025 12:20:38 +0200
+From: Ido Schimmel <idosch@idosch.org>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <Z5S69kb7Qz_QZqOh@shredder>
+References: <cover.1736910454.git.0x1207@gmail.com>
+ <bd7aabf4d9b6696885922ed4bef8fc95142d3004.1736910454.git.0x1207@gmail.com>
  <d465f277-bac7-439f-be1d-9a47dfe2d951@nvidia.com>
  <20250124003501.5fff00bc@orangepi5-plus>
  <e6305e71-5633-48bf-988d-fa2886e16aae@nvidia.com>
  <ccbecd2a-7889-4389-977e-10da6a00391c@lunn.ch>
- <20250124104256.00007d23@gmail.com> <Z5S69kb7Qz_QZqOh@shredder>
- <20250125224342.00006ced@gmail.com> <Z5X1M0Fs-K6FkSAl@shredder>
- <20250126183714.00005068@gmail.com> <Z5YeEVrI3zx4VOtF@shredder>
+ <20250124104256.00007d23@gmail.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250124104256.00007d23@gmail.com>
+X-Mailman-Approved-At: Mon, 27 Jan 2025 09:32:58 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
  Joe Damato <jdamato@fastly.com>, linux-kernel@vger.kernel.org,
  Brad Griffis <bgriffis@nvidia.com>,
  Alexander Lobakin <aleksander.lobakin@intel.com>,
- Eric Dumazet <edumazet@google.com>, "David S.
- Miller" <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Jon Hunter <jonathanh@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net-next v3 1/4] net: stmmac: Switch to
@@ -102,35 +104,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 26 Jan 2025 13:35:45 +0200, Ido Schimmel wrote:
-
-> On Sun, Jan 26, 2025 at 06:37:14PM +0800, Furong Xu wrote:
-> > The "SPH feature" splits header into buf->page (non-zero offset) and
-> > splits payload into buf->sec_page (zero offset).
-> > 
-> > For buf->page, pp_params.max_len should be the size of L3/L4 header,
-> > and with a offset of NET_SKB_PAD.
-> > 
-> > For buf->sec_page, pp_params.max_len should be dma_conf->dma_buf_sz,
-> > and with a offset of 0.
-> > 
-> > This is always true:
-> > sizeof(L3/L4 header) + NET_SKB_PAD < dma_conf->dma_buf_sz + 0  
+On Fri, Jan 24, 2025 at 10:42:56AM +0800, Furong Xu wrote:
+> On Thu, 23 Jan 2025 22:48:42 +0100, Andrew Lunn <andrew@lunn.ch> wrote:
 > 
-> Thanks, understood, but are there situations where the device is
-> unable to split a packet? For example, a large L2 packet. I am trying
-> to understand if there are situations where the device will write
-> more than "dma_conf->dma_buf_sz - NET_SKB_PAD" to the head buffer.
+> > > Just to clarify, the patch that you had us try was not intended as an actual
+> > > fix, correct? It was only for diagnostic purposes, i.e. to see if there is
+> > > some kind of cache coherence issue, which seems to be the case?  So perhaps
+> > > the only fix needed is to add dma-coherent to our device tree?  
+> > 
+> > That sounds quite error prone. How many other DT blobs are missing the
+> > property? If the memory should be coherent, i would expect the driver
+> > to allocate coherent memory. Or the driver needs to handle
+> > non-coherent memory and add the necessary flush/invalidates etc.
+> 
+> stmmac driver does the necessary cache flush/invalidates to maintain cache lines
+> explicitly.
 
-Nice catch!
-When receiving a large L2/non-IP packet, more than "dma_conf->dma_buf_sz
-- NET_SKB_PAD" will be written.
+Given the problem happens when the kernel performs syncing, is it
+possible that there is a problem with how the syncing is performed?
 
-So we should:
-pp_params.max_len = dma_conf->dma_buf_sz + stmmac_rx_offset(priv);
+I am not familiar with this driver, but it seems to allocate multiple
+buffers per packet when split header is enabled and these buffers are
+allocated from the same page pool (see stmmac_init_rx_buffers()).
+Despite that, the driver is creating the page pool with a non-zero
+offset (see __alloc_dma_rx_desc_resources()) to avoid syncing the
+headroom, which is only present in the head buffer.
 
-Thanks a lot, Ido
-Have a nice weekend :)
+I asked Thierry to test the following patch [1] and initial testing
+seems OK. He also confirmed that "SPH feature enabled" shows up in the
+kernel log.
+
+BTW, the commit that added split header support (67afd6d1cfdf0) says
+that it "reduces CPU usage because without the feature all the entire
+packet is memcpy'ed, while that with the feature only the header is".
+This is no longer correct after your patch, so is there still value in
+the split header feature? With two large buffers being allocated from
+the same page pool for each packet (headers + data), the end result is
+an inflated skb->truesize, no?
+
+[1]
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index edbf8994455d..42170ce2927e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2091,8 +2091,8 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	pp_params.nid = dev_to_node(priv->device);
+ 	pp_params.dev = priv->device;
+ 	pp_params.dma_dir = xdp_prog ? DMA_BIDIRECTIONAL : DMA_FROM_DEVICE;
+-	pp_params.offset = stmmac_rx_offset(priv);
+-	pp_params.max_len = dma_conf->dma_buf_sz;
++	pp_params.offset = 0;
++	pp_params.max_len = num_pages * PAGE_SIZE;
+ 
+ 	rx_q->page_pool = page_pool_create(&pp_params);
+ 	if (IS_ERR(rx_q->page_pool)) {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
