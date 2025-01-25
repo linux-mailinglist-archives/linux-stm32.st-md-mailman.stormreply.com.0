@@ -2,41 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806C7A1C209
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 Jan 2025 08:14:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B88A1C397
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 Jan 2025 14:21:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 279B7C78F90;
-	Sat, 25 Jan 2025 07:14:04 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFAEFC78011;
+	Sat, 25 Jan 2025 13:21:31 +0000 (UTC)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75B5AC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D5A9C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Jan 2025 07:13:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 56C08A40C8D;
- Sat, 25 Jan 2025 07:12:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3BB8C4CED6;
- Sat, 25 Jan 2025 07:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1737789235;
- bh=zQO/rI+Tx589OS8M0rrdAc9eToBiAckJZ3rbpXLpn1s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fBywUHZTtC+wJUuhuEHCVHAipdm6rADLMPA0DWazeLQyGS8req6ZFLJ57ClkQ3VaR
- 2G83XE8HKYq9NQwLfuF7iyqNx6IiLlDadzDN7+eCFT417rawl7SiIyD9eVvMVtqhEX
- 2/x5zJINmqgGu6gvDrMutxYfnS8Zp0+T5tAexCcs=
-Date: Sat, 25 Jan 2025 08:13:52 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <2025012543-unpaired-cartridge-c221@gregkh>
-References: <20250124173325.2747710-1-fabrice.gasnier@foss.st.com>
+ Sat, 25 Jan 2025 13:21:24 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-e53a5ff2233so5523302276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 25 Jan 2025 05:21:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1737811283; x=1738416083;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rqQlkYxYh5YiVxFjsX2QaXZvcKyx1dpoVsF7zYYgoA4=;
+ b=OgbyNP5pBryRQrHh+3ZEX7X1FzEtvnoB0sfFvBb+24LOU0E2INE3sBVSlVfxjZakkV
+ Y8K1Zp2gfcs59u35Vu7Nz95CuOjQSNiy5/BFspsX+SSE12s2Vd3lgCPdQfj5PywgT5BJ
+ wCr/Qx6zcIDLqLedm85Ou/cY7oOExi8xeQYoU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737811283; x=1738416083;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rqQlkYxYh5YiVxFjsX2QaXZvcKyx1dpoVsF7zYYgoA4=;
+ b=OrgoFAAqbdQ1oIp9f/m6YYzgaIJRXMpEKVbdWc7raYk8CfVWCam4oxsw1IMOgGmdnq
+ tZ6QXcq8YDBfIEQcjskGKAHb4ai79to8bzHmWWdaPES6b/7ctje6JEIyNltvDbyczRo9
+ /aNPuRqWiLXIP1L9ONRzg+znh61AAFtqeawdYHrktPscm9NDlB6112S7mA4LZA7Lqy50
+ hk2PkfbutamsWOiamfSPSBXMQb24ww0KiFK9CCuHMCOTBAjiBrwHwu+SzVst7xxWS9qy
+ 2+fTYFLyhYkVJfzMLqhRojvhohjwmIwoZdfqbfKmzcU/uyknBykUkvQ/dekGe8rDYlbC
+ 8fQQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWcq1e65u/B31WgT2sRZ1Mockne2Hw1gaa7axLWlqL4Zr+scbGdbDGgMdrRzMb9mOLJKrOLmiHj/3ScQA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzl+cPli+pOTmVq9iz3IJXm/8myfjK2oWpgv3OSpT7dBnXdSJxF
+ x0hX7d301IE9+C2Q/TtXHRjOSZSa9iB+8iUmLIobfwdRzIJjxCm/4wK+5M6+AQwm47FbAddLn6b
+ DITaOcwDIYATnObYCqkMICAuhwFXfnJ9Gue05pw==
+X-Gm-Gg: ASbGncud178hwJqAD6HtjqTxF9ICFH2rPiV6nxqnausRHpQ1FJ05ah1A4XSWhTyNkub
+ +JH36YEqUAs4edcDPal3F2bIHSNHob91AX7sThJbA8blhNAjgoMn6cpo1rOez
+X-Google-Smtp-Source: AGHT+IEC66mHyu/T69Up/dX022TugdsmD0uulT2kpXSasOG+om+qGGY/LBwo1LfOlHcKiAvuEQ7Oi2p0ts4rAblyPzI=
+X-Received: by 2002:a05:690c:25c7:b0:6ef:6c57:ddc6 with SMTP id
+ 00721157ae682-6f6eb937ac1mr261166397b3.34.1737811283560; Sat, 25 Jan 2025
+ 05:21:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250124173325.2747710-1-fabrice.gasnier@foss.st.com>
-Cc: hminas@synopsys.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] usb: dwc2: gadget: remove of_node
-	reference upon udc_stop
+References: <20250114182021.670435-1-dario.binacchi@amarulasolutions.com>
+ <20250114182021.670435-3-dario.binacchi@amarulasolutions.com>
+ <73ad1336d9fbfa020ba666eef340f784.sboyd@kernel.org>
+ <47865ef4-fb8c-4ba5-82d8-eed1f292bf4d@kernel.org>
+In-Reply-To: <47865ef4-fb8c-4ba5-82d8-eed1f292bf4d@kernel.org>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Sat, 25 Jan 2025 14:21:13 +0100
+X-Gm-Features: AWEUYZn9YZy8Owehe6KhYJIuvjU2tyrCD5F9XaUX2lhI1_Zpu924GXyOjD3iZ7A
+Message-ID: <CABGWkvpeOyrzcU64pNxSYC7n-VOsjSEL-iD-_YqmCveGsrH-hg@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 2/4] dt-bindings: clock: st,
+ stm32-rcc: support spread spectrum clocking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,99 +82,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 24, 2025 at 06:33:25PM +0100, Fabrice Gasnier wrote:
-> In dwc2_hsotg_udc_start(), e.g. when binding composite driver, "of_node"
-> is set to hsotg->dev->of_node.
-> 
-> It causes errors when binding the gadget driver several times, on
-> stm32mp157c-ev1 board. Below error is seen:
-> "pin PA10 already requested by 49000000.usb-otg; cannot claim for gadget.0"
-> 
-> The first time, no issue is seen as when registering the driver, of_node
-> isn't NULL:
-> -> gadget_dev_desc_UDC_store
->   -> usb_gadget_register_driver_owner
->     -> driver_register
->     ...
->       -> really_probe -> pinctrl_bind_pins (no effect)
-> 
-> Then dwc2_hsotg_udc_start() sets of_node.
-> 
-> The second time (stop the gadget, reconfigure it, then start it again),
-> of_node has been set, so the probing code tries to acquire pins for the
-> gadget. These pins are hold by the controller, hence the error.
-> 
-> So clear gadget.dev.of_node in udc_stop() routine to avoid the issue.
-> 
-> Fixes: 7d7b22928b90 ("usb: gadget: s3c-hsotg: Propagate devicetree to gadget drivers")
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
-> Note: I'd have been tempted to remove of_node setting from udc_start:
->  -	hsotg->gadget.dev.of_node = hsotg->dev->of_node;
-> 
-> I can't find the original code that parses the device node [1] from
-> composite_bind() routine, originally part of the series that introduces
-> this.
-> I'm not sure if setting the gadget of_node is really useful, but I chose
-> safe approach to simply clear it in udc_stop().
-> 
-> [1] http://lore.kernel.org/lkml/1340720833-781-6-git-send-email-aletes.xgr@gmail.com/
-> ---
->  drivers/usb/dwc2/gadget.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
-> index e7bf9cc635be..bd4c788f03bc 100644
-> --- a/drivers/usb/dwc2/gadget.c
-> +++ b/drivers/usb/dwc2/gadget.c
-> @@ -4615,6 +4615,7 @@ static int dwc2_hsotg_udc_stop(struct usb_gadget *gadget)
->  	spin_lock_irqsave(&hsotg->lock, flags);
->  
->  	hsotg->driver = NULL;
-> +	hsotg->gadget.dev.of_node = NULL;
->  	hsotg->gadget.speed = USB_SPEED_UNKNOWN;
->  	hsotg->enabled = 0;
->  
-> -- 
-> 2.25.1
-> 
-> 
-
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKYW4gMjQsIDIwMjUgYXQgMjo0NeKAr1BNIEtyenlzenRvZiBLb3psb3dza2kgPGty
+emtAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiAxNi8wMS8yMDI1IDAwOjIyLCBTdGVwaGVuIEJv
+eWQgd3JvdGU6Cj4gPiBRdW90aW5nIERhcmlvIEJpbmFjY2hpICgyMDI1LTAxLTE0IDEwOjE5OjQ3
+KQo+ID4+IFRoZSBhZGRpdGlvbiBvZiBEVCBiaW5kaW5ncyBmb3IgZW5hYmxpbmcgYW5kIHR1bmlu
+ZyBzcHJlYWQgc3BlY3RydW0KPiA+PiBjbG9ja2luZyBnZW5lcmF0aW9uIGlzIGF2YWlsYWJsZSBv
+bmx5IGZvciB0aGUgbWFpbiBQTEwgb2Ygc3RtMzJmezQsN30KPiA+PiBwbGF0Zm9ybXMuCj4gPj4K
+PiA+PiBTaWduZWQtb2ZmLWJ5OiBEYXJpbyBCaW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVs
+YXNvbHV0aW9ucy5jb20+Cj4gPj4gUmV2aWV3ZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
+enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4KPiA+Pgo+ID4+IC0tLQo+ID4KPiA+IEFwcGxp
+ZWQgdG8gY2xrLW5leHQKPgo+IFVubHVja3kgdGltaW5nLiBOWFAganVzdCBzZW50IHRoaXM6Cj4K
+PiBodHRwczovL2dpdGh1Yi5jb20vZGV2aWNldHJlZS1vcmcvZHQtc2NoZW1hL3B1bGwvMTU0Cj4K
+PiB3aGljaCBtYWtlcyB0aGVzZSBiaW5kaW5ncyBvYnNvbGV0ZS4KPgoKV2h5IGhhdmUgdGhlIERU
+IGJpbmRpbmdzIGFscmVhZHkgYmVjb21lIG9ic29sZXRlIGV2ZW4gdGhvdWdoIHRoZSBQUgpoYXMg
+bm90IHlldCBiZWVuIGFjY2VwdGVkPyBUaGUgc2VyaWVzIGhhcyBhbHJlYWR5IGJlZW4gbWVyZ2Vk
+IGludG8KdGhlIGtlcm5lbC4gUGxlYXNlIGxldCBtZSBrbm93IGlmIGFuZCB3aGVuIEkgbmVlZCB0
+byBtYWtlIHRoZSBjaGFuZ2VzLgpUaGlzIGlzIHRoZSBmaXJzdCB0aW1lIEkgZmluZCBteXNlbGYg
+aW4gc3VjaCBhIHNpdHVhdGlvbi4KClRoYW5rcyBhbmQgcmVnYXJkcywKRGFyaW8KCj4gQmVzdCBy
+ZWdhcmRzLAo+IEtyenlzenRvZgoKCgotLSAKCkRhcmlvIEJpbmFjY2hpCgpTZW5pb3IgRW1iZWRk
+ZWQgTGludXggRGV2ZWxvcGVyCgpkYXJpby5iaW5hY2NoaUBhbWFydWxhc29sdXRpb25zLmNvbQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwoKCkFtYXJ1bGEgU29sdXRpb25zIFNS
+TAoKVmlhIExlIENhbmV2YXJlIDMwLCAzMTEwMCBUcmV2aXNvLCBWZW5ldG8sIElUCgpULiArMzkg
+MDQyIDI0MyA1MzEwCmluZm9AYW1hcnVsYXNvbHV0aW9ucy5jb20KCnd3dy5hbWFydWxhc29sdXRp
+b25zLmNvbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
