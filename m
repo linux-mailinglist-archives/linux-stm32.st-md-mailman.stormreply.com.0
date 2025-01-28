@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58C6CA20D60
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 16:45:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E51A20D66
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 16:46:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 040B5C78026;
-	Tue, 28 Jan 2025 15:45:42 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19C86C78026;
+	Tue, 28 Jan 2025 15:46:33 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D2EAC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 900FFC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2025 15:45:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A3970A40E79;
- Tue, 28 Jan 2025 15:43:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE9EC4CED3;
- Tue, 28 Jan 2025 15:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738079139;
- bh=y5fiGOpqHsjA5txZTC792Ta1uJ8fD21vvbxKBCkhSwo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PPoFvl2FNra+3ckqpvLYQ20USwf3/15iHNEjTckFICgs2tuHlAlYKYTP0rkMEset1
- +7+d+0SHBn/GgPvU5ceG5sebvE0j3K0cciKjUD7+tEYR9qYWc8cGOw4Wc2hpb3uWFv
- iC8P+SoIQItyVKJQPgU8T/w50bAnmdh9z6/9GfdBExaxHwPFY5o/rXUy0qs12oU2J3
- KmQimFQVwb9+qvwfBqDMGKa7BVNhEABtAkKzYVMTwNHARi2lO2FhRJzKBPH3FcXTXK
- Ef0TAu9UF2NFaBmsbEJx01KpyWggysiT2/b7kqNKivKBCWXnxUpgkRZ2FDcqNnyM6b
- nYAR8cq2vDu1A==
-Date: Tue, 28 Jan 2025 09:45:38 -0600
-From: Rob Herring <robh@kernel.org>
-To: Swathi K S <swathi.ks@samsung.com>
-Message-ID: <20250128154538.GA3539469-robh@kernel.org>
-References: <20250128102558.22459-1-swathi.ks@samsung.com>
- <CGME20250128102725epcas5p44b02ac2980a3aeb0016ce9fdef011ecf@epcas5p4.samsung.com>
- <20250128102558.22459-2-swathi.ks@samsung.com>
+ Tue, 28 Jan 2025 15:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=q1N7qzwT6+40rnFu9DeSjSQxLuS7bQdCcDSHTwobr1Y=; b=YBne8JSnNFEQ5vmyGtxUZjf/O9
+ eoak2EnTVv8J9FenJUtjEDH0bbpLkrjKyGmcj/R2Az2BaoOsIdQnBf7y5hgzlDgBrkzHNzLSn7TYG
+ omjEd4P5tkGiyQn8j5pLqd2HPZcHLajM95Albzv94vT0poxLvnb8b7ceCl//7vUa/fPnJVvGTRWt3
+ ABQQWZOilVMz6fPK2WitGRaOxGw7LZXrl1SJ5hC4tVkaOFtMDQCZr53xYAsQrjIgH09hUdrBJrjfB
+ cFL0WFjJf4cfC0975yK97Ub/xuk5Vg0sHNCBhHHW2gewqyluLH1ptcPkosyj6REAwxg0UVXMjMLOq
+ I+MdaAUw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58040)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tcnnB-0007ST-24;
+ Tue, 28 Jan 2025 15:46:21 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tcnn7-0002lc-00;
+ Tue, 28 Jan 2025 15:46:17 +0000
+Date: Tue, 28 Jan 2025 15:46:16 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z5j7yCYSsQ7beznD@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250128102558.22459-2-swathi.ks@samsung.com>
-Cc: andrew@lunn.ch, jayati.sahu@samsung.com, edumazet@google.com,
- linux-fsd@tesla.com, alim.akhtar@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- ssiddha@tesla.com, pankaj.dubey@samsung.com, krzk@kernel.org,
- joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, ravi.patel@samsung.com,
- richardcochran@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, rcsekar@samsung.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, gost.dev@samsung.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v5 1/4] dt-bindings: net: Add FSD EQoS
- device tree bindings
+Cc: Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC net-next 00/22] net: stmmac/xpcs: further
+	EEE work
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,77 +64,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 28, 2025 at 03:55:55PM +0530, Swathi K S wrote:
-> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
-> Ethernet YAML schema to enable the DT validation.
-> 
-> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
-> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
-> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
-> ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  5 +-
->  .../bindings/net/tesla,fsd-ethqos.yaml        | 91 +++++++++++++++++++
->  2 files changed, 94 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 91e75eb3f329..2243bf48a0b7 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -103,6 +103,7 @@ properties:
->          - starfive,jh7100-dwmac
->          - starfive,jh7110-dwmac
->          - thead,th1520-gmac
-> +        - tesla,fsd-ethqos
->  
->    reg:
->      minItems: 1
-> @@ -126,7 +127,7 @@ properties:
->  
->    clocks:
->      minItems: 1
-> -    maxItems: 8
-> +    maxItems: 10
->      additionalItems: true
->      items:
->        - description: GMAC main clock
-> @@ -138,7 +139,7 @@ properties:
->  
->    clock-names:
->      minItems: 1
-> -    maxItems: 8
-> +    maxItems: 10
->      additionalItems: true
->      contains:
->        enum:
-> diff --git a/Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml b/Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml
-> new file mode 100644
-> index 000000000000..579a7bd1701d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/tesla,fsd-ethqos.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: FSD Ethernet Quality of Service
-> +
-> +maintainers:
-> +  - Swathi K S <swathi.ks@samsung.com>
-> +
-> +description:
-> +  Tesla ethernet devices based on dwmmac support Gigabit ethernet.
-> +
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: tesla,fsd-ethqos.yaml
+Hi,
 
-Humm...
+This series is a preview of the further work I wish to merge during
+the next cycle for EEE in stmmac and XPCS drivers.
+
+The first 14 patches target stmmac's EEE implementation, which I believe
+to be buggy such that it does not disable LPI signalling immediately
+when ethtool settings change, but instead in effect waits until the
+next packet is sent. This is a relatively minor bug, so isn't high
+priority.
+
+However, what the first set of patches are doing is continuing the
+cleanup of the stmmac implementation and making things consistent and
+readable.
+
+The following patches are aimed at eliminating the xpcs_config_eee()
+direct call between stmmac's EEE code and XPCS, and present a way to
+do this. Sadly, it doesn't reduce the number of direct calls between
+these two drivers as we need to implement a new call to configure the
+"mult_fract" parameter in the XPCS EEE control registers, which is
+supposed to be derived from the speed of an EEE-specific clock.
+
+However, I remain unconvinced whether it is necessary to enable and
+disable the EEE controls at the XPCS with LPI being enabled/disabled
+at the MAC. Could many or all of these settings be configured as part
+of the creation of the driver instance instead?
+
+Without knowing that, the only real way to clean this up is the one
+I've taken - which is the principle of preserving the existing
+behaviour.
+
+Sadly, the entire series doesn't lead to a great reduction in LOC,
+however, the initial 14 stmmac patches leads to a reduction of 71
+LOC.
+
+My plan is to send the first 14 patches shortly after net-next opens.
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  14 +++
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  13 +--
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   |  30 ++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  12 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  96 +++++++---------
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |   9 +-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  49 ++++----
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  21 ++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 126 +++++++--------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |   2 +
+ drivers/net/pcs/pcs-xpcs.c                         |  89 ++++++++++-----
+ drivers/net/pcs/pcs-xpcs.h                         |   1 +
+ drivers/net/phy/phylink.c                          |  25 +++-
+ include/linux/pcs/pcs-xpcs.h                       |   3 +-
+ include/linux/phylink.h                            |  22 ++++
+ 15 files changed, 253 insertions(+), 259 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
