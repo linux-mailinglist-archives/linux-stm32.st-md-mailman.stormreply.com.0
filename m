@@ -2,57 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CC8A20717
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 10:18:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D650EA209FC
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 12:55:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 261FFC78032;
-	Tue, 28 Jan 2025 09:18:24 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6663FC7801F;
+	Tue, 28 Jan 2025 11:55:00 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D35C3C01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A786C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2025 09:18:16 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1tchjI-0002II-Ly; Tue, 28 Jan 2025 10:17:56 +0100
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1tchjH-002Gpb-1q;
- Tue, 28 Jan 2025 10:17:55 +0100
-Received: from pza by lupine with local (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1tchjH-0001lT-1Y;
- Tue, 28 Jan 2025 10:17:55 +0100
-Message-ID: <3d6cfb082ef8ee0fc66c885a84f64ae0a851234b.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,  Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Date: Tue, 28 Jan 2025 10:17:55 +0100
-In-Reply-To: <20250128081731.2284457-5-patrice.chotard@foss.st.com>
-References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
- <20250128081731.2284457-5-patrice.chotard@foss.st.com>
-User-Agent: Evolution 3.46.4-2 
+ Tue, 28 Jan 2025 11:54:53 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-385f06d0c8eso3046913f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 28 Jan 2025 03:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1738065293; x=1738670093;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Gmf7mcPtQwX9tpVIZFfSi4yhDQ1AXN5DwMHqelwsOGg=;
+ b=gZH5Ao+69r7NkeAIb10zeDX9bZe8XXngt2grA3LhVMwH+KFjQM7Cz4ajJ2Xha5OoW5
+ 3D9hr2EjpjOGTBWQQFSiOsY84ysuO/g617ebnBHvLuO0flxvHRCEZ+i7oI9xjwcmnuK/
+ zk4aPSA9n94UIJNG3URobpqIFZ/xzXeaBl7nLsjEjMl8jNyn+TZYnYwt1Q0Fd9NgEEHU
+ 33Uu17+BM0BBrdkpf6QzrnITGll565Kmc2fiLh8XRRXkiIP6aszllb2uHHse1Lp5VqWM
+ C4Yf8P62BpDRtD34QZCyNPV2cG2DN//GnmaVazU/2TAoT5IyPAeQAkhT8sWwiuhLoK10
+ o0wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738065293; x=1738670093;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Gmf7mcPtQwX9tpVIZFfSi4yhDQ1AXN5DwMHqelwsOGg=;
+ b=GeDdtYhhosRA4pgHzkAaO16S3CdwBZrLotR2yDWWdAC+eg+C15HlnHb1K2iGi9fWJq
+ YhC2SupzxaLUvhV5z5MgdY4/m7PpC0hMEw6RrP1YTKwtLBBav6MkqLIPwKdsyGut/0sz
+ xaa69jSVBjpXle+KPCnNP9HYv/zuQv7MdXd2rzsSqBBefTang/YrmP2GaSwIwWxgyMRa
+ oQYLWBe+TtLW3GeQenszmhtvEoT0QcjxX8uBeY3/mLmviQSEgv1WGcW59bwHPBiNzMUQ
+ oKNdzMdpdUVI7cLH7hH66yGZI/agHNeRdN8WSOc7zKWVDn+novrQKbj8l6gJ/Yn3Lhep
+ RH/A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV16soeOnJ4P+/IS0qek5u8T/9kivWEAoa6uU7I9jyXRHuYHtcyY1QngOY3AxJu/mbOla7VKIvbz6mTvA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwzmhfzditAMbId8p/HryQddoljk1TswailAl59i7PIKm4ScWF1
+ eQTXzP4dQ8om8LhoN19XYt5EOh59+qS0uu+HfJXEHwUHUSOjnTWdRdbc7Ev0FJs=
+X-Gm-Gg: ASbGncvHnQS5q+yfIrjT5vkrxPW47pacYJanJ8fPBBcpQWldn04vtL+vbXeF5raupz9
+ Ic6wSqmyorpNbZEI7eDHVTZQfoFhU5DX1lr44vo5x26xCBPUpOWdg6aRoT5b9O2HFM2CVF15wmQ
+ y14HLi85Np5v472QnSXoK8dlAj5BhJXa6+HFv+2oOACXQbQSah7LPk7X+yYTBksP6MHUr/Eb9su
+ /6qO+3b7wzdJt44sXCgk/+ocnI3TICCXDsYbuMg7BByDR1NlpVkM75SgfSCo5sVg12KJOhrDahp
+ 3OcjfW8VPZtNaKLfwuZFBT5m/A==
+X-Google-Smtp-Source: AGHT+IHDFuV7bbeobdH8NJ7zs7YKsojRKqZ82J0IkoSCP3pGxLQVoQ/0mthDOYphu4LwsfSwyMaGvg==
+X-Received: by 2002:a5d:6505:0:b0:38a:88ac:ed10 with SMTP id
+ ffacd0b85a97d-38bf5789edcmr34949134f8f.25.1738065292604; 
+ Tue, 28 Jan 2025 03:54:52 -0800 (PST)
+Received: from [192.168.68.163] ([145.224.65.109])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38c2a1bb0besm14135821f8f.79.2025.01.28.03.54.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jan 2025 03:54:52 -0800 (PST)
+Message-ID: <538ae543-4c43-4df2-8adc-911096fe14dd@linaro.org>
+Date: Tue, 28 Jan 2025 11:54:50 +0000
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/9] memory: Add STM32 Octo Memory
-	Manager driver
+User-Agent: Mozilla Thunderbird
+To: Jie Gan <quic_jiegan@quicinc.com>
+References: <20250124072537.1801030-1-quic_jiegan@quicinc.com>
+ <20250124072537.1801030-4-quic_jiegan@quicinc.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20250124072537.1801030-4-quic_jiegan@quicinc.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v9 3/6] Coresight: Introduce a new struct
+	coresight_path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,86 +95,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Di, 2025-01-28 at 09:17 +0100, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
+
+
+On 24/01/2025 7:25 am, Jie Gan wrote:
+> Add 'struct coresight_path' to store the data that is needed by
+> coresight_enable_path/coresight_disable_path. The structure
+> will be transmitted to the helper and sink device to enable
+> related funcationalities.
 > 
-> Octo Memory Manager driver (OMM) manages:
->   - the muxing between 2 OSPI busses and 2 output ports.
->     There are 4 possible muxing configurations:
->       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
->         output is on port 2
->       - OSPI1 and OSPI2 are multiplexed over the same output port 1
->       - swapped mode (no multiplexing), OSPI1 output is on port 2,
->         OSPI2 output is on port 1
->       - OSPI1 and OSPI2 are multiplexed over the same output port 2
->   - the split of the memory area shared between the 2 OSPI instances.
->   - chip select selection override.
->   - the time between 2 transactions in multiplexed mode.
->   - check firewall access.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
 > ---
->  drivers/memory/Kconfig     |  17 ++
->  drivers/memory/Makefile    |   1 +
->  drivers/memory/stm32_omm.c | 509 +++++++++++++++++++++++++++++++++++++
->  3 files changed, 527 insertions(+)
->  create mode 100644 drivers/memory/stm32_omm.c
+>   drivers/hwtracing/coresight/coresight-core.c  | 87 ++++++++++++++-----
+>   drivers/hwtracing/coresight/coresight-etb10.c |  3 +-
+>   .../hwtracing/coresight/coresight-etm-perf.c  | 52 ++++++-----
+>   .../hwtracing/coresight/coresight-etm-perf.h  |  2 +-
+>   drivers/hwtracing/coresight/coresight-priv.h  | 21 +++--
+>   drivers/hwtracing/coresight/coresight-sysfs.c | 32 +++----
+>   .../hwtracing/coresight/coresight-tmc-etf.c   |  3 +-
+>   .../hwtracing/coresight/coresight-tmc-etr.c   |  6 +-
+>   drivers/hwtracing/coresight/coresight-trbe.c  |  4 +-
+>   drivers/hwtracing/coresight/ultrasoc-smb.c    |  3 +-
+>   10 files changed, 137 insertions(+), 76 deletions(-)
 > 
-[...]
-> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-> new file mode 100644
-> index 000000000000..6f20fe0183ec
-> --- /dev/null
-> +++ b/drivers/memory/stm32_omm.c
-> @@ -0,0 +1,509 @@
-[...]
-> +static int stm32_omm_configure(struct device *dev)
-> +{
-> +	struct stm32_omm *omm = dev_get_drvdata(dev);
-> +	struct reset_control *rstc;
-> +	unsigned long clk_rate, clk_rate_max = 0;
-> +	int ret;
-> +	u8 i;
-> +	u32 mux = 0;
-> +	u32 cssel_ovr = 0;
-> +	u32 req2ack = 0;
-> +
-> +	omm->clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(omm->clk)) {
-> +		dev_err(dev, "Failed to get OMM clock (%ld)\n",
-> +			PTR_ERR(omm->clk));
-> +
-> +		return PTR_ERR(omm->clk);
-> +	}
-> +
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* parse children's clock */
-> +	for (i = 0; i < omm->nb_child; i++) {
-> +		clk_rate = clk_get_rate(omm->child[i].clk);
-> +		if (!clk_rate) {
-> +			dev_err(dev, "Invalid clock rate\n");
-> +			goto err_clk_disable;
-> +		}
-> +
-> +		if (clk_rate > clk_rate_max)
-> +			clk_rate_max = clk_rate;
-> +	}
-> +
-> +	rstc = devm_reset_control_get_optional(dev, NULL);
 
-Please use devm_reset_control_get_optional_exclusive() directly.
+[...]
 
-regards
-Philipp
+
+>   	INIT_LIST_HEAD(path);
+> +	cs_path->path = path;
+> +	/*
+> +	 * Since not all source devices have a defined trace_id function,
+> +	 * make sure to check for it before use.
+> +	 *
+> +	 * Assert the mode is CS_MODE_SYSFS, the trace_id will be assigned
+> +	 * again later if the mode is CS_MODE_PERF.
+> +	 */
+> +	if (source_ops(source)->trace_id != NULL) {
+> +		rc = source_ops(source)->trace_id(source, CS_MODE_SYSFS, NULL);
+
+I don't think we should do this. Doesn't this consume two trace IDs for 
+each session? And I'm not even sure if it's released properly if it's 
+overwritten.
+
+It should be possible to consolidate the all the trace ID allocation to 
+a single step when building the path, or another function that gets 
+called just after the path is built. At the moment the ID can be 
+allocated from about 5 different places and it's quite hard to 
+understand, especially with these new changes. I have some of it coded 
+up, let me finish it off and I can share it.
+
+> +		if(IS_VALID_CS_TRACE_ID(rc))
+> +			cs_path->trace_id = rc;
+> +		else
+> +			cs_path->trace_id = 0;
+> +	}
+> +	else
+> +		cs_path->trace_id = 0;
+
+[...]
+
+> +/**
+> + * struct coresight_path - data needed by enable/disable path
+> + * @handle:		perf aux handle for ETM.
+> + * @path:		path from source to sink.
+> + * @trace_id:		trace_id of the whole path.
+> + */
+> +struct coresight_path {
+> +	struct perf_output_handle	*handle;
+
+This is only needed to avoid adding *handle to the enable function call 
+signature, but having it here implies it needs to be stored. And then we 
+need to manage the lifecycle of it by nulling it on deletion. All of 
+this can be avoided by just adding handle to enable().
+
+Unrelated to this patch, but I'm not sure why we were passing around 
+void* for handle either. It just makes the code hard to read and implies 
+some flexibility that doesn't exist. It's always "struct 
+perf_output_handle", so we can change void* to that in the enable 
+functions. I also have a patch for this that I'll share in a bit.
+
+> +	struct list_head		*path;
+> +	u8				trace_id;
+> +};
+> +
+>   static inline void coresight_insert_barrier_packet(void *buf)
+>   {
+>   	if (buf)
+> @@ -132,16 +144,15 @@ static inline void CS_UNLOCK(void __iomem *addr)
+>   	} while (0);
+>   }
+>   
+> -void coresight_disable_path(struct list_head *path);
+> -int coresight_enable_path(struct list_head *path, enum cs_mode mode,
+> -			  void *sink_data);
+> +void coresight_disable_path(struct coresight_path *cs_path);
+> +int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode);
+>   struct coresight_device *coresight_get_sink(struct list_head *path);
+
+This needs to be exported otherwise the build fails because you use it 
+in a module in another commit. I assume you are building as static?
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
