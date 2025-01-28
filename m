@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D65DA219F6
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DDEEA219F7
 	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 10:34:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFB12C78F83;
-	Wed, 29 Jan 2025 09:34:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F421C78F85;
+	Wed, 29 Jan 2025 09:34:45 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52A1CC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83729C78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2025 22:32:00 +0000 (UTC)
+ Tue, 28 Jan 2025 22:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738103519;
+ s=mimecast20190719; t=1738103528;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FT+LB9XyHtC4Gj89X2CISx5zHalQ981h59ZAU2H883M=;
- b=E+keLimP4dRH6HbIWcnza+oaVjeS7X6rh6NKQUvVsu6+hXWerGYW0pZjdXhqb6cjC8cULm
- aYOlNk6fP8ffurtbrr5nZNOQXe9WXmS0+8Ig6yejl2VunSm1nvA167OjLAxEv1fou9Zru8
- l//tt/OP/jmCYno5Csp4LbWgOZ6vvu4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ bh=vTQQyop+FvNGZGa2HymGI+zd4XYA6ac0SZNdQLlY4mQ=;
+ b=RnUPm1hkM1BohgL/hy0KzuRTJij3Bb0r0b234EJn/kmUSisFCTyec4aNDa3MzAGLsoqoLq
+ hILmpWXYwF8vRIA4b98SeKDfE6cGgu0E84IptKIlnWqdeCaQmom7zaOEKt7t3wFrd4ffAb
+ htjeDWS1/9Dm3tyeIHHigTRZt5H3Tso=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-483-s61KXQT9N4ykQm5iu3s2Lw-1; Tue,
- 28 Jan 2025 17:31:56 -0500
-X-MC-Unique: s61KXQT9N4ykQm5iu3s2Lw-1
-X-Mimecast-MFC-AGG-ID: s61KXQT9N4ykQm5iu3s2Lw
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-107-KfPjmD4-MM6CxCQ_2p3FSA-1; Tue,
+ 28 Jan 2025 17:32:07 -0500
+X-MC-Unique: KfPjmD4-MM6CxCQ_2p3FSA-1
+X-Mimecast-MFC-AGG-ID: KfPjmD4-MM6CxCQ_2p3FSA
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EEF3019560B0; Tue, 28 Jan 2025 22:31:53 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5387A195604F; Tue, 28 Jan 2025 22:32:05 +0000 (UTC)
 Received: from asrivats-na.rmtustx.csb (unknown [10.2.16.231])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id D4F2818008DC; Tue, 28 Jan 2025 22:31:42 +0000 (UTC)
+ id 475BE180035E; Tue, 28 Jan 2025 22:31:54 +0000 (UTC)
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Tue, 28 Jan 2025 17:29:31 -0500
+Date: Tue, 28 Jan 2025 17:29:32 -0500
 MIME-Version: 1.0
-Message-Id: <20250128-cocci-memory-api-v1-7-0d1609a29587@redhat.com>
+Message-Id: <20250128-cocci-memory-api-v1-8-0d1609a29587@redhat.com>
 References: <20250128-cocci-memory-api-v1-0-0d1609a29587@redhat.com>
 In-Reply-To: <20250128-cocci-memory-api-v1-0-0d1609a29587@redhat.com>
 To: Joel Stanley <joel@jms.id.au>, 
@@ -85,11 +85,11 @@ To: Joel Stanley <joel@jms.id.au>,
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
  Jonathan Corbet <corbet@lwn.net>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738103410; l=1654;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738103410; l=2394;
  i=asrivats@redhat.com; s=20250122; h=from:subject:message-id;
- bh=ajXPI9xB0Rs31Rc4x9qTz/uAYXcdrRjutTTRm1keGG4=;
- b=LDffY/YSoJthJibzS51SC42ZXvZrbp2ayc7zabHlWIb3613ZhwERUpoDhV+XXcJIzmp40r+tI
- M92TihMbvZQAPKQMCFEl20B8k7s+n0MjBVXZT6Ras5dWx8LX3W0QmuA
+ bh=xnOKo4d5zLC6SAtMuS91xcrNjPZ1X4hCGtOsaEUix3w=;
+ b=XgsYJ66PhNrSwobzID2quJsO/E4TlQulcqJ0vDOaqNkS9r21x5hzmGgeEwFBj/9RpC8lljWPY
+ VUfmqi45nPXBguhotnYxuL+j1ormJXYrHE4tEfU5gpBjGDi4cVT7ok6
 X-Developer-Key: i=asrivats@redhat.com; a=ed25519;
  pk=brnIHkBsUZEhyW6Zyn0U92AeIZ1psws/q8VFbIkf1AU=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
@@ -98,9 +98,10 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-doc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 07/14] drm/rockchip: move to
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 08/14] drm/sprd: move to
  devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -113,40 +114,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UmVwbGFjZSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UgKyBkZXZtX2lvcmVtYXBfcmVzb3VyY2UKd2l0
-aCBqdXN0IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSgpCgpVc2VkIENvY2NpbmVsbGUg
-dG8gZG8gdGhpcyBjaGFuZ2UuIFNtUGwgcGF0Y2g6CkBydWxlXzFACmlkZW50aWZpZXIgcmVzOwpl
-eHByZXNzaW9uIGlvcmVtYXBfcmVzOwppZGVudGlmaWVyIHBkZXY7CkBACi1zdHJ1Y3QgcmVzb3Vy
-Y2UgKnJlczsKLi4uCi1yZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwuLi4pOwotaW9y
-ZW1hcF9yZXMgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoLi4uKTsKK2lvcmVtYXBfcmVzID0gZGV2
-bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlKHBkZXYsMCk7CgpDYzogU2FuZHkgSHVhbmcgPGhq
-Y0Byb2NrLWNoaXBzLmNvbT4KQ2M6IEhlaWtvIFN0w7xibmVyIDxoZWlrb0BzbnRlY2guZGU+CkNj
-OiBBbmR5IFlhbiA8YW5keS55YW5Acm9jay1jaGlwcy5jb20+ClNpZ25lZC1vZmYtYnk6IEFudXNo
-YSBTcml2YXRzYSA8YXNyaXZhdHNAcmVkaGF0LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcm9j
-a2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jIHwgNCArLS0tCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
-cnRpb24oKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3Jv
-Y2tjaGlwL3JvY2tjaGlwX2RybV92b3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2Nr
-Y2hpcF9kcm1fdm9wLmMKaW5kZXggNTc3NDdmMWNmZjI2ZTQ0NGVmMzU2OTk4M2Q2YTdmNzkyMmYw
-M2ZmNy4uNGM2MzlmN2M4Njg5MDdmYzM1Y2UyMmYyZWY3ZTI4MWFkODVjMmQ5ZSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlwX2RybV92b3AuYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCkBAIC0yMTg3LDcgKzIxODcs
-NiBAQCBzdGF0aWMgaW50IHZvcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmlj
-ZSAqbWFzdGVyLCB2b2lkICpkYXRhKQogCWNvbnN0IHN0cnVjdCB2b3BfZGF0YSAqdm9wX2RhdGE7
-CiAJc3RydWN0IGRybV9kZXZpY2UgKmRybV9kZXYgPSBkYXRhOwogCXN0cnVjdCB2b3AgKnZvcDsK
-LQlzdHJ1Y3QgcmVzb3VyY2UgKnJlczsKIAlpbnQgcmV0LCBpcnE7CiAKIAl2b3BfZGF0YSA9IG9m
-X2RldmljZV9nZXRfbWF0Y2hfZGF0YShkZXYpOwpAQCAtMjIwNyw4ICsyMjA2LDcgQEAgc3RhdGlj
-IGludCB2b3BfYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3Rlciwg
-dm9pZCAqZGF0YSkKIAogCXZvcF93aW5faW5pdCh2b3ApOwogCi0JcmVzID0gcGxhdGZvcm1fZ2V0
-X3Jlc291cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAwKTsKLQl2b3AtPnJlZ3MgPSBkZXZtX2lv
-cmVtYXBfcmVzb3VyY2UoZGV2LCByZXMpOworCXZvcC0+cmVncyA9IGRldm1fcGxhdGZvcm1faW9y
-ZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKIAlpZiAoSVNfRVJSKHZvcC0+cmVncykpCiAJCXJldHVy
-biBQVFJfRVJSKHZvcC0+cmVncyk7CiAJdm9wLT5sZW4gPSByZXNvdXJjZV9zaXplKHJlcyk7Cgot
-LSAKMi40Ny4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+Replace platform_get_resource + devm_ioremap
+with just devm_platform_ioremap_resource()
+
+Used Coccinelle to do this change. SmPl patch:
+@rule_2@
+identifier res;
+expression ioremap;
+identifier pdev;
+@@
+-struct resource *res;
+...
+-res = platform_get_resource(pdev,...);
+<...
+-if (!res) {
+-...
+-}
+...>
+-ioremap = devm_ioremap(...);
++ioremap = devm_platform_ioremap_resource(pdev,0);
+
+Cc: Chunyan Zhang <zhang.lyra@gmail.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
+---
+ drivers/gpu/drm/sprd/sprd_dpu.c | 9 +--------
+ drivers/gpu/drm/sprd/sprd_dsi.c | 9 +--------
+ 2 files changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/sprd/sprd_dpu.c b/drivers/gpu/drm/sprd/sprd_dpu.c
+index cb2816985305fd19eac27413c214681a5a1e9ffa..65cd5aa1634eee5a6735ccffa4ee3979844d92ce 100644
+--- a/drivers/gpu/drm/sprd/sprd_dpu.c
++++ b/drivers/gpu/drm/sprd/sprd_dpu.c
+@@ -784,16 +784,9 @@ static int sprd_dpu_context_init(struct sprd_dpu *dpu,
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	struct dpu_context *ctx = &dpu->ctx;
+-	struct resource *res;
+ 	int ret;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	if (!res) {
+-		dev_err(dev, "failed to get I/O resource\n");
+-		return -EINVAL;
+-	}
+-
+-	ctx->base = devm_ioremap(dev, res->start, resource_size(res));
++	ctx->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (!ctx->base) {
+ 		dev_err(dev, "failed to map dpu registers\n");
+ 		return -EFAULT;
+diff --git a/drivers/gpu/drm/sprd/sprd_dsi.c b/drivers/gpu/drm/sprd/sprd_dsi.c
+index 8fc26479bb6bce0aa94914f49d0986a7e19326c1..1668bb4166ab0ad3812c5654244544a9caf249a6 100644
+--- a/drivers/gpu/drm/sprd/sprd_dsi.c
++++ b/drivers/gpu/drm/sprd/sprd_dsi.c
+@@ -901,15 +901,8 @@ static int sprd_dsi_context_init(struct sprd_dsi *dsi,
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+ 	struct dsi_context *ctx = &dsi->ctx;
+-	struct resource *res;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	if (!res) {
+-		dev_err(dev, "failed to get I/O resource\n");
+-		return -EINVAL;
+-	}
+-
+-	ctx->base = devm_ioremap(dev, res->start, resource_size(res));
++	ctx->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (!ctx->base) {
+ 		drm_err(dsi->drm, "failed to map dsi host registers\n");
+ 		return -ENXIO;
+
+-- 
+2.47.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
