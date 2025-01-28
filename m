@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF403A20BD2
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 15:15:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5E4A20BDE
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2025 15:18:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5447EC78026;
-	Tue, 28 Jan 2025 14:15:15 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9496AC78026;
+	Tue, 28 Jan 2025 14:18:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A900C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3254BC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2025 14:15:08 +0000 (UTC)
+ Tue, 28 Jan 2025 14:18:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 70356A40CB9;
- Tue, 28 Jan 2025 14:13:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E98BC4CED3;
- Tue, 28 Jan 2025 14:14:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D8DBA5C5779;
+ Tue, 28 Jan 2025 14:17:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB46C4CED3;
+ Tue, 28 Jan 2025 14:18:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738073707;
- bh=8PBtS2S3XxVdCLSaJH6kLfHYrdk4SM3PxxSrFIw6x5Y=;
+ s=k20201202; t=1738073906;
+ bh=yNy5v7csVeL9YFrlxukzH7BZhthxkurzRf6NSESz4Kg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=e14cbGaInh0NR+A7fT0HG70AK6WyyR5LKWFhSpaLTBYwHajZwUfD240x6RbBB/tas
- 92Zwp7qwywqz27UUJ6sWm4btAj+fNFAYmXfK02eODiCnuDd+wGaK+smbaqOLNx+7Tt
- YjydWdZaVeR9nUpOTaOXhs/uKhYufgiCX15xopb8EOJZrhE2M1wrXSwQq1ULpFnZVo
- VLBAnezF/TRiHWwCz9kcJAM7MR3zVspyq7dRZ06q3zfH70zwlz0WA14B865nFbuhcX
- pLBqNTiJ+tr3fP5Lxf05MbYH03YEarWqQty7JZB8cEJLff1cER5HXViGVfKQtl7+K1
- AWPH7o8wQMp8w==
-Message-ID: <1da56c20-c522-428e-81ff-bc2f9ee0f524@kernel.org>
-Date: Tue, 28 Jan 2025 15:14:55 +0100
+ b=AGsUFwDJ2Ws/psN+XFqxhFbBDYdwXLAqUEiMhREKV4AAJlxm+se5UM752yA3ImpFH
+ 57suGbRwSS53rmPhugJsvNQBw0b8bI2qPQC/3laBlaLKzFNc9tEBUB307KIz6dwe3x
+ e22LqE1JX80JxYsNszfJtbvHc+xfaQHMk6nqbvlFSenNK1Wdfkl0hmOqYHvkafknag
+ RMs+FfDnTR1wY2EURNC193xa2Gx5Pt+WUOG8R4yNhi2FYlQTalf0gPXGQksDzPhWDh
+ bXUnCjg0QhVnmFa2fmDPGP8a+6kEqZ3HKElA6dNNWqDBCll5UmWRXnD8GwZ2+Mg8Ta
+ fS3VIO3KQMa8Q==
+Message-ID: <918d6885-969e-46f1-b414-614905b12831@kernel.org>
+Date: Tue, 28 Jan 2025 15:18:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Swathi K S <swathi.ks@samsung.com>, robh@kernel.org, davem@davemloft.net, 
@@ -37,8 +37,8 @@ To: Swathi K S <swathi.ks@samsung.com>, robh@kernel.org, davem@davemloft.net,
  conor+dt@kernel.org, richardcochran@gmail.com, mcoquelin.stm32@gmail.com,
  andrew@lunn.ch, alim.akhtar@samsung.com, linux-fsd@tesla.com
 References: <20250128102558.22459-1-swathi.ks@samsung.com>
- <CGME20250128102725epcas5p44b02ac2980a3aeb0016ce9fdef011ecf@epcas5p4.samsung.com>
- <20250128102558.22459-2-swathi.ks@samsung.com>
+ <CGME20250128102743epcas5p1388a66efc96444adc8f1dbe78d7239b9@epcas5p1.samsung.com>
+ <20250128102558.22459-5-swathi.ks@samsung.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -84,15 +84,15 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20250128102558.22459-2-swathi.ks@samsung.com>
+In-Reply-To: <20250128102558.22459-5-swathi.ks@samsung.com>
 Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  ravi.patel@samsung.com, rcsekar@samsung.com, netdev@vger.kernel.org,
  jayati.sahu@samsung.com, ssiddha@tesla.com, linux-kernel@vger.kernel.org,
  joabreu@synopsys.com, pankaj.dubey@samsung.com, peppe.cavallaro@st.com,
  gost.dev@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 1/4] dt-bindings: net: Add FSD EQoS
- device tree bindings
+Subject: Re: [Linux-stm32] [PATCH v5 4/4] arm64: dts: fsd: Add Ethernet
+ support for PERIC Block of FSD SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,72 +110,21 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 28/01/2025 11:25, Swathi K S wrote:
-> +  Tesla ethernet devices based on dwmmac support Gigabit ethernet.
+>  
+>  &pinctrl_pmu {
+> diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi b/arch/arm64/boot/dts/tesla/fsd.dtsi
+> index cc67930ebf78..670f6a852542 100644
+> --- a/arch/arm64/boot/dts/tesla/fsd.dtsi
+> +++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
+> @@ -1027,6 +1027,33 @@
+>  			phy-mode = "rgmii-id";
+>  			status = "disabled";
+>  		};
 > +
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: tesla,fsd-ethqos.yaml
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 5
-> +    maxItems: 10
+> +		ethernet_1: ethernet@14300000 {
 
-Why is this flexible?
-
-Anyway, you need to list and describe the items instead of min/maxItems.
-
-> +
-> +  clock-names:
-> +    minItems: 5
-> +    maxItems: 10
-
-Same here.
-
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  phy-mode:
-> +    enum:
-> +     - rgmii-id
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - iommus
-> +  - phy-mode
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/fsd-clk.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    ethernet_1: ethernet@14300000 {
-
-Please implement last comment from Rob.
-
-> +              compatible = "tesla,fsd-ethqos";
-> +              reg = <0x0 0x14300000 0x0 0x10000>;
-
-And since there is going to be new version, switch to the preferred
-indentation (4-space). Other option is 2 spaces, but not 8.
-
-> +...
-
+Don't add nodes to the end, because that lead to mess we have there.
+Squeeze it somewhere where impact on resorting would be the smallest.
 
 Best regards,
 Krzysztof
