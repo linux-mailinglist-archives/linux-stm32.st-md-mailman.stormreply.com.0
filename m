@@ -2,62 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23146A22350
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 18:48:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75883A22371
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 18:54:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B23E6C7803C;
-	Wed, 29 Jan 2025 17:48:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EE2EC7803C;
+	Wed, 29 Jan 2025 17:54:13 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B3A7C78034
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBC30C78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jan 2025 17:48:30 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50TCeDMg014111;
- Wed, 29 Jan 2025 18:48:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- za9dNj6z5UwMbMZAHOKmk5bfHNfMXx0RETQ+5ugmfNE=; b=PS4MExHczAtm0Lka
- 8VZM6oCkv286HoxwuYcSXBTKqL2nw5kTLgJ3F/vKK7DZGjjjz7tbqxdc6aFFeXOw
- XKMlLhI808y+s+FpeBUxamaDQMqHB/P98FfpUtIvP6Qscy+sv14jnVI2tvwO1hFF
- 9R/v/DSG2ix5D750Zc02jcTfve+Scf3aanbLlOOv7xZP/gzYDDnUP5Gv2iGIM7AD
- OAqJXbAQwGI96tm5zVQqgaVmDxc/57qNG4AcJLMf/IQ8ch9xO7/BOV0/BVEiC05G
- N1NKeznoRzKM1FNwH6E0ewJNaZ2prbgRxM4D+90X1p4jWspDk5NNbO5T/ST/NiIt
- tMEMRA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44f4134d06-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Jan 2025 18:48:00 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C08524002D;
- Wed, 29 Jan 2025 18:46:38 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BCFC43CD6F7;
- Wed, 29 Jan 2025 18:40:25 +0100 (CET)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Wed, 29 Jan
- 2025 18:40:24 +0100
-Message-ID: <e3d01bce-a7d4-4690-8a2f-3bbb1ee5ccb7@foss.st.com>
-Date: Wed, 29 Jan 2025 18:40:23 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Conor Dooley <conor@kernel.org>
+ Wed, 29 Jan 2025 17:54:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 26D76A407BF;
+ Wed, 29 Jan 2025 17:52:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454BFC4CED1;
+ Wed, 29 Jan 2025 17:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738173243;
+ bh=Zyf2Hutc5cy0T89YVPvTglk6LxkQN6P68b7+zGZ837w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BU+nGcuTtFSX63zvw1OdWg01bkYPv85CIq9lThHNzW8t3mpk5pTpn0NqgjviFTmRG
+ 9uVfhz8se45xyyaEoJqxNWNjKuRHlArPi8QK/gm8W4zzZRChSe5OMBBJs4YmF6Xk01
+ sPPyyCDIlHHO8uk0UwfddpjuVyJA/DKOtpq6iajj1opHiHc44poT3PnxtTO9Wvohzn
+ lL6dN2TRIQYh2GV3Uk1SIrsvbOp91L6c7FJTLx3O2QtGJ7nQ+mVSh+Ti7kAb9zQvj2
+ Q4jA3SJG9OJICbc50j21pWb8Of7cSotac9oTJ3OYI880BfnboqeSHWj3FWLzUXsC/j
+ HDAusBlf+F/iw==
+Date: Wed, 29 Jan 2025 17:53:57 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <20250129-feminize-spotlight-2cee53f8b463@spud>
 References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
  <20250128081731.2284457-2-patrice.chotard@foss.st.com>
  <20250128-panama-manly-a753d91c297c@spud>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20250128-panama-manly-a753d91c297c@spud>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-29_03,2025-01-29_01,2024-11-22_01
+ <e3d01bce-a7d4-4690-8a2f-3bbb1ee5ccb7@foss.st.com>
+MIME-Version: 1.0
+In-Reply-To: <e3d01bce-a7d4-4690-8a2f-3bbb1ee5ccb7@foss.st.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
@@ -79,122 +59,142 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7933265041518175468=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxLzI4LzI1IDE5OjAyLCBDb25vciBEb29sZXkgd3JvdGU6Cj4gT24gVHVlLCBKYW4gMjgs
-IDIwMjUgYXQgMDk6MTc6MjNBTSArMDEwMCwgcGF0cmljZS5jaG90YXJkQGZvc3Muc3QuY29tIHdy
-b3RlOgo+PiBGcm9tOiBQYXRyaWNlIENob3RhcmQgPHBhdHJpY2UuY2hvdGFyZEBmb3NzLnN0LmNv
-bT4KPj4KPj4gQWRkIGRldmljZSB0cmVlIGJpbmRpbmdzIGZvciB0aGUgU1RNMzIgT1NQSSBjb250
-cm9sbGVyLgo+Pgo+PiBNYWluIGZlYXR1cmVzIG9mIHRoZSBPY3RvLVNQSSBjb250cm9sbGVyIDoK
-Pj4gICAtIHN1cHBvcnQgc05PUiAvIHNOQU5EIC8gSHlwZXJSQU3ihKIgYW5kIEh5cGVyRmxhc2ji
-hKIgZGV2aWNlcy4KPj4gICAtIFRocmVlIGZ1bmN0aW9uYWwgbW9kZXM6IGluZGlyZWN0LCBhdXRv
-bWF0aWMtc3RhdHVzIHBvbGxpbmcsCj4+ICAgICBtZW1vcnktbWFwcGVkLgo+PiAgIC0gVXAgdG8g
-NCBHYnl0ZXMgb2YgZXh0ZXJuYWwgbWVtb3J5IGNhbiBiZSBhZGRyZXNzZWQgaW4gaW5kaXJlY3QK
-Pj4gICAgIG1vZGUgKHBlciBwaHlzaWNhbCBwb3J0IGFuZCBwZXIgQ1MpLCBhbmQgdXAgdG8gMjU2
-IE1ieXRlcyBpbgo+PiAgICAgbWVtb3J5LW1hcHBlZCBtb2RlIChjb21iaW5lZCBmb3IgYm90aCBw
-aHlzaWNhbCBwb3J0cyBhbmQgcGVyIENTKS4KPj4gICAtIFNpbmdsZS0sIGR1YWwtLCBxdWFkLSwg
-YW5kIG9jdGFsLVNQSSBjb21tdW5pY2F0aW9uLgo+PiAgIC0gRHVhbC1xdWFkIGNvbW11bmljYXRp
-b24uCj4+ICAgLSBTaW5nbGUgZGF0YSByYXRlIChTRFIpIGFuZCBkb3VibGUgdHJhbnNmZXIgcmF0
-ZSAoRFRSKS4KPj4gICAtIE1heGltdW0gdGFyZ2V0IGZyZXF1ZW5jeSBpcyAxMzMgTUh6IGZvciBT
-RFIgYW5kIDEzMyBNSHogZm9yIERUUi4KPj4gICAtIERhdGEgc3Ryb2JlIHN1cHBvcnQuCj4+ICAg
-LSBETUEgY2hhbm5lbCBmb3IgaW5kaXJlY3QgbW9kZS4KPj4gICAtIERvdWJsZSBDUyBtYXBwaW5n
-IHRoYXQgYWxsb3dzIHR3byBleHRlcm5hbCBmbGFzaCBkZXZpY2VzIHRvIGJlCj4+ICAgICBhZGRy
-ZXNzZWQgd2l0aCBhIHNpbmdsZSBPQ1RPU1BJIGNvbnRyb2xsZXIgbWFwcGVkIG9uIGEgc2luZ2xl
-Cj4+ICAgICBPQ1RPU1BJIHBvcnQuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFBhdHJpY2UgQ2hvdGFy
-ZCA8cGF0cmljZS5jaG90YXJkQGZvc3Muc3QuY29tPgo+PiAtLS0KPj4gIC4uLi9iaW5kaW5ncy9z
-cGkvc3Qsc3RtMzJtcDI1LW9zcGkueWFtbCAgICAgICB8IDEwMiArKysrKysrKysrKysrKysrKysK
-Pj4gIDEgZmlsZSBjaGFuZ2VkLCAxMDIgaW5zZXJ0aW9ucygrKQo+PiAgY3JlYXRlIG1vZGUgMTAw
-NjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zcGkvc3Qsc3RtMzJtcDI1LW9z
-cGkueWFtbAo+Pgo+PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL3NwaS9zdCxzdG0zMm1wMjUtb3NwaS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL3NwaS9zdCxzdG0zMm1wMjUtb3NwaS55YW1sCj4+IG5ldyBmaWxlIG1vZGUgMTAw
-NjQ0Cj4+IGluZGV4IDAwMDAwMDAwMDAwMC4uZjFkNTM5NDQ0NjczCj4+IC0tLSAvZGV2L251bGwK
-Pj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NwaS9zdCxzdG0zMm1w
-MjUtb3NwaS55YW1sCj4+IEBAIC0wLDAgKzEsMTAyIEBACj4+ICsjIFNQRFgtTGljZW5zZS1JZGVu
-dGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNsYXVzZSkKPj4gKyVZQU1MIDEuMgo+PiAr
-LS0tCj4+ICskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL3NwaS9zdCxzdG0zMm1w
-MjUtb3NwaS55YW1sIwo+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2No
-ZW1hcy9jb3JlLnlhbWwjCj4+ICsKPj4gK3RpdGxlOiBTVE1pY3JvZWxlY3Ryb25pY3MgU1RNMzIg
-T2N0YWwgU2VyaWFsIFBlcmlwaGVyYWwgSW50ZXJmYWNlIChPU1BJKQo+PiArCj4+ICttYWludGFp
-bmVyczoKPj4gKyAgLSBQYXRyaWNlIENob3RhcmQgPHBhdHJpY2UuY2hvdGFyZEBmb3NzLnN0LmNv
-bT4KPj4gKwo+PiArYWxsT2Y6Cj4+ICsgIC0gJHJlZjogc3BpLWNvbnRyb2xsZXIueWFtbCMKPj4g
-Kwo+PiArcHJvcGVydGllczoKPj4gKyAgY29tcGF0aWJsZToKPj4gKyAgICBjb25zdDogc3Qsc3Rt
-MzJtcDI1LW9zcGkKPj4gKwo+PiArICByZWc6Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiAr
-ICBtZW1vcnktcmVnaW9uOgo+PiArICAgIG1heEl0ZW1zOiAxCj4gCj4gV2hhdGV2ZXIgYWJvdXQg
-bm90IGhhdmluZyBkZXNjcmlwdGlvbnMgZm9yIGNsb2NrcyBvciByZWcgd2hlbiB0aGVyZSdzCj4g
-b25seSBvbmUsIEkgdGhpbmsgYSBtZW1vcnkgcmVnaW9uIHNob3VsZCBiZSBleHBsYWluZWQuCgpv
-ayBpIHdpbGwgYWRkIDoKCiAgICBkZXNjcmlwdGlvbjogfAogICAgICBNZW1vcnkgcmVnaW9uIHRv
-IGJlIHVzZWQgZm9yIG1lbW9yeS1tYXAgcmVhZCBhY2Nlc3MuCgo+IAo+PiArCj4+ICsgIGNsb2Nr
-czoKPj4gKyAgICBtYXhJdGVtczogMQo+PiArCj4+ICsgIGludGVycnVwdHM6Cj4+ICsgICAgbWF4
-SXRlbXM6IDEKPj4gKwo+PiArICByZXNldHM6Cj4+ICsgICAgaXRlbXM6Cj4+ICsgICAgICAtIGRl
-c2NyaXB0aW9uOiBwaGFuZGxlIHRvIE9TUEkgYmxvY2sgcmVzZXQKPj4gKyAgICAgIC0gZGVzY3Jp
-cHRpb246IHBoYW5kbGUgdG8gZGVsYXkgYmxvY2sgcmVzZXQKPj4gKwo+PiArICBkbWFzOgo+PiAr
-ICAgIG1heEl0ZW1zOiAyCj4+ICsKPj4gKyAgZG1hLW5hbWVzOgo+PiArICAgIGl0ZW1zOgo+PiAr
-ICAgICAgLSBjb25zdDogdHgKPj4gKyAgICAgIC0gY29uc3Q6IHJ4Cj4+ICsKPj4gKyAgc3Qsc3lz
-Y2ZnLWRseWI6Cj4+ICsgICAgZGVzY3JpcHRpb246IHBoYW5kbGUgdG8gc3lzY29uIGJsb2NrCj4+
-ICsgICAgICBVc2UgdG8gc2V0IHRoZSBPU1BJIGRlbGF5IGJsb2NrIHdpdGhpbiBzeXNjb24gdG8K
-Pj4gKyAgICAgIHR1bmUgdGhlIHBoYXNlIG9mIHRoZSBSWCBzYW1wbGluZyBjbG9jayAob3IgRFFT
-KSBpbiBvcmRlcgo+PiArICAgICAgdG8gc2FtcGxlIHRoZSBkYXRhIGluIHRoZWlyIHZhbGlkIHdp
-bmRvdyBhbmQgdG8KPj4gKyAgICAgIHR1bmUgdGhlIHBoYXNlIG9mIHRoZSBUWCBsYXVuY2ggY2xv
-Y2sgaW4gb3JkZXIgdG8gbWVldCBzZXR1cAo+PiArICAgICAgYW5kIGhvbGQgY29uc3RyYWludHMg
-b2YgVFggc2lnbmFscyB2ZXJzdXMgdGhlIG1lbW9yeSBjbG9jay4KPj4gKyAgICAkcmVmOiAvc2No
-ZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlLWFycmF5Cj4gCj4gV2h5IGRvIHlv
-dSBuZWVkIGEgcGhhbmRsZSBoZXJlPyBJIGFzc3VtZSBsb29raW5nIHVwIGJ5IGNvbXBhdGlibGUg
-YWluJ3QKPiBwb3NzaWJsZSBiZWNhdXNlIHlvdSBoYXZlIG11bHRpcGxlIGNvbnRyb2xsZXJzIG9u
-IHRoZSBTb0M/IEFsc28sIEkgZG9uJ3QKClllcywgd2UgZ290IDIgT0NUT1NQSSBjb250cm9sbGVy
-LCBlYWNoIG9mIHRoZW0gaGF2ZSBhIGRlZGljYXRlZCBkZWxheSBibG9jawogc3lzY2ZnIHJlZ2lz
-dGVyLgoKPiB0aGluayB5b3VyIGNvcHktcGFzdGUgInBoYW5kbGUgdG8iIHN0dWZmIGhlcmUgaXMg
-YWNjdXJhdGU6Cj4gICAgICAgc3Qsc3lzY2ZnLWRseWIgPSA8JnN5c2NmZyAweDEwMDA+Owo+IFRo
-ZXJlJ3MgYW4gb2Zmc2V0IGhlcmUgdGhhdCB5b3UgZG9uJ3QgbWVudGlvbiBpbiB5b3VyIGRlc2Ny
-aXB0aW9uLgoKSSB3aWxsIGFkZCBpdCBhcyBmb2xsb3dpbmc6CgogIHN0LHN5c2NmZy1kbHliOgog
-ICAgZGVzY3JpcHRpb246CiAgICAgIFVzZSB0byBzZXQgdGhlIE9TUEkgZGVsYXkgYmxvY2sgd2l0
-aGluIHN5c2NvbiB0bwogICAgICB0dW5lIHRoZSBwaGFzZSBvZiB0aGUgUlggc2FtcGxpbmcgY2xv
-Y2sgKG9yIERRUykgaW4gb3JkZXIKICAgICAgdG8gc2FtcGxlIHRoZSBkYXRhIGluIHRoZWlyIHZh
-bGlkIHdpbmRvdyBhbmQgdG8KICAgICAgdHVuZSB0aGUgcGhhc2Ugb2YgdGhlIFRYIGxhdW5jaCBj
-bG9jayBpbiBvcmRlciB0byBtZWV0IHNldHVwCiAgICAgIGFuZCBob2xkIGNvbnN0cmFpbnRzIG9m
-IFRYIHNpZ25hbHMgdmVyc3VzIHRoZSBtZW1vcnkgY2xvY2suCiAgICAkcmVmOiAvc2NoZW1hcy90
-eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlLWFycmF5CiAgICBpdGVtczoKICAgICAgLSBk
-ZXNjcmlwdGlvbjogcGhhbmRsZSB0byBzeXNjZmcKICAgICAgLSBkZXNjcmlwdGlvbjogcmVnaXN0
-ZXIgb2Zmc2V0IHdpdGhpbiBzeXNjZmcKCgo+IAo+PiArICAgIGl0ZW1zOgo+PiArICAgICAgbWF4
-SXRlbXM6IDEKPj4gKwo+PiArICBhY2Nlc3MtY29udHJvbGxlcnM6Cj4+ICsgICAgZGVzY3JpcHRp
-b246IHBoYW5kbGUgdG8gdGhlIHJpZnNjIGRldmljZSB0byBjaGVjayBhY2Nlc3MgcmlnaHQKPj4g
-KyAgICAgIGFuZCBpbiBzb21lIGNhc2VzLCBhbiBhZGRpdGlvbmFsIHBoYW5kbGUgdG8gdGhlIHJj
-YyBkZXZpY2UgZm9yCj4+ICsgICAgICBzZWN1cmUgY2xvY2sgY29udHJvbAo+IAo+IFRoaXMgc2hv
-dWxkIGJlIGRlc2NyaWJlZCB1c2luZyBpdGVtcyByYXRoZXIgdGhhbiBhIGZyZWUtZm9ybSBsaXN0
-LgoKICBhY2Nlc3MtY29udHJvbGxlcnM6CiAgICBkZXNjcmlwdGlvbjogcGhhbmRsZSB0byB0aGUg
-cmlmc2MgZGV2aWNlIHRvIGNoZWNrIGFjY2VzcyByaWdodAogICAgICBhbmQgaW4gc29tZSBjYXNl
-cywgYW4gYWRkaXRpb25hbCBwaGFuZGxlIHRvIHRoZSByY2MgZGV2aWNlIGZvcgogICAgICBzZWN1
-cmUgY2xvY2sgY29udHJvbAogICAgaXRlbXM6CiAgICAgIC0gZGVzY3JpcHRpb246IHBoYW5kbGUg
-dG8gYnVzIGNvbnRyb2xsZXIgb3IgdG8gY2xvY2sgY29udHJvbGxlcgogICAgICAtIGRlc2NyaXB0
-aW9uOiBhY2Nlc3MgY29udHJvbGxlciBzcGVjaWZpZXIKICAgICBtaW5JdGVtczogMQogICAgIG1h
-eEl0ZW1zOiAyCgo+IAo+PiArICAgIG1pbkl0ZW1zOiAxCj4+ICsgICAgbWF4SXRlbXM6IDIKPj4g
-Kwo+PiArICBwb3dlci1kb21haW5zOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+ICsKPj4gK3JlcXVp
-cmVkOgo+PiArICAtIGNvbXBhdGlibGUKPj4gKyAgLSByZWcKPj4gKyAgLSBjbG9ja3MKPj4gKyAg
-LSBpbnRlcnJ1cHRzCj4+ICsgIC0gc3Qsc3lzY2ZnLWRseWIKPj4gKwo+PiArdW5ldmFsdWF0ZWRQ
-cm9wZXJ0aWVzOiBmYWxzZQo+PiArCj4+ICtleGFtcGxlczoKPj4gKyAgLSB8Cj4+ICsgICAgI2lu
-Y2x1ZGUgPGR0LWJpbmRpbmdzL2Nsb2NrL3N0LHN0bTMybXAyNS1yY2MuaD4KPj4gKyAgICAjaW5j
-bHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIvYXJtLWdpYy5oPgo+PiArICAg
-ICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9yZXNldC9zdCxzdG0zMm1wMjUtcmNjLmg+Cj4+ICsgICAg
-c3BpQDQwNDMwMDAwIHsKPiAKPiBuaXQ6IHlvdSBtaXNzaW5nIGEgYmxhbmsgbGluZSBoZXJlLgo+
-IAo+PiArICAgICAgY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMjUtb3NwaSI7Cj4+ICsgICAgICBy
-ZWcgPSA8MHg0MDQzMDAwMCAweDQwMD47Cj4+ICsgICAgICBtZW1vcnktcmVnaW9uID0gPCZtbV9v
-c3BpMT47Cj4+ICsgICAgICBpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMTYzIElSUV9UWVBFX0xFVkVM
-X0hJR0g+Owo+PiArICAgICAgZG1hcyA9IDwmaHBkbWEgMiAweDYyIDB4MDAwMDMxMjEgMHgwPiwK
-Pj4gKyAgICAgICAgICAgICA8JmhwZG1hIDIgMHg0MiAweDAwMDAzMTEyIDB4MD47Cj4+ICsgICAg
-ICBkbWEtbmFtZXMgPSAidHgiLCAicngiOwo+PiArICAgICAgY2xvY2tzID0gPCZzY21pX2NsayBD
-S19TQ01JX09TUEkxPjsKPj4gKyAgICAgIHJlc2V0cyA9IDwmc2NtaV9yZXNldCBSU1RfU0NNSV9P
-U1BJMT4sIDwmc2NtaV9yZXNldCBSU1RfU0NNSV9PU1BJMURMTD47Cj4+ICsgICAgICBhY2Nlc3Mt
-Y29udHJvbGxlcnMgPSA8JnJpZnNjIDc0PjsKPj4gKyAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JkNM
-VVNURVJfUEQ+Owo+PiArICAgICAgc3Qsc3lzY2ZnLWRseWIgPSA8JnN5c2NmZyAweDEwMDA+Owo+
-PiArCj4+ICsgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsKPj4gKyAgICAgICNzaXplLWNlbGxz
-ID0gPDA+Owo+PiArCj4+ICsgICAgICBmbGFzaEAwIHsKPj4gKyAgICAgICAgY29tcGF0aWJsZSA9
-ICJqZWRlYyxzcGktbm9yIjsKPj4gKyAgICAgICAgcmVnID0gPDA+Owo+PiArICAgICAgICBzcGkt
-cngtYnVzLXdpZHRoID0gPDQ+Owo+PiArICAgICAgICBzcGktbWF4LWZyZXF1ZW5jeSA9IDwxMDgw
-MDAwMDA+Owo+PiArICAgICAgfTsKPj4gKyAgICB9Owo+PiAtLSAKPj4gMi4yNS4xCj4+Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+
+--===============7933265041518175468==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="klBchq5Iv61GqXw7"
+Content-Disposition: inline
+
+
+--klBchq5Iv61GqXw7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jan 29, 2025 at 06:40:23PM +0100, Patrice CHOTARD wrote:
+> On 1/28/25 19:02, Conor Dooley wrote:
+> > On Tue, Jan 28, 2025 at 09:17:23AM +0100, patrice.chotard@foss.st.com w=
+rote:
+> >> +  memory-region:
+> >> +    maxItems: 1
+> >=20
+> > Whatever about not having descriptions for clocks or reg when there's
+> > only one, I think a memory region should be explained.
+>=20
+> ok i will add :
+>=20
+>     description: |
+
+The | isn't needed here.
+
+>       Memory region to be used for memory-map read access.
+
+I don't think that's a good explanation, sorry. Why's a memory-region
+required for read access?
+
+> >> +
+> >> +  clocks:
+> >> +    maxItems: 1
+> >> +
+> >> +  interrupts:
+> >> +    maxItems: 1
+> >> +
+> >> +  resets:
+> >> +    items:
+> >> +      - description: phandle to OSPI block reset
+> >> +      - description: phandle to delay block reset
+> >> +
+> >> +  dmas:
+> >> +    maxItems: 2
+> >> +
+> >> +  dma-names:
+> >> +    items:
+> >> +      - const: tx
+> >> +      - const: rx
+> >> +
+> >> +  st,syscfg-dlyb:
+> >> +    description: phandle to syscon block
+> >> +      Use to set the OSPI delay block within syscon to
+> >> +      tune the phase of the RX sampling clock (or DQS) in order
+> >> +      to sample the data in their valid window and to
+> >> +      tune the phase of the TX launch clock in order to meet setup
+> >> +      and hold constraints of TX signals versus the memory clock.
+> >> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> >=20
+> > Why do you need a phandle here? I assume looking up by compatible ain't
+> > possible because you have multiple controllers on the SoC? Also, I don't
+>=20
+> Yes, we got 2 OCTOSPI controller, each of them have a dedicated delay blo=
+ck
+>  syscfg register.
+
+:+1:=20
+
+> > think your copy-paste "phandle to" stuff here is accurate:
+> >       st,syscfg-dlyb =3D <&syscfg 0x1000>;
+> > There's an offset here that you don't mention in your description.
+>=20
+> I will add it as following:
+>=20
+>   st,syscfg-dlyb:
+>     description:
+>       Use to set the OSPI delay block within syscon to
+>       tune the phase of the RX sampling clock (or DQS) in order
+>       to sample the data in their valid window and to
+>       tune the phase of the TX launch clock in order to meet setup
+>       and hold constraints of TX signals versus the memory clock.
+>     $ref: /schemas/types.yaml#/definitions/phandle-array
+>     items:
+>       - description: phandle to syscfg
+>       - description: register offset within syscfg
+
+:+1:
+
+> >> +  access-controllers:
+> >> +    description: phandle to the rifsc device to check access right
+> >> +      and in some cases, an additional phandle to the rcc device for
+> >> +      secure clock control
+> >=20
+> > This should be described using items rather than a free-form list.
+>=20
+>   access-controllers:
+>     description: phandle to the rifsc device to check access right
+>       and in some cases, an additional phandle to the rcc device for
+>       secure clock control
+>     items:
+>       - description: phandle to bus controller or to clock controller
+>       - description: access controller specifier
+>      minItems: 1
+>      maxItems: 2
+
+These updates look fine to me.
+
+--klBchq5Iv61GqXw7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ5prNQAKCRB4tDGHoIJi
+0tiOAQDd9BF6yvC5/EHySEFWBLCC14sZW3m0j9Y5sHG+IFLYJQD/SiGc3aoOaqRR
+GvI0wjS/7qTgY+FgXginJwblZbIzNAs=
+=C2X+
+-----END PGP SIGNATURE-----
+
+--klBchq5Iv61GqXw7--
+
+--===============7933265041518175468==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7933265041518175468==--
