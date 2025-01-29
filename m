@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52ACBA22069
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 16:32:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF3CA22078
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 16:33:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17A9BC78034;
-	Wed, 29 Jan 2025 15:32:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 360A9C78034;
+	Wed, 29 Jan 2025 15:33:34 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21BEAC78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37546C78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jan 2025 15:32:04 +0000 (UTC)
+ Wed, 29 Jan 2025 15:33:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 06A885C5DC8;
- Wed, 29 Jan 2025 15:31:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BE9C4CED1;
- Wed, 29 Jan 2025 15:32:01 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id A28B2A41A6C;
+ Wed, 29 Jan 2025 15:31:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8610C4CED1;
+ Wed, 29 Jan 2025 15:33:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738164722;
- bh=3eFheDSpWiyXUMIVePzaMmKiY4Irw4pDvAOo/KLDnaE=;
+ s=k20201202; t=1738164806;
+ bh=MINsAlGP+IWemPuIKVuQIkc4AnIYXc8ewNTg0fTGbZk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eNEyerr8J8cbrkMBUgupRCxukgjLdit161gsKlHuJxa+5IqchUKpPVtU4BV55gLHH
- arBcFMgvi5A3NFA1OOSoAZUoqHmhTBa8NxmwyXTU767gowKxQF2CYOKypUqndM2Dw4
- gMSGB/Rs7OZtmzE+zSYKGK7fR8O+vuWcQeSoRX0J0b6FiT5uxyH537PUh3ICy3gBE7
- qGorehjzmtey9b4Ie1xvoPiBep7Y95l8e4v8qYDm+4UZz/i0Ss81LEaBI2zJeYXHU1
- pwkIwiqaZHM9XFV7eReEW18xKSuzUrbPdEWsOuwBBrTaa3/7ZMCwQo/ZSyVQmAsg4Z
- xfrQZrqytCJow==
-Date: Wed, 29 Jan 2025 16:31:59 +0100
+ b=tqrvmPa5UhekDfsy+cPdeHlTD9eEK6B5/Kuz61v80rcNV7C5be85yrZ3LkZThJuqZ
+ REhX4Sx6D+sYCmlPMDzeLzuams0lpiG6AfMG21NglJQMD4qblG2xuEBx1Q3hernB8w
+ eG3UNI53K925jPmHC4QVjBlPQH7d815/egQX0aBgMGqoIsA5BruQ9KbbuqGxk/zAY2
+ zcTOw7JSTxKnnmHMk/4f7gn6RdZGjntB1ogpqPG4kBR27Hc1KH7qcmlVtke7DwPHfe
+ BUaaDWTH3JAPzWVYwfALZJW/P8WjAl3TbOMHbarnsPcyJAtx7JESkUJtZKpw2N+Xz4
+ Bl94cgjlVNDEQ==
+Date: Wed, 29 Jan 2025 16:33:22 +0100
 From: Maxime Ripard <mripard@kernel.org>
 To: Anusha Srivatsa <asrivats@redhat.com>
-Message-ID: <re7tzoh5jc62tne5yjxwedzgwytjiaobe7lmthufl64ianzkwd@5tr3snkco7n5>
+Message-ID: <6ccprzvnxkrqphxrsfp5gofzkicqyibjpveniup7wpra7p2tg2@x5tz45kit2oc>
 References: <20250128-cocci-memory-api-v1-0-0d1609a29587@redhat.com>
- <20250128-cocci-memory-api-v1-2-0d1609a29587@redhat.com>
+ <20250128-cocci-memory-api-v1-3-0d1609a29587@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20250128-cocci-memory-api-v1-2-0d1609a29587@redhat.com>
+In-Reply-To: <20250128-cocci-memory-api-v1-3-0d1609a29587@redhat.com>
 Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
  Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
@@ -72,7 +72,7 @@ Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
  Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 02/14] drm/fsl-dcu: move to
+Subject: Re: [Linux-stm32] [PATCH 03/14] drm/hisilicon: move to
  devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,26 +85,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2288728839747894484=="
+Content-Type: multipart/mixed; boundary="===============5671170664907439036=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============2288728839747894484==
+--===============5671170664907439036==
 Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="4ecgy27a4bl56ypl"
+	protocol="application/pgp-signature"; boundary="dupye724qr742yg3"
 Content-Disposition: inline
 
 
---4ecgy27a4bl56ypl
+--dupye724qr742yg3
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 02/14] drm/fsl-dcu: move to
+Subject: Re: [PATCH 03/14] drm/hisilicon: move to
  devm_platform_ioremap_resource() usage
 MIME-Version: 1.0
 
-On Tue, Jan 28, 2025 at 05:29:26PM -0500, Anusha Srivatsa wrote:
+On Tue, Jan 28, 2025 at 05:29:27PM -0500, Anusha Srivatsa wrote:
 > Replace platform_get_resource + devm_ioremap_resource
 > with just devm_platform_ioremap_resource()
 >=20
@@ -120,29 +120,34 @@ On Tue, Jan 28, 2025 at 05:29:26PM -0500, Anusha Srivatsa wrote:
 > -ioremap_res =3D devm_ioremap_resource(...);
 > +ioremap_res =3D devm_platform_ioremap_resource(pdev,0);
 >=20
-> Cc: Stefan Agner <stefan@agner.ch>
-> Cc: Alison Wang <alison.wang@nxp.com>
+> Cc: Xinliang Liu <xinliang.liu@linaro.org>
+> Cc: Tian Tao <tiantao6@hisilicon.com>
+> Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: Yongqin Liu <yongqin.liu@linaro.org>
+> Cc: John Stultz <jstultz@google.com>
+>=20
 > Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
 
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
 Maxime
 
---4ecgy27a4bl56ypl
+--dupye724qr742yg3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ5pJ7gAKCRAnX84Zoj2+
-dtrgAYCFjfwtMfB3t6F45oNqmLk0ks3YVtwAXdgRfdShn6/wFj/BV7iDvIgrpcCH
-qLlOFWEBgMW8WvTRwXwIETDgFjCMTrxFlK4L2dh4+vwJLxCZFKsXy41VgEFoC+Qs
-LXrrPbNtgw==
-=AGCA
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ5pKQgAKCRAnX84Zoj2+
+dgnAAYDocV8Hi1jItqly1rX3RgJxBvbHB7dRM9x+ADwfWacUO02HGMnqwmBc16Bx
+dkudzNMBf01rR/o3BCIIpg5xa99y2kiswp8ppBoSmPORAmV5OyaRnLWfOw8PehtB
+NryfqyN45g==
+=XqRS
 -----END PGP SIGNATURE-----
 
---4ecgy27a4bl56ypl--
+--dupye724qr742yg3--
 
---===============2288728839747894484==
+--===============5671170664907439036==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -153,4 +158,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============2288728839747894484==--
+--===============5671170664907439036==--
