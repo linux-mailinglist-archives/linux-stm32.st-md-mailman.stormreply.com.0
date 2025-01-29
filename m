@@ -2,126 +2,127 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C2BA21BEA
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 12:15:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC82A21BE7
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 12:15:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D896C78024;
-	Wed, 29 Jan 2025 11:15:37 +0000 (UTC)
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17B73C78F65;
+	Wed, 29 Jan 2025 11:15:32 +0000 (UTC)
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CCD41C7801F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4A57C78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jan 2025 11:15:35 +0000 (UTC)
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20250129111533epoutp02a8381351a124f97263fe72c12cd82608~fJZwj_oHp0238802388epoutp02E
+ Wed, 29 Jan 2025 11:15:30 +0000 (UTC)
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20250129111528epoutp04707be8685b04f9a40ba53ec0916d6155~fJZrywSQ91133611336epoutp04e
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jan 2025 11:15:33 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20250129111533epoutp02a8381351a124f97263fe72c12cd82608~fJZwj_oHp0238802388epoutp02E
+ Wed, 29 Jan 2025 11:15:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20250129111528epoutp04707be8685b04f9a40ba53ec0916d6155~fJZrywSQ91133611336epoutp04e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1738149333;
- bh=7KafLwe5Ak864laadz4lWr0U4uUHjRPyDm3Um1r99to=;
+ s=mail20170921; t=1738149328;
+ bh=xGuALcrPuSIk/tk+ACOlUB8rfuEt7Bvx3muPFTz4zHE=;
  h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=lAryOmNlo8wF2Yt09qmbIalPFwNJwZisuwRl63Aw5mKAGzw73JwJ9rGVWvgLeCaFx
- iSLSJDxGDoterQZvIOW5wJ3RrxHVcbZwi7VQlkJBfuuhwUJufH/PfzaKGjX1Pk2m55
- hHEnSG+onKJDir/+mXS2NhXWPYfTqEux0WR02PVQ=
+ b=rsGLB8N6va6oUb3YqxGVT2IOpORfLhi4/PlOznnJIPedlqMZI//gP8WVO24JGsuUE
+ rVqfAvq60Gw6O4RQSOLOVeMjHiNbM2wLcNmMiUSUiKH0aNWiN1qapE0JQQYhWbtJvp
+ 8T2QUFPYOLmmcBqQBnjVnIXMNV/0eZ7lB4msCskE=
 Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTP id
- 20250129111533epcas5p3fb6c773931fe4b1ec6a10c86d9dfa680~fJZv9gpLW2607226072epcas5p3J;
- Wed, 29 Jan 2025 11:15:33 +0000 (GMT)
-Received: from epsmgec5p1new.samsung.com (unknown [182.195.38.176]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4Yjfhg52tRz4x9Pv; Wed, 29 Jan
- 2025 11:15:31 +0000 (GMT)
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20250129111528epcas5p4ece79fb77edd90a7a080715fceb8fc57~fJZrScBPq1814118141epcas5p47;
+ Wed, 29 Jan 2025 11:15:28 +0000 (GMT)
+Received: from epsmgec5p1-new.samsung.com (unknown [182.195.38.175]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4YjfhY7429z4x9Pw; Wed, 29 Jan
+ 2025 11:15:25 +0000 (GMT)
 Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
- epsmgec5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 7A.A6.19710.3DD0A976; Wed, 29 Jan 2025 20:15:31 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epsmgec5p1-new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ E6.71.29212.DCD0A976; Wed, 29 Jan 2025 20:15:25 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
  epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20250129091536epcas5p34ebefd253ea0f1dfd5156bf61d2178be~fHxBy2mfS1265012650epcas5p3i;
- Wed, 29 Jan 2025 09:15:36 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20250129091536epsmtrp165ebd84cf7b218de312cb1eaa5292f00~fHxBwoZFK2781527815epsmtrp1D;
- Wed, 29 Jan 2025 09:15:36 +0000 (GMT)
-X-AuditID: b6c32a44-363dc70000004cfe-91-679a0dd38b67
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 39.D8.18949.8B1F9976; Wed, 29 Jan 2025 18:15:36 +0900 (KST)
-Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip1.samsung.com
+ 20250129091811epcas5p338ea019f7d192f9105b9439da53abbaa~fHzR7Mapz0667606676epcas5p36;
+ Wed, 29 Jan 2025 09:18:11 +0000 (GMT)
+Received: from epsmgmc1p1new.samsung.com (unknown [182.195.42.40]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20250129091811epsmtrp2b18e9e73296966f0b490b888948628d5~fHzR42lxZ0365703657epsmtrp2B;
+ Wed, 29 Jan 2025 09:18:11 +0000 (GMT)
+X-AuditID: b6c32a50-801fa7000000721c-2d-679a0dcd7119
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgmc1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 77.13.23488.352F9976; Wed, 29 Jan 2025 18:18:11 +0900 (KST)
+Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip2.samsung.com
  (KnoxPortal) with ESMTPA id
- 20250129091532epsmtip1c2376a781b64ca3de87ec443b8928834~fHw_L9rX62441124411epsmtip1O;
- Wed, 29 Jan 2025 09:15:32 +0000 (GMT)
+ 20250129091807epsmtip2f010d378103714dd2c89521cab520491~fHzOT0pot1058210582epsmtip2s;
+ Wed, 29 Jan 2025 09:18:07 +0000 (GMT)
 From: "Swathi K S" <swathi.ks@samsung.com>
-To: "'Andrew Lunn'" <andrew@lunn.ch>
-In-Reply-To: <63e64aa6-d018-4e45-acc7-f9d88a7db60f@lunn.ch>
-Date: Wed, 29 Jan 2025 14:45:30 +0530
-Message-ID: <002c01db722e$5abc8d10$1035a730$@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>
+In-Reply-To: <1da56c20-c522-428e-81ff-bc2f9ee0f524@kernel.org>
+Date: Wed, 29 Jan 2025 14:48:05 +0530
+Message-ID: <002d01db722e$b6fc4610$24f4d230$@samsung.com>
 MIME-Version: 1.0
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQDx5RsunPn3lkU9PtjwM0wRa6rGBAGYfFpdAhQG56QCgzy5ibTPFAeg
+Thread-Index: AQDx5RsunPn3lkU9PtjwM0wRa6rGBAHz93duAhzDMjcC64gLR7TIsIcg
 Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA02TeUybZRzH97x927csdrwcbs9YcFhHFDaObtA9TBg7muXVzYAh0Wg0pYHX
- cvWgLUz8Q1GJhg6ZjLGUWkppUA6FSS215RzIMbdJwTHGiCychmPdZMyNww1bCsp/n+eb7+98
- 8mMzvI2EHztVqqIVUlEGl7Udt/wSFBRyk6MVhy+pA9Hy7CWAxvQWFrKPdjLQD619GNLZ83BU
- 3tXHRNM9EwS6c8WGoa5rlRi6a7zPRHb7jwTqtxQykWlyiInG595GN5t0LKSxt2FIPTTFRPqn
- dUzUY9iJHl+/B5Cx8RGB1uYbARr/q4VA2n4rE3XdmGGgtRYrgYxjBuaxPZS55g5GTZ9vJCib
- dpSgDKYsylSbz6J+qvyEslkXMepB2y0WVWiuBVRHG4+aXmplUOb2RUA9+6yMoBZNL8TveDc9
- OoUWJdOKAFqaJEtOlYpjuKcThCeFkfxwXggvCh3mBkhFEjqGKzgTH3IqNcO5Em5AtigjyynF
- i5RKbtjRaIUsS0UHpMiUqhguLU/OkEfIQ5UiiTJLKg6V0qojvPDwg5FOY2J6ymhhEy4f9v6w
- blKaCy57qoEHG5IR8A+rGqjBdrY32Qxg/3IToQZs5+MhgGWBLo83+RjAmRGvTX/dioHh9rcC
- qFnVbwTPANj8pAlzuVhkMDQWthEu9iX3QX3ZxXWdQfYx4bl+0lXAg3wVrmhed8k+5ClYPVUC
- XIyTgbDh4SDuYg4ZBS/kjwE3e8FfS6dwd5q98GeHjuFuKAAuT3/HdKX0deaxnXvFbdkFu5cL
- 1vuE5JwHHLxvJ9x+AZx80gzc7APnes0buh+cPf/FBgvh94W3cDenwNGVIpabY+GVQR3uqsUg
- g+DlpjC37A9LrtVvTLgDfrU6hbl1DrTqN/kl+HR+aCPlbmj59gHxNeBqt0ym3TKZdssI2v+r
- GQBeC3bTcqVETCdFynlS+ux/f50kk5jA+rEEC6xguPxZaCfA2KATQDaD68t5v08j9uYki3I+
- ohUyoSIrg1Z2gkjnuosYfs8nyZzXJlUJeRFR4RF8Pj8i6hCfx93F+dyWJ/YmxSIVnU7Tclqx
- GYexPfxyse40cXbSAl4kekPTDAuuHlAXB/yOeHUfV2ftNUpjMyfWLtQTwd/ggw3H06r827w8
- wmDCm522+YGF4YriYqMhLuxwYZc1O/10qaOSNxLXcXcBtzg6ehUCHfO25mBK2ZL1ekuNztP8
- 28k9jqrqoE+jfPP49bGv9YzUBhdILi3GvRiWeigx1XFvddySeYzaVlrV7khM6H2ugmc9IckR
- WOxBBdWCt7QfNDTum3jPnMT9shszlaQF/cmX8/Vn+PnK49suHq3ZX97o8/LqPzmJjyIYNQua
- /YH9FZUHhvyF7Z4wsy8+OrRmYFaVe/tv3w408M6JNc+zV48038C7A9dkO3E7i4srU0S8YIZC
- KfoXeU2tyLUEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupileLIzCtJLcpLzFFi42LZdlhJTnfHx5npBj+65Cx+vpzGaPFg3jY2
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Ta1BUZRieb8+ePYsGHbl+4Vh0igqaBVZg+yBAQsY5A8yIOFrROLjCaZeA
+ 3WUvCpaDgaYQETaT2HK/iIIhuAIuBLQCkUGy4AUxRZHLgAsBBjFQQ7bsgeLf8z7zvO/zPu83
+ Hx+zrSKc+fEyNaOUiRMp3iZuY4ebm+CmtVbi1TnvjZafngVouKiRh4xD7Rj6vrWXgwqMJ7io
+ uLMXR+NdIwS6b2jioM7uCg56VDaDI6OxjkB9jTk40o0O4OiJ6X10u7mAh84Z2zgoa2AMR0Ur
+ NTjqKnFEiz3TAJU1LBDo+VQDQE/mWgik7dPjqPPXSQw9b9ETqGy4BA/eStdX3efQ4183EHST
+ doigS3QaWledyaOvVqTRTfp5Dj3bdpdH59RXA/p6m5AeX2rF6Pof5wH9T3ohQc/rXo60iU4I
+ kDLiOEbpwshi5XHxMkkgFb43ZmeMr8hLKBD6oXcoF5k4iQmkQiMiBbviE80noVwOixM1ZipS
+ rFJRnkEBSrlGzbhI5Sp1IMUo4hIVPgoPlThJpZFJPGSM2l/o5bXd1yw8mCCdyj8FFPkOKXla
+ I34cNJNZwIoPSR94cuk0ngU28W3JFgB/r63issUfAN563EywxSKAk7pF3nqLob56TdUK4Kmh
+ XowtJgGs7Z/krqp4pDssy2kjVrE9KYBXBy9YRmFkDw4NDRmWUVZkEDx/OR9fxXbkHlg8mGPh
+ uaQrvNb/pYW3Jv3gg6JhwOIt8JfvxiwGGPk2rCydwtiVXODyeKVZzzeb7YLP7n3ASpzgT8vZ
+ luUgOWIFLy7eAKw+FHY0NOEstoOmn+sJFjvD+ZnWtZgx8FLOXS6LpXDorzNr/A5ouFPAXfXC
+ SDdY2+zJ0tvgt92XOayvDfzq7zEOy1tDfdE6fg2uTA2sjXwJNp6fJXIBpd2QTLshmXZDBO3/
+ biWAWw2cGYUqScLE+iqEAhlz5L8nj5Un6YDlz7hH6sGluhWPdsDhg3YA+Rhlb32g95zE1jpO
+ nHqUUcpjlJpERtUOfM33PoM5O8TKzZ9Opo4R+vh5+YhEIh8/b5GQcrLOaDohsSUlYjWTwDAK
+ Rrnex+FbOR/nuORFEYKu/pNOi0EXDnk//IIvjdiSPPMoJC+uYsTV9KnmldKUd1OCI9xT02v2
+ v35wCd6yCXhosNvfpw+bGTeFf/OYwt6zK2gOmWiVyrfibkfl2UYJmTGdLrG/FnD9zcEjVccO
+ dS9kbtMkeu29UprqP6xsrsErO3qCx23Alew5LDo32uHzBdVoXd32j0dbpTdf1e8+ra54sFnk
+ 9uJvsYUl1FPXP9vPRh6YixI57pYYZtMycpTpe3h3QvbZbr6dHXYjdLDNc+LDnYWfhO7TaArC
+ ZP3toWnJHs8k4Unl5UuGkR0vTF/8gbj3mf8buqJcTUpyZlXY4beWTRNM+cQxUxSv+CPHSgHF
+ VUnFQndMqRL/C7mz+EC8BAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupjleLIzCtJLcpLzFFi42LZdlhJXjf408x0gxMf+Cx+vpzGaPFg3jY2
  i/N3DzFbrNl7jslizvkWFov5R86xWjw99ojd4uaBnUwWR04tYbK4t+gdq8X58xvYLS5s62O1
  2PT4GqvFw1fhFpd3zWGzmHF+H5NF17UnrBbz/q5ltTi2QMzi2+k3jBaLtn5ht/j/eiujxcMP
  e9gtZl3YwWpx5MwLZov/e3awWyx6sIDVQdpjy8qbTB5P+7eye+ycdZfdY8GmUo9NqzrZPDYv
  qffYueMzk8f7fVfZPPq2rGL0OLjP0OPpj73MHlv2f2b0+Nc0l93j8ya5AL4oLpuU1JzMstQi
- fbsEroy7fbtYCm4IVax9nNfAuJ6/i5GTQ0LARGLtrwXMILaQwG5GiW+79SHikhKfmqeyQtjC
- Eiv/PWfvYuQCqnnGKPH64FNGkASbgJbEor597CC2iICKxLy5U5hAipgFXrFKPDg9hQVi6itG
- iZdPlbsYOTg4Bawlfs3wAgkLC7hJrHgyFWwOi4CqxMZPV8DKeQUsJSZ1PmCEsAUlTs58wgLS
- yiygJ9G2ESzMLCAvsf3tHGaI2xQkfj5dxgpSIgI0cme3BkSJuMTRnz3MExiFZyEZNAth0Cwk
- g2Yh6VjAyLKKUTK1oDg3PbfYsMAoL7Vcrzgxt7g0L10vOT93EyM4uWhp7WDcs+qD3iFGJg7G
- Q4wSHMxKIryx52akC/GmJFZWpRblxxeV5qQWH2KU5mBREuf99ro3RUggPbEkNTs1tSC1CCbL
- xMEp1cDkaM4nE1AcpBrmdrP+pEWoxJ/+59nrfdUSbQOPpvDvUQlLzEoS4PrVZZmjo7J9i+jb
- 80XHZi3iMnFVnvRYc7f2bsFHgrO+R4V/Y2VhO8D1eIH9e/ns4uaLX7VrohTPTN2pHzjv1kre
- 2hl6DfmH/xaYtp5JEnznXRnuaFAQp2t9+EebkFFA16VSO/EnYosUp0i/DSg91JM6/9ex4wVb
- ww2z/2d8vnqt3i2He8VcvWN2hq8Pvdqzc+YJX47egweDfWYePSe+as98yci3tfL9nrLLvkaf
- 35m3Za/nOrU9tQXVS85v/b7lWfp0nR/tly9vmdDsaLZk2fdH1XH8M7ZaLg9Z8141U+ecnd50
- p08GeTxKLMUZiYZazEXFiQBz2b4dnQMAAA==
-X-CMS-MailID: 20250129091536epcas5p34ebefd253ea0f1dfd5156bf61d2178be
+ fbsEroyOQzvYCs6KVDxfvYO1gfENfxcjJ4eEgInEgS2rWLoYuTiEBHYzShzds4ARIiEp8al5
+ KiuELSyx8t9zdhBbSOAZo8TtaUUgNpuAlsSivn1gcREBXYnNN5aD2cwCL1kljq6JgBj6llFi
+ 5ZMtYEM5Bewklq6bDTZUWMBfYtqlg2A2i4CqxPaL3WA2r4ClxO15DxghbEGJkzOfsEAM1Zbo
+ fdjKCGMvW/iaGeI4BYmfT5cB9XIAHeEm8fF6BESJuMTRnz3MExiFZyGZNAvJpFlIJs1C0rKA
+ kWUVo2RqQXFuem6yYYFhXmq5XnFibnFpXrpecn7uJkZwktHS2MH47luT/iFGJg7GQ4wSHMxK
+ Iryx52akC/GmJFZWpRblxxeV5qQWH2KU5mBREuddaRiRLiSQnliSmp2aWpBaBJNl4uCUamBK
+ vVkhe6vuGefvOrmJWjr+u2/EVq7fN/fJrwfKUnOlBbXrN1/7yHGu5wuf+faeyIq+0wGK03m4
+ um52fLyS4qy/xCo4P8bUgpvrwfVnZapC/Gr/Wo6dMbn9zeDMgrUHYsTvCLUzRAi3uy+baxSQ
+ 1nC0b/HX3Z7Mkzj/cvhztQe+ejSn1mfKGvWue17XP6c9DBDi2b3ZzzuAl3tyVtaH07U+s+6v
+ qfDj+ujO1i98fpPrjFCXW7ePTGp9YR2+O9hZsrpq58najU8d+TMX8na63Nd6c0rl6vcvUpMv
+ r4w/kM7yN3dJYje3wqt7gSIMKozJ0/frvrnxeTWf6P4pN5JvPN5enll65qTAqlqZpKUFX+Yo
+ sRRnJBpqMRcVJwIAzQB4eqEDAAA=
+X-CMS-MailID: 20250129091811epcas5p338ea019f7d192f9105b9439da53abbaa
 X-Msg-Generator: CA
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20250128102732epcas5p4618e808063ffa992b476f03f7098d991
+X-CMS-RootMailID: 20250128102725epcas5p44b02ac2980a3aeb0016ce9fdef011ecf
 References: <20250128102558.22459-1-swathi.ks@samsung.com>
- <CGME20250128102732epcas5p4618e808063ffa992b476f03f7098d991@epcas5p4.samsung.com>
- <20250128102558.22459-3-swathi.ks@samsung.com>
- <63e64aa6-d018-4e45-acc7-f9d88a7db60f@lunn.ch>
-Cc: jayati.sahu@samsung.com, edumazet@google.com, linux-fsd@tesla.com,
- alim.akhtar@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, linux-samsung-soc@vger.kernel.org, ssiddha@tesla.com,
- pankaj.dubey@samsung.com, krzk@kernel.org, joabreu@synopsys.com,
- kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, ravi.patel@samsung.com, richardcochran@gmail.com,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- rcsekar@samsung.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ <CGME20250128102725epcas5p44b02ac2980a3aeb0016ce9fdef011ecf@epcas5p4.samsung.com>
+ <20250128102558.22459-2-swathi.ks@samsung.com>
+ <1da56c20-c522-428e-81ff-bc2f9ee0f524@kernel.org>
+Cc: andrew@lunn.ch, jayati.sahu@samsung.com, edumazet@google.com,
+ linux-fsd@tesla.com, alim.akhtar@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ linux-samsung-soc@vger.kernel.org, ssiddha@tesla.com, pankaj.dubey@samsung.com,
+ joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, ravi.patel@samsung.com,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, rcsekar@samsung.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, gost.dev@samsung.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v5 2/4] net: stmmac: dwc-qos: Add FSD EQoS
-	support
+Subject: Re: [Linux-stm32] [PATCH v5 1/4] dt-bindings: net: Add FSD EQoS
+ device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,71 +142,106 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 > -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: 28 January 2025 19:19
-> To: Swathi K S <swathi.ks@samsung.com>
-> Cc: krzk@kernel.org; robh@kernel.org; davem@davemloft.net;
-> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
-> conor+dt@kernel.org; richardcochran@gmail.com;
-> mcoquelin.stm32@gmail.com; alim.akhtar@samsung.com; linux-
-> fsd@tesla.com; netdev@vger.kernel.org; devicetree@vger.kernel.org; linux-
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: 28 January 2025 19:45
+> To: Swathi K S <swathi.ks@samsung.com>; robh@kernel.org;
+> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
+> pabeni@redhat.com; conor+dt@kernel.org; richardcochran@gmail.com;
+> mcoquelin.stm32@gmail.com; andrew@lunn.ch; alim.akhtar@samsung.com;
+> linux-fsd@tesla.com
+> Cc: netdev@vger.kernel.org; devicetree@vger.kernel.org; linux-
 > kernel@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
 > linux-arm-kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org;
 > alexandre.torgue@foss.st.com; peppe.cavallaro@st.com;
 > joabreu@synopsys.com; rcsekar@samsung.com; ssiddha@tesla.com;
 > jayati.sahu@samsung.com; pankaj.dubey@samsung.com;
 > ravi.patel@samsung.com; gost.dev@samsung.com
-> Subject: Re: [PATCH v5 2/4] net: stmmac: dwc-qos: Add FSD EQoS support
+> Subject: Re: [PATCH v5 1/4] dt-bindings: net: Add FSD EQoS device tree
+> bindings
 > 
-> > +static int fsd_clks_endisable(void *priv, bool enabled) {
-> > +	struct fsd_eqos_plat_data *plat = priv;
+> On 28/01/2025 11:25, Swathi K S wrote:
+> > +  Tesla ethernet devices based on dwmmac support Gigabit ethernet.
 > > +
-> > +	if (enabled) {
-> > +		return clk_bulk_prepare_enable(plat->num_clks, plat->clks);
-> > +	} else {
-> > +		clk_bulk_disable_unprepare(plat->num_clks, plat->clks);
-> > +		return 0;
-> > +	}
-> > +}
+> > +allOf:
+> > +  - $ref: snps,dwmac.yaml#
 > > +
-> > +static int fsd_eqos_probe(struct platform_device *pdev,
-> > +			  struct plat_stmmacenet_data *data,
-> > +			  struct stmmac_resources *res)
-> > +{
-> > +	struct fsd_eqos_plat_data *priv_plat;
-> > +	struct clk *rx1 = NULL;
-> > +	struct clk *rx2 = NULL;
-> > +	int ret = 0;
+> > +properties:
+> > +  compatible:
+> > +    const: tesla,fsd-ethqos.yaml
 > > +
-> > +	priv_plat = devm_kzalloc(&pdev->dev, sizeof(*priv_plat),
-> GFP_KERNEL);
-> > +	if (!priv_plat)
-> > +		return -ENOMEM;
+> > +  reg:
+> > +    maxItems: 1
 > > +
-> > +	priv_plat->dev = &pdev->dev;
+> > +  interrupts:
+> > +    maxItems: 1
 > > +
-> > +	ret = devm_clk_bulk_get_all(&pdev->dev, &priv_plat->clks);
-> > +	if (ret < 0)
-> > +		return dev_err_probe(&pdev->dev, ret, "No clocks
-> available\n");
-> > +
-> > +	priv_plat->num_clks = ret;
+> > +  clocks:
+> > +    minItems: 5
+> > +    maxItems: 10
 > 
-> It looks like you should be able to share all the clk_bulk code with
-> tegra_eqos_probe(). The stmmac driver suffers from lots of cut/paste code
-> with no consolidation. You can at least not make the tegra code worse by
-> doing a little refactoring.
+> Why is this flexible?
+> 
+> Anyway, you need to list and describe the items instead of min/maxItems.
 
-Hi Andrew, 
-Just to clarify, you were referring to refactoring tegra code to use
-clk_bulk APIs, right?
-In that case, will look into this and evaluate the best approach for
-refactoring the code. 
+Hi Krzysztof,
+There are 2 Ethernet instances where Eth0 has 5 clocks and Eth1 has 10 clocks.
+Would it be sufficient to list the clock names?
+
+> 
+> > +
+> > +  clock-names:
+> > +    minItems: 5
+> > +    maxItems: 10
+> 
+> Same here.
+
+Ack
+
+> 
+> > +
+> > +  iommus:
+> > +    maxItems: 1
+> > +
+> > +  phy-mode:
+> > +    enum:
+> > +     - rgmii-id
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - clocks
+> > +  - clock-names
+> > +  - iommus
+> > +  - phy-mode
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/fsd-clk.h>
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +
+> > +    ethernet_1: ethernet@14300000 {
+> 
+> Please implement last comment from Rob.
+> 
+> > +              compatible = "tesla,fsd-ethqos";
+> > +              reg = <0x0 0x14300000 0x0 0x10000>;
+> 
+> And since there is going to be new version, switch to the preferred
+> indentation (4-space). Other option is 2 spaces, but not 8.
+
+Ack, will update it this way in v6.
 
 - Swathi
 
 > 
-> 	Andrew
+> > +...
+> 
+> 
+> Best regards,
+> Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
