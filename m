@@ -2,36 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BDF5A21A01
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 10:37:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 880C8A21AFA
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2025 11:30:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFAF2C78026;
-	Wed, 29 Jan 2025 09:37:04 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E8CC78024;
+	Wed, 29 Jan 2025 10:30:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BBA0C78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA48AC7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jan 2025 09:36:57 +0000 (UTC)
+ Wed, 29 Jan 2025 10:30:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7EAABA41633;
- Wed, 29 Jan 2025 09:35:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340C7C4CED3;
- Wed, 29 Jan 2025 09:36:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8A9285C5890;
+ Wed, 29 Jan 2025 10:29:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34ACBC4CED3;
+ Wed, 29 Jan 2025 10:30:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738143416;
- bh=xzMc8ZDsm0cpgHLIWuGJKnTj4+OeNrOPcT83z/cllUo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=XMLOJsUq4jVDvGJs6sm3sN/Xd37xrIYKRS2b7xoA4Qv1XoRhL0Wt4lnk0OgFUGQxx
- fxrC7MMjRw6EwADIDohX12NyJM0JyEgUl923p/nG+5e7s4Cdg7gtD1zSFkGaCPCo57
- 6GHBriteZSNTdE7PR2To5TCRE+ZVxZX8NoUr99glmlsjDm6MdRXE9LRzpAlAOWvAr9
- 7zuSUpWs73dk4gnh2pySqDz+wVN3Q3kwRXKGVzz5DTazsOwz20nlMSEItdJdO1AcZr
- 4NQ4duHXaf37dcYalkgFkyabO+WV5QGH6N00occn3JQ+0YkuQOf/Rnnfh7X1XoA1Y+
- v0u30SFtRGfzQ==
-Message-ID: <df76be38-cf62-417a-85f4-a1a95af0db74@kernel.org>
-Date: Wed, 29 Jan 2025 10:36:50 +0100
+ s=k20201202; t=1738146611;
+ bh=2NvrnbVIW2q2FPyE2RVkZfe/DhJlaYOq9T27TiF1+50=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=h6hYu1V9YxqNlAw7viIn4ZKe6B991FoUaEwOw1hETHbzngJXOrENKLiePN2YO++MJ
+ V4p+B0lnFEdpR2OTNwK3+5Ot4zq3HwEbx+JGxSHZQIXDWI8G+kGTfaLCtZ/feCc2GG
+ OBpQDecPLn+HPbJsFoY56uhxb/SG+nmHMBQBUcp1SGd6y5QPw2jdoeeUyaVSCA76Hs
+ +mKZ6/o2NYyo5BVMGdSoJ69k56514pPv5gwT8bFdkC1DqAY5fjn6nDoYbr4zOVjoRo
+ S6qh2bZRZuAg28X08QqQDWDff+sS2PBZvSYnNsPvEaaofDk307UIT4NhScJNFBUqrF
+ hU2+mAlkzxm+g==
+Message-ID: <36560385-ff90-4f7c-8e5c-2bfb014a4c7f@kernel.org>
+Date: Wed, 29 Jan 2025 11:30:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
@@ -43,8 +44,8 @@ To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
  Will Deacon <will@kernel.org>
 References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
  <20250128081731.2284457-10-patrice.chotard@foss.st.com>
+ <df76be38-cf62-417a-85f4-a1a95af0db74@kernel.org>
 Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
@@ -88,7 +89,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20250128081731.2284457-10-patrice.chotard@foss.st.com>
+In-Reply-To: <df76be38-cf62-417a-85f4-a1a95af0db74@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
@@ -110,12 +111,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/01/2025 09:17, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Enable the STM32 OctoSPI driver.
-> 
-Please squash this patches. It's not one driver per one defconfig change.
+On 29/01/2025 10:36, Krzysztof Kozlowski wrote:
+> On 28/01/2025 09:17, patrice.chotard@foss.st.com wrote:
+>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>
+>> Enable the STM32 OctoSPI driver.
+>>
+> Please squash this patches. It's not one driver per one defconfig change.
+
+
+s/this/these two/
+
+So only one defconfig patch.
 
 Best regards,
 Krzysztof
