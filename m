@@ -2,64 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E73A22BAD
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2025 11:35:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D45A22CD8
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2025 13:12:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26BEBC71289;
-	Thu, 30 Jan 2025 10:35:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10DB6C7803C;
+	Thu, 30 Jan 2025 12:12:43 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C908C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DD81C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jan 2025 10:35:51 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50U9u2rq019131;
- Thu, 30 Jan 2025 11:35:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- sx5gkR4IdqbzkIS+yns0BVsIJ+yIRuR2yrsyI1GNxUI=; b=kpOfO+1yAXvW6VCy
- xVneHeQHTWmVyj/8j+5so/BUnZEOWlj5h396a97h7i5md0VRDu3UhJcP1ejuF5co
- 43bXlW4YcxgFfIUHK6rtVPepb87tc6wyHlh87zZkKeR5ki4kDByVG/a/JA778Epr
- m3UEQ3eJOyrlpu0T55RHwGkxnxX0aO+Up/WsGWvaMv1l8Slxas4MjO89P+JFGKN4
- LcyiPAwgPaas/uEPNXYKinQM4jdULde++zMPazcww08Gn2FDpuqPju/Orxsd2DLK
- IhDOs5WQWh3MVXJmyzSDfOOn3mpyql2ykNEp45cUn+dBMf8Aw3nk4H2wx3AwnDur
- bvNklA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44g5jxrpxe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jan 2025 11:35:36 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4060F4002D;
- Thu, 30 Jan 2025 11:34:15 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A4DF328A872;
- Thu, 30 Jan 2025 11:28:17 +0100 (CET)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 30 Jan
- 2025 11:28:16 +0100
-Message-ID: <5892e452-96e7-4945-a2dd-2e713d85d751@foss.st.com>
-Date: Thu, 30 Jan 2025 11:28:16 +0100
+ Thu, 30 Jan 2025 12:12:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id AC131A41E49;
+ Thu, 30 Jan 2025 12:10:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3835CC4CED3;
+ Thu, 30 Jan 2025 12:12:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738239155;
+ bh=Hi6/OCGoOquSDrzW77IQQxL0ssxA8h7c2jy3kT2D8oI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PQ8BYJkp+8SCQEsLzT/ygA0Naqkd5pjBYpsvxAyWTPVSRc0gPaQx5zbSCiTedfSBq
+ sWGRVzgb92E3MJZyBK62IS/+GeeLc3BQB9SMjRfc/nc7S0jPQDH5knQvdiqjPkAvyv
+ FWHHDiH7SrjXDjMeujlIpNtvuffxnb9Fd7Dy7jJmQcNN0PuVojmsPn7RBC6g+k+8Ch
+ n2PzuVLrTNgTNh3TxJs+S2nhV1WDIfITnlOeGrZb1NumEEhG66F/O2SnTi4ffaDvlM
+ n0z86Dsk5lt5dxn+DO8llwlaO/IAy6rVGVaWc3zICTafy9Qrnw2Wf/XPr3/vCZuVbz
+ VBBnSqWCDrenA==
+Message-ID: <951e4d16-2bb2-44b1-99e7-dd28349f20aa@kernel.org>
+Date: Thu, 30 Jan 2025 13:12:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Conor Dooley <conor@kernel.org>
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>
 References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
- <20250128081731.2284457-2-patrice.chotard@foss.st.com>
- <20250128-panama-manly-a753d91c297c@spud>
- <e3d01bce-a7d4-4690-8a2f-3bbb1ee5ccb7@foss.st.com>
- <20250129-feminize-spotlight-2cee53f8b463@spud>
+ <20250128081731.2284457-4-patrice.chotard@foss.st.com>
+ <20250129-hilarious-glittering-mustang-fb5471@krzk-bin>
+ <3660580d-72eb-45ca-8240-55557e334e37@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20250129-feminize-spotlight-2cee53f8b463@spud>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-01-30_06,2025-01-30_01,2024-11-22_01
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <3660580d-72eb-45ca-8240-55557e334e37@foss.st.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
@@ -68,8 +91,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/9] dt-bindings: spi: Add STM32 OSPI
-	controller
+Subject: Re: [Linux-stm32] [PATCH v2 3/9] dt-bindings: memory-controllers:
+ Add STM32 Octo Memory Manager controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,154 +109,281 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 1/29/25 18:53, Conor Dooley wrote:
-> On Wed, Jan 29, 2025 at 06:40:23PM +0100, Patrice CHOTARD wrote:
->> On 1/28/25 19:02, Conor Dooley wrote:
->>> On Tue, Jan 28, 2025 at 09:17:23AM +0100, patrice.chotard@foss.st.com wrote:
->>>> +  memory-region:
->>>> +    maxItems: 1
+On 30/01/2025 09:57, Patrice CHOTARD wrote:
+> 
+> 
+> On 1/29/25 08:52, Krzysztof Kozlowski wrote:
+>> On Tue, Jan 28, 2025 at 09:17:25AM +0100, patrice.chotard@foss.st.com wrote:
+>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
 >>>
->>> Whatever about not having descriptions for clocks or reg when there's
->>> only one, I think a memory region should be explained.
->>
->> ok i will add :
->>
->>     description: |
-> 
-> The | isn't needed here.
-> 
->>       Memory region to be used for memory-map read access.
-> 
-> I don't think that's a good explanation, sorry. Why's a memory-region
-> required for read access?
-> 
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 1
->>>> +
->>>> +  interrupts:
->>>> +    maxItems: 1
->>>> +
->>>> +  resets:
->>>> +    items:
->>>> +      - description: phandle to OSPI block reset
->>>> +      - description: phandle to delay block reset
->>>> +
->>>> +  dmas:
->>>> +    maxItems: 2
->>>> +
->>>> +  dma-names:
->>>> +    items:
->>>> +      - const: tx
->>>> +      - const: rx
->>>> +
->>>> +  st,syscfg-dlyb:
->>>> +    description: phandle to syscon block
->>>> +      Use to set the OSPI delay block within syscon to
->>>> +      tune the phase of the RX sampling clock (or DQS) in order
->>>> +      to sample the data in their valid window and to
->>>> +      tune the phase of the TX launch clock in order to meet setup
->>>> +      and hold constraints of TX signals versus the memory clock.
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>>> Add bindings for STM32 Octo Memory Manager (OMM) controller.
 >>>
->>> Why do you need a phandle here? I assume looking up by compatible ain't
->>> possible because you have multiple controllers on the SoC? Also, I don't
->>
->> Yes, we got 2 OCTOSPI controller, each of them have a dedicated delay block
->>  syscfg register.
-> 
-> :+1: 
-> 
->>> think your copy-paste "phandle to" stuff here is accurate:
->>>       st,syscfg-dlyb = <&syscfg 0x1000>;
->>> There's an offset here that you don't mention in your description.
->>
->> I will add it as following:
->>
->>   st,syscfg-dlyb:
->>     description:
->>       Use to set the OSPI delay block within syscon to
->>       tune the phase of the RX sampling clock (or DQS) in order
->>       to sample the data in their valid window and to
->>       tune the phase of the TX launch clock in order to meet setup
->>       and hold constraints of TX signals versus the memory clock.
->>     $ref: /schemas/types.yaml#/definitions/phandle-array
->>     items:
->>       - description: phandle to syscfg
->>       - description: register offset within syscfg
-> 
-> :+1:
-> 
->>>> +  access-controllers:
->>>> +    description: phandle to the rifsc device to check access right
->>>> +      and in some cases, an additional phandle to the rcc device for
->>>> +      secure clock control
+>>> OMM manages:
+>>>   - the muxing between 2 OSPI busses and 2 output ports.
+>>>     There are 4 possible muxing configurations:
+>>>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>>>         output is on port 2
+>>>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>>>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>>>         OSPI2 output is on port 1
+>>>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>>>   - the split of the memory area shared between the 2 OSPI instances.
+>>>   - chip select selection override.
+>>>   - the time between 2 transactions in multiplexed mode.
 >>>
->>> This should be described using items rather than a free-form list.
+>>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>>> ---
+>>>  .../memory-controllers/st,stm32-omm.yaml      | 190 ++++++++++++++++++
+>>>  1 file changed, 190 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
+>>> new file mode 100644
+>>> index 000000000000..7e0b150e0005
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
 >>
->>   access-controllers:
->>     description: phandle to the rifsc device to check access right
->>       and in some cases, an additional phandle to the rcc device for
->>       secure clock control
->>     items:
->>       - description: phandle to bus controller or to clock controller
->>       - description: access controller specifier
->>      minItems: 1
->>      maxItems: 2
+>>
+>> Filename as compatible, so st,stm32mp25-omm.yaml
+>>
+>> You already received this comment.
 > 
-> These updates look fine to me.
+> Sorry, i missed this update
+> 
+>>
+>>> @@ -0,0 +1,190 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/memory-controllers/st,stm32-omm.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: STM32 Octo Memory Manager (OMM)
+>>> +
+>>> +maintainers:
+>>> +  - Patrice Chotard <patrice.chotard@foss.st.com>
+>>> +
+>>> +description: |
+>>> +  The STM32 Octo Memory Manager is a low-level interface that enables an
+>>> +  efficient OCTOSPI pin assignment with a full I/O matrix (before alternate
+>>> +  function map) and multiplex of single/dual/quad/octal 		SPI interfaces over
+>>> +  the same bus. It Supports up to:
+>>> +    - Two single/dual/quad/octal SPI interfaces
+>>> +    - Two ports for pin assignment
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: st,stm32mp25-omm
+>>> +
+>>> +  "#address-cells":
+>>> +    const: 2
+>>> +
+>>> +  "#size-cells":
+>>> +    const: 1
+>>> +
+>>> +  ranges:
+>>> +    description: |
+>>> +      Reflects the memory layout with four integer values per OSPI instance.
+>>> +      Format:
+>>> +      <chip-select> 0 <registers base address> <size>
+>>
+>> Do you always have two children? If so, this should have maxItems.
+> 
+> No, we can have one child.
 
-I got an issue with access-controllers property.
+For the same SoC? How? You put the spi@ in the soc, so I don't
+understand how one child is possible.
 
-i can't list the 2 items (the second one is optional) and use minItems and maxItems.
+> 
+>>
+>>> +
+>>> +  reg:
+>>> +    items:
+>>> +      - description: OMM registers
+>>> +      - description: OMM memory map area
+>>> +
+>>> +  reg-names:
+>>> +    items:
+>>> +      - const: regs
+>>> +      - const: memory_map
+>>> +
+>>> +  memory-region:
+>>> +    description: Phandle to node describing memory-map region to used.
+>>> +    minItems: 1
+>>> +    maxItems: 2
+>>
+>> List the items with description instead with optional minItems. Why is
+>> this flexible in number of items?
+> 
+> If only one child (OCTOSPI instance), only one memory-region is needed.
 
-For example:
+Which is not possible... look at your DTSI.
 
- access-controllers:
-    description: phandle to the rifsc device to check access right
-      and in some cases, an additional phandle to the rcc device for
-      secure clock control.
-    items:
-      - description: phandle to bus controller
-      - description: phandle to clock controller
-    minItems: 1
-    maxItems: 2
+> 
+> Another update, i will reintroduce "memory-region-names:" which was 
+> wrongly removed in V2, i have forgotten one particular case.
+> 
+> We need memory-region-names in case only one OCTOSPI instance is 
+> used. If it's OCTOCPI2 and the whole memory-map region
+> is dedicated to OCTOSPI2 (OCTOSPI1 unmapped, OCTOSPI2 (256 Mbytes)
+> 
+> We need to know to which OCTOSPI instance the memory region is associated
+> with, in order to check "st,syscfg-amcr" 's value which must be coherent 
+> with memory region declared.
+> 
+> so i will add :
+> 
+>   memory-region-names:
+>     description: |
+>       OCTOSPI instance's name to which memory region is associated
+>     items:
+>       - const: ospi1
+>       - const: ospi2
+> 
+
+I don't think this matches what you are saying to us. Let's talk about
+the hardware which is directly represented by DTS/DTSI. You always have
+two instances.
 
 
-make dt_binding_check DT_SCHEMA_FILES=st,stm32mp25-ospi.yaml
+>>
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +
+>>> +  resets:
+>>> +    maxItems: 1
+>>> +
+>>> +  access-controllers:
+>>> +    maxItems: 1
+>>> +
+>>> +  st,syscfg-amcr:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>>> +    description: |
+>>> +      The Address Mapping Control Register (AMCR) is used to split the 256MB
+>>> +      memory map area shared between the 2 OSPI instance. The Octo Memory
+>>> +      Manager sets the AMCR depending of the memory-region configuration.
+>>> +      Format is phandle to syscfg / register offset within syscfg / memory split
+>>> +      bitmask.
+>>
+>> Don't repeat constraints in free form text.
+> 
+> ok
+> 
+>>
+>>> +      The memory split bitmask description is:
+>>> +        - 000: OCTOSPI1 (256 Mbytes), OCTOSPI2 unmapped
+>>> +        - 001: OCTOSPI1 (192 Mbytes), OCTOSPI2 (64 Mbytes)
+>>> +        - 010: OCTOSPI1 (128 Mbytes), OCTOSPI2 (128 Mbytes)
+>>> +        - 011: OCTOSPI1 (64 Mbytes), OCTOSPI2 (192 Mbytes)
+>>> +        - 1xx: OCTOSPI1 unmapped, OCTOSPI2 (256 Mbytes)
+>>> +    items:
+>>> +      minItems: 3
+>>> +      maxItems: 3
+>>
+>> You do not have there three phandles, but one. Look how other bindings
+>> encode this.
+> 
+> yes, i see, will update with 
+> 
+>     items:
+>       - description: phandle to syscfg
+>       - description: register offset within syscfg
+>       - description: register bitmask for memory split
+> 
+>>
+>>> +
+>>> +  st,omm-req2ack-ns:
+>>> +    description: |
+>>> +      In multiplexed mode (MUXEN = 1), this field defines the time in
+>>> +      nanoseconds between two transactions.
+>>> +
+>>> +  st,omm-cssel-ovr:
+>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>> +    description: |
+>>> +      Configure the chip select selector override for the 2 OCTOSPIs.
+>>> +      The 2 bits mask muxing description is:
+>>
+>> bit mask of size? 1? Then just enum string, no?
+> 
+> I didn't get your point ? the size of bitmask is 2 bits as indicated.
+>     -bit 0: Chip select selector override setting for OCTOSPI1
+>     -bit 1: Chip select selector override setting for OCTOSPI2
+> 
+> 
+>>
+>>> +        -bit 0: Chip select selector override setting for OCTOSPI1
+>>> +          0x0: the chip select signal from OCTOSPI1 is sent to NCS1
+>>> +          0x1: the chip select signal from OCTOSPI1 is sent to NCS2
+>>> +        -bit 1: Chip select selector override setting for OCTOSPI2
+>>> +          0x0: the chip select signal from OCTOSPI2 is sent to NCS1
+>>> +          0x1: the chip select signal from OCTOSPI2 is sent to NCS2
+>>
+>> I don't understand why this is so complicated. First, can you even send
+>> chip select OCTOSPI1 to NCS2 and use 0x1 as mux? or 0x3 as mux?
+> 
+> 
+> By default, if st,omm-cssel-ovr property is not present:
+>   _ chip select OCTOSPI1 is send to NCS1
+>   _ chip select OCTOSPI2 is send to NCS2
+> 
+> It's the default configuration.
+> 
+> If st,omm-cssel-ovr property is present, you can mux the chip select 
+> of both OCTOSPI instance on NCS1 or NCS2 as you want.
+> 
+> Yes you can send chip select OCTOSPI1 to NCS2 by using 0x1 as bitmask mux
+> (in this case chip select OCTOSPI2 is sent to NCS1).
+> 
+> If you use 0x3 as bitmask mux, you send  :
+>    _ chip select OCTOSPI1 is sent to NCS2
+>    _ chip select OCTOSPI2 is sent to NCS2
+> 
+>>
+>> Second, your bitmask value of "0x0" means OCTOSPI1 and OCTOSPI2 are sent
+> 
+> i think the 0x0/0x1 in the description brings to confusion as it's only the 
+> bit value not the bitmask.
+> 
+>> to NCS1 (whateveer NCS is). This sounds wrong, but your binding says is
+>> perfectly correct. Is that true? Is that correct binding?
+> 
+>  4 bitmask possible choice :
+>    0x0 : the chip select signal from OCTOSPI1 is sent to NCS1
+> 	 the chip select signal from OCTOSPI2 is sent to NCS1
+> 
+>    0x1 : the chip select signal from OCTOSPI1 is sent to NCS2
+> 	 the chip select signal from OCTOSPI2 is sent to NCS1
+> 
+>    0x2 : the chip select signal from OCTOSPI1 is sent to NCS1
+> 	 the chip select signal from OCTOSPI2 is sent to NCS2
+> 
+>    0x3 : the chip select signal from OCTOSPI1 is sent to NCS2
+> 	 the chip select signal from OCTOSPI2 is sent to NCS2
+> 
+> 
+> I propose to update the st,omm-cssel-ovr description as following
+> 
+>   st,omm-cssel-ovr:
+>     $ref: /schemas/types.yaml#/definitions/uint32
+>     description: |
+>       Configure the chip select selector override for the 2 OCTOSPIs.
+>         - 0: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS1
+>         - 1: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS1
+>         - 2: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS2
+>         - 3: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS2
+>     minimum: 0
+>     maximum: 3
+> 
 
-Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml: properties:access-controllers: {'description': 'phandle to the rifsc device to check access right and in some cases, an additional phandle to the rcc device for secure clock control.', 'items': [{'description': 'phandle to bus controller'}, {'description': 'phandle to clock controller'}], 'minItems': 1, 'maxItems': 2} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
-  DTC [C] Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.example.dtb
-
-How can i indicate that at least one items is mandatory, the second one is optional and in the same
-time describing the both items as required without getting the above error ? 
+My concerns were because I understood that this is not a real bitmask,
+IOW you cannot set two of them to NCS2. But you said that setting of
+0x3, so both going to NCS2, is perfectly correct setting, so it's fine.
 
 
-On other yaml files, for examples 
-/usb/dwc2.yaml 
-spi/st,stm32-qspi.yaml
-spi/st,stm32-spi.yaml
-sound/st,stm32-i2s.yaml
-st,stm32-spdifrx.yaml
-sound/st,stm32-sai.yam
-serial/st,stm32-uart.yaml
-rng/st,stm32-rng.yaml
-regulator/st,stm32-vrefbuf.yaml
-mfd/st,stm32-timers.yaml
-.....
 
-The only yaml given description is :
-
-access-controllers:
-  minItems: 1
-  maxItems: 2
-
-Thanks
-Patrice
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
