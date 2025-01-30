@@ -2,90 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC4AA22CEA
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2025 13:26:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51FECA22D09
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2025 13:45:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1E64C71289;
-	Thu, 30 Jan 2025 12:26:48 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6D4FC71289;
+	Thu, 30 Jan 2025 12:45:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C447DC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 820F0C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jan 2025 12:26:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8956A5C5E3B;
- Thu, 30 Jan 2025 12:26:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48274C4CED2;
- Thu, 30 Jan 2025 12:26:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738240000;
- bh=HHmjXkaKxsC+1UnEXF18DKMoqxPUcAEuG5lP/kgW/IY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=W/1iZ3U4cvPSzdOJBxJmD4V4Pr3COXPPlnlnjek7O6QtEYVLAeis0abM8WPIMTzVm
- Jt8F5Gz1ClOrbMBYdJMxA5ePzRIzZk4S1yqd0K1IAK7hjonr5W2hLNuRL/v5rlNMHk
- K6ckFWc5D2yhw0yk8ubb0rONrSRVKk5p8pPIG3Vf7GG8upCqUAPeUUUYen3XIKjfkY
- r9/v0WwAtJdcVrf6qpJYskv4+cmlCTk6odrfaAEpARGKQEDrvNuqj9dVk8QkUhpOZx
- U8T+L3HHvIuSKUWg46GYYNCYp6BAJehhkgK9davHmFGeV66C24mzCcTA3l88puJ+zO
- OOnxrVsoMT9kg==
-Message-ID: <7323e5ae-21b7-43cc-aed2-e23cd528842e@kernel.org>
-Date: Thu, 30 Jan 2025 13:26:31 +0100
+ Thu, 30 Jan 2025 12:45:12 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50UCfHYh030056;
+ Thu, 30 Jan 2025 13:44:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 9hREfD9h0pyFa6Qh0S2jAB9bMfbE7Dv/kgHfimMyy6w=; b=Xf4anVNWbLdKR6tL
+ p0daiYsMRYArJabcArI+84aYSLasTmT8sRaVYO0J5KO5tXyNVkdM1qe50TBwCZyv
+ x/f/yVEsRhG/ZGxuSJUkLJIzX4S+88rohm7990nR3uRLt0QBHnaLOuiEdG0BA6h/
+ 3I8jWYmch5qKFAH1Hpi2okIh8hucv6T4VQGe5pf6OH7qxpQRkyaDiMO50nSpvRDg
+ A8/IXObLAfeCr8XIcICq2AvqXamZo0q28jfTtZsL9ZvzuNSkJeV1JUkDyZI5jdjZ
+ URQ+g8ZcwN7BHxazwd6gtUoQxOIyQICqxyk+A/0mSlpxlkuTcQg+LopviFb2d/hm
+ c/4+Kw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44fy472c6p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Jan 2025 13:44:56 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7DD514002D;
+ Thu, 30 Jan 2025 13:43:36 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6A4743B1A42;
+ Thu, 30 Jan 2025 13:39:13 +0100 (CET)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Thu, 30 Jan
+ 2025 13:39:12 +0100
+Message-ID: <1098622d-d9a6-428c-9bbe-1f0de5f3d113@foss.st.com>
+Date: Thu, 30 Jan 2025 13:39:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>,
- Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor@kernel.org>
 References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
  <20250128081731.2284457-2-patrice.chotard@foss.st.com>
  <20250128-panama-manly-a753d91c297c@spud>
  <e3d01bce-a7d4-4690-8a2f-3bbb1ee5ccb7@foss.st.com>
  <20250129-feminize-spotlight-2cee53f8b463@spud>
  <5892e452-96e7-4945-a2dd-2e713d85d751@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <7323e5ae-21b7-43cc-aed2-e23cd528842e@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <5892e452-96e7-4945-a2dd-2e713d85d751@foss.st.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <7323e5ae-21b7-43cc-aed2-e23cd528842e@kernel.org>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-01-30_06,2025-01-30_01,2024-11-22_01
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
@@ -112,34 +88,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/01/2025 11:28, Patrice CHOTARD wrote:
-> For example:
-> 
->  access-controllers:
->     description: phandle to the rifsc device to check access right
->       and in some cases, an additional phandle to the rcc device for
->       secure clock control.
->     items:
->       - description: phandle to bus controller
->       - description: phandle to clock controller
->     minItems: 1
->     maxItems: 2
-> 
-> 
-> make dt_binding_check DT_SCHEMA_FILES=st,stm32mp25-ospi.yaml
-> 
-> Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml: properties:access-controllers: {'description': 'phandle to the rifsc device to check access right and in some cases, an additional phandle to the rcc device for secure clock control.', 'items': [{'description': 'phandle to bus controller'}, {'description': 'phandle to clock controller'}], 'minItems': 1, 'maxItems': 2} should not be valid under {'required': ['maxItems']}
-> 	hint: "maxItems" is not needed with an "items" list
-> 	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
->   DTC [C] Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.example.dtb
-> 
-> How can i indicate that at least one items is mandatory, the second one is optional and in the same
-> time describing the both items as required without getting the above error ? 
 
-maxItems is redundant.
 
-Best regards,
-Krzysztof
+On 1/30/25 13:26, Krzysztof Kozlowski wrote:
+> On 30/01/2025 11:28, Patrice CHOTARD wrote:
+>> For example:
+>>
+>>  access-controllers:
+>>     description: phandle to the rifsc device to check access right
+>>       and in some cases, an additional phandle to the rcc device for
+>>       secure clock control.
+>>     items:
+>>       - description: phandle to bus controller
+>>       - description: phandle to clock controller
+>>     minItems: 1
+>>     maxItems: 2
+>>
+>>
+>> make dt_binding_check DT_SCHEMA_FILES=st,stm32mp25-ospi.yaml
+>>
+>> Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml: properties:access-controllers: {'description': 'phandle to the rifsc device to check access right and in some cases, an additional phandle to the rcc device for secure clock control.', 'items': [{'description': 'phandle to bus controller'}, {'description': 'phandle to clock controller'}], 'minItems': 1, 'maxItems': 2} should not be valid under {'required': ['maxItems']}
+>> 	hint: "maxItems" is not needed with an "items" list
+>> 	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+>>   DTC [C] Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.example.dtb
+>>
+>> How can i indicate that at least one items is mandatory, the second one is optional and in the same
+>> time describing the both items as required without getting the above error ? 
+> 
+> maxItems is redundant.
+
+ok, it solves the issue
+
+Thanks
+Patrice
+
+
+> 
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
