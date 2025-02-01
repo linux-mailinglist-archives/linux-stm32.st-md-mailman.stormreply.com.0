@@ -2,88 +2,113 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2E9A240EB
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2025 17:43:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDF5A24A09
+	for <lists+linux-stm32@lfdr.de>; Sat,  1 Feb 2025 16:48:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DD98C7128F;
-	Fri, 31 Jan 2025 16:43:49 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ECBBC7802F;
+	Sat,  1 Feb 2025 15:48:39 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DAA1C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F3BBC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2025 16:43:41 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-438a3216fc2so22076145e9.1
+ Sat,  1 Feb 2025 15:48:31 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 511ENibJ001918
+ for <linux-stm32@st-md-mailman.stormreply.com>; Sat, 1 Feb 2025 15:48:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 8n2dQUsAQR8BGbcIRrC/eRUMfmfG1kg18Uqsc42/YA4=; b=Bt428S+3uxH+vEzk
+ tnDluDLTVPQSs6ciBolYDkA7uHbbln9oqYOG57YImHkpp5ZMl0letkUDsP/aA7q1
+ +4zexevqo/jQRGjiTXd/TwV2XHBkO6VQAYP66XLS+JbTc7QJEvjsHI/fqRuLT5ko
+ 5SoZO4pbhbCOpqjWnSZ6u7VcxE0jfnGnQbSwntG+h81k4saZ3Gzi1VYMbjw37+uC
+ W9KapccKfQZ+KguK95pnyNCX2DgSq50Fa+z2a5yPt5QK4FvsfuL1S42I8YDKj3cp
+ 8ziqcu38WFZf5AZjyljX+qjL5ndVD6BqWaZF1SGTL41eVf6tAQSbl1NdarzHlQf3
+ c3ri6w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44hd6s12vw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2025 08:43:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1738341821; x=1738946621;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=M4e2zWnVciebZyfvuHW95kgPCvuoCJzRXSsGttBVDuo=;
- b=Ts6lndQf5Hxa7UE61J7IuMj9cPOtkNg71rtcfbuSqRbm0sj7hO6FTaq+RIKrcrdtEz
- Fsfu7XxBVPUK1eNnAKxvwVHqIjLXVIZXd+DSaj4TIM2ntCeLwR3PgbL9H388WWZdGmyw
- 7ryo8wEFKMxTlRtQQPvty26GZ5CGMz8o3oKh8I9UX4StkDRmaduU4W9tnd0Nxu8Go1SF
- tBRPU5X4/vDvpVljRZMjlDm/MOMqzkQ4Bj8EdovGXBsv85ZLN+xOGjAB+NkyTMff9r/p
- tWh5NXB5GHbZVtr6hOIbsJYD1pVVCko9qT7M5qlSFvy1CbmL5Ucr5FdyBVaCnZYTmWKv
- aq9Q==
+ Sat, 01 Feb 2025 15:48:30 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7b704c982eeso27604585a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 01 Feb 2025 07:48:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738341821; x=1738946621;
+ d=1e100.net; s=20230601; t=1738424909; x=1739029709;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=M4e2zWnVciebZyfvuHW95kgPCvuoCJzRXSsGttBVDuo=;
- b=nfv2rHB83vifIgXwRt3wfV4QeiYWHtJlp7Fw0eTDlb3a+r885bTDZhynzmlhyqKn0a
- ZLqzuR9qZYQZY7EEN9ZyjaQ6KBmOrf9Z0wKWowYDXgTkMv9zxRW8OanJzphyXS8ixiuf
- THu+OS/RYTUrsAwxF82SbaSlpTZDoL3gI4kh0zqLV29SenQWEpE9qPGq27yXsw7IVxRY
- T8uguEDwhsGW29H91HQ8/jmhhxmH5f2BavC/EwecsExvyTOiezI+Ivv+8i9/x6+9T0rs
- 8Q5KyRxN5BeBcfz3R9z6pI6hmDpygNxwCHquLGEHGjqoRCEF1fOCthYn+yxgK5GmhT9q
- 6vmA==
+ bh=8n2dQUsAQR8BGbcIRrC/eRUMfmfG1kg18Uqsc42/YA4=;
+ b=ENdzerT0lCOeQwudfAfLcsRsDGLB/66F3mpMaP7EmhDxRWq9zfqWbGhEMrug8jzcnq
+ gLTXi4l30RuGM1OlCDJoRfaMtSIPyXcQU8KwPDwqWsg/tKLBkTrBzeHACd0TvPnphNJI
+ toRPwagEm9sMdStQsviwBtVmV3WM0yR4SBkAbxd1dS2wDy0xhYaI6dN7g/OjtZpkbqfD
+ 0YOvXUpd48Jy0j6KzkTu/RK7Cn9VwndtHTQj+nZs5W/JBjGUMuO7i6SR4pQgq1u3utKL
+ PPOIQUOPRDMb+da9d/OkowMBTz8OhIuPg4wxouLYgrJwck4t2Xb6yf8X8UiRDifXl2hG
+ J1+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+mgRD4rtzgCurVapiD80b8QlCu9r6g7ZcykRQ/7p7/Uh0kfgh/mfSGKDqCgFwUqlZbEPz/ehrAKXtwQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwNxBLvX3IO3S4Olk6KnZ3miRNWE19ZprvQ8KjM2lxIZz9/D4UR
- FPTskTaKupXnVsuWzfIofthfseg8955/BNl3SY1vFAPC6IhVqWF6oW/B3trxWj0=
-X-Gm-Gg: ASbGnctiv6M7ZrUPvT8rJRUi4Uwuw4R+uA3EFxIqJ0HdKop1A9zME+x4EKEvjo/gD68
- OiEt+3yctbaxtFP8RM5FyfG/+IOA3QeO6Bn9/QHSVgbX/FnfkOSbvDYgBdSir70AkDgrbDA6K07
- udNFGNe0loB+uG23xx8pBOGl8Jmtz9Iet/XjhnpyBO2sAinksKPSuSrtuPjUWKY6xIiE0XP/VZT
- ++dDTu7wgP6fFmaZQeIpMD+3BvQ9M8Ml+aCkg3JbL7+SgM8Bbja0Thm/x8EsqfIgNOUQaHUyRIv
- 6q9vsi17B9vzrI6Swtmero/E4w==
-X-Google-Smtp-Source: AGHT+IFTTPVO+a34Yzx36UVXc0Rk4aOZPFhQnFzSj9GM9HcFqkLze7zFulEsR/ai1dusk+GIBTsVkw==
-X-Received: by 2002:a05:600c:46cb:b0:438:a20b:6a2a with SMTP id
- 5b1f17b1804b1-438dc3c8676mr119292945e9.14.1738341820745; 
- Fri, 31 Jan 2025 08:43:40 -0800 (PST)
-Received: from [192.168.68.163] ([145.224.90.107])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438dcc27130sm95257635e9.16.2025.01.31.08.43.31
+ AJvYcCXreBmFDxMygjwMQcEYHW3ZG5i3abj7kgm4T3TEXLpLztNe7defjFhBhcUzs2cJzt71ny5ayVtAe/OA6Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzF3fhJpoa8Tr5sLbYCZjR9+RsfKUFeJ81mnYPCotjZFSzGVVRN
+ RUCWdV/2L2zpjtFkkOUw9HLsNycXlB2L46h8znWDVgiwWtaWu+aV1hqI5RYHfxXSehXINpvPxgB
+ VOsUjGGzVaa7BhC5PGA4NL7RZghp5NER6lk941PIzxj24WlAYMg+Hp6erROyq8qdRH1/aMcLMVh
+ LsYhY=
+X-Gm-Gg: ASbGnctQAbAZ3G4p1iHKK8KYDynuJIZxzUJsZ6ql5ESAYJnAeH0qXlrTlWmK8x/xqt9
+ 1/HkXfp4NHP2DyVBLMg8PEU/RJ/WSjBuhwMMRAx/gV1+jqHsiGX4/04IG1YgZkOHG+x3hDjLB76
+ 7amlyQC3a+gdaRSyfIgCTxRQkpIMKO60Yq7JJtz8wXiR4tfpqIDg7L/ec5PFxkpJwpU5tEe9kSl
+ +zwLnauWSd2tD47i0K8fwBCakOxx6mp8Swwuc8UCmHWUobiJfp/Vi+Ko52HjJaODB9aqLJ6ja+q
+ 2TqIHv4VKEFe41M6vOy30bxzDBnehGAynb0EQdk+IC8wM5V/kOHepsL5Kk8=
+X-Received: by 2002:a05:620a:44ce:b0:7be:5020:6df1 with SMTP id
+ af79cd13be357-7c009b93599mr574151785a.15.1738424909323; 
+ Sat, 01 Feb 2025 07:48:29 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHxPpR9kTBzdbY+SmZntvSpbA0AmhKdf4LITbXaMdP95XvejXet1vO1PHrcj+dARpvQVLwZIw==
+X-Received: by 2002:a05:620a:44ce:b0:7be:5020:6df1 with SMTP id
+ af79cd13be357-7c009b93599mr574149185a.15.1738424908921; 
+ Sat, 01 Feb 2025 07:48:28 -0800 (PST)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ab6e49ff269sm453716666b.118.2025.02.01.07.48.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Jan 2025 08:43:35 -0800 (PST)
-Message-ID: <0e3f8f35-7ab0-4c2a-b7ce-f5d4f1164af0@linaro.org>
-Date: Fri, 31 Jan 2025 16:43:31 +0000
+ Sat, 01 Feb 2025 07:48:28 -0800 (PST)
+Message-ID: <30a82d74-a199-4ccf-997b-b8a6971cf973@oss.qualcomm.com>
+Date: Sat, 1 Feb 2025 16:48:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Jie Gan <quic_jiegan@quicinc.com>
-References: <20250124072537.1801030-1-quic_jiegan@quicinc.com>
- <20250124072537.1801030-4-quic_jiegan@quicinc.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20250124072537.1801030-4-quic_jiegan@quicinc.com>
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Jinlong Mao <quic_jinlmao@quicinc.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+To: Yijie Yang <quic_yijiyang@quicinc.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v9 3/6] Coresight: Introduce a new struct
-	coresight_path
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>
+References: <20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com>
+ <20250121-dts_qcs615-v3-3-fa4496950d8a@quicinc.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250121-dts_qcs615-v3-3-fa4496950d8a@quicinc.com>
+X-Proofpoint-ORIG-GUID: 6W6SdSX6U8wMsGsIJIgRbYE6oUcxg30T
+X-Proofpoint-GUID: 6W6SdSX6U8wMsGsIJIgRbYE6oUcxg30T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-01_07,2025-01-31_02,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=583 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502010137
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 3/4] arm64: dts: qcom: qcs615: add
+	ethernet node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,45 +120,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 24/01/2025 7:25 am, Jie Gan wrote:
-> Add 'struct coresight_path' to store the data that is needed by
-> coresight_enable_path/coresight_disable_path. The structure
-> will be transmitted to the helper and sink device to enable
-> related funcationalities.
+On 21.01.2025 8:54 AM, Yijie Yang wrote:
+> Add an ethernet controller node for QCS615 SoC to enable ethernet
+> functionality.
 > 
-> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
 > ---
-[...]
->   	/*
->   	 * If we still have access to the event_data via handle,
-> @@ -595,11 +599,11 @@ static void etm_event_stop(struct perf_event *event, int mode)
->   	if (!csdev)
->   		return;
->   
-> -	path = etm_event_cpu_path(event_data, cpu);
-> -	if (!path)
-> +	cs_path = etm_event_cpu_path(event_data, cpu);
-> +	if (!cs_path)
 
-I don't think renaming 'path' to 'cs_path' is worth the churn. It's in a 
-lot of places in this change, but I think path is already good enough.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
->   		return;
->   
-> -	sink = coresight_get_sink(path);
-> +	sink = coresight_get_sink(cs_path->path);
-
-coresight_get_sink() is always called with cs_path->path, so we might as 
-well make it take a whole path struct. The same with any of the other 
-functions that operate on path like coresight_get_source().
-
+Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
