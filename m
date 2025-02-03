@@ -2,191 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCD0A26F13
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 11:10:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0DBDA27250
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 13:57:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7B04C78F7B;
-	Tue,  4 Feb 2025 10:10:33 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B79CC78F7F;
+	Tue,  4 Feb 2025 12:57:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98EA9C78033
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 507EAC78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2025 10:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738663833; x=1770199833;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=nBnKqNl3lt/iiw4jLQeKH2pji+BhxYgrfw1aTqjYq0w=;
- b=WkpQ6aPUtC9P6AeKQYm5qW3sTPo3w/CzypomvYu8N34RHPnxSphaegW/
- nAAHUw3s7SPfReiuFeLgzYjgPDPWbUI6Zx9GW7IR1m4VJPJFU6KPKDXMG
- vg6Z/5EYoeDIFUeJAuIrOuu9KjRoLLikvQlcSBoXfm/mt1nxTV3LQ1Wax
- w7cto763sf/oG2vu/p0GNCGPTjSQPvnubliOzNodvcJprP6X896N2zvT6
- GZMFO2vWRa0v+r1lZU2KoMUkbdG0E4HrkgtRZCUgQKfkkUMc128BA3Kxw
- c3TtTKjKoonsiFrKDAvVNytSihVnofQ84yFTUEh2egmQ1qlfi4QCyuR6j g==;
-X-CSE-ConnectionGUID: yRjnSGDOT7ic09OXpegXsg==
-X-CSE-MsgGUID: LmInvow9RsCpRBx3qb95xA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="39215514"
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="39215514"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 02:10:24 -0800
-X-CSE-ConnectionGUID: 3ZEaXA+xR3Gz9nN0prfz0g==
-X-CSE-MsgGUID: nVVWprw+Rra6J8LqW9jr+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111006434"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orviesa007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 04 Feb 2025 02:10:22 -0800
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Tue, 4 Feb 2025 02:10:21 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Tue, 4 Feb 2025 02:10:21 -0800
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.169)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Tue, 4 Feb 2025 02:10:20 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BJdFmM/lYrFA+zGpeZz6eUMTEkub2RR83mBtX0bMcODHXsuV36BLVvoeGR5QJuiu1l2wNgcovKw6doD8dwc10zWFwO8cGyscDO5FVNuDO2RpRDEMeE3gQLNrbP6pAtGBoI3eIaQ7brVviV5Hn2Ede0HCCpIuBpw6+h6OtHv0DnTf2TKFVtOtwSn+ol/QY6ntzzAY6z779R6fC/Nrs/P0ts8hzrTTVzuIb5AzIpC5AZ0ZJM6yfnCjXggxhFTMYu1VK/K1zwZbFfCMvHraJW1wMRCGeKv0PNg0jy+0dwZ+5L2x18DqCl1qm9xxCb8rgBPhzLtxZ9IdjGiA1JG6NuSt9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lCSOGazSxnrt7ZVL9iz9UME+wKfjTUnbLsE1/eyXlIM=;
- b=xE9pK415hIih4P1lPFzltl26Abd9CGIAiLZzpaP7nAk8wpTfa/WwubmdWBDHmVr2kw+ELvQDEO+g90h2OAgfJR4BExEiJ5DLSvziN/jqIaeo1Pxmp5mOow4lNSffXy87bjU4F3RRsAe6bm9qdZ4+4I451uaNGBglJ29okRrGpcUuL6qWOXMJchbJn3f3p7g8SEi5j9Rc31lVsAZ7BLvwUWgksYM5lp53J4VvSNk+x6igQG4+9fFfhW8xH1oJzinrBnTX+4RqZoapN1AxnQJpY+9XfCaYv4eUq6kpC4otk9kGgd90Cwt81rfbb/l1jSB5gYxibLBAxvxBkrPbpbomQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
- DM4PR11MB6191.namprd11.prod.outlook.com (2603:10b6:8:ac::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8398.24; Tue, 4 Feb 2025 10:10:03 +0000
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d19:56fe:5841:77ca]) by DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d19:56fe:5841:77ca%5]) with mapi id 15.20.8398.021; Tue, 4 Feb 2025
- 10:10:03 +0000
-Date: Tue, 4 Feb 2025 11:09:44 +0100
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
-Message-ID: <Z6HnaMQvgW+indqm@boxer>
-References: <20250204004907.789330-1-yoong.siang.song@intel.com>
- <20250204004907.789330-6-yoong.siang.song@intel.com>
-Content-Disposition: inline
-In-Reply-To: <20250204004907.789330-6-yoong.siang.song@intel.com>
-X-ClientProxiedBy: DUZPR01CA0047.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::16) To DM4PR11MB6117.namprd11.prod.outlook.com
- (2603:10b6:8:b3::19)
+ Mon,  3 Feb 2025 19:15:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 168875C6791;
+ Mon,  3 Feb 2025 19:14:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC92C4CED2;
+ Mon,  3 Feb 2025 19:15:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738610125;
+ bh=BDPM7u1CRvEI1Kn3lZuF8kskwCiEX3Kitywmg+8MwZU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=hYhm3W1QYCkDsN1crFMcC5vC3MonK+qkCAOz+WwdhOVUHZ0HLjZTQAsg3tl7o9s8H
+ BU+bqi9jyOYbxwC9ei76Mq8ptcXqsd5SOh/+8og70lDYJL3RqtnPerGIZTHCANkamQ
+ Yckq82B8xZnfo+4rNvq7hQkLnKU+EQGYkdYhQiJAOqj4uCdhBQcjpFfp1P/bTDp3Yi
+ HOV2GGByqpfdPESu++AwzdFyQr0pmhKP6IC3N45Oo9VeJUx9wz3qUds6G2jzdwYpTR
+ CH+85Ld4snwX3gUvih7vhRHBGwI6rZla+uTR8mjJBtjlPBw44r3zYQ1Yg3dnH2nSQb
+ 8qk8l0+zUOkqw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ EB437380AA67; Mon,  3 Feb 2025 19:15:53 +0000 (UTC)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|DM4PR11MB6191:EE_
-X-MS-Office365-Filtering-Correlation-Id: cda8d342-1844-4704-087a-08dd4504176a
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LwJDGFpkioTlX5J8d7IhN8VhT0itw6Dn1DJr6SevYw2izYya4ZabUPB8ciK0?=
- =?us-ascii?Q?gq32y7dAl3tzE66CVA8H3uvcV7sJIKtI4BKRKB7PpW0pgl5/4ZOtTEa1DZEb?=
- =?us-ascii?Q?gNRgsZzWEOu6QdCNzVDGytdWeutYGssuNRvcnOqpM7zIi10CWr0bY0t/FP+8?=
- =?us-ascii?Q?VdKFCVvJYMh5PD+pRcBEzavJ/RRRG+al+K12ePUry5MaHz+fPhgc/CC5FVb4?=
- =?us-ascii?Q?/ZqfVPQRfDIsk454ttAok//DKJEDzH6wcvkDIf1QqOu8BQTt0SrGCMs/8RJ1?=
- =?us-ascii?Q?Lg9SxZFas/mLULQPR8radWZ+SZq62nMfvQM60Vx/f2ZDo2OtX6hAC57Wkj1I?=
- =?us-ascii?Q?9PXe5gr0+rOMt2EoERsXF5G0o79upt2lU1odB6YeGzn+Rx/4joLGQ+gP2i9b?=
- =?us-ascii?Q?ivT+BP1IP0KlhFrjOf5v5ZcSkHVLfbEIgJQcXc1CBkOtCnFM+F4kU0PQU/kL?=
- =?us-ascii?Q?J49ZvIXKj81xQBz/6Cep7l+02vqGvtNVVs3FyGdV+7+97yHxMVzjuP5Y0Dig?=
- =?us-ascii?Q?Hs3+TtmAuSr1hH5v1al4JHLc5cjFkvtZ2VH4k9xLCqS+vFWL4Cq0EogsP6Kf?=
- =?us-ascii?Q?pnkUxyC+dtrOTbcGZD68adMDPu5IbRRP/jmCGxJOP6KGyDUkRfpCgQetbhuZ?=
- =?us-ascii?Q?a4aId7d4rcLqubZ+CkAfYL6zAyobgmZEetOfSem8YUgzWys5F3y3bg1fJYT6?=
- =?us-ascii?Q?NNIGIkhCmz9dqggnSfpaWRsU1eUKqdqwX8PlscUdM75Hme3FBjI14a6sigaF?=
- =?us-ascii?Q?Dmlzudys3cZfa7TZoCLAsi/H+XDBmiylsQxzMPiIcdZGJgtGvxALRXxrVjvn?=
- =?us-ascii?Q?Et3kTa+cfzsevrMgpOp5G7OQhrQ9LICUt1NewF9fJrv5rB9jDM9JNVcbLb8a?=
- =?us-ascii?Q?TTSiZHCxYiu54YUESQwP7JbPuSVnzYECkZGy8NPAf2bvYtjuDLOo1bU3AGPp?=
- =?us-ascii?Q?HhAzKRDFYO8Z2y+blWeOSbGeL6fg7C+eDTFnWIROSdSoP+PZOnqVzkfpw953?=
- =?us-ascii?Q?g1VSikRqJuCZB47hP9wiL1Nr2PN9ugkT/KenHLrELYZp5r270BS3D+QjO4i9?=
- =?us-ascii?Q?+Zn3JRN0o573UOK2E0vU1HDOq1heekjVWd1DqAN9+wuO1Bho+mUj3DU5JAJ/?=
- =?us-ascii?Q?zLAOG0qI//PM190SNbiCJiMFdZlXy5jT05VP9be8dilBkdwtk/DIwMi7DsOc?=
- =?us-ascii?Q?1N9GOygyRivObPy235bLxwKsc3P8Y2Nyq8kfAfowu+61/aqn2aIfAsMukFNL?=
- =?us-ascii?Q?2cz7NzOkDn0urc1ZzjJmzaCVoC6mVG/Rlc+YErzACG4iLAh/Oerid+XGI6aN?=
- =?us-ascii?Q?Ggrk2sBCe6/0HGLu/S66PYfLJrZ1F0z/Mwuoua0b1emHuQKG++lTVEUJzNBR?=
- =?us-ascii?Q?tkr31RIOvx2ianMJ6vMiiJXGovT+?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6117.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EVnxnGQh5ZzC9qX9cj3XUeU/NuFojPEtZU73ulzgyY11prdg8uslMmScer0s?=
- =?us-ascii?Q?qenoQiiC9fRvr5xB8cq1fPjrSey/SRhFttvK7oKoVBu8S4Ukqc8resUH9HvG?=
- =?us-ascii?Q?s9ZxVH1EWYJERXJWZgqKtUy/SDs0WHIszaF9mbO89HJWxkIUnipylQhF0DTG?=
- =?us-ascii?Q?RoqDHg1GqhtYJ74eRL9yPUG8SHzfglIxnNCMaSlOgYJ0g/Ugif+4dF7qHt7D?=
- =?us-ascii?Q?c6gsDJCA0KsLj53+63TNugdo0LKEx3isFK6ZkQboSIu9fQmLdi0VU/Ou4akj?=
- =?us-ascii?Q?TqZgCaHCkurskFsgfWnG1tFaKvFzmivZvUjMj8trpCdXFuqSBfIiOvvXD+oI?=
- =?us-ascii?Q?H2EUG4BPp6c9YlUMqlgC3FrRJtHp3ZvVFQ2so2jzU5qDtDOXcaJ12WCylP8I?=
- =?us-ascii?Q?5Yaay2NuxZSW8AvNPSawAPN7EaF9EbDSQRD5hA2400ROMDOoegsS7g5d0m27?=
- =?us-ascii?Q?2Fat+Xc5K+fKns1bd+/trRi6mYL6o4ee0iXj7CVSwoQQe6EdsZop52EJ246r?=
- =?us-ascii?Q?onitg88mnPDm1ZSwQVD6AObKIiKinhF97hmsD8xNQvy7x+IzuMg/By2gx8i8?=
- =?us-ascii?Q?ayHLclrG02c0zmvxqSTwo9jNc9dF2XhIzPy8I63Dd5OqnEGGUHJjVMoH5mLr?=
- =?us-ascii?Q?n+2+3FMod2gjkD/ZLlVpqSPxZpyMEpHywXKBI41ykKD/aYVOInDYFQQpuSo4?=
- =?us-ascii?Q?soMshCrD+Sh6s5O3xzhSalGWLUcAcUWiBO1EYTaUZMb2yefMvQ3kawXBYsho?=
- =?us-ascii?Q?T2E7u4KUSvgLeY5AAGQuTphOuSdDEglo7aXpLZPCSLUslO6W2675RsoCjVY1?=
- =?us-ascii?Q?ScR0NdjgiAVzOKgq8o1i+BFStjU5tL7VlMmfSS0WJR4aGvqzxtTxBW+2+4s+?=
- =?us-ascii?Q?nF/2fsbXJquux+uqyRivZBvjdHrSOrXOl1ZS2vReZLLGtHTxxE3lO6xLMW/Y?=
- =?us-ascii?Q?MKs198yY+skuOySEFevabhgcf67zvOEZBVDlMZ0v4u1tMjkDBZ4NN+EGMUXO?=
- =?us-ascii?Q?waWVG13O0v8/ucFEolb+Q+LB1STs1rE+j4wXy+KYpQWh0M6u9OMzYVf2XpZx?=
- =?us-ascii?Q?LKD7cnHCEceBtXEjeR+j3iLm9/7EbRmDmcoeCiLAMvMZARI/qmg1mkI5Ej1f?=
- =?us-ascii?Q?rH5hOtEOI37CVlljrR0DWnnvoBRMR8d6SJzqDvPpPGUASW9VqGHcCdpliL6V?=
- =?us-ascii?Q?LJCzaLNgtIdawe37xEx0JGA1EGCpATnVGCfX7cHvgul/UqaLEJTfIB6ActGM?=
- =?us-ascii?Q?DdqVG+aQFn5SxS+MZuqfZmPcRTBeQpmKihWWPUuDTwQiUqqSd3O45tacjnZ0?=
- =?us-ascii?Q?PRBmseXQHGeuLFZ1RCtuGjE1aT90kanyU3ApLFzHF+smKQB+DKGhL1srMRUP?=
- =?us-ascii?Q?brcxp4i8dARBbh7AusI1nKaJ0/HPycNg6mXrnTq0G9wuzvBwSIKvl/JqJu28?=
- =?us-ascii?Q?e53VhAAS8HxyctHk7rQ+kfHb31r/cZ4vFf/UjecyuWSJ4YI1r/xkY/RTMa5v?=
- =?us-ascii?Q?9GBRci/FXLEkdWy58sB3//ho7Q2EbDh1va4AOmFAliGAsG3DUEWWsTDOAsGC?=
- =?us-ascii?Q?QN9iySZDjrsA2otDuOQTKcf8Pc8nxZO+rbnz410FMW6194CBpFYtGZUxulCY?=
- =?us-ascii?Q?XA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: cda8d342-1844-4704-087a-08dd4504176a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2025 10:10:03.2719 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b33aMkQs2kxtG0gKzCFrBZG7A7ET9OK6fEzTWSW/RM6wO3MgaNxIcbwk/3YJprhGnB/I0hUNyJtQVrLGvG1AEtAAXIU8urTlrs3fQU13fjs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6191
-X-OriginatorOrg: intel.com
-Cc: Jose Abreu <joabreu@synopsys.com>, linux-kselftest@vger.kernel.org,
- Florian Bezdeka <florian.bezdeka@siemens.com>, Joe Damato <jdamato@fastly.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Daniel Jurgens <danielj@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>,
- Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Mina Almasry <almasrymina@google.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Mykola Lysenko <mykolal@fb.com>, xdp-hints@xdp-project.net, Donald
- Hunter <donald.hunter@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Jonathan Corbet <corbet@lwn.net>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, linux-doc@vger.kernel.org,
- John
- Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Stanislav Fomichev <sdf@fomichev.me>,
- intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Eduard Zingerman <eddyz87@gmail.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, KP Singh <kpsingh@kernel.org>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>, Hao Luo <haoluo@google.com>,
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bouska Zdenek <zdenek.bouska@siemens.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn
- Topel <bjorn@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Lemon <jonathan.lemon@gmail.com>, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [xdp-hints] [PATCH bpf-next v7 5/5] igc: Add
- launch time support to XDP ZC
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: <173861015275.3409359.13632354633861115390.git-patchwork-notify@kernel.org>
+Date: Mon, 03 Feb 2025 19:15:52 +0000
+References: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
+In-Reply-To: <20250103-wake_irq-v2-0-e3aeff5e9966@nxp.com>
+To: Peng Fan <peng.fan@oss.nxp.com>
+X-Mailman-Approved-At: Tue, 04 Feb 2025 12:57:58 +0000
+Cc: linux-rtc@vger.kernel.org, len.brown@intel.com,
+ alexandre.belloni@bootlin.com, peng.fan@nxp.com, mcoquelin.stm32@gmail.com,
+ rafael@kernel.org, daire.mcnamara@microchip.com, gregkh@linuxfoundation.org,
+ linus.walleij@linaro.org, dmitry.torokhov@gmail.com,
+ linux-kernel@vger.kernel.org, conor.dooley@microchip.com, pavel@ucw.cz,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/12] pm: Introduce
+	devm_pm_set_wake_irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -203,173 +65,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 04, 2025 at 08:49:07AM +0800, Song Yoong Siang wrote:
+Hello:
 
-> Enable Launch Time Control (LTC) support for XDP zero copy via XDP Tx
-> metadata framework.
-> 
-> This patch has been tested with tools/testing/selftests/bpf/xdp_hw_metadata
-> on Intel I225-LM Ethernet controller. Below are the test steps and result.
-> 
-> Test 1: Send a single packet with the launch time set to 1 s in the future.
-> 
-> Test steps:
-> 1. On the DUT, start the xdp_hw_metadata selftest application:
->    $ sudo ./xdp_hw_metadata enp2s0 -l 1000000000 -L 1
-> 
-> 2. On the Link Partner, send a UDP packet with VLAN priority 1 to port 9091
->    of the DUT.
-> 
-> Result:
-> When the launch time is set to 1 s in the future, the delta between the
-> launch time and the transmit hardware timestamp is 0.016 us, as shown in
-> printout of the xdp_hw_metadata application below.
->   0x562ff5dc8880: rx_desc[4]->addr=84110 addr=84110 comp_addr=84110 EoP
->   rx_hash: 0xE343384 with RSS type:0x1
->   HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                 delta to User RX-time sec:0.0002 (183.103 usec)
->   XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
->                  delta to User RX-time sec:0.0001 (80.309 usec)
->   No rx_vlan_tci or rx_vlan_proto, err=-95
->   0x562ff5dc8880: ping-pong with csum=561c (want c7dd)
->                   csum_start=34 csum_offset=6
->   HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                 delta to HW Launch-time sec:1.0000 (1000000.000 usec)
->   0x562ff5dc8880: complete tx idx=4 addr=4018
->   HW Launch-time:   1734578016467548904 (sec:1734578016.4675)
->                     delta to HW TX-complete-time sec:0.0000 (0.016 usec)
->   HW TX-complete-time:   1734578016467548920 (sec:1734578016.4675)
->                          delta to User TX-complete-time sec:0.0000
->                          (32.546 usec)
->   XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
->                  delta to User TX-complete-time sec:0.9999
->                  (999929.768 usec)
->   HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                 delta to HW TX-complete-time sec:1.0000 (1000000.016 usec)
->   0x562ff5dc8880: complete rx idx=132 addr=84110
-> 
-> Test 2: Send 1000 packets with a 10 ms interval and the launch time set to
->         500 us in the future.
-> 
-> Test steps:
-> 1. On the DUT, start the xdp_hw_metadata selftest application:
->    $ sudo chrt -f 99 ./xdp_hw_metadata enp2s0 -l 500000 -L 1 > \
->      /dev/shm/result.log
-> 
-> 2. On the Link Partner, send 1000 UDP packets with a 10 ms interval and
->    VLAN priority 1 to port 9091 of the DUT.
-> 
-> Result:
-> When the launch time is set to 500 us in the future, the average delta
-> between the launch time and the transmit hardware timestamp is 0.016 us,
-> as shown in the analysis of /dev/shm/result.log below. The XDP launch time
-> works correctly in sending 1000 packets continuously.
->   Min delta: 0.005 us
->   Avr delta: 0.016 us
->   Max delta: 0.031 us
->   Total packets forwarded: 1000
-> 
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
-> ---
->  drivers/net/ethernet/intel/igc/igc_main.c | 42 +++++++++++++++++++++--
->  1 file changed, 40 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-> index c3edd8bcf633..535d340c71c9 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -2951,9 +2951,33 @@ static u64 igc_xsk_fill_timestamp(void *_priv)
->  	return *(u64 *)_priv;
->  }
->  
-> +static void igc_xsk_request_launch_time(u64 launch_time, void *_priv)
-> +{
-> +	struct igc_metadata_request *meta_req = _priv;
-> +	struct igc_ring *tx_ring = meta_req->tx_ring;
-> +	__le32 launch_time_offset;
-> +	bool insert_empty = false;
-> +	bool first_flag = false;
-> +
-> +	if (!tx_ring->launchtime_enable)
-> +		return;
-> +
-> +	launch_time_offset = igc_tx_launchtime(tx_ring,
-> +					       ns_to_ktime(launch_time),
-> +					       &first_flag, &insert_empty);
-> +	if (insert_empty) {
-> +		igc_insert_empty_packet(tx_ring);
-> +		meta_req->tx_buffer =
-> +			&tx_ring->tx_buffer_info[tx_ring->next_to_use];
+This series was applied to riscv/linux.git (fixes)
+by Rafael J. Wysocki <rafael.j.wysocki@intel.com>:
 
-in this case I think you currently are leaking the skbs and dma mappings
-that igc_init_empty_frame() did. you're going to mix
-IGC_TX_BUFFER_TYPE_XSK with IGC_TX_BUFFER_TYPE_SKB and the latter is not
-explicitly initialized. Even though IGC_TX_BUFFER_TYPE_SKB happens to be
-equal to 0, igc_tx_buffer::type is never cleared in the tx clean desc
-routine.
-
-> +	}
-> +
-> +	igc_tx_ctxtdesc(tx_ring, launch_time_offset, first_flag, 0, 0, 0);
-> +}
-> +
->  const struct xsk_tx_metadata_ops igc_xsk_tx_metadata_ops = {
->  	.tmo_request_timestamp		= igc_xsk_request_timestamp,
->  	.tmo_fill_timestamp		= igc_xsk_fill_timestamp,
-> +	.tmo_request_launch_time	= igc_xsk_request_launch_time,
->  };
->  
->  static void igc_xdp_xmit_zc(struct igc_ring *ring)
-> @@ -2976,7 +3000,13 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->  	ntu = ring->next_to_use;
->  	budget = igc_desc_unused(ring);
->  
-> -	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget--) {
-> +	/* Packets with launch time require one data descriptor and one context
-> +	 * descriptor. When the launch time falls into the next Qbv cycle, we
-> +	 * may need to insert an empty packet, which requires two more
-> +	 * descriptors. Therefore, to be safe, we always ensure we have at least
-> +	 * 4 descriptors available.
-> +	 */
-> +	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget >= 4) {
->  		struct igc_metadata_request meta_req;
->  		struct xsk_tx_metadata *meta = NULL;
->  		struct igc_tx_buffer *bi;
-> @@ -3000,6 +3030,12 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->  		xsk_tx_metadata_request(meta, &igc_xsk_tx_metadata_ops,
->  					&meta_req);
->  
-> +		/* xsk_tx_metadata_request() may have updated next_to_use */
-> +		ntu = ring->next_to_use;
-> +
-> +		/* xsk_tx_metadata_request() may have updated Tx buffer info */
-> +		bi = meta_req.tx_buffer;
-> +
->  		tx_desc = IGC_TX_DESC(ring, ntu);
->  		tx_desc->read.cmd_type_len = cpu_to_le32(meta_req.cmd_type);
->  		tx_desc->read.olinfo_status = cpu_to_le32(olinfo_status);
-> @@ -3017,9 +3053,11 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->  		ntu++;
->  		if (ntu == ring->count)
->  			ntu = 0;
-> +
-> +		ring->next_to_use = ntu;
-> +		budget = igc_desc_unused(ring);
-
-why count the remaining space in loop? couldn't you decrement it
-accordingly to the count of descriptors you have produced? writing ntu
-back and forth between local var and ring struct performance-wise does not
-look fine.
-
->  	}
->  
-> -	ring->next_to_use = ntu;
->  	if (tx_desc) {
->  		igc_flush_tx_descriptors(ring);
->  		xsk_tx_release(pool);
-> -- 
-> 2.34.1
+On Fri, 03 Jan 2025 16:41:12 +0800 you wrote:
+> This was a retry to address [1][2], to let common code handle
+> dev_pm_clear_wake_irq. Then no need to call dev_pm_clear_wake_irq
+> in each driver.remove() hook and error handling path.
 > 
+> In this patchset, I include input and rtc patches to show the usage
+> to avoid introducing an API without users. There are still
+> other places using dev_pm_clear_wake_irq. If this patchset is
+> good for you, I could start to clean up other drivers such as mmc and
+> etc.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2,01/12] PM: sleep: wakeirq: Introduce device-managed variant of dev_pm_set_wake_irq
+    https://git.kernel.org/riscv/c/fd8318a32573
+  - [v2,02/12] input: keyboard: ep93xx_keypad: Use devm_pm_set_wake_irq
+    (no matching commit)
+  - [v2,03/12] input: keyboard: omap4_keypad: Use devm_pm_set_wake_irq
+    (no matching commit)
+  - [v2,04/12] input: misc: nxp-bbnsm-pwrkey: Use resource managed API to simplify code
+    (no matching commit)
+  - [v2,05/12] input: touchscreen: ti_am335x_tsc: Use resource managed API to simplify code
+    (no matching commit)
+  - [v2,06/12] rtc: stm32: Use resource managed API to simplify code
+    (no matching commit)
+  - [v2,07/12] rtc: nxp-bbnsm: Use resource managed API to simplify code
+    (no matching commit)
+  - [v2,08/12] rtc: ds1343: Use devm_pm_set_wake_irq
+    (no matching commit)
+  - [v2,09/12] rtc: pm8xxx: Use devm_pm_set_wake_irq
+    (no matching commit)
+  - [v2,10/12] rtc: ab8500: Use resource managed API to simplify code
+    (no matching commit)
+  - [v2,11/12] rtc: mpfs: Use devm_pm_set_wake_irq
+    (no matching commit)
+  - [v2,12/12] rtc: pl031: Use resource managed API to simplify code
+    (no matching commit)
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
