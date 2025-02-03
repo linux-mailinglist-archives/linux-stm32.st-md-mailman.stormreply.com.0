@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FA80A2551A
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D095A25519
 	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2025 09:59:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 065CCC78F81;
-	Mon,  3 Feb 2025 08:59:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECB0BC78F7F;
+	Mon,  3 Feb 2025 08:59:00 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3096FC78F7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E852C7802B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2025 08:58:54 +0000 (UTC)
+ Mon,  3 Feb 2025 08:58:55 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ore@pengutronix.de>)
- id 1tesHf-0006KG-Ig; Mon, 03 Feb 2025 09:58:23 +0100
+ id 1tesHf-0006KH-I4; Mon, 03 Feb 2025 09:58:23 +0100
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tesHd-003GNn-2q;
+ (envelope-from <ore@pengutronix.de>) id 1tesHd-003GNo-2w;
  Mon, 03 Feb 2025 09:58:21 +0100
 Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tesHd-002YZ3-2a;
+ (envelope-from <ore@pengutronix.de>) id 1tesHd-002YZD-2f;
  Mon, 03 Feb 2025 09:58:21 +0100
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -36,8 +36,8 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Woojung Huh <woojung.huh@microchip.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>
-Date: Mon,  3 Feb 2025 09:58:18 +0100
-Message-Id: <20250203085820.609176-3-o.rempel@pengutronix.de>
+Date: Mon,  3 Feb 2025 09:58:19 +0100
+Message-Id: <20250203085820.609176-4-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250203085820.609176-1-o.rempel@pengutronix.de>
 References: <20250203085820.609176-1-o.rempel@pengutronix.de>
@@ -48,11 +48,11 @@ X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, Roan van Dijk <roan@protonic.nl>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 2/4] dt-bindings: arm: stm32: Add Priva
-	E-Measuringbox board
+Subject: [Linux-stm32] [PATCH v3 3/4] arm: dts: stm32: Add thermal support
+	for STM32MP131
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,32 +69,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the Priva E-Measuringbox ('pri,prihmb') board based on
-the ST STM32MP133 SoC to the STM32 devicetree bindings.
+From: Roan van Dijk <roan@protonic.nl>
 
+Add thermal zone configuration and sensor node for STM32MP131 SoC.
+
+Signed-off-by: Roan van Dijk <roan@protonic.nl>
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 35 ++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index b6c56d4ce6b9..2cea166641c5 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -51,6 +51,12 @@ properties:
-               - st,stm32mp135f-dk
-           - const: st,stm32mp135
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index 0019d12c3d3d..8512a6e46b33 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -100,6 +100,31 @@ timer {
+ 		always-on;
+ 	};
  
-+      - description: ST STM32MP133 based Boards
-+        items:
-+          - enum:
-+              - pri,prihmb   # Priva E-Measuringbox board
-+          - const: st,stm32mp133
++	thermal-zones {
++		cpu_thermal: cpu-thermal {
++			polling-delay-passive = <0>;
++			polling-delay = <0>;
++			thermal-sensors = <&dts>;
 +
-       - description: ST STM32MP151 based Boards
-         items:
-           - enum:
++			trips {
++				cpu_alert1: cpu-alert1 {
++					temperature = <85000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				cpu-crit {
++					temperature = <120000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++
++			cooling-maps {
++			};
++		};
++	};
++
+ 	soc {
+ 		compatible = "simple-bus";
+ 		#address-cells = <1>;
+@@ -919,6 +944,16 @@ timer {
+ 			};
+ 		};
+ 
++		dts: thermal@50028000 {
++			compatible = "st,stm32-thermal";
++			reg = <0x50028000 0x100>;
++			interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&rcc DTS>;
++			clock-names = "pclk";
++			#thermal-sensor-cells = <0>;
++			status = "disabled";
++		};
++
+ 		mdma: dma-controller@58000000 {
+ 			compatible = "st,stm32h7-mdma";
+ 			reg = <0x58000000 0x1000>;
 -- 
 2.39.5
 
