@@ -2,78 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1903FA25B60
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2025 14:52:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286FDA25B71
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2025 14:53:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA008C78F7C;
-	Mon,  3 Feb 2025 13:52:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E25FDC78F7C;
+	Mon,  3 Feb 2025 13:53:48 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AC14C7802B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2077BC7802B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2025 13:52:14 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 513BEmaX002591
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 3 Feb 2025 13:52:12 GMT
+ Mon,  3 Feb 2025 13:53:41 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5135Nwf5000327
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 3 Feb 2025 13:53:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- pkSYbDqaSwny2usVYAuISCwLWlA3g2QgJUmnqeBMSg0=; b=FrQQsG/izShyy9H9
- 1UTtnmuTDFZtS8bqaCaxbx3HQPCRNeZ5KMcOAMKF+tpJWNfTyFLTuX/lDRPiqxjo
- iWjdCjXeSi12T9ZrDkHatJznA3miLC8aKRFYF5SRCe6HzRuPAu4wq6dJx+m9kT1F
- OD3ISQ8GWUFwenWUSjZTLI4mTtdbx5yXefbt0dq2qsl5PyeaYMmt1qcvC1xa1GsE
- 01c29dcq0uHpPbtu1eC+cTUmuK/K2EyLkLb/uIjC3M6NUKlbFAnaw2whVDxBasOB
- m3aCPRq0pbxrKKeR6ah3xjhXe29PCzj8WIBTb6/Bdw+y6qOLsTBJ/HrSe34TfAo8
- Twgb5A==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44jvrkgh0t-1
+ QSv/7PkAKpQ8nAIRs6GPpYKojD4RMpnIBxaHmaeb+lg=; b=d7Apou27U4Va++ZH
+ vrttHaIEfvF9zN9RDwikHgCCxar3VbEhvM02YOb4XiaELo1kKmWETCWkT/6TnC9V
+ B6Xfyf2tvYCqlDhEh2sMM4q8rCKE0+qKCNqFwzLfl2M2HGAUGTUl6NIrPlFS72ex
+ DHoakw0/abIMeE8n8eX6y/a3w0zt3NnooFA1gLSW+lpbGyG0r081MH8hY6JmWQfz
+ v2L18DKJsYvqzlSI0mp3qMTNyLDzbS2fmxFqRk+ngW4aEdgjhCFXFqdXnSUc1NG6
+ fQ8Q8FaSj0mD0Sh2eSDt7r7AB30W6256n620f0PtKsDE3trp0n8qDKSptbizyzMD
+ M8VBxQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44jqm418v4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Feb 2025 13:52:12 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6d880eea0a1so9741466d6.3
+ Mon, 03 Feb 2025 13:53:40 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4679d6f9587so3658951cf.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Feb 2025 05:52:12 -0800 (PST)
+ Mon, 03 Feb 2025 05:53:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738590731; x=1739195531;
+ d=1e100.net; s=20230601; t=1738590819; x=1739195619;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pkSYbDqaSwny2usVYAuISCwLWlA3g2QgJUmnqeBMSg0=;
- b=jCKeZfWmRgLhkPcDfUJoLnSnXZLpxUKUrO2wF6rG4rnVTCNoC1uWxrt+2uDhjZRRYp
- MMiFotWAbz59isQvqSGhlUw/3LH1QcVqBOQANumzFd+ertIDOmFQojrbx2sFr+t57Qt7
- 2vOyOATgAoTw/gCyK7O6ixxdmdXnaXS1O27TvD+Tlb2rGAL7V5ZgL5b3dyCdWMlhKfg5
- yE9rNl2GVdgaSj0Y8h1QO0KFz8dkRxADd61/bpw/HwxPw+vO16o4IdInctk5H9LSGrhh
- zG8C8VsRoYhqV0o8CjYUiWqtudanznBVICgH8rRlzasJNdeh4sVmxUC6uQ4/Lu3UAixK
- sbGA==
+ bh=QSv/7PkAKpQ8nAIRs6GPpYKojD4RMpnIBxaHmaeb+lg=;
+ b=an29FA1gpud9RJhu7lRWI2PyQMHRlOQlSqo+/Uyk8gjK8HjF0ejCf3lCP5MktGw76E
+ Y+09HJBym7X7Yz3WkiBCSBSPrfUwQ3AQJorFjoI+x2XgHbDSdCVApOK89wooWv9aWIQe
+ N2jre5IIA28sxHir9J1+INqBDn3I7nEwYlmrct+ya7iZp5Z/+hsJs9icF7NfeSdHzjdm
+ P4aqdycNVI1fKCt+EiiedFZWK2zosU8ugna7N7UeUDp9aapC9Vbuh91og3f/zD6/a25n
+ 7NVceKRoM7Gy25liv+4y/Aaz5LSFiFBHB/rMXH685o+FhSOnuRjtXJQV27fsPLiYwTxW
+ CYGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4t6fJxZJXKCS5npw/pesZT0cvuhNgxB4Gry+o5ZTZXYxmug1vq7YMT8+cPrb3CaJdxALYSVIpwQblew==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyXhzbHpDfK52s6LLOwC1dhJaJk0WwNcaoqGqjAhXT1blrM+ptU
- V06EnsRktvRraCeTAQUHWT3v/qg5DEIfN4QeWc9EVRJ3Y6hBUFdFBdy5Ot5S/gmsI+OdFRxDxEt
- GHR5U8eCE1b+xZQaGcbuKqX5p56157UjERi4AZlwETqrACWFyjQ2fCDSgtsn4NTr4zodz8rYeiB
- eUrDY=
-X-Gm-Gg: ASbGncu8TWPeIYuWjI9M5yjnLbrbRO/64DZXLcS2oSSDG9FFiPNSEzU3OvHf8AbbRvZ
- cPqr1tiGlufs5P2Ik1vGpMp1Ne/cCYrKT7NJffVc0qne4xDmSR8D7jtGYG0R5x/b2oLbnOI+Ug/
- uBg7oLCfpdWMyk41/JRsYS1rmQwCHnu5DAlO3I5r7cxEtYUcL3IgVKeutxKlW7x/O5evmEWZgeA
- 6GujmQI17jQitQETnAA7n6FR94xcnZPFYmwIhEIlIhiV/7jNlaO6CMVuKgqUlj+pv8JWOpFDZss
- +mWJpiuv65vxI3N6YPLo3jiluhNv1fyzrHhJCIH/0fLxC6r34mVCc+bGtK0=
-X-Received: by 2002:a05:620a:254b:b0:7b6:e9c0:9c3b with SMTP id
- af79cd13be357-7bffcd0a31bmr1196149385a.8.1738590730944; 
- Mon, 03 Feb 2025 05:52:10 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHt9A1Ywm1nPEK63UqBS+e6UYwlx6nzIpdhoFy2TYlNeJUUhk8BGO1TQBd333vNW/v3P8zaqw==
-X-Received: by 2002:a05:620a:254b:b0:7b6:e9c0:9c3b with SMTP id
- af79cd13be357-7bffcd0a31bmr1196142185a.8.1738590729156; 
- Mon, 03 Feb 2025 05:52:09 -0800 (PST)
+ AJvYcCUlAsrsRqhZoPiqq/qpJl5Cpf7ObwztrZ2aR8yArBr+MfZrgoOKnQNK1aBlV3KSN2aXdLTQNQYyFT9IaA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxN1XfyCbkay/XodOyrDs/10JTNrIVipasHpM28J9I8sTQwWfjf
+ Tne8nRv9JPs/O008flWCC/ARTfahkt/oktJc7M/v6TRt3tCr22/Qx90tOU6JtIA3uDlHxwPkvel
+ b817UJg9V7H0NP/iE51i3NmHUof4XrOC3RhX4qDHHIdVV+2TLH8wLTQVPV7y8uEQjuYQwcrjMDn
+ m70NY=
+X-Gm-Gg: ASbGncujG6wRrrzoNI6CwrHzwWTMjpOw2E9HQnwwoF5y3mL6sf7TC0NHI/OXaAEtxNL
+ h5TicZqzPV4JbVszo1+a+B7BaEoiHx3BDi9x1D7cyhu5TxhgmdfxnRgjudmPFwrmycobVbdpvN2
+ j3NxrvnSMKt0TJrseyv7KKP0PXhMN6tlUgsiNu0V+UWWFNForOnOw69xbi+HE/iTLAd48O732ys
+ crcej8wTUdY9w9/QLVN3gMd6ItXNaEFU9TaSp3Fu+rbpwCroL1E9x1o1kLTusH2Iz2EoiTGLeRz
+ oS1JnWh1IlOjQCM3tI3X98iYArzePn0x96+5znae1yCNtamnPWadWdlwzAE=
+X-Received: by 2002:a05:620a:40cc:b0:7ac:b32a:3997 with SMTP id
+ af79cd13be357-7c009b38647mr822904885a.7.1738590819250; 
+ Mon, 03 Feb 2025 05:53:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEgceImfzV8y+oE8r85Xh7QN5KXyc4CPa69uZAzMjW/nziNSKht9JytBTvf5hqpOMhFNtVZTA==
+X-Received: by 2002:a05:620a:40cc:b0:7ac:b32a:3997 with SMTP id
+ af79cd13be357-7c009b38647mr822902885a.7.1738590818864; 
+ Mon, 03 Feb 2025 05:53:38 -0800 (PST)
 Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5dc724aa0a8sm7559984a12.55.2025.02.03.05.52.06
+ 4fb4d7f45d1cf-5dc724c94b1sm7708809a12.66.2025.02.03.05.53.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2025 05:52:08 -0800 (PST)
-Message-ID: <21b4813e-b5c1-40d7-b536-3fe65a53affe@oss.qualcomm.com>
-Date: Mon, 3 Feb 2025 14:52:06 +0100
+ Mon, 03 Feb 2025 05:53:38 -0800 (PST)
+Message-ID: <2128f6c1-9750-405c-9595-125995ea76da@oss.qualcomm.com>
+Date: Mon, 3 Feb 2025 14:53:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Yijie Yang <quic_yijiyang@quicinc.com>,
@@ -89,26 +89,27 @@ To: Yijie Yang <quic_yijiyang@quicinc.com>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Richard Cochran <richardcochran@gmail.com>
 References: <20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com>
- <20250121-dts_qcs615-v3-4-fa4496950d8a@quicinc.com>
+ <20250121-dts_qcs615-v3-3-fa4496950d8a@quicinc.com>
+ <30a82d74-a199-4ccf-997b-b8a6971cf973@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250121-dts_qcs615-v3-4-fa4496950d8a@quicinc.com>
-X-Proofpoint-ORIG-GUID: 7BIlwUB7HTdGIxJ4sjFajikHrWxIszjC
-X-Proofpoint-GUID: 7BIlwUB7HTdGIxJ4sjFajikHrWxIszjC
+In-Reply-To: <30a82d74-a199-4ccf-997b-b8a6971cf973@oss.qualcomm.com>
+X-Proofpoint-GUID: wFvsYE5jEOgFVRzG8g4Yd5DZmBtFDz2J
+X-Proofpoint-ORIG-GUID: wFvsYE5jEOgFVRzG8g4Yd5DZmBtFDz2J
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-02-03_06,2025-01-31_02,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- spamscore=0 malwarescore=0 bulkscore=0 clxscore=1015 mlxscore=0
- adultscore=0 impostorscore=0 suspectscore=0 mlxlogscore=645
- priorityscore=1501 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2501170000 definitions=main-2502030102
+ phishscore=0 bulkscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ clxscore=1015 impostorscore=0 mlxscore=0 lowpriorityscore=0
+ mlxlogscore=620 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502030102
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/4] arm64: dts: qcom: qcs615-ride:
- Enable ethernet node
+Subject: Re: [Linux-stm32] [PATCH v3 3/4] arm64: dts: qcom: qcs615: add
+	ethernet node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,12 +126,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21.01.2025 8:54 AM, Yijie Yang wrote:
-> Enable the ethernet node, add the phy node and pinctrl for ethernet. This
-> change is necessary to support ethernet functionality on this board.
+On 1.02.2025 4:48 PM, Konrad Dybcio wrote:
+> On 21.01.2025 8:54 AM, Yijie Yang wrote:
+>> Add an ethernet controller node for QCS615 SoC to enable ethernet
+>> functionality.
+>>
+>> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+>> ---
 > 
-> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
-> ---
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+
+Wrong copypasta, please use this one instead:
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
