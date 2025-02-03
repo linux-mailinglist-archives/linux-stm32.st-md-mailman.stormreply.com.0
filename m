@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA58A2551B
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA80A2551A
 	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2025 09:59:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 119BAC78F84;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 065CCC78F81;
 	Mon,  3 Feb 2025 08:59:01 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37744C78F80
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3096FC78F7C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2025 08:58:56 +0000 (UTC)
+ Mon,  3 Feb 2025 08:58:54 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ore@pengutronix.de>)
- id 1tesHf-0006KF-I4; Mon, 03 Feb 2025 09:58:23 +0100
+ id 1tesHf-0006KG-Ig; Mon, 03 Feb 2025 09:58:23 +0100
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tesHd-003GNm-2m;
+ (envelope-from <ore@pengutronix.de>) id 1tesHd-003GNn-2q;
  Mon, 03 Feb 2025 09:58:21 +0100
 Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tesHd-002YYt-2W;
+ (envelope-from <ore@pengutronix.de>) id 1tesHd-002YZ3-2a;
  Mon, 03 Feb 2025 09:58:21 +0100
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -36,8 +36,8 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Woojung Huh <woojung.huh@microchip.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>
-Date: Mon,  3 Feb 2025 09:58:17 +0100
-Message-Id: <20250203085820.609176-2-o.rempel@pengutronix.de>
+Date: Mon,  3 Feb 2025 09:58:18 +0100
+Message-Id: <20250203085820.609176-3-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250203085820.609176-1-o.rempel@pengutronix.de>
 References: <20250203085820.609176-1-o.rempel@pengutronix.de>
@@ -49,10 +49,10 @@ X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
- Conor Dooley <conor.dooley@microchip.com>, kernel@pengutronix.de,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 1/4] dt-bindings: vendor-prefixes: Add
-	prefix for Priva
+Subject: [Linux-stm32] [PATCH v3 2/4] dt-bindings: arm: stm32: Add Priva
+	E-Measuringbox board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,30 +69,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Introduce the 'pri' vendor prefix for Priva, a company specializing in
-sustainable solutions for building automation, energy, and climate
-control.  More information about Priva can be found at
-https://www.priva.com
+Add support for the Priva E-Measuringbox ('pri,prihmb') board based on
+the ST STM32MP133 SoC to the STM32 devicetree bindings.
 
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5079ca6ce1d1..afdd861b4cad 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1202,6 +1202,8 @@ patternProperties:
-     description: Primux Trading, S.L.
-   "^probox2,.*":
-     description: PROBOX2 (by W2COMP Co., Ltd.)
-+  "^pri,.*":
-+    description: Priva
-   "^prt,.*":
-     description: Protonic Holland
-   "^pulsedlight,.*":
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index b6c56d4ce6b9..2cea166641c5 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -51,6 +51,12 @@ properties:
+               - st,stm32mp135f-dk
+           - const: st,stm32mp135
+ 
++      - description: ST STM32MP133 based Boards
++        items:
++          - enum:
++              - pri,prihmb   # Priva E-Measuringbox board
++          - const: st,stm32mp133
++
+       - description: ST STM32MP151 based Boards
+         items:
+           - enum:
 -- 
 2.39.5
 
