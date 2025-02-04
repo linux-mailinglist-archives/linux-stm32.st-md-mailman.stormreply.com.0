@@ -2,74 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CED0A26BFA
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 07:12:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8E6A26C92
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 08:33:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCD17C78F7C;
-	Tue,  4 Feb 2025 06:12:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58A55C78F7B;
+	Tue,  4 Feb 2025 07:33:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB723C78F7B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60FF7C78033
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2025 06:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738649535; x=1770185535;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=W5Mb/B6A83zl1/Y0M78kvYdb8/k9rXB+WieYOqYQnF4=;
- b=kMMx7QttK3hKsZ+ohGjUyUoZbmsazU4hbxanvGYywSw2twgYrcuxsxY8
- byvLDtHIQjb3dHXz+jBjMVQnrsx3O7da13BW0++OomBrYhmilcz+oK/a1
- Y4fd74UCLxGerbvwPMzqxKn8bk0QXwDrfJ5T44gGtDHPNR4A+UW6PYgiv
- YH1IOCJ/IwZBSsk4SRceBkvdtY2P3FGRLFluCKbq9BPWHtXMOuxZHuFnZ
- vUfD/4D9F1YUqSug/QFGVN04YUunD9PSR/h6VFmMBueraELhE4KJf53QF
- 7CyMnkrW4kHTdZjEofEEFmo9qKjjkLyTMZ0wiSSi9EhpFw7YCFEzEb4em A==;
-X-CSE-ConnectionGUID: x4BzTr1WTmqqqS7OYkzYbQ==
-X-CSE-MsgGUID: BKY9KnSgRhir/u6z2b/J/w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="50579740"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="50579740"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2025 22:12:13 -0800
-X-CSE-ConnectionGUID: +NRpEiNBSn+simhqIS2LrA==
-X-CSE-MsgGUID: f5GJdTAlSKKBVCLLmj9gyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="110279244"
-Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
- by orviesa009.jf.intel.com with ESMTP; 03 Feb 2025 22:12:06 -0800
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- David E Box <david.e.box@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jiawen Wu <jiawenwu@trustnetic.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Halaney <ahalaney@redhat.com>, Serge Semin <fancer.lancer@gmail.com>
-Date: Tue,  4 Feb 2025 14:10:20 +0800
-Message-Id: <20250204061020.1199124-8-yong.liang.choong@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
-References: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
+ Tue,  4 Feb 2025 07:33:16 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5147Pq9g023359;
+ Tue, 4 Feb 2025 08:32:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ ayrgWfVjcWQXv9my/XME+x74kxMbqnbfoWa2qB4A7Rk=; b=jlX6wFII/Z0bp4vi
+ oyXid84QFlXTmsGF0omWA31DA2Yv+SptP0ZwORC6QEBIh9scCfJwzIbhxl6atABs
+ 6T83iHgsdpeosP55g+bcQjkiOKXHapAtswtLvoyynx/2nKJhJgKWYkTd3dbJ5/7w
+ 1LgfGoiL3GNN+CGKLjyssfA79YEnQJj7Kq9Tlo+Iz39NA8Eiv1K0misBbRdQkOaP
+ 42y0LVzVs1m75xfOqehQEweKE92XS+Td1lLi3hpr4G3FdYd+oBZstnrE88o0VCnZ
+ vmcgOhlbZGt3rxBBlLJYCqw+uuTAYKhnOPhgHoXfwNaXgaxFY5YEVbRMjpi7dJQv
+ eMhHyA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44jw1tubau-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Feb 2025 08:32:49 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A058B40055;
+ Tue,  4 Feb 2025 08:31:26 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6BFBD2EB03B;
+ Tue,  4 Feb 2025 08:29:59 +0100 (CET)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
+ 2025 08:29:58 +0100
+Message-ID: <9073411a-38aa-4f82-95f5-474b0c3efed7@foss.st.com>
+Date: Tue, 4 Feb 2025 08:29:57 +0100
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v6 7/7] stmmac: intel: interface
-	switching support for ADL-N platform
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20250128081731.2284457-1-patrice.chotard@foss.st.com>
+ <20250128081731.2284457-4-patrice.chotard@foss.st.com>
+ <20250129-hilarious-glittering-mustang-fb5471@krzk-bin>
+ <3660580d-72eb-45ca-8240-55557e334e37@foss.st.com>
+ <951e4d16-2bb2-44b1-99e7-dd28349f20aa@kernel.org>
+ <02b947e3-dd5c-4ee8-bd65-5775923fe33f@foss.st.com>
+ <899675e8-4c2e-4ff2-a6af-854e0ec29bb6@kernel.org>
+ <6ed4fa56-e7ee-4b6b-951b-61a92be5c6c2@foss.st.com>
+ <6a639549-f8c8-4e36-8cfe-839f247780bb@kernel.org>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <6a639549-f8c8-4e36-8cfe-839f247780bb@kernel.org>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-04_03,2025-01-31_02,2024-11-22_01
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 3/9] dt-bindings: memory-controllers:
+ Add STM32 Octo Memory Manager controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,102 +90,284 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The intel_config_serdes function was provided to handle interface mode
-changes for the ADL-N platform.
 
-The Modphy register lane was provided to configure the serdes when
-changing interface modes.
 
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 47 ++++++++++++++++++-
- .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  2 +
- 2 files changed, 48 insertions(+), 1 deletion(-)
+On 2/3/25 12:40, Krzysztof Kozlowski wrote:
+> On 03/02/2025 11:46, Patrice CHOTARD wrote:
+>>
+>>
+>> On 1/30/25 16:09, Krzysztof Kozlowski wrote:
+>>> On 30/01/2025 14:32, Patrice CHOTARD wrote:
+>>>>
+>>>>
+>>>> On 1/30/25 13:12, Krzysztof Kozlowski wrote:
+>>>>> On 30/01/2025 09:57, Patrice CHOTARD wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 1/29/25 08:52, Krzysztof Kozlowski wrote:
+>>>>>>> On Tue, Jan 28, 2025 at 09:17:25AM +0100, patrice.chotard@foss.st.com wrote:
+>>>>>>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>>>>>>>
+>>>>>>>> Add bindings for STM32 Octo Memory Manager (OMM) controller.
+>>>>>>>>
+>>>>>>>> OMM manages:
+>>>>>>>>   - the muxing between 2 OSPI busses and 2 output ports.
+>>>>>>>>     There are 4 possible muxing configurations:
+>>>>>>>>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>>>>>>>>         output is on port 2
+>>>>>>>>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>>>>>>>>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>>>>>>>>         OSPI2 output is on port 1
+>>>>>>>>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>>>>>>>>   - the split of the memory area shared between the 2 OSPI instances.
+>>>>>>>>   - chip select selection override.
+>>>>>>>>   - the time between 2 transactions in multiplexed mode.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>>>>>>>> ---
+>>>>>>>>  .../memory-controllers/st,stm32-omm.yaml      | 190 ++++++++++++++++++
+>>>>>>>>  1 file changed, 190 insertions(+)
+>>>>>>>>  create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
+>>>>>>>>
+>>>>>>>> diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
+>>>>>>>> new file mode 100644
+>>>>>>>> index 000000000000..7e0b150e0005
+>>>>>>>> --- /dev/null
+>>>>>>>> +++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32-omm.yaml
+>>>>>>>
+>>>>>>>
+>>>>>>> Filename as compatible, so st,stm32mp25-omm.yaml
+>>>>>>>
+>>>>>>> You already received this comment.
+>>>>>>
+>>>>>> Sorry, i missed this update
+>>>>>>
+>>>>>>>
+>>>>>>>> @@ -0,0 +1,190 @@
+>>>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>>>>> +%YAML 1.2
+>>>>>>>> +---
+>>>>>>>> +$id: http://devicetree.org/schemas/memory-controllers/st,stm32-omm.yaml#
+>>>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>>>> +
+>>>>>>>> +title: STM32 Octo Memory Manager (OMM)
+>>>>>>>> +
+>>>>>>>> +maintainers:
+>>>>>>>> +  - Patrice Chotard <patrice.chotard@foss.st.com>
+>>>>>>>> +
+>>>>>>>> +description: |
+>>>>>>>> +  The STM32 Octo Memory Manager is a low-level interface that enables an
+>>>>>>>> +  efficient OCTOSPI pin assignment with a full I/O matrix (before alternate
+>>>>>>>> +  function map) and multiplex of single/dual/quad/octal 		SPI interfaces over
+>>>>>>>> +  the same bus. It Supports up to:
+>>>>>>>> +    - Two single/dual/quad/octal SPI interfaces
+>>>>>>>> +    - Two ports for pin assignment
+>>>>>>>> +
+>>>>>>>> +properties:
+>>>>>>>> +  compatible:
+>>>>>>>> +    const: st,stm32mp25-omm
+>>>>>>>> +
+>>>>>>>> +  "#address-cells":
+>>>>>>>> +    const: 2
+>>>>>>>> +
+>>>>>>>> +  "#size-cells":
+>>>>>>>> +    const: 1
+>>>>>>>> +
+>>>>>>>> +  ranges:
+>>>>>>>> +    description: |
+>>>>>>>> +      Reflects the memory layout with four integer values per OSPI instance.
+>>>>>>>> +      Format:
+>>>>>>>> +      <chip-select> 0 <registers base address> <size>
+>>>>>>>
+>>>>>>> Do you always have two children? If so, this should have maxItems.
+>>>>>>
+>>>>>> No, we can have one child.
+>>>>>
+>>>>> For the same SoC? How? You put the spi@ in the soc, so I don't
+>>>>> understand how one child is possible.
+>>>>
+>>>> Yes for the same SoC, in DTSI file, the both OCTOSPI child are declared 
+>>>> but are disabled by default.
+>>>
+>>> But the child node is there anyway so are the ranges.
+>>
+>> if both child are disabled, omm-manager should be disabled as well, 
+>> omm-manager alone makes no sense.
+> 
+> 
+> Yes, it is obvious, but how is this related?
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index de561a00f902..b5180cf303e2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -951,6 +951,51 @@ static int adls_sgmii_phy1_data(struct pci_dev *pdev,
- static struct stmmac_pci_info adls_sgmii1g_phy1_info = {
- 	.setup = adls_sgmii_phy1_data,
- };
-+
-+static int adln_common_data(struct pci_dev *pdev,
-+			    struct plat_stmmacenet_data *plat)
-+{
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
-+	plat->rx_queues_to_use = 6;
-+	plat->tx_queues_to_use = 4;
-+	plat->clk_ptp_rate = 204800000;
-+
-+	plat->safety_feat_cfg->tsoee = 1;
-+	plat->safety_feat_cfg->mrxpee = 0;
-+	plat->safety_feat_cfg->mestee = 1;
-+	plat->safety_feat_cfg->mrxee = 1;
-+	plat->safety_feat_cfg->mtxee = 1;
-+	plat->safety_feat_cfg->epsi = 0;
-+	plat->safety_feat_cfg->edpp = 0;
-+	plat->safety_feat_cfg->prtyen = 0;
-+	plat->safety_feat_cfg->tmouten = 0;
-+
-+	intel_priv->tsn_lane_registers = adln_tsn_lane_registers;
-+	intel_priv->max_tsn_lane_registers = ARRAY_SIZE(adln_tsn_lane_registers);
-+
-+	return intel_mgbe_common_data(pdev, plat);
-+}
-+
-+static int adln_sgmii_phy0_data(struct pci_dev *pdev,
-+				struct plat_stmmacenet_data *plat)
-+{
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
-+	plat->bus_id = 1;
-+	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->serdes_powerup = intel_serdes_powerup;
-+	plat->serdes_powerdown = intel_serdes_powerdown;
-+	plat->config_serdes = intel_config_serdes;
-+	intel_priv->pid_modphy = PID_MODPHY1;
-+
-+	return adln_common_data(pdev, plat);
-+}
-+
-+static struct stmmac_pci_info adln_sgmii1g_phy0_info = {
-+	.setup = adln_sgmii_phy0_data,
-+};
-+
- static const struct stmmac_pci_func_data galileo_stmmac_func_data[] = {
- 	{
- 		.func = 6,
-@@ -1333,7 +1378,7 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
- 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1, &tgl_sgmii1g_phy1_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
--	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &tgl_sgmii1g_phy0_info) },
-+	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &adln_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &tgl_sgmii1g_phy0_info) },
- 	{}
- };
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-index 093eed977ab0..2c6b50958988 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-@@ -124,8 +124,10 @@ static const struct pmc_serdes_regs pid_modphy1_2p5g_regs[] = {
- 	{}
- };
- 
-+static const int adln_tsn_lane_registers[] = {6};
- static const int ehl_tsn_lane_registers[] = {7, 8, 9, 10, 11};
- #else
-+static const int adln_tsn_lane_registers[] = {};
- static const int ehl_tsn_lane_registers[] = {};
- #endif /* CONFIG_INTEL_PMC_IPC */
- 
--- 
-2.34.1
+As described in the commit message, OMM manages the muxing of the 2 OSPI buses 
+(its 2 child), that's the relation.
 
+Do you want i add this directly in yaml file ?
+
+> 
+>>
+>>>
+>>>>
+>>>> In the DTS board file, 0,1 or 2 OCTOSPI instance can be enabled depending of the board design.
+>>>>
+>>>> In our case, on stm32mp257f-ev1 board, one SPI-NOR is soldered on PCB, so only one OCTOSPI 
+>>>> instance is needed and enabled.
+>>>>
+>>>> Internally we got validation boards with several memory devices connected to OCTOSPI1 and 
+>>>> OCTOSPI2, in this case, both OCTOSPI instance are needed and enabled.
+>>>
+>>> I could imagine that you would not want to have unused reserved ranges,
+>>> so that one indeed is flexible, I agree.
+>>>
+>>>>
+>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>>> +
+>>>>>>>> +  reg:
+>>>>>>>> +    items:
+>>>>>>>> +      - description: OMM registers
+>>>>>>>> +      - description: OMM memory map area
+>>>>>>>> +
+>>>>>>>> +  reg-names:
+>>>>>>>> +    items:
+>>>>>>>> +      - const: regs
+>>>>>>>> +      - const: memory_map
+>>>>>>>> +
+>>>>>>>> +  memory-region:
+>>>>>>>> +    description: Phandle to node describing memory-map region to used.
+>>>>>>>> +    minItems: 1
+>>>>>>>> +    maxItems: 2
+>>>>>>>
+>>>>>>> List the items with description instead with optional minItems. Why is
+>>>>>>> this flexible in number of items?
+>>>>>>
+>>>>>> If only one child (OCTOSPI instance), only one memory-region is needed.
+>>>>>
+>>>>> Which is not possible... look at your DTSI.
+>>>>
+>>>> It's possible. if one OCTOSPI is used (the second one is kept disabled), only
+>>>> one memory-region is needed.
+>>>
+>>> Ack.
+>>>
+>>>>
+>>>>>
+>>>>>>
+>>>>>> Another update, i will reintroduce "memory-region-names:" which was 
+>>>>>> wrongly removed in V2, i have forgotten one particular case.
+>>>>>>
+>>>>>> We need memory-region-names in case only one OCTOSPI instance is 
+>>>>>> used. If it's OCTOCPI2 and the whole memory-map region
+>>>>>> is dedicated to OCTOSPI2 (OCTOSPI1 unmapped, OCTOSPI2 (256 Mbytes)
+>>>>>>
+>>>>>> We need to know to which OCTOSPI instance the memory region is associated
+>>>>>> with, in order to check "st,syscfg-amcr" 's value which must be coherent 
+>>>>>> with memory region declared.
+>>>>>>
+>>>>>> so i will add :
+>>>>>>
+>>>>>>   memory-region-names:
+>>>>>>     description: |
+>>>>>>       OCTOSPI instance's name to which memory region is associated
+>>>>>>     items:
+>>>>>>       - const: ospi1
+>>>>>>       - const: ospi2
+>>>>>>
+>>>>>
+>>>>> I don't think this matches what you are saying to us. Let's talk about
+>>>>> the hardware which is directly represented by DTS/DTSI. You always have
+>>>>> two instances.
+>>>>>
+>>>>>
+>>>>
+>>>> We have 2 instances, but both not always enabled.
+>>>> In case only one is enabled, only one memory-region-names is needed.
+>>>>
+>>>> We must know to which OCTCOSPI the memory-region makes reference to, in order
+>>>> to configure and/or check the memory region split configuration. That' swhy 
+>>>> the memory-regions-names must specify if it's the OCTOSPI1 or OCTOSPI2 instance.
+>>>
+>>> Well, in that case two comments.
+>>> 1. Above syntax does not allow you to skip one item. You would need:
+>>> items:
+>>>   enum: [ospi1, ospi2]
+>>> minItems: 1
+>>> maxItems: 2
+>>>
+>>
+>> ok
+>>
+>>> 2. But this points to other problem. From the omm-manager node point of
+>>> view, you should define all the resources regardless whether the child
+>>> is enabled or not. You do not skip some part of 'reg' if child is
+>>> missing. Do not skip interrupts, access controllers, clocks etc.
+>>> If some resource is to be skipped, it means that it belongs to the
+>>> child, not to the parent, IMO.
+>>
+>> I didn't get your point. 
+>>
+>> The resource declared in omm-manager's node pnly belongs to omm-manager
+>> (reg/clocks/resets/access-controllers/st,syscfg-amcr/power-domains), regardless 
+>> there are 1 or 2 children. None of them can be skipped.
+> 
+> That's not true, you skip ranges and memory region.
+
+If i have correctly understood, you want a constraint on range and memory-regions properties ?
+Is it what you expect ?
+
+  ranges:
+    description: |
+      Reflects the memory layout with four integer values per OSPI instance.
+      Format:
+      <chip-select> 0 <registers base address> <size>
+    minItems: 1
+    maxItems: 2
+
+  memory-region-names:
+    description: |
+      OCTOSPI instance's name to which memory region is associated
+    items:
+      enum: [ospi1, ospi2]
+    minItems: 1
+    maxItems: 2
+
+
+Thanks
+Patrice
+
+
+> 
+>>
+>> If omm-manager has no child enabled, omm-manager must be disabled as well in DT.
+> 
+> That's not what we talk about. We do not talk about enabled or disabled.
+> We talk about being there in the first place.
+> 
+>>
+>>> Therefore memory-region looks like child's property.
+>>>
+>>> Imagine different case: runtime loaded overlay. In your setup, you probe
+>>> omm-manager with one memory-region and one child. Then someone loads
+>>> overlay enabling the second child, second SPI.
+>>>
+>>> That's of course imaginary case, but shows the concept how the parent
+>>> would work.
+>>>
+>>> It's the same with other buses in the kernel. You can load overlay with
+>>> any new child and the parent should not get new properties.
+>>>
+>>
+>> In case of runtime loaded overlay, if a second child is added with an associated 
+>> memory-region, omm-manager must be unbind/bind to :
+>>   _ check the added child's access rights.
+>>   _ take into account the added child's memory-region configuration (to set 
+>>     the syscfg-amcr register accordingly) 
+> 
+> That's driver part, we talk about bindings and DTS.
+> 
+> 
+> 
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
