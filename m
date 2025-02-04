@@ -2,73 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEBBAA26D39
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 09:25:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E14A26D69
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 09:40:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94A44C78F7B;
-	Tue,  4 Feb 2025 08:25:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BE46C78F7B;
+	Tue,  4 Feb 2025 08:40:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D270C78033
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B63CAC7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2025 08:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738657537; x=1770193537;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=tA7E1mVpIymY3Lc0nR1S/UyBaq3G0W3boEmT/JwVfMw=;
- b=ML2V7DF9wcHXBfquR9xEngE6blGLiQBkQ7plqCrXp5pqg3Es402coKLa
- V00fXi66XOrpQZyLCqto/8QjNoH8KkA2t7osHZkk+mcBEjcM+4GiY6fZT
- yc8lkzIFUdVwRzI/gy8Y8mhIS1SC3DZz9pilvUp7PwYfeMn4l89W4Egkl
- rzqTVK1WEbzO0gB/IbPXOK0nn9rF5CvX8SR9S72UNwZ6jP/4UD7XR0u8O
- RLGVZJzX3FL8dcq8czQIW2TjFqQyiO6UBrCu0yzzRz9TgNuoFNG1MDw+B
- HwmTMYpDgrkVJUvOnpkyghi1wU/CgUoy2kh+N2N5oLAholUXeOfpBqONU A==;
-X-CSE-ConnectionGUID: L2cwemsEQUOs6EWB/mk6Ww==
-X-CSE-MsgGUID: gZfPifkdTuq2SR5ydRBcpw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11335"; a="64524815"
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="64524815"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 00:25:29 -0800
-X-CSE-ConnectionGUID: LTlwhQG9RVqR9pLXW0mgtw==
-X-CSE-MsgGUID: x3roqXnEQH+JzJtGCuS/0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="115543375"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.75])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 00:25:16 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 4 Feb 2025 10:25:12 +0200 (EET)
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
-Message-ID: <71b15c65-4790-50e0-fa96-dbc42c90079f@linux.intel.com>
-References: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
- <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
+ Tue,  4 Feb 2025 08:40:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B66B5C5AFD;
+ Tue,  4 Feb 2025 08:40:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE71C4CEDF;
+ Tue,  4 Feb 2025 08:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738658442;
+ bh=egKIg4Sb8jTt5UVyNpSYkZNvshAg5CXpUgYIUdnycVE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DEemYWX4FzPv64Fhn1ItuDTrz/Su5TNpaJ7BXf/pTTAJYoG2COwheKL1uuQuS+gO2
+ Wptz2bbRPeYUgufK/XWCGD1ZIPVRrMMrzYsRhEorTx+ZroOP67dlcOlHeJTaFTfv3g
+ /Gy7KJ3jh24AooqyMMwfoVxyoZXt0LKqpl6EB/WBSVqlEpDSr0Tyyv+aLbk+fdrGpq
+ scH1QZj2khPkQAsQrsuwcNZnDjiQSg8UKIblAkP8lYlw7yOG4+drc0LzZLObefJ2t8
+ 5FUyliZlU/dDi7Lt/SlBiJk2sdBWf89jB34CdHikFIaaUlPsw9m+PENFU5tNg1hGvn
+ +dTybvn0OeugA==
+Message-ID: <1cb63ff4-8926-4bbc-8a78-59103d167140@kernel.org>
+Date: Tue, 4 Feb 2025 09:40:31 +0100
 MIME-Version: 1.0
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Simon Horman <horms@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, linux-arm-kernel@lists.infradead.org,
- Paolo Abeni <pabeni@redhat.com>, Netdev <netdev@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] stmmac: intel: configure
- SerDes according to the interface mode
+User-Agent: Mozilla Thunderbird
+To: Swathi K S <swathi.ks@samsung.com>, robh@kernel.org, davem@davemloft.net, 
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ conor+dt@kernel.org, richardcochran@gmail.com, mcoquelin.stm32@gmail.com,
+ andrew@lunn.ch, alim.akhtar@samsung.com, linux-fsd@tesla.com
+References: <CGME20250128102707epcas5p154db286b06da942e18ffe315e4767707@epcas5p1.samsung.com>
+ <20250128102558.22459-1-swathi.ks@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250128102558.22459-1-swathi.ks@samsung.com>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ ravi.patel@samsung.com, rcsekar@samsung.com, netdev@vger.kernel.org,
+ jayati.sahu@samsung.com, ssiddha@tesla.com, linux-kernel@vger.kernel.org,
+ joabreu@synopsys.com, pankaj.dubey@samsung.com, peppe.cavallaro@st.com,
+ gost.dev@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 0/4] net: stmmac: dwc-qos: Add FSD EQoS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,331 +108,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 4 Feb 2025, Choong Yong Liang wrote:
-
-> Intel platform will configure the SerDes through PMC api based on the
-
-API
-
-> provided interface mode.
+On 28/01/2025 11:25, Swathi K S wrote:
+> FSD platform has two instances of EQoS IP, one is in FSYS0 block and
+> another one is in PERIC block. This patch series add required DT binding,
+> DT file modifications and platform driver specific changes for the same.
 > 
-> This patch adds several new functions below:-
-> - intel_tsn_lane_is_available(): This new function reads FIA lane
->   ownership registers and common lane registers through IPC commands
->   to know which lane the mGbE port is assigned to.
-> - intel_config_serdes(): To configure the SerDes based on the assigned
->   lane and latest interface mode, it sends IPC command to the PMC through
->   PMC driver/API. The PMC acts as a proxy for R/W on behalf of the driver.
-> - intel_set_reg_access(): Set the register access to the available TSN
->   interface.
+> Changes since v4:
+> 1. Avoided switching between internal and external clocks for every open/
+> close.
+> 2. Addressed the review comments on DT bindings
 > 
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |   2 +
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 107 +++++++++++++++++-
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  75 ++++++++++++
->  include/linux/stmmac.h                        |   3 +
->  4 files changed, 185 insertions(+), 2 deletions(-)
+> Here is the link to v4 patches for reference:
+> https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=&submitter=211782&state=&q=&archive=true&delegate=
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index 4cc85a36a1ab..25154b915b02 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -307,6 +307,8 @@ config DWMAC_INTEL
->  	default X86
->  	depends on X86 && STMMAC_ETH && PCI
->  	depends on COMMON_CLK
-> +	depends on ACPI
-> +	select INTEL_PMC_IPC
->  	help
->  	  This selects the Intel platform specific bus support for the
->  	  stmmac driver. This driver is used for Intel Quark/EHL/TGL.
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index 48acba5eb178..347dd75bcdcd 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -5,6 +5,7 @@
->  #include <linux/clk-provider.h>
->  #include <linux/pci.h>
->  #include <linux/dmi.h>
-> +#include <linux/platform_data/x86/intel_pmc_ipc.h>
->  #include "dwmac-intel.h"
->  #include "dwmac4.h"
->  #include "stmmac.h"
-> @@ -14,6 +15,9 @@ struct intel_priv_data {
->  	int mdio_adhoc_addr;	/* mdio address for serdes & etc */
->  	unsigned long crossts_adj;
->  	bool is_pse;
-> +	const int *tsn_lane_registers;
-> +	int max_tsn_lane_registers;
-> +	int pid_modphy;
->  };
->  
->  /* This struct is used to associate PCI Function of MAC controller on a board,
-> @@ -93,7 +97,7 @@ static int intel_serdes_powerup(struct net_device *ndev, void *priv_data)
->  	data &= ~SERDES_RATE_MASK;
->  	data &= ~SERDES_PCLK_MASK;
->  
-> -	if (priv->plat->max_speed == 2500)
-> +	if (priv->plat->phy_interface == PHY_INTERFACE_MODE_2500BASEX)
->  		data |= SERDES_RATE_PCIE_GEN2 << SERDES_RATE_PCIE_SHIFT |
->  			SERDES_PCLK_37p5MHZ << SERDES_PCLK_SHIFT;
->  	else
-> @@ -415,6 +419,103 @@ static void intel_mgbe_pse_crossts_adj(struct intel_priv_data *intel_priv,
->  	}
->  }
->  
-> +static bool intel_tsn_lane_is_available(struct net_device *ndev,
-> +					struct intel_priv_data *intel_priv)
-> +{
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	struct pmc_ipc_cmd tmp = {0};
-> +	u32 rbuf[4] = {0};
-> +	int ret, i, j;
-> +
-> +	if (priv->plat->serdes_powerup) {
+> Swathi K S (4):
+>   dt-bindings: net: Add FSD EQoS device tree bindings
+>   net: stmmac: dwc-qos: Add FSD EQoS support
+>   arm64: dts: fsd: Add Ethernet support for FSYS0 Block of FSD SoC
+>   arm64: dts: fsd: Add Ethernet support for PERIC Block of FSD SoC
 
-The logic could be reversed + return immediately to reduce the indentation
-of the block below.
+In next versions, please split DTS from net and send it separately with
+*lore* link to the posting of bindings.
 
-> +		tmp.cmd = IPC_SOC_REGISTER_ACCESS;
-> +		tmp.sub_cmd = IPC_SOC_SUB_CMD_READ;
-> +
-> +		for (i = 0; i < 5; i++) {
-
-Name the magic 5 with a define?
-
-> +			tmp.wbuf[0] = R_PCH_FIA_15_PCR_LOS1_REG_BASE + i;
-> +
-> +			ret = intel_pmc_ipc(&tmp, rbuf);
-> +			if (ret < 0) {
-> +				netdev_info(priv->dev,
-> +					    "Failed to read from PMC.\n");
-> +				return false;
-> +			}
-> +
-> +			for (j = 0; j <= intel_priv->max_tsn_lane_registers; j++)
-> +				if ((rbuf[0] >>
-> +				    (4 * (intel_priv->tsn_lane_registers[j] % 8)) &
-> +				     B_PCH_FIA_PCR_L0O) == 0xB)
-> +					return true;
-> +		}
-> +	}
-> +	return false;
-> +}
-> +
-> +static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs)
-> +{
-> +	int ret = 0, i;
-> +
-> +	for (i = 0; i < max_regs; i++) {
-> +		struct pmc_ipc_cmd tmp = {0};
-> +		u32 buf[4] = {0};
-
-If you just want to have them initialized, it's enough to use {}, no dummy 
-0 is necessary.
-
-> +
-> +		tmp.cmd = IPC_SOC_REGISTER_ACCESS;
-> +		tmp.sub_cmd = IPC_SOC_SUB_CMD_WRITE;
-> +		tmp.wbuf[0] = (u32)regs[i].index;
-> +		tmp.wbuf[1] = regs[i].val;
-> +
-> +		ret = intel_pmc_ipc(&tmp, buf);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int intel_config_serdes(struct net_device *ndev,
-> +			       void *intel_data,
-> +			       phy_interface_t interface)
-> +{
-> +	struct intel_priv_data *intel_priv = intel_data;
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	int ret = 0;
-> +
-> +	if (!intel_tsn_lane_is_available(ndev, intel_priv)) {
-> +		netdev_info(priv->dev,
-> +			    "No TSN lane available to set the registers.\n");
-> +		goto pmc_read_error;
-> +	}
-> +
-> +	if (intel_priv->pid_modphy == PID_MODPHY1) {
-> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
-> +			ret = intel_set_reg_access(pid_modphy1_2p5g_regs,
-> +						   ARRAY_SIZE(pid_modphy1_2p5g_regs));
-> +		} else {
-> +			ret = intel_set_reg_access(pid_modphy1_1g_regs,
-> +						   ARRAY_SIZE(pid_modphy1_1g_regs));
-> +		}
-> +	} else {
-> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
-> +			ret = intel_set_reg_access(pid_modphy3_2p5g_regs,
-> +						   ARRAY_SIZE(pid_modphy3_2p5g_regs));
-> +		} else {
-> +			ret = intel_set_reg_access(pid_modphy3_1g_regs,
-> +						   ARRAY_SIZE(pid_modphy3_1g_regs));
-> +		}
-> +	}
-
-This looks somewhat ugly. Perhaps it would be better if you make the call 
-on main level of the function and use local variables to hold the regs 
-array and its number of elements until then.
-
-It would be even better if you could just store the pointer and # of 
-elements into some platform info structure so that it wouldn't need to be 
-calculated on the fly here (but I don't know this driver well enough to 
-know if that's viable/easy to do).
-
-> +	priv->plat->phy_interface = interface;
-> +
-> +	if (ret < 0)
-> +		goto pmc_read_error;
-> +
-> +pmc_read_error:
-> +	intel_serdes_powerdown(ndev, intel_priv);
-> +	intel_serdes_powerup(ndev, intel_priv);
-> +
-> +	return ret;
-> +}
-> +
->  static void common_default_data(struct plat_stmmacenet_data *plat)
->  {
->  	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-> @@ -650,7 +751,7 @@ static int ehl_sgmii_data(struct pci_dev *pdev,
->  	plat->speed_mode_2500 = intel_speed_mode_2500;
->  	plat->serdes_powerup = intel_serdes_powerup;
->  	plat->serdes_powerdown = intel_serdes_powerdown;
-> -
-> +	plat->config_serdes = intel_config_serdes;
->  	plat->clk_ptp_rate = 204800000;
->  
->  	return ehl_common_data(pdev, plat);
-> @@ -709,6 +810,7 @@ static int ehl_pse0_sgmii1g_data(struct pci_dev *pdev,
->  	plat->speed_mode_2500 = intel_speed_mode_2500;
->  	plat->serdes_powerup = intel_serdes_powerup;
->  	plat->serdes_powerdown = intel_serdes_powerdown;
-> +	plat->config_serdes = intel_config_serdes;
->  	return ehl_pse0_common_data(pdev, plat);
->  }
->  
-> @@ -750,6 +852,7 @@ static int ehl_pse1_sgmii1g_data(struct pci_dev *pdev,
->  	plat->speed_mode_2500 = intel_speed_mode_2500;
->  	plat->serdes_powerup = intel_serdes_powerup;
->  	plat->serdes_powerdown = intel_serdes_powerdown;
-> +	plat->config_serdes = intel_config_serdes;
->  	return ehl_pse1_common_data(pdev, plat);
->  }
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-> index 0a37987478c1..79c35ba969ea 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-> @@ -50,4 +50,79 @@
->  #define PCH_PTP_CLK_FREQ_19_2MHZ	(GMAC_GPO0)
->  #define PCH_PTP_CLK_FREQ_200MHZ		(0)
->  
-> +#define	PID_MODPHY1 0xAA
-> +#define	PID_MODPHY3 0xA8
-> +
-> +#if IS_ENABLED(CONFIG_INTEL_PMC_IPC)
-> +struct pmc_serdes_regs {
-> +	u8 index;
-> +	u32 val;
-> +};
-> +
-> +/* Modphy Register index */
-> +#define R_PCH_FIA_15_PCR_LOS1_REG_BASE			8
-> +#define R_PCH_FIA_15_PCR_LOS2_REG_BASE			9
-> +#define R_PCH_FIA_15_PCR_LOS3_REG_BASE			10
-> +#define R_PCH_FIA_15_PCR_LOS4_REG_BASE			11
-> +#define R_PCH_FIA_15_PCR_LOS5_REG_BASE			12
-> +#define B_PCH_FIA_PCR_L0O				GENMASK(3, 0)
-> +#define PID_MODPHY1_B_MODPHY_PCR_LCPLL_DWORD0		13
-> +#define PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD2		14
-> +#define PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD7		15
-> +#define PID_MODPHY1_N_MODPHY_PCR_LPPLL_DWORD10		16
-> +#define PID_MODPHY1_N_MODPHY_PCR_CMN_ANA_DWORD30	17
-> +#define PID_MODPHY3_B_MODPHY_PCR_LCPLL_DWORD0		18
-> +#define PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD2		19
-> +#define PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD7		20
-> +#define PID_MODPHY3_N_MODPHY_PCR_LPPLL_DWORD10		21
-> +#define PID_MODPHY3_N_MODPHY_PCR_CMN_ANA_DWORD30	22
-> +
-> +#define B_MODPHY_PCR_LCPLL_DWORD0_1G		0x46AAAA41
-> +#define N_MODPHY_PCR_LCPLL_DWORD2_1G		0x00000139
-> +#define N_MODPHY_PCR_LCPLL_DWORD7_1G		0x002A0003
-> +#define N_MODPHY_PCR_LPPLL_DWORD10_1G		0x00170008
-> +#define N_MODPHY_PCR_CMN_ANA_DWORD30_1G		0x0000D4AC
-> +#define B_MODPHY_PCR_LCPLL_DWORD0_2P5G		0x58555551
-> +#define N_MODPHY_PCR_LCPLL_DWORD2_2P5G		0x0000012D
-> +#define N_MODPHY_PCR_LCPLL_DWORD7_2P5G		0x001F0003
-> +#define N_MODPHY_PCR_LPPLL_DWORD10_2P5G		0x00170008
-> +#define N_MODPHY_PCR_CMN_ANA_DWORD30_2P5G	0x8200ACAC
-> +
-> +static const struct pmc_serdes_regs pid_modphy3_1g_regs[] = {
-> +	{ PID_MODPHY3_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_1G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy3_2p5g_regs[] = {
-> +	{ PID_MODPHY3_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_2P5G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy1_1g_regs[] = {
-> +	{ PID_MODPHY1_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_1G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy1_2p5g_regs[] = {
-> +	{ PID_MODPHY1_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_2P5G },
-> +	{}
-> +};
-
-Why are these arrays in a header and not in the C file that uses them???
-
-> +#endif /* CONFIG_INTEL_PMC_IPC */
-> +
->  #endif /* __DWMAC_INTEL_H__ */
-> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-> index c9878a612e53..dcfa5f423d1c 100644
-> --- a/include/linux/stmmac.h
-> +++ b/include/linux/stmmac.h
-> @@ -236,6 +236,9 @@ struct plat_stmmacenet_data {
->  	int (*serdes_powerup)(struct net_device *ndev, void *priv);
->  	void (*serdes_powerdown)(struct net_device *ndev, void *priv);
->  	void (*speed_mode_2500)(struct net_device *ndev, void *priv);
-> +	int (*config_serdes)(struct net_device *ndev,
-> +			     void *priv,
-> +			     phy_interface_t interface);
->  	void (*ptp_clk_freq_config)(struct stmmac_priv *priv);
->  	int (*init)(struct platform_device *pdev, void *priv);
->  	void (*exit)(struct platform_device *pdev, void *priv);
-> 
-
--- 
- i.
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
