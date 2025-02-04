@@ -2,89 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81FCAA26A22
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 03:43:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C925BA26BE9
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 07:11:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CBC8C78F7C;
-	Tue,  4 Feb 2025 02:43:55 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E078C78F7B;
+	Tue,  4 Feb 2025 06:11:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CB4DC78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B6A3C78033
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2025 02:43:47 +0000 (UTC)
+ Tue,  4 Feb 2025 06:11:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738637033; x=1770173033;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=D/yelYXMu8Tmrswd3iQdp89T2paRJBLUtNsp9zw6A+I=;
- b=hA6ONFsSUPmMq6N4qVMplx2nIl07zGvOstlii+H1JhZtn9isrzjtC3fX
- CMcnL6RaRoEgLZ0IMv5nk9MBtHsH19d/djJL24VGVXu0oHcu9DMYPYEXG
- q/rG3/d/M2rJ1HWF3WZoNnCd6654/C2eq+OQ//PGg6DwqydrvUfdVg9Cg
- tOiS+7cw2nSba//XuzkCGcAvbQY7mi/4EpzZ4qwDRJUKYD84nc4/9UDlF
- ALIcpsz++bCfYGk4iWAXjJjnFKlgSdX1/rp2l8vo07gwe9ITucUK08xw3
- OX+Klduf+WP2I7iINmTtN/OKZ0kcCewa3OSVnAW+RrSqOBLcKwfhRw0Up Q==;
-X-CSE-ConnectionGUID: XeSYz9vgRtq1NiaK3yKm6g==
-X-CSE-MsgGUID: yAX1L87qTzKOoNHJVe0A+w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="39248901"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="39248901"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2025 18:43:45 -0800
-X-CSE-ConnectionGUID: eirV3W6ATT2+I2tIcic76g==
-X-CSE-MsgGUID: MlLHdLEVQYS5RAbSPTokFg==
+ t=1738649478; x=1770185478;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wFcpLZeR+9puSZ3enjCz0fy9g9uHT+CQiy08Uu+Q6Ec=;
+ b=Xe5Uif4MzvqDaTpyAqdbLPtW7dTn9Zqkh1vSu3FIFI1fn1lnd4UVeFkb
+ 1sRr3OeuA/a+lgLF1bfYb0ejA3Q+G71+XuVQi2PjFc/opQ1+GMuqYGThP
+ n2xwzS6t4tf4/Asl2a8sIYR5yqs+IXl1qRzCb8t6j8HZaz5dxJV9BlFY7
+ QZQEG4cPqrtHN/OjlApUw/dAR6BtDH4RjE3Jm3Sur/Nzw3hvU8hLh9aK2
+ gfZQ9tBfINQwaQIYlS/9VAbnwH1m19p2TlLmybsCMFKvh+FgEbrOSE5/f
+ 60wMIeL2BfMCHTdV3Wwux96XLe5OYuYTICj6ZNeXIy+k5Iv5mCVfWnY7x g==;
+X-CSE-ConnectionGUID: XhQTrbnaQIaWK6YM2jQWbQ==
+X-CSE-MsgGUID: Mm3PB2/+S8O9UO6HNv68wA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="50579577"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="50579577"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2025 22:11:10 -0800
+X-CSE-ConnectionGUID: 6jwsG0/7QO+8MjZY2BO8oQ==
+X-CSE-MsgGUID: qq7r9d+hTXaVNxJRjccM7w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,257,1732608000"; d="scan'208";a="115488420"
-Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.89.75])
- ([10.247.89.75])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2025 18:43:33 -0800
-Message-ID: <42fc5e78-ce8a-45fa-95dc-adf25d0d76d7@linux.intel.com>
-Date: Tue, 4 Feb 2025 10:43:31 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Song Yoong Siang <yoong.siang.song@intel.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Willem de Bruijn <willemb@google.com>,
- Florian Bezdeka <florian.bezdeka@siemens.com>,
- Donald Hunter <donald.hunter@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Bjorn Topel <bjorn@kernel.org>, Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Joe Damato <jdamato@fastly.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Mina Almasry <almasrymina@google.com>,
- Daniel Jurgens <danielj@nvidia.com>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Mykola Lysenko <mykolal@fb.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Shuah Khan <shuah@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
+X-IronPort-AV: E=Sophos;i="6.13,258,1732608000"; d="scan'208";a="110279139"
+Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
+ by orviesa009.jf.intel.com with ESMTP; 03 Feb 2025 22:11:02 -0800
+From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ David E Box <david.e.box@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Bouska Zdenek <zdenek.bouska@siemens.com>
-References: <20250204004907.789330-1-yoong.siang.song@intel.com>
- <20250204004907.789330-6-yoong.siang.song@intel.com>
-Content-Language: en-US
-From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-In-Reply-To: <20250204004907.789330-6-yoong.siang.song@intel.com>
-Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jiawen Wu <jiawenwu@trustnetic.com>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Hans de Goede <hdegoede@redhat.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Serge Semin <fancer.lancer@gmail.com>
+Date: Tue,  4 Feb 2025 14:10:13 +0800
+Message-Id: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v7 5/5] igc: Add launch time
-	support to XDP ZC
+Subject: [Linux-stm32] [PATCH net-next v6 0/7] Enable SGMII and 2500BASEX
+	interface mode switching for Intel platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,164 +79,104 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+During the interface mode change, the 'phylink_major_config' function will
+be triggered in phylink. The modification of the following functions will
+support the switching between SGMII and 2500BASE-X interface modes for
+the Intel platform:
 
+- xpcs_switch_interface_mode: Re-initiates clause 37 auto-negotiation for
+  the SGMII interface mode to perform auto-negotiation.
+- mac_finish: Configures the SerDes according to the interface mode.
 
-On 4/2/2025 8:49 am, Song Yoong Siang wrote:
-> Enable Launch Time Control (LTC) support for XDP zero copy via XDP Tx
-> metadata framework.
-> 
-> This patch has been tested with tools/testing/selftests/bpf/xdp_hw_metadata
-> on Intel I225-LM Ethernet controller. Below are the test steps and result.
-> 
-> Test 1: Send a single packet with the launch time set to 1 s in the future.
-> 
-> Test steps:
-> 1. On the DUT, start the xdp_hw_metadata selftest application:
->     $ sudo ./xdp_hw_metadata enp2s0 -l 1000000000 -L 1
-> 
-> 2. On the Link Partner, send a UDP packet with VLAN priority 1 to port 9091
->     of the DUT.
-> 
-> Result:
-> When the launch time is set to 1 s in the future, the delta between the
-> launch time and the transmit hardware timestamp is 0.016 us, as shown in
-> printout of the xdp_hw_metadata application below.
->    0x562ff5dc8880: rx_desc[4]->addr=84110 addr=84110 comp_addr=84110 EoP
->    rx_hash: 0xE343384 with RSS type:0x1
->    HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                  delta to User RX-time sec:0.0002 (183.103 usec)
->    XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
->                   delta to User RX-time sec:0.0001 (80.309 usec)
->    No rx_vlan_tci or rx_vlan_proto, err=-95
->    0x562ff5dc8880: ping-pong with csum=561c (want c7dd)
->                    csum_start=34 csum_offset=6
->    HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                  delta to HW Launch-time sec:1.0000 (1000000.000 usec)
->    0x562ff5dc8880: complete tx idx=4 addr=4018
->    HW Launch-time:   1734578016467548904 (sec:1734578016.4675)
->                      delta to HW TX-complete-time sec:0.0000 (0.016 usec)
->    HW TX-complete-time:   1734578016467548920 (sec:1734578016.4675)
->                           delta to User TX-complete-time sec:0.0000
->                           (32.546 usec)
->    XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
->                   delta to User TX-complete-time sec:0.9999
->                   (999929.768 usec)
->    HW RX-time:   1734578015467548904 (sec:1734578015.4675)
->                  delta to HW TX-complete-time sec:1.0000 (1000000.016 usec)
->    0x562ff5dc8880: complete rx idx=132 addr=84110
-> 
-> Test 2: Send 1000 packets with a 10 ms interval and the launch time set to
->          500 us in the future.
-> 
-> Test steps:
-> 1. On the DUT, start the xdp_hw_metadata selftest application:
->     $ sudo chrt -f 99 ./xdp_hw_metadata enp2s0 -l 500000 -L 1 > \
->       /dev/shm/result.log
-> 
-> 2. On the Link Partner, send 1000 UDP packets with a 10 ms interval and
->     VLAN priority 1 to port 9091 of the DUT.
-> 
-> Result:
-> When the launch time is set to 500 us in the future, the average delta
-> between the launch time and the transmit hardware timestamp is 0.016 us,
-> as shown in the analysis of /dev/shm/result.log below. The XDP launch time
-> works correctly in sending 1000 packets continuously.
->    Min delta: 0.005 us
->    Avr delta: 0.016 us
->    Max delta: 0.031 us
->    Total packets forwarded: 1000
-> 
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
-> ---
->   drivers/net/ethernet/intel/igc/igc_main.c | 42 +++++++++++++++++++++--
->   1 file changed, 40 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-> index c3edd8bcf633..535d340c71c9 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -2951,9 +2951,33 @@ static u64 igc_xsk_fill_timestamp(void *_priv)
->   	return *(u64 *)_priv;
->   }
->   
-> +static void igc_xsk_request_launch_time(u64 launch_time, void *_priv)
-> +{
-> +	struct igc_metadata_request *meta_req = _priv;
-> +	struct igc_ring *tx_ring = meta_req->tx_ring;
-> +	__le32 launch_time_offset;
-> +	bool insert_empty = false;
-> +	bool first_flag = false;
-> +
-> +	if (!tx_ring->launchtime_enable)
-> +		return;
-> +
-> +	launch_time_offset = igc_tx_launchtime(tx_ring,
-> +					       ns_to_ktime(launch_time),
-> +					       &first_flag, &insert_empty);
-> +	if (insert_empty) {
-> +		igc_insert_empty_packet(tx_ring);
-> +		meta_req->tx_buffer =
-> +			&tx_ring->tx_buffer_info[tx_ring->next_to_use];
-> +	}
-> +
-> +	igc_tx_ctxtdesc(tx_ring, launch_time_offset, first_flag, 0, 0, 0);
-> +}
-> +
->   const struct xsk_tx_metadata_ops igc_xsk_tx_metadata_ops = {
->   	.tmo_request_timestamp		= igc_xsk_request_timestamp,
->   	.tmo_fill_timestamp		= igc_xsk_fill_timestamp,
-> +	.tmo_request_launch_time	= igc_xsk_request_launch_time,
->   };
->   
->   static void igc_xdp_xmit_zc(struct igc_ring *ring)
-> @@ -2976,7 +3000,13 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->   	ntu = ring->next_to_use;
->   	budget = igc_desc_unused(ring);
->   
-> -	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget--) {
-> +	/* Packets with launch time require one data descriptor and one context
-> +	 * descriptor. When the launch time falls into the next Qbv cycle, we
-> +	 * may need to insert an empty packet, which requires two more
-> +	 * descriptors. Therefore, to be safe, we always ensure we have at least
-> +	 * 4 descriptors available.
-> +	 */
-> +	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget >= 4) {
->   		struct igc_metadata_request meta_req;
->   		struct xsk_tx_metadata *meta = NULL;
->   		struct igc_tx_buffer *bi;
-> @@ -3000,6 +3030,12 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->   		xsk_tx_metadata_request(meta, &igc_xsk_tx_metadata_ops,
->   					&meta_req);
->   
-> +		/* xsk_tx_metadata_request() may have updated next_to_use */
-> +		ntu = ring->next_to_use;
-> +
-> +		/* xsk_tx_metadata_request() may have updated Tx buffer info */
-> +		bi = meta_req.tx_buffer;
-> +
->   		tx_desc = IGC_TX_DESC(ring, ntu);
->   		tx_desc->read.cmd_type_len = cpu_to_le32(meta_req.cmd_type);
->   		tx_desc->read.olinfo_status = cpu_to_le32(olinfo_status);
-> @@ -3017,9 +3053,11 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
->   		ntu++;
->   		if (ntu == ring->count)
->   			ntu = 0;
-> +
-> +		ring->next_to_use = ntu;
-> +		budget = igc_desc_unused(ring);
->   	}
->   
-> -	ring->next_to_use = ntu;
->   	if (tx_desc) {
->   		igc_flush_tx_descriptors(ring);
->   		xsk_tx_release(pool);
+With the above changes, the code will work as follows during the interface
+mode change. The PCS will reconfigure according to the pcs_neg_mode and the
+selected interface mode. Then, the MAC driver will perform SerDes
+configuration in 'mac_finish' based on the selected interface mode. During
+the SerDes configuration, the selected interface mode will identify TSN
+lane registers from FIA and then send IPC commands to the Power Management
+Controller (PMC) through the PMC driver/API. The PMC will act as a proxy to
+program the PLL registers.
 
-Reviewed-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+Change log:
+v1 -> v2: 
+ - Add static to pmc_lpm_modes declaration
+ - Add cur_link_an_mode to the kernel doc
+ - Combine 2 commits i.e. "stmmac: intel: Separate driver_data of ADL-N
+ from TGL" and "net: stmmac: Add 1G/2.5G auto-negotiation
+ support for ADL-N" into 1 commit.
+
+v2 -> v3:
+ - Create `pmc_ipc.c` file for `intel_pmc_ipc()` function and 
+ allocate the file in `arch/x86/platform/intel/` directory.
+ - Update phylink's AN mode during phy interface change and 
+ not exposing phylink's AN mode into phylib.
+ 
+ v3 -> v4:
+ - Introduce `allow_switch_interface` flag to have all ethtool 
+ link modes that are supported and advertised will be published.
+ - Introduce `mac_get_pcs_neg_mode` function that selects the PCS 
+ negotiation mode according to the interface mode.
+ - Remove pcs-xpcs.c changes and handle pcs during `mac_select_pcs`
+ function
+ - Configure SerDes base on the interface on `mac_finish` function.
+ 
+ v4 -> v5:
+ - remove 'allow_switch_interface' related patches.
+ - remove 'mac_select_pcs' related patches.
+ - add a soft reset according to XPCS datasheet for re-initiate Clause 37
+ auto-negotiation when switching to SGMII interface mode.
+
+v5 -> v6:
+- Remove 'mac_get_pcs_neg_mode' related patches. 
+  The pcs_neg_mode is properly handled by the
+  'net: add negotiation of in-band capabilities' patch series:
+  https://patchwork.kernel.org/project/netdevbpf/cover/Z08kCwxdkU4n2V6x@shell.armlinux.org.uk/
+- Using act_link_an_mode to determine PHY, as cfg_link_an_mode was not
+  updated for the 2500BASE-X interface mode, caused a failure to link up.
+- Clean up and standardize the interface mode switch for xpcs.
+
+v1: https://patchwork.kernel.org/project/netdevbpf/cover/20230622041905.629430-1-yong.liang.choong@linux.intel.com/
+v2: https://patchwork.kernel.org/project/netdevbpf/cover/20230804084527.2082302-1-yong.liang.choong@linux.intel.com/
+v3: https://patchwork.kernel.org/project/netdevbpf/cover/20230921121946.3025771-1-yong.liang.choong@linux.intel.com/
+v4: https://patchwork.kernel.org/project/netdevbpf/cover/20240129130253.1400707-1-yong.liang.choong@linux.intel.com/
+v5: https://patchwork.kernel.org/project/netdevbpf/cover/20240215030500.3067426-1-yong.liang.choong@linux.intel.com/
+
+Choong Yong Liang (6):
+  net: phylink: use act_link_an_mode to determine PHY
+  net: pcs: xpcs: re-initiate clause 37 Auto-negotiation
+  stmmac: intel: configure SerDes according to the interface mode
+  net: stmmac: configure SerDes on mac_finish
+  stmmac: intel: interface switching support for EHL platform
+  stmmac: intel: interface switching support for ADL-N platform
+
+David E. Box (1):
+  arch: x86: add IPC mailbox accessor function and add SoC register
+    access
+
+ MAINTAINERS                                   |   2 +
+ arch/x86/Kconfig                              |   9 +
+ arch/x86/platform/intel/Makefile              |   1 +
+ arch/x86/platform/intel/pmc_ipc.c             |  75 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   2 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 173 +++++++++++++++++-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  81 ++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  13 ++
+ drivers/net/pcs/pcs-xpcs-wx.c                 |   4 +-
+ drivers/net/pcs/pcs-xpcs.c                    |  60 +++++-
+ drivers/net/phy/phylink.c                     |  10 +-
+ .../linux/platform_data/x86/intel_pmc_ipc.h   |  34 ++++
+ include/linux/stmmac.h                        |   3 +
+ 13 files changed, 450 insertions(+), 17 deletions(-)
+ create mode 100644 arch/x86/platform/intel/pmc_ipc.c
+ create mode 100644 include/linux/platform_data/x86/intel_pmc_ipc.h
+
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
