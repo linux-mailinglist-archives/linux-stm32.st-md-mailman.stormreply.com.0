@@ -2,87 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ACACA28204
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 03:42:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9333BA28340
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 05:09:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00E8AC78F88;
-	Wed,  5 Feb 2025 02:42:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 353E9C78F87;
+	Wed,  5 Feb 2025 04:09:40 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AC4FC78F86
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D554BC78F86
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 02:42:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738723344; x=1770259344;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ksaAaaoLVoDgCUczAlEVx+8YvcmGLf/2DZVsnOi+dMg=;
- b=OPW5Sqka0f3kClJrpt9T881jSPPpq2wOpy/iSp33kg1IW0c2iBHhIuCA
- 7bU0HaBYoDWiOuXX35J/iEVN01MBvzL4k+y9kk6RIlxxtk9YBdteTUYp6
- 0LZ2MQ05hYw5CqlqvqILkSz6j7qvNYRqk5K6V3SmcQyH5tYC8w62otJ8t
- CAdZCdjXyrHP8ZBk04WV89iTiLXXH+hSpu52c/PIEsX4jw6WAWvtxZb+H
- ivEv4v0uEww7M/wdheeTF8v8m2fnJc7uws/oaNMDWbK4QpLgBBkp45B40
- cnzIBWXzCK80YVdmYkrlk0Cgr4RaxqFlMt/ksc7ujjE+TDsNB6ahyuED+ Q==;
-X-CSE-ConnectionGUID: q8wXnqD+QBGnhcfUjQt0jg==
-X-CSE-MsgGUID: 7PuzXrikTFuN044t1HOLyg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39303950"
-X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="39303950"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2025 18:42:22 -0800
-X-CSE-ConnectionGUID: 2d39cPQ/SOaBgbXAfBQn9g==
-X-CSE-MsgGUID: /2zzmDmhTZ+9sGS70cNnQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,260,1732608000"; d="scan'208";a="110666614"
-Received: from p12ill20yoongsia.png.intel.com ([10.88.227.38])
- by fmviesa007.fm.intel.com with ESMTP; 04 Feb 2025 18:42:11 -0800
-From: Song Yoong Siang <yoong.siang.song@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Willem de Bruijn <willemb@google.com>,
- Florian Bezdeka <florian.bezdeka@siemens.com>,
- Donald Hunter <donald.hunter@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Bjorn Topel <bjorn@kernel.org>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Joe Damato <jdamato@fastly.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Mina Almasry <almasrymina@google.com>, Daniel Jurgens <danielj@nvidia.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Mykola Lysenko <mykolal@fb.com>, Martin KaFai Lau <martin.lau@linux.dev>,
- Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
- KP Singh <kpsingh@kernel.org>, Hao Luo <haoluo@google.com>,
- Jiri Olsa <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Bouska Zdenek <zdenek.bouska@siemens.com>
-Date: Wed,  5 Feb 2025 10:41:16 +0800
-Message-Id: <20250205024116.798862-6-yoong.siang.song@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250205024116.798862-1-yoong.siang.song@intel.com>
-References: <20250205024116.798862-1-yoong.siang.song@intel.com>
+ Wed,  5 Feb 2025 04:09:32 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 514JXptc031904;
+ Wed, 5 Feb 2025 04:09:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ b052cIdAOJ6Sd2S9PBmtHs3u9dhUMPyc4HX3PJEe5Qg=; b=KdKJ4DZGuLZv8DMB
+ 05KDQNrLDa2i8WQGm7BJ84KyPgi2fsl0hX3ETjI3eNqZkfobQwA5rCuhR16rji/J
+ COIG2z6iPBkkrbBxwSzScRKp2Tc91Bfkck+ss7YodPXTrxoMD3EtPRDqd9F3zDq0
+ cv/DgOn0Kyi+iW1fCf1VQFXuMxe+SYkyPUG8H4DJBdK8Cf7H52kZER1pt8jxb89Q
+ c7q2zlUKkr37hUyknMcvyXBGzZwGZ19OmeFwAyFUswqzVMthy+mvcjdJmGRe+fou
+ Pm1uig/7bpOI+EEsgbfLrO65PozMeLeNZlGeXtwFea/qVBOhBhThLN4sXlikvef7
+ IWOqVw==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44ks5kgwb1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Feb 2025 04:09:10 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5154996B027503
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 5 Feb 2025 04:09:09 GMT
+Received: from [10.64.68.153] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 4 Feb 2025
+ 20:09:04 -0800
+Message-ID: <edf3cea0-b3da-4eb8-9200-e3c4d6e19b51@quicinc.com>
+Date: Wed, 5 Feb 2025 12:09:02 +0800
 MIME-Version: 1.0
-Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH bpf-next v8 5/5] igc: Add launch time support
-	to XDP ZC
+User-Agent: Mozilla Thunderbird
+To: James Clark <james.clark@linaro.org>
+References: <20250124072537.1801030-1-quic_jiegan@quicinc.com>
+ <20250124072537.1801030-4-quic_jiegan@quicinc.com>
+ <0e3f8f35-7ab0-4c2a-b7ce-f5d4f1164af0@linaro.org>
+Content-Language: en-US
+From: Jie Gan <quic_jiegan@quicinc.com>
+In-Reply-To: <0e3f8f35-7ab0-4c2a-b7ce-f5d4f1164af0@linaro.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: 7sgp-wmKOtZqfRVHVAvdlnJ9WUQcaqCU
+X-Proofpoint-GUID: 7sgp-wmKOtZqfRVHVAvdlnJ9WUQcaqCU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-05_01,2025-02-05_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ spamscore=0 adultscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ mlxlogscore=624 malwarescore=0 mlxscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2501170000 definitions=main-2502050028
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, linux-arm-msm@vger.kernel.org,
+ coresight@lists.linaro.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v9 3/6] Coresight: Introduce a new struct
+	coresight_path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,189 +93,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable Launch Time Control (LTC) support for XDP zero copy via XDP Tx
-metadata framework.
-
-This patch has been tested with tools/testing/selftests/bpf/xdp_hw_metadata
-on Intel I225-LM Ethernet controller. Below are the test steps and result.
-
-Test 1: Send a single packet with the launch time set to 1 s in the future.
-
-Test steps:
-1. On the DUT, start the xdp_hw_metadata selftest application:
-   $ sudo ./xdp_hw_metadata enp2s0 -l 1000000000 -L 1
-
-2. On the Link Partner, send a UDP packet with VLAN priority 1 to port 9091
-   of the DUT.
-
-Result:
-When the launch time is set to 1 s in the future, the delta between the
-launch time and the transmit hardware timestamp is 0.016 us, as shown in
-printout of the xdp_hw_metadata application below.
-  0x562ff5dc8880: rx_desc[4]->addr=84110 addr=84110 comp_addr=84110 EoP
-  rx_hash: 0xE343384 with RSS type:0x1
-  HW RX-time:   1734578015467548904 (sec:1734578015.4675)
-                delta to User RX-time sec:0.0002 (183.103 usec)
-  XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
-                 delta to User RX-time sec:0.0001 (80.309 usec)
-  No rx_vlan_tci or rx_vlan_proto, err=-95
-  0x562ff5dc8880: ping-pong with csum=561c (want c7dd)
-                  csum_start=34 csum_offset=6
-  HW RX-time:   1734578015467548904 (sec:1734578015.4675)
-                delta to HW Launch-time sec:1.0000 (1000000.000 usec)
-  0x562ff5dc8880: complete tx idx=4 addr=4018
-  HW Launch-time:   1734578016467548904 (sec:1734578016.4675)
-                    delta to HW TX-complete-time sec:0.0000 (0.016 usec)
-  HW TX-complete-time:   1734578016467548920 (sec:1734578016.4675)
-                         delta to User TX-complete-time sec:0.0000
-                         (32.546 usec)
-  XDP RX-time:   1734578015467651698 (sec:1734578015.4677)
-                 delta to User TX-complete-time sec:0.9999
-                 (999929.768 usec)
-  HW RX-time:   1734578015467548904 (sec:1734578015.4675)
-                delta to HW TX-complete-time sec:1.0000 (1000000.016 usec)
-  0x562ff5dc8880: complete rx idx=132 addr=84110
-
-Test 2: Send 1000 packets with a 10 ms interval and the launch time set to
-        500 us in the future.
-
-Test steps:
-1. On the DUT, start the xdp_hw_metadata selftest application:
-   $ sudo chrt -f 99 ./xdp_hw_metadata enp2s0 -l 500000 -L 1 > \
-     /dev/shm/result.log
-
-2. On the Link Partner, send 1000 UDP packets with a 10 ms interval and
-   VLAN priority 1 to port 9091 of the DUT.
-
-Result:
-When the launch time is set to 500 us in the future, the average delta
-between the launch time and the transmit hardware timestamp is 0.016 us,
-as shown in the analysis of /dev/shm/result.log below. The XDP launch time
-works correctly in sending 1000 packets continuously.
-  Min delta: 0.005 us
-  Avr delta: 0.016 us
-  Max delta: 0.031 us
-  Total packets forwarded: 1000
-
-Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
----
- drivers/net/ethernet/intel/igc/igc.h      |  1 +
- drivers/net/ethernet/intel/igc/igc_main.c | 52 ++++++++++++++++++++++-
- 2 files changed, 51 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igc/igc.h b/drivers/net/ethernet/intel/igc/igc.h
-index b8111ad9a9a8..cd1d7b6c1782 100644
---- a/drivers/net/ethernet/intel/igc/igc.h
-+++ b/drivers/net/ethernet/intel/igc/igc.h
-@@ -579,6 +579,7 @@ struct igc_metadata_request {
- 	struct xsk_tx_metadata *meta;
- 	struct igc_ring *tx_ring;
- 	u32 cmd_type;
-+	u16 used_desc;
- };
- 
- struct igc_q_vector {
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-index 553d6d82af0d..a4ec487da701 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -2954,9 +2954,39 @@ static u64 igc_xsk_fill_timestamp(void *_priv)
- 	return *(u64 *)_priv;
- }
- 
-+static void igc_xsk_request_launch_time(u64 launch_time, void *_priv)
-+{
-+	struct igc_metadata_request *meta_req = _priv;
-+	struct igc_ring *tx_ring = meta_req->tx_ring;
-+	__le32 launch_time_offset;
-+	bool insert_empty = false;
-+	bool first_flag = false;
-+
-+	if (!tx_ring->launchtime_enable)
-+		return;
-+
-+	launch_time_offset = igc_tx_launchtime(tx_ring,
-+					       ns_to_ktime(launch_time),
-+					       &first_flag, &insert_empty);
-+	if (insert_empty) {
-+		igc_insert_empty_packet(tx_ring);
-+		meta_req->tx_buffer =
-+			&tx_ring->tx_buffer_info[tx_ring->next_to_use];
-+		/* Inserting an empty packet requires two descriptors:
-+		 * one data descriptor and one context descriptor.
-+		 */
-+		meta_req->used_desc += 2;
-+	}
-+
-+	/* Use one context descriptor to specify launch time and first flag. */
-+	igc_tx_ctxtdesc(tx_ring, launch_time_offset, first_flag, 0, 0, 0);
-+	meta_req->used_desc += 1;
-+}
-+
- const struct xsk_tx_metadata_ops igc_xsk_tx_metadata_ops = {
- 	.tmo_request_timestamp		= igc_xsk_request_timestamp,
- 	.tmo_fill_timestamp		= igc_xsk_fill_timestamp,
-+	.tmo_request_launch_time	= igc_xsk_request_launch_time,
- };
- 
- static void igc_xdp_xmit_zc(struct igc_ring *ring)
-@@ -2979,7 +3009,13 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
- 	ntu = ring->next_to_use;
- 	budget = igc_desc_unused(ring);
- 
--	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget--) {
-+	/* Packets with launch time require one data descriptor and one context
-+	 * descriptor. When the launch time falls into the next Qbv cycle, we
-+	 * may need to insert an empty packet, which requires two more
-+	 * descriptors. Therefore, to be safe, we always ensure we have at least
-+	 * 4 descriptors available.
-+	 */
-+	while (xsk_tx_peek_desc(pool, &xdp_desc) && budget >= 4) {
- 		struct igc_metadata_request meta_req;
- 		struct xsk_tx_metadata *meta = NULL;
- 		struct igc_tx_buffer *bi;
-@@ -3000,9 +3036,19 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
- 		meta_req.tx_ring = ring;
- 		meta_req.tx_buffer = bi;
- 		meta_req.meta = meta;
-+		meta_req.used_desc = 0;
- 		xsk_tx_metadata_request(meta, &igc_xsk_tx_metadata_ops,
- 					&meta_req);
- 
-+		/* xsk_tx_metadata_request() may have updated next_to_use */
-+		ntu = ring->next_to_use;
-+
-+		/* xsk_tx_metadata_request() may have updated Tx buffer info */
-+		bi = meta_req.tx_buffer;
-+
-+		/* xsk_tx_metadata_request() may use a few descriptors */
-+		budget -= meta_req.used_desc;
-+
- 		tx_desc = IGC_TX_DESC(ring, ntu);
- 		tx_desc->read.cmd_type_len = cpu_to_le32(meta_req.cmd_type);
- 		tx_desc->read.olinfo_status = cpu_to_le32(olinfo_status);
-@@ -3020,9 +3066,11 @@ static void igc_xdp_xmit_zc(struct igc_ring *ring)
- 		ntu++;
- 		if (ntu == ring->count)
- 			ntu = 0;
-+
-+		ring->next_to_use = ntu;
-+		budget--;
- 	}
- 
--	ring->next_to_use = ntu;
- 	if (tx_desc) {
- 		igc_flush_tx_descriptors(ring);
- 		xsk_tx_release(pool);
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAyLzEvMjAyNSAxMjo0MyBBTSwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4gCj4gCj4gT24gMjQv
+MDEvMjAyNSA3OjI1IGFtLCBKaWUgR2FuIHdyb3RlOgo+PiBBZGQgJ3N0cnVjdCBjb3Jlc2lnaHRf
+cGF0aCcgdG8gc3RvcmUgdGhlIGRhdGEgdGhhdCBpcyBuZWVkZWQgYnkKPj4gY29yZXNpZ2h0X2Vu
+YWJsZV9wYXRoL2NvcmVzaWdodF9kaXNhYmxlX3BhdGguIFRoZSBzdHJ1Y3R1cmUKPj4gd2lsbCBi
+ZSB0cmFuc21pdHRlZCB0byB0aGUgaGVscGVyIGFuZCBzaW5rIGRldmljZSB0byBlbmFibGUKPj4g
+cmVsYXRlZCBmdW5jYXRpb25hbGl0aWVzLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBKaWUgR2FuIDxx
+dWljX2ppZWdhbkBxdWljaW5jLmNvbT4KPj4gLS0tCj4gWy4uLl0KPj4gwqDCoMKgwqDCoCAvKgo+
+PiDCoMKgwqDCoMKgwqAgKiBJZiB3ZSBzdGlsbCBoYXZlIGFjY2VzcyB0byB0aGUgZXZlbnRfZGF0
+YSB2aWEgaGFuZGxlLAo+PiBAQCAtNTk1LDExICs1OTksMTEgQEAgc3RhdGljIHZvaWQgZXRtX2V2
+ZW50X3N0b3Aoc3RydWN0IHBlcmZfZXZlbnQgCj4+ICpldmVudCwgaW50IG1vZGUpCj4+IMKgwqDC
+oMKgwqAgaWYgKCFjc2RldikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4gLcKgwqDC
+oCBwYXRoID0gZXRtX2V2ZW50X2NwdV9wYXRoKGV2ZW50X2RhdGEsIGNwdSk7Cj4+IC3CoMKgwqAg
+aWYgKCFwYXRoKQo+PiArwqDCoMKgIGNzX3BhdGggPSBldG1fZXZlbnRfY3B1X3BhdGgoZXZlbnRf
+ZGF0YSwgY3B1KTsKPj4gK8KgwqDCoCBpZiAoIWNzX3BhdGgpCj4gCj4gSSBkb24ndCB0aGluayBy
+ZW5hbWluZyAncGF0aCcgdG8gJ2NzX3BhdGgnIGlzIHdvcnRoIHRoZSBjaHVybi4gSXQncyBpbiBh
+IAo+IGxvdCBvZiBwbGFjZXMgaW4gdGhpcyBjaGFuZ2UsIGJ1dCBJIHRoaW5rIHBhdGggaXMgYWxy
+ZWFkeSBnb29kIGVub3VnaC4KPiAKWWVzLCBhZ3JlZSB3aXRoIHlvdS4gSXQgc2VlbXMgdW5uZWNl
+c3NhcnkuIFdpbGwgdXBkYXRlIGl0LgoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4g
+LcKgwqDCoCBzaW5rID0gY29yZXNpZ2h0X2dldF9zaW5rKHBhdGgpOwo+PiArwqDCoMKgIHNpbmsg
+PSBjb3Jlc2lnaHRfZ2V0X3NpbmsoY3NfcGF0aC0+cGF0aCk7Cj4gCj4gY29yZXNpZ2h0X2dldF9z
+aW5rKCkgaXMgYWx3YXlzIGNhbGxlZCB3aXRoIGNzX3BhdGgtPnBhdGgsIHNvIHdlIG1pZ2h0IGFz
+IAo+IHdlbGwgbWFrZSBpdCB0YWtlIGEgd2hvbGUgcGF0aCBzdHJ1Y3QuIFRoZSBzYW1lIHdpdGgg
+YW55IG9mIHRoZSBvdGhlciAKPiBmdW5jdGlvbnMgdGhhdCBvcGVyYXRlIG9uIHBhdGggbGlrZSBj
+b3Jlc2lnaHRfZ2V0X3NvdXJjZSgpLgpJdCdzIG1ha2Ugc2Vuc2UgZm9yIG1lIGFuZCBtYWtlIGNv
+ZGVzIGVhc3kgdG8gcmVhZC4gSSB3aWxsIHVwZGF0ZSBpdC4KCj4gCgpUaGFua3MsCkppZQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
