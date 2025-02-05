@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F7EA29AC5
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 21:10:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5949A29AC8
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 21:10:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FF6BC78F8E;
-	Wed,  5 Feb 2025 20:10:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AD2FC78F8C;
+	Wed,  5 Feb 2025 20:10:56 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37592C78F8C
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A4B8C78F88
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 20:10:48 +0000 (UTC)
+ Wed,  5 Feb 2025 20:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738786247;
+ s=mimecast20190719; t=1738786253;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5rXNc9RF+BTw1D+Lqt4cYonydXBV4cosBEfjWZVPn/Q=;
- b=CTG9aID2litVi/fwhOhTueTPMPndFilVMw1wH6X2Kx6Ben6IoczUjpoahHqnQWzRN7Lmk7
- W1XS0XyLYeFoKvZFRer124tgDykIY5nknKMZsHTJdSe+GBc6OFnhUXESz801uwJfpMhUAJ
- bVnM19ytkodpGrQEFx8K0gsvjO4mebs=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ bh=t4JTcbNp+Wagg2SIneI8fYXiMNdF7Wii2BuVH7MOT/o=;
+ b=WvVTljXyAxcULk7r7Al63UJt5fJIvTPU87y3GVZlRdZ+hmv2QNOUT/+C7x4gxgOhg8NFwK
+ PWVbMl3ZHuUKACliuj6Aq/caKvrdEUmUk4s7VZzCvEBSLPTpjNldGZEiUbc1oaCDLUQJqP
+ ryTstuWqANvdeMNfxXbzzMBQcLNp9sk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-528-LT8Gig9aPou88yIRPZYutQ-1; Wed,
- 05 Feb 2025 15:10:42 -0500
-X-MC-Unique: LT8Gig9aPou88yIRPZYutQ-1
-X-Mimecast-MFC-AGG-ID: LT8Gig9aPou88yIRPZYutQ
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-217-J9TRc9eAOW-bR9FCGXQN-w-1; Wed,
+ 05 Feb 2025 15:10:51 -0500
+X-MC-Unique: J9TRc9eAOW-bR9FCGXQN-w-1
+X-Mimecast-MFC-AGG-ID: J9TRc9eAOW-bR9FCGXQN-w
 Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9C0821956046; Wed,  5 Feb 2025 20:10:35 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4FEF219560B9; Wed,  5 Feb 2025 20:10:46 +0000 (UTC)
 Received: from asrivats-na.rmtustx.csb (unknown [10.2.17.21])
  by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 4C0CB19560A3; Wed,  5 Feb 2025 20:10:25 +0000 (UTC)
+ id EAE6519560A3; Wed,  5 Feb 2025 20:10:35 +0000 (UTC)
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Wed, 05 Feb 2025 15:08:03 -0500
+Date: Wed, 05 Feb 2025 15:08:04 -0500
 MIME-Version: 1.0
-Message-Id: <20250205-mem-cocci-newapi-v1-7-aebf2b0e2300@redhat.com>
+Message-Id: <20250205-mem-cocci-newapi-v1-8-aebf2b0e2300@redhat.com>
 References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
 In-Reply-To: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
 To: Joel Stanley <joel@jms.id.au>, 
@@ -82,16 +82,16 @@ To: Joel Stanley <joel@jms.id.au>,
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
  Jonathan Corbet <corbet@lwn.net>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738786137; l=8138;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738786137; l=1618;
  i=asrivats@redhat.com; s=20250122; h=from:subject:message-id;
- bh=yFglEma1B1UrYHHlLaqVTTuVZsUxBAtaYu9Jp8rfq1E=;
- b=mAr/l77+MAM0Lk/wltquMSsQ+bAoBfxv2/A9dI4DccZHjP/taolYJP+a25CTaReWEHo2kZvFi
- CcKo9WqNUGJBrY3/6HPiO1DG3zjUFVNcaw9QNZGyybGqrtBiz9H9SEI
+ bh=Ic1nlkPD6Mj8TJZ8m8wZ6mlAKj2uSChvdOZ/TLjamAU=;
+ b=adLjfrtU6tC9pfV0EExepCHd/cHlwcDiR8sbt1XjWIwBum8LAHOiRxCD/EMVGcFQQXziRnb29
+ x8JlJrZjb8PAYAdaE1cgkvNZAkDkmELMURVlIvw+29XV+XY1nLcY9NG
 X-Developer-Key: i=asrivats@redhat.com; a=ed25519;
  pk=brnIHkBsUZEhyW6Zyn0U92AeIZ1psws/q8VFbIkf1AU=
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: r-lWoTBu9sXxSPf7T23-rUtgCHcVcGsm5gvTQOGRqok_1738786235
+X-Mimecast-MFC-PROC-ID: nQnk94PlWBK5kasibbdzFUwB4h89owC7mzclb_TWz1g_1738786246
 X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-doc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
@@ -99,7 +99,7 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 07/12] drm/sti: move to
+Subject: [Linux-stm32] [PATCH 08/12] drm/stm: move to
  devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -112,258 +112,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace platform_get_resource/_byname + devm_ioremap
-with just devm_platform_ioremap_resource()
-
-Used Coccinelle to do this change. SmPl patch:
-
-@rule@
-identifier res;
-expression ioremap;
-identifier pdev;
-constant mem;
-expression name;
-@@
--struct resource *res;
-...
--res = platform_get_resource_byname(pdev,mem,name);
-<...
--if (!res) {
--...
--}
-...>
--ioremap = devm_ioremap(...);
-+ioremap = devm_platform_ioremap_resource_byname(pdev,name);
-
-and
-@rule_2@
-identifier res;
-expression ioremap;
-identifier pdev;
-@@
--struct resource *res;
-...
--res = platform_get_resource(pdev,...);
-<...
--if (!res) {
--...
--}
-...>
--ioremap = devm_ioremap(...);
-+ioremap = devm_platform_ioremap_resource(pdev,0);
-
-v2: Fix compilation error.
-
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Alain Volmat <alain.volmat@foss.st.com>
-Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
----
- drivers/gpu/drm/sti/sti_compositor.c | 10 +---------
- drivers/gpu/drm/sti/sti_dvo.c        | 10 +---------
- drivers/gpu/drm/sti/sti_hda.c        |  9 +--------
- drivers/gpu/drm/sti/sti_hdmi.c       | 11 +----------
- drivers/gpu/drm/sti/sti_hqvdp.c      | 10 +---------
- drivers/gpu/drm/sti/sti_tvout.c      | 10 +---------
- drivers/gpu/drm/sti/sti_vtg.c        | 10 +---------
- 7 files changed, 7 insertions(+), 63 deletions(-)
-
-diff --git a/drivers/gpu/drm/sti/sti_compositor.c b/drivers/gpu/drm/sti/sti_compositor.c
-index 063f82d23d80c4ba83624a0066a18416a2b37351..7aefce6706ba2cd7d97a33228c9b9812edecf06f 100644
---- a/drivers/gpu/drm/sti/sti_compositor.c
-+++ b/drivers/gpu/drm/sti/sti_compositor.c
-@@ -177,7 +177,6 @@ static int sti_compositor_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	struct device_node *vtg_np;
- 	struct sti_compositor *compo;
--	struct resource *res;
- 	unsigned int i;
- 
- 	compo = devm_kzalloc(dev, sizeof(*compo), GFP_KERNEL);
-@@ -194,14 +193,7 @@ static int sti_compositor_probe(struct platform_device *pdev)
- 
- 	memcpy(&compo->data, of_match_node(compositor_of_match, np)->data,
- 	       sizeof(struct sti_compositor_data));
--
--	/* Get Memory ressources */
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (res == NULL) {
--		DRM_ERROR("Get memory resource failed\n");
--		return -ENXIO;
--	}
--	compo->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	compo->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (compo->regs == NULL) {
- 		DRM_ERROR("Register mapping failed\n");
- 		return -ENXIO;
-diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
-index c6c2abaa1891cd3ea025805b50d275ec314512c3..660588f01f90950a9b2c180ab230188c19901f26 100644
---- a/drivers/gpu/drm/sti/sti_dvo.c
-+++ b/drivers/gpu/drm/sti/sti_dvo.c
-@@ -511,7 +511,6 @@ static int sti_dvo_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct sti_dvo *dvo;
--	struct resource *res;
- 	struct device_node *np = dev->of_node;
- 
- 	DRM_INFO("%s\n", __func__);
-@@ -523,14 +522,7 @@ static int sti_dvo_probe(struct platform_device *pdev)
- 	}
- 
- 	dvo->dev = pdev->dev;
--
--	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dvo-reg");
--	if (!res) {
--		DRM_ERROR("Invalid dvo resource\n");
--		return -ENOMEM;
--	}
--	dvo->regs = devm_ioremap(dev, res->start,
--			resource_size(res));
-+	dvo->regs = devm_platform_ioremap_resource_byname(pdev, "dvo-reg");
- 	if (!dvo->regs)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
-index b12863bea95559c4f874eb94cea8938609d435d4..0b5dbaf4d5305989846e25a1cab6f82d191aa9a5 100644
---- a/drivers/gpu/drm/sti/sti_hda.c
-+++ b/drivers/gpu/drm/sti/sti_hda.c
-@@ -750,14 +750,7 @@ static int sti_hda_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	hda->dev = pdev->dev;
--
--	/* Get resources */
--	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "hda-reg");
--	if (!res) {
--		DRM_ERROR("Invalid hda resource\n");
--		return -ENOMEM;
--	}
--	hda->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	hda->regs = devm_platform_ioremap_resource_byname(pdev, "hda-reg");
- 	if (!hda->regs)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index ca2fe17de4a5d1e0199e59a97e6c7601e139ed9e..666143c48b0d0f2c20cd26323ddbc8e69d966622 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -1380,7 +1380,6 @@ static int sti_hdmi_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct sti_hdmi *hdmi;
- 	struct device_node *np = dev->of_node;
--	struct resource *res;
- 	struct device_node *ddc;
- 	int ret;
- 
-@@ -1399,15 +1398,7 @@ static int sti_hdmi_probe(struct platform_device *pdev)
- 	}
- 
- 	hdmi->dev = pdev->dev;
--
--	/* Get resources */
--	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "hdmi-reg");
--	if (!res) {
--		DRM_ERROR("Invalid hdmi resource\n");
--		ret = -ENOMEM;
--		goto release_adapter;
--	}
--	hdmi->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	hdmi->regs = devm_platform_ioremap_resource_byname(pdev, "hdmi-reg");
- 	if (!hdmi->regs) {
- 		ret = -ENOMEM;
- 		goto release_adapter;
-diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
-index 0f658709c9d0d398c4eed65202443db9d0b41f8c..420395598d119a403d531211022e6005d6a2bd59 100644
---- a/drivers/gpu/drm/sti/sti_hqvdp.c
-+++ b/drivers/gpu/drm/sti/sti_hqvdp.c
-@@ -1356,7 +1356,6 @@ static int sti_hqvdp_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *vtg_np;
- 	struct sti_hqvdp *hqvdp;
--	struct resource *res;
- 
- 	DRM_DEBUG_DRIVER("\n");
- 
-@@ -1367,14 +1366,7 @@ static int sti_hqvdp_probe(struct platform_device *pdev)
- 	}
- 
- 	hqvdp->dev = dev;
--
--	/* Get Memory resources */
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!res) {
--		DRM_ERROR("Get memory resource failed\n");
--		return -ENXIO;
--	}
--	hqvdp->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	hqvdp->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (!hqvdp->regs) {
- 		DRM_ERROR("Register mapping failed\n");
- 		return -ENXIO;
-diff --git a/drivers/gpu/drm/sti/sti_tvout.c b/drivers/gpu/drm/sti/sti_tvout.c
-index af6c06f448c4819def8cc0d0836e30f991529690..0bebe815f5e7567f84388af93723a6fa7d2cc7a2 100644
---- a/drivers/gpu/drm/sti/sti_tvout.c
-+++ b/drivers/gpu/drm/sti/sti_tvout.c
-@@ -838,7 +838,6 @@ static int sti_tvout_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *node = dev->of_node;
- 	struct sti_tvout *tvout;
--	struct resource *res;
- 
- 	DRM_INFO("%s\n", __func__);
- 
-@@ -850,14 +849,7 @@ static int sti_tvout_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	tvout->dev = dev;
--
--	/* get memory resources */
--	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "tvout-reg");
--	if (!res) {
--		DRM_ERROR("Invalid glue resource\n");
--		return -ENOMEM;
--	}
--	tvout->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	tvout->regs = devm_platform_ioremap_resource_byname(pdev, "tvout-reg");
- 	if (!tvout->regs)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/sti/sti_vtg.c b/drivers/gpu/drm/sti/sti_vtg.c
-index 5ba469b711b5318e9e9e6d8df127fb8933d1fac1..b5353fe774d72fd629ecd3ef75a5d2817ca8617f 100644
---- a/drivers/gpu/drm/sti/sti_vtg.c
-+++ b/drivers/gpu/drm/sti/sti_vtg.c
-@@ -380,20 +380,12 @@ static int vtg_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct sti_vtg *vtg;
--	struct resource *res;
- 	int ret;
- 
- 	vtg = devm_kzalloc(dev, sizeof(*vtg), GFP_KERNEL);
- 	if (!vtg)
- 		return -ENOMEM;
--
--	/* Get Memory ressources */
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!res) {
--		DRM_ERROR("Get memory resource failed\n");
--		return -ENOMEM;
--	}
--	vtg->regs = devm_ioremap(dev, res->start, resource_size(res));
-+	vtg->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (!vtg->regs) {
- 		DRM_ERROR("failed to remap I/O memory\n");
- 		return -ENOMEM;
-
--- 
-2.47.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+UmVwbGFjZSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UgKyBkZXZtX2lvcmVtYXBfcmVzb3VyY2UKd2l0
+aCBqdXN0IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSgpCgpVc2VkIENvY2NpbmVsbGUg
+dG8gZG8gdGhpcyBjaGFuZ2UuIFNtUGwgcGF0Y2g6CkBydWxlXzFACmlkZW50aWZpZXIgcmVzOwpl
+eHByZXNzaW9uIGlvcmVtYXBfcmVzOwppZGVudGlmaWVyIHBkZXY7CkBACi1zdHJ1Y3QgcmVzb3Vy
+Y2UgKnJlczsKLi4uCi1yZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwuLi4pOwotaW9y
+ZW1hcF9yZXMgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoLi4uKTsKK2lvcmVtYXBfcmVzID0gZGV2
+bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlKHBkZXYsMCk7CgpDYzogWWFubmljayBGZXJ0cmUg
+PHlhbm5pY2suZmVydHJlQGZvc3Muc3QuY29tPgpDYzogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFw
+aGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4KQ2M6IFBoaWxpcHBlIENvcm51IDxwaGlsaXBw
+ZS5jb3JudUBmb3NzLnN0LmNvbT4KQWNrZWQtYnk6IFJhcGhhw6tsIEdhbGxhaXMtUG91IDxyYXBo
+YWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbnVzaGEgU3JpdmF0
+c2EgPGFzcml2YXRzQHJlZGhhdC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMg
+fCA0ICstLS0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMyBkZWxldGlvbnMoLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9zdG0vbHRkYy5jCmluZGV4IDU0YTczNzUzZWZmOTg5MDIwMTJjNjAxMjkxNGZhOGM2NDgyYWZm
+YmQuLmJhMzE1YzY2YTA0ZDcyNzU4YjlkM2NmY2Q4NDI0MzI4NzdmNjZkM2EgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRk
+Yy5jCkBAIC0xOTAwLDcgKzE5MDAsNiBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNl
+ICpkZGV2KQogCXN0cnVjdCBkcm1fcGFuZWwgKnBhbmVsOwogCXN0cnVjdCBkcm1fY3J0YyAqY3J0
+YzsKIAlzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcnN0YzsKLQlzdHJ1Y3QgcmVzb3VyY2UgKnJlczsK
+IAlpbnQgaXJxLCBpLCBuYl9lbmRwb2ludHM7CiAJaW50IHJldCA9IC1FTk9ERVY7CiAKQEAgLTE5
+NjYsOCArMTk2NSw3IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCiAJ
+CXJlc2V0X2NvbnRyb2xfZGVhc3NlcnQocnN0Yyk7CiAJfQogCi0JcmVzID0gcGxhdGZvcm1fZ2V0
+X3Jlc291cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAwKTsKLQlsZGV2LT5yZWdzID0gZGV2bV9p
+b3JlbWFwX3Jlc291cmNlKGRldiwgcmVzKTsKKwlsZGV2LT5yZWdzID0gZGV2bV9wbGF0Zm9ybV9p
+b3JlbWFwX3Jlc291cmNlKHBkZXYsIDApOwogCWlmIChJU19FUlIobGRldi0+cmVncykpIHsKIAkJ
+RFJNX0VSUk9SKCJVbmFibGUgdG8gZ2V0IGx0ZGMgcmVnaXN0ZXJzXG4iKTsKIAkJcmV0ID0gUFRS
+X0VSUihsZGV2LT5yZWdzKTsKCi0tIAoyLjQ3LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
