@@ -2,191 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8263A28A52
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 13:32:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FA36A28B13
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 13:58:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2C0BC78034;
-	Wed,  5 Feb 2025 12:32:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 532E4C78F88;
+	Wed,  5 Feb 2025 12:58:28 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EA37C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECC9FC78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 12:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738758739; x=1770294739;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=Vk4c+jfZyEv/DcCZ2d/gKR4uYwh5VQZa96Douy3xYg8=;
- b=esndQejaw5cw8Eqfqx3KyKE9XEZ19MxWWqWughWtRoemTIJRgSTJmvum
- JIm4Q7XfsfRVvsrysxUEZoaat0KgbHFQG+cyy0LVe9Pf4LfgOnDaGFMv0
- GwSM0d91iCwaVbYSlL0AyiGMOSs/CZjA4CcBrjPMT9YzWMrcd/zRJGwIo
- NPqZulXHyPzBGlxCxaNQnYVcVyu4YPyOZ66o9Ztqgxvy/Phs3NmlcxxGt
- mUB1RmJdrnhHKa34kUSiNIt0HKlPvqN5cw0VxBs9ZvMBz1s4wHBk7PLru
- Qs65V5JVIdKmiWogOZFYbW6ks8T8BFUKC2aQSMcJ2gSq/XkQki92lZXWj A==;
-X-CSE-ConnectionGUID: yA4gHaW5Ss62BN6BhVCJcQ==
-X-CSE-MsgGUID: 7/eLayhDRziXlBRPD7K7Ag==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="56746292"
-X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="56746292"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 04:32:11 -0800
-X-CSE-ConnectionGUID: ID/qly5lTrixN8ni2J7t/Q==
-X-CSE-MsgGUID: Ddar4mosRu+qCCbhEa/acQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,261,1732608000"; d="scan'208";a="115942241"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmviesa004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 05 Feb 2025 04:32:09 -0800
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Wed, 5 Feb 2025 04:32:08 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Wed, 5 Feb 2025 04:32:08 -0800
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.42) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Wed, 5 Feb 2025 04:32:08 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EWlfjWiQZYg7bMIiAU8hF82jcqzN/xiyGa9rX9RHXrZ1hz3d45FuaaaxEp15P/jk+351sqKdXCV4P9P+xFURN8g4VRrXOadBFL7sMKmgbxM+LwnxC7aBRCfOVMziLIn8B8CVCu2qtznos3XQkePTMqsMQZNnvXybWQ90YV0oQMryNNKE8v1j5NbvtTcneB4uru6LI/h4meuvTg5cVBRpKoxxi1knl2r5yIWDQ/gRUkUsd8i8ZQrzU2wncJWMHmvd6HZeha8tjtfk7jb05n9T1oghztHZO8jtq1fmYdAo+GKFZIO3eFqVGNEnPGKrg5EbFEblyxfRR5rC2EpFWW33Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n4APmcxV0QJiOFJlppxhvx4O0TxJy8Gb6DK9/+JahdQ=;
- b=B6blNE1Byf4hiipkTEOI88/Wl2Z0pEg43uDaDrp0C7WvW6qXYPdFPuYh2SMB8QYaZoWGt5r9RDdz53AP3UZ2zFf0nll+DXgeJSKcONG3fiP4Dy3vs7XoLK5N7Wieo5pvBf0rvpdFZeJtCC7JVB+UXUymHxQPwtorTnD3qZgKs6ssKbUcAEV+ic6kfXSbXYa0q8ccXGUoJTLDH8lky5m3Z9JYfrqvBinaKF4tDFtl5zoy3tJDy3cz6IBV5556KN9c4ga1yUqE5xYFhaTe/lnw/7YqVHuv+G+bzn02i0ES+fwVUjFAa503wJv4aGr76ddTd4x/X4Wr5xlRBVaA32EDkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
- MW4PR11MB5933.namprd11.prod.outlook.com (2603:10b6:303:16a::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Wed, 5 Feb
- 2025 12:31:36 +0000
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d19:56fe:5841:77ca]) by DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::d19:56fe:5841:77ca%5]) with mapi id 15.20.8398.021; Wed, 5 Feb 2025
- 12:31:36 +0000
-Date: Wed, 5 Feb 2025 13:31:18 +0100
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
-Message-ID: <Z6NaFkPBZA18oILE@boxer>
-References: <20250205024116.798862-1-yoong.siang.song@intel.com>
- <20250205024116.798862-5-yoong.siang.song@intel.com>
-Content-Disposition: inline
-In-Reply-To: <20250205024116.798862-5-yoong.siang.song@intel.com>
-X-ClientProxiedBy: VI1PR02CA0060.eurprd02.prod.outlook.com
- (2603:10a6:802:14::31) To DM4PR11MB6117.namprd11.prod.outlook.com
- (2603:10b6:8:b3::19)
+ Wed,  5 Feb 2025 12:58:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jmIQrTyuSJm6WjsrcLaUswkBoX1MT9tLMUM8cxUna2c=; b=GW0YF75kSxWw2IcUqINTqUk9bd
+ KKR6lAWOcolZL0WDhTLyWOYXcu9D5JlenFtCwk7KBJWKwWdDjxv6+5tWxU4w5ZxXzteY82XRfqTrC
+ xnkS5Cg59LGXVD1emFbVa30+ZJe3asplDkJLLDk5hRkbqT+BLZePX/wJMYCsZ4GT2Jijyntox+HHS
+ zHDw+G1CXuuwhgk8CDajM7cWixXnFykogyHE4Kp/2riu9zyfMtLC1ylG9Ing8LGPmcRVbxVq/H5Xq
+ /cJyOvbYkHrb6T+yQ14RBnqu2fnCpQFp5Bdhyda9UEgI3e2A6XYTA9951RuttNKiaSjop9g87verV
+ nEYQswog==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38818 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <rmk@armlinux.org.uk>) id 1tfeyk-00070s-3A;
+ Wed, 05 Feb 2025 12:58:07 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1tfeyR-003YGJ-Gb; Wed, 05 Feb 2025 12:57:47 +0000
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|MW4PR11MB5933:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e152857-999c-47bd-eff5-08dd45e107eb
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kJblYdAtmkLLyWkeI02SDIUZiw/hE1ZML+B97sJLCnTOHmwZEn8FDssGOGBA?=
- =?us-ascii?Q?FNCuNi3xu+HIE2HWJOI0Z37JyzxObJcUyg2xLF4LFVqd4OJPyb2T9E2PWfb4?=
- =?us-ascii?Q?Lq9Qf5FNHOkgv1GXrGvgkALfz6BSXZj2OHQezcuRsIzrkOlhfXwv4cY9Ku8O?=
- =?us-ascii?Q?SYAtO6Fhkh664ScFwrCXF6XSDpEc90nR3cDWe1l5dcDvfc/zAJ+/L5fV5rcR?=
- =?us-ascii?Q?SqAsVb9YYVPhE0P/eOzuwoRtkLNBiv8MEGFLbgRq9lz71X7Agkl8BiW9cYMS?=
- =?us-ascii?Q?TmEBLmTf4JBUVdYMJGOZt7DVAIZFHz7rwFlZCFjideQQIZoITC8DxHohsReh?=
- =?us-ascii?Q?zjeKYd0tAYEJEVjCz8+FAWwTKoF8+2fdwlRCyPxuwhXHLqnDVW7RXcNfpnKq?=
- =?us-ascii?Q?DM8prsFEUUNhyb0R1NUbEOsUD45dED63QIlHqqYgiLLm4WEN7HTfc26sg3Da?=
- =?us-ascii?Q?YhXmLDm0GP2Qil9rJfnxr+2CDpFNF9mBxKKEX1pdNKvwy5zTvL6pS/I/mUhv?=
- =?us-ascii?Q?2P+RI//26UaYG/GgZGp3OKoMl8/kOy9E3kuZs6fu/cUWCSGMEcbj8IudKiHA?=
- =?us-ascii?Q?UmM3RIhOIinGY6xzI4RQhfR5JzEeGmcXK1NSXp0YHHgORM8PRNyEvuT6GGA3?=
- =?us-ascii?Q?NRiDMxLZSFMkIg/IrUCDTDpLtt22IjBsGg+SO+mQOfDtHMptUFKrMhp+MvWz?=
- =?us-ascii?Q?6RtfgAqMIAy/3iFklVE+P0Ay3iw90i15xCNhV+l9cerSa6g8js7yeMpNiejW?=
- =?us-ascii?Q?sBvAtfHMh38RFWF78bRli5SFTltSRbShsM20qnbJsCuYaBCeePMRbfAzeVEE?=
- =?us-ascii?Q?bKW8udBPw71EEkx6xHzL+42B9LTWL0taFwESFAnsm40GPSkMHLXa/Vj1NIkz?=
- =?us-ascii?Q?0wNbTPtpX9Id4dJdvBne1A0DZxw9X358ZZJbvKUS3W1hyQ9oXCldTk5pw9H9?=
- =?us-ascii?Q?3Rg5iQta1chRaJtjzTGJ8r6C49gK8nnSWKDcgaQA8fRUN74aPV5pSpg3Zr2B?=
- =?us-ascii?Q?/speustFasycRoPmzP7dYUfrI/WIEEhov6cB+Go8mt7zz0G6ATdg82dAPhBM?=
- =?us-ascii?Q?uQx9hMuFDu2KTUof6t9l38PX20J/g0vuwGV5OETCqEmS4eynpZ0GzV4cRUTH?=
- =?us-ascii?Q?c1GuTiR+5EO/1jTeWC5ijxQC+zQ4dKojMPZzypE7N/vsyuJOfPSXvrh4b9Xx?=
- =?us-ascii?Q?3IwLX/MEvo9ZRqyS+xJeXuYaZjLLt6KT/ri98nfnfYM/gvzsTH7VSul+hFnP?=
- =?us-ascii?Q?Svyvb2bOXzHBt6qN82R32Dg+NiqiCvsu8y7cGa+GtO11qEZOvunzeeXUcg7T?=
- =?us-ascii?Q?wutDatferW/TQvlHRKWcU1JveUHCm0kYMM5xVouPlQ7gFjQzACp04CMq80Y2?=
- =?us-ascii?Q?Kzz+vVqijqdiQ+t3FmCxPlOK19Tt?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6117.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?O7pD8gu8CX4GvPcR5CPZFz7BDtYTqspk5llIv+mJ9tCwCgTbTki0K7LFrmxN?=
- =?us-ascii?Q?x6XSmzD2qaj9rXISRIUCEtxuUjl6/YMLqLG2v7PCl/8W4qX4KGjeVHB7B0nK?=
- =?us-ascii?Q?Spqx3mEC5n/AhRExaSc5ilZ0FxhenuSpMywD8nu4I63hFVWj2ypT6nQF/1qZ?=
- =?us-ascii?Q?YY+32kliuE88yyIeXGIL7pq21mKRaffI7XReTO7T6ldrUwVXMXBVBSwLE4Qk?=
- =?us-ascii?Q?qKTw/8o6vVjgFffdJr+a3s7/5KhOToKwuisKZtKyCQauR3Qm+Hxn5suCha3R?=
- =?us-ascii?Q?1CLF1NByz62Aye9XGFXNIsdIPdQU3n/36rKuwzomnyLljoqsMjMvfSQ8tasa?=
- =?us-ascii?Q?Hh61bhA7Xvi2jHQVNF/dT7fT24BzqceHP/Hp4vWh7zpetrBOmG6ofPlE4Djg?=
- =?us-ascii?Q?cg9IVIRiyGnVAdcmcLPuD6AS0gnte27YjFEuS/wF16ctrnB0nSkP9C8zRETB?=
- =?us-ascii?Q?WQ/ioUKMavYVCm151MCikHD6X2OV92ihz9L53cPbd9H3EH5p88FNLAAYm0Kl?=
- =?us-ascii?Q?/ygwn8u1wcV0DyuAo18NEdMRrjpo0loyKhZ8VfaMfG79lXAl1GsAXrtBgiLe?=
- =?us-ascii?Q?tsuSNl2VjEBkVDveP92/53rTQ/kREXYELcnto81KMuQAIgeeaH9aS7lSK12H?=
- =?us-ascii?Q?Y0NO+J6i+fYw+/9DEdH1iKnSK4gLMiMLsGoAlw9wsg9I/rkFF6BVP8I5wCcS?=
- =?us-ascii?Q?nevVG6s9L/OBu2QIW/+UhI41jSUcSHQgNfWGTtKl2cPw0u9Sm8h36pdDbWHv?=
- =?us-ascii?Q?FCN43K3PT7q5a97Cvrj+Yl9W1kBjzJdtDQvEMUSfWUxVpbzovaCjEDDJ+mBi?=
- =?us-ascii?Q?bIsiTnbHuiIIA2uhtx8YhYm8ou3PJBrBFLuG1AhOqKvVEzDSgthqmG2lHUV9?=
- =?us-ascii?Q?DEtuvg0GkUgjlKuoNxBqVP9T7e3001Ew67esZYbtXWkQL6UfTOh1m0adb3l2?=
- =?us-ascii?Q?OKa+ojOUjdE2ilzyRTZ2NN5t3EYytyNhBwX02ja4gXUuvL3X7GMWy9yoOJ7A?=
- =?us-ascii?Q?/qDM90jiYIGKHFlRX4yc+WhPn+xasEHcGclDoLeM7mljYYyV99mzLiRL+txP?=
- =?us-ascii?Q?IMxGRdQYCdjFfpHI8zDupW4r8z03FEYHffJ0JGdGSj9BLPr5YZJPA5MKmVN3?=
- =?us-ascii?Q?Ia/gjRY7g5W6yg+UhQDYOsckeGih5EvNmAEgyYsv9jw5TujWj1Q/v2YmPDSJ?=
- =?us-ascii?Q?EyuIF/JtcSWlNlvw1pyuFdIe9nOpsJqUw9ZE/uItc4s9WLPwrbC/s0shBtiF?=
- =?us-ascii?Q?x6TpJvF6CjlbcrGU3SzAJ73jZksTI4mdsnalI9Gmncmpt+Y431ADwMEy9JhN?=
- =?us-ascii?Q?JpEP+2jOR/QeZ2PAqwISXHfsrU+MslCStUdPog2OkUqVxqypPOogGgw/3ope?=
- =?us-ascii?Q?njDQd9NoJSWjjHofHlEPI1jP4/ch2Kn/v0RWUs04NvyD1+7jwuZ5ZT5lRRlP?=
- =?us-ascii?Q?QyyCyTcalkH7hUM0sf4qAoVQL5ag2487osFRJ8eU/1b7pQXjJamW3orSMdYQ?=
- =?us-ascii?Q?6LwWKllMxuj5zoDZ2VV/xjn4hP34CXX87KIXMUt4yWvIPac3DCvHENYWmcLt?=
- =?us-ascii?Q?e9KxRWG7MYEjTnpD0VmI/yLEHvIXQvTzv8E+I+dGfpaNNKUGEKKdV+y8PBZA?=
- =?us-ascii?Q?qw=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e152857-999c-47bd-eff5-08dd45e107eb
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2025 12:31:36.0861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 90rQgulDikvfFxq9It3klUvZoSdERMUzAiPzhr54wxI8nblBqzx+BZiIlvGYhOfd3umvzFMGl8ILgd2qlZik/W14afY/a9NCZcrD75RbOdg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5933
-X-OriginatorOrg: intel.com
-Cc: Jose Abreu <joabreu@synopsys.com>, linux-kselftest@vger.kernel.org,
- Florian Bezdeka <florian.bezdeka@siemens.com>, Joe Damato <jdamato@fastly.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Daniel Jurgens <danielj@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>,
- Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Mina Almasry <almasrymina@google.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Mykola Lysenko <mykolal@fb.com>, xdp-hints@xdp-project.net, Donald
- Hunter <donald.hunter@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Jonathan Corbet <corbet@lwn.net>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, linux-doc@vger.kernel.org,
- John
- Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Stanislav Fomichev <sdf@fomichev.me>,
- intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Eduard Zingerman <eddyz87@gmail.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, KP Singh <kpsingh@kernel.org>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>, Hao Luo <haoluo@google.com>,
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bouska Zdenek <zdenek.bouska@siemens.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn
- Topel <bjorn@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Lemon <jonathan.lemon@gmail.com>, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH bpf-next v8 4/5] igc: Refactor empty
- packet insertion into a reusable function
+Content-Disposition: inline
+Message-Id: <E1tfeyR-003YGJ-Gb@rmk-PC.armlinux.org.uk>
+Date: Wed, 05 Feb 2025 12:57:47 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] Revert "net: stmmac: Specify hardware
+ capability value when FIFO size isn't specified"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -203,109 +64,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 05, 2025 at 10:41:15AM +0800, Song Yoong Siang wrote:
-> Refactor the code for inserting an empty packet into a new function
-> igc_insert_empty_packet(). This change extracts the logic for inserting
-> an empty packet from igc_xmit_frame_ring() into a separate function,
-> allowing it to be reused in future implementations, such as the XDP
-> zero copy transmit function.
-> 
-> This patch introduces no functional changes.
-> 
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+This reverts commit 8865d22656b4, which caused breakage for platforms
+which are not using xgmac2 or gmac4. Only these two cores have the
+capability of providing the FIFO sizes from hardware capability fields
+(which are provided in priv->dma_cap.[tr]x_fifo_size.)
 
-Your SoB should be last in the set of tags.
+All other cores can not, which results in these two fields containing
+zero. We also have platforms that do not provide a value in
+priv->plat->[tr]x_fifo_size, resulting in these also being zero.
 
-> Reviewed-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-> ---
->  drivers/net/ethernet/intel/igc/igc_main.c | 42 ++++++++++++-----------
->  1 file changed, 22 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-> index 21f318f12a8d..553d6d82af0d 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -1566,6 +1566,26 @@ static bool igc_request_tx_tstamp(struct igc_adapter *adapter, struct sk_buff *s
->  	return false;
->  }
->  
-> +static void igc_insert_empty_packet(struct igc_ring *tx_ring)
-> +{
-> +	struct igc_tx_buffer *empty_info;
-> +	struct sk_buff *empty;
-> +	void *data;
-> +
-> +	empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
-> +	empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
-> +	if (!empty)
-> +		return;
-> +
-> +	data = skb_put(empty, IGC_EMPTY_FRAME_SIZE);
-> +	memset(data, 0, IGC_EMPTY_FRAME_SIZE);
-> +
-> +	igc_tx_ctxtdesc(tx_ring, 0, false, 0, 0, 0);
-> +
-> +	if (igc_init_tx_empty_descriptor(tx_ring, empty, empty_info) < 0)
-> +		dev_kfree_skb_any(empty);
+This causes the new tests introduced by the reverted commit to fail,
+and produce e.g.:
 
-I still don't like the fact igc_insert_empty_packet() doesn't communicate
-to caller whether it successfully produced descriptors or not.
+	stmmaceth f0804000.eth: Can't specify Rx FIFO size
 
-Look at this from igc_xmit_frame_ring() POV:
-- at the beginning you peek at Tx ring whether there is required amount of
-  descriptors free to be used
-- but then here's your additional routine which might consume two more
-  descs and you are not aware of the status
-- then you continue to further produce descriptors assuming there is
-  enough space in Tx ring
+An example of such a platform which fails is QEMU's npcm750-evb.
+This uses dwmac1000 which, as noted above, does not have the capability
+to provide the FIFO sizes from hardware.
 
-Right now igc_init_tx_empty_descriptor() returns -EBUSY when ring is full.
-How can that happen in the first place + what if it would *really* happen
-though? You just continue with your Tx flow.
+Therefore, revert the commit to maintain compatibility with the way
+the driver used to work.
 
-What I'm trying to say here is, at least from correctness POV, you should
-take into the account two potential descriptors for launchtime feature
-when calling igc_maybe_stop_tx(). And igc_init_tx_empty_descriptor()
-should not really care about space in ring, it should be a caller's job to
-call it only when it will be sure it's safe to do so.
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/4e98f967-f636-46fb-9eca-d383b9495b86@roeck-us.net
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 +++++++++----------
+ 1 file changed, 17 insertions(+), 18 deletions(-)
 
-> +}
-> +
->  static netdev_tx_t igc_xmit_frame_ring(struct sk_buff *skb,
->  				       struct igc_ring *tx_ring)
->  {
-> @@ -1603,26 +1623,8 @@ static netdev_tx_t igc_xmit_frame_ring(struct sk_buff *skb,
->  	skb->tstamp = ktime_set(0, 0);
->  	launch_time = igc_tx_launchtime(tx_ring, txtime, &first_flag, &insert_empty);
->  
-> -	if (insert_empty) {
-> -		struct igc_tx_buffer *empty_info;
-> -		struct sk_buff *empty;
-> -		void *data;
-> -
-> -		empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
-> -		empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
-> -		if (!empty)
-> -			goto done;
-> -
-> -		data = skb_put(empty, IGC_EMPTY_FRAME_SIZE);
-> -		memset(data, 0, IGC_EMPTY_FRAME_SIZE);
-> -
-> -		igc_tx_ctxtdesc(tx_ring, 0, false, 0, 0, 0);
-> -
-> -		if (igc_init_tx_empty_descriptor(tx_ring,
-> -						 empty,
-> -						 empty_info) < 0)
-> -			dev_kfree_skb_any(empty);
-> -	}
-> +	if (insert_empty)
-> +		igc_insert_empty_packet(tx_ring);
->  
->  done:
->  	/* record the location of the first descriptor for this packet */
-> -- 
-> 2.34.1
-> 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d04543e5697b..b34ebb916b89 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2424,6 +2424,11 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
+ 	u32 chan = 0;
+ 	u8 qmode = 0;
+ 
++	if (rxfifosz == 0)
++		rxfifosz = priv->dma_cap.rx_fifo_size;
++	if (txfifosz == 0)
++		txfifosz = priv->dma_cap.tx_fifo_size;
++
+ 	/* Split up the shared Tx/Rx FIFO memory on DW QoS Eth and DW XGMAC */
+ 	if (priv->plat->has_gmac4 || priv->plat->has_xgmac) {
+ 		rxfifosz /= rx_channels_count;
+@@ -2892,6 +2897,11 @@ static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
+ 	int rxfifosz = priv->plat->rx_fifo_size;
+ 	int txfifosz = priv->plat->tx_fifo_size;
+ 
++	if (rxfifosz == 0)
++		rxfifosz = priv->dma_cap.rx_fifo_size;
++	if (txfifosz == 0)
++		txfifosz = priv->dma_cap.tx_fifo_size;
++
+ 	/* Adjust for real per queue fifo size */
+ 	rxfifosz /= rx_channels_count;
+ 	txfifosz /= tx_channels_count;
+@@ -5868,6 +5878,9 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+ 	const int mtu = new_mtu;
+ 	int ret;
+ 
++	if (txfifosz == 0)
++		txfifosz = priv->dma_cap.tx_fifo_size;
++
+ 	txfifosz /= priv->plat->tx_queues_to_use;
+ 
+ 	if (stmmac_xdp_is_enabled(priv) && new_mtu > ETH_DATA_LEN) {
+@@ -7219,29 +7232,15 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 		priv->plat->tx_queues_to_use = priv->dma_cap.number_tx_queues;
+ 	}
+ 
+-	if (!priv->plat->rx_fifo_size) {
+-		if (priv->dma_cap.rx_fifo_size) {
+-			priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
+-		} else {
+-			dev_err(priv->device, "Can't specify Rx FIFO size\n");
+-			return -ENODEV;
+-		}
+-	} else if (priv->dma_cap.rx_fifo_size &&
+-		   priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
++	if (priv->dma_cap.rx_fifo_size &&
++	    priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
+ 		dev_warn(priv->device,
+ 			 "Rx FIFO size (%u) exceeds dma capability\n",
+ 			 priv->plat->rx_fifo_size);
+ 		priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
+ 	}
+-	if (!priv->plat->tx_fifo_size) {
+-		if (priv->dma_cap.tx_fifo_size) {
+-			priv->plat->tx_fifo_size = priv->dma_cap.tx_fifo_size;
+-		} else {
+-			dev_err(priv->device, "Can't specify Tx FIFO size\n");
+-			return -ENODEV;
+-		}
+-	} else if (priv->dma_cap.tx_fifo_size &&
+-		   priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
++	if (priv->dma_cap.tx_fifo_size &&
++	    priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
+ 		dev_warn(priv->device,
+ 			 "Tx FIFO size (%u) exceeds dma capability\n",
+ 			 priv->plat->tx_fifo_size);
+-- 
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
