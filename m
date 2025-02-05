@@ -2,114 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E005CA29704
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 18:16:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A610A29AA6
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 21:09:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46A4FC78F88;
-	Wed,  5 Feb 2025 17:16:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1664C71292;
+	Wed,  5 Feb 2025 20:09:23 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22539C78034
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC0AFC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 17:16:16 +0000 (UTC)
+ Wed,  5 Feb 2025 20:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738775775;
+ s=mimecast20190719; t=1738786155;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zeSidYCdYJnARtwshAoVNn6AXIZ4ayw7DuR83E+9hlo=;
- b=ejkGPFJiif/LRtUA5EKrAsnn8tsdPUmtc3eWWBda6Gcxe1FnBdSNXZ7AZjlnN4qp/i2JtP
- v4ZHuxVI2LSCBSfyXvy449GMm4cl27XbNGKx9vcAjm/JIumnuR3ssHBXtJb0c7Tka4WioN
- wm5lnmHYo+K9XNl2EwrHCIUz8l69IVA=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-478-BFrRJO8FM_euS_Hn-K_Z2Q-1; Wed, 05 Feb 2025 12:16:13 -0500
-X-MC-Unique: BFrRJO8FM_euS_Hn-K_Z2Q-1
-X-Mimecast-MFC-AGG-ID: BFrRJO8FM_euS_Hn-K_Z2Q
-Received: by mail-yw1-f198.google.com with SMTP id
- 00721157ae682-6f46924f63eso14503517b3.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 05 Feb 2025 09:16:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738775773; x=1739380573;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=zeSidYCdYJnARtwshAoVNn6AXIZ4ayw7DuR83E+9hlo=;
- b=NReYkZ5CJ1CIYrFn/RNLAIgJHX0nI7n2ATPhHCGPIKVPLzjDwPvBcnF/LxHNpA8nhB
- LMBVGgtvLcHITLPhHgd1eDbcWuLiIGyhwkzf1lbk5Zo172Phy/yQkEe4PFCiyGXY1DUQ
- 1doI4DT3gcmxfpSk/+mmP0HJtmERq4MytoO2vMKV4ZW7tSaVwthzaABqk9AnTB1m8Chk
- T4mokASVrgVbE4BzIW1D3fx1rExLIraSqz0lWirttxmEziChNhRx1k5AL9yC8DLq9rFn
- 2Qx/uIt3fQgThpTCiJB76lqV2PkqZSZ0mhFZcv+StJiOynWQmAWJb0GioVGYfaAsSOrC
- zMNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXqvB8BgpHZ0nQyZkLmR4sp3a9XO9DhR3PTvswCwO3CbQbR0zr3bC13V6Ejj/3+Y+L4OzgsnM3WAq5b+w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyna5JD11uY6azZqnKrlkg9VjeDpkZbEkmhsX1+/Vcf/5qnPAFU
- UTGqlpXFBgEDckVtAKX1ezB+isnIkoBFynLMoox2Tyd3NR6aMIYucbOFKjnRaiKOF2m7WyRcRBI
- 5zTthbjWzk/JcekbYjtRn6FjwhdLCcBkVVz8hsEjUVYeivZI0EzCYyyPGRj7RedkkPmW07gt4PS
- iCqFo9ni4kSFmoM0yCra6yjeqFn8scEuVkF1eZdqknh6LzBvY617Qi
-X-Gm-Gg: ASbGncvwaFgtu3oBCWuX2B9wiy7MbqPKIl0VPgNl84eyN9WX+O0z6TLC3CucZI8a4Ak
- N2/YjEULxWyYY1AOi8fVCqLA353iE7ZicA5ZLvnypgpn3218PcG7a+fRDXjyj
-X-Received: by 2002:a05:690c:6c0c:b0:6f9:4195:8195 with SMTP id
- 00721157ae682-6f99a60b0cdmr1342097b3.15.1738775773235; 
- Wed, 05 Feb 2025 09:16:13 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEo2HkXE9/PB8TiTOCOmlpYI4+BLO/SI3ZFeKcGKfVuRa8aoXdOtxFKnY5ClyavR5vDRDWGBJn3fTqfR8+aXmM=
-X-Received: by 2002:a05:690c:6c0c:b0:6f9:4195:8195 with SMTP id
- 00721157ae682-6f99a60b0cdmr1341537b3.15.1738775772906; Wed, 05 Feb 2025
- 09:16:12 -0800 (PST)
-MIME-Version: 1.0
-References: <20250128-cocci-memory-api-v1-0-0d1609a29587@redhat.com>
- <20250128-cocci-memory-api-v1-14-0d1609a29587@redhat.com>
- <a389f799-442e-45f3-8609-2eb2f0b7a825@suse.de>
- <li2awsqmdoye3u7n3gi2mrhbfxs77e3edjmsg5zclnyjinsnul@2bjkc5agyu5u>
- <0ae17de1-c6dc-48eb-aed2-b099b2abbea5@suse.de>
-In-Reply-To: <0ae17de1-c6dc-48eb-aed2-b099b2abbea5@suse.de>
+ content-transfer-encoding:content-transfer-encoding;
+ bh=FtyHp14quoZKfSwCwvs1IfBWioeKvvPDS6kPB6/O+SI=;
+ b=NsI27Q8TtQcw61ej388M6h8GwXY4BU0p8L533R0l+sOUNN6KvuagkN0vr05esH4IGZkrIb
+ KEo+KehM+WM7W6OQb0msSW4wYYSI808C1Gxwv0pPk9SsP1fCZgnGM3hwc72ZhTUJGJl357
+ sEVFpwTWUJQDuBb/ZfSs7lEZCCNkXJ4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-CsqTGR8cMOug0ye_zH6buw-1; Wed,
+ 05 Feb 2025 15:09:14 -0500
+X-MC-Unique: CsqTGR8cMOug0ye_zH6buw-1
+X-Mimecast-MFC-AGG-ID: CsqTGR8cMOug0ye_zH6buw
+Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1B8A31800264; Wed,  5 Feb 2025 20:09:13 +0000 (UTC)
+Received: from asrivats-na.rmtustx.csb (unknown [10.2.17.21])
+ by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 957B919560A3; Wed,  5 Feb 2025 20:08:57 +0000 (UTC)
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Wed, 5 Feb 2025 12:16:02 -0500
-X-Gm-Features: AWEUYZllqvGkhQf1gMIyypHoBPrhgiNdZ-ww_BiUqVz8q-uL_n50cYGcicLCGMU
-Message-ID: <CAN9Xe3S3E_LzU7zF1UCE7fD9OE2bU7BcLy6xQOQk2s7=k+6v=A@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: AUSyivfnYxcJyP0UAsWTAPtyFNEkALdUO7BdjxicXmA_1738775773
-X-Mimecast-Originator: redhat.com
-Cc: imx@lists.linux.dev, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
- Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
- Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Joel Stanley <joel@jms.id.au>,
- Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Fabio Estevam <festevam@gmail.com>, Tian Tao <tiantao6@hisilicon.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 14/14] Documentation: Update the todo
+Date: Wed, 05 Feb 2025 15:07:56 -0500
+Message-Id: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
+MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIABzFo2cC/x3MQQqAIBBA0avErBtQSYmuEi1Sp5pFKgoVSHdPW
+ r7F/xUKZaYCU1ch08WFY2iQfQfuWMNOyL4ZlFBaKKHxpBNddI4x0L0mRuPtYEcpjTcELUuZNn7
+ +5by87we0aAeTYgAAAA==
+X-Change-ID: 20250205-mem-cocci-newapi-6db4b8116d6e
+To: Joel Stanley <joel@jms.id.au>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Marek Vasut <marex@denx.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Alexey Brodkin <abrodkin@synopsys.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Jonathan Corbet <corbet@lwn.net>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738786137; l=4887;
+ i=asrivats@redhat.com; s=20250122; h=from:subject:message-id;
+ bh=JBXfstQaIVwQ4CElA5zFAPJmVat5vbPS8gLTRdPLuUI=;
+ b=kB2Ax15EIn2x59280nG+iYRJh3A8F3lI/vAFp/1S4keeM/8lC4ZnJc86pKPdqRuC7++JEqhWK
+ fKEzwCmQXKIDNwrIxS+ebvDgJC/rzBnDe6p36Nc05otkT/OeNyXMGX2
+X-Developer-Key: i=asrivats@redhat.com; a=ed25519;
+ pk=brnIHkBsUZEhyW6Zyn0U92AeIZ1psws/q8VFbIkf1AU=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
+Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
+ linux-doc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/12] drm: Move to using
+	devm_platform_ioremap_resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,148 +110,140 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0471128589453502088=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============0471128589453502088==
-Content-Type: multipart/alternative; boundary="00000000000049d89e062d68488b"
+Start replacing the below occurences with the newer API:
+- (devm_)platform_get_resource + devm_ioremap_resource
+- (devm_)platform_get_resource + (devm_)ioremap
+- platform_get_resource_byname + devm_ioremap
+Move all these occurences to uses devm_platform_ioremap_resource
+instead.
 
---00000000000049d89e062d68488b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is v2 of the series. Changes from v1 [1]:
+- Mostly fix the compilation errors :( What had passed locally
+happened to be the wrong config with most drivers not enabled.
+- Clarify the TODO item in the GPU section of Documentation
+for anyone who wants to do it in future.
+- Drop meson patch from discussion in v1
+- Drop rockchip patch as well. Offline discussion with
+Maxime led to the conclusion that using
+devm_platform_get_and_ioremap_resource() would be a better
+approach in that source file. Not adding that change as part of
+this series, can be addressed separately.
 
-On Fri, Jan 31, 2025 at 7:53=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de>
-wrote:
+[1] - https://patchwork.freedesktop.org/series/144073/
 
-> Hi Maxime
->
->
-> Am 29.01.25 um 15:31 schrieb Maxime Ripard:
-> > Hi Thomas,
-> >
-> > On Wed, Jan 29, 2025 at 02:06:15PM +0100, Thomas Zimmermann wrote:
-> >> Am 28.01.25 um 23:29 schrieb Anusha Srivatsa:
-> >>> Remove the TODO now that this series addresses
-> >>> the changes needed.
-> >> While your series is fine, this TODO item is unrelated. It's about
-> various
-> >> ancient fbdev drivers that do not reserve their memory regions
-> correctly. So
-> >> please drop patch 14 form the series.
-> > Is it? Could we rephrase the entry then? I'm the one that suggested
-> > Anusha to work on this, and it's still not clear to me what it means
-> > exactly if it's not what she worked on :)
->
-> I guess, we could make this more precise.
->
-> Some old graphics drivers don't request their memory ranges correctly.
-> It's usually a problem with hardware that has exclusive ranges, such as
-> the VGA. Vga16fb doesn't request the range as it should. Someone needs
-> to audit all those old drivers and fix them.
->
->
-This sounds like a good next approach. I will make the documentation more
-clear.
+Used Coccinelle to make the code changes.Semantic patch:
 
-Thanks for feedback everyone!
+//First Case
+//rule s/platform_get_resource + devm_ioremap_resource/devm_platform_ioremap_resource
+@rule_1@
+identifier res;
+expression ioremap_res;
+identifier pdev;
+@@
+-struct resource *res;
+...
+-res = platform_get_resource(pdev,...);
+-ioremap_res = devm_ioremap_resource(...);
++ioremap_res = devm_platform_ioremap_resource(pdev,0);
 
-Anusha
+//Second case
+//rule s/(devm_)platform_get_resource + (devm_)ioremap/devm_platform_ioremap_resource.
+@rule_2@
+identifier res;
+expression ioremap;
+identifier pdev;
+@@
+-struct resource *res;
+...
+-res = platform_get_resource(pdev,...);
+<...
+-if (!res) {
+-...
+-}
+...>
+-ioremap = devm_ioremap(...);
++ioremap = devm_platform_ioremap_resource(pdev,0);
 
-> Best regards
-> Thomas
->
->
-> >
-> > Maxime
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstrasse 146, 90461 Nuernberg, Germany
-> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-> HRB 36809 (AG Nuernberg)
->
->
+//Third case
+//rule s/(devm_)platform_get_resource_byname + (devm_)ioremap/devm_platform_ioremap_resource_byname.
+@rule_3@
+identifier res;
+expression ioremap;
+identifier pdev;
+constant mem;
+expression name;
+@@
+-struct resource *res;
+<+...
+-res = platform_get_resource_byname(pdev,mem,name);
+<...
+-if (!res) {
+-...
+-}
+...>
+-ioremap = devm_ioremap(...);
++ioremap = devm_platform_ioremap_resource_byname(pdev,name);
+...+>
 
---00000000000049d89e062d68488b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
+---
+Anusha Srivatsa (12):
+      drm/aspeed: move to devm_platform_ioremap_resource() usage
+      drm/fsl-dcu: move to devm_platform_ioremap_resource() usage
+      drm/hisilicon: move to devm_platform_ioremap_resource() usage
+      drm/mediatek: move to devm_platform_ioremap_resource() usage
+      drm/mxsfb: move to devm_platform_ioremap_resource() usage
+      drm/sprd: move to devm_platform_ioremap_resource() usage
+      drm/sti: move to devm_platform_ioremap_resource() usage
+      drm/stm: move to devm_platform_ioremap_resource() usage
+      drm/tegra: move to devm_platform_ioremap_resource() usage
+      drm/tiny: move to devm_platform_ioremap_resource() usage
+      drm/vc4: move to devm_platform_ioremap_resource() usage
+      Documentation: Update the todo
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jan 31,=
- 2025 at 7:53=E2=80=AFAM Thomas Zimmermann &lt;<a href=3D"mailto:tzimmerman=
-n@suse.de">tzimmermann@suse.de</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">Hi Maxime<br>
-<br>
-<br>
-Am 29.01.25 um 15:31 schrieb Maxime Ripard:<br>
-&gt; Hi Thomas,<br>
-&gt;<br>
-&gt; On Wed, Jan 29, 2025 at 02:06:15PM +0100, Thomas Zimmermann wrote:<br>
-&gt;&gt; Am 28.01.25 um 23:29 schrieb Anusha Srivatsa:<br>
-&gt;&gt;&gt; Remove the TODO now that this series addresses<br>
-&gt;&gt;&gt; the changes needed.<br>
-&gt;&gt; While your series is fine, this TODO item is unrelated. It&#39;s a=
-bout various<br>
-&gt;&gt; ancient fbdev drivers that do not reserve their memory regions cor=
-rectly. So<br>
-&gt;&gt; please drop patch 14 form the series.<br>
-&gt; Is it? Could we rephrase the entry then? I&#39;m the one that suggeste=
-d<br>
-&gt; Anusha to work on this, and it&#39;s still not clear to me what it mea=
-ns<br>
-&gt; exactly if it&#39;s not what she worked on :)<br>
-<br>
-I guess, we could make this more precise.<br>
-<br>
-Some old graphics drivers don&#39;t request their memory ranges correctly. =
-<br>
-It&#39;s usually a problem with hardware that has exclusive ranges, such as=
- <br>
-the VGA. Vga16fb doesn&#39;t request the range as it should. Someone needs =
-<br>
-to audit all those old drivers and fix them.<br>
-<br></blockquote><div><br></div><div>This sounds like a good next approach.=
- I will make the documentation more clear.</div><div><br></div><div>Thanks =
-for feedback everyone!</div><div><br></div><div>Anusha <br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex">
-Best regards<br>
-Thomas<br>
-<br>
-<br>
-&gt;<br>
-&gt; Maxime<br>
-<br>
--- <br>
---<br>
-Thomas Zimmermann<br>
-Graphics Driver Developer<br>
-SUSE Software Solutions Germany GmbH<br>
-Frankenstrasse 146, 90461 Nuernberg, Germany<br>
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman<br>
-HRB 36809 (AG Nuernberg)<br>
-<br>
-</blockquote></div></div>
+ Documentation/gpu/todo.rst                      | 12 +++---
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c         |  4 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c       |  4 +-
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c    |  4 +-
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c |  4 +-
+ drivers/gpu/drm/mediatek/mtk_disp_color.c       |  4 +-
+ drivers/gpu/drm/mediatek/mtk_disp_gamma.c       |  4 +-
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c       |  4 +-
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.c         |  4 +-
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c        |  4 +-
+ drivers/gpu/drm/mediatek/mtk_dsi.c              |  4 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c             |  4 +-
+ drivers/gpu/drm/mediatek/mtk_mdp_rdma.c         |  4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c               |  4 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c               |  4 +-
+ drivers/gpu/drm/sprd/sprd_dpu.c                 |  9 +---
+ drivers/gpu/drm/sprd/sprd_dsi.c                 |  9 +---
+ drivers/gpu/drm/sti/sti_compositor.c            | 10 +----
+ drivers/gpu/drm/sti/sti_dvo.c                   | 10 +----
+ drivers/gpu/drm/sti/sti_hda.c                   |  9 +---
+ drivers/gpu/drm/sti/sti_hdmi.c                  | 11 +----
+ drivers/gpu/drm/sti/sti_hqvdp.c                 | 10 +----
+ drivers/gpu/drm/sti/sti_tvout.c                 | 10 +----
+ drivers/gpu/drm/sti/sti_vtg.c                   | 10 +----
+ drivers/gpu/drm/stm/ltdc.c                      |  4 +-
+ drivers/gpu/drm/tegra/dsi.c                     |  4 +-
+ drivers/gpu/drm/tiny/arcpgu.c                   |  4 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                  | 55 +++++++------------------
+ 28 files changed, 46 insertions(+), 177 deletions(-)
+---
+base-commit: 92514ef226f511f2ca1fb1b8752966097518edc0
+change-id: 20250205-mem-cocci-newapi-6db4b8116d6e
 
---00000000000049d89e062d68488b--
-
-
---===============0471128589453502088==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Best regards,
+-- 
+Anusha Srivatsa <asrivats@redhat.com>
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0471128589453502088==--
-
