@@ -2,54 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE5B2A28C04
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 14:41:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA732A28F3E
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 15:23:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0806C78F89;
-	Wed,  5 Feb 2025 13:41:19 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 552B9C78F88;
+	Wed,  5 Feb 2025 14:23:07 +0000 (UTC)
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
+ [91.218.175.188])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A04C9C78F88
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E54F0C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 13:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ksgaCjHXcNTsY42mVRcdo2AzL+mmzyJ8+XW8+N+WA34=; b=jnbKuON5b1fm78ZScKha3rn/X1
- J/G10o6Axkr+bEmh2HStOIkuZskIUR3obbVdMIarqvMotxIqLWKFOofDfzCVUABcDzBGdgN1hivXZ
- Z8gylxkG5c/mVhr3X9MANZB4IweyaNi7wZtPdVj1MbdSF4/oJXqN7mp5+4LVP8MU8jptU1meOT7De
- YHHGLLH/ozgVFGJ7cKgExAWWrx0i4d4yH04My3Q8xl5iC7r2MMTF5DgBJTHnWeHMXfKxPDvzeZooP
- eK5y7pMz5wu7cbEV2tTJvWSdwcFkZch5LS+3F6myCt9C2wwMTt6TJpJfK1neUzIIq4W6rFz3J6fJ0
- XkbsY5wg==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60766 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tffeR-0007DE-17;
- Wed, 05 Feb 2025 13:41:11 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tffe7-003ZIm-Qv; Wed, 05 Feb 2025 13:40:51 +0000
-In-Reply-To: <Z6NqGnM2yL7Ayo-T@shell.armlinux.org.uk>
-References: <Z6NqGnM2yL7Ayo-T@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Wed,  5 Feb 2025 14:22:59 +0000 (UTC)
+Message-ID: <f728a006-e588-4eab-b667-b1ff7dfd66c5@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1738765376;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zn1OZ0/xC5hWSYyFfGAzueY2AGtYBGt8AuLFCHG10t8=;
+ b=eg4nZJbO0xpeG0pLWlbhMOe6AYAiwdcu4kYoQMdLWO+eZdJ3lFgi+Jpg3kpYb/i14hvLjJ
+ /+NqrmVuZeacszL66SFSgoFSCyY+PoN4hFtdoc0HT7vGRqjXutkQ+JV8tyyG3jBtPypA32
+ 7MoUOedOYpMYKM+fZ/PdUpF9Kz9lHl0=
+Date: Wed, 5 Feb 2025 22:22:00 +0800
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1tffe7-003ZIm-Qv@rmk-PC.armlinux.org.uk>
-Date: Wed, 05 Feb 2025 13:40:51 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+To: Jakub Kicinski <kuba@kernel.org>,
+ "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Steven Price <steven.price@arm.com>
+References: <20250203093419.25804-1-steven.price@arm.com>
+ <Z6CckJtOo-vMrGWy@shell.armlinux.org.uk>
+ <811ea27c-c1c3-454a-b3d9-fa4cd6d57e44@arm.com>
+ <Z6Clkh44QgdNJu_O@shell.armlinux.org.uk> <20250203142342.145af901@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Yanteng Si <si.yanteng@linux.dev>
+In-Reply-To: <20250203142342.145af901@kernel.org>
+X-Migadu-Flow: FLOW_OUT
+Cc: Furong Xu <0x1207@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Petr Tesarik <petr@tesarici.cz>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Serge Semin <fancer.lancer@gmail.com>, linux-kernel@vger.kernel.org,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 14/14] net: stmmac: remove old EEE
-	methods
+ Jose Abreu <joabreu@synopsys.com>, Xi Ruoyao <xry111@xry111.site>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Allow zero for
+	[tr]x_fifo_size
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,194 +62,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As we no longer call the set_eee_mode(), reset_eee_mode() and
-set_eee_lpi_entry_timer() methods, remove these and their glue in
-common.h
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../ethernet/stmicro/stmmac/dwmac1000_core.c  | 13 ---------
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 29 -------------------
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 15 ----------
- drivers/net/ethernet/stmicro/stmmac/hwif.h    | 10 -------
- 4 files changed, 67 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 622f5ef241d4..7900bf3effa7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -362,17 +362,6 @@ static int dwmac1000_set_lpi_mode(struct mac_device_info *hw,
- 	return 0;
- }
- 
--static void dwmac1000_set_eee_mode(struct mac_device_info *hw,
--				   bool en_tx_lpi_clockgating)
--{
--	dwmac1000_set_lpi_mode(hw, STMMAC_LPI_FORCED, en_tx_lpi_clockgating, 0);
--}
--
--static void dwmac1000_reset_eee_mode(struct mac_device_info *hw)
--{
--	dwmac1000_set_lpi_mode(hw, STMMAC_LPI_DISABLE, false, 0);
--}
--
- static void dwmac1000_set_eee_pls(struct mac_device_info *hw, int link)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-@@ -514,8 +503,6 @@ const struct stmmac_ops dwmac1000_ops = {
- 	.set_umac_addr = dwmac1000_set_umac_addr,
- 	.get_umac_addr = dwmac1000_get_umac_addr,
- 	.set_lpi_mode = dwmac1000_set_lpi_mode,
--	.set_eee_mode = dwmac1000_set_eee_mode,
--	.reset_eee_mode = dwmac1000_reset_eee_mode,
- 	.set_eee_timer = dwmac1000_set_eee_timer,
- 	.set_eee_pls = dwmac1000_set_eee_pls,
- 	.debug = dwmac1000_debug,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index ed42e1477cf8..cc4ddf608652 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -418,21 +418,6 @@ static int dwmac4_set_lpi_mode(struct mac_device_info *hw,
- 	return 0;
- }
- 
--static void dwmac4_set_eee_mode(struct mac_device_info *hw,
--				bool en_tx_lpi_clockgating)
--{
--	/* Enable the link status receive on RGMII, SGMII ore SMII
--	 * receive path and instruct the transmit to enter in LPI
--	 * state.
--	 */
--	dwmac4_set_lpi_mode(hw, STMMAC_LPI_FORCED, en_tx_lpi_clockgating, 0);
--}
--
--static void dwmac4_reset_eee_mode(struct mac_device_info *hw)
--{
--	dwmac4_set_lpi_mode(hw, STMMAC_LPI_DISABLE, false, 0);
--}
--
- static void dwmac4_set_eee_pls(struct mac_device_info *hw, int link)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-@@ -448,11 +433,6 @@ static void dwmac4_set_eee_pls(struct mac_device_info *hw, int link)
- 	writel(value, ioaddr + GMAC4_LPI_CTRL_STATUS);
- }
- 
--static void dwmac4_set_eee_lpi_entry_timer(struct mac_device_info *hw, u32 et)
--{
--	dwmac4_set_lpi_mode(hw, STMMAC_LPI_TIMER, false, et & STMMAC_ET_MAX);
--}
--
- static void dwmac4_set_eee_timer(struct mac_device_info *hw, int ls, int tw)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-@@ -1214,9 +1194,6 @@ const struct stmmac_ops dwmac4_ops = {
- 	.set_umac_addr = dwmac4_set_umac_addr,
- 	.get_umac_addr = dwmac4_get_umac_addr,
- 	.set_lpi_mode = dwmac4_set_lpi_mode,
--	.set_eee_mode = dwmac4_set_eee_mode,
--	.reset_eee_mode = dwmac4_reset_eee_mode,
--	.set_eee_lpi_entry_timer = dwmac4_set_eee_lpi_entry_timer,
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
-@@ -1259,9 +1236,6 @@ const struct stmmac_ops dwmac410_ops = {
- 	.set_umac_addr = dwmac4_set_umac_addr,
- 	.get_umac_addr = dwmac4_get_umac_addr,
- 	.set_lpi_mode = dwmac4_set_lpi_mode,
--	.set_eee_mode = dwmac4_set_eee_mode,
--	.reset_eee_mode = dwmac4_reset_eee_mode,
--	.set_eee_lpi_entry_timer = dwmac4_set_eee_lpi_entry_timer,
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
-@@ -1306,9 +1280,6 @@ const struct stmmac_ops dwmac510_ops = {
- 	.set_umac_addr = dwmac4_set_umac_addr,
- 	.get_umac_addr = dwmac4_get_umac_addr,
- 	.set_lpi_mode = dwmac4_set_lpi_mode,
--	.set_eee_mode = dwmac4_set_eee_mode,
--	.reset_eee_mode = dwmac4_reset_eee_mode,
--	.set_eee_lpi_entry_timer = dwmac4_set_eee_lpi_entry_timer,
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 51c37a1180ac..a6d395c6bacd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -449,17 +449,6 @@ static int dwxgmac2_set_lpi_mode(struct mac_device_info *hw,
- 	return 0;
- }
- 
--static void dwxgmac2_set_eee_mode(struct mac_device_info *hw,
--				  bool en_tx_lpi_clockgating)
--{
--	dwxgmac2_set_lpi_mode(hw, STMMAC_LPI_FORCED, en_tx_lpi_clockgating, 0);
--}
--
--static void dwxgmac2_reset_eee_mode(struct mac_device_info *hw)
--{
--	dwxgmac2_set_lpi_mode(hw, STMMAC_LPI_DISABLE, false, 0);
--}
--
- static void dwxgmac2_set_eee_pls(struct mac_device_info *hw, int link)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-@@ -1536,8 +1525,6 @@ const struct stmmac_ops dwxgmac210_ops = {
- 	.set_umac_addr = dwxgmac2_set_umac_addr,
- 	.get_umac_addr = dwxgmac2_get_umac_addr,
- 	.set_lpi_mode = dwxgmac2_set_lpi_mode,
--	.set_eee_mode = dwxgmac2_set_eee_mode,
--	.reset_eee_mode = dwxgmac2_reset_eee_mode,
- 	.set_eee_timer = dwxgmac2_set_eee_timer,
- 	.set_eee_pls = dwxgmac2_set_eee_pls,
- 	.debug = NULL,
-@@ -1594,8 +1581,6 @@ const struct stmmac_ops dwxlgmac2_ops = {
- 	.set_umac_addr = dwxgmac2_set_umac_addr,
- 	.get_umac_addr = dwxgmac2_get_umac_addr,
- 	.set_lpi_mode = dwxgmac2_set_lpi_mode,
--	.set_eee_mode = dwxgmac2_set_eee_mode,
--	.reset_eee_mode = dwxgmac2_reset_eee_mode,
- 	.set_eee_timer = dwxgmac2_set_eee_timer,
- 	.set_eee_pls = dwxgmac2_set_eee_pls,
- 	.debug = NULL,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 7279d30d6a8b..27c63a9fc163 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -369,10 +369,6 @@ struct stmmac_ops {
- 	int (*set_lpi_mode)(struct mac_device_info *hw,
- 			    enum stmmac_lpi_mode mode,
- 			    bool en_tx_lpi_clockgating, u32 et);
--	void (*set_eee_mode)(struct mac_device_info *hw,
--			     bool en_tx_lpi_clockgating);
--	void (*reset_eee_mode)(struct mac_device_info *hw);
--	void (*set_eee_lpi_entry_timer)(struct mac_device_info *hw, u32 et);
- 	void (*set_eee_timer)(struct mac_device_info *hw, int ls, int tw);
- 	void (*set_eee_pls)(struct mac_device_info *hw, int link);
- 	void (*debug)(struct stmmac_priv *priv, void __iomem *ioaddr,
-@@ -478,12 +474,6 @@ struct stmmac_ops {
- 	stmmac_do_void_callback(__priv, mac, get_umac_addr, __args)
- #define stmmac_set_lpi_mode(__priv, __args...) \
- 	stmmac_do_callback(__priv, mac, set_lpi_mode, __args)
--#define stmmac_set_eee_mode(__priv, __args...) \
--	stmmac_do_void_callback(__priv, mac, set_eee_mode, __args)
--#define stmmac_reset_eee_mode(__priv, __args...) \
--	stmmac_do_void_callback(__priv, mac, reset_eee_mode, __args)
--#define stmmac_set_eee_lpi_timer(__priv, __args...) \
--	stmmac_do_void_callback(__priv, mac, set_eee_lpi_entry_timer, __args)
- #define stmmac_set_eee_timer(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, set_eee_timer, __args)
- #define stmmac_set_eee_pls(__priv, __args...) \
--- 
-2.30.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CuWcqCAyLzQvMjUgMDY6MjMsIEpha3ViIEtpY2luc2tpIOWGmemBkzoKPiBPbiBNb24sIDMgRmVi
+IDIwMjUgMTE6MTY6MzQgKzAwMDAgUnVzc2VsbCBLaW5nIChPcmFjbGUpIHdyb3RlOgo+Pj4gSSd2
+ZSBubyBvcGluaW9uIHdoZXRoZXIgdGhlIG9yaWdpbmFsIHNlcmllcyAiaGFkIHZhbHVlIiAtIEkn
+bSBqdXN0Cj4+PiB0cnlpbmcgdG8gZml4IHRoZSBicmVha2FnZSB0aGF0IGVudGFpbGVkLiBNeSBm
+aXJzdCBhdHRlbXB0IGF0IGEgcGF0Y2gKPj4+IHdhcyBpbmRlZWQgYSAocGFydGlhbCkgcmV2ZXJ0
+LCBidXQgQW5kcmV3IHdhcyBrZWVuIHRvIGZpbmQgYSBiZXR0ZXIKPj4+IHNvbHV0aW9uWzFdLgo+
+PiBUaGVyZSBhcmUgdHdvIHdheXMgdG8gZml4IHRoZSBicmVha2FnZSAtIGVpdGhlciByZXZlcnQg
+dGhlIG9yaWdpbmFsCj4+IHBhdGNoZXMgKHdoaWNoIGlmIHRoZXkgaGF2ZSBsaXR0bGUgdmFsdWUg
+bm93IHdvdWxkIGJlIHRoZSBzZW5zaWJsZQo+PiBhcHByb2FjaCBJTUhPKQo+ICsxLCBJIGFsc28g
+dm90ZSByZXZlcnQgRldJVwoKKzEsIHNhbWUgaGVyZS4KCgpGb3IgYSBkcml2ZXIgdGhhdCBydW5z
+IG9uIHNvIG11Y2ggaGFyZHdhcmUsIHdlIG5lZWQgdG8gYWN0CgpjYXV0aW91c2x5LiBBIGNydWNp
+YWwgcHJlcmVxdWlzaXRlIGlzIHRoYXQgY29kZSBjaGFuZ2VzIG11c3QKCm5ldmVyIGNhdXNlIHNv
+bWUgaGFyZHdhcmUgdG8gbWFsZnVuY3Rpb24uIEkgd2FzIHRvbyBzaW1wbGlzdGljCgppbiBteSB0
+aGlua2luZyB3aGVuIHJldmlld2luZyB0aGlzIGJlZm9yZSwgYW5kIEkgc2luY2VyZWx5CgphcG9s
+b2dpemUgZm9yIHRoYXQuCgoKU3RldmVuLCB0aGFuayB5b3UgZm9yIHlvdXIgdGVzdHMsIExldCdz
+IHJldmVydCBpdC4KCgpUaGFua3MsCgpZYW50ZW5nCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
