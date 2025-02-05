@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9E4A29AAD
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 21:09:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63974A29AB0
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 21:09:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E37AEC78034;
-	Wed,  5 Feb 2025 20:09:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF405C78F88;
+	Wed,  5 Feb 2025 20:09:50 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7597AC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AE54C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2025 20:09:39 +0000 (UTC)
+ Wed,  5 Feb 2025 20:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738786178;
+ s=mimecast20190719; t=1738786188;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xMGlgFMnw8m0fqnHlMzqGgmx7iSobyGCc1e2rGwWxUo=;
- b=f14T7SDXAkQjwEG0K1HXQp5Z3mNkdtCJVNWZmegtl+Eg+adhHm3ea1MEG8kn1AoJyAxZnD
- zh4Pt9AqvTJi4GggaYlnSlnqoSVdf+dirLRa6gc5MHCKthuc8dyWAyLtxznTP7/Mkrnrfi
- Wx2VL5xo3cytq++y29GzXMkL+z2lMPU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=qItC1tMYOWKCL7xMXToSIOhC8XUwskbCivBq7IFZWAE=;
+ b=Q/BD34vNSkHWflayWJaJ2cJxZZZ4rGrn5cdrvxJ0zlhFLpfgJWXeaSDMZ+YLKpgRbMxJyp
+ e2LyicwNL2WDA1ezpR0VvU40E9W3IeyPzJ67adrLtSf9RUbmnYcYlc6l610+SvMelf469G
+ 2i73mXsAxDvx3MsqvKIHFGgyoiJv18M=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-691-iY7-9AexO_-TAQ-WEUaP4w-1; Wed,
- 05 Feb 2025 15:09:35 -0500
-X-MC-Unique: iY7-9AexO_-TAQ-WEUaP4w-1
-X-Mimecast-MFC-AGG-ID: iY7-9AexO_-TAQ-WEUaP4w
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-321-hrErVV9hOtKQYRcqM4KqKA-1; Wed,
+ 05 Feb 2025 15:09:46 -0500
+X-MC-Unique: hrErVV9hOtKQYRcqM4KqKA-1
+X-Mimecast-MFC-AGG-ID: hrErVV9hOtKQYRcqM4KqKA
 Received: from mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.40])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A076E1956046; Wed,  5 Feb 2025 20:09:26 +0000 (UTC)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id CD4E91800268; Wed,  5 Feb 2025 20:09:39 +0000 (UTC)
 Received: from asrivats-na.rmtustx.csb (unknown [10.2.17.21])
  by mx-prod-int-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 6AED119560AB; Wed,  5 Feb 2025 20:09:13 +0000 (UTC)
+ id F082319560AF; Wed,  5 Feb 2025 20:09:26 +0000 (UTC)
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Wed, 05 Feb 2025 15:07:57 -0500
+Date: Wed, 05 Feb 2025 15:07:58 -0500
 MIME-Version: 1.0
-Message-Id: <20250205-mem-cocci-newapi-v1-1-aebf2b0e2300@redhat.com>
+Message-Id: <20250205-mem-cocci-newapi-v1-2-aebf2b0e2300@redhat.com>
 References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
 In-Reply-To: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
 To: Joel Stanley <joel@jms.id.au>, 
@@ -82,16 +82,16 @@ To: Joel Stanley <joel@jms.id.au>,
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
  Jonathan Corbet <corbet@lwn.net>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1738786137; l=1480;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738786137; l=1621;
  i=asrivats@redhat.com; s=20250122; h=from:subject:message-id;
- bh=EiZLkZhOyAW9xsLWltUT3PNY16MrDfjY5hC7dVEFLOM=;
- b=XsxAeoZCVozTJnK/kqDAMY/ckZluYOAy4E4MbTsDIaSx08ZZijKGTvdfXCM4/qCOdCyfsoNqm
- r258ZdLMkhbABTbRgisKxCgmikN0I/EpdAk+57cA0jPzqzp7njZRhyL
+ bh=8Mr23W/+G1uZ617GLarMPiY6eX2ezkHI6A58kZ43cp4=;
+ b=w08+1to0zmPLfPwhWnJMT8LxzW4bcZA6anv7/SWrFNcdFBQ5F4zNDLZbsDRD/1JkaHM+xTeB7
+ v+CbIKQMYBkDh/lXileZfuakl3WJsLEI+Ds2v6laXWkMyZaAifjm2YR
 X-Developer-Key: i=asrivats@redhat.com; a=ed25519;
  pk=brnIHkBsUZEhyW6Zyn0U92AeIZ1psws/q8VFbIkf1AU=
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.40
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: uSFtG3tOgNFegi_ItRRHuqWoZilDYq6QKn8xHiqUGqY_1738786169
+X-Mimecast-MFC-PROC-ID: TpnAFVFsGdCTecEJBGgS28GouV_b16R0bwK9DU-Jb20_1738786181
 X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-doc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
@@ -99,7 +99,7 @@ Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/12] drm/aspeed: move to
+Subject: [Linux-stm32] [PATCH 02/12] drm/fsl-dcu: move to
  devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -132,31 +132,36 @@ identifier pdev;
 -ioremap_res = devm_ioremap_resource(...);
 +ioremap_res = devm_platform_ioremap_resource(pdev,0);
 
-Cc: Joel Stanley <joel@jms.id.au>
-Acked-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Stefan Agner <stefan@agner.ch>
+Cc: Alison Wang <alison.wang@nxp.com>
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
 ---
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 4 +---
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index 397e677a691c2c6d199063f44358196a4569b389..46094cca297479d1cf19f6db99538c5e7a0fec92 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -144,11 +144,9 @@ static int aspeed_gfx_load(struct drm_device *drm)
- 	struct aspeed_gfx *priv = to_aspeed_gfx(drm);
- 	struct device_node *np = pdev->dev.of_node;
- 	const struct aspeed_gfx_config *config;
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
+index 03b076db9381a5db0bff6576cda2772495a61fed..3bbfc1b56a6557e2f54d2b7ed099531053871341 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c
+@@ -260,7 +260,6 @@ static int fsl_dcu_drm_probe(struct platform_device *pdev)
+ 	struct fsl_dcu_drm_device *fsl_dev;
+ 	struct drm_device *drm;
+ 	struct device *dev = &pdev->dev;
 -	struct resource *res;
- 	int ret;
+ 	void __iomem *base;
+ 	struct clk *pix_clk_in;
+ 	char pix_clk_name[32];
+@@ -278,8 +277,7 @@ static int fsl_dcu_drm_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	fsl_dev->soc = id->data;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	priv->base = devm_ioremap_resource(drm->dev, res);
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->base))
- 		return PTR_ERR(priv->base);
- 
+-	base = devm_ioremap_resource(dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base)) {
+ 		ret = PTR_ERR(base);
+ 		return ret;
 
 -- 
 2.47.0
