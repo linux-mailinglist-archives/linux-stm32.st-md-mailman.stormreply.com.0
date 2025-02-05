@@ -2,63 +2,167 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0F6A27982
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2025 19:13:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D14AA2806D
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2025 01:59:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07CB6C78F83;
-	Tue,  4 Feb 2025 18:13:57 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30FD5C78F85;
+	Wed,  5 Feb 2025 00:59:20 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013020.outbound.protection.outlook.com [40.107.159.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF334C78F7B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAFC5C78F80
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2025 18:13:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C4A70A42B86;
- Tue,  4 Feb 2025 18:12:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9007BC4CEDF;
- Tue,  4 Feb 2025 18:13:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738692827;
- bh=Dj4jkBKmFAE3YgshnrDJ3jVrrrueVT1kGYUMcy1Yj58=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fPf68PZsXMszTHlDPMN4gJh22izWzBAeDTVr+R75uw5SpOCE7nyP7DSBMSD8VBoug
- xyGPevgIj6fO7uivU6QaxLaepHYCFRk1Ch9w6yIwioDcspIQO7q5BjCe3EVylSpmcQ
- sr+MfO9gZl2/My2GFjNVU5js/P2aKsmgQxTaKkfRJO4BoeDkDEjgm0vVfUuepplqRg
- SjR2l9LABZOGAKgfquPBx80QqoSWYfqgWb6oFkD5Dia0KL9HiQqKt0LhVro3k2/B3c
- b1tDqHuxFaBByQxrJKFuw7o2oIUmYFCigfn6mrJO+YYuIeXBfkGUwhqugC9G4h/bxi
- 4AqqyVo3Yjb/g==
-Date: Tue, 4 Feb 2025 18:13:39 +0000
-From: Simon Horman <horms@kernel.org>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <20250204181339.GM234677@kernel.org>
-References: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
- <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
+ Wed,  5 Feb 2025 00:59:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MjZLtcH85MxSng69exd0dfsXC17pTEf5MQlO5K3pky7/lmVu0Trv3+SijmJWZlkVvf26wTv0P3s4qk3pcns2p0mFh9FRnwJjyUkuK7W3YtYw3bgfYKms9Cgw1seYiZUXEakCVOIrv6s0EGvFF4LrMyEC+SwG71ix/XJ0wCzcAYrn3FqZnZUSlBGt+v+Z5OG4oXwYHY9Yc/gh5V4dGRAbMljIhUWts7pXthgP5m7n9IuJiJAsXe4W4s5Q6TxqQXCePqbjdEvlecn8/mWC0o7N30PGB+vbynsoWBMemJ7bfkJa+v306TA/8rEwSnegPB/pN01bW6LqnDPfe/O3m70Vfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EeDiUl6IeEIVLemONuYP1oSqQR1pIWcp1WTKF7bD7XE=;
+ b=BTfA8TgIgZs1oB1HcEB3RKc6gEqg7iXDJQqcPCPy13/1cL0m0SXSH1eGqs75sos+NbkDk4svwBi9i5nwzFIOcY+f5Z4e6TIj93DdBfAHdqBwRjUxT8/9qRXhvuCm1QIEa40DO1QULULFFc7FXumsdDOmO5CsnGba0MayhOWfVCz0HFpMOhpjQ/OCqhJAzyrPwBQ8UF5LXLUKhTmTLfFZnGHrJVbnGY2la5Xiu9mQtdMi+dC53hiJ7cBFUfydndEQI3dkoG2p1kwsLoSsK6F+SsBGnxLyi8+ANzKTQ95SCYBblFT+3Eh0xGHwyK3DOa4O4y7ej3LLr27pBie/88FBIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EeDiUl6IeEIVLemONuYP1oSqQR1pIWcp1WTKF7bD7XE=;
+ b=CMZlDmrhoifm/ZDqAdbeAgWmtbZOvnfGt6AKK0MZcSSR/TDb6ZOX+94gSgA6cMUcuSJu0GKfoqzooIei4f3ymzGp3q8sLm62pmdLeeYcdkDWMe8Zv+fg2Gz/LCCk4WTgStXa7EEzDivMvJISd4Z2lJDxbAKLSld40+MONGS+imuyWWswrI75CGbXJQzZXjUBV7IGaUqBXIjfhHgHqRxFiwfZehoQGyvjX4+k0+fz1/XntAxxFzjXQoKlycDDnWx+zlZYoH2WS3m0d5nWjoRkrpCmb1HbP7EOiyqnh7hiF83QcYOAQQBve8bOvhCLr2PQ++jYQMdWqlRh2cquCxUJ1Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
+ by VI2PR04MB10713.eurprd04.prod.outlook.com (2603:10a6:800:275::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.26; Wed, 5 Feb
+ 2025 00:59:10 +0000
+Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
+ ([fe80::165a:30a2:5835:9630%3]) with mapi id 15.20.8398.025; Wed, 5 Feb 2025
+ 00:59:09 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Wed, 05 Feb 2025 08:58:18 +0800
+Message-Id: <20250205-rtc-cleanup-v1-0-66165678e089@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAKq3omcC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDIwNT3aKSZN3knNTEvNIC3RTjFBOj5NQk4xQjCyWgjoKi1LTMCrBp0bG
+ 1tQAfhjmRXQAAAA==
+X-Change-ID: 20250205-rtc-cleanup-d3d42ceb3d28
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1738717111; l=1285;
+ i=peng.fan@nxp.com; s=20230812; h=from:subject:message-id;
+ bh=pP+512FswvEkhUvYgW6pJ6UUMbdRWOKWIYksnsa3uUs=;
+ b=+W7fD9ICdwZ5wZUvU82MMMvZi6KEtqNkni2NT6mG9YQFa4tO4wzeqCDfXbSZzfq880kJIl8iy
+ UWx0f5MvPDTDHpOTkxHHIuQVUeBKLQzJtg3r1EhgBkqLLqExdIoj85A
+X-Developer-Key: i=peng.fan@nxp.com; a=ed25519;
+ pk=I4sJg7atIT1g63H7bb5lDRGR2gJW14RKDD0wFL8TT1g=
+X-ClientProxiedBy: SI2P153CA0034.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::17) To PAXPR04MB8459.eurprd04.prod.outlook.com
+ (2603:10a6:102:1da::15)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Borislav Petkov <bp@alien8.de>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- linux-arm-kernel@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] stmmac: intel: configure
- SerDes according to the interface mode
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|VI2PR04MB10713:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfe177b3-3703-403f-3e97-08dd45804c36
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|52116014|366016|1800799024|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c2N0SERVcHNZaGV2Nm5oOUp5eXpsZEJreW9tbUJ6UHdQWTlabmhUdUg5dlpB?=
+ =?utf-8?B?cGpKVFhkSVhYNTVwUGY1ZjF3Um8rNzZNWGhYbU8vaXpZYXRCOThuMERDVjVl?=
+ =?utf-8?B?OGFZZW9lbWsyM0g5dk4zeXpiTWRZZWRONCt3RkNqMkxBRVZSdHFqN0YwdFJo?=
+ =?utf-8?B?REdwd1FHWTBhNDQyZkg4L20zQkZ4K0dwaTY1RmdLcjVVNjM0WGtNZGVXd3VQ?=
+ =?utf-8?B?VTFQSkpjWHJ6MmV5SjZIenZ3Q1lxUzd6bEQ3aWcwdnZOZ1M4YzA2SEtmQk9F?=
+ =?utf-8?B?dm9RVTlocm9GMUdCbG1CYUVUcFBPNFUyWHp2NGh5b3dVZFUwTUFJbk9uNXFj?=
+ =?utf-8?B?M3E5MzBsM3Z1emlNa1ZWT2dmWmFteDJlTEZMY1UrTzVRYWUzL1F5czdwTk5Z?=
+ =?utf-8?B?c3Z2U0RsMTVUU3VyMTRtZzg3Qk9zZSsyaC9leXA2TW42dGZTOVE4aVp1Wnlt?=
+ =?utf-8?B?R2hDdHdEcDYwbDVJV3ZwVEJ4RTZjdVVITXVGYVhjcmE3T2VGbHhQZTUyK0RZ?=
+ =?utf-8?B?L1gyUDRLM29saStHWmpjOWZLSTFOTUtqYjZubU5MU3ZGYW5wZnZWV1R6UTBI?=
+ =?utf-8?B?QTlZcjhSeFN0TFRxUDFuWXRCQVpPYVJxRXhvNFpYR0pvU2JpQTdWS1dRY0hN?=
+ =?utf-8?B?M3NERllEYll4TlhIb1paY1NxeHVYTnYyaW1ZS3NTK1UwbVJUMzZzOWxMUmNT?=
+ =?utf-8?B?aVdYWWhWVnhTUWJxNm53T29GVjJIb0VLUENQaWpxLzc1d3g2Zy9sejlhRVZS?=
+ =?utf-8?B?bkpYQmJiTE9KWUJZODM5eUc5SFREZlBidm1RVlBIMEdsbmQxSFIxWWRnbHpU?=
+ =?utf-8?B?cS8vSTZFRWF1S2p4ZEpDaElRU1NEaGRmOGJ2bTZSN0ZJT3pxVTJFRW9Lc2NN?=
+ =?utf-8?B?U1hSSG51VzAvVXQrRHI5RENlVXNvcFd0RmRnT2dwbHhHQ1A3S2l1aVJNS2Rr?=
+ =?utf-8?B?MmRhdnV2RU16V2Q1eGk4N1ZNWERSdEpvVFhrZHVXU3VhK1VDMHhDOFl6OWQz?=
+ =?utf-8?B?Uysxbzd4S0FuWUcyZy8rWEtFM2J1WUpYYk1RL1ErU0dUY1NuSE0vSTh6UHpO?=
+ =?utf-8?B?WGFGcFQzZEs4ZVBaeTF2TmZ2eUwwOXlENjRqc0JaUzVVWU1pVm5zU2tqL29o?=
+ =?utf-8?B?a3l0MlBDZy9tVFVoRTJ4di9nUjJQWUJTNjEyM1IyTWx1cWdWVUF0Um9DNXc4?=
+ =?utf-8?B?VzJ6ODlXemNCc0s5V3l6R2NKUTJwZDZCZHJVdmd0UEI3eXpHcUw2ZVptOXVJ?=
+ =?utf-8?B?dmpjSThPM1FpOG9pM0JCZDBlSGpNM09zNVg2SzV4TkVDVzBGeWxvL1YwRUkv?=
+ =?utf-8?B?WlcwRTBWeTR1TGRBWUU1aklyU2VaWEZSOVJGSk1wVDJpb25nL1BkY1d0SXBK?=
+ =?utf-8?B?NHlMbTVITDN1dVdNRHZqRjRkWWdwN1RrblZCa2M1dmwvMHhRUWt4VjFrRkhP?=
+ =?utf-8?B?RXMzZTNaVTF0VDNwUXJFYmlIUHI5VVp1bXZ4cHd6WGpOT3dlblJBL0pNcjhj?=
+ =?utf-8?B?UllGTmtGZWg1MTRZUE9SWHYxZFQ3ejlFWnpQL3R0V1IxWjNYdlJPc2NsTVh3?=
+ =?utf-8?B?MjN2Yy9STmhCeHdRNm9HdTMxTWhMR09HRUJSTkNUT3R3R2dGVXRobVZESlZ4?=
+ =?utf-8?B?M1IxWm1KUnlCMjJMekYzaVNmTmZZNUlpVWlOZ1Z3Ui9ESTlTcUlnQURpLzdU?=
+ =?utf-8?B?OTFrRHJDYkZLQmJienBqZ1p0T0xxaHZYNkV1NU1rM29kRGlSWmV3SUhTMTEv?=
+ =?utf-8?B?dUkwUG5wdC9JWlI5bXVwV1FIQmFuSHBoVkNFZVppSjVIZFZ6VUVHWWpwTTRK?=
+ =?utf-8?B?bGNkVFhLYVFNWXR2SHhHbzBESlZuV3dCbm9GMGloNWdDTzlHM1V4V2xWdXI3?=
+ =?utf-8?B?SVMxQ3hEbTljSkFabHg4a29VdEk4TGpLbGMxQy9hWG5ST3c9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(52116014)(366016)(1800799024)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUhnRTd1eFFiRWZSc2dUT3YzcWVkVWRDQVhLanQ1bjlQQkF3RklXZ0dzSUdO?=
+ =?utf-8?B?b3JzRGg3WWZjWnhoR0VmS3hFaGRMSS9WZVBGbHVDNVRnaTdlLytjbUxrZVox?=
+ =?utf-8?B?VUFWay91dDU2ZXpDYlR3Ynl4TGl0dnAxcUFuZXcvZVRCNTRWS1NPMENOdDly?=
+ =?utf-8?B?OTg4OHdKUlJGdDljN3k1b00vbGZiZGFTUm5xRzhYMGc4eDJnOU1waENDN2Nu?=
+ =?utf-8?B?MFlEUmFoVVkxMXkzUUVDSjJOQ0RaMlFvSno3VDlwRU5VeGR2MTdqRmlKWXY0?=
+ =?utf-8?B?eHRNSHE1T0ZXT1AzZzI4aWc1Mzlhbm9HMTQyMUVyd2lMUFQwVWF5ZVp3dm1Z?=
+ =?utf-8?B?aDRwUkZnOERrelVYa2p6ellJRU1XMjJzczJPT050cW9NYlVKaTRsb25QSEpR?=
+ =?utf-8?B?b3hRcktpa3RxVDViQ1pqRVZQT2U4N3AyTGEwc0JhbHFPUnZFenR1SmhYaVlp?=
+ =?utf-8?B?SlN3Z0N3SXRjL0MxdjBQY3VhR0ZXblNmN1prVU8rc1RXaFV0YXFaS0lXR3NM?=
+ =?utf-8?B?dUVtTWpvWUhtQjRYRitDSGJBRm01VXZKM0VaOEZudkJmNWpGTmxzRXgzUDFQ?=
+ =?utf-8?B?TTM4V205L1lVQVRmb1RCTXJzTmZvNjliUktnMllJRml1d0ZxUU5pU2JSUFp3?=
+ =?utf-8?B?a3pNN3hhZ1BHYkNmZXdaL0dtWFNHM09Zb1ZSYXgzajJmb09TOVJsV24zSGR1?=
+ =?utf-8?B?Qmp0TFhWNG1pVzFhTENlKzVSVDd0V2d2cWRRVmJlYStIcjZNT3FhRFYvZ3Jr?=
+ =?utf-8?B?ZFp3LytuK2lKTFBCOXQwNDhQM21YT2dac0RiTVF5QllzMDFmRzN4S1NqY2ZL?=
+ =?utf-8?B?QllvNXh5VFUrQVFjZUltbXB6VnIzVlFDNWIvTnBYa1BuVko1L1NvZ0dsVXpz?=
+ =?utf-8?B?ZTNJbkJNL1BITmxicXNJdGlIUURLdFR6YjVLalBJM3dsVitwMGdlNDg2c0Yw?=
+ =?utf-8?B?TnBxVXpBT1dtV3FNL3Y5TVRzWlZYNExRVnphcE45U2RCbU9DOVIvbDRKRXJU?=
+ =?utf-8?B?cEhocXVSazdqM1hoS2NCSEdjRW8zVEFPWlBaOUMwdURNcFdTOHdVVk5wSFlq?=
+ =?utf-8?B?R2FMMHRySEFLdGJsazhabTZuNWR3aTJzandCUlZlR2VTSGE1K3ZDTXpBNkRz?=
+ =?utf-8?B?ODNhQUJIVFZEaWNXTnF4RXY1MHFoa2xNb2xtdnUwTGl2UURjR3N6MHdybVVw?=
+ =?utf-8?B?YTAxaU5PQU0rWWZYWkhsZXkwS0xFaXp4NEx5SmtFZzZKM2E5ajhzY3hrb1lC?=
+ =?utf-8?B?d3lNWjRmL05UOU1MaU1COUk1TzN4NXBIMzJ1T2VXQlVsRk4ycWJXcTR2ajU4?=
+ =?utf-8?B?Uk5nOXh3SGJDdlRhSXFnU3F4NmNFb1R0dmlDWEtTV1E0OFJPS2Qya3d5NEVF?=
+ =?utf-8?B?YXhmOFNKU3NvUncwMEZOWGNGSVRxN2lESks5eFBab3NtaGNMRUgwclZDVkVG?=
+ =?utf-8?B?WGVQUVVWaDEreVAzb0JkT1RKeGVQZGpSMis2VVBpWmJYMVV2NU81VW1vSVM2?=
+ =?utf-8?B?QUJiNzdodk9MZzVyL0cwWXo5MjVjRXNDM3AwZG5LK0ErZTVrQ3A0cU95VkhD?=
+ =?utf-8?B?RmJBWHNDSHI0YUxLbVp2eEl1RzEzMFNSdUNZOE0rL2ZmUnhRaWh2bGVFTFBz?=
+ =?utf-8?B?cndFb05Mb2N0SjhpSEpDYU9DR2JsUHpHbHhVODgvTHBTdmlsZzNoRVZldXhF?=
+ =?utf-8?B?K2JZZEk1S1VoTUVRendtTWF1NjRaMjdTbUREc3hjSXhPc3hld2F5OHN5dmdj?=
+ =?utf-8?B?QUVsNEE2NFQ2VFI4bHJ1cGFySE9kYUxNMWFxWitlaDhSdzk4bDNKTnRLQU04?=
+ =?utf-8?B?UWVtTmtRSXNGVGszWm5xZ2gvWTFrZVF0a2x1SzRLNTBEM0xWZUxTMERjWGNG?=
+ =?utf-8?B?RUpUTy9GU1dmaVNNSDhrZEsvdTA4Z1RNRDBVdklLR0FsOGdIY0lTZE5BeG9h?=
+ =?utf-8?B?N1lXc1hoWXZhNjZRK3BScm1xb1BnWk9wYlJBRnVaUGp5cUJSRS9Ubzhic2M2?=
+ =?utf-8?B?UE50cnhsaERsOC9QV3lTa250dHQvU0JPb3hqNkRkRUxtajZ3QTN6MzQ2WEVB?=
+ =?utf-8?B?dWZvNWdhUU5FM3l6SHlDVURnYTlBdFl6SlhHejFXVFdKeDl2eDRiYVd1ckFp?=
+ =?utf-8?Q?FYDQ/rIAdjYp5xScnHJ7YC3U8?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfe177b3-3703-403f-3e97-08dd45804c36
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2025 00:59:09.5409 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ztluzq+0mSGtA4BT4cZRRKI6QhFS0r8uz2Ik368vRc1nf8+3yDWrWDLO9QqmLiIk6+AyawpFywxiySEFKmCPOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10713
+Cc: linux-rtc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/7] rtc: Use devm_pm_set_wake_irq to simplify
+	code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,78 +179,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 04, 2025 at 02:10:17PM +0800, Choong Yong Liang wrote:
-> Intel platform will configure the SerDes through PMC api based on the
-> provided interface mode.
-> 
-> This patch adds several new functions below:-
-> - intel_tsn_lane_is_available(): This new function reads FIA lane
->   ownership registers and common lane registers through IPC commands
->   to know which lane the mGbE port is assigned to.
-> - intel_config_serdes(): To configure the SerDes based on the assigned
->   lane and latest interface mode, it sends IPC command to the PMC through
->   PMC driver/API. The PMC acts as a proxy for R/W on behalf of the driver.
-> - intel_set_reg_access(): Set the register access to the available TSN
->   interface.
-> 
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+This is a pick-up of patch 6-12 from patchset [1]
 
-...
+Since devm_pm_set_wake_irq is in 6.14, so resend the rtc parts.
 
-> +static int intel_config_serdes(struct net_device *ndev,
-> +			       void *intel_data,
-> +			       phy_interface_t interface)
-> +{
-> +	struct intel_priv_data *intel_priv = intel_data;
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	int ret = 0;
-> +
-> +	if (!intel_tsn_lane_is_available(ndev, intel_priv)) {
-> +		netdev_info(priv->dev,
-> +			    "No TSN lane available to set the registers.\n");
-> +		goto pmc_read_error;
-> +	}
-> +
-> +	if (intel_priv->pid_modphy == PID_MODPHY1) {
-> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
-> +			ret = intel_set_reg_access(pid_modphy1_2p5g_regs,
-> +						   ARRAY_SIZE(pid_modphy1_2p5g_regs));
-> +		} else {
-> +			ret = intel_set_reg_access(pid_modphy1_1g_regs,
-> +						   ARRAY_SIZE(pid_modphy1_1g_regs));
-> +		}
-> +	} else {
-> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
-> +			ret = intel_set_reg_access(pid_modphy3_2p5g_regs,
-> +						   ARRAY_SIZE(pid_modphy3_2p5g_regs));
-> +		} else {
-> +			ret = intel_set_reg_access(pid_modphy3_1g_regs,
-> +						   ARRAY_SIZE(pid_modphy3_1g_regs));
-> +		}
-> +	}
-> +
-> +	priv->plat->phy_interface = interface;
-> +
-> +	if (ret < 0)
-> +		goto pmc_read_error;
+R-b tags from Linus Walleij and Antonio Borneo are still kept.
 
-Perhaps this is an artifact of earlier refactoring,
-but the condition above seems to be without meaning
-as in either case the code goes directly to pmc_read_error.
+[1] https://lore.kernel.org/all/CAJZ5v0jb=0c5m=FeA-W-aG30H4706Ay_xCHTsiC1S-7MuGxqTQ@mail.gmail.com/#r
 
-> +
-> +pmc_read_error:
-> +	intel_serdes_powerdown(ndev, intel_priv);
-> +	intel_serdes_powerup(ndev, intel_priv);
-> +
-> +	return ret;
-> +}
-> +
->  static void common_default_data(struct plat_stmmacenet_data *plat)
->  {
->  	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Peng Fan (7):
+      rtc: stm32: Use resource managed API to simplify code
+      rtc: nxp-bbnsm: Use resource managed API to simplify code
+      rtc: ds1343: Use devm_pm_set_wake_irq
+      rtc: pm8xxx: Use devm_pm_set_wake_irq
+      rtc: ab8500: Use resource managed API to simplify code
+      rtc: mpfs: Use devm_pm_set_wake_irq
+      rtc: pl031: Use resource managed API to simplify code
 
-...
+ drivers/rtc/rtc-ab8500.c    | 11 ++---------
+ drivers/rtc/rtc-ds1343.c    |  8 +-------
+ drivers/rtc/rtc-mpfs.c      |  8 +-------
+ drivers/rtc/rtc-nxp-bbnsm.c | 29 +++++++++--------------------
+ drivers/rtc/rtc-pl031.c     |  6 ++----
+ drivers/rtc/rtc-pm8xxx.c    | 12 +-----------
+ drivers/rtc/rtc-stm32.c     | 10 ++--------
+ 7 files changed, 18 insertions(+), 66 deletions(-)
+---
+base-commit: 40b8e93e17bff4a4e0cc129e04f9fdf5daa5397e
+change-id: 20250205-rtc-cleanup-d3d42ceb3d28
+
+Best regards,
+-- 
+Peng Fan <peng.fan@nxp.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
