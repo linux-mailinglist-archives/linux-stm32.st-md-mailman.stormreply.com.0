@@ -2,68 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12301A2AC77
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 16:31:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2119A2AD61
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 17:13:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6880C78006;
-	Thu,  6 Feb 2025 15:31:33 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47D4DC78F86;
+	Thu,  6 Feb 2025 16:13:49 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B234C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55795C78006
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 15:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cQ0FdpNgHOekWmP2VoCpsk8gYuzsChIxdkx5orIICcA=; b=wFMh7IIqWLcDH4ZdUBSwhGC7hT
- KAple1XmoomeYbrKzex41iFR/7byyI62Rmox1VtsvppXUxxDoq5L0fgJf4nGLPX9/4vdsjn81cIcy
- ySrNV3KlsBTXGKznowYajXxOw6ivDfvB8TRz26mgBQTYCmh24NqZ1evcB+M7LXHGj6vc6TS7LZwGt
- USN46/YhkZzAd1KiVjlJbJejwwc2xJVVdJyKafyppyyK0LukdKxmTHaXua2pWNERrsvpsyAy32jsO
- UE3XUNH74+8kogXNTDPyepANF3PN20DY4ymDPjhitqNQzodxxNaaVwWXJoWHEdlingxOKpluTEzZH
- vAXhaGEw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54766)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tg3py-0002c8-0a;
- Thu, 06 Feb 2025 15:30:42 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tg3pp-0003WN-2X;
- Thu, 06 Feb 2025 15:30:33 +0000
-Date: Thu, 6 Feb 2025 15:30:33 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <Z6TVmdCZeWerAZKP@shell.armlinux.org.uk>
-References: <20250206131859.2960543-1-yong.liang.choong@linux.intel.com>
- <20250206131859.2960543-3-yong.liang.choong@linux.intel.com>
+ Thu,  6 Feb 2025 16:13:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 23F095C64A4;
+ Thu,  6 Feb 2025 16:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07F8C4CEDD;
+ Thu,  6 Feb 2025 16:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738858425;
+ bh=yugtap81E+1XEiUSlot9N/ao/3tXx/zIxbLqkf5yQ2s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dYCFPFSLLiDASvYd4s42uud1DtC2OYpyDgEeLT35r+DrvE2jij76XmTWQ9G67IkkY
+ GXlKlZixxwv1mXchRyKAC2XLHInGz7nXltb/sepWggEKQB2TlbKf/zl7RmfFuI/bgH
+ POQtLfiwx3vOBe+qHPtYDAHCNvMvnzxOt413CP2Ky6rkPlhy2ILdMwAJlRvRLqD0vj
+ Zr7POyxFiXm5+iQmgkdVq1+ZtMEZUnmtN8vK+HRSG+ejF6wz2rbhMHSIENz/QYTel5
+ LTPtPbUTgV8Ae2h5Vlge1PtDZVU6vqHxlAMGJQmuO06gQkxOszYi8GtT6wvI2wkZns
+ f+nG5+ZFP0G5A==
+Date: Thu, 6 Feb 2025 17:13:43 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Anusha Srivatsa <asrivats@redhat.com>
+Message-ID: <20250206-hallowed-ultra-tiger-cfec8e@houat>
+References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
+ <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250206131859.2960543-3-yong.liang.choong@linux.intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Mengyuan Lou <mengyuanlou@net-swift.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Simon Horman <horms@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Borislav Petkov <bp@alien8.de>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- linux-arm-kernel@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+In-Reply-To: <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
+Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
+ Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Simona Vetter <simona@ffwll.ch>,
+ Marek Vasut <marex@denx.de>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Alison Wang <alison.wang@nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 2/7] net: pcs: xpcs:
- re-initiate clause 37 Auto-negotiation
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
+ linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 11/12] drm/vc4: move to
+ devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,74 +81,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2292274292804526704=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 06, 2025 at 09:18:54PM +0800, Choong Yong Liang wrote:
-> The xpcs_switch_interface_mode function was introduced to handle
-> interface switching.
-> 
-> According to the XPCS datasheet, a soft reset is required to initiate
-> Clause 37 auto-negotiation when the XPCS switches interface modes.
 
-Hmm. Given that description, taking it literally, claus 37
-auto-negotiation is 1000BASE-X, not Cisco SGMII (which isn't an IEEE
-802.3 standard.) Are you absolutely sure that this applies to Cisco
-SGMII?
+--===============2292274292804526704==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="nds2ddkwji5fimma"
+Content-Disposition: inline
 
-If the reset is required when switching to SGMII, should it be done
-before or after configuring the XPCS for SGMII?
 
-Also, if the reset is required, what happens if we're already using
-SGMII, but AN has been disabled temporarily and is then re-enabled?
-Is a reset required?
+--nds2ddkwji5fimma
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 11/12] drm/vc4: move to devm_platform_ioremap_resource()
+ usage
+MIME-Version: 1.0
 
-What about 1000BASE-X when AN is enabled or disabled and then switching
-to SGMII?
+On Wed, Feb 05, 2025 at 03:08:07PM -0500, Anusha Srivatsa wrote:
+> Replace platform_get_resource_byname + devm_ioremap_resource
+> with just devm_platform_ioremap_resource()
+>=20
+> Used Coccinelle to do this change. SmPl patch:
+> //rule s/(devm_)platform_get_resource_byname +
+> //(devm_)ioremap/devm_platform_ioremap_resource.
+> @rule_3@
+> identifier res;
+> expression ioremap;
+> identifier pdev;
+> constant mem;
+> expression name;
+> @@
+> -struct resource *res;
+> <+...
+> -res =3D platform_get_resource_byname(pdev,mem,name);
+> <...
+> -if (!res) {
+> -...
+> -}
+> ...>
+> -ioremap =3D devm_ioremap(...);
+> +ioremap =3D devm_platform_ioremap_resource_byname(pdev,name);
+> ...+>
+>=20
+> v2: Change the SmPl patch to work on multiple occurences of
+> the pattern. This also fixes the compilation error.
+>=20
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Cc: Ma=EDra Canal <mcanal@igalia.com>
+> Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
+> ---
+>  drivers/gpu/drm/vc4/vc4_hdmi.c | 55 +++++++++++-------------------------=
+------
+>  1 file changed, 14 insertions(+), 41 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
+i.c
+> index 47d9ada98430634cfd8c1e21c2a4d00d501bab7e..066f1246dab420ee889845b0c=
+573d80ce7c88595 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -2951,71 +2951,44 @@ static int vc5_hdmi_init_resources(struct drm_dev=
+ice *drm,
+>  {
+>  	struct platform_device *pdev =3D vc4_hdmi->pdev;
+>  	struct device *dev =3D &pdev->dev;
+> -	struct resource *res;
+>  	int ret;
+> =20
+> -	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hdmi");
+> -	if (!res)
+> -		return -ENODEV;
+> -
+> -	vc4_hdmi->hdmicore_regs =3D devm_ioremap(dev, res->start,
+> -					       resource_size(res));
+> +	vc4_hdmi->hdmicore_regs =3D devm_platform_ioremap_resource_byname(pdev,
+> +									"hdmi");
+>  	if (!vc4_hdmi->hdmicore_regs)
+>  		return -ENOMEM;
+> =20
+> -	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hd");
+> -	if (!res)
+> -		return -ENODEV;
+> -
+> -	vc4_hdmi->hd_regs =3D devm_ioremap(dev, res->start, resource_size(res));
+> +	vc4_hdmi->hd_regs =3D devm_platform_ioremap_resource_byname(pdev, "hd");
+>  	if (!vc4_hdmi->hd_regs)
+>  		return -ENOMEM;
 
-> +static int xpcs_switch_to_aneg_c37_sgmii(const struct dw_xpcs_compat *compat,
-> +					 struct dw_xpcs *xpcs,
-> +					 unsigned int neg_mode)
-> +{
-> +	bool an_c37_enabled;
-> +	int ret, mdio_ctrl;
-> +
-> +	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED) {
-> +		mdio_ctrl = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
-> +		if (mdio_ctrl < 0)
-> +			return mdio_ctrl;
-> +
-> +		an_c37_enabled = mdio_ctrl & BMCR_ANENABLE;
-> +		if (!an_c37_enabled) {
+I *think* that one is shared between both HDMI controllers on the
+RaspberryPi4, so we can't claim them from both instances. We should add
+a comment there to document that it's on purpose.
 
-I don't think that we need "an_c37_enabled" here, I think simply:
+The rest looks good.
 
-		if (!(mdio_ctrl & BMCR_ANENABLE)) {
+Maxime
 
-would be sufficient.
+--nds2ddkwji5fimma
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +			//Perform soft reset to initiate C37 auto-negotiation
-> +			ret = xpcs_soft_reset(xpcs, compat);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +	}
-> +	return 0;
+-----BEGIN PGP SIGNATURE-----
 
-I'm also wondering (as above) whether this soft reset needs to happen
-_after_ xpcs_config_aneg_c37_sgmii() has done its work - this function
-temporarily disables AN while it's doing its work.
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ6TftgAKCRAnX84Zoj2+
+drfXAYDBINKHBSckIuo/kq/HoUvq16io0SUMaLB/CVkeidnE3EXaDz9M3WhZ60Ha
+n8d4HmABf0i2bHqp4iPr3Cr3YiSEnV9zX0sFLdFl/FejJMglsT19c+7lwsGMwuaH
+8nnPGZ1q6A==
+=1kXI
+-----END PGP SIGNATURE-----
 
-I'm also wondering whether AN being disabled is really a deciding
-factor (e.g. when switching from 1000BASE-X AN-enabled to SGMII, is a
-reset required?)
+--nds2ddkwji5fimma--
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+--===============2292274292804526704==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2292274292804526704==--
