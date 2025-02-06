@@ -2,74 +2,191 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2119A2AD61
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 17:13:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F2BA2B1F8
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 20:09:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47D4DC78F86;
-	Thu,  6 Feb 2025 16:13:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 426BCC78F88;
+	Thu,  6 Feb 2025 19:09:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55795C78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43492C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 16:13:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 23F095C64A4;
- Thu,  6 Feb 2025 16:13:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07F8C4CEDD;
- Thu,  6 Feb 2025 16:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1738858425;
- bh=yugtap81E+1XEiUSlot9N/ao/3tXx/zIxbLqkf5yQ2s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dYCFPFSLLiDASvYd4s42uud1DtC2OYpyDgEeLT35r+DrvE2jij76XmTWQ9G67IkkY
- GXlKlZixxwv1mXchRyKAC2XLHInGz7nXltb/sepWggEKQB2TlbKf/zl7RmfFuI/bgH
- POQtLfiwx3vOBe+qHPtYDAHCNvMvnzxOt413CP2Ky6rkPlhy2ILdMwAJlRvRLqD0vj
- Zr7POyxFiXm5+iQmgkdVq1+ZtMEZUnmtN8vK+HRSG+ejF6wz2rbhMHSIENz/QYTel5
- LTPtPbUTgV8Ae2h5Vlge1PtDZVU6vqHxlAMGJQmuO06gQkxOszYi8GtT6wvI2wkZns
- f+nG5+ZFP0G5A==
-Date: Thu, 6 Feb 2025 17:13:43 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Anusha Srivatsa <asrivats@redhat.com>
-Message-ID: <20250206-hallowed-ultra-tiger-cfec8e@houat>
-References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
- <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
+ Thu,  6 Feb 2025 19:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738868949; x=1770404949;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=IOPob5NC2+6vqemUOlw+NklkRLlsGAuRNFyIGIVTpA8=;
+ b=HxiLQmeJ9G7y6Dxw+0L+qT2vw+qiIiG8FMXiRTfQou2DN+f3eDv24+Ie
+ GWHcxHedZ6HDysXI+vuriVXfAwLKY4P3E2w/1Yw9NE8mnCSOIbMyX7XkQ
+ FR8LXcrgCiDNlT7abd0JYAjJbvYrpEStUag0lDc8P1Bt2YWteqBQhU1Bw
+ b8ah3joRqJyXOf8kCxGMaalE/ErNLiL7Aqp5bqUUhUxv0AOvskM+p6Gfz
+ juTV8O+VKxqIvFCg/tLkqS5Wv/HuAnJ2KXVRm0HMeQxL39uA4vVxGNqKB
+ LbtxNG9S23lsFqtvBlYSOd11fMddHBYyBQiZXtJuLaEF+Vl0UJ7UqDe8Y Q==;
+X-CSE-ConnectionGUID: Yf7KyLB0TL+G1P1mg1LzDw==
+X-CSE-MsgGUID: 7zM3Ubk5Q3ODjtkh3kGDqg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="57034492"
+X-IronPort-AV: E=Sophos;i="6.13,265,1732608000"; d="scan'208";a="57034492"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2025 11:08:57 -0800
+X-CSE-ConnectionGUID: StFZ78iUQf2s9kxt1p7hcQ==
+X-CSE-MsgGUID: 8ExAbR06S9ufCQZEAUDTTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,265,1732608000"; d="scan'208";a="111223885"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 06 Feb 2025 11:08:44 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Thu, 6 Feb 2025 11:08:43 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Thu, 6 Feb 2025 11:08:43 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.173)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Thu, 6 Feb 2025 11:08:40 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O+xdml1s3FA/fkuuBT6slzBcak1LKKMZcw7iRPJ5H8sFqGhBJ6qABN/POSeeKweABagoMZUnXxjngd5jQNKLTxU/xgCRUjI0xjmWzsqvmLSmGIefLpLiHDzBXpHynLEDRuoc9gOkjOeFhRklq+3H2qhyzEEhqtDq9jgQeBERq4WCEoV8IjOBA1dax5epRsqKmyK3nbmYJ7msGob/aSgrQFvtJM5iF8AHLnXfNcsIkP2UAZxdMohRdXD10t6XhSe0LgcA4kQL5m4UMz3vBQCvOk9dNmGia3o+zkpXK7HbmA634dFULFfhmkaKM8huFF1uwpfNRLxRsOyaJtVC7sxrwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UY+oBevItabcdfnhSRgANYSWH3DJXEo6/3BIy9qdG+g=;
+ b=f8hN+HNVZRmZq7VbQxiOdP9FxDNdL3y3jGH/Vlga9FW8vZvrz0HDZjUnNEOz8NRTOzkedtJ59xtt2Pu4s+3KjWd9c+4aEKtPchtxQIp+S7ca16tM6Uo2UAWuo2IK9USb9hcJdKCIDWQnBxRa8Df+ePR60aHZDkxQhk2neOeCMU9H1IqWr49+0+sTQKPmLQDHYCelERuFdQbcJL+/y5NLA11l/1+uWbVrshUa877KwVS9FzpC3cs+pkizPP/EboYRsKYTfSbkofRZ8dpu3/KREOk50HcMxSw8E5iFK66sNTNA37ZnNij2rnJ57NSZT4NUtt3l/KyRy2/a5qbAlguPvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB6097.namprd11.prod.outlook.com (2603:10b6:208:3d7::17)
+ by DM6PR11MB4577.namprd11.prod.outlook.com (2603:10b6:5:2a1::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Thu, 6 Feb
+ 2025 19:08:34 +0000
+Received: from IA1PR11MB6097.namprd11.prod.outlook.com
+ ([fe80::8f29:c6c9:9eb2:6392]) by IA1PR11MB6097.namprd11.prod.outlook.com
+ ([fe80::8f29:c6c9:9eb2:6392%4]) with mapi id 15.20.8398.025; Thu, 6 Feb 2025
+ 19:08:34 +0000
+Date: Thu, 6 Feb 2025 20:08:24 +0100
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: Song Yoong Siang <yoong.siang.song@intel.com>
+Message-ID: <Z6UIqPt+Rkpo5E+M@boxer>
+References: <20250206060408.808325-1-yoong.siang.song@intel.com>
+ <20250206060408.808325-4-yoong.siang.song@intel.com>
+Content-Disposition: inline
+In-Reply-To: <20250206060408.808325-4-yoong.siang.song@intel.com>
+X-ClientProxiedBy: VE1PR08CA0008.eurprd08.prod.outlook.com
+ (2603:10a6:803:104::21) To IA1PR11MB6097.namprd11.prod.outlook.com
+ (2603:10b6:208:3d7::17)
 MIME-Version: 1.0
-In-Reply-To: <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
-Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
- Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Simona Vetter <simona@ffwll.ch>,
- Marek Vasut <marex@denx.de>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Fabio Estevam <festevam@gmail.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
- Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Tian Tao <tiantao6@hisilicon.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 11/12] drm/vc4: move to
- devm_platform_ioremap_resource() usage
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB6097:EE_|DM6PR11MB4577:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff45fa80-df34-44b4-06fe-08dd46e1a743
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tha7+iQpCNysFNgZQH67qiXhET0Kho3mIckv9uyU3mruK8+aeG2S6hXBtgLb?=
+ =?us-ascii?Q?8GzpkcmyVcBMh8B+msOuASN05GD1aogEIhY5RHI1XtZLm5wNJPsCZ3gnhTW3?=
+ =?us-ascii?Q?g9KY3qAeG9KF+kgk7Iw/UQnpSttR3z7t8iwPZCI/gEKs2c+aFh5VrK+lXzg8?=
+ =?us-ascii?Q?+zat8njSheKtNy8aMPaV+kh4LEelFuif1Obda2b4DHvMwTAp9sjuJBZgS16c?=
+ =?us-ascii?Q?iM0ovBLd9JhiRYAQlZpMFRTrI9y4sHKSRgXxzozmViCp67RoDL4D5LKOj4Go?=
+ =?us-ascii?Q?J7WqFuzUlqKoyG+Ujp99PNzLmyaBa+z0rLrM/8OLs5FSTvydy425CCEdjAJT?=
+ =?us-ascii?Q?fqgbfoMA0CwFaH/k1yxx4UHCUA2OHhvRApXETChgqSKL1JFQrqBByvBE27nM?=
+ =?us-ascii?Q?Ne3Evtl1nnJbmzmneodHsZwx/2ANRBzdosihrjDw3opZkPLImT/ICh6bx7FU?=
+ =?us-ascii?Q?26IIcJ0jfisavwnxErrKShNbYwHOx1e7Z7BkEMB0soNmhP86FylLfw509V9P?=
+ =?us-ascii?Q?FsjW+zVYrI/VpH0nPlMVldmFnHjlDOQ6B41t8nKbZU/nnlnuLz8IgiykCW/c?=
+ =?us-ascii?Q?m+GeoXxDVsv//OoRxtYQomkRBxlO6l8xtoiGJ5SyXS/pUKF9cGdHJ+y2V1n/?=
+ =?us-ascii?Q?2FLJz8Jm9IoSOzqdwAYuFijB55s+FEo3de7+fq4bsbmLETUZWnsPFEyx4r4m?=
+ =?us-ascii?Q?J0IOaH8EBBG9iaiwI91KD4EaNpU5pdgY/zvd1EfBbAE8osdsP/Obe5eJq+gh?=
+ =?us-ascii?Q?J6Ib3nCaDIz12vfdOGmyEtKQTaefGghMblX3ECtJgsD/mgOPhSDCO1NLOrY1?=
+ =?us-ascii?Q?/4TN8109fQlp4+tpHpuHZpy+8OJsjT8Hq3p2LT7/oYrP320mdfdDlaRRpkDE?=
+ =?us-ascii?Q?1EJS1eVw+qqCdkxKgzFKy2GI1gFGhH6xRmp+St8VPVcv5sSVpRJOA91NIXDF?=
+ =?us-ascii?Q?NUL3BtlF3Slm8U9xK6KgTcWNT6bM17t27tMkHkl9xQo08fOiRDRnxDW/Dz3b?=
+ =?us-ascii?Q?x0pijtJOyq73BnAC8ixKoMre0CdMuHdjJZV3szQdVLZ4yUjfBgXKYORQ9Lws?=
+ =?us-ascii?Q?aA6vrcohyCTg+mQ9vcyUFV0j9o2gUey0ah/C5q609GOloaCTvba54/EEN3rj?=
+ =?us-ascii?Q?48O3chWqQUbxFFbNAKnFC/TRJg2LKoL/iZOuD0hFJDUMfk4SV45E9tvnluaN?=
+ =?us-ascii?Q?3nY9u97lbcMvTqPa6y8kUoZPeYrRqnEoemVhGXy8qvFQlXQ8cdqjumTx3Ljn?=
+ =?us-ascii?Q?FCZPmOyhU72/PslQ+hP2kRaTo+CXstGTLn5NxEwoEP91EYR8vDVItgWHGL1O?=
+ =?us-ascii?Q?UFE6D6rvNOAz0WmZzrIA0Ky6umeY6bPZs67g6TlY8GW+aCG0wvBHjVBgJmxq?=
+ =?us-ascii?Q?3xHgQFe4FL2MCBngpp4BHwynGi29?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR11MB6097.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7obZ8BAVdK5tU3p8TsYVUm5fF+T9tBYW9ztw3ykJQ9zQ+S3Pn4M6ooztvOrd?=
+ =?us-ascii?Q?iX3PN/ZE8opoMmIpd5I1lWtAgj4FFADHtQldY0YvVMIDmx4rVOC5ZLwsLBE4?=
+ =?us-ascii?Q?q7805NjY4cqPZBKzAhNEBuNdmJUq38flsuKTmy9usJ6SVnwbMDU6dfepSw0S?=
+ =?us-ascii?Q?eRHXizGkTkqxyMrGyppR7j5fPQsVNhIqvKEyMAbxggqMunA08acR4wSxZWqv?=
+ =?us-ascii?Q?v77W0CTsqtnXrLy6H/BxJCDdRRX2GG03/5e7PrRowwztnb6zV6DGYv0zzm0p?=
+ =?us-ascii?Q?PeGVEvJu8JXSMPFogTY3PNO/Dc07wkYHoLV5Rd7EOFcZmsFCenc1b9EsZMFE?=
+ =?us-ascii?Q?mMc/OVRbPTtHnMh0GTKbOZxZS/IpK6hUQ+YrIqKGaZNpAfonJH7+7FGaPBw+?=
+ =?us-ascii?Q?69HSe9dDxx6OiAQMxUmsM0djA9+rEOXijTqb+CfFlU7Ot0kQ9L5DwU0Rg5ZA?=
+ =?us-ascii?Q?em5/bT9Jeg+cBMnWqOLGjfgkZIxp2y1UkLO+geM3V2bW9jLPLCWvEnme/wnu?=
+ =?us-ascii?Q?pnDMUH9GDbEV5sXYttI07tscKv84BrFQ+TmiSbFiKyxdIlqCjVH0sa91uuHv?=
+ =?us-ascii?Q?LtutikWnnjJYSQMhgZT5nH8Y84Iaso17D9SLNTu+2+CTJGCyAGlQQ0Enhbjv?=
+ =?us-ascii?Q?Y1+2JkcVlhsRGTQyu280Vp0sxdCgUNKNJWCToiZPA7ZlnJCTGNWZprF7z0Qp?=
+ =?us-ascii?Q?xcqMz/pmBd+GAILmAC5laDO3FD7TNj+8fLByd2dSf7JLJNtxtyeO1xMQo8ol?=
+ =?us-ascii?Q?lKmXUSy4iDlsAcSXxgd/yAvn+coliw7+QqaGKXYzl0j3OIB5joFVeS84e8J7?=
+ =?us-ascii?Q?iFppifRxiACUA6uL0Th64tQ0uaBzdCBSJ3CdcSSvChESPx0ANe3XyD2lYOfA?=
+ =?us-ascii?Q?VrIQCiNfyoXOwhrTDMzXgGUCGKZ36Su4wnYOYYFXo9kfK8UKPhj9KMq/aGMT?=
+ =?us-ascii?Q?1GtfZ38OwUnxBNC4Z9iioth3JMVcIUaQf7/gtpKAsvm5vkp1UUPnzk/9MFAK?=
+ =?us-ascii?Q?QHet9teIW7o/eIGG4HD+mvHK9psff89BnZQFwiq3RA6GPwFD3jxerlxsU58Q?=
+ =?us-ascii?Q?Ct87AaRfXERhWrMqh3bq7UyIISQBEa/CT/Bd685qCTjLxfA9F8lfMybJyBUW?=
+ =?us-ascii?Q?4+93GqBktF5suQtspol0Ho3Xwb3BOVpWWVRN4gU4aG9+JwJJ2EsYheCORan+?=
+ =?us-ascii?Q?bptMahYgMEKN917MvZYbBOOzhXVF9XCKvvO92dJjg92JnuDW7HlImwTU5AdU?=
+ =?us-ascii?Q?u+1GBrsFupVs9YT0vkaCT81ojH31tU/aGEErz6GJAeW2AVcCv+ihixSf40AY?=
+ =?us-ascii?Q?zXMatuBwbudMdXOUF7dyeFeobJJyl5wENJitO5kyspTE3hvvuFOrXqsvqR0D?=
+ =?us-ascii?Q?x/UKIPS+sfew9UP8KgY8dfWkdvMNwb/VNdKyrJDQHsV0EDg0Y+w5uYFaXDmJ?=
+ =?us-ascii?Q?GvZTb/Vi5virw0Q3jhDAekKmQlU0sv2EVVL6LE9LCYUOW8MFOH/F6TQKfeNw?=
+ =?us-ascii?Q?RIGjMbYwIJYSK3UFd6E6XjY/Xzum4e04T3/ycWyrb+OEWpOE4dXz51YeYuHx?=
+ =?us-ascii?Q?6EFmkB4TTCplC1JAhihr5V6WRKrsh6KcvO0gzfNq4E3b31LV4iT20PgAHbND?=
+ =?us-ascii?Q?WA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff45fa80-df34-44b4-06fe-08dd46e1a743
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6097.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 19:08:34.5948 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R6ZIBXiV7ylMf1Ia01JTkQDIoFuuGVYSKQNbepLNuLcvl+truhs2QTMmqEmuR54h6TesZp3SVPEkcMHy6AmQOGk6WHyrw2K/+UDP04SU4/A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4577
+X-OriginatorOrg: intel.com
+Cc: Jose Abreu <joabreu@synopsys.com>, linux-kselftest@vger.kernel.org,
+ Florian Bezdeka <florian.bezdeka@siemens.com>, Joe Damato <jdamato@fastly.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>, Song Liu <song@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Daniel Jurgens <danielj@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>,
+ Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Mykola Lysenko <mykolal@fb.com>, xdp-hints@xdp-project.net, Donald
+ Hunter <donald.hunter@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, linux-doc@vger.kernel.org,
+ John
+ Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Stanislav Fomichev <sdf@fomichev.me>,
+ intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Eduard Zingerman <eddyz87@gmail.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, KP Singh <kpsingh@kernel.org>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Magnus Karlsson <magnus.karlsson@intel.com>, Hao Luo <haoluo@google.com>,
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bouska Zdenek <zdenek.bouska@siemens.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn
+ Topel <bjorn@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH bpf-next v9 3/5] net: stmmac: Add launch
+ time support to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,128 +198,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2292274292804526704=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Feb 06, 2025 at 02:04:06PM +0800, Song Yoong Siang wrote:
+> Enable launch time (Time-Based Scheduling) support for XDP zero copy via
+> the XDP Tx metadata framework.
+> 
+> This patch has been tested with tools/testing/selftests/bpf/xdp_hw_metadata
+> on Intel Tiger Lake platform. Below are the test steps and result.
+> 
+> Test 1: Send a single packet with the launch time set to 1 s in the future.
+> 
+> Test steps:
+> 1. On the DUT, start the xdp_hw_metadata selftest application:
+>    $ sudo ./xdp_hw_metadata enp0s30f4 -l 1000000000 -L 1
+> 
+> 2. On the Link Partner, send a UDP packet with VLAN priority 1 to port 9091
+>    of the DUT.
+> 
+> Result:
+> When the launch time is set to 1 s in the future, the delta between the
+> launch time and the transmit hardware timestamp is 16.963 us, as shown in
+> printout of the xdp_hw_metadata application below.
+>   0x55b5864717a8: rx_desc[4]->addr=88100 addr=88100 comp_addr=88100 EoP
+>   No rx_hash, err=-95
+>   HW RX-time:   1734579065767717328 (sec:1734579065.7677)
+>                 delta to User RX-time sec:0.0004 (375.624 usec)
+>   XDP RX-time:   1734579065768004454 (sec:1734579065.7680)
+>                  delta to User RX-time sec:0.0001 (88.498 usec)
+>   No rx_vlan_tci or rx_vlan_proto, err=-95
+>   0x55b5864717a8: ping-pong with csum=5619 (want 0000)
+>                   csum_start=34 csum_offset=6
+>   HW RX-time:   1734579065767717328 (sec:1734579065.7677)
+>                 delta to HW Launch-time sec:1.0000 (1000000.000 usec)
+>   0x55b5864717a8: complete tx idx=4 addr=4018
+>   HW Launch-time:   1734579066767717328 (sec:1734579066.7677)
+>                     delta to HW TX-complete-time sec:0.0000 (16.963 usec)
+>   HW TX-complete-time:   1734579066767734291 (sec:1734579066.7677)
+>                          delta to User TX-complete-time sec:0.0001
+>                          (130.408 usec)
+>   XDP RX-time:   1734579065768004454 (sec:1734579065.7680)
+>                  delta to User TX-complete-time sec:0.9999
+>                 (999860.245 usec)
+>   HW RX-time:   1734579065767717328 (sec:1734579065.7677)
+>                 delta to HW TX-complete-time sec:1.0000 (1000016.963 usec)
+>   0x55b5864717a8: complete rx idx=132 addr=88100
+> 
+> Test 2: Send 1000 packets with a 10 ms interval and the launch time set to
+>         500 us in the future.
+> 
+> Test steps:
+> 1. On the DUT, start the xdp_hw_metadata selftest application:
+>    $ sudo chrt -f 99 ./xdp_hw_metadata enp0s30f4 -l 500000 -L 1 > \
+>      /dev/shm/result.log
+> 
+> 2. On the Link Partner, send 1000 UDP packets with a 10 ms interval and
+>    VLAN priority 1 to port 9091 of the DUT.
+> 
+> Result:
+> When the launch time is set to 500 us in the future, the average delta
+> between the launch time and the transmit hardware timestamp is 13.854 us,
+> as shown in the analysis of /dev/shm/result.log below. The XDP launch time
+> works correctly in sending 1000 packets continuously.
+>   Min delta: 08.410 us
+>   Avr delta: 13.854 us
+>   Max delta: 17.076 us
+>   Total packets forwarded: 1000
+> 
+> Reviewed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
 
---===============2292274292804526704==
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="nds2ddkwji5fimma"
-Content-Disposition: inline
+Sorry haven't looked here in previous review approaches :/
 
-
---nds2ddkwji5fimma
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 11/12] drm/vc4: move to devm_platform_ioremap_resource()
- usage
-MIME-Version: 1.0
-
-On Wed, Feb 05, 2025 at 03:08:07PM -0500, Anusha Srivatsa wrote:
-> Replace platform_get_resource_byname + devm_ioremap_resource
-> with just devm_platform_ioremap_resource()
->=20
-> Used Coccinelle to do this change. SmPl patch:
-> //rule s/(devm_)platform_get_resource_byname +
-> //(devm_)ioremap/devm_platform_ioremap_resource.
-> @rule_3@
-> identifier res;
-> expression ioremap;
-> identifier pdev;
-> constant mem;
-> expression name;
-> @@
-> -struct resource *res;
-> <+...
-> -res =3D platform_get_resource_byname(pdev,mem,name);
-> <...
-> -if (!res) {
-> -...
-> -}
-> ...>
-> -ioremap =3D devm_ioremap(...);
-> +ioremap =3D devm_platform_ioremap_resource_byname(pdev,name);
-> ...+>
->=20
-> v2: Change the SmPl patch to work on multiple occurences of
-> the pattern. This also fixes the compilation error.
->=20
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Ma=EDra Canal <mcanal@igalia.com>
-> Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
 > ---
->  drivers/gpu/drm/vc4/vc4_hdmi.c | 55 +++++++++++-------------------------=
-------
->  1 file changed, 14 insertions(+), 41 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
-i.c
-> index 47d9ada98430634cfd8c1e21c2a4d00d501bab7e..066f1246dab420ee889845b0c=
-573d80ce7c88595 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -2951,71 +2951,44 @@ static int vc5_hdmi_init_resources(struct drm_dev=
-ice *drm,
->  {
->  	struct platform_device *pdev =3D vc4_hdmi->pdev;
->  	struct device *dev =3D &pdev->dev;
-> -	struct resource *res;
->  	int ret;
-> =20
-> -	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hdmi");
-> -	if (!res)
-> -		return -ENODEV;
-> -
-> -	vc4_hdmi->hdmicore_regs =3D devm_ioremap(dev, res->start,
-> -					       resource_size(res));
-> +	vc4_hdmi->hdmicore_regs =3D devm_platform_ioremap_resource_byname(pdev,
-> +									"hdmi");
->  	if (!vc4_hdmi->hdmicore_regs)
->  		return -ENOMEM;
-> =20
-> -	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hd");
-> -	if (!res)
-> -		return -ENODEV;
-> -
-> -	vc4_hdmi->hd_regs =3D devm_ioremap(dev, res->start, resource_size(res));
-> +	vc4_hdmi->hd_regs =3D devm_platform_ioremap_resource_byname(pdev, "hd");
->  	if (!vc4_hdmi->hd_regs)
->  		return -ENOMEM;
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++++++++++
+>  2 files changed, 15 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index f05cae103d83..925d8b97a42b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -106,6 +106,8 @@ struct stmmac_metadata_request {
+>  	struct stmmac_priv *priv;
+>  	struct dma_desc *tx_desc;
+>  	bool *set_ic;
+> +	struct dma_edesc *edesc;
+> +	int tbs;
 
-I *think* that one is shared between both HDMI controllers on the
-RaspberryPi4, so we can't claim them from both instances. We should add
-a comment there to document that it's on purpose.
+wanted to comment you're introducing holes here but set_ic is a ptr:)
 
-The rest looks good.
+>  };
+>  
+>  struct stmmac_xsk_tx_complete {
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index d04543e5697b..5e5d24924ce7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2514,9 +2514,20 @@ static u64 stmmac_xsk_fill_timestamp(void *_priv)
+>  	return 0;
+>  }
+>  
+> +static void stmmac_xsk_request_launch_time(u64 launch_time, void *_priv)
+> +{
+> +	struct stmmac_metadata_request *meta_req = _priv;
+> +	struct timespec64 ts = ns_to_timespec64(launch_time);
 
-Maxime
+nit: Apply reverse christmas tree rule here (order the variable
+definitions from longest to shortest), but it's not a showstopper I
+guess...
 
---nds2ddkwji5fimma
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ6TftgAKCRAnX84Zoj2+
-drfXAYDBINKHBSckIuo/kq/HoUvq16io0SUMaLB/CVkeidnE3EXaDz9M3WhZ60Ha
-n8d4HmABf0i2bHqp4iPr3Cr3YiSEnV9zX0sFLdFl/FejJMglsT19c+7lwsGMwuaH
-8nnPGZ1q6A==
-=1kXI
------END PGP SIGNATURE-----
-
---nds2ddkwji5fimma--
-
---===============2292274292804526704==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +
+> +	if (meta_req->tbs & STMMAC_TBS_EN)
+> +		stmmac_set_desc_tbs(meta_req->priv, meta_req->edesc, ts.tv_sec,
+> +				    ts.tv_nsec);
+> +}
+> +
+>  static const struct xsk_tx_metadata_ops stmmac_xsk_tx_metadata_ops = {
+>  	.tmo_request_timestamp		= stmmac_xsk_request_timestamp,
+>  	.tmo_fill_timestamp		= stmmac_xsk_fill_timestamp,
+> +	.tmo_request_launch_time	= stmmac_xsk_request_launch_time,
+>  };
+>  
+>  static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+> @@ -2600,6 +2611,8 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+>  		meta_req.priv = priv;
+>  		meta_req.tx_desc = tx_desc;
+>  		meta_req.set_ic = &set_ic;
+> +		meta_req.tbs = tx_q->tbs;
+> +		meta_req.edesc = &tx_q->dma_entx[entry];
+>  		xsk_tx_metadata_request(meta, &stmmac_xsk_tx_metadata_ops,
+>  					&meta_req);
+>  		if (set_ic) {
+> -- 
+> 2.34.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2292274292804526704==--
