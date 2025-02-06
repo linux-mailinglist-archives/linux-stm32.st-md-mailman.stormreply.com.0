@@ -2,72 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AA0A2A9F7
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 14:31:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F04DA2AAE1
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 15:15:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0CC3C78F86;
-	Thu,  6 Feb 2025 13:31:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 279D7C78F86;
+	Thu,  6 Feb 2025 14:15:39 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03087C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EACF7C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 13:31:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738848695; x=1770384695;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=UvKy4mZrPC8JYTufGCS5mcN3Cwb0i4boDW9z3KaHTf4=;
- b=as6sA2KHkZCFg/tAkfuhmfhfas6VbXDR9zBPhgDEdEPdOgQC7GtYnHqo
- ErZM3mAfKA/DV9L8vDNSqPf3gZCxza/qADofD1a3EVnYM032zlzZbhSwI
- THnvYNkMsy4H124ToFikaH4puuOH4mp9mpULkNE25Nn6PZrMPKjlFyA/W
- pmnKHXEkoFv4REm8BdJdEtgXadmynOb3r2gSGT5h0BlsVftOKQalqKT21
- 6muMTA6Kv8gFd/f7TpK4ddGIEXsgZ3WA50ReD1ACqbVG5lUyPr+f899AM
- dvXjzXxKCc4nh47WX/jRdj7OtZn+vk98reINH3AMUpxY6r9FIsestRJKQ Q==;
-X-CSE-ConnectionGUID: 6/UglaYwS3W782F27Htd2w==
-X-CSE-MsgGUID: VcT8ompZSZ2U3S2GQdg+cA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="50438714"
-X-IronPort-AV: E=Sophos;i="6.13,264,1732608000"; d="scan'208";a="50438714"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 05:31:27 -0800
-X-CSE-ConnectionGUID: 6wNgtWa/SG6rDVMtMIhggA==
-X-CSE-MsgGUID: yi0yOvUlQh+wxtzF/iDp2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="111062150"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.165])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2025 05:31:17 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 6 Feb 2025 15:31:14 +0200 (EET)
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <20250206131859.2960543-5-yong.liang.choong@linux.intel.com>
-Message-ID: <c15078bf-b6f3-5b4b-82ca-668d47168ce0@linux.intel.com>
-References: <20250206131859.2960543-1-yong.liang.choong@linux.intel.com>
- <20250206131859.2960543-5-yong.liang.choong@linux.intel.com>
-MIME-Version: 1.0
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Simon Horman <horms@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, linux-arm-kernel@lists.infradead.org,
- Paolo Abeni <pabeni@redhat.com>, Netdev <netdev@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
+ Thu,  6 Feb 2025 14:15:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id ABF5DA44301;
+ Thu,  6 Feb 2025 14:13:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7EFC4CEDD;
+ Thu,  6 Feb 2025 14:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738851330;
+ bh=NnqBms1V+4E9EfQaAWHmp1xTPNsYHk4NHNYKw/gc4LE=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=QFN15TOtrwkcAyA/lsiNaWymj//OCxIz5HucWhWHhCATirYavxVO59r4NPBM1VITc
+ e+0xwpj/6cllUySpG2J01BM9d912Jm9lleZqs3pU1O3HdQFqJuEnxhX7s3ayQaEn+J
+ uPpfKRER4ScCQc1p6C4esmKdk5fGJxU5pFXYI+hvewBb2q1GnMjw+Xc3wld5LiVHqL
+ IYNH2q5SCXspU0KCnOPUdyq4IYIMyYl8fk3Zlt4hpVsFdD3w+JsD/hYrMTc0fCojHr
+ fsXb+MFRghIZqpKoSuwq88hRtoc3i7eJ2eeyZkraYPppScjf4IDEprsKrWZYlzxnvI
+ kZYRg3Qh41w1w==
+Message-ID: <a66f048616d94bd68f56fb73abb5fd60@kernel.org>
+Date: Thu, 06 Feb 2025 14:15:27 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Anusha Srivatsa" <asrivats@redhat.com>
+In-Reply-To: <20250205-mem-cocci-newapi-v1-4-aebf2b0e2300@redhat.com>
+References: <20250205-mem-cocci-newapi-v1-4-aebf2b0e2300@redhat.com>
+Cc: imx@lists.linux.dev, =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
+ linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Xinliang Liu <xinliang.liu@linaro.org>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Mikko
+ Perttunen <mperttunen@nvidia.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, Thierry
+ Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Marek Vasut <marex@denx.de>, Yongqin Liu <yongqin.liu@linaro.org>, Fabio
+ Estevam <festevam@gmail.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, Alexey
+ Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Xinwei
+ Kong <kong.kongxinwei@hisilicon.com>, Sandy
+ Huang <hjc@rock-chips.com>, Joel Stanley <joel@jms.id.au>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Chun-Kuang
+ Hu <chunkuang.hu@kernel.org>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Alison Wang <alison.wang@nxp.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime
+ Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org, Stefan
+ Agner <stefan@agner.ch>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Orson Zhai <orsonzhai@gmail.com>, linux-tegra@vger.kernel.org, Raphael
+ Gallais-Pou <rgallaispou@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Tian
+ Tao <tiantao6@hisilicon.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan
+ Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 4/7] stmmac: intel: configure
- SerDes according to the interface mode
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 04/12] drm/mediatek: move to
+ devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,243 +81,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 6 Feb 2025, Choong Yong Liang wrote:
-
-> Intel platform will configure the SerDes through PMC API based on the
-> provided interface mode.
+On Wed, 5 Feb 2025 15:08:00 -0500, Anusha Srivatsa wrote:
+> Replace platform_get_resource + devm_ioremap_resource
+> with just devm_platform_ioremap_resource()
 > 
-> This patch adds several new functions below:-
-> - intel_tsn_lane_is_available(): This new function reads FIA lane
->   ownership registers and common lane registers through IPC commands
->   to know which lane the mGbE port is assigned to.
-> - intel_mac_finish(): To configure the SerDes based on the assigned
->   lane and latest interface mode, it sends IPC command to the PMC through
->   PMC driver/API. The PMC acts as a proxy for R/W on behalf of the driver.
-> - intel_set_reg_access(): Set the register access to the available TSN
->   interface.
+> Used Coccinelle to do this change. SmPl patch:
+> @rule_1@
 > 
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |   2 +
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 146 +++++++++++++++++-
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  29 ++++
->  include/linux/stmmac.h                        |   4 +
->  4 files changed, 179 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index 4cc85a36a1ab..25154b915b02 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -307,6 +307,8 @@ config DWMAC_INTEL
->  	default X86
->  	depends on X86 && STMMAC_ETH && PCI
->  	depends on COMMON_CLK
-> +	depends on ACPI
-> +	select INTEL_PMC_IPC
->  	help
->  	  This selects the Intel platform specific bus support for the
->  	  stmmac driver. This driver is used for Intel Quark/EHL/TGL.
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index 48acba5eb178..837fd3fbaedb 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -5,15 +5,30 @@
->  #include <linux/clk-provider.h>
->  #include <linux/pci.h>
->  #include <linux/dmi.h>
-> +#include <linux/platform_data/x86/intel_pmc_ipc.h>
->  #include "dwmac-intel.h"
->  #include "dwmac4.h"
->  #include "stmmac.h"
->  #include "stmmac_ptp.h"
->  
-> +struct pmc_serdes_regs {
-> +	u8 index;
-> +	u32 val;
-> +};
-> +
-> +struct pmc_serdes_reg_info {
-> +	const struct pmc_serdes_regs *regs;
-> +	u8 num_regs;
-> +};
-> +
->  struct intel_priv_data {
->  	int mdio_adhoc_addr;	/* mdio address for serdes & etc */
->  	unsigned long crossts_adj;
->  	bool is_pse;
-> +	const int *tsn_lane_regs;
-> +	int max_tsn_lane_regs;
-> +	struct pmc_serdes_reg_info pid_1g;
-> +	struct pmc_serdes_reg_info pid_2p5g;
->  };
->  
->  /* This struct is used to associate PCI Function of MAC controller on a board,
-> @@ -35,6 +50,42 @@ struct stmmac_pci_info {
->  	int (*setup)(struct pci_dev *pdev, struct plat_stmmacenet_data *plat);
->  };
->  
-> +static const struct pmc_serdes_regs pid_modphy3_1g_regs[] = {
-> +	{ PID_MODPHY3_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_1G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_1G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy3_2p5g_regs[] = {
-> +	{ PID_MODPHY3_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_2P5G },
-> +	{ PID_MODPHY3_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_2P5G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy1_1g_regs[] = {
-> +	{ PID_MODPHY1_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_1G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_1G },
-> +	{}
-> +};
-> +
-> +static const struct pmc_serdes_regs pid_modphy1_2p5g_regs[] = {
-> +	{ PID_MODPHY1_B_MODPHY_PCR_LCPLL_DWORD0,	B_MODPHY_PCR_LCPLL_DWORD0_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD2,	N_MODPHY_PCR_LCPLL_DWORD2_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LCPLL_DWORD7,	N_MODPHY_PCR_LCPLL_DWORD7_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_LPPLL_DWORD10,	N_MODPHY_PCR_LPPLL_DWORD10_2P5G },
-> +	{ PID_MODPHY1_N_MODPHY_PCR_CMN_ANA_DWORD30,	N_MODPHY_PCR_CMN_ANA_DWORD30_2P5G },
-> +	{}
-> +};
-> +
->  static int stmmac_pci_find_phy_addr(struct pci_dev *pdev,
->  				    const struct dmi_system_id *dmi_list)
->  {
-> @@ -93,7 +144,7 @@ static int intel_serdes_powerup(struct net_device *ndev, void *priv_data)
->  	data &= ~SERDES_RATE_MASK;
->  	data &= ~SERDES_PCLK_MASK;
->  
-> -	if (priv->plat->max_speed == 2500)
-> +	if (priv->plat->phy_interface == PHY_INTERFACE_MODE_2500BASEX)
->  		data |= SERDES_RATE_PCIE_GEN2 << SERDES_RATE_PCIE_SHIFT |
->  			SERDES_PCLK_37p5MHZ << SERDES_PCLK_SHIFT;
->  	else
-> @@ -415,6 +466,95 @@ static void intel_mgbe_pse_crossts_adj(struct intel_priv_data *intel_priv,
->  	}
->  }
->  
-> +static int intel_tsn_lane_is_available(struct net_device *ndev,
-> +				       struct intel_priv_data *intel_priv)
-> +{
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	struct pmc_ipc_cmd tmp = {};
-> +	u32 rbuf[4] = {};
-> +	int ret = 0, i, j;
-> +	const int max_fia_regs = 5;
-> +
-> +	tmp.cmd = IPC_SOC_REGISTER_ACCESS;
-> +	tmp.sub_cmd = IPC_SOC_SUB_CMD_READ;
-> +
-> +	for (i = 0; i < max_fia_regs; i++) {
+> [ ... ]
 
-Usually, defines are used for true consts.
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-> +		tmp.wbuf[0] = R_PCH_FIA_15_PCR_LOS1_REG_BASE + i;
-> +
-> +		ret = intel_pmc_ipc(&tmp, rbuf);
-> +		if (ret < 0) {
-> +			netdev_info(priv->dev, "Failed to read from PMC.\n");
-> +			return ret;
-> +		}
-> +
-> +		for (j = 0; j <= intel_priv->max_tsn_lane_regs; j++)
-> +			if ((rbuf[0] >>
-> +				(4 * (intel_priv->tsn_lane_regs[j] % 8)) &
-> +					B_PCH_FIA_PCR_L0O) == 0xB)
-> +				return ret;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs)
-> +{
-> +	int ret = 0, i;
-> +
-> +	for (i = 0; i < max_regs; i++) {
-> +		struct pmc_ipc_cmd tmp = {};
-> +		u32 buf[4] = {};
-> +
-> +		tmp.cmd = IPC_SOC_REGISTER_ACCESS;
-> +		tmp.sub_cmd = IPC_SOC_SUB_CMD_WRITE;
-> +		tmp.wbuf[0] = (u32)regs[i].index;
-> +		tmp.wbuf[1] = regs[i].val;
-> +
-> +		ret = intel_pmc_ipc(&tmp, buf);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int intel_mac_finish(struct net_device *ndev,
-> +			    void *intel_data,
-> +			    unsigned int mode,
-> +			    phy_interface_t interface)
-> +{
-> +	struct intel_priv_data *intel_priv = intel_data;
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	const struct pmc_serdes_regs *regs;
-> +	int max_regs = 0;
-> +	int ret = 0;
-> +
-> +	ret = intel_tsn_lane_is_available(ndev, intel_priv);
-> +	if (ret < 0) {
-> +		netdev_info(priv->dev, "No TSN lane available to set the registers.\n");
-> +		return ret;
-> +	}
-> +
-> +	if (interface == PHY_INTERFACE_MODE_2500BASEX) {
-> +		regs = intel_priv->pid_2p5g.regs;
-> +		max_regs = intel_priv->pid_2p5g.num_regs;
-> +	} else {
-> +		regs = intel_priv->pid_1g.regs;
-> +		max_regs = intel_priv->pid_1g.num_regs;
-> +	}
-> +
-> +	ret = intel_set_reg_access(regs, max_regs);
-> +	if (ret < 0)
-> +		return ret;
-
-This looks much cleaner now, thanks the update.
-
-However, the intel_priv fields you introduced are not setup until patch 
-6/7? Will this cause NULL ptr deref issues in between the two changes? By 
-introducing the reg arrays in this patch but only use them after patch 6, 
-you'll also get unused variable warnings out of them in between the 
-changes which is unacceptable.
-
-> +
-> +	priv->plat->phy_interface = interface;
-> +
-> +	intel_serdes_powerdown(ndev, intel_priv);
-> +	intel_serdes_powerup(ndev, intel_priv);
-> +
-> +	return ret;
-> +}
-
-
--- 
- i.
-
+Thanks!
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
