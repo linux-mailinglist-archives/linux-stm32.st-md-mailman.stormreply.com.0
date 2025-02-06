@@ -2,88 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407D8A2A2ED
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 09:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0392A2A42D
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 10:25:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6936C78F88;
-	Thu,  6 Feb 2025 08:08:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 184E2C71292
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 749DDC78F86;
+	Thu,  6 Feb 2025 09:25:36 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B2ADC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 08:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1738829296;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NJj9rkDTFOQk+bEPSTqUhazzXgNIa2C9a7aAoT7fQaI=;
- b=C/mGnT0KdU1ssg5TrRJ838EXDYskum2CcDO9jhDAgbiRdWGTkjGd0Au6hOEUwG6cc6t0Jt
- d0iT8cg80wWNpZ5D6srvyFr7nJGyRJvN4OwDZETfVRdbCnvlwY6fmMp/tTm6JA61FAVx8N
- N24vy7JTSoPYZymZTXQYVTa0UrfxSIg=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-108-cqg0sfV8MLWydui4QDQoMw-1; Thu, 06 Feb 2025 03:08:14 -0500
-X-MC-Unique: cqg0sfV8MLWydui4QDQoMw-1
-X-Mimecast-MFC-AGG-ID: cqg0sfV8MLWydui4QDQoMw
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-38dbe6a1e01so254872f8f.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Feb 2025 00:08:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738829293; x=1739434093;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NJj9rkDTFOQk+bEPSTqUhazzXgNIa2C9a7aAoT7fQaI=;
- b=CpoXvwS31SUkIj5wF6B4jZbFZ1nVHmFheXmDmlhFKUjNCcjbpHu5fW2gMLxHwBkHpL
- GXDFaGpgoHNDJ1dDDrHqpKi9QOytlztfMgYcb/vQmI1OQvYVVKJ/6A2Ejjax6e//OMGs
- S27ZBhM+bzQv4EVmyPodOBN9eiqGv856U7RSWBRu9tMmxjx/pnfau0o1rSpYjacGJev8
- S3xr896ETN33N+xJUqUJf0+e1AOKetD/xTzVlc+Y3BZIldF+l2bTvG+4fN6E3C2hn2m3
- hIr5Hv96P88ryFg9Pd5pAkoXiX00G8nR/be2r89aBtkM8qP8mpO7GOPWThtvFZtqM749
- 8jVw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUWIR42DZkwxkfPG5EOJ3NTUpWUH02uaX5ShhHZb3w86Og5P6YNeI74Idp3zAd91eItfxcb9KaB7XXsjQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwxLI94T+P8GxFQHYWI6oYcox0NOoDgriZYUSQ+s4oPsFuicUfr
- /ZzfCMFOOheFO8kuazixyB9aD6k992c4KYtusUdlyeqkFH4On3HKiztQ+ZwN8RnNyC1s7Wd8sjX
- 9KTd0kxi7iN0lxLRtkG6HFa/UDVY1Kf3BCSRqamGXWFVJIN46A8h5ylFhJnXAkMVS4mCwAByxfJ
- lcQA==
-X-Gm-Gg: ASbGnctojBtEZuBet4GGRaJVx1gV+uF7jMa6M+BmgUlc2Kh5mHAwUxaGZ6k+Rk63au8
- FCcHQNKxwtONmGA8NElFD0rRZ2u27Oso2jBp5tu59+4h9h09sVcxxcCL3TfPaUJCl8Yh08W4RRo
- 6xOg9rCshDON7NTxJ1upeBQgh8M+8C83yrmz4vKuO4KfBxXJjUBvULEk+thpXaUS4bq6AchIFXD
- SrJgmVVLa9AjDL2zqDk8D5PxxHB0DcTmS0d2ONBp0o53xKJ38mUqzLBpygLDv3hpQcofaFKBMKR
- rg1oMSO6jFwq+jvW+kPbpuatS0XM6RkVrQU=
-X-Received: by 2002:a5d:64e6:0:b0:38a:9fdb:7307 with SMTP id
- ffacd0b85a97d-38db490067dmr4768114f8f.43.1738829293321; 
- Thu, 06 Feb 2025 00:08:13 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFPyrYegeID52tdxqQD7ciYyg2T0dKVG6S8SKrlSjQtzEXfxI41hNRfpZNFy4Gru5MLr+ZP/A==
-X-Received: by 2002:a5d:64e6:0:b0:38a:9fdb:7307 with SMTP id
- ffacd0b85a97d-38db490067dmr4768079f8f.43.1738829292956; 
- Thu, 06 Feb 2025 00:08:12 -0800 (PST)
-Received: from [192.168.88.253] (146-241-41-201.dyn.eolo.it. [146.241.41.201])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dbf6e4a4bsm668008f8f.92.2025.02.06.00.08.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2025 00:08:12 -0800 (PST)
-Message-ID: <2cff81d8-9bda-4aa0-80b6-2ef92cd960a6@redhat.com>
-Date: Thu, 6 Feb 2025 09:08:10 +0100
+ Thu,  6 Feb 2025 09:25:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 94A9F12FC;
+ Thu,  6 Feb 2025 01:25:51 -0800 (PST)
+Received: from [10.1.30.52] (e122027.cambridge.arm.com [10.1.30.52])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 732CC3F63F;
+ Thu,  6 Feb 2025 01:25:25 -0800 (PST)
+Message-ID: <4ed5b1dc-4f5c-4d2a-97e2-7b1f43dccfdc@arm.com>
+Date: Thu, 6 Feb 2025 09:25:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
 References: <E1tfeyR-003YGJ-Gb@rmk-PC.armlinux.org.uk>
-From: Paolo Abeni <pabeni@redhat.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
 In-Reply-To: <E1tfeyR-003YGJ-Gb@rmk-PC.armlinux.org.uk>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZZWNikhDaCGeOoGQAZ_ruwPrnFI9c6S28cudq5coZbM_1738829293
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net] Revert "net: stmmac: Specify hardware
  capability value when FIFO size isn't specified"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -102,7 +50,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/5/25 1:57 PM, Russell King (Oracle) wrote:
+On 05/02/2025 12:57, Russell King (Oracle) wrote:
 > This reverts commit 8865d22656b4, which caused breakage for platforms
 > which are not using xgmac2 or gmac4. Only these two cores have the
 > capability of providing the FIFO sizes from hardware capability fields
@@ -128,15 +76,86 @@ On 2/5/25 1:57 PM, Russell King (Oracle) wrote:
 > Link: https://lore.kernel.org/r/4e98f967-f636-46fb-9eca-d383b9495b86@roeck-us.net
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Given the fallout caused by the blamed commit, the imminent net PR, and
-the substantial agreement about the patch already shared by many persons
-on the ML, unless someone raises very serious concerns very soon, I'm
-going to apply this patch (a little) earlier than the 24h grace period,
-to fit the mentioned PR.
+Tested on my Firefly RK3288
 
-Cheers,
+Tested-by: Steven Price <steven.price@arm.com>
 
-Paolo
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 +++++++++----------
+>  1 file changed, 17 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index d04543e5697b..b34ebb916b89 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2424,6 +2424,11 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
+>  	u32 chan = 0;
+>  	u8 qmode = 0;
+>  
+> +	if (rxfifosz == 0)
+> +		rxfifosz = priv->dma_cap.rx_fifo_size;
+> +	if (txfifosz == 0)
+> +		txfifosz = priv->dma_cap.tx_fifo_size;
+> +
+>  	/* Split up the shared Tx/Rx FIFO memory on DW QoS Eth and DW XGMAC */
+>  	if (priv->plat->has_gmac4 || priv->plat->has_xgmac) {
+>  		rxfifosz /= rx_channels_count;
+> @@ -2892,6 +2897,11 @@ static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
+>  	int rxfifosz = priv->plat->rx_fifo_size;
+>  	int txfifosz = priv->plat->tx_fifo_size;
+>  
+> +	if (rxfifosz == 0)
+> +		rxfifosz = priv->dma_cap.rx_fifo_size;
+> +	if (txfifosz == 0)
+> +		txfifosz = priv->dma_cap.tx_fifo_size;
+> +
+>  	/* Adjust for real per queue fifo size */
+>  	rxfifosz /= rx_channels_count;
+>  	txfifosz /= tx_channels_count;
+> @@ -5868,6 +5878,9 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+>  	const int mtu = new_mtu;
+>  	int ret;
+>  
+> +	if (txfifosz == 0)
+> +		txfifosz = priv->dma_cap.tx_fifo_size;
+> +
+>  	txfifosz /= priv->plat->tx_queues_to_use;
+>  
+>  	if (stmmac_xdp_is_enabled(priv) && new_mtu > ETH_DATA_LEN) {
+> @@ -7219,29 +7232,15 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+>  		priv->plat->tx_queues_to_use = priv->dma_cap.number_tx_queues;
+>  	}
+>  
+> -	if (!priv->plat->rx_fifo_size) {
+> -		if (priv->dma_cap.rx_fifo_size) {
+> -			priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
+> -		} else {
+> -			dev_err(priv->device, "Can't specify Rx FIFO size\n");
+> -			return -ENODEV;
+> -		}
+> -	} else if (priv->dma_cap.rx_fifo_size &&
+> -		   priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
+> +	if (priv->dma_cap.rx_fifo_size &&
+> +	    priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
+>  		dev_warn(priv->device,
+>  			 "Rx FIFO size (%u) exceeds dma capability\n",
+>  			 priv->plat->rx_fifo_size);
+>  		priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
+>  	}
+> -	if (!priv->plat->tx_fifo_size) {
+> -		if (priv->dma_cap.tx_fifo_size) {
+> -			priv->plat->tx_fifo_size = priv->dma_cap.tx_fifo_size;
+> -		} else {
+> -			dev_err(priv->device, "Can't specify Tx FIFO size\n");
+> -			return -ENODEV;
+> -		}
+> -	} else if (priv->dma_cap.tx_fifo_size &&
+> -		   priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
+> +	if (priv->dma_cap.tx_fifo_size &&
+> +	    priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
+>  		dev_warn(priv->device,
+>  			 "Tx FIFO size (%u) exceeds dma capability\n",
+>  			 priv->plat->tx_fifo_size);
 
 _______________________________________________
 Linux-stm32 mailing list
