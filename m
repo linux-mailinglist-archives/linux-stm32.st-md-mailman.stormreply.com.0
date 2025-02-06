@@ -2,38 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0392A2A42D
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 10:25:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B4B4A2A59B
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 11:12:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 749DDC78F86;
-	Thu,  6 Feb 2025 09:25:36 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B2ADC6DD9A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32260C78F86;
+	Thu,  6 Feb 2025 10:12:15 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84003C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 09:25:29 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 94A9F12FC;
- Thu,  6 Feb 2025 01:25:51 -0800 (PST)
-Received: from [10.1.30.52] (e122027.cambridge.arm.com [10.1.30.52])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 732CC3F63F;
- Thu,  6 Feb 2025 01:25:25 -0800 (PST)
-Message-ID: <4ed5b1dc-4f5c-4d2a-97e2-7b1f43dccfdc@arm.com>
-Date: Thu, 6 Feb 2025 09:25:23 +0000
+ Thu,  6 Feb 2025 10:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IGtT4jJj54W9qkniOIuHDmAyLAJNfLsZ3atVdSoL2Sw=; b=VrGjZMXNKqp11sBPpNPyr9bd8j
+ iDW8pjUfPny4JDeSdAM75qSlzDloRDzAuw8WPJ+YuCmZrT/uT0LWIy5VkIf9jmIxSMpOpb6SgsdTz
+ +G/JpsS0x5S/EIl2UzUs7CYJrHEb12+B0+LZp+ntHccablhQbEOP6Cy+ZaXE0VSy1uFyMo53wgLfH
+ 2hzZRTL4roOnp4giNFVCOQ1gW/WFSYAStewJD3KnebYOAQ68PoitLuWosk5mUgkGk6NMo3H8ZUfCN
+ PpjJf3Ew9XEO+zWoiOltaJbtDSQyt0EopVzMPvXzJaHI9iniyUZh974YIgNFl/TXHxlLDo/DfkjRE
+ J+0zciZA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58646)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tfyqw-0001h6-11;
+ Thu, 06 Feb 2025 10:11:22 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tfyqn-0003LY-04;
+ Thu, 06 Feb 2025 10:11:13 +0000
+Date: Thu, 6 Feb 2025 10:11:12 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Message-ID: <Z6SKwNF8ib2BgIsL@shell.armlinux.org.uk>
+References: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
+ <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
+ <Z6IDWiRF73sdVWob@shell.armlinux.org.uk>
+ <f272cb2a-1167-4e34-9209-ffdbbb107bdd@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <E1tfeyR-003YGJ-Gb@rmk-PC.armlinux.org.uk>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <E1tfeyR-003YGJ-Gb@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] Revert "net: stmmac: Specify hardware
- capability value when FIFO size isn't specified"
+Content-Disposition: inline
+In-Reply-To: <f272cb2a-1167-4e34-9209-ffdbbb107bdd@linux.intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
+ Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
+ x86@kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Mengyuan Lou <mengyuanlou@net-swift.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Simon Horman <horms@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ linux-arm-kernel@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v6 4/7] stmmac: intel: configure
+ SerDes according to the interface mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,113 +82,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/02/2025 12:57, Russell King (Oracle) wrote:
-> This reverts commit 8865d22656b4, which caused breakage for platforms
-> which are not using xgmac2 or gmac4. Only these two cores have the
-> capability of providing the FIFO sizes from hardware capability fields
-> (which are provided in priv->dma_cap.[tr]x_fifo_size.)
+On Thu, Feb 06, 2025 at 10:22:04AM +0800, Choong Yong Liang wrote:
+> Thank you for your feedback on the patch. Based on your suggestion, I have
+> updated the code to align with the mac_finish() method and included the AN
+> mode as well. The updated function signature is as follows:
 > 
-> All other cores can not, which results in these two fields containing
-> zero. We also have platforms that do not provide a value in
-> priv->plat->[tr]x_fifo_size, resulting in these also being zero.
+> int (*mac_finish)(struct net_device *ndev,
+>                   void *priv,
+>                   unsigned int mode,
+>                   phy_interface_t interface);
 > 
-> This causes the new tests introduced by the reverted commit to fail,
-> and produce e.g.:
-> 
-> 	stmmaceth f0804000.eth: Can't specify Rx FIFO size
-> 
-> An example of such a platform which fails is QEMU's npcm750-evb.
-> This uses dwmac1000 which, as noted above, does not have the capability
-> to provide the FIFO sizes from hardware.
-> 
-> Therefore, revert the commit to maintain compatibility with the way
-> the driver used to work.
-> 
-> Reported-by: Guenter Roeck <linux@roeck-us.net>
-> Link: https://lore.kernel.org/r/4e98f967-f636-46fb-9eca-d383b9495b86@roeck-us.net
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Could you please confirm if this meets your expectations, or if there are
+> any further adjustments needed?
 
-Tested on my Firefly RK3288
+That's fine, thanks.
 
-Tested-by: Steven Price <steven.price@arm.com>
-
-> ---
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 +++++++++----------
->  1 file changed, 17 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d04543e5697b..b34ebb916b89 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2424,6 +2424,11 @@ static void stmmac_dma_operation_mode(struct stmmac_priv *priv)
->  	u32 chan = 0;
->  	u8 qmode = 0;
->  
-> +	if (rxfifosz == 0)
-> +		rxfifosz = priv->dma_cap.rx_fifo_size;
-> +	if (txfifosz == 0)
-> +		txfifosz = priv->dma_cap.tx_fifo_size;
-> +
->  	/* Split up the shared Tx/Rx FIFO memory on DW QoS Eth and DW XGMAC */
->  	if (priv->plat->has_gmac4 || priv->plat->has_xgmac) {
->  		rxfifosz /= rx_channels_count;
-> @@ -2892,6 +2897,11 @@ static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
->  	int rxfifosz = priv->plat->rx_fifo_size;
->  	int txfifosz = priv->plat->tx_fifo_size;
->  
-> +	if (rxfifosz == 0)
-> +		rxfifosz = priv->dma_cap.rx_fifo_size;
-> +	if (txfifosz == 0)
-> +		txfifosz = priv->dma_cap.tx_fifo_size;
-> +
->  	/* Adjust for real per queue fifo size */
->  	rxfifosz /= rx_channels_count;
->  	txfifosz /= tx_channels_count;
-> @@ -5868,6 +5878,9 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
->  	const int mtu = new_mtu;
->  	int ret;
->  
-> +	if (txfifosz == 0)
-> +		txfifosz = priv->dma_cap.tx_fifo_size;
-> +
->  	txfifosz /= priv->plat->tx_queues_to_use;
->  
->  	if (stmmac_xdp_is_enabled(priv) && new_mtu > ETH_DATA_LEN) {
-> @@ -7219,29 +7232,15 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
->  		priv->plat->tx_queues_to_use = priv->dma_cap.number_tx_queues;
->  	}
->  
-> -	if (!priv->plat->rx_fifo_size) {
-> -		if (priv->dma_cap.rx_fifo_size) {
-> -			priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
-> -		} else {
-> -			dev_err(priv->device, "Can't specify Rx FIFO size\n");
-> -			return -ENODEV;
-> -		}
-> -	} else if (priv->dma_cap.rx_fifo_size &&
-> -		   priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
-> +	if (priv->dma_cap.rx_fifo_size &&
-> +	    priv->plat->rx_fifo_size > priv->dma_cap.rx_fifo_size) {
->  		dev_warn(priv->device,
->  			 "Rx FIFO size (%u) exceeds dma capability\n",
->  			 priv->plat->rx_fifo_size);
->  		priv->plat->rx_fifo_size = priv->dma_cap.rx_fifo_size;
->  	}
-> -	if (!priv->plat->tx_fifo_size) {
-> -		if (priv->dma_cap.tx_fifo_size) {
-> -			priv->plat->tx_fifo_size = priv->dma_cap.tx_fifo_size;
-> -		} else {
-> -			dev_err(priv->device, "Can't specify Tx FIFO size\n");
-> -			return -ENODEV;
-> -		}
-> -	} else if (priv->dma_cap.tx_fifo_size &&
-> -		   priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
-> +	if (priv->dma_cap.tx_fifo_size &&
-> +	    priv->plat->tx_fifo_size > priv->dma_cap.tx_fifo_size) {
->  		dev_warn(priv->device,
->  			 "Tx FIFO size (%u) exceeds dma capability\n",
->  			 priv->plat->tx_fifo_size);
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
