@@ -2,82 +2,207 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5C8A29F18
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 04:02:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D77A29FA4
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 05:32:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 539C6C71292;
-	Thu,  6 Feb 2025 03:02:39 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D84AAC78002;
+	Thu,  6 Feb 2025 04:32:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24E0DC7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61D82C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 03:02:31 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 515EVZTT025697;
- Thu, 6 Feb 2025 03:02:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HLxbx/nj42e6JMussUsdWLIhc8HBAJuOSMQgaUV5rQw=; b=nFpn3g7Rlp2gEb5T
- BGrfaRZEqChbdwTVe0CeDSDMndPRY0HNBQTGhj8P+mv7k9eqF8OEOd3x3i/29anI
- 4XRVj4b2bUbLA9GSDx/8lIVC/TRyScFUTXW1vrqJ1dKzE27DucsI4RRlz4QfcPQG
- cIU93jlkH9g3EGM048bn3D9pKo6o6L2+K+mwwdj9ITz3tXOOpflbf58d32fL9d1y
- dUacoDZaE7XuFwwbN1wEeVto2BtkM10bKuibzuRaa0+IDGE8dEW4cHeRs2g0C+QJ
- Iy0WbzKbUOBPJD1crxT0aBJa04k2V/tiW7TDcBi3dIToa5kUYmRJHzCaGcZacf8x
- NxURcA==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44m9txhjh4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Feb 2025 03:02:15 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51632E5V011710
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 6 Feb 2025 03:02:14 GMT
-Received: from [10.64.68.153] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 5 Feb 2025
- 19:02:09 -0800
-Message-ID: <85bdaa4d-3805-4ae3-917e-7258a131741c@quicinc.com>
-Date: Thu, 6 Feb 2025 11:02:06 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: James Clark <james.clark@linaro.org>
-References: <d5332d6d-237f-4b78-9eaf-2619bd97b7bd@quicinc.com>
- <20250131163617.1730505-1-james.clark@linaro.org>
- <20250131163617.1730505-2-james.clark@linaro.org>
+ Thu,  6 Feb 2025 04:32:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738816329; x=1770352329;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=oImKCwuik/YXM2Johvgd1oc02EfXkfg8IW6WfyNiJaQ=;
+ b=TCQpwJinxpCcvvLRN2bYd+vTkpcHWKM00IMOm35j8uR9BuoWpZy0/uUX
+ TXkhjhqiM6tLUmVKClP9yR9sqyMTZMMx5WL+8u49vW0+LkQ/1NsR/VjIV
+ PkEmWVTCu8LS1Y6eLOuH+6uJUcdfZDcKD91Rbm2HuoVYwtjPPKttEC4B/
+ 9i4UPA9eh5wCvsloZg10XOpnvszIH9C919Pi5jcFsMhEl3W/0KbwIMp5i
+ XApzZ5FuygeiLV5lY9v+9hlufQGVIcUBgudbvqsYYZMbDI0UIfYhKOI8C
+ 3WOT89uldcbv27PHA1VCd1fvjh8tL5+VbKDbTI+/6ZPcCvtphWzyKs9L3 A==;
+X-CSE-ConnectionGUID: BP7BkLTxQDyfF3Z6X9KH8w==
+X-CSE-MsgGUID: BYBa0ZYsRRSSzBNA8UlhMw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39282447"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="39282447"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 20:32:07 -0800
+X-CSE-ConnectionGUID: Xt8YsoWYTFWIDesPOx4Afw==
+X-CSE-MsgGUID: OKOefC11Ty6pCMGFrQXouQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="111679806"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 05 Feb 2025 20:32:05 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Wed, 5 Feb 2025 20:32:04 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Wed, 5 Feb 2025 20:32:04 -0800
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.173)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Wed, 5 Feb 2025 20:32:04 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bmXvDB7gzjJa5YvltffhZKe/HBul5/TTn8NnXkSdjPX6Q+QFMZ2QVVG1w3ZqNtcjdguQdp8L/y22jwDRWI7LGbHlOQhdmM4xI65HY1sBL1Sfz0dMpYKENXnP94S2s+tX6tfVRwSSEa/csKEvfCh3NzH40U2hhX8JmJC51d7UljSPVBK/b1DUHPTqDbI2IjnmWARsDTeE2Wt0afISx/56wKxLSplYjTsqLIIvkhmO0gZriiozoDTE8lWXPnn29x5FHkl+QIO8Cwm4ETjT3iUrm/Xd34NsoXUcAxcgJb3QJFNEGrPatxBni4LG8mrzHXNB6FyG+caqnEcDlTLYxbPvJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mk+ZxzYKXiLDWtKu3AD0ty3j1GdvIxC1oJM1HmbL8iY=;
+ b=TiH7Jn29X7Z3uA9uLvWNspUqPlB/zgW/Tdj9zdagn8usSv/KIO2o7Tgfnok+tWTSFim68HBdX4LnBUSfkrBBZhj8qNzNWsZMwzOaeKDv1uoKt+kHh/mlW7qFLWQ1jYBP5o2m7Ka9DREEY/mNWJ1x+D90pk68HfbfRs4+/gDNl2BaTmAgc8B+mavM7RhDZi/eipCSUBobS9vj/ymGOfblSVXXoUHAolEVdLqv8X28YyYcGCy4U73lMmiUKoFyl3PwqAz2kXaONFQ8CbNSIk+v+qZnywU3O0cCbesjzdMtwPhrl5GnHcQqnWC91w/YYtMkkIj1p2KO94AWPKdhOi6/vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH0PR11MB5830.namprd11.prod.outlook.com (2603:10b6:510:129::20)
+ by DS0PR11MB7802.namprd11.prod.outlook.com (2603:10b6:8:de::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.10; Thu, 6 Feb
+ 2025 04:32:01 +0000
+Received: from PH0PR11MB5830.namprd11.prod.outlook.com
+ ([fe80::c80d:3b17:3f40:10d6]) by PH0PR11MB5830.namprd11.prod.outlook.com
+ ([fe80::c80d:3b17:3f40:10d6%4]) with mapi id 15.20.8422.009; Thu, 6 Feb 2025
+ 04:32:01 +0000
+From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
+To: "Fijalkowski, Maciej" <maciej.fijalkowski@intel.com>
+Thread-Topic: [PATCH bpf-next v8 4/5] igc: Refactor empty packet insertion
+ into a reusable function
+Thread-Index: AQHbd3eRdwLqM9RAOUG+CEwq4T8dPbM4pMYAgAAd5GCAAB6EAIAAzl9w
+Date: Thu, 6 Feb 2025 04:32:01 +0000
+Message-ID: <PH0PR11MB583003D5657395162DD4253AD8F62@PH0PR11MB5830.namprd11.prod.outlook.com>
+References: <20250205024116.798862-1-yoong.siang.song@intel.com>
+ <20250205024116.798862-5-yoong.siang.song@intel.com> <Z6NaFkPBZA18oILE@boxer>
+ <PH0PR11MB58305176708A48DD8EA60B96D8F72@PH0PR11MB5830.namprd11.prod.outlook.com>
+ <Z6OMwvk9zANCD8jI@boxer>
+In-Reply-To: <Z6OMwvk9zANCD8jI@boxer>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jie Gan <quic_jiegan@quicinc.com>
-In-Reply-To: <20250131163617.1730505-2-james.clark@linaro.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: x8euQjM_bQbwdRonxwX2XFsS68pl114M
-X-Proofpoint-GUID: x8euQjM_bQbwdRonxwX2XFsS68pl114M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-06_01,2025-02-05_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0
- bulkscore=0 impostorscore=0 adultscore=0 mlxlogscore=642 clxscore=1015
- mlxscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2501170000
- definitions=main-2502060022
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- quic_jinlmao@quicinc.com, alexander.shishkin@linux.intel.com,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- suzuki.poulose@arm.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- quic_tingweiz@quicinc.com, linux-arm-kernel@lists.infradead.org,
- mike.leach@linaro.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] coresight: Don't save handle in path
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|DS0PR11MB7802:EE_
+x-ms-office365-filtering-correlation-id: bd21ca59-1bf1-44bc-3099-08dd4667333e
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?gHf8zeb3MO2HWcZerOcIfn/0PTvqm3GdUWLfYeOUB4Ncd+knGbFwYbiZeBpT?=
+ =?us-ascii?Q?c+Amipwo9SZq9aH5jkmIfDURLXt9cMtKisFPgWGX8j0J3uLkvzMKGd8a85iC?=
+ =?us-ascii?Q?Hus3aWfrYzlppfaknxi9ZyKBbp942KLr77czudzvWmmFqnFidjPcIQdFOhag?=
+ =?us-ascii?Q?LW0rvQ1H0sd7u7m1cnJC6fu3w8p8Gr1QtEWjfrub7Rxws5zE84Q9RDnJIvc2?=
+ =?us-ascii?Q?TOvz2JFwOI8Uk9vQ894rDU8yDZbt/H7wasYX/MjStM1X+qsIGxcpr2a1zpub?=
+ =?us-ascii?Q?v/qjU6by3nX0lpm2xo/2BYXEfsmGbbUR4oXdy5JTCuoPw6nQ3fMdqJPquh8r?=
+ =?us-ascii?Q?pUSBKcwRoMo9jRoiRKWRVplEgCxnTeX+g8SUMwEHQVwe7E+899GnzosqNtcR?=
+ =?us-ascii?Q?mEzrzapNXtaZDoIZEboQ4JdDQFIg6unuhqI8dB+1iqgNEGtSJ7EJMerNvUdI?=
+ =?us-ascii?Q?Rp9HOz8y8s41UYPYUKVdMQQ867L9GYuNVWbdZxWGVv7WnytcSLy9LBjoU5dw?=
+ =?us-ascii?Q?J/Ts9Elv0Mr6qSnzva5L7eDzhqrcj6qmFM83Jsyk3a4RIM10iO3AFBs1CxA+?=
+ =?us-ascii?Q?FDsLxKXSWTVeMrfyspN9vj2RmS8d1hkzoeby/C6/xK0Y2g3n/Maqhj+OQyNQ?=
+ =?us-ascii?Q?E2c3u96wDAXvvs2f+VmM+eiC9HWlXteBUcXc+9uCpxzw35q6P2CV63Ech4Uq?=
+ =?us-ascii?Q?21oPYKJCju0vCTYLLrR6sa/4nVWDAM6MlOQwOribsQdII/Bv8enkMD98EGXW?=
+ =?us-ascii?Q?qQjdLmsEzsb6Sc5gHnsBCfHc8NnNo68jkV8dfPccMLIKEBV1ety5eq6THkHm?=
+ =?us-ascii?Q?vO7hgW1EOEvKlmTlNFugvepHyxSBzd00AvEf7Y0h3x2FVW+9QgSOzogpkqQZ?=
+ =?us-ascii?Q?VNIFKKl2LavF3zL5HtLjDhZ0o4tEGkxLy9W34urLM86Jtw9lP8kjYdBDpsOf?=
+ =?us-ascii?Q?R2X9OlT52C97p3k/YyAjpOAOh4nvAUo+vXle2IRGI1kiznT4SBOZ03QJZmYg?=
+ =?us-ascii?Q?a10K5+rCt6Ea0EDkLvXoz1bV/AE5z0WbFgHVFRdAcw3gXnciQMVBwhkOT66R?=
+ =?us-ascii?Q?qsaz0l8MAgQW8JP5bwDgRK7WCoAY4+0LWDRGJ9coMgJgZ5DxfDcUXhHsouo4?=
+ =?us-ascii?Q?DV+7QjKv1y9JkCF27XXQ30jB+RTHlM57ynMMRhw8vzYAyi8ndYVGW2YUBpj+?=
+ =?us-ascii?Q?rg+gbP6D+ty9tqghYrnIi/2jrvME7E+PqQxn72u5TlyqIkjTC2A0FyzocYm9?=
+ =?us-ascii?Q?73HHegdUrlULCtK8PVXIXkdt60qIUT+8IVUB5MFic4Au2S59wzNd3fuOXx5J?=
+ =?us-ascii?Q?vjDmJD7f4mgHHQ0XGx5unoeIDX17OaxVd4vr+N9di65mNz+/CdOyRBbG4X6D?=
+ =?us-ascii?Q?MUcpBA0oBQy4U0PQ1vxQCMSBeIs3810jh+tocbl02eagH5Dp80rlwCmRJe2h?=
+ =?us-ascii?Q?qg1Szo//GpT4eHJMCQG4bZjVPlo5x1Js?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB5830.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?67kvq3ixt3beHEzAvhvPkJte2KK5J25N19sjd1gyyvAjvwvxCk1a7cjfsK/h?=
+ =?us-ascii?Q?xQlxbZWvSDmQOylVkbHps/q/I8grOXAx0iF4bOAZn0xUtq6WcE08LfmYjOeX?=
+ =?us-ascii?Q?EmY2LHOvlHJRiQarmjAQjzyzNZRUbSrFnF9lNI+ZWqKiu6YiiAct67rKGMxP?=
+ =?us-ascii?Q?3zVve8PZhJXIy9bc1yyjLecBebiZJe64qtaUDoLcpOy+dRbq0OYjYTqiRcCe?=
+ =?us-ascii?Q?Nu26NWRCqv+Tr5TjLaaaQ7g3AOZYBQgxmqMRHccQ8y/9ps7OYXb9SzpaAyba?=
+ =?us-ascii?Q?+s9XGcOFsSIicoTvLx3KIMkDrMWcGYImHhdiNDFuLZh4Uc1nAG5eByQxCtU2?=
+ =?us-ascii?Q?vxfr++aVb8d+4k1dRO8H73hwhjXtcvJpvqhz0hQDgKJ8+NxA/RK0pqXgluRQ?=
+ =?us-ascii?Q?gQK/WhFjbZ2lB4PedVe6xneFAEOAAOlH5WI1HafFQxfKQtI1QiSWRxCKgomZ?=
+ =?us-ascii?Q?YDsaZveCzH/xyUA/yduTEYVLiuVKlU2qhnrIbykwTvFPlVobur24/PsE8kIu?=
+ =?us-ascii?Q?j7ilveky1tMmcSghEOVjMoDFr07A3sg0zfsRbgibcUVuq99tjnGJZltM0ms8?=
+ =?us-ascii?Q?T2iDavpQ6ljA5W3gKgXNV8MWBNyQgBK2C1R1ow2rCKtaJIpC6/6i9cOjTaKi?=
+ =?us-ascii?Q?bW9ex8AZ7oep9F0BB6vOx9d06EHxS4GaH7nMRY2HKNKgTcts+p3PArPrKf80?=
+ =?us-ascii?Q?BuhIYa7X7WvZx/yx+IA/ZDNtMFYwkl/NkOQK8KfG7dmzmERYRaBK2L2NdNcz?=
+ =?us-ascii?Q?7DiCpsgH/WdP86OFkD5keG7jmGMcZK9t+mogLT+VNeWXmIUeGioWKdHjIrEf?=
+ =?us-ascii?Q?+EeKGrBpu2Jf90u/YWh/jKYZ8+ZwlVt4pYvbR0VaHCwTpneNXD7E+gJ7mf8C?=
+ =?us-ascii?Q?MokPOQtvvOvR3KdV8XR6Nd2d0x1K9VuKZGLjgn60zuppuR1ImhszWm1aIk0c?=
+ =?us-ascii?Q?3eLwHvwEcpRhhNvypfrWQC5k60ndyCCa0PEqLcXrXYlAYz57zXIySe3cpfM6?=
+ =?us-ascii?Q?Yk83Bu95QkNaPVoYxraqttus+8R5JYAy49D0dFyMpNOYkFYoKHI0cTll3Vvo?=
+ =?us-ascii?Q?598VTOpMlIvngVLKb5z5dk+gZH5BVAanajzie/EtA9JiCZyADsBoQPBooZOq?=
+ =?us-ascii?Q?9XUUqo6EUBzQPwcPbn67XplQZJM+SjEgXKmEwFbcVULFWp5pf6mB01a+JMIp?=
+ =?us-ascii?Q?/Pvk5UFhn2HYHYjyRinfTsZYUuyzBOlxsFAyfk31qpg2rpfiCY5AmXkJubS0?=
+ =?us-ascii?Q?tVsCBiQaYPuG79KeN9hYV6CWpWd+9+LNQwSYyXC661PbDdRnlfZmv294S/WX?=
+ =?us-ascii?Q?b7rxV09NlFiL5B4uKfcXfQ35EdW2+45ckBju2LtXwMV+vo/BhIT0vKqr3+EK?=
+ =?us-ascii?Q?QdQkyPDCEBjVBOhOEAVvQIXBgmu7L7XgBtRUrs44xnQbRx/0K6DUIai2c4UJ?=
+ =?us-ascii?Q?S/gWGkgAuZN1CbHnoQ6XLSLSR0FbwdSBkbHKgLtUN7Z1ZUKvIAsdrThm0BGM?=
+ =?us-ascii?Q?g6kV9lr7MMpvsYEUSoNjznPkdxaLemVnTUmXQvQxXo3ZCpCpzn1biKkiZBRO?=
+ =?us-ascii?Q?JdFuB/ykV7KGzbXx9lmrmyPCqyrsDrRqezij5qIWmFEB1LxZqHFBI9pTXLdy?=
+ =?us-ascii?Q?jw=3D=3D?=
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5830.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd21ca59-1bf1-44bc-3099-08dd4667333e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2025 04:32:01.1616 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7XUVbZCxYB9/hJBmWYIEp57+igpWrNQBlzQWc/UqCxFMY/30WXFED4ixrPLb6GuXDXiTIbBbIPomP/qUQi0IQZrOtMtcpDfIFzWC/HCVmwA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7802
+X-OriginatorOrg: intel.com
+Cc: Jose Abreu <joabreu@synopsys.com>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, "Bezdeka,
+ Florian" <florian.bezdeka@siemens.com>, "Damato, Joe" <jdamato@fastly.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>, Song Liu <song@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, "Nguyen,
+ Anthony L" <anthony.l.nguyen@intel.com>, Daniel
+ Jurgens <danielj@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>,
+ Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Mykola Lysenko <mykolal@fb.com>,
+ "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
+ Donald Hunter <donald.hunter@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Eduard
+ Zingerman <eddyz87@gmail.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ KP Singh <kpsingh@kernel.org>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>, "Karlsson,
+ Magnus" <magnus.karlsson@intel.com>, Hao Luo <haoluo@google.com>,
+ Willem de Bruijn <willemb@google.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Bouska,
+ Zdenek" <zdenek.bouska@siemens.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Bjorn Topel <bjorn@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Martin
+ KaFai Lau <martin.lau@linux.dev>, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH bpf-next v8 4/5] igc: Refactor empty
+ packet insertion into a reusable function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,368 +214,187 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thursday, February 6, 2025 12:08 AM, Fijalkowski, Maciej <maciej.fijalkowski@intel.com> wrote:
+>On Wed, Feb 05, 2025 at 03:43:19PM +0100, Song, Yoong Siang wrote:
+>> On Wednesday, February 5, 2025 8:31 PM, Fijalkowski, Maciej<maciej.fijalkowski@intel.com> wrote:
+>> >On Wed, Feb 05, 2025 at 10:41:15AM +0800, Song Yoong Siang wrote:
+>> >> Refactor the code for inserting an empty packet into a new function
+>> >> igc_insert_empty_packet(). This change extracts the logic for inserting
+>> >> an empty packet from igc_xmit_frame_ring() into a separate function,
+>> >> allowing it to be reused in future implementations, such as the XDP
+>> >> zero copy transmit function.
+>> >>
+>> >> This patch introduces no functional changes.
+>> >>
+>> >> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+>> >
+>> >Your SoB should be last in the set of tags.
+>> >
+>>
+>> Noted. Thanks for the tips.
+>>
+>> >> Reviewed-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+>> >> ---
+>> >>  drivers/net/ethernet/intel/igc/igc_main.c | 42 ++++++++++++-----------
+>> >>  1 file changed, 22 insertions(+), 20 deletions(-)
+>> >>
+>> >> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c
+>> >b/drivers/net/ethernet/intel/igc/igc_main.c
+>> >> index 21f318f12a8d..553d6d82af0d 100644
+>> >> --- a/drivers/net/ethernet/intel/igc/igc_main.c
+>> >> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
+>> >> @@ -1566,6 +1566,26 @@ static bool igc_request_tx_tstamp(struct igc_adapter
+>> >*adapter, struct sk_buff *s
+>> >>  	return false;
+>> >>  }
+>> >>
+>> >> +static void igc_insert_empty_packet(struct igc_ring *tx_ring)
+>> >> +{
+>> >> +	struct igc_tx_buffer *empty_info;
+>> >> +	struct sk_buff *empty;
+>> >> +	void *data;
+>> >> +
+>> >> +	empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
+>> >> +	empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
+>> >> +	if (!empty)
+>> >> +		return;
+>> >> +
+>> >> +	data = skb_put(empty, IGC_EMPTY_FRAME_SIZE);
+>> >> +	memset(data, 0, IGC_EMPTY_FRAME_SIZE);
+>> >> +
+>> >> +	igc_tx_ctxtdesc(tx_ring, 0, false, 0, 0, 0);
+>> >> +
+>> >> +	if (igc_init_tx_empty_descriptor(tx_ring, empty, empty_info) < 0)
+>> >> +		dev_kfree_skb_any(empty);
+>> >
+>> >I still don't like the fact igc_insert_empty_packet() doesn't communicate
+>> >to caller whether it successfully produced descriptors or not.
+>> >
+>> >Look at this from igc_xmit_frame_ring() POV:
+>> >- at the beginning you peek at Tx ring whether there is required amount of
+>> >  descriptors free to be used
+>> >- but then here's your additional routine which might consume two more
+>> >  descs and you are not aware of the status
+>> >- then you continue to further produce descriptors assuming there is
+>> >  enough space in Tx ring
+>> >
+>> >Right now igc_init_tx_empty_descriptor() returns -EBUSY when ring is full.
+>> >How can that happen in the first place + what if it would *really* happen
+>> >though? You just continue with your Tx flow.
+>> >
+>> >What I'm trying to say here is, at least from correctness POV, you should
+>> >take into the account two potential descriptors for launchtime feature
+>> >when calling igc_maybe_stop_tx(). And igc_init_tx_empty_descriptor()
+>> >should not really care about space in ring, it should be a caller's job to
+>> >call it only when it will be sure it's safe to do so.
+>> >
+>>
+>> Agree with you.
+>>
+>> In db0b124f02ba ("igc: Enhance Qbv scheduling by using first flag bit"),
+>> the 2 descriptors needed by empty packet is already taken into
+>> consideration by changing igc_maybe_stop_tx(tx_ring, count + 3) to
+>> igc_maybe_stop_tx(tx_ring, count + 5), so not enough ring space issue will not
+>> happened. However, the comment session is not updated, maybe i can update
+>> it in next version of this patch as below:
+>>
+>> @@ -1586,6 +1608,7 @@ static netdev_tx_t igc_xmit_frame_ring(struct sk_buff
+>*skb,
+>>          *      + 1 desc for skb_headlen/IGC_MAX_DATA_PER_TXD,
+>>          *      + 2 desc gap to keep tail from touching head,
+>>          *      + 1 desc for context descriptor,
+>> +        *      + 2 desc for inserting an empty packet for launch time,
+>>          * otherwise try next time
+>>          */
+>>         for (f = 0; f < skb_shinfo(skb)->nr_frags; f++)
+>
+>Ahh good then, I didn't pay enough attention to comment. So it meant that
+>first two entries from comment were covered by @count and 2 desc gap + 1
+>ctxt desc were behind '3', previously.
+>
 
+Yes, you are right.
 
-On 2/1/2025 12:36 AM, James Clark wrote:
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->   drivers/hwtracing/coresight/coresight-core.c     | 10 +++++-----
->   drivers/hwtracing/coresight/coresight-dummy.c    |  2 +-
->   drivers/hwtracing/coresight/coresight-etb10.c    |  8 +++-----
->   drivers/hwtracing/coresight/coresight-etm-perf.c |  3 +--
->   drivers/hwtracing/coresight/coresight-priv.h     |  4 ++--
->   drivers/hwtracing/coresight/coresight-sysfs.c    |  2 +-
->   drivers/hwtracing/coresight/coresight-tmc-etf.c  |  9 ++++-----
->   drivers/hwtracing/coresight/coresight-tmc-etr.c  | 13 +++++--------
->   drivers/hwtracing/coresight/coresight-tmc.h      |  2 +-
->   drivers/hwtracing/coresight/coresight-tpiu.c     |  2 +-
->   drivers/hwtracing/coresight/coresight-trbe.c     |  4 +---
->   drivers/hwtracing/coresight/ultrasoc-smb.c       |  8 +++-----
->   include/linux/coresight.h                        |  2 +-
->   13 files changed, 29 insertions(+), 40 deletions(-)
-> 
+>>
+>> Since number of descriptor needed is guaranteed. I will take out the
+>> igc_desc_unused() checking in igc_init_tx_empty_descriptor().
+>
+>Yes
+>
+>> However, empty packet insertion might fail due to skb allocation failure
+>> and DMA mapping error. How about i make sure skb allocation and DMA
+>> mapping working, before proceed to fill in igc_tx_buffer, context desc,
+>> and data desc?
+>> IMHO, because these two errors are unlikely to happen, print a kernel
+>> warning msg should be enough.
+>>
+>> @@ -1108,20 +1108,12 @@ static int igc_init_empty_frame(struct igc_ring *ring,
+>>         return 0;
+>>  }
+>>
+>> -static int igc_init_tx_empty_descriptor(struct igc_ring *ring,
+>> +static void igc_init_tx_empty_descriptor(struct igc_ring *ring,
+>>                                         struct sk_buff *skb,
+>>                                         struct igc_tx_buffer *first)
+>>  {
+>>         union igc_adv_tx_desc *desc;
+>>         u32 cmd_type, olinfo_status;
+>> -       int err;
+>> -
+>> -       if (!igc_desc_unused(ring))
+>> -               return -EBUSY;
+>> -
+>> -       err = igc_init_empty_frame(ring, first, skb);
+>> -       if (err)
+>> -               return err;
+>>
+>>         cmd_type = IGC_ADVTXD_DTYP_DATA | IGC_ADVTXD_DCMD_DEXT |
+>>                    IGC_ADVTXD_DCMD_IFCS | IGC_TXD_DCMD |
+>> @@ -1140,8 +1132,6 @@ static int igc_init_tx_empty_descriptor(struct igc_ring
+>*ring,
+>>         ring->next_to_use++;
+>>         if (ring->next_to_use == ring->count)
+>>                 ring->next_to_use = 0;
+>> -
+>> -       return 0;
+>>  }
+>>
+>>  #define IGC_EMPTY_FRAME_SIZE 60
+>> @@ -1567,6 +1557,38 @@ static bool igc_request_tx_tstamp(struct igc_adapter
+>*adapter, struct sk_buff *s
+>>         return false;
+>>  }
+>>
+>> +static void igc_insert_empty_packet(struct igc_ring *tx_ring)
+>> +{
+>> +       struct igc_tx_buffer *empty_info;
+>> +       struct sk_buff *empty;
+>> +       void *data;
+>> +
+>> +       empty_info = &tx_ring->tx_buffer_info[tx_ring->next_to_use];
+>> +       empty = alloc_skb(IGC_EMPTY_FRAME_SIZE, GFP_ATOMIC);
+>> +       if (unlikely(!empty)) {
+>> +               netdev_warn(tx_ring->netdev,
+>> +                           "Fail to alloc skb for empty packet\n");
+>
+>That should be at least ratelimited I think, but what really is the
 
-Hi James
+No problem, I will add net_ratelimit() checking.
 
-I removed the handle from coresight_path and placed these codes in a 
-separate patch. However, I believe this change is not related to the 
-CTCU driver or coresight_path. Therefore, I suggest we submit it 
-independently.
+>problem to make these routines return status and check them on caller
+>side?
+>
 
-Thanks,
-Jie
+Ok, I will add return value and handle the case where the insertion of
+an empty frame fails and explain the reason behind.
 
-
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index 11d5d5320b1a..253ef02fde12 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -272,9 +272,9 @@ void coresight_add_helper(struct coresight_device *csdev,
->   EXPORT_SYMBOL_GPL(coresight_add_helper);
->   
->   static int coresight_enable_sink(struct coresight_device *csdev,
-> -				 enum cs_mode mode, void *data)
-> +				 enum cs_mode mode, struct perf_output_handle *handle)
->   {
-> -	return sink_ops(csdev)->enable(csdev, mode, data);
-> +	return sink_ops(csdev)->enable(csdev, mode, handle);
->   }
->   
->   static void coresight_disable_sink(struct coresight_device *csdev)
-> @@ -448,7 +448,8 @@ static int coresight_enable_helpers(struct coresight_device *csdev,
->   	return 0;
->   }
->   
-> -int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode)
-> +int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode,
-> +			  struct perf_output_handle *handle)
->   {
->   	int ret = 0;
->   	u32 type;
-> @@ -479,7 +480,7 @@ int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode)
->   
->   		switch (type) {
->   		case CORESIGHT_DEV_TYPE_SINK:
-> -			ret = coresight_enable_sink(csdev, mode, cs_path);
-> +			ret = coresight_enable_sink(csdev, mode, handle);
->   			/*
->   			 * Sink is the first component turned on. If we
->   			 * failed to enable the sink, there are no components
-> @@ -807,7 +808,6 @@ void coresight_release_path(struct coresight_path *cs_path)
->   		kfree(nd);
->   	}
->   
-> -	cs_path->handle = NULL;
->   	kfree(cs_path->path);
->   	kfree(cs_path);
->   }
-> diff --git a/drivers/hwtracing/coresight/coresight-dummy.c b/drivers/hwtracing/coresight/coresight-dummy.c
-> index dfcf24e9c49a..6f86d33efef4 100644
-> --- a/drivers/hwtracing/coresight/coresight-dummy.c
-> +++ b/drivers/hwtracing/coresight/coresight-dummy.c
-> @@ -54,7 +54,7 @@ static int dummy_source_trace_id(struct coresight_device *csdev, enum cs_mode mo
->   }
->   
->   static int dummy_sink_enable(struct coresight_device *csdev, enum cs_mode mode,
-> -				void *data)
-> +				struct perf_output_handle *handle)
->   {
->   	dev_dbg(csdev->dev.parent, "Dummy sink enabled\n");
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-> index 05430d8931d1..e373b0f590bf 100644
-> --- a/drivers/hwtracing/coresight/coresight-etb10.c
-> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
-> @@ -167,14 +167,12 @@ static int etb_enable_sysfs(struct coresight_device *csdev)
->   	return ret;
->   }
->   
-> -static int etb_enable_perf(struct coresight_device *csdev, void *data)
-> +static int etb_enable_perf(struct coresight_device *csdev, struct perf_output_handle *handle)
->   {
->   	int ret = 0;
->   	pid_t pid;
->   	unsigned long flags;
->   	struct etb_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> -	struct coresight_path *cs_path = (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct cs_buffers *buf = etm_perf_sink_config(handle);
->   
->   	spin_lock_irqsave(&drvdata->spinlock, flags);
-> @@ -225,7 +223,7 @@ static int etb_enable_perf(struct coresight_device *csdev, void *data)
->   }
->   
->   static int etb_enable(struct coresight_device *csdev, enum cs_mode mode,
-> -		      void *data)
-> +		      struct perf_output_handle *handle)
->   {
->   	int ret;
->   
-> @@ -234,7 +232,7 @@ static int etb_enable(struct coresight_device *csdev, enum cs_mode mode,
->   		ret = etb_enable_sysfs(csdev);
->   		break;
->   	case CS_MODE_PERF:
-> -		ret = etb_enable_perf(csdev, data);
-> +		ret = etb_enable_perf(csdev, handle);
->   		break;
->   	default:
->   		ret = -EINVAL;
-> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> index b6765abb0a26..0fad9968c2c0 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> @@ -501,9 +501,8 @@ static void etm_event_start(struct perf_event *event, int flags)
->   	if (WARN_ON_ONCE(!sink))
->   		goto fail_end_stop;
->   
-> -	cs_path->handle = handle;
->   	/* Nothing will happen without a path */
-> -	if (coresight_enable_path(cs_path, CS_MODE_PERF))
-> +	if (coresight_enable_path(cs_path, CS_MODE_PERF, handle))
->   		goto fail_end_stop;
->   
->   	/* Finally enable the tracer */
-> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-> index 8e02a222b9f8..7bd43304f461 100644
-> --- a/drivers/hwtracing/coresight/coresight-priv.h
-> +++ b/drivers/hwtracing/coresight/coresight-priv.h
-> @@ -112,7 +112,6 @@ struct cs_buffers {
->    * @trace_id:		trace_id of the whole path.
->    */
->   struct coresight_path {
-> -	struct perf_output_handle	*handle;
->   	struct list_head		*path;
->   	u8				trace_id;
->   };
-> @@ -142,7 +141,8 @@ static inline void CS_UNLOCK(void __iomem *addr)
->   }
->   
->   void coresight_disable_path(struct coresight_path *cs_path);
-> -int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode);
-> +int coresight_enable_path(struct coresight_path *cs_path, enum cs_mode mode,
-> +			  struct perf_output_handle *handle);
->   struct coresight_device *coresight_get_sink(struct list_head *path);
->   struct coresight_device *coresight_get_sink_by_id(u32 id);
->   struct coresight_device *
-> diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
-> index 04e76cc1bfdf..f9a6b838726c 100644
-> --- a/drivers/hwtracing/coresight/coresight-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-sysfs.c
-> @@ -209,7 +209,7 @@ int coresight_enable_sysfs(struct coresight_device *csdev)
->   		goto out;
->   	}
->   
-> -	ret = coresight_enable_path(cs_path, CS_MODE_SYSFS);
-> +	ret = coresight_enable_path(cs_path, CS_MODE_SYSFS, NULL);
->   	if (ret)
->   		goto err_path;
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etf.c b/drivers/hwtracing/coresight/coresight-tmc-etf.c
-> index e6b07f917556..fdf1c2511d67 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etf.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etf.c
-> @@ -244,14 +244,13 @@ static int tmc_enable_etf_sink_sysfs(struct coresight_device *csdev)
->   	return ret;
->   }
->   
-> -static int tmc_enable_etf_sink_perf(struct coresight_device *csdev, void *data)
-> +static int tmc_enable_etf_sink_perf(struct coresight_device *csdev,
-> +				    struct perf_output_handle *handle)
->   {
->   	int ret = 0;
->   	pid_t pid;
->   	unsigned long flags;
->   	struct tmc_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> -	struct coresight_path *cs_path= (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct cs_buffers *buf = etm_perf_sink_config(handle);
->   
->   	spin_lock_irqsave(&drvdata->spinlock, flags);
-> @@ -303,7 +302,7 @@ static int tmc_enable_etf_sink_perf(struct coresight_device *csdev, void *data)
->   }
->   
->   static int tmc_enable_etf_sink(struct coresight_device *csdev,
-> -			       enum cs_mode mode, void *data)
-> +			       enum cs_mode mode, struct perf_output_handle *handle)
->   {
->   	int ret;
->   
-> @@ -312,7 +311,7 @@ static int tmc_enable_etf_sink(struct coresight_device *csdev,
->   		ret = tmc_enable_etf_sink_sysfs(csdev);
->   		break;
->   	case CS_MODE_PERF:
-> -		ret = tmc_enable_etf_sink_perf(csdev, data);
-> +		ret = tmc_enable_etf_sink_perf(csdev, handle);
->   		break;
->   	/* We shouldn't be here */
->   	default:
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> index 82a872882e24..2d0bd06bab2a 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -1252,10 +1252,8 @@ static int tmc_enable_etr_sink_sysfs(struct coresight_device *csdev)
->   }
->   
->   struct etr_buf *tmc_etr_get_buffer(struct coresight_device *csdev,
-> -				   enum cs_mode mode, void *data)
-> +				   enum cs_mode mode, struct perf_output_handle *handle)
->   {
-> -	struct coresight_path *cs_path = (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct etr_perf_buffer *etr_perf;
->   
->   	switch (mode) {
-> @@ -1643,14 +1641,13 @@ tmc_update_etr_buffer(struct coresight_device *csdev,
->   	return size;
->   }
->   
-> -static int tmc_enable_etr_sink_perf(struct coresight_device *csdev, void *data)
-> +static int tmc_enable_etr_sink_perf(struct coresight_device *csdev,
-> +				    struct perf_output_handle *handle)
->   {
->   	int rc = 0;
->   	pid_t pid;
->   	unsigned long flags;
->   	struct tmc_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> -	struct coresight_path *cs_path = (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct etr_perf_buffer *etr_perf = etm_perf_sink_config(handle);
->   
->   	spin_lock_irqsave(&drvdata->spinlock, flags);
-> @@ -1698,13 +1695,13 @@ static int tmc_enable_etr_sink_perf(struct coresight_device *csdev, void *data)
->   }
->   
->   static int tmc_enable_etr_sink(struct coresight_device *csdev,
-> -			       enum cs_mode mode, void *data)
-> +			       enum cs_mode mode, struct perf_output_handle *handle)
->   {
->   	switch (mode) {
->   	case CS_MODE_SYSFS:
->   		return tmc_enable_etr_sink_sysfs(csdev);
->   	case CS_MODE_PERF:
-> -		return tmc_enable_etr_sink_perf(csdev, data);
-> +		return tmc_enable_etr_sink_perf(csdev, handle);
->   	default:
->   		return -EINVAL;
->   	}
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
-> index 2671926be62a..e991afd43742 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc.h
-> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
-> @@ -336,7 +336,7 @@ struct coresight_device *tmc_etr_get_catu_device(struct tmc_drvdata *drvdata);
->   void tmc_etr_set_catu_ops(const struct etr_buf_operations *catu);
->   void tmc_etr_remove_catu_ops(void);
->   struct etr_buf *tmc_etr_get_buffer(struct coresight_device *csdev,
-> -				   enum cs_mode mode, void *data);
-> +				   enum cs_mode mode, struct perf_output_handle *handle);
->   extern const struct attribute_group coresight_etr_group;
->   
->   #endif
-> diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-> index 97ef36f03ec2..ccf463ac7bf5 100644
-> --- a/drivers/hwtracing/coresight/coresight-tpiu.c
-> +++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-> @@ -75,7 +75,7 @@ static void tpiu_enable_hw(struct csdev_access *csa)
->   }
->   
->   static int tpiu_enable(struct coresight_device *csdev, enum cs_mode mode,
-> -		       void *__unused)
-> +		       struct perf_output_handle *__unused)
->   {
->   	struct tpiu_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index 5005efd88a66..997d5976d2d2 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -1009,12 +1009,10 @@ static int __arm_trbe_enable(struct trbe_buf *buf,
->   }
->   
->   static int arm_trbe_enable(struct coresight_device *csdev, enum cs_mode mode,
-> -			   void *data)
-> +			   struct perf_output_handle *handle)
->   {
->   	struct trbe_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
->   	struct trbe_cpudata *cpudata = dev_get_drvdata(&csdev->dev);
-> -	struct coresight_path *cs_path = (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct trbe_buf *buf = etm_perf_sink_config(handle);
->   
->   	WARN_ON(cpudata->cpu != smp_processor_id());
-> diff --git a/drivers/hwtracing/coresight/ultrasoc-smb.c b/drivers/hwtracing/coresight/ultrasoc-smb.c
-> index 9be88394b3bb..1574b5067206 100644
-> --- a/drivers/hwtracing/coresight/ultrasoc-smb.c
-> +++ b/drivers/hwtracing/coresight/ultrasoc-smb.c
-> @@ -213,11 +213,9 @@ static void smb_enable_sysfs(struct coresight_device *csdev)
->   	coresight_set_mode(csdev, CS_MODE_SYSFS);
->   }
->   
-> -static int smb_enable_perf(struct coresight_device *csdev, void *data)
-> +static int smb_enable_perf(struct coresight_device *csdev, struct perf_output_handle *handle)
->   {
->   	struct smb_drv_data *drvdata = dev_get_drvdata(csdev->dev.parent);
-> -	struct coresight_path *cs_path = (struct coresight_path *)data;
-> -	struct perf_output_handle *handle = cs_path->handle;
->   	struct cs_buffers *buf = etm_perf_sink_config(handle);
->   	pid_t pid;
->   
-> @@ -241,7 +239,7 @@ static int smb_enable_perf(struct coresight_device *csdev, void *data)
->   }
->   
->   static int smb_enable(struct coresight_device *csdev, enum cs_mode mode,
-> -		      void *data)
-> +		      struct perf_output_handle *handle)
->   {
->   	struct smb_drv_data *drvdata = dev_get_drvdata(csdev->dev.parent);
->   	int ret = 0;
-> @@ -262,7 +260,7 @@ static int smb_enable(struct coresight_device *csdev, enum cs_mode mode,
->   		smb_enable_sysfs(csdev);
->   		break;
->   	case CS_MODE_PERF:
-> -		ret = smb_enable_perf(csdev, data);
-> +		ret = smb_enable_perf(csdev, handle);
->   		break;
->   	default:
->   		ret = -EINVAL;
-> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-> index 87f9baa7fefe..a859fc00eef9 100644
-> --- a/include/linux/coresight.h
-> +++ b/include/linux/coresight.h
-> @@ -353,7 +353,7 @@ enum cs_mode {
->    */
->   struct coresight_ops_sink {
->   	int (*enable)(struct coresight_device *csdev, enum cs_mode mode,
-> -		      void *data);
-> +		      struct perf_output_handle *handle);
->   	int (*disable)(struct coresight_device *csdev);
->   	void *(*alloc_buffer)(struct coresight_device *csdev,
->   			      struct perf_event *event, void **pages,
-
+Thanks & Regards
+Siang
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
