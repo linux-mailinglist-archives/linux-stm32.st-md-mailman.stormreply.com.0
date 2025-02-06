@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5A9DA29EB9
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 03:22:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE02A29EBD
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2025 03:23:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB579C7128F;
-	Thu,  6 Feb 2025 02:22:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C58B5C7128F;
+	Thu,  6 Feb 2025 02:23:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C343C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD689C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2025 02:22:17 +0000 (UTC)
+ Thu,  6 Feb 2025 02:23:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738808544; x=1770344544;
+ t=1738808614; x=1770344614;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=uEkC8AyPD4Fb3fQjLKAq4+ZamiFbVbnCIjXewv18gyk=;
- b=R1x7Nc+I6oFiMZmQooPOnIAcO8HlHZx4ENvEvis/NtGlZoX8IPIwWPie
- Y49+nufeen83Lbo87VoS58MdlZOL9GhyL9y1FHp8gHdURyub4mIMQoZ1P
- 44uVeBwsGbDjbMd13UFxpGzaqa4Qy1r4Xjf1r4I+vg/9331WyNDGp/fKc
- h7HO9GNaGk/eHzhBJoyvtl2fs08unB0Qnho9rv/CNedMkxuyB+O3b4hh0
- qsJRkH+NvzguBtcLq+EPkJuU9pV8xrTvgN21TjN3oIoZ8hMIfd7RPCyE5
- W8lawkMOxiScdhfo3lQJAdCJx6t5076vTKQ2GF8Gh+UU+OYW1mNRBvbwX Q==;
-X-CSE-ConnectionGUID: GfP47Nj1RyGytFtVoK1cyA==
-X-CSE-MsgGUID: KZeJ0mp1T1iuYpnCVeL3gA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="39096059"
-X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="39096059"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 18:22:16 -0800
-X-CSE-ConnectionGUID: W6Q6U9DXR1edt5B9hcX8PA==
-X-CSE-MsgGUID: tg8iji2aSfKqHi2AdolNjg==
+ bh=MX/9vrVMWFYRt4Rmji6I71xtTK2XSPOEL24m4oemfv0=;
+ b=eFkO/3BEIZxtiUoNRpBCBXpKFN26IHzVptLQ/o2F/CNdJpEZSEWYBS8H
+ ur2OA6J3BDGJE1gQxP2PKAYq2cx1rxPKbzdJBSVuiwZsClYKHsBUlHiyP
+ SkM3BJcJkwcEZR9z3KVP9scvIa6+fBWgM0Hc98f2fr2qsUorrfVoLJ4yj
+ JQA0C7lem422zcTYuJP510vlYkc9RIiX7sPoOtHBQEd+lRMGi6FexpyJm
+ xUGSiXhMebGxY2NZq//ksoTHzkCZZVp7u952wePRvNq2Nc7KQNXmP0z25
+ Lk2pR1AvZO1mWXQhld3UO3thl1D/KKPh8rVLVsywGEYQssl87iqsKtlI3 g==;
+X-CSE-ConnectionGUID: vIb638kgTeqisCarbOPf5g==
+X-CSE-MsgGUID: W01r2TzWSi2YA/EtMo1+nQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11336"; a="56945599"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="56945599"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 18:23:26 -0800
+X-CSE-ConnectionGUID: 9N2QkdZTQnGEp6akn4nL/A==
+X-CSE-MsgGUID: E5VLiOZUS+ykXC3zAo3hKg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="141957433"
+X-IronPort-AV: E=Sophos;i="6.13,263,1732608000"; d="scan'208";a="110858842"
 Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.247.114.122])
  ([10.247.114.122])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2025 18:22:07 -0800
-Message-ID: <f272cb2a-1167-4e34-9209-ffdbbb107bdd@linux.intel.com>
-Date: Thu, 6 Feb 2025 10:22:04 +0800
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2025 18:23:18 -0800
+Message-ID: <603921dc-4cc0-4bc6-960a-00ce6f8dfd5a@linux.intel.com>
+Date: Thu, 6 Feb 2025 10:23:14 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Simon Horman <horms@kernel.org>
 References: <20250204061020.1199124-1-yong.liang.choong@linux.intel.com>
  <20250204061020.1199124-5-yong.liang.choong@linux.intel.com>
- <Z6IDWiRF73sdVWob@shell.armlinux.org.uk>
+ <20250204181339.GM234677@kernel.org>
 Content-Language: en-US
 From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <Z6IDWiRF73sdVWob@shell.armlinux.org.uk>
+In-Reply-To: <20250204181339.GM234677@kernel.org>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
  Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
  "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Mengyuan Lou <mengyuanlou@net-swift.com>,
- Andrew Halaney <ahalaney@redhat.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Simon Horman <horms@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ x86@kernel.org, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ Richard Cochran <richardcochran@gmail.com>,
  Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
  Borislav Petkov <bp@alien8.de>,
  =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
@@ -90,34 +91,69 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 4/2/2025 8:08 pm, Russell King (Oracle) wrote:
-> On Tue, Feb 04, 2025 at 02:10:17PM +0800, Choong Yong Liang wrote:
->> +	int (*config_serdes)(struct net_device *ndev,
->> +			     void *priv,
->> +			     phy_interface_t interface);
+On 5/2/2025 2:13 am, Simon Horman wrote:
+>> +static int intel_config_serdes(struct net_device *ndev,
+>> +			       void *intel_data,
+>> +			       phy_interface_t interface)
+>> +{
+>> +	struct intel_priv_data *intel_priv = intel_data;
+>> +	struct stmmac_priv *priv = netdev_priv(ndev);
+>> +	int ret = 0;
+>> +
+>> +	if (!intel_tsn_lane_is_available(ndev, intel_priv)) {
+>> +		netdev_info(priv->dev,
+>> +			    "No TSN lane available to set the registers.\n");
+>> +		goto pmc_read_error;
+>> +	}
+>> +
+>> +	if (intel_priv->pid_modphy == PID_MODPHY1) {
+>> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
+>> +			ret = intel_set_reg_access(pid_modphy1_2p5g_regs,
+>> +						   ARRAY_SIZE(pid_modphy1_2p5g_regs));
+>> +		} else {
+>> +			ret = intel_set_reg_access(pid_modphy1_1g_regs,
+>> +						   ARRAY_SIZE(pid_modphy1_1g_regs));
+>> +		}
+>> +	} else {
+>> +		if (interface == PHY_INTERFACE_MODE_2500BASEX) {
+>> +			ret = intel_set_reg_access(pid_modphy3_2p5g_regs,
+>> +						   ARRAY_SIZE(pid_modphy3_2p5g_regs));
+>> +		} else {
+>> +			ret = intel_set_reg_access(pid_modphy3_1g_regs,
+>> +						   ARRAY_SIZE(pid_modphy3_1g_regs));
+>> +		}
+>> +	}
+>> +
+>> +	priv->plat->phy_interface = interface;
+>> +
+>> +	if (ret < 0)
+>> +		goto pmc_read_error;
 > 
-> Since you call this from phylink's mac_finish() method, I would much
-> rather the call down into platform code was also called the same so
-> we don't end up with a proliferation of methods called from that
-> function. As such, please also arrange for it to pass the AN mode as
-> well.
+> Perhaps this is an artifact of earlier refactoring,
+> but the condition above seems to be without meaning
+> as in either case the code goes directly to pmc_read_error.
 > 
-> Thanks.
+>> +
+>> +pmc_read_error:
+>> +	intel_serdes_powerdown(ndev, intel_priv);
+>> +	intel_serdes_powerup(ndev, intel_priv);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   static void common_default_data(struct plat_stmmacenet_data *plat)
+>>   {
+>>   	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
+> 
+> ...
 > 
 
-Hi Russell,
+Hi Simon,
 
-Thank you for your feedback on the patch. Based on your suggestion, I have 
-updated the code to align with the mac_finish() method and included the AN 
-mode as well. The updated function signature is as follows:
+You are right.
+I will perform the cleanup on the code and submit the next version.
 
-int (*mac_finish)(struct net_device *ndev,
-                   void *priv,
-                   unsigned int mode,
-                   phy_interface_t interface);
-
-Could you please confirm if this meets your expectations, or if there are 
-any further adjustments needed?
+Thank you for your feedback.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
