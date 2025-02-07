@@ -2,25 +2,25 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3167A2C599
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 15:36:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EE0A2C59A
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 15:36:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 883F6C78F8F;
-	Fri,  7 Feb 2025 14:36:04 +0000 (UTC)
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2131.outbound.protection.outlook.com [40.107.241.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF98C78F8E;
+	Fri,  7 Feb 2025 14:36:06 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2114.outbound.protection.outlook.com [40.107.21.114])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C045C78F8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5353DC78F92
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Feb 2025 14:36:03 +0000 (UTC)
+ Fri,  7 Feb 2025 14:36:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sF+l1HDYmtQ/+UwG7pq+8Af5aBisOfoYWjTUWdLe6Zys7tIlMiztBr3HmKTXtqoIeqGDrtvFKqJiUTG2iVYOIRzJkW6MLVYu0cBIJetj9zk1ZPFzXayfy6hfycYxUdwAR8e8xcoDQln19xed4PdccOFNVTStaiijDvqXkKsGWyWyUt9/V7hUiv7Vpkg+m5tkFVxmvXWsX0thseS0B4YWbAnH1HmhE0VD2u/UJ84ALQGX8XLXdvkcvbRV+zW/vXfY/hGfWINrx2BzWQHg4mNdeKaeColnfLrgZanzITQwuySdQjlGH0JPDtAu0V2S+q7rvPvDC74ooPiRQH+K65mPkA==
+ b=k6A/FjGgwEVLK254irYivbjTEOeIJm67zm2jTn42GWlr5tP4IjoWtaIuJ70/JV9Vnrjt9JRaYs681BElLVHCzjAoRl5PcUUVwcIyfipsV7tC65IGyDI+nCoyh/Ejesuuz42SF4o0EAocx0yLIiw9KPuSAZbFAJlNdurpvK4dBYhBaX7L3PpqsbyiBxAj85fj9Zs95SdIrTQT4kKaa4cQkyIrUpCVgP0RryX2YSV+eiMq6L0iN9wEXYhLcQKj4GQYqP/1tSryGSH3wY+LMBYgkaGpMzm2S8ZAgJa2G0YsVXKhZM1ZMz3Thjwq9FkuBQQbLZzSSdu5iLWVWGfqzvdjAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/GQP4wRF0C9Ayuoe88iWNVNtaLSpaAhjrkZfGNetWnY=;
- b=x4jCmPEymALg0d+tXyMWJPvj7FV7HeOG4RABjw1s1jVOgqozkhOmonfLNHtMM4EbcipCAtux0XLA1OQMsarhewnkEZtoDcGB8LlVq9wIcQW4V8voh5kZVa/dRsLjDSbBv68B3SyJDZJjD955fhMeEeqICCTHvTwFxdyz86PJcU97lCeJNtxgcHd4OChFEPBwITlW56v6UDKMMZHklIx8K9qJayM9zVuuZGRRKfgdXj2wMss+5djKxz9/gX34ZXHgaQjrBnoGTHv/B0WmZS07hdPvBrshNOll3TxrES4tX7OKexON1q043SkuLSpo+cTuUblXsZCoh1M85NxoCRJpLw==
+ bh=GlkBo13gAAMFxY69YUO/r2kEBTxBz8AgO2heyKDlsH0=;
+ b=IvDPNA5+MS3z7x5v+0KSg7xPcF7Ajm3TJQmeoalXQi395/TMI/5wc3ow8jipgFS+7n+Vvph9PytPQ97GkufoexhOpQO1kMiTuX+0guNeuZTd4H1TrBwJ/ZX1t2HnLFyTm54tco4CIQgb8Irju7NBLDmTUtocYRRwjeFCGgEnIlnCis0bm5rA3hGmKzptwQTvMcYtMEITr4EenDiJK0dXrD8uQTUd429qLodEOzMUWfEK6hDdYKOhshkpCMdi4t9qNIRTAxltZIY8leQzasAURSs/mOiCpU7Ha+UFz86JFCHNt+7nUWWaZnWIV2A9fnSwPpl2pVLoDMvlzWmFXHrBsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  91.26.50.189) smtp.rcpttodomain=st-md-mailman.stormreply.com
  smtp.mailfrom=phytec.fr; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -30,16 +30,16 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=phytecmesstechnikgmbh.onmicrosoft.com;
  s=selector1-phytecmesstechnikgmbh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/GQP4wRF0C9Ayuoe88iWNVNtaLSpaAhjrkZfGNetWnY=;
- b=hNCzPYuVUNzO/qA++Rvq5SeByneRERXxmoae4vExKF/aMZTOByBnMwLBbHaGUvdUxsechKbQGdBEzGEHISqaQJAjycJ/E/0iLC8yhHtMrzQjPpwUl9UauHDeezKC9QYbq5qJCSzTxXpj1VWqimkU+bm99YjC/V70udJeMJJgvv8=
-Received: from DB6PR0301CA0087.eurprd03.prod.outlook.com (2603:10a6:6:30::34)
- by DB8P195MB0486.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:15e::10) with
+ bh=GlkBo13gAAMFxY69YUO/r2kEBTxBz8AgO2heyKDlsH0=;
+ b=J0cvQnJDYjFGm9kEbk5LUostWM1UcqUuqcYy9QNRgg1JnnIG57+PY8H0brNByFgeqc3/sKt+4LrhguP5FiOR0OVhs2gmyyUXkXjyffbL7+tLVqOlugVOou7HMHHuIVqpRTVz7lsWbFI4h+xqoxcZ1+9BqDO/39TXwCvRNe7jx4M=
+Received: from DB6PR0301CA0077.eurprd03.prod.outlook.com (2603:10a6:6:30::24)
+ by DB3P195MB2228.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:434::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.14; Fri, 7 Feb
  2025 14:36:00 +0000
 Received: from DU2PEPF0001E9C6.eurprd03.prod.outlook.com
- (2603:10a6:6:30:cafe::f2) by DB6PR0301CA0087.outlook.office365.com
- (2603:10a6:6:30::34) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:6:30:cafe::31) by DB6PR0301CA0077.outlook.office365.com
+ (2603:10a6:6:30::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.29 via Frontend Transport; Fri,
  7 Feb 2025 14:36:00 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 91.26.50.189)
@@ -61,11 +61,11 @@ Received: from idefix.phytec.de (172.25.0.20) by mailrelayint.phytec.de
  Transport; Fri, 7 Feb 2025 15:35:52 +0100
 Received: from pc.. ([172.25.39.2])
  by idefix.phytec.de (IBM Domino Release 9.0.1FP7)
- with ESMTP id 2025020715355229-63 ; Fri, 7 Feb 2025 15:35:52 +0100 
+ with ESMTP id 2025020715355266-64 ; Fri, 7 Feb 2025 15:35:52 +0100 
 From: Christophe Parant <c.parant@phytec.fr>
 To: <linux-stm32@st-md-mailman.stormreply.com>
-Date: Fri, 7 Feb 2025 15:35:45 +0100
-Message-ID: <20250207143550.432541-7-c.parant@phytec.fr>
+Date: Fri, 7 Feb 2025 15:35:46 +0100
+Message-ID: <20250207143550.432541-8-c.parant@phytec.fr>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250207143550.432541-1-c.parant@phytec.fr>
 References: <20250207143550.432541-1-c.parant@phytec.fr>
@@ -77,55 +77,55 @@ X-MIMETrack: Itemize by SMTP Server on Idefix/Phytec(Release 9.0.1FP7|August
 X-TNEFEvaluated: 1
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF0001E9C6:EE_|DB8P195MB0486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 993897f3-221f-4c08-ec90-08dd4784be00
+X-MS-TrafficTypeDiagnostic: DU2PEPF0001E9C6:EE_|DB3P195MB2228:EE_
+X-MS-Office365-Filtering-Correlation-Id: a55f245a-eef1-400a-9ba2-08dd4784be30
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mKSsDFkEoqYbJoc6f//wWuG1yZOiWSGH0ZWh8OVu+xJwqSrxnj5llyXBL+h6?=
- =?us-ascii?Q?MEdTnWzKO2MoPOeNlLWLoSm5Z2c2IL98w4vC0bL55FxvolC99ItsD/8pRzFu?=
- =?us-ascii?Q?yV1th4OpcFEAA3DsCR8zuysiQg19k02IgD4NxADBlGqQVIwgd3uKGWnxXt03?=
- =?us-ascii?Q?SPW55lJViz9EwnnWdng5b4mtXNYB/Z9tVTW/42/eDuI6tqwupZ9BV++0U+sh?=
- =?us-ascii?Q?r35DZ/qARw4iAWTMOghG+4cNMwmbILrbmjhczHhGDAtWPZ43Ui3UV1AnKsIL?=
- =?us-ascii?Q?4FFnXMbiGghdoaAuBGayl4cfFpkCKssgbOenp9ibB4UAm//95uadg5Tn2LgW?=
- =?us-ascii?Q?Kt+WAZWZU751SMJkawqhVS7hySh4wEcoryWzuIYggvZSaEiGl8Y9rcNZ29y3?=
- =?us-ascii?Q?kRSYeK77AEKyJqslHofT4TxxQpHO7Dxc5y9dWHPmfhgo2qLf3kZPmetVil7H?=
- =?us-ascii?Q?HOy1rofAEbUV2+NYJUOsRIyfKJ2Y0GdNn49+Jd/w+gSx/HIYs0ijZLyNcRN/?=
- =?us-ascii?Q?EDBk5+cFrwGsYOvL6whnKtLFkeqmsn6UjAsuempGtTjuX38BR0ONC0RXj1OC?=
- =?us-ascii?Q?UhuUfYAoaVdojWCud0OV4iC/rOH1UHLWYLwVoZT91aseoFNbYqpCQxUyUk4l?=
- =?us-ascii?Q?YVzqIQcCFtiO7IRLXR8KYVJ2qQOpTe9N1k6Gs7c1Pr7uPQl43okL5j9T0OgB?=
- =?us-ascii?Q?GeNMd90iEmsy/IrjYRXgWukCS8mMGAhp7q+pw7Pw0yg1qJ/0JR3f9pDVSblQ?=
- =?us-ascii?Q?N80hLTRdYrancYQDq/xs8IqPzRbX6E6sRPhhJGXa3e9jjnlS5TVpSTgOR6J3?=
- =?us-ascii?Q?3XsqAw8EYiS/r4KhUd8UF5wAWrV26SGiO0wPJDm6iukK04A+W9K31Ik2lqOh?=
- =?us-ascii?Q?FYtmbHu7MSrIxuTTmxhh2tnXxBuFSN2pR7cPJahJSrg8rUlBNLHoUenjfNje?=
- =?us-ascii?Q?INQVQYOlhbRc5PHjUyFIJL7ICiPvP3zBfEKR5RLqEpr9hfOkfV+WhfF7m90O?=
- =?us-ascii?Q?OrKOukZRPUPzA34Jl+LQPQ3+qhjyNzPy9X6G/Eslx25Dk7BUYqFD1iMrXvS9?=
- =?us-ascii?Q?3hpNdhKJox4ma8CTAgT049+VRyNwpld71XDm885k3S5wsz3MR+PhSZ6ynOBT?=
- =?us-ascii?Q?w3+Bk41Oy1kGLQ8Bp5iZs8uJwuLMenmMHATIWYwSDwY1qL28tLpUyAjbEUX6?=
- =?us-ascii?Q?1Bt2ow5c84Ms9xdDm3635Q47ve2zwhYe9kYHqtWh9eJJj0KFqeZ5qFt85OTI?=
- =?us-ascii?Q?jy4rBFVvFEKlMzKoKPorGs7f8HLTIbfj3/Ke1rfeSvhuOP0JQAFUNLpAa3Fr?=
- =?us-ascii?Q?fWRR+DhfZi5o0iiok+CVcE8t49iHHOz8+rLjAPrvgFvTuueWvOrXkM4RA6j0?=
- =?us-ascii?Q?VD44Bxpnd+cNjYeTOiHmj1Lkj61v3xPzW3vc3Ux8oqrOaBoQf6Xh9svmU1s9?=
- =?us-ascii?Q?WSs04biTE65zllGVVxN44Vx/eBOSN+xW9lw9WdNKx2SZP0vzgmZ28eaDJ7q8?=
- =?us-ascii?Q?OozheyyPJynbUuY=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uEI2G0ukdd7RgzuYz/0Kq7IPM/3pyXR+eupv5bqPFa6Nm8lYcnh0HP87JmDD?=
+ =?us-ascii?Q?eO+ecmENGDJUf741135kUYORHH8zxi/klGfXpRpOorOxF45ovq/GwmQ83AK6?=
+ =?us-ascii?Q?xA4Up8kC8rTpUT0OYL54wKcg+gtcy/p9KbXZPKPVxoUUu8o3YYkRvfRuKp78?=
+ =?us-ascii?Q?3kRI24jP5u/FpAWK7a0QejP9G4ErTVQqsTevcTCGsMnnMbdekJ6P0Da5ROe5?=
+ =?us-ascii?Q?LQWC5wrZ3tfHEu0oAL8z+j7pST4wBCQL+s9ezeXVXUMd9GhscWEQMn5OdaQT?=
+ =?us-ascii?Q?SkGpbO7JKWBeV6S525rtfyVCl+nmC078eZK31zCCUE/03zsTjFb1mOC6ya+6?=
+ =?us-ascii?Q?4QYSJBs2YNBwak527CqZd1/UTzCkX9KIACkzRj9bhRtvL6h3q+pPEt6j0JDR?=
+ =?us-ascii?Q?YdIy8di1PKs95e497L9OEQSgtf1sZ5T0U7bGgc23so5iJWngQyp+SlXZMlYa?=
+ =?us-ascii?Q?Mf5RGDhST+HLGJJNpiDp+Lb6DIccLWLp4IB+++EXDPBsYzkz5ffaM+ik5bK7?=
+ =?us-ascii?Q?EMjTb0TFFR3t7Jr0S7lx70SCy1YoaKwQuBMW/ENqx10WUlpfSt2tDqMC+HW+?=
+ =?us-ascii?Q?EC2HBz52P6MSR9zl3QewCggG9H3i7uWmzVnS/BY6P/F53DGogQWor7smJ5Kd?=
+ =?us-ascii?Q?PPOvcstu2vUFXwVaC0zwoes6Dv8e35mfUCWXIZ9eiiwTgWpRRtEO4MMQ8DUE?=
+ =?us-ascii?Q?jbJsS0te4YQO7xoYtPPMn22TxWoFXI8ESP/GDaYdvgJgBfIKAznbS6FlX0Oc?=
+ =?us-ascii?Q?P9xUv5YqzlF2HydN/A/4p75IMo6vLkVNRO3J47FiQhSFOJV80EvIj2MqjNzk?=
+ =?us-ascii?Q?fF53xSe8G4WRlOBXwGOwPzZrmItz9rfJM7gcZPh0goMfYrgqFQua1UoRcf88?=
+ =?us-ascii?Q?yG61bO6LP4Gv5lcXlIOiLwy16rrwUzzHLfscuQMvf1jTIojg12TtjT4dwToV?=
+ =?us-ascii?Q?KK5nknj6RqqO/f5P3mi6sOZwdA5uFNWUaVzBjR4G95f8V/x9IMDabYmBVScx?=
+ =?us-ascii?Q?PO7bLyPMCyH9eCANZacl6XvQlumIEDGoSM0pAh/7xoImoibGkQK9RY+ZScF9?=
+ =?us-ascii?Q?+CCZ+lNtB4KyuvN3e2djxeyBh0UnVbd31tRhDa6x0u5NbQ3CSjHaRWGRGL2J?=
+ =?us-ascii?Q?Af4TOIJla6VV4m1qWeJJSmCbspHbH5WSBeZxSdepuMyye70OIWwtqh/XGDQW?=
+ =?us-ascii?Q?3z39Oa7MZb7mFkXmCDlBqr9rz3RL+sPgsvk8kDrIWqb2UwwsCzWT0MNIv7rU?=
+ =?us-ascii?Q?z38Y2uKMYCtbXgGQeZlIX9AINGDDUMoclh0XyZaAABp5Vz81MePRJrbMtF3b?=
+ =?us-ascii?Q?wRt7l1tAFglhyHLOx85v//fOnFNU4LnJlvuaZedypk8tT325SrZf3sDM1K2H?=
+ =?us-ascii?Q?1eX70+wBHEWcG7Q0tdonUFFvEd8ATTIFsVpeJrk9f5d38VtFRjdhov2Ol7FV?=
+ =?us-ascii?Q?n9VcWgH6hmDcklzlOd1VUvr+s9hCvI5M25N3Bq20JZDx3KR9VgYhbegrgpKJ?=
+ =?us-ascii?Q?J+6hWd3r8jMa1RU=3D?=
 X-Forefront-Antispam-Report: CIP:91.26.50.189; CTRY:DE; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:Diagnostix.phytec.de; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1102; 
 X-OriginatorOrg: phytec.fr
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2025 14:36:00.4683 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 993897f3-221f-4c08-ec90-08dd4784be00
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2025 14:36:00.7809 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a55f245a-eef1-400a-9ba2-08dd4784be30
 X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29; Ip=[91.26.50.189];
  Helo=[Diagnostix.phytec.de]
 X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF0001E9C6.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P195MB0486
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3P195MB2228
 Cc: upstream@lists.phytec.de, mcoquelin.stm32@gmail.com
-Subject: [Linux-stm32] [PATCH v2 06/11] ARM: dts: stm32mp15: phycore: qspi:
-	Fix memory map and pinctrl
+Subject: [Linux-stm32] [PATCH v2 07/11] ARM: dts: stm32mp15: phycore: Add
+	dummy memory-node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,37 +142,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-- Add missing chip select pin group in pinctrl.
-- Overwrite the memory map to the Flash device size (16MB) is necessary
-to avoid waste of virtual memory that will not be used.
-Without this modification, qspi probe fails because of ioremap error.
+"memory" node is not necessary as the bootloader is taking care of
+passing the correct DDR size.
+However keep a dummy memory node with the minimum DDR size (512MB) with
+comment explaining that.
 
 Signed-off-by: Christophe Parant <c.parant@phytec.fr>
 ---
- arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
-index 660cdc260963..72926c3de52c 100644
+index 72926c3de52c..ce859b94ae26 100644
 --- a/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
 +++ b/arch/arm/boot/dts/st/stm32mp15xx-phycore-som.dtsi
-@@ -290,8 +290,14 @@ &pwr_regulators {
+@@ -22,6 +22,15 @@ aliases {
+ 		rtc1 = &rtc;
+ 	};
  
- &qspi {
- 	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
--	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
-+	pinctrl-0 = <&qspi_clk_pins_a
-+		     &qspi_bk1_pins_a
-+		     &qspi_cs1_pins_a>;
-+	pinctrl-1 = <&qspi_clk_sleep_pins_a
-+		     &qspi_bk1_sleep_pins_a
-+		     &qspi_cs1_sleep_pins_a>;
-+	reg = <0x58003000 0x1000>,
-+	      <0x70000000 0x1000000>;
- 	status = "okay";
- 
- 	flash0: flash@0 {
++	/*
++	 * Set the minimum memory size here and
++	 * let the bootloader set the real size.
++	 */
++	memory@c0000000 {
++		device_type = "memory";
++		reg = <0xc0000000 0x20000000>;
++	};
++
+ 	reserved-memory {
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
 -- 
 2.34.1
 
