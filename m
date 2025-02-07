@@ -2,84 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2802A2C917
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 17:42:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3551A2C964
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 17:57:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F5F5C78025;
-	Fri,  7 Feb 2025 16:42:22 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A8FEC78025;
+	Fri,  7 Feb 2025 16:57:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF0FBC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99206C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Feb 2025 16:42:15 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4363ae65100so28020565e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 07 Feb 2025 08:42:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738946535; x=1739551335;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=FiPV/oHe7RmZIp/M852C28biSFhSs4bIOllT1QoCRG4=;
- b=HQ8V+S92BekfL72HHUPKM8LjlPocKBeU9kZlS8QMgTer/ZNGuI9lhG8i3uQzufffMK
- RFzyzAdZjCTSXpBH2LUQ/yoRCHgxAQz1OJjOnmKFB3sSMr0CskwsZs2UQYiXkfarlU10
- oBBuebex8c24dXZcaUu0sXRUXVGds4gtktbWgakcy7bN5dN0WE4fV2nyI1rxbPqRsmFM
- dpVGoc+ILJNPbuFLD13obxBMiUmBjWLwrEg93Id1QufGHm9cBPpCnbfByfJw/Uez/SRT
- TIUXbDcCzaWy+QFNGNQPYph94MGhAVS5r+LNRszJe6rBoajmu3hcfP0IObmGjEB4C+au
- TjJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738946535; x=1739551335;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FiPV/oHe7RmZIp/M852C28biSFhSs4bIOllT1QoCRG4=;
- b=EeAg7oQvxalU6q++MdoSctHxjwgeUoRfh/+wlrIeMDjG+DXJ2ds1MWJEcU6OnBObOZ
- PpXZJfqsldvRrV3CuczwTdK/939xZl4IzK+rZ78UFPL6I21rDv7YaBerQib0Xdvm+cwh
- tiilv8d5zd5nRrqK74uuvZg1V9nLYbBl3t3jZjLYjyQw6cu2zXyMp/vw5qfsvX4DFCBW
- EHfMB1vVjgMnKv0RBQF/A4E+Kcgp2fAxzXAlIw/wdnk87Du/r4WAU6oA2okeC3X+X+12
- 6yDbL2BEfn4cM/xpe+HzUmtWeqemkKhSpvlkdbsOWMDkNsM3vMviLIMgfMkEBkO1cdOG
- DoHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIo2shid24so5Lw+Bn6H180xxRK1HKd33AEGc3J8o0zm1o6zqlxRG11lGypVeh0zB24+atL7LDztTfug==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxZ+tmUK7zoDAJKJgqDkrdqDrCRWxXzWsdr7iY69wCX45Vpo9dL
- 1OVABAI6P+g0cUBWp4lmyRzNszzFNB8HqWCdKHmIkCT10DR0Rjrg
-X-Gm-Gg: ASbGncuPEKovC/a12kKD1cNs+RLzMOhNlWLX4AXuFNflYHoGgTZEfzN8JCC3l3DbZGk
- +Q9b2LknOuUr0eyfJvzkRbdWzzYiCs/s043GNEtePxED3oYQUBnnt/M7x5T/X8p3OaFsnA1n6E6
- obFMWEU/KpHfUA0AF7dPikerhTtict0+U282VggGuMVL52kGCSUNIQ2zRw5AzaLep6thj+1FzGg
- ZIYpyEwZB4dAD0FuMlhSML0BxFvM1xrejPIKDM0jARJX7lut1yvtZD3UXuQT3QfeVAk4w9qVmXi
- WP9TKnFmpmbTY6KoG4t+ruRUgM4oEWUWESGCkVfeCPCWrksu+rCdtm7H0Qdlohjp8p7gViYp69m
- 1aA==
-X-Google-Smtp-Source: AGHT+IF7y5ag5xXtJbBXF9RYFf/lu5m+MBmyeyrGK4CKk4esPPFHu01PFcCg+qkitoVRNQ1xblHDPw==
-X-Received: by 2002:a05:6000:1863:b0:38d:d0e7:7d5c with SMTP id
- ffacd0b85a97d-38dd0e77fc3mr943984f8f.23.1738946534954; 
- Fri, 07 Feb 2025 08:42:14 -0800 (PST)
-Received: from orome (p200300e41f281900f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f28:1900:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4390db11264sm94032655e9.35.2025.02.07.08.42.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 08:42:13 -0800 (PST)
-Date: Fri, 7 Feb 2025 17:42:11 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <heg3exbrmo4zt64cdeolououo25lj2idusepuyuu7iggxgn5fe@6bky6h5pe3tu>
-References: <20250207085639.13580-1-0x1207@gmail.com>
- <8fc7c79d-ace8-4e05-acef-1699ee6c4158@nvidia.com>
+ Fri,  7 Feb 2025 16:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738947431; x=1770483431;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yi+lqoiaOf90NYBk5ORhTmBVwnJwPtvDSnNF5mudk+g=;
+ b=HmnjEyq0RfGCw9obD1j614dCbNGHlCuPSFzOPklgSDXzJ0x3uj8XMAeo
+ Mh0C1k0kNnhaY/UBvyRXuZU1BdpIg+yMwXjlHD1/bcYZoSFS5LRiWz0KL
+ McbGxNOSwp2dm4GS6V3gMM3VxVmb2+X1PiBDNhQ9MeqkszPC3ZSnHFDhM
+ I6c01mnT6+lf0/UXlnkrVNu6nWgzodJkJ8jkqXzvhfl7x/F0n7U8PH4qs
+ +zcnczOS4POmBQ0h3WPj4nmsq3F/XomhGnfsX8fpsNy2f2MwcS0oHvzoL
+ lYY4zsek8W0Xnzylhze+MZeA6ZHvg5wHQOQvqAjipZkqh3RQLQPStU8/V A==;
+X-CSE-ConnectionGUID: Iicd500aSf6+H072B6eBgA==
+X-CSE-MsgGUID: pe2dOMh/SpSC11MdbSUkjA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11338"; a="39722849"
+X-IronPort-AV: E=Sophos;i="6.13,267,1732608000"; d="scan'208";a="39722849"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2025 08:57:03 -0800
+X-CSE-ConnectionGUID: n988hgUKQKeTWgip6bqsFQ==
+X-CSE-MsgGUID: nVQxFxGYRYCqIs7rWWjTuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,267,1732608000"; d="scan'208";a="111534437"
+Received: from mohdfai2-ilbpg12-1.png.intel.com ([10.88.227.73])
+ by orviesa006.jf.intel.com with ESMTP; 07 Feb 2025 08:56:53 -0800
+From: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>,
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, Gal Pressman <gal@nvidia.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Andrew Halaney <ahalaney@redhat.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
+Date: Fri,  7 Feb 2025 11:56:40 -0500
+Message-Id: <20250207165649.2245320-1-faizal.abdul.rahim@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <8fc7c79d-ace8-4e05-acef-1699ee6c4158@nvidia.com>
-Cc: "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Brad Griffis <bgriffis@nvidia.com>,
- Furong Xu <0x1207@gmail.com>, Ido Schimmel <idosch@idosch.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Apply new page pool
- parameters when SPH is enabled
+Subject: [Linux-stm32] [PATCH iwl-next v3 0/9] igc: Add support for Frame
+	Preemption feature in IGC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,117 +84,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3026228121389088204=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Introduces support for the FPE feature in the IGC driver.
 
---===============3026228121389088204==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fkugobpneo3jjh3p"
-Content-Disposition: inline
+The patches aligns with the upstream FPE API:
+https://patchwork.kernel.org/project/netdevbpf/cover/20230220122343.1156614-1-vladimir.oltean@nxp.com/
+https://patchwork.kernel.org/project/netdevbpf/cover/20230119122705.73054-1-vladimir.oltean@nxp.com/
 
+It builds upon earlier work:
+https://patchwork.kernel.org/project/netdevbpf/cover/20220520011538.1098888-1-vinicius.gomes@intel.com/
 
---fkugobpneo3jjh3p
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net v1] net: stmmac: Apply new page pool parameters when
- SPH is enabled
-MIME-Version: 1.0
+The patch series adds the following functionalities to the IGC driver:
+a) Configure FPE using `ethtool --set-mm`.
+b) Display FPE settings via `ethtool --show-mm`.
+c) View FPE statistics using `ethtool --include-statistics --show-mm'.
+e) Enable preemptible/express queue with `fp`:
+   tc qdisc add ... root taprio \
+   fp E E P P
 
-On Fri, Feb 07, 2025 at 01:41:49PM +0000, Jon Hunter wrote:
-> Hi Furong,
->=20
-> On 07/02/2025 08:56, Furong Xu wrote:
-> > Commit df542f669307 ("net: stmmac: Switch to zero-copy in
-> > non-XDP RX path") makes DMA write received frame into buffer at offset
-> > of NET_SKB_PAD and sets page pool parameters to sync from offset of
-> > NET_SKB_PAD. But when Header Payload Split is enabled, the header is
-> > written at offset of NET_SKB_PAD, while the payload is written at
-> > offset of zero. Uncorrect offset parameter for the payload breaks dma
-> > coherence [1] since both CPU and DMA touch the page buffer from offset
-> > of zero which is not handled by the page pool sync parameter.
-> >=20
-> > And in case the DMA cannot split the received frame, for example,
-> > a large L2 frame, pp_params.max_len should grow to match the tail
-> > of entire frame.
-> >=20
-> > [1] https://lore.kernel.org/netdev/d465f277-bac7-439f-be1d-9a47dfe2d951=
-@nvidia.com/
-> >=20
-> > Reported-by: Jon Hunter <jonathanh@nvidia.com>
-> > Reported-by: Brad Griffis <bgriffis@nvidia.com>
-> > Suggested-by: Ido Schimmel <idosch@idosch.org>
-> > Fixes: df542f669307 ("net: stmmac: Switch to zero-copy in non-XDP RX pa=
-th")
-> > Signed-off-by: Furong Xu <0x1207@gmail.com>
-> > ---
-> >   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++++
-> >   1 file changed, 5 insertions(+)
-> >=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/driver=
-s/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index b34ebb916b89..c0ae7db96f46 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -2094,6 +2094,11 @@ static int __alloc_dma_rx_desc_resources(struct =
-stmmac_priv *priv,
-> >   	pp_params.offset =3D stmmac_rx_offset(priv);
-> >   	pp_params.max_len =3D dma_conf->dma_buf_sz;
-> > +	if (priv->sph) {
-> > +		pp_params.offset =3D 0;
-> > +		pp_params.max_len +=3D stmmac_rx_offset(priv);
-> > +	}
-> > +
-> >   	rx_q->page_pool =3D page_pool_create(&pp_params);
-> >   	if (IS_ERR(rx_q->page_pool)) {
-> >   		ret =3D PTR_ERR(rx_q->page_pool);
->=20
->=20
-> Thanks for sending this. I can confirm that it fixes the issue we are see=
-ing
-> and so ...
->=20
-> Tested-by: Jon Hunter <jonathanh@nvidia.com>
+Change Log:
+v2 -> v3:
+- Implement configure_tx() mmsv callback (Vladimir)
+- Use static_branch_inc() and static_branch_dec() (Vladimir)
+- Add adapter->fpe.mmsv.pmac_enabled as extra check (Vladimir)
+- Remove unnecessary error check in igc_fpe_init_tx_descriptor() (Vladimir)
+- Additional places to use FIELD_PREP() instead of manual bit manipulation (Vladimir)
+- IGC_TXD_POPTS_SMD_V and IGC_TXD_POPTS_SMD_R type change to enum (Vladimir)
+- Remove unnecessary netif_running() check in igc_fpe_xmit_frame (Vladimir)
+- Rate limit print in igc_fpe_send_mpacket (Vladimir)
 
-Yes, I can confirm as well. I've tested based on the discussion in the
-earlier thread and had the equivalent of this patch (modulo the ->sph
-check, but that's always true on this system), so:
+v1 -> v2:
+- Extract the stmmac verification logic into a common library (Vladimir)
+- igc to use common library for verification (Vladimir)
+- Fix syntax for kernel-doc to use "Return:" (Vladimir)
+- Use FIELD_GET instead of manual bit masking (Vladimir)
+- Don't assign 0 to statistics counter in igc_ethtool_get_mm_stats() (Vladimir)
+- Use pmac-enabled as a condition to allow MAC address value 0 (Vladimir)
+- Define macro register value in increasing value order (Vladimir)
+- Fix tx-min-frag-size handling for igc (Vladimir)
+- Handle link state changes with verification in igc (Vladimir)
+- Add static key for fast path code (Vladimir)
+- rx_min_frag_size get from constant (Vladimir)
 
-Tested-by: Thierry Reding <treding@nvidia.com>
+v1: https://patchwork.kernel.org/project/netdevbpf/cover/20241216064720.931522-1-faizal.abdul.rahim@linux.intel.com/
+v2: https://patchwork.kernel.org/project/netdevbpf/cover/20250205100524.1138523-1-faizal.abdul.rahim@linux.intel.com/
 
---fkugobpneo3jjh3p
-Content-Type: application/pgp-signature; name="signature.asc"
+Faizal Rahim (8):
+  igc: Rename xdp_get_tx_ring() for non-xdp usage
+  igc: Optimize the TX packet buffer utilization
+  igc: Set the RX packet buffer size for TSN mode
+  igc: Add support for frame preemption verification
+  igc: Add support to set tx-min-frag-size
+  igc: Add support for preemptible traffic class in taprio
+  igc: Add support to get MAC Merge data via ethtool
+  igc: Add support to get frame preemption statistics via ethtool
 
------BEGIN PGP SIGNATURE-----
+Vladimir Oltean (1):
+  net: ethtool: mm: extract stmmac verification logic into common
+    library
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmemN+MACgkQ3SOs138+
-s6Fq3A//eleSd2dC6AIYwZSlmN2xxQXFAVjTTNU/LQhRI2PSENWvFHSXJDcGTG+U
-OTEIid1JgSaw+/xwshMu0F6lR1OmIeBCMudKmla/AxFUEOYF2JWkYPQgCfGalJxe
-Ig9uZMsXmaxIeunEhaRQhYiBU0F9l7+IKe5yr8sFnUNrI1UJUQ23aJqAnCxJmtW7
-3w/KbNMMii2TygqUrDaVHaDqOe4azGVzAGNYSd1g1iNpVYiORO8t6VHpiUBtJfme
-k3ryZ+ptRKVTJX6pdiUYtjfTlSOW9ncvlgwyD8OGGaLG1RsoOWBiVTdGm13XDbm2
-tDEY4ggUyPYUmphjKNsCjivZ9vqeMWoQ35MDCR3/pI6j/RVDkNSQmEH55qLyW4WD
-67s3SF4eoDiAQAzzZ1C9vp96I2bm10J/NX2flJ036cw+2SXAl2rprzDrARhTupC9
-uKTCXlV7vep2zRRDIljBxZDE90WTUL4fj/u9cKDXjRkkYrf5inVJuMM9zTO56HGn
-hyYqmUhDklG4jLYmEp/g2H9pberttT7RCVo6UeI/P+Ms9B5Xszf+tiIzGti/SrDv
-pCTV4/2D/wucb7zdNeX+a2j6D1rr6CgITO5sWT7i2w/o/UcHoXQV4E/gY39V4s9O
-g1NrNtk9aOd2qalUqpS56aboQSaz04QWnYNubjlbxDgT9R+f46E=
-=AlgO
------END PGP SIGNATURE-----
+ drivers/net/ethernet/intel/igc/igc.h          |  18 +-
+ drivers/net/ethernet/intel/igc/igc_base.h     |   1 +
+ drivers/net/ethernet/intel/igc/igc_defines.h  |  16 +-
+ drivers/net/ethernet/intel/igc/igc_ethtool.c  |  76 ++++++
+ drivers/net/ethernet/intel/igc/igc_main.c     | 101 +++++++-
+ drivers/net/ethernet/intel/igc/igc_regs.h     |  16 ++
+ drivers/net/ethernet/intel/igc/igc_tsn.c      | 220 ++++++++++++++++-
+ drivers/net/ethernet/intel/igc/igc_tsn.h      |  34 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  16 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  41 +---
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 174 +++-----------
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |   5 -
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   8 +-
+ include/linux/ethtool.h                       |  61 +++++
+ net/ethtool/mm.c                              | 224 +++++++++++++++++-
+ 15 files changed, 794 insertions(+), 217 deletions(-)
 
---fkugobpneo3jjh3p--
-
---===============3026228121389088204==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+--
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3026228121389088204==--
