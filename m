@@ -2,85 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53329A2BBB3
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 07:43:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23EB9A2BE8C
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2025 09:57:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CBB4C78F65;
-	Fri,  7 Feb 2025 06:43:39 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF917C78F67;
+	Fri,  7 Feb 2025 08:57:09 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7D20C78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D979EC78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Feb 2025 06:43:37 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5171PXai029939;
- Fri, 7 Feb 2025 06:43:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FrWpXWtpt+ZULEbiR2Up6sVFlN84+mzhnBc7WKp2O/Q=; b=Zp/NzhxE7qzl2Tj1
- D+l8iuuWY1/LI85ZnLKykQiD3wcYgipaeUjyJLAPOyXxq5MSC7wZK7KX36OdK0xq
- 25zooswxVwp6jNLWIRhn+EFBj7lc7dqyO1rACp7MV/z6svFvfIy4mMcm+m4VVLAu
- s8uBS9BfSIdnNu5piVA9wgV7cJ+1ltcoIGPFpvJDNOiJRBo0tKwGxQANqD1Pqi9S
- YIDDxkpJxtmQIzSbha3LspVetHlDl15V2pe44SbZM9Kfhw660NynOt4RcWwH7jCH
- fS3RlfPnjkbXq7S+RFDIQAQ78KwsWmw5EU4uJF46ZceRzObfGfC9Lrj8WRc+hQhi
- Yea/4A==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44n2rt9d9g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Feb 2025 06:43:25 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5176hO5f002778
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 7 Feb 2025 06:43:24 GMT
-Received: from jiegan-gv.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 6 Feb 2025 22:43:18 -0800
-From: Jie Gan <quic_jiegan@quicinc.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 7 Feb 2025 14:42:13 +0800
-Message-ID: <20250207064213.2314482-8-quic_jiegan@quicinc.com>
+ Fri,  7 Feb 2025 08:57:02 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-21ddab8800bso25578975ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 07 Feb 2025 00:57:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1738918621; x=1739523421;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0Vx3ELvMf0qmQJJFnyKbMyptnWywqfF72JyrwcCPkjc=;
+ b=QcUkO8Zy3voYaeGdC9LEpkIZ3QFZCbDrJcktbSgF37993B197be2WkGqLZ4MGbqmY4
+ fd8lPmELj+K5m1ZuvYg0y/iQM+wPCbH8m4V9yr3QOWNcIT72YObrmlJ10sHddNg/f1ha
+ AsHovM2JW4DDdL0SC5L5on4OcLtUUX10MUXZ5g5b7nq8DCJcHKZZnI8EwHuUuFJIoBrI
+ SS3pSxmHzwfQpQMQh/gzPGl/c2dTdgyYT9bGVlvm6NFlo21YzGhY9Gf5TrpysEjrAkcy
+ mQDTrE85nIN4gVQfNENXtP5SVYC2lmaUBAzJbSZl43GsDjVCo5yzaNH4C6wdQfaGUvG+
+ yG6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1738918621; x=1739523421;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0Vx3ELvMf0qmQJJFnyKbMyptnWywqfF72JyrwcCPkjc=;
+ b=trSlyl3iD2S+C0NLAY5lxX+49P6wmd0jhvny5PwNuTeM6KDMoD5jynSUzEsYujOToN
+ t+pssnS1Tfp9p0mYbUUB+aFOLfaBBndvxYn2O4lS+gYWWz9Fq/8PmTSyoYTWJm3TCjLc
+ biGb+yqc3py097GYCFjHG7TFX1R1ZjE4e4YeqE0Pls+NKtfLz6g9ZURJE0zOcDa0WPT1
+ Afb/D/Ts9fAzdOeaGoL4x1yha5xswt8IL9zt5ZCsWcoPPHB5PVBxyl1y2qvDngKiCbkt
+ hRKC4IIe3FKOAbAKfqeT5+8Yougerg3ns7mHzNgfpsTJJ7Qd8+XQpFhGuuSRd1QZuRdc
+ t7qg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpDrVyDwyxdMV0QIDN2hNajYf76Wz57zwAfZN4Vk9V8uMF5wZMHvTwRw10P1tkdspb5NQEtvEjrnlQFQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwbwNd76dhuN1Z4YgCxgJoUIiI+k1mQaHAudbtnUDVuLX5C181p
+ oqbTIjxaSFg/6h3Ycc75ICXBCrUed0DpJU/TYqbf6p0+dLUjuVoE
+X-Gm-Gg: ASbGncvBOB5VOk0Lg5E6ZFKUl2dvhSqaOL+eOqR9+l17L6T6XSYF0c3IvF8Wlbj+woy
+ 4XWmyE6dmuLSsQQRMC5loQ8TDRhVIjRrHA9LgWunYDN1jwMOz/z/hFiAKDYebH0YaNd34rI7J4d
+ nHkoRAoEX3iVig8WTVCA9NlVpG0lNFNFsu8h8vN8Ls6hdXVn7BlezHA3X9jIqiTyC6GC+2WJk1b
+ 8R3EnTvFe4oaG1FWexElOkX9T3FLqrjI6Oh5T8NKht30fN7FoHoqBnMkl4tuqVt+V6YxMPiY5gM
+ BqxunWjVCrhMjE6doOQ5sVkQH2QS
+X-Google-Smtp-Source: AGHT+IFlNjPnbw667WtlBgeKpirAAyliI8fxFRqc6Br/oWFk5pHJMGbuj7/4JbGsPe3J/2mcAIkPMA==
+X-Received: by 2002:a17:903:19cc:b0:21f:35fd:1b6a with SMTP id
+ d9443c01a7336-21f4e76cb06mr47882695ad.51.1738918621258; 
+ Fri, 07 Feb 2025 00:57:01 -0800 (PST)
+Received: from localhost.localdomain ([129.146.253.192])
+ by smtp.googlemail.com with ESMTPSA id
+ 98e67ed59e1d1-2fa2716c1ecsm945042a91.25.2025.02.07.00.56.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Feb 2025 00:57:00 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri,  7 Feb 2025 16:56:39 +0800
+Message-Id: <20250207085639.13580-1-0x1207@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250207064213.2314482-1-quic_jiegan@quicinc.com>
-References: <20250207064213.2314482-1-quic_jiegan@quicinc.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: fkU6W8CiK_QDSDrOT9g65MHIA69xApnY
-X-Proofpoint-GUID: fkU6W8CiK_QDSDrOT9g65MHIA69xApnY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-07_03,2025-02-07_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- phishscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 mlxlogscore=999
- impostorscore=0 suspectscore=0 adultscore=0 bulkscore=0 malwarescore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2501170000 definitions=main-2502070050
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v10 7/7] arm64: dts: qcom: sa8775p: Add CTCU
-	and ETR nodes
+Cc: Jon Hunter <jonathanh@nvidia.com>, Ido Schimmel <idosch@idosch.org>,
+ Brad Griffis <bgriffis@nvidia.com>, Furong Xu <0x1207@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net v1] net: stmmac: Apply new page pool
+	parameters when SPH is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,192 +91,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add CTCU and ETR nodes in DT to enable related functionalities.
+Commit df542f669307 ("net: stmmac: Switch to zero-copy in
+non-XDP RX path") makes DMA write received frame into buffer at offset
+of NET_SKB_PAD and sets page pool parameters to sync from offset of
+NET_SKB_PAD. But when Header Payload Split is enabled, the header is
+written at offset of NET_SKB_PAD, while the payload is written at
+offset of zero. Uncorrect offset parameter for the payload breaks dma
+coherence [1] since both CPU and DMA touch the page buffer from offset
+of zero which is not handled by the page pool sync parameter.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+And in case the DMA cannot split the received frame, for example,
+a large L2 frame, pp_params.max_len should grow to match the tail
+of entire frame.
+
+[1] https://lore.kernel.org/netdev/d465f277-bac7-439f-be1d-9a47dfe2d951@nvidia.com/
+
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Reported-by: Brad Griffis <bgriffis@nvidia.com>
+Suggested-by: Ido Schimmel <idosch@idosch.org>
+Fixes: df542f669307 ("net: stmmac: Switch to zero-copy in non-XDP RX path")
+Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sa8775p.dtsi | 153 ++++++++++++++++++++++++++
- 1 file changed, 153 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-index 3394ae2d1300..31aa94d2a043 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-@@ -2429,6 +2429,35 @@ crypto: crypto@1dfa000 {
- 			interconnect-names = "memory";
- 		};
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b34ebb916b89..c0ae7db96f46 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2094,6 +2094,11 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	pp_params.offset = stmmac_rx_offset(priv);
+ 	pp_params.max_len = dma_conf->dma_buf_sz;
  
-+		ctcu@4001000 {
-+			compatible = "qcom,sa8775p-ctcu";
-+			reg = <0x0 0x04001000 0x0 0x1000>;
++	if (priv->sph) {
++		pp_params.offset = 0;
++		pp_params.max_len += stmmac_rx_offset(priv);
++	}
 +
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ctcu_in0: endpoint {
-+						remote-endpoint = <&etr0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ctcu_in1: endpoint {
-+						remote-endpoint = <&etr1_out>;
-+					};
-+				};
-+			};
-+		};
-+
- 		stm: stm@4002000 {
- 			compatible = "arm,coresight-stm", "arm,primecell";
- 			reg = <0x0 0x4002000 0x0 0x1000>,
-@@ -2633,6 +2662,122 @@ qdss_funnel_in1: endpoint {
- 			};
- 		};
- 
-+		replicator@4046000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x04046000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					qdss_rep_in: endpoint {
-+						remote-endpoint = <&swao_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					qdss_rep_out0: endpoint {
-+						remote-endpoint = <&etr_rep_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr: tmc@4048000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x04048000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04c0 0x00>;
-+
-+			arm,scatter-gather;
-+
-+			in-ports {
-+				port {
-+					etr0_in: endpoint {
-+						remote-endpoint = <&etr_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					etr0_out: endpoint {
-+						remote-endpoint = <&ctcu_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@404e000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x0404e000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					etr_rep_in: endpoint {
-+						remote-endpoint = <&qdss_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					etr_rep_out0: endpoint {
-+						remote-endpoint = <&etr0_in>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					etr_rep_out1: endpoint {
-+						remote-endpoint = <&etr1_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr1: tmc@404f000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x0404f000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04a0 0x40>;
-+
-+			arm,scatter-gather;
-+			arm,buffer-size = <0x400000>;
-+
-+			in-ports {
-+				port {
-+					etr1_in: endpoint {
-+						remote-endpoint = <&etr_rep_out1>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					etr1_out: endpoint {
-+						remote-endpoint = <&ctcu_in1>;
-+					};
-+				};
-+			};
-+		};
-+
- 		funnel@4b04000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
- 			reg = <0x0 0x4b04000 0x0 0x1000>;
-@@ -2708,6 +2853,14 @@ out-ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-+				port@0 {
-+					reg = <0>;
-+
-+					swao_rep_out0: endpoint {
-+						remote-endpoint = <&qdss_rep_in>;
-+					};
-+				};
-+
- 				port@1 {
- 					reg = <1>;
- 					swao_rep_out1: endpoint {
+ 	rx_q->page_pool = page_pool_create(&pp_params);
+ 	if (IS_ERR(rx_q->page_pool)) {
+ 		ret = PTR_ERR(rx_q->page_pool);
 -- 
 2.34.1
 
