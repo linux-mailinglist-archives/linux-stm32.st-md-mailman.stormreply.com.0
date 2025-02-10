@@ -2,72 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774F9A2E891
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 11:05:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F43A2E9BB
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 11:41:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22EE3C78F83;
-	Mon, 10 Feb 2025 10:05:00 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EF7FC78F88;
+	Mon, 10 Feb 2025 10:41:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BE82C78025
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 623ABC78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Feb 2025 10:04:53 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 81F17442A5;
- Mon, 10 Feb 2025 10:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1739181892;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AJb8bkauCDhTBOcu8X/HjYqi4iRH5JJNhU2FKZwS+C4=;
- b=djT9CY5JnUvFf4Rd2gWUzxSrpbB9MCYbNvoDPDv3FKOuTwvv6X4g3AhUpMHjJGjPo+jlpT
- AFI4rCoyH7VDsFmSSLDgWxOvgrTa2MXWWNcxzHtFjeExYlOp6L2k+rBjgelQmnk/g0zQtD
- y0ICAmmzdAoNV28D6kuxTkA25Xcy9ZH/UsaVbVUDFwQO9cIgrcxLYnogyAsCzKhoJEXSLU
- vQZB2QqhFD/u3H3VrVOvEFisMee4/6do/wEPOBW8Tgc1aWrDkzNSBMedbrFWSSSLvzM9Sc
- 5cKP5ReoDV39Zvz/uAhIBDkwUs8i3D7b9cslvpUazE6Cq1A+/fEweUAhsoDVJw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
- Inochi Amaoto <inochiama@outlook.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Jisheng Zhang <jszhang@kernel.org>,
- "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>,
- =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- Simon Horman <horms@kernel.org>, Furong Xu <0x1207@gmail.com>,
- Serge Semin <fancer.lancer@gmail.com>, Lothar Rubusch <l.rubusch@gmail.com>,
- Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, Inochi Amaoto <inochiama@gmail.com>
-Date: Mon, 10 Feb 2025 11:04:40 +0100
-Message-ID: <5868742.DvuYhMxLoT@fw-rgant>
-In-Reply-To: <20250209013054.816580-3-inochiama@gmail.com>
-References: <20250209013054.816580-1-inochiama@gmail.com>
- <20250209013054.816580-3-inochiama@gmail.com>
+ Mon, 10 Feb 2025 10:40:55 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51A9ephh012591;
+ Mon, 10 Feb 2025 11:40:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=013foi5X/BmKOy34Oh7COl
+ Z1yi7o4IdG/96zL5C8KGQ=; b=5tbsMe9961Urpjp7ew3gfM2vAbInvhgoqHnxY6
+ RURES+8kRO/+4Cwn2zkAeyeo5GVOssn2sfqvtZ13sskE/dvtgNL9yIgvc875fsDk
+ YsVb22vPaFe0m2ciuMXlR2Y/s9AY61DepEL2l3Vy3rAehXekrcYOoBkjZq+b9h5Y
+ LQK5jIue4FxRPbAKa9j4b9nwbyrsfYUPxI4ku4PxLVCzrqmVUw4pDEA4+OsSB1NR
+ cL+ELlOnelNVL6UUKBje/h49DtiYzxPCNeQSS/mRiF3FlSSb5StRsFaEAg/8QNMB
+ PSNYGa6dM0fuSSOcYVvh5i94jgkjLRCxZX/8Y4sBbkJCDwnw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44p0wswvcq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Feb 2025 11:40:30 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8EB2C40058;
+ Mon, 10 Feb 2025 11:39:33 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 92A8B2FD8A0;
+ Mon, 10 Feb 2025 11:35:22 +0100 (CET)
+Received: from localhost (10.129.178.212) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Feb
+ 2025 11:35:22 +0100
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <christian.bruel@foss.st.com>, <vkoul@kernel.org>, <kishon@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
+Date: Mon, 10 Feb 2025 11:35:15 +0100
+Message-ID: <20250210103515.2598377-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdefjeejjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkjghfgggtsehgtderredttdejnecuhfhrohhmpeftohhmrghinhcuifgrnhhtohhishcuoehrohhmrghinhdrghgrnhhtohhishessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepieekkeffvdeugfekjeegfefhvdetuefhtdelieduheeileduledvteelgefgffffnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopehffidqrhhgrghnthdrlhhotggrlhhnvghtpdhmrghilhhfrhhomheprhhomhgrihhnrdhgrghnthhoihhssegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefkedprhgtphhtthhopegrnhgurhgvfidonhgvthguvghvsehluhhnnhdrtghhpdhrtghpthhtohepuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphhtthhopegvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtohepkhhusggrsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehprggsvghnihesrhgvughhrghtrdgtohhmpdhrtghpthhtoheprhhos
- ghhsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehkrhiikhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrdhorhhg
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- Inochi Amaoto <inochiama@gmail.com>, linux-kernel@vger.kernel.org,
- Longbin Li <looong.bin@gmail.com>, netdev@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Re: [PATCH net-next v4 2/3] net: stmmac: platform:
- Add snps, dwmac-5.30a IP compatible string
+X-Originating-IP: [10.129.178.212]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-10_05,2025-02-10_01,2024-11-22_01
+Cc: linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ arnd@arndb.de, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 RESEND] phy: stm32: Fix constant-value
+	overflow assertion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,117 +68,121 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6353665220432535861=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6353665220432535861==
-Content-Type: multipart/signed; boundary="nextPart6136790.lOV4Wx5bFT";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Rework the workaround as the lookup tables always fits into the bitfield,
+and the default values are defined by the hardware and cannot be 0: 
 
---nextPart6136790.lOV4Wx5bFT
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Mon, 10 Feb 2025 11:04:40 +0100
-Message-ID: <5868742.DvuYhMxLoT@fw-rgant>
-In-Reply-To: <20250209013054.816580-3-inochiama@gmail.com>
-MIME-Version: 1.0
+Guard against false positive with a WARN_ON check to make the compiler
+happy: The offset range is pre-checked against the sorted imp_lookup_table
+values and overflow should not happen and would be caught by a warning and
+return in error.
 
-On dimanche 9 f=C3=A9vrier 2025 02:30:51 heure normale d=E2=80=99Europe cen=
-trale Inochi=20
-Amaoto wrote:
-> Add "snps,dwmac-5.30a" compatible string for 5.30a version that can avoid
-> to define some platform data in the glue layer.
->=20
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  .../ethernet/stmicro/stmmac/stmmac_platform.c   | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c index
-> d0e61aa1a495..8dc3bd6946c6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -405,6 +405,17 @@ static int stmmac_of_get_mac_mode(struct device_node
-> *np) return -ENODEV;
->  }
->=20
-> +/* Compatible string array for all gmac4 devices */
-> +static const char * const stmmac_gmac4_compats[] =3D {
-> +	"snps,dwmac-4.00",
-> +	"snps,dwmac-4.10a",
-> +	"snps,dwmac-4.20a",
-> +	"snps,dwmac-5.10a",
-> +	"snps,dwmac-5.20",
-> +	"snps,dwmac-5.30a",
-> +	NULL
-> +};
-> +
->  /**
->   * stmmac_probe_config_dt - parse device-tree driver parameters
->   * @pdev: platform_device structure
-> @@ -538,11 +549,7 @@ stmmac_probe_config_dt(struct platform_device *pdev,=
- u8
-> *mac) plat->pmt =3D 1;
->  	}
->=20
-> -	if (of_device_is_compatible(np, "snps,dwmac-4.00") ||
-> -	    of_device_is_compatible(np, "snps,dwmac-4.10a") ||
-> -	    of_device_is_compatible(np, "snps,dwmac-4.20a") ||
-> -	    of_device_is_compatible(np, "snps,dwmac-5.10a") ||
-> -	    of_device_is_compatible(np, "snps,dwmac-5.20")) {
-> +	if (of_device_compatible_match(np, stmmac_gmac4_compats)) {
->  		plat->has_gmac4 =3D 1;
->  		plat->has_gmac =3D 0;
->  		plat->pmt =3D 1;
+Also guard against a true positive found during the max_vswing lookup, as a
+max vswing value can be 802000 or 803000 microvolt depending on the current
+impedance. Therefore set the default impedence index.
 
-LGTM
+Fixes: 2de679ecd724 ("phy: stm32: work around constant-value overflow assertion")
+Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+---
+v2: Change title and Fixes tag
+---
+ drivers/phy/st/phy-stm32-combophy.c | 38 ++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-Reviewed-by: Romain Gantois <romain.gantois@bootlin.com>
-
-
-
---nextPart6136790.lOV4Wx5bFT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEYFZBShRwOvLlRRy+3R9U/FLj284FAmepzzgACgkQ3R9U/FLj
-286J5g//fmDyVJafzX14tHwfj8aI+uwgNu7ZJxduC9DnxnYWy+EN+dby2S6/rlPN
-T4ypshgRrmYqPoji5FJKurYu3LHwUE/V8N2z06jexZaWXA8/VW+aNUkHoIbyHHko
-fYFD4Op0fKrWBGBHR+Hj8qJv2QbWFBc8vo4Swzk3PjbzLTx36g3gFWb/CUkP569I
-12TrG1wPA0ZBtugewKlLSdXOFVtDqsh0mTfCpQ8dsRjTc4TrVrcFDaxIW1aENksw
-0SIncY9LUMPnCW+IHHB7E8Ln6y84/ipUGsySMvtUOg/cnobji2ehcScRVh+QpuZQ
-L/P1dWf83kE5M1Kll9HPhs0R1qtrK2bWAaBamcDl79AW6c+4MPdBPxk9gaQmMuov
-/tiHVI0LagpoFV+Y/hXy7mMMRmqLAhlwwkmNiJuzYPnBJOReYcJ5kJ4QvCr+n0I9
-YQ+zLGBWxvi0aQk8p+qh8a6VZ+8I1aGmjGDluy9M+7f1wl1Rj3RMOOL8G86M4ZxD
-BnbNszU+FrI1fZObie8NsvvQwunu/bJcR1Mhn9RcyVcc/b6bIpAekcjcctz07P7B
-KWTz8PjEv0dHTX7k40Lr9GhZjKIQeVR3YMCNjzqvANzcCeEcSnnIY/r+U/hpK5jp
-ShGT0E6pno6LqL/YVkx+G1N/T736ljcC/BCLeQvGusrPc6Md3Aw=
-=KCpu
------END PGP SIGNATURE-----
-
---nextPart6136790.lOV4Wx5bFT--
-
-
-
-
---===============6353665220432535861==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
+index 49e9fa90a681..607b4d607eb5 100644
+--- a/drivers/phy/st/phy-stm32-combophy.c
++++ b/drivers/phy/st/phy-stm32-combophy.c
+@@ -111,6 +111,7 @@ static const struct clk_impedance imp_lookup[] = {
+ 	{ 4204000, { 511000, 609000, 706000, 802000 } },
+ 	{ 3999000, { 571000, 648000, 726000, 803000 } }
+ };
++#define DEFAULT_IMP_INDEX 3 /* Default impedance is 50 Ohm */
+ 
+ static int stm32_impedance_tune(struct stm32_combophy *combophy)
+ {
+@@ -119,10 +120,9 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
+ 	u8 imp_of, vswing_of;
+ 	u32 max_imp = imp_lookup[0].microohm;
+ 	u32 min_imp = imp_lookup[imp_size - 1].microohm;
+-	u32 max_vswing = imp_lookup[imp_size - 1].vswing[vswing_size - 1];
++	u32 max_vswing;
+ 	u32 min_vswing = imp_lookup[0].vswing[0];
+ 	u32 val;
+-	u32 regval;
+ 
+ 	if (!of_property_read_u32(combophy->dev->of_node, "st,output-micro-ohms", &val)) {
+ 		if (val < min_imp || val > max_imp) {
+@@ -130,45 +130,43 @@ static int stm32_impedance_tune(struct stm32_combophy *combophy)
+ 			return -EINVAL;
+ 		}
+ 
+-		regval = 0;
+-		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++) {
+-			if (imp_lookup[imp_of].microohm <= val) {
+-				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of);
++		for (imp_of = 0; imp_of < ARRAY_SIZE(imp_lookup); imp_of++)
++			if (imp_lookup[imp_of].microohm <= val)
+ 				break;
+-			}
+-		}
++
++		if (WARN_ON(imp_of == ARRAY_SIZE(imp_lookup)))
++			return -EINVAL;
+ 
+ 		dev_dbg(combophy->dev, "Set %u micro-ohms output impedance\n",
+ 			imp_lookup[imp_of].microohm);
+ 
+ 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+ 				   STM32MP25_PCIEPRG_IMPCTRL_OHM,
+-				   regval);
+-	} else {
+-		regmap_read(combophy->regmap, SYSCFG_PCIEPRGCR, &val);
+-		imp_of = FIELD_GET(STM32MP25_PCIEPRG_IMPCTRL_OHM, val);
+-	}
++				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_OHM, imp_of));
++	} else
++		imp_of = DEFAULT_IMP_INDEX;
+ 
+ 	if (!of_property_read_u32(combophy->dev->of_node, "st,output-vswing-microvolt", &val)) {
++		max_vswing = imp_lookup[imp_of].vswing[vswing_size - 1];
++
+ 		if (val < min_vswing || val > max_vswing) {
+ 			dev_err(combophy->dev, "Invalid value %u for output vswing\n", val);
+ 			return -EINVAL;
+ 		}
+ 
+-		regval = 0;
+-		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++) {
+-			if (imp_lookup[imp_of].vswing[vswing_of] >= val) {
+-				regval = FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of);
++		for (vswing_of = 0; vswing_of < ARRAY_SIZE(imp_lookup[imp_of].vswing); vswing_of++)
++			if (imp_lookup[imp_of].vswing[vswing_of] >= val)
+ 				break;
+-			}
+-		}
++
++		if (WARN_ON(vswing_of == ARRAY_SIZE(imp_lookup[imp_of].vswing)))
++			return -EINVAL;
+ 
+ 		dev_dbg(combophy->dev, "Set %u microvolt swing\n",
+ 			 imp_lookup[imp_of].vswing[vswing_of]);
+ 
+ 		regmap_update_bits(combophy->regmap, SYSCFG_PCIEPRGCR,
+ 				   STM32MP25_PCIEPRG_IMPCTRL_VSWING,
+-				   regval);
++				   FIELD_PREP(STM32MP25_PCIEPRG_IMPCTRL_VSWING, vswing_of));
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6353665220432535861==--
-
-
-
