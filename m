@@ -2,69 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32D04A2F184
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 16:24:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3594AA2F3E3
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 17:44:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA1AAC78F96;
-	Mon, 10 Feb 2025 15:24:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3A65C78F94;
+	Mon, 10 Feb 2025 16:44:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 972FEC78F94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 260ACC78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Feb 2025 15:24:51 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51AF0p8t016526;
- Mon, 10 Feb 2025 16:24:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 06Yc9+Cgz9LzEFz/Fk9v8JOVzK/5hR31BTHWbDyfCS4=; b=mCDRgYoodg/tXMAp
- lGLIlk3abaNo+EnafnZMPORmAuU87r10ISTL3P95bzv6CLDGf0QDo1oKtUV8OzjY
- GJTU13UVZtET6lXe+Fz6rQmbbh21cdj7dzSFDVqdtrQaeQLp6x2YZeIb0h0dc6/O
- QzPtc5hhcEYIgsO/ymCgBSyrnpA/Igt095YT3JFBTB7wNFcj6XRjXsGO8fJzK7OM
- 4FZFMW21UMwzvFCTO8/uroW16rMu5v2RTN1cvydackMrk/8pbWTxZQ35/ZW+zsXr
- DYHHiFb/EdeJTcqSWF1IoJYAVZm1sfnHsKGAjWlhkWHbyBuTry807YLg/kJVvwYP
- GH+bOw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44p0rhy5sn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Feb 2025 16:24:41 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9365640063;
- Mon, 10 Feb 2025 16:23:25 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F1EC82957B8;
- Mon, 10 Feb 2025 16:21:43 +0100 (CET)
-Received: from localhost (10.48.87.120) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Feb
- 2025 16:21:43 +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Mon, 10 Feb 2025 16:21:04 +0100
+ Mon, 10 Feb 2025 16:44:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1E2265C5BBC;
+ Mon, 10 Feb 2025 16:43:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6BDC4CED1;
+ Mon, 10 Feb 2025 16:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739205855;
+ bh=pJIYPWJ+5c+OJAajVySyzvOkJYxLdGI/XLkulyWGlJA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Sap1xWyb/Xua4wOkYzVszhdi1qatQ6+kI68L3yl8aizC4TP6ZfceuQNPR4xa3UP4a
+ GcGTPc4GzCih4oxnvKRM/JRcfJuxnwVJIPoBOP1pO4+IDJnyNmdLDruSE2QX9xhwvX
+ EhUrumg/0Jp5TOiR5H4oAa8Nh6yapeQllKnvCKasdsEqs/3JdNOjgUxdnbJMtu2bKj
+ uu5e23d5Ub57GKgZKwkPFpklHe4zyCPoxx37+rrOX/YBbmpHvx75c8jQAkjW+Mm5Ih
+ f6h4+4B0fGSmfE1IbxIjpBOqxH9dXNOp9s5TIWkHXgqzUov/To0QI/h/YJy73ztR71
+ aOcRpvV+6+PbA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org, ukleinek@kernel.org, alexandre.torgue@foss.st.com, 
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
+References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
+Message-Id: <173920585199.1896384.5521926980550161552.b4-ty@kernel.org>
+Date: Mon, 10 Feb 2025 16:44:11 +0000
 MIME-Version: 1.0
-Message-ID: <20250210-b4-stm32mp2_new_dts-v1-10-e8ef1e666c5e@foss.st.com>
-References: <20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com>
-In-Reply-To: <20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.87.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-10_08,2025-02-10_01,2024-11-22_01
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 10/10] arm64: dts: st: add stm32mp215f-dk
-	board support
+X-Mailer: b4 0.13.0
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
+Subject: Re: [Linux-stm32] (subset) [PATCH v3 0/8] Add STM32MP25 timers
+ support: MFD, PWM, IIO and counter drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,92 +55,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add STM32MP215F Discovery Kit board support. It embeds a STM32MP235FAN SoC,
-with 2GB of LPDDR4, 1*USB2 peripheral bus powered typeC, 1*ETH, wifi/BT
-combo, LCD 18bit connector, CSI camera connector, ...
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm64/boot/dts/st/Makefile           |  1 +
- arch/arm64/boot/dts/st/stm32mp215f-dk.dts | 49 +++++++++++++++++++++++++++++++
- 2 files changed, 50 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 06364152206997863d0991c25589de73c63494fb..63908113ae36ba19378ac1fedc0309ef46555f17 100644
---- a/arch/arm64/boot/dts/st/Makefile
-+++ b/arch/arm64/boot/dts/st/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- dtb-$(CONFIG_ARCH_STM32) += \
-+	stm32mp215f-dk.dtb \
- 	stm32mp235f-dk.dtb \
- 	stm32mp257f-dk.dtb \
- 	stm32mp257f-ev1.dtb
-diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..7bdaeaa5ab0fbe99a7e39b623d5e7a0e469d3e50
---- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-+ * Author: Amelie Delaunay <amelie.delaunay@foss.st.com> for STMicroelectronics.
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp215.dtsi"
-+#include "stm32mp21xf.dtsi"
-+
-+/ {
-+	model = "STMicroelectronics STM32MP215F-DK Discovery Board";
-+	compatible = "st,stm32mp215f-dk", "st,stm32mp215";
-+
-+	aliases {
-+		serial0 = &usart2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x0 0x80000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		fw@80000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x0 0x80000000 0x0 0x4000000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&usart2 {
-+	status = "okay";
-+};
-
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAxMCBKYW4gMjAyNSAxMDoxOToxNCArMDEwMCwgRmFicmljZSBHYXNuaWVyIHdyb3Rl
+Ogo+IFRoaXMgc2VyaWVzIGFkZHMgU1RNMzJNUDI1IHN1cHBvcnQgb24gTUZEIFBXTSwgSUlPLCBj
+b3VudGVyIHRpbWVyIGRyaXZlcnMuCj4gVGhpcyBuZXcgdGltZXIgdmFyaWFudCBpcyBtYW5hZ2Vk
+IGJ5IHVzaW5nIGEgbmV3IERUIGNvbXBhdGlibGUgc3RyaW5nLgo+IEl0IGNvbWVzIHdpdGggYSBz
+bGlnaHRseSB1cGRhdGVkIHJlZ2lzdGVyIHNldCwgc29tZSBuZXcgZmVhdHVyZXMgYW5kIG5ldwo+
+IGludGVyY29ubmVjdCBzaWduYWxzIGluc2lkZSB0aGUgU29DLiBUaGVyZSBpcyBhbHNvIGEgbmV3
+IGluc3RhbmNlIChUSU0yMCkuCj4gU2FtZSBmZWF0dXJlIGxpc3QgYXMgb24gU1RNMzJNUDF4IGlz
+IHN1cHBvcnRlZCBjdXJyZW50bHksIGV4Y2VwdCBmb3IgUFdNCj4gY2FwdHVyZSAobm90IGVuYWJs
+ZWQsIGJ5IERUKS4KPiBUaGUgZGV2aWNlIHRyZWUgZmlsZXMgYWRkIGFsbCBpbnN0YW5jZXMgaW4g
+c3RtMzJtcDI1MSBkdHNpLiBQV00sIGNvdW50ZXIKPiBhbmQgdHJpZ2dlciBleGFtcGxlcyBhcmUg
+cHJvdmlkZWQgZm9yIHN0bTMybXAyNTdmLWV2MSBib2FyZC4KPiAKPiBbLi4uXQoKQXBwbGllZCwg
+dGhhbmtzIQoKWzEvOF0gZHQtYmluZGluZ3M6IG1mZDogc3RtMzItdGltZXJzOiBhZGQgc3VwcG9y
+dCBmb3Igc3RtMzJtcDI1CiAgICAgIGNvbW1pdDogNGMxZDA0ZDAxM2UzZTUwNzNhN2U3OGU1N2Ni
+YTgyYzNjZDgxZDU4NgpbMi84XSBtZmQ6IHN0bTMyLXRpbWVyczogYWRkIHN1cHBvcnQgZm9yIHN0
+bTMybXAyNQogICAgICBjb21taXQ6IDNjODFkNDIzNTY4YWQyODU0MGE3ZGFiNGNhOGVhNjZkZWQ5
+YjM1MmYKCi0tCkxlZSBKb25lcyBb5p2O55C85pavXQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
