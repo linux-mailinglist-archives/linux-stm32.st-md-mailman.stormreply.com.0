@@ -2,48 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3594AA2F3E3
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 17:44:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1DBA2F508
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 18:21:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3A65C78F94;
-	Mon, 10 Feb 2025 16:44:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA8ACC78F94;
+	Mon, 10 Feb 2025 17:21:00 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 260ACC78F85
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21C50C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Feb 2025 16:44:17 +0000 (UTC)
+ Mon, 10 Feb 2025 17:20:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1E2265C5BBC;
- Mon, 10 Feb 2025 16:43:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6BDC4CED1;
- Mon, 10 Feb 2025 16:44:12 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 75005A41C25;
+ Mon, 10 Feb 2025 17:19:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5060EC4CED1;
+ Mon, 10 Feb 2025 17:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739205855;
- bh=pJIYPWJ+5c+OJAajVySyzvOkJYxLdGI/XLkulyWGlJA=;
+ s=k20201202; t=1739208051;
+ bh=AqAuO64KrFmIEpmbIChBp1sariAYqOYuraT4EbNk9HM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Sap1xWyb/Xua4wOkYzVszhdi1qatQ6+kI68L3yl8aizC4TP6ZfceuQNPR4xa3UP4a
- GcGTPc4GzCih4oxnvKRM/JRcfJuxnwVJIPoBOP1pO4+IDJnyNmdLDruSE2QX9xhwvX
- EhUrumg/0Jp5TOiR5H4oAa8Nh6yapeQllKnvCKasdsEqs/3JdNOjgUxdnbJMtu2bKj
- uu5e23d5Ub57GKgZKwkPFpklHe4zyCPoxx37+rrOX/YBbmpHvx75c8jQAkjW+Mm5Ih
- f6h4+4B0fGSmfE1IbxIjpBOqxH9dXNOp9s5TIWkHXgqzUov/To0QI/h/YJy73ztR71
- aOcRpvV+6+PbA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, ukleinek@kernel.org, alexandre.torgue@foss.st.com, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
-References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
-Message-Id: <173920585199.1896384.5521926980550161552.b4-ty@kernel.org>
-Date: Mon, 10 Feb 2025 16:44:11 +0000
+ b=iBmnjxe0jaqoN9l3oxXx6Nfl2tOwdVaBn7nL2unL9ImA0UQW4IQDVvt0KdQX3SsVm
+ jSf6/pQz0jvoj7MvMlcDmobv63lXKpMcnlMCRysGHb2x1+4cNojVMfSUue7d0kf8ZR
+ 5K6KdAaJs8UVumN/xToAOrARvz6ICg0E1g8IkO3VZZWAx9RiN2IZrErcBJipYTmgQG
+ /7oLusu/0xdSxkc8fb4PkfOI51bqSFZCcs0pdynYZHoHme+fXQ4f16fer1je46X2Hm
+ O6SIL0qo6+rYHM0VW6brAI2jVAWISa41wtfsmmqsGISpfWn+6N/HQ61QcDdiAXqCd+
+ DvuqllMtvdYXQ==
+From: Vinod Koul <vkoul@kernel.org>
+To: kishon@kernel.org, mcoquelin.stm32@gmail.com, 
+ alexandre.torgue@foss.st.com, Christian Bruel <christian.bruel@foss.st.com>
+In-Reply-To: <20250210103515.2598377-1-christian.bruel@foss.st.com>
+References: <20250210103515.2598377-1-christian.bruel@foss.st.com>
+Message-Id: <173920804896.103688.2205901158085066356.b4-ty@kernel.org>
+Date: Mon, 10 Feb 2025 22:50:48 +0530
 MIME-Version: 1.0
-X-Mailer: b4 0.13.0
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] (subset) [PATCH v3 0/8] Add STM32MP25 timers
- support: MFD, PWM, IIO and counter drivers
+X-Mailer: b4 0.14.2
+Cc: linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ arnd@arndb.de, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 RESEND] phy: stm32: Fix constant-value
+ overflow assertion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,27 +52,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAxMCBKYW4gMjAyNSAxMDoxOToxNCArMDEwMCwgRmFicmljZSBHYXNuaWVyIHdyb3Rl
-Ogo+IFRoaXMgc2VyaWVzIGFkZHMgU1RNMzJNUDI1IHN1cHBvcnQgb24gTUZEIFBXTSwgSUlPLCBj
-b3VudGVyIHRpbWVyIGRyaXZlcnMuCj4gVGhpcyBuZXcgdGltZXIgdmFyaWFudCBpcyBtYW5hZ2Vk
-IGJ5IHVzaW5nIGEgbmV3IERUIGNvbXBhdGlibGUgc3RyaW5nLgo+IEl0IGNvbWVzIHdpdGggYSBz
-bGlnaHRseSB1cGRhdGVkIHJlZ2lzdGVyIHNldCwgc29tZSBuZXcgZmVhdHVyZXMgYW5kIG5ldwo+
-IGludGVyY29ubmVjdCBzaWduYWxzIGluc2lkZSB0aGUgU29DLiBUaGVyZSBpcyBhbHNvIGEgbmV3
-IGluc3RhbmNlIChUSU0yMCkuCj4gU2FtZSBmZWF0dXJlIGxpc3QgYXMgb24gU1RNMzJNUDF4IGlz
-IHN1cHBvcnRlZCBjdXJyZW50bHksIGV4Y2VwdCBmb3IgUFdNCj4gY2FwdHVyZSAobm90IGVuYWJs
-ZWQsIGJ5IERUKS4KPiBUaGUgZGV2aWNlIHRyZWUgZmlsZXMgYWRkIGFsbCBpbnN0YW5jZXMgaW4g
-c3RtMzJtcDI1MSBkdHNpLiBQV00sIGNvdW50ZXIKPiBhbmQgdHJpZ2dlciBleGFtcGxlcyBhcmUg
-cHJvdmlkZWQgZm9yIHN0bTMybXAyNTdmLWV2MSBib2FyZC4KPiAKPiBbLi4uXQoKQXBwbGllZCwg
-dGhhbmtzIQoKWzEvOF0gZHQtYmluZGluZ3M6IG1mZDogc3RtMzItdGltZXJzOiBhZGQgc3VwcG9y
-dCBmb3Igc3RtMzJtcDI1CiAgICAgIGNvbW1pdDogNGMxZDA0ZDAxM2UzZTUwNzNhN2U3OGU1N2Ni
-YTgyYzNjZDgxZDU4NgpbMi84XSBtZmQ6IHN0bTMyLXRpbWVyczogYWRkIHN1cHBvcnQgZm9yIHN0
-bTMybXAyNQogICAgICBjb21taXQ6IDNjODFkNDIzNTY4YWQyODU0MGE3ZGFiNGNhOGVhNjZkZWQ5
-YjM1MmYKCi0tCkxlZSBKb25lcyBb5p2O55C85pavXQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+On Mon, 10 Feb 2025 11:35:15 +0100, Christian Bruel wrote:
+> Rework the workaround as the lookup tables always fits into the bitfield,
+> and the default values are defined by the hardware and cannot be 0:
+> 
+> Guard against false positive with a WARN_ON check to make the compiler
+> happy: The offset range is pre-checked against the sorted imp_lookup_table
+> values and overflow should not happen and would be caught by a warning and
+> return in error.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] phy: stm32: Fix constant-value overflow assertion
+      commit: fd75f371f3a1b04a33d2e750363d6ad76abf734e
+
+Best regards,
+-- 
+~Vinod
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
