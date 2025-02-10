@@ -2,83 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8D4A2E480
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 07:51:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB7FA2E4E3
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2025 08:02:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 275ADC78F7F;
-	Mon, 10 Feb 2025 06:51:58 +0000 (UTC)
-Received: from fhigh-a4-smtp.messagingengine.com
- (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D78FCC78F7F;
+	Mon, 10 Feb 2025 07:02:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8669C78F6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A8D3C78F6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Feb 2025 06:51:50 +0000 (UTC)
-Received: from phl-compute-09.internal (phl-compute-09.phl.internal
- [10.202.2.49])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 8F66F1140113;
- Mon, 10 Feb 2025 01:51:49 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Mon, 10 Feb 2025 01:51:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1739170309; x=1739256709; bh=Xa+u6TSXdvpnsdktnh6Ldx8knq/jErF9o1m
- KCq6c5Eo=; b=bafjmJG+wuzoGYnXZs3OWuN0rYfKlg+z2CCIwrfj/QfDpdFjR/y
- 2cOacgCL54YyWCBNjoZjaFeXcEV8V7Vo3hGDBXfeBAwgBDj7XG8lbNfhpvqcM8Lq
- MD7c6SkqSX0+jdD6DxGDhrPToD93coyrVvPRy+JS80LK5TLdD/tJ9mex2c9TXBV2
- RDi4k71i5JRRXQXGmFRFwv5x5icJjaWE4KnCK2t9wVzlmvzzp37kdp+eOYbgzEF8
- JO8yt50GMwHe0B24pDZCPQRzA3eKNhglAP28MRwvf/dteVtwIGq7wpK2m4JDES9R
- eLhGfH3PxL1+oxB1V0XXxUmbsv/nfiqzaqg==
-X-ME-Sender: <xms:BKKpZyEkbPGdJbINekmZfUB-gH5gCVVDb3gdjKHA72CSOPSz_7kAkA>
- <xme:BKKpZzUk4ydXVK9ZjUS9wqvx2FVO73_J9By-pDgU08zri40YosGqHiMTatzrZnw00
- ZLfe2v0vI2btqY>
-X-ME-Received: <xmr:BKKpZ8JgelyjxShIgIdKuTBZRJX7HdCtE23GhFzNUZ-5_xaMQxJoWT1i9rff>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdefjeefkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
- uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
- hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddv
- necuhfhrohhmpefkughoucfutghhihhmmhgvlhcuoehiughoshgthhesihguohhstghhrd
- horhhgqeenucggtffrrghtthgvrhhnpeehhfdtjedviefffeduuddvffegteeiieeguefg
- udffvdfftdefheeijedthfejkeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuve
- hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepihguohhstghh
- sehiughoshgthhdrohhrghdpnhgspghrtghpthhtohepudehpdhmohguvgepshhmthhpoh
- huthdprhgtphhtthhopedtgiduvddtjeesghhmrghilhdrtghomhdprhgtphhtthhopehn
- vghtuggvvhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqd
- hsthhmfedvsehsthdqmhguqdhmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomhdp
- rhgtphhtthhopehlihhnuhigqdgrrhhmqdhkvghrnhgvlheslhhishhtshdrihhnfhhrrg
- guvggrugdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhk
- vghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhgvfidonhgvthguvghvsehluhhnnh
- drtghhpdhrtghpthhtohepuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphht
- thhopegvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtohepkhhusggrse
- hkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:BKKpZ8HqxAaKpTyiU7gG7xc6MjskSyqqHjmp5EoTbdhh23xWP8oc8A>
- <xmx:BKKpZ4Ue8dCAHoq82cA_LJFEULIs1ZFVQkIxheG1OC16r3dv9aIuzQ>
- <xmx:BKKpZ_MYmJG1HtVP8iAw3V0SX2rTdKIuOKCtCPrfT69AS_SZX5GifQ>
- <xmx:BKKpZ_2CztCc2frUAkqVwVttjA0EA46oQmThzHKTpt6tyFT0gsB3Gw>
- <xmx:BaKpZ5vNx_rkiYc-31LJg39M5YTGKhVW8TNvfHujyxmwpu4E297FVaNz>
-Feedback-ID: i494840e7:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 10 Feb 2025 01:51:48 -0500 (EST)
-Date: Mon, 10 Feb 2025 08:51:45 +0200
-From: Ido Schimmel <idosch@idosch.org>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <Z6miASgDGKfGH9qO@shredder>
-References: <20250207085639.13580-1-0x1207@gmail.com>
+ Mon, 10 Feb 2025 07:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739170950; x=1770706950;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=A6TYIK8aSCSb7ZF6jkLTpTG8icNieANxjH4vH8Z6hF4=;
+ b=j4AqmHFHh6AF8sNsrd5XDYj02XTfvxGmscKeP+NYGKnGnjstbZn3GlFm
+ yzU+4ehHhYNjRnY1etrMZhZ746S+wTiccHeC8N118MaIToy3+kviToM7Y
+ 0+t2gt7ZtmrFMF0XBSGIb42ZvzYOTlJw3w5GzwLP+Gw5ddkK5WAngQldZ
+ XIu4lAv9GOWjRBEuA/7/+TtLNKRHpFhjpflbBY00ggYLKlC3Hq26seD6Z
+ J+Jvf87Iva8b5bvOjBHUGqeTTOMblase8olyfkq+l6OEpewzG7q9u+89x
+ ZD+dC9qNXejAjOgIb8/wHpNt02bwRcTaBglPoZMa2waXtVTKcXARBT6qI A==;
+X-CSE-ConnectionGUID: uPYcwwoNRt2yTsFsnLoTHA==
+X-CSE-MsgGUID: PNPcS5kASk2++6gzSYhzOw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11340"; a="38937748"
+X-IronPort-AV: E=Sophos;i="6.13,273,1732608000"; d="scan'208";a="38937748"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2025 23:02:21 -0800
+X-CSE-ConnectionGUID: n1Yl94JKQPCqLknRIXgRfw==
+X-CSE-MsgGUID: 0HQLcWpFQYmCJ2RkSR63Sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,273,1732608000"; d="scan'208";a="112622438"
+Received: from mohdfai2-ilbpg12-1.png.intel.com ([10.88.227.73])
+ by fmviesa010.fm.intel.com with ESMTP; 09 Feb 2025 23:02:13 -0800
+From: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>,
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, Gal Pressman <gal@nvidia.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Andrew Halaney <ahalaney@redhat.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
+Date: Mon, 10 Feb 2025 02:01:58 -0500
+Message-Id: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250207085639.13580-1-0x1207@gmail.com>
-Cc: Jon Hunter <jonathanh@nvidia.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Brad Griffis <bgriffis@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: Apply new page pool
- parameters when SPH is enabled
+Subject: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for Frame
+	Preemption feature in IGC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +89,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 07, 2025 at 04:56:39PM +0800, Furong Xu wrote:
-> Commit df542f669307 ("net: stmmac: Switch to zero-copy in
-> non-XDP RX path") makes DMA write received frame into buffer at offset
-> of NET_SKB_PAD and sets page pool parameters to sync from offset of
-> NET_SKB_PAD. But when Header Payload Split is enabled, the header is
-> written at offset of NET_SKB_PAD, while the payload is written at
-> offset of zero. Uncorrect offset parameter for the payload breaks dma
-> coherence [1] since both CPU and DMA touch the page buffer from offset
-> of zero which is not handled by the page pool sync parameter.
-> 
-> And in case the DMA cannot split the received frame, for example,
-> a large L2 frame, pp_params.max_len should grow to match the tail
-> of entire frame.
-> 
-> [1] https://lore.kernel.org/netdev/d465f277-bac7-439f-be1d-9a47dfe2d951@nvidia.com/
-> 
-> Reported-by: Jon Hunter <jonathanh@nvidia.com>
-> Reported-by: Brad Griffis <bgriffis@nvidia.com>
-> Suggested-by: Ido Schimmel <idosch@idosch.org>
-> Fixes: df542f669307 ("net: stmmac: Switch to zero-copy in non-XDP RX path")
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
+Introduces support for the FPE feature in the IGC driver.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+The patches aligns with the upstream FPE API:
+https://patchwork.kernel.org/project/netdevbpf/cover/20230220122343.1156614-1-vladimir.oltean@nxp.com/
+https://patchwork.kernel.org/project/netdevbpf/cover/20230119122705.73054-1-vladimir.oltean@nxp.com/
+
+It builds upon earlier work:
+https://patchwork.kernel.org/project/netdevbpf/cover/20220520011538.1098888-1-vinicius.gomes@intel.com/
+
+The patch series adds the following functionalities to the IGC driver:
+a) Configure FPE using `ethtool --set-mm`.
+b) Display FPE settings via `ethtool --show-mm`.
+c) View FPE statistics using `ethtool --include-statistics --show-mm'.
+e) Enable preemptible/express queue with `fp`:
+   tc qdisc add ... root taprio \
+   fp E E P P
+
+Change Log:
+v3 -> v4:
+- Fix compilation warnings introduced by this patch series
+
+v2 -> v3:
+- Implement configure_tx() mmsv callback (Vladimir)
+- Use static_branch_inc() and static_branch_dec() (Vladimir)
+- Add adapter->fpe.mmsv.pmac_enabled as extra check (Vladimir)
+- Remove unnecessary error check in igc_fpe_init_tx_descriptor() (Vladimir)
+- Additional places to use FIELD_PREP() instead of manual bit manipulation (Vladimir)
+- IGC_TXD_POPTS_SMD_V and IGC_TXD_POPTS_SMD_R type change to enum (Vladimir)
+- Remove unnecessary netif_running() check in igc_fpe_xmit_frame (Vladimir)
+- Rate limit print in igc_fpe_send_mpacket (Vladimir)
+
+v1 -> v2:
+- Extract the stmmac verification logic into a common library (Vladimir)
+- igc to use common library for verification (Vladimir)
+- Fix syntax for kernel-doc to use "Return:" (Vladimir)
+- Use FIELD_GET instead of manual bit masking (Vladimir)
+- Don't assign 0 to statistics counter in igc_ethtool_get_mm_stats() (Vladimir)
+- Use pmac-enabled as a condition to allow MAC address value 0 (Vladimir)
+- Define macro register value in increasing value order (Vladimir)
+- Fix tx-min-frag-size handling for igc (Vladimir)
+- Handle link state changes with verification in igc (Vladimir)
+- Add static key for fast path code (Vladimir)
+- rx_min_frag_size get from constant (Vladimir)
+
+v1: https://patchwork.kernel.org/project/netdevbpf/cover/20241216064720.931522-1-faizal.abdul.rahim@linux.intel.com/
+v2: https://patchwork.kernel.org/project/netdevbpf/cover/20250205100524.1138523-1-faizal.abdul.rahim@linux.intel.com/
+v3: https://patchwork.kernel.org/project/netdevbpf/cover/20250207165649.2245320-1-faizal.abdul.rahim@linux.intel.com/
+
+Faizal Rahim (8):
+  igc: Rename xdp_get_tx_ring() for non-xdp usage
+  igc: Optimize the TX packet buffer utilization
+  igc: Set the RX packet buffer size for TSN mode
+  igc: Add support for frame preemption verification
+  igc: Add support to set tx-min-frag-size
+  igc: Add support for preemptible traffic class in taprio
+  igc: Add support to get MAC Merge data via ethtool
+  igc: Add support to get frame preemption statistics via ethtool
+
+Vladimir Oltean (1):
+  net: ethtool: mm: extract stmmac verification logic into common
+    library
+
+ drivers/net/ethernet/intel/igc/igc.h          |  18 +-
+ drivers/net/ethernet/intel/igc/igc_base.h     |   1 +
+ drivers/net/ethernet/intel/igc/igc_defines.h  |  16 +-
+ drivers/net/ethernet/intel/igc/igc_ethtool.c  |  76 ++++++
+ drivers/net/ethernet/intel/igc/igc_main.c     | 101 +++++++-
+ drivers/net/ethernet/intel/igc/igc_regs.h     |  16 ++
+ drivers/net/ethernet/intel/igc/igc_tsn.c      | 219 ++++++++++++++++-
+ drivers/net/ethernet/intel/igc/igc_tsn.h      |  34 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  16 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  41 +---
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 174 +++-----------
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |   5 -
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   8 +-
+ include/linux/ethtool.h                       |  61 +++++
+ net/ethtool/mm.c                              | 224 +++++++++++++++++-
+ 15 files changed, 793 insertions(+), 217 deletions(-)
+
+--
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
