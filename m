@@ -2,109 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4D0A31274
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 18:09:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14710A31363
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 18:45:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F1A5C7A820;
-	Tue, 11 Feb 2025 17:09:21 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 178D1C78F9F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9888C7A820;
+	Tue, 11 Feb 2025 17:45:44 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B6EDC71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2025 17:09:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739293752;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6KqtiPP9cAbKw9pLfJEtjIYHOv1qD2Gmu69RxwYEKDs=;
- b=ERypdz9/HgePkHbYSQ2eHs25/7AKSc3j7kPNsB9II0YoSFDoQn/N2Iu6nBtdgSbutIVbem
- zSMymg+9T8Ow7VwKYesMgIBCYAFRBYqdOrxM6m8xQPNr0e9Wpy1/B2tOwkh2iK9KwbPPbI
- v7ljWYYzTaQxjF+REq/RGZ4FmA2FkpA=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-7-KDgHqxfpMbqWSeyLAjDBow-1; Tue, 11 Feb 2025 12:09:10 -0500
-X-MC-Unique: KDgHqxfpMbqWSeyLAjDBow-1
-X-Mimecast-MFC-AGG-ID: KDgHqxfpMbqWSeyLAjDBow_1739293750
-Received: by mail-yw1-f199.google.com with SMTP id
- 00721157ae682-6f2bc451902so81719647b3.3
+ Tue, 11 Feb 2025 17:45:37 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-43932b9b09aso37195775e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2025 09:09:10 -0800 (PST)
+ Tue, 11 Feb 2025 09:45:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739295937; x=1739900737;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OVukLjmjU7JWbNgNRIVE9jMDHO3O38O0IgGphOEr4s4=;
+ b=JpMT1KW0dsppinn37MXwJN44Kxwo5Qj2yS8K+L8sg8zjhmBQF30+8s9UJioMDPV/PP
+ RPFmwsDaR90k7N6qOlnSg3ij69Xp49rRwBUZcXm79n2CM/fcAVgwgwN1QYta6miyy0KG
+ WRW/Q0SRsR+Ok/SRbrOgijUXDe5gqJvsHvN5lWwReMmMyK6gsn8mRJn9Ohv8ZPlqgUlT
+ CJwaQXoK1jLZm/C5IYNGepzLUESxcTq8l5juDhzO5AWRMtmKceR8998UzXT8bxRMZkqw
+ G9+PsTAWv6mSSzwjMQ0qszYc1x2useTZNTjNe+VDgZEcdoXWaewyhXufdXfdgje77P7j
+ 3XQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739293750; x=1739898550;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6KqtiPP9cAbKw9pLfJEtjIYHOv1qD2Gmu69RxwYEKDs=;
- b=f6oagNS6RDRcu4CGi6H0dG+sTjlUf7naEnYDmmkdaaSIjBT+yVfv+z+pXPnF5ydWRF
- 4lZdoVNf5ajYaWQAWAPly+nQQyrflNMroqcpKwXLajLc27ntC5rmc/jaxinP6T9iqoQc
- oJ/0owonWOlFuJUM2tKPH320OsVGCDiFbuKm4a7cKg1eTyv7WLGi4ea7hPfGzwsZwxv0
- 5R/EXXUBE+lik1glm0xEImeNZy5fsAazxVMFNLPoIWFaYFSbRODKIPaZPG0Kfxv13lCv
- S0HwlIfQmmWvKBuSCqWDFRYPJAHUUBxZpnvFU6rU1/xcYil6LUCbIk1QsPK2M0PbK1PD
- REFw==
+ d=1e100.net; s=20230601; t=1739295937; x=1739900737;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OVukLjmjU7JWbNgNRIVE9jMDHO3O38O0IgGphOEr4s4=;
+ b=Gbh4/5YAoJwUpSsmZ1I9P358fXTZ8ha3MeW8LfuPdL1uKMnacv8DhGZje+/iThnNFT
+ vCyhMXueTckDpOeBggvKMVroUbEHKIZ97nnyDkQvcUXZS+GhMj9+COyphRYDZVKtRPWQ
+ 8HCDvAKA9tXIv/jHYEAk3Li2whuTjyIytvPb8xFBsIFopUHySNd7dh6cuQ1ZC4vGl8vA
+ Ud1tr5PSaN+83yhPKo6zvd6us/EeNQak1W6rgvLvWJ5CxqSGRlEKmRIw5St5juUNZNRP
+ KUnG/xkG8GorN2kufBdHM8eqML/bffPu6mIky+ouiPhoaG3ZLuIbUMaEWEiXyN+uBkMT
+ BMZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUd1hKDSl22+Xfrr6AbPeaqwYz2/5i2jCLNhAojywCbjK7iCGFYyoLBWwW+26Uu2i5hUv6PpJ/Fcmks7A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwuEXJjtDLdQE5jzRaMDnosSOFH8oZKonkQOi9JOIdpTtUfJBl2
- dQhjk+NoTo400qM2DGOo5qhxWQW0AkTlRsd3IoFjm6Jxxi+zWbk4hb9/BMmZWoo2FJ+K07Xa8sn
- atk/JifnfE77qvjAUBFWtClDSnGB6MNxnXew+AxGpbcyCZlx78drxRYniq288NVtEHTKLig/TOF
- PtVBZqGxrNRjju/dcrAkp55UPjj13TsZS2o97P3QMaDqAytglt1q+f
-X-Gm-Gg: ASbGncuvbvhVrYeQHTk4JRLm8TJt8khljfbnarbNH75IHp4Wj3Z4UyKom5kgRPu/XlM
- tLe7FG/1ObahqcEFDC1YqT6JmEvpj0Ei0MxrMNW6XiTs0/TwfTD1ey2GDTvRB
-X-Received: by 2002:a05:690c:620b:b0:6f7:598d:34c2 with SMTP id
- 00721157ae682-6fb1f68334dmr2317447b3.24.1739293749953; 
- Tue, 11 Feb 2025 09:09:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFfKa1KCPRXDPfQeav0M9USwT61j5FjOY5ty4cMA/v4gmNerkCy0F091v6rJjoChnCBHioJN5La+YrVT3vOwcs=
-X-Received: by 2002:a05:690c:620b:b0:6f7:598d:34c2 with SMTP id
- 00721157ae682-6fb1f68334dmr2315547b3.24.1739293748119; Tue, 11 Feb 2025
- 09:09:08 -0800 (PST)
+ AJvYcCVrl46u0IRIjj5f7pWRaiRMm1WrYmEn6jliNcBSrqTWyff03DpNE98ojsouqbJwG80OvsSyOXmE0WpMFw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxBRpGELvxbyY7jhhZBOzlMBlucPxyiQ/bgsOMq+9FzSJk8VeGo
+ Xst6h062jWSK19jEaCKY+vhCIdwXh94qHGGsZFsea8soKKWl82Ni
+X-Gm-Gg: ASbGncsOm7Y8z01cPraaMSOY2f8FigUzlD/b9qXtEJVlwT8CzBynhApFB/WYdWV7Y/v
+ plz3pedeO/zoNmqh/e9M1g7bfISNEqDJSZIxryjn5/UT7LpbT4gZkTinjSAj+bYUqfpqRmWUPJS
+ 5Q7s/3aX/dTtRofEPvtVgghK11snLdc9gXA1z3Qf+vL0JAVnoG3eAwsHpZ0iHcf6AoWYck/hlyw
+ sgGcvlyXBK0fk1VBr0oH8w6fheSwHVNT0BW3dJsaa8F0Tts8Xli+ZI5OtpFEldIJhFWy9GAHLsh
+ GCSVjygCujWpSC2wBG0VrxuQuAgeLA9M9cOrF7Z/fsSzpAcJO3nwKNz7Xrsnyfc=
+X-Google-Smtp-Source: AGHT+IHevhnQA52ksSDKCk/5HBFf2WQR6jKC1x+TgyxG0JLSuHfuqUjzxDwjKzCxF5CuvX9dIZjkUA==
+X-Received: by 2002:a05:600c:c0c:b0:430:57e8:3c7e with SMTP id
+ 5b1f17b1804b1-439581caafbmr1240075e9.28.1739295936426; 
+ Tue, 11 Feb 2025 09:45:36 -0800 (PST)
+Received: from ?IPV6:2001:861:3385:e20:2acd:89a8:83d9:4be5?
+ ([2001:861:3385:e20:2acd:89a8:83d9:4be5])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4390db11750sm222041925e9.40.2025.02.11.09.45.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 09:45:36 -0800 (PST)
+Message-ID: <c11a234e-de9e-465e-bd09-bfa516dba6dd@gmail.com>
+Date: Tue, 11 Feb 2025 18:45:31 +0100
 MIME-Version: 1.0
-References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
- <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
- <20250206-hallowed-ultra-tiger-cfec8e@houat>
-In-Reply-To: <20250206-hallowed-ultra-tiger-cfec8e@houat>
-From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Tue, 11 Feb 2025 12:08:57 -0500
-X-Gm-Features: AWEUYZnpF-xtMX2zoqL1SmW6M0UxWIfNDoln_2D_Wz78SFwXrsyRItY4Zv4vDPk
-Message-ID: <CAN9Xe3SpTG7r2UkN7_pH0uMXhU5u+dkWhaM9+w5VyOQZp9byNg@mail.gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Rn_wzYXMvk7MJPclp1dgncOVvbv5mF5tsusafpV0n1U_1739293750
-X-Mimecast-Originator: redhat.com
-Cc: imx@lists.linux.dev, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
- Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Simona Vetter <simona@ffwll.ch>,
- Marek Vasut <marex@denx.de>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Fabio Estevam <festevam@gmail.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
- Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alison Wang <alison.wang@nxp.com>,
+User-Agent: Mozilla Thunderbird
+To: Anusha Srivatsa <asrivats@redhat.com>, Joel Stanley <joel@jms.id.au>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Stefan Agner
+ <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
+ <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Matthias Brugger <matthias.bgg@gmail.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Marek Vasut <marex@denx.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Alain Volmat
+ <alain.volmat@foss.st.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan Corbet <corbet@lwn.net>,
- linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 11/12] drm/vc4: move to
-	devm_platform_ioremap_resource() usage
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Jonathan Corbet <corbet@lwn.net>
+References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
+ <20250205-mem-cocci-newapi-v1-7-aebf2b0e2300@redhat.com>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
+In-Reply-To: <20250205-mem-cocci-newapi-v1-7-aebf2b0e2300@redhat.com>
+Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 07/12] drm/sti: move to
+ devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,242 +124,164 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7360512433006078081=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7360512433006078081==
-Content-Type: multipart/alternative; boundary="00000000000004607d062de0e274"
-
---00000000000004607d062de0e274
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Feb 6, 2025 at 11:13=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
-wrote:
-
-> On Wed, Feb 05, 2025 at 03:08:07PM -0500, Anusha Srivatsa wrote:
-> > Replace platform_get_resource_byname + devm_ioremap_resource
-> > with just devm_platform_ioremap_resource()
-> >
-> > Used Coccinelle to do this change. SmPl patch:
-> > //rule s/(devm_)platform_get_resource_byname +
-> > //(devm_)ioremap/devm_platform_ioremap_resource.
-> > @rule_3@
-> > identifier res;
-> > expression ioremap;
-> > identifier pdev;
-> > constant mem;
-> > expression name;
-> > @@
-> > -struct resource *res;
-> > <+...
-> > -res =3D platform_get_resource_byname(pdev,mem,name);
-> > <...
-> > -if (!res) {
-> > -...
-> > -}
-> > ...>
-> > -ioremap =3D devm_ioremap(...);
-> > +ioremap =3D devm_platform_ioremap_resource_byname(pdev,name);
-> > ...+>
-> >
-> > v2: Change the SmPl patch to work on multiple occurences of
-> > the pattern. This also fixes the compilation error.
-> >
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
-> > Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
-> > ---
-> >  drivers/gpu/drm/vc4/vc4_hdmi.c | 55
-> +++++++++++-------------------------------
-> >  1 file changed, 14 insertions(+), 41 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> > index
-> 47d9ada98430634cfd8c1e21c2a4d00d501bab7e..066f1246dab420ee889845b0c573d80=
-ce7c88595
-> 100644
-> > --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> > @@ -2951,71 +2951,44 @@ static int vc5_hdmi_init_resources(struct
-> drm_device *drm,
-> >  {
-> >       struct platform_device *pdev =3D vc4_hdmi->pdev;
-> >       struct device *dev =3D &pdev->dev;
-> > -     struct resource *res;
-> >       int ret;
-> >
-> > -     res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hdmi"=
-);
-> > -     if (!res)
-> > -             return -ENODEV;
-> > -
-> > -     vc4_hdmi->hdmicore_regs =3D devm_ioremap(dev, res->start,
-> > -                                            resource_size(res));
-> > +     vc4_hdmi->hdmicore_regs =3D
-> devm_platform_ioremap_resource_byname(pdev,
-> > +
->  "hdmi");
-> >       if (!vc4_hdmi->hdmicore_regs)
-> >               return -ENOMEM;
-> >
-> > -     res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hd");
-> > -     if (!res)
-> > -             return -ENODEV;
-> > -
-> > -     vc4_hdmi->hd_regs =3D devm_ioremap(dev, res->start,
-> resource_size(res));
-> > +     vc4_hdmi->hd_regs =3D devm_platform_ioremap_resource_byname(pdev,
-> "hd");
-> >       if (!vc4_hdmi->hd_regs)
-> >               return -ENOMEM;
->
-> I *think* that one is shared between both HDMI controllers on the
-> RaspberryPi4, so we can't claim them from both instances. We should add
-> a comment there to document that it's on purpose.
->
-> How about vc4_hdmi->hdmicore_regs? It also has another instance
-vc4_hdmi_init_resources(). Looks like that also doesnt need any converting
-and shold be left as is.
-
-Anusha
-
-> The rest looks good.
->
-> Maxime
->
-
---00000000000004607d062de0e274
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 6, =
-2025 at 11:13=E2=80=AFAM Maxime Ripard &lt;<a href=3D"mailto:mripard@kernel=
-.org">mripard@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">On Wed, Feb 05, 2025 at 03:08:07PM -0500, Anusha Sr=
-ivatsa wrote:<br>
-&gt; Replace platform_get_resource_byname + devm_ioremap_resource<br>
-&gt; with just devm_platform_ioremap_resource()<br>
-&gt; <br>
-&gt; Used Coccinelle to do this change. SmPl patch:<br>
-&gt; //rule s/(devm_)platform_get_resource_byname +<br>
-&gt; //(devm_)ioremap/devm_platform_ioremap_resource.<br>
-&gt; @rule_3@<br>
-&gt; identifier res;<br>
-&gt; expression ioremap;<br>
-&gt; identifier pdev;<br>
-&gt; constant mem;<br>
-&gt; expression name;<br>
-&gt; @@<br>
-&gt; -struct resource *res;<br>
-&gt; &lt;+...<br>
-&gt; -res =3D platform_get_resource_byname(pdev,mem,name);<br>
-&gt; &lt;...<br>
-&gt; -if (!res) {<br>
-&gt; -...<br>
-&gt; -}<br>
-&gt; ...&gt;<br>
-&gt; -ioremap =3D devm_ioremap(...);<br>
-&gt; +ioremap =3D devm_platform_ioremap_resource_byname(pdev,name);<br>
-&gt; ...+&gt;<br>
-&gt; <br>
-&gt; v2: Change the SmPl patch to work on multiple occurences of<br>
-&gt; the pattern. This also fixes the compilation error.<br>
-&gt; <br>
-&gt; Cc: Maxime Ripard &lt;<a href=3D"mailto:mripard@kernel.org" target=3D"=
-_blank">mripard@kernel.org</a>&gt;<br>
-&gt; Cc: Dave Stevenson &lt;<a href=3D"mailto:dave.stevenson@raspberrypi.co=
-m" target=3D"_blank">dave.stevenson@raspberrypi.com</a>&gt;<br>
-&gt; Cc: Ma=C3=ADra Canal &lt;<a href=3D"mailto:mcanal@igalia.com" target=
-=3D"_blank">mcanal@igalia.com</a>&gt;<br>
-&gt; Signed-off-by: Anusha Srivatsa &lt;<a href=3D"mailto:asrivats@redhat.c=
-om" target=3D"_blank">asrivats@redhat.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/vc4/vc4_hdmi.c | 55 +++++++++++-----------------=
---------------<br>
-&gt;=C2=A0 1 file changed, 14 insertions(+), 41 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_=
-hdmi.c<br>
-&gt; index 47d9ada98430634cfd8c1e21c2a4d00d501bab7e..066f1246dab420ee889845=
-b0c573d80ce7c88595 100644<br>
-&gt; --- a/drivers/gpu/drm/vc4/vc4_hdmi.c<br>
-&gt; +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c<br>
-&gt; @@ -2951,71 +2951,44 @@ static int vc5_hdmi_init_resources(struct drm_=
-device *drm,<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct platform_device *pdev =3D vc4_hdmi-&g=
-t;pdev;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct device *dev =3D &amp;pdev-&gt;dev;<br=
->
-&gt; -=C2=A0 =C2=A0 =C2=A0struct resource *res;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0res =3D platform_get_resource_byname(pdev, IORESO=
-URCE_MEM, &quot;hdmi&quot;);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (!res)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENODEV;<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0vc4_hdmi-&gt;hdmicore_regs =3D devm_ioremap(dev, =
-res-&gt;start,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 resource_size(res));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0vc4_hdmi-&gt;hdmicore_regs =3D devm_platform_iore=
-map_resource_byname(pdev,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;hdmi&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vc4_hdmi-&gt;hdmicore_regs)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<=
-br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0res =3D platform_get_resource_byname(pdev, IORESO=
-URCE_MEM, &quot;hd&quot;);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (!res)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENODEV;<br>
-&gt; -<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0vc4_hdmi-&gt;hd_regs =3D devm_ioremap(dev, res-&g=
-t;start, resource_size(res));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0vc4_hdmi-&gt;hd_regs =3D devm_platform_ioremap_re=
-source_byname(pdev, &quot;hd&quot;);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!vc4_hdmi-&gt;hd_regs)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<=
-br>
-<br>
-I *think* that one is shared between both HDMI controllers on the<br>
-RaspberryPi4, so we can&#39;t claim them from both instances. We should add=
-<br>
-a comment there to document that it&#39;s on purpose.<br>
-<br></blockquote><div>How about vc4_hdmi-&gt;hdmicore_regs? It also has ano=
-ther instance vc4_hdmi_init_resources(). Looks like that also doesnt need a=
-ny converting and shold be left as is.</div><div><br></div><div>Anusha<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">
-The rest looks good.<br>
-<br>
-Maxime<br>
-</blockquote></div></div>
-
---00000000000004607d062de0e274--
-
-
---===============7360512433006078081==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7360512433006078081==--
-
+CgpMZSAwNS8wMi8yMDI1IMOgIDIxOjA4LCBBbnVzaGEgU3JpdmF0c2EgYSDDqWNyaXTCoDoKPiBS
+ZXBsYWNlIHBsYXRmb3JtX2dldF9yZXNvdXJjZS9fYnluYW1lICsgZGV2bV9pb3JlbWFwCj4gd2l0
+aCBqdXN0IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSgpCj4gCj4gVXNlZCBDb2NjaW5l
+bGxlIHRvIGRvIHRoaXMgY2hhbmdlLiBTbVBsIHBhdGNoOgo+IAo+IEBydWxlQAo+IGlkZW50aWZp
+ZXIgcmVzOwo+IGV4cHJlc3Npb24gaW9yZW1hcDsKPiBpZGVudGlmaWVyIHBkZXY7Cj4gY29uc3Rh
+bnQgbWVtOwo+IGV4cHJlc3Npb24gbmFtZTsKPiBAQAo+IC1zdHJ1Y3QgcmVzb3VyY2UgKnJlczsK
+PiAuLi4KPiAtcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291cmNlX2J5bmFtZShwZGV2LG1lbSxuYW1l
+KTsKPiA8Li4uCj4gLWlmICghcmVzKSB7Cj4gLS4uLgo+IC19Cj4gLi4uPgo+IC1pb3JlbWFwID0g
+ZGV2bV9pb3JlbWFwKC4uLik7Cj4gK2lvcmVtYXAgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVz
+b3VyY2VfYnluYW1lKHBkZXYsbmFtZSk7Cj4gCj4gYW5kCj4gQHJ1bGVfMkAKPiBpZGVudGlmaWVy
+IHJlczsKPiBleHByZXNzaW9uIGlvcmVtYXA7Cj4gaWRlbnRpZmllciBwZGV2Owo+IEBACj4gLXN0
+cnVjdCByZXNvdXJjZSAqcmVzOwo+IC4uLgo+IC1yZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2Uo
+cGRldiwuLi4pOwo+IDwuLi4KPiAtaWYgKCFyZXMpIHsKPiAtLi4uCj4gLX0KPiAuLi4+Cj4gLWlv
+cmVtYXAgPSBkZXZtX2lvcmVtYXAoLi4uKTsKPiAraW9yZW1hcCA9IGRldm1fcGxhdGZvcm1faW9y
+ZW1hcF9yZXNvdXJjZShwZGV2LDApOwo+IAo+IHYyOiBGaXggY29tcGlsYXRpb24gZXJyb3IuCgpI
+aSBBbnVzaGEsCgpKdXN0IGEgbml0OiBjaGFuZ2Vsb2cgc2hvdWxkIGJlIGFmdGVyIHRoZSDigJgt
+LS3igJkgc2VwYXJhdG9yLiA6LSkKCk90aGVyIHRoYW4gdGhpcywgaXQgaXMKQWNrZWQtYnk6IFJh
+cGhhZWwgR2FsbGFpcy1Qb3UgPHJnYWxsYWlzcG91QGdtYWlsLmNvbT4KClRoYW5rcywKUmVnYXJk
+cywKUmFwaGHDq2wKPiAKPiBDYzogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlz
+LXBvdUBmb3NzLnN0LmNvbT4KPiBDYzogQWxhaW4gVm9sbWF0IDxhbGFpbi52b2xtYXRAZm9zcy5z
+dC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW51c2hhIFNyaXZhdHNhIDxhc3JpdmF0c0ByZWRoYXQu
+Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfY29tcG9zaXRvci5jIHwgMTAg
+Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfZHZvLmMgICAgICAgIHwgMTAg
+Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMgICAgICAgIHwgIDkg
+Ky0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMgICAgICAgfCAxMSAr
+LS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaHF2ZHAuYyAgICAgIHwgMTAg
+Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdHZvdXQuYyAgICAgIHwgMTAg
+Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMgICAgICAgIHwgMTAg
+Ky0tLS0tLS0tLQo+ICAgNyBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDYzIGRlbGV0
+aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9jb21wb3Np
+dG9yLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9jb21wb3NpdG9yLmMKPiBpbmRleCAwNjNm
+ODJkMjNkODBjNGJhODM2MjRhMDA2NmExODQxNmEyYjM3MzUxLi43YWVmY2U2NzA2YmEyY2Q3ZDk3
+YTMzMjI4YzliOTgxMmVkZWNmMDZmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdGkv
+c3RpX2NvbXBvc2l0b3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdGkvc3RpX2NvbXBvc2l0
+b3IuYwo+IEBAIC0xNzcsNyArMTc3LDYgQEAgc3RhdGljIGludCBzdGlfY29tcG9zaXRvcl9wcm9i
+ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAq
+bnAgPSBkZXYtPm9mX25vZGU7Cj4gICAJc3RydWN0IGRldmljZV9ub2RlICp2dGdfbnA7Cj4gICAJ
+c3RydWN0IHN0aV9jb21wb3NpdG9yICpjb21wbzsKPiAtCXN0cnVjdCByZXNvdXJjZSAqcmVzOwo+
+ICAgCXVuc2lnbmVkIGludCBpOwo+ICAgCj4gICAJY29tcG8gPSBkZXZtX2t6YWxsb2MoZGV2LCBz
+aXplb2YoKmNvbXBvKSwgR0ZQX0tFUk5FTCk7Cj4gQEAgLTE5NCwxNCArMTkzLDcgQEAgc3RhdGlj
+IGludCBzdGlfY29tcG9zaXRvcl9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+
+ICAgCj4gICAJbWVtY3B5KCZjb21wby0+ZGF0YSwgb2ZfbWF0Y2hfbm9kZShjb21wb3NpdG9yX29m
+X21hdGNoLCBucCktPmRhdGEsCj4gICAJICAgICAgIHNpemVvZihzdHJ1Y3Qgc3RpX2NvbXBvc2l0
+b3JfZGF0YSkpOwo+IC0KPiAtCS8qIEdldCBNZW1vcnkgcmVzc291cmNlcyAqLwo+IC0JcmVzID0g
+cGxhdGZvcm1fZ2V0X3Jlc291cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAwKTsKPiAtCWlmIChy
+ZXMgPT0gTlVMTCkgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9yeSByZXNvdXJjZSBmYWlsZWRc
+biIpOwo+IC0JCXJldHVybiAtRU5YSU87Cj4gLQl9Cj4gLQljb21wby0+cmVncyA9IGRldm1faW9y
+ZW1hcChkZXYsIHJlcy0+c3RhcnQsIHJlc291cmNlX3NpemUocmVzKSk7Cj4gKwljb21wby0+cmVn
+cyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKPiAgIAlpZiAoY29t
+cG8tPnJlZ3MgPT0gTlVMTCkgewo+ICAgCQlEUk1fRVJST1IoIlJlZ2lzdGVyIG1hcHBpbmcgZmFp
+bGVkXG4iKTsKPiAgIAkJcmV0dXJuIC1FTlhJTzsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL3N0aS9zdGlfZHZvLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kdm8uYwo+IGluZGV4
+IGM2YzJhYmFhMTg5MWNkM2VhMDI1ODA1YjUwZDI3NWVjMzE0NTEyYzMuLjY2MDU4OGYwMWY5MDk1
+MGE5YjJjMTgwYWIyMzAxODhjMTk5MDFmMjYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L3N0aS9zdGlfZHZvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kdm8uYwo+IEBA
+IC01MTEsNyArNTExLDYgQEAgc3RhdGljIGludCBzdGlfZHZvX3Byb2JlKHN0cnVjdCBwbGF0Zm9y
+bV9kZXZpY2UgKnBkZXYpCj4gICB7Cj4gICAJc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYtPmRl
+djsKPiAgIAlzdHJ1Y3Qgc3RpX2R2byAqZHZvOwo+IC0Jc3RydWN0IHJlc291cmNlICpyZXM7Cj4g
+ICAJc3RydWN0IGRldmljZV9ub2RlICpucCA9IGRldi0+b2Zfbm9kZTsKPiAgIAo+ICAgCURSTV9J
+TkZPKCIlc1xuIiwgX19mdW5jX18pOwo+IEBAIC01MjMsMTQgKzUyMiw3IEBAIHN0YXRpYyBpbnQg
+c3RpX2R2b19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCX0KPiAgIAo+
+ICAgCWR2by0+ZGV2ID0gcGRldi0+ZGV2Owo+IC0KPiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNv
+dXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJkdm8tcmVnIik7Cj4gLQlpZiAoIXJl
+cykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBkdm8gcmVzb3VyY2VcbiIpOwo+IC0JCXJldHVy
+biAtRU5PTUVNOwo+IC0JfQo+IC0JZHZvLT5yZWdzID0gZGV2bV9pb3JlbWFwKGRldiwgcmVzLT5z
+dGFydCwKPiAtCQkJcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCWR2by0+cmVncyA9IGRldm1fcGxh
+dGZvcm1faW9yZW1hcF9yZXNvdXJjZV9ieW5hbWUocGRldiwgImR2by1yZWciKTsKPiAgIAlpZiAo
+IWR2by0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZGEu
+Ywo+IGluZGV4IGIxMjg2M2JlYTk1NTU5YzRmODc0ZWI5NGNlYTg5Mzg2MDlkNDM1ZDQuLjBiNWRi
+YWY0ZDUzMDU5ODk4NDZlMjVhMWNhYjZmODJkMTkxYWE5YTUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9o
+ZGEuYwo+IEBAIC03NTAsMTQgKzc1MCw3IEBAIHN0YXRpYyBpbnQgc3RpX2hkYV9wcm9iZShzdHJ1
+Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAgIAo+ICAg
+CWhkYS0+ZGV2ID0gcGRldi0+ZGV2Owo+IC0KPiAtCS8qIEdldCByZXNvdXJjZXMgKi8KPiAtCXJl
+cyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJo
+ZGEtcmVnIik7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBoZGEgcmVz
+b3VyY2VcbiIpOwo+IC0JCXJldHVybiAtRU5PTUVNOwo+IC0JfQo+IC0JaGRhLT5yZWdzID0gZGV2
+bV9pb3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCWhkYS0+
+cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZV9ieW5hbWUocGRldiwgImhkYS1y
+ZWciKTsKPiAgIAlpZiAoIWhkYS0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaGRtaS5jIGIvZHJpdmVycy9ncHUv
+ZHJtL3N0aS9zdGlfaGRtaS5jCj4gaW5kZXggY2EyZmUxN2RlNGE1ZDFlMDE5OWU1OWE5N2U2Yzc2
+MDFlMTM5ZWQ5ZS4uNjY2MTQzYzQ4YjBkMGYyYzIwY2QyNjMyM2RkYmM4ZTY5ZDk2NjYyMiAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMKPiBAQCAtMTM4MCw3ICsxMzgwLDYgQEAgc3RhdGljIGlu
+dCBzdGlfaGRtaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCXN0cnVj
+dCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gICAJc3RydWN0IHN0aV9oZG1pICpoZG1pOwo+
+ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAgPSBkZXYtPm9mX25vZGU7Cj4gLQlzdHJ1Y3QgcmVz
+b3VyY2UgKnJlczsKPiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKmRkYzsKPiAgIAlpbnQgcmV0Owo+
+ICAgCj4gQEAgLTEzOTksMTUgKzEzOTgsNyBAQCBzdGF0aWMgaW50IHN0aV9oZG1pX3Byb2JlKHN0
+cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAJfQo+ICAgCj4gICAJaGRtaS0+ZGV2ID0g
+cGRldi0+ZGV2Owo+IC0KPiAtCS8qIEdldCByZXNvdXJjZXMgKi8KPiAtCXJlcyA9IHBsYXRmb3Jt
+X2dldF9yZXNvdXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJoZG1pLXJlZyIpOwo+
+IC0JaWYgKCFyZXMpIHsKPiAtCQlEUk1fRVJST1IoIkludmFsaWQgaGRtaSByZXNvdXJjZVxuIik7
+Cj4gLQkJcmV0ID0gLUVOT01FTTsKPiAtCQlnb3RvIHJlbGVhc2VfYWRhcHRlcjsKPiAtCX0KPiAt
+CWhkbWktPnJlZ3MgPSBkZXZtX2lvcmVtYXAoZGV2LCByZXMtPnN0YXJ0LCByZXNvdXJjZV9zaXpl
+KHJlcykpOwo+ICsJaGRtaS0+cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZV9i
+eW5hbWUocGRldiwgImhkbWktcmVnIik7Cj4gICAJaWYgKCFoZG1pLT5yZWdzKSB7Cj4gICAJCXJl
+dCA9IC1FTk9NRU07Cj4gICAJCWdvdG8gcmVsZWFzZV9hZGFwdGVyOwo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9ocXZkcC5jIGIvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlf
+aHF2ZHAuYwo+IGluZGV4IDBmNjU4NzA5YzlkMGQzOThjNGVlZDY1MjAyNDQzZGI5ZDBiNDFmOGMu
+LjQyMDM5NTU5OGQxMTlhNDAzZDUzMTIxMTAyMmU2MDA1ZDZhMmJkNTkgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaHF2ZHAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
+dGkvc3RpX2hxdmRwLmMKPiBAQCAtMTM1Niw3ICsxMzU2LDYgQEAgc3RhdGljIGludCBzdGlfaHF2
+ZHBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgIAlzdHJ1Y3QgZGV2aWNl
+ICpkZXYgPSAmcGRldi0+ZGV2Owo+ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAqdnRnX25wOwo+ICAg
+CXN0cnVjdCBzdGlfaHF2ZHAgKmhxdmRwOwo+IC0Jc3RydWN0IHJlc291cmNlICpyZXM7Cj4gICAK
+PiAgIAlEUk1fREVCVUdfRFJJVkVSKCJcbiIpOwo+ICAgCj4gQEAgLTEzNjcsMTQgKzEzNjYsNyBA
+QCBzdGF0aWMgaW50IHN0aV9ocXZkcF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
+KQo+ICAgCX0KPiAgIAo+ICAgCWhxdmRwLT5kZXYgPSBkZXY7Cj4gLQo+IC0JLyogR2V0IE1lbW9y
+eSByZXNvdXJjZXMgKi8KPiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JF
+U09VUkNFX01FTSwgMCk7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9y
+eSByZXNvdXJjZSBmYWlsZWRcbiIpOwo+IC0JCXJldHVybiAtRU5YSU87Cj4gLQl9Cj4gLQlocXZk
+cC0+cmVncyA9IGRldm1faW9yZW1hcChkZXYsIHJlcy0+c3RhcnQsIHJlc291cmNlX3NpemUocmVz
+KSk7Cj4gKwlocXZkcC0+cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2
+LCAwKTsKPiAgIAlpZiAoIWhxdmRwLT5yZWdzKSB7Cj4gICAJCURSTV9FUlJPUigiUmVnaXN0ZXIg
+bWFwcGluZyBmYWlsZWRcbiIpOwo+ICAgCQlyZXR1cm4gLUVOWElPOwo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vc3RpL3N0aV90dm91dC5jIGIvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlf
+dHZvdXQuYwo+IGluZGV4IGFmNmMwNmY0NDhjNDgxOWRlZjhjYzBkMDgzNmUzMGY5OTE1Mjk2OTAu
+LjBiZWJlODE1ZjVlNzU2N2Y4NDM4OGFmOTM3MjNhNmZhN2QyY2M3YTIgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdHZvdXQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
+dGkvc3RpX3R2b3V0LmMKPiBAQCAtODM4LDcgKzgzOCw2IEBAIHN0YXRpYyBpbnQgc3RpX3R2b3V0
+X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAJc3RydWN0IGRldmljZSAq
+ZGV2ID0gJnBkZXYtPmRldjsKPiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5vZGUgPSBkZXYtPm9m
+X25vZGU7Cj4gICAJc3RydWN0IHN0aV90dm91dCAqdHZvdXQ7Cj4gLQlzdHJ1Y3QgcmVzb3VyY2Ug
+KnJlczsKPiAgIAo+ICAgCURSTV9JTkZPKCIlc1xuIiwgX19mdW5jX18pOwo+ICAgCj4gQEAgLTg1
+MCwxNCArODQ5LDcgQEAgc3RhdGljIGludCBzdGlfdHZvdXRfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
+X2RldmljZSAqcGRldikKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiAgIAl0dm91dC0+ZGV2
+ID0gZGV2Owo+IC0KPiAtCS8qIGdldCBtZW1vcnkgcmVzb3VyY2VzICovCj4gLQlyZXMgPSBwbGF0
+Zm9ybV9nZXRfcmVzb3VyY2VfYnluYW1lKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAidHZvdXQtcmVn
+Iik7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBnbHVlIHJlc291cmNl
+XG4iKTsKPiAtCQlyZXR1cm4gLUVOT01FTTsKPiAtCX0KPiAtCXR2b3V0LT5yZWdzID0gZGV2bV9p
+b3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCXR2b3V0LT5y
+ZWdzID0gZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlX2J5bmFtZShwZGV2LCAidHZvdXQt
+cmVnIik7Cj4gICAJaWYgKCF0dm91dC0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vc3RpL3N0aV92dGcuYwo+IGluZGV4IDViYTQ2OWI3MTFiNTMxOGU5ZTllNmQ4ZGYxMjdm
+Yjg5MzNkMWZhYzEuLmI1MzUzZmU3NzRkNzJmZDYyOWVjZDNlZjc1YTVkMjgxN2NhODYxN2YgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vc3RpL3N0aV92dGcuYwo+IEBAIC0zODAsMjAgKzM4MCwxMiBAQCBzdGF0aWMgaW50
+IHZ0Z19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgewo+ICAgCXN0cnVj
+dCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gICAJc3RydWN0IHN0aV92dGcgKnZ0ZzsKPiAt
+CXN0cnVjdCByZXNvdXJjZSAqcmVzOwo+ICAgCWludCByZXQ7Cj4gICAKPiAgIAl2dGcgPSBkZXZt
+X2t6YWxsb2MoZGV2LCBzaXplb2YoKnZ0ZyksIEdGUF9LRVJORUwpOwo+ICAgCWlmICghdnRnKQo+
+ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAtCj4gLQkvKiBHZXQgTWVtb3J5IHJlc3NvdXJjZXMgKi8K
+PiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JFU09VUkNFX01FTSwgMCk7
+Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9yeSByZXNvdXJjZSBmYWls
+ZWRcbiIpOwo+IC0JCXJldHVybiAtRU5PTUVNOwo+IC0JfQo+IC0JdnRnLT5yZWdzID0gZGV2bV9p
+b3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCXZ0Zy0+cmVn
+cyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKPiAgIAlpZiAoIXZ0
+Zy0+cmVncykgewo+ICAgCQlEUk1fRVJST1IoImZhaWxlZCB0byByZW1hcCBJL08gbWVtb3J5XG4i
+KTsKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
