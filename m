@@ -2,52 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A29A313D9
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 19:17:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D53FA313EA
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 19:19:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1D72C78006;
-	Tue, 11 Feb 2025 18:17:04 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-24.smtpout.orange.fr
- [80.12.242.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAF12C78006;
+	Tue, 11 Feb 2025 18:19:13 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6318C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A84EAC71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2025 18:16:57 +0000 (UTC)
-Received: from [192.168.1.37] ([90.11.132.44]) by smtp.orange.fr with ESMTPA
- id huoTtJ358CWdAhuoWth0R8; Tue, 11 Feb 2025 19:16:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1739297817;
- bh=dNf7ARSync5+2wSr35vosb1jPpHHIw0KLr6GEq+zDrQ=;
- h=Message-ID:Date:MIME-Version:Subject:From:To;
- b=ElHWnKLd15/IJ43QrhjbA3T+ajrzpmMJLWYwcUBlhiOio7ctyI5K2YHpA2zMHYdJG
- k/Bde1ML3HHwiKiDvbbwhr3X6MqTimrqG/pG5uSy8WpvpcJ2Cysm7WtBD4YP/UvHgH
- ZAnf3uBZtW0tzEVO+4T+jwk6iuqrpHYqF64I+UyJVyzwHUC+nN6lGWExLF50sNreux
- f6HsxMG5Ztiddnk8dDTtUmN5cLMrPEa93uPKf57Di+K+Lf1zIyNHv65gDNKrPP1EDY
- 6KsYzlmbSH9Y02V3NFL8Juf4WoXLWOZG0PsTfYgQIZ60FFXF94HPxu+QBkrzpdQJ/E
- v81242QWjucPA==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
-X-ME-Date: Tue, 11 Feb 2025 19:16:57 +0100
-X-ME-IP: 90.11.132.44
-Message-ID: <a74c3202-7a64-483d-907e-9a562e9dcd03@wanadoo.fr>
-Date: Tue, 11 Feb 2025 19:16:49 +0100
+ Tue, 11 Feb 2025 18:19:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 486EDA40BE6;
+ Tue, 11 Feb 2025 18:17:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A9DC4CEDD;
+ Tue, 11 Feb 2025 18:19:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739297945;
+ bh=2Kp4Zi09nuv/kuORUiQJl1dYvW4RXdPB6gTsNvTY3CI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HAz0HdbEmfMot5nLBQmD75IFwZRqJATTQq+XEA3Py2vGD1Y9HmEUKepf/qOXfc9iU
+ eJxbJceHVdPWesVXvMENGYpvvcUIC8aNi9fl4twGE7BzlXiF1B5lGnNV62HlbBvnIU
+ O3tSBq3S4UwGgX2LrAm0FeSKAlD2+d0iCvdIhmgi85LaCLrBcvqPfaaqR7SsPU0fM+
+ oD4XYMbVHToR4eFWAJNoepJ6nxla44PrtwOQGlbsCcYxCoSnsJ1zmHvbjWBEBpp+K7
+ gCk/LRB1eUx/bRPAUmG0ONlMb/Om7TIg5tR3Hna7wj+fV4xtKh3xS/DAK7F/vuAixx
+ LK2/f+gwqvqeg==
+Date: Tue, 11 Feb 2025 18:19:00 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <20250211-surviving-bunch-f4de29898d71@spud>
+References: <20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com>
+ <20250210-b4-stm32mp2_new_dts-v1-5-e8ef1e666c5e@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-References: <20250210131826.220318-1-patrice.chotard@foss.st.com>
- <20250210131826.220318-5-patrice.chotard@foss.st.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: patrice.chotard@foss.st.com
-In-Reply-To: <20250210131826.220318-5-patrice.chotard@foss.st.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, arnd@arndb.de,
- robh@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- broonie@kernel.org, mcoquelin.stm32@gmail.com, gregkh@linuxfoundation.org,
- p.zabel@pengutronix.de, krzk+dt@kernel.org, linux-spi@vger.kernel.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/8] memory: Add STM32 Octo Memory
-	Manager driver
+In-Reply-To: <20250210-b4-stm32mp2_new_dts-v1-5-e8ef1e666c5e@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+ Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 05/10] dt-bindings: stm32: document
+	stm32mp235f-dk board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,76 +55,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============5979182822619012546=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgMTAvMDIvMjAyNSDDoCAxNDoxOCwgCnBhdHJpY2UuY2hvdGFyZC1yajBJZWwvSlI0TkJEZ2pL
-N3k3VFVRQHB1YmxpYy5nbWFuZS5vcmcgYSDDqWNyaXTCoDoKPiBGcm9tOiBQYXRyaWNlIENob3Rh
-cmQgPHBhdHJpY2UuY2hvdGFyZC1yajBJZWwvSlI0TkJEZ2pLN3k3VFVRQHB1YmxpYy5nbWFuZS5v
-cmc+Cj4gCj4gT2N0byBNZW1vcnkgTWFuYWdlciBkcml2ZXIgKE9NTSkgbWFuYWdlczoKPiAgICAt
-IHRoZSBtdXhpbmcgYmV0d2VlbiAyIE9TUEkgYnVzc2VzIGFuZCAyIG91dHB1dCBwb3J0cy4KPiAg
-ICAgIFRoZXJlIGFyZSA0IHBvc3NpYmxlIG11eGluZyBjb25maWd1cmF0aW9uczoKPiAgICAgICAg
-LSBkaXJlY3QgbW9kZSAobm8gbXVsdGlwbGV4aW5nKTogT1NQSTEgb3V0cHV0IGlzIG9uIHBvcnQg
-MSBhbmQgT1NQSTIKPiAgICAgICAgICBvdXRwdXQgaXMgb24gcG9ydCAyCj4gICAgICAgIC0gT1NQ
-STEgYW5kIE9TUEkyIGFyZSBtdWx0aXBsZXhlZCBvdmVyIHRoZSBzYW1lIG91dHB1dCBwb3J0IDEK
-PiAgICAgICAgLSBzd2FwcGVkIG1vZGUgKG5vIG11bHRpcGxleGluZyksIE9TUEkxIG91dHB1dCBp
-cyBvbiBwb3J0IDIsCj4gICAgICAgICAgT1NQSTIgb3V0cHV0IGlzIG9uIHBvcnQgMQo+ICAgICAg
-ICAtIE9TUEkxIGFuZCBPU1BJMiBhcmUgbXVsdGlwbGV4ZWQgb3ZlciB0aGUgc2FtZSBvdXRwdXQg
-cG9ydCAyCj4gICAgLSB0aGUgc3BsaXQgb2YgdGhlIG1lbW9yeSBhcmVhIHNoYXJlZCBiZXR3ZWVu
-IHRoZSAyIE9TUEkgaW5zdGFuY2VzLgo+ICAgIC0gY2hpcCBzZWxlY3Qgc2VsZWN0aW9uIG92ZXJy
-aWRlLgo+ICAgIC0gdGhlIHRpbWUgYmV0d2VlbiAyIHRyYW5zYWN0aW9ucyBpbiBtdWx0aXBsZXhl
-ZCBtb2RlLgo+ICAgIC0gY2hlY2sgZmlyZXdhbGwgYWNjZXNzLgoKLi4uCgo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL21lbW9yeS9zdG0zMl9vbW0uYyBiL2RyaXZlcnMvbWVtb3J5L3N0bTMyX29tbS5j
-Cj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAwMDAwMDAwMDAwMDAuLmFmNjkxMzdiZmJh
-Mgo+IC0tLSAvZGV2L251bGwKPiArKysgYi9kcml2ZXJzL21lbW9yeS9zdG0zMl9vbW0uYwo+IEBA
-IC0wLDAgKzEsNTIwIEBACj4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwKCk5vdCBz
-dXJlIHRoaXMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXIgZXhpc3RzLgoKPiArLyoKPiArICogQ29w
-eXJpZ2h0IChDKSBTVE1pY3JvZWxlY3Ryb25pY3MgMjAyNCAtIEFsbCBSaWdodHMgUmVzZXJ2ZWQK
-Ci4uLgoKPiArCXBtX3J1bnRpbWVfZW5hYmxlKGRldik7Cj4gKwo+ICsJLyogY2hlY2sgaWYgT01N
-J3MgcmVzb3VyY2UgYWNjZXNzIGlzIGdyYW50ZWQgKi8KPiArCXJldCA9IHN0bTMyX29tbV9jaGVj
-a19hY2Nlc3MoZGV2LCBkZXYtPm9mX25vZGUpOwo+ICsJaWYgKHJldCA8IDAgJiYgcmV0ICE9IC1F
-QUNDRVMpCj4gKwkJZ290byBlcnJfY2xrX3JlbGVhc2U7CgpTaG91bGQgd2UgY2FsbCwgaGVyZSBh
-bmQgYmVsb3csIHBtX3J1bnRpbWVfZGlzYWJsZSgpIGluIHRoZSBlcnJvciAKaGFuZGxpbmcgcGF0
-aCwgYXMgZG9uZSBpbiB0aGUgcmVtb3ZlIGZ1bmN0aW9uPwoKPiArCj4gKwlpZiAoIXJldCAmJiBj
-aGlsZF9hY2Nlc3NfZ3JhbnRlZCA9PSBPTU1fQ0hJTERfTkIpIHsKPiArCQkvKiBFbnN1cmUgYm90
-aCBPU1BJIGluc3RhbmNlIGFyZSBkaXNhYmxlZCBiZWZvcmUgY29uZmlndXJpbmcgT01NICovCj4g
-KwkJcmV0ID0gc3RtMzJfb21tX2Rpc2FibGVfY2hpbGQoZGV2KTsKPiArCQlpZiAocmV0KQo+ICsJ
-CQlnb3RvIGVycl9jbGtfcmVsZWFzZTsKPiArCj4gKwkJcmV0ID0gc3RtMzJfb21tX2NvbmZpZ3Vy
-ZShkZXYpOwo+ICsJCWlmIChyZXQpCj4gKwkJCWdvdG8gZXJyX2Nsa19yZWxlYXNlOwo+ICsJfSBl
-bHNlIHsKPiArCQlkZXZfZGJnKGRldiwgIk9jdG8gTWVtb3J5IE1hbmFnZXIgcmVzb3VyY2UncyBh
-Y2Nlc3Mgbm90IGdyYW50ZWRcbiIpOwo+ICsJCS8qCj4gKwkJICogQU1DUiBjYW4ndCBiZSBzZXQs
-IHNvIGNoZWNrIGlmIGN1cnJlbnQgdmFsdWUgaXMgY29oZXJlbnQKPiArCQkgKiB3aXRoIG1lbW9y
-eS1tYXAgYXJlYXMgZGVmaW5lZCBpbiBEVAo+ICsJCSAqLwo+ICsJCXJldCA9IHN0bTMyX29tbV9z
-ZXRfYW1jcihkZXYsIGZhbHNlKTsKPiArCQlpZiAocmV0KQo+ICsJCQlnb3RvIGVycl9jbGtfcmVs
-ZWFzZTsKPiArCX0KPiArCj4gKwkvKiBmb3IgZWFjaCBjaGlsZCwgaWYgcmVzb3VyY2UgYWNjZXNz
-IGlzIGdyYW50ZWQgYW5kIHN0YXR1cyAib2theSIsIHByb2JlIGl0ICovCj4gKwlmb3IgKGkgPSAw
-OyBpIDwgb21tLT5uYl9jaGlsZDsgaSsrKSB7Cj4gKwkJaWYgKCFjaGlsZF9hY2Nlc3NbaV0gfHwg
-IW9mX2RldmljZV9pc19hdmFpbGFibGUob21tLT5jaGlsZFtpXS5ub2RlKSkKPiArCQkJY29udGlu
-dWU7Cj4gKwo+ICsJCXZkZXYgPSBvZl9wbGF0Zm9ybV9kZXZpY2VfY3JlYXRlKG9tbS0+Y2hpbGRb
-aV0ubm9kZSwgTlVMTCwgTlVMTCk7Cj4gKwkJaWYgKCF2ZGV2KSB7Cj4gKwkJCWRldl9lcnIoZGV2
-LCAiRmFpbGVkIHRvIGNyZWF0ZSBPY3RvIE1lbW9yeSBNYW5hZ2VyIGNoaWxkXG4iKTsKPiArCQkJ
-Zm9yIChqID0gaTsgaiA+IDA7IC0taikgewo+ICsJCQkJaWYgKG9tbS0+Y2hpbGRbal0uZGV2KQo+
-ICsJCQkJCW9mX3BsYXRmb3JtX2RldmljZV9kZXN0cm95KG9tbS0+Y2hpbGRbal0uZGV2LCBOVUxM
-KTsKPiArCQkJfQo+ICsKPiArCQkJcmV0ID0gLUVJTlZBTDsKPiArCQkJZ290byBlcnJfY2xrX3Jl
-bGVhc2U7Cj4gKwkJfQo+ICsJCW9tbS0+Y2hpbGRbaV0uZGV2ID0gJnZkZXYtPmRldjsKPiArCX0K
-PiArCj4gK2Vycl9jbGtfcmVsZWFzZToKPiArCWZvciAoaSA9IDA7IGkgPCBvbW0tPm5iX2NoaWxk
-OyBpKyspCj4gKwkJY2xrX3B1dChvbW0tPmNoaWxkW2ldLmNsayk7Cj4gKwo+ICsJcmV0dXJuIHJl
-dDsKPiArfQo+ICsKPiArc3RhdGljIHZvaWQgc3RtMzJfb21tX3JlbW92ZShzdHJ1Y3QgcGxhdGZv
-cm1fZGV2aWNlICpwZGV2KQo+ICt7Cj4gKwlzdHJ1Y3Qgc3RtMzJfb21tICpvbW0gPSBwbGF0Zm9y
-bV9nZXRfZHJ2ZGF0YShwZGV2KTsKPiArCWludCBpOwo+ICsKPiArCWZvciAoaSA9IDA7IGkgPCBv
-bW0tPm5iX2NoaWxkOyBpKyspCj4gKwkJaWYgKG9tbS0+Y2hpbGRbaV0uZGV2KQo+ICsJCQlvZl9w
-bGF0Zm9ybV9kZXZpY2VfZGVzdHJveShvbW0tPmNoaWxkW2ldLmRldiwgTlVMTCk7Cj4gKwo+ICsJ
-aWYgKG9tbS0+Y3IgJiBDUl9NVVhFTikKPiArCQlzdG0zMl9vbW1fZW5hYmxlX2NoaWxkX2Nsb2Nr
-KCZwZGV2LT5kZXYsIGZhbHNlKTsKPiArCj4gKwlwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRl
-dik7CgpTaG91bGQgd2UgaGF2ZToKCWZvciAoaSA9IDA7IGkgPCBvbW0tPm5iX2NoaWxkOyBpKysp
-CgkJY2xrX3B1dChvbW0tPmNoaWxkW2ldLmNsayk7CmFzIGRvbmUgaW4gdGhlIGVycm9yIGhhbmRs
-aW5nIHBhdGggb2YgdGhlIHByb2JlPwoKPiArfQo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBv
-Zl9kZXZpY2VfaWQgc3RtMzJfb21tX29mX21hdGNoW10gPSB7Cj4gKwl7IC5jb21wYXRpYmxlID0g
-InN0LHN0bTMybXAyNS1vbW0iLCB9LAo+ICsJe30sCgpOaXRwaWNrOiBVbm5lZWRlZCAsIGFmdGVy
-IGEgdGVybWluYXRvci4KCj4gK307Cj4gK01PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHN0bTMyX29t
-bV9vZl9tYXRjaCk7CgouLi4KCkNKCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============5979182822619012546==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Ueo0e+SD1hPCV0MU"
+Content-Disposition: inline
+
+
+--Ueo0e+SD1hPCV0MU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Feb 10, 2025 at 04:20:59PM +0100, Amelie Delaunay wrote:
+> Add new entry for stm32mp235-dk board.
+>=20
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+--Ueo0e+SD1hPCV0MU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZ6uUlAAKCRB4tDGHoIJi
+0nTOAQDJ4oscU2Sfp60SfXJoCMC3ARGWSbzSfjc1JO2iL40lJwEA3gV6SLlmwCn8
+9am4zS12tt9N3U9+3EGMeTGdy9mptg4=
+=MiP+
+-----END PGP SIGNATURE-----
+
+--Ueo0e+SD1hPCV0MU--
+
+--===============5979182822619012546==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5979182822619012546==--
