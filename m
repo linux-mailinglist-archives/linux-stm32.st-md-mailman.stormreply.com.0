@@ -2,117 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14710A31363
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 18:45:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC629A3139B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2025 18:56:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9888C7A820;
-	Tue, 11 Feb 2025 17:45:44 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EDBEC7A820;
+	Tue, 11 Feb 2025 17:56:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B6EDC71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03F55C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2025 17:45:37 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-43932b9b09aso37195775e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2025 09:45:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739295937; x=1739900737;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OVukLjmjU7JWbNgNRIVE9jMDHO3O38O0IgGphOEr4s4=;
- b=JpMT1KW0dsppinn37MXwJN44Kxwo5Qj2yS8K+L8sg8zjhmBQF30+8s9UJioMDPV/PP
- RPFmwsDaR90k7N6qOlnSg3ij69Xp49rRwBUZcXm79n2CM/fcAVgwgwN1QYta6miyy0KG
- WRW/Q0SRsR+Ok/SRbrOgijUXDe5gqJvsHvN5lWwReMmMyK6gsn8mRJn9Ohv8ZPlqgUlT
- CJwaQXoK1jLZm/C5IYNGepzLUESxcTq8l5juDhzO5AWRMtmKceR8998UzXT8bxRMZkqw
- G9+PsTAWv6mSSzwjMQ0qszYc1x2useTZNTjNe+VDgZEcdoXWaewyhXufdXfdgje77P7j
- 3XQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739295937; x=1739900737;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OVukLjmjU7JWbNgNRIVE9jMDHO3O38O0IgGphOEr4s4=;
- b=Gbh4/5YAoJwUpSsmZ1I9P358fXTZ8ha3MeW8LfuPdL1uKMnacv8DhGZje+/iThnNFT
- vCyhMXueTckDpOeBggvKMVroUbEHKIZ97nnyDkQvcUXZS+GhMj9+COyphRYDZVKtRPWQ
- 8HCDvAKA9tXIv/jHYEAk3Li2whuTjyIytvPb8xFBsIFopUHySNd7dh6cuQ1ZC4vGl8vA
- Ud1tr5PSaN+83yhPKo6zvd6us/EeNQak1W6rgvLvWJ5CxqSGRlEKmRIw5St5juUNZNRP
- KUnG/xkG8GorN2kufBdHM8eqML/bffPu6mIky+ouiPhoaG3ZLuIbUMaEWEiXyN+uBkMT
- BMZg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVrl46u0IRIjj5f7pWRaiRMm1WrYmEn6jliNcBSrqTWyff03DpNE98ojsouqbJwG80OvsSyOXmE0WpMFw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxBRpGELvxbyY7jhhZBOzlMBlucPxyiQ/bgsOMq+9FzSJk8VeGo
- Xst6h062jWSK19jEaCKY+vhCIdwXh94qHGGsZFsea8soKKWl82Ni
-X-Gm-Gg: ASbGncsOm7Y8z01cPraaMSOY2f8FigUzlD/b9qXtEJVlwT8CzBynhApFB/WYdWV7Y/v
- plz3pedeO/zoNmqh/e9M1g7bfISNEqDJSZIxryjn5/UT7LpbT4gZkTinjSAj+bYUqfpqRmWUPJS
- 5Q7s/3aX/dTtRofEPvtVgghK11snLdc9gXA1z3Qf+vL0JAVnoG3eAwsHpZ0iHcf6AoWYck/hlyw
- sgGcvlyXBK0fk1VBr0oH8w6fheSwHVNT0BW3dJsaa8F0Tts8Xli+ZI5OtpFEldIJhFWy9GAHLsh
- GCSVjygCujWpSC2wBG0VrxuQuAgeLA9M9cOrF7Z/fsSzpAcJO3nwKNz7Xrsnyfc=
-X-Google-Smtp-Source: AGHT+IHevhnQA52ksSDKCk/5HBFf2WQR6jKC1x+TgyxG0JLSuHfuqUjzxDwjKzCxF5CuvX9dIZjkUA==
-X-Received: by 2002:a05:600c:c0c:b0:430:57e8:3c7e with SMTP id
- 5b1f17b1804b1-439581caafbmr1240075e9.28.1739295936426; 
- Tue, 11 Feb 2025 09:45:36 -0800 (PST)
-Received: from ?IPV6:2001:861:3385:e20:2acd:89a8:83d9:4be5?
- ([2001:861:3385:e20:2acd:89a8:83d9:4be5])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4390db11750sm222041925e9.40.2025.02.11.09.45.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Feb 2025 09:45:36 -0800 (PST)
-Message-ID: <c11a234e-de9e-465e-bd09-bfa516dba6dd@gmail.com>
-Date: Tue, 11 Feb 2025 18:45:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Anusha Srivatsa <asrivats@redhat.com>, Joel Stanley <joel@jms.id.au>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Stefan Agner
- <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
- <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Marek Vasut <marex@denx.de>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tue, 11 Feb 2025 17:56:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739296616; x=1770832616;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tUfnbQLqPmzNMMTnPDZCp5d6eeH/3wvctepWEQ6MdPE=;
+ b=JzpnLKfa3E1DR7pf6regXHTr9PtXhU+YRYmeETrrViNzgKiJITMw7Z+d
+ hOB1QmNPKwo/5NrRYfL1CPGqvEuWQFHELf+S8gsvYpfOrZWqH2jiQeOHX
+ A2SW4RucSnyDeiDx7FGngIhDi9CONepjH2jszdpU3QC/ZF/+3YiMnyFSr
+ rPH8ubY4WXpFxHmBcG2H0dvIYhE5Yr5ZfkzLdrX0fDO0N/gzG/udlV8Rj
+ my1bZO4tx+kNZ/qV7vnqAfv56z5FoID0O28l781O4W/tJNCnTy9pDiDGE
+ CCZkIQrMRZ8tyW90w+uDhyoT7pkPGMTgK3bWtqzaojUG+6PWafv1JcuZM Q==;
+X-CSE-ConnectionGUID: OoP5J+dnSQKLtcWvcE+pZA==
+X-CSE-MsgGUID: t8FMWbdZTqefvJm/ghbd6g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11342"; a="39812853"
+X-IronPort-AV: E=Sophos;i="6.13,278,1732608000"; d="scan'208";a="39812853"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2025 09:56:48 -0800
+X-CSE-ConnectionGUID: UsqZjJAaRQq3xmGjVQ4LIw==
+X-CSE-MsgGUID: Xams3y/UT4yCGUgFrWF3dg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,278,1732608000"; d="scan'208";a="143430133"
+Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
+ by orviesa002.jf.intel.com with ESMTP; 11 Feb 2025 09:56:43 -0800
+Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1thuUx-0014Wl-1g;
+ Tue, 11 Feb 2025 17:56:39 +0000
+Date: Wed, 12 Feb 2025 01:56:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Jonathan Corbet <corbet@lwn.net>
-References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
- <20250205-mem-cocci-newapi-v1-7-aebf2b0e2300@redhat.com>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
-In-Reply-To: <20250205-mem-cocci-newapi-v1-7-aebf2b0e2300@redhat.com>
-Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/12] drm/sti: move to
- devm_platform_ioremap_resource() usage
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+Message-ID: <202502120118.27fjrRqt-lkp@intel.com>
+References: <20250210131826.220318-5-patrice.chotard@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250210131826.220318-5-patrice.chotard@foss.st.com>
+Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 4/8] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,164 +74,370 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpMZSAwNS8wMi8yMDI1IMOgIDIxOjA4LCBBbnVzaGEgU3JpdmF0c2EgYSDDqWNyaXTCoDoKPiBS
-ZXBsYWNlIHBsYXRmb3JtX2dldF9yZXNvdXJjZS9fYnluYW1lICsgZGV2bV9pb3JlbWFwCj4gd2l0
-aCBqdXN0IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSgpCj4gCj4gVXNlZCBDb2NjaW5l
-bGxlIHRvIGRvIHRoaXMgY2hhbmdlLiBTbVBsIHBhdGNoOgo+IAo+IEBydWxlQAo+IGlkZW50aWZp
-ZXIgcmVzOwo+IGV4cHJlc3Npb24gaW9yZW1hcDsKPiBpZGVudGlmaWVyIHBkZXY7Cj4gY29uc3Rh
-bnQgbWVtOwo+IGV4cHJlc3Npb24gbmFtZTsKPiBAQAo+IC1zdHJ1Y3QgcmVzb3VyY2UgKnJlczsK
-PiAuLi4KPiAtcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291cmNlX2J5bmFtZShwZGV2LG1lbSxuYW1l
-KTsKPiA8Li4uCj4gLWlmICghcmVzKSB7Cj4gLS4uLgo+IC19Cj4gLi4uPgo+IC1pb3JlbWFwID0g
-ZGV2bV9pb3JlbWFwKC4uLik7Cj4gK2lvcmVtYXAgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVz
-b3VyY2VfYnluYW1lKHBkZXYsbmFtZSk7Cj4gCj4gYW5kCj4gQHJ1bGVfMkAKPiBpZGVudGlmaWVy
-IHJlczsKPiBleHByZXNzaW9uIGlvcmVtYXA7Cj4gaWRlbnRpZmllciBwZGV2Owo+IEBACj4gLXN0
-cnVjdCByZXNvdXJjZSAqcmVzOwo+IC4uLgo+IC1yZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2Uo
-cGRldiwuLi4pOwo+IDwuLi4KPiAtaWYgKCFyZXMpIHsKPiAtLi4uCj4gLX0KPiAuLi4+Cj4gLWlv
-cmVtYXAgPSBkZXZtX2lvcmVtYXAoLi4uKTsKPiAraW9yZW1hcCA9IGRldm1fcGxhdGZvcm1faW9y
-ZW1hcF9yZXNvdXJjZShwZGV2LDApOwo+IAo+IHYyOiBGaXggY29tcGlsYXRpb24gZXJyb3IuCgpI
-aSBBbnVzaGEsCgpKdXN0IGEgbml0OiBjaGFuZ2Vsb2cgc2hvdWxkIGJlIGFmdGVyIHRoZSDigJgt
-LS3igJkgc2VwYXJhdG9yLiA6LSkKCk90aGVyIHRoYW4gdGhpcywgaXQgaXMKQWNrZWQtYnk6IFJh
-cGhhZWwgR2FsbGFpcy1Qb3UgPHJnYWxsYWlzcG91QGdtYWlsLmNvbT4KClRoYW5rcywKUmVnYXJk
-cywKUmFwaGHDq2wKPiAKPiBDYzogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlz
-LXBvdUBmb3NzLnN0LmNvbT4KPiBDYzogQWxhaW4gVm9sbWF0IDxhbGFpbi52b2xtYXRAZm9zcy5z
-dC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW51c2hhIFNyaXZhdHNhIDxhc3JpdmF0c0ByZWRoYXQu
-Y29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfY29tcG9zaXRvci5jIHwgMTAg
-Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfZHZvLmMgICAgICAgIHwgMTAg
-Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMgICAgICAgIHwgIDkg
-Ky0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMgICAgICAgfCAxMSAr
-LS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaHF2ZHAuYyAgICAgIHwgMTAg
-Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdHZvdXQuYyAgICAgIHwgMTAg
-Ky0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMgICAgICAgIHwgMTAg
-Ky0tLS0tLS0tLQo+ICAgNyBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDYzIGRlbGV0
-aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9jb21wb3Np
-dG9yLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9jb21wb3NpdG9yLmMKPiBpbmRleCAwNjNm
-ODJkMjNkODBjNGJhODM2MjRhMDA2NmExODQxNmEyYjM3MzUxLi43YWVmY2U2NzA2YmEyY2Q3ZDk3
-YTMzMjI4YzliOTgxMmVkZWNmMDZmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdGkv
-c3RpX2NvbXBvc2l0b3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdGkvc3RpX2NvbXBvc2l0
-b3IuYwo+IEBAIC0xNzcsNyArMTc3LDYgQEAgc3RhdGljIGludCBzdGlfY29tcG9zaXRvcl9wcm9i
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAq
-bnAgPSBkZXYtPm9mX25vZGU7Cj4gICAJc3RydWN0IGRldmljZV9ub2RlICp2dGdfbnA7Cj4gICAJ
-c3RydWN0IHN0aV9jb21wb3NpdG9yICpjb21wbzsKPiAtCXN0cnVjdCByZXNvdXJjZSAqcmVzOwo+
-ICAgCXVuc2lnbmVkIGludCBpOwo+ICAgCj4gICAJY29tcG8gPSBkZXZtX2t6YWxsb2MoZGV2LCBz
-aXplb2YoKmNvbXBvKSwgR0ZQX0tFUk5FTCk7Cj4gQEAgLTE5NCwxNCArMTkzLDcgQEAgc3RhdGlj
-IGludCBzdGlfY29tcG9zaXRvcl9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+
-ICAgCj4gICAJbWVtY3B5KCZjb21wby0+ZGF0YSwgb2ZfbWF0Y2hfbm9kZShjb21wb3NpdG9yX29m
-X21hdGNoLCBucCktPmRhdGEsCj4gICAJICAgICAgIHNpemVvZihzdHJ1Y3Qgc3RpX2NvbXBvc2l0
-b3JfZGF0YSkpOwo+IC0KPiAtCS8qIEdldCBNZW1vcnkgcmVzc291cmNlcyAqLwo+IC0JcmVzID0g
-cGxhdGZvcm1fZ2V0X3Jlc291cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAwKTsKPiAtCWlmIChy
-ZXMgPT0gTlVMTCkgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9yeSByZXNvdXJjZSBmYWlsZWRc
-biIpOwo+IC0JCXJldHVybiAtRU5YSU87Cj4gLQl9Cj4gLQljb21wby0+cmVncyA9IGRldm1faW9y
-ZW1hcChkZXYsIHJlcy0+c3RhcnQsIHJlc291cmNlX3NpemUocmVzKSk7Cj4gKwljb21wby0+cmVn
-cyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKPiAgIAlpZiAoY29t
-cG8tPnJlZ3MgPT0gTlVMTCkgewo+ICAgCQlEUk1fRVJST1IoIlJlZ2lzdGVyIG1hcHBpbmcgZmFp
-bGVkXG4iKTsKPiAgIAkJcmV0dXJuIC1FTlhJTzsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL3N0aS9zdGlfZHZvLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kdm8uYwo+IGluZGV4
-IGM2YzJhYmFhMTg5MWNkM2VhMDI1ODA1YjUwZDI3NWVjMzE0NTEyYzMuLjY2MDU4OGYwMWY5MDk1
-MGE5YjJjMTgwYWIyMzAxODhjMTk5MDFmMjYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L3N0aS9zdGlfZHZvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kdm8uYwo+IEBA
-IC01MTEsNyArNTExLDYgQEAgc3RhdGljIGludCBzdGlfZHZvX3Byb2JlKHN0cnVjdCBwbGF0Zm9y
-bV9kZXZpY2UgKnBkZXYpCj4gICB7Cj4gICAJc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYtPmRl
-djsKPiAgIAlzdHJ1Y3Qgc3RpX2R2byAqZHZvOwo+IC0Jc3RydWN0IHJlc291cmNlICpyZXM7Cj4g
-ICAJc3RydWN0IGRldmljZV9ub2RlICpucCA9IGRldi0+b2Zfbm9kZTsKPiAgIAo+ICAgCURSTV9J
-TkZPKCIlc1xuIiwgX19mdW5jX18pOwo+IEBAIC01MjMsMTQgKzUyMiw3IEBAIHN0YXRpYyBpbnQg
-c3RpX2R2b19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCX0KPiAgIAo+
-ICAgCWR2by0+ZGV2ID0gcGRldi0+ZGV2Owo+IC0KPiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNv
-dXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJkdm8tcmVnIik7Cj4gLQlpZiAoIXJl
-cykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBkdm8gcmVzb3VyY2VcbiIpOwo+IC0JCXJldHVy
-biAtRU5PTUVNOwo+IC0JfQo+IC0JZHZvLT5yZWdzID0gZGV2bV9pb3JlbWFwKGRldiwgcmVzLT5z
-dGFydCwKPiAtCQkJcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCWR2by0+cmVncyA9IGRldm1fcGxh
-dGZvcm1faW9yZW1hcF9yZXNvdXJjZV9ieW5hbWUocGRldiwgImR2by1yZWciKTsKPiAgIAlpZiAo
-IWR2by0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZGEu
-Ywo+IGluZGV4IGIxMjg2M2JlYTk1NTU5YzRmODc0ZWI5NGNlYTg5Mzg2MDlkNDM1ZDQuLjBiNWRi
-YWY0ZDUzMDU5ODk4NDZlMjVhMWNhYjZmODJkMTkxYWE5YTUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL3N0aS9zdGlfaGRhLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9o
-ZGEuYwo+IEBAIC03NTAsMTQgKzc1MCw3IEBAIHN0YXRpYyBpbnQgc3RpX2hkYV9wcm9iZShzdHJ1
-Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAgIAo+ICAg
-CWhkYS0+ZGV2ID0gcGRldi0+ZGV2Owo+IC0KPiAtCS8qIEdldCByZXNvdXJjZXMgKi8KPiAtCXJl
-cyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJo
-ZGEtcmVnIik7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBoZGEgcmVz
-b3VyY2VcbiIpOwo+IC0JCXJldHVybiAtRU5PTUVNOwo+IC0JfQo+IC0JaGRhLT5yZWdzID0gZGV2
-bV9pb3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCWhkYS0+
-cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZV9ieW5hbWUocGRldiwgImhkYS1y
-ZWciKTsKPiAgIAlpZiAoIWhkYS0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaGRtaS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL3N0aS9zdGlfaGRtaS5jCj4gaW5kZXggY2EyZmUxN2RlNGE1ZDFlMDE5OWU1OWE5N2U2Yzc2
-MDFlMTM5ZWQ5ZS4uNjY2MTQzYzQ4YjBkMGYyYzIwY2QyNjMyM2RkYmM4ZTY5ZDk2NjYyMiAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vc3RpL3N0aV9oZG1pLmMKPiBAQCAtMTM4MCw3ICsxMzgwLDYgQEAgc3RhdGljIGlu
-dCBzdGlfaGRtaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgCXN0cnVj
-dCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gICAJc3RydWN0IHN0aV9oZG1pICpoZG1pOwo+
-ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAgPSBkZXYtPm9mX25vZGU7Cj4gLQlzdHJ1Y3QgcmVz
-b3VyY2UgKnJlczsKPiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKmRkYzsKPiAgIAlpbnQgcmV0Owo+
-ICAgCj4gQEAgLTEzOTksMTUgKzEzOTgsNyBAQCBzdGF0aWMgaW50IHN0aV9oZG1pX3Byb2JlKHN0
-cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAJfQo+ICAgCj4gICAJaGRtaS0+ZGV2ID0g
-cGRldi0+ZGV2Owo+IC0KPiAtCS8qIEdldCByZXNvdXJjZXMgKi8KPiAtCXJlcyA9IHBsYXRmb3Jt
-X2dldF9yZXNvdXJjZV9ieW5hbWUocGRldiwgSU9SRVNPVVJDRV9NRU0sICJoZG1pLXJlZyIpOwo+
-IC0JaWYgKCFyZXMpIHsKPiAtCQlEUk1fRVJST1IoIkludmFsaWQgaGRtaSByZXNvdXJjZVxuIik7
-Cj4gLQkJcmV0ID0gLUVOT01FTTsKPiAtCQlnb3RvIHJlbGVhc2VfYWRhcHRlcjsKPiAtCX0KPiAt
-CWhkbWktPnJlZ3MgPSBkZXZtX2lvcmVtYXAoZGV2LCByZXMtPnN0YXJ0LCByZXNvdXJjZV9zaXpl
-KHJlcykpOwo+ICsJaGRtaS0+cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZV9i
-eW5hbWUocGRldiwgImhkbWktcmVnIik7Cj4gICAJaWYgKCFoZG1pLT5yZWdzKSB7Cj4gICAJCXJl
-dCA9IC1FTk9NRU07Cj4gICAJCWdvdG8gcmVsZWFzZV9hZGFwdGVyOwo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9ocXZkcC5jIGIvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlf
-aHF2ZHAuYwo+IGluZGV4IDBmNjU4NzA5YzlkMGQzOThjNGVlZDY1MjAyNDQzZGI5ZDBiNDFmOGMu
-LjQyMDM5NTU5OGQxMTlhNDAzZDUzMTIxMTAyMmU2MDA1ZDZhMmJkNTkgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfaHF2ZHAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
-dGkvc3RpX2hxdmRwLmMKPiBAQCAtMTM1Niw3ICsxMzU2LDYgQEAgc3RhdGljIGludCBzdGlfaHF2
-ZHBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgIAlzdHJ1Y3QgZGV2aWNl
-ICpkZXYgPSAmcGRldi0+ZGV2Owo+ICAgCXN0cnVjdCBkZXZpY2Vfbm9kZSAqdnRnX25wOwo+ICAg
-CXN0cnVjdCBzdGlfaHF2ZHAgKmhxdmRwOwo+IC0Jc3RydWN0IHJlc291cmNlICpyZXM7Cj4gICAK
-PiAgIAlEUk1fREVCVUdfRFJJVkVSKCJcbiIpOwo+ICAgCj4gQEAgLTEzNjcsMTQgKzEzNjYsNyBA
-QCBzdGF0aWMgaW50IHN0aV9ocXZkcF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
-KQo+ICAgCX0KPiAgIAo+ICAgCWhxdmRwLT5kZXYgPSBkZXY7Cj4gLQo+IC0JLyogR2V0IE1lbW9y
-eSByZXNvdXJjZXMgKi8KPiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JF
-U09VUkNFX01FTSwgMCk7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9y
-eSByZXNvdXJjZSBmYWlsZWRcbiIpOwo+IC0JCXJldHVybiAtRU5YSU87Cj4gLQl9Cj4gLQlocXZk
-cC0+cmVncyA9IGRldm1faW9yZW1hcChkZXYsIHJlcy0+c3RhcnQsIHJlc291cmNlX3NpemUocmVz
-KSk7Cj4gKwlocXZkcC0+cmVncyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2
-LCAwKTsKPiAgIAlpZiAoIWhxdmRwLT5yZWdzKSB7Cj4gICAJCURSTV9FUlJPUigiUmVnaXN0ZXIg
-bWFwcGluZyBmYWlsZWRcbiIpOwo+ICAgCQlyZXR1cm4gLUVOWElPOwo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vc3RpL3N0aV90dm91dC5jIGIvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlf
-dHZvdXQuYwo+IGluZGV4IGFmNmMwNmY0NDhjNDgxOWRlZjhjYzBkMDgzNmUzMGY5OTE1Mjk2OTAu
-LjBiZWJlODE1ZjVlNzU2N2Y4NDM4OGFmOTM3MjNhNmZhN2QyY2M3YTIgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdHZvdXQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
-dGkvc3RpX3R2b3V0LmMKPiBAQCAtODM4LDcgKzgzOCw2IEBAIHN0YXRpYyBpbnQgc3RpX3R2b3V0
-X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAJc3RydWN0IGRldmljZSAq
-ZGV2ID0gJnBkZXYtPmRldjsKPiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5vZGUgPSBkZXYtPm9m
-X25vZGU7Cj4gICAJc3RydWN0IHN0aV90dm91dCAqdHZvdXQ7Cj4gLQlzdHJ1Y3QgcmVzb3VyY2Ug
-KnJlczsKPiAgIAo+ICAgCURSTV9JTkZPKCIlc1xuIiwgX19mdW5jX18pOwo+ICAgCj4gQEAgLTg1
-MCwxNCArODQ5LDcgQEAgc3RhdGljIGludCBzdGlfdHZvdXRfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
-X2RldmljZSAqcGRldikKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiAgIAl0dm91dC0+ZGV2
-ID0gZGV2Owo+IC0KPiAtCS8qIGdldCBtZW1vcnkgcmVzb3VyY2VzICovCj4gLQlyZXMgPSBwbGF0
-Zm9ybV9nZXRfcmVzb3VyY2VfYnluYW1lKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAidHZvdXQtcmVn
-Iik7Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiSW52YWxpZCBnbHVlIHJlc291cmNl
-XG4iKTsKPiAtCQlyZXR1cm4gLUVOT01FTTsKPiAtCX0KPiAtCXR2b3V0LT5yZWdzID0gZGV2bV9p
-b3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCXR2b3V0LT5y
-ZWdzID0gZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlX2J5bmFtZShwZGV2LCAidHZvdXQt
-cmVnIik7Cj4gICAJaWYgKCF0dm91dC0+cmVncykKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gICAK
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vc3RpL3N0aV92dGcuYwo+IGluZGV4IDViYTQ2OWI3MTFiNTMxOGU5ZTllNmQ4ZGYxMjdm
-Yjg5MzNkMWZhYzEuLmI1MzUzZmU3NzRkNzJmZDYyOWVjZDNlZjc1YTVkMjgxN2NhODYxN2YgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlfdnRnLmMKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vc3RpL3N0aV92dGcuYwo+IEBAIC0zODAsMjAgKzM4MCwxMiBAQCBzdGF0aWMgaW50
-IHZ0Z19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgewo+ICAgCXN0cnVj
-dCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gICAJc3RydWN0IHN0aV92dGcgKnZ0ZzsKPiAt
-CXN0cnVjdCByZXNvdXJjZSAqcmVzOwo+ICAgCWludCByZXQ7Cj4gICAKPiAgIAl2dGcgPSBkZXZt
-X2t6YWxsb2MoZGV2LCBzaXplb2YoKnZ0ZyksIEdGUF9LRVJORUwpOwo+ICAgCWlmICghdnRnKQo+
-ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAtCj4gLQkvKiBHZXQgTWVtb3J5IHJlc3NvdXJjZXMgKi8K
-PiAtCXJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JFU09VUkNFX01FTSwgMCk7
-Cj4gLQlpZiAoIXJlcykgewo+IC0JCURSTV9FUlJPUigiR2V0IG1lbW9yeSByZXNvdXJjZSBmYWls
-ZWRcbiIpOwo+IC0JCXJldHVybiAtRU5PTUVNOwo+IC0JfQo+IC0JdnRnLT5yZWdzID0gZGV2bV9p
-b3JlbWFwKGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsKPiArCXZ0Zy0+cmVn
-cyA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKPiAgIAlpZiAoIXZ0
-Zy0+cmVncykgewo+ICAgCQlEUk1fRVJST1IoImZhaWxlZCB0byByZW1hcCBJL08gbWVtb3J5XG4i
-KTsKPiAgIAkJcmV0dXJuIC1FTk9NRU07Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on broonie-spi/for-next]
+[also build test ERROR on atorgue-stm32/stm32-next krzk-mem-ctrl/for-next linus/master v6.14-rc2 next-20250210]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/patrice-chotard-foss-st-com/dt-bindings-spi-Add-STM32-OSPI-controller/20250210-212554
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+patch link:    https://lore.kernel.org/r/20250210131826.220318-5-patrice.chotard%40foss.st.com
+patch subject: [PATCH v3 4/8] memory: Add STM32 Octo Memory Manager driver
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20250212/202502120118.27fjrRqt-lkp@intel.com/config)
+compiler: clang version 21.0.0git (https://github.com/llvm/llvm-project 6807164500e9920638e2ab0cdb4bf8321d24f8eb)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250212/202502120118.27fjrRqt-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202502120118.27fjrRqt-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+>> drivers/memory/stm32_omm.c:83:5: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      82 |                         dev_err(dev, "[0x%llx-0x%llx] doesn't fit inside [0x%llx-0x%llx]\n",
+         |                                          ~~~~
+         |                                          %x
+      83 |                                 res.start, res.end,
+         |                                 ^~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:83:16: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      82 |                         dev_err(dev, "[0x%llx-0x%llx] doesn't fit inside [0x%llx-0x%llx]\n",
+         |                                                 ~~~~
+         |                                                 %x
+      83 |                                 res.start, res.end,
+         |                                            ^~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:84:5: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      82 |                         dev_err(dev, "[0x%llx-0x%llx] doesn't fit inside [0x%llx-0x%llx]\n",
+         |                                                                             ~~~~
+         |                                                                             %x
+      83 |                                 res.start, res.end,
+      84 |                                 omm->mm_res->start, omm->mm_res->end);
+         |                                 ^~~~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:84:25: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      82 |                         dev_err(dev, "[0x%llx-0x%llx] doesn't fit inside [0x%llx-0x%llx]\n",
+         |                                                                                    ~~~~
+         |                                                                                    %x
+      83 |                                 res.start, res.end,
+      84 |                                 omm->mm_res->start, omm->mm_res->end);
+         |                                                     ^~~~~~~~~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:97:6: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      96 |                                 dev_err(dev, "[0x%llx-0x%llx] overlaps [0x%llx-0x%llx]\n",
+         |                                                  ~~~~
+         |                                                  %x
+      97 |                                         res1.start, res1.end, res.start, res.end);
+         |                                         ^~~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:97:18: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      96 |                                 dev_err(dev, "[0x%llx-0x%llx] overlaps [0x%llx-0x%llx]\n",
+         |                                                         ~~~~
+         |                                                         %x
+      97 |                                         res1.start, res1.end, res.start, res.end);
+         |                                                     ^~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:97:28: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      96 |                                 dev_err(dev, "[0x%llx-0x%llx] overlaps [0x%llx-0x%llx]\n",
+         |                                                                           ~~~~
+         |                                                                           %x
+      97 |                                         res1.start, res1.end, res.start, res.end);
+         |                                                               ^~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   drivers/memory/stm32_omm.c:97:39: warning: format specifies type 'unsigned long long' but the argument has type 'resource_size_t' (aka 'unsigned int') [-Wformat]
+      96 |                                 dev_err(dev, "[0x%llx-0x%llx] overlaps [0x%llx-0x%llx]\n",
+         |                                                                                  ~~~~
+         |                                                                                  %x
+      97 |                                         res1.start, res1.end, res.start, res.end);
+         |                                                                          ^~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+>> drivers/memory/stm32_omm.c:224:14: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     224 |                         req2ack = FIELD_PREP(CR_REQ2ACK_MASK, req2ack);
+         |                                   ^
+   drivers/memory/stm32_omm.c:239:14: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     239 |                 omm->cr |= FIELD_PREP(CR_MUXENMODE_MASK, mux);
+         |                            ^
+   drivers/memory/stm32_omm.c:246:14: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     246 |                 omm->cr |= FIELD_PREP(CR_CSSEL_OVR_MASK, cssel_ovr);
+         |                            ^
+   8 warnings and 3 errors generated.
+
+
+vim +/FIELD_PREP +224 drivers/memory/stm32_omm.c
+
+    44	
+    45	static int stm32_omm_set_amcr(struct device *dev, bool set)
+    46	{
+    47		struct stm32_omm *omm = dev_get_drvdata(dev);
+    48		struct regmap *syscfg_regmap;
+    49		struct device_node *node;
+    50		struct resource res, res1;
+    51		resource_size_t mm_ospi2_size = 0;
+    52		static const char * const mm_name[] = { "ospi1", "ospi2" };
+    53		u32 amcr_base, amcr_mask;
+    54		int ret, i, idx;
+    55		unsigned int amcr, read_amcr;
+    56	
+    57		for (i = 0; i < omm->nb_child; i++) {
+    58			idx = of_property_match_string(dev->of_node,
+    59						       "memory-region-names",
+    60						       mm_name[i]);
+    61			if (idx < 0)
+    62				continue;
+    63	
+    64			/* res1 only used on second loop iteration */
+    65			res1.start = res.start;
+    66			res1.end = res.end;
+    67	
+    68			node = of_parse_phandle(dev->of_node, "memory-region", idx);
+    69			if (!node)
+    70				continue;
+    71	
+    72			ret = of_address_to_resource(node, 0, &res);
+    73			if (ret) {
+    74				dev_err(dev, "unable to resolve memory region\n");
+    75				return ret;
+    76			}
+    77	
+    78			/* check that memory region fits inside OMM memory map area */
+    79			if (!resource_contains(omm->mm_res, &res)) {
+    80				dev_err(dev, "%s doesn't fit inside OMM memory map area\n",
+    81					mm_name[i]);
+    82				dev_err(dev, "[0x%llx-0x%llx] doesn't fit inside [0x%llx-0x%llx]\n",
+  > 83					res.start, res.end,
+    84					omm->mm_res->start, omm->mm_res->end);
+    85	
+    86				return -EFAULT;
+    87			}
+    88	
+    89			if (i == 1) {
+    90				mm_ospi2_size = resource_size(&res);
+    91	
+    92				/* check that OMM memory region 1 doesn't overlap memory region 2 */
+    93				if (resource_overlaps(&res, &res1)) {
+    94					dev_err(dev, "OMM memory-region %s overlaps memory region %s\n",
+    95						mm_name[0], mm_name[1]);
+    96					dev_err(dev, "[0x%llx-0x%llx] overlaps [0x%llx-0x%llx]\n",
+    97						res1.start, res1.end, res.start, res.end);
+    98	
+    99					return -EFAULT;
+   100				}
+   101			}
+   102		}
+   103	
+   104		syscfg_regmap = syscon_regmap_lookup_by_phandle(dev->of_node, "st,syscfg-amcr");
+   105		if (IS_ERR(syscfg_regmap)) {
+   106			dev_err(dev, "Failed to get st,syscfg-amcr property\n");
+   107			return PTR_ERR(syscfg_regmap);
+   108		}
+   109	
+   110		ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 1,
+   111						 &amcr_base);
+   112		if (ret)
+   113			return ret;
+   114	
+   115		ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 2,
+   116						 &amcr_mask);
+   117		if (ret)
+   118			return ret;
+   119	
+   120		amcr = mm_ospi2_size / SZ_64M;
+   121	
+   122		if (set)
+   123			regmap_update_bits(syscfg_regmap, amcr_base, amcr_mask, amcr);
+   124	
+   125		/* read AMCR and check coherency with memory-map areas defined in DT */
+   126		regmap_read(syscfg_regmap, amcr_base, &read_amcr);
+   127		read_amcr = read_amcr >> (ffs(amcr_mask) - 1);
+   128	
+   129		if (amcr != read_amcr) {
+   130			dev_err(dev, "AMCR value not coherent with DT memory-map areas\n");
+   131			ret = -EINVAL;
+   132		}
+   133	
+   134		return ret;
+   135	}
+   136	
+   137	static int stm32_omm_enable_child_clock(struct device *dev, bool enable)
+   138	{
+   139		/* As there is only 2 children, remember first child in case of error */
+   140		struct clk *first_child_clk = NULL;
+   141		struct stm32_omm *omm = dev_get_drvdata(dev);
+   142		u8 i;
+   143		int ret;
+   144	
+   145		for (i = 0; i < omm->nb_child; i++) {
+   146			if (enable) {
+   147				ret = clk_prepare_enable(omm->child[i].clk);
+   148				if (ret) {
+   149					if (first_child_clk)
+   150						clk_disable_unprepare(first_child_clk);
+   151	
+   152					dev_err(dev, "Can not enable clock\n");
+   153					return ret;
+   154				}
+   155			} else {
+   156				clk_disable_unprepare(omm->child[i].clk);
+   157			}
+   158	
+   159			first_child_clk = omm->child[i].clk;
+   160		}
+   161	
+   162		return 0;
+   163	}
+   164	
+   165	static int stm32_omm_configure(struct device *dev)
+   166	{
+   167		struct stm32_omm *omm = dev_get_drvdata(dev);
+   168		struct reset_control *rstc;
+   169		unsigned long clk_rate, clk_rate_max = 0;
+   170		int ret;
+   171		u8 i;
+   172		u32 mux = 0;
+   173		u32 cssel_ovr = 0;
+   174		u32 req2ack = 0;
+   175	
+   176		omm->clk = devm_clk_get(dev, NULL);
+   177		if (IS_ERR(omm->clk)) {
+   178			dev_err(dev, "Failed to get OMM clock (%ld)\n",
+   179				PTR_ERR(omm->clk));
+   180	
+   181			return PTR_ERR(omm->clk);
+   182		}
+   183	
+   184		ret = pm_runtime_resume_and_get(dev);
+   185		if (ret < 0)
+   186			return ret;
+   187	
+   188		/* parse children's clock */
+   189		for (i = 0; i < omm->nb_child; i++) {
+   190			clk_rate = clk_get_rate(omm->child[i].clk);
+   191			if (!clk_rate) {
+   192				dev_err(dev, "Invalid clock rate\n");
+   193				goto err_clk_disable;
+   194			}
+   195	
+   196			if (clk_rate > clk_rate_max)
+   197				clk_rate_max = clk_rate;
+   198		}
+   199	
+   200		rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
+   201		if (IS_ERR(rstc)) {
+   202			ret = dev_err_probe(dev, PTR_ERR(rstc), "reset get failed\n");
+   203			goto err_clk_disable;
+   204		}
+   205	
+   206		reset_control_assert(rstc);
+   207		udelay(2);
+   208		reset_control_deassert(rstc);
+   209	
+   210		omm->cr = readl_relaxed(omm->io_base + OMM_CR);
+   211		/* optional */
+   212		ret = of_property_read_u32(dev->of_node, "st,omm-mux", &mux);
+   213		if (!ret) {
+   214			if (mux & CR_MUXEN) {
+   215				ret = of_property_read_u32(dev->of_node, "st,omm-req2ack-ns",
+   216							   &req2ack);
+   217				if (!ret && !req2ack) {
+   218					req2ack = DIV_ROUND_UP(req2ack, NSEC_PER_SEC / clk_rate_max) - 1;
+   219	
+   220					if (req2ack > 256)
+   221						req2ack = 256;
+   222				}
+   223	
+ > 224				req2ack = FIELD_PREP(CR_REQ2ACK_MASK, req2ack);
+   225	
+   226				omm->cr &= ~CR_REQ2ACK_MASK;
+   227				omm->cr |= FIELD_PREP(CR_REQ2ACK_MASK, req2ack);
+   228	
+   229				/*
+   230				 * If the mux is enabled, the 2 OSPI clocks have to be
+   231				 * always enabled
+   232				 */
+   233				ret = stm32_omm_enable_child_clock(dev, true);
+   234				if (ret)
+   235					goto err_clk_disable;
+   236			}
+   237	
+   238			omm->cr &= ~CR_MUXENMODE_MASK;
+   239			omm->cr |= FIELD_PREP(CR_MUXENMODE_MASK, mux);
+   240		}
+   241	
+   242		/* optional */
+   243		ret = of_property_read_u32(dev->of_node, "st,omm-cssel-ovr", &cssel_ovr);
+   244		if (!ret) {
+   245			omm->cr &= ~CR_CSSEL_OVR_MASK;
+   246			omm->cr |= FIELD_PREP(CR_CSSEL_OVR_MASK, cssel_ovr);
+   247			omm->cr |= CR_CSSEL_OVR_EN;
+   248		}
+   249	
+   250		omm->restore_omm = true;
+   251		writel_relaxed(omm->cr, omm->io_base + OMM_CR);
+   252	
+   253		ret = stm32_omm_set_amcr(dev, true);
+   254	
+   255	err_clk_disable:
+   256		pm_runtime_put_sync_suspend(dev);
+   257	
+   258		return ret;
+   259	}
+   260	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
