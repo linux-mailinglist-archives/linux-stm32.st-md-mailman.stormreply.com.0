@@ -2,173 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B293AA33FB1
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 14:00:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2197A34029
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 14:20:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A702C78F6D;
-	Thu, 13 Feb 2025 13:00:17 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2075.outbound.protection.outlook.com [40.107.21.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98BC5C78F6D;
+	Thu, 13 Feb 2025 13:20:38 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64760C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E139DC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 13:00:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=awwrS311NJLbqMzlCpeOWo8XCbl/N7e8reyBj+orctjNHzK/+tJ/qayKOSHdIlerpvRr3KWcCZRJiJiJ9vXThoZjn1uCiIiLq4RHn+T2AUjsSczcI8w/diWq91dSyZKWcXNC4pmVbrzm9Wj0Kny2VsiLRDE0d2dclWz5TaGF51rERCjiZ9qCLkDh8uyqxeiQ8IjKdiMPcwqiXcHIybH7iysmPW4147mCXDdXL+2YSjnNKBUc+mP4mp3Ta4VTZyOk8vfMNLJz2fpJeZJNa0by/jI1YY1hDnJ+dHhCVCFLiEN45NfcnvgHQ4klfAHvmWCdTYk5cTrIMNdtvTxxroDb/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vrKxg1XQ4fCyN2OVZOnmTYc/fM09F2tvH4+LyizwIFk=;
- b=B4b25u1iey+ASjQT/RUJbYvr0JF99WYxXqKRW1vbOCoR8frZddCKGoZpy76WYhIYrbCDZ7WuEOKD8Otm4xk8NIZAd3ykrx4IurOsguVTZyyWKhzhpSN8HPxRCDQkcb99sy1yDK/t/5hwtO/0QWNZ+8i95Jyo/kikXuoGcVv/ltRPX0nuYUfJ7wxjED5awlP8oXrL2G39/XEVcriwbCxvsWptMS6vf8pdLXBgE7W6CM72sDHFp4ERjWJ4MBgptkfB3NM5+VUZjrQytzbuDXquze1osdovm1oGtN+qv/uhMxhmc+5IeNiDSIJaHfeMQjL/Ps2nQr4EfrR/ipbrunEDWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrKxg1XQ4fCyN2OVZOnmTYc/fM09F2tvH4+LyizwIFk=;
- b=dMMw9TzhoB+DXL6GXITnUwBHZGHHtU1RA0hQfKjIbBOf+hNJ+g/ogsrRycQYJritmDi/77D6LGaru18eO5lgTgslX4FaCapspYdwMB/XB9PIuC+lKlYKPoNrmkG88wuiXSFQftDNeue1xcYAEWitOYFsWkoBUQVkaKGQBtCKv/E2VT8uQzyOF1edFHjZUE2z7HCjAj0ucNalPqqscS5O9jVOR4Rtmd8SRMKcxg4+IllZA2Fj3/BGMyDQqWGkAE/uRKT7sKSJ2T+w4VRZ4q4ZQTtug9boYe9AE/Buo/nvqc3m9TZl1yo8XQ1Ki4Srk6nIrB8vxFXXY5XQVFgaoaB+ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com (2603:10a6:20b:24b::14)
- by PA1PR04MB11059.eurprd04.prod.outlook.com (2603:10a6:102:485::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.19; Thu, 13 Feb
- 2025 13:00:08 +0000
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2]) by AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2%6]) with mapi id 15.20.8445.013; Thu, 13 Feb 2025
- 13:00:07 +0000
-Date: Thu, 13 Feb 2025 15:00:03 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-Message-ID: <20250213130003.nxt2ev47a6ppqzrq@skbuf>
-References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250212220121.ici3qll66pfoov62@skbuf>
- <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
- <87cyfmnjdh.fsf@kurt.kurt.home>
- <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
-Content-Disposition: inline
-In-Reply-To: <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
-X-ClientProxiedBy: VI1PR02CA0063.eurprd02.prod.outlook.com
- (2603:10a6:802:14::34) To AM8PR04MB7779.eurprd04.prod.outlook.com
- (2603:10a6:20b:24b::14)
+ Thu, 13 Feb 2025 13:20:30 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-38dc962f1b9so471255f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Feb 2025 05:20:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739452830; x=1740057630;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MssZFKsMzS5riFVDAy/sITk74kjbbf233ktzHICob+I=;
+ b=glxiAwISc5pkeMeTjoyE2+OESJaVxcY0qgrxH38NG0BGmH01jguzcpFo8EFPngwnGK
+ wDN/V5ffZMrttZmuthStCZIvAjgs1TjkHgKKnNeHpA9BrJPiP5svSA/fiPI4A75KwxVZ
+ oZd6DN5K9OgUqxbFCJjmot2lGa4QbzKxveJv0raFqNpbEd7DTekYV3fEHolSOHDmPB8p
+ LwiKTWNJTOFTXJW2BfcmuWolrqR/6Lsaw52SnAdq30vs+IIASzi/Vl3zoTxr+How/eHa
+ KlGgUKp5Mydd28huUy996H+AN+AT9UOO2/3EqeFgn9MgJ435ElAZaMwSQUc6RCbTvyHb
+ MBQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739452830; x=1740057630;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MssZFKsMzS5riFVDAy/sITk74kjbbf233ktzHICob+I=;
+ b=CdvLTQI5PwrzQt7Am7KCL3XCDNkLvMpt4sRHniVIandSZgENb1/p7E7iN54ZX/Cw6L
+ DyJQ4z6PIy0n0sk0e38Sj6wWEB9A4lZYFKifacs93TYPqushJnjzZzgrmp1ylX7nHKOA
+ g5JRdZBxjtUMPCUYk6HRo3SdAfxxr8y3D9YO/3sS3RarV5nY7ZP2rRq33cHpIgLU4FbA
+ 5+Nf0T5nCyAFzZqzGQVbEKu4J2WEN0r6yhkwIRt9bVGU4DkdK1Yf2x9YzqELHN1xX/5+
+ TEBafcMFW9y1mMKOHy8UdhfEGc4tii3YktfyKbw5J9Zffum5T9fEH7G7lvvStVQ2C6yo
+ tIWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRqtVaaFvABvN9KtIfHBpcXlK/NxRQWCLlz2bDxwiwH9g62JXv2znAGL/s6/o5xIuLkKv8MLN4Y8T2ig==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yya9CZibF1UDe2r4D96lqDmn/KvR6oIHEA+9aA6tIrShxZ5kYO0
+ ZeOcw/oWkZ3M02v2di9uClUi9XyYnHi4RzqzO/eAsszMIxoTQCTbi+7bzQWRmDE=
+X-Gm-Gg: ASbGnctdIxzhBRVHUWe2/vEGw3KFcFzgaz2vYkEVB/RpS3RhGLW+yPxeDp6rt6Hv0uP
+ kXZbY3FrpaoWkiDXAYIahiaJ/b0dhJkjItrSK9TbFOOp4+uBZ56i1nYDq06sXZsOAt/enOYpQPL
+ ry669LrjGVJkbkfeLCKVrW4vsTSVU7brF39Y2ORVC1u+zI2NPOA1l5QfVxdUo7Tzjz3o/UxIEaT
+ KkPmbwoPO7MMtxmWgHH2cozFRltq1j8KjYQYK73QT04S2396PuRdPfkdr40qKJ36zeBtUao9e8a
+ Cq2yzyh1uoF1kprbAk+hPgebEg==
+X-Google-Smtp-Source: AGHT+IEt3FkrpQlnhVOFlzDJBbxh09E0Hu/xCGIb/WwX5LwyNmQkHkDo1gjHJXk53LZYYeRC1TvI5g==
+X-Received: by 2002:a05:6000:2c2:b0:38d:d997:5233 with SMTP id
+ ffacd0b85a97d-38dea2ee120mr7336872f8f.55.1739452830102; 
+ Thu, 13 Feb 2025 05:20:30 -0800 (PST)
+Received: from [192.168.68.163] ([145.224.90.174])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258b43c9sm1919394f8f.10.2025.02.13.05.20.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Feb 2025 05:20:29 -0800 (PST)
+Message-ID: <50a7ea0b-017d-481b-8057-1ca06be289e7@linaro.org>
+Date: Thu, 13 Feb 2025 13:20:28 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7779:EE_|PA1PR04MB11059:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6346f7e-1d01-463c-5c14-08dd4c2e5783
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?d0c4RW5RYTBRNVlMWWdSME9mNGV3Q01wZk5ucHQvc3BVYy90dVd6Z20rYldr?=
- =?utf-8?B?SDROaVl2UmNWcFY1K3hxemxvdWwzbEhIYTI0OFlocllLTi9JYWFleUZzT21Y?=
- =?utf-8?B?dy8zZlJGNWUrV29YRTRNamFkNW5CUFo4aFZtb0swNFZla3BmT21JVEp4aDZT?=
- =?utf-8?B?cVRZVXFCYzJlWFJZZ2VaWnhMV1h1N1Vac0lhMzdPNXRTZnpFQlVMQUgzbnhy?=
- =?utf-8?B?cy9BYUNpV084TkE5eWx3SHQ0clpONTBZU3dnaXJQYW9EY04vOEtIZkZtTk5M?=
- =?utf-8?B?M3NrSlZOTVRxNUJPTFZubUxlVlNtM3MxYWJVYTljU2c4enE2MDJDUmE2WDl2?=
- =?utf-8?B?bzEyVTBYa3RaR2xGWVh3VHRKY2drRlpPNGZ0aWFFS3N3Q1Z3SGwySDVsYmlC?=
- =?utf-8?B?Qm1RaDc5T3M4V3lWL3h6Um84aEtlV0g5ZWRHR3FZWEl1OUdqNW5kUGIwdWg2?=
- =?utf-8?B?V2I3T09PRVNMbzNrbTZqOHhxYlRaVGNMc1hORk5zaWRaZlMyWFpwbzI4ckFT?=
- =?utf-8?B?c2RXdE9UWVFKUU1menNyMDNjN2wzT3BiazJFSnltM3dFMlZlWEprR0psS3VR?=
- =?utf-8?B?S3V3b1BRZUV3K1ZqU0x4NzFzalQwRmZkc0NWNHpTVHlBL2Nkb2hJbW56cmlO?=
- =?utf-8?B?ZUQwRXkxbUdmZ2I0K1ArQ1AyVGlUS002L2kvalM0K2FmZ21NVGhIRno2Zzd0?=
- =?utf-8?B?aE12OEFJTmMwRTZIcU1wdVhZa2RyTXRYKzlnVWFqdDlBenpkdFB0eFZHOEZS?=
- =?utf-8?B?TE1wZ3MvYkNha2xBQlpLUXZUMS9ncVp2RkJ4ZS9FVXBjaGh2WW55L0ZjSXBV?=
- =?utf-8?B?bzExQ05rUDE0Skl2WWU0ZkE2WXRpcnI3ZmFncWprV0IrSWtyQ05WakQ1V1Fv?=
- =?utf-8?B?eG5DckxwYWFJRThjalBnYkVCWjNoVHdyaVdOMjJDYXgvNW85UlNZcFRZMkFo?=
- =?utf-8?B?azcxZ0ZuOWxhZERFN0VhYS9jRWhVOU50dVZtek1rWlA0RUJZVzlIZlI3eTk2?=
- =?utf-8?B?R2h4dHZDOHF6K1lmVDMzZVdqU1ludTcxT0xuVUhGdWlrN1RSaXNVeGYrTndr?=
- =?utf-8?B?MGt5NHk4dEFLQ3Q4bDZ3cVhHeFQvK2JvYWxzbEVWMm52WURwSGd5QzJNZGF6?=
- =?utf-8?B?aG8rc0h1QUhzd1ZtdE1QNjVkaGhWcTRYdkFvNkdWSG5tNERNdTJ1STJJTmpo?=
- =?utf-8?B?SGl1QzBsaEkyMjg2Y3BOZjFLV0JPRGpOS3VJdTVnenVWME5rVHhoaGJBR0ZE?=
- =?utf-8?B?aGNvcVhiSndkNkdUUEcxU0NMWjJHVTFYb3RqZ1dQbGxhUFNuMHZLQ2lFeVdH?=
- =?utf-8?B?QVM2SEN3NjFYZWpyUm11Qmo0aVB4YXhWblIzNVRQdStsbmE0ck0wSkc2WEQx?=
- =?utf-8?B?bnB3VDhSRWxoMjY3WXF2YlRGbGtFSHZISSsvZitycE5IUHY4c1ppWEVlYWZa?=
- =?utf-8?B?WkxoRTVXNGVtQmRRT1NZb3FqVC9vejRQRExQeU80L0d1bk1GNWdHdGlVUHVv?=
- =?utf-8?B?ckE4SUF1eFZuYnlJTGpWUFhGS0pQS05zTENBY29EVU1NdXR1VWY1YmpKb3pW?=
- =?utf-8?B?eTZjV1AwZDFFVzFHeVhLMlVzdk0zT2hoRytsTGUwcCtWdFZGdmVLMFpEeE5F?=
- =?utf-8?B?bWJCVnF6MTVJbDUwRHJCT0Y2bUxtSHVlSG5LcFRtY3RIS2dJTTA2OTBBU01C?=
- =?utf-8?B?M1NtRVBMd0ljSW5TOFlYaWozSTY5NDh4UUp0VDFyT21RL0JsS1h6ZUpDS2h5?=
- =?utf-8?B?ZjRBRzJ0dlYrbk0xRU45TVd2bVdWYXlyUnBvdlZQZS9QS3E0eEtvMnY2SlhT?=
- =?utf-8?B?MkNZdHpWYStlTDUweWg0VWhzY1R0WXRwZnpJTFg3TUxxTnJKbEpWU3doU2ds?=
- =?utf-8?Q?TsnqLqO1hEwjZ?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7779.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2x1QmNhS1g5MFZhVUQ2a05KQlN0dlUyVDdjUHBUaFFhbGZ3SlBaUmFwY0xt?=
- =?utf-8?B?dmllTm11QTZ4UzZZNlVRWkt6VmJEaDU5N3ZhY3ZEY2FUcFlvVEdCM1hGaEUy?=
- =?utf-8?B?MnBrTkFJRmhxSVpkRmtZUTNqSTdyY0tPVUtxZVIzdUpLVVdxQ1lEajk2K1Ba?=
- =?utf-8?B?RlBZZERPNUlOVDBNMDFhS2RWaUppaURLemkxM1czSVFseGVWZGsrL2pCb1FM?=
- =?utf-8?B?eFlkVERwRG82Y3pLUDFxUFhFK2owZlRrOVVnZEF3YXJPdkM1MFIvZWQzRy9Q?=
- =?utf-8?B?ekV1M2xOU1ZvVXE1R3NMM2hOT0ZzdXZqZk1OTnpGNnVZWE5PcCszMnRxNTZ6?=
- =?utf-8?B?WThxVVM0RXFRejRJREtHUktwUXJ3OXhYVVEyNW10SVdnWGp4UGVvSzdkZThY?=
- =?utf-8?B?Z3dScEtXTUFDK1l4YndiL3FmdFpZd2J4YXh1WE5hUWN2M2FmTXdHU2E2T0Zm?=
- =?utf-8?B?QmdraVVoaUFrd2ZERjJCM1Jnam1TaDZ6QWNIWXN2c1UwRFZ3ZDBubXJDWXhU?=
- =?utf-8?B?d1dDMm5RRWdTSGQyQzhWdmRZeEplaDdGRVBxWW56cllwd3JJcGZaUkRwa243?=
- =?utf-8?B?Ti81aks0R1FQeDZKOTJ0WDJUdHIzVi9UcW03Vll6bUIwQys2eVVZN1pybmRx?=
- =?utf-8?B?ZnREZzRKOEhJOFQ3aHlhWnZPa21yU2EvWDkzdDhTb3lVdUpZQkxKVVIzenRv?=
- =?utf-8?B?bElRdVRYRnoxeGZzUDBtSFZQWlBBeG9qMDFGck9yQU14cjhmaHBuNnhUWkIz?=
- =?utf-8?B?QkovNUFZSVhhNzNFZEQ5NmJhN3VoQjg1WWljQ2lHd1dlbVZzSVFFY3lobUFy?=
- =?utf-8?B?aVhudUp2dGJYQXpwa29udlJuazF0eUlxckZKWjVMRnJaYnZSWmoyWGVSOTdr?=
- =?utf-8?B?VXUrQjJMYUgrM0ZCY1lyYTJWbmNpZGlUR1FyRjRtV1dyRTNzTjFyNXF2b3Fn?=
- =?utf-8?B?a2ZOeXhyV2lZaU1JYVArd2xobVNZQUVhYWFna1NYZGhLeVpwQ244NWpPc1JV?=
- =?utf-8?B?QkcvYnllYTZYZUtVdWNJRUhhVXU4TUlOL001MllGMnZsZmRieGR5UXlNVUlO?=
- =?utf-8?B?VEhZUmtCTVBObGJYWUJiNTl1TVNaMUVWWUFiWFNvMWlxKzFuMlp1dDVhdStC?=
- =?utf-8?B?Y2VSWWUxQjFyTVVEMXhrVTdyKzN5M2FJa2tmUVBRd3JPT2xZOG1qNldFNTZ2?=
- =?utf-8?B?Y0luVFdqbUJIOFp4Qnd4aGJPY0d4M2NUOHMvNkthMmRoZ1NrbWpHRTYvU0pz?=
- =?utf-8?B?NTgrdmN4cng5UHk0d20rcFlZd1BGSFdnd3ROUmU3c0JNREYvcjZiQW1GNDRr?=
- =?utf-8?B?ZFV0WHQ2UjBwNTBRYkRjQ1R5S0pvbzBBZno0KzdDWFNIUEdQMEVnbGJlK2lr?=
- =?utf-8?B?bGhwOVVzb1dnVzd5aUxCMnJtczN3Y2hWNGcxNUdJbERYWlR1TzRJeHh6S1Vj?=
- =?utf-8?B?ZEY5RlpsUU5kcVB2cVB5MERIa3RSM1luaDhMR21iZlFrOTNJRi85SDRJd1VE?=
- =?utf-8?B?ODlxZG1UcHdCeERYcHMyT0QrMFVvSkJhVThabDNTR1I0czZWYkhDWEVlUzNS?=
- =?utf-8?B?elNTWmFlcEovc0lOQm9RSGllWGRBN2VmUjJTc1ZjUVhiejRTanNsRUM1RmJ1?=
- =?utf-8?B?d0dUMFBVSEYxRkxaaUJRbUVnczhzRjNSZEtHUHA3dSthK0k5MlFIRFJzcHAy?=
- =?utf-8?B?cXE4R1BWQk4ydEozWStIaGcvZ3FHdGlldFRWRUFtekdTRHVTak0wZzV0SVZW?=
- =?utf-8?B?YWhaM0Y3MVJrNW1yeXdyZUdPVWs1bTZXeWZmd0JnemxhVzFNN0F1WThqcWdD?=
- =?utf-8?B?ajMyUkpqbmdTckNvVytGL29vMVFzSUZGZmVLQ1d6ZVNDaG5rNlMwajRZdkVZ?=
- =?utf-8?B?ayt1Zyt6b3VueHh3ZWJvcnlUcXM4MGorTkNzOWZLZWJkbDJPUkNUQnJyMnA5?=
- =?utf-8?B?NzNoSFhGazVnaG52TUdNRFVSVnhGRVQyTTVJeWpITVhpb21HMjc3Sk5YSjBT?=
- =?utf-8?B?QWRVOFdWaHBLam9rOS81UTFXVkQ1TVVmTnFWSFBnaXh4M1VaMnF0R2xYTjZp?=
- =?utf-8?B?cHJBc3R0ZFBPYWdndytlN2N2MDRERit2amNnMmMybFNOZHhOZDNVam0rYzRu?=
- =?utf-8?B?Mi95NlgySXk5Z242Z25nb3JsVzAzeVVjeEs1cnNHRXFjdWhwYjJZODN2RUNG?=
- =?utf-8?B?dmc9PQ==?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6346f7e-1d01-463c-5c14-08dd4c2e5783
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7779.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2025 13:00:07.8481 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: go/mHM3RkXWlsfhJ6VrwwrI9AWczo30LRMk0PSLVTzL5IYNjb5EbpW9gzBmY9cUpKKOkXA7oeMOFpYDPnGtLDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11059
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Kurt Kanzenbach <kurt@linutronix.de>, Alexei Starovoitov <ast@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+User-Agent: Mozilla Thunderbird
+To: Mike Leach <mike.leach@linaro.org>
+References: <20250211103945.967495-1-james.clark@linaro.org>
+ <20250211103945.967495-6-james.clark@linaro.org>
+ <CAJ9a7Visv1tbR06RFZH435Q1UNCdqz+Mh0wGbsPPoYmnkVOzgA@mail.gmail.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <CAJ9a7Visv1tbR06RFZH435Q1UNCdqz+Mh0wGbsPPoYmnkVOzgA@mail.gmail.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for
- Frame Preemption feature in IGC
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, lcherian@marvell.com
+Subject: Re: [Linux-stm32] [PATCH 5/7] coresight: Clear self hosted claim
+	tag on probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,25 +91,436 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBGZWIgMTMsIDIwMjUgYXQgMDg6NTQ6MThQTSArMDgwMCwgQWJkdWwgUmFoaW0sIEZh
-aXphbCB3cm90ZToKPiA+IFdlbGwsIG15IGlkZWEgd2FzIHRvIG1vdmUgdGhlIGN1cnJlbnQgbXFw
-cmlvIG9mZmxvYWQgaW1wbGVtZW50YXRpb24gZnJvbQo+ID4gbGVnYWN5IFRTTiBUeCBtb2RlIHRv
-IHRoZSBub3JtYWwgVFNOIFR4IG1vZGUuIFRoZW4sIHRhcHJpbyBhbmQgbXFwcmlvCj4gPiBjYW4g
-c2hhcmUgdGhlIHNhbWUgY29kZSAod2l0aCBvciB3aXRob3V0IGZwZSkuIEkgaGF2ZSBhIGRyYWZ0
-IHBhdGNoCj4gPiByZWFkeSBmb3IgdGhhdC4gV2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgaXQ/Cj4g
-Cj4gSGkgS3VydCwKPiAKPiBJ4oCZbSBva2F5IHdpdGggaW5jbHVkaW5nIGl0IGluIHRoaXMgc2Vy
-aWVzIGFuZCB0ZXN0aW5nIGZwZSArIG1xcHJpbywgYnV0IEnigJltCj4gbm90IHN1cmUgaWYgb3Ro
-ZXJzIG1pZ2h0IGJlIGNvbmNlcm5lZCBhYm91dCBhZGRpbmcgZGlmZmVyZW50IGZ1bmN0aW9uYWwK
-PiBjaGFuZ2VzIGluIHRoaXMgZnBlIHNlcmllcy4KPiAKPiBIaSBWbGFkaW1pciwKPiBBbnkgdGhv
-dWdodHMgb24gdGhpcyA/CgpXZWxsLCB3aGF0IGRvIHlvdSB0aGluayBvZiBteSBzcGxpdCBwcm9w
-b3NhbCBmcm9tIGhlcmUsIGVzc2VudGlhbGx5CmRyYXdpbmcgdGhlIGxpbmUgZm9yIHRoZSBmaXJz
-dCBwYXRjaCBzZXQgYXQganVzdCBldGh0b29sIG1tPwpodHRwczovL2xvcmUua2VybmVsLm9yZy9u
-ZXRkZXYvMjAyNTAyMTMxMTA2NTMuaXF5NW1hZ24yN2p5Zm53aEBza2J1Zi8KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 12/02/2025 6:24 pm, Mike Leach wrote:
+> Hi James,
+> 
+> On Tue, 11 Feb 2025 at 10:40, James Clark <james.clark@linaro.org> wrote:
+>>
+>> This can be left behind from a crashed kernel after a kexec so clear it
+>> when probing each device. Similarly to
+>> coresight_disclaim_device_unlocked(), only clear it if it's already set
+>> to avoid races with an external debugger.
+>>
+>> We need a csdev_access struct in etm_init_arch_data() so just replace
+>> the iomem pointer with a full csdev_access struct. This means all usages
+>> need to be updated to go through csa->base.
+>>
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+>> ---
+>>   drivers/hwtracing/coresight/coresight-catu.c  |  1 +
+>>   drivers/hwtracing/coresight/coresight-core.c  | 48 +++++++++++++++----
+>>   .../hwtracing/coresight/coresight-cti-core.c  |  2 +
+>>   drivers/hwtracing/coresight/coresight-etb10.c |  2 +
+>>   drivers/hwtracing/coresight/coresight-etm.h   |  6 +--
+>>   .../coresight/coresight-etm3x-core.c          | 28 +++++------
+>>   .../coresight/coresight-etm3x-sysfs.c         |  8 ++--
+>>   .../coresight/coresight-etm4x-core.c          |  2 +
+>>   .../hwtracing/coresight/coresight-funnel.c    |  2 +
+>>   .../coresight/coresight-replicator.c          |  1 +
+>>   .../hwtracing/coresight/coresight-tmc-core.c  |  1 +
+>>   include/linux/coresight.h                     |  3 ++
+>>   12 files changed, 73 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
+>> index d9259c0b6e64..575c2d247a90 100644
+>> --- a/drivers/hwtracing/coresight/coresight-catu.c
+>> +++ b/drivers/hwtracing/coresight/coresight-catu.c
+>> @@ -558,6 +558,7 @@ static int __catu_probe(struct device *dev, struct resource *res)
+>>          catu_desc.subtype.helper_subtype = CORESIGHT_DEV_SUBTYPE_HELPER_CATU;
+>>          catu_desc.ops = &catu_ops;
+>>
+>> +       coresight_reset_claim(&catu_desc.access);
+>>          drvdata->csdev = coresight_register(&catu_desc);
+>>          if (IS_ERR(drvdata->csdev))
+>>                  ret = PTR_ERR(drvdata->csdev);
+>> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+>> index 7fe5d5d432c4..97f33ffad05e 100644
+>> --- a/drivers/hwtracing/coresight/coresight-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-core.c
+>> @@ -212,20 +212,48 @@ int coresight_claim_device(struct coresight_device *csdev)
+>>   EXPORT_SYMBOL_GPL(coresight_claim_device);
+>>
+>>   /*
+>> - * coresight_disclaim_device_unlocked : Clear the claim tag for the device.
+>> + * Clear the claim tag for the device.
+>> + * Returns an error if the device wasn't already claimed.
+>> + */
+>> +int coresight_reset_claim(struct csdev_access *csa)
+> 
+> Given the iusue being fixed - i.e. previous sessions having residual
+> claims - and the fact that this funtion is only ever called from
+> device initialisation as far as I can tell,
+> would this be better to be called coresight_init_claim() and return /
+> log an error only if the device _was_ actually claimed.
+> 
+> As it stands it seems to return an error if the device was not claimed
+> - which on initialisation is the correct state!
+> 
+> Since the retrun code is ignored by all of the callees, the rerun
+> could be dropped and a warning issued withing this function if the
+> claim needed clearing.
+> 
+
+This is only to reuse code with coresight_disclaim_device_unlocked() 
+which does use the return code. I can drop the return code from here but 
+then we'd have to have two functions that do the same thing. One used on 
+probe and the other used on disable.
+
+>> +{
+>> +       int ret;
+>> +
+>> +       CS_UNLOCK(csa->base);
+>> +       ret = coresight_reset_claim_unlocked(csa);
+>> +       CS_LOCK(csa->base);
+>> +       return ret;
+>> +}
+>> +EXPORT_SYMBOL_GPL(coresight_reset_claim);
+>> +
+>> +/*
+>> + * Clear the claim tag for the device. Called with CS_UNLOCKed for the component.
+>> + * Returns an error if the device wasn't already claimed.
+>> + */
+>> +int coresight_reset_claim_unlocked(struct csdev_access *csa)
+> 
+> Given the comment and the function - this could be named
+> "coresight_clear_claim_unlocked()"
+> 
+
+I suppose we could rename it. It might cause some confusion with 
+coresight_clear_self_claim_tag() though. I deliberately picked 'reset' 
+because of when it was used on probe. Whereas 'clearing' is some 
+existing function that only clears a bit without any extra logic. That 
+kind of leaves it structured like this:
+
+  clear: lowest level, only mechanical clear of the bit
+  reset: clear if set, no warning
+  disclaim: clear if set, warn if not set
+
+> 
+> Regards
+> 
+> Mike
+> 
+>> +{
+>> +       if (coresight_read_claim_tags(csa) == CORESIGHT_CLAIM_SELF_HOSTED) {
+>> +               coresight_clear_self_claim_tag(csa);
+>> +               return 0;
+>> +       }
+>> +
+>> +       return -EINVAL;
+>> +}
+>> +EXPORT_SYMBOL_GPL(coresight_reset_claim_unlocked);
+>> +
+>> +/*
+>> + * coresight_disclaim_device_unlocked : Clear the claim tag for the device
+>> + * and warn if the device wasn't already claimed.
+>>    * Called with CS_UNLOCKed for the component.
+>>    */
+>>   void coresight_disclaim_device_unlocked(struct csdev_access *csa)
+>>   {
+>> -       if (coresight_read_claim_tags(csa) == CORESIGHT_CLAIM_SELF_HOSTED)
+>> -               coresight_clear_self_claim_tag(csa);
+>> -       else
+>> -               /*
+>> -                * The external agent may have not honoured our claim
+>> -                * and has manipulated it. Or something else has seriously
+>> -                * gone wrong in our driver.
+>> -                */
+>> -               WARN_ON_ONCE(1);
+>> +       /*
+>> +        * Warn if the external agent hasn't honoured our claim
+>> +        * and has manipulated it. Or something else has seriously
+>> +        * gone wrong in our driver.
+>> +        */
+>> +       WARN_ON_ONCE(coresight_reset_claim_unlocked(csa));
+>>   }
+>>   EXPORT_SYMBOL_GPL(coresight_disclaim_device_unlocked);
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/hwtracing/coresight/coresight-cti-core.c
+>> index 073f67a41af9..389a72362f0c 100644
+>> --- a/drivers/hwtracing/coresight/coresight-cti-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-cti-core.c
+>> @@ -931,6 +931,8 @@ static int cti_probe(struct amba_device *adev, const struct amba_id *id)
+>>          cti_desc.ops = &cti_ops;
+>>          cti_desc.groups = drvdata->ctidev.con_groups;
+>>          cti_desc.dev = dev;
+>> +
+>> +       coresight_reset_claim(&cti_desc.access);
+>>          drvdata->csdev = coresight_register(&cti_desc);
+>>          if (IS_ERR(drvdata->csdev)) {
+>>                  ret = PTR_ERR(drvdata->csdev);
+>> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
+>> index d8bc3e776c88..b598b2c0c9bb 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etb10.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
+>> @@ -772,6 +772,8 @@ static int etb_probe(struct amba_device *adev, const struct amba_id *id)
+>>          desc.pdata = pdata;
+>>          desc.dev = dev;
+>>          desc.groups = coresight_etb_groups;
+>> +
+>> +       coresight_reset_claim(&desc.access);
+>>          drvdata->csdev = coresight_register(&desc);
+>>          if (IS_ERR(drvdata->csdev))
+>>                  return PTR_ERR(drvdata->csdev);
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm.h b/drivers/hwtracing/coresight/coresight-etm.h
+>> index e02c3ea972c9..a89736309c27 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm.h
+>> +++ b/drivers/hwtracing/coresight/coresight-etm.h
+>> @@ -229,7 +229,7 @@ struct etm_config {
+>>    * @config:    structure holding configuration parameters.
+>>    */
+>>   struct etm_drvdata {
+>> -       void __iomem                    *base;
+>> +       struct csdev_access             csa;
+>>          struct clk                      *atclk;
+>>          struct coresight_device         *csdev;
+>>          spinlock_t                      spinlock;
+>> @@ -260,7 +260,7 @@ static inline void etm_writel(struct etm_drvdata *drvdata,
+>>                                  "invalid CP14 access to ETM reg: %#x", off);
+>>                  }
+>>          } else {
+>> -               writel_relaxed(val, drvdata->base + off);
+>> +               writel_relaxed(val, drvdata->csa.base + off);
+>>          }
+>>   }
+>>
+>> @@ -274,7 +274,7 @@ static inline unsigned int etm_readl(struct etm_drvdata *drvdata, u32 off)
+>>                                  "invalid CP14 access to ETM reg: %#x", off);
+>>                  }
+>>          } else {
+>> -               val = readl_relaxed(drvdata->base + off);
+>> +               val = readl_relaxed(drvdata->csa.base + off);
+>>          }
+>>
+>>          return val;
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> index 509f53b69e42..0b010683b883 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> @@ -86,9 +86,9 @@ static void etm_set_pwrup(struct etm_drvdata *drvdata)
+>>   {
+>>          u32 etmpdcr;
+>>
+>> -       etmpdcr = readl_relaxed(drvdata->base + ETMPDCR);
+>> +       etmpdcr = readl_relaxed(drvdata->csa.base + ETMPDCR);
+>>          etmpdcr |= ETMPDCR_PWD_UP;
+>> -       writel_relaxed(etmpdcr, drvdata->base + ETMPDCR);
+>> +       writel_relaxed(etmpdcr, drvdata->csa.base + ETMPDCR);
+>>          /* Ensure pwrup completes before subsequent cp14 accesses */
+>>          mb();
+>>          isb();
+>> @@ -101,9 +101,9 @@ static void etm_clr_pwrup(struct etm_drvdata *drvdata)
+>>          /* Ensure pending cp14 accesses complete before clearing pwrup */
+>>          mb();
+>>          isb();
+>> -       etmpdcr = readl_relaxed(drvdata->base + ETMPDCR);
+>> +       etmpdcr = readl_relaxed(drvdata->csa.base + ETMPDCR);
+>>          etmpdcr &= ~ETMPDCR_PWD_UP;
+>> -       writel_relaxed(etmpdcr, drvdata->base + ETMPDCR);
+>> +       writel_relaxed(etmpdcr, drvdata->csa.base + ETMPDCR);
+>>   }
+>>
+>>   /**
+>> @@ -365,7 +365,7 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
+>>          struct etm_config *config = &drvdata->config;
+>>          struct coresight_device *csdev = drvdata->csdev;
+>>
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>
+>>          rc = coresight_claim_device_unlocked(csdev);
+>>          if (rc)
+>> @@ -427,7 +427,7 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
+>>          etm_clr_prog(drvdata);
+>>
+>>   done:
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>
+>>          dev_dbg(&drvdata->csdev->dev, "cpu: %d enable smp call done: %d\n",
+>>                  drvdata->cpu, rc);
+>> @@ -589,7 +589,7 @@ static void etm_disable_hw(void *info)
+>>          struct etm_config *config = &drvdata->config;
+>>          struct coresight_device *csdev = drvdata->csdev;
+>>
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>          etm_set_prog(drvdata);
+>>
+>>          /* Read back sequencer and counters for post trace analysis */
+>> @@ -601,7 +601,7 @@ static void etm_disable_hw(void *info)
+>>          etm_set_pwrdwn(drvdata);
+>>          coresight_disclaim_device_unlocked(&csdev->access);
+>>
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>
+>>          dev_dbg(&drvdata->csdev->dev,
+>>                  "cpu: %d disable smp call done\n", drvdata->cpu);
+>> @@ -614,7 +614,7 @@ static void etm_disable_perf(struct coresight_device *csdev)
+>>          if (WARN_ON_ONCE(drvdata->cpu != smp_processor_id()))
+>>                  return;
+>>
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>
+>>          /* Setting the prog bit disables tracing immediately */
+>>          etm_set_prog(drvdata);
+>> @@ -626,7 +626,7 @@ static void etm_disable_perf(struct coresight_device *csdev)
+>>          etm_set_pwrdwn(drvdata);
+>>          coresight_disclaim_device_unlocked(&csdev->access);
+>>
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>
+>>          /*
+>>           * perf will release trace ids when _free_aux()
+>> @@ -772,7 +772,7 @@ static void etm_init_arch_data(void *info)
+>>          /* Make sure all registers are accessible */
+>>          etm_os_unlock(drvdata);
+>>
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>
+>>          /* First dummy read */
+>>          (void)etm_readl(drvdata, ETMPDSR);
+>> @@ -803,9 +803,10 @@ static void etm_init_arch_data(void *info)
+>>          drvdata->nr_ext_out = BMVAL(etmccr, 20, 22);
+>>          drvdata->nr_ctxid_cmp = BMVAL(etmccr, 24, 25);
+>>
+>> +       coresight_reset_claim_unlocked(&drvdata->csa);
+>>          etm_set_pwrdwn(drvdata);
+>>          etm_clr_pwrup(drvdata);
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>   }
+>>
+>>   static int __init etm_hp_setup(void)
+>> @@ -866,8 +867,7 @@ static int etm_probe(struct amba_device *adev, const struct amba_id *id)
+>>          if (IS_ERR(base))
+>>                  return PTR_ERR(base);
+>>
+>> -       drvdata->base = base;
+>> -       desc.access = CSDEV_ACCESS_IOMEM(base);
+>> +       desc.access = drvdata->csa = CSDEV_ACCESS_IOMEM(base);
+>>
+>>          spin_lock_init(&drvdata->spinlock);
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+>> index 68c644be9813..af566b62785c 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+>> @@ -50,11 +50,11 @@ static ssize_t etmsr_show(struct device *dev,
+>>
+>>          pm_runtime_get_sync(dev->parent);
+>>          spin_lock_irqsave(&drvdata->spinlock, flags);
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>
+>>          val = etm_readl(drvdata, ETMSR);
+>>
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>          spin_unlock_irqrestore(&drvdata->spinlock, flags);
+>>          pm_runtime_put(dev->parent);
+>>
+>> @@ -949,9 +949,9 @@ static ssize_t seq_curr_state_show(struct device *dev,
+>>          pm_runtime_get_sync(dev->parent);
+>>          spin_lock_irqsave(&drvdata->spinlock, flags);
+>>
+>> -       CS_UNLOCK(drvdata->base);
+>> +       CS_UNLOCK(drvdata->csa.base);
+>>          val = (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
+>> -       CS_LOCK(drvdata->base);
+>> +       CS_LOCK(drvdata->csa.base);
+>>
+>>          spin_unlock_irqrestore(&drvdata->spinlock, flags);
+>>          pm_runtime_put(dev->parent);
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> index 45b30a4b3eba..3609bb74c4ec 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> @@ -1337,6 +1337,8 @@ static void etm4_init_arch_data(void *info)
+>>          drvdata->nrseqstate = FIELD_GET(TRCIDR5_NUMSEQSTATE_MASK, etmidr5);
+>>          /* NUMCNTR, bits[30:28] number of counters available for tracing */
+>>          drvdata->nr_cntr = FIELD_GET(TRCIDR5_NUMCNTR_MASK, etmidr5);
+>> +
+>> +       coresight_reset_claim_unlocked(csa);
+>>          etm4_cs_lock(drvdata, csa);
+>>          cpu_detect_trace_filtering(drvdata);
+>>   }
+>> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
+>> index e986922d555b..be2a47636ef3 100644
+>> --- a/drivers/hwtracing/coresight/coresight-funnel.c
+>> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
+>> @@ -255,6 +255,7 @@ static int funnel_probe(struct device *dev, struct resource *res)
+>>                  drvdata->base = base;
+>>                  desc.groups = coresight_funnel_groups;
+>>                  desc.access = CSDEV_ACCESS_IOMEM(base);
+>> +               coresight_reset_claim(&desc.access);
+>>          }
+>>
+>>          dev_set_drvdata(dev, drvdata);
+>> @@ -272,6 +273,7 @@ static int funnel_probe(struct device *dev, struct resource *res)
+>>          desc.ops = &funnel_cs_ops;
+>>          desc.pdata = pdata;
+>>          desc.dev = dev;
+>> +
+>>          drvdata->csdev = coresight_register(&desc);
+>>          if (IS_ERR(drvdata->csdev)) {
+>>                  ret = PTR_ERR(drvdata->csdev);
+>> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
+>> index 5d42a9a8c460..679a36effbe8 100644
+>> --- a/drivers/hwtracing/coresight/coresight-replicator.c
+>> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
+>> @@ -284,6 +284,7 @@ static int replicator_probe(struct device *dev, struct resource *res)
+>>          desc.pdata = dev->platform_data;
+>>          desc.dev = dev;
+>>
+>> +       coresight_reset_claim(&desc.access);
+>>          drvdata->csdev = coresight_register(&desc);
+>>          if (IS_ERR(drvdata->csdev)) {
+>>                  ret = PTR_ERR(drvdata->csdev);
+>> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+>> index e9876252a789..5ac4e3c706ac 100644
+>> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+>> @@ -558,6 +558,7 @@ static int __tmc_probe(struct device *dev, struct resource *res)
+>>          dev->platform_data = pdata;
+>>          desc.pdata = pdata;
+>>
+>> +       coresight_reset_claim(&desc.access);
+>>          drvdata->csdev = coresight_register(&desc);
+>>          if (IS_ERR(drvdata->csdev)) {
+>>                  ret = PTR_ERR(drvdata->csdev);
+>> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+>> index 937931d107e0..11808aee9d1d 100644
+>> --- a/include/linux/coresight.h
+>> +++ b/include/linux/coresight.h
+>> @@ -655,6 +655,9 @@ extern int coresight_claim_device_unlocked(struct coresight_device *csdev);
+>>
+>>   extern void coresight_disclaim_device(struct csdev_access *csa);
+>>   extern void coresight_disclaim_device_unlocked(struct csdev_access *csa);
+>> +int coresight_reset_claim_unlocked(struct csdev_access *csa);
+>> +int coresight_reset_claim(struct csdev_access *csa);
+>> +
+>>   extern char *coresight_alloc_device_name(struct coresight_dev_list *devs,
+>>                                           struct device *dev);
+>>
+>> --
+>> 2.34.1
+>>
+> 
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
