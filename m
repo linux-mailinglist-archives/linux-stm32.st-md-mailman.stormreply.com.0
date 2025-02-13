@@ -2,153 +2,114 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E4AA33332
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 00:10:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E03D3A336FF
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 05:44:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF8D5C6DD9A;
-	Wed, 12 Feb 2025 23:10:03 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2078.outbound.protection.outlook.com [40.107.21.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82371C78037;
+	Thu, 13 Feb 2025 04:44:39 +0000 (UTC)
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63950C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08269C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Feb 2025 23:09:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AKlngkmdNDJh/yWq7HGn2fmvOj5Lcg9zuALE5GeR1SbG/ktPlBMk+jC07PvIgou7Z8Dk7N8kZrfH08YreAQoNHWDkhCm671M630rMb4a3vpdwo7wlJNDlS+b6RK2mn1+xxgYQdKjq9hzj9b8mZC6p0ZKo2Tn3ZFowIVi8baxVuBaOISc9Oxfn2f8bOb1Xg8+pjbPtRZ5ysVHQgtEE6aubVqzOWkX6173aVqLLldBBN69TjTkZ43ZuCnx5Wwcc6SL2WGngzJKKXgd8Fby3/Mgrcr4N5SIoKZ5Da24czvny6wIGU76Nbaq6JF5KVUuSOVuZYxTPweh6ZcUth/1eI9Ayw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N6ufTQ+UPzzgBestUZjKF4q9YoZVKOh1u7P6OWeSFlI=;
- b=MumjsyksA1eoI118RJCtuNJB4lWSSequsHNQ6auqfp+XxBU+Te+qBMj3pa+LzoES0M8L/yyQMPaDUnF2Kmlu0edMCc+serH8yFH2KJvhED9LzXNvM3xLnKIDSyUWHeACvAa3muRxXNM1E2FjmwZwil+kwn5s9tTe5LI8prDGifoeNjLWTX5MYnoOIbqJBXTE8gqN0WJ6Jl5J1EjNSWNjhkIvGn7ROmWYITp/ZUWZdA++u8V8mzvaQxHU8EHZGMqn58Pjnce0rDbToe0F/RF5s2bwMlv/iKlG7ci/p1NduFokS02raSxi7Snk+P0zvVlAa/apc+bjIHe7OUWS7y2eOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6ufTQ+UPzzgBestUZjKF4q9YoZVKOh1u7P6OWeSFlI=;
- b=EDhWvl4J27Hgq3Cx4yEMwh6N3llQMVbcWUt/me0lZWWytHPpyGls7+ypwyws5m3zXzMnuSr4ABK8F1CUGGXoOS2n1TJmHkh2jQt0NxPz+W/SeSR4vhjopyRPpktIDji9LiuOTC1fUAGYHebK0ab1FKzQ+kTP74BkzpQhxbY+y19PcWIoejJaYL6w7fBkrgmM7wuM+05QJ5nY80YoMNm9NY8UAgJZAo/Npf5WbGfhfUbylMUGbCnQVldG8mwNIaIXX6dCg0fu8JWTEvbIHn+dPRyUl5va51RkEvGlr3BXLXtTBX0i7iCIEnek3/2ltYDdOVvz/ig9mrgMuUI7bI6j8w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com (2603:10a6:20b:24b::14)
- by AS4PR04MB9550.eurprd04.prod.outlook.com (2603:10a6:20b:4f9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.12; Wed, 12 Feb
- 2025 23:09:55 +0000
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2]) by AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2%6]) with mapi id 15.20.8445.013; Wed, 12 Feb 2025
- 23:09:55 +0000
-Date: Thu, 13 Feb 2025 01:09:51 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-Message-ID: <20250212230951.2lx7fba6avurmgls@skbuf>
-References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250210070207.2615418-2-faizal.abdul.rahim@linux.intel.com>
-Content-Disposition: inline
-In-Reply-To: <20250210070207.2615418-2-faizal.abdul.rahim@linux.intel.com>
-X-ClientProxiedBy: VI1PR09CA0098.eurprd09.prod.outlook.com
- (2603:10a6:803:78::21) To AM8PR04MB7779.eurprd04.prod.outlook.com
- (2603:10a6:20b:24b::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7779:EE_|AS4PR04MB9550:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c1aa7b5-79d4-41e2-508f-08dd4bba5cbd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/VbmTTswx1grzUsbL4w4FNmjYeduuirTcNDWJaFSYaEfRQUpVd8u7xSeNe0K?=
- =?us-ascii?Q?48iadAOqfqJfmxUwP/ehBKX0wEoSCmkI+TTUUpSazVovVr72vluBEra6ay7Z?=
- =?us-ascii?Q?wo5cDtL4lhSxf7/iVclxYk6zQgTc88YVKw68dvrLAhzkDkmzvFwZGvCNHlAI?=
- =?us-ascii?Q?xAu7ZuH0X357r4w9mwK+HPfHNFMV+g5W0AGYjC+BvS62ieMiPGPTEYkIIT0R?=
- =?us-ascii?Q?/+S+h2zfMRjHBeAKJOGt5uYw+mjLAxnA7pmYmZ+us1cRrTY6nxAjsFTV6XIQ?=
- =?us-ascii?Q?fdnAr0j73Hx9ZGRMnXiN0kbgxj4ehgvxvGSJuDlHUyeseKSxXqZXX0BpAoyW?=
- =?us-ascii?Q?UbeUcTLnAGrf7+sqgp3u0py6RInl919YjI+FhGG9iWwlt57pRdUFpu/gXWMP?=
- =?us-ascii?Q?h4zjNknLfl1LjsLDTL9uKhpUNJb2QEoFg60NrQGTQQkaLze7/c4HUpgnyFta?=
- =?us-ascii?Q?tRxAIln5eiKm4IA3o+mQ3m7LeELRj4EMEY6ZwHoNSE9BcD02mR2jpl76XLus?=
- =?us-ascii?Q?vd8ZOHuU/XK1RTRopyiT71GI0JvGxseclxGt0Cu4YjVv4t4L1CstTNYIMHIT?=
- =?us-ascii?Q?utCriQ3Q4ZZt2p1cAij4e0mxIZL9SsV7LZfBu2DnVxGKEUbpKUFLdOI1vRCx?=
- =?us-ascii?Q?xuscBgY+QCs/q0UJrjJ2/UMMaWm3umqScYVDXwwvOha6kBhxAMCcqaNUezvK?=
- =?us-ascii?Q?8bn734kHVdeVP77FWbK1LS4M2qslxA7DmxDnHsUTlpE5fFBcva8vvDaCGGoq?=
- =?us-ascii?Q?gpUj/08Fu7qEbrop4NqObPfx3Soa8Ir8kJMN0ouX9SMrLH6QZ7MQloLTeO6u?=
- =?us-ascii?Q?9OW91GMyTwzm1sYPS9+3cINLnYwMZossLBKBiCQcOnYgf1OKzgYljy78Ey7U?=
- =?us-ascii?Q?ZbpdfpHrW8nrzOBTiaBBML0sxw0NLA3D5BE6z2w6mlrDc2LOpYSi5ilNwrxs?=
- =?us-ascii?Q?K9tFjH9cvhVnWyVUmSJ4aq4mu6jYwIC6cqKcS0jxHfoqBoPK0jbho/FLuxLP?=
- =?us-ascii?Q?3hnM92Dlyj+yLAgVFmxt8gwPZuL9JVrRdKOlHv6pZOHuIq+8wQsfyvDmxWCF?=
- =?us-ascii?Q?9fNyAEcNcm6rCsgsViTs6yZCy1JEkOWeeeBWENfLepRM13OlBqWHiKHszU8w?=
- =?us-ascii?Q?5U8HcBK9pgeIfh+qnDUniIPwVTYNnPU0T1sukNKXitBH8tFt4hMgedsK9qaS?=
- =?us-ascii?Q?tLJxX4h/qcvMsBrkYtvfTgr9F8AfYyKPmb8cdpdLB2jrsbqoe1/e5FPz5ANe?=
- =?us-ascii?Q?KKz8kqQ7e/MgrbCMweoytujZL1mgmxxqdcVpSQVlJykhUnpjhgG1oX9dR7l4?=
- =?us-ascii?Q?RITOmSV3dEpsuj+RQWLNmkG3UIet846iPC89IiK9SH5mZhfdOYy80qbYmtzX?=
- =?us-ascii?Q?HzcUp6DQhlAjPP1rbhKRI7RC73sB?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7779.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?p/uXpMvc55azn4LvZiYHOHDuW04DH1UyJA6zjl5s06dbW8OX8MEVAA7Seo+5?=
- =?us-ascii?Q?y8Rbr0sR01mwhSfkbnhdCfBuCMfYt0x8sI1XazUgygiLELc3NBBnIb3qJqzl?=
- =?us-ascii?Q?Qgi/vePsO1nu/BoIQBS2dn+nA+0jJSknDkshPw5XEu9zWffrDlZRy7kypuMg?=
- =?us-ascii?Q?FCORfBch3fRLiIOEfLZYLaI7cHWNnQNBaTWEPA5zdko46XOR05akTitpxL56?=
- =?us-ascii?Q?eVPcINFkjktyZY0qoBNIEd2bgKe8srj7Umx3lqY4+cP0fSbKCaoP4pvkal1z?=
- =?us-ascii?Q?IFopVNJUrtbGq35TBvUTU4FvwihmXK5D+NtMfR+dUqqU7bGCK9KAiOM8aBkZ?=
- =?us-ascii?Q?EwQD1mTA8BHn/hFwZmpyz0n1+llxOpuZtv0lRcWPqGqj39NHhcBP8DFMgE/x?=
- =?us-ascii?Q?x2XjZ1BxJGJ0gP6G4rIr4zF4BVHnIcZ1ECdaahYPM15/eOkEKPmxsKrYdPyn?=
- =?us-ascii?Q?6PGsHcdXUDBVFBK90VKP6W+DQrkCvH+b2OUilz5ETdCNC0bFNbliMB70RxUa?=
- =?us-ascii?Q?HhTeWEb66kf6kC6UVEGevj7K9uZxZMdVXq/prHamRdNIAFi78eM+RrB0//jH?=
- =?us-ascii?Q?xZwKw4D1qxN8ZtcpUZOFIV4z0pD/AOHzWzIOGPwVcWfJUMT++zaWYe5TLXD5?=
- =?us-ascii?Q?Ssknpm0ztWl5OqY6yKc9pFFYct1TJ9Apuu3a/BF96ZtR+RbxQ8hAWiXprDsS?=
- =?us-ascii?Q?/6L+MW5JHNY/rIkF07CLhvmx4syIZyWdXMHkerDyROr6iMqvwvgrQe9RHxk6?=
- =?us-ascii?Q?NmlI9H1FmEJsgRz3w5f1MA0fWPeGc7fG8pgtFpY91SFX5M3MZZbDB9bF6mBq?=
- =?us-ascii?Q?r/KeZXVFD5d9+5n9G3UtPBfCE4DNS4qLm7mam7U+i93PWiMzaclJ++IUyIYM?=
- =?us-ascii?Q?AFEUQXAn6mRHOf54L5lKzIvoKzrNfFqlFubD5ZANiRT8iaQsI0lPOxiaojjo?=
- =?us-ascii?Q?KgS03PWQ3GivUD6HAKAbsAAS7FczProQuc0uNJsugmXZDI3IWTgJTKlbtqO5?=
- =?us-ascii?Q?aesbocI3MR5bUoDScD8So9EzHLHkxNVoFlbrOKfuWVcsfniWktaj+NW8dgwP?=
- =?us-ascii?Q?iYNVPMzVu8lSRpL3QhWAyyqk054Oa1QA3T0t6loDKl61N2XFy4E+qxh+usTL?=
- =?us-ascii?Q?OXFpZk6p36HHe3n3HGbhdsj0vYa/Vd2ZNENfUxuBDmPUtBRhzlRCwD65Rqmn?=
- =?us-ascii?Q?YWw4DNcFwB7+ov191omWaxD6olkHrf5Fl1LepQMWHRBuf6j4PvXVtHJUiQ/8?=
- =?us-ascii?Q?Fd8e8uwWUO6gusMn/Gb69ippvcHDlsqRi/Tly04XCCZE8SyjUNsYya+e+uC8?=
- =?us-ascii?Q?2oSkOe4/S92b9Pqb/XAbBdS2C3SXyBKIVdteFX6IIH6aSGl45Ptp6UU0ihSP?=
- =?us-ascii?Q?2Ug1usYPFHCHdng5Ukh0dgiIrQTtBeXOkKOf14cb5t7SdV6wu7l6U104htSl?=
- =?us-ascii?Q?OiURj1Du7EGppNM1Wq/BK2nZGRhFiyi/+VvdCqQsrqF6u0uaQBZpDlW2VZQn?=
- =?us-ascii?Q?sI8myPcq+4i/gEbyQCEQRW2l4w+AbnajFQ38GpeyDHXQ0RVohxupky8yYQ1I?=
- =?us-ascii?Q?6CILFs8mzMU+RPJ+yOpCs2bTr3Pw2EOJQfSklyhU0xfS93riDLtjyWwaqK5e?=
- =?us-ascii?Q?kw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1aa7b5-79d4-41e2-508f-08dd4bba5cbd
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7779.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2025 23:09:55.0475 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qhM67HiNf4vrlXJrqZcsgT9iezgfER7q52NTJPqQXn2KVQRxtYFk0T0atQh2XqwMDW8XG1RohkINZSlpnc4T+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9550
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v4 1/9] net: ethtool: mm: extract
- stmmac verification logic into common library
+ Thu, 13 Feb 2025 04:44:32 +0000 (UTC)
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20250213044428epoutp04dd78e908c5312c3c54699168df89a0c6~jqvlVB_KQ1019710197epoutp04H
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Feb 2025 04:44:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20250213044428epoutp04dd78e908c5312c3c54699168df89a0c6~jqvlVB_KQ1019710197epoutp04H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1739421868;
+ bh=Nboyogv1mQ9wZ1hrsaNVtoIMK2Z9r1c3kpg7/2WbzPQ=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=il9RuOtgz3bhZm4NT6+rJOgIq/Cf9TfVVFBxUmNt5yNQpFeSvNqi9qhjcomKsnTii
+ skeE8IGf+pA/mSWPdrLLo/cdBObocBoQCnMTYxxYRAjLQutTBlThargXFfztkOV8fS
+ LsddALqPmvq04Y2NH39dwkefmume8lEXj1FlRi60=
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTP id
+ 20250213044428epcas5p1373a28dc7c0e465179d72bb2729747de~jqvk1aI2X1954419544epcas5p1I;
+ Thu, 13 Feb 2025 04:44:28 +0000 (GMT)
+Received: from epsmges5p2new.samsung.com (unknown [182.195.38.179]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 4YtjJV1gWlz4x9Q9; Thu, 13 Feb
+ 2025 04:44:26 +0000 (GMT)
+Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
+ epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ C6.59.19933.AA87DA76; Thu, 13 Feb 2025 13:44:26 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20250213041925epcas5p4d37d50047359b923efd9fdcaf4b2f6d2~jqZszLiDZ0682606826epcas5p4e;
+ Thu, 13 Feb 2025 04:19:25 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20250213041925epsmtrp18442c9ee4664b9279916ab0f4d7579f9~jqZsyBTaE0828408284epsmtrp1E;
+ Thu, 13 Feb 2025 04:19:25 +0000 (GMT)
+X-AuditID: b6c32a4a-b87c770000004ddd-76-67ad78aa5c6d
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ A9.AD.18949.CC27DA76; Thu, 13 Feb 2025 13:19:24 +0900 (KST)
+Received: from cheetah.samsungds.net (unknown [107.109.115.53]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20250213041922epsmtip258a82fe1948022b022d2ebaa50688558~jqZp4ovui0454604546epsmtip22;
+ Thu, 13 Feb 2025 04:19:21 +0000 (GMT)
+From: Swathi K S <swathi.ks@samsung.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+Date: Thu, 13 Feb 2025 09:45:59 +0530
+Message-Id: <20250213041559.106111-1-swathi.ks@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA0WTe0xTVxzHc+7tk6V4Uxg7YHBQJRkuhZbRcnAwzURykRmZskQMpqv0ru3o
+ K72FIcsmmwSUIQwVIkgYOpABoqUCKw8FMTBg2QB5iYsLYJlDttEAouORraVl+++T3+/7Pb/H
+ OYeD8wdYfhy1zkQZdXKNgOXBaLkfHCysy2hQioYquGjk/gYL/T1XAlDNlJWJygezGWi2d4aN
+ zGfLmWiyqxVDJZM1DPRypgdHg4NmNhpqKWAiy5NxJhppK2ehvHEbE1VsNDBRb6UPWvnxD4Cu
+ NS+z0bS9g40eFBZhaLlxko1+WfPc50OOjA/jZFPtJEbOFjazydayx2yy0pJGWurOscjbVafJ
+ VusSRp4/8xeLXLg7xiILmuoAee+umLww+rPD2LkEyCXLjoRtx1OjVJRcQRkDKF2KXqHWKaMF
+ 8Udl+2USqUgsFEeiCEGATq6logUx7yUIY9Uax/iCgHS5Js0RSpDTtCD0nSijPs1EBaj0tCla
+ QBkUGkO4IYSWa+k0nTJER5n2iEWiMIlD+GGqauybfrbhRmTG06rrjCzQEZoHuBxIhMMvrWV4
+ HvDg8Il2AK89bGA5E3xiEcDnw96uxAqA39qHHCrOpqP91l5X/A6AF/OfuN3LAOb0PGI73Szi
+ DTjx3feb7E1UAThz3ccpwol+DN5byWc4E15EIlzYqN0UMYggaH1+G3cyj3gbtg3PsV39vQ7r
+ zV24i20caO/iuTgGjvY0uTVe8NkPW+wH5wpz3CyD9QVjDBer4OPVIpaL98Ku0XKGcxqcCIa3
+ 2tyr8IfFAzcxJ+OEJzy/ZsNccR60VmzxTrgxP+4+0he2VC+4S5HQYp8Ers2dgJb1Nvxr4F/2
+ f4VKAOqAL2WgtUqKlhjCdNQn/91Til5rAZuPevdBK5iesod0A4wDugHk4AJvHiy5oeTzFPJT
+ mZRRLzOmaSi6G0gcKyvC/V5N0Tt+hc4kE4dHisKlUml45FtSseA13pnWbCWfUMpNVCpFGSjj
+ lg/jcP2yMMViL/an9YPx3+I9Xrxsn4i5mXQBnToGp0oHfperYxnzkS8CFUG2kzts9LkHlyOO
+ XKpXnQh8evX97p212wI/y5+VFJs/pxIbP6o5gAkTss2XJ/y4wccOVx8q/7jvYPKlnt5pfmnU
+ 7Jp20KN+/kAKNzf3q4GzccyKOr3slQTOeqMks2riYRw/h9EMEvuK8WXPjPTT9JCoL6TzUPq6
+ etdsi+yn6X9OLniZn4Xu0wuThQou96omKeRRZZIpYFfUYmnyYd/sL379NFNqf7erP8u7g/2m
+ uml9+52gI2ua6pLk41fsq62rV7ZrcktS43LSM6KFe2ojijvj/Y/CuLAYbXNskvfF/QIGrZKL
+ d+NGWv4v0onNM10EAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrOLMWRmVeSWpSXmKPExsWy7bCSvO6ZorXpBgvv2FhcPvyXzeLny2mM
+ Fssf7GC1mHO+hcXi6bFH7BYbOuawWtw8sJPJYtrN5SwWPx4dZbY4f34Du8WFbX2sFpseX2O1
+ uLxrDptF17UnrBbz/q5ltTi2QMzi2+k3jBaLtn5ht3j4YQ+7xaX+iUwWXzbeZLe4/ZvPQczj
+ 8rWLzB5bVt5k8njav5XdY+esu+weCzaVemxa1cnmsXlJvcfOHZ+ZPHqb37F5vN93lc2jb8sq
+ Ro+D+ww9Jl05B9S4/zOjx+dNcgH8UVw2Kak5mWWpRfp2CVwZV+efZC9YY1nxfMkylgbGPfpd
+ jBwcEgImErvX23cxcnEICexmlLjSeJS1i5ETKC4p8al5KpQtLLHy33N2iKJPjBJnXnaygyTY
+ BDQkrq/YDpYQEVjDKNFy+CgjiMMscJ1JYv7XX2wgK4QFgiSae+xBGlgEVCV2fN3MDGLzClhL
+ 7Lr4kh1ig7zE6g0HmCcw8ixgZFjFKJlaUJybnltsWGCUl1quV5yYW1yal66XnJ+7iREcN1pa
+ Oxj3rPqgd4iRiYPxEKMEB7OSCK/EtDXpQrwpiZVVqUX58UWlOanFhxilOViUxHm/ve5NERJI
+ TyxJzU5NLUgtgskycXBKNTCttmRSzT/nuM44aemLSZyN0Y3b41eIHP+18mlkIcvrS1yr1C74
+ MkyY06c5cx3Hgw/Lqnrym0u4XNepHIgylDbNTP2d1pZvcfaKycX5qyU56h5IvCu5FGqzPfDG
+ u+s5iZNuPlq3446eqF3se/Pnlk7/p/22f67VrblYd89rDW7vA+deKVza/CX6eNqptDgOvStL
+ XP2nBc5Qv6zS9Oqi6KP/1x6bzbhUdF66wUWI6wOvuFXCq9/he0uL9adNnC/769T+YAZ5xTNH
+ lCZEhfyrEt5ZrSl50VnSLK55pX8bywfv6Yfitlvvr9jHVryC8fUd3QNatr7TC8wKeOKnpFmx
+ evse73j6aX/A+s4dC5jcdQOVWIozEg21mIuKEwF27ye7CgMAAA==
+X-CMS-MailID: 20250213041925epcas5p4d37d50047359b923efd9fdcaf4b2f6d2
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20250213041925epcas5p4d37d50047359b923efd9fdcaf4b2f6d2
+References: <CGME20250213041925epcas5p4d37d50047359b923efd9fdcaf4b2f6d2@epcas5p4.samsung.com>
+Cc: Joao.Pinto@synopsys.com, ajayg@nvidia.com, netdev@vger.kernel.org,
+ Jisheng.Zhang@synaptics.com, krzk@kernel.org, linux-kernel@vger.kernel.org,
+ swathi.ks@samsung.com, rmk+kernel@armlinux.org.uk, fancer.lancer@gmail.com,
+ treding@nvidia.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: refactor clock
+ management in EQoS driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,203 +121,258 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 10, 2025 at 02:01:59AM -0500, Faizal Rahim wrote:
-> From: Vladimir Oltean <vladimir.oltean@nxp.com>
-> 
-> It appears that stmmac is not the only hardware which requires a
-> software-driven verification state machine for the MAC Merge layer.
-> 
-> While on the one hand it's good to encourage hardware implementations,
-> on the other hand it's quite difficult to tolerate multiple drivers
-> implementing independently fairly non-trivial logic.
-> 
-> Extract the hardware-independent logic from stmmac into library code and
-> put it in ethtool. Name the state structure "mmsv" for MAC Merge
-> Software Verification. Let this expose an operations structure for
-> executing the hardware stuff: sync hardware with the tx_active boolean
-> (result of verification process), enable/disable the pMAC, send mPackets,
-> notify library of external events (reception of mPackets), as well as
-> link state changes.
-> 
-> Note that it is assumed that the external events are received in hardirq
-> context. If they are not, it is probably a good idea to disable hardirqs
-> when calling ethtool_mmsv_event_handle(), because the library does not
-> do so.
-> 
-> Also, the MM software verification process has no business with the
-> tx_min_frag_size, that is all the driver's to handle.
-> 
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Co-developed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> Co-developed-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-> Signed-off-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-> Tested-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  16 +-
->  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  41 +---
->  .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 174 +++-----------
->  .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |   5 -
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c |   8 +-
->  include/linux/ethtool.h                       |  61 +++++
->  net/ethtool/mm.c                              | 222 ++++++++++++++++++
->  7 files changed, 327 insertions(+), 200 deletions(-)
+Refactor clock management in EQoS driver for code reuse and to avoid
+redundancy. This way, only minimal changes are required when a new platform
+is added.
 
-So I'm not exactly sure how this is supposed to work, but this is moving
-a non-negligible portion of code from stmmac_fpe.c which has Furong Xu's
-copyright, to ethtool/mm.c which doesn't. That being said, commit
-8d43e99a5a03 ("net: stmmac: refactor FPE verification process") which
-added that logic said that it was co-developed together with me (NXP),
-and I clearly remember both of us contributing to it. So, how about
-expanding NXP's current 2022-2023 copyright in ethtool/mm.c to
-2022-2025 (date of commit 8d43e99a5a03 plus date of this patch), and
-also copy Furong's copyright 2024 line?
+Suggested-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Swathi K S <swathi.ks@samsung.com>
+---
+Changes since v1:
+1. Respinning the patch including only the ML reported by get_maintainers
+output
+2. Adding the target tree ('net-next') in the subject prefix
 
-> @@ -710,6 +714,63 @@ struct ethtool_mm_stats {
->  	u64 MACMergeHoldCount;
->  };
->  
-> +enum ethtool_mmsv_event {
-> +	ETHTOOL_MMSV_LP_SENT_VERIFY_MPACKET,
-> +	ETHTOOL_MMSV_LD_SENT_VERIFY_MPACKET,
-> +	ETHTOOL_MMSV_LP_SENT_RESPONSE_MPACKET,
-> +};
-> +
-> +/* MAC Merge verification mPacket type */
-> +enum ethtool_mpacket {
-> +	ETHTOOL_MPACKET_VERIFY,
-> +	ETHTOOL_MPACKET_RESPONSE,
-> +};
-> +
-> +struct ethtool_mmsv;
-> +
-> +struct ethtool_mmsv_ops {
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 131 +++++-------------
+ include/linux/stmmac.h                        |   2 +
+ 2 files changed, 34 insertions(+), 99 deletions(-)
 
-Since these are driver-facing API, how about a kernel-doc? The content
-is subject to further review comments, of course.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index bd4eb187f8c6..1fadb8ba1d2f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -29,10 +29,8 @@ struct tegra_eqos {
+ 	void __iomem *regs;
+ 
+ 	struct reset_control *rst;
+-	struct clk *clk_master;
+ 	struct clk *clk_slave;
+ 	struct clk *clk_tx;
+-	struct clk *clk_rx;
+ 
+ 	struct gpio_desc *reset;
+ };
+@@ -123,49 +121,14 @@ static int dwc_qos_probe(struct platform_device *pdev,
+ 			 struct plat_stmmacenet_data *plat_dat,
+ 			 struct stmmac_resources *stmmac_res)
+ {
+-	int err;
+-
+-	plat_dat->stmmac_clk = devm_clk_get(&pdev->dev, "apb_pclk");
+-	if (IS_ERR(plat_dat->stmmac_clk)) {
+-		dev_err(&pdev->dev, "apb_pclk clock not found.\n");
+-		return PTR_ERR(plat_dat->stmmac_clk);
+-	}
+-
+-	err = clk_prepare_enable(plat_dat->stmmac_clk);
+-	if (err < 0) {
+-		dev_err(&pdev->dev, "failed to enable apb_pclk clock: %d\n",
+-			err);
+-		return err;
+-	}
+-
+-	plat_dat->pclk = devm_clk_get(&pdev->dev, "phy_ref_clk");
+-	if (IS_ERR(plat_dat->pclk)) {
+-		dev_err(&pdev->dev, "phy_ref_clk clock not found.\n");
+-		err = PTR_ERR(plat_dat->pclk);
+-		goto disable;
+-	}
+-
+-	err = clk_prepare_enable(plat_dat->pclk);
+-	if (err < 0) {
+-		dev_err(&pdev->dev, "failed to enable phy_ref clock: %d\n",
+-			err);
+-		goto disable;
++	for (int i = 0; i < plat_dat->num_clks; i++) {
++		if (strcmp(plat_dat->clks[i].id, "apb_pclk") == 0)
++			plat_dat->stmmac_clk = plat_dat->clks[i].clk;
++		else if (strcmp(plat_dat->clks[i].id, "phy_ref_clk") == 0)
++			plat_dat->pclk = plat_dat->clks[i].clk;
+ 	}
+ 
+ 	return 0;
+-
+-disable:
+-	clk_disable_unprepare(plat_dat->stmmac_clk);
+-	return err;
+-}
+-
+-static void dwc_qos_remove(struct platform_device *pdev)
+-{
+-	struct net_device *ndev = platform_get_drvdata(pdev);
+-	struct stmmac_priv *priv = netdev_priv(ndev);
+-
+-	clk_disable_unprepare(priv->plat->pclk);
+-	clk_disable_unprepare(priv->plat->stmmac_clk);
+ }
+ 
+ #define SDMEMCOMPPADCTRL 0x8800
+@@ -278,52 +241,19 @@ static int tegra_eqos_probe(struct platform_device *pdev,
+ 	if (!is_of_node(dev->fwnode))
+ 		goto bypass_clk_reset_gpio;
+ 
+-	eqos->clk_master = devm_clk_get(&pdev->dev, "master_bus");
+-	if (IS_ERR(eqos->clk_master)) {
+-		err = PTR_ERR(eqos->clk_master);
+-		goto error;
+-	}
+-
+-	err = clk_prepare_enable(eqos->clk_master);
+-	if (err < 0)
+-		goto error;
+-
+-	eqos->clk_slave = devm_clk_get(&pdev->dev, "slave_bus");
+-	if (IS_ERR(eqos->clk_slave)) {
+-		err = PTR_ERR(eqos->clk_slave);
+-		goto disable_master;
+-	}
+-
+-	data->stmmac_clk = eqos->clk_slave;
+-
+-	err = clk_prepare_enable(eqos->clk_slave);
+-	if (err < 0)
+-		goto disable_master;
+-
+-	eqos->clk_rx = devm_clk_get(&pdev->dev, "rx");
+-	if (IS_ERR(eqos->clk_rx)) {
+-		err = PTR_ERR(eqos->clk_rx);
+-		goto disable_slave;
+-	}
+-
+-	err = clk_prepare_enable(eqos->clk_rx);
+-	if (err < 0)
+-		goto disable_slave;
+-
+-	eqos->clk_tx = devm_clk_get(&pdev->dev, "tx");
+-	if (IS_ERR(eqos->clk_tx)) {
+-		err = PTR_ERR(eqos->clk_tx);
+-		goto disable_rx;
++	for (int i = 0; i < data->num_clks; i++) {
++		if (strcmp(data->clks[i].id, "slave_bus") == 0) {
++			eqos->clk_slave = data->clks[i].clk;
++			data->stmmac_clk = eqos->clk_slave;
++		} else if (strcmp(data->clks[i].id, "tx") == 0) {
++			eqos->clk_tx = data->clks[i].clk;
++		}
+ 	}
+ 
+-	err = clk_prepare_enable(eqos->clk_tx);
+-	if (err < 0)
+-		goto disable_rx;
+-
+ 	eqos->reset = devm_gpiod_get(&pdev->dev, "phy-reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(eqos->reset)) {
+ 		err = PTR_ERR(eqos->reset);
+-		goto disable_tx;
++		return err;
+ 	}
+ 
+ 	usleep_range(2000, 4000);
+@@ -365,15 +295,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
+ 	reset_control_assert(eqos->rst);
+ reset_phy:
+ 	gpiod_set_value(eqos->reset, 1);
+-disable_tx:
+-	clk_disable_unprepare(eqos->clk_tx);
+-disable_rx:
+-	clk_disable_unprepare(eqos->clk_rx);
+-disable_slave:
+-	clk_disable_unprepare(eqos->clk_slave);
+-disable_master:
+-	clk_disable_unprepare(eqos->clk_master);
+-error:
++
+ 	return err;
+ }
+ 
+@@ -383,10 +305,6 @@ static void tegra_eqos_remove(struct platform_device *pdev)
+ 
+ 	reset_control_assert(eqos->rst);
+ 	gpiod_set_value(eqos->reset, 1);
+-	clk_disable_unprepare(eqos->clk_tx);
+-	clk_disable_unprepare(eqos->clk_rx);
+-	clk_disable_unprepare(eqos->clk_slave);
+-	clk_disable_unprepare(eqos->clk_master);
+ }
+ 
+ struct dwc_eth_dwmac_data {
+@@ -398,7 +316,6 @@ struct dwc_eth_dwmac_data {
+ 
+ static const struct dwc_eth_dwmac_data dwc_qos_data = {
+ 	.probe = dwc_qos_probe,
+-	.remove = dwc_qos_remove,
+ };
+ 
+ static const struct dwc_eth_dwmac_data tegra_eqos_data = {
+@@ -434,9 +351,19 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
++	ret = devm_clk_bulk_get_all(&pdev->dev, &plat_dat->clks);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret, "Failed to retrieve all required clocks\n");
++	plat_dat->num_clks = ret;
++
++	ret = clk_bulk_prepare_enable(plat_dat->num_clks, plat_dat->clks);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
++
+ 	ret = data->probe(pdev, plat_dat, &stmmac_res);
+ 	if (ret < 0) {
+ 		dev_err_probe(&pdev->dev, ret, "failed to probe subdriver\n");
++		clk_bulk_disable_unprepare(plat_dat->num_clks, plat_dat->clks);
+ 		return ret;
+ 	}
+ 
+@@ -451,7 +378,8 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+ 	return ret;
+ 
+ remove:
+-	data->remove(pdev);
++	if (data->remove)
++		data->remove(pdev);
+ 
+ 	return ret;
+ }
+@@ -459,10 +387,15 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+ static void dwc_eth_dwmac_remove(struct platform_device *pdev)
+ {
+ 	const struct dwc_eth_dwmac_data *data = device_get_match_data(&pdev->dev);
++	struct plat_stmmacenet_data *plat_data = dev_get_platdata(&pdev->dev);
+ 
+ 	stmmac_dvr_remove(&pdev->dev);
+ 
+-	data->remove(pdev);
++	if (data->remove)
++		data->remove(pdev);
++
++	if (plat_data)
++		clk_bulk_disable_unprepare(plat_data->num_clks, plat_data->clks);
+ }
+ 
+ static const struct of_device_id dwc_eth_dwmac_match[] = {
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index c9878a612e53..24422ac4e417 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -254,6 +254,8 @@ struct plat_stmmacenet_data {
+ 	struct clk *clk_ptp_ref;
+ 	unsigned long clk_ptp_rate;
+ 	unsigned long clk_ref_rate;
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 	unsigned int mult_fact_100ns;
+ 	s32 ptp_max_adj;
+ 	u32 cdc_error_adj;
+-- 
+2.17.1
 
-/**
- * struct ethtool_mmsv_ops - Operations for MAC Merge Software Verification
- * @configure_tx: Driver callback for the event where the preemptible TX
- *		  becomes active or inactive. Preemptible traffic
- *		  classes must be committed to hardware only while
- *		  preemptible TX is active.
- * @configure_pmac: Driver callback for the event where the pMAC state
- *		    changes as result of an administrative setting
- *		    (ethtool) or a call to ethtool_mmsv_link_state_handle().
- * @send_mpacket: Driver-provided method for sending a Verify or a Response
- *		  mPacket.
- */
-
-> +	void (*configure_tx)(struct ethtool_mmsv *mmsv, bool tx_active);
-> +	void (*configure_pmac)(struct ethtool_mmsv *mmsv, bool pmac_enabled);
-> +	void (*send_mpacket)(struct ethtool_mmsv *mmsv, enum ethtool_mpacket mpacket);
-> +};
-> +
-> +/**
-> + * struct ethtool_mmsv - MAC Merge Software Verification
-> + * @ops: operations for MAC Merge Software Verification
-> + * @dev: pointer to net_device structure
-> + * @lock: serialize access to MAC Merge state between
-> + *	  ethtool requests and link state updates.
-> + * @status: current verification FSM state
-> + * @verify_timer: timer for verification in local TX direction
-> + * @verify_enabled: indicates if verification is enabled
-> + * @verify_retries: number of retries for verification
-> + * @pmac_enabled: indicates if the preemptible MAC is enabled
-> + * @verify_time: time for verification in milliseconds
-> + * @tx_enabled: indicates if transmission is enabled
-> + */
-> +struct ethtool_mmsv {
-> +	const struct ethtool_mmsv_ops *ops;
-> +	struct net_device *dev;
-> +	spinlock_t lock;
-> +	enum ethtool_mm_verify_status status;
-> +	struct timer_list verify_timer;
-> +	bool verify_enabled;
-> +	int verify_retries;
-> +	bool pmac_enabled;
-> +	u32 verify_time;
-> +	bool tx_enabled;
-> +};
-> +
-
-/**
- * ethtool_mmsv_stop() - Stop MAC Merge Software Verification
- * @mmsv: MAC Merge Software Verification state
- *
- * Drivers should call this method in a state where the hardware is
- * about to lose state, like ndo_stop() or suspend(), and turning off
- * MAC Merge features would be superfluous. Otherwise, prefer
- * ethtool_mmsv_link_state_handle() with up=false.
- */
-> +void ethtool_mmsv_stop(struct ethtool_mmsv *mmsv);
-
-/**
- * ethtool_mmsv_link_state_handle() - Inform MAC Merge Software Verification
- *				      of link state changes
- * @mmsv: MAC Merge Software Verification state
- * @up: True if device carrier is up and able to pass verification packets
- *
- * Calling context is expected to be from a thread, interrupts enabled.
- */
-> +void ethtool_mmsv_link_state_handle(struct ethtool_mmsv *mmsv, bool up);
-
-/**
- * ethtool_mmsv_event_handle() - Inform MAC Merge Software Verification
- *				 of interrupt-based events
- * @mmsv: MAC Merge Software Verification state
- * @event: Event which took place (packet transmission or reception)
- *
- * Calling context expects to have interrupts disabled.
- */
-> +void ethtool_mmsv_event_handle(struct ethtool_mmsv *mmsv,
-> +			       enum ethtool_mmsv_event event);
-
-/**
- * ethtool_mmsv_get_mm() - get_mm() hook for MAC Merge Software Verification
- * @mmsv: MAC Merge Software Verification state
- * @state: see struct ethtool_mm_state
- *
- * Drivers are expected to call this from their ethtool_ops :: get_mm()
- * method.
- */
-> +void ethtool_mmsv_get_mm(struct ethtool_mmsv *mmsv,
-> +			 struct ethtool_mm_state *state);
-
-/**
- * ethtool_mmsv_set_mm() - set_mm() hook for MAC Merge Software Verification
- * @mmsv: MAC Merge Software Verification state
- * @state: see struct ethtool_mm_state
- *
- * Drivers are expected to call this from their ethtool_ops :: set_mm()
- * method.
- */
-> +void ethtool_mmsv_set_mm(struct ethtool_mmsv *mmsv, struct ethtool_mm_cfg *cfg);
-
-/**
- * ethtool_mmsv_init() - Initialize MAC Merge Software Verification state
- * @mmsv: MAC Merge Software Verification state
- * @dev: Pointer to network interface
- * @ops: Methods for implementing the generic functionality
- *
- * The MAC Merge Software Verification is a timer- and event-based state
- * machine intended for network interfaces which lack a hardware-based
- * TX verification process (as per IEEE 802.3 clause 99.4.3). The timer
- * is managed by the core code, whereas events are supplied by the
- * driver explicitly calling one of the other API functions.
- */
-> +void ethtool_mmsv_init(struct ethtool_mmsv *mmsv, struct net_device *dev,
-> +		       const struct ethtool_mmsv_ops *ops);
-> +
->  /**
->   * struct ethtool_rxfh_param - RXFH (RSS) parameters
->   * @hfunc: Defines the current RSS hash function used by HW (or to be set to).
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
