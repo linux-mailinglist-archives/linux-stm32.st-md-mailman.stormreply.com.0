@@ -2,49 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C1AA33AA7
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 10:08:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7485A33BA5
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 10:53:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6177C78F6D;
-	Thu, 13 Feb 2025 09:08:56 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 435EEC78002
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 543A9C78F6D;
+	Thu, 13 Feb 2025 09:53:06 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10277C78039
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 09:08:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E20F2A41F7C;
- Thu, 13 Feb 2025 09:07:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16921C4CEED;
- Thu, 13 Feb 2025 09:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739437729;
- bh=GIUlT9LC1ocTQlyq1ULMc6PUaVMG6RnWLIb/+PjLhqQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cXfOiApS4CvYmByz2sWdMw+soFywSC19cqDepOvB0PcH14Q6cVXWVQoRd3TBsxD8W
- 5L51snHJgowUfNjJVq1kanTsMQRbzDzbWbXir5oA4Ys9DT4bGskWAbU/NTfYR8SJOX
- NST7rnPvIjPbafyYgvCm3XxSccEHcXHHMrznyfPJB34tkz77b0sg7So+WUJy0SeBrx
- WUu9HUmFIuE+n1k+Z3SSkuRynCJNFkbz1XUVKp4i3skAuVIrkyFITQh0wT9NEC0uNU
- cSJdxb9X+kOkHMSOwN/z0WrO2wwbs0Zl8R9Lc9asejqL+UfTpBx+88ZlDhgNeyU1tQ
- reyVY3lOp4tcw==
-Date: Thu, 13 Feb 2025 10:08:45 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <20250213-intrepid-peridot-dinosaur-c5d0bc@krzk-bin>
-References: <20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com>
- <20250210-b4-stm32mp2_new_dts-v1-4-e8ef1e666c5e@foss.st.com>
+ Thu, 13 Feb 2025 09:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1739440378;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EB0jAtjtTKSGP1dxPtLfW8HwQMIKdgZ2FxlSHpVJcKE=;
+ b=T23UwR10gsvOoyPuL8pzSnR2RnNUtifftRpOKWmmr4zcYhxKzQVmPJluspUM01ZB4paEX+
+ tUcrslVzUdiPqbGi4QqWb0ZYDpFAYwhybxsvOB5TlKr07x5wECcS+O1O51JxEQCf6Qm4ky
+ IhyG6u812p/VqKrcez/HCB2euW8ygqY=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-639-3jRfjveGMm6bDpEylx-sNA-1; Thu, 13 Feb 2025 04:52:54 -0500
+X-MC-Unique: 3jRfjveGMm6bDpEylx-sNA-1
+X-Mimecast-MFC-AGG-ID: 3jRfjveGMm6bDpEylx-sNA
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-21f90aec0fdso15082625ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Feb 2025 01:52:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739440373; x=1740045173;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EB0jAtjtTKSGP1dxPtLfW8HwQMIKdgZ2FxlSHpVJcKE=;
+ b=iwYw7o/V0EC25dxItDY/Do7w/8hs3qyhIj4aWV4hl5x76IwwKSzDxxlRJQn4T036Ac
+ xhtqtX2MjAmY8D6UjcOOORd8BbpLWOTO+XUUqX2BMisWWENnEIILBVVLup/lWrHVvZYO
+ 7GVHDm0wAI6dz2sLDGNKFBAA11CXOxSgjWtsGdQoSaYvmWM5tj8V9KgsiATFLtndgm0W
+ ETii1P5lHfIyupVwbmIkY5NMOaJl4eKtoKvXBqN8I0J9rDAamIa7WMkv0CM5bbzo6TQS
+ V0XeDsHWUZVX21+vE6gPYCCkn8YGMWJPGFTf3xh0+uDhWNVMJ5kVi+/3+ex0yYY4S4L6
+ nvDA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUWwRt2jiEltgDL2LNsE3talCEgY79KLtbvDglP+mwf5tZnQClEG7a8V5Soa9Q2zxL5bCAqmiZWNaRb4Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz9c0CP3U1J4oRUpoNUsZXZ/EDA7Dl3BccV0+mHXCL8BR6q9XDh
+ jH+unVIRIwOlfsvjWDXQbaujrQbDwg8ByLVImz1GL805jIZLKbAPDQjVJZc6AePXWQIX9PN+7pu
+ N4z2YzY53ijH8jxjyRPEsVZiI7dBsS+J/7s8z0Fi1WkOY+wZNR12CLHwRBub1pGbQzuf8gyssEp
+ EbuA==
+X-Gm-Gg: ASbGnctmJkoxgXFeVF8Nt66nLcxzA6ooXVoqU1eiHWGnqwJdizboTPMl+5pAL7AbI0u
+ XXwx/7DOY1FRXKT3rtIFful8J7BJtYMIZW5f5A09cBEd+ZeZ3yQDZHSy3hA6RAOaqmreRFQEo46
+ gkq3pjqaA4Wh1d7gJyYUbEP+wulbYhtA+rwXo3hIGmRJJOtRMd9KyRA6ZTHSV2IkkDxc34pkAuU
+ /Fwe0UInFCihccjGqOMW+dz0/tRAQmt9zM7TOM5x9PNqxZoVK9VSaHHEXVBvwVWjrNj0B4V+eNV
+ XGzHqi9baIktTFACPzA6EL/BnkkYQlg=
+X-Received: by 2002:a17:902:d48b:b0:215:9d58:6f35 with SMTP id
+ d9443c01a7336-220d1ea0973mr36343215ad.1.1739440373588; 
+ Thu, 13 Feb 2025 01:52:53 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEi/IDewyOcpssGdU7U/9gIDqRizC8PymF7ZJkZjfnrS5iOL7MhpHzhI0ViK410R2Gs9w3J7g==
+X-Received: by 2002:a17:902:d48b:b0:215:9d58:6f35 with SMTP id
+ d9443c01a7336-220d1ea0973mr36342925ad.1.1739440373174; 
+ Thu, 13 Feb 2025 01:52:53 -0800 (PST)
+Received: from [10.200.68.91] (nat-pool-muc-u.redhat.com. [149.14.88.27])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-220d5366834sm8956225ad.56.2025.02.13.01.52.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Feb 2025 01:52:52 -0800 (PST)
+Message-ID: <a42fc18430ae0def70376093a9f163b40c19bf18.camel@redhat.com>
+From: Philipp Stanner <pstanner@redhat.com>
+To: kernel test robot <lkp@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Serge Semin <fancer.lancer@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Yinggang Gu <guyinggang@loongson.cn>,
+ Yanteng Si <si.yanteng@linux.dev>
+Date: Thu, 13 Feb 2025 10:52:36 +0100
+In-Reply-To: <202502131623.bMnlG9wy-lkp@intel.com>
+References: <20250212145831.101719-2-phasta@kernel.org>
+ <202502131623.bMnlG9wy-lkp@intel.com>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250210-b4-stm32mp2_new_dts-v1-4-e8ef1e666c5e@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 04/10] arm64: dts: st: introduce stm32mp23
-	SoCs family
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: SVUSbTebWhK6jz1_QUtYs6oOgXfloFTPJow6QOFLd3c_1739440374
+X-Mimecast-Originator: redhat.com
+Cc: netdev@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stmmac: Replace deprecated PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,583 +101,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 10, 2025 at 04:20:58PM +0100, Amelie Delaunay wrote:
-> From: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> 
-> STM32MP23 family is composed of 3 SoCs defined as following:
-> 
-> -STM32MP231: common part composed of 1*Cortex-A35, common peripherals
-> like SDMMC, UART, SPI, I2C, parallel display, 1*ETH ...
-> 
-> -STM32MP233: STM32MP231 + 1*Cortex-A35 (dual CPU), a second ETH, CAN-FD.
-> 
-> -STM32MP235: STM32MP233 + GPU/AI and video encode/decode, DSI and LDVS
-> display.
-> 
-> A second diversity layer exists for security features/ A35 frequency:
-> -STM32MP23xY, "Y" gives information:
->  -Y = A means A35@1.2GHz + no cryp IP and no secure boot.
->  -Y = C means A35@1.2GHz + cryp IP and secure boot.
->  -Y = D means A35@1.5GHz + no cryp IP and no secure boot.
->  -Y = F means A35@1.5GHz + cryp IP and secure boot.
-> 
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
->  arch/arm64/boot/dts/st/stm32mp231.dtsi  | 1216 +++++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/st/stm32mp233.dtsi  |   94 +++
->  arch/arm64/boot/dts/st/stm32mp235.dtsi  |   16 +
->  arch/arm64/boot/dts/st/stm32mp23xc.dtsi |    8 +
->  arch/arm64/boot/dts/st/stm32mp23xf.dtsi |    8 +
->  5 files changed, 1342 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..ee93f5412096a7cd30b228b85a5280a551fbfaf4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -0,0 +1,1216 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-> + */
-> +#include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/regulator/st,stm32mp25-regulator.h>
-> +#include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> +
-> +/ {
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +
-> +	cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible = "arm,cortex-a35";
-> +			device_type = "cpu";
-> +			reg = <0>;
-> +			enable-method = "psci";
-> +			power-domains = <&CPU_PD0>;
-> +			power-domain-names = "psci";
-> +		};
-> +	};
-> +
-> +	arm-pmu {
-> +		compatible = "arm,cortex-a35-pmu";
-> +		interrupts = <GIC_SPI 368 IRQ_TYPE_LEVEL_HIGH>;
-> +		interrupt-affinity = <&cpu0>;
-> +		interrupt-parent = <&intc>;
-> +	};
-> +
-> +	arm_wdt: watchdog {
-> +		compatible = "arm,smc-wdt";
-> +		arm,smc-id = <0xb200005a>;
-> +		status = "disabled";
-> +	};
-> +
-> +	clocks {
-
-Drop
-
-> +		clk_dsi_txbyte: txbyteclk {
-
-Use consistent naming style. Either prefix or suffix. Or better, use
-what is recommended.
-
-See: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/clock/fixed-clock.yaml?h=v6.11-rc1
-
-> +			#clock-cells = <0>;
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <0>;
-> +		};
-> +
-> +		clk_rcbsec: clk-rcbsec {
-> +			#clock-cells = <0>;
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <64000000>;
-> +		};
-> +	};
-> +
-> +	firmware {
-> +		optee: optee {
-> +			compatible = "linaro,optee-tz";
-> +			method = "smc";
-> +			interrupt-parent = <&intc>;
-> +			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-> +		};
-> +
-> +		scmi {
-> +			compatible = "linaro,scmi-optee";
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			linaro,optee-channel-id = <0>;
-> +
-> +			scmi_clk: protocol@14 {
-> +				reg = <0x14>;
-> +				#clock-cells = <1>;
-> +			};
-> +
-> +			scmi_reset: protocol@16 {
-> +				reg = <0x16>;
-> +				#reset-cells = <1>;
-> +			};
-> +
-> +			scmi_voltd: protocol@17 {
-> +				reg = <0x17>;
-> +
-> +				scmi_regu: regulators {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					scmi_vddio1: regulator@0 {
-> +						reg = <VOLTD_SCMI_VDDIO1>;
-> +						regulator-name = "vddio1";
-> +					};
-> +					scmi_vddio2: regulator@1 {
-> +						reg = <VOLTD_SCMI_VDDIO2>;
-> +						regulator-name = "vddio2";
-> +					};
-> +					scmi_vddio3: regulator@2 {
-> +						reg = <VOLTD_SCMI_VDDIO3>;
-> +						regulator-name = "vddio3";
-> +					};
-> +					scmi_vddio4: regulator@3 {
-> +						reg = <VOLTD_SCMI_VDDIO4>;
-> +						regulator-name = "vddio4";
-> +					};
-> +					scmi_vdd33ucpd: regulator@5 {
-> +						reg = <VOLTD_SCMI_UCPD>;
-> +						regulator-name = "vdd33ucpd";
-> +					};
-> +					scmi_vdda18adc: regulator@7 {
-> +						reg = <VOLTD_SCMI_ADC>;
-> +						regulator-name = "vdda18adc";
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	intc: interrupt-controller@4ac00000 {
-
-Part of Soc most likely.
-
-> +		compatible = "arm,cortex-a7-gic";
-> +		#interrupt-cells = <3>;
-> +		#address-cells = <1>;
-> +		interrupt-controller;
-> +		reg = <0x0 0x4ac10000 0x0 0x1000>,
-> +		      <0x0 0x4ac20000 0x0 0x2000>,
-> +		      <0x0 0x4ac40000 0x0 0x2000>,
-> +		      <0x0 0x4ac60000 0x0 0x2000>;
-> +	};
-> +
-> +	psci {
-> +		compatible = "arm,psci-1.0";
-> +		method = "smc";
-> +
-> +		CPU_PD0: power-domain-cpu0 {
-
-All labels are always lowercase.
-
-> +			#power-domain-cells = <0>;
-> +			power-domains = <&CLUSTER_PD>;
-> +		};
-> +
-> +		CLUSTER_PD: power-domain-cluster {
-> +			#power-domain-cells = <0>;
-> +			power-domains = <&RET_PD>;
-> +		};
-> +
-> +		RET_PD: power-domain-retention {
-> +			#power-domain-cells = <0>;
-> +		};
-> +	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupt-parent = <&intc>;
-> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-> +		always-on;
-> +	};
-> +
-> +	soc@0 {
-> +		compatible = "simple-bus";
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		interrupt-parent = <&intc>;
-> +		ranges = <0x0 0x0 0x0 0x80000000>;
-
-Same comments as for all other patches.
-
-> +
-> +		hpdma: dma-controller@40400000 {
-> +			compatible = "st,stm32mp25-dma3";
-> +			reg = <0x40400000 0x1000>;
-> +			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&scmi_clk CK_SCMI_HPDMA1>;
-> +			#dma-cells = <3>;
-> +		};
-> +
-> +		hpdma2: dma-controller@40410000 {
-> +			compatible = "st,stm32mp25-dma3";
-> +			reg = <0x40410000 0x1000>;
-> +			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&scmi_clk CK_SCMI_HPDMA2>;
-> +			#dma-cells = <3>;
-> +		};
-> +
-> +		hpdma3: dma-controller@40420000 {
-> +			compatible = "st,stm32mp25-dma3";
-> +			reg = <0x40420000 0x1000>;
-> +			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&scmi_clk CK_SCMI_HPDMA3>;
-> +			#dma-cells = <3>;
-> +		};
-> +
-> +		rifsc: bus@42080000 {
-> +			compatible = "st,stm32mp25-rifsc", "simple-bus";
-> +			reg = <0x42080000 0x1000>;
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			#access-controller-cells = <1>;
-> +			ranges;
-> +
-> +			i2s2: audio-controller@400b0000 {
-
-Confusing: device has address outside of the bus. What does the bus
-address represent?
-
-> +				compatible = "st,stm32mp25-i2s";
-> +				reg = <0x400b0000 0x400>;
-> +				#sound-dai-cells = <0>;
-> +				interrupts = <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>;
-> +				clocks = <&rcc CK_BUS_SPI2>, <&rcc CK_KER_SPI2>;
-> +				clock-names = "pclk", "i2sclk";
-> +				resets = <&rcc SPI2_R>;
-> +				dmas = <&hpdma 51 0x43 0x12>,
-> +				       <&hpdma 52 0x43 0x21>;
-> +				dma-names = "rx", "tx";
-> +				access-controllers = <&rifsc 23>;
-> +				status = "disabled";
-> +			};
-> +
-
-...
-
-> +			sdmmc1: mmc@48220000 {
-> +				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-> +				arm,primecell-periphid = <0x00353180>;
-> +				reg = <0x48220000 0x400>, <0x44230400 0x8>;
-> +				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-> +				clocks = <&rcc CK_KER_SDMMC1 >;
-> +				clock-names = "apb_pclk";
-> +				resets = <&rcc SDMMC1_R>;
-> +				cap-sd-highspeed;
-> +				cap-mmc-highspeed;
-> +				max-frequency = <120000000>;
-> +				access-controllers = <&rifsc 76>;
-> +				status = "disabled";
-> +			};
-> +
-> +			ethernet1: ethernet@482c0000 {
-> +				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
-> +				reg = <0x482c0000 0x4000>;
-> +				reg-names = "stmmaceth";
-> +				interrupts-extended = <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
-
-Why extended?
-
-> +				interrupt-names = "macirq";
-> +				clock-names = "stmmaceth",
-> +					      "mac-clk-tx",
-> +					      "mac-clk-rx",
-> +					      "ptp_ref",
-> +					      "ethstp",
-> +					      "eth-ck";
-
-...
-
-> +		rcc: clock-controller@44200000 {
-> +			compatible = "st,stm32mp25-rcc";
-> +			reg = <0x44200000 0x10000>;
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +			clocks = <&scmi_clk CK_SCMI_HSE>,
-> +				<&scmi_clk CK_SCMI_HSI>,
-> +				<&scmi_clk CK_SCMI_MSI>,
-> +				<&scmi_clk CK_SCMI_LSE>,
-> +				<&scmi_clk CK_SCMI_LSI>,
-> +				<&scmi_clk CK_SCMI_HSE_DIV2>,
-> +				<&scmi_clk CK_SCMI_ICN_HS_MCU>,
-> +				<&scmi_clk CK_SCMI_ICN_LS_MCU>,
-> +				<&scmi_clk CK_SCMI_ICN_SDMMC>,
-> +				<&scmi_clk CK_SCMI_ICN_DDR>,
-> +				<&scmi_clk CK_SCMI_ICN_DISPLAY>,
-> +				<&scmi_clk CK_SCMI_ICN_HSL>,
-> +				<&scmi_clk CK_SCMI_ICN_NIC>,
-> +				<&scmi_clk CK_SCMI_ICN_VID>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_07>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_08>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_09>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_10>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_11>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_12>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_13>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_14>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_15>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_16>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_17>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_18>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_19>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_20>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_21>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_22>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_23>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_24>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_25>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_26>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_27>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_28>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_29>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_30>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_31>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_32>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_33>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_34>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_35>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_36>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_37>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_38>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_39>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_40>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_41>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_42>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_43>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_44>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_45>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_46>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_47>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_48>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_49>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_50>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_51>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_52>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_53>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_54>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_55>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_56>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_57>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_58>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_59>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_60>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_61>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_62>,
-> +				<&scmi_clk CK_SCMI_FLEXGEN_63>,
-> +				<&scmi_clk CK_SCMI_ICN_APB1>,
-> +				<&scmi_clk CK_SCMI_ICN_APB2>,
-> +				<&scmi_clk CK_SCMI_ICN_APB3>,
-> +				<&scmi_clk CK_SCMI_ICN_APB4>,
-> +				<&scmi_clk CK_SCMI_ICN_APBDBG>,
-> +				<&scmi_clk CK_SCMI_TIMG1>,
-> +				<&scmi_clk CK_SCMI_TIMG2>,
-> +				<&scmi_clk CK_SCMI_PLL3>,
-> +				<&clk_dsi_txbyte>;
-> +				access-controllers = <&rifsc 156>;
-> +		};
-> +
-> +		exti1: interrupt-controller@44220000 {
-> +			compatible = "st,stm32mp1-exti", "syscon";
-> +			interrupt-controller;
-> +			#interrupt-cells = <2>;
-> +			reg = <0x44220000 0x400>;
-> +			interrupts-extended =
-
-Why extended?
-
-> +				<&intc GIC_SPI 268 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_0 */
-> +				<&intc GIC_SPI 269 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 270 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 271 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 272 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 273 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 274 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 275 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 276 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 277 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 278 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_10 */
-> +				<&intc GIC_SPI 279 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 280 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 281 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 282 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 283 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 0   IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 1   IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 259 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,						/* EXTI_20 */
-> +				<&intc GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_30 */
-> +				<&intc GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,
-> +				<&intc GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_40 */
-> +				<&intc GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 215 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 210 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_50 */
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<0>,
-> +				<&intc GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,						/* EXTI_60 */
-> +				<&intc GIC_SPI 173 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,
-> +				<0>,
-> +				<&intc GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,
-> +				<0>,
-> +				<&intc GIC_SPI 10  IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,
-> +				<&intc GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,	/* EXTI_70 */
-> +				<0>,
-> +				<&intc GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 254 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH>,
-> +				<0>,						/* EXTI_80 */
-> +				<0>,
-> +				<0>,
-> +				<&intc GIC_SPI 257 IRQ_TYPE_LEVEL_HIGH>,
-> +				<&intc GIC_SPI 258 IRQ_TYPE_LEVEL_HIGH>;
-> +		};
-> +
-> +		syscfg: syscon@44230000 {
-> +			compatible = "st,stm32mp25-syscfg", "syscon";
-> +			reg = <0x44230000 0x10000>;
-> +		};
-> +
-> +		pinctrl: pinctrl@44240000 {
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-
-Please fix coding style everywhere here.
-
-
-> +			compatible = "st,stm32mp257-pinctrl";
-> +			ranges = <0 0x44240000 0xa0400>;
-> +			interrupt-parent = <&exti1>;
-> +			st,syscfg = <&exti1 0x60 0xff>;
-> +			pins-are-numbered;
-> +
-
-...
-
-> diff --git a/arch/arm64/boot/dts/st/stm32mp23xc.dtsi b/arch/arm64/boot/dts/st/stm32mp23xc.dtsi
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e33b00b424e1207dc6212e75235785f8c61e5055
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/st/stm32mp23xc.dtsi
-> @@ -0,0 +1,8 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-> + */
-> +
-
-What is the point of this file?
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAyMDI1LTAyLTEzIGF0IDE3OjAyICswODAwLCBrZXJuZWwgdGVzdCByb2JvdCB3cm90
+ZToKPiBIaSBQaGlsaXBwLAo+IAo+IGtlcm5lbCB0ZXN0IHJvYm90IG5vdGljZWQgdGhlIGZvbGxv
+d2luZyBidWlsZCBlcnJvcnM6Cgpzb3JyeSBhYm91dCB0aG9zZSBleHBsb3Npb25zLiBOb3JtYWxs
+eSBJIGFsd2F5cyB0ZXN0IGJ1aWxkLiBJIHRoaW5rIEkKYWNjaWRlbnRhbGx5IHVzZWQgYW4gb2xk
+IGJyYW5jaC4gVG9vIG1hbnkgYnJhbmNoZXPigKYKCldpbGwgZml4IGFsbCB0aGF0IGluIHYyLgoK
+UC4KCj4gCj4gW2F1dG8gYnVpbGQgdGVzdCBFUlJPUiBvbiBsaW51cy9tYXN0ZXJdCj4gW2Fsc28g
+YnVpbGQgdGVzdCBFUlJPUiBvbiB2Ni4xNC1yYzIgbmV4dC0yMDI1MDIxM10KPiBbY2Fubm90IGFw
+cGx5IHRvIGhvcm1zLWlwdnMvbWFzdGVyXQo+IFtJZiB5b3VyIHBhdGNoIGlzIGFwcGxpZWQgdG8g
+dGhlIHdyb25nIGdpdCB0cmVlLCBraW5kbHkgZHJvcCB1cyBhCj4gbm90ZS4KPiBBbmQgd2hlbiBz
+dWJtaXR0aW5nIHBhdGNoLCB3ZSBzdWdnZXN0IHRvIHVzZSAnLS1iYXNlJyBhcyBkb2N1bWVudGVk
+Cj4gaW4KPiBodHRwczovL2dpdC1zY20uY29tL2RvY3MvZ2l0LWZvcm1hdC1wYXRjaCNfYmFzZV90
+cmVlX2luZm9ybWF0aW9uXQo+IAo+IHVybDrCoMKgwqAKPiBodHRwczovL2dpdGh1Yi5jb20vaW50
+ZWwtbGFiLWxrcC9saW51eC9jb21taXRzL1BoaWxpcHAtU3Rhbm5lci9zdG1tYWMtUmVwbGFjZS1k
+ZXByZWNhdGVkLVBDSS1mdW5jdGlvbnMvMjAyNTAyMTItMjMwMjU0Cj4gYmFzZTrCoMKgIGxpbnVz
+L21hc3Rlcgo+IHBhdGNoIGxpbms6wqDCoMKgCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8y
+MDI1MDIxMjE0NTgzMS4xMDE3MTktMi1waGFzdGElNDBrZXJuZWwub3JnCj4gcGF0Y2ggc3ViamVj
+dDogW1BBVENIXSBzdG1tYWM6IFJlcGxhY2UgZGVwcmVjYXRlZCBQQ0kgZnVuY3Rpb25zCj4gY29u
+ZmlnOiBzMzkwLWFsbG1vZGNvbmZpZwo+IChodHRwczovL2Rvd25sb2FkLjAxLm9yZy8wZGF5LWNp
+L2FyY2hpdmUvMjAyNTAyMTMvMjAyNTAyMTMxNjIzLmJNbmxHOQo+IHd5LWxrcEBpbnRlbC5jb20v
+Y29uZmlnKQo+IGNvbXBpbGVyOiBjbGFuZyB2ZXJzaW9uIDE5LjEuMwo+IChodHRwczovL2dpdGh1
+Yi5jb20vbGx2bS9sbHZtLXByb2plY3TCoGFiNTFlY2NmODhmNTMyMWU3YzYwNTkxYzU1NDZiMjUK
+PiA0YjZhZmFiOTkpCj4gcmVwcm9kdWNlICh0aGlzIGlzIGEgVz0xIGJ1aWxkKToKPiAoaHR0cHM6
+Ly9kb3dubG9hZC4wMS5vcmcvMGRheS1jaS9hcmNoaXZlLzIwMjUwMjEzLzIwMjUwMjEzMTYyMy5i
+TW5sRzkKPiB3eS1sa3BAaW50ZWwuY29tL3JlcHJvZHVjZSkKPiAKPiBJZiB5b3UgZml4IHRoZSBp
+c3N1ZSBpbiBhIHNlcGFyYXRlIHBhdGNoL2NvbW1pdCAoaS5lLiBub3QganVzdCBhIG5ldwo+IHZl
+cnNpb24gb2YKPiB0aGUgc2FtZSBwYXRjaC9jb21taXQpLCBraW5kbHkgYWRkIGZvbGxvd2luZyB0
+YWdzCj4gPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgPGxrcEBpbnRlbC5jb20+Cj4g
+PiBDbG9zZXM6Cj4gPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9vZS1rYnVpbGQtYWxsLzIwMjUw
+MjEzMTYyMy5iTW5sRzl3eS1sa3BAaW50ZWwuY29tLwo+IAo+IEFsbCBlcnJvcnMgKG5ldyBvbmVz
+IHByZWZpeGVkIGJ5ID4+KToKPiAKPiDCoMKgIEluIGZpbGUgaW5jbHVkZWQgZnJvbQo+IGRyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19wY2kuYzoxMzoKPiDCoMKgIElu
+IGZpbGUgaW5jbHVkZWQgZnJvbSBpbmNsdWRlL2xpbnV4L3BjaS5oOjM3Ogo+IMKgwqAgSW4gZmls
+ZSBpbmNsdWRlZCBmcm9tIGluY2x1ZGUvbGludXgvZGV2aWNlLmg6MzI6Cj4gwqDCoCBJbiBmaWxl
+IGluY2x1ZGVkIGZyb20gaW5jbHVkZS9saW51eC9kZXZpY2UvZHJpdmVyLmg6MjE6Cj4gwqDCoCBJ
+biBmaWxlIGluY2x1ZGVkIGZyb20gaW5jbHVkZS9saW51eC9tb2R1bGUuaDoxOToKPiDCoMKgIElu
+IGZpbGUgaW5jbHVkZWQgZnJvbSBpbmNsdWRlL2xpbnV4L2VsZi5oOjY6Cj4gwqDCoCBJbiBmaWxl
+IGluY2x1ZGVkIGZyb20gYXJjaC9zMzkwL2luY2x1ZGUvYXNtL2VsZi5oOjE4MToKPiDCoMKgIElu
+IGZpbGUgaW5jbHVkZWQgZnJvbSBhcmNoL3MzOTAvaW5jbHVkZS9hc20vbW11X2NvbnRleHQuaDox
+MToKPiDCoMKgIEluIGZpbGUgaW5jbHVkZWQgZnJvbSBhcmNoL3MzOTAvaW5jbHVkZS9hc20vcGdh
+bGxvYy5oOjE4Ogo+IMKgwqAgSW4gZmlsZSBpbmNsdWRlZCBmcm9tIGluY2x1ZGUvbGludXgvbW0u
+aDoyMjI0Ogo+IMKgwqAgaW5jbHVkZS9saW51eC92bXN0YXQuaDo1MDQ6NDM6IHdhcm5pbmc6IGFy
+aXRobWV0aWMgYmV0d2Vlbgo+IGRpZmZlcmVudCBlbnVtZXJhdGlvbiB0eXBlcyAoJ2VudW0gem9u
+ZV9zdGF0X2l0ZW0nIGFuZCAnZW51bQo+IG51bWFfc3RhdF9pdGVtJykgWy1XZW51bS1lbnVtLWNv
+bnZlcnNpb25dCj4gwqDCoMKgwqAgNTA0IHzCoMKgwqDCoMKgwqDCoMKgIHJldHVybiB2bXN0YXRf
+dGV4dFtOUl9WTV9aT05FX1NUQVRfSVRFTVMgKwo+IMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB+fn5+fn5+fn5+
+fn5+fn5+fn5+fn4gXgo+IMKgwqDCoMKgIDUwNSB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGl0ZW1dOwo+IMKgwqDCoMKgwqDCoMKgwqAgfMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB+fn5+
+Cj4gwqDCoCBpbmNsdWRlL2xpbnV4L3Ztc3RhdC5oOjUxMTo0Mzogd2FybmluZzogYXJpdGhtZXRp
+YyBiZXR3ZWVuCj4gZGlmZmVyZW50IGVudW1lcmF0aW9uIHR5cGVzICgnZW51bSB6b25lX3N0YXRf
+aXRlbScgYW5kICdlbnVtCj4gbnVtYV9zdGF0X2l0ZW0nKSBbLVdlbnVtLWVudW0tY29udmVyc2lv
+bl0KPiDCoMKgwqDCoCA1MTEgfMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHZtc3RhdF90ZXh0W05S
+X1ZNX1pPTkVfU1RBVF9JVEVNUyArCj4gwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH5+fn5+fn5+fn5+fn5+fn5+
+fn5+fiBeCj4gwqDCoMKgwqAgNTEyIHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgTlJfVk1fTlVNQV9FVkVOVF9JVEVNUyArCj4gwqDCoMKgwqDC
+oMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIH5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KPiDCoMKgIGluY2x1ZGUvbGludXgvdm1zdGF0
+Lmg6NTI0OjQzOiB3YXJuaW5nOiBhcml0aG1ldGljIGJldHdlZW4KPiBkaWZmZXJlbnQgZW51bWVy
+YXRpb24gdHlwZXMgKCdlbnVtIHpvbmVfc3RhdF9pdGVtJyBhbmQgJ2VudW0KPiBudW1hX3N0YXRf
+aXRlbScpIFstV2VudW0tZW51bS1jb252ZXJzaW9uXQo+IMKgwqDCoMKgIDUyNCB8wqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gdm1zdGF0X3RleHRbTlJfVk1fWk9ORV9TVEFUX0lURU1TICsKPiDCoMKg
+wqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfn5+fn5+fn5+fn5+fn5+fn5+fn5+IF4KPiDCoMKgwqDCoCA1MjUgfMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBOUl9WTV9O
+VU1BX0VWRU5UX0lURU1TICsKPiDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fgo+ID4gPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGNpLmM6
+MTk3OjI4OiBlcnJvcjoKPiA+ID4gZXhwZWN0ZWQgJzsnIGFmdGVyIHJldHVybiBzdGF0ZW1lbnQK
+PiDCoMKgwqDCoCAxOTcgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gUFRSX0VSUihyZXMuYWRkcikKPiDCoMKgwqDCoMKgwqDCoMKgIHzCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXgo+IMKgwqDCoMKgwqDCoMKgwqAg
+fMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA7Cj4gwqDCoCAzIHdhcm5p
+bmdzIGFuZCAxIGVycm9yIGdlbmVyYXRlZC4KPiAKPiAKPiB2aW0gKzE5NyBkcml2ZXJzL25ldC9l
+dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGNpLmMKPiAKPiDCoMKgIDE0MAkKPiDCoMKg
+IDE0MQkvKioKPiDCoMKgIDE0MgkgKiBzdG1tYWNfcGNpX3Byb2JlCj4gwqDCoCAxNDMJICoKPiDC
+oMKgIDE0NAkgKiBAcGRldjogcGNpIGRldmljZSBwb2ludGVyCj4gwqDCoCAxNDUJICogQGlkOiBw
+b2ludGVyIHRvIHRhYmxlIG9mIGRldmljZSBpZC9pZCdzLgo+IMKgwqAgMTQ2CSAqCj4gwqDCoCAx
+NDcJICogRGVzY3JpcHRpb246IFRoaXMgcHJvYmluZyBmdW5jdGlvbiBnZXRzIGNhbGxlZCBmb3Ig
+YWxsCj4gUENJIGRldmljZXMgd2hpY2gKPiDCoMKgIDE0OAkgKiBtYXRjaCB0aGUgSUQgdGFibGUg
+YW5kIGFyZSBub3QgIm93bmVkIiBieSBvdGhlciBkcml2ZXIKPiB5ZXQuIFRoaXMgZnVuY3Rpb24K
+PiDCoMKgIDE0OQkgKiBnZXRzIHBhc3NlZCBhICJzdHJ1Y3QgcGNpX2RldiAqIiBmb3IgZWFjaCBk
+ZXZpY2Ugd2hvc2UKPiBlbnRyeSBpbiB0aGUgSUQgdGFibGUKPiDCoMKgIDE1MAkgKiBtYXRjaGVz
+IHRoZSBkZXZpY2UuIFRoZSBwcm9iZSBmdW5jdGlvbnMgcmV0dXJucyB6ZXJvIHdoZW4KPiB0aGUg
+ZHJpdmVyIGNob29zZQo+IMKgwqAgMTUxCSAqIHRvIHRha2UgIm93bmVyc2hpcCIgb2YgdGhlIGRl
+dmljZSBvciBhbiBlcnJvciBjb2RlKC12ZQo+IG5vKSBvdGhlcndpc2UuCj4gwqDCoCAxNTIJICov
+Cj4gwqDCoCAxNTMJc3RhdGljIGludCBzdG1tYWNfcGNpX3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpw
+ZGV2LAo+IMKgwqAgMTU0CQkJCcKgwqDCoCBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCAqaWQp
+Cj4gwqDCoCAxNTUJewo+IMKgwqAgMTU2CQlzdHJ1Y3Qgc3RtbWFjX3BjaV9pbmZvICppbmZvID0g
+KHN0cnVjdAo+IHN0bW1hY19wY2lfaW5mbyAqKWlkLT5kcml2ZXJfZGF0YTsKPiDCoMKgIDE1NwkJ
+c3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0Owo+IMKgwqAgMTU4CQlzdHJ1Y3Qgc3Rt
+bWFjX3Jlc291cmNlcyByZXMgPSB7fTsKPiDCoMKgIDE1OQkJaW50IGk7Cj4gwqDCoCAxNjAJCWlu
+dCByZXQ7Cj4gwqDCoCAxNjEJCj4gwqDCoCAxNjIJCXBsYXQgPSBkZXZtX2t6YWxsb2MoJnBkZXYt
+PmRldiwgc2l6ZW9mKCpwbGF0KSwKPiBHRlBfS0VSTkVMKTsKPiDCoMKgIDE2MwkJaWYgKCFwbGF0
+KQo+IMKgwqAgMTY0CQkJcmV0dXJuIC1FTk9NRU07Cj4gwqDCoCAxNjUJCj4gwqDCoCAxNjYJCXBs
+YXQtPm1kaW9fYnVzX2RhdGEgPSBkZXZtX2t6YWxsb2MoJnBkZXYtPmRldiwKPiDCoMKgIDE2NwkJ
+CQkJCcKgwqAgc2l6ZW9mKCpwbGF0LQo+ID5tZGlvX2J1c19kYXRhKSwKPiDCoMKgIDE2OAkJCQkJ
+CcKgwqAgR0ZQX0tFUk5FTCk7Cj4gwqDCoCAxNjkJCWlmICghcGxhdC0+bWRpb19idXNfZGF0YSkK
+PiDCoMKgIDE3MAkJCXJldHVybiAtRU5PTUVNOwo+IMKgwqAgMTcxCQo+IMKgwqAgMTcyCQlwbGF0
+LT5kbWFfY2ZnID0gZGV2bV9remFsbG9jKCZwZGV2LT5kZXYsCj4gc2l6ZW9mKCpwbGF0LT5kbWFf
+Y2ZnKSwKPiDCoMKgIDE3MwkJCQkJwqDCoMKgwqAgR0ZQX0tFUk5FTCk7Cj4gwqDCoCAxNzQJCWlm
+ICghcGxhdC0+ZG1hX2NmZykKPiDCoMKgIDE3NQkJCXJldHVybiAtRU5PTUVNOwo+IMKgwqAgMTc2
+CQo+IMKgwqAgMTc3CQlwbGF0LT5zYWZldHlfZmVhdF9jZmcgPSBkZXZtX2t6YWxsb2MoJnBkZXYt
+PmRldiwKPiDCoMKgIDE3OAkJCQkJCcKgwqDCoMKgIHNpemVvZigqcGxhdC0KPiA+c2FmZXR5X2Zl
+YXRfY2ZnKSwKPiDCoMKgIDE3OQkJCQkJCcKgwqDCoMKgIEdGUF9LRVJORUwpOwo+IMKgwqAgMTgw
+CQlpZiAoIXBsYXQtPnNhZmV0eV9mZWF0X2NmZykKPiDCoMKgIDE4MQkJCXJldHVybiAtRU5PTUVN
+Owo+IMKgwqAgMTgyCQo+IMKgwqAgMTgzCQkvKiBFbmFibGUgcGNpIGRldmljZSAqLwo+IMKgwqAg
+MTg0CQlyZXQgPSBwY2ltX2VuYWJsZV9kZXZpY2UocGRldik7Cj4gwqDCoCAxODUJCWlmIChyZXQp
+IHsKPiDCoMKgIDE4NgkJCWRldl9lcnIoJnBkZXYtPmRldiwgIiVzOiBFUlJPUjogZmFpbGVkIHRv
+Cj4gZW5hYmxlIGRldmljZVxuIiwKPiDCoMKgIDE4NwkJCQlfX2Z1bmNfXyk7Cj4gwqDCoCAxODgJ
+CQlyZXR1cm4gcmV0Owo+IMKgwqAgMTg5CQl9Cj4gwqDCoCAxOTAJCj4gwqDCoCAxOTEJCS8qIFRo
+ZSBmaXJzdCBCQVIgPiAwIGlzIHRoZSBiYXNlIElPIGFkZHIgb2Ygb3VyCj4gZGV2aWNlLiAqLwo+
+IMKgwqAgMTkyCQlmb3IgKGkgPSAwOyBpIDwgUENJX1NURF9OVU1fQkFSUzsgaSsrKSB7Cj4gwqDC
+oCAxOTMJCQlpZiAocGNpX3Jlc291cmNlX2xlbihwZGV2LCBpKSA9PSAwKQo+IMKgwqAgMTk0CQkJ
+CWNvbnRpbnVlOwo+IMKgwqAgMTk1CQkJcmVzLmFkZHIgPSBwY2ltX2lvbWFwX3JlZ2lvbihwZGV2
+LCBpLAo+IFNUTU1BQ19SRVNPVVJDRV9OQU1FKTsKPiDCoMKgIDE5NgkJCWlmIChJU19FUlIocmVz
+LmFkZHIpKQo+IMKgPiAxOTcJCQkJcmV0dXJuIFBUUl9FUlIocmVzLmFkZHIpCj4gwqDCoCAxOTgJ
+CQlicmVhazsKPiDCoMKgIDE5OQkJfQo+IMKgwqAgMjAwCQo+IMKgwqAgMjAxCQlwY2lfc2V0X21h
+c3RlcihwZGV2KTsKPiDCoMKgIDIwMgkKPiDCoMKgIDIwMwkJcmV0ID0gaW5mby0+c2V0dXAocGRl
+diwgcGxhdCk7Cj4gwqDCoCAyMDQJCWlmIChyZXQpCj4gwqDCoCAyMDUJCQlyZXR1cm4gcmV0Owo+
+IMKgwqAgMjA2CQo+IMKgwqAgMjA3CQlyZXMud29sX2lycSA9IHBkZXYtPmlycTsKPiDCoMKgIDIw
+OAkJcmVzLmlycSA9IHBkZXYtPmlycTsKPiDCoMKgIDIwOQkKPiDCoMKgIDIxMAkJcGxhdC0+c2Fm
+ZXR5X2ZlYXRfY2ZnLT50c29lZSA9IDE7Cj4gwqDCoCAyMTEJCXBsYXQtPnNhZmV0eV9mZWF0X2Nm
+Zy0+bXJ4cGVlID0gMTsKPiDCoMKgIDIxMgkJcGxhdC0+c2FmZXR5X2ZlYXRfY2ZnLT5tZXN0ZWUg
+PSAxOwo+IMKgwqAgMjEzCQlwbGF0LT5zYWZldHlfZmVhdF9jZmctPm1yeGVlID0gMTsKPiDCoMKg
+IDIxNAkJcGxhdC0+c2FmZXR5X2ZlYXRfY2ZnLT5tdHhlZSA9IDE7Cj4gwqDCoCAyMTUJCXBsYXQt
+PnNhZmV0eV9mZWF0X2NmZy0+ZXBzaSA9IDE7Cj4gwqDCoCAyMTYJCXBsYXQtPnNhZmV0eV9mZWF0
+X2NmZy0+ZWRwcCA9IDE7Cj4gwqDCoCAyMTcJCXBsYXQtPnNhZmV0eV9mZWF0X2NmZy0+cHJ0eWVu
+ID0gMTsKPiDCoMKgIDIxOAkJcGxhdC0+c2FmZXR5X2ZlYXRfY2ZnLT50bW91dGVuID0gMTsKPiDC
+oMKgIDIxOQkKPiDCoMKgIDIyMAkJcmV0dXJuIHN0bW1hY19kdnJfcHJvYmUoJnBkZXYtPmRldiwg
+cGxhdCwgJnJlcyk7Cj4gwqDCoCAyMjEJfQo+IMKgwqAgMjIyCQo+IAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
