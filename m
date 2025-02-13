@@ -2,79 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF16A337C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 07:13:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E615A337EC
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 07:27:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 103B9C78039;
-	Thu, 13 Feb 2025 06:13:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F19C2C78039;
+	Thu, 13 Feb 2025 06:27:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86B3DC78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C7EDC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 06:12:59 +0000 (UTC)
+ Thu, 13 Feb 2025 06:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739427185; x=1770963185;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=GEJZwnWqsIMq3HKET1mdxf8SV5zMREPN381jd4cLlhM=;
- b=AsSgCmv9m8rZunISQ+qW/YQhAJWGYzCJ8Yjq84qa1ydCCEtzs6jR8QlH
- 3FWdlBB1gV62kWkUdH5BUvEDCtb3bpz+cniD2QDwHyFHGfK5nCniBn62M
- ogg2SVLsI26SD7pREy+BRoYVlUFl8gi7fW32e1jMgpUPAYPg28DfrC9S6
- T4i7eBzx5SeZIRD1LbhDjPwSf32GqEsr+VX5mJYbrc4KiKYXbi9R1GOQ6
- 3psjs0cE8y2t06BP6acQtaO050XerZpfRvoQzcmRRuEuKZFpeHs+5aoXN
- cSBAP5V8pUK9wOMfb7Q9ArR5yixOaRnxoQ37XWD95V/HG4/5uSrEkV2tw g==;
-X-CSE-ConnectionGUID: f/oZt+VdQCSPar4NZa5jPQ==
-X-CSE-MsgGUID: qA6u1T6oQSCziqHgwNo5qg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11343"; a="44046225"
-X-IronPort-AV: E=Sophos;i="6.13,282,1732608000"; d="scan'208";a="44046225"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 22:12:57 -0800
-X-CSE-ConnectionGUID: bkfrU6y2QB2L4ycTkHh9VA==
-X-CSE-MsgGUID: VzfZiVD2SRO52yQ6ry9WDg==
+ t=1739428019; x=1770964019;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=mQm/3JCmAFSW/VKjAt7raIjpfolCLORdQ9Y3kbWdC00=;
+ b=fsKk5c9S6IaQndcJRGZTuifE+qwQgYL9po3OqQni9zWq+G8zvgtsNNE+
+ VA2DWFmsO6t+lWUPS9Ck+bP1B2JKKS7lnbDrAIoMOBVATsHcrSfIR0Txv
+ eTKcvhSjZVe/H0RfOMC6kbLZesn+jqw7UWCFE4lDuZ3ys5EWRXwAOBXnJ
+ iV1RROnRWKFr0d5A1S5wbs/MDWINE0DmZqX0xCPfJZ5WK3ScnEr8xWw5Q
+ 6voAf/9/LYF4UC2yQDcYuo6tRE5xKFGlxjtxM9t6s7UdnB1jKxVl61noF
+ lQqp9cAPCiXqTad3mY0Osb1TIsbTc8zFkIIff51b/YbeQQVHDFDd1lgeQ w==;
+X-CSE-ConnectionGUID: G5egUgrbS8CKe/cABhrdKQ==
+X-CSE-MsgGUID: vcK+g46vR3C2CtqkkA4oKg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11343"; a="62581491"
+X-IronPort-AV: E=Sophos;i="6.13,282,1732608000"; d="scan'208";a="62581491"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2025 22:26:52 -0800
+X-CSE-ConnectionGUID: K+jPRXdLSNGIt2MHy6vbiQ==
+X-CSE-MsgGUID: 2TpqkmqkQaetEU8VWMJi0w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="117156622"
-Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.42.34])
- ([10.247.42.34])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2025 22:12:50 -0800
-Message-ID: <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
-Date: Thu, 13 Feb 2025 14:12:47 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250212220121.ici3qll66pfoov62@skbuf>
-Content-Language: en-US
-From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-In-Reply-To: <20250212220121.ici3qll66pfoov62@skbuf>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="143992863"
+Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
+ by fmviesa001.fm.intel.com with ESMTP; 12 Feb 2025 22:26:45 -0800
+Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1tiSgN-0016dj-0c;
+ Thu, 13 Feb 2025 06:26:43 +0000
+Date: Thu, 13 Feb 2025 14:26:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Philipp Stanner <phasta@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for
- Frame Preemption feature in IGC
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Serge Semin <fancer.lancer@gmail.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Yinggang Gu <guyinggang@loongson.cn>, Yanteng Si <si.yanteng@linux.dev>,
+ Philipp Stanner <pstanner@redhat.com>
+Message-ID: <202502131415.1kfrLXGp-lkp@intel.com>
+References: <20250212145831.101719-2-phasta@kernel.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250212145831.101719-2-phasta@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ oe-kbuild-all@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH] stmmac: Replace deprecated PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,44 +72,136 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxMy8yLzIwMjUgNjowMSBhbSwgVmxhZGltaXIgT2x0ZWFuIHdyb3RlOgo+IE9uIE1vbiwg
-RmViIDEwLCAyMDI1IGF0IDAyOjAxOjU4QU0gLTA1MDAsIEZhaXphbCBSYWhpbSB3cm90ZToKPj4g
-SW50cm9kdWNlcyBzdXBwb3J0IGZvciB0aGUgRlBFIGZlYXR1cmUgaW4gdGhlIElHQyBkcml2ZXIu
-Cj4+Cj4+IFRoZSBwYXRjaGVzIGFsaWducyB3aXRoIHRoZSB1cHN0cmVhbSBGUEUgQVBJOgo+PiBo
-dHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3QvbmV0ZGV2YnBmL2NvdmVyLzIwMjMw
-MjIwMTIyMzQzLjExNTY2MTQtMS12bGFkaW1pci5vbHRlYW5AbnhwLmNvbS8KPj4gaHR0cHM6Ly9w
-YXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L25ldGRldmJwZi9jb3Zlci8yMDIzMDExOTEyMjcw
-NS43MzA1NC0xLXZsYWRpbWlyLm9sdGVhbkBueHAuY29tLwo+Pgo+PiBJdCBidWlsZHMgdXBvbiBl
-YXJsaWVyIHdvcms6Cj4+IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9uZXRk
-ZXZicGYvY292ZXIvMjAyMjA1MjAwMTE1MzguMTA5ODg4OC0xLXZpbmljaXVzLmdvbWVzQGludGVs
-LmNvbS8KPj4KPj4gVGhlIHBhdGNoIHNlcmllcyBhZGRzIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb25h
-bGl0aWVzIHRvIHRoZSBJR0MgZHJpdmVyOgo+PiBhKSBDb25maWd1cmUgRlBFIHVzaW5nIGBldGh0
-b29sIC0tc2V0LW1tYC4KPj4gYikgRGlzcGxheSBGUEUgc2V0dGluZ3MgdmlhIGBldGh0b29sIC0t
-c2hvdy1tbWAuCj4+IGMpIFZpZXcgRlBFIHN0YXRpc3RpY3MgdXNpbmcgYGV0aHRvb2wgLS1pbmNs
-dWRlLXN0YXRpc3RpY3MgLS1zaG93LW1tJy4KPj4gZSkgRW5hYmxlIHByZWVtcHRpYmxlL2V4cHJl
-c3MgcXVldWUgd2l0aCBgZnBgOgo+PiAgICAgdGMgcWRpc2MgYWRkIC4uLiByb290IHRhcHJpbyBc
-Cj4+ICAgICBmcCBFIEUgUCBQCj4gCj4gQW55IHJlYXNvbiB3aHkgeW91IGFyZSBvbmx5IGVuYWJs
-aW5nIHRoZSBwcmVlbXB0aWJsZSB0cmFmZmljIGNsYXNzZXMKPiB3aXRoIHRhcHJpbywgYW5kIG5v
-dCB3aXRoIG1xcHJpbyBhcyB3ZWxsPyBJIHNlZSB0aGVyZSB3aWxsIGhhdmUgdG8gYmUKPiBzb21l
-IHdvcmsgaGFybW9uaXppbmcgaWdjJ3MgZXhpc3RpbmcgdW5kZXJzdGFuZGluZyBvZiByaW5nIHBy
-aW9yaXRpZXMKPiB3aXRoIHdoYXQgS3VydCBkaWQgaW4gOWYzMjk3NTExZGFlICgiaWdjOiBBZGQg
-TVFQUklPIG9mZmxvYWQgc3VwcG9ydCIpLAo+IGFuZCBJIHdhcyBraW5kIG9mIGV4cGVjdGluZyB0
-byBzZWUgYSBwcm9wb3NhbCBmb3IgdGhhdCBhcyBwYXJ0IG9mIHRoaXMuCj4gCgpJIHdhcyBwbGFu
-bmluZyB0byBlbmFibGUgZnBlICsgbXFwcmlvIHNlcGFyYXRlbHkgc2luY2UgaXQgcmVxdWlyZXMg
-ZXh0cmEgCmVmZm9ydCB0byBleHBsb3JlIG1xcHJpbyB3aXRoIHByZWVtcHRpYmxlIHJpbmdzLCBy
-aW5nIHByaW9yaXRpZXMsIGFuZCAKdGVzdGluZyB0byBlbnN1cmUgaXQgd29ya3MgcHJvcGVybHkg
-YW5kIHRoZXJlIGFyZSBubyByZWdyZXNzaW9ucy4KCknigJltIHJlYWxseSBob3BpbmcgdGhhdCBm
-cGUgKyBtcXByaW8gZG9lc27igJl0IGhhdmUgdG8gYmUgZW5hYmxlZCB0b2dldGhlciBpbiAKdGhp
-cyBzZXJpZXMgdG8ga2VlcCB0aGluZ3Mgc2ltcGxlLiBJdCBjb3VsZCBiZSBhZGRlZCBsYXRlcuKA
-lGFkZGluZyBpdCBub3cgCndvdWxkIGludHJvZHVjZSBhZGRpdGlvbmFsIGNvbXBsZXhpdHkgYW5k
-IGRlbGF5IHRoaXMgc2VyaWVzIGZ1cnRoZXIsIHdoaWNoIAppcyBmb2N1c2VkIG9uIGVuYWJsaW5n
-IGJhc2ljLCB3b3JraW5nIGZwZSBvbiBpMjI2LgoKV291bGQgdGhhdCBiZSBva2F5IHdpdGggeW91
-PwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+Hi Philipp,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on linus/master]
+[also build test ERROR on v6.14-rc2 next-20250212]
+[cannot apply to horms-ipvs/master]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Philipp-Stanner/stmmac-Replace-deprecated-PCI-functions/20250212-230254
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20250212145831.101719-2-phasta%40kernel.org
+patch subject: [PATCH] stmmac: Replace deprecated PCI functions
+config: sparc64-randconfig-001-20250213 (https://download.01.org/0day-ci/archive/20250213/202502131415.1kfrLXGp-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250213/202502131415.1kfrLXGp-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202502131415.1kfrLXGp-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c: In function 'stmmac_pci_probe':
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c:197:49: error: expected ';' before 'break'
+     197 |                         return PTR_ERR(res.addr)
+         |                                                 ^
+         |                                                 ;
+     198 |                 break;
+         |                 ~~~~~                            
+
+
+vim +197 drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+
+   140	
+   141	/**
+   142	 * stmmac_pci_probe
+   143	 *
+   144	 * @pdev: pci device pointer
+   145	 * @id: pointer to table of device id/id's.
+   146	 *
+   147	 * Description: This probing function gets called for all PCI devices which
+   148	 * match the ID table and are not "owned" by other driver yet. This function
+   149	 * gets passed a "struct pci_dev *" for each device whose entry in the ID table
+   150	 * matches the device. The probe functions returns zero when the driver choose
+   151	 * to take "ownership" of the device or an error code(-ve no) otherwise.
+   152	 */
+   153	static int stmmac_pci_probe(struct pci_dev *pdev,
+   154				    const struct pci_device_id *id)
+   155	{
+   156		struct stmmac_pci_info *info = (struct stmmac_pci_info *)id->driver_data;
+   157		struct plat_stmmacenet_data *plat;
+   158		struct stmmac_resources res = {};
+   159		int i;
+   160		int ret;
+   161	
+   162		plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
+   163		if (!plat)
+   164			return -ENOMEM;
+   165	
+   166		plat->mdio_bus_data = devm_kzalloc(&pdev->dev,
+   167						   sizeof(*plat->mdio_bus_data),
+   168						   GFP_KERNEL);
+   169		if (!plat->mdio_bus_data)
+   170			return -ENOMEM;
+   171	
+   172		plat->dma_cfg = devm_kzalloc(&pdev->dev, sizeof(*plat->dma_cfg),
+   173					     GFP_KERNEL);
+   174		if (!plat->dma_cfg)
+   175			return -ENOMEM;
+   176	
+   177		plat->safety_feat_cfg = devm_kzalloc(&pdev->dev,
+   178						     sizeof(*plat->safety_feat_cfg),
+   179						     GFP_KERNEL);
+   180		if (!plat->safety_feat_cfg)
+   181			return -ENOMEM;
+   182	
+   183		/* Enable pci device */
+   184		ret = pcim_enable_device(pdev);
+   185		if (ret) {
+   186			dev_err(&pdev->dev, "%s: ERROR: failed to enable device\n",
+   187				__func__);
+   188			return ret;
+   189		}
+   190	
+   191		/* The first BAR > 0 is the base IO addr of our device. */
+   192		for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+   193			if (pci_resource_len(pdev, i) == 0)
+   194				continue;
+   195			res.addr = pcim_iomap_region(pdev, i, STMMAC_RESOURCE_NAME);
+   196			if (IS_ERR(res.addr))
+ > 197				return PTR_ERR(res.addr)
+   198			break;
+   199		}
+   200	
+   201		pci_set_master(pdev);
+   202	
+   203		ret = info->setup(pdev, plat);
+   204		if (ret)
+   205			return ret;
+   206	
+   207		res.wol_irq = pdev->irq;
+   208		res.irq = pdev->irq;
+   209	
+   210		plat->safety_feat_cfg->tsoee = 1;
+   211		plat->safety_feat_cfg->mrxpee = 1;
+   212		plat->safety_feat_cfg->mestee = 1;
+   213		plat->safety_feat_cfg->mrxee = 1;
+   214		plat->safety_feat_cfg->mtxee = 1;
+   215		plat->safety_feat_cfg->epsi = 1;
+   216		plat->safety_feat_cfg->edpp = 1;
+   217		plat->safety_feat_cfg->prtyen = 1;
+   218		plat->safety_feat_cfg->tmouten = 1;
+   219	
+   220		return stmmac_dvr_probe(&pdev->dev, plat, &res);
+   221	}
+   222	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
