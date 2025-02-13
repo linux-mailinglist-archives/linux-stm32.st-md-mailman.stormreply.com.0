@@ -2,47 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD12A33EA8
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 13:01:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC99A33F8C
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 13:54:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99854C78F6D;
-	Thu, 13 Feb 2025 12:01:56 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4F1DC78F6D;
+	Thu, 13 Feb 2025 12:54:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99F1BC78039
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 797AEC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 12:01:49 +0000 (UTC)
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1739448108;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pRi2by4hF7BVnwNBoTgAL9CtmnTqhyTscqUsWMsbLkE=;
- b=gFnFW5UrQOTpQ94swvZhMjxhGMXUmdllUKHeuFDQK0Iv3lEv7WPpWaXIeU5VL+qcOcmSEn
- kGMFK7iK7mxHYqifI8t7JJaghZu2pWmuNoQZl0H/sS7hc2aAzfJY6uTiz/VUKKb7ufyDvV
- GekiQzi55/iKXCpEU4TxkCFiALIeyIQPOqcDMIikhz9AHKLpm+BCrMkwt7jpDMpW6HskPB
- hTRniWF9zZf9BG1JpYfgOZs2UR+ANvzHYViC0g9vGZOrDUFkZONfFBHYpZxzRzJbGw8yny
- M+2fk9vdaXEG3xtJ/5zxxLJkdMMQyeOe1ee5wJ8rxGbSPv4p9zhZC5qrn+aYNA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1739448108;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pRi2by4hF7BVnwNBoTgAL9CtmnTqhyTscqUsWMsbLkE=;
- b=9+v/6FZN9iYWg8vy7Kso1fLjYJd3UKBNQLlk/DBk8uSIJsOASKi30BUOPU3IuSdJHsDXLY
- ZN2gspy0UDfIpSBw==
-To: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>, Vladimir
- Oltean <vladimir.oltean@nxp.com>
-In-Reply-To: <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
+ Thu, 13 Feb 2025 12:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739451278; x=1770987278;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=UN3Y9x428Mk8h/CXSju3Mtr+T4Cd2Rs3PZKgk+wNRiA=;
+ b=LrOqnk/NvfEcNyk+kYhnWdoBWlAs6wBBJCHdVD3YpuUuQauUw6RnYw84
+ qrUjXSZfVdpqv9a0oWR7KnJoOQhSi9obf2Y7srALH+Go8OdMSd1GmIyeO
+ yjRq9pCkICVTARMRuBX95qh+2Ymkx2AaoE/B9Pm4M7erjUYcUmvTXpPXq
+ yMB8Mh2RbNT/+h0EPXOnuDmasHCvRp6TlXat/Tgjzc21myN6NgyykDvyW
+ MBVSIIyGYaYgjzFnDxwKvWniz1F2cfbYnLOlcRQqCMZoha9Rbfi2Cz5nB
+ 9S2GN9Xve1MjL8YP8Qeqh14YwsWwoHAA+UO7Vo1vTpeewqG/DVUDlEbQT g==;
+X-CSE-ConnectionGUID: A8ggFOCqSEK9s2vTNVlYGg==
+X-CSE-MsgGUID: zdFK824dRLuQr6uG+KZ0pQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="40266551"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="40266551"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2025 04:54:30 -0800
+X-CSE-ConnectionGUID: hz/02A95Toi+RKP8+COzSA==
+X-CSE-MsgGUID: 3oCHI4xJSWuWUpbQsVvUsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="150303991"
+Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.42.34])
+ ([10.247.42.34])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2025 04:54:22 -0800
+Message-ID: <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
+Date: Thu, 13 Feb 2025 20:54:18 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Kurt Kanzenbach <kurt@linutronix.de>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>
 References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
  <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
  <20250212220121.ici3qll66pfoov62@skbuf>
  <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
-Date: Thu, 13 Feb 2025 13:01:46 +0100
-Message-ID: <87cyfmnjdh.fsf@kurt.kurt.home>
-MIME-Version: 1.0
+ <87cyfmnjdh.fsf@kurt.kurt.home>
+Content-Language: en-US
+From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
+In-Reply-To: <87cyfmnjdh.fsf@kurt.kurt.home>
 Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
@@ -78,92 +89,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8515077459113783863=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============8515077459113783863==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-
-On Thu Feb 13 2025, Abdul Rahim, Faizal wrote:
-> On 13/2/2025 6:01 am, Vladimir Oltean wrote:
->> On Mon, Feb 10, 2025 at 02:01:58AM -0500, Faizal Rahim wrote:
->>> Introduces support for the FPE feature in the IGC driver.
->>>
->>> The patches aligns with the upstream FPE API:
->>> https://patchwork.kernel.org/project/netdevbpf/cover/20230220122343.115=
-6614-1-vladimir.oltean@nxp.com/
->>> https://patchwork.kernel.org/project/netdevbpf/cover/20230119122705.730=
-54-1-vladimir.oltean@nxp.com/
->>>
->>> It builds upon earlier work:
->>> https://patchwork.kernel.org/project/netdevbpf/cover/20220520011538.109=
-8888-1-vinicius.gomes@intel.com/
->>>
->>> The patch series adds the following functionalities to the IGC driver:
->>> a) Configure FPE using `ethtool --set-mm`.
->>> b) Display FPE settings via `ethtool --show-mm`.
->>> c) View FPE statistics using `ethtool --include-statistics --show-mm'.
->>> e) Enable preemptible/express queue with `fp`:
->>>     tc qdisc add ... root taprio \
->>>     fp E E P P
->>=20
->> Any reason why you are only enabling the preemptible traffic classes
->> with taprio, and not with mqprio as well? I see there will have to be
->> some work harmonizing igc's existing understanding of ring priorities
->> with what Kurt did in 9f3297511dae ("igc: Add MQPRIO offload support"),
->> and I was kind of expecting to see a proposal for that as part of this.
->>
->
-> I was planning to enable fpe + mqprio separately since it requires extra=
-=20
-> effort to explore mqprio with preemptible rings, ring priorities, and=20
-> testing to ensure it works properly and there are no regressions.
-
-Well, my idea was to move the current mqprio offload implementation from
-legacy TSN Tx mode to the normal TSN Tx mode. Then, taprio and mqprio
-can share the same code (with or without fpe). I have a draft patch
-ready for that. What do you think about it?
-
-Thanks,
-Kurt
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQJHBAEBCgAxFiEEvLm/ssjDfdPf21mSwZPR8qpGc4IFAmet3yoTHGt1cnRAbGlu
-dXRyb25peC5kZQAKCRDBk9HyqkZzgvLKD/9OQPyBrZSv022P25tXUsH7EuBaRKfA
-aeLF85hUvtWB9bw1NihFYJsALhL8ouo+CTO9pvlnFlsgtgiB14KLrjShhefXZfTI
-Prjpei01Kyb2te+XqjCBmnrz5DriDwUQjDVSxd8WlfuFhm/FquQCp3fATF083LBZ
-T7fIsaLnoehBkUj5oMTgFu9EGRD+Pdnq9pQT94pHVPfSc1azLAU8LXzsXqOuCelK
-VkM40CJm5hZwRAQz+rl2C6ji7qAukJ7tof61Cj6c6i7jTZAvbZ52QOUlubYNUNsL
-yh4fGcYxLIJDp6yZz05Nf3KuEISjRcpxlEQxZF9vcfgSFa8cgwAZdnFdAnG9RH5F
-BnO6hhrtoqi9jmDjQbnnROdxeK1zELqhRNmWe7aa6USiiziLg6OHVKBeB9gGQ0B6
-F5XuwQjdfb96Mewy4S67FxwN0Ze53X7cqmUfk5WLESArCxrN2LMTuwOCsfYbBgpc
-NXeqyFzLrHtvb7nMZkONVsXSAYDqsQ+Q3Ms9DLOUh5+jvn9c8XPEJkNNoG0sQznS
-HSGN81QFGjkDACF/D7eiWrA7e6NoJoPMOdeyruHj2ejkZH+0FFA+p7qrWvwytOEx
-rT4GG3JqWLcEs/W/1KZbNf7yioJf+kPIxbS7TxBxy+W+dy8DhDA6cJNEspn6uhqw
-mbELAM6QhMYsxg==
-=HZMH
------END PGP SIGNATURE-----
---=-=-=--
-
---===============8515077459113783863==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8515077459113783863==--
+CgpPbiAxMy8yLzIwMjUgODowMSBwbSwgS3VydCBLYW56ZW5iYWNoIHdyb3RlOgo+IE9uIFRodSBG
+ZWIgMTMgMjAyNSwgQWJkdWwgUmFoaW0sIEZhaXphbCB3cm90ZToKPj4gT24gMTMvMi8yMDI1IDY6
+MDEgYW0sIFZsYWRpbWlyIE9sdGVhbiB3cm90ZToKPj4+IE9uIE1vbiwgRmViIDEwLCAyMDI1IGF0
+IDAyOjAxOjU4QU0gLTA1MDAsIEZhaXphbCBSYWhpbSB3cm90ZToKPj4+PiBJbnRyb2R1Y2VzIHN1
+cHBvcnQgZm9yIHRoZSBGUEUgZmVhdHVyZSBpbiB0aGUgSUdDIGRyaXZlci4KPj4+Pgo+Pj4+IFRo
+ZSBwYXRjaGVzIGFsaWducyB3aXRoIHRoZSB1cHN0cmVhbSBGUEUgQVBJOgo+Pj4+IGh0dHBzOi8v
+cGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyMzAyMjAxMjIz
+NDMuMTE1NjYxNC0xLXZsYWRpbWlyLm9sdGVhbkBueHAuY29tLwo+Pj4+IGh0dHBzOi8vcGF0Y2h3
+b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyMzAxMTkxMjI3MDUuNzMw
+NTQtMS12bGFkaW1pci5vbHRlYW5AbnhwLmNvbS8KPj4+Pgo+Pj4+IEl0IGJ1aWxkcyB1cG9uIGVh
+cmxpZXIgd29yazoKPj4+PiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3QvbmV0
+ZGV2YnBmL2NvdmVyLzIwMjIwNTIwMDExNTM4LjEwOTg4ODgtMS12aW5pY2l1cy5nb21lc0BpbnRl
+bC5jb20vCj4+Pj4KPj4+PiBUaGUgcGF0Y2ggc2VyaWVzIGFkZHMgdGhlIGZvbGxvd2luZyBmdW5j
+dGlvbmFsaXRpZXMgdG8gdGhlIElHQyBkcml2ZXI6Cj4+Pj4gYSkgQ29uZmlndXJlIEZQRSB1c2lu
+ZyBgZXRodG9vbCAtLXNldC1tbWAuCj4+Pj4gYikgRGlzcGxheSBGUEUgc2V0dGluZ3MgdmlhIGBl
+dGh0b29sIC0tc2hvdy1tbWAuCj4+Pj4gYykgVmlldyBGUEUgc3RhdGlzdGljcyB1c2luZyBgZXRo
+dG9vbCAtLWluY2x1ZGUtc3RhdGlzdGljcyAtLXNob3ctbW0nLgo+Pj4+IGUpIEVuYWJsZSBwcmVl
+bXB0aWJsZS9leHByZXNzIHF1ZXVlIHdpdGggYGZwYDoKPj4+PiAgICAgIHRjIHFkaXNjIGFkZCAu
+Li4gcm9vdCB0YXByaW8gXAo+Pj4+ICAgICAgZnAgRSBFIFAgUAo+Pj4KPj4+IEFueSByZWFzb24g
+d2h5IHlvdSBhcmUgb25seSBlbmFibGluZyB0aGUgcHJlZW1wdGlibGUgdHJhZmZpYyBjbGFzc2Vz
+Cj4+PiB3aXRoIHRhcHJpbywgYW5kIG5vdCB3aXRoIG1xcHJpbyBhcyB3ZWxsPyBJIHNlZSB0aGVy
+ZSB3aWxsIGhhdmUgdG8gYmUKPj4+IHNvbWUgd29yayBoYXJtb25pemluZyBpZ2MncyBleGlzdGlu
+ZyB1bmRlcnN0YW5kaW5nIG9mIHJpbmcgcHJpb3JpdGllcwo+Pj4gd2l0aCB3aGF0IEt1cnQgZGlk
+IGluIDlmMzI5NzUxMWRhZSAoImlnYzogQWRkIE1RUFJJTyBvZmZsb2FkIHN1cHBvcnQiKSwKPj4+
+IGFuZCBJIHdhcyBraW5kIG9mIGV4cGVjdGluZyB0byBzZWUgYSBwcm9wb3NhbCBmb3IgdGhhdCBh
+cyBwYXJ0IG9mIHRoaXMuCj4+Pgo+Pgo+PiBJIHdhcyBwbGFubmluZyB0byBlbmFibGUgZnBlICsg
+bXFwcmlvIHNlcGFyYXRlbHkgc2luY2UgaXQgcmVxdWlyZXMgZXh0cmEKPj4gZWZmb3J0IHRvIGV4
+cGxvcmUgbXFwcmlvIHdpdGggcHJlZW1wdGlibGUgcmluZ3MsIHJpbmcgcHJpb3JpdGllcywgYW5k
+Cj4+IHRlc3RpbmcgdG8gZW5zdXJlIGl0IHdvcmtzIHByb3Blcmx5IGFuZCB0aGVyZSBhcmUgbm8g
+cmVncmVzc2lvbnMuCj4gCj4gV2VsbCwgbXkgaWRlYSB3YXMgdG8gbW92ZSB0aGUgY3VycmVudCBt
+cXByaW8gb2ZmbG9hZCBpbXBsZW1lbnRhdGlvbiBmcm9tCj4gbGVnYWN5IFRTTiBUeCBtb2RlIHRv
+IHRoZSBub3JtYWwgVFNOIFR4IG1vZGUuIFRoZW4sIHRhcHJpbyBhbmQgbXFwcmlvCj4gY2FuIHNo
+YXJlIHRoZSBzYW1lIGNvZGUgKHdpdGggb3Igd2l0aG91dCBmcGUpLiBJIGhhdmUgYSBkcmFmdCBw
+YXRjaAo+IHJlYWR5IGZvciB0aGF0LiBXaGF0IGRvIHlvdSB0aGluayBhYm91dCBpdD8KPiAKPiBU
+aGFua3MsCj4gS3VydAoKSGkgS3VydCwKCknigJltIG9rYXkgd2l0aCBpbmNsdWRpbmcgaXQgaW4g
+dGhpcyBzZXJpZXMgYW5kIHRlc3RpbmcgZnBlICsgbXFwcmlvLCBidXQgSeKAmW0gCm5vdCBzdXJl
+IGlmIG90aGVycyBtaWdodCBiZSBjb25jZXJuZWQgYWJvdXQgYWRkaW5nIGRpZmZlcmVudCBmdW5j
+dGlvbmFsIApjaGFuZ2VzIGluIHRoaXMgZnBlIHNlcmllcy4KCkhpIFZsYWRpbWlyLApBbnkgdGhv
+dWdodHMgb24gdGhpcyA/CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
