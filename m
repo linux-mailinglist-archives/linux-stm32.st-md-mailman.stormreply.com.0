@@ -2,51 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C0D6A33BC8
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 10:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D3EA33DC4
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 12:22:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B44AEC78F6D;
-	Thu, 13 Feb 2025 09:58:12 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0DE2C78F6D;
+	Thu, 13 Feb 2025 11:22:01 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3ADADC78039
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44972C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 09:58:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 00D19A41FB0;
- Thu, 13 Feb 2025 09:56:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDB5C4CED1;
- Thu, 13 Feb 2025 09:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1739440684;
- bh=Oqtou6ex2ZovnqK8tj3tuIXnnbRe2REcT3xMiDQmKmU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=b8/8WoyVsel2U/9lZYawTcA0EpGS/8C8U1Jegh4xK7SLoZCDoabMYKzR+8MQR0c8D
- IRjmgcetxywX+e6X18JzO29Dhok/zGYihc7UUULzB1vx+HjLFp4BiOvgUCqCFD74No
- S1+pUQ7HhjIreXprrvApDNcj9wOJON6+0sV1glOk=
-Date: Thu, 13 Feb 2025 10:58:00 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>
-Message-ID: <2025021347-cling-smoked-9f28@gregkh>
-References: <20250213-atomic_sleep_mctrl_serial_gpio-v1-1-201ee6a148ad@bootlin.com>
+ Thu, 13 Feb 2025 11:21:54 +0000 (UTC)
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20250213112151epoutp01ceb6a7d55891d1a89c610b826750e706~jwKieNeSh1512915129epoutp01H
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Feb 2025 11:21:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20250213112151epoutp01ceb6a7d55891d1a89c610b826750e706~jwKieNeSh1512915129epoutp01H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1739445711;
+ bh=FYeA0egZv4FF41HWS+5lY5RJ3ar8Pphs0FsmtbhyRSE=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=qj29tY/iSIOX/IKeNwEWLUhYSOojk/p0yq39MyLUD5o9EhMrlTrfigvInh/f3eecq
+ 84a7nGp1x9AltRNUKXaTRFq1GhRgM7M05Jp+LqCej7VEd5vtVEEIO+C/IeAU42+Yjt
+ 9eaRUYaXidA013VMkA3nAAG5lk5HvpMbpBwigtMw=
+Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20250213112150epcas5p432ded18de14682cc3b9c16d15c3a6f1b~jwKh9cVoO2775827758epcas5p4Q;
+ Thu, 13 Feb 2025 11:21:50 +0000 (GMT)
+Received: from epsmgec5p1new.samsung.com (unknown [182.195.38.176]) by
+ epsnrtp1.localdomain (Postfix) with ESMTP id 4Ytt710fwvz4x9Pr; Thu, 13 Feb
+ 2025 11:21:49 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmgec5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ AF.8A.19710.CC5DDA76; Thu, 13 Feb 2025 20:21:48 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20250213110439epcas5p4363f12d24845f86de9f5e0d1c15bcaf9~jv7hQbNb63061630616epcas5p4_;
+ Thu, 13 Feb 2025 11:04:39 +0000 (GMT)
+Received: from epsmgmc1p1new.samsung.com (unknown [182.195.42.40]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20250213110439epsmtrp1713a253bece086c0e65de979af9e8830~jv7hPeule2200722007epsmtrp1E;
+ Thu, 13 Feb 2025 11:04:39 +0000 (GMT)
+X-AuditID: b6c32a44-363dc70000004cfe-d8-67add5cc2674
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgmc1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ CF.18.23488.7C1DDA76; Thu, 13 Feb 2025 20:04:39 +0900 (KST)
+Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20250213110436epsmtip2c8a8209a8c3b9ff20b96d86af3fac0e3~jv7ezI9zW2340823408epsmtip2R;
+ Thu, 13 Feb 2025 11:04:36 +0000 (GMT)
+From: "Swathi K S" <swathi.ks@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>
+In-Reply-To: <20250213-adorable-arboreal-degu-6bdcb8@krzk-bin>
+Date: Thu, 13 Feb 2025 16:34:29 +0530
+Message-ID: <009a01db7e07$132feb60$398fc220$@samsung.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250213-atomic_sleep_mctrl_serial_gpio-v1-1-201ee6a148ad@bootlin.com>
-Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Fabio Estevam <festevam@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-arm-kernel@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-serial@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] serial: mctrl_gpio: add parameter to skip
-	sync
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFMfZy5LnHh86L+CikZ+hKlrx3PbgHP/Q5uAh59lGQBgzSo3LQ3hOaA
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Ta1BUZRjuO2cvB2mZ44LywUSuJ7twWdjFZT3bLFhKzhZWFD9yGJWOcGYX
+ 2dvsLlJNTRZGiALSJLELrgsjFw1IF12X6wQhjkKAFzYoKBJIbjOMohgY0C4Hin/P9z7P+z3v
+ 810wlD/NCcRStSbaoKXUBGcDy/FT8CvCrr4apWjotpycnygEZOWwk01WN3cjZEnPMRZ5tr2b
+ TY513OOSE5bfOWRPz0Uu2evIY5P2ERebvNNQwiFzXKNs0rpYwyY7bJvJuc5pQLZ3jaPk7fwC
+ hFxucnJf4yvuuG6hisvnBxDFWP4VrqLeMsRV2OzpCvuF4xxF3bnPFfXOWUQx09LHUbS2iBWz
+ 9ufjvRPT5CqaSqENAlqbrEtJ1SqjibiEpN1JUVKRWCiWkTsIgZbS0NFE7N544Z5UtTsXIThC
+ qdPdpXjKaCQiYuQGXbqJFqh0RlM0QetT1HqJPtxIaYzpWmW4lja9KhaJIqPcwg/TVHXmZkTf
+ L/joQeEQ6yho9M8BXhjEJXDw7/sgB2zA+HgjgOaqRZaH4OMPAcy5F8YQcwDen/6StdZR9bAI
+ YYhmAK2OBpRZjAP4XfYj4FFx8BBYltfC9WA/XAjr+iu5HhGKD6PwZFHJylZeeAzMnc10Exjm
+ i78Hs675eMos/EVYUDLH8WAeLoNtrTdZDN4Ib5hHVzCKh8KK0imUmUgA58cq2IzXHvi0eAkw
+ Gn94bf7kynAQP+EFKx1ONtMQCwfrMjkM9oWT1y9zGRwIJ/KzVnES/D6vbzWyCg4tFKzqd8If
+ 73rmx9wGwfCHhgimHARP36xFGF8fmPt0FGHqPOi0ruEX4OKUa3XLAOgon+GeAoRlXTTLumiW
+ dREs/7vZAOsCCKD1Ro2STo7Si7V0xn8XnqzT2MHKsw+JdYL+s0vhbQDBQBuAGEr48WBhtZLP
+ S6E+/oQ26JIM6Wra2Aai3OddgAZuSta5/43WlCSWyEQSqVQqkW2Xigl/Xmb9MSUfV1ImOo2m
+ 9bRhrQ/BvAKPIgc6R20J2dih0IMR7KyNGO9464I690zYvi/eBI7HTwJcj4sOTVyJ9HZs23vu
+ ZdOmxbjSwb4y76L9w16/1XduaSWoLuuutPlk+tKIf6LQ/M6ULYgM3Uw0Fl/tiKm6WP3rQfR9
+ LeIzvlQxkLaj3CqMvH7a71NNwfmF7N3tQfWnmpb/GbYkbGFDyaQm8sHXR3wzUrfJ5Rr71pqr
+ 5jFZ8K7Kv575Y1jfe2BfapP88I0Pen+Je/Qz/nbG5FuijlvWmbvdxW9cop6bebf3z5eeTYzM
+ bnrdpAz7Ft0pFwwcXlbXfmOuLaXPTA9FDQpkrv6ZphNSqq56ZHvtmKUs74ntM5+Y8v21X6ki
+ CJZRRYlDUIOR+hfqY4fEfwQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrGIsWRmVeSWpSXmKPExsWy7bCSvO7xi2vTDTY+EbD4+XIao8XyBztY
+ LdbsPcdkMed8C4vF/CPnWC2eHnvEbvFy1j02i/PnN7BbXNjWx2qx6fE1VovLu+awWXRde8Jq
+ Me/vWlaLYwvELL6dfsNoceTMC2aLS/0TmSz+79nB7iDkcfnaRWaPLStvMnk87d/K7rFz1l12
+ jwWbSj02repk89i8pN5j547PTB7v911l8zi4z9Dj8ya5AO4oLpuU1JzMstQifbsErowFGyaw
+ FjyXr9jY3svcwHhCrIuRk0NCwERixacZTF2MXBxCArsZJWadX84MkZCU+NQ8lRXCFpZY+e85
+ O0TRM0aJvnUbGEESbAJaEov69rGD2CICuhKbbywHK2IW+MIsMfv+ZKixbxklrjYdYAGp4hSw
+ k+j93AzWISzgL/G+9ySYzSKgKjFxzjc2EJtXwFLi0MFTLBC2oMTJmU/AbGYBbYmnN5/C2csW
+ voY6VUHi59NlrBBXuEn8nv2PEaJGXOLozx7mCYzCs5CMmoVk1Cwko2YhaVnAyLKKUTK1oDg3
+ PTfZsMAwL7Vcrzgxt7g0L10vOT93EyM46rU0djC++9akf4iRiYPxEKMEB7OSCK/EtDXpQrwp
+ iZVVqUX58UWlOanFhxilOViUxHlXGkakCwmkJ5akZqemFqQWwWSZODilGpi6QvQf7P8iaav1
+ 4mzOiq3nQy7PXRN8est2l/dRqXdY64ofqt09IMTynvtnrWVB0NezPutdg3yCGjhmeX06veyJ
+ mPB2izvXC/zU0vPPBuYdCJZJiBD1TEvhWnKrn4275uh649r6jXwL/GWz/M9+/uP2oNm//yfr
+ 7xOvJ5eu8IrUd8zhV6n4/nTXuzuxFv95hZ6xG01qcFPiCTh5polz6oZ4Sx7Zd/mzN93f2Fcr
+ pl/w9u2cubtnyGiesm9R/Nebe/lY5nTBmqcPZvned5C0/6gmK1sWzrAs19Rk2tGGDcGzJOS2
+ dZX3TpvcO+POet7aXA6vFwGPUueLrJvacYm7b2NiNkuc7ZZNVlJThGt+7FBiKc5INNRiLipO
+ BACb1ffZaQMAAA==
+X-CMS-MailID: 20250213110439epcas5p4363f12d24845f86de9f5e0d1c15bcaf9
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff
+References: <20250213044624.37334-1-swathi.ks@samsung.com>
+ <CGME20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff@epcas5p1.samsung.com>
+ <20250213044624.37334-2-swathi.ks@samsung.com>
+ <20250213-adorable-arboreal-degu-6bdcb8@krzk-bin>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ krzk+dt@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS
+ device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,117 +128,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 13, 2025 at 09:25:04AM +0100, Alexis Lothor=E9 wrote:
-> The following splat has been observed on a SAMA5D27 platform using
-> atmel_serial:
-> =
 
-> BUG: sleeping function called from invalid context at kernel/irq/manage.c=
-:738
-> in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 27, name: kworke=
-r/u5:0
-> preempt_count: 1, expected: 0
-> INFO: lockdep is turned off.
-> irq event stamp: 0
-> hardirqs last  enabled at (0): [<00000000>] 0x0
-> hardirqs last disabled at (0): [<c01588f0>] copy_process+0x1c4c/0x7bec
-> softirqs last  enabled at (0): [<c0158944>] copy_process+0x1ca0/0x7bec
-> softirqs last disabled at (0): [<00000000>] 0x0
-> CPU: 0 UID: 0 PID: 27 Comm: kworker/u5:0 Not tainted 6.13.0-rc7+ #74
-> Hardware name: Atmel SAMA5
-> Workqueue: hci0 hci_power_on [bluetooth]
-> Call trace:
->   unwind_backtrace from show_stack+0x18/0x1c
->   show_stack from dump_stack_lvl+0x44/0x70
->   dump_stack_lvl from __might_resched+0x38c/0x598
->   __might_resched from disable_irq+0x1c/0x48
->   disable_irq from mctrl_gpio_disable_ms+0x74/0xc0
->   mctrl_gpio_disable_ms from atmel_disable_ms.part.0+0x80/0x1f4
->   atmel_disable_ms.part.0 from atmel_set_termios+0x764/0x11e8
->   atmel_set_termios from uart_change_line_settings+0x15c/0x994
->   uart_change_line_settings from uart_set_termios+0x2b0/0x668
->   uart_set_termios from tty_set_termios+0x600/0x8ec
->   tty_set_termios from ttyport_set_flow_control+0x188/0x1e0
->   ttyport_set_flow_control from wilc_setup+0xd0/0x524 [hci_wilc]
->   wilc_setup [hci_wilc] from hci_dev_open_sync+0x330/0x203c [bluetooth]
->   hci_dev_open_sync [bluetooth] from hci_dev_do_open+0x40/0xb0 [bluetooth]
->   hci_dev_do_open [bluetooth] from hci_power_on+0x12c/0x664 [bluetooth]
->   hci_power_on [bluetooth] from process_one_work+0x998/0x1a38
->   process_one_work from worker_thread+0x6e0/0xfb4
->   worker_thread from kthread+0x3d4/0x484
->   kthread from ret_from_fork+0x14/0x28
-> =
 
-> This warning is emitted when trying to toggle, at the highest level,
-> some flow control (with serdev_device_set_flow_control) in a device
-> driver. At the lowest level, the atmel_serial driver is using
-> serial_mctrl_gpio lib to enable/disable the corresponding IRQs
-> accordingly.  The warning emitted by CONFIG_DEBUG_ATOMIC_SLEEP is due to
-> disable_irq (called in mctrl_gpio_disable_ms) being possibly called in
-> some atomic context (some tty drivers perform modem lines configuration
-> in regions protected by port lock).
-> =
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: 13 February 2025 13:24
+> To: Swathi K S <swathi.ks@samsung.com>
+> Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch; davem@davemloft.net;
+> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
+> robh@kernel.org; conor+dt@kernel.org; richardcochran@gmail.com;
+> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
+> rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
+> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS device tree
+> bindings
+> 
+> On Thu, Feb 13, 2025 at 10:16:23AM +0530, Swathi K S wrote:
+> > +  clock-names:
+> > +    minItems: 5
+> > +    maxItems: 10
+> > +    contains:
+> > +      enum:
+> > +        - ptp_ref
+> > +        - master_bus
+> > +        - slave_bus
+> > +        - tx
+> > +        - rx
+> > +        - master2_bus
+> > +        - slave2_bus
+> > +        - eqos_rxclk_mux
+> > +        - eqos_phyrxclk
+> > +        - dout_peric_rgmii_clk
+> 
+> This does not match the previous entry. It should be strictly ordered with
+> minItems: 5.
 
-> Add a flag to mctrl_gpio_disable_ms to allow controlling whether the
-> function should block, depending the context in which it is called.
-> Update mctrl_gpio_disable_ms calls with the relevant flag value,
-> depending on whether the call is protected by some port lock.
-> =
+Hi Krzysztof,
+Thanks for reviewing.
+In FSD SoC, we have 2 instances of ethernet in two blocks.
+One instance needs 5 clocks and the other needs 10 clocks.
 
-> Suggested-by: Jiri Slaby <jirislaby@kernel.org>
-> Signed-off-by: Alexis Lothor=E9 <alexis.lothore@bootlin.com>
-> ---
-> This series follows a report made here:
-> https://lore.kernel.org/linux-serial/3d227ebe-1ee6-4d57-b1ec-78be59af7244=
-@bootlin.com/
-> ---
->  drivers/tty/serial/8250/8250_port.c    | 2 +-
->  drivers/tty/serial/atmel_serial.c      | 2 +-
->  drivers/tty/serial/imx.c               | 2 +-
->  drivers/tty/serial/serial_mctrl_gpio.c | 9 +++++++--
->  drivers/tty/serial/serial_mctrl_gpio.h | 4 ++--
->  drivers/tty/serial/sh-sci.c            | 2 +-
->  drivers/tty/serial/stm32-usart.c       | 2 +-
->  7 files changed, 14 insertions(+), 9 deletions(-)
-> =
+I tried to understand this by looking at some other dt-binding files as given below, but looks like they follow similar approach
+Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
 
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
-0/8250_port.c
-> index d7976a21cca9ce50557ca5f13bb01448ced0728b..b234c6c1fe8b3dae4efc2091c=
-8aecf1f1dddc9f8 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -1680,7 +1680,7 @@ static void serial8250_disable_ms(struct uart_port =
-*port)
->  	if (up->bugs & UART_BUG_NOMSR)
->  		return;
->  =
+Could you please guide me on how to implement this?
+Also, please help me understand what is meant by 'strictly ordered'
 
-> -	mctrl_gpio_disable_ms(up->gpios);
-> +	mctrl_gpio_disable_ms(up->gpios, false);
+> 
+> 
+> > +
+> > +  iommus:
+> > +    maxItems: 1
+> > +
+> > +  phy-mode:
+> > +    enum:
+> > +      - rgmii-id
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - clocks
+> > +  - clock-names
+> > +  - iommus
+> > +  - phy-mode
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/fsd-clk.h>
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    soc {
+> > +        #address-cells = <2>;
+> > +        #size-cells = <2>;
+> > +        ethernet1: ethernet@14300000 {
+> > +            compatible = "tesla,fsd-ethqos";
+> > +            reg = <0x0 0x14300000 0x0 0x10000>;
+> > +            interrupts = <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH>;
+> > +            interrupt-names = "macirq";
+> > +            clocks = <&clock_peric
+> PERIC_EQOS_TOP_IPCLKPORT_CLK_PTP_REF_I>,
+> > +                     <&clock_peric PERIC_EQOS_TOP_IPCLKPORT_ACLK_I>,
+> > +                     <&clock_peric PERIC_EQOS_TOP_IPCLKPORT_HCLK_I>,
+> > +                     <&clock_peric PERIC_EQOS_TOP_IPCLKPORT_RGMII_CLK_I>,
+> > +                     <&clock_peric PERIC_EQOS_TOP_IPCLKPORT_CLK_RX_I>,
+> > +                     <&clock_peric PERIC_BUS_D_PERIC_IPCLKPORT_EQOSCLK>,
+> > +                     <&clock_peric PERIC_BUS_P_PERIC_IPCLKPORT_EQOSCLK>,
+> > +                     <&clock_peric PERIC_EQOS_PHYRXCLK_MUX>,
+> > +                     <&clock_peric PERIC_EQOS_PHYRXCLK>,
+> > +                     <&clock_peric PERIC_DOUT_RGMII_CLK>;
+> > +            clock-names = "ptp_ref", "master_bus", "slave_bus","tx",
+> > +                          "rx", "master2_bus", "slave2_bus", "eqos_rxclk_mux",
+> > +                          "eqos_phyrxclk","dout_peric_rgmii_clk";
+> > +            pinctrl-names = "default";
+> > +            pinctrl-0 = <&eth1_tx_clk>, <&eth1_tx_data>, <&eth1_tx_ctrl>,
+> > +                        <&eth1_phy_intr>, <&eth1_rx_clk>, <&eth1_rx_data>,
+> > +                        <&eth1_rx_ctrl>, <&eth1_mdio>;
+> > +            iommus = <&smmu_peric 0x0 0x1>;
+> > +            phy-mode = "rgmii-id";
+> > +       };
+> 
+> Misaligned/misindented.
 
-This a bad api.
+Ack
 
-When you read this line in the driver, do you know what "false" means
-here?
+> 
+> Best regards,
+> Krzysztof
 
-Please make two functions, mctrl_gpio_disable_ms_sync() and
-mctrl_gpio_disable_ms_no_sync() which can internally just call
-mctrl_gpio_disable_ms() with the boolean, but no driver should have to
-call that at all.
 
-That way, when you read driver code, you KNOW what is happening and you
-don't have to hunt around in a totally different C file to try to figure
-it out and loose your concentration.
-
-thanks,
-
-greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
