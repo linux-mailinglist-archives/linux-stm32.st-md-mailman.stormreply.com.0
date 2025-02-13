@@ -2,51 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3835A3396D
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 09:00:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E79A339DD
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Feb 2025 09:25:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55D84C78039;
-	Thu, 13 Feb 2025 08:00:31 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3AECC78039;
+	Thu, 13 Feb 2025 08:25:26 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F645C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7769AC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Feb 2025 08:00:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1F16FA41E94;
- Thu, 13 Feb 2025 07:58:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437BCC4CED1;
- Thu, 13 Feb 2025 08:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739433629;
- bh=ofm3GeRHfD0mhMeYGLNiNgASQ8oj8xT5klGiVvoPLAY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sOLQeRwy+EiETM1vmVNilnA2npGC1wqQlVLtBVuB1ubAX2qac3lKEuz9B56CHnscO
- YGK//9mviI6btp+oVzTfFVdPkTJG8Ts8b+SSM0DsDb0VKVcgsvvLPvltWuMI7jgp0p
- d/mSN3Jy9Q/I1ivh7ajKOem54W6jPBEMZGPQkBT7GGbKy5Lw9NA9B4xIMVgVVKE8YA
- Oc1GFc5lEPSBNDEr0lkTou/wdaQ+agF3fC9o1WaxvGpISXQEMYBTI5B3IUNss7Nq2o
- s/n0pJXyMKCfJJdEXuyKZnukhMO6iy4EUZ6GND6amsCc6Iw2j46z6HUhrBC7nGwgWC
- Iq+g+XO256fXA==
-Date: Thu, 13 Feb 2025 09:00:25 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: patrice.chotard@foss.st.com
-Message-ID: <20250213-adorable-conscious-pogona-4114cf@krzk-bin>
-References: <20250210131826.220318-1-patrice.chotard@foss.st.com>
- <20250210131826.220318-4-patrice.chotard@foss.st.com>
+ Thu, 13 Feb 2025 08:25:19 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 033D04318E;
+ Thu, 13 Feb 2025 08:25:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1739435119;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=le1Ksyac8fZ2fSaqKx+npcfn/t1FWRIiocLUuxo9FG8=;
+ b=VkIKt/Ja/dnkpAhbUq3MDKMNpEHEIIaupb5o/vPvLedwkDH6S1TKYZoEUL2qDQyq3vsbYh
+ JbhMkovbLIgkeEZo5syuJSlAQOn/6TBTKJDvrxq77taD/6E/exYgPO8uj/Sl81l16U+4fh
+ PG78iFIR7WYcB4GC3D4mHoBZOd2d/GUDQcK9KutRQgv8Py70Y/xgSt8MLQ8B0v0WHJVEL7
+ KJ4DUV2yoJBKpCVpMugMvYJXGbVhXzeYwzBT1SVN+p+MCkUwIyZ4qo0joyRAb5Nv73MEsO
+ fnRv9jSGiyQxiCFtya1jJUvnJPXLP1aA9KTxAXZsdJx5bSoMfUAofNrydK4H3A==
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+Date: Thu, 13 Feb 2025 09:25:04 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250210131826.220318-4-patrice.chotard@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+Message-Id: <20250213-atomic_sleep_mctrl_serial_gpio-v1-1-201ee6a148ad@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAF+srWcC/x3NQQqAIBBA0avErBPKMKSrRIjZWAOWohJBdPes5
+ d+8f0PCSJhgqG6IeFIif5Ro6wrMpo8VGS2lgTdcNLztmM5+J6OSQwxqNzk69RHaqTWQZ1IK21u
+ chRQzFCREtHT9g3F6nhc08M99cAAAAA==
+X-Change-ID: 20250213-atomic_sleep_mctrl_serial_gpio-885f6feb585b
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegiedvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephfffufggtgfgkffvvefosehtkeertdertdejnecuhfhrohhmpeetlhgvgihishcunfhothhhohhrrocuoegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepudekveeftdeifedvfefgvdfgjeduieevudeltdeulefhhefgiedvhfethffgffegnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgdujedvrddujedrtddrudgnpdhmrghilhhfrhhomheprghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeduledprhgtphhtthhopehshhgrfihnghhuoheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqrghrmhdqkhgvrhhnvghlsehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhrtghpthhtohepkhgvrhhnvghlsehpvghnghhuthhrohhnihigrdguvgdprhgtphhtthhopehgrhgvghhkhhesl
+ hhinhhugihfohhunhgurghtihhonhdrohhrghdprhgtphhtthhopegtlhgruhguihhurdgsvgiinhgvrgesthhugihonhdruggvvhdprhgtphhtthhopehlihhnuhigqdhsthhmfedvsehsthdqmhguqdhmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomhdprhgtphhtthhopehmtghoqhhuvghlihhnrdhsthhmfedvsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprhhitghhrghrugdrghgvnhhouhgusegsohhothhlihhnrdgtohhm
+X-GND-Sasl: alexis.lothore@bootlin.com
+Cc: imx@lists.linux.dev, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/8] dt-bindings: memory-controllers:
- Add STM32 Octo Memory Manager controller
+Subject: [Linux-stm32] [PATCH] serial: mctrl_gpio: add parameter to skip sync
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,176 +69,151 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 10, 2025 at 02:18:21PM +0100, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Add bindings for STM32 Octo Memory Manager (OMM) controller.
-> 
-> OMM manages:
->   - the muxing between 2 OSPI busses and 2 output ports.
->     There are 4 possible muxing configurations:
->       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
->         output is on port 2
->       - OSPI1 and OSPI2 are multiplexed over the same output port 1
->       - swapped mode (no multiplexing), OSPI1 output is on port 2,
->         OSPI2 output is on port 1
->       - OSPI1 and OSPI2 are multiplexed over the same output port 2
->   - the split of the memory area shared between the 2 OSPI instances.
->   - chip select selection override.
->   - the time between 2 transactions in multiplexed mode.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->  .../memory-controllers/st,stm32mp25-omm.yaml  | 201 ++++++++++++++++++
->  1 file changed, 201 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
-> new file mode 100644
-> index 000000000000..c897e6bf490d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
-> @@ -0,0 +1,201 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/memory-controllers/st,stm32mp25-omm.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32 Octo Memory Manager (OMM)
-> +
-> +maintainers:
-> +  - Patrice Chotard <patrice.chotard@foss.st.com>
-> +
-> +description: |
-> +  The STM32 Octo Memory Manager is a low-level interface that enables an
-> +  efficient OCTOSPI pin assignment with a full I/O matrix (before alternate
-> +  function map) and multiplex of single/dual/quad/octal SPI interfaces over
-> +  the same bus. It Supports up to:
-> +    - Two single/dual/quad/octal SPI interfaces
-> +    - Two ports for pin assignment
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32mp25-omm
-> +
-> +  "#address-cells":
-> +    const: 2
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges:
-> +    description: |
-> +      Reflects the memory layout with four integer values per OSPI instance.
-> +      Format:
-> +      <chip-select> 0 <registers base address> <size>
-> +    minItems: 2
-> +    maxItems: 2
-> +
-> +  reg:
-> +    items:
-> +      - description: OMM registers
-> +      - description: OMM memory map area
-> +
-> +  reg-names:
-> +    items:
-> +      - const: regs
-> +      - const: memory_map
-> +
-> +  memory-region:
-> +    description: |
-> +      Memory region shared between the 2 OCTOSPI instance.
-> +      One or two phandle to a node describing a memory mapped region
-> +      depending of child number.
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  memory-region-names:
-> +    description: |
-> +      OCTOSPI instance's name to which memory region is associated
-> +    items:
-> +      enum: [ospi1, ospi2]
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  access-controllers:
-> +    maxItems: 1
-> +
-> +  st,syscfg-amcr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description: |
-> +      The Address Mapping Control Register (AMCR) is used to split the 256MB
-> +      memory map area shared between the 2 OSPI instance. The Octo Memory
-> +      Manager sets the AMCR depending of the memory-region configuration.
-> +      The memory split bitmask description is:
-> +        - 000: OCTOSPI1 (256 Mbytes), OCTOSPI2 unmapped
-> +        - 001: OCTOSPI1 (192 Mbytes), OCTOSPI2 (64 Mbytes)
-> +        - 010: OCTOSPI1 (128 Mbytes), OCTOSPI2 (128 Mbytes)
-> +        - 011: OCTOSPI1 (64 Mbytes), OCTOSPI2 (192 Mbytes)
-> +        - 1xx: OCTOSPI1 unmapped, OCTOSPI2 (256 Mbytes)
-> +    items:
-> +      - description: phandle to syscfg
-> +      - description: register offset within syscfg
-> +      - description: register bitmask for memory split
-> +
-> +  st,omm-req2ack-ns:
-> +    description: |
-> +      In multiplexed mode (MUXEN = 1), this field defines the time in
-> +      nanoseconds between two transactions.
-
-default: ?
-
-> +
-> +  st,omm-cssel-ovr:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Configure the chip select selector override for the 2 OCTOSPIs.
-> +      - 0: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS1
-> +      - 1: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS1
-> +      - 2: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS2
-> +      - 3: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS2
-> +    minimum: 0
-> +    maximum: 3
-
-default: ?
-
-> +
-> +  st,omm-mux:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Configure the muxing between the 2 OCTOSPIs busses and the 2 output ports.
-> +      - 0: direct mode, default
-
-Don't repeat constraints in free form text.
-
-> +      - 1: mux OCTOSPI1 and OCTOSPI2 to port 1
-> +      - 2: swapped mode
-> +      - 3: mux OCTOSPI1 and OCTOSPI2 to port 2
-> +    minimum: 0
-> +    maximum: 3
-
-default: ?
-
-None of them are required, so usually we expect defaults.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIGZvbGxvd2luZyBzcGxhdCBoYXMgYmVlbiBvYnNlcnZlZCBvbiBhIFNBTUE1RDI3IHBsYXRm
+b3JtIHVzaW5nCmF0bWVsX3NlcmlhbDoKCkJVRzogc2xlZXBpbmcgZnVuY3Rpb24gY2FsbGVkIGZy
+b20gaW52YWxpZCBjb250ZXh0IGF0IGtlcm5lbC9pcnEvbWFuYWdlLmM6NzM4CmluX2F0b21pYygp
+OiAxLCBpcnFzX2Rpc2FibGVkKCk6IDEyOCwgbm9uX2Jsb2NrOiAwLCBwaWQ6IDI3LCBuYW1lOiBr
+d29ya2VyL3U1OjAKcHJlZW1wdF9jb3VudDogMSwgZXhwZWN0ZWQ6IDAKSU5GTzogbG9ja2RlcCBp
+cyB0dXJuZWQgb2ZmLgppcnEgZXZlbnQgc3RhbXA6IDAKaGFyZGlycXMgbGFzdCAgZW5hYmxlZCBh
+dCAoMCk6IFs8MDAwMDAwMDA+XSAweDAKaGFyZGlycXMgbGFzdCBkaXNhYmxlZCBhdCAoMCk6IFs8
+YzAxNTg4ZjA+XSBjb3B5X3Byb2Nlc3MrMHgxYzRjLzB4N2JlYwpzb2Z0aXJxcyBsYXN0ICBlbmFi
+bGVkIGF0ICgwKTogWzxjMDE1ODk0ND5dIGNvcHlfcHJvY2VzcysweDFjYTAvMHg3YmVjCnNvZnRp
+cnFzIGxhc3QgZGlzYWJsZWQgYXQgKDApOiBbPDAwMDAwMDAwPl0gMHgwCkNQVTogMCBVSUQ6IDAg
+UElEOiAyNyBDb21tOiBrd29ya2VyL3U1OjAgTm90IHRhaW50ZWQgNi4xMy4wLXJjNysgIzc0Ckhh
+cmR3YXJlIG5hbWU6IEF0bWVsIFNBTUE1CldvcmtxdWV1ZTogaGNpMCBoY2lfcG93ZXJfb24gW2Js
+dWV0b290aF0KQ2FsbCB0cmFjZToKICB1bndpbmRfYmFja3RyYWNlIGZyb20gc2hvd19zdGFjaysw
+eDE4LzB4MWMKICBzaG93X3N0YWNrIGZyb20gZHVtcF9zdGFja19sdmwrMHg0NC8weDcwCiAgZHVt
+cF9zdGFja19sdmwgZnJvbSBfX21pZ2h0X3Jlc2NoZWQrMHgzOGMvMHg1OTgKICBfX21pZ2h0X3Jl
+c2NoZWQgZnJvbSBkaXNhYmxlX2lycSsweDFjLzB4NDgKICBkaXNhYmxlX2lycSBmcm9tIG1jdHJs
+X2dwaW9fZGlzYWJsZV9tcysweDc0LzB4YzAKICBtY3RybF9ncGlvX2Rpc2FibGVfbXMgZnJvbSBh
+dG1lbF9kaXNhYmxlX21zLnBhcnQuMCsweDgwLzB4MWY0CiAgYXRtZWxfZGlzYWJsZV9tcy5wYXJ0
+LjAgZnJvbSBhdG1lbF9zZXRfdGVybWlvcysweDc2NC8weDExZTgKICBhdG1lbF9zZXRfdGVybWlv
+cyBmcm9tIHVhcnRfY2hhbmdlX2xpbmVfc2V0dGluZ3MrMHgxNWMvMHg5OTQKICB1YXJ0X2NoYW5n
+ZV9saW5lX3NldHRpbmdzIGZyb20gdWFydF9zZXRfdGVybWlvcysweDJiMC8weDY2OAogIHVhcnRf
+c2V0X3Rlcm1pb3MgZnJvbSB0dHlfc2V0X3Rlcm1pb3MrMHg2MDAvMHg4ZWMKICB0dHlfc2V0X3Rl
+cm1pb3MgZnJvbSB0dHlwb3J0X3NldF9mbG93X2NvbnRyb2wrMHgxODgvMHgxZTAKICB0dHlwb3J0
+X3NldF9mbG93X2NvbnRyb2wgZnJvbSB3aWxjX3NldHVwKzB4ZDAvMHg1MjQgW2hjaV93aWxjXQog
+IHdpbGNfc2V0dXAgW2hjaV93aWxjXSBmcm9tIGhjaV9kZXZfb3Blbl9zeW5jKzB4MzMwLzB4MjAz
+YyBbYmx1ZXRvb3RoXQogIGhjaV9kZXZfb3Blbl9zeW5jIFtibHVldG9vdGhdIGZyb20gaGNpX2Rl
+dl9kb19vcGVuKzB4NDAvMHhiMCBbYmx1ZXRvb3RoXQogIGhjaV9kZXZfZG9fb3BlbiBbYmx1ZXRv
+b3RoXSBmcm9tIGhjaV9wb3dlcl9vbisweDEyYy8weDY2NCBbYmx1ZXRvb3RoXQogIGhjaV9wb3dl
+cl9vbiBbYmx1ZXRvb3RoXSBmcm9tIHByb2Nlc3Nfb25lX3dvcmsrMHg5OTgvMHgxYTM4CiAgcHJv
+Y2Vzc19vbmVfd29yayBmcm9tIHdvcmtlcl90aHJlYWQrMHg2ZTAvMHhmYjQKICB3b3JrZXJfdGhy
+ZWFkIGZyb20ga3RocmVhZCsweDNkNC8weDQ4NAogIGt0aHJlYWQgZnJvbSByZXRfZnJvbV9mb3Jr
+KzB4MTQvMHgyOAoKVGhpcyB3YXJuaW5nIGlzIGVtaXR0ZWQgd2hlbiB0cnlpbmcgdG8gdG9nZ2xl
+LCBhdCB0aGUgaGlnaGVzdCBsZXZlbCwKc29tZSBmbG93IGNvbnRyb2wgKHdpdGggc2VyZGV2X2Rl
+dmljZV9zZXRfZmxvd19jb250cm9sKSBpbiBhIGRldmljZQpkcml2ZXIuIEF0IHRoZSBsb3dlc3Qg
+bGV2ZWwsIHRoZSBhdG1lbF9zZXJpYWwgZHJpdmVyIGlzIHVzaW5nCnNlcmlhbF9tY3RybF9ncGlv
+IGxpYiB0byBlbmFibGUvZGlzYWJsZSB0aGUgY29ycmVzcG9uZGluZyBJUlFzCmFjY29yZGluZ2x5
+LiAgVGhlIHdhcm5pbmcgZW1pdHRlZCBieSBDT05GSUdfREVCVUdfQVRPTUlDX1NMRUVQIGlzIGR1
+ZSB0bwpkaXNhYmxlX2lycSAoY2FsbGVkIGluIG1jdHJsX2dwaW9fZGlzYWJsZV9tcykgYmVpbmcg
+cG9zc2libHkgY2FsbGVkIGluCnNvbWUgYXRvbWljIGNvbnRleHQgKHNvbWUgdHR5IGRyaXZlcnMg
+cGVyZm9ybSBtb2RlbSBsaW5lcyBjb25maWd1cmF0aW9uCmluIHJlZ2lvbnMgcHJvdGVjdGVkIGJ5
+IHBvcnQgbG9jaykuCgpBZGQgYSBmbGFnIHRvIG1jdHJsX2dwaW9fZGlzYWJsZV9tcyB0byBhbGxv
+dyBjb250cm9sbGluZyB3aGV0aGVyIHRoZQpmdW5jdGlvbiBzaG91bGQgYmxvY2ssIGRlcGVuZGlu
+ZyB0aGUgY29udGV4dCBpbiB3aGljaCBpdCBpcyBjYWxsZWQuClVwZGF0ZSBtY3RybF9ncGlvX2Rp
+c2FibGVfbXMgY2FsbHMgd2l0aCB0aGUgcmVsZXZhbnQgZmxhZyB2YWx1ZSwKZGVwZW5kaW5nIG9u
+IHdoZXRoZXIgdGhlIGNhbGwgaXMgcHJvdGVjdGVkIGJ5IHNvbWUgcG9ydCBsb2NrLgoKU3VnZ2Vz
+dGVkLWJ5OiBKaXJpIFNsYWJ5IDxqaXJpc2xhYnlAa2VybmVsLm9yZz4KU2lnbmVkLW9mZi1ieTog
+QWxleGlzIExvdGhvcsOpIDxhbGV4aXMubG90aG9yZUBib290bGluLmNvbT4KLS0tClRoaXMgc2Vy
+aWVzIGZvbGxvd3MgYSByZXBvcnQgbWFkZSBoZXJlOgpodHRwczovL2xvcmUua2VybmVsLm9yZy9s
+aW51eC1zZXJpYWwvM2QyMjdlYmUtMWVlNi00ZDU3LWIxZWMtNzhiZTU5YWY3MjQ0QGJvb3RsaW4u
+Y29tLwotLS0KIGRyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfcG9ydC5jICAgIHwgMiArLQog
+ZHJpdmVycy90dHkvc2VyaWFsL2F0bWVsX3NlcmlhbC5jICAgICAgfCAyICstCiBkcml2ZXJzL3R0
+eS9zZXJpYWwvaW14LmMgICAgICAgICAgICAgICB8IDIgKy0KIGRyaXZlcnMvdHR5L3NlcmlhbC9z
+ZXJpYWxfbWN0cmxfZ3Bpby5jIHwgOSArKysrKysrLS0KIGRyaXZlcnMvdHR5L3NlcmlhbC9zZXJp
+YWxfbWN0cmxfZ3Bpby5oIHwgNCArKy0tCiBkcml2ZXJzL3R0eS9zZXJpYWwvc2gtc2NpLmMgICAg
+ICAgICAgICB8IDIgKy0KIGRyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jICAgICAgIHwg
+MiArLQogNyBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfcG9ydC5jIGIvZHJpdmVy
+cy90dHkvc2VyaWFsLzgyNTAvODI1MF9wb3J0LmMKaW5kZXggZDc5NzZhMjFjY2E5Y2U1MDU1N2Nh
+NWYxM2JiMDE0NDhjZWQwNzI4Yi4uYjIzNGM2YzFmZThiM2RhZTRlZmMyMDkxYzhhZWNmMWYxZGRk
+YzlmOCAxMDA2NDQKLS0tIGEvZHJpdmVycy90dHkvc2VyaWFsLzgyNTAvODI1MF9wb3J0LmMKKysr
+IGIvZHJpdmVycy90dHkvc2VyaWFsLzgyNTAvODI1MF9wb3J0LmMKQEAgLTE2ODAsNyArMTY4MCw3
+IEBAIHN0YXRpYyB2b2lkIHNlcmlhbDgyNTBfZGlzYWJsZV9tcyhzdHJ1Y3QgdWFydF9wb3J0ICpw
+b3J0KQogCWlmICh1cC0+YnVncyAmIFVBUlRfQlVHX05PTVNSKQogCQlyZXR1cm47CiAKLQltY3Ry
+bF9ncGlvX2Rpc2FibGVfbXModXAtPmdwaW9zKTsKKwltY3RybF9ncGlvX2Rpc2FibGVfbXModXAt
+PmdwaW9zLCBmYWxzZSk7CiAKIAl1cC0+aWVyICY9IH5VQVJUX0lFUl9NU0k7CiAJc2VyaWFsX3Bv
+cnRfb3V0KHBvcnQsIFVBUlRfSUVSLCB1cC0+aWVyKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdHR5
+L3NlcmlhbC9hdG1lbF9zZXJpYWwuYyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9hdG1lbF9zZXJpYWwu
+YwppbmRleCBmNDRmOWQyMGE5NzQ0MGM5YWVhNDFlOWViZTM0YzM0ZDRkZmEwYTFjLi5lYWMwYzI2
+NmJkMmZjMTNiMDU2M2M4MmIyOWYxM2Y0NmRmNzE4NjI1IDEwMDY0NAotLS0gYS9kcml2ZXJzL3R0
+eS9zZXJpYWwvYXRtZWxfc2VyaWFsLmMKKysrIGIvZHJpdmVycy90dHkvc2VyaWFsL2F0bWVsX3Nl
+cmlhbC5jCkBAIC03MDAsNyArNzAwLDcgQEAgc3RhdGljIHZvaWQgYXRtZWxfZGlzYWJsZV9tcyhz
+dHJ1Y3QgdWFydF9wb3J0ICpwb3J0KQogCiAJYXRtZWxfcG9ydC0+bXNfaXJxX2VuYWJsZWQgPSBm
+YWxzZTsKIAotCW1jdHJsX2dwaW9fZGlzYWJsZV9tcyhhdG1lbF9wb3J0LT5ncGlvcyk7CisJbWN0
+cmxfZ3Bpb19kaXNhYmxlX21zKGF0bWVsX3BvcnQtPmdwaW9zLCBmYWxzZSk7CiAKIAlpZiAoIW1j
+dHJsX2dwaW9fdG9fZ3Bpb2QoYXRtZWxfcG9ydC0+Z3Bpb3MsIFVBUlRfR1BJT19DVFMpKQogCQlp
+ZHIgfD0gQVRNRUxfVVNfQ1RTSUM7CmRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwvaW14
+LmMgYi9kcml2ZXJzL3R0eS9zZXJpYWwvaW14LmMKaW5kZXggOWM1OWVjMTI4YmI0ZmMwZmY1NGNi
+OWExYTY2ZWFiYmM5ZTM5MWE5YS4uYWY4OTRhMTc2YTJmYWJlYTUzNzRhMzViZTVhNjNmNDUzYmU1
+ZGE5NiAxMDA2NDQKLS0tIGEvZHJpdmVycy90dHkvc2VyaWFsL2lteC5jCisrKyBiL2RyaXZlcnMv
+dHR5L3NlcmlhbC9pbXguYwpAQCAtMTYwOCw3ICsxNjA4LDcgQEAgc3RhdGljIHZvaWQgaW14X3Vh
+cnRfc2h1dGRvd24oc3RydWN0IHVhcnRfcG9ydCAqcG9ydCkKIAkJaW14X3VhcnRfZG1hX2V4aXQo
+c3BvcnQpOwogCX0KIAotCW1jdHJsX2dwaW9fZGlzYWJsZV9tcyhzcG9ydC0+Z3Bpb3MpOworCW1j
+dHJsX2dwaW9fZGlzYWJsZV9tcyhzcG9ydC0+Z3Bpb3MsIHRydWUpOwogCiAJdWFydF9wb3J0X2xv
+Y2tfaXJxc2F2ZSgmc3BvcnQtPnBvcnQsICZmbGFncyk7CiAJdWNyMiA9IGlteF91YXJ0X3JlYWRs
+KHNwb3J0LCBVQ1IyKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdHR5L3NlcmlhbC9zZXJpYWxfbWN0
+cmxfZ3Bpby5jIGIvZHJpdmVycy90dHkvc2VyaWFsL3NlcmlhbF9tY3RybF9ncGlvLmMKaW5kZXgg
+ODg1NTY4OGE1YjZjMDlmMDczMzQ5YmQxNDQ1ODZmNTQzMzFkODkxZi4uY2FlZjJiZTk1NWVlZjk1
+Y2MyZWZkNTA4YmM5YWRhMmM5NDhlM2JmNCAxMDA2NDQKLS0tIGEvZHJpdmVycy90dHkvc2VyaWFs
+L3NlcmlhbF9tY3RybF9ncGlvLmMKKysrIGIvZHJpdmVycy90dHkvc2VyaWFsL3NlcmlhbF9tY3Ry
+bF9ncGlvLmMKQEAgLTMyNSw4ICszMjUsMTAgQEAgRVhQT1JUX1NZTUJPTF9HUEwobWN0cmxfZ3Bp
+b19lbmFibGVfbXMpOwogLyoqCiAgKiBtY3RybF9ncGlvX2Rpc2FibGVfbXMgLSBkaXNhYmxlIGly
+cXMgYW5kIGhhbmRsaW5nIG9mIGNoYW5nZXMgdG8gdGhlIG1zIGxpbmVzCiAgKiBAZ3Bpb3M6IGdw
+aW9zIHRvIGRpc2FibGUKKyAqIEBzeW5jOiB0cnVlIGlmIGZ1bmN0aW9uIHNob3VsZCBibG9jayB1
+bnRpbCBhbnkgcGVuZGluZyBJUlEgaGFuZGxlciBoYXMKKyAqIGV4ZWN1dGVkCiAgKi8KLXZvaWQg
+bWN0cmxfZ3Bpb19kaXNhYmxlX21zKHN0cnVjdCBtY3RybF9ncGlvcyAqZ3Bpb3MpCit2b2lkIG1j
+dHJsX2dwaW9fZGlzYWJsZV9tcyhzdHJ1Y3QgbWN0cmxfZ3Bpb3MgKmdwaW9zLCBib29sIHN5bmMp
+CiB7CiAJZW51bSBtY3RybF9ncGlvX2lkeCBpOwogCkBAIC0zNDIsNyArMzQ0LDEwIEBAIHZvaWQg
+bWN0cmxfZ3Bpb19kaXNhYmxlX21zKHN0cnVjdCBtY3RybF9ncGlvcyAqZ3Bpb3MpCiAJCWlmICgh
+Z3Bpb3MtPmlycVtpXSkKIAkJCWNvbnRpbnVlOwogCi0JCWRpc2FibGVfaXJxKGdwaW9zLT5pcnFb
+aV0pOworCQlpZiAoc3luYykKKwkJCWRpc2FibGVfaXJxKGdwaW9zLT5pcnFbaV0pOworCQllbHNl
+CisJCQlkaXNhYmxlX2lycV9ub3N5bmMoZ3Bpb3MtPmlycVtpXSk7CiAJfQogfQogRVhQT1JUX1NZ
+TUJPTF9HUEwobWN0cmxfZ3Bpb19kaXNhYmxlX21zKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdHR5
+L3NlcmlhbC9zZXJpYWxfbWN0cmxfZ3Bpby5oIGIvZHJpdmVycy90dHkvc2VyaWFsL3NlcmlhbF9t
+Y3RybF9ncGlvLmgKaW5kZXggZmM3NjkxMGZiMTA1YTNkNTYwZTgyNGJhYTQzZTk1MTU1NzZlODk1
+YS4uMjBmNjhkYzNkNjM3MTEyMTRlMWU2NWQyMmI4MzM0YjA5M2RmYzZmYSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy90dHkvc2VyaWFsL3NlcmlhbF9tY3RybF9ncGlvLmgKKysrIGIvZHJpdmVycy90dHkv
+c2VyaWFsL3NlcmlhbF9tY3RybF9ncGlvLmgKQEAgLTg5LDcgKzg5LDcgQEAgdm9pZCBtY3RybF9n
+cGlvX2VuYWJsZV9tcyhzdHJ1Y3QgbWN0cmxfZ3Bpb3MgKmdwaW9zKTsKIC8qCiAgKiBEaXNhYmxl
+IGdwaW8gaW50ZXJydXB0cyB0byByZXBvcnQgc3RhdHVzIGxpbmUgY2hhbmdlcy4KICAqLwotdm9p
+ZCBtY3RybF9ncGlvX2Rpc2FibGVfbXMoc3RydWN0IG1jdHJsX2dwaW9zICpncGlvcyk7Cit2b2lk
+IG1jdHJsX2dwaW9fZGlzYWJsZV9tcyhzdHJ1Y3QgbWN0cmxfZ3Bpb3MgKmdwaW9zLCBib29sIHN5
+bmMpOwogCiAvKgogICogRW5hYmxlIGdwaW8gd2FrZXVwIGludGVycnVwdHMgdG8gZW5hYmxlIHdh
+a2UgdXAgc291cmNlLgpAQCAtMTQ4LDcgKzE0OCw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBtY3Ry
+bF9ncGlvX2VuYWJsZV9tcyhzdHJ1Y3QgbWN0cmxfZ3Bpb3MgKmdwaW9zKQogewogfQogCi1zdGF0
+aWMgaW5saW5lIHZvaWQgbWN0cmxfZ3Bpb19kaXNhYmxlX21zKHN0cnVjdCBtY3RybF9ncGlvcyAq
+Z3Bpb3MpCitzdGF0aWMgaW5saW5lIHZvaWQgbWN0cmxfZ3Bpb19kaXNhYmxlX21zKHN0cnVjdCBt
+Y3RybF9ncGlvcyAqZ3Bpb3MsIGJvb2wgc3luYykKIHsKIH0KIApkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy90dHkvc2VyaWFsL3NoLXNjaS5jIGIvZHJpdmVycy90dHkvc2VyaWFsL3NoLXNjaS5jCmluZGV4
+IGIxZWE0OGYzODI0OGViNDJkOTgzNTNkYWEyODliYmU2NzE5MWQyMDEuLjVkNmQ2ZDlhZjJlZWNl
+OTRiZGVjYjQ3OTMzZTE0NDhkYmI5MjExMTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdHR5L3Nlcmlh
+bC9zaC1zY2kuYworKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvc2gtc2NpLmMKQEAgLTIyOTgsNyAr
+MjI5OCw3IEBAIHN0YXRpYyB2b2lkIHNjaV9zaHV0ZG93bihzdHJ1Y3QgdWFydF9wb3J0ICpwb3J0
+KQogCWRldl9kYmcocG9ydC0+ZGV2LCAiJXMoJWQpXG4iLCBfX2Z1bmNfXywgcG9ydC0+bGluZSk7
+CiAKIAlzLT5hdXRvcnRzID0gZmFsc2U7Ci0JbWN0cmxfZ3Bpb19kaXNhYmxlX21zKHRvX3NjaV9w
+b3J0KHBvcnQpLT5ncGlvcyk7CisJbWN0cmxfZ3Bpb19kaXNhYmxlX21zKHRvX3NjaV9wb3J0KHBv
+cnQpLT5ncGlvcywgdHJ1ZSk7CiAKIAl1YXJ0X3BvcnRfbG9ja19pcnFzYXZlKHBvcnQsICZmbGFn
+cyk7CiAJc2NpX3N0b3BfcngocG9ydCk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwv
+c3RtMzItdXNhcnQuYyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jCmluZGV4IDFl
+YzVkOGMzYWVmOGRkYmNhNjE1YTE0OWMyZmU4MWM5MGM4M2EyMmIuLjM1NDg5NGQ0YjQ2OGE1MTY5
+MDU2OGU4MzMxMGI4NDAwNzY0ZTU2YTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdHR5L3NlcmlhbC9z
+dG0zMi11c2FydC5jCisrKyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jCkBAIC05
+NDQsNyArOTQ0LDcgQEAgc3RhdGljIHZvaWQgc3RtMzJfdXNhcnRfZW5hYmxlX21zKHN0cnVjdCB1
+YXJ0X3BvcnQgKnBvcnQpCiAKIHN0YXRpYyB2b2lkIHN0bTMyX3VzYXJ0X2Rpc2FibGVfbXMoc3Ry
+dWN0IHVhcnRfcG9ydCAqcG9ydCkKIHsKLQltY3RybF9ncGlvX2Rpc2FibGVfbXModG9fc3RtMzJf
+cG9ydChwb3J0KS0+Z3Bpb3MpOworCW1jdHJsX2dwaW9fZGlzYWJsZV9tcyh0b19zdG0zMl9wb3J0
+KHBvcnQpLT5ncGlvcywgdHJ1ZSk7CiB9CiAKIC8qIFRyYW5zbWl0IHN0b3AgKi8KCi0tLQpiYXNl
+LWNvbW1pdDogMjAxNGM5NWFmZWNlZTNlNzZjYTRhNTY5NTZhOTM2ZTIzMjgzZjA1YgpjaGFuZ2Ut
+aWQ6IDIwMjUwMjEzLWF0b21pY19zbGVlcF9tY3RybF9zZXJpYWxfZ3Bpby04ODVmNmZlYjU4NWIK
+CkJlc3QgcmVnYXJkcywKLS0gCkFsZXhpcyBMb3Rob3LDqSwgQm9vdGxpbgpFbWJlZGRlZCBMaW51
+eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCmh0dHBzOi8vYm9vdGxpbi5jb20KCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
