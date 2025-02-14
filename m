@@ -2,85 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6097A354E5
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 03:41:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B4AA355AB
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 05:20:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AB4CC78F89;
-	Fri, 14 Feb 2025 02:41:43 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78DE0C78F89;
+	Fri, 14 Feb 2025 04:20:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BFFBC78F7D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71CE7C78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 02:41:41 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51DMQaPA015690;
- Fri, 14 Feb 2025 02:41:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FrWpXWtpt+ZULEbiR2Up6sVFlN84+mzhnBc7WKp2O/Q=; b=RPZK1qgSjVmb3fHU
- vq/hSMa6+G1V2lKXW9B93jZbIQQRvvGi7jmK+EA/J/SfykYS8UIzxuKzmvsEiCzj
- Mh+f5CGex17NmV0vDucrfDz4E3N7Dsvbo7bhbj/09gN+8SVCBMlLXtCHiFGdX2n8
- g+sQUQEDmtM8ndpTBwNDuOz48jC5QF7f00zgVrOhqN3qLhfE7edDUyWc4Qrh2QIj
- owh+eWqYQKmY2fJOxxyQA1NIzIxRZXedWzMvYUTHqRYGx2z/ZO5Jc8/Dk476Cnqc
- XmArt/qyhK67NK3VaeLNmXSqlBlhdcsP09mY0/QdN2FnIkcj7YkcB5Nfd+O6f1fw
- AWnXhQ==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 44rgpgpweg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Feb 2025 02:41:25 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51E2fP9X023293
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Feb 2025 02:41:25 GMT
-Received: from jiegan-gv.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 13 Feb 2025 18:41:19 -0800
-From: Jie Gan <quic_jiegan@quicinc.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 14 Feb 2025 10:40:21 +0800
-Message-ID: <20250214024021.249655-8-quic_jiegan@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250214024021.249655-1-quic_jiegan@quicinc.com>
-References: <20250214024021.249655-1-quic_jiegan@quicinc.com>
+ Fri, 14 Feb 2025 04:20:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1739506851; x=1771042851;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=0N+NIkjKA48xzvqbJnB29lAB08YfjMQLZFPJzVlNIO4=;
+ b=D6cpSmPKVhevGDpDVta+MVEzVPXO1KlXhsyHwtpEQNEBPWRsh0/A6LEI
+ YApwSRCmPYlFlLEcVt+tVq23BSRXycXGMuja4O+MY5kbkXkHfpR7pHAZU
+ Mi4pdCbn0oq2v57HQjaGi7IhfltluboeL4+Ch3/kvheMlRGD9XIM4MmhK
+ pK6VYmmNGXdufc86vj0jNRBOEy1QkvhZ+J4OJdN/absAOnIXDwLKMZLnb
+ EnA0VXPM/R73jjZPV/nMQnTi05MUhwHJ1lj/Ied85IrO0IzQIH8FjFKTt
+ YfUGnsyDFB331+ES3iZ+4KbV5GI3K5SW3IImb/uB9db27cpYerHV5ihD3 w==;
+X-CSE-ConnectionGUID: GVCa2f/kRaWifDAa460SPQ==
+X-CSE-MsgGUID: IwlsDK/NRmycGGlOO9EMBQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11344"; a="40505974"
+X-IronPort-AV: E=Sophos;i="6.13,284,1732608000"; d="scan'208";a="40505974"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2025 20:20:43 -0800
+X-CSE-ConnectionGUID: VV+jgGj8RGadw8WZ3YmWXQ==
+X-CSE-MsgGUID: ktMrD4xUQYq+G2zq3bq7DA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,284,1732608000"; d="scan'208";a="144209439"
+Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.123.6])
+ ([10.247.123.6])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2025 20:20:33 -0800
+Message-ID: <b7740709-6b4a-4f44-b4d7-e265bb823aca@linux.intel.com>
+Date: Fri, 14 Feb 2025 12:20:31 +0800
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 3vLrbsvuLArq9zgas4Cexn2dGETV1WtS
-X-Proofpoint-GUID: 3vLrbsvuLArq9zgas4Cexn2dGETV1WtS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-13_09,2025-02-13_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=999
- priorityscore=1501 mlxscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2501170000
- definitions=main-2502140017
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+To: Kurt Kanzenbach <kurt@linutronix.de>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>
+References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
+ <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
+ <20250212220121.ici3qll66pfoov62@skbuf>
+ <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
+ <87cyfmnjdh.fsf@kurt.kurt.home>
+ <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
+ <20250213130003.nxt2ev47a6ppqzrq@skbuf>
+ <1c981aa1-e796-4c53-9853-3eae517f2f6d@linux.intel.com>
+ <877c5undbg.fsf@kurt.kurt.home> <20250213184613.cqc2zhj2wkaf5hn7@skbuf>
+ <87v7td3bi1.fsf@kurt.kurt.home>
+Content-Language: en-US
+From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
+In-Reply-To: <87v7td3bi1.fsf@kurt.kurt.home>
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v11 7/7] arm64: dts: qcom: sa8775p: Add CTCU
-	and ETR nodes
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
+ bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for
+ Frame Preemption feature in IGC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,201 +94,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add CTCU and ETR nodes in DT to enable related functionalities.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
----
- arch/arm64/boot/dts/qcom/sa8775p.dtsi | 153 ++++++++++++++++++++++++++
- 1 file changed, 153 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-index 3394ae2d1300..31aa94d2a043 100644
---- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-@@ -2429,6 +2429,35 @@ crypto: crypto@1dfa000 {
- 			interconnect-names = "memory";
- 		};
- 
-+		ctcu@4001000 {
-+			compatible = "qcom,sa8775p-ctcu";
-+			reg = <0x0 0x04001000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ctcu_in0: endpoint {
-+						remote-endpoint = <&etr0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ctcu_in1: endpoint {
-+						remote-endpoint = <&etr1_out>;
-+					};
-+				};
-+			};
-+		};
-+
- 		stm: stm@4002000 {
- 			compatible = "arm,coresight-stm", "arm,primecell";
- 			reg = <0x0 0x4002000 0x0 0x1000>,
-@@ -2633,6 +2662,122 @@ qdss_funnel_in1: endpoint {
- 			};
- 		};
- 
-+		replicator@4046000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x04046000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					qdss_rep_in: endpoint {
-+						remote-endpoint = <&swao_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					qdss_rep_out0: endpoint {
-+						remote-endpoint = <&etr_rep_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr: tmc@4048000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x04048000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04c0 0x00>;
-+
-+			arm,scatter-gather;
-+
-+			in-ports {
-+				port {
-+					etr0_in: endpoint {
-+						remote-endpoint = <&etr_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					etr0_out: endpoint {
-+						remote-endpoint = <&ctcu_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@404e000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x0404e000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					etr_rep_in: endpoint {
-+						remote-endpoint = <&qdss_rep_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					etr_rep_out0: endpoint {
-+						remote-endpoint = <&etr0_in>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					etr_rep_out1: endpoint {
-+						remote-endpoint = <&etr1_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc_etr1: tmc@404f000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x0404f000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			iommus = <&apps_smmu 0x04a0 0x40>;
-+
-+			arm,scatter-gather;
-+			arm,buffer-size = <0x400000>;
-+
-+			in-ports {
-+				port {
-+					etr1_in: endpoint {
-+						remote-endpoint = <&etr_rep_out1>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					etr1_out: endpoint {
-+						remote-endpoint = <&ctcu_in1>;
-+					};
-+				};
-+			};
-+		};
-+
- 		funnel@4b04000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
- 			reg = <0x0 0x4b04000 0x0 0x1000>;
-@@ -2708,6 +2853,14 @@ out-ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-+				port@0 {
-+					reg = <0>;
-+
-+					swao_rep_out0: endpoint {
-+						remote-endpoint = <&qdss_rep_in>;
-+					};
-+				};
-+
- 				port@1 {
- 					reg = <1>;
- 					swao_rep_out1: endpoint {
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxNC8yLzIwMjUgMzoxMiBhbSwgS3VydCBLYW56ZW5iYWNoIHdyb3RlOgo+IE9uIFRodSBG
+ZWIgMTMgMjAyNSwgVmxhZGltaXIgT2x0ZWFuIHdyb3RlOgo+PiBTbywgY29uZnVzaW5nbHkgdG8g
+bWUsIGl0IHNlZW1zIGxpa2Ugb25lIG9wZXJhdGluZyBtb2RlIGlzIGZ1bmRhbWVudGFsbHkKPj4g
+ZGlmZmVyZW50IGZyb20gdGhlIG90aGVyLCBhbmQgc29tZXRoaW5nIHdpbGwgaGF2ZSB0byBjaGFu
+Z2UgaWYgYm90aCB3aWxsCj4+IGJlIG1hZGUgdG8gYmVoYXZlIHRoZSBzYW1lLiBXaGF0IHdpbGwg
+Y2hhbmdlPyBZb3Ugc2F5IG1xcHJpbyB3aWxsIGJlaGF2ZQo+PiBsaWtlIHRhcHJpbywgYnV0IEkg
+dGhpbmsgaWYgYW55dGhpbmcsIG1xcHJpbyBpcyB0aGUgb25lIHdoaWNoIGRvZXMgdGhlCj4+IHJp
+Z2h0IHRoaW5nLCBpbiBpZ2NfdHNuX3R4X2FyYigpLCBhbmQgdGFwcmlvIHNlZW1zIHRvIHVzZSB0
+aGUgZGVmYXVsdCBUeAo+PiBhcmJpdHJhdGlvbiBzY2hlbWU/Cj4gCj4gQ29ycmVjdC4gdGFwcmlv
+IGlzIHVzaW5nIHRoZSBkZWZhdWx0IHNjaGVtZS4gbXFwcmlvIGNvbmZpZ3VyZXMgaXQgdG8KPiB3
+aGF0IGV2ZXIgdGhlIHVzZXIgcHJvdmlkZWQgKGluIGlnY190c25fdHhfYXJiKCkpLgo+IAo+PiBJ
+IGRvbid0IHRoaW5rIEknbSBvbiB0aGUgc2FtZSBwYWdlIGFzIHlvdSBndXlzLCBiZWNhdXNlIHRv
+IG1lLCBpdCBpcwo+PiBqdXN0IG9kZCB0aGF0IHRoZSBQIHRyYWZmaWMgY2xhc3NlcyB3b3VsZCBi
+ZSB0aGUgZmlyc3Qgb25lcyB3aXRoCj4+IG1xcHJpbywgYnV0IHRoZSBsYXN0IG9uZXMgd2l0aCB0
+YXByaW8uCj4gCj4gSSB0aGluayB3ZSBhcmUgb24gdGhlIHNhbWUgcGFnZSBoZXJlLiBBdCB0aGUg
+ZW5kIGJvdGggaGF2ZSB0byBiZWhhdmUgdGhlCj4gc2FtZS4gRWl0aGVyIGJ5IHVzaW5nIGlnY190
+c25fdHhfYXJiKCkgZm9yIHRhcHJpbyB0b28gb3Igb25seSB1c2luZyB0aGUKPiBkZWZhdWx0IHNj
+aGVtZSBmb3IgYm90aCAoYW5kIHRoZXJlYnkga2VlcGluZyBicm9rZW5fbXFwcmlvKS4gV2hhdGV2
+ZXIKPiBGYWl6YWwgaW1wbGVtZW50cyBJJ2xsIG1hdGNoIHRoZSBiZWhhdmlvciB3aXRoIG1xcHJp
+by4KPiAKCkhpIEt1cnQgJiBWbGFkaW1pciwKCkFmdGVyIHJlYWRpbmcgVmxhZGltaXIncyByZXBs
+eSBvbiB0YywgaHcgcXVldWUsIGFuZCBzb2NrZXQgcHJpb3JpdHkgbWFwcGluZyAKZm9yIGJvdGgg
+dGFwcmlvIGFuZCBtcXByaW8sIEkgYWdyZWUgdGhleSBzaG91bGQgZm9sbG93IHRoZSBzYW1lIHBy
+aW9yaXR5IApzY2hlbWUgZm9yIGNvbnNpc3RlbmN54oCUYm90aCBpbiBjb2RlIGFuZCBjb21tYW5k
+IHVzYWdlIChpLmUuLCB0YXByaW8sIAptcXByaW8sIGFuZCBmcGUgaW4gYm90aCBjb25maWd1cmF0
+aW9ucykuIFNpbmNlIGlnY190c25fdHhfYXJiKCkgZW5zdXJlcyBhIApzdGFuZGFyZCBtYXBwaW5n
+IG9mIHRjLCBzb2NrZXQgcHJpb3JpdHksIGFuZCBoYXJkd2FyZSBxdWV1ZSBwcmlvcml0eSwgSSds
+bCAKZW5hYmxlIHRhcHJpbyB0byB1c2UgaWdjX3Rzbl90eF9hcmIoKSBpbiBhIHNlcGFyYXRlIHBh
+dGNoIHN1Ym1pc3Npb24uCgpJJ2xsIHNwbGl0IHRoZSBjaGFuZ2VzIGJhc2VkIG9uIFZsYWRpbWly
+J3Mgc3VnZ2VzdGlvbi4KCkZpcnN0IHBhcnQgLSBldGh0b29sLW1tIHJlbGF0ZWQ6CmlnYzogQWRk
+IHN1cHBvcnQgdG8gZ2V0IGZyYW1lIHByZWVtcHRpb24gc3RhdGlzdGljcyB2aWEgZXRodG9vbApp
+Z2M6IEFkZCBzdXBwb3J0IHRvIGdldCBNQUMgTWVyZ2UgZGF0YSB2aWEgZXRodG9vbAppZ2M6IEFk
+ZCBzdXBwb3J0IHRvIHNldCB0eC1taW4tZnJhZy1zaXplCmlnYzogQWRkIHN1cHBvcnQgZm9yIGZy
+YW1lIHByZWVtcHRpb24gdmVyaWZpY2F0aW9uCmlnYzogU2V0IHRoZSBSWCBwYWNrZXQgYnVmZmVy
+IHNpemUgZm9yIFRTTiBtb2RlCmlnYzogT3B0aW1pemUgVFggcGFja2V0IGJ1ZmZlciB1dGlsaXph
+dGlvbgppZ2M6IFJlbmFtZSB4ZHBfZ2V0X3R4X3JpbmcoKSBmb3Igbm9uLVhEUCB1c2FnZQpuZXQ6
+IGV0aHRvb2w6IG1tOiBFeHRyYWN0IHN0bW1hYyB2ZXJpZmljYXRpb24gbG9naWMgaW50byBhIGNv
+bW1vbiBsaWJyYXJ5CgpTZWNvbmQgcGFydDoKaWdjOiBBZGQgc3VwcG9ydCBmb3IgcHJlZW1wdGli
+bGUgdHJhZmZpYyBjbGFzcyBpbiB0YXByaW8gYW5kIG1xcHJpbwppZ2M6IFVzZSBpZ2NfdHNuX3R4
+X2FyYigpIGZvciB0YXByaW8gcXVldWUgcHJpb3JpdHkgc2NoZW1lCmlnYzogS3VydCdzIHBhdGNo
+IG9uIG1xcHJpbyB0byB1c2Ugbm9ybWFsIFRTTiBUeCBtb2RlCgpLdXJ0IGNhbiBrZWVwIGlnY190
+c25fdHhfYXJiKCkgZm9yIGhpcyBtcXByaW8gcGF0Y2gsIHNvIHByZWVtcHRpYmxlIHRjIApzaG91
+bGQgd29yayB0aGUgc2FtZSBmb3IgYm90aCB0YXByaW8gYW5kIG1xcHJpby4KCkknbSBzdWdnZXN0
+aW5nIHRvIGluY2x1ZGUgS3VydCdzIHBhdGNoIGluIHRoZSBzZWNvbmQgcGFydCBzaW5jZSB0aGVy
+ZSdzIApzb21lIGRlcGVuZGVuY3kgYW5kIHBvdGVudGlhbCBjb2RlIGNvbmZsaWN0LCBldmVuIHRo
+b3VnaCBpdCBtaXhlcyBkaWZmZXJlbnQgCmZ1bmN0aW9uYWwgY2hhbmdlcyBpbiB0aGUgc2FtZSBz
+ZXJpZXMuCgpEb2VzIHRoaXMgc291bmQgZ29vZCB0byB5b3U/CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
